@@ -50,10 +50,10 @@
 	dna.write_eyes_attributes(src)
 
 /obj/item/organ/internal/eyes/proc/generate_icon(mob/living/carbon/human/HA)
-	var/mob/living/carbon/human/H = HA
-	if(!istype(H))
-		H = owner
-	var/icon/eyes_icon = new /icon('icons/mob/human_face.dmi', H.dna.species.eyes)
+	var/mob/living/carbon/human/human = HA
+	if(!istype(human))
+		human = owner
+	var/icon/eyes_icon = new /icon('icons/mob/human_face.dmi', human.dna.species.eyes)
 	eyes_icon.Blend(eye_colour, ICON_ADD)
 
 	return eyes_icon

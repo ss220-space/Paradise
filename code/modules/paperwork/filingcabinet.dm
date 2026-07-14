@@ -133,19 +133,19 @@
 
 /obj/structure/filingcabinet/security/proc/populate()
 	if(!populated)
-		for(var/datum/data/record/G in GLOB.data_core.general)
-			var/datum/data/record/S
-			for(var/datum/data/record/R in GLOB.data_core.security)
-				if(R.fields["name"] == G.fields["name"] || R.fields["id"] == G.fields["id"])
-					S = R
+		for(var/datum/data/record/record in GLOB.data_core.general)
+			var/datum/data/record/current_sec_record
+			for(var/datum/data/record/sec_record in GLOB.data_core.security)
+				if(sec_record.fields["name"] == record.fields["name"] || sec_record.fields["id"] == record.fields["id"])
+					current_sec_record = record
 					break
-			var/obj/item/paper/P = new /obj/item/paper(src)
-			P.info = "<center><b>Security Record</b></center><br>"
-			P.info += "Name: [G.fields["name"]] ID: [G.fields["id"]]<br>\nSex: [G.fields["sex"]]<br>\nAge: [G.fields["age"]]<br>\nFingerprint: [G.fields["fingerprint"]]<br>\nPhysical Status: [G.fields["p_stat"]]<br>\nMental Status: [G.fields["m_stat"]]<br>"
-			P.info += "<br>\n<center><b>Security Data</b></center><br>\nCriminal Status: [S.fields["criminal"]]<br>\n<br>\nMinor Crimes: [S.fields["mi_crim"]]<br>\nDetails: [S.fields["mi_crim_d"]]<br>\n<br>\nMajor Crimes: [S.fields["ma_crim"]]<br>\nDetails: [S.fields["ma_crim_d"]]<br>\n<br>\nImportant Notes:<br>\n\t[S.fields["notes"]]<br>\n<br>\n<center><b>Comments/Log</b></center><br>"
-			for(var/c in S.fields["comments"])
-				P.info += "[c]<br>"
-			P.name = "paper - '[G.fields["name"]]'"
+			var/obj/item/paper/paper = new /obj/item/paper(src)
+			paper.info = "<center><b>Security Record</b></center><br>"
+			paper.info += "Name: [record.fields["name"]] ID: [record.fields["id"]]<br>\nSex: [record.fields["sex"]]<br>\nAge: [record.fields["age"]]<br>\nFingerprint: [record.fields["fingerprint"]]<br>\nPhysical Status: [record.fields["p_stat"]]<br>\nMental Status: [record.fields["m_stat"]]<br>"
+			paper.info += "<br>\n<center><b>Security Data</b></center><br>\nCriminal Status: [current_sec_record.fields["criminal"]]<br>\n<br>\nMinor Crimes: [current_sec_record.fields["mi_crim"]]<br>\nDetails: [current_sec_record.fields["mi_crim_d"]]<br>\n<br>\nMajor Crimes: [current_sec_record.fields["ma_crim"]]<br>\nDetails: [current_sec_record.fields["ma_crim_d"]]<br>\n<br>\nImportant Notes:<br>\n\t[current_sec_record.fields["notes"]]<br>\n<br>\n<center><b>Comments/Log</b></center><br>"
+			for(var/c in current_sec_record.fields["comments"])
+				paper.info += "[c]<br>"
+			paper.name = "paper - '[record.fields["name"]]'"
 			populated = TRUE	//tabbing here is correct- it's possible for people to try and use it
 						//before the records have been generated, so we do this inside the loop.
 
@@ -165,19 +165,19 @@
 
 /obj/structure/filingcabinet/medical/proc/populate()
 	if(!populated)
-		for(var/datum/data/record/G in GLOB.data_core.general)
-			var/datum/data/record/M
-			for(var/datum/data/record/R in GLOB.data_core.medical)
-				if(R.fields["name"] == G.fields["name"] || R.fields["id"] == G.fields["id"])
-					M = R
+		for(var/datum/data/record/record in GLOB.data_core.general)
+			var/datum/data/record/current_med_record
+			for(var/datum/data/record/med_record in GLOB.data_core.medical)
+				if(med_record.fields["name"] == record.fields["name"] || med_record.fields["id"] == record.fields["id"])
+					current_med_record = med_record
 					break
-			var/obj/item/paper/P = new /obj/item/paper(src)
-			P.info = "<center><b>Medical Record</b></center><br>"
-			P.info += "Name: [G.fields["name"]] ID: [G.fields["id"]]<br>\nSex: [G.fields["sex"]]<br>\nAge: [G.fields["age"]]<br>\nFingerprint: [G.fields["fingerprint"]]<br>\nPhysical Status: [G.fields["p_stat"]]<br>\nMental Status: [G.fields["m_stat"]]<br>"
-			P.info += "<br>\n<center><b>Medical Data</b></center><br>\nBlood Type: [M.fields["b_type"]]<br>\nDNA: [M.fields["b_dna"]]<br>\n<br>\nMinor Disabilities: [M.fields["mi_dis"]]<br>\nDetails: [M.fields["mi_dis_d"]]<br>\n<br>\nMajor Disabilities: [M.fields["ma_dis"]]<br>\nDetails: [M.fields["ma_dis_d"]]<br>\n<br>\nAllergies: [M.fields["alg"]]<br>\nDetails: [M.fields["alg_d"]]<br>\n<br>\nCurrent Diseases: [M.fields["cdi"]] (per disease info placed in log/comment section)<br>\nDetails: [M.fields["cdi_d"]]<br>\n<br>\nImportant Notes:<br>\n\t[M.fields["notes"]]<br>\n<br>\n<center><b>Comments/Log</b></center><br>"
-			for(var/c in M.fields["comments"])
-				P.info += "[c]<br>"
-			P.name = "paper - '[G.fields["name"]]'"
+			var/obj/item/paper/paper = new /obj/item/paper(src)
+			paper.info = "<center><b>Medical Record</b></center><br>"
+			paper.info += "Name: [record.fields["name"]] ID: [record.fields["id"]]<br>\nSex: [record.fields["sex"]]<br>\nAge: [record.fields["age"]]<br>\nFingerprint: [record.fields["fingerprint"]]<br>\nPhysical Status: [record.fields["p_stat"]]<br>\nMental Status: [record.fields["m_stat"]]<br>"
+			paper.info += "<br>\n<center><b>Medical Data</b></center><br>\nBlood Type: [current_med_record.fields["b_type"]]<br>\nDNA: [current_med_record.fields["b_dna"]]<br>\n<br>\nMinor Disabilities: [current_med_record.fields["mi_dis"]]<br>\nDetails: [current_med_record.fields["mi_dis_d"]]<br>\n<br>\nMajor Disabilities: [current_med_record.fields["ma_dis"]]<br>\nDetails: [current_med_record.fields["ma_dis_d"]]<br>\n<br>\nAllergies: [current_med_record.fields["alg"]]<br>\nDetails: [current_med_record.fields["alg_d"]]<br>\n<br>\nCurrent Diseases: [current_med_record.fields["cdi"]] (per disease info placed in log/comment section)<br>\nDetails: [current_med_record.fields["cdi_d"]]<br>\n<br>\nImportant Notes:<br>\n\t[current_med_record.fields["notes"]]<br>\n<br>\n<center><b>Comments/Log</b></center><br>"
+			for(var/comment in current_med_record.fields["comments"])
+				paper.info += "[comment]<br>"
+			paper.name = "paper - '[record.fields["name"]]'"
 			populated = TRUE	//tabbing here is correct- it's possible for people to try and use it
 						//before the records have been generated, so we do this inside the loop.
 
@@ -212,14 +212,14 @@ GLOBAL_LIST_EMPTY(employmentContracts)
 /obj/structure/filingcabinet/employment/proc/fillCurrent()
 	//This proc fills the cabinet with the current crew.
 	for(var/record in GLOB.data_core.locked)
-		var/datum/data/record/G = record
-		if(!G)
+		var/datum/data/record/record_datum = record
+		if(!record_datum)
 			continue
 
-		if(!G.fields["reference"])
+		if(!record_datum.fields["reference"])
 			continue
 
-		var/datum/weakref/ref = G.fields["reference"]
+		var/datum/weakref/ref = record_datum.fields["reference"]
 		var/mob/referenced_mob = ref.resolve()
 
 		if(!referenced_mob)

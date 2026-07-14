@@ -227,10 +227,10 @@
 			return
 
 	// Get user's response using a modal
-	var/datum/browser/modal/alert/A = new(User, Message, Title, Button1, Button2, Button3, StealFocus, Timeout)
-	A.open()
-	A.wait()
-	switch(A.selectedbutton)
+	var/datum/browser/modal/alert/alert = new(User, Message, Title, Button1, Button2, Button3, StealFocus, Timeout)
+	alert.open()
+	alert.wait()
+	switch(alert.selectedbutton)
 		if(1)
 			return Button1
 		if(2)
@@ -338,15 +338,15 @@
 /proc/presentpicker(mob/User,Message, Title, Button1="Ok", Button2, Button3, StealFocus = 1,Timeout = 6000,list/values, inputtype = "checkbox", width, height, slidecolor)
 	if(!istype(User))
 		if(isclient(User))
-			var/client/C = User
-			User = C.mob
+			var/client/client = User
+			User = client.mob
 		else
 			return
-	var/datum/browser/modal/listpicker/A = new(User, Message, Title, Button1, Button2, Button3, StealFocus,Timeout, values, inputtype, width, height, slidecolor)
-	A.open()
-	A.wait()
-	if(A.selectedbutton)
-		return list("button" = A.selectedbutton, "values" = A.valueslist)
+	var/datum/browser/modal/listpicker/listpicker = new(User, Message, Title, Button1, Button2, Button3, StealFocus,Timeout, values, inputtype, width, height, slidecolor)
+	listpicker.open()
+	listpicker.wait()
+	if(listpicker.selectedbutton)
+		return list("button" = listpicker.selectedbutton, "values" = listpicker.valueslist)
 
 /datum/browser/modal/preflikepicker
 	var/settings = list()
@@ -440,15 +440,15 @@
 /proc/presentpreflikepicker(mob/User,Message, Title, Button1="Ok", Button2, Button3, StealFocus = 1,Timeout = 6000,list/settings, width, height, slidecolor)
 	if(!istype(User))
 		if(isclient(User))
-			var/client/C = User
-			User = C.mob
+			var/client/client = User
+			User = client.mob
 		else
 			return
-	var/datum/browser/modal/preflikepicker/A = new(User, Message, Title, Button1, Button2, Button3, StealFocus,Timeout, settings, width, height, slidecolor)
-	A.open()
-	A.wait()
-	if(A.selectedbutton)
-		return list("button" = A.selectedbutton, "settings" = A.settings)
+	var/datum/browser/modal/preflikepicker/preflikepicker = new(User, Message, Title, Button1, Button2, Button3, StealFocus,Timeout, settings, width, height, slidecolor)
+	preflikepicker.open()
+	preflikepicker.wait()
+	if(preflikepicker.selectedbutton)
+		return list("button" = preflikepicker.selectedbutton, "settings" = preflikepicker.settings)
 
 // Registers the on-close verb for a browse window (client/verb/.windowclose)
 // this will be called when the close-button of a window is pressed.

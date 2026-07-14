@@ -66,11 +66,11 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
  */
 /datum/team/proc/remove_member(datum/mind/member)
 	SHOULD_CALL_PARENT(TRUE)
-	var/datum/antagonist/A = get_antag_datum_from_member(member)
+	var/datum/antagonist/antagonist = get_antag_datum_from_member(member)
 	members -= member
 	for(var/datum/objective/objective as anything in objectives)
 		objective.on_remove_objective(member)
-	A.objectives -= objectives
+	antagonist.objectives -= objectives
 
 /**
  * Adds a new member to this team from a list of players in the round.

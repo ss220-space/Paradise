@@ -31,11 +31,11 @@ if(!result || result.ckey != __ckey){\
 	var/list/invalid_mobs = list()
 	var/list/ckeys = selected_ckeys.Copy()
 	for(var/i in selected_mobs)
-		var/mob/M = i
-		if(!M || QDELETED(M) || !M.last_known_ckey)
-			invalid_mobs |= M
+		var/mob/mob = i
+		if(!mob || QDELETED(mob) || !mob.last_known_ckey)
+			invalid_mobs |= mob
 			continue
-		ckeys |= M.last_known_ckey
+		ckeys |= mob.last_known_ckey
 
 	for(var/ckey in ckeys)
 		for(var/log_type in selected_log_types)
@@ -69,14 +69,14 @@ if(!result || result.ckey != __ckey){\
 	var/mid
 	do
 		mid = round_down((end + start) / 2)
-		var/datum/log_record/L = logs[mid]
-		if(L.raw_time >= time_from)
+		var/datum/log_record/log_record = logs[mid]
+		if(log_record.raw_time >= time_from)
 			end = mid
 		else
 			start = mid
 	while(end - start > 1)
-	var/datum/log_record/L = logs[end]
-	if(L.raw_time >= time_from) // Check if there is atleast one valid log
+	var/datum/log_record/log_record = logs[end]
+	if(log_record.raw_time >= time_from) // Check if there is atleast one valid log
 		return end
 	return 0
 
@@ -94,14 +94,14 @@ if(!result || result.ckey != __ckey){\
 	var/max_time = time_to + 10
 	do
 		mid = round((end + start) / 2 + 0.5)
-		var/datum/log_record/L = logs[mid]
-		if(L.raw_time >= max_time)
+		var/datum/log_record/log_record = logs[mid]
+		if(log_record.raw_time >= max_time)
 			end = mid
 		else
 			start = mid
 	while(end - start > 1)
-	var/datum/log_record/L = logs[start]
-	if(L.raw_time < max_time) // Check if there is atleast one valid log
+	var/datum/log_record/log_record = logs[start]
+	if(log_record.raw_time < max_time) // Check if there is atleast one valid log
 		return start
 	return 0
 
@@ -139,11 +139,11 @@ if(!result || result.ckey != __ckey){\
 
 	dat += "<span>Mobs being used:</span>"
 	for(var/i in selected_mobs)
-		var/mob/M = i
-		if(QDELETED(M))
+		var/mob/mob = i
+		if(QDELETED(mob))
 			selected_mobs -= i
 			continue
-		dat += "<a href='byond://?src=[UID()];remove_mob=[M.UID()]'>[get_display_name(M)]</a>"
+		dat += "<a href='byond://?src=[UID()];remove_mob=[mob.UID()]'>[get_display_name(mob)]</a>"
 	dat += "<a href='byond://?src=[UID()];add_mob=1'>Add Mob</a>"
 	dat += "<a href='byond://?src=[UID()];clear_mobs=1'>Clear All Mobs</a>"
 	dat += "<br>"
@@ -182,12 +182,12 @@ if(!result || result.ckey != __ckey){\
 	dat += "<table style='width:100%; border: 1px solid;'>"
 	dat += "<tr style='[trStyleTop]'><th style='[tdStyleTime]'>When</th><th style='[tdStyleType]'>Type</th><th style='[tdStyleWho]'>Who</th><th>What</th><th>Target</th><th style='[tdStyleWhere]'>Where</th></tr>"
 	for(var/i in log_records)
-		var/datum/log_record/L = i
-		var/time = gameTimestamp(wtime = L.raw_time - 9.99) // The time rounds up for some reason. Will result in weird filtering results
+		var/datum/log_record/log_record = i
+		var/time = gameTimestamp(wtime = log_record.raw_time - 9.99) // The time rounds up for some reason. Will result in weird filtering results
 
-		dat +="<tr style='[trStyle]'><td style='[tdStyleTime]'>[time]</td><td style='[tdStyleType]background: [get_logtype_color(L.log_type)]'>[L.log_type]</td>\
-		<td style='[tdStyleWho]'>[L.who]</td><td style='background: [get_logtype_color(L.log_type)];'>[L.what]</td>\
-		<td style='[tdStyleWho]'>[L.target]</td><td style='[tdStyleWhere]'>[L.where]</td></tr>"
+		dat +="<tr style='[trStyle]'><td style='[tdStyleTime]'>[time]</td><td style='[tdStyleType]background: [get_logtype_color(log_record.log_type)]'>[log_record.log_type]</td>\
+		<td style='[tdStyleWho]'>[log_record.who]</td><td style='background: [get_logtype_color(log_record.log_type)];'>[log_record.what]</td>\
+		<td style='[tdStyleWho]'>[log_record.target]</td><td style='[tdStyleWhere]'>[log_record.where]</td></tr>"
 	dat += "</table>"
 	dat += "</div>"
 
@@ -312,9 +312,9 @@ if(!result || result.ckey != __ckey){\
 
 /datum/log_viewer/proc/get_ckey_name(ckey)
 	UPDATE_CKEY_MOB(ckey)
-	var/mob/M = selected_ckeys_mobs[ckey]
+	var/mob/mob = selected_ckeys_mobs[ckey]
 
-	return get_display_name(M)
+	return get_display_name(mob)
 
 #undef UPDATE_CKEY_MOB
 #undef RECORD_WARN_LIMIT

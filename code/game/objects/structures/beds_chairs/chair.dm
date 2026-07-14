@@ -359,20 +359,20 @@
 /obj/item/chair/proc/plant(mob/user)
 	if(QDELETED(src))
 		return
-	var/turf/T = get_turf(loc)
-	if(density || isopenspaceturf(T))
+	var/turf/turf = get_turf(loc)
+	if(density || isopenspaceturf(turf))
 		to_chat(user, span_warning("You need ground to plant this on!"))
 		return
 
-	for(var/obj/A in get_turf(T))
-		if(istype(A, /obj/structure/chair))
-			to_chat(user, span_danger("There is already [A] here."))
+	for(var/obj/obj in get_turf(turf))
+		if(istype(obj, /obj/structure/chair))
+			to_chat(user, span_danger("There is already [obj] here."))
 			return
 
 	user.visible_message(span_notice("[user] rights \the [src]."), span_notice("You right \the [src]."))
-	var/obj/structure/chair/C = new origin_type(get_turf(loc))
-	transfer_fingerprints_to(C)
-	C.setDir(dir)
+	var/obj/structure/chair/chair = new origin_type(get_turf(loc))
+	transfer_fingerprints_to(chair)
+	chair.setDir(dir)
 	qdel(src)
 
 /obj/item/chair/proc/smash()

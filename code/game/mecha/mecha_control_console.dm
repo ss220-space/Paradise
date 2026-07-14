@@ -71,20 +71,20 @@
 /obj/item/mecha_parts/mecha_tracking/proc/get_mecha_info_text()
 	if(!in_mecha())
 		return FALSE
-	var/obj/mecha/M = loc
-	var/cell_charge = M.get_charge()
-	var/area/A = get_area(M)
-	var/answer = {"<b>Name:</b> [M.name]
-						<b>Integrity:</b> [M.obj_integrity / M.max_integrity * 100]%
-						<b>Cell charge:</b> [isnull(cell_charge)?"Not found":"[M.cell.percent()]%"]
-						<b>Airtank:</b> [M.internal_tank.return_pressure()]kPa
-						<b>Pilot:</b> [M.occupant||"None"]
-						<b>Location:</b> [sanitize(A.name)||UNKNOWN_STATUS_RUS]
-						<b>Left Hand:</b> [M.selected_equipment_in_hands[MECH_HAND_LEFT] || "None"]<br>
-						<b>Right Hand:</b> [M.selected_equipment_in_hands[MECH_HAND_RIGHT]|| "None"]<br>
+	var/obj/mecha/mecha = loc
+	var/cell_charge = mecha.get_charge()
+	var/area/area = get_area(mecha)
+	var/answer = {"<b>Name:</b> [mecha.name]
+						<b>Integrity:</b> [mecha.obj_integrity / mecha.max_integrity * 100]%
+						<b>Cell charge:</b> [isnull(cell_charge)?"Not found":"[mecha.cell.percent()]%"]
+						<b>Airtank:</b> [mecha.internal_tank.return_pressure()]kPa
+						<b>Pilot:</b> [mecha.occupant||"None"]
+						<b>Location:</b> [sanitize(area.name)||UNKNOWN_STATUS_RUS]
+						<b>Left Hand:</b> [mecha.selected_equipment_in_hands[MECH_HAND_LEFT] || "None"]<br>
+						<b>Right Hand:</b> [mecha.selected_equipment_in_hands[MECH_HAND_RIGHT]|| "None"]<br>
 						"}
-	if(istype(M, /obj/mecha/working))
-		var/obj/mecha/working/RM = M
+	if(istype(mecha, /obj/mecha/working))
+		var/obj/mecha/working/RM = mecha
 		answer += "<b>Used cargo space:</b> [length(RM.cargo) / RM.cargo_capacity * 100]%<br>"
 
 	return answer
@@ -93,23 +93,23 @@
 	var/list/data = list()
 	if(!in_mecha())
 		return FALSE
-	var/obj/mecha/M = loc
+	var/obj/mecha/mecha = loc
 	data["uid"] = UID()
-	data["charge"] = M.get_charge()
-	data["name"] = M.name
-	data["health"] = M.obj_integrity
-	data["maxHealth"] = M.max_integrity
-	data["cell"] = M.cell
-	if(M.cell)
-		data["cellCharge"] = M.cell.charge
-		data["cellMaxCharge"] = M.cell.charge
-	data["airtank"] = M.internal_tank.return_pressure()
-	data["pilot"] = M.occupant
-	data["location"] = get_area(M)
-	data["active_left"] = M.selected_equipment_in_hands[MECH_HAND_LEFT]
-	data["active_right"] = M.selected_equipment_in_hands[MECH_HAND_RIGHT]
-	if(istype(M, /obj/mecha/working/ripley))
-		var/obj/mecha/working/ripley/RM = M
+	data["charge"] = mecha.get_charge()
+	data["name"] = mecha.name
+	data["health"] = mecha.obj_integrity
+	data["maxHealth"] = mecha.max_integrity
+	data["cell"] = mecha.cell
+	if(mecha.cell)
+		data["cellCharge"] = mecha.cell.charge
+		data["cellMaxCharge"] = mecha.cell.charge
+	data["airtank"] = mecha.internal_tank.return_pressure()
+	data["pilot"] = mecha.occupant
+	data["location"] = get_area(mecha)
+	data["active_left"] = mecha.selected_equipment_in_hands[MECH_HAND_LEFT]
+	data["active_right"] = mecha.selected_equipment_in_hands[MECH_HAND_RIGHT]
+	if(istype(mecha, /obj/mecha/working/ripley))
+		var/obj/mecha/working/ripley/RM = mecha
 		data["cargoUsed"] = length(RM.cargo)
 		data["cargoMax"] = RM.cargo_capacity
 	return data
@@ -123,9 +123,9 @@
 	return FALSE
 
 /obj/item/mecha_parts/mecha_tracking/proc/shock()
-	var/obj/mecha/M = in_mecha()
-	if(M)
-		M.emp_act(2)
+	var/obj/mecha/mecha = in_mecha()
+	if(mecha)
+		mecha.emp_act(2)
 	qdel(src)
 
 /obj/item/mecha_parts/mecha_tracking/ai_control

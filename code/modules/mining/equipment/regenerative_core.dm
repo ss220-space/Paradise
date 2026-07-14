@@ -131,21 +131,21 @@
 ///Handles applying the core, logging and status/mood events.
 /obj/item/organ/internal/regenerative_core/proc/applyto(atom/target, mob/user)
 	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
+		var/mob/living/carbon/human/human = target
 		if(inert)
 			balloon_alert(user, "ядро сгнило!")
 			return
 		else
-			if(H.stat == DEAD)
+			if(human.stat == DEAD)
 				balloon_alert(user, "не сработает на трупах!")
 				return
-			if(H != user)
-				H.visible_message("[user] заставля[PLUR_ET_YUT(user)] [H.declent_ru(ACCUSATIVE)] применить [declent_ru(ACCUSATIVE)]... Чёрные щупальца опутывают и укрепляют [GEND_HIS_HER(H)]!")
+			if(human != user)
+				human.visible_message("[user] заставля[PLUR_ET_YUT(user)] [human.declent_ru(ACCUSATIVE)] применить [declent_ru(ACCUSATIVE)]... Чёрные щупальца опутывают и укрепляют [GEND_HIS_HER(human)]!")
 				SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "used", "other"))
 			else
 				to_chat(user, span_notice("Вы начинаете наносить [declent_ru(ACCUSATIVE)] на себя. Мерзкие щупальца скрепляют ваше тело, но как долго это продлится?"))
 				SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "used", "self"))
-			H.apply_status_effect(STATUS_EFFECT_REGENERATIVE_CORE)
+			human.apply_status_effect(STATUS_EFFECT_REGENERATIVE_CORE)
 			user.temporarily_remove_item_from_inventory(src)
 			after_use()
 

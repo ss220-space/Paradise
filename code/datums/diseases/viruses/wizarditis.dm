@@ -49,40 +49,40 @@ STI KALY - blind
 	return
 
 /datum/disease/virus/wizarditis/proc/spawn_wizard_clothes()
-	var/mob/living/carbon/human/H = affected_mob
+	var/mob/living/carbon/human/human = affected_mob
 	switch(pick("head", "robe", "sandal", "staff"))
 
 		if("head")
-			if(!istype(H.head, /obj/item/clothing/head/wizard))
-				if(!H.drop_item_ground(H.head))
-					qdel(H.head)
-				H.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(H), ITEM_SLOT_HEAD)
+			if(!istype(human.head, /obj/item/clothing/head/wizard))
+				if(!human.drop_item_ground(human.head))
+					qdel(human.head)
+				human.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(human), ITEM_SLOT_HEAD)
 				return
 
 		if("robe")
-			if(!istype(H.wear_suit, /obj/item/clothing/suit/wizrobe))
-				if(!H.drop_item_ground(H.wear_suit))
-					qdel(H.wear_suit)
-				H.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(H), ITEM_SLOT_CLOTH_OUTER)
+			if(!istype(human.wear_suit, /obj/item/clothing/suit/wizrobe))
+				if(!human.drop_item_ground(human.wear_suit))
+					qdel(human.wear_suit)
+				human.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(human), ITEM_SLOT_CLOTH_OUTER)
 				return
 
 		if("sandal")
-			if(!istype(H.shoes, /obj/item/clothing/shoes/sandal))
-				if(!H.drop_item_ground(H.shoes))
-					qdel(H.shoes)
-				H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), ITEM_SLOT_FEET)
+			if(!istype(human.shoes, /obj/item/clothing/shoes/sandal))
+				if(!human.drop_item_ground(human.shoes))
+					qdel(human.shoes)
+				human.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(human), ITEM_SLOT_FEET)
 				return
 
 		if("staff")
-			if(!istype(H.r_hand, /obj/item/twohanded/staff))
-				H.drop_r_hand()
-				H.put_in_r_hand(new /obj/item/twohanded/staff(H))
+			if(!istype(human.r_hand, /obj/item/twohanded/staff))
+				human.drop_r_hand()
+				human.put_in_r_hand(new /obj/item/twohanded/staff(human))
 				return
 
 /datum/disease/virus/wizarditis/proc/teleport()
 	var/list/theareas = get_areas_in_range(80, affected_mob)
-	for(var/area/space/S in theareas)
-		theareas -= S
+	for(var/area/space/space in theareas)
+		theareas -= space
 
 	for(var/ar in theareas)
 		var/area/zone = ar
@@ -95,17 +95,17 @@ STI KALY - blind
 	var/area/thearea = pick(theareas)
 
 	var/list/L = list()
-	for(var/turf/T in get_area_turfs(thearea.type))
-		if(T.z != affected_mob.z) continue
-		if(T.name == "space") continue
-		if(!T.density)
+	for(var/turf/turf in get_area_turfs(thearea.type))
+		if(turf.z != affected_mob.z) continue
+		if(turf.name == "space") continue
+		if(!turf.density)
 			var/clear = 1
-			for(var/obj/O in T)
-				if(O.density)
+			for(var/obj/obj in turf)
+				if(obj.density)
 					clear = 0
 					break
 			if(clear)
-				L+=T
+				L+=turf
 
 	if(!L)
 		return

@@ -446,8 +446,8 @@
 		log_and_message_admins("There were no players willing to play as a mouse infected with a blob.")
 		return
 
-	var/mob/M = pick(candidates)
-	possess_by_player(M.key)
+	var/mob/mob = pick(candidates)
+	possess_by_player(mob.key)
 	var/datum_type = mind.get_blob_infected_type()
 	var/datum/antagonist/blob_infected/blob_datum = new datum_type()
 	blob_datum.time_to_burst_hight = TIME_TO_BURST_MOUSE_HIGHT

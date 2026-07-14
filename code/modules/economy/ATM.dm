@@ -370,9 +370,9 @@ log transactions
 
 //create the most effective combination of notes to make up the requested amount
 /obj/machinery/atm/proc/withdraw_arbitrary_sum(arbitrary_sum)
-	var/obj/item/stack/spacecash/C = new(drop_location(), arbitrary_sum)
+	var/obj/item/stack/spacecash/spacecash = new(drop_location(), arbitrary_sum)
 	if(usr)
-		usr.put_in_hands(C, ignore_anim = FALSE)
+		usr.put_in_hands(spacecash, ignore_anim = FALSE)
 
 /obj/machinery/atm/proc/replenish_insurance(amount)
 	authenticated_account.addInsurancePoints(amount)

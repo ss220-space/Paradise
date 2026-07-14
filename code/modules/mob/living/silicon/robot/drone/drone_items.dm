@@ -84,18 +84,18 @@
 
 /obj/item/gripper/proc/try_shake_up(mob/living/user, atom/target)
 	if(!gripped_item && Adjacent(user, target) && target && ishuman(target))
-		var/mob/living/carbon/human/H = target
-		if(H.body_position == LYING_DOWN)
-			H.AdjustSleeping(-10 SECONDS)
-			H.AdjustParalysis(-6 SECONDS)
-			H.AdjustStunned(-6 SECONDS)
-			H.AdjustWeakened(-6 SECONDS)
-			if(!H.IsSleeping())
-				H.set_resting(FALSE, instant = TRUE)
+		var/mob/living/carbon/human/human = target
+		if(human.body_position == LYING_DOWN)
+			human.AdjustSleeping(-10 SECONDS)
+			human.AdjustParalysis(-6 SECONDS)
+			human.AdjustStunned(-6 SECONDS)
+			human.AdjustWeakened(-6 SECONDS)
+			if(!human.IsSleeping())
+				human.set_resting(FALSE, instant = TRUE)
 			playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 			user.visible_message( \
-				span_notice("[user] тряс[PLUR_ET_UT(user)] [H] пытаясь поднять [GEND_HIS_HER(H)]!"),\
-				span_notice("Вы трясёте [H] пытаясь поднять [GEND_HIS_HER(H)]!"),\
+				span_notice("[user] тряс[PLUR_ET_UT(user)] [human] пытаясь поднять [GEND_HIS_HER(human)]!"),\
+				span_notice("Вы трясёте [human] пытаясь поднять [GEND_HIS_HER(human)]!"),\
 				)
 			user.changeNext_move(CLICK_CD_MELEE)
 		return

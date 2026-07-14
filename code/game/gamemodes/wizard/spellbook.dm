@@ -69,8 +69,8 @@
 	return FALSE
 
 /datum/spellbook_entry/proc/Refund(mob/living/carbon/human/user, obj/item/spellbook/book)//return point value or -1 for failure
-	var/area/centcom/wizard_station/A = locate()
-	if(!(user in A.contents))
+	var/area/centcom/wizard_station/wizard_station = locate()
+	if(!(user in wizard_station.contents))
 		to_chat(user, span_warning("You can only refund spells at the wizard lair."))
 		return -1
 	if(!S) //This happens when the spell's source is from another spellbook, from loadouts, or adminery, this create a new template temporary spell
@@ -776,12 +776,12 @@
 /obj/item/spellbook/proc/create_spellbook()
 	var/entry_types = subtypesof(/datum/spellbook_entry) - /datum/spellbook_entry/item - /datum/spellbook_entry/summon - /datum/spellbook_entry/loadout
 	for(var/T in entry_types)
-		var/datum/spellbook_entry/E = new T
-		if(GAMEMODE_IS_RAGIN_MAGES && E.is_ragin_restricted)
-			qdel(E)
+		var/datum/spellbook_entry/spellbook_entry = new T
+		if(GAMEMODE_IS_RAGIN_MAGES && spellbook_entry.is_ragin_restricted)
+			qdel(spellbook_entry)
 			continue
-		entries |= E
-		categories |= E.category
+		entries |= spellbook_entry
+		categories |= spellbook_entry.category
 
 	main_tab = main_categories[1]
 	tab = categories[1]

@@ -152,13 +152,13 @@
 	if(length(linkedmist))
 		return
 
-	for(var/turf/simulated/floor/beach/water/W in linkedturfs)
-		var/M = new /obj/effect/mist(W)
+	for(var/turf/simulated/floor/beach/water/water in linkedturfs)
+		var/M = new /obj/effect/mist(water)
 		linkedmist += M
 
 /obj/machinery/poolcontroller/proc/mistoff() //Delete all /obj/effect/mist from all linked pool tiles.
-	for(var/obj/effect/mist/M in linkedmist)
-		qdel(M)
+	for(var/obj/effect/mist/mist in linkedmist)
+		qdel(mist)
 	linkedmist.Cut()
 
 /obj/machinery/poolcontroller/ui_interact(mob/user, datum/tgui/ui = null)

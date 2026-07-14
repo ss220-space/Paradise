@@ -45,10 +45,10 @@
 	if(length(connectedparts) < 4)
 		return 0
 	for(var/i = 1; i <=4; i++)
-		var/obj/item/pod_parts/pod_frame/F = connectedparts[i]
-		if(F.type in neededparts) //if one of the items can be founded in neededparts
-			neededparts -= F.type
-			log_admin("Found [F.type]")
+		var/obj/item/pod_parts/pod_frame/pod_frame = connectedparts[i]
+		if(pod_frame.type in neededparts) //if one of the items can be founded in neededparts
+			neededparts -= pod_frame.type
+			log_admin("Found [pod_frame.type]")
 		else //because neededparts has 4 distinct items, this must be called if theyre not all in place and wrenched
 			return 0
 	return connectedparts

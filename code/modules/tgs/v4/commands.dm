@@ -26,15 +26,15 @@
 	var/user = data["user"]
 	var/params = data["params"]
 
-	var/datum/tgs_chat_user/u = new
-	u.id = user["id"]
-	u.friendly_name = user["friendlyName"]
-	u.mention = user["mention"]
-	u.channel = DecodeChannel(user["channel"])
+	var/datum/tgs_chat_user/tgs_chat_user = new
+	tgs_chat_user.id = user["id"]
+	tgs_chat_user.friendly_name = user["friendlyName"]
+	tgs_chat_user.mention = user["mention"]
+	tgs_chat_user.channel = DecodeChannel(user["channel"])
 
 	var/datum/tgs_chat_command/sc = custom_commands[command]
 	if(sc)
-		var/result = sc.Run(u, params)
+		var/result = sc.Run(tgs_chat_user, params)
 		if(result == null)
 			result = ""
 		return result

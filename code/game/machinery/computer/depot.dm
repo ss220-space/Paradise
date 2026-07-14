@@ -424,9 +424,9 @@
 /obj/machinery/computer/syndicate_depot/teleporter/proc/findbeacon()
 	if(mybeacon)
 		return TRUE
-	for(var/obj/machinery/bluespace_beacon/syndicate/B in myArea)
-		mybeacon = B
-		B.mycomputer = src
+	for(var/obj/machinery/bluespace_beacon/syndicate/syndicate in myArea)
+		mybeacon = syndicate
+		syndicate.mycomputer = src
 		return TRUE
 	return FALSE
 
@@ -447,18 +447,18 @@
 	last_opener = usr
 	is_cooldown = TRUE
 	blocked = TRUE
-	for(var/obj/item/beacon/R as anything in GLOB.beacons)
-		var/turf/T = get_turf(R)
-		if(!T)
+	for(var/obj/item/beacon/beacon as anything in GLOB.beacons)
+		var/turf/turf = get_turf(beacon)
+		if(!turf)
 			continue
-		if(!is_teleport_allowed(T.z))
+		if(!is_teleport_allowed(turf.z))
 			continue
-		var/tmpname = T.loc.name
+		var/tmpname = turf.loc.name
 		if(areaindex[tmpname])
 			tmpname = "[tmpname] ([++areaindex[tmpname]])"
 		else
 			areaindex[tmpname] = 1
-		L[tmpname] = R
+		L[tmpname] = beacon
 	var/desc = tgui_input_list(usr, "Please select a location to lock in.", "Syndicate Teleporter", L)
 	if(usr == last_opener && world.time >= last_opened_time + timeout)
 		return FALSE
@@ -474,11 +474,11 @@
 		wait_time = 0
 		blocked = FALSE
 		var/turf/portal_turf = get_step(src, portaldir)
-		var/obj/effect/portal/redspace/P = new(portal_turf, tele_target, src, lifespan)
-		myportal = P
-		var/area/A = get_area(tele_target)
-		P.name = "[A] portal"
-		log_debug("First Portal: [P] opened at ([portal_turf.x],[portal_turf.y],[portal_turf.z])")
+		var/obj/effect/portal/redspace/redspace = new(portal_turf, tele_target, src, lifespan)
+		myportal = redspace
+		var/area/area = get_area(tele_target)
+		redspace.name = "[area] portal"
+		log_debug("First Portal: [redspace] opened at ([portal_turf.x],[portal_turf.y],[portal_turf.z])")
 		var/obj/effect/portal/redspace/P2 = new(get_turf(tele_target), portal_turf, src, lifespan)
 		myportal2 = P2
 		P2.name = "Mysterious portal"

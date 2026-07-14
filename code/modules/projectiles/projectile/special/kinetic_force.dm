@@ -53,15 +53,15 @@
 		target_turf = get_turf(src)
 	if(kinetic_gun) // Hopefully whoever shot this was not very, very unfortunate.
 		var/list/obj/item/borg/upgrade/modkit/mods = kinetic_gun.get_modkits()
-		for(var/obj/item/borg/upgrade/modkit/M in mods)
-			M.projectile_strike_predamage(src, target_turf, target, kinetic_gun)
-		for(var/obj/item/borg/upgrade/modkit/M in mods)
-			M.projectile_strike(src, target_turf, target, kinetic_gun)
+		for(var/obj/item/borg/upgrade/modkit/modkit in mods)
+			modkit.projectile_strike_predamage(src, target_turf, target, kinetic_gun)
+		for(var/obj/item/borg/upgrade/modkit/modkit in mods)
+			modkit.projectile_strike(src, target_turf, target, kinetic_gun)
 	if(ismineralturf(target_turf))
 		var/turf/simulated/mineral/mineral = target_turf
 		mineral.attempt_drill(firer, FALSE, power)
-	var/obj/effect/temp_visual/kinetic_blast/K = new /obj/effect/temp_visual/kinetic_blast(target_turf)
-	K.color = color
+	var/obj/effect/temp_visual/kinetic_blast/kinetic_blast = new /obj/effect/temp_visual/kinetic_blast(target_turf)
+	kinetic_blast.color = color
 
 /obj/projectile/kinetic/mech
 	range = 5

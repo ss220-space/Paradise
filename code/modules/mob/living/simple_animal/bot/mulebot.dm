@@ -452,8 +452,8 @@
 		CRATE.close()
 
 	if(isobj(AM))
-		var/obj/O = AM
-		if(O.has_buckled_mobs() || (locate(/mob) in AM)) //can't load non crates objects with mobs buckled to it or inside it.
+		var/obj/obj = AM
+		if(obj.has_buckled_mobs() || (locate(/mob) in AM)) //can't load non crates objects with mobs buckled to it or inside it.
 			buzz(SIGH)
 			return
 
@@ -685,17 +685,17 @@
 			if(report_delivery)
 				speak("Пункт назначения <b>[destination]</b> достигнут. Выгружаю [load].", radio_channel)
 			if(is_crate(load))
-				var/obj/structure/closet/crate/C = load
-				C.notify_recipient(destination)
+				var/obj/structure/closet/crate/crate = load
+				crate.notify_recipient(destination)
 			unload(loaddir)
 		else
 			// not loaded
 			if(auto_pickup) // find a crate
 				var/atom/movable/AM
 				if(wires.is_cut(WIRE_LOADCHECK)) // if hacked, load first unanchored thing we find
-					for(var/atom/movable/A in get_step(loc, loaddir))
-						if(!A.anchored)
-							AM = A
+					for(var/atom/movable/movable in get_step(loc, loaddir))
+						if(!movable.anchored)
+							AM = movable
 							break
 				else			// otherwise, look for crates only
 					AM = locate(/obj/structure/closet/crate) in get_step(loc,loaddir)
@@ -775,9 +775,9 @@
 	if(HAS_TRAIT(H, TRAIT_NO_BLOOD))//Does the run over mob have blood?
 		return//If it doesn't it shouldn't bleed (Though a check should be made eventually for things with liquid in them, like slime people.)
 
-	var/turf/T = get_turf(src)//Where are we?
+	var/turf/turf = get_turf(src)//Where are we?
 	H.add_mob_blood(H)//Cover the victim in their own blood.
-	H.add_splatter_floor(T)//Put the blood where we are.
+	H.add_splatter_floor(turf)//Put the blood where we are.
 	bloodiness += 4
 
 	var/list/blood_dna = H.get_blood_dna_list()

@@ -121,14 +121,14 @@
 
 /obj/structure/guillotine/proc/drop_blade(mob/user)
 	if(has_buckled_mobs() && blade_sharpness)
-		var/mob/living/carbon/human/H = buckled_mobs[1]
+		var/mob/living/carbon/human/human = buckled_mobs[1]
 
-		if(!H)
+		if(!human)
 			blade_status = GUILLOTINE_BLADE_DROPPED
 			update_icon(UPDATE_ICON_STATE)
 			return
 
-		var/obj/item/organ/external/head/head = H.get_organ(BODY_ZONE_HEAD)
+		var/obj/item/organ/external/head/head = human.get_organ(BODY_ZONE_HEAD)
 
 		if(QDELETED(head))
 			blade_status = GUILLOTINE_BLADE_DROPPED
@@ -138,8 +138,8 @@
 		playsound(src, 'sound/weapons/bladeslice.ogg', 100, TRUE)
 		if(blade_sharpness >= GUILLOTINE_DECAP_MIN_SHARP || head.brute_dam >= 100)
 			head.droplimb()
-			add_attack_logs(user, H, "beheaded with [src]")
-			H.regenerate_icons()
+			add_attack_logs(user, human, "beheaded with [src]")
+			human.regenerate_icons()
 			unbuckle_all_mobs()
 			kill_count++
 			update_icon(UPDATE_OVERLAYS)
@@ -152,9 +152,9 @@
 					addtimer(CALLBACK(HM, TYPE_PROC_REF(/mob, emote), "clap"), delay_offset * 0.3)
 					delay_offset++
 		else
-			H.apply_damage(15 * blade_sharpness, BRUTE, head)
-			add_attack_logs(user, H, "non-fatally dropped the blade on with [src]")
-			H.emote("scream")
+			human.apply_damage(15 * blade_sharpness, BRUTE, head)
+			add_attack_logs(user, human, "non-fatally dropped the blade on with [src]")
+			human.emote("scream")
 
 		if(blade_sharpness > 1)
 			blade_sharpness -= 1

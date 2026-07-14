@@ -84,8 +84,8 @@
 	if((world.time - creation_time) > CHALLENGE_TIME_LIMIT) // Only count after the round started
 		to_chat(user, "It's too late to declare hostilities. Your benefactors are already busy with other schemes. You'll have to make do with what you have on hand.")
 		return FALSE
-	for(var/obj/machinery/computer/shuttle/syndicate/S in SSmachines.get_by_type(/obj/machinery/computer/shuttle/syndicate))
-		if(S.moved)
+	for(var/obj/machinery/computer/shuttle/syndicate/syndicate in SSmachines.get_by_type(/obj/machinery/computer/shuttle/syndicate))
+		if(syndicate.moved)
 			to_chat(user, "The shuttle has already been moved! You have forfeit the right to declare war.")
 			return FALSE
 	return TRUE

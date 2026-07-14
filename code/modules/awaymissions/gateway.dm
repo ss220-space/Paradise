@@ -67,13 +67,13 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 
 /obj/machinery/gateway/centerstation/proc/detect()
 	linked = list()	//clear the list
-	var/turf/T = loc
+	var/turf/turf = loc
 
 	for(var/i in GLOB.alldirs)
-		T = get_step(loc, i)
-		var/obj/machinery/gateway/G = locate(/obj/machinery/gateway) in T
-		if(G)
-			linked.Add(G)
+		turf = get_step(loc, i)
+		var/obj/machinery/gateway/gateway = locate(/obj/machinery/gateway) in turf
+		if(gateway)
+			linked.Add(gateway)
 			continue
 
 		//this is only done if we fail to find a part
@@ -103,16 +103,16 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		to_chat(user, span_notice("Error: Warpspace triangulation in progress. Estimated time to completion: [round(((wait - world.time) / 10) / 60)] minutes."))
 		return
 
-	for(var/obj/machinery/gateway/G in linked)
-		G.active = TRUE
-		G.update_icon()
+	for(var/obj/machinery/gateway/gateway in linked)
+		gateway.active = TRUE
+		gateway.update_icon()
 	active = TRUE
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/gateway/centerstation/proc/toggleoff()
-	for(var/obj/machinery/gateway/G in linked)
-		G.active = FALSE
-		G.update_icon(UPDATE_ICON_STATE)
+	for(var/obj/machinery/gateway/gateway in linked)
+		gateway.active = FALSE
+		gateway.update_icon(UPDATE_ICON_STATE)
 	active = FALSE
 	update_icon(UPDATE_ICON_STATE)
 
@@ -171,13 +171,13 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 
 /obj/machinery/gateway/centeraway/proc/detect()
 	linked = list()	//clear the list
-	var/turf/T = loc
+	var/turf/turf = loc
 
 	for(var/i in GLOB.alldirs)
-		T = get_step(loc, i)
-		var/obj/machinery/gateway/G = locate(/obj/machinery/gateway) in T
-		if(G)
-			linked.Add(G)
+		turf = get_step(loc, i)
+		var/obj/machinery/gateway/gateway = locate(/obj/machinery/gateway) in turf
+		if(gateway)
+			linked.Add(gateway)
 			continue
 
 		//this is only done if we fail to find a part
@@ -201,16 +201,16 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	if(!calibrated && calibrating_on_activating)
 		calibrated = TRUE
 
-	for(var/obj/machinery/gateway/G in linked)
-		G.active = TRUE
-		G.update_icon(UPDATE_ICON_STATE)
+	for(var/obj/machinery/gateway/gateway in linked)
+		gateway.active = TRUE
+		gateway.update_icon(UPDATE_ICON_STATE)
 	active = TRUE
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/gateway/centeraway/proc/toggleoff()
-	for(var/obj/machinery/gateway/G in linked)
-		G.active = FALSE
-		G.update_icon(UPDATE_ICON_STATE)
+	for(var/obj/machinery/gateway/gateway in linked)
+		gateway.active = FALSE
+		gateway.update_icon(UPDATE_ICON_STATE)
 	active = FALSE
 	update_icon(UPDATE_ICON_STATE)
 

@@ -439,8 +439,8 @@
 		return FALSE
 
 	visible_message(span_warning("[declent_ru(NOMINATIVE)] внезапно испустил[GEND_A_O_I(src)] электрический разряд!"))
-	var/mob/living/carbon/human/H = target
-	if(H.electrocute_act(charge, src))
+	var/mob/living/carbon/human/human = target
+	if(human.electrocute_act(charge, src))
 		do_sparks(max(1, charge / 20), FALSE, src)
 		return TRUE
 

@@ -106,17 +106,17 @@ Adjacency (to turf):
 	The border_only flag allows you to not objects (for source and destination squares)
 */
 /turf/proc/ClickCross(target_dir, border_only, atom/target, atom/movable/mover)
-	for(var/obj/O in src)
-		if((mover && O.CanPass(mover, target_dir)) || (!mover && !O.density))
+	for(var/obj/obj in src)
+		if((mover && obj.CanPass(mover, target_dir)) || (!mover && !obj.density))
 			continue
 
 		//If there's a dense object on the turf, only allow the click to pass if you can throw items over it or it has a special flag.
-		if(O == target || O == mover || (O.pass_flags_self & (LETPASSTHROW|LETPASSCLICKS)))
+		if(obj == target || obj == mover || (obj.pass_flags_self & (LETPASSTHROW|LETPASSCLICKS)))
 			continue
 
-		if(O.flags & ON_BORDER) // windows are on border, check them first
-			if((O.dir & target_dir) || ISDIAGONALDIR(O.dir)) // full tile windows are just diagonals mechanically
-				return FALSE   //O.dir&(O.dir-1) is false for any cardinal direction, but true for diagonal ones
+		if(obj.flags & ON_BORDER) // windows are on border, check them first
+			if((obj.dir & target_dir) || ISDIAGONALDIR(obj.dir)) // full tile windows are just diagonals mechanically
+				return FALSE   //obj.dir&(obj.dir-1) is false for any cardinal direction, but true for diagonal ones
 
 		else if(!border_only) // dense, not on border, cannot pass over
 			return FALSE

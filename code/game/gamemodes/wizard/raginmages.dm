@@ -88,30 +88,30 @@
 /datum/game_mode/wizard/raginmages/proc/end_squabble(area/centcom/wizard_station/A)
 	if(!istype(A)) return // You could probably do mean things with this otherwise
 	var/list/marked_for_death = list()
-	for(var/mob/living/L in A) // To hit non-wizard griefers
-		if(L.mind || L.client)
-			marked_for_death |= L
-	for(var/datum/mind/M in wizards)
-		if(istype(M.current) && istype(get_area(M.current), /area/centcom/wizard_station))
+	for(var/mob/living/living in A) // To hit non-wizard griefers
+		if(living.mind || living.client)
+			marked_for_death |= living
+	for(var/datum/mind/mind in wizards)
+		if(istype(mind.current) && istype(get_area(mind.current), /area/centcom/wizard_station))
 			mages_made -= 1
-			wizards -= M // No, you don't get to occupy a slot
-			marked_for_death |= M.current
-	for(var/mob/living/L in marked_for_death)
-		if(L.stat == CONSCIOUS) // Probably a troublemaker - I'd like to see YOU fight when unconscious
-			to_chat(L, span_userdanger("STOP FIGHTING."))
-		L.ghostize()
-		if(isbrain(L))
+			wizards -= mind // No, you don't get to occupy a slot
+			marked_for_death |= mind.current
+	for(var/mob/living/living in marked_for_death)
+		if(living.stat == CONSCIOUS) // Probably a troublemaker - I'd like to see YOU fight when unconscious
+			to_chat(living, span_userdanger("STOP FIGHTING."))
+		living.ghostize()
+		if(isbrain(living))
 			// diediedie
-			var/mob/living/carbon/brain/B = L
-			if(isitem(B.loc))
-				qdel(B.loc)
-			if(B?.container)
-				qdel(B.container)
-		if(L)
-			qdel(L)
-	for(var/obj/item/spellbook/B in A)
+			var/mob/living/carbon/brain/brain = living
+			if(isitem(brain.loc))
+				qdel(brain.loc)
+			if(brain?.container)
+				qdel(brain.container)
+		if(living)
+			qdel(living)
+	for(var/obj/item/spellbook/brain in A)
 		// No goodies for you
-		qdel(B)
+		qdel(brain)
 
 /datum/game_mode/wizard/raginmages/proc/make_more_mages()
 	if(making_mage || EMERGENCY_ESCAPED_OR_ENDGAMED)

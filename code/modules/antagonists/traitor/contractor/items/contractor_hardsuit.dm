@@ -45,9 +45,9 @@
 	return FALSE
 
 /obj/item/clothing/suit/space/hardsuit/contractor/proc/update_suit()
-	var/mob/living/carbon/human/H = src.loc
-	H.update_worn_head()
-	H.update_worn_oversuit()
+	var/mob/living/carbon/human/human = src.loc
+	human.update_worn_head()
+	human.update_worn_oversuit()
 
 //agent version disguised as engi hardsuit
 

@@ -250,10 +250,10 @@
 	if(!ISINDEXSAFE(candidate_zones, difficulty))
 		return
 
-	var/area/A = candidate_zones[difficulty]
-	extraction_zone = A
+	var/area/area = candidate_zones[difficulty]
+	extraction_zone = area
 	chosen_difficulty = difficulty
-	explanation_text = "Похитьте [S.target_name] любым способом и экспортируйте его в локацию \"[A.map_name]\" с помощью аплинка. По завершении контракта вы заработаете [S.reward_tc[difficulty]] телекристалл[DECL_CREDIT(S.reward_tc[difficulty])] и [S.reward_credits] кредит[DECL_CREDIT(S.reward_credits)]. Награда будет значительно уменьшена, если ваша цель окажется мёртвой."
+	explanation_text = "Похитьте [S.target_name] любым способом и экспортируйте его в локацию \"[area.map_name]\" с помощью аплинка. По завершении контракта вы заработаете [S.reward_tc[difficulty]] телекристалл[DECL_CREDIT(S.reward_tc[difficulty])] и [S.reward_credits] кредит[DECL_CREDIT(S.reward_credits)]. Награда будет значительно уменьшена, если ваша цель окажется мёртвой."
 	return TRUE
 
 /**

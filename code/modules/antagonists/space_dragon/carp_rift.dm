@@ -138,9 +138,9 @@
 	// Is the rift now fully charged?
 	if(time_charged >= max_charge)
 		charge_state = CHARGE_COMPLETED
-		var/area/A = get_area(src)
+		var/area/area = get_area(src)
 		GLOB.major_announcement.announce(
-			message = "Пространственный объект достиг максимального энергетического заряда в зоне [initial(A.name)]. Пожалуйста, ожидайте.",
+			message = "Пространственный объект достиг максимального энергетического заряда в зоне [initial(area.name)]. Пожалуйста, ожидайте.",
 			new_title = ANNOUNCE_WILDNATURE_RU,
 			new_sound = SSstation.announcer.get_rand_report_sound(),
 		)
@@ -165,10 +165,10 @@
 	// Do we need to give a final warning to the station at the halfway mark?
 	if(charge_state < CHARGE_FINALWARNING && time_charged >= (max_charge * 0.6))
 		charge_state = CHARGE_FINALWARNING
-		var/area/A = get_area(src)
+		var/area/area = get_area(src)
 
 		GLOB.major_announcement.announce(
-			message = "Разлом создает неестественно большой поток энергии в зоне [initial(A.name)]. Остановите его любой ценой!",
+			message = "Разлом создает неестественно большой поток энергии в зоне [initial(area.name)]. Остановите его любой ценой!",
 			new_title = ANNOUNCE_WILDNATURE_RU,
 			new_sound = SSstation.announcer.get_rand_report_sound(),
 		)

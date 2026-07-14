@@ -267,8 +267,8 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			return -1 // Flush the record
 	else
 		// get_ghost() will fail if they're unable to reenter their body
-		var/mob/dead/observer/G = clonemind.get_ghost()
-		if(!G)
+		var/mob/dead/observer/observer = clonemind.get_ghost()
+		if(!observer)
 			return 0
 
 /*
@@ -289,51 +289,51 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	if(!R.dna)
 		R.dna = new /datum/dna()
 
-	var/mob/living/carbon/human/H = new /mob/living/carbon/human(src)
-	H.set_species(R.dna.species.type)
-	occupant = H
+	var/mob/living/carbon/human/human = new /mob/living/carbon/human(src)
+	human.set_species(R.dna.species.type)
+	occupant = human
 
 	if(!R.dna.real_name)	// to prevent null names
-		R.dna.real_name = H.real_name
+		R.dna.real_name = human.real_name
 	else
-		H.real_name = R.dna.real_name
+		human.real_name = R.dna.real_name
 
-	H.dna = R.dna.Clone()
+	human.dna = R.dna.Clone()
 
-	for(var/datum/language/L in R.languages)
-		H.add_language(L.name)
+	for(var/datum/language/language in R.languages)
+		human.add_language(language.name)
 
 	if(is_taipan(z))
-		H.faction.Add("syndicate")	// So that Syndie guys remain Syndie guys after cloning
+		human.faction.Add("syndicate")	// So that Syndie guys remain Syndie guys after cloning
 
-	H.check_genes(MUTCHK_FORCED) // Ensures species that get powers by the species proc handle_dna keep them
+	human.check_genes(MUTCHK_FORCED) // Ensures species that get powers by the species proc handle_dna keep them
 
 	if(efficiency > 2 && efficiency < 5 && prob(25))
-		randmutb(H)
+		randmutb(human)
 	if(efficiency > 5 && prob(20))
-		randmutg(H)
+		randmutg(human)
 	if(efficiency < 3 && prob(50))
-		randmutb(H)
+		randmutb(human)
 
-	H.dna.UpdateSE()
-	H.dna.UpdateUI()
+	human.dna.UpdateSE()
+	human.dna.UpdateUI()
 
-	H.sync_organ_dna(1) // It's literally a fresh body as you can get, so all organs properly belong to it
-	H.UpdateAppearance()
+	human.sync_organ_dna(1) // It's literally a fresh body as you can get, so all organs properly belong to it
+	human.UpdateAppearance()
 
 	check_brine()
 	//Get the clone body ready
-	maim_clone(H)
-	H.Paralyse(8 SECONDS)
+	maim_clone(human)
+	human.Paralyse(8 SECONDS)
 
 	if(grab_ghost_when == CLONER_FRESH_CLONE)
-		clonemind.transfer_to(H)
-		H.possess_by_player(R.ckey)
-		update_clone_antag(H) //Since the body's got the mind, update their antag stuff right now. Otherwise, wait until they get kicked out (as per the CLONER_MATURE_CLONE business) to do it.
+		clonemind.transfer_to(human)
+		human.possess_by_player(R.ckey)
+		update_clone_antag(human) //Since the body's got the mind, update their antag stuff right now. Otherwise, wait until they get kicked out (as per the CLONER_MATURE_CLONE business) to do it.
 		var/message
 		message += "<b>Вы медленно обретаете сознание по мере того, как ваше тело восстанавливается.</b><br>"
 		message += "<i>Так вот как ощущается клонирование...</i>"
-		to_chat(H, span_notice("[message]"))
+		to_chat(human, span_notice("[message]"))
 	else if(grab_ghost_when == CLONER_MATURE_CLONE)
 		to_chat(clonemind.current, span_notice("Ваше тело начинает восстанавливаться в капсуле клонирования. Вы обретёте сознание после завершения."))
 		// Set up a soul link with the dead body to catch a revival
@@ -342,7 +342,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 	update_icon()
 
-	H.suiciding = FALSE
+	human.suiciding = FALSE
 	attempting = FALSE
 	return 1
 
@@ -539,10 +539,10 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 /obj/machinery/clonepod/proc/go_out()
 	countdown.stop()
-	var/turf/T = get_turf(src)
+	var/turf/turf = get_turf(src)
 	if(mess) //Clean that mess and dump those gibs!
 		for(var/obj/organ as anything in missing_organs)
-			organ.forceMove(T)
+			organ.forceMove(turf)
 
 		LAZYCLEARLIST(missing_organs)
 		mess = FALSE
@@ -578,7 +578,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	occupant.setOxyLoss(0)
 	for(var/datum/disease/critical/crit in occupant.diseases)
 		crit.cure()
-	occupant.forceMove(T)
+	occupant.forceMove(turf)
 	occupant.update_body()
 	occupant.check_genes() //Waiting until they're out before possible notransform.
 	occupant.special_post_clone_handling(TRUE)

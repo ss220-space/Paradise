@@ -491,8 +491,8 @@
 		if(id)
 			return id
 	if(H.get_active_hand())
-		var/obj/item/I = H.get_active_hand()
-		return I.GetID()
+		var/obj/item/item = H.get_active_hand()
+		return item.GetID()
 
 /proc/get_all_job_icons() //For all existing HUD icons
 	return GLOB.joblist + list("Prisoner")
@@ -500,8 +500,8 @@
 /obj/item/proc/GetJobName() //Used in secHUD icon generation
 	var/rankName = UNKNOWN_STATUS_RUS
 	if(is_pda(src))
-		var/obj/item/pda/P = src
-		rankName = P.ownrank
+		var/obj/item/pda/pda = src
+		rankName = pda.ownrank
 	else
 		var/obj/item/card/id/id = GetID()
 		if(istype(id))
@@ -524,7 +524,7 @@
 	if(rankName in solgov) //Return with the SolGov logo if it is a SolGov job
 		return "solgov"
 
-	if(rankName in soviet) //Return with the U.S.S.P logo if it is a Soviet job
+	if(rankName in soviet) //Return with the U.S.S.pda logo if it is a Soviet job
 		return "soviet"
 
 	if(rankName in special)

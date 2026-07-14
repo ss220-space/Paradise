@@ -163,19 +163,19 @@
 	var/list/blood_data = get_blood_data(blood_id)
 
 	if(iscarbon(AM))
-		var/mob/living/carbon/C = AM
+		var/mob/living/carbon/carbon = AM
 		if(blood_data["diseases"])
-			for(var/datum/disease/virus/V in blood_data["diseases"])
-				if(V.spread_flags < BLOOD)
+			for(var/datum/disease/virus/virus in blood_data["diseases"])
+				if(virus.spread_flags < BLOOD)
 					continue
-				V.Contract(C)
-		if(blood_id == C.get_blood_id() && !HAS_TRAIT(C, TRAIT_NO_BLOOD_RESTORE))//both mobs have the same blood substance
+				virus.Contract(carbon)
+		if(blood_id == carbon.get_blood_id() && !HAS_TRAIT(carbon, TRAIT_NO_BLOOD_RESTORE))//both mobs have the same blood substance
 			if(blood_id == "blood") //normal blood
-				if(!(blood_data["blood_type"] in get_safe_blood(C.dna.blood_type)) || !(blood_data["blood_species"] == C.dna.species.blood_species))
-					C.reagents.add_reagent("toxin", amount * 0.5)
+				if(!(blood_data["blood_type"] in get_safe_blood(carbon.dna.blood_type)) || !(blood_data["blood_species"] == carbon.dna.species.blood_species))
+					carbon.reagents.add_reagent("toxin", amount * 0.5)
 					return 1
 
-			C.setBlood(min(C.blood_volume + round(amount, 0.1), BLOOD_VOLUME_NORMAL))
+			carbon.setBlood(min(carbon.blood_volume + round(amount, 0.1), BLOOD_VOLUME_NORMAL))
 			return 1
 
 	AM.reagents.add_reagent(blood_id, amount, blood_data, bodytemperature)
@@ -312,24 +312,24 @@
 			return
 
 	// Find a blood decal or create a new one.
-	var/obj/effect/decal/cleanable/blood/splatter/B = locate() in T
-	var/list/bloods = get_atoms_of_type(T, B, TRUE, 0, 0) //Get all the non-projectile-splattered blood on this turf (not pixel-shifted).
+	var/obj/effect/decal/cleanable/blood/splatter/splatter = locate() in T
+	var/list/bloods = get_atoms_of_type(T, splatter, TRUE, 0, 0) //Get all the non-projectile-splattered blood on this turf (not pixel-shifted).
 	if(shift_x || shift_y)
-		bloods = get_atoms_of_type(T, B, TRUE, shift_x, shift_y) //Get all the projectile-splattered blood at these pixels on this turf (pixel-shifted).
-		B = locate() in bloods
-	if(!B)
-		B = new(T)
-	if(B.bloodiness < MAX_SHOE_BLOODINESS) //add more blood, up to a limit
-		B.bloodiness += BLOOD_AMOUNT_PER_DECAL
-	B.transfer_mob_blood_dna(src) //give blood info to the blood decal.
+		bloods = get_atoms_of_type(T, splatter, TRUE, shift_x, shift_y) //Get all the projectile-splattered blood at these pixels on this turf (pixel-shifted).
+		splatter = locate() in bloods
+	if(!splatter)
+		splatter = new(T)
+	if(splatter.bloodiness < MAX_SHOE_BLOODINESS) //add more blood, up to a limit
+		splatter.bloodiness += BLOOD_AMOUNT_PER_DECAL
+	splatter.transfer_mob_blood_dna(src) //give blood info to the blood decal.
 	if(temp_blood_DNA)
-		B.blood_DNA |= temp_blood_DNA
-	B.pixel_x = (shift_x)
-	B.pixel_y = (shift_y)
-	B.update_icon()
+		splatter.blood_DNA |= temp_blood_DNA
+	splatter.pixel_x = (shift_x)
+	splatter.pixel_y = (shift_y)
+	splatter.update_icon()
 	if(shift_x || shift_y)
-		B.off_floor = TRUE
-		B.layer = BELOW_MOB_LAYER //So the blood lands ontop of things like posters, windows, etc.
+		splatter.off_floor = TRUE
+		splatter.layer = BELOW_MOB_LAYER //So the blood lands ontop of things like posters, windows, etc.
 
 /mob/living/carbon/alien/add_splatter_floor(turf/T, small_drip, shift_x, shift_y, amt)
 	if(!T)

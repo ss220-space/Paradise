@@ -69,8 +69,8 @@
 		addtimer(CALLBACK(src, PROC_REF(deflate)), 5 SECONDS)
 
 /obj/structure/inflatable/proc/deflate()
-	var/obj/item/inflatable/R = new intact(loc)
-	transfer_fingerprints_to(R)
+	var/obj/item/inflatable/inflatable = new intact(loc)
+	transfer_fingerprints_to(inflatable)
 	qdel(src)
 
 /obj/structure/inflatable/verb/hand_deflate()
@@ -123,11 +123,11 @@
 	if(is_operating)
 		return
 	if(ismob(user))
-		var/mob/M = user
-		if(M.client)
-			if(iscarbon(M))
-				var/mob/living/carbon/C = M
-				if(!C.handcuffed)
+		var/mob/mob = user
+		if(mob.client)
+			if(iscarbon(mob))
+				var/mob/living/carbon/carbon = mob
+				if(!carbon.handcuffed)
 					operate()
 			else
 				operate()

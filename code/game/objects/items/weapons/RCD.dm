@@ -151,9 +151,9 @@
 	proto.icon_state = "closed"
 	if(!proto.glass)
 		proto.add_overlay("fill_closed")
-	var/icon/I = getFlatIcon(proto, no_anim = TRUE)
+	var/icon/icon = getFlatIcon(proto, no_anim = TRUE)
 	qdel(proto)
-	return "[icon2base64(I)]"
+	return "[icon2base64(icon)]"
 
 /**
  * Runs a series of pre-checks before opening the radial menu to the user.
@@ -417,8 +417,8 @@
 	if(!isrobot(user))
 		return FALSE
 
-	var/mob/living/silicon/robot/R = user
-	return R.cell.use(amount * power_use_multiplier)
+	var/mob/living/silicon/robot/robot = user
+	return robot.cell.use(amount * power_use_multiplier)
 
 /**
  * Called in each of the four build modes before an object gets build. Makes sure there is enough matter to build the object.
@@ -433,8 +433,8 @@
 	if(!isrobot(user))
 		return FALSE
 
-	var/mob/living/silicon/robot/R = user
-	return R.cell.charge >= (amount * power_use_multiplier)
+	var/mob/living/silicon/robot/robot = user
+	return robot.cell.charge >= (amount * power_use_multiplier)
 
 /obj/item/rcd/borg
 	canRwall = TRUE

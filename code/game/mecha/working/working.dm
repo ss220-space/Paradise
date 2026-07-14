@@ -24,9 +24,9 @@
 	update_pressure()
 
 /obj/mecha/working/proc/update_pressure()
-	var/turf/T = get_turf(loc)
+	var/turf/turf = get_turf(loc)
 
-	if(lavaland_equipment_pressure_check(T))
+	if(lavaland_equipment_pressure_check(turf))
 		step_in = fast_pressure_step_in
 		for(var/obj/item/mecha_parts/mecha_equipment/drill/drill in equipment)
 			drill.equip_cooldown = initial(drill.equip_cooldown)/2

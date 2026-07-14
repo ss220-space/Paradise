@@ -36,8 +36,8 @@
  * Proc extender of [/mob/verb/quick_equip] used to make the verb queuable if the server is overloaded
  */
 /mob/proc/run_quick_equip()
-	var/obj/item/I = get_active_hand()
-	if(!I)
+	var/obj/item/item = get_active_hand()
+	if(!item)
 		if(pulling && isliving(src))
 			var/mob/living/grabber = src
 			if(!isnull(grabber.pull_hand) && grabber.pull_hand != PULL_WITHOUT_HANDS)
@@ -47,8 +47,8 @@
 		to_chat(src, span_warning("Вы ничего не держите в руке!"))
 		return
 
-	if(!QDELETED(I) && I.user_can_equip(src))
-		I.equip_to_best_slot(src)
+	if(!QDELETED(item) && item.user_can_equip(src))
+		item.equip_to_best_slot(src)
 
 /**
 * Puts item into an appropriate inventory slot. Doesn't matter if a mob type doesn't have a slot.
@@ -154,9 +154,9 @@
 			if(control.can_be_inserted(I, stop_messages = TRUE))
 				control.bag.handle_item_insertion(I, prevent_warning = TRUE)
 				return
-		var/turf/T = get_turf(src)
-		if(istype(T))
-			I.forceMove(T)
+		var/turf/turf = get_turf(src)
+		if(istype(turf))
+			I.forceMove(turf)
 
 /**
  * This is just a commonly used configuration for the equip_to_slot_if_possible() proc.
@@ -642,9 +642,9 @@
 	list_clear_nulls(processing_list) // handles empty hands
 	var/i = 0
 	while(i < length(processing_list))
-		var/obj/item/storage/A = processing_list[++i]
-		if(istype(A) && recursive)
-			processing_list += A.return_inv()
+		var/obj/item/storage/storage = processing_list[++i]
+		if(istype(storage) && recursive)
+			processing_list += storage.return_inv()
 	return processing_list
 
 /// Collects all items in possibly equipped slots.
@@ -674,15 +674,15 @@
 	return list(wear_mask, back, l_hand, r_hand)
 
 /mob/proc/get_id_card()
-	for(var/obj/item/I in get_access_locations())
-		if(I.GetID())
-			return I.GetID()
+	for(var/obj/item/item in get_access_locations())
+		if(item.GetID())
+			return item.GetID()
 
 /mob/proc/get_all_id_cards()
 	var/list/obj/item/card/id/id_cards = list()
-	for(var/obj/item/I in get_access_locations())
-		if(I.GetID())
-			id_cards += I.GetID()
+	for(var/obj/item/item in get_access_locations())
+		if(item.GetID())
+			id_cards += item.GetID()
 	return id_cards
 
 /mob/proc/get_item_by_slot(slot_flag)
@@ -710,13 +710,13 @@
 
 //search for a path in inventory and storage items in that inventory (backpack, belt, etc) and return it. Not recursive, so doesnt search storage in storage
 /mob/proc/find_item(path)
-	for(var/obj/item/I in contents)
-		if(isstorage(I))
-			for(var/obj/item/SI in I.contents)
+	for(var/obj/item/item in contents)
+		if(isstorage(item))
+			for(var/obj/item/SI in item.contents)
 				if(istype(SI, path))
 					return SI
-		else if(istype(I, path))
-			return I
+		else if(istype(item, path))
+			return item
 
 /mob/proc/update_equipment_speed_mods()
 	var/speedies = equipped_speed_mods()

@@ -4,25 +4,25 @@
 	if(!original)
 		return null
 
-	var/atom/O = null
+	var/atom/atom = null
 
 	if(sameloc)
-		O = new original.type(original.loc)
+		atom = new original.type(original.loc)
 	else
-		O = new original.type(newloc)
+		atom = new original.type(newloc)
 
 	if(perfectcopy)
-		if(O)
+		if(atom)
 			var/static/list/forbidden_vars = list("type","loc","locs","vars", "parent","parent_type", "verbs","ckey","key","power_supply","contents","reagents","stat","x","y","z","group", "_listen_lookup", "_datum_components")
 
 			for(var/V in original.vars - forbidden_vars)
 				if(islist(original.vars[V]))
 					var/list/L = original.vars[V]
-					O.vars[V] = L.Copy()
+					atom.vars[V] = L.Copy()
 				else if(isdatum(original.vars[V]))
 					continue // this would reference the original's object, that will break when it is used or deleted.
 				else
-					O.vars[V] = original.vars[V]
-	if(istype(O))
-		O.update_icon()
-	return O
+					atom.vars[V] = original.vars[V]
+	if(istype(atom))
+		atom.update_icon()
+	return atom

@@ -13,18 +13,18 @@
 
 /datum/map_template/shelter/proc/check_deploy(turf/deploy_location)
 	var/affected = get_affected_turfs(deploy_location, centered=TRUE)
-	for(var/turf/T in affected)
-		var/area/A = get_area(T)
-		if(is_type_in_typecache(A, banned_areas))
+	for(var/turf/turf in affected)
+		var/area/area = get_area(turf)
+		if(is_type_in_typecache(area, banned_areas))
 			return SHELTER_DEPLOY_BAD_AREA
 
-		var/banned = is_type_in_typecache(T, blacklisted_turfs)
-		var/permitted = is_type_in_typecache(T, whitelisted_turfs)
+		var/banned = is_type_in_typecache(turf, blacklisted_turfs)
+		var/permitted = is_type_in_typecache(turf, whitelisted_turfs)
 		if(banned && !permitted)
 			return SHELTER_DEPLOY_BAD_TURFS
 
-		for(var/obj/O in T)
-			if(O.density && O.anchored)
+		for(var/obj/obj in turf)
+			if(obj.density && obj.anchored)
 				return SHELTER_DEPLOY_ANCHORED_OBJECTS
 	return SHELTER_DEPLOY_ALLOWED
 

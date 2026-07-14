@@ -3855,20 +3855,20 @@
 	var/admin_outfits = subtypesof(/datum/outfit/admin)
 	var/hunter_outfits = list()
 	for(var/type in admin_outfits)
-		var/datum/outfit/admin/O = type
-		hunter_outfits[initial(O.name)] = type
+		var/datum/outfit/admin/admin = type
+		hunter_outfits[initial(admin.name)] = type
 	var/dresscode = tgui_input_list(usr, "Select type", "Contracted Agents", hunter_outfits)
 	if(isnull(dresscode))
 		return
-	var/datum/outfit/O = hunter_outfits[dresscode]
+	var/datum/outfit/admin = hunter_outfits[dresscode]
 	message_admins("[key_name_admin(mob)] is sending a ([dresscode]) to [killthem ? "assassinate" : "protect"] [key_name_admin(H)]...")
 	var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_traitor")
 	var/list/candidates = SSghost_spawns.poll_candidates("Play as a [killthem ? "murderous" : "protective"] [dresscode]?", ROLE_TRAITOR, TRUE, source = source, role_cleanname = "[killthem ? "murderous" : "protective"] [dresscode]")
 	if(!length(candidates))
 		to_chat(usr, span_warning("ERROR: Could not create eventmob. No valid candidates."), confidential = TRUE)
 		return
-	var/mob/C = pick(candidates)
-	var/key_of_hunter = C.key
+	var/mob/candidate = pick(candidates)
+	var/key_of_hunter = candidate.key
 	if(!key_of_hunter)
 		to_chat(usr, span_warning("ERROR: Could not create eventmob. Could not pick key."), confidential = TRUE)
 		return
@@ -3876,15 +3876,15 @@
 	hunter_mind.active = 1
 	var/mob/living/carbon/human/hunter_mob = new /mob/living/carbon/human(pick(GLOB.latejoin))
 	hunter_mind.transfer_to(hunter_mob)
-	hunter_mob.equipOutfit(O, FALSE)
-	var/obj/item/pinpointer/advpinpointer/N = new /obj/item/pinpointer/advpinpointer(hunter_mob)
-	hunter_mob.equip_to_slot_or_del(N, ITEM_SLOT_BACKPACK)
-	N.setting = 2 //SETTING_OBJECT, not defined here
-	N.pinpoint_at(H)
-	N.modelocked = TRUE
+	hunter_mob.equipOutfit(admin, FALSE)
+	var/obj/item/pinpointer/advpinpointer/advpinpointer = new /obj/item/pinpointer/advpinpointer(hunter_mob)
+	hunter_mob.equip_to_slot_or_del(advpinpointer, ITEM_SLOT_BACKPACK)
+	advpinpointer.setting = 2 //SETTING_OBJECT, not defined here
+	advpinpointer.pinpoint_at(H)
+	advpinpointer.modelocked = TRUE
 	if(!locate(/obj/item/implant/dust, hunter_mob))
-		var/obj/item/implant/dust/D = new /obj/item/implant/dust(hunter_mob)
-		D.implant(hunter_mob)
+		var/obj/item/implant/dust/dust = new /obj/item/implant/dust(hunter_mob)
+		dust.implant(hunter_mob)
 	if(killthem)
 		var/datum/objective/assassinate/kill_objective = new
 		kill_objective.owner = hunter_mind

@@ -42,7 +42,7 @@
 	else
 		source.invisibility = initial(source.invisibility)
 
-	var/turf/T = get_turf(source)
+	var/turf/turf = get_turf(source)
 
 	if(underfloor_accessibility < UNDERFLOOR_INTERACTABLE)
 		// We only want to change the layer/plane for things that aren't already on the floor plane,
@@ -55,12 +55,12 @@
 		ADD_TRAIT(source, TRAIT_UNDERFLOOR, ELEMENT_TRAIT(src))
 
 		if(tile_overlay)
-			T.add_overlay(tile_overlay)
+			turf.add_overlay(tile_overlay)
 
 		if(tilt_tile)
-			T.transform = T.transform.Turn(2)
-			T.layer = (T.layer + 0.1) // prettier
-			T.appearance_flags |= PIXEL_SCALE
+			turf.transform = turf.transform.Turn(2)
+			turf.layer = (turf.layer + 0.1) // prettier
+			turf.appearance_flags |= PIXEL_SCALE
 
 		if(use_anchor)
 			source.set_anchored(TRUE)
@@ -76,12 +76,12 @@
 		REMOVE_TRAIT(source, TRAIT_UNDERFLOOR, ELEMENT_TRAIT(src))
 
 		if(tile_overlay)
-			T.overlays -= tile_overlay
+			turf.overlays -= tile_overlay
 
 		if(tilt_tile)
-			T.transform = matrix()
-			T.layer = initial(T.layer)
-			T.appearance_flags &= PIXEL_SCALE
+			turf.transform = matrix()
+			turf.layer = initial(turf.layer)
+			turf.appearance_flags &= PIXEL_SCALE
 
 		if(use_alpha)
 			source.alpha = initial(source.alpha)

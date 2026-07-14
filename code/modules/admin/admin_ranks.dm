@@ -111,13 +111,13 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 			var/rights = GLOB.admin_ranks[rank]
 
 			//create the admin datum and store it for later use
-			var/datum/admins/D = new /datum/admins(rank, rights, ckey)
+			var/datum/admins/admins = new /datum/admins(rank, rights, ckey)
 
-			if(D.rights & (R_DEBUG|R_VIEWRUNTIMES)) // Grants profiler access to anyone with R_DEBUG or R_VIEWRUNTIMES
+			if(admins.rights & (R_DEBUG|R_VIEWRUNTIMES)) // Grants profiler access to anyone with R_DEBUG or R_VIEWRUNTIMES
 				world.SetConfig("APP/admin", ckey, "role=admin")
 
 			//find the client for a ckey if they are connected and associate them with the new admin datum
-			D.associate(GLOB.directory[ckey])
+			admins.associate(GLOB.directory[ckey])
 
 	else
 		//The current admin system uses SQL
@@ -140,16 +140,16 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 
 			var/rights = query.item[4]
 			if(istext(rights))	rights = text2num(rights)
-			var/datum/admins/D = new /datum/admins(rank, rights, ckey)
+			var/datum/admins/admins = new /datum/admins(rank, rights, ckey)
 			GLOB.de_admins -= ckey
 			GLOB.de_mentors -= ckey
 			GLOB.de_devs -= ckey
 
-			if(D.rights & (R_DEBUG|R_VIEWRUNTIMES)) // Grants profiler access to anyone with R_DEBUG or R_VIEWRUNTIMES
+			if(admins.rights & (R_DEBUG|R_VIEWRUNTIMES)) // Grants profiler access to anyone with R_DEBUG or R_VIEWRUNTIMES
 				world.SetConfig("APP/admin", ckey, "role=admin")
 
 			//find the client for a ckey if they are connected and associate them with the new admin datum
-			D.associate(GLOB.directory[ckey])
+			admins.associate(GLOB.directory[ckey])
 
 		qdel(query)
 
@@ -163,8 +163,8 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 	var/msg = "Admins Built:\n"
 	for(var/ckey in GLOB.admin_datums)
 		var/rank
-		var/datum/admins/D = GLOB.admin_datums[ckey]
-		if(D)	rank = D.rank
+		var/datum/admins/admins = GLOB.admin_datums[ckey]
+		if(admins)	rank = admins.rank
 		msg += "\t[ckey] - [rank]\n"
 	testing(msg)
 	#endif

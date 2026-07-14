@@ -175,9 +175,9 @@
 
 /datum/surgery_step/cavity/proc/get_item_inside(obj/item/organ/external/affected)
 	var/obj/item/extracting
-	for(var/obj/item/I in affected.contents)
-		if(!is_organ(I))
-			extracting = I
+	for(var/obj/item/item in affected.contents)
+		if(!is_organ(item))
+			extracting = item
 			break
 
 	if(!extracting && affected.hidden)

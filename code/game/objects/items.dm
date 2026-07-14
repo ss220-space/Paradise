@@ -853,8 +853,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(!ismob(loc))
 		return FALSE
 
-	var/mob/M = loc
-	if(src in M.get_equipped_items(include_flags))
+	var/mob/mob = loc
+	if(src in mob.get_equipped_items(include_flags))
 		return TRUE
 	else
 		return FALSE
@@ -980,9 +980,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	return FALSE
 
 /obj/item/proc/get_loc_turf()
-	var/atom/L = loc
-	while(L && !isturf(L))
-		L = L.loc
+	var/atom/atom = loc
+	while(atom && !isturf(atom))
+		atom = atom.loc
 	return loc
 
 /obj/item/proc/eyestab(mob/living/carbon/human/target, mob/living/user)
@@ -1114,8 +1114,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(!newLoc)
 		return FALSE
 	if(isstorage(loc))
-		var/obj/item/storage/S = loc
-		S.remove_from_storage(src,newLoc)
+		var/obj/item/storage/storage = loc
+		storage.remove_from_storage(src,newLoc)
 		return TRUE
 	return FALSE
 

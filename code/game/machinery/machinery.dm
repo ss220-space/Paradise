@@ -279,9 +279,9 @@
 	usr.unset_machine()
 
 /obj/machinery/proc/dropContents()//putting for swarmers, occupent code commented out, someone can use later.
-	var/turf/T = get_turf(src)
+	var/turf/turf = get_turf(src)
 	for(var/atom/movable/AM in contents)
-		AM.forceMove(T)
+		AM.forceMove(turf)
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -347,14 +347,14 @@
 	qdel(src)
 
 /obj/machinery/proc/spawn_frame(disassembled)
-	var/obj/machinery/constructable_frame/machine_frame/M = new /obj/machinery/constructable_frame/machine_frame(loc)
-	. = M
-	M.set_anchored(anchored)
+	var/obj/machinery/constructable_frame/machine_frame/machine_frame = new /obj/machinery/constructable_frame/machine_frame(loc)
+	. = machine_frame
+	machine_frame.set_anchored(anchored)
 	if(!disassembled)
-		M.update_integrity(M.max_integrity * 0.5) //the frame is already half broken
-	transfer_fingerprints_to(M)
-	M.state = 2	// STATE_WIRED
-	M.update_icon(UPDATE_ICON_STATE)
+		machine_frame.update_integrity(machine_frame.max_integrity * 0.5) //the frame is already half broken
+	transfer_fingerprints_to(machine_frame)
+	machine_frame.state = 2	// STATE_WIRED
+	machine_frame.update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/obj_break(damage_flag)
 	if(!(obj_flags & NODECONSTRUCT))
@@ -464,26 +464,26 @@
 			var/P
 			if(W.works_from_distance)
 				to_chat(user, display_parts(user))
-			for(var/obj/item/stock_parts/A in component_parts)
+			for(var/obj/item/stock_parts/component_stock_parts in component_parts)
 				for(var/D in CB.req_components)
-					if(ispath(A.type, D))
+					if(ispath(component_stock_parts.type, D))
 						P = D
 						break
-				for(var/obj/item/stock_parts/B in W.contents)
-					if(istype(B, P) && istype(A, P))
-						if(ispath(B.type, /obj/item/stock_parts/cell))
-							var/obj/item/stock_parts/cell/tA = A
-							var/obj/item/stock_parts/cell/tB = B
+				for(var/obj/item/stock_parts/stock_parts in W.contents)
+					if(istype(stock_parts, P) && istype(component_stock_parts, P))
+						if(ispath(stock_parts.type, /obj/item/stock_parts/cell))
+							var/obj/item/stock_parts/cell/tA = component_stock_parts
+							var/obj/item/stock_parts/cell/tB = stock_parts
 							if(!(tB.maxcharge > tA.maxcharge) && !((tB.maxcharge == tA.maxcharge) && (tB.charge > tA.charge)))
 								continue
-						else if(B.rating <= A.rating)
+						else if(stock_parts.rating <= component_stock_parts.rating)
 							continue
-						W.remove_from_storage(B, src)
-						W.handle_item_insertion(A, 1)
-						component_parts -= A
-						component_parts += B
-						B.loc = null
-						to_chat(user, span_notice("[A.name] replaced with [B.name]."))
+						W.remove_from_storage(stock_parts, src)
+						W.handle_item_insertion(component_stock_parts, 1)
+						component_parts -= component_stock_parts
+						component_parts += stock_parts
+						stock_parts.loc = null
+						to_chat(user, span_notice("[component_stock_parts.name] replaced with [stock_parts.name]."))
 						shouldplaysound = 1
 						break
 			RefreshParts()
@@ -497,8 +497,8 @@
 
 /obj/machinery/proc/display_parts(mob/user)
 	. = list(span_notice("Following parts detected in the machine:"))
-	for(var/obj/item/C in component_parts)
-		. += span_notice("[icon2html(C, user)] [C.name]")
+	for(var/obj/item/item in component_parts)
+		. += span_notice("[icon2html(item, user)] [item.name]")
 	. = jointext(., "\n")
 
 /obj/machinery/examine(mob/user)
@@ -564,12 +564,12 @@
 	if(check_records || check_arrest)
 		var/perpname = perp.get_visible_name(add_id_name = FALSE)
 
-		var/datum/data/record/R = find_security_record("name", perpname)
-		if(check_records && !R)
+		var/datum/data/record/record = find_security_record("name", perpname)
+		if(check_records && !record)
 			threatcount += 4
 
-		if(R && R.fields["criminal"])
-			switch(R.fields["criminal"])
+		if(record && record.fields["criminal"])
+			switch(record.fields["criminal"])
 				if(SEC_RECORD_STATUS_EXECUTE)
 					threatcount += 7
 				if(SEC_RECORD_STATUS_ARREST)

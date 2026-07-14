@@ -355,21 +355,21 @@
 	linked_node = null
 
 /obj/structure/alien/weeds/proc/Life()
-	var/turf/U = get_turf(src)
+	var/turf/turf = get_turf(src)
 
-	if(is_type_in_typecache(U, forbidden_turf_types))
+	if(is_type_in_typecache(turf, forbidden_turf_types))
 		qdel(src)
 		return
 
 	if(!linked_node || get_dist(linked_node, src) > linked_node.node_range)
 		return
 
-	for(var/turf/T in U.GetAtmosAdjacentTurfs())
+	for(var/turf/adjacent_turf in turf.GetAtmosAdjacentTurfs())
 
-		if(locate(/obj/structure/alien/weeds) in T || is_type_in_typecache(T, forbidden_turf_types))
+		if(locate(/obj/structure/alien/weeds) in adjacent_turf || is_type_in_typecache(adjacent_turf, forbidden_turf_types))
 			continue
 
-		new /obj/structure/alien/weeds(T, linked_node)
+		new /obj/structure/alien/weeds(adjacent_turf, linked_node)
 
 /obj/structure/alien/weeds/temperature_expose(exposed_temperature, exposed_volume)
 	..()

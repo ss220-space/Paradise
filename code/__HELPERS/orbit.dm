@@ -81,20 +81,20 @@
 	LAZYOR(A.orbiters, src)
 	SEND_SIGNAL(orbiting, COMSIG_ATOM_ORBIT_BEGIN, src)
 	if(ismob(A))
-		var/mob/M = A
-		M.ghost_orbiting += 1
+		var/mob/mob = A
+		mob.ghost_orbiting += 1
 	var/matrix/initial_transform = matrix(transform)
 	cached_transform = initial_transform
 	var/lastloc = loc
 
 	//Head first!
 	if(pre_rotation)
-		var/matrix/M = matrix(transform)
+		var/matrix/mob = matrix(transform)
 		var/pre_rot = 90
 		if(!clockwise)
 			pre_rot = -90
-		M.Turn(pre_rot)
-		transform = M
+		mob.Turn(pre_rot)
+		transform = mob
 
 	var/matrix/shift = matrix(transform)
 	shift.Translate(0,radius)
@@ -111,9 +111,9 @@
 		else
 			abstract_move(targetloc)
 		lastloc = loc
-		var/atom/movable/B = A
-		if(istype(B))
-			glide_size = B.glide_size
+		var/atom/movable/movable = A
+		if(istype(movable))
+			glide_size = movable.glide_size
 		sleep(0.6)
 
 	if(orbiting == A) //make sure we haven't started orbiting something else.
@@ -121,8 +121,8 @@
 
 /atom/movable/proc/stop_orbit()
 	if(ismob(orbiting))
-		var/mob/M = orbiting
-		M.ghost_orbiting -= 1
+		var/mob/mob = orbiting
+		mob.ghost_orbiting -= 1
 
 	SEND_SIGNAL(orbiting, COMSIG_ATOM_ORBIT_STOP, src)
 	LAZYREMOVE(orbiting.orbiters, src)

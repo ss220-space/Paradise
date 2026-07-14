@@ -121,14 +121,14 @@
 		for(var/dy=0, dy<height, ++dy)
 			xi = _x + (dx-dwidth)*cos - (dy-dheight)*sin
 			yi = _y + (dy-dheight)*cos + (dx-dwidth)*sin
-			var/turf/T = locate(xi, yi, _z)
+			var/turf/turf = locate(xi, yi, _z)
 			if(A)
-				if(get_area(T) == A)
-					. += T
+				if(get_area(turf) == A)
+					. += turf
 				else
 					. += null
 			else
-				. += T
+				. += turf
 
 #ifdef DOCKING_PORT_HIGHLIGHT
 
@@ -137,14 +137,14 @@
 	invisibility = 0
 	SET_PLANE_IMPLICIT(src, GHOST_PLANE)
 	var/list/coords = return_coords()
-	for(var/turf/T in block(coords[1], coords[2], z, coords[3], coords[4], z))
-		T.color = _color
-		T.maptext = null
+	for(var/turf/turf in block(coords[1], coords[2], z, coords[3], coords[4], z))
+		turf.color = _color
+		turf.maptext = null
 	if(_color)
-		var/turf/T = locate(coords[1], coords[2], z)
-		T.color = "#0f0"
-		T = locate(coords[3], coords[4], z)
-		T.color = "#00f"
+		var/turf/turf = locate(coords[1], coords[2], z)
+		turf.color = "#0f0"
+		turf = locate(coords[3], coords[4], z)
+		turf.color = "#00f"
 
 #endif
 
@@ -153,9 +153,9 @@
 	return locate(/obj/docking_port/stationary) in loc
 
 /obj/docking_port/proc/getDockedId()
-	var/obj/docking_port/P = get_docked()
-	if(P)
-		return P.id
+	var/obj/docking_port/docking_port = get_docked()
+	if(docking_port)
+		return docking_port.id
 
 /obj/docking_port/proc/register()
 	return 0
@@ -630,14 +630,14 @@
 	return is_type_in_typecache(T, blacklisted_turf_types)
 
 /obj/docking_port/mobile/proc/findTransitDock()
-	var/obj/docking_port/stationary/transit/T = SSshuttle.getDock("[id]_transit")
-	if(T && check_dock(T))
-		return T
+	var/obj/docking_port/stationary/transit/transit = SSshuttle.getDock("[id]_transit")
+	if(transit && check_dock(transit))
+		return transit
 
 /obj/docking_port/mobile/proc/findRoundstartDock()
-	for(var/obj/docking_port/stationary/S in SSshuttle.stationary)
-		if(S.id == roundstart_move)
-			return S
+	for(var/obj/docking_port/stationary/stationary in SSshuttle.stationary)
+		if(stationary.id == roundstart_move)
+			return stationary
 	if(!alone_shuttle)
 		WARNING("couldn't find roundstart dock for \"[name]\" with id: [id]")
 
@@ -662,19 +662,19 @@
 	if(!istype(old_dock) || isnull(old_dock.id))
 		return
 
-	for(var/obj/machinery/door/airlock/A in GLOB.airlocks)
-		if(A.id_tag == old_dock.id)
-			A.close()
-			A.lock()
+	for(var/obj/machinery/door/airlock/airlock in GLOB.airlocks)
+		if(airlock.id_tag == old_dock.id)
+			airlock.close()
+			airlock.lock()
 
 /obj/docking_port/mobile/proc/unlockPortDoors(obj/docking_port/stationary/new_dock)
 	if(!istype(new_dock) || isnull(new_dock.id))
 		return
 
-	for(var/obj/machinery/door/airlock/A in GLOB.airlocks)
-		if(A.id_tag == new_dock.id)
-			if(A.locked)
-				A.unlock()
+	for(var/obj/machinery/door/airlock/airlock in GLOB.airlocks)
+		if(airlock.id_tag == new_dock.id)
+			if(airlock.locked)
+				airlock.unlock()
 
 //used by shuttle subsystem to check timers
 /obj/docking_port/mobile/proc/check()
@@ -729,10 +729,10 @@
 	if(assigned_transit?.assigned_area)
 		assigned_transit.assigned_area.parallax_movedir = FALSE
 	var/list/L0 = return_ordered_turfs(x, y, z, dir)
-	for(var/turf/T in L0)
-		if(!T || !istype(T.loc, areaInstance.type))
+	for(var/turf/turf in L0)
+		if(!turf || !istype(turf.loc, areaInstance.type))
 			continue
-		for(var/atom/movable/movable as anything in T)
+		for(var/atom/movable/movable as anything in turf)
 			if(movable.client_mobs_in_contents)
 				movable.update_parallax_contents()
 
@@ -849,9 +849,9 @@
 		// find close shuttle that is ok to mess with
 		if(!SSshuttle) //intentionally mapping shuttle consoles without actual shuttles IS POSSIBLE OH MY GOD WHO KNEW *glare*
 			return
-		for(var/obj/docking_port/mobile/D in SSshuttle.mobile)
-			if(get_dist(src, D) <= max_connect_range && D.rebuildable)
-				mobile_docking_port = D
+		for(var/obj/docking_port/mobile/mobile in SSshuttle.mobile)
+			if(get_dist(src, mobile) <= max_connect_range && mobile.rebuildable)
+				mobile_docking_port = mobile
 				shuttleId = mobile_docking_port.id
 				break
 	else if(!possible_destinations && SSshuttle) //possible destinations should **not** always exist; so, if it's specifically set to null, don't make it exist
@@ -860,9 +860,9 @@
 	if(mobile_docking_port && !possible_destinations)
 		// find perfect fits
 		possible_destinations = ""
-		for(var/obj/docking_port/stationary/S in SSshuttle.stationary)
-			if(!istype(S, /obj/docking_port/stationary/transit) && S.width == mobile_docking_port.width && S.height == mobile_docking_port.height && S.dwidth == mobile_docking_port.dwidth && S.dheight == mobile_docking_port.dheight && findtext(S.id, mobile_docking_port.id))
-				possible_destinations += "[possible_destinations ? ";" : ""][S.id]"
+		for(var/obj/docking_port/stationary/stationary in SSshuttle.stationary)
+			if(!istype(stationary, /obj/docking_port/stationary/transit) && stationary.width == mobile_docking_port.width && stationary.height == mobile_docking_port.height && stationary.dwidth == mobile_docking_port.dwidth && stationary.dheight == mobile_docking_port.dheight && findtext(stationary.id, mobile_docking_port.id))
+				possible_destinations += "[possible_destinations ? ";" : ""][stationary.id]"
 
 /obj/machinery/computer/shuttle/attack_hand(mob/user)
 	if(..(user))

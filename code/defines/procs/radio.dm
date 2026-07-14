@@ -70,8 +70,8 @@
 	tcm.follow_target = follow_target_override || sender
 
 	// Now put that through the stuff
-	for(var/obj/machinery/tcomms/core/C in GLOB.tcomms_machines)
-		C.handle_message(tcm)
+	for(var/obj/machinery/tcomms/core/core in GLOB.tcomms_machines)
+		core.handle_message(tcm)
 
 	qdel(tcm) // Delete the message datum
 

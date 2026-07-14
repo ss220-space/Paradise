@@ -498,24 +498,24 @@
  */
 /mob/living/simple_animal/bot/secbot/proc/look_for_perp()
 	set_anchored(FALSE)
-	for(var/mob/living/carbon/C in view(7,src)) //Let's find us a criminal
-		if((C.stat) || (C.handcuffed))
+	for(var/mob/living/carbon/carbon in view(7,src)) //Let's find us a criminal
+		if((carbon.stat) || (carbon.handcuffed))
 			continue
 
-		if((C.name == oldtarget_name) && (world.time < last_found + 100))
+		if((carbon.name == oldtarget_name) && (world.time < last_found + 100))
 			continue
 
-		threatlevel = C.assess_threat(src)
+		threatlevel = carbon.assess_threat(src)
 
 		if(!threatlevel)
 			continue
 
 		else if(threatlevel >= 4)
-			target = C
-			oldtarget_name = C.name
+			target = carbon
+			oldtarget_name = carbon.name
 			speak("Вижу преступника! Уровень опасности - <b>[threatlevel]</b>!")
 			playsound(loc, pick('sound/voice/bcriminal.ogg', 'sound/voice/bjustice.ogg', 'sound/voice/bfreeze.ogg'), 50, FALSE)
-			visible_message("<b>[DECLENT_RU_CAP(src, NOMINATIVE)]</b> указывает на [C.name]!")
+			visible_message("<b>[DECLENT_RU_CAP(src, NOMINATIVE)]</b> указывает на [carbon.name]!")
 			mode = BOT_HUNT
 			INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 			break

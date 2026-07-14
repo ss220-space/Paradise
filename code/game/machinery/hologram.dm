@@ -381,9 +381,9 @@ GLOBAL_LIST_EMPTY(holopads)
 		if(another == src)
 			continue
 		if(another.validate_location(T))
-			var/obj/effect/overlay/holo_pad_hologram/h = LAZYACCESS(masters, holo_owner)
+			var/obj/effect/overlay/holo_pad_hologram/holo_pad_hologram = LAZYACCESS(masters, holo_owner)
 			unset_holo(holo_owner)
-			another.set_holo(holo_owner, h)
+			another.set_holo(holo_owner, holo_pad_hologram)
 			return TRUE
 	return FALSE
 
@@ -531,11 +531,11 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 			newangle += 180
 		else if(distx < 0)
 			newangle += 360
-	var/matrix/M = matrix()
+	var/matrix/matrix = matrix()
 	if(get_dist(get_turf(holo), new_turf) <= 1)
-		animate(ray, transform = turn(M.Scale(1, sqrt(distx*distx+disty*disty)), newangle), time = 1)
+		animate(ray, transform = turn(matrix.Scale(1, sqrt(distx*distx+disty*disty)), newangle), time = 1)
 	else
-		ray.transform = turn(M.Scale(1, sqrt(distx*distx+disty*disty)), newangle)
+		ray.transform = turn(matrix.Scale(1, sqrt(distx*distx+disty*disty)), newangle)
 
 /obj/effect/overlay/holo_pad_hologram
 	var/mob/living/Impersonation

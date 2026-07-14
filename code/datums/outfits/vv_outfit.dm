@@ -80,104 +80,104 @@
 		return vedits
 
 /mob/living/carbon/human/proc/copy_outfit()
-	var/datum/outfit/varedit/O = new
+	var/datum/outfit/varedit/varedit = new
 
 	//Copy equipment
 	var/list/result = list()
 	var/list/slots_to_check = list(ITEM_SLOT_CLOTH_INNER, ITEM_SLOT_BACK, ITEM_SLOT_CLOTH_OUTER, ITEM_SLOT_BELT, ITEM_SLOT_GLOVES, ITEM_SLOT_FEET, ITEM_SLOT_HEAD, ITEM_SLOT_MASK, ITEM_SLOT_NECK, ITEM_SLOT_EAR_LEFT, ITEM_SLOT_EAR_RIGHT, ITEM_SLOT_EYES, ITEM_SLOT_PDA, ITEM_SLOT_SUITSTORE, ITEM_SLOT_POCKET_LEFT, ITEM_SLOT_POCKET_RIGHT)
 	for(var/slot in slots_to_check)
-		var/obj/item/I = get_item_by_slot(slot)
-		var/vedits = collect_vv(I)
+		var/obj/item/item = get_item_by_slot(slot)
+		var/vedits = collect_vv(item)
 		if(vedits)
 			result["[slot]"] = vedits
-		if(istype(I))
-			O.set_equipment_by_slot(slot, I.type)
+		if(istype(item))
+			varedit.set_equipment_by_slot(slot, item.type)
 
 	//Copy hands
 	if(l_hand || r_hand) //Not in the mood to let outfits transfer amputees
 		var/obj/item/left_hand = l_hand
 		var/obj/item/right_hand = r_hand
 		if(istype(left_hand))
-			O.l_hand = left_hand.type
+			varedit.l_hand = left_hand.type
 			var/vedits = collect_vv(left_hand)
 			if(vedits)
 				result["LHAND"] = vedits
 		if(istype(right_hand))
-			O.r_hand = right_hand.type
+			varedit.r_hand = right_hand.type
 			var/vedits = collect_vv(left_hand)
 			if(vedits)
 				result["RHAND"] = vedits
-	O.vv_values = result
+	varedit.vv_values = result
 
 	//Copy backpack contents if exist.
 	var/obj/item/backpack = get_item_by_slot(ITEM_SLOT_BACK)
 	if(istype(backpack) && LAZYLEN(backpack.contents) > 0)
 		var/list/typecounts = list()
-		for(var/obj/item/I in backpack)
-			if(typecounts[I.type])
-				typecounts[I.type] += 1
+		for(var/obj/item/item in backpack)
+			if(typecounts[item.type])
+				typecounts[item.type] += 1
 			else
-				typecounts[I.type] = 1
-		O.backpack_contents = typecounts
+				typecounts[item.type] = 1
+		varedit.backpack_contents = typecounts
 		//TODO : Copy varedits from backpack stuff too.
 
 	//Copy access
-	O.stored_access = list()
+	varedit.stored_access = list()
 	var/obj/item/id_slot = get_item_by_slot(ITEM_SLOT_ID)
 	if(istype(id_slot, /obj/item/storage/wallet))
 		for(var/obj/item/item in id_slot)
 			if(is_id_card(item))
 				continue
-			if(O.backpack_contents[item.type])
-				O.backpack_contents[item.type] += 1
+			if(varedit.backpack_contents[item.type])
+				varedit.backpack_contents[item.type] += 1
 			else
-				O.backpack_contents[item.type] = 1
+				varedit.backpack_contents[item.type] = 1
 
-		if(O.backpack_contents[id_slot.type])
-			O.backpack_contents[id_slot.type] += 1
+		if(varedit.backpack_contents[id_slot.type])
+			varedit.backpack_contents[id_slot.type] += 1
 		else
-			O.backpack_contents[id_slot.type] = 1
+			varedit.backpack_contents[id_slot.type] = 1
 
-		O.stored_access |= id_slot.GetAccess()
+		varedit.stored_access |= id_slot.GetAccess()
 		var/obj/item/card/id/ID = id_slot.GetID()
 		if(ID && ID.registered_name == real_name)
-			O.update_id_name = TRUE
+			varedit.update_id_name = TRUE
 			var/vedits = collect_vv(ID)
 			if(vedits)
 				result["[ITEM_SLOT_ID]"] = vedits
-			O.set_equipment_by_slot(ITEM_SLOT_ID, ID.type)
+			varedit.set_equipment_by_slot(ITEM_SLOT_ID, ID.type)
 
 	else if(id_slot)
-		O.stored_access |= id_slot.GetAccess()
+		varedit.stored_access |= id_slot.GetAccess()
 		var/obj/item/card/id/ID = id_slot.GetID()
 		if(ID && ID.registered_name == real_name)
-			O.update_id_name = TRUE
+			varedit.update_id_name = TRUE
 			var/vedits = collect_vv(ID)
 			if(vedits)
 				result["[ITEM_SLOT_ID]"] = vedits
-			O.set_equipment_by_slot(ITEM_SLOT_ID, ID.type)
+			varedit.set_equipment_by_slot(ITEM_SLOT_ID, ID.type)
 
 	//Copy implants
-	O.implants = list()
-	for(var/obj/item/implant/I in contents)
-		O.implants |= I.type
+	varedit.implants = list()
+	for(var/obj/item/implant/item in contents)
+		varedit.implants |= item.type
 
 	// Copy cybernetic implants
-	O.cybernetic_implants = list()
+	varedit.cybernetic_implants = list()
 	for(var/obj/item/organ/internal/CI in (contents + internal_organs))
-		O.cybernetic_implants |= CI.type
+		varedit.cybernetic_implants |= CI.type
 
 	// Copy accessories
 	var/obj/item/clothing/under/uniform_slot = get_item_by_slot(ITEM_SLOT_CLOTH_INNER)
 	if(uniform_slot)
-		O.accessories = list()
+		varedit.accessories = list()
 		for(var/obj/item/clothing/accessory/accessory as anything in uniform_slot.accessories)
-			O.accessories |= accessory.type
+			varedit.accessories |= accessory.type
 
 	//Copy to outfit cache
 	var/outfit_name = tgui_input_text(usr, "Enter the outfit name")
-	O.name = outfit_name
-	GLOB.custom_outfits += O
+	varedit.name = outfit_name
+	GLOB.custom_outfits += varedit
 	to_chat(usr, "Outfit registered, use select equipment to equip it.")
 
 /datum/outfit/varedit/post_equip(mob/living/carbon/human/H, visualsOnly)

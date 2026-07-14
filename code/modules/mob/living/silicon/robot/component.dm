@@ -202,18 +202,18 @@
 	components["armour"] = new/datum/robot_component/armour(src)
 
 /mob/living/silicon/robot/proc/is_component_functioning(module_name)
-	var/datum/robot_component/C = components[module_name]
-	return C && C.installed && C.toggled && C.is_powered() && !C.component_disabled
+	var/datum/robot_component/robot_component = components[module_name]
+	return robot_component && robot_component.installed && robot_component.toggled && robot_component.is_powered() && !robot_component.component_disabled
 
 /mob/living/silicon/robot/proc/disable_component(module_name, duration)
-	var/datum/robot_component/D = get_component(module_name)
-	D.disable()
-	addtimer(CALLBACK(D, TYPE_PROC_REF(/datum/robot_component, enable)), duration)
+	var/datum/robot_component/robot_component = get_component(module_name)
+	robot_component.disable()
+	addtimer(CALLBACK(robot_component, TYPE_PROC_REF(/datum/robot_component, enable)), duration)
 
 // Returns component by it's string name
 /mob/living/silicon/robot/proc/get_component(component_name)
-	var/datum/robot_component/C = components[component_name]
-	return C
+	var/datum/robot_component/robot_component = components[component_name]
+	return robot_component
 
 /obj/item/broken_device
 	name = "broken component"
@@ -309,9 +309,9 @@
 			msgs += ("\t Damage Specifics: <font color='#FFA500'>[BU]</font> - <font color='red'>[BR]</font>")
 			if(M.timeofdeath && M.stat == DEAD)
 				msgs += (span_notice("Time of Disable: [station_time_timestamp("hh:mm:ss", M.timeofdeath)]"))
-			var/mob/living/silicon/robot/H = M
-			var/list/damaged = H.get_damaged_components(TRUE, TRUE, TRUE) // Get all except the missing ones
-			var/list/missing = H.get_missing_components()
+			var/mob/living/silicon/robot/robot = M
+			var/list/damaged = robot.get_damaged_components(TRUE, TRUE, TRUE) // Get all except the missing ones
+			var/list/missing = robot.get_missing_components()
 			msgs += (span_notice("Localized Damage:"))
 			if(!LAZYLEN(damaged) && !LAZYLEN(missing))
 				msgs += (span_notice("\t Components are OK."))
@@ -329,17 +329,17 @@
 					for(var/datum/robot_component/org in missing)
 						msgs += span_warning("\t [capitalize(org.name)]: MISSING")
 
-			if(H.emagged && prob(5))
+			if(robot.emagged && prob(5))
 				msgs += (span_warning("\t ERROR: INTERNAL SYSTEMS COMPROMISED"))
 
 		if("prosthetics")
-			var/mob/living/carbon/human/H = M
-			msgs += (span_notice("Analyzing Results for \the [H]:"))
+			var/mob/living/carbon/human/robot = M
+			msgs += (span_notice("Analyzing Results for \the [robot]:"))
 			msgs += ("Key: <font color='#FFA500'>Electronics</font>/<font color='red'>Brute</font>")
 
 			msgs += (span_notice("External prosthetics:"))
 			var/organ_found = FALSE
-			for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
+			for(var/obj/item/organ/external/bodypart as anything in robot.bodyparts)
 				if(!bodypart.is_robotic())
 					continue
 				organ_found = TRUE
@@ -349,7 +349,7 @@
 			msgs += ("<hr>")
 			msgs += (span_notice("Internal prosthetics:"))
 			organ_found = FALSE
-			for(var/obj/item/organ/internal/organ as anything in H.internal_organs)
+			for(var/obj/item/organ/internal/organ as anything in robot.internal_organs)
 				if(!organ.is_robotic())
 					continue
 				organ_found = TRUE

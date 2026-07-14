@@ -82,19 +82,19 @@ GLOBAL_LIST_INIT(valid_blobstrains, subtypesof(/datum/blobstrain) - list(/datum/
 		overmind.blob_core.strong_reinforce_range += core_strong_reinforcement_range_bonus
 		overmind.blob_core.reflector_reinforce_range += core_reflector_reinforcement_range_bonus
 
-	for(var/obj/structure/blob/special/node/N as anything in overmind.node_blobs)
-		N.claim_range += node_range_bonus
-		N.pulse_range += node_range_bonus
-		N.expand_range += node_range_bonus
-		N.strong_reinforce_range += node_strong_reinforcement_range_bonus
-		N.reflector_reinforce_range += node_reflector_reinforcement_range_bonus
+	for(var/obj/structure/blob/special/node/node as anything in overmind.node_blobs)
+		node.claim_range += node_range_bonus
+		node.pulse_range += node_range_bonus
+		node.expand_range += node_range_bonus
+		node.strong_reinforce_range += node_strong_reinforcement_range_bonus
+		node.reflector_reinforce_range += node_reflector_reinforcement_range_bonus
 
-	for(var/obj/structure/blob/special/factory/F as anything in overmind.factory_blobs)
-		F.max_spores += factory_spore_bonus
+	for(var/obj/structure/blob/special/factory/factory as anything in overmind.factory_blobs)
+		factory.max_spores += factory_spore_bonus
 
-	for(var/obj/structure/blob/B as anything in overmind.all_blobs)
-		B.modify_max_integrity(B.max_integrity * max_structure_health_multiplier)
-		B.update_blob()
+	for(var/obj/structure/blob/blob as anything in overmind.all_blobs)
+		blob.modify_max_integrity(blob.max_integrity * max_structure_health_multiplier)
+		blob.update_blob()
 
 	for(var/mob/living/blob_mob as anything in overmind.blob_mobs)
 		blob_mob.maxHealth *= max_mob_health_multiplier
@@ -112,17 +112,17 @@ GLOBAL_LIST_INIT(valid_blobstrains, subtypesof(/datum/blobstrain) - list(/datum/
 		overmind.blob_core.strong_reinforce_range -= core_strong_reinforcement_range_bonus
 		overmind.blob_core.reflector_reinforce_range -= core_reflector_reinforcement_range_bonus
 
-	for(var/obj/structure/blob/special/node/N as anything in overmind.node_blobs)
-		N.claim_range -= node_range_bonus
-		N.expand_range -= node_range_bonus
-		N.strong_reinforce_range -= node_strong_reinforcement_range_bonus
-		N.reflector_reinforce_range -= node_reflector_reinforcement_range_bonus
+	for(var/obj/structure/blob/special/node/node as anything in overmind.node_blobs)
+		node.claim_range -= node_range_bonus
+		node.expand_range -= node_range_bonus
+		node.strong_reinforce_range -= node_strong_reinforcement_range_bonus
+		node.reflector_reinforce_range -= node_reflector_reinforcement_range_bonus
 
-	for(var/obj/structure/blob/special/factory/F as anything in overmind.factory_blobs)
-		F.max_spores -= factory_spore_bonus
+	for(var/obj/structure/blob/special/factory/factory as anything in overmind.factory_blobs)
+		factory.max_spores -= factory_spore_bonus
 
-	for(var/obj/structure/blob/B as anything in overmind.all_blobs)
-		B.modify_max_integrity(B.max_integrity / max_structure_health_multiplier)
+	for(var/obj/structure/blob/blob as anything in overmind.all_blobs)
+		blob.modify_max_integrity(blob.max_integrity / max_structure_health_multiplier)
 
 	for(var/mob/living/blob_mob as anything in overmind.blob_mobs)
 		blob_mob.maxHealth /= max_mob_health_multiplier

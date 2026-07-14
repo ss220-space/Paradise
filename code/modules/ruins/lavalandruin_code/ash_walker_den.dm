@@ -59,18 +59,18 @@
 	spawn_mob()
 
 /obj/structure/lavaland/ash_walker/proc/consume()
-	for(var/mob/living/H in view(src, 1)) //Only for corpse right next to/on same tile
-		if(H.stat)
-			visible_message(span_warning("Шипастые усики жадно подтаскивают тело [H.declent_ru(GENITIVE)] и разрывают его на куски, окропляя кровью растущие яйца."))
+	for(var/mob/living/living in view(src, 1)) //Only for corpse right next to/on same tile
+		if(living.stat)
+			visible_message(span_warning("Шипастые усики жадно подтаскивают тело [living.declent_ru(GENITIVE)] и разрывают его на куски, окропляя кровью растущие яйца."))
 			playsound(get_turf(src),'sound/magic/demon_consume.ogg', 100, TRUE)
-			for(var/obj/item/W in H)
-				if(!H.drop_item_ground(W))
-					qdel(W)
-			if(ismegafauna(H))
+			for(var/obj/item/item in living)
+				if(!living.drop_item_ground(item))
+					qdel(item)
+			if(ismegafauna(living))
 				meat_counter += 20
 			else
 				meat_counter++
-			H.gib()
+			living.gib()
 			repair_damage(max_integrity * 0.05)//restores 5% hp of tendril
 
 /obj/structure/lavaland/ash_walker/proc/spawn_mob()

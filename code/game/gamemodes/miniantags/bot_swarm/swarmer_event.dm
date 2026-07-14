@@ -22,7 +22,7 @@
 	new /obj/effect/mob_spawn/swarmer(get_turf(GLOB.the_gateway))
 
 /datum/event/spawn_swarmer/proc/find_swarmer()
-	for(var/mob/living/M in GLOB.mob_list)
-		if(isswarmer(M) && M.client) //If there is a swarmer with an active client, we've found our swarmer
+	for(var/mob/living/living in GLOB.mob_list)
+		if(isswarmer(living) && living.client) //If there is a swarmer with an active client, we've found our swarmer
 			return 1
 	return 0

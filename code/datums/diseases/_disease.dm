@@ -195,13 +195,13 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	if(!CanContract(M, act_type, need_protection_check, zone))
 		return FALSE
 
-	var/datum/disease/D = Copy()
-	LAZYADD(M.diseases, D)
-	D.affected_mob = M
-	GLOB.active_diseases += D
-	D.carrier = is_carrier
-	D.affected_mob.med_hud_set_status()
-	return D
+	var/datum/disease/disease = Copy()
+	LAZYADD(M.diseases, disease)
+	disease.affected_mob = M
+	GLOB.active_diseases += disease
+	disease.carrier = is_carrier
+	disease.affected_mob.med_hud_set_status()
+	return disease
 
 /datum/disease/proc/IsSame(datum/disease/D)
 	if(src.type == D.type)
@@ -209,8 +209,8 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	return FALSE
 
 /datum/disease/proc/Copy()
-	var/datum/disease/D = new type()
-	return D
+	var/datum/disease/disease = new type()
+	return disease
 
 /datum/disease/proc/GetDiseaseID()
 	return type

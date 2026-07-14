@@ -69,8 +69,8 @@
 			_y = min
 
 	var/list/levels_available = get_all_linked_levels_zpos()
-	var/turf/T = locate(_x, _y, pick(levels_available))
-	dumpee.forceMove(T)
+	var/turf/turf = locate(_x, _y, pick(levels_available))
+	dumpee.forceMove(turf)
 	dumpee.newtonian_move(dumpee.dir)
 
 /turf/space/transit/rpd_act(mob/user, obj/item/rpd/our_rpd, mode)

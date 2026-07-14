@@ -67,10 +67,10 @@ GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 		CRASH("moveToEmptyCore called without any available cores")
 
 	// IsJobAvailable for AI checks that there is an empty core available in this list
-	var/obj/structure/AIcore/deactivated/C = GLOB.empty_playable_ai_cores[1]
-	GLOB.empty_playable_ai_cores -= C
+	var/obj/structure/AIcore/deactivated/deactivated = GLOB.empty_playable_ai_cores[1]
+	GLOB.empty_playable_ai_cores -= deactivated
 
-	forceMove(C.loc)
+	forceMove(deactivated.loc)
 	view_core()
 
-	qdel(C)
+	qdel(deactivated)

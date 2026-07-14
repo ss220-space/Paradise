@@ -74,8 +74,8 @@
 		to_chat(user, span_warning("Разум [C.name] не предназначен для порабощения."))
 		return
 
-	var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire)
-	if(V.subclass.thrall_cap <= length(user.mind.som.serv))
+	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
+	if(vampire.subclass.thrall_cap <= length(user.mind.som.serv))
 		to_chat(user, span_warning("У вас не хватит сил, чтобы поработить ещё больше гуманоидов!"))
 		return
 

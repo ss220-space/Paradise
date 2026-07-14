@@ -554,9 +554,9 @@
 		throw_mode_off()
 	else
 		throw_mode_on()
-	var/obj/item/I = get_active_hand()
-	if(I)
-		SEND_SIGNAL(I, COMSIG_CARBON_TOGGLE_THROW, in_throw_mode)
+	var/obj/item/item = get_active_hand()
+	if(item)
+		SEND_SIGNAL(item, COMSIG_CARBON_TOGGLE_THROW, in_throw_mode)
 
 #define THROW_MODE_ICON 'icons/effects/cult_target.dmi'
 
@@ -799,8 +799,8 @@
 	var/fullness = nutrition + 10
 	var/time_to_eat = toEat.eat_time
 	if(istype(toEat, /obj/item/reagent_containers/food/snacks))
-		for(var/datum/reagent/consumable/C in reagents.reagent_list) //we add the nutrition value of what we're currently digesting
-			fullness += C.nutriment_factor * C.volume / (C.metabolization_rate * metabolism_efficiency * digestion_ratio)
+		for(var/datum/reagent/consumable/consumable in reagents.reagent_list) //we add the nutrition value of what we're currently digesting
+			fullness += consumable.nutriment_factor * consumable.volume / (consumable.metabolization_rate * metabolism_efficiency * digestion_ratio)
 	if(user == src)
 		if(time_to_eat > 0 && !do_after(user, time_to_eat, max_interact_count = 1))
 			return FALSE
@@ -992,9 +992,9 @@ so that different stomachs can handle things in different ways VB*/
 /mob/living/carbon/proc/shock_reduction()
 	var/shock_reduction = 0
 	if(reagents)
-		for(var/datum/reagent/R in reagents.reagent_list)
-			if(R.shock_reduction)
-				shock_reduction += R.shock_reduction
+		for(var/datum/reagent/reagent in reagents.reagent_list)
+			if(reagent.shock_reduction)
+				shock_reduction += reagent.shock_reduction
 	return shock_reduction
 
 /mob/living/carbon/can_change_move_intent(silent = FALSE)

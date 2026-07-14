@@ -759,10 +759,10 @@
 		selector.moveToNullspace() //Otherwise, we move the selector to nullspace until it is needed again
 
 /datum/centcom_podlauncher/proc/clearBay() //Clear all objs and mobs from the selected bay
-	for(var/obj/O in bay.get_all_contents())
-		qdel(O)
-	for(var/mob/M in bay.get_all_contents())
-		qdel(M)
+	for(var/obj/obj in bay.get_all_contents())
+		qdel(obj)
+	for(var/mob/mob in bay.get_all_contents())
+		qdel(mob)
 	for(var/bayturf in bay)
 		var/turf/turf_to_clear = bayturf
 		turf_to_clear.ChangeTurf(/turf/simulated/floor)
@@ -778,13 +778,13 @@
 	var/podString = effectBurst ? "5 pods" : "a pod"
 	var/whomString = ""
 	if(LAZYLEN(whoDyin))
-		for(var/mob/living/M in whoDyin)
-			whomString += "[key_name(M)], "
+		for(var/mob/living/living in whoDyin)
+			whomString += "[key_name(living)], "
 
 	var/msg = "launched [podString] towards [whomString]"
 	message_admins("[key_name_admin(usr)] [msg] in [ADMIN_VERBOSEJMP(specificTarget)].")
 	if(length(whoDyin))
-		for(var/mob/living/M in whoDyin)
+		for(var/mob/living/living in whoDyin)
 			log_and_message_admins("[key_name_admin(usr)] [msg]")
 
 /datum/centcom_podlauncher/proc/loadData(list/dataToLoad)

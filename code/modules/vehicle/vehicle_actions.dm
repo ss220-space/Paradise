@@ -19,11 +19,11 @@
  * returns created and set up action instance
  */
 /obj/vehicle/proc/generate_action_type(actiontype)
-	var/datum/action/vehicle/A = new actiontype
-	if(!istype(A))
+	var/datum/action/vehicle/vehicle = new actiontype
+	if(!istype(vehicle))
 		return
-	A.vehicle_target = src
-	return A
+	vehicle.vehicle_target = src
+	return vehicle
 
 /**
  * ## initialize_passenger_action_type

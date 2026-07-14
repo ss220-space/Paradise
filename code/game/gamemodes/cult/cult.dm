@@ -14,8 +14,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 	if(mind.isholy)
 		return FALSE
 	if(ishuman(mind.current))
-		var/mob/living/carbon/human/H = mind.current
-		if(ismindshielded(H)) //mindshield protects against conversions unless removed
+		var/mob/living/carbon/human/human = mind.current
+		if(ismindshielded(human)) //mindshield protects against conversions unless removed
 			return FALSE
 	if(mind.offstation_role)
 		return FALSE
@@ -24,8 +24,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 	if(isalien(mind.current))
 		return FALSE
 	if(isguardian(mind.current))
-		var/mob/living/simple_animal/hostile/guardian/G = mind.current
-		if(!iscultist(G.summoner))
+		var/mob/living/simple_animal/hostile/guardian/guardian = mind.current
+		if(!iscultist(guardian.summoner))
 			return FALSE //can't convert it unless the owner is converted
 	if(isgolem(mind.current))
 		return FALSE
@@ -131,10 +131,10 @@ GLOBAL_LIST_EMPTY(all_cults)
 	var/cultists = 0
 	var/constructs = 0
 	for(var/I in cult)
-		var/datum/mind/M = I
-		if(ishuman(M.current) && !M.current.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST) && !M.madeby_sentience_potion)
+		var/datum/mind/mind = I
+		if(ishuman(mind.current) && !mind.current.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST) && !mind.madeby_sentience_potion)
 			cultists++
-		else if(isconstruct(M.current))
+		else if(isconstruct(mind.current))
 			constructs++
 	if(separate)
 		return list(cultists, constructs)
@@ -220,23 +220,23 @@ GLOBAL_LIST_EMPTY(all_cults)
 
 	if((cult_players >= rise_number) && !cult_risen)
 		cult_risen = TRUE
-		for(var/datum/mind/M in cult)
-			if(!M.current || !ishuman(M.current))
+		for(var/datum/mind/mind in cult)
+			if(!mind.current || !ishuman(mind.current))
 				continue
-			SEND_SOUND(M.current, sound('sound/ambience/antag/bloodcult_eyes.ogg'))
-			to_chat(M.current, span_cultlarge("The veil weakens as your cult grows, your eyes begin to glow..."))
+			SEND_SOUND(mind.current, sound('sound/ambience/antag/bloodcult_eyes.ogg'))
+			to_chat(mind.current, span_cultlarge("The veil weakens as your cult grows, your eyes begin to glow..."))
 			log_admin("The Blood Cult has risen. The eyes started to glow.")
-			addtimer(CALLBACK(src, PROC_REF(rise), M.current), 20 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(rise), mind.current), 20 SECONDS)
 
 	if(cult_players >= ascend_number)
 		cult_ascendant = TRUE
-		for(var/datum/mind/M in cult)
-			if(!M.current || !ishuman(M.current))
+		for(var/datum/mind/mind in cult)
+			if(!mind.current || !ishuman(mind.current))
 				continue
-			SEND_SOUND(M.current, sound('sound/ambience/antag/bloodcult_halos.ogg'))
-			to_chat(M.current, span_cultlarge("Your cult is ascendant and the red harvest approaches - you cannot hide your true nature for much longer!"))
+			SEND_SOUND(mind.current, sound('sound/ambience/antag/bloodcult_halos.ogg'))
+			to_chat(mind.current, span_cultlarge("Your cult is ascendant and the red harvest approaches - you cannot hide your true nature for much longer!"))
 			log_admin("The Blood Cult has Ascended. The blood halo started to appear.")
-			addtimer(CALLBACK(src, PROC_REF(ascend), M.current), 20 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(ascend), mind.current), 20 SECONDS)
 		GLOB.major_announcement.announce(
 			message = "На вашей станции обнаружена внепространственная активность, связанная с культом [SSticker.cultdat ? SSticker.cultdat.entity_name : "Нар’Си"]. Данные свидетельствуют о том, что в ряды культа обращено около [ascend_percent * 100]% экипажа станции. Служба безопасности получает право свободно применять летальную силу против культистов. Прочий персонал должен быть готов защищать себя и свои рабочие места от нападений культистов (в том числе используя летальную силу в качестве крайней меры самообороны). Погибшие члены экипажа должны быть оживлены и деконвертированы, как только ситуация будет взята под контроль.",
 			new_title = ANNOUNCE_CCPARANORMAL_RU,
@@ -246,19 +246,19 @@ GLOBAL_LIST_EMPTY(all_cults)
 
 /datum/game_mode/proc/rise(cultist)
 	if(ishuman(cultist) && iscultist(cultist))
-		var/mob/living/carbon/human/H = cultist
-		if(!H.original_eye_color)
-			H.original_eye_color = H.get_eye_color()
-		H.change_eye_color(BLOODCULT_EYE, FALSE)
-		H.update_eyes()
-		ADD_TRAIT(H, TRAIT_RED_EYES, CULT_TRAIT)
-		H.update_body()
+		var/mob/living/carbon/human/human = cultist
+		if(!human.original_eye_color)
+			human.original_eye_color = human.get_eye_color()
+		human.change_eye_color(BLOODCULT_EYE, FALSE)
+		human.update_eyes()
+		ADD_TRAIT(human, TRAIT_RED_EYES, CULT_TRAIT)
+		human.update_body()
 
 /datum/game_mode/proc/ascend(cultist)
 	if(ishuman(cultist) && iscultist(cultist))
-		var/mob/living/carbon/human/H = cultist
-		new /obj/effect/temp_visual/cult/sparks(get_turf(H), H.dir)
-		SEND_SIGNAL(H, COMSIG_MOB_HALO_GAINED)
+		var/mob/living/carbon/human/human = cultist
+		new /obj/effect/temp_visual/cult/sparks(get_turf(human), human.dir)
+		SEND_SIGNAL(human, COMSIG_MOB_HALO_GAINED)
 
 /datum/game_mode/proc/remove_cultist(datum/mind/cult_mind, show_message = TRUE)
 	if(cult_mind in cult)
@@ -266,22 +266,22 @@ GLOBAL_LIST_EMPTY(all_cults)
 		cult -= cult_mind
 		cultist.faction -= "cult"
 		cult_mind.special_role = null
-		for(var/datum/objective/servecult/O in cult_mind.objectives)
-			cult_mind.objectives -= O
-			qdel(O)
+		for(var/datum/objective/servecult/servecult in cult_mind.objectives)
+			cult_mind.objectives -= servecult
+			qdel(servecult)
 		REMOVE_TRAIT(cult_mind.current, TRAIT_HEALS_FROM_CULT_PYLONS, CULT_TRAIT)
 		cult_mind.current.RemoveElement(/datum/element/halo_attach)
-		for(var/datum/action/innate/cult/C in cultist.actions)
-			qdel(C)
+		for(var/datum/action/innate/cult/cult in cultist.actions)
+			qdel(cult)
 		update_cult_icons_removed(cult_mind)
 
 		if(ishuman(cultist))
-			var/mob/living/carbon/human/H = cultist
-			REMOVE_TRAIT(H, TRAIT_RED_EYES, CULT_TRAIT)
-			H.change_eye_color(H.original_eye_color, FALSE)
-			H.update_eyes()
-			H.remove_overlay(HALO_LAYER)
-			H.update_body()
+			var/mob/living/carbon/human/human = cultist
+			REMOVE_TRAIT(human, TRAIT_RED_EYES, CULT_TRAIT)
+			human.change_eye_color(human.original_eye_color, FALSE)
+			human.update_eyes()
+			human.remove_overlay(HALO_LAYER)
+			human.update_body()
 		check_cult_size()
 		add_conversion_logs(cultist, "deconverted from the blood cult.")
 		if(show_message)
@@ -302,10 +302,10 @@ GLOBAL_LIST_EMPTY(all_cults)
 
 /datum/game_mode/proc/add_cult_actions(datum/mind/cult_mind)
 	if(cult_mind.current)
-		var/datum/action/innate/cult/comm/C = new
-		var/datum/action/innate/cult/check_progress/D = new
-		C.Grant(cult_mind.current)
-		D.Grant(cult_mind.current)
+		var/datum/action/innate/cult/comm/comm = new
+		var/datum/action/innate/cult/check_progress/check_progress = new
+		comm.Grant(cult_mind.current)
+		check_progress.Grant(cult_mind.current)
 		if(ishuman(cult_mind.current))
 			var/datum/action/innate/cult/blood_magic/magic = new
 			magic.Grant(cult_mind.current)

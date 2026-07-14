@@ -525,12 +525,12 @@
 
 /turf/proc/kill_creatures(mob/U = null)//Will kill people/creatures and damage mechs./N
 //Useful to batch-add creatures to the list.
-	for(var/mob/living/M in src)
-		if(M == U)
-			continue//Will not harm U. Since null != M, can be excluded to kill everyone.
-		INVOKE_ASYNC(M, TYPE_PROC_REF(/mob, gib))
-	for(var/obj/mecha/M in src)//Mecha are not gibbed but are damaged.
-		INVOKE_ASYNC(M, TYPE_PROC_REF(/obj/mecha, take_damage), 100, "brute")
+	for(var/mob/living/living in src)
+		if(living == U)
+			continue//Will not harm U. Since null != living, can be excluded to kill everyone.
+		INVOKE_ASYNC(living, TYPE_PROC_REF(/mob, gib))
+	for(var/obj/mecha/living in src)//Mecha are not gibbed but are damaged.
+		INVOKE_ASYNC(living, TYPE_PROC_REF(/obj/mecha, take_damage), 100, "brute")
 
 /turf/proc/Bless()
 	turf_flags |= NOJAUNT
@@ -682,15 +682,15 @@
 	return TRUE
 
 /turf/proc/add_blueprints(atom/movable/AM)
-	var/image/I = new
-	I.appearance = AM.appearance
-	SET_PLANE(I, GAME_PLANE, src)
-	I.layer = GHOST_LAYER + AM.layer
-	I.appearance_flags = RESET_COLOR|RESET_ALPHA|RESET_TRANSFORM
-	I.loc = src
-	I.setDir(AM.dir)
-	I.alpha = 128
-	LAZYADD(blueprint_data, I)
+	var/image/image = new
+	image.appearance = AM.appearance
+	SET_PLANE(image, GAME_PLANE, src)
+	image.layer = GHOST_LAYER + AM.layer
+	image.appearance_flags = RESET_COLOR|RESET_ALPHA|RESET_TRANSFORM
+	image.loc = src
+	image.setDir(AM.dir)
+	image.alpha = 128
+	LAZYADD(blueprint_data, image)
 
 /turf/proc/add_blueprints_preround(atom/movable/AM)
 	if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
@@ -828,18 +828,18 @@
  * Makes an image of up to 20 things on a turf + the turf.
  */
 /turf/proc/photograph(limit = 20)
-	var/image/I = new()
-	I.add_overlay(src)
+	var/image/image = new()
+	image.add_overlay(src)
 	for(var/V in contents)
-		var/atom/A = V
-		if(A.invisibility)
+		var/atom/atom = V
+		if(atom.invisibility)
 			continue
-		I.add_overlay(A)
+		image.add_overlay(atom)
 		if(limit)
 			limit--
 		else
-			return I
-	return I
+			return image
+	return image
 
 /turf/hit_by_thrown_mob(mob/living/throwned_mob, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	if(mob_hurt || !density)

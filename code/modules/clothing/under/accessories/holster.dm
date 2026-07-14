@@ -24,8 +24,8 @@
 /obj/item/clothing/accessory/holster/proc/can_holster(obj/item/I)
 	if(!istype(I, holster_allow))
 		return FALSE
-	var/obj/item/gun/G = I
-	if(istype(G) && (!G.can_holster || G.w_class > WEIGHT_CLASS_NORMAL))
+	var/obj/item/gun/gun = I
+	if(istype(gun) && (!gun.can_holster || gun.w_class > WEIGHT_CLASS_NORMAL))
 		return FALSE
 	return TRUE
 

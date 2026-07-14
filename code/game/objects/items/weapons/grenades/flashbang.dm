@@ -52,38 +52,38 @@
 /proc/bang(turf/target, atom/source, range = 7, flash = TRUE, bang = TRUE, direct_bang = TRUE)
 	// Flashing mechanic
 	var/turf/source_turf = get_turf(source)
-	for(var/mob/living/M in hearers(range, target))
-		if(M.stat == DEAD)
+	for(var/mob/living/living in hearers(range, target))
+		if(living.stat == DEAD)
 			continue
-		M.show_message(span_warning("BANG"), 2)
-		var/mobturf = get_turf(M)
+		living.show_message(span_warning("BANG"), 2)
+		var/mobturf = get_turf(living)
 
 		var/distance = max(1, get_dist(source_turf, mobturf))
 		var/status_duration = max(10 SECONDS / distance, 4 SECONDS)
 
 		// Flash
 		if(flash)
-			if(M.weakeyes)
-				M.visible_message(span_disarm("[M.declent_ru(NOMINATIVE)] истошно крич[PLUR_IT_AT(M)] и пада[PLUR_ET_YUT(M)] на пол!"))
-				to_chat(M, span_userdanger(span_fontsize3("ГЛАЗА!!!")))
-				M.Weaken(status_duration * 3)
-				if(ishuman(M))
-					M.emote("scream")
-					var/mob/living/carbon/human/H = M
-					var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
-					if(E)
-						E.internal_receive_damage(8, silent = TRUE)
-			if(M.flash_eyes())
-				M.AdjustConfused(status_duration * 2)
+			if(living.weakeyes)
+				living.visible_message(span_disarm("[living.declent_ru(NOMINATIVE)] истошно крич[PLUR_IT_AT(living)] и пада[PLUR_ET_YUT(living)] на пол!"))
+				to_chat(living, span_userdanger(span_fontsize3("ГЛАЗА!!!")))
+				living.Weaken(status_duration * 3)
+				if(ishuman(living))
+					living.emote("scream")
+					var/mob/living/carbon/human/human = living
+					var/obj/item/organ/internal/eyes/eyes = human.get_int_organ(/obj/item/organ/internal/eyes)
+					if(eyes)
+						eyes.internal_receive_damage(8, silent = TRUE)
+			if(living.flash_eyes())
+				living.AdjustConfused(status_duration * 2)
 
-			if(issilicon(M))
-				M.Weaken(status_duration * 2)
+			if(issilicon(living))
+				living.Weaken(status_duration * 2)
 
 		// Bang
 		if(!bang)
 			continue
 
-		var/ear_safety = M.check_ear_prot()
+		var/ear_safety = living.check_ear_prot()
 
 		//Atmosphere affects sound
 		var/pressure_factor = 1
@@ -101,33 +101,33 @@
 			pressure_factor = max(pressure_factor, 0.15) //touching the source of the sound
 
 		if(direct_bang && source_turf == mobturf) // Holding on person or being exactly where lies is significantly more dangerous and voids protection
-			M.Weaken(10 SECONDS)
+			living.Weaken(10 SECONDS)
 
 		if(ear_safety)
 			continue
 
-		M.apply_damage(15, STAMINA)
-		M.Weaken(status_duration * pressure_factor)
-		M.Deaf(30 SECONDS * pressure_factor)
+		living.apply_damage(15, STAMINA)
+		living.Weaken(status_duration * pressure_factor)
+		living.Deaf(30 SECONDS * pressure_factor)
 
-		if(!iscarbon(M))
+		if(!iscarbon(living))
 			continue
 
-		var/mob/living/carbon/C = M
-		var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
+		var/mob/living/carbon/carbon = living
+		var/obj/item/organ/internal/ears/ears = carbon.get_int_organ(/obj/item/organ/internal/ears)
 
 		if(!istype(ears))
 			continue
 
-		if(HAS_TRAIT(M, TRAIT_WEAK_EARS))
+		if(HAS_TRAIT(living, TRAIT_WEAK_EARS))
 			ears.internal_receive_damage(10)
 
 		ears.internal_receive_damage(5 * pressure_factor)
 		if(ears.damage >= 15)
-			to_chat(M, span_warning("У вас начинает очень сильно звенеть в ушах!"))
+			to_chat(living, span_warning("У вас начинает очень сильно звенеть в ушах!"))
 			if(prob(ears.damage - 5))
-				to_chat(M, span_warning("Вы ничего не слышите!"))
+				to_chat(living, span_warning("Вы ничего не слышите!"))
 			continue
 
 		if(ears.damage >= 5)
-			to_chat(M, span_warning("У вас начинает звенеть в ушах."))
+			to_chat(living, span_warning("У вас начинает звенеть в ушах."))

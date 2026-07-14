@@ -1,8 +1,8 @@
 //wrapper
 // Set *ignore_bluespace_interference* to TRUE if you don't want your teleportation to be affected by BoH, SoH and other bluespace stuff
 /proc/do_teleport(ateleatom, adestination, aprecision = 0, afteleport = 1, aeffectin = null, aeffectout = null, asoundin = null, asoundout = null, bypass_area_flag = FALSE, ignore_bluespace_interference = FALSE)
-	var/datum/teleport/instant/science/D = new
-	if(D.start(arglist(args)))
+	var/datum/teleport/instant/science/science = new
+	if(science.start(arglist(args)))
 		return TRUE
 	return FALSE
 
@@ -106,8 +106,8 @@
 		var/center = get_turf(destination)
 		if(!center)
 			center = destination
-		for(var/turf/T in range(precision, center))
-			posturfs.Add(T)
+		for(var/turf/turf in range(precision, center))
+			posturfs.Add(turf)
 		destturf = safepick(posturfs)
 	else
 		destturf = get_turf(destination)
@@ -138,11 +138,11 @@
 		playSpecials(destturf, effectout, soundout)
 
 	if(isliving(teleatom))
-		var/mob/living/L = teleatom
-		if(L.buckled)
-			L.buckled.unbuckle_mob(L, force = TRUE)
-		if(L.has_buckled_mobs())
-			L.unbuckle_all_mobs(force = TRUE)
+		var/mob/living/living = teleatom
+		if(living.buckled)
+			living.buckled.unbuckle_mob(living, force = TRUE)
+		if(living.has_buckled_mobs())
+			living.unbuckle_all_mobs(force = TRUE)
 
 	teleatom.on_teleported()
 

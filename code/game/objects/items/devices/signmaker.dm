@@ -90,46 +90,46 @@
 		if(CARBON)
 			energy--
 			icon_flick()
-			var/mob/living/carbon/C = target
+			var/mob/living/carbon/carbon = target
 			if(user.zone_selected == BODY_ZONE_PRECISE_EYES)
-				add_attack_logs(user, C, "Shone a laser in the eyes with [src]")
+				add_attack_logs(user, carbon, "Shone a laser in the eyes with [src]")
 				//20% chance to actually hit the eyes
 				if(prob(20))
-					visible_message(span_notice("You blind [C] by shining [src] in [C.p_their()] eyes."))
-					if(C.weakeyes)
-						C.Stun(2 SECONDS)
+					visible_message(span_notice("You blind [carbon] by shining [src] in [carbon.p_their()] eyes."))
+					if(carbon.weakeyes)
+						carbon.Stun(2 SECONDS)
 				else
-					visible_message(span_warning("You fail to blind [C] by shining [src] at [C.p_their()] eyes!"))
+					visible_message(span_warning("You fail to blind [carbon] by shining [src] at [carbon.p_their()] eyes!"))
 			else
-				visible_message(span_notice("You missed the [C] with [src]."))
+				visible_message(span_notice("You missed the [carbon] with [src]."))
 		if(SILICON)
 			energy--
 			icon_flick()
-			var/mob/living/silicon/S = target
+			var/mob/living/silicon/silicon = target
 			if(user.zone_selected == BODY_ZONE_PRECISE_EYES)
 				//20% chance to actually hit the sensors
-				if(prob(20) && S.flash_eyes(affect_silicon = TRUE))
-					S.Weaken(rand(10 SECONDS, 20 SECONDS))
-					to_chat(S, span_warning("Your sensors were overloaded by a laser!"))
-					visible_message(span_notice("You overload [S] by shining [src] at [S.p_their()] sensors."))
+				if(prob(20) && silicon.flash_eyes(affect_silicon = TRUE))
+					silicon.Weaken(rand(10 SECONDS, 20 SECONDS))
+					to_chat(silicon, span_warning("Your sensors were overloaded by a laser!"))
+					visible_message(span_notice("You overload [silicon] by shining [src] at [silicon.p_their()] sensors."))
 
-					add_attack_logs(user, S, "shone [src] in their eyes")
+					add_attack_logs(user, silicon, "shone [src] in their eyes")
 				else
-					visible_message(span_notice("You fail to overload [S] by shining [src] at [S.p_their()] sensors."))
+					visible_message(span_notice("You fail to overload [silicon] by shining [src] at [silicon.p_their()] sensors."))
 			else
-				visible_message(span_notice("You missed the [S] with [src]."))
+				visible_message(span_notice("You missed the [silicon] with [src]."))
 		if(CAMERA)
 			energy--
 			icon_flick()
-			var/obj/machinery/camera/C = target
+			var/obj/machinery/camera/carbon = target
 			if(prob(20))
-				C.emp_act(1)
-				visible_message(span_notice("You hit the lens of [C] with [src], temporarily disabling the camera!"))
+				carbon.emp_act(1)
+				visible_message(span_notice("You hit the lens of [carbon] with [src], temporarily disabling the camera!"))
 
 				log_admin("[key_name(user)] EMPd a camera with a signmaker")
-				add_attack_logs(user, C, "EMPd with [src]", ATKLOG_ALL)
+				add_attack_logs(user, carbon, "EMPd with [src]", ATKLOG_ALL)
 			else
-				visible_message(span_notice("You missed the lens of [C] with [src]."))
+				visible_message(span_notice("You missed the lens of [carbon] with [src]."))
 		else
 			create_holosign(target, user)
 	//to make sure energy doesn't go below 0
@@ -145,14 +145,14 @@
 			clear_holosign()
 
 /obj/item/signmaker/proc/create_holosign(atom/target, mob/user)
-	var/turf/T = get_turf(target)
-	var/obj/structure/holosign/found_holosoap = locate(holosign_type) in T
+	var/turf/turf = get_turf(target)
+	var/obj/structure/holosign/found_holosoap = locate(holosign_type) in turf
 	if(found_holosoap)
 		if(found_holosoap == sign)
 			to_chat(user, span_notice("You use [src] to deactivate [sign]."))
 			clear_holosign()
 		return
-	if(T.is_blocked_turf(exclude_mobs = TRUE)) //can't put holograms on a tile that has dense stuff
+	if(turf.is_blocked_turf(exclude_mobs = TRUE)) //can't put holograms on a tile that has dense stuff
 		return
 	clear_holosign()
 	playsound(src, 'sound/machines/click.ogg', 20, TRUE)

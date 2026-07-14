@@ -175,12 +175,12 @@
 	addtimer(CALLBACK(src, PROC_REF(blackpowder_detonate), holder, created_volume), rand(5, 15))
 
 /datum/chemical_reaction/blackpowder_explosion/proc/blackpowder_detonate(datum/reagents/holder, created_volume)
-	var/turf/T = get_turf(holder.my_atom)
+	var/turf/turf = get_turf(holder.my_atom)
 	var/ex_severe = round(created_volume / 100)
 	var/ex_heavy = round(created_volume / 42)
 	var/ex_light = round(created_volume / 20)
 	var/ex_flash = round(created_volume / 8)
-	explosion(T, devastation_range = ex_severe, heavy_impact_range = ex_heavy, light_impact_range = ex_light, flash_range = ex_flash, adminlog = TRUE, cause = src)
+	explosion(turf, devastation_range = ex_severe, heavy_impact_range = ex_heavy, light_impact_range = ex_light, flash_range = ex_flash, adminlog = TRUE, cause = src)
 	// If this black powder is in a decal, remove the decal, because it just exploded
 	if(istype(holder.my_atom, /obj/effect/decal/cleanable/dirt/blackpowder))
 		qdel(holder.my_atom)
@@ -398,9 +398,9 @@
 
 /atom/proc/do_shock_ex(radius, damage = 3.5, animate = FALSE)
 	var/turf/epicenter = get_turf(src)
-	for(var/mob/living/L in view(radius, src))
-		L.Beam(epicenter, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 5) //What? Why are we beaming from the mob to the turf? Turf to mob generates really odd results.
-		L.electrocute_act(damage, src)
+	for(var/mob/living/living in view(radius, src))
+		living.Beam(epicenter, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 5) //What? Why are we beaming from the mob to the turf? Turf to mob generates really odd results.
+		living.electrocute_act(damage, src)
 
 /datum/chemical_reaction/shock_explosion/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/T = get_turf(holder.my_atom)

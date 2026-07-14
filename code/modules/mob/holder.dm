@@ -43,8 +43,8 @@
 	return ..()
 
 /obj/item/holder/proc/show_message(message, m_type, chat_message_type)
-	for(var/mob/living/M in contents)
-		M.show_message(message, m_type, chat_message_type)
+	for(var/mob/living/living in contents)
+		living.show_message(message, m_type, chat_message_type)
 
 /obj/item/holder/emp_act(intensity)
 	for(var/mob/living/M in contents)
@@ -102,29 +102,29 @@
 	if(!holder_type)
 		return
 
-	var/obj/item/holder/H = new holder_type(loc)
-	src.forceMove(H)
-	H.name = name
-	H.icon = icon
-	H.icon_state = icon_state
+	var/obj/item/holder/holder = new holder_type(loc)
+	src.forceMove(holder)
+	holder.name = name
+	holder.icon = icon
+	holder.icon_state = icon_state
 	if(desc)
-		H.desc = desc
-	H.attack_hand(grabber)
+		holder.desc = desc
+	holder.attack_hand(grabber)
 	to_chat(grabber, "<span class='notice'>Вы подняли [src.name].")
 	to_chat(src, span_notice("[grabber.name] поднял[GEND_A_O_I(grabber)] вас."))
 	grabber.status_flags |= PASSEMOTES
 
 	switch(mob_size)
 		if(MOB_SIZE_TINY)
-			H.w_class = WEIGHT_CLASS_TINY
+			holder.w_class = WEIGHT_CLASS_TINY
 		if(MOB_SIZE_SMALL)
-			H.w_class = WEIGHT_CLASS_SMALL
+			holder.w_class = WEIGHT_CLASS_SMALL
 		if(MOB_SIZE_HUMAN)
-			H.w_class = WEIGHT_CLASS_NORMAL
+			holder.w_class = WEIGHT_CLASS_NORMAL
 		if(MOB_SIZE_LARGE)
-			H.w_class = WEIGHT_CLASS_HUGE
+			holder.w_class = WEIGHT_CLASS_HUGE
 
-	return H
+	return holder
 
 //Mob specific holders.
 

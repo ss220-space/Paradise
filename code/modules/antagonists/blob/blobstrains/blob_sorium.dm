@@ -39,29 +39,29 @@
 		new /obj/effect/temp_visual/shockwave_old(pull)
 		playsound(pull, 'sound/effects/bang.ogg', 25, TRUE)
 	var/range_power = clamp(round(volume/5, 1), 1, 5)
-	for(var/atom/movable/X in range(range_power,pull))
-		if(iseffect(X))
+	for(var/atom/movable/movable in range(range_power,pull))
+		if(iseffect(movable))
 			continue
-		if(X.move_resist <= MOVE_FORCE_DEFAULT && !X.anchored)
-			var/distance = get_dist(X, pull)
+		if(movable.move_resist <= MOVE_FORCE_DEFAULT && !movable.anchored)
+			var/distance = get_dist(movable, pull)
 			var/moving_power = max(range_power - distance, 1)
 			spawn(0)
 				if(moving_power > 2) //if the vortex is powerful and we're close, we get thrown
 					if(setting_type)
-						var/atom/throw_target = get_edge_target_turf(X, get_dir(X, get_step_away(X, pull)))
+						var/atom/throw_target = get_edge_target_turf(movable, get_dir(movable, get_step_away(movable, pull)))
 						var/throw_range = 5 - distance
-						X.throw_at(throw_target, throw_range, 1)
+						movable.throw_at(throw_target, throw_range, 1)
 					else
-						X.throw_at(pull, distance, 1)
+						movable.throw_at(pull, distance, 1)
 				else
 					if(setting_type)
 						for(var/i = 0, i < moving_power, i++)
 							sleep(2)
-							if(!step_away(X, pull))
+							if(!step_away(movable, pull))
 								break
 					else
 						for(var/i = 0, i < moving_power, i++)
 							sleep(2)
-							if(!step_towards(X, pull))
+							if(!step_towards(movable, pull))
 								break
 

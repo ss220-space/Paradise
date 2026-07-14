@@ -57,12 +57,12 @@
 	update_hidden_state()
 
 /atom/movable/screen/ghost/respawn_list/proc/update_hidden_state()
-	var/matrix/M = matrix(transform)
-	M.Turn(-90)
+	var/matrix/matrix = matrix(transform)
+	matrix.Turn(-90)
 
 	cut_overlays()
 	var/image/img = image('icons/mob/actions/actions.dmi', src, (hud?.inventory_shown) ? "hide" : "show")
-	img.transform = M
+	img.transform = matrix
 	add_overlay(img)
 
 /atom/movable/screen/ghost/respawn_mob

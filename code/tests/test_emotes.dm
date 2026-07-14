@@ -39,7 +39,7 @@
 /datum/unit_test/emote/proc/get_emote_keybinds()
 	var/list/bound_emotes = list()
 	for(var/keybind in subtypesof(/datum/keybinding/emote))
-		var/datum/keybinding/emote/E = new keybind()
-		bound_emotes |= E.linked_emote
+		var/datum/keybinding/emote/emote = new keybind()
+		bound_emotes |= emote.linked_emote
 
 	return bound_emotes

@@ -33,7 +33,7 @@
 
 /datum/component/jackboots/proc/play_sound()
 	if(ismob(parent))
-		var/mob/M = parent
-		if(M.stat == DEAD)
+		var/mob/mob = parent
+		if(mob.stat == DEAD)
 			return
 	playsound(parent, pickweight(step_sounds), 20, TRUE, 0, falloff_exponent = sound_falloff_exponent)

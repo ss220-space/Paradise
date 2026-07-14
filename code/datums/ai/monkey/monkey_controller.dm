@@ -196,11 +196,11 @@ have ways of interacting with a specific mob and control it.
 	SIGNAL_HANDLER
 	if(isitem(AM))
 		var/mob/living/living_pawn = pawn
-		var/obj/item/I = AM
-		var/mob/thrown_by = locateUID(I.thrownby)
-		if(I.throwforce < living_pawn.health && ishuman(thrown_by))
-			var/mob/living/carbon/human/H = thrown_by
-			retaliate(H)
+		var/obj/item/item = AM
+		var/mob/thrown_by = locateUID(item.thrownby)
+		if(item.throwforce < living_pawn.health && ishuman(thrown_by))
+			var/mob/living/carbon/human/human = thrown_by
+			retaliate(human)
 
 /datum/ai_controller/monkey/proc/on_Crossed(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER

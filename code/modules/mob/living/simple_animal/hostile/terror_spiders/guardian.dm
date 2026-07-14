@@ -86,15 +86,15 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/guardian/proc/purple_distance_check()
 	if(spider_myqueen)
-		var/mob/living/simple_animal/hostile/poison/terror_spider/queen/Q = spider_myqueen
-		if(Q)
-			if(Q.stat == DEAD)
+		var/mob/living/simple_animal/hostile/poison/terror_spider/queen/queen = spider_myqueen
+		if(queen)
+			if(queen.stat == DEAD)
 				spider_myqueen = null
 				degenerate = TRUE
-				to_chat(src, span_userdanger("[DECLENT_RU_CAP(Q, NOMINATIVE)] умерла! Её сила больше не поддерживает вас!"))
+				to_chat(src, span_userdanger("[DECLENT_RU_CAP(queen, NOMINATIVE)] умерла! Её сила больше не поддерживает вас!"))
 				return
 
-			if(get_dist(src, Q) < vision_range)
+			if(get_dist(src, queen) < vision_range)
 				queen_visible = TRUE
 			else
 				queen_visible = FALSE
@@ -102,23 +102,23 @@
 			if(queen_visible)
 				cycles_noqueen = 0
 				if(spider_debug)
-					to_chat(src, span_notice("[DECLENT_RU_CAP(Q, NOMINATIVE)] в зоне видимости."))
+					to_chat(src, span_notice("[DECLENT_RU_CAP(queen, NOMINATIVE)] в зоне видимости."))
 			else
 				cycles_noqueen++
 				if(spider_debug)
-					to_chat(src, span_danger("[DECLENT_RU_CAP(Q, NOMINATIVE)] НЕ в зоне видимости. Цикл: [cycles_noqueen]."))
-			var/area/A = get_area(spider_myqueen)
+					to_chat(src, span_danger("[DECLENT_RU_CAP(queen, NOMINATIVE)] НЕ в зоне видимости. Цикл: [cycles_noqueen]."))
+			var/area/area = get_area(spider_myqueen)
 			switch(cycles_noqueen)
 				if(6)
 					// one minute without queen sighted
-					to_chat(src, span_danger("Вы отделились от [Q.declent_ru(GENITIVE)]. Вернитесь к ней в [A.declent_ru(PREPOSITIONAL)]."))
+					to_chat(src, span_danger("Вы отделились от [queen.declent_ru(GENITIVE)]. Вернитесь к ней в [area.declent_ru(PREPOSITIONAL)]."))
 				if(12)
 					// two minutes without queen sighted
-					to_chat(src, span_danger("Ваша долгая разлука с [Q.declent_ru(INSTRUMENTAL)] ослабляет вас. Вернитесь к ней в [A.declent_ru(PREPOSITIONAL)]."))
+					to_chat(src, span_danger("Ваша долгая разлука с [queen.declent_ru(INSTRUMENTAL)] ослабляет вас. Вернитесь к ней в [area.declent_ru(PREPOSITIONAL)]."))
 				if(18)
 					// three minutes without queen sighted, kill them.
 					degenerate = TRUE
-					to_chat(src, span_userdanger("Ваша связ с [Q] разорвана! Ваша жизненная сила начинает угасать!"))
+					to_chat(src, span_userdanger("Ваша связ с [queen] разорвана! Ваша жизненная сила начинает угасать!"))
 					melee_damage_lower = 5
 					melee_damage_upper = 10
 

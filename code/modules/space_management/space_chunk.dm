@@ -39,8 +39,8 @@
 		return FALSE
 	if(is_empty)
 		return TRUE
-	for(var/datum/space_chunk/C in children)
-		if(C.can_fit_space(w, h))
+	for(var/datum/space_chunk/space_chunk in children)
+		if(space_chunk.can_fit_space(w, h))
 			return TRUE
 	return FALSE
 
@@ -54,8 +54,8 @@
 		return src
 	var/datum/space_chunk/optimal_chunk
 	var/optimal_chunk_optimalness = 99999
-	for(var/datum/space_chunk/C in children)
-		var/datum/space_chunk/C2 = C.get_optimal_chunk(w, h)
+	for(var/datum/space_chunk/space_chunk in children)
+		var/datum/space_chunk/C2 = space_chunk.get_optimal_chunk(w, h)
 		if(!C2)
 			continue
 		var/optimalness = C2.width + C2.height-w-h
@@ -65,23 +65,23 @@
 	return optimal_chunk
 
 /datum/space_chunk/proc/set_occupied(new_occupied)
-	var/datum/space_chunk/C = parent
+	var/datum/space_chunk/space_chunk = parent
 	if(new_occupied)
 		occupied = TRUE
-		while(C)
-			C.is_empty = FALSE
-			C = C.parent
+		while(space_chunk)
+			space_chunk.is_empty = FALSE
+			space_chunk = space_chunk.parent
 	else
 		occupied = FALSE
-		while(C)
+		while(space_chunk)
 			var/is_children_empty = TRUE
-			for(var/datum/space_chunk/C2 in C.children)
+			for(var/datum/space_chunk/C2 in space_chunk.children)
 				if(!C2.is_empty || C2.occupied)
 					is_children_empty = FALSE
 			if(!is_children_empty)
 				break
-			C.is_empty = TRUE
-			C = C.parent
+			space_chunk.is_empty = TRUE
+			space_chunk = space_chunk.parent
 
 /datum/space_chunk/proc/check_sanity()
 	var/i_am_sane = 1

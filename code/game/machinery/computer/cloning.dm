@@ -82,15 +82,15 @@
 	if(!search_area)
 		return
 
-	for(var/obj/machinery/dna_scannernew/S in search_area.machinery_cache)
-		return S
+	for(var/obj/machinery/dna_scannernew/dna_scannernew in search_area.machinery_cache)
+		return dna_scannernew
 
 	return FALSE
 
 /obj/machinery/computer/cloning/proc/releasecloner()
-	for(var/obj/machinery/clonepod/P in pods)
-		P.connected = null
-		P.name = initial(P.name)
+	for(var/obj/machinery/clonepod/clonepod in pods)
+		clonepod.connected = null
+		clonepod.name = initial(clonepod.name)
 	pods.Cut()
 
 /obj/machinery/computer/cloning/proc/findcloner()
@@ -482,41 +482,41 @@
 
 	subject.dna.check_integrity()
 
-	var/datum/dna2/record/R = new /datum/dna2/record()
-	R.ckey = subject.ckey
+	var/datum/dna2/record/record = new /datum/dna2/record()
+	record.ckey = subject.ckey
 	var/extra_info = ""
 	if(scan_brain)
 		brain.dna.check_integrity()
-		R.dna = brain.dna.Clone()
-		R.id = copytext(md5(brain.dna.real_name), 2, 6)
-		R.name = brain.dna.real_name
+		record.dna = brain.dna.Clone()
+		record.id = copytext(md5(brain.dna.real_name), 2, 6)
+		record.name = brain.dna.real_name
 	else
-		R.dna = subject.dna.Clone()
-		R.id = copytext(md5(subject.real_name), 2, 6)
-		R.name = R.dna.real_name
+		record.dna = subject.dna.Clone()
+		record.id = copytext(md5(subject.real_name), 2, 6)
+		record.name = record.dna.real_name
 
-	R.types=DNA2_BUF_UI|DNA2_BUF_UE|DNA2_BUF_SE
-	R.languages=subject.languages
+	record.types=DNA2_BUF_UI|DNA2_BUF_UE|DNA2_BUF_SE
+	record.languages=subject.languages
 	//Add an implant if needed
 	var/obj/item/implant/health/imp = locate(/obj/item/implant/health, subject)
 	if(!imp)
 		imp = new /obj/item/implant/health(subject)
 		imp.implant(subject)
-	R.implant = imp.UID()
+	record.implant = imp.UID()
 
 	if(!isnull(subject.mind)) //Save that mind so traitors can continue traitoring after cloning.
-		R.mind = WEAKREF(subject.mind)
+		record.mind = WEAKREF(subject.mind)
 
-	src.records += R
+	src.records += record
 	set_scan_temp(emagged ? "Жертва успешно отсканирована. [extra_info]" : "Субъект успешно отсканирован. [extra_info]", "good")
 	SStgui.update_uis(src)
 
 //Find a specific record by key.
 /obj/machinery/computer/cloning/proc/find_record(find_key)
 	var/selected_record = null
-	for(var/datum/dna2/record/R in src.records)
-		if(R.ckey == find_key)
-			selected_record = R
+	for(var/datum/dna2/record/record in src.records)
+		if(record.ckey == find_key)
+			selected_record = record
 			break
 	return selected_record
 

@@ -664,12 +664,12 @@ GLOBAL_LIST_INIT(human_tlv, list(
 	data["name"] = readd_quote(sanitize(name))
 	data["ref"] = UID()
 	data["danger"] = max(danger_level, alarm_area.atmosalm)
-	var/area/A = get_area(src)
-	data["area"] = readd_quote(sanitize(A.name))
-	var/turf/T = get_turf(src)
-	data["x"] = T.x
-	data["y"] = T.y
-	data["z"] = T.z
+	var/area/area = get_area(src)
+	data["area"] = readd_quote(sanitize(area.name))
+	var/turf/turf = get_turf(src)
+	data["x"] = turf.x
+	data["y"] = turf.y
+	data["z"] = turf.z
 	return data
 
 /obj/machinery/alarm/proc/generate_thresholds_menu()

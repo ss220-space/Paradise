@@ -82,8 +82,8 @@
 		new /obj/effect/temp_visual/emp/pulse(get_turf(src))
 	else
 		playsound(get_turf(src), 'sound/effects/pop.ogg', 100, TRUE, -6)
-		var/obj/effect/dummy/chameleon/C = new/obj/effect/dummy/chameleon(get_turf(user))
-		C.activate(user, saved_appearance, src)
+		var/obj/effect/dummy/chameleon/chameleon = new/obj/effect/dummy/chameleon(get_turf(user))
+		chameleon.activate(user, saved_appearance, src)
 		to_chat(user, span_notice("You activate [src]."))
 		new /obj/effect/temp_visual/emp/pulse(get_turf(src))
 
@@ -98,8 +98,8 @@
 		addtimer(VARSET_CALLBACK(src, can_use, TRUE), 5 SECONDS)
 
 /obj/item/chameleon/proc/eject_all()
-	for(var/atom/movable/A in active_dummy)
-		A.forceMove(active_dummy.loc)
+	for(var/atom/movable/movable in active_dummy)
+		movable.forceMove(active_dummy.loc)
 
 /obj/effect/dummy/chameleon
 	name = ""
@@ -110,8 +110,8 @@
 /obj/effect/dummy/chameleon/proc/activate(mob/M, saved_appearance, obj/item/chameleon/C)
 	appearance = saved_appearance
 	if(isvehicle(M.buckled))
-		var/obj/vehicle/V = M.buckled
-		V.unbuckle_mob(M, TRUE)
+		var/obj/vehicle/vehicle = M.buckled
+		vehicle.unbuckle_mob(M, TRUE)
 	M.forceMove(src)
 	master = C
 	master.active_dummy = src

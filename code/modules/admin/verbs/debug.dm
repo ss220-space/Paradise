@@ -417,8 +417,8 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(select_equipment, R_EVENT, "Select Equipment", mob/
 
 	if(dresscode == "Custom...")
 		var/list/custom_names = list()
-		for(var/datum/outfit/D in GLOB.custom_outfits)
-			custom_names[D.name] = D
+		for(var/datum/outfit/outfit in GLOB.custom_outfits)
+			custom_names[outfit.name] = outfit
 		var/selected_name = tgui_input_list(usr, "Select outfit", "Robust quick dress shop", custom_names)
 		dresscode = custom_names[selected_name]
 		if(isnull(dresscode))

@@ -122,8 +122,8 @@
 		dirs = GLOB.alldirs.Copy()
 	visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] выпускает щупальца из-под земли вокруг себя!"))
 	for(var/d in dirs)
-		var/turf/E = get_step(src, d)
-		new /obj/effect/temp_visual/goliath_tentacle(E, src)
+		var/turf/turf = get_step(src, d)
+		new /obj/effect/temp_visual/goliath_tentacle(turf, src)
 	pre_attack = FALSE
 
 /mob/living/simple_animal/hostile/asteroid/goliath/proc/ranged_attack()
@@ -145,14 +145,14 @@
 	if(!chargeturf)
 		return
 	var/dir = get_dir(src, chargeturf)
-	var/turf/T = get_ranged_target_turf(chargeturf, dir, chargepast)
-	if(!T)
+	var/turf/turf = get_ranged_target_turf(chargeturf, dir, chargepast)
+	if(!turf)
 		return
 	GLOB.move_manager.stop_looping(src)
-	charge_turf = T
+	charge_turf = turf
 	setDir(dir)
-	var/obj/effect/temp_visual/decoy/D = new /obj/effect/temp_visual/decoy(loc,src)
-	animate(D, alpha = 0, color = "#FF0000", transform = matrix()*2, time = 3)
+	var/obj/effect/temp_visual/decoy/decoy = new /obj/effect/temp_visual/decoy(loc,src)
+	animate(decoy, alpha = 0, color = "#FF0000", transform = matrix()*2, time = 3)
 	SLEEP_CHECK_DEATH(src, delay)
 	var/datum/move_loop/new_loop = GLOB.move_manager.home_onto(src, charge_turf, delay = GOLIATH_CHARGE_SPEED, timeout = 2 SECONDS, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
 	if(!new_loop)
@@ -354,15 +354,15 @@
 
 /obj/effect/temp_visual/goliath_tentacle/proc/trip()
 	var/latched = FALSE
-	for(var/mob/living/L in loc)
-		if((!QDELETED(spawner) && spawner.faction_check_mob(L)) || L.stat == DEAD)
+	for(var/mob/living/living in loc)
+		if((!QDELETED(spawner) && spawner.faction_check_mob(living)) || living.stat == DEAD)
 			continue
-		visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] захватывает [L.declent_ru(ACCUSATIVE)]!"))
-		if(!L.IsStunned())
-			L.Stun(10 SECONDS)
-			L.adjustBruteLoss(rand(10, 15))
+		visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] захватывает [living.declent_ru(ACCUSATIVE)]!"))
+		if(!living.IsStunned())
+			living.Stun(10 SECONDS)
+			living.adjustBruteLoss(rand(10, 15))
 		else
-			L.adjustBruteLoss(rand(20, 30))
+			living.adjustBruteLoss(rand(20, 30))
 		latched = TRUE
 	if(!latched)
 		retract()

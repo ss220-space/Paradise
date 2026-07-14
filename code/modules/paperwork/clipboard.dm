@@ -78,11 +78,11 @@
 	dat += "<a href='byond://?src=[UID()];doPenThings=[containedpen ? "Remove" : "Add"]'>[containedpen ? "Remove pen" : "Add pen"]</a><br><hr>"
 	if(toppaper)
 		dat += "<a href='byond://?src=[UID()];remove=[toppaper.UID()]'>Remove</a><a href='byond://?src=[UID()];viewOrWrite=[toppaper.UID()]'>[toppaper.name]</a><br><hr>"
-	for(var/obj/item/P in src)
-		if(isPaperwork(P) == PAPERWORK && P != toppaper)
-			dat += "<a href='byond://?src=[UID()];remove=[P.UID()]'>Remove</a><a href='byond://?src=[UID()];topPaper=[P.UID()]'>Put on top</a><a href='byond://?src=[UID()];viewOrWrite=[P.UID()]'>[P.name]</a><br>"
-		if(isPaperwork(P) == PHOTO)
-			dat += "<a href='byond://?src=[UID()];remove=[P.UID()]'>Remove</a><a href='byond://?src=[UID()];viewOrWrite=[P.UID()]'>[P.name]</a><br>"
+	for(var/obj/item/item in src)
+		if(isPaperwork(item) == PAPERWORK && item != toppaper)
+			dat += "<a href='byond://?src=[UID()];remove=[item.UID()]'>Remove</a><a href='byond://?src=[UID()];topPaper=[item.UID()]'>Put on top</a><a href='byond://?src=[UID()];viewOrWrite=[item.UID()]'>[item.name]</a><br>"
+		if(isPaperwork(item) == PHOTO)
+			dat += "<a href='byond://?src=[UID()];remove=[item.UID()]'>Remove</a><a href='byond://?src=[UID()];viewOrWrite=[item.UID()]'>[item.name]</a><br>"
 	var/datum/browser/popup = new(user, "clipboard", "[src]", 400, 400)
 	popup.set_content(dat)
 	popup.open()

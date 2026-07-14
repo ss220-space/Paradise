@@ -203,13 +203,13 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	return 0
 
 /obj/item/pda/proc/find_program(type)
-	var/datum/data/pda/A = locate(type) in programs
-	if(A)
-		return A
+	var/datum/data/pda/pda = locate(type) in programs
+	if(pda)
+		return pda
 	if(cartridge)
-		A = locate(type) in cartridge.programs
-		if(A)
-			return A
+		pda = locate(type) in cartridge.programs
+		if(pda)
+			return pda
 	return null
 
 // force the cache to rebuild on update_ui
@@ -218,8 +218,8 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 
 /obj/item/pda/proc/update_programs()
 	for(var/A in programs)
-		var/datum/data/pda/P = A
-		P.pda = src
+		var/datum/data/pda/pda = A
+		pda.pda = src
 
 /obj/item/pda/proc/close(mob/user)
 	SStgui.close_uis(src)
@@ -262,8 +262,8 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		return
 	id.forceMove_turf()
 	if(ismob(loc))
-		var/mob/M = loc
-		M.put_in_hands(id)
+		var/mob/mob = loc
+		mob.put_in_hands(id)
 		to_chat(user, span_notice("You remove the ID from the [name]."))
 		SStgui.update_uis(src)
 	id = null
@@ -300,16 +300,16 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		return
 
 	if(can_use(user))
-		var/obj/item/pen/O = locate() in src
-		if(O)
-			to_chat(user, span_notice("You remove \the [O] from [src]."))
+		var/obj/item/pen/pen = locate() in src
+		if(pen)
+			to_chat(user, span_notice("You remove \the [pen] from [src]."))
 			playsound(src, 'sound/machines/pda_button2.ogg', 50, TRUE)
 			if(ismob(loc))
-				var/mob/M = loc
-				if(M.get_active_hand() == null)
-					M.put_in_hands(O)
+				var/mob/mob = loc
+				if(mob.get_active_hand() == null)
+					mob.put_in_hands(pen)
 					return
-			O.forceMove(get_turf(src))
+			pen.forceMove(get_turf(src))
 		else
 			to_chat(user, span_warning("This PDA does not have a pen in it."))
 	else
@@ -320,20 +320,20 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		if(id)
 			remove_id(user)
 			return TRUE
-		var/obj/item/I = user.get_active_hand()
-		if(is_id_card(I) && user.drop_transfer_item_to_loc(I, src))
-			id = I
+		var/obj/item/item = user.get_active_hand()
+		if(is_id_card(item) && user.drop_transfer_item_to_loc(item, src))
+			id = item
 			cartridge?.on_id_updated()
 			request_cartridge?.on_id_updated()
 			update_icon(UPDATE_OVERLAYS)
 			return TRUE
 		return FALSE
-	var/obj/item/card/id/I = user.get_active_hand()
-	if(is_id_card(I) && I.registered_name && user.drop_transfer_item_to_loc(I, src))
+	var/obj/item/card/id/item = user.get_active_hand()
+	if(is_id_card(item) && item.registered_name && user.drop_transfer_item_to_loc(item, src))
 		if(id)
 			id.forceMove_turf()
 			user.put_in_hands(id)
-		id = I
+		id = item
 		cartridge?.on_id_updated()
 		request_cartridge?.on_id_updated()
 		playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
@@ -534,16 +534,16 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 /obj/item/pda/proc/explode() //This needs tuning.
 	if(!detonate)
 		return
-	var/turf/T = get_turf(src.loc)
+	var/turf/turf = get_turf(src.loc)
 
 	if(ismob(loc))
-		var/mob/M = loc
-		M.show_message(span_danger("Your [src] explodes!"), 1)
+		var/mob/mob = loc
+		mob.show_message(span_danger("Your [src] explodes!"), 1)
 
-	if(T)
-		T.hotspot_expose(700,125)
+	if(turf)
+		turf.hotspot_expose(700,125)
 
-		explosion(T, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 2, flash_range = 3, cause = src)
+		explosion(turf, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 2, flash_range = 3, cause = src)
 	qdel(src)
 	return
 

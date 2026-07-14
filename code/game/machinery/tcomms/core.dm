@@ -163,10 +163,10 @@
 		reachable_zlevels |= below.z
 		below = GET_TURF_BELOW(below)
 	// Add all the linked relays in
-	for(var/obj/machinery/tcomms/relay/R in linked_relays)
+	for(var/obj/machinery/tcomms/relay/relay in linked_relays)
 		// Only if the relay is active
-		if(R.active && !(R.stat & NOPOWER))
-			reachable_zlevels |= R.loc.z
+		if(relay.active && !(relay.stat & NOPOWER))
+			reachable_zlevels |= relay.loc.z
 
 /**
  * Z-Level transit change helper
@@ -187,18 +187,18 @@
 	if(active)
 		return TRUE
 
-	for(var/obj/machinery/tcomms/core/C in GLOB.tcomms_machines)
+	for(var/obj/machinery/tcomms/core/core in GLOB.tcomms_machines)
 		// Make sure we dont check ourselves
-		if(C == src)
+		if(core == src)
 			continue
 		// We dont care about ones on other zlevels
-		if(!are_zs_connected(C, src))
+		if(!are_zs_connected(core, src))
 			continue
 		// If another core is active, return FALSE
-		if(C.active)
-			if(C.stat & NOPOWER)	// If another core has no power but is supposed to be on, we shut it down so we can continue.
-				C.active = FALSE	// Since only one active core is allowed per z level, give priority to the one actually working.
-				C.update_icon(UPDATE_ICON_STATE)
+		if(core.active)
+			if(core.stat & NOPOWER)	// If another core has no power but is supposed to be on, we shut it down so we can continue.
+				core.active = FALSE	// Since only one active core is allowed per z level, give priority to the one actually working.
+				core.update_icon(UPDATE_ICON_STATE)
 			else
 				return FALSE
 	// If we got here there isnt an active core on this Z-level. So return true

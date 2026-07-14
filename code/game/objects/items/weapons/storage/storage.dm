@@ -194,14 +194,14 @@
 
 	L += contents
 
-	for(var/obj/item/storage/S in src)
-		L += S.return_inv()
-	for(var/obj/item/gift/G in src)
-		L += G.gift
-		if(isstorage(G.gift))
-			L += G.gift:return_inv()
-	for(var/obj/item/folder/F in src)
-		L += F.contents
+	for(var/obj/item/storage/storage in src)
+		L += storage.return_inv()
+	for(var/obj/item/gift/gift in src)
+		L += gift.gift
+		if(isstorage(gift.gift))
+			L += gift.gift:return_inv()
+	for(var/obj/item/folder/folder in src)
+		L += folder.contents
 	return L
 
 /obj/item/storage/proc/show_to(mob/user, from_inv_observers = FALSE)
@@ -210,8 +210,8 @@
 	if(QDELETED(src))
 		return
 	if(user.s_active != src && !isobserver(user))
-		for(var/obj/item/I in src) // For bombs with mousetraps, facehuggers etc
-			if(I.on_found(user))
+		for(var/obj/item/item in src) // For bombs with mousetraps, facehuggers etc
+			if(item.on_found(user))
 				return
 
 	if(user.s_active && user.s_active != src)
@@ -282,10 +282,10 @@
 		hide_from(viewer)
 
 /obj/item/storage/proc/update_viewers()
-	for(var/mob/M as anything in mobs_viewing)
-		if(!QDELETED(M) && M.s_active == src && (M in range(1, loc)))
+	for(var/mob/mob as anything in mobs_viewing)
+		if(!QDELETED(mob) && mob.s_active == src && (mob in range(1, loc)))
 			continue
-		hide_from(M)
+		hide_from(mob)
 
 /obj/item/storage/proc/open(mob/user)
 	if(use_sound && isliving(user))
@@ -310,10 +310,10 @@
 	var/cx = tx
 	var/cy = ty
 	boxes.screen_loc = "[tx],[ty] to [mx],[my]"
-	for(var/obj/O in contents)
-		O.screen_loc = "[cx],[cy]"
-		O.layer = ABOVE_HUD_LAYER
-		SET_PLANE_EXPLICIT(O, ABOVE_HUD_PLANE, loc)
+	for(var/obj/obj in contents)
+		obj.screen_loc = "[cx],[cy]"
+		obj.layer = ABOVE_HUD_LAYER
+		SET_PLANE_EXPLICIT(obj, ABOVE_HUD_PLANE, loc)
 		cx++
 		if(cx > mx)
 			cx = tx
@@ -340,12 +340,12 @@
 				cx = 4
 				cy--
 	else
-		for(var/obj/O in contents)
-			O.mouse_opacity = MOUSE_OPACITY_OPAQUE //This is here so storage items that spawn with contents correctly have the "click around item to equip"
-			O.screen_loc = "[cx]:16,[cy]:16"
-			O.maptext = ""
-			O.layer = ABOVE_HUD_LAYER
-			SET_PLANE_EXPLICIT(O, ABOVE_HUD_PLANE, src)
+		for(var/obj/obj in contents)
+			obj.mouse_opacity = MOUSE_OPACITY_OPAQUE //This is here so storage items that spawn with contents correctly have the "click around item to equip"
+			obj.screen_loc = "[cx]:16,[cy]:16"
+			obj.maptext = ""
+			obj.layer = ABOVE_HUD_LAYER
+			SET_PLANE_EXPLICIT(obj, ABOVE_HUD_PLANE, src)
 			cx++
 			if(cx > (4 + cols))
 				cx = 4
@@ -589,24 +589,24 @@
 	//Numbered contents display
 	var/list/datum/numbered_display/display_contents
 	if(display_contents_with_number)
-		for(var/obj/O in contents)
-			O.layer = initial(O.layer)
-			O.plane = initial(O.plane)
+		for(var/obj/obj in contents)
+			obj.layer = initial(obj.layer)
+			obj.plane = initial(obj.plane)
 
 		display_contents = list()
 		adjusted_contents = 0
-		for(var/obj/item/I in contents)
+		for(var/obj/item/item in contents)
 			var/found = FALSE
 			for(var/datum/numbered_display/ND in display_contents)
-				if(ND.sample_object.type == I.type && ND.sample_object.name == I.name)
+				if(ND.sample_object.type == item.type && ND.sample_object.name == item.name)
 					ND.number++
 					found = TRUE
 					break
 			if(!found)
 				adjusted_contents++
-				display_contents.Add(new/datum/numbered_display(I))
+				display_contents.Add(new/datum/numbered_display(item))
 
-	//var/mob/living/carbon/human/H = user
+	//var/mob/living/carbon/human/human = user
 	var/row_num = 0
 	var/col_count = min(7, storage_slots) - 1
 	if(adjusted_contents > 7)
@@ -672,8 +672,8 @@
 		return FALSE
 
 	var/sum_w_class = W.w_class
-	for(var/obj/item/I in contents)
-		sum_w_class += I.w_class //Adds up the combined w_classes which will be in the storage item if the item is added to it.
+	for(var/obj/item/item in contents)
+		sum_w_class += item.w_class //Adds up the combined w_classes which will be in the storage item if the item is added to it.
 
 	if(sum_w_class > max_combined_w_class)
 		if(!stop_messages)
@@ -734,9 +734,9 @@
 		return FALSE
 
 	for(var/_M in mobs_viewing)
-		var/mob/M = _M
-		if((M.s_active == src) && M.client)
-			M.client.screen += W
+		var/mob/mob = _M
+		if((mob.s_active == src) && mob.client)
+			mob.client.screen += W
 
 	if(usr)
 		if(usr.client && usr.s_active != src)
@@ -752,13 +752,13 @@
 		add_fingerprint(usr)
 
 		if(!prevent_warning && !istype(W, /obj/item/gun/energy/kinetic_accelerator/crossbow))
-			for(var/mob/M in viewers(usr, null))
-				if(M == usr)
+			for(var/mob/mob in viewers(usr, null))
+				if(mob == usr)
 					to_chat(usr, span_notice("Вы помещаете [W.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
-				else if(M in range(1)) //If someone is standing close enough, they can tell what it is...
-					M.show_message(span_notice("[usr] помеща[PLUR_ET_YUT(usr)] [W.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
+				else if(mob in range(1)) //If someone is standing close enough, they can tell what it is...
+					mob.show_message(span_notice("[usr] помеща[PLUR_ET_YUT(usr)] [W.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 				else if(W && W.w_class >= WEIGHT_CLASS_NORMAL) //Otherwise they can only see large or normal items from a distance...
-					M.show_message(span_notice("[usr] помеща[PLUR_ET_YUT(usr)] [W.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
+					mob.show_message(span_notice("[usr] помеща[PLUR_ET_YUT(usr)] [W.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 
 		orient2hud(usr)
 		if(usr.s_active)
@@ -778,9 +778,9 @@
 
 	W.item_flags &= ~IN_STORAGE
 
-	for(var/mob/M as anything in mobs_viewing)
-		if((M.s_active == src) && M.client)
-			M.client.screen -= W
+	for(var/mob/mob as anything in mobs_viewing)
+		if((mob.s_active == src) && mob.client)
+			mob.client.screen -= W
 
 	if(new_location)
 		if(ismob(new_location) || get(new_location, /mob))
@@ -955,16 +955,16 @@
 		return
 
 	var/found = FALSE
-	for(var/mob/M in range(1))
-		if(M.s_active == src) // Close any open UI windows first
-			close(M)
-		if(M == user)
+	for(var/mob/mob in range(1))
+		if(mob.s_active == src) // Close any open UI windows first
+			close(mob)
+		if(mob == user)
 			found = TRUE
 	if(!found)	// User is too far away
 		return
 	user.balloon_alert(user, "сложено")
-	var/obj/item/stack/I = new foldable(get_turf(src), foldable_amt)
-	user.put_in_hands(I)
+	var/obj/item/stack/stack = new foldable(get_turf(src), foldable_amt)
+	user.put_in_hands(stack)
 	qdel(src)
 
 /obj/item/storage/serialize()

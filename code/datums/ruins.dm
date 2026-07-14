@@ -57,19 +57,19 @@
 		log_world("Ruin \"[name]\" placed at ([COORD(central_turf)])")
 
 		for(var/i in get_affected_turfs(central_turf, 1))
-			var/turf/T = i
-			for(var/obj/structure/spawner/nest in T)
+			var/turf/turf = i
+			for(var/obj/structure/spawner/nest in turf)
 				qdel(nest)
-			for(var/mob/living/simple_animal/monster in T)
+			for(var/mob/living/simple_animal/monster in turf)
 				qdel(monster)
-			for(var/obj/structure/flora/ash/plant in T)
+			for(var/obj/structure/flora/ash/plant in turf)
 				qdel(plant)
 
 		load(central_turf,centered = TRUE)
 		loaded++
 
-		for(var/turf/T in get_affected_turfs(central_turf, 1))
-			T.turf_flags |= NO_RUINS
+		for(var/turf/turf in get_affected_turfs(central_turf, 1))
+			turf.turf_flags |= NO_RUINS
 
 		new /obj/effect/landmark/ruin(central_turf, src)
 		return TRUE

@@ -369,8 +369,8 @@
 		return
 	if(cable && cable.machine == machinery && cable.machine == hackmachine)
 		if(istype(machinery, /obj/machinery/door))
-			var/obj/machinery/door/D = machinery
-			D.open()
+			var/obj/machinery/door/door = machinery
+			door.open()
 		else if(isapc(machinery))
 			var/obj/machinery/power/apc/apc = machinery
 			apc.locked = FALSE

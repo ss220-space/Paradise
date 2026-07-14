@@ -92,9 +92,9 @@ CALL global.json_to_object_arbitrary_vars("{'type':'/obj/item/crowbar', 'color':
 /proc/_locate(X, Y, Z)
 	if(isnull(Y)) // Assuming that it's only a single-argument call.
 		// direct ref locate
-		var/datum/D = locate(X)
+		var/datum/datum = locate(X)
 		// &&'s to last value
-		return istype(D) && D.can_vv_mark() && D
+		return istype(datum) && datum.can_vv_mark() && datum
 
 	return locate(X, Y, Z)
 

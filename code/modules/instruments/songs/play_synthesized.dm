@@ -47,23 +47,23 @@
 		key = clamp(key + note_shift, key_min, key_max)
 	if((world.time - MUSICIAN_HEARCHECK_MINDELAY) > last_hearcheck)
 		do_hearcheck()
-	var/datum/instrument_key/K = using_instrument.samples[num2text(key)]			//See how fucking easy it is to make a number text? You don't need a complicated 9 line proc!
+	var/datum/instrument_key/instrument_key = using_instrument.samples[num2text(key)]			//See how fucking easy it is to make a number text? You don't need a complicated 9 line proc!
 	//Should probably add channel limiters here at some point but I don't care right now.
 	var/channel = pop_channel()
 	if(isnull(channel))
 		return FALSE
 	. = TRUE
-	var/sound/copy = sound(K.sample)
+	var/sound/copy = sound(instrument_key.sample)
 	var/volume = src.volume * using_instrument.volume_multiplier
-	copy.frequency = K.frequency
+	copy.frequency = instrument_key.frequency
 	copy.volume = volume
 	var/channel_text = num2text(channel)
 	channels_playing[channel_text] = 100
 	last_channel_played = channel_text
-	for(var/mob/M in hearing_mobs)
-		if(!(M.client?.prefs?.sound & SOUND_INSTRUMENTS))
+	for(var/mob/mob in hearing_mobs)
+		if(!(mob.client?.prefs?.sound & SOUND_INSTRUMENTS))
 			continue
-		M.playsound_local(get_turf(parent), null, volume, FALSE, K.frequency, exponential_falloff, channel, null, copy)
+		mob.playsound_local(get_turf(parent), null, volume, FALSE, instrument_key.frequency, exponential_falloff, channel, null, copy)
 		// Could do environment and echo later but not for now
 
 /**
@@ -124,8 +124,8 @@
 		if(dead)
 			channels_playing -= channel
 			channels_idle += channel
-			for(var/mob/M in hearing_mobs)
-				M.stop_sound_channel(channelnumber)
+			for(var/mob/mob in hearing_mobs)
+				mob.stop_sound_channel(channelnumber)
 		else
-			for(var/mob/M in hearing_mobs)
-				M.set_sound_channel_volume(channelnumber, (current_volume * 0.01) * volume * using_instrument.volume_multiplier)
+			for(var/mob/mob in hearing_mobs)
+				mob.set_sound_channel_volume(channelnumber, (current_volume * 0.01) * volume * using_instrument.volume_multiplier)

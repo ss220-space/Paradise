@@ -168,20 +168,20 @@
 
 /obj/machinery/abductor/console/proc/Link_Abduction_Equipment() // these must all be explicitly `in machines` or they will not properly link.
 
-	for(var/obj/machinery/abductor/pad/p in GLOB.abductor_equipment)
-		if(p.team == team)
-			pad = p
+	for(var/obj/machinery/abductor/pad/pad in GLOB.abductor_equipment)
+		if(pad.team == team)
+			pad = pad
 			break
 
-	for(var/obj/machinery/abductor/experiment/e in GLOB.abductor_equipment)
-		if(e.team == team)
-			experiment = e
-			e.console = src
+	for(var/obj/machinery/abductor/experiment/experiment in GLOB.abductor_equipment)
+		if(experiment.team == team)
+			experiment = experiment
+			experiment.console = src
 
-	for(var/obj/machinery/computer/camera_advanced/abductor/c in GLOB.abductor_equipment)
-		if(c.team == team)
-			camera = c
-			c.console = src
+	for(var/obj/machinery/computer/camera_advanced/abductor/abductor in GLOB.abductor_equipment)
+		if(abductor.team == team)
+			camera = abductor
+			abductor.console = src
 
 /obj/machinery/abductor/console/proc/AddSnapshot(mob/living/carbon/human/target)
 	var/datum/icon_snapshot/entry = new
@@ -210,9 +210,9 @@
 	if(vest == V)
 		return FALSE
 
-	for(var/obj/machinery/abductor/console/C in SSmachines.get_by_type(/obj/machinery/abductor/console))
-		if(C.vest == V)
-			C.vest = null
+	for(var/obj/machinery/abductor/console/console in SSmachines.get_by_type(/obj/machinery/abductor/console))
+		if(console.vest == V)
+			console.vest = null
 			break
 
 	vest = V

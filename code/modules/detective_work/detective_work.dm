@@ -2,10 +2,10 @@
 
 /atom/proc/add_fibers(mob/living/carbon/human/M)
 	if(M.gloves && isclothing(M.gloves))
-		var/obj/item/clothing/gloves/G = M.gloves
-		if(G.transfer_blood > 1) //bloodied gloves transfer blood to touched objects
-			if(add_blood(G.blood_DNA, G.blood_color)) //only reduces the bloodiness of our gloves if the item wasn't already bloody
-				G.transfer_blood--
+		var/obj/item/clothing/gloves/gloves = M.gloves
+		if(gloves.transfer_blood > 1) //bloodied gloves transfer blood to touched objects
+			if(add_blood(gloves.blood_DNA, gloves.blood_color)) //only reduces the bloodiness of our gloves if the item wasn't already bloody
+				gloves.transfer_blood--
 	else if(M.bloody_hands > 1)
 		if(add_blood(M.blood_DNA, M.hand_blood_color))
 			M.bloody_hands--

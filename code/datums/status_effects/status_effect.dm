@@ -50,9 +50,9 @@
 	if(tick_interval != -1)
 		tick_interval = world.time + tick_interval
 	if(alert_type)
-		var/atom/movable/screen/alert/status_effect/A = owner.throw_alert(id, alert_type)
-		A.attached_effect = src //so the alert can reference us, if it needs to
-		linked_alert = A //so we can reference the alert, if we need to
+		var/atom/movable/screen/alert/status_effect/status_effect = owner.throw_alert(id, alert_type)
+		status_effect.attached_effect = src //so the alert can reference us, if it needs to
+		linked_alert = status_effect //so we can reference the alert, if we need to
 	if(duration > world.time || tick_interval > world.time) //don't process if we don't care
 		switch(processing_speed)
 			if(STATUS_EFFECT_FAST_PROCESS)

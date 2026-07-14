@@ -637,9 +637,9 @@
 /obj/item/storage/pill_bottle/proc/apply_wrap()
 	if(wrapper_color)
 		cut_overlays()
-		var/image/I = image(icon, wrapper_state)
-		I.color = wrapper_color
-		add_overlay(I)
+		var/image/image = image(icon, wrapper_state)
+		image.color = wrapper_color
+		add_overlay(image)
 
 /obj/item/storage/pill_bottle/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!iscarbon(target) || !length(contents))

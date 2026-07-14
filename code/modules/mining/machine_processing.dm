@@ -8,9 +8,9 @@
 
 /obj/machinery/mineral/proc/unload_mineral(atom/movable/S)
 	S.forceMove(drop_location())
-	var/turf/T = get_step(src,output_dir)
-	if(T)
-		S.forceMove(T)
+	var/turf/turf = get_step(src,output_dir)
+	if(turf)
+		S.forceMove(turf)
 
 /obj/machinery/mineral/processing_unit_console
 	name = "production machine console"
@@ -153,8 +153,8 @@
 	var/dat = "<b>Консоль управления плавильней</b><br><br>"
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	for(var/mat_id in materials.materials)
-		var/datum/material/M = materials.materials[mat_id]
-		dat += "<span class=\"res_name\">[M.name]: </span>[M.amount] см&sup3;"
+		var/datum/material/material = materials.materials[mat_id]
+		dat += "<span class=\"res_name\">[material.name]: </span>[material.amount] см&sup3;"
 		if(selected_material == mat_id)
 			dat += " <i>Плавка</i>"
 		else
@@ -165,12 +165,12 @@
 	dat += "<b>Плавить сплавы</b><br>"
 
 	for(var/v in files.known_designs)
-		var/datum/design/D = files.known_designs[v]
-		dat += "<span class=\"res_name\">[D]"
-		if(selected_alloy == D.id)
+		var/datum/design/design = files.known_designs[v]
+		dat += "<span class=\"res_name\">[design]"
+		if(selected_alloy == design.id)
 			dat += " <i>Плавка</i>"
 		else
-			dat += " <a href='byond://?src=[CONSOLE.UID()];alloy=[D.id]'><b>Не плавить</b></a> "
+			dat += " <a href='byond://?src=[CONSOLE.UID()];alloy=[design.id]'><b>Не плавить</b></a> "
 		dat += "<br>"
 
 	dat += "<br><br>"

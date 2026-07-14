@@ -16,8 +16,8 @@
 
 /obj/effect/baseturf_helper/proc/initialize_replacements()
 	var/area/thearea = get_area(src)
-	for(var/turf/T in get_area_turfs(thearea, z))
-		replace_baseturf(T)
+	for(var/turf/turf in get_area_turfs(thearea, z))
+		replace_baseturf(turf)
 	qdel(src)
 
 /obj/effect/baseturf_helper/proc/replace_baseturf(turf/thing)

@@ -60,23 +60,23 @@
 		force_gene_block(GLOB.clumsyblock, FALSE)
 	force_gene_block(GLOB.nervousblock, FALSE)
 
-	var/obj/item/clothing/under/U = w_uniform
+	var/obj/item/clothing/under/under = w_uniform
 	drop_item_ground(w_uniform, force = TRUE)
-	if(U)
-		qdel(U)
+	if(under)
+		qdel(under)
 
-	var/obj/item/clothing/shoes/S = shoes
+	var/obj/item/clothing/shoes/shoes_item = shoes
 	drop_item_ground(shoes, force = TRUE)
-	if(S)
-		qdel(S)
+	if(shoes_item)
+		qdel(shoes_item)
 
 	if(istype(wear_mask, /obj/item/clothing/mask/cursedclown))
 		drop_item_ground(wear_mask, force = TRUE)
 
 	if(istype(gloves, /obj/item/clothing/gloves/cursedclown))
-		var/obj/item/clothing/gloves/G = gloves
+		var/obj/item/clothing/gloves/gloves_item = gloves
 		drop_item_ground(gloves, force = TRUE)
-		qdel(G)
+		qdel(gloves_item)
 
 	equip_to_slot_or_del(new /obj/item/clothing/under/lawyer/black, ITEM_SLOT_CLOTH_INNER)
 	equip_to_slot_or_del(new /obj/item/clothing/shoes/color/black, ITEM_SLOT_FEET)

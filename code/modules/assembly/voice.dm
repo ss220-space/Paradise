@@ -39,7 +39,7 @@
 	if(!isliving(M))
 		return
 
-	var/turf/T = get_turf(src) // Otherwise it won't work in hand
+	var/turf/turf = get_turf(src) // Otherwise it won't work in hand
 	if(listening)
 		if(findtext(msg, "</span>"))
 			recorded = strip_html_properly(msg)
@@ -48,9 +48,9 @@
 		recorded = msg
 		recorded_type = type
 		listening = FALSE
-		T.audible_message("[get_examine_icon(hearers(T))] beeps, \"Activation message is [type ? "the sound when one [recorded]" : "'[recorded]'."]\"")
+		turf.audible_message("[get_examine_icon(hearers(turf))] beeps, \"Activation message is [type ? "the sound when one [recorded]" : "'[recorded]'."]\"")
 	else if(findtext(msg, recorded) && type == recorded_type)
-		T.visible_message(span_warning("[get_examine_icon(viewers(T))] beeps!"))
+		turf.visible_message(span_warning("[get_examine_icon(viewers(turf))] beeps!"))
 		pulse(0, M)
 
 /obj/item/assembly/voice/activate()

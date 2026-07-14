@@ -63,23 +63,23 @@
 	SIGNAL_HANDLER	// COMSIG_ITEM_ATTACK
 	if(!isliving(user))
 		return
-	var/mob/living/L = target
+	var/mob/living/living = target
 	if(!user.Adjacent(target))
 		return
 	if(user.a_intent != INTENT_HELP)
 		return
-	if(!can_start_anywhere && !on_operable_surface(L))
+	if(!can_start_anywhere && !on_operable_surface(living))
 		return
 	if(iscarbon(target))
-		var/mob/living/carbon/C = target
-		var/obj/item/organ/external/affected = C.get_organ(user.zone_selected)
+		var/mob/living/carbon/carbon = target
+		var/obj/item/organ/external/affected = carbon.get_organ(user.zone_selected)
 		if(affected)
 			if((affected.status & ORGAN_ROBOT) && !(valid_starting_types & SURGERY_INITIATOR_ROBOTIC))
 				return
 			if(!(affected.status & ORGAN_ROBOT) && !(valid_starting_types & SURGERY_INITIATOR_ORGANIC))
 				return
 
-	if(L.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
+	if(living.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
 		user.balloon_alert(user, "неподходящая цель!")
 		return //no cult ghost surgery please
 	INVOKE_ASYNC(src, PROC_REF(do_initiate_surgery_moment), source, target, user)
@@ -123,9 +123,9 @@
 	// if we have a surgery that should be performed regardless with this item,
 	// make sure it's available to be done
 	if(forced_surgery)
-		for(var/datum/surgery/S in available_surgeries)
-			if(istype(S, forced_surgery))
-				procedure = S
+		for(var/datum/surgery/surgery in available_surgeries)
+			if(istype(surgery, forced_surgery))
+				procedure = surgery
 				break
 	else
 		procedure = tgui_input_list(user, "Выберите операцию", "Начало операции", available_surgeries)
@@ -194,8 +194,8 @@
 		// special behavior here; if it doesn't require a bodypart just check if there's a limb there or not.
 		// this is a little bit gross and I do apologize
 		if(iscarbon(patient))
-			var/mob/living/carbon/C = patient
-			var/obj/item/organ/external/affected = C.get_organ(user.zone_selected)
+			var/mob/living/carbon/carbon = patient
+			var/obj/item/organ/external/affected = carbon.get_organ(user.zone_selected)
 			if(!affected)
 				skip_surgery = TRUE
 

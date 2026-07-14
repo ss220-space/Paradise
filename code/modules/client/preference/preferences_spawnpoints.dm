@@ -3,8 +3,8 @@ GLOBAL_LIST_EMPTY(spawntypes)
 /proc/populate_spawn_points()
 	// GLOB.spawntypes = list() | This is already done, is it not
 	for(var/type in subtypesof(/datum/spawnpoint))
-		var/datum/spawnpoint/S = new type()
-		GLOB.spawntypes[S.display_name] = S
+		var/datum/spawnpoint/spawnpoint = new type()
+		GLOB.spawntypes[spawnpoint.display_name] = spawnpoint
 
 /datum/spawnpoint
 	var/msg          //Message to display on the arrivals computer.

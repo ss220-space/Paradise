@@ -362,9 +362,9 @@
 		if(holdingitems && length(holdingitems) == 0)
 				return
 
-		for(var/obj/item/O in holdingitems)
-				O.loc = src.loc
-				holdingitems -= O
+		for(var/obj/item/item in holdingitems)
+				item.loc = src.loc
+				holdingitems -= item
 		holdingitems = list()
 		updateUsrDialog()
 
@@ -425,25 +425,25 @@
 				updateUsrDialog()
 
 		//Snacks
-		for(var/obj/item/reagent_containers/food/snacks/O in holdingitems)
+		for(var/obj/item/reagent_containers/food/snacks/snacks in holdingitems)
 				if(beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 						break
 
-				var/allowed = get_allowed_juice_by_id(O)
+				var/allowed = get_allowed_juice_by_id(snacks)
 				if(isnull(allowed))
 						break
 
 				for(var/r_id in allowed)
 
 						var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
-						var/amount = get_juice_amount(O)
+						var/amount = get_juice_amount(snacks)
 
 						beaker.reagents.add_reagent(r_id, min(amount*efficiency, space))
 
 						if(beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 								break
 
-				remove_object(O)
+				remove_object(snacks)
 
 /obj/machinery/reagentgrinder/proc/grind()
 
@@ -462,11 +462,11 @@
 				updateUsrDialog()
 
 		//Snacks and Plants
-		for(var/obj/item/reagent_containers/food/snacks/O in holdingitems)
+		for(var/obj/item/reagent_containers/food/snacks/snacks in holdingitems)
 				if(beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 						break
 
-				var/allowed = get_allowed_snack_by_id(O)
+				var/allowed = get_allowed_snack_by_id(snacks)
 				if(isnull(allowed))
 						break
 
@@ -476,79 +476,79 @@
 						var/amount = allowed[r_id]
 						if(amount <= 0)
 								if(amount == 0)
-										if(O.reagents != null && O.reagents.has_reagent("nutriment"))
-												beaker.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount("nutriment")*efficiency, space))
-												O.reagents.remove_reagent("nutriment", min(O.reagents.get_reagent_amount("nutriment"), space))
-										if(O.reagents != null && O.reagents.has_reagent("plantmatter"))
-												beaker.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount("plantmatter")*efficiency, space))
-												O.reagents.remove_reagent("plantmatter", min(O.reagents.get_reagent_amount("plantmatter"), space))
+										if(snacks.reagents != null && snacks.reagents.has_reagent("nutriment"))
+												beaker.reagents.add_reagent(r_id, min(snacks.reagents.get_reagent_amount("nutriment")*efficiency, space))
+												snacks.reagents.remove_reagent("nutriment", min(snacks.reagents.get_reagent_amount("nutriment"), space))
+										if(snacks.reagents != null && snacks.reagents.has_reagent("plantmatter"))
+												beaker.reagents.add_reagent(r_id, min(snacks.reagents.get_reagent_amount("plantmatter")*efficiency, space))
+												snacks.reagents.remove_reagent("plantmatter", min(snacks.reagents.get_reagent_amount("plantmatter"), space))
 								else
-										if(O.reagents != null && O.reagents.has_reagent("nutriment"))
-												beaker.reagents.add_reagent(r_id, min(round(O.reagents.get_reagent_amount("nutriment")*abs(amount)*efficiency), space))
-												O.reagents.remove_reagent("nutriment", min(O.reagents.get_reagent_amount("nutriment"), space))
-										if(O.reagents != null && O.reagents.has_reagent("plantmatter"))
-												beaker.reagents.add_reagent(r_id, min(round(O.reagents.get_reagent_amount("plantmatter")*abs(amount)*efficiency), space))
-												O.reagents.remove_reagent("plantmatter", min(O.reagents.get_reagent_amount("plantmatter"), space))
+										if(snacks.reagents != null && snacks.reagents.has_reagent("nutriment"))
+												beaker.reagents.add_reagent(r_id, min(round(snacks.reagents.get_reagent_amount("nutriment")*abs(amount)*efficiency), space))
+												snacks.reagents.remove_reagent("nutriment", min(snacks.reagents.get_reagent_amount("nutriment"), space))
+										if(snacks.reagents != null && snacks.reagents.has_reagent("plantmatter"))
+												beaker.reagents.add_reagent(r_id, min(round(snacks.reagents.get_reagent_amount("plantmatter")*abs(amount)*efficiency), space))
+												snacks.reagents.remove_reagent("plantmatter", min(snacks.reagents.get_reagent_amount("plantmatter"), space))
 
 						else
-								O.reagents.trans_id_to(beaker, r_id, min(amount, space))
+								snacks.reagents.trans_id_to(beaker, r_id, min(amount, space))
 
 						if(beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 								break
 
-				if(length(O.reagents.reagent_list) == 0)
-						remove_object(O)
+				if(length(snacks.reagents.reagent_list) == 0)
+						remove_object(snacks)
 
 		//Sheets
-		for(var/obj/item/stack/sheet/O in holdingitems)
-				var/allowed = get_allowed_by_id(O)
+		for(var/obj/item/stack/sheet/snacks in holdingitems)
+				var/allowed = get_allowed_by_id(snacks)
 				if(beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 						break
-				for(var/i = 1; i <= round(O.amount, 1); i++)
+				for(var/i = 1; i <= round(snacks.amount, 1); i++)
 						for(var/r_id in allowed)
 								var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
 								var/amount = allowed[r_id]
 								beaker.reagents.add_reagent(r_id,min(amount*efficiency, space))
 								if(space < amount)
 										break
-						if(i == round(O.amount, 1))
-								remove_object(O)
+						if(i == round(snacks.amount, 1))
+								remove_object(snacks)
 								break
 		//Plants
-		for(var/obj/item/grown/O in holdingitems)
+		for(var/obj/item/grown/snacks in holdingitems)
 				if(beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 						break
-				var/allowed = get_allowed_by_id(O)
+				var/allowed = get_allowed_by_id(snacks)
 				for(var/r_id in allowed)
 						var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
 						var/amount = allowed[r_id]
 						if(amount == 0)
-								if(O.reagents != null && O.reagents.has_reagent(r_id))
-										beaker.reagents.add_reagent(r_id,min(O.reagents.get_reagent_amount(r_id)*efficiency, space))
+								if(snacks.reagents != null && snacks.reagents.has_reagent(r_id))
+										beaker.reagents.add_reagent(r_id,min(snacks.reagents.get_reagent_amount(r_id)*efficiency, space))
 						else
 								beaker.reagents.add_reagent(r_id,min(amount*efficiency, space))
 
 						if(beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 								break
-				remove_object(O)
+				remove_object(snacks)
 
 		//Slime Extractis
-		for(var/obj/item/slime_extract/O in holdingitems)
+		for(var/obj/item/slime_extract/snacks in holdingitems)
 				if(beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 						break
 				var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
-				if(O.reagents != null)
-						var/amount = O.reagents.total_volume
-						O.reagents.trans_to(beaker, min(amount, space))
-				if(O.Uses > 0)
+				if(snacks.reagents != null)
+						var/amount = snacks.reagents.total_volume
+						snacks.reagents.trans_to(beaker, min(amount, space))
+				if(snacks.Uses > 0)
 						beaker.reagents.add_reagent("slimejelly",min(20*efficiency, space))
-				remove_object(O)
+				remove_object(snacks)
 
 		//Everything else - Transfers reagents from it into beaker
-		for(var/obj/item/reagent_containers/O in holdingitems)
+		for(var/obj/item/reagent_containers/snacks in holdingitems)
 				if(beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 						break
-				var/amount = O.reagents.total_volume
-				O.reagents.trans_to(beaker, amount)
-				if(!O.reagents.total_volume)
-						remove_object(O)
+				var/amount = snacks.reagents.total_volume
+				snacks.reagents.trans_to(beaker, amount)
+				if(!snacks.reagents.total_volume)
+						remove_object(snacks)

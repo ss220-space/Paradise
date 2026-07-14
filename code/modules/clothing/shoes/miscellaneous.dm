@@ -264,14 +264,14 @@
 	if(issilicon(user))
 		return
 	if(can_use(user))
-		var/obj/item/kitchen/knife/combat/survival/O = locate() in src
-		if(O)
+		var/obj/item/kitchen/knife/combat/survival/survival = locate() in src
+		if(survival)
 			to_chat(user, span_notice("Вы извлекли нож из ботинка."))
-			O.forceMove_turf()
+			survival.forceMove_turf()
 			if(ismob(loc))
-				var/mob/M = loc
-				if(M.get_active_hand() == null)
-					M.put_in_hands(O, ignore_anim = FALSE)
+				var/mob/mob = loc
+				if(mob.get_active_hand() == null)
+					mob.put_in_hands(survival, ignore_anim = FALSE)
 					return
 		else
 			to_chat(user, span_warning("Крепление пустое."))

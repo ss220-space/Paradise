@@ -47,25 +47,25 @@
 	// break APC_BREAK_PROBABILITY% of all of the APCs on the station
 	var/affected_apc_count = 0
 	for(var/thing in GLOB.apcs)
-		var/obj/machinery/power/apc/C = thing
+		var/obj/machinery/power/apc/apc = thing
 		// skip any APCs that are too critical to break
-		var/area/current_area = get_area(C)
-		if(is_type_in_typecache(current_area, skipped_areas_apc) || !is_station_level(C.z))
+		var/area/current_area = get_area(apc)
+		if(is_type_in_typecache(current_area, skipped_areas_apc) || !is_station_level(apc.z))
 			continue
 		// if we are going to break this one
 		if(prob(APC_BREAK_PROBABILITY))
 			// if it has a cell, drain all the charge from the cell
-			if(C.cell)
-				C.cell.charge = 0
+			if(apc.cell)
+				apc.cell.charge = 0
 			// if it has a terminal, disconnect and delete the terminal
-			if(C.terminal)
-				var/obj/machinery/power/terminal/T = C.terminal
-				C.terminal.master = null
-				C.terminal = null
-				qdel(T)
+			if(apc.terminal)
+				var/obj/machinery/power/terminal/terminal = apc.terminal
+				apc.terminal.master = null
+				apc.terminal = null
+				qdel(terminal)
 			// if it was operating, toggle off the breaker
-			if(C.operating)
-				C.toggle_breaker()
+			if(apc.operating)
+				apc.toggle_breaker()
 			// no matter what, ensure the area knows something happened to the power
 			current_area.power_change()
 			affected_apc_count++

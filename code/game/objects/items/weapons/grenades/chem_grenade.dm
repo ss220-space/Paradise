@@ -40,9 +40,9 @@
 
 /obj/item/grenade/chem_grenade/proc/get_trigger()
 	if(!nadeassembly) return null
-	for(var/obj/O in list(nadeassembly.a_left, nadeassembly.a_right))
-		if(!O || isigniter(O)) continue
-		return O
+	for(var/obj/obj in list(nadeassembly.a_left, nadeassembly.a_right))
+		if(!obj || isigniter(obj)) continue
+		return obj
 	return null
 
 /obj/item/grenade/chem_grenade/proc/stage_change(new_stage)

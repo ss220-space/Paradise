@@ -43,13 +43,13 @@
 
 // Used to equip an item to the mob. Mainly to prevent copypasta for collect_not_del.
 /datum/outfit/proc/equip_item(mob/living/carbon/human/H, path, slot)
-	var/obj/item/I = new path(H)
-	if(QDELETED(I))
+	var/obj/item/item = new path(H)
+	if(QDELETED(item))
 		return
 	if(collect_not_del)
-		H.equip_or_collect(I, slot)
+		H.equip_or_collect(item, slot)
 	else
-		H.equip_to_slot_or_del(I, slot)
+		H.equip_to_slot_or_del(item, slot)
 
 /datum/outfit/proc/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	//to be overriden for toggling internals, id binding, access etc
@@ -128,16 +128,16 @@
 
 	if(implants)
 		for(var/path in implants)	// Implantation is required here, bcs below we have a ToggleHelmet() hardsuit proc that is based on the isertmindshielded() proc.
-			var/obj/item/implant/I = new path(H)
-			I.implant(H, null)
+			var/obj/item/implant/implant = new path(H)
+			implant.implant(H, null)
 
 	if(!H.head && toggle_helmet)
 		if(istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit))
 			var/obj/item/clothing/suit/space/hardsuit/hardsuit = H.wear_suit
 			hardsuit.ToggleHelmet()
 		else if(istype(H.wear_suit, /obj/item/clothing/suit/hooded))
-			var/obj/item/clothing/suit/hooded/S = H.wear_suit
-			S.ToggleHood()
+			var/obj/item/clothing/suit/hooded/hooded = H.wear_suit
+			hooded.ToggleHood()
 
 	H.regenerate_icons()
 	return TRUE
@@ -187,8 +187,8 @@
 		return
 	if(H.back)
 		H.back.add_fingerprint(H, 1)	//The 1 sets a flag to ignore gloves
-		for(var/obj/item/I in H.back.contents)
-			I.add_fingerprint(H, 1)
+		for(var/obj/item/item in H.back.contents)
+			item.add_fingerprint(H, 1)
 	if(H.wear_id)
 		H.wear_id.add_fingerprint(H, 1)
 	if(H.w_uniform)
@@ -213,8 +213,8 @@
 		H.glasses.add_fingerprint(H, 1)
 	if(H.belt)
 		H.belt.add_fingerprint(H, 1)
-		for(var/obj/item/I in H.belt.contents)
-			I.add_fingerprint(H, 1)
+		for(var/obj/item/item in H.belt.contents)
+			item.add_fingerprint(H, 1)
 	if(H.s_store)
 		H.s_store.add_fingerprint(H, 1)
 	if(H.l_store)

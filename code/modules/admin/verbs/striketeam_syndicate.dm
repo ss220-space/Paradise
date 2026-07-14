@@ -39,8 +39,8 @@ ADMIN_VERB(syndicate_strike_team, R_EVENT, "Отправить Ударный О
 	var/nuke_code = GLOB.nuke_codes[/obj/machinery/nuclearbomb]
 
 	// Find ghosts willing to be SST
-	var/image/I = new('icons/obj/cardboard_cutout.dmi', "cutout_commando")
-	var/list/commando_ghosts = pick_candidates_all_types(src, SYNDICATE_COMMANDOS_POSSIBLE, "Присоединиться к Ударному Отряду \"Синдиката\"?", , 21, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, I, "Ударный Отряд \"Синдиката\"", input)
+	var/image/image = new('icons/obj/cardboard_cutout.dmi', "cutout_commando")
+	var/list/commando_ghosts = pick_candidates_all_types(src, SYNDICATE_COMMANDOS_POSSIBLE, "Присоединиться к Ударному Отряду \"Синдиката\"?", , 21, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, image, "Ударный Отряд \"Синдиката\"", input)
 	if(!length(commando_ghosts))
 		to_chat(src, span_userdanger("Никто не присоединился к SST."))
 		return
@@ -48,11 +48,11 @@ ADMIN_VERB(syndicate_strike_team, R_EVENT, "Отправить Ударный О
 	GLOB.sent_syndicate_strike_team = 1
 
 	//Spawns commandos and equips them.
-	for(var/obj/effect/landmark/L in GLOB.landmarks_list)
+	for(var/obj/effect/landmark/landmark in GLOB.landmarks_list)
 		if(syndicate_commando_number <= 0)
 			break
 
-		if(L.name == "Syndicate-Commando")
+		if(landmark.name == "Syndicate-Commando")
 
 			if(!length(commando_ghosts))
 				break
@@ -63,7 +63,7 @@ ADMIN_VERB(syndicate_strike_team, R_EVENT, "Отправить Ударный О
 			if(!ghost_mob || !ghost_mob.key || !ghost_mob.client)
 				continue
 
-			var/mob/living/carbon/human/new_syndicate_commando = create_syndicate_death_commando(L, is_leader)
+			var/mob/living/carbon/human/new_syndicate_commando = create_syndicate_death_commando(landmark, is_leader)
 
 			if(!new_syndicate_commando)
 				continue
@@ -96,13 +96,13 @@ ADMIN_VERB(syndicate_strike_team, R_EVENT, "Отправить Ударный О
 	var/syndicate_commando_rank = pick("Младший Сержант", "Сержант", "Старший Сержант", "Старшина", "Прапорщик", "Старший Прапорщик")
 	var/syndicate_commando_name = pick(GLOB.last_names_male)
 
-	var/datum/preferences/A = new()//Randomize appearance for the commando.
+	var/datum/preferences/preferences = new()//Randomize appearance for the commando.
 	if(is_leader)
-		A.age = rand(35,45)
-		A.real_name = "[syndicate_commando_leader_rank] [A.gender==FEMALE ? pick(GLOB.last_names_female) : syndicate_commando_name]"
+		preferences.age = rand(35,45)
+		preferences.real_name = "[syndicate_commando_leader_rank] [preferences.gender==FEMALE ? pick(GLOB.last_names_female) : syndicate_commando_name]"
 	else
-		A.real_name = "[syndicate_commando_rank] [A.gender==FEMALE ? pick(GLOB.last_names_female) : syndicate_commando_name]"
-	A.copy_to(new_syndicate_commando)
+		preferences.real_name = "[syndicate_commando_rank] [preferences.gender==FEMALE ? pick(GLOB.last_names_female) : syndicate_commando_name]"
+	preferences.copy_to(new_syndicate_commando)
 
 	new_syndicate_commando.dna.ready_dna(new_syndicate_commando)//Creates DNA.
 

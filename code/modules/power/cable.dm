@@ -251,45 +251,45 @@
 /obj/structure/cable/proc/mergeDiagonalsNetworks(direction)
 
 	//search for and merge diagonally matching cables from the first direction component (north/south)
-	var/turf/T  = get_step(src, direction&3)//go north/south
+	var/turf/turf  = get_step(src, direction&3)//go north/south
 
-	for(var/obj/structure/cable/C in T)
+	for(var/obj/structure/cable/cable in turf)
 
-		if(!C)
+		if(!cable)
 			continue
 
-		if(src == C)
+		if(src == cable)
 			continue
 
-		if(C.d1 == (direction^3) || C.d2 == (direction^3)) //we've got a diagonally matching cable
-			if(!C.powernet) //if the matching cable somehow got no powernet, make him one (should not happen for cables)
+		if(cable.d1 == (direction^3) || cable.d2 == (direction^3)) //we've got a diagonally matching cable
+			if(!cable.powernet) //if the matching cable somehow got no powernet, make him one (should not happen for cables)
 				var/datum/powernet/newPN = new()
-				newPN.add_cable(C)
+				newPN.add_cable(cable)
 
 			if(powernet) //if we already have a powernet, then merge the two powernets
-				merge_powernets(powernet,C.powernet)
+				merge_powernets(powernet,cable.powernet)
 			else
-				C.powernet.add_cable(src) //else, we simply connect to the matching cable powernet
+				cable.powernet.add_cable(src) //else, we simply connect to the matching cable powernet
 
 	//the same from the second direction component (east/west)
-	T  = get_step(src, direction&12)//go east/west
+	turf  = get_step(src, direction&12)//go east/west
 
-	for(var/obj/structure/cable/C in T)
+	for(var/obj/structure/cable/cable in turf)
 
-		if(!C)
+		if(!cable)
 			continue
 
-		if(src == C)
+		if(src == cable)
 			continue
-		if(C.d1 == (direction^12) || C.d2 == (direction^12)) //we've got a diagonally matching cable
-			if(!C.powernet) //if the matching cable somehow got no powernet, make him one (should not happen for cables)
+		if(cable.d1 == (direction^12) || cable.d2 == (direction^12)) //we've got a diagonally matching cable
+			if(!cable.powernet) //if the matching cable somehow got no powernet, make him one (should not happen for cables)
 				var/datum/powernet/newPN = new()
-				newPN.add_cable(C)
+				newPN.add_cable(cable)
 
 			if(powernet) //if we already have a powernet, then merge the two powernets
-				merge_powernets(powernet,C.powernet)
+				merge_powernets(powernet,cable.powernet)
 			else
-				C.powernet.add_cable(src) //else, we simply connect to the matching cable powernet
+				cable.powernet.add_cable(src) //else, we simply connect to the matching cable powernet
 
 // merge with the powernets of power objects in the given direction
 /obj/structure/cable/proc/mergeConnectedNetworks(direction)
@@ -301,23 +301,23 @@
 
 	var/turf/TB  = get_step(src, direction)
 
-	for(var/obj/structure/cable/C in TB)
+	for(var/obj/structure/cable/cable in TB)
 
-		if(!C)
+		if(!cable)
 			continue
 
-		if(src == C)
+		if(src == cable)
 			continue
 
-		if(C.d1 == fdir || C.d2 == fdir) //we've got a matching cable in the neighbor turf
-			if(!C.powernet) //if the matching cable somehow got no powernet, make him one (should not happen for cables)
+		if(cable.d1 == fdir || cable.d2 == fdir) //we've got a matching cable in the neighbor turf
+			if(!cable.powernet) //if the matching cable somehow got no powernet, make him one (should not happen for cables)
 				var/datum/powernet/newPN = new()
-				newPN.add_cable(C)
+				newPN.add_cable(cable)
 
 			if(powernet) //if we already have a powernet, then merge the two powernets
-				merge_powernets(powernet,C.powernet)
+				merge_powernets(powernet,cable.powernet)
 			else
-				C.powernet.add_cable(src) //else, we simply connect to the matching cable powernet
+				cable.powernet.add_cable(src) //else, we simply connect to the matching cable powernet
 
 // merge with the powernets of power objects in the source turf
 /obj/structure/cable/proc/mergeConnectedNetworksOnTurf()
@@ -331,39 +331,39 @@
 	//then we'll connect machines on turf with a node cable is present
 	for(var/AM in loc)
 		if(istype(AM, /obj/structure/cable))
-			var/obj/structure/cable/C = AM
-			if(C.d1 == d1 || C.d2 == d1 || C.d1 == d2 || C.d2 == d2) //only connected if they have a common direction
-				if(C.powernet == powernet)
+			var/obj/structure/cable/cable = AM
+			if(cable.d1 == d1 || cable.d2 == d1 || cable.d1 == d2 || cable.d2 == d2) //only connected if they have a common direction
+				if(cable.powernet == powernet)
 					continue
-				if(C.powernet)
-					merge_powernets(powernet, C.powernet)
+				if(cable.powernet)
+					merge_powernets(powernet, cable.powernet)
 				else
-					powernet.add_cable(C) //the cable was powernetless, let's just add it to our powernet
-			else if(istype(C, /obj/structure/cable/multiz) && d1 == 0) // we're dot and we got multiz hub
-				if(C.powernet == powernet)
+					powernet.add_cable(cable) //the cable was powernetless, let's just add it to our powernet
+			else if(istype(cable, /obj/structure/cable/multiz) && d1 == 0) // we're dot and we got multiz hub
+				if(cable.powernet == powernet)
 					continue
-				if(C.powernet)
-					merge_powernets(powernet, C.powernet)
+				if(cable.powernet)
+					merge_powernets(powernet, cable.powernet)
 				else
-					powernet.add_cable(C) //the cable was powernetless, let's just add it to our powernet
+					powernet.add_cable(cable) //the cable was powernetless, let's just add it to our powernet
 
 		else if(isapc(AM))
-			var/obj/machinery/power/apc/N = AM
-			if(!N.terminal)
+			var/obj/machinery/power/apc/apc = AM
+			if(!apc.terminal)
 				continue // APC are connected through their terminal
 
-			if(N.terminal.powernet == powernet)
+			if(apc.terminal.powernet == powernet)
 				continue
 
-			to_connect += N.terminal //we'll connect the machines after all cables are merged
+			to_connect += apc.terminal //we'll connect the machines after all cables are merged
 
 		else if(istype(AM, /obj/machinery/power)) //other power machines
-			var/obj/machinery/power/M = AM
+			var/obj/machinery/power/power = AM
 
-			if(M.powernet == powernet)
+			if(power.powernet == powernet)
 				continue
 
-			to_connect += M //we'll connect the machines after all cables are merged
+			to_connect += power //we'll connect the machines after all cables are merged
 
 	//now that cables are done, let's connect found machines
 	for(var/obj/machinery/power/PM in to_connect)
@@ -441,22 +441,22 @@
 	if(length(P_list) == 0)//if nothing in both list, then the cable was a lone cable, just delete it and its powernet
 		powernet.remove_cable(src)
 
-		for(var/obj/machinery/power/P in T1)//check if it was powering a machine
-			if(!P.connect_to_network()) //can't find a node cable on a the turf to connect to
-				P.disconnect_from_network() //remove from current network (and delete powernet)
+		for(var/obj/machinery/power/power in T1)//check if it was powering a machine
+			if(!power.connect_to_network()) //can't find a node cable on a the turf to connect to
+				power.disconnect_from_network() //remove from current network (and delete powernet)
 		return
 
-	var/obj/O = P_list[1]
+	var/obj/obj = P_list[1]
 	// remove the cut cable from its turf and powernet, so that it doesn't get count in propagate_network worklist
 	if(remove)
 		loc = null
 	powernet.remove_cable(src) //remove the cut cable from its powernet
 
 	// queue it to rebuild
-	SSmachines.deferred_powernet_rebuilds += O
+	SSmachines.deferred_powernet_rebuilds += obj
 
 	// Disconnect machines connected to nodes
-	if(d1 == 0) // if we cut a node (O-X) cable
-		for(var/obj/machinery/power/P in T1)
-			if(!P.connect_to_network()) //can't find a node cable on a the turf to connect to
-				P.disconnect_from_network() //remove from current network
+	if(d1 == 0) // if we cut a node (obj-X) cable
+		for(var/obj/machinery/power/power in T1)
+			if(!power.connect_to_network()) //can't find a node cable on a the turf to connect to
+				power.disconnect_from_network() //remove from current network

@@ -472,13 +472,13 @@
 		return FALSE
 
 	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(H.dna)
+		var/mob/living/carbon/human/human = user
+		if(human.dna)
 			// Since the typecaches might be null as a valid option, it looks like we do need to check that these exist first.
-			if(species_type_whitelist_typecache && !is_type_in_typecache(H.dna.species, species_type_whitelist_typecache))
+			if(species_type_whitelist_typecache && !is_type_in_typecache(human.dna.species, species_type_whitelist_typecache))
 				return FALSE
 
-			if(species_type_blacklist_typecache && is_type_in_typecache(H.dna.species, species_type_blacklist_typecache))
+			if(species_type_blacklist_typecache && is_type_in_typecache(human.dna.species, species_type_blacklist_typecache))
 				return FALSE
 
 	if(intentional && only_unintentional)
@@ -537,9 +537,9 @@
 	fragment = lowertext(fragment)
 
 	if(emote_target_type & EMOTE_TARGET_MOB)
-		for(var/mob/living/M in view(user.client))
-			if(findtext(lowertext(M.name), fragment))
-				target = M
+		for(var/mob/living/living in view(user.client))
+			if(findtext(lowertext(living.name), fragment))
+				target = living
 				break
 
 	if(!target && (emote_target_type & EMOTE_TARGET_OBJ))

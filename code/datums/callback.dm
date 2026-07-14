@@ -92,11 +92,11 @@
  */
 /datum/callback/proc/Invoke(...)
 	if(!usr && user)
-		var/mob/M = user.resolve()
-		if(M)
+		var/mob/mob = user.resolve()
+		if(mob)
 			if(length(args))
-				return world.invoke_callback_with_usr(arglist(list(M, src) + args))
-			return world.invoke_callback_with_usr(M, src)
+				return world.invoke_callback_with_usr(arglist(list(mob, src) + args))
+			return world.invoke_callback_with_usr(mob, src)
 	if(!object)
 		return
 	var/list/calling_arguments = arguments
@@ -121,11 +121,11 @@
 	set waitfor = FALSE
 
 	if(!usr && user)
-		var/mob/M = user.resolve()
-		if(M)
+		var/mob/mob = user.resolve()
+		if(mob)
 			if(length(args))
-				return world.invoke_callback_with_usr(arglist(list(M, src) + args))
-			return world.invoke_callback_with_usr(M, src)
+				return world.invoke_callback_with_usr(arglist(list(mob, src) + args))
+			return world.invoke_callback_with_usr(mob, src)
 
 	if(!object)
 		return

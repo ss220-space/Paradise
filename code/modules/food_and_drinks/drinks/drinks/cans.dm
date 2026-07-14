@@ -144,10 +144,10 @@
 			sodafizz.set_up(amount = 1, location = get_turf(src), carry = reagents)
 			sodafizz.start()
 
-	for(var/mob/living/carbon/C in range(1, get_turf(src)))
-		to_chat(C, span_warning("Вас облило содержимым [declent_ru(ACCUSATIVE)]!"))
-		reagents.reaction(C, REAGENT_TOUCH)
-		C.wetlevel = max(C.wetlevel + 1, times_shaken)
+	for(var/mob/living/carbon/carbon in range(1, get_turf(src)))
+		to_chat(carbon, span_warning("Вас облило содержимым [declent_ru(ACCUSATIVE)]!"))
+		reagents.reaction(carbon, REAGENT_TOUCH)
+		carbon.wetlevel = max(carbon.wetlevel + 1, times_shaken)
 
 	reagents.remove_any(times_shaken / 5 * reagents.total_volume)
 

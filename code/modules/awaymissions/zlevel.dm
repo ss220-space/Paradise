@@ -7,10 +7,10 @@ GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "config/away
 
 /proc/empty_region(list/turfs)
 	for(var/thing in turfs)
-		var/turf/T = thing
-		for(var/otherthing in T)
+		var/turf/turf = thing
+		for(var/otherthing in turf)
 			qdel(otherthing)
-		T.ChangeTurf(T.baseturf)
+		turf.ChangeTurf(turf.baseturf)
 
 /proc/loadAwayLevel()
 	if((!GLOB.potentialRandomZlevels || !length(GLOB.potentialRandomZlevels)) && !CONFIG_GET(string/override_away_mission))

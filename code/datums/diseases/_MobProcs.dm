@@ -13,8 +13,8 @@
 	return FALSE
 
 /mob/proc/CureAllDiseases(need_immunity = TRUE)
-	for(var/datum/disease/D in diseases)
-		D.cure(need_immunity = need_immunity)
+	for(var/datum/disease/disease in diseases)
+		disease.cure(need_immunity = need_immunity)
 
 /**
  * A special checks for this type of mob

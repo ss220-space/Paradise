@@ -619,13 +619,13 @@
 /obj/machinery/newscaster/proc/eject_photo(mob/user)
 	if(!photo)
 		return
-	var/obj/item/photo/P = photo
+	var/obj/item/photo/photo_item = photo
 	photo = null
-	P.forceMove(loc)
-	if(ishuman(user) && user.put_in_active_hand(P, ignore_anim = FALSE))
-		visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] выплёвывает [P.declent_ru(ACCUSATIVE)] из слота для фотографий прямо в руку [user]."))
+	photo_item.forceMove(loc)
+	if(ishuman(user) && user.put_in_active_hand(photo_item, ignore_anim = FALSE))
+		visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] выплёвывает [photo_item.declent_ru(ACCUSATIVE)] из слота для фотографий прямо в руку [user]."))
 	else
-		visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] выплёвывает [P.declent_ru(ACCUSATIVE)] из слота для фотографий."))
+		visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] выплёвывает [photo_item.declent_ru(ACCUSATIVE)] из слота для фотографий."))
 	playsound(loc, 'sound/machines/terminal_insert_disc.ogg', 30, TRUE)
 	SStgui.update_uis(src)
 
@@ -650,12 +650,12 @@
 /obj/machinery/newscaster/proc/get_scanned_user(mob/user)
 	. = list(name = UNKNOWN_NAME_RUS, security = user.can_admin_interact())
 	if(ishuman(user))
-		var/mob/living/carbon/human/M = user
+		var/mob/living/carbon/human/human = user
 		// No ID, no luck
-		if(!M.wear_id)
+		if(!human.wear_id)
 			return
 		// Try to get the ID
-		var/obj/item/card/id/id = M.wear_id.GetID()
+		var/obj/item/card/id/id = human.wear_id.GetID()
 		if(istype(id))
 			return list(name = "[id.registered_name] ([id.assignment])", security = has_access(list(ACCESS_SECURITY), TRUE, id.access))
 	else if(issilicon(user))

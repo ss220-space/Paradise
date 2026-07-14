@@ -447,9 +447,9 @@
 	icon_state = "shifter[uses > 0 ? "" : "_drained"]"
 
 /obj/item/cult_shift/proc/handle_teleport_grab(turf/T, mob/user)
-	var/mob/living/carbon/C = user
-	if(C.pulling)
-		var/atom/movable/pulled = C.pulling
+	var/mob/living/carbon/carbon = user
+	if(carbon.pulling)
+		var/atom/movable/pulled = carbon.pulling
 		pulled.forceMove(T)
 		. = pulled
 
@@ -653,19 +653,19 @@
 
 /obj/item/shield/mirror/proc/spawn_illusion(mob/living/carbon/human/user, hostile, betray)
 	if(hostile)
-		var/mob/living/simple_animal/hostile/illusion/cult/H = new(user.loc)
-		H.faction = list("cult")
+		var/mob/living/simple_animal/hostile/illusion/cult/cult = new(user.loc)
+		cult.faction = list("cult")
 		if(!betray)
-			H.Copy_Parent(user, 70, 10, 5)
+			cult.Copy_Parent(user, 70, 10, 5)
 		else
-			H.Copy_Parent(user, 100, 20, 5)
-			H.GiveTarget(user)
+			cult.Copy_Parent(user, 100, 20, 5)
+			cult.GiveTarget(user)
 			to_chat(user, span_danger("[src] betrays you!"))
 	else
-		var/mob/living/simple_animal/hostile/illusion/escape/cult/E = new(user.loc)
-		E.Copy_Parent(user, 70, 10)
-		E.GiveTarget(user)
-		E.Goto(user, user.cached_multiplicative_slowdown, E.minimum_distance)
+		var/mob/living/simple_animal/hostile/illusion/escape/cult/cult = new(user.loc)
+		cult.Copy_Parent(user, 70, 10)
+		cult.GiveTarget(user)
+		cult.Goto(user, user.cached_multiplicative_slowdown, cult.minimum_distance)
 
 /obj/item/shield/mirror/proc/readd()
 	if(illusions < initial(illusions))

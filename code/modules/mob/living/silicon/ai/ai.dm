@@ -30,10 +30,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/is_in_use = 0
 	if(subject!=null)
 		for(var/A in GLOB.ai_list)
-			var/mob/living/silicon/ai/M = A
-			if(M.client && M.machine == subject)
+			var/mob/living/silicon/ai/ai = A
+			if(ai.client && ai.machine == subject)
 				is_in_use = 1
-				subject.attack_ai(M)
+				subject.attack_ai(ai)
 	return is_in_use
 
 /mob/living/silicon/ai
@@ -325,17 +325,17 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			var/C = alm[2]
 			var/list/list/sources = alm[3].Copy()
 			for(var/thing in sources)
-				var/atom/A = locateUID(thing)
-				if(A && A.z != z)
+				var/atom/atom = locateUID(thing)
+				if(atom && atom.z != z)
 					L -= alarm
 					continue
 				dat += "<nobr>"
 				if(C && islist(C))
 					var/dat2 = ""
 					for(var/cam in C)
-						var/obj/machinery/camera/I = locateUID(cam)
-						if(!QDELETED(I))
-							dat2 += "[(dat2 == "") ? "" : " | "]<a href='byond://?src=[UID()];switchcamera=[cam]'>[I.c_tag]</a>"
+						var/obj/machinery/camera/camera = locateUID(cam)
+						if(!QDELETED(camera))
+							dat2 += "[(dat2 == "") ? "" : " | "]<a href='byond://?src=[UID()];switchcamera=[cam]'>[camera.c_tag]</a>"
 					dat += "-- [area_name] ([(dat2 != "") ? dat2 : "No Camera"])"
 				else
 					dat += "-- [area_name] (No Camera)"
@@ -810,34 +810,34 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		to_chat(usr, "You can't change your camera network because you are dead!")
 		return
 
-	var/mob/living/silicon/ai/U = usr
+	var/mob/living/silicon/ai/ai = usr
 
-	for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
-		if(!C.can_use())
+	for(var/obj/machinery/camera/camera in GLOB.cameranet.cameras)
+		if(!camera.can_use())
 			continue
 
-		var/list/tempnetwork = difflist(C.network,GLOB.restricted_camera_networks,1)
+		var/list/tempnetwork = difflist(camera.network,GLOB.restricted_camera_networks,1)
 		if(length(tempnetwork))
 			for(var/i in tempnetwork)
 				cameralist[i] = i
 	var/old_network = network
-	network = tgui_input_list(U, "Which network would you like to view?", "Jump To Network", cameralist)
+	network = tgui_input_list(ai, "Which network would you like to view?", "Jump To Network", cameralist)
 
 	if(check_unable())
 		return
 
-	if(!U.eyeobj)
-		U.view_core()
+	if(!ai.eyeobj)
+		ai.view_core()
 		return
 
 	if(isnull(network))
 		network = old_network // If nothing is selected
 	else
-		for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
-			if(!C.can_use())
+		for(var/obj/machinery/camera/camera in GLOB.cameranet.cameras)
+			if(!camera.can_use())
 				continue
-			if(network in C.network)
-				U.eyeobj.setLoc(get_turf(C))
+			if(network in camera.network)
+				ai.eyeobj.setLoc(get_turf(camera))
 				break
 	to_chat(src, span_notice("Switched to [network] camera network."))
 //End of code by Mord_Sith
@@ -907,8 +907,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		if("Crew Member")
 			var/personnel_list[] = list()
 
-			for(var/datum/data/record/t in GLOB.data_core.general)//Look in data core general.
-				personnel_list["[t.fields["name"]]: [t.fields["rank"]]"] = t.fields["photo"]//Pull names, rank, and id photo.
+			for(var/datum/data/record/record in GLOB.data_core.general)//Look in data core general.
+				personnel_list["[record.fields["name"]]: [record.fields["rank"]]"] = record.fields["photo"]//Pull names, rank, and id photo.
 
 			if(length(personnel_list))
 				input = tgui_input_list(usr, "Select a crew member", "Change Hologram", personnel_list)
@@ -1040,8 +1040,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(!camera_light_on)
 		to_chat(src, "Camera lights deactivated.")
 
-		for(var/obj/machinery/camera/C in lit_cameras)
-			C.set_light(l_on = FALSE)
+		for(var/obj/machinery/camera/camera in lit_cameras)
+			camera.set_light(l_on = FALSE)
 			lit_cameras = list()
 
 		return
@@ -1102,12 +1102,12 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	add = visible - lit_cameras
 	remove = lit_cameras - visible
 
-	for(var/obj/machinery/camera/C in remove)
-		lit_cameras -= C //Removed from list before turning off the light so that it doesn't check the AI looking away.
-		C.Togglelight(FALSE)
-	for(var/obj/machinery/camera/C in add)
-		C.Togglelight(TRUE)
-		lit_cameras |= C
+	for(var/obj/machinery/camera/camera in remove)
+		lit_cameras -= camera //Removed from list before turning off the light so that it doesn't check the AI looking away.
+		camera.Togglelight(FALSE)
+	for(var/obj/machinery/camera/camera in add)
+		camera.Togglelight(TRUE)
+		lit_cameras |= camera
 
 /mob/living/silicon/ai/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -1256,38 +1256,38 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/proc/remove_malf_abilities()
 	QDEL_NULL(modules_action)
 	for(var/datum/AI_Module/AM in current_modules)
-		for(var/datum/action/A in actions)
-			if(istype(A, initial(AM.power_type)))
-				qdel(A)
+		for(var/datum/action/action in actions)
+			if(istype(action, initial(AM.power_type)))
+				qdel(action)
 
 /mob/living/silicon/ai/proc/open_nearest_door(mob/living/target)
 	if(!istype(target))
 		return
 
 	if(target && target.can_track())
-		var/obj/machinery/door/airlock/A = null
+		var/obj/machinery/door/airlock/airlock = null
 
 		var/dist = -1
-		for(var/obj/machinery/door/airlock/D in range(3, target))
-			if(!D.density)
+		for(var/obj/machinery/door/airlock/nearby_airlock in range(3, target))
+			if(!nearby_airlock.density)
 				continue
 
-			var/curr_dist = get_dist(D, target)
+			var/curr_dist = get_dist(nearby_airlock, target)
 
 			if(dist < 0)
 				dist = curr_dist
-				A = D
+				airlock = nearby_airlock
 			else if(dist > curr_dist)
 				dist = curr_dist
-				A = D
+				airlock = nearby_airlock
 
-		if(istype(A))
-			switch(tgui_alert(src, "Do you want to open \the [A] for [target]?", "Doorknob_v2a.exe", list("Yes", "No")))
+		if(istype(airlock))
+			switch(tgui_alert(src, "Do you want to open \the [airlock] for [target]?", "Doorknob_v2a.exe", list("Yes", "No")))
 				if("Yes")
-					if(!A.density)
-						to_chat(src, span_notice("[A] was already opened."))
-					else if(A.open_close(src))
-						to_chat(src, span_notice("You open \the [A] for [target]."))
+					if(!airlock.density)
+						to_chat(src, span_notice("[airlock] was already opened."))
+					else if(airlock.open_close(src))
+						to_chat(src, span_notice("You open \the [airlock] for [target]."))
 				else
 					to_chat(src, span_warning("You deny the request."))
 		else

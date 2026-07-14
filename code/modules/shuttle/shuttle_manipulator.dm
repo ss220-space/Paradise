@@ -275,25 +275,25 @@
 	// - We need to check that no additional ports have slipped in from the
 	//   template, because that causes unintended behaviour.
 	for(var/T in affected)
-		for(var/obj/docking_port/P in T)
-			if(istype(P, /obj/docking_port/mobile))
-				var/obj/docking_port/mobile/M = P
+		for(var/obj/docking_port/docking_port in T)
+			if(istype(docking_port, /obj/docking_port/mobile))
+				var/obj/docking_port/mobile/mobile = docking_port
 				found++
 				if(found > 1)
-					qdel(P, force=TRUE)
+					qdel(docking_port, force=TRUE)
 					world.log << "Map warning: Shuttle Template [S.mappath] \
 						has multiple mobile docking ports."
-				else if(!M.timid)
+				else if(!mobile.timid)
 					// The shuttle template we loaded isn't "timid" which means
 					// it's already registered with the shuttles subsystem.
 					// This is a bad thing.
 					var/m = "Template [S] is non-timid! Unloading."
 					WARNING(m)
-					M.jumpToNullSpace()
+					mobile.jumpToNullSpace()
 					return
 				else
-					preview_shuttle = P
-			if(istype(P, /obj/docking_port/stationary))
+					preview_shuttle = docking_port
+			if(istype(docking_port, /obj/docking_port/stationary))
 				world.log << "Map warning: Shuttle Template [S.mappath] has a \
 					stationary docking port."
 	if(!found)

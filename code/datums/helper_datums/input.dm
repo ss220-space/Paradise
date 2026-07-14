@@ -1,17 +1,17 @@
 /proc/input_async(mob/user=usr, prompt, list/choices)
-	var/datum/async_input/A = new(choices, prompt, , user)
-	A.show()
-	return A
+	var/datum/async_input/async_input = new(choices, prompt, , user)
+	async_input.show()
+	return async_input
 
 /proc/input_ranked_async(mob/user=usr, prompt="Order by greatest to least preference", list/choices)
-	var/datum/async_input/ranked/A = new(choices, prompt, "ranked_input", user)
-	A.show()
-	return A
+	var/datum/async_input/ranked/ranked = new(choices, prompt, "ranked_input", user)
+	ranked.show()
+	return ranked
 
 /proc/input_autocomplete_async(mob/user=usr, prompt="Enter text: ", list/choices)
-	var/datum/async_input/autocomplete/A = new(choices, prompt, "ac_input", user)
-	A.show()
-	return A
+	var/datum/async_input/autocomplete/autocomplete = new(choices, prompt, "ac_input", user)
+	autocomplete.show()
+	return autocomplete
 
 /datum/async_input
 	var/datum/browser/popup

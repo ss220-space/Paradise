@@ -167,8 +167,8 @@
 	return
 
 /obj/item/mixing_bowl/proc/dispose()
-	for(var/obj/O in contents)
-		O.forceMove(usr.loc)
+	for(var/obj/obj in contents)
+		obj.forceMove(usr.loc)
 	if(reagents.total_volume)
 		make_dirty(5)
 	reagents.clear_reagents()
@@ -203,13 +203,13 @@
 	if(!source)
 		source = src
 	var/amount = 0
-	for(var/obj/O in contents)
+	for(var/obj/obj in contents)
 		amount++
-		if(O.reagents)
-			var/id = O.reagents.get_master_reagent_id()
+		if(obj.reagents)
+			var/id = obj.reagents.get_master_reagent_id()
 			if(id)
-				amount+=O.reagents.get_reagent_amount(id)
-		qdel(O)
+				amount+=obj.reagents.get_reagent_amount(id)
+		qdel(obj)
 	if(reagents?.total_volume)
 		var/id = reagents.get_master_reagent_id()
 		if(id)

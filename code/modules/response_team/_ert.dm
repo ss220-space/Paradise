@@ -61,15 +61,15 @@ ADMIN_VERB(dispatch_ert, R_EVENT, "Dispatch CentComm Response Team", "Send an Ce
 		return
 
 	// Respawnable players get first dibs
-	for(var/mob/dead/observer/M in ert_candidates)
-		if((M in GLOB.respawnable_list) && M.JoinResponseTeam())
-			GLOB.response_team_members |= M
-			M.RegisterSignal(M, COMSIG_QDELETING, TYPE_PROC_REF(/mob/dead/observer, remove_from_ert_list), TRUE)
+	for(var/mob/dead/observer/observer in ert_candidates)
+		if((observer in GLOB.respawnable_list) && observer.JoinResponseTeam())
+			GLOB.response_team_members |= observer
+			observer.RegisterSignal(observer, COMSIG_QDELETING, TYPE_PROC_REF(/mob/dead/observer, remove_from_ert_list), TRUE)
 	// If there's still open slots, non-respawnable players can fill them
-	for(var/mob/dead/observer/M in (ert_candidates - GLOB.respawnable_list))
-		if(M.JoinResponseTeam())
-			GLOB.response_team_members |= M
-			M.RegisterSignal(M, COMSIG_QDELETING, TYPE_PROC_REF(/mob/dead/observer, remove_from_ert_list), TRUE)
+	for(var/mob/dead/observer/observer in (ert_candidates - GLOB.respawnable_list))
+		if(observer.JoinResponseTeam())
+			GLOB.response_team_members |= observer
+			observer.RegisterSignal(observer, COMSIG_QDELETING, TYPE_PROC_REF(/mob/dead/observer, remove_from_ert_list), TRUE)
 
 	if(!length(GLOB.response_team_members))
 		GLOB.active_team.cannot_send_team()
@@ -77,8 +77,8 @@ ADMIN_VERB(dispatch_ert, R_EVENT, "Dispatch CentComm Response Team", "Send an Ce
 		return
 
 	var/list/ert_prefs = list()
-	for(var/mob/M in GLOB.response_team_members)
-		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(get_ert_prefs), M, ert_prefs)
+	for(var/mob/observer in GLOB.response_team_members)
+		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(get_ert_prefs), observer, ert_prefs)
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(dispatch_response_team), GLOB.response_team_members, ert_prefs), 31 SECONDS) // one additional second for some client-server lags
 
 /mob/dead/observer/proc/remove_from_ert_list(ghost)
@@ -133,22 +133,22 @@ ADMIN_VERB(dispatch_ert, R_EVENT, "Dispatch CentComm Response Team", "Send an Ce
 
 /client/proc/create_response_team(new_gender, role, turf/spawn_location)
 	if(role == ERT_ROLE_CYBORG)
-		var/mob/living/silicon/robot/ert/R = new GLOB.active_team.borg_path(spawn_location)
-		return R
+		var/mob/living/silicon/robot/ert/ert = new GLOB.active_team.borg_path(spawn_location)
+		return ert
 
-	var/mob/living/carbon/human/M = new(null)
-	var/obj/item/organ/external/head/head_organ = M.get_organ(BODY_ZONE_HEAD)
+	var/mob/living/carbon/human/human = new(null)
+	var/obj/item/organ/external/head/head_organ = human.get_organ(BODY_ZONE_HEAD)
 
 	if(new_gender)
 		if(new_gender == "Мужской")
-			M.change_gender(MALE)
+			human.change_gender(MALE)
 		else
-			M.change_gender(FEMALE)
+			human.change_gender(FEMALE)
 
-	M.set_species(/datum/species/human, TRUE)
-	M.dna.ready_dna(M)
-	M.cleanSE() //No fat/blind/colourblind/epileptic/whatever ERT.
-	M.overeatduration = 0
+	human.set_species(/datum/species/human, TRUE)
+	human.dna.ready_dna(human)
+	human.cleanSE() //No fat/blind/colourblind/epileptic/whatever ERT.
+	human.overeatduration = 0
 
 	var/hair_c = pick("#8B4513","#000000","#FF4500","#FFD700") // Brown, black, red, blonde
 	var/eye_c = pick("#000000","#8B4513","1E90FF") // Black, brown, blue
@@ -158,33 +158,33 @@ ADMIN_VERB(dispatch_ert, R_EVENT, "Dispatch CentComm Response Team", "Send an Ce
 	head_organ.sec_facial_colour = hair_c
 	head_organ.hair_colour = hair_c
 	head_organ.sec_hair_colour = hair_c
-	M.change_eye_color(eye_c)
-	M.s_tone = skin_tone
-	head_organ.h_style = random_hair_style(M.gender, head_organ.dna.species)
-	head_organ.f_style = random_facial_hair_style(M.gender, head_organ.dna.species.name)
-	M.rename_character(null, "Безымянный") // Rewritten in /datum/outfit/job/centcom/response_team/pre_equip
-	M.age = rand(23,35)
-	M.regenerate_icons()
+	human.change_eye_color(eye_c)
+	human.s_tone = skin_tone
+	head_organ.h_style = random_hair_style(human.gender, head_organ.dna.species)
+	head_organ.f_style = random_facial_hair_style(human.gender, head_organ.dna.species.name)
+	human.rename_character(null, "Безымянный") // Rewritten in /datum/outfit/job/centcom/response_team/pre_equip
+	human.age = rand(23,35)
+	human.regenerate_icons()
 
 	//Creates mind stuff.
-	M.mind = new
-	M.mind.current = M
-	M.mind.set_original_mob(M)
-	M.mind.assigned_role = SPECIAL_ROLE_ERT
-	M.mind.special_role = SPECIAL_ROLE_ERT
-	if(!(M.mind in SSticker.minds))
-		SSticker.minds += M.mind //Adds them to regular mind list.
-	SSticker.mode.ert += M.mind
-	M.forceMove(spawn_location)
+	human.mind = new
+	human.mind.current = human
+	human.mind.set_original_mob(human)
+	human.mind.assigned_role = SPECIAL_ROLE_ERT
+	human.mind.special_role = SPECIAL_ROLE_ERT
+	if(!(human.mind in SSticker.minds))
+		SSticker.minds += human.mind //Adds them to regular mind list.
+	SSticker.mode.ert += human.mind
+	human.forceMove(spawn_location)
 
-	SSjobs.CreateMoneyAccount(M, role, null)
+	SSjobs.CreateMoneyAccount(human, role, null)
 
-	GLOB.active_team.equip_officer(role, M)
+	GLOB.active_team.equip_officer(role, human)
 
-	M.update_body()
-	M.update_dna()
+	human.update_body()
+	human.update_dna()
 
-	return M
+	return human
 
 /datum/response_team
 	var/list/slots = list(

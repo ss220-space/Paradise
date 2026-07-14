@@ -42,20 +42,20 @@
 /datum/space_level/proc/build_space_destination_arrays()
 	// We skip `add_to_transit` here because we want to skip the checks in order to save time
 	// Bottom border
-	for(var/turf/space/S in block(1,1,zpos, world.maxx,TRANSITION_BORDER_SOUTH,zpos))
-		transit_south |= S
+	for(var/turf/space/space in block(1,1,zpos, world.maxx,TRANSITION_BORDER_SOUTH,zpos))
+		transit_south |= space
 
 	// Top border
-	for(var/turf/space/S in block(1,world.maxy,zpos, world.maxx,TRANSITION_BORDER_NORTH,zpos))
-		transit_north |= S
+	for(var/turf/space/space in block(1,world.maxy,zpos, world.maxx,TRANSITION_BORDER_NORTH,zpos))
+		transit_north |= space
 
 	// Left border
-	for(var/turf/space/S in block(1,TRANSITION_BORDER_SOUTH + 1,zpos, TRANSITION_BORDER_WEST,TRANSITION_BORDER_NORTH - 1,zpos))
-		transit_west |= S
+	for(var/turf/space/space in block(1,TRANSITION_BORDER_SOUTH + 1,zpos, TRANSITION_BORDER_WEST,TRANSITION_BORDER_NORTH - 1,zpos))
+		transit_west |= space
 
 	// Right border
-	for(var/turf/space/S in block(TRANSITION_BORDER_EAST,TRANSITION_BORDER_SOUTH + 1,zpos, world.maxx,TRANSITION_BORDER_NORTH - 1,zpos))
-		transit_east |= S
+	for(var/turf/space/space in block(TRANSITION_BORDER_EAST,TRANSITION_BORDER_SOUTH + 1,zpos, world.maxx,TRANSITION_BORDER_NORTH - 1,zpos))
+		transit_east |= space
 
 /datum/space_level/proc/add_to_transit(turf/space/S)
 	if(S.y <= TRANSITION_BORDER_SOUTH)
@@ -102,19 +102,19 @@
 		if(UNAFFECTED)
 			S.remove_transitions()
 		if(SELFLOOPING,CROSSLINKED)
-			var/datum/space_level/E = get_connection()
+			var/datum/space_level/space_level = get_connection()
 			if(S in transit_north)
-				E = get_connection(Z_LEVEL_NORTH)
-				S.set_transition_north(E.zpos)
+				space_level = get_connection(Z_LEVEL_NORTH)
+				S.set_transition_north(space_level.zpos)
 			if(S in transit_south)
-				E = get_connection(Z_LEVEL_SOUTH)
-				S.set_transition_south(E.zpos)
+				space_level = get_connection(Z_LEVEL_SOUTH)
+				S.set_transition_south(space_level.zpos)
 			if(S in transit_east)
-				E = get_connection(Z_LEVEL_EAST)
-				S.set_transition_east(E.zpos)
+				space_level = get_connection(Z_LEVEL_EAST)
+				S.set_transition_east(space_level.zpos)
 			if(S in transit_west)
-				E = get_connection(Z_LEVEL_WEST)
-				S.set_transition_west(E.zpos)
+				space_level = get_connection(Z_LEVEL_WEST)
+				S.set_transition_west(space_level.zpos)
 
 /datum/space_level/proc/get_turfs()
 	return block(1, 1, zpos, world.maxx, world.maxy, zpos)
@@ -138,10 +138,10 @@
 //create docking ports for navigation consoles to jump to
 /datum/space_level/proc/set_navbeacon()
 	var/turf/placing_turf = locate(200, 200, zpos)
-	var/obj/docking_port/stationary/D = new /obj/docking_port/stationary(placing_turf)
-	D.name = name
-	D.id = "nav_z[zpos]"
-	D.register()
+	var/obj/docking_port/stationary/stationary = new /obj/docking_port/stationary(placing_turf)
+	stationary.name = name
+	stationary.id = "nav_z[zpos]"
+	stationary.register()
 
 GLOBAL_LIST_INIT(atmos_machine_typecache, typecacheof(/obj/machinery/atmospherics))
 GLOBAL_LIST_INIT(cable_typecache, typecacheof(/obj/structure/cable))

@@ -50,22 +50,22 @@
 	experimentUI(user)
 
 /obj/machinery/abductor/experiment/proc/dissection_icon(mob/living/carbon/human/H)
-	var/icon/I = icon(H.stand_icon)
+	var/icon/icon = icon(H.stand_icon)
 
 	var/icon/splat = icon(H.dna.species.damage_overlays, "30")
 	splat.Blend(icon(H.dna.species.damage_mask, "torso"), ICON_MULTIPLY)
 	splat.Blend(H.dna.species.blood_color, ICON_MULTIPLY)
-	I.Blend(splat, ICON_OVERLAY)
+	icon.Blend(splat, ICON_OVERLAY)
 
-	return I
+	return icon
 
 /obj/machinery/abductor/experiment/proc/experimentUI(mob/user)
 	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
 	dat += "<h3> Experiment </h3>"
 	if(occupant)
-		var/icon/H = icon(dissection_icon(occupant), dir = SOUTH)
-		if(H)
-			user << browse_rsc(H, "dissection_img.png")
+		var/icon/icon = icon(dissection_icon(occupant), dir = SOUTH)
+		if(icon)
+			user << browse_rsc(icon, "dissection_img.png")
 			dat += "<table><tr><td>"
 			dat += "<img src='dissection_img.png' height='80' width='80'>"
 			dat += "</td><td>"
@@ -116,46 +116,46 @@
 	add_fingerprint(usr)
 
 /obj/machinery/abductor/experiment/proc/Experiment(mob/occupant,type)
-	var/mob/living/carbon/human/H = occupant
+	var/mob/living/carbon/human/human = occupant
 	var/point_reward = 0
-	if(H in history)
+	if(human in history)
 		return span_bad("Specimen already in database.")
-	if(H.stat == DEAD)
+	if(human.stat == DEAD)
 		atom_say("Образец мертв — пожалуйста, предоставьте свежий образец.")
 		return span_bad("Specimen deceased.")
-	var/obj/item/organ/internal/heart/gland/GlandTest = locate() in H.internal_organs
+	var/obj/item/organ/internal/heart/gland/GlandTest = locate() in human.internal_organs
 	if(!GlandTest)
 		atom_say("Экспериментальная диссекция не обнаружена!")
 		return span_bad("No glands detected!")
-	if(H.mind != null && H.ckey != null)
-		history += H
-		abductee_minds += H.mind
+	if(human.mind != null && human.ckey != null)
+		history += human
+		abductee_minds += human.mind
 		atom_say("Обработка образца...")
 		sleep(5)
 		switch(text2num(type))
 			if(1)
-				to_chat(H, span_warning("You feel violated."))
+				to_chat(human, span_warning("You feel violated."))
 			if(2)
-				to_chat(H, span_warning("You feel yourself being sliced apart and put back together."))
+				to_chat(human, span_warning("You feel yourself being sliced apart and put back together."))
 			if(3)
-				to_chat(H, span_warning("You feel intensely watched."))
+				to_chat(human, span_warning("You feel intensely watched."))
 		sleep(5)
-		to_chat(H, span_warning("<b>Your mind snaps!</b>"))
-		to_chat(H, "<big>[span_warning("<b>You can't remember how you got here...</b>")]</big>")
+		to_chat(human, span_warning("<b>Your mind snaps!</b>"))
+		to_chat(human, "<big>[span_warning("<b>You can't remember how you got here...</b>")]</big>")
 		var/objtype = pick(subtypesof(/datum/objective/abductee/))
-		var/datum/objective/abductee/O = new objtype()
-		SSticker.mode.abductees += H.mind
-		H.mind.objectives += O
-		var/list/messages = H.mind.prepare_announce_objectives()
-		to_chat(H, custom_boxed_message("red_box center", messages.Join("<br>"))) // let the player know they have a new objective
-		SSticker.mode.update_abductor_icons_added(H.mind)
+		var/datum/objective/abductee/abductee = new objtype()
+		SSticker.mode.abductees += human.mind
+		human.mind.objectives += abductee
+		var/list/messages = human.mind.prepare_announce_objectives()
+		to_chat(human, custom_boxed_message("red_box center", messages.Join("<br>"))) // let the player know they have a new objective
+		SSticker.mode.update_abductor_icons_added(human.mind)
 
-		for(var/obj/item/organ/internal/heart/gland/G in H.internal_organs)
-			G.Start()
+		for(var/obj/item/organ/internal/heart/gland/gland in human.internal_organs)
+			gland.Start()
 			point_reward++
 		if(point_reward > 0)
 			eject_abductee()
-			SendBack(H)
+			SendBack(human)
 			playsound(src.loc, 'sound/machines/ding.ogg', 50, TRUE)
 			points += point_reward
 			credits += point_reward
@@ -166,7 +166,7 @@
 	else
 		atom_say("Мозговая деятельность не проявляется — утилизация образца...")
 		eject_abductee()
-		SendBack(H)
+		SendBack(human)
 		return span_bad("Specimen braindead - disposed.")
 
 /obj/machinery/abductor/experiment/proc/SendBack(mob/living/carbon/human/H)

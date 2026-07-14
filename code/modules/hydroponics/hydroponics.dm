@@ -108,15 +108,15 @@
 	var/list/processing_atoms = list(src)
 
 	while(length(processing_atoms))
-		var/atom/a = processing_atoms[1]
+		var/atom/atom = processing_atoms[1]
 		for(var/step_dir in GLOB.cardinal)
-			var/obj/machinery/hydroponics/h = locate() in get_step(a, step_dir)
+			var/obj/machinery/hydroponics/hydroponics = locate() in get_step(atom, step_dir)
 			// Soil plots aren't dense
-			if(h?.using_irrigation && h.density && !(h in connected) && !(h in processing_atoms))
-				processing_atoms += h
+			if(hydroponics?.using_irrigation && hydroponics.density && !(hydroponics in connected) && !(hydroponics in processing_atoms))
+				processing_atoms += hydroponics
 
-		processing_atoms -= a
-		connected += a
+		processing_atoms -= atom
+		connected += atom
 
 	return connected
 
@@ -286,8 +286,8 @@
 		set_light(3, l_on = TRUE)
 	else
 		if(myseed && myseed.get_gene(/datum/plant_gene/trait/glow))
-			var/datum/plant_gene/trait/glow/G = myseed.get_gene(/datum/plant_gene/trait/glow)
-			set_light(G.glow_range(myseed), G.glow_power(myseed), G.glow_color, l_on = TRUE)
+			var/datum/plant_gene/trait/glow/glow = myseed.get_gene(/datum/plant_gene/trait/glow)
+			set_light(glow.glow_range(myseed), glow.glow_power(myseed), glow.glow_color, l_on = TRUE)
 		else
 			set_light_on(FALSE)
 
@@ -491,8 +491,8 @@
 		add_game_logs("caused spiderling pests to spawn in a hydro tray", user)
 		visible_message(span_warning("The pests seem to behave oddly..."))
 		for(var/i in 1 to 3)
-			var/obj/structure/spider/spiderling/S = new(get_turf(src))
-			S.grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/hunter
+			var/obj/structure/spider/spiderling/spiderling = new(get_turf(src))
+			spiderling.grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/hunter
 	else
 		to_chat(user, span_warning("The pests seem to behave oddly, but quickly settle down..."))
 
@@ -1058,8 +1058,8 @@
 /obj/machinery/hydroponics/proc/spawnplant() // why would you put strange reagent in a hydro tray you monster I bet you also feed them blood
 	var/list/livingplants = list(/mob/living/simple_animal/hostile/tree, /mob/living/simple_animal/hostile/killertomato)
 	var/chosen = pick(livingplants)
-	var/mob/living/simple_animal/hostile/C = new chosen(get_turf(src))
-	C.faction = list("plants")
+	var/mob/living/simple_animal/hostile/hostile = new chosen(get_turf(src))
+	hostile.faction = list("plants")
 
 /obj/machinery/hydroponics/proc/become_self_sufficient() // Ambrosia Gaia effect
 	visible_message(span_boldnotice("[src] begins to glow with a beautiful light!"))

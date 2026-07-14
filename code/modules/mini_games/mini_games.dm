@@ -26,33 +26,33 @@
  * Changed copy of /proc/notify_ghosts designed to be customizable across user preferences
  */
 /datum/mini_game/proc/notify_players(message, ghost_sound = null, enter_link = null, title = null, atom/source = null, image/alert_overlay = null, flashwindow = TRUE, action = NOTIFY_JUMP) //Easy notification of ghosts.
-	for(var/mob/dead/observer/O in GLOB.player_list)
-		if(!O.client?.prefs?.minigames_notifications || !(role in O.client?.prefs?.be_special))
+	for(var/mob/dead/observer/observer in GLOB.player_list)
+		if(!observer.client?.prefs?.minigames_notifications || !(role in observer.client?.prefs?.be_special))
 			return
-		to_chat(O, span_ghostalert("[message][(enter_link) ? " [enter_link]" : ""]"))
+		to_chat(observer, span_ghostalert("[message][(enter_link) ? " [enter_link]" : ""]"))
 		if(ghost_sound)
-			SEND_SOUND(O, sound(ghost_sound))
+			SEND_SOUND(observer, sound(ghost_sound))
 		if(flashwindow)
-			window_flash(O.client)
+			window_flash(observer.client)
 		if(source)
-			var/atom/movable/screen/alert/notify_action/A = O.throw_alert("[source.UID()]_notify_action", /atom/movable/screen/alert/notify_action)
-			if(A)
-				if(O.client.prefs && O.client.prefs.UI_style)
-					A.icon = ui_style2icon(O.client.prefs.UI_style)
+			var/atom/movable/screen/alert/notify_action/notify_action = observer.throw_alert("[source.UID()]_notify_action", /atom/movable/screen/alert/notify_action)
+			if(notify_action)
+				if(observer.client.prefs && observer.client.prefs.UI_style)
+					notify_action.icon = ui_style2icon(observer.client.prefs.UI_style)
 				if(title)
-					A.name = title
-				A.desc = message
-				A.action = action
-				A.target_ref = WEAKREF(source)
+					notify_action.name = title
+				notify_action.desc = message
+				notify_action.action = action
+				notify_action.target_ref = WEAKREF(source)
 				if(!alert_overlay)
 					var/old_layer = source.layer
 					var/old_plane = source.plane
 					source.layer = FLOAT_LAYER
 					source.plane = FLOAT_PLANE
-					A.add_overlay(source)
+					notify_action.add_overlay(source)
 					source.layer = old_layer
 					source.plane = old_plane
 				else
 					alert_overlay.layer = FLOAT_LAYER
 					alert_overlay.plane = FLOAT_PLANE
-					A.add_overlay(alert_overlay)
+					notify_action.add_overlay(alert_overlay)

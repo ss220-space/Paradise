@@ -379,10 +379,10 @@
 	. += span_notice("Внутри [LAZYLEN(contents)] заряд[DECL_CREDIT(LAZYLEN(contents))].")
 
 /obj/item/storage/bag/kaboom/proc/set_next_bomb()
-	for(var/obj/item/grenade/plastic/I in contents)
-		if(istype(I, nextbomb.type))
+	for(var/obj/item/grenade/plastic/plastic in contents)
+		if(istype(plastic, nextbomb.type))
 			if(isnull(nextchosen))
-				nextchosen = I
+				nextchosen = plastic
 			bombs_left += 1
 	if(isnull(nextchosen))
 		nextchosen = pick(contents)

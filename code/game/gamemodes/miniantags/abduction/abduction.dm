@@ -95,11 +95,11 @@
 	var/list/obj/effect/landmark/abductor/scientist_landmarks = list()
 	agent_landmarks.len = max_teams
 	scientist_landmarks.len = max_teams
-	for(var/obj/effect/landmark/abductor/A in GLOB.landmarks_list)
-		if(istype(A,/obj/effect/landmark/abductor/agent))
-			agent_landmarks[text2num(A.team)] = A
-		else if(istype(A,/obj/effect/landmark/abductor/scientist))
-			scientist_landmarks[text2num(A.team)] = A
+	for(var/obj/effect/landmark/abductor/abductor in GLOB.landmarks_list)
+		if(istype(abductor,/obj/effect/landmark/abductor/agent))
+			agent_landmarks[text2num(abductor.team)] = abductor
+		else if(istype(abductor,/obj/effect/landmark/abductor/scientist))
+			scientist_landmarks[text2num(abductor.team)] = abductor
 
 	var/team_name = team_names[team_number]
 
@@ -144,8 +144,8 @@
 	update_abductor_icons_added(scientist)
 
 /datum/game_mode/abduction/proc/greet_agent(datum/mind/abductor, team_number)
-	var/datum/objective/stay_hidden/O = new
-	abductor.objectives += O
+	var/datum/objective/stay_hidden/stay_hidden = new
+	abductor.objectives += stay_hidden
 	abductor.objectives += team_objectives[team_number]
 	var/team_name = team_names[team_number]
 
@@ -159,8 +159,8 @@
 	log_game("[abductor] has become an abductor agent.")
 
 /datum/game_mode/abduction/proc/greet_scientist(datum/mind/abductor,team_number)
-	var/datum/objective/stay_hidden/O = new
-	abductor.objectives += O
+	var/datum/objective/stay_hidden/stay_hidden = new
+	abductor.objectives += stay_hidden
 	abductor.objectives += team_objectives[team_number]
 	var/team_name = team_names[team_number]
 
@@ -175,9 +175,9 @@
 	log_game("[abductor] has become an abductor scientist.")
 
 /datum/game_mode/abduction/proc/get_team_console(team_number)
-	for(var/obj/machinery/abductor/console/C in SSmachines.get_by_type(/obj/machinery/abductor/console))
-		if(C.team == team_number)
-			return C
+	for(var/obj/machinery/abductor/console/console in SSmachines.get_by_type(/obj/machinery/abductor/console))
+		if(console.team == team_number)
+			return console
 
 /datum/game_mode/abduction/check_finished()
 	if(!finished)

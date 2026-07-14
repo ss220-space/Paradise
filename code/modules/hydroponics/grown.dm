@@ -133,25 +133,25 @@
 				squash(hit_atom, thrower)
 
 /obj/item/reagent_containers/food/snacks/grown/proc/squash(atom/target, mob/thrower)
-	var/turf/T = get_turf(src)
+	var/turf/turf = get_turf(src)
 	if(ispath(splat_type, /obj/effect/decal/cleanable/plant_smudge))
 		if(filling_color)
-			var/obj/O = new splat_type(T)
-			O.color = filling_color
-			O.name = "[name] smudge"
+			var/obj/obj = new splat_type(turf)
+			obj.color = filling_color
+			obj.name = "[name] smudge"
 	else if(splat_type)
-		new splat_type(T)
+		new splat_type(turf)
 
 	if(trash)
-		generate_trash(T)
+		generate_trash(turf)
 
 	visible_message(span_warning("[src] has been squashed."),span_italics("You hear a smack."))
 	if(seed)
 		for(var/datum/plant_gene/trait/trait in seed.genes)
 			trait.on_squash(src, target, thrower)
 
-	reagents.reaction(T)
-	for(var/A in T)
+	reagents.reaction(turf)
+	for(var/A in turf)
 		if(reagents)
 			reagents.reaction(A)
 
@@ -200,9 +200,9 @@
 	if(seed && length(seed.genes))
 		var/list/plant_gene_names = list()
 		for(var/thing in seed.genes)
-			var/datum/plant_gene/G = thing
-			if(G.dangerous)
-				plant_gene_names += G.name
+			var/datum/plant_gene/plant_gene = thing
+			if(plant_gene.dangerous)
+				plant_gene_names += plant_gene.name
 		genes_str = english_list(plant_gene_names)
 
 	add_attack_logs(user, target, "[what_done] ([reagent_str] | [genes_str])")
@@ -219,9 +219,9 @@
 	if(seed)
 		msg += seed.get_analyzer_text()
 		for(var/reagent_id in seed.reagents_add)
-			var/datum/reagent/R  = GLOB.chemical_reagents_list[reagent_id]
+			var/datum/reagent/reagent  = GLOB.chemical_reagents_list[reagent_id]
 			var/amt = reagents.get_reagent_amount(reagent_id)
-			msg += span_notice("\n– [R.name]: [amt]")
+			msg += span_notice("\n– [reagent.name]: [amt]")
 	to_chat(user, msg)
 
 /obj/item/reagent_containers/food/snacks/grown/attack_ghost(mob/dead/observer/user)

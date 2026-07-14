@@ -55,47 +55,47 @@ ADMIN_VERB(event_manager_panel, R_EVENT, "Event Manager Panel", "Event Manager P
 	active_with_role["Janitor"] = 0
 	active_with_role["Any"] = GLOB.player_list.len
 
-	for(var/mob/M in GLOB.player_list)
-		if(!M.mind || !M.client || M.client.inactivity > 10 * 10 * 60) // longer than 10 minutes AFK counts them as inactive
+	for(var/mob/mob in GLOB.player_list)
+		if(!mob.mind || !mob.client || mob.client.inactivity > 10 * 10 * 60) // longer than 10 minutes AFK counts them as inactive
 			continue
 
-		if(isrobot(M))
-			var/mob/living/silicon/robot/R = M
-			if(R.module && (R.module.name == "engineering robot module"))
+		if(isrobot(mob))
+			var/mob/living/silicon/robot/robot = mob
+			if(robot.module && (robot.module.name == "engineering robot module"))
 				active_with_role["Engineer"]++
 
-			if(R.module && (R.module.name == "medical robot module"))
+			if(robot.module && (robot.module.name == "medical robot module"))
 				active_with_role["Medical"]++
 
-			if(R.module && (R.module.name == "security robot module"))
+			if(robot.module && (robot.module.name == "security robot module"))
 				active_with_role["Security"]++
 
-		if(M.mind.assigned_role in list(JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE))
+		if(mob.mind.assigned_role in list(JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE))
 			active_with_role["Engineer"]++
 
-		if(M.mind.assigned_role in list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_MEDICAL_INTERN))
+		if(mob.mind.assigned_role in list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_MEDICAL_INTERN))
 			active_with_role["Medical"]++
 
-		if(M.mind.assigned_role in GLOB.security_positions)
+		if(mob.mind.assigned_role in GLOB.security_positions)
 			active_with_role["Security"]++
 
-		if(M.mind.assigned_role in list(JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENCE_STUDENT))
+		if(mob.mind.assigned_role in list(JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENCE_STUDENT))
 			active_with_role["Scientist"]++
 
-		if(M.mind.assigned_role == JOB_TITLE_AI)
+		if(mob.mind.assigned_role == JOB_TITLE_AI)
 			active_with_role["AI"]++
 
-		if(M.mind.assigned_role == JOB_TITLE_CYBORG)
+		if(mob.mind.assigned_role == JOB_TITLE_CYBORG)
 			active_with_role["Cyborg"]++
 
-		if(M.mind.assigned_role == JOB_TITLE_JANITOR)
+		if(mob.mind.assigned_role == JOB_TITLE_JANITOR)
 			active_with_role["Janitor"]++
 
 	return active_with_role
 
 /datum/event/proc/num_players()
 	var/players = 0
-	for(var/mob/living/carbon/human/P in GLOB.player_list)
-		if(P.client)
+	for(var/mob/living/carbon/human/human in GLOB.player_list)
+		if(human.client)
 			players++
 	return players

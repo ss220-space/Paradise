@@ -44,40 +44,40 @@
 			html_tags += list(html_tag, html_tag + 1, html_tag + 2, html_tag + 3)
 			html_tag = findtext(message, regex("</.>"), html_tag + 3)
 
-	var/atom/movable/screen/text/T = new()
-	T.screen_loc = screen_position
+	var/atom/movable/screen/text/text = new()
+	text.screen_loc = screen_position
 	switch(text_alignment)
 		if("center")
-			T.maptext_x = -(T.maptext_width * 0.5 - 16) //Centering the textbox.
+			text.maptext_x = -(text.maptext_width * 0.5 - 16) //Centering the textbox.
 		if("right")
-			T.maptext_x = -(T.maptext_width - 32) //Aligning the textbox with the right edge of the screen object.
+			text.maptext_x = -(text.maptext_width - 32) //Aligning the textbox with the right edge of the screen object.
 	if(scroll_down)
-		T.maptext_y = length(linebreaks) * 14
+		text.maptext_y = length(linebreaks) * 14
 
-	for(var/mob/M as anything in targets)
+	for(var/mob/mob as anything in targets)
 		if(blurb_key)
-			if(!ignore_key && (M.key in GLOB.blurb_witnesses[blurb_key]))
+			if(!ignore_key && (mob.key in GLOB.blurb_witnesses[blurb_key]))
 				continue
-			LAZYOR(GLOB.blurb_witnesses[blurb_key], M.key)
-		M.client?.screen += T
+			LAZYOR(GLOB.blurb_witnesses[blurb_key], mob.key)
+		mob.client?.screen += text
 
 	for(var/i in 1 to length(message) + 1)
 		if(i in linebreaks)
 			if(scroll_down)
-				T.maptext_y -= 14 //Move the object to keep lines in the same place.
+				text.maptext_y -= 14 //Move the object to keep lines in the same place.
 			continue
 		if(i in html_tags)
 			continue
-		T.maptext = "<span style=\"[style]\">[copytext(message,1,i)]</span>"
+		text.maptext = "<span style=\"[style]\">[copytext(message,1,i)]</span>"
 		sleep(speed/2)
 
-	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(fade_blurb), targets, T), duration)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(fade_blurb), targets, text), duration)
 
 /proc/fade_blurb(list/mob/targets, obj/T)
 	animate(T, alpha = 0, time = 0.5 SECONDS)
 	sleep(5)
-	for(var/mob/M as anything in targets)
-		M.client?.screen -= T
+	for(var/mob/mob as anything in targets)
+		mob.client?.screen -= T
 
 	qdel(T)
 

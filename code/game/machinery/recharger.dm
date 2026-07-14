@@ -198,17 +198,17 @@
 	use_power(power_usage)
 
 /obj/machinery/recharger/proc/try_recharging_if_possible()
-	var/obj/item/stock_parts/cell/C = charging.get_cell()
-	if(!check_cell_needs_recharging(C))
+	var/obj/item/stock_parts/cell/cell = charging.get_cell()
+	if(!check_cell_needs_recharging(cell))
 		return FALSE
 
 	if(isenergygun(charging))
-		recharge_cell(C, RECHARGER_POWER_USAGE_GUN)
+		recharge_cell(cell, RECHARGER_POWER_USAGE_GUN)
 
-		var/obj/item/gun/energy/E = charging
-		E.on_recharge()
+		var/obj/item/gun/energy/energy = charging
+		energy.on_recharge()
 	else
-		recharge_cell(C, RECHARGER_POWER_USAGE_MISC)
+		recharge_cell(cell, RECHARGER_POWER_USAGE_MISC)
 
 	return TRUE
 

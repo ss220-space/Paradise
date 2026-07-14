@@ -430,11 +430,11 @@
 	if(!GLOB.cameranet.checkTurfVis(S.loc))
 		to_chat(user, span_warning("Цель не рядом с камерой. Действие невозможно."))
 		return
-	var/mob/living/C = user
-	var/mob/camera/aiEye/remote/xenobio/E = C.remote_control
+	var/mob/living/living = user
+	var/mob/camera/aiEye/remote/xenobio/xenobio = living.remote_control
 	var/area/mobarea = get_area(S.loc)
-	if(mobarea.name == E.allowed_area || mobarea.xenobiology_compatible)
-		slime_scan(S, C)
+	if(mobarea.name == xenobio.allowed_area || mobarea.xenobiology_compatible)
+		slime_scan(S, living)
 
 /// Feeds a potion to slime
 /obj/machinery/computer/camera_advanced/xenobio/proc/XenoAltClickOn(mob/living/user, atom/target)
@@ -470,12 +470,12 @@
 	if(!GLOB.cameranet.checkTurfVis(S.loc))
 		to_chat(user, span_warning("Цель не рядом с камерой. Действие невозможно."))
 		return
-	var/mob/living/C = user
-	var/mob/camera/aiEye/remote/xenobio/E = C.remote_control
-	var/obj/machinery/computer/camera_advanced/xenobio/X = E.origin
+	var/mob/living/living = user
+	var/mob/camera/aiEye/remote/xenobio/xenobio = living.remote_control
+	var/obj/machinery/computer/camera_advanced/xenobio/xenobio_camera = xenobio.origin
 	var/area/mobarea = get_area(S.loc)
-	if(mobarea.name == E.allowed_area || mobarea.xenobiology_compatible)
-		if(length(X.stored_slimes) >= MAX_SLIME_IN_CONSOLE)
+	if(mobarea.name == xenobio.allowed_area || mobarea.xenobiology_compatible)
+		if(length(xenobio_camera.stored_slimes) >= MAX_SLIME_IN_CONSOLE)
 			to_chat(user, span_warning("Хранилище слаймов переполнено."))
 			return
 		if(S.ckey)
@@ -483,7 +483,7 @@
 			return
 		if(S.buckled)
 			S.Feedstop(silent = TRUE)
-		X.capture_slime(S)
+		xenobio_camera.capture_slime(S)
 
 //Place slimes
 /obj/machinery/computer/camera_advanced/xenobio/proc/XenoTurfClickShift(mob/living/user, turf/T)
@@ -492,16 +492,16 @@
 	if(!GLOB.cameranet.checkTurfVis(T))
 		to_chat(user, span_warning("Цель не рядом с камерой. Действие невозможно."))
 		return
-	var/mob/living/C = user
-	var/mob/camera/aiEye/remote/xenobio/E = C.remote_control
-	var/obj/machinery/computer/camera_advanced/xenobio/X = E.origin
+	var/mob/living/living = user
+	var/mob/camera/aiEye/remote/xenobio/xenobio = living.remote_control
+	var/obj/machinery/computer/camera_advanced/xenobio/xenobio_camera = xenobio.origin
 	var/area/turfarea = get_area(T)
 	if(iswallturf(T))
 		to_chat(user, "Вы не можете разместить слайма здесь.")
 		return
-	if(turfarea.name == E.allowed_area || turfarea.xenobiology_compatible)
-		for(var/mob/living/simple_animal/slime/S in X.stored_slimes)
-			X.release_slime(S, T)
+	if(turfarea.name == xenobio.allowed_area || turfarea.xenobiology_compatible)
+		for(var/mob/living/simple_animal/slime/slime in xenobio_camera.stored_slimes)
+			xenobio_camera.release_slime(slime, T)
 
 //Place monkey
 /obj/machinery/computer/camera_advanced/xenobio/proc/XenoTurfClickCtrl(mob/living/user, turf/T)
@@ -516,21 +516,21 @@
 	if(iswallturf(T))
 		to_chat(user, "Вы не можете разместить мартышку здесь.")
 		return
-	var/mob/living/C = user
-	var/mob/camera/aiEye/remote/xenobio/E = C.remote_control
-	var/obj/machinery/computer/camera_advanced/xenobio/X = E.origin
+	var/mob/living/living = user
+	var/mob/camera/aiEye/remote/xenobio/xenobio = living.remote_control
+	var/obj/machinery/computer/camera_advanced/xenobio/xenobio_camera = xenobio.origin
 	var/area/turfarea = get_area(T)
-	if(!X.monkeys)
-		to_chat(user, "В [X.declent_ru(GENITIVE)] нет мартышек!")
+	if(!xenobio_camera.monkeys)
+		to_chat(user, "В [xenobio_camera.declent_ru(GENITIVE)] нет мартышек!")
 		return
-	if(turfarea.name == E.allowed_area || turfarea.xenobiology_compatible)
-		if(X.monkeys >= 1)
+	if(turfarea.name == xenobio.allowed_area || turfarea.xenobiology_compatible)
+		if(xenobio_camera.monkeys >= 1)
 			var/mob/living/carbon/human/lesser/monkey/food = new /mob/living/carbon/human/lesser/monkey(T)
-			food.LAssailant = C
+			food.LAssailant = living
 			SSmobs.cubemonkeys += food
-			X.monkeys--
-			X.monkeys = round(X.monkeys, 0.1)
-			to_chat(user, "В [X.declent_ru(GENITIVE)] осталось [X.monkeys] мартыш[declension_ru(X.monkeys,"ка","ки","ек")].")
+			xenobio_camera.monkeys--
+			xenobio_camera.monkeys = round(xenobio_camera.monkeys, 0.1)
+			to_chat(user, "В [xenobio_camera.declent_ru(GENITIVE)] осталось [xenobio_camera.monkeys] мартыш[declension_ru(xenobio_camera.monkeys,"ка","ки","ек")].")
 
 //Pick up monkey
 /obj/machinery/computer/camera_advanced/xenobio/proc/XenoMonkeyClickCtrl(mob/living/user, mob/living/carbon/human/M)
@@ -542,18 +542,18 @@
 	if(!GLOB.cameranet.checkTurfVis(monkey_turf))
 		to_chat(user, span_warning("Цель не рядом с камерой. Действие невозможно."))
 		return
-	var/mob/camera/aiEye/remote/xenobio/E = user.remote_control
-	var/obj/machinery/computer/camera_advanced/xenobio/X = E.origin
+	var/mob/camera/aiEye/remote/xenobio/xenobio = user.remote_control
+	var/obj/machinery/computer/camera_advanced/xenobio/xenobio_camera = xenobio.origin
 	var/area/mobarea = get_area(M.loc)
-	var/obj/machinery/monkey_recycler/recycler = X.connected_recycler
+	var/obj/machinery/monkey_recycler/recycler = xenobio_camera.connected_recycler
 	if(!recycler)
 		to_chat(user, span_notice("Нет подключенного утилизатора мартышек. Используйте мультиметр для связи."))
 		return
-	if(mobarea.name == E.allowed_area || mobarea.xenobiology_compatible)
+	if(mobarea.name == xenobio.allowed_area || mobarea.xenobiology_compatible)
 		if(is_monkeybasic(M) && M.stat)
 			M.visible_message("[DECLENT_RU_CAP(M, NOMINATIVE)] исчезает, [GEND_HE_SHE(M)] отправлен[GEND_A_O_Y(M)] на переработку!")
 			recycler.use_power(500)
-			X.monkeys = round(X.monkeys + recycler.cube_production/recycler.required_grind, 0.1)
+			xenobio_camera.monkeys = round(xenobio_camera.monkeys + recycler.cube_production/recycler.required_grind, 0.1)
 			qdel(M)
 
 #undef MAX_SLIME_IN_CONSOLE

@@ -117,9 +117,9 @@
 
 /obj/machinery/mineral/stacking_machine/proc/process_sheet(obj/item/stack/sheet/inp)
 	if(!(inp.type in stack_list)) //It's the first of this sheet added
-		var/obj/item/stack/sheet/s = new inp.type(src,0)
-		s.amount = 0
-		stack_list[inp.type] = s
+		var/obj/item/stack/sheet/sheet = new inp.type(src,0)
+		sheet.amount = 0
+		stack_list[inp.type] = sheet
 	var/obj/item/stack/sheet/storage = stack_list[inp.type]
 	storage.amount += inp.amount //Stack the sheets
 	inp.loc = null //Let the old sheet garbage collect

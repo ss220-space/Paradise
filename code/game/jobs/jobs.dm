@@ -135,10 +135,10 @@ GLOBAL_LIST_INIT(whitelisted_positions, list(
 	var/list/jobs = get_job_datums()
 	var/list/titles = list()
 
-	for(var/datum/job/J in jobs)
-		if(!J)	continue
-		if(J.title == job)
-			titles = J.alt_titles
+	for(var/datum/job/job_datum in jobs)
+		if(!job_datum)	continue
+		if(job_datum.title == job)
+			titles = job_datum.alt_titles
 
 	return titles
 

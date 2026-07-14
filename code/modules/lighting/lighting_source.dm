@@ -472,20 +472,20 @@ GLOBAL_LIST_EMPTY(lighting_sheets)
 	var/uses_multiz = !!GET_LOWEST_STACK_OFFSET(source_turf.z)
 
 	if(!uses_multiz) // Yes I know this could be acomplished with an if in the for loop, but it's fukin lighting code man
-		for(var/turf/T in view(working_range, source_turf))
-			if(IS_OPAQUE_TURF(T))
+		for(var/turf/turf in view(working_range, source_turf))
+			if(IS_OPAQUE_TURF(turf))
 				continue
-			INSERT_CORNERS(corners, T)
+			INSERT_CORNERS(corners, turf)
 		source_turf.luminosity = oldlum
 		return corners
 
-	for(var/turf/T in view(working_range, source_turf))
-		if(IS_OPAQUE_TURF(T))
+	for(var/turf/turf in view(working_range, source_turf))
+		if(IS_OPAQUE_TURF(turf))
 			continue
-		INSERT_CORNERS(corners, T)
+		INSERT_CORNERS(corners, turf)
 
-		var/turf/below = GET_TURF_BELOW(T)
-		var/turf/previous = T
+		var/turf/below = GET_TURF_BELOW(turf)
+		var/turf/previous = turf
 		while(below)
 			// If we find a non transparent previous, end
 			if(!istransparentturf(previous))
@@ -500,7 +500,7 @@ GLOBAL_LIST_EMPTY(lighting_sheets)
 			previous = below
 			below = GET_TURF_BELOW(below)
 
-		var/turf/above = GET_TURF_ABOVE(T)
+		var/turf/above = GET_TURF_ABOVE(turf)
 		while(above)
 			// If we find a non transparent turf, end
 			if(!istransparentturf(above) || IS_OPAQUE_TURF(above))

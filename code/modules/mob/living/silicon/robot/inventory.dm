@@ -35,8 +35,8 @@
 	if(module)
 		O.loc = module	//Return item to module so it appears in its contents, so it can be taken out again.
 		for(var/X in O.actions) // Remove assocated actions
-			var/datum/action/A = X
-			A.Remove(src)
+			var/datum/action/action = X
+			action.Remove(src)
 
 	if(module_active == O)
 		if(istype(module_active, /obj/item/borg/destroyer/mobility))
@@ -64,10 +64,10 @@
 		return
 	if(is_component_functioning("power cell") && cell)
 		if(istype(O, /obj/item/borg))
-			var/obj/item/borg/B = O
-			if(B.powerneeded)
-				if((cell.charge * 100 / cell.maxcharge) < B.powerneeded)
-					to_chat(src, "Not enough power to activate [B.name]!")
+			var/obj/item/borg/borg = O
+			if(borg.powerneeded)
+				if((cell.charge * 100 / cell.maxcharge) < borg.powerneeded)
+					to_chat(src, "Not enough power to activate [borg.name]!")
 					return
 	if(!module_state_1)
 		O.mouse_opacity = initial(O.mouse_opacity)
@@ -117,8 +117,8 @@
 
 /mob/living/silicon/robot/proc/set_actions(obj/item/I)
 	for(var/X in I.actions)
-		var/datum/action/A = X
-		A.Grant(src)
+		var/datum/action/action = X
+		action.Grant(src)
 
 /mob/living/silicon/robot/proc/uneq_active()
 	uneq_module(module_active)

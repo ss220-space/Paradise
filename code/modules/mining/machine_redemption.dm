@@ -508,11 +508,11 @@
 	var/mats_in_stock = list()
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	for(var/MAT in materials.materials)
-		var/datum/material/M = materials.materials[MAT]
-		var/mineral_amount = M.amount / MINERAL_MATERIAL_AMOUNT
+		var/datum/material/material = materials.materials[MAT]
+		var/mineral_amount = material.amount / MINERAL_MATERIAL_AMOUNT
 		if(mineral_amount)
-			mats_in_stock += M.id
-		msg += "\n - [capitalize(M.name)]: [mineral_amount] единиц"
+			mats_in_stock += material.id
+		msg += "\n - [capitalize(material.name)]: [mineral_amount] единиц"
 
 	// No point sending a message if we're dry
 	if(!length(mats_in_stock))
@@ -520,11 +520,11 @@
 
 	// Notify
 	for(var/c in GLOB.allRequestConsoles)
-		var/obj/machinery/requests_console/C = c
-		if(!(C.department in supply_consoles))
+		var/obj/machinery/requests_console/requests_console = c
+		if(!(requests_console.department in supply_consoles))
 			continue
-		if(!supply_consoles[C.department] || length(supply_consoles[C.department] - mats_in_stock))
-			C.createMessage(ORE_REDEMPTION, "Новые ресурсы доступны!", msg, 1) // RQ_NORMALPRIORITY
+		if(!supply_consoles[requests_console.department] || length(supply_consoles[requests_console.department] - mats_in_stock))
+			requests_console.createMessage(ORE_REDEMPTION, "Новые ресурсы доступны!", msg, 1) // RQ_NORMALPRIORITY
 
 /**
  * Tries to insert the ID card held by the given user into the machine.
@@ -534,15 +534,15 @@
  */
 /obj/machinery/mineral/ore_redemption/proc/try_insert_id(mob/user)
 	. = FALSE
-	var/obj/item/card/id/I = user.get_active_hand()
-	if(!istype(I))
+	var/obj/item/card/id/id = user.get_active_hand()
+	if(!istype(id))
 		return
 	if(inserted_id)
 		balloon_alert(user, "слот для ID-карты занят!")
 		return
-	if(!user.drop_transfer_item_to_loc(I, src))
+	if(!user.drop_transfer_item_to_loc(id, src))
 		return
-	inserted_id = I
+	inserted_id = id
 	SStgui.update_uis(src)
 	interact(user)
 	balloon_alert_to_viewers("вставля[PLUR_ET_YUT(user)] ID-карту", "ID-карта вставлена")

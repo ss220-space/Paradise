@@ -167,7 +167,7 @@
 /obj/machinery/power/solar/proc/occlusion()
 	var/ax = x		// start at the solar panel
 	var/ay = y
-	var/turf/T = null
+	var/turf/turf = null
 
 	var/dx = SSsun.dx
 	var/dy = SSsun.dy
@@ -176,12 +176,12 @@
 		ax += dx	// do step
 		ay += dy
 
-		T = locate( round(ax,0.5),round(ay,0.5),z)
+		turf = locate( round(ax,0.5),round(ay,0.5),z)
 
-		if(T.x == 1 || T.x==world.maxx || T.y==1 || T.y==world.maxy)		// not obscured if we reach the edge
+		if(turf.x == 1 || turf.x==world.maxx || turf.y==1 || turf.y==world.maxy)		// not obscured if we reach the edge
 			break
 
-		if(IS_OPAQUE_TURF(T))			// if we hit an opaque turf, panel is obscured
+		if(IS_OPAQUE_TURF(turf))			// if we hit an opaque turf, panel is obscured
 			obscured = TRUE
 			return
 
@@ -401,16 +401,16 @@
 //search for unconnected panels and trackers in the computer powernet and connect them
 /obj/machinery/power/solar_control/proc/search_for_connected()
 	if(powernet)
-		for(var/obj/machinery/power/M in powernet.nodes)
-			if(istype(M, /obj/machinery/power/solar))
-				var/obj/machinery/power/solar/S = M
-				if(!S.control) //i.e unconnected
-					S.set_control(src)
-			else if(istype(M, /obj/machinery/power/tracker))
+		for(var/obj/machinery/power/power in powernet.nodes)
+			if(istype(power, /obj/machinery/power/solar))
+				var/obj/machinery/power/solar/solar = power
+				if(!solar.control) //i.e unconnected
+					solar.set_control(src)
+			else if(istype(power, /obj/machinery/power/tracker))
 				if(!connected_tracker) //if there's already a tracker connected to the computer don't add another
-					var/obj/machinery/power/tracker/T = M
-					if(!T.control) //i.e unconnected
-						T.set_control(src)
+					var/obj/machinery/power/tracker/tracker = power
+					if(!tracker.control) //i.e unconnected
+						tracker.set_control(src)
 
 //called by the sun controller, update the facing angle (either manually or via tracking) and rotates the panels accordingly
 /obj/machinery/power/solar_control/proc/update()
@@ -564,10 +564,10 @@
 //rotates the panel to the passed angle
 /obj/machinery/power/solar_control/proc/set_panels(cdir)
 
-	for(var/obj/machinery/power/solar/S in connected_panels)
-		S.adir = cdir //instantly rotates the panel
-		S.occlusion()//and
-		S.update_icon(UPDATE_OVERLAYS) //update it
+	for(var/obj/machinery/power/solar/solar in connected_panels)
+		solar.adir = cdir //instantly rotates the panel
+		solar.occlusion()//and
+		solar.update_icon(UPDATE_OVERLAYS) //update it
 
 	update_icon(UPDATE_OVERLAYS)
 

@@ -74,8 +74,8 @@
 /datum/species/shadow/ling/proc/handle_light(mob/living/carbon/human/H)
 	var/light_amount = 0
 	if(isturf(H.loc))
-		var/turf/T = H.loc
-		light_amount = T.get_lumcount() * 10
+		var/turf/turf = H.loc
+		light_amount = turf.get_lumcount() * 10
 		if(light_amount > LIGHT_DAM_THRESHOLD && !H.incorporeal_move) //Can survive in very small light levels. Also doesn't take damage while incorporeal, for shadow walk purposes
 			H.throw_alert("lightexposure", /atom/movable/screen/alert/lightexposure)
 			if(is_species(H, /datum/species/shadow/ling/lesser))
@@ -87,9 +87,9 @@
 				SEND_SOUND(H, sound('sound/weapons/sear.ogg'))
 		else if(light_amount < LIGHT_HEAL_THRESHOLD)
 			H.clear_alert("lightexposure")
-			var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
-			if(istype(E))
-				E.internal_receive_damage(-1)
+			var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
+			if(istype(eyes))
+				eyes.internal_receive_damage(-1)
 			var/update = NONE
 			if(is_species(H, /datum/species/shadow/ling/lesser))
 				update |= H.heal_overall_damage(2, 3, updating_health = FALSE)

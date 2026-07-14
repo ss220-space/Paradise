@@ -5,9 +5,9 @@
 
 	var/synced
 	synced = 0
-	for(var/datum/picture/z in aiCamera.aipictures)
-		if(!(master_cam.aipictures.Find(z)))
-			aiCamera.printpicture(null, z)
+	for(var/datum/picture/picture in aiCamera.aipictures)
+		if(!(master_cam.aipictures.Find(picture)))
+			aiCamera.printpicture(null, picture)
 			synced = 1
 	if(synced)
 		to_chat(src, span_notice("Locally saved images synced with AI. Images were retained in local database in case of loss of connection with the AI."))

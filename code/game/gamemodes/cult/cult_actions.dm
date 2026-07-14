@@ -46,11 +46,11 @@
 		my_message = span_cultlarge("<b>Harbringer of the Slaughter:</b> [message]")
 	else
 		my_message = span_cultspeech("<b>[(isconstruct(user) ? "Construct" : isshade(user) ? "" : "Acolyte")] [user.real_name]:</b> [message]")
-	for(var/mob/M in GLOB.player_list)
-		if(iscultist(M))
-			to_chat(M, my_message)
-		else if((M in GLOB.dead_mob_list) && !isnewplayer(M))
-			to_chat(M, span_cultspeech(" <a href='byond://?src=[M.UID()];follow=[user.UID()]'>(F)</a> [my_message] "))
+	for(var/mob/mob in GLOB.player_list)
+		if(iscultist(mob))
+			to_chat(mob, my_message)
+		else if((mob in GLOB.dead_mob_list) && !isnewplayer(mob))
+			to_chat(mob, span_cultspeech(" <a href='byond://?src=[mob.UID()];follow=[user.UID()]'>(F)</a> [my_message] "))
 
 	add_say_logs(user, message, language = "CULT")
 

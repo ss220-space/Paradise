@@ -313,15 +313,15 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 	cached_cart = list()
 	for(var/reference in shopping_cart)
-		var/datum/uplink_item/I = locateUID(reference)
+		var/datum/uplink_item/uplink_item = locateUID(reference)
 		cached_cart += list(list(
-			"name" = sanitize(I.name),
-			"desc" = sanitize(I.description()),
-			"cost" = I.cost,
-			"hijack_only" = I.hijack_only,
-			"obj_path" = I.UID(),
+			"name" = sanitize(uplink_item.name),
+			"desc" = sanitize(uplink_item.description()),
+			"cost" = uplink_item.cost,
+			"hijack_only" = uplink_item.hijack_only,
+			"obj_path" = uplink_item.UID(),
 			"amount" = shopping_cart[reference],
-			"limit" = I.limited_stock))
+			"limit" = uplink_item.limited_stock))
 
 /obj/item/uplink/hidden/interact(mob/user)
 	ui_interact(user)

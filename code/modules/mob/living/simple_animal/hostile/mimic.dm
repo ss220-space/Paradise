@@ -174,11 +174,11 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 			if(ismachinery(O))
 				is_electronic = 1
 		else if(isitem(O))
-			var/obj/item/I = O
-			health = 15 * I.w_class
-			melee_damage_lower = 2 + I.force
-			melee_damage_upper = 2 + I.force
-			move_to_delay = 2 * I.w_class + 1
+			var/obj/item/item = O
+			health = 15 * item.w_class
+			melee_damage_lower = 2 + item.force
+			melee_damage_upper = 2 + item.force
+			move_to_delay = 2 * item.w_class + 1
 		maxHealth = health
 		if(user)
 			creator = user

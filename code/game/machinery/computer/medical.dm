@@ -387,19 +387,19 @@
  * Called when the print timer finishes
  */
 /obj/machinery/computer/med_data/proc/print_finish()
-	var/obj/item/paper/P = new /obj/item/paper(loc)
-	P.info = "<center></b>Медицинская запись</b></center><br>"
+	var/obj/item/paper/paper = new /obj/item/paper(loc)
+	paper.info = "<center></b>Медицинская запись</b></center><br>"
 	if(istype(active1, /datum/data/record) && GLOB.data_core.general.Find(active1))
-		P.info += {"Имя: [active1.fields["name"]] ID: [active1.fields["id"]]
+		paper.info += {"Имя: [active1.fields["name"]] ID: [active1.fields["id"]]
 		<br>\nПол: [active1.fields["sex"]]
 		<br>\nВозраст: [active1.fields["age"]]
 		<br>\nОтпечатки пальцев: [active1.fields["fingerprint"]]
 		<br>\nФизическое состояние: [active1.fields["p_stat"]]
 		<br>\nПсихологическое состояние: [active1.fields["m_stat"]]<br>"}
 	else
-		P.info += "</b>Основная информация утрачена!</b><br>"
+		paper.info += "</b>Основная информация утрачена!</b><br>"
 	if(istype(active2, /datum/data/record) && GLOB.data_core.medical.Find(active2))
-		P.info += {"<br>\n<center></b>Медицинские данные</b></center>
+		paper.info += {"<br>\n<center></b>Медицинские данные</b></center>
 		<br>\nГруппа крови: [active2.fields["blood_type"]]
 		<br>\nДНК: [active2.fields["b_dna"]]<br>\n
 		<br>\nНезначительные отклонения: [active2.fields["mi_dis"]]
@@ -415,11 +415,11 @@
 		<br>\n
 		<center></b>Комментарии</b></center>"}
 		for(var/c in active2.fields["comments"])
-			P.info += "<br>[c["header"]]<br>Комментарий: [c["text"]]<br>"
+			paper.info += "<br>[c["header"]]<br>Комментарий: [c["text"]]<br>"
 	else
-		P.info += "</b>Медицинская информация утрачена!</b><br>"
-	P.info += "</tt>"
-	P.name = "Медицинская запись: [active1.fields["name"]]"
+		paper.info += "</b>Медицинская информация утрачена!</b><br>"
+	paper.info += "</tt>"
+	paper.name = "Медицинская запись: [active1.fields["name"]]"
 	printing = FALSE
 	SStgui.update_uis(src)
 

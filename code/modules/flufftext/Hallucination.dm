@@ -58,12 +58,12 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	return ..()
 
 /obj/effect/hallucination/simple/proc/GetImage()
-	var/image/I = image(image_icon, src, image_state, image_layer, dir = dir)
-	I.pixel_w = px
-	I.pixel_z = py
+	var/image/image = image(image_icon, src, image_state, image_layer, dir = dir)
+	image.pixel_w = px
+	image.pixel_z = py
 	if(col_mod)
-		I.color = col_mod
-	return I
+		image.color = col_mod
+	return image
 
 /obj/effect/hallucination/simple/proc/Show(update = 1)
 	if(active)
@@ -136,11 +136,11 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 /obj/effect/hallucination/fake_flood/proc/Expand()
 	for(var/turf/FT in flood_turfs)
 		for(var/dir in GLOB.cardinal)
-			var/turf/T = get_step(FT, dir)
-			if((T in flood_turfs) || !FT.CanAtmosPass(dir))
+			var/turf/turf = get_step(FT, dir)
+			if((turf in flood_turfs) || !FT.CanAtmosPass(dir))
 				continue
-			flood_images += image(image_icon,T,image_state,MOB_LAYER)
-			flood_turfs += T
+			flood_images += image(image_icon,turf,image_state,MOB_LAYER)
+			flood_turfs += turf
 	if(target.client)
 		target.client.images |= flood_images
 
@@ -733,11 +733,11 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	qdel(src)
 
 /obj/effect/fake_attacker/proc/fake_blood(mob/target)
-	var/obj/effect/overlay/O = new/obj/effect/overlay(target.loc)
-	O.name = "blood"
-	var/image/I = image('icons/effects/blood.dmi',O,"floor[rand(1,7)]",O.dir,1)
-	target << I
-	addtimer(CALLBACK(GLOBAL_PROC, /proc/qdel, O), 300)
+	var/obj/effect/overlay/overlay = new/obj/effect/overlay(target.loc)
+	overlay.name = "blood"
+	var/image/image = image('icons/effects/blood.dmi',overlay,"floor[rand(1,7)]",overlay.dir,1)
+	target << image
+	addtimer(CALLBACK(GLOBAL_PROC, /proc/qdel, overlay), 300)
 	return
 
 GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/item/ammo_box/speedloader/a357,\
@@ -1021,12 +1021,12 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 				if(r_hand)
 					slots_free -= ui_rhand
 				if(ishuman(src))
-					var/mob/living/carbon/human/H = src
-					if(!H.belt)
+					var/mob/living/carbon/human/human = src
+					if(!human.belt)
 						slots_free += ui_belt
-					if(!H.l_store)
+					if(!human.l_store)
 						slots_free += ui_storage1
-					if(!H.r_store)
+					if(!human.r_store)
 						slots_free += ui_storage2
 				if(length(slots_free))
 					halitem.screen_loc = pick(slots_free)
@@ -1070,8 +1070,8 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 			if(!halimage)
 				var/list/possible_points = list()
 				var/list/actual_view = client ? view(client) : view(src)
-				for(var/turf/simulated/floor/F in actual_view)
-					possible_points += F
+				for(var/turf/simulated/floor/floor in actual_view)
+					possible_points += floor
 				if(length(possible_points))
 					var/turf/simulated/floor/target = pick(possible_points)
 
@@ -1094,8 +1094,8 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 			SetSleeping(40 SECONDS)
 			if(prob(50))
 				var/list/dead_people = list()
-				for(var/mob/dead/observer/G in GLOB.player_list)
-					dead_people += G
+				for(var/mob/dead/observer/observer in GLOB.player_list)
+					dead_people += observer
 				var/mob/dead/observer/fakemob = pick(dead_people)
 				if(fakemob)
 					sleep(rand(30, 60))
@@ -1109,16 +1109,16 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 			if(!halbody)
 				var/list/possible_points = list()
 				var/list/actual_view = client ? view(client) : view(src)
-				for(var/turf/simulated/floor/F in actual_view)
-					possible_points += F
+				for(var/turf/simulated/floor/floor in actual_view)
+					possible_points += floor
 				if(length(possible_points))
 					var/turf/simulated/floor/target = pick(possible_points)
 					switch(rand(1,4))
 						if(1)
 							var/image/body = image('icons/mob/human.dmi', target, "husk_s", TURF_LAYER)
-							var/matrix/M = matrix()
-							M.Turn(90)
-							body.transform = M
+							var/matrix/matrix = matrix()
+							matrix.Turn(90)
+							body.transform = matrix
 							halbody = body
 						if(2,3)
 							halbody = image('icons/mob/human.dmi', target, "husk_s", TURF_LAYER)

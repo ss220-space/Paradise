@@ -39,9 +39,9 @@ Bonus
 	var/get_damage = rand(1, 2)
 
 	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
+		var/mob/living/carbon/human/human = M
 
-		var/list/parts = H.get_damaged_organs(1, 1, AFFECT_ORGANIC_EXTERNAL_PARTS) //1,1 because it needs inputs.
+		var/list/parts = human.get_damaged_organs(1, 1, AFFECT_ORGANIC_EXTERNAL_PARTS) //1,1 because it needs inputs.
 
 		if(!length(parts))
 			return
@@ -57,11 +57,11 @@ Bonus
 				healed += max(((bodypart.brute_dam - brute_was) + (bodypart.burn_dam - burn_was)), get_damage)
 
 		if(healed)
-			update_health |= H.apply_damage(healed, TOX)
+			update_health |= human.apply_damage(healed, TOX)
 		if(update_health)
-			H.updatehealth("[name]")
+			human.updatehealth("[name]")
 		if(update_damage_icon)
-			H.UpdateDamageIcon()
+			human.UpdateDamageIcon()
 
 	else
 		if(M.getFireLoss() > 0 || M.getBruteLoss() > 0)

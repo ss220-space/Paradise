@@ -425,19 +425,19 @@
 
 /obj/machinery/roboquest_pad/proc/teleport(atom/destination, datum/roboquest/quest, obj/machinery/computer/roboquest/console, penalty)
 	do_sparks(5, TRUE, get_turf(src))
-	var/obj/mecha/M = (locate(/obj/mecha) in get_turf(src))
-	if(istype(M))
+	var/obj/mecha/mecha = (locate(/obj/mecha) in get_turf(src))
+	if(istype(mecha))
 		var/obj/structure/closet/crate/critter/mecha/box = new(get_turf(src), quest, console, penalty)
-		M.forceMove(box)
+		mecha.forceMove(box)
 		if(destination)
 			do_teleport(box, destination)
 		console.canSend = FALSE
 
 /obj/machinery/roboquest_pad/proc/clear(datum/roboquest/quest, obj/machinery/computer/roboquest/console, penalty)
 	do_sparks(5, TRUE, get_turf(src))
-	var/obj/mecha/M = (locate(/obj/mecha) in get_turf(src))
-	if(istype(M))
-		qdel(M)
+	var/obj/mecha/mecha = (locate(/obj/mecha) in get_turf(src))
+	if(istype(mecha))
+		qdel(mecha)
 	if(quest && console)
 		for(var/category in quest.reward)
 			quest.reward[category] -= penalty
@@ -446,9 +446,9 @@
 			console.points[category] += quest.reward[category]
 		SSshuttle.points += quest.reward["robo"] * 30
 		if(quest.id)
-			var/datum/money_account/A = get_money_account(quest.id.associated_account_number)
-			if(A)
-				A.money += quest.maximum_cash - round(quest.maximum_cash * penalty / 4)
+			var/datum/money_account/money_account = get_money_account(quest.id.associated_account_number)
+			if(money_account)
+				money_account.money += quest.maximum_cash - round(quest.maximum_cash * penalty / 4)
 		console.on_quest_complete()
 		quest.id.robo_bounty = null
 		quest = null

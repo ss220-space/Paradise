@@ -43,9 +43,9 @@
 
 /obj/item/picture_frame/proc/insert(obj/D)
 	if(istype(D, /obj/item/poster))
-		var/obj/item/poster/P = D
-		displayed = P.poster_structure
-		P.poster_structure = null
+		var/obj/item/poster/poster = D
+		displayed = poster.poster_structure
+		poster.poster_structure = null
 	else
 		displayed = D
 
@@ -118,8 +118,8 @@
 
 /obj/item/picture_frame/proc/place(turf/T, mob/user)
 	var/stuff_on_wall = 0
-	for(var/obj/O in user.loc.contents) //Let's see if it already has a poster on it or too much stuff
-		if(istype(O, /obj/structure/sign))
+	for(var/obj/obj in user.loc.contents) //Let's see if it already has a poster on it or too much stuff
+		if(istype(obj, /obj/structure/sign))
 			to_chat(user, span_notice("\The [T] is far too cluttered to place \a [src]!"))
 			return
 		stuff_on_wall++
@@ -302,9 +302,9 @@
 
 /obj/structure/sign/picture_frame/proc/explode()
 	if(isgrenade(explosive))
-		var/obj/item/grenade/G = explosive
+		var/obj/item/grenade/grenade = explosive
 		explosive = null
-		G.prime()
+		grenade.prime()
 
 /obj/structure/sign/picture_frame/proc/toggle_tilt(mob/user)
 	if(!isliving(usr) || usr.stat)

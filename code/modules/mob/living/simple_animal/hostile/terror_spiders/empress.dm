@@ -106,28 +106,28 @@
 	if(!numlings || isnull(sbpc))
 		return
 	for(var/i in 1 to numlings)
-		var/obj/structure/spider/spiderling/terror_spiderling/S = new /obj/structure/spider/spiderling/terror_spiderling(get_turf(src))
-		S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/knight, \
+		var/obj/structure/spider/spiderling/terror_spiderling/terror_spiderling = new /obj/structure/spider/spiderling/terror_spiderling(get_turf(src))
+		terror_spiderling.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/knight, \
 		/mob/living/simple_animal/hostile/poison/terror_spider/lurker, \
 		/mob/living/simple_animal/hostile/poison/terror_spider/healer, \
 		/mob/living/simple_animal/hostile/poison/terror_spider/defiler, \
 		/mob/living/simple_animal/hostile/poison/terror_spider/widow)
-		S.spider_myqueen = spider_myqueen
-		S.spider_mymother = src
+		terror_spiderling.spider_myqueen = spider_myqueen
+		terror_spiderling.spider_mymother = src
 		if(prob(sbpc))
-			S.stillborn = TRUE
+			terror_spiderling.stillborn = TRUE
 		if(spider_growinstantly)
-			S.amount_grown = 250
+			terror_spiderling.amount_grown = 250
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/proc/EraseBrood()
 	var/agreement = tgui_alert(usr, "Вы уверены? Это заставит умирать всех пауков ужаса.", "Искоренение рода", list("Да", "Нет") )
 	if(agreement != "Да")
 		return
 	for(var/thing in GLOB.ts_spiderlist)
-		var/mob/living/simple_animal/hostile/poison/terror_spider/T = thing
-		if(T.spider_tier < spider_tier)
-			T.degenerate = TRUE
-			to_chat(T, span_userdanger("Через коллективный разум грубая сила [declent_ru(GENITIVE)] вливается в ваше тело, сжигая его изнутри!"))
+		var/mob/living/simple_animal/hostile/poison/terror_spider/terror_spider = thing
+		if(terror_spider.spider_tier < spider_tier)
+			terror_spider.degenerate = TRUE
+			to_chat(terror_spider, span_userdanger("Через коллективный разум грубая сила [declent_ru(GENITIVE)] вливается в ваше тело, сжигая его изнутри!"))
 	var/datum/team/terror_spiders/spider_team = GLOB.antagonist_teams[/datum/team/terror_spiders]
 	spider_team?.erase_eggs()
 	to_chat(src, span_userdanger("Все пауки ужаса, кроме вас, вскоре вымрут."))

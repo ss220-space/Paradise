@@ -149,8 +149,8 @@
 	if(!holder.my_atom)
 		return
 	if(holder.my_atom.fingerprintslast)
-		var/mob/M = get_mob_by_key(holder.my_atom.fingerprintslast)
-		add_attack_logs(M, COORD(holder.my_atom.loc), "Caused a flashfire reaction of [name]. Last associated key is [holder.my_atom.fingerprintslast]", ATKLOG_FEW)
+		var/mob/mob = get_mob_by_key(holder.my_atom.fingerprintslast)
+		add_attack_logs(mob, COORD(holder.my_atom.loc), "Caused a flashfire reaction of [name]. Last associated key is [holder.my_atom.fingerprintslast]", ATKLOG_FEW)
 	holder.my_atom.investigate_log("A Flashfire reaction, (reagent type [name]) last touched by [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"], triggered at [COORD(holder.my_atom.loc)].", INVESTIGATE_BOMB)
 
 /// Called when this reagent is first added to a mob
@@ -195,13 +195,13 @@
 			var/list/all_diseases = data["diseases"] + mix_data["diseases"]
 
 			var/list/advances_to_mix = list()
-			for(var/datum/disease/virus/advance/A in all_diseases)
-				advances_to_mix += A
-				all_diseases -= A
+			for(var/datum/disease/virus/advance/advance in all_diseases)
+				advances_to_mix += advance
+				all_diseases -= advance
 
-			var/datum/disease/virus/advance/A = Advance_Mix(advances_to_mix)
-			if(istype(A))
-				preserve += A
+			var/datum/disease/virus/advance/advance = Advance_Mix(advances_to_mix)
+			if(istype(advance))
+				preserve += advance
 
 			// It's almost always 1-3 items in this list, so there shouldn't be any problems with nested loops.
 			for(var/datum/disease/D1 in all_diseases)

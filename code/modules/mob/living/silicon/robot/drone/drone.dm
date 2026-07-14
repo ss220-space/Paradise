@@ -355,14 +355,14 @@
 //Reboot procs.
 
 /mob/living/silicon/robot/drone/proc/request_player()
-	for(var/mob/dead/observer/O in GLOB.player_list)
-		if(cannotPossess(O))
+	for(var/mob/dead/observer/observer in GLOB.player_list)
+		if(cannotPossess(observer))
 			continue
-		if(jobban_isbanned(O,"nonhumandept") || jobban_isbanned(O,"Drone"))
+		if(jobban_isbanned(observer,"nonhumandept") || jobban_isbanned(observer,"Drone"))
 			continue
-		if(O.client)
-			if(ROLE_PAI in O.client.prefs.be_special)
-				question(O.client,O)
+		if(observer.client)
+			if(ROLE_PAI in observer.client.prefs.be_special)
+				question(observer.client,observer)
 
 /mob/living/silicon/robot/drone/proc/question(client/C, mob/M)
 	spawn(0)

@@ -168,10 +168,10 @@
 
 /obj/machinery/processor/proc/select_recipe(X)
 	for(var/Type in subtypesof(/datum/food_processor_process) - /datum/food_processor_process/mob)
-		var/datum/food_processor_process/P = new Type()
-		if(!istype(X, P.input))
+		var/datum/food_processor_process/food_processor_process = new Type()
+		if(!istype(X, food_processor_process.input))
 			continue
-		return P
+		return food_processor_process
 	return 0
 
 /obj/machinery/processor/attackby(obj/item/I, mob/user, params)

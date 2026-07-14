@@ -334,10 +334,10 @@
 	M.forceMove(pick(GLOB.latejoin))
 	if(!iscarbon(M))
 		return
-	var/mob/living/carbon/C = M
-	C.Silence(6 SECONDS)
-	C.uncuff()
-	to_chat(C, span_warning("\
+	var/mob/living/carbon/carbon = M
+	carbon.Silence(6 SECONDS)
+	carbon.uncuff()
+	to_chat(carbon, span_warning("\
 		Вы ощущаете как ваши мозги были промыты. \
 		Вы всё еще не можете прийти в себя и отрывками вспоминаете что неизвестные похители вас. \
 		Неизвестно сколько они продержали вас у себя и что с вами делали... \
@@ -351,8 +351,8 @@
 	var/datum/antagonist/vox_raider/antag = locate() in M.mind.antag_datums
 	if(antag)
 		return FALSE
-	for(var/datum/antagonist/A as anything in user.mind.antag_datums)
-		var/datum/team/team = A.get_team()
+	for(var/datum/antagonist/antagonist as anything in user.mind.antag_datums)
+		var/datum/team/team = antagonist.get_team()
 		if(team)
 			team.add_member(M.mind, TRUE)
 			break

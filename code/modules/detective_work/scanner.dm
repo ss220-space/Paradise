@@ -79,17 +79,17 @@
 		to_chat(usr, span_warning("The scanner has no logs or is in use."))
 
 /obj/item/detective_scanner/proc/make_paper(log) // Moved to a proc because 'spawn()' is evil
-	var/obj/item/paper/P = new(drop_location())
-	P.name = "paper- 'Scanner Report'"
-	P.info = "<center><font size='6'><b>Scanner Report</b></font></center><hr><br>"
-	P.info += jointext(log, "<br>")
-	P.info += "<hr><b>Notes:</b><br>"
-	P.info_links = P.info
+	var/obj/item/paper/paper = new(drop_location())
+	paper.name = "paper- 'Scanner Report'"
+	paper.info = "<center><font size='6'><b>Scanner Report</b></font></center><hr><br>"
+	paper.info += jointext(log, "<br>")
+	paper.info += "<hr><b>Notes:</b><br>"
+	paper.info_links = paper.info
 
 	if(ismob(loc))
-		var/mob/M = loc
-		M.put_in_hands(P, ignore_anim = FALSE)
-		to_chat(M, span_notice("Report printed. Log cleared."))
+		var/mob/mob = loc
+		mob.put_in_hands(paper, ignore_anim = FALSE)
+		to_chat(mob, span_notice("Report printed. Log cleared."))
 
 /obj/item/detective_scanner/proc/clear_scanner()
 	if(length(log) && !scanning)
@@ -144,9 +144,9 @@
 
 		if(ishuman(scan_atom))
 
-			var/mob/living/carbon/human/H = scan_atom
-			if(istype(H.dna, /datum/dna) && !H.gloves)
-				fingerprints += md5(H.dna.uni_identity)
+			var/mob/living/carbon/human/human = scan_atom
+			if(istype(human.dna, /datum/dna) && !human.gloves)
+				fingerprints += md5(human.dna.uni_identity)
 
 		else if(!ismob(scan_atom))
 
@@ -156,15 +156,15 @@
 			// Only get reagents from non-mobs.
 			if(scan_atom.reagents && length(scan_atom.reagents.reagent_list))
 
-				for(var/datum/reagent/R in scan_atom.reagents.reagent_list)
-					reagents[R.name] = R.volume
+				for(var/datum/reagent/reagent in scan_atom.reagents.reagent_list)
+					reagents[reagent.name] = reagent.volume
 
 					// Get blood data from the blood reagent.
-					if(istype(R, /datum/reagent/blood))
+					if(istype(reagent, /datum/reagent/blood))
 
-						if(R.data["blood_DNA"] && R.data["blood_type"])
-							var/blood_DNA = R.data["blood_DNA"]
-							var/blood_type = R.data["blood_type"]
+						if(reagent.data["blood_DNA"] && reagent.data["blood_type"])
+							var/blood_DNA = reagent.data["blood_DNA"]
+							var/blood_type = reagent.data["blood_type"]
 							blood[blood_DNA] = blood_type
 
 			if(isclothing(scan_atom))
@@ -204,8 +204,8 @@
 		if(length(reagents))
 			sleep(30)
 			add_log(span_notice("<b>Reagents:</b>"))
-			for(var/R in reagents)
-				add_log("Reagent: <font color='red'>[R]</font> Volume: <font color='red'>[reagents[R]]</font>")
+			for(var/reagent in reagents)
+				add_log("Reagent: <font color='red'>[reagent]</font> Volume: <font color='red'>[reagents[reagent]]</font>")
 			found_something = TRUE
 
 		if(found_spy_device)
@@ -233,8 +233,8 @@
 /obj/item/detective_scanner/proc/add_log(msg, broadcast = TRUE)
 	if(scanning)
 		if(broadcast && ismob(loc))
-			var/mob/M = loc
-			to_chat(M, msg)
+			var/mob/mob = loc
+			to_chat(mob, msg)
 		log += "&nbsp;&nbsp;[msg]"
 	else
 		CRASH("[src] \ref[src] is adding a log when it was never put in scanning mode!")

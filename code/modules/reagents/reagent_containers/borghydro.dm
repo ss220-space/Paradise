@@ -133,8 +133,8 @@
 	RG.my_atom = src
 	reagent_list += RG
 
-	var/datum/reagents/R = reagent_list[length(reagent_list)]
-	R.add_reagent(reagent, 30)
+	var/datum/reagents/reagents = reagent_list[length(reagent_list)]
+	reagents.add_reagent(reagent, 30)
 
 /obj/item/reagent_containers/borghypo/proc/refill_borghypo(datum/reagents/RG, reagent_id, mob/living/silicon/robot/R)
 	if(RG.total_volume < RG.maximum_volume)
@@ -181,9 +181,9 @@
 	playsound(loc, 'sound/effects/pop.ogg', 50, FALSE)
 	mode = choices.Find(choice)
 
-	var/datum/reagent/R = GLOB.chemical_reagents_list[reagent_ids[mode]]
+	var/datum/reagent/reagent = GLOB.chemical_reagents_list[reagent_ids[mode]]
 	amount_per_transfer_from_this  = (reagent_ids[mode] == "perfluorodecalin") ? 3 : 5
-	to_chat(user, span_notice("Конфигурация синтезатора обновлена. Активирован синтез вещества \"[R.name]\"."))
+	to_chat(user, span_notice("Конфигурация синтезатора обновлена. Активирован синтез вещества \"[reagent.name]\"."))
 
 /obj/item/reagent_containers/borghypo/examine(mob/user)
 	. = ..()

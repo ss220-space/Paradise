@@ -180,8 +180,8 @@
 
 /mob/living/simple_animal/spiderbot/proc/eject_brain()
 	if(mmi)
-		var/turf/T = get_turf(src)
-		mmi.forceMove(T)
+		var/turf/turf = get_turf(src)
+		mmi.forceMove(turf)
 		if(mind)
 			mind.transfer_to(mmi.brainmob)
 		mmi = null

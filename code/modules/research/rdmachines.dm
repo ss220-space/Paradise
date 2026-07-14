@@ -130,12 +130,12 @@
 
 /obj/machinery/r_n_d/proc/AfterMaterialInsert(type_inserted, id_inserted, amount_inserted)
 	var/stack_name
-	var/obj/item/stack/S = type_inserted
+	var/obj/item/stack/stack = type_inserted
 	if(ispath(type_inserted, /obj/item/stack/ore/bluespace_crystal))
 		use_power(MINERAL_MATERIAL_AMOUNT / 10)
 	else
 		use_power(min(1000, (amount_inserted / 100)))
-	stack_name = S.protolathe_name
+	stack_name = stack.protolathe_name
 	flick_overlay_view(mutable_appearance(icon, "[base_icon_state]_[stack_name]"), 1.5 SECONDS)
 
 /obj/machinery/r_n_d/proc/check_mat(datum/design/being_built, M)

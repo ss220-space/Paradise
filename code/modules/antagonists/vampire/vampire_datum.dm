@@ -540,15 +540,15 @@
 		ax += SSsun.dy
 		ay += SSsun.dx
 
-		var/turf/T = locate(round(ax, 0.5), round(ay, 0.5), owner.current.z)
+		var/turf/turf = locate(round(ax, 0.5), round(ay, 0.5), owner.current.z)
 
-		if(!T)
+		if(!turf)
 			return
 
-		if(T.x == 1 || T.x == world.maxx || T.y == 1 || T.y == world.maxy)
+		if(turf.x == 1 || turf.x == world.maxx || turf.y == 1 || turf.y == world.maxy)
 			break
 
-		if(T.density)
+		if(turf.density)
 			return
 
 	if(bloodusable >= 10)	//burn through your blood to tank the light for a little while

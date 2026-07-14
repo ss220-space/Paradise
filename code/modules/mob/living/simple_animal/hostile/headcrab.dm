@@ -59,13 +59,13 @@
 	var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
 	is_zombie = TRUE
 	if(H.wear_suit)
-		var/obj/item/clothing/suit/armor/A = H.wear_suit
-		if(A.armor && A.armor.getRating(MELEE))
-			maxHealth += A.armor.getRating(MELEE) //That zombie's got armor, I want armor!
+		var/obj/item/clothing/suit/armor/armor = H.wear_suit
+		if(armor.armor && armor.armor.getRating(MELEE))
+			maxHealth += armor.armor.getRating(MELEE) //That zombie's got armor, I want armor!
 	maxHealth += 200
 	health = maxHealth
 	name = "zombie"
-	desc = "A corpse animated by the alien being on its head."
+	desc = "armor corpse animated by the alien being on its head."
 	melee_damage_lower = 10
 	melee_damage_upper = 15
 	ranged = 0

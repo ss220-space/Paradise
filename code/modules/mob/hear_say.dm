@@ -23,9 +23,9 @@
 			piece = stars(piece)
 		else if(!say_understands(speaker, SP.speaking))
 			if(isanimal(speaker))
-				var/mob/living/simple_animal/S = speaker
-				if(LAZYLEN(S.speak))
-					piece = pick(S.speak)
+				var/mob/living/simple_animal/simple_animal = speaker
+				if(LAZYLEN(simple_animal.speak))
+					piece = pick(simple_animal.speak)
 				else
 					piece = stars(piece)
 			else if(SP.speaking)
@@ -67,9 +67,9 @@
 			continue
 		if(!say_understands(speaker, SP.speaking))
 			if(isanimal(speaker))
-				var/mob/living/simple_animal/S = speaker
-				if(LAZYLEN(S.speak))
-					piece = pick(S.speak)
+				var/mob/living/simple_animal/simple_animal = speaker
+				if(LAZYLEN(simple_animal.speak))
+					piece = pick(simple_animal.speak)
 				else
 					continue
 			else if(SP.speaking)
@@ -102,9 +102,9 @@
 			return 0
 
 	//make sure the air can transmit speech - hearer's side
-	var/turf/T = get_turf(src)
-	if(T && !isobserver(src))
-		var/datum/gas_mixture/environment = T.get_readonly_air()
+	var/turf/turf = get_turf(src)
+	if(turf && !isobserver(src))
+		var/datum/gas_mixture/environment = turf.get_readonly_air()
 		var/pressure = environment ? environment.return_pressure() : 0
 		if(pressure < SOUND_MINIMUM_PRESSURE && get_dist(speaker, src) > 1)
 			return FALSE
@@ -119,8 +119,8 @@
 
 	var/speaker_name = speaker.name
 	if(use_voice && ishuman(speaker))
-		var/mob/living/carbon/human/H = speaker
-		speaker_name = H.GetVoice()
+		var/mob/living/carbon/human/human = speaker
+		speaker_name = human.GetVoice()
 
 	var/message_clean = apply_message_emphasis(combine_message(message_pieces, speaker))
 	message_clean = replace_characters(message_clean, list("+"))

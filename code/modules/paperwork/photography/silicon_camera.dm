@@ -25,11 +25,11 @@
 	aipictures += P
 
 /obj/item/camera/siliconcam/proc/injectmasteralbum(datum/picture/P) //stores image information to a list similar to that of the datacore
-	var/mob/living/silicon/robot/C = src.loc
-	if(C.connected_ai)
-		var/mob/A = P.fields["author"]
-		C.connected_ai.aiCamera.injectaialbum(P, " (taken by [A.name])")
-		to_chat(C.connected_ai, span_unconscious("Image recorded and saved by [name]"))
+	var/mob/living/silicon/robot/robot = src.loc
+	if(robot.connected_ai)
+		var/mob/mob = P.fields["author"]
+		robot.connected_ai.aiCamera.injectaialbum(P, " (taken by [mob.name])")
+		to_chat(robot.connected_ai, span_unconscious("Image recorded and saved by [name]"))
 		to_chat(usr, span_unconscious("Image recorded and saved to remote database"))//feedback to the Cyborg player that the picture was taken
 
 	else
@@ -45,13 +45,13 @@
 	if(length(cam.aipictures) == 0)
 		to_chat(usr, span_userdanger("No images saved"))
 		return
-	for(var/datum/picture/t in cam.aipictures)
-		nametemp += t.fields["name"]
+	for(var/datum/picture/picture in cam.aipictures)
+		nametemp += picture.fields["name"]
 	find = tgui_input_list(usr, "Select image (numbered in order taken)", "Pick Image", nametemp)
 
-	for(var/datum/picture/q in cam.aipictures)
-		if(q.fields["name"] == find)
-			return q
+	for(var/datum/picture/picture in cam.aipictures)
+		if(picture.fields["name"] == find)
+			return picture
 
 /obj/item/camera/siliconcam/proc/viewpictures()
 	var/datum/picture/selection = selectpicture()
@@ -59,14 +59,14 @@
 	if(!selection)
 		return
 
-	var/obj/item/photo/P = new/obj/item/photo()
-	P.construct(selection)
-	P.show(usr)
-	if(P.desc)
-		to_chat(usr, P.desc)
+	var/obj/item/photo/photo = new/obj/item/photo()
+	photo.construct(selection)
+	photo.show(usr)
+	if(photo.desc)
+		to_chat(usr, photo.desc)
 
-	// TG uses a special garbage collector.. qdel(P)
-	qdel(P) //so 10 thousand pictures items are not left in memory should an AI take them and then view them all.
+	// TG uses a special garbage collector.. qdel(photo)
+	qdel(photo) //so 10 thousand pictures items are not left in memory should an AI take them and then view them all.
 
 /obj/item/camera/siliconcam/proc/deletepicture(obj/item/camera/siliconcam/cam)
 	var/datum/picture/selection = selectpicture(cam)
@@ -176,10 +176,10 @@
 	if(isAI(src.loc))
 		return src
 
-	var/mob/living/silicon/robot/C = src.loc
+	var/mob/living/silicon/robot/robot = src.loc
 	var/obj/item/camera/siliconcam/Cinfo
-	if(C.connected_ai)
-		Cinfo = C.connected_ai.aiCamera
+	if(robot.connected_ai)
+		Cinfo = robot.connected_ai.aiCamera
 	else
 		Cinfo = src
 	return Cinfo

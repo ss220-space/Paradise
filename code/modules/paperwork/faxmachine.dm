@@ -317,12 +317,12 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	if(!usr || !Adjacent(usr))
 		return FALSE
 	if(!card)
-		var/obj/item/I = usr.get_active_hand()
-		if(!is_id_card(I))
+		var/obj/item/item = usr.get_active_hand()
+		if(!is_id_card(item))
 			return FALSE
-		if(!usr.drop_transfer_item_to_loc(I, src))
+		if(!usr.drop_transfer_item_to_loc(item, src))
 			return FALSE
-		scan = I
+		scan = item
 		SStgui.update_uis(src)
 		return TRUE
 	if(!istype(card))
@@ -352,18 +352,18 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 /obj/machinery/photocopier/faxmachine/proc/sendfax(destination, mob/sender)
 	use_power(active_power_usage)
 	var/success = 0
-	for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
-		if(F.department == destination)
-			success = F.receivefax(copyitem)
+	for(var/obj/machinery/photocopier/faxmachine/faxmachine in GLOB.allfaxes)
+		if(faxmachine.department == destination)
+			success = faxmachine.receivefax(copyitem)
 	if(success)
-		var/datum/fax/F = new /datum/fax()
-		F.name = copyitem.name
-		F.from_department = department
-		F.to_department = destination
-		F.origin = src
-		F.message = copyitem
-		F.sent_by = sender
-		F.sent_at = world.time
+		var/datum/fax/faxmachine = new /datum/fax()
+		faxmachine.name = copyitem.name
+		faxmachine.from_department = department
+		faxmachine.to_department = destination
+		faxmachine.origin = src
+		faxmachine.message = copyitem
+		faxmachine.sent_by = sender
+		faxmachine.sent_at = world.time
 
 		atom_say("Сообщение успешно отправлено.", FALSE)
 		playsound(src, 'sound/machines/ping.ogg', 50)
@@ -402,14 +402,14 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		atom_say("При отправке сообщения произошла ошибка.", FALSE)
 		return
 
-	var/datum/fax/admin/A = new /datum/fax/admin()
-	A.name = copyitem.name
-	A.from_department = department
-	A.to_department = destination
-	A.origin = src
-	A.message = copyitem
-	A.sent_by = sender
-	A.sent_at = world.time
+	var/datum/fax/admin/admin = new /datum/fax/admin()
+	admin.name = copyitem.name
+	admin.from_department = department
+	admin.to_department = destination
+	admin.origin = src
+	admin.message = copyitem
+	admin.sent_by = sender
+	admin.sent_at = world.time
 
 	//message badmins that a fax has arrived
 	switch(destination)
@@ -419,9 +419,9 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 			message_admins(sender, "SYNDICATE FAX", destination, copyitem, "#DC143C")
 		if("USSP Central Committee")
 			message_admins(sender, "USSP FAX", destination, copyitem, "#b60226")
-	for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
-		if(F.department == destination)
-			F.receivefax(copyitem)
+	for(var/obj/machinery/photocopier/faxmachine/faxmachine in GLOB.allfaxes)
+		if(faxmachine.department == destination)
+			faxmachine.receivefax(copyitem)
 	atom_say("Сообщение успешно отправлено.", FALSE)
 	playsound(src, 'sound/machines/ping.ogg', 50)
 
@@ -434,18 +434,18 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	// (<a href='byond://?_src_=holder;EvilFax=[sender.UID()];originfax=[UID()]'>EVILFAX</a>) effects moved to smites.
 	var/msg = "[span_boldnotice("<span style='color: [font_colour];>[faxname]: </span> [key_name_admin(sender)] | REPLY: (<a href='byond://?_src_=holder;[faxname == "SYNDICATE FAX" ? "SyndicateReply" : ""]=[sender.UID()][faxname == "USSP FAX" ? "USSPReply" : ""]=[sender.UID()][faxname == "CENTCOM FAX" ? "CentcommReply" : ""]=[sender.UID()]'>RADIO</a>) (<a href='byond://?_src_=holder;AdminFaxCreate=[sender.UID()];originfax=[UID()];faxtype=[faxtype];replyto=[sent.UID()]'>FAX</a>) ([ADMIN_SM(sender,"SM")]) | REJECT: (<a href='byond://?_src_=holder;FaxReplyTemplate=[sender.UID()];originfax=[UID()]'>TEMPLATE</a>) ([ADMIN_BSA(sender,"BSA")])")]: Receiving '[sent.name]' via secure connection... <a href='byond://?_src_=holder;AdminFaxView=[sent.UID()]'>view message</a>"
 	var/fax_sound = sound('sound/effects/adminhelp.ogg')
-	for(var/client/C in GLOB.admins)
-		if(check_rights(R_EVENT, FALSE, C.mob))
-			to_chat(C, msg)
-			if(C.prefs.sound & SOUND_ADMINHELP)
-				SEND_SOUND(C, fax_sound)
+	for(var/client/client in GLOB.admins)
+		if(check_rights(R_EVENT, FALSE, client.mob))
+			to_chat(client, msg)
+			if(client.prefs.sound & SOUND_ADMINHELP)
+				SEND_SOUND(client, fax_sound)
 
 	var/datum/discord_webhook_payload/payload = new()
 	if(istype(sent, /obj/item/paper))
-		var/obj/item/paper/P = sent
-		var/data = sanitize_paper(P)
+		var/obj/item/paper/paper = sent
+		var/data = sanitize_paper(paper)
 		var/datum/discord_embed/embed = new()
-		embed.embed_title = P.name
+		embed.embed_title = paper.name
 		embed.embed_content = data
 		embed.embed_colour = replacetext(font_colour, "#", "")
 		payload.embeds += embed
@@ -453,26 +453,26 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		GLOB.discord_manager.send2discord_complex(DISCORD_WEBHOOK_REQUESTS, payload)
 	else if(istype(sent, /obj/item/paper_bundle))
 		var/obj/item/paper_bundle/bundle = sent
-		for(var/obj/item/paper/P in bundle)
+		for(var/obj/item/paper/paper in bundle)
 			var/datum/discord_embed/embed = new()
-			embed.embed_title = P.name
+			embed.embed_title = paper.name
 			embed.embed_colour = replacetext(font_colour, "#", "")
-			embed.embed_content = sanitize_paper(P)
+			embed.embed_content = sanitize_paper(paper)
 			payload.embeds += embed
-		for(var/obj/item/photo/P in bundle)
+		for(var/obj/item/photo/paper in bundle)
 			var/datum/discord_embed/embed = new()
-			embed.embed_title = P.name
+			embed.embed_title = paper.name
 			embed.embed_colour = replacetext(font_colour, "#", "")
-			embed.embed_content = P.log_text
+			embed.embed_content = paper.log_text
 			payload.embeds += embed
 		payload.webhook_content = "**\[FAX\]** [sender.client.ckey]/([sender.name]) sent a Bundle Fax at [get_area(src)]"
 		GLOB.discord_manager.send2discord_complex(DISCORD_WEBHOOK_REQUESTS, payload)
 	else if(istype(sent, /obj/item/photo))
-		var/obj/item/photo/P = sent
+		var/obj/item/photo/paper = sent
 		var/datum/discord_embed/embed = new()
-		embed.embed_title = P.name
+		embed.embed_title = paper.name
 		embed.embed_colour = font_colour
-		embed.embed_content = P.log_text
+		embed.embed_content = paper.log_text
 		payload.embeds += embed
 		payload.webhook_content = "**\[FAX\]** [sender.client.ckey]/([sender.name]) sent a Photo at [get_area(src)]"
 		GLOB.discord_manager.send2discord_complex(DISCORD_WEBHOOK_REQUESTS, payload)
@@ -517,5 +517,5 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 /obj/machinery/photocopier/faxmachine/proc/become_mimic()
 	if(scan)
 		scan.forceMove(get_turf(src))
-	var/mob/living/simple_animal/hostile/mimic/copy/M = new(loc, src, null, 1) // it will delete src on creation and override any machine checks
-	M.name = "angry fax machine"
+	var/mob/living/simple_animal/hostile/mimic/copy/copy = new(loc, src, null, 1) // it will delete src on creation and override any machine checks
+	copy.name = "angry fax machine"

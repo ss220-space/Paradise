@@ -42,21 +42,21 @@
 
 /datum/disease/virus/magnitis/proc/move_obj(range, iter)
 	playsound(get_turf(affected_mob.loc), 'sound/effects/magnitis.ogg', 100, TRUE)
-	for(var/obj/M in orange(range, affected_mob))
-		if(!M.anchored && (M.flags & CONDUCT))
+	for(var/obj/obj in orange(range, affected_mob))
+		if(!obj.anchored && (obj.flags & CONDUCT))
 			var/i
 			for(i = 0, i < iter, i++)
-				step_towards(M, affected_mob)
+				step_towards(obj, affected_mob)
 
 /datum/disease/virus/magnitis/proc/move_mobs(range, iter)
-	for(var/mob/living/L in orange(range, affected_mob))
-		if(isrobot(L) || \
-			istype(L, /mob/living/simple_animal/pet/dog/corgi/borgi) || \
-			ismachineperson(L))
+	for(var/mob/living/living in orange(range, affected_mob))
+		if(isrobot(living) || \
+			istype(living, /mob/living/simple_animal/pet/dog/corgi/borgi) || \
+			ismachineperson(living))
 
 			var/i
 			for(i = 0, i < iter, i++)
-				step_towards(L, affected_mob)
+				step_towards(living, affected_mob)
 
 //machinepersons cures with nanopaste, applied at any bodypart
 /datum/disease/virus/magnitis/has_cure()

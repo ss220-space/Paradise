@@ -324,8 +324,8 @@
 		return
 	var/list/fish_types = list() // fish sorted by type. Key is type of fish, value is a list of fish of that type
 	var/list/fish_types_input = list() // The choices given to the player, and the types of fish those choices are for. Key is string shown to player, value is type of fish
-	for(var/datum/fish/F in fish_list) // Group up the fish first
-		fish_types[F.type] += list(F)
+	for(var/datum/fish/fish in fish_list) // Group up the fish first
+		fish_types[fish.type] += list(fish)
 	for(var/key in fish_types) // Then populate the list
 		var/datum/fish/fish_type = key
 		var/count = length(fish_types[key])
@@ -342,9 +342,9 @@
 		return
 	var/fish_type_caught = fish_types_input[caught_fish]
 	var/list/fishes_of_type = list()
-	for(var/datum/fish/F in fish_list)
-		if(F.type == fish_type_caught)
-			fishes_of_type += list(F)
+	for(var/datum/fish/fish in fish_list)
+		if(fish.type == fish_type_caught)
+			fishes_of_type += list(fish)
 	if(!length(fishes_of_type))
 		var/datum/fish/fish_type = fish_type_caught
 		to_chat(user, span_warning("There are no [fish_type.fish_name] in [src] to catch!"))
@@ -372,15 +372,15 @@
 	kill_fish(fish_to_scoop)						//Kill the caught fish from the tank
 
 /obj/machinery/fishtank/proc/spill_water()
-	var/turf/simulated/T = get_turf(src)
+	var/turf/simulated/simulated = get_turf(src)
 	switch(tank_type)
 		if("bowl")										//Fishbowl: Wets it's own tile
-			if(istype(T))
-				T.MakeSlippery(TURF_WET_WATER, 80 SECONDS)
+			if(istype(simulated))
+				simulated.MakeSlippery(TURF_WET_WATER, 80 SECONDS)
 		if("tank")										//Fishtank: Wets it's own tile and the 4 adjacent tiles (cardinal directions)
-			if(istype(T))
-				T.MakeSlippery(TURF_WET_WATER, 80 SECONDS)
-				for(var/turf/simulated/ST in T.AdjacentTurfs(open_only = TRUE, cardinal_only = TRUE))
+			if(istype(simulated))
+				simulated.MakeSlippery(TURF_WET_WATER, 80 SECONDS)
+				for(var/turf/simulated/ST in simulated.AdjacentTurfs(open_only = TRUE, cardinal_only = TRUE))
 					ST.MakeSlippery(TURF_WET_WATER, 80 SECONDS)
 		if("wall")										//Wall-tank: Wets it's own tile and the surrounding 8 tiles (3x3 square)
 			for(var/turf/simulated/ST in spiral_range_turfs(1, loc))

@@ -51,7 +51,7 @@ ADMIN_VERB(one_click_antag, R_SERVER|R_EVENT, "Create Antagonist", "Auto-create 
 		temp.restricted_jobs += temp.protected_jobs
 
 	var/list/mob/living/carbon/human/candidates = list()
-	var/mob/living/carbon/human/H = null
+	var/mob/living/carbon/human/human = null
 
 	var/antnum = tgui_input_number(owner, "How many traitors you want to create? Enter 0 to cancel", "Amount:", 0)
 	if(!antnum || antnum <= 0)
@@ -67,9 +67,9 @@ ADMIN_VERB(one_click_antag, R_SERVER|R_EVENT, "Create Antagonist", "Auto-create 
 		var/numTraitors = min(length(candidates), antnum)
 
 		for(var/i = 0, i<numTraitors, i++)
-			H = pick(candidates)
-			H.mind.make_Traitor()
-			candidates.Remove(H)
+			human = pick(candidates)
+			human.mind.make_Traitor()
+			candidates.Remove(human)
 
 		return 1
 	return 0
@@ -82,7 +82,7 @@ ADMIN_VERB(one_click_antag, R_SERVER|R_EVENT, "Create Antagonist", "Auto-create 
 		temp.restricted_jobs += temp.protected_jobs
 
 	var/list/mob/living/carbon/human/candidates = list()
-	var/mob/living/carbon/human/H = null
+	var/mob/living/carbon/human/human = null
 
 	var/antnum = tgui_input_number(owner, "How many changelings you want to create? Enter 0 to cancel.", "Amount:", 0)
 	if(!antnum || antnum <= 0)
@@ -98,9 +98,9 @@ ADMIN_VERB(one_click_antag, R_SERVER|R_EVENT, "Create Antagonist", "Auto-create 
 		var/numChangelings = min(length(candidates), antnum)
 
 		for(var/i = 0, i<numChangelings, i++)
-			H = pick(candidates)
-			H.mind.add_antag_datum(/datum/antagonist/changeling)
-			candidates.Remove(H)
+			human = pick(candidates)
+			human.mind.add_antag_datum(/datum/antagonist/changeling)
+			candidates.Remove(human)
 
 		return TRUE
 	return FALSE
@@ -139,7 +139,7 @@ ADMIN_VERB(one_click_antag, R_SERVER|R_EVENT, "Create Antagonist", "Auto-create 
 		temp.restricted_jobs += temp.protected_jobs
 
 	var/list/mob/living/carbon/human/candidates = list()
-	var/mob/living/carbon/human/H = null
+	var/mob/living/carbon/human/human = null
 
 	var/antnum = tgui_input_number(owner, "How many revolutionaries you want to create? Enter 0 to cancel", "Amount:", 0)
 	if(!antnum || antnum <= 0)
@@ -155,9 +155,9 @@ ADMIN_VERB(one_click_antag, R_SERVER|R_EVENT, "Create Antagonist", "Auto-create 
 		var/numRevs = min(length(candidates), antnum)
 
 		for(var/i = 0, i<numRevs, i++)
-			H = pick(candidates)
-			H.mind.make_Rev()
-			candidates.Remove(H)
+			human = pick(candidates)
+			human.mind.make_Rev()
+			candidates.Remove(human)
 		return 1
 	return 0
 
@@ -166,8 +166,8 @@ ADMIN_VERB(one_click_antag, R_SERVER|R_EVENT, "Create Antagonist", "Auto-create 
 	var/confirm = tgui_alert(usr, "Are you sure?", "Confirm creation", list("Yes", "No"))
 	if(confirm != "Yes")
 		return 0
-	var/image/I = new('icons/mob/simple_human.dmi', "wizard")
-	var/list/candidates = SSghost_spawns.poll_candidates("Do you wish to be considered for the position of a Wizard Foundation 'diplomat'?", ROLE_WIZARD, source = I)
+	var/image/image = new('icons/mob/simple_human.dmi', "wizard")
+	var/list/candidates = SSghost_spawns.poll_candidates("Do you wish to be considered for the position of a Wizard Foundation 'diplomat'?", ROLE_WIZARD, source = image)
 
 	log_admin("[key_name(owner)] tried making a Wizard with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making a Wizard with One-Click-Antag")
@@ -188,7 +188,7 @@ ADMIN_VERB(one_click_antag, R_SERVER|R_EVENT, "Create Antagonist", "Auto-create 
 		temp.restricted_jobs += temp.protected_jobs
 
 	var/list/mob/living/carbon/human/candidates = list()
-	var/mob/living/carbon/human/H = null
+	var/mob/living/carbon/human/human = null
 	var/antnum = tgui_input_number(owner, "How many cultists do you want to create? Enter 0 to cancel.", "Amount:", 0)
 	if(!antnum || antnum <= 0) // 5 because cultist can really screw balance over if spawned in high amount.
 		return
@@ -203,11 +203,11 @@ ADMIN_VERB(one_click_antag, R_SERVER|R_EVENT, "Create Antagonist", "Auto-create 
 		var/numCultists = min(length(candidates), antnum)
 
 		for(var/I in 1 to numCultists)
-			H = pick(candidates)
-			to_chat(H, CULT_GREETING)
-			SSticker.mode.add_cultist(H.mind)
-			SSticker.mode.equip_cultist(H)
-			candidates.Remove(H)
+			human = pick(candidates)
+			to_chat(human, CULT_GREETING)
+			SSticker.mode.add_cultist(human.mind)
+			SSticker.mode.equip_cultist(human)
+			candidates.Remove(human)
 		return TRUE
 	return FALSE
 
@@ -218,7 +218,7 @@ ADMIN_VERB(one_click_antag, R_SERVER|R_EVENT, "Create Antagonist", "Auto-create 
 		temp.restricted_jobs += temp.protected_jobs
 
 	var/list/mob/living/carbon/human/candidates = list()
-	var/mob/living/carbon/human/H = null
+	var/mob/living/carbon/human/human = null
 	var/antnum = tgui_input_number(owner, "How many cultists do you want to create? Enter 0 to cancel.", "Amount:", 0)
 	if(!antnum || antnum <= 0) // 5 because cultist can really screw balance over if spawned in high amount.
 		return
@@ -233,11 +233,11 @@ ADMIN_VERB(one_click_antag, R_SERVER|R_EVENT, "Create Antagonist", "Auto-create 
 		var/numclocks = min(length(candidates), antnum)
 
 		for(var/I in 1 to numclocks)
-			H = pick(candidates)
-			to_chat(H, CLOCK_GREETING)
-			SSticker.mode.add_clocker(H.mind)
-			SSticker.mode.equip_clocker(H)
-			candidates.Remove(H)
+			human = pick(candidates)
+			to_chat(human, CLOCK_GREETING)
+			SSticker.mode.add_clocker(human.mind)
+			SSticker.mode.equip_clocker(human)
+			candidates.Remove(human)
 		return TRUE
 	return FALSE
 
@@ -320,8 +320,8 @@ ADMIN_VERB(one_click_antag, R_SERVER|R_EVENT, "Create Antagonist", "Auto-create 
 		custom_objective = new
 		custom_objective.needs_target = FALSE
 		custom_objective.explanation_text = expl
-	var/image/I = new('icons/mob/ninja_previews.dmi', "ninja_preview_new_hood_green")
-	var/list/candidates = SSghost_spawns.poll_candidates("Do you wish to be considered for the position of a Spider Clan Assassin'?", ROLE_NINJA, source = I)
+	var/image/image = new('icons/mob/ninja_previews.dmi', "ninja_preview_new_hood_green")
+	var/list/candidates = SSghost_spawns.poll_candidates("Do you wish to be considered for the position of a Spider Clan Assassin'?", ROLE_NINJA, source = image)
 
 	log_admin("[key_name(owner)] tried making a Space Ninja with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making a Space Ninja with One-Click-Antag")
@@ -339,8 +339,8 @@ ADMIN_VERB(one_click_antag, R_SERVER|R_EVENT, "Create Antagonist", "Auto-create 
 	//First we spawn a dude.
 	var/mob/living/carbon/human/new_character = new(pick(GLOB.latejoin))//The mob being spawned.
 
-	var/datum/preferences/A = new(G_found.client)
-	A.copy_to(new_character)
+	var/datum/preferences/preferences = new(G_found.client)
+	preferences.copy_to(new_character)
 
 	new_character.dna.ready_dna(new_character)
 	new_character.possess_by_player(G_found.key)
@@ -354,7 +354,7 @@ ADMIN_VERB(one_click_antag, R_SERVER|R_EVENT, "Create Antagonist", "Auto-create 
 		temp.restricted_jobs += temp.protected_jobs
 
 	var/list/mob/living/carbon/human/candidates = list()
-	var/mob/living/carbon/human/H = null
+	var/mob/living/carbon/human/human = null
 
 	var/antnum = tgui_input_number(owner, "How many vampires you want to create? Enter 0 to cancel", "Amount:", 0)
 	if(!antnum || antnum <= 0)
@@ -371,9 +371,9 @@ ADMIN_VERB(one_click_antag, R_SERVER|R_EVENT, "Create Antagonist", "Auto-create 
 		var/numVampires = min(length(candidates), antnum)
 
 		for(var/i = 0, i<numVampires, i++)
-			H = pick(candidates)
-			H.mind.make_vampire()
-			candidates.Remove(H)
+			human = pick(candidates)
+			human.mind.make_vampire()
+			candidates.Remove(human)
 
 		return 1
 	return 0
@@ -388,13 +388,13 @@ ADMIN_VERB(one_click_antag, R_SERVER|R_EVENT, "Create Antagonist", "Auto-create 
 	message_admins("[key_name_admin(owner)] tried making Thunderdone Teams with One-Click-Antag")
 
 	//Generates a list of candidates from active ghosts.
-	for(var/mob/G in GLOB.respawnable_list)
+	for(var/mob/mob in GLOB.respawnable_list)
 		spawn(0)
-			switch(tgui_alert(G, "Do you wish to be considered for a Thunderdome match about to start?", "Please answer in 30 seconds!", list("Yes", "No")))
+			switch(tgui_alert(mob, "Do you wish to be considered for a Thunderdome match about to start?", "Please answer in 30 seconds!", list("Yes", "No")))
 				if("Yes")
 					if((world.time-time_passed)>300)//If more than 30 game seconds passed.
 						return
-					candidates += G
+					candidates += mob
 				if("No")
 					return
 				else
@@ -402,22 +402,22 @@ ADMIN_VERB(one_click_antag, R_SERVER|R_EVENT, "Create Antagonist", "Auto-create 
 
 	sleep(300) //Debug.
 
-	for(var/mob/dead/observer/G in candidates)
-		if(!G.key)
-			candidates.Remove(G)
+	for(var/mob/dead/observer/mob in candidates)
+		if(!mob.key)
+			candidates.Remove(mob)
 
 	if(length(candidates))
 		var/teamOneMembers = 5
 		var/teamTwoMembers = 5
-		var/datum/preferences/A = new()
-		for(var/obj/effect/landmark/L in GLOB.landmarks_list)
-			if(L.name == "tdome1")
+		var/datum/preferences/preferences = new()
+		for(var/obj/effect/landmark/landmark in GLOB.landmarks_list)
+			if(landmark.name == "tdome1")
 				if(teamOneMembers<=0)
 					break
 
-				var/mob/living/carbon/human/newMember = new(L.loc)
+				var/mob/living/carbon/human/newMember = new(landmark.loc)
 
-				A.copy_to(newMember)
+				preferences.copy_to(newMember)
 
 				newMember.dna.ready_dna(newMember)
 
@@ -433,13 +433,13 @@ ADMIN_VERB(one_click_antag, R_SERVER|R_EVENT, "Create Antagonist", "Auto-create 
 				teamOneMembers--
 				to_chat(newMember, "You are a member of the <font color = 'green'><b>GREEN</b></font> Thunderdome team! Gear up and help your team destroy the red team!")
 
-			if(L.name == "tdome2")
+			if(landmark.name == "tdome2")
 				if(teamTwoMembers<=0)
 					break
 
-				var/mob/living/carbon/human/newMember = new(L.loc)
+				var/mob/living/carbon/human/newMember = new(landmark.loc)
 
-				A.copy_to(newMember)
+				preferences.copy_to(newMember)
 
 				newMember.dna.ready_dna(newMember)
 
@@ -464,7 +464,7 @@ ADMIN_VERB(one_click_antag, R_SERVER|R_EVENT, "Create Antagonist", "Auto-create 
 		temp.restricted_jobs += temp.protected_jobs
 
 	var/list/mob/living/carbon/human/candidates = list()
-	var/mob/living/carbon/human/H = null
+	var/mob/living/carbon/human/human = null
 
 	var/antnum = tgui_input_number(owner, "How many thieves you want to create? Enter 0 to cancel", "Amount:", 0)
 	if(!antnum || antnum <= 0)
@@ -481,9 +481,9 @@ ADMIN_VERB(one_click_antag, R_SERVER|R_EVENT, "Create Antagonist", "Auto-create 
 		var/numThieves = min(length(candidates), antnum)
 
 		for(var/i = 0, i<numThieves, i++)
-			H = pick(candidates)
-			H.mind.make_Thief()
-			candidates.Remove(H)
+			human = pick(candidates)
+			human.mind.make_Thief()
+			candidates.Remove(human)
 
 		return 1
 	return 0

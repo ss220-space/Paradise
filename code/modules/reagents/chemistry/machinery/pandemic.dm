@@ -204,8 +204,8 @@
 		reason += "<span class=\"paper_field\"></span>"
 		var/symptoms_list = list()
 		for(var/I in disease.symptoms)
-			var/datum/symptom/S = I
-			symptoms_list += S.name
+			var/datum/symptom/symptom = I
+			symptoms_list += symptom.name
 		var/symtoms = russian_list(symptoms_list)
 
 		var/signature
@@ -215,26 +215,26 @@
 			signature = "<span class=\"paper_field\"></span>"
 
 		printing = 1
-		var/obj/item/paper/P = new /obj/item/paper(loc)
+		var/obj/item/paper/paper = new /obj/item/paper(loc)
 		visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] дребезжит, после чего из окна печати выпадает лист бумаги."))
 		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 
-		P.info = span_fontsize4("<u><b><center> Выпуск вируса </b></center></u>")
-		P.info += "<hr>"
-		P.info += "<u>Название вируса:</u> [disease.name] <br>"
-		P.info += "<u>Симптомы:</u> [symtoms]<br>"
-		P.info += "<u>Путь передачи:</u> [disease.additional_info]<br>"
-		P.info += "<u>Лекарство от вируса:</u> [disease.cure_text]<br>"
-		P.info += "<br>"
-		P.info += "<u>Причина выпуска:</u> [reason]"
-		P.info += "<hr>"
-		P.info += "Вирусолог, ответственный за любые биологические угрозы, возникшие вследствие выпуска вируса.<br>"
-		P.info += "<u>Подпись вирусолога:</u> [signature]<br>"
-		P.info += "Печать ответственного лица, разрешившего выпуск вируса:"
-		P.populatefields()
-		P.updateinfolinks()
-		P.name = "Выпуск вируса «[disease.name]»"
-		P.update_icon()
+		paper.info = span_fontsize4("<u><b><center> Выпуск вируса </b></center></u>")
+		paper.info += "<hr>"
+		paper.info += "<u>Название вируса:</u> [disease.name] <br>"
+		paper.info += "<u>Симптомы:</u> [symtoms]<br>"
+		paper.info += "<u>Путь передачи:</u> [disease.additional_info]<br>"
+		paper.info += "<u>Лекарство от вируса:</u> [disease.cure_text]<br>"
+		paper.info += "<br>"
+		paper.info += "<u>Причина выпуска:</u> [reason]"
+		paper.info += "<hr>"
+		paper.info += "Вирусолог, ответственный за любые биологические угрозы, возникшие вследствие выпуска вируса.<br>"
+		paper.info += "<u>Подпись вирусолога:</u> [signature]<br>"
+		paper.info += "Печать ответственного лица, разрешившего выпуск вируса:"
+		paper.populatefields()
+		paper.updateinfolinks()
+		paper.name = "Выпуск вируса «[disease.name]»"
+		paper.update_icon()
 		printing = null
 
 /obj/machinery/computer/pandemic/attack_hand(mob/user)

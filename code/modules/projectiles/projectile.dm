@@ -232,11 +232,11 @@
 		hity = target.pixel_y + rand(-8, 8)
 
 	if(!nodamage && (damage_type == BRUTE || damage_type == BURN) && iswallturf(target_loca) && prob(75))
-		var/turf/simulated/wall/W = target_loca
+		var/turf/simulated/wall/wall = target_loca
 		if(impact_effect_type && !hitscan)
 			new impact_effect_type(target_loca, hitx, hity)
 
-		W.add_dent(WALL_DENT_SHOT, hitx, hity)
+		wall.add_dent(WALL_DENT_SHOT, hitx, hity)
 		return FALSE
 
 	if(!isliving(target))
@@ -244,17 +244,17 @@
 			new impact_effect_type(target_loca, hitx, hity)
 		return FALSE
 
-	var/mob/living/L = target
+	var/mob/living/living = target
 	var/mob/living/carbon/human/H
 	var/organ_hit_text = ""
 	if(blocked < 100) // not completely blocked
-		if(!nodamage && damage && L.blood_volume && damage_type == BRUTE)
+		if(!nodamage && damage && living.blood_volume && damage_type == BRUTE)
 			var/splatter_dir = Angle
 			if(starting)
 				splatter_dir = !isnull(Angle) ? Angle : round(get_angle(starting, target_loca), 1)
-			var/splatter_color = L.get_blood_color()
+			var/splatter_color = living.get_blood_color()
 			if(splatter_color)
-				if(isalien(L) || isfacehugger(L))
+				if(isalien(living) || isfacehugger(living))
 					new /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter(target_loca, splatter_dir, splatter_color)
 				else
 					new /obj/effect/temp_visual/dir_setting/bloodsplatter(target_loca, splatter_dir, splatter_color)
@@ -268,47 +268,47 @@
 						shift = pixel_shift_dir(angle2dir_cardinal(splatter_dir)) //Pixel shift the blood there instead (so you can't see wallsplatter through walls).
 					else
 						target_loca = step_over
-					L.add_splatter_floor(target_loca, shift_x = shift["x"], shift_y = shift["y"])
+					living.add_splatter_floor(target_loca, shift_x = shift["x"], shift_y = shift["y"])
 					if(istype(H))
-						for(var/mob/living/carbon/human/M in step_over) //Bloody the mobs who're infront of the spray.
-							M.bloody_hands(H)
+						for(var/mob/living/carbon/human/human in step_over) //Bloody the mobs who're infront of the spray.
+							human.bloody_hands(H)
 							/* Uncomment when bloody_body stops randomly not transferring blood colour.
-							M.bloody_body(H) */
+							human.bloody_body(H) */
 
 		else if(impact_effect_type && !hitscan)
 			new impact_effect_type(target_loca, hitx, hity)
-		if(L.has_limbs && def_zone)
+		if(living.has_limbs && def_zone)
 			organ_hit_text = "в [GLOB.body_zone[def_zone][ACCUSATIVE]]!"
 
 		if(suppressed)
 			playsound(loc, hitsound, 5, TRUE, -1)
-			to_chat(L, span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] попадает вам [organ_hit_text]"))
+			to_chat(living, span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] попадает вам [organ_hit_text]"))
 		else
 			if(hitsound)
 				var/volume = vol_by_damage()
 				playsound(loc, hitsound, volume, TRUE, -1)
-			var/hit_text = pick("получа[PLUR_ET_YUT(L)] попадание",
-								"ранен[GEND_A_O_Y(L)]",
-								"получа[PLUR_ET_YUT(L)] ранение",
-								"поражён[GEND_A_O_Y(L)]",
+			var/hit_text = pick("получа[PLUR_ET_YUT(living)] попадание",
+								"ранен[GEND_A_O_Y(living)]",
+								"получа[PLUR_ET_YUT(living)] ранение",
+								"поражён[GEND_A_O_Y(living)]",
 								"прошибает")
-			L.visible_message(span_danger("[DECLENT_RU_CAP(L, NOMINATIVE)] [hit_text] [declent_ru(INSTRUMENTAL)] [organ_hit_text]"), \
+			living.visible_message(span_danger("[DECLENT_RU_CAP(living, NOMINATIVE)] [hit_text] [declent_ru(INSTRUMENTAL)] [organ_hit_text]"), \
 								span_userdanger("В вас попали [declent_ru(INSTRUMENTAL)] [organ_hit_text]"),
 								projectile_message = TRUE)	//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
 
 		if(immolate)
-			L.adjust_fire_stacks(immolate)
-			L.IgniteMob()
+			living.adjust_fire_stacks(immolate)
+			living.IgniteMob()
 
-		if(L?.mind && firer?.mind?.objectives)
+		if(living?.mind && firer?.mind?.objectives)
 			for(var/datum/objective/pain_hunter/objective in firer.mind.get_all_objectives())
-				if(L.mind == objective.target)
+				if(living.mind == objective.target)
 					objective.take_damage(damage, damage_type)
 
-	var/were_affects_applied = apply_effect_on_hit(L, blocked, def_zone)
+	var/were_affects_applied = apply_effect_on_hit(living, blocked, def_zone)
 
 	if(!log_override && firer && original)
-		add_attack_logs(firer, L, "Shot [organ_hit_text][blocked ? " blocking [blocked]%" : null]. [fire_log_text]")
+		add_attack_logs(firer, living, "Shot [organ_hit_text][blocked ? " blocking [blocked]%" : null]. [fire_log_text]")
 
 	return were_affects_applied
 
@@ -441,23 +441,23 @@
 		if(QDELETED(src))
 			return
 		trajectory.increment(trajectory_multiplier)
-		var/turf/T = trajectory.return_turf()
-		if(!istype(T))
+		var/turf/turf = trajectory.return_turf()
+		if(!istype(turf))
 			// if we've gone off of the map, we need to step back once so that hitscanning projectiles have a valid end turf
 			trajectory.increment(-trajectory_multiplier)
 			qdel(src)
 			return
-		if(T.z != loc.z)
+		if(turf.z != loc.z)
 			trajectory_ignore_forcemove = TRUE
-			forceMove(T)
+			forceMove(turf)
 			trajectory_ignore_forcemove = FALSE
 			if(!hitscanning)
 				pixel_x = trajectory.return_px()
 				pixel_y = trajectory.return_py()
 			forcemoved = TRUE
 			hitscan_last = loc
-		else if(T != loc)
-			step_towards(src, T)
+		else if(turf != loc)
+			step_towards(src, turf)
 			hitscan_last = loc
 		if(original && (original.layer >= PROJECTILE_HIT_THRESHOLD_LAYER && !isliving(original)))
 			if(loc == get_turf(original) && !(original in permutated))
@@ -479,9 +479,9 @@
 		if(reagents?.reagent_list)
 			var/reagent_note
 			var/list/temp = reagents.reagent_list.Copy()
-			for(var/datum/reagent/R in temp)
-				temp -= R
-				reagent_note += "<small>[R] = </small>[R.volume]u"
+			for(var/datum/reagent/reagent in temp)
+				temp -= reagent
+				reagent_note += "<small>[reagent] = </small>[reagent.volume]u"
 				if(length(temp))
 					reagent_note += ", "
 			fire_log_text += " | Reagents: [reagent_note]"
@@ -501,9 +501,9 @@
 		else
 			hit_crawling_mobs_chance = 0
 	// Turn right away
-	var/matrix/M = new
-	M.Turn(Angle)
-	transform = M
+	var/matrix/matrix = new
+	matrix.Turn(Angle)
+	transform = matrix
 	// Start flying
 	trajectory = new(x, y, z, pixel_x, pixel_y, Angle, SSprojectiles.global_pixel_speed)
 	last_projectile_move = world.time

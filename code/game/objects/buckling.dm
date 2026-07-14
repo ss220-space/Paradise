@@ -152,8 +152,8 @@
 			location.zFall(buckled_mob)
 
 	if(isliving(src))
-		var/mob/living/M = src
-		M.refresh_gravity()
+		var/mob/living/living = src
+		living.refresh_gravity()
 
 	post_unbuckle_mob(.)
 

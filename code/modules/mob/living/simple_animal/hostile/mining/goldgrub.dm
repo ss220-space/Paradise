@@ -68,12 +68,12 @@
 	return ..()
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/proc/EatOre(atom/targeted_ore)
-	var/obj/item/stack/ore/O = targeted_ore
+	var/obj/item/stack/ore/ore = targeted_ore
 	if(length(loot) < max_loot)
-		var/using = min(max_loot - length(loot), O.amount)
+		var/using = min(max_loot - length(loot), ore.amount)
 		for(var/i in 1 to using)
-			loot += O.type
-		O.use(using)
+			loot += ore.type
+		ore.use(using)
 		visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] целиком проглотил руду!"))
 	else // We are now full! We will consume no more ore ever again.
 		search_objects = 0

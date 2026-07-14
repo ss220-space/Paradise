@@ -310,30 +310,30 @@ GLOBAL_LIST_EMPTY(closets)
 		AD.forceMove(src)
 		itemcount++
 
-	for(var/obj/item/I in loc)
+	for(var/obj/item/item in loc)
 		if(itemcount >= storage_capacity)
 			break
-		if(!I.anchored && I.can_put_in_closet)
-			I.forceMove(src)
+		if(!item.anchored && item.can_put_in_closet)
+			item.forceMove(src)
 			itemcount++
 
-	for(var/mob/M in loc)
+	for(var/mob/mob in loc)
 		if(itemcount >= storage_capacity)
 			break
 		if(!isnull(mob_storage_capacity) && (mobcount >= mob_storage_capacity))
 			break
-		if(isobserver(M))
+		if(isobserver(mob))
 			continue
-		if(istype(M, /mob/living/simple_animal/bot/mulebot))
+		if(istype(mob, /mob/living/simple_animal/bot/mulebot))
 			continue
-		if(ismegafauna(M))
+		if(ismegafauna(mob))
 			continue
-		if(M.buckled || M.anchored || M.has_buckled_mobs())
+		if(mob.buckled || mob.anchored || mob.has_buckled_mobs())
 			continue
-		if(isAI(M))
+		if(isAI(mob))
 			continue
 
-		M.forceMove(src)
+		mob.forceMove(src)
 		itemcount++
 		mobcount++
 

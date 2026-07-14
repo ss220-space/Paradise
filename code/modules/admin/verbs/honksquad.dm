@@ -40,12 +40,12 @@ GLOBAL_VAR_INIT(sent_clownsequritysquad, 0)
 	var/list/candidates = pick_candidates_all_types(src, HONKSQUAD_POSSIBLE, "Присоединиться к ХОНКскваду?", , 21, 30 SECONDS, FALSE, 60, TRUE, FALSE,, "ХОНКсквад", input)
 
 //Spawns HONKsquad and equips them.
-	for(var/obj/effect/landmark/L in GLOB.landmarks_list)
+	for(var/obj/effect/landmark/landmark in GLOB.landmarks_list)
 		if(honksquad_number<=0)	break
-		if(L.name == "HONKsquad")
+		if(landmark.name == "HONKsquad")
 			honk_leader_selected = (honksquad_number == HONKSQUAD_POSSIBLE ? 1 : 0)
 
-			var/mob/living/carbon/human/new_honksquad = is_security_clowns ? create_honksquad_security(L, honk_leader_selected) : create_honksquad(L, honk_leader_selected)
+			var/mob/living/carbon/human/new_honksquad = is_security_clowns ? create_honksquad_security(landmark, honk_leader_selected) : create_honksquad(landmark, honk_leader_selected)
 
 			if(length(candidates))
 				var/mob/mob = pick(candidates)
@@ -70,14 +70,14 @@ GLOBAL_VAR_INIT(sent_clownsequritysquad, 0)
 	var/honksquad_rank = pick("Младший Сержант", "Сержант", "Старший Сержант", "Старшина", "Прапорщик", "Старший Прапорщик")
 	var/honksquad_name = pick(GLOB.clown_names)
 
-	var/datum/preferences/A = new()//Randomize appearance for the commando.
+	var/datum/preferences/preferences = new()//Randomize appearance for the commando.
 	if(honk_leader_selected)
-		A.age = rand(35,45)
-		A.real_name = "[honksquad_leader_rank] [honksquad_name]"
+		preferences.age = rand(35,45)
+		preferences.real_name = "[honksquad_leader_rank] [honksquad_name]"
 	else
-		A.real_name = "[honksquad_rank] [honksquad_name]"
+		preferences.real_name = "[honksquad_rank] [honksquad_name]"
 	var/rankName = honk_leader_selected ? honksquad_leader_rank : honksquad_rank
-	A.copy_to(new_honksquad)
+	preferences.copy_to(new_honksquad)
 
 	new_honksquad.dna.ready_dna(new_honksquad)//Creates DNA.
 
@@ -94,9 +94,9 @@ GLOBAL_VAR_INIT(sent_clownsequritysquad, 0)
 
 /mob/living/carbon/human/proc/equip_honksquad(honk_leader_selected = 0, rankName)
 
-	var/obj/item/radio/R = new /obj/item/radio/headset(src)
-	R.set_frequency(1442)
-	equip_to_slot_or_del(R, ITEM_SLOT_EAR_LEFT)
+	var/obj/item/radio/radio = new /obj/item/radio/headset(src)
+	radio.set_frequency(1442)
+	equip_to_slot_or_del(radio, ITEM_SLOT_EAR_LEFT)
 	equip_to_slot_or_del(new /obj/item/storage/backpack/clown(src), ITEM_SLOT_BACK)
 	equip_to_slot_or_del(new /obj/item/storage/box/survival(src), ITEM_SLOT_BACKPACK)
 	if(src.gender == FEMALE)
@@ -121,13 +121,13 @@ GLOBAL_VAR_INIT(sent_clownsequritysquad, 0)
 		equip_to_slot_or_del(new /obj/item/gun/throw/piecannon(src), ITEM_SLOT_BACKPACK)
 	force_gene_block(GLOB.clumsyblock, TRUE, TRUE)
 	grant_mimicking()
-	var/obj/item/implant/sad_trombone/S = new/obj/item/implant/sad_trombone(src)
-	S.implant(src)
+	var/obj/item/implant/sad_trombone/sad_trombone = new/obj/item/implant/sad_trombone(src)
+	sad_trombone.implant(src)
 
-	var/obj/item/card/id/I = new(src)
-	apply_to_card(I, src, list(ACCESS_CLOWN), "HONKsquad", "clownsquad")
-	I.assignment = "[rankName] ХОНК-отряда"
-	equip_to_slot_or_del(I, ITEM_SLOT_ID)
+	var/obj/item/card/id/id = new(src)
+	apply_to_card(id, src, list(ACCESS_CLOWN), "HONKsquad", "clownsquad")
+	id.assignment = "[rankName] ХОНК-отряда"
+	equip_to_slot_or_del(id, ITEM_SLOT_ID)
 
 	return TRUE
 

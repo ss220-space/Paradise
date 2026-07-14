@@ -140,10 +140,10 @@
 /mob/living/carbon/human/proc/check_brain_for_complex_interactions()
 	if(getBrainLoss() >= 60 || prob(getBrainLoss()))
 		return FALSE
-	var/datum/disease/virus/advance/A = locate(/datum/disease/virus/advance) in diseases
-	if(istype(A))
-		var/datum/symptom/headache/S = locate(/datum/symptom/headache) in A.symptoms
-		if(istype(S))
+	var/datum/disease/virus/advance/advance = locate(/datum/disease/virus/advance) in diseases
+	if(istype(advance))
+		var/datum/symptom/headache/headache = locate(/datum/symptom/headache) in advance.symptoms
+		if(istype(headache))
 			return FALSE
 	return TRUE
 

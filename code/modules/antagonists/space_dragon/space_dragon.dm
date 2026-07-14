@@ -276,13 +276,13 @@
 	if(!at)
 		return
 	var/angle = ATAN2(at.x - src.x, at.y - src.y) + offset
-	var/turf/T = get_turf(src)
+	var/turf/turf = get_turf(src)
 	for(var/i in 1 to range)
 		var/turf/check = locate(src.x + cos(angle) * i, src.y + sin(angle) * i, src.z)
 		if(!check)
 			break
-		T = check
-	return (get_line(src, T) - get_turf(src))
+		turf = check
+	return (get_line(src, turf) - get_turf(src))
 
 /**
  * Spawns fire at each position in a line from the source to the target.
@@ -299,16 +299,16 @@
 	var/list/turfs = list()
 	turfs = line_target(0, range, at)
 	var/delayFire = -1.0
-	for(var/turf/T in turfs)
-		if(iswallturf(T))
+	for(var/turf/turf in turfs)
+		if(iswallturf(turf))
 			return
-		for(var/obj/structure/window/W in T.contents)
+		for(var/obj/structure/window/window in turf.contents)
 			return
-		for(var/obj/machinery/door/D in T.contents)
-			if(D.density)
+		for(var/obj/machinery/door/door in turf.contents)
+			if(door.density)
 				return
 		delayFire += 1.5
-		addtimer(CALLBACK(src, PROC_REF(dragon_fire_line), T), delayFire)
+		addtimer(CALLBACK(src, PROC_REF(dragon_fire_line), turf), delayFire)
 
 /**
  * What occurs on each tile to actually create the fire.
@@ -326,20 +326,20 @@
 	hotspot.temperature = 1000
 	hotspot.recolor()
 	T.hotspot_expose(2000, 50)
-	for(var/mob/living/L in T.contents)
-		if(L in hit_list)
+	for(var/mob/living/living in T.contents)
+		if(living in hit_list)
 			continue
-		if("carp" in L.faction)
+		if("carp" in living.faction)
 			continue
-		hit_list += L
-		L.adjustFireLoss(45)
-		to_chat(L, span_userdanger("Вы попали под огненное дыхание [src]!"))
+		hit_list += living
+		living.adjustFireLoss(45)
+		to_chat(living, span_userdanger("Вы попали под огненное дыхание [src]!"))
 	// deals damage to mechs
-	for(var/obj/mecha/M in T.contents)
-		if(M in hit_list)
+	for(var/obj/mecha/mecha in T.contents)
+		if(mecha in hit_list)
 			continue
-		hit_list += M
-		M.take_damage(90, BRUTE, MELEE, 1)
+		hit_list += mecha
+		mecha.take_damage(90, BRUTE, MELEE, 1)
 
 /**
  * Handles consuming and storing consumed things inside Space Dragon
@@ -394,17 +394,17 @@
 	playsound(src, 'sound/effects/gravhit.ogg', 100, TRUE)
 	var/gust_locs = spiral_range_turfs(gust_distance, get_turf(src))
 	var/list/hit_things = list()
-	for(var/turf/T in gust_locs)
-		for(var/mob/living/L in T.contents)
-			if(L == src)
+	for(var/turf/turf in gust_locs)
+		for(var/mob/living/living in turf.contents)
+			if(living == src)
 				continue
-			hit_things += L
-			visible_message(span_boldwarning("[L] отброшен назад порывом ветра!"))
-			to_chat(L, span_userdanger("Вас отбросило порывом ветра!"))
-			var/dir_to_target = get_dir(get_turf(src), get_turf(L))
+			hit_things += living
+			visible_message(span_boldwarning("[living] отброшен назад порывом ветра!"))
+			to_chat(living, span_userdanger("Вас отбросило порывом ветра!"))
+			var/dir_to_target = get_dir(get_turf(src), get_turf(living))
 			var/throwtarget = get_edge_target_turf(target, dir_to_target)
-			L.throw_at(throwtarget, 10, 1, src)
-			L.Paralyse(6 SECONDS)
+			living.throw_at(throwtarget, 10, 1, src)
+			living.Paralyse(6 SECONDS)
 	addtimer(CALLBACK(src, PROC_REF(reset_status)), 4 + ((tiredness * tiredness_mult) / 10))
 	tiredness = tiredness + (gust_tiredness * tiredness_mult)
 

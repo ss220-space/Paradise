@@ -77,25 +77,24 @@
 	for(var/E in B.elements)
 		var/obj/effect/ebeam/chainpart = E
 		if(chainpart?.x && chainpart.y && chainpart.z)
-			var/turf/T = get_turf_pixel(chainpart)
-			turfs |= T
-			if(T != get_turf(B.origin) && T != get_turf(B.target))
-				for(var/turf/TU in circle_range(T, 1))
+			var/turf/turf = get_turf_pixel(chainpart)
+			turfs |= turf
+			if(turf != get_turf(B.origin) && turf != get_turf(B.target))
+				for(var/turf/TU in circle_range(turf, 1))
 					turfs |= TU
-	for(var/turf in turfs)
-		var/turf/T = turf
-		for(var/mob/living/L in T)
-			if(L.stat != DEAD && L != src && L != summoner)
-				var/mob/living/simple_animal/hostile/guardian/G = L
-				if(istype(G) && G.summoner == summoner)
+	for(var/turf/turf in turfs)
+		for(var/mob/living/living in turf)
+			if(living.stat != DEAD && living != src && living != summoner)
+				var/mob/living/simple_animal/hostile/guardian/guardian = living
+				if(istype(guardian) && guardian.summoner == summoner)
 					continue
 				if(successfulshocks > 4)
-					L.visible_message(
-						span_danger("[L] был[GEND_A_O_I(L)] поражен[GEND_A_O_Y(L)] цепью молний!"), \
+					living.visible_message(
+						span_danger("[living] был[GEND_A_O_I(living)] поражен[GEND_A_O_Y(living)] цепью молний!"), \
 						span_userdanger("Вас ударила цепь молний!"), \
 						span_italics("Вы слышите громкий электрический треск.") \
 					)
-				L.adjustFireLoss(3)
+				living.adjustFireLoss(3)
 				. = 1
 
 /mob/living/simple_animal/hostile/guardian/beam/death(gibbed)

@@ -6,24 +6,24 @@
 	log_access_in(client)
 	add_game_logs("OWNERSHIP: Client [key_name(src)] has taken ownership of mob [src]([src.type])")
 	if(CONFIG_GET(flag/log_access))
-		for(var/mob/M in GLOB.player_list)
-			if(M == src)	continue
-			if(M.key && (M.key != key))
+		for(var/mob/mob in GLOB.player_list)
+			if(mob == src)	continue
+			if(mob.key && (mob.key != key))
 				var/matches
-				if(M.lastKnownIP == client.address)
+				if(mob.lastKnownIP == client.address)
 					matches += "IP ([client.address])"
-				if(M.computer_id == client.computer_id)
+				if(mob.computer_id == client.computer_id)
 					if(matches)	matches += " and "
 					matches += "ID ([client.computer_id])"
 					if(!CONFIG_GET(flag/disable_cid_warn_popup))
 						spawn() alert("You have logged in already with another key this round, please log out of this one NOW or risk being banned!")
 				if(matches)
-					if(M.client)
-						message_admins("<span style='color: red'><b>Notice: </b><span style='color: #EB4E00'><a href='byond://?src=[usr.UID()];priv_msg=[src.client.ckey]'>[key_name_admin(src)]</a> has the same [matches] as <a href='byond://?src=[usr.UID()];priv_msg=[M.client.ckey]'>[key_name_admin(M)]</a>.</span>")
-						log_adminwarn("Notice: [key_name(src)] has the same [matches] as [key_name(M)].")
+					if(mob.client)
+						message_admins("<span style='color: red'><b>Notice: </b><span style='color: #EB4E00'><a href='byond://?src=[usr.UID()];priv_msg=[src.client.ckey]'>[key_name_admin(src)]</a> has the same [matches] as <a href='byond://?src=[usr.UID()];priv_msg=[mob.client.ckey]'>[key_name_admin(mob)]</a>.</span>")
+						log_adminwarn("Notice: [key_name(src)] has the same [matches] as [key_name(mob)].")
 					else
-						message_admins("span style='color: red'><b>Notice: </b><span style='color: #EB4E00'><a href='byond://?src=[usr.UID()];priv_msg=[src.client.ckey]'>[key_name_admin(src)]</a> has the same [matches] as [key_name_admin(M)] (no longer logged in). </span>")
-						log_adminwarn("Notice: [key_name(src)] has the same [matches] as [key_name(M)] (no longer logged in).")
+						message_admins("span style='color: red'><b>Notice: </b><span style='color: #EB4E00'><a href='byond://?src=[usr.UID()];priv_msg=[src.client.ckey]'>[key_name_admin(src)]</a> has the same [matches] as [key_name_admin(mob)] (no longer logged in). </span>")
+						log_adminwarn("Notice: [key_name(src)] has the same [matches] as [key_name(mob)] (no longer logged in).")
 
 /mob/Login()
 	if(!client)

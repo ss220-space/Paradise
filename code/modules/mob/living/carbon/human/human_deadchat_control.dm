@@ -91,11 +91,11 @@
 
 /mob/living/carbon/human/proc/dchat_shove()
 	var/turf/ahead = get_turf(get_step(src, dir))
-	var/mob/living/carbon/human/H = locate(/mob/living/carbon/human) in ahead
-	if(!H)
+	var/mob/living/carbon/human/human = locate(/mob/living/carbon/human) in ahead
+	if(!human)
 		visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] пыта[PLUR_ET_YUT(src)]ся что-то отодвинуть в сторону!"))
 		return
-	dna?.species.disarm(src, H)
+	dna?.species.disarm(src, human)
 
 /mob/living/carbon/human/proc/dchat_shoot()
 

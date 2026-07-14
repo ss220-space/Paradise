@@ -249,10 +249,10 @@
 
 	else if(pressure > TANK_RUPTURE_PRESSURE)
 		if(integrity <= 0)
-			var/turf/simulated/T = get_turf(src)
-			if(!T)
+			var/turf/simulated/simulated = get_turf(src)
+			if(!simulated)
 				return
-			T.blind_release_air(air_contents)
+			simulated.blind_release_air(air_contents)
 			playsound(loc, 'sound/effects/spray.ogg', 10, TRUE, -3)
 			qdel(src)
 		else
@@ -260,11 +260,11 @@
 
 	else if(pressure > TANK_LEAK_PRESSURE)
 		if(integrity <= 0)
-			var/turf/simulated/T = get_turf(src)
-			if(!T)
+			var/turf/simulated/simulated = get_turf(src)
+			if(!simulated)
 				return
 			var/datum/gas_mixture/leaked_gas = air_contents.remove_ratio(0.25)
-			T.blind_release_air(leaked_gas)
+			simulated.blind_release_air(leaked_gas)
 		else
 			integrity--
 

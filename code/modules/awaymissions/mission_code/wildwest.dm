@@ -159,16 +159,16 @@
 	set category = "Immortality"
 	set name = "Resurrection"
 
-	var/mob/living/carbon/C = usr
-	if(C.stat != DEAD)
-		to_chat(C, span_notice("You're not dead yet!"))
+	var/mob/living/carbon/carbon = usr
+	if(carbon.stat != DEAD)
+		to_chat(carbon, span_notice("You're not dead yet!"))
 		return
 	if(revival_in_progress)
-		to_chat(C, span_notice("You're already rising from the dead!"))
+		to_chat(carbon, span_notice("You're already rising from the dead!"))
 		return //no spam callbacks
-	C.revival_in_progress = TRUE
-	to_chat(C, span_notice("Death is not your end!"))
-	addtimer(CALLBACK(C, PROC_REF(resurrect), C), rand(80 SECONDS, 120 SECONDS))
+	carbon.revival_in_progress = TRUE
+	to_chat(carbon, span_notice("Death is not your end!"))
+	addtimer(CALLBACK(carbon, PROC_REF(resurrect), carbon), rand(80 SECONDS, 120 SECONDS))
 
 /mob/living/carbon/proc/resurrect(mob/living/carbon/user)
 	user.revive()
@@ -231,8 +231,8 @@
 	used = TRUE
 
 /obj/item/wildwest_communicator/proc/stand_down()
-	for(var/mob/living/simple_animal/hostile/syndicate/ranged/wildwest/W in GLOB.alive_mob_list)
-		W.on_alert = FALSE
+	for(var/mob/living/simple_animal/hostile/syndicate/ranged/wildwest/wildwest in GLOB.alive_mob_list)
+		wildwest.on_alert = FALSE
 
 /mob/living/simple_animal/hostile/syndicate/ranged/wildwest
 	var/on_alert = TRUE

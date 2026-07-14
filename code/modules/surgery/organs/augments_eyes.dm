@@ -30,10 +30,10 @@
 	M.update_sight()
 
 /obj/item/organ/internal/cyberimp/eyes/proc/generate_icon(mob/living/carbon/human/HA)
-	var/mob/living/carbon/human/H = HA
-	if(!istype(H))
-		H = owner
-	var/icon/cybereyes_icon = new /icon('icons/mob/human_face.dmi', H.dna.species.eyes)
+	var/mob/living/carbon/human/human = HA
+	if(!istype(human))
+		human = owner
+	var/icon/cybereyes_icon = new /icon('icons/mob/human_face.dmi', human.dna.species.eyes)
 	cybereyes_icon.Blend(eye_colour, ICON_ADD) // Eye implants override native DNA eye color
 
 	return cybereyes_icon

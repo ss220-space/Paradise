@@ -250,9 +250,9 @@
 	if(isvehicle(parent))
 		var/obj/vehicle/vehicle_parent = parent
 		return istype(vehicle_parent.inserted_key, keytype)
-	var/mob/living/carbon/human/H = user
+	var/mob/living/carbon/human/human = user
 
-	return H.is_type_in_hands(keytype)
+	return human.is_type_in_hands(keytype)
 
 //BUCKLE HOOKS
 /datum/component/riding/proc/restore_position(mob/living/buckled_mob)
@@ -298,13 +298,13 @@
 /// currently replicated from ridable because we need this behavior here too, see if we can deal with that
 /datum/component/riding/proc/unequip_buckle_inhands(mob/living/carbon/user)
 	var/atom/movable/AM = parent
-	for(var/obj/item/riding_offhand/O in user.contents)
-		if(O.parent != AM)
+	for(var/obj/item/riding_offhand/riding_offhand in user.contents)
+		if(riding_offhand.parent != AM)
 			CRASH("RIDING OFFHAND ON WRONG MOB")
-		if(O.selfdeleting)
+		if(riding_offhand.selfdeleting)
 			continue
 		else
-			qdel(O)
+			qdel(riding_offhand)
 	return TRUE
 
 /// Extra checks before buckled.can_z_move can be called in mob/living/can_z_move()

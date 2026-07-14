@@ -457,9 +457,9 @@
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/proc/dismantleFloor(turf/new_turf)
 	if(isfloorturf(new_turf))
-		var/turf/simulated/floor/T = new_turf
-		if(!istype(T, /turf/simulated/floor/plating))
-			T.make_plating(TRUE)
+		var/turf/simulated/floor/floor = new_turf
+		if(!istype(floor, /turf/simulated/floor/plating))
+			floor.make_plating(TRUE)
 	return !new_turf.intact
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/proc/layCable(obj/mecha/M, atom/OldLoc, Dir, Forced = FALSE)
@@ -722,8 +722,8 @@
 
 /obj/item/mecha_parts/mecha_equipment/eng_toolset/proc/radial_menu(mob/living/carbon/user)
 	var/list/choices = list()
-	for(var/obj/item/I as anything in items_list)
-		choices["[I.name]"] = image(icon = I.icon, icon_state = I.icon_state)
+	for(var/obj/item/item as anything in items_list)
+		choices["[item.name]"] = image(icon = item.icon, icon_state = item.icon_state)
 	var/choice = show_radial_menu(user, chassis, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
 	if(!check_menu(user))
 		return

@@ -190,16 +190,16 @@
 	do_attack_animation(D)
 	changeNext_move(CLICK_CD_MELEE)
 	if(is_airlock(D))
-		var/obj/machinery/door/airlock/A = D
-		if(A.welded || A.locked)
-			if(hulk_scream(A, 75))
-				A.deconstruct(src)
+		var/obj/machinery/door/airlock/airlock = D
+		if(airlock.welded || airlock.locked)
+			if(hulk_scream(airlock, 75))
+				airlock.deconstruct(src)
 			return
 	if(istype(D,/obj/machinery/door/firedoor))
-		var/obj/machinery/door/firedoor/F = D
-		if(F.welded || F.locked)
-			if(hulk_scream(F, 75))
-				F.deconstruct(src);
+		var/obj/machinery/door/firedoor/firedoor = D
+		if(firedoor.welded || firedoor.locked)
+			if(hulk_scream(firedoor, 75))
+				firedoor.deconstruct(src);
 				return
 	if(D.density)
 		to_chat(src, span_userdanger("You force your fingers between the doors and begin to pry them open..."))

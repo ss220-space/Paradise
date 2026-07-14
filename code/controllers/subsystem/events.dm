@@ -126,16 +126,16 @@ SUBSYSTEM_DEF(events)
 		return
 
 	to_chat(world, "<br><br><br><b>[span_fontsize3("Random Events This Round:")]</b>")
-	for(var/datum/event/E in active_events|finished_events)
-		var/datum/event_meta/EM = E.event_meta
+	for(var/datum/event/event in active_events|finished_events)
+		var/datum/event_meta/EM = event.event_meta
 		if(EM.name == "Nothing")
 			continue
-		var/message = "'[EM.name]' began at [station_time_timestamp("hh:mm:ss", E.startedAt)] "
-		if(E.isRunning)
+		var/message = "'[EM.name]' began at [station_time_timestamp("hh:mm:ss", event.startedAt)] "
+		if(event.isRunning)
 			message += "and is still running."
 		else
-			if(E.endedAt - E.startedAt > 5 MINUTES) // Only mention end time if the entire duration was more than 5 minutes
-				message += "and ended at [station_time_timestamp("hh:mm:ss", E.endedAt)]."
+			if(event.endedAt - event.startedAt > 5 MINUTES) // Only mention end time if the entire duration was more than 5 minutes
+				message += "and ended at [station_time_timestamp("hh:mm:ss", event.endedAt)]."
 			else
 				message += "and ran to completion."
 
@@ -230,19 +230,19 @@ SUBSYSTEM_DEF(events)
 		html += "Estimated times, affected by master controller delays."
 		html += "<table[table_options]>"
 		html += "<tr[head_options]><td[row_options1]>Severity</td><td[row_options2]>Name</td><td[row_options1]>Ends At</td><td[row_options1]>Ends In</td><td[row_options3]>Stop</td></tr>"
-		for(var/datum/event/E in active_events)
-			if(!E.event_meta)
+		for(var/datum/event/event in active_events)
+			if(!event.event_meta)
 				continue
-			var/datum/event_meta/EM = E.event_meta
-			var/ends_at = E.startedAt + (E.lastProcessAt() * 20)	// A best estimate, based on how often the manager processes
+			var/datum/event_meta/EM = event.event_meta
+			var/ends_at = event.startedAt + (event.lastProcessAt() * 20)	// A best estimate, based on how often the manager processes
 			var/ends_in = max(0, round((ends_at - world.time) / 600, 0.1))
-			var/no_end = E.noAutoEnd
+			var/no_end = event.noAutoEnd
 			html += "<tr>"
 			html += "<td>[GLOB.severity_to_string[EM.severity]]</td>"
 			html += "<td>[EM.name]</td>"
 			html += "<td>[no_end ? "N/A" : station_time_timestamp("hh:mm:ss", ends_at)]</td>"
 			html += "<td>[no_end ? "N/A" : ends_in]</td>"
-			html += "<td><a align='right' href='byond://?src=[UID()];stop=[E.UID()]'>Stop</a></td>"
+			html += "<td><a align='right' href='byond://?src=[UID()];stop=[event.UID()]'>Stop</a></td>"
 			html += "</tr>"
 		html += "</table>"
 		html += "</div>"

@@ -93,19 +93,19 @@ GLOBAL_LIST_EMPTY(fluidtrack_cache)
 /proc/createFootprintsFrom(atom/movable/A, dir, turf/T)
 	var/obj/effect/decal/cleanable/blood/footprints/FP = new /obj/effect/decal/cleanable/blood/footprints(T)
 	if(ishuman(A))
-		var/mob/living/carbon/human/H = A
-		FP.blood_state = H.blood_state
-		FP.bloodiness = H.bloody_feet[H.blood_state] - BLOOD_LOSS_IN_SPREAD
-		FP.basecolor = H.feet_blood_color
-		if(H.blood_DNA)
-			FP.blood_DNA = H.blood_DNA.Copy()
+		var/mob/living/carbon/human/human = A
+		FP.blood_state = human.blood_state
+		FP.bloodiness = human.bloody_feet[human.blood_state] - BLOOD_LOSS_IN_SPREAD
+		FP.basecolor = human.feet_blood_color
+		if(human.blood_DNA)
+			FP.blood_DNA = human.blood_DNA.Copy()
 	else if(istype(A, /obj/item/clothing/shoes))
-		var/obj/item/clothing/shoes/S = A
-		FP.blood_state = S.blood_state
-		FP.bloodiness = S.bloody_shoes[S.blood_state] - BLOOD_LOSS_IN_SPREAD
-		FP.basecolor = S.blood_color
-		if(S.blood_DNA)
-			FP.blood_DNA = S.blood_DNA.Copy()
+		var/obj/item/clothing/shoes/shoes = A
+		FP.blood_state = shoes.blood_state
+		FP.bloodiness = shoes.bloody_shoes[shoes.blood_state] - BLOOD_LOSS_IN_SPREAD
+		FP.basecolor = shoes.blood_color
+		if(shoes.blood_DNA)
+			FP.blood_DNA = shoes.blood_DNA.Copy()
 	FP.entered_dirs |= dir
 	FP.update_icon()
 

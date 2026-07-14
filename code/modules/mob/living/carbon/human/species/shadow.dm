@@ -93,9 +93,9 @@
 				human.remove_status_effect(STATUS_EFFECT_SHADOW_EMPOWER)
 
 /datum/species/shadow/proc/light_check(mob/living/carbon/human/human)
-	var/turf/T = get_turf(human)
-	if(T)
-		var/light_amount = T.get_lumcount() * 10
+	var/turf/turf = get_turf(human)
+	if(turf)
+		var/light_amount = turf.get_lumcount() * 10
 		if(light_amount > LIGHT_AMOUNT_DAMAGE)
 			if(human.has_status_effect(STATUS_EFFECT_SHADOW_EMPOWER))
 				empower_handler(human)

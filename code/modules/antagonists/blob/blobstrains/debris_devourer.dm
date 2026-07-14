@@ -33,13 +33,13 @@
 /datum/blobstrain/debris_devourer/proc/debris_attack(atom/attacking, atom/source)
 	var/obj/structure/blob/special/core/core = overmind.blob_core
 	if(prob(40 * DEBRIS_DENSITY)) // Pretend the items are spread through the blob and its mobs and not in the core.
-		var/obj/item/I = length(core.contents) ? pick(core.contents) : null
-		if(!QDELETED(I))
-			if(isobj(I))
-				I.obj_flags |= IGNORE_BLOB_ACT
-				addtimer(CALLBACK(src, PROC_REF(remove_protection), I), BLOB_ACT_PROTECTION_TIME)
-			I.forceMove(get_turf(source))
-			I.throw_at(attacking, 6, 5, overmind, TRUE, FALSE, null, 3)
+		var/obj/item/item = length(core.contents) ? pick(core.contents) : null
+		if(!QDELETED(item))
+			if(isobj(item))
+				item.obj_flags |= IGNORE_BLOB_ACT
+				addtimer(CALLBACK(src, PROC_REF(remove_protection), item), BLOB_ACT_PROTECTION_TIME)
+			item.forceMove(get_turf(source))
+			item.throw_at(attacking, 6, 5, overmind, TRUE, FALSE, null, 3)
 
 /datum/blobstrain/debris_devourer/proc/remove_protection(obj/item)
 	item.obj_flags &= ~IGNORE_BLOB_ACT

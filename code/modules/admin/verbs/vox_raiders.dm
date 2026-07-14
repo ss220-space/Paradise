@@ -2,9 +2,9 @@ GLOBAL_VAR_INIT(vox_raiders_radio_freq, PUBLIC_LOW_FREQ + rand(0, 8) * 2) //Rand
 
 /mob/living/carbon/human/proc/equip_vox_raider()
 	equip_to_slot_or_del(new /obj/item/radio/headset(src), ITEM_SLOT_EAR_RIGHT) //radio hedset with common freq, for communicate with station
-	var/obj/item/radio/R = new /obj/item/radio/headset(src)
-	R.set_frequency(GLOB.vox_raiders_radio_freq) //radio hedset with random vox freq, for raders communication
-	equip_to_slot_or_del(R, ITEM_SLOT_EAR_LEFT)
+	var/obj/item/radio/radio = new /obj/item/radio/headset(src)
+	radio.set_frequency(GLOB.vox_raiders_radio_freq) //radio hedset with random vox freq, for raders communication
+	equip_to_slot_or_del(radio, ITEM_SLOT_EAR_LEFT)
 
 	equip_to_slot_or_del(new /obj/item/clothing/under/vox/vox_robes(src), ITEM_SLOT_CLOTH_INNER)
 	equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots/vox(src), ITEM_SLOT_FEET)
@@ -18,11 +18,11 @@ GLOBAL_VAR_INIT(vox_raiders_radio_freq, PUBLIC_LOW_FREQ + rand(0, 8) * 2) //Rand
 	equip_to_slot_or_del(new /obj/item/restraints/handcuffs/cable/zipties(src), ITEM_SLOT_BACKPACK)
 	equip_to_slot_or_del(new /obj/item/restraints/handcuffs/cable/zipties(src), ITEM_SLOT_BACKPACK)
 
-	var/obj/item/card/id/syndicate/vox/W = new(src)
-	W.name = "[real_name]’s Legitimate Human ID Card"
-	W.assignment = "Trader"
-	W.registered_name = real_name
-	W.registered_user = src
-	equip_to_slot_or_del(W, ITEM_SLOT_ID)
+	var/obj/item/card/id/syndicate/vox/vox = new(src)
+	vox.name = "[real_name]’s Legitimate Human ID Card"
+	vox.assignment = "Trader"
+	vox.registered_name = real_name
+	vox.registered_user = src
+	equip_to_slot_or_del(vox, ITEM_SLOT_ID)
 
 	return 1

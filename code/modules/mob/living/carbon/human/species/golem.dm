@@ -993,14 +993,14 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 /datum/species/golem/bluespace/proc/reactive_teleport(mob/living/carbon/human/H)
 	H.visible_message(span_warning("[H] телепортировал[GEND_SYA_AS_OS_IS(H)]!"), span_danger("Вы дестабилизируетесь и телепортируетесь!"))
 	var/list/turfs = new/list()
-	for(var/turf/T in orange(tele_range, H))
-		if(T.density)
+	for(var/turf/turf in orange(tele_range, H))
+		if(turf.density)
 			continue
-		if(T.x>world.maxx-tele_range || T.x<tele_range)
+		if(turf.x>world.maxx-tele_range || turf.x<tele_range)
 			continue
-		if(T.y>world.maxy-tele_range || T.y<tele_range)
+		if(turf.y>world.maxy-tele_range || turf.y<tele_range)
 			continue
-		turfs += T
+		turfs += turf
 	if(!length(turfs))
 		turfs += pick(/turf in orange(tele_range, H))
 	var/turf/picked = pick(turfs)
@@ -1081,16 +1081,16 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	activated = FALSE
 	H.visible_message(span_warning("[H] телепортировал[GEND_SYA_AS_OS_IS(H)]!"), span_danger("Вы телепортировались!"))
 	var/list/turfs = new/list()
-	for(var/turf/T in orange(tele_range, H))
-		if(isspaceturf(T))
+	for(var/turf/turf in orange(tele_range, H))
+		if(isspaceturf(turf))
 			continue
-		if(T.density)
+		if(turf.density)
 			continue
-		if(T.x>world.maxx-tele_range || T.x<tele_range)
+		if(turf.x>world.maxx-tele_range || turf.x<tele_range)
 			continue
-		if(T.y>world.maxy-tele_range || T.y<tele_range)
+		if(turf.y>world.maxy-tele_range || turf.y<tele_range)
 			continue
-		turfs += T
+		turfs += turf
 	if(!length(turfs))
 		turfs += pick(/turf in orange(tele_range, H))
 	var/turf/picked = pick(turfs)

@@ -70,10 +70,10 @@
 
 	if(stat != DEAD)
 		if(forced_look && !isnum(forced_look))
-			var/atom/A = locateUID(forced_look)
-			if(istype(A))
+			var/atom/atom = locateUID(forced_look)
+			if(istype(atom))
 				var/view = client ? client.maxview() : world.view
-				if(get_dist(src, A) > view || !(src in viewers(view, A)))
+				if(get_dist(src, atom) > view || !(src in viewers(view, atom)))
 					clear_forced_look(TRUE)
 					to_chat(src, span_notice("Цель направления покинула ваше поле зрения, вы больше никуда не направлены."))
 			else
@@ -105,8 +105,8 @@
 
 /mob/living/proc/handle_diseases()
 	for(var/thing in diseases)
-		var/datum/disease/D = thing
-		D.stage_act()
+		var/datum/disease/disease = thing
+		disease.stage_act()
 
 /mob/living/proc/handle_environment(datum/gas_mixture/environment)
 	SEND_SIGNAL(src, COMSIG_LIVING_HANDLE_BREATHING, environment)

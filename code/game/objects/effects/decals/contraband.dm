@@ -170,9 +170,9 @@
 	var/list/poster_types = subtypesof(base_type)
 	var/list/approved_types = list()
 	for(var/t in poster_types)
-		var/obj/structure/sign/poster/T = t
-		if(initial(T.icon_state) && !initial(T.never_random))
-			approved_types |= T
+		var/obj/structure/sign/poster/poster = t
+		if(initial(poster.icon_state) && !initial(poster.never_random))
+			approved_types |= poster
 
 	var/obj/structure/sign/poster/selected = pick(approved_types)
 
@@ -216,19 +216,19 @@
 		return
 	pixel_x = 0
 	pixel_y = 0
-	var/obj/item/poster/P = new(loc, src)
+	var/obj/item/poster/poster = new(loc, src)
 	if(user)
-		transfer_fingerprints_to(P)
-	forceMove(P)
-	return P
+		transfer_fingerprints_to(poster)
+	forceMove(poster)
+	return poster
 
 //seperated to reduce code duplication. Moved here for ease of reference and to unclutter r_wall/attackby()
 /turf/simulated/wall/proc/place_poster(obj/item/poster/P, mob/user)
 	if(!P.poster_structure)
 		return
 	var/stuff_on_wall = 0
-	for(var/obj/O in contents) //Let's see if it already has a poster on it or too much stuff
-		if(istype(O, /obj/structure/sign/poster))
+	for(var/obj/obj in contents) //Let's see if it already has a poster on it or too much stuff
+		if(istype(obj, /obj/structure/sign/poster))
 			balloon_alert(user, "нет места!")
 			return
 		stuff_on_wall++
@@ -238,35 +238,35 @@
 
 	balloon_alert(user, "размещение...") //Looks like it's uncluttered enough. Place the poster.
 
-	var/obj/structure/sign/poster/D = P.poster_structure
+	var/obj/structure/sign/poster/poster = P.poster_structure
 
 	var/temp_loc = user.loc
 
 	switch(getRelativeDirection(user, src))
 		if(NORTH)
-			D.pixel_x = 0
-			D.pixel_y = 32
+			poster.pixel_x = 0
+			poster.pixel_y = 32
 		if(EAST)
-			D.pixel_x = 32
-			D.pixel_y = 0
+			poster.pixel_x = 32
+			poster.pixel_y = 0
 		if(SOUTH)
-			D.pixel_x = 0
-			D.pixel_y = -32
+			poster.pixel_x = 0
+			poster.pixel_y = -32
 		if(WEST)
-			D.pixel_x = -32
-			D.pixel_y = 0
+			poster.pixel_x = -32
+			poster.pixel_y = 0
 		else
 			balloon_alert(user, "слишком далеко!")
 			return
 
-	P.transfer_fingerprints_to(D)
-	flick("poster_being_set", D)
-	D.forceMove(temp_loc)
+	P.transfer_fingerprints_to(poster)
+	flick("poster_being_set", poster)
+	poster.forceMove(temp_loc)
 	qdel(P)	//delete it now to cut down on sanity checks afterwards. Agouri's code supports rerolling it anyway
-	playsound(D.loc, 'sound/items/poster_being_created.ogg', 100, TRUE)
+	playsound(poster.loc, 'sound/items/poster_being_created.ogg', 100, TRUE)
 
 	if(do_after(user, PLACE_SPEED, src))
-		if(!D || QDELETED(D))
+		if(!poster || QDELETED(poster))
 			return
 
 		if(iswallturf(src) && user && user.loc == temp_loc)	//Let's check if everything is still there
@@ -274,7 +274,7 @@
 			return
 
 	balloon_alert(user, "постер упал!")
-	D.roll_and_drop(temp_loc, user)
+	poster.roll_and_drop(temp_loc, user)
 
 // MARK: Poster variations
 

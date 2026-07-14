@@ -906,8 +906,8 @@
 
 /mob/living/carbon/human/proc/check_has_mouth()
 	// Todo, check stomach organ when implemented.
-	var/obj/item/organ/external/head/H = get_organ(BODY_ZONE_HEAD)
-	if(!H || !H.can_intake_reagents)
+	var/obj/item/organ/external/head/head = get_organ(BODY_ZONE_HEAD)
+	if(!head || !head.can_intake_reagents)
 		return 0
 	return 1
 
@@ -980,20 +980,20 @@
 	..()
 
 /mob/living/carbon/human/proc/is_lung_ruptured()
-	var/obj/item/organ/internal/lungs/L = get_int_organ(/obj/item/organ/internal/lungs)
-	if(!L)
+	var/obj/item/organ/internal/lungs/lungs = get_int_organ(/obj/item/organ/internal/lungs)
+	if(!lungs)
 		return 0
 
-	return L.is_bruised()
+	return lungs.is_bruised()
 
 /mob/living/carbon/human/proc/rupture_lung()
-	var/obj/item/organ/internal/lungs/L = get_int_organ(/obj/item/organ/internal/lungs)
-	if(!L)
+	var/obj/item/organ/internal/lungs/lungs = get_int_organ(/obj/item/organ/internal/lungs)
+	if(!lungs)
 		return 0
 
-	if(!L.is_bruised())
+	if(!lungs.is_bruised())
 		custom_pain("Вы чувствуете острую боль у себя в груди!")
-		L.damage = L.min_bruised_damage
+		lungs.damage = lungs.min_bruised_damage
 
 /mob/living/carbon/human/cuff_resist(obj/item/I, cuff_break = FALSE)
 	if(HAS_TRAIT(src, TRAIT_HULK))
@@ -1263,50 +1263,50 @@
 		dna.species.create_organs(src, missing_bodyparts, additional_organs)
 
 	/// Handle hair/head accessories for created mobs.
-	var/obj/item/organ/external/head/H = get_organ(BODY_ZONE_HEAD)
-	if(H && save_appearance && old_bodyparts)
+	var/obj/item/organ/external/head/head = get_organ(BODY_ZONE_HEAD)
+	if(head && save_appearance && old_bodyparts)
 		var/obj/item/organ/external/head/old_head = old_bodyparts[BODY_ZONE_HEAD]
 		if(istype(old_head))
 			if(old_head.h_style)
-				H.h_style = old_head.h_style
+				head.h_style = old_head.h_style
 			if(old_head.f_style)
-				H.f_style = old_head.f_style
+				head.f_style = old_head.f_style
 			if(old_head.ha_style)
-				H.ha_style = old_head.ha_style
+				head.ha_style = old_head.ha_style
 			if(old_head.hair_colour)
-				H.hair_colour = old_head.hair_colour
+				head.hair_colour = old_head.hair_colour
 			if(old_head.facial_colour)
-				H.facial_colour = old_head.facial_colour
+				head.facial_colour = old_head.facial_colour
 			if(old_head.headacc_colour)
-				H.headacc_colour = old_head.headacc_colour
+				head.headacc_colour = old_head.headacc_colour
 
-	else if(H)
+	else if(head)
 		if(dna.species.default_hair)
-			H.h_style = dna.species.default_hair
+			head.h_style = dna.species.default_hair
 		else
-			H.h_style = "Bald"
+			head.h_style = "Bald"
 		if(dna.species.default_fhair)
-			H.f_style = dna.species.default_fhair
+			head.f_style = dna.species.default_fhair
 		else
-			H.f_style = "Shaved"
+			head.f_style = "Shaved"
 		if(dna.species.default_headacc)
-			H.ha_style = dna.species.default_headacc
+			head.ha_style = dna.species.default_headacc
 		else
-			H.ha_style = "None"
+			head.ha_style = "None"
 
 		if(dna.species.default_hair_colour)
 			//Apply colour.
-			H.hair_colour = dna.species.default_hair_colour
+			head.hair_colour = dna.species.default_hair_colour
 		else
-			H.hair_colour = "#000000"
+			head.hair_colour = "#000000"
 		if(dna.species.default_fhair_colour)
-			H.facial_colour = dna.species.default_fhair_colour
+			head.facial_colour = dna.species.default_fhair_colour
 		else
-			H.facial_colour = "#000000"
+			head.facial_colour = "#000000"
 		if(dna.species.default_headacc_colour)
-			H.headacc_colour = dna.species.default_headacc_colour
+			head.headacc_colour = dna.species.default_headacc_colour
 		else
-			H.headacc_colour = "#000000"
+			head.headacc_colour = "#000000"
 
 		m_styles = DEFAULT_MARKING_STYLES //Wipes out markings, setting them all to "None".
 		m_colours = DEFAULT_MARKING_COLOURS //Defaults colour to #00000 for all markings.
@@ -1360,21 +1360,21 @@
 		balloon_alert(src, "перчатки мешают!")
 		return
 
-	var/turf/simulated/T = loc
-	if(!istype(T)) //to prevent doodling out of mechs and lockers
+	var/turf/simulated/simulated = loc
+	if(!istype(simulated)) //to prevent doodling out of mechs and lockers
 		balloon_alert(src, "достать до пола невозможно!")
 		return
 
-	var/turf/origin = T
+	var/turf/origin = simulated
 	var/direction = tgui_input_list(src, "Выберите тайл для рисования", "Рисование кровью", list("Под вами", "Север", "Юг", "Восток", "Запад"))
 	if(direction != "Под вами")
-		T = get_step(T,text2dir_rus(direction))
-	if(!istype(T))
+		simulated = get_step(simulated,text2dir_rus(direction))
+	if(!istype(simulated))
 		balloon_alert(src, "не подходит для рисования!")
 		return
 
 	var/num_doodles = 0
-	for(var/obj/effect/decal/cleanable/blood/writing/W in T)
+	for(var/obj/effect/decal/cleanable/blood/writing/writing in simulated)
 		num_doodles++
 
 	if(num_doodles > 4)
@@ -1396,11 +1396,11 @@
 			message += "-"
 			balloon_alert(src, "кровь закончилась!")
 		else
-			to_chat(src, span_notice("Вы размызываете кровь по [T.declent_ru(ACCUSATIVE)], получая надпись: <i><b>\"[message]\"</i></b>."))
+			to_chat(src, span_notice("Вы размызываете кровь по [simulated.declent_ru(ACCUSATIVE)], получая надпись: <i><b>\"[message]\"</i></b>."))
 
-		var/obj/effect/decal/cleanable/blood/writing/W = new(T)
-		W.message = message
-		W.add_fingerprint(src)
+		var/obj/effect/decal/cleanable/blood/writing/writing = new(simulated)
+		writing.message = message
+		writing.add_fingerprint(src)
 
 /mob/living/carbon/human/proc/get_eyecon()
 	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
@@ -1724,8 +1724,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return FALSE
 
 /mob/living/carbon/human/proc/change_icobase(new_icobase, new_deform, owner_sensitive)
-	for(var/obj/item/organ/external/O as anything in bodyparts)
-		O.change_organ_icobase(new_icobase, new_deform, owner_sensitive) //Change the icobase/deform of all our organs. If owner_sensitive is set, that means the proc won't mess with frankenstein limbs.
+	for(var/obj/item/organ/external/external as anything in bodyparts)
+		external.change_organ_icobase(new_icobase, new_deform, owner_sensitive) //Change the icobase/deform of all our organs. If owner_sensitive is set, that means the proc won't mess with frankenstein limbs.
 
 /mob/living/carbon/human/serialize()
 	// Currently: Limbs/organs only

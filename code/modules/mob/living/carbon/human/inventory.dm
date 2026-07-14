@@ -632,18 +632,18 @@
 		)
 
 /mob/living/carbon/human/proc/equipOutfit(outfit, visualsOnly = FALSE)
-	var/datum/outfit/O = null
+	var/datum/outfit/outfit_datum = null
 
 	if(ispath(outfit))
-		O = new outfit
+		outfit_datum = new outfit
 	else
-		O = outfit
-		if(!istype(O))
+		outfit_datum = outfit
+		if(!istype(outfit_datum))
 			return 0
-	if(!O)
+	if(!outfit_datum)
 		return 0
 
-	return O.equip(src, visualsOnly)
+	return outfit_datum.equip(src, visualsOnly)
 
 /mob/living/carbon/human/get_visible_items()
 	var/list/visible_items = ..()

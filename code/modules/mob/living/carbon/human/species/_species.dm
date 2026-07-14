@@ -631,21 +631,21 @@
 		// Contract diseases
 
 		//user beats target, check target's defense in selected zone
-		for(var/datum/disease/virus/V in user.diseases)
+		for(var/datum/disease/virus/virus in user.diseases)
 			var/is_infected = FALSE
-			if(attack.is_bite && (V.spread_flags & BITES))
-				is_infected = V.Contract(target, act_type = BITES|CONTACT, need_protection_check = TRUE, zone = affecting)
-			if(!is_infected && (V.spread_flags & CONTACT))
-				V.Contract(target, act_type = CONTACT, need_protection_check = TRUE, zone = affecting)
+			if(attack.is_bite && (virus.spread_flags & BITES))
+				is_infected = virus.Contract(target, act_type = BITES|CONTACT, need_protection_check = TRUE, zone = affecting)
+			if(!is_infected && (virus.spread_flags & CONTACT))
+				virus.Contract(target, act_type = CONTACT, need_protection_check = TRUE, zone = affecting)
 
 		//check user's defense in attacking zone (hands or mouth)
-		for(var/datum/disease/virus/V in target.diseases)
+		for(var/datum/disease/virus/virus in target.diseases)
 			var/is_infected = FALSE
-			if(attack.is_bite  && (V.spread_flags > NON_CONTAGIOUS))
+			if(attack.is_bite  && (virus.spread_flags > NON_CONTAGIOUS))
 				//infected blood contacts with mouth, ignore protection & spread_flags
-				is_infected = V.Contract(user, need_protection_check = FALSE)
-			if(!is_infected && (V.spread_flags & CONTACT))
-				V.Contract(user, act_type = CONTACT, need_protection_check = TRUE, zone = user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+				is_infected = virus.Contract(user, need_protection_check = FALSE)
+			if(!is_infected && (virus.spread_flags & CONTACT))
+				virus.Contract(user, act_type = CONTACT, need_protection_check = TRUE, zone = user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 
 		playsound(target.loc, attack.attack_sound, 25, TRUE, -1)
 
@@ -729,12 +729,12 @@
 	var/directional_blocked = FALSE
 	var/target_turf = get_turf(target)
 	if(shove_dir in list(NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST)) // if we are moving diagonially, we need to check if there are dense walls either side of us
-		var/turf/T = get_step(target.loc, turn(shove_dir, 45)) // check to the left for a dense turf
-		if(T.density)
+		var/turf/turf = get_step(target.loc, turn(shove_dir, 45)) // check to the left for a dense turf
+		if(turf.density)
 			directional_blocked = TRUE
 		else
-			T = get_step(target.loc, turn(shove_dir, -45)) // check to the right for a dense turf
-			if(T.density)
+			turf = get_step(target.loc, turn(shove_dir, -45)) // check to the right for a dense turf
+			if(turf.density)
 				directional_blocked = TRUE
 
 	if(!directional_blocked)
@@ -772,13 +772,13 @@
 			else if(!user.IsStunned())
 				target.Stun(0.5 SECONDS)
 	else
-		var/obj/item/I = target.get_active_hand()
-		if(I && prob(40)) // Chance to disarm target item
+		var/obj/item/item = target.get_active_hand()
+		if(item && prob(40)) // Chance to disarm target item
 			target.drop_from_active_hand()
 			add_attack_logs(user, target, "Disarmed object out of hand", ATKLOG_ALL)
 		else
-			if(I)
-				to_chat(target, span_warning("Ваша хватка на [I.declent_ru(NOMINATIVE)] ослабевает!"))
+			if(item)
+				to_chat(target, span_warning("Ваша хватка на [item.declent_ru(NOMINATIVE)] ослабевает!"))
 			add_attack_logs(user, target, "Disarmed, shoved back", ATKLOG_ALL)
 	target.stop_pulling()
 
@@ -1282,9 +1282,9 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	var/static/list/random_species = list()
 	if(!length(random_species))
 		for(var/thing  in subtypesof(/datum/species))
-			var/datum/species/S = thing
-			if(!initial(S.dangerous_existence) && !initial(S.blacklisted))
-				random_species += initial(S.name)
+			var/datum/species/species = thing
+			if(!initial(species.dangerous_existence) && !initial(species.blacklisted))
+				random_species += initial(species.name)
 	var/picked_species = pick(random_species)
 	var/datum/species/selected_species = GLOB.all_species[picked_species]
 	return species_name ? picked_species : selected_species.type

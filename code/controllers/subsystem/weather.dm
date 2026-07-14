@@ -57,8 +57,8 @@ SUBSYSTEM_DEF(weather)
 /datum/controller/subsystem/weather/proc/run_weather(datum/weather/weather_datum_type, z_levels)
 	if(istext(weather_datum_type))
 		for(var/V in subtypesof(/datum/weather))
-			var/datum/weather/W = V
-			if(initial(W.name) == weather_datum_type)
+			var/datum/weather/weather = V
+			if(initial(weather.name) == weather_datum_type)
 				weather_datum_type = V
 				break
 	if(!ispath(weather_datum_type, /datum/weather))
@@ -71,8 +71,8 @@ SUBSYSTEM_DEF(weather)
 	else if(!islist(z_levels))
 		CRASH("run_weather called with invalid z_levels: [z_levels || "null"]")
 
-	var/datum/weather/W = new weather_datum_type(z_levels)
-	return W.telegraph()
+	var/datum/weather/weather = new weather_datum_type(z_levels)
+	return weather.telegraph()
 
 /datum/controller/subsystem/weather/proc/make_eligible(z, possible_weather)
 	eligible_zlevels[z] = possible_weather
@@ -81,9 +81,9 @@ SUBSYSTEM_DEF(weather)
 /datum/controller/subsystem/weather/proc/get_weather(z, area_path)
 	var/datum/weather/A
 	for(var/V in processing)
-		var/datum/weather/W = V
-		if((z in W.impacted_z_levels) && W.area_type == area_path)
-			A = W
+		var/datum/weather/weather = V
+		if((z in weather.impacted_z_levels) && weather.area_type == area_path)
+			A = weather
 			break
 	return A
 

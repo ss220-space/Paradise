@@ -5,12 +5,12 @@ ADMIN_VERB(outfit_manager, R_EVENT, "Outfit Manager", "View and edit outfits.", 
 
 /datum/admins/proc/outfit_manager(mob/admin)
 	var/list/dat = list("<ul>")
-	for(var/datum/outfit/O in GLOB.custom_outfits)
+	for(var/datum/outfit/outfit in GLOB.custom_outfits)
 		var/vv = FALSE
-		var/datum/outfit/varedit/VO = O
+		var/datum/outfit/varedit/VO = outfit
 		if(istype(VO))
 			vv = length(VO.vv_values)
-		dat += "<li>[O.name][vv ? "(VV)" : ""]</li> <a href='byond://?_src_=holder;save_outfit=1;chosen_outfit=[O.UID()]'>Save</a> <a href='byond://?_src_=holder;delete_outfit=1;chosen_outfit=[O.UID()]'>Delete</a>"
+		dat += "<li>[outfit.name][vv ? "(VV)" : ""]</li> <a href='byond://?_src_=holder;save_outfit=1;chosen_outfit=[outfit.UID()]'>Save</a> <a href='byond://?_src_=holder;delete_outfit=1;chosen_outfit=[outfit.UID()]'>Delete</a>"
 	dat += "</ul>"
 	dat += "<a href='byond://?_src_=holder;create_outfit_menu=1'>Create</a><br>"
 	dat += "<a href='byond://?_src_=holder;load_outfit=1'>Load from file</a>"
@@ -41,11 +41,11 @@ ADMIN_VERB(outfit_manager, R_EVENT, "Outfit Manager", "View and edit outfits.", 
 	if(!ispath(otype,/datum/outfit))
 		to_chat(admin,span_warning("Malformed/Outdated file."))
 		return
-	var/datum/outfit/O = new otype
-	if(!O.load_from(json))
+	var/datum/outfit/outfit = new otype
+	if(!outfit.load_from(json))
 		to_chat(admin,span_warning("Malformed/Outdated file."))
 		return
-	GLOB.custom_outfits += O
+	GLOB.custom_outfits += outfit
 	outfit_manager(admin)
 
 /datum/admins/proc/create_outfit(mob/admin)
@@ -234,27 +234,27 @@ ADMIN_VERB(outfit_manager, R_EVENT, "Outfit Manager", "View and edit outfits.", 
 	popup.open(FALSE)
 
 /datum/admins/proc/create_outfit_finalize(mob/admin, list/href_list)
-	var/datum/outfit/O = new
+	var/datum/outfit/outfit = new
 
-	O.name = href_list["outfit_name"]
-	O.uniform = text2path(href_list["outfit_uniform"])
-	O.shoes = text2path(href_list["outfit_shoes"])
-	O.gloves = text2path(href_list["outfit_gloves"])
-	O.suit = text2path(href_list["outfit_suit"])
-	O.head = text2path(href_list["outfit_head"])
-	O.back = text2path(href_list["outfit_back"])
-	O.mask = text2path(href_list["outfit_mask"])
-	O.glasses = text2path(href_list["outfit_glasses"])
-	O.r_hand = text2path(href_list["outfit_r_hand"])
-	O.l_hand = text2path(href_list["outfit_l_hand"])
-	O.suit_store = text2path(href_list["outfit_s_store"])
-	O.l_pocket = text2path(href_list["outfit_l_pocket"])
-	O.r_pocket = text2path(href_list["outfit_r_pocket"])
-	O.id = text2path(href_list["outfit_id"])
-	O.pda = text2path(href_list["outfit_pda"])
-	O.belt = text2path(href_list["outfit_belt"])
-	O.l_ear = text2path(href_list["outfit_l_ear"])
-	O.r_ear = text2path(href_list["outfit_r_ear"])
+	outfit.name = href_list["outfit_name"]
+	outfit.uniform = text2path(href_list["outfit_uniform"])
+	outfit.shoes = text2path(href_list["outfit_shoes"])
+	outfit.gloves = text2path(href_list["outfit_gloves"])
+	outfit.suit = text2path(href_list["outfit_suit"])
+	outfit.head = text2path(href_list["outfit_head"])
+	outfit.back = text2path(href_list["outfit_back"])
+	outfit.mask = text2path(href_list["outfit_mask"])
+	outfit.glasses = text2path(href_list["outfit_glasses"])
+	outfit.r_hand = text2path(href_list["outfit_r_hand"])
+	outfit.l_hand = text2path(href_list["outfit_l_hand"])
+	outfit.suit_store = text2path(href_list["outfit_s_store"])
+	outfit.l_pocket = text2path(href_list["outfit_l_pocket"])
+	outfit.r_pocket = text2path(href_list["outfit_r_pocket"])
+	outfit.id = text2path(href_list["outfit_id"])
+	outfit.pda = text2path(href_list["outfit_pda"])
+	outfit.belt = text2path(href_list["outfit_belt"])
+	outfit.l_ear = text2path(href_list["outfit_l_ear"])
+	outfit.r_ear = text2path(href_list["outfit_r_ear"])
 
-	GLOB.custom_outfits.Add(O)
-	message_admins("[key_name_admin(usr)] created \"[O.name]\" outfit.")
+	GLOB.custom_outfits.Add(outfit)
+	message_admins("[key_name_admin(usr)] created \"[outfit.name]\" outfit.")

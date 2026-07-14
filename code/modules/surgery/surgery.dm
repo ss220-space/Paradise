@@ -422,19 +422,19 @@
 	if(!ishuman(target))
 		return
 
-	var/mob/living/carbon/human/H = target
-	var/pain_mod = get_pain_modifier(H)
+	var/mob/living/carbon/human/human = target
+	var/pain_mod = get_pain_modifier(human)
 
 /* this is broken, uncomment after separation IC-SLEEP from other method's sleep (like ether)
 	// don't let people sit on the optable and sleep verb
-	var/datum/status_effect/incapacitating/sleeping/S = H.IsSleeping()
-	if(S)
-		H.SetSleeping(0) // wake up people who are napping through the surgery
+	var/datum/status_effect/incapacitating/sleeping/sleeping = human.IsSleeping()
+	if(sleeping)
+		human.SetSleeping(0) // wake up people who are napping through the surgery
 		if(pain_mod < 0.95)
-			to_chat(H, span_danger("The surgery on your [parse_zone(target_zone)] is agonizingly painful, and rips you out of your shallow slumber!"))
+			to_chat(human, span_danger("The surgery on your [parse_zone(target_zone)] is agonizingly painful, and rips you out of your shallow slumber!"))
 		else
 			// Still wake people up, but they shouldn't be as alarmed.
-			to_chat(H, span_warning("The surgery being performed on your [parse_zone(target_zone)] wakes you up."))
+			to_chat(human, span_warning("The surgery being performed on your [parse_zone(target_zone)] wakes you up."))
 */
 	return pain_mod //operating on conscious people is hard.
 
@@ -465,12 +465,12 @@
 		if(can_infect && affected)
 			spread_germs_to_organ(affected, user, tool)
 	if(ishuman(user) && !isalien(target) && prob(60))
-		var/mob/living/carbon/human/H = user
+		var/mob/living/carbon/human/human = user
 		switch(blood_level)
 			if(SURGERY_BLOODSPREAD_HANDS)
-				H.bloody_hands(target, 0)
+				human.bloody_hands(target, 0)
 			if(SURGERY_BLOODSPREAD_FULLBODY)
-				H.bloody_body(target)
+				human.bloody_body(target)
 	return
 
 /datum/surgery_step/proc/play_begin_sound(mob/living/user, mob/living/carbon/human/target, obj/item/tool)
@@ -556,13 +556,13 @@
 
 	var/germs = 0
 
-	for(var/mob/living/carbon/human/H in view(2, E.loc))//germs from people
-		if(length(get_path_to(E.loc, H.loc, max_distance = 2, simulated_only = FALSE)))
-			if(!HAS_TRAIT(H, TRAIT_NO_BREATH) && !H.wear_mask) //wearing a mask helps preventing people from breathing cooties into open incisions
-				germs += H.germ_level * 0.25
+	for(var/mob/living/carbon/human/human in view(2, E.loc))//germs from people
+		if(length(get_path_to(E.loc, human.loc, max_distance = 2, simulated_only = FALSE)))
+			if(!HAS_TRAIT(human, TRAIT_NO_BREATH) && !human.wear_mask) //wearing a mask helps preventing people from breathing cooties into open incisions
+				germs += human.germ_level * 0.25
 
-	for(var/obj/effect/decal/cleanable/M in view(2, E.loc))//germs from messes
-		if(length(get_path_to(E.loc, M.loc, max_distance = 2, simulated_only = FALSE)))
+	for(var/obj/effect/decal/cleanable/cleanable in view(2, E.loc))//germs from messes
+		if(length(get_path_to(E.loc, cleanable.loc, max_distance = 2, simulated_only = FALSE)))
 			germs++
 
 	if(tool?.blood_DNA && length(tool.blood_DNA)) //germs from blood-stained tools

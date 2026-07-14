@@ -280,21 +280,21 @@
 
 		if((realjob in ert_jobs) || (realjob in heads) || (realjob in cc_jobs) || (realjob in tsf_jobs))
 			for(var/I in 1 to length(message_pieces))
-				var/datum/multilingual_say_piece/S = message_pieces[I]
-				if(!S.message)
+				var/datum/multilingual_say_piece/multilingual_say_piece = message_pieces[I]
+				if(!multilingual_say_piece.message)
 					continue
-				if(I == 1 && S.speaking != GLOB.all_languages[LANGUAGE_NOISE]) // Capitalise the first section only, unless it's an emote.
-					S.message = "[capitalize(S.message)]"
-				S.message = "<b>[S.message]</b>" // Make everything bolded
+				if(I == 1 && multilingual_say_piece.speaking != GLOB.all_languages[LANGUAGE_NOISE]) // Capitalise the first section only, unless it's an emote.
+					multilingual_say_piece.message = "[capitalize(multilingual_say_piece.message)]"
+				multilingual_say_piece.message = "<b>[multilingual_say_piece.message]</b>" // Make everything bolded
 
 	// Language Conversion
 	if(setting_language && valid_languages[setting_language])
 		if(setting_language == "--ВЫКЛЮЧЕНО--")
 			setting_language = LANGUAGE_NONE
 		else
-			for(var/datum/multilingual_say_piece/S in message_pieces)
-				if(S.speaking != GLOB.all_languages[LANGUAGE_NOISE]) // check if they are emoting, these do not need to be translated
-					S.speaking = setting_language
+			for(var/datum/multilingual_say_piece/multilingual_say_piece in message_pieces)
+				if(multilingual_say_piece.speaking != GLOB.all_languages[LANGUAGE_NOISE]) // check if they are emoting, these do not need to be translated
+					multilingual_say_piece.speaking = setting_language
 
 	return tcm
 

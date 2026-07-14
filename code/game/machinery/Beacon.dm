@@ -20,10 +20,10 @@
 	create_beacon()
 
 /obj/machinery/bluespace_beacon/proc/create_beacon()
-	var/turf/T = loc
+	var/turf/turf = loc
 	Beacon = new /obj/item/beacon
 	Beacon.invisibility = INVISIBILITY_MAXIMUM
-	Beacon.loc = T
+	Beacon.loc = turf
 	Beacon.syndicate = syndicate
 	Beacon.area_bypass = area_bypass
 	Beacon.cc_beacon = cc_beacon

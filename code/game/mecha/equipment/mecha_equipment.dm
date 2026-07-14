@@ -114,9 +114,9 @@
 	chassis.use_power(energy_drain)
 
 	var/cooldown = equip_cooldown
-	var/obj/item/mecha_parts/mecha_equipment/weapon/W = src
-	if(istype(W))
-		cooldown += (W.projectiles_per_shot - 1) * W.projectile_delay
+	var/obj/item/mecha_parts/mecha_equipment/weapon/weapon = src
+	if(istype(weapon))
+		cooldown += (weapon.projectiles_per_shot - 1) * weapon.projectile_delay
 
 	addtimer(CALLBACK(src, PROC_REF(set_ready_state), TRUE), cooldown)
 

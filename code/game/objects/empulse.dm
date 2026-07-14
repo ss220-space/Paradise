@@ -30,35 +30,35 @@
 		light_range = heavy_range
 
 	var/emp_sound = sound('sound/effects/empulse.ogg')
-	for(var/mob/M in range(heavy_range, epicenter))
-		SEND_SOUND(M, emp_sound)
-	for(var/atom/T in range(light_range, epicenter))
-		if(cause == "cult" && iscultist(T))
+	for(var/mob/mob in range(heavy_range, epicenter))
+		SEND_SOUND(mob, emp_sound)
+	for(var/atom/atom in range(light_range, epicenter))
+		if(cause == "cult" && iscultist(atom))
 			continue
-		if(cause == "clock" && isclocker(T))
+		if(cause == "clock" && isclocker(atom))
 			continue
-		var/distance = get_dist(epicenter, T)
+		var/distance = get_dist(epicenter, atom)
 		var/will_affect = FALSE
 
 		if(distance < 0)
 			distance = 0
 		if(distance < heavy_range)
-			will_affect = T.emp_act(EMP_HEAVY)
+			will_affect = atom.emp_act(EMP_HEAVY)
 
 		else if(heavy_range && distance == heavy_range)
 			if(prob(50))
-				will_affect = T.emp_act(EMP_HEAVY)
+				will_affect = atom.emp_act(EMP_HEAVY)
 			else
-				will_affect = T.emp_act(EMP_LIGHT)
+				will_affect = atom.emp_act(EMP_LIGHT)
 
 		else if(distance <= light_range)
-			will_affect = T.emp_act(EMP_LIGHT)
+			will_affect = atom.emp_act(EMP_LIGHT)
 
 		if(will_affect)
 			if(cause == "cult")
-				new /obj/effect/temp_visual/emp/cult(T.loc)
+				new /obj/effect/temp_visual/emp/cult(atom.loc)
 			else if(cause == "clock")
-				new /obj/effect/temp_visual/emp/clock(T.loc)
+				new /obj/effect/temp_visual/emp/clock(atom.loc)
 			else
-				new /obj/effect/temp_visual/emp(T.loc)
+				new /obj/effect/temp_visual/emp(atom.loc)
 	return TRUE

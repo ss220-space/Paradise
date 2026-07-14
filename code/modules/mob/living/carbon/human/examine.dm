@@ -496,28 +496,28 @@
 /proc/hasHUD(mob/M, hud_exam)
 	if(ishuman(M))
 		var/have_hud_exam = 0
-		var/mob/living/carbon/human/H = M
+		var/mob/living/carbon/human/human = M
 
-		if(istype(H.glasses, /obj/item/clothing/glasses))
-			var/obj/item/clothing/glasses/glasses = H.glasses
+		if(istype(human.glasses, /obj/item/clothing/glasses))
+			var/obj/item/clothing/glasses/glasses = human.glasses
 			if(glasses?.examine_extensions)
 				have_hud_exam |= glasses.examine_extensions
 
-		if(istype(H.head, /obj/item/clothing/head/helmet/space))
-			var/obj/item/clothing/head/helmet/space/helmet = H.head
+		if(istype(human.head, /obj/item/clothing/head/helmet/space))
+			var/obj/item/clothing/head/helmet/space/helmet = human.head
 			if(helmet?.examine_extensions)
 				have_hud_exam |= helmet.examine_extensions
 
-		if(ismodhelmet(H.head))
-			var/obj/item/clothing/head/mod/our_shitcode = H.head
+		if(ismodhelmet(human.head))
+			var/obj/item/clothing/head/mod/our_shitcode = human.head
 			if(our_shitcode?.examine_extensions)
 				have_hud_exam |= our_shitcode.examine_extensions
 
-		var/obj/item/organ/internal/cyberimp/eyes/hud/CIH = H.get_int_organ(/obj/item/organ/internal/cyberimp/eyes/hud)
+		var/obj/item/organ/internal/cyberimp/eyes/hud/CIH = human.get_int_organ(/obj/item/organ/internal/cyberimp/eyes/hud)
 		if(CIH?.examine_extensions)
 			have_hud_exam |= CIH.examine_extensions
 
-		if(H.check_smart_brain())
+		if(human.check_smart_brain())
 			have_hud_exam |= EXAMINE_HUD_SCIENCE
 
 		return (have_hud_exam & hud_exam)
@@ -538,13 +538,13 @@
 		return hud_exam & EXAMINE_HUD_SECURITY_READ || hud_exam & EXAMINE_HUD_SECURITY_WRITE || hud_exam & EXAMINE_HUD_MEDICAL
 
 	else if(ispAI(M))
-		var/mob/living/silicon/pai/P = M
-		if(P.adv_secHUD)
+		var/mob/living/silicon/pai/pai = M
+		if(pai.adv_secHUD)
 			return hud_exam & EXAMINE_HUD_SECURITY_READ || hud_exam & EXAMINE_HUD_SECURITY_WRITE
 
 	else if(isobserver(M))
-		var/mob/dead/observer/O = M
-		if(DATA_HUD_SECURITY_ADVANCED in O.data_hud_seen)
+		var/mob/dead/observer/observer = M
+		if(DATA_HUD_SECURITY_ADVANCED in observer.data_hud_seen)
 			return hud_exam & EXAMINE_HUD_SECURITY_READ || hud_exam & EXAMINE_HUD_SKILLS
 
 	return FALSE

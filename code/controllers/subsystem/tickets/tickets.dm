@@ -88,8 +88,8 @@ SUBSYSTEM_DEF(tickets)
 
 /datum/controller/subsystem/tickets/proc/resolveAllOpenTickets() // Resolve all open tickets
 	for(var/i in allTickets)
-		var/datum/ticket/T = i
-		resolveTicket(T.ticketNum)
+		var/datum/ticket/ticket = i
+		resolveTicket(ticket.ticketNum)
 
 /**
  * Will either make a new ticket using the given text or will add the text to an existing ticket.
@@ -124,14 +124,14 @@ SUBSYSTEM_DEF(tickets)
 	var/mob/M
 	var/key_and_name
 	if(istype(target, /datum/ticket))
-		var/datum/ticket/T = target
-		M = get_mob_by_ckey(T.client_ckey)
-		key_and_name = M ? key_name(M, TRUE, ticket_help_type, ticket_id = T.ticketNum) : "[T.client_ckey] (DC)/(DELETED)"
-		msg = T.title
-		ticketNum = T.ticketNum
+		var/datum/ticket/ticket = target
+		M = get_mob_by_ckey(ticket.client_ckey)
+		key_and_name = M ? key_name(M, TRUE, ticket_help_type, ticket_id = ticket.ticketNum) : "[ticket.client_ckey] (DC)/(DELETED)"
+		msg = ticket.title
+		ticketNum = ticket.ticketNum
 	else if(isclient(target))
-		var/client/C = target
-		M = C.mob
+		var/client/client = target
+		M = client.mob
 		key_and_name = key_name(M, TRUE, ticket_help_type, ticket_id = ticketNum)
 
 	var/list/L = list()
@@ -155,10 +155,10 @@ SUBSYSTEM_DEF(tickets)
 	var/new_ticket_num = getTicketCounterAndInc()
 	var/url_title = makeUrlMessage(C, title, new_ticket_num)
 
-	var/datum/ticket/T = new(title, passedContent, new_ticket_num, C.ckey)
-	allTickets += T
-	T.locationSent = C.mob.loc.name
-	T.mobControlled = C.mob
+	var/datum/ticket/ticket = new(title, passedContent, new_ticket_num, C.ckey)
+	allTickets += ticket
+	ticket.locationSent = C.mob.loc.name
+	ticket.mobControlled = C.mob
 
 	//Inform the user that they have opened a ticket
 	to_chat(C, "<span class='[span_class]'>Вы открыли [ticket_name] номер #[(getTicketCounter() - 1)]! Пожалуйста, ожидайте. Вам скоро ответят!</span>", confidential = TRUE)
@@ -166,23 +166,23 @@ SUBSYSTEM_DEF(tickets)
 
 	message_staff(url_title, NONE, TRUE)
 	open_ticket_count_updated()
-	return T
+	return ticket
 
 //Set ticket state with key N to open
 /datum/controller/subsystem/tickets/proc/openTicket(N)
-	var/datum/ticket/T = allTickets[N]
-	if(T.ticketState != TICKET_OPEN)
+	var/datum/ticket/ticket = allTickets[N]
+	if(ticket.ticketState != TICKET_OPEN)
 		message_staff("<span class='[span_class]'>[usr.client] / ([usr]) снова открыл [ticket_name] номер #[N]</span>")
 		to_chat_safe(returnClient(N), "<span class='[span_class]'>Your [ticket_name] has been re-opened.</span>")
-		T.ticketState = TICKET_OPEN
+		ticket.ticketState = TICKET_OPEN
 		open_ticket_count_updated()
 		return TRUE
 
 //Set ticket state with key N to resolved
 /datum/controller/subsystem/tickets/proc/resolveTicket(N)
-	var/datum/ticket/T = allTickets[N]
-	if(T.ticketState != TICKET_RESOLVED)
-		T.ticketState = TICKET_RESOLVED
+	var/datum/ticket/ticket = allTickets[N]
+	if(ticket.ticketState != TICKET_RESOLVED)
+		ticket.ticketState = TICKET_RESOLVED
 		message_staff("<span class='[span_class]'>[usr.client] / ([usr]) решил [ticket_name] номер [N]</span>")
 		to_chat_safe(returnClient(N), "<span class='[span_class]'>Ваш [ticket_name] был решён.</span>", confidential = TRUE)
 		open_ticket_count_updated()
@@ -196,9 +196,9 @@ SUBSYSTEM_DEF(tickets)
 
 /datum/controller/subsystem/tickets/proc/addResponse(list/tickets, who, message)
 	var/list/ticket_numbers = list()
-	for(var/datum/ticket/T in tickets)
-		ticket_numbers += T.ticketNum
-		T.addResponse(who, message)
+	for(var/datum/ticket/ticket in tickets)
+		ticket_numbers += ticket.ticketNum
+		ticket.addResponse(who, message)
 	refresh_tickets(tickets)
 
 /datum/controller/subsystem/tickets/proc/convert_to_other_ticket(ticketId)
@@ -208,11 +208,11 @@ SUBSYSTEM_DEF(tickets)
 		return
 	if(!other_ticket_system_staff_check())
 		return
-	var/datum/ticket/T = allTickets[ticketId]
-	if(T.ticket_converted)
+	var/datum/ticket/ticket = allTickets[ticketId]
+	if(ticket.ticket_converted)
 		to_chat(usr, span_warning("This ticket has already been converted!"), confidential = TRUE)
 		return
-	convert_ticket(T)
+	convert_ticket(ticket)
 	message_staff("<span class='[span_class]'>[usr.client] / ([usr]) converted [ticket_name] number [ticketId]</span>")
 
 /datum/controller/subsystem/tickets/proc/other_ticket_system_staff_check()
@@ -223,34 +223,34 @@ SUBSYSTEM_DEF(tickets)
 	return TRUE
 
 /datum/controller/subsystem/tickets/proc/convert_ticket(datum/ticket/T)
-	var/client/C = usr.client
+	var/client/client = usr.client
 	var/client/owner = get_client_by_ckey(T.client_ckey)
 	if(!owner)
-		to_chat(C, span_notice("Can't convert the ticket of a disconnected user."))
+		to_chat(client, span_notice("Can't convert the ticket of a disconnected user."))
 		return
 	T.ticketState = TICKET_CLOSED
 	T.ticket_converted = TRUE
-	to_chat_safe(owner, list("<span class='[span_class]'>[key_name_hidden(C)] перевёл ваш тикет в [other_ticket_name] тикет.</span>",\
+	to_chat_safe(owner, list("<span class='[span_class]'>[key_name_hidden(client)] перевёл ваш тикет в [other_ticket_name] тикет.</span>",\
 									"<span class='[span_class]'>Be sure to use the correct type of help next time!</span>"), confidential = TRUE)
-	message_staff("<span class='[span_class]'>[C] перевёл тикет под номером #[T.ticketNum] в [other_ticket_name] тикет.</span>")
-	add_game_logs("[C] has converted ticket number [T.ticketNum] to a [other_ticket_name] ticket.")
+	message_staff("<span class='[span_class]'>[client] перевёл тикет под номером #[T.ticketNum] в [other_ticket_name] тикет.</span>")
+	add_game_logs("[client] has converted ticket number [T.ticketNum] to a [other_ticket_name] ticket.")
 	create_other_system_ticket(T)
 	open_ticket_count_updated()
 
 /datum/controller/subsystem/tickets/proc/create_other_system_ticket(datum/ticket/T)
-	var/client/C = get_client_by_ckey(T.client_ckey)
-	SSmentor_tickets.newTicket(C, T.first_raw_response, T.title)
+	var/client/client = get_client_by_ckey(T.client_ckey)
+	SSmentor_tickets.newTicket(client, T.first_raw_response, T.title)
 
 /datum/controller/subsystem/tickets/proc/autoRespond(N)
 	if(!check_rights(rights_needed))
 		return
 
-	var/datum/ticket/T = allTickets[N]
-	var/client/C = usr.client
-	if((T.staffAssigned && T.staffAssigned != C) || (T.lastStaffResponse && T.lastStaffResponse != C) || ((T.ticketState != TICKET_OPEN) && (T.ticketState != TICKET_STALE))) //if someone took this ticket, is it the same admin who is autoresponding? if so, then skip the warning
-		if(tgui_alert(usr, "[T.ticketState == TICKET_OPEN ? "Другой администратор уже разбирает этот тикет." : "Этот тикет уже закрыт или решён."] Вы точно хотите продолжить?", "Подтверждение", list("Да", "Нет")) != "Да")
+	var/datum/ticket/ticket = allTickets[N]
+	var/client/client = usr.client
+	if((ticket.staffAssigned && ticket.staffAssigned != client) || (ticket.lastStaffResponse && ticket.lastStaffResponse != client) || ((ticket.ticketState != TICKET_OPEN) && (ticket.ticketState != TICKET_STALE))) //if someone took this ticket, is it the same admin who is autoresponding? if so, then skip the warning
+		if(tgui_alert(usr, "[ticket.ticketState == TICKET_OPEN ? "Другой администратор уже разбирает этот тикет." : "Этот тикет уже закрыт или решён."] Вы точно хотите продолжить?", "Подтверждение", list("Да", "Нет")) != "Да")
 			return
-	T.assignStaff(C)
+	ticket.assignStaff(client)
 
 	var/response_phrases = list(
 		"Спасибо" = "Спасибо, желаем вам удачного дня!",
@@ -272,48 +272,48 @@ SUBSYSTEM_DEF(tickets)
 		sorted_responses += key
 
 	var/message_key = tgui_input_list(usr, "Выберите авто-ответ. Это заменит тикет на решённый.", "Autoresponse", sortTim(sorted_responses, GLOBAL_PROC_REF(cmp_text_asc)))//use sortTim and cmp_text_asc to sort alphabetically
-	var/client/ticket_owner = get_client_by_ckey(T.client_ckey)
+	var/client/ticket_owner = get_client_by_ckey(ticket.client_ckey)
 	if(!ticket_owner)
-		to_chat(C, span_notice("Can't respond to the ticket of a disconnected user."))
+		to_chat(client, span_notice("Can't respond to the ticket of a disconnected user."))
 		return
 	switch(message_key)
 		if(null) //they cancelled
-			T.staffAssigned = null //if they cancel we dont need to hold this ticket anymore
+			ticket.staffAssigned = null //if they cancel we dont need to hold this ticket anymore
 			return
 		if("Отказано")
 			if(!closeTicket(N))
-				to_chat(C, "Невозможно закрыть тикет.", confidential = TRUE)
+				to_chat(client, "Невозможно закрыть тикет.", confidential = TRUE)
 		if("Мужайся")
-			SSadmin_verbs.dynamic_invoke_verb(C, /datum/admin_verb/man_up, returnClient(N))
-			T.lastStaffResponse = "Автоматический ответ: [message_key]"
+			SSadmin_verbs.dynamic_invoke_verb(client, /datum/admin_verb/man_up, returnClient(N))
+			ticket.lastStaffResponse = "Автоматический ответ: [message_key]"
 			resolveTicket(N)
-			message_staff("[C] отправил автоматический ответ на тикет [ticket_owner] сообщением:[span_adminticketalt(" [message_key]")]")
-			add_game_logs("[C] has auto responded to [ticket_owner]\'s adminhelp with: [response_phrases[message_key]]")
+			message_staff("[client] отправил автоматический ответ на тикет [ticket_owner] сообщением:[span_adminticketalt(" [message_key]")]")
+			add_game_logs("[client] has auto responded to [ticket_owner]\'s adminhelp with: [response_phrases[message_key]]")
 		if(MENTORHELP)
-			convert_ticket(T)
+			convert_ticket(ticket)
 		else
 			SEND_SOUND(returnClient(N), sound('sound/effects/adminhelp.ogg'))
-			to_chat_safe(returnClient(N), "<span class='[span_class]'>[key_name_hidden(C)] is autoresponding with: <span/> [span_adminticketalt("[response_phrases[message_key]]")]", confidential = TRUE)//for this we want the full value of whatever key this is to tell the player so we do response_phrases[message_key]
-			message_staff("[C] has auto responded to [ticket_owner]\'s adminhelp with:[span_adminticketalt(" [message_key]")]") //we want to use the short named keys for this instead of the full sentence which is why we just do message_key
-			T.lastStaffResponse = "Autoresponse: [message_key]"
+			to_chat_safe(returnClient(N), "<span class='[span_class]'>[key_name_hidden(client)] is autoresponding with: <span/> [span_adminticketalt("[response_phrases[message_key]]")]", confidential = TRUE)//for this we want the full value of whatever key this is to tell the player so we do response_phrases[message_key]
+			message_staff("[client] has auto responded to [ticket_owner]\'s adminhelp with:[span_adminticketalt(" [message_key]")]") //we want to use the short named keys for this instead of the full sentence which is why we just do message_key
+			ticket.lastStaffResponse = "Autoresponse: [message_key]"
 			resolveTicket(N)
-			add_game_logs("[C] has auto responded to [T.client_ckey]\'s adminhelp with: [response_phrases[message_key]]")
+			add_game_logs("[client] has auto responded to [ticket.client_ckey]\'s adminhelp with: [response_phrases[message_key]]")
 
 //Set ticket state with key N to closed
 /datum/controller/subsystem/tickets/proc/closeTicket(N)
-	var/datum/ticket/T = allTickets[N]
-	if(T.ticketState != TICKET_CLOSED)
+	var/datum/ticket/ticket = allTickets[N]
+	if(ticket.ticketState != TICKET_CLOSED)
 		message_staff("<span class='[span_class]'>[usr.client] / ([usr]) закрыл [ticket_name] под номером [N]</span>")
 		to_chat_safe(returnClient(N), close_messages, confidential = TRUE)
-		T.ticketState = TICKET_CLOSED
+		ticket.ticketState = TICKET_CLOSED
 		open_ticket_count_updated()
 		return TRUE
 
 //Check if the user already has a ticket open and within the cooldown period.
 /datum/controller/subsystem/tickets/proc/checkForOpenTicket(client/C)
-	for(var/datum/ticket/T in allTickets)
-		if(T.client_ckey == C.ckey && T.ticketState == TICKET_OPEN && (T.ticketCooldown > world.time))
-			return T
+	for(var/datum/ticket/ticket in allTickets)
+		if(ticket.client_ckey == C.ckey && ticket.ticketState == TICKET_OPEN && (ticket.ticketCooldown > world.time))
+			return ticket
 	return FALSE
 
 //Check if the user has ANY ticket not resolved or closed.
@@ -321,23 +321,23 @@ SUBSYSTEM_DEF(tickets)
 	if(ticket_id > 0 && ticket_id <= length(allTickets))
 		return list(allTickets[ticket_id])
 	var/list/tickets = list()
-	for(var/datum/ticket/T in allTickets)
-		if(T.client_ckey == C.ckey && (T.ticketState == TICKET_OPEN || T.ticketState == TICKET_STALE))
-			tickets += T
+	for(var/datum/ticket/ticket in allTickets)
+		if(ticket.client_ckey == C.ckey && (ticket.ticketState == TICKET_OPEN || ticket.ticketState == TICKET_STALE))
+			tickets += ticket
 	if(length(tickets))
 		return tickets
 	return FALSE
 
 //return the client of a ticket number
 /datum/controller/subsystem/tickets/proc/returnClient(N)
-	var/datum/ticket/T = allTickets[N]
-	return get_client_by_ckey(T.client_ckey)
+	var/datum/ticket/ticket = allTickets[N]
+	return get_client_by_ckey(ticket.client_ckey)
 
 /datum/controller/subsystem/tickets/proc/assignStaffToTicket(client/C, N)
-	var/datum/ticket/T = allTickets[N]
-	if(T.staffAssigned != null && T.staffAssigned != C && tgui_alert(usr, "Тикет уже взят [T.staffAssigned.ckey]. Вы уверены, что хотите забрать его?", "Забрать тикет?", list("Да", "Нет")) != "Да")
+	var/datum/ticket/ticket = allTickets[N]
+	if(ticket.staffAssigned != null && ticket.staffAssigned != C && tgui_alert(usr, "Тикет уже взят [ticket.staffAssigned.ckey]. Вы уверены, что хотите забрать его?", "Забрать тикет?", list("Да", "Нет")) != "Да")
 		return FALSE
-	T.assignStaff(C)
+	ticket.assignStaff(C)
 	return TRUE
 
 //Single staff ticket
@@ -519,28 +519,28 @@ SUBSYSTEM_DEF(tickets)
 	open_detail_uis -= user.client
 
 /datum/controller/subsystem/tickets/proc/showDetailUI(mob/user, ticketID)
-	var/datum/ticket/T = allTickets[ticketID]
-	var/status = "[T.state2text()]"
+	var/datum/ticket/ticket = allTickets[ticketID]
+	var/status = "[ticket.state2text()]"
 
 	var/dat = {"<meta charset="UTF-8"><h1>[ticket_system_name]</h1>"}
 
-	dat +="<a href='byond://?src=[UID()];refresh=1'>Show All</a><a href='byond://?src=[UID()];refreshdetail=[T.ticketNum]'>Refresh</a>"
+	dat +="<a href='byond://?src=[UID()];refresh=1'>Show All</a><a href='byond://?src=[UID()];refreshdetail=[ticket.ticketNum]'>Refresh</a>"
 
-	dat += "<h2>Ticket #[T.ticketNum]</h2>"
+	dat += "<h2>Ticket #[ticket.ticketNum]</h2>"
 
-	dat += "<h3>[T.client_ckey] / [T.mobControlled] opened this [ticket_name] at [T.ingame_time_opened] at location [T.locationSent]</h3>"
+	dat += "<h3>[ticket.client_ckey] / [ticket.mobControlled] opened this [ticket_name] at [ticket.ingame_time_opened] at location [ticket.locationSent]</h3>"
 	dat += "<h4>Ticket Status: [status]"
 	dat += "<div id='msgs' style='width:950px; border: 3px solid; overflow-y: scroll; height: 350px;'>"
 	dat += "<table style='width:100%;'>"
-	dat += "<tr><td>[makeUrlMessage(T, one_line = TRUE)]</td></tr>"
+	dat += "<tr><td>[makeUrlMessage(ticket, one_line = TRUE)]</td></tr>"
 
-	if(length(T.ticket_responses) > 1)
-		for(var/i in 2 to length(T.ticket_responses))
-			var/datum/ticket_response/TR = T.ticket_responses[i]
+	if(length(ticket.ticket_responses) > 1)
+		for(var/i in 2 to length(ticket.ticket_responses))
+			var/datum/ticket_response/TR = ticket.ticket_responses[i]
 			dat += "<tr><td>[TR.to_string()]</td></tr>"
 
 	dat += "</table></div>"
-	var/client/C = get_client_by_ckey(T.client_ckey)
+	var/client/C = get_client_by_ckey(ticket.client_ckey)
 	for(var/key in C?.pm_tracker.pms)
 		var/datum/pm_convo/convo = C.pm_tracker.pms[key]
 		if(convo.typing)
@@ -548,12 +548,12 @@ SUBSYSTEM_DEF(tickets)
 
 	var/found_typing = FALSE
 	for(var/client/client as anything in GLOB.admins)
-		if(ckey(client.ckey) == ckey(T.client_ckey))
+		if(ckey(client.ckey) == ckey(ticket.client_ckey))
 			continue
 		if(!check_rights_client(rights_needed, FALSE, client))
 			continue
 		for(var/key in client.pm_tracker.pms)
-			if(ckey(key) != ckey(T.client_ckey))
+			if(ckey(key) != ckey(ticket.client_ckey))
 				continue
 			var/datum/pm_convo/convo = client.pm_tracker.pms[key]
 			if(convo.typing)
@@ -564,24 +564,24 @@ SUBSYSTEM_DEF(tickets)
 			break
 
 	dat += "<br />"
-	dat += "<a href='byond://?src=[UID()];detailreopen=[T.ticketNum]'>Re-Open</a>[check_rights(rights_needed, FALSE) ? "<a href='byond://?src=[UID()];autorespond=[T.ticketNum]'>Auto</a>": ""]<a href='byond://?src=[UID()];detailresolve=[T.ticketNum]'>Resolve</a><br /><br />"
+	dat += "<a href='byond://?src=[UID()];detailreopen=[ticket.ticketNum]'>Re-Open</a>[check_rights(rights_needed, FALSE) ? "<a href='byond://?src=[UID()];autorespond=[ticket.ticketNum]'>Auto</a>": ""]<a href='byond://?src=[UID()];detailresolve=[ticket.ticketNum]'>Resolve</a><br /><br />"
 
-	if(!T.staffAssigned)
-		dat += "No staff member assigned to this [ticket_name] - <a href='byond://?src=[UID()];assignstaff=[T.ticketNum]'>Take Ticket</a><br />"
+	if(!ticket.staffAssigned)
+		dat += "No staff member assigned to this [ticket_name] - <a href='byond://?src=[UID()];assignstaff=[ticket.ticketNum]'>Take Ticket</a><br />"
 	else
-		dat += "[T.staffAssigned] is assigned to this Ticket. - <a href='byond://?src=[UID()];assignstaff=[T.ticketNum]'>Take Ticket</a> - <a href='byond://?src=[UID()];unassignstaff=[T.ticketNum]'>Unassign Ticket</a><br />"
+		dat += "[ticket.staffAssigned] is assigned to this Ticket. - <a href='byond://?src=[UID()];assignstaff=[ticket.ticketNum]'>Take Ticket</a> - <a href='byond://?src=[UID()];unassignstaff=[ticket.ticketNum]'>Unassign Ticket</a><br />"
 
-	if(T.lastStaffResponse)
-		dat += "<b>Last Staff response Response:</b> [T.lastStaffResponse] at [T.lastResponseTime]"
+	if(ticket.lastStaffResponse)
+		dat += "<b>Last Staff response Response:</b> [ticket.lastStaffResponse] at [ticket.lastResponseTime]"
 	else
 		dat +="<font color='red'>No Staff Response</font>"
 
 	dat += "<br /><br />"
 
-	dat += "<a href='byond://?src=[UID()];detailclose=[T.ticketNum]'>Close Ticket</a>"
-	dat += "<a href='byond://?src=[UID()];convert_ticket=[T.ticketNum]'>Convert Ticket</a>"
+	dat += "<a href='byond://?src=[UID()];detailclose=[ticket.ticketNum]'>Close Ticket</a>"
+	dat += "<a href='byond://?src=[UID()];convert_ticket=[ticket.ticketNum]'>Convert Ticket</a>"
 
-	var/datum/browser/popup = new(user, "[ticket_system_name]detail", "[ticket_system_name] #[T.ticketNum]", 1000, 800, src)
+	var/datum/browser/popup = new(user, "[ticket_system_name]detail", "[ticket_system_name] #[ticket.ticketNum]", 1000, 800, src)
 	popup.add_head_content(@{"<script type='text/javascript'>
 		window.onload = function () {
 			var msgs = document.getElementById('msgs');
@@ -590,7 +590,7 @@ SUBSYSTEM_DEF(tickets)
 		</script>"})
 	popup.set_content(dat)
 	popup.open()
-	open_detail_uis[user.client] = T.ticketNum
+	open_detail_uis[user.client] = ticket.ticketNum
 
 /datum/controller/subsystem/tickets/proc/onCloseDetailUI(mob/user)
 	open_detail_uis -= user.client
@@ -601,10 +601,10 @@ SUBSYSTEM_DEF(tickets)
 	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
 	dat += "<h1>Ваши открытые [ticket_system_name]</h1>"
 	dat += "<table>"
-	for(var/datum/ticket/T in tickets)
-		dat += "<tr><td><h2>Тикет #[T.ticketNum]</h2></td></tr>"
-		for(var/i in 1 to length(T.ticket_responses))
-			var/datum/ticket_response/TR = T.ticket_responses[i]
+	for(var/datum/ticket/ticket in tickets)
+		dat += "<tr><td><h2>Тикет #[ticket.ticketNum]</h2></td></tr>"
+		for(var/i in 1 to length(ticket.ticket_responses))
+			var/datum/ticket_response/TR = ticket.ticket_responses[i]
 			dat += "<tr><td>[TR.to_string()]</td></tr>"
 	dat += "</table>"
 
@@ -730,9 +730,9 @@ SUBSYSTEM_DEF(tickets)
 		to_chat_safe(returnClient(index), "<span class='[span_class]'>Ваш [ticket_name] обрабатывает [usr.client].</span>", confidential = TRUE)
 
 /datum/controller/subsystem/tickets/proc/unassignTicket(index)
-	var/datum/ticket/T = allTickets[index]
-	if(T.staffAssigned != null && (T.staffAssigned == usr.client || tgui_alert(usr, "Тикет уже назначен [T.staffAssigned]. Вы хотите снять с тикета?", "Снять с тикета", list("Нет", "Да")) == "Да"))
-		T.staffAssigned = null
+	var/datum/ticket/ticket = allTickets[index]
+	if(ticket.staffAssigned != null && (ticket.staffAssigned == usr.client || tgui_alert(usr, "Тикет уже назначен [ticket.staffAssigned]. Вы хотите снять с тикета?", "Снять с тикета", list("Нет", "Да")) == "Да"))
+		ticket.staffAssigned = null
 		to_chat_safe(returnClient(index), "<span class='[span_class]'>Ваш [ticket_name] больше не обрабатывают. Другой сотрудник скоро вам поможет.</span>", confidential = TRUE)
 		if(span_class == "mentorhelp")
 			message_staff("<span class='[span_class]'>[usr.client] / ([usr]) снят с тикета [ticket_name] номер [index]</span>")
@@ -749,8 +749,8 @@ SUBSYSTEM_DEF(tickets)
 
 /datum/controller/subsystem/tickets/proc/open_ticket_count_updated()
 	var/ticket_count = 0
-	for(var/datum/ticket/T in allTickets)
-		if(T.ticketState == TICKET_OPEN || T.ticketState == TICKET_STALE)
+	for(var/datum/ticket/ticket in allTickets)
+		if(ticket.ticketState == TICKET_OPEN || ticket.ticketState == TICKET_STALE)
 			ticket_count++
 	SEND_SIGNAL(src, COMSIGN_TICKET_COUNT_UPDATE, ticket_count)
 

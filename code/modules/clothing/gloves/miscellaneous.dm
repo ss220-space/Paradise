@@ -263,9 +263,9 @@
 	set name = "Атака по направлению"
 	set desc = "If direction slash is enabled, you can attack mobs, by clicking behind their backs"
 	set category = VERB_CATEGORY_OBJECT
-	var/mob/living/L = usr
-	L.dirslash_enabled = !L.dirslash_enabled
-	to_chat(src, span_notice("Directrion slash is [L.dirslash_enabled? "enabled" : "disabled"] now."))
+	var/mob/living/living = usr
+	living.dirslash_enabled = !living.dirslash_enabled
+	to_chat(src, span_notice("Directrion slash is [living.dirslash_enabled? "enabled" : "disabled"] now."))
 
 /obj/item/clothing/gloves/fingerless/rapid/Touch(mob/living/target, proximity = TRUE)
 	var/mob/living/M = loc

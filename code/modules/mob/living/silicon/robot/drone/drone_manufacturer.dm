@@ -65,8 +65,8 @@
 
 /obj/machinery/drone_fabricator/proc/count_drones()
 	var/drones = 0
-	for(var/mob/living/silicon/robot/drone/D in GLOB.silicon_mob_list)
-		if(D.key && D.client)
+	for(var/mob/living/silicon/robot/drone/drone in GLOB.silicon_mob_list)
+		if(drone.key && drone.client)
 			drones++
 	return drones
 
@@ -133,11 +133,11 @@
 	var/deathtime = world.time - src.timeofdeath
 	var/joinedasobserver = 0
 	if(isobserver(src))
-		var/mob/dead/observer/G = src
-		if(cannotPossess(G))
+		var/mob/dead/observer/observer = src
+		if(cannotPossess(observer))
 			to_chat(usr, span_warning("Используя antagHUD, вы отказались от возможности присоединиться к раунду."))
 			return
-		if(G.started_as_observer == 1)
+		if(observer.started_as_observer == 1)
 			joinedasobserver = 1
 
 	var/deathtimeminutes = round(deathtime / 600)

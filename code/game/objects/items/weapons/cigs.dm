@@ -266,8 +266,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	reagents.handle_reactions()
 	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
 	if(flavor_text)
-		var/turf/T = get_turf(src)
-		T.visible_message(flavor_text)
+		var/turf/turf = get_turf(src)
+		turf.visible_message(flavor_text)
 	START_PROCESSING(SSobj, src)
 	playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
 
@@ -316,32 +316,32 @@ LIGHTERS ARE IN LIGHTERS.DM
 	var/is_being_smoked = FALSE
 	// Check whether this is actually in a mouth, being smoked
 	if(iscarbon(loc))
-		var/mob/living/carbon/C = loc
-		if(src == C.wear_mask)
+		var/mob/living/carbon/carbon = loc
+		if(src == carbon.wear_mask)
 			// There used to be a species check here, but synthetics can smoke now
 			is_being_smoked = TRUE
 	if(location)
 		location.hotspot_expose(700, 1)
 	if(reagents?.total_volume)	//	check if it has any reagents at all
 		if(is_being_smoked) // if it's being smoked, transfer reagents to the mob
-			var/mob/living/carbon/C = loc
-			for(var/datum/reagent/R in reagents.reagent_list)
-				reagents.trans_id_to(C, R.id, first_puff ? 1 : max(REAGENTS_METABOLISM / length(reagents.reagent_list), 0.1)) //transfer at least .1 of each chem
+			var/mob/living/carbon/carbon = loc
+			for(var/datum/reagent/reagent in reagents.reagent_list)
+				reagents.trans_id_to(carbon, reagent.id, first_puff ? 1 : max(REAGENTS_METABOLISM / length(reagents.reagent_list), 0.1)) //transfer at least .1 of each chem
 			first_puff = FALSE
 			if(!reagents.total_volume) // There were reagents, but now they're gone
-				C.balloon_alert(C, "сигарета теряет вкус")
+				carbon.balloon_alert(carbon, "сигарета теряет вкус")
 		else // else just remove some of the reagents
 			reagents.remove_any(REAGENTS_METABOLISM)
 
 /obj/item/clothing/mask/cigarette/proc/die()
-	var/turf/T = get_turf(src)
-	var/obj/item/butt = new type_butt(T)
+	var/turf/turf = get_turf(src)
+	var/obj/item/butt = new type_butt(turf)
 	transfer_fingerprints_to(butt)
 	if(ismob(loc))
-		var/mob/living/M = loc
-		M.balloon_alert(M, "сигарета гаснет")
-		M.emote("finish_smoking")
-		M.temporarily_remove_item_from_inventory(src, force = TRUE)		//Force the un-equip so the overlays update
+		var/mob/living/living = loc
+		living.balloon_alert(living, "сигарета гаснет")
+		living.emote("finish_smoking")
+		living.temporarily_remove_item_from_inventory(src, force = TRUE)		//Force the un-equip so the overlays update
 	STOP_PROCESSING(SSobj, src)
 	qdel(src)
 

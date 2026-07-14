@@ -94,14 +94,14 @@
 
 	var/amount_to_spawn = rand(2, max_number)
 	while(length(turfs) && amount_to_spawn > 0)
-		var/turf/simulated/floor/T = pick_n_take(turfs)
+		var/turf/simulated/floor/floor = pick_n_take(turfs)
 		amount_to_spawn--
 		if(vermin == VERM_SPIDERS)
-			var/obj/structure/spider/spiderling/S = new(T)
-			S.amount_grown = -1
+			var/obj/structure/spider/spiderling/spiderling = new(floor)
+			spiderling.amount_grown = -1
 		else
 			var/spawn_type = pick(spawn_types)
-			new spawn_type(T)
+			new spawn_type(floor)
 
 /datum/event/infestation/announce(false_alarm)
 	var/vermin_chosen = vermstring || pick("пауков", "ящериц", "мышей", "крыс")

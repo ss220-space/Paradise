@@ -132,9 +132,9 @@
 			var/use_this_dmi = hud_dmis[hud]
 			if(!use_this_dmi)
 				use_this_dmi = 'icons/mob/hud.dmi'
-			var/image/I = image(use_this_dmi, src, "")
-			I.appearance_flags = RESET_COLOR|PIXEL_SCALE|KEEP_APART
-			hud_list[hud] = I
+			var/image/image = image(use_this_dmi, src, "")
+			image.appearance_flags = RESET_COLOR|PIXEL_SCALE|KEEP_APART
+			hud_list[hud] = image
 		set_hud_image_active(hud, update_huds = FALSE) //by default everything is active. but dont add it to huds to keep control.
 
 
@@ -298,20 +298,20 @@
 	var/range = 7
 	if(hearing_distance)
 		range = hearing_distance
-	for(var/mob/M as anything in viewers(range, src))
-		M.show_message(message, EMOTE_AUDIBLE, deaf_message, EMOTE_VISIBLE)
+	for(var/mob/mob as anything in viewers(range, src))
+		mob.show_message(message, EMOTE_AUDIBLE, deaf_message, EMOTE_VISIBLE)
 
 /mob/proc/findname(msg)
-	for(var/mob/M in GLOB.mob_list)
-		if(M.real_name == text("[]", msg))
-			return M
+	for(var/mob/mob in GLOB.mob_list)
+		if(mob.real_name == text("[]", msg))
+			return mob
 	return 0
 
 /mob/proc/get_visible_mobs()
 	var/list/seen_mobs = list()
 	var/list/actual_view = client ? view(client) : view(src)
-	for(var/mob/M in actual_view)
-		seen_mobs += M
+	for(var/mob/mob in actual_view)
+		seen_mobs += mob
 	return seen_mobs
 
 /**
@@ -330,16 +330,16 @@
  */
 /mob/proc/get_telepathic_targets()
 	var/list/validtargets = new /list()
-	var/turf/T = get_turf(src)
+	var/turf/turf = get_turf(src)
 	var/list/mobs_in_view = get_visible_mobs()
 
-	for(var/mob/living/M in range(14, T))
-		if(M?.mind)
-			if(M == src)
+	for(var/mob/living/living in range(14, turf))
+		if(living?.mind)
+			if(living == src)
 				continue
 			var/mob_name
-			if(M in mobs_in_view)
-				mob_name = M.name
+			if(living in mobs_in_view)
+				mob_name = living.name
 			else
 				mob_name = "Unknown entity"
 			var/i = 0
@@ -349,7 +349,7 @@
 				if(i++)
 					result_name += " ([i])" // Avoid dupes
 			while(validtargets[result_name])
-			validtargets[result_name] = M
+			validtargets[result_name] = living
 	return validtargets
 
 /**
@@ -848,16 +848,16 @@
 		return 0
 
 	// They should be in a cell or the Brig portion of the shuttle.
-	var/area/A = loc.loc
-	if(!istype(A, /area/station/security/prison))
-		if(!istype(A, /area/shuttle/escape) || loc.name != "Brig floor")
+	var/area/area = loc.loc
+	if(!istype(area, /area/station/security/prison))
+		if(!istype(area, /area/shuttle/escape) || loc.name != "Brig floor")
 			return 0
 
 	// If they still have their ID they're not brigged.
 	for(var/obj/item/card/id/card in src)
 		return 0
-	for(var/obj/item/pda/P in src)
-		if(P.id)
+	for(var/obj/item/pda/pda in src)
+		if(pda.id)
 			return 0
 
 	return 1
@@ -1078,8 +1078,8 @@
 ///returns the height in pixel the mob should have when buckled to another mob.
 /mob/proc/get_mob_buckling_height(mob/seat)
 	if(isliving(seat))
-		var/mob/living/L = seat
-		if(L.mob_size <= MOB_SIZE_SMALL) //being on top of a small mob doesn't put you very high.
+		var/mob/living/living = seat
+		if(living.mob_size <= MOB_SIZE_SMALL) //being on top of a small mob doesn't put you very high.
 			return 0
 	return 9
 
@@ -1270,8 +1270,8 @@
 	sync_nightvision_screen() //Sync up the overlay used for nightvision to the amount of see_in_dark a mob has. This needs to be called everywhere sync_lighting_plane_alpha() is.
 
 /mob/proc/sync_nightvision_screen()
-	var/atom/movable/screen/fullscreen/see_through_darkness/S = screens["see_through_darkness"]
-	if(S)
+	var/atom/movable/screen/fullscreen/see_through_darkness/see_through_darkness = screens["see_through_darkness"]
+	if(see_through_darkness)
 		var/suffix = ""
 		var/nighvision_coeff = nightvision
 		switch(nighvision_coeff)
@@ -1280,7 +1280,7 @@
 			if(8 to INFINITY)
 				suffix = "_8"
 
-		S.icon_state = "[initial(S.icon_state)][suffix]"
+		see_through_darkness.icon_state = "[initial(see_through_darkness.icon_state)][suffix]"
 
 ///Adjust the nutrition of a mob
 /mob/proc/adjust_nutrition(change, forced)
@@ -1416,11 +1416,11 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 
 /mob/proc/track_z()
 	if(client || registered_z) // This is a temporary error tracker to make sure we've caught everything
-		var/turf/T = get_turf(src)
-		if(client && registered_z != T.z)
-			message_admins("[src] [ADMIN_FLW(src, "FLW")] has somehow ended up in Z-level [T.z] despite being registered in Z-level [registered_z]. If you could ask them how that happened and notify the coders, it would be appreciated.")
-			add_misc_logs(src, "Z-TRACKING: [src] has somehow ended up in Z-level [T.z] despite being registered in Z-level [registered_z].")
-			update_z(T.z)
+		var/turf/turf = get_turf(src)
+		if(client && registered_z != turf.z)
+			message_admins("[src] [ADMIN_FLW(src, "FLW")] has somehow ended up in Z-level [turf.z] despite being registered in Z-level [registered_z]. If you could ask them how that happened and notify the coders, it would be appreciated.")
+			add_misc_logs(src, "Z-TRACKING: [src] has somehow ended up in Z-level [turf.z] despite being registered in Z-level [registered_z].")
+			update_z(turf.z)
 		else if(!client && registered_z)
 			add_misc_logs(src, "Z-TRACKING: [src] of type [src.type] has a Z-registration despite not having a client.")
 			update_z(null)

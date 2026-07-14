@@ -363,9 +363,9 @@
 	if(!istype(disk.gene, target.type))
 		return // you can't replace a endurance gene with a weed chance gene, etc
 	seed.genes -= target
-	var/datum/plant_gene/core/C = disk.gene.Copy()
-	seed.genes += C
-	C.apply_stat(seed)
+	var/datum/plant_gene/core/core = disk.gene.Copy()
+	seed.genes += core
+	core.apply_stat(seed)
 	repaint_seed()
 	update_genes()
 	target = null
@@ -397,10 +397,10 @@
 		for(var/a in gene_paths)
 			core_genes += seed.get_gene(a)
 
-		for(var/datum/plant_gene/reagent/G in seed.genes)
-			reagent_genes += G
-		for(var/datum/plant_gene/trait/G in seed.genes)
-			trait_genes += G
+		for(var/datum/plant_gene/reagent/reagent in seed.genes)
+			reagent_genes += reagent
+		for(var/datum/plant_gene/trait/reagent in seed.genes)
+			trait_genes += reagent
 
 /obj/machinery/plantgenes/proc/repaint_seed()
 	if(!seed)

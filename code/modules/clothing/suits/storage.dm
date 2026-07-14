@@ -47,12 +47,12 @@
 
 	L += src.contents
 
-	for(var/obj/item/storage/S in src)
-		L += S.return_inv()
-	for(var/obj/item/gift/G in src)
-		L += G.gift
-		if(isstorage(G.gift))
-			L += G.gift:return_inv()
+	for(var/obj/item/storage/storage in src)
+		L += storage.return_inv()
+	for(var/obj/item/gift/gift in src)
+		L += gift.gift
+		if(isstorage(gift.gift))
+			L += gift.gift:return_inv()
 	return L
 
 /obj/item/clothing/suit/storage/serialize()

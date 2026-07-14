@@ -173,9 +173,9 @@
 	var/list/directions = GLOB.cardinal.Copy() + GLOB.diagonals.Copy()
 	for(var/mob/living/child in children_list)
 		var/spawndir = pick_n_take(directions)
-		var/turf/T = get_step(src, spawndir)
-		if(T)
-			child.forceMove(T)
+		var/turf/turf = get_step(src, spawndir)
+		if(turf)
+			child.forceMove(turf)
 			child.revive() // at most this is a 49 hp heal.
 			playsound(src, 'sound/effects/bamf.ogg', 100, TRUE)
 
@@ -288,10 +288,10 @@
 		new /obj/effect/temp_visual/goliath_tentacle/broodmother(T, spawner)
 	var/list/directions = GLOB.cardinal.Copy()
 	for(var/i in directions)
-		var/turf/T = get_step(get_turf(src), i)
+		var/turf/turf = get_step(get_turf(src), i)
 		for(var/j in 1 to 2)
-			T = get_step(T, i)
-			new /obj/effect/temp_visual/goliath_tentacle/broodmother(T, spawner)
+			turf = get_step(turf, i)
+			new /obj/effect/temp_visual/goliath_tentacle/broodmother(turf, spawner)
 
 // Broodmother's loot: Broodmother Tongue
 /obj/item/crusher_trophy/broodmother_tongue

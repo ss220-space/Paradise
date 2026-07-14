@@ -29,11 +29,11 @@
 		if(should_log_health(log_type) && isliving(subject))
 			. += get_health_string(subject)
 	else if(isatom(subject))
-		var/atom/A = subject
-		. = A.name
+		var/atom/atom = subject
+		. = atom.name
 	else if(isdatum(subject))
-		var/datum/D = subject
-		return D.type
+		var/datum/datum = subject
+		return datum.type
 	else
 		. = subject
 

@@ -131,9 +131,9 @@
 	while(AI && AI.stat != DEAD)
 		AI.adjustOxyLoss(2)
 		sleep(10)
-	for(var/mob/living/silicon/robot/R in AI.connected_robots)
-		R.disconnect_from_ai()
-		R.show_laws()
+	for(var/mob/living/silicon/robot/robot in AI.connected_robots)
+		robot.disconnect_from_ai()
+		robot.show_laws()
 	flush = FALSE
 
 /obj/item/aicard/add_tape()

@@ -58,8 +58,8 @@
 	remove_from_areas()
 	affecting_areas = get_adjacent_open_areas(src) | get_area(src)
 	for(var/I in affecting_areas)
-		var/area/A = I
-		LAZYADD(A.firedoors, src)
+		var/area/area = I
+		LAZYADD(area.firedoors, src)
 
 /obj/machinery/door/firedoor/closed
 	icon_state = "door_closed"
@@ -70,8 +70,8 @@
 /obj/machinery/door/firedoor/proc/remove_from_areas()
 	if(affecting_areas)
 		for(var/I in affecting_areas)
-			var/area/A = I
-			LAZYREMOVE(A.firedoors, src)
+			var/area/area = I
+			LAZYREMOVE(area.firedoors, src)
 
 /obj/machinery/door/firedoor/Destroy()
 	remove_from_areas()

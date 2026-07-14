@@ -2,8 +2,8 @@
 	name = "Космический ниндзя"
 
 /datum/event/space_ninja/proc/get_ninja()
-	var/image/I = new('icons/mob/ninja_previews.dmi', "ninja_preview_new_hood_green")
-	var/list/candidates = SSghost_spawns.poll_candidates("Do you wish to be considered for the position of a Spider Clan Assassin'?", ROLE_NINJA, source = I)
+	var/image/image = new('icons/mob/ninja_previews.dmi', "ninja_preview_new_hood_green")
+	var/list/candidates = SSghost_spawns.poll_candidates("Do you wish to be considered for the position of a Spider Clan Assassin'?", ROLE_NINJA, source = image)
 	if(length(candidates))
 		var/mob/dead/observer/selected = pick(candidates)
 		candidates -= selected

@@ -92,8 +92,8 @@
 
 /mob/living/simple_animal/bot/ed209/proc/setup_access()
 	if(access_card)
-		var/datum/job/security/detective/J = SSjobs.GetJob(JOB_TITLE_DETECTIVE)
-		access_card.access += J.get_access()
+		var/datum/job/security/detective/detective = SSjobs.GetJob(JOB_TITLE_DETECTIVE)
+		access_card.access += detective.get_access()
 		prev_access = access_card.access
 
 /mob/living/simple_animal/bot/ed209/turn_on()
@@ -241,37 +241,37 @@
 
 /mob/living/simple_animal/bot/ed209/proc/ed209_ai()
 	var/list/targets = list()
-	for(var/mob/living/carbon/C in view(7, src)) //Let's find us a target
+	for(var/mob/living/carbon/carbon in view(7, src)) //Let's find us a target
 		var/threatlevel = 0
-		if(C.stat || C.body_position == LYING_DOWN)
+		if(carbon.stat || carbon.body_position == LYING_DOWN)
 			continue
-		threatlevel = C.assess_threat(src, lasercolor)
-		//speak(C.real_name + text(": threat: []", threatlevel))
+		threatlevel = carbon.assess_threat(src, lasercolor)
+		//speak(carbon.real_name + text(": threat: []", threatlevel))
 		if(threatlevel < 4)
 			continue
 
-		var/dst = get_dist(src, C)
+		var/dst = get_dist(src, carbon)
 		if(dst <= 1 || dst > 7)
 			continue
 
-		targets += C
+		targets += carbon
 	if(length(targets))
-		var/mob/living/carbon/t = pick(targets)
-		if(t.stat != DEAD && t.body_position != LYING_DOWN && !t.handcuffed) //we don't shoot people who are dead, cuffed or lying down.
-			shootAt(t)
+		var/mob/living/carbon/carbon = pick(targets)
+		if(carbon.stat != DEAD && carbon.body_position != LYING_DOWN && !carbon.handcuffed) //we don'carbon shoot people who are dead, cuffed or lying down.
+			shootAt(carbon)
 
 	switch(mode)
 
 		if(BOT_IDLE)		// idle
 			GLOB.move_manager.stop_looping(src)
 			set_path(null)
-			if(!lasercolor) //lasertag bots don't want to arrest anyone
+			if(!lasercolor) //lasertag bots don'carbon want to arrest anyone
 				look_for_perp()	// see if any criminals are in range
 			if(!mode && auto_patrol)	// still idle, and set to patrol
 				mode = BOT_START_PATROL	// switch to patrol mode
 
 		if(BOT_HUNT)		// hunting for perp
-			// if can't reach perp for long enough, go idle
+			// if can'carbon reach perp for long enough, go idle
 			if(frustration >= 8)
 				GLOB.move_manager.stop_looping(src)
 				set_path(null)
@@ -368,24 +368,24 @@
 		return
 	set_anchored(FALSE)
 	threatlevel = 0
-	for(var/mob/living/carbon/C in view(7,src)) //Let's find us a criminal
-		if((C.stat) || (C.handcuffed))
+	for(var/mob/living/carbon/carbon in view(7,src)) //Let's find us a criminal
+		if((carbon.stat) || (carbon.handcuffed))
 			continue
 
-		if((C.name == oldtarget_name) && (world.time < last_found + 100))
+		if((carbon.name == oldtarget_name) && (world.time < last_found + 100))
 			continue
 
-		threatlevel = C.assess_threat(src, lasercolor)
+		threatlevel = carbon.assess_threat(src, lasercolor)
 
 		if(!threatlevel)
 			continue
 
 		else if(threatlevel >= 4)
-			target = C
-			oldtarget_name = C.name
+			target = carbon
+			oldtarget_name = carbon.name
 			speak("Вижу преступника! Уровень опасности - <b>[threatlevel]</b>!")
 			playsound(loc, pick('sound/voice/ed209_20sec.ogg', 'sound/voice/edplaceholder.ogg'), 50, FALSE)
-			visible_message("<b>[DECLENT_RU_CAP(src, NOMINATIVE)]</b> указывает на [C.name]!")
+			visible_message("<b>[DECLENT_RU_CAP(src, NOMINATIVE)]</b> указывает на [carbon.name]!")
 			mode = BOT_HUNT
 			INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 			break
@@ -461,23 +461,23 @@
 	if(lastfired && world.time - lastfired < shot_delay)
 		return
 	lastfired = world.time
-	var/turf/T = loc
-	var/atom/U = (istype(target, /atom/movable) ? target.loc : target)
-	if(!U || !T)
+	var/turf/turf = loc
+	var/atom/atom = (istype(target, /atom/movable) ? target.loc : target)
+	if(!atom || !turf)
 		return
-	while(!isturf(U))
-		U = U.loc
+	while(!isturf(atom))
+		atom = atom.loc
 
-	if(!projectile || !isturf(T) || !isturf(U))
+	if(!projectile || !isturf(turf) || !isturf(atom))
 		return
 
-	var/obj/projectile/A = new projectile(loc)
+	var/obj/projectile/projectile_obj = new projectile(loc)
 	playsound(loc, shoot_sound, 50, TRUE)
-	A.current = U
-	A.firer = src
-	A.yo = U.y - T.y
-	A.xo = U.x - T.x
-	A.fire()
+	projectile_obj.current = atom
+	projectile_obj.firer = src
+	projectile_obj.yo = atom.y - turf.y
+	projectile_obj.xo = atom.x - turf.x
+	projectile_obj.fire()
 
 /mob/living/simple_animal/bot/ed209/attack_alien(mob/living/carbon/alien/user)
 	..()

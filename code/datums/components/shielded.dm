@@ -161,8 +161,8 @@
 	var/charge_loss = 1 // how many charges do we lose
 
 	if(isprojectile(hitby))
-		var/obj/projectile/P = hitby
-		if(P.shield_buster)
+		var/obj/projectile/projectile = hitby
+		if(projectile.shield_buster)
 			charge_loss = 3
 			if(lose_multiple_charges)
 				charge_loss = damage //Double dip if health based instead

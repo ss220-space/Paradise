@@ -107,11 +107,11 @@
 	if(!cannot_be_seen)
 		return null
 	// Check for darkness
-	var/turf/T = get_turf(loc)
-	if(T && destination && T.lighting_object)
-		if(T.get_lumcount() * 10 < 1 && destination.get_lumcount() * 10 < 1) // No one can see us in the darkness, right?
+	var/turf/turf = get_turf(loc)
+	if(turf && destination && turf.lighting_object)
+		if(turf.get_lumcount() * 10 < 1 && destination.get_lumcount() * 10 < 1) // No one can see us in the darkness, right?
 			return null
-		if(T == destination)
+		if(turf == destination)
 			destination = null
 
 	// We aren't in darkness, loop for viewers.
@@ -121,14 +121,14 @@
 
 	// This loop will, at most, loop twice.
 	for(var/atom/check in check_list)
-		for(var/mob/living/M in viewers(world.view + 1, check) - src)
-			if(M.client && CanAttack(M) && !M.has_unlimited_silicon_privilege)
-				if(M.has_vision())
-					return M
-		for(var/obj/mecha/M in view(world.view + 1, check)) //assuming if you can see them they can see you
-			if(M.occupant && M.occupant.client)
-				if(M.occupant.has_vision())
-					return M.occupant
+		for(var/mob/living/living in viewers(world.view + 1, check) - src)
+			if(living.client && CanAttack(living) && !living.has_unlimited_silicon_privilege)
+				if(living.has_vision())
+					return living
+		for(var/obj/mecha/living in view(world.view + 1, check)) //assuming if you can see them they can see you
+			if(living.occupant && living.occupant.client)
+				if(living.occupant.has_vision())
+					return living.occupant
 	return null
 
 // Cannot talk

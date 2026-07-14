@@ -204,8 +204,8 @@
 	stored_gun.afterattack(A, src) //of the possible options to allow minebots to have KA mods, would you believe this is the best?
 
 /mob/living/simple_animal/hostile/mining_drone/proc/CollectOre()
-	for(var/obj/item/stack/ore/O in range(1, src))
-		O.forceMove(src)
+	for(var/obj/item/stack/ore/ore in range(1, src))
+		ore.forceMove(src)
 
 /mob/living/simple_animal/hostile/mining_drone/proc/DropOre(message = 1)
 	if(!length(contents))
@@ -214,8 +214,8 @@
 		return
 	if(message)
 		to_chat(src, span_notice("Вы выгружаете собранную руду."))
-	for(var/obj/item/stack/ore/O in contents)
-		O.forceMove(drop_location())
+	for(var/obj/item/stack/ore/ore in contents)
+		ore.forceMove(drop_location())
 
 /mob/living/simple_animal/hostile/mining_drone/adjustHealth(
 	amount = 0,

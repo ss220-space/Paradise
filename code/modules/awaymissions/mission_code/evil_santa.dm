@@ -119,15 +119,15 @@
 /area/vision_change_area/awaymission/evil_santa/end/santa/proc/UnlockBlastDoors()
 	if(battle)
 		battle = FALSE
-		for(var/obj/machinery/door/poddoor/impassable/preopen/P in GLOB.airlocks)
-			if(P.density && P.id_tag == "Evil_Santa_Arena" && P.z == z && !P.operating)
-				addtimer(CALLBACK(P, TYPE_PROC_REF(/obj/machinery/door, open)), 3 SECONDS)
+		for(var/obj/machinery/door/poddoor/impassable/preopen/preopen in GLOB.airlocks)
+			if(preopen.density && preopen.id_tag == "Evil_Santa_Arena" && preopen.z == z && !preopen.operating)
+				addtimer(CALLBACK(preopen, TYPE_PROC_REF(/obj/machinery/door, open)), 3 SECONDS)
 
 /area/vision_change_area/awaymission/evil_santa/end/santa/proc/BlockBlastDoors()
 	if(!battle)
-		for(var/obj/machinery/door/poddoor/impassable/preopen/P in GLOB.airlocks)
-			if(!P.density && P.id_tag == "Evil_Santa_Arena" && P.z == z && !P.operating)
-				INVOKE_ASYNC(P, TYPE_PROC_REF(/obj/machinery/door, close))
+		for(var/obj/machinery/door/poddoor/impassable/preopen/preopen in GLOB.airlocks)
+			if(!preopen.density && preopen.id_tag == "Evil_Santa_Arena" && preopen.z == z && !preopen.operating)
+				INVOKE_ASYNC(preopen, TYPE_PROC_REF(/obj/machinery/door, close))
 		battle = TRUE
 		for(var/mob/trapped_one in naughty_guys)
 			to_chat(trapped_one, span_danger("YOU'VE BEEN TOO NAUGHTY THIS YEAR AND NOW YOU WILL BE PUNISHED!"))

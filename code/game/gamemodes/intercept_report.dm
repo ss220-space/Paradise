@@ -125,11 +125,11 @@
 	var/name_1 = pick(src.org_names_1)
 	var/name_2 = pick(src.org_names_2)
 
-	var/mob/living/carbon/human/H = get_suspect()
-	if(!H) return
+	var/mob/living/carbon/human/human = get_suspect()
+	if(!human) return
 
-	var/fingerprints = num2text(md5(H.dna.uni_identity))
-	var/traitor_name = H.real_name
+	var/fingerprints = num2text(md5(human.dna.uni_identity))
+	var/traitor_name = human.real_name
 	var/prob_right_dude = rand(1, 100)
 
 	src.text += "<br><br>The <b>[name_1] [name_2]</b> implied an undercover operative was acting on their behalf on the station currently."
@@ -148,9 +148,9 @@
 	var/name_2 = pick(src.org_names_2)
 
 	var/prob_right_dude = rand(1, 100)
-	var/mob/living/carbon/human/H = get_suspect()
-	if(!H) return
-	var/traitor_job = H.mind.assigned_role
+	var/mob/living/carbon/human/human = get_suspect()
+	if(!human) return
+	var/traitor_job = human.mind.assigned_role
 
 	src.text += "<br><br>It has been brought to our attention that the [name_1] [name_2] have stumbled upon some dark secrets. They apparently want to spread the dangerous knowledge onto as many stations as they can."
 	src.text += "Watch out for the following: praying to an unfamilar god, preaching the word of \[REDACTED\], sacrifices, magical dark power, living constructs of evil and a portal to the dimension of the underworld."
@@ -165,9 +165,9 @@
 	var/name_2 = pick(src.org_names_2)
 
 	var/prob_right_dude = rand(1, 100)
-	var/mob/living/carbon/human/H = get_suspect()
-	if(!H) return
-	var/traitor_job = H.mind.assigned_role
+	var/mob/living/carbon/human/human = get_suspect()
+	if(!human) return
+	var/traitor_job = human.mind.assigned_role
 
 	src.text += "<br><br>It has been brought to our attention that the [name_1] [name_2] are attempting to stir unrest on one of our stations in your sector."
 	src.text += "Watch out for suspicious activity among the crew and make sure that all heads of staff report in periodically."

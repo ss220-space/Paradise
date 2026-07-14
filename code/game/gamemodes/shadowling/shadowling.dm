@@ -111,14 +111,14 @@ Made by Xhuis
 		return "<b>Цель #1</b>: [objective_explanation]<br>"
 
 /datum/game_mode/proc/finalize_shadowling(datum/mind/shadow_mind)
-	var/mob/living/carbon/human/S = shadow_mind.current
+	var/mob/living/carbon/human/human = shadow_mind.current
 	shadow_mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_hatch(null))
 	spawn(0)
 		shadow_mind.current.add_language(LANGUAGE_HIVE_SHADOWLING)
 		update_shadow_icons_added(shadow_mind)
 		if(shadow_mind.assigned_role == JOB_TITLE_CLOWN)
-			to_chat(S, span_notice("Твоя натура позволяет тебе преодолеть твою клоунаду."))
-			S.force_gene_block(GLOB.clumsyblock, FALSE)
+			to_chat(human, span_notice("Твоя натура позволяет тебе преодолеть твою клоунаду."))
+			human.force_gene_block(GLOB.clumsyblock, FALSE)
 
 /datum/game_mode/proc/add_thrall(datum/mind/new_thrall_mind)
 	if(!istype(new_thrall_mind))
@@ -181,17 +181,17 @@ Made by Xhuis
 	thrall_mind.RemoveSpell(/obj/effect/proc_holder/spell/shadowling_vision/thrall)
 	thrall_mind.current.remove_language(LANGUAGE_HIVE_SHADOWLING)
 	if(kill && ishuman(thrall_mind.current)) //If dethrallization surgery fails, kill the mob as well as dethralling them
-		var/mob/living/carbon/human/H = thrall_mind.current
-		H.visible_message(span_warning("[H] резко дергается и падает неподвижно."), \
+		var/mob/living/carbon/human/human = thrall_mind.current
+		human.visible_message(span_warning("[human] резко дергается и падает неподвижно."), \
 							span_userdanger("Пронзительный белый свет заполняет твой разум, ты забываешь, как был рабом."))
-		H.death()
+		human.death()
 		return 1
-	var/mob/living/M = thrall_mind.current
-	if(issilicon(M))
-		M.audible_message(span_notice("[M] издает короткий сигнал."))
-		to_chat(M, span_userdanger("Тебя превратили в робота! Ты больше не раб! Как бы ты ни старался, ты не можешь вспомнить ничего о том, как был рабом."))
+	var/mob/living/living = thrall_mind.current
+	if(issilicon(living))
+		living.audible_message(span_notice("[living] издает короткий сигнал."))
+		to_chat(living, span_userdanger("Тебя превратили в робота! Ты больше не раб! Как бы ты ни старался, ты не можешь вспомнить ничего о том, как был рабом."))
 	else
-		M.visible_message(span_big("[M] looks like [M.p_their()] mind is [M.p_their()] own again!"), \
+		living.visible_message(span_big("[living] looks like [living.p_their()] mind is [living.p_their()] own again!"), \
 						span_userdanger("Пронзительный белый свет заполняет твой разум, ты забываешь, как был рабом."))
 	return 1
 
@@ -233,24 +233,24 @@ Made by Xhuis
 	ling_mind.special_role = null
 	for(var/obj/effect/proc_holder/spell/spell as anything in ling_mind.spell_list)
 		ling_mind.RemoveSpell(spell)
-	var/mob/living/M = ling_mind.current
-	if(issilicon(M))
-		M.audible_message(span_notice("[M] lets out a short blip."))
-		to_chat(M, span_userdanger("Тебя превратили в робота! Ты больше не теньлинг! Как бы ты ни старался, ты не можешь вспомнить ничего о том времени, когда ты был им..."))
+	var/mob/living/living = ling_mind.current
+	if(issilicon(living))
+		living.audible_message(span_notice("[living] lets out a short blip."))
+		to_chat(living, span_userdanger("Тебя превратили в робота! Ты больше не теньлинг! Как бы ты ни старался, ты не можешь вспомнить ничего о том времени, когда ты был им..."))
 	else
-		M.visible_message(
-			span_big("[M] кричит и корчится!"), \
+		living.visible_message(
+			span_big("[living] кричит и корчится!"), \
 			span_userdanger("СВЕТ-- ТВОЙ РАЗУМ-- <i>ГОРИТ--</i>")
 		)
 		spawn(30)
-			if(!M || QDELETED(M))
+			if(!living || QDELETED(living))
 				return
-			M.visible_message(
-				span_warning("[M] внезапно раздувается и взрывается!"), \
+			living.visible_message(
+				span_warning("[living] внезапно раздувается и взрывается!"), \
 				span_warning(span_bold("AAAAAAAAA[span_fontsize3("AAAAAAAAAAAAA")][span_fontsize4("AAAAAAAAAAAA.....")]"))
 			)
-			playsound(M, 'sound/magic/disintegrate.ogg', 100, TRUE)
-			M.gib()
+			playsound(living, 'sound/magic/disintegrate.ogg', 100, TRUE)
+			living.gib()
 
 /datum/game_mode/shadowling/proc/check_shadow_victory()
 	var/success = 0 //Did they win?

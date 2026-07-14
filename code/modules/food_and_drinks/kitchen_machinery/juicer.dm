@@ -171,10 +171,10 @@
 	if(!beaker || beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 		return
 	playsound(loc, 'sound/machines/juicer.ogg', 50, TRUE)
-	for(var/obj/item/reagent_containers/food/snacks/O in contents)
-		var/r_id = get_juice_id(O)
-		beaker.reagents.add_reagent(r_id,get_juice_amount(O))
-		qdel(O)
+	for(var/obj/item/reagent_containers/food/snacks/snacks in contents)
+		var/r_id = get_juice_id(snacks)
+		beaker.reagents.add_reagent(r_id,get_juice_amount(snacks))
+		qdel(snacks)
 		if(beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 			break
 

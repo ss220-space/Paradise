@@ -91,22 +91,22 @@
 /obj/structure/stairs/proc/build_signal_listener()
 	if(listeningTo)
 		UnregisterSignal(listeningTo, COMSIG_TURF_MULTIZ_NEW)
-	var/turf/simulated/openspace/T = get_step_multiz(get_turf(src), UP)
-	RegisterSignal(T, COMSIG_TURF_MULTIZ_NEW, PROC_REF(on_multiz_new))
-	listeningTo = T
+	var/turf/simulated/openspace/openspace = get_step_multiz(get_turf(src), UP)
+	RegisterSignal(openspace, COMSIG_TURF_MULTIZ_NEW, PROC_REF(on_multiz_new))
+	listeningTo = openspace
 
 /obj/structure/stairs/proc/force_open_above()
-	var/turf/simulated/openspace/T = get_step_multiz(get_turf(src), UP)
-	if(T && !istype(T))
-		T.ChangeTurf(/turf/simulated/openspace)
+	var/turf/simulated/openspace/openspace = get_step_multiz(get_turf(src), UP)
+	if(openspace && !istype(openspace))
+		openspace.ChangeTurf(/turf/simulated/openspace)
 
 /obj/structure/stairs/proc/on_multiz_new(turf/source, dir)
 	SIGNAL_HANDLER
 
 	if(dir == UP)
-		var/turf/simulated/openspace/T = get_step_multiz(get_turf(src), UP)
-		if(T && !istype(T))
-			T.ChangeTurf(/turf/simulated/openspace)
+		var/turf/simulated/openspace/openspace = get_step_multiz(get_turf(src), UP)
+		if(openspace && !istype(openspace))
+			openspace.ChangeTurf(/turf/simulated/openspace)
 
 /obj/structure/stairs/intercept_zImpact(list/falling_movables, levels = 1)
 	. = ..()
@@ -116,14 +116,14 @@
 /obj/structure/stairs/proc/isTerminator() //If this is the last stair in a chain and should move mobs up
 	if(terminator_mode != STAIR_TERMINATOR_AUTOMATIC)
 		return (terminator_mode == STAIR_TERMINATOR_YES)
-	var/turf/T = get_turf(src)
-	if(!T)
+	var/turf/turf = get_turf(src)
+	if(!turf)
 		return FALSE
-	var/turf/them = get_step(T, dir)
+	var/turf/them = get_step(turf, dir)
 	if(!them)
 		return FALSE
-	for(var/obj/structure/stairs/S in them)
-		if(S.dir == dir)
+	for(var/obj/structure/stairs/stairs in them)
+		if(stairs.dir == dir)
 			return FALSE
 	return TRUE
 

@@ -142,9 +142,9 @@
 /mob/living/silicon/ai/proc/lacks_power()
 	if(!require_power)
 		return FALSE
-	var/turf/T = get_turf(src)
-	var/area/A = get_area(src)
-	return ((!A.power_equip) && A.requires_power == 1 || isspaceturf(T)) && !isitem(src.loc)
+	var/turf/turf = get_turf(src)
+	var/area/area = get_area(src)
+	return ((!area.power_equip) && area.requires_power == 1 || isspaceturf(turf)) && !isitem(src.loc)
 
 /mob/living/silicon/ai/rejuvenate()
 	..()

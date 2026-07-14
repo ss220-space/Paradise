@@ -258,51 +258,51 @@ GLOBAL_LIST_EMPTY(multiverse)
 		to_chat(user, span_warning("<b>[src] is recharging! Keep in mind it shares a cooldown with the swords wielded by your copies."))
 
 /obj/item/multisword/proc/spawn_copy(client/C, turf/T, mob/user)
-	var/mob/living/carbon/human/M = new/mob/living/carbon/human(T)
+	var/mob/living/carbon/human/human = new/mob/living/carbon/human(T)
 	if(duplicate_self)
-		user.client.prefs.copy_to(M)
+		user.client.prefs.copy_to(human)
 	else
-		C.prefs.copy_to(M)
-	M.possess_by_player(C.key)
-	M.mind.name = user.real_name
-	to_chat(M, "<b>You are an alternate version of [user.real_name] from another universe! Help [user.p_them()] accomplish [user.p_their()] goals at all costs.</b>")
-	M.faction = list("[user.real_name]")
+		C.prefs.copy_to(human)
+	human.possess_by_player(C.key)
+	human.mind.name = user.real_name
+	to_chat(human, "<b>You are an alternate version of [user.real_name] from another universe! Help [user.p_them()] accomplish [user.p_their()] goals at all costs.</b>")
+	human.faction = list("[user.real_name]")
 	if(duplicate_self)
-		M.set_species(user.dna.species.type) //duplicate the sword user's species.
+		human.set_species(user.dna.species.type) //duplicate the sword user's species.
 	else
 		if(prob(50))
 			var/list/list_all_species = list(/datum/species/human, /datum/species/unathi, /datum/species/skrell, /datum/species/tajaran, /datum/species/kidan, /datum/species/golem, /datum/species/diona, /datum/species/machine, /datum/species/slime, /datum/species/grey, /datum/species/vulpkanin)
-			M.set_species(pick(list_all_species))
-	M.real_name = user.real_name //this is clear down here in case the user happens to become a golem; that way they have the proper name.
-	M.name = user.real_name
+			human.set_species(pick(list_all_species))
+	human.real_name = user.real_name //this is clear down here in case the user happens to become a golem; that way they have the proper name.
+	human.name = user.real_name
 	if(duplicate_self)
-		M.dna = user.dna.Clone()
-		M.UpdateAppearance()
-		M.check_genes()
-	M.update_body()
-	M.update_hair()
-	M.update_fhair()
+		human.dna = user.dna.Clone()
+		human.UpdateAppearance()
+		human.check_genes()
+	human.update_body()
+	human.update_hair()
+	human.update_fhair()
 
-	equip_copy(M)
+	equip_copy(human)
 
 	if(evil)
 		var/datum/objective/hijackclone/hijack_objective = new /datum/objective/hijackclone
 		hijack_objective.explanation_text = "Ensure only [usr.real_name] and [usr.p_their()] copies are on the shuttle!"
 		hijack_objective.owner = usr.mind
 		usr.mind.objectives += hijack_objective
-		var/list/messages = list(M.mind.prepare_announce_objectives(FALSE))
-		to_chat(M, custom_boxed_message("red_box center", messages.Join("<br>")))
-		M.mind.special_role = SPECIAL_ROLE_MULTIVERSE
-		add_game_logs("[M.key] was made a multiverse traveller with the objective to help [usr.real_name] hijack.", M)
+		var/list/messages = list(human.mind.prepare_announce_objectives(FALSE))
+		to_chat(human, custom_boxed_message("red_box center", messages.Join("<br>")))
+		human.mind.special_role = SPECIAL_ROLE_MULTIVERSE
+		add_game_logs("[human.key] was made a multiverse traveller with the objective to help [usr.real_name] hijack.", human)
 	else
 		var/datum/objective/protect/new_objective = new /datum/objective/protect
 		new_objective.explanation_text = "Protect [usr.real_name], your copy, and help [usr.p_them()] defend the innocent from the mobs of multiverse clones."
-		new_objective.owner = M.mind
-		M.mind.objectives += new_objective
-		var/list/messages = list(M.mind.prepare_announce_objectives(FALSE))
-		to_chat(M, custom_boxed_message("red_box center", messages.Join("<br>")))
-		M.mind.special_role = SPECIAL_ROLE_MULTIVERSE
-		add_game_logs("[M.key] was made a multiverse traveller with the objective to help [usr.real_name] protect the station.", M)
+		new_objective.owner = human.mind
+		human.mind.objectives += new_objective
+		var/list/messages = list(human.mind.prepare_announce_objectives(FALSE))
+		to_chat(human, custom_boxed_message("red_box center", messages.Join("<br>")))
+		human.mind.special_role = SPECIAL_ROLE_MULTIVERSE
+		add_game_logs("[human.key] was made a multiverse traveller with the objective to help [usr.real_name] protect the station.", human)
 
 /obj/item/multisword/proc/equip_copy(mob/living/carbon/human/M)
 
@@ -313,65 +313,65 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 	if(duplicate_self)
 		//Duplicates the user's current equipent
-		var/mob/living/carbon/human/H = usr
+		var/mob/living/carbon/human/human = usr
 
-		var/obj/head = H.get_item_by_slot(ITEM_SLOT_HEAD)
+		var/obj/head = human.get_item_by_slot(ITEM_SLOT_HEAD)
 		if(head)
 			M.equip_to_slot_or_del(new head.type(M), ITEM_SLOT_HEAD)
 
-		var/obj/mask = H.get_item_by_slot(ITEM_SLOT_MASK)
+		var/obj/mask = human.get_item_by_slot(ITEM_SLOT_MASK)
 		if(mask)
 			M.equip_to_slot_or_del(new mask.type(M), ITEM_SLOT_MASK)
 
-		var/obj/glasses = H.get_item_by_slot(ITEM_SLOT_EYES)
+		var/obj/glasses = human.get_item_by_slot(ITEM_SLOT_EYES)
 		if(glasses)
 			M.equip_to_slot_or_del(new glasses.type(M), ITEM_SLOT_EYES)
 
-		var/obj/left_ear = H.get_item_by_slot(ITEM_SLOT_EAR_LEFT)
+		var/obj/left_ear = human.get_item_by_slot(ITEM_SLOT_EAR_LEFT)
 		if(left_ear)
 			M.equip_to_slot_or_del(new left_ear.type(M), ITEM_SLOT_EAR_LEFT)
 
-		var/obj/right_ear = H.get_item_by_slot(ITEM_SLOT_EAR_RIGHT)
+		var/obj/right_ear = human.get_item_by_slot(ITEM_SLOT_EAR_RIGHT)
 		if(right_ear)
 			M.equip_to_slot_or_del(new right_ear.type(M), ITEM_SLOT_EAR_RIGHT)
 
-		var/obj/uniform = H.get_item_by_slot(ITEM_SLOT_CLOTH_INNER)
+		var/obj/uniform = human.get_item_by_slot(ITEM_SLOT_CLOTH_INNER)
 		if(uniform)
 			M.equip_to_slot_or_del(new uniform.type(M), ITEM_SLOT_CLOTH_INNER)
 
-		var/obj/suit = H.get_item_by_slot(ITEM_SLOT_CLOTH_OUTER)
+		var/obj/suit = human.get_item_by_slot(ITEM_SLOT_CLOTH_OUTER)
 		if(suit)
 			M.equip_to_slot_or_del(new suit.type(M), ITEM_SLOT_CLOTH_OUTER)
 
-		var/obj/gloves = H.get_item_by_slot(ITEM_SLOT_GLOVES)
+		var/obj/gloves = human.get_item_by_slot(ITEM_SLOT_GLOVES)
 		if(gloves)
 			M.equip_to_slot_or_del(new gloves.type(M), ITEM_SLOT_GLOVES)
 
-		var/obj/shoes = H.get_item_by_slot(ITEM_SLOT_FEET)
+		var/obj/shoes = human.get_item_by_slot(ITEM_SLOT_FEET)
 		if(shoes)
 			M.equip_to_slot_or_del(new shoes.type(M), ITEM_SLOT_FEET)
 
-		var/obj/belt = H.get_item_by_slot(ITEM_SLOT_BELT)
+		var/obj/belt = human.get_item_by_slot(ITEM_SLOT_BELT)
 		if(belt)
 			M.equip_to_slot_or_del(new belt.type(M), ITEM_SLOT_BELT)
 
-		var/obj/pda = H.get_item_by_slot(ITEM_SLOT_PDA)
+		var/obj/pda = human.get_item_by_slot(ITEM_SLOT_PDA)
 		if(pda)
 			M.equip_to_slot_or_del(new pda.type(M), ITEM_SLOT_PDA)
 
-		var/obj/back = H.get_item_by_slot(ITEM_SLOT_BACK)
+		var/obj/back = human.get_item_by_slot(ITEM_SLOT_BACK)
 		if(back)
 			M.equip_to_slot_or_del(new back.type(M), ITEM_SLOT_BACK)
 
-		var/obj/suit_storage = H.get_item_by_slot(ITEM_SLOT_SUITSTORE)
+		var/obj/suit_storage = human.get_item_by_slot(ITEM_SLOT_SUITSTORE)
 		if(suit_storage)
 			M.equip_to_slot_or_del(new suit_storage.type(M), ITEM_SLOT_SUITSTORE)
 
-		var/obj/left_pocket = H.get_item_by_slot(ITEM_SLOT_POCKET_LEFT)
+		var/obj/left_pocket = human.get_item_by_slot(ITEM_SLOT_POCKET_LEFT)
 		if(left_pocket)
 			M.equip_to_slot_or_del(new left_pocket.type(M), ITEM_SLOT_POCKET_LEFT)
 
-		var/obj/right_pocket = H.get_item_by_slot(ITEM_SLOT_POCKET_RIGHT)
+		var/obj/right_pocket = human.get_item_by_slot(ITEM_SLOT_POCKET_RIGHT)
 		if(right_pocket)
 			M.equip_to_slot_or_del(new right_pocket.type(M), ITEM_SLOT_POCKET_RIGHT)
 
@@ -512,24 +512,24 @@ GLOBAL_LIST_EMPTY(multiverse)
 			else
 				return
 
-	var/obj/item/card/id/W = new /obj/item/card/id
+	var/obj/item/card/id/id = new /obj/item/card/id
 	if(duplicate_self)
 		var/obj/item/duplicated_access = usr.get_item_by_slot(ITEM_SLOT_ID)
 		if(duplicated_access && duplicated_access.GetID())
 			var/obj/item/card/id/duplicated_id = duplicated_access.GetID()
-			W.access = duplicated_id.access
-			W.icon_state = duplicated_id.icon_state
+			id.access = duplicated_id.access
+			id.icon_state = duplicated_id.icon_state
 		else
-			W.access += ACCESS_MAINT_TUNNELS
-			W.icon_state = "centcom"
+			id.access += ACCESS_MAINT_TUNNELS
+			id.icon_state = "centcom"
 	else
-		W.access += ACCESS_MAINT_TUNNELS
-		W.icon_state = "centcom"
-	W.assignment = "Multiverse Traveller"
-	W.registered_name = M.real_name
-	W.update_label(M.real_name)
-	W.SetOwnerInfo(M)
-	M.equip_to_slot_or_del(W, ITEM_SLOT_ID)
+		id.access += ACCESS_MAINT_TUNNELS
+		id.icon_state = "centcom"
+	id.assignment = "Multiverse Traveller"
+	id.registered_name = M.real_name
+	id.update_label(M.real_name)
+	id.SetOwnerInfo(M)
+	M.equip_to_slot_or_del(id, ITEM_SLOT_ID)
 
 	if(isvox(M))
 		M.dna.species.after_equip_job(null, M) //Nitrogen tanks
@@ -613,8 +613,8 @@ GLOBAL_LIST_EMPTY(multiverse)
 		if(!ishuman(X))
 			spooky_scaries.Remove(X)
 			continue
-		var/mob/living/carbon/human/H = X
-		if(H.stat == DEAD)
+		var/mob/living/carbon/human/human = X
+		if(human.stat == DEAD)
 			spooky_scaries.Remove(X)
 			continue
 	list_clear_nulls(spooky_scaries)
@@ -622,8 +622,8 @@ GLOBAL_LIST_EMPTY(multiverse)
 //Funny gimmick, skeletons always seem to wear roman/ancient armour
 //Voodoo Zombie Pirates added for paradise
 /obj/item/necromantic_stone/proc/equip_skeleton(mob/living/carbon/human/H as mob)
-	for(var/obj/item/I in H)
-		H.drop_item_ground(I)
+	for(var/obj/item/item in H)
+		H.drop_item_ground(item)
 	var/randomSpooky = "roman"//defualt
 	randomSpooky = pick("roman","pirate","yand","clown")
 
@@ -840,8 +840,8 @@ GLOBAL_LIST_EMPTY(multiverse)
 		var/way = dir2text(get_dir(victim,get_turf(src)))
 		to_chat(victim, span_notice("You feel a dark presence from [way]"))
 	if(prob(20) || force)
-		var/area/A = get_area(src)
-		to_chat(victim, span_notice("You feel a dark presence from [A.name]"))
+		var/area/area = get_area(src)
+		to_chat(victim, span_notice("You feel a dark presence from [area.name]"))
 
 /obj/item/voodoo/fire_act(exposed_temperature, exposed_volume)
 	var/mob/living/target = target_ref?.resolve()

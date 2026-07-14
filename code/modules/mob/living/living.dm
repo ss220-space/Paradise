@@ -759,8 +759,8 @@
 /mob/living/proc/check_contents_for(A)
 	var/list/L = get_contents()
 
-	for(var/obj/B in L)
-		if(B.type == A)
+	for(var/obj/obj in L)
+		if(obj.type == A)
 			return 1
 	return 0
 
@@ -782,25 +782,25 @@
 		return FALSE
 	rejuvenate()
 	if(iscarbon(src))
-		var/mob/living/carbon/C = src
+		var/mob/living/carbon/carbon = src
 
-		if(C.handcuffed && !initial(C.handcuffed))
-			C.drop_item_ground(C.handcuffed, TRUE)
+		if(carbon.handcuffed && !initial(carbon.handcuffed))
+			carbon.drop_item_ground(carbon.handcuffed, TRUE)
 
-		if(C.legcuffed && !initial(C.legcuffed))
-			C.drop_item_ground(C.legcuffed, TRUE)
+		if(carbon.legcuffed && !initial(carbon.legcuffed))
+			carbon.drop_item_ground(carbon.legcuffed, TRUE)
 
-		if(C.reagents)
-			C.reagents.clear_reagents()
-			QDEL_LIST(C.reagents.addiction_list)
-			C.reagents.addiction_threshold_accumulated.Cut()
+		if(carbon.reagents)
+			carbon.reagents.clear_reagents()
+			QDEL_LIST(carbon.reagents.addiction_list)
+			carbon.reagents.addiction_threshold_accumulated.Cut()
 		if(iscultist(src))
 			if(SSticker.mode.cult_risen)
 				SSticker.mode.rise(src)
 			if(SSticker.mode.cult_ascendant)
 				SSticker.mode.ascend(src)
 
-		QDEL_LIST(C.processing_patches)
+		QDEL_LIST(carbon.processing_patches)
 
 // rejuvenate: Called by `revive` to get the mob into a revivable state
 // the admin "rejuvenate" command calls `revive`, not this proc.
@@ -853,12 +853,12 @@
 		buckled.unbuckle_mob(src, force = TRUE)
 
 	if(iscarbon(src))
-		var/mob/living/carbon/C = src
-		C.uncuff()
+		var/mob/living/carbon/carbon = src
+		carbon.uncuff()
 
-		for(var/thing in C.diseases)
-			var/datum/disease/D = thing
-			D.cure(need_immunity = FALSE)
+		for(var/thing in carbon.diseases)
+			var/datum/disease/disease = thing
+			disease.cure(need_immunity = FALSE)
 
 		// restore all of the human's blood and reset their shock stage
 		if(ishuman(src))
@@ -1432,11 +1432,11 @@
 		var/turf/heat_turf = get_turf(src)
 		return heat_turf.temperature
 	if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
-		var/obj/machinery/atmospherics/unary/cryo_cell/C = loc
-		if(C.air_contents.total_moles() < 10)
+		var/obj/machinery/atmospherics/unary/cryo_cell/cryo_cell = loc
+		if(cryo_cell.air_contents.total_moles() < 10)
 			return environment.temperature()
 		else
-			return C.air_contents.temperature()
+			return cryo_cell.air_contents.temperature()
 	if(environment)
 		return environment.temperature()
 	return T0C

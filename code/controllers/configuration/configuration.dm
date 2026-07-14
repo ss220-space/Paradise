@@ -185,17 +185,17 @@ GLOBAL_LIST_EMPTY(overflow_whitelist)
 			log_config("Reset configured value for [value] to original defaults")
 			continue
 
-		var/datum/config_entry/E = _entries[entry]
-		if(!E)
+		var/datum/config_entry/config_entry = _entries[entry]
+		if(!config_entry)
 			log_config_error("Unknown setting in configuration: '[entry]'")
 			continue
 
 		if(lockthis)
-			E.protection |= CONFIG_ENTRY_LOCKED
+			config_entry.protection |= CONFIG_ENTRY_LOCKED
 
-		if(E.deprecated_by)
-			var/datum/config_entry/new_ver = entries_by_type[E.deprecated_by]
-			var/new_value = E.DeprecationUpdate(value)
+		if(config_entry.deprecated_by)
+			var/datum/config_entry/new_ver = entries_by_type[config_entry.deprecated_by]
+			var/new_value = config_entry.DeprecationUpdate(value)
 			var/good_update = istext(new_value)
 			log_config("Entry [entry] is deprecated and will be removed soon. Migrate to [new_ver.name]![good_update ? " Suggested new value is: [new_value]" : ""]")
 			if(!warned_deprecated_configs)
@@ -203,23 +203,23 @@ GLOBAL_LIST_EMPTY(overflow_whitelist)
 				warned_deprecated_configs = TRUE
 			if(good_update)
 				value = new_value
-				E = new_ver
+				config_entry = new_ver
 			else
 				warning("[new_ver.type] is deprecated but gave no proper return for DeprecationUpdate()")
 
-		var/validated = E.ValidateAndSet(value)
+		var/validated = config_entry.ValidateAndSet(value)
 		if(!validated)
 			var/log_message = "Failed to validate setting \"[value]\" for [entry]"
 			log_config(log_message)
 			stack_trace(log_message)
 		else
-			if(E.modified && !E.dupes_allowed && E.resident_file == filename)
-				log_config_error("Duplicate setting for [entry] ([value], [E.resident_file]) detected! Using latest.")
+			if(config_entry.modified && !config_entry.dupes_allowed && config_entry.resident_file == filename)
+				log_config_error("Duplicate setting for [entry] ([value], [config_entry.resident_file]) detected! Using latest.")
 
-		E.resident_file = filename
+		config_entry.resident_file = filename
 
 		if(validated)
-			E.modified = TRUE
+			config_entry.modified = TRUE
 
 	++.
 
@@ -235,30 +235,30 @@ GLOBAL_LIST_EMPTY(overflow_whitelist)
 	return ..()
 
 /datum/controller/configuration/proc/Get(entry_type)
-	var/datum/config_entry/E = entry_type
-	var/entry_is_abstract = initial(E.abstract_type) == entry_type
+	var/datum/config_entry/config_entry = entry_type
+	var/entry_is_abstract = initial(config_entry.abstract_type) == entry_type
 	if(entry_is_abstract)
 		CRASH("Tried to retrieve an abstract config_entry: [entry_type]")
-	E = entries_by_type[entry_type]
-	if(!E)
+	config_entry = entries_by_type[entry_type]
+	if(!config_entry)
 		CRASH("Missing config entry for [entry_type]!")
-	if((E.protection & CONFIG_ENTRY_HIDDEN) && IsAdminAdvancedProcCall() && GLOB.LastAdminCalledProc == "Get" && GLOB.LastAdminCalledTargetUID == "[UID()]")
+	if((config_entry.protection & CONFIG_ENTRY_HIDDEN) && IsAdminAdvancedProcCall() && GLOB.LastAdminCalledProc == "Get" && GLOB.LastAdminCalledTargetUID == "[UID()]")
 		log_admin_private("Config access of [entry_type] attempted by [key_name(usr)]")
 		return
-	return E.config_entry_value
+	return config_entry.config_entry_value
 
 /datum/controller/configuration/proc/Set(entry_type, new_val)
-	var/datum/config_entry/E = entry_type
-	var/entry_is_abstract = initial(E.abstract_type) == entry_type
+	var/datum/config_entry/config_entry = entry_type
+	var/entry_is_abstract = initial(config_entry.abstract_type) == entry_type
 	if(entry_is_abstract)
 		CRASH("Tried to set an abstract config_entry: [entry_type]")
-	E = entries_by_type[entry_type]
-	if(!E)
+	config_entry = entries_by_type[entry_type]
+	if(!config_entry)
 		CRASH("Missing config entry for [entry_type]!")
-	if((E.protection & CONFIG_ENTRY_LOCKED) && IsAdminAdvancedProcCall() && GLOB.LastAdminCalledProc == "Set" && GLOB.LastAdminCalledTargetUID == "[UID()]")
+	if((config_entry.protection & CONFIG_ENTRY_LOCKED) && IsAdminAdvancedProcCall() && GLOB.LastAdminCalledProc == "Set" && GLOB.LastAdminCalledTargetUID == "[UID()]")
 		log_admin_private("Config rewrite of [entry_type] to [new_val] attempted by [key_name(usr)]")
 		return
-	return E.ValidateAndSet("[new_val]")
+	return config_entry.ValidateAndSet("[new_val]")
 
 /datum/controller/configuration/proc/pick_mode(mode_name)
 	for(var/datum/game_mode/mode_type as anything in gamemode_cache)

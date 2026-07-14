@@ -260,8 +260,8 @@
 	//Head Accessories
 	var/list/available = list()
 	for(var/head_accessory in GLOB.head_accessory_styles_list)
-		var/datum/sprite_accessory/S = GLOB.head_accessory_styles_list[head_accessory]
-		if(!(head_organ.dna.species.name in S.species_allowed)) //If the user's head is not of a species the head accessory style allows, skip it. Otherwise, add it to the list.
+		var/datum/sprite_accessory/sprite_accessory = GLOB.head_accessory_styles_list[head_accessory]
+		if(!(head_organ.dna.species.name in sprite_accessory.species_allowed)) //If the user's head is not of a species the head accessory style allows, skip it. Otherwise, add it to the list.
 			continue
 		available.Add(head_accessory)
 	var/list/sorted = sortTim(available, GLOBAL_PROC_REF(cmp_text_asc))

@@ -33,8 +33,8 @@ GLOBAL_LIST_EMPTY(dna_vaults)
 /datum/station_goal/dna_vault/proc/non_standard_plants_count()
 	. = 0
 	for(var/T in subtypesof(/obj/item/seeds)) //put a cache if it's used anywhere else
-		var/obj/item/seeds/S = T
-		if(initial(S.rarity) > 0)
+		var/obj/item/seeds/seeds = T
+		if(initial(seeds.rarity) > 0)
 			.++
 
 /datum/station_goal/dna_vault/get_report()
@@ -344,10 +344,10 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 	switch(upgrade_type)
 		if(VAULT_TOXIN)
 			to_chat(H, span_notice("Вы ощущаете устойчивость к инфекциям, передающимся воздушно-капельным путём."))
-			var/obj/item/organ/internal/lungs/L = H.get_int_organ(/obj/item/organ/internal/lungs)
-			if(L)
-				L.tox_breath_dam_min = 0
-				L.tox_breath_dam_max = 0
+			var/obj/item/organ/internal/lungs/lungs = H.get_int_organ(/obj/item/organ/internal/lungs)
+			if(lungs)
+				lungs.tox_breath_dam_min = 0
+				lungs.tox_breath_dam_max = 0
 			ADD_TRAIT(H, TRAIT_VIRUSIMMUNE, name)
 		if(VAULT_NOBREATH)
 			to_chat(H, span_notice("Вы чувствуете, что ваши лёгкие работают лучше."))

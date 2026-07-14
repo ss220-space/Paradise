@@ -44,14 +44,14 @@ I'm using this for Stat to give it a more nifty interface to work with
 
 /mob/living/carbon/brain/proc/get_race()
 	if(container)
-		var/obj/item/mmi/M = container
-		if(istype(M) && M.held_brain)
-			return M.held_brain.dna.species.name
+		var/obj/item/mmi/mmi = container
+		if(istype(mmi) && mmi.held_brain)
+			return mmi.held_brain.dna.species.name
 		else
 			return "Artificial Life"
 	if(is_internal_organ_brain(loc))
-		var/obj/item/organ/internal/brain/B = loc
-		return B.dna.species.name
+		var/obj/item/organ/internal/brain/brain = loc
+		return brain.dna.species.name
 
 /mob/living/carbon/brain/get_status_tab_items()
 	var/list/status_tab_data = ..()

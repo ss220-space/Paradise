@@ -358,13 +358,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		rbPDA = new(src)
 
 	rbPDA.set_name_and_job(real_name, braintype)
-	var/datum/data/pda/app/messenger/M = rbPDA.find_program(/datum/data/pda/app/messenger)
+	var/datum/data/pda/app/messenger/messenger = rbPDA.find_program(/datum/data/pda/app/messenger)
 
-	if(M)
+	if(messenger)
 		if(scrambledcodes)
-			M.hidden = 1
+			messenger.hidden = 1
 		if(pdahide)
-			M.toff = 1
+			messenger.toff = 1
 
 /mob/living/silicon/robot/binarycheck()
 	if(is_component_functioning("comms"))
@@ -628,8 +628,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			var/list/list/sources = alm[3].Copy()
 			var/area_name = alm[1]
 			for(var/thing in sources)
-				var/atom/A = locateUID(thing)
-				if(A && A.z != z)
+				var/atom/atom = locateUID(thing)
+				if(atom && atom.z != z)
 					L -= alarm
 					continue
 				dat += "<nobr>"
@@ -1541,7 +1541,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	set_light_color(default_lamp_color)
 
 /mob/living/silicon/robot/proc/deconstruct()
-	var/turf/T = get_turf(src)
+	var/turf/turf = get_turf(src)
 
 	if((modtype != /obj/item/robot_module/clockwork || !mmi.clock) && isclocker(src))
 		to_chat(src, span_warning("With body torn into pieces, your mind got free from evil cult!"))
@@ -1550,50 +1550,50 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	evacuate_ai(DANGER_LVL_NONE)
 
 	if(robot_suit)
-		robot_suit.forceMove(T)
-		robot_suit.l_leg.forceMove(T)
+		robot_suit.forceMove(turf)
+		robot_suit.l_leg.forceMove(turf)
 		robot_suit.l_leg = null
-		robot_suit.r_leg.forceMove(T)
+		robot_suit.r_leg.forceMove(turf)
 		robot_suit.r_leg = null
-		new /obj/item/stack/cable_coil(T, robot_suit.chest.wired)
-		robot_suit.chest.forceMove(T)
+		new /obj/item/stack/cable_coil(turf, robot_suit.chest.wired)
+		robot_suit.chest.forceMove(turf)
 		robot_suit.chest.wired = FALSE
 		robot_suit.chest = null
-		robot_suit.l_arm.forceMove(T)
+		robot_suit.l_arm.forceMove(turf)
 		robot_suit.l_arm = null
-		robot_suit.r_arm.forceMove(T)
+		robot_suit.r_arm.forceMove(turf)
 		robot_suit.r_arm = null
-		robot_suit.head.forceMove(T)
-		robot_suit.head.flash1.forceMove(T)
+		robot_suit.head.forceMove(turf)
+		robot_suit.head.flash1.forceMove(turf)
 		robot_suit.head.flash1.burn_out()
 		robot_suit.head.flash1 = null
-		robot_suit.head.flash2.forceMove(T)
+		robot_suit.head.flash2.forceMove(turf)
 		robot_suit.head.flash2.burn_out()
 		robot_suit.head.flash2 = null
 		robot_suit.head = null
 		robot_suit.update_icon(UPDATE_OVERLAYS)
 
 	else
-		new /obj/item/robot_parts/robot_suit(T)
-		new /obj/item/robot_parts/l_leg(T)
-		new /obj/item/robot_parts/r_leg(T)
-		new /obj/item/stack/cable_coil(T, 1)
-		new /obj/item/robot_parts/chest(T)
-		new /obj/item/robot_parts/l_arm(T)
-		new /obj/item/robot_parts/r_arm(T)
-		new /obj/item/robot_parts/head(T)
+		new /obj/item/robot_parts/robot_suit(turf)
+		new /obj/item/robot_parts/l_leg(turf)
+		new /obj/item/robot_parts/r_leg(turf)
+		new /obj/item/stack/cable_coil(turf, 1)
+		new /obj/item/robot_parts/chest(turf)
+		new /obj/item/robot_parts/l_arm(turf)
+		new /obj/item/robot_parts/r_arm(turf)
+		new /obj/item/robot_parts/head(turf)
 		var/b
 
 		for(b=0, b!=2, b++)
-			var/obj/item/flash/F = new /obj/item/flash(T)
-			F.burn_out()
+			var/obj/item/flash/flash = new /obj/item/flash(turf)
+			flash.burn_out()
 
 	if(cell) //Sanity check.
-		cell.forceMove(T)
+		cell.forceMove(turf)
 		cell = null
 
 	if(shell)
-		new /obj/item/borg/upgrade/ai(T)
+		new /obj/item/borg/upgrade/ai(turf)
 
 	drop_hat()
 	eject_riders()
@@ -1627,11 +1627,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	set desc = "Scrambles your security and identification codes and resets your current buffers. \
 				Unlocks you and but permanently severs you from your AI and the robotics console and will deactivate your camera system."
 
-	var/mob/living/silicon/robot/R = src
+	var/mob/living/silicon/robot/robot = src
 
-	if(R)
-		R.UnlinkSelf()
-		to_chat(R, "Buffers flushed and reset. Camera system shutdown. All systems operational.")
+	if(robot)
+		robot.UnlinkSelf()
+		to_chat(robot, "Buffers flushed and reset. Camera system shutdown. All systems operational.")
 		remove_verb(src, /mob/living/silicon/robot/proc/ResetSecurityCodes)
 
 /mob/living/silicon/robot/mode()
@@ -2060,10 +2060,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /// Used in `robot.dm` when the user presses "Q" by default.
 /mob/living/silicon/robot/proc/on_drop_hotkey_press()
-	var/obj/item/gripper/G = module_active
+	var/obj/item/gripper/gripper = module_active
 
-	if(istype(G) && G.gripped_item)
-		G.drop_gripped_item() // if the active module is a gripper, try to drop its held item.
+	if(istype(gripper) && gripper.gripped_item)
+		gripper.drop_gripped_item() // if the active module is a gripper, try to drop its held item.
 
 	else
 		uneq_active() // else unequip the module and put it back into the robot's inventory.

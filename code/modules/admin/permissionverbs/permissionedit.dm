@@ -295,13 +295,13 @@ td, th {
 			to_chat(usr, "<span style='color: red;'>Ошибка: Topic 'editrights': Неверный сикей</span>", confidential = TRUE)
 			return
 
-	var/datum/admins/D = GLOB.admin_datums[adm_ckey]
+	var/datum/admins/admins = GLOB.admin_datums[adm_ckey]
 
 	if(task == "remove")
 		if(tgui_alert(usr, "Вы уверены что хотите удалить [adm_ckey]?","Внимание!",list("Да", "Отмена")) == "Да")
-			if(!D)	return
+			if(!admins)	return
 			GLOB.admin_datums -= adm_ckey
-			D.disassociate()
+			admins.disassociate()
 
 			update_rank_to_db(adm_ckey, PLAYER_RANK)
 			message_admins("[key_name_admin(usr)] удалил [adm_ckey] из списка админов")
@@ -316,8 +316,8 @@ td, th {
 			CRASH("GLOB.admin_ranks is empty, inform coders")
 
 		var/rights = 0
-		if(D)
-			rights = D.rights
+		if(admins)
+			rights = admins.rights
 		switch(new_rank)
 			if(null, "")
 				return
@@ -333,15 +333,15 @@ td, th {
 			else
 				rights = GLOB.admin_ranks[new_rank]				//we input an existing rank, use its rights
 
-		if(D)
-			D.disassociate()								//remove adminverbs and unlink from client
-			D.rank = new_rank								//update the rank
-			D.rights = rights								//update the rights based on admin_ranks (default: 0)
+		if(admins)
+			admins.disassociate()								//remove adminverbs and unlink from client
+			admins.rank = new_rank								//update the rank
+			admins.rights = rights								//update the rights based on admin_ranks (default: 0)
 		else
-			D = new /datum/admins(new_rank, rights, adm_ckey)
+			admins = new /datum/admins(new_rank, rights, adm_ckey)
 
-		var/client/C = GLOB.directory[adm_ckey]						//find the client with the specified ckey (if they are logged in)
-		D.associate(C)											//link up with the client and add verbs
+		var/client/client = GLOB.directory[adm_ckey]						//find the client with the specified ckey (if they are logged in)
+		admins.associate(client)											//link up with the client and add verbs
 
 		update_rank_to_db(adm_ckey, new_rank)
 		message_admins("[key_name_admin(usr)] изменил ранг админа [adm_ckey] на [new_rank]")
@@ -349,14 +349,14 @@ td, th {
 		admin_rank_modification(adm_ckey, new_rank, rights)
 
 	else if(task == "permissions")
-		if(!D)
+		if(!admins)
 			return
-		var/new_value = input_bitfield(usr, "rights", D.rights)
+		var/new_value = input_bitfield(usr, "rights", admins.rights)
 		if(!new_value)
 			return
-		var/add_bits = new_value & ~D.rights
-		var/removed_bits = D.rights & ~new_value
-		D.rights = new_value
+		var/add_bits = new_value & ~admins.rights
+		var/removed_bits = admins.rights & ~new_value
+		admins.rights = new_value
 		edit_admin_permissions()
 		message_admins("[key_name_admin(usr)] переключил флаги админу [adm_ckey]: [add_bits? " ВКЛ — [rights2text(add_bits, " ")]" : ""][removed_bits? " ВЫКЛ — [rights2text(removed_bits, " ")]":""]")
 		log_admin("[key_name(usr)] переключил флаги админу [adm_ckey]: [add_bits? " ВКЛ — [rights2text(add_bits, " ")]" : ""][removed_bits? " ВЫКЛ — [rights2text(removed_bits, " ")]":""]")

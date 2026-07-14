@@ -144,8 +144,8 @@
 		return FALSE //Storage item is full
 
 	var/sum_w_class = W.w_class
-	for(var/obj/item/I in contents)
-		sum_w_class += I.w_class //Adds up the combined w_classes which will be in the storage item if the item is added to it.
+	for(var/obj/item/item in contents)
+		sum_w_class += item.w_class //Adds up the combined w_classes which will be in the storage item if the item is added to it.
 
 	if(sum_w_class > max_combined_w_class)
 		if(!stop_messages)

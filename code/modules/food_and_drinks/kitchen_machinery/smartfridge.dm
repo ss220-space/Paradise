@@ -415,10 +415,10 @@
 		if(item_quants[O] <= 0) //Try to use a record that actually has something to dump.
 			continue
 		item_quants[O]--
-		for(var/obj/I in contents)
-			if(I.declent_ru(NOMINATIVE) == O)
-				I.forceMove(loc)
-				throw_item = I
+		for(var/obj/obj in contents)
+			if(obj.declent_ru(NOMINATIVE) == O)
+				obj.forceMove(loc)
+				throw_item = obj
 				update_icon(UPDATE_OVERLAYS)
 				break
 	if(!throw_item)
@@ -1026,17 +1026,17 @@
  * Called in [/obj/machinery/smartfridge/drying_rack/process] to dry the contents.
  */
 /obj/machinery/smartfridge/drying_rack/proc/rack_dry()
-	for(var/obj/item/reagent_containers/food/snacks/S in contents)
-		if(S.dried_type == S.type)//if the dried type is the same as the object's type, don't bother creating a whole new item...
-			S.color = "#ad7257"
-			S.dry = TRUE
-			item_quants[S.name]--
-			S.forceMove(get_turf(src))
+	for(var/obj/item/reagent_containers/food/snacks/snacks in contents)
+		if(snacks.dried_type == snacks.type)//if the dried type is the same as the object's type, don't bother creating a whole new item...
+			snacks.color = "#ad7257"
+			snacks.dry = TRUE
+			item_quants[snacks.name]--
+			snacks.forceMove(get_turf(src))
 		else
-			var/dried = S.dried_type
+			var/dried = snacks.dried_type
 			new dried(loc)
-			item_quants[S.name]--
-			qdel(S)
+			item_quants[snacks.name]--
+			qdel(snacks)
 			SStgui.update_uis(src)
 		return TRUE
 	for(var/obj/item/stack/sheet/wetleather/WL in contents)

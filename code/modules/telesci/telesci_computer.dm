@@ -217,7 +217,7 @@
 
 		var/turf/target = locate(trueX, trueY, z_co)
 		last_target = target
-		var/area/A = get_area(target)
+		var/area/area = get_area(target)
 		flick("[initial(telepad.icon_state)]-beam", telepad)
 
 		if(spawn_time > 15) // 1.5 seconds
@@ -264,30 +264,30 @@
 				// if is anchored, don't let through
 				if(ROI.anchored)
 					if(isliving(ROI))
-						var/mob/living/L = ROI
-						if(L.buckled)
+						var/mob/living/living = ROI
+						if(living.buckled)
 							// TP people on office chairs
-							if(L.buckled.anchored)
+							if(living.buckled.anchored)
 								continue
 
-							log_msg += "[key_name(L)] (на стуле), "
+							log_msg += "[key_name(living)] (на стуле), "
 						else
 							continue
 					else if(!isobserver(ROI))
 						continue
 				if(ismob(ROI))
-					var/mob/T = ROI
-					log_msg += "[key_name(T)], "
+					var/mob/mob = ROI
+					log_msg += "[key_name(mob)], "
 				else
 					log_msg += "[ROI.name]"
 					if(iscloset(ROI))
-						var/obj/structure/closet/C = ROI
+						var/obj/structure/closet/closet = ROI
 						log_msg += " ("
-						for(var/atom/movable/Q as mob|obj in C)
-							if(ismob(Q))
-								log_msg += "[key_name(Q)], "
+						for(var/atom/movable/movable as mob|obj in closet)
+							if(ismob(movable))
+								log_msg += "[key_name(movable)], "
 							else
-								log_msg += "[Q.name], "
+								log_msg += "[movable.name], "
 						if(dd_hassuffix(log_msg, "("))
 							log_msg += "пусто)"
 						else
@@ -300,7 +300,7 @@
 				log_msg = dd_limittext(log_msg, length(log_msg) - 2)
 			else
 				log_msg += "ничего"
-			log_msg += " [sending ? "в" : "из"] [trueX], [trueY], [z_co] ([A ? A.name : "null area"])"
+			log_msg += " [sending ? "в" : "из"] [trueX], [trueY], [z_co] ([area ? area.name : "null area"])"
 			updateUsrDialog()
 
 /obj/machinery/computer/telescience/proc/teleport(mob/user)
@@ -328,9 +328,9 @@
 
 	var/datum/projectile_data/proj_data = projectile_trajectory(telepad.x, telepad.y, trueRotation, trueAngle, truePower)
 	var/turf/target = locate(clamp(round(proj_data.dest_x, 1), 1, world.maxx), clamp(round(proj_data.dest_y, 1), 1, world.maxy), z_co)
-	var/area/A = get_area(target)
+	var/area/area = get_area(target)
 
-	if(A.tele_proof == 1)
+	if(area.tele_proof == 1)
 		telefail()
 		temp_msg = "ОШИБКА! Цель недостижима из-за помех."
 		return

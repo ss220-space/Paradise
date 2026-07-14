@@ -222,8 +222,8 @@
 
 /area/proc/get_cameras()
 	var/list/cameras = list()
-	for(var/obj/machinery/camera/C in machinery_cache)
-		cameras += C
+	for(var/obj/machinery/camera/camera in machinery_cache)
+		cameras += camera
 	return cameras
 
 /// Generate turfs, including cool cave wall gen
@@ -231,23 +231,23 @@
 	if(map_generator)
 		map_generator = new map_generator()
 		var/list/turfs = list()
-		for(var/turf/T in contents)
-			turfs += T
+		for(var/turf/turf in contents)
+			turfs += turf
 		map_generator.generate_terrain(turfs, src)
 
 /// Populate the previously generated terrain with mobs and objects
 /area/proc/RunTerrainPopulation()
 	if(map_generator)
 		var/list/turfs = list()
-		for(var/turf/T in contents)
-			turfs += T
+		for(var/turf/turf in contents)
+			turfs += turf
 		map_generator.populate_terrain(turfs, src)
 
 /area/proc/test_gen()
 	if(map_generator)
 		var/list/turfs = list()
-		for(var/turf/T in contents)
-			turfs += T
+		for(var/turf/turf in contents)
+			turfs += turf
 		map_generator.generate_terrain(turfs, src)
 
 /area/proc/air_doors_close()
@@ -397,12 +397,12 @@
 		poweralm = state
 		if(istype(source))	//Only report power alarms on the z-level where the source is located.
 			for(var/thing in cameras)
-				var/obj/machinery/camera/C = locateUID(thing)
-				if(!QDELETED(C) && is_station_level(C.z))
+				var/obj/machinery/camera/camera = locateUID(thing)
+				if(!QDELETED(camera) && is_station_level(camera.z))
 					if(state)
-						C.network -= "Power Alarms"
+						camera.network -= "Power Alarms"
 					else
-						C.network |= "Power Alarms"
+						camera.network |= "Power Alarms"
 
 			if(state)
 				GLOB.alarm_manager.cancel_alarm("Power", src, source)
@@ -419,17 +419,17 @@
 		if(danger_level == ATMOS_ALARM_DANGER)
 
 			for(var/thing in cameras)
-				var/obj/machinery/camera/C = locateUID(thing)
-				if(!QDELETED(C) && is_station_level(C.z))
-					C.network |= "Atmosphere Alarms"
+				var/obj/machinery/camera/camera = locateUID(thing)
+				if(!QDELETED(camera) && is_station_level(camera.z))
+					camera.network |= "Atmosphere Alarms"
 
 			GLOB.alarm_manager.trigger_alarm("Atmosphere", src, cameras, source)
 
 		else if(atmosalm == ATMOS_ALARM_DANGER)
 			for(var/thing in cameras)
-				var/obj/machinery/camera/C = locateUID(thing)
-				if(!QDELETED(C) && is_station_level(C.z))
-					C.network -= "Atmosphere Alarms"
+				var/obj/machinery/camera/camera = locateUID(thing)
+				if(!QDELETED(camera) && is_station_level(camera.z))
+					camera.network -= "Atmosphere Alarms"
 
 			GLOB.alarm_manager.cancel_alarm("Atmosphere", src, source)
 
@@ -485,9 +485,9 @@
 		ModifyFiredoors(FALSE)
 
 	for(var/thing in cameras)
-		var/obj/machinery/camera/C = locateUID(thing)
-		if(!QDELETED(C) && is_station_level(C.z))
-			C.network |= "Fire Alarms"
+		var/obj/machinery/camera/camera = locateUID(thing)
+		if(!QDELETED(camera) && is_station_level(camera.z))
+			camera.network |= "Fire Alarms"
 
 	GLOB.alarm_manager.trigger_alarm("Fire", src, cameras, source)
 
@@ -507,9 +507,9 @@
 		ModifyFiredoors(TRUE)
 
 	for(var/thing in cameras)
-		var/obj/machinery/camera/C = locateUID(thing)
-		if(!QDELETED(C) && is_station_level(C.z))
-			C.network -= "Fire Alarms"
+		var/obj/machinery/camera/camera = locateUID(thing)
+		if(!QDELETED(camera) && is_station_level(camera.z))
+			camera.network -= "Fire Alarms"
 
 	GLOB.alarm_manager.cancel_alarm("Fire", src, source)
 

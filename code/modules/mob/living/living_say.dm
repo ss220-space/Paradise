@@ -143,38 +143,38 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 /mob/living/proc/handle_speech_problems(list/message_pieces, verb)
 	var/robot = ismachineperson(src)
-	for(var/datum/multilingual_say_piece/S in message_pieces)
-		if(S.speaking && S.speaking.flags & NO_STUTTER)
+	for(var/datum/multilingual_say_piece/multilingual_say_piece in message_pieces)
+		if(multilingual_say_piece.speaking && multilingual_say_piece.speaking.flags & NO_STUTTER)
 			continue
 
 		if(HAS_TRAIT(src, TRAIT_HULK) && health >= 25)
-			S.message = "[uppertext(S.message)]!!!"
+			multilingual_say_piece.message = "[uppertext(multilingual_say_piece.message)]!!!"
 			verb = pick("крич[PLUR_IT_AT(src)]", "рыч[PLUR_IT_AT(src)]", "воп[PLUR_IT_YAT(src)]")
 
 		if(AmountSluring())
 			if(robot)
-				S.message = slur(S.message, list("@", "!", "#", "$", "%", "&", "?"))
+				multilingual_say_piece.message = slur(multilingual_say_piece.message, list("@", "!", "#", "$", "%", "&", "?"))
 			else
-				S.message = slur(S.message)
+				multilingual_say_piece.message = slur(multilingual_say_piece.message)
 			verb = "бормоч[PLUR_ET_UT(src)]"
 
 		if(AmountStuttering())
 			if(robot)
-				S.message = robostutter(S.message)
+				multilingual_say_piece.message = robostutter(multilingual_say_piece.message)
 			else
-				S.message = stutter(S.message)
+				multilingual_say_piece.message = stutter(multilingual_say_piece.message)
 			verb = "заика[PLUR_ET_YUT(src)]ся"
 
 		if(AmountCultSlurring())
-			S.message = cultslur(S.message)
+			multilingual_say_piece.message = cultslur(multilingual_say_piece.message)
 			verb = "бормоч[PLUR_ET_UT(src)]"
 
 		if(AmountClockSlurring())
-			S.message = clockslur(S.message)
+			multilingual_say_piece.message = clockslur(multilingual_say_piece.message)
 			verb = "бормоч[PLUR_ET_UT(src)]"
 
 		if(!IsVocal())
-			S.message = ""
+			multilingual_say_piece.message = ""
 
 	return list("verb" = verb)
 
@@ -413,16 +413,16 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 /proc/hear_message_obj(list/listening_obj, mob/M, list/message_pieces, verbage)
 	var/list/transmited_channels = list()
-	for(var/obj/O in listening_obj)
+	for(var/obj/obj in listening_obj)
 		spawn(0)
-			if(O) //It's possible that it could be deleted in the meantime.
-				if(isradio(O))
-					var/obj/item/radio/radio = O
+			if(obj) //It's possible that it could be deleted in the meantime.
+				if(isradio(obj))
+					var/obj/item/radio/radio = obj
 					if(radio.get_broadcasting() && get_dist(radio, M) <= radio.canhear_range && !(radio.get_frequency() in transmited_channels))
 						if(radio.talk_into(M, message_pieces, null, verbage))
 							transmited_channels += radio.get_frequency()
 				else
-					O.hear_talk(M, message_pieces, verbage)
+					obj.hear_talk(M, message_pieces, verbage)
 
 /mob/living/whisper(message)
 	message = trim_strip_html_properly(message, 512)
@@ -508,34 +508,34 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 	// Pass whispers on to anything inside the immediate listeners.
 	// This comes before the ghosts do so that ghosts don't act as whisper relays
-	for(var/atom/L in listening)
-		if(ismob(L))
-			for(var/mob/C in L.contents)
-				if(isliving(C))
-					listening += C
-			hearturfs += get_turf(L)
-		if(isobj(L))
-			hearturfs += get_turf(L)
+	for(var/atom/atom in listening)
+		if(ismob(atom))
+			for(var/mob/mob in atom.contents)
+				if(isliving(mob))
+					listening += mob
+			hearturfs += get_turf(atom)
+		if(isobj(atom))
+			hearturfs += get_turf(atom)
 
 	// Loop through all players to see if they need to hear it.
-	for(var/mob/M in GLOB.player_list)
-		if(!M.client)
+	for(var/mob/mob in GLOB.player_list)
+		if(!mob.client)
 			continue
 
-		if(isnewplayer(M))
+		if(isnewplayer(mob))
 			continue
 
-		if(isobserver(M))
-			if(M.get_preference(PREFTOGGLE_CHAT_GHOSTEARS)) // The client check is so that ghosts don't have to listen to mice.
-				listening |= M
+		if(isobserver(mob))
+			if(mob.get_preference(PREFTOGGLE_CHAT_GHOSTEARS)) // The client check is so that ghosts don't have to listen to mice.
+				listening |= mob
 				continue
 
-			if(message_range < world.view && (get_dist(whisper_loc, M) <= world.view))
-				listening |= M
+			if(message_range < world.view && (get_dist(whisper_loc, mob) <= world.view))
+				listening |= mob
 				continue
 
-		if(get_turf(M) in hearturfs)
-			listening |= M
+		if(get_turf(mob) in hearturfs)
+			listening |= mob
 
 	//pass on the message to objects that can hear us.
 	hear_message_obj(view(message_range, whisper_loc), src, message_pieces, verb)
@@ -553,24 +553,24 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	var/list/speech_bubble_recipients = list()
 	var/speech_bubble_test = say_test(message)
 
-	for(var/mob/M in listening)
-		M.hear_say(message_pieces, verb, italics, src, use_voice = FALSE, is_whisper = TRUE)
-		if(M.client)
-			speech_bubble_recipients.Add(M.client)
+	for(var/mob/mob in listening)
+		mob.hear_say(message_pieces, verb, italics, src, use_voice = FALSE, is_whisper = TRUE)
+		if(mob.client)
+			speech_bubble_recipients.Add(mob.client)
 
 	if(length(eavesdropping))
 		stars_all(message_pieces) //hopefully passing the message twice through stars() won't hurt... I guess if you already don't understand the language, when they speak it too quietly to hear normally you would be able to catch even less.
-		for(var/mob/M in eavesdropping)
-			M.hear_say(message_pieces, verb, italics, src, use_voice = FALSE, is_whisper = TRUE)
-			if(M.client)
-				speech_bubble_recipients.Add(M.client)
+		for(var/mob/mob in eavesdropping)
+			mob.hear_say(message_pieces, verb, italics, src, use_voice = FALSE, is_whisper = TRUE)
+			if(mob.client)
+				speech_bubble_recipients.Add(mob.client)
 
 	speech_bubble("[bubble_icon][speech_bubble_test]", src, speech_bubble_recipients)
 
 	if(length(watching))
 		var/rendered = span_gamesay("[span_name(name)] [not_heard]")
-		for(var/mob/M in watching)
-			M.show_message(rendered, 2)
+		for(var/mob/mob in watching)
+			mob.show_message(rendered, 2)
 
 	return TRUE
 

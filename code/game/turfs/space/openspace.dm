@@ -77,8 +77,8 @@
 	zFall(movable)
 
 /turf/space/openspace/proc/check_fall()
-	for(var/atom/movable/M as anything in contents)
-		zfall_if_on_turf(M)
+	for(var/atom/movable/movable as anything in contents)
+		zfall_if_on_turf(movable)
 
 // this is open NON-floor.
 /turf/space/openspace/zPassIn(direction)

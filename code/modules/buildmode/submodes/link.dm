@@ -8,11 +8,11 @@
 	QDEL_LIST(link_lines)
 
 /datum/buildmode_mode/link/proc/form_connection(atom/source, atom/dest, valid)
-	var/obj/effect/buildmode_line/L = new(get_turf(source), BM.holder, source, dest, "[source.name] to [dest.name]")
-	L.color = valid ? "#339933" : "#993333"
-	link_lines += L
+	var/obj/effect/buildmode_line/buildmode_line = new(get_turf(source), BM.holder, source, dest, "[source.name] to [dest.name]")
+	buildmode_line.color = valid ? "#339933" : "#993333"
+	link_lines += buildmode_line
 	var/obj/effect/buildmode_line/L2 = new(get_turf(dest), BM.holder, dest, source, "[dest.name] to [source.name]") // Yes, reversed one so that you can see it source both sides.
-	L2.color = L.color
+	L2.color = buildmode_line.color
 	link_lines += L2
 
 /datum/buildmode_mode/link/Destroy()
@@ -95,10 +95,10 @@
 	clear_lines()
 
 	if(istype(link_obj, /obj/machinery/door_control))
-		var/obj/machinery/door_control/M = link_obj
-		for(var/obj/machinery/door/airlock/P in GLOB.airlocks)
-			if(P.id_tag == M.id)
-				form_connection(M, P, M.normaldoorcontrol)
-		for(var/obj/machinery/door/poddoor/P in GLOB.airlocks)
-			if(P.id_tag == M.id)
-				form_connection(M, P, !M.normaldoorcontrol)
+		var/obj/machinery/door_control/door_control = link_obj
+		for(var/obj/machinery/door/airlock/airlock in GLOB.airlocks)
+			if(airlock.id_tag == door_control.id)
+				form_connection(door_control, airlock, door_control.normaldoorcontrol)
+		for(var/obj/machinery/door/poddoor/airlock in GLOB.airlocks)
+			if(airlock.id_tag == door_control.id)
+				form_connection(door_control, airlock, !door_control.normaldoorcontrol)

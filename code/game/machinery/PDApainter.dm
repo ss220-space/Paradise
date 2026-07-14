@@ -192,12 +192,12 @@
 /obj/machinery/pdapainter/proc/insert_pda()
 	if(!storedpda) // PDA is NOT in the machine.
 		if(ishuman(usr))
-			var/obj/item/pda/P = usr.get_active_hand()
+			var/obj/item/pda/pda = usr.get_active_hand()
 
-			if(istype(P)) // If it is really PDA.
-				if(usr.drop_transfer_item_to_loc(P, src))
-					storedpda = P
-					P.add_fingerprint(usr)
+			if(istype(pda)) // If it is really PDA.
+				if(usr.drop_transfer_item_to_loc(pda, src))
+					storedpda = pda
+					pda.add_fingerprint(usr)
 					update_icon()
 					SStgui.update_uis(src)
 					return TRUE

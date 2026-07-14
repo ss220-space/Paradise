@@ -34,30 +34,30 @@ ADMIN_VERB(fax_panel, R_ADMIN, "Fax Panel", "View and respond to faxes sent to C
 	html += "<h2>Admin Faxes</h2>"
 	html += "<table>"
 	html += "<tr style='font-weight:bold;'><td width='150px'>Name</td><td width='150px'>From Department</td><td width='150px'>To Department</td><td width='75px'>Sent At</td><td width='150px'>Sent By</td><td width='50px'>View</td><td width='50px'>Reply</td><td width='75px'>Replied To</td></td></tr>"
-	for(var/datum/fax/admin/A in GLOB.adminfaxes)
+	for(var/datum/fax/admin/admin in GLOB.adminfaxes)
 		html += "<tr>"
-		html += "<td>[A.name]</td>"
-		html += "<td>[A.from_department]</td>"
-		html += "<td>[A.to_department]</td>"
-		html += "<td>[station_time_timestamp("hh:mm:ss", A.sent_at)]</td>"
-		if(A.sent_by)
-			var/mob/living/S = A.sent_by
-			html += "<td>[ADMIN_PP(S,"[S.name]")]</td>"
+		html += "<td>[admin.name]</td>"
+		html += "<td>[admin.from_department]</td>"
+		html += "<td>[admin.to_department]</td>"
+		html += "<td>[station_time_timestamp("hh:mm:ss", admin.sent_at)]</td>"
+		if(admin.sent_by)
+			var/mob/living/living = admin.sent_by
+			html += "<td>[ADMIN_PP(living,"[living.name]")]</td>"
 		else
 			html += "<td>Unknown</td>"
-		html += "<td><a align='right' href='byond://?src=[UID()];AdminFaxView=[UID_of(A.message)]'>View</a></td>"
-		if(!A.reply_to)
-			if(A.from_department == "Administrator")
-				html += "<td>N/A</td>"
+		html += "<td><a align='right' href='byond://?src=[UID()];AdminFaxView=[UID_of(admin.message)]'>View</a></td>"
+		if(!admin.reply_to)
+			if(admin.from_department == "Administrator")
+				html += "<td>N/admin</td>"
 			else
-				html += "<td><a align='right' href='byond://?src=[UID()];AdminFaxCreate=[UID_of(A.sent_by)];originfax=[UID_of(A.origin)];faxtype=[A.to_department];replyto=[UID_of(A.message)]'>Reply</a>"
-				if(A.sent_by)
-					html += "<br><a align='right' href='byond://?src=[UID()];AdminFaxNotify=[UID_of(A.sent_by)]'>Notify</a>"
+				html += "<td><a align='right' href='byond://?src=[UID()];AdminFaxCreate=[UID_of(admin.sent_by)];originfax=[UID_of(admin.origin)];faxtype=[admin.to_department];replyto=[UID_of(admin.message)]'>Reply</a>"
+				if(admin.sent_by)
+					html += "<br><a align='right' href='byond://?src=[UID()];AdminFaxNotify=[UID_of(admin.sent_by)]'>Notify</a>"
 				html += "</td>"
-			html += "<td>N/A</td>"
+			html += "<td>N/admin</td>"
 		else
-			html += "<td>N/A</td>"
-			html += "<td><a align='right' href='byond://?src=[UID()];AdminFaxView=[UID_of(A.reply_to)]'>Original</a></td>"
+			html += "<td>N/admin</td>"
+			html += "<td><a align='right' href='byond://?src=[UID()];AdminFaxView=[UID_of(admin.reply_to)]'>Original</a></td>"
 		html += "</tr>"
 	html += "</table>"
 	html += "</div>"
@@ -66,18 +66,18 @@ ADMIN_VERB(fax_panel, R_ADMIN, "Fax Panel", "View and respond to faxes sent to C
 	html += "<h2>Departmental Faxes</h2>"
 	html += "<table>"
 	html += "<tr style='font-weight:bold;'><td width='150px'>Name</td><td width='150px'>From Department</td><td width='150px'>To Department</td><td width='75px'>Sent At</td><td width='150px'>Sent By</td><td width='175px'>View</td></td></tr>"
-	for(var/datum/fax/F in GLOB.faxes)
+	for(var/datum/fax/fax in GLOB.faxes)
 		html += "<tr>"
-		html += "<td>[F.name]</td>"
-		html += "<td>[F.from_department]</td>"
-		html += "<td>[F.to_department]</td>"
-		html += "<td>[station_time_timestamp("hh:mm:ss", F.sent_at)]</td>"
-		if(F.sent_by)
-			var/mob/living/S = F.sent_by
-			html += "<td>[ADMIN_PP(S,"[S.name]")]</td>"
+		html += "<td>[fax.name]</td>"
+		html += "<td>[fax.from_department]</td>"
+		html += "<td>[fax.to_department]</td>"
+		html += "<td>[station_time_timestamp("hh:mm:ss", fax.sent_at)]</td>"
+		if(fax.sent_by)
+			var/mob/living/living = fax.sent_by
+			html += "<td>[ADMIN_PP(living,"[living.name]")]</td>"
 		else
 			html += "<td>Unknown</td>"
-		html += "<td><a align='right' href='byond://?src=[UID()];AdminFaxView=[UID_of(F.message)]'>View</a></td>"
+		html += "<td><a align='right' href='byond://?src=[UID()];AdminFaxView=[UID_of(fax.message)]'>View</a></td>"
 		html += "</tr>"
 	html += "</table>"
 	html += "</div>"

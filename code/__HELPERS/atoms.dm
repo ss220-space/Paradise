@@ -69,45 +69,45 @@
 	. = list()
 	var/atom/drop_loc = new_loc ? new_loc : drop_location()
 
-	for(var/atom/movable/I in contents)
-		if(!is_type_in_list(I, GLOB.ungibbable_items_types))
-			if(length(I.contents))
-				. += I.drop_ungibbable_items(new_loc)
+	for(var/atom/movable/movable in contents)
+		if(!is_type_in_list(movable, GLOB.ungibbable_items_types))
+			if(length(movable.contents))
+				. += movable.drop_ungibbable_items(new_loc)
 			continue
 
-		. += I
+		. += movable
 
-		if(isturf(I.loc))
+		if(isturf(movable.loc))
 			continue
 
-		var/obj/item/storage/holder_storage = I.loc
+		var/obj/item/storage/holder_storage = movable.loc
 		if(istype(holder_storage))
-			holder_storage.remove_from_storage(I, drop_loc)
+			holder_storage.remove_from_storage(movable, drop_loc)
 			continue
 
-		var/mob/holder_mob = I.loc
+		var/mob/holder_mob = movable.loc
 		if(istype(holder_mob))
-			holder_mob.temporarily_remove_item_from_inventory(I, force = TRUE, silent = TRUE)
-			I.forceMove(drop_loc)
+			holder_mob.temporarily_remove_item_from_inventory(movable, force = TRUE, silent = TRUE)
+			movable.forceMove(drop_loc)
 			continue
 
 		for(var/var_name in vars)
 			// Item may be referenced in some properties of container.
 			// E.g. holsters.
-			if(vars[var_name] == I)
+			if(vars[var_name] == movable)
 				vars[var_name] = null
 			// Item may be referenced in some list properties of container.
 			// E.g. medals.
-			else if(islist(vars[var_name]) && (I in vars[var_name]))
-				vars[var_name] -= I
+			else if(islist(vars[var_name]) && (movable in vars[var_name]))
+				vars[var_name] -= movable
 
-		for(var/var_name in I.vars)
+		for(var/var_name in movable.vars)
 			// Item may reference container in some properties.
 			// E.g. medals.
-			if(I.vars[var_name] == src)
-				I.vars[var_name] = null
+			if(movable.vars[var_name] == src)
+				movable.vars[var_name] = null
 
-		I.forceMove(drop_loc)
+		movable.forceMove(drop_loc)
 
 /**
  * Proc that collects all atoms of passed `path` in our atom contents

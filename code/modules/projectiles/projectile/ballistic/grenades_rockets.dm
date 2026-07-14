@@ -36,11 +36,11 @@
 /obj/projectile/bullet/a84mm_hedp/proc/embed_shrapnel(mob/living/carbon/human/H, amount)
 	for(var/i in 0 to amount)
 		if(prob(embed_prob - H.getarmor(attack_flag = BOMB)))
-			var/obj/item/embedded/S = new embedded_type(src)
-			H.hitby(S, skipcatch = 1)
-			S.throwforce = 1
-			S.throw_speed = 1
-			S.sharp = FALSE
+			var/obj/item/embedded/embedded = new embedded_type(src)
+			H.hitby(embedded, skipcatch = 1)
+			embedded.throwforce = 1
+			embedded.throw_speed = 1
+			embedded.sharp = FALSE
 		else
 			to_chat(H, span_warning("Шрапнель отскакивает от вашей брони!"))
 

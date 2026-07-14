@@ -836,8 +836,8 @@
 //Mergsorge: uses sortAssoc() but uses the var's name specifically. This should probably be using mergeAtom() instead
 /proc/sortNames(list/L)
 	var/list/Q = new()
-	for(var/atom/x in L)
-		Q[x.name] = x
+	for(var/atom/atom in L)
+		Q[atom.name] = atom
 	return sortAssoc(Q)
 
 // MARK: TODO: REF

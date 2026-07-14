@@ -1188,8 +1188,8 @@
 	apply_clickcatcher()
 	mob.hud_used?.reload_fullscreen()
 	if(isliving(mob))
-		var/mob/living/M = mob
-		M.update_damage_hud()
+		var/mob/living/living = mob
+		living.update_damage_hud()
 	fit_viewport()
 
 /client/proc/send_ssd_warning(mob/M)

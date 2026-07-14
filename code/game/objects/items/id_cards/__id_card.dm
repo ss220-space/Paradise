@@ -194,22 +194,22 @@
 /// Returns the player mob associated with this ID card.
 /obj/item/card/id/proc/getPlayer()
 	if(owner_uid)
-		var/mob/living/carbon/human/H = locateUID(owner_uid)
-		if(istype(H) && H.ckey == owner_ckey)
-			return H
+		var/mob/living/carbon/human/human = locateUID(owner_uid)
+		if(istype(human) && human.ckey == owner_ckey)
+			return human
 		owner_uid = null
 	if(owner_ckey)
-		for(var/mob/M in GLOB.player_list)
-			if(M.ckey && M.ckey == owner_ckey)
-				owner_uid = M.UID()
-				return M
+		for(var/mob/mob in GLOB.player_list)
+			if(mob.ckey && mob.ckey == owner_ckey)
+				owner_uid = mob.UID()
+				return mob
 		owner_ckey = null
 
 /// Returns the ckey of the player mob associated with this ID card.
 /obj/item/card/id/proc/getPlayerCkey()
-	var/mob/living/carbon/human/H = getPlayer()
-	if(istype(H))
-		return H.ckey
+	var/mob/living/carbon/human/human = getPlayer()
+	if(istype(human))
+		return human.ckey
 
 /// Returns whether this ID card is untrackable by AIs.
 /obj/item/card/id/proc/is_untrackable()

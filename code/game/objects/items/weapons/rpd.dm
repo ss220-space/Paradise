@@ -148,31 +148,31 @@
 	activate_rpd(TRUE)
 
 /obj/item/rpd/proc/rotate_all_pipes(mob/user, turf/T) //Rotate all pipes on a turf
-	for(var/obj/item/pipe/P in T)
-		P.rotate()
-	for(var/obj/structure/disposalconstruct/D in T)
-		D.rotate()
+	for(var/obj/item/pipe/pipe in T)
+		pipe.rotate()
+	for(var/obj/structure/disposalconstruct/disposalconstruct in T)
+		disposalconstruct.rotate()
 
 /obj/item/rpd/proc/flip_all_pipes(mob/user, turf/T) //Flip all pipes on a turf
-	for(var/obj/item/pipe/P in T)
-		P.flip()
-	for(var/obj/structure/disposalconstruct/D in T)
-		D.flip()
+	for(var/obj/item/pipe/pipe in T)
+		pipe.flip()
+	for(var/obj/structure/disposalconstruct/disposalconstruct in T)
+		disposalconstruct.flip()
 
 /obj/item/rpd/proc/delete_all_pipes(mob/user, turf/T) //Delete all pipes on a turf
 	var/eaten
-	for(var/obj/item/pipe/P in T)
-		QDEL_NULL(P)
+	for(var/obj/item/pipe/pipe in T)
+		QDEL_NULL(pipe)
 		eaten = TRUE
-	for(var/obj/item/pipe_gsensor/G in T)
-		QDEL_NULL(G)
+	for(var/obj/item/pipe_gsensor/pipe_gsensor in T)
+		QDEL_NULL(pipe_gsensor)
 		eaten = TRUE
-	for(var/obj/item/pipe_meter/M in T)
-		QDEL_NULL(M)
+	for(var/obj/item/pipe_meter/pipe_meter in T)
+		QDEL_NULL(pipe_meter)
 		eaten = TRUE
-	for(var/obj/structure/disposalconstruct/D in T)
-		if(!D.anchored)
-			QDEL_NULL(D)
+	for(var/obj/structure/disposalconstruct/disposalconstruct in T)
+		if(!disposalconstruct.anchored)
+			QDEL_NULL(disposalconstruct)
 			eaten = TRUE
 	if(eaten)
 		to_chat(user, "<span class='notice'>[src] sucks up the loose pipes on [T].")

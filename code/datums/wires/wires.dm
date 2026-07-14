@@ -261,8 +261,8 @@
 		return TRUE
 
 	if(ismultitool(user.get_active_hand()))
-		var/obj/item/multitool/M = user.get_active_hand()
-		if(M.shows_wire_information)
+		var/obj/item/multitool/multitool = user.get_active_hand()
+		if(multitool.shows_wire_information)
 			return TRUE
 	if(HAS_TRAIT(user, TRAIT_CAN_SEE_WIRES))
 		return TRUE
@@ -483,12 +483,12 @@
  * * color - the wire color.
  */
 /datum/wires/proc/detach_assembly(color)
-	var/obj/item/assembly/signaler/S = get_attached(color)
-	if(S && istype(S))
+	var/obj/item/assembly/signaler/signaler = get_attached(color)
+	if(signaler && istype(signaler))
 		assemblies -= color
-		S.connected = null
-		S.forceMove(holder.drop_location())
-		return S
+		signaler.connected = null
+		signaler.forceMove(holder.drop_location())
+		return signaler
 
 /**
  * Gets the signaler attached to the given wire color, if there is one.

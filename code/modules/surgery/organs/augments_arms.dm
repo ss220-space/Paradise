@@ -181,8 +181,8 @@
 
 /obj/item/organ/internal/cyberimp/arm/proc/radial_menu(mob/user)
 	var/list/choices = list()
-	for(var/obj/I in items_list)
-		choices["[I.name]"] = image(icon = I.icon, icon_state = I.icon_state)
+	for(var/obj/obj in items_list)
+		choices["[obj.name]"] = image(icon = obj.icon, icon_state = obj.icon_state)
 	var/choice = show_radial_menu(owner, owner, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
 	if(!check_menu(user))
 		return

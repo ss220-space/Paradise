@@ -127,11 +127,11 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 
 /datum/paiController/proc/recruitWindow(mob/M as mob)
 	var/datum/paiCandidate/candidate
-	for(var/datum/paiCandidate/c in pai_candidates)
-		if(!istype(c) || !istype(M))
+	for(var/datum/paiCandidate/paiCandidate in pai_candidates)
+		if(!istype(paiCandidate) || !istype(M))
 			break
-		if(c.key == M.key)
-			candidate = c
+		if(paiCandidate.key == M.key)
+			candidate = paiCandidate
 	if(!candidate)
 		candidate = new /datum/paiCandidate()
 		candidate.key = M.key
@@ -199,14 +199,14 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 /datum/paiController/proc/findPAI(obj/item/paicard/p, mob/user)
 	requestRecruits(p, user)
 	var/list/available = list()
-	for(var/datum/paiCandidate/c in GLOB.paiController.pai_candidates)
-		if(c.ready)
+	for(var/datum/paiCandidate/paiCandidate in GLOB.paiController.pai_candidates)
+		if(paiCandidate.ready)
 			var/found = 0
-			for(var/mob/o in GLOB.respawnable_list)
-				if(o.key == c.key)
+			for(var/mob/mob in GLOB.respawnable_list)
+				if(mob.key == paiCandidate.key)
 					found = 1
 			if(found)
-				available.Add(c)
+				available.Add(paiCandidate)
 	var/dat = ""
 
 	dat += {"
@@ -214,28 +214,28 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 	"}
 	dat += "<p>Displaying available AI personalities from central database... If there are no entries, or if a suitable entry is not listed, check again later as more personalities may be added.</p>"
 
-	for(var/datum/paiCandidate/c in available)
+	for(var/datum/paiCandidate/paiCandidate in available)
 		dat += {"
 				<table class="desc">
 					<tr class="d0">
 						<th>Name:</th>
-						<td>[c.name]</td>
+						<td>[paiCandidate.name]</td>
 					</tr>
 					<tr class="d1">
 						<th>Description:</th>
-						<td>[c.description]</td>
+						<td>[paiCandidate.description]</td>
 					</tr>
 					<tr class="d0">
 						<th>Preferred Role:</th>
-						<td>[c.role]</td>
+						<td>[paiCandidate.role]</td>
 					</tr>
 					<tr class="d1">
 						<th>OOC Comments:</th>
-						<td>[c.comments]</td>
+						<td>[paiCandidate.comments]</td>
 					</tr>
 				</table>
 				<table class="download">
-					<td class="download"><a href='byond://?src=[UID()];download=1;candidate=[c.UID()];device=[p.UID()]' class="button"><b>Download [c.name]</b></a>
+					<td class="download"><a href='byond://?src=[UID()];download=1;candidate=[paiCandidate.UID()];device=[p.UID()]' class="button"><b>Download [paiCandidate.name]</b></a>
 					</td>
 				</table>
 				<br>
@@ -246,11 +246,11 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 	popup.open(FALSE)
 
 /datum/paiController/proc/requestRecruits(obj/item/paicard/P, mob/user)
-	for(var/mob/dead/observer/O in GLOB.player_list)
-		if(O.client && (ROLE_PAI in O.client.prefs.be_special))
-			if(player_old_enough_antag(O.client,ROLE_PAI))
-				if(check_recruit(O))
-					to_chat(O, span_boldnotice("A [(P.is_syndicate_type) ? "Syndicate" : ""]  pAI card activated by [user.real_name] is looking for personalities. (<a href='byond://?src=[O.UID()];jump=[P.UID()]'>Teleport</a> | <a href='byond://?src=[UID()];signup=[O.UID()]'>Sign Up</a>)"))
+	for(var/mob/dead/observer/observer in GLOB.player_list)
+		if(observer.client && (ROLE_PAI in observer.client.prefs.be_special))
+			if(player_old_enough_antag(observer.client,ROLE_PAI))
+				if(check_recruit(observer))
+					to_chat(observer, span_boldnotice("A [(P.is_syndicate_type) ? "Syndicate" : ""]  pAI card activated by [user.real_name] is looking for personalities. (<a href='byond://?src=[observer.UID()];jump=[P.UID()]'>Teleport</a> | <a href='byond://?src=[UID()];signup=[observer.UID()]'>Sign Up</a>)"))
 	if(P.is_syndicate_type)
 		if(summon_cooldown > world.time)
 			return

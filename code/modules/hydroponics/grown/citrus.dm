@@ -127,8 +127,8 @@
 
 /obj/item/reagent_containers/food/snacks/grown/firelemon/proc/update_mob()
 	if(ismob(loc))
-		var/mob/M = loc
-		M.drop_item_ground(src)
+		var/mob/mob = loc
+		mob.drop_item_ground(src)
 
 /obj/item/reagent_containers/food/snacks/grown/firelemon/ex_act(severity, target)
 	qdel(src) //Ensuring that it's deleted by its own explosion

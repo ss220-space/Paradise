@@ -237,34 +237,34 @@
 	if(!isrobot(mymob) || !mymob.client)
 		return
 
-	var/mob/living/silicon/robot/R = mymob
+	var/mob/living/silicon/robot/robot = mymob
 
-	var/mob/screenmob = viewer || R
+	var/mob/screenmob = viewer || robot
 
-	if(!R.module)
+	if(!robot.module)
 		return
 
-	if(R.module_state_1)
-		R.client.screen += R.module_state_1
-	if(R.module_state_2)
-		R.client.screen += R.module_state_2
-	if(R.module_state_3)
-		R.client.screen += R.module_state_3
+	if(robot.module_state_1)
+		robot.client.screen += robot.module_state_1
+	if(robot.module_state_2)
+		robot.client.screen += robot.module_state_2
+	if(robot.module_state_3)
+		robot.client.screen += robot.module_state_3
 
-	if(R.shown_robot_modules && screenmob.hud_used.hud_shown)
+	if(robot.shown_robot_modules && screenmob.hud_used.hud_shown)
 		//Modules display is shown
 		screenmob.client?.screen += module_store_icon	//"store" icon
 
-		if(!R.module.modules)
+		if(!robot.module.modules)
 			to_chat(usr, span_danger("Selected module has no modules to select."))
 			return
 
-		if(!R.robot_modules_background)
+		if(!robot.robot_modules_background)
 			return
 
-		var/display_rows = ceil(length(R.module.modules) / 8)
-		R.robot_modules_background.screen_loc = "CENTER-4:16,SOUTH+1:7 to CENTER+3:16,SOUTH+[display_rows]:7"
-		screenmob.client?.screen += R.robot_modules_background
+		var/display_rows = ceil(length(robot.module.modules) / 8)
+		robot.robot_modules_background.screen_loc = "CENTER-4:16,SOUTH+1:7 to CENTER+3:16,SOUTH+[display_rows]:7"
+		screenmob.client?.screen += robot.robot_modules_background
 
 		var/x = -4	//Start at CENTER-4,SOUTH+1
 		var/y = 1
@@ -272,22 +272,22 @@
 		//Unfortunately adding the emag module to the list of modules has to be here. This is because a borg can
 		//be emagged before they actually select a module. - or some situation can cause them to get a new module
 		// - or some situation might cause them to get de-emagged or something.
-		if(R.emagged || R.weapons_unlock)
-			if(!(R.module.emag in R.module.modules))
-				R.module.modules.Add(R.module.emag)
+		if(robot.emagged || robot.weapons_unlock)
+			if(!(robot.module.emag in robot.module.modules))
+				robot.module.modules.Add(robot.module.emag)
 		else
-			if(R.module.emag in R.module.modules)
-				R.module.modules.Remove(R.module.emag)
+			if(robot.module.emag in robot.module.modules)
+				robot.module.modules.Remove(robot.module.emag)
 
-		for(var/atom/movable/A in R.module.modules)
-			if((A != R.module_state_1) && (A != R.module_state_2) && (A != R.module_state_3))
+		for(var/atom/movable/movable in robot.module.modules)
+			if((movable != robot.module_state_1) && (movable != robot.module_state_2) && (movable != robot.module_state_3))
 				//Module is not currently active
-				screenmob.client?.screen += A
+				screenmob.client?.screen += movable
 				if(x < 0)
-					A.screen_loc = "CENTER[x]:16,SOUTH+[y]:7"
+					movable.screen_loc = "CENTER[x]:16,SOUTH+[y]:7"
 				else
-					A.screen_loc = "CENTER+[x]:16,SOUTH+[y]:7"
-				SET_PLANE_IMPLICIT(A, ABOVE_HUD_PLANE)
+					movable.screen_loc = "CENTER+[x]:16,SOUTH+[y]:7"
+				SET_PLANE_IMPLICIT(movable, ABOVE_HUD_PLANE)
 
 			x++
 			if(x == 4)
@@ -298,12 +298,12 @@
 		//Modules display is hidden
 		screenmob.client?.screen -= module_store_icon
 
-		for(var/atom/A in R.module.modules)
-			if((A != R.module_state_1) && (A != R.module_state_2) && (A != R.module_state_3))
+		for(var/atom/movable in robot.module.modules)
+			if((movable != robot.module_state_1) && (movable != robot.module_state_2) && (movable != robot.module_state_3))
 				//Module is not currently active
-				screenmob.client?.screen -= A
-		R.shown_robot_modules = 0
-		screenmob.client?.screen -= R.robot_modules_background
+				screenmob.client?.screen -= movable
+		robot.shown_robot_modules = 0
+		screenmob.client?.screen -= robot.robot_modules_background
 
 /datum/hud/robot/persistent_inventory_update(mob/viewer)
 	if(!mymob)

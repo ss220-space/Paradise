@@ -226,38 +226,38 @@
 /mob/living/simple_animal/hostile/proc/Retaliate()
 	var/list/around = view(src, vision_range)
 
-	for(var/atom/movable/A in around)
-		if(A == src)
+	for(var/atom/movable/movable in around)
+		if(movable == src)
 			continue
-		if(isliving(A))
-			var/mob/living/M = A
-			if(faction_check_mob(M) && attack_same || !faction_check_mob(M))
-				enemies |= M
-		else if(ismecha(A))
-			var/obj/mecha/M = A
-			if(M.occupant)
-				enemies |= M
-				enemies |= M.occupant
-		else if(isspacepod(A))
-			var/obj/spacepod/S = A
-			if(S.pilot)
-				enemies |= S
-				enemies |= S.pilot
+		if(isliving(movable))
+			var/mob/living/living = movable
+			if(faction_check_mob(living) && attack_same || !faction_check_mob(living))
+				enemies |= living
+		else if(ismecha(movable))
+			var/obj/mecha/living = movable
+			if(living.occupant)
+				enemies |= living
+				enemies |= living.occupant
+		else if(isspacepod(movable))
+			var/obj/spacepod/spacepod = movable
+			if(spacepod.pilot)
+				enemies |= spacepod
+				enemies |= spacepod.pilot
 
-	for(var/mob/living/simple_animal/hostile/H in around)
-		if(faction_check_mob(H) && !attack_same && !H.attack_same)
-			H.enemies |= enemies
+	for(var/mob/living/simple_animal/hostile/hostile in around)
+		if(faction_check_mob(hostile) && !attack_same && !hostile.attack_same)
+			hostile.enemies |= enemies
 	return 0
 
 /mob/living/simple_animal/hostile/proc/PossibleThreats()
 	. = list()
 	for(var/pos_targ in ListTargets())
-		var/atom/A = pos_targ
-		if(Found(A))
-			. = list(A)
+		var/atom/atom = pos_targ
+		if(Found(atom))
+			. = list(atom)
 			break
-		if(CanAttack(A))
-			. += A
+		if(CanAttack(atom))
+			. += atom
 			continue
 
 /mob/living/simple_animal/hostile/proc/Found(atom/A)//This is here as a potential override to pick a specific target if available
@@ -265,33 +265,33 @@
 		return FALSE
 	if(retaliate_only)
 		if(isliving(A))
-			var/mob/living/L = A
-			if(!L.stat)
-				return L
+			var/mob/living/living = A
+			if(!living.stat)
+				return living
 			else
-				enemies -= L
+				enemies -= living
 		else if(ismecha(A))
-			var/obj/mecha/M = A
-			if(M.occupant)
+			var/obj/mecha/mecha = A
+			if(mecha.occupant)
 				return A
 		else if(isspacepod(A))
-			var/obj/spacepod/S = A
-			if(S.pilot)
+			var/obj/spacepod/spacepod = A
+			if(spacepod.pilot)
 				return A
 
 /mob/living/simple_animal/hostile/proc/PickTarget(list/Targets)//Step 3, pick amongst the possible, attackable targets
 	if(target != null)//If we already have a target, but are told to pick again, calculate the lowest distance between all possible, and pick from the lowest distance targets
 		for(var/pos_targ in Targets)
-			var/atom/A = pos_targ
+			var/atom/atom = pos_targ
 			var/target_dist = get_dist(targets_from, target)
-			var/possible_target_distance = get_dist(targets_from, A)
+			var/possible_target_distance = get_dist(targets_from, atom)
 			if(target_dist < possible_target_distance)
-				Targets -= A
+				Targets -= atom
 
 	var/list/mob/high_priority_targets = list()
-	for(var/mob/T in Targets)
-		if(!(T.UID() in low_priority_targets))
-			high_priority_targets.Add(T)
+	for(var/mob/mob in Targets)
+		if(!(mob.UID() in low_priority_targets))
+			high_priority_targets.Add(mob)
 
 	if(length(high_priority_targets))
 		Targets = high_priority_targets
@@ -394,8 +394,8 @@
 
 	var/target_distance = get_dist(targets_from,target)
 	if(target in possible_targets)
-		var/turf/T = get_turf(src)
-		if(target.z != T.z)
+		var/turf/turf = get_turf(src)
+		if(target.z != turf.z)
 			lose_target()
 			return FALSE
 		if(ranged) //We ranged? Shoot at em
@@ -509,20 +509,20 @@
 /mob/living/simple_animal/hostile/proc/summon_backup(distance)
 	do_alert_animation(src)
 	playsound(loc, 'sound/machines/chime.ogg', 50, TRUE, -1)
-	for(var/mob/living/simple_animal/hostile/M in oview(distance, targets_from))
-		if(faction_check_mob(M, TRUE))
-			if(M.AIStatus == AI_OFF)
+	for(var/mob/living/simple_animal/hostile/hostile in oview(distance, targets_from))
+		if(faction_check_mob(hostile, TRUE))
+			if(hostile.AIStatus == AI_OFF)
 				return
 			else
-				M.Goto(src,M.move_to_delay,M.minimum_distance)
+				hostile.Goto(src,hostile.move_to_delay,hostile.minimum_distance)
 
 /mob/living/simple_animal/hostile/proc/CheckFriendlyFire(atom/A)
 	if(check_friendly_fire)
-		for(var/turf/T as anything in get_line(src,A)) // Not 100% reliable but this is faster than simulating actual trajectory
-			for(var/mob/living/L in T)
-				if(L == src || L == A)
+		for(var/turf/turf as anything in get_line(src,A)) // Not 100% reliable but this is faster than simulating actual trajectory
+			for(var/mob/living/living in turf)
+				if(living == src || living == A)
 					continue
-				if(faction_check_mob(L) && !attack_same)
+				if(faction_check_mob(living) && !attack_same)
 					return TRUE
 
 /mob/living/simple_animal/hostile/proc/OpenFire(atom/A)
@@ -553,20 +553,20 @@
 		casing.fire(target = targeted_atom, user = src, modifiers = null, distro = null, quiet = FALSE, zone_override = ran_zone(), firer_source_atom = src)
 		casing.after_fire()
 	else if(projectiletype)
-		var/obj/projectile/P = new projectiletype(startloc)
+		var/obj/projectile/projectile = new projectiletype(startloc)
 		playsound(src, projectilesound, 100, TRUE)
-		P.current = startloc
-		P.starting = startloc
-		P.firer = src
-		P.firer_source_atom = src
-		P.yo = targeted_atom.y - startloc.y
-		P.xo = targeted_atom.x - startloc.x
+		projectile.current = startloc
+		projectile.starting = startloc
+		projectile.firer = src
+		projectile.firer_source_atom = src
+		projectile.yo = targeted_atom.y - startloc.y
+		projectile.xo = targeted_atom.x - startloc.x
 		if(AIStatus != AI_ON)//Don't want mindless mobs to have their movement screwed up firing in space
 			newtonian_move(get_dir(targeted_atom, targets_from))
-		P.original = targeted_atom
-		P.preparePixelProjectile(targeted_atom, startloc)
-		P.fire()
-		return P
+		projectile.original = targeted_atom
+		projectile.preparePixelProjectile(targeted_atom, startloc)
+		projectile.fire()
+		return projectile
 
 /mob/living/simple_animal/hostile/proc/CanSmashTurfs(turf/T)
 	return (iswallturf(T) || ismineralturf(T))
@@ -593,18 +593,18 @@
 	dodging = TRUE
 
 /mob/living/simple_animal/hostile/proc/DestroyObjectsInDirection(direction)
-	var/turf/T = get_step(targets_from, direction)
-	if(QDELETED(T))
+	var/turf/turf = get_step(targets_from, direction)
+	if(QDELETED(turf))
 		return
-	if(T.Adjacent(targets_from))
-		if(CanSmashTurfs(T))
-			T.attack_animal(src)
+	if(turf.Adjacent(targets_from))
+		if(CanSmashTurfs(turf))
+			turf.attack_animal(src)
 			return
-	for(var/obj/O in T.contents)
-		if(!O.Adjacent(targets_from))
+	for(var/obj/obj in turf.contents)
+		if(!obj.Adjacent(targets_from))
 			continue
-		if((ismachinery(O) || isstructure(O)) && O.density && environment_smash >= ENVIRONMENT_SMASH_STRUCTURES && !O.IsObscured())
-			O.attack_animal(src)
+		if((ismachinery(obj) || isstructure(obj)) && obj.density && environment_smash >= ENVIRONMENT_SMASH_STRUCTURES && !obj.IsObscured())
+			obj.attack_animal(src)
 			return
 
 /mob/living/simple_animal/hostile/proc/DestroyPathToTarget()
@@ -632,8 +632,8 @@
 	if(buckled)
 		buckled.attack_animal(src)
 	if(!isturf(targets_from.loc) && targets_from.loc != null)//Did someone put us in something?
-		var/atom/A = targets_from.loc
-		A.attack_animal(src)//Bang on it till we get out
+		var/atom/atom = targets_from.loc
+		atom.attack_animal(src)//Bang on it till we get out
 
 /mob/living/simple_animal/hostile/proc/FindHidden()
 	if(isnull(target))

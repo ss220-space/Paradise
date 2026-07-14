@@ -29,10 +29,10 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 		traits = traits.Copy() // Clone the list so it can't be changed on accident
 
 		milla_init_z(k)
-		var/datum/space_level/S = new /datum/space_level(k, name, transition_type = linking, traits = traits)
-		z_list["[k]"] = S
-		levels_by_name[name] = S
-		SSmapping.manage_z_level(S)
+		var/datum/space_level/space_level = new /datum/space_level(k, name, transition_type = linking, traits = traits)
+		z_list["[k]"] = space_level
+		levels_by_name[name] = space_level
+		SSmapping.manage_z_level(space_level)
 		k++
 
 	// Then, we take care of unmanaged z levels
@@ -117,9 +117,9 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 	world.incrementMaxZ()
 	var/our_z = world.maxz
 	milla_init_z(our_z)
-	var/datum/space_level/S = new /datum/space_level(our_z, name, transition_type = linkage, traits = traits)
-	levels_by_name[name] = S
-	z_list["[our_z]"] = S
-	SSmapping.manage_z_level(S)
-	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_NEW_Z, S)
+	var/datum/space_level/space_level = new /datum/space_level(our_z, name, transition_type = linkage, traits = traits)
+	levels_by_name[name] = space_level
+	z_list["[our_z]"] = space_level
+	SSmapping.manage_z_level(space_level)
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_NEW_Z, space_level)
 	return our_z

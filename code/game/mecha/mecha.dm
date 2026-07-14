@@ -336,11 +336,11 @@
 	else
 		selected = selected_equipment_in_hands[MECH_HAND_LEFT]
 	if(GLOB.pacifism_after_gt)
-		var/mob/living/L = user
+		var/mob/living/living = user
 		if(!Adjacent(target))
 			if(selected && selected.is_ranged())
 				if(selected.harmful)
-					to_chat(L, span_warning("Вы не хотите навредить другим живым существам!"))
+					to_chat(living, span_warning("Вы не хотите навредить другим живым существам!"))
 					return
 				selected.action(target, modifiers)
 		else if(selected && selected.is_melee())
@@ -356,24 +356,24 @@
 		target = safepick(view(3,target))
 		if(!target)
 			return
-	var/mob/living/L = user
+	var/mob/living/living = user
 	if(selected && selected.is_ranged())
-		if(HAS_TRAIT(L, TRAIT_PACIFISM) && selected.harmful)
-			to_chat(L, span_warning("Вы не хотите навредить другим живым существам!!"))
+		if(HAS_TRAIT(living, TRAIT_PACIFISM) && selected.harmful)
+			to_chat(living, span_warning("Вы не хотите навредить другим живым существам!!"))
 			return
 		if(user.mind?.martial_art?.no_guns)
-			to_chat(L, span_warning("[L.mind.martial_art.no_guns_message]"))
+			to_chat(living, span_warning("[living.mind.martial_art.no_guns_message]"))
 			return
 		if(!Adjacent(target))
 			selected.action(target, modifiers)
 			return
 		else
-			if(L.a_intent == INTENT_HELP) // point blank shooting
+			if(living.a_intent == INTENT_HELP) // point blank shooting
 				selected.action(target, modifiers)
 				return
 	else if(selected && selected.is_melee())
-		if(isliving(target) && selected.harmful && HAS_TRAIT(L, TRAIT_PACIFISM))
-			to_chat(L, span_warning("Вы не хотите навредить другим живым существам!!"))
+		if(isliving(target) && selected.harmful && HAS_TRAIT(living, TRAIT_PACIFISM))
+			to_chat(living, span_warning("Вы не хотите навредить другим живым существам!!"))
 			return
 		selected.action(target, modifiers)
 		return
@@ -519,10 +519,10 @@
 			last_message = world.time
 		return FALSE
 
-	for(var/obj/item/mecha_parts/mecha_equipment/cage/H in equipment)
-		if(H.holding)
-			occupant_message(span_notice("Вы перестаёте удерживать [H.holding.declent_ru(ACCUSATIVE)]."))
-			H.stop_supressing(H.holding)
+	for(var/obj/item/mecha_parts/mecha_equipment/cage/cage in equipment)
+		if(cage.holding)
+			occupant_message(span_notice("Вы перестаёте удерживать [cage.holding.declent_ru(ACCUSATIVE)]."))
+			cage.stop_supressing(cage.holding)
 
 	//Turns strafe OFF if not enough energy to step (with actuator module only)
 	if(strafe && actuator && !has_charge(actuator.energy_per_step))
@@ -544,10 +544,10 @@
 		move_result = mechsteprand()
 		move_type = MECHAMOVE_RAND
 	else if(direction & (UP|DOWN))
-		var/turf/T = get_turf(loc)
-		if(!isturf(T))
+		var/turf/turf = get_turf(loc)
+		if(!isturf(turf))
 			return
-		var/turf/above = GET_TURF_ABOVE(T)
+		var/turf/above = GET_TURF_ABOVE(turf)
 		if(!(direction & UP) || !can_z_move(DOWN, above, null, ZMOVE_FALL_FLAGS|ZMOVE_CAN_FLY_CHECKS|ZMOVE_FEEDBACK, occupant))
 			if(zMove(direction, z_move_flags = ZMOVE_FLIGHT_FLAGS))
 				playsound(src, stepsound, 40, TRUE)
@@ -597,9 +597,9 @@
 	if(move_type & (MECHAMOVE_RAND | MECHAMOVE_STEP) && occupant)
 		var/obj/machinery/atmospherics/unary/portables_connector/possible_port = locate(/obj/machinery/atmospherics/unary/portables_connector) in loc
 		if(possible_port)
-			var/atom/movable/screen/alert/mech_port_available/A = occupant.throw_alert("mechaport", /atom/movable/screen/alert/mech_port_available, override = TRUE)
-			if(A)
-				A.target = possible_port
+			var/atom/movable/screen/alert/mech_port_available/mech_port_available = occupant.throw_alert("mechaport", /atom/movable/screen/alert/mech_port_available, override = TRUE)
+			if(mech_port_available)
+				mech_port_available.target = possible_port
 		else
 			occupant.clear_alert("mechaport", TRUE)
 	if(leg_overload_mode)
@@ -1464,9 +1464,9 @@
 		occupant = brainmob
 		brainmob.forceMove(src) //should allow relaymove
 		if(istype(mmi_as_oc, /obj/item/mmi/robotic_brain))
-			var/obj/item/mmi/robotic_brain/R = mmi_as_oc
-			if(R.imprinted_master)
-				to_chat(brainmob, span_notice("Your imprint to [R.imprinted_master] has been temporarily disabled. You should help the crew and not commit harm."))
+			var/obj/item/mmi/robotic_brain/robotic_brain = mmi_as_oc
+			if(robotic_brain.imprinted_master)
+				to_chat(brainmob, span_notice("Your imprint to [robotic_brain.imprinted_master] has been temporarily disabled. You should help the crew and not commit harm."))
 		mmi_as_oc.mecha = src
 		Entered(mmi_as_oc)
 		Move(loc)
@@ -1513,10 +1513,10 @@
 	occupant.clear_alert("mechaport")
 	occupant.clear_alert("mechaport_d")
 
-	for(var/obj/item/mecha_parts/mecha_equipment/cage/H in equipment)
-		if(H.holding)
-			occupant_message(span_notice("Вы перестаёте удерживать [H.holding]."))
-			H.stop_supressing(H.holding)
+	for(var/obj/item/mecha_parts/mecha_equipment/cage/cage in equipment)
+		if(cage.holding)
+			occupant_message(span_notice("Вы перестаёте удерживать [cage.holding]."))
+			cage.stop_supressing(cage.holding)
 
 	if(occupant?.client)
 		occupant.client.mouse_override_icon = null
@@ -1563,37 +1563,37 @@
 	else
 		return
 
-	var/mob/living/L = occupant
+	var/mob/living/living = occupant
 	occupant = null //we need it null when forceMove calls Exited().
 
 	if(mob_container.forceMove(newloc))//ejecting mob container
-		close_window(L, "exosuit")
+		close_window(living, "exosuit")
 
 		if(is_mmi(mob_container))
 			var/obj/item/mmi/mmi = mob_container
 			if(mmi.brainmob)
-				L.forceMove(mmi)
-				L.reset_perspective()
+				living.forceMove(mmi)
+				living.reset_perspective()
 
 			mmi.mecha = null
 			mmi.update_icon()
 
 			if(istype(mmi, /obj/item/mmi/robotic_brain))
-				var/obj/item/mmi/robotic_brain/R = mmi
-				if(R.imprinted_master)
-					to_chat(L, span_notice("Imprint re-enabled, you are once again bound to [R.imprinted_master]'s commands."))
+				var/obj/item/mmi/robotic_brain/robotic_brain = mmi
+				if(robotic_brain.imprinted_master)
+					to_chat(living, span_notice("Imprint re-enabled, you are once again bound to [robotic_brain.imprinted_master]'s commands."))
 
 		update_icon(UPDATE_ICON_STATE)
 		dir = dir_in
 
-	if(L?.client)
+	if(living?.client)
 		ASYNC
-			L.client.RemoveViewMod("mecha")
+			living.client.RemoveViewMod("mecha")
 		zoom_mode = FALSE
 
-	if(ishuman(L))
-		var/mob/living/carbon/human/H = L
-		H.regenerate_icons() // workaround for 14457
+	if(ishuman(living))
+		var/mob/living/carbon/human/cage = living
+		cage.regenerate_icons() // workaround for 14457
 
 /obj/mecha/force_eject_occupant(mob/target)
 	go_out()
@@ -1641,8 +1641,8 @@
 	return (get_charge()>=amount)
 
 /obj/mecha/proc/get_charge()
-	for(var/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/R in equipment)
-		var/relay_charge = R.get_charge()
+	for(var/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/tesla_energy_relay in equipment)
+		var/relay_charge = tesla_energy_relay.get_charge()
 		if(relay_charge)
 			return relay_charge
 	if(cell)

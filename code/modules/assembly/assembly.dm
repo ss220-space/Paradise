@@ -75,8 +75,8 @@
 	if(holder && (wires & WIRE_PULSE_SPECIAL))
 		holder.process_activation(src, FALSE, TRUE, user)
 	if(isgrenade(loc)) // This is a hack.  Todo: Manage this better -Sayu
-		var/obj/item/grenade/G = loc
-		G.prime(user)                // Adios, muchachos
+		var/obj/item/grenade/grenade = loc
+		grenade.prime(user)                // Adios, muchachos
 	return TRUE
 
 /// What the device does when turned on

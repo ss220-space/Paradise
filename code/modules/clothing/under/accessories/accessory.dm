@@ -546,9 +546,9 @@
 	burn_up()
 
 /obj/item/clothing/accessory/medal/plasma/proc/burn_up()
-	var/turf/simulated/T = get_turf(src)
-	if(istype(T))
-		T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS | LINDA_SPAWN_OXYGEN, 10) //Technically twice as much plasma as it should spawn but a little more never hurt anyone.
+	var/turf/simulated/simulated = get_turf(src)
+	if(istype(simulated))
+		simulated.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS | LINDA_SPAWN_OXYGEN, 10) //Technically twice as much plasma as it should spawn but a little more never hurt anyone.
 	visible_message(span_warning("[src] bursts into flame!"))
 	qdel(src)
 

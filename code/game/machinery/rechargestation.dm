@@ -209,8 +209,8 @@
 			var/obj/item/gun/energy/egun = module
 			var/obj/item/stock_parts/cell/gun_cell = egun.get_cell()
 			if(gun_cell.charge < gun_cell.maxcharge)
-				var/obj/item/ammo_casing/energy/E = egun.ammo_type[egun.select]
-				gun_cell.give(E.e_cost)
+				var/obj/item/ammo_casing/energy/energy = egun.ammo_type[egun.select]
+				gun_cell.give(energy.e_cost)
 				egun.on_recharge()
 				egun.update_appearance(UPDATE_ICON)
 			else
@@ -302,9 +302,9 @@
 		can_accept_user = TRUE
 
 	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
+		var/mob/living/carbon/human/human = user
 
-		if(!H.get_int_organ(/obj/item/organ/internal/cell) && !H.get_int_organ(/obj/item/organ/internal/cyberimp/brain/bci) && !(ismodcontrol(H.back)))
+		if(!human.get_int_organ(/obj/item/organ/internal/cell) && !human.get_int_organ(/obj/item/organ/internal/cyberimp/brain/bci) && !(ismodcontrol(human.back)))
 			return
 
 		can_accept_user = TRUE

@@ -556,13 +556,13 @@
 	reset_perspective(card)
 
 // If we are being held, handle removing our holder from their inv.
-	var/obj/item/holder/H = loc
-	if(istype(H))
-		var/mob/living/M = H.loc
-		if(istype(M))
-			M.drop_item_ground(H)
-		H.loc = get_turf(src)
-		loc = get_turf(H)
+	var/obj/item/holder/holder = loc
+	if(istype(holder))
+		var/mob/living/living = holder.loc
+		if(istype(living))
+			living.drop_item_ground(holder)
+		holder.loc = get_turf(src)
+		loc = get_turf(holder)
 
 	// Move us into the card and move the card to the ground
 	//This seems redundant but not including the forced loc setting messes the behavior up.

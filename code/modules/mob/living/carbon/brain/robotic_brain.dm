@@ -94,9 +94,9 @@
 	reset_search()
 
 /obj/item/mmi/robotic_brain/proc/request_player()
-	for(var/mob/dead/observer/O in GLOB.player_list)
-		if(check_observer(O))
-			to_chat(O, span_boldnotice("[src] has been activated. (<a href='byond://?src=[O.UID()];jump=[src.UID()]'>Teleport</a> | <a href='byond://?src=[UID()];signup=[O.UID()]'>Sign Up</a>)"))
+	for(var/mob/dead/observer/observer in GLOB.player_list)
+		if(check_observer(observer))
+			to_chat(observer, span_boldnotice("[src] has been activated. (<a href='byond://?src=[observer.UID()];jump=[src.UID()]'>Teleport</a> | <a href='byond://?src=[UID()];signup=[observer.UID()]'>Sign Up</a>)"))
 
 /obj/item/mmi/robotic_brain/proc/check_observer(mob/dead/observer/O)
 	if(cannotPossess(O))

@@ -335,11 +335,11 @@
 		blob_mob.Goto(pick(surrounding_turfs), blob_mob.move_to_delay)
 
 /mob/camera/blob/proc/split_consciousness()
-	var/turf/T = get_turf(src)
-	if(!T)
+	var/turf/turf = get_turf(src)
+	if(!turf)
 		return
-	var/area/Ablob = get_area(T)
-	if(isspaceturf(T) || Ablob && !(Ablob.area_flags & BLOBS_ALLOWED))
+	var/area/Ablob = get_area(turf)
+	if(isspaceturf(turf) || Ablob && !(Ablob.area_flags & BLOBS_ALLOWED))
 		to_chat(src, span_warning("Вы не можете поделиться вне станции!"))
 		balloon_alert(src, "нельзя поделиться вне станции!")
 		return FALSE
@@ -352,8 +352,8 @@
 		balloon_alert(src, "вы сами потомок блоба!")
 		return
 
-	var/obj/structure/blob/N = (locate(/obj/structure/blob) in T)
-	if(N && !istype(N, /obj/structure/blob/special/node))
+	var/obj/structure/blob/blob = (locate(/obj/structure/blob) in turf)
+	if(blob && !istype(blob, /obj/structure/blob/special/node))
 		to_chat(src, span_warning("Для создания вашего потомка необходим узел."))
 		balloon_alert(src, "необходим узел!")
 		return
@@ -362,8 +362,8 @@
 		return
 
 	split_used = TRUE
-	new /obj/structure/blob/special/core/ (get_turf(N), null, TRUE)
-	qdel(N)
+	new /obj/structure/blob/special/core/ (get_turf(blob), null, TRUE)
+	qdel(blob)
 
 /** Opens the reroll menu to change strains */
 /mob/camera/blob/proc/strain_reroll()

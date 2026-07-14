@@ -33,8 +33,8 @@
 	if(!center)
 		return FALSE
 
-	for(var/turf/T in range(center, range))
-		if(!issimulatedturf(T) || !T.is_safe())
+	for(var/turf/turf in range(center, range))
+		if(!issimulatedturf(turf) || !turf.is_safe())
 			return FALSE
 
 	return TRUE

@@ -16,19 +16,19 @@
 /obj/structure/blob/special/proc/reinforce_area(seconds_per_tick) // Used by cores and nodes to upgrade their surroundings
 	if(strong_reinforce_range)
 		if(is_there_multiz())
-			for(var/obj/structure/blob/normal/B in urange_multiz(strong_reinforce_range, src))
-				reinforce_tile(B, /obj/structure/blob/shield/core, seconds_per_tick)
+			for(var/obj/structure/blob/normal/normal in urange_multiz(strong_reinforce_range, src))
+				reinforce_tile(normal, /obj/structure/blob/shield/core, seconds_per_tick)
 		else
-			for(var/obj/structure/blob/normal/B in range(strong_reinforce_range, src))
-				reinforce_tile(B, /obj/structure/blob/shield/core, seconds_per_tick)
+			for(var/obj/structure/blob/normal/normal in range(strong_reinforce_range, src))
+				reinforce_tile(normal, /obj/structure/blob/shield/core, seconds_per_tick)
 
 	if(reflector_reinforce_range)
 		if(is_there_multiz())
-			for(var/obj/structure/blob/shield/B in urange_multiz(reflector_reinforce_range, src))
-				reinforce_tile(B, /obj/structure/blob/shield/reflective/core, seconds_per_tick)
+			for(var/obj/structure/blob/shield/normal in urange_multiz(reflector_reinforce_range, src))
+				reinforce_tile(normal, /obj/structure/blob/shield/reflective/core, seconds_per_tick)
 		else
-			for(var/obj/structure/blob/shield/B in range(reflector_reinforce_range, src))
-				reinforce_tile(B, /obj/structure/blob/shield/reflective/core, seconds_per_tick)
+			for(var/obj/structure/blob/shield/normal in range(reflector_reinforce_range, src))
+				reinforce_tile(normal, /obj/structure/blob/shield/reflective/core, seconds_per_tick)
 
 /obj/structure/blob/special/proc/reinforce_tile(obj/structure/blob/B, type, seconds_per_tick)
 	if(SPT_PROB(BLOB_REINFORCE_CHANCE, seconds_per_tick))
@@ -46,28 +46,28 @@
 		for(var/obj/structure/blob/blob in urange_multiz(claim_range, src, 1))
 			blobs_to_affect += blob
 	else
-		for(var/obj/structure/blob/B in urange(claim_range, src, 1))
-			blobs_to_affect += B
+		for(var/obj/structure/blob/blob in urange(claim_range, src, 1))
+			blobs_to_affect += blob
 	shuffle_inplace(blobs_to_affect)
 	for(var/L in blobs_to_affect)
-		var/obj/structure/blob/B = L
-		if(!is_location_within_transition_boundaries(get_turf(B)))
+		var/obj/structure/blob/blob = L
+		if(!is_location_within_transition_boundaries(get_turf(blob)))
 			continue
-		if(!B.overmind && overmind && prob(30) && !istype(B, /obj/structure/blob/special/core))
-			B.link_to_overmind(pulsing_overmind) //reclaim unclaimed, non-core blobs.
-			B.update_blob()
-		var/distance = get_dist(get_turf(src), get_turf(B))
+		if(!blob.overmind && overmind && prob(30) && !istype(blob, /obj/structure/blob/special/core))
+			blob.link_to_overmind(pulsing_overmind) //reclaim unclaimed, non-core blobs.
+			blob.update_blob()
+		var/distance = get_dist(get_turf(src), get_turf(blob))
 		var/expand_probablity = max(20 - distance * 8, 1)
-		if(B.Adjacent(src))
+		if(blob.Adjacent(src))
 			expand_probablity = 20
 		if(distance <= expand_range)
 			var/can_expand = TRUE
-			if(length(blobs_to_affect) >= 120 && !(COOLDOWN_FINISHED(B, heal_timestamp)))
+			if(length(blobs_to_affect) >= 120 && !(COOLDOWN_FINISHED(blob, heal_timestamp)))
 				can_expand = FALSE
-			if(can_expand && COOLDOWN_FINISHED(B, pulse_timestamp) && prob(expand_probablity*BLOB_EXPAND_CHANCE_MULTIPLIER))
+			if(can_expand && COOLDOWN_FINISHED(blob, pulse_timestamp) && prob(expand_probablity*BLOB_EXPAND_CHANCE_MULTIPLIER))
 				if(!expanded)
-					var/obj/structure/blob/newB = B.expand(null, null, !expanded) //expansion falls off with range but is faster near the blob causing the expansion
+					var/obj/structure/blob/newB = blob.expand(null, null, !expanded) //expansion falls off with range but is faster near the blob causing the expansion
 					if(newB)
 						expanded = TRUE
 		if(distance <= pulse_range)
-			B.Be_Pulsed()
+			blob.Be_Pulsed()

@@ -245,13 +245,13 @@
 		return
 
 	for(var/A in GLOB.PDAs)
-		var/obj/item/pda/P = A
-		var/datum/data/pda/app/messenger/recipient_messenger = P.find_program(/datum/data/pda/app/messenger)
+		var/obj/item/pda/pda = A
+		var/datum/data/pda/app/messenger/recipient_messenger = pda.find_program(/datum/data/pda/app/messenger)
 
-		if(!P.owner || !recipient_messenger || recipient_messenger.hidden || P == pda || recipient_messenger.toff)
+		if(!pda.owner || !recipient_messenger || recipient_messenger.hidden || pda == pda || recipient_messenger.toff)
 			continue
 
-		var/name = P.owner
+		var/name = pda.owner
 		if(name in names)
 			namecounts[name]++
 			name = text("[name] ([namecounts[name]])")
@@ -259,7 +259,7 @@
 			names.Add(name)
 			namecounts[name] = 1
 
-		plist[text("[name]")] = P
+		plist[text("[name]")] = pda
 	return plist
 
 /datum/data/pda/app/messenger/proc/can_receive()

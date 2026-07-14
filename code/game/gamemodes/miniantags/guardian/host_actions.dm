@@ -131,8 +131,8 @@
 	if(!G || !istype(G))
 		return
 	for(var/action in subtypesof(/datum/action/guardian))
-		var/datum/action/guardian/A = new action
-		A.Grant(src, G)
+		var/datum/action/guardian/guardian = new action
+		guardian.Grant(src, G)
 
 /**
  * Removes all `/datum/action/guardian` type actions from the src mob.
@@ -141,6 +141,6 @@
  */
 /mob/living/proc/remove_guardian_actions()
 	for(var/action in actions)
-		var/datum/action/A = action
-		if(istype(A, /datum/action/guardian))
-			A.Remove(src)
+		var/datum/action/action_datum = action
+		if(istype(action_datum, /datum/action/guardian))
+			action_datum.Remove(src)

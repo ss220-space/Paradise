@@ -42,10 +42,10 @@ DEBUG
 // AA 2020-11-25: This entire proc isnt even called. What the actual fuck.
 /proc/appearance_loadbanfile()
 	if(CONFIG_GET(flag/ban_legacy_system))
-		var/savefile/S=new("data/appearance_full.ban")
-		S["keys[0]"] >> GLOB.appearance_keylist
+		var/savefile/savefile=new("data/appearance_full.ban")
+		savefile["keys[0]"] >> GLOB.appearance_keylist
 		log_admin("Loading appearance_rank")
-		S["runonce"] >> GLOB.appearanceban_runonce
+		savefile["runonce"] >> GLOB.appearanceban_runonce
 
 		if(!length(GLOB.appearance_keylist))
 			GLOB.appearance_keylist=list()
@@ -72,8 +72,8 @@ DEBUG
 		qdel(appearanceban_query)
 
 /proc/appearance_savebanfile()
-	var/savefile/S=new("data/appearance_full.ban")
-	to_chat(S["keys[0]"], GLOB.appearance_keylist)
+	var/savefile/savefile=new("data/appearance_full.ban")
+	to_chat(savefile["keys[0]"], GLOB.appearance_keylist)
 
 /proc/appearance_unban(mob/M)
 	appearance_remove("[M.ckey]")

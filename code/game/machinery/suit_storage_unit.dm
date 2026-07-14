@@ -600,8 +600,8 @@
 			if(AM.has_buckled_mobs())
 				continue
 			if(isliving(AM))
-				var/mob/living/L = am
-				if(L.buckled || L.mob_size >= MOB_SIZE_LARGE)
+				var/mob/living/living = am
+				if(living.buckled || living.mob_size >= MOB_SIZE_LARGE)
 					continue
 			target = am
 

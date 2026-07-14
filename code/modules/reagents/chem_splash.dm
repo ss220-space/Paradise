@@ -9,10 +9,10 @@
 		return
 	var/has_reagents
 	var/total_reagents
-	for(var/datum/reagents/R in reactants)
-		if(R.total_volume)
+	for(var/datum/reagents/reagents in reactants)
+		if(reagents.total_volume)
 			has_reagents = 1
-			total_reagents += R.total_volume
+			total_reagents += reagents.total_volume
 
 	if(!has_reagents)
 		return
@@ -21,9 +21,9 @@
 	splash_holder.my_atom = epicenter // For some reason this is setting my_atom to null, and causing runtime errors.
 	var/total_temp = 0
 
-	for(var/datum/reagents/R in reactants)
-		R.trans_to(splash_holder, R.total_volume, threatscale, 1, 1)
-		total_temp += R.chem_temp
+	for(var/datum/reagents/reagents in reactants)
+		reagents.trans_to(splash_holder, reagents.total_volume, threatscale, 1, 1)
+		total_temp += reagents.chem_temp
 	splash_holder.set_reagent_temp((total_temp / length(reactants)) + extra_heat) // Average temperature of reagents + extra heat.
 
 	if(splash_holder.total_volume && affected_range >= 0)	//The possible reactions didnt use up all reagents, so we spread it around.
@@ -37,38 +37,38 @@
 		var/list/accessible = list(epicenter)
 		for(var/i=1; i<=affected_range; i++)
 			var/list/turflist = list()
-			for(var/turf/T in (orange(i, epicenter) - orange(i-1, epicenter)))
-				turflist |= T
-			for(var/turf/T in turflist)
-				if(!(get_dir(T,epicenter) in GLOB.cardinal) && (abs(T.x - epicenter.x) == abs(T.y - epicenter.y)))
-					turflist.Remove(T)
-					turflist.Add(T) // we move the purely diagonal turfs to the end of the list.
-			for(var/turf/T in turflist)
-				if(accessible[T])
+			for(var/turf/turf in (orange(i, epicenter) - orange(i-1, epicenter)))
+				turflist |= turf
+			for(var/turf/turf in turflist)
+				if(!(get_dir(turf,epicenter) in GLOB.cardinal) && (abs(turf.x - epicenter.x) == abs(turf.y - epicenter.y)))
+					turflist.Remove(turf)
+					turflist.Add(turf) // we move the purely diagonal turfs to the end of the list.
+			for(var/turf/turf in turflist)
+				if(accessible[turf])
 					continue
-				for(var/thing in T.GetAtmosAdjacentTurfs(TRUE))
+				for(var/thing in turf.GetAtmosAdjacentTurfs(TRUE))
 					var/turf/NT = thing
 					if(!(NT in accessible))
 						continue
-					if(!(get_dir(T,NT) in GLOB.cardinal))
+					if(!(get_dir(turf,NT) in GLOB.cardinal))
 						continue
-					accessible[T] = 1
+					accessible[turf] = 1
 					break
 		var/list/reactable = accessible
-		for(var/turf/T in accessible)
-			for(var/atom/A in T.get_all_contents())
-				if(!(A in viewable))
+		for(var/turf/turf in accessible)
+			for(var/atom/atom in turf.get_all_contents())
+				if(!(atom in viewable))
 					continue
-				reactable |= A
+				reactable |= atom
 			if(extra_heat >= 300)
-				T.hotspot_expose(extra_heat*2, 5)
+				turf.hotspot_expose(extra_heat*2, 5)
 		if(!length(reactable)) //Nothing to react with. Probably means we're in nullspace.
 			return
 		for(var/thing in reactable)
-			var/atom/A = thing
-			var/distance = max(1,get_dist(A, epicenter))
+			var/atom/atom = thing
+			var/distance = max(1,get_dist(atom, epicenter))
 			var/fraction = 0.5/(2 ** distance) //50/25/12/6... for a 200u splash, 25/12/6/3... for a 100u, 12/6/3/1 for a 50u
-			splash_holder.reaction(A, REAGENT_TOUCH, fraction)
+			splash_holder.reaction(atom, REAGENT_TOUCH, fraction)
 
 	qdel(splash_holder)
 	return 1

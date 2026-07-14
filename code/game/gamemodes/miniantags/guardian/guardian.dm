@@ -239,9 +239,9 @@ GLOBAL_LIST_EMPTY(parasites)
 	add_say_logs(src, input, summoner, "Guardian")
 
 	// Show the message to any ghosts/dead players.
-	for(var/mob/M in GLOB.dead_mob_list)
-		if(M?.client && M.stat == DEAD && !isnewplayer(M))
-			to_chat(M, span_alien("([ghost_follow_link(src, ghost = M)]) <i>Сообщение Стража <b>[src]</b>: [input]</i>"))
+	for(var/mob/mob in GLOB.dead_mob_list)
+		if(mob?.client && mob.stat == DEAD && !isnewplayer(mob))
+			to_chat(mob, span_alien("([ghost_follow_link(src, ghost = mob)]) <i>Сообщение Стража <b>[src]</b>: [input]</i>"))
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleMode()
 	to_chat(src, span_danger("У вас нет другого режима!"))
@@ -382,21 +382,21 @@ GLOBAL_LIST_EMPTY(parasites)
 		if("Защитник")
 			pickedtype = /mob/living/simple_animal/hostile/guardian/protector
 
-	var/mob/living/simple_animal/hostile/guardian/G = new pickedtype(user, user)
-	G.summoned = TRUE
-	G.possess_by_player(key)
-	SSticker.mode.guardians |= G.mind
-	to_chat(G, "Вы [mob_name], обязанный служить [user.real_name].")
-	to_chat(G, "Вы можете появляться или возвращаться к вашему хозяину с помощью кнопок на панели Стража. Там же вы найдете кнопку связи с хозяином.")
-	to_chat(G, "Хотя вы лично неуязвимы, ваша жизнь зависит от [user.real_name]. Если [GEND_HE_SHE(user)] погибн[PLUR_ET_UT(user)] — умрёте и вы. Кроме того, любой полученный вами урон будет передан [GEND_HIM_HER(user)], так как вы существуете за счёт [GEND_HIS_HER(user)] жизненной силы.")
-	to_chat(G, "[G.playstyle_string]")
-	G.faction = user.faction
+	var/mob/living/simple_animal/hostile/guardian/guardian = new pickedtype(user, user)
+	guardian.summoned = TRUE
+	guardian.possess_by_player(key)
+	SSticker.mode.guardians |= guardian.mind
+	to_chat(guardian, "Вы [mob_name], обязанный служить [user.real_name].")
+	to_chat(guardian, "Вы можете появляться или возвращаться к вашему хозяину с помощью кнопок на панели Стража. Там же вы найдете кнопку связи с хозяином.")
+	to_chat(guardian, "Хотя вы лично неуязвимы, ваша жизнь зависит от [user.real_name]. Если [GEND_HE_SHE(user)] погибн[PLUR_ET_UT(user)] — умрёте и вы. Кроме того, любой полученный вами урон будет передан [GEND_HIM_HER(user)], так как вы существуете за счёт [GEND_HIS_HER(user)] жизненной силы.")
+	to_chat(guardian, "[guardian.playstyle_string]")
+	guardian.faction = user.faction
 
 	var/color = pick(color_list)
-	G.name_color = color_list[color]
+	guardian.name_color = color_list[color]
 	var/picked_name = pick(name_list)
-	create_theme(G, user, picked_name, color)
-	G.client?.init_verbs()
+	create_theme(guardian, user, picked_name, color)
+	guardian.client?.init_verbs()
 
 /obj/item/guardiancreator/proc/create_theme(mob/living/simple_animal/hostile/guardian/G, mob/living/user, picked_name, color)
 	G.name = "[picked_name] [color]"

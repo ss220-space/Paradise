@@ -229,13 +229,13 @@
 	addtimer(CALLBACK(src, PROC_REF(summon_sax), user), 20)
 
 /obj/item/fluff/dogwhistle/proc/summon_sax(mob/user)
-	var/mob/living/simple_animal/pet/dog/corgi/C = new /mob/living/simple_animal/pet/dog/corgi(get_turf(user))
-	C.name = "Sax"
-	C.real_name = "Sax"
-	var/obj/item/clothing/head/det_hat/D = new
-	ADD_TRAIT(D, TRAIT_NODROP, CURSED_ITEM_TRAIT(D.type))
-	C.place_on_head(D)
-	C.visible_message(span_notice("[C] suddenly winks into existence at [user]'s feet!"))
+	var/mob/living/simple_animal/pet/dog/corgi/corgi = new /mob/living/simple_animal/pet/dog/corgi(get_turf(user))
+	corgi.name = "Sax"
+	corgi.real_name = "Sax"
+	var/obj/item/clothing/head/det_hat/det_hat = new
+	ADD_TRAIT(det_hat, TRAIT_NODROP, CURSED_ITEM_TRAIT(det_hat.type))
+	corgi.place_on_head(det_hat)
+	corgi.visible_message(span_notice("[corgi] suddenly winks into existence at [user]'s feet!"))
 	to_chat(user, span_danger("[src] crumbles to dust in your hands!"))
 	user.temporarily_remove_item_from_inventory(src)
 	qdel(src)
@@ -1220,8 +1220,8 @@
 	icon_state = plush_colors[plushie_color]
 
 	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		var/datum/action/action = X
+		action.UpdateButtonIcon()
 
 /obj/item/toy/plushie/fluff/fox/ui_action_click(mob/user, datum/action/action, leftclick)
 	change_color()

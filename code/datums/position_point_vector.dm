@@ -1,9 +1,9 @@
 /proc/point_midpoint_points(datum/point_precise/a, datum/point_precise/b) //Obviously will not support multiZ calculations! Same for the two below.
-	var/datum/point_precise/P = new
-	P.x = a.x + (b.x - a.x) * 0.5
-	P.y = a.y + (b.y - a.y) * 0.5
-	P.z = a.z
-	return P
+	var/datum/point_precise/point_precise = new
+	point_precise.x = a.x + (b.x - a.x) * 0.5
+	point_precise.y = a.y + (b.y - a.y) * 0.5
+	point_precise.z = a.z
+	return point_precise
 
 /proc/pixel_length_between_points(datum/point_precise/a, datum/point_precise/b)
 	var/dx = (b.x - a.x)
@@ -100,8 +100,8 @@
 		z = tile_z
 
 /datum/point_precise/proc/debug_out()
-	var/turf/T = return_turf()
-	return "\ref[src] aX [x] aY [y] aZ [z] pX [return_px()] pY [return_py()] mX [T.x] mY [T.y] mZ [T.z]"
+	var/turf/turf = return_turf()
+	return "\ref[src] aX [x] aY [y] aZ [z] pX [return_px()] pY [return_py()] mX [turf.x] mY [turf.y] mZ [turf.z]"
 
 /datum/point_precise/proc/move_atom_to_src(atom/movable/AM)
 	AM.forceMove(return_turf())
@@ -197,13 +197,13 @@
 	y += mpy * (multiplier)
 
 /datum/point_precise/vector/proc/return_vector_after_increments(amount = 7, multiplier = 1, force_simulate = FALSE)
-	var/datum/point_precise/vector/v = copy_to()
+	var/datum/point_precise/vector/vector = copy_to()
 	if(force_simulate)
 		for(var/i in 1 to amount)
-			v.increment(multiplier)
+			vector.increment(multiplier)
 	else
-		v.increment(multiplier * amount)
-	return v
+		vector.increment(multiplier * amount)
+	return vector
 
 /datum/point_precise/vector/proc/on_z_change()
 	return

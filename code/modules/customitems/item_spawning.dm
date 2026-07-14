@@ -37,31 +37,31 @@
 		var/description = query.item[4]
 		var/newname = query.item[5]
 		if(is_id_card(Item))
-			var/obj/item/card/id/I = Item
-			for(var/obj/item/card/id/C in M)
+			var/obj/item/card/id/id = Item
+			for(var/obj/item/card/id/mob_id in M)
 				//default settings
-				I.name = "[M.real_name]’s ID Card ([M.mind.role_alt_title ? M.mind.role_alt_title : M.mind.assigned_role])"
-				I.registered_name = M.real_name
-				I.access = C.access
-				I.assignment = C.assignment
-				I.blood_type = C.blood_type
-				I.dna_hash = C.dna_hash
-				I.fingerprint_hash = C.fingerprint_hash
-				qdel(C)
-				ok = M.equip_or_collect(I, ITEM_SLOT_ID)
+				id.name = "[M.real_name]’s ID Card ([M.mind.role_alt_title ? M.mind.role_alt_title : M.mind.assigned_role])"
+				id.registered_name = M.real_name
+				id.access = mob_id.access
+				id.assignment = mob_id.assignment
+				id.blood_type = mob_id.blood_type
+				id.dna_hash = mob_id.dna_hash
+				id.fingerprint_hash = mob_id.fingerprint_hash
+				qdel(mob_id)
+				ok = M.equip_or_collect(id, ITEM_SLOT_ID)
 				break
 		else if(isstorage(M.back)) // Try to place it in something on the mob's back
-			var/obj/item/storage/S = M.back
-			if(length(S.contents) < S.storage_slots)
+			var/obj/item/storage/storage = M.back
+			if(length(storage.contents) < storage.storage_slots)
 				Item.loc = M.back
 				ok = 1
 				to_chat(M, span_notice("Your [Item.name] has been added to your [M.back.name]."))
 		if(ok == 0)
-			for(var/obj/item/storage/S in M.contents) // Try to place it in any item that can store stuff, on the mob.
-				if(length(S.contents) < S.storage_slots)
-					Item.loc = S
+			for(var/obj/item/storage/storage in M.contents) // Try to place it in any item that can store stuff, on the mob.
+				if(length(storage.contents) < storage.storage_slots)
+					Item.loc = storage
 					ok = 1
-					to_chat(M, span_notice("Your [Item.name] has been added to your [S.name]."))
+					to_chat(M, span_notice("Your [Item.name] has been added to your [storage.name]."))
 					break
 		if(description)
 			Item.desc = description

@@ -69,16 +69,16 @@
 	var/message_tts = message
 	message = replace_characters(message, list("+"))
 	audible_message(span_gamesay("[span_name("[user.GetVoice()]")] [user.GetAltName()] broadcasts, [span_reallybig("\"[message]\"")]"), hearing_distance = 14)
-	for(var/obj/O in range(14, get_turf(src)))
-		O.hear_talk(user, message_to_multilingual(span_reallybig("[message]")))
+	for(var/obj/obj in range(14, get_turf(src)))
+		obj.hear_talk(user, message_to_multilingual(span_reallybig("[message]")))
 
-	for(var/mob/M in get_hearers_in_view(7, src))
-		if((M.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && !HAS_TRAIT(M, TRAIT_DEAF) && M.stat != UNCONSCIOUS)
-			M.create_chat_message(user, message, list("yell"))
+	for(var/mob/mob in get_hearers_in_view(7, src))
+		if((mob.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && !HAS_TRAIT(mob, TRAIT_DEAF) && mob.stat != UNCONSCIOUS)
+			mob.create_chat_message(user, message, list("yell"))
 		var/effect = SOUND_EFFECT_MEGAPHONE
 		if(isrobot(user))
 			effect = SOUND_EFFECT_MEGAPHONE_ROBOT
-		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, user, M, message_tts, user.tts_seed, FALSE, effect)
+		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, user, mob, message_tts, user.tts_seed, FALSE, effect)
 		//log_debug("megaphone.saymsg(): [message]")
 
 /obj/item/megaphone/emag_act(mob/user)

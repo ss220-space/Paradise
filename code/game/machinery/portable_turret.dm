@@ -205,8 +205,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		icon_state = "turretCover"
 
 /obj/machinery/porta_turret/proc/HasController()
-	var/area/A = get_area(src)
-	return A && length(A.turret_controls) > 0
+	var/area/area = get_area(src)
+	return area && length(area.turret_controls) > 0
 
 /obj/machinery/porta_turret/proc/access_is_configurable()
 	return targetting_is_configurable && !HasController()
@@ -569,15 +569,15 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		return assess_and_assign(SP.pilot)
 
 	if(isvehicle(target))
-		var/obj/vehicle/T = target
-		if(T.has_buckled_mobs())
-			for(var/m in T.buckled_mobs)
+		var/obj/vehicle/vehicle = target
+		if(vehicle.has_buckled_mobs())
+			for(var/m in vehicle.buckled_mobs)
 				var/mob/living/buckled_mob = m
 				return assess_and_assign(buckled_mob)
 
 	if(isliving(target))
-		var/mob/living/C = target
-		return assess_and_assign(C)
+		var/mob/living/living = target
+		return assess_and_assign(living)
 
 /obj/machinery/porta_turret/proc/in_faction(mob/living/target)
 	if(!(faction in target.faction))
@@ -646,9 +646,9 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		return TRUE
 
 	while(length(targets))
-		var/mob/living/M = pick(targets)
-		targets -= M
-		if(target(M))
+		var/mob/living/living = pick(targets)
+		targets -= living
+		if(target(living))
 			return TRUE
 
 /obj/machinery/porta_turret/proc/popUp()	//pops the turret up
@@ -707,8 +707,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 /obj/machinery/porta_turret/proc/target(mob/living/target)
 	if(disabled)
 		return
-	for(var/obj/machinery/door/poddoor/D in get_turf(src))
-		if(D.icon_state == "closed")
+	for(var/obj/machinery/door/poddoor/poddoor in get_turf(src))
+		if(poddoor.icon_state == "closed")
 			return
 	if(target)
 		last_target = target
@@ -727,9 +727,9 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			return
 		last_fired = world.time
 
-	var/turf/T = get_turf(src)
-	var/turf/U = get_turf(target)
-	if(!istype(T) || !istype(U))
+	var/turf/source_turf = get_turf(src)
+	var/turf/target_turf = get_turf(target)
+	if(!istype(source_turf) || !istype(target_turf))
 		return
 
 	update_icon(UPDATE_ICON_STATE)
@@ -749,9 +749,9 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 	if(istype(A))
 		A.original = target
-		A.current = T
-		A.yo = U.y - T.y
-		A.xo = U.x - T.x
+		A.current = source_turf
+		A.yo = target_turf.y - source_turf.y
+		A.xo = target_turf.x - source_turf.x
 		A.fire()
 	else
 		A.throw_at(target, scan_range, 1)

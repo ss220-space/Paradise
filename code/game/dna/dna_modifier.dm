@@ -142,12 +142,12 @@
 
 /obj/machinery/dna_scannernew/proc/eject_occupant(user, force)
 	go_out(user, force)
-	for(var/obj/O in src)
-		if(!istype(O,/obj/item/circuitboard/clonescanner) && !istype(O,/obj/item/stock_parts) && !iscoil(O) && O != beaker)
-			O.forceMove(get_turf(src))//Ejects items that manage to get in there (exluding the components and beaker)
+	for(var/obj/obj in src)
+		if(!istype(obj,/obj/item/circuitboard/clonescanner) && !istype(obj,/obj/item/stock_parts) && !iscoil(obj) && obj != beaker)
+			obj.forceMove(get_turf(src))//Ejects items that manage to get in there (exluding the components and beaker)
 	if(!occupant)
-		for(var/mob/M in src)//Failsafe so you can get mobs out
-			M.forceMove(get_turf(src))
+		for(var/mob/mob in src)//Failsafe so you can get mobs out
+			mob.forceMove(get_turf(src))
 
 /obj/machinery/dna_scannernew/mouse_drop_receive(atom/movable/dropped, mob/user, params)
 	if(!istype(dropped))
@@ -255,14 +255,14 @@
 	if(occupant)
 		balloon_alert(user, "внутри кто-то есть!")
 		return
-	var/mob/living/L = M
-	if(!istype(L) || L.buckled)
+	var/mob/living/living = M
+	if(!istype(living) || living.buckled)
 		return
-	if(L.abiotic())
+	if(living.abiotic())
 		balloon_alert(user, "руки субъекта заняты!")
 		return
-	if(L.has_buckled_mobs()) //mob attached to us
-		to_chat(user, span_warning("[L] не помест[PLUR_IT_YAT(L)]ся в [declent_ru(ACCUSATIVE)], пока на [GEND_ON_IN_HIM(L)] сидит слайм!"))
+	if(living.has_buckled_mobs()) //mob attached to us
+		to_chat(user, span_warning("[living] не помест[PLUR_IT_YAT(living)]ся в [declent_ru(ACCUSATIVE)], пока на [GEND_ON_IN_HIM(living)] сидит слайм!"))
 		return
 
 	M.forceMove(src)
@@ -786,14 +786,14 @@
 
 	// Create it
 	var/datum/dna2/record/buf = buffers[buffer_id]
-	var/obj/item/dnainjector/I = new()
-	I.forceMove(loc)
-	I.name += " ([buf.name])"
+	var/obj/item/dnainjector/dnainjector = new()
+	dnainjector.forceMove(loc)
+	dnainjector.name += " ([buf.name])"
 	if(copy_buffer)
-		I.buf = buf.copy()
+		dnainjector.buf = buf.copy()
 	if(connected)
-		I.damage_coeff = connected.damage_coeff
-	return I
+		dnainjector.damage_coeff = connected.damage_coeff
+	return dnainjector
 
 /**
  * Called when the injector creation cooldown finishes
@@ -821,8 +821,8 @@
 					if(buffer_id < 1 || buffer_id > length(buffers))
 						return
 					var/datum/dna2/record/buf = buffers[buffer_id]
-					var/obj/item/dnainjector/I = create_injector(buffer_id)
-					setInjectorBlock(I, answer, buf.copy())
+					var/obj/item/dnainjector/dnainjector = create_injector(buffer_id)
+					setInjectorBlock(dnainjector, answer, buf.copy())
 				if("changeBufferLabel")
 					var/buffer_id = text2num(arguments["id"])
 					if(buffer_id < 1 || buffer_id > length(buffers))

@@ -21,8 +21,8 @@
 	//Allows liquid fuels to sometimes flow into other tiles.
 	if(amount < 0.5)
 		return
-	var/turf/simulated/S = loc
-	if(!istype(S))
+	var/turf/simulated/simulated = loc
+	if(!istype(simulated))
 		return
 	for(var/d in GLOB.cardinal)
 		if(rand(25))

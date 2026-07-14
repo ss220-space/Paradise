@@ -96,42 +96,42 @@
 
 	//human/alien mobs
 	if(iscarbon(target))
-		var/mob/living/carbon/C = target
+		var/mob/living/carbon/carbon = target
 		if(user.zone_selected == BODY_ZONE_PRECISE_EYES)
-			add_attack_logs(user, C, "Shone a laser in the eyes with [src]")
+			add_attack_logs(user, carbon, "Shone a laser in the eyes with [src]")
 
 			//20% chance to actually hit the eyes
-			if(prob(effectchance * diode.rating) && C.flash_eyes(intensity = rand(0, 2)))
-				outmsg = span_notice("You blind [C] by shining [src] in [C.p_their()] eyes.")
-				if(C.weakeyes)
-					C.Stun(2 SECONDS)
+			if(prob(effectchance * diode.rating) && carbon.flash_eyes(intensity = rand(0, 2)))
+				outmsg = span_notice("You blind [carbon] by shining [src] in [carbon.p_their()] eyes.")
+				if(carbon.weakeyes)
+					carbon.Stun(2 SECONDS)
 			else
-				outmsg = span_warning("You fail to blind [C] by shining [src] at [C.p_their()] eyes!")
+				outmsg = span_warning("You fail to blind [carbon] by shining [src] at [carbon.p_their()] eyes!")
 
 	//robots and AI
 	else if(issilicon(target))
-		var/mob/living/silicon/S = target
+		var/mob/living/silicon/silicon = target
 		//20% chance to actually hit the sensors
-		if(prob(effectchance * diode.rating) && S.flash_eyes(affect_silicon = TRUE))
-			S.Weaken(rand(10 SECONDS, 20 SECONDS))
-			to_chat(S, span_warning("Your sensors were overloaded by a [src]!"))
-			outmsg = span_notice("You overload [S] by shining [src] at [S.p_their()] sensors.")
+		if(prob(effectchance * diode.rating) && silicon.flash_eyes(affect_silicon = TRUE))
+			silicon.Weaken(rand(10 SECONDS, 20 SECONDS))
+			to_chat(silicon, span_warning("Your sensors were overloaded by a [src]!"))
+			outmsg = span_notice("You overload [silicon] by shining [src] at [silicon.p_their()] sensors.")
 
-			add_attack_logs(user, S, "shone [src] in their eyes")
+			add_attack_logs(user, silicon, "shone [src] in their eyes")
 		else
-			outmsg = span_notice("You fail to overload [S] by shining [src] at [S.p_their()] sensors.")
+			outmsg = span_notice("You fail to overload [silicon] by shining [src] at [silicon.p_their()] sensors.")
 
 	//cameras
 	else if(istype(target, /obj/machinery/camera))
-		var/obj/machinery/camera/C = target
+		var/obj/machinery/camera/carbon = target
 		if(prob(effectchance * diode.rating))
-			C.emp_act(1)
-			outmsg = span_notice("You hit the lens of [C] with [src], temporarily disabling the camera!")
+			carbon.emp_act(1)
+			outmsg = span_notice("You hit the lens of [carbon] with [src], temporarily disabling the camera!")
 
 			log_admin("[key_name(user)] EMPd a camera with a laser pointer")
-			add_attack_logs(user, C, "EMPd with [src]", ATKLOG_ALL)
+			add_attack_logs(user, carbon, "EMPd with [src]", ATKLOG_ALL)
 		else
-			outmsg = span_notice("You missed the lens of [C] with [src].")
+			outmsg = span_notice("You missed the lens of [carbon] with [src].")
 
 	//laser pointer image
 	is_pointing = TRUE

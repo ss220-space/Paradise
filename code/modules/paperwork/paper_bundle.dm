@@ -180,34 +180,34 @@
 
 /obj/item/paper_bundle/proc/show_content(mob/user)
 	var/dat = ""
-	var/obj/item/W = papers[page]
+	var/obj/item/item = papers[page]
 	switch(screen)
 		if(0)
 			dat+= "<div style='float:left; text-align:left; width:33.33333%'></div>"
-			dat+= "<div style='float:left; text-align:center; width:33.33333%'><a href='byond://?src=[UID()];remove=1'>Remove [(istype(W, /obj/item/paper)) ? "paper" : "photo"]</a></div>"
+			dat+= "<div style='float:left; text-align:center; width:33.33333%'><a href='byond://?src=[UID()];remove=1'>Remove [(istype(item, /obj/item/paper)) ? "paper" : "photo"]</a></div>"
 			dat+= "<div style='float:left; text-align:right; width:33.33333%'><a href='byond://?src=[UID()];next_page=1'>Next Page</a></div><br><hr>"
 		if(1)
 			dat+= "<div style='float:left; text-align:left; width:33.33333%'><a href='byond://?src=[UID()];prev_page=1'>Previous Page</a></div>"
-			dat+= "<div style='float:left; text-align:center; width:33.33333%'><a href='byond://?src=[UID()];remove=1'>Remove [(istype(W, /obj/item/paper)) ? "paper" : "photo"]</a></div>"
+			dat+= "<div style='float:left; text-align:center; width:33.33333%'><a href='byond://?src=[UID()];remove=1'>Remove [(istype(item, /obj/item/paper)) ? "paper" : "photo"]</a></div>"
 			dat+= "<div style='float:left; text-align:right; width:33.33333%'><a href='byond://?src=[UID()];next_page=1'>Next Page</a></div><br><hr>"
 		if(2)
 			dat+= "<div style='float:left; text-align:left; width:33.33333%'><a href='byond://?src=[UID()];prev_page=1'>Previous Page</a></div>"
-			dat+= "<div style='float:left; text-align:center; width:33.33333%'><a href='byond://?src=[UID()];remove=1'>Remove [(istype(W, /obj/item/paper)) ? "paper" : "photo"]</a></div><br><hr>"
+			dat+= "<div style='float:left; text-align:center; width:33.33333%'><a href='byond://?src=[UID()];remove=1'>Remove [(istype(item, /obj/item/paper)) ? "paper" : "photo"]</a></div><br><hr>"
 			dat+= "<div style='float;left; text-align:right; with:33.33333%'></div>"
 	if(istype(papers[page], /obj/item/paper))
-		var/obj/item/paper/P = W
-		dat += P.show_content(usr, view = 0)
-		var/datum/browser/popup = new(usr, "PaperBundle[UID()]", "", P.paper_width, P.paper_height)
+		var/obj/item/paper/paper = item
+		dat += paper.show_content(usr, view = 0)
+		var/datum/browser/popup = new(usr, "PaperBundle[UID()]", "", paper.paper_width, paper.paper_height)
 		popup.include_default_stylesheet = FALSE
 		popup.set_content(dat)
 		popup.open(FALSE)
 	else if(istype(papers[page], /obj/item/photo))
-		var/obj/item/photo/P = W
-		usr << browse_rsc(P.img, "tmp_photo.png")
-		var/datum/browser/popup = new(usr, "PaperBundle[UID()]", P.name, P.photo_size, P.photo_size)
+		var/obj/item/photo/paper = item
+		usr << browse_rsc(paper.img, "tmp_photo.png")
+		var/datum/browser/popup = new(usr, "PaperBundle[UID()]", paper.name, paper.photo_size, paper.photo_size)
 		popup.include_default_stylesheet = FALSE
 		popup.set_content(dat + "<div><img src='tmp_photo.png' width = '180'" \
-		+ "[P.scribble ? "<div><br> Written on the back:<br><i>[P.scribble]</i>" : ""]")
+		+ "[paper.scribble ? "<div><br> Written on the back:<br><i>[paper.scribble]</i>" : ""]")
 		popup.add_stylesheet("paper_bundle", 'html/css/paper_bundle.css')
 		popup.open(FALSE)
 

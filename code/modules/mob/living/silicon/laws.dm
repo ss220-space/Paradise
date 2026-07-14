@@ -152,8 +152,8 @@
 	var/list/law_options[0]
 	var/paths = subtypesof(/datum/ai_laws) - subtypesof(/datum/ai_laws/unique) // only generic laws in lawlist
 	for(var/law in paths)
-		var/datum/ai_laws/L = new law
-		if(!L.default)
+		var/datum/ai_laws/ai_laws = new law
+		if(!ai_laws.default)
 			continue
-		law_options += L
+		law_options += ai_laws
 	return pick(law_options)

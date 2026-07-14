@@ -354,11 +354,11 @@
 					var/list/choices = list()
 					var/list/already_in = list()
 					for(var/p in GLOB.cell_logs)
-						var/obj/item/paper/P = p
-						if(already_in[P.name])
+						var/obj/item/paper/paper = p
+						if(already_in[paper.name])
 							continue
-						choices += P.name
-						already_in[P.name] = TRUE
+						choices += paper.name
+						already_in[paper.name] = TRUE
 					ui_modal_choice(src, id, "Please select the cell log you would like printed:", choices = choices)
 				else
 					return FALSE
@@ -425,9 +425,9 @@
 					if(is_printing)
 						return
 					var/obj/item/paper/T
-					for(var/obj/item/paper/P in GLOB.cell_logs)
-						if(P.name == answer)
-							T = P
+					for(var/obj/item/paper/paper in GLOB.cell_logs)
+						if(paper.name == answer)
+							T = paper
 							break
 					if(!T)
 						set_temp("Cell log not found!", "danger")
@@ -444,16 +444,16 @@
  * Called when the print record timer finishes
  */
 /obj/machinery/computer/secure_data/proc/print_record_finish()
-	var/obj/item/paper/P = new(loc)
-	P.info = "<center><b>Security Record</b></center><br>"
+	var/obj/item/paper/paper = new(loc)
+	paper.info = "<center><b>Security Record</b></center><br>"
 	if(record_general && GLOB.data_core.general.Find(record_general))
-		P.info += {"Name: [record_general.fields["name"]] ID: [record_general.fields["id"]]
+		paper.info += {"Name: [record_general.fields["name"]] ID: [record_general.fields["id"]]
 				<br>\nSex: [record_general.fields["sex"]]
 				<br>\nAge: [record_general.fields["age"]]
 				<br>\nFingerprint: [record_general.fields["fingerprint"]]
 				<br>\nPhysical Status: [record_general.fields["p_stat"]]
 				<br>\nMental Status: [record_general.fields["m_stat"]]<br>"}
-		P.name = "paper - 'Security Record: [record_general.fields["name"]]'"
+		paper.name = "paper - 'Security Record: [record_general.fields["name"]]'"
 		var/obj/item/photo/photo = new(loc)
 		//photo.img = record_general.fields["photo"]
 		var/icon/new_photo = icon('icons/effects/64x32.dmi', "records")
@@ -463,9 +463,9 @@
 		photo.img = new_photo
 		photo.name = "photo - 'Security Record: [record_general.fields["name"]]'"
 	else
-		P.info += "<b>General Record Lost!</b><br>"
+		paper.info += "<b>General Record Lost!</b><br>"
 	if(record_security && GLOB.data_core.security.Find(record_security))
-		P.info += {"<br>\n<center><b>Security Data</b></center>
+		paper.info += {"<br>\n<center><b>Security Data</b></center>
 		<br>\nCriminal Status: [record_security.fields["criminal"]]<br>\n
 		<br>\nMinor Crimes: [record_security.fields["mi_crim"]]
 		<br>\nDetails: [record_security.fields["mi_crim_d"]]<br>\n
@@ -474,9 +474,9 @@
 		<br>\nImportant Notes:
 		<br>\n\t[record_security.fields["notes"]]<br>\n<br>\n<center><b>Comments/Log</b></center><br>"}
 		for(var/c in record_security.fields["comments"])
-			P.info += "[c]<br>"
+			paper.info += "[c]<br>"
 	else
-		P.info += "<b>Security Record Lost!</b><br>"
+		paper.info += "<b>Security Record Lost!</b><br>"
 	is_printing = FALSE
 	SStgui.update_uis(src)
 
@@ -484,9 +484,9 @@
  * Called when the print cell log timer finishes
  */
 /obj/machinery/computer/secure_data/proc/print_cell_log_finish(name, info)
-	var/obj/item/paper/P = new(loc)
-	P.name = name
-	P.info = info
+	var/obj/item/paper/paper = new(loc)
+	paper.name = name
+	paper.info = info
 	is_printing = FALSE
 	SStgui.update_uis(src)
 

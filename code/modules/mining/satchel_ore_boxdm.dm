@@ -71,11 +71,11 @@
 /obj/structure/ore_box/proc/show_contents(mob/user)
 	var/dat = "<b>Содержимое ящика для руды:</b><br>"
 	var/list/assembled = list()
-	for(var/obj/item/stack/ore/O in src)
-		assembled[O.type] += O.amount
+	for(var/obj/item/stack/ore/ore in src)
+		assembled[ore.type] += ore.amount
 	for(var/type in assembled)
-		var/obj/item/stack/ore/O = type
-		dat += "[initial(O.name)] - [assembled[type]]<br>"
+		var/obj/item/stack/ore/ore = type
+		dat += "[initial(ore.name)] - [assembled[type]]<br>"
 
 	dat += "<br><br><a href='byond://?src=[UID()];removeall=1'>Очистить ящик</a>"
 	var/datum/browser/popup = new(user, "orebox", name, 400, 400)
@@ -100,12 +100,12 @@
 	qdel(src)
 
 /obj/structure/ore_box/proc/dump_box_contents()
-	for(var/obj/item/stack/ore/O in src)
-		if(QDELETED(O))
+	for(var/obj/item/stack/ore/ore in src)
+		if(QDELETED(ore))
 			continue
 		if(QDELETED(src))
 			break
-		O.forceMove(loc)
+		ore.forceMove(loc)
 		CHECK_TICK
 
 /obj/structure/ore_box/verb/empty_box()

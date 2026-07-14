@@ -54,8 +54,8 @@
 /proc/pick_species_allowed_underwear(list/all_picks, species)
 	var/list/valid_picks = list()
 	for(var/test in all_picks)
-		var/datum/sprite_accessory/S = all_picks[test]
-		if(!(species in S.species_allowed))
+		var/datum/sprite_accessory/sprite_accessory = all_picks[test]
+		if(!(species in sprite_accessory.species_allowed))
 			continue
 		valid_picks += test
 
@@ -95,26 +95,26 @@
 	var/f_style = "Shaved"
 	var/list/valid_facial_hairstyles = list()
 	for(var/facialhairstyle in GLOB.facial_hair_styles_list)
-		var/datum/sprite_accessory/S = GLOB.facial_hair_styles_list[facialhairstyle]
+		var/datum/sprite_accessory/sprite_accessory = GLOB.facial_hair_styles_list[facialhairstyle]
 
 		if(facialhairstyle == "Shaved") //Just in case.
 			valid_facial_hairstyles += facialhairstyle
 			continue
-		if(S.wizard_only)
+		if(sprite_accessory.wizard_only)
 			continue
-		if(gender == S.unsuitable_gender)
+		if(gender == sprite_accessory.unsuitable_gender)
 			continue
 		if(species == SPECIES_MACHINEPERSON) //If the user is a species who can have a robotic head...
 			if(!robohead)
 				robohead = GLOB.all_robolimbs["Morpheus Cyberkinetics"]
-			if((species in S.species_allowed) && robohead.is_monitor && ((S.models_allowed && (robohead.company in S.models_allowed)) || !S.models_allowed)) //If this is a facial hair style native to the user's species, check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
+			if((species in sprite_accessory.species_allowed) && robohead.is_monitor && ((sprite_accessory.models_allowed && (robohead.company in sprite_accessory.models_allowed)) || !sprite_accessory.models_allowed)) //If this is a facial hair style native to the user's species, check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
 				valid_facial_hairstyles += facialhairstyle //Give them their facial hairstyles if they do.
 			else
-				if(!robohead.is_monitor && (SPECIES_HUMAN in S.species_allowed)) /*If the facial hairstyle is not native to the user's species and they're using a head with an ipc-style screen, don't let them access it.
+				if(!robohead.is_monitor && (SPECIES_HUMAN in sprite_accessory.species_allowed)) /*If the facial hairstyle is not native to the user's species and they're using a head with an ipc-style screen, don't let them access it.
 																			But if the user has a robotic humanoid head and the facial hairstyle can fit humans, let them use it as a wig. */
 					valid_facial_hairstyles += facialhairstyle
 		else //If the user is not a species who can have robotic heads, use the default handling.
-			if(species in S.species_allowed) //If the user's head is of a species the facial hair style allows, add it to the list.
+			if(species in sprite_accessory.species_allowed) //If the user's head is of a species the facial hair style allows, add it to the list.
 				valid_facial_hairstyles += facialhairstyle
 
 	if(length(valid_facial_hairstyles))
@@ -126,9 +126,9 @@
 	var/ha_style = "None"
 	var/list/valid_head_accessories = list()
 	for(var/head_accessory in GLOB.head_accessory_styles_list)
-		var/datum/sprite_accessory/S = GLOB.head_accessory_styles_list[head_accessory]
+		var/datum/sprite_accessory/sprite_accessory = GLOB.head_accessory_styles_list[head_accessory]
 
-		if(!(species in S.species_allowed))
+		if(!(species in sprite_accessory.species_allowed))
 			continue
 		valid_head_accessories += head_accessory
 
@@ -141,44 +141,44 @@
 	var/m_style = "None"
 	var/list/valid_markings = list()
 	for(var/marking in GLOB.marking_styles_list)
-		var/datum/sprite_accessory/body_markings/S = GLOB.marking_styles_list[marking]
-		if(S.name == "None")
+		var/datum/sprite_accessory/body_markings/body_markings = GLOB.marking_styles_list[marking]
+		if(body_markings.name == "None")
 			valid_markings += marking
 			continue
-		if(S.marking_location != location) // If the marking isn't for the location we desire, skip.
+		if(body_markings.marking_location != location) // If the marking isn't for the location we desire, skip.
 			continue
-		if(gender == S.unsuitable_gender) // If the marking isn't allowed for the user's gender, skip.
+		if(gender == body_markings.unsuitable_gender) // If the marking isn't allowed for the user's gender, skip.
 			continue
-		if(!(species in S.species_allowed)) // If the user's head is not of a species the marking style allows, skip it. Otherwise, add it to the list.
+		if(!(species in body_markings.species_allowed)) // If the user's head is not of a species the marking style allows, skip it. Otherwise, add it to the list.
 			continue
-		if(!S.pickable) //If our markings are unpickable in normal ways, skip it
+		if(!body_markings.pickable) //If our markings are unpickable in normal ways, skip it
 			continue
 		if(location == "tail")
 			if(!body_accessory)
-				if(S.tails_allowed)
+				if(body_markings.tails_allowed)
 					continue
 			else
-				if(!S.tails_allowed || !(body_accessory in S.tails_allowed))
+				if(!body_markings.tails_allowed || !(body_accessory in body_markings.tails_allowed))
 					continue
 		if(location == "wing")
 			if(!body_accessory)
-				if(S.wings_allowed)
+				if(body_markings.wings_allowed)
 					continue
 			else
-				if(!S.wings_allowed || !(body_accessory in S.wings_allowed))
+				if(!body_markings.wings_allowed || !(body_accessory in body_markings.wings_allowed))
 					continue
 		if(location == "head")
-			var/datum/sprite_accessory/body_markings/head/M = GLOB.marking_styles_list[S.name]
+			var/datum/sprite_accessory/body_markings/head/head = GLOB.marking_styles_list[body_markings.name]
 			if(species == SPECIES_MACHINEPERSON)//If the user is a species that can have a robotic head...
 				if(!robohead)
 					robohead = GLOB.all_robolimbs["Morpheus Cyberkinetics"]
-				if(!(S.models_allowed && (robohead.company in S.models_allowed))) //Make sure they don't get markings incompatible with their head.
+				if(!(body_markings.models_allowed && (robohead.company in body_markings.models_allowed))) //Make sure they don't get markings incompatible with their head.
 					continue
 			else if(alt_head && alt_head != "None") //If the user's got an alt head, validate markings for that head.
-				if(!("All" in M.heads_allowed) && !(alt_head in M.heads_allowed))
+				if(!("All" in head.heads_allowed) && !(alt_head in head.heads_allowed))
 					continue
 			else
-				if(M.heads_allowed && !("All" in M.heads_allowed))
+				if(head.heads_allowed && !("All" in head.heads_allowed))
 					continue
 		valid_markings += marking
 
@@ -552,9 +552,9 @@
 		return A
 
 	. = null
-	for(var/mob/M in A)
+	for(var/mob/mob in A)
 		if(!.)
-			. = M
+			. = mob
 		else
 			to_chat(user, span_warning("Multiple mobs in [A], using first mob found..."))
 			break
@@ -598,8 +598,8 @@
 
 /proc/update_all_mob_security_hud()
 	for(var/thing in GLOB.human_list)
-		var/mob/living/carbon/human/H = thing
-		H.sec_hud_set_security_status()
+		var/mob/living/carbon/human/human = thing
+		human.sec_hud_set_security_status()
 
 //Used in chemical_mob_spawn. Generates a random mob based on a given gold_core_spawnable value.
 /proc/create_random_mob(spawn_location, mob_class = HOSTILE_SPAWN)
@@ -631,10 +631,10 @@
 
 //determines the job of a mob, taking into account job transfers
 /proc/determine_role(mob/living/P)
-	var/datum/mind/M = P.mind
-	if(!M)
+	var/datum/mind/mind = P.mind
+	if(!mind)
 		return
-	return M.playtime_role ? M.playtime_role : M.assigned_role //returns current role
+	return mind.playtime_role ? mind.playtime_role : mind.assigned_role //returns current role
 
 /** checks the security force on station and returns a list of numbers, of the form:
  * total, active, dead, antag
@@ -673,13 +673,13 @@
  * * M - Mob to get a safe ckey of
  */
 /proc/safe_get_ckey(mob/M)
-	var/client/C = null
+	var/client/client = null
 	if(M.client)
-		C = M.client
+		client = M.client
 	else if(M.last_known_ckey in GLOB.directory)
-		C = GLOB.directory[M.last_known_ckey]
+		client = GLOB.directory[M.last_known_ckey]
 // Now we see if we need to respect their privacy
-	return get_display_key(C)
+	return get_display_key(client)
 
 ///Returns a list of strings for a given slot flag.
 /proc/parse_slot_flags(slot_flags)

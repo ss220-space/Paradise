@@ -141,7 +141,7 @@
 /datum/component/pellet_cloud/proc/create_blast_pellets(obj/O, mob/living/triggerer)
 	SIGNAL_HANDLER
 
-	var/atom/A = parent
+	var/atom/atom = parent
 
 	if(isgrenade(parent)) // handle_martyrs can reduce the radius and thus the number of pellets we produce if someone dives on top of a frag grenade
 		INVOKE_ASYNC(src, PROC_REF(handle_martyrs), triggerer) // note that we can modify radius in this proc
@@ -149,7 +149,7 @@
 	if(radius < 1)
 		return
 
-	var/list/all_the_turfs_were_gonna_lacerate = RANGE_TURFS(radius, A) - RANGE_TURFS(radius-1, A)
+	var/list/all_the_turfs_were_gonna_lacerate = RANGE_TURFS(radius, atom) - RANGE_TURFS(radius-1, atom)
 	num_pellets = length(all_the_turfs_were_gonna_lacerate) + pellet_delta
 
 	for(var/T in all_the_turfs_were_gonna_lacerate)
@@ -247,19 +247,19 @@
 /// Minor convenience function for creating each shrapnel piece with circle explosions, mostly stolen from the MIRV component
 /datum/component/pellet_cloud/proc/pew(atom/target, landmine_victim)
 
-	var/obj/projectile/P = new projectile_type(get_turf(parent))
+	var/obj/projectile/projectile = new projectile_type(get_turf(parent))
 
 	//Shooting Code:
-	P.spread = 0
-	P.original = target
-	P.firer_source_atom  = parent
-	P.firer = parent // don't hit ourself that would be really annoying
-	P.suppressed = TRUE// set the projectiles to make no message so we can do our own aggregate message
-	P.preparePixelProjectile(target, parent)
-	RegisterSignal(P, COMSIG_PROJECTILE_SELF_ON_HIT, PROC_REF(pellet_hit))
-	RegisterSignals(P, list(COMSIG_PROJECTILE_RANGE_OUT, COMSIG_QDELETING), PROC_REF(pellet_range))
-	pellets += P
-	P.fire()
+	projectile.spread = 0
+	projectile.original = target
+	projectile.firer_source_atom  = parent
+	projectile.firer = parent // don't hit ourself that would be really annoying
+	projectile.suppressed = TRUE// set the projectiles to make no message so we can do our own aggregate message
+	projectile.preparePixelProjectile(target, parent)
+	RegisterSignal(projectile, COMSIG_PROJECTILE_SELF_ON_HIT, PROC_REF(pellet_hit))
+	RegisterSignals(projectile, list(COMSIG_PROJECTILE_RANGE_OUT, COMSIG_QDELETING), PROC_REF(pellet_range))
+	pellets += projectile
+	projectile.fire()
 
 ///All of our pellets are accounted for, time to go target by target and tell them how many things they got hit by.
 /datum/component/pellet_cloud/proc/finalize()
@@ -297,9 +297,9 @@
 	SIGNAL_HANDLER
 
 	LAZYCLEARLIST(bodies)
-	for(var/mob/living/L in get_turf(parent))
-		RegisterSignal(L, COMSIG_QDELETING, PROC_REF(on_target_qdel), override=TRUE)
-		bodies += L
+	for(var/mob/living/living in get_turf(parent))
+		RegisterSignal(living, COMSIG_QDELETING, PROC_REF(on_target_qdel), override=TRUE)
+		bodies += living
 
 /// Someone who was originally "under" the grenade has moved off the tile and is now eligible for being a martyr and "covering" it
 /datum/component/pellet_cloud/proc/grenade_uncrossed(datum/source, atom/movable/gone, direction)

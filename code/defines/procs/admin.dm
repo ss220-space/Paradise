@@ -24,14 +24,14 @@
 		C = M.client
 		key = M.key
 	else if(istype(whom, /datum/mind))
-		var/datum/mind/D = whom
-		key = D.key
-		M = D.current
-		if(D.current)
-			C = D.current.client
+		var/datum/mind/mind = whom
+		key = mind.key
+		M = mind.current
+		if(mind.current)
+			C = mind.current.client
 	else if(isdatum(whom))
-		var/datum/D = whom
-		return "INVALID/([D.type])"
+		var/datum/mind = whom
+		return "INVALID/([mind.type])"
 	else if(istext(whom))
 		return "AUTOMATED/([whom])"
 	else

@@ -73,9 +73,9 @@
 		return
 	var/list/L = block(get_step(user, SOUTHWEST), get_step(user, NORTHEAST))
 	for(var/A in L)
-		var/turf/T = A
-		if(T.Adjacent(user))
-			for(var/B in T)
+		var/turf/turf = A
+		if(turf.Adjacent(user))
+			for(var/B in turf)
 				var/atom/movable/AM = B
 				if(AM.flags & HOLOGRAM)
 					continue
@@ -87,44 +87,44 @@
 	. = list()
 	.["other"] = list() //paths go in here
 	.["toolsother"] = list() // items go in here
-	for(var/obj/item/I in get_environment(user))
-		if(I.flags & HOLOGRAM)
+	for(var/obj/item/item in get_environment(user))
+		if(item.flags & HOLOGRAM)
 			continue
-		if(isstack(I))
-			var/obj/item/stack/S = I
-			.["other"][I.type] += S.amount
+		if(isstack(item))
+			var/obj/item/stack/stack = item
+			.["other"][item.type] += stack.amount
 		else
-			if(is_reagent_container(I))
-				var/obj/item/reagent_containers/RC = I
+			if(is_reagent_container(item))
+				var/obj/item/reagent_containers/RC = item
 				if(RC.is_drainable())
-					for(var/datum/reagent/A in RC.reagents.reagent_list)
-						.["other"][A.type] += A.volume
-			.["other"][I.type] += 1
-		.["toolsother"][I] += 1
+					for(var/datum/reagent/reagent in RC.reagents.reagent_list)
+						.["other"][reagent.type] += reagent.volume
+			.["other"][item.type] += 1
+		.["toolsother"][item] += 1
 
 /proc/check_tools(mob/user, list/tools, list/contents)
 	if(!length(tools)) //does not run if no tools are needed
 		return TRUE
 	var/list/possible_tools = list()
 	var/list/tools_used = list()
-	for(var/obj/item/I in user.contents) //searchs the inventory of the mob
-		if(isstorage(I))
-			for(var/obj/item/SI in I.contents)
+	for(var/obj/item/item in user.contents) //searchs the inventory of the mob
+		if(isstorage(item))
+			for(var/obj/item/SI in item.contents)
 				if(SI.tool_behaviour) //filters for tool behaviours
 					possible_tools += SI
-		if(I.tool_behaviour)
-			possible_tools += I
+		if(item.tool_behaviour)
+			possible_tools += item
 
 	possible_tools |= contents["toolsother"] // this add contents to possible_tools
 	main_loop: // checks if all tools found are usable with the recipe
 		for(var/A in tools)
-			for(var/obj/item/I in possible_tools)
-				if(A == I.tool_behaviour)
-					tools_used += I
+			for(var/obj/item/item in possible_tools)
+				if(A == item.tool_behaviour)
+					tools_used += item
 					continue main_loop
 			return FALSE
-	for(var/obj/item/T in tools_used)
-		if(!T.tool_start_check(null, user, 0)) //Check if all our tools are valid for their use
+	for(var/obj/item/item in tools_used)
+		if(!item.tool_start_check(null, user, 0)) //Check if all our tools are valid for their use
 			return FALSE
 	return TRUE
 
@@ -132,17 +132,17 @@
 	if(!length(pathtools)) //does not run if no tools are needed
 		return TRUE
 	var/list/other_possible_tools = list()
-	for(var/obj/item/I in user.contents) // searchs the inventory of the mob
-		if(isstorage(I))
-			for(var/obj/item/SI in I.contents)
+	for(var/obj/item/item in user.contents) // searchs the inventory of the mob
+		if(isstorage(item))
+			for(var/obj/item/SI in item.contents)
 				other_possible_tools += SI.type	// filters type paths
-		other_possible_tools += I.type
+		other_possible_tools += item.type
 
 	other_possible_tools |= contents["other"] // this adds contents to the other_possible_tools
 	main_loop: // checks if all tools found are usable with the recipe
 		for(var/A in pathtools)
-			for(var/I in other_possible_tools)
-				if(ispath(I,A))
+			for(var/item in other_possible_tools)
+				if(ispath(item,A))
 					continue main_loop
 			return FALSE
 	return TRUE
@@ -176,15 +176,15 @@
 	if(!islist(result_list))
 		result_list = list(result_list)
 	for(var/result in result_list)
-		var/atom/movable/I = new result(get_turf(user.loc))
-		I.add_fingerprint(user)
-		user.investigate_log("[key_name_log(user)] crafted [I]", INVESTIGATE_CRAFTING)
-		I.CheckParts(parts, R)
-		if(isitem(I))
-			user.put_in_hands(I)
+		var/atom/movable/movable = new result(get_turf(user.loc))
+		movable.add_fingerprint(user)
+		user.investigate_log("[key_name_log(user)] crafted [movable]", INVESTIGATE_CRAFTING)
+		movable.CheckParts(parts, R)
+		if(isitem(movable))
+			user.put_in_hands(movable)
 
 		if(send_feedback)
-			SSblackbox.record_feedback("tally", "object_crafted", 1, I.type)
+			SSblackbox.record_feedback("tally", "object_crafted", 1, movable.type)
 	return 0
 
 /proc/requirements_deletion(list/reqs, list/blacklist, list/parts, mob/user)
@@ -425,26 +425,26 @@
 	for(var/a in R.reqs)
 		//We just need the name, so cheat-typecast to /atom for speed (even tho Reagents are /datum they DO have a "name" var)
 		//Also these are typepaths so sadly we can't just do "[a]"
-		var/atom/A = a
-		req_text += " [R.reqs[A]] [initial(A.name)],"
+		var/atom/atom = a
+		req_text += " [R.reqs[atom]] [initial(atom.name)],"
 	req_text = replacetext(req_text, ",", "", -1)
 	data["req_text"] = req_text
 
 	for(var/a in R.chem_catalysts)
-		var/atom/A = a //cheat-typecast
-		catalyst_text += " [R.chem_catalysts[A]] [initial(A.name)],"
+		var/atom/atom = a //cheat-typecast
+		catalyst_text += " [R.chem_catalysts[atom]] [initial(atom.name)],"
 	catalyst_text = replacetext(catalyst_text, ",", "", -1)
 	data["catalyst_text"] = catalyst_text
 
 	for(var/a in R.pathtools)
 		if(ispath(a, /obj/item))
-			var/obj/item/b = a
-			tool_text += " [initial(b.name)],"
+			var/obj/item/item = a
+			tool_text += " [initial(item.name)],"
 		else
 			tool_text += " [a],"
 	for(var/a in R.tools)
-		var/b = a
-		tool_text += " [b],"
+		var/item = a
+		tool_text += " [item],"
 	tool_text = replacetext(tool_text, ",", "", -1)
 	data["tool_text"] = tool_text
 

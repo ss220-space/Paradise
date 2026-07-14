@@ -198,9 +198,9 @@
 	var/idrank = "*Не указано*"
 
 	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		idname = H.get_authentification_name()
-		idrank = H.get_assignment()
+		var/mob/living/carbon/human/human = user
+		idname = human.get_authentification_name()
+		idrank = human.get_assignment()
 	else if(issilicon(user))
 		idname = user.real_name
 		idrank = isAI(user) ? "ИИ" : "Робот"

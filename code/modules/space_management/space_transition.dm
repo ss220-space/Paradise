@@ -28,12 +28,12 @@
 	reset_connections()
 	xi = initial(xi)
 	yi = initial(yi)
-	var/datum/point/P = SW.get_empty_node()
-	P.set_space_level(src)
+	var/datum/point/point = SW.get_empty_node()
+	point.set_space_level(src)
 
 /datum/space_level/proc/remove_from_space_network(datum/spacewalk_grid/SW)
-	var/datum/point/P = SW.get(xi,yi)
-	SW.release_node(P)
+	var/datum/point/point = SW.get(xi,yi)
+	SW.release_node(point)
 	// Only do this when we're done, or we'll trample vars needed for releasing
 	// the level
 	xi = initial(xi)
@@ -69,14 +69,14 @@
 		return neighbors[direction]
 
 	// It's in a direction that loops - so we step as far in the opposite direction to get where to wrap to
-	var/datum/space_level/S = src
+	var/datum/space_level/space_level = src
 	var/oppose = get_opposite_direction(direction)
 	// Loop all the way in the other direction that we can
-	while(S.neighbors[oppose])
-		if(S.neighbors[oppose] == src) // we've got a tesseract, boys
-			CRASH("Tesseract formed when routing connections between z levels. Culprit: z level '[S.zpos]' to '[src.zpos]', direction [oppose]")
-		S = S.neighbors[oppose]
-	return S
+	while(space_level.neighbors[oppose])
+		if(space_level.neighbors[oppose] == src) // we've got a tesseract, boys
+			CRASH("Tesseract formed when routing connections between z levels. Culprit: z level '[space_level.zpos]' to '[src.zpos]', direction [oppose]")
+		space_level = space_level.neighbors[oppose]
+	return space_level
 
 /// this is explicitly utilitarian datum type made specially for the space map generation and are absolutely unusable for anything else
 /datum/point
@@ -106,12 +106,12 @@
 	spl = S
 	S.xi = x
 	S.yi = y
-	for(var/datum/point/P in neighbors)
-		if(istype(P.spl))
+	for(var/datum/point/point in neighbors)
+		if(istype(point.spl))
 			// Since each time this proc is called, it is the first time
 			// that the z level is added to the grid, we know for certain
 			// that no other z level has this as its neighbor
-			spl.link_levels(P.spl)
+			spl.link_levels(point.spl)
 
 // Returns a list of all neighbors that don't have a space level yet
 // If a node doesn't exist yet, it will create it
@@ -162,10 +162,10 @@
 	if(!spl)
 		CRASH("Attempted to deactivate inactive point")
 	for(var/direction in spl.neighbors)
-		var/datum/space_level/S = spl.neighbors[direction]
+		var/datum/space_level/space_level = spl.neighbors[direction]
 		var/oppose = get_opposite_direction(direction)
-		S.neighbors.Remove(oppose)
-		GLOB.space_manager.unbuilt_space_transitions |= S
+		space_level.neighbors.Remove(oppose)
+		GLOB.space_manager.unbuilt_space_transitions |= space_level
 	spl.reset_connections()
 	spl = initial(spl)
 
@@ -280,10 +280,10 @@
 
 // If the node isn't in the grid, this will return null
 /datum/spacewalk_grid/proc/get(x,y, allow_empty = 0)
-	var/datum/point/P = all_nodes["([x],[y])"]
-	if(!allow_empty && !(P in filled_nodes))
-		P = null // active nodes only
-	return P
+	var/datum/point/point = all_nodes["([x],[y])"]
+	if(!allow_empty && !(point in filled_nodes))
+		point = null // active nodes only
+	return point
 
 /datum/spacewalk_grid/proc/get_width()
 	return 1 + max_x - min_x
@@ -293,16 +293,16 @@
 
 // This function chooses an available point next to any node in the grid
 /datum/spacewalk_grid/proc/get_empty_node()
-	var/datum/point/P = pick(available_nodes)
-	if(isnull(P))
+	var/datum/point/point = pick(available_nodes)
+	if(isnull(point))
 		CRASH("The `available_nodes` list was either empty or contained a null entry")
-	consume_node(P)
-	return P
+	consume_node(point)
+	return point
 
 // This function is called repeatedly to build the map
 /datum/spacewalk_grid/proc/add_level(datum/space_level/S)
-	var/datum/point/P = get_empty_node()
-	P.set_space_level(S)
+	var/datum/point/point = get_empty_node()
+	point.set_space_level(S)
 
 // This proc substantiates the grid of points used to determine routes between levels
 // Separating this from initialization gives us time in which we can add more crosslink z levels

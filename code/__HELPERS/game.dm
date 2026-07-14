@@ -425,19 +425,19 @@
 		if(unwelded_only && vent.welded)
 			continue
 		if(exclude_mobs_nearby)
-			var/turf/T = get_turf(vent)
+			var/turf/turf = get_turf(vent)
 			var/mobs_nearby = FALSE
-			for(var/mob/living/M in orange(nearby_mobs_range, T))
-				if(!M.is_dead())
+			for(var/mob/living/living in orange(nearby_mobs_range, turf))
+				if(!living.is_dead())
 					mobs_nearby = TRUE
 					break
 			if(mobs_nearby)
 				continue
 		if(exclude_visible_by_mobs)
-			var/turf/T = get_turf(vent)
+			var/turf/turf = get_turf(vent)
 			var/visible_by_mobs = FALSE
-			for(var/mob/living/M in viewers(world.view, T))
-				if(!M.is_dead())
+			for(var/mob/living/living in viewers(world.view, turf))
+				if(!living.is_dead())
 					visible_by_mobs = TRUE
 					break
 			if(visible_by_mobs)

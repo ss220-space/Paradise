@@ -76,15 +76,15 @@
 	COOLDOWN_START(src, flash_cooldown, flash_cooldown_duration)
 	use_power(1000)
 
-	for(var/mob/living/L in viewers(src, null))
-		if(get_dist(src, L) > range)
+	for(var/mob/living/living in viewers(src, null))
+		if(get_dist(src, living) > range)
 			continue
 
-		if(L.flash_eyes(affect_silicon = TRUE))
-			L.Weaken(strength)
-			if(L.weakeyes)
-				L.Weaken(strength * 1.5)
-				L.visible_message(span_disarm("<b>[L]</b> gasps and shields [L.p_their()] eyes!"))
+		if(living.flash_eyes(affect_silicon = TRUE))
+			living.Weaken(strength)
+			if(living.weakeyes)
+				living.Weaken(strength * 1.5)
+				living.visible_message(span_disarm("<b>[living]</b> gasps and shields [living.p_their()] eyes!"))
 
 /obj/machinery/flasher/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))

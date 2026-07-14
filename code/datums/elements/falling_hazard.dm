@@ -62,8 +62,8 @@
 
 	var/fingers
 	if(isobj(source))
-		var/obj/O = source
-		fingers = O.fingerprintslast
+		var/obj/obj = source
+		fingers = obj.fingerprintslast
 	add_attack_logs(source, poor_target, "[crushes_people ? "CRUSHED" : "Hit"] from [levels] levels up.[fingers ? "Last touched by [fingers]" : null]")
 
 	poor_target.visible_message(

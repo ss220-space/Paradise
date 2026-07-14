@@ -238,8 +238,8 @@
 		return FALSE
 	if(fire_stacks > 0)
 		adjust_fire_stacks(-0.1) //the fire is slowly consumed
-		for(var/obj/item/clothing/C in contents)
-			C.catch_fire()
+		for(var/obj/item/clothing/clothing in contents)
+			clothing.catch_fire()
 	else
 		ExtinguishMob()
 		return FALSE
@@ -299,16 +299,16 @@
 	src.take_organ_damage(speed*5)
 
 /mob/living/proc/near_wall(direction, distance=1)
-	var/turf/T = get_step(get_turf(src),direction)
+	var/turf/turf = get_step(get_turf(src),direction)
 	var/turf/last_turf = src.loc
 	var/i = 1
 
 	while(i>0 && i<=distance)
-		if(T.density) //Turf is a wall!
+		if(turf.density) //Turf is a wall!
 			return last_turf
 		i++
-		last_turf = T
-		T = get_step(T,direction)
+		last_turf = turf
+		turf = get_step(turf,direction)
 
 	return 0
 

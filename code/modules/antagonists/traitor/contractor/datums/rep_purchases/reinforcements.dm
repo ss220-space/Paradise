@@ -68,8 +68,8 @@
 	var/mob/living/carbon/human/partner = new(T)
 	var/datum/outfit/contractor_partner/partner_outfit = new()
 	//randomizing appearance
-	var/datum/preferences/A = new()
-	A.copy_to(partner)
+	var/datum/preferences/preferences = new()
+	preferences.copy_to(partner)
 	partner.dna.ready_dna(partner)
 
 	partner_outfit.equip(partner)

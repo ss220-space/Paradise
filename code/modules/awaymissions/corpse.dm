@@ -179,8 +179,8 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 		mob.faction = string_list(list(faction))
 
 	if(disease)
-		var/datum/disease/D = new disease
-		D.Contract(mob)
+		var/datum/disease/disease_datum = new disease
+		disease_datum.Contract(mob)
 
 	if(!mob)
 		return

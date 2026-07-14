@@ -62,9 +62,9 @@
 
 /mob/living/simple_animal/ascendant_shadowling/proc/announce(text, size = 4, new_sound = null)
 	var/message = "<font size=[size]>[span_shadowling("<b>\"[text]\"</font>")]"
-	for(var/mob/M in GLOB.player_list)
-		M.hear_say()
-		if(!isnewplayer(M) && M.client)
-			to_chat(M, message)
+	for(var/mob/mob in GLOB.player_list)
+		mob.hear_say()
+		if(!isnewplayer(mob) && mob.client)
+			to_chat(mob, message)
 			if(new_sound)
-				SEND_SOUND(M, sound(new_sound))
+				SEND_SOUND(mob, sound(new_sound))

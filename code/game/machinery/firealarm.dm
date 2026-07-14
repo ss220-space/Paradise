@@ -304,13 +304,13 @@ GLOBAL_LIST_EMPTY(firealarms)
 	toggle_alarm(user)
 
 /obj/machinery/firealarm/proc/toggle_alarm(mob/user)
-	var/area/A = get_area(src)
-	if(!istype(A))
+	var/area/area = get_area(src)
+	if(!istype(area))
 		return
 
 	add_fingerprint(user)
 	last_time_pulled = world.time
-	if(A.fire)
+	if(area.fire)
 		reset()
 	else
 		alarm()

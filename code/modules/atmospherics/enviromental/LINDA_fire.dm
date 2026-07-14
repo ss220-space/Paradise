@@ -216,39 +216,39 @@
 /proc/fireflash(atom/center, radius, temp)
 	if(!temp)
 		temp = rand(2800, 3200)
-	for(var/turf/T in view(radius, get_turf(center)))
-		if(isspaceturf(T))
+	for(var/turf/turf in view(radius, get_turf(center)))
+		if(isspaceturf(turf))
 			continue
-		if(locate(/obj/effect/hotspot) in T)
+		if(locate(/obj/effect/hotspot) in turf)
 			continue
-		if(!can_line(get_turf(center), T, radius + 1))
+		if(!can_line(get_turf(center), turf, radius + 1))
 			continue
 
-		var/obj/effect/hotspot/fake/H = new(T)
-		H.temperature = temp
-		H.volume = 400
-		H.recolor()
+		var/obj/effect/hotspot/fake/fake = new(turf)
+		fake.temperature = temp
+		fake.volume = 400
+		fake.recolor()
 
-		T.hotspot_expose(H.temperature, H.volume)
-		for(var/atom/A in T)
-			if(isliving(A))
+		turf.hotspot_expose(fake.temperature, fake.volume)
+		for(var/atom/atom in turf)
+			if(isliving(atom))
 				continue
-			if(A != H)
-				A.fire_act(H.temperature, H.volume)
+			if(atom != fake)
+				atom.fire_act(fake.temperature, fake.volume)
 
-		if(isfloorturf(T))
-			var/turf/simulated/floor/F = T
-			F.burn_tile()
+		if(isfloorturf(turf))
+			var/turf/simulated/floor/floor = turf
+			floor.burn_tile()
 
-		for(var/mob/living/L in T)
-			L.adjust_fire_stacks(3)
-			L.IgniteMob()
-			if(ishuman(L))
-				var/mob/living/carbon/human/M = L
-				var/heatBlockPercent = 1 - M.get_heat_protection(temp)
-				M.bodytemperature += (temp - M.bodytemperature) * heatBlockPercent / 3
+		for(var/mob/living/living in turf)
+			living.adjust_fire_stacks(3)
+			living.IgniteMob()
+			if(ishuman(living))
+				var/mob/living/carbon/human/human = living
+				var/heatBlockPercent = 1 - human.get_heat_protection(temp)
+				human.bodytemperature += (temp - human.bodytemperature) * heatBlockPercent / 3
 			else
-				L.bodytemperature = (2 * L.bodytemperature + temp) / 3
+				living.bodytemperature = (2 * living.bodytemperature + temp) / 3
 
 /proc/fireflash_s(atom/center, radius, temp, falloff)
 	if(temp < T0C + 60)
@@ -262,30 +262,30 @@
 		max_dist = min((temp - (T0C + 60)) / falloff, radius)
 	open[Ce] = 0
 	while(length(open))
-		var/turf/T = open[1]
-		var/dist = open[T]
-		open -= T
-		closed[T] = TRUE
+		var/turf/turf = open[1]
+		var/dist = open[turf]
+		open -= turf
+		closed[turf] = TRUE
 
-		if(isspaceturf(T))
+		if(isspaceturf(turf))
 			continue
 		if(dist > max_dist)
 			continue
-		if(!ff_cansee(Ce, T))
+		if(!ff_cansee(Ce, turf))
 			continue
 
-		var/obj/effect/hotspot/existing_hotspot = locate(/obj/effect/hotspot) in T
+		var/obj/effect/hotspot/existing_hotspot = locate(/obj/effect/hotspot) in turf
 		var/prev_temp = 0
 		var/need_expose = 0
 		var/expose_temp = 0
 		if(!existing_hotspot)
-			var/obj/effect/hotspot/fake/H = new(T)
+			var/obj/effect/hotspot/fake/fake = new(turf)
 			need_expose = TRUE
-			H.temperature = temp - dist * falloff
-			expose_temp = H.temperature
-			H.volume = 400
-			H.recolor()
-			existing_hotspot = H
+			fake.temperature = temp - dist * falloff
+			expose_temp = fake.temperature
+			fake.volume = 400
+			fake.recolor()
+			existing_hotspot = fake
 
 		else if(existing_hotspot.temperature < temp - dist * falloff)
 			expose_temp = (temp - dist * falloff) - existing_hotspot.temperature
@@ -295,39 +295,39 @@
 			existing_hotspot.temperature = temp - dist * falloff
 			existing_hotspot.recolor()
 
-		affected[T] = existing_hotspot.temperature
+		affected[turf] = existing_hotspot.temperature
 		if(need_expose && expose_temp)
-			T.hotspot_expose(expose_temp, existing_hotspot.volume)
-			for(var/atom/A in T)
-				if(isliving(A))
+			turf.hotspot_expose(expose_temp, existing_hotspot.volume)
+			for(var/atom/atom in turf)
+				if(isliving(atom))
 					continue
-				if(A != existing_hotspot)
-					A.fire_act(expose_temp, existing_hotspot.volume)
-		if(isfloorturf(T))
-			var/turf/simulated/floor/F = T
-			F.burn_tile()
-		for(var/mob/living/L in T)
-			L.adjust_fire_stacks(3)
-			L.IgniteMob()
-			if(ishuman(L))
-				var/mob/living/carbon/human/M = L
-				var/heatBlockPercent = 1 - M.get_heat_protection(temp)
-				M.bodytemperature += (temp - M.bodytemperature) * heatBlockPercent / 3
+				if(atom != existing_hotspot)
+					atom.fire_act(expose_temp, existing_hotspot.volume)
+		if(isfloorturf(turf))
+			var/turf/simulated/floor/floor = turf
+			floor.burn_tile()
+		for(var/mob/living/living in turf)
+			living.adjust_fire_stacks(3)
+			living.IgniteMob()
+			if(ishuman(living))
+				var/mob/living/carbon/human/human = living
+				var/heatBlockPercent = 1 - human.get_heat_protection(temp)
+				human.bodytemperature += (temp - human.bodytemperature) * heatBlockPercent / 3
 			else
-				L.bodytemperature = (2 * L.bodytemperature + temp) / 3
+				living.bodytemperature = (2 * living.bodytemperature + temp) / 3
 
-		if(T.density)
+		if(turf.density)
 			continue
 
 		if(dist == max_dist)
 			continue
 
 		for(var/direction in GLOB.cardinal)
-			var/turf/link = get_step(T, direction)
+			var/turf/link = get_step(turf, direction)
 			if(!link)
 				continue
 			// Check if it wasn't already visited and if you can get to that turf
-			if(!closed[link] && T.CanAtmosPass(direction) && link.CanAtmosPass(turn(direction, 180)))
+			if(!closed[link] && turf.CanAtmosPass(direction) && link.CanAtmosPass(turn(direction, 180)))
 				var/dx = link.x - Ce.x
 				var/dy = link.y - Ce.y
 				var/target_dist = max((dist + 1 + sqrt(dx * dx + dy * dy)) / 2, dist)
@@ -341,8 +341,8 @@
 
 /proc/fireflash_sm(atom/center, radius, temp, falloff, capped = TRUE, bypass_rng = FALSE)
 	var/list/affected = fireflash_s(center, radius, temp, falloff)
-	for(var/turf/simulated/T in affected)
-		var/mytemp = affected[T]
+	for(var/turf/simulated/simulated in affected)
+		var/mytemp = affected[simulated]
 		var/melt = 1643.15 // default steel melting point
 		var/divisor = melt
 		if(mytemp >= melt * 2)
@@ -350,6 +350,6 @@
 			if(capped)
 				chance = min(chance, 30)
 			if(prob(chance) || bypass_rng)
-				T.visible_message(span_warning("[T] melts!"))
-				T.burn_down()
+				simulated.visible_message(span_warning("[simulated] melts!"))
+				simulated.burn_down()
 	return affected

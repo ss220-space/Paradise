@@ -172,8 +172,8 @@ Difficulty: Very Hard
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/target_trying_to_cheese_us(mob/living/L)
 	if(!ishuman(L))
 		return
-	var/mob/living/carbon/human/H = L
-	if(H.mind && H.mind.martial_art && prob(H.mind.martial_art.can_deflect))
+	var/mob/living/carbon/human/human = L
+	if(human.mind && human.mind.martial_art && prob(human.mind.martial_art.can_deflect))
 		return TRUE
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/alternating_dir_shots(telegraphing = TRUE)
@@ -233,28 +233,28 @@ Difficulty: Very Hard
 	if(!startloc || !endloc || endloc == loc)
 		return
 
-	var/obj/projectile/P = new /obj/projectile/colossus(startloc)
-	P.preparePixelProjectile(endloc, src)
-	P.firer = src
+	var/obj/projectile/projectile = new /obj/projectile/colossus(startloc)
+	projectile.preparePixelProjectile(endloc, src)
+	projectile.firer = src
 
 	if(target)
-		P.original = target_atom
+		projectile.original = target_atom
 
 	if(isnum(set_angle))
-		P.fire(set_angle)
+		projectile.fire(set_angle)
 	else
-		P.fire()
+		projectile.fire()
 
-	P.fire(isnum(set_angle) ? set_angle : null)
+	projectile.fire(isnum(set_angle) ? set_angle : null)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/random_shots(do_sleep = TRUE)
 	ranged_cooldown = world.time + 30
 	if(do_sleep)
 		telegraph(RANDOM_SHOTS)
 		SLEEP_CHECK_DEATH(src, 2.5 SECONDS)
-	var/turf/U = get_turf(src)
-	playsound(U, 'sound/magic/clockwork/invoke_general.ogg', 300, TRUE, 5)
-	for(var/T in RANGE_TURFS(12, U) - U)
+	var/turf/turf = get_turf(src)
+	playsound(turf, 'sound/magic/clockwork/invoke_general.ogg', 300, TRUE, 5)
+	for(var/T in RANGE_TURFS(12, turf) - turf)
 		if(prob(enraged ? 10 : 5))
 			shoot_projectile(T)
 
@@ -283,15 +283,15 @@ Difficulty: Very Hard
 		dirs = GLOB.alldirs.Copy()
 	playsound(src, 'sound/magic/clockwork/invoke_general.ogg', 200, TRUE, 2)
 	for(var/d in dirs)
-		var/turf/E = get_step(src, d)
-		shoot_projectile(E)
+		var/turf/turf = get_step(src, d)
+		shoot_projectile(turf)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/telegraph(mode)
-	for(var/mob/M in range(10,src))
-		if(M.client)
-			flash_color(M.client, "#C80000", 1)
+	for(var/mob/mob in range(10,src))
+		if(mob.client)
+			flash_color(mob.client, "#C80000", 1)
 			sleep(0.5 SECONDS)
-			shake_camera(M, 4, 3)
+			shake_camera(mob, 4, 3)
 	playsound(src, 'sound/magic/narsie_attack.ogg', 200, TRUE)
 	if(mode)
 		say("[mode]")

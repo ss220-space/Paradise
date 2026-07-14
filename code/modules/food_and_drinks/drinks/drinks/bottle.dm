@@ -17,29 +17,29 @@
 
 	//Creates a shattering noise and replaces the bottle with a broken_bottle
 	var/new_location = get_turf(loc)
-	var/obj/item/broken_bottle/B = new /obj/item/broken_bottle(new_location)
+	var/obj/item/broken_bottle/broken_bottle = new /obj/item/broken_bottle(new_location)
 	if(ranged)
-		B.loc = new_location
+		broken_bottle.loc = new_location
 	else
 		user.drop_from_active_hand(TRUE, TRUE)
-		user.put_in_active_hand(B, silent = TRUE)
-	B.icon_state = icon_state
+		user.put_in_active_hand(broken_bottle, silent = TRUE)
+	broken_bottle.icon_state = icon_state
 
-	var/icon/I = new('icons/obj/drinks.dmi', icon_state)
-	I.Blend(B.broken_outline, ICON_OVERLAY, rand(5), 1)
-	I.SwapColor(rgb(255, 0, 220, 255), rgb(0, 0, 0, 0))
-	B.icon = I
+	var/icon/icon = new('icons/obj/drinks.dmi', icon_state)
+	icon.Blend(broken_bottle.broken_outline, ICON_OVERLAY, rand(5), 1)
+	icon.SwapColor(rgb(255, 0, 220, 255), rgb(0, 0, 0, 0))
+	broken_bottle.icon = icon
 
 	if(isGlass)
 		if(prob(33))
 			new/obj/item/shard(new_location)
 		playsound(src, SFX_SHATTER, 70, TRUE)
 	else
-		B.name = "broken carton"
-		B.force = 0
-		B.throwforce = 0
-		B.desc = "Картонная упаковка с разорванным дном. Можно порезаться."
-	transfer_fingerprints_to(B)
+		broken_bottle.name = "broken carton"
+		broken_bottle.force = 0
+		broken_bottle.throwforce = 0
+		broken_bottle.desc = "Картонная упаковка с разорванным дном. Можно порезаться."
+	transfer_fingerprints_to(broken_bottle)
 
 	qdel(src)
 

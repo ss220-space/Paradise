@@ -118,8 +118,8 @@
 	if(ismecha(loc))
 		if(!isturf(A) && !isturf(A.loc)) // Prevents inventory from being drilled
 			return
-		var/obj/mecha/M = loc
-		return M.click_action(A, src, modifiers)
+		var/obj/mecha/mecha = loc
+		return mecha.click_action(A, src, modifiers)
 
 	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		changeNext_move(CLICK_CD_HANDCUFFED) //Doing shit in cuffs shall be vey slow
@@ -135,21 +135,21 @@
 		if(client && client.send_ssd_warning(A))
 			return
 
-	var/obj/item/W = get_active_hand()
+	var/obj/item/item = get_active_hand()
 
-	if(W == A)
+	if(item == A)
 		if(LAZYACCESS(modifiers, RIGHT_CLICK))
-			W.attack_self_secondary(src, modifiers)
+			item.attack_self_secondary(src, modifiers)
 		else
-			W.attack_self(src, modifiers)
+			item.attack_self(src, modifiers)
 		update_held_items()
 		return
 
 	// operate three levels deep here (item in backpack in src; item in box in backpack in src, not any deeper)
 	if(A in DirectAccess())
 		beforeAdjacentClick(A, modifiers)
-		if(W)
-			W.melee_attack_chain(src, A, modifiers)
+		if(item)
+			item.melee_attack_chain(src, A, modifiers)
 		else
 			if(ismob(A))
 				changeNext_move(CLICK_CD_MELEE)
@@ -160,18 +160,18 @@
 		return
 
 	// Allows you to click on a box's contents, if that box is on the ground, but no deeper than that
-	if(A.IsReachableBy(src, W?.reach))
+	if(A.IsReachableBy(src, item?.reach))
 		beforeAdjacentClick(A, modifiers)
-		if(W)
-			W.melee_attack_chain(src, A, modifiers)
+		if(item)
+			item.melee_attack_chain(src, A, modifiers)
 		else
 			if(ismob(A))
 				changeNext_move(CLICK_CD_MELEE)
 			UnarmedAttack(A, TRUE, modifiers)
 	else // non-adjacent click
 		beforeRangedClick(A, modifiers)
-		if(W)
-			A.base_ranged_item_interaction(src, W, modifiers)
+		if(item)
+			A.base_ranged_item_interaction(src, item, modifiers)
 		else
 			if(LAZYACCESS(modifiers, RIGHT_CLICK))
 				ranged_secondary_attack(A, modifiers)
@@ -583,9 +583,9 @@
 	newicon.Scale(sx, sy)
 	icon = newicon
 	screen_loc = "CENTER-[(ox-1)*0.5],CENTER-[(oy-1)*0.5]"
-	var/matrix/M = new
-	M.Scale(px/sx, py/sy)
-	transform = M
+	var/matrix/matrix = new
+	matrix.Scale(px/sx, py/sy)
+	transform = matrix
 
 /atom/movable/screen/click_catcher/Initialize(mapload, datum/hud/hud_owner)
 	. = ..()

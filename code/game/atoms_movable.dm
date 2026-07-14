@@ -1388,9 +1388,9 @@
 
 /atom/movable/proc/random_throw(range_low = 0, range_high = 5, speed = 4)
 	var/list/turf/targets = list()
-	for(var/turf/T in range(range_high, src))
-		if(get_dist(T, src) >= range_low && get_dist(T, src) <= range_high)
-			targets.Add(T)
+	for(var/turf/turf in range(range_high, src))
+		if(get_dist(turf, src) >= range_low && get_dist(turf, src) <= range_high)
+			targets.Add(turf)
 
 	if(length(targets) == 0)
 		return FALSE
@@ -1670,9 +1670,9 @@
 			playsound(dropped_human, 'sound/effects/wilhelm_scream.ogg', 150)
 
 	if(isliving(src))
-		var/mob/living/M = src
-		M.Weaken(32 SECONDS) // Keep them from moving during the duration of the extraction
-		M.buckled?.unbuckle_mob(force = TRUE) // Unbuckle them to prevent anchoring problems
+		var/mob/living/living = src
+		living.Weaken(32 SECONDS) // Keep them from moving during the duration of the extraction
+		living.buckled?.unbuckle_mob(force = TRUE) // Unbuckle them to prevent anchoring problems
 	else
 		set_anchored(TRUE)
 		ADD_TRAIT(src, TRAIT_UNDENSE, FULTON_TRAIT)
@@ -1685,11 +1685,11 @@
 
 /atom/movable/proc/finish_falling_up_in_space(obj/holder_obj)
 	if(ishuman(src))
-		var/mob/living/carbon/human/L = src
-		L.SetParalysis(0)
-		L.SetDrowsy(0)
-		L.SetSleeping(0)
-		L.SetWeakened(0)
+		var/mob/living/carbon/human/human = src
+		human.SetParalysis(0)
+		human.SetDrowsy(0)
+		human.SetSleeping(0)
+		human.SetWeakened(0)
 
 	var/turf/target_space_turf = get_random_reachable_space_turf()
 	holder_obj.forceMove(pick(target_space_turf))

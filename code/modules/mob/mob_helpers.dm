@@ -19,14 +19,14 @@
 		return eyes.get_colourmatrix()
 
 /proc/ismindshielded(A) //Checks to see if the person contains a mindshield implant, then checks that the implant is actually inside of them
-	for(var/obj/item/implant/mindshield/L in A)
-		if(L?.implanted)
+	for(var/obj/item/implant/mindshield/mindshield in A)
+		if(mindshield?.implanted)
 			return 1
 	return 0
 
 /proc/isertmindshielded(A) //Checks to see if the person contains a ert mindshield implant, then checks that the implant is actually inside of them
-	for(var/obj/item/implant/mindshield/ert/L in A)
-		if(L?.implanted)
+	for(var/obj/item/implant/mindshield/ert/ert in A)
+		if(ert?.implanted)
 			return 1
 	return 0
 
@@ -35,8 +35,8 @@
 
 /proc/isAntag(A)
 	if(isliving(A))
-		var/mob/living/L = A
-		if(L.mind?.special_role)
+		var/mob/living/living = A
+		if(living.mind?.special_role)
 			return TRUE
 	return FALSE
 
@@ -44,8 +44,8 @@
 	if(!isAntag(A))
 		return 0
 
-	var/mob/living/carbon/C = A
-	var/special_role = C.mind.special_role
+	var/mob/living/carbon/carbon = A
+	var/special_role = carbon.mind.special_role
 	var/list/crew_roles = list(
 		SPECIAL_ROLE_BLOB,
 		SPECIAL_ROLE_CULTIST,
@@ -71,23 +71,23 @@
 
 /proc/iscuffed(A)
 	if(iscarbon(A))
-		var/mob/living/carbon/C = A
-		if(C.handcuffed)
+		var/mob/living/carbon/carbon = A
+		if(carbon.handcuffed)
 			return 1
 	return 0
 
 /proc/hassensorlevel(A, level)
-	var/mob/living/carbon/human/H = A
-	if(istype(H) && istype(H.w_uniform, /obj/item/clothing/under))
-		var/obj/item/clothing/under/U = H.w_uniform
-		return U.sensor_mode >= level
+	var/mob/living/carbon/human/human = A
+	if(istype(human) && istype(human.w_uniform, /obj/item/clothing/under))
+		var/obj/item/clothing/under/under = human.w_uniform
+		return under.sensor_mode >= level
 	return 0
 
 /proc/getsensorlevel(A)
-	var/mob/living/carbon/human/H = A
-	if(istype(H) && istype(H.w_uniform, /obj/item/clothing/under))
-		var/obj/item/clothing/under/U = H.w_uniform
-		return U.sensor_mode
+	var/mob/living/carbon/human/human = A
+	if(istype(human) && istype(human.w_uniform, /obj/item/clothing/under))
+		var/obj/item/clothing/under/under = human.w_uniform
+		return under.sensor_mode
 	return SUIT_SENSOR_OFF
 
 /proc/offer_control(mob/offer_mob, hours, hide_role)
@@ -282,8 +282,8 @@
 	return returntext
 
 /proc/Gibberish_all(list/message_pieces, p)
-	for(var/datum/multilingual_say_piece/S in message_pieces)
-		S.message = Gibberish(S.message, p)
+	for(var/datum/multilingual_say_piece/multilingual_say_piece in message_pieces)
+		multilingual_say_piece.message = Gibberish(multilingual_say_piece.message, p)
 
 /proc/muffledspeech(phrase)
 	phrase = html_decode(phrase)
@@ -306,8 +306,8 @@
 	return newphrase
 
 /proc/muffledspeech_all(list/message_pieces)
-	for(var/datum/multilingual_say_piece/S in message_pieces)
-		S.message = muffledspeech(S.message)
+	for(var/datum/multilingual_say_piece/multilingual_say_piece in message_pieces)
+		multilingual_say_piece.message = muffledspeech(multilingual_say_piece.message)
 
 #define TILES_PER_SECOND 0.7
 ///Shake the camera of the person viewing the mob SO REAL!
@@ -353,8 +353,8 @@
 #undef TILES_PER_SECOND
 
 /proc/findname(msg)
-	for(var/mob/M in GLOB.mob_list)
-		if(M.real_name == text("[msg]"))
+	for(var/mob/mob in GLOB.mob_list)
+		if(mob.real_name == text("[msg]"))
 			return 1
 	return 0
 
@@ -448,41 +448,41 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 	var/name
 	var/keyname
 	if(subject?.client)
-		var/client/C = subject.client
-		keyname = (C.holder && C.holder.fakekey) ? C.holder.fakekey : C.key
-		if(C.mob) //Most of the time this is the dead/observer mob; we can totally use him if there is no better name
+		var/client/client = subject.client
+		keyname = (client.holder && client.holder.fakekey) ? client.holder.fakekey : client.key
+		if(client.mob) //Most of the time this is the dead/observer mob; we can totally use him if there is no better name
 			var/mindname
-			var/realname = C.mob.real_name
-			if(C.mob.mind)
-				mindname = C.mob.mind.name
-				if(C.mob.mind.original_mob_name)
-					realname = C.mob.mind.original_mob_name
+			var/realname = client.mob.real_name
+			if(client.mob.mind)
+				mindname = client.mob.mind.name
+				if(client.mob.mind.original_mob_name)
+					realname = client.mob.mind.original_mob_name
 			if(mindname && mindname != realname)
 				name = "[realname] died as [mindname]"
 			else
 				name = realname
 
-	for(var/mob/M in GLOB.player_list)
-		if(M.client && ((!isnewplayer(M) && M.stat == DEAD) || check_rights(R_ADMIN|R_MOD, FALSE, M)) && M.get_preference(PREFTOGGLE_CHAT_DEAD))
+	for(var/mob/mob in GLOB.player_list)
+		if(mob.client && ((!isnewplayer(mob) && mob.stat == DEAD) || check_rights(R_ADMIN|R_MOD, FALSE, mob)) && mob.get_preference(PREFTOGGLE_CHAT_DEAD))
 			var/follow
 			var/lname
 			var/display = get_display_key(subject?.client)
 			if(subject)
-				if(subject != M)
-					follow = "([ghost_follow_link(subject, ghost=M)]) "
-				if(M.stat != DEAD && check_rights(R_ADMIN|R_MOD, FALSE, M))
+				if(subject != mob)
+					follow = "([ghost_follow_link(subject, ghost=mob)]) "
+				if(mob.stat != DEAD && check_rights(R_ADMIN|R_MOD, FALSE, mob))
 					follow = "([admin_jump_link(subject)]) "
 				var/mob/dead/observer/DM
 				if(isobserver(subject))
 					DM = subject
-				if(check_rights(R_ADMIN|R_MOD, FALSE, M))							// What admins see
+				if(check_rights(R_ADMIN|R_MOD, FALSE, mob))							// What admins see
 					lname = "[keyname][display == ANON_KEY ? "\[ANON\]" : ""] ([name])"
 				else if(DM)									// Non-anons
 					lname = "[display] ([name])"
 				else 										// Everyone else (dead people who didn't ghost yet, etc.)
 					lname = name
 				lname = "[span_name("[lname]")] "
-			to_chat(M, span_deadsay("[follow][lname][message]"))
+			to_chat(mob, span_deadsay("[follow][lname][message]"))
 
 /proc/notify_ghosts(message, ghost_sound = null, enter_link = null, title = null, atom/source = null, image/alert_overlay = null, flashwindow = TRUE, action = NOTIFY_JUMP) //Easy notification of ghosts.
 	for(var/mob/dead/observer/ghost in GLOB.player_list)
@@ -548,11 +548,11 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 	if(oldname)
 		//update the datacore records! This is goig to be a bit costly.
 		for(var/list/L in list(GLOB.data_core.general, GLOB.data_core.medical, GLOB.data_core.security, GLOB.data_core.locked))
-			for(var/datum/data/record/R in L)
-				if(R.fields["name"] == oldname)
-					R.fields["name"] = newname
-					if(length(R.fields["id"]) == 32)
-						R.fields["id"] = md5("[newname][mind.assigned_role]")
+			for(var/datum/data/record/record in L)
+				if(record.fields["name"] == oldname)
+					record.fields["name"] = newname
+					if(length(record.fields["id"]) == 32)
+						record.fields["id"] = md5("[newname][mind.assigned_role]")
 					break
 
 		//update our pda and id if we have them on our person
@@ -606,10 +606,10 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 				return	//took too long
 			newname = reject_bad_name(newname,allow_numbers)	//returns null if the name doesn't meet some basic requirements. Tidies up a few other things like bad-characters.
 
-			for(var/mob/living/M in GLOB.player_list)
-				if(M == src)
+			for(var/mob/living/living in GLOB.player_list)
+				if(living == src)
 					continue
-				if(!newname || M.real_name == newname)
+				if(!newname || living.real_name == newname)
 					newname = null
 					break
 			if(newname)

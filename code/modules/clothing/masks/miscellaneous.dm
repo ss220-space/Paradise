@@ -191,15 +191,15 @@
 	return FALSE
 
 /obj/item/clothing/mask/muzzle/safety/shock/proc/process_activation(obj/D, normal = 1, special = 1)
-	var/mob/living/L = can_shock(loc)
-	if(!L)
+	var/mob/living/living = can_shock(loc)
+	if(!living)
 		return
-	to_chat(L, span_danger("You feel a sharp shock!"))
-	do_sparks(3, TRUE, L)
+	to_chat(living, span_danger("You feel a sharp shock!"))
+	do_sparks(3, TRUE, living)
 
-	L.Weaken(10 SECONDS)
-	L.Stuttering(2 SECONDS)
-	L.Jitter(40 SECONDS)
+	living.Weaken(10 SECONDS)
+	living.Stuttering(2 SECONDS)
+	living.Jitter(40 SECONDS)
 
 /obj/item/clothing/mask/muzzle/safety/shock/HasProximity(atom/movable/AM)
 	if(trigger)

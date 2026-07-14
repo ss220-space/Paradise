@@ -73,15 +73,15 @@
 				if(objective.check_completion())
 					text += "<br><b>Objective #[count]</b>: [objective.explanation_text] <font color='green'><b>Success!</b></font>"
 					if(istype(objective, /datum/objective/steal))
-						var/datum/objective/steal/S = objective
-						SSblackbox.record_feedback("nested tally", "vampire_steal_objective", 1, list("Steal [S.steal_target]", "SUCCESS"))
+						var/datum/objective/steal/steal = objective
+						SSblackbox.record_feedback("nested tally", "vampire_steal_objective", 1, list("Steal [steal.steal_target]", "SUCCESS"))
 					else
 						SSblackbox.record_feedback("nested tally", "vampire_objective", 1, list("[objective.type]", "SUCCESS"))
 				else
 					text += "<br><b>Objective #[count]</b>: [objective.explanation_text] <font color='red'>Fail.</font>"
 					if(istype(objective, /datum/objective/steal))
-						var/datum/objective/steal/S = objective
-						SSblackbox.record_feedback("nested tally", "vampire_steal_objective", 1, list("Steal [S.steal_target]", "FAIL"))
+						var/datum/objective/steal/steal = objective
+						SSblackbox.record_feedback("nested tally", "vampire_steal_objective", 1, list("Steal [steal.steal_target]", "FAIL"))
 					else
 						SSblackbox.record_feedback("nested tally", "vampire_objective", 1, list("[objective.type]", "FAIL"))
 					traitorwin = FALSE

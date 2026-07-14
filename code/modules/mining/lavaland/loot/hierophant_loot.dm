@@ -111,8 +111,8 @@
 	chaser_speed = initial(chaser_speed)
 	blast_range = initial(blast_range)
 	if(isliving(user))
-		var/mob/living/L = user
-		var/health_percent = max(L.health / L.maxHealth, 0) // Don't go negative
+		var/mob/living/living = user
+		var/health_percent = max(living.health / living.maxHealth, 0) // Don't go negative
 		chaser_cooldown += round(health_percent * 20) //two tenths of a second for each missing 10% of health
 		cooldown_time += round(health_percent * 10) //one tenth of a second for each missing 10% of health
 		chaser_speed = max(chaser_speed + health_percent, 0.5) //one tenth of a second faster for each missing 10% of health
@@ -276,9 +276,9 @@
 	new /obj/effect/temp_visual/hierophant/telegraph/cardinal(T, user)
 	playsound(T,'sound/effects/bin_close.ogg', 200, TRUE)
 	sleep(2)
-	var/obj/effect/temp_visual/hierophant/blast/B = new(T, user, friendly_fire_check)
-	B.damage = HIEROPHANT_CLUB_CARDINAL_DAMAGE
-	B.monster_damage_boost = FALSE
+	var/obj/effect/temp_visual/hierophant/blast/blast = new(T, user, friendly_fire_check)
+	blast.damage = HIEROPHANT_CLUB_CARDINAL_DAMAGE
+	blast.monster_damage_boost = FALSE
 	for(var/d in GLOB.cardinal)
 		INVOKE_ASYNC(src, PROC_REF(blast_wall), T, d, user)
 
@@ -287,15 +287,15 @@
 		return
 	var/range = blast_range
 	var/turf/previousturf = T
-	var/turf/J = get_step(previousturf, dir)
+	var/turf/turf = get_step(previousturf, dir)
 	for(var/i in 1 to range)
-		if(!J)
+		if(!turf)
 			return
-		var/obj/effect/temp_visual/hierophant/blast/B = new(J, user, friendly_fire_check)
-		B.damage = HIEROPHANT_CLUB_CARDINAL_DAMAGE
-		B.monster_damage_boost = FALSE
-		previousturf = J
-		J = get_step(previousturf, dir)
+		var/obj/effect/temp_visual/hierophant/blast/blast = new(turf, user, friendly_fire_check)
+		blast.damage = HIEROPHANT_CLUB_CARDINAL_DAMAGE
+		blast.monster_damage_boost = FALSE
+		previousturf = turf
+		turf = get_step(previousturf, dir)
 
 /obj/item/hierophant_club/proc/aoe_burst(turf/T, mob/living/user) //make a 3x3 blast around a target
 	if(!T)
@@ -304,8 +304,8 @@
 	playsound(T,'sound/effects/bin_close.ogg', 200, TRUE)
 	sleep(2)
 	for(var/t in RANGE_TURFS(1, T))
-		var/obj/effect/temp_visual/hierophant/blast/B = new(t, user, friendly_fire_check)
-		B.damage = 15 //keeps monster damage boost due to lower damage
+		var/obj/effect/temp_visual/hierophant/blast/blast = new(t, user, friendly_fire_check)
+		blast.damage = 15 //keeps monster damage boost due to lower damage
 
 /obj/item/clothing/accessory/necklace/hierophant_talisman
 	name = "Dormnant talisman of warding"

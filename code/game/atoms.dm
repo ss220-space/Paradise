@@ -233,39 +233,39 @@
 
 /atom/proc/onCentcom()
 	. = FALSE
-	var/turf/T = get_turf(src)
-	if(!T)
+	var/turf/turf = get_turf(src)
+	if(!turf)
 		return
 
-	if(is_reserved_level(T.z))
+	if(is_reserved_level(turf.z))
 		for(var/obj/docking_port/mobile/mobile in SSshuttle.mobile)
 			if(EMERGENCY_ESCAPED_OR_ENDGAMED)
 				for(var/area/shuttle/shuttle_area in mobile.shuttle_areas)
-					if(shuttle_area == T.loc)
+					if(shuttle_area == turf.loc)
 						return TRUE
 
-	if(!is_admin_level(T.z))//if not, don't bother
+	if(!is_admin_level(turf.z))//if not, don't bother
 		return
 
 	//Check for centcom shuttles
 	for(var/obj/docking_port/mobile/mobile in SSshuttle.mobile)
 		if(EMERGENCY_ESCAPED_OR_ENDGAMED)
-			if(T in mobile.areaInstance)
+			if(turf in mobile.areaInstance)
 				return TRUE
 
 	//finally check for centcom itself
-	return istype(T.loc, /area/centcom)
+	return istype(turf.loc, /area/centcom)
 
 /atom/proc/onSyndieBase()
 	. = FALSE
-	var/turf/T = get_turf(src)
-	if(!T)
+	var/turf/turf = get_turf(src)
+	if(!turf)
 		return
 
-	if(!is_admin_level(T.z))//if not, don't bother
+	if(!is_admin_level(turf.z))//if not, don't bother
 		return
 
-	if(istype(T.loc, /area/shuttle/syndicate_elite) || istype(T.loc, /area/centcom/syndicate_base))
+	if(istype(turf.loc, /area/shuttle/syndicate_elite) || istype(turf.loc, /area/centcom/syndicate_base))
 		return TRUE
 
 /atom/Destroy(force)
@@ -316,12 +316,12 @@
 	SEND_SIGNAL(src, COMSIG_ATOM_POST_DIR_CHANGE, oldDir, newdir)
 
 /atom/proc/set_angle(degrees)
-	var/matrix/M = matrix()
-	M.Turn(degrees)
+	var/matrix/matrix = matrix()
+	matrix.Turn(degrees)
 	// If we aint 0, make it NN transform
 	if(degrees)
 		appearance_flags |= PIXEL_SCALE
-	transform = M
+	transform = matrix
 
 /*
 	Sets the atom's pixel locations based on the atom's `dir` variable, and what pixel offset arguments are passed into it
@@ -363,11 +363,11 @@
 			reagents.reagent_list.Add(A)
 			reagents.conditional_update()
 		else if(istype(A, /atom/movable))
-			var/atom/movable/M = A
-			if(isliving(M.loc))
-				var/mob/living/L = M.loc
-				L.drop_item_ground(M)
-			M.forceMove(src)
+			var/atom/movable/movable = A
+			if(isliving(movable.loc))
+				var/mob/living/living = movable.loc
+				living.drop_item_ground(movable)
+			movable.forceMove(src)
 
 /atom/proc/intercept_zImpact(list/falling_movables, levels = 1)
 	SHOULD_CALL_PARENT(TRUE)
@@ -459,17 +459,17 @@
 
 /atom/proc/search_contents_for(path, list/filter_path = null)
 	var/list/found = list()
-	for(var/atom/A in src)
-		if(istype(A, path))
-			found += A
+	for(var/atom/atom in src)
+		if(istype(atom, path))
+			found += atom
 		if(filter_path)
 			var/pass = 0
 			for(var/type in filter_path)
-				pass |= istype(A, type)
+				pass |= istype(atom, type)
 			if(!pass)
 				continue
-		if(length(A.contents))
-			found += A.search_contents_for(path, filter_path)
+		if(length(atom.contents))
+			found += atom.search_contents_for(path, filter_path)
 	return found
 
 /**
@@ -782,24 +782,24 @@
 	if(isnull(M.key))
 		return
 	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(!istype(H.dna, /datum/dna))
+		var/mob/living/carbon/human/human = M
+		if(!istype(human.dna, /datum/dna))
 			return FALSE
-		if(H.gloves)
-			if(fingerprintslast != H.ckey)
+		if(human.gloves)
+			if(fingerprintslast != human.ckey)
 				//Add the list if it does not exist.
 				if(!fingerprintshidden)
 					fingerprintshidden = list()
-				fingerprintshidden += text("\[[time_stamp()]\] (Wearing gloves). Real name: [], Key: []", H.real_name, H.key)
-				fingerprintslast = H.ckey
+				fingerprintshidden += text("\[[time_stamp()]\] (Wearing gloves). Real name: [], Key: []", human.real_name, human.key)
+				fingerprintslast = human.ckey
 			return FALSE
 		if(!fingerprints)
-			if(fingerprintslast != H.ckey)
+			if(fingerprintslast != human.ckey)
 				//Add the list if it does not exist.
 				if(!fingerprintshidden)
 					fingerprintshidden = list()
-				fingerprintshidden += text("\[[time_stamp()]\] Real name: [], Key: []", H.real_name, H.key)
-				fingerprintslast = H.ckey
+				fingerprintshidden += text("\[[time_stamp()]\] Real name: [], Key: []", human.real_name, human.key)
+				fingerprintslast = human.ckey
 			return TRUE
 	else
 		if(fingerprintslast != M.ckey)
@@ -834,32 +834,32 @@
 				fingerprintslast = M.key
 			return FALSE //Now, lets get to the dirty work.
 		//First, make sure their DNA makes sense.
-		var/mob/living/carbon/human/H = M
-		if(!istype(H.dna, /datum/dna) || !H.dna.uni_identity || (length(H.dna.uni_identity) != 32))
-			if(!istype(H.dna, /datum/dna))
-				H.dna = new /datum/dna(null)
-				H.dna.real_name = H.real_name
-		H.check_dna()
+		var/mob/living/carbon/human/human = M
+		if(!istype(human.dna, /datum/dna) || !human.dna.uni_identity || (length(human.dna.uni_identity) != 32))
+			if(!istype(human.dna, /datum/dna))
+				human.dna = new /datum/dna(null)
+				human.dna.real_name = human.real_name
+		human.check_dna()
 
 		//Check if the gloves (if any) hide fingerprints
-		if(H.gloves)
-			var/obj/item/clothing/gloves/G = H.gloves
-			if(G.transfer_prints)
+		if(human.gloves)
+			var/obj/item/clothing/gloves/gloves = human.gloves
+			if(gloves.transfer_prints)
 				ignoregloves = TRUE
 
 		//Now, deal with gloves.
 		if(!ignoregloves)
-			if(H.gloves && H.gloves != src)
-				if(fingerprintslast != H.ckey)
-					fingerprintshidden += text("\[[]\](Wearing gloves). Real name: [], Key: []", time_stamp(), H.real_name, H.key)
-					fingerprintslast = H.ckey
-				H.gloves.add_fingerprint(M)
+			if(human.gloves && human.gloves != src)
+				if(fingerprintslast != human.ckey)
+					fingerprintshidden += text("\[[]\](Wearing gloves). Real name: [], Key: []", time_stamp(), human.real_name, human.key)
+					fingerprintslast = human.ckey
+				human.gloves.add_fingerprint(M)
 				return FALSE
 
 		//More adminstuffz
-		if(fingerprintslast != H.ckey)
-			fingerprintshidden += text("\[[]\]Real name: [], Key: []", time_stamp(), H.real_name, H.key)
-			fingerprintslast = H.ckey
+		if(fingerprintslast != human.ckey)
+			fingerprintshidden += text("\[[]\]Real name: [], Key: []", time_stamp(), human.real_name, human.key)
+			fingerprintslast = human.ckey
 
 		//Make the list if it does not exist.
 		if(!fingerprints)
@@ -869,7 +869,7 @@
 			fingerprints_time = list()
 
 		//Hash this shit.
-		var/full_print = H.get_full_print()
+		var/full_print = human.get_full_print()
 
 		// Add the fingerprints
 		fingerprints[full_print] = full_print
@@ -1060,9 +1060,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(!isspaceturf(src))
 		var/type = green ? /obj/effect/decal/cleanable/vomit/green : /obj/effect/decal/cleanable/vomit
 		var/vomit_reagent = green ? "green_vomit" : "vomit"
-		for(var/obj/effect/decal/cleanable/vomit/V in get_turf(src))
-			if(V.type == type)
-				V.reagents.add_reagent(vomit_reagent, 5)
+		for(var/obj/effect/decal/cleanable/vomit/vomit in get_turf(src))
+			if(vomit.type == type)
+				vomit.reagents.add_reagent(vomit_reagent, 5)
 				return
 
 		var/obj/effect/decal/cleanable/vomit/this = new type(src)
@@ -1153,26 +1153,26 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	message = replace_characters(message, list("+"))
 
 	var/list/speech_bubble_hearers = list()
-	for(var/mob/M in get_hearers_in_view(7, src))
-		M.show_message(span_gamesay(span_name("[DECLENT_RU_CAP(src, NOMINATIVE)]") + " [pick(atom_say_verb)], \"[message]\""), 2, null, 1)
-		if(M.client)
-			speech_bubble_hearers += M.client
+	for(var/mob/mob in get_hearers_in_view(7, src))
+		mob.show_message(span_gamesay(span_name("[DECLENT_RU_CAP(src, NOMINATIVE)]") + " [pick(atom_say_verb)], \"[message]\""), 2, null, 1)
+		if(mob.client)
+			speech_bubble_hearers += mob.client
 
-			if(HAS_TRAIT(M, TRAIT_DEAF) || M.stat == UNCONSCIOUS)
+			if(HAS_TRAIT(mob, TRAIT_DEAF) || mob.stat == UNCONSCIOUS)
 				continue
 
-			if(M.client.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
-				M.create_chat_message(src, message, list("italics"))
+			if(mob.client.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
+				mob.create_chat_message(src, message, list("italics"))
 
 			if(use_tts)
 				var/traits = TTS_TRAIT_RATE_MEDIUM
-				INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, src, M, message_tts, tts_seed, TRUE, tts_atom_say_effect, traits)
+				INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, src, mob, message_tts, tts_seed, TRUE, tts_atom_say_effect, traits)
 
 	if(length(speech_bubble_hearers))
-		var/image/I = image('icons/mob/talk.dmi', src, "[bubble_icon][say_test(message)]", FLY_LAYER)
-		SET_PLANE_EXPLICIT(I, ABOVE_GAME_PLANE, src)
-		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
-		INVOKE_ASYNC(GLOBAL_PROC, /proc/flick_overlay, I, speech_bubble_hearers, 30)
+		var/image/image = image('icons/mob/talk.dmi', src, "[bubble_icon][say_test(message)]", FLY_LAYER)
+		SET_PLANE_EXPLICIT(image, ABOVE_GAME_PLANE, src)
+		image.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
+		INVOKE_ASYNC(GLOBAL_PROC, /proc/flick_overlay, image, speech_bubble_hearers, 30)
 
 /atom/proc/select_voice(mob/user, silent_target = FALSE, override = FALSE)
 	if(!ismob(src) && !user)
@@ -1607,14 +1607,14 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(!isliving(src))
 		return
 
-	var/mob/living/M = src
-	M.refresh_gravity()
+	var/mob/living/living = src
+	living.refresh_gravity()
 
 /atom/proc/remove_gravity_source(id)
 	LAZYREMOVE(gravity_sources, id)
 	if(isliving(src))
-		var/mob/living/M = src
-		M.refresh_gravity()
+		var/mob/living/living = src
+		living.refresh_gravity()
 
 /atom/proc/add_ignored_gravity_source(id)
 	if(!(id in ignored_gravity_sources))

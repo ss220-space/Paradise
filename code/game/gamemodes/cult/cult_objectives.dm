@@ -178,11 +178,11 @@
 		var/area/summon = pick(get_sorted_areas() - summon_spots)
 		var/valid_spot = FALSE
 		if(summon && is_station_level(summon.z) && summon.valid_territory) // Check if there's a turf that you can walk on, if not it's not valid
-			for(var/turf/T as anything in get_area_turfs(summon))
-				if(!T.density)
+			for(var/turf/turf as anything in get_area_turfs(summon))
+				if(!turf.density)
 					var/clear = TRUE
-					for(var/obj/O in T)
-						if(O.density)
+					for(var/obj/obj in turf)
+						if(obj.density)
 							clear = FALSE
 							break
 					if(clear)

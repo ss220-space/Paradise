@@ -131,8 +131,8 @@
 		turn_off(user)
 		return FALSE
 
-	var/turf/T = get_turf(src)
-	T.blind_release_air(removed)
+	var/turf/turf = get_turf(src)
+	turf.blind_release_air(removed)
 	return TRUE
 
 /obj/item/tank/jetpack/proc/get_owner()

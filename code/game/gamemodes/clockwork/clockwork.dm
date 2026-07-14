@@ -12,8 +12,8 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	if(mind.isholy)
 		return FALSE
 	if(ishuman(mind.current))
-		var/mob/living/carbon/human/H = mind.current
-		if(ismindshielded(H)) //mindshield protects against conversions unless removed
+		var/mob/living/carbon/human/human = mind.current
+		if(ismindshielded(human)) //mindshield protects against conversions unless removed
 			return FALSE
 	if(mind.offstation_role)
 		return FALSE
@@ -22,8 +22,8 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	if(isalien(mind.current))
 		return FALSE
 	if(isguardian(mind.current))
-		var/mob/living/simple_animal/hostile/guardian/G = mind.current
-		if(!isclocker(G.summoner))
+		var/mob/living/simple_animal/hostile/guardian/guardian = mind.current
+		if(!isclocker(guardian.summoner))
 			return FALSE //can't convert it unless the owner is converted
 	return TRUE
 
@@ -219,15 +219,15 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		return
 	if((GLOB.clockwork_power >= power_reveal_number) && !power_reveal)
 		power_reveal = TRUE
-		for(var/datum/mind/M in clockwork_cult)
-			if(!M.current)
+		for(var/datum/mind/mind in clockwork_cult)
+			if(!mind.current)
 				continue
-			if(!ishuman(M.current))
-				powered_borgs(M.current)
+			if(!ishuman(mind.current))
+				powered_borgs(mind.current)
 				continue
-			SEND_SOUND(M.current, sound('sound/hallucinations/i_see_you2.ogg'))
-			to_chat(M.current, span_clocklarge("The veil begins to stutter in fear as the power of Ratvar grows, your hands begin to glow..."))
-			addtimer(CALLBACK(src, PROC_REF(powered), M.current), 20 SECONDS)
+			SEND_SOUND(mind.current, sound('sound/hallucinations/i_see_you2.ogg'))
+			to_chat(mind.current, span_clocklarge("The veil begins to stutter in fear as the power of Ratvar grows, your hands begin to glow..."))
+			addtimer(CALLBACK(src, PROC_REF(powered), mind.current), 20 SECONDS)
 
 /datum/game_mode/proc/check_clock_reveal()
 	if(crew_reveal)
@@ -235,14 +235,14 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	var/clocker_players = get_clockers()
 	if(clocker_players < crew_reveal_number && GLOB.heart.curse_dial)
 		return
-	for(var/datum/mind/M in clockwork_cult)
-		if(!M.current)
+	for(var/datum/mind/mind in clockwork_cult)
+		if(!mind.current)
 			continue
-		SEND_SOUND(M.current, sound('sound/hallucinations/im_here1.ogg'))
-		if(!ishuman(M.current))
+		SEND_SOUND(mind.current, sound('sound/hallucinations/im_here1.ogg'))
+		if(!ishuman(mind.current))
 			continue
-		to_chat(M.current, span_clocklarge("Your cult gets bigger as the clocked harvest approaches - you cannot hide your true nature for much longer!"))
-		addtimer(CALLBACK(src, PROC_REF(clocked), M.current), 20 SECONDS)
+		to_chat(mind.current, span_clocklarge("Your cult gets bigger as the clocked harvest approaches - you cannot hide your true nature for much longer!"))
+		addtimer(CALLBACK(src, PROC_REF(clocked), mind.current), 20 SECONDS)
 	GLOB.major_announcement.announce("На вашей станции обнаружена внепространственная активность, связанная с Заводным культом Ратвара. Данные свидетельствуют о том, что в ряды культа обращено около [reveal_percent * 100]% экипажа станции. Служба безопасности получает право свободно применять летальную силу против культистов. Прочий персонал должен быть готов защищать себя и свои рабочие места от нападений культистов (в том числе используя летальную силу в качестве крайней меры самообороны), но не должен выслеживать культистов и охотиться на них. Погибшие члены экипажа должны быть оживлены и деконвертированы, как только ситуация будет взята под контроль.",
 										ANNOUNCE_CCPARANORMAL_RU,
 										SSstation.announcer.get_rand_report_sound()
@@ -252,10 +252,10 @@ GLOBAL_LIST_EMPTY(all_clockers)
 
 /datum/game_mode/proc/powered(clocker)
 	if(ishuman(clocker) && isclocker(clocker))
-		var/mob/living/carbon/human/H = clocker
+		var/mob/living/carbon/human/human = clocker
 
-		ADD_TRAIT(H, TRAIT_CLOCK_HANDS, CLOCK_TRAIT)
-		H.update_worn_gloves()
+		ADD_TRAIT(human, TRAIT_CLOCK_HANDS, CLOCK_TRAIT)
+		human.update_worn_gloves()
 
 /datum/game_mode/proc/powered_borgs(clocker)
 	if(isrobot(clocker))
@@ -264,9 +264,9 @@ GLOBAL_LIST_EMPTY(all_clockers)
 
 /datum/game_mode/proc/clocked(clocker)
 	if(ishuman(clocker) && isclocker(clocker))
-		var/mob/living/carbon/human/H = clocker
-		new /obj/effect/temp_visual/ratvar/sparks(get_turf(H), H.dir)
-		SEND_SIGNAL(H, COMSIG_MOB_HALO_GAINED)
+		var/mob/living/carbon/human/human = clocker
+		new /obj/effect/temp_visual/ratvar/sparks(get_turf(human), human.dir)
+		SEND_SIGNAL(human, COMSIG_MOB_HALO_GAINED)
 
 /datum/game_mode/proc/remove_clocker(datum/mind/clock_mind, show_message = TRUE)
 	if(!clock_mind || !(clock_mind in clockwork_cult))
@@ -319,10 +319,10 @@ GLOBAL_LIST_EMPTY(all_clockers)
 
 /datum/game_mode/proc/add_clock_actions(datum/mind/clock_mind)
 	if(clock_mind.current)
-		var/datum/action/innate/clockwork/comm/C = new
-		var/datum/action/innate/clockwork/check_progress/D = new
-		C.Grant(clock_mind.current)
-		D.Grant(clock_mind.current)
+		var/datum/action/innate/clockwork/comm/comm = new
+		var/datum/action/innate/clockwork/check_progress/check_progress = new
+		comm.Grant(clock_mind.current)
+		check_progress.Grant(clock_mind.current)
 		if(ishuman(clock_mind.current) || issilicon(clock_mind.current) && !isAI(clock_mind.current))
 			var/datum/action/innate/clockwork/clock_magic/magic = new
 			magic.Grant(clock_mind.current)

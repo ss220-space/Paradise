@@ -31,12 +31,12 @@
 
 /obj/structure/dispenser/proc/initialize_tanks()
 	for(var/I in 1 to starting_plasma_tanks)
-		var/obj/item/tank/internals/plasma/P = new(src)
-		stored_plasma_tanks.Add(P)
+		var/obj/item/tank/internals/plasma/plasma = new(src)
+		stored_plasma_tanks.Add(plasma)
 
 	for(var/I in 1 to starting_oxygen_tanks)
-		var/obj/item/tank/internals/oxygen/O = new(src)
-		stored_oxygen_tanks.Add(O)
+		var/obj/item/tank/internals/oxygen/oxygen = new(src)
+		stored_oxygen_tanks.Add(oxygen)
 
 /obj/structure/dispenser/update_overlays()
 	. = ..()

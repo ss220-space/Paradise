@@ -154,9 +154,9 @@
 	recharge_port = locate(/obj/machinery/mech_bay_recharge_port) in range(1)
 	if(!recharge_port)
 		for(var/D in GLOB.cardinal)
-			var/turf/A = get_step(src, D)
-			A = get_step(A, D)
-			recharge_port = locate(/obj/machinery/mech_bay_recharge_port) in A
+			var/turf/turf = get_step(src, D)
+			turf = get_step(turf, D)
+			recharge_port = locate(/obj/machinery/mech_bay_recharge_port) in turf
 			if(recharge_port)
 				if(!recharge_port.recharge_console)
 					break

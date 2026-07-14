@@ -34,13 +34,13 @@
 
 /datum/action/innate/revolution_recruitment/proc/choose_targets(mob/user = usr)
 	var/list/validtargets = list()
-	for(var/mob/living/carbon/human/M in view(user.client.view, get_turf(user)))
-		if(M?.mind && M.stat == CONSCIOUS)
-			if(M == user)
+	for(var/mob/living/carbon/human/human in view(user.client.view, get_turf(user)))
+		if(human?.mind && human.stat == CONSCIOUS)
+			if(human == user)
 				continue
-			if((M.mind.special_role == SPECIAL_ROLE_REV) || (M.mind.special_role == SPECIAL_ROLE_HEAD_REV))
+			if((human.mind.special_role == SPECIAL_ROLE_REV) || (human.mind.special_role == SPECIAL_ROLE_HEAD_REV))
 				continue
-			validtargets += M
+			validtargets += human
 	if(!length(validtargets))
 		to_chat(usr, span_warning("There are no valid targets!"))
 	var/mob/living/carbon/human/target = tgui_input_list(usr, "Choose a target for recruitment.", "Targeting", validtargets)
@@ -134,8 +134,8 @@
 /datum/game_mode/proc/greet_revolutionary(datum/mind/rev_mind, you_are=TRUE)
 	update_rev_icons_added(rev_mind)
 	rev_mind.special_role = SPECIAL_ROLE_HEAD_REV
-	var/datum/action/innate/revolution_recruitment/C = new()
-	C.Grant(rev_mind.current)
+	var/datum/action/innate/revolution_recruitment/revolution_recruitment = new()
+	revolution_recruitment.Grant(rev_mind.current)
 	var/list/messages = list()
 	if(you_are)
 		messages.Add(span_danger("You are a member of the revolutionaries' leadership!"))
@@ -160,8 +160,8 @@
 				var/datum/action/innate/toggle_clumsy/toggle_clumsy = new
 				toggle_clumsy.Grant(mob)
 
-	var/obj/item/toy/crayon/spraycan/R = new(mob)
-	var/obj/item/clothing/glasses/hud/security/chameleon/C = new(mob)
+	var/obj/item/toy/crayon/spraycan/spraycan = new(mob)
+	var/obj/item/clothing/glasses/hud/security/chameleon/chameleon = new(mob)
 
 	var/list/slots = list (
 		"backpack" = ITEM_SLOT_BACKPACK,
@@ -170,8 +170,8 @@
 		"left hand" = ITEM_SLOT_HAND_LEFT,
 		"right hand" = ITEM_SLOT_HAND_RIGHT,
 	)
-	var/where2 = mob.equip_in_one_of_slots(C, slots, qdel_on_fail = TRUE)
-	mob.equip_in_one_of_slots(R,slots)
+	var/where2 = mob.equip_in_one_of_slots(chameleon, slots, qdel_on_fail = TRUE)
+	mob.equip_in_one_of_slots(spraycan,slots)
 
 	mob.update_icons()
 
@@ -239,8 +239,8 @@
 	if((rev_mind in revolutionaries) || remove_head)
 		revolutionaries -= rev_mind
 		rev_mind.special_role = null
-		for(var/datum/action/innate/revolution_recruitment/C in rev_mind.current.actions)
-			qdel(C)
+		for(var/datum/action/innate/revolution_recruitment/revolution_recruitment in rev_mind.current.actions)
+			qdel(revolution_recruitment)
 		add_conversion_logs(rev_mind.current, "renounced the revolution")
 		if(beingborged)
 			to_chat(rev_mind.current, span_danger(span_fontsize3("The frame's firmware detects and deletes your neural reprogramming! You remember nothing[remove_head ? "." : " but the name of the one who recruited you."]")))

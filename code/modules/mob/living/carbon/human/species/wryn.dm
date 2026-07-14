@@ -156,8 +156,8 @@
 //Select a Target from a List
 /datum/action/innate/wryn/wryn_sting/proc/select_target(mob/living/carbon/human/user)
 	var/list/names = list()
-	for(var/mob/living/carbon/human/M in orange(1))
-		names += M
+	for(var/mob/living/carbon/human/human in orange(1))
+		names += human
 	if(!LAZYLEN(names)) //No one's around!
 		user.balloon_alert(user, "вокруг некого ужалить!")
 		return

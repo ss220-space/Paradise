@@ -5,7 +5,7 @@
 
 /datum/event/revenant/proc/get_revenant(end_if_fail = 0)
 	var/deadMobs = 0
-	for(var/mob/M in GLOB.dead_mob_list)
+	for(var/mob/mob in GLOB.dead_mob_list)
 		deadMobs++
 	if(deadMobs < REVENANT_SPAWN_THRESHOLD)
 		message_admins("Random event attempted to spawn a revenant, but there were only [deadMobs]/[REVENANT_SPAWN_THRESHOLD] dead mobs.")
@@ -17,8 +17,8 @@
 			key_of_revenant = null
 			kill()
 			return
-		var/mob/C = pick(candidates)
-		key_of_revenant = C.key
+		var/mob/mob = pick(candidates)
+		key_of_revenant = mob.key
 
 		if(!key_of_revenant)
 			kill()
@@ -27,11 +27,11 @@
 		var/datum/mind/player_mind = new /datum/mind(key_of_revenant)
 		player_mind.active = 1
 		var/list/spawn_locs = list()
-		for(var/obj/effect/landmark/L in GLOB.landmarks_list)
-			if(isturf(L.loc))
-				switch(L.name)
+		for(var/obj/effect/landmark/landmark in GLOB.landmarks_list)
+			if(isturf(landmark.loc))
+				switch(landmark.name)
 					if("revenantspawn")
-						spawn_locs += L.loc
+						spawn_locs += landmark.loc
 		if(!spawn_locs) //If we can't find any revenant spawns, try the carp spawns
 			spawn_locs += GLOB.carplist
 		if(!spawn_locs) //If we can't find either, just spawn the revenant at the player's location

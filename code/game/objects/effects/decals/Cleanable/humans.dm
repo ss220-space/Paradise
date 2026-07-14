@@ -328,9 +328,9 @@
 	for(var/i = 0, i < pick(1, 200; 2, 150; 3, 50; 4), i++)
 		sleep(3)
 		if(i > 0)
-			var/obj/effect/decal/cleanable/blood/b = new /obj/effect/decal/cleanable/blood/splatter(loc)
-			b.basecolor = src.basecolor
-			b.update_icon()
+			var/obj/effect/decal/cleanable/blood/blood = new /obj/effect/decal/cleanable/blood/splatter(loc)
+			blood.basecolor = src.basecolor
+			blood.update_icon()
 		if(step_to(src, get_step(src, direction), 0))
 			break
 

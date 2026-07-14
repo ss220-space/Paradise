@@ -133,12 +133,12 @@
 		return
 	if(last)
 		if(get_dist(last, user) == 1) //hacky, but it works
-			var/turf/T = get_turf(user)
-			if(!T || !T.can_lay_cable())
+			var/turf/turf = get_turf(user)
+			if(!turf || !turf.can_lay_cable())
 				last = null
 				return
 			if(get_dir(last, user) == last.d2)
-				//Did we just walk backwards? Well, that's the one direction we CAN'T complete a stub.
+				//Did we just walk backwards? Well, that's the one direction we CAN'turf complete a stub.
 				last = null
 				return
 			loaded.cable_join(last, user)

@@ -658,8 +658,8 @@
 
 /mob/living/carbon/human/proc/has_booze() //checks if the human has ethanol or its subtypes inside
 	for(var/A in reagents.reagent_list)
-		var/datum/reagent/R = A
-		if(istype(R, /datum/reagent/consumable/ethanol))
+		var/datum/reagent/reagent = A
+		if(istype(reagent, /datum/reagent/consumable/ethanol))
 			return 1
 	return 0
 
@@ -849,20 +849,20 @@
 		temp = PULSE_NONE		//pretend that we're dead. unlike actual death, can be inflienced by meds
 
 	if(reagents)
-		for(var/datum/reagent/R in reagents.reagent_list)
-			if(R.heart_rate_decrease)
+		for(var/datum/reagent/reagent in reagents.reagent_list)
+			if(reagent.heart_rate_decrease)
 				if(temp <= PULSE_THREADY && temp >= PULSE_NORM)
 					temp--
 					break
 
-		for(var/datum/reagent/R in reagents.reagent_list)//handles different chems' influence on pulse
-			if(R.heart_rate_increase)
+		for(var/datum/reagent/reagent in reagents.reagent_list)//handles different chems' influence on pulse
+			if(reagent.heart_rate_increase)
 				if(temp <= PULSE_FAST && temp >= PULSE_NONE)
 					temp++
 					break
 
-		for(var/datum/reagent/R in reagents.reagent_list) //To avoid using fakedeath
-			if(R.heart_rate_stop)
+		for(var/datum/reagent/reagent in reagents.reagent_list) //To avoid using fakedeath
+			if(reagent.heart_rate_stop)
 				temp = PULSE_NONE
 				break
 
@@ -897,31 +897,31 @@
 	if(!isturf(loc))
 		return
 
-	for(var/mob/living/carbon/human/H in view(decaylevel, src) - src)
+	for(var/mob/living/carbon/human/human in view(decaylevel, src) - src)
 		if(prob(0.3 * decaylevel))
-			var/datum/disease/virus/cadaver/D = new()
-			D.Contract(H, CONTACT, need_protection_check = TRUE)
+			var/datum/disease/virus/cadaver/cadaver = new()
+			cadaver.Contract(human, CONTACT, need_protection_check = TRUE)
 		if(prob(2))
-			var/obj/item/clothing/mask/M = H.wear_mask
-			if(M && (M.flags_cover & MASKCOVERSMOUTH))
+			var/obj/item/clothing/mask/mask = human.wear_mask
+			if(mask && (mask.flags_cover & MASKCOVERSMOUTH))
 				continue
-			if(HAS_TRAIT(H, TRAIT_NO_BREATH))
+			if(HAS_TRAIT(human, TRAIT_NO_BREATH))
 				continue //no puking if you can't smell!
 			// Humans can lack a mind datum, y'know
-			if(H.mind && (H.mind.assigned_role == JOB_TITLE_DETECTIVE || H.mind.assigned_role == JOB_TITLE_CORONER))
+			if(human.mind && (human.mind.assigned_role == JOB_TITLE_DETECTIVE || human.mind.assigned_role == JOB_TITLE_CORONER))
 				continue //too cool for puke
-			to_chat(H, span_warning("Вы чувствуете тошнотворный запах..."))
-			H.fakevomit()
+			to_chat(human, span_warning("Вы чувствуете тошнотворный запах..."))
+			human.fakevomit()
 
 /mob/living/carbon/human/proc/handle_heartbeat()
-	var/client/C = src.client
-	if(C && C.prefs.sound & SOUND_HEARTBEAT) //disable heartbeat by pref
-		var/obj/item/organ/internal/heart/H = get_int_organ(/obj/item/organ/internal/heart)
+	var/client/client = src.client
+	if(client && client.prefs.sound & SOUND_HEARTBEAT) //disable heartbeat by pref
+		var/obj/item/organ/internal/heart/heart = get_int_organ(/obj/item/organ/internal/heart)
 
-		if(!H) //H.status will runtime if there is no H (obviously)
+		if(!heart) //heart.status will runtime if there is no heart (obviously)
 			return
 
-		if(H.is_robotic()) //Handle robotic hearts specially with a wuuuubb. This also applies to machine-people.
+		if(heart.is_robotic()) //Handle robotic hearts specially with a wuuuubb. This also applies to machine-people.
 			if(isinspace())
 				//PULSE_THREADY - maximum value for pulse, currently it 5.
 				//High pulse value corresponds to a fast rate of heartbeat.

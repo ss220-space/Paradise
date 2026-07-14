@@ -86,9 +86,9 @@
 	var/list/datum/robot_component/parts = list()
 
 	for(var/V in components)
-		var/datum/robot_component/C = components[V]
-		if((C.installed || (get_borked && C.is_destroyed()) || (get_missing && C.is_missing())) && ((get_brute && C.brute_damage) || (get_burn && C.electronics_damage)))
-			parts += C
+		var/datum/robot_component/robot_component = components[V]
+		if((robot_component.installed || (get_borked && robot_component.is_destroyed()) || (get_missing && robot_component.is_missing())) && ((get_brute && robot_component.brute_damage) || (get_burn && robot_component.electronics_damage)))
+			parts += robot_component
 
 	return parts
 
@@ -96,9 +96,9 @@
 	var/list/datum/robot_component/parts = list()
 
 	for(var/V in components)
-		var/datum/robot_component/C = components[V]
-		if(C.is_missing())
-			parts += C
+		var/datum/robot_component/robot_component = components[V]
+		if(robot_component.is_missing())
+			parts += robot_component
 
 	return parts
 
@@ -106,9 +106,9 @@
 	var/list/rval = new
 
 	for(var/V in components)
-		var/datum/robot_component/C = components[V]
-		if(C.installed)
-			rval += C
+		var/datum/robot_component/robot_component = components[V]
+		if(robot_component.installed)
+			rval += robot_component
 
 	return rval
 
@@ -116,9 +116,9 @@
 	if(!LAZYLEN(components))
 		return FALSE
 
-	var/datum/robot_component/C = components["armour"]
-	if(C && C.installed)
-		return C
+	var/datum/robot_component/robot_component = components["armour"]
+	if(robot_component && robot_component.installed)
+		return robot_component
 
 	return FALSE
 

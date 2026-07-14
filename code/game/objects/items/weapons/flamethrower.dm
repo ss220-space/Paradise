@@ -195,23 +195,23 @@
 		return
 	operating = TRUE
 	var/turf/previousturf = get_turf(src)
-	for(var/turf/simulated/T in turflist)
-		if(T.blocks_air)
+	for(var/turf/simulated/simulated in turflist)
+		if(simulated.blocks_air)
 			break
-		if(T == previousturf)
+		if(simulated == previousturf)
 			continue	//so we don't burn the tile we be standin on
-		if(!ptank || !T.CanAtmosPass(get_dir(T, previousturf)) || !previousturf.CanAtmosPass(get_dir(previousturf, T)))
+		if(!ptank || !simulated.CanAtmosPass(get_dir(simulated, previousturf)) || !previousturf.CanAtmosPass(get_dir(previousturf, simulated)))
 			break
 		if(igniter)
-			igniter.ignite_turf(src, T)
+			igniter.ignite_turf(src, simulated)
 		else
-			default_ignite(T)
+			default_ignite(simulated)
 		sleep(1)
-		previousturf = T
+		previousturf = simulated
 	operating = FALSE
-	for(var/mob/M in viewers(1, loc))
-		if(M.client && M.machine == src)
-			attack_self(M)
+	for(var/mob/mob in viewers(1, loc))
+		if(mob.client && mob.machine == src)
+			attack_self(mob)
 
 /obj/item/flamethrower/proc/default_ignite(turf/target, release_amount = 0.05)
 	if(!ptank)

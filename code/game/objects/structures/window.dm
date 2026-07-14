@@ -7,14 +7,14 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	var/list/wcBrigAreas = list(/area/station/security, /area/shuttle/gamma)
 
 	var/newcolor
-	var/turf/T = get_turf(W)
-	if(!istype(T))
+	var/turf/turf = get_turf(W)
+	if(!istype(turf))
 		return
-	var/area/A = T.loc
+	var/area/area = turf.loc
 
-	if(is_type_in_list(A,wcBarAreas))
+	if(is_type_in_list(area,wcBarAreas))
 		newcolor = GLOB.wcBar
-	else if(is_type_in_list(A,wcBrigAreas))
+	else if(is_type_in_list(area,wcBrigAreas))
 		newcolor = GLOB.wcBrig
 	else
 		newcolor = GLOB.wcCommon

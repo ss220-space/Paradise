@@ -15,7 +15,7 @@
 	set category = ADMIN_CATEGORY_MAIN
 	set desc = "Regain your admin powers."
 
-	var/datum/admins/D = GLOB.admin_datums[ckey]
+	var/datum/admins/admins = GLOB.admin_datums[ckey]
 	var/rank = null
 	if(CONFIG_GET(flag/admin_legacy_system))
 		//load text from file
@@ -50,14 +50,14 @@
 			rank = rank_read.item[1]
 
 		qdel(rank_read)
-	if(!D)
+	if(!admins)
 		if(CONFIG_GET(flag/admin_legacy_system))
 			if(GLOB.admin_ranks[rank] == null)
 				error("Error while re-adminning [src], admin rank ([rank]) does not exist.")
 				to_chat(src, "Error while re-adminning, admin rank ([rank]) does not exist.", confidential = TRUE)
 				return
 
-			D = new(rank, GLOB.admin_ranks[rank], ckey)
+			admins = new(rank, GLOB.admin_ranks[rank], ckey)
 		else
 			if(!SSdbcore.IsConnected())
 				to_chat(src, "Warning, MYSQL database is not connected.", confidential = TRUE)
@@ -87,14 +87,14 @@
 
 				if(istext(flags))
 					flags = text2num(flags)
-				D = new(admin_rank, flags, ckey)
+				admins = new(admin_rank, flags, ckey)
 
 			qdel(admin_read)
 
-		var/client/C = GLOB.directory[ckey]
-		D.associate(C)
+		var/client/client = GLOB.directory[ckey]
+		admins.associate(client)
 		update_active_keybindings()
-		update_byond_admin_configs(C.ckey, D.rights)
+		update_byond_admin_configs(client.ckey, admins.rights)
 		message_admins("[key_name_admin(usr)] re-adminned themselves.")
 		log_admin("[key_name(usr)] re-adminned themselves.")
 		GLOB.de_admins -= ckey

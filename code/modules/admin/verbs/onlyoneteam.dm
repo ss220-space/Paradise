@@ -5,58 +5,58 @@
 
 	var/list/incompatible_species = list(/datum/species/plasmaman, /datum/species/vox)
 	var/team_toggle = 0
-	for(var/mob/living/carbon/human/H in GLOB.player_list)
-		if(H.stat == DEAD || !(H.client))
+	for(var/mob/living/carbon/human/human in GLOB.player_list)
+		if(human.stat == DEAD || !(human.client))
 			continue
-		if(is_special_character(H))
+		if(is_special_character(human))
 			continue
-		if(is_type_in_list(H.dna.species, incompatible_species))
-			H.set_species(/datum/species/human)
-			var/datum/preferences/A = new()	// Randomize appearance
-			A.copy_to(H)
+		if(is_type_in_list(human.dna.species, incompatible_species))
+			human.set_species(/datum/species/human)
+			var/datum/preferences/preferences = new()	// Randomize appearance
+			preferences.copy_to(human)
 
-		for(var/obj/item/I in H)
-			if(istype(I, /obj/item/implant))
+		for(var/obj/item/item in human)
+			if(istype(item, /obj/item/implant))
 				continue
-			if(is_organ(I))
+			if(is_organ(item))
 				continue
-			qdel(I)
+			qdel(item)
 
-		to_chat(H, "<b>You are part of the [station_name()] dodgeball tournament. Throw dodgeballs at crewmembers wearing a different color than you. OOC: Use THROW on an EMPTY-HAND to catch thrown dodgeballs.</b>")
+		to_chat(human, "<b>You are part of the [station_name()] dodgeball tournament. Throw dodgeballs at crewmembers wearing a different color than you. OOC: Use THROW on an EMPTY-HAND to catch thrown dodgeballs.</b>")
 
-		H.equip_to_slot_or_del(new /obj/item/radio/headset/heads/captain(H), ITEM_SLOT_EAR_LEFT)
-		H.equip_to_slot_or_del(new /obj/item/beach_ball/dodgeball(H), ITEM_SLOT_HAND_RIGHT)
-		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/color/white(H), ITEM_SLOT_FEET)
+		human.equip_to_slot_or_del(new /obj/item/radio/headset/heads/captain(human), ITEM_SLOT_EAR_LEFT)
+		human.equip_to_slot_or_del(new /obj/item/beach_ball/dodgeball(human), ITEM_SLOT_HAND_RIGHT)
+		human.equip_to_slot_or_del(new /obj/item/clothing/shoes/color/white(human), ITEM_SLOT_FEET)
 
 		if(!team_toggle)
-			GLOB.team_alpha += H
+			GLOB.team_alpha += human
 
-			H.equip_to_slot_or_del(new /obj/item/clothing/under/color/red/dodgeball(H), ITEM_SLOT_CLOTH_INNER)
-			var/obj/item/card/id/W = new(H)
-			W.name = "[H.real_name]’s ID Card"
-			W.icon_state = "centcom"
-			W.access = get_all_accesses()
-			W.access += get_all_centcom_access()
-			W.assignment = "Professional Pee-Wee League Dodgeball Player"
-			W.registered_name = H.real_name
-			H.equip_to_slot_or_del(W, ITEM_SLOT_ID)
+			human.equip_to_slot_or_del(new /obj/item/clothing/under/color/red/dodgeball(human), ITEM_SLOT_CLOTH_INNER)
+			var/obj/item/card/id/id = new(human)
+			id.name = "[human.real_name]’s ID Card"
+			id.icon_state = "centcom"
+			id.access = get_all_accesses()
+			id.access += get_all_centcom_access()
+			id.assignment = "Professional Pee-Wee League Dodgeball Player"
+			id.registered_name = human.real_name
+			human.equip_to_slot_or_del(id, ITEM_SLOT_ID)
 
 		else
-			GLOB.team_bravo += H
+			GLOB.team_bravo += human
 
-			H.equip_to_slot_or_del(new /obj/item/clothing/under/color/blue/dodgeball(H), ITEM_SLOT_CLOTH_INNER)
-			var/obj/item/card/id/W = new(H)
-			W.name = "[H.real_name]’s ID Card"
-			W.icon_state = "centcom"
-			W.access = get_all_accesses()
-			W.access += get_all_centcom_access()
-			W.assignment = "Professional Pee-Wee League Dodgeball Player"
-			W.registered_name = H.real_name
-			H.equip_to_slot_or_del(W, ITEM_SLOT_ID)
+			human.equip_to_slot_or_del(new /obj/item/clothing/under/color/blue/dodgeball(human), ITEM_SLOT_CLOTH_INNER)
+			var/obj/item/card/id/id = new(human)
+			id.name = "[human.real_name]’s ID Card"
+			id.icon_state = "centcom"
+			id.access = get_all_accesses()
+			id.access += get_all_centcom_access()
+			id.assignment = "Professional Pee-Wee League Dodgeball Player"
+			id.registered_name = human.real_name
+			human.equip_to_slot_or_del(id, ITEM_SLOT_ID)
 
 		team_toggle = !team_toggle
-		H.dna.species.after_equip_job(null, H)
-		H.regenerate_icons()
+		human.dna.species.after_equip_job(null, human)
+		human.regenerate_icons()
 
 	log_and_message_admins("used DODGEBAWWWWWWWL! -NO ATTACK LOGS WILL BE SENT TO ADMINS FROM THIS POINT FORTH-")
 	GLOB.nologevent = 1

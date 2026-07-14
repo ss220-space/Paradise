@@ -25,16 +25,16 @@
 		extinguisharea(B, 30)
 
 /datum/blobstrain/reagent/pressurized_slime/proc/extinguisharea(obj/structure/blob/B, probchance)
-	for(var/turf/simulated/T in range(1, B))
-		if(!istype(T) || iswallturf(T) || ismineralturf(T))
+	for(var/turf/simulated/simulated in range(1, B))
+		if(!istype(simulated) || iswallturf(simulated) || ismineralturf(simulated))
 			continue
 		if(prob(probchance))
-			T.MakeSlippery(TURF_WET_LUBE, min_wet_time = 5 SECONDS, wet_time_to_add = 5 SECONDS)
-			for(var/obj/O in T)
-				O.extinguish()
-			for(var/mob/living/L in T)
-				L.adjust_wet_stacks(2.5)
-				L.ExtinguishMob()
+			simulated.MakeSlippery(TURF_WET_LUBE, min_wet_time = 5 SECONDS, wet_time_to_add = 5 SECONDS)
+			for(var/obj/obj in simulated)
+				obj.extinguish()
+			for(var/mob/living/living in simulated)
+				living.adjust_wet_stacks(2.5)
+				living.ExtinguishMob()
 
 /datum/reagent/blob/pressurized_slime
 	name = "Сжатая слизь"

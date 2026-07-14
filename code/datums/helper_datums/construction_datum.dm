@@ -46,24 +46,24 @@
 
 /datum/construction/proc/custom_action(step, used_atom, user)
 	if(iscoil(used_atom))
-		var/obj/item/stack/cable_coil/C = used_atom
-		if(C.get_amount() < 4)
+		var/obj/item/stack/cable_coil/cable_coil = used_atom
+		if(cable_coil.get_amount() < 4)
 			to_chat(user, (span_warning("There's not enough cable to finish the task.")))
 			return 0
 		else
-			C.use(4)
-			playsound(holder, C.usesound, 50, TRUE)
+			cable_coil.use(4)
+			playsound(holder, cable_coil.usesound, 50, TRUE)
 	else if(isstack(used_atom))
-		var/obj/item/stack/S = used_atom
-		if(S.get_amount() < 5)
+		var/obj/item/stack/stack = used_atom
+		if(stack.get_amount() < 5)
 			to_chat(user, (span_warning("There's not enough material in this stack.")))
 			return 0
 		else
-			S.use(5)
+			stack.use(5)
 	else if(isitem(used_atom))
-		var/obj/item/I = used_atom
-		if(I.tool_behaviour in CONSTRUCTION_TOOL_BEHAVIOURS)
-			if(!I.use_tool(holder, user, 0, volume = I.tool_volume))
+		var/obj/item/item = used_atom
+		if(item.tool_behaviour in CONSTRUCTION_TOOL_BEHAVIOURS)
+			if(!item.use_tool(holder, user, 0, volume = item.tool_volume))
 				return 0
 	return 1
 
@@ -108,9 +108,9 @@
 				return 0
 		// TOOLS
 		if(isitem(used_atom))
-			var/obj/item/I = used_atom
-			if(I.tool_behaviour in CONSTRUCTION_TOOL_BEHAVIOURS)
-				if(!I.use(amount))
+			var/obj/item/item = used_atom
+			if(item.tool_behaviour in CONSTRUCTION_TOOL_BEHAVIOURS)
+				if(!item.use(amount))
 					return 0
 		// STACKS
 		if(isstack(used_atom))
@@ -125,8 +125,8 @@
 	if(istype(used_atom, thing_to_check))
 		return TRUE
 	else if(isitem(used_atom))
-		var/obj/item/I = used_atom
-		if(I.tool_behaviour == thing_to_check)
+		var/obj/item/item = used_atom
+		if(item.tool_behaviour == thing_to_check)
 			return TRUE
 
 /datum/construction/reversible

@@ -137,24 +137,24 @@
 /mob/living/simple_animal/hostile/asteroid/elite/herald/proc/shoot_projectile(turf/marker, set_angle, is_teleshot, is_trishot)
 	var/turf/startloc = get_turf(src)
 	if(!is_teleshot)
-		var/obj/projectile/herald/H = new(startloc)
-		H.preparePixelProjectile(marker, startloc)
-		H.firer = src
-		H.damage = H.damage * dif_mult_dmg
+		var/obj/projectile/herald/herald = new(startloc)
+		herald.preparePixelProjectile(marker, startloc)
+		herald.firer = src
+		herald.damage = herald.damage * dif_mult_dmg
 		if(target)
-			H.original = target
-		H.fire(set_angle)
+			herald.original = target
+		herald.fire(set_angle)
 		if(is_trishot)
 			shoot_projectile(marker, set_angle + 15, FALSE, FALSE)
 			shoot_projectile(marker, set_angle - 15, FALSE, FALSE)
 	else
-		var/obj/projectile/herald/teleshot/H = new(startloc)
-		H.preparePixelProjectile(marker, startloc)
-		H.firer = src
-		H.damage = H.damage * dif_mult_dmg
+		var/obj/projectile/herald/teleshot/herald = new(startloc)
+		herald.preparePixelProjectile(marker, startloc)
+		herald.firer = src
+		herald.damage = herald.damage * dif_mult_dmg
 		if(target)
-			H.original = target
-		H.fire(set_angle)
+			herald.original = target
+		herald.fire(set_angle)
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/proc/herald_trishot(target)
 	ranged_cooldown = world.time + 3 SECONDS * revive_multiplier()
@@ -276,28 +276,28 @@
 	var/list/areaindex = list()
 	var/obj/starting_mirror = null
 
-	for(var/obj/i in GLOB.mirrors)
-		var/turf/T = get_turf(i)
-		if(!is_teleport_allowed(i.z))
+	for(var/obj/obj in GLOB.mirrors)
+		var/turf/turf = get_turf(obj)
+		if(!is_teleport_allowed(obj.z))
 			continue
-		if(T.z != usr.z) //No crossing zlvls
+		if(turf.z != usr.z) //No crossing zlvls
 			continue
-		if(istype(i, /obj/item/shield/mirror) && !iscultist(usr)) //No teleporting to cult bases
+		if(istype(obj, /obj/item/shield/mirror) && !iscultist(usr)) //No teleporting to cult bases
 			continue
-		if(istype(i, /obj/structure/mirror))
-			var/obj/structure/mirror/B = i
-			if(B.broken)
+		if(istype(obj, /obj/structure/mirror))
+			var/obj/structure/mirror/mirror = obj
+			if(mirror.broken)
 				return
-		var/tmpname = T.loc.name
+		var/tmpname = turf.loc.name
 		if(areaindex[tmpname])
 			tmpname = "[tmpname] ([++areaindex[tmpname]])"
 		else
 			areaindex[tmpname] = 1
-		mirrors_to_use[tmpname] = i
-		if(get_dist(src, i) > 1)
+		mirrors_to_use[tmpname] = obj
+		if(get_dist(src, obj) > 1)
 			continue
 		found_mirror = TRUE
-		starting_mirror = i
+		starting_mirror = obj
 
 	if(!found_mirror)
 		to_chat(usr, span_warning("Вы недостаточно близко к рабочему зеркалу для телепортации!"))
@@ -315,12 +315,12 @@
 		usr.forceMove(destination)
 		usr.visible_message(span_warning("[usr] вылеза[PLUR_ET_YUT(usr)] из [chosen.declent_ru(ACCUSATIVE)], разбивая его!"), span_warning("Вы вылезаете из собственного отражения, разбивая зеркало!"))
 		if(istype(chosen, /obj/structure/mirror))
-			var/obj/structure/mirror/M = chosen
-			M.obj_break("brute")
+			var/obj/structure/mirror/mirror = chosen
+			mirror.obj_break("brute")
 		else if(istype(chosen, /obj/item/shield/mirror))
-			var/turf/T = get_turf(usr)
-			new /obj/effect/temp_visual/cult/sparks(T)
-			playsound(T, 'sound/effects/glassbr3.ogg', 100)
+			var/turf/turf = get_turf(usr)
+			new /obj/effect/temp_visual/cult/sparks(turf)
+			playsound(turf, 'sound/effects/glassbr3.ogg', 100)
 			if(isliving(chosen.loc))
 				var/mob/living/shatterer = loc
 				shatterer.Weaken(6 SECONDS)

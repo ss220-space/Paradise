@@ -46,10 +46,10 @@
 
 /obj/effect/sliding_puzzle/proc/check_setup_location()
 	for(var/id in 1 to 9)
-		var/turf/T = get_turf_for_id(id)
-		if(!T)
+		var/turf/turf = get_turf_for_id(id)
+		if(!turf)
 			return FALSE
-		if(istype(T, /turf/simulated/wall/indestructible) || istype(T, /turf/simulated/floor/indestructible))
+		if(istype(turf, /turf/simulated/wall/indestructible) || istype(turf, /turf/simulated/floor/indestructible))
 			return FALSE
 	return TRUE
 
@@ -63,10 +63,10 @@
 	//Check if everything is in place
 	for(var/id in 1 to 9)
 		var/target_turf = get_turf_for_id(id)
-		var/obj/structure/puzzle_element/E = locate() in target_turf
-		if(id == empty_tile_id && !E) // This location should be empty.
+		var/obj/structure/puzzle_element/puzzle_element = locate() in target_turf
+		if(id == empty_tile_id && !puzzle_element) // This location should be empty.
 			continue
-		if(!E || E.id != id) //wrong tile or no tile at all
+		if(!puzzle_element || puzzle_element.id != id) //wrong tile or no tile at all
 			return
 	//Ding ding
 	finish()
@@ -80,10 +80,10 @@
 
 /obj/effect/sliding_puzzle/proc/finish()
 	finished = TRUE
-	for(var/mob/M in range(7,src))
-		shake_camera(M, COLLAPSE_DURATION , 1)
-	for(var/obj/structure/puzzle_element/E in elements)
-		E.collapse()
+	for(var/mob/mob in range(7,src))
+		shake_camera(mob, COLLAPSE_DURATION , 1)
+	for(var/obj/structure/puzzle_element/puzzle_element in elements)
+		puzzle_element.collapse()
 
 	dispense_reward()
 
@@ -92,8 +92,8 @@
 
 /obj/effect/sliding_puzzle/proc/is_solvable()
 	var/list/current_ordering = list()
-	for(var/obj/structure/puzzle_element/E in elements_in_order())
-		current_ordering += E.id
+	for(var/obj/structure/puzzle_element/puzzle_element in elements_in_order())
+		current_ordering += puzzle_element.id
 
 	var/swap_tally = 0
 	for(var/i in 1 to length(current_ordering))
@@ -136,11 +136,11 @@
 	return sortTim(elements, GLOBAL_PROC_REF(cmp_xy_desc))
 
 /obj/effect/sliding_puzzle/proc/get_base_icon()
-	var/icon/I = new('icons/obj/puzzle.dmi')
-	var/list/puzzles = icon_states(I)
+	var/icon/icon = new('icons/obj/puzzle.dmi')
+	var/list/puzzles = icon_states(icon)
 	var/puzzle_state = pick(puzzles)
-	var/icon/P = new('icons/obj/puzzle.dmi',puzzle_state)
-	return P
+	var/icon/puzzle_icon = new('icons/obj/puzzle.dmi',puzzle_state)
+	return puzzle_icon
 
 /obj/effect/sliding_puzzle/proc/setup()
 	//First we slice the 96x96 icon into 32x32 pieces
@@ -161,9 +161,9 @@
 		var/y_start = 1 + ((y - 1) * ICON_SIZE_Y)
 		var/y_end = y_start + ICON_SIZE_Y - 1
 
-		var/icon/T = get_base_icon()
-		T.Crop(x_start,y_start,x_end,y_end)
-		puzzle_pieces["[id]"] = T
+		var/icon/icon = get_base_icon()
+		icon.Crop(x_start,y_start,x_end,y_end)
+		puzzle_pieces["[id]"] = icon
 		left_ids += id
 
 	//Setup random empty tile
@@ -177,15 +177,15 @@
 	elements = list()
 	var/list/empty_spots = left_ids.Copy()
 	for(var/spot_id in empty_spots)
-		var/turf/T = get_turf_for_id(spot_id)
-		T = T.ChangeTurf(floor_type, keep_icon = FALSE)
-		var/obj/structure/puzzle_element/E = new element_type(T)
-		elements += E
+		var/turf/icon = get_turf_for_id(spot_id)
+		icon = icon.ChangeTurf(floor_type, keep_icon = FALSE)
+		var/obj/structure/puzzle_element/puzzle_element = new element_type(icon)
+		elements += puzzle_element
 		var/chosen_id = pick_n_take(left_ids)
-		E.puzzle_icon = puzzle_pieces["[chosen_id]"]
-		E.source = src
-		E.id = chosen_id
-		E.set_puzzle_icon()
+		puzzle_element.puzzle_icon = puzzle_pieces["[chosen_id]"]
+		puzzle_element.source = src
+		puzzle_element.id = chosen_id
+		puzzle_element.set_puzzle_icon()
 
 	if(!is_solvable())
 		make_solvable()
@@ -210,9 +210,9 @@
 	cut_overlays()
 	if(puzzle_icon)
 		//Need to scale it down a bit to fit the static border
-		var/icon/C = new(puzzle_icon)
-		C.Scale(19,19)
-		var/mutable_appearance/puzzle_small = new(C)
+		var/icon/icon = new(puzzle_icon)
+		icon.Scale(19,19)
+		var/mutable_appearance/puzzle_small = new(icon)
 		puzzle_small.layer = layer + 0.1
 		puzzle_small.pixel_w = 7
 		puzzle_small.pixel_z = 7
@@ -226,10 +226,10 @@
 
 //Set the full image on the turf and delete yourself
 /obj/structure/puzzle_element/proc/collapse()
-	var/turf/T = get_turf(src)
+	var/turf/turf = get_turf(src)
 	var/mutable_appearance/MA = new(puzzle_icon)
-	MA.layer = T.layer + 0.1
-	T.add_overlay(MA)
+	MA.layer = turf.layer + 0.1
+	turf.add_overlay(MA)
 	//Some basic shaking animation
 	for(var/i in 1 to COLLAPSE_DURATION)
 		animate(src, pixel_x=rand(-5,5), pixel_y=rand(-2,2), time=1)
@@ -317,8 +317,8 @@
 		to_chat(user,span_notice("[src] only accepts restrained or unconscious prisoners."))
 
 /proc/puzzle_imprison(mob/living/prisoner)
-	var/turf/T = get_turf(prisoner)
-	var/obj/effect/sliding_puzzle/prison/cube = new(T)
+	var/turf/turf = get_turf(prisoner)
+	var/obj/effect/sliding_puzzle/prison/cube = new(turf)
 	if(!cube.check_setup_location())
 		qdel(cube)
 		return FALSE
@@ -330,12 +330,12 @@
 
 	//Clear the area from objects (and cube user)
 	var/list/things_to_throw = list()
-	for(var/atom/movable/AM in range(1,T))
+	for(var/atom/movable/AM in range(1,turf))
 		if(!AM.anchored)
 			things_to_throw += AM
 
 	for(var/atom/movable/AM in things_to_throw)
-		var/throwtarget = get_edge_target_turf(T, get_dir(T, get_step_away(AM, T)))
+		var/throwtarget = get_edge_target_turf(turf, get_dir(turf, get_step_away(AM, turf)))
 		AM.throw_at(throwtarget, 2, 3)
 
 	//Create puzzle itself
@@ -343,8 +343,8 @@
 	cube.setup()
 
 	//Move them into random block
-	var/obj/structure/puzzle_element/E = pick(cube.elements)
-	prisoner.forceMove(E)
+	var/obj/structure/puzzle_element/puzzle_element = pick(cube.elements)
+	prisoner.forceMove(puzzle_element)
 	return TRUE
 
 #undef COLLAPSE_DURATION

@@ -425,10 +425,10 @@
 	return OutputList
 
 /obj/machinery/autolathe/proc/get_processing_line()
-	var/datum/design/D = being_built[1]
+	var/datum/design/design = being_built[1]
 	var/multiplier = being_built[2]
 	var/is_stack = (multiplier>1)
-	var/output = "Печать: [D.build_object_name][is_stack?" (x[multiplier])":null]"
+	var/output = "Печать: [design.build_object_name][is_stack?" (x[multiplier])":null]"
 	return output
 
 /obj/machinery/autolathe/proc/add_to_queue(D, multiplier, design_name)
@@ -445,27 +445,27 @@
 	return 1
 
 /obj/machinery/autolathe/proc/process_queue()
-	var/datum/design/D = queue[1][1]
+	var/datum/design/design = queue[1][1]
 	var/multiplier = queue[1][2]
-	if(!D)
+	if(!design)
 		remove_from_queue(1)
 		if(length(queue))
 			return process_queue()
 		else
 			return
-	while(D)
+	while(design)
 		if((stat & (NOPOWER|BROKEN)) || disabled)
 			being_built = new /list()
 			return 0
-		if(!can_build(D, multiplier))
+		if(!can_build(design, multiplier))
 			balloon_alert_to_viewers("недостаточно материала для печати!")
 			queue = list()
 			being_built = new /list()
 			return 0
 
 		remove_from_queue(1)
-		build_item(D,multiplier)
-		D = listgetindex(listgetindex(queue, 1),1)
+		build_item(design,multiplier)
+		design = listgetindex(listgetindex(queue, 1),1)
 		multiplier = listgetindex(listgetindex(queue,1),2)
 	being_built = new /list()
 
@@ -473,13 +473,13 @@
 	hacked = hack
 
 	if(hack)
-		for(var/datum/design/D in files.possible_designs)
-			if((D.build_type & AUTOLATHE) && (PRINTER_CATEGORY_HACKED in D.category))
-				files.AddDesign2Known(D)
+		for(var/datum/design/design in files.possible_designs)
+			if((design.build_type & AUTOLATHE) && (PRINTER_CATEGORY_HACKED in design.category))
+				files.AddDesign2Known(design)
 	else
-		for(var/datum/design/D in files.known_designs)
-			if(PRINTER_CATEGORY_HACKED in D.category)
-				files.known_designs -= D.id
+		for(var/datum/design/design in files.known_designs)
+			if(PRINTER_CATEGORY_HACKED in design.category)
+				files.known_designs -= design.id
 	SStgui.close_uis(src) // forces all connected users to re-open the TGUI, thus adding/removing hacked entries from lists
 	recipiecache = list()
 

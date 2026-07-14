@@ -523,27 +523,27 @@
 
 	//Bone White - Place pipes on walls // I fucking hate your code with a passion bone
 	if(istype(I, /obj/item/pipe))
-		var/obj/item/pipe/P = I
-		if(P.pipe_type != -1) // ANY PIPE
+		var/obj/item/pipe/pipe = I
+		if(pipe.pipe_type != -1) // ANY PIPE
 			playsound(get_turf(src), 'sound/weapons/circsawhit.ogg', 50, TRUE)
 			user.visible_message(span_notice("[user] начина[PLUR_ET_YUT(user)] сверлить отверстие в [declent_ru(PREPOSITIONAL)]."), span_notice("Вы начинаете сверлить отверстие в [declent_ru(PREPOSITIONAL)]."), span_italics("Слышен звук дрели."))
 
-			if(do_after(user, 8 SECONDS * P.toolspeed, src, category = DA_CAT_TOOL))
-				user.visible_message(span_notice("[user] просверлива[PLUR_ET_YUT(user)] отверстие в [declent_ru(PREPOSITIONAL)] и проталкива[PLUR_ET_YUT(user)] [P.declent_ru(ACCUSATIVE)] в пустоту."), span_notice("Вы заканчиваете сверление [declent_ru(PREPOSITIONAL)] и проталкиваете [P.declent_ru(ACCUSATIVE)] в пустоту."), span_italics("Слышен звук трещотки."))
+			if(do_after(user, 8 SECONDS * pipe.toolspeed, src, category = DA_CAT_TOOL))
+				user.visible_message(span_notice("[user] просверлива[PLUR_ET_YUT(user)] отверстие в [declent_ru(PREPOSITIONAL)] и проталкива[PLUR_ET_YUT(user)] [pipe.declent_ru(ACCUSATIVE)] в пустоту."), span_notice("Вы заканчиваете сверление [declent_ru(PREPOSITIONAL)] и проталкиваете [pipe.declent_ru(ACCUSATIVE)] в пустоту."), span_italics("Слышен звук трещотки."))
 
 				user.drop_from_active_hand()
-				if(P.is_bent_pipe())  // bent pipe rotation fix see construction.dm
-					P.setDir(5)
+				if(pipe.is_bent_pipe())  // bent pipe rotation fix see construction.dm
+					pipe.setDir(5)
 					if(user.dir == 1)
-						P.setDir(6)
+						pipe.setDir(6)
 					else if(user.dir == 2)
-						P.setDir(9)
+						pipe.setDir(9)
 					else if(user.dir == 4)
-						P.setDir(10)
+						pipe.setDir(10)
 				else
-					P.setDir(user.dir)
-				P.forceMove(src)
-				P.level = 2
+					pipe.setDir(user.dir)
+				pipe.forceMove(src)
+				pipe.level = 2
 		return TRUE
 	return FALSE
 

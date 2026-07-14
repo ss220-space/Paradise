@@ -233,8 +233,8 @@ Difficulty: Very Hard
 
 /obj/effect/vetus_laser/proc/beam_it_up()
 	var/turf/beam_me_up_scotty = get_turf(src)
-	for(var/turf/T in spiral_range_turfs(9, src, 9))
-		T.Beam(beam_me_up_scotty, icon_state = "sm_arc_dbz_referance", time = 0.1, beam_type = /obj/effect/ebeam/vetus)
+	for(var/turf/turf in spiral_range_turfs(9, src, 9))
+		turf.Beam(beam_me_up_scotty, icon_state = "sm_arc_dbz_referance", time = 0.1, beam_type = /obj/effect/ebeam/vetus)
 		SLEEP_CHECK_QDEL(1)
 	qdel(src)
 
@@ -268,10 +268,10 @@ Difficulty: Very Hard
 	if(!chargeturf)
 		return
 	var/dir = get_dir(src, chargeturf)
-	var/turf/T = get_ranged_target_turf(chargeturf, dir, chargepast)
-	if(!T)
+	var/turf/turf = get_ranged_target_turf(chargeturf, dir, chargepast)
+	if(!turf)
 		return
-	new /obj/effect/temp_visual/dragon_swoop/bubblegum/ancient_robot(T, beam)
+	new /obj/effect/temp_visual/dragon_swoop/bubblegum/ancient_robot(turf, beam)
 	charging = TRUE
 	revving_charge = TRUE
 	DestroySurroundings()
@@ -280,8 +280,8 @@ Difficulty: Very Hard
 	SLEEP_CHECK_DEATH(src, delay)
 	revving_charge = FALSE
 	var/movespeed = 0.8
-	GLOB.move_manager.move_towards_legacy(src, T, movespeed, flags = MOVEMENT_LOOP_START_FAST, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
-	SLEEP_CHECK_DEATH(src, get_dist(src, T) * movespeed)
+	GLOB.move_manager.move_towards_legacy(src, turf, movespeed, flags = MOVEMENT_LOOP_START_FAST, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
+	SLEEP_CHECK_DEATH(src, get_dist(src, turf) * movespeed)
 	GLOB.move_manager.stop_looping(src)
 	charging = FALSE
 
@@ -355,19 +355,19 @@ Difficulty: Very Hard
 	switch(mode)
 		if(BLUESPACE)
 			if(ishuman(target))
-				var/mob/living/carbon/human/H = target
-				to_chat(H, span_danger("[declent_ru(NOMINATIVE)] начинает замедлять время вокруг вас!"))
-				H.apply_status_effect(STATUS_EFFECT_BLUESPACESLOWDOWN)
+				var/mob/living/carbon/human/human = target
+				to_chat(human, span_danger("[declent_ru(NOMINATIVE)] начинает замедлять время вокруг вас!"))
+				human.apply_status_effect(STATUS_EFFECT_BLUESPACESLOWDOWN)
 		if(GRAV)
 			visible_message(span_danger("Обломки на поле боя начинают спрессовываться в камни!"))
 			var/list/turfs = list()
 			var/rocks = 0
-			for(var/turf/T in view(4, target))
-				if(T.density)
+			for(var/turf/turf in view(4, target))
+				if(turf.density)
 					continue
-				if(T in range (2, target))
+				if(turf in range (2, target))
 					continue
-				turfs += T
+				turfs += turf
 			var/amount = enraged ? 5 : 3
 			while(rocks < amount && length(turfs))
 				var/turf/spot = pick_n_take(turfs)
@@ -380,12 +380,12 @@ Difficulty: Very Hard
 			visible_message(span_danger("Земля вокруг вас начинает нагреваться!"))
 			var/list/turfs = list()
 			var/volcanos = 0
-			for(var/turf/T in view(4, target))
-				if(T.density)
+			for(var/turf/turf in view(4, target))
+				if(turf.density)
 					continue
-				if(T in range(1, target))
+				if(turf in range(1, target))
 					continue
-				turfs += T
+				turfs += turf
 			var/amount = enraged ? 5 : 3
 			while(volcanos < amount && length(turfs))
 				var/turf/spot = pick_n_take(turfs)
@@ -395,17 +395,17 @@ Difficulty: Very Hard
 					new /obj/effect/temp_visual/lava_warning(around, enraged ? 18 SECONDS : 6 SECONDS)
 				volcanos++
 		if(FLUX)
-			for(var/mob/living/carbon/human/H in view(7, src))
-				var/turf/T = get_turf(H)
-				var/turf/S = get_turf(src)
-				if(!S || !T)
+			for(var/mob/living/carbon/human/human in view(7, src))
+				var/turf/human_turf = get_turf(human)
+				var/turf/turf = get_turf(src)
+				if(!turf || !human_turf)
 					return
-				var/obj/projectile/energy/tesla/ancient/O = new /obj/projectile/energy/tesla/ancient(S)
-				O.current = S
-				O.firer = src
-				O.yo = T.y - S.y
-				O.xo = T.x - S.x
-				O.fire()
+				var/obj/projectile/energy/tesla/ancient/ancient = new /obj/projectile/energy/tesla/ancient(turf)
+				ancient.current = turf
+				ancient.firer = src
+				ancient.yo = human_turf.y - turf.y
+				ancient.xo = human_turf.x - turf.x
+				ancient.fire()
 		if(VORTEX)
 			visible_message(span_danger("[declent_ru(NOMINATIVE)] начинает быстро вибрировать, вызывая землетрясение!"))
 			for(var/turf/turf in range(9,get_turf(target)))
@@ -416,10 +416,10 @@ Difficulty: Very Hard
 	say(pick("JKVRUEOTM XGC VUCKX", "KXXUX OT GTUSGRE IUTZGOTSKTZ", "YZGHOROZE OT OTYZGHOROZE OT YZGHOROZE OT OTYZGH-"))
 	var/list/turfs = list()
 	var/anomalies = 0
-	for(var/turf/T in view(5, src))
-		if(T.density)
+	for(var/turf/turf in view(5, src))
+		if(turf.density)
 			continue
-		turfs += T
+		turfs += turf
 	var/amount = enraged ? 5 : 3
 	while(anomalies < amount && length(turfs))
 		var/turf/spot = pick(turfs)
@@ -427,39 +427,39 @@ Difficulty: Very Hard
 		var/time_to_use = enraged ? 25 SECONDS : 15 SECONDS
 		switch(mode)
 			if(BLUESPACE)
-				var/obj/effect/old_anomaly/bluespace/A = new(spot, time_to_use, FALSE)
-				A.mass_teleporting = FALSE
+				var/obj/effect/old_anomaly/bluespace/bluespace = new(spot, time_to_use, FALSE)
+				bluespace.mass_teleporting = FALSE
 			if(GRAV)
-				var/obj/effect/old_anomaly/gravitational/A = new(spot, time_to_use, FALSE, FALSE)
-				A.knockdown = TRUE
+				var/obj/effect/old_anomaly/gravitational/bluespace = new(spot, time_to_use, FALSE, FALSE)
+				bluespace.knockdown = TRUE
 			if(PYRO)
-				var/obj/effect/old_anomaly/atmospheric/A = new(spot, time_to_use, FALSE)
-				A.produces_slime = FALSE
+				var/obj/effect/old_anomaly/atmospheric/bluespace = new(spot, time_to_use, FALSE)
+				bluespace.produces_slime = FALSE
 			if(FLUX)
-				var/obj/effect/old_anomaly/energetic/A = new(spot, time_to_use, FALSE)
-				A.explosive = FALSE
+				var/obj/effect/old_anomaly/energetic/bluespace = new(spot, time_to_use, FALSE)
+				bluespace.explosive = FALSE
 			if(VORTEX)
 				new /obj/effect/old_anomaly/bhole(spot, time_to_use, FALSE)
 		anomalies++
 	return
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/throw_rock(turf/spot, mob/target)
-	var/turf/T = get_turf(target)
-	if(!spot || !T)
+	var/turf/turf = get_turf(target)
+	if(!spot || !turf)
 		return
-	var/obj/projectile/bullet/rock/O = new /obj/projectile/bullet/rock(spot)
-	O.current = spot
-	O.firer = src
-	O.yo = T.y - spot.y
-	O.xo = T.x - spot.x
-	O.fire()
+	var/obj/projectile/bullet/rock/rock = new /obj/projectile/bullet/rock(spot)
+	rock.current = spot
+	rock.firer = src
+	rock.yo = turf.y - spot.y
+	rock.xo = turf.x - spot.x
+	rock.fire()
 
 // To make this fight harder, it scales it's attacks based on number of players, or as injured. Capped lower on station.
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/calculate_extra_player_anger()
 	var/anger = 0
 	var/cap = 0
-	for(var/mob/living/carbon/human/H in range(10, src))
-		if(H.stat == DEAD)
+	for(var/mob/living/carbon/human/human in range(10, src))
+		if(human.stat == DEAD)
 			continue
 		anger++
 	if(health <= health / 2)

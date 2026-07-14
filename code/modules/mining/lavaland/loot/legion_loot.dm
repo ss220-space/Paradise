@@ -113,13 +113,13 @@
 			if(!turf_to_add)
 				continue
 			affected_turfs += turf_to_add
-	for(var/turf/T as anything in affected_turfs)
-		new /obj/effect/temp_visual/electricity(T)
-		for(var/mob/living/hit_mob in T)
+	for(var/turf/turf as anything in affected_turfs)
+		new /obj/effect/temp_visual/electricity(turf)
+		for(var/mob/living/hit_mob in turf)
 			to_chat(hit_mob, span_userdanger("Вас поразила молния!"))
-			hit_mob.electrocute_act(15 * (isanimal(hit_mob) ? 3 : 1) * (T == target ? 2 : 1) * (boosted ? 2 : 1), src, flags = SHOCK_NOGLOVES)
+			hit_mob.electrocute_act(15 * (isanimal(hit_mob) ? 3 : 1) * (turf == target ? 2 : 1) * (boosted ? 2 : 1), src, flags = SHOCK_NOGLOVES)
 
-		for(var/obj/hit_thing in T)
+		for(var/obj/hit_thing in turf)
 			hit_thing.take_damage(20, BURN, ENERGY, FALSE)
 	playsound(target, 'sound/magic/lightningbolt.ogg', 100, TRUE)
 	target.visible_message(span_danger("Молния ударяет в [target.declent_ru(ACCUSATIVE)]!"))

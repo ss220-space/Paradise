@@ -18,9 +18,9 @@
 /obj/item/clothing/suit/space/space_ninja/proc/ninjapulse()
 	if(ninjacost(5000,N_STEALTH_CANCEL))
 		return
-	var/mob/living/carbon/human/H = affecting
-	playsound(H.loc, 'sound/effects/empulse.ogg', 60, TRUE)
-	empulse(H, 4, 6, TRUE, "Ninja EM Burst") //Procs sure are nice. Slightly weaker than wizard's disable tch.
+	var/mob/living/carbon/human/human = affecting
+	playsound(human.loc, 'sound/effects/empulse.ogg', 60, TRUE)
+	empulse(human, 4, 6, TRUE, "Ninja EM Burst") //Procs sure are nice. Slightly weaker than wizard's disable tch.
 	if(auto_smoke)
 		if(locate(/datum/action/item_action/advanced/ninja/ninja_smoke_bomb) in affecting.actions)
 			prime_smoke(lowcost = TRUE)

@@ -66,10 +66,10 @@
 /datum/component/material_container/proc/OnExamine(datum/source, mob/user, list/examine_list)
 	if(show_on_examine)
 		for(var/I in materials)
-			var/datum/material/M = materials[I]
-			var/amt = amount(M.id)
+			var/datum/material/material = materials[I]
+			var/amt = amount(material.id)
 			if(amt)
-				examine_list += span_notice("- [M.name] — <b>[amt]</b> единиц[declension_ru(amt, "а", "ы", "")] материала.")
+				examine_list += span_notice("- [material.name] — <b>[amt]</b> единиц[declension_ru(amt, "а", "ы", "")] материала.")
 
 /datum/component/material_container/proc/OnAttackBy(datum/source, obj/item/I, mob/living/user)
 	var/list/tc = allowed_typecache
@@ -100,8 +100,8 @@
 	var/requested_amount
 	if(isstack(I) && precise_insertion)
 		var/atom/current_parent = parent
-		var/obj/item/stack/S = I
-		requested_amount = S.amount
+		var/obj/item/stack/stack = I
+		requested_amount = stack.amount
 		if(QDELETED(I) || QDELETED(user) || QDELETED(src) || parent != current_parent || user.incapacitated() || !in_range(current_parent, user) || user.l_hand != I && user.r_hand != I)
 			return
 	if(!user.drop_transfer_item_to_loc(I, parent))
@@ -127,14 +127,14 @@
 	if(amt > 0 && has_space(amt))
 		var/total_amount_saved = total_amount
 		if(id)
-			var/datum/material/M = materials[id]
-			if(M)
-				M.amount += amt
+			var/datum/material/material = materials[id]
+			if(material)
+				material.amount += amt
 				total_amount += amt
 		else
 			for(var/i in materials)
-				var/datum/material/M = materials[i]
-				M.amount += amt
+				var/datum/material/material = materials[i]
+				material.amount += amt
 				total_amount += amt
 		return (total_amount - total_amount_saved)
 	return FALSE
@@ -210,10 +210,10 @@
 	return total_amount_save - total_amount
 
 /datum/component/material_container/proc/use_amount_type(amt, id)
-	var/datum/material/M = materials[id]
-	if(M)
-		if(M.amount >= amt)
-			M.amount -= amt
+	var/datum/material/material = materials[id]
+	if(material)
+		if(material.amount >= amt)
+			material.amount -= amt
 			total_amount -= amt
 			return amt
 	return FALSE
@@ -223,10 +223,10 @@
 		return FALSE
 	if(amt<0)
 		return T.transer_amt_to(src, -amt, id)
-	var/datum/material/M = materials[id]
+	var/datum/material/material = materials[id]
 
-	if(M)
-		var/tr = min(amt, M.amount,T.can_insert_amount(amt, id))
+	if(material)
+		var/tr = min(amt, material.amount,T.can_insert_amount(amt, id))
 		if(tr)
 			use_amount_type(tr, id)
 			T.insert_amount(tr, id)
@@ -235,8 +235,8 @@
 
 /datum/component/material_container/proc/can_insert_amount(amt, id)
 	if(amt && id)
-		var/datum/material/M = materials[id]
-		if(M)
+		var/datum/material/material = materials[id]
+		if(material)
 			if((total_amount + amt) <= max_amount)
 				return amt
 			else
@@ -244,12 +244,12 @@
 
 /datum/component/material_container/proc/can_use_amount(amt, id, list/mats)
 	if(amt && id)
-		var/datum/material/M = materials[id]
-		if(M && M.amount >= amt)
+		var/datum/material/material = materials[id]
+		if(material && material.amount >= amt)
 			return TRUE
 	else if(istype(mats))
-		for(var/M in mats)
-			if(materials[M] && (mats[M] <= materials[M]))
+		for(var/material in mats)
+			if(materials[material] && (mats[material] <= materials[material]))
 				continue
 			else
 				return FALSE
@@ -320,8 +320,8 @@
 	return FALSE
 
 /datum/component/material_container/proc/amount(id)
-	var/datum/material/M = materials[id]
-	return M ? M.amount : 0
+	var/datum/material/material = materials[id]
+	return material ? material.amount : 0
 
 /// returns the amount of material relevant to this container;
 /// if this container does not support glass, any glass in 'I' will not be taken into account

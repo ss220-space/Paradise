@@ -1078,14 +1078,14 @@
 
 /obj/item/gun/proc/place_on_rack()
 	on_rack = TRUE
-	var/matrix/M = matrix()
-	M.Turn(-90)
-	transform = M
+	var/matrix/matrix = matrix()
+	matrix.Turn(-90)
+	transform = matrix
 	barrel_dir = NORTH
 
 /obj/item/gun/proc/remove_from_rack()
-	var/matrix/M = matrix()
-	transform = M
+	var/matrix/matrix = matrix()
+	transform = matrix
 	on_rack = FALSE
 	barrel_dir = EAST
 
@@ -1098,17 +1098,17 @@
 	var/angle = dir2angle(upd_dir) - dir2angle(barrel_dir)
 	if(angle > 180)
 		angle -= 360
-	var/matrix/M = matrix(transform)
-	M.Turn(angle)
-	animate(src, transform = M, time = 2)
+	var/matrix/matrix = matrix(transform)
+	matrix.Turn(angle)
+	animate(src, transform = matrix, time = 2)
 	barrel_dir = upd_dir
 
 // if the gun have rotate transformation - reset it
 /obj/item/gun/proc/reset_direction()
 	if(barrel_dir == EAST)
 		return
-	var/matrix/M = matrix()
-	transform = M
+	var/matrix/matrix = matrix()
+	transform = matrix
 	barrel_dir = EAST
 
 /obj/item/gun/pickup(mob/user)

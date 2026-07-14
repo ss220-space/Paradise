@@ -100,10 +100,10 @@
 /obj/item/melee/cultblade/dagger/proc/can_scribe(mob/living/user)
 	if(!src || !user || loc != user || user.incapacitated())
 		return FALSE
-	var/turf/T = get_turf(user)
-	if(isspaceturf(T))
+	var/turf/turf = get_turf(user)
+	if(isspaceturf(turf))
 		return FALSE
-	if((locate(/obj/effect/rune) in T) || (locate(/obj/effect/rune/narsie) in range(1, T)))
+	if((locate(/obj/effect/rune) in turf) || (locate(/obj/effect/rune/narsie) in range(1, turf)))
 		to_chat(user, span_warning("There's already a rune here!"))
 		return FALSE
 	if(drawing_rune)
@@ -121,10 +121,10 @@
 
 	// Choosing a rune
 	for(var/I in (subtypesof(/obj/effect/rune) - /obj/effect/rune/malformed))
-		var/obj/effect/rune/R = I
-		var/rune_name = initial(R.cultist_name)
+		var/obj/effect/rune/rune = I
+		var/rune_name = initial(rune.cultist_name)
 		if(rune_name)
-			possible_runes[rune_name] = R
+			possible_runes[rune_name] = rune
 	if(!length(possible_runes))
 		return
 
@@ -145,11 +145,11 @@
 		return
 
 	// Check if the rune is allowed
-	var/area/A = get_area(src)
+	var/area/area = get_area(src)
 	var/turf/runeturf = get_turf(user)
 	var/datum/game_mode/gamemode = SSticker.mode
 	if(ispath(rune, /obj/effect/rune/summon))
-		if(!is_station_level(runeturf.z) || isspacearea(A))
+		if(!is_station_level(runeturf.z) || isspacearea(area))
 			to_chat(user, span_cultitalic("The veil is not weak enough here to summon a cultist, you must be on station!"))
 			return
 
@@ -159,32 +159,32 @@
 
 	var/old_color = user.color  // we'll temporarily redden the user for better feedback to fellow cultists. Store this to revert them back.
 	if(narsie_rune)
-		if(!narsie_rune_check(user, A))
+		if(!narsie_rune_check(user, area))
 			return // don't do shit
 		var/list/summon_areas = gamemode.cult_objs.obj_summon.summon_spots
-		if(!(A in summon_areas))  // Check again to make sure they didn't move
+		if(!(area in summon_areas))  // Check again to make sure they didn't move
 			to_chat(user, span_cultlarge("The ritual can only begin where the veil is weak - in [english_list(summon_areas)]!"))
 			return
-		for(var/datum/mind/M in gamemode.cult)
-			if(M.current)
-				SEND_SOUND(M.current, sound('sound/ambience/antag/bloodcult_scribe.ogg'))
+		for(var/datum/mind/mind in gamemode.cult)
+			if(mind.current)
+				SEND_SOUND(mind.current, sound('sound/ambience/antag/bloodcult_scribe.ogg'))
 		GLOB.major_announcement.announce(
-			message = "Образы внепространственного бога из неизвестного измерения собираются воедино в [A.map_name]. Сорвите ритуал любой ценой, пока станция не была уничтожена! Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать культистов на месте.",
+			message = "Образы внепространственного бога из неизвестного измерения собираются воедино в [area.map_name]. Сорвите ритуал любой ценой, пока станция не была уничтожена! Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать культистов на месте.",
 			new_title = ANNOUNCE_CCPARANORMAL_RU,
 			new_sound = 'sound/AI/cult_summon.ogg'
 		)
 		log_admin("[key_name_log(user)] started to draw narsie rune!")
 		add_game_logs("started to draw narsie rune at [AREACOORD(user)]", user)
 		for(var/I in spiral_range_turfs(1, user, 1))
-			var/turf/T = I
-			var/obj/machinery/shield/cult/narsie/N = new(T)
-			shields |= N
+			var/turf/turf = I
+			var/obj/machinery/shield/cult/narsie/narsie = new(turf)
+			shields |= narsie
 		user.color = "red"
 
 	// Draw the rune
-	var/mob/living/carbon/human/H = user
+	var/mob/living/carbon/human/human = user
 	drawing_rune = TRUE
-	H.cult_self_harm(initial(rune.scribe_damage))
+	human.cult_self_harm(initial(rune.scribe_damage))
 	var/others_message
 	if(!narsie_rune)
 		others_message = span_warning("[user] cuts [user.p_their()] body and begins writing in [user.p_their()] own blood!")
@@ -197,9 +197,9 @@
 
 	var/scribe_successful = do_after(user, initial(rune.scribe_delay) * scribe_multiplier, runeturf)
 	for(var/V in shields) // Only used for the 'Tear Veil' rune
-		var/obj/machinery/shield/S = V
-		if(S && !QDELETED(S))
-			qdel(S)
+		var/obj/machinery/shield/shield = V
+		if(shield && !QDELETED(shield))
+			qdel(shield)
 	user.color = old_color
 	if(!scribe_successful)
 		drawing_rune = FALSE
@@ -210,15 +210,15 @@
 		span_cultitalic("You finish drawing the arcane markings of [SSticker.cultdat.entity_title3].")
 	)
 
-	var/obj/effect/rune/R = new rune(runeturf, keyword)
+	var/obj/effect/rune/rune_effect = new rune(runeturf, keyword)
 	drawing_rune = FALSE
 	if(narsie_rune)
-		for(var/obj/effect/rune/I in orange(1, R))
-			qdel(I)
+		for(var/obj/effect/rune/other_effect in orange(1, rune_effect))
+			qdel(other_effect)
 
-	R.blood_DNA = list()
-	R.blood_DNA[H.dna.unique_enzymes] = H.dna.blood_type
-	R.add_hiddenprint(H)
-	R.color = H.dna.species.blood_color
-	R.rune_blood_color = H.dna.species.blood_color
+	rune_effect.blood_DNA = list()
+	rune_effect.blood_DNA[human.dna.unique_enzymes] = human.dna.blood_type
+	rune_effect.add_hiddenprint(human)
+	rune_effect.color = human.dna.species.blood_color
+	rune_effect.rune_blood_color = human.dna.species.blood_color
 	to_chat(user, span_cult("The [lowertext(initial(rune.cultist_name))] rune [initial(rune.cultist_desc)]"))

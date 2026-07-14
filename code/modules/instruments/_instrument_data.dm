@@ -4,9 +4,9 @@
 /proc/get_allowed_instrument_ids()
 	. = list()
 	for(var/id in SSinstruments.instrument_data)
-		var/datum/instrument/I = SSinstruments.instrument_data[id]
-		if(!I.admin_only)
-			. += I.id
+		var/datum/instrument/instrument = SSinstruments.instrument_data[id]
+		if(!instrument.admin_only)
+			. += instrument.id
 
 /**
  * # Instrument Datums

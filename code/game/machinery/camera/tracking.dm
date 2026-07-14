@@ -13,18 +13,18 @@
 		return
 
 	var/list/L = list()
-	for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
-		L.Add(C)
+	for(var/obj/machinery/camera/camera in GLOB.cameranet.cameras)
+		L.Add(camera)
 
 	camera_sort(L)
 
 	var/list/T = list()
 
-	for(var/obj/machinery/camera/C in L)
-		if(!C.can_AI_see(src))
+	for(var/obj/machinery/camera/camera in L)
+		if(!camera.can_AI_see(src))
 			continue
 
-		T[text("[][]", C.c_tag, (C.can_use() ? null : " (Deactivated)"))] = C
+		T[text("[][]", camera.c_tag, (camera.can_use() ? null : " (Deactivated)"))] = camera
 
 	track.cameras = T
 	return T
@@ -40,8 +40,8 @@
 	if(!camera || camera == "Cancel")
 		return 0
 
-	var/obj/machinery/camera/C = track.cameras[camera]
-	src.eyeobj.setLoc(C)
+	var/obj/machinery/camera/camera_machinery = track.cameras[camera]
+	src.eyeobj.setLoc(camera_machinery)
 
 	return
 
@@ -116,16 +116,16 @@
 	if(usr.stat == 2)
 		return list()
 
-	for(var/mob/living/M in GLOB.mob_list)
-		if(!M.can_track(usr))
+	for(var/mob/living/living in GLOB.mob_list)
+		if(!living.can_track(usr))
 			continue
 
 		// Human check
 		var/human = 0
-		if(ishuman(M))
+		if(ishuman(living))
 			human = 1
 
-		var/name = M.name
+		var/name = living.name
 		if(name in track.names)
 			track.namecounts[name]++
 			name = text("[] ([])", name, track.namecounts[name])
@@ -133,9 +133,9 @@
 			track.names.Add(name)
 			track.namecounts[name] = 1
 		if(human)
-			track.humans[name] = M
+			track.humans[name] = living
 		else
-			track.others[name] = M
+			track.others[name] = living
 
 	var/list/targets = sortList(track.humans) + sortList(track.others)
 
@@ -166,38 +166,38 @@
 /mob/living/silicon/ai/proc/ai_actual_track(mob/living/target)
 	if(!istype(target))
 		return
-	var/mob/living/silicon/ai/U = usr
+	var/mob/living/silicon/ai/ai = usr
 
-	U.cameraFollow = target
-	U.tracking = 1
+	ai.cameraFollow = target
+	ai.tracking = 1
 
-	to_chat(U, span_notice("Attempting to track [target.get_visible_name(add_id_name = FALSE)]..."))
-	sleep(min(30, get_dist(target, U.eyeobj) / 4))
+	to_chat(ai, span_notice("Attempting to track [target.get_visible_name(add_id_name = FALSE)]..."))
+	sleep(min(30, get_dist(target, ai.eyeobj) / 4))
 	spawn(15) //give the AI a grace period to stop moving.
-		U.tracking = 0
+		ai.tracking = 0
 
 	if(!target || !target.can_track(usr))
-		to_chat(U, span_warning("Target is not near any active cameras."))
-		U.cameraFollow = null
+		to_chat(ai, span_warning("Target is not near any active cameras."))
+		ai.cameraFollow = null
 		return
 
-	to_chat(U, span_notice("Now tracking [target.get_visible_name(add_id_name = FALSE)] on camera."))
+	to_chat(ai, span_notice("Now tracking [target.get_visible_name(add_id_name = FALSE)] on camera."))
 
 	var/cameraticks = 0
 	spawn(0)
-		while(U.cameraFollow == target)
-			if(U.cameraFollow == null)
+		while(ai.cameraFollow == target)
+			if(ai.cameraFollow == null)
 				return
 
 			if(!target.can_track(usr))
-				U.tracking = 1
+				ai.tracking = 1
 				if(!cameraticks)
-					to_chat(U, span_warning("Target is not near any active cameras. Attempting to reacquire..."))
+					to_chat(ai, span_warning("Target is not near any active cameras. Attempting to reacquire..."))
 				cameraticks++
 				if(cameraticks > 9)
-					U.cameraFollow = null
-					to_chat(U, span_warning("Unable to reacquire, cancelling track..."))
-					U.tracking = 0
+					ai.cameraFollow = null
+					to_chat(ai, span_warning("Unable to reacquire, cancelling track..."))
+					ai.tracking = 0
 					return
 				else
 					sleep(10)
@@ -205,14 +205,14 @@
 
 			else
 				cameraticks = 0
-				U.tracking = 0
+				ai.tracking = 0
 
-			if(U.eyeobj)
-				U.eyeobj.setLoc(get_turf(target))
+			if(ai.eyeobj)
+				ai.eyeobj.setLoc(get_turf(target))
 
 			else
 				view_core()
-				U.cameraFollow = null
+				ai.cameraFollow = null
 				return
 
 			sleep(10)
@@ -221,8 +221,8 @@
 	if(!isturf(M.loc))
 		return 0
 	if(isrobot(M))
-		var/mob/living/silicon/robot/R = M
-		if(!(R.camera && R.camera.can_use()) && !GLOB.cameranet.checkCameraVis(M))
+		var/mob/living/silicon/robot/robot = M
+		if(!(robot.camera && robot.camera.can_use()) && !GLOB.cameranet.checkCameraVis(M))
 			return 0
 	else if(!GLOB.cameranet.checkCameraVis(M))
 		return 0

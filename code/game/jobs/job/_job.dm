@@ -338,37 +338,37 @@
 	return TRUE
 
 /datum/outfit/job/proc/imprint_idcard(mob/living/carbon/human/H)
-	var/datum/job/J = SSjobs.GetJobType(jobtype)
-	if(!J)
-		J = SSjobs.GetJob(H.job)
+	var/datum/job/job = SSjobs.GetJobType(jobtype)
+	if(!job)
+		job = SSjobs.GetJob(H.job)
 	var/alt_title
 	if(H.mind)
 		alt_title = H.mind.role_alt_title
 
-	var/obj/item/card/id/C = H.wear_id
-	if(istype(C))
-		C.access = J.get_access()
-		C.law_level = J.law_level
-		C.registered_name = H.real_name
-		C.rank = J.title
-		C.assignment = alt_title ? alt_title : get_job_title_ru(J.title)
-		C.sex = capitalize(H.gender)
-		C.age = H.age
-		C.photo = get_id_photo(H)
-		C.update_label()
+	var/obj/item/card/id/id = H.wear_id
+	if(istype(id))
+		id.access = job.get_access()
+		id.law_level = job.law_level
+		id.registered_name = H.real_name
+		id.rank = job.title
+		id.assignment = alt_title ? alt_title : get_job_title_ru(job.title)
+		id.sex = capitalize(H.gender)
+		id.age = H.age
+		id.photo = get_id_photo(H)
+		id.update_label()
 
 		if(H.mind && H.mind.initial_account)
-			C.associated_account_number = H.mind.initial_account.account_number
-		C.owner_uid = H.UID()
-		C.owner_ckey = H.ckey
+			id.associated_account_number = H.mind.initial_account.account_number
+		id.owner_uid = H.UID()
+		id.owner_ckey = H.ckey
 
 /datum/outfit/job/proc/imprint_pda(mob/living/carbon/human/H)
 	var/obj/item/pda/PDA = H.wear_pda
-	var/obj/item/card/id/C = H.wear_id
-	if(istype(PDA) && istype(C))
+	var/obj/item/card/id/id = H.wear_id
+	if(istype(PDA) && istype(id))
 		PDA.update_owner_name(H.real_name)
-		PDA.ownjob = C.assignment
-		PDA.ownrank = C.rank
+		PDA.ownjob = id.assignment
+		PDA.ownrank = id.rank
 		PDA.update_appearance(UPDATE_NAME)
 
 /datum/outfit/job/get_chameleon_disguise_info()

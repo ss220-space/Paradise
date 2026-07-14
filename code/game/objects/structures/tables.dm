@@ -509,11 +509,11 @@
 
 /obj/structure/table/glass/proc/table_shatter(mob/living/L)
 	visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] разбивается!"), span_danger("Вы слышите, как бьется стекло"))
-	var/turf/T = get_turf(src)
-	playsound(T, SFX_SHATTER, 50, TRUE)
+	var/turf/turf = get_turf(src)
+	playsound(turf, SFX_SHATTER, 50, TRUE)
 	for(var/I in debris)
 		var/atom/movable/AM = I
-		AM.forceMove(T)
+		AM.forceMove(turf)
 		debris -= AM
 		if(istype(AM, /obj/item/shard))
 			AM.throw_impact(L)

@@ -111,19 +111,19 @@
 	// Contract generation
 	var/total_earnable_tc = list(0, 0, 0)
 	for(var/i in 1 to num_to_generate)
-		var/datum/syndicate_contract/C = new(src, owner, targets)
+		var/datum/syndicate_contract/syndicate_contract = new(src, owner, targets)
 		// Calculate TC reward for each difficulty
-		C.reward_tc = list(null, null, null)
+		syndicate_contract.reward_tc = list(null, null, null)
 		for(var/difficulty in EXTRACTION_DIFFICULTY_EASY to EXTRACTION_DIFFICULTY_HARD)
 			var/amount_tc = calculate_tc_reward(num_to_generate, difficulty)
 			// Bump up the TC reward a little if it's too close to the lower difficulty's reward
 			if(difficulty > EXTRACTION_DIFFICULTY_EASY)
-				amount_tc = max(amount_tc, C.reward_tc[difficulty - 1] + (difficulty - 1))
-			C.reward_tc[difficulty] = amount_tc
+				amount_tc = max(amount_tc, syndicate_contract.reward_tc[difficulty - 1] + (difficulty - 1))
+			syndicate_contract.reward_tc[difficulty] = amount_tc
 			total_earnable_tc[difficulty] += amount_tc
 		// Add to lists
-		contracts += C
-		targets += C.contract.target
+		contracts += syndicate_contract
+		targets += syndicate_contract.contract.target
 
 	// Fill the gap if a difficulty doesn't meet the TC threshold
 	for(var/difficulty in EXTRACTION_DIFFICULTY_EASY to EXTRACTION_DIFFICULTY_HARD)
@@ -132,8 +132,8 @@
 		if(missing <= 0)
 			continue
 		// Just add the missing TC to a random contract
-		var/datum/syndicate_contract/C = pick(contracts)
-		C.reward_tc[difficulty] += missing
+		var/datum/syndicate_contract/syndicate_contract = pick(contracts)
+		syndicate_contract.reward_tc[difficulty] += missing
 
 /**
  * Generates an amount of TC to be used as a contract reward for the given difficulty.
@@ -182,9 +182,9 @@
 	// Spawn the crystals
 	var/obj/item/stack/telecrystal/TC = new(get_turf(M), reward_tc_available)
 	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(H.put_in_hands(TC))
-			to_chat(H, span_notice("Ваш платеж материализуется в ваших руках!"))
+		var/mob/living/carbon/human/human = M
+		if(human.put_in_hands(TC))
+			to_chat(human, span_notice("Ваш платеж материализуется в ваших руках!"))
 		else
 			to_chat(M, span_notice("Ваш платеж материализуется на полу."))
 	// Update info

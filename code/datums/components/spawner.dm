@@ -27,15 +27,15 @@
 
 /datum/component/spawner/proc/stop_spawning(force)
 	STOP_PROCESSING(SSprocessing, src)
-	for(var/mob/living/simple_animal/L in spawned_mobs)
-		if(L.nest == src)
-			L.nest = null
+	for(var/mob/living/simple_animal/simple_animal in spawned_mobs)
+		if(simple_animal.nest == src)
+			simple_animal.nest = null
 	spawned_mobs = null
 
 /datum/component/spawner/proc/try_spawn_mob()
-	var/atom/P = parent
-	var/turf/T = get_turf(P)
-	if(GLOB.mob_suspension && T && !length(SSmobs?.clients_by_zlevel[T.z]))
+	var/atom/atom = parent
+	var/turf/turf = get_turf(atom)
+	if(GLOB.mob_suspension && turf && !length(SSmobs?.clients_by_zlevel[turf.z]))
 		return FALSE
 	if(length(spawned_mobs) >= max_mobs)
 		return FALSE
@@ -43,10 +43,10 @@
 		return FALSE
 	spawn_delay = world.time + spawn_time
 	var/chosen_mob_type = pickweight(mob_types)
-	var/mob/living/simple_animal/L = new chosen_mob_type(P.loc)
-	if(P.flags & ADMIN_SPAWNED)
-		L.flags |= ADMIN_SPAWNED
-	spawned_mobs += L
-	L.nest = src
-	L.faction = src.faction
-	P.visible_message(span_danger("[L] [spawn_text] [P]."))
+	var/mob/living/simple_animal/simple_animal = new chosen_mob_type(atom.loc)
+	if(atom.flags & ADMIN_SPAWNED)
+		simple_animal.flags |= ADMIN_SPAWNED
+	spawned_mobs += simple_animal
+	simple_animal.nest = src
+	simple_animal.faction = src.faction
+	atom.visible_message(span_danger("[simple_animal] [spawn_text] [atom]."))

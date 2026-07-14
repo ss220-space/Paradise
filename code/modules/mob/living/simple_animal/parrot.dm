@@ -504,28 +504,28 @@
 /mob/living/simple_animal/parrot/proc/search_for_perch_and_item(list/stuff)
 	var/turf/my_turf = get_turf(src)
 	var/list/computed_paths = list()
-	for(var/obj/O in view(src))
+	for(var/obj/obj in view(src))
 		var/is_eligible = FALSE
-		if(!parrot_perch && is_type_in_typecache(O, desired_perches))
+		if(!parrot_perch && is_type_in_typecache(obj, desired_perches))
 			is_eligible = TRUE
-		else if(!held_item && O.loc != src && isitem(O))
-			if(parrot_perch && get_turf(parrot_perch) == get_turf(O))
+		else if(!held_item && obj.loc != src && isitem(obj))
+			if(parrot_perch && get_turf(parrot_perch) == get_turf(obj))
 				continue
-			var/obj/item/I = O
-			is_eligible = (I.w_class <= WEIGHT_CLASS_SMALL)
+			var/obj/item/item = obj
+			is_eligible = (item.w_class <= WEIGHT_CLASS_SMALL)
 
 		if(!is_eligible)
 			continue
 
 		// Can we find a path to it?
-		var/turf/T = get_turf(O)
-		if(my_turf != T)
-			var/cache_id = "[my_turf.UID()]_[T.UID()]"
-			computed_paths[cache_id] = computed_paths[cache_id] || get_path_to(src, T)
+		var/turf/turf = get_turf(obj)
+		if(my_turf != turf)
+			var/cache_id = "[my_turf.UID()]_[turf.UID()]"
+			computed_paths[cache_id] = computed_paths[cache_id] || get_path_to(src, turf)
 			if(!length(computed_paths[cache_id]))
 				continue
 
-		return O
+		return obj
 	return null
 
 /*
@@ -545,14 +545,14 @@
 	if(isdisposalunit(loc) || istype(loc, /obj/structure/disposalholder))
 		balloon_alert(src, "невозможно!")
 		return 1
-	for(var/obj/item/I in view(1, src))
+	for(var/obj/item/item in view(1, src))
 		//Make sure we're not already holding it and it's small enough
-		if(I.loc != src && I.w_class <= WEIGHT_CLASS_SMALL)
+		if(item.loc != src && item.w_class <= WEIGHT_CLASS_SMALL)
 			//If we have a perch and the item is sitting on it, continue
-			if(!client && parrot_perch && I.loc == parrot_perch.loc)
+			if(!client && parrot_perch && item.loc == parrot_perch.loc)
 				continue
 
-			try_grab_item(I)
+			try_grab_item(item)
 			visible_message(
 				span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] хватает [held_item.declent_ru(ACCUSATIVE)]!"),
 				span_notice("Вы хватаете [held_item.declent_ru(ACCUSATIVE)]!"),
@@ -577,18 +577,18 @@
 
 	var/obj/item/stolen_item = null
 
-	for(var/mob/living/carbon/C in view(1, src))
-		if(C.l_hand && C.l_hand.w_class <= WEIGHT_CLASS_SMALL)
-			stolen_item = C.l_hand
+	for(var/mob/living/carbon/carbon in view(1, src))
+		if(carbon.l_hand && carbon.l_hand.w_class <= WEIGHT_CLASS_SMALL)
+			stolen_item = carbon.l_hand
 
-		if(C.r_hand && C.r_hand.w_class <= WEIGHT_CLASS_SMALL)
-			stolen_item = C.r_hand
+		if(carbon.r_hand && carbon.r_hand.w_class <= WEIGHT_CLASS_SMALL)
+			stolen_item = carbon.r_hand
 
-		if(stolen_item && C.drop_item_ground(stolen_item))
+		if(stolen_item && carbon.drop_item_ground(stolen_item))
 			try_grab_item(stolen_item)
 			visible_message(
-				span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] выхватывает [held_item.declent_ru(ACCUSATIVE)] из рук [C.declent_ru(GENITIVE)]!"),
-				span_notice("Вы вырываете [held_item.declent_ru(ACCUSATIVE)] из рук [C.declent_ru(GENITIVE)]!"),
+				span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] выхватывает [held_item.declent_ru(ACCUSATIVE)] из рук [carbon.declent_ru(GENITIVE)]!"),
+				span_notice("Вы вырываете [held_item.declent_ru(ACCUSATIVE)] из рук [carbon.declent_ru(GENITIVE)]!"),
 				span_italics("Слышно яростное хлопанье крыльев.")
 			)
 			return held_item
@@ -620,10 +620,10 @@
 
 	if(!drop_gently)
 		if(isgrenade(held_item))
-			var/obj/item/grenade/G = held_item
-			G.forceMove(loc)
-			G.do_drop_animation(src)
-			G.prime()
+			var/obj/item/grenade/grenade = held_item
+			grenade.forceMove(loc)
+			grenade.do_drop_animation(src)
+			grenade.prime()
 			balloon_alert(src, "выброшено!")
 			held_item = null
 			update_held_icon()

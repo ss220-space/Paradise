@@ -138,23 +138,23 @@
 
 	// Objects loop
 	if(!(flags & DMM_IGNORE_OBJS))
-		for(var/obj/O in model.contents)
-			if(O.dont_save || QDELETED(O))
+		for(var/obj/obj in model.contents)
+			if(obj.dont_save || QDELETED(obj))
 				continue
 
-			obj_template += "[O.type][check_attributes(O,use_json=use_json)],"
+			obj_template += "[obj.type][check_attributes(obj,use_json=use_json)],"
 
 	// Mobs Loop
-	for(var/mob/M in model.contents)
-		if(M.dont_save || QDELETED(M))
+	for(var/mob/mob in model.contents)
+		if(mob.dont_save || QDELETED(mob))
 			continue
 
-		if(M.client)
+		if(mob.client)
 			if(!(flags & DMM_IGNORE_PLAYERS))
-				mob_template += "[M.type][check_attributes(M,use_json=use_json)],"
+				mob_template += "[mob.type][check_attributes(mob,use_json=use_json)],"
 		else
 			if(!(flags & DMM_IGNORE_NPCS))
-				mob_template += "[M.type][check_attributes(M,use_json=use_json)],"
+				mob_template += "[mob.type][check_attributes(mob,use_json=use_json)],"
 
 	// Area
 	if(!(flags & DMM_IGNORE_AREAS))

@@ -153,20 +153,20 @@
 				qdel(dummy)
 				return FALSE
 
-		for(var/obj/effect/ebeam/medical/B in next_step)// Don't cross the str-beams!
+		for(var/obj/effect/ebeam/medical/medical in next_step)// Don't cross the str-beams!
 			if(QDELETED(current_beam))
 				break // We shouldn't be processing anymore.
 
-			if(QDELETED(B))
+			if(QDELETED(medical))
 				continue
 
-			if(!B.owner)
-				stack_trace("beam without an owner! [B]")
+			if(!medical.owner)
+				stack_trace("beam without an owner! [medical]")
 				continue
 
-			if(B.owner.origin != current_beam.origin)
+			if(medical.owner.origin != current_beam.origin)
 				next_step.visible_message(span_bigbold("Лучи пересекаются и ПРОИСХОДИТ ВЗРЫВ!"))
-				explosion(B.loc, heavy_impact_range = 3, light_impact_range = 5, flash_range = 8, cause = src)
+				explosion(medical.loc, heavy_impact_range = 3, light_impact_range = 5, flash_range = 8, cause = src)
 				qdel(dummy)
 				return FALSE
 

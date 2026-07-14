@@ -252,8 +252,8 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 			x_min = x + BSA_SIZE_BACK
 			x_max = x - BSA_SIZE_FRONT
 
-	for(var/turf/T in block(x_min,y-1,z, x_max,y+1,z))
-		if(T.density || isspaceturf(T))
+	for(var/turf/turf in block(x_min,y-1,z, x_max,y+1,z))
+		if(turf.density || isspaceturf(turf))
 			return FALSE
 	return TRUE
 
@@ -674,8 +674,8 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	if(!cannon)
 		return
 	var/list/gps_locators = list()
-	for(var/obj/item/gps/G in GLOB.GPS_list) //nulls on the list somehow
-		gps_locators[G.gpstag] = G
+	for(var/obj/item/gps/gps in GLOB.GPS_list) //nulls on the list somehow
+		gps_locators[gps.gpstag] = gps
 	var/list/options = gps_locators
 	if(area_aim)
 		options += target_all_areas ? SSmapping.ghostteleportlocs : SSmapping.teleportlocs
@@ -710,19 +710,19 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 
 /obj/machinery/computer/bsa_control/proc/get_target_name()
 	if(isarea(target))
-		var/area/A = target
-		return A.name
+		var/area/area = target
+		return area.name
 	else if(istype(target,/obj/item/gps))
-		var/obj/item/gps/G = target
-		return G.gpstag
+		var/obj/item/gps/gps = target
+		return gps.gpstag
 
 /obj/machinery/computer/bsa_control/proc/get_target_turf()
 	return aim_turf
 
 /obj/machinery/computer/bsa_control/proc/detect_target_turf()
 	if(isarea(target))
-		var/area/A = target
-		var/turf/center = A.get_center_turf()
+		var/area/area = target
+		var/turf/center = area.get_center_turf()
 		if(center)
 			return locate(center.x, center.y, center.z)
 	else if(istype(target,/obj/item/gps))

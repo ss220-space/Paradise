@@ -227,9 +227,9 @@
 		return
 
 	if(isobj(obj))
-		var/mob/M = obj.loc
-		if(ismob(M))
-			M.temporarily_remove_item_from_inventory(obj, force = TRUE) //Holoweapons should always drop.
+		var/mob/mob = obj.loc
+		if(ismob(mob))
+			mob.temporarily_remove_item_from_inventory(obj, force = TRUE) //Holoweapons should always drop.
 
 	if(!silent)
 		var/obj/oldobj = obj
@@ -237,8 +237,8 @@
 	qdel(obj)
 
 /obj/machinery/computer/HolodeckControl/proc/checkInteg(area/A)
-	for(var/turf/T in A)
-		if(isspaceturf(T))
+	for(var/turf/turf in A)
+		if(isspaceturf(turf))
 			return 0
 
 	return 1
@@ -260,8 +260,8 @@
 	if(world.time < (last_change + 25))
 		if(world.time < (last_change + 15))//To prevent super-spam clicking, reduced process size and annoyance -Sieve
 			return
-		for(var/mob/M in range(3,src))
-			M.show_message("<b>ERROR. Recalibrating projection apparatus.</b>")
+		for(var/mob/mob in range(3,src))
+			mob.show_message("<b>ERROR. Recalibrating projection apparatus.</b>")
 			last_change = world.time
 			return
 
@@ -271,22 +271,22 @@
 	for(var/item in holographic_items)
 		derez(item)
 
-	for(var/obj/effect/decal/cleanable/blood/B in linkedholodeck)
-		qdel(B)
+	for(var/obj/effect/decal/cleanable/blood/blood in linkedholodeck)
+		qdel(blood)
 
-	for(var/mob/living/simple_animal/hostile/carp/holocarp/C in linkedholodeck)
-		qdel(C)
+	for(var/mob/living/simple_animal/hostile/carp/holocarp/holocarp in linkedholodeck)
+		qdel(holocarp)
 
 	holographic_items = A.copy_contents_to(linkedholodeck, TRUE)
 
 	if(emagged)
-		for(var/obj/item/holo/H in linkedholodeck)
-			H.damtype = BRUTE
+		for(var/obj/item/holo/holo in linkedholodeck)
+			holo.damtype = BRUTE
 
 	spawn(30)
-		for(var/obj/effect/landmark/L in linkedholodeck)
-			if(L.name=="Holocarp Spawn")
-				new /mob/living/simple_animal/hostile/carp/holocarp(L.loc)
+		for(var/obj/effect/landmark/landmark in linkedholodeck)
+			if(landmark.name=="Holocarp Spawn")
+				new /mob/living/simple_animal/hostile/carp/holocarp(landmark.loc)
 
 /obj/machinery/computer/HolodeckControl/proc/emergencyShutdown()
 	//Get rid of any items
@@ -613,8 +613,8 @@
 /obj/machinery/readybutton/proc/begin_event()
 	eventstarted = 1
 
-	for(var/obj/structure/holowindow/W in currentarea)
-		qdel(W)
+	for(var/obj/structure/holowindow/holowindow in currentarea)
+		qdel(holowindow)
 
-	for(var/mob/M in currentarea)
-		to_chat(M, "FIGHT!")
+	for(var/mob/mob in currentarea)
+		to_chat(mob, "FIGHT!")

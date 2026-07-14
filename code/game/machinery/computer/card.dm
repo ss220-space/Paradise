@@ -282,26 +282,26 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	var/list/names_returned = list()
 	if(isnull(GLOB.data_core.general) || isnull(GLOB.data_core.security))
 		return names_returned
-	for(var/datum/data/record/R in GLOB.data_core.general)
-		if(!R.fields || !R.fields["name"] || !R.fields["real_rank"])
+	for(var/datum/data/record/record in GLOB.data_core.general)
+		if(!record.fields || !record.fields["name"] || !record.fields["real_rank"])
 			continue
-		if(!(R.fields["real_rank"] in selectedranks))
+		if(!(record.fields["real_rank"] in selectedranks))
 			continue
-		for(var/datum/data/record/E in GLOB.data_core.security)
-			if(E.fields["name"] == R.fields["name"] && E.fields["id"] == R.fields["id"])
+		for(var/datum/data/record/security_record in GLOB.data_core.security)
+			if(security_record.fields["name"] == record.fields["name"] && security_record.fields["id"] == record.fields["id"])
 				var/buttontext
 				var/isdemotable = FALSE
-				if(status_valid_for_demotion(E.fields["criminal"]))
+				if(status_valid_for_demotion(security_record.fields["criminal"]))
 					buttontext = "Разжаловать"
 					isdemotable = TRUE
-				else if(E.fields["criminal"] == SEC_RECORD_STATUS_DEMOTE)
+				else if(security_record.fields["criminal"] == SEC_RECORD_STATUS_DEMOTE)
 					buttontext = "Назначить разжалование"
 				else
 					buttontext = "ОШИБКА"
 				names_returned.Add(list(list(
-					"name" = E.fields["name"],
-					"crimstat" = E.fields["criminal"],
-					"title" = R.fields["real_rank"],
+					"name" = security_record.fields["name"],
+					"crimstat" = security_record.fields["criminal"],
+					"title" = record.fields["real_rank"],
 					"buttontext" = buttontext,
 					"demotable" = isdemotable
 				)))

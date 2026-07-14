@@ -217,8 +217,8 @@
 	occupant = null
 	update_icon(UPDATE_ICON_STATE)
 	// eject trash the occupant dropped
-	for(var/atom/movable/A in contents - component_parts)
-		A.forceMove(loc)
+	for(var/atom/movable/movable in contents - component_parts)
+		movable.forceMove(loc)
 	SStgui.update_uis(src)
 
 /obj/machinery/bodyscanner/proc/eject_id()
@@ -446,8 +446,8 @@
 
 		var/found_disease = FALSE
 		for(var/thing in occupant.diseases)
-			var/datum/disease/D = thing
-			if(D.visibility_flags & HIDDEN_SCANNER)
+			var/datum/disease/disease = thing
+			if(disease.visibility_flags & HIDDEN_SCANNER)
 				continue
 			found_disease = TRUE
 			break
@@ -508,7 +508,7 @@
 		dat += "<th>Другие повреждения</th>"
 		dat += "</tr>"
 
-		for(var/obj/item/organ/external/e as anything in occupant.bodyparts)
+		for(var/obj/item/organ/external/external as anything in occupant.bodyparts)
 			dat += "<tr>"
 			var/AN = ""
 			var/open = ""
@@ -520,36 +520,36 @@
 			var/bleeding = ""
 			var/internal_bleeding = ""
 			var/lung_ruptured = ""
-			if(e.bleeding_amount > 0)
+			if(external.bleeding_amount > 0)
 				bleeding = "<br>"
-				if(e.bleeding_amount <= e.bleedsuppress)
+				if(external.bleeding_amount <= external.bleedsuppress)
 					bleeding += "остановленное "
-				if(e.has_arterial_bleeding())
+				if(external.has_arterial_bleeding())
 					bleeding += "артериальное "
-				else if(e.has_heavy_bleeding())
+				else if(external.has_heavy_bleeding())
 					bleeding += "обильное "
 
 				bleeding += "кровотечение"
-			if(e.has_internal_bleeding())
+			if(external.has_internal_bleeding())
 				if(bleeding == "")
 					internal_bleeding = "<br>"
 
 				internal_bleeding += "Внутреннее кровотечение"
 
-			if(ischest(e) && occupant.is_lung_ruptured())
+			if(ischest(external) && occupant.is_lung_ruptured())
 				lung_ruptured = "Пробито лёгкое"
-			if(e.is_splinted())
+			if(external.is_splinted())
 				splint = "Наложена шина"
-			if(e.has_fracture())
-				AN = "[e.broken_description]"
-			if(e.is_dead())
+			if(external.has_fracture())
+				AN = "[external.broken_description]"
+			if(external.is_dead())
 				dead = "Мертво"
-			if(e.is_robotic())
+			if(external.is_robotic())
 				robot = "Синтетическое"
-			if(e.open)
+			if(external.open)
 				open = "Открыто"
 
-			switch(e.germ_level)
+			switch(external.germ_level)
 				if(INFECTION_LEVEL_ONE to INFECTION_LEVEL_ONE + 200)
 					infected = "Лёгкая инфекция"
 				if(INFECTION_LEVEL_ONE + 200 to INFECTION_LEVEL_ONE + 300)
@@ -565,11 +565,11 @@
 				if(INFECTION_LEVEL_TWO + 400 to INFINITY)
 					infected = "Сепсис"
 
-			if(LAZYLEN(e.embedded_objects) || e.hidden)
+			if(LAZYLEN(external.embedded_objects) || external.hidden)
 				imp += "Обнаружено инородное тело"
 			if(!AN && !open && !infected && !imp && !bleeding && !internal_bleeding && !lung_ruptured)
 				AN = "Отсутствуют"
-			dat += "<td>[e.declent_ru(NOMINATIVE)]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot] [AN] [splint] [open] [infected] [imp] [bleeding] [internal_bleeding] [lung_ruptured] [dead]</td>"
+			dat += "<td>[external.declent_ru(NOMINATIVE)]</td><td>[external.burn_dam]</td><td>[external.brute_dam]</td><td>[robot] [AN] [splint] [open] [infected] [imp] [bleeding] [internal_bleeding] [lung_ruptured] [dead]</td>"
 			dat += "</tr>"
 		for(var/obj/item/organ/internal/organ as anything in occupant.internal_organs)
 			var/robot = ""

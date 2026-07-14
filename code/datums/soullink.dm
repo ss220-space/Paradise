@@ -56,9 +56,9 @@
 
 //Quick-use helper
 /proc/soullink(typepath, ...)
-	var/datum/soullink/S = new typepath()
-	if(S.parseArgs(arglist(args.Copy(2, 0))))
-		return S
+	var/datum/soullink/soullink = new typepath()
+	if(soullink.parseArgs(arglist(args.Copy(2, 0))))
+		return soullink
 
 /////////////////
 // MULTISHARER //

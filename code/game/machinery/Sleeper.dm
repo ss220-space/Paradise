@@ -441,8 +441,8 @@
 	occupant = null
 	update_icon(UPDATE_ICON_STATE)
 	// eject trash the occupant dropped
-	for(var/atom/movable/A in contents - component_parts - list(beaker))
-		A.forceMove(loc)
+	for(var/atom/movable/movable in contents - component_parts - list(beaker))
+		movable.forceMove(loc)
 	SStgui.update_uis(src)
 
 /obj/machinery/sleeper/force_eject_occupant(mob/target)

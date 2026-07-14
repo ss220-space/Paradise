@@ -95,8 +95,8 @@
 	var/success = FALSE
 
 	if(do_after(living_pawn, MONKEY_ITEM_SNATCH_DELAY, victim) && target && living_pawn.Adjacent(victim))
-		for(var/obj/item/I in list(victim.get_active_hand(), victim.get_inactive_hand()))
-			if(I == target)
+		for(var/obj/item/item in list(victim.get_active_hand(), victim.get_inactive_hand()))
+			if(item == target)
 				victim.visible_message(span_danger("[living_pawn] ворует [target.declent_ru(ACCUSATIVE)] у [victim]!"),
 					span_userdanger("[living_pawn] своровала [target.declent_ru(ACCUSATIVE)]!")
 				)

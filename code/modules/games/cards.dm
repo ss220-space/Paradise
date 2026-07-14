@@ -642,18 +642,18 @@
 		i++
 
 /obj/item/cardhand/proc/render_card(datum/playingcard/card, matrix/mat, index, offset)
-	var/image/I = new(icon, (concealed ? "[card.back_icon]" : "[card.card_icon]") )
+	var/image/image = new(icon, (concealed ? "[card.back_icon]" : "[card.card_icon]") )
 	switch(direction)
 		if(SOUTH)
-			I.pixel_w = 8 - (offset * index)
+			image.pixel_w = 8 - (offset * index)
 		if(WEST)
-			I.pixel_z = -6 + (offset * index)
+			image.pixel_z = -6 + (offset * index)
 		if(EAST)
-			I.pixel_z = 8 - (offset * index)
+			image.pixel_z = 8 - (offset * index)
 		else
-			I.pixel_w = -7 + (offset * index)
-	I.transform = mat
-	return I
+			image.pixel_w = -7 + (offset * index)
+	image.transform = mat
+	return image
 
 /obj/item/cardhand/dropped(mob/user, slot, silent = FALSE)
 	. = ..()

@@ -79,11 +79,11 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 
 	for(var/typepath in contains)
 		if(!typepath)	continue
-		var/atom/A = new typepath(crate)
-		var/obj/item/stack/AO = get_obj_in_atom_without_warning(A)
-		if(object.amount && A.vars.Find("amount") && AO?.amount)
+		var/atom/atom = new typepath(crate)
+		var/obj/item/stack/AO = get_obj_in_atom_without_warning(atom)
+		if(object.amount && atom.vars.Find("amount") && AO?.amount)
 			AO.amount = object.amount
-		slip.info += "<li>[A.name]</li>"	//add the item to the manifest (even if it was misplaced)
+		slip.info += "<li>[atom.name]</li>"	//add the item to the manifest (even if it was misplaced)
 
 	if(istype(crate, /obj/structure/closet/crate/critter)) // critter crates do not actually spawn mobs yet and have no contains var, but the manifest still needs to list them
 		var/obj/structure/closet/crate/critter/CritCrate = crate
@@ -168,18 +168,18 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 	linked_pads = list()	// Обнуление на случай повторной синхронизации.
 	receiving_pads = list() // Мы же не хотим два одинаковых обьекта в одном списке
 	pads_cooldown = 0
-	for(var/obj/machinery/syndiepad/P in GLOB.syndiepads)
-		if(get_area(P) != cargoarea)
+	for(var/obj/machinery/syndiepad/syndiepad in GLOB.syndiepads)
+		if(get_area(syndiepad) != cargoarea)
 			continue
-		if(P.receive && P.console_link)
-			pads_cooldown += P.teleport_cooldown
-			P.id = "syndie_cargo_receive" // все привязанные телепады пытаются отправлять посылки на z2 и получать оттуда же
-			receiving_pads += P
+		if(syndiepad.receive && syndiepad.console_link)
+			pads_cooldown += syndiepad.teleport_cooldown
+			syndiepad.id = "syndie_cargo_receive" // все привязанные телепады пытаются отправлять посылки на z2 и получать оттуда же
+			receiving_pads += syndiepad
 			continue
-		if(!P.receive && P.console_link)
-			pads_cooldown += P.teleport_cooldown
-			P.target_id = "syndie_cargo_load" // все привязанные телепады пытаются отправлять посылки на z2 и получать оттуда же
-			linked_pads += P
+		if(!syndiepad.receive && syndiepad.console_link)
+			pads_cooldown += syndiepad.teleport_cooldown
+			syndiepad.target_id = "syndie_cargo_load" // все привязанные телепады пытаются отправлять посылки на z2 и получать оттуда же
+			linked_pads += syndiepad
 			continue
 	pads_cooldown = round(pads_cooldown)
 	if(length(receiving_pads) && length(linked_pads))
@@ -207,18 +207,18 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 	if(!SP)
 		return
 
-	var/datum/syndie_supply_order/O = new()
-	O.ordernum = orderNum
-	O.object = SP
-	O.orderedby = _orderedby
-	O.orderedbyRank = _orderedbyRank
-	O.comment = _comment
-	O.crates = _crates
+	var/datum/syndie_supply_order/syndie_supply_order = new()
+	syndie_supply_order.ordernum = orderNum
+	syndie_supply_order.object = SP
+	syndie_supply_order.orderedby = _orderedby
+	syndie_supply_order.orderedbyRank = _orderedbyRank
+	syndie_supply_order.comment = _comment
+	syndie_supply_order.crates = _crates
 
 	orderNum += 1
-	requestlist += O
+	requestlist += syndie_supply_order
 
-	return O
+	return syndie_supply_order
 
 /datum/syndie_data_storage/proc/DataStorageInitialize() //Вызывать сразу после создания хранилища данных
 	GLOB.data_storages += src
@@ -273,9 +273,9 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 
 /obj/machinery/computer/syndie_supplycomp/proc/compSync()
 	if(data_storage == null)
-		for(var/datum/syndie_data_storage/S in GLOB.data_storages)
-			if(S.cargoarea == get_area(src))
-				data_storage = S
+		for(var/datum/syndie_data_storage/syndie_data_storage in GLOB.data_storages)
+			if(syndie_data_storage.cargoarea == get_area(src))
+				data_storage = syndie_data_storage
 		if(data_storage == null)
 			data_storage = new /datum/syndie_data_storage
 			data_storage.cargoarea = get_area(src)
@@ -296,13 +296,13 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 			stack_trace("Supply Order [SO] has no object associated with it.")
 			continue
 
-		var/turf/T = pick_n_take(spawnTurfs)		//turf we will place it in
+		var/turf/turf = pick_n_take(spawnTurfs)		//turf we will place it in
 		for(var/obj/machinery/syndiepad/receiving_pad as anything in receivingPads)
 			receiving_pad.use_power(10000 / receiving_pad.power_efficiency)
 			flick("[initial(receiving_pad.icon_state)]-beam", receiving_pad)
 			playsound(get_turf(receiving_pad), 'sound/weapons/emitter2.ogg', 25, TRUE)
 
-		if(!T)
+		if(!turf)
 			data_storage.shoppinglist.Cut(1, data_storage.shoppinglist.Find(SO))
 			return
 
@@ -313,7 +313,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 			errors |= MANIFEST_ERROR_NAME
 		if(prob(5))
 			errors |= MANIFEST_ERROR_ITEM
-		SO.createObject(T, errors, data_storage) //А уже тут вызов штуки делающей коробки
+		SO.createObject(turf, errors, data_storage) //А уже тут вызов штуки делающей коробки
 
 	data_storage.shoppinglist.Cut()
 
@@ -406,8 +406,8 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 
 					// Sell plasma
 					if(istype(thing, /obj/item/stack/sheet/mineral/plasma))
-						var/obj/item/stack/sheet/mineral/plasma/P = thing
-						plasma_count += P.amount
+						var/obj/item/stack/sheet/mineral/plasma/plasma = thing
+						plasma_count += plasma.amount
 
 					// Sell intel
 					if(istype(thing, /obj/item/documents))
@@ -443,21 +443,21 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 
 					// Sell exotic plants
 					if(istype(thing, /obj/item/seeds))
-						var/obj/item/seeds/S = thing
-						if(!S.rarity) // Mundane species
-							msg += "[span_bad("+0")]: We don't need samples of mundane species \"[capitalize(S.species)]\".<br>"
-						else if(data_storage.discoveredPlants[S.type]) // This species has already been sent to Black Market
-							var/potDiff = S.potency - data_storage.discoveredPlants[S.type] // Compare it to the previous best
+						var/obj/item/seeds/seeds = thing
+						if(!seeds.rarity) // Mundane species
+							msg += "[span_bad("+0")]: We don't need samples of mundane species \"[capitalize(seeds.species)]\".<br>"
+						else if(data_storage.discoveredPlants[seeds.type]) // This species has already been sent to Black Market
+							var/potDiff = seeds.potency - data_storage.discoveredPlants[seeds.type] // Compare it to the previous best
 							if(potDiff > 0) // This sample is better
-								data_storage.discoveredPlants[S.type] = S.potency
-								msg += "[span_good("+[(potDiff * data_storage.cash_multiplier)]")]: New sample of \"[capitalize(S.species)]\" is superior. Good work.<br>"
+								data_storage.discoveredPlants[seeds.type] = seeds.potency
+								msg += "[span_good("+[(potDiff * data_storage.cash_multiplier)]")]: New sample of \"[capitalize(seeds.species)]\" is superior. Good work.<br>"
 								data_storage.cash += (potDiff * data_storage.cash_multiplier)
 							else // This sample is worthless
-								msg += "[span_bad("+0")]: New sample of \"[capitalize(S.species)]\" is not more potent than existing sample ([data_storage.discoveredPlants[S.type]] potency).<br>"
+								msg += "[span_bad("+0")]: New sample of \"[capitalize(seeds.species)]\" is not more potent than existing sample ([data_storage.discoveredPlants[seeds.type]] potency).<br>"
 						else // This is a new discovery!
-							data_storage.discoveredPlants[S.type] = S.potency
-							msg += "[span_good("[(S.rarity + S.potency)*data_storage.cash_multiplier]")]: New species discovered: \"[capitalize(S.species)]\". Excellent work.<br>"
-							data_storage.cash += (S.rarity + S.potency)*data_storage.cash_multiplier// That's right, no bonus for potency.  Send a crappy sample first to "show improvement" later
+							data_storage.discoveredPlants[seeds.type] = seeds.potency
+							msg += "[span_good("[(seeds.rarity + seeds.potency)*data_storage.cash_multiplier]")]: New species discovered: \"[capitalize(seeds.species)]\". Excellent work.<br>"
+							data_storage.cash += (seeds.rarity + seeds.potency)*data_storage.cash_multiplier// That's right, no bonus for potency.  Send a crappy sample first to "show improvement" later
 					// Sell gems
 					if(istype(thing, /obj/item/gem))
 						var/obj/item/gem/Gem = thing
@@ -719,12 +719,12 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 	if(cash_sum <= data_storage.cash)
 		data_storage.cash -= cash_sum
 		playsound(src, 'sound/machines/chime.ogg', 50, TRUE)
-		var/obj/item/stack/spacecash/C = new(drop_location(), cash_sum)
-		to_chat(user, span_notice("The machine give you [C]!"))
-		var/mob/living/carbon/human/H = user
-		var/name = H.get_authentification_name()
+		var/obj/item/stack/spacecash/spacecash = new(drop_location(), cash_sum)
+		to_chat(user, span_notice("The machine give you [spacecash]!"))
+		var/mob/living/carbon/human/human = user
+		var/name = human.get_authentification_name()
 		data_storage.blackmarket_message += "[span_bad("-[cash_sum]")]: [name] withdraws credits from the console.<br>"
-		user.put_in_hands(C, ignore_anim = FALSE)
+		user.put_in_hands(spacecash, ignore_anim = FALSE)
 	else
 		to_chat(user, span_notice("Нельзя снять больше денег, чем доступно в консоли!"))
 		return

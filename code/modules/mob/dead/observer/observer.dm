@@ -184,11 +184,11 @@ Transfer_mind is there to check if mob is being deleted/not going to have a body
 Works together with spawning an observer, noted above.
 */
 /mob/dead/proc/assess_targets(list/target_list, mob/dead/observer/U)
-	var/client/C = U.client
+	var/client/client = U.client
 	for(var/mob/living/carbon/human/target in target_list)
-		C.images += target.hud_list[SPECIALROLE_HUD]
+		client.images += target.hud_list[SPECIALROLE_HUD]
 	for(var/mob/living/silicon/target in target_list)
-		C.images += target.hud_list[SPECIALROLE_HUD]
+		client.images += target.hud_list[SPECIALROLE_HUD]
 	return 1
 
 /mob/proc/ghostize(flags = GHOST_CAN_REENTER)
@@ -367,16 +367,16 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(message)
 		to_chat(src, span_ghostalert("[message]"))
 		if(source)
-			var/atom/movable/screen/alert/A = throw_alert("[source.UID()]_notify_cloning", /atom/movable/screen/alert/notify_cloning)
-			if(A)
+			var/atom/movable/screen/alert/alert = throw_alert("[source.UID()]_notify_cloning", /atom/movable/screen/alert/notify_cloning)
+			if(alert)
 				if(client?.prefs && client.prefs.UI_style)
-					A.icon = ui_style2icon(client.prefs.UI_style)
-				A.desc = message
+					alert.icon = ui_style2icon(client.prefs.UI_style)
+				alert.desc = message
 				var/old_layer = source.layer
 				var/old_plane = source.plane
 				source.layer = FLOAT_LAYER
 				source.plane = FLOAT_PLANE
-				A.add_overlay(source)
+				alert.add_overlay(source)
 				source.layer = old_layer
 				source.plane = old_plane
 	to_chat(src, span_ghostalert("<a href='byond://?src=[UID()];reenter=1>(Нажмите, чтобы вернуться)</a>"))
@@ -384,14 +384,14 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		SEND_SOUND(src, sound(sound))
 
 /mob/dead/observer/proc/show_me_the_hud(hud_index)
-	var/datum/atom_hud/H = GLOB.huds[hud_index]
-	H.show_to(src)
+	var/datum/atom_hud/atom_hud = GLOB.huds[hud_index]
+	atom_hud.show_to(src)
 	data_hud_seen |= hud_index
 
 /mob/dead/observer/proc/remove_the_hud(hud_index) //remove old huds
-	var/datum/atom_hud/H = GLOB.huds[hud_index]
+	var/datum/atom_hud/atom_hud = GLOB.huds[hud_index]
 	data_hud_seen -= hud_index
-	H.hide_from(src)
+	atom_hud.hide_from(src)
 
 /mob/dead/observer/verb/open_hud_panel()
 	set category = VERB_CATEGORY_GHOST
@@ -467,16 +467,16 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	var/target = tgui_input_list(usr, "Зона для телепортации", "Телепортироваться в локацию", SSmapping.ghostteleportlocs)
 	if(!target)
 		return
-	var/area/A = SSmapping.ghostteleportlocs[target]
-	teleport(A)
+	var/area/area = SSmapping.ghostteleportlocs[target]
+	teleport(area)
 
 /mob/dead/observer/proc/teleport(area/A)
 	if(!A || !isobserver(usr))
 		return
 
 	var/list/turfs = list()
-	for(var/turf/T in get_area_turfs(A.type))
-		turfs += T
+	for(var/turf/turf in get_area_turfs(A.type))
+		turfs += turf
 
 	if(!length(turfs))
 		to_chat(src, span_warning("Некуда прыгать!"))
@@ -810,8 +810,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	updateghostimages()
 
 /proc/updateallghostimages()
-	for(var/mob/dead/observer/O in GLOB.player_list)
-		O.updateghostimages()
+	for(var/mob/dead/observer/observer in GLOB.player_list)
+		observer.updateghostimages()
 
 /mob/dead/observer/proc/updateghostimages()
 	if(!client)
@@ -913,10 +913,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	return ..()
 
 /proc/set_observer_default_invisibility(amount, message=null)
-	for(var/mob/dead/observer/G in GLOB.player_list)
-		G.set_invisibility(amount)
+	for(var/mob/dead/observer/observer in GLOB.player_list)
+		observer.set_invisibility(amount)
 		if(message)
-			to_chat(G, message)
+			to_chat(observer, message)
 	GLOB.observer_default_invisibility = amount
 
 /mob/dead/observer/proc/open_spawners_menu()

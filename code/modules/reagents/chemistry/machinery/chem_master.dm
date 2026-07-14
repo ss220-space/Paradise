@@ -482,12 +482,12 @@
 					if(idx < 1 || idx > length(reagent_list))
 						return
 
-					var/datum/reagent/R = reagent_list[idx]
-					var/list/result = list("idx" = idx, "name" = R.name, "desc" = R.description)
-					if(!condi && istype(R, /datum/reagent/blood))
-						var/datum/reagent/blood/B = R
-						result["blood_type"] = B.data["blood_type"]
-						result["blood_dna"] = B.data["blood_DNA"]
+					var/datum/reagent/reagent = reagent_list[idx]
+					var/list/result = list("idx" = idx, "name" = reagent.name, "desc" = reagent.description)
+					if(!condi && istype(reagent, /datum/reagent/blood))
+						var/datum/reagent/blood/blood = reagent
+						result["blood_type"] = blood.data["blood_type"]
+						result["blood_dna"] = blood.data["blood_DNA"]
 
 					arguments["analysis"] = result
 					ui_modal_message(src, id, "", null, arguments)
@@ -621,18 +621,18 @@
 			to_chat(user, span_warning("Недостаточно реагентов для создания этого предмета!"))
 			return
 
-		var/obj/item/reagent_containers/P = new item_type(location)
+		var/obj/item/reagent_containers/reagent_containers = new item_type(location)
 		if(!isnull(medicine_name))
-			P.name = "[name_suffix][medicine_name]"
-			P.chem_master_made = TRUE
-		P.pixel_x = rand(-7, 7) // Random position
-		P.pixel_y = rand(-7, 7)
-		configure_item(data, reagents, P)
-		reagents.trans_to(P, amount_per_item)
+			reagent_containers.name = "[name_suffix][medicine_name]"
+			reagent_containers.chem_master_made = TRUE
+		reagent_containers.pixel_x = rand(-7, 7) // Random position
+		reagent_containers.pixel_y = rand(-7, 7)
+		configure_item(data, reagents, reagent_containers)
+		reagents.trans_to(reagent_containers, amount_per_item)
 
 		// Load the items into the bottle if there's one loaded
-		if(istype(S) && S.can_be_inserted(P, TRUE))
-			P.forceMove(S)
+		if(istype(S) && S.can_be_inserted(reagent_containers, TRUE))
+			reagent_containers.forceMove(S)
 
 /datum/chemical_production_mode/pills
 	mode_id = "pills"
@@ -657,8 +657,8 @@
 	sprites_amount = MAX_PATCH_SPRITE
 
 /datum/chemical_production_mode/patches/proc/SafetyCheck(datum/reagents/R)
-	for(var/datum/reagent/A in R.reagent_list)
-		if(!GLOB.safe_chem_list.Find(A.id))
+	for(var/datum/reagent/reagent in R.reagent_list)
+		if(!GLOB.safe_chem_list.Find(reagent.id))
 			return FALSE
 	return TRUE
 

@@ -325,10 +325,10 @@
 	var/datum/effect_system/fluid_spread/smoke/freezing/smoke = new
 	smoke.set_up(amount = 6, location = loc, range = 2)
 	smoke.start()
-	var/obj/effect/decal/cleanable/flour/F = new /obj/effect/decal/cleanable/flour(src.loc)
-	F.color = "#B2FFFF"
-	F.name = "nanofrost residue"
-	F.desc = "Residue left behind from a nanofrost detonation. Perhaps there was a fire here?"
+	var/obj/effect/decal/cleanable/flour/flour = new /obj/effect/decal/cleanable/flour(src.loc)
+	flour.color = "#B2FFFF"
+	flour.name = "nanofrost residue"
+	flour.desc = "Residue left behind from a nanofrost detonation. Perhaps there was a fire here?"
 	playsound(src,'sound/effects/bamf.ogg',100, TRUE)
 	qdel(src)
 

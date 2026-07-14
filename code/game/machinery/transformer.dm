@@ -252,8 +252,8 @@
 		return TRUE
 	if(istype(I, /obj/item/melee))
 		return TRUE
-	for(var/obj/item/C in I.contents)
-		if(scan_rec(C))
+	for(var/obj/item/item in I.contents)
+		if(scan_rec(item))
 			return TRUE
 	return FALSE
 

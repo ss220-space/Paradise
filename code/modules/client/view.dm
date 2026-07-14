@@ -7,8 +7,8 @@
 /* Viewmods */
 
 /client/proc/AddViewMod(id, size)
-	var/datum/viewmod/V = new /datum/viewmod(id, size)
-	ViewMods[V.id] = V
+	var/datum/viewmod/viewmod = new /datum/viewmod(id, size)
+	ViewMods[viewmod.id] = viewmod
 	UpdateView()
 
 /client/proc/CheckViewMod(id)
@@ -28,8 +28,8 @@
 
 	var/highest_range = 0
 	for(var/mod_id in ViewMods)
-		var/datum/viewmod/V = ViewMods[mod_id]
-		highest_range = max(highest_range, V.size)
+		var/datum/viewmod/viewmod = ViewMods[mod_id]
+		highest_range = max(highest_range, viewmod.size)
 
 	SetView(highest_range ? highest_range : prefs.viewrange)
 	ViewModsActive = (highest_range > 0)

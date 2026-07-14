@@ -42,8 +42,8 @@
 	use_power(500*power)
 	var/O_limit = 0
 	var/atom/target = get_edge_target_turf(src, dir)
-	for(var/atom/movable/O in loc)
-		if((!O.anchored && O.move_resist != INFINITY) || ismecha(O)) //Mechs need their launch platforms. Also checks if something is anchored or has move resist INFINITY, which should stop ghost flinging.
+	for(var/atom/movable/movable in loc)
+		if((!movable.anchored && movable.move_resist != INFINITY) || ismecha(movable)) //Mechs need their launch platforms. Also checks if something is anchored or has move resist INFINITY, which should stop ghost flinging.
 			O_limit++
 			if(O_limit >= 20)//so no more than 20 items are sent at a time, probably for counter-lag purposes
 				break
@@ -52,7 +52,7 @@
 				var/coef = 1
 				if(emagged)
 					coef = 5
-				O.throw_at(target, drive_range * power * coef, power * coef)
+				movable.throw_at(target, drive_range * power * coef, power * coef)
 	flick("mass_driver1", src)
 	return
 

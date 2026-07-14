@@ -96,8 +96,8 @@
 		desc = initial(desc)
 
 /obj/item/storage/ashtray/proc/empty_tray()
-	for(var/obj/item/I in contents)
-		I.forceMove(loc)
+	for(var/obj/item/item in contents)
+		item.forceMove(loc)
 	update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 
 /obj/item/storage/ashtray/deconstruct()

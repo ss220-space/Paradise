@@ -1434,9 +1434,9 @@
 		return
 
 	if(length(candidates))
-		var/mob/dead/observer/C = pick(candidates)
+		var/mob/dead/observer/observer = pick(candidates)
 		golem.ghostize(FALSE)
-		golem.possess_by_player(C.key)
+		golem.possess_by_player(observer.key)
 		golem.revive()
 		golem.set_species(/datum/species/golem/clockwork)
 		log_game("[golem.key] has become Brass Golem.")
@@ -1515,16 +1515,16 @@
 	if(!can_adv_heal)
 		return
 	clocker.reagents?.add_reagent("epinephrine", 5)
-	var/mob/living/carbon/human/H = clocker
-	for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
+	var/mob/living/carbon/human/human = clocker
+	for(var/obj/item/organ/external/bodypart as anything in human.bodyparts)
 		bodypart.stop_internal_bleeding()
 		bodypart.stop_arterial_bleeding()
 		bodypart.stop_bleeding()
 		bodypart.mend_fracture()
 
 /obj/effect/temp_visual/ratvar/reconstruct/proc/curse(mob/living/target)
-	var/obj/item/nullrod/N = locate() in target
-	if(!isnull(N) || target.mind?.isblessed)
+	var/obj/item/nullrod/nullrod = locate() in target
+	if(!isnull(nullrod) || target.mind?.isblessed)
 		return
 	emp(target)
 	stun(target)

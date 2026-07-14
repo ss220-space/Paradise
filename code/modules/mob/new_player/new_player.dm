@@ -490,8 +490,8 @@
 	SSticker.mode.latespawn(character)
 
 	if(character.mind.assigned_role == JOB_TITLE_CYBORG)
-		var/mob/living/silicon/robot/R = character
-		AnnounceCyborg(character, R.mind.role_alt_title ? R.mind.role_alt_title : JOB_TITLE_CYBORG, join_message)
+		var/mob/living/silicon/robot/robot = character
+		AnnounceCyborg(character, robot.mind.role_alt_title ? robot.mind.role_alt_title : JOB_TITLE_CYBORG, join_message)
 		if(!thisjob.is_position_available() && (thisjob in SSjobs.prioritized_jobs))
 			SSjobs.prioritized_jobs -= thisjob
 
@@ -519,9 +519,9 @@
 /mob/new_player/proc/AnnounceArrival(mob/living/carbon/human/character, rank, join_message)
 	if(SSticker.current_state == GAME_STATE_PLAYING)
 		var/ailist[] = list()
-		for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
-			if(A.announce_arrivals)
-				ailist += A
+		for(var/mob/living/silicon/ai/ai in GLOB.alive_mob_list)
+			if(ai.announce_arrivals)
+				ailist += ai
 		if(length(ailist))
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			if(character.mind)
@@ -554,8 +554,8 @@
 /mob/new_player/proc/AnnounceCyborg(mob/living/character, rank, join_message)
 	if(SSticker.current_state == GAME_STATE_PLAYING)
 		var/ailist[] = list()
-		for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
-			ailist += A
+		for(var/mob/living/silicon/ai/ai in GLOB.alive_mob_list)
+			ailist += ai
 		if(length(ailist))
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			if(character.mind)
@@ -565,7 +565,7 @@
 		else
 			if(character.mind)
 				if(character.mind.assigned_role != character.mind.special_role)
-					// can't use their name here, since cyborg namepicking is done post-spawn, so we'll just say "A new Cyborg has arrived"/"A new Android has arrived"/etc.
+					// can't use their name here, since cyborg namepicking is done post-spawn, so we'll just say "ai new Cyborg has arrived"/"ai new Android has arrived"/etc.
 					radio_announce("Новый [rank ? " [rank]" : " турист" ] [join_message ? join_message : "прибыл на станцию"].", ARRIVALS_ANNOUNCEMENT_COMPUTER, PUB_FREQ, follow_target_override = character)
 
 #undef ARRIVALS_ANNOUNCEMENT_COMPUTER
@@ -589,12 +589,12 @@
 		dat += "<span style='color: lime;'>Объект отметил эти позиции как приоритетные: "
 		var/amt = length(SSjobs.prioritized_jobs)
 		var/amt_count
-		for(var/datum/job/a in SSjobs.prioritized_jobs)
+		for(var/datum/job/job in SSjobs.prioritized_jobs)
 			amt_count++
 			if(amt_count != amt)
-				dat += " [get_job_title_ru(a.title)], "
+				dat += " [get_job_title_ru(job.title)], "
 			else
-				dat += " [get_job_title_ru(a.title)]. </span><br>"
+				dat += " [get_job_title_ru(job.title)]. </span><br>"
 
 	var/num_jobs_available = 0
 	var/list/activePlayers = list()
@@ -615,8 +615,9 @@
 			activePlayers[job] = 0
 			var/categorized = 0
 			// Only players with the job assigned and AFK for less than 10 minutes count as active
-			for(var/mob/M in GLOB.player_list) if(M.mind && M.client && M.mind.assigned_role == job.title && M.client.inactivity <= 10 MINUTES)
-				activePlayers[job]++
+			for(var/mob/mob in GLOB.player_list)
+				if(mob.mind && mob.client && mob.mind.assigned_role == job.title && mob.client.inactivity <= 10 MINUTES)
+					activePlayers[job]++
 			for(var/jobcat in categorizedJobs)
 				var/list/jobs = categorizedJobs[jobcat]["jobs"]
 				if(job.title in categorizedJobs[jobcat]["titles"])
@@ -646,12 +647,12 @@
 			dat += "<fieldset style='border: 2px solid [color]; display: inline'>"
 			dat += "<legend align='center' style='color: [color]'>[jobcat]</legend>"
 			if(jobcat == STATION_DEPARTMENT_RU_OTHER)
-				dat += "<a href='byond://?src=[UID()];SelectedJob=RandomJob'>Случайно (из доступных)</a><br>"
+				dat += "<a href='byond://?src=[UID()];SelectedJob=RandomJob'>Случайно (из доступных)</job><br>"
 			for(var/datum/job/job in categorizedJobs[jobcat]["jobs"])
 				if(job in SSjobs.prioritized_jobs)
-					dat += "<a href='byond://?src=[UID()];SelectedJob=[job.title]'><span style='color: lime;'><b>[get_job_title_ru(job.title)] ([job.current_positions]) (Активно: [activePlayers[job]])</b></span></a><br>"
+					dat += "<a href='byond://?src=[UID()];SelectedJob=[job.title]'><span style='color: lime;'><b>[get_job_title_ru(job.title)] ([job.current_positions]) (Активно: [activePlayers[job]])</b></span></job><br>"
 				else
-					dat += "<a href='byond://?src=[UID()];SelectedJob=[job.title]'>[get_job_title_ru(job.title)] ([job.current_positions]) (Активно: [activePlayers[job]])</a><br>"
+					dat += "<a href='byond://?src=[UID()];SelectedJob=[job.title]'>[get_job_title_ru(job.title)] ([job.current_positions]) (Активно: [activePlayers[job]])</job><br>"
 			dat += "</fieldset><br>"
 
 		dat += "</td></tr></table></center>"

@@ -183,16 +183,16 @@
 		if(isbrain(player))
 			continue
 		if(ishuman(player)) //hostages allowed on the shuttle, check for restraints
-			var/mob/living/carbon/human/H = player
-			if(!H.check_death_method() && H.health <= HEALTH_THRESHOLD_DEAD) //new crit users who are in hard crit are considered dead
+			var/mob/living/carbon/human/human = player
+			if(!human.check_death_method() && human.health <= HEALTH_THRESHOLD_DEAD) //new crit users who are in hard crit are considered dead
 				continue
-			if(H.handcuffed) //cuffs
+			if(human.handcuffed) //cuffs
 				continue
-			if(H.wear_suit && H.wear_suit.breakout_time) //straight jacket
+			if(human.wear_suit && human.wear_suit.breakout_time) //straight jacket
 				continue
-			if(iscloset(H.loc)) //locked/welded locker, all aboard the clown train honk honk
-				var/obj/structure/closet/C = H.loc
-				if(C.welded || C.locked)
+			if(iscloset(human.loc)) //locked/welded locker, all aboard the clown train honk honk
+				var/obj/structure/closet/closet = human.loc
+				if(closet.welded || closet.locked)
 					continue
 		var/special_role = player.mind.special_role
 		if(special_role)

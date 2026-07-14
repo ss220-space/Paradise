@@ -638,14 +638,14 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light/small, 0, 0)
 // returns if the light has power /but/ is manually turned off
 // if a light is turned off, it won't activate emergency power
 /obj/machinery/light/proc/turned_off()
-	var/area/A = get_area(src)
-	return !A.lightswitch && A.power_light
+	var/area/area = get_area(src)
+	return !area.lightswitch && area.power_light
 
 // returns whether this light has power
 // true if area has power and lightswitch is on
 /obj/machinery/light/proc/has_power()
-	var/area/A = get_area(src)
-	return A.lightswitch && A.power_light
+	var/area/area = get_area(src)
+	return area.lightswitch && area.power_light
 
 // attempts to set emergency lights
 /obj/machinery/light/proc/set_emergency_lights()
@@ -761,28 +761,28 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light/small, 0, 0)
 	if(status == LIGHT_EMPTY)
 		return
 
-	var/obj/item/light/L = new light_type()
-	L.status = status
-	L.rigged = rigged
-	L.brightness_range = brightness_range
-	L.brightness_power = brightness_power
-	L.brightness_color = brightness_color
-	L.materials = lightmaterials
+	var/obj/item/light/light = new light_type()
+	light.status = status
+	light.rigged = rigged
+	light.brightness_range = brightness_range
+	light.brightness_power = brightness_power
+	light.brightness_color = brightness_color
+	light.materials = lightmaterials
 
 	// light item inherits the switchcount, then zero it
-	L.switchcount = switchcount
+	light.switchcount = switchcount
 	switchcount = 0
 
-	L.update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
-	L.forceMove(loc)
+	light.update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
+	light.forceMove(loc)
 
 	if(user) //puts it in our active hand
-		L.add_fingerprint(user)
-		user.put_in_active_hand(L, ignore_anim = FALSE)
+		light.add_fingerprint(user)
+		user.put_in_active_hand(light, ignore_anim = FALSE)
 
 	status = LIGHT_EMPTY
 	update(FALSE, FALSE)
-	return L
+	return light
 
 /obj/machinery/light/attack_tk(mob/user)
 	if(status == LIGHT_EMPTY)

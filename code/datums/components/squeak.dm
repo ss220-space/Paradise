@@ -107,8 +107,8 @@
 	SIGNAL_HANDLER
 
 	if(isitem(arrived))
-		var/obj/item/I = arrived
-		if(I.item_flags & ABSTRACT)
+		var/obj/item/item = arrived
+		if(item.item_flags & ABSTRACT)
 			return
 
 	if((arrived.movement_type & MOVETYPES_NOT_TOUCHING_GROUND) || arrived.no_gravity())

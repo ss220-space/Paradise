@@ -84,11 +84,11 @@
 // All cult functionality moved to Null Rod
 /obj/item/storage/bible/proc/bless(mob/living/carbon/M)
 	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
+		var/mob/living/carbon/human/human = M
 		var/heal_amt = 10
 		var/should_update_health = FALSE
 		var/update_damage_icon = NONE
-		for(var/obj/item/organ/external/affecting as anything in H.bodyparts)
+		for(var/obj/item/organ/external/affecting as anything in human.bodyparts)
 			var/brute_was = affecting.brute_dam
 			var/burn_was = affecting.burn_dam
 			update_damage_icon |= affecting.heal_damage(heal_amt, heal_amt, updating_health = FALSE)
@@ -246,7 +246,7 @@
 /obj/item/storage/bible/proc/radial_check(mob/user)
 	if(!user?.mind.isholy || !ishuman(user))
 		return FALSE
-	var/mob/living/carbon/human/H = user
-	if(!src || !H.is_type_in_hands(src) || H.incapacitated())
+	var/mob/living/carbon/human/human = user
+	if(!src || !human.is_type_in_hands(src) || human.incapacitated())
 		return FALSE
 	return TRUE

@@ -109,9 +109,9 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 		occupied += get_step(src, direct)
 
 	for(var/filler_loc in occupied)
-		var/obj/structure/heart_filler/F = new(filler_loc)
-		F.update_parent(src)
-		fillers += F
+		var/obj/structure/heart_filler/heart_filler = new(filler_loc)
+		heart_filler.update_parent(src)
+		fillers += heart_filler
 
 /obj/structure/clockwork/functional/heart/update_overlays()
 	. = ..()

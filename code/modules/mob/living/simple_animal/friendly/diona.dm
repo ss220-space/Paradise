@@ -175,25 +175,25 @@
 		return FALSE
 
 	var/list/choices = list()
-	for(var/mob/living/carbon/human/H in view(1,src))
-		if(!(Adjacent(H)) || !isdiona(H))
+	for(var/mob/living/carbon/human/human in view(1,src))
+		if(!(Adjacent(human)) || !isdiona(human))
 			continue
-		choices += H
+		choices += human
 
 	if(!length(choices))
 		balloon_alert(src, "нет подходящей дионы!")
 		return FALSE
 
-	var/mob/living/M = tgui_input_list(src, "С кем вы хотите слиться?", , choices)
+	var/mob/living/living = tgui_input_list(src, "С кем вы хотите слиться?", , choices)
 
-	if(!M || !src || !(Adjacent(M)) || stat != CONSCIOUS) //input can take a while, so re-validate
+	if(!living || !src || !(Adjacent(living)) || stat != CONSCIOUS) //input can take a while, so re-validate
 		return FALSE
 
-	if(isdiona(M))
-		to_chat(M, "Вы чувствуете, как ваша сущность переплетается с [src], когда он сливается с вашей биомассой.")
-		M.status_flags |= PASSEMOTES
-		to_chat(src, "Вы чувствуете, как ваша сущность переплетается с [M], сливаясь с его биомассой.")
-		forceMove(M)
+	if(isdiona(living))
+		to_chat(living, "Вы чувствуете, как ваша сущность переплетается с [src], когда он сливается с вашей биомассой.")
+		living.status_flags |= PASSEMOTES
+		to_chat(src, "Вы чувствуете, как ваша сущность переплетается с [living], сливаясь с его биомассой.")
+		forceMove(living)
 		throw_alert(gestalt_alert, /atom/movable/screen/alert/nymph, new_master = src) //adds a screen alert that can call resist
 		return TRUE
 	else
@@ -202,20 +202,20 @@
 /mob/living/simple_animal/diona/proc/split()
 	if((stat != CONSCIOUS) || !isdiona(loc))
 		return FALSE
-	var/mob/living/carbon/human/D = loc
-	var/turf/T = get_turf(src)
-	if(!T)
+	var/mob/living/carbon/human/human = loc
+	var/turf/turf = get_turf(src)
+	if(!turf)
 		return FALSE
 	to_chat(loc, "Вы чувствуете острую потерю, когда [declent_ru(NOMINATIVE)] отделяется от вашей биомассы.")
 	to_chat(src, "Вы выныриваете из глубин биомассы [loc] и с лёгким шлепком падаете на землю.")
-	forceMove(T)
+	forceMove(turf)
 
 	var/hasMobs = FALSE
-	for(var/atom/A in D.contents)
-		if(ismob(A) || istype(A, /obj/item/holder))
+	for(var/atom/atom in human.contents)
+		if(ismob(atom) || istype(atom, /obj/item/holder))
 			hasMobs = TRUE
 	if(!hasMobs)
-		D.status_flags &= ~PASSEMOTES
+		human.status_flags &= ~PASSEMOTES
 
 	clear_alert(gestalt_alert)
 	return TRUE
@@ -241,12 +241,12 @@
 	adult.set_species(/datum/species/diona)
 
 	if(istype(loc, /obj/item/holder/diona))
-		var/obj/item/holder/diona/L = loc
-		forceMove(L.loc)
-		qdel(L)
+		var/obj/item/holder/diona/diona = loc
+		forceMove(diona.loc)
+		qdel(diona)
 
-	for(var/datum/language/L in languages)
-		adult.add_language(L.name)
+	for(var/datum/language/diona in languages)
+		adult.add_language(diona.name)
 	adult.regenerate_icons()
 
 	if(random_name)
@@ -260,8 +260,8 @@
 
 	mind.transfer_to(adult)
 
-	for(var/obj/item/W in contents)
-		drop_item_ground(W)
+	for(var/obj/item/item in contents)
+		drop_item_ground(item)
 
 	qdel(src)
 	return TRUE
@@ -285,32 +285,32 @@
 		return FALSE
 
 	var/list/choices = list()
-	for(var/mob/living/carbon/human/H in oview(1,src))
-		if(Adjacent(H) && !HAS_TRAIT(H, TRAIT_NO_BLOOD))
-			choices += H
+	for(var/mob/living/carbon/human/human in oview(1,src))
+		if(Adjacent(human) && !HAS_TRAIT(human, TRAIT_NO_BLOOD))
+			choices += human
 
 	if(!length(choices))
 		balloon_alert(src, "нет подходящего донора!")
 		return FALSE
 
-	var/mob/living/carbon/human/M = tgui_input_list(src, "У кого вы хотите взять образец крови?", , choices)
+	var/mob/living/carbon/human/human = tgui_input_list(src, "У кого вы хотите взять образец крови?", , choices)
 
-	if(!M || !src || !(Adjacent(M)) || stat != CONSCIOUS) //input can take a while, so re-validate
+	if(!human || !src || !(Adjacent(human)) || stat != CONSCIOUS) //input can take a while, so re-validate
 		return FALSE
 
-	if(HAS_TRAIT(M, TRAIT_NO_BLOOD))
+	if(HAS_TRAIT(human, TRAIT_NO_BLOOD))
 		balloon_alert(src, "нет крови!")
 		return FALSE
 
-	if(donors.Find(M.real_name))
+	if(donors.Find(human.real_name))
 		balloon_alert(src, "повторный образец!")
 		return FALSE
 
-	visible_message(span_danger("[src] выпускает щупальце и забирает образец крови [M]."),span_danger("Вы выпускаете щупальце и забираете образец крови [M]."))
-	donors += M.real_name
-	for(var/datum/language/L in M.languages)
-		if(!(L.flags & HIVEMIND))
-			languages |= L
+	visible_message(span_danger("[src] выпускает щупальце и забирает образец крови [human]."),span_danger("Вы выпускаете щупальце и забираете образец крови [human]."))
+	donors += human.real_name
+	for(var/datum/language/language in human.languages)
+		if(!(language.flags & HIVEMIND))
+			languages |= language
 
 	spawn(25)
 		update_progression()

@@ -13,8 +13,8 @@ GLOBAL_LIST_INIT(default_map_traits, MAP_TRANSITION_CONFIG)
 		return FALSE // If you're nowhere, you have no traits
 	var/list/trait_list
 	if(GLOB.space_manager.initialized)
-		var/datum/space_level/S = GLOB.space_manager.get_zlev(z)
-		trait_list = S.flags
+		var/datum/space_level/space_level = GLOB.space_manager.get_zlev(z)
+		trait_list = space_level.flags
 	else
 		trait_list = GLOB.default_map_traits[z]
 		trait_list = trait_list["traits"]
@@ -23,16 +23,16 @@ GLOBAL_LIST_INIT(default_map_traits, MAP_TRANSITION_CONFIG)
 /proc/levels_by_trait(trait)
 	var/list/result = list()
 	for(var/A in GLOB.space_manager.z_list)
-		var/datum/space_level/S = GLOB.space_manager.z_list[A]
-		if(trait in S.flags)
-			result |= S.zpos
+		var/datum/space_level/space_level = GLOB.space_manager.z_list[A]
+		if(trait in space_level.flags)
+			result |= space_level.zpos
 	return result
 
 /proc/level_name_to_num(name)
-	var/datum/space_level/S = GLOB.space_manager.get_zlev_by_name(name)
-	if(!S)
+	var/datum/space_level/space_level = GLOB.space_manager.get_zlev_by_name(name)
+	if(!space_level)
 		CRASH("Unknown z-level name: [name]")
-	return S.zpos
+	return space_level.zpos
 
 /**
  * Proc to get a list of all the linked-together Z-Levels

@@ -257,11 +257,11 @@
 	if(QDELETED(src))
 		return
 	visible_message(span_danger("Тело [declent_ru(GENITIVE)] рассыпается в мелкую синюю пыль."))
-	var/obj/item/ectoplasm/revenant/R = new (get_turf(src))
+	var/obj/item/ectoplasm/revenant/revenant = new (get_turf(src))
 	var/reforming_essence = essence_regen_cap //retain the gained essence capacity
-	R.essence = max(reforming_essence - 15 * perfectsouls, 75) //minus any perfect souls
-	R.client_to_revive = src.client //If the essence reforms, the old revenant is put back in the body
-	R.reforming = TRUE
+	revenant.essence = max(reforming_essence - 15 * perfectsouls, 75) //minus any perfect souls
+	revenant.client_to_revive = src.client //If the essence reforms, the old revenant is put back in the body
+	revenant.reforming = TRUE
 	ghostize()
 	qdel(src)
 
@@ -279,8 +279,8 @@
 /mob/living/simple_animal/revenant/proc/castcheck(essence_cost)
 	if(!src)
 		return
-	var/turf/T = get_turf(src)
-	if(iswallturf(T))
+	var/turf/turf = get_turf(src)
+	if(iswallturf(turf))
 		balloon_alert(src, "нельзя использовать в стене!")
 		return 0
 	if(src.inhibited)

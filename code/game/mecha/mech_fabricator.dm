@@ -168,8 +168,8 @@
 /obj/machinery/mecha_part_fabricator/proc/process_queue()
 	if(!processing_queue || being_built || !length(build_queue) || !is_operational())
 		return
-	var/datum/design/D = build_queue[1]
-	if(build_design(D))
+	var/datum/design/design = build_queue[1]
+	if(build_design(design))
 		build_queue.Cut(1, 2)
 
 /**
@@ -206,13 +206,13 @@
 	return TRUE
 
 /obj/machinery/mecha_part_fabricator/proc/log_printing_design(datum/design/D)
-	for(var/obj/machinery/r_n_d/server/S in SSmachines.get_by_type(/obj/machinery/r_n_d/server))
-		if(S.disabled)
+	for(var/obj/machinery/r_n_d/server/server in SSmachines.get_by_type(/obj/machinery/r_n_d/server))
+		if(server.disabled)
 			continue
-		if(S.syndicate)
+		if(server.syndicate)
 			continue
-		if(istype(S, /obj/machinery/r_n_d/server/robotics) || istype(S, /obj/machinery/r_n_d/server/centcom))
-			S.add_usage_log(usr, D, src)
+		if(istype(server, /obj/machinery/r_n_d/server/robotics) || istype(server, /obj/machinery/r_n_d/server/centcom))
+			server.add_usage_log(usr, D, src)
 
 /**
  * Called when the timer for building a design finishes.
@@ -268,8 +268,8 @@
  */
 /obj/machinery/mecha_part_fabricator/proc/sync_timer_finish()
 	syncing = FALSE
-	var/area/A = get_area(src)
-	for(var/obj/machinery/computer/rdconsole/RDC in A.machinery_cache) // These computers should have their own global..
+	var/area/area = get_area(src)
+	for(var/obj/machinery/computer/rdconsole/RDC in area.machinery_cache) // These computers should have their own global..
 		if(!RDC.sync)
 			continue
 		RDC.files.push_data(local_designs)

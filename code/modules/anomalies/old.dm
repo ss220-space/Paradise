@@ -389,11 +389,11 @@
 
 	//Pulling and/or ex_act-ing movable atoms in that turf
 	if(prob(pull_chance))
-		for(var/obj/O in turf.contents)
-			if(O.anchored)
-				O.ex_act(ex_act_force)
+		for(var/obj/obj in turf.contents)
+			if(obj.anchored)
+				obj.ex_act(ex_act_force)
 			else
-				step_towards(O, src)
+				step_towards(obj, src)
 		for(var/mob/living/mob in turf.contents)
 			step_towards(mob, src)
 

@@ -274,8 +274,8 @@
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/proc/get_charge()
 	if(!active) //disabled
 		return
-	var/area/A = get_area(chassis)
-	var/pow_chan = get_power_channel(A)
+	var/area/area = get_area(chassis)
+	var/pow_chan = get_power_channel(area)
 	if(pow_chan)
 		return 1000 //making magic
 
@@ -376,14 +376,14 @@
 /obj/item/mecha_parts/mecha_equipment/generator/proc/load_fuel(obj/item/I)
 	if(istype(I) && (fuel_type in I.materials))
 		if(istype(I, /obj/item/stack/sheet))
-			var/obj/item/stack/sheet/P = I
+			var/obj/item/stack/sheet/sheet = I
 			var/to_load = max(max_fuel - fuel_amount, 0)
 			if(to_load)
-				var/units = min(max(round(to_load / P.perunit),1),P.amount)
+				var/units = min(max(round(to_load / sheet.perunit),1),sheet.amount)
 				if(units)
-					var/added_fuel = units * P.perunit
+					var/added_fuel = units * sheet.perunit
 					fuel_amount = min(fuel_amount + added_fuel, max_fuel)
-					P.use(units)
+					sheet.use(units)
 					occupant_message("[units] unit\s of [fuel_name] successfully loaded.")
 					return added_fuel
 			else
@@ -399,9 +399,9 @@
 	else if(istype(I, /obj/structure/ore_box))
 		var/fuel_added = 0
 		for(var/baz in I.contents)
-			var/obj/item/O = baz
-			if(fuel_type in O.materials)
-				fuel_added = load_fuel(O)
+			var/obj/item/item = baz
+			if(fuel_type in item.materials)
+				fuel_added = load_fuel(item)
 				break
 		return fuel_added
 
@@ -623,9 +623,9 @@
 	if(!prisoner_insertion_check(target))
 		return FALSE
 	if(!button)
-		for(var/datum/action/innate/mecha/select_module/H in chassis.occupant.actions)
-			if(H.button_icon_state == "mecha_cage")
-				button = H
+		for(var/datum/action/innate/mecha/select_module/select_module in chassis.occupant.actions)
+			if(select_module.button_icon_state == "mecha_cage")
+				button = select_module
 				break
 
 	change_state("mecha_cage_activate")

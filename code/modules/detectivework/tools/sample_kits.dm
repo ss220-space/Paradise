@@ -139,8 +139,8 @@
 	return (supplied.suit_fibers && length(supplied.suit_fibers))
 
 /obj/item/forensics/sample_kit/proc/take_sample(mob/user, atom/supplied)
-	var/obj/item/sample/S = new evidence_path(get_turf(user), supplied)
-	to_chat(user, span_notice("You transfer [length(S.evidence)] [length(S.evidence) > 1 ? "[evidence_type]s" : "[evidence_type]"] to \the [S]."))
+	var/obj/item/sample/sample = new evidence_path(get_turf(user), supplied)
+	to_chat(user, span_notice("You transfer [length(sample.evidence)] [length(sample.evidence) > 1 ? "[evidence_type]s" : "[evidence_type]"] to \the [sample]."))
 
 /obj/item/forensics/sample_kit/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!proximity_flag || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))

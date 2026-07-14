@@ -346,9 +346,9 @@
 	var/list/list_x = list()
 	var/list/list_y = list()
 	for(var/_a in atoms)
-		var/atom/a = _a
-		list_x += a.x
-		list_y += a.y
+		var/atom/atom = _a
+		list_x += atom.x
+		list_y += atom.y
 	return list(
 		min(list_x),
 		min(list_y),

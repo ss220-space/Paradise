@@ -6,26 +6,26 @@
 
 /datum/component/spooky/proc/spectral_attack(datum/source, mob/living/carbon/C, mob/user)
 	if(ishuman(user)) //this weapon wasn't meant for mortals.
-		var/mob/living/carbon/human/U = user
-		if(!isskeleton(U))
-			U.apply_damage(35, STAMINA)
-			U.Jitter(70 SECONDS)
-			U.SetStuttering(40 SECONDS)
-			if(U.getStaminaLoss() > 95)
-				to_chat(U, "<font color='red' size='4'><b>Your ears weren't meant for this spectral sound.</b></font>")
-				spectral_change(U)
+		var/mob/living/carbon/human/human = user
+		if(!isskeleton(human))
+			human.apply_damage(35, STAMINA)
+			human.Jitter(70 SECONDS)
+			human.SetStuttering(40 SECONDS)
+			if(human.getStaminaLoss() > 95)
+				to_chat(human, "<font color='red' size='4'><b>Your ears weren't meant for this spectral sound.</b></font>")
+				spectral_change(human)
 			return
 
 	if(ishuman(C))
-		var/mob/living/carbon/human/H = C
-		if(isskeleton(H))
+		var/mob/living/carbon/human/human = C
+		if(isskeleton(human))
 			return //undeads are unaffected by the spook-pocalypse.
 		C.Jitter(70 SECONDS)
 		C.SetStuttering(40 SECONDS)
-		if(!isdiona(H) && !ismachineperson(H) && !isslimeperson(H) && !isgolem(H) && !isplasmaman(H))
+		if(!isdiona(human) && !ismachineperson(human) && !isslimeperson(human) && !isgolem(human) && !isplasmaman(human))
 			C.apply_damage(25, STAMINA) //boneless humanoids don't lose the will to live
 		to_chat(C, "<font color='red' size='4'><b>DOOT</b></font>")
-		spectral_change(H)
+		spectral_change(human)
 
 	else //the sound will spook monkeys.
 		C.Jitter(30 SECONDS)

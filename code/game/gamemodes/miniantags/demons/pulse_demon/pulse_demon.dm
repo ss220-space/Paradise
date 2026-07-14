@@ -180,9 +180,9 @@
 	else
 		cable_images[T] = list()
 
-	for(var/obj/structure/cable/C in T)
-		var/image/cable_image = image(C, C, layer = ABOVE_LIGHTING_LAYER, dir = C.dir)
-		SET_PLANE_EXPLICIT(cable_image, PIPECRAWL_IMAGES_PLANE, C)
+	for(var/obj/structure/cable/cable in T)
+		var/image/cable_image = image(cable, cable, layer = ABOVE_LIGHTING_LAYER, dir = cable.dir)
+		SET_PLANE_EXPLICIT(cable_image, PIPECRAWL_IMAGES_PLANE, cable)
 		cable_images[T] += cable_image
 		client?.images += cable_image
 
@@ -310,17 +310,17 @@
 	playsound(T, pick(hurt_sounds), 30, TRUE)
 
 /mob/living/simple_animal/demon/pulse_demon/proc/exit_to_turf()
-	var/turf/T = get_turf(src)
+	var/turf/turf = get_turf(src)
 	current_power = null
 	update_controlling_area()
 	current_cable = null
-	forceMove(T)
-	Move(T)
+	forceMove(turf)
+	Move(turf)
 	if(!current_cable && !current_power)
-		var/obj/effect/proc_holder/spell/pulse_demon/toggle/can_exit_cable/S = locate() in mob_spell_list
-		if(S && !S.locked && !can_exit_cable)
+		var/obj/effect/proc_holder/spell/pulse_demon/toggle/can_exit_cable/can_exit_cable = locate() in mob_spell_list
+		if(can_exit_cable && !can_exit_cable.locked && !can_exit_cable)
 			can_exit_cable = TRUE
-			S.do_toggle(can_exit_cable)
+			can_exit_cable.do_toggle(can_exit_cable)
 			to_chat(src, span_danger("Your self-sustaining ability has automatically enabled itself to prevent death from having no connection!"))
 
 /mob/living/simple_animal/demon/pulse_demon/proc/update_controlling_area(reset = FALSE)
@@ -328,19 +328,19 @@
 	if(reset || current_power == null)
 		controlling_area = null
 	else if(isapc(current_power))
-		var/obj/machinery/power/apc/A = current_power
-		if(A in hijacked_apcs)
-			controlling_area = A.area
+		var/obj/machinery/power/apc/apc = current_power
+		if(apc in hijacked_apcs)
+			controlling_area = apc.area
 		else
 			controlling_area = null
 
 	if((!prev && !controlling_area) || (prev && controlling_area))
 		return // only update icons when we get or no longer have ANY area
-	for(var/obj/effect/proc_holder/spell/pulse_demon/S in mob_spell_list)
-		if(!S.action || S.locked)
+	for(var/obj/effect/proc_holder/spell/pulse_demon/pulse_demon in mob_spell_list)
+		if(!pulse_demon.action || pulse_demon.locked)
 			continue
-		if(S.requires_area)
-			S.action.UpdateButtonIcon()
+		if(pulse_demon.requires_area)
+			pulse_demon.action.UpdateButtonIcon()
 
 // can enter an apc at all?
 /mob/living/simple_animal/demon/pulse_demon/proc/is_valid_apc(obj/machinery/power/apc/A)
@@ -478,13 +478,13 @@
 		charge_drained += realdelta
 
 	update_glow()
-	for(var/obj/effect/proc_holder/spell/pulse_demon/S in mob_spell_list)
-		if(!S.action || S.locked || !S.cast_cost)
+	for(var/obj/effect/proc_holder/spell/pulse_demon/pulse_demon in mob_spell_list)
+		if(!pulse_demon.action || pulse_demon.locked || !pulse_demon.cast_cost)
 			continue
-		var/dist = S.cast_cost - orig
+		var/dist = pulse_demon.cast_cost - orig
 		// only update icon if the amount is actually enough to change a spell's availability
 		if(dist == 0 || (dist > 0 && realdelta >= dist) || (dist < 0 && realdelta <= dist))
-			S.action.UpdateButtonIcon()
+			pulse_demon.action.UpdateButtonIcon()
 	return realdelta
 
 // logarithmic scale for glow strength, see table:
@@ -708,8 +708,8 @@
 	add_attack_logs(src, L, "shocked ([dealt] damage)")
 
 /mob/living/simple_animal/demon/pulse_demon/proc/is_under_tile()
-	var/turf/T = get_turf(src)
-	return T.underfloor_accessibility != UNDERFLOOR_INTERACTABLE || HAS_TRAIT(T, TRAIT_TURF_COVERED)
+	var/turf/turf = get_turf(src)
+	return turf.underfloor_accessibility != UNDERFLOOR_INTERACTABLE || HAS_TRAIT(turf, TRAIT_TURF_COVERED)
 
 // cable (and hijacked APC) view helper
 /mob/living/simple_animal/demon/pulse_demon/proc/update_cableview()
@@ -720,31 +720,31 @@
 	for(var/image/current_image in cable_images + apc_images)
 		client.images -= current_image
 
-	var/turf/T = get_turf(src)
+	var/turf/turf = get_turf(src)
 
 	// regenerate for all cables on our (or our holder's) z-level
 	cable_images.Cut()
-	for(var/datum/powernet/P in SSmachines.powernets)
-		for(var/obj/structure/cable/C in P.cables)
-			var/turf/cable_turf = get_turf(C)
-			if(T.z != cable_turf.z)
+	for(var/datum/powernet/powernet in SSmachines.powernets)
+		for(var/obj/structure/cable/cable in powernet.cables)
+			var/turf/cable_turf = get_turf(cable)
+			if(turf.z != cable_turf.z)
 				break // skip entire powernet if it's off z-level
 
-			var/image/cable_image = image(C, C, layer = ABOVE_LIGHTING_LAYER, dir = C.dir)
+			var/image/cable_image = image(cable, cable, layer = ABOVE_LIGHTING_LAYER, dir = cable.dir)
 			// good visibility here
-			SET_PLANE_EXPLICIT(cable_image, PIPECRAWL_IMAGES_PLANE, C)
+			SET_PLANE_EXPLICIT(cable_image, PIPECRAWL_IMAGES_PLANE, cable)
 			LAZYADD(cable_images[cable_turf], cable_image)
 			client.images += cable_image
 
 	// same for hijacked APCs
 	apc_images.Cut()
-	for(var/obj/machinery/power/apc/A in hijacked_apcs)
-		var/turf/apc_turf = get_turf(A)
-		if(T.z != apc_turf.z)
+	for(var/obj/machinery/power/apc/apc in hijacked_apcs)
+		var/turf/apc_turf = get_turf(apc)
+		if(turf.z != apc_turf.z)
 			continue
 		// parent of image is the APC, not the turf because of how clicking on images works
-		var/image/apc_image = image('icons/obj/engines_and_power/power.dmi', A, "apcemag", ABOVE_LIGHTING_LAYER, A.dir)
-		SET_PLANE_EXPLICIT(apc_image, PIPECRAWL_IMAGES_PLANE, A)
+		var/image/apc_image = image('icons/obj/engines_and_power/power.dmi', apc, "apcemag", ABOVE_LIGHTING_LAYER, apc.dir)
+		SET_PLANE_EXPLICIT(apc_image, PIPECRAWL_IMAGES_PLANE, apc)
 		LAZYADD(apc_images[apc_turf], apc_image)
 		client.images += apc_image
 

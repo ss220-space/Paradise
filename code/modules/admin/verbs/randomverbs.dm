@@ -140,11 +140,11 @@ ADMIN_VERB_AND_CONTEXT_MENU(cmd_admin_headset_message, R_EVENT, "Headset Message
 	user.admin_headset_message(target)
 
 /client/proc/admin_headset_message(mob/M in GLOB.mob_list, sender = null)
-	var/mob/living/carbon/human/H = M
-	if(!istype(H))
+	var/mob/living/carbon/human/human = M
+	if(!istype(human))
 		to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human", confidential = TRUE)
 		return
-	if(!istype(H.l_ear, /obj/item/radio/headset) && !istype(H.r_ear, /obj/item/radio/headset))
+	if(!istype(human.l_ear, /obj/item/radio/headset) && !istype(human.r_ear, /obj/item/radio/headset))
 		to_chat(usr, "The person you are trying to contact is not wearing a headset", confidential = TRUE)
 		return
 
@@ -153,17 +153,17 @@ ADMIN_VERB_AND_CONTEXT_MENU(cmd_admin_headset_message, R_EVENT, "Headset Message
 		if(!sender)
 			return
 
-	message_admins("[key_name_admin(src)] has started answering [key_name_admin(H)]'s [sender] request.")
-	var/input = tgui_input_text(src, "Please enter a message to reply to [key_name(H)] via their headset.", "Outgoing message from [sender]", multiline = TRUE, encode = FALSE)
+	message_admins("[key_name_admin(src)] has started answering [key_name_admin(human)]'s [sender] request.")
+	var/input = tgui_input_text(src, "Please enter a message to reply to [key_name(human)] via their headset.", "Outgoing message from [sender]", multiline = TRUE, encode = FALSE)
 	if(!input)
-		message_admins("[key_name_admin(src)] decided not to answer [key_name_admin(H)]'s [sender] request.")
+		message_admins("[key_name_admin(src)] decided not to answer [key_name_admin(human)]'s [sender] request.")
 		return
 
-	log_admin("[key_name(src)] replied to [key_name(H)]'s [sender] message with the message [input].")
-	message_admins("[key_name_admin(src)] replied to [key_name_admin(H)]'s [sender] message with: \"[input]\"")
-	to_chat(H, "<span class = specialnotice>Incoming priority transmission from [sender == "Syndicate" ? "your benefactor" : "Central Command"].  Message as follows[sender == "Syndicate" ? ", agent." : ":"]</span><span class = 'specialnotice'> [input]</span>")
+	log_admin("[key_name(src)] replied to [key_name(human)]'s [sender] message with the message [input].")
+	message_admins("[key_name_admin(src)] replied to [key_name_admin(human)]'s [sender] message with: \"[input]\"")
+	to_chat(human, "<span class = specialnotice>Incoming priority transmission from [sender == "Syndicate" ? "your benefactor" : "Central Command"].  Message as follows[sender == "Syndicate" ? ", agent." : ":"]</span><span class = 'specialnotice'> [input]</span>")
 
-	SEND_SOUND(H, sound('sound/effects/headset_message.ogg'))
+	SEND_SOUND(human, sound('sound/effects/headset_message.ogg'))
 
 ADMIN_VERB(cmd_admin_godmode, R_ADMIN, "Godmode", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/target as mob in GLOB.mob_list)
 	var/had_trait = HAS_TRAIT_FROM(target, TRAIT_GODMODE, ADMIN_TRAIT)
@@ -473,18 +473,18 @@ ADMIN_VERB(respawn_character, R_SPAWN, "Respawn Character", "Respawn a player th
 /proc/create_xeno(ckey)
 	if(!ckey)
 		var/list/candidates = list()
-		for(var/mob/M in GLOB.player_list)
-			if(M.stat != DEAD)
+		for(var/mob/mob in GLOB.player_list)
+			if(mob.stat != DEAD)
 				continue //we are not dead!
-			if(!(ROLE_ALIEN in M.client.prefs.be_special))
+			if(!(ROLE_ALIEN in mob.client.prefs.be_special))
 				continue //we don't want to be an alium
-			if(jobban_isbanned(M, "alien") || jobban_isbanned(M, "Syndicate"))
+			if(jobban_isbanned(mob, "alien") || jobban_isbanned(mob, "Syndicate"))
 				continue //we are jobbanned
-			if(M.client.is_afk())
+			if(mob.client.is_afk())
 				continue //we are afk
-			if(M.mind && M.mind.current && M.mind.current.stat != DEAD)
+			if(mob.mind && mob.mind.current && mob.mind.current.stat != DEAD)
 				continue //we have a live body we are tied to
-			candidates += M.ckey
+			candidates += mob.ckey
 		if(length(candidates))
 			ckey = tgui_input_list(usr, "Pick the player you want to respawn as a xeno.", "Suitable Candidates", candidates)
 		else
@@ -521,17 +521,17 @@ ADMIN_VERB(respawn_character, R_SPAWN, "Respawn Character", "Respawn a player th
 	var/list/ghosts = list()
 	var/list/sortmob = sortAtom(GLOB.mob_list) // get the mob list.
 	var/any=0
-	for(var/mob/dead/observer/M in sortmob)
-		mobs.Add(M) //filter it where it's only ghosts
+	for(var/mob/dead/observer/observer in sortmob)
+		mobs.Add(observer) //filter it where it's only ghosts
 		any = 1 //if no ghosts show up, any will just be 0
 	if(!any)
 		if(notify)
 			to_chat(src, "There doesn't appear to be any ghosts for you to select.", confidential = TRUE)
 		return
 
-	for(var/mob/M in mobs)
-		var/name = M.name
-		ghosts[name] = M //get the name of the mob for the popup list
+	for(var/mob/observer in mobs)
+		var/name = observer.name
+		ghosts[name] = observer //get the name of the mob for the popup list
 	if(what==1)
 		return ghosts
 	else
@@ -968,8 +968,8 @@ ADMIN_VERB(modify_goals, R_EVENT, "Modify Goals", "Modify the station goals for 
 		return
 
 	var/dat = ""
-	for(var/datum/station_goal/S in SSticker.mode.station_goals)
-		dat += "[S.name] - <a href='byond://?src=[S.UID()];announce=1'>Announce</a> | <a href='byond://?src=[S.UID()];remove=1'>Remove</a><br>"
+	for(var/datum/station_goal/station_goal in SSticker.mode.station_goals)
+		dat += "[station_goal.name] - <a href='byond://?src=[station_goal.UID()];announce=1'>Announce</a> | <a href='byond://?src=[station_goal.UID()];remove=1'>Remove</a><br>"
 	dat += "<br><a href='byond://?src=[UID()];add_station_goal=1'>Add New Goal</a>"
 	var/datum/browser/popup = new(usr, "goals", "Modify Goals", 400, 400)
 	popup.set_content(dat)

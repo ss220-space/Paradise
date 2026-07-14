@@ -1340,14 +1340,14 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 /obj/item/organ/external/proc/set_company(company)
 	model = company
-	var/datum/robolimb/R = GLOB.all_robolimbs[company]
-	if(R)
-		force_icon = R.icon
-		name = "[R.company] [initial(name)]"
+	var/datum/robolimb/robolimb = GLOB.all_robolimbs[company]
+	if(robolimb)
+		force_icon = robolimb.icon
+		name = "[robolimb.company] [initial(name)]"
 		if(ru_names)
 			for(var/i = 1; i <= 6; i++)
-				ru_names[i] = "[initial(ru_names[i])] [R.company]"
-		desc = "[R.desc]"
+				ru_names[i] = "[initial(ru_names[i])] [robolimb.company]"
+		desc = "[robolimb.desc]"
 
 /obj/item/organ/external/proc/remove_all_embedded_objects(atom/drop_loc, clear_alert = TRUE)
 	. = 0

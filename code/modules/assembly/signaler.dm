@@ -131,9 +131,9 @@
 	radio_connection.post_signal(src, signal)
 
 	var/time = time2text(world.realtime,"hh:mm:ss")
-	var/turf/T = get_turf(src)
+	var/turf/turf = get_turf(src)
 	if(usr)
-		GLOB.lastsignalers.Add("[time] <b>:</b> [usr.key] used [src] @ location ([T.x],[T.y],[T.z]) <b>:</b> [format_frequency(frequency)]/[code]")
+		GLOB.lastsignalers.Add("[time] <b>:</b> [usr.key] used [src] @ location ([turf.x],[turf.y],[turf.z]) <b>:</b> [format_frequency(frequency)]/[code]")
 
 /obj/item/assembly/signaler/receive_signal(datum/signal/signal)
 	if(!receiving || !signal)

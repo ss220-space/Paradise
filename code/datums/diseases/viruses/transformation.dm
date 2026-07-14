@@ -61,8 +61,8 @@
 			affected_mob.drop_item_ground(item)
 
 		if(isobj(affected_mob.loc))
-			var/obj/O = affected_mob.loc
-			O.force_eject_occupant(affected_mob)
+			var/obj/obj = affected_mob.loc
+			obj.force_eject_occupant(affected_mob)
 
 		var/mob/living/new_mob = new new_form(affected_mob.loc)
 		if(istype(new_mob))

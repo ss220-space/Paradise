@@ -38,13 +38,13 @@ PROCESSING_SUBSYSTEM_DEF(instruments)
 /// Initializes all instrument datums
 /datum/controller/subsystem/processing/instruments/proc/initialize_instrument_data()
 	for(var/path in valid_subtypesof(/datum/instrument))
-		var/datum/instrument/I = path
-		I = new path
-		I.Initialize()
-		if(!I.id)
-			qdel(I)
+		var/datum/instrument/instrument = path
+		instrument = new path
+		instrument.Initialize()
+		if(!instrument.id)
+			qdel(instrument)
 			continue
-		instrument_data[I.id] = I
+		instrument_data[instrument.id] = instrument
 		CHECK_TICK
 
 /// Reserves a sound channel for a given instrument datum

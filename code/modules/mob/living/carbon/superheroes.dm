@@ -15,13 +15,13 @@
 
 /datum/superheroes/proc/equip(mob/living/carbon/human/H)
 	H.rename_character(H.real_name, name)
-	for(var/obj/item/W in H.get_all_slots())
-		H.drop_item_ground(W)
+	for(var/obj/item/item in H.get_all_slots())
+		H.drop_item_ground(item)
 	H.equip_to_slot_or_del(new /obj/item/radio/headset(H), ITEM_SLOT_EAR_LEFT)
 
 /datum/superheroes/proc/fixflags(mob/living/carbon/human/H)
-	for(var/obj/item/W in H.get_all_slots())
-		ADD_TRAIT(W, TRAIT_NODROP, SUPERHERO_TRAIT)
+	for(var/obj/item/item in H.get_all_slots())
+		ADD_TRAIT(item, TRAIT_NODROP, SUPERHERO_TRAIT)
 
 /datum/superheroes/proc/assign_genes(mob/living/carbon/human/H)
 	H.force_gene_block(GLOB.regenerateblock, TRUE)
@@ -32,28 +32,28 @@
 /datum/superheroes/proc/assign_spells(mob/living/carbon/human/H)
 	if(length(default_spells))
 		for(var/spell in default_spells)
-			var/obj/effect/proc_holder/spell/S = spell
-			if(!S)
+			var/obj/effect/proc_holder/spell/spell_effect = spell
+			if(!spell_effect)
 				return
-			H.mind.AddSpell(new S(null))
+			H.mind.AddSpell(new spell_effect(null))
 
 /datum/superheroes/proc/assign_id(mob/living/carbon/human/H)
-	var/obj/item/card/id/syndicate/W = new(H)
-	W.registered_name = H.real_name
-	W.access = list(ACCESS_MAINT_TUNNELS)
+	var/obj/item/card/id/syndicate/syndicate = new(H)
+	syndicate.registered_name = H.real_name
+	syndicate.access = list(ACCESS_MAINT_TUNNELS)
 	if(class == "Superhero")
-		W.assignment = "Superhero"
-		W.rank = "Superhero"
+		syndicate.assignment = "Superhero"
+		syndicate.rank = "Superhero"
 		SSticker.mode.superheroes += H.mind
 	else if(class == "Supervillain")
-		W.assignment = "Supervillain"
-		W.rank = "Supervillain"
+		syndicate.assignment = "Supervillain"
+		syndicate.rank = "Supervillain"
 		SSticker.mode.supervillains += H.mind
-	W.icon_state = "lifetimeid"
-	W.SetOwnerInfo(H)
-	W.update_label()
-	ADD_TRAIT(W, TRAIT_NODROP, SUPERHERO_TRAIT)
-	H.equip_to_slot_or_del(W, ITEM_SLOT_ID)
+	syndicate.icon_state = "lifetimeid"
+	syndicate.SetOwnerInfo(H)
+	syndicate.update_label()
+	ADD_TRAIT(syndicate, TRAIT_NODROP, SUPERHERO_TRAIT)
+	H.equip_to_slot_or_del(syndicate, ITEM_SLOT_ID)
 	H.regenerate_icons()
 
 	to_chat(H, desc)

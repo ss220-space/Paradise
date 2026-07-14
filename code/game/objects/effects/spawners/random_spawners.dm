@@ -31,26 +31,26 @@
 		T.ChangeTurf(thing_to_place)
 	else
 		if(ispath(spawn_inside, /obj))
-			var/obj/O = new thing_to_place(T)
-			var/obj/E = new spawn_inside(T)
+			var/obj/place_obj = new thing_to_place(T)
+			var/obj/spawn_obj = new spawn_inside(T)
 			if(pixel_x	||	pixel_y	||	pixel_z) //Чтобы если мы меняем по пикселям позицию спавнера, это меняло и позицию того, что мы спавним
-				E.pixel_x = pixel_x
-				E.pixel_y = pixel_y
-				E.pixel_z = pixel_z
-			O.forceMove(E)
+				spawn_obj.pixel_x = pixel_x
+				spawn_obj.pixel_y = pixel_y
+				spawn_obj.pixel_z = pixel_z
+			place_obj.forceMove(spawn_obj)
 		else
-			var/obj/O = new thing_to_place(T)
+			var/obj/place_obj = new thing_to_place(T)
 			if(pixel_x	||	pixel_y	||	pixel_z) //Чтобы если мы меняем по пикселям позицию спавнера, это меняло и позицию того, что мы спавним
-				O.pixel_x = pixel_x
-				O.pixel_y = pixel_y
-				O.pixel_z = pixel_z
-			if(use_power && ismachinery(O)) //В основном для спавна туррелей. Чтобы туррели тратили электричество при работе
-				var/obj/machinery/OM = O
-				OM.use_power = use_power
+				place_obj.pixel_x = pixel_x
+				place_obj.pixel_y = pixel_y
+				place_obj.pixel_z = pixel_z
+			if(use_power && ismachinery(place_obj)) //В основном для спавна туррелей. Чтобы туррели тратили электричество при работе
+				var/obj/machinery/machinery_obj = place_obj
+				machinery_obj.use_power = use_power
 				if(active_power_usage)
-					OM.active_power_usage = active_power_usage
+					machinery_obj.active_power_usage = active_power_usage
 				if(idle_power_usage)
-					OM.idle_power_usage = idle_power_usage
+					machinery_obj.idle_power_usage = idle_power_usage
 
 /obj/effect/spawner/random_spawners/blood_5
 	name = "blood maybe"

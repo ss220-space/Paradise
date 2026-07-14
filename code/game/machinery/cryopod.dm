@@ -288,9 +288,9 @@
 	icon_state = occupant ? occupied_icon_state : base_icon_state
 
 /obj/machinery/cryopod/proc/find_control_computer(urgent=0)
-	var/area/A = get_area(src)
-	for(var/obj/machinery/computer/cryopod/C in A.contents)
-		control_computer = C
+	var/area/area = get_area(src)
+	for(var/obj/machinery/computer/cryopod/cryopod in area.contents)
+		control_computer = cryopod
 		break
 
 	// Don't send messages unless we *need* the computer, and less than five minutes have passed since last time we messaged
@@ -337,11 +337,11 @@
 			despawn_occupant()
 
 /obj/machinery/cryopod/proc/should_preserve_item(obj/item/I)
-	for(var/datum/theft_objective/T in control_computer.theft_cache)
-		if(istype(I, T.typepath) && T.check_special_completion(I))
+	for(var/datum/theft_objective/theft_objective in control_computer.theft_cache)
+		if(istype(I, theft_objective.typepath) && theft_objective.check_special_completion(I))
 			return CRYO_OBJECTIVE
-	for(var/T in preserve_items)
-		if(istype(I, T) && !(I.type in do_not_preserve_items))
+	for(var/theft_objective in preserve_items)
+		if(istype(I, theft_objective) && !(I.type in do_not_preserve_items))
 			return CRYO_PRESERVE
 	if(is_id_card(I))
 		SEND_SIGNAL(I, COMSIG_FREEZE_LINKED_ACCOUNT)
@@ -351,48 +351,48 @@
 	if(length(I.contents)) //Make sure we catch anything not handled by qdel() on the items.
 		if(should_preserve_item(I) != CRYO_DESTROY) // Don't remove the contents of things that need preservation
 			return
-		for(var/obj/item/O in I.contents)
-			if(istype(O, /obj/item/tank)) //Stop eating pockets, you fuck!
+		for(var/obj/item/item in I.contents)
+			if(istype(item, /obj/item/tank)) //Stop eating pockets, you fuck!
 				continue
-			handle_contents(O)
-			O.forceMove(src)
+			handle_contents(item)
+			item.forceMove(src)
 
 // This function can not be undone; do not call this unless you are sure
 // Also make sure there is a valid control computer
 /obj/machinery/cryopod/proc/despawn_occupant()
 	//Drop all items into the pod.
-	for(var/obj/item/I in occupant)
-		occupant.drop_item_ground(I)
-		I.forceMove(src)
-		handle_contents(I)
+	for(var/obj/item/item in occupant)
+		occupant.drop_item_ground(item)
+		item.forceMove(src)
+		handle_contents(item)
 
 	for(var/obj/machinery/computer/cloning/cloner in SSmachines.get_by_type(/obj/machinery/computer/cloning))
-		for(var/datum/dna2/record/R in cloner.records)
-			if(occupant.mind == R.mind.resolve())
-				cloner.records.Remove(R)
+		for(var/datum/dna2/record/record in cloner.records)
+			if(occupant.mind == record.mind.resolve())
+				cloner.records.Remove(record)
 
 	//Delete all items not on the preservation list.
 	var/list/items = contents
 	items -= occupant // Don't delete the occupant
 
-	for(var/obj/item/I in items)
-		if(is_pda(I))
-			var/obj/item/pda/P = I
-			QDEL_NULL(P.id)
-			qdel(P)
+	for(var/obj/item/item in items)
+		if(is_pda(item))
+			var/obj/item/pda/pda = item
+			QDEL_NULL(pda.id)
+			qdel(pda)
 			continue
-		if(ismodstorage(I))
-			var/obj/item/storage/backpack/modstorage/our_storage = I
+		if(ismodstorage(item))
+			var/obj/item/storage/backpack/modstorage/our_storage = item
 			our_storage.forceMove(our_storage.source)
 			continue
 
-		var/preserve = should_preserve_item(I)
+		var/preserve = should_preserve_item(item)
 		if(preserve == CRYO_DESTROY)
-			qdel(I)
+			qdel(item)
 		else if(control_computer?.allow_items)
-			control_computer.freeze_item(I, preserve)
+			control_computer.freeze_item(item, preserve)
 		else
-			I.forceMove(loc)
+			item.forceMove(loc)
 
 	// Log antag special role and objectives
 	if(SSticker?.score && occupant.mind?.special_role)
@@ -409,10 +409,10 @@
 
 	// Update any existing objectives involving this mob.
 	if(occupant.mind)
-		for(var/datum/objective/O in GLOB.all_objectives)
-			if(O.target != occupant.mind)
+		for(var/datum/objective/objective in GLOB.all_objectives)
+			if(objective.target != occupant.mind)
 				continue
-			O.on_target_cryo()
+			objective.on_target_cryo()
 		occupant.mind.remove_all_antag_datums()
 
 	if(occupant.mind && occupant.mind.assigned_role)
@@ -433,16 +433,16 @@
 	var/announce_rank = null
 	if(length(GLOB.PDA_Manifest))
 		GLOB.PDA_Manifest.Cut()
-	for(var/datum/data/record/R in GLOB.data_core.medical)
-		if(R.fields["name"] == occupant.real_name)
-			qdel(R)
-	for(var/datum/data/record/T in GLOB.data_core.security)
-		if(T.fields["name"] == occupant.real_name)
-			qdel(T)
-	for(var/datum/data/record/G in GLOB.data_core.general)
-		if(G.fields["name"] == occupant.real_name)
-			announce_rank = G.fields["rank"]
-			qdel(G)
+	for(var/datum/data/record/record in GLOB.data_core.medical)
+		if(record.fields["name"] == occupant.real_name)
+			qdel(record)
+	for(var/datum/data/record/record in GLOB.data_core.security)
+		if(record.fields["name"] == occupant.real_name)
+			qdel(record)
+	for(var/datum/data/record/record in GLOB.data_core.general)
+		if(record.fields["name"] == occupant.real_name)
+			announce_rank = record.fields["rank"]
+			qdel(record)
 
 	// Make an announcement and log the person entering storage + their rank
 	var/list/crew_member = list()
@@ -753,15 +753,15 @@
 	if(istype(person_to_cryo.loc, /obj/machinery/cryopod))
 		return 0
 	if(isobj(person_to_cryo.loc))
-		var/obj/O = person_to_cryo.loc
-		O.force_eject_occupant(person_to_cryo)
+		var/obj/obj = person_to_cryo.loc
+		obj.force_eject_occupant(person_to_cryo)
 	var/list/free_cryopods = list()
 	var/list/free_syndie_cryopods = list()
-	for(var/obj/machinery/cryopod/P in SSmachines.get_by_type(/obj/machinery/cryopod))
-		if(!P.occupant && istype(get_area(P), /area/syndicate/unpowered/syndicate_space_base) && istype(P, /obj/machinery/cryopod/syndie))
-			free_syndie_cryopods += P
-		else if(!P.occupant && istype(get_area(P), /area/station/commons/sleep))
-			free_cryopods += P
+	for(var/obj/machinery/cryopod/cryopod in SSmachines.get_by_type(/obj/machinery/cryopod))
+		if(!cryopod.occupant && istype(get_area(cryopod), /area/syndicate/unpowered/syndicate_space_base) && istype(cryopod, /obj/machinery/cryopod/syndie))
+			free_syndie_cryopods += cryopod
+		else if(!cryopod.occupant && istype(get_area(cryopod), /area/station/commons/sleep))
+			free_cryopods += cryopod
 	var/obj/machinery/cryopod/target_cryopod = null
 	if(length(free_cryopods))
 		if(person_to_cryo.find_taipan_hud_number_by_job()) //Если вернёт хоть что то значит тайпановец. Иначе вернёт null
@@ -769,8 +769,8 @@
 		else
 			target_cryopod = safepick(free_cryopods)
 		if(target_cryopod.check_occupant_allowed(person_to_cryo))
-			var/turf/T = get_turf(person_to_cryo)
-			var/obj/effect/portal/SP = new /obj/effect/portal(T, null, null, 4 SECONDS, null, FALSE)
+			var/turf/turf = get_turf(person_to_cryo)
+			var/obj/effect/portal/SP = new /obj/effect/portal(turf, null, null, 4 SECONDS, null, FALSE)
 			SP.name = "NT SSD Teleportation Portal"
 			target_cryopod.take_occupant(person_to_cryo, 1)
 			return 1
@@ -782,8 +782,8 @@
 	if(!istype(person_to_cryo.loc, /obj/machinery/cryopod))
 		cryo_ssd(person_to_cryo)
 	if(istype(person_to_cryo.loc, /obj/machinery/cryopod))
-		var/obj/machinery/cryopod/P = person_to_cryo.loc
-		P.despawn_occupant()
+		var/obj/machinery/cryopod/cryopod = person_to_cryo.loc
+		cryopod.despawn_occupant()
 
 #undef CRYO_DESTROY
 #undef CRYO_PRESERVE

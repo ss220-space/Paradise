@@ -198,9 +198,9 @@
 	if(!occupant)
 		return
 	occupant.setDir(SOUTH)
-	var/icon/I = getFlatIcon(occupant, no_anim = TRUE)
-	I.Scale(96,96)
-	return I
+	var/icon/icon = getFlatIcon(occupant, no_anim = TRUE)
+	icon.Scale(96,96)
+	return icon
 
 /obj/machinery/ninja_mindscan_machine/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)

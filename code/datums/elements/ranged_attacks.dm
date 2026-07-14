@@ -40,13 +40,13 @@
 		casing.after_fire()
 
 	else if(projectiletype)
-		var/obj/projectile/P = new projectiletype(startloc)
+		var/obj/projectile/projectile = new projectiletype(startloc)
 		playsound(firer, projectilesound, 100)
-		P.starting = startloc
-		P.firer = firer
-		P.firer_source_atom = firer
-		P.yo = target.y - startloc.y
-		P.xo = target.x - startloc.x
-		P.original = target
-		P.preparePixelProjectile(target, firer)
-		P.fire()
+		projectile.starting = startloc
+		projectile.firer = firer
+		projectile.firer_source_atom = firer
+		projectile.yo = target.y - startloc.y
+		projectile.xo = target.x - startloc.x
+		projectile.original = target
+		projectile.preparePixelProjectile(target, firer)
+		projectile.fire()

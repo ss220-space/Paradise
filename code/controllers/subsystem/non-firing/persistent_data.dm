@@ -37,8 +37,8 @@ SUBSYSTEM_DEF(persistent_data)
 	data_saved = TRUE
 
 	// Save all the data of registered atoms
-	for(var/atom/A in registered_atoms)
-		A.persistent_save()
+	for(var/atom/atom in registered_atoms)
+		atom.persistent_save()
 
 /**
  * Proc to register an atom with SSpersistent_data

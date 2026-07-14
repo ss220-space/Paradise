@@ -417,9 +417,9 @@
 /mob/living/simple_animal/bot/medbot/proc/assess_beaker_injection(mob/living/carbon/C)
 	//If we have and are using a medicine beaker, return any reagent the patient is missing
 	if(use_beaker && reagent_glass?.reagents.total_volume)
-		for(var/datum/reagent/R in reagent_glass.reagents.reagent_list)
-			if(!C.reagents.has_reagent(R.id))
-				return R.id
+		for(var/datum/reagent/reagent in reagent_glass.reagents.reagent_list)
+			if(!C.reagents.has_reagent(reagent.id))
+				return reagent.id
 
 /mob/living/simple_animal/bot/medbot/proc/assess_viruses(mob/living/carbon/C)
 	. = FALSE
@@ -427,8 +427,8 @@
 	if(!treat_virus)
 		return
 
-	for(var/datum/disease/D as anything in C.diseases)
-		if(!(D.visibility_flags & HIDDEN_HUD) && D.discovered && D.severity != DISEASE_SEVERITY_POSITIVE)
+	for(var/datum/disease/disease as anything in C.diseases)
+		if(!(disease.visibility_flags & HIDDEN_HUD) && disease.discovered && disease.severity != DISEASE_SEVERITY_POSITIVE)
 			return TRUE //Medbots see viruses if they displayed on HUD, ignoring safe viruses
 
 /mob/living/simple_animal/bot/medbot/proc/select_medication(mob/living/carbon/C, beaker_injection)
@@ -465,8 +465,8 @@
 
 	// is secretly a silicon
 	if(ishuman(C))
-		var/mob/living/carbon/human/H = C
-		if(H.dna.species && H.dna.species.reagent_tag == SYNTHETIC)
+		var/mob/living/carbon/human/human = C
+		if(human.dna.species && human.dna.species.reagent_tag == SYNTHETIC)
 			return FALSE
 
 	if(emagged == 2 || hijacked) //Everyone needs our medicine. (Our medicine is toxins)
@@ -565,11 +565,11 @@
 	soft_reset()
 
 /mob/living/simple_animal/bot/medbot/proc/check_overdose(mob/living/carbon/patient, reagent_id, injection_amount)
-	var/datum/reagent/R  = GLOB.chemical_reagents_list[reagent_id]
-	if(!R.overdose_threshold)
+	var/datum/reagent/reagent  = GLOB.chemical_reagents_list[reagent_id]
+	if(!reagent.overdose_threshold)
 		return FALSE
 	var/current_volume = patient.reagents.get_reagent_amount(reagent_id)
-	if(current_volume + injection_amount > R.overdose_threshold)
+	if(current_volume + injection_amount > reagent.overdose_threshold)
 		return TRUE
 	return FALSE
 

@@ -74,13 +74,13 @@
 	if(isSwitchingStates)
 		return
 	if(isliving(user))
-		var/mob/living/M = user
+		var/mob/living/living = user
 		if(world.time - user.last_bumped <= 60)
 			return //NOTE do we really need that?
-		if(M.client)
-			if(iscarbon(M))
-				var/mob/living/carbon/C = M
-				if(!C.handcuffed)
+		if(living.client)
+			if(iscarbon(living))
+				var/mob/living/carbon/carbon = living
+				if(!carbon.handcuffed)
 					add_fingerprint(user)
 					SwitchState()
 			else
@@ -115,8 +115,8 @@
 /obj/structure/mineral_door/proc/Close()
 	if(isSwitchingStates || state != 1)
 		return FALSE
-	var/turf/T = get_turf(src)
-	for(var/mob/living/L in T)
+	var/turf/turf = get_turf(src)
+	for(var/mob/living/living in turf)
 		return FALSE
 	. = TRUE
 	isSwitchingStates = 1

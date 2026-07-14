@@ -87,13 +87,13 @@ SUBSYSTEM_DEF(machines)
 	//cache for sanid speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	while(length(currentrun))
-		var/obj/O = currentrun[length(currentrun)]
+		var/obj/obj = currentrun[length(currentrun)]
 		currentrun.len--
-		if(O && !QDELETED(O))
+		if(obj && !QDELETED(obj))
 			var/datum/powernet/newPN = new() // create a new powernet...
-			propagate_network(O, newPN)//... and propagate it to the other side of the cable
+			propagate_network(obj, newPN)//... and propagate it to the other side of the cable
 
-		deferred_powernet_rebuilds.Remove(O)
+		deferred_powernet_rebuilds.Remove(obj)
 		if(MC_TICK_CHECK)
 			return
 
@@ -103,12 +103,12 @@ SUBSYSTEM_DEF(machines)
 	//cache for sanid speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	while(length(currentrun))
-		var/datum/powernet/P = currentrun[length(currentrun)]
+		var/datum/powernet/powernet = currentrun[length(currentrun)]
 		currentrun.len--
-		if(P)
-			P.reset() // reset the power state
+		if(powernet)
+			powernet.reset() // reset the power state
 		else
-			powernets.Remove(P)
+			powernets.Remove(powernet)
 		if(MC_TICK_CHECK)
 			return
 

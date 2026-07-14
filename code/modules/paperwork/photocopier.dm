@@ -165,19 +165,19 @@
 			visible_message(span_notice("На корпусе [declent_ru(GENITIVE)] загорается жёлтая лампочка, обозначая недостаток чернил для завершения операции."))
 			return null
 		total_copies++
-	var/obj/item/paper/c = new /obj/item/paper (loc)
+	var/obj/item/paper/paper = new /obj/item/paper (loc)
 	if(scanning || bundled)
-		c.forceMove(src)
+		paper.forceMove(src)
 	else if(folder)
-		c.forceMove(folder)
-	c.header = copy.header
-	c.info = copy.info
-	c.footer = copy.footer
-	c.name = copy.name // -- Doohl
-	c.fields = copy.fields
-	c.stamps = copy.stamps
-	c.language = copy.language
-	c.stamped = LAZYLISTDUPLICATE(copy.stamped)
+		paper.forceMove(folder)
+	paper.header = copy.header
+	paper.info = copy.info
+	paper.footer = copy.footer
+	paper.name = copy.name // -- Doohl
+	paper.fields = copy.fields
+	paper.stamps = copy.stamps
+	paper.language = copy.language
+	paper.stamped = LAZYLISTDUPLICATE(copy.stamped)
 	if(LAZYLEN(copy.stamp_overlays))
 		for(var/mutable_appearance/overlay as anything in copy.stamp_overlays)	//gray overlay onto the copy
 			var/mutable_appearance/new_mutable
@@ -191,10 +191,10 @@
 				new_mutable = mutable_appearance('icons/obj/bureaucracy.dmi', "paper_stamp-dots")
 			new_mutable.pixel_w = overlay.pixel_w
 			new_mutable.pixel_z = overlay.pixel_z
-			LAZYADD(c.stamp_overlays, new_mutable)
-	c.updateinfolinks()
-	c.update_icon()
-	return c
+			LAZYADD(paper.stamp_overlays, new_mutable)
+	paper.updateinfolinks()
+	paper.update_icon()
+	return paper
 
 /**
  * Public proc for copying photo objs
@@ -214,21 +214,21 @@
 			return null
 		total_copies++
 
-	var/obj/item/photo/p = new /obj/item/photo (loc)
+	var/obj/item/photo/photo = new /obj/item/photo (loc)
 	if(scanning || bundled)
-		p.forceMove(src)
+		photo.forceMove(src)
 	else if(folder)
-		p.forceMove(folder)
-	p.name = photocopy.name
-	p.icon = photocopy.icon
-	p.tiny = photocopy.tiny
-	p.img = photocopy.img
-	p.desc = photocopy.desc
-	p.pixel_x = rand(-10, 10)
-	p.pixel_y = rand(-10, 10)
+		photo.forceMove(folder)
+	photo.name = photocopy.name
+	photo.icon = photocopy.icon
+	photo.tiny = photocopy.tiny
+	photo.img = photocopy.img
+	photo.desc = photocopy.desc
+	photo.pixel_x = rand(-10, 10)
+	photo.pixel_y = rand(-10, 10)
 	if(photocopy.scribble)
-		p.scribble = photocopy.scribble
-	return p
+		photo.scribble = photocopy.scribble
+	return photo
 
 /obj/machinery/photocopier/proc/blueprintcopy(obj/item/craft_blueprints/original)
 	if(!original.copy_type)
@@ -274,8 +274,8 @@
 			copymob.apply_damage(30, BURN)
 		to_chat(copymob, span_notice("Что-то жаренным запахло..."))
 	if(ishuman(copymob)) //Suit checks are in check_mob
-		var/mob/living/carbon/human/H = copymob
-		temp_img = icon('icons/obj/butts.dmi', H.dna.species.butt_sprite)
+		var/mob/living/carbon/human/human = copymob
+		temp_img = icon('icons/obj/butts.dmi', human.dna.species.butt_sprite)
 	else if(isdrone(copymob))
 		temp_img = icon('icons/obj/butts.dmi', "drone")
 	else if(isnymph(copymob))
@@ -284,21 +284,21 @@
 		temp_img = icon('icons/obj/butts.dmi', "xeno")
 	else
 		return
-	var/obj/item/photo/p = new /obj/item/photo(loc)
+	var/obj/item/photo/photo = new /obj/item/photo(loc)
 	if(scanning)
-		p.forceMove(src)
+		photo.forceMove(src)
 	else if(folder)
-		p.forceMove(folder)
-	p.desc = "На фото вы видите задницу [copymob.declent_ru(GENITIVE)]."
-	p.pixel_x = rand(-10, 10)
-	p.pixel_y = rand(-10, 10)
-	p.img = temp_img
+		photo.forceMove(folder)
+	photo.desc = "На фото вы видите задницу [copymob.declent_ru(GENITIVE)]."
+	photo.pixel_x = rand(-10, 10)
+	photo.pixel_y = rand(-10, 10)
+	photo.img = temp_img
 	var/icon/small_img = icon(temp_img) //Icon() is needed or else temp_img will be rescaled too >.>
 	var/icon/ic = icon('icons/obj/items.dmi',"photo")
 	small_img.Scale(8, 8)
 	ic.Blend(small_img,ICON_OVERLAY, 10, 13)
-	p.icon = ic
-	return p
+	photo.icon = ic
+	return photo
 
 /**
  * A public proc for copying bundles of paper
@@ -310,7 +310,7 @@
  * * use_toner - If true, this operation uses toner, this is not done in copy() because partial bundles would be impossible otherwise
  */
 /obj/machinery/photocopier/proc/bundlecopy(obj/item/paper_bundle/bundle, scanning = FALSE, use_toner = FALSE)
-	var/obj/item/paper_bundle/P = new(src, FALSE)	//Bundle is initially inside copier to give copier time to build the bundle before the player can pick it up
+	var/obj/item/paper_bundle/paper_bundle = new(src, FALSE)	//Bundle is initially inside copier to give copier time to build the bundle before the player can pick it up
 	for(var/obj/item/thing as anything in bundle.papers)
 		if(istype(thing, /obj/item/paper))
 			thing = papercopy(thing, bundled = TRUE)
@@ -322,25 +322,25 @@
 				use_toner(5)
 		if(!thing)
 			break
-		thing.forceMove(P)
-		P.amount++
-		P.papers += thing
-	P.amount-- //amount variable should be the number of pages in addition to the first (#pages - 1) this avoids runtimes from index errors
-	if(P.amount <= 0) //if we did not have enough toner to complete the second page, delete the bundle
-		qdel(P)
+		thing.forceMove(paper_bundle)
+		paper_bundle.amount++
+		paper_bundle.papers += thing
+	paper_bundle.amount-- //amount variable should be the number of pages in addition to the first (#pages - 1) this avoids runtimes from index errors
+	if(paper_bundle.amount <= 0) //if we did not have enough toner to complete the second page, delete the bundle
+		qdel(paper_bundle)
 		return FALSE
 	if(!scanning)
 		total_copies++
 		if(folder) //Since bundle is still inside the copier, we need to finally move it out
-			P.forceMove(folder)
+			paper_bundle.forceMove(folder)
 		else
-			P.forceMove(loc)
+			paper_bundle.forceMove(loc)
 
-	P.update_appearance(UPDATE_ICON|UPDATE_DESC)
-	P.name = bundle.name
-	P.pixel_y = rand(-8, 8)
-	P.pixel_x = rand(-9, 9)
-	return P
+	paper_bundle.update_appearance(UPDATE_ICON|UPDATE_DESC)
+	paper_bundle.name = bundle.name
+	paper_bundle.pixel_y = rand(-8, 8)
+	paper_bundle.pixel_x = rand(-9, 9)
+	return paper_bundle
 
 /obj/machinery/photocopier/proc/remove_document()
 	if(copying)
@@ -433,13 +433,13 @@
 			use_power(active_power_usage)
 			addtimer(CALLBACK(src, PROC_REF(finish_copying)), time_to_print)
 	else if(istype(C, /obj/item/paper_bundle))
-		var/obj/item/paper_bundle/B = C
+		var/obj/item/paper_bundle/paper_bundle = C
 		for(var/i in copies to 1 step -1)
 			if(!bundlecopy(C, use_toner = TRUE))
 				break
 			count_of_copies++
 			use_power(active_power_usage)
-			addtimer(CALLBACK(src, PROC_REF(finish_copying)), time_to_print * (B.amount + 1))
+			addtimer(CALLBACK(src, PROC_REF(finish_copying)), time_to_print * (paper_bundle.amount + 1))
 	else if(check_mob()) //Once we've scanned the copy_mob's ass we do not need to again
 		for(var/i in copies to 1 step -1)
 			if(!copyass())
@@ -618,10 +618,10 @@
 	if(toner_cartridge.charges < 1 || !user)
 		return
 	playsound(loc, pick(print_sounds), 50, TRUE)
-	var/obj/item/paper/p = new (loc)
-	text = p.parsepencode(text, null, user)
-	p.info = text
-	p.populatefields()
+	var/obj/item/paper/paper = new (loc)
+	text = paper.parsepencode(text, null, user)
+	paper.info = text
+	paper.populatefields()
 	use_toner(1)
 	use_power(active_power_usage)
 	COOLDOWN_START(src, copying_cooldown, time_to_print)
@@ -643,12 +643,12 @@
 		return
 
 	playsound(loc, pick(print_sounds), 50, TRUE)
-	var/obj/item/photo/p = new /obj/item/photo(loc)
-	p.construct(selection)
-	if(p.desc == "")
-		p.desc += "Ксерокопия была сделана [tempAI.name]"
+	var/obj/item/photo/photo = new /obj/item/photo(loc)
+	photo.construct(selection)
+	if(photo.desc == "")
+		photo.desc += "Ксерокопия была сделана [tempAI.name]"
 	else
-		p.desc += " – Ксерокопия была сделана [tempAI.name]"
+		photo.desc += " – Ксерокопия была сделана [tempAI.name]"
 	use_toner(5)
 	use_power(active_power_usage)
 	COOLDOWN_START(src, copying_cooldown, time_to_print)

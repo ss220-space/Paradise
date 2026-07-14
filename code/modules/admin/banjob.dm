@@ -44,10 +44,10 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 
 /proc/jobban_loadbanfile()
 	if(CONFIG_GET(flag/ban_legacy_system))
-		var/savefile/S=new("data/job_full.ban")
-		S["keys[0]"] >> GLOB.jobban_keylist
+		var/savefile/savefile=new("data/job_full.ban")
+		savefile["keys[0]"] >> GLOB.jobban_keylist
 		log_admin("Loading jobban_rank")
-		S["runonce"] >> GLOB.jobban_runonce
+		savefile["runonce"] >> GLOB.jobban_runonce
 
 		if(!length(GLOB.jobban_keylist))
 			GLOB.jobban_keylist=list()
@@ -96,8 +96,8 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 		qdel(tempbans)
 
 /proc/jobban_savebanfile()
-	var/savefile/S=new("data/job_full.ban")
-	S["keys[0]"] << GLOB.jobban_keylist
+	var/savefile/savefile=new("data/job_full.ban")
+	savefile["keys[0]"] << GLOB.jobban_keylist
 
 /proc/jobban_unban(mob/M, rank)
 	jobban_remove("[M.ckey] - [rank]")

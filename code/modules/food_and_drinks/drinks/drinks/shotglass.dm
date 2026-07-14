@@ -90,10 +90,10 @@
 	return ATTACK_CHAIN_PROCEED_SUCCESS
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/proc/isShotFlammable()
-	var/datum/reagent/R = reagents.get_master_reagent()
-	if(istype(R, /datum/reagent/consumable/ethanol))
-		var/datum/reagent/consumable/ethanol/A = R
-		if(A.volume >= 5 && A.alcohol_perc >= 0.35) //Only an approximation to if something's flammable but it will do
+	var/datum/reagent/reagent = reagents.get_master_reagent()
+	if(istype(reagent, /datum/reagent/consumable/ethanol))
+		var/datum/reagent/consumable/ethanol/ethanol = reagent
+		if(ethanol.volume >= 5 && ethanol.alcohol_perc >= 0.35) //Only an approximation to if something's flammable but it will do
 			return TRUE
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/fire_act(exposed_temperature, exposed_volume)

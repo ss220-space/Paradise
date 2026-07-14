@@ -42,23 +42,23 @@
 		if(prob(100 - (range * 20)))
 			flooring.ex_act(EXPLODE_LIGHT)
 
-	for(var/mob/living/L in targets)
-		if(L in safe_targets)
+	for(var/mob/living/living in targets)
+		if(living in safe_targets)
 			continue
 
-		if(L.throwing) // no double hits
+		if(living.throwing) // no double hits
 			continue
 
-		if(!L.affects_vampire(user))
+		if(!living.affects_vampire(user))
 			continue
 
-		if(L.move_resist > MOVE_FORCE_VERY_STRONG)
+		if(living.move_resist > MOVE_FORCE_VERY_STRONG)
 			continue
 
-		var/throw_target = get_edge_target_turf(L, get_dir(start_turf, L))
-		INVOKE_ASYNC(L, TYPE_PROC_REF(/atom/movable, throw_at), throw_target, 3, 4)
-		L.Weaken(2 SECONDS)
-		safe_targets += L
+		var/throw_target = get_edge_target_turf(living, get_dir(start_turf, living))
+		INVOKE_ASYNC(living, TYPE_PROC_REF(/atom/movable, throw_at), throw_target, 3, 4)
+		living.Weaken(2 SECONDS)
+		safe_targets += living
 
 	var/new_range = range + 1
 	if(new_range <= max_range)

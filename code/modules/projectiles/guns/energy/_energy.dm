@@ -353,10 +353,10 @@
 		// No point in recharging a weapon's cell that is already at 100%. That would just waste borg cell power for no reason.
 		return
 	if(isrobot(loc))
-		var/mob/living/silicon/robot/R = loc
-		if(R?.cell)
+		var/mob/living/silicon/robot/robot = loc
+		if(robot?.cell)
 			var/obj/item/ammo_casing/energy/shot = ammo_type[select] //Necessary to find cost of shot
-			if(R.cell.use(shot.e_cost))		//Take power from the borg...
+			if(robot.cell.use(shot.e_cost))		//Take power from the borg...
 				cell.give(shot.e_cost)	//... to recharge the shot
 
 /obj/item/gun/energy/proc/turret_check()

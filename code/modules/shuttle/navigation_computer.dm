@@ -230,19 +230,19 @@
 	var/list/overlappers = SSshuttle.get_dock_overlap(bounds[1], bounds[2], bounds[3], bounds[4], the_eye.z)
 	var/list/image_cache = the_eye.placement_images
 	for(var/i in 1 to length(image_cache))
-		var/image/I = image_cache[i]
-		var/list/coords = image_cache[I]
-		var/turf/T = locate(eyeturf.x + coords[1], eyeturf.y + coords[2], eyeturf.z)
-		I.loc = T
-		switch(checkLandingTurf(T, overlappers))
+		var/image/image = image_cache[i]
+		var/list/coords = image_cache[image]
+		var/turf/turf = locate(eyeturf.x + coords[1], eyeturf.y + coords[2], eyeturf.z)
+		image.loc = turf
+		switch(checkLandingTurf(turf, overlappers))
 			if(SHUTTLE_DOCKER_LANDING_CLEAR)
-				I.icon_state = "green"
+				image.icon_state = "green"
 			if(SHUTTLE_DOCKER_BLOCKED_BY_HIDDEN_PORT)
-				I.icon_state = "green"
+				image.icon_state = "green"
 				if(. == SHUTTLE_DOCKER_LANDING_CLEAR)
 					. = SHUTTLE_DOCKER_BLOCKED_BY_HIDDEN_PORT
 			else
-				I.icon_state = "red"
+				image.icon_state = "red"
 				. = SHUTTLE_DOCKER_BLOCKED
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/proc/checkLandingTurf(turf/T, list/overlappers)

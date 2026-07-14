@@ -166,8 +166,8 @@ Difficulty: Medium
 	while(amount > 0)
 		if(QDELETED(target))
 			break
-		var/turf/T = pick(RANGE_TURFS(enraged ? 2 : 1, target))
-		new /obj/effect/temp_visual/lava_warning(T, enraged ? 18 SECONDS : 6 SECONDS) // longer reset time for the lava
+		var/turf/turf = pick(RANGE_TURFS(enraged ? 2 : 1, target))
+		new /obj/effect/temp_visual/lava_warning(turf, enraged ? 18 SECONDS : 6 SECONDS) // longer reset time for the lava
 		amount--
 		SLEEP_CHECK_DEATH(src, delay)
 
@@ -207,39 +207,39 @@ Difficulty: Medium
 	var/turf/center = get_turf(target)
 	var/list/walled = RANGE_TURFS(enraged ? 4 : 3, center) - RANGE_TURFS(enraged ? 3 : 2, center)
 	var/list/drakewalls = list()
-	for(var/turf/T in walled)
-		drakewalls += new /obj/effect/temp_visual/drakewall(T) // no people with lava immunity can just run away from the attack for free
+	for(var/turf/turf in walled)
+		drakewalls += new /obj/effect/temp_visual/drakewall(turf) // no people with lava immunity can just run away from the attack for free
 	var/list/indestructible_turfs = list()
-	for(var/turf/T in RANGE_TURFS(enraged ? 3 : 2, center))
-		if(istype(T, /turf/simulated/floor/indestructible))
+	for(var/turf/turf in RANGE_TURFS(enraged ? 3 : 2, center))
+		if(istype(turf, /turf/simulated/floor/indestructible))
 			continue
-		if(!istype(T, /turf/simulated/wall/indestructible))
-			T.ChangeTurf(/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface)
+		if(!istype(turf, /turf/simulated/wall/indestructible))
+			turf.ChangeTurf(/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface)
 		else
-			indestructible_turfs += T
+			indestructible_turfs += turf
 	SLEEP_CHECK_DEATH(src, 10) // give them a bit of time to realize what attack is actually happening
 
 	var/list/turfs = RANGE_TURFS(enraged ? 3 : 2, center)
 	while(amount > 0)
 		var/list/empty = indestructible_turfs.Copy() // can't place safe turfs on turfs that weren't changed to be open
 		var/any_attack = 0
-		for(var/turf/T in turfs)
-			for(var/mob/living/L in T.contents)
-				if(L.client)
-					empty += pick(((RANGE_TURFS(enraged ? 3 : 2, L) - RANGE_TURFS(enraged ? 2 : 1, L)) & turfs) - empty) // picks a turf within 2 of the creature not outside or in the shield
+		for(var/turf/turf in turfs)
+			for(var/mob/living/living in turf.contents)
+				if(living.client)
+					empty += pick(((RANGE_TURFS(enraged ? 3 : 2, living) - RANGE_TURFS(enraged ? 2 : 1, living)) & turfs) - empty) // picks a turf within 2 of the creature not outside or in the shield
 					any_attack = 1
-			for(var/obj/mecha/M in T.contents)
-				empty += pick(((RANGE_TURFS(2, M) - RANGE_TURFS(1, M)) & turfs) - empty)
+			for(var/obj/mecha/mecha in turf.contents)
+				empty += pick(((RANGE_TURFS(2, mecha) - RANGE_TURFS(1, mecha)) & turfs) - empty)
 				any_attack = 1
 		if(!any_attack)
-			for(var/obj/effect/temp_visual/drakewall/D in drakewalls)
-				qdel(D)
+			for(var/obj/effect/temp_visual/drakewall/drakewall in drakewalls)
+				qdel(drakewall)
 			return 0 // nothing to attack in the arena time for enraged attack if we still have a target
-		for(var/turf/T in turfs)
-			if(!(T in empty))
-				new /obj/effect/temp_visual/lava_warning(T)
-			else if(!istype(T, /turf/simulated/wall/indestructible))
-				new /obj/effect/temp_visual/lava_safe(T)
+		for(var/turf/turf in turfs)
+			if(!(turf in empty))
+				new /obj/effect/temp_visual/lava_warning(turf)
+			else if(!istype(turf, /turf/simulated/wall/indestructible))
+				new /obj/effect/temp_visual/lava_safe(turf)
 		amount--
 		SLEEP_CHECK_DEATH(src, 24)
 	return 1 // attack finished completely
@@ -276,13 +276,13 @@ Difficulty: Medium
 	if(!at)
 		return
 	var/angle = ATAN2(at.x - src.x, at.y - src.y) + offset
-	var/turf/T = get_turf(src)
+	var/turf/turf = get_turf(src)
 	for(var/i in 1 to range)
 		var/turf/check = locate(src.x + cos(angle) * i, src.y + sin(angle) * i, src.z)
 		if(!check)
 			break
-		T = check
-	return (get_line(src, T) - get_turf(src))
+		turf = check
+	return (get_line(src, turf) - get_turf(src))
 
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/fire_line(list/turfs)
 	SLEEP_CHECK_DEATH(src, 0)
@@ -335,7 +335,7 @@ Difficulty: Medium
 		negative = FALSE
 	else if(target.x == initial_x) //if their x is the same, pick a direction
 		negative = prob(50)
-	var/obj/effect/temp_visual/dragon_flight/F = new /obj/effect/temp_visual/dragon_flight(loc, negative)
+	var/obj/effect/temp_visual/dragon_flight/dragon_flight = new /obj/effect/temp_visual/dragon_flight(loc, negative)
 
 	negative = !negative //invert it for the swoop down later
 
@@ -345,7 +345,7 @@ Difficulty: Medium
 	for(var/i in 1 to 3)
 		sleep(1)
 		if(QDELETED(src) || stat == DEAD) //we got hit and died, rip us
-			qdel(F)
+			qdel(dragon_flight)
 			if(stat == DEAD)
 				swooping &= ~SWOOP_DAMAGEABLE
 				animate(src, alpha = 255, transform = oldtransform, time = 0, flags = ANIMATION_END_NOW) //reset immediately
@@ -380,24 +380,24 @@ Difficulty: Medium
 	mouse_opacity = initial(mouse_opacity)
 	icon_state = "dragon"
 	playsound(loc, 'sound/effects/meteorimpact.ogg', 200, TRUE)
-	for(var/mob/living/L in orange(1, src))
-		if(L.stat)
-			visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] обрушивается на [L.declent_ru(NOMINATIVE)], раздавливая [GEND_HIS_HER(L)]!"))
-			L.gib()
+	for(var/mob/living/living in orange(1, src))
+		if(living.stat)
+			visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] обрушивается на [living.declent_ru(NOMINATIVE)], раздавливая [GEND_HIS_HER(living)]!"))
+			living.gib()
 		else
-			L.adjustBruteLoss(75)
-			if(L && !QDELETED(L)) // Some mobs are deleted on death
-				var/throw_dir = get_dir(src, L)
-				if(L.loc == loc)
+			living.adjustBruteLoss(75)
+			if(living && !QDELETED(living)) // Some mobs are deleted on death
+				var/throw_dir = get_dir(src, living)
+				if(living.loc == loc)
 					throw_dir = pick(GLOB.alldirs)
 				var/throwtarget = get_edge_target_turf(src, throw_dir)
-				L.throw_at(throwtarget, 3)
-				visible_message(span_warning("[DECLENT_RU_CAP(L, NOMINATIVE)] отбрасывается в сторону от [declent_ru(ACCUSATIVE)]!"))
-	for(var/obj/mecha/M in orange(1, src))
-		M.take_damage(75, BRUTE, MELEE, 1)
+				living.throw_at(throwtarget, 3)
+				visible_message(span_warning("[DECLENT_RU_CAP(living, NOMINATIVE)] отбрасывается в сторону от [declent_ru(ACCUSATIVE)]!"))
+	for(var/obj/mecha/mecha in orange(1, src))
+		mecha.take_damage(75, BRUTE, MELEE, 1)
 
-	for(var/mob/M in range(7, src))
-		shake_camera(M, 15, 1)
+	for(var/mob/mecha in range(7, src))
+		shake_camera(mecha, 15, 1)
 
 	REMOVE_TRAIT(src, TRAIT_UNDENSE, DRAGON_SWOOP_TRAIT)
 	SLEEP_CHECK_DEATH(src, 1)
@@ -462,28 +462,28 @@ Difficulty: Medium
 	animate(src, alpha = 255, time = duration)
 
 /obj/effect/temp_visual/lava_warning/proc/fall(reset_time)
-	var/turf/T = get_turf(src)
-	playsound(T,'sound/magic/fleshtostone.ogg', 80, TRUE)
+	var/turf/turf = get_turf(src)
+	playsound(turf,'sound/magic/fleshtostone.ogg', 80, TRUE)
 	sleep(duration)
-	playsound(T,'sound/magic/fireball.ogg', 200, TRUE)
+	playsound(turf,'sound/magic/fireball.ogg', 200, TRUE)
 
-	for(var/mob/living/L in T.contents)
-		if(istype(L, /mob/living/simple_animal/hostile/megafauna/dragon))
+	for(var/mob/living/living in turf.contents)
+		if(istype(living, /mob/living/simple_animal/hostile/megafauna/dragon))
 			continue
-		L.adjustFireLoss(10)
-		to_chat(L, span_userdanger("Вы рухнули в лаву!"))
+		living.adjustFireLoss(10)
+		to_chat(living, span_userdanger("Вы рухнули в лаву!"))
 
 	// deals damage to mechs
-	for(var/obj/mecha/M in T.contents)
-		M.take_damage(45, BRUTE, MELEE, 1)
+	for(var/obj/mecha/mecha in turf.contents)
+		mecha.take_damage(45, BRUTE, MELEE, 1)
 
 	// changes turf to lava temporarily
-	if(!T.density && !islava(T))
+	if(!turf.density && !islava(turf))
 		var/lava_turf = /turf/simulated/floor/lava
-		var/reset_turf = T.type
-		T.ChangeTurf(lava_turf)
+		var/reset_turf = turf.type
+		turf.ChangeTurf(lava_turf)
 		sleep(reset_time)
-		T.ChangeTurf(reset_turf)
+		turf.ChangeTurf(reset_turf)
 
 /obj/effect/temp_visual/drakewall
 	name = "Fire Barrier"
@@ -607,27 +607,27 @@ Difficulty: Medium
 	INVOKE_ASYNC(src, PROC_REF(fall), flame_hit)
 
 /obj/effect/temp_visual/target/proc/fall(list/flame_hit)
-	var/turf/T = get_turf(src)
-	playsound(T,'sound/magic/fleshtostone.ogg', 80, TRUE)
-	new /obj/effect/temp_visual/fireball(T)
+	var/turf/turf = get_turf(src)
+	playsound(turf,'sound/magic/fleshtostone.ogg', 80, TRUE)
+	new /obj/effect/temp_visual/fireball(turf)
 	sleep(duration)
-	if(ismineralturf(T))
-		var/turf/simulated/mineral/M = T
-		M.attempt_drill()
-	playsound(T, SFX_EXPLOSION, 80, TRUE)
-	var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(T)
+	if(ismineralturf(turf))
+		var/turf/simulated/mineral/mineral = turf
+		mineral.attempt_drill()
+	playsound(turf, SFX_EXPLOSION, 80, TRUE)
+	var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(turf)
 	hotspot.temperature = 1000
 	hotspot.recolor()
-	T.hotspot_expose(700, 50)
-	for(var/mob/living/L in T.contents)
-		if(istype(L, /mob/living/simple_animal/hostile/megafauna/dragon))
+	turf.hotspot_expose(700, 50)
+	for(var/mob/living/living in turf.contents)
+		if(istype(living, /mob/living/simple_animal/hostile/megafauna/dragon))
 			continue
-		if(islist(flame_hit) && !flame_hit[L])
-			L.adjustFireLoss(40)
-			to_chat(L, span_userdanger("Вас поражает огненное дыхание дрейка!"))
-			flame_hit[L] = TRUE
+		if(islist(flame_hit) && !flame_hit[living])
+			living.adjustFireLoss(40)
+			to_chat(living, span_userdanger("Вас поражает огненное дыхание дрейка!"))
+			flame_hit[living] = TRUE
 		else
-			L.adjustFireLoss(10) //if we've already hit them, do way less damage
+			living.adjustFireLoss(10) //if we've already hit them, do way less damage
 
 /mob/living/simple_animal/hostile/megafauna/dragon/lesser
 	name = "lesser ash drake"

@@ -169,15 +169,15 @@
 	var/list/old = hearing_mobs.Copy()
 	hearing_mobs.Cut()
 	var/turf/source = get_turf(parent)
-	for(var/mob/M in GLOB.player_list)
-		if(M.z != source.z) // Z-level check
+	for(var/mob/mob in GLOB.player_list)
+		if(mob.z != source.z) // Z-level check
 			continue
-		var/dist = get_dist(M, source)
+		var/dist = get_dist(mob, source)
 		if(dist > instrument_range) // Distance check
 			continue
-		if(!is_in_sight(M, source)) // Visibility check (direct line of sight)
+		if(!is_in_sight(mob, source)) // Visibility check (direct line of sight)
 			continue
-		hearing_mobs[M] = dist
+		hearing_mobs[mob] = dist
 	var/list/exited = old - hearing_mobs
 	for(var/i in exited)
 		terminate_sound_mob(i)

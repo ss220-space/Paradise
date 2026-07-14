@@ -78,27 +78,27 @@
 		return FALSE
 	if(!use_power)
 		return TRUE
-	var/area/A = get_area(src)		// make sure it's in an area
-	if(!A)
+	var/area/area = get_area(src)		// make sure it's in an area
+	if(!area)
 		return FALSE					// if not, then not powered
 	if(chan == -1)
 		chan = power_channel
-	return A.powered(chan)	// return power status of the area
+	return area.powered(chan)	// return power status of the area
 
 // increment the power usage stats for an area
 /obj/machinery/proc/use_power(amount, chan = -1) // defaults to power_channel
-	var/area/A = get_area(src)		// make sure it's in an area
-	if(!A)
+	var/area/area = get_area(src)		// make sure it's in an area
+	if(!area)
 		return
 	if(chan == -1)
 		chan = power_channel
-	A.use_power(amount, chan)
+	area.use_power(amount, chan)
 
 /obj/machinery/proc/addStaticPower(value, powerchannel)
-	var/area/A = get_area(src)
-	if(!A)
+	var/area/area = get_area(src)
+	if(!area)
 		return
-	A.addStaticPower(value, powerchannel)
+	area.addStaticPower(value, powerchannel)
 
 /obj/machinery/proc/removeStaticPower(value, powerchannel)
 	addStaticPower(-value, powerchannel)
@@ -114,15 +114,15 @@
 
 // connect the machine to a powernet if a node cable is present on the turf
 /obj/machinery/power/proc/connect_to_network()
-	var/turf/T = src.loc
-	if(!T || !istype(T))
+	var/turf/turf = src.loc
+	if(!turf || !istype(turf))
 		return FALSE
 
-	var/obj/structure/cable/C = T.get_cable_node() //check if we have a node cable on the machine turf, the first found is picked
-	if(!C || !C.powernet)
+	var/obj/structure/cable/cable = turf.get_cable_node() //check if we have a node cable on the machine turf, the first found is picked
+	if(!cable || !cable.powernet)
 		return FALSE
 
-	C.powernet.add_machine(src)
+	cable.powernet.add_machine(src)
 	return TRUE
 
 // remove and disconnect the machine from its current powernet
@@ -166,11 +166,11 @@
 		T = get_step(loc,card)
 		cdir = get_dir(T,loc)
 
-		for(var/obj/structure/cable/C in T)
-			if(C.powernet)
+		for(var/obj/structure/cable/cable in T)
+			if(cable.powernet)
 				continue
-			if(C.d1 == cdir || C.d2 == cdir)
-				. += C
+			if(cable.d1 == cdir || cable.d2 == cdir)
+				. += cable
 	return .
 
 //returns all the cables in neighbors turfs,
@@ -186,19 +186,19 @@
 		T = get_step(loc,card)
 		cdir = get_dir(T,loc)
 
-		for(var/obj/structure/cable/C in T)
-			if(C.d1 == cdir || C.d2 == cdir)
-				. += C
+		for(var/obj/structure/cable/cable in T)
+			if(cable.d1 == cdir || cable.d2 == cdir)
+				. += cable
 	return .
 
 //returns all the NODES (O-X) cables WITHOUT a powernet in the turf the machine is located at
 /obj/machinery/power/proc/get_indirect_connections()
 	. = list()
-	for(var/obj/structure/cable/C in loc)
-		if(C.powernet)
+	for(var/obj/structure/cable/cable in loc)
+		if(cable.powernet)
 			continue
-		if(C.d1 == 0) // the cable is a node cable
-			. += C
+		if(cable.d1 == 0) // the cable is a node cable
+			. += cable
 	return .
 
 ///////////////////////////////////////////
@@ -216,20 +216,20 @@
 			continue			//we don't want to return source
 
 		if(!cable_only && istype(AM, /obj/machinery/power))
-			var/obj/machinery/power/P = AM
-			if(P.powernet == 0)
+			var/obj/machinery/power/power = AM
+			if(power.powernet == 0)
 				continue		// exclude APCs which have powernet=0
 
-			if(!unmarked || !P.powernet)		//if unmarked=1 we only return things with no powernet
+			if(!unmarked || !power.powernet)		//if unmarked=1 we only return things with no powernet
 				if(d == 0)
-					. += P
+					. += power
 
 		else if(istype(AM, /obj/structure/cable))
-			var/obj/structure/cable/C = AM
+			var/obj/structure/cable/cable = AM
 
-			if(!unmarked || !C.powernet)
-				if(C.d1 == d || C.d2 == d)
-					. += C
+			if(!unmarked || !cable.powernet)
+				if(cable.d1 == d || cable.d2 == d)
+					. += cable
 	return .
 
 //remove the old powernet and replace it with a new one throughout the network.
@@ -237,25 +237,25 @@
 	var/list/worklist = list()
 	var/list/found_machines = list()
 	var/index = 1
-	var/obj/P = null
+	var/obj/obj = null
 
 	worklist[O] = TRUE //start propagating from the passed object
 
 	while(index<=length(worklist)) //until we've exhausted all power objects
-		P = worklist[index] //get the next power object found
+		obj = worklist[index] //get the next power object found
 		index++
 
-		if(istype(P, /obj/structure/cable))
-			var/obj/structure/cable/C = P
-			if(C.powernet != PN) //add it to the powernet, if it isn't already there
-				PN.add_cable(C)
-			//worklist |= C.get_connections() //get adjacents power objects, with or without a powernet
-			for(var/i in C.get_connections())
+		if(istype(obj, /obj/structure/cable))
+			var/obj/structure/cable/cable = obj
+			if(cable.powernet != PN) //add it to the powernet, if it isn't already there
+				PN.add_cable(cable)
+			//worklist |= cable.get_connections() //get adjacents power objects, with or without a powernet
+			for(var/i in cable.get_connections())
 				worklist[i] = TRUE
 
-		else if(P.anchored && istype(P, /obj/machinery/power))
-			var/obj/machinery/power/M = P
-			found_machines[P] = M //we wait until the powernet is fully propagates to connect the machines
+		else if(obj.anchored && istype(obj, /obj/machinery/power))
+			var/obj/machinery/power/power = obj
+			found_machines[obj] = power //we wait until the powernet is fully propagates to connect the machines
 
 		else
 			continue
@@ -368,9 +368,9 @@
 /turf/proc/get_cable_node()
 	if(!can_have_cabling())
 		return null
-	for(var/obj/structure/cable/C in src)
-		if(C.d1 == 0)
-			return C
+	for(var/obj/structure/cable/cable in src)
+		if(cable.d1 == 0)
+			return cable
 	return null
 
 /area/proc/get_apc()

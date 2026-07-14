@@ -61,10 +61,10 @@
 
 	if(bounces >= 1)
 		var/list/possible_targets = list()
-		for(var/mob/living/M in view(targeting.range, target))
-			if(user == M || target == M || !is_path_exist(target, M, PASSTABLE|PASSFENCE))
+		for(var/mob/living/living in view(targeting.range, target))
+			if(user == living || target == living || !is_path_exist(target, living, PASSTABLE|PASSFENCE))
 				continue
-			possible_targets += M
+			possible_targets += living
 		if(!length(possible_targets))
 			return
 		var/mob/living/next = pick(possible_targets)

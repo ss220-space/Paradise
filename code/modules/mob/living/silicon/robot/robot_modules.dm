@@ -59,9 +59,9 @@
 	return TRUE
 
 /obj/item/robot_module/proc/fix_modules()
-	for(var/obj/item/I in modules)
-		ADD_TRAIT(I, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
-		I.mouse_opacity = MOUSE_OPACITY_OPAQUE
+	for(var/obj/item/item in modules)
+		ADD_TRAIT(item, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
+		item.mouse_opacity = MOUSE_OPACITY_OPAQUE
 
 	if(emag)
 		ADD_TRAIT(emag, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
@@ -85,9 +85,9 @@
 	handle_storages()
 
 /obj/item/robot_module/proc/get_or_create_estorage(storage_type)
-	for(var/datum/robot_energy_storage/S in storages)
-		if(istype(S, storage_type))
-			return S
+	for(var/datum/robot_energy_storage/robot_energy_storage in storages)
+		if(istype(robot_energy_storage, storage_type))
+			return robot_energy_storage
 
 	return new storage_type(src)
 
@@ -99,9 +99,9 @@
 	var/list/temp_list = modules
 	modules = list()
 
-	for(var/obj/O in temp_list)
-		if(!QDELETED(O)) //so items getting deleted don't stay in module list and haunt you
-			modules += O
+	for(var/obj/obj in temp_list)
+		if(!QDELETED(obj)) //so items getting deleted don't stay in module list and haunt you
+			modules += obj
 
 /obj/item/robot_module/proc/add_languages(mob/living/silicon/robot/R)
 	//full set of languages
@@ -134,9 +134,9 @@
 /obj/item/robot_module/proc/remove_subsystems_and_actions(mob/living/silicon/robot/R)
 	remove_verb(R, subsystems)
 
-	for(var/datum/action/A in R.module_actions)
-		A.Remove(R)
-		qdel(A)
+	for(var/datum/action/action in R.module_actions)
+		action.Remove(R)
+		qdel(action)
 
 	R.module_actions.Cut()
 

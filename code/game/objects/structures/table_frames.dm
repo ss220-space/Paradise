@@ -91,11 +91,11 @@
 		qdel(src)
 
 /obj/structure/table_frame/proc/make_new_table(table_type) //makes sure the new table made retains what we had as a frame
-	var/obj/structure/table/T = new table_type(loc)
-	T.frame = type
-	T.framestack = framestack
-	T.framestackamount = framestackamount
-	T.add_fingerprint(usr)
+	var/obj/structure/table/table = new table_type(loc)
+	table.frame = type
+	table.framestack = framestack
+	table.framestackamount = framestackamount
+	table.add_fingerprint(usr)
 	qdel(src)
 
 /obj/structure/table_frame/deconstruct(disassembled = TRUE)

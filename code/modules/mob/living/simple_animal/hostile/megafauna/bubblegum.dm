@@ -148,11 +148,11 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/i_see_you(source, target)
 	if(!ishuman(target))
 		return
-	var/mob/living/carbon/human/H = target
-	H.apply_status_effect(STATUS_EFFECT_BUBBLEGUM_CURSE, src)
+	var/mob/living/carbon/human/human = target
+	human.apply_status_effect(STATUS_EFFECT_BUBBLEGUM_CURSE, src)
 	if(second_life)
-		H.clear_fullscreen("bubblegum")
-		H.overlay_fullscreen("bubblegum", /atom/movable/screen/fullscreen/fog, 2)
+		human.clear_fullscreen("bubblegum")
+		human.overlay_fullscreen("bubblegum", /atom/movable/screen/fullscreen/fog, 2)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/death(gibbed)
 	QDEL_NULL(second_life_portal)
@@ -297,10 +297,10 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/get_mobs_on_blood()
 	var/list/targets = ListTargets()
 	. = list()
-	for(var/mob/living/L in targets)
-		var/list/bloodpool = get_pools(get_turf(L), 0)
-		if(length(bloodpool) && (!faction_check_mob(L) || L.stat == DEAD))
-			. += L
+	for(var/mob/living/living in targets)
+		var/list/bloodpool = get_pools(get_turf(living), 0)
+		if(length(bloodpool) && (!faction_check_mob(living) || living.stat == DEAD))
+			. += living
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/try_bloodattack()
 	var/list/targets = get_mobs_on_blood()
@@ -347,12 +347,12 @@ Difficulty: Hard
 	else
 		new /obj/effect/temp_visual/bubblegum_hands/leftsmack(T)
 	SLEEP_CHECK_DEATH(src, 4)
-	for(var/mob/living/L in T)
-		if(!faction_check_mob(L))
-			to_chat(L, span_userdanger("[declent_ru(NOMINATIVE)] разрывает вас!"))
+	for(var/mob/living/living in T)
+		if(!faction_check_mob(living))
+			to_chat(living, span_userdanger("[declent_ru(NOMINATIVE)] разрывает вас!"))
 			playsound(T, attack_sound, 100, TRUE, -1)
-			var/limb_to_hit = L.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG, BODY_ZONE_TAIL, BODY_ZONE_WING))
-			L.apply_damage(second_life ? 20 : 10, BRUTE, limb_to_hit, L.run_armor_check(limb_to_hit, MELEE, null, null, armour_penetration))
+			var/limb_to_hit = living.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG, BODY_ZONE_TAIL, BODY_ZONE_WING))
+			living.apply_damage(second_life ? 20 : 10, BRUTE, limb_to_hit, living.run_armor_check(limb_to_hit, MELEE, null, null, armour_penetration))
 	SLEEP_CHECK_DEATH(src, 3)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/bloodgrab(turf/T, handedness)
@@ -363,15 +363,15 @@ Difficulty: Hard
 		new /obj/effect/temp_visual/bubblegum_hands/leftpaw(T)
 		new /obj/effect/temp_visual/bubblegum_hands/leftthumb(T)
 	SLEEP_CHECK_DEATH(src, 6)
-	for(var/mob/living/L in T)
-		if(!faction_check_mob(L))
-			if(L.stat != CONSCIOUS)
-				to_chat(L, span_userdanger("[declent_ru(NOMINATIVE)] тащит вас через кровь!"))
+	for(var/mob/living/living in T)
+		if(!faction_check_mob(living))
+			if(living.stat != CONSCIOUS)
+				to_chat(living, span_userdanger("[declent_ru(NOMINATIVE)] тащит вас через кровь!"))
 				playsound(T, 'sound/misc/enter_blood.ogg', 100, TRUE, -1)
 				var/turf/targetturf = get_step(src, dir)
-				L.forceMove(targetturf)
+				living.forceMove(targetturf)
 				playsound(targetturf, 'sound/misc/exit_blood.ogg', 100, TRUE, -1)
-				addtimer(CALLBACK(src, PROC_REF(devour), L), 2)
+				addtimer(CALLBACK(src, PROC_REF(devour), living), 2)
 	SLEEP_CHECK_DEATH(src, 1)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/hit_up_narsi()
@@ -380,12 +380,12 @@ Difficulty: Hard
 	span_colossus("<b>[pick("[SSticker.cultdat.entity_name], я взываю к ТЕБЕ для одной услуги, которую ты мне должен!","[SSticker.cultdat.entity_title1], я взываю к тебе за поддержкой...","Давай посмотрим, как тебе понравятся приспешники [SSticker.cultdat.entity_title2]!","О, [SSticker.cultdat.entity_title3] присоединись ко мне, чтобы РАЗОРВАТЬ ЭТОГО ЩЕНКА НА ЧАСТИ!")]</b>"))
 	var/list/turfs = list()
 	var/constructs = 0
-	for(var/turf/T in view(6, target))
-		if(T.density)
+	for(var/turf/turf in view(6, target))
+		if(turf.density)
 			continue
-		if(T in range(2, target))
+		if(turf in range(2, target))
 			continue
-		turfs += T
+		turfs += turf
 		var/amount = second_life ? 4 : 3
 		while(constructs < amount && length(turfs))
 			var/turf/spot = pick_n_take(turfs)

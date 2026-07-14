@@ -478,13 +478,13 @@
 /obj/machinery/computer/library/checkout/proc/make_external_book(datum/cachedbook/newbook)
 	if(!newbook || !newbook.id)
 		return
-	var/obj/item/book/B = new newbook.path(loc)
+	var/obj/item/book/book = new newbook.path(loc)
 
 	if(!newbook.programmatic)
-		B.name = "Book: [newbook.title]"
-		B.title = newbook.title
-		B.author = newbook.author
-		B.dat = newbook.content
-		B.icon_state = "book[rand(1,16)]"
-		B.has_drm = TRUE
+		book.name = "Book: [newbook.title]"
+		book.title = newbook.title
+		book.author = newbook.author
+		book.dat = newbook.content
+		book.icon_state = "book[rand(1,16)]"
+		book.has_drm = TRUE
 	visible_message("[src]'s printer hums as it produces a completely bound book. How did it do that?")

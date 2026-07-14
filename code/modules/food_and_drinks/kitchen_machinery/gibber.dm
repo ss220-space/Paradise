@@ -187,8 +187,8 @@
 	if(locked)
 		return
 
-	for(var/obj/O in src)
-		O.forceMove(loc)
+	for(var/obj/obj in src)
+		obj.forceMove(loc)
 
 	occupant.forceMove(get_turf(src))
 	occupant = null
@@ -269,12 +269,12 @@
 		occupant.meatleft--
 
 	if(ishuman(occupant))
-		var/mob/living/carbon/human/H = occupant
-		var/skinned = H.dna.species.skinned_type
-		if(ismachineperson(H))
+		var/mob/living/carbon/human/human = occupant
+		var/skinned = human.dna.species.skinned_type
+		if(ismachineperson(human))
 			new /obj/effect/gibspawner/robot(src)
-		else if(!isplasmaman(H) && !isnucleation(H) && !isgolem(H))
-			new /obj/effect/gibspawner(src, H.dna)
+		else if(!isplasmaman(human) && !isnucleation(human) && !isgolem(human))
+			new /obj/effect/gibspawner(src, human.dna)
 		if(skinned)
 			new skinned(src)
 
@@ -384,38 +384,38 @@
 	if(H != occupant)
 		return //only using H as a shortcut to typecast
 
-	for(var/obj/O in H)
-		if(isclothing(O)) //clothing gets skipped to avoid cleaning out shit
+	for(var/obj/obj in H)
+		if(isclothing(obj)) //clothing gets skipped to avoid cleaning out shit
 			continue
-		if(istype(O,/obj/item/implant))
-			var/obj/item/implant/I = O
-			if(I.implanted)
+		if(istype(obj,/obj/item/implant))
+			var/obj/item/implant/implant = obj
+			if(implant.implanted)
 				continue
-		if(is_organ(O))
+		if(is_organ(obj))
 			continue
-		if(HAS_TRAIT(O, TRAIT_NODROP) || stealthmode)
-			qdel(O) //they are already dead by now
-		H.drop_transfer_item_to_loc(O, loc)
-		O.throw_at(get_edge_target_turf(src, gib_throw_dir), rand(1, 5), 15)
+		if(HAS_TRAIT(obj, TRAIT_NODROP) || stealthmode)
+			qdel(obj) //they are already dead by now
+		H.drop_transfer_item_to_loc(obj, loc)
+		obj.throw_at(get_edge_target_turf(src, gib_throw_dir), rand(1, 5), 15)
 		sleep(1)
 
-	for(var/obj/item/clothing/C in H)
-		if(HAS_TRAIT(C, TRAIT_NODROP) || stealthmode)
-			qdel(C)
-		H.drop_transfer_item_to_loc(C, loc)
-		C.throw_at(get_edge_target_turf(src, gib_throw_dir), rand(1, 5), 15)
+	for(var/obj/item/clothing/clothing in H)
+		if(HAS_TRAIT(clothing, TRAIT_NODROP) || stealthmode)
+			qdel(clothing)
+		H.drop_transfer_item_to_loc(clothing, loc)
+		clothing.throw_at(get_edge_target_turf(src, gib_throw_dir), rand(1, 5), 15)
 		sleep(1)
 
 	visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] выплевывает вещи [H.declent_ru(GENITIVE)]!"))
 
 /obj/machinery/gibber/autogibber/proc/cleanbay()
 	var/spats = 0 //keeps track of how many items get spit out. Don't show a message if none are found.
-	for(var/obj/O in src)
+	for(var/obj/obj in src)
 		if(stealthmode)
-			qdel(O)
-		else if(istype(O))
-			O.forceMove(loc)
-			O.throw_at(get_edge_target_turf(src, gib_throw_dir), rand(1, 5), 15)
+			qdel(obj)
+		else if(istype(obj))
+			obj.forceMove(loc)
+			obj.throw_at(get_edge_target_turf(src, gib_throw_dir), rand(1, 5), 15)
 			spats++
 			sleep(1)
 	if(spats)

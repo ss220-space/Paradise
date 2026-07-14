@@ -231,13 +231,13 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 
 /obj/item/extraction_pack/proc/check_for_living_mobs(atom/A)
 	if(isliving(A))
-		var/mob/living/L = A
-		if(L.stat != DEAD)
+		var/mob/living/living = A
+		if(living.stat != DEAD)
 			return TRUE
 	for(var/thing in A.get_all_contents())
 		if(isliving(A))
-			var/mob/living/L = A
-			if(L.stat != DEAD)
+			var/mob/living/living = A
+			if(living.stat != DEAD)
 				return TRUE
 	return FALSE
 

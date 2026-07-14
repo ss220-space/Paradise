@@ -356,10 +356,10 @@
 	user.changeNext_move(attack_speed * 0.25)
 
 	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(HAS_TRAIT(H, TRAIT_CLUMSY) && prob(50))
-			to_chat(H, span_warning("You accidentally cut yourself with [src], like a doofus!"))
-			H.take_organ_damage(10,10)
+		var/mob/living/carbon/human/human = user
+		if(HAS_TRAIT(human, TRAIT_CLUMSY) && prob(50))
+			to_chat(human, span_warning("You accidentally cut yourself with [src], like a doofus!"))
+			human.take_organ_damage(10,10)
 	active = !active
 	if(active)
 		force = force_on

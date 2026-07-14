@@ -87,10 +87,10 @@
 		return
 
 	var/anydriver = FALSE
-	for(var/obj/machinery/mass_driver/M in SSmachines.get_by_type(/obj/machinery/mass_driver))
-		if(M.z != src.z)
+	for(var/obj/machinery/mass_driver/mass_driver in SSmachines.get_by_type(/obj/machinery/mass_driver))
+		if(mass_driver.z != src.z)
 			continue
-		if(M.id_tag == ident_tag)
+		if(mass_driver.id_tag == ident_tag)
 			anydriver = TRUE
 
 	if(!anydriver)

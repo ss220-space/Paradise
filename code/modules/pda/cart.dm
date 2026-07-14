@@ -22,29 +22,29 @@
 
 /obj/item/cartridge/proc/update_programs(obj/item/pda/pda)
 	for(var/A in programs)
-		var/datum/data/pda/P = A
-		P.pda = pda
+		var/datum/data/pda/pda_data = A
+		pda_data.pda = pda
 	for(var/A in messenger_plugins)
-		var/datum/data/pda/messenger_plugin/P = A
-		P.pda = pda
+		var/datum/data/pda/messenger_plugin/pda_plugin = A
+		pda_plugin.pda = pda
 
 /obj/item/cartridge/proc/stamp_act(stamp)
 	var/result = FALSE
 	for(var/A in programs)
-		var/datum/data/pda/P = A
-		result = result || P.stamp_act(stamp)
+		var/datum/data/pda/pda = A
+		result = result || pda.stamp_act(stamp)
 	for(var/A in messenger_plugins)
-		var/datum/data/pda/messenger_plugin/P = A
-		result = result || P.stamp_act(stamp)
+		var/datum/data/pda/messenger_plugin/pda = A
+		result = result || pda.stamp_act(stamp)
 	return result
 
 /obj/item/cartridge/proc/on_id_updated()
 	for(var/A in programs)
-		var/datum/data/pda/P = A
-		P.on_id_updated()
+		var/datum/data/pda/pda = A
+		pda.on_id_updated()
 	for(var/A in messenger_plugins)
-		var/datum/data/pda/messenger_plugin/P = A
-		P.on_id_updated()
+		var/datum/data/pda/messenger_plugin/pda = A
+		pda.on_id_updated()
 
 /obj/item/cartridge/engineering
 	name = "Power-ON Cartridge"

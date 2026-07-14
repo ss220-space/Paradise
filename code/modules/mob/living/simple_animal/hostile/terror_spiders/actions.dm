@@ -143,12 +143,12 @@
 		else if(isspaceturf(loc))
 			to_chat(src, span_danger("Паутину невозможно плести в космосе."))
 		else
-			var/obj/structure/spider/terrorweb/T = locate() in get_turf(src)
-			if(T)
+			var/obj/structure/spider/terrorweb/terrorweb = locate() in get_turf(src)
+			if(terrorweb)
 				to_chat(src, span_danger("Здесь уже есть паутина."))
 			else
-				var/obj/structure/spider/terrorweb/W = new web_type(loc)
-				W.creator_ckey = ckey
+				var/obj/structure/spider/terrorweb/terrorweb_new = new web_type(loc)
+				terrorweb_new.creator_ckey = ckey
 
 /obj/structure/spider/terrorweb
 	name = "terror web"
@@ -231,14 +231,14 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/FindWrapTarget()
 	if(!cocoon_target)
 		var/list/choices = list()
-		for(var/mob/living/L in oview(1,src))
-			if(!mobIsWrappable(L))
+		for(var/mob/living/living in oview(1,src))
+			if(!mobIsWrappable(living))
 				continue
-			choices += L
-		for(var/obj/O in oview(1,src))
-			if(Adjacent(O) && !O.anchored)
-				if(!istype(O, /obj/structure/spider))
-					choices += O
+			choices += living
+		for(var/obj/obj in oview(1,src))
+			if(Adjacent(obj) && !obj.anchored)
+				if(!istype(obj, /obj/structure/spider))
+					choices += obj
 		if(length(choices))
 			cocoon_target = tgui_input_list(src, "Что вы хотите замотать в кокон?", "", choices)
 		else
@@ -257,68 +257,68 @@
 		if(do_after(src, 4 SECONDS, cocoon_target.loc))
 			if(busy == SPINNING_COCOON)
 				if(cocoon_target && isturf(cocoon_target.loc) && get_dist(src,cocoon_target) <= 1)
-					var/obj/structure/spider/cocoon/C = new(cocoon_target.loc)
+					var/obj/structure/spider/cocoon/cocoon = new(cocoon_target.loc)
 					var/large_cocoon = 0
-					C.pixel_x = cocoon_target.pixel_x
-					C.pixel_y = cocoon_target.pixel_y
-					for(var/obj/O in C.loc)
-						if(!O.anchored)
-							if(isitem(O))
-								O.loc = C
-							else if(ismachinery(O))
-								O.loc = C
+					cocoon.pixel_x = cocoon_target.pixel_x
+					cocoon.pixel_y = cocoon_target.pixel_y
+					for(var/obj/obj in cocoon.loc)
+						if(!obj.anchored)
+							if(isitem(obj))
+								obj.loc = cocoon
+							else if(ismachinery(obj))
+								obj.loc = cocoon
 								large_cocoon = 1
-							else if(isstructure(O) && !istype(O, /obj/structure/spider)) // can't wrap spiderlings/etc
-								O.loc = C
+							else if(isstructure(obj) && !istype(obj, /obj/structure/spider)) // can't wrap spiderlings/etc
+								obj.loc = cocoon
 								large_cocoon = 1
-					for(var/mob/living/L in C.loc)
-						if(!mobIsWrappable(L))
+					for(var/mob/living/living in cocoon.loc)
+						if(!mobIsWrappable(living))
 							continue
-						if(iscarbon(L))
+						if(iscarbon(living))
 							apply_status_effect(STATUS_EFFECT_TERROR_FOOD_REGEN)
 							fed++
-							visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] втыкает хоботок в [L.declent_ru(ACCUSATIVE)] и высасывает вязкое вещество."))
+							visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] втыкает хоботок в [living.declent_ru(ACCUSATIVE)] и высасывает вязкое вещество."))
 							to_chat(src, span_notice("Вы начинаете быстро восстанавливаться!"))
-							if(L.mind && ishuman(L))
+							if(living.mind && ishuman(living))
 								SEND_SIGNAL(mind, COMSIG_HUMAN_EATEN)
 						else
-							visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] заматывает [L.declent_ru(ACCUSATIVE)] в паутину."))
+							visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] заматывает [living.declent_ru(ACCUSATIVE)] в паутину."))
 						large_cocoon = 1
 						last_cocoon_object = 0
-						L.forceMove(C)
-						C.pixel_x = L.pixel_x
-						C.pixel_y = L.pixel_y
+						living.forceMove(cocoon)
+						cocoon.pixel_x = living.pixel_x
+						cocoon.pixel_y = living.pixel_y
 						break
 					if(large_cocoon)
-						C.icon_state = pick("cocoon_large1","cocoon_large2","cocoon_large3")
+						cocoon.icon_state = pick("cocoon_large1","cocoon_large2","cocoon_large3")
 		cocoon_target = null
 		busy = 0
 		stop_automated_movement = 0
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/DoVentSmash()
 	var/valid_target = FALSE
-	for(var/obj/machinery/atmospherics/unary/vent_pump/P in range(1, get_turf(src)))
-		if(P.welded)
+	for(var/obj/machinery/atmospherics/unary/vent_pump/vent_pump in range(1, get_turf(src)))
+		if(vent_pump.welded)
 			valid_target = TRUE
-	for(var/obj/machinery/atmospherics/unary/vent_scrubber/C in range(1, get_turf(src)))
-		if(C.welded)
+	for(var/obj/machinery/atmospherics/unary/vent_scrubber/vent_scrubber in range(1, get_turf(src)))
+		if(vent_scrubber.welded)
 			valid_target = TRUE
 	if(!valid_target)
 		to_chat(src, span_warning("Рядом нет заваренного вентиляционного отверстия или скраббера!"))
 		return
 	playsound(get_turf(src), 'sound/creatures/terrorspiders/ventbreak.ogg', 75, FALSE)
 	if(do_after(src, 4.3 SECONDS, loc))
-		for(var/obj/machinery/atmospherics/unary/vent_pump/P in range(1, get_turf(src)))
-			if(P.welded)
-				P.set_welded(FALSE)
-				forceMove(P.loc)
-				P.visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] выбивает приваренную крышку [P.declent_ru(GENITIVE)]!"))
+		for(var/obj/machinery/atmospherics/unary/vent_pump/vent_pump in range(1, get_turf(src)))
+			if(vent_pump.welded)
+				vent_pump.set_welded(FALSE)
+				forceMove(vent_pump.loc)
+				vent_pump.visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] выбивает приваренную крышку [vent_pump.declent_ru(GENITIVE)]!"))
 				return
-		for(var/obj/machinery/atmospherics/unary/vent_scrubber/C in range(1, get_turf(src)))
-			if(C.welded)
-				C.set_welded(FALSE)
-				forceMove(C.loc)
-				C.visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] выбивает приваренную крышку [C.declent_ru(GENITIVE)]!"))
+		for(var/obj/machinery/atmospherics/unary/vent_scrubber/vent_scrubber in range(1, get_turf(src)))
+			if(vent_scrubber.welded)
+				vent_scrubber.set_welded(FALSE)
+				forceMove(vent_scrubber.loc)
+				vent_scrubber.visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] выбивает приваренную крышку [vent_scrubber.declent_ru(GENITIVE)]!"))
 				return
 		to_chat(src, span_danger("Поблизости нет заваренного вентиляционного отверстия или скраббера."))
 

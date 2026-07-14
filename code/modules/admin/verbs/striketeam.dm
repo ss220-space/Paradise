@@ -41,11 +41,11 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 	var/commando_number = COMMANDOS_POSSIBLE //for selecting a leader
 	var/is_leader = TRUE // set to FALSE after leader is spawned
 
-	for(var/obj/effect/landmark/L in GLOB.landmarks_list)
+	for(var/obj/effect/landmark/landmark in GLOB.landmarks_list)
 		if(commando_number <= 0)
 			break
 
-		if(L.name == "Commando")
+		if(landmark.name == "Commando")
 
 			if(!length(commando_ghosts))
 				break
@@ -65,29 +65,29 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 				continue
 
 			if(use_ds_borg)
-				var/mob/living/silicon/robot/deathsquad/R = new()
-				R.forceMove(get_turf(L))
+				var/mob/living/silicon/robot/deathsquad/deathsquad = new()
+				deathsquad.forceMove(get_turf(landmark))
 				var/rnum = rand(1,1000)
 				var/borgname = "Epsilon [rnum]"
-				R.name = borgname
-				R.custom_name = borgname
-				R.real_name = R.name
-				R.mind = new
-				R.mind.current = R
-				R.mind.set_original_mob(R)
-				R.mind.assigned_role = SPECIAL_ROLE_DEATHSQUAD
-				R.mind.special_role = SPECIAL_ROLE_DEATHSQUAD
-				R.mind.offstation_role = TRUE
-				if(!(R.mind in SSticker.minds))
-					SSticker.minds += R.mind
-				SSticker.mode.deathsquad |= R.mind
-				R.possess_by_player(ghost_mob.key)
+				deathsquad.name = borgname
+				deathsquad.custom_name = borgname
+				deathsquad.real_name = deathsquad.name
+				deathsquad.mind = new
+				deathsquad.mind.current = deathsquad
+				deathsquad.mind.set_original_mob(deathsquad)
+				deathsquad.mind.assigned_role = SPECIAL_ROLE_DEATHSQUAD
+				deathsquad.mind.special_role = SPECIAL_ROLE_DEATHSQUAD
+				deathsquad.mind.offstation_role = TRUE
+				if(!(deathsquad.mind in SSticker.minds))
+					SSticker.minds += deathsquad.mind
+				SSticker.mode.deathsquad |= deathsquad.mind
+				deathsquad.possess_by_player(ghost_mob.key)
 				if(nuke_code)
-					R.mind.store_memory("<b>Коды от боеголовки:</b> [span_warning("[nuke_code].")]")
-				R.mind.store_memory("<b>Миссия:</b> [span_warning("[input].")]")
-				to_chat(R, span_userdanger("Вы борг отдела Специальных Операций, подчиняющийся Центральному Командованию. \nВаша миссия: [span_danger("[input]")]"))
+					deathsquad.mind.store_memory("<b>Коды от боеголовки:</b> [span_warning("[nuke_code].")]")
+				deathsquad.mind.store_memory("<b>Миссия:</b> [span_warning("[input].")]")
+				to_chat(deathsquad, span_userdanger("Вы борг отдела Специальных Операций, подчиняющийся Центральному Командованию. \nВаша миссия: [span_danger("[input]")]"))
 			else
-				var/mob/living/carbon/human/new_commando = create_death_commando(L, is_leader)
+				var/mob/living/carbon/human/new_commando = create_death_commando(landmark, is_leader)
 				new_commando.mind.key = ghost_mob.key
 				new_commando.possess_by_player(ghost_mob.key)
 				new_commando.internal = new_commando.s_store
@@ -102,12 +102,12 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 			commando_number--
 
 	//Spawns the rest of the commando gear.
-	for(var/obj/effect/landmark/L in GLOB.landmarks_list)
+	for(var/obj/effect/landmark/landmark in GLOB.landmarks_list)
 
-		if(L.name == "Commando_Manual")
-			//new /obj/item/gun/energy/pulse_rifle(L.loc)
-			var/obj/item/paper/pamphletdeathsquad/P = new(L.loc)
-			P.info = "<p><b>Доброе утро, солдат!</b>. \
+		if(landmark.name == "Commando_Manual")
+			//new /obj/item/gun/energy/pulse_rifle(landmark.loc)
+			var/obj/item/paper/pamphletdeathsquad/pamphletdeathsquad = new(landmark.loc)
+			pamphletdeathsquad.info = "<p><b>Доброе утро, солдат!</b>. \
 			Это компактное руководство познакомит тебя со стандартной процедурой операции. \
 			Есть три основных правила, которым нужно следовать:<br>\
 			#1 Работай в команде.<br>\
@@ -133,22 +133,22 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 			#2 Разверни и закрепи бомбу (ударь её рукой).<br>\
 			#3 Вставь диск аутентификации в слот.<br>\
 			#4 Введи цифровой код ([nuke_code]) на клавиатуре.<br>\
-			Примечание: Если сделаешь ошибку, нажми R для сброса устройства.<br>\
+			Примечание: Если сделаешь ошибку, нажми deathsquad для сброса устройства.<br>\
 			#5 Нажми кнопку E, чтобы авторизоваться в устройстве<br>Вы успешно активировали боеголовку. \
-			Чтобы деактивировать кнопки в любое время, например, когда ты уже подготовил бомбу к детонации, удали диск аутентификации ИЛИ нажми R на клавиатуре. \
+			Чтобы деактивировать кнопки в любое время, например, когда ты уже подготовил бомбу к детонации, удали диск аутентификации ИЛИ нажми deathsquad на клавиатуре. \
 			Теперь бомба МОЖЕТ БЫТЬ взорвана только с помощью таймера. Ручная детонация невозможна.<br>Примечание: Отключи <b>ПРЕДОХРАНИТЕЛЬ</b>.<br>\
 			Используй - - и + + для установки времени детонации от 5 секунд до 10 минут. Затем нажми кнопку таймера для запуска обратного отсчета. \
 			Теперь удали диск аутентификации, чтобы кнопки деактивировались.<br>Примечание: <b>БОМБА ВСЕ ЕЩЁ УСТАНОВЛЕНА И ВЗОРВЕТСЯ</b><br>\
 			Теперь, прежде чем удалить диск, если нужно переместить бомбу, можешь: открепить её, переместить и снова закрепить.</p><p>\
 			Код ядерной аутентификации: <b>[nuke_code ? nuke_code : "Не предоставлен"]</b></p>\
 			<p><b>Удачи, солдат!</b></p>"
-			P.name = "Руководство по Специальным Операциям"
-			P.stamp(/obj/item/stamp/centcom)
+			pamphletdeathsquad.name = "Руководство по Специальным Операциям"
+			pamphletdeathsquad.stamp(/obj/item/stamp/centcom)
 
-	for(var/obj/effect/landmark/L in GLOB.landmarks_list)
-		if(L.name == "Commando-Bomb")
-			new /obj/effect/spawner/newbomb/timer/syndicate(L.loc)
-			qdel(L)
+	for(var/obj/effect/landmark/landmark in GLOB.landmarks_list)
+		if(landmark.name == "Commando-Bomb")
+			new /obj/effect/spawner/newbomb/timer/syndicate(landmark.loc)
+			qdel(landmark)
 
 	message_admins(span_notice("[key_name_admin(usr)] has spawned a CentComm DeathSquad."))
 	log_admin("[key_name(usr)] used Spawn Death Squad.")
@@ -160,13 +160,13 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 	var/commando_rank = pick("Младший Сержант", "Сержант", "Старший Сержант", "Старшина", "Прапорщик", "Старший Прапорщик")
 	var/commando_name = pick(GLOB.last_names_male)
 
-	var/datum/preferences/A = new()//Randomize appearance for the commando.
+	var/datum/preferences/preferences = new()//Randomize appearance for the commando.
 	if(is_leader)
-		A.age = rand(35,45)
-		A.real_name = "[commando_leader_rank] [A.gender==FEMALE ? pick(GLOB.last_names_female) : commando_name]"
+		preferences.age = rand(35,45)
+		preferences.real_name = "[commando_leader_rank] [preferences.gender==FEMALE ? pick(GLOB.last_names_female) : commando_name]"
 	else
-		A.real_name = "[commando_rank] [A.gender==FEMALE ? pick(GLOB.last_names_female) : commando_name]"
-	A.copy_to(new_commando)
+		preferences.real_name = "[commando_rank] [preferences.gender==FEMALE ? pick(GLOB.last_names_female) : commando_name]"
+	preferences.copy_to(new_commando)
 
 	new_commando.dna.ready_dna(new_commando)//Creates DNA.
 

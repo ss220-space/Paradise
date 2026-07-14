@@ -52,75 +52,75 @@ SUBSYSTEM_DEF(ghost_spawns)
 	polls_active = TRUE
 	total_polls++
 
-	var/datum/candidate_poll/P = new(role, question, poll_time)
-	LAZYADD(currently_polling, P)
+	var/datum/candidate_poll/candidate_poll = new(role, question, poll_time)
+	LAZYADD(currently_polling, candidate_poll)
 
 	// We're the poll closest to completion
 	if(!next_poll_to_finish || poll_time < next_poll_to_finish.time_left())
-		next_poll_to_finish = P
+		next_poll_to_finish = candidate_poll
 
-	var/category = "[P.hash]_notify_action"
+	var/category = "[candidate_poll.hash]_notify_action"
 
 	var/notice_sound = sound('sound/effects/ghost_ping.ogg')
-	for(var/mob/dead/observer/M in (ignore_respawnability ? GLOB.player_list : GLOB.respawnable_list))
-		if(!is_eligible(M, role, antag_age_check, role, min_hours, check_antaghud))
+	for(var/mob/dead/observer/observer in (ignore_respawnability ? GLOB.player_list : GLOB.respawnable_list))
+		if(!is_eligible(observer, role, antag_age_check, role, min_hours, check_antaghud))
 			continue
 
-		SEND_SOUND(M, notice_sound)
+		SEND_SOUND(observer, notice_sound)
 		if(flash_window)
-			window_flash(M.client)
+			window_flash(observer.client)
 
 		// If we somehow send two polls for the same mob type, but with a duration on the second one shorter than the time left on the first one,
 		// we need to keep the first one's timeout rather than use the shorter one
-		var/atom/movable/screen/alert/notify_action/current_alert = LAZYACCESS(M.alerts, category)
+		var/atom/movable/screen/alert/notify_action/current_alert = LAZYACCESS(observer.alerts, category)
 		var/alert_time = poll_time
-		var/alert_poll = P
+		var/alert_poll = candidate_poll
 		if(current_alert && current_alert.timeout > (world.time + poll_time - world.tick_lag))
 			alert_time = current_alert.timeout - world.time + world.tick_lag
 			alert_poll = current_alert.poll
 
 		// Send them an on-screen alert
-		var/atom/movable/screen/alert/notify_action/A = M.throw_alert(category, /atom/movable/screen/alert/notify_action, timeout_override = alert_time, no_anim = TRUE)
-		if(!A)
+		var/atom/movable/screen/alert/notify_action/notify_action = observer.throw_alert(category, /atom/movable/screen/alert/notify_action, timeout_override = alert_time, no_anim = TRUE)
+		if(!notify_action)
 			continue
 
-		P.alert_buttons += A
+		candidate_poll.alert_buttons += notify_action
 
-		A.icon = ui_style2icon(M.client?.prefs.UI_style)
-		A.name = "Поиск кандидатов"
-		A.desc = "[question]\n\n(истекает через [poll_time / 10] секунд[DECL_SEC_MIN(poll_time / 10)])"
-		A.show_time_left = TRUE
-		A.poll = alert_poll
-		A.update_candidates_number_overlay()
+		notify_action.icon = ui_style2icon(observer.client?.prefs.UI_style)
+		notify_action.name = "Поиск кандидатов"
+		notify_action.desc = "[question]\n\n(истекает через [poll_time / 10] секунд[DECL_SEC_MIN(poll_time / 10)])"
+		notify_action.show_time_left = TRUE
+		notify_action.poll = alert_poll
+		notify_action.update_candidates_number_overlay()
 
 		// Sign up inheritance and stacking
 		var/inherited_sign_up = FALSE
 		var/num_stack = 1
 		for(var/existing_poll in currently_polling)
 			var/datum/candidate_poll/P2 = existing_poll
-			if(P != P2 && P.hash == P2.hash)
+			if(candidate_poll != P2 && candidate_poll.hash == P2.hash)
 				// If there's already a poll for an identical mob type ongoing and the client is signed up for it, sign them up for this one
-				if(!inherited_sign_up && (M in P2.signed_up) && P.sign_up(M, TRUE))
-					A.update_signed_up_alert()
+				if(!inherited_sign_up && (observer in P2.signed_up) && candidate_poll.sign_up(observer, TRUE))
+					notify_action.update_signed_up_alert()
 					inherited_sign_up = TRUE
 				// This number is used to display the number of polls the alert regroups
 				num_stack++
 		if(num_stack > 1)
-			A.display_stacks(num_stack)
+			notify_action.display_stacks(num_stack)
 
 		// Image to display
 		var/image/I
 		if(source)
 			if(!ispath(source))
-				var/atom/S = source
-				var/old_layer = S.layer
-				var/old_plane = S.plane
+				var/atom/atom = source
+				var/old_layer = atom.layer
+				var/old_plane = atom.plane
 
-				S.layer = FLOAT_LAYER
-				S.plane = FLOAT_PLANE
-				A.add_overlay(S)
-				S.layer = old_layer
-				S.plane = old_plane
+				atom.layer = FLOAT_LAYER
+				atom.plane = FLOAT_PLANE
+				notify_action.add_overlay(atom)
+				atom.layer = old_layer
+				atom.plane = old_plane
 			else
 				I = image(source, layer = FLOAT_LAYER, dir = SOUTH)
 		else
@@ -130,22 +130,22 @@ SUBSYSTEM_DEF(ghost_spawns)
 		if(I)
 			I.layer = FLOAT_LAYER
 			I.plane = FLOAT_PLANE
-			A.add_overlay(I)
+			notify_action.add_overlay(I)
 
 		// Chat message
 		var/act_jump = ""
 		if(isatom(source))
-			act_jump = "<a href='byond://?src=[M.UID()];jump=[UID_of(source)]'>\[Телепорт]</a>"
-		var/act_signup = "<a href='byond://?src=[A.UID()];signup=1'>\[Стать кандидатом]</a>"
-		to_chat(M, span_boldnotice(span_big("В настоящее время идёт поиск кандидатов для [role ? "игры за [role_cleanname || role]" : "\"[question]\""]. [act_jump] [act_signup] [reason?"<i>\nПричина: [reason]</i>":""]")))
+			act_jump = "<a href='byond://?src=[observer.UID()];jump=[UID_of(source)]'>\[Телепорт]</a>"
+		var/act_signup = "<a href='byond://?src=[notify_action.UID()];signup=1'>\[Стать кандидатом]</a>"
+		to_chat(observer, span_boldnotice(span_big("В настоящее время идёт поиск кандидатов для [role ? "игры за [role_cleanname || role]" : "\"[question]\""]. [act_jump] [act_signup] [reason?"<i>\nПричина: [reason]</i>":""]")))
 
 		// Start processing it so it updates visually the timer
-		START_PROCESSING(SSprocessing, A)
-		A.process()
+		START_PROCESSING(SSprocessing, notify_action)
+		notify_action.process()
 
 	// Sleep until the time is up
-	UNTIL(P.finished)
-	return P.signed_up
+	UNTIL(candidate_poll.finished)
+	return candidate_poll.signed_up
 
 /**
  * Returns whether an observer is eligible to be an event mob
@@ -266,9 +266,9 @@ SUBSYSTEM_DEF(ghost_spawns)
 		to_chat(M, span_notice("You have signed up for this role! A candidate will be picked randomly soon."))
 		// Sign them up for any other polls with the same mob type
 		for(var/existing_poll in SSghost_spawns.currently_polling)
-			var/datum/candidate_poll/P = existing_poll
-			if(src != P && hash == P.hash && !(M in P.signed_up))
-				P.sign_up(M, TRUE)
+			var/datum/candidate_poll/candidate_poll = existing_poll
+			if(src != candidate_poll && hash == candidate_poll.hash && !(M in candidate_poll.signed_up))
+				candidate_poll.sign_up(M, TRUE)
 
 	update_buttons_overlays()
 
@@ -300,9 +300,9 @@ SUBSYSTEM_DEF(ghost_spawns)
 		to_chat(M, span_notice("You have been unregistered as a candidate for this role. You can freely sign up again before the poll ends."))
 
 		for(var/existing_poll in SSghost_spawns.currently_polling)
-			var/datum/candidate_poll/P = existing_poll
-			if(src != P && hash == P.hash && (M in P.signed_up))
-				P.remove_candidate(M, TRUE)
+			var/datum/candidate_poll/candidate_poll = existing_poll
+			if(src != candidate_poll && hash == candidate_poll.hash && (M in candidate_poll.signed_up))
+				candidate_poll.remove_candidate(M, TRUE)
 
 	update_buttons_overlays()
 

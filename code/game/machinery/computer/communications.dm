@@ -404,18 +404,18 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 
 /obj/machinery/computer/communications/proc/print_nuke_codes()
 	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
-	var/obj/item/paper/P = new /obj/item/paper(get_turf(src))
-	P.name = "'КОНФИДЕНЦИАЛЬНО' - [station_name()] Коды от ядерной боеголовки"
-	P.info = "<center>&ZeroWidthSpace;<img src='ntlogo.png'><br><b>КОНФИДЕНЦИАЛЬНО</b></center><br><hr>"
+	var/obj/item/paper/paper = new /obj/item/paper(get_turf(src))
+	paper.name = "'КОНФИДЕНЦИАЛЬНО' - [station_name()] Коды от ядерной боеголовки"
+	paper.info = "<center>&ZeroWidthSpace;<img src='ntlogo.png'><br><b>КОНФИДЕНЦИАЛЬНО</b></center><br><hr>"
 
-	P.info += "Коды от ядерной боеголовки станции [station_name()] - [get_nuke_code()].<br>"
+	paper.info += "Коды от ядерной боеголовки станции [station_name()] - [get_nuke_code()].<br>"
 	switch(get_nuke_status())
 		if(NUKE_MISSING)
-			P.info += "Сканеры дальнего действия не могут обнаружить боеголовку на станции."
+			paper.info += "Сканеры дальнего действия не могут обнаружить боеголовку на станции."
 		if(NUKE_CORE_MISSING)
-			P.info += "Сканеры дальнего действия не обнаруживают радиоактивных сигнатур внутри устройства."
+			paper.info += "Сканеры дальнего действия не обнаруживают радиоактивных сигнатур внутри устройства."
 
-	P.info += span_fontsize1("<br><hr>Несоблюдение нормативных требований компании по конфиденциальности может привести к немедленному увольнению по приказу сотрудников Центрального командования.")
+	paper.info += span_fontsize1("<br><hr>Несоблюдение нормативных требований компании по конфиденциальности может привести к немедленному увольнению по приказу сотрудников Центрального командования.")
 
 /proc/directive_7_12()
 	var/nukecode = GLOB.nuke_codes[/obj/machinery/nuclearbomb]
@@ -675,27 +675,27 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 	return ..()
 
 /proc/print_command_report(text = "", title = "Уведомление Центрального командования", add_to_records = TRUE, datum/station_goal/goal = null)
-	for(var/obj/machinery/computer/communications/C in GLOB.shuttle_caller_list)
-		if(!(C.stat & (BROKEN|NOPOWER)) && is_station_contact(C.z))
-			var/obj/item/paper/P = new (C.loc)
-			P.name = "paper- '[title]'"
-			P.info = text
+	for(var/obj/machinery/computer/communications/communications in GLOB.shuttle_caller_list)
+		if(!(communications.stat & (BROKEN|NOPOWER)) && is_station_contact(communications.z))
+			var/obj/item/paper/paper = new (communications.loc)
+			paper.name = "paper- '[title]'"
+			paper.info = text
 			if(add_to_records)
-				C.messagetitle.Add("[title]")
-				C.messagetext.Add(text)
+				communications.messagetitle.Add("[title]")
+				communications.messagetext.Add(text)
 			if(goal)
-				P.stamp(/obj/item/stamp/navcom)
-				goal.papers_list.Add(P)
+				paper.stamp(/obj/item/stamp/navcom)
+				goal.papers_list.Add(paper)
 
 /proc/print_centcom_report(text = "", title = "Входящее сообщение")
-	for(var/obj/machinery/computer/communications/C in GLOB.shuttle_caller_list)
-		if(!(C.stat & (BROKEN|NOPOWER)) && is_admin_level(C.z))
-			var/obj/item/paper/P = new /obj/item/paper(C.loc)
-			P.name = "paper- '[title]'"
-			P.info = text
-			P.update_icon()
-			C.messagetitle.Add("[title]")
-			C.messagetext.Add(text)
+	for(var/obj/machinery/computer/communications/communications in GLOB.shuttle_caller_list)
+		if(!(communications.stat & (BROKEN|NOPOWER)) && is_admin_level(communications.z))
+			var/obj/item/paper/paper = new /obj/item/paper(communications.loc)
+			paper.name = "paper- '[title]'"
+			paper.info = text
+			paper.update_icon()
+			communications.messagetitle.Add("[title]")
+			communications.messagetext.Add(text)
 
 /obj/machinery/computer/communications/indestrusctable
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF

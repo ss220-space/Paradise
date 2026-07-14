@@ -127,8 +127,8 @@ research holder datum.
 		if(DesignHasReqs(PD))
 			AddDesign2Known(PD)
 	for(var/v in known_tech)
-		var/datum/tech/T = known_tech[v]
-		T.level = clamp(T.level, 0, 20)
+		var/datum/tech/tech = known_tech[v]
+		tech.level = clamp(tech.level, 0, 20)
 
 /// Refreshes the levels of a given tech.
 /// Input: Tech's ID and Level; Output: new level or Null
@@ -163,12 +163,12 @@ research holder datum.
 ///  `other` - The research datum to send designs and techs to
 /datum/research/proc/push_data(datum/research/other)
 	for(var/v in known_tech)
-		var/datum/tech/T = known_tech[v]
-		var/datum/tech/copied_tech = T.copyTech()
+		var/datum/tech/tech = known_tech[v]
+		var/datum/tech/copied_tech = tech.copyTech()
 		other.AddTech2Known(copied_tech)
 	for(var/v in known_designs)
-		var/datum/design/D = known_designs[v]
-		other.AddDesign2Known(D)
+		var/datum/design/design = known_designs[v]
+		other.AddDesign2Known(design)
 	other.RefreshResearch()
 
 //Autolathe files

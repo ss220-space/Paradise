@@ -170,12 +170,12 @@
 	top_right_turfs += TR
 
 	for(var/i in final)
-		var/turf/T = i
-		reserved_turfs |= T
-		SSmapping.unused_turfs["[T.z]"] -= T
-		SSmapping.used_turfs[T] = src
-		T.turf_flags = (T.turf_flags | RESERVATION_TURF) & ~UNUSED_RESERVATION_TURF
-		T.ChangeTurf(turf_type)
+		var/turf/turf = i
+		reserved_turfs |= turf
+		SSmapping.unused_turfs["[turf.z]"] -= turf
+		SSmapping.used_turfs[turf] = src
+		turf.turf_flags = (turf.turf_flags | RESERVATION_TURF) & ~UNUSED_RESERVATION_TURF
+		turf.ChangeTurf(turf_type)
 
 	return TRUE
 

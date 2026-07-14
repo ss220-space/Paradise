@@ -69,13 +69,13 @@
 /mob/proc/usable_emote_keys(intentional_use)
 	var/list/all_keys = list()
 	for(var/key in GLOB.emote_list)
-		for(var/datum/emote/P in GLOB.emote_list[key])
-			if(P.key in all_keys)
+		for(var/datum/emote/emote in GLOB.emote_list[key])
+			if(emote.key in all_keys)
 				continue
-			if(P.can_run_emote(src, status_check = FALSE, intentional = intentional_use))
-				all_keys += P.key
-				if(P.key_third_person)
-					all_keys += P.key_third_person
+			if(emote.can_run_emote(src, status_check = FALSE, intentional = intentional_use))
+				all_keys += emote.key
+				if(emote.key_third_person)
+					all_keys += emote.key_third_person
 	return all_keys
 
 /datum/emote/help

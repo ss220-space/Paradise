@@ -196,8 +196,8 @@
 	if(user.put_in_hands(money_bag))
 		to_chat(user, span_notice("Вы забираете [money_bag.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]."))
 	else
-		var/turf/T = get_step(src, output_dir)
-		money_bag.forceMove(T)
+		var/turf/turf = get_step(src, output_dir)
+		money_bag.forceMove(turf)
 	money_bag = null
 	SStgui.update_uis(src)
 

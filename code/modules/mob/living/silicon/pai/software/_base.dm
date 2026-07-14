@@ -87,20 +87,20 @@
  * * inform - Boolean, should we inform the pAI if they fail to find a carrier
  */
 /datum/pai_software/proc/get_holding_mob(inform = FALSE)
-	var/mob/living/M = pai_holder.loc
+	var/mob/living/living = pai_holder.loc
 	var/count = 0
 
 	// Find the carrier
-	while(!isliving(M))
-		if(!M || !M.loc || count > 6)
-			//For a runtime where M ends up in nullspace (similar to bluespace but less colourful)
+	while(!isliving(living))
+		if(!living || !living.loc || count > 6)
+			//For a runtime where living ends up in nullspace (similar to bluespace but less colourful)
 			if(inform)
 				to_chat(usr, span_warning("Вас никто не несёт!"))
 			return null
-		M = M.loc
+		living = living.loc
 		count++
 
-	return M
+	return living
 
 /**
  * ui_act sanity check helper

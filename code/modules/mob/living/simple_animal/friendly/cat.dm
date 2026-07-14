@@ -85,25 +85,25 @@
 	return ..()
 
 /mob/living/simple_animal/pet/cat/Runtime/proc/read_memory()
-	var/savefile/S = new /savefile("data/npc_saves/Runtime.sav")
-	S["family"]			>> family
+	var/savefile/savefile = new /savefile("data/npc_saves/Runtime.sav")
+	savefile["family"]			>> family
 
 	if(isnull(family))
 		family = list()
 	log_debug("Persistent data for [src] loaded (family: [family ? list2params(family) : "None"])")
 
 /mob/living/simple_animal/pet/cat/Runtime/proc/write_memory(dead)
-	var/savefile/S = new /savefile("data/npc_saves/Runtime.sav")
+	var/savefile/savefile = new /savefile("data/npc_saves/Runtime.sav")
 	family = list()
 	if(!dead)
-		for(var/mob/living/simple_animal/pet/cat/kitten/C in children)
-			if(istype(C,type) || C.stat || !C.z || !C.butcher_results)
+		for(var/mob/living/simple_animal/pet/cat/kitten/kitten in children)
+			if(istype(kitten,type) || kitten.stat || !kitten.z || !kitten.butcher_results)
 				continue
-			if(C.type in family)
-				family[C.type] += 1
+			if(kitten.type in family)
+				family[kitten.type] += 1
 			else
-				family[C.type] = 1
-	S["family"]				<< family
+				family[kitten.type] = 1
+	savefile["family"]				<< family
 	log_debug("Persistent data for [src] saved (family: [family ? list2params(family) : "None"])")
 
 /mob/living/simple_animal/pet/cat/Runtime/proc/deploy_the_cats()

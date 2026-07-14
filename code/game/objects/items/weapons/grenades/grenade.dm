@@ -96,8 +96,8 @@
 
 /obj/item/grenade/proc/update_mob()
 	if(ismob(loc))
-		var/mob/M = loc
-		M.drop_item_ground(src)
+		var/mob/mob = loc
+		mob.drop_item_ground(src)
 
 /obj/item/grenade/screwdriver_act(mob/living/user, obj/item/I)
 	switch(det_time)

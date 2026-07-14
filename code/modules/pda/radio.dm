@@ -181,8 +181,8 @@
 	last_transmission = world.time
 
 	var/time = time2text(world.realtime,"hh:mm:ss")
-	var/turf/T = get_turf(src)
-	GLOB.lastsignalers.Add("[time] <b>:</b> [usr.key] used [src] @ location ([T.x],[T.y],[T.z]) <b>:</b> [format_frequency(frequency)]/[code]")
+	var/turf/turf = get_turf(src)
+	GLOB.lastsignalers.Add("[time] <b>:</b> [usr.key] used [src] @ location ([turf.x],[turf.y],[turf.z]) <b>:</b> [format_frequency(frequency)]/[code]")
 
 	var/datum/signal/signal = new
 	signal.source = src

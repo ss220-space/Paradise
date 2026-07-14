@@ -289,10 +289,10 @@ SUBSYSTEM_DEF(mapping)
 	SSshuttle.transit_requesters.Cut()
 	message_admins("Clearing dynamic reservation space.")
 	var/list/obj/docking_port/mobile/in_transit = list()
-	for(var/obj/docking_port/stationary/transit/T in SSshuttle.transit)
-		if(!istype(T))
+	for(var/obj/docking_port/stationary/transit/transit in SSshuttle.transit)
+		if(!istype(transit))
 			continue
-		in_transit[T] = T.get_docked()
+		in_transit[transit] = transit.get_docked()
 	var/go_ahead = world.time + wipe_safety_delay
 	if(length(in_transit))
 		message_admins("Shuttles in transit detected. Attempting to fast travel. Timeout is [go_ahead/10] seconds.")
@@ -442,8 +442,8 @@ SUBSYSTEM_DEF(mapping)
 		return
 
 	for(var/zl in z_levels)
-		var/turf/T = locate(1, 1, zl)
-		if(!T)
+		var/turf/turf = locate(1, 1, zl)
+		if(!turf)
 			WARNING("Z level [zl] does not exist - Not generating ruins")
 			return
 
@@ -456,16 +456,16 @@ SUBSYSTEM_DEF(mapping)
 
 	//Set up the starting ruin list
 	for(var/key in ruins)
-		var/datum/map_template/ruin/R = ruins[key]
-		if(R.cost > budget) //Why would you do that
+		var/datum/map_template/ruin/ruin = ruins[key]
+		if(ruin.cost > budget) //Why would you do that
 			continue
-		if(R.height >= MAX_RUIN_SIZE_VALUE || R.width >= MAX_RUIN_SIZE_VALUE)
-			big_ruins[R] = -1
-		if(R.always_place)
-			forced_ruins[R] = -1
-		if(R.unpickable)
+		if(ruin.height >= MAX_RUIN_SIZE_VALUE || ruin.width >= MAX_RUIN_SIZE_VALUE)
+			big_ruins[ruin] = -1
+		if(ruin.always_place)
+			forced_ruins[ruin] = -1
+		if(ruin.unpickable)
 			continue
-		ruins_availible[R] = R.placement_weight
+		ruins_availible[ruin] = ruin.placement_weight
 
 	while(budget > 0 && (length(ruins_availible) || length(forced_ruins)))
 		var/datum/map_template/ruin/current_pick
@@ -480,9 +480,9 @@ SUBSYSTEM_DEF(mapping)
 
 		budget -= current_pick.cost
 		if(!current_pick.allow_duplicates)
-			for(var/datum/map_template/ruin/R as anything in ruins_availible)
-				if(R.id == current_pick.id)
-					ruins_availible -= R
+			for(var/datum/map_template/ruin/ruin as anything in ruins_availible)
+				if(ruin.id == current_pick.id)
+					ruins_availible -= ruin
 
 		if(current_pick.never_spawn_with)
 			for(var/blacklisted_type in current_pick.never_spawn_with)
@@ -491,9 +491,9 @@ SUBSYSTEM_DEF(mapping)
 						ruins_availible -= possible_exclusion
 
 		//Update the availible list
-		for(var/datum/map_template/ruin/R as anything in ruins_availible)
-			if(R.cost > budget)
-				ruins_availible -= R
+		for(var/datum/map_template/ruin/ruin as anything in ruins_availible)
+			if(ruin.cost > budget)
+				ruins_availible -= ruin
 
 		if(current_pick in big_ruins)
 			picked_ruins.Insert(1, current_pick)
@@ -618,10 +618,10 @@ SUBSYSTEM_DEF(mapping)
 		SHUTTLE_TRANSIT_BORDER, SHUTTLE_TRANSIT_BORDER, z,
 		world.maxx - SHUTTLE_TRANSIT_BORDER, world.maxy - SHUTTLE_TRANSIT_BORDER, z
 	)
-	for(var/turf/T as anything in reserved_block)
+	for(var/turf/turf as anything in reserved_block)
 		// No need to empty() these, because they just got created and are already /turf/space/basic.
-		T.turf_flags = UNUSED_RESERVATION_TURF
-		T.blocks_air = TRUE
+		turf.turf_flags = UNUSED_RESERVATION_TURF
+		turf.blocks_air = TRUE
 		CHECK_TICK
 
 	// Gotta create these suckers if we've not done so already
@@ -661,13 +661,13 @@ SUBSYSTEM_DEF(mapping)
 
 /// Generate the turfs of the area
 /datum/controller/subsystem/mapping/proc/run_map_terrain_generation()
-	for(var/area/A in GLOB.areas)
-		A.RunTerrainGeneration()
+	for(var/area/area in GLOB.areas)
+		area.RunTerrainGeneration()
 
 /// Populate the turfs of the area
 /datum/controller/subsystem/mapping/proc/run_map_terrain_population()
-	for(var/area/A in GLOB.areas)
-		A.RunTerrainPopulation()
+	for(var/area/area in GLOB.areas)
+		area.RunTerrainPopulation()
 
 /datum/controller/subsystem/mapping/proc/generate_z_level_linkages(z_list)
 	for(var/z_level in 1 to length(z_list))

@@ -63,9 +63,9 @@
 
 /obj/effect/proc_holder/spell/shapeshift/proc/Restore(mob/living/shape)
 	var/mob/living/caster
-	for(var/mob/living/M in shape)
-		if(M in current_casters)
-			caster = M
+	for(var/mob/living/living in shape)
+		if(living in current_casters)
+			caster = living
 			break
 	if(!caster)
 		return

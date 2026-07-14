@@ -63,9 +63,9 @@
 /mob/living/silicon/ai/proc/holopad_talk(list/message_pieces, verb)
 	add_say_logs(src, multilingual_to_message(message_pieces), language = "HPAD")
 
-	var/obj/machinery/hologram/holopad/T = current
-	if(istype(T) && T.masters[src])
-		var/obj/effect/overlay/holo_pad_hologram/H = T.masters[src]
+	var/obj/machinery/hologram/holopad/holopad = current
+	if(istype(holopad) && holopad.masters[src])
+		var/obj/effect/overlay/holo_pad_hologram/holo_pad_hologram = holopad.masters[src]
 		var/message_clean = combine_message(message_pieces, src)
 		message_clean = replace_characters(message_clean, list("+"))
 
@@ -73,11 +73,11 @@
 		var/message_tts = combine_message_tts(message_pieces, src)
 
 		if((client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && !HAS_TRAIT(src, TRAIT_DEAF))
-			create_chat_message(H, message_clean, list("radio"))
-		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, H, src, message_tts, tts_seed, FALSE, SOUND_EFFECT_NONE)
+			create_chat_message(holo_pad_hologram, message_clean, list("radio"))
+		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, holo_pad_hologram, src, message_tts, tts_seed, FALSE, SOUND_EFFECT_NONE)
 		log_debug("holopad_talk(): [message_clean]")
-		for(var/mob/M in hearers(T.loc))//The location is the object, default distance.
-			M.hear_holopad_talk(message_pieces, genderize_decode(src, verb), src, H)
+		for(var/mob/mob in hearers(holopad.loc))//The location is the object, default distance.
+			mob.hear_holopad_talk(message_pieces, genderize_decode(src, verb), src, holo_pad_hologram)
 		to_chat(src, span_gamesay("<i>Holopad transmitted, [span_name(real_name)] [span_message(message)]</i>"))
 	else
 		to_chat(src, "No holopad connected.")
@@ -90,13 +90,13 @@
 	if(!message)
 		return
 
-	var/obj/machinery/hologram/holopad/T = current
-	if(istype(T) && T.masters[src])
+	var/obj/machinery/hologram/holopad/holopad = current
+	if(istype(holopad) && holopad.masters[src])
 		var/rendered = span_gamesay("[span_name(name)] [span_message(message)]")
 		to_chat(src, span_gamesay("<i>Holopad action relayed, [span_name(real_name)] [span_message(message)]</i>"))
 
-		for(var/mob/M in viewers(T.loc))
-			M.show_message(rendered, EMOTE_VISIBLE, chat_message_type = MESSAGE_TYPE_LOCALCHAT)
+		for(var/mob/mob in viewers(holopad.loc))
+			mob.show_message(rendered, EMOTE_VISIBLE, chat_message_type = MESSAGE_TYPE_LOCALCHAT)
 
 		log_emote("(HPAD) [message]", src)
 	else //This shouldn't occur, but better safe then sorry.

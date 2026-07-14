@@ -231,17 +231,17 @@
 
 /proc/chemscan(mob/living/user, mob/living/M)
 	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(H.reagents)
-			if(length(H.reagents.reagent_list))
+		var/mob/living/carbon/human/human = M
+		if(human.reagents)
+			if(length(human.reagents.reagent_list))
 				to_chat(user, span_notice("Subject contains the following reagents:"))
-				for(var/datum/reagent/R in H.reagents.reagent_list)
-					to_chat(user, "[span_notice("[R.volume]u of [R.name]")][R.overdosed ? " – [span_boldannounceic("OVERDOSING")]" : "[span_notice(".")]"]")
+				for(var/datum/reagent/reagent in human.reagents.reagent_list)
+					to_chat(user, "[span_notice("[reagent.volume]u of [reagent.name]")][reagent.overdosed ? " – [span_boldannounceic("OVERDOSING")]" : "[span_notice(".")]"]")
 			else
 				to_chat(user, span_notice("Subject contains no reagents."))
-			if(length(H.reagents.addiction_list))
+			if(length(human.reagents.addiction_list))
 				to_chat(user, span_danger("Subject is addicted to the following reagents:"))
-				for(var/datum/reagent/R in H.reagents.addiction_list)
-					to_chat(user, span_danger("[R.name] Stage: [R.addiction_stage]/5"))
+				for(var/datum/reagent/reagent in human.reagents.addiction_list)
+					to_chat(user, span_danger("[reagent.name] Stage: [reagent.addiction_stage]/5"))
 			else
 				to_chat(user, span_notice("Subject is not addicted to any reagents."))

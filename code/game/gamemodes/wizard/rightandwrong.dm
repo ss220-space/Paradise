@@ -111,12 +111,12 @@ GLOBAL_VAR_INIT(summon_magic_triggered, FALSE)
 		add_conversion_logs(H, "was made into a survivalist")
 
 	var/gun_type = pick(GLOB.summoned_guns)
-	var/obj/item/gun/G = new gun_type(get_turf(H))
+	var/obj/item/gun/gun = new gun_type(get_turf(H))
 	playsound(get_turf(H),'sound/magic/summon_guns.ogg', 50, TRUE)
 
-	var/in_hand = H.put_in_hands(G) // not always successful
+	var/in_hand = H.put_in_hands(gun) // not always successful
 
-	to_chat(H, span_warning("\A [G] appears [in_hand ? "in your hand" : "at your feet"]!"))
+	to_chat(H, span_warning("\A [gun] appears [in_hand ? "in your hand" : "at your feet"]!"))
 
 /proc/give_magic(mob/living/carbon/human/H)
 	if(H.stat == DEAD || !(H.client))
@@ -137,12 +137,12 @@ GLOBAL_VAR_INIT(summon_magic_triggered, FALSE)
 		magic_type = pick(GLOB.summoned_special_magic)
 		lucky = TRUE
 
-	var/obj/item/M = new magic_type(get_turf(H))
+	var/obj/item/item = new magic_type(get_turf(H))
 	playsound(get_turf(H),'sound/magic/summon_magic.ogg', 50, TRUE)
 
-	var/in_hand = H.put_in_hands(M)
+	var/in_hand = H.put_in_hands(item)
 
-	to_chat(H, span_warning("\A [M] appears [in_hand ? "in your hand" : "at your feet"]!"))
+	to_chat(H, span_warning("\A [item] appears [in_hand ? "in your hand" : "at your feet"]!"))
 	if(lucky)
 		to_chat(H, span_notice("You feel incredibly lucky."))
 
@@ -159,13 +159,13 @@ GLOBAL_VAR_INIT(summon_magic_triggered, FALSE)
 	else
 		CRASH("Bad summon_type given: [summon_type]")
 
-	for(var/mob/living/carbon/human/H in GLOB.player_list)
-		var/turf/T = get_turf(H)
-		if(T && is_away_level(T.z))
+	for(var/mob/living/carbon/human/human in GLOB.player_list)
+		var/turf/turf = get_turf(human)
+		if(turf && is_away_level(turf.z))
 			continue
 		if(summon_type == SUMMON_MAGIC)
-			give_magic(H)
+			give_magic(human)
 		else
-			give_guns(H)
+			give_guns(human)
 
 #undef SPECIALIST_MAGIC_PROB

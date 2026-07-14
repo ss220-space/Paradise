@@ -126,9 +126,9 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	return the_button
 
 /obj/effect/spawner/airlock/proc/handle_control_placement() //Stick the sensor and controller on the same bit of wall, this will ONLY be unsuitable if airlocks are on both the south and west turfs
-	var/turf/T = get_turf(src)
-	var/obj/machinery/airlock_sensor/AS = new(T)
-	var/obj/machinery/embedded_controller/radio/airlock/airlock_controller/AC = new(T, id_to_link, radio_frequency, OUTER_DOOR_TAG, INNER_DOOR_TAG, AIRPUMP_TAG, SENSOR_TAG)
+	var/turf/turf = get_turf(src)
+	var/obj/machinery/airlock_sensor/AS = new(turf)
+	var/obj/machinery/embedded_controller/radio/airlock/airlock_controller/AC = new(turf, id_to_link, radio_frequency, OUTER_DOOR_TAG, INNER_DOOR_TAG, AIRPUMP_TAG, SENSOR_TAG)
 	AC.req_access = required_access
 	AC.layer = ABOVE_WINDOW_LAYER
 	AS.layer = ABOVE_WINDOW_LAYER
@@ -145,9 +145,9 @@ This spawner places pipe leading up to the interior door, you will need to finis
 		AS.pixel_x -= 9
 		AS.pixel_y -= 25
 	else //Send them over to the other side of the chamber
-		T = locate(x + tiles_in_x_direction - 1, y + tiles_in_y_direction - 1, z)
-		AC.forceMove(T)
-		AS.forceMove(T)
+		turf = locate(x + tiles_in_x_direction - 1, y + tiles_in_y_direction - 1, z)
+		AC.forceMove(turf)
+		AS.forceMove(turf)
 		AC.pixel_x += 25
 		AC.pixel_y += 9
 		AS.pixel_x += 25
@@ -207,11 +207,11 @@ This spawner places pipe leading up to the interior door, you will need to finis
 #undef EAST_OF_TURF
 
 /obj/effect/spawner/airlock/proc/pipe_creation_helper(path, location, direction, initialization_directions) //Create some kind of atmospherics machinery and initialize it properly
-	var/obj/machinery/atmospherics/A = new path(location)
-	A.dir = direction
-	A.on_construction(A.dir, initialization_directions ? initialization_directions : A.dir)
-	if(istype(A, /obj/machinery/atmospherics/unary/vent_pump/high_volume))
-		var/obj/machinery/atmospherics/unary/vent_pump/high_volume/created_pump = A
+	var/obj/machinery/atmospherics/atmospherics = new path(location)
+	atmospherics.dir = direction
+	atmospherics.on_construction(atmospherics.dir, initialization_directions ? initialization_directions : atmospherics.dir)
+	if(istype(atmospherics, /obj/machinery/atmospherics/unary/vent_pump/high_volume))
+		var/obj/machinery/atmospherics/unary/vent_pump/high_volume/created_pump = atmospherics
 		created_pump.id_tag = AIRPUMP_TAG
 		created_pump.set_frequency(radio_frequency)
 

@@ -27,12 +27,12 @@ GLOBAL_LIST_EMPTY(PDA_Manifest)
 	var/sup[0]
 	var/bot[0]
 	var/misc[0]
-	for(var/datum/data/record/t in GLOB.data_core.general)
-		var/name = sanitize(t.fields["name"])
-		var/rank = sanitize(t.fields["rank"])
-		var/real_rank = t.fields["real_rank"]
+	for(var/datum/data/record/record in GLOB.data_core.general)
+		var/name = sanitize(record.fields["name"])
+		var/rank = sanitize(record.fields["rank"])
+		var/real_rank = record.fields["real_rank"]
 
-		var/isactive = t.fields["p_stat"]
+		var/isactive = record.fields["p_stat"]
 		var/department = 0
 		var/depthead = 0 // Department Heads will be placed at the top of their lists.
 		if(real_rank in GLOB.command_positions)
@@ -106,18 +106,18 @@ GLOBAL_LIST_EMPTY(PDA_Manifest)
 	return
 
 /datum/datacore/proc/manifest()
-	for(var/mob/living/carbon/human/H in GLOB.player_list)
-		manifest_inject(H)
+	for(var/mob/living/carbon/human/human in GLOB.player_list)
+		manifest_inject(human)
 
 /datum/datacore/proc/manifest_modify(name, rank, assignment)
 	if(length(GLOB.PDA_Manifest))
 		GLOB.PDA_Manifest.Cut()
 	var/datum/data/record/foundrecord
 
-	for(var/datum/data/record/t in GLOB.data_core.general)
-		if(t)
-			if(t.fields["name"] == name)
-				foundrecord = t
+	for(var/datum/data/record/record in GLOB.data_core.general)
+		if(record)
+			if(record.fields["name"] == name)
+				foundrecord = record
 				break
 
 	if(foundrecord)
@@ -143,76 +143,76 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		var/id = num2hex(GLOB.record_id_num++, 6)
 
 		//General Record
-		var/datum/data/record/G = new()
-		G.fields["id"] = id
-		G.fields["name"] = H.real_name
-		G.fields["real_rank"] = H.mind.assigned_role
-		G.fields["rank"] = get_job_title_ru(assignment)
-		G.fields["age"] = H.age
-		G.fields["fingerprint"] = md5(H.dna.uni_identity)
-		G.fields["p_stat"] = "Активный"
-		G.fields["m_stat"] = "Стабильное"
-		G.fields["sex"] = capitalize(H.gender)
-		G.fields["species"] = H.dna.species.name
-		G.fields["photo"] = get_id_photo(H)
-		G.fields["photo-south"] = "data:image/png;base64,[icon2base64(icon(G.fields["photo"], dir = SOUTH))]"
-		G.fields["photo-west"] = "data:image/png;base64,[icon2base64(icon(G.fields["photo"], dir = WEST))]"
+		var/datum/data/record/record = new()
+		record.fields["id"] = id
+		record.fields["name"] = H.real_name
+		record.fields["real_rank"] = H.mind.assigned_role
+		record.fields["rank"] = get_job_title_ru(assignment)
+		record.fields["age"] = H.age
+		record.fields["fingerprint"] = md5(H.dna.uni_identity)
+		record.fields["p_stat"] = "Активный"
+		record.fields["m_stat"] = "Стабильное"
+		record.fields["sex"] = capitalize(H.gender)
+		record.fields["species"] = H.dna.species.name
+		record.fields["photo"] = get_id_photo(H)
+		record.fields["photo-south"] = "data:image/png;base64,[icon2base64(icon(record.fields["photo"], dir = SOUTH))]"
+		record.fields["photo-west"] = "data:image/png;base64,[icon2base64(icon(record.fields["photo"], dir = WEST))]"
 		if(H.gen_record && !jobban_isbanned(H, "Records"))
-			G.fields["notes"] = H.gen_record
+			record.fields["notes"] = H.gen_record
 		else
-			G.fields["notes"] = "Дополнительная информация отсутствует."
+			record.fields["notes"] = "Дополнительная информация отсутствует."
 		if(H.exploit_record && !jobban_isbanned(H, "Records"))
-			G.fields["exploit_record"] = H.exploit_record
+			record.fields["exploit_record"] = H.exploit_record
 		else
-			G.fields["exploit_record"] = "Дополнительная информация отсутствует."
-		general += G
+			record.fields["exploit_record"] = "Дополнительная информация отсутствует."
+		general += record
 
 		//Medical Record
-		var/datum/data/record/M = new()
-		M.fields["id"] = id
-		M.fields["name"] = H.real_name
-		M.fields["blood_type"] = H.dna.blood_type
-		M.fields["b_dna"] = H.dna.unique_enzymes
-		M.fields["mi_dis"] = "Отсутствуют"
-		M.fields["mi_dis_d"] = "Незначительные отклонения не указаны."
-		M.fields["ma_dis"] = "Отсутствуют"
-		M.fields["ma_dis_d"] = "Инвалидности не указаны."
-		M.fields["alg"] = "Отсутствуют"
-		M.fields["alg_d"] = "Аллергии не указаны."
-		M.fields["cdi"] = "Отсутствуют"
-		M.fields["cdi_d"] = "Текущие заболевания не указаны."
+		var/datum/data/record/medical_record = new()
+		medical_record.fields["id"] = id
+		medical_record.fields["name"] = H.real_name
+		medical_record.fields["blood_type"] = H.dna.blood_type
+		medical_record.fields["b_dna"] = H.dna.unique_enzymes
+		medical_record.fields["mi_dis"] = "Отсутствуют"
+		medical_record.fields["mi_dis_d"] = "Незначительные отклонения не указаны."
+		medical_record.fields["ma_dis"] = "Отсутствуют"
+		medical_record.fields["ma_dis_d"] = "Инвалидности не указаны."
+		medical_record.fields["alg"] = "Отсутствуют"
+		medical_record.fields["alg_d"] = "Аллергии не указаны."
+		medical_record.fields["cdi"] = "Отсутствуют"
+		medical_record.fields["cdi_d"] = "Текущие заболевания не указаны."
 		if(H.med_record && !jobban_isbanned(H, "Records"))
-			M.fields["notes"] = H.med_record
+			medical_record.fields["notes"] = H.med_record
 		else
-			M.fields["notes"] = "Дополнительная информация отсутствует."
-		medical += M
+			medical_record.fields["notes"] = "Дополнительная информация отсутствует."
+		medical += medical_record
 
 		//Security Record
-		var/datum/data/record/S = find_security_record("name", H.real_name)
-		if(S) //records exists, set correct id and name
-			S.name = text("Security Record #[id]")
-			S.fields["id"] = id
+		var/datum/data/record/sec_record = find_security_record("name", H.real_name)
+		if(sec_record) //records exists, set correct id and name
+			sec_record.name = text("Security Record #[id]")
+			sec_record.fields["id"] = id
 		else //create new record
-			S = CreateSecurityRecord(H.real_name, id)
+			sec_record = CreateSecurityRecord(H.real_name, id)
 		if(H.sec_record && !jobban_isbanned(H, "Records"))
-			S.fields["notes"] = H.sec_record
+			sec_record.fields["notes"] = H.sec_record
 		else
-			S.fields["notes"] = "Дополнительная информация отсутствует."
+			sec_record.fields["notes"] = "Дополнительная информация отсутствует."
 
 		//Locked Record
-		var/datum/data/record/L = new()
-		L.fields["id"] = md5("[H.real_name][H.mind.assigned_role]")
-		L.fields["name"] = H.real_name
-		L.fields["rank"] = H.mind.assigned_role
-		L.fields["age"] = H.age
-		L.fields["sex"] = capitalize(H.gender)
-		L.fields["blood_type"] = H.dna.blood_type
-		L.fields["b_dna"] = H.dna.unique_enzymes
-		L.fields["enzymes"] = H.dna.SE // Used in respawning
-		L.fields["identity"] = H.dna.UI // "
-		L.fields["image"] = getFlatIcon(H) //This is god-awful
-		L.fields["reference"] = WEAKREF(H)
-		locked += L
+		var/datum/data/record/locked_record = new()
+		locked_record.fields["id"] = md5("[H.real_name][H.mind.assigned_role]")
+		locked_record.fields["name"] = H.real_name
+		locked_record.fields["rank"] = H.mind.assigned_role
+		locked_record.fields["age"] = H.age
+		locked_record.fields["sex"] = capitalize(H.gender)
+		locked_record.fields["blood_type"] = H.dna.blood_type
+		locked_record.fields["b_dna"] = H.dna.unique_enzymes
+		locked_record.fields["enzymes"] = H.dna.SE // Used in respawning
+		locked_record.fields["identity"] = H.dna.UI // "
+		locked_record.fields["image"] = getFlatIcon(H) //This is god-awful
+		locked_record.fields["reference"] = WEAKREF(H)
+		locked += record
 	return
 
 /proc/get_id_photo(mob/living/carbon/human/H, custom_job = null)

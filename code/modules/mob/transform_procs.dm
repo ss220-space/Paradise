@@ -31,26 +31,26 @@
 		// stop_sound_channel(CHANNEL_LOBBYMUSIC)
 		client?.tgui_panel?.stop_music()
 
-	var/mob/living/silicon/ai/O = new (loc,,,1)//No MMI but safety is in effect.
-	O.invisibility = 0
-	O.aiRestorePowerRoutine = POWER_RESTORATION_OFF
+	var/mob/living/silicon/ai/ai = new (loc,,,1)//No MMI but safety is in effect.
+	ai.invisibility = 0
+	ai.aiRestorePowerRoutine = POWER_RESTORATION_OFF
 
 	if(mind)
-		mind.transfer_to(O)
-		O.mind.set_original_mob(O)
+		mind.transfer_to(ai)
+		ai.mind.set_original_mob(ai)
 	else
-		O.possess_by_player(key)
+		ai.possess_by_player(key)
 
-	O.on_mob_init()
+	ai.on_mob_init()
 
-	O.add_ai_verbs()
+	ai.add_ai_verbs()
 
-	O.rename_self(JOB_TITLE_AI,1)
+	ai.rename_self(JOB_TITLE_AI,1)
 
-	O.tts_seed = tts_seed
+	ai.tts_seed = tts_seed
 
 	INVOKE_ASYNC(GLOBAL_PROC, /proc/qdel, src) // To prevent the proc from returning null.
-	return O
+	return ai
 
 /**
 	For transforming humans into robots (cyborgs).
@@ -71,56 +71,56 @@
 	invisibility = INVISIBILITY_ABSTRACT
 
 	// Creating a new borg here will connect them to a default AI and notify that AI, if `connect_to_default_AI` is TRUE.
-	var/mob/living/silicon/robot/O = new /mob/living/silicon/robot(loc, FALSE, FALSE, FALSE, connect_to_default_AI)
+	var/mob/living/silicon/robot/robot = new /mob/living/silicon/robot(loc, FALSE, FALSE, FALSE, connect_to_default_AI)
 
 	// If `AI` is passed in, we want to connect to that AI specifically.
 	if(AI)
-		O.lawupdate = TRUE
-		O.connect_to_ai(AI)
+		robot.lawupdate = TRUE
+		robot.connect_to_ai(AI)
 
 	if(!cell_type)
-		O.cell = new /obj/item/stock_parts/cell/high(O)
+		robot.cell = new /obj/item/stock_parts/cell/high(robot)
 	else
-		O.cell = new cell_type(O)
+		robot.cell = new cell_type(robot)
 
-	O.gender = gender
-	O.invisibility = 0
+	robot.gender = gender
+	robot.invisibility = 0
 
 	if(mind)		//TODO
-		mind.transfer_to(O)
-		if(O.mind.assigned_role == JOB_TITLE_CYBORG)
-			O.mind.set_original_mob(O)
+		mind.transfer_to(robot)
+		if(robot.mind.assigned_role == JOB_TITLE_CYBORG)
+			robot.mind.set_original_mob(robot)
 		else if(mind?.special_role)
-			O.mind.store_memory("In case you look at this after being borged, the objectives are only here until I find a way to make them not show up for you, as I can't simply delete them without screwing up round-end reporting. --NeoFite")
+			robot.mind.store_memory("In case you look at this after being borged, the objectives are only here until I find a way to make them not show up for you, as I can't simply delete them without screwing up round-end reporting. --NeoFite")
 	else
-		O.possess_by_player(key)
+		robot.possess_by_player(key)
 
-	O.forceMove(loc)
-	O.job = JOB_TITLE_CYBORG
+	robot.forceMove(loc)
+	robot.job = JOB_TITLE_CYBORG
 
-	if(O.mind && O.mind.assigned_role == JOB_TITLE_CYBORG)
+	if(robot.mind && robot.mind.assigned_role == JOB_TITLE_CYBORG)
 		var/obj/item/mmi/new_mmi
-		switch(O.mind.role_alt_title)
+		switch(robot.mind.role_alt_title)
 			if(JOB_TITLE_CYBORG)
-				new_mmi = new /obj/item/mmi/robotic_brain(O)
+				new_mmi = new /obj/item/mmi/robotic_brain(robot)
 				if(new_mmi.brainmob)
-					new_mmi.brainmob.name = O.name
+					new_mmi.brainmob.name = robot.name
 			if(ALT_JOB_TITLE_RU_CYBORG)
-				new_mmi = new /obj/item/mmi(O)
+				new_mmi = new /obj/item/mmi(robot)
 			else
 				// This should never happen, but oh well
-				new_mmi = new /obj/item/mmi(O)
+				new_mmi = new /obj/item/mmi(robot)
 		new_mmi.transfer_identity(src) //Does not transfer key/client.
 		// Replace the MMI.
-		QDEL_NULL(O.mmi)
-		O.mmi = new_mmi
+		QDEL_NULL(robot.mmi)
+		robot.mmi = new_mmi
 
-	O.Namepick()
+	robot.Namepick()
 
-	O.tts_seed = tts_seed
+	robot.tts_seed = tts_seed
 
 	INVOKE_ASYNC(GLOBAL_PROC, /proc/qdel, src) // To prevent the proc from returning null.
-	return O
+	return robot
 
 /mob/living/carbon/human/proc/corgize()
 	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))

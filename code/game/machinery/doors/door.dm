@@ -201,9 +201,9 @@
 	if(!HAS_TRAIT(user, TRAIT_FORCE_DOORS))
 		return FALSE
 
-	var/datum/antagonist/vampire/V = user.mind?.has_antag_datum(/datum/antagonist/vampire)
-	if(V && HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
-		if(!V.bloodusable)
+	var/datum/antagonist/vampire/vampire = user.mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(vampire && HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
+		if(!vampire.bloodusable)
 			REMOVE_TRAIT(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT)
 			return FALSE
 
@@ -220,8 +220,8 @@
 		playsound(loc, SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		open(TRUE)
 
-	if(V && HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
-		V.bloodusable = max(V.bloodusable - 5, 0)
+	if(vampire && HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
+		vampire.bloodusable = max(vampire.bloodusable - 5, 0)
 
 /obj/machinery/door/attack_ai(mob/user)
 	return attack_hand(user)
@@ -277,8 +277,8 @@
 /obj/machinery/door/proc/clean_cmag_ooze(obj/item/I, mob/user) //Emags are Engineering's problem, cmags are the janitor's problem
 	var/cleaning = FALSE
 	if(istype(I, /obj/item/reagent_containers/spray/cleaner))
-		var/obj/item/reagent_containers/spray/cleaner/C = I
-		if(C.reagents.total_volume >= C.amount_per_transfer_from_this)
+		var/obj/item/reagent_containers/spray/cleaner/cleaner = I
+		if(cleaner.reagents.total_volume >= cleaner.amount_per_transfer_from_this)
 			cleaning = TRUE
 		else
 			return
@@ -369,12 +369,12 @@
 			soundcooldown()
 		return
 	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(!H.get_assignment(0, 0)) //Humans can't game inverted access by taking their ID off or using spare IDs.
+		var/mob/living/carbon/human/human = user
+		if(!human.get_assignment(0, 0)) //Humans can't game inverted access by taking their ID off or using spare IDs.
 			if(!density)
 				return
 			INVOKE_ASYNC(src, PROC_REF(do_animate), "deny")
-			to_chat(H, span_warning("The airlock speaker chuckles: 'What's wrong, pal? Lost your ID? Nyuk nyuk nyuk!'"))
+			to_chat(human, span_warning("The airlock speaker chuckles: 'What's wrong, pal? Lost your ID? Nyuk nyuk nyuk!'"))
 			if(sound_ready)
 				playsound(loc, 'sound/machines/honkbot_evil_laugh.ogg', 25, TRUE, ignore_walls = FALSE)
 				soundcooldown() //Thanks, mechs
@@ -436,8 +436,8 @@
 		return FALSE
 	if(safe)
 		for(var/turf/turf in locs)
-			for(var/atom/movable/M in turf)
-				if(M.density && M != src) //something is blocking the door
+			for(var/atom/movable/movable in turf)
+				if(movable.density && movable != src) //something is blocking the door
 					if(autoclose)
 						autoclose_in(6 SECONDS)
 					return FALSE
@@ -469,22 +469,22 @@
 #define DOOR_CRUSH_DAMAGE 10
 
 /obj/machinery/door/proc/crush()
-	for(var/mob/living/L in get_turf(src))
-		L.visible_message(span_warning("[src] closes on [L], crushing [L.p_them()]!"), span_userdanger("[src] closes on you and crushes you!"))
-		if(isalien(L))  //For xenos
-			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE * 1.5) //Xenos go into crit after aproximately the same amount of crushes as humans.
-			L.emote("roar")
-		else if(ishuman(L)) //For humans
-			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
-			if(L.stat == CONSCIOUS)
-				L.emote("scream")
-			L.Weaken(10 SECONDS)
+	for(var/mob/living/living in get_turf(src))
+		living.visible_message(span_warning("[src] closes on [living], crushing [living.p_them()]!"), span_userdanger("[src] closes on you and crushes you!"))
+		if(isalien(living))  //For xenos
+			living.adjustBruteLoss(DOOR_CRUSH_DAMAGE * 1.5) //Xenos go into crit after aproximately the same amount of crushes as humans.
+			living.emote("roar")
+		else if(ishuman(living)) //For humans
+			living.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
+			if(living.stat == CONSCIOUS)
+				living.emote("scream")
+			living.Weaken(10 SECONDS)
 		else //for simple_animals & borgs
-			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
+			living.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
 		var/turf/location = get_turf(src)
-		L.add_splatter_floor(location)
-	for(var/obj/mecha/M in get_turf(src))
-		M.take_damage(DOOR_CRUSH_DAMAGE)
+		living.add_splatter_floor(location)
+	for(var/obj/mecha/mecha in get_turf(src))
+		mecha.take_damage(DOOR_CRUSH_DAMAGE)
 
 #undef DOOR_CRUSH_DAMAGE
 

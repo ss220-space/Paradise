@@ -257,60 +257,60 @@
 /obj/effect/hotel_controller/proc/checkin(roomid, mob/living/carbon/occupant)
 	if(!istype(occupant))
 		return null
-	var/obj/machinery/door/unpowered/hotel_door/D = room_doors["[roomid]"]
-	if(!D || D.occupant || (occupant in guests))
+	var/obj/machinery/door/unpowered/hotel_door/hotel_door = room_doors["[roomid]"]
+	if(!hotel_door || hotel_door.occupant || (occupant in guests))
 		return null
 
-	D.account = get_card_account(occupant)
-	if(!D.account)
+	hotel_door.account = get_card_account(occupant)
+	if(!hotel_door.account)
 		return null
-	if(!D.account.charge(100, null, "10 minutes hotel stay", "Biesel GalaxyNet Terminal [rand(111,1111)]", "[name]"))
+	if(!hotel_door.account.charge(100, null, "10 minutes hotel stay", "Biesel GalaxyNet Terminal [rand(111,1111)]", "[name]"))
 		return null
 
-	D.occupant = occupant
-	D.roomtimer = addtimer(CALLBACK(src, PROC_REF(process_room), roomid), PAY_INTERVAL, TIMER_STOPPABLE)
-	vacant_rooms -= D
+	hotel_door.occupant = occupant
+	hotel_door.roomtimer = addtimer(CALLBACK(src, PROC_REF(process_room), roomid), PAY_INTERVAL, TIMER_STOPPABLE)
+	vacant_rooms -= hotel_door
 	guests[occupant] = roomid
 
-	var/obj/item/card/hotel_card/C = new(null, roomid)
-	D.card = C
-	return C
+	var/obj/item/card/hotel_card/hotel_card = new(null, roomid)
+	hotel_door.card = hotel_card
+	return hotel_card
 
 /obj/effect/hotel_controller/proc/process_room(roomid)
-	var/obj/machinery/door/unpowered/hotel_door/D = room_doors["[roomid]"]
-	if(!D || !D.occupant)
+	var/obj/machinery/door/unpowered/hotel_door/hotel_door = room_doors["[roomid]"]
+	if(!hotel_door || !hotel_door.occupant)
 		return
 
-	if(D.account.charge(100, null, "10 minutes hotel stay extension", "Biesel GalaxyNet Terminal [rand(111,1111)]", "[name]"))
-		D.roomtimer = addtimer(CALLBACK(src, PROC_REF(process_room), roomid), PAY_INTERVAL, TIMER_STOPPABLE)
+	if(hotel_door.account.charge(100, null, "10 minutes hotel stay extension", "Biesel GalaxyNet Terminal [rand(111,1111)]", "[name]"))
+		hotel_door.roomtimer = addtimer(CALLBACK(src, PROC_REF(process_room), roomid), PAY_INTERVAL, TIMER_STOPPABLE)
 	else
 		force_checkout(roomid)
 
 // Checks a person out of a room; no financial stuff
 /obj/effect/hotel_controller/proc/checkout(roomid)
-	var/obj/machinery/door/unpowered/hotel_door/D = room_doors["[roomid]"]
-	if(!D || !D.occupant)
+	var/obj/machinery/door/unpowered/hotel_door/hotel_door = room_doors["[roomid]"]
+	if(!hotel_door || !hotel_door.occupant)
 		return 0
 
-	guests -= D.occupant
-	D.occupant = null
-	D.account = null
-	deltimer(D.roomtimer)
-	D.roomtimer = null
-	qdel(D.card)
-	vacant_rooms += D
+	guests -= hotel_door.occupant
+	hotel_door.occupant = null
+	hotel_door.account = null
+	deltimer(hotel_door.roomtimer)
+	hotel_door.roomtimer = null
+	qdel(hotel_door.card)
+	vacant_rooms += hotel_door
 	return 1
 
 // The person's card bounced mid-stay
 /obj/effect/hotel_controller/proc/force_checkout(roomid)
-	var/obj/machinery/door/unpowered/hotel_door/D = room_doors["[roomid]"]
-	if(!D || !D.occupant)
+	var/obj/machinery/door/unpowered/hotel_door/hotel_door = room_doors["[roomid]"]
+	if(!hotel_door || !hotel_door.occupant)
 		return 0
 
-	var/mob/deadbeat = D.occupant
-	radio_announce("[deadbeat], your card has been rejected. You have 30 seconds to check out.", name, PUB_FREQ, D)
+	var/mob/deadbeat = hotel_door.occupant
+	radio_announce("[deadbeat], your card has been rejected. You have 30 seconds to check out.", name, PUB_FREQ, hotel_door)
 	spawn(300)
-		if(D.occupant == deadbeat)
+		if(hotel_door.occupant == deadbeat)
 			// they still haven't checked out...
 			checkout(roomid)
 

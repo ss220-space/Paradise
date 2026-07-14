@@ -160,8 +160,8 @@
 		set_light_on(FALSE)
 	update_icon()
 	if(ismob(loc))
-		var/mob/M = loc
-		M.update_held_items()
+		var/mob/mob = loc
+		mob.update_held_items()
 
 // If welding tool ran out of fuel during a construction task, construction fails.
 /obj/item/weldingtool/tool_use_check(mob/living/user, amount, silent = FALSE)

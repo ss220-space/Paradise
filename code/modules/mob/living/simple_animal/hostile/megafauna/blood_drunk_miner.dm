@@ -338,20 +338,20 @@ Difficulty: Medium
 	var/turf/own_turf = get_turf(src)
 	if(!QDELETED(dash_target))
 		self_dist_to_target += get_dist(dash_target, own_turf)
-	for(var/turf/O in RANGE_TURFS(MINER_DASH_RANGE, own_turf))
-		if(O.density)
+	for(var/turf/turf in RANGE_TURFS(MINER_DASH_RANGE, own_turf))
+		if(turf.density)
 			continue
 		var/turf_dist_to_target = 0
 		if(!QDELETED(dash_target))
-			turf_dist_to_target += get_dist(dash_target, O)
-		if(get_dist(src, O) >= MINER_DASH_RANGE && turf_dist_to_target <= self_dist_to_target && !islava(O) && !ischasm(O))
+			turf_dist_to_target += get_dist(dash_target, turf)
+		if(get_dist(src, turf) >= MINER_DASH_RANGE && turf_dist_to_target <= self_dist_to_target && !islava(turf) && !ischasm(turf))
 			var/valid = TRUE
-			for(var/turf/T as anything in get_line(own_turf, O))
-				if(T.is_blocked_turf(exclude_mobs = TRUE))
+			for(var/turf/line_turf as anything in get_line(own_turf, turf))
+				if(line_turf.is_blocked_turf(exclude_mobs = TRUE))
 					valid = FALSE
 					continue
 			if(valid)
-				accessable_turfs[O] = turf_dist_to_target
+				accessable_turfs[turf] = turf_dist_to_target
 	var/turf/target_turf
 	if(!QDELETED(dash_target))
 		var/closest_dist = MINER_DASH_RANGE
@@ -369,14 +369,14 @@ Difficulty: Medium
 	var/turf/step_forward_turf = get_step(own_turf, get_cardinal_dir(own_turf, target_turf))
 	new /obj/effect/temp_visual/small_smoke/halfsecond(step_back_turf)
 	new /obj/effect/temp_visual/small_smoke/halfsecond(step_forward_turf)
-	var/obj/effect/temp_visual/decoy/fading/halfsecond/D = new (own_turf, src)
+	var/obj/effect/temp_visual/decoy/fading/halfsecond/halfsecond = new (own_turf, src)
 	forceMove(step_back_turf)
 	playsound(own_turf, 'sound/weapons/punchmiss.ogg', 40, TRUE, -1)
 	dashing = TRUE
 	alpha = 0
 	animate(src, alpha = 255, time = 5)
 	SLEEP_CHECK_DEATH(src, 2)
-	D.forceMove(step_forward_turf)
+	halfsecond.forceMove(step_forward_turf)
 	forceMove(target_turf)
 	playsound(target_turf, 'sound/weapons/punchmiss.ogg', 40, TRUE, -1)
 	SLEEP_CHECK_DEATH(src, 1)
@@ -405,13 +405,13 @@ Difficulty: Medium
 	INVOKE_ASYNC(src, PROC_REF(fade_out))
 
 /obj/effect/temp_visual/dir_setting/miner_death/proc/fade_out()
-	var/matrix/M = new
-	M.Turn(pick(90, 270))
+	var/matrix/matrix = new
+	matrix.Turn(pick(90, 270))
 	var/final_dir = dir
 	if(dir & (EAST|WEST)) //Facing east or west
 		final_dir = pick(NORTH, SOUTH) //So you fall on your side rather than your face or ass
 
-	animate(src, transform = M, pixel_y = -6, dir = final_dir, time = 2, easing = EASE_IN|EASE_OUT)
+	animate(src, transform = matrix, pixel_y = -6, dir = final_dir, time = 2, easing = EASE_IN|EASE_OUT)
 	sleep(5)
 	animate(src, color = list("#A7A19E", "#A7A19E", "#A7A19E", list(0, 0, 0)), time = 10, easing = EASE_IN, flags = ANIMATION_PARALLEL)
 	sleep(4)

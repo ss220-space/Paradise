@@ -188,8 +188,8 @@
 			SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("ert", "called"))
 
 			var/fullmin_count = 0
-			for(var/client/C in GLOB.admins)
-				if(check_rights(R_ADMIN, FALSE, C.mob))
+			for(var/client/client in GLOB.admins)
+				if(check_rights(R_ADMIN, FALSE, client.mob))
 					fullmin_count++
 			if(fullmin_count)
 				addtimer(CALLBACK(src, PROC_REF(remind_admins), ert_reason, event_triggered_by), 15 MINUTES)
@@ -202,8 +202,8 @@
 				if(SSticker.mode.type in excludemodes)
 					return
 				var/list/excludeevents = list(/datum/event/blob)
-				for(var/datum/event/E in SSevents.active_events|SSevents.finished_events)
-					if(E.type in excludeevents)
+				for(var/datum/event/event in SSevents.active_events|SSevents.finished_events)
+					if(event.type in excludeevents)
 						return
 				// No admins? No problem. Automatically send a code amber ERT.
 				INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(trigger_armed_response_team), new /datum/response_team/amber)

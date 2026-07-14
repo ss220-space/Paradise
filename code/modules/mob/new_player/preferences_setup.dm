@@ -1,11 +1,11 @@
 /datum/preferences/proc/random_character(gender_override)
-	var/datum/species/S = GLOB.all_species[species]
-	if(!istype(S)) //The species was invalid. Set the species to the default, fetch the datum for that species and generate a random character.
+	var/datum/species/species_datum = GLOB.all_species[species]
+	if(!istype(species_datum)) //The species was invalid. Set the species to the default, fetch the datum for that species and generate a random character.
 		species = initial(species)
-		S = GLOB.all_species[species]
+		species_datum = GLOB.all_species[species]
 	var/datum/robolimb/robohead
 
-	if(S?.bodyflags & ALL_RPARTS)
+	if(species_datum?.bodyflags & ALL_RPARTS)
 		var/head_model = "[!rlimb_data["head"] ? "Morpheus Cyberkinetics" : rlimb_data["head"]]"
 		robohead = GLOB.all_robolimbs[head_model]
 	if(gender_override)
@@ -16,32 +16,32 @@
 	undershirt = random_undershirt(gender, species)
 	socks = random_socks(gender, species)
 	if(length(GLOB.body_accessory_by_species[species]))
-		body_accessory = random_body_accessory(species, S.optional_body_accessory)
-	if(S?.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
+		body_accessory = random_body_accessory(species, species_datum.optional_body_accessory)
+	if(species_datum?.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
 		s_tone = random_skin_tone(species)
-	h_style = random_hair_style(gender, S, robohead)
+	h_style = random_hair_style(gender, species_datum, robohead)
 	f_style = random_facial_hair_style(gender, species, robohead)
 	if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACHINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX))
 		randomize_hair_color("hair")
 		randomize_hair_color("facial")
-	if(S?.bodyflags & HAS_HEAD_ACCESSORY)
+	if(species_datum?.bodyflags & HAS_HEAD_ACCESSORY)
 		ha_style = random_head_accessory(species)
 		hacc_colour = randomize_skin_color(1)
-	if(S?.bodyflags & HAS_HEAD_MARKINGS)
+	if(species_datum?.bodyflags & HAS_HEAD_MARKINGS)
 		m_styles["head"] = random_marking_style("head", species, robohead, null, alt_head)
 		m_colours["head"] = randomize_skin_color(1)
-	if(S?.bodyflags & HAS_BODY_MARKINGS)
+	if(species_datum?.bodyflags & HAS_BODY_MARKINGS)
 		m_styles["body"] = random_marking_style("body", species, gender = src.gender)
 		m_colours["body"] = randomize_skin_color(1)
-	if(S?.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
+	if(species_datum?.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
 		m_styles["tail"] = random_marking_style("tail", species, null, body_accessory)
 		m_colours["tail"] = randomize_skin_color(1)
-	if(!(S?.bodyflags & ALL_RPARTS))
+	if(!(species_datum?.bodyflags & ALL_RPARTS))
 		randomize_eyes_color()
-	if(S?.bodyflags & HAS_SKIN_COLOR && !(S?.bodyflags & HAS_ICON_SKIN_TONE))
+	if(species_datum?.bodyflags & HAS_SKIN_COLOR && !(species_datum?.bodyflags & HAS_ICON_SKIN_TONE))
 		randomize_skin_color()
 	backbag = 2
-	age = get_rand_age(S)
+	age = get_rand_age(species_datum)
 
 /datum/preferences/proc/randomize_hair_color(target = "hair")
 	if(prob (75) && target == "facial") // Chance to inherit hair color
@@ -221,21 +221,21 @@
 	var/coloured_tail
 	if(current_species)
 		if(current_species.bodyflags & HAS_ICON_SKIN_TONE) //Handling species-specific icon-based skin tones by flagged race.
-			var/mob/living/carbon/human/H = new
+			var/mob/living/carbon/human/human = new
 
-			if(!H.dna)
-				H.dna = new
+			if(!human.dna)
+				human.dna = new
 
-			H.dna.species = current_species
-			H.s_tone = s_tone
-			H.dna.species.updatespeciescolor(H, 0) //The mob's species wasn't set, so it's almost certainly different than the character's species at the moment. Thus, we need to be owner-insensitive.
+			human.dna.species = current_species
+			human.s_tone = s_tone
+			human.dna.species.updatespeciescolor(human, 0) //The mob's species wasn't set, so it's almost certainly different than the character's species at the moment. Thus, we need to be owner-insensitive.
 
-			var/obj/item/organ/external/chest/C = H.get_organ(BODY_ZONE_CHEST)
-			icobase = (C?.icobase) ? C.icobase : current_species.icobase
-			if(H.dna.species.bodyflags & HAS_TAIL)
-				coloured_tail = H.tail ? H.tail : H.dna.species.tail
+			var/obj/item/organ/external/chest/chest = human.get_organ(BODY_ZONE_CHEST)
+			icobase = (chest?.icobase) ? chest.icobase : current_species.icobase
+			if(human.dna.species.bodyflags & HAS_TAIL)
+				coloured_tail = human.tail ? human.tail : human.dna.species.tail
 
-			qdel(H)
+			qdel(human)
 		else
 			icobase = current_species.icobase
 	else
@@ -245,9 +245,9 @@
 	preview_icon.Blend(new /icon(icobase, "groin_[gender_suffix]"), ICON_OVERLAY)
 	var/head = "head"
 	if(alt_head && current_species.bodyflags & HAS_ALT_HEADS)
-		var/datum/sprite_accessory/alt_heads/H = GLOB.alt_heads_list[alt_head]
-		if(H.icon_state)
-			head = H.icon_state
+		var/datum/sprite_accessory/alt_heads/human = GLOB.alt_heads_list[alt_head]
+		if(human.icon_state)
+			head = human.icon_state
 	preview_icon.Blend(new /icon(icobase, "[head]_[gender_suffix]"), ICON_OVERLAY)
 	var/list/check_list = list(
 		BODY_ZONE_CHEST,
@@ -412,11 +412,11 @@
 
 	var/icon/underwear_s = null
 	if(underwear && (current_species.clothing_flags & HAS_UNDERWEAR))
-		var/datum/sprite_accessory/underwear/U = GLOB.underwear_list[underwear]
-		if(U)
-			var/u_icon = U.sprite_sheets && (current_species.name in U.sprite_sheets) ? U.sprite_sheets[current_species.name] : U.icon //Species-fit the undergarment.
-			underwear_s = new/icon(u_icon, "uw_[U.icon_state]_s", ICON_OVERLAY)
-			if(U.allow_change_color)
+		var/datum/sprite_accessory/underwear/underwear_accessory = GLOB.underwear_list[underwear]
+		if(underwear_accessory)
+			var/u_icon = underwear_accessory.sprite_sheets && (current_species.name in underwear_accessory.sprite_sheets) ? underwear_accessory.sprite_sheets[current_species.name] : underwear_accessory.icon //Species-fit the undergarment.
+			underwear_s = new/icon(u_icon, "uw_[underwear_accessory.icon_state]_s", ICON_OVERLAY)
+			if(underwear_accessory.allow_change_color)
 				underwear_s.Blend(underwear_color, ICON_MULTIPLY)
 
 	var/icon/undershirt_s = null

@@ -115,18 +115,18 @@
 
 /obj/item/melee/ghost_sword/proc/ghost_check()
 	var/ghost_counter = 0
-	var/turf/T = get_turf(src)
-	var/list/contents = T.get_all_contents()
+	var/turf/turf = get_turf(src)
+	var/list/contents = turf.get_all_contents()
 	var/mob/dead/observer/current_spirits = list()
 
-	for(var/mob/dead/observer/O in GLOB.player_list)
-		if(O.orbiting in contents)
+	for(var/mob/dead/observer/observer in GLOB.player_list)
+		if(observer.orbiting in contents)
 			ghost_counter++
-			O.invisibility = 0
-			current_spirits |= O
+			observer.invisibility = 0
+			current_spirits |= observer
 
-	for(var/mob/dead/observer/G in spirits - current_spirits)
-		G.invisibility = initial(G.invisibility)
+	for(var/mob/dead/observer/observer in spirits - current_spirits)
+		observer.invisibility = initial(observer.invisibility)
 
 	spirits = current_spirits
 

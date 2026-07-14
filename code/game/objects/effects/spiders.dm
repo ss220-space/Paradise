@@ -250,11 +250,11 @@
 
 /obj/structure/spider/spiderling/proc/random_skitter()
 	var/list/available_turfs = list()
-	for(var/turf/simulated/S in oview(10, src))
+	for(var/turf/simulated/simulated in oview(10, src))
 		// no !isspaceturf check needed since /turf/simulated is not a subtype of /turf/space
-		if(S.density)
+		if(simulated.density)
 			continue
-		available_turfs += S
+		available_turfs += simulated
 	if(!length(available_turfs))
 		return FALSE
 	GLOB.move_manager.move_to(src, pick(available_turfs), 1, rand(2, 4))

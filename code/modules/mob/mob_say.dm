@@ -180,10 +180,10 @@
 	var/list/prefixes = list() // [["Common", start, end], ["Gutter", start, end]]
 	for(var/i in 1 to length_char(message))
 		var/selection = trim_right(lowertext(copytext_char(message, i, i + 3)))
-		var/datum/language/L = GLOB.language_keys[selection]
-		if(L != null && can_speak_language(L)) // What the fuck... remove the L != null check if you ever find out what the fuck is adding `null` to the languages list on absolutely random mobs... seriously what the hell...
-			prefixes[++prefixes.len] = list(L, i, i + length_char(selection))
-		else if(!L && i == 1)
+		var/datum/language/language = GLOB.language_keys[selection]
+		if(language != null && can_speak_language(language)) // What the fuck... remove the language != null check if you ever find out what the fuck is adding `null` to the languages list on absolutely random mobs... seriously what the hell...
+			prefixes[++prefixes.len] = list(language, i, i + length_char(selection))
+		else if(!language && i == 1)
 			prefixes[++prefixes.len] = list(get_default_language(), i, i)
 
 	return prefixes
@@ -193,8 +193,8 @@
 	var/last_index = 1
 	for(var/i in 1 to length_char(message))
 		var/selection = trim_right(lowertext(copytext_char(message, i, i + 3)))
-		var/datum/language/L = GLOB.language_keys[selection]
-		if(L)
+		var/datum/language/language = GLOB.language_keys[selection]
+		if(language)
 			. += copytext_char(message, last_index, i)
 			last_index = i + 3
 		if(i + 1 > length_char(message))
@@ -218,9 +218,9 @@
 		var/current = prefix_locations[i] // ["Common", keypos]
 
 		// There are a few things that will make us want to ignore all other languages in - namely, HIVEMIND languages.
-		var/datum/language/L = current[1]
-		if(L && L.flags & HIVEMIND)
-			return list(new /datum/multilingual_say_piece(L, trim(strip_prefixes(message))))
+		var/datum/language/language = current[1]
+		if(language && language.flags & HIVEMIND)
+			return list(new /datum/multilingual_say_piece(language, trim(strip_prefixes(message))))
 
 		if(i + 1 > length(prefix_locations)) // We are out of lookaheads, that means the rest of the message is in cur lang
 			var/spoke_message = trim(copytext_char(message, current[3]))
@@ -236,8 +236,8 @@
 
 /proc/multilingual_to_message(list/message_pieces)
 	. = ""
-	for(var/datum/multilingual_say_piece/S in message_pieces)
-		. += S.message + " "
+	for(var/datum/multilingual_say_piece/multilingual_say_piece in message_pieces)
+		. += multilingual_say_piece.message + " "
 	. = trim_right(.)
 
 #undef ILLEGAL_CHARACTERS_LIST

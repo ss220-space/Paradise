@@ -117,19 +117,19 @@
 /obj/item/organ/internal/body_egg/terror_eggs/proc/hatch_egg()
 	var/infection_completed = FALSE
 	egg_progress -= egg_progress_per_hatch
-	var/obj/structure/spider/spiderling/terror_spiderling/S = new(get_turf(owner))
+	var/obj/structure/spider/spiderling/terror_spiderling/terror_spiderling = new(get_turf(owner))
 	switch(eggs_hatched)
 		if(0) // 1st spiderling
-			S.grow_as = pick(roll_1)
+			terror_spiderling.grow_as = pick(roll_1)
 		if(1) // 2nd
-			S.grow_as = pick(roll_2)
+			terror_spiderling.grow_as = pick(roll_2)
 		if(2) // 3d spiderling. can only grow if egg owner is being healed, and/or eggs isnt removed by surgeons
-			S.grow_as = pick(roll_3)
+			terror_spiderling.grow_as = pick(roll_3)
 			owner.adjustBruteLoss(200)
 			owner.death()
 			infection_completed = TRUE
-	S.immediate_ventcrawl = TRUE
-	S.asigned_ghost = asigned_ghost
+	terror_spiderling.immediate_ventcrawl = TRUE
+	terror_spiderling.asigned_ghost = asigned_ghost
 	eggs_hatched++
 	owner.adjustBruteLoss(80)
 	owner.Paralyse(20 SECONDS)

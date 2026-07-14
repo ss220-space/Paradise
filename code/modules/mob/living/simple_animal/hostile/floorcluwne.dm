@@ -143,22 +143,22 @@
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Acquire_Victim(specific)
 	var/list/players_copy = GLOB.player_list.Copy()
 	while(length(players_copy))
-		var/mob/living/carbon/human/H = pick_n_take(players_copy)
-		if(!ishuman(H))
+		var/mob/living/carbon/human/human = pick_n_take(players_copy)
+		if(!ishuman(human))
 			continue
 
 		if(specific)
-			H = specific
-			if((!H || H.stat == DEAD) && smiting)//safety check, target somehow DIED after we sent a smite
+			human = specific
+			if((!human || human.stat == DEAD) && smiting)//safety check, target somehow DIED after we sent a smite
 				message_admins("Smiting floor cluwne was deleted due to a lack of valid target. Someone killed them first, or they ceased to exist.")
 				qdel(src)
 				return
-			if(H.stat != DEAD && !isLivingSSD(H) &&  H.client && !H.get_int_organ(/obj/item/organ/internal/honktumor/cursed) && !is_type_in_typecache(get_area(H.loc), invalid_area_typecache))
-				current_victim = H
+			if(human.stat != DEAD && !isLivingSSD(human) &&  human.client && !human.get_int_organ(/obj/item/organ/internal/honktumor/cursed) && !is_type_in_typecache(get_area(human.loc), invalid_area_typecache))
+				current_victim = human
 				return target = current_victim
 
-		if(H && H.stat != DEAD && H != current_victim && !isLivingSSD(H) &&  H.client && !H.get_int_organ(/obj/item/organ/internal/honktumor/cursed) && !is_type_in_typecache(get_area(H.loc), invalid_area_typecache))
-			current_victim = H
+		if(human && human.stat != DEAD && human != current_victim && !isLivingSSD(human) &&  human.client && !human.get_int_organ(/obj/item/organ/internal/honktumor/cursed) && !is_type_in_typecache(get_area(human.loc), invalid_area_typecache))
+			current_victim = human
 			interest = 0
 			return target = current_victim
 
@@ -190,52 +190,52 @@
 		animate(H.client, color = color, time = 5)
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/On_Stage()
-	var/mob/living/carbon/human/H = current_victim
-	if(!H)
+	var/mob/living/carbon/human/human = current_victim
+	if(!human)
 		Acquire_Victim()
 	switch(stage)
 
 		if(STAGE_HAUNT)
 
 			if(prob(5))
-				H.AdjustEyeBlurry(2 SECONDS)
+				human.AdjustEyeBlurry(2 SECONDS)
 
 			if(prob(5))
-				H.playsound_local(src, 'sound/spookoween/insane_low_laugh.ogg', 1)
+				human.playsound_local(src, 'sound/spookoween/insane_low_laugh.ogg', 1)
 
 			if(prob(8))
-				H.playsound_local(src, 'sound/spookoween/ghost_whisper.ogg', 5)
+				human.playsound_local(src, 'sound/spookoween/ghost_whisper.ogg', 5)
 
 			if(prob(5))
-				var/obj/item/I = locate() in orange(H, 8)
-				if(I && !I.anchored)
-					I.throw_at(H, 4, 3)
-					to_chat(H, span_warning("What threw that?"))
+				var/obj/item/item = locate() in orange(human, 8)
+				if(item && !item.anchored)
+					item.throw_at(human, 4, 3)
+					to_chat(human, span_warning("What threw that?"))
 
 		if(STAGE_SPOOK)
 
 			if(prob(4))
-				H.slip(10 SECONDS)
-				to_chat(H, span_warning("The floor shifts underneath you!"))
+				human.slip(10 SECONDS)
+				to_chat(human, span_warning("The floor shifts underneath you!"))
 
 			if(prob(3))
-				H.playsound_local(src, 'sound/spookoween/scary_horn.ogg', 2)
+				human.playsound_local(src, 'sound/spookoween/scary_horn.ogg', 2)
 
 			if(prob(8))
-				H.playsound_local(src, 'sound/spookoween/scary_horn2.ogg', 2)
+				human.playsound_local(src, 'sound/spookoween/scary_horn2.ogg', 2)
 
 			if(prob(5))
-				H.playsound_local(src, 'sound/hallucinations/growl1.ogg', 10)
-				to_chat(H, "<font face='Comic Sans MS'><i>knoh</i></font>")
+				human.playsound_local(src, 'sound/hallucinations/growl1.ogg', 10)
+				to_chat(human, "<font face='Comic Sans MS'><i>knoh</i></font>")
 
 			if(prob(5))
-				var/obj/item/I = locate() in orange(H, 8)
-				if(I && !I.anchored)
-					I.throw_at(H, 4, 3)
-					to_chat(H, span_warning("What threw that?"))
+				var/obj/item/item = locate() in orange(human, 8)
+				if(item && !item.anchored)
+					item.throw_at(human, 4, 3)
+					to_chat(human, span_warning("What threw that?"))
 
 			if(prob(4))
-				to_chat(H, "<font face='Comic Sans MS'><i>yalp ot tnaw I</i></font>")
+				to_chat(human, "<font face='Comic Sans MS'><i>yalp ot tnaw item</i></font>")
 				Appear()
 				manifested = FALSE
 				addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/simple_animal/hostile/floor_cluwne, Manifest)), 1)
@@ -243,8 +243,8 @@
 		if(STAGE_TORMENT)
 
 			if(prob(5))
-				H.slip(10 SECONDS)
-				to_chat(H, span_warning("The floor shifts underneath you!"))
+				human.slip(10 SECONDS)
+				to_chat(human, span_warning("The floor shifts underneath you!"))
 
 			if(prob(5))
 				playsound(src, pick('sound/spookoween/scary_horn.ogg', 'sound/spookoween/scary_horn2.ogg', 'sound/spookoween/scary_horn3.ogg'), 30, TRUE)
@@ -253,67 +253,67 @@
 				playsound(src, pick('sound/hallucinations/growl1.ogg', 'sound/hallucinations/growl2.ogg') , 30, TRUE)
 
 			if(prob(4))
-				for(var/obj/item/I in orange(H, 5))
-					if(I && !I.anchored)
-						I.throw_at(H, 4, 3)
-				to_chat(H, span_warning("What the hell?!"))
+				for(var/obj/item/item in orange(human, 5))
+					if(item && !item.anchored)
+						item.throw_at(human, 4, 3)
+				to_chat(human, span_warning("What the hell?!"))
 
 			if(prob(5))
-				to_chat(H, span_warning("Something feels very wrong..."))
-				H.playsound_local(src, 'sound/hallucinations/behind_you1.ogg', 25)
-				H.flash_eyes()
+				to_chat(human, span_warning("Something feels very wrong..."))
+				human.playsound_local(src, 'sound/hallucinations/behind_you1.ogg', 25)
+				human.flash_eyes()
 
 			if(prob(5))
-				to_chat(H, "<font face='Comic Sans MS'><i>!?REHTOMKNOH eht esiarp uoy oD</i></font>")
-				to_chat(H, span_warning("Something grabs your foot!"))
-				H.playsound_local(src, 'sound/hallucinations/i_see_you1.ogg', 25)
-				H.Stun(20 SECONDS)
+				to_chat(human, "<font face='Comic Sans MS'><i>!?REHTOMKNOH eht esiarp uoy oD</i></font>")
+				to_chat(human, span_warning("Something grabs your foot!"))
+				human.playsound_local(src, 'sound/hallucinations/i_see_you1.ogg', 25)
+				human.Stun(20 SECONDS)
 
 			if(prob(5))
-				to_chat(H, "<font face='Comic Sans MS'><i>!KNOH ?od nottub siht seod tahW</i></font>")
-				for(var/obj/machinery/M in range(H, 6))
-					M.attack_hand(src)
+				to_chat(human, "<font face='Comic Sans MS'><i>!KNOH ?od nottub siht seod tahW</i></font>")
+				for(var/obj/machinery/machinery in range(human, 6))
+					machinery.attack_hand(src)
 
 			if(prob(6))
-				for(var/turf/simulated/floor/O in range(src, 6))
-					O.MakeSlippery(TURF_WET_WATER, 10 SECONDS)
+				for(var/turf/simulated/floor/floor in range(src, 6))
+					floor.MakeSlippery(TURF_WET_WATER, 10 SECONDS)
 					playsound(src, 'sound/effects/clownstep1.ogg', 30, TRUE)
 
 			if(prob(5))
-				to_chat(H, span_userdanger("WHAT THE FUCK IS THAT?!"))
-				to_chat(H, "<font face='Comic Sans MS'><i>.KNOH !nuf hcum os si uoy htiw gniyalP .KNOH KNOH KNOH</i></font>")
-				H.playsound_local(src, 'sound/hallucinations/im_here1.ogg', 25)
-				H.reagents.add_reagent("lsd", 3)
+				to_chat(human, span_userdanger("WHAT THE FUCK IS THAT?!"))
+				to_chat(human, "<font face='Comic Sans MS'><i>.KNOH !nuf hcum os si uoy htiw gniyalP .KNOH KNOH KNOH</i></font>")
+				human.playsound_local(src, 'sound/hallucinations/im_here1.ogg', 25)
+				human.reagents.add_reagent("lsd", 3)
 				Appear()
 				manifested = FALSE
 				addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/simple_animal/hostile/floor_cluwne, Manifest)), 2)
-				for(var/obj/machinery/light/L in range(H, 8))
-					L.flicker()
+				for(var/obj/machinery/light/light in range(human, 8))
+					light.flicker()
 
 		if(STAGE_ATTACK)
 
 			if(!eating)
-				for(var/turf/T as anything in get_line(src, get_turf(H)))
-					for(var/obj/structure/O in T)
-						if(iscloset(O))
-							var/obj/structure/closet/locker = O
+				for(var/turf/turf as anything in get_line(src, get_turf(human)))
+					for(var/obj/structure/floor in turf)
+						if(iscloset(floor))
+							var/obj/structure/closet/locker = floor
 							locker.bust_open()
-						if(O.density || is_airlock(O))
-							forceMove(H.loc)
-					if(T.density)
-						forceMove(H.loc)
-					if(H.buckled)
-						H.buckled.unbuckle_mob(H, force = TRUE)
+						if(floor.density || is_airlock(floor))
+							forceMove(human.loc)
+					if(turf.density)
+						forceMove(human.loc)
+					if(human.buckled)
+						human.buckled.unbuckle_mob(human, force = TRUE)
 				manifested = TRUE
 				Manifest()
-				to_chat(H, span_userdanger("You feel the floor closing in on your feet!"))
-				H.Weaken(60 SECONDS)
-				H.emote("scream")
-				H.adjustBruteLoss(10)
+				to_chat(human, span_userdanger("You feel the floor closing in on your feet!"))
+				human.Weaken(60 SECONDS)
+				human.emote("scream")
+				human.adjustBruteLoss(10)
 				if(!eating)
-					addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/simple_animal/hostile/floor_cluwne, Grab), H), 70)
-					for(var/turf/simulated/floor/O in range(src, 6))
-						O.MakeSlippery(TURF_WET_LUBE, 20 SECONDS)
+					addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/simple_animal/hostile/floor_cluwne, Grab), human), 70)
+					for(var/turf/simulated/floor/floor in range(src, 6))
+						floor.MakeSlippery(TURF_WET_LUBE, 20 SECONDS)
 						playsound(src, 'sound/effects/meteorimpact.ogg', 30, TRUE)
 
 				eating = TRUE
@@ -364,8 +364,8 @@
 	var/old_color = H.client?.color
 	client_kill_animation(H)
 
-	for(var/turf/T in orange(H, 4))
-		H.add_splatter_floor(T)
+	for(var/turf/turf in orange(H, 4))
+		H.add_splatter_floor(turf)
 	if(do_after(src, 5 SECONDS, H))
 		if(prob(50) || smiting)
 			H.makeCluwne()

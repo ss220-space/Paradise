@@ -2,8 +2,8 @@
 /proc/get_pain_modifier(mob/living/carbon/human/target)
 	if(target.stat == DEAD) // Operating on dead people is easy
 		return 1
-	var/datum/status_effect/incapacitating/sleeping/S = target.IsSleeping()
-	if(target.stat == UNCONSCIOUS && S)
+	var/datum/status_effect/incapacitating/sleeping/sleeping = target.IsSleeping()
+	if(target.stat == UNCONSCIOUS && sleeping)
 		// Either unconscious due to something other than sleep,
 		// or "sleeping" due to being hard knocked out (N2O or similar), rather than just napping.
 		// Either way, not easily woken up.
@@ -28,12 +28,12 @@
 	return 0.8 //20% failure chance
 
 /proc/get_location_modifier(mob/target)
-	var/turf/T = get_turf(target)
-	if(locate(/obj/machinery/optable, T))
+	var/turf/turf = get_turf(target)
+	if(locate(/obj/machinery/optable, turf))
 		return 1
-	else if(locate(/obj/structure/table, T))
+	else if(locate(/obj/structure/table, turf))
 		return 0.8
-	else if(locate(/obj/structure/bed, T))
+	else if(locate(/obj/structure/bed, turf))
 		return 0.7
 	else
 		return 0.5
@@ -88,15 +88,15 @@
 	var/covered_locations	= 0	//based on body_parts_covered
 	var/eyesmouth_covered	= 0	//based on flags_cover
 	if(iscarbon(M))
-		var/mob/living/carbon/C = M
-		for(var/obj/item/clothing/I in list(C.back, C.wear_mask))
-			covered_locations |= I.body_parts_covered
-			eyesmouth_covered |= I.flags_cover
-		if(ishuman(C))
-			var/mob/living/carbon/human/H = C
-			for(var/obj/item/I in list(H.wear_suit, H.w_uniform, H.shoes, H.belt, H.gloves, H.glasses, H.head, H.r_ear, H.l_ear, H.neck))
-				covered_locations |= I.body_parts_covered
-				eyesmouth_covered |= I.flags_cover
+		var/mob/living/carbon/carbon = M
+		for(var/obj/item/clothing/clothing in list(carbon.back, carbon.wear_mask))
+			covered_locations |= clothing.body_parts_covered
+			eyesmouth_covered |= clothing.flags_cover
+		if(ishuman(carbon))
+			var/mob/living/carbon/human/human = carbon
+			for(var/obj/item/clothing in list(human.wear_suit, human.w_uniform, human.shoes, human.belt, human.gloves, human.glasses, human.head, human.r_ear, human.l_ear, human.neck))
+				covered_locations |= clothing.body_parts_covered
+				eyesmouth_covered |= clothing.flags_cover
 	// If we check for mouth or eyes for gods sake use the appropriate flags for THEM!
 	// Not for the face, head e.t.c.
 	// HIDENAME(formerly known as HIDEFACE) flag was made to check if we appear as unknown

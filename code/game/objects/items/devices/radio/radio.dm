@@ -394,8 +394,8 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	return user.has_internal_radio_channel_access(user, internal_channels[freq])
 
 /mob/proc/has_internal_radio_channel_access(mob/user, list/req_accesses)
-	var/obj/item/card/id/I = user.get_id_card()
-	return has_access(req_accesses, TRUE, I ? I.GetAccess() : list())
+	var/obj/item/card/id/id = user.get_id_card()
+	return has_access(req_accesses, TRUE, id ? id.GetAccess() : list())
 
 /mob/living/silicon/has_internal_radio_channel_access(mob/user, list/req_accesses)
 	return has_access(req_accesses, TRUE, get_all_accesses())

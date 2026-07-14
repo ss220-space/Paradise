@@ -340,10 +340,10 @@
 	icon_state = "shieldgen[activated ? "_on" : ""]"
 
 /obj/machinery/shieldwallgen/proc/try_charge_shields_power()
-	var/turf/T = loc
+	var/turf/turf = loc
 
-	var/obj/structure/cable/C = T.get_cable_node()
-	var/datum/powernet/power_net = C?.powernet // find the powernet of the connected cable
+	var/obj/structure/cable/cable = turf.get_cable_node()
+	var/datum/powernet/power_net = cable?.powernet // find the powernet of the connected cable
 
 	if(!power_net)
 		deactivate()

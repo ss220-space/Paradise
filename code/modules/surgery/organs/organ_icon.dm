@@ -36,8 +36,8 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 		s_tone = null
 		s_col = H.skin_colour
 	if(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE)
-		var/obj/item/organ/external/chest/C = H.get_organ(BODY_ZONE_CHEST)
-		change_organ_icobase(C.icobase, C.deform)
+		var/obj/item/organ/external/chest/chest = H.get_organ(BODY_ZONE_CHEST)
+		change_organ_icobase(chest.icobase, chest.deform)
 
 /obj/item/organ/external/proc/sync_colour_to_dna()
 	if(is_robotic())

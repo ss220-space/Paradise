@@ -73,65 +73,65 @@ GLOBAL_DATUM(CC_account, /datum/money_account)
 /proc/create_account(new_owner_name = "Default user", starting_funds = 0, obj/machinery/computer/account_database/source_db, datum/job/link_job = /datum/job , salary_active = FALSE)
 
 	//create a new account
-	var/datum/money_account/M = new()
-	M.owner_name = new_owner_name
-	M.remote_access_pin = rand(111111, 999999)
-	M.money = starting_funds
-	M.linked_job = link_job
-	M.salary_payment_active = salary_active
+	var/datum/money_account/money_account = new()
+	money_account.owner_name = new_owner_name
+	money_account.remote_access_pin = rand(111111, 999999)
+	money_account.money = starting_funds
+	money_account.linked_job = link_job
+	money_account.salary_payment_active = salary_active
 
 	//create an entry in the account transaction log for when it was created
-	var/datum/transaction/T = new()
-	T.target_name = new_owner_name
-	T.purpose = "Account creation"
-	T.amount = starting_funds
+	var/datum/transaction/transaction = new()
+	transaction.target_name = new_owner_name
+	transaction.purpose = "Account creation"
+	transaction.amount = starting_funds
 	if(!source_db)
 		//set a random date, time and location some time over the past few decades
-		T.date = "[num2text(rand(1,31))] [pick(GLOB.month_names)], [rand(GLOB.game_year - 20,GLOB.game_year - 1)]"
-		T.time = "[rand(0,23)]:[rand(0,59)]:[rand(0,59)]"
-		T.source_terminal = "NTGalaxyNet Terminal #[rand(111,1111)]"
+		transaction.date = "[num2text(rand(1,31))] [pick(GLOB.month_names)], [rand(GLOB.game_year - 20,GLOB.game_year - 1)]"
+		transaction.time = "[rand(0,23)]:[rand(0,59)]:[rand(0,59)]"
+		transaction.source_terminal = "NTGalaxyNet Terminal #[rand(111,1111)]"
 
-		M.account_number = rand(111111, 999999)
+		money_account.account_number = rand(111111, 999999)
 	else
-		T.date = GLOB.current_date_string
-		T.time = station_time_timestamp()
-		T.source_terminal = source_db.machine_id
+		transaction.date = GLOB.current_date_string
+		transaction.time = station_time_timestamp()
+		transaction.source_terminal = source_db.machine_id
 
-		M.account_number = GLOB.next_account_number
+		money_account.account_number = GLOB.next_account_number
 		GLOB.next_account_number += rand(1,25)
 
 		//create a sealed package containing the account details
-		var/obj/item/smallDelivery/P = new /obj/item/smallDelivery(source_db.loc)
+		var/obj/item/smallDelivery/smallDelivery = new /obj/item/smallDelivery(source_db.loc)
 
-		var/obj/item/paper/R = new /obj/item/paper(P)
+		var/obj/item/paper/paper = new /obj/item/paper(smallDelivery)
 		playsound(source_db.loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
-		P.wrapped = R
-		P.w_class = R.w_class
-		P.update_icon(UPDATE_ICON_STATE)
+		smallDelivery.wrapped = paper
+		smallDelivery.w_class = paper.w_class
+		smallDelivery.update_icon(UPDATE_ICON_STATE)
 
-		R.name = "Account information: [M.owner_name]"
+		paper.name = "Account information: [money_account.owner_name]"
 
 		var/overseer = UNKNOWN_NAME_RUS
-		var/datum/ui_login/L = source_db.ui_login_get()
-		if(L.id)
-			overseer = L.id.registered_name
-		R.info = {"<b>Account details (confidential)</b><br><hr><br>
-			<i>Account holder:</i> [M.owner_name]<br>
-			<i>Account number:</i> [M.account_number]<br>
-			<i>Account pin:</i> [M.remote_access_pin]<br>
-			<i>Starting balance:</i> $[M.money]<br>
+		var/datum/ui_login/ui_login = source_db.ui_login_get()
+		if(ui_login.id)
+			overseer = ui_login.id.registered_name
+		paper.info = {"<b>Account details (confidential)</b><br><hr><br>
+			<i>Account holder:</i> [money_account.owner_name]<br>
+			<i>Account number:</i> [money_account.account_number]<br>
+			<i>Account pin:</i> [money_account.remote_access_pin]<br>
+			<i>Starting balance:</i> $[money_account.money]<br>
 			<i>Date and time:</i> [station_time_timestamp()], [GLOB.current_date_string]<br><br>
 			<i>Creation terminal ID:</i> [source_db.machine_id]<br>
 			<i>Authorised NT officer overseeing creation:</i> [overseer]<br>"}
 
 		//stamp the paper
-		R.stamp(/obj/item/stamp, TRUE, "<i>This paper has been stamped by the Accounts Database.</i>", "stamp-cent")
+		paper.stamp(/obj/item/stamp, TRUE, "<i>This paper has been stamped by the Accounts Database.</i>", "stamp-cent")
 
 	//add the account
-	M.transaction_log.Add(T)
-	GLOB.all_money_accounts.Add(M)
+	money_account.transaction_log.Add(transaction)
+	GLOB.all_money_accounts.Add(money_account)
 
-	return M
+	return money_account
 
 /datum/money_account
 	var/owner_name = ""
@@ -177,35 +177,35 @@ GLOBAL_DATUM(CC_account, /datum/money_account)
 /obj/machinery/computer/account_database/proc/charge_to_account(attempt_account_number, datum/money_account/source, purpose, terminal_id, amount)
 	if(!activated)
 		return 0
-	for(var/datum/money_account/D in GLOB.all_money_accounts)
-		if(D.account_number == attempt_account_number && !D.suspended)
-			source.charge(amount, D, purpose, terminal_id, "Account #[D.account_number]", "Transfer from [source.owner_name]",
-			"[D.owner_name]")
+	for(var/datum/money_account/money_account in GLOB.all_money_accounts)
+		if(money_account.account_number == attempt_account_number && !money_account.suspended)
+			source.charge(amount, money_account, purpose, terminal_id, "Account #[money_account.account_number]", "Transfer from [source.owner_name]",
+			"[money_account.owner_name]")
 			return 1
 
 	return 0
 
 //this returns the first account datum that matches the supplied accnum/pin combination, it returns null if the combination did not match any account
 /proc/attempt_account_access(attempt_account_number, attempt_pin_number, security_level_passed = 0, pin_needed=1)
-	for(var/datum/money_account/D in GLOB.all_money_accounts)
-		if(D.account_number == attempt_account_number)
-			if(D.security_level <= security_level_passed && (!D.security_level || D.remote_access_pin == attempt_pin_number || !pin_needed))
-				return D
+	for(var/datum/money_account/money_account in GLOB.all_money_accounts)
+		if(money_account.account_number == attempt_account_number)
+			if(money_account.security_level <= security_level_passed && (!money_account.security_level || money_account.remote_access_pin == attempt_pin_number || !pin_needed))
+				return money_account
 
 /obj/machinery/computer/account_database/proc/get_account(account_number)
-	for(var/datum/money_account/D in GLOB.all_money_accounts)
-		if(D.account_number == account_number)
-			return D
+	for(var/datum/money_account/money_account in GLOB.all_money_accounts)
+		if(money_account.account_number == account_number)
+			return money_account
 
 /proc/get_account_with_name(name_owner)
-	for(var/datum/money_account/D in GLOB.all_money_accounts)
-		if(D.owner_name == name_owner)
-			return D
+	for(var/datum/money_account/money_account in GLOB.all_money_accounts)
+		if(money_account.owner_name == name_owner)
+			return money_account
 
 /proc/attempt_account_access_nosec(attempt_account_number)
-	for(var/datum/money_account/D in GLOB.all_money_accounts)
-		if(D.account_number == attempt_account_number)
-			return D
+	for(var/datum/money_account/money_account in GLOB.all_money_accounts)
+		if(money_account.account_number == attempt_account_number)
+			return money_account
 
 #undef STATION_CREATION_DATE
 #undef STATION_CREATION_TIME

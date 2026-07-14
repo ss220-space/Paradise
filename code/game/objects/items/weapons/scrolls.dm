@@ -70,15 +70,15 @@
 	smoke.attach(user)
 	smoke.start()
 	var/list/L = list()
-	for(var/turf/T in get_area_turfs(thearea.type))
-		if(!T.density)
+	for(var/turf/turf in get_area_turfs(thearea.type))
+		if(!turf.density)
 			var/clear = 1
-			for(var/obj/O in T)
-				if(O.density)
+			for(var/obj/obj in turf)
+				if(obj.density)
 					clear = 0
 					break
 			if(clear)
-				L+=T
+				L+=turf
 
 	if(!length(L))
 		to_chat(user, span_warning("The spell matrix was unable to locate a suitable teleport destination for an unknown reason. Sorry."))

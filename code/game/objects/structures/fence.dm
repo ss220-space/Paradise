@@ -75,10 +75,10 @@
 		return FALSE
 	if(!in_range(src, user)) //To prevent TK and mech users from getting shocked
 		return FALSE
-	var/turf/T = get_turf(src)
-	var/obj/structure/cable/C = T.get_cable_node()
-	if(C)
-		if(electrocute_mob(user, C, src, 1, TRUE))
+	var/turf/turf = get_turf(src)
+	var/obj/structure/cable/cable = turf.get_cable_node()
+	if(cable)
+		if(electrocute_mob(user, cable, src, 1, TRUE))
 			do_sparks(3, TRUE, src)
 			return TRUE
 	return FALSE

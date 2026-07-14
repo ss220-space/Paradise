@@ -23,11 +23,11 @@
 
 	SEND_SIGNAL(src, COMSIG_LIVING_REVIVE, updating)
 	for(var/s in ownedSoullinks)
-		var/datum/soullink/S = s
-		S.ownerRevives(src)
+		var/datum/soullink/soullink = s
+		soullink.ownerRevives(src)
 	for(var/s in sharedSoullinks)
-		var/datum/soullink/S = s
-		S.sharerRevives(src)
+		var/datum/soullink/soullink = s
+		soullink.sharerRevives(src)
 
 	if(mind)
 		for(var/obj/effect/proc_holder/spell/spell as anything in mind.spell_list)

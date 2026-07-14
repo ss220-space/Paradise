@@ -556,16 +556,16 @@
 	qdel(src)
 
 /obj/item/bombcore/sdg17/proc/delete_unnecessary(center)
-	for(var/atom/A in range(35, center))
-		if(isliving(A))
-			var/mob/living/mob = A
+	for(var/atom/atom in range(35, center))
+		if(isliving(atom))
+			var/mob/living/mob = atom
 			mob.gib()
-		if(iscloset(A))
-			for(var/obj/item/I in A.contents)
-				qdel(I)
-			qdel(A)
-		if(istype(A, /obj/structure/safe) || isgun(A))
-			qdel(A)
+		if(iscloset(atom))
+			for(var/obj/item/item in atom.contents)
+				qdel(item)
+			qdel(atom)
+		if(istype(atom, /obj/structure/safe) || isgun(atom))
+			qdel(atom)
 
 /obj/item/bombcore/sdg17/defuse()
 	var/obj/item/bombcore/sdg17/C = loc

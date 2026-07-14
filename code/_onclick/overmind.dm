@@ -33,6 +33,6 @@
 		create_shield(T)
 
 /mob/camera/blob/proc/blob_click_alt(atom/A) //Remove a blob
-	var/turf/T = get_turf(A)
-	if(T)
-		remove_blob(T)
+	var/turf/turf = get_turf(A)
+	if(turf)
+		remove_blob(turf)

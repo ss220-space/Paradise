@@ -423,8 +423,8 @@
 	var/temperature_delta = air_contents.temperature() - occupant.bodytemperature // The only semi-realistic thing here: share temperature between the cell and the occupant.
 
 	if(ishuman(occupant))
-		var/mob/living/carbon/human/H = occupant
-		cold_protection = H.get_cold_protection(air_contents.temperature())
+		var/mob/living/carbon/human/human = occupant
+		cold_protection = human.get_cold_protection(air_contents.temperature())
 
 	if(abs(temperature_delta) > 1)
 		var/air_heat_capacity = air_contents.heat_capacity()

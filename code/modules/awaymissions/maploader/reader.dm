@@ -336,16 +336,16 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 	var/atom/instance
 	GLOB._preloader.setup(attributes, path)
 
-	var/turf/T = locate(x, y, z)
-	if(T)
+	var/turf/turf = locate(x, y, z)
+	if(turf)
 		// Turfs need special attention
 		if(ispath(path, /turf))
-			T.ChangeTurf(path, defer_change = TRUE, keep_icon = FALSE, copy_existing_baseturf = FALSE)
-			instance = T
+			turf.ChangeTurf(path, defer_change = TRUE, keep_icon = FALSE, copy_existing_baseturf = FALSE)
+			instance = turf
 		else
 			// Anything that isnt an area, init!
 			if(!ispath(path, /area))
-				instance = new path(T) // first preloader pass
+				instance = new path(turf) // first preloader pass
 
 	if(GLOB.use_preloader && instance) // second preloader pass, for those atoms that don't ..() in New()
 		GLOB._preloader.load(instance)

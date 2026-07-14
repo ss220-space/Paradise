@@ -309,8 +309,8 @@
 				sleep(10)
 			if(LAZYLEN(pilot) || LAZYLEN(passengers))
 				for(var/M in passengers + pilot)
-					var/mob/living/L = M
-					L.adjustBruteLoss(300)
+					var/mob/living/living = M
+					living.adjustBruteLoss(300)
 			explosion(loc, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 2, cause = src)
 			robogibs(loc)
 			robogibs(loc)
@@ -360,18 +360,18 @@
 /obj/spacepod/proc/play_sound_to_riders(mysound)
 	if(length(passengers | pilot) == 0)
 		return
-	var/sound/S = sound(mysound)
-	S.wait = 0 //No queue
-	S.channel = SSsounds.random_available_channel()
-	S.volume = 50
-	for(var/mob/M in passengers | pilot)
-		M << S
+	var/sound/sound = sound(mysound)
+	sound.wait = 0 //No queue
+	sound.channel = SSsounds.random_available_channel()
+	sound.volume = 50
+	for(var/mob/mob in passengers | pilot)
+		mob << sound
 
 /obj/spacepod/proc/message_to_riders(mymessage)
 	if(length(passengers | pilot) == 0)
 		return
-	for(var/mob/M in passengers | pilot)
-		to_chat(M, mymessage)
+	for(var/mob/mob in passengers | pilot)
+		to_chat(mob, mymessage)
 
 /obj/spacepod/attackby(obj/item/I, mob/user, params)
 	var/cached_damage = I.force
@@ -625,8 +625,8 @@
 		return
 
 	var/sum_w_class = 0
-	for(var/obj/item/I in cargo_hold.contents)
-		sum_w_class += I.w_class
+	for(var/obj/item/item in cargo_hold.contents)
+		sum_w_class += item.w_class
 	if(length(cargo_hold.contents) > cargo_hold.storage_slots - SPE.storage_mod["slots"] || sum_w_class > cargo_hold.max_combined_w_class - SPE.storage_mod["w_class"])
 		to_chat(user, span_warning("Сначала освободите [SPE.declent_ru(ACCUSATIVE)]!"))
 		return
@@ -660,12 +660,12 @@
 
 	L += src.contents
 
-	for(var/obj/item/storage/S in src)
-		L += S.return_inv()
-	for(var/obj/item/gift/G in src)
-		L += G.gift
-		if(isstorage(G.gift))
-			var/obj/item/storage/inv = G.gift
+	for(var/obj/item/storage/storage in src)
+		L += storage.return_inv()
+	for(var/obj/item/gift/gift in src)
+		L += gift.gift
+		if(isstorage(gift.gift))
+			var/obj/item/storage/inv = gift.gift
 			L += inv.return_inv()
 	return L
 
@@ -907,14 +907,14 @@
 				occupant.forceMove(get_turf(src))
 				log_debug("##SPACEPOD WARNING: passengers EXCEED CAP: MAX passengers [max_passengers], passengers [english_list(passengers)], TURF [get_turf(src)] | AREA [get_area(src)] | COORDS [x], [y], [z]")
 				passengers[i - 1] = null
-		for(var/mob/M in passengers)
-			if(!ismob(M))
-				M.forceMove(get_turf(src))
-				log_debug("##SPACEPOD WARNING: NON-MOB OCCUPANT [M], TURF [get_turf(src)] | AREA [get_area(src)] | COORDS [x], [y], [z]")
-				passengers -= M
-			else if(M.loc != src)
-				log_debug("##SPACEPOD WARNING: OCCUPANT [M] ESCAPED, TURF [get_turf(src)] | AREA [get_area(src)] | COORDS [x], [y], [z]")
-				passengers -= M
+		for(var/mob/mob in passengers)
+			if(!ismob(mob))
+				mob.forceMove(get_turf(src))
+				log_debug("##SPACEPOD WARNING: NON-MOB OCCUPANT [mob], TURF [get_turf(src)] | AREA [get_area(src)] | COORDS [x], [y], [z]")
+				passengers -= mob
+			else if(mob.loc != src)
+				log_debug("##SPACEPOD WARNING: OCCUPANT [mob] ESCAPED, TURF [get_turf(src)] | AREA [get_area(src)] | COORDS [x], [y], [z]")
+				passengers -= mob
 
 /obj/spacepod/proc/exit_pod(mob/user)
 	if(user.stat != CONSCIOUS) // unconscious people can't let themselves out
@@ -959,24 +959,24 @@
 		to_chat(user, span_notice("Вы не можете дотянуться до штурвала."))
 		return
 
-	for(var/obj/machinery/door/poddoor/multi_tile/P in orange(3, src))
-		var/mob/living/carbon/human/L = user
+	for(var/obj/machinery/door/poddoor/multi_tile/multi_tile in orange(3, src))
+		var/mob/living/carbon/human/human = user
 
-		if(P.check_access(L.get_active_hand()) || P.check_access(L.wear_id))
-			if(P.density)
-				P.open()
+		if(multi_tile.check_access(human.get_active_hand()) || multi_tile.check_access(human.wear_id))
+			if(multi_tile.density)
+				multi_tile.open()
 				return TRUE
 			else
-				P.close()
+				multi_tile.close()
 				return TRUE
 
-		for(var/mob/living/carbon/human/O in passengers)
-			if(P.check_access(O.get_active_hand()) || P.check_access(O.wear_id))
-				if(P.density)
-					P.open()
+		for(var/mob/living/carbon/human/passenger in passengers)
+			if(multi_tile.check_access(passenger.get_active_hand()) || multi_tile.check_access(passenger.wear_id))
+				if(multi_tile.density)
+					multi_tile.open()
 					return TRUE
 				else
-					P.close()
+					multi_tile.close()
 					return TRUE
 
 		balloon_alert(user, "нет доступа!")
@@ -1038,10 +1038,10 @@
 		var/obj/badlist = list(internal_tank, cargo_hold, pilot, battery) + passengers + equipment_system.installed_modules
 		var/list/true_contents = contents - badlist
 		if(length(true_contents) > 0)
-			var/obj/I = pick(true_contents)
-			if(user.put_in_any_hand_if_possible(I))
-				src.contents -= I
-				to_chat(user, span_notice("Вы находите [I.declent_ru(ACCUSATIVE)] [pick("под сиденьем", "под консолью", "в техническом отсеке")]!"))
+			var/obj/obj = pick(true_contents)
+			if(user.put_in_any_hand_if_possible(obj))
+				src.contents -= obj
+				to_chat(user, span_notice("Вы находите [obj.declent_ru(ACCUSATIVE)] [pick("под сиденьем", "под консолью", "в техническом отсеке")]!"))
 			else
 				to_chat(user, span_notice("Вы заметили что-то блестящее, но не можете достать!"))
 		else

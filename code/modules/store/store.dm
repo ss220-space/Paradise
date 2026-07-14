@@ -36,14 +36,14 @@ GLOBAL_DATUM_INIT(centcomm_store, /datum/store, new())
 		//testing("Not enough cash")
 		return 0
 	mind.initial_account.money -= amount
-	var/datum/transaction/T = new()
-	T.target_name = "[command_name()] Merchandising"
-	T.purpose = "Purchase of [item.name]"
-	T.amount = -amount
-	T.date = GLOB.current_date_string
-	T.time = station_time_timestamp()
-	T.source_terminal = "\[CLASSIFIED\] Terminal #[rand(111,333)]"
-	mind.initial_account.transaction_log.Add(T)
+	var/datum/transaction/transaction = new()
+	transaction.target_name = "[command_name()] Merchandising"
+	transaction.purpose = "Purchase of [item.name]"
+	transaction.amount = -amount
+	transaction.date = GLOB.current_date_string
+	transaction.time = station_time_timestamp()
+	transaction.source_terminal = "\[CLASSIFIED\] Terminal #[rand(111,333)]"
+	mind.initial_account.transaction_log.Add(transaction)
 	return 1
 
 /datum/store/proc/reconnect_database()

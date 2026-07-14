@@ -15,20 +15,20 @@ GLOBAL_DATUM_INIT(apc_repository, /datum/repository/apc, new())
 		var/list/L = list()
 		for(var/obj/machinery/power/terminal/term in powernet.nodes)
 			if(isapc(term.master))
-				var/obj/machinery/power/apc/A = term.master
-				L += A
+				var/obj/machinery/power/apc/apc = term.master
+				L += apc
 
 		var/list/Status = list("Off","AOff","On","AOn") // Status:  off, auto-off, on, auto-on
 		var/list/chg = list("N","C","F") // Charging: no, charging, full
-		for(var/obj/machinery/power/apc/A in L)
+		for(var/obj/machinery/power/apc/apc in L)
 			apcData[++apcData.len] = list(
-				"Name" = html_encode(A.area.name),
-				"Equipment" = Status[A.equipment_channel + 1],
-				"Lights" = Status[A.lighting_channel + 1],
-				"Environment" = Status[A.environment_channel + 1],
-				"CellPct" = A.cell ? round(A.cell.percent(), 1) : 0,
-				"CellStatus" = A.cell ? chg[A.charging + 1] : "M",
-				"Load" = round(A.last_used_total, 1)
+				"Name" = html_encode(apc.area.name),
+				"Equipment" = Status[apc.equipment_channel + 1],
+				"Lights" = Status[apc.lighting_channel + 1],
+				"Environment" = Status[apc.environment_channel + 1],
+				"CellPct" = apc.cell ? round(apc.cell.percent(), 1) : 0,
+				"CellStatus" = apc.cell ? chg[apc.charging + 1] : "M",
+				"Load" = round(apc.last_used_total, 1)
 			)
 
 	cache_entry.timestamp = world.time + 5 SECONDS

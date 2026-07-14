@@ -254,9 +254,9 @@ GLOBAL_LIST_EMPTY(GPS_list)
 
 /obj/item/gps/visible_debug/proc/clear()
 	while(length(tagged))
-		var/turf/T = pop(tagged)
-		T.color = initial(T.color)
-		T.maptext = initial(T.maptext)
+		var/turf/turf = pop(tagged)
+		turf.color = initial(turf.color)
+		turf.maptext = initial(turf.maptext)
 
 /obj/item/gps/visible_debug/Destroy()
 	if(tagged)

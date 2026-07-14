@@ -59,16 +59,16 @@ SUBSYSTEM_DEF(demo)
 	else if(islist(target))
 		var/list/target_keys = list()
 		for(var/T in target)
-			var/client/C = CLIENT_FROM_VAR(T)
-			if(C)
-				target_keys += C.ckey
+			var/client/client = CLIENT_FROM_VAR(T)
+			if(client)
+				target_keys += client.ckey
 		if(!length(target_keys))
 			return
 		target_text = jointext(target_keys, ",")
 	else
-		var/client/C = CLIENT_FROM_VAR(target)
-		if(C)
-			target_text = C.ckey
+		var/client/client = CLIENT_FROM_VAR(target)
+		if(client)
+			target_text = client.ckey
 		else
 			return
 	var/json_encoded = json_encode(text)
@@ -328,8 +328,8 @@ SUBSYSTEM_DEF(demo)
 
 	var/appearance_transform_string = "i"
 	if(appearance.transform)
-		var/matrix/M = appearance.transform
-		appearance_transform_string = "[M.a],[M.b],[M.c],[M.d],[M.e],[M.f]"
+		var/matrix/matrix = appearance.transform
+		appearance_transform_string = "[matrix.a],[matrix.b],[matrix.c],[matrix.d],[matrix.e],[matrix.f]"
 		if(appearance_transform_string == "1,0,0,0,1,0")
 			appearance_transform_string = "i"
 
@@ -388,8 +388,8 @@ SUBSYSTEM_DEF(demo)
 
 		var/diff_transform_string = "i"
 		if(diff_appearance.transform)
-			var/matrix/M = diff_appearance.transform
-			diff_transform_string = "[M.a],[M.b],[M.c],[M.d],[M.e],[M.f]"
+			var/matrix/matrix = diff_appearance.transform
+			diff_transform_string = "[matrix.a],[matrix.b],[matrix.c],[matrix.d],[matrix.e],[matrix.f]"
 			if(diff_transform_string == "1,0,0,0,1,0")
 				diff_transform_string = "i"
 

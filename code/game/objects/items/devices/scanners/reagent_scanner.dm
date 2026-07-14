@@ -66,14 +66,14 @@
 			flick("adv_spectrometer_anim", src)
 		sleep(50)
 
-		var/obj/item/paper/P = new(drop_location())
-		P.name = "Reagent Scanner Report: [station_time_timestamp()]"
-		P.info = "<center><b>Reagent Scanner</b></center><br><center>Data Analysis:</center><br><hr><br><b>Chemical agents detected:</b><br> [datatoprint]<br><hr>"
+		var/obj/item/paper/paper = new(drop_location())
+		paper.name = "Reagent Scanner Report: [station_time_timestamp()]"
+		paper.info = "<center><b>Reagent Scanner</b></center><br><center>Data Analysis:</center><br><hr><br><b>Chemical agents detected:</b><br> [datatoprint]<br><hr>"
 
 		if(ismob(loc))
-			var/mob/M = loc
-			M.put_in_hands(P, ignore_anim = FALSE)
-			to_chat(M, span_notice("Report printed. Log cleared."))
+			var/mob/mob = loc
+			mob.put_in_hands(paper, ignore_anim = FALSE)
+			to_chat(mob, span_notice("Report printed. Log cleared."))
 			datatoprint = ""
 			scanning = TRUE
 	else

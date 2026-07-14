@@ -117,8 +117,8 @@
 			user.put_in_hands(printout, ignore_anim = FALSE)
 			time_to_use = world.time + scan_cd
 			if(isrobot(user))
-				var/mob/living/silicon/robot/R = user
-				R.cell.use(usecharge)
+				var/mob/living/silicon/robot/robot = user
+				robot.cell.use(usecharge)
 			else
 				cell.use(usecharge)
 			ready = FALSE
@@ -155,8 +155,8 @@
 
 	var/found_disease = FALSE
 	for(var/thing in target.diseases)
-		var/datum/disease/D = thing
-		if(D.visibility_flags & HIDDEN_SCANNER)
+		var/datum/disease/disease = thing
+		if(disease.visibility_flags & HIDDEN_SCANNER)
 			continue
 		found_disease = TRUE
 		break

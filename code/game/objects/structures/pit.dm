@@ -90,10 +90,10 @@
 
 /obj/structure/pit/proc/take_contents()
 	var/itemcount = 0
-	for(var/atom/movable/A  in loc)
-		if(A.density || A.anchored || A == src || open)
+	for(var/atom/movable/movable  in loc)
+		if(movable.density || movable.anchored || movable == src || open)
 			continue
-		A.forceMove(src)
+		movable.forceMove(src)
 		itemcount += 1
 		if(itemcount >= storage_capacity)
 			break
@@ -102,35 +102,35 @@
 	name = "pit"
 	desc = "Watch your step, partner."
 	open = TRUE
-	for(var/atom/movable/A in src)
-		A.forceMove(src.loc)
-		if(iscarbon(A))
-			var/mob/living/carbon/M = A
-			M.update_tint()
-		if(iscloset(A))
-			for(var/mob/living/carbon/M in A.contents)
-				M.update_tint()
+	for(var/atom/movable/movable in src)
+		movable.forceMove(src.loc)
+		if(iscarbon(movable))
+			var/mob/living/carbon/carbon = movable
+			carbon.update_tint()
+		if(iscloset(movable))
+			for(var/mob/living/carbon/carbon in movable.contents)
+				carbon.update_tint()
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/pit/proc/close(user)
 	name = "mound"
 	desc = "Some things are better left buried."
 	open = FALSE
-	for(var/atom/movable/A in src.loc)
-		if(isliving(A))
-			var/mob/living/mob = A
+	for(var/atom/movable/movable in src.loc)
+		if(isliving(movable))
+			var/mob/living/mob = movable
 			if(mob.mob_size > MOB_SIZE_HUMAN)
 				continue
-		if(ismecha(A))
+		if(ismecha(movable))
 			continue
-		if(!A.anchored && A != user)
-			A.forceMove(src)
-			if(iscarbon(A))
-				var/mob/living/carbon/M = A
-				M.overlay_fullscreen("tint", /atom/movable/screen/fullscreen/blind)
-			if(iscloset(A))
-				for(var/mob/living/carbon/M in A.contents)
-					M.overlay_fullscreen("tint", /atom/movable/screen/fullscreen/blind)
+		if(!movable.anchored && movable != user)
+			movable.forceMove(src)
+			if(iscarbon(movable))
+				var/mob/living/carbon/carbon = movable
+				carbon.overlay_fullscreen("tint", /atom/movable/screen/fullscreen/blind)
+			if(iscloset(movable))
+				for(var/mob/living/carbon/carbon in movable.contents)
+					carbon.overlay_fullscreen("tint", /atom/movable/screen/fullscreen/blind)
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/pit/container_resist_act(mob/escapee)

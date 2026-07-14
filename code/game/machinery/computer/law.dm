@@ -139,10 +139,10 @@
 		var/mob/living/silicon/ai/AI = current
 		if(AI.deployed_shell)
 			AI.deployed_shell.show_laws()
-	for(var/mob/living/silicon/robot/R in GLOB.mob_list)
-		if(R.lawupdate && (R.connected_ai == current))
-			to_chat(R, "These are your laws now:")
-			R.show_laws()
+	for(var/mob/living/silicon/robot/robot in GLOB.mob_list)
+		if(robot.lawupdate && (robot.connected_ai == current))
+			to_chat(robot, "These are your laws now:")
+			robot.show_laws()
 	atom_say("Upload complete. The laws have been modified.")
 
 /obj/machinery/computer/aiupload/proc/stop_upload(silent = FALSE)

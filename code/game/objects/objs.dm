@@ -149,13 +149,13 @@
 	if(in_use)
 		var/is_in_use = FALSE
 		var/list/nearby = viewers(1, src)
-		for(var/mob/M in nearby)
-			if(M.client && M.machine == src)
+		for(var/mob/mob in nearby)
+			if(mob.client && mob.machine == src)
 				is_in_use = TRUE
-				src.attack_hand(M)
+				src.attack_hand(mob)
 		if(isAI(usr) || isrobot(usr))
 			if(!(usr in nearby))
-				if(usr.client && usr.machine==src) // && M.machine == src is omitted because if we triggered this by using the dialog, it doesn't matter if our machine changed in between triggering it and this - the dialog is probably still supposed to refresh.
+				if(usr.client && usr.machine==src) // && mob.machine == src is omitted because if we triggered this by using the dialog, it doesn't matter if our machine changed in between triggering it and this - the dialog is probably still supposed to refresh.
 					is_in_use = TRUE
 					src.attack_ai(usr)
 
@@ -174,10 +174,10 @@
 	if(in_use)
 		var/list/nearby = viewers(1, src)
 		var/is_in_use = FALSE
-		for(var/mob/M in nearby)
-			if(M.client && M.machine == src)
+		for(var/mob/mob in nearby)
+			if(mob.client && mob.machine == src)
 				is_in_use = TRUE
-				src.interact(M)
+				src.interact(mob)
 		var/ai_in_use = AutoUpdateAI(src)
 
 		if(!ai_in_use && !is_in_use)
@@ -211,9 +211,9 @@
 		RegisterSignal(O, COMSIG_QDELETING, PROC_REF(unset_machine))
 
 /obj/item/proc/updateSelfDialog()
-	var/mob/M = src.loc
-	if(istype(M) && M.client && M.machine == src)
-		src.attack_self(M)
+	var/mob/mob = src.loc
+	if(istype(mob) && mob.client && mob.machine == src)
+		src.attack_self(mob)
 
 /obj/proc/hear_talk(mob/speaker, list/message_pieces)
 	SHOULD_CALL_PARENT(TRUE)

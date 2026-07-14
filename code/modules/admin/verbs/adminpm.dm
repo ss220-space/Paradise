@@ -215,17 +215,17 @@ ADMIN_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM b
 
 	log_admin("PM: [key_name(src)]->[key_name(C)]: [msg]")
 	//we don't use message_admins here because the sender/receiver might get it too
-	for(var/client/X in GLOB.admins)
-		//check client/X is an admin and isn't the sender or recipient
-		if(X == C || X == src)
+	for(var/client/client in GLOB.admins)
+		//check client/client is an admin and isn't the sender or recipient
+		if(client == C || client == src)
 			continue
-		if(X.key != key && X.key != C.key)
+		if(client.key != key && client.key != C.key)
 			if(message_type == MESSAGE_TYPE_MENTORPM)
-				if(check_rights(R_ADMIN|R_MOD|R_MENTOR, FALSE, X.mob))
-					to_chat(X, third_party_message, MESSAGE_TYPE_MENTORPM)
+				if(check_rights(R_ADMIN|R_MOD|R_MENTOR, FALSE, client.mob))
+					to_chat(client, third_party_message, MESSAGE_TYPE_MENTORPM)
 			else
-				if(check_rights(R_ADMIN|R_MOD, FALSE, X.mob))
-					to_chat(X, third_party_message, MESSAGE_TYPE_ADMINPM)
+				if(check_rights(R_ADMIN|R_MOD, FALSE, client.mob))
+					to_chat(client, third_party_message, MESSAGE_TYPE_ADMINPM)
 
 	if(length(tickets))
 		tickets_system.addResponse(tickets, src, msg)
@@ -259,11 +259,11 @@ ADMIN_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM b
 	to_chat(src, span_discordpm("PM to-<b>Discord Admins</b>: [msg]"), MESSAGE_TYPE_ADMINPM, confidential = TRUE)
 
 	log_admin("PM: [key_name(src)]->Discord: [msg]")
-	for(var/client/X in GLOB.admins)
-		if(X == src)
+	for(var/client/client in GLOB.admins)
+		if(client == src)
 			continue
-		if(check_rights(R_ADMIN, FALSE, X.mob))
-			to_chat(X, span_discordpm("[span_bold("PM: [key_name_admin(src)]-&gt;Discord Admins:")] [span_notice(msg)]"), confidential = TRUE)
+		if(check_rights(R_ADMIN, FALSE, client.mob))
+			to_chat(client, span_discordpm("[span_bold("PM: [key_name_admin(src)]-&gt;Discord Admins:")] [span_notice(msg)]"), confidential = TRUE)
 
 /client/verb/open_pms_ui()
 	set name = "ЛС"
@@ -388,16 +388,16 @@ ADMIN_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM b
 	open = TRUE
 
 /datum/pm_tracker/proc/fancy_title(title)
-	var/client/C = pms[title].client || update_client(title)
-	if(!C)
+	var/client/client = pms[title].client || update_client(title)
+	if(!client)
 		return "[title] (Disconnected)"
-	return "[key_name(C, FALSE)] ([ADMIN_QUE(C.mob,"?")]) ([ADMIN_PP(C.mob,"PP")]) ([ADMIN_VV(C.mob,"VV")]) ([ADMIN_TP(C.mob,"TP")]) ([ADMIN_SM(C.mob,"SM")]) ([admin_jump_link(C.mob)]) ([ADMIN_OBS(C, "OBS")])"
+	return "[key_name(client, FALSE)] ([ADMIN_QUE(client.mob,"?")]) ([ADMIN_PP(client.mob,"PP")]) ([ADMIN_VV(client.mob,"VV")]) ([ADMIN_TP(client.mob,"TP")]) ([ADMIN_SM(client.mob,"SM")]) ([admin_jump_link(client.mob)]) ([ADMIN_OBS(client, "OBS")])"
 
 /datum/pm_tracker/proc/update_client(title)
-	var/client/C = GLOB.directory[ckey(title)]
-	if(C)
-		pms[title].client = C
-		return C
+	var/client/client = GLOB.directory[ckey(title)]
+	if(client)
+		pms[title].client = client
+		return client
 	return null
 
 /datum/pm_tracker/Topic(href, href_list)

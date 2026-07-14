@@ -51,10 +51,10 @@
 
 /mob/living/simple_animal/hostile/guardian/fire/proc/collision_ignite(atom/movable/AM)
 	if(isliving(AM))
-		var/mob/living/M = AM
-		if(AM != summoner && M.fire_stacks < 7)
-			M.fire_stacks = 7
-			M.IgniteMob()
+		var/mob/living/living = AM
+		if(AM != summoner && living.fire_stacks < 7)
+			living.fire_stacks = 7
+			living.IgniteMob()
 
 /obj/effect/proc_holder/spell/aoe/guardian_hallucination
 	name = "Волна галлюцинаций"

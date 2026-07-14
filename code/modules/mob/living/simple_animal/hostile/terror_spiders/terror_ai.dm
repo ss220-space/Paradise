@@ -249,17 +249,17 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/seek_cocoon_target()
 	last_cocoon_object = world.time
 	var/list/can_see = view(src, 10)
-	for(var/mob/living/C in can_see)
-		if(C.stat == DEAD && !isterrorspider(C) && !C.anchored)
+	for(var/mob/living/living in can_see)
+		if(living.stat == DEAD && !isterrorspider(living) && !living.anchored)
 			spider_steps_taken = 0
-			cocoon_target = C
+			cocoon_target = living
 			return
-	for(var/obj/O in can_see)
-		if(O.anchored)
+	for(var/obj/obj in can_see)
+		if(obj.anchored)
 			continue
-		if(isitem(O) || isstructure(O) || ismachinery(O))
-			if(!istype(O, /obj/item/paper))
-				cocoon_target = O
+		if(isitem(obj) || isstructure(obj) || ismachinery(obj))
+			if(!istype(obj, /obj/item/paper))
+				cocoon_target = obj
 				stop_automated_movement = 1
 				spider_steps_taken = 0
 				return
@@ -277,14 +277,14 @@
 			chasecycles = 0
 			if(spider_opens_doors)
 				var/tgt_dir = get_dir(src,mygoal)
-				for(var/obj/machinery/door/airlock/A in view(1, src))
-					if(A.density)
+				for(var/obj/machinery/door/airlock/airlock in view(1, src))
+					if(airlock.density)
 						spawn(0)
-							try_open_airlock(A)
-				for(var/obj/machinery/door/firedoor/F in view(1, src))
-					if(tgt_dir == get_dir(src,F) && F.density && !F.welded)
-						visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] открывает [F.declent_ru(ACCUSATIVE)]!"))
-						F.open()
+							try_open_airlock(airlock)
+				for(var/obj/machinery/door/firedoor/firedoor in view(1, src))
+					if(tgt_dir == get_dir(src,firedoor) && firedoor.density && !firedoor.welded)
+						visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] открывает [firedoor.declent_ru(ACCUSATIVE)]!"))
+						firedoor.open()
 
 	else
 		mylocation = m2
@@ -343,31 +343,31 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/ListValidTurfs()
 	var/list/potentials = list()
-	for(var/turf/simulated/T in oview(3,get_turf(src)))
-		if(T.density == 0 && get_dist(get_turf(src),T) == 3)
-			var/obj/structure/spider/terrorweb/W = locate() in T
-			if(!W)
-				var/obj/structure/grille/G = locate() in T
-				if(!G)
-					var/obj/structure/window/O = locate() in T
-					if(!O)
-						potentials += T
+	for(var/turf/simulated/simulated in oview(3,get_turf(src)))
+		if(simulated.density == 0 && get_dist(get_turf(src),simulated) == 3)
+			var/obj/structure/spider/terrorweb/terrorweb = locate() in simulated
+			if(!terrorweb)
+				var/obj/structure/grille/grille = locate() in simulated
+				if(!grille)
+					var/obj/structure/window/window = locate() in simulated
+					if(!window)
+						potentials += simulated
 	return potentials
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/ListWebbedTurfs()
 	var/list/webbed = list()
-	for(var/turf/simulated/T in oview(3,get_turf(src)))
-		if(T.density == 0 && get_dist(get_turf(src),T) == 3)
-			var/obj/structure/spider/terrorweb/W = locate() in T
-			if(W)
-				webbed += T
+	for(var/turf/simulated/simulated in oview(3,get_turf(src)))
+		if(simulated.density == 0 && get_dist(get_turf(src),simulated) == 3)
+			var/obj/structure/spider/terrorweb/terrorweb = locate() in simulated
+			if(terrorweb)
+				webbed += simulated
 	return webbed
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/ListVisibleTurfs()
 	var/list/vturfs = list()
-	for(var/turf/simulated/T in oview(7,get_turf(src)))
-		if(T.density == 0)
-			vturfs += T
+	for(var/turf/simulated/simulated in oview(7,get_turf(src)))
+		if(simulated.density == 0)
+			vturfs += simulated
 	return vturfs
 
 /mob/living/simple_animal/hostile/poison/terror_spider/DestroySurroundings()
@@ -380,6 +380,6 @@
 // --------------------------------------------------------------------------------
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/UnlockBlastDoors(target_id_tag)
-	for(var/obj/machinery/door/poddoor/P in GLOB.airlocks)
-		if(P.density && P.id_tag == target_id_tag && P.z == z && !P.operating)
-			P.open()
+	for(var/obj/machinery/door/poddoor/poddoor in GLOB.airlocks)
+		if(poddoor.density && poddoor.id_tag == target_id_tag && poddoor.z == z && !poddoor.operating)
+			poddoor.open()

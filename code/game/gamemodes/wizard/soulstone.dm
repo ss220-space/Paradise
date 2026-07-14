@@ -257,14 +257,14 @@
 	return
 
 /obj/item/soulstone/proc/release_shades(mob/user)
-	for(var/mob/living/simple_animal/shade/A in src)
-		A.forceMove(get_turf(user))
-		A.cancel_camera()
+	for(var/mob/living/simple_animal/shade/shade in src)
+		shade.forceMove(get_turf(user))
+		shade.cancel_camera()
 		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
-		if(iscultist(A))
-			to_chat(A, span_userdanger("You have been released from your prison, but you are still bound to the cult's will. Help them succeed in their goals at all costs."))
+		if(iscultist(shade))
+			to_chat(shade, span_userdanger("You have been released from your prison, but you are still bound to the cult's will. Help them succeed in their goals at all costs."))
 		else
-			to_chat(A, span_userdanger("You have been released from your prison, but you are still bound to your [purified ? "saviour" : "creator"]'s will."))
+			to_chat(shade, span_userdanger("You have been released from your prison, but you are still bound to your [purified ? "saviour" : "creator"]'s will."))
 		was_used()
 
 ///////////////////////////Transferring to constructs/////////////////////////////////////////////////////
@@ -367,51 +367,51 @@
 /obj/item/soulstone/proc/transfer_soul(choice, target, mob/living/user)
 	switch(choice)
 		if("FORCE")
-			var/mob/living/T = target
-			if(T.client && T.ghost_can_reenter())
-				init_shade(T, user)
+			var/mob/living/living = target
+			if(living.client && living.ghost_can_reenter())
+				init_shade(living, user)
 			else
 				to_chat(user, "[span_userdanger("Capture failed!")] The soul has already fled its mortal frame. You attempt to bring it back...")
-				T.Paralyse(40 SECONDS)
-				if(!get_cult_ghost(T, user, TRUE))
-					T.dust() //If we can't get a ghost, kill the sacrifice anyway.
+				living.Paralyse(40 SECONDS)
+				if(!get_cult_ghost(living, user, TRUE))
+					living.dust() //If we can't get a ghost, kill the sacrifice anyway.
 
 		if("VICTIM")
-			var/mob/living/carbon/human/T = target
-			if(T.stat == 0)
+			var/mob/living/carbon/human/living = target
+			if(living.stat == 0)
 				to_chat(user, "[span_danger("Capture failed!")] Kill or maim the victim first!")
 			else
-				if(!length(T.client_mobs_in_contents))
+				if(!length(living.client_mobs_in_contents))
 					to_chat(user, span_warning("They have no soul!"))
 				else
-					if(T.client == null)
+					if(living.client == null)
 						to_chat(user, "[span_userdanger("Capture failed!")] The soul has already fled its mortal frame. You attempt to bring it back...")
-						get_cult_ghost(T, user, !T.ghost_can_reenter())
+						get_cult_ghost(living, user, !living.ghost_can_reenter())
 					else
 						if(length(contents))
 							to_chat(user, "[span_danger("Capture failed!")] The soul stone is full! Use or free an existing soul to make room.")
 						else
-							init_shade(T, user, TRUE)
+							init_shade(living, user, TRUE)
 
 		if("SHADE")
-			var/mob/living/simple_animal/shade/T = target
+			var/mob/living/simple_animal/shade/living = target
 			if(!can_use(user))
 				user.Weaken(10 SECONDS)
 				to_chat(user, span_userdanger("Your body is wracked with debilitating pain!"))
 				return
-			if(T.stat == DEAD)
+			if(living.stat == DEAD)
 				to_chat(user, "[span_danger("Capture failed!")] The shade has already been banished!")
-			if((iscultist(T) && purified) || (T.holy && !purified))
+			if((iscultist(living) && purified) || (living.holy && !purified))
 				to_chat(user, "[span_danger("Capture failed!")] The shade recoils away from [src]!")
 			else
 				if(length(contents))
 					to_chat(user, "[span_danger("Capture failed!")]: The soul stone is full! Use or free an existing soul to make room.")
 				else
-					T.forceMove(src) // Put the shade into the stone.
-					T.health = T.maxHealth
+					living.forceMove(src) // Put the shade into the stone.
+					living.health = living.maxHealth
 					update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
-					to_chat(T, span_notice("Your soul has been recaptured by the soul stone, its arcane energies are reknitting your ethereal form"))
-					to_chat(user, "[span_notice("Capture successful!")] [T.name]'s has been recaptured and stored within the soul stone.")
+					to_chat(living, span_notice("Your soul has been recaptured by the soul stone, its arcane energies are reknitting your ethereal form"))
+					to_chat(user, "[span_notice("Capture successful!")] [living.name]'s has been recaptured and stored within the soul stone.")
 
 		if("CONSTRUCT")
 			var/obj/structure/constructshell/shell = target
@@ -442,9 +442,9 @@
 					construct_choice = show_radial_menu(user, shell, construct_icons, custom_check = CALLBACK(src, PROC_REF(radial_check), user), require_near = TRUE)
 					picked_class = construct_types[construct_choice]
 				if((picked_class && !QDELETED(shell) && !QDELETED(src)) && shell.IsReachableBy(user, reach) && !user.incapacitated() && radial_check(user))
-					var/mob/living/simple_animal/hostile/construct/C = new picked_class(shell.loc)
-					C.init_construct(shade, src, shell)
-					to_chat(C, C.playstyle_string)
+					var/mob/living/simple_animal/hostile/construct/construct = new picked_class(shell.loc)
+					construct.init_construct(shade, src, shell)
+					to_chat(construct, construct.playstyle_string)
 					was_used()
 			else
 				to_chat(user, "[span_danger("Creation failed!")] The soul stone is empty! Go kill someone!")
@@ -453,8 +453,8 @@
 	if(!ishuman(user)) // Should never happen, but just in case
 		return FALSE
 
-	var/mob/living/carbon/human/H = user
-	if(!H.is_type_in_hands(src)) // Not holding the soulstone
+	var/mob/living/carbon/human/human = user
+	if(!human.is_type_in_hands(src)) // Not holding the soulstone
 		return FALSE
 	return TRUE
 
@@ -468,9 +468,9 @@
 
 	else if(iscultist(src)) // Re-grant cult actions, lost in the transfer
 		var/datum/action/innate/cult/comm/CC = new
-		var/datum/action/innate/cult/check_progress/D = new
+		var/datum/action/innate/cult/check_progress/check_progress = new
 		CC.Grant(src)
-		D.Grant(src)
+		check_progress.Grant(src)
 		SSticker.mode.cult_objs.study(src) // Display objectives again
 		to_chat(src, span_userdanger("You are still bound to serve the cult, follow their orders and help them complete their goals at all costs."))
 	else
@@ -483,52 +483,52 @@
 /proc/make_new_construct(mob/living/simple_animal/hostile/construct/c_type, mob/target, mob/user, cult_override = FALSE)
 	if(jobban_isbanned(target, "cultist"))
 		return
-	var/mob/living/simple_animal/hostile/construct/C = new c_type(get_turf(target))
+	var/mob/living/simple_animal/hostile/construct/construct = new c_type(get_turf(target))
 
 	if(istype(c_type, /mob/living/simple_animal/hostile/construct/harvester))
 		var/datum/effect_system/fluid_spread/smoke/sleeping/smoke = new
 		smoke.set_up(amount = 5, location = target.loc)
 		smoke.start()
 
-	C.faction |= PERSONAL_FACTION(user)
-	C.possess_by_player(target.key)
+	construct.faction |= PERSONAL_FACTION(user)
+	construct.possess_by_player(target.key)
 	if(user && iscultist(user) || cult_override)
-		SSticker.mode.add_cultist(C.mind)
-		SSticker.mode.update_cult_icons_added(C.mind)
+		SSticker.mode.add_cultist(construct.mind)
+		SSticker.mode.update_cult_icons_added(construct.mind)
 	if(user && iscultist(user))
-		to_chat(C, "<b>You are still bound to serve the cult, follow their orders and help them complete their goals at all costs.</b>")
+		to_chat(construct, "<b>You are still bound to serve the cult, follow their orders and help them complete their goals at all costs.</b>")
 	else
-		to_chat(C, "<b>You are still bound to serve your creator, follow their orders and help them complete their goals at all costs.</b>")
-	C.cancel_camera()
+		to_chat(construct, "<b>You are still bound to serve your creator, follow their orders and help them complete their goals at all costs.</b>")
+	construct.cancel_camera()
 
 /obj/item/soulstone/proc/init_shade(mob/living/M, mob/user, forced = FALSE)
 	var/type = get_shade_type()
-	var/mob/living/simple_animal/shade/S = new type(src)
+	var/mob/living/simple_animal/shade/shade = new type(src)
 
-	S.name = "Shade of [M.real_name]"
-	S.real_name = "Shade of [M.real_name]"
-	S.possess_by_player(M.key)
-	S.cancel_camera()
+	shade.name = "Shade of [M.real_name]"
+	shade.real_name = "Shade of [M.real_name]"
+	shade.possess_by_player(M.key)
+	shade.cancel_camera()
 
 	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
-	log_game("[S.key] has become [S.name] with [purified ? "holy" : "corrupted"] essence.")
+	log_game("[shade.key] has become [shade.name] with [purified ? "holy" : "corrupted"] essence.")
 	if(user)
-		S.faction |= PERSONAL_FACTION(user)//Add the master as a faction, allowing inter-mob cooperation
+		shade.faction |= PERSONAL_FACTION(user)//Add the master as a faction, allowing inter-mob cooperation
 
-		if(S.mind)
+		if(shade.mind)
 			if(iswizard(user))
-				SSticker.mode.update_wiz_icons_added(S.mind)
-				S.mind.special_role = SPECIAL_ROLE_WIZARD_APPRENTICE
+				SSticker.mode.update_wiz_icons_added(shade.mind)
+				shade.mind.special_role = SPECIAL_ROLE_WIZARD_APPRENTICE
 
 			if(iscultist(user))
-				SSticker.mode.add_cultist(S.mind)
-				S.mind.special_role = SPECIAL_ROLE_CULTIST
-				S.mind.store_memory("<b>Serve the cult's will.</b>")
-				to_chat(S, span_userdanger("Your soul has been captured! You are now bound to the cult's will. Help them succeed in their goals at all costs."))
+				SSticker.mode.add_cultist(shade.mind)
+				shade.mind.special_role = SPECIAL_ROLE_CULTIST
+				shade.mind.store_memory("<b>Serve the cult's will.</b>")
+				to_chat(shade, span_userdanger("Your soul has been captured! You are now bound to the cult's will. Help them succeed in their goals at all costs."))
 
 			else
-				S.mind.store_memory("<b>Serve [user.real_name], your creator.</b>")
-				to_chat(S, span_userdanger("Your soul has been captured! You are now bound to [user.real_name]'s will. Help them succeed in their goals at all costs."))
+				shade.mind.store_memory("<b>Serve [user.real_name], your creator.</b>")
+				to_chat(shade, span_userdanger("Your soul has been captured! You are now bound to [user.real_name]'s will. Help them succeed in their goals at all costs."))
 
 	if(forced && user)
 		to_chat(user, "[span_notice("<b>Capture successful!</b>:")] [M.real_name]'s soul has been ripped from [user.p_their()] body and stored within the soul stone.")
@@ -537,8 +537,8 @@
 		M.dust()
 
 	else
-		for(var/obj/item/I in M)
-			M.drop_item_ground(I)
+		for(var/obj/item/item in M)
+			M.drop_item_ground(item)
 
 		M.dust()
 

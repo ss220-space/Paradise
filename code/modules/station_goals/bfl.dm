@@ -261,8 +261,8 @@
 	storage_slots = 20
 
 /obj/item/storage/bag/ore/bfl_storage/proc/empty_storage(turf/location)
-	for(var/obj/item/I in contents)
-		remove_from_storage(I, location)
+	for(var/obj/item/item in contents)
+		remove_from_storage(item, location)
 		CHECK_TICK
 
 /obj/machinery/bfl_receiver
@@ -394,15 +394,15 @@
 /obj/machinery/bfl_receiver/proc/receiver_activate()
 	state = TRUE
 	update_icon(UPDATE_ICON_STATE)
-	var/turf/T = get_turf(src)
-	T.ChangeTurf(/turf/simulated/floor/chasm/straight_down/lava_land_surface)
+	var/turf/turf = get_turf(src)
+	turf.ChangeTurf(/turf/simulated/floor/chasm/straight_down/lava_land_surface)
 
 /obj/machinery/bfl_receiver/proc/receiver_deactivate()
 	var/turf/turf_under = get_step(src, SOUTH)
-	var/turf/T = get_turf(src)
+	var/turf/turf = get_turf(src)
 	state = FALSE
 	update_icon(UPDATE_ICON_STATE)
-	T.ChangeTurf(turf_under.type)
+	turf.ChangeTurf(turf_under.type)
 
 /obj/machinery/bfl_receiver/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
@@ -614,9 +614,9 @@
 
 /obj/effect/bfl_laser/proc/burn_stuff(atom/movable/AM)
 	. = FALSE
-	var/turf/T = get_turf(src)
-	if(!isopenspaceturf(T) && !isspaceturf(T)) //we're not open. REOPEN
-		T.ChangeTurf(T.baseturf)
+	var/turf/turf = get_turf(src)
+	if(!isopenspaceturf(turf) && !isspaceturf(turf)) //we're not open. REOPEN
+		turf.ChangeTurf(turf.baseturf)
 
 	var/thing_to_check = get_turf(src)
 	if(AM)
@@ -625,30 +625,30 @@
 		if(thing == src)
 			continue
 		if(isobj(thing))
-			var/obj/O = thing
-			if(!O.simulated)
+			var/obj/obj = thing
+			if(!obj.simulated)
 				continue
-			if((O.resistance_flags & (FIRE_PROOF)) && !(O.resistance_flags & FLAMMABLE) || O.throwing)
+			if((obj.resistance_flags & (FIRE_PROOF)) && !(obj.resistance_flags & FLAMMABLE) || obj.throwing)
 				continue
 			. = TRUE
-			if(O.armor.getRating("fire") > 50) //obj with 100% fire armor still get slowly burned away.
-				O.armor = O.armor.setRating(fire_value = 50)
-			O.fire_act(2000, 1000)
+			if(obj.armor.getRating("fire") > 50) //obj with 100% fire armor still get slowly burned away.
+				obj.armor = obj.armor.setRating(fire_value = 50)
+			obj.fire_act(2000, 1000)
 
 		else if(isliving(thing))
 			. = TRUE
-			var/mob/living/L = thing
-			var/buckle_check = L.buckling
+			var/mob/living/living = thing
+			var/buckle_check = living.buckling
 			if(!buckle_check)
-				buckle_check = L.buckled
+				buckle_check = living.buckled
 			if(isobj(buckle_check))
-				var/obj/O = buckle_check
-				if(O.resistance_flags & FIRE_PROOF)
+				var/obj/obj = buckle_check
+				if(obj.resistance_flags & FIRE_PROOF)
 					continue
-			L.adjustFireLoss(10)
-			if(L) //mobs turning into object corpses could get deleted here.
-				L.adjust_fire_stacks(10)
-				L.IgniteMob()
+			living.adjustFireLoss(10)
+			if(living) //mobs turning into object corpses could get deleted here.
+				living.adjust_fire_stacks(10)
+				living.IgniteMob()
 	if(.)
 		playsound(src, 'sound/weapons/sear.ogg', 50, TRUE, -4)
 

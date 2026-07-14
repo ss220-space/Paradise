@@ -43,9 +43,9 @@ GLOBAL_PROTECT(log_end)
 	if(CONFIG_GET(flag/log_debug))
 		WRITE_LOG(GLOB.world_game_log, "DEBUG: [text][GLOB.log_end]")
 
-	for(var/client/C in GLOB.admins)
-		if(check_rights(R_DEBUG|R_VIEWRUNTIMES, FALSE, C.mob) && (C.prefs.toggles & PREFTOGGLE_CHAT_DEBUGLOGS))
-			to_chat(C, span_debug("DEBUG: [text]"), MESSAGE_TYPE_DEBUG, confidential = TRUE)
+	for(var/client/client in GLOB.admins)
+		if(check_rights(R_DEBUG|R_VIEWRUNTIMES, FALSE, client.mob) && (client.prefs.toggles & PREFTOGGLE_CHAT_DEBUGLOGS))
+			to_chat(client, span_debug("DEBUG: [text]"), MESSAGE_TYPE_DEBUG, confidential = TRUE)
 
 /proc/log_game(text)
 	if(CONFIG_GET(flag/log_game))
@@ -211,9 +211,9 @@ GLOBAL_PROTECT(log_end)
 #ifdef REFERENCE_TRACKING
 /proc/log_gc(text)
 	rustg_log_write(GLOB.gc_log, "[text][GLOB.log_end]", "true")
-	for(var/client/C in GLOB.admins)
-		if(check_rights(R_DEBUG | R_VIEWRUNTIMES, FALSE, C.mob) && (C.prefs.toggles & PREFTOGGLE_CHAT_DEBUGLOGS))
-			to_chat(C, "GC DEBUG: [text]")
+	for(var/client/client in GLOB.admins)
+		if(check_rights(R_DEBUG | R_VIEWRUNTIMES, FALSE, client.mob) && (client.prefs.toggles & PREFTOGGLE_CHAT_DEBUGLOGS))
+			to_chat(client, "GC DEBUG: [text]")
 #endif
 
 /proc/log_sql(text)
@@ -245,19 +245,19 @@ GLOBAL_PROTECT(log_end)
 		return
 	if(!ismob(d))
 		return "[d] ([d.type])"
-	var/mob/m = d
-	return "[m] ([m.ckey]) ([m.type])"
+	var/mob/mob = d
+	return "[mob] ([mob.ckey]) ([mob.type])"
 
 /proc/atom_loc_line(atom/A)
 	if(!istype(A))
 		return "(INVALID LOCATION)"
 
-	var/turf/T = A
-	if(!istype(T))
-		T = get_turf(A)
+	var/turf/turf = A
+	if(!istype(turf))
+		turf = get_turf(A)
 
-	if(istype(T))
-		return "([AREACOORD(T)])"
+	if(istype(turf))
+		return "([AREACOORD(turf)])"
 	else if(A.loc)
 		return "(UNKNOWN (?, ?, ?))"
 
@@ -333,8 +333,8 @@ GLOBAL_PROTECT(log_end)
 			else if(!MU.ckey || !MT.ckey || (MU.ckey == MT.ckey)) // Player v NPC combat is de-prioritized. Also no self-harm, nobody cares
 				loglevel = ATKLOG_ALMOSTALL
 		else
-			var/area/A = get_area(MT)
-			if(A?.hide_attacklogs)
+			var/area/area = get_area(MT)
+			if(area?.hide_attacklogs)
 				loglevel = ATKLOG_ALMOSTALL
 	else
 		loglevel = ATKLOG_ALL // Hitting an object. Not a mob
@@ -420,12 +420,12 @@ GLOBAL_PROTECT(log_end)
 	if(!istype(A))
 		return "(INVALID LOCATION)"
 
-	var/turf/T = A
-	if(!istype(T))
-		T = get_turf(A)
+	var/turf/turf = A
+	if(!istype(turf))
+		turf = get_turf(A)
 
-	if(istype(T))
-		return "([AREACOORD(T)])"
+	if(istype(turf))
+		return "([AREACOORD(turf)])"
 	else if(A.loc)
 		return "(UNKNOWN (?, ?, ?))"
 

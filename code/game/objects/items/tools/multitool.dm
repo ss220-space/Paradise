@@ -148,10 +148,10 @@
 		var/datum/camerachunk/chunk = GLOB.cameranet.getCameraChunk(our_turf.x, our_turf.y, our_turf.z)
 		if(!chunk)
 			return
-		for(var/mob/camera/aiEye/A in chunk.seenby)
-			if(!A.ai_detector_visible)
+		for(var/mob/camera/aiEye/aiEye in chunk.seenby)
+			if(!aiEye.ai_detector_visible)
 				continue
-			var/turf/detect_turf = get_turf(A)
+			var/turf/detect_turf = get_turf(aiEye)
 			if(get_dist(our_turf, detect_turf) < rangealert)
 				detect_state = PROXIMITY_ON_SCREEN
 				break

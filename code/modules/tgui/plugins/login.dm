@@ -148,9 +148,9 @@ GLOBAL_LIST(ui_logins)
 		to_chat(usr,  span_warning("Отказано в доступе."))
 		return
 	else if(login_type == LOGIN_TYPE_ROBOT && isrobot(usr))
-		var/mob/living/silicon/robot/R = usr
+		var/mob/living/silicon/robot/robot = usr
 		state.name = usr.name
-		state.rank = "[R.modtype?.name] [R.braintype]"
+		state.rank = "[robot.modtype?.name] [robot.braintype]"
 		state.law_level = LAW_LEVEL_BASE
 	else if(login_type == LOGIN_TYPE_ADMIN && usr.can_admin_interact())
 		state.name = "*ЗАСЕКРЕЧЕНО*"

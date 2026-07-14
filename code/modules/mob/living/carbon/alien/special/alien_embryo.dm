@@ -67,7 +67,7 @@
 	polling = 1
 	spawn()
 		var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыгрять за Чужого?", ROLE_ALIEN, FALSE, source = /mob/living/carbon/alien/larva)
-		var/mob/C = null
+		var/mob/mob = null
 		
 		if(QDELETED(src))
 			return
@@ -77,9 +77,9 @@
 		// to 2, so we don't do a process heavy check everytime.
 
 		if(length(candidates))
-			C = pick(candidates)
+			mob = pick(candidates)
 		else if(owner.client)
-			C = owner.client
+			mob = owner.client
 		else
 			stage = 2 // Let's try again later.
 			polling = 0
@@ -94,7 +94,7 @@
 				return
 				
 			var/mob/living/carbon/alien/larva/new_xeno = new(owner.drop_location())
-			new_xeno.possess_by_player(C.key)
+			new_xeno.possess_by_player(mob.key)
 			new_xeno.mind.name = new_xeno.name
 			new_xeno.update_datum()
 			SEND_SOUND(new_xeno, sound('sound/voice/hiss5.ogg'))//To get the player's attention

@@ -84,14 +84,14 @@
 
 /* Знаю что это отключено и свет будет ужесан. Таков рефактор.
 /obj/effect/portal_sensor/proc/check_light()
-	var/turf/T = loc
-	if(istype(T) && T.lighting_object && !T.lighting_object.needs_update)
-		var/atom/movable/lighting_object/O = T.lighting_object
+	var/turf/turf = loc
+	if(istype(turf) && turf.lighting_object && !turf.lighting_object.needs_update)
+		var/atom/movable/lighting_object/lighting_object = turf.lighting_object
 		var/hash = 0
 
-		for(var/lighting_corner in O)
-			var/datum/lighting_corner/C = lighting_corner
-			hash = hash + C.lum_r + C.lum_g + C.lum_b
+		for(var/lighting_corner in lighting_object)
+			var/datum/lighting_corner/lighting_corner = lighting_corner
+			hash = hash + lighting_corner.lum_r + lighting_corner.lum_g + lighting_corner.lum_b
 
 		if(hash != light_hash)
 			light_hash = hash
@@ -147,12 +147,12 @@
 	// render each atom
 	underlays.Cut()
 	for(var/X in list(lower_turf) + lower_turf.contents)
-		var/atom/A = X
-		if(A && A.invisibility <= SEE_INVISIBLE_LIVING)
-			var/image/I = image(A, layer = AREA_LAYER + A.layer * 0.01, dir = A.dir)
-			I.pixel_w = A.pixel_x
-			I.pixel_z = A.pixel_y
-			underlays += I
+		var/atom/atom = X
+		if(atom && atom.invisibility <= SEE_INVISIBLE_LIVING)
+			var/image/image = image(atom, layer = AREA_LAYER + atom.layer * 0.01, dir = atom.dir)
+			image.pixel_w = atom.pixel_x
+			image.pixel_z = atom.pixel_y
+			underlays += image
 
 /obj/effect/visual_portal
 	name = "???"

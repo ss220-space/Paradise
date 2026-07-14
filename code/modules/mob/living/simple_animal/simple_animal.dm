@@ -487,18 +487,18 @@
 		if(HAS_TRAIT(mob, TRAIT_GODMODE))
 			return FALSE
 	if(isliving(the_target))
-		var/mob/living/L = the_target
-		if(L.stat != CONSCIOUS)
+		var/mob/living/living = the_target
+		if(living.stat != CONSCIOUS)
 			return FALSE
-		if(L.incorporeal_move)
+		if(living.incorporeal_move)
 			return FALSE
 	if(ismecha(the_target))
-		var/obj/mecha/M = the_target
-		if(M.occupant)
+		var/obj/mecha/mecha = the_target
+		if(mecha.occupant)
 			return FALSE
 	if(isspacepod(the_target))
-		var/obj/spacepod/S = the_target
-		if(S.pilot)
+		var/obj/spacepod/spacepod = the_target
+		if(spacepod.pilot)
 			return FALSE
 	return TRUE
 
@@ -553,17 +553,17 @@
 	var/mob/living/simple_animal/partner
 	var/children = 0
 
-	for(var/mob/M in oview(7, src))
-		if(M.stat != CONSCIOUS) //Check if it's conscious FIRST.
+	for(var/mob/mob in oview(7, src))
+		if(mob.stat != CONSCIOUS) //Check if it's conscious FIRST.
 			continue
-		else if(check_if_child(M)) //Check for children SECOND.
+		else if(check_if_child(mob)) //Check for children SECOND.
 			children++
-		else if(istype(M, animal_species))
-			if(M.ckey)
+		else if(istype(mob, animal_species))
+			if(mob.ckey)
 				continue
-			else if(!check_if_child(M) && M.gender == MALE) //Better safe than sorry ;_;
-				partner = M
-		else if(isliving(M) && !faction_check_mob(M)) //shyness check. we're not shy in front of things that share a faction with us.
+			else if(!check_if_child(mob) && mob.gender == MALE) //Better safe than sorry ;_;
+				partner = mob
+		else if(isliving(mob) && !faction_check_mob(mob)) //shyness check. we're not shy in front of things that share a faction with us.
 			return //we never mate when not alone, so just abort early
 
 	if(alone && partner && children < 3)

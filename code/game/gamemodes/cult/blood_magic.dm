@@ -888,23 +888,23 @@
 
 /obj/item/melee/blood_magic/manipulator/proc/blood_draw(atom/target, mob/living/carbon/human/user)
 	var/temp = 0
-	var/turf/T = get_turf(target)
-	if(T)
-		for(var/obj/effect/decal/cleanable/blood/B in view(T, 2))
-			if(B.blood_state == BLOOD_STATE_HUMAN && (B.can_bloodcrawl_in() || istype(B, /obj/effect/decal/cleanable/blood/slime) || istype(B, /obj/effect/decal/cleanable/blood/drask)))
-				var/bloodiness = B.bloodiness
+	var/turf/turf = get_turf(target)
+	if(turf)
+		for(var/obj/effect/decal/cleanable/blood/blood in view(turf, 2))
+			if(blood.blood_state == BLOOD_STATE_HUMAN && (blood.can_bloodcrawl_in() || istype(blood, /obj/effect/decal/cleanable/blood/slime) || istype(blood, /obj/effect/decal/cleanable/blood/drask)))
+				var/bloodiness = blood.bloodiness
 				if(bloodiness == 100) //Bonus for "pristine" bloodpools, also to prevent cheese with footprint spam
 					temp += 30
 				else
 					temp += max(POW2(bloodiness) / 800, 1)
-				new /obj/effect/temp_visual/cult/turf/open/floor(get_turf(B))
-				qdel(B)
-		for(var/obj/effect/decal/cleanable/trail_holder/TH in view(T, 2))
+				new /obj/effect/temp_visual/cult/turf/open/floor(get_turf(blood))
+				qdel(blood)
+		for(var/obj/effect/decal/cleanable/trail_holder/TH in view(turf, 2))
 			qdel(TH)
 		if(temp)
-			user.Beam(T, icon_state = "drainbeam", time = 15)
+			user.Beam(turf, icon_state = "drainbeam", time = 15)
 			new /obj/effect/temp_visual/cult/sparks(get_turf(user))
-			playsound(T, 'sound/misc/enter_blood.ogg', 50)
+			playsound(turf, 'sound/misc/enter_blood.ogg', 50)
 			temp = round(temp)
 			to_chat(user, span_cultitalic("Your blood rite has gained [temp] charge\s from blood sources around you!"))
 			uses += max(1, temp)

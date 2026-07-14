@@ -23,21 +23,21 @@
 	if(!istype(full_list))	full_list = list()
 
 	for(var/path in subtypesof(prototype))
-		var/datum/sprite_accessory/D = new path()
+		var/datum/sprite_accessory/sprite_accessory = new path()
 
-		if(D.name)
-			if(D.fluff)
-				full_list[D.name] = D
+		if(sprite_accessory.name)
+			if(sprite_accessory.fluff)
+				full_list[sprite_accessory.name] = sprite_accessory
 			else
-				L[D.name] = D
-				full_list[D.name] = D
+				L[sprite_accessory.name] = sprite_accessory
+				full_list[sprite_accessory.name] = sprite_accessory
 
-			switch(D.unsuitable_gender)
-				if(FEMALE)	male[D.name] = D
-				if(MALE)	female[D.name] = D
+			switch(sprite_accessory.unsuitable_gender)
+				if(FEMALE)	male[sprite_accessory.name] = sprite_accessory
+				if(MALE)	female[sprite_accessory.name] = sprite_accessory
 				else
-					male[D.name] = D
-					female[D.name] = D
+					male[sprite_accessory.name] = sprite_accessory
+					female[sprite_accessory.name] = sprite_accessory
 	return L
 
 /datum/sprite_accessory

@@ -505,8 +505,8 @@ GLOBAL_LIST_INIT(adjacent_direction_lookup, generate_adjacent_directions())
 	else
 		if(isturf(source))
 			return source.type == target_turf.type ? target_turf : null
-		var/atom/A = locate(source.type) in target_turf
-		return A && A.type == source.type ? A : null
+		var/atom/atom = locate(source.type) in target_turf
+		return atom && atom.type == source.type ? atom : null
 
 //Icon smoothing helpers
 

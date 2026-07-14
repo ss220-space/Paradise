@@ -100,8 +100,8 @@
 
 /obj/item/his_grace/proc/count_player_victims()
 	var/victims
-	for(var/mob/living/C in contents)
-		if(!C.mind)
+	for(var/mob/living/living in contents)
+		if(!living.mind)
 			continue
 		victims++
 	return victims
@@ -215,8 +215,8 @@
 /obj/item/his_grace/proc/drowse() //Good night, Mr. Grace.
 	if(!awakened || ascended)
 		return
-	var/turf/T = get_turf(src)
-	T.visible_message(span_boldwarning("[declent_ru(NOMINATIVE)] медленно затихает и замирает. Защёлка [declent_ru(GENITIVE)] с громким щелчком захлопывается."))
+	var/turf/turf = get_turf(src)
+	turf.visible_message(span_boldwarning("[declent_ru(NOMINATIVE)] медленно затихает и замирает. Защёлка [declent_ru(GENITIVE)] с громким щелчком захлопывается."))
 	playsound(loc, 'sound/weapons/batonextend.ogg', 100, TRUE)
 	animate(src, transform=matrix())
 	gender = initial(gender)
@@ -270,8 +270,8 @@
 		rogue = TRUE
 	var/list/targets = list()
 	var/list/adjacent_targets = list()
-	for(var/mob/living/L in oview(5, src))
-		(get_dist(src, L) <= 1) ? (adjacent_targets += L) : (targets += L)
+	for(var/mob/living/living in oview(5, src))
+		(get_dist(src, living) <= 1) ? (adjacent_targets += living) : (targets += living)
 
 	if(!(LAZYLEN(targets) + LAZYLEN(adjacent_targets)))
 		return

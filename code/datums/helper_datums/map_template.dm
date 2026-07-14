@@ -117,8 +117,8 @@
 /proc/preloadTemplates(path = "_maps/map_files/templates/") //see master controller setup
 	for(var/map in flist(path))
 		if(cmptext(copytext(map, length(map) - 3), ".dmm"))
-			var/datum/map_template/T = new(path = "[path][map]", rename = "[map]")
-			GLOB.map_templates[T.name] = T
+			var/datum/map_template/map_template = new(path = "[path][map]", rename = "[map]")
+			GLOB.map_templates[map_template.name] = map_template
 
 	if(!CONFIG_GET(flag/disable_space_ruins) && !(SSmapping.map_datum.disables & DISABLE_SPACE_RUINS)) // so we don't unnecessarily clutter start-up
 		preloadRuinTemplates()
@@ -140,28 +140,28 @@
 		// screen out the abstract subtypes
 		if(!initial(ruin_type.id))
 			continue
-		var/datum/map_template/ruin/R = new ruin_type()
+		var/datum/map_template/ruin/ruin = new ruin_type()
 
-		if(banned.Find(R.mappath))
+		if(banned.Find(ruin.mappath))
 			continue
 
-		GLOB.map_templates[R.name] = R
-		GLOB.ruins_templates[R.name] = R
+		GLOB.map_templates[ruin.name] = ruin
+		GLOB.ruins_templates[ruin.name] = ruin
 
-		if(istype(R, /datum/map_template/ruin/lavaland))
-			GLOB.lava_ruins_templates[R.name] = R
-		if(istype(R, /datum/map_template/ruin/space))
-			GLOB.space_ruins_templates[R.name] = R
+		if(istype(ruin, /datum/map_template/ruin/lavaland))
+			GLOB.lava_ruins_templates[ruin.name] = ruin
+		if(istype(ruin, /datum/map_template/ruin/space))
+			GLOB.space_ruins_templates[ruin.name] = ruin
 
 /proc/preloadShelterTemplates()
 	for(var/item in subtypesof(/datum/map_template/shelter))
 		var/datum/map_template/shelter/shelter_type = item
 		if(!(initial(shelter_type.mappath)))
 			continue
-		var/datum/map_template/shelter/S = new shelter_type()
+		var/datum/map_template/shelter/shelter = new shelter_type()
 
-		GLOB.shelter_templates[S.shelter_id] = S
-		GLOB.map_templates[S.shelter_id] = S
+		GLOB.shelter_templates[shelter.shelter_id] = shelter
+		GLOB.map_templates[shelter.shelter_id] = shelter
 
 /proc/preloadShuttleTemplates()
 	for(var/item in subtypesof(/datum/map_template/shuttle))
@@ -169,23 +169,23 @@
 		if(!initial(shuttle_type.suffix))
 			continue
 
-		var/datum/map_template/shuttle/S = new shuttle_type()
+		var/datum/map_template/shuttle/shuttle = new shuttle_type()
 
-		GLOB.shuttle_templates[S.shuttle_id] = S
-		GLOB.map_templates[S.shuttle_id] = S
+		GLOB.shuttle_templates[shuttle.shuttle_id] = shuttle
+		GLOB.map_templates[shuttle.shuttle_id] = shuttle
 
 /proc/preloadBridgeTemplates()
 	for(var/item in subtypesof(/datum/map_template/ruin/bridge/horizontal))
 		var/datum/map_template/ruin/bridge/horizontal/horizontal_type = item
 		if(!(initial(horizontal_type.suffix)))
 			continue
-		var/datum/map_template/ruin/bridge/horizontal/S = new horizontal_type()
-		GLOB.bridge_horizontal_templates[S.suffix] = S
-		GLOB.map_templates[S.suffix] = S
+		var/datum/map_template/ruin/bridge/horizontal/horizontal = new horizontal_type()
+		GLOB.bridge_horizontal_templates[horizontal.suffix] = horizontal
+		GLOB.map_templates[horizontal.suffix] = horizontal
 	for(var/item in subtypesof(/datum/map_template/ruin/bridge/vertical))
 		var/datum/map_template/ruin/bridge/horizontal/vertical_type = item
 		if(!(initial(vertical_type.suffix)))
 			continue
-		var/datum/map_template/ruin/bridge/vertical/V = new vertical_type()
-		GLOB.bridge_vertical_templates[V.suffix] = V
-		GLOB.map_templates[V.suffix] = V
+		var/datum/map_template/ruin/bridge/vertical/vertical = new vertical_type()
+		GLOB.bridge_vertical_templates[vertical.suffix] = vertical
+		GLOB.map_templates[vertical.suffix] = vertical

@@ -94,8 +94,8 @@ SUBSYSTEM_DEF(shuttle)
 	return "M:[length(mobile)] S:[length(stationary)] T:[length(transit)]"
 
 /datum/controller/subsystem/shuttle/proc/initial_load()
-	for(var/obj/docking_port/D in world)
-		D.register()
+	for(var/obj/docking_port/docking_port in world)
+		docking_port.register()
 		CHECK_TICK
 
 /datum/controller/subsystem/shuttle/fire(resumed = FALSE)
@@ -137,15 +137,15 @@ SUBSYSTEM_DEF(shuttle)
 				break
 
 /datum/controller/subsystem/shuttle/proc/getShuttle(id)
-	for(var/obj/docking_port/mobile/M in mobile)
-		if(M.id == id)
-			return M
+	for(var/obj/docking_port/mobile/mobile in mobile)
+		if(mobile.id == id)
+			return mobile
 	WARNING("couldn't find shuttle with id: [id]")
 
 /datum/controller/subsystem/shuttle/proc/getDock(id)
-	for(var/obj/docking_port/stationary/S in stationary)
-		if(S.id == id)
-			return S
+	for(var/obj/docking_port/stationary/stationary in stationary)
+		if(stationary.id == id)
+			return stationary
 	WARNING("couldn't find dock with id: [id]")
 
 /datum/controller/subsystem/shuttle/proc/secondsToRefuel()
@@ -254,14 +254,14 @@ SUBSYSTEM_DEF(shuttle)
 			if(AI.stat || !AI.client)
 				continue
 		else if(istype(thing, /obj/machinery/computer/communications))
-			var/obj/machinery/computer/communications/C = thing
-			if(C.stat & BROKEN)
+			var/obj/machinery/computer/communications/communications = thing
+			if(communications.stat & BROKEN)
 				continue
 		else if(istype(thing, /obj/item/circuitboard/communications))
 			continue
 
-		var/turf/T = get_turf(thing)
-		if(T && is_station_level(T.z))
+		var/turf/turf = get_turf(thing)
+		if(turf && is_station_level(turf.z))
 			callShuttle = FALSE
 			break
 
@@ -273,18 +273,18 @@ SUBSYSTEM_DEF(shuttle)
 
 //try to move/request to dockHome if possible, otherwise dockAway. Mainly used for admin buttons
 /datum/controller/subsystem/shuttle/proc/toggleShuttle(shuttleId, dockHome, dockAway, timed)
-	var/obj/docking_port/mobile/M = getShuttle(shuttleId)
-	if(!M)
+	var/obj/docking_port/mobile/mobile = getShuttle(shuttleId)
+	if(!mobile)
 		return 1
-	var/obj/docking_port/stationary/dockedAt = M.get_docked()
+	var/obj/docking_port/stationary/dockedAt = mobile.get_docked()
 	var/destination = dockHome
 	if(dockedAt && dockedAt.id == dockHome)
 		destination = dockAway
 	if(timed)
-		if(M.request(getDock(destination)))
+		if(mobile.request(getDock(destination)))
 			return 2
 	else
-		if(M.dock(getDock(destination)))
+		if(mobile.dock(getDock(destination)))
 			return 2
 	return 0	//dock successful
 
@@ -412,29 +412,29 @@ SUBSYSTEM_DEF(shuttle)
 	return new_transit_dock
 
 /datum/controller/subsystem/shuttle/proc/initial_move()
-	for(var/obj/docking_port/mobile/M in mobile)
-		if(!M.roundstart_move)
+	for(var/obj/docking_port/mobile/mobile in mobile)
+		if(!mobile.roundstart_move)
 			continue
-		M.dockRoundstart()
+		mobile.dockRoundstart()
 
 /datum/controller/subsystem/shuttle/proc/generateSupplyOrder(packId, _orderedby, _orderedbyRank, _comment, _crates)
 	if(!packId)
 		return
-	var/datum/supply_packs/P = locateUID(packId)
-	if(!P)
+	var/datum/supply_packs/supply_packs = locateUID(packId)
+	if(!supply_packs)
 		return
 
-	var/datum/supply_order/O = new()
-	O.ordernum = ordernum++
-	O.object = P
-	O.orderedby = _orderedby
-	O.orderedbyRank = _orderedbyRank
-	O.comment = _comment
-	O.crates = _crates
+	var/datum/supply_order/supply_order = new()
+	supply_order.ordernum = ordernum++
+	supply_order.object = supply_packs
+	supply_order.orderedby = _orderedby
+	supply_order.orderedbyRank = _orderedbyRank
+	supply_order.comment = _comment
+	supply_order.crates = _crates
 
-	requestlist += O
+	requestlist += supply_order
 
-	return O
+	return supply_order
 
 /datum/controller/subsystem/shuttle/proc/get_dock_overlap(x0, y0, x1, y1, z)
 	. = list()
@@ -463,26 +463,26 @@ SUBSYSTEM_DEF(shuttle)
 
 	if(add_turfs)
 		for(var/V in add_turfs)
-			var/turf/T = V
+			var/turf/turf = V
 			var/image/I
 			if(length(remove_images))
 				//we can just reuse any images we are about to delete instead of making new ones
 				I = remove_images[1]
 				remove_images.Cut(1, 2)
-				I.loc = T
+				I.loc = turf
 			else
-				I = image(loc = T)
+				I = image(loc = turf)
 				add_images += I
-			I.appearance = T.appearance
+			I.appearance = turf.appearance
 			I.override = TRUE
-			hidden_shuttle_turfs[T] = list(I, T.type)
+			hidden_shuttle_turfs[turf] = list(I, turf.type)
 
 	hidden_shuttle_turf_images -= remove_images
 	hidden_shuttle_turf_images += add_images
 
 	for(var/V in GLOB.navigation_computers)
-		var/obj/machinery/computer/camera_advanced/shuttle_docker/C = V
-		C.update_hidden_docking_ports(remove_images, add_images)
+		var/obj/machinery/computer/camera_advanced/shuttle_docker/shuttle_docker = V
+		shuttle_docker.update_hidden_docking_ports(remove_images, add_images)
 
 	QDEL_LIST(remove_images)
 

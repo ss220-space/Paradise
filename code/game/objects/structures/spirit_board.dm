@@ -35,9 +35,9 @@
 	cooldown = world.time
 	lastuser = M.ckey
 
-	var/turf/T = loc
+	var/turf/turf = loc
 	sleep(rand(20,30))
-	if(T == loc)
+	if(turf == loc)
 		visible_message(span_notice("The planchette slowly moves... and stops at the letter \"[planchette]\"."))
 
 /obj/structure/spirit_board/proc/spirit_board_checks(mob/M)
@@ -51,9 +51,9 @@
 
 	//lighting check
 	var/light_amount = 0
-	var/turf/T = get_turf(src)
-	if(T)
-		light_amount = T.get_lumcount(0.5) * 10
+	var/turf/turf = get_turf(src)
+	if(turf)
+		light_amount = turf.get_lumcount(0.5) * 10
 	else
 		light_amount = 10
 
@@ -63,10 +63,10 @@
 
 	//mobs in range check
 	var/users_in_range = 0
-	for(var/mob/living/L in orange(1,src))
-		if(L.ckey && L.client)
-			if((world.time - L.client.inactivity) < (world.time - 300) || L.incapacitated() || HAS_TRAIT(L, TRAIT_HANDS_BLOCKED))//no playing with braindeads or corpses or handcuffed dudes.
-				to_chat(M, span_warning("[L] doesn't seem to be paying attention..."))
+	for(var/mob/living/living in orange(1,src))
+		if(living.ckey && living.client)
+			if((world.time - living.client.inactivity) < (world.time - 300) || living.incapacitated() || HAS_TRAIT(living, TRAIT_HANDS_BLOCKED))//no playing with braindeads or corpses or handcuffed dudes.
+				to_chat(M, span_warning("[living] doesn't seem to be paying attention..."))
 			else
 				users_in_range++
 

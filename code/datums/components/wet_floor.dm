@@ -204,8 +204,8 @@
 /datum/component/wet_floor/proc/gc(on_init = FALSE)
 	if(!LAZYLEN(time_left_list))
 		if(on_init)
-			var/turf/T = parent
-			stack_trace("Warning: Wet floor component gc'd right after initialization! What a waste of time and CPU! Type = [T? T.type : "ERROR - NO PARENT"], Location = [istype(T)? AREACOORD(T) : "ERROR - INVALID PARENT"].")
+			var/turf/turf = parent
+			stack_trace("Warning: Wet floor component gc'd right after initialization! What a waste of time and CPU! Type = [turf? turf.type : "ERROR - NO PARENT"], Location = [istype(turf)? AREACOORD(turf) : "ERROR - INVALID PARENT"].")
 		qdel(src)
 		return TRUE
 	return FALSE

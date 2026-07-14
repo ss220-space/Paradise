@@ -27,13 +27,13 @@
 	if(us.z == them.z)
 		return get_dir(us, them)
 	else
-		var/turf/T = GET_TURF_ABOVE(us)
+		var/turf/turf = GET_TURF_ABOVE(us)
 		var/dir = NONE
-		if(T && (T.z == them.z))
+		if(turf && (turf.z == them.z))
 			dir = UP
 		else
-			T = GET_TURF_BELOW(us)
-			if(T && (T.z == them.z))
+			turf = GET_TURF_BELOW(us)
+			if(turf && (turf.z == them.z))
 				dir = DOWN
 			else
 				return get_dir(us, them)

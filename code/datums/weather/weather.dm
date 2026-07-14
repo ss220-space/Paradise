@@ -68,9 +68,9 @@
 		affectareas += V
 	for(var/V in protected_areas)
 		affectareas -= get_areas(V)
-	for(var/area/A in affectareas)
-		if(A.z in impacted_z_levels)
-			impacted_areas |= A
+	for(var/area/area in affectareas)
+		if(area.z in impacted_z_levels)
+			impacted_areas |= area
 		CHECK_TICK
 
 /datum/weather/proc/generate_turf_list()

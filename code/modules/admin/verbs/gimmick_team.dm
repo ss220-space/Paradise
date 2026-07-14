@@ -12,7 +12,7 @@ ADMIN_VERB(gimmick_team, R_EVENT, "Отправить \"Гиммик комма�
 	if(tgui_alert(src, "Вы хотите заспавнить Гиммик тим в ВАШЕЙ ТЕКУЩЕЙ ЛОКАЦИИ?", "Подтверждение", list("Да","Нет")) != "Да")
 		return
 
-	var/turf/T = get_turf(mob)
+	var/turf/turf = get_turf(mob)
 
 	var/force_species = FALSE
 	var/selected_species = null
@@ -59,34 +59,34 @@ ADMIN_VERB(gimmick_team, R_EVENT, "Отправить \"Гиммик комма�
 
 	var/players_spawned = 0
 	for(var/mob/thisplayer in players_to_spawn)
-		var/mob/living/carbon/human/H = new /mob/living/carbon/human(T)
-		H.name = random_name(pick(MALE,FEMALE))
-		var/datum/preferences/A = new() //Randomize appearance
-		A.real_name = H.name
-		A.copy_to(H)
-		H.dna.ready_dna(H)
+		var/mob/living/carbon/human/human = new /mob/living/carbon/human(turf)
+		human.name = random_name(pick(MALE,FEMALE))
+		var/datum/preferences/preferences = new() //Randomize appearance
+		preferences.real_name = human.name
+		preferences.copy_to(human)
+		human.dna.ready_dna(human)
 
 		if(force_species)
 			var/datum/species/selected_species_datum = GLOB.all_species[selected_species]
-			H.set_species(selected_species_datum.type)
-			H.regenerate_icons()
+			human.set_species(selected_species_datum.type)
+			human.regenerate_icons()
 
-		H.mind_initialize()
-		H.mind.assigned_role = SPECIAL_ROLE_EVENTMISC
-		H.mind.special_role = SPECIAL_ROLE_EVENTMISC
-		SSticker.mode.eventmiscs += H.mind
-		SSticker.mode.update_eventmisc_icons_added(H.mind)
-		H.mind.offstation_role = TRUE
-		H.possess_by_player(thisplayer.key)
-		H.change_voice()
+		human.mind_initialize()
+		human.mind.assigned_role = SPECIAL_ROLE_EVENTMISC
+		human.mind.special_role = SPECIAL_ROLE_EVENTMISC
+		SSticker.mode.eventmiscs += human.mind
+		SSticker.mode.update_eventmisc_icons_added(human.mind)
+		human.mind.offstation_role = TRUE
+		human.possess_by_player(thisplayer.key)
+		human.change_voice()
 		if(dresscode != "Naked")
-			H.equipOutfit(dresscode, FALSE)
+			human.equipOutfit(dresscode, FALSE)
 
-		to_chat(H, "<br>[span_danger("<b>[themission]</b>")]")
-		H.mind.store_memory("<b>[themission]</b><br><br>")
+		to_chat(human, "<br>[span_danger("<b>[themission]</b>")]")
+		human.mind.store_memory("<b>[themission]</b><br><br>")
 
 		if(is_syndicate)
-			SSticker.mode.traitors |= H.mind //Adds them to extra antag list
+			SSticker.mode.traitors |= human.mind //Adds them to extra antag list
 
 		players_spawned++
 		if(players_spawned >= teamsize)

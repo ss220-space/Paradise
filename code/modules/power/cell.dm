@@ -161,7 +161,7 @@
 	return ..()
 
 /obj/item/stock_parts/cell/proc/explode()
-	var/turf/T = get_turf(loc)
+	var/turf/turf = get_turf(loc)
 	if(charge == 0)
 		return
 	var/devastation_range = -1 //round(charge/11000)
@@ -175,7 +175,7 @@
 	message_admins("LOG: Rigged power cell explosion, last touched by [fingerprintslast]")
 	rigged = FALSE
 
-	explosion(T, devastation_range, heavy_impact_range, light_impact_range, flash_range, cause = src)
+	explosion(turf, devastation_range, heavy_impact_range, light_impact_range, flash_range, cause = src)
 	qdel(src)
 
 /obj/item/stock_parts/cell/proc/corrupt()

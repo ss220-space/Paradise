@@ -21,9 +21,9 @@ GLOBAL_LIST_EMPTY(body_accessory_by_species)
 		var/_added_counter = 0
 
 		for(var/A in subtypesof(ba_path))
-			var/datum/body_accessory/B = new A
-			if(istype(B))
-				GLOB.body_accessory_by_name[B.name] += B
+			var/datum/body_accessory/body_accessory = new A
+			if(istype(body_accessory))
+				GLOB.body_accessory_by_name[body_accessory.name] += body_accessory
 				++_added_counter
 
 		if(_added_counter)

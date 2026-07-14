@@ -114,23 +114,23 @@
 		addtimer(CALLBACK(src, PROC_REF(rearm)), 7 SECONDS)
 		return
 
-	for(var/obj/machinery/door/poddoor/M in range(src,range))
-		if(M.id_tag == id_tag && !M.protected)
+	for(var/obj/machinery/door/poddoor/poddoor in range(src,range))
+		if(poddoor.id_tag == id_tag && !poddoor.protected)
 			spawn()
-				M.open()
+				poddoor.open()
 
 	sleep(20)
 
-	for(var/obj/machinery/mass_driver/M in range(src,range))
-		if(M.id_tag == id_tag)
-			M.drive()
+	for(var/obj/machinery/mass_driver/poddoor in range(src,range))
+		if(poddoor.id_tag == id_tag)
+			poddoor.drive()
 
 	sleep(50)
 
-	for(var/obj/machinery/door/poddoor/M in range(src,range))
-		if(M.id_tag == id_tag && !M.protected)
+	for(var/obj/machinery/door/poddoor/poddoor in range(src,range))
+		if(poddoor.id_tag == id_tag && !poddoor.protected)
 			spawn()
-				M.close()
+				poddoor.close()
 				return
 
 	rearm()

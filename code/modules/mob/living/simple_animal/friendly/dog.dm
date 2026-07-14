@@ -396,10 +396,10 @@
 
 /mob/living/simple_animal/pet/dog/corgi/Ian/proc/read_memory()
 	if(fexists("data/npc_saves/Ian.sav")) //legacy compatability to convert old format to new
-		var/savefile/S = new /savefile("data/npc_saves/Ian.sav")
-		S["age"]		>> age
-		S["record_age"]	>> record_age
-		S["saved_head"] >> saved_head
+		var/savefile/savefile = new /savefile("data/npc_saves/Ian.sav")
+		savefile["age"]		>> age
+		savefile["record_age"]	>> record_age
+		savefile["saved_head"] >> saved_head
 		fdel("data/npc_saves/Ian.sav")
 	else
 		var/json_file = file("data/npc_saves/Ian.json")
@@ -709,19 +709,19 @@
 	death()
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/proc/shootAt(atom/movable/target)
-	var/turf/T = get_turf(src)
-	var/turf/U = get_turf(target)
-	if(!T || !U)
+	var/turf/turf = get_turf(src)
+	var/turf/target_turf = get_turf(target)
+	if(!turf || !target_turf)
 		return
-	var/obj/projectile/beam/A = new /obj/projectile/beam(loc)
-	A.icon = 'icons/effects/genetics.dmi'
-	A.icon_state = "eyelasers"
+	var/obj/projectile/beam/beam = new /obj/projectile/beam(loc)
+	beam.icon = 'icons/effects/genetics.dmi'
+	beam.icon_state = "eyelasers"
 	playsound(src.loc, 'sound/weapons/taser2.ogg', 75, TRUE)
-	A.current = T
-	A.firer = src
-	A.yo = U.y - T.y
-	A.xo = U.x - T.x
-	A.fire()
+	beam.current = turf
+	beam.firer = src
+	beam.yo = target_turf.y - turf.y
+	beam.xo = target_turf.x - turf.x
+	beam.fire()
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/Life(seconds, times_fired)
 	. = ..()

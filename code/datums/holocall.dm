@@ -83,8 +83,8 @@
 //Gracefully disconnects a holopad `H` from a call. Pads not in the call are ignored. Notifies participants of the disconnection
 /datum/holocall/proc/Disconnect(obj/machinery/hologram/holopad/H)
 	if(H == connected_holopad)
-		var/area/A = get_area(connected_holopad)
-		calling_holopad.atom_say("[A] голопад не отвечает.")
+		var/area/area = get_area(connected_holopad)
+		calling_holopad.atom_say("[area] голопад не отвечает.")
 	else if(H == calling_holopad && connected_holopad)
 		connected_holopad.atom_say("[user] не отвечает.")
 

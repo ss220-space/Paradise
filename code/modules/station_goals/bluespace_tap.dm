@@ -404,16 +404,16 @@
 /obj/machinery/power/bluespace_tap/proc/produce(key)
 	if(key <= 0 || key > length(product_list))	//invalid key
 		return
-	var/datum/data/bluespace_tap_product/A = product_list[key]
-	if(!A)
+	var/datum/data/bluespace_tap_product/bluespace_tap_product = product_list[key]
+	if(!bluespace_tap_product)
 		return
-	if(A.product_cost > points)
+	if(bluespace_tap_product.product_cost > points)
 		return
-	points -= A.product_cost
-	A.product_cost = round(1.2 * A.product_cost, 1)
+	points -= bluespace_tap_product.product_cost
+	bluespace_tap_product.product_cost = round(1.2 * bluespace_tap_product.product_cost, 1)
 	playsound(src, 'sound/magic/blink.ogg', 50)
 	do_sparks(2, FALSE, src)
-	new A.product_path(get_turf(src))
+	new bluespace_tap_product.product_path(get_turf(src))
 
 //UI stuff below
 

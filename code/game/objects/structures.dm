@@ -110,8 +110,8 @@
 
 	var/list/thrownatoms = list()
 
-	for(var/turf/T in range(0, src)) //Preventing from rotating stuff in an inventory
-		for(var/atom/movable/AM in T)
+	for(var/turf/turf in range(0, src)) //Preventing from rotating stuff in an inventory
+		for(var/atom/movable/AM in turf)
 			if(!AM.anchored && !isliving(AM))
 				if(prob(slopchance))
 					thrownatoms += AM

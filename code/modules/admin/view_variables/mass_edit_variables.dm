@@ -156,11 +156,11 @@
 			for(var/thing in items)
 				if(!thing)
 					continue
-				var/datum/D = thing
+				var/datum/datum = thing
 				if(many && !new_value)
 					new_value = new type()
 
-				if(D.vv_edit_var(variable, new_value) != FALSE)
+				if(datum.vv_edit_var(variable, new_value) != FALSE)
 					accepted++
 				else
 					rejected++
@@ -174,8 +174,8 @@
 			for(var/thing in items)
 				if(!thing)
 					continue
-				var/datum/D = thing
-				if(D.vv_edit_var(variable, new_value) != FALSE)
+				var/datum/datum = thing
+				if(datum.vv_edit_var(variable, new_value) != FALSE)
 					accepted++
 				else
 					rejected++

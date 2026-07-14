@@ -518,28 +518,28 @@
 			if(SENSOR_COORDS)
 				to_chat(user, "Теперь датчики вашего костюма будут отслеживать ваши жизненные показатели и местоположение.")
 		if(ishuman(user))
-			var/mob/living/carbon/human/H = user
-			if(H.w_uniform == src)
-				H.update_suit_sensors()
+			var/mob/living/carbon/human/human = user
+			if(human.w_uniform == src)
+				human.update_suit_sensors()
 
 	else if(ismob(src.loc))
 		switch(sensor_mode)
 			if(0)
-				for(var/mob/V in viewers(1, user))
-					V.show_message(span_warning("[user] отключа[PLUR_ET_YUT(user)] датчики [src.loc]."), 1)
+				for(var/mob/mob in viewers(1, user))
+					mob.show_message(span_warning("[user] отключа[PLUR_ET_YUT(user)] датчики [src.loc]."), 1)
 			if(1)
-				for(var/mob/V in viewers(1, user))
-					V.show_message("[user] устанавлива[PLUR_ET_YUT(user)] датчики [src.loc] в бинарный режим.", 1)
+				for(var/mob/mob in viewers(1, user))
+					mob.show_message("[user] устанавлива[PLUR_ET_YUT(user)] датчики [src.loc] в бинарный режим.", 1)
 			if(2)
-				for(var/mob/V in viewers(1, user))
-					V.show_message("[user] устанавлива[PLUR_ET_YUT(user)] датчики [src.loc] в режим мониторинга жизненных показателей.", 1)
+				for(var/mob/mob in viewers(1, user))
+					mob.show_message("[user] устанавлива[PLUR_ET_YUT(user)] датчики [src.loc] в режим мониторинга жизненных показателей.", 1)
 			if(3)
-				for(var/mob/V in viewers(1, user))
-					V.show_message("[user] устанавлива[PLUR_ET_YUT(user)] датчики [src.loc] в режим мониторинга жизненных показателей и текущего местоположения.", 1)
+				for(var/mob/mob in viewers(1, user))
+					mob.show_message("[user] устанавлива[PLUR_ET_YUT(user)] датчики [src.loc] в режим мониторинга жизненных показателей и текущего местоположения.", 1)
 		if(ishuman(src))
-			var/mob/living/carbon/human/H = src
-			if(H.w_uniform == src)
-				H.update_suit_sensors()
+			var/mob/living/carbon/human/human = src
+			if(human.w_uniform == src)
+				human.update_suit_sensors()
 
 /obj/item/clothing/under/verb/toggle()
 	set name = "Датчики костюма"

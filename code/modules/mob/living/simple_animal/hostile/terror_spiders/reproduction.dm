@@ -51,19 +51,19 @@
 
 /obj/structure/spider/spiderling/terror_spiderling/proc/score_surroundings(atom/A = src)
 	var/safety_score = 0
-	var/turf/T = get_turf(A)
-	for(var/mob/living/L in viewers(T))
-		if(isterrorspider(L))
-			if(L.stat == DEAD)
+	var/turf/turf = get_turf(A)
+	for(var/mob/living/living in viewers(turf))
+		if(isterrorspider(living))
+			if(living.stat == DEAD)
 				safety_score--
 			else
 				safety_score++
-				if(spider_mymother && L == spider_mymother)
+				if(spider_mymother && living == spider_mymother)
 					safety_score++
-		else if(L.stat != DEAD)
+		else if(living.stat != DEAD)
 			safety_score--
 	if(debug_ai_choices)
-		debug_visual(T, safety_score, A)
+		debug_visual(turf, safety_score, A)
 	return safety_score
 
 /obj/structure/spider/spiderling/terror_spiderling/proc/debug_visual(turf/T, score, atom/A)
@@ -202,17 +202,17 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/DoLayTerrorEggs(lay_type, lay_number)
 	stop_automated_movement = 1
-	var/obj/structure/spider/eggcluster/terror_eggcluster/C = new /obj/structure/spider/eggcluster/terror_eggcluster(get_turf(src), lay_type)
-	C.spiderling_number = lay_number
-	C.spider_myqueen = spider_myqueen
-	C.spider_mymother = src
-	C.enemies = enemies
+	var/obj/structure/spider/eggcluster/terror_eggcluster/terror_eggcluster = new /obj/structure/spider/eggcluster/terror_eggcluster(get_turf(src), lay_type)
+	terror_eggcluster.spiderling_number = lay_number
+	terror_eggcluster.spider_myqueen = spider_myqueen
+	terror_eggcluster.spider_mymother = src
+	terror_eggcluster.enemies = enemies
 	var/datum/team/terror_spiders/spider_team = GLOB.antagonist_teams[/datum/team/terror_spiders]
 	if(mind)
-		spider_team?.terror_eggs |= C
+		spider_team?.terror_eggs |= terror_eggcluster
 	if(spider_growinstantly)
-		C.amount_grown = 250
-		C.spider_growinstantly = TRUE
+		terror_eggcluster.amount_grown = 250
+		terror_eggcluster.spider_growinstantly = TRUE
 	spawn(10)
 		stop_automated_movement = 0
 
@@ -320,16 +320,16 @@
 	var/num = spiderling_number
 	playsound(src, 'sound/creatures/terrorspiders/eggburst.ogg', 100)
 	for(var/i=0, i<num, i++)
-		var/obj/structure/spider/spiderling/terror_spiderling/S = new /obj/structure/spider/spiderling/terror_spiderling(get_turf(src))
+		var/obj/structure/spider/spiderling/terror_spiderling/terror_spiderling = new /obj/structure/spider/spiderling/terror_spiderling(get_turf(src))
 		if(spiderling_type)
-			S.grow_as = spiderling_type
-		S.spider_myqueen = spider_myqueen
-		S.spider_mymother = spider_mymother
-		S.enemies = enemies
+			terror_spiderling.grow_as = spiderling_type
+		terror_spiderling.spider_myqueen = spider_myqueen
+		terror_spiderling.spider_mymother = spider_mymother
+		terror_spiderling.enemies = enemies
 		if(length(asigned_ghosts))
-			S.asigned_ghost = pick_n_take(asigned_ghosts)
+			terror_spiderling.asigned_ghost = pick_n_take(asigned_ghosts)
 		if(spider_growinstantly)
-			S.amount_grown = 250
+			terror_spiderling.amount_grown = 250
 	qdel(src)
 
 /obj/structure/spider/eggcluster/terror_eggcluster/empress

@@ -104,16 +104,16 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 /obj/machinery/doppler_array/proc/print()
 	visible_message(span_notice("[src] prints a piece of paper!"))
 	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
-	var/obj/item/paper/explosive_log/P = new(get_turf(src))
+	var/obj/item/paper/explosive_log/explosive_log = new(get_turf(src))
 	for(var/D in logged_explosions)
-		var/datum/explosion_log/E = D
-		P.info += "<tr>\
-		<td>[E.logged_time]</td>\
-		<td>[E.epicenter]</td>\
-		<td>[E.actual_size_message]</td>\
-		<td>[E.theoretical_size_message]</td>\
+		var/datum/explosion_log/explosion_log = D
+		explosive_log.info += "<tr>\
+		<td>[explosion_log.logged_time]</td>\
+		<td>[explosion_log.epicenter]</td>\
+		<td>[explosion_log.actual_size_message]</td>\
+		<td>[explosion_log.theoretical_size_message]</td>\
 		</tr>"
-	P.info += "</table><hr/>\
+	explosive_log.info += "</table><hr/>\
 	<em>Printed at [station_time_timestamp()].</em>"
 
 /obj/machinery/doppler_array/proc/sense_explosion(x0, y0, z0, devastation_range, heavy_impact_range, light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range)

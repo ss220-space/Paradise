@@ -259,9 +259,9 @@
 	owner_AI.doomsday_device = DOOM
 	owner_AI.doomsday_device.start()
 	for(var/obj/item/pinpointer/point in GLOB.pinpointer_list)
-		for(var/mob/living/silicon/ai/A in GLOB.ai_list)
-			if((A.stat != DEAD) && A.nuking)
-				point.the_disk = A //The pinpointer now tracks the AI core
+		for(var/mob/living/silicon/ai/ai in GLOB.ai_list)
+			if((ai.stat != DEAD) && ai.nuking)
+				point.the_disk = ai //The pinpointer now tracks the AI core
 	qdel(src)
 
 /obj/machinery/doomsday_device
@@ -618,22 +618,22 @@
 	var/alert_msg = "There isn't enough room! Make sure you are placing the machine in a clear area and on a floor."
 	var/success = TRUE
 	for(var/n in 1 to 3) //We have to do this instead of iterating normally because of how overlay images are handled
-		var/turf/T = turfs[n]
-		if(!isfloorturf(T))
+		var/turf/turf = turfs[n]
+		if(!isfloorturf(turf))
 			success = FALSE
-		var/datum/camerachunk/C = GLOB.cameranet.getCameraChunk(T.x, T.y, T.z)
-		if(!C.visibleTurfs[T])
+		var/datum/camerachunk/camerachunk = GLOB.cameranet.getCameraChunk(turf.x, turf.y, turf.z)
+		if(!camerachunk.visibleTurfs[turf])
 			alert_msg = "You don't have camera vision of this location!"
 			success = FALSE
-		for(var/atom/movable/AM in T.contents)
+		for(var/atom/movable/AM in turf.contents)
 			if(AM.density)
 				alert_msg = "That area must be clear of objects!"
 				success = FALSE
-		var/image/I = action.turfOverlays[n]
-		I.loc = T
-		client.images += I
-		I.icon_state = "[success ? "green" : "red"]Overlay" //greenOverlay and redOverlay for success and failure respectively
-		addtimer(CALLBACK(src, PROC_REF(remove_transformer_image), client, I, T), 30)
+		var/image/image = action.turfOverlays[n]
+		image.loc = turf
+		client.images += image
+		image.icon_state = "[success ? "green" : "red"]Overlay" //greenOverlay and redOverlay for success and failure respectively
+		addtimer(CALLBACK(src, PROC_REF(remove_transformer_image), client, image, turf), 30)
 	if(!success)
 		to_chat(src, span_warning("[alert_msg]"))
 	return success

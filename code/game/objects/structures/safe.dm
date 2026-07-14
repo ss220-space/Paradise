@@ -374,13 +374,13 @@ GLOBAL_LIST_EMPTY(safes)
 	var/mob/living/carbon/human/driller_human = locateUID(driller_UID)
 	if(!istype(driller_human) || get_dist(src, driller_human) >= 9)
 		return //You need to be near the drill if you want to get the buff.
-	for(var/mob/living/carbon/human/H in view(9, driller_human))
-		if((H.job in list(JOB_TITLE_OFFICER, JOB_TITLE_PILOT, JOB_TITLE_DETECTIVE, JOB_TITLE_WARDEN, JOB_TITLE_HOS, JOB_TITLE_CAPTAIN, JOB_TITLE_CLOWN)) && !H.mind?.special_role || H.mind?.special_role == SPECIAL_ROLE_ERT)
+	for(var/mob/living/carbon/human/human in view(9, driller_human))
+		if((human.job in list(JOB_TITLE_OFFICER, JOB_TITLE_PILOT, JOB_TITLE_DETECTIVE, JOB_TITLE_WARDEN, JOB_TITLE_HOS, JOB_TITLE_CAPTAIN, JOB_TITLE_CLOWN)) && !human.mind?.special_role || human.mind?.special_role == SPECIAL_ROLE_ERT)
 			drill.spotted = TRUE
 			security_assualt_in_progress(driller_human)
 			return
-	for(var/mob/living/carbon/human/H in view(9, src))
-		if((H.job in list(JOB_TITLE_OFFICER, JOB_TITLE_PILOT, JOB_TITLE_DETECTIVE, JOB_TITLE_WARDEN, JOB_TITLE_HOS, JOB_TITLE_CAPTAIN, JOB_TITLE_CLOWN)) && !H.mind?.special_role || H.mind?.special_role == SPECIAL_ROLE_ERT)
+	for(var/mob/living/carbon/human/human in view(9, src))
+		if((human.job in list(JOB_TITLE_OFFICER, JOB_TITLE_PILOT, JOB_TITLE_DETECTIVE, JOB_TITLE_WARDEN, JOB_TITLE_HOS, JOB_TITLE_CAPTAIN, JOB_TITLE_CLOWN)) && !human.mind?.special_role || human.mind?.special_role == SPECIAL_ROLE_ERT)
 			drill.spotted = TRUE
 			security_assualt_in_progress(driller_human)
 			return
@@ -390,19 +390,19 @@ GLOBAL_LIST_EMPTY(safes)
 	drill.song.start_playing(driller_human)
 	drill.atom_say("Security spotted. Nanites deployed. Give them <b>hell.</b>")
 	notify_ghosts("Security assault in progress in [get_area(src)]!", enter_link = "<a href=byond://?src=[UID()];follow=1>(Click to jump to!)</a>", source = src, action = NOTIFY_FOLLOW)
-	for(var/mob/dead/observer/O in GLOB.player_list)
-		O.overlay_fullscreen("payback", /atom/movable/screen/fullscreen/payback, 0)
+	for(var/mob/dead/observer/observer in GLOB.player_list)
+		observer.overlay_fullscreen("payback", /atom/movable/screen/fullscreen/payback, 0)
 	addtimer(CALLBACK(src, PROC_REF(ghost_payback_phase_2)), 2.7 SECONDS)
 
 /obj/structure/safe/proc/ghost_payback_phase_2()
-	for(var/mob/dead/observer/O in GLOB.player_list)
-		O.clear_fullscreen("payback")
-		O.overlay_fullscreen("payback", /atom/movable/screen/fullscreen/payback, 1)
+	for(var/mob/dead/observer/observer in GLOB.player_list)
+		observer.clear_fullscreen("payback")
+		observer.overlay_fullscreen("payback", /atom/movable/screen/fullscreen/payback, 1)
 	addtimer(CALLBACK(src, PROC_REF(clear_payback)), 2 MINUTES)
 
 /obj/structure/safe/proc/clear_payback()
-	for(var/mob/dead/observer/O in GLOB.player_list)
-		O.clear_fullscreen("payback")
+	for(var/mob/dead/observer/observer in GLOB.player_list)
+		observer.clear_fullscreen("payback")
 
 /**
  * Called every dial turn to determine whether the safe should unlock or not.
@@ -446,9 +446,9 @@ GLOBAL_LIST_EMPTY(safes)
 	update_icon()
 	if(drill.payback)
 		var/mob/living/carbon/human/driller_human = locateUID(driller_UID)
-		var/datum/status_effect/drill_payback/D = driller_human?.has_status_effect(STATUS_EFFECT_DRILL_PAYBACK)
-		if(D)
-			D.drilled_successfully = TRUE
+		var/datum/status_effect/drill_payback/drill_payback = driller_human?.has_status_effect(STATUS_EFFECT_DRILL_PAYBACK)
+		if(drill_payback)
+			drill_payback.drilled_successfully = TRUE
 			addtimer(CALLBACK(driller_human, TYPE_PROC_REF(/mob/living, remove_status_effect), STATUS_EFFECT_DRILL_PAYBACK), 30 SECONDS) //Give them time to escape
 			drill.payback = FALSE //Can't be used again / no more adding timers
 			drill.song.stop_playing()

@@ -289,11 +289,11 @@ Des: Gives the client of the alien an image on each infected mob.
 ----------------------------------------*/
 /mob/living/carbon/alien/proc/AddInfectionImages()
 	if(client)
-		for(var/mob/living/C in GLOB.mob_list)
-			if(HAS_TRAIT(C, TRAIT_XENO_HOST))
-				var/obj/item/organ/internal/body_egg/alien_embryo/A = C.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo)
-				if(A)
-					var/I = image('icons/mob/alien.dmi', loc = C, icon_state = "infected[A.stage]")
+		for(var/mob/living/living in GLOB.mob_list)
+			if(HAS_TRAIT(living, TRAIT_XENO_HOST))
+				var/obj/item/organ/internal/body_egg/alien_embryo/alien_embryo = living.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo)
+				if(alien_embryo)
+					var/I = image('icons/mob/alien.dmi', loc = living, icon_state = "infected[alien_embryo.stage]")
 					client.images += I
 	return
 
@@ -303,9 +303,9 @@ Des: Removes all infected images from the alien.
 ----------------------------------------*/
 /mob/living/carbon/alien/proc/RemoveInfectionImages()
 	if(client)
-		for(var/image/I in client.images)
-			if(dd_hasprefix_case(I.icon_state, "infected"))
-				qdel(I)
+		for(var/image/image in client.images)
+			if(dd_hasprefix_case(image.icon_state, "infected"))
+				qdel(image)
 	return
 
 /mob/living/carbon/proc/get_plasma()

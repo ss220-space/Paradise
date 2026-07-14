@@ -51,8 +51,8 @@
 	act.Grant(src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/healer/proc/DoLayGreenEggs()
-	var/obj/structure/spider/eggcluster/E = locate() in get_turf(src)
-	if(E)
+	var/obj/structure/spider/eggcluster/eggcluster = locate() in get_turf(src)
+	if(eggcluster)
 		to_chat(src, span_notice("Здесь уже имеется кладка яиц!"))
 		return
 	if(fed < feedings_to_lay)

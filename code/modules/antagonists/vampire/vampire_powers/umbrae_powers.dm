@@ -32,8 +32,8 @@
 
 /mob/living/proc/update_vampire_cloak()
 	SIGNAL_HANDLER
-	var/datum/antagonist/vampire/V = mind.has_antag_datum(/datum/antagonist/vampire)
-	V.handle_vampire_cloak()
+	var/datum/antagonist/vampire/vampire = mind.has_antag_datum(/datum/antagonist/vampire)
+	vampire.handle_vampire_cloak()
 
 /obj/effect/proc_holder/spell/vampire/shadow_snare
 	name = "Теневая ловушка"
@@ -188,9 +188,9 @@
 	if(end_turf.z == start_turf.z)
 		shadow_to_animation(start_turf, end_turf, user)
 
-	var/datum/spell_handler/vampire/V = custom_handler
+	var/datum/spell_handler/vampire/vampire_spell = custom_handler
 	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
-	var/blood_cost = V.calculate_blood_cost(vampire)
+	var/blood_cost = vampire_spell.calculate_blood_cost(vampire)
 	vampire.bloodusable -= blood_cost
 	addtimer(VARSET_CALLBACK(src, should_recharge_after_cast, FALSE), 1 SECONDS) // this is needed so that the spell handler knows we casted it properly
 

@@ -100,32 +100,32 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 	return ..()
 
 /obj/item/seeds/proc/Copy()
-	var/obj/item/seeds/S = new type(null, 1)
+	var/obj/item/seeds/seeds = new type(null, 1)
 	// Copy all the stats
-	S.lifespan = lifespan
-	S.endurance = endurance
-	S.maturation = maturation
-	S.production = production
-	S.yield = yield
-	S.potency = potency
-	S.weed_rate = weed_rate
-	S.weed_chance = weed_chance
-	S.variant = variant
-	S.apply_variant_name()
-	S.genes = list()
+	seeds.lifespan = lifespan
+	seeds.endurance = endurance
+	seeds.maturation = maturation
+	seeds.production = production
+	seeds.yield = yield
+	seeds.potency = potency
+	seeds.weed_rate = weed_rate
+	seeds.weed_chance = weed_chance
+	seeds.variant = variant
+	seeds.apply_variant_name()
+	seeds.genes = list()
 	for(var/g in genes)
-		var/datum/plant_gene/G = g
-		S.genes += G.Copy()
-	S.reagents_add = reagents_add.Copy() // Faster than grabbing the list from genes.
-	return S
+		var/datum/plant_gene/plant_gene = g
+		seeds.genes += plant_gene.Copy()
+	seeds.reagents_add = reagents_add.Copy() // Faster than grabbing the list from genes.
+	return seeds
 
 /obj/item/seeds/proc/get_gene(typepath)
 	return (locate(typepath) in genes)
 
 /obj/item/seeds/proc/reagents_from_genes()
 	reagents_add = list()
-	for(var/datum/plant_gene/reagent/R in genes)
-		reagents_add[R.reagent_id] = R.rate
+	for(var/datum/plant_gene/reagent/reagent in genes)
+		reagents_add[reagent.reagent_id] = reagent.rate
 
 /obj/item/seeds/proc/mutate(lifemut = 2, endmut = 5, productmut = 1, yieldmut = 2, potmut = 25, wrmut = 2, wcmut = 5, traitmut = 0)
 	adjust_lifespan(rand(-lifemut,lifemut))
@@ -201,47 +201,47 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 
 		if(yield <= 0 && get_gene(/datum/plant_gene/trait/plant_type/fungal_metabolism))
 			yield = 1 // Mushrooms always have a minimum yield of 1.
-		var/datum/plant_gene/core/C = get_gene(/datum/plant_gene/core/yield)
-		if(C)
-			C.value = yield
+		var/datum/plant_gene/core/core = get_gene(/datum/plant_gene/core/yield)
+		if(core)
+			core.value = yield
 
 /obj/item/seeds/proc/adjust_lifespan(adjustamt)
 	lifespan = clamp(lifespan + adjustamt, 10, 100)
-	var/datum/plant_gene/core/C = get_gene(/datum/plant_gene/core/lifespan)
-	if(C)
-		C.value = lifespan
+	var/datum/plant_gene/core/core = get_gene(/datum/plant_gene/core/lifespan)
+	if(core)
+		core.value = lifespan
 
 /obj/item/seeds/proc/adjust_endurance(adjustamt)
 	endurance = clamp(endurance + adjustamt, 10, 100)
-	var/datum/plant_gene/core/C = get_gene(/datum/plant_gene/core/endurance)
-	if(C)
-		C.value = endurance
+	var/datum/plant_gene/core/core = get_gene(/datum/plant_gene/core/endurance)
+	if(core)
+		core.value = endurance
 
 /obj/item/seeds/proc/adjust_production(adjustamt)
 	if(yield != -1)
 		production = clamp(production + adjustamt, 1, 10)
-		var/datum/plant_gene/core/C = get_gene(/datum/plant_gene/core/production)
-		if(C)
-			C.value = production
+		var/datum/plant_gene/core/core = get_gene(/datum/plant_gene/core/production)
+		if(core)
+			core.value = production
 
 /obj/item/seeds/proc/adjust_potency(adjustamt)
 	if(potency != -1)
 		potency = clamp(potency + adjustamt, 0, 100)
-		var/datum/plant_gene/core/C = get_gene(/datum/plant_gene/core/potency)
-		if(C)
-			C.value = potency
+		var/datum/plant_gene/core/core = get_gene(/datum/plant_gene/core/potency)
+		if(core)
+			core.value = potency
 
 /obj/item/seeds/proc/adjust_weed_rate(adjustamt)
 	weed_rate = clamp(weed_rate + adjustamt, 0, 10)
-	var/datum/plant_gene/core/C = get_gene(/datum/plant_gene/core/weed_rate)
-	if(C)
-		C.value = weed_rate
+	var/datum/plant_gene/core/core = get_gene(/datum/plant_gene/core/weed_rate)
+	if(core)
+		core.value = weed_rate
 
 /obj/item/seeds/proc/adjust_weed_chance(adjustamt)
 	weed_chance = clamp(weed_chance + adjustamt, 0, 67)
-	var/datum/plant_gene/core/C = get_gene(/datum/plant_gene/core/weed_chance)
-	if(C)
-		C.value = weed_chance
+	var/datum/plant_gene/core/core = get_gene(/datum/plant_gene/core/weed_chance)
+	if(core)
+		core.value = weed_chance
 
 //Directly setting stats
 
@@ -251,47 +251,47 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 
 		if(yield <= 0 && get_gene(/datum/plant_gene/trait/plant_type/fungal_metabolism))
 			yield = 1 // Mushrooms always have a minimum yield of 1.
-		var/datum/plant_gene/core/C = get_gene(/datum/plant_gene/core/yield)
-		if(C)
-			C.value = yield
+		var/datum/plant_gene/core/core = get_gene(/datum/plant_gene/core/yield)
+		if(core)
+			core.value = yield
 
 /obj/item/seeds/proc/set_lifespan(adjustamt)
 	lifespan = clamp(adjustamt, 10, 100)
-	var/datum/plant_gene/core/C = get_gene(/datum/plant_gene/core/lifespan)
-	if(C)
-		C.value = lifespan
+	var/datum/plant_gene/core/core = get_gene(/datum/plant_gene/core/lifespan)
+	if(core)
+		core.value = lifespan
 
 /obj/item/seeds/proc/set_endurance(adjustamt)
 	endurance = clamp(adjustamt, 10, 100)
-	var/datum/plant_gene/core/C = get_gene(/datum/plant_gene/core/endurance)
-	if(C)
-		C.value = endurance
+	var/datum/plant_gene/core/core = get_gene(/datum/plant_gene/core/endurance)
+	if(core)
+		core.value = endurance
 
 /obj/item/seeds/proc/set_production(adjustamt)
 	if(yield != -1)
 		production = clamp(adjustamt, 1, 10)
-		var/datum/plant_gene/core/C = get_gene(/datum/plant_gene/core/production)
-		if(C)
-			C.value = production
+		var/datum/plant_gene/core/core = get_gene(/datum/plant_gene/core/production)
+		if(core)
+			core.value = production
 
 /obj/item/seeds/proc/set_potency(adjustamt)
 	if(potency != -1)
 		potency = clamp(adjustamt, 0, 100)
-		var/datum/plant_gene/core/C = get_gene(/datum/plant_gene/core/potency)
-		if(C)
-			C.value = potency
+		var/datum/plant_gene/core/core = get_gene(/datum/plant_gene/core/potency)
+		if(core)
+			core.value = potency
 
 /obj/item/seeds/proc/set_weed_rate(adjustamt)
 	weed_rate = clamp(adjustamt, 0, 10)
-	var/datum/plant_gene/core/C = get_gene(/datum/plant_gene/core/weed_rate)
-	if(C)
-		C.value = weed_rate
+	var/datum/plant_gene/core/core = get_gene(/datum/plant_gene/core/weed_rate)
+	if(core)
+		core.value = weed_rate
 
 /obj/item/seeds/proc/set_weed_chance(adjustamt)
 	weed_chance = clamp(adjustamt, 0, 67)
-	var/datum/plant_gene/core/C = get_gene(/datum/plant_gene/core/weed_chance)
-	if(C)
-		C.value = weed_chance
+	var/datum/plant_gene/core/core = get_gene(/datum/plant_gene/core/weed_chance)
+	if(core)
+		core.value = weed_chance
 
 /obj/item/seeds/proc/get_analyzer_text()  //in case seeds have something special to tell to the analyzer
 	var/text = ""
@@ -412,31 +412,31 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 	var/amount_random_reagents = rand(lower, upper)
 	for(var/i in 1 to amount_random_reagents)
 		var/random_amount = rand(4, 15) * 0.01 // this must be multiplied by 0.01, otherwise, it will not properly associate
-		var/datum/plant_gene/reagent/R = new(get_random_reagent_id(), random_amount)
-		if(R.can_add(src))
-			genes += R
+		var/datum/plant_gene/reagent/reagent = new(get_random_reagent_id(), random_amount)
+		if(reagent.can_add(src))
+			genes += reagent
 		else
-			qdel(R)
+			qdel(reagent)
 	reagents_from_genes()
 
 /obj/item/seeds/proc/add_random_traits(lower = 0, upper = 2)
 	var/amount_random_traits = rand(lower, upper)
 	for(var/i in 1 to amount_random_traits)
 		var/random_trait = pick((subtypesof(/datum/plant_gene/trait)-typesof(/datum/plant_gene/trait/plant_type)))
-		var/datum/plant_gene/trait/T = new random_trait
-		if(T.can_add(src))
-			genes += T
+		var/datum/plant_gene/trait/trait = new random_trait
+		if(trait.can_add(src))
+			genes += trait
 		else
-			qdel(T)
+			qdel(trait)
 
 /obj/item/seeds/proc/add_random_plant_type(normal_plant_chance = 75)
 	if(prob(normal_plant_chance))
 		var/random_plant_type = pick(subtypesof(/datum/plant_gene/trait/plant_type))
-		var/datum/plant_gene/trait/plant_type/P = new random_plant_type
-		if(P.can_add(src))
-			genes += P
+		var/datum/plant_gene/trait/plant_type/plant_type = new random_plant_type
+		if(plant_type.can_add(src))
+			genes += plant_type
 		else
-			qdel(P)
+			qdel(plant_type)
 
 /obj/item/seeds/proc/transform_into_random()
 	name = "pack of strange seeds"

@@ -240,15 +240,15 @@
 			if(WINDOW.dir == dir_to_set)//checking this for a 2nd time to check if a window was made while we were waiting.
 				to_chat(user, span_notice("There is already a window facing this way there."))
 				return
-		var/obj/structure/window/W = new S.created_window(get_turf(src))
+		var/obj/structure/window/window = new S.created_window(get_turf(src))
 		S.use(1)
-		W.setDir(dir_to_set)
-		W.ini_dir = dir_to_set
-		W.set_anchored(FALSE)
+		window.setDir(dir_to_set)
+		window.ini_dir = dir_to_set
+		window.set_anchored(FALSE)
 		recalculate_atmos_connectivity()
-		W.state = WINDOW_OUT_OF_FRAME
-		to_chat(user, span_notice("You place the [W] on [src]."))
-		W.update_nearby_icons()
+		window.state = WINDOW_OUT_OF_FRAME
+		to_chat(user, span_notice("You place the [window] on [src]."))
+		window.update_nearby_icons()
 
 /obj/structure/grille/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -286,10 +286,10 @@
 		return FALSE
 	if(!in_range(src, user))//To prevent TK and mech users from getting shocked
 		return FALSE
-	var/turf/T = get_turf(src)
-	var/obj/structure/cable/C = T.get_cable_node()
-	if(C)
-		if(electrocute_mob(user, C, src, 1, TRUE))
+	var/turf/turf = get_turf(src)
+	var/obj/structure/cable/cable = turf.get_cable_node()
+	if(cable)
+		if(electrocute_mob(user, cable, src, 1, TRUE))
 			do_sparks(3, TRUE, src)
 			return TRUE
 		else

@@ -121,8 +121,8 @@
 /turf/simulated/mineral/proc/gets_drilled(mob/user, triggered_by_explosion = FALSE, override_bonus = FALSE)
 	var/cached_mineralType = mineralType
 	var/cached_mineralAmt = mineralAmt
-	for(var/obj/effect/temp_visual/mining_overlay/M in src)
-		qdel(M)
+	for(var/obj/effect/temp_visual/mining_overlay/mining_overlay in src)
+		qdel(mining_overlay)
 
 	ChangeTurf(turf_type, defer_change)
 	addtimer(CALLBACK(src, PROC_REF(AfterChange)), 1, TIMER_UNIQUE)

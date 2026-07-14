@@ -120,18 +120,18 @@
 			return
 
 	var/who
-	for(var/client/C in GLOB.clients)
+	for(var/client/client in GLOB.clients)
 		if(!who)
-			who = "[C]"
+			who = "[client]"
 		else
-			who += ", [C]"
+			who += ", [client]"
 
 	var/adminwho
-	for(var/client/C in GLOB.admins)
+	for(var/client/client in GLOB.admins)
 		if(!adminwho)
-			adminwho = "[C]"
+			adminwho = "[client]"
 		else
-			adminwho += ", [C]"
+			adminwho += ", [client]"
 
 	if(maxadminbancheck)
 		var/datum/db_query/adm_query = SSdbcore.NewQuery("SELECT count(id) AS num FROM [CONFIG_GET(string/utility_database)].[format_table_name("ban")] WHERE (a_ckey=:a_ckey) AND (bantype = 'ADMIN_PERMABAN'  OR (bantype = 'ADMIN_TEMPBAN' AND expiration_time > Now())) AND isnull(unbanned)", list(

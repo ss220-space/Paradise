@@ -126,8 +126,8 @@
 		explosion(location, devastation_range = boom_sizes[1], heavy_impact_range = boom_sizes[2], light_impact_range = boom_sizes[3], cause = src)
 		location.ex_act(EXPLODE_HEAVY, target)
 	if(ismob(target))
-		var/mob/M = target
-		M.gib()
+		var/mob/mob = target
+		mob.gib()
 	qdel(src)
 
 /obj/item/grenade/plastic/update_icon_state()

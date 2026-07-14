@@ -70,10 +70,10 @@
 	for(var/thing in elements)
 		var/x = pos_idx % switch_width
 		var/y = floor(pos_idx / switch_width)
-		var/atom/movable/screen/buildmode/B = new buttontype(src, thing)
+		var/atom/movable/screen/buildmode/buildmode = new buttontype(src, thing)
 		// extra .5 for a nice offset look
-		B.screen_loc = "NORTH-[(1 + 0.5 + y*1.5)],WEST+[0.5 + x*1.5]"
-		buttonslist += B
+		buildmode.screen_loc = "NORTH-[(1 + 0.5 + y*1.5)],WEST+[0.5 + x*1.5]"
+		buttonslist += buildmode
 		pos_idx++
 
 /datum/click_intercept/buildmode/proc/close_switchstates()

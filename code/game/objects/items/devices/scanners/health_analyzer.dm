@@ -86,34 +86,34 @@
 	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 	flick("health_anim", src)
 	sleep(3 SECONDS)
-	var/obj/item/paper/P = new(drop_location())
+	var/obj/item/paper/paper = new(drop_location())
 
-	P.name = scan_title
-	P.header += "<center><b>[scan_title]</b></center><br>"
-	P.header += "<b>Время сканирования:</b> [station_time_timestamp()]<br><br>"
-	P.header += "<hr>"
+	paper.name = scan_title
+	paper.header += "<center><b>[scan_title]</b></center><br>"
+	paper.header += "<b>Время сканирования:</b> [station_time_timestamp()]<br><br>"
+	paper.header += "<hr>"
 
 	if(scan_data["status"] == 2)
-		P.header += "Состояние: [span_color("<b>Смерть</b>", "red")]<br>"
+		paper.header += "Состояние: [span_color("<b>Смерть</b>", "red")]<br>"
 	else
-		P.header += "Состояние: [scan_data["status"] > 1 ? "[span_color("<b>Смерть</b>", "red")]" : scan_data["health"] > 0 ? "[scan_data["health"]]%" : "[span_color("<b>[scan_data["health"]]%</b>", "red")]"]<br>"
+		paper.header += "Состояние: [scan_data["status"] > 1 ? "[span_color("<b>Смерть</b>", "red")]" : scan_data["health"] > 0 ? "[scan_data["health"]]%" : "[span_color("<b>[scan_data["health"]]%</b>", "red")]"]<br>"
 
-	P.header += "Тип повреждений: [span_color("Удушье", "#0080ff")]/[span_color("Отравление", "green")]/[span_color("Терм.", "#FF8000")]/[span_color("Мех.", "red")]<br>"
-	P.header += "Уровень повреждений: [span_color("[scan_data["damageLevels"]["oxy"]]", "#0080ff")] - [span_color("[scan_data["damageLevels"]["tox"]]", "green")] - [span_color("[scan_data["damageLevels"]["burn"]]", "#FF8000")] - [span_color("[scan_data["damageLevels"]["brute"]]", "red")]<br>"
-	P.header += "Температура тела: [scan_data["bodyTemperatureC"]] &deg;C ([scan_data["bodyTemperatureF"]] &deg;F)<br>"
+	paper.header += "Тип повреждений: [span_color("Удушье", "#0080ff")]/[span_color("Отравление", "green")]/[span_color("Терм.", "#FF8000")]/[span_color("Мех.", "red")]<br>"
+	paper.header += "Уровень повреждений: [span_color("[scan_data["damageLevels"]["oxy"]]", "#0080ff")] - [span_color("[scan_data["damageLevels"]["tox"]]", "green")] - [span_color("[scan_data["damageLevels"]["burn"]]", "#FF8000")] - [span_color("[scan_data["damageLevels"]["brute"]]", "red")]<br>"
+	paper.header += "Температура тела: [scan_data["bodyTemperatureC"]] &deg;C ([scan_data["bodyTemperatureF"]] &deg;F)<br>"
 	var/pulse_color = (scan_data["pulse_status"] == PULSE_NORM ? "#0080ff" : "red")
 	var/pulse_text = "[scan_data["pulse"]] уд/мин."
-	P.header += "Пульс: [span_color(pulse_text, pulse_color)]<br>"
+	paper.header += "Пульс: [span_color(pulse_text, pulse_color)]<br>"
 
 	if(scan_data["genes"])
 		if(scan_data["genes"] < 40)
-			P.header += "[span_color("<b>Критическая генная нестабильность!</b>", "red")]<br>"
+			paper.header += "[span_color("<b>Критическая генная нестабильность!</b>", "red")]<br>"
 		else if(scan_data["genes"] < 70)
-			P.header += "[span_color("<b>Тяжёлая генная нестабильность.</b>", "red")]<br>"
+			paper.header += "[span_color("<b>Тяжёлая генная нестабильность.</b>", "red")]<br>"
 		else if(scan_data["genes"] < 85)
-			P.header += "[span_color("Незначительная генная нестабильность.", "red")]<br>"
+			paper.header += "[span_color("Незначительная генная нестабильность.", "red")]<br>"
 		else
-			P.header += "Гены стабильны.<br>"
+			paper.header += "Гены стабильны.<br>"
 
 	if(scan_data["bloodData"])
 		var/blood_percent = scan_data["bloodData"]["blood_percent"]
@@ -140,117 +140,117 @@
 			blood_species_text = ", кровь расы: [ru_blood_species[blood_species]]"
 
 		if(blood_volume <= BLOOD_VOLUME_SAFE && blood_percent > BLOOD_VOLUME_OKAY)
-			P.header += "Уровень крови: [span_color("НИЗКИЙ", "red")] - [blood_percent] %, [blood_volume] u, тип: [blood_type][blood_species_text].<br>"
+			paper.header += "Уровень крови: [span_color("НИЗКИЙ", "red")] - [blood_percent] %, [blood_volume] u, тип: [blood_type][blood_species_text].<br>"
 		else if(blood_volume <= BLOOD_VOLUME_OKAY)
-			P.header += "Уровень крови: [span_color("КРИТИЧЕСКИЙ", "red")] - [blood_percent] %, [blood_volume] u, тип: [blood_type][blood_species_text].<br>"
+			paper.header += "Уровень крови: [span_color("КРИТИЧЕСКИЙ", "red")] - [blood_percent] %, [blood_volume] u, тип: [blood_type][blood_species_text].<br>"
 		else
-			P.header += "Уровень крови: [blood_percent] %, [blood_volume] u, тип: [blood_type][blood_species_text]."
+			paper.header += "Уровень крови: [blood_percent] %, [blood_volume] u, тип: [blood_type][blood_species_text]."
 
 	if(scan_data["timeofdeath"])
-		P.header += "Время смерти: [scan_data["timeofdeath"]]<br>"
+		paper.header += "Время смерти: [scan_data["timeofdeath"]]<br>"
 		if(scan_data["timetodefibText"])
-			P.header += span_color("&emsp;Субъект умер [scan_data["timetodefib"]] назад<br>", "red")
-			P.header += "&emsp;Дефибриляция возможна!<br>"
+			paper.header += span_color("&emsp;Субъект умер [scan_data["timetodefib"]] назад<br>", "red")
+			paper.header += "&emsp;Дефибриляция возможна!<br>"
 		else
-			P.header += span_color("&emsp;Субъект умер [scan_data["timetodefib"]] назад<br>", "red")
+			paper.header += span_color("&emsp;Субъект умер [scan_data["timetodefib"]] назад<br>", "red")
 
 	if(scan_data["damageLocalization"])
-		P.header += "<hr>"
-		P.header += "Локализация повреждений, [span_color("Терм.", "#FF8000")]/[span_color("Мех.", "red")]:<br>"
+		paper.header += "<hr>"
+		paper.header += "Локализация повреждений, [span_color("Терм.", "#FF8000")]/[span_color("Мех.", "red")]:<br>"
 		for(var/damage in scan_data["damageLocalization"])
-			P.header += "&emsp;[span_notice(capitalize(damage["name"]))]: [span_color("[damage["burn"]]", "#FF8000")] - [span_color("[damage["brute"]]", "red")]<br>"
+			paper.header += "&emsp;[span_notice(capitalize(damage["name"]))]: [span_color("[damage["burn"]]", "#FF8000")] - [span_color("[damage["brute"]]", "red")]<br>"
 
 	if(scan_data["bleedingList"])
 		for(var/bleeding in scan_data["bleedingList"])
-			P.header += span_color("[bleeding].<br>", "red")
+			paper.header += span_color("[bleeding].<br>", "red")
 
 	if(scan_data["fractureList"])
 		for(var/fracture in scan_data["fractureList"])
-			P.header += span_color("Обнаружен перелом в [fracture].<br>", "red")
+			paper.header += span_color("Обнаружен перелом в [fracture].<br>", "red")
 
 	if(scan_data["infectedList"])
 		for(var/infection in scan_data["infectedList"])
-			P.header += span_color("Заражение в [infection].<br>", "red")
+			paper.header += span_color("Заражение в [infection].<br>", "red")
 
 	if(scan_data["extraFacture"] == 1)
-		P.header += span_color("Обнаружен перелом. Локализация невозможна.<br>", "red")
+		paper.header += span_color("Обнаружен перелом. Локализация невозможна.<br>", "red")
 
 	if(scan_data["extraBleeding"] == 1)
-		P.header += span_color("Обнаружено внутреннее кровотечение. Локализация невозможна.<br>", "red")
+		paper.header += span_color("Обнаружено внутреннее кровотечение. Локализация невозможна.<br>", "red")
 
 	if(scan_data["reagentList"])
-		P.header += "Обнаружены реагенты:<br>"
+		paper.header += "Обнаружены реагенты:<br>"
 		for(var/reagent in scan_data["reagentList"])
-			P.header += "&emsp;[reagent["volume"]]u [reagent["name"]] [reagent["overdosed"] == "1" ? " - <b>ПЕРЕДОЗИРОВКА</b>" : "."]<br>"
+			paper.header += "&emsp;[reagent["volume"]]u [reagent["name"]] [reagent["overdosed"] == "1" ? " - <b>ПЕРЕДОЗИРОВКА</b>" : "."]<br>"
 	else
-		P.header += "<br>Реагенты не обнаружены.<br>"
+		paper.header += "<br>Реагенты не обнаружены.<br>"
 
 	if(scan_data["addictionList"])
-		P.header += "<b>Обнаружены зависимости от реагентов:</b><br>"
+		paper.header += "<b>Обнаружены зависимости от реагентов:</b><br>"
 		for(var/addiction in scan_data["addictionList"])
-			P.header += span_color("&emsp;[addiction["name"]] Стадия: [addiction["addiction_stage"]]/5<br>", "red")
+			paper.header += span_color("&emsp;[addiction["name"]] Стадия: [addiction["addiction_stage"]]/5<br>", "red")
 	else
-		P.header += "Зависимости от реагентов не обнаружены.<br>"
+		paper.header += "Зависимости от реагентов не обнаружены.<br>"
 
-	P.header += "<hr>"
+	paper.header += "<hr>"
 
 	if(scan_data["diseases"])
 		for(var/disease in scan_data["diseases"])
-			P.header += "[span_color("<b>Внимание: [disease["form"]]</b>", "red")]<br>"
-			P.header += "&emsp;Название: [disease["name"]]<br>"
-			P.header += "&emsp;Тип: [disease["additional_info"]]<br>"
-			P.header += "&emsp;Стадия: [disease["stage"]]/[disease["max_stages"]]<br>"
-			P.header += "&emsp;Лечение: [disease["cure_text"]]<br>"
+			paper.header += "[span_color("<b>Внимание: [disease["form"]]</b>", "red")]<br>"
+			paper.header += "&emsp;Название: [disease["name"]]<br>"
+			paper.header += "&emsp;Тип: [disease["additional_info"]]<br>"
+			paper.header += "&emsp;Стадия: [disease["stage"]]/[disease["max_stages"]]<br>"
+			paper.header += "&emsp;Лечение: [disease["cure_text"]]<br>"
 
 	if(scan_data["heartCondition"] == ORGAN_STATUS_CRIT)
-		P.header += "[span_color("<b>Внимание: Критическое состояние</b>", "#d82020")]<br>"
-		P.header += "&emsp;Название: Остановка сердца<br>"
-		P.header += "&emsp;Тип: Сердце пациента остановилось<br>"
-		P.header += "&emsp;Стадия: 1/1<br>"
-		P.header += "&emsp;Лечение: Электрический шок<br>"
+		paper.header += "[span_color("<b>Внимание: Критическое состояние</b>", "#d82020")]<br>"
+		paper.header += "&emsp;Название: Остановка сердца<br>"
+		paper.header += "&emsp;Тип: Сердце пациента остановилось<br>"
+		paper.header += "&emsp;Стадия: 1/1<br>"
+		paper.header += "&emsp;Лечение: Электрический шок<br>"
 	else if(scan_data["heartCondition"] == ORGAN_STATUS_NECROSIS)
-		P.header += "[span_color("<b>Обнаружен некроз сердца.</b>", "#d82020")]<br>"
+		paper.header += "[span_color("<b>Обнаружен некроз сердца.</b>", "#d82020")]<br>"
 	else if(scan_data["heartCondition"] == ORGAN_STATUS_LESS)
-		P.header += "[span_color("<b>Сердце не обнаружено.</b>", "#d82020")]<br>"
+		paper.header += "[span_color("<b>Сердце не обнаружено.</b>", "#d82020")]<br>"
 
 	if(scan_data["liverCondition"] == ORGAN_STATUS_NECROSIS)
-		P.header += "[span_color("<b>Обнаружена острая печёночная недостаточность.</b>", "#d82020")]<br>"
+		paper.header += "[span_color("<b>Обнаружена острая печёночная недостаточность.</b>", "#d82020")]<br>"
 	else if(scan_data["liverCondition"] == ORGAN_STATUS_LESS)
-		P.header += "[span_color("<b>Печень не обнаружена.</b>", "#d82020")]<br>"
+		paper.header += "[span_color("<b>Печень не обнаружена.</b>", "#d82020")]<br>"
 
 	if(scan_data["staminaStatus"] == 1)
-		P.header += span_color("Обнаружено истощение.<br>", "blue")
+		paper.header += span_color("Обнаружено истощение.<br>", "blue")
 
 	if(scan_data["cloneStatus"] > 0)
-		P.header += "[span_color("Обнаружено [scan_data["cloneStatus"] > 30 ? "серьёзное" : "незначительное"] клеточное повреждение.", "#d82020")]<br>"
+		paper.header += "[span_color("Обнаружено [scan_data["cloneStatus"] > 30 ? "серьёзное" : "незначительное"] клеточное повреждение.", "#d82020")]<br>"
 
 	if(scan_data["brainWorms"])
-		P.header += "[span_color("Обнаружены отклонения в работе мозга.", "#d82020")]<br>"
+		paper.header += "[span_color("Обнаружены отклонения в работе мозга.", "#d82020")]<br>"
 
 	if(scan_data["brainDamage"] == ORGAN_STATUS_LESS)
-		P.header += "[span_color("<b>Мозг не обнаружен.</b>", "#d82020")]<br>"
+		paper.header += "[span_color("<b>Мозг не обнаружен.</b>", "#d82020")]<br>"
 	else if(scan_data["brainDamage"] >= 100)
-		P.header += "[span_color("<b>Мозг мёртв.</b>", "#d82020")]<br>"
+		paper.header += "[span_color("<b>Мозг мёртв.</b>", "#d82020")]<br>"
 	else if(scan_data["brainDamage"] >= 60)
-		P.header += "[span_color("<b>Обнаружено серьёзное повреждение мозга.</b>", "#d82020")]<br>"
+		paper.header += "[span_color("<b>Обнаружено серьёзное повреждение мозга.</b>", "#d82020")]<br>"
 	else if(scan_data["brainDamage"] >= 10)
-		P.header += "[span_color("Обнаружено значительное повреждение мозга.", "#d82020")]<br>"
+		paper.header += "[span_color("Обнаружено значительное повреждение мозга.", "#d82020")]<br>"
 
 	if(scan_data["implantDetect"])
-		P.header += "Обнаружены кибернетические модификации:<br>"
+		paper.header += "Обнаружены кибернетические модификации:<br>"
 		for(var/implant in scan_data["implantDetect"])
-			P.header += "&emsp;[implant]<br>"
+			paper.header += "&emsp;[implant]<br>"
 
-	P.header += "<hr>"
-	P.header += "Тип страховки — [scan_data["insuranceType"]].<br>"
-	P.header += "Требуемое количество очков страховки: [scan_data["reqInsurance"]].<br>"
+	paper.header += "<hr>"
+	paper.header += "Тип страховки — [scan_data["insuranceType"]].<br>"
+	paper.header += "Требуемое количество очков страховки: [scan_data["reqInsurance"]].<br>"
 	if(scan_data["insurance"])
-		P.header += "Текущее количество очков страховки: [scan_data["insurance"]].<br>"
+		paper.header += "Текущее количество очков страховки: [scan_data["insurance"]].<br>"
 
-	P.info += "<br><br><b>Заметки:</b><br>"
+	paper.info += "<br><br><b>Заметки:</b><br>"
 
 	if(in_range(user, src))
-		user.put_in_hands(P, ignore_anim = FALSE)
+		user.put_in_hands(paper, ignore_anim = FALSE)
 		user.visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] дребезжит, после чего из окна печати выпадает лист бумаги."))
 	GLOB.copier_items_printed++
 	reports_printed++
@@ -332,15 +332,15 @@
 	if(ishuman(target))
 		scan_subject = target
 	else if(istype(target, /obj/structure/closet/body_bag))
-		var/obj/structure/closet/body_bag/B = target
-		if(!B.opened)
+		var/obj/structure/closet/body_bag/body_bag = target
+		if(!body_bag.opened)
 			var/list/scan_content = list()
-			for(var/mob/living/L in B.contents)
-				scan_content.Add(L)
+			for(var/mob/living/living in body_bag.contents)
+				scan_content.Add(living)
 
 			if(length(scan_content) == 1)
-				for(var/mob/living/carbon/human/L in scan_content)
-					scan_subject = L
+				for(var/mob/living/carbon/human/living in scan_content)
+					scan_subject = living
 			else if(length(scan_content) > 1)
 				balloon_alert(user, "внутри слишком много субъектов!")
 				return
@@ -361,72 +361,72 @@
 			span_notice("[user] сканиру[PLUR_ET_YUT(user)] [target] с помощью [declent_ru(GENITIVE)]."),
 			span_notice("Вы сканируете [target] с помощью [declent_ru(GENITIVE)].")
 		)
-	var/mob/living/carbon/human/H = target
-	var/list/data = medical_scan_results(H, mode, advanced)
+	var/mob/living/carbon/human/human = target
+	var/list/data = medical_scan_results(human, mode, advanced)
 	scanner.scanned = scan_subject
 	return data
 
 // Scan data to TGUI
 /proc/medical_scan_results(mob/living/M, mode = 1, advanced = FALSE, mob/user)
-	var/mob/living/carbon/human/H = M
+	var/mob/living/carbon/human/human = M
 	var/list/data = list()
-	var/DNR = !H.ghost_can_reenter()
-	if(HAS_TRAIT(H, TRAIT_FAKEDEATH))
+	var/DNR = !human.ghost_can_reenter()
+	if(HAS_TRAIT(human, TRAIT_FAKEDEATH))
 		data["status"] = 2
 	else
-		data["status"] = H.stat
-	data["health"] = H.health
-	data["pulse_status"] = H.pulse
-	data["pulse"] = H.get_pulse(GETPULSE_TOOL)
+		data["status"] = human.stat
+	data["health"] = human.health
+	data["pulse_status"] = human.pulse
+	data["pulse"] = human.get_pulse(GETPULSE_TOOL)
 
-	if(H.timeofdeath)
-		data["timeofdeath"] = "[station_time_timestamp("hh:mm:ss", H.timeofdeath)]"
-		var/tdelta = round(world.time - H.timeofdeath)
+	if(human.timeofdeath)
+		data["timeofdeath"] = "[station_time_timestamp("hh:mm:ss", human.timeofdeath)]"
+		var/tdelta = round(world.time - human.timeofdeath)
 		if(tdelta < DEFIB_TIME_LIMIT && !DNR)
 			data["timetodefib"] = "[DisplayTimeText(tdelta)]"
 			data["timetodefibText"] = "Дефибриляция возможна!"
 		else
 			data["timetodefib"] = "[DisplayTimeText(tdelta)]"
 
-	var/oxyDamage = "[H.getOxyLoss()]"
-	if(HAS_TRAIT(H, TRAIT_FAKEDEATH))
-		oxyDamage = "[max(rand(1,40), H.getOxyLoss(), (300 - (H.getToxLoss() + H.getFireLoss() + H.getBruteLoss())))]"
+	var/oxyDamage = "[human.getOxyLoss()]"
+	if(HAS_TRAIT(human, TRAIT_FAKEDEATH))
+		oxyDamage = "[max(rand(1,40), human.getOxyLoss(), (300 - (human.getToxLoss() + human.getFireLoss() + human.getBruteLoss())))]"
 	data["damageLevels"] = list(
 		oxy =  oxyDamage,
-		tox = "[H.getToxLoss()]",
-		burn = "[H.getFireLoss()]",
-		brute = "[H.getBruteLoss()]",
+		tox = "[human.getToxLoss()]",
+		burn = "[human.getFireLoss()]",
+		brute = "[human.getBruteLoss()]",
 	)
 
-	data["bodyTemperatureC"] = "[H.bodytemperature-T0C]"
-	data["bodyTemperatureF"] = "[H.bodytemperature*1.8-459.67]"
-	data["genes"] = H.gene_stability
+	data["bodyTemperatureC"] = "[human.bodytemperature-T0C]"
+	data["bodyTemperatureF"] = "[human.bodytemperature*1.8-459.67]"
+	data["genes"] = human.gene_stability
 	data["DRN"] = DNR
 
-	var/blood_id = H.get_blood_id()
+	var/blood_id = human.get_blood_id()
 	if(blood_id)
-		if(H.bleed_rate)
+		if(human.bleed_rate)
 			data["bleed"] = TRUE
 
-		var/blood_percent =  round((H.blood_volume / BLOOD_VOLUME_NORMAL)*100)
-		var/blood_type = H.dna.blood_type
-		var/blood_species = H.dna.species.blood_species
+		var/blood_percent =  round((human.blood_volume / BLOOD_VOLUME_NORMAL)*100)
+		var/blood_type = human.dna.blood_type
+		var/blood_species = human.dna.species.blood_species
 
 		if(blood_id != "blood")
-			var/datum/reagent/R = GLOB.chemical_reagents_list[blood_id]
-			if(R)
-				blood_type = R.name
+			var/datum/reagent/reagent = GLOB.chemical_reagents_list[blood_id]
+			if(reagent)
+				blood_type = reagent.name
 			else
 				blood_type = blood_id
 
 		data["bloodData"] = list(
 			blood_percent = blood_percent,
-			blood_volume = H.blood_volume,
+			blood_volume = human.blood_volume,
 			blood_type = "[blood_type]",
 			blood_species = "[blood_species]"
 		)
 
-	var/list/damaged = H.get_damaged_organs(1,1)
+	var/list/damaged = human.get_damaged_organs(1,1)
 	var/list/damageLocalization = list()
 	if(length(damaged) > 0)
 		for(var/obj/item/organ/external/org as anything in damaged)
@@ -438,47 +438,47 @@
 		data["damageLocalization"] = damageLocalization
 
 	if(advanced)
-		if(H.reagents)
-			if(length(H.reagents.reagent_list))
+		if(human.reagents)
+			if(length(human.reagents.reagent_list))
 				var/list/reagentList = list()
-				for(var/datum/reagent/R in H.reagents.reagent_list)
+				for(var/datum/reagent/reagent in human.reagents.reagent_list)
 					reagentList += list(list(
-						volume = "[R.volume]",
-						name = "[R.name]",
-						overdosed = R.overdosed
+						volume = "[reagent.volume]",
+						name = "[reagent.name]",
+						overdosed = reagent.overdosed
 					))
 				data["reagentList"] = reagentList
 			else
 				data["reagentList"] = FALSE
 
-			if(length(H.reagents.addiction_list))
+			if(length(human.reagents.addiction_list))
 				var/list/addictionList = list()
-				for(var/datum/reagent/R in H.reagents.addiction_list)
+				for(var/datum/reagent/reagent in human.reagents.addiction_list)
 					addictionList += list(list(
-						name = "[R.name]",
-						addiction_stage = "[R.addiction_stage]"
+						name = "[reagent.name]",
+						addiction_stage = "[reagent.addiction_stage]"
 					))
 				data["addictionList"] = addictionList
 			else
 				data["addictionList"] = FALSE
 
 	var/list/diseases = list()
-	for(var/thing in H.diseases)
-		var/datum/disease/D = thing
-		if(!(D.visibility_flags & HIDDEN_SCANNER))
+	for(var/thing in human.diseases)
+		var/datum/disease/disease = thing
+		if(!(disease.visibility_flags & HIDDEN_SCANNER))
 			diseases += list(list(
-				form = "[D.form]",
-				name = "[D.name]",
-				additional_info = "[D.additional_info]",
-				stage = "[D.stage]",
-				max_stages = "[D.max_stages]",
-				cure_text = "[D.cure_text]"
+				form = "[disease.form]",
+				name = "[disease.name]",
+				additional_info = "[disease.additional_info]",
+				stage = "[disease.stage]",
+				max_stages = "[disease.max_stages]",
+				cure_text = "[disease.cure_text]"
 				)
 			)
 	data["diseases"] = diseases
 
-	if(H.undergoing_cardiac_arrest())
-		var/obj/item/organ/internal/heart/heart = H.get_int_organ(/obj/item/organ/internal/heart)
+	if(human.undergoing_cardiac_arrest())
+		var/obj/item/organ/internal/heart/heart = human.get_int_organ(/obj/item/organ/internal/heart)
 		if(heart && !heart.is_dead())
 			data["heartCondition"] = "CRIT"
 		else if(heart && heart.is_dead())
@@ -487,32 +487,32 @@
 			data["heartCondition"] = ORGAN_STATUS_LESS
 
 	/// Dead or missing liver
-	var/obj/item/organ/internal/liver/liver = H.get_int_organ(/obj/item/organ/internal/liver)
+	var/obj/item/organ/internal/liver/liver = human.get_int_organ(/obj/item/organ/internal/liver)
 	if(!liver)
-		if(!(HAS_TRAIT(H, TRAIT_LIVERLESS_METABOLISM) || HAS_TRAIT(H, TRAIT_NO_DNA)))
+		if(!(HAS_TRAIT(human, TRAIT_LIVERLESS_METABOLISM) || HAS_TRAIT(human, TRAIT_NO_DNA)))
 			data["liverCondition"] = ORGAN_STATUS_LESS
-	else if(H.undergoing_liver_failure())
+	else if(human.undergoing_liver_failure())
 		data["liverCondition"] = ORGAN_STATUS_NECROSIS
 
-	if(H.getStaminaLoss())
+	if(human.getStaminaLoss())
 		data["staminaStatus"] = TRUE
 
-	if(H.getCloneLoss())
-		data["cloneStatus"] = H.getCloneLoss()
+	if(human.getCloneLoss())
+		data["cloneStatus"] = human.getCloneLoss()
 
-	if(H.borer?.controlling)
+	if(human.borer?.controlling)
 		data["brainWorms"] = TRUE
 
-	if(H.get_int_organ(/obj/item/organ/internal/brain))
-		data["brainDamage"] = H.getBrainLoss()
+	if(human.get_int_organ(/obj/item/organ/internal/brain))
+		data["brainDamage"] = human.getBrainLoss()
 	else
 		data["brainDamage"] = ORGAN_STATUS_LESS
 
 	var/list/fractureList = list()
 	var/list/infectedList = list()
 	var/list/bleedingList = list()
-	for(var/name in H.bodyparts_by_name)
-		var/obj/item/organ/external/bodypart = H.bodyparts_by_name[name]
+	for(var/name in human.bodyparts_by_name)
+		var/obj/item/organ/external/bodypart = human.bodyparts_by_name[name]
 		if(!bodypart)
 			continue
 		var/limb = bodypart.declent_ru(PREPOSITIONAL)
@@ -540,29 +540,29 @@
 	data["infectedList"] = infectedList
 	data["bleedingList"] = bleedingList
 
-	for(var/name in H.bodyparts_by_name)
-		var/obj/item/organ/external/bodypart = H.bodyparts_by_name[name]
+	for(var/name in human.bodyparts_by_name)
+		var/obj/item/organ/external/bodypart = human.bodyparts_by_name[name]
 		if(!bodypart)
 			continue
 		if(bodypart.has_fracture())
 			data["extraFacture"] = TRUE
 			break
-	for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
+	for(var/obj/item/organ/external/bodypart as anything in human.bodyparts)
 		if(bodypart.has_internal_bleeding())
 			data["extraBleeding"] = TRUE
 			break
 
-	var/datum/money_account/acc = get_insurance_account(H)
+	var/datum/money_account/acc = get_insurance_account(human)
 	if(acc)
 		data["insuranceType"] = "[acc.insurance_type]"
 	else
 		data["insuranceType"] = "Аккаунт не обнаружен."
-	data["reqInsurance"] = "[get_req_insurance(H)]"
+	data["reqInsurance"] = "[get_req_insurance(human)]"
 	if(acc)
 		data["insurance"] = "[acc.insurance]"
 
 	var/list/implant_detect = list()
-	for(var/obj/item/organ/internal/cyberimp/cybernetics in H.internal_organs)
+	for(var/obj/item/organ/internal/cyberimp/cybernetics in human.internal_organs)
 		if(cybernetics.is_robotic())
 			implant_detect += "[cybernetics.name]"
 	if(length(implant_detect))
@@ -585,66 +585,66 @@
 		to_chat(user, custom_boxed_message("blue_box", "[jointext(scan_data, "<br>")]"))
 		return
 
-	var/mob/living/carbon/human/H = target
-	var/fake_oxy = max(rand(1,40), H.getOxyLoss(), (300 - (H.getToxLoss() + H.getFireLoss() + H.getBruteLoss())))
-	var/OX = H.getOxyLoss() > 50	?	"<b>[H.getOxyLoss()]</b>"		: H.getOxyLoss()
-	var/TX = H.getToxLoss() > 50	?	"<b>[H.getToxLoss()]</b>"		: H.getToxLoss()
-	var/BU = H.getFireLoss() > 50	?	"<b>[H.getFireLoss()]</b>"		: H.getFireLoss()
-	var/BR = H.getBruteLoss() > 50	?	"<b>[H.getBruteLoss()]</b>"	: H.getBruteLoss()
-	var/DNR = !H.ghost_can_reenter()
-	if(H.stat == DEAD)
+	var/mob/living/carbon/human/human = target
+	var/fake_oxy = max(rand(1,40), human.getOxyLoss(), (300 - (human.getToxLoss() + human.getFireLoss() + human.getBruteLoss())))
+	var/OX = human.getOxyLoss() > 50	?	"<b>[human.getOxyLoss()]</b>"		: human.getOxyLoss()
+	var/TX = human.getToxLoss() > 50	?	"<b>[human.getToxLoss()]</b>"		: human.getToxLoss()
+	var/BU = human.getFireLoss() > 50	?	"<b>[human.getFireLoss()]</b>"		: human.getFireLoss()
+	var/BR = human.getBruteLoss() > 50	?	"<b>[human.getBruteLoss()]</b>"	: human.getBruteLoss()
+	var/DNR = !human.ghost_can_reenter()
+	if(human.stat == DEAD)
 		if(DNR)
 			scan_data += "Состояние: [span_danger("Смерть<b>\[НР\]</b>")]"
 		else
 			scan_data += "Состояние: [span_danger("Смерть")]"
 	else //Если живой или отключка
-		if(HAS_TRAIT(H, TRAIT_FAKEDEATH))
+		if(HAS_TRAIT(human, TRAIT_FAKEDEATH))
 			OX = fake_oxy > 50			?	"<b>[fake_oxy]</b>"			: fake_oxy
 			scan_data += "Состояние: [span_danger("Смерть")]"
 		else
-			scan_data += "Состояние: [H.stat > 1 ? span_danger("Смерть") : (H.health > 0 ? "[H.health]%" : span_danger("[H.health]%"))]"
+			scan_data += "Состояние: [human.stat > 1 ? span_danger("Смерть") : (human.health > 0 ? "[human.health]%" : span_danger("[human.health]%"))]"
 
 	scan_data += "Тип повреждений: [span_color("Удушье", "#0080ff")]/[span_color("Отравление", "green")]/[span_color("Терм.", "#FF8000")]/[span_color("Мех.", "red")]"
 	scan_data += "Уровень повреждений: [span_color("[OX]", "#0080ff")] - [span_color("[TX]", "green")] - [span_color("[BU]", "#FF8000")] - [span_color("[BR]", "red")]"
-	scan_data += "Температура тела: [H.bodytemperature-T0C] &deg;C ([H.bodytemperature*1.8-459.67] &deg;F)"
-	if(H.timeofdeath && (H.stat == DEAD || HAS_TRAIT(H, TRAIT_FAKEDEATH)))
-		scan_data += "Время смерти: [station_time_timestamp("hh:mm:ss", H.timeofdeath)]"
-		var/tdelta = round(world.time - H.timeofdeath)
+	scan_data += "Температура тела: [human.bodytemperature-T0C] &deg;C ([human.bodytemperature*1.8-459.67] &deg;F)"
+	if(human.timeofdeath && (human.stat == DEAD || HAS_TRAIT(human, TRAIT_FAKEDEATH)))
+		scan_data += "Время смерти: [station_time_timestamp("hh:mm:ss", human.timeofdeath)]"
+		var/tdelta = round(world.time - human.timeofdeath)
 		if(tdelta < DEFIB_TIME_LIMIT && !DNR)
 			scan_data += span_danger("&emsp;Субъект умер [DisplayTimeText(tdelta)] назад")
 			scan_data += span_danger("&emsp;Дефибриляция возможна!")
 		else
 			scan_data += span_danger("&emsp;Субъект умер [DisplayTimeText(tdelta)] назад")
 	if(mode == 1)
-		var/list/damaged = H.get_damaged_organs(1,1)
+		var/list/damaged = human.get_damaged_organs(1,1)
 		scan_data += "Локализация повреждений, [span_color("Терм.", "#FF8000")]/[span_color("Мех.", "red")]:"
 		if(length(damaged) > 0)
 			for(var/obj/item/organ/external/org as anything in damaged)
 				scan_data += "&emsp;[span_notice(capitalize(org.name))]: [(org.burn_dam > 0) ? "[span_color("[org.burn_dam]", "#FF8000")]" : "[span_color("0", "#FF8000")]"] - [(org.brute_dam > 0) ? "[span_color("[org.brute_dam]", "red")]" : "[span_color("0", "red")]"]"
 	if(advanced)
-		if(H.reagents)
-			if(length(H.reagents.reagent_list))
+		if(human.reagents)
+			if(length(human.reagents.reagent_list))
 				scan_data += "Обнаружены реагенты:"
-				for(var/datum/reagent/R in H.reagents.reagent_list)
-					scan_data += "&emsp;[R.volume]u [R.name][R.overdosed ? " - [span_boldannounceic("ПЕРЕДОЗИРОВКА")]" : "."]"
+				for(var/datum/reagent/reagent in human.reagents.reagent_list)
+					scan_data += "&emsp;[reagent.volume]u [reagent.name][reagent.overdosed ? " - [span_boldannounceic("ПЕРЕДОЗИРОВКА")]" : "."]"
 			else
 				scan_data += "Реагенты не обнаружены."
-			if(length(H.reagents.addiction_list))
+			if(length(human.reagents.addiction_list))
 				scan_data += span_danger("Обнаружены зависимости от реагентов:")
-				for(var/datum/reagent/R in H.reagents.addiction_list)
-					scan_data += span_danger("&emsp;[R.name] Стадия: [R.addiction_stage]/5")
+				for(var/datum/reagent/reagent in human.reagents.addiction_list)
+					scan_data += span_danger("&emsp;[reagent.name] Стадия: [reagent.addiction_stage]/5")
 			else
 				scan_data += "Зависимости от реагентов не обнаружены."
-	for(var/thing in H.diseases)
-		var/datum/disease/D = thing
-		if(!(D.visibility_flags & HIDDEN_SCANNER))
-			scan_data += span_warning("<b>Внимание: обнаружен [D.form]</b>")
-			scan_data += "&emsp;Название: [D.name]"
-			scan_data += "&emsp;Тип: [D.additional_info]"
-			scan_data += "&emsp;Стадия: [D.stage]/[D.max_stages]"
-			scan_data += "&emsp;Лечение: [D.cure_text]"
-	if(H.undergoing_cardiac_arrest())
-		var/obj/item/organ/internal/heart/heart = H.get_int_organ(/obj/item/organ/internal/heart)
+	for(var/thing in human.diseases)
+		var/datum/disease/disease = thing
+		if(!(disease.visibility_flags & HIDDEN_SCANNER))
+			scan_data += span_warning("<b>Внимание: обнаружен [disease.form]</b>")
+			scan_data += "&emsp;Название: [disease.name]"
+			scan_data += "&emsp;Тип: [disease.additional_info]"
+			scan_data += "&emsp;Стадия: [disease.stage]/[disease.max_stages]"
+			scan_data += "&emsp;Лечение: [disease.cure_text]"
+	if(human.undergoing_cardiac_arrest())
+		var/obj/item/organ/internal/heart/heart = human.get_int_organ(/obj/item/organ/internal/heart)
 		if(heart && !heart.is_dead())
 			scan_data += span_warning("<b>Внимание: Критическое состояние</b>")
 			scan_data += "&emsp;Название: Остановка сердца"
@@ -656,35 +656,35 @@
 		else if(!heart)
 			scan_data += span_alert("<b>Сердце не обнаружено.</b>")
 
-	var/obj/item/organ/internal/liver/liver = H.get_int_organ(/obj/item/organ/internal/liver)
+	var/obj/item/organ/internal/liver/liver = human.get_int_organ(/obj/item/organ/internal/liver)
 
 	if(!liver)
-		if(!(HAS_TRAIT(H, TRAIT_LIVERLESS_METABOLISM) || HAS_TRAIT(H, TRAIT_NO_DNA)))
+		if(!(HAS_TRAIT(human, TRAIT_LIVERLESS_METABOLISM) || HAS_TRAIT(human, TRAIT_NO_DNA)))
 			scan_data += span_alert("<b>Печень не обнаружена.</b>")
-	else if(H.undergoing_liver_failure())
+	else if(human.undergoing_liver_failure())
 		scan_data += span_alert("<b>Обнаружена острая печёночная недостаточность.</b>")
 
-	if(H.getStaminaLoss())
+	if(human.getStaminaLoss())
 		scan_data += span_notice("Обнаружено истощение.")
-	if(H.getCloneLoss())
-		scan_data += span_warning("Обнаружено [H.getCloneLoss() > 30 ? "серьёзное" : "незначительное"] клеточное повреждение.")
-	if(H.borer?.controlling)
+	if(human.getCloneLoss())
+		scan_data += span_warning("Обнаружено [human.getCloneLoss() > 30 ? "серьёзное" : "незначительное"] клеточное повреждение.")
+	if(human.borer?.controlling)
 		scan_data += span_warning("Обнаружены отклонения в работе мозга.")
 
-	if(H.get_int_organ(/obj/item/organ/internal/brain))
-		if(H.getBrainLoss() >= 100)
+	if(human.get_int_organ(/obj/item/organ/internal/brain))
+		if(human.getBrainLoss() >= 100)
 			scan_data += span_warning("Мозг мёртв.")
-		else if(H.getBrainLoss() >= 60)
+		else if(human.getBrainLoss() >= 60)
 			scan_data += span_warning("Обнаружено серьёзное повреждение мозга.")
-		else if(H.getBrainLoss() >= 10)
+		else if(human.getBrainLoss() >= 10)
 			scan_data += span_warning("Обнаружено значительное повреждение мозга.")
 	else
 		scan_data += span_warning(">Мозг не обнаружен.")
 
 	SEND_SIGNAL(target, COMSIG_LIVING_HEALTHSCAN, scan_data, advanced, user, mode, tochat)
 
-	for(var/name in H.bodyparts_by_name)
-		var/obj/item/organ/external/bodypart = H.bodyparts_by_name[name]
+	for(var/name in human.bodyparts_by_name)
+		var/obj/item/organ/external/bodypart = human.bodyparts_by_name[name]
 		if(!bodypart)
 			continue
 		if(bodypart.has_fracture())
@@ -694,8 +694,8 @@
 		if(bodypart.has_infected_wound())
 			scan_data += span_warning("Заражение в [GLOB.body_zone[bodypart.limb_zone][PREPOSITIONAL]].")
 
-	for(var/name in H.bodyparts_by_name)
-		var/obj/item/organ/external/bodypart = H.bodyparts_by_name[name]
+	for(var/name in human.bodyparts_by_name)
+		var/obj/item/organ/external/bodypart = human.bodyparts_by_name[name]
 		if(!bodypart)
 			continue
 		if(bodypart.bleeding_amount > 0)
@@ -709,24 +709,24 @@
 				bleed_stat += "остановленное "
 
 			scan_data += span_warning("Обнаружено [bleed_stat]кровотечение в [bodypart.declent_ru(PREPOSITIONAL)].")
-	for(var/name in H.bodyparts_by_name)
-		var/obj/item/organ/external/bodypart = H.bodyparts_by_name[name]
+	for(var/name in human.bodyparts_by_name)
+		var/obj/item/organ/external/bodypart = human.bodyparts_by_name[name]
 		if(!bodypart)
 			continue
 		if(bodypart.has_fracture())
 			scan_data += span_warning("Обнаружены переломы. Локализация невозможна.")
 			break
-	for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
+	for(var/obj/item/organ/external/bodypart as anything in human.bodyparts)
 		if(bodypart.has_internal_bleeding())
 			scan_data += span_warning("Обнаружено внутреннее кровотечение. Локализация невозможна.")
 			break
-	var/blood_id = H.get_blood_id()
+	var/blood_id = human.get_blood_id()
 	if(blood_id)
-		if(H.bleed_rate)
+		if(human.bleed_rate)
 			scan_data += span_danger("Обнаружено кровотечение.")
-		var/blood_percent =  round((H.blood_volume / BLOOD_VOLUME_NORMAL)*100)
-		var/blood_type = H.dna.blood_type
-		var/blood_species = H.dna.species.blood_species
+		var/blood_percent =  round((human.blood_volume / BLOOD_VOLUME_NORMAL)*100)
+		var/blood_type = human.dna.blood_type
+		var/blood_species = human.dna.species.blood_species
 		var/ru_blood_species = list(
 			"Diona" = "Диона",
 			"Drask" = "Драск",
@@ -746,44 +746,44 @@
 			blood_species_text = ", кровь расы: [ru_blood_species[blood_species]]"
 
 		if(blood_id != "blood")//special blood substance
-			var/datum/reagent/R = GLOB.chemical_reagents_list[blood_id]
-			if(R)
-				blood_type = R.name
+			var/datum/reagent/reagent = GLOB.chemical_reagents_list[blood_id]
+			if(reagent)
+				blood_type = reagent.name
 			else
 				blood_type = blood_id
 
-		if(H.blood_volume <= BLOOD_VOLUME_SAFE && H.blood_volume > BLOOD_VOLUME_OKAY)
-			scan_data += "Уровень крови: [span_danger("НИЗКИЙ")] - [blood_percent] %, [H.blood_volume] u, тип: [blood_type][blood_species_text]."
-		else if(H.blood_volume <= BLOOD_VOLUME_OKAY)
-			scan_data += "Уровень крови: [span_danger("<b>КРИТИЧЕСКИЙ</b>")] - [blood_percent] %, [H.blood_volume] u, тип: [blood_type][blood_species_text]."
+		if(human.blood_volume <= BLOOD_VOLUME_SAFE && human.blood_volume > BLOOD_VOLUME_OKAY)
+			scan_data += "Уровень крови: [span_danger("НИЗКИЙ")] - [blood_percent] %, [human.blood_volume] u, тип: [blood_type][blood_species_text]."
+		else if(human.blood_volume <= BLOOD_VOLUME_OKAY)
+			scan_data += "Уровень крови: [span_danger("<b>КРИТИЧЕСКИЙ</b>")] - [blood_percent] %, [human.blood_volume] u, тип: [blood_type][blood_species_text]."
 		else
-			scan_data += "Уровень крови: [blood_percent] %, [H.blood_volume] u, тип: [blood_type][blood_species_text]."
+			scan_data += "Уровень крови: [blood_percent] %, [human.blood_volume] u, тип: [blood_type][blood_species_text]."
 
-	var/pulse_color = (H.pulse == PULSE_NORM ? "#0080ff" : "red")
-	var/pulse_text = "[H.get_pulse(GETPULSE_TOOL)] уд/мин."
+	var/pulse_color = (human.pulse == PULSE_NORM ? "#0080ff" : "red")
+	var/pulse_text = "[human.get_pulse(GETPULSE_TOOL)] уд/мин."
 	scan_data += "Пульс: [span_color(pulse_text, pulse_color)]"
 	var/list/implant_detect = list()
-	for(var/obj/item/organ/internal/cyberimp/cybernetics in H.internal_organs)
+	for(var/obj/item/organ/internal/cyberimp/cybernetics in human.internal_organs)
 		if(cybernetics.is_robotic())
 			implant_detect += "&emsp;[cybernetics.name]"
 	if(length(implant_detect))
 		scan_data += "Обнаружены кибернетические модификации:"
 		scan_data += implant_detect
-	if(H.gene_stability < 40)
+	if(human.gene_stability < 40)
 		scan_data += span_userdanger("Критическая генная нестабильность.")
-	else if(H.gene_stability < 70)
+	else if(human.gene_stability < 70)
 		scan_data += span_danger("Тяжёлая генная нестабильность.")
-	else if(H.gene_stability < 85)
+	else if(human.gene_stability < 85)
 		scan_data += span_warning("Незначительная генная нестабильность.")
 	else
 		scan_data += "Гены стабильны."
 
-	var/datum/money_account/acc = get_insurance_account(H)
+	var/datum/money_account/acc = get_insurance_account(human)
 	if(acc)
 		scan_data += "Тип страховки — [acc.insurance_type]."
 	else
 		scan_data += "Аккаунт не обнаружен."
-	scan_data += "Требуемое количество очков страховки: [get_req_insurance(H)]."
+	scan_data += "Требуемое количество очков страховки: [get_req_insurance(human)]."
 	if(acc)
 		scan_data += "Текущее количество очков страховки: [acc.insurance]."
 	to_chat(user, custom_boxed_message("blue_box", "[jointext(scan_data, "<br>")]"))

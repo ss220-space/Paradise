@@ -1001,18 +1001,18 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	if(!new_target)
 		return FALSE
 	if(new_target == "custom")
-		var/datum/theft_objective/O=new
-		O.typepath = tgui_input_list(usr, "Выбрать тип:", "Тип", typesof(/obj/item))
-		if(!O.typepath)
+		var/datum/theft_objective/theft_objective=new
+		theft_objective.typepath = tgui_input_list(usr, "Выбрать тип:", "Тип", typesof(/obj/item))
+		if(!theft_objective.typepath)
 			return FALSE
-		var/tmp_obj = new O.typepath
+		var/tmp_obj = new theft_objective.typepath
 		var/custom_name = tmp_obj:name
 		qdel(tmp_obj)
-		O.name = sanitize(tgui_input_text(usr, "Введите название цели:", "Цель", custom_name, MAX_NAME_LEN))
-		if(!O.name)
+		theft_objective.name = sanitize(tgui_input_text(usr, "Введите название цели:", "Цель", custom_name, MAX_NAME_LEN))
+		if(!theft_objective.name)
 			return FALSE
-		steal_target = O
-		explanation_text = "Украсть [O.name]."
+		steal_target = theft_objective
+		explanation_text = "Украсть [theft_objective.name]."
 	else
 		steal_target = new new_target
 		steal_target.generate_explanation_text(src)

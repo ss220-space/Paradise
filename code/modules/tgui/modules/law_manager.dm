@@ -273,8 +273,8 @@
 /datum/ui_module/law_manager/proc/sync_laws(mob/living/silicon/ai/AI)
 	if(!AI)
 		return
-	for(var/mob/living/silicon/robot/R in AI.connected_robots)
-		R.sync()
+	for(var/mob/living/silicon/robot/robot in AI.connected_robots)
+		robot.sync()
 	log_and_message_admins("has syncronized [AI]'s laws with its borgs.")
 
 /datum/ui_module/law_manager/proc/notify_owner_shell()

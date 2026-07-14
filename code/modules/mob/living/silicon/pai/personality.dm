@@ -17,14 +17,14 @@
 	if(!src.name)	//Preventing false savings
 		return FALSE
 
-	var/savefile/F = new /savefile(src.savefile_path(user))
+	var/savefile/savefile = new /savefile(src.savefile_path(user))
 
-	F["name"] << src.name
-	F["description"] << src.description
-	F["role"] << src.role
-	F["comments"] << src.comments
+	savefile["name"] << src.name
+	savefile["description"] << src.description
+	savefile["role"] << src.role
+	savefile["comments"] << src.comments
 
-	F["version"] << 1
+	savefile["version"] << 1
 
 	return TRUE
 
@@ -42,12 +42,12 @@
 	if(!fexists(path))
 		return 0
 
-	var/savefile/F = new /savefile(path)
+	var/savefile/savefile = new /savefile(path)
 
-	if(!F) return //Not everyone has a pai savefile.
+	if(!savefile) return //Not everyone has a pai savefile.
 
 	var/version = null
-	F["version"] >> version
+	savefile["version"] >> version
 
 	if(isnull(version) || version != 1)
 		fdel(path)
@@ -55,8 +55,8 @@
 			alert(user, "Your savefile was incompatible with this version and was deleted.")
 		return 0
 
-	F["name"] >> src.name
-	F["description"] >> src.description
-	F["role"] >> src.role
-	F["comments"] >> src.comments
+	savefile["name"] >> src.name
+	savefile["description"] >> src.description
+	savefile["role"] >> src.role
+	savefile["comments"] >> src.comments
 	return 1

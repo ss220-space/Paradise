@@ -83,8 +83,8 @@
 	occupant = rend_occupant
 	//Check below gets them out of most machines safelly
 	if(isobj(rend_occupant.loc))
-		var/obj/O = rend_occupant.loc
-		O.force_eject_occupant(rend_occupant)
+		var/obj/obj = rend_occupant.loc
+		obj.force_eject_occupant(rend_occupant)
 	occupant.forceMove(src)
 	occupant.SetSleeping(duration)
 	to_chat(occupant, span_danger("Вы попали в пространственно временной парадокс... "))

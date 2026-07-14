@@ -74,13 +74,13 @@
 /obj/structure/closet/secure_closet/contractor/proc/give_item(atom/A)
 	if(ismob(A)) // No mobs allowed
 		return FALSE
-	var/obj/item/I = A
-	if(!istype(I))
+	var/obj/item/item = A
+	if(!istype(item))
 		return FALSE
-	if(I.datum_flags & DF_ISPROCESSING)
-		LAZYSET(suspended_items, I.UID(), list(I, (I in SSfastprocess.processing)))
-		STOP_PROCESSING(SSobj, I)
-	I.loc = src // No forceMove because we don't want to trigger anything here
+	if(item.datum_flags & DF_ISPROCESSING)
+		LAZYSET(suspended_items, item.UID(), list(item, (item in SSfastprocess.processing)))
+		STOP_PROCESSING(SSobj, item)
+	item.loc = src // No forceMove because we don't want to trigger anything here
 	return TRUE
 
 /**
@@ -92,16 +92,16 @@
 /obj/structure/closet/secure_closet/contractor/proc/remove_item(atom/A)
 	if(!(A in contents))
 		return
-	var/obj/item/I = A
-	if(!istype(I))
+	var/obj/item/item = A
+	if(!istype(item))
 		return FALSE
 	// Resume processing if it was paused
-	var/list/tuple = LAZYACCESS(suspended_items, I.UID())
+	var/list/tuple = LAZYACCESS(suspended_items, item.UID())
 	if(tuple)
 		if(tuple[2])
-			START_PROCESSING(SSfastprocess, I)
+			START_PROCESSING(SSfastprocess, item)
 		else
-			START_PROCESSING(SSobj, I)
-		suspended_items[I.UID()] = null
-	I.loc = loc // No forceMove because we don't want to trigger anything here
-	return I
+			START_PROCESSING(SSobj, item)
+		suspended_items[item.UID()] = null
+	item.loc = loc // No forceMove because we don't want to trigger anything here
+	return item

@@ -188,9 +188,9 @@
 /datum/strippable_item/proc/in_thief_mode(mob/user)
 	if(!ishuman(user))
 		return FALSE
-	var/mob/living/carbon/human/H = usr
-	var/obj/item/clothing/gloves/G = H.gloves
-	return G?.pickpocket
+	var/mob/living/carbon/human/human = usr
+	var/obj/item/clothing/gloves/gloves = human.gloves
+	return gloves?.pickpocket
 
 /// A preset for equipping items onto mob slots
 /datum/strippable_item/mob_item_slot

@@ -40,27 +40,27 @@
 	milla.invoke_async(parent_machine, 0.25 * parent_machine.cooling_speed)
 
 /obj/effect/snowcloud/proc/try_to_snow()
-	var/turf/T = get_turf(src)
-	if(locate(/obj/effect/snow, T))
+	var/turf/turf = get_turf(src)
+	if(locate(/obj/effect/snow, turf))
 		return
 
-	var/datum/gas_mixture/gas = T.get_readonly_air()
+	var/datum/gas_mixture/gas = turf.get_readonly_air()
 	if(prob(75 + gas.temperature() - T0C)) //Colder turf = more chance of snow
 		return
 
-	new /obj/effect/snow(T)
+	new /obj/effect/snow(turf)
 
 /obj/effect/snowcloud/proc/try_to_spread_cloud()
 	if(prob(95 - parent_machine.cooling_speed * 5)) //10 / 15 / 20 / 25% chance to spawn a new cloud
 		return
 	var/list/random_dirs = shuffle(GLOB.cardinal)
 	for(var/potential in random_dirs)
-		var/turf/T = get_turf(get_step(src, potential))
-		if(isspaceturf(T) || T.density)
+		var/turf/turf = get_turf(get_step(src, potential))
+		if(isspaceturf(turf) || turf.density)
 			continue
-		if(!CanAtmosPass(potential) || !T.CanAtmosPass(turn(potential, 180)))
+		if(!CanAtmosPass(potential) || !turf.CanAtmosPass(turn(potential, 180)))
 			continue
-		if(parent_machine.make_snowcloud(T))
+		if(parent_machine.make_snowcloud(turf))
 			return
 
 //Snow stuff below

@@ -41,8 +41,8 @@
 		sleep(10)
 		smoke.start()
 
-	for(var/obj/structure/blob/B in view(8,src))
-		var/damage = round(30/(get_dist(B,src)+1))
-		B.take_damage(damage, BURN, MELEE, 0)
+	for(var/obj/structure/blob/blob in view(8,src))
+		var/damage = round(30/(get_dist(blob,src)+1))
+		blob.take_damage(damage, BURN, MELEE, 0)
 	sleep(80)
 	qdel(src)

@@ -92,17 +92,17 @@
 
 
 /turf/proc/high_pressure_movements(flow_x, flow_y)
-	for(var/atom/movable/M in src)
-		if(QDELETED(M))
+	for(var/atom/movable/movable in src)
+		if(QDELETED(movable))
 			continue
 
-		if(M.anchored)
+		if(movable.anchored)
 			continue
 
-		if(M.pulledby)
+		if(movable.pulledby)
 			continue
 
-		M.experience_pressure_difference(flow_x, flow_y)
+		movable.experience_pressure_difference(flow_x, flow_y)
 
 /proc/wind_direction(flow_x, flow_y)
 	var/direction = 0
@@ -253,22 +253,22 @@
 		OPEN_HEAT_TRANSFER_COEFFICIENT,
 		OPEN_HEAT_TRANSFER_COEFFICIENT)
 
-	for(var/obj/O in src)
-		if(isitem(O))
+	for(var/obj/obj in src)
+		if(isitem(obj))
 			// Items can't block atmos.
 			continue
-		if(!O.CanAtmosPass(NORTH))
+		if(!obj.CanAtmosPass(NORTH))
 			milla_atmos_airtight[INDEX_NORTH] = TRUE
-		if(!O.CanAtmosPass(EAST))
+		if(!obj.CanAtmosPass(EAST))
 			milla_atmos_airtight[INDEX_EAST] = TRUE
-		if(!O.CanAtmosPass(SOUTH))
+		if(!obj.CanAtmosPass(SOUTH))
 			milla_atmos_airtight[INDEX_SOUTH] = TRUE
-		if(!O.CanAtmosPass(WEST))
+		if(!obj.CanAtmosPass(WEST))
 			milla_atmos_airtight[INDEX_WEST] = TRUE
-		milla_superconductivity[INDEX_NORTH] = min(milla_superconductivity[INDEX_NORTH], O.get_superconductivity(NORTH))
-		milla_superconductivity[INDEX_EAST] = min(milla_superconductivity[INDEX_EAST], O.get_superconductivity(EAST))
-		milla_superconductivity[INDEX_SOUTH] = min(milla_superconductivity[INDEX_SOUTH], O.get_superconductivity(SOUTH))
-		milla_superconductivity[INDEX_WEST] = min(milla_superconductivity[INDEX_WEST], O.get_superconductivity(WEST))
+		milla_superconductivity[INDEX_NORTH] = min(milla_superconductivity[INDEX_NORTH], obj.get_superconductivity(NORTH))
+		milla_superconductivity[INDEX_EAST] = min(milla_superconductivity[INDEX_EAST], obj.get_superconductivity(EAST))
+		milla_superconductivity[INDEX_SOUTH] = min(milla_superconductivity[INDEX_SOUTH], obj.get_superconductivity(SOUTH))
+		milla_superconductivity[INDEX_WEST] = min(milla_superconductivity[INDEX_WEST], obj.get_superconductivity(WEST))
 
 	return list(milla_atmos_airtight, milla_superconductivity)
 

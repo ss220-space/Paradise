@@ -6,29 +6,29 @@
 	l_ear = /obj/item/radio/headset/abductor
 
 /datum/outfit/abductor/proc/get_team_console(team_number)
-	for(var/obj/machinery/abductor/console/C in SSmachines.get_by_type(/obj/machinery/abductor/console))
-		if(C.team == team_number)
-			return C
+	for(var/obj/machinery/abductor/console/console in SSmachines.get_by_type(/obj/machinery/abductor/console))
+		if(console.team == team_number)
+			return console
 
 /datum/outfit/abductor/proc/link_to_console(mob/living/carbon/human/H, team_number)
 	if(!team_number && isabductor(H))
-		var/datum/species/abductor/S = H.dna.species
-		team_number = S.team
+		var/datum/species/abductor/abductor = H.dna.species
+		team_number = abductor.team
 
 	if(!team_number)
 		team_number = 1
 
 	var/obj/machinery/abductor/console/console = get_team_console(team_number)
 	if(console)
-		var/obj/item/clothing/suit/armor/abductor/vest/V = locate() in H
-		if(V)
-			console.vest = V
-			ADD_TRAIT(V, TRAIT_NODROP, ABDUCTOR_VEST_TRAIT)
+		var/obj/item/clothing/suit/armor/abductor/vest/vest = locate() in H
+		if(vest)
+			console.vest = vest
+			ADD_TRAIT(vest, TRAIT_NODROP, ABDUCTOR_VEST_TRAIT)
 
-		var/obj/item/abductor/gizmo/G = locate() in H.get_item_by_slot(ITEM_SLOT_BACK)
-		if(G)
-			console.gizmo = G
-			G.console = console
+		var/obj/item/abductor/gizmo/gizmo = locate() in H.get_item_by_slot(ITEM_SLOT_BACK)
+		if(gizmo)
+			console.gizmo = gizmo
+			gizmo.console = console
 
 /datum/outfit/abductor/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()

@@ -357,9 +357,9 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/msg_terrorspiders(msgtext)
 	for(var/thing in GLOB.ts_spiderlist)
-		var/mob/living/simple_animal/hostile/poison/terror_spider/T = thing
-		if(T.stat != DEAD)
-			to_chat(T, span_terrorspider("TerrorSense: [msgtext]"))
+		var/mob/living/simple_animal/hostile/poison/terror_spider/terror_spider = thing
+		if(terror_spider.stat != DEAD)
+			to_chat(terror_spider, span_terrorspider("TerrorSense: [msgtext]"))
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/CheckFaction()
 	if(length(faction) != 2 || (!("terrorspiders" in faction)) || master_commander != null)
@@ -421,15 +421,15 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	var/list/targets = list()
 	targets += src // ensures that self is always at top of the list
 	for(var/thing in GLOB.ts_spiderlist)
-		var/mob/living/simple_animal/hostile/poison/terror_spider/T = thing
-		if(T.stat == DEAD)
+		var/mob/living/simple_animal/hostile/poison/terror_spider/terror_spider = thing
+		if(terror_spider.stat == DEAD)
 			continue
-		if(T.spider_awaymission != spider_awaymission)
+		if(terror_spider.spider_awaymission != spider_awaymission)
 			continue
-		targets |= T // we use |= instead of += to avoid adding src to the list twice
-	var/mob/living/L = tgui_input_list(usr, "Выберите Паука Ужаса для просмотра.", "Выбор", targets)
-	if(istype(L))
-		reset_perspective(L)
+		targets |= terror_spider // we use |= instead of += to avoid adding src to the list twice
+	var/mob/living/living = tgui_input_list(usr, "Выберите Паука Ужаса для просмотра.", "Выбор", targets)
+	if(istype(living))
+		reset_perspective(living)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()

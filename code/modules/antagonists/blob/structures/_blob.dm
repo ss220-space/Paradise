@@ -134,22 +134,22 @@
 		loc.blob_act(src) //don't ask how a wall got on top of the core, just eat it
 
 /obj/structure/blob/proc/blob_attack_animation(atom/A = null, controller) //visually attacks an atom
-	var/obj/effect/temp_visual/blob/O = new /obj/effect/temp_visual/blob(src.loc)
-	O.setDir(dir)
+	var/obj/effect/temp_visual/blob/blob = new /obj/effect/temp_visual/blob(src.loc)
+	blob.setDir(dir)
 	var/area/my_area = get_area(src)
 	if(controller)
 		var/mob/camera/blob/BO = controller
-		O.color = BO.blobstrain.color
+		blob.color = BO.blobstrain.color
 		if(!(my_area.area_flags & BLOBS_ALLOWED))
-			O.color = BlendRGB(O.color, COLOR_WHITE, 0.5) //lighten it to indicate an off-station blob
-		O.alpha = 200
+			blob.color = BlendRGB(blob.color, COLOR_WHITE, 0.5) //lighten it to indicate an off-station blob
+		blob.alpha = 200
 	else if(overmind)
-		O.color = overmind.blobstrain.color
+		blob.color = overmind.blobstrain.color
 		if(!(my_area.area_flags & BLOBS_ALLOWED))
-			O.color = BlendRGB(O.color, COLOR_WHITE, 0.5) //lighten it to indicate an off-station blob
+			blob.color = BlendRGB(blob.color, COLOR_WHITE, 0.5) //lighten it to indicate an off-station blob
 	if(A)
-		O.do_attack_animation(A) //visually attack the whatever
-	return O //just in case you want to do something to the animation.
+		blob.do_attack_animation(A) //visually attack the whatever
+	return blob //just in case you want to do something to the animation.
 
 /obj/structure/blob/proc/expand(turf/T = null, controller = null, expand_reaction = 1)
 	if(!T)
@@ -182,48 +182,48 @@
 		if(SEND_SIGNAL(T, COMSIG_TRY_CONSUME_TURF) & COMPONENT_CANT_CONSUME)
 			make_blob = FALSE
 			T.blob_act(src) //hit the turf if it is
-	for(var/atom/A in T)
-		if(!A.CanPass(src, get_dir(T, src))) //is anything in the turf impassable
+	for(var/atom/atom in T)
+		if(!atom.CanPass(src, get_dir(T, src))) //is anything in the turf impassable
 			make_blob = FALSE
-		if(!A.can_blob_attack())
+		if(!atom.can_blob_attack())
 			continue
-		if(isliving(A) && overmind && !controller) // Make sure to inject strain-reagents with automatic attacks when needed.
-			var/mob/living/mob = A
+		if(isliving(atom) && overmind && !controller) // Make sure to inject strain-reagents with automatic attacks when needed.
+			var/mob/living/mob = atom
 			if(ROLE_BLOB in mob.faction) //no friendly fire
 				continue
 			overmind.blobstrain.attack_living(mob)
 			continue // Don't smack them twice though
-		A.blob_act(src) //also hit everything in the turf
+		atom.blob_act(src) //also hit everything in the turf
 
 	if(make_blob) //well, can we?
-		var/obj/structure/blob/B = new /obj/structure/blob/normal(src.loc, (controller || overmind))
-		B.set_density(TRUE)
-		if(T.Enter(B)) //NOW we can attempt to move into the tile
-			B.set_density(initial(B.density))
-			B.forceMove(T)
+		var/obj/structure/blob/blob = new /obj/structure/blob/normal(src.loc, (controller || overmind))
+		blob.set_density(TRUE)
+		if(T.Enter(blob)) //NOW we can attempt to move into the tile
+			blob.set_density(initial(blob.density))
+			blob.forceMove(T)
 			var/offstation = FALSE
-			var/area/Ablob = get_area(B)
+			var/area/Ablob = get_area(blob)
 			if(Ablob.area_flags & BLOBS_ALLOWED) //Is this area allowed for winning as blob?
 				if(overmind)
-					overmind.blobs_legit |= B
-				SSticker?.mode?.add_blob_tile(B)
+					overmind.blobs_legit |= blob
+				SSticker?.mode?.add_blob_tile(blob)
 			else if(controller)
-				B.balloon_alert(overmind, "вне станции, не считается!")
+				blob.balloon_alert(overmind, "вне станции, не считается!")
 				offstation = TRUE
-			B.update_blob()
+			blob.update_blob()
 			var/reaction_result = TRUE
 			var/turf/total_turf = get_turf(src)
-			if(B.overmind && expand_reaction)
-				reaction_result = B.overmind.blobstrain.expand_reaction(src, B, T, controller, offstation)
+			if(blob.overmind && expand_reaction)
+				reaction_result = blob.overmind.blobstrain.expand_reaction(src, blob, T, controller, offstation)
 			if(reaction_result && is_there_multiz() && check_level_trait(T.z, ZTRAIT_DOWN) && T.z != total_turf.z && !isopenspaceturf(T))
 				T.ChangeTurf(/turf/simulated/openspace)
 			if(reaction_result && is_there_multiz() && check_level_trait(total_turf.z, ZTRAIT_DOWN) && T.z != total_turf.z && !isopenspaceturf(total_turf))
 				total_turf.ChangeTurf(/turf/simulated/openspace)
-			return B
+			return blob
 		else
 			blob_attack_animation(T, controller)
 			T.blob_act(src) //if we can't move in hit the turf again
-			qdel(B) //we should never get to this point, since we checked before moving in. destroy the blob so we don't have two blobs on one tile
+			qdel(blob) //we should never get to this point, since we checked before moving in. destroy the blob so we don't have two blobs on one tile
 			return
 	else
 		blob_attack_animation(T, controller) //if we can't, animate that we attacked
@@ -332,12 +332,12 @@
 /obj/structure/blob/proc/change_to(type, controller, point_return = 0)
 	if(!ispath(type))
 		CRASH("change_to(): invalid type for blob")
-	var/obj/structure/blob/B = new type(src.loc, controller)
-	B.update_blob()
-	B.setDir(dir)
-	B.point_return += point_return
+	var/obj/structure/blob/blob = new type(src.loc, controller)
+	blob.update_blob()
+	blob.setDir(dir)
+	blob.point_return += point_return
 	qdel(src)
-	return B
+	return blob
 
 /obj/structure/blob/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_ANALYZER)

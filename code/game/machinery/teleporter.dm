@@ -206,50 +206,50 @@
 	var/list/areaindex = list()
 	var/turf/teleporter_turf = get_turf(src)
 	var/is_station_teleport = is_station_level(teleporter_turf.z)
-	for(var/obj/item/beacon/R as anything in GLOB.beacons)
-		var/turf/T = get_turf(R)
-		if(!T)
+	for(var/obj/item/beacon/beacon as anything in GLOB.beacons)
+		var/turf/turf = get_turf(beacon)
+		if(!turf)
 			continue
-		if(!is_teleport_allowed(T.z) && !R.cc_beacon)
+		if(!is_teleport_allowed(turf.z) && !beacon.cc_beacon)
 			continue
-		if(R.syndicate && !emagged)
+		if(beacon.syndicate && !emagged)
 			continue
-		if(GLOB.full_lockdown && is_station_teleport && !is_station_level(T.z))
+		if(GLOB.full_lockdown && is_station_teleport && !is_station_level(turf.z))
 			continue
-		var/tmpname = T.loc.name
+		var/tmpname = turf.loc.name
 		if(areaindex[tmpname])
 			tmpname = "[tmpname] ([++areaindex[tmpname]])"
 		else
 			areaindex[tmpname] = 1
 		L[tmpname] = list(
 			"name" = tmpname,
-			"x" = T.x,
-			"y" = T.y,
-			"z" = T.z)
+			"x" = turf.x,
+			"y" = turf.y,
+			"z" = turf.z)
 
-	for(var/obj/item/implant/tracking/I in GLOB.tracked_implants)
-		if(!I.implanted || !ismob(I.loc))
+	for(var/obj/item/implant/tracking/tracking in GLOB.tracked_implants)
+		if(!tracking.implanted || !ismob(tracking.loc))
 			continue
 		else
-			var/mob/M = I.loc
-			if(M.stat == DEAD)
-				if(M.timeofdeath + 6000 < world.time)
+			var/mob/mob = tracking.loc
+			if(mob.stat == DEAD)
+				if(mob.timeofdeath + 6000 < world.time)
 					continue
-			var/turf/T = get_turf(M)
-			if(!T)	continue
-			if(!is_teleport_allowed(T.z))	continue
-			if(GLOB.full_lockdown && is_station_teleport && !is_station_level(T.z))
+			var/turf/turf = get_turf(mob)
+			if(!turf)	continue
+			if(!is_teleport_allowed(turf.z))	continue
+			if(GLOB.full_lockdown && is_station_teleport && !is_station_level(turf.z))
 				continue
-			var/tmpname = M.real_name
+			var/tmpname = mob.real_name
 			if(areaindex[tmpname])
 				tmpname = "[tmpname] ([++areaindex[tmpname]])"
 			else
 				areaindex[tmpname] = 1
 			L[tmpname] = list(
 				"name" = tmpname,
-				"x" = T.x,
-				"y" = T.y,
-				"z" = T.z)
+				"x" = turf.x,
+				"y" = turf.y,
+				"z" = turf.z)
 	return L
 
 /**
@@ -261,22 +261,22 @@
 	var/list/S = power_station.linked_stations
 	if(!length(S))
 		return L
-	for(var/obj/machinery/teleport/station/R in S)
-		var/turf/T = get_turf(R)
-		if(!T || !R.teleporter_hub || !R.teleporter_console)
+	for(var/obj/machinery/teleport/station/station in S)
+		var/turf/turf = get_turf(station)
+		if(!turf || !station.teleporter_hub || !station.teleporter_console)
 			continue
-		if(!is_teleport_allowed(T.z))
+		if(!is_teleport_allowed(turf.z))
 			continue
-		var/tmpname = T.loc.name
+		var/tmpname = turf.loc.name
 		if(areaindex[tmpname])
 			tmpname = "[tmpname] ([++areaindex[tmpname]])"
 		else
 			areaindex[tmpname] = 1
 		L[tmpname] = list(
 				"name" = tmpname,
-				"x" = T.x,
-				"y" = T.y,
-				"z" = T.z)
+				"x" = turf.x,
+				"y" = turf.y,
+				"z" = turf.z)
 	return L
 
 /**
@@ -288,10 +288,10 @@
 	area_bypass = FALSE
 	for(var/item in target.contents)
 		if(istype(item, /obj/item/beacon))
-			var/obj/item/beacon/B = item
-			if(B.area_bypass)
+			var/obj/item/beacon/beacon = item
+			if(beacon.area_bypass)
 				area_bypass = TRUE
-			cc_beacon = B.cc_beacon
+			cc_beacon = beacon.cc_beacon
 
 /**
 *	Helper function of ui_act.
@@ -312,11 +312,11 @@
 
 /proc/find_loc(obj/R as obj)
 	if(!R)	return null
-	var/turf/T = R.loc
-	while(!isturf(T))
-		T = T.loc
-		if(!T || isarea(T))	return null
-	return T
+	var/turf/turf = R.loc
+	while(!isturf(turf))
+		turf = turf.loc
+		if(!turf || isarea(turf))	return null
+	return turf
 
 /obj/machinery/teleport
 	name = "teleport"
@@ -482,12 +482,12 @@
 	if(isAI(A) || istype(A, /obj/structure/AIcore))
 		visible_message(span_warning("The teleporter rejects the AI unit."))
 		if(isAI(A))
-			var/mob/living/silicon/ai/T = A
+			var/mob/living/silicon/ai/ai = A
 			var/list/TPError = list(span_warning("Firmware instructions dictate you must remain on your assigned station!"),
 			span_warning("You cannot interface with this technology and get rejected!"),
 			span_warning("External firewalls prevent you from utilizing this machine!"),
 			span_warning("Your AI core's anti-bluespace failsafes trigger and prevent teleportation!"))
-			to_chat(T, "[pick(TPError)]")
+			to_chat(ai, "[pick(TPError)]")
 		return TRUE
 	return FALSE
 

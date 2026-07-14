@@ -26,55 +26,55 @@ GLOBAL_VAR_INIT(cult_rune_style, "rune") // Style of run the cult is using (fire
 	if(lookup in GLOB.cult_rune_cache)
 		return GLOB.cult_rune_cache[lookup]
 
-	var/icon/I = icon('icons/effects/uristrunes.dmi', "[GLOB.cult_rune_style]-179")
+	var/icon/icon = icon('icons/effects/uristrunes.dmi', "[GLOB.cult_rune_style]-179")
 
 	for(var/i in 0 to 9)
 		if(symbol_bits & (1 << i))
-			I.Blend(icon('icons/effects/uristrunes.dmi', "[GLOB.cult_rune_style]-[1 << i]"), ICON_OVERLAY)
+			icon.Blend(icon('icons/effects/uristrunes.dmi', "[GLOB.cult_rune_style]-[1 << i]"), ICON_OVERLAY)
 
-	I.SwapColor(rgb(0, 0, 0, 100), rgb(100, 0, 0, 200))//TO DO COMMENT:NEED TO ADJUST FOR DIFFRNET CULTS
-	I.SwapColor(rgb(0, 0, 0, 50), rgb(150, 0, 0, 200))
+	icon.SwapColor(rgb(0, 0, 0, 100), rgb(100, 0, 0, 200))//TO DO COMMENT:NEED TO ADJUST FOR DIFFRNET CULTS
+	icon.SwapColor(rgb(0, 0, 0, 50), rgb(150, 0, 0, 200))
 
 	for(var/x in 1 to 32)
 		for(var/y in 1 to 32)
-			var/p = I.GetPixel(x, y)
+			var/p = icon.GetPixel(x, y)
 
 			if(p == null)
-				var/n = I.GetPixel(x, y + 1)
-				var/s = I.GetPixel(x, y - 1)
-				var/e = I.GetPixel(x + 1, y)
-				var/w = I.GetPixel(x - 1, y)
+				var/n = icon.GetPixel(x, y + 1)
+				var/s = icon.GetPixel(x, y - 1)
+				var/e = icon.GetPixel(x + 1, y)
+				var/w = icon.GetPixel(x - 1, y)
 
 				if(n == "#000000" || s == "#000000" || e == "#000000" || w == "#000000")
-					I.DrawBox(rgb(200, 0, 0, 200), x, y)
+					icon.DrawBox(rgb(200, 0, 0, 200), x, y)
 
 				else
-					var/ne = I.GetPixel(x + 1, y + 1)
-					var/se = I.GetPixel(x + 1, y - 1)
-					var/nw = I.GetPixel(x - 1, y + 1)
-					var/sw = I.GetPixel(x - 1, y - 1)
+					var/ne = icon.GetPixel(x + 1, y + 1)
+					var/se = icon.GetPixel(x + 1, y - 1)
+					var/nw = icon.GetPixel(x - 1, y + 1)
+					var/sw = icon.GetPixel(x - 1, y - 1)
 
 					if(ne == "#000000" || se == "#000000" || nw == "#000000" || sw == "#000000")
-						I.DrawBox(rgb(200, 0, 0, 100), x, y)
+						icon.DrawBox(rgb(200, 0, 0, 100), x, y)
 
-	var/icon/result = icon(I, "")
+	var/icon/result = icon(icon, "")
 
-	result.Insert(I,  "", frame = 1, delay = 10)
+	result.Insert(icon,  "", frame = 1, delay = 10)
 
 	if(animated == 1)
-		var/icon/I2 = icon(I, "")
+		var/icon/I2 = icon(icon, "")
 		I2.MapColors(rgb(0xff,0x0c,0,0), rgb(0,0,0,0), rgb(0,0,0,0), rgb(0,0,0,0xff))
 		I2.SetIntensity(1.04)
 
-		var/icon/I3 = icon(I, "")
+		var/icon/I3 = icon(icon, "")
 		I3.MapColors(rgb(0xff,0x18,0,0), rgb(0,0,0,0), rgb(0,0,0,0), rgb(0,0,0,0xff))
 		I3.SetIntensity(1.08)
 
-		var/icon/I4 = icon(I, "")
+		var/icon/I4 = icon(icon, "")
 		I4.MapColors(rgb(0xff,0x24,0,0), rgb(0,0,0,0), rgb(0,0,0,0), rgb(0,0,0,0xff))
 		I4.SetIntensity(1.12)
 
-		var/icon/I5 = icon(I, "")
+		var/icon/I5 = icon(icon, "")
 		I5.MapColors(rgb(0xff,0x30,0,0), rgb(0,0,0,0), rgb(0,0,0,0), rgb(0,0,0,0xff))
 		I5.SetIntensity(1.16)
 

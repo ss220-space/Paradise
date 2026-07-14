@@ -23,9 +23,9 @@
 
 /datum/atom_hud/data/human/medical/basic/proc/check_sensors(mob/living/carbon/human/H)
 	if(!istype(H)) return 0
-	var/obj/item/clothing/under/U = H.w_uniform
-	if(!istype(U)) return 0
-	if(U.sensor_mode <= 2) return 0
+	var/obj/item/clothing/under/under = H.w_uniform
+	if(!istype(under)) return 0
+	if(under.sensor_mode <= 2) return 0
 	return 1
 
 /datum/atom_hud/data/human/medical/basic/add_atom_to_single_mob_hud(mob/M, mob/living/carbon/H)
@@ -91,8 +91,8 @@
 // Even though "crit" does not realistically happen for non-humans..
 /mob/living/carbon/proc/is_in_crit()
 	for(var/thing in diseases)
-		var/datum/disease/D = thing
-		if(istype(D, /datum/disease/critical))
+		var/datum/disease/disease = thing
+		if(istype(disease, /datum/disease/critical))
 			return TRUE
 	return FALSE
 
@@ -106,10 +106,10 @@
 /// Whether a virus worthy displaying on the HUD is present.
 /mob/living/proc/has_virus()
 	for(var/thing in diseases)
-		var/datum/disease/D = thing
-		if(!D.discovered) // Early-stage viruses should not show up on med HUD (though health analywers can still pick them up)
+		var/datum/disease/disease = thing
+		if(!disease.discovered) // Early-stage viruses should not show up on med HUD (though health analywers can still pick them up)
 			continue
-		if(!(D.visibility_flags & HIDDEN_HUD))
+		if(!(disease.visibility_flags & HIDDEN_HUD))
 			return TRUE
 	return FALSE
 
@@ -200,8 +200,8 @@
 
 /// Called when a human changes suit sensors
 /mob/living/carbon/proc/update_suit_sensors()
-	var/datum/atom_hud/data/human/medical/basic/B = GLOB.huds[DATA_HUD_MEDICAL_BASIC]
-	B.update_suit_sensors(src)
+	var/datum/atom_hud/data/human/medical/basic/basic = GLOB.huds[DATA_HUD_MEDICAL_BASIC]
+	basic.update_suit_sensors(src)
 
 
 /// Called when a living mob changes health
@@ -668,14 +668,14 @@
 
 	var/commenter_display = "Something(???)"
 	if(ishuman(commenter))
-		var/mob/living/carbon/human/U = commenter
-		commenter_display = "[U.get_authentification_name()] ([U.get_assignment()])"
+		var/mob/living/carbon/human/human = commenter
+		commenter_display = "[human.get_authentification_name()] ([human.get_assignment()])"
 	else if(isrobot(commenter))
-		var/mob/living/silicon/robot/U = commenter
-		commenter_display = "[U.name] ([U.modtype?.name] [U.braintype])"
+		var/mob/living/silicon/robot/human = commenter
+		commenter_display = "[human.name] ([human.modtype?.name] [human.braintype])"
 	else if(isAI(commenter))
-		var/mob/living/silicon/ai/U = commenter
-		commenter_display = "[U.name] (artificial intelligence)"
+		var/mob/living/silicon/ai/human = commenter
+		commenter_display = "[human.name] (artificial intelligence)"
 	comment_text = "Made by [commenter_display] on [GLOB.current_date_string] [station_time_timestamp()]:<br>[comment_text]"
 
 	if(!target.fields["comments"])

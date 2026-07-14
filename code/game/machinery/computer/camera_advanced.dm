@@ -40,8 +40,8 @@
 /obj/machinery/computer/camera_advanced/proc/remove_eye_control(mob/living/user)
 	if(!user)
 		return
-	for(var/datum/action/A as anything in actions)
-		A.Remove(user)
+	for(var/datum/action/action as anything in actions)
+		action.Remove(user)
 	actions.Cut()
 	if(user.client)
 		user.reset_perspective(null)

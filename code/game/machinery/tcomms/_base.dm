@@ -296,37 +296,37 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 
 	if(tcm.data == SIGNALTYPE_INTERCOM && !bad_connection)
 
-		for(var/obj/item/radio/intercom/R in GLOB.all_radios["[new_connection.frequency]"])
-			if(R.receive_range(display_freq, tcm.zlevels) > -1)
-				radios += R
+		for(var/obj/item/radio/intercom/intercom in GLOB.all_radios["[new_connection.frequency]"])
+			if(intercom.receive_range(display_freq, tcm.zlevels) > -1)
+				radios += intercom
 
 	// --- Broadcast only to intercoms and station-bounced radios ---
 
 	else if(tcm.data == SIGNALTYPE_INTERCOM_SBR && !bad_connection)
 
-		for(var/obj/item/radio/R in GLOB.all_radios["[new_connection.frequency]"])
+		for(var/obj/item/radio/intercom in GLOB.all_radios["[new_connection.frequency]"])
 
-			if(istype(R, /obj/item/radio/headset))
+			if(istype(intercom, /obj/item/radio/headset))
 				continue
 
-			if(R.receive_range(display_freq, tcm.zlevels) > -1)
-				radios += R
+			if(intercom.receive_range(display_freq, tcm.zlevels) > -1)
+				radios += intercom
 
 	// --- Broadcast to ALL radio devices ---
 
 	else if(!bad_connection)
 
-		for(var/obj/item/radio/R in GLOB.all_radios["[new_connection.frequency]"])
-			if(R.receive_range(display_freq, tcm.zlevels) > -1)
-				radios += R
+		for(var/obj/item/radio/intercom in GLOB.all_radios["[new_connection.frequency]"])
+			if(intercom.receive_range(display_freq, tcm.zlevels) > -1)
+				radios += intercom
 
 	// Add syndie radios for intercepts if its a regular department frequency
 		for(var/antag_freq in SSradio.ANTAG_FREQS)
 			var/datum/radio_frequency/antag_connection = SSradio.return_frequency(antag_freq)
-			for(var/obj/item/radio/R in GLOB.all_radios["[antag_connection.frequency]"])
-				if(R.receive_range(display_freq, tcm.zlevels) > -1)
+			for(var/obj/item/radio/intercom in GLOB.all_radios["[antag_connection.frequency]"])
+				if(intercom.receive_range(display_freq, tcm.zlevels) > -1)
 					// Only add if it wasnt there already
-					radios |= R
+					radios |= intercom
 
 	// Get a list of mobs who can hear from the radios we collected.
 	var/list/receive = get_hearers_in_radio_ranges(radios) | GLOB.permanent_radio_listeners
@@ -342,32 +342,32 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	var/list/heard_garbled	= list() // garbled message (ie "f*c* **u, **i*er!")
 	var/list/heard_gibberish= list() // completely screwed over message (ie "F%! (O*# *#!<>&**%!")
 
-	for(var/mob/R in receive)
+	for(var/mob/intercom in receive)
 
 		/* --- Loop through the receivers and categorize them --- */
 
-		if(is_admin(R) && !R.get_preference(PREFTOGGLE_CHAT_RADIO)) //Adminning with 80 people on can be fun when you're trying to talk and all you can hear is radios.
+		if(is_admin(intercom) && !intercom.get_preference(PREFTOGGLE_CHAT_RADIO)) //Adminning with 80 people on can be fun when you're trying to talk and all you can hear is radios.
 			continue
 
-		if(isnewplayer(R)) // we don't want new players to hear messages. rare but generates runtimes.
+		if(isnewplayer(intercom)) // we don't want new players to hear messages. rare but generates runtimes.
 			continue
 
 		// --- Can understand the speech ---
-		if(!tcm.sender || R.say_understands(tcm.sender))
+		if(!tcm.sender || intercom.say_understands(tcm.sender))
 
 			// - Not human or wearing a voice mask -
 			if(!tcm.sender || !ishuman(tcm.sender) || tcm.vmask)
-				heard_masked += R
+				heard_masked += intercom
 
 			// - Human and not wearing voice mask -
 			else
-				heard_normal += R
+				heard_normal += intercom
 
 		// --- Can't understand the speech ---
 
 		else
 			// - Just display a garbled message -
-			heard_garbled += R
+			heard_garbled += intercom
 
 	/* ###### Begin formatting and sending the message ###### */
 	if(length(heard_masked) || length(heard_normal) || length(heard_voice) || length(heard_garbled) || length(heard_gibberish))
@@ -390,37 +390,37 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 
 		if(length(heard_masked))
 			for(var/M in heard_masked)
-				var/mob/R = M
-				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, FALSE, tcm.sender_name, follow_target=tcm.follow_target, check_name_against = tcm.pre_modify_name)
+				var/mob/intercom = M
+				intercom.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, FALSE, tcm.sender_name, follow_target=tcm.follow_target, check_name_against = tcm.pre_modify_name)
 
 		/* --- Process all the mobs that heard the voice normally (understood) --- */
 
 		if(length(heard_normal))
 			for(var/M in heard_normal)
-				var/mob/R = M
-				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, FALSE, tcm.sender_name, follow_target=tcm.follow_target, check_name_against = tcm.pre_modify_name)
+				var/mob/intercom = M
+				intercom.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, FALSE, tcm.sender_name, follow_target=tcm.follow_target, check_name_against = tcm.pre_modify_name)
 
 		/* --- Process all the mobs that heard the voice normally (did not understand) --- */
 
 		if(length(heard_voice))
 			for(var/M in heard_voice)
-				var/mob/R = M
-				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, FALSE, tcm.vname, follow_target=tcm.follow_target, check_name_against = tcm.pre_modify_name)
+				var/mob/intercom = M
+				intercom.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, FALSE, tcm.vname, follow_target=tcm.follow_target, check_name_against = tcm.pre_modify_name)
 
 		/* --- Process all the mobs that heard a garbled voice (did not understand) --- */
 			// Displays garbled message (ie "f*c* **u, **i*er!")
 
 		if(length(heard_garbled))
 			for(var/M in heard_garbled)
-				var/mob/R = M
-				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, TRUE, tcm.vname, follow_target=tcm.follow_target, check_name_against = tcm.pre_modify_name)
+				var/mob/intercom = M
+				intercom.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, TRUE, tcm.vname, follow_target=tcm.follow_target, check_name_against = tcm.pre_modify_name)
 
 		/* --- Complete gibberish. Usually happens when there's a compressed message --- */
 
 		if(length(heard_gibberish))
 			for(var/M in heard_gibberish)
-				var/mob/R = M
-				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, TRUE, follow_target=tcm.follow_target, check_name_against = tcm.pre_modify_name)
+				var/mob/intercom = M
+				intercom.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, TRUE, follow_target=tcm.follow_target, check_name_against = tcm.pre_modify_name)
 
 	return TRUE
 

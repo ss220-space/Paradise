@@ -106,13 +106,13 @@
 
 /// Uses client.typing to check if the popup should appear or not
 /proc/typing_input(mob/user, message = "", title = "", default = "")
-	var/client/C = user.client // Save it in a var in case the client disconnects from the mob
-	C.typing = TRUE
+	var/client/client = user.client // Save it in a var in case the client disconnects from the mob
+	client.typing = TRUE
 	var/msg = tgui_input_text(user, message, title, default)
-	if(!C)
+	if(!client)
 		return null
-	C.typing = FALSE
-	if(!user || C != user.client) // User got out of the mob for some reason or the mob is gone
+	client.typing = FALSE
+	if(!user || client != user.client) // User got out of the mob for some reason or the mob is gone
 		return null
 	return msg
 

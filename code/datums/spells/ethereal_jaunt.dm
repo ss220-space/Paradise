@@ -73,10 +73,10 @@
 
 	mobloc = get_turf(target.loc)
 	if(mobloc.is_blocked_turf(exclude_mobs = TRUE))
-		for(var/turf/T in orange(7))
-			if(isspaceturf(T))
+		for(var/turf/turf in orange(7))
+			if(isspaceturf(turf))
 				continue
-			if(target.Move(T))
+			if(target.Move(turf))
 				target.remove_CC()
 				REMOVE_TRAIT(target, TRAIT_IMMOBILIZED, UNIQUE_TRAIT_SOURCE(src))
 				return

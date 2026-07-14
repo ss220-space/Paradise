@@ -11,8 +11,8 @@
 		kill()
 		return
 
-	var/mob/C = pick(candidates)
-	key_of_pulsedemon = C.key
+	var/mob/mob = pick(candidates)
+	key_of_pulsedemon = mob.key
 
 	if(!key_of_pulsedemon)
 		kill()
@@ -29,15 +29,15 @@
 
 /datum/event/spawn_pulsedemon/proc/get_spawn_loc()
 	var/list/spawn_centers = list()
-	for(var/datum/powernet/P in SSmachines.powernets)
-		for(var/obj/structure/cable/C in P.cables)
-			if(!is_station_level(C.z) || P.avail <= 0)
+	for(var/datum/powernet/powernet in SSmachines.powernets)
+		for(var/obj/structure/cable/cable in powernet.cables)
+			if(!is_station_level(cable.z) || powernet.avail <= 0)
 				break // skip iterating over this entire powernet, it's not on station or it has zero available power (so it's not suitable)
 
-			var/turf/simulated/floor/F = get_turf(C)
+			var/turf/simulated/floor/floor = get_turf(cable)
 			// is a floor, not tiled, on station, in maintenance and cable has power?
-			if(istype(F) && (F.underfloor_accessibility == UNDERFLOOR_INTERACTABLE) && istype(get_area(C), /area/station/maintenance))
-				spawn_centers += F
+			if(istype(floor) && (floor.underfloor_accessibility == UNDERFLOOR_INTERACTABLE) && istype(get_area(cable), /area/station/maintenance))
+				spawn_centers += floor
 	if(!spawn_centers)
 		message_admins("no suitable spawn locations were found for the pulse demon event.")
 		log_debug("no suitable spawn locations were found for the pulse demon event.")

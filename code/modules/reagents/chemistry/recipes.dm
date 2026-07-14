@@ -27,43 +27,43 @@
 /datum/chemical_reaction/proc/make_vaporation(list/reagents, datum/reagents/holder, amount, radius)
 	if(!holder || !holder.my_atom)
 		return
-	var/turf/T = get_turf(holder.my_atom)
-	if(!T)
+	var/turf/turf = get_turf(holder.my_atom)
+	if(!turf)
 		return
 
-	T.visible_message(span_warning("Раствор образует сильный пар!"))
+	turf.visible_message(span_warning("Раствор образует сильный пар!"))
 
 	var/datum/reagents/reagents_list = new (amount * length(reagents))
 	for(var/reagent in reagents)
 		reagents_list.add_reagent(reagent, amount)
 
 	var/datum/effect_system/fluid_spread/smoke/chem/quick/vapor/smoke = new
-	smoke.attach(T)
-	smoke.set_up(range = radius, location = T, carry = reagents_list, silent = TRUE)
+	smoke.attach(turf)
+	smoke.set_up(range = radius, location = turf, carry = reagents_list, silent = TRUE)
 	smoke.start()
 
-	playsound(T, 'sound/effects/smoke.ogg', 50, TRUE, -3)
+	playsound(turf, 'sound/effects/smoke.ogg', 50, TRUE, -3)
 
 /datum/chemical_reaction/proc/chemical_mob_spawn(datum/reagents/holder, amount_to_spawn, reaction_name, mob_class = HOSTILE_SPAWN, mob_faction = "chemicalsummon", random = TRUE, gold_core_spawn = FALSE)
 	if(holder?.my_atom)
-		var/atom/A = holder.my_atom
-		var/turf/T = get_turf(A)
-		var/message = "A [reaction_name] reaction has occurred in [ADMIN_VERBOSEJMP(T)]"
-		message += " ([ADMIN_VV(A,"VV")])"
+		var/atom/atom = holder.my_atom
+		var/turf/turf = get_turf(atom)
+		var/message = "atom [reaction_name] reaction has occurred in [ADMIN_VERBOSEJMP(turf)]"
+		message += " ([ADMIN_VV(atom,"VV")])"
 
-		var/mob/M = get(A, /mob)
-		if(M)
-			message += " - Carried By: [ADMIN_LOOKUPFLW(M)]"
+		var/mob/mob = get(atom, /mob)
+		if(mob)
+			message += " - Carried By: [ADMIN_LOOKUPFLW(mob)]"
 		else
-			message += " - Last Fingerprint: [(A.fingerprintslast ? A.fingerprintslast : "N/A")]"
+			message += " - Last Fingerprint: [(atom.fingerprintslast ? atom.fingerprintslast : "N/atom")]"
 
 		message_admins(message)
-		add_game_logs("[reaction_name] chemical mob spawn reaction occuring at [AREACOORD(T)] carried by [key_name_log(M)] with last fingerprint [A.fingerprintslast? A.fingerprintslast : "N/A"]", M)
+		add_game_logs("[reaction_name] chemical mob spawn reaction occuring at [AREACOORD(turf)] carried by [key_name_log(mob)] with last fingerprint [atom.fingerprintslast? atom.fingerprintslast : "N/atom"]", mob)
 
 		playsound(get_turf(holder.my_atom), 'sound/effects/phasein.ogg', 100, TRUE)
 
-		for(var/mob/living/carbon/C in viewers(get_turf(holder.my_atom), null))
-			C.flash_eyes()
+		for(var/mob/living/carbon/carbon in viewers(get_turf(holder.my_atom), null))
+			carbon.flash_eyes()
 
 		for(var/i in 1 to amount_to_spawn)
 			var/mob/living/spawned_mob
@@ -85,19 +85,19 @@
 	else
 		new /obj/effect/temp_visual/shockwave_old(T)
 		playsound(T, 'sound/effects/bang.ogg', 25, TRUE)
-	for(var/atom/movable/X in view(2 + setting_type  + (volume > 30 ? 1 : 0), T))
-		if(iseffect(X))
+	for(var/atom/movable/movable in view(2 + setting_type  + (volume > 30 ? 1 : 0), T))
+		if(iseffect(movable))
 			continue  //stop pulling smoke and hotspots please
-		if(X && !X.anchored && X.move_resist <= MOVE_FORCE_DEFAULT)
+		if(movable && !movable.anchored && movable.move_resist <= MOVE_FORCE_DEFAULT)
 			if(setting_type)
-				X.throw_at(T, 4 + round(volume / 10), 10 + round(volume / 10))
+				movable.throw_at(T, 4 + round(volume / 10), 10 + round(volume / 10))
 			else
 				var/throwdir
-				if(get_turf(X) == T)
+				if(get_turf(movable) == T)
 					throwdir = pick(GLOB.alldirs)
 				else
-					throwdir = get_dir(T, X)
-				X.throw_at(get_edge_target_turf(T, throwdir), 4 + round(volume / 10), 10 + round(volume / 10))
+					throwdir = get_dir(T, movable)
+				movable.throw_at(get_edge_target_turf(T, throwdir), 4 + round(volume / 10), 10 + round(volume / 10))
 
 /proc/goonchem_vortex_weak(turf/T, setting_type, volume)
 	if(setting_type)
@@ -106,11 +106,11 @@
 	else
 		new /obj/effect/temp_visual/shockwave_old(T)
 		playsound(T, 'sound/effects/bang.ogg', 25, TRUE)
-	for(var/atom/movable/X in view(2 + setting_type  + (volume > 30 ? 1 : 0), T))
-		if(iseffect(X))
+	for(var/atom/movable/movable in view(2 + setting_type  + (volume > 30 ? 1 : 0), T))
+		if(iseffect(movable))
 			continue  //stop pulling smoke and hotspots please
-		if(X && !X.anchored && X.move_resist <= MOVE_FORCE_DEFAULT)
+		if(movable && !movable.anchored && movable.move_resist <= MOVE_FORCE_DEFAULT)
 			if(setting_type)
-				X.throw_at(T, 1 + round(volume / 20), 1 + round(volume / 10))
+				movable.throw_at(T, 1 + round(volume / 20), 1 + round(volume / 10))
 			else
-				X.throw_at(get_edge_target_turf(T, get_dir(T, X)), 1 + round(volume / 20), 1 + round(volume / 10))
+				movable.throw_at(get_edge_target_turf(T, get_dir(T, movable)), 1 + round(volume / 20), 1 + round(volume / 10))

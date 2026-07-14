@@ -583,9 +583,9 @@
 	var/dir_to_target = get_dir(user_turf, get_turf(target))
 	var/static/list/cursed_katana_slice_angles = list(0, -45, 45, -90, 90) //so that the animation animates towards the target clicked and not towards a side target
 	for(var/iteration in cursed_katana_slice_angles)
-		var/turf/T = get_step(user_turf, turn(dir_to_target, iteration))
-		user.do_attack_animation(T, ATTACK_EFFECT_CLAW)
-		for(var/mob/living/additional_target in T)
+		var/turf/turf = get_step(user_turf, turn(dir_to_target, iteration))
+		user.do_attack_animation(turf, ATTACK_EFFECT_CLAW)
+		for(var/mob/living/additional_target in turf)
 			if(user.Adjacent(additional_target) && additional_target.density)
 				additional_target.apply_damage(15, BRUTE, BODY_ZONE_CHEST, TRUE)
 				to_chat(additional_target, span_userdanger("[user] поразил[PLUR_I(user)] вас взмахом!"))
@@ -608,11 +608,11 @@
 	target.apply_damage(15, BRUTE, BODY_ZONE_CHEST, TRUE)
 	user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
 	playsound(src, 'sound/weapons/rapierhit.ogg', 50, TRUE)
-	var/datum/status_effect/saw_bleed/bloodletting/A = target.has_status_effect(STATUS_EFFECT_BLOODLETTING)
-	if(!A)
+	var/datum/status_effect/saw_bleed/bloodletting/bloodletting = target.has_status_effect(STATUS_EFFECT_BLOODLETTING)
+	if(!bloodletting)
 		target.apply_status_effect(STATUS_EFFECT_BLOODLETTING)
 	else
-		A.add_bleed(6)
+		bloodletting.add_bleed(6)
 
 /obj/item/cursed_katana/proc/dash(mob/living/target, mob/user)
 	var/turf/dash_target = get_turf(target)
@@ -651,10 +651,10 @@
 	user.do_attack_animation(target, ATTACK_EFFECT_SMASH)
 	playsound(src, 'sound/effects/glassbr3.ogg', 100, TRUE)
 	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		for(var/obj/item/organ/internal/cyberimp/arm/katana/O in H.internal_organs)
-			if(O.active_item == src)
-				O.Retract()
+		var/mob/living/carbon/human/human = user
+		for(var/obj/item/organ/internal/cyberimp/arm/katana/katana in human.internal_organs)
+			if(katana.active_item == src)
+				katana.Retract()
 	shattered = TRUE
 	addtimer(CALLBACK(src, PROC_REF(coagulate), user), 45 SECONDS)
 

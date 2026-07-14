@@ -3,47 +3,47 @@
 	dummy.mind = new()
 	var/icon/front = new(get_id_photo(dummy), dir = SOUTH)
 	var/icon/side = new(get_id_photo(dummy), dir = WEST)
-	var/datum/data/record/G = new /datum/data/record()
-	G.fields["name"] = "New Record"
-	G.fields["id"] = text("[]", add_zero(num2hex(rand(1, SHORT_REAL_LIMIT), 2), 6))
-	G.fields["rank"] = NOJOB_STATUS_RUS
-	G.fields["real_rank"] = NOJOB_STATUS_RUS
-	G.fields["sex"] = "Male"
-	G.fields["age"] = UNKNOWN_STATUS_RUS
-	G.fields["fingerprint"] = UNKNOWN_STATUS_RUS
-	G.fields["p_stat"] = "Active"
-	G.fields["m_stat"] = "Stable"
-	G.fields["species"] = SPECIES_HUMAN
-	G.fields["home_system"]	= UNKNOWN_STATUS_RUS
-	G.fields["citizenship"]	= UNKNOWN_STATUS_RUS
-	G.fields["faction"]		= UNKNOWN_STATUS_RUS
-	G.fields["religion"]	= UNKNOWN_STATUS_RUS
-	G.fields["photo_front"]	= front
-	G.fields["photo_side"]	= side
-	GLOB.data_core.general += G
+	var/datum/data/record/record = new /datum/data/record()
+	record.fields["name"] = "New Record"
+	record.fields["id"] = text("[]", add_zero(num2hex(rand(1, SHORT_REAL_LIMIT), 2), 6))
+	record.fields["rank"] = NOJOB_STATUS_RUS
+	record.fields["real_rank"] = NOJOB_STATUS_RUS
+	record.fields["sex"] = "Male"
+	record.fields["age"] = UNKNOWN_STATUS_RUS
+	record.fields["fingerprint"] = UNKNOWN_STATUS_RUS
+	record.fields["p_stat"] = "Active"
+	record.fields["m_stat"] = "Stable"
+	record.fields["species"] = SPECIES_HUMAN
+	record.fields["home_system"]	= UNKNOWN_STATUS_RUS
+	record.fields["citizenship"]	= UNKNOWN_STATUS_RUS
+	record.fields["faction"]		= UNKNOWN_STATUS_RUS
+	record.fields["religion"]	= UNKNOWN_STATUS_RUS
+	record.fields["photo_front"]	= front
+	record.fields["photo_side"]	= side
+	GLOB.data_core.general += record
 
 	qdel(dummy)
-	return G
+	return record
 
 /proc/CreateSecurityRecord(name as text, id as text)
-	var/datum/data/record/R = new /datum/data/record()
-	R.fields["name"] = name
-	R.fields["id"] = id
-	R.name = text("Security Record #[id]")
-	R.fields["criminal"] = "None"
-	R.fields["mi_crim"] = "None"
-	R.fields["mi_crim_d"] = "No minor crime convictions."
-	R.fields["ma_crim"] = "None"
-	R.fields["ma_crim_d"] = "No major crime convictions."
-	R.fields["notes"] = "No notes."
-	LAZYINITLIST(R.fields["comments"])
-	GLOB.data_core.security += R
-	return R
+	var/datum/data/record/record = new /datum/data/record()
+	record.fields["name"] = name
+	record.fields["id"] = id
+	record.name = text("Security Record #[id]")
+	record.fields["criminal"] = "None"
+	record.fields["mi_crim"] = "None"
+	record.fields["mi_crim_d"] = "No minor crime convictions."
+	record.fields["ma_crim"] = "None"
+	record.fields["ma_crim_d"] = "No major crime convictions."
+	record.fields["notes"] = "No notes."
+	LAZYINITLIST(record.fields["comments"])
+	GLOB.data_core.security += record
+	return record
 
 /proc/find_security_record(field, value)
 	return find_record(field, value, GLOB.data_core.security)
 
 /proc/find_record(field, value, list/L)
-	for(var/datum/data/record/R in L)
-		if(R.fields[field] == value)
-			return R
+	for(var/datum/data/record/record in L)
+		if(record.fields[field] == value)
+			return record

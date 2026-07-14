@@ -949,8 +949,8 @@
 		if(user.put_in_hands(inserted_item, ignore_anim = FALSE))
 			put_on_turf = FALSE
 	if(put_on_turf)
-		var/turf/T = get_turf(src)
-		inserted_item.forceMove(T)
+		var/turf/turf = get_turf(src)
+		inserted_item.forceMove(turf)
 	inserted_item = null
 	SStgui.update_uis(src)
 

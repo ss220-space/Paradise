@@ -64,9 +64,9 @@
 		to_chat(user, span_warning("[src] is still recharging!"))
 		return
 
-	var/datum/effect_system/fluid_spread/foam/s = new()
-	s.set_up(range = 3, location = loc)
-	s.start()
+	var/datum/effect_system/fluid_spread/foam/foam = new()
+	foam.set_up(range = 3, location = loc)
+	foam.start()
 
 	uses--
 	cooldown_on = TRUE

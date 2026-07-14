@@ -485,13 +485,13 @@ SUBSYSTEM_DEF(tts)
 	if(!ismob(owner))
 		return _tts_seeds_names
 
-	var/mob/M = owner
+	var/mob/mob = owner
 
-	if(!M.client)
+	if(!mob.client)
 		return _tts_seeds_names
 
 	for(var/donator_level in 0 to DONATOR_LEVEL_MAX)
-		if(M.client.donator_level < donator_level)
+		if(mob.client.donator_level < donator_level)
 			_tts_seeds_names -= tts_seeds_names_by_donator_levels["[donator_level]"]
 	return _tts_seeds_names
 

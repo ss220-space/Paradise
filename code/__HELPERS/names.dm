@@ -173,14 +173,14 @@ GLOBAL_DATUM(syndicate_code_response_regex, /regex)
 // var/locations[] = length(GLOB.teleportlocs) ? GLOB.teleportlocs : drinks//if null, defaults to drinks instead.
 
 	var/names[] = list()
-	for(var/datum/data/record/t in GLOB.data_core.general)//Picks from crew manifest.
-		if(!t)
-			stack_trace("Null record: [t]")
+	for(var/datum/data/record/record in GLOB.data_core.general)//Picks from crew manifest.
+		if(!record)
+			stack_trace("Null record: [record]")
 			continue
-		if(!t.fields["name"])
-			stack_trace("Nameless record: [t.fields]")
+		if(!record.fields["name"])
+			stack_trace("Nameless record: [record.fields]")
 			continue
-		names += escape_regex_smart(t.fields["name"])
+		names += escape_regex_smart(record.fields["name"])
 
 	var/maxwords = words//Extra var to check for duplicates.
 

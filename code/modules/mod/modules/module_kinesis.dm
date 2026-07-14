@@ -283,8 +283,8 @@ range 2-3
 		var/mob/living/living_atom = hit_atom
 		living_atom.apply_damage(damage, BRUTE)
 	else if(isobj(hit_atom))
-		var/obj/O = hit_atom
-		O.take_damage(damage, BRUTE, MELEE)
+		var/obj/obj = hit_atom
+		obj.take_damage(damage, BRUTE, MELEE)
 	if(damage_self)
 		our_source.take_damage(our_source.max_integrity / 5, BRUTE, MELEE)
 

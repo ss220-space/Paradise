@@ -1186,11 +1186,11 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 //  For suits with sprite_sheets, an identically named sprite needs to exist in a file like this icons/mob/clothing/species/[species_name_here]/collar.dmi.
 /mob/living/carbon/human/proc/update_collar()
 	remove_overlay(COLLAR_LAYER)
-	var/icon/C = null
+	var/icon/icon = null
 	var/mutable_appearance/standing = null
 
 	if(wear_suit)
-		C = new(wear_suit.onmob_sheets[ITEM_SLOT_COLLAR_STRING])
+		icon = new(wear_suit.onmob_sheets[ITEM_SLOT_COLLAR_STRING])
 		if(wear_suit.sprite_sheets && wear_suit.sprite_sheets[dna.species.name])
 			var/icon_path = "[wear_suit.sprite_sheets[dna.species.name]]"
 			icon_path = "[copytext(icon_path, 1, findtext(icon_path, "/suit.dmi"))]/collar.dmi" //If this file doesn't exist, the end result is that COLLAR_LAYER will be unchanged (empty).
@@ -1199,8 +1199,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				if(wear_suit.icon_state in icon_file.IconStates())
 					standing = mutable_appearance(icon_file, "[wear_suit.icon_state]", layer = -COLLAR_LAYER)
 		else
-			if(wear_suit.icon_state in C.IconStates())
-				standing = mutable_appearance(C, "[wear_suit.icon_state]", layer = -COLLAR_LAYER)
+			if(wear_suit.icon_state in icon.IconStates())
+				standing = mutable_appearance(icon, "[wear_suit.icon_state]", layer = -COLLAR_LAYER)
 
 		overlays_standing[COLLAR_LAYER]	= standing
 	apply_overlay(COLLAR_LAYER)
@@ -1269,8 +1269,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			result += "1"
 
 		if(part)
-			var/datum/species/S = GLOB.all_species[part.dna.species.name]
-			result += "[S.race_key]"
+			var/datum/species/species = GLOB.all_species[part.dna.species.name]
+			result += "[species.race_key]"
 			result += "[part.dna.GetUIValue(DNA_UI_SKIN_TONE)]"
 			result += "[g]"
 			if(part.s_col)

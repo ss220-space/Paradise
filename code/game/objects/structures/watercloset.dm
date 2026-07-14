@@ -736,7 +736,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/shower, (-16), (-16))
 	if(current_temperature == SHOWER_NORMAL)
 		return
 	if(iscarbon(M))
-		var/mob/living/carbon/C = M
+		var/mob/living/carbon/carbon = M
 
 		if(current_temperature == SHOWER_FREEZING)
 			to_chat(C, span_warning("The water is freezing!"))

@@ -453,12 +453,12 @@
 			addtimer(CALLBACK(src, PROC_REF(undo_heart_attack)), 600 / severity)
 
 /obj/item/organ/internal/cyberimp/chest/reviver/proc/undo_heart_attack()
-	var/mob/living/carbon/human/H = owner
-	if(!istype(H))
+	var/mob/living/carbon/human/human = owner
+	if(!istype(human))
 		return
-	H.set_heartattack(FALSE)
-	if(H.stat == CONSCIOUS)
-		to_chat(H, span_notice("You feel your heart beating again!"))
+	human.set_heartattack(FALSE)
+	if(human.stat == CONSCIOUS)
+		to_chat(human, span_notice("You feel your heart beating again!"))
 
 /obj/item/organ/internal/cyberimp/chest/exoframe
 	name = "Exoframe"

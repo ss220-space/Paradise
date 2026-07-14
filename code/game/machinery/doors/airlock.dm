@@ -765,21 +765,21 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		. = list()
 		set_light(l_range = 1, l_power = 1, l_color = "#00FF00", l_on = TRUE)
 		if(unres_sides & NORTH)
-			var/image/I = image(icon = 'icons/obj/doors/airlocks/station/overlays.dmi', icon_state = "unres_n") //layer=src.layer+1
-			I.pixel_z = 32
-			. += I
+			var/image/image = image(icon = 'icons/obj/doors/airlocks/station/overlays.dmi', icon_state = "unres_n") //layer=src.layer+1
+			image.pixel_z = 32
+			. += image
 		if(unres_sides & SOUTH)
-			var/image/I = image(icon = 'icons/obj/doors/airlocks/station/overlays.dmi', icon_state = "unres_s") //layer=src.layer+1
-			I.pixel_z = -32
-			. += I
+			var/image/image = image(icon = 'icons/obj/doors/airlocks/station/overlays.dmi', icon_state = "unres_s") //layer=src.layer+1
+			image.pixel_z = -32
+			. += image
 		if(unres_sides & EAST)
-			var/image/I = image(icon = 'icons/obj/doors/airlocks/station/overlays.dmi', icon_state = "unres_e") //layer=src.layer+1
-			I.pixel_w = 32
-			. += I
+			var/image/image = image(icon = 'icons/obj/doors/airlocks/station/overlays.dmi', icon_state = "unres_e") //layer=src.layer+1
+			image.pixel_w = 32
+			. += image
 		if(unres_sides & WEST)
-			var/image/I = image(icon = 'icons/obj/doors/airlocks/station/overlays.dmi', icon_state = "unres_w") //layer=src.layer+1
-			I.pixel_w = -32
-			. += I
+			var/image/image = image(icon = 'icons/obj/doors/airlocks/station/overlays.dmi', icon_state = "unres_w") //layer=src.layer+1
+			image.pixel_w = -32
+			. += image
 
 /obj/machinery/door/airlock/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
@@ -837,13 +837,13 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 //Checks if the user can headbutt the airlock and does it if it can. Returns TRUE if it happened
 /obj/machinery/door/airlock/proc/headbutt_airlock(mob/user)
 	if(ishuman(user) && prob(40) && density)
-		var/mob/living/carbon/human/H = user
-		if((H.getBrainLoss() >= 60 || HAS_TRAIT(user, TRAIT_AIRLOCK_HIT)) && Adjacent(user))
+		var/mob/living/carbon/human/human = user
+		if((human.getBrainLoss() >= 60 || HAS_TRAIT(user, TRAIT_AIRLOCK_HIT)) && Adjacent(user))
 			playsound(loc, 'sound/effects/bang.ogg', 25, TRUE)
-			if(!istype(H.head, /obj/item/clothing/head/helmet))
+			if(!istype(human.head, /obj/item/clothing/head/helmet))
 				visible_message(span_warning("[user] headbutts the airlock."))
-				H.Weaken(10 SECONDS)
-				H.apply_damage(10, def_zone = BODY_ZONE_HEAD)
+				human.Weaken(10 SECONDS)
+				human.apply_damage(10, def_zone = BODY_ZONE_HEAD)
 			else
 				visible_message(span_warning("[user] headbutts the airlock. Good thing [user.p_theyre()] wearing a helmet."))
 			return TRUE

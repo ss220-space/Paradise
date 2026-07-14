@@ -27,10 +27,10 @@
 	var/list/strong_sounds = list()
 
 /datum/weather/ash_storm/proc/is_shuttle_docked(shuttleId, dockId)
-	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
-	var/obj/docking_port/stationary/S = M.get_docked()
+	var/obj/docking_port/mobile/mobile = SSshuttle.getShuttle(shuttleId)
+	var/obj/docking_port/stationary/stationary = mobile.get_docked()
 
-	return S.id == dockId
+	return stationary.id == dockId
 
 /datum/weather/ash_storm/proc/update_eligible_areas()
 	var/list/eligible_areas = list()

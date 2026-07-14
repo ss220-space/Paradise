@@ -60,8 +60,8 @@
 /obj/structure/transit_tube_pod/proc/empty_pod(atom/location)
 	if(!location)
 		location = get_turf(src)
-	for(var/atom/movable/M in contents)
-		M.forceMove(location)
+	for(var/atom/movable/movable in contents)
+		movable.forceMove(location)
 	update_appearance()
 
 /obj/structure/transit_tube_pod/crowbar_act(mob/living/user, obj/item/I)
@@ -249,21 +249,21 @@
 	update_appearance()
 
 /obj/structure/transit_tube_pod/proc/eject_mindless(direction)
-	for(var/atom/movable/A in contents)
-		if(ismob(A))
-			var/mob/M = A
-			if(M.mind) // Only eject mindless mobs
+	for(var/atom/movable/movable in contents)
+		if(ismob(movable))
+			var/mob/mob = movable
+			if(mob.mind) // Only eject mindless mobs
 				continue
-		eject(A, direction)
-		A.Move(get_step(loc, direction), direction)
+		eject(movable, direction)
+		movable.Move(get_step(loc, direction), direction)
 
 /obj/structure/transit_tube_pod/proc/eject(atom/movable/A, direction)
 	A.forceMove(loc)
 	update_appearance()
 	A.Move(get_step(loc, direction), direction)
 	if(ismob(A))
-		var/mob/M = A
-		M.reset_perspective(null)
+		var/mob/mob = A
+		mob.reset_perspective(null)
 
 /obj/structure/transit_tube_pod/dispensed
 	name = "temporary transit tube pod"

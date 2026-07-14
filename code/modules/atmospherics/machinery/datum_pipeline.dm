@@ -37,15 +37,15 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 /datum/pipeline/proc/build_pipeline(obj/machinery/atmospherics/base)
 	var/volume = 0
 	if(istype(base, /obj/machinery/atmospherics/pipe))
-		var/obj/machinery/atmospherics/pipe/E = base
-		volume = E.volume
-		alert_pressure = E.alert_pressure
-		E.clear_parent()
-		E.parent = src
-		members += E
-		if(E.air_temporary)
-			air = E.air_temporary
-			E.air_temporary = null
+		var/obj/machinery/atmospherics/pipe/pipe = base
+		volume = pipe.volume
+		alert_pressure = pipe.alert_pressure
+		pipe.clear_parent()
+		pipe.parent = src
+		members += pipe
+		if(pipe.air_temporary)
+			air = pipe.air_temporary
+			pipe.air_temporary = null
 	else
 		addMachineryMember(base)
 	if(!air)
@@ -59,9 +59,9 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 			var/list/result = borderline.pipeline_expansion(src)
 
 			if(length(result) > 0)
-				for(var/obj/machinery/atmospherics/P as anything in result)
-					if(istype(P, /obj/machinery/atmospherics/pipe))
-						var/obj/machinery/atmospherics/pipe/item = P
+				for(var/obj/machinery/atmospherics/atmospherics as anything in result)
+					if(istype(atmospherics, /obj/machinery/atmospherics/pipe))
+						var/obj/machinery/atmospherics/pipe/item = atmospherics
 						if(!(item in pipeline_members))
 
 							if(item.parent)
@@ -78,9 +78,9 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 							if(item.air_temporary)
 								pipeline_air.merge(item.air_temporary)
 								item.air_temporary = null
-					else if(P)
-						P.setPipenet(src, borderline)
-						addMachineryMember(P)
+					else if(atmospherics)
+						atmospherics.setPipenet(src, borderline)
+						addMachineryMember(atmospherics)
 
 			possible_expansions -= borderline
 
@@ -88,23 +88,23 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 
 /datum/pipeline/proc/addMachineryMember(obj/machinery/atmospherics/A)
 	other_atmosmch |= A
-	var/datum/gas_mixture/G = A.returnPipenetAir(src)
-	other_airs |= G
+	var/datum/gas_mixture/gas_mixture = A.returnPipenetAir(src)
+	other_airs |= gas_mixture
 
 /datum/pipeline/proc/addMember(obj/machinery/atmospherics/A, obj/machinery/atmospherics/N)
 	update = TRUE
 	if(istype(A, /obj/machinery/atmospherics/pipe))
-		var/obj/machinery/atmospherics/pipe/P = A
-		P.parent = src
-		var/list/adjacent = P.pipeline_expansion()
-		for(var/obj/machinery/atmospherics/pipe/I in adjacent)
-			if(I.parent == src)
+		var/obj/machinery/atmospherics/pipe/pipe = A
+		pipe.parent = src
+		var/list/adjacent = pipe.pipeline_expansion()
+		for(var/obj/machinery/atmospherics/pipe/adjacent_pipe in adjacent)
+			if(adjacent_pipe.parent == src)
 				continue
-			var/datum/pipeline/E = I.parent
-			merge(E)
-		if(!members.Find(P))
-			members += P
-			air.volume += P.volume
+			var/datum/pipeline/pipeline = adjacent_pipe.parent
+			merge(pipeline)
+		if(!members.Find(pipe))
+			members += pipe
+			air.volume += pipe.volume
 	else
 		A.setPipenet(src, N)
 		addMachineryMember(A)
@@ -112,12 +112,12 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 /datum/pipeline/proc/merge(datum/pipeline/E)
 	air.volume += E.air.volume
 	members.Add(E.members)
-	for(var/obj/machinery/atmospherics/pipe/S in E.members)
-		S.clear_parent()
-		S.parent = src
+	for(var/obj/machinery/atmospherics/pipe/pipe in E.members)
+		pipe.clear_parent()
+		pipe.parent = src
 	air.merge(E.air)
-	for(var/obj/machinery/atmospherics/A in E.other_atmosmch)
-		A.replacePipenet(E, src)
+	for(var/obj/machinery/atmospherics/atmospherics in E.other_atmosmch)
+		atmospherics.replacePipenet(E, src)
 	other_atmosmch |= (E.other_atmosmch)
 	other_airs |= (E.other_airs)
 	E.members.Cut()
@@ -127,8 +127,8 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 	qdel(E)
 
 /obj/machinery/atmospherics/proc/addMember(obj/machinery/atmospherics/A)
-	var/datum/pipeline/P = returnPipenet(A)
-	P.addMember(A, src)
+	var/datum/pipeline/pipeline = returnPipenet(A)
+	pipeline.addMember(A, src)
 
 /obj/machinery/atmospherics/pipe/addMember(obj/machinery/atmospherics/A)
 	parent.addMember(A, src)

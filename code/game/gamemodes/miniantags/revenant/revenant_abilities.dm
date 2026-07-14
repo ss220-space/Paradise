@@ -263,15 +263,15 @@
 		return
 
 	flick("[L.base_icon_state]2", L)
-	for(var/mob/living/M in view(shock_range, L))
-		if(M == user)
+	for(var/mob/living/living in view(shock_range, L))
+		if(living == user)
 			continue
 
-		M.Beam(L, icon_state = "purple_lightning", icon = 'icons/effects/effects.dmi', time = 0.5 SECONDS)
-		M.electrocute_act(shock_damage, L, flags = SHOCK_NOGLOVES)
+		living.Beam(L, icon_state = "purple_lightning", icon = 'icons/effects/effects.dmi', time = 0.5 SECONDS)
+		living.electrocute_act(shock_damage, L, flags = SHOCK_NOGLOVES)
 
-		do_sparks(4, FALSE, M)
-		playsound(M, 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
+		do_sparks(4, FALSE, living)
+		playsound(living, 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
 
 //Defile: Corrupts nearby stuff, unblesses floor tiles.
 /obj/effect/proc_holder/spell/aoe/revenant/defile
@@ -324,8 +324,8 @@
 /obj/effect/proc_holder/spell/aoe/revenant/malfunction/proc/effect(mob/living/simple_animal/revenant/user, turf/T)
 	T.rev_malfunction(TRUE)
 
-	for(var/atom/A in T.contents)
-		A.rev_malfunction(TRUE)
+	for(var/atom/atom in T.contents)
+		atom.rev_malfunction(TRUE)
 
 /**
  * Makes objects be haunted and then throws them at conscious people to do damage, spooky!

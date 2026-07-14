@@ -39,15 +39,15 @@ SUBSYSTEM_DEF(atoms)
 	if(atoms)
 		count = length(atoms)
 		for(var/I in 1 to length(atoms))
-			var/atom/A = atoms[I]
-			if(!(A.flags & INITIALIZED))
-				InitAtom(A, mapload_arg)
+			var/atom/atom = atoms[I]
+			if(!(atom.flags & INITIALIZED))
+				InitAtom(atom, mapload_arg)
 				CHECK_TICK
 	else
 		count = 0
-		for(var/atom/A as anything in world)
-			if(!(A.flags & INITIALIZED))
-				InitAtom(A, mapload_arg)
+		for(var/atom/atom as anything in world)
+			if(!(atom.flags & INITIALIZED))
+				InitAtom(atom, mapload_arg)
 				++count
 				CHECK_TICK
 
@@ -66,10 +66,10 @@ SUBSYSTEM_DEF(atoms)
 		else
 			log_debug("Late-initializing atoms...")
 		for(var/I in 1 to length(late_loaders))
-			var/atom/A = late_loaders[I]
-			if(QDELETED(A))	// hate this, but qdel check is a must
+			var/atom/atom = late_loaders[I]
+			if(QDELETED(atom))	// hate this, but qdel check is a must
 				continue
-			A.LateInitialize()
+			atom.LateInitialize()
 			CHECK_TICK
 		if(noisy)
 			log_startup_progress("Late initialized [length(late_loaders)] atoms in [stop_watch(watch)]s")

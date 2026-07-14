@@ -4,17 +4,17 @@ GLOBAL_VAR_INIT(nologevent, 0)
 ////////////////////////////////
 /proc/message_admins(msg)
 	msg = "<span class=\"admin\"><span class=\"prefix\">ADMIN LOG:</span> <span class=\"message\">[msg]</span></span>"
-	for(var/client/C in GLOB.admins)
-		if(R_ADMIN & C.holder.rights)
-			if(C.prefs && !(C.prefs.toggles & PREFTOGGLE_CHAT_NO_ADMINLOGS))
-				to_chat(C, msg, MESSAGE_TYPE_ADMINLOG, confidential = TRUE)
+	for(var/client/client in GLOB.admins)
+		if(R_ADMIN & client.holder.rights)
+			if(client.prefs && !(client.prefs.toggles & PREFTOGGLE_CHAT_NO_ADMINLOGS))
+				to_chat(client, msg, MESSAGE_TYPE_ADMINLOG, confidential = TRUE)
 
 /proc/msg_admin_attack(text, loglevel)
 	if(!GLOB.nologevent)
 		var/rendered = "<span class=\"admin\"><span class=\"prefix\">ATTACK:</span> <span class=\"message\">[text]</span></span>"
-		for(var/client/C in GLOB.admins)
-			if((C.holder.rights & R_ADMIN) && (C.prefs?.atklog <= loglevel))
-				to_chat(C, rendered, MESSAGE_TYPE_ATTACKLOG, confidential = TRUE)
+		for(var/client/client in GLOB.admins)
+			if((client.holder.rights & R_ADMIN) && (client.prefs?.atklog <= loglevel))
+				to_chat(client, rendered, MESSAGE_TYPE_ATTACKLOG, confidential = TRUE)
 
 /**
  * Sends a message to the staff able to see admin tickets
@@ -24,14 +24,14 @@ GLOBAL_VAR_INIT(nologevent, 0)
  * send a sound and flash the window. Defaults to FALSE
  */
 /proc/message_adminTicket(msg, important = FALSE)
-	for(var/client/C in GLOB.admins)
-		if((R_ADMIN|R_MOD) & C.holder.rights)
-			if(important || (C.prefs && !(C.prefs.toggles & PREFTOGGLE_CHAT_NO_TICKETLOGS)))
-				to_chat(C, msg, MESSAGE_TYPE_ADMINPM, confidential = TRUE)
+	for(var/client/client in GLOB.admins)
+		if((R_ADMIN|R_MOD) & client.holder.rights)
+			if(important || (client.prefs && !(client.prefs.toggles & PREFTOGGLE_CHAT_NO_TICKETLOGS)))
+				to_chat(client, msg, MESSAGE_TYPE_ADMINPM, confidential = TRUE)
 			if(important)
-				if(C.prefs?.sound & SOUND_ADMINHELP)
-					SEND_SOUND(C, sound('sound/effects/adminhelp.ogg'))
-				window_flash(C)
+				if(client.prefs?.sound & SOUND_ADMINHELP)
+					SEND_SOUND(client, sound('sound/effects/adminhelp.ogg'))
+				window_flash(client)
 
 /**
  * Sends a message to the staff able to see mentor tickets
@@ -41,23 +41,23 @@ GLOBAL_VAR_INIT(nologevent, 0)
  * send a sound and flash the window. Defaults to FALSE
  */
 /proc/message_mentorTicket(msg, important = FALSE)
-	for(var/client/C in GLOB.admins)
-		if(check_rights(R_ADMIN|R_MENTOR|R_MOD, FALSE, C.mob))
-			if(important || (C.prefs && !(C.prefs.toggles & PREFTOGGLE_CHAT_NO_TICKETLOGS)))
-				to_chat(C, msg, MESSAGE_TYPE_MENTORPM, confidential = TRUE)
+	for(var/client/client in GLOB.admins)
+		if(check_rights(R_ADMIN|R_MENTOR|R_MOD, FALSE, client.mob))
+			if(important || (client.prefs && !(client.prefs.toggles & PREFTOGGLE_CHAT_NO_TICKETLOGS)))
+				to_chat(client, msg, MESSAGE_TYPE_MENTORPM, confidential = TRUE)
 			if(important)
-				if(C.prefs?.sound & SOUND_MENTORHELP)
-					SEND_SOUND(C, sound('sound/effects/adminhelp.ogg'))
-				window_flash(C)
+				if(client.prefs?.sound & SOUND_MENTORHELP)
+					SEND_SOUND(client, sound('sound/effects/adminhelp.ogg'))
+				window_flash(client)
 
 /proc/admin_ban_mobsearch(mob/M, ckey_to_find, mob/admin_to_notify)
 	if(!M || !M.ckey)
 		if(ckey_to_find)
-			for(var/mob/O in GLOB.mob_list)
-				if(O.ckey && O.ckey == ckey_to_find)
+			for(var/mob/mob in GLOB.mob_list)
+				if(mob.ckey && mob.ckey == ckey_to_find)
 					if(admin_to_notify)
-						to_chat(admin_to_notify, span_warning("admin_ban_mobsearch: Player [ckey_to_find] is now in mob [O]. Pulling data from new mob."), MESSAGE_TYPE_ADMINLOG, confidential = TRUE)
-						return O
+						to_chat(admin_to_notify, span_warning("admin_ban_mobsearch: Player [ckey_to_find] is now in mob [mob]. Pulling data from new mob."), MESSAGE_TYPE_ADMINLOG, confidential = TRUE)
+						return mob
 			if(admin_to_notify)
 				to_chat(admin_to_notify, span_warning("admin_ban_mobsearch: Player [ckey_to_find] does not seem to have any mob, anywhere. This is probably an error."), MESSAGE_TYPE_ADMINLOG, confidential = TRUE)
 		else if(admin_to_notify)
@@ -547,8 +547,8 @@ ADMIN_VERB(delay, R_SERVER, "Delay Pre-Game", "Delay the game start.", ADMIN_CAT
 	if(!istype(M))
 		return FALSE
 	if(isrobot(M))
-		var/mob/living/silicon/robot/R = M
-		if(R.emagged)
+		var/mob/living/silicon/robot/robot = M
+		if(robot.emagged)
 			return TRUE
 	if(M.mind?.special_role)//If they have a mind and special role, they are some type of traitor or antagonist.
 		return TRUE
@@ -589,8 +589,8 @@ ADMIN_VERB(delay, R_SERVER, "Delay Pre-Game", "Delay the game start.", ADMIN_CAT
 	if(M.mind.has_antag_datum(/datum/antagonist/mindslave, FALSE))
 		antag_list += "Mindslave"
 	if(isrobot(M))
-		var/mob/living/silicon/robot/R = M
-		if(R.emagged)
+		var/mob/living/silicon/robot/robot = M
+		if(robot.emagged)
 			antag_list += "Emagged Borg"
 	if(!length(antag_list) && M.mind.special_role) // Snowflake check. If none of the above but still special, then other antag. Technically not accurate.
 		antag_list += "Other Antag(s)"
@@ -676,29 +676,29 @@ ADMIN_VERB(toggle_guests, R_SERVER, "Toggle Guests", "Toggle the ability for gue
 /datum/admins/proc/output_ai_laws()
 	var/ai_number = 0
 	var/list/messages = list()
-	for(var/mob/living/silicon/S in GLOB.mob_list)
-		if(istype(S, /mob/living/silicon/decoy) && !S.client)
+	for(var/mob/living/silicon/silicon in GLOB.mob_list)
+		if(istype(silicon, /mob/living/silicon/decoy) && !silicon.client)
 			continue
 		ai_number++
-		if(isAI(S))
-			messages += "<b>AI [key_name(S, TRUE)]'s laws:</b>"
-		else if(isrobot(S))
-			var/mob/living/silicon/robot/R = S
-			messages += "<b>CYBORG [key_name(S, TRUE)]'s [R.connected_ai?"(Slaved to: [R.connected_ai])":"(Independent)"] laws:</b>"
-		else if(ispAI(S))
-			var/mob/living/silicon/pai/P = S
-			messages += "<b>pAI [key_name(S, TRUE)]'s laws:</b>"
-			messages += "[P.pai_law0]"
-			if(P.pai_laws)
-				messages += "[P.pai_laws]"
+		if(isAI(silicon))
+			messages += "<b>AI [key_name(silicon, TRUE)]'s laws:</b>"
+		else if(isrobot(silicon))
+			var/mob/living/silicon/robot/robot = silicon
+			messages += "<b>CYBORG [key_name(silicon, TRUE)]'s [robot.connected_ai?"(Slaved to: [robot.connected_ai])":"(Independent)"] laws:</b>"
+		else if(ispAI(silicon))
+			var/mob/living/silicon/pai/pai = silicon
+			messages += "<b>pAI [key_name(silicon, TRUE)]'s laws:</b>"
+			messages += "[pai.pai_law0]"
+			if(pai.pai_laws)
+				messages += "[pai.pai_laws]"
 			continue // Skip showing normal silicon laws for pAIs - they don't have any
 		else
-			messages += "<b>SILICON [key_name(S, TRUE)]'s laws:</b>"
+			messages += "<b>SILICON [key_name(silicon, TRUE)]'s laws:</b>"
 
-		if(S.laws == null)
-			messages += "[key_name(S, TRUE)]'s laws are null. Contact a coder."
+		if(silicon.laws == null)
+			messages += "[key_name(silicon, TRUE)]'s laws are null. Contact a coder."
 		else
-			messages += S.laws.return_laws_text()
+			messages += silicon.laws.return_laws_text()
 	if(!ai_number)
 		messages += "<b>No AI's located.</b>" //Just so you know the thing is actually working and not just ignoring you.
 
@@ -729,8 +729,8 @@ ADMIN_VERB(toggle_guests, R_SERVER, "Toggle Guests", "Toggle the ability for gue
 		loc = location
 	else
 		loc = get_turf(location)
-	var/area/A = get_area(location)
-	return "[A.name] - [loc.x],[loc.y],[loc.z]"
+	var/area/area = get_area(location)
+	return "[area.name] - [loc.x],[loc.y],[loc.z]"
 
 /proc/formatPlayerPanel(mob/U, text="PP")
 	return "[ADMIN_PP(U,"[text]")]"
@@ -740,14 +740,14 @@ ADMIN_VERB(toggle_guests, R_SERVER, "Toggle Guests", "Toggle the ability for gue
 //returns a list of ckeys of the kicked clients
 /proc/kick_clients_in_lobby(message, kick_only_afk = 0)
 	var/list/kicked_client_names = list()
-	for(var/client/C in GLOB.clients)
-		if(isnewplayer(C.mob))
-			if(kick_only_afk && !C.is_afk())	//Ignore clients who are not afk
+	for(var/client/client in GLOB.clients)
+		if(isnewplayer(client.mob))
+			if(kick_only_afk && !client.is_afk())	//Ignore clients who are not afk
 				continue
 			if(message)
-				to_chat(C, message, confidential = TRUE)
-			kicked_client_names.Add("[C.ckey]")
-			qdel(C)
+				to_chat(client, message, confidential = TRUE)
+			kicked_client_names.Add("[client.ckey]")
+			qdel(client)
 	return kicked_client_names
 
 //returns 1 to let the dragdrop code know we are trapping this event
@@ -840,14 +840,14 @@ ADMIN_VERB(toggle_guests, R_SERVER, "Toggle Guests", "Toggle the ability for gue
 // result[3] is the number of staff that match the rank mask and are inactive
 /proc/staff_countup(rank_mask = R_BAN)
 	var/list/result = list(0, 0, 0)
-	for(var/client/X in GLOB.admins)
-		if(rank_mask && !check_rights_client(rank_mask, FALSE, X))
+	for(var/client/client in GLOB.admins)
+		if(rank_mask && !check_rights_client(rank_mask, FALSE, client))
 			result[2]++
 			continue
-		if(X.holder.fakekey)
+		if(client.holder.fakekey)
 			result[2]++
 			continue
-		if(X.is_afk())
+		if(client.is_afk())
 			result[3]++
 			continue
 		result[1]++

@@ -409,13 +409,13 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list) //Some pipes we don't want to be dispensable by
 	rpd_dispensable = TRUE
 
 /proc/get_pipe_name(pipe_id, pipe_type)
-	for(var/datum/pipes/P in GLOB.construction_pipe_list)
-		if(P.pipe_id == pipe_id && P.pipe_type == pipe_type)
-			return P.pipe_name
+	for(var/datum/pipes/pipes in GLOB.construction_pipe_list)
+		if(pipes.pipe_id == pipe_id && pipes.pipe_type == pipe_type)
+			return pipes.pipe_name
 	return "unknown pipe"
 
 /proc/get_pipe_icon(pipe_id)
-	for(var/datum/pipes/P in GLOB.construction_pipe_list)
-		if(P.pipe_id == pipe_id)
-			return P.pipe_icon
+	for(var/datum/pipes/pipes in GLOB.construction_pipe_list)
+		if(pipes.pipe_id == pipe_id)
+			return pipes.pipe_icon
 	return "unknown icon"

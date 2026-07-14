@@ -80,31 +80,31 @@ SUBSYSTEM_DEF(holomaps)
 
 	for(var/x = 1 to world.maxx)
 		for(var/y = 1 to world.maxy)
-			var/turf/T = locate(x, y, z_level)
+			var/turf/turf = locate(x, y, z_level)
 			var/offset_x = HOLOMAP_CENTER_X + x
 			var/offset_y = HOLOMAP_CENTER_Y + y
-			var/area/turf_area = get_area(T)
+			var/area/turf_area = get_area(turf)
 
-			if(!T || !turf_area.holomap_should_draw)
+			if(!turf || !turf_area.holomap_should_draw)
 				continue
 
 			if(turf_area.holomap_color)
 				area_canvas.DrawBox(turf_area.holomap_color, offset_x, offset_y)
 				position_to_name["[offset_x]:[offset_y]"] = turf_area.holomap_color == HOLOMAP_AREACOLOR_MAINTENANCE ? "Maintenance" : turf_area.name
 
-			if(IS_ROCK(T))
+			if(IS_ROCK(turf))
 				canvas.DrawBox(HOLOMAP_ROCK, offset_x, offset_y)
 
-			else if(IS_OBSTACLE(T))
+			else if(IS_OBSTACLE(turf))
 				canvas.DrawBox(HOLOMAP_OBSTACLE, offset_x, offset_y)
 
-			else if(IS_SOFT_OBSTACLE(T))
+			else if(IS_SOFT_OBSTACLE(turf))
 				canvas.DrawBox(HOLOMAP_SOFT_OBSTACLE, offset_x, offset_y)
 
-			else if(IS_PATH(T))
+			else if(IS_PATH(turf))
 				canvas.DrawBox(HOLOMAP_PATH, offset_x, offset_y)
 
-			var/z_transition_obj = HAS_Z_TRANSITION(T)
+			var/z_transition_obj = HAS_Z_TRANSITION(turf)
 			if(!z_transition_obj)
 				continue
 

@@ -157,21 +157,21 @@
 // Do not use for admin related things as this can hide the mob's ckey
 /datum/mind/proc/get_mind_key()
 	// Lets try find a client so we can check their prefs
-	var/client/C = null
+	var/client/client = null
 
 	var/cannonical_key = ckey(key)
 
 	if(current?.client)
 		// Active client
-		C = current.client
+		client = current.client
 	else if(cannonical_key in GLOB.directory)
 		// Do a directory lookup on the last ckey this mind had
 		// If theyre online we can grab them still and check prefs
-		C = GLOB.directory[cannonical_key]
+		client = GLOB.directory[cannonical_key]
 
 	// Ok we found a client, be it their active or their last
 	// Now we see if we need to respect their privacy
-	return get_display_key(C)
+	return get_display_key(client)
 
 /datum/mind/proc/transfer_to(mob/living/new_character)
 	if(!istype(new_character))
@@ -576,10 +576,10 @@
 	. += _memory_edit_role_enabled(ROLE_TRAITOR)
 	// Contractor
 	. += "<br><b><i>contractor</i></b>: "
-	var/datum/antagonist/contractor/C = has_antag_datum(/datum/antagonist/contractor)
+	var/datum/antagonist/contractor/contractor = has_antag_datum(/datum/antagonist/contractor)
 	if(traitor_datum?.contractor_pending)
 		var/status
-		var/obj/item/contractor_uplink/contractor_uplink = C?.contractor_uplink_ref?.resolve()
+		var/obj/item/contractor_uplink/contractor_uplink = contractor?.contractor_uplink_ref?.resolve()
 		if(contractor_uplink) // Offer accepted
 			status = "<b><font color='red'>CONTRACTOR</font></b>"
 		else if(world.time >= traitor_datum.contractor_pending.offer_deadline)
@@ -673,8 +673,8 @@
 	var/mob/living/silicon/ai/ai = current
 	if(istype(ai) && length(ai.connected_robots))
 		var/n_e_robots = 0
-		for(var/mob/living/silicon/robot/R in ai.connected_robots)
-			if(R.emagged)
+		for(var/mob/living/silicon/robot/connected_robot in ai.connected_robots)
+			if(connected_robot.emagged)
 				n_e_robots++
 		. += "<br>[n_e_robots] of [length(ai.connected_robots)] slaved cyborgs are emagged. <a href='byond://?src=[UID()];silicon=unemagcyborgs'>Unemag</a>"
 
@@ -735,24 +735,24 @@
 		"malf_ai",
 		"blob"
 	)
-	var/mob/living/carbon/human/H = current
+	var/mob/living/carbon/human/human = current
 	if(ishuman(current))
 		/** Impanted**/
-		sections["implant"] = memory_edit_implant(H)
+		sections["implant"] = memory_edit_implant(human)
 		/** REVOLUTION ***/
-		sections["revolution"] = memory_edit_revolution(H)
+		sections["revolution"] = memory_edit_revolution(human)
 		/** WIZARD ***/
-		sections["wizard"] = memory_edit_wizard(H)
+		sections["wizard"] = memory_edit_wizard(human)
 		/** CHANGELING ***/
-		sections["changeling"] = memory_edit_changeling(H)
+		sections["changeling"] = memory_edit_changeling(human)
 		/** VAMPIRE ***/
-		sections["vampire"] = memory_edit_vampire(H)
+		sections["vampire"] = memory_edit_vampire(human)
 		/** NUCLEAR ***/
-		sections["nuclear"] = memory_edit_nuclear(H)
+		sections["nuclear"] = memory_edit_nuclear(human)
 		/** SHADOWLING **/
-		sections["shadowling"] = memory_edit_shadowling(H)
+		sections["shadowling"] = memory_edit_shadowling(human)
 		/** Abductors **/
-		sections["abductor"] = memory_edit_abductor(H)
+		sections["abductor"] = memory_edit_abductor(human)
 		/** Space Ninja **/
 		sections["ninja"] = memory_edit_ninja()
 		/** THIEF ***/
@@ -768,12 +768,12 @@
 	/** DEVIL ***/
 	var/static/list/devils_typecache = typecacheof(list(/mob/living/carbon/human, /mob/living/carbon/true_devil, /mob/living/silicon/robot))
 	if(is_type_in_typecache(current, devils_typecache))
-		sections["devil"] = memory_edit_devil(H)
+		sections["devil"] = memory_edit_devil(human)
 
 	if(istype(current, /mob/living/simple_animal/hostile/space_dragon))
 		sections["space_dragon"] = memory_edit_space_dragon()
 
-	sections["eventmisc"] = memory_edit_eventmisc(H)
+	sections["eventmisc"] = memory_edit_eventmisc(human)
 
 	if((isliving(current) && current.can_be_blob()) || isblobovermind(src))
 		sections["blob"] = memory_edit_blob(current)
@@ -783,9 +783,9 @@
 		sections["xenomorphs"] = memory_edit_xenomorphs()
 	if(!issilicon(current))
 		/** CULT ***/
-		sections["cult"] = memory_edit_cult(H)
+		sections["cult"] = memory_edit_cult(human)
 		/** CLOCKWORK **/
-		sections["clockwork"] = memory_edit_clockwork(H)
+		sections["clockwork"] = memory_edit_clockwork(human)
 
 	/** SILICON ***/
 	if(issilicon(current))
@@ -2654,8 +2654,8 @@
 /datum/mind/proc/remove_all_antag_datums() //For the Lazy amongst us.
 	// This is not `QDEL_LIST_CONTENTS(antag_datums)`because it's possible for the `antag_datums` list to be set to null during deletion of an antag datum.
 	// Then `QDEL_LIST` would runtime because it would be doing `null.Cut()`.
-	for(var/datum/antagonist/A as anything in antag_datums)
-		qdel(A)
+	for(var/datum/antagonist/antagonist as anything in antag_datums)
+		qdel(antagonist)
 	antag_datums?.Cut()
 	antag_datums = null
 
@@ -2798,11 +2798,11 @@
  * * check_subtypes - TRUE if this proc will consider subtypes of `datum_type` as valid. FALSE if only the exact same type should be considered.
  */
 /datum/mind/proc/has_antag_datum(datum_type, check_subtypes = TRUE)
-	for(var/datum/antagonist/A as anything in antag_datums)
-		if(check_subtypes && istype(A, datum_type))
-			return A
-		else if(A.type == datum_type)
-			return A
+	for(var/datum/antagonist/antagonist as anything in antag_datums)
+		if(check_subtypes && istype(antagonist, datum_type))
+			return antagonist
+		else if(antagonist.type == datum_type)
+			return antagonist
 
 /datum/mind/proc/prepare_announce_objectives(title = TRUE)
 	if(!current)
@@ -2883,8 +2883,8 @@
 			current.forceMove(pick(GLOB.wizardstart))
 
 		SSticker.mode.equip_wizard(current)
-		for(var/obj/item/spellbook/S in current.contents)
-			S.op = 0
+		for(var/obj/item/spellbook/spellbook in current.contents)
+			spellbook.op = 0
 		INVOKE_ASYNC(SSticker.mode, TYPE_PROC_REF(/datum/game_mode/wizard, name_wizard), current)
 		SSticker.mode.forge_wizard_objectives(src)
 		SSticker.mode.greet_wizard(src)
@@ -2936,29 +2936,29 @@
 	hidden_obj.owner = src
 	objectives += hidden_obj
 
-	var/datum/objective/experiment/O = new
-	O.owner = src
-	objectives += O
+	var/datum/objective/experiment/experiment = new
+	experiment.owner = src
+	objectives += experiment
 
-	var/mob/living/carbon/human/H = current
+	var/mob/living/carbon/human/human = current
 
-	H.set_species(/datum/species/abductor)
-	var/datum/species/abductor/S = H.dna.species
+	human.set_species(/datum/species/abductor)
+	var/datum/species/abductor/abductor = human.dna.species
 
 	if(role == "Scientist")
-		S.scientist = TRUE
+		abductor.scientist = TRUE
 
-	S.team = team
+	abductor.team = team
 
 	var/list/obj/effect/landmark/abductor/agent_landmarks = new
 	var/list/obj/effect/landmark/abductor/scientist_landmarks = new
 	agent_landmarks.len = 4
 	scientist_landmarks.len = 4
-	for(var/obj/effect/landmark/abductor/A in GLOB.landmarks_list)
-		if(istype(A, /obj/effect/landmark/abductor/agent))
-			agent_landmarks[text2num(A.team)] = A
-		else if(istype(A, /obj/effect/landmark/abductor/scientist))
-			scientist_landmarks[text2num(A.team)] = A
+	for(var/obj/effect/landmark/abductor/abductor_landmark in GLOB.landmarks_list)
+		if(istype(abductor_landmark, /obj/effect/landmark/abductor/agent))
+			agent_landmarks[text2num(abductor_landmark.team)] = abductor_landmark
+		else if(istype(abductor_landmark, /obj/effect/landmark/abductor/scientist))
+			scientist_landmarks[text2num(abductor_landmark.team)] = abductor_landmark
 
 	var/obj/effect/landmark/L
 	if(teleport == "Yes")
@@ -2967,7 +2967,7 @@
 				L = agent_landmarks[team]
 			if("Scientist")
 				L = agent_landmarks[team]
-		H.forceMove(L.loc)
+		human.forceMove(L.loc)
 
 /datum/mind/proc/get_blob_infected_type()
 	if(!current)
@@ -3010,9 +3010,9 @@
 
 /datum/mind/proc/transfer_actions(mob/living/new_character, mob/living/old_current)
 	if(old_current?.actions)
-		for(var/datum/action/A in old_current.actions)
-			if(A.check_flags & AB_TRANSFER_MIND)
-				A.Grant(new_character)
+		for(var/datum/action/action in old_current.actions)
+			if(action.check_flags & AB_TRANSFER_MIND)
+				action.Grant(new_character)
 	transfer_mindbound_actions(new_character)
 
 /datum/mind/proc/transfer_mindbound_actions(mob/living/new_character)
@@ -3033,17 +3033,17 @@
 		spell.updateButtonIcon()
 
 /datum/mind/proc/get_ghost(even_if_they_cant_reenter)
-	for(var/mob/dead/observer/G in GLOB.dead_mob_list)
-		if(G.mind == src)
-			if(G.can_reenter_corpse || even_if_they_cant_reenter)
-				return G
+	for(var/mob/dead/observer/observer in GLOB.dead_mob_list)
+		if(observer.mind == src)
+			if(observer.can_reenter_corpse || even_if_they_cant_reenter)
+				return observer
 			break
 
 /datum/mind/proc/grab_ghost(force)
-	var/mob/dead/observer/G = get_ghost(even_if_they_cant_reenter = force)
-	. = G
-	if(G)
-		G.reenter_corpse()
+	var/mob/dead/observer/observer = get_ghost(even_if_they_cant_reenter = force)
+	. = observer
+	if(observer)
+		observer.reenter_corpse()
 
 /datum/mind/proc/make_zealot(mob/living/carbon/human/missionary, convert_duration = 10 MINUTES, team_color = "red")
 
@@ -3055,11 +3055,11 @@
 
 	var/obj/item/clothing/under/jumpsuit = null
 	if(ishuman(current)) //only bother with the jumpsuit stuff if we are a human type, since we won't have the slot otherwise
-		var/mob/living/carbon/human/H = current
-		if(H.w_uniform)
-			jumpsuit = H.w_uniform
+		var/mob/living/carbon/human/human = current
+		if(human.w_uniform)
+			jumpsuit = human.w_uniform
 			jumpsuit.color = team_color
-			H.update_worn_undersuit()
+			human.update_worn_undersuit()
 
 	add_attack_logs(missionary, current, "Converted to a zealot for [convert_duration/600] minutes")
 	add_conversion_logs(current, "became a mindslave for [convert_duration/600] minutes. Master: [key_name_log(missionary)]")
@@ -3077,8 +3077,8 @@
 	if(jumpsuit)
 		jumpsuit.color = initial(jumpsuit.color) //reset the jumpsuit no matter where our mind is
 		if(ishuman(current)) //but only try updating us if we are still a human type since it is a human proc
-			var/mob/living/carbon/human/H = current
-			H.update_worn_undersuit()
+			var/mob/living/carbon/human/human = current
+			human.update_worn_undersuit()
 
 	to_chat(current, span_warning("<b>You seem to have forgotten the events of the past 10 minutes or so, and your head aches a bit as if someone beat it savagely with a stick.</b>"))
 	to_chat(current, span_warning("<b>This means you don't remember who you were working for or what you were doing.</b>"))

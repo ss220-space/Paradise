@@ -45,11 +45,11 @@
  */
 /datum/spell_targeting/proc/attempt_auto_target(mob/user, obj/effect/proc_holder/spell/spell)
 	var/atom/target
-	for(var/atom/A in view_or_range(range, use_turf_of_user ? get_turf(user) : user, selection_type))
-		if(valid_target(A, user, spell, FALSE))
+	for(var/atom/atom in view_or_range(range, use_turf_of_user ? get_turf(user) : user, selection_type))
+		if(valid_target(atom, user, spell, FALSE))
 			if(target)
 				return FALSE // Two targets found. ABORT
-			target = A
+			target = atom
 
 	if(target)
 		to_chat(user, span_warning("Only one target found. Casting [spell] on [target]!"))

@@ -272,9 +272,9 @@
 	var/image/I
 	I = image('icons/obj/cardboard_boxes.dmi', A, "cardboard_special", A.layer+1)
 	var/list/viewing = list()
-	for(var/mob/M in viewers(A))
-		if(M.client)
-			viewing |= M.client
+	for(var/mob/mob in viewers(A))
+		if(mob.client)
+			viewing |= mob.client
 	flick_overlay(I,viewing,8)
 	I.alpha = 0
 	animate(I, pixel_z = 32, alpha = 255, time = 5, easing = ELASTIC_EASING)

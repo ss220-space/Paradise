@@ -55,14 +55,14 @@
 /datum/recipe/proc/check_items(obj/container, list/ignored_items = null) //1=precisely, 0=insufficiently, -1=superfluous
 	. = 1
 	var/list/checklist = items ? items.Copy() : list()
-	for(var/obj/O in container)
-		if(ignored_items && is_type_in_list(O, ignored_items)) //skip if this is something we are ignoring
+	for(var/obj/obj in container)
+		if(ignored_items && is_type_in_list(obj, ignored_items)) //skip if this is something we are ignoring
 			continue
 		if(!items)
 			return -1
 		var/found = 0
 		for(var/type in checklist)
-			if(istype(O,type))
+			if(istype(obj,type))
 				checklist -= type
 				found = 1
 				break
@@ -75,21 +75,21 @@
 //general version
 /datum/recipe/proc/make(obj/container)
 	var/obj/result_obj = new result(container)
-	for(var/obj/O in (container.contents-result_obj))
-		O.reagents.trans_to(result_obj, O.reagents.total_volume)
-		qdel(O)
+	for(var/obj/obj in (container.contents-result_obj))
+		obj.reagents.trans_to(result_obj, obj.reagents.total_volume)
+		qdel(obj)
 	container.reagents.clear_reagents()
 	return result_obj
 
 // food-related
 /datum/recipe/proc/make_food(obj/container)
 	var/obj/result_obj = new result(container)
-	for(var/obj/O in (container.contents-result_obj))
-		if(O.reagents)
-			O.reagents.del_reagent("nutriment")
-			O.reagents.update_total()
-			O.reagents.trans_to(result_obj, O.reagents.total_volume)
-		qdel(O)
+	for(var/obj/obj in (container.contents-result_obj))
+		if(obj.reagents)
+			obj.reagents.del_reagent("nutriment")
+			obj.reagents.update_total()
+			obj.reagents.trans_to(result_obj, obj.reagents.total_volume)
+		qdel(obj)
 	container.reagents.clear_reagents()
 	return result_obj
 

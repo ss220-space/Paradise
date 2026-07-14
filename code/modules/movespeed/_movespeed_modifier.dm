@@ -65,13 +65,13 @@ GLOBAL_LIST_EMPTY(movespeed_modification_cache)
 /proc/get_cached_movespeed_modifier(modtype)
 	if(!ispath(modtype, /datum/movespeed_modifier))
 		CRASH("[modtype] is not a movespeed modification typepath.")
-	var/datum/movespeed_modifier/M = modtype
-	if(initial(M.variable))
+	var/datum/movespeed_modifier/movespeed_modifier = modtype
+	if(initial(movespeed_modifier.variable))
 		CRASH("[modtype] is a variable modifier, and can never be cached.")
-	M = GLOB.movespeed_modification_cache[modtype]
-	if(!M)
-		M = GLOB.movespeed_modification_cache[modtype] = new modtype
-	return M
+	movespeed_modifier = GLOB.movespeed_modification_cache[modtype]
+	if(!movespeed_modifier)
+		movespeed_modifier = GLOB.movespeed_modification_cache[modtype] = new modtype
+	return movespeed_modifier
 
 ///Add a move speed modifier to a mob. If a variable subtype is passed in as the first argument, it will make a new datum. If ID conflicts, it will overwrite the old ID.
 /mob/proc/add_movespeed_modifier(datum/movespeed_modifier/type_or_datum, update = TRUE)
@@ -186,13 +186,13 @@ GLOBAL_LIST_EMPTY(movespeed_modification_cache)
 	. = 0
 	var/list/conflict_tracker = list()
 	for(var/key in get_movespeed_modifiers())
-		var/datum/movespeed_modifier/M = movespeed_modification[key]
-		if(!(M.movetypes & movement_type)) // We don't affect any of these move types, skip
+		var/datum/movespeed_modifier/movespeed_modifier = movespeed_modification[key]
+		if(!(movespeed_modifier.movetypes & movement_type)) // We don't affect any of these move types, skip
 			continue
-		if(M.blacklisted_movetypes & movement_type) // There's a movetype here that disables this modifier, skip
+		if(movespeed_modifier.blacklisted_movetypes & movement_type) // There's a movetype here that disables this modifier, skip
 			continue
-		var/conflict = M.conflicts_with
-		var/amt = M.multiplicative_slowdown
+		var/conflict = movespeed_modifier.conflicts_with
+		var/amt = movespeed_modifier.multiplicative_slowdown
 		if(conflict)
 			// Conflicting modifiers prioritize the larger slowdown or the larger speedup
 			// We purposefuly don't handle mixing speedups and slowdowns on the same id

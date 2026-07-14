@@ -151,9 +151,9 @@
 		update |= user.heal_damages(tox = 2 * rejuv_bonus, oxy = 5 * rejuv_bonus, updating_health = FALSE)
 		if(update)
 			user.updatehealth()
-		for(var/datum/reagent/R in user.reagents.reagent_list)
-			if(!R.harmless)
-				user.reagents.remove_reagent(R.id, 2 * rejuv_bonus)
+		for(var/datum/reagent/reagent in user.reagents.reagent_list)
+			if(!reagent.harmless)
+				user.reagents.remove_reagent(reagent.id, 2 * rejuv_bonus)
 		sleep(3.5 SECONDS)
 
 /datum/antagonist/vampire/proc/get_rejuv_bonus()
@@ -472,12 +472,12 @@
 			visible_message(span_warning("Похоже, что [H] ошеломлен[GEND_A_O_Y(H)] энергией!"))
 			H.Weaken(40 SECONDS)
 		return
-	for(var/obj/item/implant/mindshield/L in H)
-		if(L?.implanted)
-			qdel(L)
-	for(var/obj/item/implant/traitor/T in H)
-		if(T?.implanted)
-			qdel(T)
+	for(var/obj/item/implant/mindshield/mindshield in H)
+		if(mindshield?.implanted)
+			qdel(mindshield)
+	for(var/obj/item/implant/traitor/traitor in H)
+		if(traitor?.implanted)
+			qdel(traitor)
 	visible_message(span_warning("У [H] появля[PLUR_ET_YUT(H)]ся жуткое красное свечение в глазах!"))
 	var/datum/objective/protect/protect_objective = new
 	protect_objective.owner = H.mind

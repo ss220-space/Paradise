@@ -258,10 +258,10 @@
 //////////////////////////////////////////////
 
 /obj/item/stack/cable_coil/proc/get_new_cable(location)
-	var/obj/structure/cable/C = new(location)
-	C.cable_color(color)
+	var/obj/structure/cable/cable = new(location)
+	cable.cable_color(color)
 
-	return C
+	return cable
 
 // called when cable_coil is clicked on a turf/simulated/floor
 /obj/item/stack/cable_coil/proc/place_turf(turf/T, mob/user, dirnew)
@@ -294,62 +294,62 @@
 			to_chat(user, span_warning("There's already a cable at that position!"))
 			return
 
-	var/obj/structure/cable/C = get_new_cable(T)
+	var/obj/structure/cable/cable = get_new_cable(T)
 
 	//set up the new cable
-	C.d1 = 0 //it's a O-X node cable
-	C.d2 = dirn
-	C.add_fingerprint(user)
-	C.update_icon(UPDATE_ICON_STATE)
+	cable.d1 = 0 //it's a O-X node cable
+	cable.d2 = dirn
+	cable.add_fingerprint(user)
+	cable.update_icon(UPDATE_ICON_STATE)
 
 	//create a new powernet with the cable, if needed it will be merged later
 	var/datum/powernet/PN = new()
-	PN.add_cable(C)
+	PN.add_cable(cable)
 
-	C.mergeConnectedNetworks(C.d2) //merge the powernet with adjacents powernets
-	C.mergeConnectedNetworksOnTurf() //merge the powernet with on turf powernets
+	cable.mergeConnectedNetworks(cable.d2) //merge the powernet with adjacents powernets
+	cable.mergeConnectedNetworksOnTurf() //merge the powernet with on turf powernets
 
-	if(C.d2 & (C.d2 - 1))// if the cable is layed diagonally, check the others 2 possible directions
-		C.mergeDiagonalsNetworks(C.d2)
+	if(cable.d2 & (cable.d2 - 1))// if the cable is layed diagonally, check the others 2 possible directions
+		cable.mergeDiagonalsNetworks(cable.d2)
 
 	use(1)
 
-	if(C.shock(user, 50))
+	if(cable.shock(user, 50))
 		if(prob(50)) //fail
-			new /obj/item/stack/cable_coil(get_turf(C), 1, TRUE, C.color)
-			C.deconstruct()
+			new /obj/item/stack/cable_coil(get_turf(cable), 1, TRUE, cable.color)
+			cable.deconstruct()
 
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CABLE_UPDATED, T)
-	return C
+	return cable
 
 // called when cable_coil is click on an installed obj/cable
 // or click on a turf that already contains a "node" cable
 /obj/item/stack/cable_coil/proc/cable_join(obj/structure/cable/C, mob/user)
 	if(istype(C, /obj/structure/cable/multiz))
 		return
-	var/turf/U = user.loc
-	if(!isturf(U))
+	var/turf/turf = user.loc
+	if(!isturf(turf))
 		return
 
-	var/turf/T = get_turf(C)
+	var/turf/cable_turf = get_turf(C)
 
-	if(!isturf(T) || HAS_TRAIT(C, TRAIT_UNDERFLOOR))		// sanity checks, also stop use interacting with T-scanner revealed cable
+	if(!isturf(cable_turf) || HAS_TRAIT(C, TRAIT_UNDERFLOOR))		// sanity checks, also stop use interacting with turf-scanner revealed cable
 		return
 
 	if(get_dist(C, user) > 1)		// make sure it's close enough
 		to_chat(user, span_warning("You can't lay cable at a place that far away!"))
 		return
 
-	if(U == T) //if clicked on the turf we're standing on, try to put a cable in the direction we're facing
-		place_turf(T,user)
+	if(turf == cable_turf) //if clicked on the turf we're standing on, try to put a cable in the direction we're facing
+		place_turf(cable_turf, user)
 		return
 
 	var/dirn = get_dir(C, user)
-	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CABLE_UPDATED, T)
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CABLE_UPDATED, cable_turf)
 
 	// one end of the clicked cable is pointing towards us
 	if(C.d1 == dirn || C.d2 == dirn)
-		if(U.underfloor_accessibility != UNDERFLOOR_INTERACTABLE)						// can't place a cable if the floor is complete
+		if(turf.underfloor_accessibility != UNDERFLOOR_INTERACTABLE)						// can't place a cable if the floor is complete
 			to_chat(user, span_warning("You can't lay cable there unless the floor tiles are removed!"))
 			return
 		// cable is pointing at us, we're standing on an open tile
@@ -357,12 +357,12 @@
 
 		var/fdirn = turn(dirn, 180)		// the opposite direction
 
-		for(var/obj/structure/cable/LC in U)		// check to make sure there's not a cable there already
+		for(var/obj/structure/cable/LC in turf)		// check to make sure there's not a cable there already
 			if(LC.d1 == fdirn || LC.d2 == fdirn)
 				to_chat(user, span_warning("There's already a cable at that position!"))
 				return
 
-		var/obj/structure/cable/NC = get_new_cable (U)
+		var/obj/structure/cable/NC = get_new_cable (turf)
 
 		NC.d1 = 0
 		NC.d2 = fdirn
@@ -396,7 +396,7 @@
 			nd1 = dirn
 			nd2 = C.d2
 
-		for(var/obj/structure/cable/LC in T)		// check to make sure there's no matching cable
+		for(var/obj/structure/cable/LC in cable_turf)		// check to make sure there's no matching cable
 			if(LC == C)			// skip the cable we're interacting with
 				continue
 			if((LC.d1 == nd1 && LC.d2 == nd2) || (LC.d1 == nd2 && LC.d2 == nd1))	// make sure no cable matches either direction
@@ -429,7 +429,7 @@
 				return
 
 		C.denode()// this call may have disconnected some cables that terminated on the centre of the turf, if so split the powernets.
-		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CABLE_UPDATED, T)
+		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CABLE_UPDATED, cable_turf)
 
 //////////////////////////////
 // Misc.

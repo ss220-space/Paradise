@@ -366,21 +366,21 @@
 			break
 
 		var/list/mobs = new
-		for(var/mob/living/carbon/M in mechsyringe.loc)
-			mobs += M
-		var/mob/living/carbon/M = safepick(mobs)
-		if(M)
+		for(var/mob/living/carbon/carbon in mechsyringe.loc)
+			mobs += carbon
+		var/mob/living/carbon/carbon = safepick(mobs)
+		if(carbon)
 			var/R
-			mechsyringe.visible_message(span_danger("[M] was hit by the syringe!"))
-			if(M.can_inject(originaloccupant, TRUE, original_target_zone))
+			mechsyringe.visible_message(span_danger("[carbon] was hit by the syringe!"))
+			if(carbon.can_inject(originaloccupant, TRUE, original_target_zone))
 				if(mechsyringe.reagents)
-					for(var/datum/reagent/A in mechsyringe.reagents.reagent_list)
-						R += A.id + " ("
-						R += num2text(A.volume) + "),"
-				add_attack_logs(originaloccupant, M, "Shot with [src] containing [R], transferred [mechsyringe.reagents.total_volume] units")
-				mechsyringe.reagents.reaction(M, REAGENT_INGEST)
-				mechsyringe.reagents.trans_to(M, mechsyringe.reagents.total_volume)
-				M.take_organ_damage(2)
+					for(var/datum/reagent/reagent in mechsyringe.reagents.reagent_list)
+						R += reagent.id + " ("
+						R += num2text(reagent.volume) + "),"
+				add_attack_logs(originaloccupant, carbon, "Shot with [src] containing [R], transferred [mechsyringe.reagents.total_volume] units")
+				mechsyringe.reagents.reaction(carbon, REAGENT_INGEST)
+				mechsyringe.reagents.trans_to(carbon, mechsyringe.reagents.total_volume)
+				carbon.take_organ_damage(2)
 			break
 		else if(mechsyringe.loc == target_turf)
 			break
@@ -432,9 +432,9 @@
 		occupant_message(span_alert("No reagent info gained from [A]."))
 		return FALSE
 	occupant_message("Analyzing reagents...")
-	for(var/datum/reagent/R in A.reagents.reagent_list)
-		if((emagged && (R.id in strings(CHEMISTRY_TOOLS_FILE, "traitor_poison_bottle")) || R.can_synth) && add_known_reagent(R.id, R.name))
-			occupant_message("Reagent analyzed, identified as [R.name] and added to database.")
+	for(var/datum/reagent/reagent in A.reagents.reagent_list)
+		if((emagged && (reagent.id in strings(CHEMISTRY_TOOLS_FILE, "traitor_poison_bottle")) || reagent.can_synth) && add_known_reagent(reagent.id, reagent.name))
+			occupant_message("Reagent analyzed, identified as [reagent.name] and added to database.")
 	occupant_message("Analyzis complete.")
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/proc/add_known_reagent(r_id,r_name)

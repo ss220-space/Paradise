@@ -67,9 +67,9 @@
 	transfer_data &= GLOB.drinks
 
 	for(var/thing in transfer_data)
-		var/datum/reagent/R = thing
-		ids_data[initial(R.id)] = transfer_data[R]
-		trans += transfer_data[R]
+		var/datum/reagent/reagent = thing
+		ids_data[initial(reagent.id)] = transfer_data[reagent]
+		trans += transfer_data[reagent]
 
 	if(length(ids_data))
 		if(isrobot(user)) //Cyborg modules that include drinks automatically refill themselves, but drain the borg's cell

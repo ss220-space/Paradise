@@ -96,8 +96,8 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 	if(tested?.has_antag_datum(type))
 		return FALSE
 	for(var/i in tested.antag_datums)
-		var/datum/antagonist/A = i
-		if(LAZYIN(A.antag_datum_blacklist, type))
+		var/datum/antagonist/antagonist = i
+		if(LAZYIN(antagonist.antag_datum_blacklist, type))
 			return FALSE
 	return TRUE
 
@@ -297,14 +297,14 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 		clown.force_gene_block(GLOB.clumsyblock, FALSE)
 		// Don't give them another action if they already have one.
 		if(!(locate(/datum/action/innate/toggle_clumsy) in clown.actions))
-			var/datum/action/innate/toggle_clumsy/A = new
-			A.Grant(clown)
+			var/datum/action/innate/toggle_clumsy/toggle_clumsy = new
+			toggle_clumsy.Grant(clown)
 	// Give them back the clumsy gene and remove their toggle action, but ONLY if they don't have any other antag datums.
 	else if(LAZYLEN(owner.antag_datums) <= 1)
 		clown.force_gene_block(GLOB.clumsyblock, TRUE)
 		if(locate(/datum/action/innate/toggle_clumsy) in clown.actions)
-			var/datum/action/innate/toggle_clumsy/A = locate() in clown.actions
-			A.Remove(clown)
+			var/datum/action/innate/toggle_clumsy/toggle_clumsy = locate() in clown.actions
+			toggle_clumsy.Remove(clown)
 	else
 		return FALSE
 

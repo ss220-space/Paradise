@@ -209,8 +209,8 @@ SUBSYSTEM_DEF(ticker)
 			Master.SetRunLevel(RUNLEVEL_LOBBY)
 			return FALSE
 		if(GLOB.secret_force_mode != "secret")
-			var/datum/game_mode/M = config.pick_mode(GLOB.secret_force_mode)
-			if(M.can_start())
+			var/datum/game_mode/game_mode = config.pick_mode(GLOB.secret_force_mode)
+			if(game_mode.can_start())
 				mode = config.pick_mode(GLOB.secret_force_mode)
 		if(!mode)
 			mode = pickweight(runnable_modes)
@@ -237,27 +237,27 @@ SUBSYSTEM_DEF(ticker)
 			player.client.prefs.load_random_character_slot(player.client)
 
 	// Lets check if people who ready should or shouldnt be
-	for(var/mob/new_player/P in GLOB.player_list)
+	for(var/mob/new_player/new_player in GLOB.player_list)
 		// Not logged in
-		if(!P.client)
+		if(!new_player.client)
 			continue
 		// Not ready
-		if(!P.ready)
+		if(!new_player.ready)
 			continue
 		// Not set to return if nothing available
-		if(P.client.prefs.alternate_option != RETURN_TO_LOBBY)
+		if(new_player.client.prefs.alternate_option != RETURN_TO_LOBBY)
 			continue
 
-		var/has_antags = (length(P.client.prefs.be_special) > 0)
-		if(!P.client.prefs.check_any_job())
-			to_chat(P, span_danger("Вы не выбрали ни одной роли, а также опцию возврата в лобби, если выбранные роли недоступны. \
+		var/has_antags = (length(new_player.client.prefs.be_special) > 0)
+		if(!new_player.client.prefs.check_any_job())
+			to_chat(new_player, span_danger("Вы не выбрали ни одной роли, а также опцию возврата в лобби, если выбранные роли недоступны. \
 									Из-за этого вы не можете заполучить какую-либо роль с началом раунда. Пожалуйста, измените свой список предпочитаемых ролей.")
 			)
 			if(has_antags)
 				// We add these to a list so we can deal with them as a batch later
-				flagged_antag_rollers |= P.ckey
+				flagged_antag_rollers |= new_player.ckey
 
-			P.ready = FALSE
+			new_player.ready = FALSE
 
 	var/can_continue = FALSE
 	can_continue = mode.pre_setup() //Setup special modes
@@ -283,8 +283,8 @@ SUBSYSTEM_DEF(ticker)
 
 	if(hide_mode)
 		var/list/modes = new
-		for(var/datum/game_mode/M in runnable_modes)
-			modes += M.name
+		for(var/datum/game_mode/game_mode in runnable_modes)
+			modes += game_mode.name
 		modes = sortList(modes)
 		to_chat(world, "<b>Текущий режим игры — Скрыт!</b>")
 		to_chat(world, "<b>Возможные варианты:</b> [russian_list(modes)]")
@@ -323,12 +323,12 @@ SUBSYSTEM_DEF(ticker)
 	Master.SetRunLevel(RUNLEVEL_GAME)
 
 	// Generate the list of empty playable AI cores in the world
-	for(var/obj/effect/landmark/S as anything in GLOB.landmarks_list)
-		if(S.name != JOB_TITLE_AI && !(triai && S.name == /obj/effect/landmark/spawner/tripai::name))
+	for(var/obj/effect/landmark/landmark as anything in GLOB.landmarks_list)
+		if(landmark.name != JOB_TITLE_AI && !(triai && landmark.name == /obj/effect/landmark/spawner/tripai::name))
 			continue
-		if(locate(/mob/living) in S.loc)
+		if(locate(/mob/living) in landmark.loc)
 			continue
-		GLOB.empty_playable_ai_cores += new /obj/structure/AIcore/deactivated(get_turf(S))
+		GLOB.empty_playable_ai_cores += new /obj/structure/AIcore/deactivated(get_turf(landmark))
 
 	// Setup pregenerated newsfeeds
 	setup_news_feeds()
@@ -358,9 +358,9 @@ SUBSYSTEM_DEF(ticker)
 	mode.post_setup()
 
 	// Delete starting landmarks (not AI ones because we need those for AI-ize)
-	for(var/obj/effect/landmark/start/S in GLOB.landmarks_list)
-		if(S.name != JOB_TITLE_AI)
-			qdel(S)
+	for(var/obj/effect/landmark/start/landmark in GLOB.landmarks_list)
+		if(landmark.name != JOB_TITLE_AI)
+			qdel(landmark)
 
 	SSdbcore.SetRoundStart()
 	to_chat(world, span_darkmblue(span_bold("Добро пожаловать на [station_name()], желаем вам приятного пребывания!")))
@@ -381,20 +381,20 @@ SUBSYSTEM_DEF(ticker)
 	time_game_started = world.time
 
 	if(CONFIG_GET(number/restrict_maint))
-		for(var/obj/machinery/door/airlock/maintenance/M in GLOB.airlocks)
-			if(M.req_access && length(M.req_access) == 1 && M.req_access[1] == ACCESS_MAINT_TUNNELS)
-				M.req_access = null
+		for(var/obj/machinery/door/airlock/maintenance/game_mode in GLOB.airlocks)
+			if(game_mode.req_access && length(game_mode.req_access) == 1 && game_mode.req_access[1] == ACCESS_MAINT_TUNNELS)
+				game_mode.req_access = null
 				if(CONFIG_GET(number/restrict_maint) == 1)
-					M.req_access = list(ACCESS_BRIG, ACCESS_ENGINE)
+					game_mode.req_access = list(ACCESS_BRIG, ACCESS_ENGINE)
 				if(CONFIG_GET(number/restrict_maint) == 2)
-					M.req_access = list(ACCESS_BRIG)
+					game_mode.req_access = list(ACCESS_BRIG)
 
 	// Sets the auto shuttle vote to happen after the config duration
 	next_autotransfer = world.time + CONFIG_GET(number/vote_autotransfer_initial)
 
-	for(var/mob/new_player/N in GLOB.mob_list)
-		if(N.client)
-			SStitle.show_title_screen_to(N.client) // New Title Screen
+	for(var/mob/new_player/new_player in GLOB.mob_list)
+		if(new_player.client)
+			SStitle.show_title_screen_to(new_player.client) // New Title Screen
 
 	#ifdef TEST_RUNNER
 	GLOB.test_runner.RunAll()
@@ -462,16 +462,16 @@ SUBSYSTEM_DEF(ticker)
 	auto_toggle_ooc(TRUE) // Turn it on
 
 	if(!station_missed)	//nuke kills everyone on z-level 1 to prevent "hurr-durr I survived"
-		for(var/mob/M in GLOB.mob_list)
-			if(M.stat != DEAD && !(issilicon(M) && override == MALF_AI))
-				var/turf/T = get_turf(M)
-				if(T && is_station_level(T.z) && !istype(M.loc, /obj/structure/closet/secure_closet/freezer))
-					M.ghostize()
-					M.dust() //no mercy
+		for(var/mob/mob in GLOB.mob_list)
+			if(mob.stat != DEAD && !(issilicon(mob) && override == MALF_AI))
+				var/turf/turf = get_turf(mob)
+				if(turf && is_station_level(turf.z) && !istype(mob.loc, /obj/structure/closet/secure_closet/freezer))
+					mob.ghostize()
+					mob.dust() //no mercy
 					CHECK_TICK
 		for(var/core in GLOB.blob_cores)
-			var/turf/T = get_turf(core)
-			if(T && is_station_level(T.z))
+			var/turf/turf = get_turf(core)
+			if(turf && is_station_level(turf.z))
 				qdel(core)
 				CHECK_TICK
 
@@ -732,9 +732,9 @@ SUBSYSTEM_DEF(ticker)
 	GLOB.news_network.channels += newChannel
 
 	for(var/loc_type in subtypesof(/datum/trade_destination))
-		var/datum/trade_destination/D = new loc_type
-		GLOB.weighted_randomevent_locations[D] = D.viable_random_events.len
-		GLOB.weighted_mundaneevent_locations[D] = D.viable_mundane_events.len
+		var/datum/trade_destination/trade_destination = new loc_type
+		GLOB.weighted_randomevent_locations[trade_destination] = trade_destination.viable_random_events.len
+		GLOB.weighted_mundaneevent_locations[trade_destination] = trade_destination.viable_mundane_events.len
 
 // Easy handler to make rebooting the world not a massive sleep in world/Reboot()
 /datum/controller/subsystem/ticker/proc/reboot_helper(reason, end_string, delay)

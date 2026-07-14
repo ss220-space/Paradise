@@ -72,8 +72,8 @@
 			for(var/atom/target in GLOB.high_value_items)
 				if(!istype(target, theft.typepath))
 					continue
-				var/turf/T = get_turf(target)
-				if(!T || is_admin_level(T.z))
+				var/turf/turf = get_turf(target)
+				if(!turf || is_admin_level(turf.z))
 					continue
 				target_uids += target.UID()
 			temp_list["track"] = target_uids
@@ -89,8 +89,8 @@
 		temp_list["person"] = get(target, /mob/living)
 		temp_list["loc"] = target.loc.name
 		temp_list["uid"] = target.UID()
-		var/turf/T = get_turf(target)
-		temp_list["admin_z"] = !T || is_admin_level(T.z)
+		var/turf/turf = get_turf(target)
+		temp_list["admin_z"] = !turf || is_admin_level(turf.z)
 		cached_data["high_value_items"] += list(temp_list)
 
 	cached_data["security"] = list()
@@ -115,11 +115,11 @@
 		temp_list["internal_bleeding"] = FALSE
 		if(istype(player))
 			for(var/name in player.bodyparts_by_name)
-				var/obj/item/organ/external/e = player.bodyparts_by_name[name]
-				if(!e)
+				var/obj/item/organ/external/external = player.bodyparts_by_name[name]
+				if(!external)
 					continue
-				temp_list["broken_bone"] |= (e.status & ORGAN_BROKEN)
-				temp_list["internal_bleeding"] |= (e.status & ORGAN_INT_BLEED)
+				temp_list["broken_bone"] |= (external.status & ORGAN_BROKEN)
+				temp_list["internal_bleeding"] |= (external.status & ORGAN_INT_BLEED)
 		temp_list["health"] = player.health
 		temp_list["max_health"] = player.maxHealth
 		cached_data["security"] += list(temp_list)

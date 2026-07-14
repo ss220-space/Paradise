@@ -87,9 +87,9 @@
 		var/obj/item/nullrod/rod = I
 		variant_names[initial(rod.name)] = rod
 		variant_icons += list(initial(rod.name) = image(icon = initial(rod.icon), icon_state = initial(rod.icon_state)))
-	var/mob/living/carbon/human/H = user
-	var/choice = show_radial_menu(H, src, variant_icons, null, 40, CALLBACK(src, PROC_REF(radial_check), H), TRUE)
-	if(!choice || !radial_check(H))
+	var/mob/living/carbon/human/human = user
+	var/choice = show_radial_menu(human, src, variant_icons, null, 40, CALLBACK(src, PROC_REF(radial_check), human), TRUE)
+	if(!choice || !radial_check(human))
 		return
 
 	var/picked_type = variant_names[choice]

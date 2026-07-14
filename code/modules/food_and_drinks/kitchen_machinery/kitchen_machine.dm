@@ -426,14 +426,14 @@
 			//failed recipe
 			fail()
 		else	//we have a valid recipe to begin making
-			for(var/obj/O in source.contents)	//begin processing the ingredients supplied
-				if(istype(O, /obj/item/mixing_bowl))	//ignore mixing bowls present among the ingredients in our source (only really applies to machine sourced recipes)
+			for(var/obj/obj in source.contents)	//begin processing the ingredients supplied
+				if(istype(obj, /obj/item/mixing_bowl))	//ignore mixing bowls present among the ingredients in our source (only really applies to machine sourced recipes)
 					continue
-				if(O.reagents)
-					O.reagents.del_reagent("nutriment")
-					O.reagents.update_total()
-					O.reagents.trans_to(temp_reagents, O.reagents.total_volume, no_react = TRUE) // Don't react with the abstract holder please
-				qdel(O)
+				if(obj.reagents)
+					obj.reagents.del_reagent("nutriment")
+					obj.reagents.update_total()
+					obj.reagents.trans_to(temp_reagents, obj.reagents.total_volume, no_react = TRUE) // Don't react with the abstract holder please
+				qdel(obj)
 			source.reagents.clear_reagents()
 			for(var/e=1 to efficiency)		//upgraded machine? make additional servings and split the ingredient reagents among each serving equally.
 				var/obj/cooked = new recipe.result()
@@ -463,8 +463,8 @@
 	return 1
 
 /obj/machinery/kitchen_machine/proc/has_extra_item()
-	for(var/obj/O in contents)
-		if(!is_type_in_list(O, list(/obj/item/reagent_containers/food, /obj/item/grown, /obj/item/mixing_bowl)))
+	for(var/obj/obj in contents)
+		if(!is_type_in_list(obj, list(/obj/item/reagent_containers/food, /obj/item/grown, /obj/item/mixing_bowl)))
 			return 1
 	return 0
 
@@ -489,8 +489,8 @@
 	SStgui.update_uis(src)
 
 /obj/machinery/kitchen_machine/proc/dispose(mob/user)
-	for(var/obj/O in contents)
-		O.forceMove(loc)
+	for(var/obj/obj in contents)
+		obj.forceMove(loc)
 
 	if(reagents.total_volume && can_be_dirty)
 		dirty++
@@ -528,13 +528,13 @@
 	for(var/obj/item/mixing_bowl/mb in contents)	//fail and remove any mixing bowls present before making the burned mess from the machine itself (to avoid them being destroyed as part of the failure)
 		mb.fail(src)
 		mb.forceMove(get_turf(src))
-	for(var/obj/O in contents)
+	for(var/obj/obj in contents)
 		amount++
-		if(O.reagents)	//this is reagents in inserted objects (like chems in produce)
-			var/id = O.reagents.get_master_reagent_id()
+		if(obj.reagents)	//this is reagents in inserted objects (like chems in produce)
+			var/id = obj.reagents.get_master_reagent_id()
 			if(id)
-				amount+=O.reagents.get_reagent_amount(id)
-		qdel(O)
+				amount+=obj.reagents.get_reagent_amount(id)
+		qdel(obj)
 	if(reagents?.total_volume)	//this is directly-added reagents (like water added directly into the machine)
 		var/id = reagents.get_master_reagent_id()
 		if(id)

@@ -151,42 +151,42 @@
 /mob/living/simple_animal/slime/proc/handle_feeding()
 	if(!ismob(buckled))
 		return
-	var/mob/M = buckled
+	var/mob/mob = buckled
 
 	if(stat)
 		Feedstop(silent = TRUE)
 
-	if(M.stat == DEAD) // our victim died
+	if(mob.stat == DEAD) // our victim died
 		if(!client)
 			if(!rabid && !attacked)
-				if(M.LAssailant && M.LAssailant != M)
+				if(mob.LAssailant && mob.LAssailant != mob)
 					if(prob(50))
-						if(!(M.LAssailant in Friends))
-							Friends[M.LAssailant] = 1
+						if(!(mob.LAssailant in Friends))
+							Friends[mob.LAssailant] = 1
 						else
-							++Friends[M.LAssailant]
+							++Friends[mob.LAssailant]
 		else
 			to_chat(src, "<i>This subject does not have a strong enough life energy anymore...</i>")
 
-		if(M.client && ishuman(M))
+		if(mob.client && ishuman(mob))
 			if(prob(85))
 				rabid = 1 //we go rabid after finishing to feed on a human with a client.
 
 		Feedstop()
 		return
 
-	if(iscarbon(M))
-		var/mob/living/carbon/C = M
+	if(iscarbon(mob))
+		var/mob/living/carbon/carbon = mob
 
 		var/feed_mod = round(age_state.feed/3)
-		if(C.dna.species.clone_mod > 0)
-			C.apply_damage(rand(2, 4) + feed_mod, CLONE)
-			C.apply_damage(rand(1, 2) + feed_mod, TOX)
+		if(carbon.dna.species.clone_mod > 0)
+			carbon.apply_damage(rand(2, 4) + feed_mod, CLONE)
+			carbon.apply_damage(rand(1, 2) + feed_mod, TOX)
 		else
-			C.apply_damage(rand(1, 2) + feed_mod, BURN, spread_damage = TRUE)
+			carbon.apply_damage(rand(1, 2) + feed_mod, BURN, spread_damage = TRUE)
 
-		if(prob(10) && C.client)
-			to_chat(C, "<span class='userdanger'>[pick("You can feel your body becoming weak!", \
+		if(prob(10) && carbon.client)
+			to_chat(carbon, "<span class='userdanger'>[pick("You can feel your body becoming weak!", \
 			"You feel like you're about to die!", \
 			"You feel every part of your body screaming in agony!", \
 			"A low, rolling pain passes through your body!", \
@@ -194,8 +194,8 @@
 			"You feel extremely weak!", \
 			"A sharp, deep pain bathes every inch of your body!")]</span>")
 
-	else if(isanimal(M))
-		var/mob/living/simple_animal/SA = M
+	else if(isanimal(mob))
+		var/mob/living/simple_animal/SA = mob
 
 		var/totaldamage = 0 //total damage done to this unfortunate animal
 		totaldamage += SA.apply_damage(rand(2, 4 + round(age_state.feed/3)), CLONE)
@@ -212,7 +212,7 @@
 	//Передача нутриентов, + небольшое поедание внутренних запасов, не смотря на поедание плоти (урон)
 	var/nutrition_rand = rand(7 + age_state.feed * 2, 15 + age_state.feed * 4)
 	add_nutrition(nutrition_rand)
-	M.adjust_nutrition(round(nutrition_rand / 4))
+	mob.adjust_nutrition(round(nutrition_rand / 4))
 
 	//Heal yourself.
 	heal_damage_type(3 + round(nutrition_rand / 4))
@@ -314,44 +314,44 @@
 			if(will_hunt() && hungry || attacked || rabid) // Only add to the list if we need to
 				var/list/targets = list()
 
-				for(var/mob/living/L in view(7,src))
+				for(var/mob/living/living in view(7,src))
 
-					if(L.stat == DEAD) // Ignore dead mobs
+					if(living.stat == DEAD) // Ignore dead mobs
 						continue
 
-					if(L in Friends) // No eating friends!
+					if(living in Friends) // No eating friends!
 						continue
 
 					var/ally = FALSE
 					for(var/F in faction)
 						if(F == "neutral") //slimes are neutral so other mobs not target them, but they can target neutral mobs
 							continue
-						if(F in L.faction)
+						if(F in living.faction)
 							ally = TRUE
 							break
 					if(ally)
 						continue
 
-					if(issilicon(L) && (rabid || attacked)) // They can't eat silicons, but they can glomp them in defence
-						targets += L // Possible target found!
+					if(issilicon(living) && (rabid || attacked)) // They can't eat silicons, but they can glomp them in defence
+						targets += living // Possible target found!
 
-					if(locate(/mob/living/simple_animal/slime) in L.buckled_mobs) // Only one slime can latch on at a time.
+					if(locate(/mob/living/simple_animal/slime) in living.buckled_mobs) // Only one slime can latch on at a time.
 						continue
 
-					targets += L // Possible target found!
+					targets += living // Possible target found!
 
 				if(length(targets))
 					if(attacked || rabid || hungry == 2)
 						Target = targets[1] // I am attacked and am fighting back or so hungry I don't even care
 					else
-						for(var/mob/living/carbon/C in targets)
+						for(var/mob/living/carbon/carbon in targets)
 							if(!Discipline && prob(5))
-								if(ishuman(C) || isalienadult(C))
-									Target = C
+								if(ishuman(carbon) || isalienadult(carbon))
+									Target = carbon
 									break
 
-							if(islarva(C) || is_monkeybasic(C))
-								Target = C
+							if(islarva(carbon) || is_monkeybasic(carbon))
+								Target = carbon
 								break
 
 			if(Target)
@@ -485,17 +485,17 @@
 					AIprocess() //Wake up the slime's Target AI, needed otherwise this doesn't work
 					to_say = "ATTACK!?!?"
 				else if(Friends[who] >= SLIME_FRIENDSHIP_ATTACK)
-					for(var/mob/living/L in view(7,src)-list(src,who))
-						if(findtext(phrase, lowertext(L.name)))
-							if(isslime(L))
-								to_say = "NO... [L] slime friend..."
+					for(var/mob/living/living in view(7,src)-list(src,who))
+						if(findtext(phrase, lowertext(living.name)))
+							if(isslime(living))
+								to_say = "NO... [living] slime friend..."
 								--Friends[who] //Don't ask a slime to attack its friend
-							else if(!Friends[L] || Friends[L] < 1)
-								Target = L
+							else if(!Friends[living] || Friends[living] < 1)
+								Target = living
 								AIprocess()//Wake up the slime's Target AI, needed otherwise this doesn't work
 								to_say = "Ok... I attack [Target]..."
 							else
-								to_say = "No... like [L]..."
+								to_say = "No... like [living]..."
 								--Friends[who] //Don't ask a slime to attack its friend
 							break
 				else
@@ -513,14 +513,14 @@
 		var/slimes_near = 0
 		var/dead_slimes = 0
 		var/friends_near = list()
-		for(var/mob/living/L in view(7,src))
-			if(isslime(L) && L != src)
+		for(var/mob/living/living in view(7,src))
+			if(isslime(living) && living != src)
 				++slimes_near
-				if(L.stat == DEAD)
+				if(living.stat == DEAD)
 					++dead_slimes
-			if(L in Friends)
+			if(living in Friends)
 				t += 20
-				friends_near += L
+				friends_near += living
 		if(nutrition < get_hunger_nutrition())
 			t += 10
 		if(nutrition < get_starve_nutrition())

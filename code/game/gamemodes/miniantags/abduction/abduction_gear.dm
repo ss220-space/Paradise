@@ -50,11 +50,11 @@
 			armor = stealth_armor
 	update_icon(UPDATE_ICON_STATE)
 	if(ishuman(loc))
-		var/mob/living/carbon/human/H = loc
-		H.update_worn_oversuit()
+		var/mob/living/carbon/human/human = loc
+		human.update_worn_oversuit()
 	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+		var/datum/action/action = X
+		action.UpdateButtonIcon()
 
 /obj/item/clothing/suit/armor/abductor/vest/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_CLOTH_OUTER) //we only give the mob the ability to activate the vest if he's actually wearing it.
@@ -68,24 +68,24 @@
 		return
 	stealth_active = 1
 	if(ishuman(loc))
-		var/mob/living/carbon/human/M = loc
-		new /obj/effect/temp_visual/dir_setting/ninja/cloak(get_turf(M), M.dir)
-		M.name_override = disguise.name
-		M.icon = disguise.icon
-		M.icon_state = disguise.icon_state
-		M.cut_overlays()
-		M.add_overlay(disguise.overlays)
-		M.update_held_items()
+		var/mob/living/carbon/human/human = loc
+		new /obj/effect/temp_visual/dir_setting/ninja/cloak(get_turf(human), human.dir)
+		human.name_override = disguise.name
+		human.icon = disguise.icon
+		human.icon_state = disguise.icon_state
+		human.cut_overlays()
+		human.add_overlay(disguise.overlays)
+		human.update_held_items()
 
 /obj/item/clothing/suit/armor/abductor/vest/proc/DeactivateStealth()
 	if(!stealth_active)
 		return
 	stealth_active = 0
 	if(ishuman(loc))
-		var/mob/living/carbon/human/M = loc
-		new /obj/effect/temp_visual/dir_setting/ninja(get_turf(M), M.dir)
-		M.name_override = null
-		M.regenerate_icons()
+		var/mob/living/carbon/human/human = loc
+		new /obj/effect/temp_visual/dir_setting/ninja(get_turf(human), human.dir)
+		human.name_override = null
+		human.regenerate_icons()
 
 /obj/item/clothing/suit/armor/abductor/vest/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	DeactivateStealth()
@@ -109,12 +109,12 @@
 		if(combat_cooldown != initial(combat_cooldown))
 			to_chat(loc, span_warning("Combat injection is still recharging."))
 			return
-		var/mob/living/carbon/human/M = loc
-		M.adjustStaminaLoss(-75)
-		M.SetParalysis(0)
-		M.SetStunned(0)
-		M.SetWeakened(0)
-		M.SetKnockdown(0)
+		var/mob/living/carbon/human/human = loc
+		human.adjustStaminaLoss(-75)
+		human.SetParalysis(0)
+		human.SetStunned(0)
+		human.SetWeakened(0)
+		human.SetKnockdown(0)
 		combat_cooldown = 0
 		START_PROCESSING(SSobj, src)
 
@@ -145,9 +145,9 @@
 	if(!AbductorCheck(user))
 		return FALSE
 
-	var/mob/living/carbon/human/H = user
-	var/datum/species/abductor/S = H.dna.species
-	if(S.scientist)
+	var/mob/living/carbon/human/human = user
+	var/datum/species/abductor/abductor = human.dna.species
+	if(abductor.scientist)
 		return TRUE
 	to_chat(user, span_warning("You're not trained to use this!"))
 	return FALSE
@@ -322,19 +322,19 @@
 
 /obj/item/abductor/mind_device/proc/mind_control(atom/target, mob/living/user)
 	if(iscarbon(target))
-		var/mob/living/carbon/C = target
-		var/obj/item/organ/internal/heart/gland/G = C.get_organ_slot(INTERNAL_ORGAN_HEART)
-		if(!istype(G))
+		var/mob/living/carbon/carbon = target
+		var/obj/item/organ/internal/heart/gland/gland = carbon.get_organ_slot(INTERNAL_ORGAN_HEART)
+		if(!istype(gland))
 			to_chat(user, span_warning("Your target does not have an experimental gland!"))
 			return
-		if(!G.mind_control_uses)
+		if(!gland.mind_control_uses)
 			to_chat(user, span_warning("Your target's gland is spent!"))
 			return
-		if(G.active_mind_control)
+		if(gland.active_mind_control)
 			to_chat(user, span_warning("Your target is already under a mind-controlling influence!"))
 			return
 
-		var/command = tgui_input_text(user, "Enter the command for your target to follow. Uses Left: [G.mind_control_uses], Duration: [DisplayTimeText(G.mind_control_duration)]", "Enter command")
+		var/command = tgui_input_text(user, "Enter the command for your target to follow. Uses Left: [gland.mind_control_uses], Duration: [DisplayTimeText(gland.mind_control_duration)]", "Enter command")
 
 		if(!command)
 			return
@@ -342,27 +342,27 @@
 		if(QDELETED(user) || user.get_active_hand() != src || loc != user)
 			return
 
-		if(QDELETED(G))
+		if(QDELETED(gland))
 			return
 
-		G.mind_control(command, user)
+		gland.mind_control(command, user)
 		to_chat(user, span_notice("You send the command to your target."))
 
 /obj/item/abductor/mind_device/proc/mind_message(atom/target, mob/living/user)
 	if(isliving(target))
-		var/mob/living/L = target
-		if(L.stat == DEAD)
+		var/mob/living/living = target
+		if(living.stat == DEAD)
 			to_chat(user, span_warning("Your target is dead!"))
 			return
 		var/message = tgui_input_text(user, "Write a message to send to your target's brain.", "Enter message")
 		if(!message)
 			return
-		if(QDELETED(L) || L.stat == DEAD)
+		if(QDELETED(living) || living.stat == DEAD)
 			return
 
-		to_chat(L, "[span_italics("You hear a voice in your head saying:")] [span_abductor(message)]")
+		to_chat(living, "[span_italics("You hear a voice in your head saying:")] [span_abductor(message)]")
 		to_chat(user, span_notice("You send the message to your target."))
-		add_say_logs(user, message, L, "Mind device")
+		add_say_logs(user, message, living, "Mind device")
 
 /obj/item/gun/energy/alien
 	name = "alien pistol"

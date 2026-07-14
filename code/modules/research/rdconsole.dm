@@ -142,34 +142,34 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /// Makes sure it is properly sync'ed up with the devices attached to it (if any).
 /obj/machinery/computer/rdconsole/proc/SyncRDevices()
-	for(var/obj/machinery/r_n_d/D in range(range, src))
-		if(!isnull(D.linked_console) || D.panel_open)
+	for(var/obj/machinery/r_n_d/r_n_d in range(range, src))
+		if(!isnull(r_n_d.linked_console) || r_n_d.panel_open)
 			continue
 
-		if(istype(D, /obj/machinery/r_n_d/destructive_analyzer))
+		if(istype(r_n_d, /obj/machinery/r_n_d/destructive_analyzer))
 			if(linked_destroy == null)
-				linked_destroy = D
-				D.linked_console = src
+				linked_destroy = r_n_d
+				r_n_d.linked_console = src
 
-		else if(istype(D, /obj/machinery/r_n_d/protolathe))
+		else if(istype(r_n_d, /obj/machinery/r_n_d/protolathe))
 			if(linked_lathe == null)
-				linked_lathe = D
-				D.linked_console = src
+				linked_lathe = r_n_d
+				r_n_d.linked_console = src
 
-		else if(istype(D, /obj/machinery/r_n_d/circuit_imprinter))
+		else if(istype(r_n_d, /obj/machinery/r_n_d/circuit_imprinter))
 			if(linked_imprinter == null)
-				linked_imprinter = D
-				D.linked_console = src
+				linked_imprinter = r_n_d
+				r_n_d.linked_console = src
 				linked_imprinter.update_components_list()
 
 /// Have it automatically push research to the centcom server so wild griffins can't fuck up R&D's work --NEO
 /obj/machinery/computer/rdconsole/proc/griefProtection()
-	for(var/obj/machinery/r_n_d/server/centcom/C in SSmachines.get_by_type(/obj/machinery/r_n_d/server/centcom))
-		files.push_data(C.files)
+	for(var/obj/machinery/r_n_d/server/centcom/centcom in SSmachines.get_by_type(/obj/machinery/r_n_d/server/centcom))
+		files.push_data(centcom.files)
 
 /obj/machinery/computer/rdconsole/proc/Maximize()
-	for(var/datum/tech/T in files.possible_tech)
-		files.known_tech[T.id] = T
+	for(var/datum/tech/tech in files.possible_tech)
+		files.known_tech[tech.id] = tech
 	for(var/v in files.known_tech)
 		var/datum/tech/KT = files.known_tech[v]
 		if(KT.level < KT.max_level)
@@ -396,18 +396,18 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		send_mats()
 		linked_destroy.loaded_item = null
 
-	for(var/obj/I in linked_destroy.contents)
-		for(var/mob/M in I.contents)
-			M.death()
-		if(istype(I, /obj/item/stack/sheet))//Only deconstructs one sheet at a time instead of the entire stack
-			var/obj/item/stack/sheet/S = I
-			if(S.amount > 1)
-				S.amount--
-				linked_destroy.loaded_item = S
+	for(var/obj/obj in linked_destroy.contents)
+		for(var/mob/mob in obj.contents)
+			mob.death()
+		if(istype(obj, /obj/item/stack/sheet))//Only deconstructs one sheet at a time instead of the entire stack
+			var/obj/item/stack/sheet/sheet = obj
+			if(sheet.amount > 1)
+				sheet.amount--
+				linked_destroy.loaded_item = sheet
 			else
-				qdel(S)
-		else if(!(I in linked_destroy.component_parts))
-			qdel(I)
+				qdel(sheet)
+		else if(!(obj in linked_destroy.component_parts))
+			qdel(obj)
 
 	linked_destroy.loaded_item = null
 	linked_destroy.busy = FALSE
@@ -507,13 +507,13 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	addtimer(CALLBACK(src, PROC_REF(finish_machine), usr, amount, enough_materials, machine, being_built, coeff), time_to_construct)
 
-	for(var/obj/machinery/r_n_d/server/S in SSmachines.get_by_type(/obj/machinery/r_n_d/server))
-		if(S.disabled)
+	for(var/obj/machinery/r_n_d/server/server in SSmachines.get_by_type(/obj/machinery/r_n_d/server))
+		if(server.disabled)
 			continue
-		if(syndicate != S.syndicate)
+		if(syndicate != server.syndicate)
 			continue
-		if(istype(S, /obj/machinery/r_n_d/server/core) || istype(S, /obj/machinery/r_n_d/server/centcom))
-			S.add_usage_log(usr, being_built, machine)
+		if(istype(server, /obj/machinery/r_n_d/server/core) || istype(server, /obj/machinery/r_n_d/server/centcom))
+			server.add_usage_log(usr, being_built, machine)
 
 /obj/machinery/computer/rdconsole/proc/finish_machine(mob/user, amount, enough_materials, obj/machinery/r_n_d/machine, datum/design/being_built, coeff)
 	if(machine)
@@ -835,34 +835,34 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/coeff = machine.efficiency_coeff
 
 	if(submenu == SUBMENU_LATHE_CATEGORY)
-		for(var/datum/design/D in matching_designs)
+		for(var/datum/design/design in matching_designs)
 			var/list/design_list = list()
 			designs_list[++designs_list.len] = design_list
 			var/list/design_materials_list = list()
-			var/obj/item/created_object = D.build_path
+			var/obj/item/created_object = design.build_path
 			design_list["materials"] = design_materials_list
-			design_list["id"] = D.id
-			design_list["name"] = D.build_object_name
-			design_list["desc"] = D.build_object_desc
+			design_list["id"] = design.id
+			design_list["name"] = design.build_object_name
+			design_list["desc"] = design.build_object_desc
 			design_list["icon"] = created_object.icon
 			design_list["icon_state"] = created_object.icon_state
 			var/can_build = is_imprinter ? 1 : 50
 
-			for(var/M in D.materials)
+			for(var/M in design.materials)
 				var/list/material_list = list()
 				design_materials_list[++design_materials_list.len] = material_list
 				material_list["name"] = CallMaterialName(M)
-				material_list["amount"] = D.materials[M] * coeff
-				var/t = machine.check_mat(D, M)
+				material_list["amount"] = design.materials[M] * coeff
+				var/t = machine.check_mat(design, M)
 				material_list["is_red"] = t < 1
 				can_build = min(can_build, t)
 
-			for(var/R in D.reagents_list)
+			for(var/R in design.reagents_list)
 				var/list/material_list = list()
 				design_materials_list[++design_materials_list.len] = material_list
 				material_list["name"] = CallMaterialName(R)
-				material_list["amount"] = D.reagents_list[R] * coeff
-				var/t = machine.check_mat(D, R)
+				material_list["amount"] = design.reagents_list[R] * coeff
+				var/t = machine.check_mat(design, R)
 				material_list["is_red"] = t < 1
 				can_build = min(can_build, t)
 
@@ -882,12 +882,12 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		materials_list[++materials_list.len] = list("name" = "Пластик", "id" = MAT_PLASTIC, "amount" = machine.materials.amount(MAT_PLASTIC))
 		materials_list[++materials_list.len] = list("name" = "Блюспейс-пыль", "id" = MAT_BLUESPACE, "amount" = machine.materials.amount(MAT_BLUESPACE))
 	else if(submenu == SUBMENU_LATHE_CHEM_STORAGE)
-		for(var/datum/reagent/R in machine.reagents.reagent_list)
+		for(var/datum/reagent/reagent in machine.reagents.reagent_list)
 			var/list/loaded_chemical = list()
 			loaded_chemicals[++loaded_chemicals.len] = loaded_chemical
-			loaded_chemical["name"] = R.name
-			loaded_chemical["volume"] = R.volume
-			loaded_chemical["id"] = R.id
+			loaded_chemical["name"] = reagent.name
+			loaded_chemical["volume"] = reagent.volume
+			loaded_chemical["id"] = reagent.id
 
 /obj/machinery/computer/rdconsole/proc/can_copy_design(datum/design/D)
 	if(D)

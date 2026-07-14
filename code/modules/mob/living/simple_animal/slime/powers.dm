@@ -63,8 +63,8 @@
 		return FALSE
 
 	if(isanimal(M))
-		var/mob/living/simple_animal/S = M
-		if(S.damage_coeff[TOX] <= 0 && S.damage_coeff[CLONE] <= 0) //The creature wouldn't take any damage, it must be too weird even for us.
+		var/mob/living/simple_animal/simple_animal = M
+		if(simple_animal.damage_coeff[TOX] <= 0 && simple_animal.damage_coeff[CLONE] <= 0) //The creature wouldn't take any damage, it must be too weird even for us.
 			if(silent)
 				return FALSE
 			to_chat(src, span_warning("[pick("This subject is incompatible", \
@@ -267,16 +267,16 @@
 			child_colour = "rainbow"
 		else if(prob(mutation_chance))
 			child_colour = slime_mutation[rand(1,4)]
-	var/mob/living/simple_animal/slime/M = new(loc, child_colour, new baby_type, new_nutrition)
+	var/mob/living/simple_animal/slime/slime = new(loc, child_colour, new baby_type, new_nutrition)
 
 	if(ckey)
-		M.set_nutrition(new_nutrition * 1.25) //Player slimes are more robust at spliting. Once an oversight of poor copypasta, now a feature!
-	M.powerlevel = new_powerlevel
-	M.Friends = Friends.Copy()
-	babies += M
+		slime.set_nutrition(new_nutrition * 1.25) //Player slimes are more robust at spliting. Once an oversight of poor copypasta, now a feature!
+	slime.powerlevel = new_powerlevel
+	slime.Friends = Friends.Copy()
+	babies += slime
 	if(can_mutate)
-		M.mutation_chance = clamp(mutation_chance+(rand(5,-5)),0,100)
-	SSblackbox.record_feedback("tally", "slime_babies_born", 1, M.colour)
+		slime.mutation_chance = clamp(mutation_chance+(rand(5,-5)),0,100)
+	SSblackbox.record_feedback("tally", "slime_babies_born", 1, slime.colour)
 
 /datum/action/innate/slime/reproduce
 	name = "Размножиться"

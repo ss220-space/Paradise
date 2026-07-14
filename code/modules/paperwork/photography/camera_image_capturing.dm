@@ -23,34 +23,34 @@
 		var/turf/bottom_left = clone_area.bottom_left_turfs[1]
 		var/cloned_center_x = round(bottom_left.x + ((total - 1) / 2))
 		var/cloned_center_y = round(bottom_left.y + ((total - 1) / 2))
-		for(var/turf/T in turfs)
-			var/offset_x = T.x - center.x
-			var/offset_y = T.y - center.y
+		for(var/turf/turf in turfs)
+			var/offset_x = turf.x - center.x
+			var/offset_y = turf.y - center.y
 			var/turf/newT = locate(cloned_center_x + offset_x, cloned_center_y + offset_y, bottom_left.z)
 			if(!(newT in clone_area.reserved_turfs)) //sanity check so we don't overwrite other areas somehow
 				continue
-			atoms += new /obj/effect/appearance_clone(newT, T)
-			if(T.loc.icon_state)
-				atoms += new /obj/effect/appearance_clone(newT, T.loc)
-			for(var/atom/A in T.contents)
-				if(is_light(A))
+			atoms += new /obj/effect/appearance_clone(newT, turf)
+			if(turf.loc.icon_state)
+				atoms += new /obj/effect/appearance_clone(newT, turf.loc)
+			for(var/atom/atom in turf.contents)
+				if(is_light(atom))
 					continue
-				if(!A.invisibility || (see_ghosts && isobserver(A)))
-					atoms += new /obj/effect/appearance_clone(newT, A)
+				if(!atom.invisibility || (see_ghosts && isobserver(atom)))
+					atoms += new /obj/effect/appearance_clone(newT, atom)
 		skip_normal = TRUE
 		wipe_atoms = TRUE
 		center = locate(cloned_center_x, cloned_center_y, bottom_left.z)
 
 	if(!skip_normal)
-		for(var/turf/T in turfs)
-			atoms += T
-			for(var/atom/movable/A in T)
-				if(flashing_lights && is_light(A))
+		for(var/turf/turf in turfs)
+			atoms += turf
+			for(var/atom/movable/atom in turf)
+				if(flashing_lights && is_light(atom))
 					continue //Do not apply lighting, making whole image full bright.
-				if(A.invisibility)
-					if(!(see_ghosts && isobserver(A)))
+				if(atom.invisibility)
+					if(!(see_ghosts && isobserver(atom)))
 						continue
-				atoms += A
+				atoms += atom
 			CHECK_TICK
 
 	//Bigger icon base to capture those icons that were shifted to the next tile
@@ -61,29 +61,29 @@
 	var/list/sorted = list()
 	var/j
 	for(var/i in 1 to length(atoms))
-		var/atom/c = atoms[i]
+		var/atom/atom = atoms[i]
 		for(j = length(sorted), j > 0, --j)
 			var/atom/c2 = sorted[j]
-			if((c2.plane <= c.plane) && (c2.layer <= c.layer))
+			if((c2.plane <= atom.plane) && (c2.layer <= atom.layer))
 				break
-		sorted.Insert(j+1, c)
+		sorted.Insert(j+1, atom)
 		CHECK_TICK
 
 	var/xcomp = floor(psize / 2) - 15
 	var/ycomp = floor(psize / 2) - 15
 
 	if(!skip_normal) //these are not clones
-		for(var/atom/A in sorted)
-			if(is_light(A))
+		for(var/atom/atom in sorted)
+			if(is_light(atom))
 				continue //Lighting objects render last, need to be above all atoms and turfs displayed
-			var/xo = (A.x - center.x) * ICON_SIZE_X + A.pixel_x + xcomp
-			var/yo = (A.y - center.y) * ICON_SIZE_Y + A.pixel_y + ycomp
-			if(ismovable(A))
-				var/atom/movable/AM = A
+			var/xo = (atom.x - center.x) * ICON_SIZE_X + atom.pixel_x + xcomp
+			var/yo = (atom.y - center.y) * ICON_SIZE_Y + atom.pixel_y + ycomp
+			if(ismovable(atom))
+				var/atom/movable/AM = atom
 				xo += AM.step_x
 				yo += AM.step_y
-			var/icon/img = getFlatIcon(A, no_anim = TRUE)
-			res.Blend(img, blendMode2iconMode(A.blend_mode), xo, yo)
+			var/icon/img = getFlatIcon(atom, no_anim = TRUE)
+			res.Blend(img, blendMode2iconMode(atom.blend_mode), xo, yo)
 			CHECK_TICK
 	else
 		for(var/X in sorted) //these are clones

@@ -100,12 +100,12 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 /datum/event/traders/proc/forge_trader_objectives()
 	var/list/objs = list()
 
-	var/datum/objective/trade/plasma/P = new /datum/objective/trade/plasma
-	P.choose_target()
-	objs += P
+	var/datum/objective/trade/plasma/plasma = new /datum/objective/trade/plasma
+	plasma.choose_target()
+	objs += plasma
 
-	var/datum/objective/trade/credits/C = new /datum/objective/trade/credits
-	C.choose_target()
-	objs += C
+	var/datum/objective/trade/credits/credits = new /datum/objective/trade/credits
+	credits.choose_target()
+	objs += credits
 
 	return objs

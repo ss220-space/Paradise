@@ -716,11 +716,11 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/rd/proc/sense_explosion(x0, y0, z0, devastation_range, heavy_impact_range,
 		light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range)
-	var/turf/T = get_turf(src)
-	var/dx = abs(x0 - T.x)
-	var/dy = abs(y0 - T.y)
+	var/turf/turf = get_turf(src)
+	var/dx = abs(x0 - turf.x)
+	var/dy = abs(y0 - turf.y)
 	var/distance = 40
-	if(T.z != z0)
+	if(turf.z != z0)
 		return
 	if(dx > dy)
 		distance = dx

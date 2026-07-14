@@ -101,11 +101,11 @@
 
 /obj/item/camera/proc/get_mobs(turf/the_turf)
 	var/mob_detail
-	for(var/mob/M in the_turf)
-		if(M.invisibility)
-			if(see_ghosts && isobserver(M))
-				var/mob/dead/observer/O = M
-				if(O.orbiting)
+	for(var/mob/mob in the_turf)
+		if(mob.invisibility)
+			if(see_ghosts && isobserver(mob))
+				var/mob/dead/observer/observer = mob
+				if(observer.orbiting)
 					continue
 				if(!mob_detail)
 					mob_detail = "You can see a g-g-g-g-ghooooost! "
@@ -116,39 +116,39 @@
 
 		var/holding = null
 
-		if(iscarbon(M))
-			var/mob/living/carbon/A = M
-			if(A.l_hand || A.r_hand)
-				if(A.l_hand) holding = "They are holding \a [A.l_hand]"
-				if(A.r_hand)
+		if(iscarbon(mob))
+			var/mob/living/carbon/carbon = mob
+			if(carbon.l_hand || carbon.r_hand)
+				if(carbon.l_hand) holding = "They are holding \a [carbon.l_hand]"
+				if(carbon.r_hand)
 					if(holding)
-						holding += " and \a [A.r_hand]"
+						holding += " and \a [carbon.r_hand]"
 					else
-						holding = "They are holding \a [A.r_hand]"
+						holding = "They are holding \a [carbon.r_hand]"
 
 			if(!mob_detail)
-				mob_detail = "You can see [A] on the photo[A:health < 75 ? " - [A] looks hurt":""].[holding ? " [holding]":"."]. "
+				mob_detail = "You can see [carbon] on the photo[carbon:health < 75 ? " - [carbon] looks hurt":""].[holding ? " [holding]":"."]. "
 			else
-				mob_detail += "You can also see [A] on the photo[A:health < 75 ? " - [A] looks hurt":""].[holding ? " [holding]":"."]."
+				mob_detail += "You can also see [carbon] on the photo[carbon:health < 75 ? " - [carbon] looks hurt":""].[holding ? " [holding]":"."]."
 	return mob_detail
 
 /obj/item/camera/proc/add_log(turf/the_turf)
 	var/mob_detail
-	for(var/mob/M in the_turf)
+	for(var/mob/mob in the_turf)
 		var/holding = null
-		if(iscarbon(M))
-			var/mob/living/carbon/A = M
-			if(A.l_hand || A.r_hand)
-				if(A.l_hand) holding = "holding [A.l_hand]"
-				if(A.r_hand)
+		if(iscarbon(mob))
+			var/mob/living/carbon/carbon = mob
+			if(carbon.l_hand || carbon.r_hand)
+				if(carbon.l_hand) holding = "holding [carbon.l_hand]"
+				if(carbon.r_hand)
 					if(holding)
-						holding += " and [A.r_hand]"
+						holding += " and [carbon.r_hand]"
 					else
-						holding = "holding [A.r_hand]"
+						holding = "holding [carbon.r_hand]"
 			if(!mob_detail)
-				mob_detail = "[A.client ? "[A.client.ckey]/" : "nockey"]([A]) on photo[A:health < 75 ? " hurt":""].[holding ? " [holding]":"."]. "
+				mob_detail = "[carbon.client ? "[carbon.client.ckey]/" : "nockey"]([carbon]) on photo[carbon:health < 75 ? " hurt":""].[holding ? " [holding]":"."]. "
 			else
-				mob_detail += "Also [A.client ? "[A.client.ckey]/" : "nockey"]([A]) on the photo[A:health < 75 ? " hurt":""].[holding ? " [holding]":"."]."
+				mob_detail += "Also [carbon.client ? "[carbon.client.ckey]/" : "nockey"]([carbon]) on the photo[carbon:health < 75 ? " hurt":""].[holding ? " [holding]":"."]."
 	return mob_detail
 
 /obj/item/camera/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
@@ -202,8 +202,8 @@
 			if(locate(/obj/item/areaeditor/blueprints) in placeholder)
 				get_blueprints = TRUE
 
-	var/datum/picture/P = createpicture(target, user, turfs, mobs, log, get_blueprints)
-	printpicture(user, P)
+	var/datum/picture/picture = createpicture(target, user, turfs, mobs, log, get_blueprints)
+	printpicture(user, picture)
 
 /obj/item/camera/proc/createpicture(atom/target, atom/user, list/turfs, mobs, logs, have_blueprints = FALSE)
 	var/range = picture_size * 2 + 1
@@ -221,24 +221,24 @@
 	ic.Blend(small_img,ICON_OVERLAY, 10, 13)
 	pc.Blend(tiny_img,ICON_OVERLAY, 12, 19)
 
-	var/datum/picture/P = new()
+	var/datum/picture/picture = new()
 	if(istype(src,/obj/item/camera/digital) && ishuman(user))
-		P.fields["name"] = tgui_input_text(user, "Name photo:", "Photo")
-		P.name = P.fields["name"]//So the name is displayed on the print/delete list.
+		picture.fields["name"] = tgui_input_text(user, "Name photo:", "Photo")
+		picture.name = picture.fields["name"]//So the name is displayed on the print/delete list.
 	else
-		P.fields["name"] = "photo"
-	P.fields["author"] = user
-	P.fields["icon"] = ic
-	P.fields["tiny"] = pc
-	P.fields["img"] = photoimage
-	P.fields["desc"] = mobs
-	P.fields["pixel_x"] = rand(-10, 10)
-	P.fields["pixel_y"] = rand(-10, 10)
-	P.fields["size"] = picture_size
-	P.fields["log"] = logs
-	P.fields["blueprints"] = have_blueprints
+		picture.fields["name"] = "photo"
+	picture.fields["author"] = user
+	picture.fields["icon"] = ic
+	picture.fields["tiny"] = pc
+	picture.fields["img"] = photoimage
+	picture.fields["desc"] = mobs
+	picture.fields["pixel_x"] = rand(-10, 10)
+	picture.fields["pixel_y"] = rand(-10, 10)
+	picture.fields["size"] = picture_size
+	picture.fields["log"] = logs
+	picture.fields["blueprints"] = have_blueprints
 
-	return P
+	return picture
 
 /obj/item/camera/proc/printpicture(mob/user, datum/picture/P)
 	var/obj/item/photo/Photo = new/obj/item/photo()

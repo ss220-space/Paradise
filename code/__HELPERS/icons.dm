@@ -737,18 +737,18 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 		return "<img [class] src='data:image/png;base64,[GLOB.bicon_cache["\ref[obj]"]]'>"
 
 	// Either an atom or somebody fucked up and is gonna get a runtime, which I'm fine with.
-	var/atom/A = obj
-	var/key = "[isicon(A.icon) ? "\ref[A.icon]" : A.icon]:[A.icon_state]"
+	var/atom/atom = obj
+	var/key = "[isicon(atom.icon) ? "\ref[atom.icon]" : atom.icon]:[atom.icon_state]"
 	if(!GLOB.bicon_cache[key]) // Doesn't exist, make it.
-		var/icon/I = icon(A.icon, A.icon_state, SOUTH, 1)
+		var/icon/icon = icon(atom.icon, atom.icon_state, SOUTH, 1)
 		if(ishuman(obj)) // Shitty workaround for a BYOND issue.
-			var/icon/temp = I
-			I = icon()
-			I.Insert(temp, dir = SOUTH)
-		GLOB.bicon_cache[key] = icon2base64(I)
+			var/icon/temp = icon
+			icon = icon()
+			icon.Insert(temp, dir = SOUTH)
+		GLOB.bicon_cache[key] = icon2base64(icon)
 
 	if(use_class)
-		class = "class='icon [A.icon_state]'"
+		class = "class='icon [atom.icon_state]'"
 
 	return "<img [class] src='data:image/png;base64,[GLOB.bicon_cache[key]]'>"
 

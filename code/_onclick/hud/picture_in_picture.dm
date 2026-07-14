@@ -55,9 +55,9 @@
 		move_tab.icon = 'icons/misc/pic_in_pic.dmi'
 		move_tab.icon_state = "move"
 		move_tab.plane = HUD_PLANE
-	var/matrix/M = matrix()
-	M.Translate(0, (height + 0.25) * ICON_SIZE_Y)
-	move_tab.transform = M
+	var/matrix/matrix = matrix()
+	matrix.Translate(0, (height + 0.25) * ICON_SIZE_Y)
+	move_tab.transform = matrix
 	add_overlay(move_tab)
 
 	if(!button_x)
@@ -68,9 +68,9 @@
 		MA.icon_state = "x"
 		MA.plane = HUD_PLANE
 		button_x.appearance = MA
-	M = matrix()
-	M.Translate((max(4, width) - 0.75) * ICON_SIZE_X, (height + 0.25) * ICON_SIZE_Y)
-	button_x.transform = M
+	matrix = matrix()
+	matrix.Translate((max(4, width) - 0.75) * ICON_SIZE_X, (height + 0.25) * ICON_SIZE_Y)
+	button_x.transform = matrix
 	vis_contents += button_x
 
 	if(!button_expand)
@@ -81,9 +81,9 @@
 		MA.icon_state = "expand"
 		MA.plane = HUD_PLANE
 		button_expand.appearance = MA
-	M = matrix()
-	M.Translate(ICON_SIZE_X, (height + 0.25) * ICON_SIZE_Y)
-	button_expand.transform = M
+	matrix = matrix()
+	matrix.Translate(ICON_SIZE_X, (height + 0.25) * ICON_SIZE_Y)
+	button_expand.transform = matrix
 	vis_contents += button_expand
 
 	if(!button_shrink)
@@ -94,17 +94,17 @@
 		MA.icon_state = "shrink"
 		MA.plane = HUD_PLANE
 		button_shrink.appearance = MA
-	M = matrix()
-	M.Translate(2 * ICON_SIZE_X, (height + 0.25) * ICON_SIZE_Y)
-	button_shrink.transform = M
+	matrix = matrix()
+	matrix.Translate(2 * ICON_SIZE_X, (height + 0.25) * ICON_SIZE_Y)
+	button_shrink.transform = matrix
 	vis_contents += button_shrink
 
 /atom/movable/screen/movable/pic_in_pic/proc/add_background()
 	if((width > 0) && (height > 0))
-		var/matrix/M = matrix()
-		M.Scale(width + 0.5, height + 0.5)
-		M.Translate((width - 1) / 2 * ICON_SIZE_X, (height - 1) / 2 * ICON_SIZE_Y)
-		standard_background.transform = M
+		var/matrix/matrix = matrix()
+		matrix.Scale(width + 0.5, height + 0.5)
+		matrix.Translate((width - 1) / 2 * ICON_SIZE_X, (height - 1) / 2 * ICON_SIZE_Y)
+		standard_background.transform = matrix
 		add_overlay(standard_background)
 
 /atom/movable/screen/movable/pic_in_pic/proc/set_view_size(width, height, do_refresh = TRUE)
@@ -130,10 +130,10 @@
 	vis_contents -= viewing_turfs
 	if(!width || !height)
 		return
-	var/turf/T = get_turf(center)
-	if(!T)
+	var/turf/turf = get_turf(center)
+	if(!turf)
 		return
-	var/turf/lowerleft = locate(max(1, T.x - round(width/2)), max(1, T.y - round(height/2)), T.z)
+	var/turf/lowerleft = locate(max(1, turf.x - round(width/2)), max(1, turf.y - round(height/2)), turf.z)
 	var/turf/upperright = locate(min(world.maxx, lowerleft.x + width - 1), min(world.maxy, lowerleft.y + height - 1), lowerleft.z)
 	viewing_turfs = block(lowerleft, upperright)
 	vis_contents += viewing_turfs

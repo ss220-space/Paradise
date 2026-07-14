@@ -112,9 +112,9 @@
 /obj/item/gun/dartgun/proc/remove_cartridge()
 	if(cartridge)
 		to_chat(usr, span_notice("You pop the cartridge out of [src]."))
-		var/obj/item/dart_cartridge/C = cartridge
-		C.forceMove(get_turf(src))
-		C.update_icon()
+		var/obj/item/dart_cartridge/dart_cartridge = cartridge
+		dart_cartridge.forceMove(get_turf(src))
+		dart_cartridge.update_icon()
 		cartridge = null
 		src.update_icon()
 
@@ -128,8 +128,8 @@
 
 	if(length(mixing))
 		var/mix_amount = dart_reagent_amount/mixing.len
-		for(var/obj/item/reagent_containers/glass/beaker/B in mixing)
-			B.reagents.trans_to(dart,mix_amount)
+		for(var/obj/item/reagent_containers/glass/beaker/beaker in mixing)
+			beaker.reagents.trans_to(dart,mix_amount)
 
 	return dart
 
@@ -138,55 +138,55 @@
 		return
 	else
 		var/turf/trg = get_turf(target)
-		var/obj/effect/syringe_gun_dummy/D = new/obj/effect/syringe_gun_dummy(get_turf(src))
-		var/obj/item/reagent_containers/syringe/S = get_mixed_syringe()
-		if(!S)
+		var/obj/effect/syringe_gun_dummy/syringe_gun_dummy = new/obj/effect/syringe_gun_dummy(get_turf(src))
+		var/obj/item/reagent_containers/syringe/syringe = get_mixed_syringe()
+		if(!syringe)
 			to_chat(user, span_warning("There are no darts in [src]!"))
 			return
-		if(!S.reagents)
+		if(!syringe.reagents)
 			to_chat(user, span_warning("There are no reagents available!"))
 			return
 		cartridge.darts--
 		update_icon()
-		S.reagents.trans_to(D, S.reagents.total_volume)
-		qdel(S)
-		D.icon_state = "syringeproj"
-		D.name = "syringe"
-		D.reagents.set_reacting(FALSE)
+		syringe.reagents.trans_to(syringe_gun_dummy, syringe.reagents.total_volume)
+		qdel(syringe)
+		syringe_gun_dummy.icon_state = "syringeproj"
+		syringe_gun_dummy.name = "syringe"
+		syringe_gun_dummy.reagents.set_reacting(FALSE)
 		playsound(user.loc, 'sound/items/syringeproj.ogg', 50, TRUE)
 
 		for(var/i=0, i<6, i++)
-			if(!D) break
-			if(D.loc == trg) break
-			step_towards(D,trg)
+			if(!syringe_gun_dummy) break
+			if(syringe_gun_dummy.loc == trg) break
+			step_towards(syringe_gun_dummy,trg)
 
-			if(D)
-				for(var/mob/living/carbon/M in D.loc)
-					if(!iscarbon(M)) continue
-					if(M == user) continue
+			if(syringe_gun_dummy)
+				for(var/mob/living/carbon/carbon in syringe_gun_dummy.loc)
+					if(!iscarbon(carbon)) continue
+					if(carbon == user) continue
 					//Syringe gun attack logging by Yvarov
 					var/R
-					if(D.reagents)
-						for(var/datum/reagent/A in D.reagents.reagent_list)
-							R += A.id + " ("
-							R += num2text(A.volume) + "),"
+					if(syringe_gun_dummy.reagents)
+						for(var/datum/reagent/reagent in syringe_gun_dummy.reagents.reagent_list)
+							R += reagent.id + " ("
+							R += num2text(reagent.volume) + "),"
 
-					add_attack_logs(user, M, "Shot with dartgun containing [R]")
+					add_attack_logs(user, carbon, "Shot with dartgun containing [R]")
 
-					if(D.reagents)
-						D.reagents.trans_to(M, 15)
-					to_chat(M, span_danger("You feel a slight prick."))
+					if(syringe_gun_dummy.reagents)
+						syringe_gun_dummy.reagents.trans_to(carbon, 15)
+					to_chat(carbon, span_danger("You feel a slight prick."))
 
-					qdel(D)
+					qdel(syringe_gun_dummy)
 					break
-			if(D)
-				for(var/atom/A in D.loc)
-					if(A == user) continue
-					if(A.density) qdel(D)
+			if(syringe_gun_dummy)
+				for(var/atom/reagent in syringe_gun_dummy.loc)
+					if(reagent == user) continue
+					if(reagent.density) qdel(syringe_gun_dummy)
 
 			sleep(1)
 
-		if(D) spawn(10) qdel(D)
+		if(syringe_gun_dummy) spawn(10) qdel(syringe_gun_dummy)
 
 		return
 
@@ -232,8 +232,8 @@
 /obj/item/gun/dartgun/proc/check_beaker_mixing(obj/item/B)
 	if(!mixing || !beakers)
 		return 0
-	for(var/obj/item/M in mixing)
-		if(M == B)
+	for(var/obj/item/item in mixing)
+		if(item == B)
 			return 1
 	return 0
 

@@ -88,8 +88,8 @@
 
 /obj/item/analyzer/proc/ping()
 	if(isliving(loc))
-		var/mob/living/L = loc
-		to_chat(L, span_notice("[src]'s barometer function is ready!"))
+		var/mob/living/living = loc
+		to_chat(living, span_notice("[src]'s barometer function is ready!"))
 	playsound(src, 'sound/machines/click.ogg', 100)
 	cooldown = FALSE
 

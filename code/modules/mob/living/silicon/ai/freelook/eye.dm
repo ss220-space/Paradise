@@ -66,8 +66,8 @@
 	return null
 
 /mob/camera/aiEye/proc/RemoveImages()
-	var/client/C = GetViewerClient()
-	if(C && use_static)
+	var/client/client = GetViewerClient()
+	if(client && use_static)
 		for(var/datum/camerachunk/chunk in visibleCameraChunks)
 			chunk.remove(src)
 

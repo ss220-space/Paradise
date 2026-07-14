@@ -108,18 +108,18 @@
 			to_chat(usr, span_warning("There is a structure here!"))
 			return FALSE
 
-	var/area/A = get_area(usr)
+	var/area/area = get_area(usr)
 	if(result_type == /obj/structure/clockwork/functional/beacon)
 		if(!is_station_level(usr.z))
 			to_chat(usr, span_warning("The beacon cannot guide from this place! It must be on station!"))
 			return FALSE
-		if(isspacearea(A))
+		if(isspacearea(area))
 			to_chat(usr, span_warning("The beacon must be inside the station itself to properly work."))
 			return FALSE
-		if(!A.type == /area) //The only one that is made by blueprints
+		if(!area.type == /area) //The only one that is made by blueprints
 			to_chat(usr, span_warning("This area is too fresh for the beacon!"))
 			return FALSE
-		if(locate(/obj/structure/clockwork/functional/beacon) in A)
+		if(locate(/obj/structure/clockwork/functional/beacon) in area)
 			to_chat(usr, span_warning("This area already has beacon!"))
 			return FALSE
 	if(result_type == /obj/structure/clockwork/functional/cogscarab_fabricator)

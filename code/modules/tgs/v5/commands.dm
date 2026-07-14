@@ -22,15 +22,15 @@
 	var/user = command_json[DMAPI5_CHAT_COMMAND_USER]
 	var/params = command_json[DMAPI5_CHAT_COMMAND_PARAMS]
 
-	var/datum/tgs_chat_user/u = new
-	u.id = user[DMAPI5_CHAT_USER_ID]
-	u.friendly_name = user[DMAPI5_CHAT_USER_FRIENDLY_NAME]
-	u.mention = user[DMAPI5_CHAT_USER_MENTION]
-	u.channel = DecodeChannel(user[DMAPI5_CHAT_USER_CHANNEL])
+	var/datum/tgs_chat_user/tgs_chat_user = new
+	tgs_chat_user.id = user[DMAPI5_CHAT_USER_ID]
+	tgs_chat_user.friendly_name = user[DMAPI5_CHAT_USER_FRIENDLY_NAME]
+	tgs_chat_user.mention = user[DMAPI5_CHAT_USER_MENTION]
+	tgs_chat_user.channel = DecodeChannel(user[DMAPI5_CHAT_USER_CHANNEL])
 
 	var/datum/tgs_chat_command/sc = custom_commands[command]
 	if(sc)
-		var/text_response = sc.Run(u, params)
+		var/text_response = sc.Run(tgs_chat_user, params)
 		var/list/topic_response = list()
 		if(!istext(text_response))
 			TGS_ERROR_LOG("Custom command [command] should return a string! Got: \"[text_response]\"")

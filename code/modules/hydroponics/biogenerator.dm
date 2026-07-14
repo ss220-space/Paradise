@@ -185,15 +185,15 @@
 		product_list[category] = list()
 
 	for(var/V in files.known_designs)
-		var/datum/design/D = files.known_designs[V]
+		var/datum/design/design = files.known_designs[V]
 		for(var/category in categories)
-			if(!(category in D.category))
+			if(!(category in design.category))
 				continue
-			product_list[category][D.name] = list(
-				"name" = D.name,
-				"id" = D.id,
-				"cost" = D.materials[MAT_BIOMASS] / efficiency,
-				"needs_container" = length(D.make_reagents)
+			product_list[category][design.name] = list(
+				"name" = design.name,
+				"id" = design.id,
+				"cost" = design.materials[MAT_BIOMASS] / efficiency,
+				"needs_container" = length(design.make_reagents)
 			)
 
 	SStgui.update_uis(src)

@@ -183,13 +183,13 @@
 	var/turf/mobloc = get_turf(mob)
 	if(!mobloc || !isliving(mob))
 		return FALSE
-	var/mob/living/L = mob
-	switch(L.incorporeal_move)
+	var/mob/living/living = mob
+	switch(living.incorporeal_move)
 		if(INCORPOREAL_NORMAL)
-			var/T = get_step(L, direct)
+			var/T = get_step(living, direct)
 			if(T)
-				L.forceMove(T)
-			L.setDir(direct)
+				living.forceMove(T)
+			living.setDir(direct)
 		if(INCORPOREAL_NINJA)
 			if(prob(50))
 				var/locx
@@ -219,28 +219,28 @@
 						return
 				var/target = locate(locx,locy,mobloc.z)
 				if(target)
-					L.forceMove(target)
+					living.forceMove(target)
 					var/limit = 2//For only two trailing shadows.
-					for(var/turf/T in get_line(mobloc, L.loc))
-						new /obj/effect/temp_visual/dir_setting/ninja/shadow(T, L.dir)
+					for(var/turf/turf in get_line(mobloc, living.loc))
+						new /obj/effect/temp_visual/dir_setting/ninja/shadow(turf, living.dir)
 						limit--
 						if(limit <= 0)
 							break
 			else
-				new /obj/effect/temp_visual/dir_setting/ninja/shadow(mobloc, L.dir)
-				var/T = get_step(L, direct)
-				if(T)
-					L.forceMove(T)
-			L.setDir(direct)
+				new /obj/effect/temp_visual/dir_setting/ninja/shadow(mobloc, living.dir)
+				var/turf = get_step(living, direct)
+				if(turf)
+					living.forceMove(turf)
+			living.setDir(direct)
 		if(INCORPOREAL_REVENANT) //Incorporeal move, but blocked by holy-watered tiles
-			var/turf/simulated/floor/stepTurf = get_step(L, direct)
+			var/turf/simulated/floor/stepTurf = get_step(living, direct)
 			if(stepTurf)
 				if(stepTurf.turf_flags & NOJAUNT)
 					move_delay += 0.5 SECONDS
-					to_chat(L, span_warning("Святые силы блокируют Ваш путь."))
+					to_chat(living, span_warning("Святые силы блокируют Ваш путь."))
 					return FALSE
-				L.forceMove(stepTurf)
-			L.setDir(direct)
+				living.forceMove(stepTurf)
+			living.setDir(direct)
 	return TRUE
 
 /**

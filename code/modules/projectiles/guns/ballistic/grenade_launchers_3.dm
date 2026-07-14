@@ -43,13 +43,13 @@
 	user.visible_message(span_danger("[user] fired a grenade!"), \
 						span_danger("You fire the grenade launcher!"),
 						projectile_message = TRUE)
-	var/obj/item/grenade/chem_grenade/F = grenades[1] //Now with less copypasta!
-	grenades -= F
-	F.loc = user.loc
-	F.throw_at(target, 30, 2, user)
-	add_attack_logs(user, target, "fired [F.name] from [name]")
-	F.active = 1
-	F.icon_state = initial(icon_state) + "_active"
+	var/obj/item/grenade/chem_grenade/chem_grenade = grenades[1] //Now with less copypasta!
+	grenades -= chem_grenade
+	chem_grenade.loc = user.loc
+	chem_grenade.throw_at(target, 30, 2, user)
+	add_attack_logs(user, target, "fired [chem_grenade.name] from [name]")
+	chem_grenade.active = 1
+	chem_grenade.icon_state = initial(icon_state) + "_active"
 	playsound(user.loc, 'sound/weapons/armbomb.ogg', 75, TRUE, -3)
 	spawn(15)
-		F.prime()
+		chem_grenade.prime()

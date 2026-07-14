@@ -165,9 +165,9 @@
 
 /obj/machinery/customat/proc/set_up_components()
 	component_parts = list()
-	var/obj/item/circuitboard/vendor/V = new
-	V.set_type(replacetext(initial(name), "\improper", ""))
-	component_parts += V
+	var/obj/item/circuitboard/vendor/vendor = new
+	vendor.set_type(replacetext(initial(name), "\improper", ""))
+	component_parts += vendor
 	canister = new /obj/item/vending_refill/custom
 	component_parts += canister
 
@@ -205,8 +205,8 @@
 /obj/machinery/customat/proc/eject_all()
 	for(var/key in products)
 		var/datum/data/customat_product/product = products[key]
-		for(var/obj/item/I in product.containment)
-			I.forceMove(get_turf(src))
+		for(var/obj/item/item in product.containment)
+			item.forceMove(get_turf(src))
 		product.amount = 0
 		inserted_items_count -= product.containment.len
 		product.containment = list()
@@ -712,8 +712,8 @@
 			put_on_turf = FALSE
 
 	if(put_on_turf)
-		var/turf/T = get_turf(src)
-		vended.forceMove(T)
+		var/turf/turf = get_turf(src)
+		vended.forceMove(turf)
 
 	product.containment.Remove(product.containment[1])
 	inserted_items_count--

@@ -52,6 +52,6 @@
 /datum/disease/virus/beesease/proc/bee_stinging()
 	to_chat(affected_mob, span_danger("Ваш желудок болезненно жжёт."))
 	affected_mob.Slowed(3 SECONDS, 10)
-	var/datum/reagent/bee_venom_beesease/R = new
-	R.volume = 5
-	affected_mob.reagents.add_reagent(R.id, R.volume)
+	var/datum/reagent/bee_venom_beesease/bee_venom_beesease = new
+	bee_venom_beesease.volume = 5
+	affected_mob.reagents.add_reagent(bee_venom_beesease.id, bee_venom_beesease.volume)

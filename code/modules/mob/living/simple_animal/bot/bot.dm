@@ -608,12 +608,12 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 /mob/living/simple_animal/bot/proc/scan(atom/scan_type, atom/old_target, scan_range = DEFAULT_SCAN_RANGE)
 	var/final_result
 	for(var/scan in shuffle(view(scan_range, src))) //Search for something in range!
-		var/atom/A = scan
-		if(!istype(A, scan_type)) //Check that the thing we found is the type we want!
+		var/atom/atom = scan
+		if(!istype(atom, scan_type)) //Check that the thing we found is the type we want!
 			continue //If not, keep searching!
-		if((A.UID() in ignore_list) || (A == old_target)) //Filter for blacklisted elements, usually unreachable or previously processed oness
+		if((atom.UID() in ignore_list) || (atom == old_target)) //Filter for blacklisted elements, usually unreachable or previously processed oness
 			continue
-		var/scan_result = process_scan(A) //Some bots may require additional processing when a result is selected.
+		var/scan_result = process_scan(atom) //Some bots may require additional processing when a result is selected.
 		if(scan_result)
 			final_result = scan_result
 		else
@@ -1272,12 +1272,12 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	QDEL_LIST(path_images)
 	if(newpath)
 		for(var/i in 1 to length(newpath))
-			var/turf/T = newpath[i]
+			var/turf/turf = newpath[i]
 			var/direction = NORTH
 			if(i > 1)
 				var/turf/prevT = path[i - 1]
 				var/image/prevI = path[prevT]
-				direction = get_dir(prevT, T)
+				direction = get_dir(prevT, turf)
 				if(i > 2)
 					var/turf/prevprevT = path[i - 2]
 					var/prevDir = get_dir(prevprevT, prevT)
@@ -1300,11 +1300,11 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 			MA.appearance_flags = RESET_COLOR|RESET_TRANSFORM
 			MA.color = path_image_color
 			MA.dir = direction
-			var/image/I = image(loc = T)
-			I.appearance = MA
-			SET_PLANE(I, GAME_PLANE, T)
-			path[T] = I
-			path_images += I
+			var/image/image = image(loc = turf)
+			image.appearance = MA
+			SET_PLANE(image, GAME_PLANE, turf)
+			path[turf] = image
+			path_images += image
 
 	for(var/datum/atom_hud/hud as anything in path_huds_watching_me)
 		hud.add_atom_to_hud(src)
@@ -1312,9 +1312,9 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 /mob/living/simple_animal/bot/proc/increment_path()
 	if(!path || !length(path))
 		return
-	var/image/I = path[path[1]]
-	if(I)
-		I.icon = null
+	var/image/image = path[path[1]]
+	if(image)
+		image.icon = null
 	path.Cut(1, 2)
 
 /mob/living/simple_animal/bot/proc/drop_part(obj/item/drop_item, dropzone)

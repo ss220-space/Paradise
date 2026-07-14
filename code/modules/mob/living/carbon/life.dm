@@ -226,17 +226,17 @@
 
 /mob/living/carbon/proc/handle_stomach(times_fired)
 	for(var/thing in stomach_contents)
-		var/mob/living/M = thing
-		if(M.loc != src)
-			LAZYREMOVE(stomach_contents, M)
+		var/mob/living/living = thing
+		if(living.loc != src)
+			LAZYREMOVE(stomach_contents, living)
 			continue
 		if(stat != DEAD)
-			if(M.stat == DEAD)
-				LAZYREMOVE(stomach_contents, M)
-				qdel(M)
+			if(living.stat == DEAD)
+				LAZYREMOVE(stomach_contents, living)
+				qdel(living)
 				continue
 			if(times_fired % 3 == 1)
-				M.adjustBruteLoss(5)
+				living.adjustBruteLoss(5)
 				//Vampires don't get nutrition from devouring mobs
 				if(!isvampire(src))
 					adjust_nutrition(10)
@@ -360,18 +360,18 @@
 	var/applied_amount = 0.35 * multiple_patch_multiplier
 
 	for(var/patch in processing_patches)
-		var/obj/item/reagent_containers/food/pill/patch/P = patch
+		var/obj/item/reagent_containers/food/pill/patch/patch_item = patch
 
-		if(P.reagents && P.reagents.total_volume)
-			var/fractional_applied_amount = (applied_amount  / P.reagents.total_volume)
-			P.reagents.reaction(src, REAGENT_TOUCH, fractional_applied_amount, show_message = FALSE, ignore_protection = TRUE, def_zone = P.application_zone)
-			P.needs_to_apply_reagents = FALSE
-			P.reagents.trans_to(src, applied_amount * 0.5)
-			P.reagents.remove_any(applied_amount * 0.5)
+		if(patch_item.reagents && patch_item.reagents.total_volume)
+			var/fractional_applied_amount = (applied_amount  / patch_item.reagents.total_volume)
+			patch_item.reagents.reaction(src, REAGENT_TOUCH, fractional_applied_amount, show_message = FALSE, ignore_protection = TRUE, def_zone = patch_item.application_zone)
+			patch_item.needs_to_apply_reagents = FALSE
+			patch_item.reagents.trans_to(src, applied_amount * 0.5)
+			patch_item.reagents.remove_any(applied_amount * 0.5)
 		else
-			if(!P.reagents || P.reagents.total_volume <= 0)
-				LAZYREMOVE(processing_patches, P)
-				qdel(P)
+			if(!patch_item.reagents || patch_item.reagents.total_volume <= 0)
+				LAZYREMOVE(processing_patches, patch_item)
+				qdel(patch_item)
 
 /mob/living/carbon/proc/handle_germs()
 	if(germ_level < GERM_LEVEL_AMBIENT && prob(30))	//if you're just standing there, you shouldn't get more germs beyond an ambient level

@@ -107,11 +107,11 @@
 		icon_state = "fwall_open"
 
 /obj/structure/falsewall/proc/ChangeToWall(delete = TRUE)
-	var/turf/T = get_turf(src)
-	T.ChangeTurf(walltype)
+	var/turf/turf = get_turf(src)
+	turf.ChangeTurf(walltype)
 	if(delete)
 		qdel(src)
-	return T
+	return turf
 
 /obj/structure/falsewall/attackby(obj/item/I, mob/user, params)
 	if(opening)

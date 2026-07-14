@@ -233,14 +233,14 @@
 
 /obj/projectile/magic/door/proc/CreateDoor(turf/T)
 	var/door_type = pick(door_types)
-	var/obj/structure/mineral_door/D = new door_type(T)
+	var/obj/structure/mineral_door/mineral_door = new door_type(T)
 	T.ChangeTurf(/turf/simulated/floor/plasteel)
-	D.Open()
+	mineral_door.Open()
 
 /obj/projectile/magic/door/proc/OpenDoor(obj/machinery/door/D)
 	if(is_airlock(D))
-		var/obj/machinery/door/airlock/A = D
-		A.locked = FALSE
+		var/obj/machinery/door/airlock/airlock = D
+		airlock.locked = FALSE
 	D.open()
 
 /obj/projectile/magic/door/proc/OpenCloset(obj/structure/closet/C)
@@ -281,15 +281,15 @@
 			Robot.notify_ai(ROBOT_NOTIFY_AI_CONNECTED)
 		else
 			if(ishuman(M))
-				var/mob/living/carbon/human/H = M
+				var/mob/living/carbon/human/human = M
 				// Make sure there are no organs or limbs to drop
-				for(var/t in H.bodyparts)
+				for(var/t in human.bodyparts)
 					qdel(t)
-				for(var/i in H.internal_organs)
+				for(var/i in human.internal_organs)
 					qdel(i)
-			for(var/obj/item/W in M)
-				M.temporarily_remove_item_from_inventory(W, force = TRUE)
-				qdel(W)
+			for(var/obj/item/item in M)
+				M.temporarily_remove_item_from_inventory(item, force = TRUE)
+				qdel(item)
 
 		var/mob/living/new_mob
 		var/briefing_msg
@@ -376,11 +376,11 @@
 			if("ЧЕЛОВЕК")
 				if(prob(50))
 					new_mob = new /mob/living/carbon/human(M.loc)
-					var/mob/living/carbon/human/H = new_mob
-					var/datum/preferences/A = new()	//Randomize appearance for the human
-					A.species = get_random_species(TRUE)
-					A.copy_to(new_mob)
-					randomize = H.dna.species.name
+					var/mob/living/carbon/human/human = new_mob
+					var/datum/preferences/preferences = new()	//Randomize appearance for the human
+					preferences.species = get_random_species(TRUE)
+					preferences.copy_to(new_mob)
+					randomize = human.dna.species.name
 					if(ishuman(M))
 						briefing_msg = "Вы тот же самый гуманоид, с тем же сознанием и той же памятью, \
 						но ваша кожа теперь какая-то другая, да и вы сами теперь какой-то другой."

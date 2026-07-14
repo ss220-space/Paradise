@@ -134,18 +134,18 @@
 /mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/chaser_burst(target)
 	ranged_cooldown = world.time + cooldown_time * 2.5 // this shreads people incredibly effectivly at low hp, so needs higher cooldown than other attacks
 	var/active_chasers = 0
-	for(var/mob/living/M in orange(7, src))
-		if(M.faction_check_mob(src))
+	for(var/mob/living/living in orange(7, src))
+		if(living.faction_check_mob(src))
 			continue
-		if(M.stat == DEAD)
+		if(living.stat == DEAD)
 			continue
 		if(active_chasers >= MAX_CHASERS)
 			return
-		var/obj/effect/temp_visual/hierophant/chaser/C = new(loc, src, M, chaser_speed, FALSE)
-		C.damage = 30 * dif_mult
-		C.moving = 2
-		C.standard_moving_before_recalc = recalculation_speed
-		C.moving_dir = text2dir(pick(DIR_NAME_ENG_NORTH, DIR_NAME_ENG_SOUTH, DIR_NAME_ENG_EAST, DIR_NAME_ENG_WEST))
+		var/obj/effect/temp_visual/hierophant/chaser/chaser = new(loc, src, living, chaser_speed, FALSE)
+		chaser.damage = 30 * dif_mult
+		chaser.moving = 2
+		chaser.standard_moving_before_recalc = recalculation_speed
+		chaser.moving_dir = text2dir(pick(DIR_NAME_ENG_NORTH, DIR_NAME_ENG_SOUTH, DIR_NAME_ENG_EAST, DIR_NAME_ENG_WEST))
 		active_chasers += 1
 
 /mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/singular_shot_line(procsleft, angleused, turf/T)
@@ -158,9 +158,9 @@
 
 /mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/magic_box(target)
 	ranged_cooldown = world.time + cooldown_time
-	var/turf/T = get_turf(target)
-	for(var/t in spiral_range_turfs(3, T))
-		if(get_dist(t, T) > 1)
+	var/turf/turf = get_turf(target)
+	for(var/t in spiral_range_turfs(3, turf))
+		if(get_dist(t, turf) > 1)
 			spawn_blast(t)
 
 /mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/pandora_teleport(target)
@@ -194,10 +194,10 @@
 
 /mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/aoe_squares(target)
 	ranged_cooldown = world.time + cooldown_time * 2
-	var/turf/T = get_turf(target)
-	spawn_blast(T)
+	var/turf/turf = get_turf(target)
+	spawn_blast(turf)
 	var/max_size = 3
-	addtimer(CALLBACK(src, PROC_REF(aoe_squares_2), T, 0, max_size), 2)
+	addtimer(CALLBACK(src, PROC_REF(aoe_squares_2), turf, 0, max_size), 2)
 
 /mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/aoe_squares_2(turf/T, ring, max_size)
 	if(ring > max_size)

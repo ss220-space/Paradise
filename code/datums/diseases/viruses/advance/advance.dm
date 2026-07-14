@@ -107,8 +107,8 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 /datum/disease/virus/advance/proc/Mix(datum/disease/virus/advance/D)
 	if(!(IsSame(D)))
 		var/list/possible_symptoms = shuffle(D.symptoms)
-		for(var/datum/symptom/S in possible_symptoms)
-			AddSymptom(new S.type)
+		for(var/datum/symptom/symptom in possible_symptoms)
+			AddSymptom(new symptom.type)
 
 /datum/disease/virus/advance/proc/HasSymptom(datum/symptom/S)
 	for(var/datum/symptom/symp in symptoms)
@@ -124,10 +124,10 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 	// Generate symptoms. By default, we only choose non-deadly symptoms.
 	var/list/possible_symptoms = list()
 	for(var/symp in GLOB.list_symptoms)
-		var/datum/symptom/S = new symp
-		if(S.level >= level_min && S.level <= level_max)
-			if(!HasSymptom(S) || override_symptoms)
-				possible_symptoms += S
+		var/datum/symptom/symptom = new symp
+		if(symptom.level >= level_min && symptom.level <= level_max)
+			if(!HasSymptom(symptom) || override_symptoms)
+				possible_symptoms += symptom
 
 	if(!length(possible_symptoms))
 		return generated
@@ -149,11 +149,11 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 		AssignProperties(GenerateProperties())
 	id = GetDiseaseID()
 
-	var/datum/disease/virus/advance/A = GLOB.archive_diseases[id]
-	UpdateMutationsProps(A)
+	var/datum/disease/virus/advance/advance = GLOB.archive_diseases[id]
+	UpdateMutationsProps(advance)
 
-	if(A)
-		name = A.name
+	if(advance)
+		name = advance.name
 	else
 		if(reset_name)
 			name = UNKNOWN_STATUS_RUS
@@ -176,13 +176,13 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 
 	var/list/properties = list("resistance" = 1, "stealth" = 0, "stage_speed" = 1, "transmittable" = 1, "severity" = 0)
 
-	for(var/datum/symptom/S in symptoms)
+	for(var/datum/symptom/symptom in symptoms)
 
-		properties["resistance"] += S.resistance
-		properties["stealth"] += S.stealth
-		properties["stage_speed"] += S.stage_speed
-		properties["transmittable"] += S.transmittable
-		properties["severity"] = max(properties["severity"], S.severity) // severity is based on the highest severity symptom
+		properties["resistance"] += symptom.resistance
+		properties["stealth"] += symptom.stealth
+		properties["stage_speed"] += symptom.stage_speed
+		properties["transmittable"] += symptom.transmittable
+		properties["severity"] = max(properties["severity"], symptom.severity) // severity is based on the highest severity symptom
 
 	return properties
 
@@ -228,9 +228,9 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 	var/res = round(clamp(resistance - (length(symptoms) / 2), 1, length(GLOB.advance_cures)))
 
 	// Get the cure name from the cure_id
-	var/datum/reagent/D = GLOB.chemical_reagents_list[GLOB.advance_cures[res]]
+	var/datum/reagent/reagent = GLOB.chemical_reagents_list[GLOB.advance_cures[res]]
 	cures = list(GLOB.advance_cures[res])
-	cure_text = D.name
+	cure_text = reagent.name
 
 // Randomly generate a symptom, has a chance to lose or gain a symptom.
 /datum/disease/virus/advance/proc/Evolve(min_level, max_level)
@@ -297,8 +297,8 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 
 	var/list/diseases = list()
 
-	for(var/datum/disease/virus/advance/A in D_list)
-		diseases += A.Copy()
+	for(var/datum/disease/virus/advance/advance in D_list)
+		diseases += advance.Copy()
 
 	if(!length(diseases))
 		return null
@@ -327,8 +327,8 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 	if(data)
 		var/list/preserve = list()
 		if(istype(data) && data["diseases"])
-			for(var/datum/disease/D in data["diseases"])
-				preserve += D.Copy()
+			for(var/datum/disease/disease in data["diseases"])
+				preserve += disease.Copy()
 			R.data = data.Copy()
 		if(length(preserve))
 			R.data["diseases"] = preserve
@@ -340,50 +340,50 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 
 	var/i = VIRUS_SYMPTOM_LIMIT
 
-	var/datum/disease/virus/advance/D = new
-	D.Refresh()
-	D.symptoms = list()
+	var/datum/disease/virus/advance/advance = new
+	advance.Refresh()
+	advance.symptoms = list()
 
 	var/list/symptoms = list()
 	symptoms += "Done"
 	symptoms += GLOB.list_symptoms.Copy()
 	do
 		if(user)
-			var/symptom = tgui_input_list(user, "Choose a symptom to add ([i] remaining)", "Choose a Symptom", symptoms)
-			if(isnull(symptom))
+			var/symptom_type = tgui_input_list(user, "Choose a symptom to add ([i] remaining)", "Choose a Symptom", symptoms)
+			if(isnull(symptom_type))
 				return
-			else if(istext(symptom))
+			else if(istext(symptom_type))
 				i = 0
-			else if(ispath(symptom))
-				var/datum/symptom/S = new symptom
-				if(!D.HasSymptom(S))
-					D.symptoms += S
+			else if(ispath(symptom_type))
+				var/datum/symptom/symptom = new symptom_type
+				if(!advance.HasSymptom(symptom))
+					advance.symptoms += symptom
 					i -= 1
 	while(i > 0)
 
-	if(length(D.symptoms) > 0)
+	if(length(advance.symptoms) > 0)
 
 		var/new_name = tgui_input_text(user, "Name your new disease.", "New Name")
 		if(!new_name)
 			return
-		D.AssignName(new_name)
-		D.Refresh()
+		advance.AssignName(new_name)
+		advance.Refresh()
 
 		for(var/datum/disease/virus/advance/AD in GLOB.active_diseases)
 			AD.Refresh()
 
 		for(var/thing in shuffle(GLOB.human_list))
-			var/mob/living/carbon/human/H = thing
-			if(H.stat == DEAD || !is_station_level(H.z))
+			var/mob/living/carbon/human/human = thing
+			if(human.stat == DEAD || !is_station_level(human.z))
 				continue
-			if(!H.HasDisease(D))
-				D.Contract(H)
+			if(!human.HasDisease(advance))
+				advance.Contract(human)
 				break
 
 		var/list/name_symptoms = list()
-		for(var/datum/symptom/S in D.symptoms)
-			name_symptoms += S.name
-		message_admins("[key_name_admin(user)] has triggered a custom virus outbreak of [D.name]! It has these symptoms: [english_list(name_symptoms)]")
+		for(var/datum/symptom/symptom in advance.symptoms)
+			name_symptoms += symptom.name
+		message_admins("[key_name_admin(user)] has triggered a custom virus outbreak of [advance.name]! It has these symptoms: [english_list(name_symptoms)]")
 
 /**
  * Creates and returns a random virus with properties independent of symptoms properties
@@ -391,39 +391,39 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 /proc/CreateRandomVirus(level_min = 1, level_max = VIRUS_MAX_SYMPTOM_LEVEL, count_of_symptoms = 6,
 						resistance, stealth, stage_rate, transmittable, severity)
 
-	var/datum/disease/virus/advance/A = new
-	A.name = capitalize(pick(GLOB.adjectives)) + " " + capitalize(pick(GLOB.nouns + GLOB.verbs))
-	A.symptoms = A.GenerateSymptoms(count_of_symptoms = rand(4, 6), override_symptoms = TRUE)
-	A.AssignProperties(list("resistance" = resistance, "stealth" = stealth, "stage_rate" = stage_rate, "transmittable" = transmittable, "severity" = severity))
-	A.Refresh(update_properties = FALSE)
-	return A
+	var/datum/disease/virus/advance/advance = new
+	advance.name = capitalize(pick(GLOB.adjectives)) + " " + capitalize(pick(GLOB.nouns + GLOB.verbs))
+	advance.symptoms = advance.GenerateSymptoms(count_of_symptoms = rand(4, 6), override_symptoms = TRUE)
+	advance.AssignProperties(list("resistance" = resistance, "stealth" = stealth, "stage_rate" = stage_rate, "transmittable" = transmittable, "severity" = severity))
+	advance.Refresh(update_properties = FALSE)
+	return advance
 
 /datum/disease/virus/advance/proc/totalStageSpeed()
 	var/total_stage_speed = 0
 	for(var/i in symptoms)
-		var/datum/symptom/S = i
-		total_stage_speed += S.stage_speed
+		var/datum/symptom/symptom = i
+		total_stage_speed += symptom.stage_speed
 	return total_stage_speed
 
 /datum/disease/virus/advance/proc/totalStealth()
 	var/total_stealth = 0
 	for(var/i in symptoms)
-		var/datum/symptom/S = i
-		total_stealth += S.stealth
+		var/datum/symptom/symptom = i
+		total_stealth += symptom.stealth
 	return total_stealth
 
 /datum/disease/virus/advance/proc/totalResistance()
 	var/total_resistance = 0
 	for(var/i in symptoms)
-		var/datum/symptom/S = i
-		total_resistance += S.resistance
+		var/datum/symptom/symptom = i
+		total_resistance += symptom.resistance
 	return total_resistance
 
 /datum/disease/virus/advance/proc/totalTransmittable()
 	var/total_transmittable = 0
 	for(var/i in symptoms)
-		var/datum/symptom/S = i
-		total_transmittable += S.transmittable
+		var/datum/symptom/symptom = i
+		total_transmittable += symptom.transmittable
 	return total_transmittable
 
 #undef VIRUS_SYMPTOM_LIMIT

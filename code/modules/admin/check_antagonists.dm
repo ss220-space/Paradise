@@ -2,11 +2,11 @@
 	var/logout_status
 	logout_status = M.client ? "" : " <i>(logged out)</i>"
 	var/dname = M.real_name
-	var/area/A = get_area(M)
+	var/area/area = get_area(M)
 	if(!dname)
 		dname = M
 
-	return {"<tr><td><a href='byond://?src=[UID()];adminplayeropts=[M.UID()]'>[dname]</a><b>[caption]</b>[logout_status][istype(A, /area/station/security/prison/perma) ? "<b><span style='color: red;'> (PERMA) </b></span>" : ""][M.stat == 2 ? " <b><span style='color: red;'>(DEAD)</span></b>" : ""]</td>
+	return {"<tr><td><a href='byond://?src=[UID()];adminplayeropts=[M.UID()]'>[dname]</a><b>[caption]</b>[logout_status][istype(area, /area/station/security/prison/perma) ? "<b><span style='color: red;'> (PERMA) </b></span>" : ""][M.stat == 2 ? " <b><span style='color: red;'>(DEAD)</span></b>" : ""]</td>
 		<td><a href='byond://?src=[usr.UID()];priv_msg=[M.client?.ckey]'>PM</a> [ADMIN_FLW(M, "FLW")] </td>[close ? "</tr>" : ""]"}
 
 /datum/admins/proc/check_antagonists()
@@ -44,20 +44,20 @@
 		var/living_players_connected = 0
 		var/living_players_antagonist = 0
 		var/other_players = 0
-		for(var/mob/M in GLOB.mob_list)
-			if(M.ckey)
-				if(isnewplayer(M))
+		for(var/mob/mob in GLOB.mob_list)
+			if(mob.ckey)
+				if(isnewplayer(mob))
 					lobby_players++
 					continue
-				else if(M.stat != DEAD && M.mind && !isbrain(M))
+				else if(mob.stat != DEAD && mob.mind && !isbrain(mob))
 					living_players++
-					if(M.mind.special_role)
+					if(mob.mind.special_role)
 						living_players_antagonist++
-					if(M.client)
+					if(mob.client)
 						living_players_connected++
-				else if((M.stat == DEAD)||(isobserver(M)))
+				else if((mob.stat == DEAD)||(isobserver(mob)))
 					observers++
-					if(M.client)
+					if(mob.client)
 						observers_connected++
 				else
 					other_players++
@@ -74,22 +74,22 @@
 
 		if(length(SSticker.mode.head_revolutionaries) || length(SSticker.mode.revolutionaries))
 			dat += "<br><table cellspacing=5><tr><td><b>Revolutionaries</b></td><td></td></tr>"
-			for(var/datum/mind/N in SSticker.mode.head_revolutionaries)
-				var/mob/M = N.current
-				if(!M)
+			for(var/datum/mind/mind in SSticker.mode.head_revolutionaries)
+				var/mob/mob = mind.current
+				if(!mob)
 					dat += "<tr><td><i>Head Revolutionary not found!</i></td></tr>"
 				else
-					dat += check_antagonists_line(M, "(leader)")
-			for(var/datum/mind/N in SSticker.mode.revolutionaries)
-				var/mob/M = N.current
-				if(M)
-					dat += check_antagonists_line(M)
+					dat += check_antagonists_line(mob, "(leader)")
+			for(var/datum/mind/mind in SSticker.mode.revolutionaries)
+				var/mob/mob = mind.current
+				if(mob)
+					dat += check_antagonists_line(mob)
 			dat += "</table><table cellspacing=5><tr><td><b>Target(s)</b></td><td></td><td><b>Location</b></td></tr>"
-			for(var/datum/mind/N in SSticker.mode.get_living_heads())
-				var/mob/M = N.current
-				if(M)
-					dat += check_antagonists_line(M)
-					var/turf/mob_loc = get_turf(M)
+			for(var/datum/mind/mind in SSticker.mode.get_living_heads())
+				var/mob/mob = mind.current
+				if(mob)
+					dat += check_antagonists_line(mob)
+					var/turf/mob_loc = get_turf(mob)
 					dat += "<td>[mob_loc.loc]</td></tr>"
 				else
 					dat += "<tr><td><i>Head not found!</i></td></tr>"
@@ -110,19 +110,19 @@
 			dat += "</table>"
 			dat += "<br><table cellspacing=5><tr><td><b>Blobs</b></td><td></td></tr>"
 			for(var/datum/mind/blob in mode.blobs[BLOB_GROUP_INFECTED])
-				var/mob/M = blob.current
-				if(M)
-					dat += "<tr><td>[ADMIN_PP(M,"[M.real_name]")][M.client ? "" : " <i>(ghost)</i>"][M.stat == 2 ? " <b><span style='color: red;'>(DEAD)</span></b>" : ""]</td>"
-					dat += "<td><a href='byond://?priv_msg=[M.client?.ckey]'>PM</a></td>"
+				var/mob/mob = blob.current
+				if(mob)
+					dat += "<tr><td>[ADMIN_PP(mob,"[mob.real_name]")][mob.client ? "" : " <i>(ghost)</i>"][mob.stat == 2 ? " <b><span style='color: red;'>(DEAD)</span></b>" : ""]</td>"
+					dat += "<td><a href='byond://?priv_msg=[mob.client?.ckey]'>PM</a></td>"
 				else
 					dat += "<tr><td><i>Blob not found!</i></td></tr>"
 			dat += "</table>"
 			dat += "<br><table cellspacing=5><tr><td><b>Offsprings</b></td><td></td></tr>"
 			for(var/datum/mind/blob in mode.blobs[BLOB_GROUP_OFFSPRINGS])
-				var/mob/M = blob.current
-				if(M)
-					dat += "<tr><td>[ADMIN_PP(M,"[M.real_name]")][M.client ? "" : " <i>(ghost)</i>"][M.stat == 2 ? " <b><span style='color: red;'>(DEAD)</span></b>" : ""]</td>"
-					dat += "<td><a href='byond://?priv_msg=[M.client?.ckey]'>PM</a></td>"
+				var/mob/mob = blob.current
+				if(mob)
+					dat += "<tr><td>[ADMIN_PP(mob,"[mob.real_name]")][mob.client ? "" : " <i>(ghost)</i>"][mob.stat == 2 ? " <b><span style='color: red;'>(DEAD)</span></b>" : ""]</td>"
+					dat += "<td><a href='byond://?priv_msg=[mob.client?.ckey]'>PM</a></td>"
 				else
 					dat += "<tr><td><i>Offspring not found!</i></td></tr>"
 
@@ -130,10 +130,10 @@
 
 			dat += "<br><table cellspacing=5><tr><td><b>Minions</b></td><td></td></tr>"
 			for(var/datum/mind/blob in mode.blobs[BLOB_GROUP_MINIONS])
-				var/mob/M = blob.current
-				if(M)
-					dat += "<tr><td>[ADMIN_PP(M,"[M.real_name]")][M.client ? "" : " <i>(ghost)</i>"][M.stat == 2 ? " <b><span style='color: red;'(DEAD)</span></b>" : ""]</td>"
-					dat += "<td><a href='byond://?priv_msg=[M.client?.ckey]'>PM</a></td>"
+				var/mob/mob = blob.current
+				if(mob)
+					dat += "<tr><td>[ADMIN_PP(mob,"[mob.real_name]")][mob.client ? "" : " <i>(ghost)</i>"][mob.stat == 2 ? " <b><span style='color: red;'(DEAD)</span></b>" : ""]</td>"
+					dat += "<td><a href='byond://?priv_msg=[mob.client?.ckey]'>PM</a></td>"
 				else
 					dat += "<tr><td><i>Minions not found!</i></td></tr>"
 
@@ -287,8 +287,8 @@
 
 /datum/admins/proc/check_role_table(name, list/members, show_objectives=1)
 	var/txt = "<br><table cellspacing=5><tr><td><b>[name]</b></td><td></td></tr>"
-	for(var/datum/mind/M in members)
-		txt += check_role_table_row(M.current, show_objectives)
+	for(var/datum/mind/mind in members)
+		txt += check_role_table_row(mind.current, show_objectives)
 	txt += "</table>"
 	return txt
 

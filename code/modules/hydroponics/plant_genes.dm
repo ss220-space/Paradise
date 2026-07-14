@@ -147,9 +147,9 @@
 	reagent_id = reag_id
 	name = UNKNOWN_STATUS_RUS
 
-	var/datum/reagent/R = GLOB.chemical_reagents_list[reag_id]
-	if(R && R.id == reagent_id)
-		name = R.name
+	var/datum/reagent/reagent = GLOB.chemical_reagents_list[reag_id]
+	if(reagent && reagent.id == reagent_id)
+		name = reagent.name
 
 /datum/plant_gene/reagent/New(reag_id = null, reag_rate = 0)
 	..()
@@ -392,19 +392,19 @@
 /datum/plant_gene/trait/teleport/proc/on_sliped_carbon(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
 	SIGNAL_HANDLER
 	var/teleport_radius = max(round(G.seed.potency / 10), 1)
-	var/turf/T = get_turf(C)
-	if(do_teleport(C, T, teleport_radius))
-		add_attack_logs(C, T, "tele-slipped on [G](max radius: [teleport_radius])")
-		C.investigate_log("teleported from [COORD(T)] to [COORD(C)], slipping on [G](max radius: [teleport_radius])", INVESTIGATE_BOTANY)
+	var/turf/turf = get_turf(C)
+	if(do_teleport(C, turf, teleport_radius))
+		add_attack_logs(C, turf, "tele-slipped on [G](max radius: [teleport_radius])")
+		C.investigate_log("teleported from [COORD(turf)] to [COORD(C)], slipping on [G](max radius: [teleport_radius])", INVESTIGATE_BOTANY)
 		to_chat(C, span_warning("You slip through spacetime!"))
 		if(prob(50))
-			do_teleport(G, T, teleport_radius)
+			do_teleport(G, turf, teleport_radius)
 		else
-			new /obj/effect/decal/cleanable/molten_object(T) //Leave a pile of goo behind for dramatic effect...
+			new /obj/effect/decal/cleanable/molten_object(turf) //Leave a pile of goo behind for dramatic effect...
 			qdel(G)
 	else
 		to_chat(C, span_warning("[src] sparks, and burns up!"))
-		new /obj/effect/decal/cleanable/molten_object(T)
+		new /obj/effect/decal/cleanable/molten_object(turf)
 		qdel(G)
 
 /datum/plant_gene/trait/noreact

@@ -503,14 +503,14 @@
 		resources += resource_gain
 		do_attack_animation(target)
 		changeNext_move(CLICK_CD_MELEE)
-		var/obj/effect/temp_visual/swarmer/integrate/I = new /obj/effect/temp_visual/swarmer/integrate(get_turf(target))
-		I.pixel_x = target.pixel_x
-		I.pixel_y = target.pixel_y
-		I.pixel_z = target.pixel_z
+		var/obj/effect/temp_visual/swarmer/integrate/integrate_effect = new /obj/effect/temp_visual/swarmer/integrate(get_turf(target))
+		integrate_effect.pixel_x = target.pixel_x
+		integrate_effect.pixel_y = target.pixel_y
+		integrate_effect.pixel_z = target.pixel_z
 		if(isstack(target))
-			var/obj/item/stack/S = target
-			S.use(1)
-			if(S.amount)
+			var/obj/item/stack/stack = target
+			stack.use(1)
+			if(stack.amount)
 				return TRUE
 		qdel(target)
 		return TRUE
@@ -562,26 +562,26 @@
 /mob/living/simple_animal/hostile/swarmer/proc/DismantleMachine(obj/machinery/target)
 	do_attack_animation(target)
 	to_chat(src, span_notice("We begin to dismantle this machine. We will need to be uninterrupted."))
-	var/obj/effect/temp_visual/swarmer/dismantle/D = new /obj/effect/temp_visual/swarmer/dismantle(get_turf(target))
-	D.pixel_x = target.pixel_x
-	D.pixel_y = target.pixel_y
-	D.pixel_z = target.pixel_z
+	var/obj/effect/temp_visual/swarmer/dismantle/dismantle_effect = new /obj/effect/temp_visual/swarmer/dismantle(get_turf(target))
+	dismantle_effect.pixel_x = target.pixel_x
+	dismantle_effect.pixel_y = target.pixel_y
+	dismantle_effect.pixel_z = target.pixel_z
 	if(do_after(src, 10 SECONDS, target, NONE))
 		to_chat(src, span_notice("Dismantling complete."))
 		var/atom/Tsec = target.drop_location()
 		new /obj/item/stack/sheet/metal(Tsec, 5)
-		for(var/obj/item/I in target.component_parts)
-			I.forceMove(Tsec)
-		var/obj/effect/temp_visual/swarmer/disintegration/N = new /obj/effect/temp_visual/swarmer/disintegration(get_turf(target))
-		N.pixel_x = target.pixel_x
-		N.pixel_y = target.pixel_y
-		N.pixel_z = target.pixel_z
+		for(var/obj/item/item in target.component_parts)
+			item.forceMove(Tsec)
+		var/obj/effect/temp_visual/swarmer/disintegration/disintegration_effect = new /obj/effect/temp_visual/swarmer/disintegration(get_turf(target))
+		disintegration_effect.pixel_x = target.pixel_x
+		disintegration_effect.pixel_y = target.pixel_y
+		disintegration_effect.pixel_z = target.pixel_z
 		target.dropContents()
 		if(istype(target, /obj/machinery/computer))
 			add_attack_logs(src, target, "Swarm-dismantled [target]")
-			var/obj/machinery/computer/C = target
-			if(C.circuit)
-				new C.circuit(Tsec)
+			var/obj/machinery/computer/computer = target
+			if(computer.circuit)
+				new computer.circuit(Tsec)
 		qdel(target)
 
 /obj/effect/temp_visual/swarmer //temporary swarmer visual feedback objects
@@ -730,6 +730,6 @@
 /mob/living/simple_animal/hostile/swarmer/proc/ContactSwarmers()
 	var/message = tgui_input_text(src, "Announce to other swarmers", "Swarmer contact")
 	if(message)
-		for(var/mob/M in GLOB.mob_list)
-			if(isswarmer(M) || (M in GLOB.dead_mob_list))
-				to_chat(M, "<b>Swarm communication - </b> [src] states: [message]")
+		for(var/mob/mob in GLOB.mob_list)
+			if(isswarmer(mob) || (mob in GLOB.dead_mob_list))
+				to_chat(mob, "<b>Swarm communication - </b> [src] states: [message]")

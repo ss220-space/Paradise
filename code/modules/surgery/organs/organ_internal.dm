@@ -158,15 +158,15 @@
 	if(is_robotic())
 		return //no eating cybernetic implants!
 
-	var/obj/item/reagent_containers/food/snacks/organ/S = new
-	S.name = name
-	S.ru_names = ru_names
-	S.desc = desc
-	S.icon = icon
-	S.icon_state = icon_state
-	S.origin_tech = origin_tech
-	S.w_class = w_class
-	return S
+	var/obj/item/reagent_containers/food/snacks/organ/organ = new
+	organ.name = name
+	organ.ru_names = ru_names
+	organ.desc = desc
+	organ.icon = icon
+	organ.icon_state = icon_state
+	organ.origin_tech = origin_tech
+	organ.w_class = w_class
+	return organ
 
 /obj/item/organ/internal/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	if(parent_organ_zone != parent.limb_zone)

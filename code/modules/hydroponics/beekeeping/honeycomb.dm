@@ -33,11 +33,11 @@
 	. += honey
 
 /obj/item/reagent_containers/honeycomb/proc/set_reagent(reagent)
-	var/datum/reagent/R = GLOB.chemical_reagents_list[reagent]
-	if(istype(R))
-		name = "honeycomb ([R.name])"
-		honey_color = R.color
-		reagents.add_reagent(R.id,5)
+	var/datum/reagent/reagent_datum = GLOB.chemical_reagents_list[reagent]
+	if(istype(reagent_datum))
+		name = "honeycomb ([reagent_datum.name])"
+		honey_color = reagent_datum.color
+		reagents.add_reagent(reagent_datum.id,5)
 	else
 		honey_color = ""
 	update_icon(UPDATE_OVERLAYS)

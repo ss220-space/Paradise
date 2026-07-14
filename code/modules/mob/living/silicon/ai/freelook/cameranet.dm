@@ -134,25 +134,25 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new())
 	if(QDELETED(c) && choice == 1)
 		CRASH("Tried to add a qdeleting camera to the net")
 
-	var/turf/T = get_turf(c)
-	if(T)
-		var/x1 = max(1, T.x - (CHUNK_SIZE / 2))
-		var/y1 = max(1, T.y - (CHUNK_SIZE / 2))
-		var/x2 = min(world.maxx, T.x + (CHUNK_SIZE / 2))
-		var/y2 = min(world.maxy, T.y + (CHUNK_SIZE / 2))
+	var/turf/turf = get_turf(c)
+	if(turf)
+		var/x1 = max(1, turf.x - (CHUNK_SIZE / 2))
+		var/y1 = max(1, turf.y - (CHUNK_SIZE / 2))
+		var/x2 = min(world.maxx, turf.x + (CHUNK_SIZE / 2))
+		var/y2 = min(world.maxy, turf.y + (CHUNK_SIZE / 2))
 
 //		to_chat(world, "X1: [x1] - Y1: [y1] - X2: [x2] - Y2: [y2]")
 
 		for(var/x = x1; x <= x2; x += CHUNK_SIZE)
 			for(var/y = y1; y <= y2; y += CHUNK_SIZE)
-				var/datum/camerachunk/chunk = chunkGenerated(x, y, T.z)
+				var/datum/camerachunk/chunk = chunkGenerated(x, y, turf.z)
 				if(chunk)
 					if(choice == 0)
 						// Remove the camera.
-						chunk.cameras["[T.z]"] -= c
+						chunk.cameras["[turf.z]"] -= c
 					else if(choice == 1)
 						// You can't have the same camera in the list twice.
-						chunk.cameras["[T.z]"] |= c
+						chunk.cameras["[turf.z]"] |= c
 					chunk.hasChanged()
 
 /// A faster, turf only version of [/datum/cameranet/proc/majorChunkChange]

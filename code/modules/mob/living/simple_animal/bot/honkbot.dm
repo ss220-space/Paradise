@@ -175,11 +175,11 @@
 		sensor_blink()
 	if(!spam_flag)
 		if(ishuman(C))
-			var/mob/living/carbon/human/H = C
-			if(H.check_ear_prot() >= HEARING_PROTECTION_MAJOR)
+			var/mob/living/carbon/human/human = C
+			if(human.check_ear_prot() >= HEARING_PROTECTION_MAJOR)
 				return
 			C.SetStuttering(40 SECONDS) //stammer
-			C.AdjustDeaf(10 SECONDS) //far less damage than the H.O.N.K.
+			C.AdjustDeaf(10 SECONDS) //far less damage than the human.O.N.K.
 			var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
 			if(istype(ears))
 				ears.internal_receive_damage(5)
@@ -264,24 +264,24 @@
 
 /mob/living/simple_animal/bot/honkbot/proc/look_for_perp()
 	set_anchored(FALSE)
-	for(var/mob/living/carbon/C in view(7, src))
-		if((C.stat) || (C.handcuffed))
+	for(var/mob/living/carbon/carbon in view(7, src))
+		if((carbon.stat) || (carbon.handcuffed))
 			continue
 
-		if((C.name == oldtarget_name) && (world.time < last_found + 100))
+		if((carbon.name == oldtarget_name) && (world.time < last_found + 100))
 			continue
 
 		if(threatlevel <= 3 && emagged <= 1)
-			if(C in view(4, src)) //keep the range short for patrolling
+			if(carbon in view(4, src)) //keep the range short for patrolling
 				if(!spam_flag)
 					bike_horn()
 		else if(threatlevel >= 4)
 			if(!spam_flag || emagged > 1)
-				target = C
-				oldtarget_name = C.name
+				target = carbon
+				oldtarget_name = carbon.name
 				bike_horn()
 				speak("Хонк!")
-				visible_message("<b>[DECLENT_RU_CAP(src, NOMINATIVE)]</b> начинает гнаться за [C.name]!")
+				visible_message("<b>[DECLENT_RU_CAP(src, NOMINATIVE)]</b> начинает гнаться за [carbon.name]!")
 				mode = BOT_HUNT
 				INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 				break

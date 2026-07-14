@@ -140,10 +140,10 @@
 	ranged_cooldown = world.time + 3 SECONDS * revive_multiplier()
 	charging = TRUE
 	var/dir_to_target = get_dir(get_turf(src), get_turf(target))
-	var/turf/T = get_step(get_turf(src), dir_to_target)
+	var/turf/turf = get_step(get_turf(src), dir_to_target)
 	for(var/i in 1 to 6)
-		new /obj/effect/temp_visual/dragon_swoop/legionnaire(T)
-		T = get_step(T, dir_to_target)
+		new /obj/effect/temp_visual/dragon_swoop/legionnaire(turf)
+		turf = get_step(turf, dir_to_target)
 	playsound(src, 'sound/misc/demon_attack1.ogg', 200, TRUE)
 	visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] готовится к рывку!"))
 	addtimer(CALLBACK(src, PROC_REF(legionnaire_charge_to), dir_to_target, 0), 2)
@@ -152,42 +152,42 @@
 	if(times_ran >= 6)
 		charging = FALSE
 		return
-	var/turf/T = get_step(get_turf(src), move_dir)
-	if(ismineralturf(T))
-		var/turf/simulated/mineral/M = T
-		M.attempt_drill()
-	if(T.density)
+	var/turf/turf = get_step(get_turf(src), move_dir)
+	if(ismineralturf(turf))
+		var/turf/simulated/mineral/mineral = turf
+		mineral.attempt_drill()
+	if(turf.density)
 		charging = FALSE
 		return
-	for(var/obj/structure/window/W in T.contents)
+	for(var/obj/structure/window/window in turf.contents)
 		charging = FALSE
 		return
-	for(var/obj/machinery/door/D in T.contents)
-		if(D.density)
+	for(var/obj/machinery/door/door in turf.contents)
+		if(door.density)
 			charging = FALSE
 			return
-	if(T.x > world.maxx - 2 || T.x < 2) //Keep them from runtiming
+	if(turf.x > world.maxx - 2 || turf.x < 2) //Keep them from runtiming
 		charging = FALSE
 		return
-	if(T.y > world.maxy - 2 || T.y < 2)
+	if(turf.y > world.maxy - 2 || turf.y < 2)
 		charging = FALSE
 		return
-	forceMove(T)
+	forceMove(turf)
 	playsound(src,'sound/effects/bang.ogg', 200, TRUE)
 	var/throwtarget = get_edge_target_turf(src, move_dir)
-	for(var/mob/living/L in T.contents - src)
-		if(faction_check_mob(L))
+	for(var/mob/living/living in turf.contents - src)
+		if(faction_check_mob(living))
 			return
-		visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] топчет и пинает [L.declent_ru(ACCUSATIVE)]!"))
-		to_chat(L, span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] топчет вас и отбрасывает пинком!"))
-		if(L in hit_targets)
-			L.adjustBruteLoss(charge_damage)
+		visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] топчет и пинает [living.declent_ru(ACCUSATIVE)]!"))
+		to_chat(living, span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] топчет вас и отбрасывает пинком!"))
+		if(living in hit_targets)
+			living.adjustBruteLoss(charge_damage)
 		else
-			hit_targets += L
-			L.throw_at(throwtarget, 8, 1.3, src)
-			L.Slowed(3 SECONDS)
-			L.Weaken(0.1 SECONDS)
-			L.adjustBruteLoss(charge_damage_first)
+			hit_targets += living
+			living.throw_at(throwtarget, 8, 1.3, src)
+			living.Slowed(3 SECONDS)
+			living.Weaken(0.1 SECONDS)
+			living.adjustBruteLoss(charge_damage_first)
 
 	addtimer(CALLBACK(src, PROC_REF(legionnaire_charge_to), move_dir, (times_ran + 1), hit_targets), 0.3)
 
@@ -340,13 +340,13 @@
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/shoot_projectile(turf/marker)
 	var/turf/startloc = get_turf(src)
-	var/obj/projectile/legionnaire/P = new(startloc)
-	P.preparePixelProjectile(marker, marker, src)
-	P.firer = src
-	P.damage = P.damage * dif_mult_dmg
+	var/obj/projectile/legionnaire/legionnaire = new(startloc)
+	legionnaire.preparePixelProjectile(marker, marker, src)
+	legionnaire.firer = src
+	legionnaire.damage = legionnaire.damage * dif_mult_dmg
 	if(target)
-		P.original = target
-	P.fire()
+		legionnaire.original = target
+	legionnaire.fire()
 
 //The visual effect which appears in front of legionnaire when he goes to charge.
 /obj/effect/temp_visual/dragon_swoop/legionnaire

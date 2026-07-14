@@ -267,12 +267,12 @@ SUBSYSTEM_DEF(timer)
 	// Add all timed events from the secondary queue as well
 	alltimers += second_queue
 
-	for(var/datum/timedevent/t in alltimers)
-		t.timer_subsystem = src // Recovered timers need to be reparented
-		t.bucket_joined = FALSE
-		t.bucket_pos = -1
-		t.prev = null
-		t.next = null
+	for(var/datum/timedevent/timedevent in alltimers)
+		timedevent.timer_subsystem = src // Recovered timers need to be reparented
+		timedevent.bucket_joined = FALSE
+		timedevent.bucket_pos = -1
+		timedevent.prev = null
+		timedevent.next = null
 
 	// If there are no timers being tracked by the subsystem,
 	// there is no need to do any further rebuilding
@@ -305,7 +305,7 @@ SUBSYSTEM_DEF(timer)
 			i--
 			break
 
-		// Check that timer has a valid callback and hasn't been invoked
+		// Check that timer has a valid callback and hasn'timedevent been invoked
 		if(!timer.callBack || timer.spent)
 			WARNING("Invalid timer: [get_timer_debug_string(timer)] world.time: [world.time], head_offset: [head_offset], practical_offset: [practical_offset]")
 			if(timer.callBack)

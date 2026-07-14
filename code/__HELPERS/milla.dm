@@ -38,9 +38,9 @@
 	return RUSTLIB_CALL(milla_create_hotspot, turf, hotspot_temperature, hotspot_volume)
 
 /proc/track_pressure_tiles(atom/A, radius)
-	var/turf/T = get_turf(A)
-	if(istype(T))
-		return RUSTLIB_CALL(milla_track_pressure_tiles, T, radius)
+	var/turf/turf = get_turf(A)
+	if(istype(turf))
+		return RUSTLIB_CALL(milla_track_pressure_tiles, turf, radius)
 
 #define get_random_interesting_tile(...) RUSTLIB_CALL(milla_get_random_interesting_tile)
 

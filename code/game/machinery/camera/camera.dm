@@ -379,10 +379,10 @@
 
 /atom/proc/auto_turn()
 	//Automatically turns based on nearby walls.
-	var/turf/simulated/wall/T = null
+	var/turf/simulated/wall/wall = null
 	for(var/i = 1, i <= 8, i += i)
-		T = get_ranged_target_turf(src, i, 1)
-		if(istype(T))
+		wall = get_ranged_target_turf(src, i, 1)
+		if(istype(wall))
 			//If someone knows a better way to do this, let me know. -Giacom
 			switch(i)
 				if(NORTH)
@@ -398,20 +398,20 @@
 //Return a working camera that can see a given mob
 //or null if none
 /proc/seen_by_camera(mob/M)
-	for(var/obj/machinery/camera/C in oview(4, M))
-		if(C.can_use())	// check if camera disabled
-			return C
+	for(var/obj/machinery/camera/camera in oview(4, M))
+		if(camera.can_use())	// check if camera disabled
+			return camera
 	return null
 
 /proc/near_range_camera(mob/M)
-	for(var/obj/machinery/camera/C in range(4, M))
-		if(C.can_use())	// check if camera disabled
-			return C
+	for(var/obj/machinery/camera/camera in range(4, M))
+		if(camera.can_use())	// check if camera disabled
+			return camera
 	return null
 
 /obj/machinery/camera/proc/Togglelight(on = FALSE)
-	for(var/mob/living/silicon/ai/A in GLOB.ai_list)
-		for(var/obj/machinery/camera/cam in A.lit_cameras)
+	for(var/mob/living/silicon/ai/ai in GLOB.ai_list)
+		for(var/obj/machinery/camera/cam in ai.lit_cameras)
 			if(cam == src)
 				return
 	if(on)
@@ -421,14 +421,14 @@
 
 /obj/machinery/camera/proc/nano_structure()
 	var/cam[0]
-	var/turf/T = get_turf(src)
+	var/turf/turf = get_turf(src)
 	cam["name"] = sanitize(c_tag)
 	cam["deact"] = !can_use()
 	cam["camera"] = UID()
-	if(T)
-		cam["x"] = T.x
-		cam["y"] = T.y
-		cam["z"] = T.z
+	if(turf)
+		cam["x"] = turf.x
+		cam["y"] = turf.y
+		cam["z"] = turf.z
 	else
 		cam["x"] = 0
 		cam["y"] = 0

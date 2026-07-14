@@ -101,12 +101,12 @@ SUBSYSTEM_DEF(jobs)
 	LoadJobsFile("config/jobs_highpop.txt", TRUE)
 
 /datum/controller/subsystem/jobs/proc/ApplyHighpopConfig()
-	for(var/datum/job/J in occupations)
-		if(J.positions_highpop)
-			var/positions_lowpop = J.positions_lowpop
+	for(var/datum/job/job in occupations)
+		if(job.positions_highpop)
+			var/positions_lowpop = job.positions_lowpop
 			if(!positions_lowpop)
-				positions_lowpop = initial(J.total_positions)
-			J.total_positions += (J.positions_highpop - positions_lowpop)
+				positions_lowpop = initial(job.total_positions)
+			job.total_positions += (job.positions_highpop - positions_lowpop)
 
 /datum/controller/subsystem/jobs/proc/Debug(text)
 	if(GLOB.debugging_enabled)
@@ -295,11 +295,11 @@ SUBSYSTEM_DEF(jobs)
 
 			var/list/filteredCandidates = list()
 
-			for(var/mob/V in candidates)
+			for(var/mob/mob in candidates)
 				// Log-out during round-start? What a bad boy, no head position for you!
-				if(!V.client)
+				if(!mob.client)
 					continue
-				filteredCandidates += V
+				filteredCandidates += mob
 
 			if(!length(filteredCandidates))
 				continue
@@ -354,11 +354,11 @@ SUBSYSTEM_DEF(jobs)
 	Debug("Running DO")
 
 	if(!CONFIG_GET(flag/allow_ai))
-		for(var/datum/job/ai/A in occupations)
-			A.spawn_positions = 0
+		for(var/datum/job/ai/ai in occupations)
+			ai.spawn_positions = 0
 	else if(SSticker?.triai) //Holder for Triumvirate is stored in the ticker, this just processes it
-		for(var/datum/job/ai/A in occupations)
-			A.spawn_positions = 3
+		for(var/datum/job/ai/ai in occupations)
+			ai.spawn_positions = 3
 
 	unassigned = list()
 	//Get the players who are ready
@@ -688,8 +688,8 @@ SUBSYSTEM_DEF(jobs)
 		if(TS.density)
 			continue
 		var/bad_turf = FALSE
-		for(var/obj/O in TS)
-			if(!O.density)
+		for(var/obj/obj in TS)
+			if(!obj.density)
 				continue
 			bad_turf = TRUE
 			possible_but_bad_turfs += TS
@@ -723,15 +723,15 @@ SUBSYSTEM_DEF(jobs)
 		if(name && value)
 			if(name == JOB_TITLE_AI)  //AI use diferent config
 				continue
-			var/datum/job/J = GetJob(name)
-			if(!J)
+			var/datum/job/job_datum = GetJob(name)
+			if(!job_datum)
 				continue
 			if(highpop)
-				J.positions_highpop = text2num(value)
+				job_datum.positions_highpop = text2num(value)
 			else
-				J.positions_lowpop = text2num(value)
-				J.spawn_positions = J.positions_lowpop
-				J.total_positions = J.positions_lowpop
+				job_datum.positions_lowpop = text2num(value)
+				job_datum.spawn_positions = job_datum.positions_lowpop
+				job_datum.total_positions = job_datum.positions_lowpop
 
 /datum/controller/subsystem/jobs/proc/HandleFeedbackGathering()
 	for(var/datum/job/job in occupations)
@@ -785,19 +785,19 @@ SUBSYSTEM_DEF(jobs)
 	var/money_amount = rand(job.min_start_money, job.max_start_money)
 	if(human.client.donator_level > 0)
 		money_amount += human.client.donator_level * START_CREDITS_BY_DONATION_TIER
-	var/datum/money_account/M = create_account(human.real_name, money_amount, null, job, TRUE)
+	var/datum/money_account/money_account = create_account(human.real_name, money_amount, null, job, TRUE)
 	if(human.dna)
-		GLOB.dna2account[human.dna] = M
+		GLOB.dna2account[human.dna] = money_account
 
 	var/remembered_info = ""
 
-	remembered_info += "<b>Номер вашего аккаунта:</b> #[M.account_number]<br>"
-	remembered_info += "<b>ПИН вашего аккаунта:</b> [M.remote_access_pin]<br>"
-	remembered_info += "<b>Баланс вашего аккаунта:</b> $[M.money]<br>"
+	remembered_info += "<b>Номер вашего аккаунта:</b> #[money_account.account_number]<br>"
+	remembered_info += "<b>ПИН вашего аккаунта:</b> [money_account.remote_access_pin]<br>"
+	remembered_info += "<b>Баланс вашего аккаунта:</b> $[money_account.money]<br>"
 
-	if(length(M.transaction_log))
-		var/datum/transaction/T = M.transaction_log[1]
-		remembered_info += "<b>Ваш аккаунт был создан:</b> [T.time], [T.date] на [T.source_terminal]<br>"
+	if(length(money_account.transaction_log))
+		var/datum/transaction/transaction = money_account.transaction_log[1]
+		remembered_info += "<b>Ваш аккаунт был создан:</b> [transaction.time], [transaction.date] на [transaction.source_terminal]<br>"
 	human.mind.store_memory(remembered_info)
 
 	// If they're head, give them the account info for their department
@@ -812,7 +812,7 @@ SUBSYSTEM_DEF(jobs)
 
 		human.mind.store_memory(remembered_info)
 
-	human.mind.initial_account = M
+	human.mind.initial_account = money_account
 
 	human.mind.initial_account.insurance_type = job.insurance_type
 	switch(job.insurance_type)
@@ -830,18 +830,18 @@ SUBSYSTEM_DEF(jobs)
 			human.mind.initial_account.insurance = INSURANCE_NT_SPECIAL
 
 	spawn(0)
-		to_chat(human, span_boldnotice("Номер вашего аккаунта: [M.account_number], ПИН вашего аккаунта: [M.remote_access_pin]"))
+		to_chat(human, span_boldnotice("Номер вашего аккаунта: [money_account.account_number], ПИН вашего аккаунта: [money_account.remote_access_pin]"))
 
 /datum/controller/subsystem/jobs/proc/format_jobs_for_id_computer(obj/item/card/id/tgtcard)
 	var/list/jobs_to_formats = list()
 	if(tgtcard)
-		var/mob/M = tgtcard.getPlayer()
+		var/mob/mob = tgtcard.getPlayer()
 		for(var/datum/job/job in occupations)
 			if(tgtcard.rank && tgtcard.rank == job.title)
 				jobs_to_formats[job.title] = "green" // the job they already have is pre-selected
 			else if(tgtcard.assignment == JOB_TITLE_RU_DEMOTED || tgtcard.assignment == JOB_TITLE_RU_TERMINATED)
 				jobs_to_formats[job.title] = "grey"
-			else if((job.title in GLOB.command_positions) && istype(M) && M.client && job.available_in_playtime(M.client))
+			else if((job.title in GLOB.command_positions) && istype(mob) && mob.client && job.available_in_playtime(mob.client))
 				jobs_to_formats[job.title] = "grey" // command jobs which are playtime-locked and not unlocked for this player are discouraged
 			else if(job.total_positions && !job.current_positions && job.title != JOB_TITLE_CIVILIAN)
 				jobs_to_formats[job.title] = "teal" // jobs with nobody doing them at all are encouraged
@@ -959,16 +959,16 @@ SUBSYSTEM_DEF(jobs)
 	var/list/datum/db_query/select_queries = list() // List of SELECT queries to mass grab EXP.
 
 	for(var/i in clients_to_process)
-		var/client/C = i
-		if(!C)
+		var/client/client = i
+		if(!client)
 			continue // If a client logs out in the middle of this
 
 		var/datum/db_query/exp_read = SSdbcore.NewQuery(
 			"SELECT exp FROM [format_table_name("player")] WHERE ckey=:ckey",
-			list("ckey" = C.ckey)
+			list("ckey" = client.ckey)
 		)
 
-		select_queries[C.ckey] = exp_read
+		select_queries[client.ckey] = exp_read
 
 	var/list/read_records = list()
 	// Explanation for parameters:
@@ -979,13 +979,13 @@ SUBSYSTEM_DEF(jobs)
 	SSdbcore.MassExecute(select_queries, TRUE, FALSE, TRUE, FALSE) // Batch execute so we can take advantage of async magic
 
 	for(var/i in clients_to_process)
-		var/client/C = i
-		if(!C)
+		var/client/client = i
+		if(!client)
 			continue // If a client logs out in the middle of this
 
-		if(select_queries[C.ckey]) // This check should not be necessary, but I am paranoid
-			while(select_queries[C.ckey].NextRow())
-				read_records[C.ckey] = params2list(select_queries[C.ckey].item[1])
+		if(select_queries[client.ckey]) // This check should not be necessary, but I am paranoid
+			while(select_queries[client.ckey].NextRow())
+				read_records[client.ckey] = params2list(select_queries[client.ckey].item[1])
 
 	QDEL_LIST_ASSOC_VAL(select_queries) // Clean stuff up
 
@@ -995,62 +995,62 @@ SUBSYSTEM_DEF(jobs)
 	var/list/datum/db_query/playtime_history_update_queries = list() // List of queries to update the playtime history table
 
 	for(var/i in clients_to_process)
-		var/client/C = i
-		if(!C)
+		var/client/client = i
+		if(!client)
 			continue // If a client logs out in the middle of this
 		// Get us a container
-		play_records[C.ckey] = list()
+		play_records[client.ckey] = list()
 		for(var/rtype in GLOB.exp_jobsmap)
-			if(text2num(read_records[C.ckey][rtype]))
-				play_records[C.ckey][rtype] = text2num(read_records[C.ckey][rtype])
+			if(text2num(read_records[client.ckey][rtype]))
+				play_records[client.ckey][rtype] = text2num(read_records[client.ckey][rtype])
 			else
-				play_records[C.ckey][rtype] = 0
+				play_records[client.ckey][rtype] = 0
 
 		var/myrole
-		if(C.mob.mind)
-			if(C.mob.mind.playtime_role)
-				myrole = C.mob.mind.playtime_role
-			else if(C.mob.mind.assigned_role)
-				myrole = C.mob.mind.assigned_role
+		if(client.mob.mind)
+			if(client.mob.mind.playtime_role)
+				myrole = client.mob.mind.playtime_role
+			else if(client.mob.mind.assigned_role)
+				myrole = client.mob.mind.assigned_role
 
 		var/added_living = 0
 		var/added_ghost = 0
-		if(C.mob.stat == CONSCIOUS && myrole)
-			play_records[C.ckey][EXP_TYPE_LIVING] += minutes
+		if(client.mob.stat == CONSCIOUS && myrole)
+			play_records[client.ckey][EXP_TYPE_LIVING] += minutes
 			added_living += minutes
 
 			if(announce)
-				to_chat(C.mob, span_notice("You got: [minutes] Living EXP!"))
+				to_chat(client.mob, span_notice("You got: [minutes] Living EXP!"))
 
 			for(var/category in GLOB.exp_jobsmap)
 				if(GLOB.exp_jobsmap[category]["titles"])
 					if(myrole in GLOB.exp_jobsmap[category]["titles"])
-						play_records[C.ckey][category] += minutes
+						play_records[client.ckey][category] += minutes
 						if(announce)
-							to_chat(C.mob, span_notice("You got: [minutes] [category] EXP!"))
+							to_chat(client.mob, span_notice("You got: [minutes] [category] EXP!"))
 
-			if(C.mob.mind.special_role)
-				play_records[C.ckey][EXP_TYPE_SPECIAL] += minutes
+			if(client.mob.mind.special_role)
+				play_records[client.ckey][EXP_TYPE_SPECIAL] += minutes
 				if(announce)
-					to_chat(C.mob, span_notice("You got: [minutes] Special EXP!"))
+					to_chat(client.mob, span_notice("You got: [minutes] Special EXP!"))
 
-		else if(isobserver(C.mob))
-			play_records[C.ckey][EXP_TYPE_GHOST] += minutes
+		else if(isobserver(client.mob))
+			play_records[client.ckey][EXP_TYPE_GHOST] += minutes
 			added_ghost += minutes
 			if(announce)
-				to_chat(C.mob, span_notice("You got: [minutes] Ghost EXP!"))
+				to_chat(client.mob, span_notice("You got: [minutes] Ghost EXP!"))
 		else
 			continue
 
-		var/new_exp = list2params(play_records[C.ckey])
+		var/new_exp = list2params(play_records[client.ckey])
 
-		C.prefs.exp = new_exp
+		client.prefs.exp = new_exp
 
 		var/datum/db_query/update_query = SSdbcore.NewQuery(
 			"UPDATE [format_table_name("player")] SET exp =:newexp, lastseen=NOW() WHERE ckey=:ckey",
 			list(
 				"newexp" = new_exp,
-				"ckey" = C.ckey
+				"ckey" = client.ckey
 			)
 		)
 
@@ -1061,7 +1061,7 @@ SUBSYSTEM_DEF(jobs)
 			VALUES (:ckey, CURDATE(), :addedliving, :addedghost)
 			ON DUPLICATE KEY UPDATE time_living=time_living + VALUES(time_living), time_ghost=time_ghost + VALUES(time_ghost)"},
 			list(
-				"ckey" = C.ckey,
+				"ckey" = client.ckey,
 				"addedliving" = added_living,
 				"addedghost" = added_ghost
 			)

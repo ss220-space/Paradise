@@ -92,34 +92,34 @@
 		return 2
 
 	var/list/emptyTurfs = list()
-	for(var/turf/simulated/T in areaInstance)
-		if(T.density)
+	for(var/turf/simulated/simulated in areaInstance)
+		if(simulated.density)
 			continue
 
 		var/contcount
-		for(var/atom/A in T.contents)
-			if(!A.simulated)
+		for(var/atom/atom in simulated.contents)
+			if(!atom.simulated)
 				continue
 
-			if(is_light(A))
+			if(is_light(atom))
 				continue
 
-			if(istype(A, /obj/machinery/light))
+			if(istype(atom, /obj/machinery/light))
 				continue //hacky but whatever, shuttles need three spots each for this shit
 			contcount++
 
 		if(contcount)
 			continue
 
-		emptyTurfs += T
+		emptyTurfs += simulated
 
 	for(var/datum/supply_order/SO in SSshuttle.shoppinglist)
 		if(!SO.object)
 			stack_trace("Supply Order [SO] has no object associated with it.")
 			continue
 
-		var/turf/T = pick_n_take(emptyTurfs)		//turf we will place it in
-		if(!T)
+		var/turf/simulated = pick_n_take(emptyTurfs)		//turf we will place it in
+		if(!simulated)
 			SSshuttle.shoppinglist.Cut(1, SSshuttle.shoppinglist.Find(SO))
 			return
 
@@ -133,7 +133,7 @@
 		if(prob(5))
 			errors |= MANIFEST_ERROR_ITEM
 			investigate_log("Supply order #[SO] generated a manifest with package incomplete.", INVESTIGATE_CARGO)
-		SO.createObject(T, errors)
+		SO.createObject(simulated, errors)
 
 	SSshuttle.shoppinglist.Cut()
 
@@ -246,9 +246,9 @@
 				pointsEarned = crate.quest.reward["robo"] * 30
 				SSshuttle.points += pointsEarned
 				if(crate.quest.id)
-					var/datum/money_account/A = get_money_account(crate.quest.id.associated_account_number)
-					if(A)
-						A.money += crate.quest.maximum_cash - round(crate.quest.maximum_cash * crate.penalty / 4)
+					var/datum/money_account/money_account = get_money_account(crate.quest.id.associated_account_number)
+					if(money_account)
+						money_account.money += crate.quest.maximum_cash - round(crate.quest.maximum_cash * crate.penalty / 4)
 				SSshuttle.cargo_money_account.money += crate.quest.maximum_cash - round(crate.quest.maximum_cash * crate.penalty / 4)
 				crate.console.on_quest_complete()
 				msg += "[span_good("+[pointsEarned]")]: Получен запрошенный экзоскелет: [crate.quest.name].<br>"
@@ -372,10 +372,10 @@
 
 	for(var/typepath in contains)
 		if(!typepath)	continue
-		var/atom/A = new typepath(Crate)
-		if(object.amount && A.vars.Find("amount") && A:amount)
-			A:amount = object.amount
-		slip.info += "<li>[A.declent_ru(NOMINATIVE)]</li>"	//add the item to the manifest (even if it was misplaced)
+		var/atom/atom = new typepath(Crate)
+		if(object.amount && atom.vars.Find("amount") && atom:amount)
+			atom:amount = object.amount
+		slip.info += "<li>[atom.declent_ru(NOMINATIVE)]</li>"	//add the item to the manifest (even if it was misplaced)
 
 	if(istype(Crate, /obj/structure/closet/crate/critter)) // critter crates do not actually spawn mobs yet and have no contains var, but the manifest still needs to list them
 		var/obj/structure/closet/crate/critter/CritCrate = Crate

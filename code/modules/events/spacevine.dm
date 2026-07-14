@@ -24,16 +24,16 @@
 
 	var/obj/structure/spacevine/SV = new()
 
-	for(var/area/station/hallway/A in GLOB.areas)
-		for(var/turf/F in A)
-			if(F.Enter(SV))
-				turfs += F
+	for(var/area/station/hallway/hallway in GLOB.areas)
+		for(var/turf/turf in hallway)
+			if(turf.Enter(SV))
+				turfs += turf
 
 	qdel(SV)
 
 	if(length(turfs)) //Pick a turf to spawn at if we can
-		var/turf/T = pick(turfs)
-		SC = new /obj/structure/spacevine_controller/event(T, null, rand(30, 70), rand(5, 2)) // spawn a controller at turf
+		var/turf/turf = pick(turfs)
+		SC = new /obj/structure/spacevine_controller/event(turf, null, rand(30, 70), rand(5, 2)) // spawn a controller at turf
 
 		// Make the event start fun - give the vine a random hostile mutation
 		if(length(SC.vines))
@@ -648,8 +648,8 @@
 	vines += SV
 	SV.master = src
 	if(muts && length(muts))
-		for(var/datum/spacevine_mutation/M in muts)
-			M.add_mutation_to_vinepiece(SV)
+		for(var/datum/spacevine_mutation/spacevine_mutation in muts)
+			spacevine_mutation.add_mutation_to_vinepiece(SV)
 		return
 	if(parent)
 		SV.mutations |= parent.mutations
@@ -716,8 +716,8 @@
 
 /obj/structure/spacevine/proc/entangle_mob()
 	if(!has_buckled_mobs() && prob(25))
-		for(var/mob/living/V in loc)
-			entangle(V)
+		for(var/mob/living/living in loc)
+			entangle(living)
 			if(has_buckled_mobs())
 				break //only capture one mob at a time
 
@@ -778,8 +778,8 @@
 /proc/isvineimmune(atom/A)
 	. = FALSE
 	if(isliving(A))
-		var/mob/living/M = A
-		if(("vines" in M.faction) || ("plants" in M.faction))
+		var/mob/living/living = A
+		if(("vines" in living.faction) || ("plants" in living.faction))
 			. = TRUE
 
 #undef SPACEVINE_SPAWN_THRESHOLD

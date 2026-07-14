@@ -37,8 +37,8 @@ ADMIN_VERB(syndicate_infiltration_team, R_ADMIN, "Отправить Дивер�
 
 	var/list/infiltrators = list()
 
-	var/image/I = new('icons/obj/cardboard_cutout.dmi', "cutout_sit")
-	infiltrators = pick_candidates_all_types(src, teamsize, "Вы хотите поиграть за Диверсанта \"Синдиката\"?", ROLE_TRAITOR, 21, 30 SECONDS, FALSE, GLOB.role_playtime_requirements[ROLE_TRAITOR], TRUE, FALSE, I, "Диверсант \"Синдиката\"", input)
+	var/image/image = new('icons/obj/cardboard_cutout.dmi', "cutout_sit")
+	infiltrators = pick_candidates_all_types(src, teamsize, "Вы хотите поиграть за Диверсанта \"Синдиката\"?", ROLE_TRAITOR, 21, 30 SECONDS, FALSE, GLOB.role_playtime_requirements[ROLE_TRAITOR], TRUE, FALSE, image, "Диверсант \"Синдиката\"", input)
 
 	if(!length(infiltrators))
 		to_chat(src, "Никто не захотел быть Диверсантом \"Синдиката\".")
@@ -47,16 +47,16 @@ ADMIN_VERB(syndicate_infiltration_team, R_ADMIN, "Отправить Дивер�
 	GLOB.sent_syndicate_infiltration_team = 1
 
 	var/list/sit_spawns = list()
-	for(var/obj/effect/landmark/L in GLOB.landmarks_list)
-		if(L.name == "Syndicate-Infiltrator")
-			sit_spawns += L
+	for(var/obj/effect/landmark/landmark in GLOB.landmarks_list)
+		if(landmark.name == "Syndicate-Infiltrator")
+			sit_spawns += landmark
 
 	var/num_spawned = 1
 	var/team_leader = null
-	for(var/obj/effect/landmark/L in sit_spawns)
+	for(var/obj/effect/landmark/landmark in sit_spawns)
 		if(!length(infiltrators) && !spawn_dummies) break
 		syndicate_leader_selected = num_spawned == 1?1:0
-		var/mob/living/carbon/human/new_syndicate_infiltrator = create_syndicate_infiltrator(L, syndicate_leader_selected, tcamount, 0)
+		var/mob/living/carbon/human/new_syndicate_infiltrator = create_syndicate_infiltrator(landmark, syndicate_leader_selected, tcamount, 0)
 		if(length(infiltrators))
 			var/mob/theguy = pick(infiltrators)
 			if(theguy.key != key)
@@ -95,9 +95,9 @@ ADMIN_VERB(syndicate_infiltration_team, R_ADMIN, "Отправить Дивер�
 
 	var/syndicate_infiltrator_name = random_name(pick(MALE,FEMALE))
 
-	var/datum/preferences/A = new() //Randomize appearance
-	A.real_name = syndicate_infiltrator_name
-	A.copy_to(new_syndicate_infiltrator)
+	var/datum/preferences/preferences = new() //Randomize appearance
+	preferences.real_name = syndicate_infiltrator_name
+	preferences.copy_to(new_syndicate_infiltrator)
 	new_syndicate_infiltrator.dna.ready_dna(new_syndicate_infiltrator)
 
 	//Creates mind stuff.
@@ -121,49 +121,49 @@ ADMIN_VERB(syndicate_infiltration_team, R_ADMIN, "Отправить Дивер�
 		equip_to_slot_or_del(new /obj/item/flashlight(src), ITEM_SLOT_BACKPACK)
 		equip_to_slot_or_del(new /obj/item/storage/belt/utility/full/multitool(src), ITEM_SLOT_BELT)
 
-	var/obj/item/clothing/gloves/combat/G = new /obj/item/clothing/gloves/combat(src)
-	G.name = "black gloves"
-	equip_to_slot_or_del(G, ITEM_SLOT_GLOVES)
+	var/obj/item/clothing/gloves/combat/combat = new /obj/item/clothing/gloves/combat(src)
+	combat.name = "black gloves"
+	equip_to_slot_or_del(combat, ITEM_SLOT_GLOVES)
 
 	// Implants:
 	// Uplink
-	var/obj/item/implant/uplink/sit/U = new /obj/item/implant/uplink/sit(src)
-	U.implant(src)
+	var/obj/item/implant/uplink/sit/sit = new /obj/item/implant/uplink/sit(src)
+	sit.implant(src)
 	if(flag_mgmt)
-		U.hidden_uplink.uses = 2500
+		sit.hidden_uplink.uses = 2500
 	else
-		U.hidden_uplink.uses = num_tc
+		sit.hidden_uplink.uses = num_tc
 	// Dust
-	var/obj/item/implant/dust/D = new /obj/item/implant/dust(src)
-	D.implant(src)
+	var/obj/item/implant/dust/dust = new /obj/item/implant/dust(src)
+	dust.implant(src)
 
 	// Radio & PDA
-	var/obj/item/radio/R = new /obj/item/radio/headset/syndicate/syndteam(src)
-	R.set_frequency(SYNDTEAM_FREQ)
-	equip_to_slot_or_del(R, ITEM_SLOT_EAR_LEFT)
+	var/obj/item/radio/radio = new /obj/item/radio/headset/syndicate/syndteam(src)
+	radio.set_frequency(SYNDTEAM_FREQ)
+	equip_to_slot_or_del(radio, ITEM_SLOT_EAR_LEFT)
 	equip_or_collect(new /obj/item/pda(src), ITEM_SLOT_BACKPACK)
 
 	// Other gear
 	equip_to_slot_or_del(new /obj/item/clothing/shoes/chameleon/noslip(src), ITEM_SLOT_FEET)
 
-	var/obj/item/card/id/syndicate/W = new(src)
+	var/obj/item/card/id/syndicate/syndicate = new(src)
 	if(flag_mgmt)
-		W.icon_state = "commander"
+		syndicate.icon_state = "commander"
 	else
-		W.icon_state = "id"
-	W.access = list(ACCESS_MAINT_TUNNELS,ACCESS_EXTERNAL_AIRLOCKS)
-	W.assignment = JOB_TITLE_CIVILIAN
-	W.access += get_access(JOB_TITLE_CIVILIAN)
-	W.access += list(ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CARGO, ACCESS_RESEARCH)
+		syndicate.icon_state = "id"
+	syndicate.access = list(ACCESS_MAINT_TUNNELS,ACCESS_EXTERNAL_AIRLOCKS)
+	syndicate.assignment = JOB_TITLE_CIVILIAN
+	syndicate.access += get_access(JOB_TITLE_CIVILIAN)
+	syndicate.access += list(ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CARGO, ACCESS_RESEARCH)
 	if(flag_mgmt)
-		W.assignment = "Syndicate Management Consultant"
-		W.access += get_syndicate_access("Syndicate Commando")
+		syndicate.assignment = "Syndicate Management Consultant"
+		syndicate.access += get_syndicate_access("Syndicate Commando")
 	else if(syndicate_leader_selected)
-		W.access += get_syndicate_access("Syndicate Commando")
+		syndicate.access += get_syndicate_access("Syndicate Commando")
 	else
-		W.access += get_syndicate_access("Syndicate Operative")
-	W.name = "[real_name]’s ID Card ([W.assignment])"
-	W.registered_name = real_name
-	equip_to_slot_or_del(W, ITEM_SLOT_ID)
+		syndicate.access += get_syndicate_access("Syndicate Operative")
+	syndicate.name = "[real_name]’s ID Card ([syndicate.assignment])"
+	syndicate.registered_name = real_name
+	equip_to_slot_or_del(syndicate, ITEM_SLOT_ID)
 
 	return 1

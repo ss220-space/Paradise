@@ -863,9 +863,9 @@
 /mob/proc/check_lang_data()
 	. = ""
 
-	for(var/datum/language/L in languages)
-		if(!(L.flags & NONGLOBAL))
-			. += "<b>[L.name] (:[L.key])</b><br/>[L.desc]<br><br>"
+	for(var/datum/language/language in languages)
+		if(!(language.flags & NONGLOBAL))
+			. += "<b>[language.name] (:[language.key])</b><br/>[language.desc]<br><br>"
 
 /mob/living/check_lang_data()
 	. = ""

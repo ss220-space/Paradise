@@ -136,18 +136,18 @@ THE METHODS IN THIS FILE ARE TO BE USED BY THE SUBSYSTEM AS A MANGEMENT HUB
  * Can be called on async and blocking requests
  */
 /datum/http_request/proc/into_response()
-	var/datum/http_response/R = new()
+	var/datum/http_response/http_response = new()
 
 	try
 		var/list/L = json_decode(_raw_response)
-		R.status_code = L["status_code"]
-		R.headers = L["headers"]
-		R.body = L["body"]
+		http_response.status_code = L["status_code"]
+		http_response.headers = L["headers"]
+		http_response.body = L["body"]
 	catch
-		R.errored = TRUE
-		R.error = _raw_response
+		http_response.errored = TRUE
+		http_response.error = _raw_response
 
-	return R
+	return http_response
 
 /**
  * # HTTP Response

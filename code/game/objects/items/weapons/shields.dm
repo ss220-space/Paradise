@@ -156,8 +156,8 @@
 		playsound(user, 'sound/weapons/saberoff.ogg', 35, TRUE)
 		to_chat(user, span_notice("[src] can now be concealed."))
 	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		H.update_held_items()
+		var/mob/living/carbon/human/human = user
+		human.update_held_items()
 	if(!forced)
 		add_fingerprint(user)
 	return

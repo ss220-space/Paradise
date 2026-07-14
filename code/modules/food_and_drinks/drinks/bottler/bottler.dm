@@ -131,20 +131,20 @@
 	updateUsrDialog()
 
 /obj/machinery/bottler/proc/eject_items(slot)
-	var/obj/item/O = null
+	var/obj/item/item = null
 	if(!slot)
 		for(var/i = 1, i <= length(slots), i++)
 			if(slots[i])
-				O = slots[i]
-				O.forceMove(loc)
+				item = slots[i]
+				item.forceMove(loc)
 				slots[i] = null
 		visible_message(span_notice("[src] beeps as it ejects the contents of all the ingredient trays."))
 	else
 		if(slots[slot])		//ensures the tray actually has something to eject so we don't runtime on trying to reference null
-			O = slots[slot]
-			O.forceMove(loc)
+			item = slots[slot]
+			item.forceMove(loc)
 			slots[slot] = null
-			visible_message(span_notice("[src] beeps as it ejects [O.name] from the [slot]\th ingredient tray."))
+			visible_message(span_notice("[src] beeps as it ejects [item.name] from the [slot]\th ingredient tray."))
 	updateUsrDialog()
 
 /obj/machinery/bottler/proc/recycle_container(obj/item/O)
@@ -153,22 +153,22 @@
 	var/con_type
 	var/max_define
 	if(istype(O, /obj/item/trash/can))
-		var/obj/item/trash/can/C = O
-		if(C.is_glass)
+		var/obj/item/trash/can/can = O
+		if(can.is_glass)
 			con_type = "glass bottle"
 			max_define = MAX_GLASS
-		else if(C.is_plastic)
+		else if(can.is_plastic)
 			con_type = "plastic bottle"
 			max_define = MAX_PLAST
 		else
 			con_type = "metal can"
 			max_define = MAX_METAL
 	else if(istype(O, /obj/item/reagent_containers/food/drinks/cans))
-		var/obj/item/reagent_containers/food/drinks/cans/C = O
-		if(C.is_glass)
+		var/obj/item/reagent_containers/food/drinks/cans/can = O
+		if(can.is_glass)
 			con_type = "glass bottle"
 			max_define = MAX_GLASS
-		else if(C.is_plastic)
+		else if(can.is_plastic)
 			con_type = "plastic bottle"
 			max_define = MAX_PLAST
 		else
@@ -228,8 +228,8 @@
 	for(var/datum/bottler_recipe/recipe in available_recipes)
 		var/number_matches = 0
 		for(var/i = 1, i <= length(slots), i++)
-			var/obj/item/O = slots[i]
-			if(istype(O, recipe.ingredients[i]))
+			var/obj/item/item = slots[i]
+			if(istype(item, recipe.ingredients[i]))
 				number_matches++
 		if(number_matches == 3)
 			return recipe

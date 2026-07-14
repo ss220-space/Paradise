@@ -276,17 +276,17 @@
 	if(stat == DEAD) // This shouldn't appear if host is not alive, but double-check
 		return
 
-	var/mob/living/simple_animal/borer/B = has_brain_worms()
+	var/mob/living/simple_animal/borer/borer = has_brain_worms()
 
-	if(!B)
+	if(!borer)
 		return
 
 	var/input = tgui_input_text(src, "Введите сообщение для мозгового червя.", "Сообщение", "")
 	if(!input)
 		return
 
-	to_chat(B, span_changeling("<i>[src] says:</i> [input]"))
-	add_say_logs(src, input, B, "BORER")
+	to_chat(borer, span_changeling("<i>[src] says:</i> [input]"))
+	add_say_logs(src, input, borer, "BORER")
 
 	for(var/M in GLOB.dead_mob_list)
 		if(isobserver(M))
@@ -299,25 +299,25 @@
 		to_chat(src, span_warning("Мозг жертвы не способен воспринимать вас в этом состоянии!"))
 		return
 
-	var/mob/living/simple_animal/borer/B = has_brain_worms()
+	var/mob/living/simple_animal/borer/borer = has_brain_worms()
 
-	if(!B?.host_brain)
+	if(!borer?.host_brain)
 		return
 
-	var/mob/living/captive_brain/CB = B.host_brain
+	var/mob/living/captive_brain/CB = borer.host_brain
 	var/input = tgui_input_text(src, "Введите сообщение для пленённого разума.", "Сообщение", "")
 
 	if(!input)
 		return
 
-	to_chat(CB, span_changeling("<i>[B.truename] says:</i> [input]"))
-	add_say_logs(B, input, CB, "BORER")
+	to_chat(CB, span_changeling("<i>[borer.truename] says:</i> [input]"))
+	add_say_logs(borer, input, CB, "BORER")
 
 	for(var/M in GLOB.dead_mob_list)
 		if(isobserver(M))
-			to_chat(M, span_changeling("([ghost_follow_link(src, ghost = M)]) <i>Кортикальная связь <b>[B]</b>: [input]</i>"))
+			to_chat(M, span_changeling("([ghost_follow_link(src, ghost = M)]) <i>Кортикальная связь <b>[borer]</b>: [input]</i>"))
 
-	to_chat(src, span_changeling("<i>[B.truename] says:</i> [input]"))
+	to_chat(src, span_changeling("<i>[borer.truename] says:</i> [input]"))
 
 /mob/living/simple_animal/borer/Life(seconds, times_fired)
 
@@ -787,10 +787,10 @@
 	hide_borer()
 
 /proc/create_borer_mind(key)
-	var/datum/mind/M = new /datum/mind(key)
-	M.assigned_role = "Cortical Borer"
-	M.special_role = "Cortical Borer"
-	return M
+	var/datum/mind/mind = new /datum/mind(key)
+	mind.assigned_role = "Cortical Borer"
+	mind.special_role = "Cortical Borer"
+	return mind
 
 /mob/living/simple_animal/borer/proc/GrantBorerActions()
 	toggle_hide_action.Grant(src)

@@ -521,9 +521,9 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/sdql2_vv_all, new(null
 	finished = TRUE
 	. = TRUE
 	if(show_next_to_key)
-		var/client/C = GLOB.directory[show_next_to_key]
-		if(C)
-			var/mob/showmob = C.mob
+		var/client/client = GLOB.directory[show_next_to_key]
+		if(client)
+			var/mob/showmob = client.mob
 			to_chat(showmob, "<span class='admin'>SDQL query results: [get_query_text()]<br>\
 			SDQL query completed: [islist(obj_count_all)? length(obj_count_all) : obj_count_all] objects selected by path, and \
 			[where_switched? "[islist(obj_count_eligible)? length(obj_count_eligible) : obj_count_eligible] objects executed on after WHERE keyword selection." : ""]<br>\
@@ -613,9 +613,9 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/sdql2_vv_all, new(null
 
 	if(type == "*")
 		for(var/i in location)
-			var/datum/d = i
-			if(d.can_vv_get() || superuser)
-				out += d
+			var/datum/datum = i
+			if(datum.can_vv_get() || superuser)
+				out += datum
 			SDQL2_TICK_CHECK
 			SDQL2_HALT_CHECK
 		return out
@@ -624,51 +624,51 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/sdql2_vv_all, new(null
 	var/typecache = typecacheof(type)
 
 	if(ispath(type, /mob))
-		for(var/mob/d in location)
-			if(typecache[d.type] && (d.can_vv_get() || superuser))
-				out += d
+		for(var/mob/datum in location)
+			if(typecache[datum.type] && (datum.can_vv_get() || superuser))
+				out += datum
 			SDQL2_TICK_CHECK
 			SDQL2_HALT_CHECK
 
 	else if(ispath(type, /turf))
-		for(var/turf/d in location)
-			if(typecache[d.type] && (d.can_vv_get() || superuser))
-				out += d
+		for(var/turf/datum in location)
+			if(typecache[datum.type] && (datum.can_vv_get() || superuser))
+				out += datum
 			SDQL2_TICK_CHECK
 			SDQL2_HALT_CHECK
 
 	else if(ispath(type, /obj))
-		for(var/obj/d in location)
-			if(typecache[d.type] && (d.can_vv_get() || superuser))
-				out += d
+		for(var/obj/datum in location)
+			if(typecache[datum.type] && (datum.can_vv_get() || superuser))
+				out += datum
 			SDQL2_TICK_CHECK
 			SDQL2_HALT_CHECK
 
 	else if(ispath(type, /area))
-		for(var/area/d in location)
-			if(typecache[d.type] && (d.can_vv_get() || superuser))
-				out += d
+		for(var/area/datum in location)
+			if(typecache[datum.type] && (datum.can_vv_get() || superuser))
+				out += datum
 			SDQL2_TICK_CHECK
 			SDQL2_HALT_CHECK
 
 	else if(ispath(type, /atom))
-		for(var/atom/d in location)
-			if(typecache[d.type] && (d.can_vv_get() || superuser))
-				out += d
+		for(var/atom/datum in location)
+			if(typecache[datum.type] && (datum.can_vv_get() || superuser))
+				out += datum
 			SDQL2_TICK_CHECK
 			SDQL2_HALT_CHECK
 
 	else if(ispath(type, /datum))
 		if(location == world) //snowflake for byond shortcut
-			for(var/datum/d) //stupid byond trick to have it not return atoms to make this less laggy
-				if(typecache[d.type] && (d.can_vv_get() || superuser))
-					out += d
+			for(var/datum/datum) //stupid byond trick to have it not return atoms to make this less laggy
+				if(typecache[datum.type] && (datum.can_vv_get() || superuser))
+					out += datum
 				SDQL2_TICK_CHECK
 				SDQL2_HALT_CHECK
 		else
-			for(var/datum/d in location)
-				if(typecache[d.type] && (d.can_vv_get() || superuser))
-					out += d
+			for(var/datum/datum in location)
+				if(typecache[datum.type] && (datum.can_vv_get() || superuser))
+					out += datum
 				SDQL2_TICK_CHECK
 				SDQL2_HALT_CHECK
 	obj_count_all = out.len
@@ -689,8 +689,8 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/sdql2_vv_all, new(null
 				SDQL2_HALT_CHECK
 
 		if("delete")
-			for(var/datum/d in found)
-				qdel(d)
+			for(var/datum/datum in found)
+				qdel(datum)
 				obj_count_finished++
 				SDQL2_TICK_CHECK
 				SDQL2_HALT_CHECK
@@ -700,10 +700,10 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/sdql2_vv_all, new(null
 			var/print_nulls = !(options & SDQL2_OPTION_SELECT_OUTPUT_SKIP_NULLS)
 			obj_count_finished = select_refs
 			for(var/i in found)
-				var/datum/I = i
+				var/datum/datum = i
 				SDQL_print(i, text_list, print_nulls)
 				if(isdatum(i))
-					select_refs[I.UID()] = TRUE
+					select_refs[datum.UID()] = TRUE
 				SDQL2_TICK_CHECK
 				SDQL2_HALT_CHECK
 			select_text = text_list
@@ -711,10 +711,10 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/sdql2_vv_all, new(null
 		if("update")
 			if("set" in query_tree)
 				var/list/set_list = query_tree["set"]
-				for(var/d in found)
-					if(!isdatum(d))
+				for(var/datum in found)
+					if(!isdatum(datum))
 						continue
-					SDQL_internal_vv(d, set_list)
+					SDQL_internal_vv(datum, set_list)
 					obj_count_finished++
 					SDQL2_TICK_CHECK
 					SDQL2_HALT_CHECK
@@ -724,21 +724,21 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/sdql2_vv_all, new(null
 
 /datum/sdql2_query/proc/SDQL_print(object, list/text_list, print_nulls = TRUE)
 	if(isdatum(object))
-		var/datum/O = object
-		text_list += "<a href='byond://?_src_=vars;Vars=[O.UID()]'>\ref[O]</a> : [object]"
+		var/datum/datum = object
+		text_list += "<a href='byond://?_src_=vars;Vars=[datum.UID()]'>\ref[datum]</a> : [object]"
 		if(istype(object, /atom))
-			var/atom/A = object
-			var/turf/T = A.loc
+			var/atom/atom = object
+			var/turf/turf = atom.loc
 			var/area/a
-			if(isturf(A))
-				a = A.loc
-				T = A //this should prevent the "inside" part
-				text_list += " <span style='color: gray;'>at</span> [ADMIN_COORDJMP(A)]"
-			else if(istype(T))
-				text_list += " <span style='color: gray;'>at</span> [T] [ADMIN_COORDJMP(T)]"
-				a = T.loc
+			if(isturf(atom))
+				a = atom.loc
+				turf = atom //this should prevent the "inside" part
+				text_list += " <span style='color: gray;'>at</span> [ADMIN_COORDJMP(atom)]"
+			else if(istype(turf))
+				text_list += " <span style='color: gray;'>at</span> [turf] [ADMIN_COORDJMP(turf)]"
+				a = turf.loc
 			else
-				var/turf/final = get_turf(T) //Recursive, hopefully?
+				var/turf/final = get_turf(turf) //Recursive, hopefully?
 				if(istype(final))
 					text_list += " <span style='color: gray;'>at</span> [final] [ADMIN_COORDJMP(final)]"
 					a = final.loc
@@ -746,8 +746,8 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/sdql2_vv_all, new(null
 					text_list += " <span style='color: gray;'>at</span> nonexistent location"
 			if(a)
 				text_list += " <span style='color: gray;'>in</span> area [a]"
-				if(T.loc != a)
-					text_list += " <span style='color: gray;'>inside</span> [T]"
+				if(turf.loc != a)
+					text_list += " <span style='color: gray;'>inside</span> [turf]"
 		text_list += "<br>"
 	else if(islist(object))
 		var/list/L = object

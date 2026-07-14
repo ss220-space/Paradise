@@ -11,24 +11,24 @@
 		seedloc = extractor.loc
 
 	if(istype(O, /obj/item/reagent_containers/food/snacks/grown/))
-		var/obj/item/reagent_containers/food/snacks/grown/F = O
-		if(F.seed)
+		var/obj/item/reagent_containers/food/snacks/grown/grown = O
+		if(grown.seed)
 			if(user && !user.drop_transfer_item_to_loc(O, extractor)) //couldn't drop the item
 				return
 			while(t_amount < t_max)
-				var/obj/item/seeds/t_prod = F.seed.Copy()
+				var/obj/item/seeds/t_prod = grown.seed.Copy()
 				t_prod.forceMove(seedloc)
 				t_amount++
 			qdel(O)
 			return 1
 
 	else if(istype(O, /obj/item/grown))
-		var/obj/item/grown/F = O
-		if(F.seed)
+		var/obj/item/grown/grown = O
+		if(grown.seed)
 			if(user && !user.drop_transfer_item_to_loc(O, extractor))
 				return
 			while(t_amount < t_max)
-				var/obj/item/seeds/t_prod = F.seed.Copy()
+				var/obj/item/seeds/t_prod = grown.seed.Copy()
 				t_prod.forceMove(seedloc)
 				t_amount++
 			qdel(O)
@@ -152,15 +152,15 @@
 /obj/machinery/seed_extractor/proc/generate_strainText(obj/item/seeds/O) //Генерация отображаемого текста описания
 	var/strain_text = ""
 
-	for(var/datum/plant_gene/reagent/G in O.genes)
+	for(var/datum/plant_gene/reagent/reagent in O.genes)
 		if(strain_text !="")
 			strain_text += ", "
-		strain_text += "[G.get_name()]"
+		strain_text += "[reagent.get_name()]"
 
-	for(var/datum/plant_gene/trait/G in O.genes)
+	for(var/datum/plant_gene/trait/reagent in O.genes)
 		if(strain_text !="")
 			strain_text += ", "
-		strain_text += "[G.get_name()]"
+		strain_text += "[reagent.get_name()]"
 
 	return strain_text
 
@@ -168,22 +168,22 @@
 	if(!seed_id)
 		return
 	var/datum/seed_pile/selected_pile
-	for(var/datum/seed_pile/N in piles)
-		if(N.id == seed_id && (N.variant == seed_variant || !seed_variant))
-			amount = clamp(amount, 0, N.amount)
-			N.amount -= amount
-			selected_pile = N
-			if(N.amount <= 0)
-				piles -= N
+	for(var/datum/seed_pile/seed_pile in piles)
+		if(seed_pile.id == seed_id && (seed_pile.variant == seed_variant || !seed_variant))
+			amount = clamp(amount, 0, seed_pile.amount)
+			seed_pile.amount -= amount
+			selected_pile = seed_pile
+			if(seed_pile.amount <= 0)
+				piles -= seed_pile
 			break
 	if(!selected_pile)
 		return
 	var/amount_dispensed = 0
-	for(var/obj/item/seeds/O in contents)
+	for(var/obj/item/seeds/seeds in contents)
 		if(amount_dispensed >= amount)
 			break
-		if(O.plantname == selected_pile.name && O.variant == selected_pile.variant && O.lifespan == selected_pile.lifespan && O.endurance == selected_pile.endurance && O.maturation == selected_pile.maturation && O.production == selected_pile.production && O.yield == selected_pile.yield && O.potency == selected_pile.potency)
-			O.forceMove(loc)
+		if(seeds.plantname == selected_pile.name && seeds.variant == selected_pile.variant && seeds.lifespan == selected_pile.lifespan && seeds.endurance == selected_pile.endurance && seeds.maturation == selected_pile.maturation && seeds.production == selected_pile.production && seeds.yield == selected_pile.yield && seeds.potency == selected_pile.potency)
+			seeds.forceMove(loc)
 			amount_dispensed++
 
 /obj/machinery/seed_extractor/proc/add_seed(obj/item/seeds/seed, mob/user)

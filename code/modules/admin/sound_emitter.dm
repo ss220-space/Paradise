@@ -168,9 +168,9 @@
 		flick("shield1", src)
 		return
 
-	for(var/mob/M in hearing_mobs)
-		if(M.client.prefs.toggles & SOUND_MIDI)
-			M.playsound_local(M, null, sound_volume, FALSE, channel = CHANNEL_ADMIN, pressure_affected = FALSE)
+	for(var/mob/mob in hearing_mobs)
+		if(mob.client.prefs.toggles & SOUND_MIDI)
+			mob.playsound_local(mob, null, sound_volume, FALSE, channel = CHANNEL_ADMIN, pressure_affected = FALSE)
 	started = FALSE
 	hearing_mobs = null
 	flick("shield1", src)
@@ -185,19 +185,19 @@
 
 	switch(emitter_range)
 		if(SOUND_EMITTER_RADIUS)
-			for(var/mob/M in GLOB.player_list)
-				if(get_dist(src, M) <= play_radius)
-					hearing_mobs += M
+			for(var/mob/mob in GLOB.player_list)
+				if(get_dist(src, mob) <= play_radius)
+					hearing_mobs += mob
 		if(SOUND_EMITTER_ZLEVEL)
-			for(var/mob/M in GLOB.player_list)
-				if(M.z == z)
-					hearing_mobs += M
+			for(var/mob/mob in GLOB.player_list)
+				if(mob.z == z)
+					hearing_mobs += mob
 		if(SOUND_EMITTER_GLOBAL)
 			hearing_mobs = GLOB.player_list.Copy()
 
-	for(var/mob/M in hearing_mobs)
-		if(M.client.prefs.toggles & SOUND_MIDI)
-			M.playsound_local(M, sound_file, sound_volume, FALSE, channel = CHANNEL_ADMIN, pressure_affected = FALSE)
+	for(var/mob/mob in hearing_mobs)
+		if(mob.client.prefs.toggles & SOUND_MIDI)
+			mob.playsound_local(mob, sound_file, sound_volume, FALSE, channel = CHANNEL_ADMIN, pressure_affected = FALSE)
 	started = TRUE
 	flick("shield1", src)
 

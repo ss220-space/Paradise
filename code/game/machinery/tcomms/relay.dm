@@ -91,18 +91,18 @@
 	if(active)
 		return TRUE
 
-	for(var/obj/machinery/tcomms/relay/R in GLOB.tcomms_machines)
+	for(var/obj/machinery/tcomms/relay/relay in GLOB.tcomms_machines)
 		// Make sure we dont check ourselves
-		if(R == src)
+		if(relay == src)
 			continue
 		// We dont care about ones on other zlevels
-		if(!are_zs_connected(R, src))
+		if(!are_zs_connected(relay, src))
 			continue
 		// If another relay is active, return FALSE
-		if(R.active)
-			if(R.stat & NOPOWER)	// If another relay has no power but is supposed to be on, we shut it down so we can continue.
-				R.active = FALSE	// Since only one active relay is allowed per z level, give priority to the one that's actually working.
-				R.update_icon(UPDATE_ICON_STATE)
+		if(relay.active)
+			if(relay.stat & NOPOWER)	// If another relay has no power but is supposed to be on, we shut it down so we can continue.
+				relay.active = FALSE	// Since only one active relay is allowed per z level, give priority to the one that's actually working.
+				relay.update_icon(UPDATE_ICON_STATE)
 			else
 				return FALSE
 	// If we got here there isnt an active relay on this Z-level. So return TRUE

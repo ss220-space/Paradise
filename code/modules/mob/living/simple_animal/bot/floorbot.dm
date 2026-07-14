@@ -339,11 +339,11 @@
 		addtimer(CALLBACK(src, PROC_REF(make_bridge_plating), target_turf), 5 SECONDS)
 
 	else
-		var/turf/simulated/floor/F = target_turf
+		var/turf/simulated/floor/floor = target_turf
 		mode = BOT_REPAIRING
 		update_icon()
 		custom_emote(EMOTE_VISIBLE, "начинает ремонтировать пол.")
-		addtimer(CALLBACK(src, PROC_REF(make_bridge_plating), F), 5 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(make_bridge_plating), floor), 5 SECONDS)
 
 /mob/living/simple_animal/bot/floorbot/proc/make_floor(turf/simulated/floor/F)
 	if(mode != BOT_REPAIRING)

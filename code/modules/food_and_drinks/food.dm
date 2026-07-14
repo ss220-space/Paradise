@@ -69,39 +69,39 @@
 	return
 
 /obj/item/reagent_containers/food/proc/check_for_ants()
-	var/turf/T = get_turf(src)
-	if(isturf(loc) && (T.temperature in 280 to 325) && !locate(/obj/structure/table) in T)
-		if(ant_location == T)
+	var/turf/turf = get_turf(src)
+	if(isturf(loc) && (turf.temperature in 280 to 325) && !locate(/obj/structure/table) in turf)
+		if(ant_location == turf)
 			if(prob(15))
-				if(!locate(/obj/effect/decal/ants) in T)
-					new /obj/effect/decal/ants(T)
+				if(!locate(/obj/effect/decal/ants) in turf)
+					new /obj/effect/decal/ants(turf)
 					antable = FALSE
 					desc += " It appears to be infested with space ants. Yuck!"
 					reagents.add_reagent("ants", 1) // Don't eat things with ants in i you weirdo.
 		else
-			ant_location = T
+			ant_location = turf
 
 	last_ant_time = world.time
 
 /obj/item/reagent_containers/food/proc/check_liked(fraction, mob/M)
 	if(last_check_time + 2 SECONDS < world.time)
 		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			if(foodtype & H.dna.species.toxic_food)
-				var/type_string = matched_food_type(foodtype & H.dna.species.toxic_food)
-				to_chat(H, span_warning("[format_message(type_string, HATE_MESSAGES, H.dna.species)]"))
+			var/mob/living/carbon/human/human = M
+			if(foodtype & human.dna.species.toxic_food)
+				var/type_string = matched_food_type(foodtype & human.dna.species.toxic_food)
+				to_chat(human, span_warning("[format_message(type_string, HATE_MESSAGES, human.dna.species)]"))
 
-				H.AdjustDisgust((25 + 30 * fraction) STATUS_EFFECT_CONSTANT)
-			if(foodtype & H.dna.species.disliked_food)
-				var/type_string = matched_food_type(foodtype & H.dna.species.disliked_food)
-				to_chat(H, span_warning("[format_message(type_string, DISLIKE_MESSAGES, H.dna.species)]"))
+				human.AdjustDisgust((25 + 30 * fraction) STATUS_EFFECT_CONSTANT)
+			if(foodtype & human.dna.species.disliked_food)
+				var/type_string = matched_food_type(foodtype & human.dna.species.disliked_food)
+				to_chat(human, span_warning("[format_message(type_string, DISLIKE_MESSAGES, human.dna.species)]"))
 
-				H.AdjustDisgust((15 + 16 * fraction) STATUS_EFFECT_CONSTANT)
-			if(foodtype & H.dna.species.liked_food)
-				var/type_string = matched_food_type(foodtype & H.dna.species.liked_food)
-				to_chat(H, span_notice("[format_message(type_string, LOVE_MESSAGES, H.dna.species)]"))
+				human.AdjustDisgust((15 + 16 * fraction) STATUS_EFFECT_CONSTANT)
+			if(foodtype & human.dna.species.liked_food)
+				var/type_string = matched_food_type(foodtype & human.dna.species.liked_food)
+				to_chat(human, span_notice("[format_message(type_string, LOVE_MESSAGES, human.dna.species)]"))
 
-				H.AdjustDisgust((-12 + -8 * fraction) STATUS_EFFECT_CONSTANT)
+				human.AdjustDisgust((-12 + -8 * fraction) STATUS_EFFECT_CONSTANT)
 			last_check_time = world.time
 
 /obj/item/reagent_containers/food/proc/format_message(type, list/messages, datum/species/species)

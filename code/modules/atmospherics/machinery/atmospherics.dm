@@ -97,8 +97,8 @@ Pipelines + Other Objects -> Pipe network
 
 /obj/machinery/atmospherics/proc/update_pipe_image()
 	pipe_vision_img = image(src, loc = src.loc, layer = ABOVE_HUD_LAYER + src.layer, dir = src.dir)
-	var/turf/T = get_turf(src)
-	SET_PLANE_EXPLICIT(pipe_vision_img, PIPECRAWL_IMAGES_PLANE, T)
+	var/turf/turf = get_turf(src)
+	SET_PLANE_EXPLICIT(pipe_vision_img, PIPECRAWL_IMAGES_PLANE, turf)
 
 /obj/machinery/atmospherics/proc/check_icon_cache()
 	if(!SSair.icon_manager)
@@ -254,8 +254,8 @@ Pipelines + Other Objects -> Pipe network
 
 	if(!pressures)
 		var/datum/gas_mixture/int_air = return_obj_air()
-		var/turf/T = get_turf(src)
-		var/datum/gas_mixture/env_air = T.get_readonly_air()
+		var/turf/turf = get_turf(src)
+		var/datum/gas_mixture/env_air = turf.get_readonly_air()
 		pressures = int_air.return_pressure() - env_air.return_pressure()
 
 	var/fuck_you_dir = get_dir(src, user)
@@ -293,9 +293,9 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/proc/initialize_atmos_network()
 	atmos_init()
 	var/list/nodes = pipeline_expansion()
-	for(var/obj/machinery/atmospherics/A in nodes)
-		A.atmos_init()
-		A.addMember(src)
+	for(var/obj/machinery/atmospherics/atmospherics in nodes)
+		atmospherics.atmos_init()
+		atmospherics.addMember(src)
 	build_network()
 
 /**
@@ -387,27 +387,27 @@ Pipelines + Other Objects -> Pipe network
 
 // Additional icon procs
 /obj/machinery/atmospherics/proc/universal_underlays(obj/machinery/atmospherics/node, direction)
-	var/turf/T = get_turf(src)
-	if(!istype(T))
+	var/turf/turf = get_turf(src)
+	if(!istype(turf))
 		return
 	if(node)
 		var/node_dir = get_dir(src,node)
 		if(node.icon_connect_type == "-supply")
-			add_underlay_adapter(T, , node_dir, "")
-			add_underlay_adapter(T, node, node_dir, "-supply")
-			add_underlay_adapter(T, , node_dir, "-scrubbers")
+			add_underlay_adapter(turf, , node_dir, "")
+			add_underlay_adapter(turf, node, node_dir, "-supply")
+			add_underlay_adapter(turf, , node_dir, "-scrubbers")
 		else if(node.icon_connect_type == "-scrubbers")
-			add_underlay_adapter(T, , node_dir, "")
-			add_underlay_adapter(T, , node_dir, "-supply")
-			add_underlay_adapter(T, node, node_dir, "-scrubbers")
+			add_underlay_adapter(turf, , node_dir, "")
+			add_underlay_adapter(turf, , node_dir, "-supply")
+			add_underlay_adapter(turf, node, node_dir, "-scrubbers")
 		else
-			add_underlay_adapter(T, node, node_dir, "")
-			add_underlay_adapter(T, , node_dir, "-supply")
-			add_underlay_adapter(T, , node_dir, "-scrubbers")
+			add_underlay_adapter(turf, node, node_dir, "")
+			add_underlay_adapter(turf, , node_dir, "-supply")
+			add_underlay_adapter(turf, , node_dir, "-scrubbers")
 	else
-		add_underlay_adapter(T, , direction, "-supply")
-		add_underlay_adapter(T, , direction, "-scrubbers")
-		add_underlay_adapter(T, , direction, "")
+		add_underlay_adapter(turf, , direction, "-supply")
+		add_underlay_adapter(turf, , direction, "-scrubbers")
+		add_underlay_adapter(turf, , direction, "")
 
 /obj/machinery/atmospherics/proc/add_underlay_adapter(turf/T, obj/machinery/atmospherics/node, direction, icon_connect_type) //modified from add_underlay, does not make exposed underlays
 	if(node)

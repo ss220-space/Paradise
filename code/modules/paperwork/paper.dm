@@ -838,12 +838,12 @@
 	var/obj/machinery/photocopier/faxmachine/fax = locateUID(faxmachineid)
 	if(myeffect == "Borgification")
 		to_chat(target,span_userdanger("You seem to comprehend the AI a little better. Why are your muscles so stiff?"))
-		var/datum/disease/virus/transformation/robot/D = new
-		D.Contract(target)
+		var/datum/disease/virus/transformation/robot/robot = new
+		robot.Contract(target)
 	else if(myeffect == "Corgification")
 		to_chat(target,span_userdanger("You hear distant howling as the world seems to grow bigger around you. Boy, that itch sure is getting worse!"))
-		var/datum/disease/virus/transformation/corgi/D = new
-		D.Contract(target)
+		var/datum/disease/virus/transformation/corgi/robot = new
+		robot.Contract(target)
 	else if(myeffect == "Death By Fire")
 		to_chat(target,span_userdanger("You feel hotter than usual. Maybe you should lowe-wait, is that your hand melting?"))
 		var/turf/simulated/target_location = get_turf(target)
@@ -861,20 +861,20 @@
 			to_chat(target,span_userdanger("Life seems funnier, somehow."))
 	else if(myeffect == "Cluwne")
 		if(ishuman(target))
-			var/mob/living/carbon/human/H = target
-			to_chat(H, span_userdanger("You feel surrounded by sadness. Sadness... and HONKS!"))
-			H.makeCluwne()
+			var/mob/living/carbon/human/human = target
+			to_chat(human, span_userdanger("You feel surrounded by sadness. Sadness... and HONKS!"))
+			human.makeCluwne()
 	else if(myeffect == "Demote")
 		GLOB.major_announcement.announce(
 			message = "[target.real_name] настоящим приказом был понижен до Гражданского. Немедленно обработайте этот запрос. Невыполнение этих распоряжений является основанием для расторжения контракта.",
 			new_title = ANNOUNCE_CCDEMOTE_RU,
 			new_sound = SSstation.announcer.get_rand_report_sound(),
 		)
-		for(var/datum/data/record/R in sortRecord(GLOB.data_core.security))
-			if(R.fields["name"] == target.real_name)
-				R.fields["criminal"] = SEC_RECORD_STATUS_DEMOTE
-				R.fields["last_modifier_level"] = LAW_LEVEL_CENTCOMM
-				R.fields["comments"] += "Central Command Demotion Order, given on [GLOB.current_date_string] [station_time_timestamp()]<br> Process this demotion immediately. Failure to comply with these orders is grounds for termination."
+		for(var/datum/data/record/record in sortRecord(GLOB.data_core.security))
+			if(record.fields["name"] == target.real_name)
+				record.fields["criminal"] = SEC_RECORD_STATUS_DEMOTE
+				record.fields["last_modifier_level"] = LAW_LEVEL_CENTCOMM
+				record.fields["comments"] += "Central Command Demotion Order, given on [GLOB.current_date_string] [station_time_timestamp()]<br> Process this demotion immediately. Failure to comply with these orders is grounds for termination."
 		update_all_mob_security_hud()
 	else if(myeffect == "Demote with Bot")
 		GLOB.major_announcement.announce(
@@ -882,16 +882,16 @@
 			new_title = ANNOUNCE_CCDEMOTE_RU,
 			new_sound = SSstation.announcer.get_rand_report_sound(),
 		)
-		for(var/datum/data/record/R in sortRecord(GLOB.data_core.security))
-			if(R.fields["name"] == target.real_name)
-				R.fields["criminal"] = SEC_RECORD_STATUS_ARREST
-				R.fields["last_modifier_level"] = LAW_LEVEL_CENTCOMM
-				R.fields["comments"] += "Central Command Demotion Order, given on [GLOB.current_date_string] [station_time_timestamp()]<br> Process this demotion immediately. Failure to comply with these orders is grounds for termination."
+		for(var/datum/data/record/record in sortRecord(GLOB.data_core.security))
+			if(record.fields["name"] == target.real_name)
+				record.fields["criminal"] = SEC_RECORD_STATUS_ARREST
+				record.fields["last_modifier_level"] = LAW_LEVEL_CENTCOMM
+				record.fields["comments"] += "Central Command Demotion Order, given on [GLOB.current_date_string] [station_time_timestamp()]<br> Process this demotion immediately. Failure to comply with these orders is grounds for termination."
 		update_all_mob_security_hud()
 		if(fax)
-			var/turf/T = get_turf(fax)
-			new /obj/effect/portal(T)
-			new /mob/living/simple_animal/bot/secbot(T)
+			var/turf/turf = get_turf(fax)
+			new /obj/effect/portal(turf)
+			new /mob/living/simple_animal/bot/secbot(turf)
 	else if(myeffect == "Revoke Fax Access")
 		GLOB.fax_blacklist += target.real_name
 		if(fax)

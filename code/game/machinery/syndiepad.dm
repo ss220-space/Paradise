@@ -79,8 +79,8 @@
 	for(var/obj/machinery/computer/syndie_supplycomp/SC in GLOB.syndie_cargo_consoles)
 		if(get_area(SC) != src_area)
 			continue
-		var/datum/syndie_data_storage/S = SC.data_storage
-		return S
+		var/datum/syndie_data_storage/syndie_data_storage = SC.data_storage
+		return syndie_data_storage
 	return null
 
 /obj/machinery/syndiepad/attackby(obj/item/I, mob/user, params)
@@ -143,15 +143,15 @@
 	default_deconstruction_screwdriver(user, "pad-o", initial(icon_state), I)
 
 /obj/machinery/syndiepad/proc/pad_sync()
-	for(var/obj/machinery/syndiepad/S in SSmachines.get_by_type(/obj/machinery/syndiepad))
-		if(S.console_link && src.console_link) //Мы не хотим привязываться к другим привязанным к консоли телепадам если мы привязаны к консоли
+	for(var/obj/machinery/syndiepad/syndiepad in SSmachines.get_by_type(/obj/machinery/syndiepad))
+		if(syndiepad.console_link && src.console_link) //Мы не хотим привязываться к другим привязанным к консоли телепадам если мы привязаны к консоли
 			continue
-		if(!S.id)
+		if(!syndiepad.id)
 			continue
-		if(S == src)
+		if(syndiepad == src)
 			continue
-		if(S.id == target_id)
-			linked_pad = S
+		if(syndiepad.id == target_id)
+			linked_pad = syndiepad
 			break
 
 /obj/machinery/syndiepad/attack_hand(mob/user)
@@ -248,7 +248,7 @@
 				// if is living and in container, check if allowed, don't let through if not
 				if((ROI.contents) && allow_humans == FALSE)
 					var/check = FALSE
-					for(var/mob/living/M in ROI.contents)
+					for(var/mob/living/living in ROI.contents)
 						if(!console_link)
 							to_chat(user, span_warning("Error: You cannot teleport living organisms for security reasons!"))
 						else
@@ -261,10 +261,10 @@
 				if(ROI.anchored)
 					if(!ismecha(ROI))
 						if(isliving(ROI))
-							var/mob/living/L = ROI
-							if(L.buckled)
+							var/mob/living/living = ROI
+							if(living.buckled)
 								// TP people on office chairs
-								if(L.buckled.anchored)
+								if(living.buckled.anchored)
 									continue
 							else
 								continue

@@ -1343,8 +1343,8 @@
 	occupier.eyeobj.name = "[occupier.name] (AI Eye)"
 	if(malf.parent)
 		qdel(malf)
-	var/datum/action/innate/ai/return_to_core/R = new
-	R.Grant(occupier)
+	var/datum/action/innate/ai/return_to_core/return_to_core = new
+	return_to_core.Grant(occupier)
 	occupier.cancel_camera()
 	if((SSsecurity_level.get_current_level_as_number() == SEC_LEVEL_DELTA) && malf.nuking)
 		for(var/obj/item/pinpointer/point in GLOB.pinpointer_list)
@@ -1361,9 +1361,9 @@
 		qdel(occupier)
 		if(SSsecurity_level.get_current_level_as_number() == SEC_LEVEL_DELTA)
 			for(var/obj/item/pinpointer/point in GLOB.pinpointer_list)
-				for(var/mob/living/silicon/ai/A in GLOB.ai_list)
-					if((A.stat != DEAD) && A.nuking)
-						point.the_disk = A //The pinpointer tracks the AI back into its core.
+				for(var/mob/living/silicon/ai/ai in GLOB.ai_list)
+					if((ai.stat != DEAD) && ai.nuking)
+						point.the_disk = ai //The pinpointer tracks the AI back into its core.
 	else
 		to_chat(occupier, span_danger("Primary core damaged, unable to return core processes."))
 		if(forced)
@@ -1389,8 +1389,8 @@
 				smoke.attach(src)
 				smoke.start()
 				do_sparks(3, TRUE, src)
-				for(var/mob/M in viewers(src))
-					M.show_message("<span class='danger'>The [name] suddenly lets out a blast of smoke and some sparks!", 3, span_danger("You hear sizzling electronics."), 2)
+				for(var/mob/mob in viewers(src))
+					mob.show_message("<span class='danger'>The [name] suddenly lets out a blast of smoke and some sparks!", 3, span_danger("You hear sizzling electronics."), 2)
 
 /obj/machinery/power/apc/surplus()
 	if(terminal)

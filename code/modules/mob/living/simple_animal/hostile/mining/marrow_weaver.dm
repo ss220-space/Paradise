@@ -106,11 +106,11 @@
 /mob/living/simple_animal/hostile/asteroid/marrowweaver/proc/fiesta(mob/living/carbon/human/snack, preparing = TRUE)
 	var/foundorgans = 0
 	var/list/organs = snack.get_organs_zone(BODY_ZONE_CHEST)
-	for(var/obj/item/organ/internal/I as anything in organs)
-		if(!is_internal_organ_brain(I))
+	for(var/obj/item/organ/internal/internal as anything in organs)
+		if(!is_internal_organ_brain(internal))
 			foundorgans ++
 			if(!preparing)
-				qdel(I)
+				qdel(internal)
 	if(foundorgans)
 		return TRUE
 	return FALSE

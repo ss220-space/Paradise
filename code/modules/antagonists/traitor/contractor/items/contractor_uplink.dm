@@ -42,12 +42,12 @@
  * * sndfile - The sound to play to the holder only.
  */
 /obj/item/contractor_uplink/proc/message_holder(text, sndfile)
-	var/mob/living/M = loc
-	while(!istype(M) && M?.loc)
-		M = M.loc
-	if(!istype(M))
+	var/mob/living/living = loc
+	while(!istype(living) && living?.loc)
+		living = living.loc
+	if(!istype(living))
 		return
 
-	to_chat(M, span_notice("[get_examine_icon(M)] Входящая зашифрованная передача от ваших кураторов. Сообщение следующее:<br/>") + span_boldnotice("[text]"))
+	to_chat(living, span_notice("[get_examine_icon(living)] Входящая зашифрованная передача от ваших кураторов. Сообщение следующее:<br/>") + span_boldnotice("[text]"))
 	if(sndfile)
-		M.playsound_local(get_turf(M), sndfile, 30, FALSE)
+		living.playsound_local(get_turf(living), sndfile, 30, FALSE)
