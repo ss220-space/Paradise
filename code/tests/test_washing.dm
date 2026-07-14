@@ -1,4 +1,4 @@
-/datum/unit_test/washing
+/datum/unit_test/room_test/washing
 	/// Stuff we want to test that isn't cleanables, just to make sure they are getting cleaned when they should
 	var/list/cleanable_bonus_list = list(
 		/obj/effect/rune,
@@ -9,7 +9,7 @@
 	/// Tracks if we caught the clean signal, to know we washed successfully
 	VAR_PRIVATE/clean_sig_caught = 0
 
-/datum/unit_test/washing/Run()
+/datum/unit_test/room_test/washing/Run()
 	for(var/i in subtypesof(/obj/effect/decal/cleanable) + cleanable_bonus_list)
 		var/atom/movable/to_clean = allocate(i)
 		var/mopable = HAS_TRAIT(to_clean, TRAIT_MOPABLE)
@@ -38,7 +38,7 @@
 				TEST_FAIL("[i] was not deleted when its turf was cleaned!")
 			qdel(to_clean)
 
-/datum/unit_test/washing/proc/clean_caught(...)
+/datum/unit_test/room_test/proc/clean_caught(...)
 	SIGNAL_HANDLER
 
 	clean_sig_caught += 1

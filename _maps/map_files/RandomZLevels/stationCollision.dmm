@@ -1114,7 +1114,8 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/research)
 "dB" = (
-/obj/machinery/shower/directional/east/obj/structure/window/reinforced/tinted{
+/obj/machinery/shower/directional/east,
+/obj/structure/window/reinforced/tinted{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
