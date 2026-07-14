@@ -1,6 +1,3 @@
-// Maps each heretic PATH_* to the colour its transmutation runes / UI accents are tinted with.
-// MUST live in the heretic module (not __DEFINES/colors.dm): colors.dm is #included before the PATH_*
-// macros are defined, so defining it there yields null keys → every rune drew the default green.
 GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		PATH_START = COLOR_LIME,
 		PATH_RUST = COLOR_CARGO_BROWN,
@@ -102,7 +99,6 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		/obj/machinery,
 	)
 	var/static/list/dreams_what_you_cant_see = typecacheof(list(
-		// Underfloor stuff and default wallmounts
 		/obj/item/radio/intercom,
 		/obj/structure/cable,
 		/obj/structure/disposalpipe/segment,
@@ -168,15 +164,11 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	result_parameters["moving"] = icon_moving
 	return result_parameters
 
-// [meta] is an optional per-heretic draft/shop metadata list (cost/depth/bgr come from it instead of
-// the global tree). Used to render the per-tier drafts and the tiered Knowledge Shop.
 /datum/antagonist/heretic/proc/get_knowledge_data(datum/heretic_knowledge/knowledge, done, list/meta = null)
 
 	var/list/knowledge_data = list()
 
 	var/cost = meta ? meta[HKT_COST] : initial(knowledge.cost)
-	// Directly-granted knowledge that isn't part of any tree column (e.g. the Ritual of Knowledge gifted
-	// by the robe craft) has no tree entry - fall back to side-node visuals instead of indexing null.
 	var/list/tree_entry = meta ? null : GLOB.heretic_research_tree[knowledge]
 	knowledge_data["path"] = knowledge
 	knowledge_data["icon_params"] = get_icon_of_knowledge(knowledge)
@@ -189,7 +181,6 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	knowledge_data["finished"] = done
 	knowledge_data["ascension"] = ispath(knowledge,/datum/heretic_knowledge/ultimate)
 
-	//description of a knowledge might change, make sure we are not shown the initial() value in that case
 	if(done)
 		var/datum/heretic_knowledge/knowledge_instance = researched_knowledge[knowledge]
 		knowledge_data["desc"] = knowledge_instance.desc
@@ -215,9 +206,6 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		return
 
 	ui = new(user, src, "AntagInfoHeretic", name)
-	// Like TG: don't autoupdate every tick. The whole research tree (with every DmIcon) is re-pushed
-	// on each update, which makes the icons constantly reload. Purchases still refresh the UI because
-	// ui_act -> SStgui.update_uis() forces an update regardless of this flag.
 	ui.set_autoupdate(FALSE)
 	ui.open()
 
@@ -230,13 +218,9 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	data["ascended"] = ascended
 	data["points_to_aura"] = points_to_aura
 
-	// The Research Tree (path progression, grouped by depth) and the Knowledge Shop (route == PATH_SIDE:
-	// general, non-path-locked purchases like the Codex) are shown as two separate lists in the UI.
 	var/list/tiers = list()
 	var/list/shop = list()
 
-	// Path-start ("choose this path") nodes are surfaced only in the Пути (Path Info) tab, never in the
-	// research tree, so picking a path happens exclusively there.
 	var/list/path_start_knowledges = list()
 	for(var/datum/heretic_knowledge_tree_column/main/column_type as anything in subtypesof(/datum/heretic_knowledge_tree_column/main))
 		if(initial(column_type.abstract_parent_type) == column_type)
@@ -245,15 +229,10 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		if(start_type)
 			path_start_knowledges[start_type] = TRUE
 
-	// --- Main research-tree line (researched + researchable). Per-heretic draft/shop side nodes are
-	//     handled separately below from their own metadata, so skip them here.
 	for(var/datum/heretic_knowledge/knowledge as anything in researched_knowledge)
 		if(drafted_knowledge[knowledge] || shop_knowledge_pool[knowledge])
 			continue
-		// Once a path-start node is researched, show it in the tree as the first owned ability of the path
-		// (unpicked starts are still skipped in the researchable loop below, keeping path-choice in Пути).
 		var/list/knowledge_data = get_knowledge_data(knowledge, TRUE)
-		// No tree entry (directly-granted, e.g. the gifted Ritual of Knowledge) renders as an owned side node.
 		var/list/tree_entry = GLOB.heretic_research_tree[knowledge]
 		if(!tree_entry || tree_entry[HKT_ROUTE] == PATH_SIDE)
 			shop += list(knowledge_data)
@@ -266,7 +245,6 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		if(path_start_knowledges[knowledge])
 			continue
 		var/list/knowledge_data = get_knowledge_data(knowledge, FALSE)
-		// Final knowledge can't be learned until all objectives are complete.
 		if(ispath(knowledge, /datum/heretic_knowledge/ultimate))
 			knowledge_data["disabled"] ||= !can_ascend()
 		if(GLOB.heretic_research_tree[knowledge][HKT_ROUTE] == PATH_SIDE)
@@ -274,19 +252,12 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 			continue
 		add_node_to_tiers(tiers, knowledge_data)
 
-	// Per-tier DRAFTS: the free overlay shown in the research tree (one free pick of three). Only the
-	// still-available options are shown here; a picked draft shows as owned in the shop below (the draft
-	// is just a free overlay over the shop pool, it doesn't remove anything from the shop).
 	for(var/knowledge_type in drafted_knowledge)
 		if(researched_knowledge[knowledge_type])
 			continue
 		if(is_available_draft(knowledge_type))
 			add_node_to_tiers(tiers, get_knowledge_data(knowledge_type, FALSE, drafted_knowledge[knowledge_type]))
 
-	// Knowledge SHOP: the whole side pool, grouped by shop tier ("Тир N"), unlocked tier-by-tier. Every
-	// unlocked side knowledge shows here regardless of draft state, so a tier keeps its full count and the
-	// draft siblings you didn't pick stay buyable. Owned entries render first so buying something moves it
-	// to the front of its tier.
 	for(var/knowledge_type in shop_knowledge_pool)
 		if(researched_knowledge[knowledge_type])
 			shop += list(get_knowledge_data(knowledge_type, TRUE, shop_knowledge_pool[knowledge_type]))
@@ -299,12 +270,8 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	data["knowledge_tiers"] = tiers
 	data["knowledge_shop"] = shop
 
-	// Our current path-passive ("empowerment") tier. The per-path passive text is sent with each path below.
 	data["passive_level"] = passive_level
 
-	// Path Info tab: one entry per main path with its playstyle blurb and its "choose path" start node.
-	// NOTE: initial() returns null for /list vars in BYOND, so we instantiate each column to read its
-	// description/pros/cons/tips lists, then discard it (columns are lightweight, transient datums).
 	var/list/paths_data = list()
 	for(var/column_type in subtypesof(/datum/heretic_knowledge_tree_column/main))
 		var/datum/heretic_knowledge_tree_column/main/column = column_type
@@ -329,9 +296,6 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 			)
 		path_entry["starting_knowledge"] = get_knowledge_data(start_knowledge, (start_knowledge in researched_knowledge))
 
-		// "Guaranteed Abilities" preview (TG's preview_abilities): the path's guaranteed main-line
-		// knowledges in unlock order, minus the "choose path" start node and the big ascension node.
-		// Slots are optional (TG-style paths fold grasp/mark into start) and tiers may be lists.
 		var/list/preview_abilities = list()
 		var/list/preview_slots
 		if(column_instance.knowledge_tier1) // TG-format column (e.g. Ash)
@@ -397,7 +361,6 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 			if(ispath(researched_path, /datum/heretic_knowledge/ultimate) && !can_ascend(TRUE))
 				message_admins("Heretic [key_name(owner)] potentially attempted to href exploit to learn ascension knowledge without completing objectives!")
 				CRASH("Heretic attempted to learn a final knowledge despite not being able to ascend!")
-			// Effective cost: free if offered as an available draft pick, else the shop/initial cost.
 			var/research_cost = get_research_cost(researched_path)
 			if(research_cost > knowledge_points)
 				return TRUE
@@ -441,7 +404,6 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		gain_knowledge(starting_knowledge)
 
 	addtimer(CALLBACK(src, PROC_REF(passive_influence_gain)), passive_gain_timer) // Gain +1 knowledge every 20 minutes.
-	// (eldritch dreams are registered per-body in apply_innate_effects, so they follow body transfers)
 	ADD_TRAIT(owner, TRAIT_BAD_SOUL, HERETIC_TRAIT)
 	return ..()
 
@@ -479,8 +441,6 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	summoned_creature = FALSE
 	remove_team_hud()
 
-// The heretic and their summons see each other's hud icons, keyed by the master heretic's mind.
-// Rival heretics (and their teams) never qualify, so nothing leaks between competing heretics.
 /datum/atom_hud/alternate_appearance/basic/heretic_team
 	var/datum/mind/master_mind
 
@@ -514,22 +474,12 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	RegisterSignals(our_mob, list(COMSIG_MOB_BEFORE_SPELL_CAST, COMSIG_MOB_SPELL_ACTIVATED), PROC_REF(on_spell_cast))
 	RegisterSignal(our_mob, SIGNAL_ADDTRAIT(TRAIT_ALLOW_HERETIC_CASTING), PROC_REF(on_focus_regained))
 	RegisterSignal(our_mob, COMSIG_MOB_ITEM_AFTERATTACK, PROC_REF(on_item_use))
-	// Re-apply our hud + spells whenever the client (re)logs into this body. Relog / rejuvenate could
-	// otherwise leave a heretic without their rift huds, antag marker, or a working research menu.
 	RegisterSignal(our_mob, COMSIG_MOB_LOGIN, PROC_REF(on_login), override = TRUE)
 
-	// Eldritch aura (tg parity): a green vortex overlay drawn once we grow strong enough (see should_show_aura).
 	RegisterSignal(our_mob, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(add_aura_overlay))
 	RegisterSignal(our_mob, COMSIG_ATOM_EXAMINE, PROC_REF(on_heretic_examine))
 	RegisterSignals(our_mob, list(SIGNAL_ADDTRAIT(TRAIT_HERETIC_AURA_HIDDEN), SIGNAL_REMOVETRAIT(TRAIT_HERETIC_AURA_HIDDEN)), PROC_REF(update_heretic_aura))
-	// master220's human regenerate_icons() does a full cut_overlays() and rebuilds via the old
-	// overlays_standing system - it does NOT re-emit COMSIG_ATOM_UPDATE_OVERLAYS, so the managed aura
-	// overlay gets wiped (and managed_overlays goes stale, so a later update_appearance can't restore it).
-	// This is why the aura vanished after ascension (which triggers a regenerate_icons via trait/body
-	// changes). Re-add the aura on regenerate, exactly like /datum/component/shielded does for its shield.
 	RegisterSignal(our_mob, COMSIG_HUMAN_REGENERATE_ICONS, PROC_REF(on_regenerate_icons))
-	// Eldritch dreams (tg's heretic_dreams status): sleeping shows visions of the Mansus reflecting the
-	// area around a reality smash. Registered per-body here (not in on_gain) so body transfers keep it.
 	RegisterSignal(our_mob, COMSIG_GET_DREAMS, PROC_REF(get_dreams), override = TRUE)
 	our_mob.update_appearance(UPDATE_OVERLAYS)
 
@@ -614,7 +564,6 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	if(!QDELETED(heretic_mob))
 		to_chat(heretic_mob, span_boldwarning("Вы обрели немалую силу. Обитель больше не позволит вам ломать свои клинки, но теперь вы можете создавать их без ограничений."))
 		heretic_mob.balloon_alert(heretic_mob, "клинки больше не ломаются!")
-		// Growing this strong sheds your stealth - the cloak of shadows leaves you (no-op if you never had it).
 		heretic_mob.mind?.RemoveSpell(/obj/effect/proc_holder/spell/shadow_cloak)
 	update_heretic_aura()
 
@@ -644,9 +593,6 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		var/datum/heretic_knowledge/spell/spell_knowledge = researched_knowledge[knowledge_index]
 		if(!istype(spell_knowledge) || !spell_knowledge.spell_to_add)
 			continue
-		// Growing strong sheds your stealth: disable_blade_breaking() permanently strips the Cloak of Shadows
-		// (tg parity). Don't let the resync hand it back on the next body transfer (e.g. returning from the
-		// flesh worm), which is why an ascended heretic kept getting the cloak back when they shouldn't.
 		if(unlimited_blades && spell_knowledge.spell_to_add == /obj/effect/proc_holder/spell/shadow_cloak)
 			continue
 		if(locate(spell_knowledge.spell_to_add) in source.mind.spell_list)
@@ -765,15 +711,12 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		if((ghost.mind?.current == source) && ghost.client)
 			ghost.reenter_corpse()
 
-	// Drop all items and splatter them around messily.
 	var/list/dustee_items = source.unequip_everything()
 	for(var/obj/item/loot as anything in dustee_items)
 		loot.throw_at(get_step_rand(source), 2, 4, pick(invokers), TRUE)
 
-	// Create the blade, give it the heretic and a randomly-chosen master for the soul sword component
 	var/obj/item/melee/cultblade/haunted/haunted_blade = new(get_turf(source), source, pick(invokers))
 
-	// Cool effect for the rune as well as the item
 	var/obj/effect/rune/convert/conversion_rune = locate() in get_turf(source)
 	if(conversion_rune)
 		conversion_rune.gender_reveal(
@@ -802,11 +745,9 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 
 	var/og_layer
 	if(do_layer)
-		// Layering above to stand out!
 		og_layer = layer
 		layer = ABOVE_MOB_LAYER
 
-	// Slowly floats up, then slowly goes down.
 	if(do_float)
 		animate(src, pixel_y = 12, time = anim_time * 0.5, easing = QUAD_EASING | EASE_OUT)
 		animate(pixel_y = 0, time = anim_time * 0.5, easing = QUAD_EASING | EASE_IN)
@@ -858,8 +799,6 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 /// Add [target] as a sacrifice target for the heretic. Generates a preview image and associates it with a
 /// weakref of the mob.
 /datum/antagonist/heretic/proc/add_sacrifice_target(mob/living/carbon/human/target)
-	// Guard against re-adding an existing target (e.g. an admin picking someone already on the list):
-	// a second RegisterSignal on the same COMSIG_QDELETING would runtime.
 	if(target in sac_targets)
 		return
 
@@ -890,8 +829,6 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 /datum/antagonist/heretic/proc/passive_influence_gain()
 	adjust_knowledge_points(1)
 
-	// The timer must ALWAYS re-arm: bailing out while the body is briefly gone (mid body-transfer,
-	// gibbed awaiting revival) would silently kill the 20-minute point gain for the rest of the round.
 	var/mob/living/heretic_mob = owner?.current
 	if(!QDELETED(heretic_mob) && (heretic_mob.stat == CONSCIOUS || heretic_mob.IsSleeping()))
 		to_chat(heretic_mob, "[span_hear("Вы слышите шёпот...")] [span_purple(pick_list(HERETIC_INFLUENCE_FILE, "drain_message"))]")
@@ -1071,12 +1008,6 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	var/datum/heretic_knowledge/initialized_knowledge = new knowledge_type()
 	researched_knowledge[knowledge_type] = initialized_knowledge
 	initialized_knowledge.on_research(owner.current, src)
-	// Partial UI refresh, NOT update_static_data(): the latter goes through send_full_update(), which is
-	// rate-limited to once/second and sets config.refreshing=TRUE when it can't fire. A purchase often
-	// cascades into several knowledge grants in one tick, so those full updates pile up, refreshing stays
-	// stuck TRUE, and the window keeps repainting the full-screen "Loading / Please wait..." spinner. The
-	// interface doesn't read any static data, so a normal partial update is all we need - and it never
-	// triggers the refreshing screen.
 	SStgui.update_uis(src)
 	return TRUE
 
@@ -1086,15 +1017,10 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	var/list/banned_knowledge = list()
 	for(var/knowledge_index in researched_knowledge)
 		var/datum/heretic_knowledge/knowledge = researched_knowledge[knowledge_index]
-		// Directly-granted knowledge that lives in NO tree column (e.g. the Ritual of Knowledge gifted by
-		// the robe craft) has no tree entry at all - indexing it would runtime and kill the menu.
 		var/list/tree_entry = GLOB.heretic_research_tree[knowledge_index]
 		if(!tree_entry)
 			banned_knowledge |= knowledge.type
 			continue
-		// Side knowledges that belong to our per-heretic draft/shop pool (TG-format paths) are governed by
-		// that engine, NOT the legacy tree-bridge. Following their legacy HKT_NEXT would leak an adjacent
-		// path's tier ability into our tree out of order, so don't expand it.
 		if(!drafted_knowledge[knowledge_index] && !shop_knowledge_pool[knowledge_index])
 			researchable_knowledge |= tree_entry[HKT_NEXT]
 		banned_knowledge |= tree_entry[HKT_BAN]
@@ -1102,7 +1028,6 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 
 	researchable_knowledge -= banned_knowledge
 
-	// Per-heretic drafts (free pick) + shop (paid) available once their parent tier knowledge is researched.
 	for(var/knowledge_type in drafted_knowledge)
 		if(is_available_draft(knowledge_type))
 			researchable_knowledge |= knowledge_type
@@ -1110,8 +1035,6 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		if(is_available_shop(knowledge_type))
 			researchable_knowledge |= knowledge_type
 
-	// Defensive: a malformed HKT_NEXT entry (e.g. a null bridged in from a TG-format neighbour column)
-	// must never reach ui_data/get_knowledge_data, or the whole research menu fails to open.
 	list_clear_nulls(researchable_knowledge)
 	return researchable_knowledge
 
@@ -1158,10 +1081,8 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		for(var/i in 1 to length(shop_costs))
 			shop_costs[i] = max(1, shop_costs[i] - column.shop_cost_discount)
 
-	// Knowledges already on the main line / guaranteed can't be drafted again.
 	var/list/draft_ineligible = list(t1, t2, t3, t4) + guaranteed
 
-	// Bucket the whole side pool by drafting_tier: elligible = draftable, shop_pool = everything (incl shop-only).
 	var/list/elligible = list()
 	var/list/shop_pool = list()
 	for(var/tier in 1 to HERETIC_DRAFT_TIER_MAX)
@@ -1177,7 +1098,6 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 			elligible[draft_tier] += potential
 		shop_pool[draft_tier] += potential
 
-	// Per-tier draft groups (parent = the tier knowledge that reveals the draft row).
 	var/list/draft_specs = list(
 		list("parent" = t1, "guaranteed" = guaranteed[1], "supplementary" = list(/datum/heretic_knowledge/spell/cloak_of_shadows), "weights" = list("1"=50, "2"=50, "3"=0, "4"=0, "5"=0), "depth" = HKT_DEPTH_DRAFT_1),
 		list("parent" = t2, "guaranteed" = guaranteed[2], "weights" = list("1"=50, "2"=25, "3"=25, "4"=0, "5"=0), "depth" = HKT_DEPTH_DRAFT_2),
@@ -1199,8 +1119,6 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 			var/datum/heretic_knowledge/picked
 			if(spec["guaranteed"] && cycle == 1)
 				picked = spec["guaranteed"]
-				// The guaranteed side was held out of the shop pool above (it's in draft_ineligible); TG puts
-				// it back into the shop so it's also buyable, keeping each tier's full count (e.g. Tier 1 = 8).
 				var/g_tier = initial(picked.drafting_tier)
 				if(g_tier >= 1 && g_tier <= length(shop_pool) && !(picked in shop_pool[g_tier]))
 					shop_pool[g_tier] += picked
@@ -1222,7 +1140,6 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		for(var/sibling in group)
 			drafted_knowledge[sibling][HKT_BAN] = group - sibling
 
-	// Shop: every side knowledge, buyable for points, unlocked by the tier node above it.
 	for(var/tier in 1 to length(shop_pool))
 		for(var/knowledge_type in shop_pool[tier])
 			shop_knowledge_pool[knowledge_type] = list(
@@ -1232,7 +1149,6 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 				HKT_COST = shop_costs[tier],
 				HKT_BAN = list(),
 			)
-	// rifle -> rifle_ammo follow-on inside the shop.
 	if(shop_knowledge_pool[/datum/heretic_knowledge/rifle])
 		shop_knowledge_pool[/datum/heretic_knowledge/rifle_ammo] = list(
 			HKT_PARENT = /datum/heretic_knowledge/rifle,
@@ -1313,8 +1229,6 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		if(new_level >= 3)
 			passive_effect.level_final()
 	if(owner?.current)
-		// Partial UI refresh (see gain_knowledge) - avoids the rate-limited full-update path that flashes
-		// the "Loading / Please wait..." spinner.
 		SStgui.update_uis(src)
 
 /// Get a list of all rituals this heretic can invoke on a rune, as an associated list of [knowledge name] to
@@ -1392,8 +1306,6 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 
 /datum/antagonist/heretic/proc/get_dreams(mob/living/carbon/sleeper, list/dreams)
 	SIGNAL_HANDLER
-	// No influences left on the station - nothing for the waters of the Mansus to reflect (and pick()
-	// on an empty list would runtime).
 	if(!length(GLOB.reality_smash_track?.smashes))
 		return
 	dreams += "Вы бродите по лесу вокруг Обители"
@@ -1452,7 +1364,6 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	. = ..()
 
 	if(!main_path_length)
-		// Find the length of a main path (all main paths should be the same length); rust is as good as any.
 		var/rust_paths_found = 0
 		for(var/datum/heretic_knowledge/knowledge as anything in subtypesof(/datum/heretic_knowledge))
 			if(GLOB.heretic_research_tree[knowledge][HKT_ROUTE] != PATH_RUST)
@@ -1462,11 +1373,8 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 
 		main_path_length = rust_paths_found
 
-	// Factor in the length of the main path first.
 	target_amount = main_path_length
-	// Add in the base research we spawn with, otherwise it'd be too easy.
 	target_amount += length(GLOB.heretic_start_knowledge)
-	// And add in some buffer, to require some sidepathing, especially since heretics get some free side paths.
 	target_amount += rand(2, 4)
 	update_explanation_text()
 

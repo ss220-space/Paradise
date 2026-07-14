@@ -31,7 +31,6 @@
 		"\"Пустотная Тюрьма\" запирает цель в шаре на десяток секунд. Идеально, чтобы изолировать одного противника, сражаясь с несколькими.",
 		"\"Врата в Пустоту\" - ваша визитная карточка. Вонзите Клинок Пустоты в космос, снег или вакуум, чтобы открыть врата: они постепенно уничтожают окна и шлюзы вокруг зоны действия. Используйте их для разгерметизации станции и расширения своих владений. Клинок при этом расходуется.",
 	)
-	// "Aristocrat's Way" passive (see /datum/status_effect/heretic_passive/void): tiers light up as you grow.
 	passive_name = "Путь Аристократа"
 	passive_descriptions = list(
 		"Иммунитет к холоду и низкому давлению.",
@@ -39,8 +38,6 @@
 		"Вода, лёд и скользкие поверхности вам не страшны.",
 	)
 
-	// Main line: base_void -> Void Phase -> Void Prison -> Hollow Weave(robes) -> Void Pull -> Seeking Blade -> Void Conduit -> ascension.
-	// The grasp (silence + chill) and the void mark are folded into base_void, no separate nodes.
 	start = /datum/heretic_knowledge/limited_amount/starting/base_void
 	knowledge_tier1 = /datum/heretic_knowledge/spell/void_phase
 	knowledge_tier2 = /datum/heretic_knowledge/void_prison
@@ -49,7 +46,6 @@
 	blade = /datum/heretic_knowledge/blade_upgrade/void
 	knowledge_tier4 = /datum/heretic_knowledge/void_conduit
 	ascension = /datum/heretic_knowledge/ultimate/void_final
-	// Side knowledges guaranteed to be offered in this path's drafts (TG).
 	guaranteed_side_tier1 = /datum/heretic_knowledge/void_cloak
 	guaranteed_side_tier2 = /datum/heretic_knowledge/ether
 	guaranteed_side_tier3 = /datum/heretic_knowledge/limited_amount/summon/maid_in_mirror
@@ -86,7 +82,6 @@
 		return
 
 	var/mob/living/carbon/carbon_target = target
-	// Stacks on top of any existing silence, unlike Silence() which only maxes.
 	carbon_target.AdjustSilence(10 SECONDS)
 	carbon_target.apply_status_effect(/datum/status_effect/void_chill, 2)
 
@@ -160,8 +155,6 @@
 		list(/obj/structure/table, /obj/item/clothing/suit) = 1,
 		/obj/item/clothing/mask = 1,
 	)
-	// The void robe sprite was spliced into the shared suits.dmi.
-	// The /armor parent asks for frame 12 (eldritch_armor is a 14-frame anim); void_armor is single-frame.
 	research_tree_icon_state = "void_armor"
 	research_tree_icon_frame = 1
 
@@ -312,7 +305,6 @@
 	playsound(source, SFX_SHATTER, 50, FALSE)
 
 
-// The endless waltz that plays around the ascended nobleman of void.
 /datum/looping_sound/void_loop
 	mid_sounds = list('sound/music/heretic/VoidsEmbrace.ogg' = 1)
 	mid_length = 166.9 SECONDS // exact length of the music in ticks
@@ -330,7 +322,6 @@
 				Аристократ стоит передо мной. Аристократ манит меня. Мы сыграем вальс под шёпот умирающей реальности,\
 				пока мир разрушается на наших глазах. Всё обратится в ничто, СТАНЬ СВИДЕТЕЛЕМ МОЕГО ВОЗНЕСЕНИЯ!"
 
-	//ascension_achievement = /datum/award/achievement/misc/void_ascension
 	announcement_text = "%SPOOKY% Дворянин пустоты %NAME% прибыл, шагая в Вальсе, который положит конец всему! %SPOOKY%"
 	announcement_sound = 'sound/music/heretic/ascend_void.ogg'
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/ascension.dmi'
@@ -353,9 +344,6 @@
 
 /datum/heretic_knowledge/ultimate/void_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
-	// master220 gates low-pressure damage on TRAIT_RESIST_COLD (see human/life.dm), which the void
-	// passive already provides - re-add it under our own source anyway so losing the passive can
-	// never strip the ascension's space immunity.
 	user.add_traits(list(TRAIT_RESIST_COLD, TRAIT_NEGATES_GRAVITY, TRAIT_MOVE_FLYING), type)
 
 	sound_loop = new(user, TRUE, TRUE)
@@ -397,7 +385,6 @@
 				close_carbon.apply_status_effect(/datum/status_effect/void_conduit)
 				continue
 
-			// Each tick stacks silence, capped at 20s.
 			close_carbon.AdjustSilence(2 SECONDS, 0, 20 SECONDS)
 			close_carbon.apply_status_effect(/datum/status_effect/void_chill, 1)
 			close_carbon.EyeBlurry(rand(0 SECONDS, 2 SECONDS))
@@ -418,7 +405,6 @@
 		var/datum/gas_mixture/environment = affected_turf.get_readonly_air()
 		environment.set_temperature(environment.temperature() * 0.9) // master220 MILLA: temperature is via getter/setter (runtime: may need a milla_safe write to persist)
 
-	// Telegraph the storm in every area on the station.
 	var/list/station_levels = levels_by_trait(STATION_LEVEL)
 	if(storm)
 		return
@@ -475,7 +461,6 @@
 	)
 	playsound(ascended_heretic, pick('sound/effects/void_deflect1.ogg', 'sound/effects/void_deflect2.ogg', 'sound/effects/void_deflect3.ogg'), 75, TRUE)
 	if(prob(75))
-		// Back where you came from (reflect_back re-aims at the projectile's starting turf and sets us as firer).
 		hitting_projectile.reflect_back(ascended_heretic)
 	else
 		hitting_projectile.firer = ascended_heretic
@@ -494,13 +479,10 @@
 	weather_color = COLOR_BLACK
 	weather_duration_lower = 1 MINUTES
 	weather_duration_upper = 2 MINUTES
-
-	//use_glow = FALSE
-	weather_duration = 60 HOURS
+	endless = TRUE
+	aesthetic = TRUE
 
 	end_duration = 10 SECONDS
 
 	area_type = /area
-	//target_trait = ZTRAIT_VOIDSTORM
 
-	//weather_flags = (WEATHER_INDOORS | WEATHER_BAROMETER)

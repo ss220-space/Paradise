@@ -21,7 +21,6 @@
 	spell_requirements = NONE
 
 	hand_path = /obj/item/melee/touch_attack/flesh_surgery
-	//can_cast_on_self = TRUE
 
 
 /obj/effect/proc_holder/spell/touch/flesh_surgery/valid_target(atom/cast_on)
@@ -85,8 +84,6 @@
 		to_heal.balloon_alert(caster, "прервано!")
 		return FALSE
 
-	// Keep in mind that, for simplemobs(summons), this will just flat heal the combined value of both brute and burn healing,
-	// while for human minions(ghouls), this will heal brute and burn like normal. So be careful adjusting to bigger numbers
 	to_heal.balloon_alert(caster, ishuman(to_heal) ? "раб исцелён" : "призванное существо исцелено")
 	to_heal.heal_overall_damage(monster_brute_healing, monster_burn_healing)
 	playsound(to_heal, 'sound/magic/staff_healing.ogg', 30)
@@ -109,19 +106,12 @@
 		caster.balloon_alert(caster, "слишком далеко!")
 		return FALSE
 
-	// Paradise scatters the abdominal organs (liver, kidneys, stomach, appendix...) into
-	// BODY_ZONE_PRECISE_GROIN. So aiming at the torso still lets you pull any of the major organs,
-	// we treat the groin as part of the chest for this spell, on both the target zone and each organ's home zone.
 	var/zone_to_check = deprecise_torso_zone(check_zone(caster.zone_selected))
 
 	var/list/organs_we_can_remove = list()
 	for(var/obj/item/organ/organ as anything in carbon_victim.internal_organs)
-		// Only show organs which are in our generic zone
 		if(deprecise_torso_zone(organ.parent_organ_zone) != zone_to_check)
 			continue
-		// Some organs are off-limits: don't pull synthetics, and don't pull vital organs - in Paradise
-		// that's the brain (and the IPC microbattery). The normal heart isn't flagged vital, so the
-		// steal-heart combo still works.
 		if((organ.status & ORGAN_ROBOT) || organ.vital)
 			continue
 
@@ -144,10 +134,8 @@
 	if(!istype(picked_organ) || !extraction_checks(picked_organ, hand, victim, caster))
 		return FALSE
 
-	// Don't let people stam crit into steal heart true combo
 	var/time_it_takes = carbon_victim.stat == DEAD ? 3 SECONDS : 15 SECONDS
 
-	// Sure you can remove your own organs, fun party trick
 	if(carbon_victim == caster)
 		var/are_you_sure = tgui_alert(caster, "Вы уверены что хотите извлечь сво[GEND_I_U_UO_I(picked_organ)] [picked_organ.declent_ru(ACCUSATIVE)]?", "Вы уверены?", list("Да", "Нет"))
 		if(are_you_sure != "Да" || !extraction_checks(picked_organ, hand, victim, caster))
@@ -173,8 +161,6 @@
 		carbon_victim.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, COLOR_DARK_RED)
 		return FALSE
 
-	// Visible message done before Remove()
-	// Mainly so it gets across if you're taking the eyes of someone who's conscious
 	if(carbon_victim == caster)
 		caster.visible_message(
 			span_bolddanger("[DECLENT_RU_CAP(caster, NOMINATIVE)] извлека[PLUR_ET_YUT(caster)] [picked_organ.declent_ru(ACCUSATIVE)] из своего тела!"),
@@ -204,7 +190,6 @@
 		carbon_victim.apply_status_effect(/*/datum/status_effect/speech/slurring/heretic*/ STATUS_EFFECT_CLOCK_CULT_SLUR, 15 SECONDS)
 		carbon_victim.emote("scream")
 
-	// We need to wait for the spell to actually finish casting to put the organ in their hands, hence, 1 ms timer.
 	addtimer(CALLBACK(caster, TYPE_PROC_REF(/mob, put_in_hands), picked_organ), 0.1 SECONDS)
 	return TRUE
 

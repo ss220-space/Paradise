@@ -38,18 +38,12 @@
 		"Вознесение дарует вам ауру, обращающую часть экипажа в верных лунатиков. \
 		Те, у кого вживлён щит разума, вместо этого обречены — их рассудок не выдержит.",
 	)
-	// "Лунное Прозрение" passive (see /datum/status_effect/heretic_passive/moon): tiers light up as you grow.
 	passive_name = "Лунное Прозрение"
 	passive_descriptions = list(
 		"Вы невосприимчивы к травмам мозга, а его здоровье медленно восстанавливается.",
 		"Вы получаете иммунитет ко сну; восстановление мозга усилено.",
 		"Восстановление мозга достигло предела.",
 	)
-	// Main line: base_moon -> Mind Gate -> Moonlight Amulet -> Resplendent Regalia(robes) ->
-	// Lunar Parade -> Moonlight Blade -> Ringleader's Rise -> ascension.
-	// The grasp (hallucination + identity hide), the moon mark and the brain passive are all folded into
-	// base_moon, no separate grasp/mark/regen nodes. master220 has no sanity/mood system, so
-	// the path's sanity mechanics are adapted to brain damage / hallucinations / confusion throughout.
 	start = /datum/heretic_knowledge/limited_amount/starting/base_moon
 	knowledge_tier1 = /datum/heretic_knowledge/spell/mind_gate
 	knowledge_tier2 = /datum/heretic_knowledge/moon_amulet
@@ -58,7 +52,6 @@
 	blade = /datum/heretic_knowledge/blade_upgrade/moon
 	knowledge_tier4 = /datum/heretic_knowledge/spell/moon_ringleader
 	ascension = /datum/heretic_knowledge/ultimate/moon_final
-	// Side knowledges guaranteed to be offered in this path's drafts (TG).
 	guaranteed_side_tier1 = /datum/heretic_knowledge/phylactery
 	guaranteed_side_tier2 = /datum/heretic_knowledge/codex_morbus
 	guaranteed_side_tier3 = /datum/heretic_knowledge/unfathomable_curio
@@ -78,13 +71,11 @@
 	research_tree_icon_path = 'icons/obj/weapons/khopesh.dmi'
 	research_tree_icon_state = "moon_blade"
 	mark_type = /datum/status_effect/eldritch/moon
-	// "Лунное Прозрение" passive: brain-trauma immunity + brain regen, scaling with power.
 	passive_type = /datum/status_effect/heretic_passive/moon
 
 
 /datum/heretic_knowledge/limited_amount/starting/base_moon/on_gain(mob/user, datum/antagonist/heretic/our_heretic, mind_transfer = FALSE)
 	. = ..()
-	// The moon heretic empathises with the crew, the better to find and break the weak-willed.
 	ADD_TRAIT(user, TRAIT_EMPATHY, type)
 
 
@@ -110,8 +101,6 @@
 	carbon_target.cause_hallucination(/datum/hallucination/delusion/preset/moon, "delusion/preset/moon hallucination caused by mansus grasp")
 
 
-// Mind Gate (knowledge_tier1): the Moon path's first researchable spell. It lives on the Moon main line
-// (not a side knowledge), so it appears in the research tree rather than the Knowledge Shop.
 /datum/heretic_knowledge/spell/mind_gate
 	name = "Врата Разума"
 	desc = "Даёт вам \"Врату Разума\", заклинание, вызывающее у цели галлюцинации, \
@@ -155,11 +144,7 @@
 				Труппа кружилась в переливающихся каскадах, ослепляя зрителей истиной, которую те искали. \
 				Я смотрел, купаясь в свете, чтобы обрести себя."
 	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/eldritch/moon)
-	// The pink Resplendent Regalia sprite was inserted into the already-mapped armor.dmi.
 	research_tree_icon_state = "moon_armor"
-	// The /armor parent points at eldritch_armor (a 14-frame anim) and asks for frame 12. moon_armor is a
-	// single-frame sprite, so we must override back to frame 1, or requesting frame 12 of a 1-frame state
-	// returns a blank PNG (this was why the node rendered empty).
 	research_tree_icon_frame = 1
 	required_atoms = list(
 		list(/obj/structure/table, /obj/item/clothing/suit) = 1,
@@ -200,12 +185,8 @@
 
 	target.Hallucinate(60 SECONDS)
 	target.emote(pick("giggle", "laugh"))
-	// master220 has no mood system, so a per-hit sanity drain becomes an occasional moon chat (gated so
-	// repeated blade swings don't spam the victim's chat).
 	if(prob(50))
 		to_chat(target, span_warning("ЛУНА СУДИТ ВАС И НАХОДИТ НЕДОСТОЙНЫМ!!!"))
-	// master220 has no sanity, so "more brain damage if insane" is reduced to a
-	// conscious / unconscious split: a downed victim's mind is far easier to shatter.
 	if(target.stat == CONSCIOUS)
 		target.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 10, 100)
 		return
@@ -236,7 +217,6 @@
 				ибо там, где Главарь начал парад, я продолжу его до заката солнца. \
 				СТАНЬТЕ СВИДЕТЕЛЯМИ МОЕГО ВОЗНЕСЕНИЯ, ЛУНА СНОВА УЛЫБНУЛАСЬ И БУДЕТ УЛЫБАТЬСЯ ВСЕГДА!"
 
-	//ascension_achievement = /datum/award/achievement/misc/moon_ascension
 	announcement_text = "%SPOOKY% Смейтесь, ибо главарь %NAME% вознёсся! \
 							Правда наконец поглотит ложь! %SPOOKY%"
 	announcement_sound = 'sound/music/heretic/ascend_moon.ogg'
@@ -246,7 +226,6 @@
 
 /datum/heretic_knowledge/ultimate/moon_final/is_valid_sacrifice(mob/living/sacrifice)
 	var/brain_damage = sacrifice.get_organ_loss(INTERNAL_ORGAN_BRAIN)
-	// Checks if our target has enough brain damage
 	if(brain_damage < 50)
 		return FALSE
 
@@ -272,12 +251,9 @@
 
 		lunatic_candidates += crewmate
 
-	// Roughly 1/5th of the station will rise up as lunatics to the heretic.
-	// We use either the client count or the amount of candidates, whichever is larger.
 	var/max_lunatics = ceil(max(length(GLOB.clients), length(lunatic_candidates)) * 0.2)
 
 	for(var/mob/living/carbon/human/crewmate as anything in lunatic_candidates)
-		// Heretics, lunatics and monsters shouldn't become lunatics because they either have a master or have a mansus grasp
 		if(IS_HERETIC_OR_MONSTER(crewmate))
 			to_chat(crewmate, span_boldwarning("Возвышение [user.declent_ru(GENITIVE)] влияет на тех, чья воля слаба. Их разум будет разорван."))
 			continue
@@ -352,7 +328,6 @@
 		if(IS_HERETIC_OR_MONSTER(carbon_view))
 			continue
 
-		// Already one of ours - the aura leaves its own lunatics alone (don't grind them into a coma).
 		if(carbon_view.mind?.has_antag_datum(/datum/antagonist/lunatic))
 			continue
 
@@ -362,16 +337,9 @@
 		new moon_effect(get_turf(carbon_view))
 		carbon_view.Confused(2 SECONDS)
 		carbon_view.Hallucinate(60 SECONDS)
-		// The ambient status alone fires unreliably; paced direct hallucinations make the ascension aura
-		// actually manifest galuns. Async (this is a COMSIG_LIVING_LIFE handler) and minor+medium only, so
-		// the moon stays atmospheric/visual rather than throwing the mask's scary majors.
 		if(prob(20))
 			INVOKE_ASYNC(carbon_view, TYPE_PROC_REF(/mob/living, hallucinate_living), pickweight(GLOB.minor_medium_hallutinations))
 
-		// master220 has no sanity, so brain damage is the aura's madness meter: it grinds nearby minds down,
-		// and once a mind is shattered (>= 60) the weak-willed join the heretic as lunatics over time, while
-		// a mindshielded/cultist mind detonates instead. ~4 brain/tick (SSmobs ~2s) => ~30s to
-		// break. Conversion/detonation is async since this runs inside a COMSIG_LIVING_LIFE handler.
 		carbon_view.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 4, 100)
 		if(carbon_view.get_organ_loss(INTERNAL_ORGAN_BRAIN) < 60)
 			continue

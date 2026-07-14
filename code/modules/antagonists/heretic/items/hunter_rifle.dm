@@ -1,8 +1,6 @@
 /// The max range we can zoom in on people from.
 #define MAX_LIONHUNTER_RANGE 30
 
-// The Lionhunter, a gun for heretics. Firing requires racking the bolt between shots (open/close the bolt
-// via the unique action / unloading), and reloads are done with a stripper clip while the bolt is open.
 /obj/item/gun/projectile/shotgun/boltaction/lionhunter
 	name = "lionhunter's rifle"
 	desc = "Старинное ружье, выглядящее безупречно, несмотря на то, что оно явно очень старое."
@@ -15,10 +13,6 @@
 	fire_sound = 'sound/weapons/gunshots/shot.ogg'
 	accuracy = GUN_ACCURACY_SNIPER
 	recoil = GUN_RECOIL_HIGH
-	// wide_guns.dmi has no "lionhunter_reload" state, so skip the pump reload animation (the bolt-open sprite
-	// swap itself IS supported - see update_icon_state below).
-	// Paradise-native scope: instead of TG's /datum/component/scope, use the built-in zoom action that
-	// every /obj/item/gun supports. Holding the rifle grants a "Масштаб" toggle that pans the view forward.
 	zoomable = TRUE
 	zoom_amt = 10
 
@@ -36,19 +30,10 @@
 
 /obj/item/gun/projectile/shotgun/boltaction/lionhunter/Initialize(mapload)
 	. = ..()
-	// Chamber the first round so the rifle spawns ready to fire; the heretic still has to rack the bolt
-	// after every shot to load the next round.
 	bolt_open = TRUE
 	pump()
 
 
-// wide_guns.dmi has "lionhunter" as the bare rifle body (no bolt handle drawn); the bolt itself is ALWAYS a
-// separate overlay layered on top: "lionhunter_bolt" is the bolt seated forward (closed) and
-// "lionhunter_bolt_locked" is the bolt racked back (open). The body icon_state stays constant - swapping
-// icon_state to a bolt sprite makes the rifle "disappear" (the bolt sprites are transparent everywhere except
-// the bolt). So the body never renders bare: the matching bolt overlay is added in every state and just
-// changes position when racked. The base boltaction would build a nonexistent "[icon_state]-open" suffix,
-// hence these overrides.
 /obj/item/gun/projectile/shotgun/boltaction/lionhunter/update_icon_state()
 	icon_state = initial(icon_state)
 
@@ -58,14 +43,11 @@
 	. += "[initial(icon_state)][bolt_open ? "_bolt_locked" : "_bolt"]"
 
 
-// Base pump() only refreshes the icon_state; the bolt is an overlay here, so refresh overlays too.
 /obj/item/gun/projectile/shotgun/boltaction/lionhunter/pump(mob/M)
 	. = ..()
 	update_icon(UPDATE_OVERLAYS)
 
 
-// Bolt-action internal magazine for the lionhunter. No caliber set, so ammo suitability falls back to an
-// exact ammo-type match (only lionhunter .310 rounds fit), matching how the crafted stripper clip loads.
 /obj/item/ammo_box/magazine/internal/lionhunter
 	name = "lionhunter's rifle internal mag"
 	gun_name = "винтовки охотника на львов"
@@ -86,10 +68,6 @@
 	var/min_distance = 4
 
 
-// Signature MUST match the base /obj/item/ammo_casing/fire() exactly: gun.dm fires via NAMED args
-// (chambered.fire(modifiers = ..., damage_mod = ..., stamina_mod = ...)). Renaming/omitting params
-// (the old override used `params` and dropped damage_mod/stamina_mod) breaks named-arg binding at
-// runtime -> the casing never fires -> "the rifle doesn't shoot".
 /obj/item/ammo_casing/lionhunter/fire(atom/target, mob/living/user, list/modifiers, distro, quiet, zone_override = "", spread, atom/firer_source_atom, damage_mod = 1, stamina_mod = 1)
 	if(!check_fire(target, user))
 		return
@@ -99,7 +77,6 @@
 
 /// Checks if we can successfully fire our projectile.
 /obj/item/ammo_casing/lionhunter/proc/check_fire(atom/target, mob/living/user)
-	// In case someone puts this in turrets or something wacky, just fire like normal
 	if(!iscarbon(user) || !istype(loc, /obj/item/gun/projectile/shotgun/boltaction/lionhunter))
 		return TRUE
 
@@ -163,8 +140,6 @@
 		return
 
 	var/distance = get_dist(user, target)
-	// At close range, against a non-living target, or fired by a non-carbon, the projectile is dry-fired with
-	// no buffs. Otherwise it's been channel fired: full effects, and it carries the heretic to whoever it strikes.
 	if(distance > min_distance && isliving(target) && iscarbon(user))
 		BB.stamina *= 2
 		BB.knockdown = 0.5 SECONDS
@@ -175,8 +150,6 @@
 
 /obj/projectile/bullet/lionhunter
 	name = "hunter .310 bullet"
-	// These stats are only applied if the weapon is fired fully aimed
-	// If fired without aiming or at someone too close, it will do much less
 	damage = 30
 	stamina = 30
 	forcedodge = 3
@@ -193,9 +166,6 @@
 		PREPOSITIONAL = "охотничьей пуле",
 	)
 
-// Base /obj/projectile/fire() only takes setAngle; the heretic firer rides inside the bullet so they are
-// carried to wherever it lands (see on_hit/on_range), which is what produces the "teleport to your target"
-// effect. Only happens when shooting a living target.
 /obj/projectile/bullet/lionhunter/fire(setAngle)
 	. = ..()
 	if(QDELETED(src) || !isliving(firer) || !isliving(original))
@@ -208,7 +178,6 @@
 	living_firer.forceMove(src)
 	stored_mob = living_firer
 
-	// Drop out of the scope when we launch ourselves down-range.
 	var/obj/item/gun/projectile/gun = firer_source_atom
 	if(istype(gun))
 		gun.zoom(living_firer, FALSE)
@@ -228,7 +197,6 @@
 
 
 /obj/projectile/bullet/lionhunter/on_hit(atom/target, blocked, pierce_hit)
-	// Deposit the heretic onto the turf they struck: they teleport to their victim on a hit.
 	stored_mob?.forceMove(get_turf(src))
 	. = ..()
 	if(!isliving(target))
@@ -239,7 +207,6 @@
 	if(IS_HERETIC_OR_MONSTER(victim) || !isheretic(firing_mob))
 		return
 
-	// Applies the heretic's currently-equipped mark to the victim (same path Mansus Grasp uses).
 	SEND_SIGNAL(firer, COMSIG_LIONHUNTER_ON_HIT, victim)
 	return
 
@@ -252,8 +219,6 @@
 	return ..()
 
 
-// Extra ammunition can be made with a heretic ritual. A stripper clip, loaded into the rifle's internal
-// magazine while the bolt is open.
 /obj/item/ammo_box/speedloader/lionhunter
 	name = "ammo box .310 hunter"
 	desc = "Обойма с загадочными патронами. Она не подходит к обычным баллистическим винтовкам."

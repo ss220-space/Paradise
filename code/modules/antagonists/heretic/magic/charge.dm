@@ -44,12 +44,10 @@
 		return
 
 	if(charger in charging)
-		// Stop any existing charging, this'll clean things up properly
 		GLOB.move_manager.stop_looping(charger)
 
 	charging += charger
 	actively_moving = FALSE
-	//SEND_SIGNAL(action.owner, COMSIG_STARTED_CHARGE)
 	RegisterSignal(charger, COMSIG_MOVABLE_BUMP, PROC_REF(on_bump), override = TRUE)
 	RegisterSignal(charger, COMSIG_MOVABLE_PRE_MOVE, PROC_REF(on_move), override = TRUE)
 	RegisterSignal(charger, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved), override = TRUE)
@@ -69,7 +67,6 @@
 	RegisterSignal(new_loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(post_move), override = TRUE)
 	RegisterSignal(new_loop, COMSIG_QDELETING, PROC_REF(charge_end), override = TRUE)
 
-	// Yes this is disgusting. But we need to queue this stuff, and this code just isn't setup to support that right now. So gotta do it with sleeps
 	sleep(time_to_hit + charge_speed)
 	charger.setDir(dir)
 
@@ -78,7 +75,6 @@
 
 /obj/effect/proc_holder/spell/mob_cooldown/charge/proc/pre_move(datum)
 	SIGNAL_HANDLER
-	// If you sleep in Move() you deserve what's coming to you
 	actively_moving = TRUE
 
 
@@ -119,8 +115,6 @@
 
 /obj/effect/proc_holder/spell/mob_cooldown/charge/proc/on_move(atom/source, atom/new_loc)
 	SIGNAL_HANDLER
-	//if(!actively_moving)
-	//	return COMPONENT_MOVABLE_BLOCK_PRE_MOVE
 
 	new /obj/effect/temp_visual/decoy/fading(source.loc, source)
 	INVOKE_ASYNC(src, PROC_REF(DestroySurroundings), source)

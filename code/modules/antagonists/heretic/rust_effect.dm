@@ -1,4 +1,3 @@
-// Small visual effect imparted onto rusted things by rust heretics.
 /obj/effect/glowing_rune
 	icon = 'icons/effects/eldritch.dmi'
 	icon_state = "small_rune_1"

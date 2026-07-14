@@ -1,4 +1,3 @@
-// The spooky "void" / "abyssal" / "madness" mask for heretics.
 /obj/item/clothing/mask/madness_mask
 	name = "madness mask"
 	desc = "Маска, созданная из страданий. Когда вы смотрите в щели для глаз, Нечто смотрит оттуда на вас."
@@ -6,7 +5,6 @@
 	item_state = null
 	flags_cover = MASKCOVERSEYES
 	flags_inv = HIDENAME
-	//flags_inv = HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
 	///Who is wearing this
 	var/mob/living/carbon/human/local_user
 
@@ -69,7 +67,6 @@
 	if(IS_HERETIC_OR_MONSTER(local_user))
 		if(HAS_TRAIT(src, TRAIT_NODROP))
 			REMOVE_TRAIT(src, TRAIT_NODROP, CLOTHING_TRAIT)
-	// A non-heretic wearer must never be able to take the mask off, no matter how it ended up on them (heretic strip, etc.).
 	else if(!HAS_TRAIT(src, TRAIT_NODROP))
 		ADD_TRAIT(src, TRAIT_NODROP, CLOTHING_TRAIT)
 
@@ -80,17 +77,9 @@
 		if(human_in_range.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND))
 			continue
 
-		// master220's hallucination STATUS engine gates each fire behind its own cooldown + a 20% roll, so on
-		// its own a fresh victim can stand here a minute seeing nothing. Spawn a hallucination DIRECTLY instead,
-		// the same reliable trick the "chaos" holoparasite (guardian_hallucination) uses (process ticks every
-		// 2s; prob(10) is about one hallucination per ~20s). Draws from the FULL pool incl. the disruptive
-		// MAJORS (xeno that attacks, fake bullets, fire, etc.), unlike the moon path's visual-only set.
-		// Fired ASYNC because hallucinate_living() can sleep for several seconds and this is a process() tick.
 		if(prob(10))
 			INVOKE_ASYNC(human_in_range, TYPE_PROC_REF(/mob/living, hallucinate_living), pickweight(GLOB.minor_medium_major_hallutinations))
 
-		// Also keep the ambient hallucination status pinned near TG's 120 SECONDS cap (Hallucinate() only ever
-		// raises), so hallucinations keep coming for up to ~120 SECONDS after the victim leaves the mask's sight.
 		if(prob(60))
 			human_in_range.Hallucinate(120 SECONDS)
 

@@ -1,4 +1,3 @@
-// The knowledge and process of heretic sacrificing.
 
 /// How long we put the target so sleep for(during sacrifice).
 #define SACRIFICE_SLEEP_DURATION (12 SECONDS)
@@ -46,10 +45,6 @@
 	. = ..()
 	obtain_targets(user, silent = TRUE, heretic_datum = our_heretic)
 	heretic_mind = our_heretic.owner
-	// The Mansus sacrifice realm is a mapped location: map a room per path and drop the matching
-	// /obj/effect/landmark/heretic[/<path>] in it (see sacrifice_map.dm). begin_sacrifice() reads
-	// GLOB.heretic_sacrifice_landmarks[path] || [PATH_START] to teleport the victim there. If no landmark is
-	// mapped yet, the teleport in after_target_sleeps() fails gracefully and the victim is disembowelled.
 
 /datum/heretic_knowledge/hunt_and_sacrifice/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
@@ -57,7 +52,6 @@
 		loc.balloon_alert(user, "нет живого сердца!")
 		return FALSE
 
-	// If we recently failed to acquire targets, we will be unable to acquire any.
 	if(!LAZYLEN(heretic_datum.sac_targets))
 		atoms += user
 		return TRUE
@@ -90,7 +84,6 @@
 		backdoor_sacrifice_attempts++
 		return FALSE
 
-	// Remove any humans in our atoms list that aren't a sac target
 	for(var/mob/living/carbon/human/sacrifice in atoms)
 		if(sacrifice.stat == CONSCIOUS)
 			atoms -= sacrifice
@@ -110,7 +103,6 @@
 
 /datum/heretic_knowledge/hunt_and_sacrifice/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
-	// Force it to work if the sacrifice is a cultist, even if there's no targets.
 	var/mob/living/carbon/human/sac = selected_atoms[1]
 	if(!LAZYLEN(heretic_datum.sac_targets) && !iscultist(sac))
 		if(obtain_targets(user, heretic_datum = heretic_datum))
@@ -149,10 +141,8 @@
 
 		return FALSE
 
-	// Aim for: one from command, one from security, one from your department, and the rest random.
 	var/list/datum/mind/final_targets = list()
 
-	// First target, any command.
 	for(var/datum/mind/head_mind as anything in shuffle(valid_targets))
 		if(!head_mind?.assigned_job?.is_command)
 			continue
@@ -161,7 +151,6 @@
 		valid_targets -= head_mind
 		break
 
-	// Second target, any security
 	for(var/datum/mind/sec_mind as anything in shuffle(valid_targets))
 		if(!HASBIT(sec_mind?.assigned_job?.department_flag, JOBCAT_ENGSEC))
 			continue
@@ -170,7 +159,6 @@
 		valid_targets -= sec_mind
 		break
 
-	// Third target, someone in their department.
 	for(var/datum/mind/department_mind as anything in shuffle(valid_targets))
 		if(!HASBIT(department_mind?.assigned_job?.department_flag, user.mind.assigned_job?.department_flag))
 			continue
@@ -179,7 +167,6 @@
 		valid_targets -= department_mind
 		break
 
-	// Now grab completely random targets until we'll full
 	var/target_sanity = 0
 	while(length(final_targets) < num_targets_to_generate && target_sanity < 25 && valid_targets.len)
 		final_targets += pick_n_take(valid_targets)
@@ -213,7 +200,6 @@
 	heretic_datum.remove_sacrifice_target(sacrifice)
 	var/feedback = "Ваши покровители принимают вашу жертву"
 	var/datum/job/sac_job = sacrifice.mind?.assigned_job
-	// Heads give 3 points, cultists give 1 point (and a special reward), normal sacrifices give 2 points.
 	heretic_datum.total_sacrifices++
 	if(sac_job?.is_command)
 		heretic_datum.knowledge_points += 3
@@ -232,9 +218,7 @@
 
 	heretic_datum.knowledge_points += 2
 	grant_reward(user, sacrifice, loc)
-	// easier to read
 	var/rewards_given = heretic_datum.rewards_given
-	// Chance for it to send a warning to cultists, higher with each reward. Stops after 5 because they probably got the hint by then.
 	if(!prob(min(15 * rewards_given)) || (rewards_given > 5))
 		return
 
@@ -248,7 +232,6 @@
 		span_narsie(" одного из наших. Уничтожьте и принесите в жертву неверных, прежде чем они принесут в жертву нас!")
 		to_chat(mind.current, message)
 
-	// he(retic) gets a warn too
 	to_chat(user, span_narsiesmall("Да как ты СМЕЕШЬ!? Я тебя уничтожу!"))
 	var/non_flavor_warning = span_cultbold("Вы чувствуете, что ваши действия привлекли ") + span_purple("внимание") + span_cultbold(".")
 	to_chat(user, non_flavor_warning)
@@ -259,7 +242,6 @@
 	to_chat(user, span_hierophant("Ваши покровители в восторге!"))
 	playsound(sacrifice, 'sound/magic/disintegrate.ogg', 75, TRUE)
 
-	// Drop all items and splatter them around messily.
 	var/list/dustee_items = sacrifice.unequip_everything()
 	for(var/obj/item/loot as anything in dustee_items)
 		loot.throw_at(get_step_rand(sacrifice), 2, 4, user, TRUE)
@@ -289,7 +271,6 @@
 	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	ASSERT(heretic_datum)
 	var/list/rewards = heretic_datum.unlocked_heretic_items.Copy()
-	// Make it increasingly less likely to get a reward if you've already got it
 	for(var/possible_reward in heretic_datum.unlocked_heretic_items)
 		var/amount_already_awarded = heretic_datum.unlocked_heretic_items[possible_reward]
 		rewards[possible_reward] = min(5 - (amount_already_awarded * 2), 1)
@@ -320,17 +301,12 @@
 	if(!our_heretic)
 		CRASH("[type] - begin_sacrifice was called, and no heretic [heretic_mind ? "antag datum":"mind"] could be found!")
 
-	//if(!LAZYLEN(GLOB.heretic_sacrifice_landmarks))
-		//CRASH("[type] - begin_sacrifice was called, but no heretic sacrifice landmarks were found!")
 
 	var/obj/effect/landmark/heretic/destination_landmark = GLOB.heretic_sacrifice_landmarks[our_heretic.heretic_path] || GLOB.heretic_sacrifice_landmarks[PATH_START]
-	//if(!destination_landmark)
-	//	CRASH("[type] - begin_sacrifice could not find a destination landmark OR default landmark to send the sacrifice! (Heretic's path: [our_heretic.heretic_path])")
 
 	var/turf/destination = get_turf(destination_landmark)
 
 	sac_target.visible_message(span_danger("[sac_target.declent_ru(NOMINATIVE)] начинает яростно содрогаться, когда темные щупальца утаскивают [GEND_HIS_HER(sac_target)] в пустоту!"))
-	// Solid zipties, not the old dissipating energy cuffs, so the restraints survive the trip into the realm.
 	sac_target.set_handcuffed(new /obj/item/restraints/handcuffs/cable(sac_target))
 
 	if(sac_target.legcuffed)
@@ -338,16 +314,13 @@
 		sac_target.legcuffed.dropped(sac_target)
 		sac_target.legcuffed = null
 		sac_target.update_legcuffed_status()
-		//sac_target.update_worn_legcuffs()
 
 	sac_target.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 85, 150)
 	sac_target.do_jitter_animation()
-	//log_combat(heretic_mind.current, sac_target, "sacrificed")
 
 	addtimer(CALLBACK(sac_target, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation)), SACRIFICE_SLEEP_DURATION * (1/3))
 	addtimer(CALLBACK(sac_target, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation)), SACRIFICE_SLEEP_DURATION * (2/3))
 
-	// If our target is dead and we fail to revive them, don't proceed the chain
 	sac_target.adjustOxyLoss(-100, FALSE)
 	if(!sac_target.heal_and_revive(50, span_danger("Сердце [sac_target.declent_ru(GENITIVE)] начинает биться с нечестивой силой, когда [GEND_HE_SHE(sac_target)] возвраща[PLUR_ET_YUT(sac_target)]ся из объятий смерти!")))
 		return
@@ -368,7 +341,6 @@
 	if(QDELETED(sac_target))
 		return
 
-	// The target disconnected or something, don't bother sending them along.
 	sac_target.grab_ghost()
 	if(!sac_target.client || !sac_target.mind)
 		disembowel_target(sac_target)
@@ -388,7 +360,6 @@
 	sac_target.adjustBruteLoss(20)
 	sac_target.adjustFireLoss(10)
 
-	// If the restraints came loose on the way in, re-apply solid zipties so they always arrive cuffed.
 	if(!sac_target.handcuffed)
 		sac_target.set_handcuffed(new /obj/item/restraints/handcuffs/cable(sac_target))
 
@@ -417,9 +388,6 @@
 
 		var/organ_path = pick_n_take(usable_organs)
 		var/obj/item/organ/internal/to_give = new organ_path
-		// Grab the organ we're about to kick out first: master220's /obj/item/organ/internal/remove()
-		// leaves the removed organ in nullspace (loc = null) and insert() never re-homes it, so without
-		// this the displaced organ silently vanishes. Drop it on the floor (and fling it) as a gory clue.
 		var/obj/item/organ/internal/displaced = sac_target.get_organ_slot(to_give.slot)
 		to_give.safe_replace(sac_target)
 		if(displaced && isnull(displaced.loc))
@@ -447,11 +415,8 @@
 	sac_target.Hallucinate(24 SECONDS)
 	sac_target.emote("scream")
 
-	//to_chat(sac_target, span_reallybig(span_purple("Хватка Обители открывается вам!")))
 	to_chat(sac_target, span_purple("Вы чувствуете прилив сил! Боритесь, чтобы выжить!"))
-	// When it runs out, let them know they're almost home free
 	addtimer(CALLBACK(src, PROC_REF(after_helgrasp_ends), sac_target), helgrasp_time)
-	// Win condition
 	var/win_timer = addtimer(CALLBACK(src, PROC_REF(return_target), sac_target), SACRIFICE_REALM_DURATION, TIMER_STOPPABLE)
 	LAZYSET(return_timers, sac_target.UID(), win_timer)
 
@@ -480,7 +445,6 @@
 	sac_target.remove_status_effect(/datum/status_effect/unholy_determination)
 	sac_target.reagents?.del_reagent(/datum/reagent/inverse/helgrasp/heretic)
 	sac_target.uncuff()
-	//sac_target.clear_mood_event("shadow_realm")
 	if(isheretic(sac_target))
 		var/datum/antagonist/heretic/victim_heretic = sac_target.mind?.has_antag_datum(/datum/antagonist/heretic)
 		victim_heretic.knowledge_points -= 3
@@ -488,10 +452,7 @@
 	sac_target.apply_status_effect(/*/datum/status_effect/speech/slurring/heretic*/ STATUS_EFFECT_CLOCK_CULT_SLUR, 40 SECONDS)
 	sac_target.Stuttering(40 SECONDS)
 
-	// They're already back on the station for some reason, don't bother teleporting
 	var/turf/below_target = get_turf(sac_target)
-	// is_station_level runtimes when passed z = 0, so check explicitly for nullspace - getting this wrong
-	// would runtime and leave people stuck in the shadow realm forever.
 	if(below_target && below_target.z != 0 && is_station_level(below_target.z))
 		return
 
@@ -539,7 +500,6 @@
 	SIGNAL_HANDLER
 
 	to_chat(sac_target, span_boldwarning("Ваша попытка сбежать от Обители не будет встречена благосклонно!"))
-	// Ends up calling return_target() via death signal to clean up.
 	disembowel_target(sac_target)
 
 /// Gives [sac_target] some after-effects upon arriving back to reality.
@@ -552,7 +512,6 @@
 		to_chat(sac_target, span_big(span_purple("Вы не помните ничего из того, что предшествовало этому опыту. \
 												Все, о чем вы можете думать, - это те ужасные руки...")))
 
-	// Oh god where are we?
 	sac_target.flash_eyes()
 	sac_target.Confused(60 SECONDS)
 	sac_target.Jitter(120 SECONDS)
@@ -561,7 +520,6 @@
 	sac_target.AdjustKnockdown(80)
 	sac_target.adjustStaminaLoss(120)
 
-	// Could use a little pick-me-up...
 	sac_target.reagents?.add_reagent(/datum/reagent/medicine/atropine, 8)
 	sac_target.reagents?.add_reagent(/datum/reagent/medicine/epinephrine, 8)
 
@@ -578,8 +536,6 @@
 
 /// Called if the chain is interrupted: disembowels the [sac_target] and brutalizes their body.
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/disembowel_target(mob/living/carbon/human/sac_target)
-	//if(heretic_mind)
-	//	log_combat(heretic_mind.current, sac_target, "disemboweled via sacrifice")
 
 	sac_target.spill_organs()
 	sac_target.apply_damage(250, BRUTE)
@@ -611,9 +567,6 @@
 		organ.throw_at(get_edge_target_turf(src, pick(GLOB.alldirs)), rand(1,3), 5)
 
 
-// /mob/living/proc/apply_necropolis_curse() and /datum/status_effect/necropolis_curse +
-// /obj/effect/temp_visual/curse already exist in master220 (code/datums/status_effects/debuffs.dm),
-// so we keep only the curse pieces master220 lacks (curse_arm, curse_hand, fire_curse_hand).
 /obj/effect/ebeam/curse_arm
 	name = "проклятая рука"
 
@@ -631,9 +584,6 @@
 	range = 16
 	hit_crawling_mobs_chance = 100
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
-	// These are meant to phase through everything and simply fade out at max range, but master220 lacks a
-	// prehit_pierce PHASE equivalent. The stock projectile defaults to ricochets_max = 2, so instead they
-	// were bouncing off walls. Disable ricochet so they fly straight and vanish (finale()) instead.
 	ricochets_max = 0
 	var/datum/beam/arm
 	var/handedness = 0
@@ -652,13 +602,9 @@
 
 /obj/projectile/curse_hand/Initialize(mapload)
 	. = ..()
-	//ADD_TRAIT(src, TRAIT_FREE_HYPERSPACE_MOVEMENT, INNATE_TRAIT)
 	handedness = prob(50)
 	icon_state = "[base_icon_state][handedness]"
 
-// Use the corrected pacing so the cursed hands reach for the victim at a calm, dodgeable
-// 5 tiles/sec (10 for /hel) instead of the stock engine's faster, jerky slow-projectile movement that
-// made them look like they were snagging on the target. See process_paced() in _heretic_compat.dm.
 /obj/projectile/curse_hand/process()
 	return process_paced()
 
@@ -718,7 +664,6 @@
 
 /obj/projectile/curse_hand/on_hit(atom/target, blocked, pierce_hit)
 	. = ..()
-	//if(. == BULLET_ACT_HIT)
 	finale()
 
 
@@ -763,7 +708,6 @@
 /// Heals the mob up to [heal_to] of each main damage type, reviving them if dead. Returns TRUE if alive afterwards.
 /mob/living/proc/heal_and_revive(heal_to = 50, revive_message)
 
-	// Heal their brute and burn up to the threshold we're looking for
 	var/brute_to_heal = heal_to - getBruteLoss()
 	var/burn_to_heal = heal_to - getFireLoss()
 	var/oxy_to_heal = heal_to - getOxyLoss()
@@ -780,33 +724,23 @@
 	if(tox_to_heal < 0)
 		adjustToxLoss(tox_to_heal, updating_health = FALSE, forced = TRUE)
 
-	// Run updatehealth once to set health for the revival check
 	updatehealth()
 
-	// We've given them a decent heal.
-	// If they happen to be dead too, try to revive them - if possible.
-	// TG does this via revive(excess_healing = 10) - a small nudge over the death threshold,
-	// NOT a full heal. rejuvenate() here is the admin aheal (wipes all damage, brainloss,
-	// blindness, restores blood/organs), which would return a dead victim in better shape
-	// than a living one - so inline the weak revive instead.
 	if(stat == DEAD && can_be_revived())
 		grab_ghost()
 		adjustOxyLoss(-10, updating_health = FALSE)
 		adjustToxLoss(-10, updating_health = FALSE, forced = TRUE)
 		updatehealth()
-		// If the revive is successful, show our revival message (if present).
 		if(update_revive() && revive_message)
 			INVOKE_ASYNC(src, PROC_REF(emote), "gasp")
 			visible_message(revive_message)
 
-	// Finally update health again after we're all done
 	updatehealth()
 
 	return stat != DEAD
 
 
 /mob/living/carbon/human/heal_and_revive(heal_to = 50, revive_message)
-	// We can't heal them if they're missing a heart their species expects
 	if(dna.species.has_organ[INTERNAL_ORGAN_HEART] && !get_organ_slot(INTERNAL_ORGAN_HEART))
 		return FALSE
 

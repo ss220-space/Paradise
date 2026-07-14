@@ -116,13 +116,9 @@
 		action.owner.balloon_alert(action.owner, "нет целей!")
 		return
 
-	// Holds a list of `name = image` used to display the radial menu when you left click the living heart
 	var/list/choosable_targets = list()
-	// Holds a list of 'name = atom/thing` used to check if our thing still exists after we've made our selection
 	var/list/possible_tracked_atoms = list()
 
-	// Checks if our heretic has a blade research, and then checks if they have made blades
-	// adds them to our list of target when pulsing the living heart so that you can locate them
 	var/datum/heretic_knowledge/limited_amount/starting/blade_knowledge
 	for(var/datum/potential_knowledge as anything in subtypesof(/datum/heretic_knowledge/limited_amount/starting))
 		blade_knowledge = heretic_datum.get_knowledge(potential_knowledge)
@@ -141,7 +137,6 @@
 		if(get(blade, /mob/living) == action.owner)
 			continue
 
-		// Means our blade is somewhere, but not on our person, so let's make it trackable
 		choosable_targets[blade.name] = image(icon = blade.icon, icon_state = blade.icon_state)
 		possible_tracked_atoms[blade.name] = blade
 
@@ -149,8 +144,6 @@
 		choosable_targets[sac_target.real_name] = heretic_datum.sac_targets[sac_target]
 		possible_tracked_atoms[sac_target.real_name] = sac_target
 
-	// If we don't have a last tracked name, open a radial to set one.
-	// If we DO have a last tracked name, we skip the radial if they right click the spell.
 	if(isnull(last_tracked_name) || !alt_clicked)
 		radial_open = TRUE
 		last_tracked_name = show_radial_menu(
@@ -160,11 +153,9 @@
 			custom_check = CALLBACK(src, PROC_REF(check_menu)),
 			radius = 40,
 			require_near = TRUE,
-			//tooltips = TRUE,
 		)
 		radial_open = FALSE
 
-	// If our last tracked name is still null, skip the trigger
 	if(isnull(last_tracked_name))
 		return
 
@@ -176,7 +167,6 @@
 	playsound(action.owner, 'sound/effects/singlebeat.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
 	action.owner.balloon_alert(action.owner, get_balloon_message(tracked_thing))
 
-	// Let them know how to sacrifice people if they're able to be sac'd
 	if(!ismob(tracked_thing))
 		return
 
@@ -208,38 +198,28 @@
 	var/their_z = their_turf?.z
 	var/our_z = our_turf?.z
 
-	// One of us is in somewhere we shouldn't be
 	if(!our_z || !their_z)
-		// "Hell if I know"
 		balloon_message = "на другом уровне!"
 
-	// They're not on the same z-level as us
 	else if(our_z != their_z)
-		// They're on the station
 		if(is_station_level(their_z))
-			// We're on a multi-z station
 			if(is_station_level(our_z))
 				if(our_z > their_z)
 					balloon_message = "под вами!"
 				else
 					balloon_message = "над вами!"
-			// We're off station, they're not
 			else
 				balloon_message = "на станции!"
 
-		// Mining
 		else if(is_mining_level(their_z))
 			balloon_message = "на лавовой земле!"
 
-		// In the gateway
 		else if(is_away_level(their_z))
 			balloon_message = "за вратами!"
 
-		// They're somewhere we probably can't get too - sacrifice z-level, centcom, etc
 		else
 			balloon_message = "на другом слое реальности!"
 
-	// They're on the same z-level as us!
 	else
 		var/dist = get_dist(our_turf, their_turf)
 		var/dir = get_dir(our_turf, their_turf)
@@ -288,9 +268,6 @@
 	if(owner)
 		animate(src, transform = matrix(get_angle(owner, tracked_turf), MATRIX_ROTATE), 0.2 SECONDS)
 
-	// "CENTER-1,CENTER-1": the arrow icon is 96x96 (3x3 tiles); anchoring its bottom-left one tile
-	// down-left of screen centre puts the icon's middle tile on the player. Plain "CENTER" anchored
-	// the bottom-left on the player, leaving the arrow offset one tile up-right.
 	screen_loc = "CENTER-1,CENTER-1"
 	color = arrow_color
 	if(!hud)

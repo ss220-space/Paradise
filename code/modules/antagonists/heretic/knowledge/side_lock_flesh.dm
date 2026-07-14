@@ -28,7 +28,6 @@
 	research_tree_icon_state = "phylactery_2"
 
 
-// Sidepaths for knowledge between Knock and Flesh.
 /datum/heretic_knowledge/spell/opening_blast
 	drafting_tier = 2
 	name = "Волна Отчаяния"

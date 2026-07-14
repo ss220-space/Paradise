@@ -12,7 +12,6 @@
 	base_icon_state = "armsy"
 	maxHealth = 400
 	health = 400
-	// Brisk, roughly running-human pace (heretic_summon base 0 felt sluggish on the worm). Negative = faster.
 	speed = -1
 	melee_damage_lower = 30
 	melee_damage_upper = 50
@@ -22,7 +21,6 @@
 	pull_force = MOVE_FORCE_OVERPOWERING
 	mob_size = MOB_SIZE_LARGE
 	sentience_type = SENTIENCE_BOSS
-	//mob_biotypes = MOB_ORGANIC|MOB_SPECIAL
 	///Previous segment in the chain, we hold onto this purely to keep track of how long we currently are and to attach new growth to the back_tg
 	var/mob/living/simple_animal/hostile/heretic_summon/armsy/back_tg
 	///How many arms do we have to eat to expand?
@@ -66,7 +64,6 @@
 	build_tail(worm_length)
 
 
-// We are a vessel of otherworldly destruction, we bring our gravity with us
 /mob/living/simple_animal/hostile/heretic_summon/armsy/mob_negates_gravity()
 	return TRUE
 
@@ -77,7 +74,6 @@
 
 /mob/living/simple_animal/hostile/heretic_summon/armsy/proc/build_tail(worm_length)
 	worm_length = max(worm_length, MINIMUM_ARMSY_LENGTH)
-	// Sets the hp of the head to be exactly the (length * hp), so the head is de facto the hardest to destroy.
 	maxHealth = worm_length * maxHealth
 	health = maxHealth
 
@@ -95,10 +91,6 @@
 	var/mob/living/simple_animal/hostile/heretic_summon/armsy/segment = new type(drop_location(), FALSE)
 	segment.AddComponent(/datum/component/mob_chain, front = behind, vary_icon_state = TRUE)
 	behind.register_behind(segment)
-	// Segments are hostile simple_animals, so their AI must be killed explicitly. NOTE: these MUST target
-	// `segment`, not `src` - a segment that keeps its own hostile AI wanders off, picks its own targets and
-	// flees when hurt (each part acting like its own animal). The chain only moves/attacks the body through
-	// mob_chain; the segment itself stays a puppet.
 	segment.toggle_ai(AI_OFF)
 	segment.can_have_ai = FALSE
 	segment.shouldwakeup = FALSE

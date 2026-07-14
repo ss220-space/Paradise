@@ -47,7 +47,6 @@
 	cause_aoe(source_turf, /obj/effect/temp_visual/voidin)
 	cause_aoe(targeted_turf, /obj/effect/temp_visual/voidout)
 
-	// no_effects = TRUE - the voidblink sound in cause_aoe() is the whole audiovisual.
 	do_teleport(
 		action.owner,
 		targeted_turf,

@@ -1,4 +1,3 @@
-// A type of antagonist created by the moon ascension
 /datum/antagonist/lunatic
 	name = "Лунатик"
 	special_role = SPECIAL_ROLE_LUNATIC
@@ -6,17 +5,13 @@
 	antag_hud_type = ANTAG_HUD_LUNATIC
 	clown_gain_text = "Древние знания о Луне позволили вам преодолеть свою шутовскую натуру и научиться владеть оружием, не причиняя себе вреда."
 	clown_removal_text = "По мере того, как ваши знания о Луне рассеиваются, вы возвращаетесь к своему неуклюжему, клоунскому \"я\"."
-	// The mind of the ascended heretic who created us
 	var/datum/mind/ascended_heretic
-	// The body of the ascended heretic who created us
 	var/mob/living/carbon/human/ascended_body
-	// Our objective
 	var/datum/objective/lunatic/lunatic_obj
 	var/ismaster = FALSE
 
 
 /datum/antagonist/lunatic/on_gain()
-	// Masters gain an objective before so we dont want duplicates
 	for(var/objective in objectives)
 		if(!istype(objective, /datum/objective/lunatic))
 			continue
@@ -54,7 +49,6 @@
 	remove_team_hud()
 
 
-// Lunatics and their ascended master see each other, keyed by the master's mind like the summon team hud.
 /datum/atom_hud/alternate_appearance/basic/heretic_team/lunatic/mob_should_see(mob/viewer)
 	var/datum/mind/viewer_mind = viewer.mind
 	if(!viewer_mind || !master_mind)
@@ -89,7 +83,6 @@
 /datum/objective/lunatic
 	explanation_text = "Помогите своему мастеру. Если вы видите это, прокрутите чат вверх, чтобы узнать, кто это, и напишите баг-репорт."
 	var/datum/mind/master
-	// If the person with this objective is a lunatic master
 	var/is_master = FALSE
 
 
@@ -102,7 +95,6 @@
 	explanation_text = "Помогите лидеру Лунатиков. Лидер — [master.current.real_name]. Не вредите другим лунатикам!"
 
 
-// Lunatic master
 /datum/antagonist/lunatic/master
 	name = "Лидер Лунатиков"
 	special_role = SPECIAL_ROLE_LUNATIC_LEADER

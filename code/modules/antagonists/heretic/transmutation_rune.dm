@@ -28,8 +28,6 @@
 
 	var/icon/timed = new
 	for(var/i in 1 to length(native_delays))
-		// Extract by the default state ("") rather than colour_state - icon() resolves "" to the composite's
-		// single state regardless of whether the bake preserved its name, so the per-frame copy is reliable.
 		timed.Insert(icon(composite, "", SOUTH, i), "", SOUTH, i, FALSE, max(native_delays[i] * scale, 0.5))
 	return timed
 
@@ -99,8 +97,6 @@
 		qdel(src)
 		return ATTACK_CHAIN_PROCEED
 
-	// Codices wipe the rune in their own melee_attack_chain (before reaching here);
-	// this branch is a safety net so a codex never accidentally pops the ritual menu instead of erasing.
 	if(istype(item, /obj/item/codex_cicatrix))
 		return ..()
 
@@ -189,21 +185,15 @@
 	var/list/banned_atom_types = ritual.banned_atom_types.Copy()
 	var/list/selected_atoms = list()
 
-	// selected_atoms is passed and can be modified by this proc.
 	if(!ritual.recipe_snowflake_check(user, atoms_in_range, selected_atoms, loc, TRUE))
 		return FALSE
 
-	// Copied AFTER recipe_snowflake_check: some rituals (Unsealed Arts paintings) rewrite their
-	// required_atoms inside that proc based on which ingredient is present, and the change persists on the
-	// ritual datum. Copying before would carry over the previous craft's ingredient, so the next painting
-	// would demand the wrong item and fail to craft.
 	var/list/requirements_list = ritual.required_atoms.Copy()
 
 	for(var/atom/nearby_atom as anything in atoms_in_range)
 		for(var/req_type in requirements_list)
 			if(requirements_list[req_type] <= 0)
 				continue
-			// If req_type is a list of types, check all of them for one match.
 			if(islist(req_type) && !is_type_in_list(nearby_atom, req_type))
 				continue
 
@@ -214,7 +204,6 @@
 				continue
 
 			selected_atoms |= nearby_atom
-			// Stacks may satisfy more than one of the requirement in a single item.
 			if(!isstack(nearby_atom))
 				requirements_list[req_type]--
 				continue
@@ -244,17 +233,14 @@
 		to_chat(user, span_hierophant_warning("Для завершения ритуала \"[ritual.name]\" не хватает [russian_list(what_are_we_missing)]."))
 		return FALSE
 
-	// All necessary components are present; try to cast (doesn't guarantee success, but it's valid).
 	ritual_animation()
 
-	// on_finished_recipe may sleep for rituals like summons that expect ghost candidates.
 	var/ritual_result = ritual.on_finished_recipe(user, selected_atoms, loc)
 
 	if(ritual_result)
 		ritual.cleanup_atoms(selected_atoms)
 		SSblackbox.record_feedback("tally", "heretic_ritual_completed", 1, ritual.type)
 
-	// No feedback is given on failure here - the ritual itself handles it.
 	if(ritual_result)
 		loc.balloon_alert(user, "ритуал завершён")
 
@@ -272,9 +258,6 @@
 	icon_state = "transmutation_rune"
 	pixel_x = -30
 	pixel_y = -30
-	//pixel_y = 18
-	//pixel_z = -48
-	//greyscale_config = /datum/greyscale_config/heretic_rune
 	/// The path colour this rune is tinted with, kept so the activation animation can match it.
 	var/rune_colour = COLOR_WHITE
 	/// Per-colour cache of the baked rune icon FILES ("transmutation_rune" static state + its "_active"
@@ -291,9 +274,6 @@
 	if(path_colour)
 		rune_colour = path_colour
 
-	// master220 has no GAGS, so bake TG's heretic_rune.json by hand (multiply greyscale * colour), folding
-	// the static rune AND the two-layer "activate" animation (coloured linework + untinted white pen accents)
-	// into one icon file - the same shape GAGS produces, letting do_ritual flick by state name (tg 1:1).
 	var/icon/baked = baked_rune_icons[rune_colour]
 	if(!baked)
 		var/icon/combined = new
@@ -311,11 +291,8 @@
 	icon_state = "transmutation_rune"
 	pixel_x = -30
 	pixel_y = -30
-	//pixel_y = 18
-	//pixel_z = -48
 	plane = FLOOR_PLANE
 	layer = ABOVE_CLEANABLES_LAYER
-	//greyscale_config = /datum/greyscale_config/heretic_rune
 	/// The "_colour" linework state baked (with its "_white" companion) into the coloured draw animation.
 	var/animation_state = "transmutation_rune_draw_colour"
 	/// The per-frame delays of [animation_state]'s draw-in frames - every frame except the trailing "hold"
@@ -328,12 +305,6 @@
 	. = ..()
 	if(!path_colour)
 		path_colour = COLOR_LIME
-	// master220 has no GAGS set_greyscale on atoms, so we bake TG's heretic_rune.json by hand into a
-	// single animated icon (see heretic_rune_icon): the "_colour" linework is multiplied by the path
-	// colour (lime for PATH_START, blood-red for ASH, ...) and the matching "_white" pen accents are
-	// overlaid untinted on top. Both source states are 67-frame draw-in animations, so the whole rune
-	// animates as it's being drawn. drawing_time re-times that draw-in so it finishes exactly when the
-	// caster's do_after does (otherwise a fast Codex Morbus draw cuts the ~12s animation off mid-draw).
 	var/source_icon = icon
 	var/white_state = replacetext(animation_state, "_colour", "_white")
 	var/static/list/baked_draw_icons = list()

@@ -45,9 +45,6 @@
 	return stuff
 
 
-// NOTE: this spell self-targets (targeting == /datum/spell_targeting/self), so `targets` is just [caster].
-// The real AoE victims have to be gathered here via get_things_to_cast_on() - iterating `targets` directly
-// only ever hits the caster's own tile.
 /obj/effect/proc_holder/spell/aoe/moon_ringleader/cast(list/targets, mob/user = usr)
 	var/turf/epicenter = get_turf(user)
 	new moon_effect(epicenter)

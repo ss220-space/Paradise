@@ -55,7 +55,6 @@
 		new /obj/effect/temp_visual/eldritch_smoke(get_turf(victim))
 		victim.Beam(caster, icon_state = "r_beam", time = 2 SECONDS)
 
-		//This is essentially a death mark, use this to finish your opponent quicker.
 		if(victim.CanSuccumb())
 			victim.investigate_log("has been executed by fiery rebirth.", INVESTIGATE_DEATHS)
 			victim.death()
@@ -63,7 +62,6 @@
 		victim.apply_damage(20, BURN)
 		victim.ExtinguishMob()
 
-		// Heal the caster for every victim damaged
 		var/need_mob_update = FALSE
 		need_mob_update += caster.adjustBruteLoss(-10, updating_health = FALSE)
 		need_mob_update += caster.adjustFireLoss(-10, updating_health = FALSE)
@@ -74,8 +72,6 @@
 			caster.updatehealth()
 
 
-// Lower the cooldown for every victim drained. Reads base_cooldown so the ascension's base_cooldown *= 0.16
-// reduction is respected. Hard-floored so an ascended heretic can't spam it freely.
 /obj/effect/proc_holder/spell/aoe/fiery_rebirth/after_cast(list/targets, mob/user)
 	. = ..()
 	if(!victims_counter)

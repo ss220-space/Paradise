@@ -83,12 +83,10 @@ GLOBAL_LIST_EMPTY_TYPED(active_cosmic_fields, /obj/effect/forcefield/cosmic_fiel
 		COMSIG_ATOM_EXITED = PROC_REF(on_loc_exited),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
-	// Apply our effects to anything already standing on the tile when we appear.
 	for(var/atom/movable/thing in get_turf(src))
 		on_entered(src, thing)
 
 /obj/effect/forcefield/cosmic_field/Destroy()
-	// Make sure when the field goes away that the effects don't persist.
 	for(var/atom/movable/thing in get_turf(src))
 		on_loc_exited(src, thing)
 	GLOB.active_cosmic_fields -= src
@@ -102,7 +100,6 @@ GLOBAL_LIST_EMPTY_TYPED(active_cosmic_fields, /obj/effect/forcefield/cosmic_fiel
 	if(living_mover.can_block_magic(antimagic_flags, charge_cost = 0))
 		return ..()
 
-	// Being buckled to / pulled by a cosmic heretic lets you through even with a star mark (drag people through).
 	if(ismob(living_mover.buckled))
 		var/mob/living/fireman = living_mover.buckled
 		if(fireman.has_status_effect(/datum/status_effect/heretic_passive/cosmic))

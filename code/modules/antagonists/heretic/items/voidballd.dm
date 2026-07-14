@@ -93,12 +93,10 @@
 	if(!stasis_overlay)
 		return ..()
 
-	//Free our prisoner
 	owner.remove_traits(list(TRAIT_GODMODE, TRAIT_NO_TRANSFORM, TRAIT_SOFTSPOKEN), TRAIT_STATUS_EFFECT(id))
 	owner.forceMove(get_turf(stasis_overlay))
 	stasis_overlay.forceMove(owner)
 	owner.vis_contents += stasis_overlay
-	//Animate closing the ball
 	stasis_overlay.animate_closing()
 	stasis_overlay.icon_state = "voidball_closed"
 	QDEL_IN(stasis_overlay, 1.1 SECONDS)
@@ -119,13 +117,10 @@
 	stasis_overlay = null
 
 
-//----Voidball effect
 /obj/effect/abstract/voidball
 	icon = 'icons/mob/actions/actions_ecult.dmi'
 	icon_state = "voidball_effect"
 	layer = ABOVE_ALL_MOB_LAYER
-	// /obj/effect/abstract's base is invisible (INVISIBILITY_ABSTRACT); without this override the void
-	// prison shell never renders.
 	invisibility = INVISIBILITY_NONE
 	vis_flags = VIS_INHERIT_ID
 
@@ -140,7 +135,6 @@
 	flick("voidball_closing", src)
 
 
-//---- Screen alert
 /atom/movable/screen/alert/status_effect/void_prison
 	name = "Пустотная Тюрьма"
 	desc = "Зияющая пустота окутывает вас." //Go straight to jail, do not pass GO, do not collect 200$

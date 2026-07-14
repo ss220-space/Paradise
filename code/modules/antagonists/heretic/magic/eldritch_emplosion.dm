@@ -1,4 +1,3 @@
-// Given to heretic monsters.
 /obj/effect/proc_holder/spell/emplosion/eldritch
 	name = "Энергетический Импульс"
 	desc = "Заклинание, вызывающее вокруг вас сильный ЭМИ, выводящий из строя электронику."

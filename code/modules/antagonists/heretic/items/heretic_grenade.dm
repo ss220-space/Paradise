@@ -6,12 +6,10 @@
 /obj/item/grenade/chem_grenade/rust_sower
 	name = "rust sower"
 	desc = "Отличная штука, превращающаяся в облоко ржавчины после взрыва. Борги и мехи будут полностью уничтожены."
-	//possible_fuse_time = list("5")
 	stage = GRENADE_READY
 	base_icon_state = "rustgrenade"
 	item_state = "rustgrenade"
 	prime_sound = 'sound/weapons/rust_sower_armbomb.ogg'
-	//grenade_sound_vary = FALSE
 
 
 /obj/item/grenade/chem_grenade/rust_sower/get_ru_names()
@@ -32,7 +30,6 @@
 
 /obj/item/grenade/chem_grenade/rust_sower/Initialize(mapload)
 	. = ..()
-	//RegisterSignal(src, COMSIG_ITEM_ON_GRIND, PROC_REF(on_try_grind))
 	var/obj/item/reagent_containers/glass/beaker/large/beaker_one = new(src)
 	var/obj/item/reagent_containers/glass/beaker/large/beaker_two = new(src)
 
@@ -75,8 +72,6 @@
 	id = "heretic_rust"
 	color = COLOR_CARGO_BROWN // Rust color
 	taste_description = "гнилая медь"
-	//ph = 7.4
-	//default_container = /obj/item/reagent_containers/glass/bottle/capsaicin
 
 
 /datum/reagent/heretic_rust/reaction_obj(obj/exposed_atom, volume)
@@ -104,7 +99,6 @@
 
 	var/mob/living/carbon/human/victim = exposed_mob
 	if(HASBIT(methods, REAGENT_TOUCH))
-		//check for protection, then handle the pepperspray-like effects
 		if(!victim.is_pepper_proof()) // you need both eye and mouth protection
 			if(prob(5))
 				victim.emote("scream")

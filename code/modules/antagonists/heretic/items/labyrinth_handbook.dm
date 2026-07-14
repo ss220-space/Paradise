@@ -2,8 +2,6 @@
 	name = "labyrinth map pages"
 	desc = "Множество листов бумаги летающих в воздухе, отпугивающих язычников с невероятной силой."
 	gender = PLURAL
-	// The base /obj/effect/forcefield inherits effects.dmi from /obj/effect, which has no "lintel" frame,
-	// so without this override the barrier renders completely invisible.
 	icon = 'icons/effects/eldritch.dmi'
 	icon_state = "lintel"
 	lifetime = 15 SECONDS
@@ -50,7 +48,6 @@
 	item_state = "book"
 	throw_speed = 1
 	throw_range = 5
-	//attack_verb_continuous = list("bashes", "curses")
 	attack_verb = list("бьёт", "проклинает")
 	resistance_flags = FLAMMABLE
 	drop_sound = 'sound/items/handling/drop/book_drop.ogg'
@@ -87,8 +84,14 @@
 	. += span_purple("Остал[declension_ru(charges, "ся", "ось", "ось")] <b>[charges]</b> заряд[DECL_CREDIT(charges)]. Заряды восстанавливаются со временем.")
 
 
-/obj/item/heretic_labyrinth_handbook/afterattack(atom/interacting_with, mob/user, proximity, params, status)
-	. = ..()
+/obj/item/heretic_labyrinth_handbook/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
+	if(user.a_intent == INTENT_HARM)
+		return NONE
+
+	return ranged_interact_with_atom(interacting_with, user, modifiers)
+
+
+/obj/item/heretic_labyrinth_handbook/ranged_interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
 	if(!isheretic(user))
 		if(ishuman(user))
 			var/mob/living/carbon/human/human_user = user
@@ -97,32 +100,30 @@
 			human_user.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 30, 190)
 			human_user.drop_item_ground(src)
 
-		return ATTACK_CHAIN_BLOCKED
+		return ITEM_INTERACT_BLOCKING
 
 	if(charges <= 0)
 		user.balloon_alert(user, "нет зарядов!")
-		return ATTACK_CHAIN_BLOCKED
+		return ITEM_INTERACT_BLOCKING
 
 	var/turf/turf_target = get_turf(interacting_with)
 	if(locate(barrier_type) in turf_target)
 		user.balloon_alert(user, "барьер уже есть!")
-		return ATTACK_CHAIN_BLOCKED
+		return ITEM_INTERACT_BLOCKING
 
 	turf_target.visible_message(span_warning("Вихрь из страниц материализуется!"))
 	new /obj/effect/temp_visual/paper_scatter(turf_target)
 	playsound(turf_target, 'sound/magic/smoke.ogg', 30)
 	new barrier_type(turf_target, user)
 	charges--
-	// The handbook is never consumed - each spent charge regenerates on its own timer.
 	charge_timers += addtimer(CALLBACK(src, PROC_REF(recharge)), charge_time, TIMER_STOPPABLE)
-	return ATTACK_CHAIN_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 
 /obj/item/heretic_labyrinth_handbook/proc/recharge()
 	charges = min(charges + 1, max_charges)
 
 
-//fancy effects
 /obj/effect/temp_visual/paper_scatter
 	name = "paper pieces"
 	desc = "Кусочки бумаги, разлетающиеся по ветру."

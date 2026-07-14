@@ -66,7 +66,6 @@
 		human_target.health = new_max_health
 
 	on_made_callback?.Invoke(human_target)
-	//ADD_TRAIT(human_target, TRAIT_FAKEDEATH, TRAIT_STATUS_EFFECT(id))
 	ADD_TRAIT(human_target, TRAIT_HERETIC_SUMMON, TRAIT_STATUS_EFFECT(id))
 	ADD_TRAIT(human_target, TRAIT_DEATH_HUD, TRAIT_STATUS_EFFECT(id))
 	human_target.ChangeToHusk()
@@ -102,7 +101,6 @@
 		human_target.setMaxHealth(initial(human_target.maxHealth))
 
 	on_lost_callback?.Invoke(human_target)
-	//REMOVE_TRAIT(human_target, TRAIT_FAKEDEATH, TRAIT_STATUS_EFFECT(id))
 	REMOVE_TRAIT(human_target, TRAIT_HERETIC_SUMMON, TRAIT_STATUS_EFFECT(id))
 	REMOVE_TRAIT(human_target, TRAIT_DEATH_HUD, TRAIT_STATUS_EFFECT(id))
 	human_target.cure_husk(TRAIT_STATUS_EFFECT(id))

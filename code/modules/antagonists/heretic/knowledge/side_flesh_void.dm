@@ -6,10 +6,8 @@
 
 	tier1 = /datum/heretic_knowledge/void_cloak
 	tier2 = /datum/heretic_knowledge/spell/blood_siphon
-	// void_prison moved into the Void main line (knowledge_tier2); its knowledge now lives in void_lore.dm.
 	tier3 = /datum/heretic_knowledge/spell/cleave
 
-// Sidepaths for knowledge between Flesh and Void.
 
 /datum/heretic_knowledge/void_cloak
 	drafting_tier = 1

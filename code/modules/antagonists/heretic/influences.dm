@@ -45,7 +45,6 @@
 	while((length(smashes) + num_drained) < how_many_can_we_make && location_sanity < 100)
 		var/turf/chosen_location = get_safe_random_station_turf()
 
-		// We don't want them close to each other - at least 1 tile of separation
 		var/list/nearby_things = range(1, chosen_location)
 		var/obj/effect/heretic_influence/what_if_i_have_one = locate() in nearby_things
 		var/obj/effect/visible_heretic_influence/what_if_i_had_one_but_its_used = locate() in nearby_things
@@ -63,15 +62,9 @@
 /datum/reality_smash_tracker/proc/add_tracked_mind(datum/mind/heretic)
 	tracked_heretics |= heretic
 
-	// If our heretic's on station, generate some new influences
 	if(ishuman(heretic.current) && !is_centcomm(heretic.current.z))
 		generate_new_influences()
 
-	// Influences created BEFORE this mind became a heretic (e.g. by another heretic, or before a
-	// mid-round role grant) only show their alt-appearance to mobs that had the antag datum at the
-	// influence's own Initialize() time. A freshly-added heretic must be (re-)applied to every
-	// EXISTING influence's hud, or they won't see any rift until a ghostize/body-transfer re-checks
-	// the huds (the "go to ghost and come back" workaround the players hit).
 	rework_existing_influences(heretic.current)
 
 /**
@@ -99,7 +92,6 @@
 	icon = 'icons/effects/eldritch.dmi'
 	icon_state = "pierced_illusion"
 	layer = BELOW_MOB_LAYER
-	//interaction_flags_atom = INTERACT_ATOM_NO_FINGERPRINT_ATTACK_HAND|INTERACT_ATOM_NO_FINGERPRINT_INTERACT
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	alpha = 0
 
@@ -170,13 +162,10 @@
 
 	var/mob/living/carbon/human/human_user = user
 
-	// You see, these tendrils are psychic. That's why you can't see them. Definitely not laziness. Just psychic. The character can feel but not see them.
-	// Because they're psychic. Yeah.
 	if(human_user.can_block_magic(MAGIC_RESISTANCE_MIND))
 		visible_message(span_danger("Эфимерные щупальца вылезают из [declent_ru(GENITIVE)], но не могут достичь головы [human_user]."))
 		return
 
-	// A very elaborate way to suicide
 	visible_message(span_userdanger("Эфимерные щупальца вылезают из [declent_ru(GENITIVE)], обхватывают голову [human_user] и отрывают её!"))
 	var/obj/item/organ/external/head/head = locate() in human_user.bodyparts
 	if(head)
@@ -208,7 +197,6 @@
 /obj/effect/heretic_influence
 	name = "pierced reality"
 	icon = 'icons/effects/eldritch.dmi'
-	//interaction_flags_atom = INTERACT_ATOM_NO_FINGERPRINT_ATTACK_HAND|INTERACT_ATOM_NO_FINGERPRINT_INTERACT
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	invisibility = INVISIBILITY_OBSERVER
 	layer = BELOW_MOB_LAYER
@@ -239,8 +227,6 @@
 
 	AddComponent(/datum/component/redirect_attack_hand_from_turf, interact_check = CALLBACK(src, PROC_REF(verify_user_can_see)))
 
-	// A heretic who steps near the influence catches a glimpse of the Mansus - granting Eldritch Sight (x-ray).
-	// Range is 7 so simply being near a rift triggers it, rather than having to stand on top of it.
 	proximity_monitor = new /datum/proximity_monitor/influence_monitor(src, 7)
 
 
@@ -265,7 +251,6 @@
 
 /obj/effect/heretic_influence/attackby(obj/item/weapon, mob/user, list/modifiers, list/attack_modifiers)
 	. = ..()
-	// Using a codex will give you two knowledge points for draining.
 	if(drain_influence_with_codex(user, weapon))
 		return ATTACK_CHAIN_PROCEED
 
@@ -298,13 +283,11 @@
 			loc.balloon_alert(user, "прервано!")
 		return
 
-	// We don't need to set being_drained back since we delete after anyways
 	loc.balloon_alert(user, "разлом иссушен")
 
 	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	heretic_datum.knowledge_points += knowledge_to_gain
 
-	// Aaand now we delete it
 	after_drain(user)
 
 

@@ -1,4 +1,3 @@
-// The rune carver, a heretic knife that can draw rune traps.
 /obj/item/melee/rune_carver
 	name = "carving knife"
 	desc = "Небольшой нож из холодной стали — чистый и безупречный. Его лезвие способно рассечь даже титан, — \
@@ -8,7 +7,6 @@
 	icon_state = "rune_carver"
 	sharp = TRUE
 	w_class = WEIGHT_CLASS_SMALL
-	//wound_bonus = 20
 	force = 15
 	throwforce = 40
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -100,9 +98,7 @@
  * The actual proc that handles selecting the rune to draw and creating it.
  */
 /obj/item/melee/rune_carver/proc/do_carve_rune(turf/space/target_turf, mob/user)
-	// Assoc list of [name] to [image] for the radial (to show tooltips)
 	var/static/list/choices = list()
-	// Assoc list of [name] to [path] for after the radial
 	var/static/list/names_to_path = list()
 	if(!choices.len || !names_to_path.len)
 		for(var/obj/structure/trap/eldritch/trap as anything in subtypesof(/obj/structure/trap/eldritch))
@@ -114,7 +110,6 @@
 		target_turf,
 		choices,
 		require_near = TRUE,
-		//tooltips = TRUE,
 	)
 
 	if(isnull(picked_choice))
@@ -142,7 +137,6 @@
 	desc = "Уничтожает все руны, вырезанные этим клинком."
 	background_icon = 'icons/mob/actions/backgrounds.dmi'
 	background_icon_state = "bg_heretic"
-	//overlay_icon_state = "bg_heretic_border"
 	button_icon_state = "rune_break"
 	button_icon = 'icons/mob/actions/actions_ecult.dmi'
 
@@ -184,7 +178,6 @@
 	return TRUE
 
 
-// The actual rune traps the knife draws.
 /obj/structure/trap/eldritch
 	name = "elder carving"
 	desc = "Множество неизвестных рун, они напоминают вам о давно минувших днях..."

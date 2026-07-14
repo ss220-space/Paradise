@@ -23,7 +23,6 @@
 	return new /datum/spell_targeting/self
 
 
-// Before the cast, show the void visual around the caster.
 /obj/effect/proc_holder/spell/aoe/void_pull/before_cast(list/targets, mob/user = usr)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
@@ -37,7 +36,6 @@
 	for(var/mob/living/nearby_mob in view(radius_override || aoe_range, center))
 		if(nearby_mob == action.owner || nearby_mob == center)
 			continue
-		// Don't grab people who are tucked away or something
 		if(!isturf(nearby_mob.loc))
 			continue
 		if(IS_HERETIC_OR_MONSTER(nearby_mob))
@@ -50,7 +48,6 @@
 	return things
 
 
-// For the actual cast, everyone caught in the AoE is damaged, chilled, microstunned and pulled in.
 /obj/effect/proc_holder/spell/aoe/void_pull/cast(list/targets, mob/user = usr)
 	var/mob/living/caster = action.owner || user
 	for(var/mob/living/victim as anything in get_things_to_cast_on(caster))

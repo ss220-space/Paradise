@@ -53,10 +53,8 @@
 	if(!blade_effect)
 		clicker.ranged_ability.remove_ranged_ability(clicker)
 
-	// Let the caster prioritize using items like guns over blade casts
 	if(clicker.get_active_hand())
 		return FALSE
-	// Let the caster prioritize melee attacks like punches and shoves over blade casts
 	if(get_dist(clicker, target) <= 1)
 		return FALSE
 
@@ -70,7 +68,6 @@
 
 	if(!isliving(on_who))
 		return
-	// Delete existing
 	if(blade_effect)
 		return
 
@@ -111,9 +108,7 @@
 
 	blade_effect = null
 	var/blades_remaining = current_amount
-	// Which scales the cooldown according to projectiles remaining
 	remove_mousepointer(action.owner.client, refund_cooldown = FALSE)
-	// Snowflake because it does not handle cooldown if we used every projectile
 	if(blades_remaining > 0)
 		return
 
@@ -133,8 +128,6 @@
 	damage = 25
 	armour_penetration = 100
 	sharp = TRUE
-	//sharpness = SHARP_EDGED
-	//wound_bonus = 15
 	pass_flags = PASSTABLE | PASSFLAPS
 	/// Color applied as an outline filter on init
 	var/outline_color = "#f8f8ff"
@@ -180,7 +173,6 @@
 	icon = 'icons/obj/weapons/khopesh.dmi'
 	icon_state = "render"
 	damage = 35
-	//wound_bonus = 25
 	outline_color = "#D7CBCA"
 
 

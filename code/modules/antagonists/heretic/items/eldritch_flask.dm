@@ -20,13 +20,11 @@
 
 /obj/item/reagent_containers/glass/phylactery
 	name = "phylactery of damnation"
-	desc = "Используется для кражи крови у будущих жертв."
+	desc = "Используется для кражи крови у будущих жертв. Крадёт кровь по правому клику, даже на расстоянии."
 	gender = FEMALE
 	icon = 'icons/obj/eldritch.dmi'
 	icon_state = "phylactery"
 	base_icon_state = "phylactery"
-	//has_variable_transfer_amount = FALSE
-	//reagent_flags = OPENCONTAINER | DUNKABLE | TRANSPARENT
 	volume = 10
 	/// Cooldown before you can steal blood again
 	COOLDOWN_DECLARE(drain_cooldown)
@@ -43,43 +41,45 @@
 	)
 
 
-/obj/item/reagent_containers/glass/phylactery/afterattack(obj/target, mob/user, proximity, params)
+/obj/item/reagent_containers/glass/phylactery/interact_with_atom_secondary(atom/target, mob/living/user, list/modifiers)
 	if(!COOLDOWN_FINISHED(src, drain_cooldown))
 		user.balloon_alert(user, "подождите!")
-		return ATTACK_CHAIN_BLOCKED_ALL
+		return NONE
 
 	if(!ishuman(target))
-		return ..()
+		return NONE
 
+	user.changeNext_move(CLICK_CD_MELEE)
 	var/mob/living/living_target = target
+	if(living_target == user)
+		return ITEM_INTERACT_BLOCKING
+
 	if(reagents.total_volume >= reagents.maximum_volume)
 		to_chat(user, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] полон."))
-		return ATTACK_CHAIN_BLOCKED
-
-	if(living_target == user)
-		return ATTACK_CHAIN_BLOCKED
+		return ITEM_INTERACT_BLOCKING
 
 	if(living_target.can_block_magic(MAGIC_RESISTANCE_HOLY))
 		to_chat(user, span_warning("Вы не можете набрать крови у [living_target.declent_ru(GENITIVE)]!"))
 		COOLDOWN_START(src, drain_cooldown, 5 SECONDS)
 		to_chat(living_target, span_warning("Вы чувствуете, как некая сила пытается украсть вашу кровь, но что-то мешает ей!"))
-		return ATTACK_CHAIN_BLOCKED
+		return ITEM_INTERACT_BLOCKING
 
 	var/drawn_amount = min(reagents.maximum_volume - reagents.total_volume, 5)
 	if(!living_target.transfer_blood_to(src, drawn_amount))
 		to_chat(user, span_warning("У вас не получилось набрать крови у [living_target.declent_ru(GENITIVE)]!"))
-		return ATTACK_CHAIN_SUCCESS
+		return ITEM_INTERACT_BLOCKING
 
 	to_chat(user, span_notice("Вы взяли образец крови у [living_target.declent_ru(GENITIVE)]."))
 	to_chat(living_target, span_warning("Вы чувствуете лёгкий укол!"))
 	COOLDOWN_START(src, drain_cooldown, 5 SECONDS)
 	playsound(src, 'sound/effects/catalyst.ogg', 20, TRUE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_exponent = 10)
-	return ATTACK_CHAIN_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 
-// The base /glass container (unlike /glass/beaker) has no on_reagent_change hook, so the fill-level
-// sprite never refreshed on its own - it only updated when something forced an update_icon (e.g. the
-// blood-draw above), leaving the icon stale after draining. Hook the reagent change to fix that.
+/obj/item/reagent_containers/glass/phylactery/ranged_interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
+	return interact_with_atom_secondary(interacting_with, user, modifiers)
+
+
 /obj/item/reagent_containers/glass/phylactery/on_reagent_change()
 	. = ..()
 	update_icon()
@@ -98,7 +98,6 @@
 			icon_state = base_icon_state + "_2"
 
 
-// Basically an aheal in a bottle, but it puts you to sleep for a minute.
 /obj/item/ether
 	name = "ether of the newborn"
 	desc = "Флакон с густой, вызывающей тошноту зелёной жидкостью. Полностью восстанавливает организм, \
@@ -158,13 +157,10 @@
 /atom/movable/screen/alert/status_effect/eldritch_sleep
 	name = "Необъяснимый Сон"
 	desc = "Вы чувствуете неописуемое тепло, укрывающее вас как одеяло..."
-	// Paradise's shared screen_alert.dmi has no "eldritch_slumber" state, so the alert rendered blank -
-	// use a dedicated icon file instead.
 	icon = 'icons/mob/screen_alert_heretic.dmi'
 	icon_state = "eldritch_slumber"
 
 
-// Heals heretics/monsters, harms everyone else.
 /datum/reagent/eldritch
 	name = "Сущность Ужаса"
 	id = "eldritch"

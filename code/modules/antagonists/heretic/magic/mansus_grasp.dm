@@ -6,13 +6,10 @@
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "mansus_grasp"
-	// While the grasp is charged into a hand, the action button wears the red "armed" border until the
-	// grasp is spent - the fist toggles action.targeting_process on/off.
 	action_targeting_overlay = "bg_spell_border_active_red"
 	sound = 'sound/items/welder.ogg'
 
 	clothes_req = FALSE
-	// Mimes can cast it. Chaplains can cast it. Anyone can cast it, so long as they have a hand.
 	spell_requirements = SPELL_CASTABLE_WITHOUT_INVOCATION
 
 	hand_path = /obj/item/melee/touch_attack/mansus_fist
@@ -26,7 +23,6 @@
 	return ..() && (isheretic(user) || !!IS_LUNATIC(user))
 
 
-// Used for suicide
 /obj/item/melee/touch_attack/mansus_fist/proc/attack_effect(atom/victim, mob/living/carbon/caster)
 	if(SEND_SIGNAL(caster, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, victim) & COMPONENT_BLOCK_HAND_USE)
 		return
@@ -39,8 +35,6 @@
 
 	var/mob/living/carbon/carbon_hit = victim
 
-	// Cultists are momentarily disoriented by the stunning aura. Enough for both parties to go 'oh shit' but only a mild combat ability.
-	// Cultists have an identical effect on their stun hand. The heretic's faster spell charge time is made up for by their lack of teammates.
 	if(!iscultist(carbon_hit))
 		carbon_hit.apply_status_effect(/*/datum/status_effect/speech/slurring/heretic*/ STATUS_EFFECT_CLOCK_CULT_SLUR, 4 SECONDS)
 		carbon_hit.AdjustKnockdown(5 SECONDS)
@@ -50,8 +44,6 @@
 	carbon_hit.AdjustKnockdown(0.5 SECONDS)
 	carbon_hit.Confused(1.5 SECONDS, 3 SECONDS)
 	carbon_hit.Dizzy(1.5 SECONDS, 3 SECONDS)
-	//ADD_TRAIT(carbon_hit, TRAIT_NO_SIDE_KICK, UID()) // We don't want this to be a good stunning tool, just minor disorientation
-	//addtimer(TRAIT_CALLBACK_REMOVE(carbon_hit, TRAIT_NO_SIDE_KICK, UID()), 1 SECONDS)
 
 	var/old_color = carbon_hit.color
 	carbon_hit.color = COLOR_CULT_RED
@@ -65,20 +57,10 @@
 	return
 
 
-// Right-click on a non-living target (airlock/wall/structure/turf) fires the secondary grasp (Rust/Lock
-// path effects). We do it HERE, in pre_attack_secondary, because this runs at the very start of the attack
-// chain (melee_attack_chain) - BEFORE the target's own attackby. Doing it in afterattack failed on doors:
-// /obj/machinery/door/airlock/attackby would try to open the door (or shock us) and return
-// ATTACK_CHAIN_BLOCKED_ALL, skipping afterattack entirely, so the grasp never fired and the airlock
-// survived. Running before attackby makes the corrode/smash reliable. Living targets fall through to the
-// normal (primary) combat grasp in afterattack.
 /obj/item/melee/touch_attack/mansus_fist/pre_attack_secondary(atom/victim, mob/living/carbon/caster, list/modifiers, list/attack_modifiers)
 	if(isliving(victim))
 		return SECONDARY_ATTACK_CALL_NORMAL
 	if(SEND_SIGNAL(caster, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, victim) & COMPONENT_USE_HAND)
-		// Consume the hand AND start the spell's cooldown, exactly like the primary grasp (godhand's
-		// afterattack runs attached_spell.perform()). Just deleting the hand without recharging would let
-		// the secondary grasp be spammed with no cooldown. perform() also fires the invocation/sound.
 		if(attached_spell)
 			attached_spell.perform(list(), user = caster)
 		qdel(src)
@@ -109,10 +91,6 @@
 	item_state = "mansus"
 	lefthand_file = 'icons/mob/inhands/touchspell_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/touchspell_righthand.dmi'
-	// NOBLUDGEON so the grasp isn't treated as a melee weapon: without it, right-clicking an airlock on a
-	// non-harm intent makes /obj/machinery/door/attackby run try_to_activate_door() and return
-	// ATTACK_CHAIN_BLOCKED_ALL, which skips afterattack() - so the secondary (Rust) grasp never fired and
-	// the airlock survived. With NOBLUDGEON the door lets the click through to afterattack.
 	item_flags = ABSTRACT | DROPDEL | NOBLUDGEON
 	catchphrase = "Р'СКР ПР'ВД'!"
 
@@ -136,13 +114,10 @@
 		on_clear_callback = CALLBACK(src, PROC_REF(after_clear_rune)), \
 		effects_we_clear = list(/obj/effect/decal/heretic_rune), \
 		time_to_remove = 0.4 SECONDS)
-	// Light up the action button's red "armed" border while the grasp is charged in a hand.
 	set_grasp_indicator(TRUE)
 
 
 /obj/item/melee/touch_attack/mansus_fist/Destroy()
-	// Clear the armed border BEFORE the parent nulls our spell link. Covers every way the fist leaves the
-	// hand - using the grasp, withdrawing it, dropping it, DROPDEL - so the border lasts exactly "until use".
 	set_grasp_indicator(FALSE)
 	return ..()
 
@@ -159,8 +134,6 @@
 /// Callback for effect_remover component.
 /obj/item/melee/touch_attack/mansus_fist/proc/after_clear_rune(obj/effect/target, mob/living/user)
 	new /obj/effect/temp_visual/drawing_heretic_rune/fail(target.loc)
-	//var/obj/effect/proc_holder/spell/touch/mansus_grasp/grasp = attached_spell?.resolve()
-	//grasp?.spell_feedback(user)
 
 	remove_hand_with_no_refund(user)
 

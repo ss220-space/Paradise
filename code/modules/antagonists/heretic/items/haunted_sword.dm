@@ -14,12 +14,9 @@
 	inhand_y_dimension = 64
 	throwforce = 25
 	block_chance = 55
-	//wound_bonus = -25
-	//bare_wound_bonus = 30
 	free_use = TRUE
 	light_color = COLOR_HERETIC_GREEN
 	light_range = 3
-	//demolition_mod = 1.5
 	/// holder for the actual action when created.
 	var/list/obj/effect/proc_holder/spell/path_sword_actions
 	/// holder for the actual action when created.
@@ -31,55 +28,46 @@
 	var/bound = TRUE
 	/// Nested static list used to index abilities and names.
 	var/static/list/heretic_paths_to_haunted_sword_abilities = list(
-		// Ash
 		PATH_ASH = list(
 			WIELDER_SPELLS = list(/obj/effect/proc_holder/spell/ethereal_jaunt/ash),
 			SWORD_SPELLS = list(/obj/effect/proc_holder/spell/pointed/ash_beams),
 			SWORD_PREFIX = "пепельный",
 		),
-		// Flesh
 		PATH_FLESH = list(
 			WIELDER_SPELLS = list(/obj/effect/proc_holder/spell/pointed/blood_siphon),
 			SWORD_SPELLS = list(/obj/effect/proc_holder/spell/pointed/cleave),
 			SWORD_PREFIX = "кровавый",
 		),
-		// Void
 		PATH_VOID = list(
 			WIELDER_SPELLS = list(/obj/effect/proc_holder/spell/pointed/void_phase),
 			SWORD_SPELLS = list(/obj/effect/proc_holder/spell/aoe/void_pull),
 			SWORD_PREFIX = "мрачный",
 		),
-		// Blade
 		PATH_BLADE = list(
 			WIELDER_SPELLS = list(/obj/effect/proc_holder/spell/pointed/projectile/furious_steel/haunted),
 			SWORD_SPELLS = list(/obj/effect/proc_holder/spell/pointed/projectile/furious_steel/solo),
 			SWORD_PREFIX = "яростный",
 		),
-		// Rust
 		PATH_RUST = list(
 			WIELDER_SPELLS = list(/obj/effect/proc_holder/spell/cone/staggered/entropic_plume),
 			SWORD_SPELLS = list(/obj/effect/proc_holder/spell/aoe/rust_conversion, /obj/effect/proc_holder/spell/pointed/rust_construction),
 			SWORD_PREFIX = "ржавый",
 		),
-		// Cosmic
 		PATH_COSMIC = list(
 			WIELDER_SPELLS = list(/obj/effect/proc_holder/spell/aoe/conjure/cosmic_expansion),
 			SWORD_SPELLS = list(/obj/effect/proc_holder/spell/pointed/projectile/star_blast),
 			SWORD_PREFIX = "астральный",
 		),
-		// Lock
 		PATH_LOCK = list(
 			WIELDER_SPELLS = list(/obj/effect/proc_holder/spell/pointed/burglar_finesse),
 			SWORD_SPELLS = list(/obj/effect/proc_holder/spell/pointed/apetra_vulnera),
 			SWORD_PREFIX = "утончённый",
 		),
-		// Moon
 		PATH_MOON = list(
 			WIELDER_SPELLS = list(/obj/effect/proc_holder/spell/pointed/projectile/moon_parade),
 			SWORD_SPELLS = list(/obj/effect/proc_holder/spell/pointed/moon_smile),
 			SWORD_PREFIX = "сияющий",
 		),
-		// Starter
 		PATH_START = list(
 			WIELDER_SPELLS = null,
 			SWORD_SPELLS = null,
@@ -129,8 +117,6 @@
 
 
 /obj/item/melee/cultblade/haunted/ui_action_click(mob/living/user, actiontype)
-	//if(DOING_INTERACTION_WITH_TARGET(user, src))
-	//	return // gtfo
 
 	if(bound)
 		unbind_blade(user)
@@ -181,7 +167,6 @@
 
 
 /obj/item/melee/cultblade/haunted/proc/on_heresy_handle(mob/living/carbon/human/user, actiontype)
-	// todo make the former a subtype of latter
 	var/binding_implements = list(/obj/item/clothing/neck/eldritch_amulet, /obj/item/clothing/neck/heretic_focus)
 	if(!user.is_holding_item_of_types(binding_implements))
 		to_chat(user, span_notice("Вам нужен Амулет, чтобы запечатать [declent_ru(ACCUSATIVE)]!"))
@@ -209,7 +194,6 @@
 
 
 /obj/item/melee/cultblade/haunted/proc/on_normie_handle(mob/living/carbon/human/user, actiontype)
-	// todo make the former a subtype of latter
 	var/binding_implements = list(/obj/item/storage/bible)
 	if(!user.is_holding_item_of_types(binding_implements))
 		to_chat(user, span_notice("Вам нужна Библия, чтобы запечатать [declent_ru(ACCUSATIVE)]!"))
@@ -249,7 +233,6 @@
 	force += 5
 	armour_penetration += 10
 	light_range += 3
-	//trapped_entity.update_mob_action_buttons()
 
 	playsound(src ,'sound/spookoween/insane_low_laugh.ogg', 200, TRUE) //quiet
 	binding_filters_update()
@@ -268,7 +251,6 @@
 	for(var/obj/effect/proc_holder/spell/wielder_spell as anything in path_wielder_actions)
 		user.mind.RemoveSpell(wielder_spell)
 
-	//trapped_entity.update_mob_action_buttons()
 
 	playsound(src ,'sound/effects/wail.ogg', 20, TRUE)	// add BOUND alert and UNBOUND
 	binding_filters_update()
@@ -278,7 +260,6 @@
 	. = ..()
 
 	AddElement(/datum/element/heretic_focus)
-	//add_traits(list(TRAIT_CASTABLE_LOC, TRAIT_SPELLS_TRANSFER_TO_LOC), INNATE_TRAIT)
 	if(do_bind && !mapload)
 		bind_soul(soul_to_bind, awakener)
 
@@ -303,7 +284,6 @@
 		)
 
 	trapped_entity = trapped_mind?.current
-	//trapped_entity.PossessByPlayer(trapped_mind?.key)
 	var/datum/antagonist/heretic/heretic_holder = trapped_entity.mind?.has_antag_datum(/datum/antagonist/heretic)
 	if(!heretic_holder)
 		stack_trace("[soul_to_bind] in but not a heretic on the heretic soul blade.")
@@ -312,7 +292,6 @@
 
 	heretic_path = heretic_holder.heretic_path
 
-	// Copy the objectives to keep for roundend, remove the datum as neither us nor the heretic need it anymore
 	var/list/copied_objectives = heretic_holder.objectives.Copy()
 	trapped_entity.mind.remove_antag_datum(/datum/antagonist/heretic)
 
@@ -329,7 +308,6 @@
 
 	name = "[path_spells[SWORD_PREFIX]] [name]"
 
-	// The sword is created bound, so we do not grant it the spells just yet, but we still create and store them.
 	if(sword_spells)
 		for(var/obj/effect/proc_holder/spell/sword_spell as anything in sword_spells)
 			var/obj/effect/proc_holder/spell/instanced_spell = new sword_spell(trapped_entity)
@@ -369,15 +347,12 @@
 
 	var/h_color = heretic_path ? GLOB.heretic_path_to_color[heretic_path] : "#FF00FF"
 
-	// on bound
 	if(bound)
 		add_filter("bind_glow", 2, list("type" = "outline", "color" = h_color, "size" = 0.1))
 		remove_filter("unbound_ray")
 		update_filters()
 		return
 
-	// on unbound
-	// we re-add this every time it's picked up or dropped
 	remove_filter("unbound_ray")
 	add_filter(name = "unbound_ray", priority = 1, params = list(
 		type = "rays",
@@ -385,7 +360,6 @@
 		color = COLOR_HERETIC_GREEN, // the sickly green of the heretic leaking through
 		density = 16,
 	))
-	// because otherwise the animations stack and it looks ridiculous
 	var/ray_filter = get_filter("unbound_ray")
 	animate(ray_filter, offset = 100, time = 2 MINUTES, loop = -1, flags = ANIMATION_PARALLEL) // Absurdly long animate so nobody notices it hitching when it loops
 	animate(offset = 0, time = 2 MINUTES) // I sure hope duration of animate doesnt have any performance effect
@@ -405,15 +379,12 @@
 #undef SWORD_SPELLS
 #undef SWORD_PREFIX
 
-// List version of above proc
-// Returns ret_item, which is either the successfully located item or null
 /mob/living/carbon/human/proc/is_holding_item_of_types(list/typepaths)
 	for(var/typepath in typepaths)
 		var/ret_item = is_holding_item_of_type(typepath)
 		if(ret_item)
 			return ret_item
 
-//Checks if we're holding an item of type: typepath
 /mob/living/carbon/human/proc/is_holding_item_of_type(typepath)
 	for(var/obj/item/item in get_held_items())
 		if(!istype(item, typepath))

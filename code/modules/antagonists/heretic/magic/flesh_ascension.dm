@@ -11,12 +11,8 @@
 	school = SCHOOL_FORBIDDEN
 	invocation = "ДА РАСКРОЕТСЯ РЕАЛЬНОСТЬ!"
 	spell_requirements = NONE
-	// TG 1:1: the shed/return toggle shares a single 10s cooldown (master220's shapeshift base is 20s).
 	base_cooldown = 10 SECONDS
 
-	//convert_damage = FALSE // Functionally meaningless on Armsy, we track how many segments it had instead
-	// Only one possible form, so fix it up-front - skips the pointless one-option "choose your form" popup,
-	// and the button becomes a clean become-worm / return-to-human toggle.
 	shapeshift_type = /mob/living/simple_animal/hostile/heretic_summon/armsy
 	possible_shapes = list(/mob/living/simple_animal/hostile/heretic_summon/armsy)
 
@@ -26,10 +22,6 @@
 	var/scare_radius = 9
 
 
-// The base spell decides shed-vs-return via `M in current_shapes`, which can desync - if it ever thinks
-// the worm isn't a tracked shape it tries to Shapeshift again and the godmode "already shapeshifted" guard
-// silently eats the cast, leaving the button dead and you stuck as the worm. Decide off the actual body
-// type instead: a Lord of Night always shrinks back, anything else sheds.
 /obj/effect/proc_holder/spell/shapeshift/shed_human_form/cast(list/targets, mob/user = usr)
 	for(var/mob/living/caster in targets)
 		if(istype(caster, /mob/living/simple_animal/hostile/heretic_summon/armsy))
@@ -51,10 +43,6 @@
 
 	. = ..()
 
-	// While shed into the worm, the ONLY ability is "return to your old form". The mind transfer above
-	// (mind.transfer_to, called by the base Shapeshift) re-grants EVERY heretic spell to the new body,
-	// which would litter the worm with useless human-only spell buttons. Strip them off the worm - they
-	// stay on the mind and are re-granted automatically when we Restore.
 	var/mob/living/worm = caster.loc
 	if(istype(worm) && worm.mind)
 		for(var/obj/effect/proc_holder/spell/spell as anything in worm.mind.spell_list)
@@ -62,28 +50,18 @@
 				continue
 			spell.action.Remove(worm)
 
-		// Insurance: the shed toggle is the only way back to human form, so guarantee its button is
-		// actually on the worm after the strip above (Grant() no-ops if already present).
 		src.action?.Grant(worm)
 
-		// Hide the heretic's visible eldritch aura while we're the worm - apply_innate_effects() re-drew
-		// it on the new body during the mind transfer above. The trait makes should_show_aura() return
-		// FALSE; it returns on its own when we Restore and the aura redraws on the human.
 		ADD_TRAIT(worm, TRAIT_HERETIC_AURA_HIDDEN, HERETIC_TRAIT)
 
 		worm.update_action_buttons(reload_screen = TRUE)
 
 
 /obj/effect/proc_holder/spell/shapeshift/shed_human_form/Restore(mob/living/simple_animal/hostile/heretic_summon/armsy/shape)
-	// Hold onto the human trapped inside the worm so we can re-arm their spell buttons after the base
-	// transfer pulls them back out (see the re-grant below).
 	var/mob/living/trapped_caster
 	if(istype(shape))
 		segment_length = shape.get_length() - 1 // Don't count the head
 
-		// Belt-and-suspenders: base Restore() bails unless the shape is in current_shapes and the trapped
-		// caster is in current_casters. If those lists ever desynced we'd be unable to shrink back, so
-		// rebuild them from the worm itself (the caster is the mob inside carrying our godmode trait).
 		if(!(shape in current_shapes))
 			current_shapes |= shape
 		for(var/mob/living/trapped in shape)
@@ -94,20 +72,11 @@
 
 	. = ..() // base transfers the mind back to the human and gibs the worm
 
-	// Shapeshift() stripped every other spell's button off the worm; the mind transfer above is supposed to
-	// re-grant them to the restored human (master220 transfer_mindbound_actions), but if that ever fails the
-	// heretic comes back with NO abilities and can't even shed again. Re-grant every mind spell's button
-	// straight onto the human - Grant() is a no-op when the button's already there, so this is just insurance.
 	if(!QDELETED(trapped_caster) && trapped_caster.mind)
-		// Re-add any knowledge spell that went missing (a duplicate/dead-action spell pruned during the
-		// transfer would otherwise be gone for good - this is why repeated shed/return cycles bled abilities).
 		var/datum/antagonist/heretic/our_heretic = trapped_caster.mind.has_antag_datum(/datum/antagonist/heretic)
 		our_heretic?.resync_knowledge_spells(trapped_caster)
 		for(var/obj/effect/proc_holder/spell/spell as anything in trapped_caster.mind.spell_list)
 			spell.action?.Grant(trapped_caster)
-		// CRUCIAL: mind.transfer_to() grants the spell actions BEFORE possess_by_player() re-attaches the
-		// client, so GiveAction() had no client.screen to draw onto and the buttons silently never appeared
-		// (only some abilities came back). A full rebuild re-shows every granted action now the client is back.
 		trapped_caster.update_action_buttons(reload_screen = TRUE)
 
 

@@ -9,8 +9,6 @@
 	tier3 = /datum/heretic_knowledge/eldritch_coin
 
 
-// Sidepaths for knowledge between Cosmos and Ash.
-
 /datum/heretic_knowledge/limited_amount/summon/fire_shark
 	drafting_tier = 3
 	name = "Опаляющая Акула"
@@ -69,20 +67,13 @@
 	desc = "Удивительно тяжёлая, богато украшенная монета. Рисунки на гранях постоянно меняются."
 	gender = FEMALE
 	icon_state = "coin_heretic"
-	//custom_materials = list(/datum/material/diamond =HALF_SHEET_MATERIAL_AMOUNT, /datum/material/plasma =HALF_SHEET_MATERIAL_AMOUNT)
 	sideslist = list("heretic", "blade")
-	//heads_name = "heretic"
-	//has_action = TRUE
-	//material_flags = NONE
 	/// The range at which airlocks are effected.
 	var/airlock_range = 5
 
 
 /obj/item/coin/eldritch/Initialize(mapload)
 	. = ..()
-	// The base /obj/item/coin/Initialize() overwrites icon_state to "coin_[cmineral]_[sideslist[1]]".
-	// We have no cmineral, so that yields the nonexistent state "coin__heretic" -> the coin spawns invisible.
-	// Restore our real (merged) state so it actually shows up.
 	icon_state = "coin_heretic"
 
 
@@ -103,8 +94,6 @@
 		living_user.adjustBruteLoss(5)
 		return
 
-	// Self-contained flip: the base coin's attack_self never exposes the flip result,
-	// so we mirror its flow here and trigger our eldritch effect via on_result_act().
 	if(cooldown >= world.time - 15)
 		return
 	var/coinflip = pick(sideslist)

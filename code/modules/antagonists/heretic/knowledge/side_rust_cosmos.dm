@@ -9,8 +9,6 @@
 	tier3 = /datum/heretic_knowledge/limited_amount/summon/rusty
 
 
-// Sidepaths for knowledge between Rust and Cosmos.
-
 /datum/heretic_knowledge/essence
 	drafting_tier = 1
 	name = "Ритуал Священника"
@@ -72,7 +70,6 @@
 		if(get_dist(nearby_turf, loc) <= 1) //tiles on rune should always be rusted
 			nearby_turf.rust_heretic_act()
 
-		//we exclude closed turf to avoid exposing cultist bases
 		if(prob(10) || iswallturf(nearby_turf))
 			continue
 

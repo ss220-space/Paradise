@@ -4,9 +4,6 @@
 	desc = "Эти глаза увидели то, чего им видеть не следовало."
 	icon_state = "eyes_voidwalker"
 	color = COLOR_VOID_PURPLE
-	//iris_overlay = null
-	//eye_color_left = COLOR_VOID_PURPLE
-	//eye_color_right = COLOR_VOID_PURPLE
 	/// The override images we are applying
 	var/list/hallucinations
 
@@ -79,7 +76,6 @@
 /obj/item/organ/internal/vocal_cords/corrupt/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/corrupted_organ)
-	//AddElement(/datum/element/noticable_organ, "The inside of %PRONOUN_Their mouth is full of stars.", BODY_ZONE_PRECISE_MOUTH)
 
 
 /obj/item/organ/internal/vocal_cords/corrupt/insert(mob/living/carbon/organ_owner, special, movement_flags)

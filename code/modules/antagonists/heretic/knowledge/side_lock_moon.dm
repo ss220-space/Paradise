@@ -4,13 +4,8 @@
 
 	route = PATH_SIDE
 
-	// NB: Mind Gate is the Moon path's knowledge_tier1 (see moon_lore.dm) and must NOT be claimed here -
-	// listing it as this column's tier1 would overwrite its route to PATH_SIDE, shoving it into the
-	// Knowledge Shop instead of the Moon research tree.
 	tier2 = list(/datum/heretic_knowledge/unfathomable_curio, /datum/heretic_knowledge/painting)
 	tier3 = /datum/heretic_knowledge/codex_morbus
-
-// Sidepaths for knowledge between Knock and Moon.
 
 
 /datum/heretic_knowledge/unfathomable_curio
@@ -61,7 +56,7 @@
 
 /datum/heretic_knowledge/painting/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	if(locate(/obj/item/organ/internal/eyes) in atoms)
-		src.result_atoms = list(/obj/item/wallframe/painting/eldritch/weeping)
+		src.result_atoms = list(/obj/item/mounted/wallframe/painting/eldritch/weeping)
 		src.required_atoms = list(
 			/obj/item/canvas = 1,
 			/obj/item/organ/internal/eyes = 1,
@@ -69,7 +64,7 @@
 		return TRUE
 
 	if(locate(/obj/item/organ/external) in atoms)
-		src.result_atoms = list(/obj/item/wallframe/painting/eldritch/desire)
+		src.result_atoms = list(/obj/item/mounted/wallframe/painting/eldritch/desire)
 		src.required_atoms = list(
 			/obj/item/canvas = 1,
 			/obj/item/organ/external = 1,
@@ -77,7 +72,7 @@
 		return TRUE
 
 	if(locate(/obj/item/reagent_containers/food/snacks/grown) in atoms)
-		src.result_atoms = list(/obj/item/wallframe/painting/eldritch/vines)
+		src.result_atoms = list(/obj/item/mounted/wallframe/painting/eldritch/vines)
 		src.required_atoms = list(
 			/obj/item/canvas = 1,
 			/obj/item/reagent_containers/food/snacks/grown = 1,
@@ -85,7 +80,7 @@
 		return TRUE
 
 	if(locate(/obj/item/clothing/gloves) in atoms)
-		src.result_atoms = list(/obj/item/wallframe/painting/eldritch/beauty)
+		src.result_atoms = list(/obj/item/mounted/wallframe/painting/eldritch/beauty)
 		src.required_atoms = list(
 			/obj/item/canvas = 1,
 			/obj/item/clothing/gloves = 1,
@@ -93,7 +88,7 @@
 		return TRUE
 
 	if(locate(/obj/item/trash) in atoms)
-		src.result_atoms = list(/obj/item/wallframe/painting/eldritch/rust)
+		src.result_atoms = list(/obj/item/mounted/wallframe/painting/eldritch/rust)
 		src.required_atoms = list(
 			/obj/item/canvas = 1,
 			/obj/item/trash = 1,

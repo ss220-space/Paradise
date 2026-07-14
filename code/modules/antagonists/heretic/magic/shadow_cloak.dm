@@ -56,7 +56,6 @@
 		'sound/effects/curse/curse5.ogg',
 		'sound/effects/curse/curse6.ogg',
 	)
-	// We handle the CD on our own
 	return . | SPELL_NO_IMMEDIATE_COOLDOWN
 
 
@@ -64,8 +63,6 @@
 	. = ..()
 	var/mob/living/cast_on = targets[1]
 	if(active_cloak)
-		// Manual toggle-off: cooldown scales with how long you were cloaked. A quick toggle costs
-		// only base_cooldown; staying cloaked longer costs more.
 		var/time_left = max(active_cloak.duration - world.time, 0)
 		var/time_elapsed = uncloak_time - time_left
 		var/new_cd = max(time_elapsed / 3, base_cooldown)
@@ -73,8 +70,6 @@
 		cooldown_handler.start_recharge(new_cd)
 		return
 
-	// The status effect self-expires after its own duration; we don't rely on a spell-side addtimer,
-	// which would leak (cloak forever) if the spell instance were ever re-created.
 	cloak_mob(cast_on)
 	cooldown_handler.start_recharge()
 
@@ -124,8 +119,6 @@
 	)
 
 	removed.Knockdown(0.5 SECONDS)
-	// Being forced out of the cloak slaps a lingering 2-minute slowdown on you, on top of losing
-	// the cloak's speed buff.
 	removed.add_movespeed_modifier(/datum/movespeed_modifier/shadow_cloak/early_remove)
 	addtimer(CALLBACK(removed, TYPE_PROC_REF(/mob, remove_movespeed_modifier), /datum/movespeed_modifier/shadow_cloak/early_remove), 2 MINUTES, TIMER_UNIQUE|TIMER_OVERRIDE)
 	cooldown_handler.start_recharge(uncloak_time * 2/3)
@@ -148,9 +141,6 @@
 /datum/status_effect/shadow_cloak
 	id = "shadow_cloak"
 	alert_type = null
-	// Self-expire after 3 minutes. The status effect owns its own lifetime now (the spell used to drive
-	// this with an addtimer, which leaked the cloak forever if the spell instance was ever re-created).
-	// Keep in sync with /obj/effect/proc_holder/spell/shadow_cloak's uncloak_time.
 	duration = 3 MINUTES
 	tick_interval = -1
 	/// How much damage we've been hit with
@@ -170,7 +160,6 @@
 	animate(cloak_image, alpha = 255, 0.2 SECONDS)
 	owner.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/everyone, id, cloak_image)
 	owner.add_traits(list(TRAIT_UNKNOWN_APPEARANCE, TRAIT_UNKNOWN_VOICE, TRAIT_SILENT_FOOTSTEPS, TRAIT_NO_SNOWPRINTS), TRAIT_STATUS_EFFECT(id))
-	// TRAIT_UNKNOWN_APPEARANCE hides the name via get_visible_name(); refresh it now instead of waiting a Life tick.
 	if(ishuman(owner))
 		owner.name = owner.get_visible_name()
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/shadow_cloak)
@@ -187,7 +176,6 @@
 	owner.remove_alt_appearance(id)
 	QDEL_NULL(cloak_image)
 	owner.remove_traits(list(TRAIT_UNKNOWN_APPEARANCE, TRAIT_UNKNOWN_VOICE, TRAIT_SILENT_FOOTSTEPS, TRAIT_NO_SNOWPRINTS), TRAIT_STATUS_EFFECT(id))
-	// Restore the real name immediately now that TRAIT_UNKNOWN_APPEARANCE is gone.
 	if(ishuman(owner))
 		owner.name = owner.get_visible_name()
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/shadow_cloak)
@@ -222,7 +210,6 @@
 /datum/status_effect/shadow_cloak/proc/on_stat_change(datum/source, new_stat, old_stat)
 	SIGNAL_HANDLER
 
-	// Going above unconscious will self-delete (counts as a forced break → reveal penalty)
 	if(new_stat >= UNCONSCIOUS)
 		forced_removal = TRUE
 		qdel(src)
@@ -232,7 +219,6 @@
 /datum/status_effect/shadow_cloak/proc/on_damaged(datum/source, damage, damagetype, ...)
 	SIGNAL_HANDLER
 
-	// Stam damage is generally bursty, so we'll half it
 	if(damagetype == STAMINA)
 		damage *= 0.5
 
@@ -269,15 +255,12 @@
 
 /datum/movespeed_modifier/shadow_cloak
 	blacklisted_movetypes = FLYING
-	// While cloaked, you move faster
 	multiplicative_slowdown = -0.4
 
 
 /datum/movespeed_modifier/shadow_cloak/early_remove
-	// Being thrusted out of cloak from damage makes you move slower
 	multiplicative_slowdown = 0.5
 
 
 /datum/actionspeed_modifier/shadow_cloak
-	// While cloaked, all actions are much slower
 	multiplicative_slowdown = 3

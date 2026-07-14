@@ -32,7 +32,6 @@
 	var/mob/living/carbon/human/cast_on = targets[1]
 	. = ..()
 	var/mob/living/caster = action?.owner || user
-	// No wound system here, so "cleanses all wounds upon casting" becomes a flat brute/burn heal.
 	if(isliving(caster))
 		caster.adjustBruteLoss(-20)
 		caster.adjustFireLoss(-20)

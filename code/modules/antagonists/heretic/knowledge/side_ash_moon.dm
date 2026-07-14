@@ -9,7 +9,6 @@
 	tier3 = /datum/heretic_knowledge/limited_amount/summon/ashy
 
 
-// Sidepaths for knowledge between Ash and Flesh.
 /datum/heretic_knowledge/medallion
 	drafting_tier = 1
 	name = "Глаза Пепла" // It should be like colour of eyes, but I think this sounds better.

@@ -66,7 +66,6 @@
 		else
 			balloon_message = "очень далеко!"
 
-	// Early returns here if we don't need to tell them the z-levels
 	if(our_z == their_z)
 		return balloon_message
 
@@ -78,12 +77,10 @@
 		balloon_message = "за вратами!"
 		return balloon_message
 
-	// We already checked if they are on lavaland or gateway, so if they arent there or on the station we can early return
 	if(!is_station_level(their_z))
 		balloon_message = "на другом слое реальности!!"
 		return balloon_message
 
-	// They must be on station because we have checked every other z-level, and since we arent on station we should go there
 	if(!is_station_level(our_z))
 		balloon_message = "на станции!"
 		return balloon_message

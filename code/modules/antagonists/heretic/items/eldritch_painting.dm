@@ -1,8 +1,7 @@
-/obj/item/wallframe/painting/eldritch
-	abstract_type = /obj/item/wallframe/painting/eldritch
+/obj/item/mounted/wallframe/painting/eldritch
+	abstract_type = /obj/item/mounted/wallframe/painting/eldritch
 	name = "The Blank Canvas: A Study in Default Subtypes"
 	desc = "Невозможная картина, созданная невозможной краской. Она не должна существовать в этой реальности."
-	// master220's painting compat base points at decals.dmi; the eldritch painting sprites live in signs.dmi.
 	icon_state = "eldritch_painting_debug"
 	result_path = /obj/structure/sign/painting/eldritch
 
@@ -12,7 +11,6 @@
 	name = "The Blank Canvas: A Study in Default Subtypes"
 	desc = "Невозможная картина, созданная невозможной краской. Она не должна существовать в этой реальности."
 	icon_state = "eldritch_painting_debug"
-	//buildable_sign = FALSE
 	accepted_canvas_types = list()
 	persistence_id = FALSE
 	/// The status effect this painting curses onlookers with. null = no passive curse (e.g. the vines).
@@ -32,8 +30,6 @@
 
 /obj/structure/sign/painting/eldritch/proc/apply_painting_effect(datum/source, mob/living/carbon/viewer)
 	SIGNAL_HANDLER
-	// Must be viewer.can_see(src, range), the master220 atom method - a bare can_see(viewer, src, range)
-	// would resolve to /atom/proc/can_see and pass the painting as the `length` arg, silently failing LOS.
 	if(!isliving(viewer) || !viewer.can_see(src, range))
 		return
 
@@ -49,8 +45,6 @@
 	if(viewer.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND))
 		return
 
-	// Returns silently for the holy-watered: on_apply would refuse the curse anyway, but we shouldn't fire
-	// the scream + "mind burns" feedback for a viewer who is actually immune.
 	if(viewer.reagents?.has_reagent(/datum/reagent/holywater))
 		return
 
@@ -67,14 +61,11 @@
 	qdel(src)
 	return ATTACK_CHAIN_SUCCESS
 
-// On examine eldritch paintings give a trait so their effects can not be spammed
 /obj/structure/sign/painting/eldritch/examine(mob/user)
 	. = ..()
 	if(!iscarbon(user))
 		return
 
-	// Per-painting cooldown (keyed by this painting's UID), not a global one - a global trait would block the
-	// examine effect of EVERY other painting for 3 min after looking at just one of them.
 	if(HAS_TRAIT_FROM(user, TRAIT_ELDRITCH_PAINTING_EXAMINE, UID()))
 		return
 
@@ -91,13 +82,13 @@
 	to_chat(examiner, span_notice("Какая странная картина..."))
 
 
-/obj/item/wallframe/painting/eldritch/weeping
+/obj/item/mounted/wallframe/painting/eldritch/weeping
 	name = "\improper The Sister and He Who Wept"
 	desc = "Прекрасная картина, изображающая прекрасную даму, сидящую рядом с Ним. Он плачет. Вы ещё увидите Его."
 	icon_state = "eldritch_painting_weeping"
 	result_path = /obj/structure/sign/painting/eldritch/weeping
 
-/obj/item/wallframe/painting/eldritch/weeping/get_ru_names()
+/obj/item/mounted/wallframe/painting/eldritch/weeping/get_ru_names()
 	return alist(
 		NOMINATIVE = "\"Сестра и Плачущий\"",
 		GENITIVE = "\"Сестра и Плачущий\"",
@@ -126,8 +117,6 @@
 
 /obj/structure/sign/painting/eldritch/weeping/examine_effects(mob/living/carbon/examiner)
 	if(!isheretic(examiner))
-		// The actual "respite" is the TRAIT_ELDRITCH_PAINTING_EXAMINE set in the base examine(), which pauses
-		// the weeping curse's hallucination ticks for 3 minutes.
 		to_chat(examiner, span_hypnophrase("Отдохните. Пока можете..."))
 		return
 
@@ -135,13 +124,13 @@
 	examiner.SetHallucinate(0)
 
 
-/obj/item/wallframe/painting/eldritch/desire
+/obj/item/mounted/wallframe/painting/eldritch/desire
 	name = "\improper The Feast of Desire"
 	desc = "Картина, изображающая изысканное пиршество. Несмотря на то, что еда давно сгнила, она выглядит очень аппетитно."
 	icon_state = "eldritch_painting_desire"
 	result_path = /obj/structure/sign/painting/eldritch/desire
 
-/obj/item/wallframe/painting/eldritch/desire/get_ru_names()
+/obj/item/mounted/wallframe/painting/eldritch/desire/get_ru_names()
 	return alist(
 		NOMINATIVE = "\"Фестиваль Желаний\"",
 		GENITIVE = "\"Фестиваль Желаний\"",
@@ -197,13 +186,13 @@
 	to_chat(examiner, span_warning("Пустота кричит!"))
 
 
-/obj/item/wallframe/painting/eldritch/vines
+/obj/item/mounted/wallframe/painting/eldritch/vines
 	name = "\improper Great Chaparral Over Rolling Hills"
 	desc = "Картина, изображающая густые заросли. Эта картина кипит жизнью, а её содержимое словно рвётся наружу."
 	icon_state = "eldritch_painting_vines"
 	result_path = /obj/structure/sign/painting/eldritch/vines
 
-/obj/item/wallframe/painting/eldritch/vines/get_ru_names()
+/obj/item/mounted/wallframe/painting/eldritch/vines/get_ru_names()
 	return alist(
 		NOMINATIVE = "\"Мир без Всех Вас\"",
 		GENITIVE = "\"Мир без Всех Вас\"",
@@ -229,7 +218,6 @@
 		/obj/item/reagent_containers/food/snacks/grown/poppy,
 		/obj/item/reagent_containers/food/snacks/grown/harebell,
 	)
-	// No passive sightline curse - just spawns kudzu when hung.
 	applied_status_effect = null
 
 /obj/structure/sign/painting/eldritch/vines/get_ru_names()
@@ -261,13 +249,13 @@
 	new item_to_spawn(examiner.drop_location())
 
 
-/obj/item/wallframe/painting/eldritch/beauty
+/obj/item/mounted/wallframe/painting/eldritch/beauty
 	name = "\improper Lady of the Gate"
 	desc = "Картина существа из другого мира. Тонкая кожа цвета фарфора туго натянута на странные кости. Она причудливо красива."
 	icon_state = "eldritch_painting_beauty"
 	result_path = /obj/structure/sign/painting/eldritch/beauty
 
-/obj/item/wallframe/painting/eldritch/beauty/get_ru_names()
+/obj/item/mounted/wallframe/painting/eldritch/beauty/get_ru_names()
 	return alist(
 		NOMINATIVE = "\"Владычица Врат\"",
 		GENITIVE = "\"Владычица Врат\"",
@@ -310,13 +298,13 @@
 	examiner.reagents.add_reagent_list(reagents_to_add)
 
 
-/obj/item/wallframe/painting/eldritch/rust
+/obj/item/mounted/wallframe/painting/eldritch/rust
 	name = "\improper Master of the Rusted Mountain"
 	desc = "Картина, изображающая странное существо, взбирающееся на гору цвета ржавчины. Стиль картины неестественный и пугающий."
 	icon_state = "eldritch_painting_rust"
 	result_path = /obj/structure/sign/painting/eldritch/rust
 
-/obj/item/wallframe/painting/eldritch/rust/get_ru_names()
+/obj/item/mounted/wallframe/painting/eldritch/rust/get_ru_names()
 	return alist(
 		NOMINATIVE = "\"Хозяйка Ржавой Горы\"",
 		GENITIVE = "\"Хозяйка Ржавой Горы\"",

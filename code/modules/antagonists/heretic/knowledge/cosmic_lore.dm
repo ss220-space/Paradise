@@ -36,16 +36,12 @@
 		"Всегда полезно оставить одну космическую руну рядом с ритуальной руной — так вы сможете быстро похищать \
 		цели для жертвоприношения.",
 	)
-	// "Избранник Звёзд" passive (see /datum/status_effect/heretic_passive/cosmic): its power lives in your fields.
 	passive_name = "Избранник Звёзд"
 	passive_descriptions = list(
 		"Космические поля ускоряют вас и восстанавливают выносливость.",
 		"Создаваемые вами космические поля выводят из строя гранаты и бомбы поблизости.",
 		"Создаваемые вами космические поля замедляют пролетающие сквозь них снаряды.",
 	)
-	// Main line: base_cosmic -> cosmic_runes -> star_blast -> Starwoven Cloak(robes) -> star_touch -> Cosmic Blade ->
-	// cosmic_expansion -> ascension. The grasp field + cosmic mark are folded into base_cosmic,
-	// no separate grasp/mark nodes.
 	start = /datum/heretic_knowledge/limited_amount/starting/base_cosmic
 	knowledge_tier1 = /datum/heretic_knowledge/spell/cosmic_runes
 	knowledge_tier2 = /datum/heretic_knowledge/spell/star_blast
@@ -54,7 +50,6 @@
 	blade = /datum/heretic_knowledge/blade_upgrade/cosmic
 	knowledge_tier4 = /datum/heretic_knowledge/spell/cosmic_expansion
 	ascension = /datum/heretic_knowledge/ultimate/cosmic_final
-	// Side knowledges guaranteed to be offered in this path's drafts (TG).
 	guaranteed_side_tier1 = /datum/heretic_knowledge/eldritch_coin
 	guaranteed_side_tier2 = /datum/heretic_knowledge/spell/space_phase
 	guaranteed_side_tier3 = /datum/heretic_knowledge/essence
@@ -74,8 +69,6 @@
 	result_atoms = list(/obj/item/melee/sickly_blade/cosmic)
 	research_tree_icon_path = 'icons/obj/weapons/khopesh.dmi'
 	research_tree_icon_state = "cosmic_blade"
-	// The cosmic teleport-back mark and the grasp field/star-mark both live here now, instead
-	// of separate "Прикосновение космоса" / "Метка Космоса" nodes.
 	mark_type = /datum/status_effect/eldritch/cosmic
 	passive_type = /datum/status_effect/heretic_passive/cosmic
 
@@ -283,7 +276,6 @@
 				меня, а я защищу его. Я закрыл глаза, прижавшись головой к его телу. \
 				Я был в безопасности. СТАНЬТЕ СВИДЕТЕЛЯМИ МОЕГО ВОЗНЕСЕНИЯ!"
 
-	//ascension_achievement = /datum/award/achievement/misc/cosmic_ascension
 	announcement_text = "%SPOOKY% Звёздный Наблюдатель прервал созерцание космоса и обернул свой взор на станцию. %NAME% вознёсся! %SPOOKY%"
 	announcement_sound = 'sound/music/heretic/ascend_cosmic.ogg'
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/ascension.dmi'
@@ -306,15 +298,12 @@
 	if(!.)
 		return FALSE
 
-	// Only star-marked corpses count toward the ascension.
 	return sacrifice.has_status_effect(/datum/status_effect/star_mark)
 
 
 /datum/heretic_knowledge/ultimate/cosmic_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
 
-	// The heretic stays themselves and ascends; the Star Gazer is a separate, befriended ally
-	// (no "become the gazer yourself" option).
 	user.add_traits(ascended_traits, type)
 	if(ishuman(user))
 		user.update_sight()
@@ -326,19 +315,14 @@
 	star_gazer_mob.add_traits(stargazer_traits, type)
 	star_gazer_mob.AddComponent(/datum/component/damage_aura, range = 7, burn_damage = 0.5, simple_damage = 0.5, immune_factions = list(FACTION_HERETIC), current_owner = user)
 
-	// Let us boss it around, THEN befriend our master: obeys_commands must already sit on the mob when
-	// COMSIG_LIVING_BEFRIENDED fires, or it never hooks our speech/pointing.
 	star_gazer_mob.AddComponent(/datum/component/obeys_commands, star_gazer_commands, radial_menu_offset = list(30, 0), radial_menu_lifetime = 15 SECONDS, radial_relative_to_user = TRUE)
 	star_gazer_mob.befriend(user)
 	star_gazer_mob.leash_to(star_gazer_mob, user)
 	user.AddComponent(/datum/component/death_linked, star_gazer_mob)
 
-	// Grant the command + replace-consciousness actions. (The gazer itself keeps begging ghosts to
-	// take it over from its own Initialize, so no one-shot poll here.)
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/open_mob_commands(star_gazer_mob))
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/replace_star_gazer(star_gazer_mob))
 
-	// Empower the rest of the path.
 	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	var/datum/heretic_knowledge/blade_upgrade/cosmic/blade_upgrade = heretic_datum.get_knowledge(/datum/heretic_knowledge/blade_upgrade/cosmic)
 	blade_upgrade.combo_duration = 10 SECONDS
@@ -365,7 +349,6 @@
 	base_cooldown = 1 SECONDS
 	human_req = FALSE
 	clothes_req = FALSE
-	//check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_INCAPACITATED | AB_CHECK_PHASED
 	/// Weakref for storing our stargazer
 	var/mob/living/simple_animal/hostile/heretic_summon/star_gazer/our_mob
 
@@ -392,7 +375,6 @@
 	command_component.display_menu(action.owner)
 
 
-// Replaces the mind of your Star Gazer with that of a different ghost.
 /obj/effect/proc_holder/spell/replace_star_gazer
 	name = "Сменить разум Наблюдателя"
 	desc = "Заменяет разум вашего Звёздного Наблюдателя разумом другого призрака."
@@ -408,8 +390,6 @@
 	var/mob/living/simple_animal/hostile/heretic_summon/star_gazer/our_mob
 
 
-// Without a targeting datum the action button is dead: master220's choose_targets() null-derefs
-// `targeting.use_intercept_click` on every click (see toggle_seethrough for the same gotcha).
 /obj/effect/proc_holder/spell/replace_star_gazer/create_new_targeting()
 	return new /datum/spell_targeting/self
 
@@ -425,7 +405,6 @@
 		return FALSE
 
 	to_chat(user, span_hierophant("Вы побуждаете [our_mob.declent_ru(ACCUSATIVE)] сменить свою личность..."))
-	// role = null + ignore_respawnability (see star_gazer poll: SPECIAL_ROLE_* is not a be_special pref).
 	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите играть за [our_mob.declent_ru(ACCUSATIVE)] [span_danger("[user.real_name]")]?", null, FALSE, poll_time = 10 SECONDS, ignore_respawnability = TRUE, source = our_mob)
 	if(!length(candidates))
 		to_chat(user, span_hierophant("Никто не откликнулся на ваш зов. Похоже, пока придётся обойтись тем, что есть."))

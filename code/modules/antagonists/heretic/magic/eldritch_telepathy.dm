@@ -1,6 +1,3 @@
-// Pointed reimplementation: whispers a typed message into a single target's head. Needed because the
-// genetics `remotetalk` spell's cast() early-returns unless `ishuman(user)`, and Raw Prophets are
-// simple_animals, so mapping onto that did nothing.
 /obj/effect/proc_holder/spell/pointed/eldritch_telepathy
 	name = "Жуткая Телепатия"
 	desc = "Телепатически передаёт сообщение цели."

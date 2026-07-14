@@ -1,4 +1,3 @@
-// Перестройка. It's like Fleshmend but solely for stamina damage and stuns. Sec meta
 /obj/effect/proc_holder/spell/realignment
 	name = "Перестройка"
 	desc = "Перестроив свой организм, вы быстро восстановите выносливость и уменьшите время \
@@ -10,16 +9,11 @@
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/hud/implants.dmi'
 	action_icon_state = "adrenal"
-	// sound = 'sound/magic/whistlereset.ogg' I have no idea why this was commented out
 
 	school = SCHOOL_FORBIDDEN
 	human_req = FALSE
 	clothes_req = FALSE
 	base_cooldown = 6 SECONDS
-	// Realignment ramps its OWN cooldown each cast (the spell-levelling mechanic): every cast lengthens
-	// the cooldown by realign_cooldown_step up to realign_max_level steps (6s -> ... -> 60s), and each cast
-	// schedules a delevel that walks it back down after a while. Since proc_holder spells have no built-in
-	// levelling, cooldown_handler.recharge_duration is driven directly to reproduce this.
 	invocation = "П'Р'СТР'ЙК"
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
@@ -44,8 +38,6 @@
 
 /obj/effect/proc_holder/spell/realignment/after_cast(list/targets, mob/user)
 	. = ..()
-	// Every cast ramps the cooldown up one level (for a while), an escalating cost for repeated casts.
-	// start_recharge() already ran with the OLD duration in perform(), so this only affects future casts.
 	if(!level_realignment())
 		return
 	var/reduction_timer = max(cooldown_handler.recharge_duration * realign_max_level * 0.5, 1.5 MINUTES)

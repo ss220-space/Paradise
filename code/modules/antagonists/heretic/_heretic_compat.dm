@@ -1,9 +1,6 @@
 /// master220 compatibility shims for the tg-derived heretic code. Small adapter procs that bridge API-name
 /// differences between the heretic source and master220, kept here so core files stay clean.
 
-// --- Organ damage API ---
-// tg/selfharm uses mob.adjustOrganLoss(slot, amount, ...); master220 organs use
-// internal_receive_damage(amount, silent) / heal_internal_damage(amount, robo_repair).
 
 /mob/living/proc/adjustOrganLoss(slot, amount, maximum, required_organ_flag)
 	return FALSE
@@ -19,12 +16,6 @@
 	affected_organ.heal_internal_damage(-amount)
 	return TRUE
 
-// tg reads current organ damage via mob.get_organ_loss(slot); master220's base /mob/living/get_organ_loss
-// (damage_procs.dm) is an empty stub that ALWAYS returns null. Without this carbon override every
-// get_organ_loss(INTERNAL_ORGAN_BRAIN) call in the moon path read 0 - which silently broke the moon amulet
-// curse, the moon armor's berserk gate, AND the moon ascension (its is_valid_sacrifice rejected every corpse
-// because their "brain damage" always read 0). Mirror adjustOrganLoss above: resolve the organ and report
-// its real `damage`.
 /mob/living/carbon/get_organ_loss(slot, required_organ_flag)
 	var/obj/item/organ/affected_organ = get_organ_slot(slot)
 	if(!affected_organ)
@@ -45,7 +36,6 @@
 /obj/item/organ/proc/set_organ_damage(amount, required_organ_flag)
 	damage = clamp(amount, 0, max_damage)
 
-// --- Misc behaviour shims (master220 lacks these tg procs; no-ops for now, behaviour = runtime polish) ---
 
 /// tg stun-absorption buff (blade path "Furious Steel"). No-op until ported; stun immunity won't apply yet.
 /mob/living/proc/add_stun_absorption(source, message, self_message, examine_message, max_seconds_of_stuns_blocked, delete_after_passing_max, recharge_time)
@@ -59,22 +49,9 @@
 /obj/proc/freeze_add()
 	return FALSE
 
-// --- Hallucination compat ---
-// master220 has no tg-style typed cause_hallucination()/hallucination datums, but it DOES have a working
-// hallucination engine: /obj/effect/hallucination/delusion warps the on-screen crew into monsters, and an
-// ambient strength-based status (Hallucinate()) sprinkles random ones over time.
-//
-// The ambient status ALONE is why "галюны не работают": its first hallucination is scheduled at
-// rand(20s,50s)/(strength*0.003) - at the low strengths these spells used (e.g. a 10s effect => strength
-// 100 => a 66-166s cooldown) the status expires LONG before it ever rolls a hallucination, so none fired.
-//
-// So cause_hallucination() now fires one delusion IMMEDIATELY (guaranteed and visible) and tops up the
-// ambient status for the rest of the duration as flavour. The specific delusion type is ignored (we use
-// the generic "everyone looks like a monster" delusion to approximate the moon/gate visuals).
 /mob/living/proc/cause_hallucination(hallucination_type, reason, duration = 30 SECONDS, affects_us = TRUE, affects_others = FALSE)
 	if(affects_us)
 		fire_eldritch_hallucination(src, duration)
-	// affects_others (e.g. a moon-converted madman radiating insanity) makes the nearby crew hallucinate too.
 	if(affects_others)
 		for(var/mob/living/carbon/nearby in view(7, src) - src)
 			fire_eldritch_hallucination(nearby, duration)
@@ -83,24 +60,13 @@
 /proc/fire_eldritch_hallucination(mob/living/carbon/who, duration = 30 SECONDS)
 	if(!iscarbon(who))
 		return
-	// 1) GUARANTEED, self-contained hallucinations via hallucinate_living() - the exact 100%-reliable trick
-	//    the madness mask uses (sounds/whispers/fake messages/battle visions/self-delusion the victim
-	//    experiences directly, so they fire even with nobody else around). Fired ASYNC because
-	//    hallucinate_living() can sleep for several seconds (animated hallucinations); this proc runs inside
-	//    the mansus-grasp attack chain (a signal handler), and a synchronous sleep there stalled afterattack
-	//    so the grasp hand was never removed or put on cooldown (spam-clickable). INVOKE_ASYNC returns at once.
 	INVOKE_ASYNC(who, TYPE_PROC_REF(/mob/living, hallucinate_living), pickweight(GLOB.minor_medium_hallutinations))
-	// 2) Themed "everyone looks like a monster" delusion on top, for when bystanders ARE around (the moon
-	//    visual). skip_nearby = FALSE so people right next to the victim transform too. (Does not sleep.)
 	new /obj/effect/hallucination/delusion(who.loc, who, null, duration, FALSE)
-	// 3) Pin the ambient hallucination status near TG's 120s cap so more keep trickling in afterwards.
 	who.Hallucinate(max(duration, 120 SECONDS))
 
-// Stub types so the typepath literals the heretic spells pass as `hallucination_type` still resolve.
 /datum/hallucination/delusion/preset/moon
 /datum/hallucination/delusion/preset/heretic/gate
 
-// --- More master220 compat shims ---
 
 /// tg AdjustAllImmobility (stun/knockdown/immobilize); master220 closest = AdjustImmobilized.
 /mob/living/proc/AdjustAllImmobility(amount, ignore_canstun = FALSE)
@@ -127,50 +93,26 @@
 /atom/proc/get_examine_time()
 	return 0
 
-// --- Projectile helper ---
-// tg's /obj/projectile/proc/is_hostile_projectile() isn't present in master220.
-// A projectile counts as hostile here if it deals damage.
 /obj/projectile/proc/is_hostile_projectile()
 	return damage > 0
 
-// --- Rust system base hooks ---
-// Base no-op; specific atoms/turfs override rust_heretic_act() to define what rusting does to them.
-// /turf rusting is handled by rust_turf.dm.
 /atom/proc/rust_heretic_act(strength)
 	return
 
-// Structures shatter under rust - tg's /obj/structure/rust_heretic_act (take_damage 500 brute). This is
-// the identity that lets Aggressive Spread break adjacent grilles and weaker windows, and lets the
-// secondary Mansus Grasp smash structures. Reinforced/strong windows survive the 500, flimsy ones don't.
-// (mawed_crucible / eldritch structures keep their own more-specific override, so they're unaffected.)
 /obj/structure/rust_heretic_act(strength)
 	take_damage(500, BRUTE, MELEE, TRUE)
 
-// Machines crumble harder the stronger the heretic - tg's /obj/machinery/rust_heretic_act
-// (500 + rust_strength * 200 brute). A bare call (null strength) is treated as 0 → a flat 500.
 /obj/machinery/rust_heretic_act(strength)
 	take_damage(500 + strength * 200, BRUTE, BOMB, TRUE)
 
-// Windoors: tg only corrodes them (weaken + a rust element), but that left the door alive forever - the
-// rust element painted its full-tile overlay across the whole tile, and the indestructible border kept
-// blocking anything sharing the tile (a table couldn't be smashed from that side). Per Paradise design the
-// Rust grasp crumbles any door whole, so destroy it outright like the airlock and firelock below.
 /obj/machinery/door/window/rust_heretic_act(strength)
 	obj_flags |= NODECONSTRUCT
 	return ..()
 
-// Airlocks: vanilla tg (and the /obj/machinery path above) destroys the airlock but leaves a
-// /obj/structure/door_assembly frame behind, so corroding a door took two grasps (door -> frame -> gone).
-// Per design we want the Rust grasp to crumble the WHOLE door to rust in a single grasp. Setting
-// NODECONSTRUCT makes the airlock's deconstruct() skip spawning the assembly (and electronics) and just
-// qdel, so one corrode fully removes the door with nothing left to block the way.
 /obj/machinery/door/airlock/rust_heretic_act(strength)
 	obj_flags |= NODECONSTRUCT
 	return ..()
 
-// Firelocks corrode the same way: without this the /obj/machinery hit destroys the door but
-// deconstruct() drops a firelock_frame that keeps blocking the tile. NODECONSTRUCT crumbles the whole
-// firelock in one grasp, matching the airlock above.
 /obj/machinery/door/firedoor/rust_heretic_act(strength)
 	obj_flags |= NODECONSTRUCT
 	return ..()
@@ -180,49 +122,26 @@
 	var/datum/antagonist/heretic/heretic_data = mind?.has_antag_datum(/datum/antagonist/heretic)
 	target.rust_heretic_act(heretic_data?.rust_strength)
 
-// Synthetics crumble to rust instantly (ported from TG: silicon 500 brute, bots 400). This is what makes
-// the Rust path's "Mansus Grasp instantly destroys silicons/synthetics" identity actually do something -
-// without these the grasp's issilicon() branch called the /atom no-op and nothing happened.
 /mob/living/silicon/rust_heretic_act(strength)
 	adjustBruteLoss(500)
 
 /mob/living/simple_animal/bot/rust_heretic_act(strength)
 	adjustBruteLoss(400)
 
-// Mechs crumble to rust too - tg's /obj/vehicle/sealed/mecha/rust_heretic_act (take_damage 500 brute).
-// master220 mechs are /obj/mecha (an /obj, NOT /obj/machinery), so without this they'd hit the /atom
-// no-op and shrug off the grasp. This is the "Mansus Grasp instantly wrecks mechs" part of the Rust identity.
 /obj/mecha/rust_heretic_act(strength)
 	take_damage(500, BRUTE)
 
-// --- Misc compat ---
-// tg gates phasing per-z via ZTRAIT_NOPHASE, which master220 doesn't have. Default to allowed.
 /proc/is_phase_allowed(z)
 	return TRUE
 
-// (update_explanation_text() is now provided upstream by master220's objective.dm; shim removed.)
 
-// Russian "in the <dir>" helper used by the living-heart compass.
-// (dir2rustext already exists in master220's type2type.dm; only this wrapper is missing.)
 /proc/dir2rustext_where(direction)
 	return "на [dir2rustext(direction)]е"
 
-// --- Jaunt compat ---
-// master220 defines its own /obj/effect/dummy/spell_jaunt (ethereal_jaunt.dm) but lacks the tg API
-// the heretic jaunt spells (mirror_walk/space_crawl/ash_jaunt) use. Add the missing bits here.
-// NOTE: full reconciliation of the two jaunt models is task #8 (runtime); this unblocks compile +
-// gives working behaviour for the heretic flow which sets `jaunter` itself.
-// master220's base do_jaunt forceMoves the jaunter straight into the dummy (no set_jaunter call), so we
-// hook Entered to wire up tg's position indicator: an ABOVE_LIGHTING client image the jaunter alone sees,
-// telling them where their ashen/phased form is. Only fires for dummies that opted in via phased_mob_icon_state,
-// so the vampire jaunts that share this base type are unaffected.
 /obj/effect/dummy/spell_jaunt/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
 	if(!ismob(arrived) || arrived == jaunter)
 		return
-	// Always track the jaunter: exit_jaunt() validates jaunt.jaunter (CRASHing on mismatch)
-	// and eject_jaunter() needs it. Previously this was gated behind phased_mob_icon_state,
-	// so mirror_walk (which sets no position indicator) left jaunter null and could never exit.
 	jaunter = arrived
 	if(!phased_mob_icon_state)
 		return
@@ -255,8 +174,6 @@
 	var/turf/eject_spot = get_turf(src)
 	if(!eject_spot)
 		return
-	// forceMove fires Exited(), which nulls jaunter, so capture it first for the signal
-	// that drives on_jaunt_exited() (exit feedback, mirror_walk's cold air, etc.).
 	var/atom/movable/exiting = jaunter
 	jaunter.forceMove(eject_spot)
 	SEND_SIGNAL(src, COMSIG_MOB_EJECTED_FROM_JAUNT, exiting)
@@ -266,13 +183,9 @@
 /proc/is_jaunting(mob/living/possibly_jaunting)
 	return istype(possibly_jaunting?.loc, /obj/effect/dummy/spell_jaunt)
 
-// tg item visual-only equip hook; master220 uses equipped(). Base no-op so mutant-hand overrides compile.
-// NOTE: master220 won't auto-call this, so mutant-hand visuals are cosmetic-TODO (runtime polish).
 /obj/item/proc/visual_equipped(mob/user, slot, initial = FALSE)
 	return
 
-// tg helper: which body zones are covered by the mob's clothing. master220 lacks it; return none
-// (so noticable organs are always considered visible - slight over-reveal, runtime polish).
 /mob/living/carbon/proc/get_covered_body_zones()
 	return list()
 
@@ -362,23 +275,13 @@
 	owner.Disgust(5 * seconds_between_ticks)
 	owner.reagents?.remove_all(0.75 * seconds_between_ticks)
 
-// --- Painting/wallframe ---
-// The canvas/easel/wallframe/painting system now lives in
-// code/game/objects/structures/art/paintings.dm (ported from /tg/station, drawing-only scope).
-// The eldritch paintings (items/eldritch_painting.dm) subclass those real base types.
 
-// --- HUD compat ---
 /datum/atom_hud/alternate_appearance/basic/heretic
 	add_ghost_version = TRUE
 
 /datum/atom_hud/alternate_appearance/basic/heretic/mob_should_see(mob/viewer)
 	return IS_HERETIC_OR_MONSTER(viewer) || isobserver(viewer)
 
-// --- Construct/simplemob compat ---
-// (construct seeking/can_repair/construct_master vars live in constructs.dm,
-// the game_mode heretics list lives in game_mode.dm)
-
-// --- Object/gib compat ---
 
 /obj/proc/unfreeze()
 	return FALSE
@@ -394,7 +297,6 @@
 	gibdirections = list(list(NORTH, NORTHEAST, NORTHWEST), list(SOUTH, SOUTHEAST, SOUTHWEST), list(WEST, NORTHWEST, SOUTHWEST), list(EAST, NORTHEAST, SOUTHEAST), GLOB.alldirs, list())
 	return ..()
 
-// --- Misc proc/type compat ---
 
 /proc/bicon(atom/thing)
 	return icon2html(thing, usr)
@@ -406,7 +308,6 @@
 	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 
-// --- Helgrasp reagent compat ---
 
 /datum/reagent/inverse
 	name = "Inverse reagent"
@@ -448,8 +349,6 @@
 	clear_hand_timers()
 
 /datum/reagent/inverse/helgrasp/Destroy()
-	// The timer subsystem holds references to us through the callbacks - clear them
-	// or a reagent removed mid-cycle hard-deletes.
 	clear_hand_timers()
 	return ..()
 
@@ -464,21 +363,6 @@
 	description = "Чья-то рука у вашего горла..."
 
 
-// --- Corrected projectile pacing for slow heretic projectiles ---
-//
-// master220's /obj/projectile/process() only refreshes `last_projectile_move` inside pixel_move(),
-// i.e. ONLY on ticks where a full tile-move actually happens. For SLOW projectiles (speed > 1)
-// most ticks make zero moves, so next tick the (world.time - last_projectile_move) delta re-counts
-// time that was ALREADY folded into `time_offset` -> the projectile drifts noticeably faster, and
-// in irregular bursts, than its `speed` implies. (This is why simply bumping `speed` never made the
-// parade/curse hands move calmly - past a point the double-count cancels the increase and it just
-// stutters.) /tg/ avoids this by refreshing last_projectile_move EVERY process tick (process_movement)
-// and carrying only the sub-step remainder.
-//
-// We mirror /tg/'s accounting here, but ONLY for the heretic projectiles that opt in (below), so the
-// rest of the game's speed>1 projectiles keep the exact pacing they were balanced against. With this,
-// `speed` means what it should: tiles/sec = 10 / speed (e.g. speed 5 = 2 tiles/sec, matching /tg/'s
-// parade; speed 2 = 5 tiles/sec, matching /tg/'s curse hand).
 /obj/projectile/proc/process_paced()
 	if(!loc || !trajectory)
 		return PROCESS_KILL
@@ -488,8 +372,6 @@
 	var/elapsed_time_deciseconds = (world.time - last_projectile_move) + time_offset
 	last_projectile_move = world.time // THE FIX: refresh every tick so elapsed isn't re-counted
 	time_offset = 0
-	// These heretic projectiles are never hitscan, so we skip the stock proc's MOVES_HITSCAN branch
-	// (that define is file-local to projectile.dm anyway).
 	var/required_moves = floor(elapsed_time_deciseconds / speed)
 	if(required_moves > SSprojectiles.global_max_tick_moves)
 		var/overrun = required_moves - SSprojectiles.global_max_tick_moves

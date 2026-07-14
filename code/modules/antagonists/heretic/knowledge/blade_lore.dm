@@ -39,8 +39,6 @@
 		"Используйте \"Волк среди Овец\" с осторожностью: помимо большого отката, он вооружает клинками и тех, \
 		кто заперт вместе с вами. Это последний рубеж обороны или добивающий удар при явном преимуществе.",
 	)
-	// "Танец Клинка" passive (see /datum/status_effect/heretic_passive/blade): the riposte, folded into the
-	// path's passive (replacing the old standalone blade_dance node) and scaling as you grow.
 	passive_name = "Танец Клинка"
 	passive_descriptions = list(
 		"Атакованный в ближнем бою с клинком Еретика в любой руке, вы наносите мгновенный ответный удар атакующему. Срабатывает не чаще, чем раз в 20 секунд.",
@@ -48,10 +46,6 @@
 		"Перезарядка контратаки сокращена до 10 секунд.",
 	)
 
-	// Main line: base_blade -> Realignment -> Stance of the Torn Champion -> Shattered Panoply(robes) ->
-	// Furious Steel -> Empowered Blades -> Wolves Among Sheep -> ascension.
-	// The grasp (backstab stun), the blade mark and the riposte passive are all folded into base_blade,
-	// so there are no separate grasp/mark/dance nodes.
 	start = /datum/heretic_knowledge/limited_amount/starting/base_blade
 	knowledge_tier1 = /datum/heretic_knowledge/spell/realignment
 	knowledge_tier2 = /datum/heretic_knowledge/duel_stance
@@ -60,7 +54,6 @@
 	blade = /datum/heretic_knowledge/blade_upgrade/blade
 	knowledge_tier4 = /datum/heretic_knowledge/spell/wolves_among_sheep
 	ascension = /datum/heretic_knowledge/ultimate/blade_final
-	// Side knowledges guaranteed to be offered in this path's drafts (TG).
 	guaranteed_side_tier1 = /datum/heretic_knowledge/greaves_of_the_prophet
 	guaranteed_side_tier2 = /datum/heretic_knowledge/essence
 	guaranteed_side_tier3 = /datum/heretic_knowledge/rune_carver
@@ -81,7 +74,6 @@
 	research_tree_icon_path = 'icons/obj/weapons/khopesh.dmi'
 	research_tree_icon_state = "dark_blade"
 	mark_type = /datum/status_effect/eldritch/blade
-	// "Танец Клинка" passive: the riposte, granted on picking the path and scaling with power.
 	passive_type = /datum/status_effect/heretic_passive/blade
 
 
@@ -97,8 +89,6 @@
 	playsound(target, 'sound/weapons/guillotine.ogg', 100, TRUE)
 
 
-// The blade mark locks the victim to their current area until it expires/triggers,
-// and triggering it grants the heretic an orbiting protective blade.
 /datum/heretic_knowledge/limited_amount/starting/base_blade/create_mark(mob/living/source, mob/living/target)
 	var/datum/status_effect/eldritch/blade/blade_mark = ..()
 	if(!istype(blade_mark))
@@ -177,8 +167,6 @@
 		ADD_TRAIT(source, TRAIT_IGNOREDAMAGESLOWDOWN, type)
 
 
-// Расколотая Паноплия (Shattered Panoply): Blade path robes. Inherits the armor base (table/suit + mask +
-// silver/titanium; cost 1). The robe grants shock immunity + baton resistance (see the item).
 /datum/heretic_knowledge/armor/blade
 	name = "Расколотая Паноплия" // Shattered Panoply
 	desc = "Позволяет преобразовать стол (или верхнюю одежду), маску и слиток серебра или титана \
@@ -187,9 +175,6 @@
 	gain_text = "Эхо бесцельной какофонии насилия отдаётся вокруг меня. Даже когда стальную паноплию Чемпиона \
 				сорвали с его тела, каждая её часть всё ещё жаждет цели, стремясь перехватить незримые удары."
 	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/eldritch/blade)
-	// The blade robe sprite was inserted into the already-mapped armor.dmi. The /armor parent asks for
-	// frame 12 (eldritch_armor is a 14-frame anim); blade_armor is single-frame, so override back to
-	// frame 1 or the node renders a blank PNG.
 	research_tree_icon_state = "blade_armor"
 	research_tree_icon_frame = 1
 	required_atoms = list(
@@ -247,9 +232,6 @@
 /datum/heretic_knowledge/blade_upgrade/blade/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
 	RegisterSignal(user, COMSIG_TOUCH_HANDLESS_CAST, PROC_REF(on_grasp_cast))
-	// The "blades are stronger against structures/silicons/mechs" half of this knowledge is handled
-	// directly on the blade (/obj/item/melee/sickly_blade/dark checks for THIS knowledge at swing time),
-	// since master220 never emits COMSIG_MOB_EQUIPPED_ITEM, so no equip-time signal is needed here.
 	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, PROC_REF(do_melee_effects), override = TRUE)
 
 
@@ -273,13 +255,11 @@
 	held_blade.infused = TRUE
 	held_blade.update_appearance(UPDATE_ICON)
 
-	//Infuse our off-hand blade just so it's nicer visually
 	var/obj/item/melee/sickly_blade/dark/off_hand_blade = cast_on.get_inactive_hand()
 	if(istype(off_hand_blade, /obj/item/melee/sickly_blade/dark))
 		off_hand_blade.infused = TRUE
 		off_hand_blade.update_appearance(UPDATE_ICON)
 
-	// Refresh the in-hand sprites so the blade(s) visibly switch to their infused look.
 	cast_on.update_held_items()
 
 	return COMPONENT_CAST_HANDLESS
@@ -293,11 +273,9 @@
 	if(QDELETED(off_hand) || !istype(off_hand, /obj/item/melee/sickly_blade))
 		return
 
-	// Avoid an infinite stab combo if our off-hand is the blade that's attacking
 	if(off_hand == blade)
 		return
 
-	// Give it a short delay (for style, also lets people dodge it I guess)
 	addtimer(CALLBACK(src, PROC_REF(follow_up_attack), source, target, off_hand), 0.25 SECONDS)
 
 
@@ -311,13 +289,11 @@
 	if(!source.Adjacent(target))
 		return
 
-	// Skip recalculating offhand force unless the weapon actually changed
 	if(last_weapon_force == blade.force)
 		blade.melee_attack_chain(source, target, null, list(FORCE_MODIFIER = -offand_force_decrement))
 		return
 
 	offand_force_decrement = 0
-	// Roughly aim for the offhand blade to add one extra hit-to-crit vs the mainhand alone
 	var/hits_to_crit_on_average = ROUND_UP(100 / (blade.force * 2))
 	while(hits_to_crit_on_average <= 3) // 3 hits and beyond is a bit too absurd
 		if(offand_force_decrement + 2 > blade.force * 0.5) // Cutting the force beyond half is absurd too
@@ -357,7 +333,6 @@
 			атаке на часть нанесенного урона."
 	gain_text = "Я достиг вершины боевого мастерства! МНЕ НЕТ РАВНЫХ! ДА НАСТИГНЕТ МОИХ ВРАГОВ БУРЯ ИЗ СТАЛИ И СЕРЕБРА! СТАНЬТЕ СВИДЕТЕЛЯМИ МОЕГО ВОЗНЕСЕНИЯ!"
 
-	//ascension_achievement = /datum/award/achievement/misc/blade_ascension
 	announcement_text = "%SPOOKY% Воздух пронзает свист тысячи лезвий! Мастер Клинка %NAME% вознёсся! Сталь клинков рассечет реальность в серебрянном водовороте! %SPOOKY%"
 	announcement_sound = 'sound/music/heretic/ascend_blade.ogg'
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/ascension.dmi'
@@ -374,14 +349,10 @@
 
 /datum/heretic_knowledge/ultimate/blade_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
-	// master220 has no wound system, but it does have fractures, so full wound immunity is
-	// approximated here as fracture immunity (TRAIT_IGNORE_FRACTURE).
 	if(ishuman(user))
 		var/mob/living/carbon/human/human_user = user
 		human_user.add_fracture_ignore_trait(type)
 		human_user.physiology.knockdown_mod = 0.75 // Otherwise knockdowns would probably overpower the stun absorption effect.
-		// A true master of combat shrugs off bodily harm. Fractures and internal/arterial bleeding are gated by
-		// PERSISTENT per-limb vars, so we set them ONCE here (no per-tick work) and clear anything already present.
 		for(var/obj/item/organ/external/bodypart as anything in human_user.bodyparts)
 			bodypart.cannot_break = TRUE
 			bodypart.cannot_internal_bleed = TRUE
@@ -389,28 +360,17 @@
 			bodypart.stop_internal_bleeding()
 			bodypart.stop_bleeding()
 	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, PROC_REF(on_eldritch_blade))
-	// Plain external bleeding is the only kind with no prevention flag in master220 (only the over-broad
-	// TRAIT_NO_BLOOD, which makes the heretic literally bloodless). It can only accrue from brute hits, so we
-	// wipe it on the Life tick, behind a cheap bleed_rate early-out so idle ticks do effectively nothing.
 	RegisterSignal(user, COMSIG_LIVING_LIFE, PROC_REF(suppress_external_bleeding))
-	// Permanent, self-regenerating orbit of 8 protective blades; each consumed blade recharges after 60s.
 	user.apply_status_effect(/datum/status_effect/protective_blades/recharging, STATUS_EFFECT_PERMANENT, 8, 30, 0.25 SECONDS, /obj/effect/floating_blade, 60 SECONDS)
 	user.add_stun_absorption(
 		source = name,
 		message = span_warning("%EFFECT_OWNER выдерживает оглушение!"),
 		self_message = span_warning("Вы выдерживаете оглушение!"),
 		examine_message = span_purple("%EFFECT_OWNER слегка покачивается."),
-		// flashbangs are like 5-10 seoncds,
-		// a banana peel is ~5 seconds, depending on botany
-		// body throws and tackles are less than 5 seconds,
-		// stun baton / stamcrit detracts no time,
-		// and worst case: beepsky / tasers are 10 seconds.
 		max_seconds_of_stuns_blocked = 45 SECONDS,
 		delete_after_passing_max = FALSE,
 		recharge_time = 2 MINUTES,
 	)
-	// base_cooldown alone won't re-cut the live cooldown - the handler's recharge_duration was already
-	// seeded from it at init - so we halve both.
 	var/obj/effect/proc_holder/spell/pointed/projectile/furious_steel/steel_spell = locate() in user.mob_spell_list
 	if(steel_spell)
 		steel_spell.base_cooldown /= 2
@@ -443,16 +403,13 @@
 	if(target == source)
 		return
 
-	// Turns your heretic blades into eswords.
 	var/bonus_damage = clamp(30 - blade.force, 0, 12)
 
 	target.apply_damage(
 		damage = bonus_damage,
 		damagetype = BRUTE,
 		spread_damage = TRUE,
-		//wound_bonus = 5,
 		sharp = TRUE,
-		//attack_direction = get_dir(source, target),
 	)
 
 	if(target.stat != DEAD)
@@ -461,28 +418,16 @@
 
 ///Checks to see if `atom/source` is behind `atom/target`
 /proc/check_behind(atom/source, atom/target)
-	// Let's see if source is behind target
-	// "Behind" is defined as 3 tiles directly to the back of the target
-	// x . .
-	// x > .
-	// x . .
 
-	// No tactical spinning allowed
-	//if(HAS_TRAIT(target, TRAIT_SPINNING))
-	//	return TRUE
 
-	// We'll take "same tile" as "behind" for ease
 	if(target.loc == source.loc)
 		return TRUE
 
-	// We'll also assume lying down is behind, as mob directions when lying are unclear
 	if(isliving(target))
 		var/mob/living/living_target = target
 		if(living_target.body_position == LYING_DOWN)
 			return TRUE
 
-	// Exceptions aside, let's actually check if they're, yknow, behind: the attacker is behind the target
-	// when the target is facing AWAY from the attacker (target.dir matches the reverse of target->source).
 	var/dir_target_to_source = get_dir(target, source)
 	if(target.dir & REVERSE_DIR(dir_target_to_source))
 		return TRUE

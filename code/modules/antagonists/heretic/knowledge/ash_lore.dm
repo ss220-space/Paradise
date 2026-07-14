@@ -30,15 +30,12 @@
 		"Поджигайте как можно больше врагов! \"Возрождение Ночного Дозорного\" лечит вас и снижает откат за каждого поражённого.",
 		"Вознесение даёт полный иммунитет к опасностям окружения, включая бомбы! Но обычное оружие всё ещё опасно, не теряйте бдительности.",
 	)
-	// "Vow of Destruction" passive (see /datum/status_effect/heretic_passive/ash): tiers light up as you grow.
 	passive_name = "Клятва Разрушения"
 	passive_descriptions = list(
 		"Иммунитет к жару и пепельным бурям.",
 		"Иммунитет к лаве.",
 		"Сопротивление высокому и низкому давлению.",
 	)
-	// Main line: base_ash -> ash_passage -> fire_blast -> Scorched Mantle(robes) -> nightwatchers_lantern -> Fiery Blade -> flame_birth -> ascension.
-	// Grasp blind + ash mark are folded into base_ash, no separate nodes.
 	start = /datum/heretic_knowledge/limited_amount/starting/base_ash
 	knowledge_tier1 = /datum/heretic_knowledge/spell/ash_passage
 	knowledge_tier2 = /datum/heretic_knowledge/spell/fire_blast
@@ -47,7 +44,6 @@
 	blade = /datum/heretic_knowledge/blade_upgrade/ash
 	knowledge_tier4 = /datum/heretic_knowledge/spell/flame_birth
 	ascension = /datum/heretic_knowledge/ultimate/ash_final
-	// Side knowledges guaranteed to be offered in this path's drafts (TG).
 	guaranteed_side_tier1 = /datum/heretic_knowledge/medallion
 	guaranteed_side_tier2 = /datum/heretic_knowledge/rifle
 	guaranteed_side_tier3 = /datum/heretic_knowledge/limited_amount/summon/ashy
@@ -67,7 +63,6 @@
 	research_tree_icon_path = 'icons/obj/weapons/khopesh.dmi'
 	research_tree_icon_state = "ash_blade"
 	mark_type = /datum/status_effect/eldritch/ash
-	// "Vow of Destruction" passive: heat/ashstorm immunity now, lava on blade upgrade, cold on ascension.
 	passive_type = /datum/status_effect/heretic_passive/ash
 
 
@@ -81,9 +76,6 @@
 		return
 
 	to_chat(target, span_danger("Яркий зеленый свет ужасно жжёт ваши глаза!"))
-	// master220 internal organs do NOT self-heal, so a raw adjustOrganLoss is permanent and stacks across
-	// grasps past the eyes' break threshold (45), causing permanent blindness. Apply the burn for the same
-	// brief window as the blur, then heal it back, so the grasp blinds temporarily instead of forever.
 	target.adjustOrganLoss(INTERNAL_ORGAN_EYES, 15)
 	target.EyeBlurry(20 SECONDS)
 	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living, adjustOrganLoss), INTERNAL_ORGAN_EYES, -15), 20 SECONDS)
@@ -141,8 +133,6 @@
 		/obj/item/match = 1,
 	)
 	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/eldritch/ash)
-	// Point this node at the Scorched Mantle's own "ash_armor" sprite in the shared suits.dmi.
-	// (The base eldritch_armor frame would read as the rusty mantle instead.) Single-frame, so frame 1.
 	research_tree_icon_state = "ash_armor"
 	research_tree_icon_frame = 1
 
@@ -219,14 +209,11 @@
 				ибо Ночной Дозорный принёс себя в жертву человечеству! Его взгляд продолжает смотреть, \
 				ибо теперь он един с пламенем, СТАНЬТЕ СВИДЕТЕЛЕМ МОЕГО ВОЗНЕСЕНИЯ, ПЕПЕЛЬНЫЙ ФОНАРЬ СНОВА ЗАГОРИТСЯ!"
 
-	//ascension_achievement = /datum/award/achievement/misc/ash_ascension
 	announcement_text = "%SPOOKY% Реальность потрескивает, как тлеющие в костре угли! Бойтесь пламени, ибо Повелитель Пепла, %NAME% вознесся! Пламя поглотит ВСЁ! %SPOOKY%"
 	announcement_sound = 'sound/music/heretic/ascend_ash.ogg'
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/ascension.dmi'
 	research_tree_icon_state = "ashascend"
 	/// A static list of all traits we apply on ascension.
-	// No equivalent for TRAIT_RESISTHIGHPRESSURE / TRAIT_RESISTLOWPRESSURE in master220; the
-	// bomb/heat/cold/no-breath immunities below cover the environmental hazards instead.
 	var/static/list/traits_to_apply = list(
 		TRAIT_BOMBIMMUNE,
 		TRAIT_NO_BREATH,
@@ -252,7 +239,6 @@
 
 /datum/heretic_knowledge/ultimate/ash_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
-	// Two new abilities: Oath of Flame (passive ring) and the Greater Fire Cascade.
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/fire_sworn())
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/fire_cascade/big())
 	var/obj/effect/proc_holder/spell/charged/beam/fire_blast/existing_beam_spell = locate() in user.mind.spell_list
@@ -260,7 +246,6 @@
 		existing_beam_spell.max_beam_bounces *= 2 // Double beams
 		existing_beam_spell.beam_duration *= 0.66 // Faster beams
 		existing_beam_spell.base_cooldown *= 0.66 // Lower cooldown
-		// base_cooldown alone is inert (recharge_duration is copied from it only at init), so sync it.
 		existing_beam_spell.cooldown_handler?.recharge_duration = existing_beam_spell.base_cooldown
 
 	var/obj/effect/proc_holder/spell/aoe/fiery_rebirth/fiery_rebirth = locate() in user.mind.spell_list

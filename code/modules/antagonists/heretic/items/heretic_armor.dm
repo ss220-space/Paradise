@@ -1,12 +1,8 @@
-// Eldritch armor. Looks cool, hood lets you cast heretic spells.
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch
 	name = "ominous hood"
 	desc = "Рваный, покрытый пылью капюшон. Внутри виднеются жуткие глаза."
 	icon_state = "eldritch"
-	//item_state = "eldritch"
 	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME|HIDEHAIR
-	//flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
-	//flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH | PEPPERPROOF
 	flash_protect = FLASH_PROTECTION_WELDER
 	sprite_sheets = list(
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
@@ -39,7 +35,6 @@
 	desc = "Рваная, пыльная мантия. Внутри — видны жуткие глаза."
 	gender = FEMALE
 	icon_state = "eldritch_armor"
-	//item_state = "eldritch_armor"
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS
 	allowed = list(/obj/item/melee/sickly_blade, /obj/item/gun/projectile/shotgun/boltaction/lionhunter, /obj/item/flashlight/lantern/heretic)
@@ -74,13 +69,6 @@
 	. += span_notice("Позволяет использовать еретические заклинания при надетом капюшоне.")
 
 
-// Изменчивая Личина (Shifting Guise) - Lock path robes. Hidden identity/voice, silenced footsteps.
-// The guise is tied to the HOOD being raised, not to wearing the robe. The wearer is invisible on EVERY
-// camera - AI, advanced AND basic monitors, body and data-HUD markers alike - while staying fully VISIBLE
-// in person. Camera coverage = the camera_camo component: the wearer renders on CAMERA_CAMO_PLANE, which
-// every camera view blanks (alpha 0).
-// A non-heretic who dares to don it is violently relieved of everything they carry, the instant they put it on.
-// (the guise traits are the same ones the shadow cloak uses, see status_effects/buffs.dm.)
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/lock
 	name = "shifting guise"
 	desc = "Набор затенённых одеяний с глубоким капюшоном. Невозможно разглядеть, кто под ним скрывается."
@@ -106,21 +94,15 @@
 	. = ..()
 	if(slot != ITEM_SLOT_CLOTH_OUTER)
 		return
-	// Non-heretics who dare don the guise are punished the instant they put the robe on. The actual camouflage
-	// is NOT granted here - it's tied to the HOOD being raised (see EngageHood/RemoveHood below), so a heretic
-	// only vanishes while actually hooded up.
 	if(!isheretic(user))
 		robes_side_effect(user)
 
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/lock/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
-	// Safety net: base dropped() already calls RemoveHood() (which strips the guise when the hood was up), but
-	// remove it unconditionally here too in case the robe leaves the body some other way.
 	remove_guise(user)
 
 
-// Raising the hood pulls the Shifting Guise over the wearer; lowering it (or losing the robe) drops it.
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/lock/EngageHood()
 	. = ..()
 	if(!.) // hood didn't actually go up (already up, no robe worn, head occupied, etc.)
@@ -130,8 +112,6 @@
 
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/lock/RemoveHood()
-	// Capture the wearer before ..() unequips the hood - by the time RemoveHood returns the hood is back in the
-	// suit, so its loc no longer points at the mob.
 	var/mob/living/wearer = isliving(hood?.loc) ? hood.loc : (isliving(loc) ? loc : null)
 	. = ..()
 	if(. && wearer) // RemoveHood only returns TRUE when the hood was actually up, i.e. the guise was active
@@ -141,11 +121,6 @@
 /// Grants the full Shifting Guise to a heretic wearer: hidden identity/voice + silent steps, plus full camera camo.
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/lock/proc/grant_guise(mob/living/user)
 	user.add_traits(guise_traits, UID())
-	// Fully VISIBLE in person but invisible on EVERY camera:
-	// - TRAIT_AI_UNTRACKABLE (in guise_traits): the AI can't lock the track command onto them.
-	// - camera_camo component: render-target proxy on CAMERA_CAMO_PLANE - shows in person, but every camera
-	//   view (console popups, the AI's eye, advanced consoles) renders that plane at alpha 0, so the body AND
-	//   its data-HUD markers vanish from all feeds.
 	user.AddComponent(/datum/component/camera_camo)
 
 
@@ -185,7 +160,6 @@
 		PREPOSITIONAL = "капюшоне изменчивой личины",
 	)
 
-// Toggle action for the Scorched Mantle's passive flame generation.
 /datum/action/item_action/toggle_flames
 	name = "Переключить пламя"
 	button_icon_state = "fireball"
@@ -195,13 +169,10 @@
 	overlay_icon_state = "bg_heretic_border"
 
 
-// Опалённая Мантия (Scorched Mantle) - Ash path robes.
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/ash
 	name = "scorched mantle"
 	desc = "Тлеющая мантия из пепла и углей. Жар не причиняет ей вреда — лишь питает её."
 	icon_state = "ash_armor"
-	// Base eldritch robes set HIDESHOES, which made the wearer's shoes vanish - the Scorched Mantle
-	// shouldn't hide footwear, only the jumpsuit.
 	flags_inv = HIDEJUMPSUIT
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch/ash
 	armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 35, "bio" = 20, "fire" = 100, "acid" = 20)
@@ -228,8 +199,6 @@
 	)
 
 
-// Base hooded robe routes every action button to ToggleHood; dispatch on the action type so the
-// flame toggle button toggles flames instead.
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/ash/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(istype(action, /datum/action/item_action/toggle_flames))
 		toggle_flames(user)
@@ -239,7 +208,6 @@
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/ash/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
-	// Turn the flames off when the mantle leaves the wearer.
 	if(flame_generation)
 		toggle_flames(user)
 
@@ -287,7 +255,6 @@
 	)
 
 
-// Toggle action for the Starwoven Cloak's levitation.
 /datum/action/item_action/toggle_gravity
 	name = "Переключить левитацию"
 	button_icon = 'icons/mob/actions/actions_ecult.dmi'
@@ -298,9 +265,6 @@
 	overlay_icon_state = "bg_heretic_border"
 
 
-// Звёздотканый Плащ (Starwoven Cloak) - Cosmic path robes.
-// Protects against the hazards of space (pressure + cold) and lets the wearer levitate at will via a toggle.
-// Acts as a focus while hooded (inherited from the base eldritch hood's heretic_focus element).
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/cosmic
 	name = "starwoven cloak"
 	desc = "Сияющие самоцветы источают струйки силы, кружащие вокруг и окутывающие владельца тусклым сиянием. \
@@ -334,17 +298,10 @@
 	)
 
 
-// Switches the worn body to the hood-up sprite (cosmic_armor_hood, whose cowl covers the head) when the
-// hood is raised, and back when lowered - what the stock hooded update_icon_state does. Re-implemented here
-// because master220's no-op `/obj/item/clothing/suit/hooded/update_icon_state() return` typo in
-// miscellaneous.dm shadows the stock one for ALL hooded suits (same workaround as the rust raiment).
-// The head-slot worn sprite is deliberately BLANK - the visible hood IS the suit body.
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/cosmic/update_icon_state()
 	icon_state = "cosmic_armor[suit_adjusted ? "_hood" : ""]"
 
 
-// Base hooded robe routes every action button to ToggleHood; dispatch on the action type so the
-// levitation toggle button toggles gravity instead.
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/cosmic/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(istype(action, /datum/action/item_action/toggle_gravity))
 		toggle_gravity(user)
@@ -354,7 +311,6 @@
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/cosmic/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
-	// Drop the levitation when the cloak leaves the wearer.
 	if(weightless_enabled)
 		toggle_gravity(user)
 
@@ -392,9 +348,6 @@
 	)
 
 
-// Извивающиеся Объятия (Writhing Embrace) - Flesh path robes.
-// Grants a passive aura that slowly heals nearby summons (but not the wearer), and a medical HUD (health
-// detection) while the hood is up. Acts as a focus while hooded (inherited from the eldritch base).
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/flesh
 	name = "writhing embrace"
 	desc = "Гниющая туша, а может, и несколько, скрученные в мясистые полипы, спутанные кишки и треснувшие кости. \
@@ -420,7 +373,6 @@
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/flesh/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
 	if(slot == ITEM_SLOT_CLOTH_OUTER)
-		// The aura only heals our summons/ghouls (TRAIT_HERETIC_SUMMON) - never the wearer.
 		if(!healing_aura)
 			healing_aura = user.AddComponent( \
 				/datum/component/aura_healing, \
@@ -466,8 +418,6 @@
 	)
 
 
-// Health-detection: the hood grants an advanced medical HUD while up (master220 grants data HUDs via
-// GLOB.huds show_to/hide_from like HUD glasses do).
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/flesh/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
 	if(slot == ITEM_SLOT_HEAD && ishuman(user))
@@ -482,10 +432,6 @@
 		hud.hide_from(user)
 
 
-// Собранный Раймент (Salvaged Remains / Reassembled Raiment) - Rust path robes.
-// Provides solid armor that surges to a much higher tier (plus pierce immunity) while the wearer stands on
-// rusted tiles, and acts as a focus while hooded (inherited from the eldritch base). master220 uses
-// /datum/armor datums + set_armor(), so we swap between the base and on-rust armor datums on movement.
 /datum/armor/eldritch_armor_rust
 	melee = 30
 	bullet = 30
@@ -553,11 +499,6 @@
 	. += span_notice("Ваша защита значительно усиливается, когда вы стоите на ржавчине.")
 
 
-// Switches the worn body to the hood-up sprite (rust_armor_hood, whose opaque interior covers the head) when
-// the hood is raised, and back to the collar (rust_armor) when lowered - exactly what the stock
-// /obj/item/clothing/suit/hooded/update_icon_state does. We must re-implement it because master220 has a bug:
-// a typo'd no-op `/obj/item/clothing/suit/hooded/update_icon_state() return` in miscellaneous.dm:1600 (meant
-// for /ghostfacesuit) shadows the real one, so the stock _hood body-switch never fires for ANY hooded suit.
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/rust/update_icon_state()
 	icon_state = "rust_armor[suit_adjusted ? "_hood" : ""]"
 
@@ -710,8 +651,6 @@
 		wearer.balloon_alert(wearer, rusted ? "ржавчина укрепляет броню" : "ржавчина спадает")
 
 
-// Mirrors the flicked rust_overlay onto the worn robe. Re-evaluated each time the worn sprite rebuilds (e.g.
-// toggling the hood up/down while on rust), so the render source tracks the right hooded/un-hooded state.
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/rust/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file)
 	. = ..()
 	if(isinhands || !rust_appearance)
@@ -726,10 +665,6 @@
 			а один лишь беглый взгляд вызывает головокружение. \
 			Что-то пульсирует под ней, словно силясь затянуть вас внутрь."
 	icon_state = "rust_armor"
-	// Worn (on-mob) head-slot sprite is BLANK. When the hood is raised the SUIT body switches to its "_hood"
-	// worn state (rust_armor_hood), whose opaque dark interior covers the whole head; the suit renders above
-	// the face (SUIT_LAYER over the body limbs) and HIDEHAIR (inherited) hides the hair, so the head fully
-	// disappears into the hood. The head slot only exists to toggle the hood + carry the head armor.
 	armor = list(MELEE = 30, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 50, BIO = 30, FIRE = 30, ACID = 30)
 	/// TRUE while granting the empowered on-rust armor.
 	var/rusted = FALSE
@@ -799,9 +734,6 @@
 		update_rust_state(wearer)
 
 
-// The hood only swaps its own on-rust armor datum (so head armor surges with the set). It has no worn visuals
-// of its own (blank head slot) - the visible hood, and its rust animation, are the SUIT body's rust_armor_hood
-// state. Its inventory icon rust is driven by the suit.
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/rust/proc/update_rust_state(mob/living/wearer)
 	var/turf/wearer_turf = get_turf(wearer)
 	if(HAS_TRAIT(wearer_turf, TRAIT_RUSTY))
@@ -820,21 +752,13 @@
 	set_armor(/datum/armor/eldritch_armor_rust)
 
 
-// Сияющее Облачение (Resplendent Regalia) - Moon path robes.
-// The robe gives NO armor, but makes the wearer fully immune to disabling effects, pacifies them and
-// prevents the use of firearms. The moon blade can still be used (and, with a Moonlight Amulet, used while
-// pacified). All incoming damage converts into brain damage, and death while wearing it gibs the head.
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/moon
 	name = "resplendent regalia"
 	desc = "Переливающаяся мантия, сотканная из лунного света и зеркальных нитей. Она не защищает тело — \
 			лишь освобождает разум от оков боли и страха."
-	// Moon robe sprites (item + worn) live in the shared suits.dmi / suit.dmi as the "moon_armor" state,
-	// resolved by inheritance from the base cult robes.
 	icon_state = "moon_armor"
 	item_state = "moon_armor"
-	// The regalia has no protective value of its own (tg parity).
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "fire" = 0, "acid" = 0)
-	// Only the moon blade may be carried in it (no Lionhunter's Rifle).
 	allowed = list(/obj/item/melee/sickly_blade/moon)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch/moon
 	/// Traits the regalia grants while worn - full immunity to disabling effects + pacification + no guns.
@@ -874,8 +798,6 @@
 	. = ..()
 	if(slot == ITEM_SLOT_CLOTH_OUTER)
 		user.add_traits(regalia_traits, UID())
-		// All damage taken while worn is converted into brain damage: the incoming-damage modifier
-		// nullifies the real damage, and combat damage is rerouted into the brain instead.
 		RegisterSignal(user, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS, PROC_REF(nullify_damage), override = TRUE)
 		RegisterSignal(user, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(convert_to_brain), override = TRUE)
 		RegisterSignal(user, COMSIG_LIVING_DEATH, PROC_REF(gory_end), override = TRUE)
@@ -908,7 +830,6 @@
 	if(!our_hud)
 		return
 	moon_health_hud = new(null, our_hud)
-	// Hide the normal health readouts - brain health is now the only health that matters.
 	for(var/atom/movable/screen/to_hide in list(human_user.healths, human_user.healthdoll, human_user.stamina_bar))
 		if(to_hide)
 			to_hide.invisibility = INVISIBILITY_ABSTRACT
@@ -995,15 +916,11 @@
 	)
 
 
-// The moon brain-health readout. A 64x64 lunar dial that swaps through 6 states as the wearer's brain
-// damage climbs - the only "health bar" a Resplendent Regalia wearer has, since all damage they take is
-// rerouted into the brain.
 /atom/movable/screen/moon_health
 	name = "Лунное Здоровье"
 	icon = 'icons/hud/moon_health_64x64.dmi'
 	icon_state = "moon_hud_1"
 	base_icon_state = "moon_hud"
-	// 64x64 (2x2 tiles), anchored over the normal health area which we hide while it's shown.
 	screen_loc = "EAST-2:16,CENTER-1:0"
 
 
@@ -1025,9 +942,6 @@
 			icon_state = "[base_icon_state]_6"
 
 
-// Расколотая Паноплия (Shattered Panoply) - Blade path robes.
-// Solid all-round armour, full shock insulation + shock/baton immunity while worn, and acts as a focus
-// while hooded (inherited from the eldritch base hood).
 /datum/armor/eldritch_armor_blade
 	melee = 50
 	bullet = 50
@@ -1043,12 +957,10 @@
 	name = "shattered panoply"
 	desc = "Заострённые края этого древнего доспеха несут истину, ведомую лишь воинам: \
 			истинного бойца не отличить от клинка, что он держит."
-	// Item + worn sprites live in the shared suits.dmi / suit.dmi as the "blade_armor" state (inherited).
 	icon_state = "blade_armor"
 	item_state = "blade_armor"
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch/blade
 	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, BIO = 50, FIRE = 50, ACID = 50)
-	// Shock insulation: the robe shrugs off electric attacks entirely.
 	siemens_coefficient = 0
 	allowed = list(/obj/item/melee/sickly_blade)
 	/// Traits granted while worn by a heretic (shock immunity + baton-knockdown resistance).
@@ -1080,7 +992,6 @@
 	if(slot != ITEM_SLOT_CLOTH_OUTER)
 		user.remove_traits(panoply_traits, UID())
 		return
-	// Heretics get the Panoply's protection; anyone else who dons it is shredded by a barrage of blades.
 	if(isheretic(user))
 		user.add_traits(panoply_traits, UID())
 	else
@@ -1090,15 +1001,9 @@
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/blade/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	user.remove_traits(panoply_traits, UID())
-	// Taking the Panoply off ends the barrage and re-arms the guard, so re-equipping starts a fresh volley.
-	// (Pending timers still no-op via should_keep_cutting, since wear_suit is no longer us.)
 	murdering_with_blades = FALSE
 
 
-// --- Anti-thief blade barrage ---------------------------------------------------------------------------
-// A non-heretic who equips the Shattered Panoply is assailed by an accelerating volley of phantom blades that
-// fly in from the surrounding tiles. master220 has no wound system, so a blade with no room to spawn just
-// deals a sharp brute hit + bleeding instead.
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/blade/proc/start_throwing_blades(mob/living/target)
 	if(murdering_with_blades)
 		return
@@ -1110,8 +1015,6 @@
 			break
 		addtimer(CALLBACK(src, PROC_REF(cut_em_good), target), delay * knife)
 		delay = max(0.5 SECONDS, delay - 0.1 SECONDS)
-	// murdering_with_blades stays TRUE for the whole barrage so a second volley can't be stacked on top of
-	// this one; it's cleared in dropped() when the victim takes the Panoply off.
 
 
 /// Keeps the barrage going only while the (living, non-heretic) victim is still wearing us.
@@ -1201,9 +1104,6 @@
 	)
 
 
-// Полое Плетение (Hollow Weave) - Void path robes. Every 20 seconds the weave swallows one incoming attack
-// outright and cloaks the wearer for 5 seconds (alpha 0) so they can reposition.
-// A non-heretic who dares to don it is flash-frozen solid.
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/void
 	name = "hollow weave"
 	desc = "Поначалу пустое полотно этих одежд словно мерцает слабым холодным светом. Но проследив \
@@ -1241,7 +1141,6 @@
 	. = ..()
 	if(slot != ITEM_SLOT_CLOTH_OUTER)
 		return
-	// Heretics get the weave's protection; anyone else who dons it is flash-frozen.
 	if(!isheretic(user) && isliving(user))
 		INVOKE_ASYNC(src, PROC_REF(freeze_thief), user)
 
@@ -1257,7 +1156,6 @@
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/void/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
-	// Remove from stealth when you lose the robes.
 	if(!timeleft(stealth_timer))
 		return
 	deltimer(stealth_timer)
@@ -1307,14 +1205,11 @@
 	)
 
 
-// Плащ Пустоты. Turns invisible with the hood up, lets you hide stuff.
 /obj/item/clothing/head/hooded/cult_hoodie/void
 	name = "void hood"
 	desc = "Чёрный, как смола, не отражающий свет. Покрыт рунами. \
 			С каждым импульсом его тьмы вы теряете понимание того, что видите."
-	// Item sprite lives in the shared hats.dmi as the "void_cloak" state (inherited).
 	icon_state = "void_cloak"
-	//item_state = "void_cloak"
 	flags_inv = NONE
 	flags_cover = NONE
 	armor = list("melee" = 30, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 15, "bio" = 10, "fire" = 15, "acid" = 0)
@@ -1349,15 +1244,11 @@
 	desc = "Чёрный, как смола, не отражающий свет. Покрытый рунами. \
 			С каждым импульсом его тьмы вы теряете понимание того, что видите."
 	icon_state = "void_cloak"
-	//item_state = "void_cloak"
-	//item_state = null
 	allowed = list(/obj/item/melee/sickly_blade)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/void
 	flags_inv = NONE
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-	// slightly worse than normal cult robes
 	armor = list("melee" = 30, "bullet" = 30, "laser" = 30,"energy" = 30, "bomb" = 15, "bio" = 0, "fire" = 0, "acid" = 0)
-	//alternative_mode = TRUE
 	sprite_sheets = list(
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
@@ -1393,13 +1284,10 @@
 
 /obj/item/clothing/suit/hooded/cultrobes/void/Initialize(mapload)
 	. = ..()
-	// master220 has no /datum/storage, so we use the engine's internal-storage item the same way
-	// /obj/item/clothing/suit/storage does.
 	pockets = new(src)
 	pockets.storage_slots = 3
 	pockets.max_w_class = WEIGHT_CLASS_NORMAL // so a sickly blade / bodypart / organ can be hidden away
 	pockets.max_combined_w_class = 5
-	// Crafted/worn with the hood DOWN -> cloak is visible and acts as a focus.
 	make_visible()
 
 
@@ -1430,7 +1318,6 @@
 	pockets?.emp_act(severity)
 
 
-// RemoveHood() = lowering the hood (hood DOWN) -> cloak visible + focus.
 /obj/item/clothing/suit/hooded/cultrobes/void/RemoveHood()
 	. = ..()
 	if(!.)
@@ -1439,7 +1326,6 @@
 	make_visible()
 
 
-// EngageHood() = raising the hood (hood UP) -> cloak hidden, no focus.
 /obj/item/clothing/suit/hooded/cultrobes/void/EngageHood()
 	. = ..()
 	if(!.)

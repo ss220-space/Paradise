@@ -75,9 +75,6 @@
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/codex_cicatrix/melee_attack_chain(mob/user, atom/target, params)
-	// Erase a transmutation rune on left- or right-click, like the Mansus Grasp. Catches both clicking the
-	// rune decal directly and clicking the turf it sits on. (Morbus intercepts its right-click curse before
-	// this in its own override, so RMB-curse still wins there; LMB on a rune falls through to here and erases.)
 	if(isheretic(user))
 		var/obj/effect/decal/heretic_rune/rune = istype(target, /obj/effect/decal/heretic_rune) \
 			? target \
@@ -116,7 +113,6 @@
 	book_open = FALSE
 
 
-// Upgraded version of the Кодекс Истязания that allows us to cast curses
 /obj/item/codex_cicatrix/morbus
 	name = "Кодекс Хвори"
 	desc = "Ужасная, рваная книга, покрытая моргающими глазами. Вы понятия не имеете, как правильно держать её, \
@@ -155,8 +151,6 @@
 	human_user.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 10, 190)
 
 
-// Curse casts on RIGHT-click of a rune; left-clicking a rune still wipes it through the inherited
-// effect_remover, like the base Кодекс Истязания.
 /obj/item/codex_cicatrix/morbus/melee_attack_chain(mob/user, atom/interacting_with, params)
 	if(!istype(interacting_with, /obj/effect/decal/heretic_rune) || !LAZYACCESS(params, RIGHT_CLICK))
 		return ..()
@@ -177,8 +171,6 @@
 		user.balloon_alert(user, "нет крови!")
 		return
 
-	// Require ACTUAL blood (reagent blood in a container, or blood smeared on the item) in the offhand before
-	// casting, or the curse can fall back onto the heretic themself (see heretic_curses.dm).
 	var/has_blood = LAZYLEN(held_offhand.blood_DNA)
 	if(!has_blood)
 		for(var/datum/reagent/blood/usable_reagent in held_offhand.reagents?.reagent_list)
@@ -197,12 +189,13 @@
 
 
 /obj/item/codex_cicatrix/morbus/Destroy()
-	for(var/mob/to_uncurse as anything in transmuted_victims)
-		if(!to_uncurse || !ismob(to_uncurse))
+	var/datum/heretic_knowledge/curse/transmutation/to_undo = new()
+	for(var/datum/weakref/victim_ref as anything in transmuted_victims)
+		var/mob/living/carbon/human/to_uncurse = victim_ref.resolve()
+		if(!ishuman(to_uncurse))
 			continue
 
-		var/datum/heretic_knowledge/curse/transmutation/to_undo = new()
 		to_undo.uncurse(to_uncurse)
-		transmuted_victims -= to_uncurse
 
+	transmuted_victims.Cut()
 	return ..()

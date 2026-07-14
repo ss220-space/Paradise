@@ -85,7 +85,6 @@
 
 		flinged_sword.visible_message(span_alert("[DECLENT_RU_CAP(flinged_sword, NOMINATIVE)] вырывается из [sword_closet.declent_ru(GENITIVE)]!"))
 
-	// no general struct/machinery check. imagine if someone put the sword in a vendor
 
 	if(!isturf(sword_loc))
 		return

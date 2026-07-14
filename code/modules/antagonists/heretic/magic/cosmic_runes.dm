@@ -94,7 +94,6 @@
 	silicon_image.override = TRUE
 	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/silicons, "cosmic", silicon_image)
 	ADD_TRAIT(src, TRAIT_MOPABLE, INNATE_TRAIT)
-	// Clicking yourself while standing on the rune invokes it (saves pixel-hunting the decal).
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 		COMSIG_ATOM_EXITED = PROC_REF(on_exited),
@@ -156,7 +155,6 @@
 /obj/effect/cosmic_rune/proc/invoke(mob/living/user)
 	var/obj/effect/cosmic_rune/linked_rune_resolved = linked_rune?.resolve()
 	new rune_effect(get_turf(src))
-	// Whatever the heretic is dragging comes along, and the grab is re-established after the jump.
 	var/atom/movable/pulled_thing
 	if(isheretic(user) && user.pulling)
 		pulled_thing = user.pulling
@@ -177,8 +175,6 @@
 
 		do_teleport(person_on_rune, get_turf(linked_rune_resolved), ignore_bluespace_interference = TRUE, no_effects = TRUE)
 
-	// Non-heretics who invoke a rune get branded with a star mark: it stops them rune-hopping
-	// freely and drags them along on the heretic's next jump.
 	if(!isheretic(user))
 		user.apply_status_effect(/datum/status_effect/star_mark)
 

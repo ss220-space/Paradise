@@ -6,9 +6,6 @@
 	route = PATH_LOCK
 	ui_bgr = "node_lock"
 	complexity_color = "#d6a531"
-	// Lock gets a flat -1 to every Knowledge Shop tier (the path's whole identity is gadget-shopping).
-	// This is the "shop is cheaper" half of the lock passive's level-1 line; the passive itself only grants
-	// the shock immunity so the discount is not double-applied (see /datum/status_effect/heretic_passive/lock).
 	shop_cost_discount = 1
 	path_description = list(
 		"Путь Замка́ строится вокруг доступа, перекрытия зон, воровства и хитрых приспособлений.",
@@ -38,10 +35,6 @@
 		"Захват больше не уходит на откат, когда им открывают дверь или шкаф.",
 	)
 
-	// Main line: base_lock -> Key Keeper's Burden -> Concierge's Rite -> Shifting Guise(robes) ->
-	// Burglar's Finesse -> Opening Blade -> Caretaker's Last Refuge -> ascension.
-	// The grasp (secondary door/mech/console unlock), the lock mark and the on-pick passive are all folded
-	// into base_knock, no separate grasp/mark nodes.
 	start = /datum/heretic_knowledge/limited_amount/starting/base_knock
 	knowledge_tier1 = /datum/heretic_knowledge/key_ring
 	knowledge_tier2 = /datum/heretic_knowledge/limited_amount/concierge_rite
@@ -50,7 +43,6 @@
 	blade = /datum/heretic_knowledge/blade_upgrade/flesh/lock
 	knowledge_tier4 = /datum/heretic_knowledge/spell/caretaker_refuge
 	ascension = /datum/heretic_knowledge/ultimate/lock_final
-	// Side knowledges guaranteed to be offered in this path's drafts (TG).
 	guaranteed_side_tier1 = /datum/heretic_knowledge/painting
 	guaranteed_side_tier2 = /datum/heretic_knowledge/spell/opening_blast
 	guaranteed_side_tier3 = /datum/heretic_knowledge/limited_amount/summon/fire_shark
@@ -76,10 +68,7 @@
 
 /datum/heretic_knowledge/limited_amount/starting/base_knock/on_gain(mob/user, datum/antagonist/heretic/our_heretic, mind_transfer = FALSE)
 	. = ..()
-	// Secondary grasp (RMB on a door/mech/console/closet) unlocks it - the base starting knowledge only
-	// wires the primary grasp, so register the secondary here.
 	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, PROC_REF(on_secondary_mansus_grasp), override = TRUE)
-	// Lock grasp is silent and invocation-less, to fit the path's sneaky-rat playstyle.
 	var/obj/effect/proc_holder/spell/touch/mansus_grasp/grasp = locate() in user.mob_spell_list
 	if(grasp)
 		grasp.invocation_type = INVOCATION_NONE
@@ -109,8 +98,6 @@
 		door.locked = FALSE
 		INVOKE_ASYNC(door, TYPE_PROC_REF(/obj/machinery/door, open), TRUE)
 
-	// master220's base computer has no unified `authenticated` flag (only a handful of subtypes do), so
-	// consoles are left out rather than special-casing each type. Airlocks/mechs/lockers cover the path's core utility.
 
 	else if(iscloset(target))
 		var/obj/structure/closet/closet = target
@@ -118,8 +105,6 @@
 
 	playsound(target, 'sound/magic/hereticknock.ogg', 100, TRUE, -1)
 
-	// Level-3 passive ("Открытое Приглашение"): opening a lock no longer consumes the grasp, so it never
-	// goes on cooldown. We do this by NOT returning COMPONENT_USE_HAND, leaving the grasp charge intact.
 	if(HAS_TRAIT(source, TRAIT_LOCK_GRASP_UPGRADED))
 		return
 
@@ -189,9 +174,6 @@
 	gain_text = "Хотя Стюарды известны Консьержу, между собой и с чужаками они общаются под тенью капюшонов. \
 				Узнавание — это предательство, даже самого себя."
 	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/eldritch/lock)
-	// The /armor parent points at eldritch_armor (a multi-frame anim) and asks for frame 12. lock_armor is a
-	// single-frame sprite, so we MUST override path + frame 1 - requesting frame 12 of a 1-frame state renders
-	// a blank node in the research tree (same bug class as the moon robe).
 	research_tree_icon_state = "lock_armor"
 	research_tree_icon_frame = 1
 	required_atoms = list(
@@ -218,9 +200,6 @@
 	desc = "Ваш клинок при атаке имеет шанс вызвать у врага артериальное кровотечение."
 	gain_text = "\"Пилигрим-хирург\" не был стюардом. Тем не менее, его лезвия и нити оказались не хуже ключей."
 	research_tree_icon_state = "blade_upgrade_lock"
-	// This blade is meant to be one step nastier than the plain flesh blade's bleed. master220 has no
-	// wound system, but it does model arterial bleeding (surgery-only, far worse than the flesh blade's
-	// plain gauze-treatable bleed), so the lock blade opens an arterial bleed instead of calling the flesh parent.
 	var/chance = 35
 
 
@@ -272,7 +251,6 @@
 				Мои враги были Замка́ми, а мои клинки — Ключом! \
 				Лабиринт больше не будет заперт, и мы обретём свободу! СТАНЬТЕ СВИДЕТЕЛЯМИ НАШЕГО ОСВОБОЖДЕНИЯ!"
 	required_atoms = list(/mob/living/carbon/human = 3)
-	//ascension_achievement = /datum/award/achievement/misc/lock_ascension
 	announcement_text = "%SPOOKY% Реальность пала. Ключ проворачивается в замке. Врата открыты, двери распахнуты, %NAME% вознёсся! %SPOOKY%"
 	announcement_sound = 'sound/music/heretic/ascend_knock.ogg'
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/ascension.dmi'

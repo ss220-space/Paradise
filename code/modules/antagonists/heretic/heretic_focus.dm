@@ -12,7 +12,6 @@
 	RegisterSignal(target, COMSIG_ITEM_DROPPED, PROC_REF(on_drop))
 
 	var/obj/item/item_target = target
-	// If our loc is a mob, it's possible we already have it equippied
 	if(!ismob(item_target.loc))
 		return
 

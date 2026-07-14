@@ -1,4 +1,3 @@
-// Heretic starting knowledge.
 
 /// Global list of all heretic knowledge that have is_starting_knowledge = TRUE. List of PATHS.
 GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
@@ -28,8 +27,6 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	is_starting_knowledge = TRUE
 
 /*
-// Heretics can enhance their fishing rods to fish better - fishing content.
-// Lasts until successfully fishing something up.
 /datum/heretic_knowledge/spell/basic/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	..()
 	RegisterSignal(user, COMSIG_TOUCH_HANDLESS_CAST, PROC_REF(on_grasp_cast))
@@ -38,7 +35,6 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 /datum/heretic_knowledge/spell/basic/proc/on_grasp_cast(mob/living/carbon/cast_on, obj/effect/proc_holder/spell/touch/touch_spell)
 	SIGNAL_HANDLER
 
-	// Not a grasp, we dont want this to activate with say star or mending touch.
 	if(!istype(touch_spell, spell_to_add))
 		return NONE
 
@@ -86,35 +82,25 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	. = ..()
 
 	var/obj/item/organ/where_to_put_our_heart = user.get_organ_slot(our_heretic.living_heart_organ_slot)
-	// Our heart slot is not valid to put a heart
 	if(!is_valid_heart(where_to_put_our_heart))
 		where_to_put_our_heart = null
 
-	// If a heretic is made from a species without a heart, we need to find a backup.
 	if(!where_to_put_our_heart)
 		var/static/list/backup_organs = list(
 			INTERNAL_ORGAN_LUNGS = /obj/item/organ/internal/lungs,
 			INTERNAL_ORGAN_LIVER = /obj/item/organ/internal/liver,
-			//INTERNAL_ORGAN_STOMACH = /obj/item/organ/internal/stomach,
 		)
 
 		for(var/backup_slot in backup_organs)
 			var/obj/item/organ/look_for_backup = user.get_organ_slot(backup_slot)
-			// This backup slot is not a valid slot to put a heart
 			if(!is_valid_heart(look_for_backup))
 				continue
 
-			// We found a replacement place to put our heart
 			where_to_put_our_heart = look_for_backup
 			our_heretic.living_heart_organ_slot = backup_slot
 			to_chat(user, span_boldnotice("Поскольку у вашего вида нет сердца, ваше Живое Сердце находится в ваш[GEND_EM_EI_EM_IH(look_for_backup)] [look_for_backup.declent_ru(PREPOSITIONAL)]."))
 			break
 
-	// Fully synthetic crew (IPCs / machinepeople) carry only robotic organs, so every is_valid_heart() check
-	// above fails and they'd be left unable to track sacrifice targets. The living heart only needs *some*
-	// organ to anchor its tracking spell, so bind it to whatever sits in their chest - their power cell
-	// (heart slot) or, failing that, their positronic brain - robotic status be damned. The re-make ritual
-	// (recipe_snowflake_check / is_valid_heart) still refuses a cybernetic heart, matching the flavour text.
 	if(!where_to_put_our_heart)
 		for(var/fallback_slot in list(INTERNAL_ORGAN_HEART, INTERNAL_ORGAN_BRAIN))
 			var/obj/item/organ/fallback_organ = user.get_organ_slot(fallback_slot)
@@ -151,20 +137,14 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 /datum/heretic_knowledge/living_heart/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	var/datum/antagonist/heretic/our_heretic = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	var/obj/item/organ/our_living_heart = user.get_organ_slot(our_heretic.living_heart_organ_slot)
-	// No heart, nothing to give living heart to
 	if(QDELETED(our_living_heart))
 		loc.balloon_alert(user, "провал, нет сердца!")
 		return FALSE
 
-	// For sanity's sake, check if they've got a living heart -
-	// even though it's not invokable if you already have one,
-	// they may have gained one unexpectantly in between now and then
 	if(HAS_TRAIT(our_living_heart, TRAIT_LIVING_HEART))
 		loc.balloon_alert(user, "провал, способность занята!")
 		return FALSE
 
-	// By this point they are making a new heart
-	// If their current heart is organic / not synthetic, we can continue the ritual as normal
 	if(is_valid_heart(our_living_heart))
 		return TRUE
 
@@ -175,9 +155,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 /datum/heretic_knowledge/living_heart/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	var/datum/antagonist/heretic/our_heretic = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	var/obj/item/organ/our_new_heart = user.get_organ_slot(our_heretic.living_heart_organ_slot)
-	// Don't delete our shiny new heart
 	selected_atoms -= our_new_heart
-	// Make it the living heart
 	our_new_heart.AddComponent(/datum/component/living_heart)
 	to_chat(user, span_warning("Вы чувствуете как [our_new_heart.declent_ru(NOMINATIVE)] начинает яростно биться!"))
 	playsound(user, 'sound/magic/demon_consume.ogg', 50, TRUE)
@@ -254,7 +232,6 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	banned_atom_types = list(/obj/item/pen)
 	result_atoms = list(/obj/item/codex_cicatrix)
 	cost = 1
-	// No longer a free starting craft - it's purchased from the Knowledge Shop (a side knowledge).
 	priority = MAX_KNOWLEDGE_PRIORITY - 4 // Low ritual priority, as it's an optional boon.
 	var/static/list/non_mob_bindings = typecacheof(list(/obj/item/stack/sheet/leather, /obj/item/stack/sheet/animalhide, /mob/living/simple_animal/mouse))
 	research_tree_icon_path = 'icons/obj/eldritch.dmi'
@@ -297,28 +274,17 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	if(!body)
 		return ..()
 
-	// A golem or an android doesn't have skin!
-	//var/exterior_text = "skin"
-	// If carbon, it's the limb. If not, it's the body.
 	var/atom/movable/ripped_thing = body
 
-	// We will check if it's a carbon's body.
-	// If it is, we will damage a random bodypart, and check that bodypart for its body type, to select between 'skin' or 'exterior'.
 	if(iscarbon(body))
 		var/mob/living/carbon/human/human_body = body
 		var/obj/item/organ/external/bodypart = pick(human_body.bodyparts)
 		ripped_thing = bodypart
 
 		human_body.apply_damage(25, BRUTE, bodypart, sharp = TRUE)
-		//if(!(bodypart.bodytype & BODYTYPE_ORGANIC))
-		//	exterior_text = "exterior"
 	else
 		body.apply_damage(25, BRUTE, sharp = TRUE)
-		// If it is not a carbon mob, we will just check biotypes and damage it directly.
-		//if(body.mob_biotypes & (MOB_MINERAL|MOB_ROBOTIC))
-		//	exterior_text = "exterior"
 
-	// Procure book for flavor text. This is why we call parent at the end.
 	var/obj/item/book/le_book = locate() in selected_atoms
 	if(!le_book)
 		stack_trace("Somehow, no book in Codex Cicatrix selected atoms! [english_list(selected_atoms)]")
@@ -421,8 +387,6 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 		/obj/item/multitool = 1,
 	)
 	cost = 1
-	// bookworm is a normal Tier-1 SHOP side, not auto-granted. With is_starting_knowledge it was free
-	// at round start and showed as "owned" instead of a buyable Tier-1 shop item.
 	priority = MAX_KNOWLEDGE_PRIORITY - 3
 	research_tree_icon_path = 'icons/obj/card.dmi'
 	research_tree_icon_state = "eldritch"

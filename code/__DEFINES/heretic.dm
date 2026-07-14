@@ -93,17 +93,8 @@
 
 /// Spell "school" flavor tags (tg-derived). Stored in the spell's `school` var.
 #define SCHOOL_UNSET "unset"
-#define SCHOOL_HOLY "holy"
-#define SCHOOL_PSYCHIC "psychic"
-#define SCHOOL_MIME "mime"
-#define SCHOOL_RESTORATION "restoration"
-#define SCHOOL_EVOCATION "evocation"
 #define SCHOOL_TRANSMUTATION "transmutation"
-#define SCHOOL_TRANSLOCATION "translocation"
-#define SCHOOL_CONJURATION "conjuration"
-#define SCHOOL_NECROMANCY "necromancy"
 #define SCHOOL_FORBIDDEN "forbidden"
-#define SCHOOL_SANGUINE "sanguine"
 
 /// Returned by a spell's before_cast hook to cancel the cast.
 #define SPELL_CANCEL_CAST (1 << 0)
@@ -134,7 +125,6 @@
 #define LADDER_TRAVEL_BLOCK (1<<0)
 #define COMPONENT_CAST_HANDLESS (1<<0)
 #define COMPONENT_CANT_Z_MOVE (1<<0)
-#define COMPONENT_CANT_STRIP (1<<0)
 #define COMPONENT_AFTERATTACK_STOP (1<<1)
 #define ACCESS_DISALLOWED (1<<1)
 

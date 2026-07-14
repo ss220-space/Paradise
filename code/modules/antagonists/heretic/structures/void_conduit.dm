@@ -8,8 +8,6 @@
 	density = TRUE
 	max_integrity = 150
 	///Overlay to apply to the tiles in range of the conduit
-	// voidtile is a near-black tile with animated white stars. Applied as a semi-transparent overlay
-	// (alpha lower than tg's 180) so the floor still shows through the dark tint and the stars read softly.
 	var/static/image/void_overlay = image(icon = 'icons/turf/overlays.dmi', icon_state = "voidtile")
 	///List of tiles that we added an overlay to, so we can clear them when the conduit is deleted
 	var/list/overlayed_turfs = list()

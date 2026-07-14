@@ -1,4 +1,3 @@
-// Some various defines used in the heretic sacrifice map.
 
 /// A global assoc list of all landmarks that denote a heretic sacrifice location. [string heretic path] = [landmark].
 GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
@@ -27,9 +26,6 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 	for_heretic_path = PATH_ASH
 
 
-// Ash is also the default destination (see begin_sacrifice()'s `|| landmarks[PATH_START]` fallback).
-// Register this landmark for PATH_START too, so heretics who haven't picked a path yet, or whose path
-// has no room mapped (flesh/void/moon/cosmic/blade), still teleport somewhere instead of being disembowelled.
 /obj/effect/landmark/heretic/ash/Initialize(mapload)
 	. = ..()
 	if(!GLOB.heretic_sacrifice_landmarks[PATH_START])
@@ -77,11 +73,10 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 	for_heretic_path = PATH_BLADE
 
 
-// A fluff signpost object that doesn't teleport you somewhere when you touch it.
 /obj/structure/no_effect_signpost
 	name = "signpost"
 	desc = "Кто-нибудь подаст мне знак?"
-	icon = 'icons/obj/fluff_general.dmi'
+	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "signpost"
 	anchored = TRUE
 	density = TRUE
@@ -121,13 +116,10 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 	set_light(range, power)
 
 
-// Some VERY dim lights, used for the void sacrifice realm.
 /obj/machinery/light/very_dim
 	nightshift_allowed = FALSE
 	brightness_color = "#d6b6a6ff"
 	brightness_power = 3
-	//fire_brightness = 3.5
-	//bulb_power = 0.5
 
 
 /obj/machinery/light/very_dim/directional/north
@@ -143,9 +135,6 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 	dir = WEST
 
 
-// Floor for the (mapped) Mansus sacrifice rooms. Place these inside your sacrifice-realm map.
-// Exposed to the temperate environment so the room is always breathable even when sealed off by
-// indestructible walls (the sacrifice has to survive 2.5 minutes here without suffocating).
 /turf/simulated/floor/indestructible/mansus
 	name = "mansus flesh"
 	desc = "Тёплая, слабо пульсирующая поверхность. Лучше не думать о том, на чём вы стоите."
@@ -169,8 +158,6 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 		PREPOSITIONAL = "плоти Обители",
 	)
 
-// Visual variants used by the mapped Mansus rooms. Keep atmos here instead of
-// DMM var-edits: maplint bans tile atmos variables on mapped turfs.
 /turf/simulated/floor/fakespace/mansus_air
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_TEMPERATE
@@ -206,12 +193,10 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 	atmos_environment = ENVIRONMENT_TEMPERATE
 
 
-// Rooms for where heretic sacrifices send people.
 /area/centcom/heretic_sacrifice
 	name = "Обитель"
 	icon = 'icons/area/eldritch_areas.dmi' // base areas.dmi has no "heretic" state
 	icon_state = "heretic"
-	//ambience_index = AMBIENCE_SPOOKY
 	base_lighting_alpha = 0
 	static_lighting = TRUE
 	sound_environment = SOUND_ENVIRONMENT_CAVE
@@ -243,13 +228,11 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 
 /area/centcom/heretic_sacrifice/rust
 	name = "Ржавые Врата Обители"
-	//ambience_index = AMBIENCE_REEBE
 	sound_environment = SOUND_ENVIRONMENT_SEWER_PIPE
 
 
 /area/centcom/heretic_sacrifice/lock
 	name = "Врата Обители выкованные из ключей"
-	//ambience_index = AMBIENCE_DANGER
 	sound_environment = SOUND_ENVIRONMENT_PSYCHOTIC
 
 

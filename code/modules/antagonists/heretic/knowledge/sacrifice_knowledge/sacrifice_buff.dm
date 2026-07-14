@@ -1,4 +1,3 @@
-// A buff given to people sacrificed to help them survive.
 
 /// Screen alert for the below status effect.
 /atom/movable/screen/alert/status_effect/unholy_determination
@@ -34,17 +33,14 @@
 
 
 /datum/status_effect/unholy_determination/tick(seconds_between_ticks)
-	// The amount we heal of each damage type per tick. If we're missing legs we heal better because we can't dodge.
 	var/healing_amount = (heal_per_second * seconds_between_ticks) + (heal_per_second * (2 - owner.usable_legs))
 
-	// In softcrit you're, strong enough to stay up.
 	if(owner.health <= HEALTH_THRESHOLD_CRIT && owner.health >= HEALTH_THRESHOLD_DEAD)
 		if(prob(5))
 			to_chat(owner, span_purple("Ваше тело готово сдаться, но вы продолжаете бороться!"))
 
 		healing_amount *= 2
 
-	// ...But reach hardcrit and you're done. You now die faster.
 	if(owner.health < HEALTH_THRESHOLD_DEAD)
 		if(prob(5))
 			to_chat(owner, span_big(span_purple("Вы долго не протяните...")))
@@ -68,7 +64,6 @@
 /datum/status_effect/unholy_determination/proc/adjust_all_damages(amount, seconds_between_ticks)
 
 	owner.adjust_fire_stacks(-1)
-	//owner.losebreath = max(owner.losebreath - (0.5 * seconds_between_ticks), 0)
 
 	var/damage_healed = 0
 	damage_healed += owner.adjustToxLoss(-amount, updating_health = FALSE, forced = TRUE)
@@ -136,8 +131,6 @@
 	new /obj/effect/temp_visual/dir_setting/curse/grasp_portal(spawn_turf, victim.dir)
 	playsound(spawn_turf, 'sound/effects/curse/curse2.ogg', 80, TRUE, -1)
 	var/obj/projectile/hand = new projectile_type(spawn_turf)
-	// preparePixelProjectile(target, source): source must be the wall turf the hand spawns at, not the
-	// victim, or it forceMoves the hand onto the victim and it appears to fly out FROM them.
 	hand.preparePixelProjectile(victim, spawn_turf)
 	if(QDELETED(hand)) // stack_trace already fired above if this failed
 		return

@@ -5,7 +5,6 @@
 	job_rank = ROLE_HERETIC
 	antag_hud_name = "heretic_beast"
 	antag_hud_type = ANTAG_HUD_HERETIC
-	//stinger_sound = 'sound/music/heretic/heretic_gain.ogg'
 	/// Our master (a heretic)'s mind.
 	var/datum/mind/master
 	/// Our objective to serve our master.
@@ -56,8 +55,6 @@
 
 
 /datum/antagonist/heretic_monster/give_objectives()
-	// Seed the objective immediately so "Your current objectives" never shows empty.
-	// The master's name gets filled in by set_owner before we greet the monster.
 	master_obj = new()
 	master_obj.owner = owner
 	master_obj.explanation_text = "Служите своему мастеру."
@@ -66,10 +63,6 @@
 
 
 /datum/antagonist/heretic_monster/on_gain()
-	// Suppress the default greeting/objective announcement: the master's name is filled in by set_owner
-	// (or a "free" monster's objective is added directly) right after add_antag_datum. So we defer the
-	// greeting by one tick - by then all synchronous setup is done, and we show the final objective with
-	// the master's name once, with no empty or intermediate popup.
 	silent = TRUE
 	. = ..()
 	silent = initial(silent)

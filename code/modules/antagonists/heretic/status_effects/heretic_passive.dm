@@ -1,11 +1,3 @@
-// Heretic passive ("empowerment") - a path-specific buff granted when you choose your path, which
-// strengthens in two further stages as you grow in power:
-//   * Level 1 - applied when the path's starting knowledge is gained.
-//   * Level 2 - applied when you craft your path's robe (tg's Armorer's Ritual sends UPGRADE_FIRST there).
-//   * Level 3 - applied when you ascend.
-// Ported (Ash only for now) and adapted from /tg/station's heretic_passive system. master220 has no
-// COMSIG_HERETIC_PASSIVE_UPGRADE signals, so the heretic antag datum drives the level changes directly
-// (grant_passive / set_passive_level). The effect itself only ever applies each level's effects once.
 
 /datum/status_effect/heretic_passive
 	id = "heretic_passive"
@@ -33,7 +25,6 @@
 	heretic_datum = owner.mind?.has_antag_datum(/datum/antagonist/heretic)
 	if(!heretic_datum)
 		return FALSE
-	// Catch up to the heretic's current power level (e.g. re-applied after a body transfer).
 	if(heretic_datum.passive_level >= 2)
 		level_upgrade()
 	if(heretic_datum.passive_level >= 3)
@@ -51,7 +42,6 @@
 	if(applied_level >= 2)
 		return FALSE
 	applied_level = 2
-	// Hitting tier 2 (crafting the robe) is also when the heretic's eldritch aura ignites (tg parity).
 	if(heretic_datum && !heretic_datum.unlimited_blades)
 		heretic_datum.disable_blade_breaking()
 	return TRUE
@@ -67,13 +57,6 @@
 	return TRUE
 
 
-//---- Ash Passive: "Vow of Destruction"
-// Level 1 - heat and ash-storm immunity (granted on picking the path).
-// Level 2 - lava immunity (granted on the blade upgrade).
-// Level 3 - resistance to high and low pressure (granted on ascension), tg parity. master220 has no
-//           dedicated TRAIT_RESISTHIGHPRESSURE/TRAIT_RESISTLOWPRESSURE: pressure damage is gated on
-//           TRAIT_RESIST_HEAT (high pressure) and TRAIT_RESIST_COLD (low pressure) in human/life.dm,
-//           so granting both of those at the final tier IS "resistance to high and low pressure".
 /datum/status_effect/heretic_passive/ash
 	id = "heretic_passive_ash"
 	name = "Клятва Разрушения"
@@ -102,9 +85,6 @@
 	. = ..()
 	if(!.)
 		return
-	// Both traits = "resistance to high and low pressure" in master220 (see comment above). HEAT was
-	// already granted at level 1; re-adding it here under the same source key is harmless and keeps the
-	// final tier explicitly responsible for the full pressure resistance, matching tg.
 	owner.add_traits(list(TRAIT_RESIST_HEAT, TRAIT_RESIST_COLD), TRAIT_STATUS_EFFECT(id))
 
 
@@ -113,16 +93,6 @@
 	return ..()
 
 
-//---- Rust Passive: "Leeching Walk" ("Ржавая Поступь") - ported 1:1 from /tg/station, adapted to master220.
-// All tiers do their work directly in on_life (scaling with our level), exactly like tg - we do NOT lean on
-// /datum/element/leeching_walk (that element is still used by the Rusty Walker mob, just not by us).
-// Level 1 - standing on rust heals brute/burn/tox/oxy/stamina, cuts stun duration, restores blood, purges
-//           chems, and gives baton-knockdown resistance while on rust. Granted on picking the path.
-// Level 2 - additionally mends fractures/internal bleeding and heals organs; healing scales up. The rust
-//           strength gained alongside this tier lets you rust reinforced floors/walls.
-// Level 3 - additionally regrows missing limbs; healing scales up again. Lets you rust titanium/plastitanium.
-// NB: master220 has no tg wound datums or regenerate_limbs()/get_missing_limbs() - we substitute the
-// engine's fracture/bleed mend and the species create_organs() limb-regrow idiom (see buffs.dm "marshal").
 /datum/status_effect/heretic_passive/rust
 	id = "heretic_passive_rust"
 	name = "Ржавая Поступь"
@@ -165,7 +135,6 @@
 	if(!HAS_TRAIT(our_turf, TRAIT_RUSTY))
 		return
 
-	// SSmobs.wait is 2 secs, so DELTA_WORLD_TIME is halved (matches the rest of the rust path's healing).
 	var/delta_time = DELTA_WORLD_TIME(SSmobs) * 0.5
 	var/main_healing = 1 + 1 * applied_level * delta_time
 	var/stam_healing = 5 + 5 * applied_level * delta_time
@@ -179,12 +148,10 @@
 	if(need_mob_update)
 		source.updatehealth()
 
-	// Reduces duration of stuns/knockdowns and tops up lost blood.
 	source.AdjustImmobilized((-0.5 * applied_level) * delta_time)
 	if(source.blood_volume < BLOOD_VOLUME_NORMAL)
 		source.blood_volume = min(source.blood_volume + 2.5 * delta_time, BLOOD_VOLUME_NORMAL)
 
-	// Purge chems off the body (tg uses purge_multiplier, which master220 reagents don't have - flat is fine).
 	for(var/datum/reagent/reagent as anything in source.reagents.reagent_list)
 		reagent.volume = max(0, reagent.volume - delta_time)
 	source.reagents.update_total()
@@ -193,7 +160,6 @@
 		return
 	var/mob/living/carbon/carbon_owner = source
 
-	// Level 2+: mend fractures / internal bleeding (master220's "wounds") and heal organs.
 	if(applied_level < 2)
 		return
 	if(ishuman(carbon_owner))
@@ -204,7 +170,6 @@
 	for(var/obj/item/organ/internal_organ as anything in carbon_owner.internal_organs)
 		internal_organ.heal_internal_damage(2 * delta_time)
 
-	// Level 3: regrow any missing limbs.
 	if(applied_level < 3)
 		return
 	if(!ishuman(carbon_owner))
@@ -218,13 +183,6 @@
 		human_owner.dna.species.create_organs(human_owner, missing_bodyparts)
 
 
-//---- Moon Passive: "Лунное Прозрение" - ported from /tg/station, adapted to master220.
-// TG's moon passive makes the heretic impervious to brain traumas and slowly regenerates their brain, with
-// the Moonlight Amulet doubling the regen while worn. master220 has no sanity, so there is no sanity-regen
-// component - just the trauma immunity and brain healing, scaling with our power level.
-// Level 1 - brain-trauma immunity + base brain regen (granted on picking the path).
-// Level 2 - stronger brain regen (granted on crafting the robe).
-// Level 3 - strongest brain regen (granted on ascension).
 /datum/status_effect/heretic_passive/moon
 	id = "heretic_passive_moon"
 	name = "Лунное Прозрение"
@@ -276,10 +234,8 @@
 	if(!carbon_owner.get_organ_slot(INTERNAL_ORGAN_BRAIN))
 		return
 
-	// SSmobs.wait is 2 secs, so DELTA_WORLD_TIME is halved (matches the rest of the heretic passives).
 	var/delta_time = DELTA_WORLD_TIME(SSmobs) * 0.5
 	var/heal = (0.5 * applied_level) * delta_time
-	// Wearing the Moonlight Amulet doubles the regeneration (tg parity).
 	if(ishuman(carbon_owner))
 		var/mob/living/carbon/human/human_owner = carbon_owner
 		if(istype(human_owner.neck, /obj/item/clothing/neck/heretic_focus/moon_amulet))
@@ -287,18 +243,6 @@
 	carbon_owner.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, -heal)
 
 
-//---- Blade Passive: "Танец Клинка" (riposte) - ported 1:1 from /tg/station, adapted to master220.
-// When attacked in melee while holding a heretic blade, you instantly strike back at the attacker, once per
-// cooldown. tg makes this riposte the blade path's PASSIVE (it folded the old standalone blade_dance node
-// into the passive), so it's granted on picking the path and strengthens as you grow. Cooldown scales with
-// power: tg uses base_cooldown - cooldown_reduction * (level - 1) -> 20s / 15s / 10s.
-// Level 1 - riposte, 20s cooldown (granted on picking the path).
-// Level 2 - immunity to fall damage (granted on crafting the robe), cooldown drops to 15s.
-// Level 3 - cooldown of the riposte reduced to 10s (granted on ascension).
-// NB: tg also makes the level-2+ riposte count as a SUCCESSFUL_BLOCK (nullifying the hit). master220 has no
-// COMSIG_LIVING_CHECK_BLOCK / block-reaction system, so we drive the riposte off COMSIG_ATOM_WAS_ATTACKED
-// (the relay_attackers element) instead - the counter-attack still lands, it just can't cancel the incoming
-// hit. The player-facing levels (riposte / fall immunity / cooldown) are otherwise identical to tg.
 /datum/status_effect/heretic_passive/blade
 	id = "heretic_passive_blade"
 	name = "Танец Клинка"
@@ -352,11 +296,9 @@
 	return ZIMPACT_CANCEL_DAMAGE | ZIMPACT_NO_MESSAGE | ZIMPACT_NO_SPIN
 
 
-// Signal handler for COMSIG_ATOM_WAS_ATTACKED (relay_attackers): args are (source, attacker, attack_flags).
 /datum/status_effect/heretic_passive/blade/proc/on_shield_reaction(mob/living/carbon/human/source, atom/movable/hitby, attack_flags)
 	SIGNAL_HANDLER
 
-	// Shoves aren't a real "melee strike" - they don't provoke a riposte (tg only ripostes melee attacks).
 	if(attack_flags & ATTACKER_SHOVING)
 		return
 	if(!riposte_ready)
@@ -365,11 +307,9 @@
 	var/mob/living/attacker = isliving(hitby) ? hitby : hitby?.loc
 	if(!istype(attacker))
 		return
-	// Adjacency gates out ranged attacks - the riposte is a melee counter (tg parity).
 	if(!ishuman(source) || !source.Adjacent(attacker))
 		return
 
-	// We can only riposte with a heretic blade in either hand (mainhand prioritised).
 	var/obj/item/main_hand = source.get_active_hand()
 	var/obj/item/off_hand = source.get_inactive_hand()
 	var/obj/item/striking_with
@@ -402,13 +342,6 @@
 	source.balloon_alert(source, "контратака готова")
 
 
-//---- Flesh Passive: "Ненасытный голод" ("Ravenous Hunger") - ported from /tg/station, adapted to master220.
-// Level 1 - immunity to diseases and disgust (granted on picking the path). Nulling disgust (tg parity)
-//           is essential here: the path revolves around eating organs/meat, which are GROSS food and would
-//           otherwise pile on revulsion. tg also grants space-ant immunity, but master220 has no space ants.
-// Level 2 - eating meat or organs heals you, and being fat no longer slows you down. tg's voracious/glutton
-//           food-preference traits don't exist in master220, so we keep the heal-on-meat + no-fat-slowdown.
-// Level 3 - while fat, gain a flat 25% damage resistance and baton-knockdown resistance (tg parity).
 /datum/status_effect/heretic_passive/flesh
 	id = "heretic_passive_flesh"
 	name = "Ненасытный Голод"
@@ -424,7 +357,6 @@
 	if(!.)
 		return
 	owner.add_traits(list(TRAIT_VIRUSIMMUNE, TRAIT_NODISGUST), TRAIT_STATUS_EFFECT(id))
-	// Clear any revulsion already built up (e.g. from eating organs before picking the path).
 	owner.SetDisgust(0)
 
 
@@ -433,9 +365,6 @@
 	if(!.)
 		return
 	RegisterSignal(owner, COMSIG_FOOD_EATEN, PROC_REF(on_eat))
-	// Being fat no longer slows us down, and (at level 3) makes us tougher: react to fatness changes.
-	// The native human on_fat (init_signals.dm) is registered at init, so it runs first and adds the
-	// obesity movespeed modifiers - our later-registered handler then strips them right back off.
 	RegisterSignals(owner, list(SIGNAL_ADDTRAIT(TRAIT_FAT), SIGNAL_REMOVETRAIT(TRAIT_FAT)), PROC_REF(on_fat_changed))
 	on_fat_changed()
 
@@ -444,7 +373,6 @@
 	. = ..()
 	if(!.)
 		return
-	// Re-evaluate now that level 3 grants the fat damage-resistance bonus.
 	on_fat_changed()
 
 
@@ -480,7 +408,6 @@
 		return
 	var/mob/living/carbon/human/heretic = owner
 	if(HAS_TRAIT(heretic, TRAIT_FAT))
-		// tg's TRAIT_FAT_IGNORE_SLOWDOWN: undo the obesity movespeed the native on_fat just applied.
 		heretic.remove_movespeed_modifier(/datum/movespeed_modifier/obesity)
 		heretic.remove_movespeed_modifier(/datum/movespeed_modifier/obesity_flying)
 	var/has_bonus = HAS_TRAIT_FROM(heretic, TRAIT_BATON_RESISTANCE, TRAIT_STATUS_EFFECT(id))
@@ -493,13 +420,6 @@
 		REMOVE_TRAIT(heretic, TRAIT_BATON_RESISTANCE, TRAIT_STATUS_EFFECT(id))
 
 
-//---- Lock Passive: "Open Invitation" ("Открытое Приглашение") - ported 1:1 from /tg/station.
-// Level 1 - shock insulation (granted on picking the path). tg also makes the Knowledge Shop cheaper at this
-//           tier; in master220 that discount is the always-on column shop_cost_discount (see lock_lore.dm),
-//           so we only grant the shock immunity here to avoid double-applying it.
-// Level 2 - x-ray vision (granted on crafting the robe), letting you see through walls and objects.
-// Level 3 - TRAIT_LOCK_GRASP_UPGRADED (granted on ascension): opening a lock no longer puts the grasp on
-//           cooldown (handled in base_knock's secondary grasp).
 /datum/status_effect/heretic_passive/lock
 	id = "heretic_passive_lock"
 	name = "Открытое Приглашение"
@@ -538,13 +458,6 @@
 	return ..()
 
 
-//---- Cosmic Passive: "Избранник Звёзд" ("Chosen of the Stars") - ported 1:1 from /tg/station.
-// Unlike the other passives this one grants no traits on the mob: its power lives in the cosmic FIELDS the
-// heretic creates, which create_cosmic_field/cosmic_trail_based_on_passive upgrade by reading our level.
-// Level 1 - standing on a cosmic field speeds you up (movespeed modifier, applied by the field) and regenerates
-//           stamina (the tick below). Granted on picking the path.
-// Level 2 - the fields you create disrupt/disable nearby grenades & bombs (granted on crafting the robe).
-// Level 3 - the fields you create slow down projectiles passing through them (granted on ascension).
 /datum/status_effect/heretic_passive/cosmic
 	id = "heretic_passive_cosmic"
 	name = "Избранник Звёзд"
@@ -559,19 +472,11 @@
 	. = ..()
 	if(!(locate(/obj/effect/forcefield/cosmic_field) in get_turf(owner)))
 		return
-	// SSmobs.wait is 2 secs, so DELTA_WORLD_TIME is halved (matches the rest of the heretic passives).
 	var/delta_time = DELTA_WORLD_TIME(SSmobs) * 0.5
 	if(owner.adjustStaminaLoss(-15 * delta_time, updating_health = FALSE))
 		owner.updatehealth()
 
 
-//---- Void Passive: "Aristocrat's Way" ("Путь Аристократа") - ported 1:1 from /tg/station.
-// Level 1 - cold and low-pressure immunity (granted on picking the path). master220 has no dedicated
-//           TRAIT_RESISTLOWPRESSURE: low-pressure damage is gated on TRAIT_RESIST_COLD (human/life.dm),
-//           so that one trait IS "cold and low pressure immunity" (same substitution the ash passive uses).
-// Level 2 - you no longer need to breathe (granted on crafting the robe).
-// Level 3 - water, ice and slippery surfaces no longer slip you (granted on ascension).
-// (This replaces the legacy "Путь аристократа" cold_snap knowledge node, which granted all of it at once.)
 /datum/status_effect/heretic_passive/void
 	id = "heretic_passive_void"
 	name = "Путь Аристократа"

@@ -120,7 +120,6 @@
  * Can be overriden by knoweldge subtypes.
  */
 /datum/heretic_knowledge/proc/parse_required_item(atom/item_path, number_of_things)
-	// If we need a human, there is a high likelihood we actually need a (dead) body
 	if(ispath(item_path, /mob/living/carbon/human))
 		return "[number_of_things] тел[declension_ru(number_of_things, "о", "а", "")]"
 
@@ -180,10 +179,8 @@
 		var/obj/item/stack/sac_stack = sacrificed
 		var/how_much_to_use = 0
 		for(var/requirement in required_atoms)
-			// If it's not requirement type and type is not a list, skip over this check
 			if(!istype(sacrificed, requirement) && !islist(requirement))
 				continue
-			// If requirement *is* a list and the stack *is* in the list, skip over this check
 			if(islist(requirement) && !is_type_in_list(sacrificed, requirement))
 				continue
 			how_much_to_use = min(required_atoms[requirement], sac_stack.amount)
@@ -207,9 +204,6 @@
 
 
 /datum/heretic_knowledge/spell/on_gain(mob/user, datum/antagonist/heretic/our_heretic, mind_transfer = FALSE)
-	// Added spells are tracked on the body, and not the mind,
-	// because we handle heretic mind transfers
-	// via the antag datum (on_gain and on_lose).
 	if(!spell_to_add || mind_transfer)
 		return
 
@@ -282,7 +276,6 @@
 /datum/heretic_knowledge/limited_amount/starting/on_research(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
 	our_heretic.heretic_path = GLOB.heretic_research_tree[type][HKT_ROUTE]
-	// Generate this heretic's per-tier drafts + tiered shop for the chosen path (no-op on legacy paths).
 	our_heretic.generate_path_drafts()
 	SSblackbox.record_feedback("tally", "heretic_path_taken", 1, our_heretic.heretic_path)
 
@@ -299,8 +292,6 @@
 	our_heretic.clear_passive()
 
 /datum/heretic_knowledge/limited_amount/starting/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
-	// Once empowered (robe crafted / enough knowledge), the mansus lets us forge blades without the
-	// two-at-a-time cap. Otherwise fall back to the normal limited-amount check.
 	var/datum/antagonist/heretic/our_heretic = user.mind?.has_antag_datum(/datum/antagonist/heretic)
 	if(our_heretic?.unlimited_blades)
 		return TRUE
@@ -410,8 +401,6 @@
 	abstract_parent_type = /datum/heretic_knowledge/blade_upgrade
 	cost = 1
 
-// NOTE: the passive's tier-2 ("empowerment") upgrade is granted by CRAFTING the robe now
-// (see /datum/heretic_knowledge/armor/on_finished_recipe), not by researching the blade upgrade.
 
 /datum/heretic_knowledge/blade_upgrade/on_gain(mob/user, datum/antagonist/heretic/our_heretic, mind_transfer = FALSE)
 	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, PROC_REF(on_eldritch_blade))
@@ -486,8 +475,6 @@
 		LAZYADD(summon.created_items, WEAKREF(summoned))
 
 	summoned.ai_controller?.set_ai_status(AI_STATUS_OFF)
-	// Fade in the summon while the ghost poll is ongoing.
-	// Also don't let them mess with the summon while waiting
 	summoned.alpha = 0
 	ADD_TRAIT(summoned, TRAIT_NO_TRANSFORM, UID())
 	summoned.move_resist = MOVE_FORCE_OVERPOWERING
@@ -503,7 +490,6 @@
 		return FALSE
 
 	var/mob/chosen_one = pick(candidates)
-	// Ok let's make them an interactable mob now, since we got a ghost
 	summoned.alpha = 255
 	REMOVE_TRAIT(summoned, TRAIT_NO_TRANSFORM, UID())
 	summoned.move_resist = initial(summoned.move_resist)
@@ -577,7 +563,6 @@
 	)
 
 	required_atoms = list()
-	// 1 Organ, 1 Easy, 1 Hard
 	required_atoms[pick(potential_organs)] += 1
 	required_atoms[pick(potential_easy_items)] += 1
 	required_atoms[pick(potential_uncommoner_items)] += 1
@@ -629,7 +614,6 @@
 	priority = MAX_KNOWLEDGE_PRIORITY + 1 // Yes, the final ritual should be ABOVE the max priority.
 	required_atoms = list(/mob/living/carbon/human = 3)
 	/// The typepath of the achievement to grant upon successful ascension.
-	//var/datum/award/achievement/misc/ascension_achievement
 	/// The text of the ascension announcement.
 	/// %NAME% is replaced with the heretic's real name,
 	/// and %SPOOKY% is replaced with output from [generate_heretic_text]
@@ -653,16 +637,12 @@
 	if(!can_be_invoked(heretic_datum, TRUE))
 		return FALSE
 
-	// Remove all non-dead humans from the atoms list.
-	// (We only want to sacrifice dead folk.)
 	for(var/mob/living/carbon/human/sacrifice in atoms)
 		if(is_valid_sacrifice(sacrifice))
 			continue
 
 		atoms -= sacrifice
 
-	// All the non-dead humans are removed in this proc.
-	// We handle checking if we have enough humans in the ritual itself.
 	return TRUE
 
 
@@ -676,11 +656,8 @@
 /datum/heretic_knowledge/ultimate/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	heretic_datum.ascended = TRUE
-	// Ascension is the final passive ("empowerment") tier.
 	heretic_datum.set_passive_level(3)
 
-	// Show the cool red gradiant in our UI. Partial update (not update_static_data, which sends a full
-	// update) to avoid the rate-limited full-update path that flashes the "Loading / Please wait..." spinner.
 	SStgui.update_uis(heretic_datum)
 
 	if(ishuman(user))

@@ -1,4 +1,3 @@
-// Sidepaths for knowledge between Void and Blade.
 
 /datum/heretic_knowledge_tree_column/void_to_blade
 	neighbour_type_left = /datum/heretic_knowledge_tree_column/main/void
@@ -57,7 +56,6 @@
 			to_chat(user, span_hierophant_warning("[body.declent_ru(NOMINATIVE)] не име[PLUR_ET_YUT(body)] души, а значит не мо[PLUR_JET_GUT(body)] стать гулём."))
 			continue
 
-		// We will only accept valid bodies with a mind, or with a ghost connected that used to control the body
 		selected_atoms += body
 		return TRUE
 
@@ -85,8 +83,6 @@
 
 /// Make [victim] into a shattered risen ghoul.
 /datum/heretic_knowledge/limited_amount/risen_corpse/proc/make_risen(mob/living/user, mob/living/carbon/human/victim)
-	//user.log_message("created a shattered risen out of [key_name(victim)].", LOG_GAME)
-	//victim.log_message("became a shattered risen of [key_name(user)]'s.", LOG_VICTIM, log_globally = FALSE)
 	message_admins("[ADMIN_LOOKUPFLW(user)] created a shattered risen, [ADMIN_LOOKUPFLW(victim)].")
 
 	victim.apply_status_effect(
@@ -121,9 +117,6 @@
 	color = "#001aff"
 	hitsound = SFX_SHATTER
 	force = 16
-	//wound_bonus = -30
-	//bare_wound_bonus = 15
-	//demolition_mod = 1.5
 	sharp = TRUE
 
 

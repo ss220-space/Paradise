@@ -1,4 +1,3 @@
-// Rust charge, a charge action that can only be started on rust (and only destroys rust tiles)
 /obj/effect/proc_holder/spell/mob_cooldown/charge/rust
 	name = "Заряд Ржавчины"
 	desc = "Заклинание, которое необходимо начать стоя на ржавой плитке. \
@@ -8,13 +7,10 @@
 	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
-	// Rust Charge uses the base charge button: actions_items.dmi "sniper_zoom" (the red crosshair).
 	action_icon = 'icons/mob/actions/actions_items.dmi'
 	action_icon_state = "sniper_zoom"
 	charge_distance = 10
 	charge_damage = 25
-	// Rust charge stops exactly on the picked tile. The base charge overshoots by 2 tiles, which made the
-	// heretic land past the tile they clicked.
 	charge_past = 0
 	base_cooldown = 30 SECONDS
 	clothes_req = FALSE
@@ -31,18 +27,13 @@
 	if(!istype(start_turf) || !HAS_TRAIT(start_turf, TRAIT_RUSTY) || !istype(target_turf))
 		return FALSE
 
-	// We're invulnerable while charging, and unleash a damaging knockdown shock when we stop.
 	if(ishuman(action.owner))
 		shielded_owner = action.owner
 		shielded_owner.physiology.damage_resistance += 100
 	RegisterSignal(action.owner, COMSIG_FINISHED_CHARGE, PROC_REF(affect_aoe))
-	// Failsafe: if do_charge bails before it ever fires COMSIG_FINISHED_CHARGE (e.g. the move loop fails to
-	// start), we'd otherwise leak the invulnerability forever. Guarantee it gets dropped.
 	addtimer(CALLBACK(src, PROC_REF(drop_shield)), 15 SECONDS)
 
-	//cooldown_handler.start_recharge(135 SECONDS, 135 SECONDS)
 	INVOKE_ASYNC(src, PROC_REF(charge_sequence), action.owner, target_turf, charge_delay, charge_past)
-	//cooldown_handler.start_recharge()
 	return TRUE
 
 
@@ -69,8 +60,6 @@
 /obj/effect/proc_holder/spell/mob_cooldown/charge/rust/on_move(atom/source, atom/new_loc, atom/target)
 	..()
 	var/turf/victim = get_turf(action.owner)
-	//if(!actively_moving)
-	//	return COMPONENT_MOVABLE_BLOCK_PRE_MOVE
 
 	new /obj/effect/temp_visual/decoy/fading(source.loc, source)
 	INVOKE_ASYNC(src, PROC_REF(DestroySurroundings), source)

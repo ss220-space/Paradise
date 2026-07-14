@@ -1,15 +1,6 @@
-// Widest viewport a player can pick in Settings -> "Диапазон обзора" is "19x15" (Ультраширокий): 19 tiles
-// wide -> a horizontal view radius of (19-1)/2 = 9 tiles (vertical is only 7). The Refuge's watcher scan has
-// to reach that far, or an ultrawide onlooker standing 8-9 tiles away (off-screen for the heretic) could
-// watch them slip into / out of hiding. See setviewrange in preference/preferences.dm.
 #define CARETAKER_MAX_WATCH_RANGE 9
 #define CARETAKER_WATCH_CACHE_TIME (0.5 SECONDS)
 
-// Caretaker's Last Refuge: built on the Space Crawl jaunt, but instead of requiring a space/low-pressure
-// turf, the gate is "nobody is watching you" - you may only enter while unseen, and only resurface on a
-// spot no conscious onlooker can see. While phased you are intangible and unable to act, same as Space
-// Crawl. Because the parent's can_cast early-returns TRUE while jaunting, the cooldown never traps you
-// inside: you can resurface the instant you reach an unwatched spot.
 /obj/effect/proc_holder/spell/jaunt/space_crawl/caretaker
 	name = "Последнее Пристанище Смотрителя"
 	desc = "Скрывает вас в Убежище Смотрителя, делая прозрачным и неосязаемым. \
@@ -20,7 +11,6 @@
 	invalid_turf_message = "За вами наблюдают — вы не можете скрыться!"
 	jaunt_type = /obj/effect/dummy/spell_jaunt/caretaker
 	jaunt_hand_type = /obj/item/space_crawl/caretaker
-	// One "locked door / turning key" sound for both submerging into and resurfacing from the Refuge.
 	jaunt_in_sound = 'sound/magic/heretic/caretaker_lock.ogg'
 	jaunt_out_sound = 'sound/magic/heretic/caretaker_lock.ogg'
 	var/cached_verdict
@@ -39,10 +29,6 @@
 	cached_turf = our_turf
 	cache_expires = world.time + CARETAKER_WATCH_CACHE_TIME
 	cached_verdict = TRUE
-	// Gather every living onlooker that could POSSIBLY see this turf (max viewport radius), then defer to each
-	// watcher's OWN client.view for the real line-of-sight test - so a classic-view player 8 tiles away (who
-	// genuinely can't see us) won't block the Refuge, but an ultrawide one at that distance will. view() also
-	// respects walls/opacity, so a watcher behind a wall doesn't count.
 	for(var/mob/living/watcher in range(CARETAKER_MAX_WATCH_RANGE, our_turf))
 		if(watcher == user || watcher.stat == DEAD || !watcher.client)
 			continue
@@ -52,9 +38,6 @@
 	return cached_verdict
 
 
-// The in-person watcher test above is cheap, so the parent runs it on every button-status refresh (each move,
-// and each SSfastprocess tick while on cooldown). The camera/AI sweep is heavier, so we DON'T put it there -
-// instead can_cast() runs it only on a genuine cast attempt (show_message), never on a button repaint.
 /obj/effect/proc_holder/spell/jaunt/space_crawl/caretaker/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
 	. = ..()
 	if(!.)
@@ -70,11 +53,8 @@
 /// who peeked at a camera (which leaks into computers_watched_by, never cleared on a non-living close) or an
 /// operator staring at a different part of the station would lock the heretic out of the Refuge forever.
 /obj/effect/proc_holder/spell/jaunt/space_crawl/caretaker/proc/is_watched_by_camera(turf/our_turf)
-	// Cheap gate first: if no working camera covers this spot at all, no camera-watcher can possibly see it.
 	if(!GLOB.cameranet.checkTurfVis(our_turf))
 		return FALSE
-	// An AI only actually sees what's around its camera eye RIGHT NOW (not the whole net at once), so block only
-	// when this turf is inside an AI's current view (and camera-covered, per the checkTurfVis gate above).
 	for(var/mob/living/silicon/ai/ai as anything in GLOB.ai_list)
 		if(!ai.client || ai.stat == DEAD)
 			continue
@@ -83,8 +63,6 @@
 			continue
 		if(our_turf in view(ai.client.view, eye))
 			return TRUE
-	// Advanced camera consoles relocate the operator's own perspective into a camera eye. Block only if that
-	// operator's eye actually has us in view - watching a far-off camera shouldn't out us here.
 	for(var/mob/watcher as anything in GLOB.camera_console_watchers)
 		if(!watcher.client || !isliving(watcher))
 			continue
@@ -96,8 +74,6 @@
 			continue
 		if(our_turf in view(watcher.client.view, eye))
 			return TRUE
-	// Basic security monitors: a working camera that can see us AND is currently being watched by a live,
-	// conscious operator standing at a console (not just a console left "on" or a ghost's lingering peek).
 	for(var/obj/machinery/camera/cam in range(CARETAKER_MAX_WATCH_RANGE, our_turf))
 		if(!length(cam.computers_watched_by) || !cam.can_use())
 			continue

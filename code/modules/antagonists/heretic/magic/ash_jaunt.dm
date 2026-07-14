@@ -20,13 +20,9 @@
 	sound_out = null
 	jaunt_duration = 2 SECONDS
 	jaunt_in_time = 0.2 SECONDS
-	// Hold the reveal until the ash_shift reform animation finishes (1.3s) so the heretic fully
-	// forms out of the ash before the model appears, instead of popping in mid-animation.
 	jaunt_in_reveal_time = 1.3 SECONDS
 	jaunt_type_path = /obj/effect/dummy/spell_jaunt/red
-	// No steam puff here (unlike the vampire base) - just the crumble-to-ash visual.
 	jaunt_water_effect = FALSE
-	// Both ends play an ash effect: crumble to ash on the way out, reform from ash on the way in.
 	jaunt_in_type = /obj/effect/temp_visual/dir_setting/ash_shift
 	jaunt_out_type = /obj/effect/temp_visual/dir_setting/ash_shift/out
 

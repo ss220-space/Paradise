@@ -40,8 +40,6 @@
 	)
 */
 
-// The touch also works at range (both left- and right-click) within 3 tiles - the base ranged handler
-// would fire afterattack at ANY range, so we intercept and gate it ourselves.
 /obj/item/melee/touch_attack/star_touch/ranged_interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
 	if(!isliving(interacting_with))
 		return NONE
@@ -58,7 +56,6 @@
 	if(!istype(victim))
 		return FALSE
 
-	// An unmarked victim just gets the star mark; the fields + tether only fire on an already-marked one.
 	if(!victim.has_status_effect(/datum/status_effect/star_mark))
 		victim.apply_status_effect(/datum/status_effect/star_mark, caster)
 		return ..()
@@ -131,8 +128,6 @@
 	)
 
 
-// Callback for effect_remover component: erasing a cosmic rune with the star touch also dissolves the
-// caster's own linked rune pair.
 /obj/item/melee/touch_attack/star_touch/proc/after_clear_rune(obj/effect/target, mob/living/user)
 	new /obj/effect/temp_visual/cosmic_rune_fade(get_turf(target))
 	var/obj/effect/proc_holder/spell/cosmic_rune/rune_spell = locate() in user.mob_spell_list
@@ -200,7 +195,6 @@
 
 
 /datum/status_effect/cosmic_beam/on_remove()
-	// The tether resolves here: if it survived the full duration and the victim is still in range, reel them in.
 	if(current_target && get_dist(owner, current_target) <= max_range)
 		yoink_victim()
 		successful_teleport = TRUE

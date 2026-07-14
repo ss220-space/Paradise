@@ -36,8 +36,6 @@
 	to_fire.AddElement(cosmic_trail_based_on_passive(user), /obj/effect/forcefield/cosmic_field/fast)
 
 
-// While the disk is live, pressing the action button again teleports us to it and pulls nearby heathens
-// into cosmic fields, instead of arming a new shot (no target click needed).
 /obj/effect/proc_holder/spell/pointed/projectile/star_blast/Click()
 	var/obj/projectile/magic/star_ball/active_ball = projectile_weakref?.resolve()
 	if(!active_ball)
@@ -49,13 +47,11 @@
 	do_teleport(action.owner, get_turf(active_ball))
 	pull_victims() // Intentional: pull from where we were, AND from where we teleported to.
 	QDEL_NULL(active_ball) // on_ball_deleted clears the weakref and the green border.
-	// Cooldown is only 1 second after shooting; it's 25 seconds after we teleport to our disk.
 	cooldown_handler.start_recharge(25 SECONDS)
 	action?.UpdateButtonIcon()
 	return TRUE
 
 
-// The disk was fired: light up the green "recast ready" border.
 /obj/effect/proc_holder/spell/pointed/projectile/star_blast/after_cast(atom/cast_on)
 	. = ..()
 	if(projectile_weakref?.resolve())
@@ -78,7 +74,6 @@
 	action.UpdateButtonIcon(ALL)
 
 
-// Expanding purple ring shown at both ends of the star blast teleport.
 /obj/effect/temp_visual/circle_wave/star_blast
 	color = COLOR_VOID_PURPLE
 
@@ -96,7 +91,6 @@
 	for(var/mob/living/nearby_mob in view(2, caster))
 		if(nearby_mob == caster || nearby_mob == summoner?.resolve())
 			continue
-		// Don't grab people who are tucked away (e.g. in a locker), or fellow heretics/monsters.
 		if(!isturf(nearby_mob.loc))
 			continue
 		if(IS_HERETIC_OR_MONSTER(nearby_mob))
@@ -110,14 +104,9 @@
 	name = "star ball"
 	gender = MALE
 	icon_state = "star_ball"
-	// Paradise speed is deciseconds per tile (inverse of tiles/decisecond); slowed slightly (5 -> 6) so
-	// the disk is easier to chase for the teleport recast.
 	speed = 6
 	range = 25
 	knockdown = 4 SECONDS
-	// No projectile_piercing here: things NOT in pass_flags (mobs, walls, mechs) Bump us instead, and
-	// forcedodge = -1 makes every such Bump apply the hit (knockdown + star marks) and fly on, never
-	// stopping until range end - which also keeps the disk alive for the teleport recast.
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE | PASSBLOB | PASSMACHINE | PASSSTRUCTURE | PASSFLAPS | PASSFENCE | PASSDOOR | PASSITEM
 	forcedodge = -1
 	/// Effect for when the ball hits something.
@@ -141,7 +130,6 @@
 	. = ..()
 	var/mob/living/cast_on = firer
 	for(var/mob/living/nearby_mob in range(star_mark_range, target))
-		// cast_on can be null if the firer was deleted mid-flight; ?. keeps the buckled check from crashing.
 		if(cast_on == nearby_mob || cast_on?.buckled == nearby_mob)
 			continue
 		nearby_mob.apply_status_effect(/datum/status_effect/star_mark, cast_on)

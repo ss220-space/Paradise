@@ -35,13 +35,10 @@
 		return
 	new expansion_effect(get_turf(caster))
 	for(var/mob/living/nearby_mob in range(star_mark_range, caster))
-		// Don't star-mark ourselves, whoever we're carrying, or fellow heretics/monsters.
 		if(nearby_mob == caster || caster.buckled == nearby_mob || IS_HERETIC_OR_MONSTER(nearby_mob))
 			continue
 		nearby_mob.apply_status_effect(/datum/status_effect/star_mark, caster)
 
-	// Lay our 5x5 (aoe_range = 2) carpet of cosmic fields, each upgraded by our passive level. We create them
-	// ourselves via create_cosmic_field (rather than the base conjure summon) so the passive upgrades apply.
 	for(var/turf/field_turf in targets)
 		if(field_turf.density)
 			continue

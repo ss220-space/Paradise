@@ -33,7 +33,6 @@
 	owner.update_icon(UPDATE_OVERLAYS)
 	return ..()
 
-// We WANT to call on_remove when replaced, else effects might not be cleaned up in the case where a mark is applied while a different mark is active.
 /datum/status_effect/eldritch/be_replaced()
 	qdel(src)
 
@@ -56,9 +55,6 @@
 	playsound(owner, 'sound/magic/repulse.ogg', 75, TRUE)
 	qdel(src) //what happens when this is procced.
 
-//Each mark has different effects when it is destroyed that combine with the mansus grasp effect.
-
-// flesh mark
 
 /datum/status_effect/eldritch/flesh
 	effect_icon_state = "emark1"
@@ -71,9 +67,6 @@
 	if(HAS_TRAIT(human_owner, TRAIT_NO_BLOOD))
 		return ..()
 
-	// Applies the same severe laceration the Bleeding Steel blade upgrade does: a sustained, bandageable
-	// external bleed on a random non-robotic limb, capped at max_bleeding_amount so it stays plain external
-	// bleeding (gauze/sutures), not arterial (surgery-only). We have no wound datums to hook into instead.
 	var/list/valid_limbs = list()
 	for(var/obj/item/organ/external/bodypart as anything in human_owner.bodyparts)
 		if(!bodypart.is_robotic())
@@ -85,8 +78,6 @@
 
 	return ..()
 
-
-// ash mark
 
 /datum/status_effect/eldritch/ash
 	effect_icon_state = "emark2"
@@ -104,8 +95,6 @@
 	var/mob/living/carbon/carbon_owner = owner
 	carbon_owner.adjustStaminaLoss(6 * repetitions) // first one = 30 stam
 	carbon_owner.adjustFireLoss(3 * repetitions) // first one = 15 burn
-	// repetitions is clamped to >= 1, so we must stop the chain here rather than pass repetitions - 1 == 0
-	// (which would re-clamp back to 1 and let the mark propagate to a fresh victim forever).
 	if(repetitions <= 1)
 		return ..()
 	for(var/mob/living/carbon/victim in shuffle(range(3, carbon_owner)))
@@ -117,16 +106,11 @@
 
 	return ..()
 
-// MARK OF RUST
 
 /datum/status_effect/eldritch/rust
 	effect_icon_state = "emark3"
 
 /datum/status_effect/eldritch/rust/on_effect()
-	// Rebalanced: the old near-max disgust (2000 strength, above DISGUST_LEVEL_DISGUSTED) plus the default 8s
-	// vomit stun left grasp+blade targets retching and stumbling for minutes - far too strong. Keep it light:
-	// disgust decays at 10 strength/sec, so 50 = a brief ~5s queasiness, a touch of confusion, and a single
-	// retch with a short stun. Enough to interrupt, not to lock them down.
 	owner.AdjustDisgust(50)
 	owner.Confused(3 SECONDS)
 	if(iscarbon(owner))
@@ -134,18 +118,15 @@
 		carbon_owner.vomit(stun = 2 SECONDS)
 	return ..()
 
-// MARK OF VOID
 
 /datum/status_effect/eldritch/void
 	effect_icon_state = "emark4"
 
 /datum/status_effect/eldritch/void/on_effect()
 	owner.apply_status_effect(/datum/status_effect/void_chill, 3)
-	// Stacks on top of any existing silence (e.g. the grasp's).
 	owner.AdjustSilence(10 SECONDS)
 	return ..()
 
-// MARK OF BLADES
 
 /datum/status_effect/eldritch/blade
 	effect_icon_state = "emark5"
@@ -176,13 +157,9 @@
 	if(!locked_to)
 		return FALSE
 
-	// If moving_from isn't in our locked area, it means they've
-	// somehow completely escaped, so we'll opt not to act on them.
 	if(get_area(moving_from) != locked_to)
 		return FALSE
 
-	// If going_to is in our locked area,
-	// they're just moving within the area like normal.
 	if(get_area(going_to) == locked_to)
 		return FALSE
 
@@ -219,11 +196,9 @@
 /datum/status_effect/eldritch/blade/proc/on_move(mob/living/source, turf/old_loc, movement_dir, forced)
 	SIGNAL_HANDLER
 
-	// Let's not mess with heretics dragging a potential victim.
 	if(ismob(source.pulledby) && isheretic(source.pulledby))
 		return
 
-	// If the movement's forced, just let it happen regardless.
 	if(forced || !is_escaping_locked_area(old_loc, source))
 		return
 
@@ -262,7 +237,6 @@
 	owner.Paralyse(2 SECONDS)
 	return ..()
 
-// MARK OF LOCK
 
 /datum/status_effect/eldritch/lock
 	effect_icon_state = "emark7"
@@ -280,7 +254,6 @@
 	SIGNAL_HANDLER
 	return ACCESS_DISALLOWED
 
-// MARK OF MOON
 
 /datum/status_effect/eldritch/moon
 	effect_icon_state = "emark8"
@@ -303,7 +276,6 @@
 /datum/status_effect/eldritch/moon/proc/on_damaged(datum/source, damage, damagetype)
 	SIGNAL_HANDLER
 
-	// The grasp itself deals stamina damage so we will ignore it
 	if(damagetype == STAMINA)
 		return
 
@@ -312,7 +284,6 @@
 	if(damage_sustained < 15)
 		return
 
-	// Removes the trait in here since we don't wanna destroy the mark before its detonated or allow detonation triggers with other weapons
 	REMOVE_TRAIT(owner, TRAIT_PACIFISM, TRAIT_STATUS_EFFECT(id))
 	to_chat(owner, span_notice("Вы чувствуете, что снова можете причинять вред..."))
 
@@ -321,7 +292,6 @@
 	owner.Confused(30 SECONDS)
 	owner.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 25, 160)
 	owner.emote(pick("giggle", "laugh"))
-	// No mood system here, so the moon_insanity moodlet becomes this chat line instead.
 	to_chat(owner, span_userdanger("ЛУНА СУДИТ ВАС И НАХОДИТ НЕДОСТОЙНЫМ!!!"))
 	return ..()
 
@@ -330,5 +300,4 @@
 	. = ..()
 	UnregisterSignal (owner, COMSIG_MOB_APPLY_DAMAGE)
 
-	// In case the trait was not removed earlier
 	REMOVE_TRAIT(owner, TRAIT_PACIFISM, TRAIT_STATUS_EFFECT(id))

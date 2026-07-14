@@ -1,4 +1,3 @@
-// Given to heretic monsters.
 /obj/effect/proc_holder/spell/shapeshift/eldritch
 	name = "Метаморфоза" // 177013 :)
 	desc = "Заклинание, позволяющее вам принять облик другого существа, приобретая его способности. \
@@ -25,11 +24,6 @@
 	var/old_shouldwakeup
 
 
-// Restores two pieces the base shapeshift lacks, scoped to the heretic only:
-//   1. a COMSIG_MOB_DEATH revert - without it, a summon that died in its borrowed animal form stayed dead
-//      (the caster was left trapped, godmoded and mindless, inside the corpse).
-//   2. silencing the parked simple_animal caster's AI so it doesn't wake up and wander while mindless.
-// Returns the created shape so subtypes (the lock ascension) can read it from `.`.
 /obj/effect/proc_holder/spell/shapeshift/eldritch/Shapeshift(mob/living/caster)
 	..()
 	var/mob/living/shape = caster.loc
@@ -38,10 +32,6 @@
 
 	RegisterSignal(shape, COMSIG_MOB_DEATH, PROC_REF(on_death))
 
-	// On summons this spell is mob-bound (mob_spell_list), and mind.transfer_to only carries mind
-	// spells - so the borrowed form would have no revert button, and can_cast() rejects casts from
-	// a mob that doesn't own the spell ("You shouldn't have this spell!"). Hand the whole spell over;
-	// Restore() hands it back.
 	if(LAZYIN(caster.mob_spell_list, src))
 		LAZYREMOVE(caster.mob_spell_list, src)
 		shape.AddSpell(src)
@@ -61,14 +51,12 @@
 
 
 /obj/effect/proc_holder/spell/shapeshift/eldritch/Restore(mob/living/shape)
-	// Grab the parked caster before the base proc pulls it back out and qdels the shape.
 	var/mob/living/simple_animal/animal
 	for(var/mob/living/simple_animal/candidate in shape)
 		if(candidate in current_casters)
 			animal = candidate
 			break
 
-	// Reclaim the spell from the doomed shape (see Shapeshift), it goes back to the caster below.
 	if(animal)
 		LAZYREMOVE(shape.mob_spell_list, src)
 

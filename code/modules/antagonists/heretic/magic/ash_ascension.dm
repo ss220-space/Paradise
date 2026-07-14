@@ -28,7 +28,6 @@
 	. = ..()
 	recolor()
 
-// Eldritch fire is magic, not a blackbody - force the deep red look instead of the temperature-derived orange.
 /obj/effect/hotspot/fake/eldritch/recolor()
 	color = COLOR_MOSTLY_PURE_RED
 	set_light(l_color = color)
@@ -145,7 +144,6 @@
 	flame_radius = 6
 
 
-// Currently unused - releases streams of fire around the caster.
 /obj/effect/proc_holder/spell/pointed/ash_beams
 	name = "Обряд Ночного Дозорного"
 	desc = "Мощное заклинание, выпускающее в цель пять потоков потустороннего пламени."
@@ -220,7 +218,6 @@
 
 		new /obj/effect/hotspot(T)
 		T.hotspot_expose(700, 50, 1)
-		// deals damage to mechs
 		for(var/obj/mecha/M in T.contents)
 			if(M in hit_list)
 				continue

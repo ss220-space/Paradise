@@ -73,12 +73,10 @@
 /obj/effect/proc_holder/spell/seek_master
 	name = "Найти своего хозяина"
 	desc = "Используйте прямую связь с Обителью, чтобы определить местонахождение вашего хозяина."
-	//buttontooltipstyle = "cult"
 	action_icon_state = "cult_mark"
 	action_icon = 'icons/mob/actions/actions_cult.dmi'
 	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
-	//overlay_icon_state = "bg_heretic_border"
 	var/tracking = TRUE
 	var/mob/living/simple_animal/hostile/construct/the_construct
 
@@ -110,7 +108,6 @@
 
 
 /mob/living/simple_animal/hostile/construct/harvester/heretic/attack_animal(mob/living/simple_animal/user, list/modifiers)
-	// They're pretty fragile so this is probably necessary to prevent bullshit deaths.
 	if(user == src)
 		return
 
@@ -143,8 +140,6 @@
 	mind.AddSpell(seek)
 
 
-// These aren't friends they're assholes
-// Don't let them be near you!
 /mob/living/simple_animal/hostile/construct/harvester/heretic/Life(seconds_per_tick, times_fired)
 	. = ..()
 	if(!.) //dead or deleted
@@ -154,7 +149,6 @@
 		return
 
 	var/turf/adjacent = get_step(src, pick(GLOB.alldirs))
-	// 90% chance to be directional, otherwise what we're on top of
 	var/turf/space/land = (is_space_or_openspace(adjacent) && prob(90)) ? adjacent : get_turf(src)
 	do_rust_heretic_act(land)
 

@@ -1,6 +1,4 @@
-// POTIONS
 
-// CRUCIBLE SOUL
 /datum/status_effect/crucible_soul
 	id = "Blessing of Crucible Soul"
 	status_type = STATUS_EFFECT_REFRESH
@@ -30,11 +28,9 @@
 	location = null
 	cancel_button.Remove(owner)
 	cancel_button = null
-	// tg: phasing through reality leaves you unable to do it again for a while.
 	owner.apply_status_effect(/datum/status_effect/crucible_soul_cooldown)
 
 
-// tg parity: the 2-minute lockout after a Crucible Soul brew wears off (the brew refuses to work while active).
 /datum/status_effect/crucible_soul_cooldown
 	id = "Crucible Soul Cooldown"
 	duration = 2 MINUTES
@@ -67,7 +63,6 @@
 	qdel(target)
 
 
-// DUSK AND DAWN
 /datum/status_effect/duskndawn
 	id = "Blessing of Dusk and Dawn"
 	status_type = STATUS_EFFECT_REFRESH
@@ -87,8 +82,6 @@
 	owner.update_sight()
 
 
-// ELDRITCH SIGHT
-// A brief glimpse of x-ray vision, granted when a heretic steps near a reality-smash influence.
 /datum/status_effect/temporary_xray
 	id = "temp_xray"
 	status_type = STATUS_EFFECT_REFRESH
@@ -118,7 +111,10 @@
 	SEND_SOUND(owner, sound('sound/hallucinations/i_see_you1.ogg'))
 
 
-// WOUNDED SOLDIER
+#define MARSHAL_PASSIVE_HEAL 0.5
+#define MARSHAL_WOUND_HEAL 3
+#define MARSHAL_BLOOD_PER_HEAL 3
+
 /datum/status_effect/marshal
 	id = "Blessing of Wounded Soldier"
 	status_type = STATUS_EFFECT_REFRESH
@@ -159,16 +155,33 @@
 
 
 /datum/status_effect/marshal/tick(seconds_between_ticks)
-	if(!iscarbon(owner))
+	if(!ishuman(owner))
 		return
 
 	var/mob/living/carbon/human/carbie = owner
-	carbie.blood_volume += carbie.blood_volume >= BLOOD_VOLUME_NORMAL ? 0 : (BLOOD_VOLUME_NORMAL - carbie.blood_volume) / 20
+	if(!carbie.getBruteLoss() && !carbie.getFireLoss() && carbie.blood_volume >= BLOOD_VOLUME_NORMAL)
+		return
+
+	var/wound_heal = 0
 	for(var/obj/item/organ/external/part as anything in carbie.bodyparts)
 		if(isroboticorgan(part))
 			continue
 
-		part.heal_damage(max(2, part.brute_dam / 20) * seconds_between_ticks, max(2, part.burn_dam / 20) * seconds_between_ticks)
+		if(part.has_fracture())
+			wound_heal += MARSHAL_WOUND_HEAL
+
+		if(part.has_internal_bleeding())
+			wound_heal += MARSHAL_WOUND_HEAL
+
+	carbie.heal_overall_damage((MARSHAL_PASSIVE_HEAL + wound_heal) * seconds_between_ticks, MARSHAL_PASSIVE_HEAL * seconds_between_ticks)
+
+	if(wound_heal && carbie.blood_volume < BLOOD_VOLUME_NORMAL)
+		var/blood_to_restore = wound_heal * MARSHAL_BLOOD_PER_HEAL * seconds_between_ticks
+		carbie.AdjustBlood(min(blood_to_restore, BLOOD_VOLUME_NORMAL - carbie.blood_volume))
+
+#undef MARSHAL_PASSIVE_HEAL
+#undef MARSHAL_WOUND_HEAL
+#undef MARSHAL_BLOOD_PER_HEAL
 
 
 /atom/movable/screen/alert/status_effect/crucible_soul
@@ -201,8 +214,6 @@
 			— это окончательное искупление, а раны позволяют вам наслаждаться вечной славой."
 	icon_state = "wounded_soldier"
 
-
-// BLADES
 
 /// Summons multiple foating knives around the owner.
 /// Each knife will block an attack straight up.
@@ -362,11 +373,6 @@
 	addtimer(CALLBACK(src, PROC_REF(create_blade)), blade_recharge_time)
 
 
-// NB: the old /datum/status_effect/caretaker_refuge (an intangible status effect) was removed when the
-// Caretaker's Last Refuge ability was reworked into a jaunt (see magic/caretaker.dm).
-
-
-// Path Of Moon status effect which hides the identity of the heretic
 /datum/status_effect/moon_grasp_hide
 	id = "Moon Grasp Hide Identity"
 	status_type = STATUS_EFFECT_REFRESH
@@ -407,9 +413,6 @@
 	return TRUE
 
 
-// Last Resort - the Wave of Desperation buff. A pure "second wind" to flee with (ignores slowdown).
-// Does NOT knock the caster out on removal: an earlier version added a Sleeping(20 SECONDS) here that
-// turned this escape tool into a delayed self-stun.
 /datum/status_effect/heretic_lastresort
 	id = "heretic_lastresort"
 	alert_type = /atom/movable/screen/alert/status_effect/heretic_lastresort

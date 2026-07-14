@@ -58,7 +58,6 @@
 	if(!istype(cast_on))
 		return SPELL_CANCEL_CAST
 
-	// If we fail to link, cancel the spell.
 	if(!do_linking(cast_on))
 		return . | SPELL_CANCEL_CAST
 

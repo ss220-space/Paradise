@@ -11,22 +11,14 @@
 	righthand_file = 'icons/mob/inhands/64x64_righthand.dmi'
 	inhand_x_dimension = 64
 	inhand_y_dimension = 64
-	//obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT
 	sharp = TRUE
-	force = 30
+	force = 26
 	throwforce = 35
 	armour_penetration = 20
-	//wound_bonus = 5
-	//bare_wound_bonus = 15
 	toolspeed = 0.375
-	// Heretic blades are clumsy against objects/silicons (0.8x). master220 has no /obj/item/demolition_mod
-	// var, so we apply it by briefly scaling force at swing time (see attack_obj / attack below). The Blade
-	// path's Empowered Blades upgrade bumps the dark blade up to 2.5x.
 	var/demolition_mod = 0.8
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	armour_penetration = 35
-	//attack_verb_continuous = list("attacks", "slashes", "slices", "tears", "lacerates", "rips", "dices", "rends")
 	attack_verb = list("атаковал", "разрезал", "разрубил", "искромсал", "рассек")
 	var/after_use_message = ""
 	/// Tracks how many times attack_self() is called so that breaking a blade while in an arena has to be intentional
@@ -71,7 +63,6 @@
 	if(!check_usability(user))
 		return
 
-	// Empowered heretics (aura ignited) can no longer shatter blades to teleport, so don't offer the hint.
 	var/datum/antagonist/heretic/our_heretic = user.mind?.has_antag_datum(/datum/antagonist/heretic)
 	if(our_heretic?.unlimited_blades)
 		. += span_notice("Ваша аура пробудилась — Обитель больше не позволит вам ломать клинки.")
@@ -100,7 +91,6 @@
 		human_user.AdjustParalysis(5 SECONDS)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	// Silicons (borgs/AI shells) count as "structures" for the demolition_mod.
 	var/mod = issilicon(target) ? get_current_demolition_mod(user) : 1
 	if(mod == 1)
 		return ..()
@@ -110,7 +100,6 @@
 	force = old_force
 
 
-// Returns the force multiplier this blade currently applies to objects / silicons.
 /obj/item/melee/sickly_blade/proc/get_current_demolition_mod(mob/user)
 	return demolition_mod
 
@@ -127,9 +116,6 @@
 
 /obj/item/melee/sickly_blade/attack_self(mob/user)
 	if(!HAS_TRAIT(user, TRAIT_ELDRITCH_ARENA_PARTICIPANT))
-		// Once the heretic's eldritch aura has ignited (robe crafted / enough knowledge -> unlimited_blades),
-		// the Mansus no longer lets them shatter a blade to teleport away (matches the empowerment message in
-		// disable_blade_breaking()). They keep their blades instead of escaping.
 		var/datum/antagonist/heretic/our_heretic = user.mind?.has_antag_datum(/datum/antagonist/heretic)
 		if(our_heretic?.unlimited_blades)
 			user.balloon_alert(user, UNLINT("Обитель не даёт сломать клинок!"))
@@ -291,7 +277,6 @@
 	)
 
 
-// Path of the Blade's blade. Named /dark instead of /blade to avoid "sickly_blade/blade".
 /obj/item/melee/sickly_blade/dark
 	name = "dark blade"
 	desc = "Клинок доблестного воина, расколотый и исцарапанный. \
@@ -327,8 +312,6 @@
 	if(!heretic_datum)
 		return
 
-	//Apply our heretic mark. The blade mark is folded into the starting knowledge now (tg parity), so we ask
-	//base_blade (which provides create_mark) for it rather than a separate mark node.
 	var/datum/heretic_knowledge/limited_amount/starting/base_blade/mark_to_apply = heretic_datum.get_knowledge(/datum/heretic_knowledge/limited_amount/starting/base_blade)
 	if(!mark_to_apply)
 		return
@@ -339,12 +322,10 @@
 		to_infuse.infused = FALSE
 		to_infuse.update_appearance(UPDATE_ICON)
 
-	// Refresh in-hand sprites so the blade visibly drops its infused look once the charge is spent.
 	user.update_held_items()
 
 	if(!check_behind(user, living_target))
 		return
-	// We're officially behind them, apply effects
 	living_target.AdjustParalysis(1.5 SECONDS)
 	living_target.apply_damage(10, BRUTE/*, wound_bonus = CANT_WOUND*/)
 	living_target.balloon_alert(user, "удар в спину!")
@@ -371,10 +352,6 @@
 	item_state = base_icon_state
 
 
-// Empowered Blades: once the heretic learns "Усиленные Клинки", their dark blades hit structures, machinery,
-// mechs and silicons far harder - the blade's demolition_mod jumps from the base 0.8 to 2.5. We resolve the
-// modifier at swing time from the wielder's knowledge, so it can never go stale on a body/inventory change.
-// The actual force scaling lives on the base blade's attack_obj / attack (silicon) above.
 /// Returns TRUE if the wielder is a heretic who has learned Empowered Blades.
 /obj/item/melee/sickly_blade/dark/proc/wielder_has_empowered_blades(mob/user)
 	var/datum/antagonist/heretic/heretic_datum = isheretic(user)
@@ -448,9 +425,6 @@
 	)
 
 
-// While the wielder wears a Moonlight Amulet the blade does 0 physical force: this lets it be swung even
-// while the Resplendent Regalia pacifies you (the pacifism block only stops force > 0 attacks), and its
-// damage comes from the eldritch blade effect (brain damage / hallucinations) instead.
 /obj/item/melee/sickly_blade/moon/proc/update_pacifism_force(mob/living/user)
 	if(ishuman(user))
 		var/mob/living/carbon/human/human_user = user
@@ -470,8 +444,6 @@
 	force = initial(force)
 
 
-// This blade is given to cultists as an altar item when they sacrifice a heretic.
-// It is also given to the heretic themself if they sacrifice a cultist.
 /obj/item/melee/sickly_blade/cursed
 	name = "cursed blade"
 	desc = "Тёмный клинок, обречённый вечно кровоточить. В постоянной борьбе между тьмой и \
@@ -481,8 +453,6 @@
 	force = 25
 	throwforce = 15
 	block_chance = 35
-	//wound_bonus = 25
-	//bare_wound_bonus = 15
 	icon_state = "cursed_blade"
 	item_state = "cursed_blade"
 

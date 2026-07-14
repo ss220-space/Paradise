@@ -1,11 +1,8 @@
-// Given to ascended knock heretics; a form of shapeshift that can turn into all 4 common heretic summons, and is not limited to 1 selection.
 /obj/effect/proc_holder/spell/shapeshift/eldritch/ascension
 	name = "Высший Полиморфизм"
 	desc = "Заклинание, позволяющее вам принять облик другого сверхъестественного \
 			существа, приобретая его способности. Вы можете изменить свой выбор в \
 			любой момент, и если ваша форма умрёт, вы не умрёте."
-	//convert_damage = FALSE
-	//die_with_shapeshifted_form = FALSE
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "lock_ascension"
 	possible_shapes = list(
@@ -16,12 +13,8 @@
 	)
 
 
-// Shows a radial menu of the four forms (each slice showing that monster's sprite) instead
-// of a text dropdown. Revert if already shifted, otherwise pop the radial and shift into the picked form.
 /obj/effect/proc_holder/spell/shapeshift/eldritch/ascension/cast(list/targets, mob/user = usr)
 	for(var/mob/living/caster in targets)
-		// Already one of the forms -> revert. The previous Restore cleared shapeshift_type,
-		// so we never re-prompt for a form when reverting.
 		if(caster in current_shapes)
 			Restore(caster)
 			continue
@@ -70,20 +63,13 @@
 
 	var/mob/living/simple_animal/monster = .
 
-	// mind.transfer_to re-grants EVERY heretic spell to the monster, littering it with useless
-	// human-only spell buttons. Strip them off the form FIRST - they stay on the mind and come back
-	// on Restore. Done before the seethrough hookup below so that toggle is granted afterwards and
-	// survives. The monster keeps its own innate combat abilities (mob_spell_list, untouched) plus
-	// this ascension toggle (skipped below) so it can shift again / revert.
 	if(monster.mind)
 		for(var/obj/effect/proc_holder/spell/spell as anything in monster.mind.spell_list)
 			if(spell == src || !spell.action)
 				continue
 			spell.action.Remove(monster)
-		// Insurance: guarantee the revert toggle is on the form (the only way back to human shape).
 		src.action?.Grant(monster)
 
-	// Buff the forms so this ascension ability isn't weak compared to the base monster.
 	playsound(caster, 'sound/magic/demon_consume.ogg', 50, TRUE)
 	monster.AddComponent(/datum/component/seethrough_mob) // adds the (kept) "Видеть сквозь себя" toggle
 	monster.maxHealth *= 1.5
@@ -93,18 +79,11 @@
 	monster.transform *= 1.5
 	monster.AddElement(/datum/element/wall_tearer)
 
-	// Same client-timing reason as Restore: make sure the form's buttons (revert + seethrough + innate) draw.
 	monster.update_action_buttons(reload_screen = TRUE)
 
 
 /obj/effect/proc_holder/spell/shapeshift/eldritch/ascension/Restore(mob/living/shape)
-	// Hold onto the human trapped inside the form so we can re-arm their spell buttons after the base transfer
-	// pulls them back out. Without this the heretic returns to human form with no spell buttons
-	// (transfer_mindbound_actions is supposed to re-grant them but doesn't reliably here).
 	var/mob/living/trapped_caster
-	// Belt-and-suspenders: base Restore() bails unless the shape is in current_shapes and the trapped caster is
-	// in current_casters. If those lists desynced we'd lose the mind transfer back AND every ability, which is
-	// exactly the "return from the ash spirit eats all my spells" report. Rebuild them from the form itself.
 	if(!(shape in current_shapes))
 		current_shapes |= shape
 	for(var/mob/living/trapped in shape)
@@ -117,16 +96,9 @@
 	shapeshift_type = null
 
 	if(!QDELETED(trapped_caster) && trapped_caster.mind)
-		// The seethrough toggle is mob-bound now (lives on the discarded form), but scrub any stale copy that
-		// older rounds parked on the shared mind so it can't duplicate on the way back.
 		trapped_caster.mind.RemoveSpell(/obj/effect/proc_holder/spell/toggle_seethrough)
-		// Re-add any knowledge spell that went missing (a duplicate/dead-action spell pruned during the
-		// transfer would otherwise be gone for good - this is why returning from a form bled Lock abilities).
 		var/datum/antagonist/heretic/our_heretic = trapped_caster.mind.has_antag_datum(/datum/antagonist/heretic)
 		our_heretic?.resync_knowledge_spells(trapped_caster)
 		for(var/obj/effect/proc_holder/spell/spell as anything in trapped_caster.mind.spell_list)
 			spell.action?.Grant(trapped_caster)
-		// CRUCIAL: mind.transfer_to() grants the spell actions BEFORE possess_by_player() re-attaches the
-		// client, so GiveAction() had no client.screen to draw onto and the buttons silently never appeared
-		// (only some abilities came back). A full rebuild re-shows every granted action now the client is back.
 		trapped_caster.update_action_buttons(reload_screen = TRUE)

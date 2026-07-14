@@ -1,5 +1,4 @@
 /*
-// Some moodlets involved in the sacrifice process.
 /datum/mood_event/shadow_realm
 	description = "Where am I?!"
 	mood_change = -15

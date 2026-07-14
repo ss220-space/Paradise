@@ -1,6 +1,3 @@
-// Contains the spell "Wolves among Sheep". Handles the creation of the "arena", in terms of visuals -
-// banishes windows/airlocks and puts down the floors. For the functionality of the spell itself see
-// [/obj/effect/abstract/heretic_arena] which is created during [/proc/create_arena()].
 /obj/effect/proc_holder/spell/wolves_among_sheep
 	name = "Волк среди Овец"
 	desc = "Изменяет ткань реальности, создавая магическую арену, недоступную для посторонних. \
@@ -44,7 +41,6 @@
 	addtimer(CALLBACK(src, PROC_REF(create_arena), center_turf), 1 SECONDS)
 	revert_timer = addtimer(CALLBACK(src, PROC_REF(revert_effects)), 61 SECONDS, TIMER_STOPPABLE) // 1 second to spread out, 60 seconds to fight
 
-	// Loop to make the spreading floor effect before finalizing our arena
 	for(var/turf/transform_turf as anything in RANGE_TURFS(max_range, center_turf))
 		var/turf_distance = get_dist(center_turf, transform_turf)
 		if(turf_distance > greatest_dist)
@@ -63,7 +59,6 @@
 
 		addtimer(CALLBACK(src, PROC_REF(apply_visual), to_transform["[iterator]"]), 1 * iterator) // 0.9 SECONDS to convert our area
 
-	// Loop doesnt catch src.loc so we have to handle it manually
 	apply_visual(list(center_turf))
 
 /obj/effect/proc_holder/spell/wolves_among_sheep/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
@@ -72,8 +67,6 @@
 		return FALSE
 
 	for(var/obj/nearby_arena as anything in GLOB.heretic_arenas)
-		// We can't allow arenas to overlap because they break each other during cleanup.
-		// If any future coder wants to allow arenas to merge or fight like domains, feel free to implement it.
 		if(get_dist(user, nearby_arena) > 25)
 			continue
 
@@ -84,8 +77,6 @@
 /// Applies a visual to each turf
 /obj/effect/proc_holder/spell/wolves_among_sheep/proc/apply_visual(list/turfs)
 	for(var/turf/target as anything in turfs)
-		// Drape the rose-stone arena over the existing terrain via an everyone-visible alt appearance.
-		// Keyed per-turf (UID) so each tile carries its own overlay and we can strip it cleanly on revert.
 		if(isfloorturf(target))
 			var/turf_icon = "rose_stone_[pick(1, 2, 3, 4, 5, 6, 7, 8)]"
 			target.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/everyone, "heretic_arena[target.UID()]", image('icons/turf/floors/rose_stone_turf.dmi', target, turf_icon, layer = ABOVE_OPEN_TURF_LAYER))
@@ -96,13 +87,11 @@
 
 		target.turf_flags |= NOJAUNT // We make the arena a NOJAUNT area so that stinky people cannot teleport in
 
-		// Phase out the doors (restore them afterwards)
 		for(var/obj/machinery/door/airlock/to_banish in target)
 			banished_airlocks += to_banish
 			banished_airlocks[to_banish] = to_banish.loc
 			to_banish.moveToNullspace()
 
-		// Windows get a stone-pane alt appearance too.
 		for(var/obj/structure/window/to_change in target)
 			to_change.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/everyone, "heretic_arena[to_change.UID()]", image('icons/obj/structures.dmi', to_change, "stone_window_pane", layer = ABOVE_OPEN_TURF_LAYER))
 
@@ -111,7 +100,6 @@
 /obj/effect/proc_holder/spell/wolves_among_sheep/proc/create_arena(turf/target)
 	RegisterSignal(action.owner, list(SIGNAL_ADDTRAIT(TRAIT_INCAPACITATED)), PROC_REF(on_caster_crit))
 
-	// This is where most of the funcionality of the spell is
 	ongoing_arena = new /obj/effect/abstract/heretic_arena(target, max_range, 60 SECONDS, action.owner)
 	RegisterSignal(ongoing_arena, COMSIG_QDELETING, PROC_REF(on_arena_delete))
 

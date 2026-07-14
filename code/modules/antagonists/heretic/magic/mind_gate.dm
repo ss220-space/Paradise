@@ -26,17 +26,12 @@
 	return ..() && isliving(user)
 
 
-// Use the VALIDATING clicked-atom targeting so a click on empty space / scenery is rejected before perform()
-// runs. Unlike a check inside cast() (which fires after the whisper, sound and cooldown have already gone
-// off), this bails in choose_targets()->try_perform() first: nothing is spent and the ability stays armed.
 /obj/effect/proc_holder/spell/pointed/mind_gate/create_new_targeting()
 	var/datum/spell_targeting/clicked_atom/validated/new_targeting = new()
 	new_targeting.range = cast_range
 	return new_targeting
 
 
-// The gate only opens on a real mind. Anything non-human (turf/scenery/animal) is not a valid target, so the
-// targeting above discards the click. Balloon a hint when it's rejected.
 /obj/effect/proc_holder/spell/pointed/mind_gate/valid_target(atom/cast_on, mob/user)
 	if(!ishuman(cast_on))
 		cast_on?.balloon_alert(user || action?.owner, "нет разума!")
@@ -45,7 +40,6 @@
 
 
 /obj/effect/proc_holder/spell/pointed/mind_gate/cast(list/targets, mob/user = usr)
-	// Targeting guarantees a human reaches here, so no re-validation is needed.
 	var/mob/living/carbon/human/cast_on = targets[1]
 	. = ..()
 	if(cast_on.can_block_magic(antimagic_flags))

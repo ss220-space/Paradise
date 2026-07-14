@@ -1,14 +1,4 @@
-// Everything in the heretic module rusts turfs by calling rust_heretic_act() (do_rust_heretic_act, the
-// rust spells, the grasp, the ascension's turf.rust_heretic_act(5), harvester, etc.). The /atom base of
-// that proc is a no-op (see _heretic_compat.dm) and the real per-turf behaviour lives in rust_turf() below.
-//
-// Behaviour: walls just get a rust OVERLAY (via /datum/element/rust) and stay walls - no dismantling. TILED
-// floors get their tile stripped to bare plating (the exposed, corroded look) and then rusted; we strip via
-// make_plating() so the exposed under-floor pipes/cables are re-shown at full opacity instead of being left
-// in a half-hidden "undertile" state.
 
-// The rust_resistance var itself lives in the /turf declaration (code/game/turfs/turf.dm); per-type
-// values are set in each turf's own definition (walls_reinforced.dm, walls_mineral.dm, space.dm).
 
 /// Check if the heretic is strong enough to rust this turf, and if so, rust it (overlay only).
 /// rust_strength defaults to BASIC so the many no-arg callers (rust spells, charge, ...) rust basic turfs.
@@ -30,7 +20,6 @@
 		new /obj/effect/glowing_rune(src)
 
 
-// A tiled floor first has its tile stripped to bare plating via make_plating(), then the plating is rusted.
 /turf/simulated/floor/rust_turf(spawn_rune = TRUE)
 	if(HAS_TRAIT(src, TRAIT_RUSTY))
 		return
@@ -39,8 +28,6 @@
 	stripped?.rust_turf(spawn_rune)
 
 
-// Bare plating just gets the rust overlay. This must NOT strip again: plating is a /turf/simulated/floor
-// subtype, so without this override it would re-enter the tiled-floor branch above and recurse.
 /turf/simulated/floor/plating/rust_turf(spawn_rune = TRUE)
 	if(HAS_TRAIT(src, TRAIT_RUSTY))
 		return

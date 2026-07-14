@@ -43,9 +43,6 @@
 
 
 /obj/effect/proc_holder/spell/jaunt/space_crawl/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
-	// We may lose our focus during the jaunt, so we must always be able to exit on a valid turf.
-	// Returning early here (before the parent cooldown/charge check) keeps the action button lit
-	// green while jaunting, signalling that the caster can resurface.
 	if(is_jaunting(user) && is_valid_turf(user))
 		return TRUE
 
@@ -74,7 +71,6 @@
 /obj/effect/proc_holder/spell/jaunt/space_crawl/cast(list/targets, mob/user = usr)
 	var/mob/living/cast_on = targets[1]
 	. = ..()
-	// Should always return something because we checked that in can_cast before arriving here
 	var/turf/our_turf = get_turf(cast_on)
 	do_spacecrawl(our_turf, cast_on)
 
@@ -90,14 +86,12 @@
 	if(.)
 		return
 
-	//reset_spell_cooldown()
 	cooldown_handler.start_recharge()
 	to_chat(jaunter, span_warning("Вы не можете это сделать!"))
 
 
 /// Attempts to enter the passed space or misc turfs.
 /obj/effect/proc_holder/spell/jaunt/space_crawl/proc/try_enter_jaunt(turf/our_turf, mob/living/jaunter)
-	// Begin the jaunt
 	ADD_TRAIT(jaunter, TRAIT_NO_TRANSFORM, UID())
 	var/obj/effect/dummy/spell_jaunt/holder = enter_jaunt(jaunter, our_turf)
 	if(isnull(holder))
@@ -107,18 +101,13 @@
 	RegisterSignal(holder, COMSIG_MOVABLE_MOVED, PROC_REF(update_status_on_signal))
 	if(iscarbon(jaunter))
 		jaunter.drop_all_held_items()
-		// Touch-spell hands (e.g. the Mansus Grasp fist) carry TRAIT_NODROP, so drop_all_held_items() can't
-		// clear them - they'd keep occupying a hand, leaving one of the jaunt-hands unplaced (a "free hand"
-		// the jaunter could still act with). qdel bypasses NODROP and resets the owning touch spell.
 		for(var/obj/item/melee/touch_attack/touch_hand in jaunter.get_held_items())
 			qdel(touch_hand)
-		// Sanity check to ensure we didn't lose our focus as a result.
 		if(!HAS_TRAIT(jaunter, TRAIT_ALLOW_HERETIC_CASTING))
 			REMOVE_TRAIT(jaunter, TRAIT_NO_TRANSFORM, UID())
 			exit_jaunt(jaunter, our_turf)
 			return FALSE
 
-		// Give them some space hands to prevent them from doing things
 		var/obj/item/space_crawl/left_hand = new jaunt_hand_type(jaunter)
 		var/obj/item/space_crawl/right_hand = new jaunt_hand_type(jaunter)
 		left_hand.icon_state = "spacehand_right" // Icons swapped intentionally..
@@ -135,7 +124,6 @@
 	jaunter.ExtinguishMob()
 
 	REMOVE_TRAIT(jaunter, TRAIT_NO_TRANSFORM, UID())
-	// Light the button up immediately so it's clear the caster can resurface.
 	action?.build_all_button_icons(UPDATE_BUTTON_STATUS)
 	return TRUE
 
@@ -241,14 +229,7 @@
 	var/obj/effect/dummy/spell_jaunt/jaunt = new jaunt_type(loc_override || get_turf(jaunter), jaunter)
 	RegisterSignal(jaunt, COMSIG_MOB_EJECTED_FROM_JAUNT, PROC_REF(on_jaunt_exited))
 	jaunter.forceMove(jaunt)
-	//check_flags &= ~AB_CHECK_PHASED
-	//jaunter.add_traits(list(TRAIT_MAGICALLY_PHASED, TRAIT_RUNECHAT_HIDDEN, TRAIT_WEATHER_IMMUNE), UID())
-	// Don't do the feedback until we have runechat hidden.
-	// Otherwise the text will follow the jaunt holder, which reveals where our caster is travelling.
-	//spell_feedback(jaunter)
 
-	// This needs to happen at the end, after all the traits and stuff is handled
-	//SEND_SIGNAL(jaunter, COMSIG_MOB_ENTER_JAUNT, src, jaunt)
 	return jaunt
 
 /// Ejects the [unjaunter] from jaunt. The jaunt object in turn should call on_jaunt_exited. If
@@ -282,7 +263,6 @@
 	SHOULD_CALL_PARENT(TRUE)
 	check_flags |= AB_CHECK_PHASED
 	unjaunter.remove_traits(list(TRAIT_MAGICALLY_PHASED, TRAIT_RUNECHAT_HIDDEN, TRAIT_WEATHER_IMMUNE), UID())
-	// This needs to happen at the end, after all the traits and stuff is handled
 	SEND_SIGNAL(unjaunter, COMSIG_MOB_AFTER_EXIT_JAUNT, src)
 */
 

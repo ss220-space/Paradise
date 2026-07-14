@@ -35,42 +35,32 @@
 	if(!istype(target))
 		return ..()
 
-	// Caster becomes fireblasted, but in a good way - heals damage over time
 	target.apply_status_effect(/datum/status_effect/fire_blasted, beam_duration, -2)
 	return ..()
 
 
 /obj/effect/proc_holder/spell/charged/beam/fire_blast/send_beam(atom/origin, mob/living/carbon/to_beam, bounces = 4)
-	// Send a beam from the origin to the hit mob
 	origin.Beam(to_beam, icon_state = "solar_beam", time = beam_duration, beam_type = /obj/effect/ebeam/reacting/fire)
 
-	// If they block the magic, the chain wont necessarily stop,
-	// but likely will (due to them not catching on fire)
 	if(to_beam.can_block_magic(antimagic_flags))
 		to_beam.visible_message(
 			span_warning("[DECLENT_RU_CAP(to_beam, NOMINATIVE)] поглоща[PLUR_ET_YUT(to_beam)] заклинание, оставаясь невредим[GEND_YM_OI_YM_YMI(to_beam)]!"),
 			span_userdanger("Вы поглощаете заклинание, оставаясь невредимым!"),
 		)
-		// Apply status effect but with no overlay
 		to_beam.apply_status_effect(/datum/status_effect/fire_blasted)
 
-	// Otherwise, if unblocked apply the damage and set them up
 	else
 		to_beam.apply_damage(20, BURN/*, wound_bonus = 5*/)
 		to_beam.adjust_fire_stacks(3)
 		to_beam.IgniteMob()
-		// Apply the fire blast status effect to show they got blasted
 		to_beam.apply_status_effect(/datum/status_effect/fire_blasted, beam_duration * 0.5)
 
-	// We can keep bouncing, try to continue the chain
 	if(bounces >= 1)
 		playsound(to_beam, sound, 50, vary = TRUE, extrarange = -1)
-		// Chain continues shortly after. If they extinguish themselves in this time, the chain will stop anyways.
 		addtimer(CALLBACK(src, PROC_REF(continue_beam), to_beam, bounces), beam_duration * 0.5)
 		return
 
 	playsound(to_beam, sound, 50, vary = TRUE, frequency = 12000)
-	// We hit the maximum chain length, apply a bonus for managing it
 	new /obj/effect/temp_visual/fire_blast_bonus(to_beam.loc)
 	for(var/mob/living/nearby_living in range(1, to_beam))
 		if(IS_HERETIC_OR_MONSTER(nearby_living) || nearby_living == action.owner)
@@ -84,16 +74,13 @@
 
 /// Timer callback to continue the chain, calling send_fire_bream recursively.
 /obj/effect/proc_holder/spell/charged/beam/fire_blast/proc/continue_beam(mob/living/carbon/beamed, bounces)
-	// We will only continue the chain if we exist, are still on fire, and still have the status effect
 	if(QDELETED(beamed) || !beamed.on_fire || !beamed.has_status_effect(/datum/status_effect/fire_blasted))
 		return
 
-	// We fulfilled the conditions, get the next target
 	var/mob/living/carbon/to_beam_next = get_target(beamed)
 	if(isnull(to_beam_next)) // No target = no chain
 		return
 
-	// Chain again! Recursively
 	send_beam(beamed, to_beam_next, bounces - 1)
 
 
@@ -113,8 +100,6 @@
 		if(IS_HERETIC_OR_MONSTER(to_check))
 			continue
 
-		//if(!length(get_path_to(center, to_check, max_distance = target_radius, simulated_only = FALSE)))
-		//	continue
 
 		possibles += to_check
 		if(to_check.on_fire && to_check.stat != DEAD)
@@ -126,8 +111,6 @@
 	return length(priority_possibles) ? pick(priority_possibles) : pick(possibles)
 
 
-// Status effect applied when someone's hit by the fire blast.
-// Applies an overlay, then causes a damage over time (or heal over time).
 /datum/status_effect/fire_blasted
 	id = "fire_blasted"
 	alert_type = null
@@ -160,7 +143,6 @@
 	owner.adjustStaminaLoss(2 * tick_damage * seconds_between_ticks)
 
 
-// The beam fireblast spits out, causes people to walk through it to be on fire
 /obj/effect/ebeam/reacting/fire
 	name = "fire beam"
 
@@ -177,18 +159,14 @@
 	living_entered.apply_damage(10, BURN/*, wound_bonus = 5*/)
 	living_entered.adjust_fire_stacks(2)
 	living_entered.IgniteMob()
-	// Apply the fireblasted effect - no overlay
 	living_entered.apply_status_effect(/datum/status_effect/fire_blasted)
 
 
-// Visual effect played when we hit the max bounces
 /obj/effect/temp_visual/fire_blast_bonus
 	name = "fire blast"
 	icon_state = "explosion"
 
 
-// Channelled spells do something after a channel time.
-// To use this template, all that's needed is for cast() to be implemented.
 /obj/effect/proc_holder/spell/charged
 	overlay_icon_state = "bg_spell_border_active_yellow"
 
@@ -201,7 +179,6 @@
 	/// Flags of the do_after
 	var/channel_flags = DA_IGNORE_USER_LOC_CHANGE|DA_IGNORE_HELD_ITEM
 
-	// Overlay optional, applied when we start channelling
 	/// What icon should we use for our overlay
 	var/charge_overlay_icon
 	/// What icon state should we use for our overlay
@@ -209,7 +186,6 @@
 	/// The actual appearance / our overlay. Don't mess with this
 	var/mutable_appearance/charge_overlay_instance
 
-	// Sound optional, played when we start chanelling
 	/// What soundpath should we play when we start chanelling
 	var/charge_sound
 	/// The actual sound we generate, don't mess with this
@@ -229,8 +205,6 @@
 
 
 /obj/effect/proc_holder/spell/charged/create_new_targeting()
-	// Self-targeted: targets[1] is the caster, so the chain originates from the heretic
-	// and the self-heal applies to the caster.
 	return new /datum/spell_targeting/self
 
 
@@ -299,7 +273,6 @@
 		for_who.cut_overlay(charge_overlay_instance)
 
 	if(charge_sound_instance)
-		// Play a null sound in to cancel the sound playing, because byond
 		playsound(for_who, sound(null, repeat = 0), 50, FALSE)
 
 	currently_channeling = FALSE
@@ -308,9 +281,6 @@
 
 	action.UpdateButtonIcon()
 
-// Channelled spells that pick a random target from nearby atoms to cast a spell on.
-// Commonly used for beams, hence the name, but nothing's stopping projectiles or whatever from working.
-// If no targets are nearby, cancels the spell and refunds the cooldown.
 /obj/effect/proc_holder/spell/charged/beam
 	/// The radius around the caster to find a target.
 	var/target_radius = 5

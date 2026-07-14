@@ -9,9 +9,6 @@
 	action_icon_state = "uncuff"
 	sound = 'sound/magic/swap.ogg'
 
-	// EVOCATION, not FORBIDDEN: this is the break-free panic button used while cuffed/stripped, so it must
-	// NOT go through the heretic focus gate (on_spell_cast cancels SCHOOL_FORBIDDEN casts with "нужен амулет"
-	// unless you hold your amulet - which you won't when arrested).
 	human_req = FALSE
 	clothes_req = FALSE
 	base_cooldown = 5 MINUTES
@@ -31,22 +28,13 @@
 	return istype(cast_on) && (cast_on.handcuffed || cast_on.legcuffed)
 
 
-// IMPORTANT: param MUST be named `show_message` (not `feedback`) - IsAvailable calls
-// `spell.can_cast(owner, show_message = feedback)` by NAME; a mismatched name breaks availability and
-// leaves the button permanently RED/unclickable.
 /obj/effect/proc_holder/spell/aoe/wave_of_desperation/can_cast(mob/user, charge_check, show_message)
 	var/mob/living/carbon/human/human = action.owner
 	if(!istype(human) || !..())
 		return FALSE
-	// NOTE: the "must be restrained" gate lives in cast_check(), NOT here - the button stays available
-	// (green) and only refuses the actual cast. Gating availability would colour the button red at all
-	// times you're not cuffed, which is exactly the "красная и нельзя прожать" complaint.
 	return TRUE
 
 
-// The whole point of the spell is to break free, so it can ONLY be cast while restrained (matches TG's
-// is_valid_target). We gate here, BEFORE ..() spends the cooldown, so clicking while uncuffed just warns
-// and never wastes the 5-minute cooldown. (Self-targeting bypasses valid_target, so this is the real gate.)
 /obj/effect/proc_holder/spell/aoe/wave_of_desperation/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/user = usr)
 	var/mob/living/carbon/human/human = user
 	if(!istype(human) || (!human.handcuffed && !human.legcuffed))
@@ -103,17 +91,10 @@
 		. += nearby_mob
 
 
-// Param MUST be named `user` (not `caster`): perform() calls `cast(targets, user = user)` BY NAME, so a
-// differently-named param doesn't bind and silently falls back to usr.
 /obj/effect/proc_holder/spell/aoe/wave_of_desperation/cast(list/targets, mob/user = usr)
-	// `targets` is just the caster (self-targeting), so do the real AOE pass here: shove everything around
-	// the caster away and apply a secondary Mansus Grasp to non-mobs. get_things_to_cast_on already excludes
-	// the caster and other heretics/monsters, so we never throw ourselves.
 	var/our_turf = get_turf(user)
 	for(var/atom/movable/mover in get_things_to_cast_on(user, radius_override = aoe_range))
 		if(ismob(mover))
-			// Apply our path's Mansus Grasp effects (mark + path effect, e.g. ash eye-burn) to nearby people
-			// too - the primary grasp signal targets mobs, the SECONDARY one only fires on non-mob atoms.
 			SEND_SIGNAL(action.owner, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, mover)
 		else
 			SEND_SIGNAL(action.owner, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, mover)

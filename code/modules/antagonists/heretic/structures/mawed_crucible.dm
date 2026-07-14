@@ -1,4 +1,3 @@
-// The mawed crucible, a heretic structure that can create potions from bodyparts and organs.
 /obj/structure/destructible/eldritch_crucible
 	name = "mawed crucible"
 	desc = "Глубокий чугунный котёл, удерживаемый стальными шипами. \
@@ -52,7 +51,6 @@
 
 
 /obj/structure/destructible/eldritch_crucible/Destroy(force)
-	// Create a spillage if we were destroyed with leftover mass
 	if(current_mass)
 		break_message = span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] с грохотом разваливается, разливая повсюду блестящий экстракт!")
 		var/turf/our_turf = get_turf(src)
@@ -97,7 +95,6 @@
 	return ..()
 
 
-// no breaky herety thingy
 /obj/structure/destructible/eldritch_crucible/rust_heretic_act()
 	return
 
@@ -187,9 +184,7 @@
  */
 /obj/structure/destructible/eldritch_crucible/proc/create_potion(mob/living/user)
 
-	// Assoc list of [name] to [image] for the radial
 	var/static/list/choices = list()
-	// Assoc list of [name] to [path] for after the radial, to spawn it
 	var/static/list/names_to_path = list()
 	if(!choices.len || !names_to_path.len)
 		for(var/obj/item/eldritch_potion/potion as anything in subtypesof(/obj/item/eldritch_potion))
@@ -201,7 +196,6 @@
 		src,
 		choices,
 		require_near = TRUE,
-		//tooltips = TRUE,
 	)
 
 	if(isnull(picked_choice))
@@ -260,11 +254,9 @@
 	return ..()
 
 
-// Potions created by the mawed crucible.
 /obj/item/eldritch_potion
 	abstract_type = /obj/item/eldritch_potion
 	name = "brew of day and night"
-	//No ru_names, because its not for game.
 	desc = "Вы не должны были это увидеть, сообщите о баге."
 	icon = 'icons/obj/eldritch.dmi'
 	w_class = WEIGHT_CLASS_SMALL
@@ -290,7 +282,6 @@
 	if(!iscarbon(user))
 		return
 
-	// A non-refreshable brew refuses to work while its blessing is still active.
 	if(!can_refresh && user.has_status_effect(status_effect))
 		return
 
@@ -328,7 +319,6 @@
 	can_refresh = FALSE
 
 
-// Refuses to work during the 2-minute post-phase lockout.
 /obj/item/eldritch_potion/crucible_soul/attack_self(mob/living/carbon/user)
 	if(user.has_status_effect(/datum/status_effect/crucible_soul_cooldown))
 		balloon_alert(user, "на перезарядке!")

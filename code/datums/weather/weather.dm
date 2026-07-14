@@ -16,6 +16,7 @@
 	var/weather_duration = 120 SECONDS //In deciseconds, how long the weather lasts once it begins
 	var/weather_duration_lower = 120 SECONDS //See above - this is the lowest possible duration
 	var/weather_duration_upper = 150 SECONDS //See above - this is the highest possible duration
+	var/endless = FALSE //If TRUE, the weather never winds down on its own - whoever started it must end it
 	var/weather_sound
 	var/weather_overlay
 	var/weather_color = null
@@ -117,7 +118,8 @@
 			to_chat(M, weather_message)
 		if(weather_sound)
 			SEND_SOUND(M, sound(weather_sound))
-	addtimer(CALLBACK(src, PROC_REF(wind_down)), weather_duration)
+	if(!endless)
+		addtimer(CALLBACK(src, PROC_REF(wind_down)), weather_duration)
 	for(var/area/impacted_area as anything in impacted_areas)
 		SEND_SIGNAL(impacted_area, COMSIG_WEATHER_BEGAN_IN_AREA(type), src)
 

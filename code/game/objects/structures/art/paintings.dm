@@ -400,6 +400,31 @@
 	LAZYREMOVE(zoom_by_observer, user.key)
 
 
+/obj/item/canvas/proc/select_new_frame(mob/user)
+	var/list/radial_options = list()
+	for(var/frame_name in GLOB.painting_frame_types)
+		radial_options[frame_name] = image(icon, "[icon_state]frame_[frame_name]")
+
+	var/chosen_frame = show_radial_menu(user, loc, radial_options, radius = 60, custom_check = CALLBACK(src, PROC_REF(can_select_frame), user), require_near = TRUE)
+	if(!chosen_frame || !can_select_frame(user))
+		return
+
+	painting_metadata.frame_type = chosen_frame
+	var/obj/structure/sign/painting/our_frame = loc
+	our_frame.balloon_alert(user, "оформление рамы изменено")
+	our_frame.update_appearance()
+
+
+/obj/item/canvas/proc/can_select_frame(mob/user)
+	if(!istype(loc, /obj/structure/sign/painting) || !loc.IsReachableBy(user))
+		return FALSE
+
+	if(IS_DEAD_OR_INCAP(user))
+		return FALSE
+
+	return painting_metadata.creator_ckey == user.ckey
+
+
 /obj/item/canvas/proc/finalize(mob/user)
 	if(finalized)
 		return
@@ -921,7 +946,25 @@
 // FRAMES //
 ////////////
 
-/obj/item/wallframe
+GLOBAL_LIST_INIT(painting_frame_types, list(
+	"simple",
+	"iron",
+	"bamboo",
+	"bones",
+	"bronze",
+	"clown",
+	"frog",
+	"silver",
+	"necropolis",
+	"gold",
+	"diamond",
+	"rainbow",
+	"supermatter",
+))
+
+
+/obj/item/mounted/wallframe
+	abstract_type = /obj/item/mounted/wallframe
 	name = "рама"
 	icon = 'icons/obj/signs.dmi'
 	icon_state = "frame-empty"
@@ -931,80 +974,21 @@
 	var/pixel_shift = 0
 
 
-/obj/item/wallframe/proc/try_build(turf/on_wall, mob/user)
-	if(get_dist(on_wall, user) > 1)
-		balloon_alert(user, "вы слишком далеко!")
-		return FALSE
-
-	var/floor_to_wall = get_dir(user, on_wall)
-	if(!(floor_to_wall in GLOB.cardinal))
-		balloon_alert(user, "встаньте ровно у стены!")
-		return FALSE
-
-	var/turf/turf = get_turf(user)
-	if(!isfloorturf(turf))
-		balloon_alert(user, "нельзя поместить здесь!")
-		return FALSE
-
-	return iswallturf(on_wall)
-
-
-/obj/item/wallframe/proc/attach(turf/on_wall, mob/user)
-	if(!result_path)
-		qdel(src)
-		return
-
-	var/floor_to_wall = get_dir(user, on_wall)
-	var/obj/hanging_object = new result_path(get_turf(user), floor_to_wall, TRUE)
-	hanging_object.setDir(floor_to_wall)
-	if(pixel_shift)
-		switch(floor_to_wall)
-			if(NORTH)
-				hanging_object.pixel_y = pixel_shift
-			if(SOUTH)
-				hanging_object.pixel_y = -pixel_shift
-			if(EAST)
-				hanging_object.pixel_x = pixel_shift
-			if(WEST)
-				hanging_object.pixel_x = -pixel_shift
-
-	after_attach(hanging_object)
-
-
-/obj/item/wallframe/proc/after_attach(obj/attached_to)
-	transfer_fingerprints_to(attached_to)
-
-
-/obj/item/wallframe/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
-	. = ..()
-	if(!proximity_flag || !iswallturf(target))
-		return
-	if(!try_build(target, user))
-		return
-	attach(target, user)
+/obj/item/mounted/wallframe/do_build(turf/on_wall, mob/user)
+	var/obj/structure/sign/painting/hanging_painting = new result_path(get_turf(user), get_dir(user, on_wall), TRUE)
+	hanging_painting.set_pixel_offsets_from_dir(pixel_shift, -pixel_shift, pixel_shift, -pixel_shift)
+	hanging_painting.add_fingerprint(user)
 	qdel(src)
-	return ATTACK_CHAIN_BLOCKED
 
 
-/obj/item/wallframe/screwdriver_act(mob/living/user, obj/item/tool)
-	var/turf/wall_turf = get_step(get_turf(user), user.dir)
-	if(!iswallturf(wall_turf))
-		return
-	if(!try_build(wall_turf, user))
-		return TRUE
-	attach(wall_turf, user)
-	qdel(src)
-	return TRUE
-
-
-/obj/item/wallframe/painting
+/obj/item/mounted/wallframe/painting
 	desc = "Идеальная витрина для ваших любимых воспоминаний."
 	gender = FEMALE
 	result_path = /obj/structure/sign/painting
 	pixel_shift = 30
 
 
-/obj/item/wallframe/painting/get_ru_names()
+/obj/item/mounted/wallframe/painting/get_ru_names()
 	return alist(
 		NOMINATIVE = "рама",
 		GENITIVE = "рамы",
@@ -1036,7 +1020,7 @@
 		/obj/item/canvas/twentyfour_twentyfour,
 	)
 	/// the type of wallframe it 'disassembles' into
-	var/wallframe_type = /obj/item/wallframe/painting
+	var/wallframe_type = /obj/item/mounted/wallframe/painting
 
 
 /obj/structure/sign/painting/get_ru_names()
@@ -1081,11 +1065,21 @@
 
 	current_canvas.ui_interact(user)
 	. += span_notice("Для удаления картины используйте кусачки.")
+	if(current_canvas.can_select_frame(user))
+		. += span_notice("<b>Alt-клик</b> сменит оформление рамы.")
+
+
+/obj/structure/sign/painting/click_alt(mob/user)
+	if(!current_canvas?.can_select_frame(user))
+		return CLICK_ACTION_BLOCKING
+
+	INVOKE_ASYNC(current_canvas, TYPE_PROC_REF(/obj/item/canvas, select_new_frame), user)
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/structure/sign/painting/wirecutter_act(mob/living/user, obj/item/I)
 	if(!current_canvas)
-		var/obj/item/wallframe/frame = new wallframe_type(drop_location())
+		var/obj/item/mounted/wallframe/frame = new wallframe_type(drop_location())
 		frame.name = initial(frame.name)
 		qdel(src)
 		return ATTACK_CHAIN_SUCCESS

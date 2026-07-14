@@ -32,7 +32,6 @@
 		"Распространение ржавчины поначалу медленное. Призовите несколько Ржавых Ходоков, чтобы расширять свои владения.",
 		"\"Ржавая Постройка\" создаёт барьеры для укрытия, побега или блокировки чужого отхода. Используйте окружение в своих целях.",
 	)
-	// "Leeching Walk" passive (on-rust durability that scales). Tiers light up as you grow.
 	passive_name = "Ржавая Поступь"
 	passive_descriptions = list(
 		"Стоя на ржавых плитах, вы исцеляетесь и очищаете тело от химикатов.",
@@ -40,10 +39,6 @@
 		"Стоя на ржавых плитах, вы восстанавливаете утраченные конечности; теперь вы можете ржаветь титановые и пласттитановые стены, а лечение усилено.",
 	)
 
-	// Main line: base_rust -> Aggressive Spread -> Rust Construction -> Reassembled Raiment(robes) ->
-	// Entropic Plume -> Toxic Blade -> Rust Charge -> ascension.
-	// The grasp (silicon-destroy + secondary turf rust), the rust mark and the on-rust passive are all
-	// folded into base_rust, no separate grasp/mark/regen nodes.
 	start = /datum/heretic_knowledge/limited_amount/starting/base_rust
 	knowledge_tier1 = /datum/heretic_knowledge/spell/area_conversion
 	knowledge_tier2 = /datum/heretic_knowledge/spell/rust_construction
@@ -52,7 +47,6 @@
 	blade = /datum/heretic_knowledge/blade_upgrade/rust
 	knowledge_tier4 = /datum/heretic_knowledge/spell/rust_charge
 	ascension = /datum/heretic_knowledge/ultimate/rust_final
-	// Side knowledges guaranteed to be offered in this path's drafts (TG).
 	guaranteed_side_tier1 = /datum/heretic_knowledge/rust_sower
 	guaranteed_side_tier2 = /datum/heretic_knowledge/limited_amount/summon/rusty
 	guaranteed_side_tier3 = /datum/heretic_knowledge/crucible
@@ -77,8 +71,6 @@
 
 /datum/heretic_knowledge/limited_amount/starting/base_rust/on_gain(mob/user, datum/antagonist/heretic/our_heretic, mind_transfer = FALSE)
 	. = ..()
-	// Secondary grasp (RMB on a turf/structure/airlock) corrodes it - the base starting knowledge only
-	// wires the primary grasp, so register the secondary here.
 	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, PROC_REF(on_secondary_mansus_grasp), override = TRUE)
 	if(!mind_transfer)
 		our_heretic.increase_rust_strength()
@@ -94,7 +86,6 @@
 /datum/heretic_knowledge/limited_amount/starting/base_rust/on_mansus_grasp(mob/living/source, mob/living/target)
 	. = ..()
 
-	// Augmented / IPC crew: the grasp wrecks any robotic limbs they carry.
 	if(ishuman(target))
 		var/mob/living/carbon/human/human_target = target
 		for(var/obj/item/organ/external/limb as anything in human_target.bodyparts)
@@ -102,8 +93,6 @@
 				continue
 			limb.external_receive_damage(500, 0)
 
-	// Silicons (borgs / AI shells) crumble to rust outright. master220 has no mob_biotypes, so
-	// issilicon covers the synthetic mobs we can detect.
 	if(!issilicon(target))
 		return
 
@@ -114,8 +103,6 @@
 /datum/heretic_knowledge/limited_amount/starting/base_rust/proc/on_secondary_mansus_grasp(mob/living/source, atom/target)
 	SIGNAL_HANDLER
 
-	// Rusting an airlock causes it to lose power, mostly to prevent the airlock from shocking you.
-	// This is a bit of a hack, but fixing this would require the entire wire cut/pulse system to be reworked.
 	if(is_airlock(target))
 		var/obj/machinery/door/airlock/airlock = target
 		airlock.loseMainPower()
@@ -131,7 +118,6 @@
 	gain_text = "В голове закружились образы чуждых и зловещих сооружений. \
 				Покрытые толстым слоем ржавчины, они больше не выглядели рукотворными. \
 				Или, возможно, они никогда не были таковыми."
-	// Match the ability button: actions_spells.dmi "shield", not actions.dmi "shield" (a blue badge).
 	research_tree_icon_path = 'icons/mob/actions/actions_spells.dmi'
 	research_tree_icon_state = "shield"
 	spell_to_add = /obj/effect/proc_holder/spell/pointed/rust_construction
@@ -165,10 +151,6 @@
 	research_tree_icon_state = "blade_upgrade_rust"
 
 
-// Rust-strength now climbs to 2 when you CRAFT the robe (see /datum/heretic_knowledge/armor/rust below),
-// in lockstep with the passive's tier-2 upgrade - so "rust reinforced walls" unlocks exactly when the
-// passive says it does. The blade upgrade no longer touches rust strength.
-
 /datum/heretic_knowledge/blade_upgrade/rust/do_melee_effects(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
 	if(source == target || !isliving(target))
 		return
@@ -191,7 +173,6 @@
 
 /datum/heretic_knowledge/armor/rust/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..() // Parent grants the tier-2 passive upgrade (+ aura).
-	// Keep rust strength in lockstep with the passive tier: reaching tier 2 lets us rust reinforced turfs.
 	var/datum/antagonist/heretic/our_heretic = user.mind?.has_antag_datum(/datum/antagonist/heretic)
 	our_heretic?.increase_rust_strength()
 
@@ -228,7 +209,6 @@
 	gain_text = "Поборник ржавчины. Осквернитель стали. Бойтесь тьмы, ибо пришёл Ржавеющий! \
 				Кузнец идёт вперёд! Ржавые Холмы, НАЗОВИТЕ МОЁ ИМЯ! СТАНЬТЕ СВИДЕТЕЛЯМИ МОЕГО ВОЗНЕСЕНИЯ!"
 
-	//ascension_achievement = /datum/award/achievement/misc/rust_ascension
 	announcement_text = "%SPOOKY% Бойтесь, ибо Ржавеющий, %NAME%, вознёсся! Вы слышите рокот Ржавых Холмов! Никто и ничто не избежит коррозии! %SPOOKY%"
 	announcement_sound = 'sound/music/heretic/ascend_rust.ogg'
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/ascension.dmi'
@@ -256,8 +236,6 @@
 
 /datum/heretic_knowledge/ultimate/rust_final/on_research(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
-	// This map doesn't have a Bridge, for some reason??
-	// Let them complete the ritual anywhere
 	if(!GLOB.areas_by_type[ritual_location])
 		ritual_location = null
 
@@ -279,7 +257,6 @@
 	INVOKE_ASYNC(src, PROC_REF(trigger), loc)
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 	RegisterSignal(user, COMSIG_LIVING_LIFE, PROC_REF(on_life))
-	//user.client?.give_award(/datum/award/achievement/misc/rust_ascension, user)
 	var/obj/effect/proc_holder/spell/aoe/rust_spread_spell = locate() in user.mob_spell_list
 	rust_spread_spell?.base_cooldown /= 2
 
@@ -291,8 +268,6 @@
 	for(var/z_level in levels_by_trait(STATION_LEVEL))
 		station_turfs += block(1, 1, z_level, world.maxx, world.maxy, z_level)
 	for(var/turf/transform_turf as anything in station_turfs)
-		//if(transform_turf.turf_flags & NO_RUST)
-		//	continue
 
 		var/dist = get_dist(center, transform_turf)
 		if(dist > greatest_dist)
@@ -324,8 +299,6 @@
 
 /datum/heretic_knowledge/ultimate/rust_final/proc/delay_transform_turfs(list/turfs)
 	for(var/turf/turf as anything in turfs)
-		// ORGANIC (4): the ascension corrodes everything short of ABSOLUTE-resistance turfs
-		// (space, indestructible), so the station rusts over but the void/hull stays intact.
 		turf.rust_heretic_act(RUST_RESISTANCE_ORGANIC, spawn_rune = prob(5))
 		CHECK_TICK
 
@@ -338,7 +311,6 @@
 /datum/heretic_knowledge/ultimate/rust_final/proc/on_move(mob/living/source, atom/old_loc, dir, forced, list/old_locs)
 	SIGNAL_HANDLER
 
-	// If we're on a rusty turf, and haven't given out our traits, buff our guy
 	var/turf/our_turf = get_turf(source)
 	if(HAS_TRAIT(our_turf, TRAIT_RUSTY))
 		if(!immunities_active)
@@ -349,7 +321,6 @@
 
 		return
 
-	// If we're not on a rust turf, and we have given out our traits, nerf our guy
 	if(!immunities_active)
 		return
 

@@ -37,16 +37,12 @@
 		"Ваш успех на этом пути зависит от того, насколько умелы и живучи ваши миньоны. Но в количестве всегда есть сила: чем больше миньонов, тем выше шансы на успех.",
 		"Ваши миньоны куда расходнее вас. Не бойтесь посылать их на смерть. Вы всегда сможете вернуть их позже... наверное.",
 	)
-	// "Ненасытный Голод" passive (see /datum/status_effect/heretic_passive/flesh): tiers light up as you grow.
 	passive_name = "Ненасытный Голод"
 	passive_descriptions = list(
 		"Иммунитет к болезням и отвращению — никакая еда не вызывает у вас тошноты.",
 		"Поедание мяса или органов исцеляет вас, а полнота больше вас не замедляет.",
 		"Будучи толстым, вы получаете 25% сопротивления урону и устойчивость к электродубинкам.",
 	)
-	// Main line: base_flesh -> flesh_ghoul -> flesh_surgery -> Writhing Embrace(robes) -> raw_prophet -> Bleeding Steel ->
-	// stalker -> ascension. The grasp-ghoul, the flesh mark and the passive are folded into base_flesh,
-	// no separate grasp/mark nodes.
 	start = /datum/heretic_knowledge/limited_amount/starting/base_flesh
 	knowledge_tier1 = /datum/heretic_knowledge/limited_amount/flesh_ghoul
 	knowledge_tier2 = /datum/heretic_knowledge/spell/flesh_surgery
@@ -55,7 +51,6 @@
 	blade = /datum/heretic_knowledge/blade_upgrade/flesh
 	knowledge_tier4 = /datum/heretic_knowledge/limited_amount/summon/stalker
 	ascension = /datum/heretic_knowledge/ultimate/flesh_final
-	// Side knowledges guaranteed to be offered in this path's drafts (TG).
 	guaranteed_side_tier1 = /datum/heretic_knowledge/limited_amount/risen_corpse
 	guaranteed_side_tier2 = /datum/heretic_knowledge/crucible
 	guaranteed_side_tier3 = /datum/heretic_knowledge/spell/cleave
@@ -76,7 +71,6 @@
 	research_tree_icon_path = 'icons/obj/weapons/khopesh.dmi'
 	research_tree_icon_state = "flesh_blade"
 	mark_type = /datum/status_effect/eldritch/flesh
-	// "Ненасытный Голод" passive: disease immunity now, glutton healing on robe craft, fat resistance on ascension.
 	passive_type = /datum/status_effect/heretic_passive/flesh
 
 
@@ -108,7 +102,6 @@
 
 	target.grab_ghost()
 
-	// The grab failed, so they're mindless or playerless. We can't continue
 	if(!target.mind || !target.client)
 		target.balloon_alert(source, "нет души!")
 		return COMPONENT_BLOCK_HAND_USE
@@ -170,7 +163,6 @@
 			to_chat(user, span_hierophant_warning("[body.declent_ru(NOMINATIVE)] не может стать Гулем."))
 			continue
 
-		// We'll select any valid bodies here. If they're clientless, we'll give them a new one.
 		selected_atoms += body
 		return TRUE
 
@@ -259,8 +251,6 @@
 	gain_text = "Я обернул вокруг себя этих жалких, копошащихся тварей, словно тёплое одеяло. \
 				Глазами-не-моими они будут смотреть. Зубами-не-моими они будут стискивать. Руками-не-моими они будут ломать."
 	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/eldritch/flesh)
-	// Point this node at the Writhing Embrace's own "flesh_armor" sprite in the shared suits.dmi (the base
-	// eldritch_armor frame would read as the rusty mantle instead). Single-frame, so frame 1.
 	research_tree_icon_state = "flesh_armor"
 	research_tree_icon_frame = 1
 	required_atoms = list(
@@ -304,9 +294,6 @@
 	if(HAS_TRAIT(human_target, TRAIT_NO_BLOOD))
 		return
 
-	// master220 has no wound system, so we approximate an "Open Laceration" bleed by opening a sustained
-	// external bleed on a random non-robotic limb, capped at max_bleeding_amount so it stays plain external
-	// bleeding (treatable with gauze/sutures), not arterial (surgery-only).
 	var/list/valid_limbs = list()
 	for(var/obj/item/organ/external/bodypart as anything in human_target.bodyparts)
 		if(!bodypart.is_robotic())
@@ -353,7 +340,6 @@
 				Люди этого мира, услышьте меня, ибо время пришло! Маршал ведёт мою армию! \
 				Реальность покорится ВЛАДЫКЕ НОЧИ или будет разрушена! СТАНЬТЕ СВИДЕТЕЛЯМИ МОЕГО ВОЗНЕСЕНИЯ!"
 	required_atoms = list(/mob/living/carbon/human = 4)
-	//ascension_achievement = /datum/award/achievement/misc/flesh_ascension
 	announcement_text = "%SPOOKY% Реальность разверзлась с хрустом рвущейся плоти. ВОЗДЕНЬТЕ РУКИ К НЕБУ И ПОПРИВЕТСТВУЙТЕ ВЛАДЫКУ НОЧИ! %NAME% вознёсся! %SPOOKY%"
 	announcement_sound = 'sound/music/heretic/ascend_flesh.ogg'
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/ascension.dmi'
@@ -365,7 +351,6 @@
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/shapeshift/shed_human_form)
 
 	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
-	// The grasp-ghoul limit and the blade limit both live on base_flesh, so bump it there.
 	var/datum/heretic_knowledge/limited_amount/starting/base_flesh/blade_ritual = heretic_datum.get_knowledge(/datum/heretic_knowledge/limited_amount/starting/base_flesh)
 	blade_ritual.limit = 999
 	var/datum/heretic_knowledge/limited_amount/flesh_ghoul/ritual_ghoul = heretic_datum.get_knowledge(/datum/heretic_knowledge/limited_amount/flesh_ghoul)

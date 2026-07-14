@@ -64,7 +64,6 @@
 	air.react()
 
 
-// Examining them will harm them, on a cooldown.
 /mob/living/simple_animal/hostile/heretic_summon/maid_in_the_mirror/examine(mob/user)
 	. = ..()
 	if(!harmed_by_examine || user == src || user.stat == DEAD || !isliving(user) || IS_HERETIC_OR_MONSTER(user))
@@ -74,7 +73,6 @@
 	if(user_ref in recent_examiner_refs)
 		return
 
-	// If we have health, we take some damage
 	if(health > (maxHealth * 0.02))
 		visible_message(
 				span_warning("[declent_ru(NOMINATIVE)] едва заметно мерцает."),
@@ -89,7 +87,6 @@
 		animate(alpha = 255, time = 0.5 SECONDS, easing = ELASTIC_EASING)
 		return
 
-	// If we're examined on low enough health we die straight up
 	visible_message(
 			span_danger("[declent_ru(NOMINATIVE)] рассеивается"),
 			span_userdanger("Чужой взгляд полностью разрушает вас!"),

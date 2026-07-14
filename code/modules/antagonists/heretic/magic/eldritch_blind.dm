@@ -1,4 +1,3 @@
-// Base pointed "Blind" spell.
 /obj/effect/proc_holder/spell/pointed/blind
 	name = "Слепота"
 	desc = "Это заклинание временно ослепляет одну цель."
@@ -50,7 +49,6 @@
 	return TRUE
 
 
-// Given to heretic monsters.
 /obj/effect/proc_holder/spell/pointed/blind/eldritch
 	name = "Жуткая Слепота"
 	action_background_icon = 'icons/mob/actions/backgrounds.dmi'

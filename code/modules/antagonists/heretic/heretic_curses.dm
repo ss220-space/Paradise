@@ -17,10 +17,6 @@
 
 
 /datum/heretic_knowledge/curse/recipe_snowflake_check(mob/living/carbon/human/user, list/atoms, list/selected_atoms, turf/loc)
-	// IMPORTANT: fingerprints/blood_samples MUST be ASSOC lists (key = print/DNA, value = TRUE), because
-	// on_finished_recipe matches victims via assoc lookup `blood_samples[their_blood]`. A plain list here
-	// makes the assoc lookup always return null, so the only match left is the heretic's own fingerprint
-	// on the held container - "проклятия накладываются на меня".
 	fingerprints = list()
 	blood_samples = list()
 	for(var/atom/requirement as anything in atoms)
@@ -41,7 +37,6 @@
 
 
 /datum/heretic_knowledge/curse/on_finished_recipe(mob/living/user, list/selected_atoms,  turf/loc)
-	// Potential targets is an assoc list of [names] to [human mob ref].
 	var/list/potential_targets = list()
 
 	for(var/datum/mind/crewmember as anything in SSticker.minds)
@@ -69,7 +64,6 @@
 		loc.balloon_alert(user, "неподходящая цель!")
 		return FALSE
 
-	// Yes, you COULD curse yourself, not sure why but you could
 	if(to_curse == user)
 		var/are_you_sure = tgui_alert(user, "Вы уверены, что хотите проклясть себя?", name, list("Да", "Нет"))
 		if(are_you_sure != "Да")
@@ -146,7 +140,6 @@
 /datum/heretic_knowledge/curse/proc/ask_for_input(mob/living/user)
 	return TRUE
 
-//---- Curse of Paralysis
 
 /datum/heretic_knowledge/curse/paralysis
 	abstract_parent_type = /datum/heretic_knowledge/curse/paralysis
@@ -183,7 +176,6 @@
 
 	return ..()
 
-//---- Curse of Corrosion
 
 /datum/heretic_knowledge/curse/corrosion
 	abstract_parent_type = /datum/heretic_knowledge/curse/corrosion
@@ -214,7 +206,6 @@
 	to_chat(chosen_mob, span_green("Ваше самочувствие резко улучшилось."))
 	return ..()
 
-//---- Curse of Transmutation
 
 /datum/heretic_knowledge/curse/transmutation
 	abstract_parent_type = /datum/heretic_knowledge/curse/transmutation
@@ -254,7 +245,7 @@
 		return
 
 	chosen_mob.apply_status_effect(/datum/status_effect/race_swap, chosen_species)
-	cursing_book.transmuted_victims += chosen_mob
+	cursing_book.transmuted_victims += WEAKREF(chosen_mob)
 	to_chat(chosen_mob, span_danger("Вы чувствуете, что ваше тело принимает новую форму."))
 	return ..()
 
@@ -298,7 +289,6 @@
 	var/mob/living/carbon/human/human = owner
 	human.set_species(old_species)
 
-//---- Curse of Indulgence
 
 /datum/heretic_knowledge/curse/indulgence
 	abstract_parent_type = /datum/heretic_knowledge/curse/indulgence
@@ -307,8 +297,6 @@
 	curse_color = COLOR_MAROON
 
 /datum/heretic_knowledge/curse/indulgence/curse(mob/living/carbon/human/chosen_mob)
-	// Applies the permanent "Фестиваль Желаний" status (ravenous flesh-hunger + top-right alert);
-	// the uncurse timer below is what ends it.
 	chosen_mob.apply_status_effect(/datum/status_effect/eldritch_painting/desire/permanent)
 	chosen_mob.nutrition = NUTRITION_LEVEL_STARVING
 	return ..()

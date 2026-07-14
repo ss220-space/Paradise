@@ -7,7 +7,6 @@
 	icon_living = "star_gazer"
 	pixel_x = -32
 	base_pixel_x = -32
-	//mob_biotypes = MOB_HUMANOID | MOB_SPECIAL
 	response_help = "проходит сквозь"
 	speed = -0.2
 	maxHealth = 6000
@@ -19,14 +18,12 @@
 	melee_damage_upper = 40
 	sentience_type = SENTIENCE_BOSS
 	attacktext = "бьет"
-	//attack_vis_effect = ATTACK_EFFECT_SLASH
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	Atkcool = 0.6 SECONDS
 	speak_emote = list("рычит")
 	damage_coeff = list(BRUTE = 1, BURN = 0.5, TOX = 0, STAMINA = 0, OXY = 0)
 	death_sound = 'sound/magic/cosmic_expansion.ogg'
 
-	//slowed_by_drag = FALSE
 	move_force = MOVE_FORCE_OVERPOWERING
 	move_resist = MOVE_FORCE_OVERPOWERING
 	pull_force = MOVE_FORCE_OVERPOWERING
@@ -69,7 +66,6 @@
 	for(var/spell_path in abilities_to_grant)
 		var/obj/effect/proc_holder/spell/spell = new spell_path(src)
 		AddSpell(spell)
-		// Never harm our master with our own magic.
 		if(istype(spell, /obj/effect/proc_holder/spell/pointed/projectile/star_blast))
 			var/obj/effect/proc_holder/spell/pointed/projectile/star_blast/blast = spell
 			blast.summoner = summoner
@@ -112,8 +108,6 @@
 
 /mob/living/simple_animal/hostile/heretic_summon/star_gazer/proc/poll_for_gazer()
 	var/mob/living/master = summoner?.resolve()
-	// role = null + ignore_respawnability: SPECIAL_ROLE_* is a mind label, not a be_special pref toggle -
-	// gating on it silently yields 0 candidates every time.
 	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите стать [declent_ru(INSTRUMENTAL)] вознёсшегося еретика[master ? " [master.real_name]" : ""]?", null, FALSE, poll_time = 20 SECONDS, ignore_respawnability = TRUE, source = src)
 	if(!length(candidates) || client || QDELETED(src))
 		return
@@ -136,7 +130,6 @@
 	)
 
 
-// Star gazer attacks everything around itself applies a spooky mark
 /mob/living/simple_animal/hostile/heretic_summon/star_gazer/AttackingTarget()
 	if(target == summoner?.resolve())
 		return FALSE
@@ -158,7 +151,6 @@
 		add_attack_logs(src, nearby_mob, "slashed (star gazer cleave)")
 
 
-// Teleports the star gazer back to its master.
 /obj/effect/proc_holder/spell/recall_stargazer
 	name = "Найти хозяина"
 	desc = "Телепортирует вас к вашему хозяину."
@@ -271,7 +263,6 @@
 	var/beam_timer = addtimer(CALLBACK(src, PROC_REF(open_laser), caster, beam_targets), 2.2 SECONDS, TIMER_STOPPABLE)
 	playsound(caster, 'sound/creatures/stargazer/beam_open.ogg', 50, FALSE)
 	if(!do_after(caster, 3 SECONDS, caster))
-		// Interrupted wind-up costs almost nothing.
 		cooldown_handler.start_recharge(1 SECONDS)
 		deltimer(beam_timer)
 		UnregisterSignal(caster, list(COMSIG_MOVABLE_MOVED, COMSIG_ATOM_DIR_CHANGE))
@@ -300,8 +291,6 @@
 /obj/effect/proc_holder/spell/stargazer_laser/proc/open_laser(mob/owner, list/turf/beam_targets)
 	beam_visual = new(get_step(get_step(owner, owner.dir), owner.dir), beam_targets[length(beam_targets)])
 	end_visual = new(beam_targets[length(beam_targets)], owner)
-	// Clamp the fill endpoints: a short beam against a nearby wall can have fewer than 4 turfs, so the raw
-	// beam_targets[4] / [length - 2] indices would run off the end of the list and crash.
 	var/start_index = min(4, length(beam_targets))
 	var/end_index = max(1, length(beam_targets) - 2)
 	for(var/turf/to_fill as anything in (get_line(beam_targets[start_index], beam_targets[end_index])))
@@ -316,7 +305,6 @@
 	for(var/obj/effect/abstract/gazer_beam_filling/fillings as anything in beam_fillings)
 		if(prob(98))
 			continue
-		// 2% chance to pull you towards the beam
 		fillings.pull_victims()
 	var/mob/living/master = our_master?.resolve()
 	for(var/turf/target as anything in beam_targets)
@@ -372,9 +360,6 @@
 	beam_targets = null
 
 
-// Visual effect of the big orb when you start channeling the laser
-// NB: /obj/effect/abstract's base invisibility is INVISIBILITY_ABSTRACT -
-// every laser visual must unhide itself or the whole beam renders as nothing.
 /obj/effect/abstract/gazer_orb
 	icon = 'icons/effects/160x160.dmi'
 	icon_state = "gazer_beam_charge"
@@ -382,7 +367,6 @@
 	SET_BASE_VISUAL_PIXEL(-64, -64)
 
 
-// Visual effect at the start of the beam, has an opening/active/closing state
 /obj/effect/abstract/gazer_beam
 	icon = 'icons/effects/beam96x96.dmi'
 	invisibility = INVISIBILITY_NONE
@@ -402,7 +386,6 @@
 	flick("gazer_beam_start", src)
 
 
-// Visual effect of the middle of the beam, has an opening/active/closing state
 /obj/effect/abstract/gazer_beam_filling
 	icon = 'icons/effects/beam.dmi'
 	icon_state = "gazer_beam"
@@ -432,7 +415,6 @@
 		step_towards(movable_atom, src)
 
 
-// Visual effect at the end of the beam, has an opening/active/closing state
 /obj/effect/abstract/gazer_beamend
 	icon = 'icons/effects/beam.dmi'
 	invisibility = INVISIBILITY_NONE

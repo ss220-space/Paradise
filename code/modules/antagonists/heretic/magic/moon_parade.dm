@@ -30,18 +30,8 @@
 	icon_state = "lunar_parade"
 	damage = 0
 	damage_type = BURN
-	// Slow, deliberate drift - the parade "shield" crawls along so the crowd can march after it instead of
-	// zipping across the screen. With process_paced() (see below) `speed` is a clean divisor: tiles/sec =
-	// 10/speed, so speed = 5 gives 2 tiles/sec. NOTE: this ONLY behaves correctly because we override
-	// process() with process_paced() - the stock process() double-counts elapsed time for slow projectiles
-	// and makes this fly ~2x faster and in irregular bursts no matter how high `speed` is set.
 	speed = 5
 	range = 75
-	// Bounce off any surface it meets, then dissipate. ricochets_max caps the TOTAL number of bounces: the
-	// parade "shield" vanishes once it has ricocheted 8 times. What counts as a bounceable "surface" is
-	// overridden in check_ricochet()/check_ricochet_flag() below so the parade reflects off EVERYTHING
-	// solid - walls, windows, machines, lockers, girders - not just the ballistic-flagged walls the base
-	// game allows.
 	ricochets_max = 8
 	ricochet_chance = 100
 	///looping sound datum for our projectile.
@@ -61,8 +51,6 @@
 	. = ..()
 	soundloop = new(src, TRUE)
 
-// Use the corrected pacing so the parade shield drifts calmly at its nominal 2 tiles/sec instead of the
-// stock engine's faster, stuttering slow-projectile movement. See process_paced().
 /obj/projectile/moon_parade/process()
 	return process_paced()
 
@@ -81,33 +69,23 @@
 /obj/projectile/moon_parade/on_hit(atom/target, blocked = 0, pierce_hit)
 	. = ..()
 	if(!isliving(target))
-		// We only reach on_hit on a non-living atom when a ricochet wasn't performed. While we still have
-		// bounces left (a glancing angle was rejected by handle_ricochet), phase through and keep marching.
-		// Once all 8 bounces are spent, the parade finally dissipates instead of phasing - the shield is gone.
 		if(ricochets < ricochets_max)
 			return -1
 		return
 
 	var/mob/living/victim = target
 
-	// The caster and their own minions/summons are never caught - just phase straight through them.
 	if(victim == firer || is_parade_ally(victim))
 		return -1
 
-	// Anti-magic shrugs the parade off and pops the projectile - deliberate counterplay. (can_block_magic()
-	// is currently an inert shim, so this branch is dormant until antimagic lands.)
 	if(victim.can_block_magic(MAGIC_RESISTANCE | MAGIC_RESISTANCE_MIND))
 		visible_message(span_warning("Парад врезается в [victim.declent_ru(ACCUSATIVE)], и [GEND_HIS_HER(victim)] накрывает внезапная волна ясности!"))
 		return // returns a non -1 value, so Bump() deletes the projectile and the parade stops
 
-	// Already marching - just refresh the madness, don't re-leash.
 	if(victim.has_status_effect(/datum/status_effect/moon_parade))
 		victim.cause_hallucination(/datum/hallucination/delusion/preset/moon, name)
 		return -1
 
-	// Leash the victim to the parade PROJECTILE itself (the "shield"), passing src as the anchor. Both
-	// players and basic mobs then trail after the shield as it drifts and ricochets - not after the caster.
-	// The status effect owns the leash, the 20s timer and the cleanup.
 	victim.apply_status_effect(/datum/status_effect/moon_parade, src)
 	victim.cause_hallucination(/datum/hallucination/delusion/preset/moon, name)
 	victim.Hallucinate(60 SECONDS)
@@ -136,8 +114,6 @@
 
 
 /obj/projectile/moon_parade/Destroy()
-	// Each victim's /datum/status_effect/moon_parade watches us for COMSIG_QDELETING and frees itself
-	// (dropping its leash), so destroying the projectile releases the whole parade automatically.
 	QDEL_NULL(soundloop)
 	return ..()
 
@@ -198,9 +174,6 @@
 		qdel(src)
 
 
-// Blocks the victim's own movement so they appear transfixed, wandering after the parade. Coded this way
-// because it's a simple way to hold the illusion compared to other methods. (Only affects player-controlled
-// mobs; basic/AI mobs are dragged along by the leash itself.)
 /datum/status_effect/moon_parade/proc/block_move(datum/source)
 	SIGNAL_HANDLER
 	return COMSIG_MOB_CLIENT_BLOCK_PRE_LIVING_MOVE

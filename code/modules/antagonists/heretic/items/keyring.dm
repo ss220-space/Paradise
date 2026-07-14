@@ -89,8 +89,6 @@
 ///Returns a random airlock on the same Z level as our portal, that isnt our airlock
 /obj/effect/lock_portal/proc/find_random_airlock()
 	var/list/turf/possible_destinations = list()
-	// GLOB.airlocks holds every /obj/machinery/door (poddoors, firedoors...); the implicit istype filter
-	// (no "as anything") keeps us to real airlocks.
 	for(var/obj/machinery/door/airlock/airlock in GLOB.airlocks)
 		if(airlock.z != z)
 			continue
@@ -98,7 +96,6 @@
 		if(airlock.loc == loc)
 			continue
 
-		// Don't dump heathens (or ourselves) into no-teleport areas - the CC shuttle, mining base, etc.
 		var/area/airlock_area = get_area(airlock)
 		if(airlock_area?.tele_proof)
 			continue
@@ -188,10 +185,6 @@
 	photo = card.photo
 	dat = card.dat
 	name = card.name //not update_label because of the captains spare moment
-	// Every on-map/examine name goes through declent_ru() -> the instance `ru_names`, NOT the `name` var.
-	// Copying only `name` leaves the disguise reading the generic "ID-карта" with no owner/job in every RU
-	// context. Carry the source card's declensions across: copy its instance ru_names when present (preserves
-	// special names like the captain's spare), otherwise rebuild them from registered_name/assignment.
 	if(card.ru_names)
 		ru_names = card.ru_names.Copy()
 	else
@@ -261,7 +254,6 @@
 	return ATTACK_CHAIN_SUCCESS
 
 
-// Using a normal ID *on* the heretic card consumes it too.
 /obj/item/card/id/advanced/heretic/attackby(obj/item/I, mob/user, params)
 	if(isheretic(user) && is_id_card(I))
 		eat_card(I, user)

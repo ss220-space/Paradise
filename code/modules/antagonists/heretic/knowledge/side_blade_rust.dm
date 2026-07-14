@@ -6,11 +6,9 @@
 
 	tier1 = /datum/heretic_knowledge/armor
 	tier2 = list(/datum/heretic_knowledge/crucible, /datum/heretic_knowledge/rifle)
-	// rust_charge is the Rust main path's tier-4 knowledge, not a side node here.
 	tier3 = list(/datum/heretic_knowledge/greaves_of_the_prophet)
 
 
-// Sidepaths for knowledge between Rust and Blade.
 /datum/heretic_knowledge/armor
 	name = "Ритуал Оружейника"
 	desc = "Позволяет преобразовать стол и противогаз в \"Потустороннюю броню\". \
@@ -32,13 +30,8 @@
 
 /datum/heretic_knowledge/armor/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
-	// Crafting the eldritch robe is the heretic's tier-2 ("empowerment") milestone. This advances the
-	// path passive to level 2 and, with it, lights up the eldritch aura
-	// (see /datum/status_effect/heretic_passive/level_upgrade).
 	var/datum/antagonist/heretic/our_heretic = user.mind?.has_antag_datum(/datum/antagonist/heretic)
 	our_heretic?.set_passive_level(2)
-	// Also gifts the Ritual of Knowledge (a one-off random transmutation worth bonus knowledge points).
-	// gain_knowledge is idempotent, so a second robe craft can't grant it twice.
 	our_heretic?.gain_knowledge(/datum/heretic_knowledge/knowledge_ritual)
 
 
@@ -86,7 +79,7 @@
 	cost = 2
 
 
-	research_tree_icon_path = 'icons/obj/weapons/ballistic.dmi'
+	research_tree_icon_path = 'icons/obj/weapons/projectile.dmi'
 	research_tree_icon_state = "goldrevolver"
 
 
@@ -106,7 +99,6 @@
 
 
 /datum/heretic_knowledge/rifle_ammo/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
-	// Any caliber of ballistic casing works (see desc), so there's nothing to filter.
 	return TRUE
 
 

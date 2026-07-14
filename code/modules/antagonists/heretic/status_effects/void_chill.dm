@@ -33,7 +33,6 @@
 	if(issilicon(owner))
 		return FALSE
 
-	// Fellow heretics and their monsters can't be chilled (matters for rival heretics).
 	if(IS_HERETIC_OR_MONSTER(owner))
 		return FALSE
 
@@ -114,7 +113,6 @@
 	multiplicative_slowdown = 0.1
 
 
-//---- Screen alert
 /atom/movable/screen/alert/status_effect/void_chill
 	name = "Холод Пустоты"
 	desc = "Что-то охлаждает вас изнутри и снаружи..."

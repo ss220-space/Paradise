@@ -1,4 +1,3 @@
-// AMOK
 /datum/status_effect/amok
 	id = "amok"
 	status_type = STATUS_EFFECT_REPLACE
@@ -13,8 +12,6 @@
 	var/old_intent = owner.a_intent
 	owner.a_intent_change(INTENT_HARM)
 
-	// If we're holding a gun, expand the range a bit.
-	// Otherwise, just look for adjacent targets
 	var/search_radius = isgun(owner.get_active_hand()) ? 3 : 1
 
 	var/list/mob/living/targets = list()
@@ -82,31 +79,24 @@
 			human_owner.Jitter(100 SECONDS)
 
 		if(30 to 40)
-			// Don't fully kill liver that's important
 			human_owner.adjustOrganLoss(INTERNAL_ORGAN_LIVER, 10, 90)
 
 		if(40 to 50)
-			// Don't fully kill heart that's important
 			human_owner.adjustOrganLoss(INTERNAL_ORGAN_HEART, 10, 90)
 
 		if(50 to 60)
-			// You can fully kill the stomach that's not crucial
 			human_owner.adjustOrganLoss(INTERNAL_ORGAN_STOMACH, 10)
 
 		if(60 to 70)
-			// Same with eyes
 			human_owner.adjustOrganLoss(INTERNAL_ORGAN_EYES, 5)
 
 		if(70 to 80)
-			// And same with ears
 			human_owner.adjustOrganLoss(INTERNAL_ORGAN_EARS, 10)
 
 		if(80 to 90)
-			// But don't fully kill lungs that's usually important
 			human_owner.adjustOrganLoss(INTERNAL_ORGAN_LUNGS, 10, 90)
 
 		if(90 to 95)
-			// And definitely don't fully kil brains
 			human_owner.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 20, 190)
 
 		if(95 to 100)
@@ -174,8 +164,6 @@
 	id = "moon converted"
 	alert_type = /atom/movable/screen/alert/status_effect/moon_converted
 	status_type = STATUS_EFFECT_REPLACE
-	// The berserk rampage lasts about a minute, then the victim's mind clears (or earlier if they take 75
-	// damage). TG keeps it until fullheal; we time-box it so the convertee runs amok "for a minute".
 	duration = 60 SECONDS
 	///used to track damage
 	var/damage_sustained = 0
@@ -206,7 +194,6 @@
 
 /datum/status_effect/moon_converted/on_apply()
 	RegisterSignal(owner, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(on_damaged))
-	// Heals them so people who are in crit can have this affect applied on them and still be of some use for the heretic
 	owner.adjustBruteLoss( -150)
 	owner.adjustFireLoss(-150)
 
@@ -233,7 +220,6 @@
 /datum/status_effect/moon_converted/proc/on_damaged(datum/source, damage, damagetype)
 	SIGNAL_HANDLER
 
-	// Stamina damage is funky so we will ignore it
 	if(damagetype == STAMINA)
 		return
 
@@ -249,12 +235,10 @@
 	overlays += moon_insanity_overlay
 
 /datum/status_effect/moon_converted/on_remove()
-	// Span warning and unconscious so they realize they aren't evil anymore
 	to_chat(owner, span_warning("Ваш разум очищен от влияния Обители."))
 	REMOVE_TRAIT(owner, TRAIT_MUTE, TRAIT_STATUS_EFFECT(id))
 	owner.Sleeping(5 SECONDS)
 	log_game("[key_name_log(owner)] is no longer insane.")
-	// Revoke the kill-everyone objective we handed out (the moon's hold is broken).
 	if(moon_objective)
 		owner.mind?.objectives -= moon_objective
 		QDEL_NULL(moon_objective)
@@ -264,25 +248,13 @@
 	return ..()
 
 
-// Permanent variant used by the Moonlight Amulet curse: instead of self-clearing after a minute, this
-// lasts until the amulet is removed (the amulet's dropped() calls remove_status_effect). The wearer is
-// compelled to keep it on - the amulet resists removal with a short channel (see the amulet's
-// on_pre_unequip) rather than being flat-out unremovable - issue: "не снимать амулет, но снять можно".
-// NB: keeps the base "moon converted" id - has_status_effect()/remove_status_effect() match on id, so the
-// amulet (which checks/removes the BASE type) still finds and clears this.
 /datum/status_effect/moon_converted/permanent
 	duration = -1
 
-// The amulet curse persists through damage; only removing the amulet ends it (the base clears at 75 damage).
 /datum/status_effect/moon_converted/permanent/on_damaged(datum/source, damage, damagetype)
 	return
 
 
-// --- Eldritch paintings (1:1 with tg) ----------------------------------------------------------------
-// A hung eldritch painting curses any non-heretic that walks into its sightline with one of these status
-// effects. The alert shows in the top-right corner; the curse ticks until it expires (10 min), is washed
-// out with holy water, or is paused by looking at the painting again (TRAIT_ELDRITCH_PAINTING_EXAMINE).
-// master220 has no mob_mood, so tg's mood events are dropped; everything else mirrors tg.
 /datum/status_effect/eldritch_painting
 	id = "eldritch_painting"
 	alert_type = /atom/movable/screen/alert/status_effect/eldritch_painting
@@ -298,11 +270,9 @@
 	return TRUE
 
 /datum/status_effect/eldritch_painting/tick(seconds_between_ticks)
-	// Holy water halts the curse and burns it out faster (tg: continuous dosing fully cures over time).
 	if(owner.reagents?.has_reagent(/datum/reagent/holywater))
 		remove_duration(3 SECONDS * seconds_between_ticks)
 		return
-	// Looking at the painting again pauses the effect - the intended counterplay.
 	if(HAS_TRAIT(owner, TRAIT_ELDRITCH_PAINTING_EXAMINE))
 		return
 	on_tick(seconds_between_ticks)
@@ -317,7 +287,6 @@
 	icon = 'icons/obj/signs.dmi'
 	icon_state = "eldritch_painting_debug"
 
-// "Сестра и Плачущий" - curses the viewer with recurring hallucinations.
 /datum/status_effect/eldritch_painting/weeping
 	id = "painting_weeping"
 	alert_type = /atom/movable/screen/alert/status_effect/eldritch_painting/weeping
@@ -326,7 +295,6 @@
 /datum/status_effect/eldritch_painting/weeping/on_tick(seconds_between_ticks)
 	if(owner.stat != CONSCIOUS)
 		return
-	// tg fires a delusion hallucination each tick; hallucinate_living() spawns one directly (100%).
 	owner.hallucinate_living("delusion")
 
 /atom/movable/screen/alert/status_effect/eldritch_painting/weeping
@@ -334,7 +302,6 @@
 	desc = "Плач эхом отдаётся в вашем разуме, разрушая рассудок! Быть может, если снова взглянуть на картину, станет легче..."
 	icon_state = "eldritch_painting_weeping"
 
-// "Фестиваль Желаний" - a ravenous, draining hunger for flesh.
 /datum/status_effect/eldritch_painting/desire
 	id = "painting_desire"
 	alert_type = /atom/movable/screen/alert/status_effect/eldritch_painting/desire
@@ -348,7 +315,6 @@
 	ADD_TRAIT(owner, TRAIT_FLESH_DESIRE, TRAIT_STATUS_EFFECT(id))
 
 /datum/status_effect/eldritch_painting/desire/on_tick(seconds_between_ticks)
-	// Drains nutrition at ~10x the normal rate.
 	owner.adjust_nutrition(-hunger_rate * HUNGER_FACTOR)
 	if(SPT_PROB(10, seconds_between_ticks))
 		to_chat(owner, span_notice(pick(
@@ -369,11 +335,9 @@
 	desc = "Вас терзает ненасытный голод! Утолите его любой ценой! Или просто взгляните на картину и тоскуйте по обещанному ею пиршеству..."
 	icon_state = "eldritch_painting_desire"
 
-// tg: the Curse of Indulgence applies this permanent variant (removed only by the uncurse timer).
 /datum/status_effect/eldritch_painting/desire/permanent
 	duration = STATUS_EFFECT_PERMANENT
 
-// "Леди за Вратами" - compulsively claws at any clothed part of the body.
 /datum/status_effect/eldritch_painting/beauty
 	id = "painting_beauty"
 	alert_type = /atom/movable/screen/alert/status_effect/eldritch_painting/beauty
@@ -388,7 +352,6 @@
 	var/obj/item/organ/external/bodypart = owner.get_bodypart(owner.get_random_valid_zone(even_weights = TRUE))
 	if(!bodypart || bodypart.is_robotic())
 		return
-	// Clothing ruins the "perfection" of the body - only scratch covered parts.
 	var/mob/living/carbon/human/scratcher = owner
 	if(!length(scratcher.get_clothing_on_part(bodypart)))
 		return
@@ -401,7 +364,6 @@
 	desc = "Одежда скрывает истинную красоту. Сбросьте её и достигните совершенства. Или вновь узрите совершенство в той картине."
 	icon_state = "eldritch_painting_beauty"
 
-// "Хозяйка Ржавой Горы" - rusts the floor beneath the cursed.
 /datum/status_effect/eldritch_painting/rusting
 	id = "painting_rusting"
 	alert_type = /atom/movable/screen/alert/status_effect/eldritch_painting/rusting

@@ -1,4 +1,3 @@
-//Item for knock/moon heretic sidepath, it can block 5 hits of damage, acts as storage and if the heretic is examined the examiner suffers brain damage and blindness
 
 /obj/item/storage/belt/unfathomable_curio
 	name = "unfathomable curio"
@@ -9,7 +8,6 @@
 	item_state = "unfathomable_curio"
 	max_combined_w_class = 21
 	storage_slots = 21
-	//Vars used for the shield component
 	max_w_class = WEIGHT_CLASS_NORMAL
 	can_hold = list(
 		/obj/item/ammo_box/speedloader/lionhunter,
@@ -58,9 +56,6 @@
 	if(!(slot & slot_flags))
 		return
 
-	// Paradise's check_shields() never polls the belt slot, so the shielded component's
-	// hit_reaction is never triggered while we're worn. We bridge the gap by reacting to
-	// the human-wide shield check signal ourselves.
 	RegisterSignal(user, COMSIG_HUMAN_CHECK_SHIELDS, PROC_REF(shield_reaction))
 
 	if(isheretic(user))
@@ -80,8 +75,6 @@
 	if(owner.belt != src)
 		return NONE
 
-	// hit_reaction() routes through COMSIG_ITEM_HIT_REACT, which the /datum/component/shielded
-	// listens for: it spends a charge, runs shield_damaged() and returns a successful block.
 	if(hit_reaction(owner, hitby, attack_text, 0, damage, attack_type))
 		return SHIELD_BLOCK
 
@@ -107,8 +100,6 @@
 			wearer.force_gene_block(GLOB.comicblock, TRUE, TRUE)
 		if(5)
 			wearer.force_gene_block(GLOB.paraplegiablock, TRUE, TRUE)
-
-	//wearer.gain_trauma(pick(brain_traumas) ,TRAUMA_RESILIENCE_ABSOLUTE)
 
 
 /obj/item/storage/belt/unfathomable_curio/examine(mob/living/carbon/user)

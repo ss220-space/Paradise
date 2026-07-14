@@ -84,8 +84,6 @@
 		span_notice("Вы прыгаете в отражение в [nearby_reflection.declent_ru(PREPOSITIONAL)], попадая в зеркальный мир."),
 	)
 
-	// Pass the turf of the nearby reflection to the parent call
-	// as that's the location we're actually jaunting into
 	var/obj/effect/dummy/spell_jaunt/jaunt = ..(jaunter, get_turf(nearby_reflection))
 	if(!jaunt)
 		return FALSE
@@ -106,19 +104,15 @@
 	if(!do_after(unjaunter, phase_in_time, nearby_reflection))
 		return FALSE
 
-	// We can move around while phasing in, but we'll always end up where we started it.
-	// Pass the jaunter's turf at the start of the proc back to the parent call.
 	return ..(unjaunter, phase_turf)
 
 
-// Play a spooky noise, provide textual feedback, and make the turf colder.
 /obj/effect/proc_holder/spell/jaunt/mirror_walk/on_jaunt_exited(obj/effect/dummy/spell_jaunt/jaunt, mob/living/unjaunter)
 	. = ..()
 	UnregisterSignal(jaunt, COMSIG_MOVABLE_MOVED)
 	playsound(unjaunter, 'sound/magic/ethereal_exit.ogg', 50, TRUE, -1)
 	var/turf/simulated/phase_turf = get_turf(unjaunter)
 
-	// Chilly!
 	if(is_space_or_openspace(phase_turf))
 		phase_turf.get_readonly_air()?.set_temperature(max(0, phase_turf.get_readonly_air()?.temperature() - 20)) // MILLA: write may need milla_safe to persist
 

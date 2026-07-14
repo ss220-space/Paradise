@@ -1,6 +1,5 @@
 /obj/structure/lock_tear
 	name = "???"
-	// No ru_names, because it's ???
 	desc = "Оно смотрит в ответ. Почему ты стоишь и смотришь на это? Беги!"
 	max_integrity = INFINITY
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
@@ -36,7 +35,6 @@
 
 	GLOB.poi_list |= src
 	notify_ghosts("Что это?", "???", source = src)
-	// poll_ghosts() sleeps (candidate poll + tgui_alert); must not block Initialize()
 	INVOKE_ASYNC(src, PROC_REF(poll_ghosts))
 
 

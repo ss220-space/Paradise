@@ -97,10 +97,6 @@
 	QDEL_NULL(component)
 	user.remove_traits(list(TRAIT_MANSUS_TOUCHED/*, TRAIT_BLOODY_MESS*/), UID())
 
-	//var/obj/effect/proc_holder/spell/cult/blood_magic/magic_holder = locate() in user.actions
-	//if(magic_holder?.magic_enhanced)
-	//	QDEL_NULL(magic_holder.spells[ENHANCED_BLOODCHARGE])
-
 
 /obj/item/clothing/neck/heretic_focus/crimson_medallion/attack_self(mob/living/user, modifiers)
 	. = ..()
@@ -187,7 +183,6 @@
 	user.update_sight()
 
 
-// An x-ray variant of the medallion (not granted by any knowledge; admin/loot curiosity).
 /obj/item/clothing/neck/eldritch_amulet/piercing
 	name = "piercing eldritch amulet"
 	desc = "Странный медальон. Сквозь кристаллическую поверхность свет преломляется в новые, пугающие спектры. \
@@ -206,7 +201,6 @@
 	)
 
 
-// A purely cosmetic lookalike medallion (no focus, no traits).
 /obj/item/clothing/neck/fake_heretic_amulet
 	name = "heretic amulet"
 	desc = "Странный медальон, из-за которого его носитель выглядит как член какого-то культа."
@@ -232,17 +226,12 @@
 	icon_state = "moon_amulette"
 	/// How much damage does this item do to the targets sanity?
 	var/sanity_damage = 20
-	// Brain damage a non-heretic wearer must accrue from the curse before their mind shatters and they go
-	// berserk (master220 has no sanity, so brain damage is the meter).
 	var/conversion_threshold = 100
-	// Once converted, the amulet can't just be flicked off - removing it takes a short channel (do_after).
-	// These track that channel so the moon's grip can be wrestled off over a couple of seconds.
 	var/removal_channel_time = 3 SECONDS
 	/// TRUE while a removal channel is currently running (stops the channel from being started twice).
 	var/being_removed = FALSE
 	/// Set TRUE the instant a removal channel succeeds, so the very next unequip is allowed straight through.
 	var/removal_authorized = FALSE
-	// The off-screen laughter (laugh track) played when a moon blade strikes while this amulet is worn.
 	var/static/list/possible_sounds = list(
 		'sound/items/SitcomLaugh1.ogg',
 		'sound/items/SitcomLaugh2.ogg',
@@ -270,16 +259,12 @@
 		return ..()
 
 	var/mob/living/carbon/human/hit = target
-	// Heretics and their monsters are immune; so is anyone shrugging off mind magic.
 	if(IS_HERETIC_OR_MONSTER(hit))
 		return ..()
 	if(hit.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND))
 		user.balloon_alert(user, "разум сопротивляется!")
 		return ..()
 
-	// master220 has no sanity, so brain damage is the moon path's "madness meter": a mind already shattered
-	// (or a body in crit) snaps and goes berserk; an intact mind is just driven a little madder (chat +
-	// hallucination + brain damage) so you can finish softening it.
 	var/madness = hit.get_organ_loss(INTERNAL_ORGAN_BRAIN)
 	if(madness < 60 && !hit.isInCrit())
 		to_chat(user, span_warning("Разум [hit.declent_ru(GENITIVE)] ещё слишком крепок, чтобы сломаться..."))
@@ -289,7 +274,6 @@
 		hit.emote(pick("giggle", "laugh"))
 		return ..()
 
-	// A mindshield keeps the mind anchored - it can't be flipped into a berserker.
 	if(ismindshielded(hit))
 		user.balloon_alert(user, "разум защищён имплантом!")
 		to_chat(hit, span_warning("Что-то в вашей голове отражает вторжение Луны."))
@@ -307,19 +291,11 @@
 	if(!(slot & ITEM_SLOT_NECK) || !ishuman(user))
 		return
 	if(IS_HERETIC_OR_MONSTER(user))
-		// Heretic wearer: thermal vision lets you see heathens through walls and in the dark, and your moon
-		// blade drops to 0 force so you can still swing it while the Resplendent Regalia pacifies you (its
-		// damage comes from the eldritch blade effect, not physical force).
 		ADD_TRAIT(user, TRAIT_THERMAL_VISION, "[CLOTHING_TRAIT]_[UID()]")
 		user.update_sight()
 		refresh_held_blades(user)
-		// The amulet channels through the moon blade: a strike now carries off-screen laughter (a laugh
-		// track) on top of the eldritch blade effect. We listen for the blade-attack signal to play it.
 		RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, PROC_REF(on_blade_laugh), override = TRUE)
 		return
-	// Non-heretic wearer: the amulet latches on and slowly devours the mind. It can still be removed right up
-	// until the mind shatters, at which point the wearer goes berserk and is compelled to keep it on
-	// (NODROP is applied then, in process()).
 	to_chat(user, span_userdanger("Амулет холодит кожу, и далёкий хор смеха эхом отдаётся в вашей голове..."))
 	START_PROCESSING(SSobj, src)
 
@@ -333,13 +309,9 @@
 	UnregisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK)
 	STOP_PROCESSING(SSobj, src)
 	refresh_held_blades(user)
-	// Tear down the removal-channel block and reset its state so a future wearer starts fresh (and isn't
-	// gifted a free instant removal from a stale authorization).
 	UnregisterSignal(src, COMSIG_ITEM_PRE_UNEQUIP)
 	being_removed = FALSE
 	removal_authorized = FALSE
-	// Taking the amulet off (by any means - the removal channel, stripping, death, dismemberment) lifts the
-	// moon's compulsion: the kill-everyone objective and berserk state are cleared.
 	user.remove_status_effect(/datum/status_effect/moon_converted)
 
 
@@ -384,9 +356,6 @@
 		wearer.emote(pick("giggle", "laugh"))
 	if(wearer.get_organ_loss(INTERNAL_ORGAN_BRAIN) < conversion_threshold)
 		return
-	// The mind shatters. They are bound to the moon: a kill-everyone objective and the compulsion to keep the
-	// amulet on. The amulet can still be torn off, but no longer in an instant - it now resists removal, so
-	// prying it loose takes a short channel (see on_pre_unequip). The brain damage ends here.
 	to_chat(wearer, span_userdanger("ЛУНА ПОКАЗЫВАЕТ ВАМ ПРАВДУ — И НЕ ОТПУСКАЕТ! УБЕЙТЕ ВСЕХ ЛЖЕЦОВ!"))
 	RegisterSignal(src, COMSIG_ITEM_PRE_UNEQUIP, PROC_REF(on_pre_unequip), override = TRUE)
 	wearer.apply_status_effect(/datum/status_effect/moon_converted/permanent)
@@ -397,7 +366,6 @@
 /// short removal channel. Only when that channel finishes (removal_authorized) does an unequip go through.
 /obj/item/clothing/neck/heretic_focus/moon_amulet/proc/on_pre_unequip(datum/source, force, atom/newloc, no_move, invdrop, silent)
 	SIGNAL_HANDLER
-	// Forced removals (admin / gibbing / the channel's own authorized drop) pass straight through.
 	if(force || removal_authorized)
 		return
 	if(!being_removed)

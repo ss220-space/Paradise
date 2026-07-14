@@ -15,18 +15,12 @@
 	clothes_req = FALSE
 	spell_requirements = NONE
 
-	// In room temperature, the ice won't last very long
-	// ...but in space / freezing rooms, it will stick around
 	turf_freeze_type = TURF_WET_ICE
 	unfreeze_turf_duration = 1 MINUTES
-	// Applies an "infinite" version of basic void chill
-	// (This stacks with mansus grasp's void chill)
 	frozen_status_effect_path = /datum/status_effect/void_chill/lasting
 	unfreeze_mob_duration = 30 SECONDS
-	// Does a smidge of damage
 	on_freeze_brute_damage = 12
 	on_freeze_burn_damage = 10
-	// Also freezes stuff (Which will likely be unfrozen similarly to turfs)
 	unfreeze_object_duration = 30 SECONDS
 
 
@@ -42,7 +36,6 @@
 	desc = "Выстреливает перед вами замораживающим конусом."
 
 	base_cooldown = 30 SECONDS
-	//cooldown_reduction_per_rank = 4 SECONDS
 
 	invocation = "З'М'Р'ЗК!"
 	invocation_type = INVOCATION_SHOUT
@@ -209,7 +202,6 @@
 		var/list/level_turfs = list()
 		turf_to_use = get_step(turf_to_use, dir_to_use)
 		level_turfs += turf_to_use
-		// Level 1 only ever has 1 turf, it's a cone.
 		if(level != 1)
 			var/level_width_in_each_direction = round((calculate_cone_shape(level) - 1) / 2)
 			left_turf = turf_to_use
@@ -240,11 +232,9 @@
 /// Adjusts the width of the cone at the passed level. This is never called on the first level of the cone
 /// (level 1 is always 1 width). Return a number - the TOTAL width of the cone at the passed level.
 /obj/effect/proc_holder/spell/cone/proc/calculate_cone_shape(current_level)
-	// Default formula: (1 (innate) -> 3 -> 5 -> 5 -> 7 -> 7 -> 9 -> 9 -> ...)
 	return current_level + (current_level % 2) + 1
 
 
-// Lasting (indefinite) freeze used by the void cold cone.
 /datum/status_effect/freon/lasting
 	id = "lasting_frozen"
 	duration = -1

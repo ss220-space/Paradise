@@ -1,4 +1,3 @@
-// Shoots out in a wave-like, what rust heretics themselves get
 /obj/effect/proc_holder/spell/cone/staggered/entropic_plume
 	name = "Шлейф Разложения"
 	desc = "Выбрасывает дезориентирующий шлейф, заставляющий врагов атаковать друг друга, \
@@ -43,23 +42,18 @@
 	if(victim.can_block_magic(antimagic_flags) || IS_HERETIC_OR_MONSTER(victim) || victim == caster)
 		return
 
-	// Forces them to attack each other (amok), briefly blinds (cloudstruck) and poisons (disgust).
-	// /datum/status_effect/amok already shows the rage message on apply, so no extra to_chat.
 	victim.apply_status_effect(/datum/status_effect/amok)
 	victim.apply_status_effect(/datum/status_effect/cloudstruck, 5 SECONDS)
 	victim.AdjustDisgust(100)
 
 
 /obj/effect/proc_holder/spell/cone/staggered/entropic_plume/calculate_cone_shape(current_level)
-	// At the first level (that isn't level 1) we will be small
 	if(current_level == 2)
 		return 3
 
-	// At the max level, we turn small again
 	if(current_level == cone_levels)
 		return 3
 
-	// Otherwise, all levels in between will be wider
 	return 5
 
 
@@ -87,7 +81,6 @@
 			pixel_x = -128
 
 
-// Shoots a straight line of rusty stuff ahead of the caster, what rust monsters get
 /obj/effect/proc_holder/spell/fireball/rust_wave
 	name = "Ковровая Дорожка"
 	desc = "Направляет энергию в ваши руки, позволяя высвободить волну ржавчины."
@@ -115,14 +108,11 @@
 	damage = 30
 	damage_type = TOX
 	hitsound = 'sound/weapons/punch3.ogg'
-	//trigger_range = 0
 	var/list/ignored_factions = list(FACTION_HERETIC)
 	range = 15
 	speed = 1
 
 
-// The entropic plume must not hurt fellow heretics/minions. Projectiles don't read ignored_factions
-// natively, so we zero the hit in prehit (same pattern as /obj/projectile/herald).
 /obj/projectile/magic/aoe/rust_wave/prehit(atom/target)
 	if(isliving(target))
 		var/mob/living/living_target = target
