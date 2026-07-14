@@ -187,6 +187,12 @@
 	if(isskrell(target))
 		to_chat(user, span_warning("Your razor isn't going to cut through tentacles."))
 		return .
+	if(iskidan(target))
+		to_chat(user, span_warning("Your razor isn't going to cut through horns."))
+		return .
+	if(iswryn(target))
+		to_chat(user, span_warning("Your razor isn't going to cut through antennae."))
+		return .
 	if(target == user)
 		user.visible_message(
 			span_warning("[user] starts to shave [user.p_their()] head with [src]."),

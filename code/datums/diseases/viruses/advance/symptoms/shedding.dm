@@ -28,6 +28,8 @@ BONUS
 /datum/symptom/shedding/Activate(datum/disease/virus/advance/A)
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB))
+		if(iskidan(target) || isskrell(target) || iswryn(target)) // no losing horns, antennae or tentacles
+			return
 		var/mob/living/M = A.affected_mob
 		to_chat(M, span_warning(pick("Вы ощущаете неприятный зуд в волосах.", "Ваша кожа шелушится.")))
 		if(ishuman(M))
