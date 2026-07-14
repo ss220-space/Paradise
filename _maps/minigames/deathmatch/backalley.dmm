@@ -36,15 +36,6 @@
 /obj/structure/fence,
 /turf/simulated/floor/indestructible/dirt_floor,
 /area/template_noop)
-"ey" = (
-/obj/structure/chair/office{
-	dir = 8
-	},
-/obj/structure/chair/office{
-	dir = 8
-	},
-/turf/simulated/floor/indestructible/medical_white,
-/area/template_noop)
 "ez" = (
 /obj/machinery/door/poddoor/shutters/invincible{
 	dir = 8;
@@ -578,7 +569,7 @@ Nz
 sH
 Ra
 sH
-ey
+sH
 MK
 Lr
 PQ
