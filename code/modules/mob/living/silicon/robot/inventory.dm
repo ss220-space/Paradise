@@ -39,7 +39,7 @@
 			A.Remove(src)
 
 	if(module_active == O)
-		if(istype(module_active, /obj/item/borg/destroyer/mobility))
+		if(iscyborgmobilitymodule(module_active))
 			remove_movespeed_modifier(/datum/movespeed_modifier/destroyer_mobility)
 		module_active = null
 	if(module_state_1 == O)
