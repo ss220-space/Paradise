@@ -104,11 +104,20 @@ task-clean() {
   echo "tgui: All artifacts cleaned"
 }
 
+task-retrieve-original-bundles(){
+  cd "${base_dir}"
+  echo "Copying bundle for further validation"
+  rm -rf public_cache
+  cp -r public/ public_cache/
+  echo "Stored public copy in public_cache"
+}
+
 ## Validates current build against the build stored in git
 task-validate-build() {
   cd "${base_dir}"
+  echo "Running build validation at ${base_dir}"
   local diff
-  diff="$(git diff --text public/*)"
+  diff="$(git diff --no-index --text public/ public_cache/)"
   if [[ -n ${diff} ]]; then
     echo "Error: our build differs from the build committed into git."
     echo "Please rebuild tgui."
@@ -202,6 +211,7 @@ fi
 ## Continuous integration scenario
 if [[ ${1} == "--ci" ]]; then
   task-clean
+  task-retrieve-original-bundles
   task-install
   task-prettier
   task-test "${@}"
