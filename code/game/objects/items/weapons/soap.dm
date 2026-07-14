@@ -25,43 +25,14 @@
 
 /obj/item/soap/ComponentInitialize()
 	AddComponent(/datum/component/slippery, 4 SECONDS, lube_flags = (SLIDE|SLIP_WHEN_LYING))
+	AddComponent(/datum/component/cleaner, cleanspeed, 0.1, pre_clean_callback=CALLBACK(src, PROC_REF(should_clean))) //less scaling for soapies
 
-/obj/item/soap/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
-	if(!proximity_flag)
-		return
-
-	//I couldn't feasibly  fix the overlay bugs caused by cleaning items we are wearing.
-	//So this is a workaround. This also makes more sense from an IC standpoint. ~Carn
-	if(user.client && (target in user.client.screen))
-		user.balloon_alert(user, "снимите это с себя!")
-	else if(istype(target, /obj/effect/decal/cleanable) || istype(target, /obj/effect/rune))
-		user.balloon_alert(user, "чистка...")
-		if(do_after(user, cleanspeed, target) && target)
-			user.balloon_alert(user, "очищено")
-			if(issimulatedturf(target.loc))
-				clean_turf(target.loc)
-				return
-			qdel(target)
-	else if(issimulatedturf(target))
-		user.balloon_alert(user, "чистка...")
-		if(do_after(user, cleanspeed, target))
-			user.balloon_alert(user, "очищено")
-			clean_turf(target)
-	else
-		user.balloon_alert(user, "чистка...")
-		if(do_after(user, cleanspeed, target))
-			user.balloon_alert(user, "очищено")
-			var/obj/effect/decal/cleanable/C = locate() in target
-			qdel(C)
-			target.clean_blood()
-			SEND_SIGNAL(target, COMSIG_COMPONENT_CLEAN_ACT, 5)
-
-/obj/item/soap/proc/clean_turf(turf/simulated/T)
-	T.clean_blood()
-	for(var/obj/effect/O in T)
-		if(O.is_cleanable())
-			qdel(O)
-	SEND_SIGNAL(T, COMSIG_COMPONENT_CLEAN_ACT, 5)
+/obj/item/soap/proc/should_clean(datum/cleaning_source, atom/atom_to_clean, mob/living/cleaner)
+	if(ishuman(atom_to_clean) && ishuman(cleaner) && !cleaner.stat && cleaner.zone_selected == BODY_ZONE_PRECISE_MOUTH)
+		return CLEAN_BLOCKED
+	. = CLEAN_ALLOWED
+	if(!check_allowed_items(atom_to_clean))
+		. |= CLEAN_NO_XP|CLEAN_NO_WASH
 
 /obj/item/soap/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(ishuman(target) && ishuman(user) && !target.stat && !user.stat && user.zone_selected == BODY_ZONE_PRECISE_MOUTH)

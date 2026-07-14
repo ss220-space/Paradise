@@ -868,6 +868,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 	icon = 'icons/mob/monkey.dmi'
 	icon_state = "monkey1"
 	mob_species = /datum/species/monkey
+	mob_type = /mob/living/carbon/human/lesser/monkey
 
 /obj/effect/mob_spawn/human/monkey/pun
 	icon_state = "punpun1"
@@ -876,6 +877,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 /obj/effect/mob_spawn/human/monkey/farwa
 	icon_state = "tajkey1"
 	mob_species = /datum/species/monkey/tajaran
+	mob_type = /mob/living/carbon/human/lesser/farwa
 
 /obj/effect/mob_spawn/human/monkey/farwa/wizard
 	random = FALSE
@@ -886,11 +888,14 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 /obj/effect/mob_spawn/human/monkey/wolpin
 	icon_state = "wolfling"
 	mob_species = /datum/species/monkey/vulpkanin
+	mob_type = /mob/living/carbon/human/lesser/wolpin
 
 /obj/effect/mob_spawn/human/monkey/neara
 	icon_state = "skrellkey1"
 	mob_species = /datum/species/monkey/skrell
+	mob_type = /mob/living/carbon/human/lesser/neara
 
 /obj/effect/mob_spawn/human/monkey/stok
 	icon_state = "stokkey1"
 	mob_species = /datum/species/monkey/unathi
+	mob_type = /mob/living/carbon/human/lesser/stok

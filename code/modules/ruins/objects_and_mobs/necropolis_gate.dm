@@ -329,7 +329,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	fallen = new_fallen
 	var/static/list/give_turf_traits
 	if(!give_turf_traits)
-		give_turf_traits = string_list(list(TRAIT_LAVA_STOPPED, TRAIT_CHASM_STOPPED, TRAIT_TURF_IGNORE_SLOWDOWN))
+		give_turf_traits = string_list(list(TRAIT_LAVA_STOPPED, TRAIT_CHASM_STOPPED, TRAIT_TURF_IGNORE_SLOWDOWN, TRAIT_IMMERSE_STOPPED))
 	if(fallen)
 		RemoveElement(/datum/element/give_turf_traits, give_turf_traits)
 	else

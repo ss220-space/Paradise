@@ -3,12 +3,7 @@
 	. = ..(gibbed)
 	if(!.)
 		return FALSE
-	if(custom_sprite == 1)//check for custom AI sprite, defaulting to blue screen if no.
-		icon_state = "[ckey]-ai_dead"
-	else if(icon_exists_or_scream(icon, "[icon_state]_dead"))
-		icon_state = "[icon_state]_dead"
-	else
-		icon_state = "ai_dead"
+	update_appearance(UPDATE_ICON)
 	if(eyeobj)
 		eyeobj.setLoc(get_turf(src))
 	if(deployed_shell)
