@@ -2123,9 +2123,7 @@
 /obj/machinery/alarm/directional/south{
 	alarm_frequency = 1200
 	},
-/obj/structure/sink{
-	dir = 1
-	},
+/obj/structure/sink/directional/north,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -3590,18 +3588,11 @@
 	},
 /area/ruin/ussp_xeno/entrance)
 "YA" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = -26
 	},
-/obj/machinery/shower{
-	pixel_x = 23;
-	pixel_y = 20
-	},
+/obj/machinery/shower/directional/south,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment{
 	dir = 5

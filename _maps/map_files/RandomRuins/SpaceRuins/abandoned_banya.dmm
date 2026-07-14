@@ -10,10 +10,7 @@
 /area/ruin/ussp_space_banya)
 "aL" = (
 /obj/structure/curtain/open/shower,
-/obj/machinery/shower{
-	dir = 4;
-	pixel_y = 4
-	},
+/obj/machinery/shower/directional/east,
 /obj/item/soap/deluxe,
 /obj/item/bikehorn/rubberducky,
 /obj/effect/mist,
@@ -606,7 +603,7 @@
 	id_tag = "Bar";
 	name = "Bar Privacy Shutters"
 	},
-/obj/item/reagent_containers/glass/rag,
+/obj/item/rag,
 /obj/item/poster/random_contraband,
 /turf/simulated/floor/wood,
 /area/ruin/ussp_space_banya)
@@ -1124,10 +1121,7 @@
 /area/ruin/ussp_space_banya)
 "Yu" = (
 /obj/structure/curtain/open/shower,
-/obj/machinery/shower{
-	dir = 4;
-	pixel_y = 4
-	},
+/obj/machinery/shower/directional/east,
 /obj/item/soap,
 /obj/item/clothing/shoes/ducky,
 /obj/effect/decal/cleanable/dust,

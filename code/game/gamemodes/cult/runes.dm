@@ -61,10 +61,10 @@ To draw a rune, use a ritual dagger.
 	. = ..()
 	if(set_keyword)
 		keyword = set_keyword
-	var/image/blood = image(loc = src)
-	blood.override = 1
-	for(var/mob/living/silicon/ai/AI in GLOB.player_list)
-		AI.client.images += blood
+	var/image/I = image(icon = 'icons/effects/blood.dmi', icon_state = null, loc = src)
+	I.override = TRUE
+	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/silicons, "cult_runes", I)
+	ADD_TRAIT(src, TRAIT_MOPABLE, INNATE_TRAIT)
 
 /obj/effect/rune/examine(mob/user)
 	. = ..()
@@ -134,6 +134,15 @@ To draw a rune, use a ritual dagger.
 
 /obj/effect/rune/is_cleanable()
 	return TRUE
+
+/obj/effect/rune/wash_tg(clean_types)
+	. = ..()
+
+	if(!.)
+		return
+
+	qdel(src)
+	. |= COMPONENT_CLEANED|COMPONENT_CLEANED_GAIN_XP
 
 /*
 There are a few different procs each rune runs through when a cultist activates it.

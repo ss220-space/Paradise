@@ -6,9 +6,7 @@
 /turf/simulated/floor/indestructible/beach/water,
 /area/template_noop)
 "c" = (
-/obj/machinery/shower{
-	pixel_y = 24
-	},
+/obj/machinery/shower/directional/south,
 /obj/structure/window/reinforced/polarized{
 	dir = 4;
 	id = "room_s"
@@ -113,11 +111,7 @@
 	},
 /area/template_noop)
 "o" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = -28
 	},

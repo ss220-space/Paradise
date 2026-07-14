@@ -162,18 +162,11 @@
 /turf/simulated/floor/indestructible/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "aM" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/indestructible/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "aN" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/indestructible/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "aO" = (

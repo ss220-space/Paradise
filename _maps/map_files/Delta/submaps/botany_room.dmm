@@ -441,9 +441,7 @@
 	icon_state = "mirror_broke";
 	pixel_y = 32
 	},
-/obj/structure/sink{
-	pixel_y = 22
-	},
+/obj/structure/sink/directional/south,
 /obj/effect/decal/cleanable/blood,
 /obj/effect/spawner/random_spawners/cobweb_right_frequent,
 /turf/simulated/floor/plasteel{
@@ -506,9 +504,7 @@
 /area/station/maintenance/garden)
 "wX" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sink{
-	pixel_y = 22
-	},
+/obj/structure/sink/directional/south,
 /obj/structure/mirror{
 	pixel_y = 32
 	},

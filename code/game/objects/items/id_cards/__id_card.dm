@@ -85,6 +85,13 @@
 	UnregisterSignal(src, COMSIG_FREEZE_LINKED_ACCOUNT)
 	. = ..()
 
+/// Helper proc that determines if a card can be used in certain types of payment transactions.
+/obj/item/card/id/proc/can_be_used_in_payment(mob/living/user)
+	if(QDELETED(src) || isnull(get_money_account(associated_account_number)) || !isliving(user))
+		return FALSE
+
+	return TRUE
+
 /obj/item/card/id/proc/set_info()
 	if(ishuman(loc) && blood_type == "\[[DATA_NOT_SPECIFIED]\]")
 		var/mob/living/carbon/human/human = loc

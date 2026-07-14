@@ -521,3 +521,11 @@
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/anomaly_generator
 	category = list (CIRCUIT_IMPRINTER_CATEGORY_RESEARCH)
+
+/datum/design/portrait_printer
+	id = "portrait_printer"
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/portrait_printer
+	category = list (CIRCUIT_IMPRINTER_CATEGORY_COMPUTER)

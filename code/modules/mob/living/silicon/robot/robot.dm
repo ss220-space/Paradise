@@ -536,6 +536,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	for(var/obj/item/borg/upgrade/upgrade in upgrades) //remove all upgrades, cuz we reseting
 		qdel(upgrade)
 
+	module.on_remove(src)
+
 	QDEL_NULL(module)
 
 	camera?.network.Remove(list("Engineering", "Medical", "Mining Outpost"))
@@ -1597,63 +1599,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	eject_riders()
 	qdel(src)
 
-/mob/living/silicon/robot/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
-	var/oldLoc = src.loc
+/mob/living/silicon/robot/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
 	. = ..()
-
 	if(.)
-		if(camera && oldLoc != src.loc)
+		if(camera && old_loc != src.loc)
 			GLOB.cameranet.updatePortableCamera(src.camera)
-
-	if(module)
-		if(module.type == /obj/item/robot_module/janitor)
-			var/turf/tile = loc
-			if(stat != DEAD && isturf(tile))
-				var/floor_only = TRUE
-
-				for(var/A in tile)
-					if(iseffect(A))
-						var/obj/effect/check = A
-
-						if(check.is_cleanable())
-							var/obj/effect/decal/cleanable/blood/B = check
-
-							if(istype(B) && B.off_floor)
-								floor_only = FALSE
-
-							else
-								qdel(B)
-
-					else if(isitem(A))
-						var/obj/item/cleaned_item = A
-						cleaned_item.clean_blood()
-
-					else if(ishuman(A))
-						var/mob/living/carbon/human/cleaned_human = A
-
-						if(cleaned_human.body_position == LYING_DOWN)
-							if(cleaned_human.head)
-								cleaned_human.head.clean_blood()
-								cleaned_human.update_worn_head()
-
-							if(cleaned_human.wear_suit)
-								cleaned_human.wear_suit.clean_blood()
-								cleaned_human.update_worn_oversuit()
-
-							else if(cleaned_human.w_uniform)
-								cleaned_human.w_uniform.clean_blood()
-								cleaned_human.update_worn_undersuit()
-
-							if(cleaned_human.shoes)
-								cleaned_human.shoes.clean_blood()
-								cleaned_human.update_worn_shoes()
-
-							cleaned_human.clean_blood()
-							to_chat(cleaned_human, span_danger("[src] cleans your face!"))
-
-				if(floor_only)
-					tile.clean_blood()
-		return
 
 /mob/living/silicon/robot/proc/self_destruct()
 	apply_status_effect(/datum/status_effect/selfdestruct, src)
