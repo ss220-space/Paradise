@@ -28,9 +28,9 @@ BONUS
 /datum/symptom/shedding/Activate(datum/disease/virus/advance/A)
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB))
-		if(iskidan(target) || isskrell(target) || iswryn(target)) // no losing horns, antennae or tentacles
-			return
 		var/mob/living/M = A.affected_mob
+		if(HAS_TRAIT(M, TRAIT_NO_HAIR_LOSS))
+			return
 		to_chat(M, span_warning(pick("Вы ощущаете неприятный зуд в волосах.", "Ваша кожа шелушится.")))
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M

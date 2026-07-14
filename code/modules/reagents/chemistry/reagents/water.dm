@@ -595,7 +595,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	if(!ishuman(target))
 		return
 
-	if(iskidan(target) || isskrell(target) || iswryn(target)) // no losing horns, antennae or tentacles
+	if(HAS_TRAIT(target, TRAIT_NO_HAIR_LOSS))
 		return
 
 	if(!prob(3))

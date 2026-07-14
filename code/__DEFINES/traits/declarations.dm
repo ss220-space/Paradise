@@ -73,6 +73,8 @@
 #define TRAIT_WET_IMMUNITY "wet_immunity"
 /// This just means that the carbon will always have functional liverless metabolism
 #define TRAIT_LIVERLESS_METABOLISM "liverless_metabolism"
+/// Humanoid cannot lose their hair/antennae/horns and etc.
+#define TRAIT_NO_HAIR_LOSS "no_hair_loss"
 
 /// Makes the user handcuff others faster
 #define TRAIT_FAST_CUFFING "fast_cuffing"

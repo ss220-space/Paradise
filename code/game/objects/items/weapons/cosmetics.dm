@@ -184,14 +184,8 @@
 	if(head.h_style == "Bald" || head.h_style == "Balding Hair" || head.h_style == "Skinhead")
 		to_chat(user, span_notice("There is not enough hair left to shave..."))
 		return .
-	if(isskrell(target))
-		to_chat(user, span_warning("Your razor isn't going to cut through tentacles."))
-		return .
-	if(iskidan(target))
-		to_chat(user, span_warning("Your razor isn't going to cut through horns."))
-		return .
-	if(iswryn(target))
-		to_chat(user, span_warning("Your razor isn't going to cut through antennae."))
+	if(HAS_TRAIT(target, TRAIT_NO_HAIR_LOSS))
+		to_chat(user, span_warning("Your razor isn't going to cut through that."))
 		return .
 	if(target == user)
 		user.visible_message(
