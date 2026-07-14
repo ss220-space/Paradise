@@ -34,7 +34,7 @@
 	/// A reference to the toner cartridge that's inserted into the copier. Null if there is no cartridge.
 	var/obj/item/toner/toner_cartridge
 	/// Type path of toner this photocopier should starts with. Null if he should start without it.
-	var/obj/item/toner/starting_toner
+	var/obj/item/toner/starting_toner = /obj/item/toner
 
 	/// How long it takes to print something in seconds
 	var/time_to_print

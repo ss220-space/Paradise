@@ -62,10 +62,6 @@ GLOBAL_LIST_EMPTY(unit_test_tguis)
 	// failure tracking
 	var/succeeded = TRUE
 	var/list/allocated
-	/// The bottom left floor turf of the testing zone
-	var/turf/run_loc_floor_bottom_left
-	/// The top right floor turf of the testing zone
-	var/turf/run_loc_floor_top_right
 	var/list/fail_reasons
 
 /datum/unit_test/New()
@@ -118,6 +114,10 @@ GLOBAL_LIST_EMPTY(unit_test_tguis)
 	var/testing_area_name = "test_generic.dmm"
 	var/obj/effect/landmark/bottom_left
 	var/obj/effect/landmark/top_right
+	/// The bottom left floor turf of the testing zone
+	var/turf/run_loc_floor_bottom_left
+	/// The top right floor turf of the testing zone
+	var/turf/run_loc_floor_top_right
 
 /datum/unit_test/room_test/New()
 	. = ..()
@@ -149,8 +149,10 @@ GLOBAL_LIST_EMPTY(unit_test_tguis)
 	for(var/obj/effect/landmark in GLOB.landmarks_list)
 		if(istype(landmark, /obj/effect/landmark/unit_test/bottom_left_corner))
 			bottom_left = landmark
+			run_loc_floor_bottom_left = get_turf(landmark)
 		else if(istype(landmark, /obj/effect/landmark/unit_test/top_right_corner))
 			top_right = landmark
+			run_loc_floor_top_right = get_turf(landmark)
 
 	if(!(bottom_left && top_right))
 		TEST_FAIL("could not find test area landmarks")

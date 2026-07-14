@@ -103450,7 +103450,7 @@
 /area/station/security/prison/perma)
 "pWZ" = (
 /obj/machinery/photocopier{
-	toner = 0
+	starting_toner = null
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
