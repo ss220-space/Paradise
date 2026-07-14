@@ -517,6 +517,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/shower, (-16), (-16))
 				current_temperature = SHOWER_BOILING
 			if(SHOWER_BOILING)
 				current_temperature = SHOWER_NORMAL
+
 		user.visible_message(
 			span_notice("[user] adjusts the shower with [I]."),
 			span_notice("You adjust [src] to [current_temperature] temperature."),
@@ -641,7 +642,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/shower, (-16), (-16))
 /obj/machinery/shower/proc/convertHeat()
 	switch(current_temperature)
 		if(SHOWER_BOILING)
-			return SHOWER_NORMAL_TEMP
+			return SHOWER_BOILING_TEMP
 		if(SHOWER_NORMAL)
 			return SHOWER_NORMAL_TEMP
 		if(SHOWER_FREEZING)
