@@ -365,6 +365,11 @@ SUBSYSTEM_DEF(jobs)
 	for(var/mob/new_player/player in GLOB.player_list)
 		if(player.ready && player.mind && !player.mind.assigned_role)
 			unassigned += player
+			var/datum/preferences/prefs = player.client.prefs
+			if(prefs.alternate_option == RETURN_TO_LOBBY && !prefs.skip_antag)
+				prefs.final_alternate_option = BE_ASSISTANT
+			else
+				prefs.final_alternate_option = prefs.alternate_option
 
 	Debug("DO, Len: [length(unassigned)]")
 	if(length(unassigned) == 0)
@@ -411,7 +416,7 @@ SUBSYSTEM_DEF(jobs)
 
 	// Loop through all levels from high to low
 	var/list/shuffledoccupations = shuffle(occupations)
-	for(var/level = 1 to 3)
+	for(var/level in 1 to 3)
 		//Check the head jobs first each level
 		CheckHeadPositions(level)
 
@@ -468,7 +473,7 @@ SUBSYSTEM_DEF(jobs)
 	// Hand out random jobs to the people who didn't get any in the last check
 	// Also makes sure that they got their preference correct
 	for(var/mob/new_player/player in unassigned)
-		if(player.client.prefs.alternate_option == GET_RANDOM_JOB)
+		if(player.client.prefs.final_alternate_option == GET_RANDOM_JOB)
 			GiveRandomJob(player)
 
 	Debug("DO, Standard Check end")
@@ -478,7 +483,7 @@ SUBSYSTEM_DEF(jobs)
 	// Antags, who have to get in, come first
 	for(var/mob/new_player/player in unassigned)
 		if(player.mind.special_role)
-			if(player.client.prefs.alternate_option != BE_ASSISTANT)
+			if(player.client.prefs.final_alternate_option != BE_ASSISTANT)
 				GiveRandomJob(player)
 				if(player in unassigned)
 					AssignRole(player, JOB_TITLE_CIVILIAN)
@@ -487,10 +492,10 @@ SUBSYSTEM_DEF(jobs)
 
 	// Then we assign what we can to everyone else.
 	for(var/mob/new_player/player in unassigned)
-		if(player.client.prefs.alternate_option == BE_ASSISTANT)
+		if(player.client.prefs.final_alternate_option == BE_ASSISTANT)
 			Debug("AC2 Assistant located, Player: [player]")
 			AssignRole(player, JOB_TITLE_CIVILIAN)
-		else if(player.client.prefs.alternate_option == RETURN_TO_LOBBY)
+		else if(player.client.prefs.final_alternate_option == RETURN_TO_LOBBY)
 			to_chat(player, span_danger("Unfortunately, none of the round start roles you selected had a free slot. Please join the game by using \"Join Game!\" button and selecting a role with a free slot."))
 			player.ready = 0
 			unassigned -= player
