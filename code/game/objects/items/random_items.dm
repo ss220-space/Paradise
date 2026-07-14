@@ -11,20 +11,6 @@
 	new T(loc)
 	return INITIALIZE_HINT_QDEL
 
-// -------------------------------------
-//	Random cleanables, clearly this makes sense
-// -------------------------------------
-
-/obj/effect/decal/cleanable/random
-	name = "Random Mess"
-
-/obj/effect/decal/cleanable/random/Initialize(mapload)
-	. = ..()
-	var/list/list = subtypesof(/obj/effect/decal/cleanable) - list(/obj/effect/decal/cleanable/random,/obj/effect/decal/cleanable/cobweb,/obj/effect/decal/cleanable/cobweb2)
-	var/T = pick(list)
-	new T(loc)
-	return INITIALIZE_HINT_QDEL
-
 /obj/item/stack/sheet/animalhide/random
 	name = "random animal hide"
 

@@ -73,7 +73,7 @@
 
 /obj/machinery/kitchen_machine/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
-		if(istype(I, /obj/item/reagent_containers))
+		if(is_reagent_container(I))
 			return ..() | ATTACK_CHAIN_NO_AFTERATTACK
 		return ..()
 
@@ -270,6 +270,15 @@
 
 /obj/machinery/kitchen_machine/on_deconstruction()
 	dropContents()
+
+/obj/machinery/kitchen_machine/wash_tg(clean_types)
+	. = ..()
+	if(operating || !(clean_types & CLEAN_SCRUB))
+		return .
+
+	dirty = 0
+	update_appearance()
+	. |= COMPONENT_CLEANED|COMPONENT_CLEANED_GAIN_XP
 
 /********************
 *   Machine Menu	*

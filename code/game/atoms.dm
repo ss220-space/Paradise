@@ -229,6 +229,7 @@
 
 	VAR_PRIVATE/list/invisibility_sources
 	VAR_PRIVATE/current_invisibility_priority = -INFINITY
+	var/datum/debris_handler/debris_handler = null
 
 /atom/proc/onCentcom()
 	. = FALSE
@@ -435,6 +436,7 @@
 
 /atom/proc/bullet_act(obj/projectile/P, def_zone)
 	SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
+	debris_handler?.on_impact(src, P)
 	. = P.on_hit(src, 0, def_zone)
 
 /atom/proc/in_contents_of(container)//can take class or object instance as argument
@@ -1053,71 +1055,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 			GLOB.blood_splatter_icons["[blood_color]"] = params
 		add_filter("blood_splatter", 1, params)
 
-/atom/proc/clean_blood()
-	germ_level = 0
-	if(islist(blood_DNA))
-		blood_DNA = null
-		return TRUE
-
-/obj/effect/decal/cleanable/blood/clean_blood()
-	return // While this seems nonsensical, clean_blood isn't supposed to be used like this on a blood decal.
-
-/obj/item/clean_blood()
-	. = ..()
-	if(.)
-		if(initial(icon) && initial(icon_state))
-			remove_filter("blood_splatter")
-
-/obj/item/clothing/gloves/clean_blood()
-	. = ..()
-	if(.)
-		transfer_blood = 0
-
-/obj/item/clothing/shoes/clean_blood()
-	..()
-	bloody_shoes = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_NOT_BLOODY = 0)
-	blood_state = BLOOD_STATE_NOT_BLOODY
-	if(ismob(loc))
-		var/mob/M = loc
-		M.update_worn_shoes()
-
-/mob/living/carbon/human/clean_blood(clean_hands = TRUE, clean_mask = TRUE, clean_feet = TRUE)
-	if(w_uniform && !(wear_suit && wear_suit.flags_inv & HIDEJUMPSUIT))
-		if(w_uniform.clean_blood())
-			update_worn_undersuit()
-	if(gloves && !(wear_suit && wear_suit.flags_inv & HIDEGLOVES))
-		if(gloves.clean_blood())
-			update_worn_gloves()
-			gloves.germ_level = 0
-			clean_hands = FALSE
-	if(shoes && !(wear_suit && wear_suit.flags_inv & HIDESHOES))
-		if(shoes.clean_blood())
-			update_worn_shoes()
-			clean_feet = FALSE
-	if(s_store && !(wear_suit && wear_suit.flags_inv & HIDESUITSTORAGE))
-		if(s_store.clean_blood())
-			update_suit_storage()
-	if(lip_style && !(head && head.flags_inv & HIDEMASK))
-		lip_style = null
-		update_body()
-	if(glasses && !(wear_mask && wear_mask.flags_inv & HIDEGLASSES))
-		if(glasses.clean_blood())
-			update_worn_glasses()
-	if(l_ear && !(wear_mask && wear_mask.flags_inv & HIDEHEADSETS))
-		if(l_ear.clean_blood())
-			update_worn_ears()
-	if(r_ear && !(wear_mask && wear_mask.flags_inv & HIDEHEADSETS))
-		if(r_ear.clean_blood())
-			update_worn_ears()
-	if(belt)
-		if(belt.clean_blood())
-			update_worn_belt()
-	if(neck)
-		if(neck.clean_blood())
-			update_worn_neck()
-	..(clean_hands, clean_mask, clean_feet)
-	update_icons() //apply the now updated overlays to the mob
-
 /atom/proc/add_vomit_floor(toxvomit = FALSE, green = FALSE)
 	playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
 	if(!isspaceturf(src))
@@ -1499,7 +1436,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
  * * Gravity if there's a gravity generator on the z level
  * * otherwise no gravity
  */
-/atom/proc/get_gravity(turf/gravity_turf)
+/atom/proc/has_gravity(turf/gravity_turf)
 	if(!isnull(GLOB.gravity_is_on)) // global admin override
 		return GLOB.gravity_is_on
 
@@ -1511,9 +1448,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 	if(check_level_trait(gravity_turf.z, ZTRAIT_GRAVITY))
 		return TRUE
-
-	if(gravity_turf.force_no_gravity)
-		return FALSE
 
 	var/list/forced_gravity = list()
 
@@ -1534,6 +1468,8 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	var/list/gravity_deltas = list()
 
 	var/area/turf_area = gravity_turf.loc
+	if(turf_area.area_flags & NO_GRAVITY)
+		return FALSE
 
 	if(turf_area.has_gravity || !turf_area.ignore_gravgen && length(GLOB.gravity_generators["[gravity_turf.z]"]) && !(GRAVITY_SOURCE_GRAVGEN in ignored_gravity_sources))
 		gravity_deltas.Add(1)
@@ -1548,7 +1484,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	return result_gravity
 
 /atom/proc/no_gravity(turf/gravity_turf)
-	return abs(get_gravity(gravity_turf)) <= NO_GRAVITY
+	return abs(has_gravity(gravity_turf)) <= NO_GRAVITY
 
 /atom/proc/get_external_loc()
 	var/atom/ext_loc = src
@@ -1734,6 +1670,10 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(.)
 		return
 
+	germ_level = 0
+	if(islist(blood_DNA))
+		blood_DNA = null
+
 	// Basically "if has washable coloration"
 	if(length(atom_colours) >= WASHABLE_COLOUR_PRIORITY && atom_colours[WASHABLE_COLOUR_PRIORITY])
 		remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
@@ -1744,3 +1684,11 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/container_resist_act(mob/living/user)
 	return
 
+/**
+ * Sends [COMSIG_ATOM_EXTINGUISH] signal, which properly removes burning component if it is present.
+ *
+ * Default behaviour is to send [COMSIG_ATOM_ACID_ACT] and return
+ */
+/atom/proc/extinguish()
+	SHOULD_CALL_PARENT(TRUE)
+	return SEND_SIGNAL(src, COMSIG_ATOM_EXTINGUISH)

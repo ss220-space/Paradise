@@ -14,7 +14,7 @@
 	smooth = SMOOTH_BITMASK
 	smoothing_groups = SMOOTH_GROUP_LATTICE
 	obj_flags = BLOCK_Z_OUT_DOWN | BLOCK_Z_IN_UP
-	var/list/give_turf_traits = list(TRAIT_CHASM_STOPPED)
+	var/list/give_turf_traits = list(TRAIT_CHASM_STOPPED, TRAIT_IMMERSE_STOPPED)
 
 /obj/structure/lattice/Initialize(mapload)
 	. = ..()
@@ -134,7 +134,7 @@
 	number_of_rods = 2
 	canSmoothWith = SMOOTH_GROUP_CATWALK
 	smoothing_groups = SMOOTH_GROUP_CATWALK
-	give_turf_traits = list(TRAIT_CHASM_STOPPED, TRAIT_TURF_IGNORE_SLOWDOWN)
+	give_turf_traits = list(TRAIT_CHASM_STOPPED, TRAIT_TURF_IGNORE_SLOWDOWN, TRAIT_IMMERSE_STOPPED)
 
 /obj/structure/lattice/catwalk/deconstruction_hints(mob/user)
 	to_chat(user, span_notice("The supporting rods look like they could be <b>cut</b>."))

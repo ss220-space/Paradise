@@ -15,6 +15,7 @@
 	item_flags = SLOWS_WHILE_IN_HAND
 	slot_flags = ITEM_SLOT_BACK
 	weapon_weight = WEAPON_HEAVY
+	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 
 	var/draw_sound = 'sound/weapons/bows/bow_pull.ogg'
 	var/ready_to_fire = FALSE
