@@ -93,11 +93,9 @@ GLOBAL_LIST_EMPTY(unit_test_tguis)
 /// Instances allocated through this proc will be destroyed when the test is over
 /datum/unit_test/proc/allocate(type, ...)
 	var/list/arguments = args.Copy(2)
-	if(ispath(type, /atom))
-		if(!length(arguments))
-			arguments = list(pick(get_available_turfs()))
-		else if(arguments[1] == null)
-			arguments[1] = pick(get_available_turfs())
+
+	arguments = update_atom_args(type, arguments)
+
 	var/instance
 	// Byond will throw an index out of bounds if arguments is empty in that arglist call. Sigh
 	if(length(arguments))
@@ -106,6 +104,14 @@ GLOBAL_LIST_EMPTY(unit_test_tguis)
 		instance = new type()
 	LAZYADD(allocated, instance)
 	return instance
+
+/datum/unit_test/proc/update_atom_args(type, list/arguments)
+	if(ispath(type, /atom))
+		if(!length(arguments))
+			return list(pick(get_available_turfs()))
+		else if(arguments[1] == null)
+			arguments[1] = pick(get_available_turfs())
+	return arguments
 
 /datum/unit_test/room_test
 	var/list/available_turfs
@@ -129,6 +135,14 @@ GLOBAL_LIST_EMPTY(unit_test_tguis)
 	// doesn't end up seeing them if it tries to load a new map
 	qdel(bottom_left)
 	qdel(top_right)
+
+/datum/unit_test/room_test/update_atom_args(type, list/arguments)
+	if(ispath(type, /atom))
+		if(!length(arguments))
+			return list(run_loc_floor_bottom_left)
+		else if(arguments[1] == null)
+			arguments[1] = run_loc_floor_bottom_left
+	return arguments
 
 /datum/unit_test/room_test/get_available_turfs()
 	return available_turfs
