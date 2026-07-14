@@ -70,6 +70,8 @@
 			step_away(src, user, 15)
 
 /mob/living/silicon/robot/bullet_act(obj/projectile/P)
+	if(module_active && iscyborgmobilitymodule(module_active))
+		return ..(P)
 	if(!reflection_type || !reflectable)
 		return ..(P)
 	if((!istype(P) || !P.is_reflectable(reflection_type) || !P.starting))

@@ -894,7 +894,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			return ATTACK_CHAIN_PROCEED
 
 		if(!radio) //sanityyyyyy
-			balloon_alert(user, "радио отсуствует")
+			balloon_alert(user, "радио отсутствует")
 			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return ATTACK_CHAIN_PROCEED
 
@@ -913,7 +913,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(user, span_danger("кажется, айди-замок сломан"))
 
 		if(!allowed(I))
-			balloon_alert(user, "отказно в доступе")
+			balloon_alert(user, "отказано в доступе")
 			playsound(src, SFX_BUTTON_DENIED, YEET_SOUND_VOLUME, use_reverb = TRUE)
 			return ATTACK_CHAIN_PROCEED
 
@@ -955,7 +955,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			return ATTACK_CHAIN_PROCEED
 
 		if(!mmi)
-			balloon_alert(user, "мми отсуствует")
+			balloon_alert(user, "мми отсутствует")
 			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return ATTACK_CHAIN_PROCEED
 
@@ -1031,7 +1031,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(radio)
 			radio.screwdriver_act(user, I)//Push it to the radio to let it handle everything
 		else
-			balloon_alert(user, "радио отсуствует")
+			balloon_alert(user, "радио отсутствует")
 			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 
 		update_icons()
@@ -1076,6 +1076,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 		balloon_alert(user, "деконструкция начата")
 		if(I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
+			if(cell || !wiresexposed || !wires.is_all_cut() || (!mmi && !shell))
+				user.balloon_alert(user, "не удалось")
+				SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
+				return
 			user.visible_message("[user] разбир[PLUR_ET_UT(user)] [src]!", span_notice("Вы снимаете поддерживающие заклёпки, и [src] разваливается на составные части!"))
 			deconstruct()
 
@@ -1129,7 +1133,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	. = TRUE
 	if(!getBruteLoss())
-		balloon_alert(user, "вмятины отсуствуют")
+		balloon_alert(user, "вмятины отсутствуют")
 		SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 		return .
 
@@ -1159,7 +1163,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		to_chat(user, span_clocklarge("Убери свои грязные руки от моего слуги."))
 		if(isrobot(user))
 			return
-		to_chat(user, span_danger("Вы попытались провести криптографическим секвенсором по адаптеру [src], но он просто вылетел из ваших рук, движемый неизвестной и невероятно мощной магией."))
+		to_chat(user, span_danger("Вы попытались провести криптографическим секвенсором по адаптеру [src], но он просто вылетел из ваших рук, движимый неизвестной и невероятно мощной магией."))
 		if(!iscarbon(user))
 			return
 		var/mob/living/carbon/carbon = user
@@ -1190,7 +1194,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			return//Prevents the X has hit Y with Z message also you cant emag them twice
 
 		if(wiresexposed)
-			balloon_alert(user, "внутреняя панель открыта")
+			balloon_alert(user, "внутренняя панель открыта")
 			return
 
 		if(shell)
@@ -2054,7 +2058,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(base_icon == "")
 		base_icon = icon_state
 
-	if(module_active && istype(module_active,/obj/item/borg/destroyer/mobility))
+	if(module_active && iscyborgmobilitymodule(module_active))
 		icon_state = "[base_icon]-roll"
 
 	else
@@ -2166,6 +2170,23 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 							playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, TRUE)
 
 						to_chat(src, span_userdanger("CRITICAL ERROR: All modules OFFLINE."))
+
+/mob/living/silicon/robot/is_buckle_possible(mob/living/target, force, check_loc)
+	if(!target)
+		return FALSE
+	if(module_active && iscyborgmobilitymodule(module_active))
+		return FALSE
+	if(is_simple_animal(target) || is_monkeybasic(target))
+		return FALSE
+	..()
+
+/mob/living/silicon/robot/post_buckle_mob(mob/living/target)
+	. = ..()
+	add_movespeed_modifier(/datum/movespeed_modifier/human_carry)
+
+/mob/living/silicon/robot/post_unbuckle_mob(mob/living/target)
+	. = ..()
+	remove_movespeed_modifier(/datum/movespeed_modifier/human_carry)
 
 /mob/living/silicon/robot/proc/toggle_seat(/datum/action/innate/action)
 	can_buckle = !can_buckle

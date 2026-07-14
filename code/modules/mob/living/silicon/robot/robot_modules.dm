@@ -140,21 +140,19 @@
 
 /// Installs default set of upgrades, that every ERT-borg must have. Also used by ninjaborg
 /obj/item/robot_module/proc/install_ert_upgrades(mob/living/silicon/robot/robot)
-	var/obj/item/borg/upgrade/vtec/vtec = new(robot)
-	if(!robot.install_upgrade(vtec))
-		qdel(vtec)
-	var/obj/item/borg/upgrade/magboots/magboots = new(robot)
-	if(!robot.install_upgrade(magboots))
-		qdel(magboots)
-	var/obj/item/borg/upgrade/selfrepair/selfrepair = new(robot)
-	if(!robot.install_upgrade(selfrepair))
-		qdel(selfrepair)
-	var/obj/item/borg/upgrade/thrusters/thrusters = new(robot)
-	if(!robot.install_upgrade(thrusters))
-		qdel(thrusters)
-	var/obj/item/borg/upgrade/mounted_seat/mounted_seat = new(robot)
-	if(!robot.install_upgrade(mounted_seat))
-		qdel(mounted_seat)
+	var/static/list/ert_upgrades = list(
+		/obj/item/borg/upgrade/vtec,
+		/obj/item/borg/upgrade/magboots,
+		/obj/item/borg/upgrade/selfrepair,
+		/obj/item/borg/upgrade/thrusters,
+		/obj/item/borg/upgrade/mounted_seat,
+	)
+	for(var/upgrade_path in ert_upgrades)
+		if(locate(upgrade_path) in robot.upgrades)
+			return
+		var/obj/item/borg/upgrade/upgrade = new upgrade_path(robot)
+		if(!robot.install_upgrade(upgrade))
+			qdel(upgrade)
 
 // Return true in an overridden subtype to prevent normal removal handling
 /obj/item/robot_module/proc/handle_custom_removal(component_id, mob/living/user, obj/item/W)
