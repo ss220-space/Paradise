@@ -107,19 +107,19 @@
 	var/obj/item/watertank/tank
 
 /obj/item/reagent_containers/spray/mister/Initialize(mapload)
-	. = ..()
-	if(check_tank_exists(loc, usr, src))
-		tank = loc
-		reagents = tank.reagents	//This mister is really just a proxy for the tank's reagents
-		loc = tank
-	return
+	if(!check_tank_exists(loc, usr, src))
+		return INITIALIZE_HINT_QDEL
+	tank = loc
+	reagents = tank.reagents	//This mister is really just a proxy for the tank's reagents
+	return ..()
 
 /obj/item/reagent_containers/spray/mister/Destroy()
 	if(tank)
 		tank.remove_noz()
 		tank.noz = null
 	tank = null
-	. = ..()
+	reagents = null // Unset, this is the tanks reagents
+	return ..()
 
 /obj/item/reagent_containers/spray/mister/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
@@ -132,9 +132,6 @@
 
 /proc/check_tank_exists(parent_tank, mob/living/carbon/M, obj/O)
 	if(!parent_tank || !istype(parent_tank, /obj/item/watertank))	//To avoid weird issues from admin spawns
-		if(istype(M))
-			M.temporarily_remove_item_from_inventory(O)
-		qdel(O)
 		return FALSE
 	else
 		return TRUE
@@ -232,22 +229,18 @@
 	var/nanofrost_cooldown = 0
 
 /obj/item/extinguisher/mini/nozzle/Initialize(mapload)
-	. = ..()
-	if(check_tank_exists(loc, usr, src))
-		tank = loc
-		qdel(reagents)
-		reagents = tank.reagents
-		max_water = tank.volume
-		loc = tank
-
-/obj/item/extinguisher/mini/nozzle/Initialize(mapload)
-	. = ..()
+	if(!check_tank_exists(loc, usr, src))
+		return INITIALIZE_HINT_QDEL
+	tank = loc
+	reagents = tank.reagents
+	max_water = tank.volume
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+	return ..()
 
 /obj/item/extinguisher/mini/nozzle/Destroy()
 	tank = null
 	reagents = null
-	. = ..()
+	return ..()
 
 /obj/item/extinguisher/mini/nozzle/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()

@@ -195,7 +195,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	QDEL_NULL(files)
 	QDEL_NULL(t_disk)
 	QDEL_NULL(d_disk)
-	matching_designs.Cut()
+	LAZYCLEARLIST(matching_designs)
 	if(linked_destroy)
 		linked_destroy.linked_console = null
 		linked_destroy = null

@@ -239,9 +239,6 @@
 
 	light_color = icon_light_color[src.icon_state]
 
-	if(blocks_emissive)
-		add_overlay(get_emissive_block())
-
 /obj/spacepod/bullet_act(obj/projectile/P)
 	. = P.on_hit(src)
 	if(P.damage_type == BRUTE || P.damage_type == BURN)

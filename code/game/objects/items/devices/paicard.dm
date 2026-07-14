@@ -182,7 +182,7 @@
 			pai.master_dna = dna.unique_enzymes
 			var/list/message_box = list()
 			message_box.Add(span_notice("<b>Обнаружен новый мастер: [pai.master]!</b>"))
-			to_chat(pai, chat_box_notice(message_box.Join("<br>")))
+			to_chat(pai, custom_boxed_message("blue_box", message_box.Join("<br>")))
 
 	if(href_list["request"])
 		var/delta = (world.time / 10) - last_request
@@ -251,15 +251,13 @@
 	else if(upgrade)
 		welcome_message.Add(span_warning("<b>Будучи СпИИ, вы имеете доступ к особым программам, а так же доступ к зашифрованному каналу связи \"Синдиката\" — :t</b>"))
 
-	to_chat(pai, chat_box_notice(welcome_message.Join("<br>")))
+	to_chat(pai, custom_boxed_message("blue_box", welcome_message.Join("<br>")))
 
 /obj/item/paicard/proc/removePersonality()
 	extinguish_light(TRUE)
 	pai = null
 	cut_overlays()
 	add_overlay("pai-off")
-	if(blocks_emissive)
-		add_overlay(get_emissive_block())
 	QDEL_LIST(upgrades)
 
 /obj/item/paicard/proc/setEmotion(emotion)
@@ -290,8 +288,6 @@
 				add_overlay("pai-spaic")
 			if(12)
 				add_overlay("pai-spaiv")
-		if(blocks_emissive)
-			add_overlay(get_emissive_block())
 		current_emotion = emotion
 
 /obj/item/paicard/proc/alertUpdate()

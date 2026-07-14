@@ -70,7 +70,7 @@
 
 #define TOGGLES_2_TOTAL 16777215 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
-#define TOGGLES_2_DEFAULT (PREFTOGGLE_2_FANCYUI|PREFTOGGLE_2_ITEMATTACK|PREFTOGGLE_2_WINDOWFLASHING|PREFTOGGLE_2_RUNECHAT|PREFTOGGLE_2_DEATHMESSAGE|PREFTOGGLE_2_SEE_ITEM_OUTLINES|PREFTOGGLE_2_AUTO_AIM_MEDICINE|PREFTOGGLE_2_PARALLAX_MULTIZ|PREFTOGGLE_2_SWAP_INPUT_BUTTONS|PREFTOGGLE_2_LARGE_INPUT_BUTTONS)
+#define TOGGLES_2_DEFAULT (PREFTOGGLE_2_FANCYUI|PREFTOGGLE_2_ITEMATTACK|PREFTOGGLE_2_WINDOWFLASHING|PREFTOGGLE_2_RUNECHAT|PREFTOGGLE_2_DEATHMESSAGE|PREFTOGGLE_2_SEE_ITEM_OUTLINES|PREFTOGGLE_2_AUTO_AIM_MEDICINE|PREFTOGGLE_2_PARALLAX_MULTIZ|PREFTOGGLE_2_SWAP_INPUT_BUTTONS|PREFTOGGLE_2_LARGE_INPUT_BUTTONS|PREFTOGGLE_2_MC_TAB)
 
 // Sanity checks
 #if TOGGLES_TOTAL > 16777215
@@ -151,14 +151,12 @@
 
 #define AGE_SHEET list(SPECIES_AGE_MIN = 18, SPECIES_AGE_MAX = 85, JOB_MIN_AGE_HIGH_ED = 30, JOB_MIN_AGE_COMMAND = 30)
 
-// Defines just for parallax because its levels make storing it in the regular prefs a pain in the ass
-// These dont need to be bitflags because there isnt going to be more than one at a time of these active
-// But its gonna piss off my OCD if it isnt bitflags, so deal with it, -affected
-#define PARALLAX_DISABLE 1
-#define PARALLAX_LOW 2
-#define PARALLAX_MED 4
-#define PARALLAX_HIGH 8
-#define PARALLAX_INSANE 16
+#define PARALLAX_DISABLE (1<<0)
+#define PARALLAX_BOOMER (1<<1)
+#define PARALLAX_LOW (1<<2)
+#define PARALLAX_MED (1<<3)
+#define PARALLAX_HIGH (1<<4)
+#define PARALLAX_INSANE (1<<5)
 
 // Defines for how detailed multi-z is.
 // The lower values should improve perfomance

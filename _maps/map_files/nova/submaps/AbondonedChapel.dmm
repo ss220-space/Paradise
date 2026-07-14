@@ -9,7 +9,7 @@
 	pixel_x = -32
 	},
 /turf/simulated/floor/bluegrid,
-/area/maintenance/server)
+/area/station/maintenance/server)
 "am" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
@@ -17,7 +17,7 @@
 	},
 /obj/structure/chair/wood,
 /turf/simulated/floor/plating,
-/area/maintenance/club)
+/area/station/maintenance/club)
 "as" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -27,13 +27,13 @@
 	dir = 10;
 	icon_state = "darkpurple"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "ax" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak-broken3"
 	},
-/area/maintenance/club)
+/area/station/maintenance/club)
 "aL" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	dir = 4
@@ -45,17 +45,17 @@
 /obj/item/chair/wood/wings,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/club)
+/area/station/maintenance/club)
 "aS" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/rat,
 /turf/simulated/floor/plating,
-/area/maintenance/club)
+/area/station/maintenance/club)
 "bD" = (
 /obj/machinery/computer/slot_machine,
 /obj/effect/spawner/random_spawners/cobweb_right_rare,
 /turf/simulated/floor/plating,
-/area/maintenance/club)
+/area/station/maintenance/club)
 "bN" = (
 /obj/item/deck/cards{
 	pixel_x = -5;
@@ -65,7 +65,7 @@
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
 	},
-/area/maintenance/club)
+/area/station/maintenance/club)
 "bW" = (
 /obj/structure/chair/office/dark,
 /obj/effect/decal/cleanable/dirt,
@@ -73,7 +73,7 @@
 	dir = 4;
 	icon_state = "darkpurple"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "cy" = (
 /obj/structure/chair/wood,
 /obj/effect/decal/cleanable/dust,
@@ -83,7 +83,7 @@
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
 	},
-/area/maintenance/club)
+/area/station/maintenance/club)
 "cP" = (
 /obj/item/chair/wood/wings{
 	dir = 1
@@ -93,7 +93,7 @@
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
 	},
-/area/maintenance/club)
+/area/station/maintenance/club)
 "dh" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	dir = 1
@@ -102,7 +102,7 @@
 	dir = 4
 	},
 /turf/simulated/wall,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "dy" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/nova/AbondonedChapel,
 /turf/template_noop,
@@ -125,7 +125,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "ep" = (
 /obj/structure/table,
 /obj/machinery/constructable_frame/machine_frame,
@@ -133,7 +133,7 @@
 	dir = 1;
 	icon_state = "darkpurple"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "eB" = (
 /obj/structure/reagent_dispensers/beerkeg{
 	pixel_y = 5
@@ -145,7 +145,7 @@
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak-broken"
 	},
-/area/maintenance/club)
+/area/station/maintenance/club)
 "eR" = (
 /obj/machinery/light_construct{
 	dir = 4
@@ -158,13 +158,13 @@
 	dir = 4;
 	icon_state = "darkpurple"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "ft" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden{
 	dir = 4
 	},
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "fu" = (
 /obj/machinery/light{
 	dir = 8
@@ -174,7 +174,7 @@
 	dir = 8;
 	icon_state = "darkpurple"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "fN" = (
 /obj/structure/chair/wood{
 	dir = 4
@@ -183,18 +183,18 @@
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak-broken3"
 	},
-/area/maintenance/club)
+/area/station/maintenance/club)
 "fP" = (
 /obj/machinery/constructable_frame/machine_frame,
 /obj/item/stack/cable_coil,
 /turf/simulated/floor/bluegrid,
-/area/maintenance/server)
+/area/station/maintenance/server)
 "gp" = (
 /obj/effect/spawner/random_spawners/oil_20,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "gO" = (
 /obj/structure/chair/wood,
 /obj/structure/sign/poster/contraband/smoke{
@@ -207,20 +207,20 @@
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
 	},
-/area/maintenance/club)
+/area/station/maintenance/club)
 "gW" = (
 /obj/item/trash/popcorn,
 /obj/item/trash/semki,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "hi" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	dir = 4
 	},
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
 /turf/simulated/wall,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "hp" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 2
@@ -238,7 +238,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "hN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 10
@@ -251,7 +251,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "ig" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/structure/table,
@@ -261,7 +261,7 @@
 	pixel_y = 4
 	},
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "ik" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -276,7 +276,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "jp" = (
 /obj/item/reagent_containers/food/drinks/shaker,
 /obj/item/reagent_containers/dropper,
@@ -285,7 +285,7 @@
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
 	},
-/area/maintenance/club)
+/area/station/maintenance/club)
 "jv" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance/double,
@@ -298,7 +298,7 @@
 	dir = 5;
 	icon_state = "darkpurple"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "jw" = (
 /obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
@@ -306,7 +306,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "jA" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -315,7 +315,7 @@
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
 	},
-/area/maintenance/club)
+/area/station/maintenance/club)
 "jC" = (
 /obj/item/paper,
 /obj/item/paper{
@@ -327,7 +327,7 @@
 	dir = 9;
 	icon_state = "darkpurple"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "jD" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -336,11 +336,11 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "jK" = (
 /obj/effect/spawner/random_spawners/fungus_70,
 /turf/simulated/wall,
-/area/maintenance/club)
+/area/station/maintenance/club)
 "kC" = (
 /obj/effect/spawner/random_spawners/rat,
 /obj/effect/decal/cleanable/dirt,
@@ -348,7 +348,7 @@
 	dir = 6;
 	icon_state = "darkpurple"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "kG" = (
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-dead"
@@ -357,13 +357,13 @@
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak-broken"
 	},
-/area/maintenance/club)
+/area/station/maintenance/club)
 "kP" = (
 /obj/machinery/computer/old_frame/server/rackframe{
 	name = "Old Server"
 	},
 /turf/simulated/floor/bluegrid,
-/area/maintenance/server)
+/area/station/maintenance/server)
 "kT" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -375,7 +375,7 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/club)
+/area/station/maintenance/club)
 "li" = (
 /obj/item/stock_parts/cell/potato,
 /obj/item/trash/tastybread{
@@ -387,16 +387,16 @@
 	},
 /obj/item/trash/raisins,
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "ls" = (
 /obj/machinery/firealarm/directional/east,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "lx" = (
 /turf/simulated/wall/rust,
-/area/maintenance/club)
+/area/station/maintenance/club)
 "lL" = (
 /obj/item/trash/candy,
 /obj/item/trash/chips{
@@ -412,25 +412,25 @@
 	dir = 2
 	},
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "lO" = (
 /obj/machinery/atmospherics/trinary/mixer{
 	dir = 1
 	},
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "mt" = (
 /obj/effect/spawner/random_spawners/rat,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "mA" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/club)
+/area/station/maintenance/club)
 "mF" = (
 /obj/item/clothing/mask/cigarette,
 /obj/item/clothing/mask/cigarette{
@@ -441,7 +441,7 @@
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
 	},
-/area/maintenance/club)
+/area/station/maintenance/club)
 "nL" = (
 /obj/structure/table,
 /obj/machinery/computer/library/public{
@@ -453,14 +453,14 @@
 	dir = 10;
 	icon_state = "darkpurple"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "nM" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
 /obj/machinery/portable_atmospherics/canister,
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "nQ" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -468,11 +468,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "oc" = (
 /obj/effect/spawner/random_spawners/wall_rusted_70,
 /turf/simulated/wall,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "op" = (
 /obj/structure/chair/office/dark{
 	dir = 1
@@ -482,7 +482,7 @@
 	dir = 5;
 	icon_state = "darkpurple"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "oq" = (
 /obj/machinery/computer/library/public,
 /obj/structure/table,
@@ -491,7 +491,7 @@
 	dir = 1;
 	icon_state = "darkpurple"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "oJ" = (
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
 	pixel_x = 9;
@@ -499,14 +499,14 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/club)
+/area/station/maintenance/club)
 "oK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/official/random{
 	pixel_x = -32
 	},
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "py" = (
 /obj/item/trash/pistachios,
 /obj/item/trash/can{
@@ -520,14 +520,14 @@
 	dir = 2
 	},
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "pF" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	dir = 4
 	},
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
 /turf/simulated/wall,
-/area/maintenance/club)
+/area/station/maintenance/club)
 "pY" = (
 /obj/item/trash/waffles{
 	pixel_x = -14;
@@ -543,19 +543,19 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "qi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "qV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 6
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "rv" = (
 /obj/machinery/computer/library/public,
 /obj/structure/table,
@@ -565,10 +565,10 @@
 	dir = 9;
 	icon_state = "darkpurple"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "rx" = (
 /turf/simulated/wall,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "rL" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -579,7 +579,7 @@
 	},
 /obj/effect/turf_decal/delivery/red,
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "rT" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	dir = 1
@@ -598,7 +598,7 @@
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
 	},
-/area/maintenance/club)
+/area/station/maintenance/club)
 "sO" = (
 /obj/item/reagent_containers/food/drinks/drinkingglass{
 	pixel_x = -10;
@@ -625,7 +625,7 @@
 	},
 /obj/structure/table/wood/fancy/red,
 /turf/simulated/floor/plating,
-/area/maintenance/club)
+/area/station/maintenance/club)
 "tj" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/effect/decal/remains/mouse,
@@ -638,14 +638,14 @@
 	icon_state = "small"
 	},
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "ut" = (
 /obj/machinery/vending/cigarette,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
 	},
-/area/maintenance/club)
+/area/station/maintenance/club)
 "vR" = (
 /obj/machinery/light_construct{
 	dir = 4
@@ -657,7 +657,7 @@
 	name = "Old Server"
 	},
 /turf/simulated/floor/bluegrid,
-/area/maintenance/server)
+/area/station/maintenance/server)
 "wn" = (
 /obj/structure/table,
 /obj/item/folder/yellow,
@@ -666,7 +666,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurple"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "wp" = (
 /obj/item/clothing/gloves/color/fyellow{
 	pixel_y = -8
@@ -675,7 +675,7 @@
 	dir = 4;
 	icon_state = "darkblue"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "wP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
@@ -685,7 +685,7 @@
 	dir = 4
 	},
 /turf/simulated/wall,
-/area/maintenance/club)
+/area/station/maintenance/club)
 "yh" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -694,23 +694,23 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurple"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "yu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/wall_rusted_70,
 /turf/simulated/wall,
-/area/maintenance/club)
+/area/station/maintenance/club)
 "yL" = (
 /obj/structure/barricade/wooden,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "yM" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/club)
+/area/station/maintenance/club)
 "yO" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -720,7 +720,7 @@
 	dir = 4;
 	icon_state = "darkblue"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "yV" = (
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "burn";
@@ -733,11 +733,11 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "zp" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "zJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/map_effect/marker/mapmanip/submap/extract/nova/AbondonedChapel,
@@ -748,7 +748,7 @@
 /obj/item/trash/plate,
 /obj/item/toy/figure/clown,
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "Bd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -765,7 +765,7 @@
 	req_access = list(12,24,39)
 	},
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "Be" = (
 /obj/effect/decal/cleanable/glass,
 /obj/effect/decal/cleanable/generic,
@@ -782,7 +782,7 @@
 	dir = 8;
 	icon_state = "darkblue"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "Bh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
@@ -805,7 +805,7 @@
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
 	},
-/area/maintenance/club)
+/area/station/maintenance/club)
 "Bq" = (
 /obj/structure/cable/multiz{
 	color = "#dd1010"
@@ -817,14 +817,14 @@
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
 	},
-/area/maintenance/club)
+/area/station/maintenance/club)
 "Bv" = (
 /obj/item/paper/crumpled,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "Bz" = (
 /obj/machinery/firealarm/directional/east,
 /obj/effect/decal/cleanable/dust,
@@ -834,26 +834,26 @@
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak-broken"
 	},
-/area/maintenance/club)
+/area/station/maintenance/club)
 "Ch" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/rat,
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "Cs" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "Dj" = (
 /obj/machinery/photocopier,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurple"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "DF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -868,18 +868,18 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "DP" = (
 /obj/machinery/vending/boozeomat,
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
 	},
-/area/maintenance/club)
+/area/station/maintenance/club)
 "DT" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "Ec" = (
 /turf/template_noop,
 /area/template_noop)
@@ -899,11 +899,11 @@
 	dir = 8
 	},
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "EI" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
-/area/maintenance/club)
+/area/station/maintenance/club)
 "EU" = (
 /obj/structure/chair/wood,
 /obj/effect/decal/cleanable/dust,
@@ -913,22 +913,22 @@
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak-broken3"
 	},
-/area/maintenance/club)
+/area/station/maintenance/club)
 "Ft" = (
 /obj/structure/mineral_door/wood,
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
-/area/maintenance/club)
+/area/station/maintenance/club)
 "Gq" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "Hi" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/trash/raisins,
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "HF" = (
 /obj/item/trash/syndi_cakes{
 	pixel_y = 7
@@ -946,7 +946,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "HJ" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
@@ -961,13 +961,13 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "HO" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "HT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/girder,
@@ -976,7 +976,7 @@
 "Ih" = (
 /obj/effect/spawner/random_spawners/fungus_70,
 /turf/simulated/wall,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "Iq" = (
 /obj/effect/spawner/random_spawners/wall_rusted_70,
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
@@ -986,7 +986,7 @@
 	dir = 4
 	},
 /turf/simulated/wall,
-/area/maintenance/server)
+/area/station/maintenance/server)
 "Iw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/map_effect/marker/mapmanip/submap/extract/nova/AbondonedChapel,
@@ -1001,7 +1001,7 @@
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "IP" = (
 /obj/item/trash/doshik,
 /obj/item/trash/candy{
@@ -1009,32 +1009,32 @@
 	pixel_y = 11
 	},
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "JL" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
 	},
-/area/maintenance/club)
+/area/station/maintenance/club)
 "JS" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/club)
+/area/station/maintenance/club)
 "JU" = (
 /obj/machinery/atmospherics/unary/tank/toxins{
 	volume = 2000;
 	dir = 1
 	},
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "KA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/rat,
 /obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plating,
-/area/maintenance/club)
+/area/station/maintenance/club)
 "La" = (
 /obj/item/storage/toolbox/electrical,
 /obj/item/stack/tape_roll{
@@ -1047,7 +1047,7 @@
 	dir = 4;
 	icon_state = "darkblue"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "Lf" = (
 /obj/machinery/door/airlock/multi_tile{
 	dir = 1;
@@ -1069,7 +1069,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "Lx" = (
 /obj/structure/extinguisher_cabinet/directional/east,
 /obj/effect/decal/cleanable/dirt,
@@ -1078,14 +1078,14 @@
 	dir = 4;
 	icon_state = "darkpurple"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "LF" = (
 /obj/machinery/firealarm/directional/east,
 /obj/effect/spawner/random_spawners/oil_20,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "LI" = (
 /obj/effect/decal/cleanable/dust,
 /obj/structure/table/wood/fancy/royalblack,
@@ -1096,7 +1096,7 @@
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak-broken6"
 	},
-/area/maintenance/club)
+/area/station/maintenance/club)
 "LR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -1109,7 +1109,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "Mq" = (
 /obj/structure/chair/wood{
 	dir = 4
@@ -1118,7 +1118,7 @@
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
 	},
-/area/maintenance/club)
+/area/station/maintenance/club)
 "MC" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -1128,7 +1128,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "MI" = (
 /obj/effect/spawner/window/reinforced/plasma,
 /obj/machinery/door/poddoor/preopen{
@@ -1136,7 +1136,7 @@
 	name = "Blast Door"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "Na" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -1153,13 +1153,13 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/club)
+/area/station/maintenance/club)
 "No" = (
 /turf/simulated/wall/r_wall/coated,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "NB" = (
 /turf/simulated/wall,
-/area/maintenance/server)
+/area/station/maintenance/server)
 "NJ" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
@@ -1168,7 +1168,7 @@
 	pixel_x = 16
 	},
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "Oi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -1190,14 +1190,14 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "Or" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/spawner/random_spawners/rat,
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
 	},
-/area/maintenance/club)
+/area/station/maintenance/club)
 "Oz" = (
 /obj/item/stack/rods,
 /obj/item/assembly/igniter{
@@ -1212,21 +1212,21 @@
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
 	},
-/area/maintenance/club)
+/area/station/maintenance/club)
 "Py" = (
 /obj/effect/spawner/random_spawners/wall_rusted_70,
 /turf/simulated/wall,
-/area/maintenance/server)
+/area/station/maintenance/server)
 "PI" = (
 /obj/effect/spawner/random_spawners/fungus_30,
 /turf/simulated/wall,
-/area/maintenance/server)
+/area/station/maintenance/server)
 "PZ" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "Qd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/rodent,
@@ -1243,14 +1243,14 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
 /turf/simulated/floor/plating,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "QG" = (
 /obj/item/weldingtool/mini,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak-broken"
 	},
-/area/maintenance/club)
+/area/station/maintenance/club)
 "QK" = (
 /obj/structure/table,
 /obj/machinery/computer/library/public{
@@ -1261,7 +1261,7 @@
 	dir = 6;
 	icon_state = "darkpurple"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "Rj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/map_effect/marker/mapmanip/submap/extract/nova/AbondonedChapel,
@@ -1278,11 +1278,11 @@
 	dir = 1;
 	icon_state = "darkpurple"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "RU" = (
 /obj/effect/spawner/random_spawners/fungus_70,
 /turf/simulated/wall,
-/area/maintenance/server)
+/area/station/maintenance/server)
 "RV" = (
 /obj/structure/chair/office/dark{
 	dir = 1
@@ -1293,14 +1293,14 @@
 	dir = 8;
 	icon_state = "darkpurple"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "Sn" = (
 /obj/item/reagent_containers/food/drinks/bottle/tequila,
 /obj/structure/table/wood/fancy,
 /obj/item/clothing/mask/cigarette/cigar,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/club)
+/area/station/maintenance/club)
 "SA" = (
 /obj/item/stock_parts/matter_bin{
 	pixel_y = 4
@@ -1316,7 +1316,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "To" = (
 /obj/structure/cable/multiz{
 	color = "#dd1010"
@@ -1331,10 +1331,10 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "Tq" = (
 /turf/simulated/wall/rust,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "TC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -1357,7 +1357,7 @@
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
 	},
-/area/maintenance/club)
+/area/station/maintenance/club)
 "Us" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -1369,7 +1369,7 @@
 	},
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
 /turf/simulated/wall,
-/area/maintenance/server)
+/area/station/maintenance/server)
 "VW" = (
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "burn";
@@ -1378,14 +1378,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
 /obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "Wf" = (
 /obj/item/storage/belt/utility,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "Wn" = (
 /obj/structure/chair/office/dark,
 /obj/structure/cable{
@@ -1396,26 +1396,26 @@
 	dir = 8;
 	icon_state = "darkpurple"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "Wp" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak-broken7"
 	},
-/area/maintenance/club)
+/area/station/maintenance/club)
 "Wu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/trash/syndi_cakes,
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "WI" = (
 /turf/simulated/wall,
-/area/maintenance/club)
+/area/station/maintenance/club)
 "WM" = (
 /obj/item/trash/tapetrash,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "WP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -1429,17 +1429,17 @@
 /obj/structure/mineral_door/wood,
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
-/area/maintenance/club)
+/area/station/maintenance/club)
 "XI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "Yc" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
 	},
-/area/maintenance/club)
+/area/station/maintenance/club)
 "Yp" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -1452,12 +1452,12 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "YC" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/item/trash/pistachios,
 /turf/simulated/floor/plating,
-/area/maintenance/club)
+/area/station/maintenance/club)
 "YJ" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -1472,7 +1472,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "YP" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -1495,14 +1495,14 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "Zu" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 "Zx" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -1512,7 +1512,7 @@
 	dir = 8;
 	icon_state = "darkblue"
 	},
-/area/maintenance/server)
+/area/station/maintenance/server)
 "ZD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
@@ -1541,7 +1541,7 @@
 	layer = 4.2
 	},
 /turf/simulated/floor/engine,
-/area/maintenance/incinerator)
+/area/station/maintenance/incinerator)
 
 (1,1,1) = {"
 Ec

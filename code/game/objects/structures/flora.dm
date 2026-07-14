@@ -20,12 +20,14 @@
 	layer = FLY_LAYER
 	plane = ABOVE_GAME_PLANE
 
+/obj/structure/flora/tree/Initialize(mapload)
+	. = ..()
+	if(get_seethrough_map())
+		AddComponent(/datum/component/seethrough, get_seethrough_map())
+
 /// Return a see_through_map, examples in seethrough.dm
 /obj/structure/flora/tree/proc/get_seethrough_map()
 	return SEE_THROUGH_MAP_DEFAULT
-
-/obj/structure/flora/tree/ComponentInitialize()
-	AddComponent(/datum/component/seethrough, get_seethrough_map())
 
 /obj/structure/flora/tree/add_debris_element()
 	AddElement(/datum/element/debris, DEBRIS_WOOD, -40, 5)
@@ -352,7 +354,7 @@
 	/// Light power plant will get on init
 	var/l_power_init
 	light_on = FALSE
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 
 /obj/item/twohanded/required/kirbyplants/Initialize(mapload)
 	. = ..()

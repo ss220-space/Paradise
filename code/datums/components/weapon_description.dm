@@ -56,7 +56,7 @@
 	SIGNAL_HANDLER
 
 	if(href_list["examine"])
-		to_chat(user, chat_box_examine("[build_label_text(source)]"))
+		to_chat(user, boxed_message("[build_label_text(source)]"))
 
 /**
  *

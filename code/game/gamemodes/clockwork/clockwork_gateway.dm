@@ -50,14 +50,14 @@
 
 	if(heart)
 		heart.gateway = null
-		qdel(heart)
-		heart = null
+		QDEL_NULL(heart)
 
 	for(var/obj/structure/filler in fillers)
-		if(filler)
-			filler = null
-			qdel(filler)
-	fillers.Cut()
+		if(!filler)
+			continue
+		qdel(filler)
+
+	LAZYCLEARLIST(fillers)
 
 	return ..()
 

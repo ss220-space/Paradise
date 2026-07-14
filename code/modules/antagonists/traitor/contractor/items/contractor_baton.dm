@@ -83,11 +83,11 @@
 		if(target.getStaminaLoss() > 90 || target.health <= HEALTH_THRESHOLD_CRIT || target.IsSleeping())
 			CuffAttack(target, user)
 	if(has_upgrade(UPGRADE_FOCUS) && ishuman(target))
-		for(var/datum/antagonist/contractor/antag_datum in user.mind.antag_datums)
-			if(target == antag_datum?.contractor_uplink?.hub?.current_contract?.contract?.target.current)
-				target.apply_damage(30, STAMINA)
-				target.AdjustJitter(20 SECONDS, bound_upper = 40 SECONDS)
-				break
+		var/datum/antagonist/contractor/antag_datum = user.mind.has_antag_datum(/datum/antagonist/contractor)
+		var/obj/item/contractor_uplink/uplink = antag_datum?.contractor_uplink_ref?.resolve()
+		if(target == uplink?.hub?.current_contract?.contract?.target.current)
+			target.apply_damage(30, STAMINA)
+			target.AdjustJitter(20 SECONDS, bound_upper = 40 SECONDS)
 
 /obj/item/melee/baton/telescopic/contractor/proc/add_upgrade(obj/item/baton_upgrade/new_upgrade, mob/user)
 	if(!istype(new_upgrade))

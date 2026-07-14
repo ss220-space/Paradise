@@ -96,6 +96,8 @@
 	pull_push_slowdown = 1.3
 	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
 	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND | INTERACT_ATOM_UI_INTERACT
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
+
 	var/stat = 0
 	var/use_power = IDLE_POWER_USE
 		//0 = dont run the auto
@@ -412,15 +414,15 @@
 	if(.)
 		power_change()
 
-/obj/machinery/attackby(obj/item/I, mob/user, params)
-	if(has_prints() && !(istype(I, /obj/item/detective_scanner)))
+/obj/machinery/attackby(obj/item/item, mob/living/user, list/modifiers)
+	if(has_prints() && !(istype(item, /obj/item/detective_scanner)))
 		add_fingerprint(user)
 
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(I, /obj/item/stack/nanopaste))
-		var/obj/item/stack/nanopaste/nanopaste = I
+	if(istype(item, /obj/item/stack/nanopaste))
+		var/obj/item/stack/nanopaste/nanopaste = item
 		if(stat & BROKEN)
 			to_chat(user, span_notice("[src] is too damaged to be fixed with nanopaste!"))
 			return ATTACK_CHAIN_PROCEED
@@ -432,7 +434,7 @@
 		if(nanopaste.get_amount() < 1)
 			to_chat(user, span_warning("You don't have enough to complete this task!"))
 			return ATTACK_CHAIN_PROCEED
-		to_chat(user, span_notice("You start applying [I] to [src]."))
+		to_chat(user, span_notice("You start applying [nanopaste] to [src]."))
 		being_repaired = TRUE
 		var/result = do_after(user, 3 SECONDS, src, category = DA_CAT_TOOL)
 		being_repaired = FALSE
@@ -443,8 +445,8 @@
 			return ATTACK_CHAIN_PROCEED
 		update_integrity(min(obj_integrity + 50, max_integrity))
 		user.visible_message(
-			span_notice("[user] applied some [I.name] at [src]'s damaged areas."),
-			span_notice("You apply some [I.name] at [src]'s damaged areas."),
+			span_notice("[user] applied some [nanopaste.name] at [src]'s damaged areas."),
+			span_notice("You apply some [nanopaste.name] at [src]'s damaged areas."),
 		)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 

@@ -234,7 +234,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 					SSticker.mode.traitors += usr.mind
 					usr.mind.special_role = "[usr.real_name] Prime"
 					evil = FALSE
-				to_chat(user, chat_box_red(messages.Join("<br>")))
+				to_chat(user, custom_boxed_message("red_box center", messages.Join("<br>")))
 		else
 			cooldown = world.time + cooldown_between_uses
 			for(var/obj/item/multisword/M in GLOB.multiverse)
@@ -291,7 +291,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		hijack_objective.owner = usr.mind
 		usr.mind.objectives += hijack_objective
 		var/list/messages = list(M.mind.prepare_announce_objectives(FALSE))
-		to_chat(M, chat_box_red(messages.Join("<br>")))
+		to_chat(M, custom_boxed_message("red_box center", messages.Join("<br>")))
 		M.mind.special_role = SPECIAL_ROLE_MULTIVERSE
 		add_game_logs("[M.key] was made a multiverse traveller with the objective to help [usr.real_name] hijack.", M)
 	else
@@ -300,7 +300,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		new_objective.owner = M.mind
 		M.mind.objectives += new_objective
 		var/list/messages = list(M.mind.prepare_announce_objectives(FALSE))
-		to_chat(M, chat_box_red(messages.Join("<br>")))
+		to_chat(M, custom_boxed_message("red_box center", messages.Join("<br>")))
 		M.mind.special_role = SPECIAL_ROLE_MULTIVERSE
 		add_game_logs("[M.key] was made a multiverse traveller with the objective to help [usr.real_name] protect the station.", M)
 
@@ -710,13 +710,12 @@ GLOBAL_LIST_EMPTY(multiverse)
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "voodoo"
 	item_state = "electronic"
-	var/mob/living/carbon/human/target = null
-	var/list/mob/living/carbon/human/possible
-	var/obj/item/link = null
-	var/cooldown_time = 3 SECONDS
-	COOLDOWN_DECLARE(cooldown)
 	max_integrity = 10
 	resistance_flags = FLAMMABLE
+	var/datum/weakref/target_ref
+	var/datum/weakref/link_ref
+	var/cooldown_time = 3 SECONDS
+	COOLDOWN_DECLARE(cooldown)
 
 /obj/item/voodoo/get_ru_names()
 	return alist(
@@ -729,6 +728,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	)
 
 /obj/item/voodoo/attackby(obj/item/I, mob/user, params)
+	var/mob/living/target = target_ref?.resolve()
 	if(target && COOLDOWN_FINISHED(src, cooldown))
 		add_fingerprint(user)
 		if(I.get_temperature())
@@ -745,13 +745,12 @@ GLOBAL_LIST_EMPTY(multiverse)
 		COOLDOWN_START(src, cooldown, cooldown_time)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(!link && I.loc == user && I.w_class <= WEIGHT_CLASS_SMALL)
+	if(!link_ref?.resolve() && I.loc == user && I.w_class <= WEIGHT_CLASS_SMALL)
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		add_fingerprint(user)
-		link = I
+		link_ref = WEAKREF(I)
 		to_chat(user, span_notice("You attach [I] to the doll."))
-		update_targets()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
@@ -762,17 +761,24 @@ GLOBAL_LIST_EMPTY(multiverse)
 		user.unset_machine()
 
 /obj/item/voodoo/attack_self(mob/user as mob)
-	if(!target && LAZYLEN(possible))
-		target = tgui_input_list(user, "Select your victim!", "Voodoo", possible)
+	var/mob/living/target = target_ref?.resolve()
+	if(!target)
+		var/list/possible_tragets = get_targets()
+		if(!LAZYLEN(possible_tragets))
+			return
+		target = tgui_input_list(user, "Select your victim!", "Voodoo", possible_tragets)
+		if(!target)
+			return
+		target_ref = WEAKREF(target)
 		return
 
 	if(user.zone_selected == BODY_ZONE_CHEST)
-		if(link)
-			target = null
-			link.forceMove(get_turf(src))
-			to_chat(user, span_notice("You remove the [link] from the doll."))
-			link = null
-			update_targets()
+		var/atom/movable/linked_object = link_ref?.resolve()
+		if(linked_object)
+			target_ref = null
+			linked_object.forceMove(get_turf(src))
+			to_chat(user, span_notice("You remove the [linked_object] from the doll."))
+			link_ref = null
 			return
 
 	if(target && cooldown < world.time)
@@ -807,21 +813,29 @@ GLOBAL_LIST_EMPTY(multiverse)
 				to_chat(user, span_notice("You smack the doll's head with your hand."))
 				target.Dizzy(20 SECONDS)
 				to_chat(target, span_warning("You suddenly feel as if your head was hit with a hammer!"))
-				GiveHint(target,user)
+				GiveHint(target, user)
 		cooldown = world.time + cooldown_time
 
-/obj/item/voodoo/proc/update_targets()
-	LAZYCLEARLIST(possible)
+/obj/item/voodoo/proc/get_targets()
+	var/list/possible = list()
 
-	if(!link)
+	if(!link_ref)
 		return
 
-	for(var/thing in GLOB.human_list)
-		var/mob/living/carbon/human/H = thing
-		if(H.stat != DEAD && (H.real_name in link.interactors))
-			LAZYOR(possible, H)
+	var/atom/movable/linked_object = link_ref?.resolve()
 
-/obj/item/voodoo/proc/GiveHint(mob/victim,force=0)
+	if(!linked_object)
+		return
+
+	var/list/interactors = linked_object.interactors
+
+	for(var/mob/living/carbon/human/human as anything in GLOB.human_list)
+		if(human.stat != DEAD && (human.real_name in interactors))
+			LAZYOR(possible, human)
+
+	return possible
+
+/obj/item/voodoo/proc/GiveHint(mob/victim, force = FALSE)
 	if(prob(50) || force)
 		var/way = dir2text(get_dir(victim,get_turf(src)))
 		to_chat(victim, span_notice("You feel a dark presence from [way]"))
@@ -830,10 +844,11 @@ GLOBAL_LIST_EMPTY(multiverse)
 		to_chat(victim, span_notice("You feel a dark presence from [A.name]"))
 
 /obj/item/voodoo/fire_act(exposed_temperature, exposed_volume)
+	var/mob/living/target = target_ref?.resolve()
 	if(target)
 		target.adjust_fire_stacks(20)
 		target.IgniteMob()
-		GiveHint(target,1)
+		GiveHint(target, 1)
 	return ..()
 
 /obj/item/organ/internal/heart/cursed/wizard

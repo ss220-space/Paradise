@@ -10,9 +10,12 @@
 	gender = PLURAL //"That's some lava."
 	baseturf = /turf/simulated/floor/lava //lava all the way down
 	slowdown = 2
+
 	light_range = 2
 	light_power = 0.75
 	light_color = LIGHT_COLOR_LAVA
+	light_on = FALSE
+
 	footstep = FOOTSTEP_LAVA
 	barefootstep = FOOTSTEP_LAVA
 	clawfootstep = FOOTSTEP_LAVA
@@ -30,6 +33,10 @@
 	var/immunity_resistance_flags = LAVA_PROOF
 	/// Is the lava close to the shore
 	var/deep_water = TRUE
+	/// The icon that covers the lava bits of our turf
+	var/mask_icon = 'icons/turf/floors.dmi'
+	/// The icon state that covers the lava bits of our turf
+	var/mask_state = "lava-lightmask"
 
 /turf/simulated/floor/lava/get_ru_names()
 	return alist(
@@ -40,6 +47,69 @@
 		INSTRUMENTAL = "лавой",
 		PREPOSITIONAL = "лаве",
 	)
+
+/turf/simulated/floor/lava/Initialize(mapload)
+	. = ..()
+	refresh_light()
+	if(!smooth) // is it need?
+		update_appearance()
+
+/turf/simulated/floor/lava/update_overlays()
+	. = ..()
+	. += emissive_appearance(mask_icon, mask_state, src)
+	// We need a light overlay here because not every lava turf casts light, only the edge ones
+	var/mutable_appearance/light = mutable_appearance(mask_icon, mask_state, LIGHTING_PRIMARY_LAYER, src, LIGHTING_PLANE)
+	light.color = light_color
+	light.blend_mode = BLEND_ADD
+	. += light
+	// Mask away our light underlay, so things don't double stack
+	// This does mean if our light underlay DOESN'T look like the light we emit things will be wrong
+	// But that's rare, and I'm ok with that, quartering our light source count is useful
+	var/mutable_appearance/light_mask = mutable_appearance(mask_icon, mask_state, LIGHTING_MASK_LAYER, src, LIGHTING_PLANE)
+	light_mask.blend_mode = BLEND_MULTIPLY
+	light_mask.color = COLOR_MATRIX_INVERT
+	. += light_mask
+
+/// Refreshes this lava turf's lighting
+/turf/simulated/floor/lava/proc/refresh_light()
+	var/border_turf = FALSE
+	var/list/turfs_to_check = RANGE_TURFS(1, src)
+	if(GET_LOWEST_STACK_OFFSET(z))
+		var/turf/above = GET_TURF_ABOVE(src)
+		if(above)
+			turfs_to_check += RANGE_TURFS(1, above)
+		var/turf/below = GET_TURF_BELOW(src)
+		if(below)
+			turfs_to_check += RANGE_TURFS(1, below)
+
+	for(var/turf/around as anything in turfs_to_check)
+		if(islava(around))
+			continue
+		border_turf = TRUE
+
+	if(!border_turf)
+		set_light(l_on = FALSE)
+		return
+
+	set_light(l_on = TRUE)
+
+/turf/simulated/floor/lava/ChangeTurf(path, defer_change, keep_icon, after_flags, copy_existing_baseturf)
+	var/turf/result = ..()
+
+	if(result && !islava(result))
+		// We have gone from a lava turf to a non lava turf, time to let them know
+		var/list/turfs_to_check = RANGE_TURFS(1, result)
+		if(GET_LOWEST_STACK_OFFSET(z))
+			var/turf/above = GET_TURF_ABOVE(result)
+			if(above)
+				turfs_to_check += RANGE_TURFS(1, above)
+			var/turf/below = GET_TURF_BELOW(result)
+			if(below)
+				turfs_to_check += RANGE_TURFS(1, below)
+		for(var/turf/simulated/floor/lava/inform in turfs_to_check)
+			inform.set_light(l_on = TRUE)
+
+	return result
 
 /turf/simulated/floor/lava/ex_act()
 	return
@@ -254,7 +324,7 @@
 
 /turf/simulated/floor/lava/lava_land_surface/Destroy()
 	GLOB.lazis_primary_turfs -= src
-	. = ..()
+	return ..()
 
 /turf/simulated/floor/lava/lava_land_surface/proc/calculate_deep()
 	if(locate(/turf/simulated/floor/plating/asteroid/basalt) in range(3, src))

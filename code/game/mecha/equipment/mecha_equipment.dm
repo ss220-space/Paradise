@@ -30,6 +30,10 @@
 	var/harmful = FALSE //Controls if equipment can be used to attack by a pacifist.
 	var/integrated = FALSE // Preventing modules from getting detached.
 	var/stored_in
+	/// Bitflags to check module compability
+	var/module_type = MECH_EQUIPMENT_ALL
+	/// Variable for checking module copies count
+	var/max_multiple_count = 1
 
 /obj/item/mecha_parts/mecha_equipment/Destroy()//missiles detonating, teleporter creating singularity?
 	if(chassis)
@@ -135,11 +139,26 @@
 	if(!chassis ||	chassis.loc != C || (stored_in && src != chassis.selected_equipment_in_hands[stored_in]) || !(get_dir(chassis, target) & chassis.dir))
 		return FALSE
 
-/obj/item/mecha_parts/mecha_equipment/proc/can_attach(obj/mecha/M)
-	if(istype(M))
-		if(length(M.equipment) < M.max_equip)
-			return TRUE
-	return FALSE
+/obj/item/mecha_parts/mecha_equipment/proc/can_attach(obj/mecha/mech)
+	if(!istype(mech))
+		return FALSE
+	if(!(mech.allowed_equipment & module_type))
+		return FALSE
+	if(!check_installed_modules(mech))
+		return FALSE
+	if(length(mech.equipment) >= mech.max_equip)
+		return FALSE
+	return TRUE
+
+/obj/item/mecha_parts/mecha_equipment/proc/check_installed_modules(obj/mecha/mech)
+	var/installed_modules = 0
+	for(var/obj/item/mecha_parts/mecha_equipment/module in mech.equipment)
+		if(!istype(module, type))
+			continue
+		installed_modules++
+		if(installed_modules >= max_multiple_count)
+			return FALSE
+	return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/proc/can_detach()
 	if(integrated)
@@ -166,7 +185,7 @@
 	if(M.occupant)
 		give_targeted_action()
 
-/obj/item/mecha_parts/mecha_equipment/proc/attach_act(obj/mecha/M)
+/obj/item/mecha_parts/mecha_equipment/proc/attach_act(obj/mecha/mech)
 	return
 
 /obj/item/mecha_parts/mecha_equipment/proc/give_targeted_action()

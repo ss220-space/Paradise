@@ -5,7 +5,7 @@
 	var/use_json = TRUE
 
 /datum/buildmode_mode/save/show_help(mob/user)
-	to_chat(user, span_purple(chat_box_examine(
+	to_chat(user, span_purple(boxed_message(
 		"[span_bold("Select corner")] -> Left Mouse Button on turf/obj/mob"))
 	)
 

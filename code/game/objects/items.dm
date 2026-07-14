@@ -1,8 +1,10 @@
 GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/goonstation/effects/fire.dmi', "fire"))
 
+/// Anything you can pick up and hold.
 /obj/item
 	name = "item"
 	icon = 'icons/obj/items.dmi'
+	abstract_type = /obj/item
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	pass_flags_self = PASSITEM
 	pass_flags = PASSTABLE
@@ -355,7 +357,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		if(WEIGHT_CLASS_GIGANTIC)
 			move_resist = MOVE_FORCE_NORMAL
 
-/obj/item/Destroy()
+/obj/item/Destroy(force)
 	item_flags &= ~DROPDEL	//prevent reqdels
 	QDEL_NULL(hidden_uplink)
 
@@ -619,9 +621,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 // Due to storage type consolidation this should get used more now.
 // I have cleaned it up a little, but it could probably use more.  -Sayu
-/obj/item/attackby(obj/item/I, mob/user, list/modifiers)
-	if(isstorage(I))
-		var/obj/item/storage/storage = I
+/obj/item/attackby(obj/item/item, mob/living/user, list/modifiers)
+	if(isstorage(item))
+		var/obj/item/storage/storage = item
 		if(!storage.use_to_pickup)
 			return ..()
 		if(storage.pickup_all_on_tile) //Mode is set to collect all items on a tile and we clicked on a valid one.
@@ -629,13 +631,13 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 				return ..()
 			var/success = FALSE
 			var/failure = FALSE
-			for(var/obj/item/item as anything in loc)
-				if(!storage.can_be_inserted(item, stop_messages = TRUE))
+			for(var/obj/item/item_in_loc as anything in loc)
+				if(!storage.can_be_inserted(item_in_loc, stop_messages = TRUE))
 					failure = TRUE
 					continue
 				success = TRUE
-				item.do_pickup_animation(user)
-				storage.handle_item_insertion(item, prevent_warning = TRUE)
+				item_in_loc.do_pickup_animation(user)
+				storage.handle_item_insertion(item_in_loc, prevent_warning = TRUE)
 			if(success && !failure)
 				playsound(loc, 'sound/items/handling/pickup/generic_pickup3.ogg', PICKUP_SOUND_VOLUME, channel = CHANNEL_INTERACTION_SOUNDS, ignore_walls = FALSE)
 				to_chat(user, span_notice("Вы [pick(list("помещаете", "складываете", "кладёте"))] все в [storage.declent_ru(ACCUSATIVE)]."))
@@ -648,18 +650,18 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 			return ATTACK_CHAIN_PROCEED
 
 		if(storage.can_be_inserted(src))
-			I.do_pickup_animation(user)
+			item.do_pickup_animation(user)
 			storage.handle_item_insertion(src)
 			return ATTACK_CHAIN_BLOCKED_ALL
 
 		return ATTACK_CHAIN_PROCEED
 
-	if(istype(I, /obj/item/stack/tape_roll))
+	if(istype(item, /obj/item/stack/tape_roll))
 		if(isstorage(src)) //Don't tape the bag if we can put the duct tape inside it instead
 			var/obj/item/storage/bag = src
-			if(bag.can_be_inserted(I))
+			if(bag.can_be_inserted(item))
 				return ..()
-		var/obj/item/stack/tape_roll/tape = I
+		var/obj/item/stack/tape_roll/tape = item
 		var/x_offset = text2num(LAZYACCESS(modifiers, ICON_X))
 		var/y_offset = text2num(LAZYACCESS(modifiers, ICON_Y))
 		add_fingerprint(user)
@@ -1144,7 +1146,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		return ..()
 	return FALSE
 
-/obj/item/mech_melee_attack(obj/mecha/M)
+/obj/item/mech_melee_attack(obj/mecha/mech)
 	return FALSE
 
 /obj/item/proc/openTip(location, control, params, user)
@@ -1351,7 +1353,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	return user = get(src, /mob/living)
 
 /obj/item/proc/do_pickup_animation(atom/target)
-
 	if(!CONFIG_GET(flag/item_animations_enabled))
 		return
 
@@ -1361,6 +1362,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(get_turf(src) == get_turf(target))	// No need for pickup animation if item is on user or on the same turf
 		return
 
+	SEND_SIGNAL(src, COMSIG_ITEM_BEFORE_PICKUP_ANIMATION)
 	var/image/transfer_animation = image(icon = src, layer = ABOVE_MOB_LAYER)
 	SET_PLANE(transfer_animation, GAME_PLANE, loc)
 	transfer_animation.transform.Scale(0.75)
@@ -1398,6 +1400,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(!isturf(loc) || !istype(moving_from))
 		return
 
+	SEND_SIGNAL(src, COMSIG_ITEM_BEFORE_DROP_ANIMATION)
 	var/from_x = moving_from.pixel_x
 	var/from_y = moving_from.pixel_y
 	var/direction = get_dir(moving_from, get_turf(src))

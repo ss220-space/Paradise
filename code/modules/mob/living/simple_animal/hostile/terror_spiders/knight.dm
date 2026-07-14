@@ -38,9 +38,6 @@
 	var/current_mode = 0
 	var/mode_cooldown = 300
 	var/mode_duration = 100
-	var/datum/action/innate/terrorspider/knight/defaultm/defaultmaction
-	var/datum/action/innate/terrorspider/knight/attackm/attackmaction
-	var/datum/action/innate/terrorspider/knight/defencem/defencemaction
 
 /mob/living/simple_animal/hostile/poison/terror_spider/knight/get_ru_names()
 	return alist(
@@ -54,9 +51,9 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/knight/Initialize(mapload)
 	. = ..()
-	attackmaction = new()
+	var/datum/action/innate/terrorspider/knight/attackm/attackmaction = new()
 	attackmaction.Grant(src)
-	defencemaction = new()
+	var/datum/action/innate/terrorspider/knight/defencem/defencemaction = new()
 	defencemaction.Grant(src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/knight/Life(seconds, times_fired)

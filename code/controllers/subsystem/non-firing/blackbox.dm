@@ -167,6 +167,8 @@ SUBSYSTEM_DEF(blackbox)
 			record_feedback("tally", "radio_usage", 1, "service")
 		if(PROC_FREQ)
 			record_feedback("tally", "radio_usage", 1, "procedure")
+		if(VOX_RAID_FREQ)
+			record_feedback("tally", "radio_usage", 1, "voxcom")
 		else
 			record_feedback("tally", "radio_usage", 1, "other")
 

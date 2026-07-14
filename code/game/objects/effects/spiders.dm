@@ -96,7 +96,7 @@
 	var/amount_grown = 0
 	var/grow_as = null
 	var/obj/machinery/atmospherics/unary/vent_pump/entry_vent
-	var/travelling_in_vent = 0
+	var/travelling_in_vent = FALSE
 	var/player_spiders = 0
 	var/list/faction = list("spiders")
 	var/selecting_player = 0
@@ -112,6 +112,8 @@
 
 /obj/structure/spider/spiderling/Destroy()
 	STOP_PROCESSING(SSobj, src)
+	// Release possible ref if a walk is still being processed
+	walk(src, NONE)
 	entry_vent = null
 	new /obj/effect/decal/cleanable/spiderling_remains(get_turf(src))
 	return ..()
@@ -128,87 +130,123 @@
 			playsound(src.loc, user.dna.species.unarmed.attack_sound, 25, TRUE, -1)
 			attack_generic(user, max_integrity/3)
 
+/obj/structure/spider/spiderling/proc/cancel_vent_move()
+	forceMove(entry_vent)
+	entry_vent = null
+
+/obj/structure/spider/spiderling/proc/vent_move(obj/machinery/atmospherics/unary/vent_pump/exit_vent)
+	if(QDELETED(exit_vent) || exit_vent.welded)
+		cancel_vent_move()
+		return
+
+	forceMove(exit_vent)
+	var/travel_time = round(get_dist(loc, exit_vent.loc) / 2)
+	addtimer(CALLBACK(src, PROC_REF(do_vent_move), exit_vent, travel_time), travel_time)
+
+/obj/structure/spider/spiderling/proc/do_vent_move(obj/machinery/atmospherics/unary/vent_pump/exit_vent, travel_time)
+	if(QDELETED(exit_vent) || exit_vent.welded)
+		cancel_vent_move()
+		return
+
+	if(prob(50))
+		audible_message(span_hear("You hear something scampering through the ventilation ducts."))
+
+	addtimer(CALLBACK(src, PROC_REF(finish_vent_move), exit_vent), travel_time)
+
+/obj/structure/spider/spiderling/proc/finish_vent_move(obj/machinery/atmospherics/unary/vent_pump/exit_vent)
+	if(QDELETED(exit_vent) || exit_vent.welded)
+		cancel_vent_move()
+		return
+	forceMove(exit_vent.loc)
+	entry_vent = null
+
 /obj/structure/spider/spiderling/process()
 	if(travelling_in_vent)
-		if(isturf(loc))
-			travelling_in_vent = 0
+		if(!isturf(loc))
+			return
+		travelling_in_vent = FALSE
+		entry_vent = null
+		return
+
+	if(entry_vent)
+		if(get_dist(src, entry_vent) > 1)
+			return
+		var/list/vents = list()
+		var/datum/pipeline/entry_vent_parent = entry_vent.parent
+		for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in entry_vent_parent.other_atmosmch)
+			vents.Add(temp_vent)
+		if(!length(vents))
 			entry_vent = null
-	else if(entry_vent)
-		if(get_dist(src, entry_vent) <= 1)
-			var/list/vents = list()
-			for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in entry_vent.parent.other_atmosmch)
-				vents.Add(temp_vent)
-			if(!length(vents))
-				entry_vent = null
-				return
-			var/obj/machinery/atmospherics/unary/vent_pump/exit_vent = pick(vents)
-			if(prob(50))
-				visible_message("<b>[src] scrambles into the ventilation ducts!</b>", \
-								span_notice("You hear something squeezing through the ventilation ducts."))
+			return
+		var/obj/machinery/atmospherics/unary/vent_pump/exit_vent = pick(vents)
+		if(prob(50))
+			visible_message("<b>[src] scrambles into the ventilation ducts!</b>", \
+							span_hear("You hear something scampering through the ventilation ducts."))
 
-			spawn(rand(20,60))
-				loc = exit_vent
-				var/travel_time = round(get_dist(loc, exit_vent.loc) / 2)
-				spawn(travel_time)
+		addtimer(CALLBACK(src, PROC_REF(vent_move), exit_vent), rand(2 SECONDS, 6 SECONDS))
+		return
 
-					if(!exit_vent || exit_vent.welded)
-						loc = entry_vent
-						entry_vent = null
-						return
-
-					if(prob(50))
-						audible_message(span_notice("You hear something squeezing through the ventilation ducts."))
-					sleep(travel_time)
-
-					if(!exit_vent || exit_vent.welded)
-						loc = entry_vent
-						entry_vent = null
-						return
-					loc = exit_vent.loc
-					entry_vent = null
-					var/area/new_area = get_area(loc)
-					if(new_area)
-						new_area.Entered(src)
 	//=================
 
-	else if(prob(33))
+	if(prob(33))
 		if(random_skitter() && prob(40))
 			visible_message(span_notice("[src] skitters[pick(" away"," around","")]."))
-	else if(prob(10))
-		//ventcrawl!
-		for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(7,src))
-			if(!v.welded)
-				entry_vent = v
-				GLOB.move_manager.move_to(src, entry_vent, 1, rand(2, 4))
-				break
-	if(isturf(loc))
-		amount_grown += rand(0,2)
-		if(amount_grown >= 100)
-			if(SSmobs.xenobiology_mobs > MAX_GOLD_CORE_MOBS && xenobiology_spawned)
-				qdel(src)
-				return
-			if(!grow_as)
-				grow_as = pick(typesof(/mob/living/simple_animal/hostile/poison/giant_spider))
-			var/mob/living/simple_animal/hostile/poison/giant_spider/S = new grow_as(loc)
-			S.faction = faction.Copy()
-			S.master_commander = master_commander
-			S.mind?.store_memory(new_mind_memory)
-			S.xenobiology_spawned = xenobiology_spawned
-			if(xenobiology_spawned)
-				SSmobs.xenobiology_mobs++
-			if(player_spiders && !selecting_player)
-				selecting_player = 1
-				spawn()
-					var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a giant spider?", ROLE_GSPIDER, TRUE, source = S)
+		return
 
-					if(length(candidates))
-						var/mob/C = pick(candidates)
-						if(C)
-							S.possess_by_player(C.key)
-							if(S.master_commander)
-								to_chat(S, span_biggerdanger("You are a spider who is loyal to [S.master_commander], obey [S.master_commander]'s every order and assist [S.master_commander.p_them()] in completing [S.master_commander.p_their()] goals at any cost."))
-							add_game_logs("was made giant spider, master: [S.master_commander ? S.master_commander : "None"]")
-			qdel(src)
+	if(prob(10))
+		//ventcrawl!
+		for(var/obj/machinery/atmospherics/unary/vent_pump/vent in view(7,src))
+			if(vent.welded)
+				continue
+			entry_vent = vent
+			GLOB.move_manager.move_to(src, entry_vent, 1, rand(2, 4))
+			break
+		return
+
+	if(!isturf(loc))
+		return
+
+	amount_grown += rand(0, 2)
+
+	if(amount_grown < 100)
+		return
+
+	if(SSmobs.xenobiology_mobs > MAX_GOLD_CORE_MOBS && xenobiology_spawned)
+		qdel(src)
+		return
+
+	if(!grow_as)
+		grow_as = pick(typesof(/mob/living/simple_animal/hostile/poison/giant_spider))
+
+	var/mob/living/simple_animal/hostile/poison/giant_spider/spider = new grow_as(src.loc)
+	spider.faction = faction.Copy()
+	spider.master_commander = master_commander
+	spider.mind?.store_memory(new_mind_memory)
+	spider.xenobiology_spawned = xenobiology_spawned
+	if(xenobiology_spawned)
+		SSmobs.xenobiology_mobs++
+
+	if(player_spiders && !selecting_player)
+		selecting_player = TRUE
+		INVOKE_ASYNC(src, PROC_REF(find_player_for_spider), spider)
+		invisibility = INVISIBILITY_ABSTRACT
+	else
+		qdel(src)
+
+/obj/structure/spider/spiderling/proc/find_player_for_spider(mob/living/simple_animal/hostile/poison/giant_spider/spider)
+	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a giant spider?", ROLE_GSPIDER, TRUE, source = spider)
+	if(!length(candidates))
+		qdel(src)
+		return
+	var/mob/candidate = pick(candidates)
+	if(!candidate)
+		qdel(src)
+		return
+	spider.possess_by_player(candidate.key)
+	if(spider.master_commander)
+		to_chat(spider, span_biggerdanger("You are a spider who is loyal to [spider.master_commander], obey [spider.master_commander]'s every order and assist [spider.master_commander.p_them()] in completing [spider.master_commander.p_their()] goals at any cost."))
+	add_game_logs("was made giant spider, master: [spider.master_commander ? spider.master_commander : "None"]")
+	qdel(src)
 
 /obj/structure/spider/spiderling/proc/random_skitter()
 	var/list/available_turfs = list()

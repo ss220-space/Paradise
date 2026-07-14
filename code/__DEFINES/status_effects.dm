@@ -232,6 +232,8 @@
 
 #define STATUS_EFFECT_IMPACT_IMMUNE /datum/status_effect/impact_immune
 
+#define STATUS_EFFECT_MAGIC_DISGUISE /datum/status_effect/magic_disguise
+
 /// Causes the mob to become blind via the passed source
 #define become_blind(source) apply_status_effect(STATUS_EFFECT_BLINDED, source)
 /// Cures the mob's blindness from the passed source, removing blindness wholesale if no sources are left

@@ -6,7 +6,7 @@
 	icon_state = "console"
 	desc = "Управляет упаковочной машиной... по крайней мере в теории."
 	anchored = TRUE
-	var/obj/machinery/mineral/stacking_machine/machine = null
+	var/obj/machinery/mineral/stacking_machine/machine
 	var/machinedir = SOUTHEAST
 
 /obj/machinery/mineral/stacking_unit_console/get_ru_names()
@@ -23,9 +23,15 @@
 	. = ..()
 	machine = locate(/obj/machinery/mineral/stacking_machine, get_step(src, machinedir))
 	if(machine)
-		machine.CONSOLE = src
+		machine.console = src
 	else
 		return INITIALIZE_HINT_QDEL
+
+/obj/machinery/mineral/stacking_unit_console/Destroy(force)
+	if(machine)
+		machine.console = null
+	machine = null
+	return ..()
 
 /obj/machinery/mineral/stacking_unit_console/attack_hand(mob/user)
 	if(..())
@@ -34,7 +40,10 @@
 	add_fingerprint(user)
 
 	var/obj/item/stack/sheet/s
-	var/dat = ""
+	var/list/dat = list()
+
+	if(!machine)
+		return
 
 	dat += "<b>Панель управления упаковщиком</b><br><br>"
 
@@ -46,7 +55,7 @@
 	dat += "<br>Упаковка: [machine.stack_amt]<br><br>"
 
 	var/datum/browser/popup = new(user, "console_stacking_machine", "Stacking machine")
-	popup.set_content(dat)
+	popup.set_content(dat.Join(""))
 	popup.open(FALSE)
 
 /obj/machinery/mineral/stacking_unit_console/Topic(href, href_list)
@@ -74,14 +83,13 @@
 	desc = "Автоматически формирует стопки материалов. Управляется через консоль."
 	density = TRUE
 	anchored = TRUE
-	var/obj/machinery/mineral/stacking_unit_console/CONSOLE
-	var/stk_types = list()
-	var/stk_amt   = list()
-	var/stack_list[0] //Key: Type.  Value: Instance of type.
-	var/stack_amt = 50; //ammount to stack before releassing
 	input_dir = EAST
 	output_dir = WEST
 	speed_process = TRUE
+	var/obj/machinery/mineral/stacking_unit_console/console
+	var/list/stack_list = list() //Key: Type.  Value: Instance of type.
+	/// Ammount to stack before releassing
+	var/stack_amt = 50
 
 /obj/machinery/mineral/stacking_machine/get_ru_names()
 	return alist(
@@ -92,6 +100,13 @@
 		INSTRUMENTAL = "упаковочной машиной",
 		PREPOSITIONAL = "упаковочной машине",
 	)
+
+/obj/machinery/mineral/stacking_machine/Destroy()
+	QDEL_LIST(stack_list)
+	if(console)
+		console.machine = null
+	console = null
+	return ..()
 
 /obj/machinery/mineral/stacking_machine/process()
 	var/turf/T = get_step(src, input_dir)

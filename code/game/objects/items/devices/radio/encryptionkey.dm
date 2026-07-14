@@ -610,7 +610,7 @@
 	greyscale_config = /datum/greyscale_config/encryptionkey_double_stripe
 	greyscale_colors = "#ffe964#87e748"
 	channels = list(PUB_FREQ_NAME = 1, SCI_FREQ_NAME = 1, COMM_FREQ_NAME = 1, MED_FREQ_NAME = 1, ENG_FREQ_NAME = 1, SEC_FREQ_NAME = 1, PRS_FREQ_NAME = 1, SUP_FREQ_NAME = 1, SRV_FREQ_NAME = 1, PROC_FREQ_NAME = 1, AI_FREQ_NAME = 1, SYND_FREQ_NAME = 1,  \
-		ERT_FREQ_NAME = 1, DTH_FREQ_NAME = 1, SYND_TAIPAN_FREQ_NAME = 1, SYNDTEAM_FREQ_NAME = 1, SOV_FREQ_NAME = 1, MED_I_FREQ_NAME = 1, SEC_I_FREQ_NAME = 1, SPY_SPIDER_FREQ_NAME = 1, NINJA_FREQ_NAME = 1, EVENT_ALPHA_FREQ_NAME = 1, EVENT_BETA_FREQ_NAME = 1, EVENT_GAMMA_FREQ_NAME = 1)
+		ERT_FREQ_NAME = 1, DTH_FREQ_NAME = 1, SYND_TAIPAN_FREQ_NAME = 1, SYNDTEAM_FREQ_NAME = 1, SOV_FREQ_NAME = 1, MED_I_FREQ_NAME = 1, SEC_I_FREQ_NAME = 1, SPY_SPIDER_FREQ_NAME = 1, NINJA_FREQ_NAME = 1, EVENT_ALPHA_FREQ_NAME = 1, EVENT_BETA_FREQ_NAME = 1, EVENT_GAMMA_FREQ_NAME = 1, VOX_RAID_FREQ_NAME = 1)
 
 /obj/item/encryptionkey/admin/get_ru_names()
 	return alist(
@@ -656,5 +656,5 @@
 	name = "Encryption key"
 	desc = "An encryption key for a radio headset. To access special radio channel, use :3."
 	icon_state = "sov_cypherkey"
-	channels = list(EVENT_GAMMA_FRE_NAME = 1)
+	channels = list(EVENT_GAMMA_FREQ_NAME = 1)
 */

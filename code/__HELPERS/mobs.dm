@@ -542,7 +542,7 @@
 	exportable_text += "[special_role_description]<br>"
 	exportable_text += ADMIN_FULLMONTY_NONAME(subject)
 
-	to_chat(user, chat_box_examine(exportable_text), confidential = TRUE)
+	to_chat(user, boxed_message(exportable_text), confidential = TRUE)
 
 /// Gets the first mob contained in an atom, and warns the user if there's not exactly one
 /proc/get_mob_in_atom_with_warning(atom/A, mob/user = usr)

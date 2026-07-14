@@ -7,6 +7,7 @@
  * Has a lot of the creature game world logic, such as health etc
  */
 /mob
+	abstract_type = /mob
 	density = TRUE
 	layer = MOB_LAYER
 	animate_movement = SLIDE_STEPS
@@ -14,7 +15,7 @@
 	throwforce = 10
 	dont_save = TRUE // to avoid it messing up in buildmode saving
 	pass_flags_self = PASSMOB
-	abstract_type = /mob
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
 	/// The current client inhabiting this mob. Managed by login/logout
 	/// This exists so we can do cleanup in logout for occasions where a client was transfere rather then destroyed
@@ -51,8 +52,21 @@
 	/// Last time we typed something in to the typing popup
 	var/last_typed_time
 
+	/// Percentage of how much rgb to max the lighting plane at
+	/// This lets us brighten it without washing out color
+	/// Scale from 0-100, reset off update_sight()
+	var/lighting_cutoff = LIGHTING_CUTOFF_VISIBLE
+	// Individual color max for red, we can use this to color darkness without tinting the light
+	var/lighting_cutoff_red = 0
+	// Individual color max for green, we can use this to color darkness without tinting the light
+	var/lighting_cutoff_green = 0
+	// Individual color max for blue, we can use this to color darkness without tinting the light
+	var/lighting_cutoff_blue = 0
+	/// A list of red, green and blue cutoffs
+	/// This is what actually gets applied to the mob, it's modified by things like glasses
+	var/list/lighting_color_cutoffs = null
+
 	var/datum/mind/mind
-	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
 	/// Whether a mob is alive or dead. TODO: Move this to living - Nodrak
 	var/stat = CONSCIOUS

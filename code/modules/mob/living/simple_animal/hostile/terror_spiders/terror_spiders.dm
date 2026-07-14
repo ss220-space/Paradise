@@ -133,8 +133,6 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	var/web_infects = 0
 	var/spider_creation_time = 0
 
-	var/datum/action/innate/terrorspider/web/web_action
-	var/datum/action/innate/terrorspider/wrap/wrap_action
 
 	// DATUM
 	var/datum_type = /datum/antagonist/terror_spider
@@ -146,6 +144,56 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 /mob/living/simple_animal/hostile/poison/terror_spider/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NEGATES_GRAVITY, INNATE_TRAIT)
+	GLOB.ts_spiderlist += src
+	add_language(LANGUAGE_HIVE_TERRORSPIDER)
+	for(var/spell in special_abillity)
+		src.AddSpell(new spell)
+
+	if(spider_tier >= TS_TIER_2)
+		add_language(LANGUAGE_GALACTIC_COMMON)
+	default_language = GLOB.all_languages[LANGUAGE_HIVE_TERRORSPIDER]
+
+	if(web_type)
+		var/datum/action/innate/terrorspider/web/web_act = new
+		web_act.Grant(src)
+	if(can_wrap)
+		var/datum/action/innate/terrorspider/wrap/wrap_act = new
+		wrap_act.Grant(src)
+	name += " ([rand(1, 1000)])"
+	real_name = name
+	msg_terrorspiders("[DECLENT_RU_CAP(src, NOMINATIVE)] вырастает в локации \"[get_area(src)]\".")
+	if(is_away_level(z))
+		spider_awaymission = 1
+		GLOB.ts_count_alive_awaymission++
+		if(spider_tier >= 3)
+			ai_ventcrawls = FALSE // means that pre-spawned bosses on away maps won't ventcrawl. Necessary to keep prince/mother in one place.
+		if(istype(get_area(src), /area/awaymission/UO71)) // if we are playing the away mission with our special spiders...
+			spider_uo71 = 1
+			if(world.time < 600)
+				// these are static spiders, specifically for the UO71 away mission, make them stay in place
+				ai_ventcrawls = FALSE
+				spider_placed = 1
+	else
+		GLOB.ts_count_alive_station++
+	// after 3 seconds, assuming nobody took control of it yet, offer it to ghosts.
+	addtimer(CALLBACK(src, PROC_REF(CheckFaction)), 20)
+	addtimer(CALLBACK(src, PROC_REF(announcetoghosts)), 30)
+	var/datum/atom_hud/U = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+	U.show_to(src)
+	spider_creation_time = world.time
+
+/mob/living/simple_animal/hostile/poison/terror_spider/Destroy()
+	GLOB.ts_spiderlist -= src
+	var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+	hud.hide_from(src)
+	handle_dying()
+	cocoon_target = null
+	entry_vent = null
+	exit_vent = null
+	nest_vent = null
+	spider_myqueen = null
+	spider_mymother = null
+	return ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/ComponentInitialize()
 	AddComponent( \
@@ -246,45 +294,6 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		if(killcount >= 1)
 			. += span_warning("Разбрызгивает во все стороны алую кровь, струяющуюся из пасти.")
 
-/mob/living/simple_animal/hostile/poison/terror_spider/Initialize(mapload)
-	. = ..()
-	GLOB.ts_spiderlist += src
-	add_language(LANGUAGE_HIVE_TERRORSPIDER)
-	for(var/spell in special_abillity)
-		src.AddSpell(new spell)
-
-	if(spider_tier >= TS_TIER_2)
-		add_language(LANGUAGE_GALACTIC_COMMON)
-	default_language = GLOB.all_languages[LANGUAGE_HIVE_TERRORSPIDER]
-
-	if(web_type)
-		web_action = new()
-		web_action.Grant(src)
-	if(can_wrap)
-		wrap_action = new()
-		wrap_action.Grant(src)
-	name += " ([rand(1, 1000)])"
-	real_name = name
-	msg_terrorspiders("[DECLENT_RU_CAP(src, NOMINATIVE)] вырастает в локации \"[get_area(src)]\".")
-	if(is_away_level(z))
-		spider_awaymission = 1
-		GLOB.ts_count_alive_awaymission++
-		if(spider_tier >= 3)
-			ai_ventcrawls = FALSE // means that pre-spawned bosses on away maps won't ventcrawl. Necessary to keep prince/mother in one place.
-		if(istype(get_area(src), /area/awaymission/UO71)) // if we are playing the away mission with our special spiders...
-			spider_uo71 = 1
-			if(world.time < 600)
-				// these are static spiders, specifically for the UO71 away mission, make them stay in place
-				ai_ventcrawls = FALSE
-				spider_placed = 1
-	else
-		GLOB.ts_count_alive_station++
-	// after 3 seconds, assuming nobody took control of it yet, offer it to ghosts.
-	addtimer(CALLBACK(src, PROC_REF(CheckFaction)), 20)
-	addtimer(CALLBACK(src, PROC_REF(announcetoghosts)), 30)
-	var/datum/atom_hud/U = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	U.show_to(src)
-	spider_creation_time = world.time
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/announcetoghosts()
 	if(spider_awaymission)
@@ -296,11 +305,6 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	else if(ai_playercontrol_allowtype)
 		var/image/alert_overlay = image(icon, icon_state)
 		notify_ghosts("[DECLENT_RU_CAP(src, NOMINATIVE)] появляется в локации \"[get_area(src)]\".", enter_link = "<a href=byond://?src=[UID()];activate=1>(Нажмите для взятия контроля)</a>", source = src, alert_overlay = alert_overlay, action = NOTIFY_ATTACK)
-
-/mob/living/simple_animal/hostile/poison/terror_spider/Destroy()
-	GLOB.ts_spiderlist -= src
-	handle_dying()
-	return ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Life(seconds, times_fired)
 	. = ..()

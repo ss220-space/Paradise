@@ -507,7 +507,7 @@ GLOBAL_VAR(bomb_set)
 		return
 	if(locate(/obj/structure/blob) in T)
 		return
-	var/obj/structure/blob/special/captured_nuke/N = new(T, src)
+	var/obj/structure/blob/special/captured_nuke/N = new(T, B.overmind, src)
 	N.overmind = B.overmind
 	N.update_blob()
 

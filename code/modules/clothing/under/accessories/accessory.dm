@@ -908,7 +908,7 @@
 	desc = "Украшение в виде черепа, которое предназначено для защиты самого важного в жизни."
 	icon_state = "skull"
 	item_state = "skull"
-	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 20, BIO = 20, FIRE = 0, ACID = 25)
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 10, BIO = 10, FIRE = 0, ACID = 15)
 	allow_duplicates = FALSE
 
 /obj/item/clothing/accessory/necklace/skullcodpiece/get_ru_names()
@@ -926,7 +926,7 @@
 	desc = "Талисман охотника — многие верят, что он дарует защиту от старых богов тем, кто его носит."
 	icon_state = "talisman"
 	item_state = "talisman"
-	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 20, BIO = 20, FIRE = 0, ACID = 25)
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 10, BIO = 10, FIRE = 0, ACID = 15)
 	allow_duplicates = FALSE
 
 /obj/item/clothing/accessory/necklace/talisman/get_ru_names()
@@ -1261,11 +1261,11 @@
 		announce_channel = SYND_TAIPAN_FREQ		// Taipan channel for Руж.
 	else if(istype(t, /area/centcom))
 		announce_channel = ERT_FREQ	// For animals who dare to infiltrate CC.
-	else if(istype(t, /area/syndicate_mothership) || istype(t, /area/shuttle/syndicate_elite) || istype(t, /area/shuttle/syndicate_sit))
+	else if(istype(t, /area/centcom/syndicate_base) || istype(t, /area/shuttle/syndicate_elite) || istype(t, /area/shuttle/syndicate_sit))
 		announce_channel = SYNDTEAM_FREQ		// Just to be sure ...
-	else if(istype(t, /area/ninja))
+	else if(istype(t, /area/centcom/ninja))
 		announce_channel = NINJA_FREQ	// Even ninja may have a little pet.
-	else if(istype(t, /area/ussp_centcom))
+	else if(istype(t, /area/centcom/ussp))
 		announce_channel = SOV_FREQ			// MISHA, FU!
 	else if((M.z == level_name_to_num(CENTCOMM) || z == level_name_to_num(ADMIN_ZONE)) && SSticker.current_state != GAME_STATE_FINISHED)
 		radio_announce("[M] подверг[GEND_SYA_AS_OS_IS(M)] вандализму в космосе", "Оповещение о смерти [M]", PUB_FREQ, src)	// For the rest of CC map locations like Abductors UFO, Vox home or TSF home.

@@ -3182,13 +3182,6 @@
 	icon_state = "neutral"
 	},
 /area/awaymission/spacebattle/hallway6)
-"jM" = (
-/obj/machinery/optable,
-/obj/machinery/defibrillator_mount/loaded/directional/south,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor3"
-	},
-/area/awaymission/spacebattle/syndicate2)
 "jO" = (
 /obj/structure/closet/secure_closet/engineering_welding,
 /turf/simulated/floor/shuttle{
@@ -4168,6 +4161,14 @@
 	icon_state = "floor4"
 	},
 /area/awaymission/spacebattle/syndicate1)
+"mJ" = (
+/obj/structure/closet/crate/secure/bin/anchored,
+/obj/item/flashlight/seclite,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "neutral"
+	},
+/area/awaymission/spacebattle/hallway8)
 "mL" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/wall/shuttle/onlyselfsmooth,
@@ -6895,6 +6896,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/engine)
+"vb" = (
+/obj/structure/closet/crate/secure/bin/anchored,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "neutral"
+	},
+/area/awaymission/spacebattle/hallway1)
 "vc" = (
 /obj/structure/sign/securearea{
 	pixel_y = -32
@@ -7820,16 +7829,6 @@
 /obj/structure/grille/broken,
 /turf/space,
 /area/space/nearstation)
-"xI" = (
-/obj/structure/closet/crate/secure/bin{
-	anchored = 1
-	},
-/obj/item/flashlight/seclite,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "neutral"
-	},
-/area/awaymission/spacebattle/hallway8)
 "xJ" = (
 /mob/living/simple_animal/hostile/hivebot/tele,
 /turf/simulated/floor/plating/asteroid/airless,
@@ -9516,16 +9515,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/turret9)
-"CI" = (
-/obj/structure/closet/crate/secure/bin{
-	anchored = 1
-	},
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "neutral"
-	},
-/area/awaymission/spacebattle/hallway1)
 "CJ" = (
 /obj/structure/closet/crate/secure/bin,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -15558,6 +15547,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/engineering)
+"UC" = (
+/obj/machinery/optable,
+/obj/machinery/defibrillator_mount/loaded/directional/south,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/awaymission/spacebattle/syndicate2)
 "UD" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/inflatable,
@@ -40593,7 +40589,7 @@ Zh
 EJ
 IT
 vY
-CI
+vb
 eH
 Ts
 UE
@@ -52828,7 +52824,7 @@ at
 bM
 Xu
 Ss
-jM
+UC
 OD
 be
 em
@@ -59594,7 +59590,7 @@ Tf
 eH
 RF
 yp
-xI
+mJ
 eH
 ab
 ce

@@ -428,6 +428,10 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_mhatch
 	paintable = FALSE
 
+/obj/machinery/door/airlock/hatch/secure
+	aiControlDisabled = TRUE
+	hackProof = TRUE
+
 //////////////////////////////////
 /*
 	High Security Airlocks

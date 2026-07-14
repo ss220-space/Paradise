@@ -22,6 +22,7 @@
 	armor = list(melee = 50, bullet = 30, laser = 30, energy = 30, bomb = 30, bio = 0, fire = 90, acid = 90)
 
 	req_access = list(ACCESS_SECURITY, ACCESS_HEADS)
+	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 
 	var/raised = FALSE			//if the turret cover is "open" and the turret is raised
 	var/raising= FALSE			//if the turret is currently opening or closing its cover
@@ -1116,6 +1117,12 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	health = 100
 	projectile = /obj/projectile/bullet/weakbullet3
 	eprojectile = /obj/projectile/bullet/weakbullet3
+
+/obj/machinery/porta_turret/syndicate/vox
+	name = "vox turret"
+	projectile = /obj/projectile/beam/disabler
+	eprojectile = /obj/projectile/beam/disabler
+	faction = "Vox"
 
 #undef TURRET_BUILD_LOOSEN
 #undef TURRET_BUILD_ANCHORED

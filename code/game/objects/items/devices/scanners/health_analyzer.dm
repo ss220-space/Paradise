@@ -582,7 +582,7 @@
 		scan_data += "Уровень крови: --- %, --- u, тип: ---"
 		scan_data += "Пульс: [span_color("--- bpm.", "#0080ff")]"
 		scan_data += "Гены не обнаружены."
-		to_chat(user, chat_box_healthscan("[jointext(scan_data, "<br>")]"))
+		to_chat(user, custom_boxed_message("blue_box", "[jointext(scan_data, "<br>")]"))
 		return
 
 	var/mob/living/carbon/human/H = target
@@ -786,7 +786,7 @@
 	scan_data += "Требуемое количество очков страховки: [get_req_insurance(H)]."
 	if(acc)
 		scan_data += "Текущее количество очков страховки: [acc.insurance]."
-	to_chat(user, chat_box_healthscan("[jointext(scan_data, "<br>")]"))
+	to_chat(user, custom_boxed_message("blue_box", "[jointext(scan_data, "<br>")]"))
 
 /obj/item/healthanalyzer/verb/toggle_mode()
 	set name = "Вкл/Выкл локализацию"

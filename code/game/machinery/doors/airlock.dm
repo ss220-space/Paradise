@@ -60,6 +60,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	interaction_flags_click = ALLOW_SILICON_REACH
 	cares_about_temperature = TRUE
 	rad_insulation = RAD_MEDIUM_INSULATION
+	blocks_emissive = EMISSIVE_BLOCK_NONE // Custom emissive blocker. We don't want the normal behavior.
 
 	var/security_level = 0 //How much are wires secured
 	var/aiControlDisabled = AICONTROLDISABLED_OFF

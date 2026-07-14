@@ -361,9 +361,12 @@
 	. = ..()
 	SSpersistent_data.register(src)
 
+/mob/living/simple_animal/pet/dog/corgi/Ian/Destroy(force)
+	SSpersistent_data.registered_atoms -= src
+	return ..()
+
 /mob/living/simple_animal/pet/dog/corgi/Ian/death(gibbed)
 	write_memory(TRUE)
-	SSpersistent_data.registered_atoms -= src // We already wrote here, dont overwrite!
 	..()
 
 /mob/living/simple_animal/pet/dog/corgi/Ian/persistent_load()
