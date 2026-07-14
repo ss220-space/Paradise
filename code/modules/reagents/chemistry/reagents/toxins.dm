@@ -236,10 +236,12 @@
 
 /datum/reagent/radium/on_mob_life(mob/living/affected_mob)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(isnucleation(affected_mob))
-		update_flags |= affected_mob.adjustBruteLoss(-3 * REM, updating_health = FALSE)
-		update_flags |= affected_mob.adjustFireLoss(-3 * REM, updating_health = FALSE)
-		return ..() | update_flags
+	if(ishuman(affected_mob))
+		var/mob/living/carbon/human/H = affected_mob
+		if(H.dna && isnucleation(H.dna.species))
+			update_flags |= H.adjustBruteLoss(-3 * REM, updating_health = FALSE)
+			update_flags |= H.adjustFireLoss(-3 * REM, updating_health = FALSE)
+			return ..() | update_flags
 	if(!HAS_TRAIT(affected_mob, TRAIT_IRRADIATED) && SSradiation.can_irradiate_basic(affected_mob))
 		var/chance = min(volume / (20 - rad_power * 5), rad_power)
 		if(prob(chance))
@@ -373,10 +375,12 @@
 
 /datum/reagent/uranium/on_mob_life(mob/living/affected_mob)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(isnucleation(affected_mob))
-		update_flags |= affected_mob.adjustBruteLoss(-3 * REM, updating_health = FALSE)
-		update_flags |= affected_mob.adjustFireLoss(-3 * REM, updating_health = FALSE)
-		return ..() | update_flags
+	if(ishuman(affected_mob))
+		var/mob/living/carbon/human/H = affected_mob
+		if(H.dna && isnucleation(H.dna.species))
+			update_flags |= H.adjustBruteLoss(-3 * REM, updating_health = FALSE)
+			update_flags |= H.adjustFireLoss(-3 * REM, updating_health = FALSE)
+			return ..() | update_flags
 	if(!HAS_TRAIT(affected_mob, TRAIT_IRRADIATED) && SSradiation.can_irradiate_basic(affected_mob))
 		var/chance = min(volume / (20 - rad_power * 5), rad_power)
 		if(prob(chance))
