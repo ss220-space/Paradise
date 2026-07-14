@@ -419,7 +419,7 @@ GLOBAL_ALIST_INIT(shower_mode_descriptions, alist(
 	/// How far to shift the sprite when placing.
 	var/pixel_shift = 16
 
-/obj/machinery/shower/Initialize(mapload, newdir = SOUTH, building = FALSE)
+/obj/machinery/shower/Initialize(mapload, newdir, building = FALSE)
 	. = ..()
 	if(newdir)
 		setDir(newdir)
@@ -462,7 +462,7 @@ GLOBAL_ALIST_INIT(shower_mode_descriptions, alist(
 	. += span_notice("The auto shut-off is programmed to [GLOB.shower_mode_descriptions[mode]].")
 	. += span_notice("[reagents.total_volume]/[reagents.maximum_volume] liquids remaining.")
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/shower, -16, -16)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/shower, (-16), (-16))
 
 //add heat controls? when emagged, you can freeze to death in it?
 
@@ -987,7 +987,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sink, (-14), (-14))
 	icon_state = "sink_alt"
 	can_rotate = 0
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sink/kitchen, -16, -16)
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sink/kitchen, (-16), (-16))
 
 /obj/structure/sink/puddle	//splishy splashy ^_^
 	name = "puddle"

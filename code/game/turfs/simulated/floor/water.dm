@@ -166,12 +166,12 @@
 	var/static/basalt_group = null
 	//var/static/siderite_group = null
 	//var/static/shale_group = null
-	if (isnull(basalt_group))
+	if(isnull(basalt_group))
 		SET_SMOOTHING_GROUPS(SMOOTH_GROUP_FLOOR_BASALT + SMOOTH_GROUP_MINERAL_WALLS, basalt_group)
 		//SET_SMOOTHING_GROUPS(SMOOTH_GROUP_FLOOR_SIDERITE + SMOOTH_GROUP_RED_ROCK_WALLS, siderite_group)
 		//SET_SMOOTHING_GROUPS(SMOOTH_GROUP_FLOOR_SHALE + SMOOTH_GROUP_SHALE_WALLS, shale_group)
 	// After smoothing normally we can check our smoothed directions for possible basalt/siderite/shale tiles
-	for (var/check_dir in GLOB.alldirs)
+	for(var/check_dir in GLOB.alldirs)
 		var/junction = dir_to_junction(check_dir) | all_junctions_of_dir(check_dir)
 		if (!(junction & smoothing_junction))
 			continue
@@ -187,11 +187,7 @@
 			else if (group & shale_group[key])
 				shale_junction &= ~junction
 			*/
-/*
-/turf/simulated/floor/water/lavaland_atmos/basalt/smooth_icon()
-	. = ..()
-	update_appearance(~UPDATE_SMOOTHING)
-*/
+	update_appearance()
 
 /turf/simulated/floor/water/lavaland_atmos/basalt/update_overlays()
 	. = ..()

@@ -62,9 +62,15 @@ GLOBAL_LIST_EMPTY(unit_test_tguis)
 	// failure tracking
 	var/succeeded = TRUE
 	var/list/allocated
+	/// The bottom left floor turf of the testing zone
+	var/turf/run_loc_floor_bottom_left
+	/// The top right floor turf of the testing zone
+	var/turf/run_loc_floor_top_right
 	var/list/fail_reasons
 
 /datum/unit_test/New()
+	run_loc_floor_bottom_left = get_turf(locate(/obj/effect/landmark/unit_test/bottom_left_corner) in GLOB.landmarks_list)
+	run_loc_floor_top_right = get_turf(locate(/obj/effect/landmark/unit_test/top_right_corner) in GLOB.landmarks_list)
 
 /datum/unit_test/Destroy()
 	QDEL_LIST(allocated)

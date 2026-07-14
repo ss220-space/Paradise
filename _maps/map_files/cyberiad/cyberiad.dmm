@@ -16275,15 +16275,7 @@
 /turf/simulated/floor/wood,
 /area/station/service/library)
 "bry" = (
-/obj/structure/table/wood,
-/obj/item/pen/red{
-	pixel_x = 2;
-	pixel_y = 6
-	},
-/obj/item/pen/blue{
-	pixel_x = 5;
-	pixel_y = 5
-	},
+/obj/machinery/computer/portrait_printer,
 /turf/simulated/floor/wood,
 /area/station/service/library)
 "brz" = (
@@ -39238,6 +39230,14 @@
 /obj/structure/table/wood,
 /obj/item/camera_film,
 /obj/item/camera_film,
+/obj/item/pen/blue{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/obj/item/pen/red{
+	pixel_x = 2;
+	pixel_y = 6
+	},
 /turf/simulated/floor/wood,
 /area/station/service/library)
 "dlG" = (

@@ -6829,6 +6829,7 @@
 	pixel_x = 2;
 	pixel_y = 6
 	},
+/obj/item/taperecorder,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -24464,8 +24465,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/security/lobby)
 "jif" = (
-/obj/structure/table/wood,
-/obj/item/taperecorder,
+/obj/machinery/computer/portrait_printer,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},

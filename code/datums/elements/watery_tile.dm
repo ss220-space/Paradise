@@ -50,6 +50,7 @@
 		return
 	var/mob/living/our_mob = source
 	our_mob.adjust_wet_stacks(3)
+	our_mob.WetMob()
 	our_mob.apply_status_effect(/datum/status_effect/watery_tile_wetness)
 
 /datum/element/watery_tile/proc/out_of_water(atom/source, atom/movable/gone)
@@ -77,3 +78,4 @@
 /datum/status_effect/watery_tile_wetness/tick(seconds_between_ticks)
 	. = ..()
 	owner.adjust_wet_stacks(1)
+	owner.WetMob()
