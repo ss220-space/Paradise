@@ -107,8 +107,8 @@
 
 	/// A var that stores the next stage to which certain other jobs are transferred.
 	var/upgrade_job = null
-	
-  /// Traits added to the mind of the mob assigned this job
+
+	/// Traits added to the mind of the mob assigned this job
 	var/list/mind_traits
 
 #define MAX_START_MONEY_MULTIPLIER 3
