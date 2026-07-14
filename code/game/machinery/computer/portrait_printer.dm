@@ -57,6 +57,11 @@
 	stored_paper++
 	return ITEM_INTERACT_SUCCESS
 
+/obj/machinery/computer/portrait_printer/examine(mob/user)
+	. = ..()
+	if(IsReachableBy(user))
+		. += span_notice("Paper level: [stored_paper] / [max_paper].")
+
 /obj/machinery/computer/portrait_printer/ui_static_data(mob/user)
 	. = ..()
 	.["is_console"] = TRUE
@@ -72,6 +77,7 @@
 	return list(
 		get_asset_datum(/datum/asset/simple/portraits)
 	)
+
 
 /obj/machinery/computer/portrait_printer/ui_act(action, params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
