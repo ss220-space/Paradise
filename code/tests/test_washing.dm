@@ -5,7 +5,6 @@
 		/obj/item/clothing/gloves/color/black,
 		///mob/living/carbon/human/dummy/consistent,
 	)
-
 	/// Tracks if we caught the clean signal, to know we washed successfully
 	VAR_PRIVATE/clean_sig_caught = 0
 
@@ -38,7 +37,7 @@
 				TEST_FAIL("[i] was not deleted when its turf was cleaned!")
 			qdel(to_clean)
 
-/datum/unit_test/room_test/proc/clean_caught(...)
+/datum/unit_test/room_test/washing/proc/clean_caught(...)
 	SIGNAL_HANDLER
 
 	clean_sig_caught += 1
