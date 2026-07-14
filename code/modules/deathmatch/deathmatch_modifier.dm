@@ -103,9 +103,149 @@
 /datum/deathmatch_modifier/health
 	name = "Удвоенное здоровье"
 	description = "Увеличивает ваше здоровье в два раза."
-	//blacklisted_modifiers = list(/datum/deathmatch_modifier/health/half, /datum/deathmatch_modifier/health/triple)
+	blacklisted_modifiers = list(/datum/deathmatch_modifier/health/half, /datum/deathmatch_modifier/health/triple)
 	var/multiplier = 2
 
 /datum/deathmatch_modifier/health/apply(mob/living/carbon/player, datum/deathmatch_lobby/lobby)
 	player.maxHealth *= multiplier
 	player.health *= multiplier
+
+/datum/deathmatch_modifier/health/half
+	name = "Уменьшенное здоровье"
+	description = "Уменьшает ваше здоровье наполовину."
+	blacklisted_modifiers = list(/datum/deathmatch_modifier/health, /datum/deathmatch_modifier/health/triple)
+	multiplier = 0.5
+
+/datum/deathmatch_modifier/health/triple
+	name = "Утроенное здоровье"
+	description = "Когда удвоенного здоровья недостаточно.."
+	multiplier = 3
+	blacklisted_modifiers = list(/datum/deathmatch_modifier/health, /datum/deathmatch_modifier/health/half)
+
+/datum/deathmatch_modifier/no_knockdown
+	name = "Без станов"
+	description = "Куклы никогда не упадут и не заснут во время боя."
+
+/datum/deathmatch_modifier/no_knockdown/apply(mob/living/carbon/player, datum/deathmatch_lobby/lobby)
+	player.add_traits(list(TRAIT_SLEEPIMMUNE), DEATHMATCH_TRAIT)
+	player.add_status_effect_absorption(source = src, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
+
+/datum/deathmatch_modifier/no_slowdown
+	name = "Без замедления"
+	description = "Куклы не замедляются от полученного урона."
+
+/datum/deathmatch_modifier/no_slowdown/apply(mob/living/carbon/player, datum/deathmatch_lobby/lobby)
+	ADD_TRAIT(player, TRAIT_IGNORESLOWDOWN, DEATHMATCH_TRAIT)
+
+/datum/deathmatch_modifier/xray
+	name = "Иксрей зрение"
+	description = "Позволяет вам видеть всю карту и всё, что происходит на ней."
+	blacklisted_modifiers = list(/datum/deathmatch_modifier/thermal)
+
+/datum/deathmatch_modifier/xray/apply(mob/living/carbon/player, datum/deathmatch_lobby/lobby)
+	ADD_TRAIT(player, TRAIT_XRAY_VISION, DEATHMATCH_TRAIT)
+	player.update_sight()
+
+/datum/deathmatch_modifier/thermal
+	name = "Термальное зрение"
+	description = "Позволяет видеть других кукл через стены."
+	blacklisted_modifiers = list(/datum/deathmatch_modifier/xray)
+
+/datum/deathmatch_modifier/thermal/apply(mob/living/carbon/player, datum/deathmatch_lobby/lobby)
+	ADD_TRAIT(player, TRAIT_THERMAL_VISION, DEATHMATCH_TRAIT)
+	player.update_sight()
+
+/datum/deathmatch_modifier/no_gravity
+	name = "Без гравитации"
+	description = "Проверьте ваши навыки робаста при нулевой гравитации."
+	//blacklisted_modifiers = list(/datum/deathmatch_modifier/mounts, /datum/deathmatch_modifier/paraplegic, /datum/deathmatch_modifier/minefield)
+
+/datum/deathmatch_modifier/no_gravity/on_start_game(datum/deathmatch_lobby/lobby)
+	ASYNC
+		for(var/turf/turf as anything in lobby.location.reserved_turfs)
+			turf.AddElement(/datum/element/forced_gravity, 0)
+			CHECK_TICK
+
+/datum/deathmatch_modifier/no_gravity/on_end_game(datum/deathmatch_lobby/lobby)
+	for(var/turf/turf as anything in lobby.location.reserved_turfs)
+		turf.RemoveElement(/datum/element/forced_gravity, 0)
+
+/datum/deathmatch_modifier/explode_on_death
+	name = "Взрыв после смерти"
+	description = "Каждая кукла получает имплант подрыва."
+
+/datum/deathmatch_modifier/explode_on_death/on_start_game(datum/deathmatch_lobby/lobby)
+	ADD_TRAIT(lobby, TRAIT_DEATHMATCH_EXPLOSIVE_IMPLANTS, DEATHMATCH_TRAIT)
+
+/datum/deathmatch_modifier/explode_on_death/apply(mob/living/carbon/player, datum/deathmatch_lobby/lobby)
+	var/obj/item/implant/explosive/implant = new()
+	implant.implant(player, force = TRUE)
+
+/datum/deathmatch_modifier/monkeys
+	name = "Манкификация"
+	description = "Вернись к своим корням."
+
+/datum/deathmatch_modifier/monkeys/apply(mob/living/carbon/player, datum/deathmatch_lobby/lobby)
+	var/mob/living/carbon/human/our_human = player
+	if(!our_human)
+		return
+	our_human.set_species(/datum/species/monkey)
+
+/datum/deathmatch_modifier/minefield
+	name = "Минное поле"
+	description = "Все игровое поле усеяно минами. Смотри под ноги!"
+
+/datum/deathmatch_modifier/minefield/on_start_game(datum/deathmatch_lobby/lobby)
+	var/list/mines = subtypesof(/obj/effect/mine)
+	mines -= list(
+		/obj/effect/mine/pickup,
+		/obj/effect/mine/pickup/bloodbath,
+		/obj/effect/mine/pickup/healing,
+		/obj/effect/mine/pickup/speed,
+		/obj/effect/mine/gas, //Just spawns oxygen.
+		/obj/effect/mine/gas/n2o, //no sleeping please.
+	)
+
+	///1 every 11 turfs, but it will actually spawn fewer mines since groundless and closed turfs are skipped.
+	var/mines_to_spawn = length(lobby.location.reserved_turfs) * 0.09
+	for(var/iteration in 1 to mines_to_spawn)
+		var/turf/target_turf = pick(lobby.location.reserved_turfs)
+		if(!issimulatedturf(target_turf) || isgroundlessturf(target_turf))
+			continue
+		///don't spawn mine next to player spawns.
+		if(locate(/obj/effect/landmark/deathmatch_player_spawn) in range(1, target_turf))
+			continue
+		///skip belt loops or they'll explode right away.
+		if(locate(/obj/machinery/conveyor) in target_turf.contents)
+			continue
+		var/mine_path = pick(mines)
+		new mine_path (target_turf)
+
+/datum/deathmatch_modifier/any_loadout
+	name = "Свободный выбор снаряжения"
+	description = "Наблюдайте, как все берут инстагиб пушку."
+	random_exempted = TRUE
+
+/datum/deathmatch_modifier/any_loadout/selectable(datum/deathmatch_lobby/lobby)
+	. = ..()
+	if(!.)
+		return
+	return lobby.map.allowed_loadouts
+
+/datum/deathmatch_modifier/any_loadout/on_select(datum/deathmatch_lobby/lobby)
+	lobby.loadouts = GLOB.deathmatch_game.loadouts
+
+/datum/deathmatch_modifier/any_loadout/unselect(datum/deathmatch_lobby/lobby)
+	lobby.loadouts = lobby.map.allowed_loadouts
+
+/datum/deathmatch_modifier/any_loadout/on_map_changed(datum/deathmatch_lobby/lobby)
+	if(lobby.loadouts == GLOB.deathmatch_game.loadouts) //This arena already allows any loadout for some reason.
+		lobby.unselect_modifier(src)
+	else
+		lobby.loadouts = GLOB.deathmatch_game.loadouts
+
+// TODO:
+// DROP POD MODIFIERS
+// MOUNTS
+// AIM MODIFIERS
+// MISC MODIFIERS (teleport, snail crawl, blinking, forcefield)

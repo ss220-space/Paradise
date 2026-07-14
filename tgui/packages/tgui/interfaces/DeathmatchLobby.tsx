@@ -334,7 +334,7 @@ const ModSelector = (props) => {
   return (
     <Modal>
       <Button fluid color="bad" onClick={() => act('exit_mod_menu')}>
-        Go Back
+        Вернуться
       </Button>
       {modifiers.map((mod, index) => (
         <Button.Checkbox
