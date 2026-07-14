@@ -582,7 +582,6 @@
 	board_name = "Portrait Printer"
 	greyscale_colors = CIRCUIT_COLOR_SERVICE
 	build_path = /obj/machinery/computer/portrait_printer
-	origin_tech = "programming=2"
 
 /obj/item/circuitboard/HONKputer
 	board_name = "HONKputer"

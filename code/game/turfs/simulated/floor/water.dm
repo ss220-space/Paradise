@@ -2,7 +2,6 @@
 	name = "water"
 	gender = PLURAL
 	desc = "Shallow water."
-	icon = 'icons/turf/floors.dmi'
 	icon_state = "riverwater_motion"
 	baseturf = /turf/simulated/floor/water
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
@@ -103,12 +102,10 @@
 	desc = "Less shallow, very dangerous water. You feel like it would be a very bad idea to enter this water."
 	stamina_entry_cost = 25
 	ticking_stamina_cost = 15
-	ticking_oxy_damage = 2
 	exhaust_swimmer_prob = 100
 
 /turf/simulated/floor/water/beach
 	atmos_mode = ATMOS_MODE_SEALED
-	gender = PLURAL
 	desc = "Come on in, it's great!"
 	icon = 'icons/turf/beach.dmi'
 	icon_state = "water"
@@ -173,30 +170,30 @@
 	// After smoothing normally we can check our smoothed directions for possible basalt/siderite/shale tiles
 	for(var/check_dir in GLOB.alldirs)
 		var/junction = dir_to_junction(check_dir) | all_junctions_of_dir(check_dir)
-		if (!(junction & smoothing_junction))
+		if(!(junction & smoothing_junction))
 			continue
 		var/turf/to_smooth = get_step(src, check_dir)
-		if (!istype(to_smooth) || !to_smooth.smoothing_groups)
+		if(!istype(to_smooth) || !to_smooth.smoothing_groups)
 			continue
 		for(var/key, group in to_smooth.smoothing_groups)
-			if (group & basalt_group[key])
+			if(group & basalt_group[key])
 				basalt_junction &= ~junction
 			/*
-			else if (group & siderite_group[key])
+			else if(group & siderite_group[key])
 				siderite_junction &= ~junction
-			else if (group & shale_group[key])
+			else if(group & shale_group[key])
 				shale_junction &= ~junction
 			*/
 	update_appearance()
 
 /turf/simulated/floor/water/lavaland_atmos/basalt/update_overlays()
 	. = ..()
-	if (basalt_junction != ALL_SMOOTHING_JUNCTIONS)
+	if(basalt_junction != ALL_SMOOTHING_JUNCTIONS)
 		. += mutable_appearance('icons/turf/floors/basalt_outline.dmi', "basalt_outline-[basalt_junction]")
 	/*
-	if (siderite_junction != ALL_SMOOTHING_JUNCTIONS)
+	if(siderite_junction != ALL_SMOOTHING_JUNCTIONS)
 		. += mutable_appearance('icons/turf/floors/siderite_outline.dmi', "siderite_outline-[siderite_junction]")
-	if (shale_junction != ALL_SMOOTHING_JUNCTIONS)
+	if(shale_junction != ALL_SMOOTHING_JUNCTIONS)
 		. += mutable_appearance('icons/turf/floors/shale_outline.dmi', "shale_outline-[shale_junction]")
 	*/
 

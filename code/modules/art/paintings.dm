@@ -440,19 +440,19 @@ GLOBAL_LIST_INIT(canvas_dimensions, init_canvas_dimensions())
 		var/obj/item/paint_palette/palette = painting_implement
 		return LOWER_TEXT(palette.current_color)
 
-	if(istype(painting_implement, /obj/item/toy/crayon))
+	if(iscrayon(painting_implement))
 		var/obj/item/toy/crayon/crayon = painting_implement
 		return LOWER_TEXT(crayon.colour)
 
-	if(istype(painting_implement, /obj/item/pen))
+	if(is_pen(painting_implement))
 		var/obj/item/pen/pen = painting_implement
 		return LOWER_TEXT(pen.colour)
 
-	if (istype(painting_implement, /obj/item/airlock_painter/decal))
+	if(istype(painting_implement, /obj/item/airlock_painter/decal))
 		var/obj/item/airlock_painter/decal/painter = painting_implement
 		return LOWER_TEXT(painter.selected_custom_color)
 
-	if(istype(painting_implement, /obj/item/soap) || istype(painting_implement, /obj/item/rag))
+	if(issoap(painting_implement) || istype(painting_implement, /obj/item/rag))
 		return LOWER_TEXT(canvas_color)
 
 /obj/item/canvas/proc/get_paint_tool_palette(obj/item/painting_implement)
@@ -479,7 +479,7 @@ GLOBAL_LIST_INIT(canvas_dimensions, init_canvas_dimensions())
 	if(istype(painting_metadata, /obj/item/paint_palette) || istype(painting_implement, /obj/item/airlock_painter/decal))
 		return TRUE
 
-	if(istype(painting_implement, /obj/item/toy/crayon))
+	if(iscrayon(painting_implement))
 		var/obj/item/toy/crayon/crayon = painting_implement
 		return crayon.can_change_colour
 
@@ -494,13 +494,13 @@ GLOBAL_LIST_INIT(canvas_dimensions, init_canvas_dimensions())
 	if(istype(painting_implement, /obj/item/toy/crayon/spraycan))
 		return "Следы балончика на холсте"
 
-	if(istype(painting_implement, /obj/item/toy/crayon))
+	if(iscrayon(painting_implement))
 		return "Следы мелков на холсте"
 
-	if(istype(painting_implement, /obj/item/pen) || istype(painting_implement, /obj/item/airlock_painter/decal))
+	if(is_pen(painting_implement) || istype(painting_implement, /obj/item/airlock_painter/decal))
 		return "Чернила на холсте"
 
-	if(istype(painting_implement, /obj/item/soap) /*|| istype(painting_implement, /obj/item/rag)*/)
+	if(issoap(painting_implement) /*|| istype(painting_implement, /obj/item/rag)*/)
 		return //These are just for cleaning, ignore them
 
 	return "Неизвестный материал"
@@ -698,7 +698,6 @@ GLOBAL_LIST_INIT(canvas_dimensions, init_canvas_dimensions())
 /obj/structure/sign/painting
 	name = "Painting"
 	desc = "Искусство или \"Исскуство\"? Зависит только от вас."
-	icon = 'icons/obj/decals.dmi'
 	icon_state = "frame-empty"
 	base_icon_state = "frame"
 	//custom_materials = list(/datum/material/wood =SHEET_MATERIAL_AMOUNT)
@@ -745,7 +744,7 @@ GLOBAL_LIST_INIT(canvas_dimensions, init_canvas_dimensions())
 		frame_canvas(user, tool)
 		return ITEM_INTERACT_SUCCESS
 
-	if(current_canvas && current_canvas.painting_metadata.title == initial(current_canvas.painting_metadata.title) && istype(tool, /obj/item/pen))
+	if(current_canvas && current_canvas.painting_metadata.title == initial(current_canvas.painting_metadata.title) && is_pen(tool))
 		if(try_rename(user))
 			SStgui.update_uis(src)
 		return ITEM_INTERACT_SUCCESS

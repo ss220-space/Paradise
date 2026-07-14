@@ -61,7 +61,6 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 /datum/reagent/water/mineral
 	name = "Mineral Water"
 	id = "mineral_water"
-	can_synth = TRUE
 
 /datum/reagent/water/mineral/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, metabolization_ratio)
 	. = ..()
@@ -75,7 +74,6 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	color = "#aaaaaa9d" // rgb: 170, 170, 170, 77 (alpha)
 	taste_description = "the sea"
 	cooling_temperature = 3
-	can_synth = TRUE
 
 /datum/reagent/lube
 	name = "Космическая смазка"

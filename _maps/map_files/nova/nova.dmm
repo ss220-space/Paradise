@@ -47434,9 +47434,7 @@
 	},
 /area/station/hallway/primary/starboard/east)
 "hvj" = (
-/obj/machinery/shower/directional/north{
-	on = 1
-	},
+/obj/machinery/shower/directional/north,
 /obj/structure/curtain/open/shower/security,
 /obj/item/radio/intercom/directional/east,
 /turf/simulated/floor/plasteel{

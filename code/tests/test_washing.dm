@@ -3,7 +3,7 @@
 	var/list/cleanable_bonus_list = list(
 		/obj/effect/rune,
 		/obj/item/clothing/gloves/color/black,
-		/mob/living/carbon/human/dummy/consistent,
+		///mob/living/carbon/human/dummy/consistent,
 	)
 
 	/// Tracks if we caught the clean signal, to know we washed successfully

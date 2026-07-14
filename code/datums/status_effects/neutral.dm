@@ -400,8 +400,6 @@
 
 /datum/status_effect/washing_regen
 	id = "shower_regen"
-	duration = STATUS_EFFECT_PERMANENT
-	status_type = STATUS_EFFECT_UNIQUE
 	alert_type = /atom/movable/screen/alert/status_effect/washing_regen
 	/// How much stamina we regain from washing
 	var/stamina_heal_per_tick = -4
@@ -507,6 +505,5 @@
 	icon_state = "hotspring_regen"
 
 /atom/movable/screen/alert/status_effect/washing_regen/hotspring/hater
-	name = "Hotspring"
 	desc = "Waaater... FUCK THIS HOT WATER!!"
 	icon_state = "hotspring_regen_catgirl"

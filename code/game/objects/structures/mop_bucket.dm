@@ -35,7 +35,7 @@
 		context[SCREENTIP_CONTEXT_RMB] = "Wet [held_item]"
 		return CONTEXTUAL_SCREENTIP_SET
 
-	if(istype(held_item, /obj/item/reagent_containers))
+	if(is_reagent_container(held_item))
 		context[SCREENTIP_CONTEXT_LMB] = "Fill mop bucket"
 		return CONTEXTUAL_SCREENTIP_SET
 
@@ -58,7 +58,7 @@
 	if(user.a_intent == INTENT_HARM || weapon.is_robot_module())
 		return ..()
 
-	if(istype(weapon, /obj/item/reagent_containers))
+	if(is_reagent_container(weapon))
 		update_appearance(UPDATE_OVERLAYS)
 		return ATTACK_CHAIN_BLOCKED // skip attack animation when refilling cart
 
@@ -87,7 +87,7 @@
 		balloon_alert(user, "doused mop")
 		playsound(src, 'sound/effects/slosh.ogg', 25, vary = TRUE)
 
-	if(istype(weapon, /obj/item/reagent_containers) || istype(weapon, /obj/item/mop))
+	if(is_reagent_container(weapon) || istype(weapon, /obj/item/mop))
 		update_appearance(UPDATE_OVERLAYS)
 		return SECONDARY_ATTACK_CONTINUE_CHAIN // skip attack animations when refilling cart
 

@@ -38,7 +38,7 @@ GLOBAL_LIST_EMPTY(radial_menus)
 		icon_state = "[parent.radial_slice_icon]_focus"
 	if(tooltips)
 		openToolTip(usr, src, params, title = name, theme = tooltip_theme)
-	if (click_on_hover && !isnull(usr) && !isnull(parent))
+	if(click_on_hover && !isnull(usr) && !isnull(parent))
 		Click(location, control, params)
 
 /atom/movable/screen/radial/slice/MouseExited(location, control, params)
@@ -123,15 +123,15 @@ GLOBAL_LIST_EMPTY(radial_menus)
 		return
 
 	var/in_screen = AM.screen_loc && (AM in user.client.screen)
-	if (!in_screen)
+	if(!in_screen)
 		var/list/check_locs = AM.vis_locs.Copy()
 		var/i = 1
-		while (i <= length(check_locs))
+		while(i <= length(check_locs))
 			var/atom/movable/other_check = check_locs[i]
 			i += 1
-			if (!istype(other_check))
+			if(!istype(other_check))
 				continue
-			if (other_check.screen_loc && (other_check in user.client.screen))
+			if(other_check.screen_loc && (other_check in user.client.screen))
 				in_screen = TRUE
 				break
 			check_locs |= other_check.vis_locs
@@ -218,9 +218,9 @@ GLOBAL_LIST_EMPTY(radial_menus)
 		else
 			SetElement(element,page_choices[i],angle,anim_flag = anim_flag,anim_order = i)
 			// Only activate click on hover after the animation plays
-			if (!click_on_hover)
+			if(!click_on_hover)
 				continue
-			if (anim_flag)
+			if(anim_flag)
 				addtimer(VARSET_CALLBACK(element, click_on_hover, TRUE), i * 0.5)
 			else
 				element.click_on_hover = TRUE
@@ -282,7 +282,7 @@ GLOBAL_LIST_EMPTY(radial_menus)
 		E.next_page = FALSE
 		if(choices_icons[choice_id])
 			E.add_overlay(choices_icons[choice_id])
-		if (choice_datum?.info)
+		if(choice_datum?.info)
 			var/obj/effect/abstract/info/info_button = new(E, choice_datum.info)
 			info_button.name = "Info: [E.name]"
 			info_button.tooltip_theme = choice_datum.tooltip_theme
@@ -321,12 +321,12 @@ GLOBAL_LIST_EMPTY(radial_menus)
 			if(I)
 				choices_icons[id] = I
 
-			if (istype(new_choices[E], /datum/radial_menu_choice))
+			if(istype(new_choices[E], /datum/radial_menu_choice))
 				choice_datums[id] = new_choices[E]
 	setup_menu(use_tooltips, set_page, click_on_hover)
 
 /datum/radial_menu/proc/extract_image(to_extract_from)
-	if (istype(to_extract_from, /datum/radial_menu_choice))
+	if(istype(to_extract_from, /datum/radial_menu_choice))
 		var/datum/radial_menu_choice/choice = to_extract_from
 		to_extract_from = choice.image
 
@@ -366,7 +366,7 @@ GLOBAL_LIST_EMPTY(radial_menus)
 		current_user.images -= menu_holder
 
 /datum/radial_menu/proc/wait(atom/user, atom/anchor, require_near = FALSE)
-	while (current_user && !finished && !selected_choice)
+	while(current_user && !finished && !selected_choice)
 		if(require_near && !in_range(anchor, user))
 			return
 		if(custom_check_callback && next_check < world.time)
@@ -427,7 +427,7 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	menu.set_choices(choices, tooltips, click_on_hover)
 	var/offset_x = 0
 	var/offset_y = 0
-	if (user_space)
+	if(user_space)
 		var/turf/user_turf = get_turf(user)
 		var/turf/anchor_turf = get_turf(anchor)
 		offset_x = (anchor_turf.x - user_turf.x) * ICON_SIZE_X + anchor.pixel_x - user.pixel_x

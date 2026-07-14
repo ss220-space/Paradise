@@ -57,7 +57,7 @@
 
 /obj/effect/decal/cleanable/wash_tg(clean_types)
 	. = ..()
-	if (. || clean_types & clean_type)
+	if(. || clean_types & clean_type)
 		qdel(src)
 		. |= COMPONENT_CLEANED|COMPONENT_CLEANED_GAIN_XP
 

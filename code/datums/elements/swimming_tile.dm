@@ -114,8 +114,6 @@
 /datum/status_effect/swimming
 	id = "swimming"
 	alert_type = null
-	duration = STATUS_EFFECT_PERMANENT
-	status_type = STATUS_EFFECT_UNIQUE
 	tick_interval = 5 SECONDS
 	/// How much damage do we do every tick interval?
 	var/stamina_per_interval
@@ -128,7 +126,7 @@
 	. = ..()
 	stamina_per_interval = ticking_stamina_cost
 	oxygen_per_interval = ticking_oxy_damage
-	if (!HAS_TRAIT(owner, TRAIT_SWIMMER))
+	if(!HAS_TRAIT(owner, TRAIT_SWIMMER))
 		owner.add_movespeed_modifier(/datum/movespeed_modifier/swimming_deep)
 	RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_IMMERSED), PROC_REF(stop_swimming))
 
@@ -140,7 +138,7 @@
 	if(HAS_TRAIT(owner, TRAIT_MOB_ELEVATED))
 		return
 	if(owner.buckled) // We're going to generously assume that being buckled to any mob or vehicle leaves you above water
-		if (isvehicle(owner.buckled) || ismob(owner.buckled))
+		if(isvehicle(owner.buckled) || ismob(owner.buckled))
 			return
 
 	var/effective_stamina_per_interval = owner.get_strength_level_number() > /datum/strength_level/normal::level_num? stamina_per_interval : (stamina_per_interval / 2)
@@ -149,20 +147,20 @@
 
 	var/under_pressure = prob(drowning_process_probability * gravity_modifier)
 
-	if (!HAS_TRAIT(owner, TRAIT_SWIMMER))
+	if(!HAS_TRAIT(owner, TRAIT_SWIMMER))
 		var/athletics_skill = (/*owner.mind?.get_skill_level(/datum/skill/athletics) ||*/ 1) - 1
 		owner.apply_damage(clamp((effective_stamina_per_interval - (athletics_skill / 2)) * gravity_modifier, 1, 100), STAMINA)
 
 	// You might not be swimming but you can breathe
-	if (HAS_TRAIT(owner, TRAIT_NODROWN) || HAS_TRAIT(owner, TRAIT_NO_BREATH) || (owner.mob_size >= MOB_SIZE_HUMAN && owner.body_position == STANDING_UP))
+	if(HAS_TRAIT(owner, TRAIT_NODROWN) || HAS_TRAIT(owner, TRAIT_NO_BREATH) || (owner.mob_size >= MOB_SIZE_HUMAN && owner.body_position == STANDING_UP))
 		return
-	if (iscarbon(owner))
+	if(iscarbon(owner))
 		var/mob/living/carbon/carbon_owner = owner
-		if (carbon_owner.internal /*|| carbon_owner.external*/)
+		if(carbon_owner.internal /*|| carbon_owner.external*/)
 			return
-	if (isbasicmob(owner))
+	if(isbasicmob(owner))
 		var/mob/living/basic/basic_owner = owner
-		if (basic_owner.unsuitable_atmos_damage == 0)
+		if(basic_owner.unsuitable_atmos_damage == 0)
 			return // This mob doesn't "breathe"
 	owner.apply_damage(oxygen_per_interval * seconds_between_ticks, OXY)
 	if(under_pressure)

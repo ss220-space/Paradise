@@ -72,10 +72,7 @@
 /datum/status_effect/watery_tile_wetness
 	id = "watery_tile_wetness"
 	alert_type = null
-	duration = STATUS_EFFECT_PERMANENT
-	status_type = STATUS_EFFECT_UNIQUE
 
 /datum/status_effect/watery_tile_wetness/tick(seconds_between_ticks)
 	. = ..()
 	owner.adjust_wet_stacks(1)
-	owner.WetMob()

@@ -198,7 +198,7 @@ GLOBAL_LIST_INIT(immerse_ignored_movable, typecacheof(list(
 
 /// Generate a mask filter mutable to use as render_source for the alpha filter based on provided width, height and immersion state
 /datum/element/immerse/proc/generate_immerse_mask(width, height, is_below_water)
-	if (!width || !height)
+	if(!width || !height)
 		return
 	var/clean_height = height
 	width = ceil(width / ICON_SIZE_X) * ICON_SIZE_X
@@ -206,34 +206,34 @@ GLOBAL_LIST_INIT(immerse_ignored_movable, typecacheof(list(
 
 	var/mask_key = "[width]-[height]-[is_below_water]"
 	var/mutable_appearance/target_mask = immersion_masks[mask_key]
-	if (target_mask)
+	if(target_mask)
 		return target_mask
 
-	if (width == ICON_SIZE_X && height == ICON_SIZE_Y)
+	if(width == ICON_SIZE_X && height == ICON_SIZE_Y)
 		target_mask = mutable_appearance('icons/effects/effects.dmi', mask_icon, alpha = alpha)
 		immersion_masks[mask_key] = target_mask
 		return target_mask
 
 	var/icon/column_icon = icon('icons/effects/effects.dmi', mask_icon)
 	var/y_tiles = 1
-	if (height != ICON_SIZE_Y)
+	if(height != ICON_SIZE_Y)
 		column_icon.Crop(1, 1, ICON_SIZE_X, ICON_SIZE_Y) // Use base icon and crop it out so animation frames respect dmi's delays
 		y_tiles = ceil((height / ICON_SIZE_Y - 1) / 2) + 1
 		column_icon.Scale(ICON_SIZE_X, y_tiles * ICON_SIZE_Y)
 		var/icon/effect_icon = icon('icons/effects/effects.dmi', mask_icon)
 		var/icon/fill_icon = icon('icons/effects/alphacolors.dmi', "white")
-		for (var/y_tile in 1 to y_tiles - 1)
+		for(var/y_tile in 1 to y_tiles - 1)
 			column_icon.Blend(fill_icon, ICON_OVERLAY, 1, 1 + (y_tile - 1) * ICON_SIZE_Y)
 		column_icon.Blend(effect_icon, ICON_OVERLAY, 1, 1 + (y_tiles - 1) * ICON_SIZE_Y)
 
 	var/icon/immerse_icon = null
-	if (width == ICON_SIZE_X)
+	if(width == ICON_SIZE_X)
 		immerse_icon = column_icon
 	else
 		immerse_icon = icon('icons/effects/effects.dmi', mask_icon) // Use base icon and crop it out so animation frames respect dmi's delays
 		immerse_icon.Crop(1, 1, ICON_SIZE_X, ICON_SIZE_Y)
 		immerse_icon.Scale(ceil(width / ICON_SIZE_X) * ICON_SIZE_X, ceil(height / ICON_SIZE_Y) * ICON_SIZE_Y)
-		for (var/x_tile in 1 to ceil(width / ICON_SIZE_X))
+		for(var/x_tile in 1 to ceil(width / ICON_SIZE_X))
 			immerse_icon.Blend(column_icon, ICON_OVERLAY, 1 + (x_tile - 1) * ICON_SIZE_X, 1)
 	target_mask = mutable_appearance(immerse_icon)
 	target_mask.alpha = alpha
@@ -249,19 +249,19 @@ GLOBAL_LIST_INIT(immerse_ignored_movable, typecacheof(list(
 	var/y_offset = 0
 	var/movable_width = movable.get_cached_width()
 	/*
-	if (ishuman(movable))
+	if(ishuman(movable))
 		var/mob/living/carbon/human/as_human = movable
-		if (as_human.cached_body_min_x_offset && movable_width > ICON_SIZE_X)
+		if(as_human.cached_body_min_x_offset && movable_width > ICON_SIZE_X)
 			x_offset = as_human.cached_body_min_x_offset
-		if (as_human.cached_body_min_y_offset && movable.get_cached_height() > ICON_SIZE_Y)
+		if(as_human.cached_body_min_y_offset && movable.get_cached_height() > ICON_SIZE_Y)
 			y_offset = as_human.cached_body_min_y_offset
 	*/
 	// Tall mobs still only get covered to their feet, unless they're offset down
 	var/mutable_appearance/immerse_mask = generate_immerse_mask(movable_width, max(ICON_SIZE_Y - movable.pixel_z - y_offset, ICON_SIZE_Y), is_below_water)
-	if (!immerse_mask)
+	if(!immerse_mask)
 		return
 	var/atom/movable/immerse_mask/effect_relay = generated_visual_overlays[movable]
-	if (!effect_relay)
+	if(!effect_relay)
 		effect_relay = new(movable)
 		movable.vis_contents += effect_relay
 		generated_visual_overlays[movable] = effect_relay
@@ -276,7 +276,7 @@ GLOBAL_LIST_INIT(immerse_ignored_movable, typecacheof(list(
 
 /datum/element/immerse/proc/remove_immerse_overlay(atom/movable/movable, deleting = TRUE)
 	movable.remove_filter("immerse_mask")
-	if (!deleting)
+	if(!deleting)
 		return
 	var/atom/movable/immerse_mask/mask = generated_visual_overlays[movable]
 	movable.vis_contents -= mask
@@ -287,7 +287,7 @@ GLOBAL_LIST_INIT(immerse_ignored_movable, typecacheof(list(
 /datum/element/immerse/proc/on_update_transform(mob/living/source, resize, new_lying_angle, is_opposite_angle)
 	SIGNAL_HANDLER
 	var/atom/movable/immerse_mask/effect_relay = generated_visual_overlays[source]
-	if (!effect_relay)
+	if(!effect_relay)
 		return
 	var/matrix/new_transform = matrix()
 	new_transform.Scale(1 / source.current_size)
@@ -300,23 +300,23 @@ GLOBAL_LIST_INIT(immerse_ignored_movable, typecacheof(list(
 /datum/element/immerse/proc/on_spin_animation(atom/source, speed, loops, segments, segment)
 	SIGNAL_HANDLER
 	var/atom/movable/immerse_mask/immerse_mask = generated_visual_overlays[source]
-	if (immerse_mask)
+	if(immerse_mask)
 		immerse_mask.do_spin_animation(speed, loops, segments, -segment)
 
 /datum/element/immerse/proc/on_update_offsets(mob/living/source, new_x, new_y, new_w, new_z, animate)
 	SIGNAL_HANDLER
-	if (!generated_visual_overlays[source])
+	if(!generated_visual_overlays[source])
 		return
 	var/old_height = ceil(max(ICON_SIZE_Y - source.pixel_z, ICON_SIZE_Y) / ICON_SIZE_Y)
 	var/new_height = ceil(max(ICON_SIZE_Y - new_z, ICON_SIZE_Y) / ICON_SIZE_Y)
-	if (old_height != new_height)
+	if(old_height != new_height)
 		remove_immerse_overlay(source, FALSE)
 		add_immerse_overlay(source)
 
-	if (source.pixel_z == new_z)
+	if(source.pixel_z == new_z)
 		return
 
-	if (animate)
+	if(animate)
 		source.transition_filter("immerse_mask", list("y" = -floor((source.get_cached_height() - ICON_SIZE_Y) / 2) - new_z), time = UPDATE_TRANSFORM_ANIMATION_TIME)
 	else
 		source.modify_filter("immerse_mask", list("y" = -floor((source.get_cached_height() - ICON_SIZE_Y) / 2) - new_z))

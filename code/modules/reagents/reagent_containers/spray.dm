@@ -34,7 +34,7 @@
 
 /obj/item/reagent_containers/spray/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(isstorage(target) || istable(target) || istype(target, /obj/structure/rack) || iscloset(target) \
-	|| istype(target, /obj/item/reagent_containers) || istype(target, /obj/structure/sink) || istype(target, /obj/structure/janitorialcart) || istype(target, /obj/machinery/hydroponics))
+	|| is_reagent_container(target) || istype(target, /obj/structure/sink) || istype(target, /obj/structure/janitorialcart) || istype(target, /obj/machinery/hydroponics))
 		return
 
 	if(istype(target, /obj/effect/proc_holder/spell))

@@ -52,23 +52,6 @@ TILE_DECAL_SUBTYPE_HELPER(/obj/effect/turf_decal/tile/blue)
 TILE_DECAL_SUBTYPE_HELPER(/obj/effect/turf_decal/tile/dark_blue)
 
 /// Green tiles
-
-/obj/effect/turf_decal/tile/green
-	name = "green tile decal"
-	color = "#9FED58"
-
-TILE_DECAL_SUBTYPE_HELPER(/obj/effect/turf_decal/tile/green)
-
-
-/// Dark blue tiles
-/obj/effect/turf_decal/tile/dark_blue
-	name = "dark blue tile decal"
-	color = "#486091"
-
-TILE_DECAL_SUBTYPE_HELPER(/obj/effect/turf_decal/tile/dark_blue)
-
-/// Green tiles
-
 /obj/effect/turf_decal/tile/green
 	name = "green tile decal"
 	color = "#9FED58"
@@ -148,3 +131,6 @@ TILE_DECAL_SUBTYPE_HELPER(/obj/effect/turf_decal/tile/neutral)
 	color = "#0e0f0f"
 
 TILE_DECAL_SUBTYPE_HELPER(/obj/effect/turf_decal/tile/dark)
+
+
+#undef TILE_DECAL_SUBTYPE_HELPER

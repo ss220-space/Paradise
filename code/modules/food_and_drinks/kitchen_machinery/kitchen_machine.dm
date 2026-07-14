@@ -73,7 +73,7 @@
 
 /obj/machinery/kitchen_machine/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
-		if(istype(I, /obj/item/reagent_containers))
+		if(is_reagent_container(I))
 			return ..() | ATTACK_CHAIN_NO_AFTERATTACK
 		return ..()
 

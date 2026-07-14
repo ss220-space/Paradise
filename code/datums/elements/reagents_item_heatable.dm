@@ -28,7 +28,7 @@
 		var/obj/item/extinguisher/extinguisher = tool
 		if(extinguisher.safety)
 			return NONE
-		if (extinguisher.reagents?.total_volume < 1)
+		if(extinguisher.reagents?.total_volume < 1)
 			extinguisher.balloon_alert(user, "extinguisher is empty!") // being a bit more verbose to clarify the extinguisher - not source - is empty
 			return ITEM_INTERACT_BLOCKING
 		var/cooling = (0 - source.reagents.chem_temp) * extinguisher.cooling_power * 2

@@ -153,10 +153,3 @@
 	materials = list(MAT_METAL=1000, MAT_GLASS=500)
 	build_path = /obj/item/anomaly_analyzer
 	category = list(PROTOLATHE_CATEGORY_MISC)
-
-/datum/design/toner
-	id = "toner"
-	build_type = AUTOLATHE | PROTOLATHE
-	materials = list(MAT_METAL = SMALL_MATERIAL_AMOUNT * 0.1, MAT_GLASS = SMALL_MATERIAL_AMOUNT * 0.1)
-	build_path = /obj/item/toner
-	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_MISC)

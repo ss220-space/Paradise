@@ -796,7 +796,7 @@
 /datum/surgery_step/internal/manipulate_organs/clean/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(!iscarbon(target))
 		return SURGERY_STEP_INCOMPLETE
-	if(!istype(tool, /obj/item/reagent_containers))
+	if(!is_reagent_container(tool))
 		return SURGERY_STEP_INCOMPLETE
 
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -874,7 +874,7 @@
 	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/internal/manipulate_organs/clean/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(!istype(tool, /obj/item/reagent_containers))
+	if(!is_reagent_container(tool))
 		return SURGERY_STEP_INCOMPLETE
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	var/obj/item/reagent_containers/C = tool

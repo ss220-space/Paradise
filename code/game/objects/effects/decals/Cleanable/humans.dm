@@ -247,7 +247,6 @@
 	no_clear = TRUE
 	scoop_reagents = list("liquidgibs" = 5)
 	mergeable_decal = FALSE
-	is_mopped = TRUE // probably shouldn't be, but janitor powercreep
 	var/image/giblets
 	var/fleshcolor = "#FFFFFF"
 	/// Do these gibs produce squishy sounds?

@@ -22,13 +22,13 @@
 		if(GREAT_ART to INFINITY)
 			//user.add_mood_event("artgreat", /datum/mood_event/artgreat)
 			msg = "What \a [pick("masterpiece", "chef-d'oeuvre")]. So [pick("trascended", "awe-inspiring", "bewitching", "impeccable")]!"
-		if (GOOD_ART to GREAT_ART)
+		if(GOOD_ART to GREAT_ART)
 			//user.add_mood_event("artgood", /datum/mood_event/artgood)
 			msg = "[source] a [pick("respectable", "commendable", "laudable")] art piece, easy on the keen eye."
-		if (BAD_ART to GOOD_ART)
+		if(BAD_ART to GOOD_ART)
 			//user.add_mood_event("artok", /datum/mood_event/artok)
 			msg = "[source] fair to middling, enough to be called an \"art object\"."
-		if (0 to BAD_ART)
+		if(0 to BAD_ART)
 			//user.add_mood_event("artbad", /datum/mood_event/artbad)
 			msg = "Wow, [source.p_they()] sucks."
 
@@ -77,7 +77,7 @@
 	var/list/haters = list()
 	for(var/hater_department_type in list(/datum/job_department/security, /datum/job_department/command))
 		var/datum/job_department/hater_department = SSjob.get_department_type(hater_department_type)
-		if (isnull(hater_department))
+		if(isnull(hater_department))
 			continue
 		for(var/datum/job/hater_job as anything in hater_department.department_jobs)
 			haters += hater_job.title

@@ -180,7 +180,7 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet, 8, -8, 0, 0)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(item, /obj/item/reagent_containers))
+	if(is_reagent_container(item))
 		add_fingerprint(user)
 		if(!open)
 			balloon_alert(user, "нужно открыть")
@@ -745,10 +745,19 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/shower, (-16), (-16))
 			to_chat(C, span_danger("The water is searing!"))
 
 #undef SHOWER_FREEZING
+#undef SHOWER_FREEZING_TEMP
 #undef SHOWER_NORMAL
+#undef SHOWER_NORMAL_TEMP
 #undef SHOWER_BOILING
+#undef SHOWER_NORMAL_TEMP
 #undef SHOWER_SPRAY_VOLUME
 #undef SHOWER_EXPOSURE_MULTIPLIER
+#undef SHOWER_TIMED_LENGTH
+#undef SHOWER_MODE_UNTIL_EMPTY
+#undef SHOWER_MODE_TIMED
+#undef SHOWER_MODE_FOREVER
+#undef SHOWER_MODE_COUNT
+
 
 /obj/item/bikehorn/rubberducky
 	name = "rubber ducky"

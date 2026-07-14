@@ -55,7 +55,7 @@
 		context[SCREENTIP_CONTEXT_LMB] = "Put [held_item]"
 		return CONTEXTUAL_SCREENTIP_SET
 
-	if(istype(held_item, /obj/item/reagent_containers))
+	if(is_reagent_container(held_item))
 		context[SCREENTIP_CONTEXT_LMB] = "Fill cart bucket"
 		return CONTEXTUAL_SCREENTIP_SET
 
@@ -93,7 +93,7 @@
 		balloon_alert(user, "doused mop")
 		playsound(src, 'sound/effects/slosh.ogg', 25, vary = TRUE)
 
-	if(istype(weapon, /obj/item/reagent_containers) || istype(weapon, /obj/item/mop))
+	if(is_reagent_container(weapon) || istype(weapon, /obj/item/mop))
 		update_appearance(UPDATE_OVERLAYS)
 		return SECONDARY_ATTACK_CONTINUE_CHAIN // skip attack animations when refilling cart
 
@@ -154,7 +154,7 @@
 		update_icon(UPDATE_OVERLAYS)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(I, /obj/item/reagent_containers))
+	if(is_reagent_container(I))
 		update_appearance(UPDATE_OVERLAYS)
 		return ATTACK_CHAIN_BLOCKED // skip attack animation when refilling cart
 

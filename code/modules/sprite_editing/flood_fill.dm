@@ -1,9 +1,8 @@
 //a macro for the stringized key for coordinates to check later
 #define CANVAS_COORD(x, y) "[x]:[y]"
-#define IS_IN_BOUNDS(x, y) (x > 0 && x <= width && y > 0 && y <= height)
 #define COLORS_ARE_EQUAL(a, b) ((a == b) || (endswith(a, "00") && endswith(b, "00")))
 
-#define SHOULD_ADD_POINT(x, y) (!coord_cache[CANVAS_COORD(x, y)] && IS_IN_BOUNDS(x, y) && COLORS_ARE_EQUAL(grid[y][x], target_color))
+#define SHOULD_ADD_POINT(x, y) (!coord_cache[CANVAS_COORD(x, y)] && IS_IN_BOUNDS(x, 0, width) && IS_IN_BOUNDS(x, 0, height) && COLORS_ARE_EQUAL(grid[y][x], target_color))
 
 #define ADD_POINT(x, y) \
 	points += list(list((x) - 1, (y) - 1, target_color));\
@@ -49,5 +48,4 @@
 #undef ADD_POINT
 #undef SHOULD_ADD_POINT
 #undef COLORS_ARE_EQUAL
-#undef IS_IN_BOUNDS
 #undef CANVAS_COORD

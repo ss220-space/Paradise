@@ -385,7 +385,6 @@
 	icon_state = "siding_thinplating_end"
 
 /obj/effect/turf_decal/siding/thinplating/dark
-	icon_state = "siding_thinplating"
 	color = "#474747"
 
 /obj/effect/turf_decal/siding/thinplating/dark/corner
@@ -395,7 +394,6 @@
 	icon_state = "siding_thinplating_end"
 
 /obj/effect/turf_decal/siding/thinplating/terracotta
-	icon_state = "siding_thinplating"
 	color = "#b84221"
 
 /obj/effect/turf_decal/siding/thinplating/terracotta/corner
@@ -424,7 +422,6 @@
 	icon_state = "siding_wideplating_end"
 
 /obj/effect/turf_decal/siding/wideplating/dark
-	icon_state = "siding_wideplating"
 	color = "#474747"
 
 /obj/effect/turf_decal/siding/wideplating/dark/corner
@@ -434,7 +431,6 @@
 	icon_state = "siding_wideplating_end"
 
 /obj/effect/turf_decal/siding/wideplating/terracotta
-	icon_state = "siding_wideplating"
 	color = "#b84221"
 
 /obj/effect/turf_decal/siding/wideplating/terracotta/corner
@@ -463,7 +459,6 @@
 	icon_state = "siding_thinplating_new_end"
 
 /obj/effect/turf_decal/siding/thinplating_new/dark
-	icon_state = "siding_thinplating_new"
 	color = "#36373a"
 
 /obj/effect/turf_decal/siding/thinplating_new/dark/corner
@@ -473,7 +468,6 @@
 	icon_state = "siding_thinplating_new_end"
 
 /obj/effect/turf_decal/siding/thinplating_new/terracotta
-	icon_state = "siding_thinplating_new"
 	color = "#b84221"
 
 /obj/effect/turf_decal/siding/thinplating_new/terracotta/corner
@@ -502,7 +496,6 @@
 	icon_state = "siding_wideplating_new_end"
 
 /obj/effect/turf_decal/siding/wideplating_new/dark
-	icon_state = "siding_wideplating_new"
 	color = "#36373a"
 
 /obj/effect/turf_decal/siding/wideplating_new/dark/corner
@@ -512,7 +505,6 @@
 	icon_state = "siding_wideplating_new_end"
 
 /obj/effect/turf_decal/siding/wideplating_new/terracotta
-	icon_state = "siding_wideplating_new"
 	color = "#b84221"
 
 /obj/effect/turf_decal/siding/wideplating_new/terracotta/corner
