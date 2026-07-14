@@ -284,7 +284,7 @@
 /atom/movable/screen/alert/status_effect/eldritch_painting
 	name = "Древняя Картина"
 	desc = "Нечто оставило отпечаток в вашем разуме."
-	icon = 'icons/obj/signs.dmi'
+	icon = 'icons/obj/decals.dmi'
 	icon_state = "eldritch_painting_debug"
 
 /datum/status_effect/eldritch_painting/weeping

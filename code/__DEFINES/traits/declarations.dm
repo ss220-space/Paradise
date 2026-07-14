@@ -41,6 +41,8 @@
 #define TRAIT_TURF_IGNORE_SLIPPERY "turf_ignore_slippery"
 ///Chasms will be safe to cross while they've this trait.
 #define TRAIT_CHASM_STOPPED "chasm_stopped"
+///The effects of the immerse element will be halted while this trait is present.
+#define TRAIT_IMMERSE_STOPPED "immerse_stopped"
 ///Lava will be safe to cross while it has this trait.
 #define TRAIT_LAVA_STOPPED "lava_stopped"
 
@@ -613,7 +615,6 @@
 #define TRAIT_FLESH_DESIRE "flesh_desire"
 // Generic traits used by heretic content. NOTE: master220 may enforce these concepts via other
 // mechanisms; behavior wiring for the immunity traits is verified in the runtime phase.
-#define TRAIT_MOPABLE "mopable"
 #define TRAIT_SUBTREE_REQUIRED_OPERATIONAL_DATUM "element-required"
 #define TRAIT_HYPOTHERMIC "body_hypothermic"
 #define TRAIT_DEATH_HUD "deathhud"
@@ -632,3 +633,30 @@
 #define TRAIT_UNKNOWN_VOICE "unknown_voice"
 /// Leaves no footprints in snow. Paradise has no snow-footprint mechanic yet, so this is currently inert (TG parity).
 #define TRAIT_NO_SNOWPRINTS "no_snowprints"
+
+/// Marks an atom when the cleaning of it is first started, so that the cleaning overlay doesn't get removed prematurely
+#define TRAIT_CURRENTLY_CLEANING "currently_cleaning"
+
+/// Apply to movables to say "hey, this movable is technically flat on the floor, so it'd be mopped up by a mop"
+#define TRAIT_MOPABLE "mopable"
+
+#define TRAIT_EVIL "evil"
+
+/// Mobs with this trait do care about a few grisly things, such as digging up graves. They also really do not like bringing people back to life or tending wounds, but love autopsies and amputations.
+#define TRAIT_MORBID "morbid"
+
+/// Mobs that hate showers, being sprayed with water etc.
+#define TRAIT_WATER_HATER "water_hater"
+/// Improved boons from showers and some features centered around water, should also suppress TRAIT_WATER_HATER
+#define TRAIT_WATER_ADAPTATION "water_adaptation"
+
+/// If this movable is currently treading in a turf with the immerse element.
+#define TRAIT_IMMERSED "immersed"
+/// Mob doesn't take stamina damage from deep water and doesn't get slowdown from swimming
+#define TRAIT_SWIMMER "swimmer"
+
+/// Mob doesn't take oxygen damage in deep water
+#define TRAIT_NODROWN "amphibious"
+
+/// Trait given to objects with the wallmounted component
+#define TRAIT_WALLMOUNTED "wallmounted"

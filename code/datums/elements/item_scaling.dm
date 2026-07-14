@@ -1,13 +1,11 @@
 /**
- * Element for scaling item appearances in the overworld vs inventory/storage.
+ * Element for scaling item appearances in the overworld or in inventory/storage.
  *
- * Ported from /tg/station for the oversized (64x64) painting canvases. It shrinks the item's
- * sprite while it sits on a turf and restores it (to storage_scaling) once picked up or stored,
- * so a 36x24 / 45x27 canvas doesn't sprawl across multiple tiles on the floor.
+ * This bespoke element allows for items to have varying sizes depending on their location.
+ * The overworld simply refers to items being on a turf.  Inventory includes HUD item slots,
+ * and storage is anywhere a storage component is used.
+ * Scaling should affect the item's icon and all attached overlays (such as blood decals).
  *
- * Paradise adaptation: master220 has no ADD_KEEP_TOGETHER trait macro, so we just OR in the raw
- * KEEP_TOGETHER appearance flag on attach (idempotent — the canvas already sets it) to keep
- * overlays scaling together with the base sprite.
  */
 /datum/element/item_scaling
 	element_flags = ELEMENT_BESPOKE
@@ -17,7 +15,19 @@
 	/// Scaling value when the attached item is in a storage component or inventory slot.
 	var/storage_scaling
 
-
+/**
+ * Attach proc for the item_scaling element
+ *
+ * The proc checks the target's type before attaching.  It then initializes
+ * the target to overworld scaling.  The target should then rescale if it is placed
+ * in inventory/storage on initialization.  Relevant signals are registered to listen
+ * for pickup/drop or storage events.  Scaling values of 1 will result in items
+ * returning to their original size.
+ * Arguments:
+ * * target - Datum to attach the element to.
+ * * overworld_scaling - Integer or float to scale the item in the overworld.
+ * * storage_scaling - Integer or float to scale the item in storage/inventory.
+ */
 /datum/element/item_scaling/Attach(atom/target, overworld_scaling, storage_scaling)
 	. = ..()
 	if(!isatom(target))
@@ -30,27 +40,69 @@
 	src.storage_scaling = storage_scaling
 
 	// Make sure overlays also inherit the scaling.
-	target.appearance_flags |= KEEP_TOGETHER
+	ADD_KEEP_TOGETHER(target, ITEM_SCALING_TRAIT)
 
+	// When moved sends a signal.
 	RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(scale_by_loc))
 
-
+/**
+ * Detach proc for the item_scaling element.
+ *
+ * All registered signals are unregistered, and the attached element is removed from the target datum.
+ * Arguments:
+ * * target - Datum which the element is attached to.
+ */
 /datum/element/item_scaling/Detach(atom/target)
 	UnregisterSignal(target, COMSIG_MOVABLE_MOVED)
+
+	REMOVE_KEEP_TOGETHER(target, ITEM_SCALING_TRAIT)
+
 	return ..()
 
-
-/// Scales the attached item's transform matrix by `scaling`.
+/**
+ * Scales the attached item's matrix.
+ *
+ * The proc first narrows the type of the source to (datums do not have a transform matrix).
+ * It then creates an identity matrix, M, which is transformed by the scaling value.
+ * The object's transform variable (matrix) is then set to the resulting value of M.
+ * Arguments:
+ * * source - Source datum which sent the signal.
+ * * scaling - Integer or float to scale the item's matrix.
+ */
 /datum/element/item_scaling/proc/scale(datum/source, scaling)
 	var/atom/scalable_object = source
 	var/matrix/M = matrix()
 	scalable_object.transform = M.Scale(scaling)
 
-
-/// On move, pick the scaling that matches the new location (turf = overworld, else storage/inhand).
+//Grabs any move signals and checks its loc, properly scaling it when in storage,inhand, or in world.
 /datum/element/item_scaling/proc/scale_by_loc(atom/scale)
-	SIGNAL_HANDLER
 	if(isturf(scale.loc))
-		scale(scale, overworld_scaling)
+		scale_overworld(scale)
 	else
-		scale(scale, storage_scaling)
+		scale_storage(scale)
+
+/**
+ * Shrinks when inworld
+ *
+ * Longer detailed paragraph about the proc
+ * including any relevant detail
+ * Arguments:
+ * * source - Source datum which sent the signal.
+ */
+/datum/element/item_scaling/proc/scale_overworld(datum/source)
+	SIGNAL_HANDLER
+
+	scale(source, overworld_scaling)
+
+/**
+ * Enlarges when inhand or in storage.
+ *
+ * Longer detailed paragraph about the proc
+ * including any relevant detail
+ * Arguments:
+ * * source - Source datum which sent the signal.
+ */
+/datum/element/item_scaling/proc/scale_storage(datum/source)
+	SIGNAL_HANDLER
+
+	scale(source, storage_scaling)

@@ -544,12 +544,20 @@
 		return FALSE
 	delay_diff = CONFIG_GET(number/movedelay/walk_delay) - CONFIG_GET(number/movedelay/run_delay)
 	RegisterSignal(owner, COMSIG_MOB_MOVE_INTENT_TOGGLED, PROC_REF(on_move_intent_toggle))
+	RegisterSignal(owner, COMSIG_COMPONENT_CLEAN_FACE_ACT, PROC_REF(on_face_clean))
 	on_move_intent_toggle()
 
 /datum/status_effect/transient/drowsiness/on_remove()
 	. = ..()
 	UnregisterSignal(owner, COMSIG_MOB_MOVE_INTENT_TOGGLED)
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/drowsiness)
+	UnregisterSignal(owner, COMSIG_COMPONENT_CLEAN_FACE_ACT)
+
+/// Signal proc for [COMSIG_COMPONENT_CLEAN_FACE_ACT]. When we wash our face, reduce drowsiness by a bit.
+/datum/status_effect/transient/drowsiness/proc/on_face_clean(datum/source)
+	SIGNAL_HANDLER
+
+	remove_duration(rand(4 SECONDS, 6 SECONDS))
 
 #define DROWSY_MULTIPLICATIVE_SLOWDOWN 6
 

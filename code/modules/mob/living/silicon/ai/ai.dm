@@ -39,7 +39,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai
 	name = "AI"
 	icon = 'icons/mob/ai.dmi'
-	icon_state = "ai"
+	icon_state = "ai-core"
 	move_resist = MOVE_FORCE_NORMAL
 	status_flags = CANSTUN|CANPARALYSE|CANPUSH
 	mob_size = MOB_SIZE_LARGE
@@ -47,6 +47,11 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	nightvision = 8
 	can_buckle_to = FALSE
 	hud_type = /datum/hud/ai
+	/// UI for AI core display picker
+	VAR_FINAL/datum/ai_core_display_picker/core_display_picker
+	/// AI core icon_state selected by the AI through [verb/pick_icon]
+	var/display_icon_override = "ai"
+	var/mutable_appearance/portrait_appearance
 	var/list/network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
 	var/obj/machinery/camera/current = null
 	var/list/connected_robots = list()
@@ -249,6 +254,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	GLOB.shuttle_caller_list += src
 	. = ..()
 	AddElement(/datum/element/high_value_item)
+	update_appearance()
 
 /mob/living/silicon/ai/Destroy()
 	GLOB.ai_list -= src
@@ -265,6 +271,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	QDEL_NULL(aiMulti)
 	QDEL_NULL(aiRadio)
 	QDEL_NULL(builtInCamera)
+	QDEL_NULL(core_display_picker)
 	return ..()
 
 /mob/living/silicon/ai/get_radio()
@@ -437,191 +444,14 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set name = "Поменять дисплей"
 	if(stat || aiRestorePowerRoutine)
 		return
-	if(!custom_sprite) //Check to see if custom sprite time, checking the appopriate file to change a var
-		var/file = file2text("config/custom_sprites.txt")
-		var/lines = splittext(file, "\n")
 
-		for(var/line in lines)
-		// split & clean up
-			var/list/Entry = splittext(line, ":")
-			for(var/i = 1 to length(Entry))
-				Entry[i] = trim(Entry[i])
+	if(incapacitated())
+		to_chat(src, span_warning("You cannot access the core display controls in your current state."))
+		return
 
-			if(length(Entry) < 2 || Entry[1] != "ai")			//ignore incorrectly formatted entries or entries that aren't marked for AI
-				continue
-
-			if(Entry[2] == ckey)	//They're in the list? Custom sprite time, var and icon change required
-				custom_sprite = 1
-
-	var/display_choices = list(
-		"Monochrome",
-		"Blue",
-		"Clown",
-		"Inverted",
-		"Text",
-		"Smiley",
-		"Angry",
-		"Dorf",
-		"Matrix",
-		"Bliss",
-		"Firewall",
-		"Green",
-		"Red",
-		"Static",
-		"Triumvirate",
-		"Triumvirate Static",
-		"Red October",
-		"Sparkles",
-		"ANIMA",
-		"President",
-		"NT",
-		"NT2",
-		"Rainbow",
-		"Angel",
-		"Heartline",
-		"Hades",
-		"Helios",
-		"Syndicat Meow",
-		"Too Deep",
-		"Goon",
-		"Murica",
-		"Fuzzy",
-		"Glitchman",
-		"House",
-		"Database",
-		"Alien",
-		"Cheese",
-		"Voiddonut",
-		"Bee",
-		"Fox",
-		"Tiger",
-		"Vox",
-		"Liz",
-		"Darkmatter",
-		"Nadburn",
-		"Rainbowslime",
-		"Borb",
-		"Catamari",
-		"Anonymous",
-		"Hippy",
-		"AMAI",
-		"HAL",
-		)
-	if(custom_sprite)
-		display_choices += "Custom"
-
-		//if(icon_state == initial(icon_state))
-	var/icontype = ""
-	icontype = tgui_input_list(usr, "Select an icon!", "AI", display_choices, null)
-	icon = 'icons/mob/ai.dmi'	//reset this in case we were on a custom sprite and want to change to a standard one
-	switch(icontype)
-		if("Custom")
-			icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'	//set this here so we can use the custom_sprite
-			icon_state = "[ckey]-ai"
-		if("Clown")
-			icon_state = "ai-clown"
-		if("Monochrome")
-			icon_state = "ai-mono"
-		if("Inverted")
-			icon_state = "ai-u"
-		if("Firewall")
-			icon_state = "ai-magma"
-		if("Green")
-			icon_state = "ai-weird"
-		if("Red")
-			icon_state = "ai-red"
-		if("Static")
-			icon_state = "ai-static"
-		if("Text")
-			icon_state = "ai-text"
-		if("Smiley")
-			icon_state = "ai-smiley"
-		if("Matrix")
-			icon_state = "ai-matrix"
-		if("Angry")
-			icon_state = "ai-angryface"
-		if("Dorf")
-			icon_state = "ai-dorf"
-		if("Bliss")
-			icon_state = "ai-bliss"
-		if("Triumvirate")
-			icon_state = "ai-triumvirate"
-		if("Triumvirate Static")
-			icon_state = "ai-triumvirate-malf"
-		if("Red October")
-			icon_state = "ai-redoctober"
-		if("Sparkles")
-			icon_state = "ai-sparkles"
-		if("ANIMA")
-			icon_state = "ai-anima"
-		if("President")
-			icon_state = "ai-president"
-		if("NT")
-			icon_state = "ai-nt"
-		if("NT2")
-			icon_state = "ai-nanotrasen"
-		if("Rainbow")
-			icon_state = "ai-rainbow"
-		if("Angel")
-			icon_state = "ai-angel"
-		if("Heartline")
-			icon_state = "ai-heartline"
-		if("Hades")
-			icon_state = "ai-hades"
-		if("Helios")
-			icon_state = "ai-helios"
-		if("Syndicat Meow")
-			icon_state = "ai-syndicatmeow"
-		if("Too Deep")
-			icon_state = "ai-toodeep"
-		if("Goon")
-			icon_state = "ai-goon"
-		if("Murica")
-			icon_state = "ai-murica"
-		if("Fuzzy")
-			icon_state = "ai-fuzz"
-		if("Glitchman")
-			icon_state = "ai-glitchman"
-		if("House")
-			icon_state = "ai-house"
-		if("Database")
-			icon_state = "ai-database"
-		if("Alien")
-			icon_state = "ai-alien"
-		if("Cheese")
-			icon_state = "ai-cheese"
-		if("Voiddonut")
-			icon_state = "ai-voiddonut"
-		if("Bee")
-			icon_state = "ai-bee"
-		if("Fox")
-			icon_state = "ai-fox"
-		if("Tiger")
-			icon_state = "ai-tiger"
-		if("Vox")
-			icon_state = "ai-vox"
-		if("Liz")
-			icon_state = "ai-liz"
-		if("Darkmatter")
-			icon_state = "ai-darkmatter"
-		if("Nadburn")
-			icon_state = "ai-nadburn"
-		if("Rainbowslime")
-			icon_state = "ai-rainbowslime"
-		if("Borb")
-			icon_state = "ai-borb"
-		if("Catamari")
-			icon_state = "ai-catamari"
-		if("Hippy")
-			icon_state = "ai-hippy"
-		if("Anonymous")
-			icon_state = "ai-anon"
-		if("AMAI")
-			icon_state = "ai-am"
-		if("HAL")
-			icon_state = "ai-hal"
-		else
-			icon_state = "ai"
+	if(!core_display_picker)
+		core_display_picker = new(src)
+	core_display_picker.ui_interact(src)
 
 // this verb lets the ai see the stations manifest
 /mob/living/silicon/ai/proc/ai_roster()
@@ -1618,3 +1448,59 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(var_name == "ai_announcement_string_menu") // This single var has over 80 thousand characters in it. Not something you really want when VVing the AI
 		return FALSE
 	return TRUE
+
+/mob/living/silicon/ai/update_icon_state()
+	icon_state = "ai-core"
+	return ..()
+
+/mob/living/silicon/ai/update_overlays()
+	. = ..()
+
+	var/screen_state // Display
+	var/lights_state // Lights
+
+	if(!client && !mind)
+		screen_state = "ai-empty"
+
+		lights_state = "lights_active"
+
+		set_light(0.2, 0.2, LIGHT_COLOR_FAINT_CYAN, l_on = TRUE)
+
+	else if(stat == DEAD)
+		var/base = display_icon_override || "ai"
+		var/dead_state = "[base]_dead"
+
+		if(icon_exists(icon, dead_state))
+			screen_state = dead_state
+		else
+			screen_state = "ai_dead"
+
+		var/mutable_appearance/screen_overlay = mutable_appearance(icon, screen_state)
+		screen_overlay.appearance_flags = RESET_COLOR | KEEP_APART
+		. += screen_overlay
+
+		lights_state = "lights_dead"
+		set_light(0.2, 0.2, LIGHT_COLOR_FAINT_CYAN, l_on = TRUE)
+
+	else
+		lights_state = "lights_active"
+		set_light(0.3, 0.3, LIGHT_COLOR_CYAN, l_on = TRUE)
+
+		if(portrait_appearance)
+			. += portrait_appearance
+		else
+			screen_state = display_icon_override || "ai"
+			var/mutable_appearance/screen_overlay = mutable_appearance(icon, screen_state)
+			screen_overlay.layer = FLOAT_LAYER + 0.1
+			screen_overlay.appearance_flags = RESET_COLOR | KEEP_APART
+			. += screen_overlay
+			. += emissive_appearance(icon, screen_state, src)
+
+
+	// Lights
+	var/mutable_appearance/lights_overlay = mutable_appearance(icon, lights_state)
+	lights_overlay.layer = FLOAT_LAYER
+	lights_overlay.appearance_flags = RESET_COLOR | KEEP_APART
+	. += lights_overlay
+
+	. += emissive_appearance(icon, lights_state, src)

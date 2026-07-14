@@ -1540,9 +1540,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/centcom_away/cafe)
 "et" = (
-/obj/structure/sink/kitchen{
-	pixel_y = 28
-	},
+/obj/structure/sink/kitchen/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -3490,7 +3488,7 @@
 	},
 /area/awaymission/centcom_away/general)
 "jP" = (
-/obj/item/reagent_containers/glass/rag,
+/obj/item/rag,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3661,11 +3659,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/centcom_away/hangar)
 "ko" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = -28
 	},
@@ -4694,9 +4688,7 @@
 	},
 /area/awaymission/centcom_away/thunderdome)
 "mV" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -4716,9 +4708,7 @@
 	},
 /area/awaymission/centcom_away/general)
 "mY" = (
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -5541,11 +5531,7 @@
 	},
 /area/awaymission/centcom_away/thunderdome)
 "pg" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = -28
 	},
@@ -5620,10 +5606,7 @@
 /obj/structure/mirror{
 	pixel_x = 28
 	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},

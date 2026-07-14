@@ -94,7 +94,7 @@
 			var/obj/item/stack/S = I
 			.["other"][I.type] += S.amount
 		else
-			if(istype(I, /obj/item/reagent_containers))
+			if(is_reagent_container(I))
 				var/obj/item/reagent_containers/RC = I
 				if(RC.is_drainable())
 					for(var/datum/reagent/A in RC.reagents.reagent_list)

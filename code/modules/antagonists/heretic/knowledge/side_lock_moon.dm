@@ -50,13 +50,13 @@
 	result_atoms = list(/obj/item/canvas)
 	cost = 2
 
-	research_tree_icon_path = 'icons/obj/signs.dmi'
+	research_tree_icon_path = 'icons/obj/decals.dmi'
 	research_tree_icon_state = "eldritch_painting_weeping"
 
 
 /datum/heretic_knowledge/painting/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	if(locate(/obj/item/organ/internal/eyes) in atoms)
-		src.result_atoms = list(/obj/item/mounted/wallframe/painting/eldritch/weeping)
+		src.result_atoms = list(/obj/item/wallframe/painting/eldritch/weeping)
 		src.required_atoms = list(
 			/obj/item/canvas = 1,
 			/obj/item/organ/internal/eyes = 1,
@@ -64,7 +64,7 @@
 		return TRUE
 
 	if(locate(/obj/item/organ/external) in atoms)
-		src.result_atoms = list(/obj/item/mounted/wallframe/painting/eldritch/desire)
+		src.result_atoms = list(/obj/item/wallframe/painting/eldritch/desire)
 		src.required_atoms = list(
 			/obj/item/canvas = 1,
 			/obj/item/organ/external = 1,
@@ -72,7 +72,7 @@
 		return TRUE
 
 	if(locate(/obj/item/reagent_containers/food/snacks/grown) in atoms)
-		src.result_atoms = list(/obj/item/mounted/wallframe/painting/eldritch/vines)
+		src.result_atoms = list(/obj/item/wallframe/painting/eldritch/vines)
 		src.required_atoms = list(
 			/obj/item/canvas = 1,
 			/obj/item/reagent_containers/food/snacks/grown = 1,
@@ -80,7 +80,7 @@
 		return TRUE
 
 	if(locate(/obj/item/clothing/gloves) in atoms)
-		src.result_atoms = list(/obj/item/mounted/wallframe/painting/eldritch/beauty)
+		src.result_atoms = list(/obj/item/wallframe/painting/eldritch/beauty)
 		src.required_atoms = list(
 			/obj/item/canvas = 1,
 			/obj/item/clothing/gloves = 1,
@@ -88,7 +88,7 @@
 		return TRUE
 
 	if(locate(/obj/item/trash) in atoms)
-		src.result_atoms = list(/obj/item/mounted/wallframe/painting/eldritch/rust)
+		src.result_atoms = list(/obj/item/wallframe/painting/eldritch/rust)
 		src.required_atoms = list(
 			/obj/item/canvas = 1,
 			/obj/item/trash = 1,

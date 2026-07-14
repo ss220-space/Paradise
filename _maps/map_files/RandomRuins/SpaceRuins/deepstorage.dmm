@@ -230,10 +230,7 @@
 /obj/structure/mirror{
 	pixel_x = 30
 	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -416,17 +413,13 @@
 	},
 /area/ruin/unpowered)
 "aT" = (
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
 /area/ruin/unpowered)
 "aU" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -474,9 +467,7 @@
 	},
 /area/ruin/unpowered)
 "bb" = (
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/east,
 /obj/item/soap,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"

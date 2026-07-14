@@ -1,5 +1,5 @@
-/obj/item/mounted/wallframe/painting/eldritch
-	abstract_type = /obj/item/mounted/wallframe/painting/eldritch
+/obj/item/wallframe/painting/eldritch
+	abstract_type = /obj/item/wallframe/painting/eldritch
 	name = "The Blank Canvas: A Study in Default Subtypes"
 	desc = "Невозможная картина, созданная невозможной краской. Она не должна существовать в этой реальности."
 	icon_state = "eldritch_painting_debug"
@@ -12,7 +12,6 @@
 	desc = "Невозможная картина, созданная невозможной краской. Она не должна существовать в этой реальности."
 	icon_state = "eldritch_painting_debug"
 	accepted_canvas_types = list()
-	persistence_id = FALSE
 	/// The status effect this painting curses onlookers with. null = no passive curse (e.g. the vines).
 	var/applied_status_effect = /datum/status_effect/eldritch_painting
 	/// The text that shows up when you cross the painting's sightline
@@ -21,7 +20,7 @@
 	var/range = 7
 
 
-/obj/structure/sign/painting/eldritch/Initialize(mapload, dir, building)
+/obj/structure/sign/painting/eldritch/Initialize(mapload)
 	. = ..()
 	if(ispath(applied_status_effect))
 		var/static/list/connections = list(COMSIG_ATOM_ENTERED = PROC_REF(apply_painting_effect))
@@ -82,13 +81,13 @@
 	to_chat(examiner, span_notice("Какая странная картина..."))
 
 
-/obj/item/mounted/wallframe/painting/eldritch/weeping
+/obj/item/wallframe/painting/eldritch/weeping
 	name = "\improper The Sister and He Who Wept"
 	desc = "Прекрасная картина, изображающая прекрасную даму, сидящую рядом с Ним. Он плачет. Вы ещё увидите Его."
 	icon_state = "eldritch_painting_weeping"
 	result_path = /obj/structure/sign/painting/eldritch/weeping
 
-/obj/item/mounted/wallframe/painting/eldritch/weeping/get_ru_names()
+/obj/item/wallframe/painting/eldritch/weeping/get_ru_names()
 	return alist(
 		NOMINATIVE = "\"Сестра и Плачущий\"",
 		GENITIVE = "\"Сестра и Плачущий\"",
@@ -124,13 +123,13 @@
 	examiner.SetHallucinate(0)
 
 
-/obj/item/mounted/wallframe/painting/eldritch/desire
+/obj/item/wallframe/painting/eldritch/desire
 	name = "\improper The Feast of Desire"
 	desc = "Картина, изображающая изысканное пиршество. Несмотря на то, что еда давно сгнила, она выглядит очень аппетитно."
 	icon_state = "eldritch_painting_desire"
 	result_path = /obj/structure/sign/painting/eldritch/desire
 
-/obj/item/mounted/wallframe/painting/eldritch/desire/get_ru_names()
+/obj/item/wallframe/painting/eldritch/desire/get_ru_names()
 	return alist(
 		NOMINATIVE = "\"Фестиваль Желаний\"",
 		GENITIVE = "\"Фестиваль Желаний\"",
@@ -186,13 +185,13 @@
 	to_chat(examiner, span_warning("Пустота кричит!"))
 
 
-/obj/item/mounted/wallframe/painting/eldritch/vines
+/obj/item/wallframe/painting/eldritch/vines
 	name = "\improper Great Chaparral Over Rolling Hills"
 	desc = "Картина, изображающая густые заросли. Эта картина кипит жизнью, а её содержимое словно рвётся наружу."
 	icon_state = "eldritch_painting_vines"
 	result_path = /obj/structure/sign/painting/eldritch/vines
 
-/obj/item/mounted/wallframe/painting/eldritch/vines/get_ru_names()
+/obj/item/wallframe/painting/eldritch/vines/get_ru_names()
 	return alist(
 		NOMINATIVE = "\"Мир без Всех Вас\"",
 		GENITIVE = "\"Мир без Всех Вас\"",
@@ -230,7 +229,7 @@
 		PREPOSITIONAL = "\"Мир без Всех Вас\"",
 	)
 
-/obj/structure/sign/painting/eldritch/vines/Initialize(mapload, dir, building)
+/obj/structure/sign/painting/eldritch/vines/Initialize(mapload)
 	. = ..()
 	new /obj/structure/spacevine_controller/event(get_turf(src), mutations, 0, 10)
 
@@ -249,13 +248,13 @@
 	new item_to_spawn(examiner.drop_location())
 
 
-/obj/item/mounted/wallframe/painting/eldritch/beauty
+/obj/item/wallframe/painting/eldritch/beauty
 	name = "\improper Lady of the Gate"
 	desc = "Картина существа из другого мира. Тонкая кожа цвета фарфора туго натянута на странные кости. Она причудливо красива."
 	icon_state = "eldritch_painting_beauty"
 	result_path = /obj/structure/sign/painting/eldritch/beauty
 
-/obj/item/mounted/wallframe/painting/eldritch/beauty/get_ru_names()
+/obj/item/wallframe/painting/eldritch/beauty/get_ru_names()
 	return alist(
 		NOMINATIVE = "\"Владычица Врат\"",
 		GENITIVE = "\"Владычица Врат\"",
@@ -298,13 +297,13 @@
 	examiner.reagents.add_reagent_list(reagents_to_add)
 
 
-/obj/item/mounted/wallframe/painting/eldritch/rust
+/obj/item/wallframe/painting/eldritch/rust
 	name = "\improper Master of the Rusted Mountain"
 	desc = "Картина, изображающая странное существо, взбирающееся на гору цвета ржавчины. Стиль картины неестественный и пугающий."
 	icon_state = "eldritch_painting_rust"
 	result_path = /obj/structure/sign/painting/eldritch/rust
 
-/obj/item/mounted/wallframe/painting/eldritch/rust/get_ru_names()
+/obj/item/wallframe/painting/eldritch/rust/get_ru_names()
 	return alist(
 		NOMINATIVE = "\"Хозяйка Ржавой Горы\"",
 		GENITIVE = "\"Хозяйка Ржавой Горы\"",

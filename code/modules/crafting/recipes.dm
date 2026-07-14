@@ -75,7 +75,7 @@
 	name = "Molotov"
 	result = /obj/item/reagent_containers/food/drinks/bottle/molotov
 	reqs = list(
-		/obj/item/reagent_containers/glass/rag = 1,
+		/obj/item/rag = 1,
 		/obj/item/reagent_containers/food/drinks/bottle = 1,
 	)
 	blacklist = list(/obj/item/reagent_containers/food/drinks/bottle/molotov)
@@ -1306,7 +1306,7 @@
 		/obj/item/storage/toolbox = 1,
 	) //Paint in reagents so it doesnt take the container up, yet still take it from the beaker
 	blacklist = list(/obj/item/storage/toolbox/fakesyndi)
-	pathtools = list(/obj/item/reagent_containers/glass/rag = 1) //need something to paint with it
+	pathtools = list(/obj/item/rag = 1) //need something to paint with it
 	category = CAT_MISC
 
 /datum/crafting_recipe/snowman

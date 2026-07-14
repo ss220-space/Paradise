@@ -1,0 +1,125 @@
+/obj/item/wallframe
+	//icon = 'icons/obj/machines/wallmounts.dmi'
+	//custom_materials = list(/datum/material/iron= SHEET_MATERIAL_AMOUNT * 2)
+	flags = CONDUCT
+	item_state = "syringe_kit"
+	lefthand_file = 'icons/mob/inhands/storage_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/storage_righthand.dmi'
+	w_class = WEIGHT_CLASS_SMALL
+	///The final object to construct after mount
+	var/result_path
+	/// For frames that are external to the wall they are placed on, like light fixtures and cameras.
+	var/wall_external = FALSE
+	//The amount of pixels to shift when mounted
+	var/pixel_shift
+
+/obj/item/wallframe/Initialize(mapload)
+	. = ..()
+	register_context()
+	register_item_context()
+
+/obj/item/wallframe/add_context(atom/source, list/context, obj/item/held_item, mob/user)
+	. = NONE
+	if(held_item?.tool_behaviour == TOOL_WRENCH)
+		context[SCREENTIP_CONTEXT_LMB] = "Deconstruct"
+		return CONTEXTUAL_SCREENTIP_SET
+
+/obj/item/wallframe/add_item_context(obj/item/source, list/context, atom/target, mob/living/user)
+	. = NONE
+	if(find_support_structure(target))
+		context[SCREENTIP_CONTEXT_LMB] = "Mount"
+		return CONTEXTUAL_SCREENTIP_SET
+
+/obj/item/wallframe/examine(mob/user)
+	. = ..()
+	. += span_notice("It can be [EXAMINE_HINT("wrenched")] apart.")
+
+/**
+ * Returns an structure to mount on from the atom passed
+ * for e.g if its not an closed turf then return an structure on the turf to mount on
+ * Arguments
+ * * atom/structure - the atom or something in this atom we are trying to mount on
+*/
+/obj/item/wallframe/proc/find_support_structure(atom/structure)
+	SHOULD_BE_PURE(TRUE)
+
+	return isclosedturf(structure) ? structure : null
+
+/obj/item/wallframe/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
+	var/atom/support_structure = find_support_structure(interacting_with)
+	if(isnull(support_structure))
+		return NONE
+	if(!try_build(support_structure, user))
+		return ITEM_INTERACT_FAILURE
+
+	playsound(loc, 'sound/machines/click.ogg', 75, TRUE)
+	user.visible_message(span_notice("[user.name] attaches [src] to the wall."),
+		span_notice("You attach [src] to the wall."),
+		span_hear("You hear clicking."))
+
+	var/floor_to_support = get_dir(user, support_structure)
+	var/obj/hanging_object = new result_path(get_turf(user))
+	hanging_object.setDir(floor_to_support)
+	if(pixel_shift)
+		switch(floor_to_support)
+			if(NORTH)
+				hanging_object.pixel_y = pixel_shift
+			if(SOUTH)
+				hanging_object.pixel_y = -pixel_shift
+			if(EAST)
+				hanging_object.pixel_x = pixel_shift
+			if(WEST)
+				hanging_object.pixel_x = -pixel_shift
+	hanging_object.find_and_mount_on_atom()
+	after_attach(hanging_object)
+	qdel(src)
+
+	return ITEM_INTERACT_SUCCESS
+
+/**
+ * Check if we can build on this support structure
+ *
+ * Arguments
+ * * atom/support - the atom we are trying to mount on
+ * * mob/user - the player attempting to do the mount
+*/
+/obj/item/wallframe/proc/try_build(atom/support, mob/user)
+	if(get_dist(support, user) > 1)
+		balloon_alert(user, "you are too far!")
+		return FALSE
+	var/floor_to_support = get_dir(user, support)
+	if(!(floor_to_support in GLOB.cardinal))
+		balloon_alert(user, "stand in line with wall!")
+		return FALSE
+	var/turf/T = get_turf(user)
+	if(!isfloorturf(T))
+		balloon_alert(user, "cannot place here!")
+		return FALSE
+	if(check_wall_item(T, floor_to_support, wall_external))
+		balloon_alert(user, "already something here!")
+		return FALSE
+
+	return TRUE
+
+/**
+ * Stuff to do after wallframe attached to support atom
+ *
+ * Arguments
+ * * obj/attached_to - the object that has been created on the atom
+*/
+/obj/item/wallframe/proc/after_attach(obj/attached_to)
+	transfer_fingerprints_to(attached_to)
+
+/obj/item/wallframe/screwdriver_act(mob/living/user, obj/item/tool)
+	return interact_with_atom(get_step(get_turf(user), user.dir), user)
+
+/obj/item/wallframe/wrench_act(mob/living/user, obj/item/tool)
+	to_chat(user, span_notice("You dismantle [src]."))
+	deconstruct(TRUE)
+	return ITEM_INTERACT_SUCCESS
+/*
+/obj/item/wallframe/atom_deconstruct(disassembled)
+	var/atom/drop = drop_location()
+	for(var/datum/material/mat as anything in custom_materials)
+		new mat.sheet_type(drop, round(custom_materials[mat] / SHEET_MATERIAL_AMOUNT))
+*/

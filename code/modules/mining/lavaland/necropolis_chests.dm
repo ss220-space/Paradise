@@ -448,7 +448,7 @@
 		playsound(owner, 'sound/misc/demon_attack1.ogg', 50, TRUE)
 		owner.apply_damage(25, BRUTE, parent_organ_zone, TRUE)
 	katana.drew_blood = FALSE
-	katana.clean_blood()
+	katana.wash_tg(CLEAN_TYPE_BLOOD)
 	return ..()
 
 /obj/item/organ/internal/cyberimp/arm/katana/Extend()
