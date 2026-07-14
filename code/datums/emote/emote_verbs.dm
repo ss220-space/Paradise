@@ -630,3 +630,32 @@
 	set category = VERB_CATEGORY_EMOTIONS
 	emote("rattle", intentional = TRUE)
 
+/mob/living/carbon/human/proc/emote_resomi_wurble()
+	set name = "< Тихо курлыкать >"
+	set category = VERB_CATEGORY_EMOTIONS
+	emote("wurble", intentional = TRUE)
+
+/mob/living/carbon/human/proc/emote_resomi_warbles()
+	set name = "< Курлыкать >"
+	set category = VERB_CATEGORY_EMOTIONS
+	emote("warbles", intentional = TRUE)
+
+/mob/living/carbon/human/proc/emote_resomi_trill()
+	set name = "< Издать трель >"
+	set category = VERB_CATEGORY_EMOTIONS
+	emote("trill", intentional = TRUE)
+
+/mob/living/carbon/human/proc/emote_resomi_fluff_feathers()
+	set name = "< Распушить перья >"
+	set category = VERB_CATEGORY_EMOTIONS
+	emote("fluff_feathers", intentional = TRUE)
+
+/mob/living/carbon/human/proc/emote_resomi_shake_feathers()
+	set name = "< Встряхнуть перья >"
+	set category = VERB_CATEGORY_EMOTIONS
+	emote("shake_feathers", intentional = TRUE)
+
+/mob/living/carbon/human/proc/emote_resomi_click_beak()
+	set name = "< Щёлкнуть клювом >"
+	set category = VERB_CATEGORY_EMOTIONS
+	emote("click_beak", intentional = TRUE)

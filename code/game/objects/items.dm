@@ -928,6 +928,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		return FALSE
 	return TRUE
 
+/obj/item/proc/contains_pickupable_humanoid_holder()
+	for(var/obj/item/holder/holder in get_all_contents())
+		if(holder.held_mob && HAS_TRAIT(holder.held_mob, TRAIT_SMALL_MOB))
+			return TRUE
+	return FALSE
+
 /**
  * Mob 'M' is attempting to equip this item into the slot passed through as 'slot'. Return `TRUE` if it can do this and `FALSE` if it can't.
  * IF this is being done by a mob other than M, it will include the mob equipper, who is trying to equip the item to mob M. equipper will be null otherwise.

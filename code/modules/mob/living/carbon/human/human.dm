@@ -207,6 +207,9 @@
 /mob/living/carbon/human/wryn/Initialize(mapload)
 	. = ..(mapload, /datum/species/wryn)
 
+/mob/living/carbon/human/resomi/Initialize(mapload)
+	. = ..(mapload, /datum/species/resomi)
+
 /mob/living/carbon/human/nucleation/Initialize(mapload)
 	. = ..(mapload, /datum/species/nucleation)
 
@@ -1137,6 +1140,9 @@
 
 	maxHealth = dna.species.total_health
 	max_stamina = dna.species.total_stamina
+	inhand_sprite_offset_x = dna.species.inhand_sprite_offset_x
+	inhand_sprite_offset_y = dna.species.inhand_sprite_offset_y
+	inhand_sprite_scale = dna.species.inhand_sprite_scale
 
 	if(dna.species.language)
 		add_language(dna.species.language)
@@ -2068,6 +2074,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/mouse_buckle_handling(mob/living/M, mob/living/user)
 	if(pulling != M || grab_state != GRAB_AGGRESSIVE || stat != CONSCIOUS)
 		return FALSE
+	if(try_pick_up_grabbed_mob(M))
+		return TRUE
 	//If you dragged them to you and you're aggressively grabbing try to fireman carry them
 	if(can_be_firemanned(M))
 		var/active_hand_available = can_pull(hand, supress_message = TRUE)
@@ -2082,6 +2090,53 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/proc/can_be_firemanned(mob/living/carbon/target)
 	return ishuman(target) && target.body_position == LYING_DOWN
+
+/mob/living/carbon/human/proc/can_hold_pickupable_mob(mob/living/target_mob)
+	if(!target_mob || incapacitated() || HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
+		return FALSE
+	if(r_hand && l_hand)
+		return FALSE
+	return !HAS_TRAIT(src, TRAIT_SMALL_MOB)
+
+/mob/living/carbon/human/proc/can_request_pick_up_from(mob/living/carbon/human/target_human)
+	if(!target_human || !HAS_TRAIT(src, TRAIT_SMALL_MOB))
+		return FALSE
+	if(!can_be_picked_up(target_human))
+		return FALSE
+	return target_human.can_hold_pickupable_mob(src)
+
+/mob/living/carbon/human/proc/offer_self_pick_up(mob/living/carbon/human/target_human)
+	if(!can_request_pick_up_from(target_human))
+		return FALSE
+	to_chat(src, span_notice("Вы попросили [target_human] взять вас на руки."))
+	var/answer = tgui_alert(target_human, "[src] просит взять [src.p_them()] на руки.", "Взять на руки?", list("Да", "Нет"))
+	if(answer != "Да")
+		return TRUE
+	if(!can_request_pick_up_from(target_human))
+		to_chat(target_human, span_warning("[src] уже нельзя взять на руки."))
+		return TRUE
+	get_scooped(target_human)
+	return TRUE
+
+/mob/living/carbon/human/proc/can_complete_grab_pickup(mob/living/target_mob)
+	if(pulling != target_mob || grab_state != GRAB_AGGRESSIVE || stat != CONSCIOUS)
+		return FALSE
+	if(!Adjacent(target_mob) || !can_hold_pickupable_mob(target_mob))
+		return FALSE
+	return target_mob.can_be_picked_up(src)
+
+/mob/living/carbon/human/proc/try_pick_up_grabbed_mob(mob/living/target_mob)
+	if(!can_complete_grab_pickup(target_mob))
+		return FALSE
+	visible_message(
+		span_notice("[src] начинает поднимать [target_mob] на руки."),
+		span_notice("Вы начинаете поднимать [target_mob] на руки."),
+	)
+	if(!do_after(src, 2 SECONDS, target_mob, DA_IGNORE_HELD_ITEM | DA_IGNORE_TARGET_LOC_CHANGE, extra_checks = CALLBACK(src, PROC_REF(can_complete_grab_pickup), target_mob), max_interact_count = 1, cancel_on_max = TRUE))
+		return TRUE
+	if(can_complete_grab_pickup(target_mob))
+		target_mob.get_scooped(src)
+	return TRUE
 
 /mob/living/carbon/human/proc/fireman_carry(mob/living/carbon/target)
 	if(!can_be_firemanned(target) || incapacitated(IGNORE_GRAB))

@@ -484,6 +484,36 @@
 	new_name += " [pick(list("Andromeda","Antlia","Apus","Auriga","Caelum","Camelopardalis","Canes Venatici","Carinae","Cassiopeia","Centauri","Circinus","Cygnus","Dorado","Draco","Eridanus","Errakis","Fornax","Gliese","Grus","Horologium","Hydri","Lacerta","Leo Minor","Lupus","Lynx","Maffei","Megrez","Messier","Microscopium","Monocerotis","Muscae","Ophiuchi","Orion","Pegasi","Persei","Perseus","Polaris","Pyxis","Sculptor","Syrma","Telescopium","Tianyi","Triangulum","Trifid","Tucana","Tycho","Vir","Volans","Zavyava"))]"
 	return new_name
 
+/datum/language/resomi
+	name = LANGUAGE_RESOMI
+	desc = "Смесь чириканья, свиста и щелчков, дополненная активной жестикуляцией ушами и хвостом."
+	speech_verbs = list("чирика%(ет,ют)%")
+	exclaim_verbs = list("вскрикива%(ет,ют)%")
+	whisper_verbs = list("тихо щёлка%(ет,ют)%")
+	colour = "vox"
+	runechat_span = "vox"
+	flags = RESTRICTED
+	key = "sa"
+	space_chance = 40
+	syllables = list(
+		"ki", "skre", "chir", "vli", "tri", "kree", "zrit", "pree", "skrit", "kli",
+		"shree", "tchi", "vree", "kri", "zri", "shkree", "tiv", "lit", "skra", "krrr",
+		"tik", "klik", "prik", "skrik", "vrik", "trik", "zrik", "shrik", "krik", "va",
+		"si", "li", "re", "so", "mi", "ka", "tu", "ra", "tsi", "kree-ah", "vlee-it",
+		"skree-at", "chri-it", "zree-al", "tkri", "skli", "vri", "zra",
+	)
+
+/datum/language/resomi/get_random_name()
+	var/static/list/name_starts = list(
+		"Ме", "Ши", "Ре", "Ас", "Им", "За", "Ки", "Ли", "Ти", "Ва", "Ни", "Хо", "Се", "Ми", "Па",
+		"Ри", "Те", "Ко", "Си", "Лу", "Кри", "Тка", "Фло", "Ма", "Не", "Ос", "Ве", "Зи", "Юн",
+	)
+	var/static/list/name_ends = list(
+		"ути", "рива", "тини", "сиер", "аки", "ери", "зи", "ива", "ель", "оми", "ата", "уна", "кит", "лис",
+		"вет", "ани", "ро", "та", "ми", "не", "тра", "ка", "ири", "ко", "ла", "на", "ри", "си", "ти", "вэ",
+	)
+	return "[pick(name_starts)][pick(name_ends)]"
+
 /datum/language/common
 	name = LANGUAGE_GALACTIC_COMMON
 	desc = "Универсальный язык, разработанный людьми для упрощения общения с другими гуманоидными расами."

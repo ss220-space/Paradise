@@ -243,6 +243,7 @@
 #define SPECIES_MOTH "Nian"
 #define SPECIES_NUCLEATION "Nucleation"
 #define SPECIES_PLASMAMAN "Plasmaman"
+#define SPECIES_RESOMI "Resomi"
 
 #define SPECIES_SHADOW_BASIC "Shadow"
 #define SPECIES_SHADOWLING "Shadowling"
@@ -302,6 +303,7 @@ GLOBAL_LIST_INIT(ru_species, list(
 	SPECIES_MOTH = "ниан",
 	SPECIES_NUCLEATION = "нуклеация",
 	SPECIES_PLASMAMAN = "плазмолюд",
+	SPECIES_RESOMI = "резоми",
 	SPECIES_SHADOW_BASIC = "тень",
 	SPECIES_SHADOWLING = "тенеморф",
 	SPECIES_LESSER_SHADOWLING = "низший тенеморф",

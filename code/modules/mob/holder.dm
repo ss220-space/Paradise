@@ -8,14 +8,46 @@
 	slot_flags = ITEM_SLOT_HEAD
 	origin_tech = "biotech=2"
 	holder_flags = HUMAN_HOLDER
+	var/mob/living/held_mob
 
 /obj/item/holder/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/holder/Destroy()
+	clear_held_mob()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
+
+/obj/item/holder/proc/clear_held_mob()
+	if(held_mob && !QDELETED(held_mob))
+		UnregisterSignal(held_mob, list(
+			COMSIG_CARBON_APPLY_OVERLAY,
+			COMSIG_CARBON_REMOVE_OVERLAY,
+			COMSIG_MOB_UPDATE_HELD_ITEMS,
+			COMSIG_MOB_UNEQUIPPED_ITEM,
+			COMSIG_HUMAN_REGENERATE_ICONS,
+		))
+	held_mob = null
+
+/obj/item/holder/proc/update_held_mob_appearance()
+	if(!held_mob || QDELETED(held_mob))
+		return
+	var/old_layer = layer
+	var/old_plane = plane
+	var/old_pixel_x = pixel_x
+	var/old_pixel_y = pixel_y
+	appearance = held_mob.appearance
+	layer = old_layer
+	plane = old_plane
+	pixel_x = old_pixel_x
+	pixel_y = old_pixel_y
+	name = held_mob.name
+	desc = held_mob.desc
+
+/obj/item/holder/proc/on_held_mob_icon_updated(datum/source)
+	SIGNAL_HANDLER
+	update_held_mob_appearance()
 
 /obj/item/holder/process()
 
@@ -103,16 +135,21 @@
 		return
 
 	var/obj/item/holder/H = new holder_type(loc)
+	H.held_mob = src
+	H.RegisterSignal(src, list(
+		COMSIG_CARBON_APPLY_OVERLAY,
+		COMSIG_CARBON_REMOVE_OVERLAY,
+		COMSIG_MOB_UPDATE_HELD_ITEMS,
+		COMSIG_MOB_UNEQUIPPED_ITEM,
+		COMSIG_HUMAN_REGENERATE_ICONS,
+	), TYPE_PROC_REF(/obj/item/holder, on_held_mob_icon_updated))
+	H.update_held_mob_appearance()
 	src.forceMove(H)
-	H.name = name
-	H.icon = icon
-	H.icon_state = icon_state
-	if(desc)
-		H.desc = desc
-	H.attack_hand(grabber)
-	to_chat(grabber, "<span class='notice'>Вы подняли [src.name].")
-	to_chat(src, span_notice("[grabber.name] поднял[GEND_A_O_I(grabber)] вас."))
-	grabber.status_flags |= PASSEMOTES
+	if(grabber)
+		H.attack_hand(grabber)
+		to_chat(grabber, span_notice("Вы подняли [src.name] на руки."))
+		to_chat(src, span_notice("[grabber.name] поднял[GEND_A_O_I(grabber)] вас на руки."))
+		grabber.status_flags |= PASSEMOTES
 
 	switch(mob_size)
 		if(MOB_SIZE_TINY)
@@ -125,6 +162,13 @@
 			H.w_class = WEIGHT_CLASS_HUGE
 
 	return H
+
+/mob/living/proc/can_be_picked_up(mob/living/carbon/human/picker)
+	if(!picker || !holder_type || !HAS_TRAIT(src, TRAIT_SMALL_MOB))
+		return FALSE
+	if(src == picker || !isturf(loc) || buckled)
+		return FALSE
+	return TRUE
 
 //Mob specific holders.
 
@@ -155,6 +199,15 @@
 	desc = "It's a little robot."
 	icon_state = "pai-repairbot"
 	origin_tech = "materials=3;programming=4;engineering=4"
+
+/obj/item/holder/humanoid
+	name = "small humanoid"
+	desc = "A small humanoid curled up into a carryable pose."
+	slot_flags = NONE
+
+/obj/item/holder/humanoid/Initialize(mapload)
+	. = ..()
+	dir = SOUTH
 
 /obj/item/holder/mouse
 	name = "mouse"

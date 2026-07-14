@@ -244,6 +244,16 @@
 /mob/living/carbon/put_in_hand_check(obj/item/item, hand_id)
 	if(!istype(item))
 		return FALSE
+	if(HAS_TRAIT(src, TRAIT_SMALL_MOB))
+		if((istype(item, /obj/item/holder) && (item.holder_flags & HUMAN_HOLDER)) || item.contains_pickupable_humanoid_holder())
+			return FALSE
+		if(item.w_class >= WEIGHT_CLASS_BULKY)
+			var/static/list/bulky_exceptions = typecacheof(list(
+				/obj/item/storage/backpack,
+				/obj/item/storage/belt,
+			))
+			if(!is_type_in_typecache(item, bulky_exceptions))
+				return FALSE
 
 	if(SEND_SIGNAL(src, COMSIG_CARBON_TRY_PUT_IN_HAND, item, hand_id) & COMPONENT_CARBON_CANT_PUT_IN_HAND)
 		return FALSE
@@ -459,4 +469,3 @@
 				return TRUE
 
 	return FALSE
-

@@ -34,6 +34,8 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 
 	if(user.grab_state != GRAB_AGGRESSIVE)
 		return TRUE
+	if(HAS_TRAIT(src, TRAIT_SMALL_MOB))
+		return FALSE
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/human_user = user

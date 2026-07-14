@@ -922,3 +922,27 @@
 /datum/keybinding/custom/ten
 	name = "Пользовательская эмоция №10"
 	donor_exclusive = TRUE
+
+/datum/keybinding/emote/carbon/human/resomi/wurble
+	linked_emote = /datum/emote/living/carbon/human/resomi/wurble
+	name = "Тихо курлычать (резоми)"
+
+/datum/keybinding/emote/carbon/human/resomi/warbles
+	linked_emote = /datum/emote/living/carbon/human/resomi/warbles
+	name = "Курлыкать (резоми)"
+
+/datum/keybinding/emote/carbon/human/resomi/trill
+	linked_emote = /datum/emote/living/carbon/human/resomi/trill
+	name = "Издать трель (резоми)"
+
+/datum/keybinding/emote/carbon/human/resomi/fluff_feathers
+	linked_emote = /datum/emote/living/carbon/human/resomi/fluff_feathers
+	name = "Распушить перья (резоми)"
+
+/datum/keybinding/emote/carbon/human/resomi/shake_feathers
+	linked_emote = /datum/emote/living/carbon/human/resomi/shake_feathers
+	name = "Встряхнуть перья (резоми)"
+
+/datum/keybinding/emote/carbon/human/resomi/click_beak
+	linked_emote = /datum/emote/living/carbon/human/resomi/click_beak
+	name = "Щёлкнуть клювом (резоми)"

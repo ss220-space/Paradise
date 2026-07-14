@@ -50,6 +50,8 @@
 		arms_needed = 1
 		ride_check_flags &= ~RIDER_NEEDS_ARM
 		ride_check_flags |= RIDER_NEEDS_ARMS
+	if(arms_needed && HAS_TRAIT(potential_rider, TRAIT_SMALL_MOB))
+		arms_needed = 0
 
 	if(arms_needed && !equip_buckle_inhands(potential_rider, arms_needed, target_movable)) // can be either 1 (cyborg riding) or 2 (human piggybacking) hands
 		potential_rider.visible_message(span_warning("[potential_rider] can't get a grip on [target_movable] because [potential_rider.p_their()] hands are full!"),

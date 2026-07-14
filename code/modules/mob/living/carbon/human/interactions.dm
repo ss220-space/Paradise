@@ -4,6 +4,9 @@
 
 /mob/living/carbon/human/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	if(src != user)
+		if(ishuman(over_object) && over_object == user)
+			var/mob/living/carbon/human/grabber = over_object
+			grabber.try_pick_up_grabbed_mob(src)
 		return
 	interact(over_object)
 
@@ -40,6 +43,12 @@
 	var/dat = span_fontsize3("<b><hr>[H.partner]</b><br><hr>")
 
 	dat +=  {"• <a href='byond://?src=[UID()];interaction=bow'>Отвесить поклон.</a><br>"}
+	if(Adjacent(P) && H.is_small_pickupable())
+		dat += span_fontsize3("<b>Маленькость:</b><br>")
+		if(H.can_request_pick_up_from(P))
+			dat += {"• <a href='byond://?src=[UID()];interaction=request_pick_up'>Попроситься на ручки.</a><br>"}
+		if(H.can_jump_on_back_of(P))
+			dat += {"• <a href='byond://?src=[UID()];interaction=jump_on_back'>Запрыгнуть на спину.</a><br>"}
 	if(hashands)
 		dat +=  span_fontsize3("<b>Руки:</b><br>")
 		dat +=  {"• <a href='byond://?src=[UID()];interaction=wave'>Приветливо помахать.</a><br>"}

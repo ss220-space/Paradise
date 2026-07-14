@@ -20,6 +20,7 @@
 #define LANGUAGE_CLOWN "Клоунский"
 #define LANGUAGE_NEO_RUSSIAN "Нео-русский"
 #define LANGUAGE_WRYN "Разум улья Вринов"
+#define LANGUAGE_RESOMI "Скречи"
 #define LANGUAGE_XENOS "Ксеноморфский"
 #define LANGUAGE_HIVE_XENOS "Разум улья Ксеноморфов"
 #define LANGUAGE_HIVE_TERRORSPIDER "Разум улья Пауков Ужаса"

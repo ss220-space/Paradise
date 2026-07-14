@@ -43,6 +43,7 @@ GLOBAL_LIST_EMPTY(body_accessory_by_species)
 
 	var/pixel_x_offset = 0
 	var/pixel_y_offset = 0
+	var/render_behind_body = FALSE
 
 	var/list/allowed_species = list()
 	/// If true, adds an underlay (in addition to the regular overlay!) to the character sprite, with the state "[icon_state]_BEHIND".

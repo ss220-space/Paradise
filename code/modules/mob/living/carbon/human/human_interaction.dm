@@ -43,6 +43,14 @@
 
 			H.give(P)
 
+		if("request_pick_up")
+			if(P.Adjacent(H.loc))
+				H.offer_self_pick_up(P)
+
+		if("jump_on_back")
+			if(P.Adjacent(H.loc))
+				H.try_jump_on_back(P)
+
 		if("kiss")
 			if(!get_location_accessible(H, BODY_ZONE_PRECISE_MOUTH))
 				return

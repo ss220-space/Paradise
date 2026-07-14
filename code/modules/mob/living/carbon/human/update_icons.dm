@@ -565,10 +565,17 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	for(var/obj/item/clothing/accessory/accessory as anything in w_uniform.accessories)
 		var/acc_state_type = accessory.item_state ? accessory.item_state : accessory.icon_state
-		var/mutable_appearance/acc_olay = mutable_appearance(accessory.onmob_sheets[ITEM_SLOT_ACCESSORY_STRING], acc_state_type, alpha = accessory.alpha)
+		var/accessory_icon_file = accessory.onmob_sheets[ITEM_SLOT_ACCESSORY_STRING]
+		var/accessory_icon_state = acc_state_type
+		var/species_icon_file = dna.species.get_clothing_icon_file(accessory, accessory_icon_file)
+		var/species_icon_state
+		if(species_icon_file)
+			species_icon_state = dna.species.get_clothing_icon_state(accessory, species_icon_file, acc_state_type)
+		if(species_icon_state)
+			accessory_icon_file = species_icon_file
+			accessory_icon_state = species_icon_state
+		var/mutable_appearance/acc_olay = mutable_appearance(accessory_icon_file, accessory_icon_state, alpha = accessory.alpha)
 		acc_olay.color = accessory.color
-		if(accessory.sprite_sheets?[dna.species.name])
-			acc_olay.icon = accessory.sprite_sheets[dna.species.name]
 		uniform_overlay.overlays += acc_olay
 
 	// over_uniform body marks
@@ -872,7 +879,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	var/override_icon_state
 	if(alternate_head)
-		var/icon/icon_file = wear_mask.sprite_sheets?[dna.species.name] || wear_mask.onmob_sheets[ITEM_SLOT_MASK_STRING]
+		var/icon/icon_file = dna.species.get_clothing_icon_file(wear_mask, wear_mask.onmob_sheets[ITEM_SLOT_MASK_STRING]) || wear_mask.onmob_sheets[ITEM_SLOT_MASK_STRING]
 		var/alt_icon_state = "[wear_mask.icon_state]_[alternate_head.suffix]"
 		override_icon_state = icon_exists(icon_file, alt_icon_state) ? alt_icon_state : null
 
@@ -977,7 +984,12 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 					accessory_s.Blend(bodypart_tail.s_col, bodypart_tail.body_accessory.blend_mode)
 			if(tail_marking_icon && (bodypart_tail.body_accessory.name in tail_marking_style.tails_allowed))
 				accessory_s.Blend(tail_marking_icon, ICON_OVERLAY)
-			if(istype(bodypart_tail.body_accessory, /datum/body_accessory/tail) && bodypart_tail.dna.species.bodyflags & TAIL_OVERLAPPED) // If the player has a species whose tail is overlapped by limbs... (having a non-tail body accessory like the snake body will override this)
+			if(bodypart_tail.body_accessory.render_behind_body)
+				var/mutable_appearance/underlimbs = mutable_appearance(accessory_s, layer = -TAIL_UNDERLIMBS_LAYER)
+				underlimbs.pixel_w = bodypart_tail.body_accessory.pixel_x_offset
+				underlimbs.pixel_z = bodypart_tail.body_accessory.pixel_y_offset
+				overlays_standing[TAIL_UNDERLIMBS_LAYER] = underlimbs
+			else if(istype(bodypart_tail.body_accessory, /datum/body_accessory/tail) && bodypart_tail.dna.species.bodyflags & TAIL_OVERLAPPED) // If the player has a species whose tail is overlapped by limbs... (having a non-tail body accessory like the snake body will override this)
 				// Gives the underlimbs layer SEW direction icons since it's overlayed by limbs and just about everything else anyway.
 				var/icon/under = new/icon("icon" = 'icons/mob/clothing/body_accessory.dmi', "icon_state" = "accessory_none_s")
 				under.Insert(new/icon(accessory_s, dir=SOUTH), dir=SOUTH)
@@ -1083,7 +1095,12 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				accessory_s.Blend(bodypart_tail.s_col, bodypart_tail.body_accessory.blend_mode)
 		if(tail_marking_icon && (bodypart_tail.body_accessory.name in tail_marking_style.tails_allowed))
 			accessory_s.Blend(tail_marking_icon, ICON_OVERLAY)
-		if(istype(bodypart_tail.body_accessory, /datum/body_accessory/tail) && bodypart_tail.dna.species.bodyflags & TAIL_OVERLAPPED) // If the player has a species whose tail is overlapped by limbs... (having a non-tail body accessory like the snake body will override this)
+		if(bodypart_tail.body_accessory.render_behind_body)
+			var/mutable_appearance/underlimbs = mutable_appearance(accessory_s, layer = -TAIL_UNDERLIMBS_LAYER)
+			underlimbs.pixel_w = bodypart_tail.body_accessory.pixel_x_offset
+			underlimbs.pixel_z = bodypart_tail.body_accessory.pixel_y_offset
+			overlays_standing[TAIL_UNDERLIMBS_LAYER] = underlimbs
+		else if(istype(bodypart_tail.body_accessory, /datum/body_accessory/tail) && bodypart_tail.dna.species.bodyflags & TAIL_OVERLAPPED) // If the player has a species whose tail is overlapped by limbs... (having a non-tail body accessory like the snake body will override this)
 			// Gives the underlimbs layer SEW direction icons since it's overlayed by limbs and just about everything else anyway.
 			var/icon/under = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[bodypart_tail.dna.species.name]_tail_delay")
 			under.Insert(new/icon(accessory_s, dir=SOUTH), dir=SOUTH)
@@ -1342,14 +1359,27 @@ use_item_state: SS1984 legacy var, used to fix fact, that item_state randomly us
 )
 
 	var/mob/living/carbon/wearer = loc
+	var/datum/species/wearer_species
 	var/species
 	if(istype(wearer))
-		species = wearer?.dna?.species.name
+		wearer_species = wearer?.dna?.species
+		species = wearer_species?.name
 
 	//Find a valid icon_state from variables+arguments
 	var/t_state = override_state || (isinhands || use_item_state) && item_state || icon_state
 	//Find a valid icon file from variables+arguments
-	var/file2use = override_file || (species ? (isinhands ? sprite_sheets_inhand?[species] : sprite_sheets?[species]) : null)  || default_icon_file
+	var/species_icon_file = isinhands ? sprite_sheets_inhand?[species] : wearer_species?.get_clothing_icon_file(src, default_icon_file)
+	var/file2use = override_file || default_icon_file
+	var/transform_species_fallback = FALSE
+	if(isinhands)
+		file2use = override_file || species_icon_file || default_icon_file
+	else if(!override_file && species_icon_file)
+		var/species_icon_state = wearer_species.get_clothing_icon_state(src, species_icon_file, t_state)
+		if(species_icon_state)
+			file2use = species_icon_file
+			t_state = species_icon_state
+		else
+			transform_species_fallback = TRUE
 	//Find a valid layer from variables+arguments
 	var/layer2use = default_layer
 
@@ -1376,9 +1406,20 @@ use_item_state: SS1984 legacy var, used to fix fact, that item_state randomly us
 		standing = draw_target
 
 	standing = center_image(standing, isinhands ? inhand_x_dimension : worn_x_dimension, isinhands ? inhand_y_dimension : worn_y_dimension)
+	if(transform_species_fallback)
+		wearer_species.transform_clothing_fallback(standing, src)
+	if(isinhands && ishuman(wearer))
+		var/mob/living/carbon/human/human_wearer = wearer
+		var/hand_x_offset = human_wearer.inhand_sprite_offset_x
+		var/file_text = "[file2use]"
+		if(findtext(file_text, "lefthand") || endswith(t_state, "_l"))
+			hand_x_offset = -hand_x_offset
+		standing.pixel_w += hand_x_offset
+		standing.pixel_z += human_wearer.inhand_sprite_offset_y
+		if(human_wearer.inhand_sprite_scale != 1)
+			standing.transform = matrix().Scale(human_wearer.inhand_sprite_scale, human_wearer.inhand_sprite_scale)
 
 	standing.alpha = alpha
 	standing.color = color
 
 	return standing
-
