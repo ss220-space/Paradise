@@ -105,7 +105,7 @@
 
 	playsound(user, 'sound/items/handling/toolbox_open.ogg', 50)
 
-	var/obj/item/picked_item = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user, object), require_near = TRUE, anim_speed = 0.1)
+	var/obj/item/picked_item = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user, object), require_near = TRUE)
 	if(!picked_item)
 		return
 

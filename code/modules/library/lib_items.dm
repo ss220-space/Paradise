@@ -56,7 +56,7 @@
 	. = ..()
 
 /obj/structure/bookcase/add_debris_element()
-	AddElement(/datum/element/debris, DEBRIS_WOOD, -40, 5)
+	generate_debris_handler(DEBRIS_WOOD, -40, 5)
 
 /// Populates typecache with the things allowed to store
 /obj/structure/bookcase/proc/generate_allowed_books()

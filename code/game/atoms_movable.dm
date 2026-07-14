@@ -738,7 +738,7 @@
 		. = FALSE
 
 	var/area/area = get_area(src)
-	if(!no_gravity() && get_gravity() < 0 && area.outdoors && !iswallturf(src)) // If no ceiling above us with antigravity, fall up in space.
+	if(!no_gravity() && has_gravity() < 0 && area.outdoors && !iswallturf(src)) // If no ceiling above us with antigravity, fall up in space.
 		INVOKE_ASYNC(src, TYPE_PROC_REF(/atom/movable, fall_up_in_space))
 		return FALSE
 

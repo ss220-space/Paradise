@@ -1,3 +1,4 @@
+#define CART_HAS_MINIMUM_REAGENT_VOLUME !(reagents.total_volume < 1)
 /obj/structure/mopbucket
 	desc = "Fill it with water, but don't forget a mop!"
 	name = "mop bucket"
@@ -7,37 +8,90 @@
 	container_type = OPENCONTAINER
 	var/obj/item/mop/mymop = null
 	var/amount_per_transfer_from_this = 5 //shit I dunno, adding this so syringes stop runtime erroring. --NeoFite
+	/// The icon used for the water overlay
+	var/water_icon = "mopbucket_water"
 
 /obj/structure/mopbucket/Initialize(mapload)
 	. = ..()
 	create_reagents(100)
 	GLOB.janitorial_equipment += src
+	register_context()
 
 /obj/structure/mopbucket/full/Initialize(mapload)
 	. = ..()
-	reagents.add_reagent("water", 100)
+	reagents.add_reagent(/datum/reagent/water, 100)
 
 /obj/structure/mopbucket/Destroy()
 	GLOB.janitorial_equipment -= src
 	QDEL_NULL(mymop)
 	return ..()
 
+/obj/structure/mopbucket/add_context(atom/source, list/context, obj/item/held_item, mob/living/user)
+	. = ..()
+
+	if(istype(held_item, /obj/item/mop))
+		if(!mymop)
+			context[SCREENTIP_CONTEXT_LMB] = "Put [held_item]"
+		context[SCREENTIP_CONTEXT_RMB] = "Wet [held_item]"
+		return CONTEXTUAL_SCREENTIP_SET
+
+	if(is_reagent_container(held_item))
+		context[SCREENTIP_CONTEXT_LMB] = "Fill mop bucket"
+		return CONTEXTUAL_SCREENTIP_SET
+
+	if(held_item?.tool_behaviour == TOOL_CROWBAR)
+		context[SCREENTIP_CONTEXT_LMB] = "Empty bucket"
+		return CONTEXTUAL_SCREENTIP_SET
+
+	if(!held_item && mymop)
+		context[SCREENTIP_CONTEXT_LMB] = "Take [mymop]"
+		return CONTEXTUAL_SCREENTIP_SET
+
+	return .
+
 /obj/structure/mopbucket/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
 		. += span_notice("[get_examine_icon(user)] [src] contains [reagents.total_volume] units of water left.")
 
-/obj/structure/mopbucket/attackby(obj/item/I, mob/user, params)
-	if(user.a_intent == INTENT_HARM || I.is_robot_module())
+/obj/structure/mopbucket/attackby(obj/item/weapon, mob/user, list/modifiers, list/attack_modifiers)
+	if(user.a_intent == INTENT_HARM || weapon.is_robot_module())
 		return ..()
 
-	if(istype(I, /obj/item/mop))
+	if(is_reagent_container(weapon))
+		update_appearance(UPDATE_OVERLAYS)
+		return ATTACK_CHAIN_BLOCKED // skip attack animation when refilling cart
+
+	if(istype(weapon, /obj/item/mop))
+		if(mymop)
+			to_chat(user, span_notice("There is already [mymop] in [src]."))
+			return ATTACK_CHAIN_BLOCKED_ALL
 		add_fingerprint(user)
-		var/obj/item/mop/mop = I
-		mop.wet_mop(src, user)
+		if(!put_in_cart(weapon, user))
+			return ..()
+		mymop = weapon
+		update_appearance(UPDATE_OVERLAYS)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
+
+/obj/structure/mop_bucket/attackby_secondary(obj/item/weapon, mob/user, list/modifiers, list/attack_modifiers)
+	if(istype(weapon, /obj/item/mop))
+		if(weapon.reagents.total_volume >= weapon.reagents.maximum_volume)
+			balloon_alert(user, "already soaked!")
+			return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+		if(!CART_HAS_MINIMUM_REAGENT_VOLUME)
+			balloon_alert(user, "empty!")
+			return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+		reagents.trans_to(weapon, weapon.reagents.maximum_volume)
+		balloon_alert(user, "doused mop")
+		playsound(src, 'sound/effects/slosh.ogg', 25, vary = TRUE)
+
+	if(is_reagent_container(weapon) || istype(weapon, /obj/item/mop))
+		update_appearance(UPDATE_OVERLAYS)
+		return SECONDARY_ATTACK_CONTINUE_CHAIN // skip attack animations when refilling cart
+
+	return SECONDARY_ATTACK_CONTINUE_CHAIN
 
 /obj/structure/mopbucket/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -93,3 +147,4 @@
 		mymop = null
 		update_icon(UPDATE_OVERLAYS)
 
+#undef CART_HAS_MINIMUM_REAGENT_VOLUME

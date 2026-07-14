@@ -193,7 +193,7 @@ tier 3 - 10-12 range, 125 energy per teleport, 1 sec teleport
 	)
 
 /obj/item/mod/module/anomaly_locked/antigrav/on_activation()
-	if(mod.wearer.get_gravity())
+	if(mod.wearer.has_gravity())
 		new /obj/effect/temp_visual/mook_dust(get_turf(src))
 	mod.wearer.AddElement(/datum/element/forced_gravity, 0)
 	playsound(src, 'sound/effects/gravhit.ogg', 50)
@@ -202,7 +202,7 @@ tier 3 - 10-12 range, 125 energy per teleport, 1 sec teleport
 	mod.wearer.RemoveElement(/datum/element/forced_gravity, 0)
 	if(deleting)
 		return
-	if(mod.wearer.get_gravity())
+	if(mod.wearer.has_gravity())
 		new /obj/effect/temp_visual/mook_dust(get_turf(src))
 	playsound(src, 'sound/effects/gravhit.ogg', 50)
 

@@ -19,11 +19,6 @@
 		node.disconnect(src)
 		node = null
 		nullifyPipenet(parent)
-	if(parent)
-		if(parent.has_one_member())
-			QDEL_NULL(parent)
-		else
-			nullifyPipenet(parent)
 	return ..()
 
 /obj/machinery/atmospherics/unary/atmos_init()
@@ -55,7 +50,7 @@
 		. = 1
 
 /obj/machinery/atmospherics/unary/build_network(remove_deferral = FALSE)
-	if(!parent)
+	if(!parent && node)
 		parent = new /datum/pipeline()
 		parent.build_pipeline(src)
 	..()

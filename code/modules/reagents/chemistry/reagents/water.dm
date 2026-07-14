@@ -18,7 +18,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	id = "water"
 	description = "Повсеместно распространённое химическое вещество, состоящее из водорода и кислорода."
 	reagent_state = LIQUID
-	color = "#0064C8" // rgb: 0, 100, 200
+	color = "#AAAAAA77" // rgb: 170, 170, 170, 77 (alpha)
 	taste_description = "воды"
 	var/cooling_temperature = 2
 	process_flags = ORGANIC | SYNTHETIC
@@ -27,8 +27,27 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	drink_desc = "Обычный стакан обычной воды."
 	var/water_temperature = COLD_WATER_TEMPERATURE	// As reagents don't have a temperature value, we'll just use 10 celsius.
 
+/// How many wet stacks you get per units of water when it's applied by touch.
+#define WATER_TO_WET_STACKS_FACTOR_TOUCH 0.5
 /datum/reagent/water/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	M.water_act(volume, water_temperature, src, method)
+	if(method & REAGENT_TOUCH)
+		M.adjust_wet_stacks(volume * WATER_TO_WET_STACKS_FACTOR_TOUCH) // Water makes you wet, at a 50% water-to-wet-stacks ratio. Which, in turn, gives you some mild protection from being set on fire!
+
+	if(method & (REAGENT_TOUCH)) // wakey wakey eggs and bakey
+		M.AdjustDizzy(-2 SECONDS)
+		M.AdjustConfused(-2 SECONDS)
+		M.AdjustDrowsy(-4 SECONDS)
+		M.AdjustJitter(-4 SECONDS)
+		M.AdjustSleeping(-15 SECONDS)
+		M.adjust_unconscious(-8 SECONDS)
+		var/drunkness_restored = HAS_TRAIT(M, TRAIT_WATER_ADAPTATION) ? -0.5 : -0.25
+		M.AdjustDrunk(drunkness_restored)
+
+	if((method & REAGENT_INGEST) && HAS_TRAIT(M, TRAIT_WATER_ADAPTATION) && volume >= 4)
+		M.adjust_wet_stacks(0.15 * volume)
+
+#undef WATER_TO_WET_STACKS_FACTOR_TOUCH
 
 /datum/reagent/water/reaction_turf(turf/T, volume)
 	T.water_act(volume, water_temperature, src)
@@ -38,6 +57,23 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 
 /datum/reagent/water/reaction_obj(obj/O, volume)
 	O.water_act(volume, water_temperature, src)
+
+/datum/reagent/water/mineral
+	name = "Mineral Water"
+	id = "mineral_water"
+
+/datum/reagent/water/mineral/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, metabolization_ratio)
+	. = ..()
+	affected_mob.adjustToxLoss(-0.05, updating_health = FALSE)
+	return STATUS_UPDATE_HEALTH
+
+/datum/reagent/water/salt
+	name = "Saltwater"
+	id = "salt_water"
+	description = "Water, but salty. Smells like... the station infirmary?"
+	color = "#aaaaaa9d" // rgb: 170, 170, 170, 77 (alpha)
+	taste_description = "the sea"
+	cooling_temperature = 3
 
 /datum/reagent/lube
 	name = "Космическая смазка"
@@ -61,41 +97,25 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	harmless = TRUE
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "средства для мытья полов"
+	var/clean_types = CLEAN_WASH
 
 /datum/reagent/space_cleaner/reaction_obj(obj/O, volume)
-	if(iseffect(O))
-		var/obj/effect/E = O
-		if(E.is_cleanable())
-			var/obj/effect/decal/cleanable/blood/B = E
-			if(!(istype(B) && B.off_floor))
-				qdel(E)
-	else
-		if(O.simulated)
-			O.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
-			var/obj/item/clothing/suit/space/hardsuit/H = O
-			if(istype(H) && H.helmet)
-				H.helmet.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
-		O.clean_blood()
+	. = ..()
+	O?.wash_tg(clean_types)
 
 /datum/reagent/space_cleaner/reaction_turf(turf/T, volume)
-	if(volume >= 1)
-		var/floor_only = TRUE
-		for(var/obj/effect/decal/cleanable/C in T)
-			var/obj/effect/decal/cleanable/blood/B = C
-			if(istype(B) && B.off_floor)
-				floor_only = FALSE
-			else
-				qdel(C)
-		T.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
-		if(floor_only)
-			T.clean_blood()
+	. = ..()
+	if(volume < 1)
+		return
 
-		for(var/mob/living/simple_animal/slime/M in T)
-			M.adjustToxLoss(rand(5, 10))
+	T.wash_tg(clean_types, TRUE)
 
 /datum/reagent/space_cleaner/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	M.clean_blood()
-	SEND_SIGNAL(M, COMSIG_COMPONENT_CLEAN_ACT, 1)
+	. = ..()
+	if(!(method & (REAGENT_TOUCH)))
+		return
+
+	M.wash_tg(clean_types)
 
 /datum/reagent/blood
 	data = list("donor"=null,"diseases"=null,"blood_DNA"=null,"blood_type"=null,"blood_species"=null,"blood_colour"=BLOOD_COLOR_RED,"resistances"=null,"trace_chem"=null,"mind"=null,"ckey"=null,"gender"=null,"real_name"=null,"cloneable"=null,"factions"=null, "dna" = null)
@@ -345,6 +365,10 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 			if(prob(5))
 				M.AdjustCultSlur(10 SECONDS)//5 seems like a good number...
 				M.say(pick("Ав'те Нар'си","Па'лид Морс","ИНО ИНО ОРА АНА","САТ АНА!","Дайм'ниодиес Арс'иай Ле'ионес","Игкау'хом'нау ен Кеосу","Хо Дьяк'нос ту Ап'айрон","Ар'ж На'си","Диабо ас Во'исцум","Си гн'ам Ко'ну"))
+		else if(HAS_TRAIT(M, TRAIT_EVIL) && prob(25)) //Congratulations, your committment to evil has now made holy water a deadly poison to you!
+			M.emote("scream")
+			update_flags |= M.adjustFireLoss(1.5, updating_health = FALSE)
+
 	if(current_cycle >= 75 && prob(33))	// 30 units, 150 seconds
 		M.AdjustConfused(6 SECONDS)
 		if(isvampirethrall(M))
@@ -368,6 +392,9 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 					if(is_type_in_list(I, CULT_CLOTHING))
 						H.drop_item_ground(I)
 			return
+		else if(HAS_TRAIT(M, TRAIT_EVIL)) //At this much holy water, you're probably going to fucking melt. good luck
+			update_flags |= M.adjustFireLoss(5, updating_health = FALSE)
+
 		if(isclocker(M))
 			SSticker.mode.remove_clocker(M.mind)
 			holder.remove_reagent(id, volume)

@@ -37,6 +37,8 @@
 #define NO_NEW_GAGS_PREVIEW (1<<12)
 /// Whether or not this atom has contextual screentips when hovered OVER
 #define HAS_CONTEXTUAL_SCREENTIPS (1<<13)
+/// Should this object be unpaintable?
+#define UNPAINTABLE (1<<14)
 
 // Update flags for [/atom/proc/update_appearance]
 /// Update the atom's name

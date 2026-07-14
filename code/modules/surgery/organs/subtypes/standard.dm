@@ -571,6 +571,13 @@
 	var/sec_facial_colour = "#000000"
 	var/f_style = "Shaved"
 
+	///Type of lipstick being used, basically
+	var/lip_style
+	///Lipstick color
+	var/lip_color
+	///Current lipstick trait, if any (such as TRAIT_KISS_OF_DEATH)
+	var/stored_lipstick_trait
+
 /obj/item/organ/external/head/get_ru_names()
 	return alist(
 		NOMINATIVE = "голова",

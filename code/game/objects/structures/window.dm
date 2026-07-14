@@ -57,10 +57,10 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	var/real_explosion_block	//ignore this, just use explosion_block
 	var/breaksound = SFX_SHATTER
 	var/hitsound = 'sound/effects/glasshit.ogg'
-
+	var/painted = FALSE
+	var/mutable_appearance/paint_overlay
 	/// If we added a leaning component to ourselves
 	var/added_leaning = FALSE
-
 	/// How well this window resists superconductivity.
 	var/superconductivity = WINDOW_HEAT_TRANSFER_COEFFICIENT
 
@@ -76,6 +76,8 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 
 /obj/structure/window/Initialize(mapload, direct)
 	. = ..()
+	RegisterSignal(src, COMSIG_OBJ_PAINTED, PROC_REF(on_painted))
+	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(on_cleaned))
 
 	if(direct)
 		setDir(direct)
@@ -121,7 +123,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/structure/window/add_debris_element()
-	AddElement(/datum/element/debris, DEBRIS_GLASS, -40, 5)
+	generate_debris_handler(DEBRIS_GLASS, -40, 5)
 
 /obj/structure/window/mouse_drop_receive(atom/dropping, mob/user, params)
 	. = ..()
@@ -129,6 +131,8 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	LoadComponent(/datum/component/leanable, dropping)
 
 /obj/structure/window/Destroy()
+	UnregisterSignal(src, COMSIG_OBJ_PAINTED, PROC_REF(on_painted))
+	UnregisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(on_cleaned))
 	set_density(FALSE)
 	recalculate_atmos_connectivity()
 	update_nearby_icons()
@@ -527,6 +531,50 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 /obj/structure/window/get_explosion_block()
 	return reinf && fulltile ? real_explosion_block : 0
 
+/obj/structure/window/wash_tg(clean_types)
+	. = ..()
+	if(!(clean_types & CLEAN_SCRUB))
+		return
+	var/initial_opacity = initial(opacity)
+	if(opacity != initial_opacity)
+		set_opacity(initial_opacity)
+		. |= COMPONENT_CLEANED|COMPONENT_CLEANED_GAIN_XP
+	for(var/atom/movable/cleanables as anything in src)
+		if(cleanables == src)
+			continue
+		var/cleanable_washed = cleanables.wash_tg(clean_types)
+		if(!cleanable_washed)
+			continue
+		. |= cleanable_washed
+		vis_contents -= cleanables
+		
+/obj/structure/window/proc/on_painted(datum/source, new_color)
+	SIGNAL_HANDLER
+	if(painted)
+		return
+	painted = TRUE
+
+	paint_overlay = mutable_appearance(icon, icon_state, layer + 0.01)
+	paint_overlay.color = new_color
+	paint_overlay.alpha = 200
+	add_overlay(paint_overlay)
+
+	if(new_color == COLOR_BLACK)
+		set_opacity(TRUE)
+
+/obj/structure/window/proc/on_cleaned(datum/source, clean_strength)
+	SIGNAL_HANDLER
+	if(!painted)
+		return
+
+	painted = FALSE
+	if(paint_overlay)
+		cut_overlay(paint_overlay)
+		paint_overlay = null
+
+	set_opacity(initial(opacity))
+	return COMPONENT_CLEANED
+
 /obj/structure/window/basic
 	desc = "Выглядит тонким и хрупким. Пары ударов чем угодно будет достаточно, чтобы разбить его."
 
@@ -682,7 +730,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		toggle_tint()
 
 /obj/machinery/button/windowtint/update_icon_state()
-	icon_state = "light[active]"
+	icon_state = "light[active ? "-on" : "-off"]"
 
 /obj/structure/window/plasmabasic
 	name = "plasma window"

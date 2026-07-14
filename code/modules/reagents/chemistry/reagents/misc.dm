@@ -215,7 +215,7 @@
 	taste_description = "старого ковра"
 
 /datum/reagent/carpet/reaction_turf(turf/simulated/target_turf, volume)
-	if(istype(target_turf, /turf/simulated/floor/plating) || istype(target_turf, /turf/simulated/floor/plasteel))
+	if(istype(target_turf, /turf/simulated/floor/plating) || isplasteelfloor(target_turf))
 		var/turf/simulated/floor/target_floor = target_turf
 		target_floor.ChangeTurf(/turf/simulated/floor/carpet)
 	..()

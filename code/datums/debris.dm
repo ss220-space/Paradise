@@ -3,10 +3,7 @@
  * Originally from TGMC.
  */
 
-/datum/element/debris
-	element_flags = ELEMENT_BESPOKE
-	argument_hash_start_idx = 2
-
+/datum/debris_handler
 	/// Icon state of debris when impacted by a projectile.
 	var/debris = null
 	/// Velocity of debris particles.
@@ -16,23 +13,14 @@
 	/// Scale of particle debris.
 	var/debris_scale = 1
 
-/datum/element/debris/Attach(datum/target, _debris_icon_state, _debris_velocity = -40, _debris_amount = 8, _debris_scale = 1)
-	. = ..()
+/datum/debris_handler/New(_debris_icon_state, _debris_velocity = -40, _debris_amount = 8, _debris_scale = 1)
 	debris = _debris_icon_state
 	debris_velocity = _debris_velocity
 	debris_amount = _debris_amount
 	debris_scale = _debris_scale
-	RegisterSignal(target, COMSIG_ATOM_BULLET_ACT, PROC_REF(register_for_impact), override = TRUE) // Override because the element gets overriden.
+	return ..()
 
-/datum/element/debris/Detach(datum/source, force)
-	. = ..()
-	UnregisterSignal(source, COMSIG_ATOM_BULLET_ACT)
-
-/datum/element/debris/proc/register_for_impact(datum/source, obj/projectile/proj)
-	SIGNAL_HANDLER
-	INVOKE_ASYNC(src, PROC_REF(on_impact), source, proj)
-
-/datum/element/debris/proc/on_impact(datum/source, obj/projectile/proj)
+/datum/debris_handler/proc/on_impact(datum/source, obj/projectile/proj)
 	var/angle = !isnull(proj.Angle) ? proj.Angle : round(get_angle(proj.starting, source), 1)
 	var/x_component = sin(angle) * debris_velocity
 	var/y_component = cos(angle) * debris_velocity
@@ -64,7 +52,7 @@
 
 	addtimer(CALLBACK(src, PROC_REF(remove_ping), src, smoke_visuals, debris_visuals), 0.5 SECONDS)
 
-/datum/element/debris/proc/remove_ping(hit, obj/effect/abstract/particle_holder_tgmc/smoke_visuals, obj/effect/abstract/particle_holder_tgmc/debris_visuals)
+/datum/debris_handler/proc/remove_ping(hit, obj/effect/abstract/particle_holder_tgmc/smoke_visuals, obj/effect/abstract/particle_holder_tgmc/debris_visuals)
 	QDEL_NULL(smoke_visuals)
 	if(debris_visuals)
 		QDEL_NULL(debris_visuals)

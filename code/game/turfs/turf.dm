@@ -115,12 +115,6 @@
 	/// The effect used to render a pressure overlay from this tile.
 	var/obj/effect/abstract/pressure_overlay/pressure_overlay
 
-	var/list/milla_atmos_airtight = list(FALSE, FALSE, FALSE, FALSE)
-	var/list/milla_superconductivity = list(
-		OPEN_HEAT_TRANSFER_COEFFICIENT,
-		OPEN_HEAT_TRANSFER_COEFFICIENT,
-		OPEN_HEAT_TRANSFER_COEFFICIENT,
-		OPEN_HEAT_TRANSFER_COEFFICIENT)
 	var/list/milla_data = list()
 
 /turf/vv_edit_var(var_name, new_value)
@@ -774,7 +768,7 @@
 		return FALSE
 
 	// Yes, you can fall up.
-	var/fall_dir = get_gravity() > 0 ? DOWN : UP
+	var/fall_dir = has_gravity() > 0 ? DOWN : UP
 
 	var/turf/target = get_step_multiz(src, fall_dir)
 	if(!target)
@@ -1204,3 +1198,14 @@
 	playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
 	ReplaceWithLattice()
 
+/turf/proc/add_blob_consume_component()
+	return
+
+// When our turf is washed, we may wash everything on top of the turf
+// By default we will only wash mopable things (like blood or vomit)
+// but you may optionally pass in all_contents = TRUE to wash everything
+/turf/wash_tg(clean_types, all_contents = FALSE)
+	. = ..()
+	for(var/atom/movable/to_clean as anything in src)
+		if(all_contents || HAS_TRAIT(to_clean, TRAIT_MOPABLE))
+			. |= to_clean.wash_tg(clean_types)

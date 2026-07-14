@@ -69,11 +69,9 @@
 		underlays += underlay_appearance
 
 /turf/simulated/wall/add_debris_element()
-	AddElement(/datum/element/debris, DEBRIS_SPARKS, -40, 8, 1)
+	generate_debris_handler(DEBRIS_SPARKS, -40, 8, 1)
 
-/turf/simulated/wall/ComponentInitialize()
-	if(!is_station_level(z))
-		return
+/turf/simulated/wall/add_blob_consume_component()
 	AddComponent(/datum/component/blob_turf_consuming, 2)
 
 /turf/simulated/wall/mouse_drop_receive(atom/dropping, mob/user, params)

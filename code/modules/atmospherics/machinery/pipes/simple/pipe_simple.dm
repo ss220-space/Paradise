@@ -105,6 +105,7 @@
 		node1.disconnect(src)
 		node1.defer_build_network()
 		node1 = null
+
 	if(node2)
 		node2.disconnect(src)
 		node2.defer_build_network()
