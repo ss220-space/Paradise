@@ -3491,8 +3491,9 @@
 	dir = 1;
 	name = "Труба дыхательной смеси"
 	},
+/obj/effect/turf_decal/siding/white,
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
+	icon_state = "arrival"
 	},
 /area/station/engineering/atmos)
 "aLW" = (
@@ -10398,9 +10399,7 @@
 	name = "Кислород (O2) в смеситель";
 	target_pressure = 101
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "cmP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -12272,6 +12271,19 @@
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine)
+"cHB" = (
+/obj/machinery/atmospherics/pipe/simple/visible/green{
+	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
+	dir = 4;
+	name = "Труба фильтрации"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	desc = "Труба содержит дыхательную смесь для подачи на станцию";
+	dir = 1;
+	name = "Труба дыхательной смеси"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos)
 "cHN" = (
 /obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
@@ -17682,6 +17694,17 @@
 	icon_state = "darkblue"
 	},
 /area/station/medical/morgue)
+"dSL" = (
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	desc = "Труба содержит дыхательную смесь для подачи на станцию";
+	dir = 4;
+	name = "Труба дыхательной смеси"
+	},
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/engineering/atmos)
 "dSM" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -19062,7 +19085,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/station/engineering/atmos)
 "ehC" = (
 /obj/effect/spawner/window/reinforced,
@@ -19280,8 +19305,12 @@
 	dir = 1;
 	name = "Труба смешивания"
 	},
+/obj/effect/turf_decal/siding/white{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
+	dir = 4;
+	icon_state = "arrival"
 	},
 /area/station/engineering/atmos)
 "ejd" = (
@@ -21283,8 +21312,12 @@
 	dir = 8;
 	name = "Труба смешивания"
 	},
+/obj/effect/turf_decal/siding/white{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
+	dir = 8;
+	icon_state = "arrival"
 	},
 /area/station/engineering/atmos)
 "eFH" = (
@@ -21562,8 +21595,13 @@
 /area/station/maintenance/asmaint)
 "eIe" = (
 /obj/machinery/atmospherics/binary/valve/digital/open,
+/obj/effect/turf_decal/delivery/hollow/right,
+/obj/effect/turf_decal/siding/white{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
+	dir = 4;
+	icon_state = "arrival"
 	},
 /area/station/engineering/atmos)
 "eIj" = (
@@ -23751,6 +23789,7 @@
 	dir = 1;
 	name = "Труба смешивания"
 	},
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "fcV" = (
@@ -24218,7 +24257,9 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 6
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/station/engineering/atmos)
 "fik" = (
 /turf/simulated/floor/plasteel{
@@ -27992,6 +28033,15 @@
 	icon_state = "caution"
 	},
 /area/station/maintenance/asmaint4)
+"fTt" = (
+/obj/effect/turf_decal/siding/white{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "arrival"
+	},
+/area/station/engineering/atmos)
 "fTv" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -33069,9 +33119,7 @@
 	dir = 1;
 	name = "Труба дыхательной смеси"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "gNf" = (
 /obj/structure/cable{
@@ -35212,7 +35260,9 @@
 	name = "Труба смешивания"
 	},
 /obj/machinery/atmospherics/meter,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/station/engineering/atmos)
 "hhu" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -40734,8 +40784,12 @@
 	dir = 1;
 	name = "Труба подачи азота в реактор"
 	},
+/obj/effect/turf_decal/siding/white{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
+	dir = 8;
+	icon_state = "arrival"
 	},
 /area/station/engineering/atmos)
 "ihh" = (
@@ -41548,8 +41602,12 @@
 	name = "Труба фильтрации"
 	},
 /obj/machinery/atmospherics/pipe/simple/visible,
+/obj/effect/turf_decal/siding/white{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
+	dir = 4;
+	icon_state = "arrival"
 	},
 /area/station/engineering/atmos)
 "ioU" = (
@@ -42662,7 +42720,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/station/engineering/atmos)
 "iAG" = (
 /obj/effect/spawner/window/reinforced,
@@ -46934,7 +46994,9 @@
 	dir = 9;
 	name = "Труба фильтрации"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/station/engineering/atmos)
 "jtW" = (
 /obj/structure/cable{
@@ -52428,7 +52490,10 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel,
+/obj/effect/turf_decal/delivery/hollow,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/station/engineering/atmos)
 "ksU" = (
 /obj/machinery/light/small{
@@ -52719,8 +52784,12 @@
 	},
 /area/station/commons/locker)
 "kwj" = (
+/obj/effect/turf_decal/siding/white{
+	dir = 10
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
+	dir = 10;
+	icon_state = "arrival"
 	},
 /area/station/engineering/atmos)
 "kwn" = (
@@ -59376,9 +59445,7 @@
 	name = "Азот (N2) в смеситель";
 	target_pressure = 101
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "lHr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -60920,6 +60987,7 @@
 	desc = "Труба содержит газ для обработки и после возвращает его обратно в трубу смешивания";
 	name = "Труба обработки"
 	},
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "lUJ" = (
@@ -61236,8 +61304,12 @@
 	dir = 5;
 	name = "Труба смешивания"
 	},
+/obj/effect/turf_decal/siding/white{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
+	dir = 8;
+	icon_state = "arrival"
 	},
 /area/station/engineering/atmos)
 "lXl" = (
@@ -67621,14 +67693,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
-"nhq" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	desc = "Труба хранит в себе набор газов для смешивания";
-	dir = 4;
-	name = "Труба смешивания"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/engineering/atmos)
 "nhG" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -74246,8 +74310,12 @@
 	desc = "Труба хранит в себе набор газов для смешивания";
 	name = "Труба смешивания"
 	},
+/obj/effect/turf_decal/siding/white{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
+	dir = 4;
+	icon_state = "arrival"
 	},
 /area/station/engineering/atmos)
 "otX" = (
@@ -85653,6 +85721,20 @@
 /obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/mixing_atmos)
+"qzb" = (
+/obj/machinery/atmospherics/pipe/manifold/visible/yellow{
+	desc = "Труба хранит в себе набор газов для смешивания";
+	dir = 1;
+	name = "Труба смешивания"
+	},
+/obj/effect/turf_decal/siding/white{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "arrival"
+	},
+/area/station/engineering/atmos)
 "qzj" = (
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/effect/turf_decal/box,
@@ -87249,6 +87331,14 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/research)
+"qNg" = (
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	desc = "Труба содержит дыхательную смесь для подачи на станцию";
+	dir = 1;
+	name = "Труба дыхательной смеси"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos)
 "qNn" = (
 /obj/machinery/light{
 	dir = 8
@@ -91225,8 +91315,12 @@
 	name = "Дыхательная смесь в смеситель";
 	target_pressure = 101
 	},
+/obj/effect/turf_decal/siding/white{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
+	dir = 1;
+	icon_state = "arrival"
 	},
 /area/station/engineering/atmos)
 "rxf" = (
@@ -97318,8 +97412,12 @@
 	name = "Труба смешивания"
 	},
 /obj/machinery/atmospherics/pipe/simple/visible,
+/obj/effect/turf_decal/siding/white{
+	dir = 5
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
+	dir = 5;
+	icon_state = "arrival"
 	},
 /area/station/engineering/atmos)
 "syy" = (
@@ -98672,7 +98770,9 @@
 	dir = 1;
 	name = "Труба смешивания"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/station/engineering/atmos)
 "sKl" = (
 /obj/machinery/cryopod{
@@ -99564,14 +99664,6 @@
 	icon_state = "brown"
 	},
 /area/station/cargo/miningdock)
-"sRU" = (
-/obj/machinery/atmospherics/pipe/simple/visible/green{
-	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
-	dir = 4;
-	name = "Труба фильтрации"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/engineering/atmos)
 "sRY" = (
 /obj/structure/window/plasmareinforced{
 	dir = 1
@@ -102892,6 +102984,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/meter,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "twQ" = (
@@ -103851,9 +103944,7 @@
 	dir = 5;
 	name = "Труба дыхательной смеси"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "tIO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -112841,7 +112932,9 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/station/engineering/atmos)
 "vpG" = (
 /obj/structure/table/reinforced,
@@ -113800,6 +113893,15 @@
 	icon_state = "green"
 	},
 /area/station/hallway/secondary/exit)
+"vyw" = (
+/obj/effect/turf_decal/siding/white{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "arrival"
+	},
+/area/station/engineering/atmos)
 "vyz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -114105,7 +114207,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
-/turf/simulated/floor/plasteel,
+/obj/effect/turf_decal/delivery/hollow,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/station/engineering/atmos)
 "vBc" = (
 /obj/structure/cable{
@@ -116090,7 +116195,13 @@
 /area/station/security/hallway/perma)
 "vVd" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
-/turf/simulated/floor/plasteel,
+/obj/effect/turf_decal/siding/white{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "arrival"
+	},
 /area/station/engineering/atmos)
 "vVh" = (
 /obj/structure/reagent_dispensers/fueltank,
@@ -117787,8 +117898,12 @@
 	dir = 1;
 	name = "Труба подачи азота в реактор"
 	},
+/obj/effect/turf_decal/siding/white{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
+	dir = 8;
+	icon_state = "arrival"
 	},
 /area/station/engineering/atmos)
 "wlo" = (
@@ -119337,7 +119452,9 @@
 	dir = 6;
 	name = "Труба смешивания"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/station/engineering/atmos)
 "wzi" = (
 /obj/structure/cable{
@@ -120234,7 +120351,9 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/station/engineering/atmos)
 "wHs" = (
 /obj/machinery/access_button{
@@ -127335,6 +127454,15 @@
 	icon_state = "vault"
 	},
 /area/station/security/evidence)
+"ybl" = (
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	desc = "Труба содержит дыхательную смесь для подачи на станцию";
+	dir = 4;
+	name = "Труба дыхательной смеси"
+	},
+/obj/effect/turf_decal/delivery/hollow,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos)
 "ybn" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -149696,11 +149824,11 @@ uDL
 hvN
 hvN
 xnN
-nhq
-nhq
-sRU
+kJc
+kJc
+hyY
 tjS
-rpn
+ybl
 kWC
 lOw
 hUU
@@ -150212,9 +150340,9 @@ vKT
 vKT
 vKT
 oEb
-sRU
+hyY
 tjS
-rpn
+ybl
 kWC
 lOw
 hUU
@@ -150459,7 +150587,7 @@ euZ
 pFU
 aUE
 kMT
-nhq
+kJc
 sFv
 cgt
 bvD
@@ -150470,8 +150598,8 @@ bvD
 cgt
 lLW
 jtO
-tjS
-rpn
+wdB
+dSL
 vwh
 lOw
 sAs
@@ -150716,7 +150844,7 @@ euZ
 mlv
 ggp
 kMT
-nhq
+kJc
 vjz
 nsu
 rfw
@@ -150728,7 +150856,7 @@ eCA
 lOw
 fii
 lAx
-rpn
+ybl
 kWC
 tUH
 oWI
@@ -150973,7 +151101,7 @@ euZ
 lZH
 eoh
 kMT
-nhq
+kJc
 dyN
 poP
 poP
@@ -150983,7 +151111,7 @@ kWC
 poP
 poP
 nld
-tjS
+wdB
 kqH
 xMG
 kWC
@@ -151230,7 +151358,7 @@ aOs
 brp
 sUk
 kMT
-nhq
+kJc
 vjz
 kWC
 qqg
@@ -151240,7 +151368,7 @@ lSJ
 nni
 kWC
 nbB
-tjS
+wdB
 fsW
 aMy
 sfN
@@ -151744,7 +151872,7 @@ euZ
 tyd
 jqJ
 kMT
-nhq
+kJc
 vjz
 kWC
 sDq
@@ -152001,7 +152129,7 @@ euZ
 cLS
 jqJ
 kMT
-nhq
+kJc
 uWj
 poP
 poP
@@ -152258,7 +152386,7 @@ euZ
 tWl
 asC
 kMT
-nhq
+kJc
 vjz
 eCA
 csc
@@ -152772,7 +152900,7 @@ euZ
 vjr
 hhS
 kMT
-ejb
+qzb
 ihc
 wle
 eFG
@@ -152780,7 +152908,7 @@ wle
 wle
 wle
 lXe
-kwj
+vyw
 kwj
 wdB
 rpn
@@ -153030,14 +153158,14 @@ bqy
 hFF
 jJF
 rxa
-tdK
-aLS
+cHB
+qNg
 cmO
-aLS
-aLS
+qNg
+qNg
 gMX
 lHk
-aLS
+qNg
 aLS
 lNW
 dUm
@@ -153290,9 +153418,9 @@ syw
 ioN
 eIe
 otW
-kwj
-kwj
-kwj
+fTt
+fTt
+fTt
 ejb
 eIe
 vVd
