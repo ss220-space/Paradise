@@ -21,25 +21,46 @@
 	broken_lightmask_overlay = "artvend_broken_lightmask"
 	default_price = PAYCHECK_MIN * 0.4
 	default_premium_price = PAYCHECK_LOWER * 0.5
-
-	products = list(
-		/obj/item/toy/crayon/spraycan = 2,
-		/obj/item/stack/cable_coil/random = 10,
-		/obj/item/camera = 4,
-		/obj/item/camera_film = 6,
-		/obj/item/storage/photo_album = 2,
-		/obj/item/stack/wrapping_paper = 4,
-		/obj/item/stack/tape_roll = 5,
-		/obj/item/stack/packageWrap = 4,
-		/obj/item/storage/fancy/crayons = 4,
-		/obj/item/storage/fancy/glowsticks_box = 3,
-		/obj/item/hand_labeler = 4,
-		/obj/item/paper = 10,
-		/obj/item/c_tube = 10,
-		/obj/item/pen = 5,
-		/obj/item/pen/blue = 5,
-		/obj/item/pen/red = 5,
-		/obj/item/storage/box/pen_case = 5,
+	product_categories = list(
+		list(
+			"name" = "Картины",
+			"icon" = "palette",
+			"products" = list(
+				/obj/item/paint_palette = 3,
+				/obj/item/canvas/nineteen_nineteen = 5,
+				/obj/item/canvas/twentythree_nineteen = 5,
+				/obj/item/canvas/twentythree_twentythree = 5,
+				/obj/item/canvas/twentyfour_twentyfour = 5,
+				/obj/item/canvas/thirtysix_twentyfour = 3,
+				/obj/item/canvas/fortyfive_twentyseven = 3,
+				/obj/item/wallframe/painting/large = 5,
+			),
+		),
+		list(
+			"name" = "Разное",
+			"icon" = "ellipsis",
+			"products" = list(
+				///obj/item/chisel = 3,
+				/obj/item/toy/crayon/spraycan = 2,
+				/obj/item/stack/cable_coil/random = 10,
+				/obj/item/camera = 4,
+				/obj/item/camera_film = 6,
+				/obj/item/storage/photo_album = 2,
+				/obj/item/stack/wrapping_paper = 4,
+				/obj/item/stack/tape_roll = 5,
+				/obj/item/stack/packageWrap = 4,
+				/obj/item/storage/fancy/crayons = 4,
+				/obj/item/storage/fancy/glowsticks_box = 3,
+				/obj/item/hand_labeler = 4,
+				/obj/item/paper = 10,
+				/obj/item/c_tube = 10,
+				/obj/item/pen = 5,
+				/obj/item/pen/blue = 5,
+				/obj/item/pen/red = 5,
+				/obj/item/storage/box/pen_case = 5,
+				///obj/item/stack/pipe_cleaner_coil/random = 10,
+			),
+		),
 	)
 	contraband = list(
 		/obj/item/toy/crayon/mime = 1,

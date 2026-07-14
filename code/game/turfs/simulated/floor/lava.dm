@@ -37,6 +37,8 @@
 	var/mask_icon = 'icons/turf/floors.dmi'
 	/// The icon state that covers the lava bits of our turf
 	var/mask_state = "lava-lightmask"
+	/// Whether the immerse element has been added yet or not
+	var/immerse_added = FALSE
 
 /turf/simulated/floor/lava/get_ru_names()
 	return alist(
@@ -53,6 +55,17 @@
 	refresh_light()
 	if(!smooth) // is it need?
 		update_appearance()
+	RegisterSignal(src, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON, PROC_REF(on_atom_inited))
+
+///We lazily add the immerse element when something is spawned or crosses this turf and not before.
+/turf/simulated/floor/lava/proc/on_atom_inited(datum/source, atom/movable/movable)
+	SIGNAL_HANDLER
+	if(burn_stuff(movable))
+		START_PROCESSING(SSobj, src)
+	if(immerse_added || is_type_in_typecache(movable, GLOB.immerse_ignored_movable))
+		return
+	AddElement(/datum/element/immerse, "immerse", 215)
+	immerse_added = TRUE
 
 /turf/simulated/floor/lava/update_overlays()
 	. = ..()
@@ -125,6 +138,9 @@
 
 /turf/simulated/floor/lava/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
+	if(!immerse_added && !is_type_in_typecache(arrived, GLOB.immerse_ignored_movable))
+		AddElement(/datum/element/immerse, "immerse", 215)
+		immerse_added = TRUE
 	if(burn_stuff(arrived))
 		START_PROCESSING(SSprocessing, src)
 
@@ -155,7 +171,7 @@
 	return
 
 /turf/simulated/floor/lava/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
-	underlay_appearance.icon = 'icons/turf/floors.dmi'
+	underlay_appearance.icon = 'icons/turf/floors/plating.dmi'
 	underlay_appearance.icon_state = "basalt"
 	return TRUE
 
@@ -397,21 +413,13 @@
 		PREPOSITIONAL = "жидкой плазме",
 	)
 
+/turf/simulated/floor/lava/lava_land_surface/plasma/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/reagent_scoopable_atom, /datum/reagent/plasma)
+
 /turf/simulated/floor/lava/lava_land_surface/plasma/examine(mob/user)
 	. = ..()
 	. += span_notice("Можно зачерпнуть <b>жидкую плазму</b> с помощью <b>ёмкости</b>.")
-
-/turf/simulated/floor/lava/lava_land_surface/plasma/attackby(obj/item/I, mob/user, params)
-	. = ..()
-
-	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !I.is_open_container())
-		return .
-
-	. |= ATTACK_CHAIN_SUCCESS
-	if(!I.reagents.add_reagent("plasma", 10))
-		to_chat(user, span_warning("[DECLENT_RU_CAP(I, NOMINATIVE)] уже заполнен[GEND_A_O_Y(I)] до краёв."))
-		return .
-	to_chat(user, span_notice("Вы черпаете лаву из [declent_ru(GENITIVE)] используя [I.declent_ru(ACCUSATIVE)]."))
 
 /turf/simulated/floor/lava/lava_land_surface/plasma/do_burn(atom/movable/burn_target)
 	if(QDELETED(burn_target))

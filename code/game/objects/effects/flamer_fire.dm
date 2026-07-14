@@ -149,6 +149,7 @@
 	. = ..()
 
 /obj/flamer_fire/extinguish()
+	. = ..()
 	firelevel /= 2
 
 /obj/flamer_fire/blob_act(obj/structure/blob/B)

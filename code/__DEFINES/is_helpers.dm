@@ -244,6 +244,8 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define isfloorturf(A) (istype(A, /turf/simulated/floor))
 
+#define isplasteelfloor(A) (istype(A, /turf/simulated/floor/plasteel))
+
 #define iswallturf(A) (istype(A, /turf/simulated/wall))
 
 #define isreinforcedwallturf(A) (istype(A, /turf/simulated/wall/r_wall))
@@ -448,3 +450,5 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define is_area_nearby_station(checked_area) (istype(checked_area, /area/space) || istype(checked_area, /area/space/nearstation) || istype(checked_area, /area/centcom/asteroid))
 #define is_area_shuttle(checked_area) (istype(checked_area, /area/shuttle))
+
+#define is_reagent_container(O) (istype(O, /obj/item/reagent_containers))

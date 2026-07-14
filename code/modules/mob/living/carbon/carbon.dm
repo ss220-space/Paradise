@@ -989,21 +989,6 @@ so that different stomachs can handle things in different ways VB*/
 		I.extinguish() //extinguishes our clothes
 	..()
 
-/mob/living/carbon/clean_blood(clean_hands = TRUE, clean_mask = TRUE, clean_feet = TRUE)
-	if(head)
-		if(head.clean_blood())
-			update_worn_head()
-		if(head.flags_inv & HIDEMASK)
-			clean_mask = FALSE
-	if(wear_suit)
-		if(wear_suit.clean_blood())
-			update_worn_oversuit()
-		if(wear_suit.flags_inv & HIDESHOES)
-			clean_feet = FALSE
-		if(wear_suit.flags_inv & HIDEGLOVES)
-			clean_hands = FALSE
-	..(clean_hands, clean_mask, clean_feet)
-
 /mob/living/carbon/proc/shock_reduction()
 	var/shock_reduction = 0
 	if(reagents)
@@ -1098,3 +1083,20 @@ so that different stomachs can handle things in different ways VB*/
 		guts.forceMove(current_turf)
 		var/atom/throw_target = get_edge_target_turf(guts, dir)
 		guts.throw_at(throw_target, power, 4, src)
+
+/mob/living/carbon/wash_tg(clean_types)
+	. = ..()
+	// Wash equipped stuff that cannot be covered
+	for(var/obj/item/held_thing in list(l_hand, r_hand))
+		. |= held_thing.wash_tg(clean_types)
+
+	// Check and wash stuff that isn't covered
+	var/covered = hidden_slots_to_inventory_slots(covered_slots)
+	for(var/obj/item/worn as anything in get_equipped_items())
+		var/slot = get_slot_by_item(worn)
+		// Don't wash glasses if something other than them is covering our eyes
+		if(slot == ITEM_SLOT_EYES && is_eyes_covered(ITEM_SLOT_MASK|ITEM_SLOT_HEAD))
+			continue
+		if(!(covered & slot))
+			// /obj/item/wash() already updates our clothing slot
+			. = worn.wash_tg(clean_types) || .

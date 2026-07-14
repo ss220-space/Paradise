@@ -3,14 +3,28 @@
 	anchored = TRUE
 	layer = NOT_HIGH_OBJ_LAYER
 	max_integrity = 100
+	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 50)
 	var/does_emissive = FALSE
 	var/random_number = FALSE
-	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 50)
+	var/buildable_sign = TRUE
 
 /obj/structure/sign/Initialize(mapload)
 	. = ..()
 	if(does_emissive || random_number)
 		update_icon(UPDATE_OVERLAYS)
+
+/obj/structure/sign/add_context(atom/source, list/context, obj/item/held_item, mob/user)
+	. = ..()
+	switch(held_item?.tool_behaviour)
+		if(TOOL_WELDER)
+			context[SCREENTIP_CONTEXT_LMB] = "Repair"
+			return CONTEXTUAL_SCREENTIP_SET
+		if(TOOL_SCREWDRIVER)
+			if(!buildable_sign)
+				return ///Cannot be unfastened regardless.
+			context[SCREENTIP_CONTEXT_LMB] = "Unfasten"
+			return CONTEXTUAL_SCREENTIP_SET
+	return NONE
 
 /obj/structure/sign/update_overlays()
 	. = ..()
@@ -32,12 +46,15 @@
 			playsound(loc, 'sound/items/welder.ogg', 80, TRUE)
 
 /obj/structure/sign/screwdriver_act(mob/user, obj/item/I)
-	if(istype(src, /obj/structure/sign/double))
+	if(!buildable_sign)
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	balloon_alert(user, "откручено")
+	deconstruct(TRUE)
+
+/obj/structure/sign/deconstruct(disassembled)
 	var/obj/item/sign/S = new(src.loc)
 	S.name = name
 	S.desc = desc
@@ -97,6 +114,7 @@
 	name = "station map"
 	desc = "Фотография станции в рамке."
 	max_integrity = 500
+	build
 
 /obj/structure/sign/double/map/get_ru_names()
 	return alist(

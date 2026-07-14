@@ -443,9 +443,12 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS|ATTACK_CHAIN_NO_AFTERATTACK
 
 	if(istype(I, /obj/item/mop))
-		add_fingerprint(user)
-		var/obj/item/mop/mop = I
-		mop.wet_mop(src, user)
+		if(reagents.total_volume < 1)
+			user.balloon_alert(user, "empty!")
+			return ATTACK_CHAIN_PROCEED
+		reagents.trans_to(I, 5)
+		user.balloon_alert(user, "doused [I]")
+		playsound(src, 'sound/effects/slosh.ogg', 25, TRUE)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(isprox(I))

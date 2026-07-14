@@ -836,10 +836,7 @@
 /turf/simulated/floor/mineral/silver,
 /area/syndicate_depot/core)
 "cr" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/mineral/silver,
 /area/syndicate_depot/core)
 "cs" = (

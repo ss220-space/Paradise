@@ -1,9 +1,15 @@
 /obj/effect/decal/cleanable
 	abstract_type = /obj/effect/decal/cleanable
+	layer = CLEANABLES_LAYER
+	flags = UNPAINTABLE
+	/// The type of cleaning required to clean the decal. See __DEFINES/cleaning.dm for the options
+	var/clean_type = CLEAN_TYPE_LIGHT_DECAL
 	var/list/random_icon_states = list()
 	var/bloodiness = 0 //0-100, amount of blood in this decal, used for making footprints and affecting the alpha of bloody footprints
 	var/mergeable_decal = TRUE //when two of these are on a same tile or do we need to merge them into just one?
-	layer = CLEANABLES_LAYER
+	/// If TRUE, gains TRAIT_MOPABLE on init - thus this cleanable will cleaned if its turf is cleaned
+	/// Set to FALSE for things that hang high on the walls or things which generally shouldn't be mopped up
+	var/is_mopped = TRUE
 
 /obj/effect/decal/cleanable/Initialize(mapload)
 	. = ..()
@@ -20,6 +26,9 @@
 	if(smooth)
 		QUEUE_SMOOTH(src)
 		QUEUE_SMOOTH_NEIGHBORS(src)
+
+	if(is_mopped)
+		ADD_TRAIT(src, TRAIT_MOPABLE, INNATE_TRAIT)
 
 	var/turf/our_turf = get_turf(src)
 	if(our_turf && is_station_level(our_turf.z))
@@ -45,4 +54,10 @@
 
 /obj/effect/decal/cleanable/is_cleanable()
 	return TRUE
+
+/obj/effect/decal/cleanable/wash_tg(clean_types)
+	. = ..()
+	if(. || clean_types & clean_type)
+		qdel(src)
+		. |= COMPONENT_CLEANED|COMPONENT_CLEANED_GAIN_XP
 

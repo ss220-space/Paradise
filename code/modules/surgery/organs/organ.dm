@@ -458,3 +458,15 @@
 		dna.deserialize(data["dna"])
 		..()
 
+/obj/item/organ/wash_tg(clean_types)
+	. = ..()
+	if(!.)
+		return
+	// always add the original dna to the organ after it's washed
+	if(!is_robotic() && (clean_types & CLEAN_TYPE_BLOOD))
+		var/list/blood_dna = list()
+		if(dna)
+			blood_dna[dna.unique_enzymes] = dna.blood_type
+		else
+			blood_dna["UNKNOWN DNA"] = "X*"
+		transfer_blood_dna(blood_dna)

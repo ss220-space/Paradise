@@ -1458,11 +1458,7 @@
 /obj/structure/curtain/open/shower,
 /obj/item/soap/deluxe,
 /obj/item/bikehorn/rubberducky,
-/obj/machinery/shower{
-	dir = 1;
-	layer = 5;
-	pixel_y = -5
-	},
+/obj/machinery/shower/directional/north,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/pod/dark/lavaland_air,
 /area/ruin/powered/pirateship)

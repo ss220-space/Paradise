@@ -189,6 +189,11 @@
 // Must be equal to the offset of the highest topdown layer
 #define TOPDOWN_LAYER_COUNT 18
 
+///Below this level, objects with topdown layers are rendered as if underwater by the immerse element
+#define TOPDOWN_WATER_LEVEL_LAYER 100 + TOPDOWN_LAYER
+///Above this level, objects with topdown layers are unaffected by the immerse element
+#define TOPDOWN_ABOVE_WATER_LAYER 200 + TOPDOWN_LAYER
+
 #define CINEMATIC_LAYER -1
 #define SPACE_LAYER 1.5
 #define GRASS_UNDER_LAYER 1.6
@@ -243,6 +248,7 @@
 #define PROJECTILE_HIT_THRESHOLD_LAYER 2.75 //projectiles won't hit objects at or below this layer if possible
 #define TABLE_LAYER 2.8
 #define BELOW_OBJ_LAYER 2.9
+#define CLEANABLE_OBJECT_LAYER 2.94
 #define LOW_ITEM_LAYER 2.95
 //#define OBJ_LAYER 3 //For easy recordkeeping; this is a byond define
 #define CLOSED_DOOR_LAYER 3.1
