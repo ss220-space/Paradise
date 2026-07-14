@@ -1,4 +1,0 @@
-author: "SCPfollower"
-delete-after: True
-changes:
-  - tweak: "Пипетка текстурки пола на ПКМ для floor painter'а. (PR #9463)"
