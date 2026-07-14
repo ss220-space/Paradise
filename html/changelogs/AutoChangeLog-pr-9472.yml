@@ -1,0 +1,4 @@
+author: "SCPfollower"
+delete-after: True
+changes:
+  - balance: "do_after в 0.5 секунд для надувных стенок и дверей. (PR #9472)"

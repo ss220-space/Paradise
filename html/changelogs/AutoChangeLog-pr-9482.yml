@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - tweak: "Теперь заместо  рандомной профы при jотсутствии skip_antag и наличии префа на выход в лобби выбирается  профа цивила(ассистента). (PR #9482)"
