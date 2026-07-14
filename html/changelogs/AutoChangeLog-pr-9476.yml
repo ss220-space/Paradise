@@ -1,4 +1,0 @@
-author: "SCPfollower"
-delete-after: True
-changes:
-  - bugfix: "Фикс множественного нанесения урона от electrocute_act (в т.ч. от tesla caтnon)ю (PR #9476)"
