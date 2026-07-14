@@ -37,7 +37,7 @@
 	else
 		return QDEL_HINT_LETMELIVE
 
-/obj/docking_port/get_gravity(turf/T)
+/obj/docking_port/has_gravity(turf/T)
 	return FALSE
 
 /obj/docking_port/take_damage()
@@ -268,7 +268,7 @@
 	. = ..()
 
 	var/area/A = get_area(src)
-	if(istype(A, /area/shuttle))
+	if(is_area_shuttle(A))
 		areaInstance = A
 
 	if(!areaInstance)
@@ -729,8 +729,7 @@
 	if(assigned_transit?.assigned_area)
 		assigned_transit.assigned_area.parallax_movedir = FALSE
 	var/list/L0 = return_ordered_turfs(x, y, z, dir)
-	for(var/thing in L0)
-		var/turf/T = thing
+	for(var/turf/T in L0)
 		if(!T || !istype(T.loc, areaInstance.type))
 			continue
 		for(var/atom/movable/movable as anything in T)

@@ -918,9 +918,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/northblock)
 "db" = (
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/east,
 /obj/structure/window/reinforced/tinted,
 /turf/simulated/floor/plasteel,
 /area/awaymission/research)
@@ -1116,10 +1114,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/research)
 "dB" = (
-/obj/machinery/shower{
-	dir = 4;
-	pixel_y = -10
-	},
+/obj/machinery/shower/directional/east,
 /obj/structure/window/reinforced/tinted{
 	dir = 1
 	},
@@ -2651,9 +2646,7 @@
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/midblock)
 "hA" = (
-/obj/structure/sink/kitchen{
-	pixel_y = 32
-	},
+/obj/structure/sink/kitchen/directional/south,
 /turf/simulated/floor/plasteel,
 /area/awaymission/midblock)
 "hB" = (
@@ -3703,9 +3696,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/arrivalblock)
 "kF" = (
-/obj/structure/sink/kitchen{
-	pixel_y = 32
-	},
+/obj/structure/sink/kitchen/directional/south,
 /turf/simulated/floor/plasteel,
 /area/awaymission/arrivalblock)
 "kG" = (
@@ -3987,9 +3978,7 @@
 	},
 /area/awaymission/southblock)
 "ly" = (
-/obj/structure/sink{
-	pixel_y = 32
-	},
+/obj/structure/sink/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},

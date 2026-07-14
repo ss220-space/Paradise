@@ -60,7 +60,7 @@
 	smooth = SMOOTH_BITMASK
 
 /obj/structure/alien/resin/add_debris_element()
-	AddElement(/datum/element/debris, null, -40, 8, 0.7)
+	generate_debris_handler(null, -40, 8, 0.7)
 
 /obj/structure/alien/resin/Initialize(mapload)
 	recalculate_atmos_connectivity()

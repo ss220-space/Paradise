@@ -919,7 +919,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/official/fruit_bowl, 32, 
 
 /obj/structure/sign/poster/official/cargotech
 	name = "Освоил"
-	desc = "Изображение каргонца, который  демонстрирует свои достижения в освоении техники: мулботов, консоли заказов, системы доставки."
+	desc = "Изображение каргонца, который демонстрирует свои достижения в освоении техники: мулботов, консоли заказов, системы доставки."
 	icon_state = "poster_cargo"
 
 /obj/structure/sign/poster/official/cargogorilas

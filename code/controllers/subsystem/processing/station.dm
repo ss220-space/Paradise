@@ -29,7 +29,7 @@ PROCESSING_SUBSYSTEM_DEF(station)
 	announcer = SSstation.announcer
 	antag_protected_roles = SSstation.antag_protected_roles
 	antag_restricted_roles = SSstation.antag_restricted_roles
-	..()
+	return ..()
 
 ///Rolls for the amount of traits and adds them to the traits list
 /datum/controller/subsystem/processing/station/proc/SetupTraits()

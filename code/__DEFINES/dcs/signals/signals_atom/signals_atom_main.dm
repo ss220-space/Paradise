@@ -79,7 +79,7 @@
 ///from base of atom/Bumped(): (/atom/movable)
 #define COMSIG_ATOM_BUMPED "atom_bumped"
 
-///from base of atom/get_gravity(): (turf/location, list/forced_gravities)
+///from base of atom/has_gravity(): (turf/location, list/forced_gravities)
 #define COMSIG_ATOM_HAS_GRAVITY "atom_has_gravity"
 
 ///called when teleporting into a possibly protected turf: (turf/origin)
@@ -125,3 +125,13 @@
 
 ///from base of atom/Exited(): (atom/exited, direction)
 #define COMSIG_ATOM_EXITING "atom_exiting"
+
+/// From /atom/proc/update_atom_colour() : (color_changed)
+#define COMSIG_ATOM_COLOR_UPDATED "atom_color_updated"
+	/// Cancels update_appearance call in case you are somehow forced to call it manually to prevent dupe calls
+	#define COMPONENT_CANCEL_COLOR_APPEARANCE_UPDATE (1<<0)
+
+/// From /datum/compomnent/cleaner/clean()
+#define COMSIG_ATOM_PRE_CLEAN "atom_pre_clean"
+	///cancel clean
+	#define COMSIG_ATOM_CANCEL_CLEAN (1<<0)

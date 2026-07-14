@@ -170,3 +170,7 @@
 
 /// from /datum/species/proc/spec_hitby()
 #define COMSIG_SPECIES_HITBY "species_hitby"
+
+///from /datum/sprite_editor_workspace/is_valid_color(): (color)
+#define COMSIG_SPRITE_EDITOR_VALIDATE_COLOR "sprite_editor_validate_color"
+	#define COLOR_IS_INVALID (1<<0)

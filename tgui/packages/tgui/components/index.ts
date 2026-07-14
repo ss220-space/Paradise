@@ -23,6 +23,7 @@ export { DraggableControl } from './DraggableControl';
 export { Dropdown } from './Dropdown';
 export { FitText } from './FitText';
 export { Flex } from './Flex';
+export { Floating } from './Floating';
 export { Grid } from './Grid';
 export { Image } from './Image';
 export { Interactive } from './Interactive';

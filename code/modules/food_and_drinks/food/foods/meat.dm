@@ -869,11 +869,6 @@
 	if(volume >= 1)
 		return Expand()
 
-/obj/item/reagent_containers/food/snacks/monkeycube/wash(mob/user, atom/source)
-	user.drop_from_active_hand()
-	forceMove(get_turf(source))
-	return 1
-
 /obj/item/reagent_containers/food/snacks/monkeycube/proc/Expand()
 	if(LAZYLEN(SSmobs.cubemonkeys) >= CONFIG_GET(number/cubemonkey_cap))
 		return

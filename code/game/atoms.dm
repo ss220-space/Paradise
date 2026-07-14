@@ -102,7 +102,7 @@
 	var/greyscale_colors
 
 	///Light systems, both shouldn't be active at the same time.
-	var/light_system = STATIC_LIGHT
+	var/light_system = COMPLEX_LIGHT
 	///Range of the light in tiles. Zero means no light.
 	var/light_range = 0
 	///Intensity of the light. The stronger, the less shadows you will see on the lit area.
@@ -113,6 +113,19 @@
 	var/light_on = TRUE
 	///Bitflags to determine lighting-related atom properties.
 	var/light_flags = NONE
+
+	// OVERLAY_LIGHT only values
+	/// An optional render_source to apply to this atom's light overlay
+	var/light_render_source = ""
+
+	// COMPLEX_LIGHT only values
+	/// Angle of light to show in light_dir
+	/// 360 is a circle, 90 is a cone, etc.
+	var/light_angle = 360
+	/// What angle to project light in
+	var/light_dir = NORTH
+	/// How many tiles "up" this light is. 1 is typical, should only really change this if it's a floor light
+	var/light_height = LIGHTING_HEIGHT
 	///Our light source. Don't fuck with this directly unless you have a good reason!
 	var/tmp/datum/light_source/light
 	///Any light sources that are "inside" of us, for example, if src here was a mob that's carrying a flashlight, that flashlight's light source would be part of this list.
@@ -213,6 +226,10 @@
 
 	///Cooldown tick timer for buckle messages
 	COOLDOWN_DECLARE(buckle_message_cd)
+
+	VAR_PRIVATE/list/invisibility_sources
+	VAR_PRIVATE/current_invisibility_priority = -INFINITY
+	var/datum/debris_handler/debris_handler = null
 
 /atom/proc/onCentcom()
 	. = FALSE
@@ -419,6 +436,7 @@
 
 /atom/proc/bullet_act(obj/projectile/P, def_zone)
 	SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
+	debris_handler?.on_impact(src, P)
 	. = P.on_hit(src, 0, def_zone)
 
 /atom/proc/in_contents_of(container)//can take class or object instance as argument
@@ -504,14 +522,11 @@
 		. |= UPDATE_ICON_STATE
 
 	if(updates & UPDATE_OVERLAYS)
+		if(length(managed_vis_overlays))
+			SSvis_overlays.remove_vis_overlay(src, managed_vis_overlays)
+
 		var/list/new_overlays = update_overlays(updates)
 		SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_OVERLAYS, new_overlays)
-
-		// Ok, so its rather this or required inheritance in every [update_overlays()]
-		var/emissive_block = get_emissive_block()
-		if(emissive_block)
-			// Emissive block should always go at the beginning of the list
-			new_overlays.Insert(1, emissive_block)
 
 		var/nulls = 0
 		for(var/i in 1 to length(new_overlays))
@@ -605,10 +620,6 @@
 /atom/proc/update_greyscale()
 	icon = SSgreyscale.get_colored_icon_by_type(greyscale_config, greyscale_colors)
 	looting_icon_mode = LOOT_ICON_ICON_TO_HTML
-
-/// Updates atom's emissive block if present.
-/atom/proc/get_emissive_block()
-	return
 
 /**
  * Adds a special overlay to any atom.
@@ -1044,71 +1055,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 			GLOB.blood_splatter_icons["[blood_color]"] = params
 		add_filter("blood_splatter", 1, params)
 
-/atom/proc/clean_blood()
-	germ_level = 0
-	if(islist(blood_DNA))
-		blood_DNA = null
-		return TRUE
-
-/obj/effect/decal/cleanable/blood/clean_blood()
-	return // While this seems nonsensical, clean_blood isn't supposed to be used like this on a blood decal.
-
-/obj/item/clean_blood()
-	. = ..()
-	if(.)
-		if(initial(icon) && initial(icon_state))
-			remove_filter("blood_splatter")
-
-/obj/item/clothing/gloves/clean_blood()
-	. = ..()
-	if(.)
-		transfer_blood = 0
-
-/obj/item/clothing/shoes/clean_blood()
-	..()
-	bloody_shoes = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_NOT_BLOODY = 0)
-	blood_state = BLOOD_STATE_NOT_BLOODY
-	if(ismob(loc))
-		var/mob/M = loc
-		M.update_worn_shoes()
-
-/mob/living/carbon/human/clean_blood(clean_hands = TRUE, clean_mask = TRUE, clean_feet = TRUE)
-	if(w_uniform && !(wear_suit && wear_suit.flags_inv & HIDEJUMPSUIT))
-		if(w_uniform.clean_blood())
-			update_worn_undersuit()
-	if(gloves && !(wear_suit && wear_suit.flags_inv & HIDEGLOVES))
-		if(gloves.clean_blood())
-			update_worn_gloves()
-			gloves.germ_level = 0
-			clean_hands = FALSE
-	if(shoes && !(wear_suit && wear_suit.flags_inv & HIDESHOES))
-		if(shoes.clean_blood())
-			update_worn_shoes()
-			clean_feet = FALSE
-	if(s_store && !(wear_suit && wear_suit.flags_inv & HIDESUITSTORAGE))
-		if(s_store.clean_blood())
-			update_suit_storage()
-	if(lip_style && !(head && head.flags_inv & HIDEMASK))
-		lip_style = null
-		update_body()
-	if(glasses && !(wear_mask && wear_mask.flags_inv & HIDEGLASSES))
-		if(glasses.clean_blood())
-			update_worn_glasses()
-	if(l_ear && !(wear_mask && wear_mask.flags_inv & HIDEHEADSETS))
-		if(l_ear.clean_blood())
-			update_worn_ears()
-	if(r_ear && !(wear_mask && wear_mask.flags_inv & HIDEHEADSETS))
-		if(r_ear.clean_blood())
-			update_worn_ears()
-	if(belt)
-		if(belt.clean_blood())
-			update_worn_belt()
-	if(neck)
-		if(neck.clean_blood())
-			update_worn_neck()
-	..(clean_hands, clean_mask, clean_feet)
-	update_icons() //apply the now updated overlays to the mob
-
 /atom/proc/add_vomit_floor(toxvomit = FALSE, green = FALSE)
 	playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
 	if(!isspaceturf(src))
@@ -1490,7 +1436,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
  * * Gravity if there's a gravity generator on the z level
  * * otherwise no gravity
  */
-/atom/proc/get_gravity(turf/gravity_turf)
+/atom/proc/has_gravity(turf/gravity_turf)
 	if(!isnull(GLOB.gravity_is_on)) // global admin override
 		return GLOB.gravity_is_on
 
@@ -1502,9 +1448,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 	if(check_level_trait(gravity_turf.z, ZTRAIT_GRAVITY))
 		return TRUE
-
-	if(gravity_turf.force_no_gravity)
-		return FALSE
 
 	var/list/forced_gravity = list()
 
@@ -1525,6 +1468,8 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	var/list/gravity_deltas = list()
 
 	var/area/turf_area = gravity_turf.loc
+	if(turf_area.area_flags & NO_GRAVITY)
+		return FALSE
 
 	if(turf_area.has_gravity || !turf_area.ignore_gravgen && length(GLOB.gravity_generators["[gravity_turf.z]"]) && !(GRAVITY_SOURCE_GRAVGEN in ignored_gravity_sources))
 		gravity_deltas.Add(1)
@@ -1539,7 +1484,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	return result_gravity
 
 /atom/proc/no_gravity(turf/gravity_turf)
-	return abs(get_gravity(gravity_turf)) <= NO_GRAVITY
+	return abs(has_gravity(gravity_turf)) <= NO_GRAVITY
 
 /atom/proc/get_external_loc()
 	var/atom/ext_loc = src
@@ -1566,11 +1511,12 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
  * It notifies (potentially) affected light sources so they can update (if needed).
  */
 /atom/proc/set_opacity(new_opacity)
-	if(new_opacity == opacity)
+	if(new_opacity == opacity || light_flags & LIGHT_FROZEN)
 		return
 	SEND_SIGNAL(src, COMSIG_ATOM_SET_OPACITY, new_opacity)
 	. = opacity
 	opacity = new_opacity
+	return .
 
 ///Setter for the `base_pixel_x` variable to append behavior related to its changing.
 /atom/proc/set_base_pixel_x(new_value)
@@ -1724,6 +1670,10 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(.)
 		return
 
+	germ_level = 0
+	if(islist(blood_DNA))
+		blood_DNA = null
+
 	// Basically "if has washable coloration"
 	if(length(atom_colours) >= WASHABLE_COLOUR_PRIORITY && atom_colours[WASHABLE_COLOUR_PRIORITY])
 		remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
@@ -1734,3 +1684,11 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/container_resist_act(mob/living/user)
 	return
 
+/**
+ * Sends [COMSIG_ATOM_EXTINGUISH] signal, which properly removes burning component if it is present.
+ *
+ * Default behaviour is to send [COMSIG_ATOM_ACID_ACT] and return
+ */
+/atom/proc/extinguish()
+	SHOULD_CALL_PARENT(TRUE)
+	return SEND_SIGNAL(src, COMSIG_ATOM_EXTINGUISH)

@@ -62,7 +62,7 @@
 	return null
 
 /obj/item/storage/belt/proc/select_item_by_radial_menu(mob/user, list/choices)
-	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user), anim_speed = 0)
+	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
 	if(!check_menu(user))
 		return null
 	return find_content_by_name(choice)
@@ -620,6 +620,8 @@
 		/obj/item/wirecutters,
 		/obj/item/wrench,
 		/obj/item/multitool,
+		/obj/item/rcd,
+		/obj/item/rpd,
 	)
 
 /obj/item/storage/belt/military/traitor/hacker/populate_contents()

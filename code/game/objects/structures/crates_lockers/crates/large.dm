@@ -18,7 +18,7 @@
 	return ..()
 
 /obj/structure/closet/crate/large/add_debris_element()
-	AddElement(/datum/element/debris, DEBRIS_WOOD, -40, 5)
+	generate_debris_handler(DEBRIS_WOOD, -40, 5)
 
 /obj/structure/closet/crate/large/update_overlays()
 	. = ..()

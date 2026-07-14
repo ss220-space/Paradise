@@ -29,6 +29,7 @@
 	AddElement(/datum/element/strippable, GLOB.strippable_human_items,  TYPE_PROC_REF(/mob/living/carbon/human/, should_strip))
 	UpdateAppearance()
 	GLOB.human_list += src
+	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_FACE_ACT, PROC_REF(clean_face))
 
 /mob/living/carbon/human/Destroy()
 	bleeding_bodyparts.Cut()
@@ -486,7 +487,7 @@
 		return .
 	if(!(flags & SHOCK_ILLUSION))
 		if(shock_damage * siemens_coeff >= 5)
-			forcesay()
+			INVOKE_ASYNC(src, PROC_REF(forcesay))
 		if(undergoing_cardiac_arrest() && (shock_damage * siemens_coeff >= 1) && prob(25))
 			if(set_heartattack(FALSE) && stat == CONSCIOUS)
 				to_chat(src, span_warning("Вы чувствуете, как ваше сердце вновь бьётся!"))
@@ -2123,3 +2124,72 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/compressor_grind()
 	dna.species.compressor_grind(loc)
+
+/**
+ * Called when this human should be washed
+ */
+/mob/living/carbon/human/wash_tg(clean_types)
+	. = ..()
+
+	if(!is_mouth_covered() && clean_lips())
+		. |= COMPONENT_CLEANED
+
+	// Wash hands if exposed
+	if(!gloves && (clean_types & CLEAN_TYPE_BLOOD) && bloody_hands > 0 && !(covered_slots & HIDEGLOVES))
+		bloody_hands = 0
+		update_worn_gloves()
+		. |= COMPONENT_CLEANED
+
+/mob/living/carbon/human/clean_lips()
+	if(!lip_style)
+		return FALSE
+	update_lips(null, null, update = TRUE)
+	return TRUE
+
+/mob/living/carbon/human/update_lips(new_style, new_color, apply_trait, update = TRUE)
+	lip_style = new_style
+	lip_color = new_color
+
+	var/obj/item/organ/external/head/hopefully_a_head = get_bodypart(BODY_ZONE_HEAD)
+	REMOVE_TRAITS_IN(src, LIPSTICK_TRAIT)
+	if(hopefully_a_head)
+		hopefully_a_head.stored_lipstick_trait = null
+		hopefully_a_head.lip_style = new_style
+		hopefully_a_head.lip_color = new_color
+	if(new_style && apply_trait)
+		ADD_TRAIT(src, apply_trait, LIPSTICK_TRAIT)
+		hopefully_a_head?.stored_lipstick_trait = apply_trait
+
+	if(update)
+		update_body() // lips is done as a body layer
+
+/**
+ * Wash the hands, cleaning either the gloves if equipped and not obscured, otherwise the hands themselves if they're not obscured.
+ *
+ * Returns false if we couldn't wash our hands due to them being obscured, otherwise true
+ */
+/mob/living/carbon/human/proc/wash_hands(clean_types)
+	if(covered_slots & HIDEGLOVES)
+		return FALSE
+
+	if(gloves)
+		gloves.wash_tg(clean_types)
+	else if((clean_types & CLEAN_TYPE_BLOOD) && bloody_hands > 0)
+		bloody_hands = 0
+		update_worn_gloves()
+
+	return TRUE
+
+/**
+ * Called on the COMSIG_COMPONENT_CLEAN_FACE_ACT signal
+ */
+/mob/living/carbon/human/proc/clean_face(datum/source, clean_types)
+	SIGNAL_HANDLER
+	if(!is_mouth_covered() && clean_lips())
+		. = TRUE
+
+	if(glasses && !is_eyes_covered(ITEM_SLOT_MASK|ITEM_SLOT_HEAD) && glasses.wash_tg(clean_types))
+		. = TRUE
+
+	if(wear_mask && !(covered_slots & HIDEMASK) && wear_mask.wash_tg(clean_types))
+		. = TRUE

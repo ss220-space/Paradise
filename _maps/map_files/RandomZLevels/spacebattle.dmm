@@ -1183,9 +1183,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
 "dS" = (
-/obj/structure/sink/kitchen{
-	pixel_y = 28
-	},
+/obj/structure/sink/kitchen/directional/south,
 /turf/simulated/floor/plasteel/freezer,
 /area/awaymission/spacebattle/kitchen)
 "dT" = (
@@ -11443,9 +11441,7 @@
 /obj/structure/mirror{
 	pixel_y = -30
 	},
-/obj/structure/sink{
-	dir = 1
-	},
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "Iw" = (
@@ -17224,10 +17220,7 @@
 	},
 /area/awaymission/spacebattle/syndicate1)
 "ZM" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	icon_state = "mirror_broke";
 	pixel_x = 28

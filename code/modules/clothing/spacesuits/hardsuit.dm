@@ -10,7 +10,7 @@
 	allowed = list(/obj/item/flashlight)
 	light_range = 4
 	light_on = FALSE
-	light_system = MOVABLE_LIGHT_DIRECTIONAL
+	light_system = OVERLAY_LIGHT_DIRECTIONAL
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 
 	//Species-specific stuff.

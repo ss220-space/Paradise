@@ -66,6 +66,9 @@
 /atom/movable/screen/examine(mob/user)
 	return list()
 
+/atom/movable/screen/orbit()
+	return
+
 /atom/movable/screen/proc/component_click(atom/movable/screen/component_button/component, params)
 	return
 

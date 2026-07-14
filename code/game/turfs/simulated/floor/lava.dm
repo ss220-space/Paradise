@@ -10,9 +10,12 @@
 	gender = PLURAL //"That's some lava."
 	baseturf = /turf/simulated/floor/lava //lava all the way down
 	slowdown = 2
+
 	light_range = 2
 	light_power = 0.75
 	light_color = LIGHT_COLOR_LAVA
+	light_on = FALSE
+
 	footstep = FOOTSTEP_LAVA
 	barefootstep = FOOTSTEP_LAVA
 	clawfootstep = FOOTSTEP_LAVA
@@ -30,6 +33,12 @@
 	var/immunity_resistance_flags = LAVA_PROOF
 	/// Is the lava close to the shore
 	var/deep_water = TRUE
+	/// The icon that covers the lava bits of our turf
+	var/mask_icon = 'icons/turf/floors.dmi'
+	/// The icon state that covers the lava bits of our turf
+	var/mask_state = "lava-lightmask"
+	/// Whether the immerse element has been added yet or not
+	var/immerse_added = FALSE
 
 /turf/simulated/floor/lava/get_ru_names()
 	return alist(
@@ -40,6 +49,80 @@
 		INSTRUMENTAL = "лавой",
 		PREPOSITIONAL = "лаве",
 	)
+
+/turf/simulated/floor/lava/Initialize(mapload)
+	. = ..()
+	refresh_light()
+	if(!smooth) // is it need?
+		update_appearance()
+	RegisterSignal(src, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON, PROC_REF(on_atom_inited))
+
+///We lazily add the immerse element when something is spawned or crosses this turf and not before.
+/turf/simulated/floor/lava/proc/on_atom_inited(datum/source, atom/movable/movable)
+	SIGNAL_HANDLER
+	if(burn_stuff(movable))
+		START_PROCESSING(SSobj, src)
+	if(immerse_added || is_type_in_typecache(movable, GLOB.immerse_ignored_movable))
+		return
+	AddElement(/datum/element/immerse, "immerse", 215)
+	immerse_added = TRUE
+
+/turf/simulated/floor/lava/update_overlays()
+	. = ..()
+	. += emissive_appearance(mask_icon, mask_state, src)
+	// We need a light overlay here because not every lava turf casts light, only the edge ones
+	var/mutable_appearance/light = mutable_appearance(mask_icon, mask_state, LIGHTING_PRIMARY_LAYER, src, LIGHTING_PLANE)
+	light.color = light_color
+	light.blend_mode = BLEND_ADD
+	. += light
+	// Mask away our light underlay, so things don't double stack
+	// This does mean if our light underlay DOESN'T look like the light we emit things will be wrong
+	// But that's rare, and I'm ok with that, quartering our light source count is useful
+	var/mutable_appearance/light_mask = mutable_appearance(mask_icon, mask_state, LIGHTING_MASK_LAYER, src, LIGHTING_PLANE)
+	light_mask.blend_mode = BLEND_MULTIPLY
+	light_mask.color = COLOR_MATRIX_INVERT
+	. += light_mask
+
+/// Refreshes this lava turf's lighting
+/turf/simulated/floor/lava/proc/refresh_light()
+	var/border_turf = FALSE
+	var/list/turfs_to_check = RANGE_TURFS(1, src)
+	if(GET_LOWEST_STACK_OFFSET(z))
+		var/turf/above = GET_TURF_ABOVE(src)
+		if(above)
+			turfs_to_check += RANGE_TURFS(1, above)
+		var/turf/below = GET_TURF_BELOW(src)
+		if(below)
+			turfs_to_check += RANGE_TURFS(1, below)
+
+	for(var/turf/around as anything in turfs_to_check)
+		if(islava(around))
+			continue
+		border_turf = TRUE
+
+	if(!border_turf)
+		set_light(l_on = FALSE)
+		return
+
+	set_light(l_on = TRUE)
+
+/turf/simulated/floor/lava/ChangeTurf(path, defer_change, keep_icon, after_flags, copy_existing_baseturf)
+	var/turf/result = ..()
+
+	if(result && !islava(result))
+		// We have gone from a lava turf to a non lava turf, time to let them know
+		var/list/turfs_to_check = RANGE_TURFS(1, result)
+		if(GET_LOWEST_STACK_OFFSET(z))
+			var/turf/above = GET_TURF_ABOVE(result)
+			if(above)
+				turfs_to_check += RANGE_TURFS(1, above)
+			var/turf/below = GET_TURF_BELOW(result)
+			if(below)
+				turfs_to_check += RANGE_TURFS(1, below)
+		for(var/turf/simulated/floor/lava/inform in turfs_to_check)
+			inform.set_light(l_on = TRUE)
+
+	return result
 
 /turf/simulated/floor/lava/ex_act()
 	return
@@ -55,6 +138,9 @@
 
 /turf/simulated/floor/lava/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
+	if(!immerse_added && !is_type_in_typecache(arrived, GLOB.immerse_ignored_movable))
+		AddElement(/datum/element/immerse, "immerse", 215)
+		immerse_added = TRUE
 	if(burn_stuff(arrived))
 		START_PROCESSING(SSprocessing, src)
 
@@ -85,7 +171,7 @@
 	return
 
 /turf/simulated/floor/lava/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
-	underlay_appearance.icon = 'icons/turf/floors.dmi'
+	underlay_appearance.icon = 'icons/turf/floors/plating.dmi'
 	underlay_appearance.icon_state = "basalt"
 	return TRUE
 
@@ -254,7 +340,7 @@
 
 /turf/simulated/floor/lava/lava_land_surface/Destroy()
 	GLOB.lazis_primary_turfs -= src
-	. = ..()
+	return ..()
 
 /turf/simulated/floor/lava/lava_land_surface/proc/calculate_deep()
 	if(locate(/turf/simulated/floor/plating/asteroid/basalt) in range(3, src))
@@ -327,21 +413,13 @@
 		PREPOSITIONAL = "жидкой плазме",
 	)
 
+/turf/simulated/floor/lava/lava_land_surface/plasma/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/reagent_scoopable_atom, /datum/reagent/plasma)
+
 /turf/simulated/floor/lava/lava_land_surface/plasma/examine(mob/user)
 	. = ..()
 	. += span_notice("Можно зачерпнуть <b>жидкую плазму</b> с помощью <b>ёмкости</b>.")
-
-/turf/simulated/floor/lava/lava_land_surface/plasma/attackby(obj/item/I, mob/user, params)
-	. = ..()
-
-	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !I.is_open_container())
-		return .
-
-	. |= ATTACK_CHAIN_SUCCESS
-	if(!I.reagents.add_reagent("plasma", 10))
-		to_chat(user, span_warning("[DECLENT_RU_CAP(I, NOMINATIVE)] уже заполнен[GEND_A_O_Y(I)] до краёв."))
-		return .
-	to_chat(user, span_notice("Вы черпаете лаву из [declent_ru(GENITIVE)] используя [I.declent_ru(ACCUSATIVE)]."))
 
 /turf/simulated/floor/lava/lava_land_surface/plasma/do_burn(atom/movable/burn_target)
 	if(QDELETED(burn_target))

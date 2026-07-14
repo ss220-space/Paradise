@@ -93,7 +93,3 @@
 	update_held_items()
 	update_pockets()
 	update_fire()
-
-	if(blocks_emissive)
-		add_overlay(get_emissive_block())
-

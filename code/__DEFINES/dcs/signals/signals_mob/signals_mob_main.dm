@@ -73,6 +73,7 @@
 #define COMSIG_MOB_SIGHT_CHANGE "mob_sight_changed"
 ///from base of mob/set_invis_see(): (new_invis, old_invis)
 #define COMSIG_MOB_SEE_INVIS_CHANGE "mob_see_invis_change"
+	#define COMPONENT_BLOCK_INVIS_CHANGE (1<<0)
 ///from base of mob/set_see_in_dark(): (new_range, old_range)
 #define COMSIG_MOB_SEE_IN_DARK_CHANGE "mob_see_in_dark_change"
 

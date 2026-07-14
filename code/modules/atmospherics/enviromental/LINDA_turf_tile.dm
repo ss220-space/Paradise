@@ -235,7 +235,6 @@
 	reduce_superconductivity(T, connectivity[2])
 
 /// This method is unsafe to use because it only updates milla_* properties, but does not write them to MILLA. Use recalculate_atmos_connectivity() instead.
-/// This method is unsafe to use because it only updates milla_* properties, but does not write them to MILLA. Use recalculate_atmos_connectivity() instead.
 /turf/proc/private_unsafe_recalculate_atmos_connectivity()
 	if(blocks_air)
 		var/milla_atmos_airtight = list(TRUE, TRUE, TRUE, TRUE)

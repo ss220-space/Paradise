@@ -75,6 +75,7 @@
 	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
 	var/busy = FALSE
 	var/list/validSurfaces = list(/turf/simulated/floor)
+	var/can_change_colour = FALSE
 
 /obj/item/toy/crayon/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] is jamming the [name] up [user.p_their()] nose and into [user.p_their()] brain. It looks like [user.p_theyre()] trying to commit suicide."))
@@ -184,6 +185,10 @@
 		. = ATTACK_CHAIN_BLOCKED_ALL
 		to_chat(user, span_warning("There is no more of [huffable ? "paint in " : ""][name] left!"))
 		qdel(src)
+
+/obj/item/paint_palette/set_painting_tool_color(chosen_color)
+	. = ..()
+	current_color = chosen_color
 
 /obj/item/toy/crayon/red
 	name = "red crayon"
@@ -308,6 +313,7 @@
 	colourName = "rainbow"
 	uses = BETTER_CRAYONS_USES
 	dye_color = DYE_RAINBOW
+	can_change_colour = TRUE
 
 /obj/item/toy/crayon/rainbow/attack_self(mob/living/user as mob)
 	update_window(user)
@@ -366,9 +372,21 @@
 /obj/item/toy/crayon/spraycan/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!proximity_flag)
 		return
-
-	if(capped)
+	if(!can_paint(target, user))
 		return
+
+	if(isobj(target))
+		target.balloon_alert_to_viewers("закрашивание...")
+		if(!do_after(user, 5 SECONDS, target, NONE))
+			return
+
+		if(!can_paint(target, user))
+			return
+
+		uses--
+		playsound(src, 'sound/effects/spray.ogg', 20, TRUE)
+		SEND_SIGNAL(target, COMSIG_OBJ_PAINTED, colour)
+		return ..()
 
 	if(iscarbon(target))
 		if(uses-10 > 0)
@@ -408,6 +426,8 @@
 	if(!uses)
 		to_chat(user, span_warning("Не похоже, что бы осталось достаточно краски"))
 		return FALSE
+	if(isobj(object) && !(object.flags & UNPAINTABLE))
+		return TRUE
 	return TRUE
 
 /obj/item/toy/crayon/spraycan/paintkit

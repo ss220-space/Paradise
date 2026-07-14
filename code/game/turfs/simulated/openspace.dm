@@ -1,11 +1,15 @@
 /turf/simulated/openspace
 	name = "open space"
 	desc = "Watch your step!"
-	icon = 'icons/turf/space.dmi'
-	icon_state = "openspace" //transparent
+	// We don't actually draw openspace, but it needs to have color
+	// In its icon state so we can count it as a "non black" tile
+	icon_state = MAP_SWITCH("pure_white", "invisible")
+	plane = TRANSPARENT_FLOOR_PLANE
+	layer = SPACE_LAYER
 	baseturf = /turf/simulated/openspace
-	//mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	pathing_pass_method = TURF_PATHING_PASS_PROC
+	underfloor_accessibility = UNDERFLOOR_INTERACTABLE //this means wires go o- you can touch wires, yes
 	var/can_cover_up = TRUE
 	var/can_build_on = TRUE
 
@@ -14,7 +18,6 @@
 	heat_capacity = 10000
 	transparent_floor = TURF_FULLTRANSPARENT // bruh
 	intact = FALSE //this means wires go on top
-	underfloor_accessibility = UNDERFLOOR_INTERACTABLE //this means wires go o- you can touch wires, yes
 
 /turf/simulated/openspace/airless
 	temperature = TCMB
@@ -34,6 +37,9 @@
 	if(!GET_TURF_BELOW(src))
 		stack_trace("[src] was inited as openspace with nothing below it at ([x], [y], [z])")
 	RegisterSignal(src, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON, PROC_REF(on_atom_created))
+	var/area/our_area = loc
+	if(isspacearea(our_area))
+		force_no_gravity = TRUE
 	return INITIALIZE_HINT_LATELOAD
 
 /turf/simulated/openspace/LateInitialize()
@@ -129,24 +135,7 @@
 		return .
 
 	if(istype(I, /obj/item/stack/rods))
-		var/obj/item/stack/rods/rods = I
-		if(locate(/obj/structure/lattice/catwalk, src))
-			to_chat(user, span_warning("There is already a catwalk here!"))
-			return .
-		if(locate(/obj/structure/lattice, src))
-			if(!rods.use(1))
-				to_chat(user, span_warning("You need two rods to build a catwalk!"))
-				return .
-			to_chat(user, span_notice("You construct a catwalk."))
-			playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
-			new /obj/structure/lattice/catwalk(src)
-			return .|ATTACK_CHAIN_SUCCESS
-		if(!rods.use(1))
-			to_chat(user, span_warning("You need one rod to build a lattice."))
-			return .
-		to_chat(user, span_notice("Constructing support lattice..."))
-		playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
-		ReplaceWithLattice()
+		build_with_rods(I, user)
 		return .|ATTACK_CHAIN_BLOCKED_ALL
 
 	if(istype(I, /obj/item/stack/tile/plasteel))

@@ -850,9 +850,7 @@
 	},
 /area/derelict/crew_quarters)
 "ck" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/west,
 /obj/structure/curtain/open/shower,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -934,10 +932,7 @@
 	},
 /area/derelict/bridge)
 "cy" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	dir = 4;
 	pixel_x = -32
@@ -1053,10 +1048,7 @@
 /area/derelict/security)
 "cO" = (
 /obj/structure/curtain/open/shower,
-/obj/machinery/shower{
-	dir = 4;
-	pixel_x = 5
-	},
+/obj/machinery/shower/directional/east,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -2552,9 +2544,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/west,
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -2713,7 +2703,7 @@
 /area/derelict/engineer_area)
 "gV" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/glass/rag,
+/obj/item/rag,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -2905,11 +2895,7 @@
 	},
 /area/derelict/security)
 "hw" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/sign/nosmoking_1{
 	pixel_x = -32
 	},
@@ -5086,14 +5072,10 @@
 /turf/space,
 /area/derelict/garden)
 "ne" = (
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/east,
 /obj/structure/curtain/open/shower,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/shower{
-	pixel_y = 16
-	},
+/obj/machinery/shower/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -5104,9 +5086,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/curtain/open/shower,
-/obj/machinery/shower{
-	pixel_y = 16
-	},
+/obj/machinery/shower/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -5254,11 +5234,7 @@
 	},
 /area/derelict/dining)
 "nC" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/camera{
 	c_tag = "Кухня";
@@ -9336,9 +9312,7 @@
 	},
 /area/derelict/common)
 "Sq" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/west,
 /obj/structure/curtain/open/shower,
 /obj/effect/decal/cleanable/dirt,
 /mob/living/basic/cockroach,
