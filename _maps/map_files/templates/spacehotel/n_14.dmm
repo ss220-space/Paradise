@@ -51,11 +51,7 @@
 /turf/simulated/floor/indestructible/carpet,
 /area/template_noop)
 "l" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	dir = 8;
 	pixel_x = -28
@@ -84,9 +80,7 @@
 	},
 /area/template_noop)
 "o" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/west,
 /turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
 	},

@@ -238,9 +238,11 @@
 	update_appearance()
 
 // Aurora forensics port.
-/obj/item/clothing/clean_blood()
+/obj/item/clothing/wash_tg(clean_types)
 	. = ..()
-	gunshot_residue = null
+	if(clean_types & CLEAN_TYPE_FIBERS)
+		gunshot_residue = null
+		. |= COMPONENT_CLEANED
 
 /obj/item/clothing/proc/can_use(mob/user)
 	if(isliving(user) && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -476,6 +478,12 @@
 		blood_overlay = get_blood_overlay("glove_r")
 		if(blood_overlay)
 			. += blood_overlay
+
+/obj/item/clothing/gloves/wash_tg(clean_types)
+	. = ..()
+	if((clean_types & CLEAN_TYPE_BLOOD) && transfer_blood > 0)
+		transfer_blood = 0
+		. |= COMPONENT_CLEANED|COMPONENT_CLEANED_GAIN_XP
 
 /obj/item/clothing/under/proc/set_sensors(mob/living/user)
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -822,6 +830,14 @@
 		name = initial(name)
 		return
 	name = "mangled [initial(name)]"
+
+/obj/item/clothing/shoes/wash_tg(clean_types)
+	. = ..()
+
+	if(clean_types & CLEAN_TYPE_BLOOD)
+		bloody_shoes = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_NOT_BLOODY = 0)
+		blood_state = BLOOD_STATE_NOT_BLOODY
+		. |= COMPONENT_CLEANED
 
 /obj/item/clothing/shoes/update_desc()
 	. = ..()

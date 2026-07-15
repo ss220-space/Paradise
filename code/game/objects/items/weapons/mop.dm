@@ -18,133 +18,54 @@
 	var/mop_sound_cooldown
 	/// Max range of mopping.
 	var/mop_range = 1
+	var/static/list/clean_blacklist = typecacheof(list(
+		/obj/item/reagent_containers/glass/bucket,
+		/obj/structure/mopbucket,
+		/obj/structure/janitorialcart,
+	))
 
 /obj/item/mop/Initialize(mapload)
 	. = ..()
 	create_reagents(mopcap)
 	GLOB.janitorial_equipment += src
+	AddComponent(/datum/component/cleaner, mopspeed, pre_clean_callback=CALLBACK(src, PROC_REF(should_clean)), on_cleaned_callback = CALLBACK(src, PROC_REF(apply_reagents)))
 
 /obj/item/mop/Destroy()
 	GLOB.janitorial_equipment -= src
 	return ..()
 
-/obj/item/mop/proc/wet_mop(obj/target, mob/user)
-	if(user.a_intent == INTENT_GRAB)
-		. = FALSE
-		if(istype(target, /obj/structure/mopbucket))
-			. = mopbucket_insert(user, target)
-		else if(istype(target, /obj/structure/janitorialcart))
-			. = janicart_insert(user, target)
-		return .
+///Checks whether or not we should clean.
+/obj/item/mop/proc/should_clean(datum/cleaning_source, atom/atom_to_clean, mob/living/cleaner)
+	if(clean_blacklist[atom_to_clean.type])
+		return CLEAN_BLOCKED|CLEAN_DONT_BLOCK_INTERACTION
+	if(reagents.total_volume < 0.1)
+		cleaner.balloon_alert(cleaner, "mop is dry!")
+		return CLEAN_BLOCKED
+	/*
+	if(reagents.has_reagent(amount = 1/*, chemical_flags = REAGENT_CLEANS*/))
+		return CLEAN_ALLOWED
+	*/
+	if(reagents.has_reagent(/datum/reagent/water, 1) && reagents.has_reagent(/datum/reagent/space_cleaner, 1))
+		return CLEAN_ALLOWED
+	return CLEAN_ALLOWED|CLEAN_NO_XP|CLEAN_NO_WASH
 
-	if(!target.reagents || target.reagents.total_volume < 1)
-		to_chat(user, span_notice("Looks like [target]'s bucket is empty."))
-		return FALSE
 
-	. = TRUE
-	target.reagents.trans_to(src, 5)
-	to_chat(user, span_notice("You wet [src] in [target]."))
-	playsound(loc, 'sound/effects/slosh.ogg', 25, TRUE)
-
-/obj/item/mop/proc/clean(turf/simulated/atom)
-	if(!reagents.has_reagent("water", 1) && !reagents.has_reagent("cleaner", 1) && !reagents.has_reagent("holywater", 1))
-		reagents.reaction(atom, REAGENT_TOUCH, 10) //10 is the multiplier for the reaction effect. probably needed to wet the floor properly.
-		reagents.remove_any(1) //reaction() doesn't use up the reagents
+/**
+ * Applies reagents to the cleaned floor and removes them from the mop.
+ *
+ * Arguments
+ * * cleaning_source the source of the cleaning
+ * * cleaned_turf the turf that is being cleaned
+ * * cleaner the mob that is doing the cleaning
+ */
+/obj/item/mop/proc/apply_reagents(datum/cleaning_source, turf/cleaned_turf, mob/living/cleaner, clean_succeeded)
+	if(!clean_succeeded)
 		return
-
-	atom.clean_blood()
-	for(var/obj/effect/effect in atom)
-		if(!effect.is_cleanable())
-			continue
-
-		qdel(effect)
-
-	SEND_SIGNAL(atom, COMSIG_COMPONENT_CLEAN_ACT, 5)
-	reagents.reaction(atom, REAGENT_TOUCH, 10) //10 is the multiplier for the reaction effect. probably needed to wet the floor properly.
-	reagents.remove_any(1)			//reaction() doesn't use up the reagents
-
-/obj/item/mop/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
-	if(!proximity_flag || iseffect(target))
-		return
-
-	if(reagents.total_volume < 1)
-		to_chat(user, span_warning("Your mop is dry!"))
-		return
-
-	if(istype(target, /obj/item/reagent_containers/glass/bucket) || istype(target, /obj/structure/janitorialcart) || istype(target, /obj/structure/mopbucket))
-		return
-
-	if(world.time > mop_sound_cooldown)
-		playsound(loc, pick('sound/weapons/mopping1.ogg', 'sound/weapons/mopping2.ogg'), 30, TRUE, -1)
-		mop_sound_cooldown = world.time + MOP_SOUND_CD
-
-	var/clicked_turf = get_turf(target)
-	var/list/turf/turfs = get_mopping_turfs(user, clicked_turf)
-	if(!length(turfs))
-		return
-
-	user.visible_message(
-		"[user] начина[PLUR_ET_YUT(user)] возить по полу [declent_ru(INSTRUMENTAL)].",
-		ignored_mobs = user
-	)
-	user.balloon_alert(user, "мытьё пола...")
-
-	var/list/bubbles = list()
-	for(var/turf/turf as anything in turfs)
-		bubbles += new /obj/effect/temp_visual/bubbles(turf, mopspeed)
-
-	if(!do_after(user, mopspeed, clicked_turf))
-		QDEL_LAZYLIST(bubbles)
-		return
-
-	user.balloon_alert(user, "")
-	to_chat(user, span_notice("мытьё закончено"))
-	for(var/turf/turf as anything in turfs)
-		clean(turf)
-
-	QDEL_LAZYLIST(bubbles)
-
-/obj/item/mop/proc/get_mopping_turfs(mob/user, turf/click_turf)
-	var/turf/user_turf = get_turf(user)
-	if(user_turf == click_turf)
-		return list(click_turf)
-
-	var/list/turfs = list()
-	for(var/turf/simulated/turf in range(mop_range, click_turf) - user_turf)
-		if(abs(turf.x - click_turf.x) + abs(turf.y - click_turf.y) > mop_range)
-			continue
-
-		if(get_dist(user_turf, turf) > mop_range)
-			continue
-
-		turfs |= turf
-
-	return turfs
-
-/obj/item/mop/proc/janicart_insert(mob/user, obj/structure/janitorialcart/cart)
-	if(cart.mymop)
-		to_chat(user, span_notice("There is already [cart.mymop] in [cart]."))
-		return FALSE
-	. = cart.put_in_cart(src, user)
-	if(.)
-		cart.mymop = src
-		cart.updateUsrDialog()
-		cart.update_icon(UPDATE_OVERLAYS)
-
-/obj/item/mop/proc/mopbucket_insert(mob/user, obj/structure/mopbucket/bucket)
-	if(bucket.mymop)
-		to_chat(user, span_notice("There is already [bucket.mymop] in [bucket]."))
-		return FALSE
-	. = bucket.put_in_cart(src, user)
-	if(.)
-		bucket.mymop = src
-		bucket.update_icon(UPDATE_OVERLAYS)
-
-/obj/item/mop/wash(mob/user, atom/source)
-	reagents.add_reagent("water", 5)
-	to_chat(user, span_notice("You wet [src] in [source]."))
-	playsound(loc, 'sound/effects/slosh.ogg', 25, TRUE)
-	return 1
+	reagents.reaction(cleaned_turf, REAGENT_TOUCH, 10) //Needed for proper floor wetting.
+	var/val2remove = 1
+	//if(cleaner?.mind)
+		//val2remove = round(cleaner.mind.get_skill_modifier(/datum/skill/cleaning, SKILL_SPEED_MODIFIER), 0.1)
+	reagents.remove_all(val2remove) //reaction() doesn't use up the reagents
 
 /obj/item/mop/advanced
 	desc = "The most advanced tool in a custodian's arsenal. Just think of all the viscera you will clean up with this!"
@@ -160,7 +81,7 @@
 	mop_range = 2
 	var/refill_enabled = TRUE //Self-refill toggle for when a janitor decides to mop with something other than water.
 	var/refill_rate = 1 //Rate per process() tick mop refills itself
-	var/refill_reagent = "water" //Determins what reagent to use for refilling, just in case someone wanted to make a HOLY MOP OF PURGING
+	var/refill_reagent = /datum/reagent/water //Determins what reagent to use for refilling, just in case someone wanted to make a HOLY MOP OF PURGING
 
 /obj/item/mop/advanced/Initialize(mapload)
 	. = ..()

@@ -207,3 +207,9 @@
 
 /// Trait acquired from being painted a certain color
 #define ATOM_COLOR_TRAIT "atom_color"
+
+/// From the item_scaling element
+#define ITEM_SCALING_TRAIT "item_scaling"
+
+/// Trait granted by lipstick
+#define LIPSTICK_TRAIT "lipstick_trait"

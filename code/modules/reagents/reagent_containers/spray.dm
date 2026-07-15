@@ -11,11 +11,12 @@
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
-	var/spray_maxrange = 3 //what the sprayer will set spray_currentrange to in the attack_self.
-	var/spray_currentrange = 3 //the range of tiles the sprayer will reach when in fixed mode.
 	volume = 250
 	possible_transfer_amounts = null
 	var/delay = CLICK_CD_RANGE * 2
+	var/spray_maxrange = 3 //what the sprayer will set spray_currentrange to in the attack_self.
+	var/spray_currentrange = 3 //the range of tiles the sprayer will reach when in fixed mode.
+	var/spray_sound = 'sound/effects/spray2.ogg'
 
 /obj/item/reagent_containers/spray/get_ru_names()
 	return alist(
@@ -27,9 +28,13 @@
 		PREPOSITIONAL = "распылителе",
 	)
 
+/obj/item/reagent_containers/spray/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/reagents_item_heatable)
+
 /obj/item/reagent_containers/spray/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(isstorage(target) || istable(target) || istype(target, /obj/structure/rack) || iscloset(target) \
-	|| istype(target, /obj/item/reagent_containers) || istype(target, /obj/structure/sink) || istype(target, /obj/structure/janitorialcart) || istype(target, /obj/machinery/hydroponics))
+	|| is_reagent_container(target) || istype(target, /obj/structure/sink) || istype(target, /obj/structure/janitorialcart) || istype(target, /obj/machinery/hydroponics))
 		return
 
 	if(istype(target, /obj/effect/proc_holder/spell))
@@ -55,7 +60,7 @@
 	var/contents_log = reagents.reagent_list.Join(", ")
 	INVOKE_ASYNC(src, PROC_REF(spray), target)
 
-	playsound(loc, 'sound/effects/spray2.ogg', 50, TRUE, -6)
+	playsound(loc, spray_sound, 50, TRUE, -6)
 	user.changeNext_move(delay)
 	user.newtonian_move(get_dir(target, user))
 

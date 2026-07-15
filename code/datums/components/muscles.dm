@@ -327,6 +327,7 @@
 	strength_examine = "слаб"
 	weak_mob_modifier = 1
 	door_open_speed_modifier = 0.8
+
 /datum/strength_level/normal
 	next_level = /datum/strength_level/strong
 	prev_level = /datum/strength_level/weak
