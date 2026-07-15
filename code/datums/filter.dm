@@ -192,6 +192,8 @@
 		if(!(filter_info["name"] in names))
 			new_data += list(filter_info)
 			new_cache += filter_cache[index]
+		else
+			. = TRUE
 	filter_data = new_data
 	filter_cache = new_cache
 	if(update)

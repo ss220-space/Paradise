@@ -78,7 +78,6 @@
 		get_asset_datum(/datum/asset/simple/portraits)
 	)
 
-
 /obj/machinery/computer/portrait_printer/ui_act(action, params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	switch(action)
@@ -92,6 +91,8 @@
 			generate_matching_paintings_list()
 			. = TRUE
 		if("print")
+			if(!isliving(ui.user))
+				return
 			print_painting(params["selected"])
 		/*
 		if("download")
