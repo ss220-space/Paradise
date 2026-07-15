@@ -58,7 +58,7 @@
 	//if we transforming from open to open turf we can skip deconstruction under some conditions
 	else if(source.density)
 		//we are transforming from plating into anything that isn't a groundless turf
-		if(istype(source, /turf/simulated/floor/plating) && !isgroundlessturf(path))
+		if(isplatingturf(source) && !isgroundlessturf(path))
 			reload = TRUE
 		//we are transforming into plating turf
 		else if(ispath(source.baseturf, /turf/simulated/floor/plating))

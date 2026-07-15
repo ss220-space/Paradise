@@ -322,7 +322,7 @@ GLOBAL_LIST_EMPTY(closets)
 		for(var/obj/structure/structure in loc)
 			if(itemcount >= storage_capacity)
 				break
-			if(istype(structure, /obj/structure/closet))
+			if(iscloset(structure))
 				continue
 			if(structure.anchored || structure.has_buckled_mobs())
 				continue
