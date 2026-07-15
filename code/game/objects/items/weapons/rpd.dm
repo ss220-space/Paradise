@@ -147,42 +147,42 @@
 		construct.wrench_act(user, inactive_hand_item)
 	activate_rpd(TRUE)
 
-/obj/item/rpd/proc/rotate_all_pipes(mob/user, turf/T) //Rotate all pipes on a turf
-	for(var/obj/item/pipe/pipe in T)
-		pipe.rotate()
-	for(var/obj/structure/disposalconstruct/disposalconstruct in T)
-		disposalconstruct.rotate()
+/obj/item/rpd/proc/rotate_all_pipes(mob/user, turf/target_turf) //Rotate all pipes on a turf
+	for(var/obj/item/pipe/pipe_item in target_turf)
+		pipe_item.rotate()
+	for(var/obj/structure/disposalconstruct/disposal in target_turf)
+		disposal.rotate()
 
-/obj/item/rpd/proc/flip_all_pipes(mob/user, turf/T) //Flip all pipes on a turf
-	for(var/obj/item/pipe/pipe in T)
+/obj/item/rpd/proc/flip_all_pipes(mob/user, turf/target_turf) //Flip all pipes on a turf
+	for(var/obj/item/pipe/pipe in target_turf)
 		pipe.flip()
-	for(var/obj/structure/disposalconstruct/disposalconstruct in T)
-		disposalconstruct.flip()
+	for(var/obj/structure/disposalconstruct/disposal in target_turf)
+		disposal.flip()
 
-/obj/item/rpd/proc/delete_all_pipes(mob/user, turf/T) //Delete all pipes on a turf
+/obj/item/rpd/proc/delete_all_pipes(mob/user, turf/target_turf) //Delete all pipes on a turf
 	var/eaten
-	for(var/obj/item/pipe/pipe in T)
-		QDEL_NULL(pipe)
+	for(var/obj/item/pipe/pipe_item in target_turf)
+		QDEL_NULL(pipe_item)
 		eaten = TRUE
-	for(var/obj/item/pipe_gsensor/pipe_gsensor in T)
-		QDEL_NULL(pipe_gsensor)
+	for(var/obj/item/pipe_gsensor/pipe_gsensor_item in target_turf)
+		QDEL_NULL(pipe_gsensor_item)
 		eaten = TRUE
-	for(var/obj/item/pipe_meter/pipe_meter in T)
-		QDEL_NULL(pipe_meter)
+	for(var/obj/item/pipe_meter/pipe_meter_item in target_turf)
+		QDEL_NULL(pipe_meter_item)
 		eaten = TRUE
-	for(var/obj/structure/disposalconstruct/disposalconstruct in T)
-		if(!disposalconstruct.anchored)
-			QDEL_NULL(disposalconstruct)
+	for(var/obj/structure/disposalconstruct/disposal in target_turf)
+		if(!disposal.anchored)
+			QDEL_NULL(disposal)
 			eaten = TRUE
 	if(eaten)
-		to_chat(user, "<span class='notice'>[src] sucks up the loose pipes on [T].")
+		to_chat(user, "<span class='notice'>[src] sucks up the loose pipes on [target_turf].")
 		activate_rpd()
 	else
-		to_chat(user, span_notice("There were no loose pipes on [T]."))
+		to_chat(user, span_notice("There were no loose pipes on [target_turf]."))
 
-/obj/item/rpd/proc/delete_single_pipe(mob/user, obj/P) //Delete a single pipe
-	to_chat(user, span_notice("[src] sucks up [P]."))
-	QDEL_NULL(P)
+/obj/item/rpd/proc/delete_single_pipe(mob/user, obj/pipe_obj) //Delete a single pipe
+	to_chat(user, span_notice("[src] sucks up [pipe_obj]."))
+	QDEL_NULL(pipe_obj)
 	activate_rpd()
 
 // TGUI stuff

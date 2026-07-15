@@ -91,22 +91,22 @@
 /obj/structure/stairs/proc/build_signal_listener()
 	if(listeningTo)
 		UnregisterSignal(listeningTo, COMSIG_TURF_MULTIZ_NEW)
-	var/turf/simulated/openspace/openspace = get_step_multiz(get_turf(src), UP)
-	RegisterSignal(openspace, COMSIG_TURF_MULTIZ_NEW, PROC_REF(on_multiz_new))
-	listeningTo = openspace
+	var/turf/simulated/openspace/openspace_turf = get_step_multiz(get_turf(src), UP)
+	RegisterSignal(openspace_turf, COMSIG_TURF_MULTIZ_NEW, PROC_REF(on_multiz_new))
+	listeningTo = openspace_turf
 
 /obj/structure/stairs/proc/force_open_above()
-	var/turf/simulated/openspace/openspace = get_step_multiz(get_turf(src), UP)
-	if(openspace && !istype(openspace))
-		openspace.ChangeTurf(/turf/simulated/openspace)
+	var/turf/simulated/openspace/openspace_turf = get_step_multiz(get_turf(src), UP)
+	if(openspace_turf && !istype(openspace_turf))
+		openspace_turf.ChangeTurf(/turf/simulated/openspace)
 
 /obj/structure/stairs/proc/on_multiz_new(turf/source, dir)
 	SIGNAL_HANDLER
 
 	if(dir == UP)
-		var/turf/simulated/openspace/openspace = get_step_multiz(get_turf(src), UP)
-		if(openspace && !istype(openspace))
-			openspace.ChangeTurf(/turf/simulated/openspace)
+		var/turf/simulated/openspace/openspace_turf = get_step_multiz(get_turf(src), UP)
+		if(openspace_turf && !istype(openspace_turf))
+			openspace_turf.ChangeTurf(/turf/simulated/openspace)
 
 /obj/structure/stairs/intercept_zImpact(list/falling_movables, levels = 1)
 	. = ..()

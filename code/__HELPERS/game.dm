@@ -427,8 +427,8 @@
 		if(exclude_mobs_nearby)
 			var/turf/turf = get_turf(vent)
 			var/mobs_nearby = FALSE
-			for(var/mob/living/living in orange(nearby_mobs_range, turf))
-				if(!living.is_dead())
+			for(var/mob/living/living_mob  in orange(nearby_mobs_range, turf))
+				if(!living_mob .is_dead())
 					mobs_nearby = TRUE
 					break
 			if(mobs_nearby)

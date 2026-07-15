@@ -465,11 +465,11 @@
 /datum/status_effect/transient/confusion/proc/add_overlay()
 	if(overlay)
 		return
-	var/matrix/matrix = matrix()
-	matrix.Scale(0.6)
+	var/matrix/matrix_obj = matrix()
+	matrix_obj.Scale(0.6)
 	overlay = image('icons/effects/effects.dmi', "confusion")
 	overlay.pixel_z = 20
-	overlay.transform = matrix
+	overlay.transform = matrix_obj
 	owner.add_overlay(overlay)
 
 // MARK: Disoriented

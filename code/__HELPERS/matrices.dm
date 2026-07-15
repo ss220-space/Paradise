@@ -45,9 +45,9 @@
 		segment = -segment
 	var/list/matrices = list()
 	for(var/i in 1 to segments-1)
-		var/matrix/matrix = matrix(transform)
-		matrix.Turn(segment*i)
-		matrices += matrix
+		var/matrix/matrix_obj = matrix(transform)
+		matrix_obj.Turn(segment*i)
+		matrices += matrix_obj
 	var/matrix/last = matrix(transform)
 	matrices += last
 

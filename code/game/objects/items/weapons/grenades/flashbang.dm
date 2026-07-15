@@ -69,8 +69,8 @@
 				living.Weaken(status_duration * 3)
 				if(ishuman(living))
 					living.emote("scream")
-					var/mob/living/carbon/human/human = living
-					var/obj/item/organ/internal/eyes/eyes = human.get_int_organ(/obj/item/organ/internal/eyes)
+					var/mob/living/carbon/human/human_mob = living
+					var/obj/item/organ/internal/eyes/eyes = human_mob.get_int_organ(/obj/item/organ/internal/eyes)
 					if(eyes)
 						eyes.internal_receive_damage(8, silent = TRUE)
 			if(living.flash_eyes())
