@@ -868,6 +868,7 @@
 #include "code\datums\components\squeak.dm"
 #include "code\datums\components\stationloving.dm"
 #include "code\datums\components\storage_size_differentiate.dm"
+#include "code\datums\components\subtype_picker.dm"
 #include "code\datums\components\swarming.dm"
 #include "code\datums\components\torn_wall.dm"
 #include "code\datums\components\transforming.dm"
