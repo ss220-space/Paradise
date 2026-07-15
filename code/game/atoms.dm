@@ -921,13 +921,13 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 //returns the mob's dna info as a list, to be inserted in an object's blood_DNA list
 /mob/living/proc/get_blood_dna_list()
-	if(get_blood_id() != /datum/reagent/blood)
+	if(get_blood_type() != /datum/reagent/blood)
 		return
 	return list("ANIMAL DNA" = "Y-")
 
 /mob/living/carbon/get_blood_dna_list()
 	var/static/list/acceptable_blood = list(/datum/reagent/blood, /datum/reagent/medicine/cryoxadone, /datum/reagent/slimejelly)
-	var/check_blood = get_blood_id()
+	var/check_blood = get_blood_type()
 	if(!check_blood || !(check_blood in acceptable_blood))
 		return
 	var/list/blood_dna = list()

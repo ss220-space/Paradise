@@ -132,7 +132,7 @@
 
 	if(method == REAGENT_INGEST && iscarbon(M))
 		var/mob/living/carbon/C = M
-		if(C.get_blood_id() == type && !HAS_TRAIT(C, TRAIT_NO_BLOOD_RESTORE))
+		if(C.get_blood_type() == type && !HAS_TRAIT(C, TRAIT_NO_BLOOD_RESTORE))
 			C.setBlood(min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL))
 			C.reagents.del_reagent(type)
 

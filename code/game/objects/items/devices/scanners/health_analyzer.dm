@@ -403,8 +403,8 @@
 	data["genes"] = H.gene_stability
 	data["DRN"] = DNR
 
-	var/blood_id = H.get_blood_id()
-	if(blood_id)
+	var/current_blood_type = H.get_blood_type()
+	if(current_blood_type)
 		if(H.bleed_rate)
 			data["bleed"] = TRUE
 
@@ -412,12 +412,12 @@
 		var/blood_type = H.dna.blood_type
 		var/blood_species = H.dna.species.blood_species
 
-		if(blood_id != /datum/reagent/blood)
-			var/datum/reagent/R = GLOB.chemical_reagents_list[blood_id]
+		if(current_blood_type != /datum/reagent/blood)
+			var/datum/reagent/R = GLOB.chemical_reagents_list[current_blood_type]
 			if(R)
 				blood_type = R.name
 			else
-				blood_type = blood_id
+				blood_type = current_blood_type
 
 		data["bloodData"] = list(
 			blood_percent = blood_percent,
@@ -720,8 +720,8 @@
 		if(bodypart.has_internal_bleeding())
 			scan_data += span_warning("Обнаружено внутреннее кровотечение. Локализация невозможна.")
 			break
-	var/blood_id = H.get_blood_id()
-	if(blood_id)
+	var/current_blood_type = H.get_blood_type()
+	if(current_blood_type)
 		if(H.bleed_rate)
 			scan_data += span_danger("Обнаружено кровотечение.")
 		var/blood_percent =  round((H.blood_volume / BLOOD_VOLUME_NORMAL)*100)
@@ -745,12 +745,12 @@
 		if(ru_blood_species[blood_species])
 			blood_species_text = ", кровь расы: [ru_blood_species[blood_species]]"
 
-		if(blood_id != /datum/reagent/blood)//special blood substance
-			var/datum/reagent/R = GLOB.chemical_reagents_list[blood_id]
+		if(current_blood_type != /datum/reagent/blood)//special blood substance
+			var/datum/reagent/R = GLOB.chemical_reagents_list[current_blood_type]
 			if(R)
 				blood_type = R.name
 			else
-				blood_type = blood_id
+				blood_type = current_blood_type
 
 		if(H.blood_volume <= BLOOD_VOLUME_SAFE && H.blood_volume > BLOOD_VOLUME_OKAY)
 			scan_data += "Уровень крови: [span_danger("НИЗКИЙ")] - [blood_percent] %, [H.blood_volume] u, тип: [blood_type][blood_species_text]."
