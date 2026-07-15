@@ -51,8 +51,8 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 	if(!air)
 		air = new
 	var/list/possible_expansions = list(base)
-	var/datum/gas_mixture/pipline_air = air
-	var/list/piplene_members = members
+	var/datum/gas_mixture/pipeline_air = air
+	var/list/pipeline_members = members
 	while(length(possible_expansions) > 0)
 		for(var/obj/machinery/atmospherics/borderline as anything in possible_expansions)
 
@@ -62,11 +62,11 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 				for(var/obj/machinery/atmospherics/P as anything in result)
 					if(istype(P, /obj/machinery/atmospherics/pipe))
 						var/obj/machinery/atmospherics/pipe/item = P
-						if(!(item in piplene_members))
+						if(!(item in pipeline_members))
 
 							if(item.parent)
 								stack_trace("[item.type] \[\ref[item]] added to a pipenet while still having one ([item.parent]) (pipes leading to the same spot stacking in one turf). Starts from:[base.type]([base]). Nearby: [item.x], [item.y], [item.z].")
-							piplene_members += item
+							pipeline_members += item
 							possible_expansions += item
 
 							volume += item.volume
@@ -76,7 +76,7 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 							alert_pressure = min(alert_pressure, item.alert_pressure)
 
 							if(item.air_temporary)
-								pipline_air.merge(item.air_temporary)
+								pipeline_air.merge(item.air_temporary)
 								item.air_temporary = null
 					else if(P)
 						P.setPipenet(src, borderline)
@@ -136,8 +136,13 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 /datum/pipeline/proc/temporarily_store_air()
 	//Update individual gas_mixtures by volume ratio
 
+	var/remaining_volume = air.volume
 	for(var/obj/machinery/atmospherics/pipe/member as anything in members)
-		var/datum/gas_mixture/temp_air = air.remove_ratio(member.volume / air.volume)
+		if(remaining_volume <= 0)
+			break
+		var/member_volume = member.volume
+		var/datum/gas_mixture/temp_air = air.remove_ratio(member_volume / remaining_volume)
+		remaining_volume -= member_volume
 		member.air_temporary = temp_air
 
 /datum/pipeline/proc/temperature_interact(turf/target, share_volume, thermal_conductivity)
