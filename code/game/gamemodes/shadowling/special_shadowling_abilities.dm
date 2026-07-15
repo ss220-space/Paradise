@@ -7,6 +7,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 	base_cooldown = 5 MINUTES
 	clothes_req = FALSE
 	action_icon_state = "hatch"
+	action_background_icon_state = "bg_shadowling"
 	var/cycles_unused = 0
 
 /obj/effect/proc_holder/spell/shadowling_hatch/create_new_targeting()
@@ -142,6 +143,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 	base_cooldown = 5 MINUTES
 	clothes_req = FALSE
 	action_icon_state = "ascend"
+	action_background_icon_state = "bg_shadowling"
 
 /obj/effect/proc_holder/spell/shadowling_ascend/create_new_targeting()
 	return new /datum/spell_targeting/self

@@ -32,6 +32,7 @@
 	need_active_overlay = TRUE
 
 	action_icon_state = "glare"
+	action_background_icon_state = "bg_shadowling"
 
 	selection_activated_message = span_notice_alt("Вы приготовились к тому, что ваши глаза станут ослепительно яркими! <b>ЛКМ по цели, чтобы применить!</b>")
 	selection_deactivated_message = span_notice_alt("Ваши глаза расслабляются... пока что.")
@@ -80,6 +81,7 @@
 	clothes_req = FALSE
 	var/blacklisted_lights = list(/obj/item/flashlight/flare, /obj/item/flashlight/slime, /obj/structure/glowshroom/shadowshroom)
 	action_icon_state = "veil"
+	action_background_icon_state = "bg_shadowling"
 	aoe_range = 5
 
 /obj/effect/proc_holder/spell/aoe/shadowling_veil/create_new_targeting()
@@ -112,6 +114,7 @@
 	clothes_req = FALSE
 	phase_allowed = TRUE
 	action_icon_state = "shadow_walk"
+	action_background_icon_state = "bg_shadowling"
 
 /obj/effect/proc_holder/spell/shadowling_shadow_walk/create_new_targeting()
 	return new /datum/spell_targeting/self
@@ -153,6 +156,7 @@
 	base_cooldown = 120 SECONDS
 	clothes_req = FALSE
 	action_icon_state = "shadow_walk"
+	action_background_icon_state = "bg_shadowling"
 	var/conseal_time = 4 SECONDS
 
 /obj/effect/proc_holder/spell/shadowling_guise/Destroy()
@@ -183,6 +187,7 @@
 	base_cooldown = 0
 	clothes_req = FALSE
 	action_icon_state = "darksight"
+	action_background_icon_state = "bg_shadowling"
 
 /obj/effect/proc_holder/spell/shadowling_vision/Destroy()
 	action?.owner?.set_vision_override(null)
@@ -212,6 +217,7 @@
 	base_cooldown = 25 SECONDS
 	clothes_req = FALSE
 	action_icon_state = "icy_veins"
+	action_background_icon_state = "bg_shadowling"
 	aoe_range = 5
 
 /obj/effect/proc_holder/spell/aoe/shadowling_icy_veins/create_new_targeting()
@@ -252,6 +258,7 @@
 	base_cooldown = 3 SECONDS
 	clothes_req = FALSE
 	action_icon_state = "enthrall"
+	action_background_icon_state = "bg_shadowling"
 	selection_activated_message = span_notice_alt("Вы готовите свой разум к тому, чтобы проникнуть в чужое сознание. <b>ЛКМ по цели, чтобы применить!</b>")
 	selection_deactivated_message = span_notice_alt("Ваш разум расслабляется.")
 	need_active_overlay = TRUE
@@ -327,6 +334,7 @@
 	base_cooldown = 3 SECONDS
 	clothes_req = FALSE
 	action_icon_state = "regen_armor"
+	action_background_icon_state = "bg_shadowling"
 	var/blind_smoke_acquired
 	var/screech_acquired
 	var/null_charge_acquired
@@ -398,11 +406,12 @@
 	desc = "Gathers the power of all of your thralls and compares it to what is needed for ascendance. Also gains you new abilities."
 	base_cooldown = 3 SECONDS
 	clothes_req = FALSE
+	action_icon_state = "collective_mind"
+	action_background_icon_state = "bg_shadowling"
 	var/blind_smoke_acquired
 	var/screech_acquired
 	var/null_charge_acquired
 	var/revive_thrall_acquired
-	action_icon_state = "collective_mind"
 
 /obj/effect/proc_holder/spell/shadowling_collective_mind/create_new_targeting()
 	return new /datum/spell_targeting/self
@@ -482,6 +491,7 @@
 	base_cooldown = 30 SECONDS
 	clothes_req = FALSE
 	action_icon_state = "black_smoke"
+	action_background_icon_state = "bg_shadowling"
 
 /obj/effect/proc_holder/spell/shadowling_blindness_smoke/create_new_targeting()
 	return new /datum/spell_targeting/self
@@ -532,6 +542,7 @@
 	base_cooldown = 30 SECONDS
 	clothes_req = FALSE
 	action_icon_state = "screech"
+	action_background_icon_state = "bg_shadowling"
 
 /obj/effect/proc_holder/spell/aoe/shadowling_screech/create_new_targeting()
 	var/datum/spell_targeting/aoe/turf/T = new()
@@ -579,6 +590,7 @@
 	base_cooldown = 3 SECONDS
 	clothes_req = FALSE
 	action_icon_state = "null_charge"
+	action_background_icon_state = "bg_shadowling"
 	need_active_overlay = TRUE
 
 /obj/effect/proc_holder/spell/shadowling_null_charge/create_new_targeting()
@@ -637,6 +649,7 @@
 	base_cooldown = 1 MINUTES
 	clothes_req = FALSE
 	action_icon_state = "revive_thrall"
+	action_background_icon_state = "bg_shadowling"
 	selection_activated_message = span_notice_alt("Вы начинаете направлять свои силы на заживление ран ваших союзников. ")
 	selection_deactivated_message = span_notice_alt("Ваш разум расслабляется.")
 	need_active_overlay = TRUE
@@ -757,6 +770,7 @@
 	selection_activated_message = span_notice_alt("Вы начинаете накапливать силы, чтобы задержать шаттл. <b>ЛКМ по цели, чтобы применить!</b>")
 	selection_deactivated_message = span_notice_alt("Ваш разум расслабляется.")
 	action_icon_state = "extend_shuttle"
+	action_background_icon_state = "bg_shadowling"
 	need_active_overlay = TRUE
 	var/global/extend_limit_pressed = FALSE
 
@@ -828,6 +842,7 @@
 	clothes_req = FALSE
 	human_req = FALSE
 	action_icon_state = "annihilate"
+	action_background_icon_state = "bg_shadowling"
 	selection_activated_message = span_notice_alt("Вы готовите свой разум к разрушительной атаке. <b>ЛКМ по цели, чтобы применить!</b>")
 	selection_deactivated_message = span_notice_alt("Ваш разум расслабляется.")
 	need_active_overlay = TRUE
@@ -880,6 +895,7 @@
 	clothes_req = FALSE
 	human_req = FALSE
 	action_icon_state = "enthrall"
+	action_background_icon_state = "bg_shadowling"
 	selection_activated_message = span_notice_alt("Вы готовите свой разум к тому, чтобы промыть чужое сознание. <b>ЛКМ по цели, чтобы применить!</b>")
 	selection_deactivated_message = span_notice_alt("Ваш разум расслабляется.")
 	need_active_overlay = TRUE
@@ -916,6 +932,7 @@
 	clothes_req = FALSE
 	human_req = FALSE
 	action_icon_state = "shadow_walk"
+	action_background_icon_state = "bg_shadowling"
 
 /obj/effect/proc_holder/spell/ascendant_phase_shift/create_new_targeting()
 	return new /datum/spell_targeting/self
@@ -943,6 +960,7 @@
 	clothes_req = FALSE
 	human_req = FALSE
 	action_icon_state = "lightning_storm"
+	action_background_icon_state = "bg_shadowling"
 	aoe_range = 6
 
 /obj/effect/proc_holder/spell/aoe/ascendant_storm/create_new_targeting()
@@ -980,6 +998,7 @@
 	clothes_req = FALSE
 	human_req = FALSE
 	action_icon_state = "transmit"
+	action_background_icon_state = "bg_shadowling"
 
 /obj/effect/proc_holder/spell/ascendant_transmit/create_new_targeting()
 	return new /datum/spell_targeting/self
