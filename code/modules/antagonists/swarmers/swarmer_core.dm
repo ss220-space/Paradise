@@ -11,7 +11,7 @@
 	icon_state = "swarmer_core"
 	layer = ABOVE_ALL_MOB_LAYER
 	max_integrity = 600
-	armor = list(MELEE = 25, BULLET = 25, LASER = 25, ENERGY = 25, BOMB = 0, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 25, BULLET = 25, LASER = 25, ENERGY = 25, BOMB = 0, BIO = 100, FIRE = 100, ACID = 100)
 	speed_process = TRUE
 	/// Used in TGUI on class selection, contains information about all subtypes of /mob/living/.../swarmer
 	var/static/list/selection_classes
@@ -31,7 +31,7 @@
 	var/datum/team/swarmer_team/team
 
 /obj/structure/swarmer/core/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ядро \"Свармеров\"",
 		GENITIVE = "ядра \"Свармеров\"",
 		DATIVE = "ядру \"Свармеров\"",

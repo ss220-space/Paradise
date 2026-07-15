@@ -61,7 +61,7 @@ GLOBAL_LIST_INIT(swarmer_actions_by_type, list(
 		Достаточно маленький для того, чтобы проползать под столами и шлюзами."
 
 /mob/living/simple_animal/hostile/swarmer/basic/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "свармер — дрон",
 		GENITIVE = "свармер — дрона",
 		DATIVE = "свармер — дрону",
@@ -95,7 +95,7 @@ GLOBAL_LIST_INIT(swarmer_actions_by_type, list(
 		Скорость равна человеческой."
 
 /mob/living/simple_animal/hostile/swarmer/generalist/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "свармер — генералист",
 		GENITIVE = "свармер — генералиста",
 		DATIVE = "свармер — генералисту",
@@ -147,7 +147,7 @@ GLOBAL_LIST_INIT(swarmer_actions_by_type, list(
 	target.Knockdown(knockdown_time)
 
 /mob/living/simple_animal/hostile/swarmer/rover/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "свармер — ровер",
 		GENITIVE = "свармер — ровера",
 		DATIVE = "свармер — роверу",
@@ -200,7 +200,7 @@ GLOBAL_LIST_INIT(swarmer_actions_by_type, list(
 	set_varspeed(initial(speed))
 
 /mob/living/simple_animal/hostile/swarmer/combat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "свармер — боец",
 		GENITIVE = "свармер — бойца",
 		DATIVE = "свармер — бойцу",
@@ -239,7 +239,7 @@ GLOBAL_LIST_INIT(swarmer_actions_by_type, list(
 	adjustHealth(-auto_repair_amount)
 
 /mob/living/simple_animal/hostile/swarmer/builder/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "свармер — строитель",
 		GENITIVE = "свармер — строителя",
 		DATIVE = "свармер — строителю",
@@ -331,7 +331,7 @@ GLOBAL_LIST_INIT(swarmer_actions_by_type, list(
 	acp.handle_interloper(AM)
 
 // Stronger deconstructing
-/mob/living/simple_animal/hostile/swarmer/mega/disintegrate(atom/movable/target)
+/mob/living/simple_animal/hostile/swarmer/mega/damage_object(atom/movable/target)
 	var/obj/effect/temp_visual/swarmer/disintegration/disintegrate_effect = new(get_turf(target))
 	disintegrate_effect.adjust_size(target)
 	target.ex_act(EXPLODE_HEAVY) // This is what actually damages structures on swarmer_act
@@ -347,7 +347,7 @@ GLOBAL_LIST_INIT(swarmer_actions_by_type, list(
 		attacker.balloon_alert(attacker, "жесть вы крутой!!!") // to remove after
 
 /mob/living/simple_animal/hostile/swarmer/mega/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мега — свармер",
 		GENITIVE = "мега — свармера",
 		DATIVE = "мега — свармеру",

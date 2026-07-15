@@ -280,7 +280,7 @@
 	decal_icon = null
 	glow_color = "blue"
 	id = "swarmer"
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "капсула высадки Свармеров",
 		GENITIVE = "капсулы высадки Свармеров",
 		DATIVE = "капсуле высадки Свармеров",

@@ -39,18 +39,6 @@ GLOBAL_LIST_EMPTY(swarmer_objects)
 		if(BURN)
 			playsound(src, 'sound/items/welder.ogg', 100, TRUE)
 
-/obj/structure/swarmer/swarmer_act(mob/living/simple_animal/hostile/swarmer/swarmer)
-	// Works the same way human intents are handled. It is what it is
-	switch(swarmer.a_intent)
-		if(INTENT_HELP)
-			swarmer_help_act(swarmer)
-		if(INTENT_DISARM)
-			swarmer_disarm_act(swarmer)
-		if(INTENT_GRAB)
-			swarmer_grab_act(swarmer)
-		if(INTENT_HARM)
-			swarmer_harm_act(swarmer)
-
 /// Special intent handling for swarmer clicks on swarmer structures. All structures are not interactable, if unanchored.
 /obj/structure/swarmer/proc/swarmer_help_act(mob/living/simple_animal/hostile/swarmer/swarmer)
 	SHOULD_CALL_PARENT(TRUE)
@@ -157,7 +145,7 @@ GLOBAL_LIST_EMPTY(swarmer_objects)
 	qdel(src)
 
 /obj/structure/swarmer/trap/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ловушка \"Свармеров\"",
 		GENITIVE = "ловушки \"Свармеров\"",
 		DATIVE = "ловушке \"Свармеров\"",
@@ -185,7 +173,7 @@ GLOBAL_LIST_EMPTY(swarmer_objects)
 		return TRUE
 
 /obj/structure/swarmer/blockade/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "баррикада \"Свармеров\"",
 		GENITIVE = "баррикады \"Свармеров\"",
 		DATIVE = "баррикаде \"Свармеров\"",
@@ -294,7 +282,7 @@ GLOBAL_LIST_EMPTY(swarmer_objects)
 	return potential_hubs
 
 /obj/structure/swarmer/transport_hub/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "телепортатор \"Свармеров\"",
 		GENITIVE = "телепортатора \"Свармеров\"",
 		DATIVE = "телепортатору \"Свармеров\"",
@@ -393,7 +381,7 @@ GLOBAL_LIST_EMPTY(swarmer_objects)
 	animate(src, transform=matrix()) // Reset animation if no work
 
 /obj/structure/swarmer/organic_processer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "переработчик органики \"Свармеров\"",
 		GENITIVE = "переработчика органики \"Свармеров\"",
 		DATIVE = "переработчику органики \"Свармеров\"",
@@ -599,7 +587,7 @@ GLOBAL_LIST_EMPTY(swarmer_objects)
 	do_teleport(occupant, safe_turf)
 
 /obj/structure/swarmer/organic_analyzer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "анализатор \"Свармеров\"",
 		GENITIVE = "анализатора \"Свармеров\"",
 		DATIVE = "анализатору \"Свармеров\"",
@@ -703,7 +691,7 @@ GLOBAL_LIST_EMPTY(swarmer_objects)
 	STOP_PROCESSING(SSobj, src)
 
 /obj/structure/swarmer/repair_station/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "станция починки \"Свармеров\"",
 		GENITIVE = "станции починки \"Свармеров\"",
 		DATIVE = "станции починки \"Свармеров\"",
@@ -739,7 +727,7 @@ GLOBAL_LIST_EMPTY(swarmer_objects)
 	return ..()
 
 /obj/structure/swarmer/resource_storage/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хранилище ресурсов \"Свармеров\"",
 		GENITIVE = "хранилища ресурсов \"Свармеров\"",
 		DATIVE = "хранилищу ресурсов \"Свармеров\"",
@@ -807,7 +795,7 @@ GLOBAL_LIST_EMPTY(swarmer_objects)
 	if(!isliving(entity) || isswarmer(entity))
 		return
 	processing_targets[entity] = TRUE // Associative for performance
-	if(datum_flags & DF_ISPROCESSING)
+	if(!(datum_flags & DF_ISPROCESSING))
 		START_PROCESSING(SSobj, src)
 
 // Handles checking if targets are in range and calls the attack
@@ -850,7 +838,7 @@ GLOBAL_LIST_EMPTY(swarmer_objects)
 		target.Slowed(final_slowed_duration, SWARMER_ACP_SLOWED_MULTIPLIER)
 
 /obj/structure/swarmer/acp_turret/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "стационарная турель \"Свармеров\"",
 		GENITIVE = "стационарной турели \"Свармеров\"",
 		DATIVE = "стационарной турели \"Свармеров\"",

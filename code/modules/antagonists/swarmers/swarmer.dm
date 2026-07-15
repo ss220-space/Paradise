@@ -25,8 +25,7 @@ GLOBAL_LIST_EMPTY(swarmers)
 	attack_sound = 'sound/effects/empulse.ogg'
 	deathmessage = "взрывается с резким хлопком!"
 	del_on_death = 1
-	loot = list(/obj/effect/decal/cleanable/robot_debris, /obj/item/stack/ore/bluespace_crystal)
-	light_system = MOVABLE_LIGHT
+	loot = list(/obj/effect/decal/cleanable/blood/gibs/robot, /obj/item/stack/ore/bluespace_crystal)
 	light_color = LIGHT_COLOR_CYAN
 	light_range = 3
 	light_on = FALSE
@@ -80,10 +79,23 @@ GLOBAL_LIST_EMPTY(swarmers)
 		after_assumed_control = CALLBACK(src, PROC_REF(add_datum_if_not_exist)), \
 	)
 
-/// Just some sparks on death.
-/mob/living/simple_animal/hostile/swarmer/death(gibbed)
-	spark_system.start()
-	return ..()
+/// Adds antag datum and updates team variable
+/mob/living/simple_animal/hostile/swarmer/proc/add_datum_if_not_exist()
+	if(mind && !mind.has_antag_datum(/datum/antagonist/swarmer))
+		mind.add_antag_datum(/datum/antagonist/swarmer, /datum/team/swarmer_team)
+	team = GLOB.antagonist_teams[/datum/team/swarmer_team]
+
+// mob/living is hardcoded to have medhud. So we change medhud to appear as diaghud
+/mob/living/simple_animal/hostile/swarmer/med_hud_set_health()
+	var/image/holder = hud_list[DIAG_HUD]
+	holder.pixel_y = get_cached_height() - ICON_SIZE_Y
+	holder.icon_state = "huddiag[RoundDiagBar(health / maxHealth)]"
+
+// mob/living is hardcoded to have medhud. So we change medhud to appear as diaghud
+/mob/living/simple_animal/hostile/swarmer/med_hud_set_status()
+	var/image/holder = hud_list[DIAG_STAT_HUD]
+	holder.pixel_y = get_cached_height() - ICON_SIZE_Y
+	holder.icon_state = "hudstat"
 
 /mob/living/simple_animal/hostile/swarmer/Destroy()
 	GLOB.swarmers -= src
@@ -93,8 +105,32 @@ GLOBAL_LIST_EMPTY(swarmers)
 	handle_mmi_on_destroy()
 	return ..()
 
+/// Proc used on destroy if we have a mmi inside
+/mob/living/simple_animal/hostile/swarmer/proc/handle_mmi_on_destroy()
+	if(!mmi || !mind)
+		return
+	mind.transfer_to(mmi.brainmob)
+	mmi.forceMove(get_turf(src))
+	addtimer(CALLBACK(mmi.brainmob, TYPE_PROC_REF(/mob, offer_ghostize)), 10 SECONDS, TIMER_DELETE_ME)
+	mmi = null
+
+/// Just some sparks on death.
+/mob/living/simple_animal/hostile/swarmer/death(gibbed)
+	spark_system.start()
+	return ..()
+
+/mob/living/simple_animal/hostile/swarmer/get_ru_names()
+	return alist(
+		NOMINATIVE = "свармер",
+		GENITIVE = "свармера",
+		DATIVE = "свармеру",
+		ACCUSATIVE = "свармера",
+		INSTRUMENTAL = "свармером",
+		PREPOSITIONAL = "свармере"
+	)
+
 /mob/living/simple_animal/hostile/swarmer/proc/updatename()
-	real_name = "[name] [rand(100,999)]-[pick("kappa","sigma","beta","omicron","iota","epsilon","omega","gamma","delta","tau","alpha")]"
+	real_name = "[name] [rand(100,999)]-[pick(GLOB.greek_letters)]"
 	name = real_name
 
 /mob/living/simple_animal/hostile/swarmer/get_status_tab_items()
@@ -120,40 +156,12 @@ GLOBAL_LIST_EMPTY(swarmers)
 /mob/living/simple_animal/hostile/swarmer/AttackingTarget()
 	. = ..()
 	if(isswarmer(target))
-		return .
+		return
+
 	if(issilicon(target) || isanimal(target))
 		var/mob/living/difficult_target = target
 		var/damage = rand(melee_damage_lower, melee_damage_upper)
 		difficult_target.apply_damage(damage, BURN)
-
-/**
- * This proc handles sending mobs to analyzers and converting cyborgs.
- */
-/mob/living/simple_animal/hostile/swarmer/CtrlClickOn(atom/A)
-	if(A == src)
-		return ..()
-	if(!isliving(A) || isswarmer(A))
-		return ..()
-	if(!A.Adjacent(src))
-		return ..()
-	if(!issilicon(A)) // Non-silicon mobs
-		return try_disperse(A)
-	if(isrobot(A)) // Cyborgs
-		return try_convert(A)
-
-/// The only interaction by swarmers with other swarmers is repairing them.
-/mob/living/simple_animal/hostile/swarmer/swarmer_act(mob/living/simple_animal/hostile/swarmer/other_swarmer)
-	if(src == other_swarmer)
-		balloon_alert(src, "нельзя чинить себя!")
-		return
-	balloon_alert(other_swarmer, "вас чинят!")
-	other_swarmer.balloon_alert(other_swarmer, "починка!")
-	if(!do_after(other_swarmer, SWARMER_REPAIR_DELAY(other_swarmer), src, max_interact_count = 1))
-		return
-	if(!adjust_swarmer_metallic_resources(-SWARMER_REPAIR_COST))
-		other_swarmer.balloon_alert(other_swarmer, "недостаточно ресурсов!")
-		return
-	adjustHealth(-SWARMER_REPAIR_AMOUNT(other_swarmer))
 
 /**
  * Unarmed_Attack signal proc
@@ -163,79 +171,98 @@ GLOBAL_LIST_EMPTY(swarmers)
  * Sending organic stuff to the organic processer
  * Repairing other swarmers
  */
-/mob/living/simple_animal/hostile/swarmer/proc/on_unarmed_attack(datum/source, atom/atom, proximity_flag)
+/mob/living/simple_animal/hostile/swarmer/proc/on_unarmed_attack(datum/source, atom/movable/atom, proximity_flag, list/modifiers)
 	SIGNAL_HANDLER
-	if(isliving(atom) && !isswarmer(atom)) // Living mobs (except swarmers) are handled normally
-		return
-	if(handle_organic_sending(atom))
-		return COMPONENT_CANCEL_ATTACK_CHAIN
-	INVOKE_ASYNC(atom, TYPE_PROC_REF(/atom, swarmer_act), src)
+	handle_swarmer_act(atom, proximity_flag, modifiers)
 	return COMPONENT_CANCEL_ATTACK_CHAIN
 
-/// Handles sending various stuff into organic processor.
-/mob/living/simple_animal/hostile/swarmer/proc/handle_organic_sending(atom/atom)
-	. = TRUE
-	if(is_grownsnacks(atom) || isgrown(atom) || is_seeds(atom))
-		INVOKE_ASYNC(src, PROC_REF(send_organic_processer_signal), atom, SWARMER_SEND_ORGANIC_DELAY)
-		return .
-	if(is_hydroponics(atom))
-		INVOKE_ASYNC(src, PROC_REF(handle_hydroponics_processing), atom) // Separate, because we clean the tray first.
-		return .
-	if(is_reagentcontainer(atom))
-		INVOKE_ASYNC(src, PROC_REF(handle_container_processing), atom) // Separate, because we check for reagents first.
-		return .
-	return FALSE
-
-/**
- * Hydroponics processing handling.
- *
- * Empties the tray after do_after and then sends a signal.
- */
-/mob/living/simple_animal/hostile/swarmer/proc/handle_hydroponics_processing(obj/machinery/hydroponics/hydroponics)
-	if(!hydroponics.myseed) // If there is no plant, then there is nothing to process
-		hydroponics.swarmer_act(src)
-		return
-	if(!do_after(src, SWARMER_SEND_ORGANIC_DELAY, hydroponics, max_interact_count = 1))
-		balloon_alert(src, "сбито!")
+/// Handles swarmer_act and its return values, with some extra checks in separate procs
+/mob/living/simple_animal/hostile/swarmer/proc/handle_swarmer_act(atom/movable/atom, proximity_flag, list/modifiers)
+	var/swarmer_act_result = atom.swarmer_act(src)
+	if(swarmer_act_result & SWARMER_ACT_POSSIBLE)
+		handle_possible_swarmer_act(atom, swarmer_act_result, proximity_flag, modifiers)
 		return
 
-	// Clean the hydroponic lot
-	hydroponics.age = 0
-	hydroponics.plant_health = 0
-	if(hydroponics.harvest)
-		hydroponics.harvest = FALSE //To make sure they can't just put in another seed and insta-harvest it
-	qdel(hydroponics.myseed)
-	hydroponics.myseed = null
-	hydroponics.plant_hud_set_health()
-	hydroponics.plant_hud_set_status()
-	hydroponics.update_state()
+	if((swarmer_act_result & ~SWARMER_ACT_IMPOSSIBLE) == swarmer_act_result)
+		CRASH("Swarmer act was called without either of the two main flags. Atom called on: [atom.type], act return value: [swarmer_act_result].")
 
-	send_organic_processer_signal() // Arguments being null is intentional, we aren't sending anything and not delaying
+	handle_impossible_swarmer_act(atom, swarmer_act_result, proximity_flag, modifiers)
 
-/**
- * Reagent container processing
- *
- * Checks if we have any reagent, and if we do,
- * then we send. Otherwise, we don't.
- * TODO: make it work only for organic chems?
- */
-/mob/living/simple_animal/hostile/swarmer/proc/handle_container_processing(obj/item/reagent_containers/container)
-	if(!container.reagents?.total_volume) // Checks if there is any reagent in the container
-		container.swarmer_act(src)
+/// Handles impossible swarmer acts. Look for impossible values in atom/proc/swarmer_act(mob/living/simple_animal/hostile/swarmer/user).
+/mob/living/simple_animal/hostile/swarmer/proc/handle_impossible_swarmer_act(atom/movable/atom, swarmer_act_result, proximity_flag, list/modifiers)
+	if(swarmer_act_result == SWARMER_ACT_IMPOSSIBLE)
+		return balloon_alert(src, "нельзя!")
+
+	if(swarmer_act_result & SWARMER_ACT_IMPOSSIBLE_REASON_OVERRIDE)
 		return
-	send_organic_processer_signal(container, SWARMER_SEND_ORGANIC_DELAY)
+
+	if(swarmer_act_result & SWARMER_ACT_IMPOSSIBLE_REASON_DEFAULT)
+		if(!right_click_attack_chain(atom, modifiers))
+			OnUnarmedAttack(atom, proximity_flag, modifiers)
+		return
+
+	if(swarmer_act_result & SWARMER_ACT_IMPOSSIBLE_REASON_ENERGY)
+		return balloon_alert(src, "повредит электроэнергию!")
+	if(swarmer_act_result & SWARMER_ACT_IMPOSSIBLE_REASON_LIVING)
+		return balloon_alert(src, "повредит жизни экипажа!")
+	if(swarmer_act_result & SWARMER_ACT_IMPOSSIBLE_REASON_ATMOS)
+		return balloon_alert(src, "повредит системе воздуха!")
+	if(swarmer_act_result & SWARMER_ACT_IMPOSSIBLE_REASON_TEAM)
+		return balloon_alert(src, "повредит команде!")
+
+/// Handles possible swarmer acts. Look for possible values in atom/proc/swarmer_act(mob/living/simple_animal/hostile/swarmer/user).
+/mob/living/simple_animal/hostile/swarmer/proc/handle_possible_swarmer_act(atom/movable/atom, swarmer_act_result, proximity_flag, list/modifiers)
+	if(swarmer_act_result == SWARMER_ACT_POSSIBLE)
+		CRASH("Swarmer act returned only SWARMER_ACT_POSSIBLE flag, which should not happen. Atom: [atom.type].")
+
+	var/datum/callback/action_cb
+	if(swarmer_act_result & SWARMER_ACT_POSSIBLE_ACTION_DAMAGE)
+		action_cb = CALLBACK(src, PROC_REF(damage_object), atom)
+	else if(swarmer_act_result & SWARMER_ACT_POSSIBLE_ACTION_CONSUME)
+		action_cb = CALLBACK(src, PROC_REF(extract_resources), atom)
+	else if(swarmer_act_result & SWARMER_ACT_POSSIBLE_ACTION_DISMANTLE)
+		action_cb = CALLBACK(src, PROC_REF(dismantle_machine), atom)
+	else if(swarmer_act_result & SWARMER_ACT_POSSIBLE_ACTION_DESTROY)
+		action_cb = CALLBACK(src, PROC_REF(destroy_object), atom)
+
+	if(!action_cb)
+		CRASH("Swarmer act returned SWARMER_ACT_POSSIBLE flag with none of the correct flag combinations. Atom: [atom.type], flag: [swarmer_act_result]")
+
+	if(isitem(atom)) // we can skip all checks if this is an item
+		return action_cb.Invoke()
+
+	if(istype(atom, /obj/structure/lattice/catwalk)) // edge case for catwalks
+		var/turf/atom_turf = atom.loc
+		if(locate(/obj/structure/cable) in atom_turf)
+			return balloon_alert(src, "нельзя, кабель!")
+		return action_cb.Invoke()
+
+	// now we check if its atmos important (blocks air flow)
+	var/blocks_air = !atom.CanAtmosPass(NORTH) || !atom.CanAtmosPass(WEST) || !atom.CanAtmosPass(EAST) || !atom.CanAtmosPass(SOUTH)
+	if(!blocks_air)
+		return action_cb.Invoke()
+
+	// and if we are, check if its space nearby or supermatter
+	var/turf/atom_turf = get_turf(atom)
+	for(var/turf/turf as anything in atom_turf.AdjacentTurfs(cardinal_only = TRUE))
+		if(isspaceturf(turf) || istype(get_area(turf), /area/station/engineering/supermatter))
+			return balloon_alert(src, "нельзя, опасная среда!")
+
+	return action_cb.Invoke()
 
 /**
  * Proc for organic processing.
  *
  * Handles do_after and sends COMSIG_SWARMER_TRY_PROCESS_ORGANIC_ITEM signal to the team.
  */
-/mob/living/simple_animal/hostile/swarmer/proc/send_organic_processer_signal(obj/item, delay)
-	balloon_alert(src, "отправка...")
-	var/atom/delay_target = item ? item : src // The item can be null intentionally
-	if(delay && !do_after(src, delay, delay_target, max_interact_count = 1))
-		balloon_alert(src, "сбито!")
-		return
+/mob/living/simple_animal/hostile/swarmer/proc/send_organic_processer_signal(obj/item, delay = 0)
+	if(delay > 0)
+		balloon_alert(src, "отправка...")
+		var/atom/delay_target = item ? item : src // The item can be null intentionally
+		if(!do_after(src, delay, delay_target))
+			balloon_alert(src, "сбито!")
+			return
+
 	if(SEND_SIGNAL(team, COMSIG_SWARMER_TRY_PROCESS_ORGANIC_ITEM, item) & TRUE)
 		balloon_alert(src, "успешно отправлено!")
 		spark_system.start()
@@ -251,7 +278,7 @@ GLOBAL_LIST_EMPTY(swarmers)
  */
 /mob/living/simple_animal/hostile/swarmer/proc/try_disperse(mob/living/target)
 	balloon_alert(src, "отправка...")
-	if(!do_after(src, SWARMER_SEND_ORGANIC_DELAY, target, max_interact_count = 1))
+	if(!do_after(src, SWARMER_SEND_ANALYZER_DELAY, target, max_interact_count = 1))
 		balloon_alert(src, "сбито!")
 		return
 	spark_system.start()
@@ -302,21 +329,16 @@ GLOBAL_LIST_EMPTY(swarmers)
 	add_conversion_logs(target, "Converted into [new_swarmer.name].")
 	qdel(target)
 
-/// Proc used on destroy if we have a mmi inside
-/mob/living/simple_animal/hostile/swarmer/proc/handle_mmi_on_destroy()
-	if(!mmi || !mind)
-		return
-	mind.transfer_to(mmi.brainmob)
-	mmi.forceMove(get_turf(src))
-	addtimer(CALLBACK(mmi.brainmob, TYPE_PROC_REF(/mob, offer_ghostize)), 10 SECONDS, TIMER_DELETE_ME)
-	mmi = null
-
 /// Proc called in swarmer_act to adjust resources and destroy target
-/mob/living/simple_animal/hostile/swarmer/proc/Integrate(atom/movable/target)
+/mob/living/simple_animal/hostile/swarmer/proc/extract_resources(atom/movable/target)
 	var/resource_gain = target.integrate_amount()
+	if(isnull(resource_gain))
+		CRASH("[target.type] swarmer_act uses consume return value, yet integrate_amount() proc returned null.")
+
 	if(!resource_gain)
 		balloon_alert(src, "не совместимо!")
 		to_chat(src, span_warning("[target] не является совместимым с нашим переработчиком материалов."))
+		stack_trace("[target] swarmer_act uses consume return value, yet ")
 		return FALSE
 	. = TRUE
 	adjust_swarmer_metallic_resources(resource_gain, TRUE)
@@ -331,12 +353,17 @@ GLOBAL_LIST_EMPTY(swarmers)
 	stack_item.use(1)
 
 /// Proc called in swarmer_act to damage target.
-/mob/living/simple_animal/hostile/swarmer/proc/disintegrate(atom/movable/target)
+/mob/living/simple_animal/hostile/swarmer/proc/damage_object(atom/movable/target)
 	var/obj/effect/temp_visual/swarmer/disintegration/disintegrate_effect = new(get_turf(target))
 	disintegrate_effect.adjust_size(target)
 	target.ex_act(EXPLODE_LIGHT) // This is what actually damages structures on swarmer_act
 	do_attack_animation(target)
 	changeNext_move(CLICK_CD_MELEE)
+
+/// Proc called in swarmer_act to destroy the target.
+/mob/living/simple_animal/hostile/swarmer/proc/destroy_object(atom/movable/target)
+	damage_object(target)
+	qdel(target)
 
 /mob/living/simple_animal/hostile/swarmer/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
 	if(!(flags & SHOCK_TESLA))
@@ -354,23 +381,6 @@ GLOBAL_LIST_EMPTY(swarmers)
 	balloon_alert(src, "успех!")
 	target.deconstruct(TRUE)
 
-/mob/living/simple_animal/hostile/swarmer/proc/add_datum_if_not_exist()
-	if(mind && !mind.has_antag_datum(/datum/antagonist/swarmer))
-		mind.add_antag_datum(/datum/antagonist/swarmer, /datum/team/swarmer_team)
-	team = GLOB.antagonist_teams[/datum/team/swarmer_team]
-
-/// mob/living is hardcoded to have medhud. So we change medhud to appear as diaghud
-/mob/living/simple_animal/hostile/swarmer/med_hud_set_health()
-	var/image/holder = hud_list[DIAG_HUD]
-	holder.pixel_y = get_cached_height() - ICON_SIZE_Y
-	holder.icon_state = "huddiag[RoundDiagBar(health / maxHealth)]"
-
-/// mob/living is hardcoded to have medhud. So we change medhud to appear as diaghud
-/mob/living/simple_animal/hostile/swarmer/med_hud_set_status()
-	var/image/holder = hud_list[DIAG_STAT_HUD]
-	holder.pixel_y = get_cached_height() - ICON_SIZE_Y
-	holder.icon_state = "hudstat"
-
 /// Proc used to toggle light on hud
 /mob/living/simple_animal/hostile/swarmer/proc/toggle_light()
 	if(!light_on && is_ventcrawling(src))
@@ -383,36 +393,20 @@ GLOBAL_LIST_EMPTY(swarmers)
 	var/message = tgui_input_text(src, "Передайте сообщение другим \"Свармерам\"", "Канал \"Свармеров\"")
 	if(!message)
 		return
+
 	message = span_swarmeritalic("<b>[name]:</b> [message]")
-	for(var/mob/mob in GLOB.player_list)
-		if(isswarmer(mob))
-			to_chat(mob, message)
-			continue
-		if((mob in GLOB.dead_mob_list) && !isnewplayer(mob))
-			to_chat(mob, span_swarmeritalic("<a href='byond://?src=[mob.UID()];follow=[UID()]'>(F)</a> [message]"))
+	relay_to_list_and_observers(message, GLOB.swarmers, src, MESSAGE_TYPE_RADIO)
 	add_say_logs(src, message, language = "SWARMER")
 
-/mob/living/simple_animal/hostile/swarmer/get_ru_names()
-	return list(
-		NOMINATIVE = "свармер",
-		GENITIVE = "свармера",
-		DATIVE = "свармеру",
-		ACCUSATIVE = "свармера",
-		INSTRUMENTAL = "свармером",
-		PREPOSITIONAL = "свармере"
-	)
+/// Tries to send a mob to the processer, or teleport them randomly if none exist
+/mob/living/attack_swarmer_secondary(mob/living/simple_animal/hostile/swarmer/user, list/modifiers)
+	user.try_disperse(src)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
-/// How many metallic resources swarmers get on integrating this atom
-/atom/movable/proc/integrate_amount()
-	return 0
-
-/obj/item/integrate_amount()
-	if(!length(materials))
-		return 0
-	if(materials[MAT_METAL] || materials[MAT_GLASS])
-		return 1
-	return ..()
-
+/// Tries to convert a cyborg into a swarmer
+/mob/living/silicon/robot/attack_swarmer_secondary(mob/living/simple_animal/hostile/swarmer/user, list/modifiers)
+	user.try_convert(src)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 /obj/effect/temp_visual/swarmer
 	icon = 'icons/effects/swarmer.dmi'
@@ -438,75 +432,3 @@ GLOBAL_LIST_EMPTY(swarmers)
 /obj/effect/temp_visual/swarmer/integrate
 	icon_state = "integrate"
 	duration = 5
-
-// Disabled swarmer shell
-/obj/item/deactivated_swarmer
-	name = "unactivated swarmer"
-	desc = "Деактивированная оболочка свармера. Может оказаться полезным для изучения."
-	icon = 'icons/mob/swarmer.dmi'
-	icon_state = "swarmer_unactivated"
-	origin_tech = "bluespace=4;materials=4;programming=7"
-	materials = list(MAT_METAL=10000, MAT_GLASS=4000)
-
-/obj/item/deactivated_swarmer/get_ru_names()
-	return list(
-		NOMINATIVE = "деактивированная оболочка свармера",
-		GENITIVE = "деактивированной оболочки свармера",
-		DATIVE = "деактивированной оболочке свармера",
-		ACCUSATIVE = "деактивированную оболочку свармера",
-		INSTRUMENTAL = "деактивированной оболочкой свармера",
-		PREPOSITIONAL = "деактивированной оболочке свармера"
-	)
-
-// Used in cases where no-one wanted to play as swarmer
-/obj/effect/mob_spawn/swarmer
-	name = "unactivated swarmer"
-	desc = "Неактивированная оболочка свармера, которая может активироваться в любой момент. Кажется, её можно отключить отвёрткой."
-	icon = 'icons/mob/swarmer.dmi'
-	icon_state = "swarmer_unactivated"
-	density = FALSE
-	layer = ABOVE_ALL_MOB_LAYER
-	anchored = FALSE
-	mob_type = /mob/living/simple_animal/hostile/swarmer/basic
-	death = FALSE
-	roundstart = FALSE
-	allow_tts_pick = FALSE
-	banType = ROLE_SWARMER
-
-/obj/effect/mob_spawn/swarmer/Initialize(mapload)
-	. = ..()
-	// I want these to get destroyed immediately
-	RegisterSignal(SSdcs, COMSIG_GLOB_SWARMER_CORE_DESTROYED, PROC_REF(on_core_destroy))
-	var/area/A = get_area(src)
-	if(A)
-		notify_ghosts("Оболочка свамера была создана в [A.name].", 'sound/effects/bin_close.ogg', source = src, action = NOTIFY_ATTACK, flashwindow = FALSE)
-
-/obj/effect/mob_spawn/swarmer/Destroy(force)
-	UnregisterSignal(SSdcs, COMSIG_GLOB_SWARMER_CORE_DESTROYED)
-	return ..()
-
-/obj/effect/mob_spawn/swarmer/proc/on_core_destroy()
-	SIGNAL_HANDLER
-	qdel(src)
-
-/obj/effect/mob_spawn/swarmer/screwdriver_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
-		return
-	user.balloon_alert(user, "деактивировано!")
-	new /obj/item/deactivated_swarmer(get_turf(src))
-	qdel(src)
-
-/// Flavour var override
-/obj/effect/mob_spawn/swarmer/create(mob/plr, flavour = FALSE, name, prefs = FALSE, _mob_name = FALSE, _mob_gender = FALSE, _mob_species = FALSE)
-	return ..()
-
-/obj/effect/mob_spawn/swarmer/get_ru_names()
-	return list(
-		NOMINATIVE = "оболочка свармера",
-		GENITIVE = "оболочки свармера",
-		DATIVE = "оболочке свармера",
-		ACCUSATIVE = "оболочку свармера",
-		INSTRUMENTAL = "оболочкой свармера",
-		PREPOSITIONAL = "оболочке свармера"
-	)

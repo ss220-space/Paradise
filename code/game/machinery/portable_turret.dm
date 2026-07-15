@@ -739,8 +739,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	use_power(reqpower * (2 * (emagged || lethal)) * (2 * emagged) * rapid)
 
 	if(rapid > 1)
-		var/datum/callback/cb = CALLBACK(src, PROC_REF(shoot), target)
 		for(var/i in 1 to rapid)
+			var/datum/callback/cb = CALLBACK(src, PROC_REF(shoot), target)
 			addtimer(cb, (i - 1) * rapid_fire_delay)
 	else
 		shoot(target)
@@ -1181,18 +1181,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 /obj/machinery/porta_turret/swarmer/update_icon_state()
 	return
 
-/obj/machinery/porta_turret/swarmer/swarmer_act(mob/living/simple_animal/hostile/swarmer/swarmer)
-	// Works the same way human intents are handled. It is what it is
-	switch(swarmer.a_intent)
-		if(INTENT_HELP)
-			swarmer_help_act(swarmer)
-		if(INTENT_DISARM)
-			swarmer_disarm_act(swarmer)
-		if(INTENT_GRAB)
-			swarmer_grab_act(swarmer)
-		if(INTENT_HARM)
-			swarmer_harm_act(swarmer)
-
 /// Special intent handling for swarmer clicks on swarmer turrets. Override as needed.
 /obj/machinery/porta_turret/swarmer/proc/swarmer_help_act(mob/living/simple_animal/hostile/swarmer/swarmer)
 	SHOULD_CALL_PARENT(TRUE)
@@ -1265,7 +1253,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	take_damage(SWARMER_EMP_DAMAGE)
 
 /obj/machinery/porta_turret/swarmer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "турель \"Свармеров\"",
 		GENITIVE = "турели \"Свармеров\"",
 		DATIVE = "турели \"Свармеров\"",
@@ -1286,7 +1274,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	rapid = 3
 
 /obj/machinery/porta_turret/swarmer/turret/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "штурмовая турель \"Свармеров\"",
 		GENITIVE = "штурмовой турели \"Свармеров\"",
 		DATIVE = "штурмовой турели \"Свармеров\"",
@@ -1306,7 +1294,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	eprojectile = /obj/projectile/beam/disabler/swarmer/strong_turret
 
 /obj/machinery/porta_turret/swarmer/sniper/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "снайперская турель \"Свармеров\"",
 		GENITIVE = "снайперской турели \"Свармеров\"",
 		DATIVE = "снайперской турели \"Свармеров\"",

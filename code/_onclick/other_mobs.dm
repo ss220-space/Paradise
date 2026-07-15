@@ -106,7 +106,7 @@
 	if(!can_unarmed_attack())
 		return
 
-	var/signal = SEND_SIGNAL(src, COMSIG_LIVING_UNARMED_ATTACK, atom, proximity_flag)
+	var/signal = SEND_SIGNAL(src, COMSIG_LIVING_UNARMED_ATTACK, atom, proximity_flag, modifiers)
 
 	if(signal & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return

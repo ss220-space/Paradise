@@ -82,7 +82,7 @@
 #define SWARMER_REPAIR_STATION_HEAL 5
 
 // === ORGANIC PROCESSING ===
-/// How long does it take for a swarmer to send anything to processer/analyzer
+/// How long does it take for a swarmer to send anything to a processer
 #define SWARMER_SEND_ORGANIC_DELAY 2 SECONDS
 
 /// How many organic items an organic processer can process at a time
@@ -93,6 +93,9 @@
 #define SWARMER_ORGANIC_ITEM_PROCESS_GAIN (rand(5, 10))
 
 // === ORGANIC ANALYZER ===
+/// How long does it take for a swarmer to send anything to an analyzer
+#define SWARMER_SEND_ANALYZER_DELAY 4 SECONDS
+
 /// How much time does it take for an organic analyzer to finish (non-carbon mobs take less time)
 #define SWARMER_ANALYZE_DELAY(target) (iscarbon(target) ? 45 SECONDS : 15 SECONDS)
 
@@ -179,3 +182,31 @@
 #define SWARMER_TRAP_KNOCKDOWN 4 SECONDS
 /// Trap weaken time
 #define SWARMER_TRAP_WEAKEN 2 SECONDS
+
+// === SWARMER ACT RETURN VALUES ===
+/// Value returned if an atom can be swarmer_act'ed
+#define SWARMER_ACT_POSSIBLE (1<<0)
+/// Value returned if an atom can't be swarmer_act'ed
+#define SWARMER_ACT_IMPOSSIBLE (1<<1)
+
+/// Bitflag combinaton for possible swarmer_act, means we should damage the atom
+#define SWARMER_ACT_POSSIBLE_ACTION_DAMAGE (1<<2)
+/// Bitflag combination for possible swarmer_act, means we should slowly dismantle the atom
+#define SWARMER_ACT_POSSIBLE_ACTION_DISMANTLE (1<<3)
+/// Bitflag combination for possible swarmer_act, means we should immediately consume the atom (and gain something)
+#define SWARMER_ACT_POSSIBLE_ACTION_CONSUME (1<<4)
+/// Bitflag combination for possible swarmer_act, means we should immediately delete the atom
+#define SWARMER_ACT_POSSIBLE_ACTION_DESTROY (1<<5)
+
+/// Bitflag combinaton for impossible swarmer_act, means the act was failed since atom is needed for energy
+#define SWARMER_ACT_IMPOSSIBLE_REASON_ENERGY (1<<2)
+/// Bitflag combinaton for impossible swarmer_act, means the act was failed since atom is important for stuff to live
+#define SWARMER_ACT_IMPOSSIBLE_REASON_LIVING (1<<3)
+/// Bitflag combinaton for impossible swarmer_act, means the act was failed since atom is important for atmos to work correctly
+#define SWARMER_ACT_IMPOSSIBLE_REASON_ATMOS (1<<4)
+/// Bitflag combinaton for impossible swarmer_act, means the act was failed since atom is created by swarmers
+#define SWARMER_ACT_IMPOSSIBLE_REASON_TEAM (1<<5)
+/// Bitflag combination for impossible swarmer_act, means the act's default behaviour is overridden
+#define SWARMER_ACT_IMPOSSIBLE_REASON_OVERRIDE (1<<6)
+/// Bitflag combination for impossible swarmer_act, means the act's default behaviour is ignored, and we just attack
+#define SWARMER_ACT_IMPOSSIBLE_REASON_DEFAULT (1<<7)
