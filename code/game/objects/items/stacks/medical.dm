@@ -365,7 +365,6 @@
 	amount = 1
 	max_amount = 1
 	heal_brute = 0
-	bleedsuppress = 2
 	stop_bleeding = 300 SECONDS
 	merge_type = /obj/item/stack/medical/bruise_pack/military
 	custom_premium_price = PAYCHECK_CREW
