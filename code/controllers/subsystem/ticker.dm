@@ -382,7 +382,7 @@ SUBSYSTEM_DEF(ticker)
 
 	if(CONFIG_GET(number/restrict_maint))
 		for(var/obj/machinery/door/airlock/maintenance/airlock in GLOB.airlocks)
-			if(airlock.req_access && length(game_mode.req_access) == 1 && game_mode.req_access[1] == ACCESS_MAINT_TUNNELS)
+			if(airlock.req_access && length(airlock.req_access) == 1 && airlock.req_access[1] == ACCESS_MAINT_TUNNELS)
 				airlock.req_access = null
 				if(CONFIG_GET(number/restrict_maint) == 1)
 					airlock.req_access = list(ACCESS_BRIG, ACCESS_ENGINE)

@@ -739,11 +739,11 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/shower, (-16), (-16))
 		var/mob/living/carbon/carbon = M
 
 		if(current_temperature == SHOWER_FREEZING)
-			to_chat(C, span_warning("The water is freezing!"))
+			to_chat(carbon, span_warning("The water is freezing!"))
 
 		else if(current_temperature == SHOWER_BOILING)
-			C.adjustFireLoss(5)
-			to_chat(C, span_danger("The water is searing!"))
+			carbon.adjustFireLoss(5)
+			to_chat(carbon, span_danger("The water is searing!"))
 
 #undef SHOWER_FREEZING
 #undef SHOWER_FREEZING_TEMP
