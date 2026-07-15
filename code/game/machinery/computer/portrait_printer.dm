@@ -30,7 +30,7 @@
 
 /obj/machinery/computer/portrait_printer/attack_hand(mob/user)
 	. = ..()
-	if(!.)
+	if(.)
 		return
 	ui_interact(user)
 
