@@ -2,7 +2,7 @@
 GLOBAL_DATUM_INIT(skills_select_window, /datum/ui_module/skills_select_win, new)
 
 /datum/ui_module/skills_select_win
-	name = "Skills select window"
+	name = "Распределение свободных очков навыков"
 
 /datum/ui_module/skills_select_win/ui_state(mob/user)
 	if(isobserver(user))
@@ -12,6 +12,11 @@ GLOBAL_DATUM_INIT(skills_select_window, /datum/ui_module/skills_select_win, new)
 	return GLOB.not_incapacitated_state
 
 /datum/ui_module/skills_select_win/ui_interact(mob/user, datum/tgui/ui = null)
+	// prepare temp variable for store skill points
+	if(!user.mind.selected_skills)
+		user.mind.selected_skills = list()
+		reset_skill_points(user)
+
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "SkillsSelectWin", name)
@@ -24,8 +29,10 @@ GLOBAL_DATUM_INIT(skills_select_window, /datum/ui_module/skills_select_win, new)
 	//create skills container
 	data["username"] = user.real_name
 	data["job"] = user.job
-	var/free_points = user.mind.free_skill_points
-	data["total_point"] = BASIC_SKILL_POINTS_COUNT
+	var/used_points = collect_used_skill_points(user)
+	var/total_points = user.mind.free_skill_points
+	var/free_points = total_points - used_points
+	data["total_point"] = total_points
 	data["free_points"] = free_points
 
 	//create intermediate data format
@@ -52,13 +59,15 @@ GLOBAL_DATUM_INIT(skills_select_window, /datum/ui_module/skills_select_win, new)
 			skill_data["id"] = skill.type
 			skill_data["name"] = skill.name
 			GET_SKILL_LEVEL(user, skill.type, skill_level)
-			var/skill_level_name = GLOB.skill_level_names[skill_level]
-			skill_data["value"] = "[skill_level_name] ([skill_level])"
-			var/skill_level_color = GLOB.skill_level_colors[skill_level]
+			var/skill_used_points = user.mind.selected_skills[skill.type]
+			var/actual_skill_level = skill_level + skill_used_points
+			var/skill_level_name = GLOB.skill_level_names[actual_skill_level]
+			skill_data["value"] = "[skill_level_name] ([actual_skill_level])"
+			var/skill_level_color = GLOB.skill_level_colors[actual_skill_level]
 			skill_data["level_color"] = skill_level_color
 			skill_data["desc"] = skill.desc
-			skill_data["can_increase"] = skill_level < SKILL_LEVEL_LEGEND && skill_level != SKILL_LEVEL_UNAVAILABLE && free_points > 0
-			skill_data["can_decrease"] = skill_level > SKILL_LEVEL_NONE && free_points > 0
+			skill_data["can_increase"] = skill_used_points < 2 && actual_skill_level < SKILL_LEVEL_LEGEND && skill_level != SKILL_LEVEL_UNAVAILABLE && free_points > 0
+			skill_data["can_decrease"] = skill_used_points > 0
 			skills.Add(list(skill_data))
 
 		category["skills"] = skills
@@ -66,3 +75,59 @@ GLOBAL_DATUM_INIT(skills_select_window, /datum/ui_module/skills_select_win, new)
 
 	data["categories"] = categories
 	return data
+
+
+/datum/ui_module/skills_select_win/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	. = TRUE
+	var/mob/user = ui.user
+	switch(action)
+		if("increase")
+			var/skill = text2path(params["skill"])
+			add_skill_level(user, skill, 1)
+
+		if("decrease")
+			var/skill = text2path(params["skill"])
+			add_skill_level(user, skill, -1)
+
+		if("save")
+			save_skills(user)
+			ui.close()
+			return FALSE
+
+		if("reset")
+			reset_skill_points(user)
+
+		else
+			return ..()
+
+
+/datum/ui_module/skills_select_win/proc/collect_used_skill_points(mob/user)
+	if(!user.mind.selected_skills)
+		return 0
+	var/used_points = 0
+	for(var/skill in user.mind.selected_skills)
+		used_points += user.mind.selected_skills[skill]
+	return used_points
+
+/datum/ui_module/skills_select_win/proc/add_skill_level(mob/user, skill, delta)
+	user.mind.selected_skills[skill] += delta
+
+/datum/ui_module/skills_select_win/proc/save_skills(mob/user)
+	var/total_used_points = collect_used_skill_points(user)
+	if(total_used_points < user.mind.free_skill_points)
+		to_chat(user, span_notice("Распределите все очки!"))
+		return //TODO использовать tgui окно с вопросом, в случае отказа рандомно распределить свободные очки
+
+	for(var/skill in user.mind.selected_skills)
+		var/used_points = user.mind.selected_skills[skill]
+		if(used_points <= 0)
+			continue
+		user.mind.skills[skill] += used_points
+
+	// cleanup
+	user.mind.selected_skills = null
+	user.mind.free_skill_points = 0
+
+/datum/ui_module/skills_select_win/proc/reset_skill_points(mob/user)
+	for(var/skill in user.mind.selected_skills)
+		user.mind.selected_skills[skill] = 0

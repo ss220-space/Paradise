@@ -2,7 +2,7 @@
 GLOBAL_DATUM_INIT(skills_window, /datum/ui_module/skills_win, new)
 
 /datum/ui_module/skills_win
-	name = "Skills window"
+	name = "Навыки персонажа"
 
 /datum/ui_module/skills_win/ui_state(mob/user)
 	if(isobserver(user))

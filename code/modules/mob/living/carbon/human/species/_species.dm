@@ -279,6 +279,32 @@
 
 	var/max_radiation = CARBON_MAX_RADIATION //! Maximum radiation species can hold
 
+	/// How many free skill points can be select for specific skill
+	var/list/max_select_skills = list(
+		/datum/skill/general/carrying = 2,
+		/datum/skill/general/mech_drive = 2,
+		/datum/skill/general/mod_use = 2,
+		/datum/skill/general/cooking = 2,
+		/datum/skill/service/drink_mixing = 2,
+		/datum/skill/service/botany = 2,
+		/datum/skill/service/cleaning = 2,
+		/datum/skill/combat/accuracy = 2,
+		/datum/skill/combat/guns = 2,
+		/datum/skill/combat/melee = 2,
+		/datum/skill/combat/fists = 2,
+		/datum/skill/combat/shields = 2,
+		/datum/skill/medical/surgery = 2,
+		/datum/skill/medical/heal = 2,
+		/datum/skill/medical/chemistry = 2,
+		/datum/skill/medical/genetic = 2,
+		/datum/skill/medical/virusology = 2,
+		/datum/skill/research/research = 2,
+		/datum/skill/research/protolathe = 2,
+		/datum/skill/research/mech_construct = 2,
+		/datum/skill/research/anomaly = 2,
+		/datum/skill/research/xenobiology = 2,
+	)
+
 /datum/species/New()
 	unarmed = new unarmed_type()
 

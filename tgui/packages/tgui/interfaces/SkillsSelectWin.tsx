@@ -36,19 +36,19 @@ const SkillCategoryTable = (category: SkillsSelectCategory) => {
       <Table>
         {category.skills.map((skill: SkillSelectData) => (
           <Table.Row key={skill.name}>
-            <Table.Cell width="25%">
+            <Table.Cell width="50%">
               <b>{skill.name}</b>
               <br />
               <br />
             </Table.Cell>
-            <Table.Cell width="75%" mb={5}>
+            <Table.Cell width="50%" mb={5}>
               <Box inline>
                 Уровень:
                 <Box inline bold textColor={skill.level_color}>
                   {skill.value + ' '}
                   {skill.can_decrease ?
                     <Button
-                      onClick={() => act('increase', {
+                      onClick={() => act('decrease', {
                         "skill": skill.id
                       })}
                     >-</Button>
