@@ -1,5 +1,6 @@
 #define TESLA_DEFAULT_ENERGY (1.73826 MEGA JOULES)
 #define TESLA_MINI_ENERGY (869.13 KILO JOULES)
+#define MAX_ENERGY_BALLS_COUNT 15
 
 // Zap constants, speeds up targeting
 #define BIKE (COIL + 1)
@@ -157,6 +158,9 @@
 
 /obj/energy_ball/proc/new_mini_ball()
 	if(!loc)
+		return
+
+	if(length(orbiting_balls) > MAX_ENERGY_BALLS_COUNT)
 		return
 
 	var/obj/energy_ball/miniball = new(
@@ -415,3 +419,4 @@
 
 #undef TESLA_DEFAULT_ENERGY
 #undef TESLA_MINI_ENERGY
+#undef MAX_ENERGY_BALLS_COUNT
