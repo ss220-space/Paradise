@@ -120,6 +120,9 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 		A.replacePipenet(E, src)
 	other_atmosmch |= (E.other_atmosmch)
 	other_airs |= (E.other_airs)
+	E.members.Cut()
+	E.other_atmosmch.Cut()
+	E.other_airs.Cut()
 	update = TRUE
 	qdel(E)
 
