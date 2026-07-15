@@ -30,8 +30,8 @@
 		if(mind.current)
 			C = mind.current.client
 	else if(isdatum(whom))
-		var/datum/mind = whom
-		return "INVALID/([mind.type])"
+		var/datum/datum_data = whom
+		return "INVALID/([datum_data.type])"
 	else if(istext(whom))
 		return "AUTOMATED/([whom])"
 	else

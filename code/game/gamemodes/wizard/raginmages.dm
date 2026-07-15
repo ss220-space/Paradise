@@ -109,9 +109,9 @@
 				qdel(brain.container)
 		if(living)
 			qdel(living)
-	for(var/obj/item/spellbook/brain in A)
+	for(var/obj/item/spellbook/spellbook in A)
 		// No goodies for you
-		qdel(brain)
+		qdel(spellbook)
 
 /datum/game_mode/wizard/raginmages/proc/make_more_mages()
 	if(making_mage || EMERGENCY_ESCAPED_OR_ENDGAMED)

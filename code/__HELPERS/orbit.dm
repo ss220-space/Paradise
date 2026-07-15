@@ -89,12 +89,12 @@
 
 	//Head first!
 	if(pre_rotation)
-		var/matrix/mob = matrix(transform)
+		var/matrix/matrix_obj = matrix(transform)
 		var/pre_rot = 90
 		if(!clockwise)
 			pre_rot = -90
-		mob.Turn(pre_rot)
-		transform = mob
+		matrix_obj.Turn(pre_rot)
+		transform = matrix_obj
 
 	var/matrix/shift = matrix(transform)
 	shift.Translate(0,radius)

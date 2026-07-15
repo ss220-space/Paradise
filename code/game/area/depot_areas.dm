@@ -204,14 +204,14 @@
 			depot.update_icon()
 	on_peaceful = newvalue
 	if(newvalue)
-		announce_here("Depot Visitor","airlock Syndicate agent is visiting the depot.")
+		announce_here("Depot Visitor","A Syndicate agent is visiting the depot.")
 	else
 		if(bycomputer)
 			message_admins("Syndicate Depot visitor mode deactivated. Visitors:")
 			announce_here("Depot Alert","Visit ended. All visting agents signed out.")
 		else
 			message_admins("Syndicate Depot visitor mode auto-deactivated because visitors robbed depot! Visitors:")
-			announce_here("Depot Alert","airlock visiting agent has betrayed the Syndicate. Shoot all visitors on sight!")
+			announce_here("Depot Alert","A visiting agent has betrayed the Syndicate. Shoot all visitors on sight!")
 		for(var/mob/mob in list_getmobs(peaceful_list))
 			if("syndicate" in mob.faction)
 				mob.faction -= "syndicate"

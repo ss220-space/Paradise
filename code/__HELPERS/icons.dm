@@ -740,12 +740,12 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 	var/atom/atom = obj
 	var/key = "[isicon(atom.icon) ? "\ref[atom.icon]" : atom.icon]:[atom.icon_state]"
 	if(!GLOB.bicon_cache[key]) // Doesn't exist, make it.
-		var/icon/icon = icon(atom.icon, atom.icon_state, SOUTH, 1)
+		var/icon/atom_icon = icon(atom.icon, atom.icon_state, SOUTH, 1)
 		if(ishuman(obj)) // Shitty workaround for a BYOND issue.
-			var/icon/temp = icon
-			icon = icon()
-			icon.Insert(temp, dir = SOUTH)
-		GLOB.bicon_cache[key] = icon2base64(icon)
+			var/icon/temp = atom_icon
+			atom_icon = icon()
+			atom_icon.Insert(temp, dir = SOUTH)
+		GLOB.bicon_cache[key] = icon2base64(atom_icon)
 
 	if(use_class)
 		class = "class='icon [atom.icon_state]'"

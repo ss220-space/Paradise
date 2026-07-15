@@ -381,13 +381,13 @@ SUBSYSTEM_DEF(ticker)
 	time_game_started = world.time
 
 	if(CONFIG_GET(number/restrict_maint))
-		for(var/obj/machinery/door/airlock/maintenance/game_mode in GLOB.airlocks)
-			if(game_mode.req_access && length(game_mode.req_access) == 1 && game_mode.req_access[1] == ACCESS_MAINT_TUNNELS)
-				game_mode.req_access = null
+		for(var/obj/machinery/door/airlock/maintenance/airlock in GLOB.airlocks)
+			if(airlock.req_access && length(game_mode.req_access) == 1 && game_mode.req_access[1] == ACCESS_MAINT_TUNNELS)
+				airlock.req_access = null
 				if(CONFIG_GET(number/restrict_maint) == 1)
-					game_mode.req_access = list(ACCESS_BRIG, ACCESS_ENGINE)
+					airlock.req_access = list(ACCESS_BRIG, ACCESS_ENGINE)
 				if(CONFIG_GET(number/restrict_maint) == 2)
-					game_mode.req_access = list(ACCESS_BRIG)
+					airlock.req_access = list(ACCESS_BRIG)
 
 	// Sets the auto shuttle vote to happen after the config duration
 	next_autotransfer = world.time + CONFIG_GET(number/vote_autotransfer_initial)

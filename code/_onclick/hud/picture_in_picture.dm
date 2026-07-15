@@ -55,9 +55,9 @@
 		move_tab.icon = 'icons/misc/pic_in_pic.dmi'
 		move_tab.icon_state = "move"
 		move_tab.plane = HUD_PLANE
-	var/matrix/matrix = matrix()
-	matrix.Translate(0, (height + 0.25) * ICON_SIZE_Y)
-	move_tab.transform = matrix
+	var/matrix/matrix_obj = matrix()
+	matrix_obj.Translate(0, (height + 0.25) * ICON_SIZE_Y)
+	move_tab.transform = matrix_obj
 	add_overlay(move_tab)
 
 	if(!button_x)
@@ -68,9 +68,9 @@
 		MA.icon_state = "x"
 		MA.plane = HUD_PLANE
 		button_x.appearance = MA
-	matrix = matrix()
-	matrix.Translate((max(4, width) - 0.75) * ICON_SIZE_X, (height + 0.25) * ICON_SIZE_Y)
-	button_x.transform = matrix
+	matrix_obj = matrix()
+	matrix_obj.Translate((max(4, width) - 0.75) * ICON_SIZE_X, (height + 0.25) * ICON_SIZE_Y)
+	button_x.transform = matrix_obj
 	vis_contents += button_x
 
 	if(!button_expand)
@@ -81,9 +81,9 @@
 		MA.icon_state = "expand"
 		MA.plane = HUD_PLANE
 		button_expand.appearance = MA
-	matrix = matrix()
-	matrix.Translate(ICON_SIZE_X, (height + 0.25) * ICON_SIZE_Y)
-	button_expand.transform = matrix
+	matrix_obj = matrix()
+	matrix_obj.Translate(ICON_SIZE_X, (height + 0.25) * ICON_SIZE_Y)
+	button_expand.transform = matrix_obj
 	vis_contents += button_expand
 
 	if(!button_shrink)
@@ -94,17 +94,17 @@
 		MA.icon_state = "shrink"
 		MA.plane = HUD_PLANE
 		button_shrink.appearance = MA
-	matrix = matrix()
-	matrix.Translate(2 * ICON_SIZE_X, (height + 0.25) * ICON_SIZE_Y)
-	button_shrink.transform = matrix
+	matrix_obj = matrix()
+	matrix_obj.Translate(2 * ICON_SIZE_X, (height + 0.25) * ICON_SIZE_Y)
+	button_shrink.transform = matrix_obj
 	vis_contents += button_shrink
 
 /atom/movable/screen/movable/pic_in_pic/proc/add_background()
 	if((width > 0) && (height > 0))
-		var/matrix/matrix = matrix()
-		matrix.Scale(width + 0.5, height + 0.5)
-		matrix.Translate((width - 1) / 2 * ICON_SIZE_X, (height - 1) / 2 * ICON_SIZE_Y)
-		standard_background.transform = matrix
+		var/matrix/matrix_obj = matrix()
+		matrix_obj.Scale(width + 0.5, height + 0.5)
+		matrix_obj.Translate((width - 1) / 2 * ICON_SIZE_X, (height - 1) / 2 * ICON_SIZE_Y)
+		standard_background.transform = matrix_obj
 		add_overlay(standard_background)
 
 /atom/movable/screen/movable/pic_in_pic/proc/set_view_size(width, height, do_refresh = TRUE)
