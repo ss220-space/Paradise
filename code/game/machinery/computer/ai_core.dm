@@ -9,6 +9,10 @@
 	var/obj/item/circuitboard/aicore/circuit = null
 	var/obj/item/mmi/brain = null
 
+/obj/structure/AIcore/Initialize(mapload)
+	. = ..()
+	update_appearance(UPDATE_ICON_STATE)
+
 /obj/structure/AIcore/Destroy(force)
 	QDEL_NULL(laws)
 	QDEL_NULL(circuit)
@@ -223,7 +227,7 @@
 /obj/structure/AIcore/update_icon_state()
 	cut_overlays()
 
-	if(state != GLASS_CORE)
+	if(state != AI_READY_CORE)
 		icon_state = "[state]"
 		if(state == CABLED_CORE && brain)
 			icon_state += "b"

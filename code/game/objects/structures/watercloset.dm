@@ -923,6 +923,11 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sink, (-14), (-14))
 
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 	busy = TRUE
+
+	if(!do_after(user, 4 SECONDS, target = src))
+		busy = FALSE
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	var/wateract = I.wash_tg(CLEAN_WASH)
 	busy = FALSE
 	reagents.reaction(I, REAGENT_TOUCH, 5 / max(reagents.total_volume, 5))
