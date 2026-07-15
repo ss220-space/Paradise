@@ -12,6 +12,7 @@
 	desc = "Невозможная картина, созданная невозможной краской. Она не должна существовать в этой реальности."
 	icon_state = "eldritch_painting_debug"
 	accepted_canvas_types = list()
+	buildable_sign = FALSE
 	/// The status effect this painting curses onlookers with. null = no passive curse (e.g. the vines).
 	var/applied_status_effect = /datum/status_effect/eldritch_painting
 	/// The text that shows up when you cross the painting's sightline
@@ -58,14 +59,14 @@
 		to_chat(user, span_hypnophrase("Вы чувствуете зуд в голове. Оно смеётся над вами..."))
 
 	qdel(src)
-	return ATTACK_CHAIN_SUCCESS
+	return ITEM_INTERACT_SUCCESS
 
 /obj/structure/sign/painting/eldritch/examine(mob/user)
 	. = ..()
 	if(!iscarbon(user))
 		return
 
-	if(HAS_TRAIT_FROM(user, TRAIT_ELDRITCH_PAINTING_EXAMINE, UID()))
+	if(HAS_TRAIT(user, TRAIT_ELDRITCH_PAINTING_EXAMINE))
 		return
 
 	ADD_TRAIT(user, TRAIT_ELDRITCH_PAINTING_EXAMINE, UID())

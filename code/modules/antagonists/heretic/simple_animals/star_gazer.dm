@@ -256,7 +256,7 @@
 	if(!LAZYLEN(beam_targets))
 		return FALSE
 
-	RegisterSignal(caster, list(COMSIG_MOVABLE_MOVED, COMSIG_ATOM_DIR_CHANGE), PROC_REF(stop_beaming))
+	RegisterSignals(caster, list(COMSIG_MOVABLE_MOVED, COMSIG_ATOM_DIR_CHANGE), PROC_REF(stop_beaming))
 	beam_fillings = list()
 	cycle_tracker = 0
 	orb_visual = new(get_step(caster, caster.dir))

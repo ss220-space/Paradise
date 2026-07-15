@@ -4,8 +4,6 @@
 #define MUTE_MAX_HEALTH 50
 
 /datum/heretic_knowledge_tree_column/main/flesh
-	neighbour_type_left = /datum/heretic_knowledge_tree_column/lock_to_flesh
-	neighbour_type_right = /datum/heretic_knowledge_tree_column/flesh_to_void
 
 	route = PATH_FLESH
 	ui_bgr = "node_flesh"

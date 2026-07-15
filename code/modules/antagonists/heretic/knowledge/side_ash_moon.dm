@@ -1,14 +1,3 @@
-/datum/heretic_knowledge_tree_column/ash_to_moon
-	neighbour_type_left = /datum/heretic_knowledge_tree_column/main/ash
-	neighbour_type_right = /datum/heretic_knowledge_tree_column/main/moon
-
-	route = PATH_SIDE
-
-	tier1 = /datum/heretic_knowledge/medallion
-	tier2 = /datum/heretic_knowledge/ether
-	tier3 = /datum/heretic_knowledge/limited_amount/summon/ashy
-
-
 /datum/heretic_knowledge/medallion
 	drafting_tier = 1
 	name = "Глаза Пепла" // It should be like colour of eyes, but I think this sounds better.

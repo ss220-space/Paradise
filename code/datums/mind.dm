@@ -424,6 +424,10 @@
 		. += "<b><font color='red'>HERETIC</font></b>|<a href='byond://?src=[UID()];heretic=clear'>no</a>"
 		. += "<br>Очки знаний: <a href='byond://?src=[UID()];heretic=points'>[heretic_datum.knowledge_points]</a>"
 		. += " | Жертвоприношений: [heretic_datum.total_sacrifices]"
+		var/list/target_names = list()
+		for(var/mob/living/carbon/human/target as anything in heretic_datum.sac_targets)
+			target_names += "[target.real_name] ([target.mind?.assigned_role || "человек"])"
+		. += "<br>Текущие цели: [english_list(target_names, nothing_text = "нет")]"
 		// Mirrors TG/selfharm get_admin_commands(): show heart-target controls once the heretic
 		// actually has a Living Heart, otherwise offer to grant one.
 		switch(heretic_datum.has_living_heart())

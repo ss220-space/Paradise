@@ -54,6 +54,8 @@
 			desc = "Oh no, seven years of bad luck!"
 		broken = TRUE
 		GLOB.mirrors -= src
+		for(var/user in ui_users)
+			SStgui.close_uis(ui_users[user])
 
 /obj/structure/mirror/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE

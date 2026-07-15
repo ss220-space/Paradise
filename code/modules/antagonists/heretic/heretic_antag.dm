@@ -297,27 +297,14 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		path_entry["starting_knowledge"] = get_knowledge_data(start_knowledge, (start_knowledge in researched_knowledge))
 
 		var/list/preview_abilities = list()
-		var/list/preview_slots
-		if(column_instance.knowledge_tier1) // TG-format column (e.g. Ash)
-			preview_slots = list(
-				column_instance.knowledge_tier1,
-				column_instance.knowledge_tier2,
-				column_instance.robes,
-				column_instance.knowledge_tier3,
-				column_instance.blade,
-				column_instance.knowledge_tier4,
-			)
-		else // legacy column
-			preview_slots = list(
-				column_instance.grasp,
-				column_instance.tier1,
-				column_instance.mark,
-				column_instance.ritual_of_knowledge,
-				column_instance.unique_ability,
-				column_instance.tier2,
-				column_instance.blade,
-				column_instance.tier3,
-			)
+		var/list/preview_slots = list(
+			column_instance.knowledge_tier1,
+			column_instance.knowledge_tier2,
+			column_instance.robes,
+			column_instance.knowledge_tier3,
+			column_instance.blade,
+			column_instance.knowledge_tier4,
+		)
 		for(var/slot in preview_slots)
 			if(!slot)
 				continue
@@ -842,6 +829,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	knowledge_gained += max(0, amount)
 	if(knowledge_gained > points_to_aura && !unlimited_blades)
 		disable_blade_breaking()
+	SStgui.update_uis(src)
 
 /datum/antagonist/heretic/roundend_report()
 	var/list/parts = list()

@@ -67,10 +67,11 @@
 	mansus_closet = exit_closet
 	mansus_closet.set_anchored(TRUE)
 	mansus_closet.anchorable = FALSE
+	mansus_closet.can_weld_shut = FALSE
 	for(var/obj/structure/closet/gate as anything in list(station_closet, mansus_closet))
 		gate.resistance_flags |= INDESTRUCTIBLE
 		gate.welded = FALSE
-		gate.can_weld_shut = FALSE
+		gate.store_large_structures = TRUE
 		gate.update_icon()
 		RegisterSignal(gate, COMSIG_ATOM_ENTERED, PROC_REF(on_gate_entered))
 		RegisterSignal(gate, COMSIG_QDELETING, PROC_REF(on_gate_deleted))
@@ -84,6 +85,11 @@
 
 	var/obj/structure/closet/destination = (gate == station_closet) ? mansus_closet : station_closet
 	if(QDELETED(destination))
+		return
+
+	if(destination.welded)
+		if(isliving(arrived))
+			gate.balloon_alert(arrived, "проход закрыт!")
 		return
 
 	if(gate == station_closet)
@@ -177,17 +183,22 @@
 	multiplicative_slowdown = 0.5
 
 
-/turf/simulated/floor/grass/mansus_backdoor
+/turf/simulated/floor/indestructible/mansus_grass
+	name = "grass patch"
 	desc = "Пристально вглядываясь в отдельные травинки, вы почти видите, как они шевелятся."
+	icon_state = "grass1"
+	footstep = FOOTSTEP_GRASS
+	barefootstep = FOOTSTEP_GRASS
+	clawfootstep = FOOTSTEP_GRASS
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_TEMPERATE
 
 
-/turf/simulated/floor/grass/mansus_backdoor/update_icon_state()
-	icon_state = "grass1"
-
-
-/turf/simulated/floor/wood/mansus_backdoor
+/turf/simulated/floor/indestructible/mansus_wood
+	icon_state = "wood"
+	footstep = FOOTSTEP_WOOD
+	barefootstep = FOOTSTEP_WOOD_BAREFOOT
+	clawfootstep = FOOTSTEP_WOOD_CLAW
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_TEMPERATE
 

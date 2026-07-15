@@ -73,6 +73,7 @@ GLOBAL_LIST_EMPTY(closets)
 	var/storage_capacity = 30
 	/// Maximum number of mobs that can be scooped up when the closet is closed. If `null`, there is no limit.
 	var/mob_storage_capacity
+	var/store_large_structures = FALSE
 	/// Material type dropped when the closet is deconstructed.
 	var/material_drop = /obj/item/stack/sheet/metal
 	/// Amount of material dropped upon deconstruction.
@@ -315,6 +316,17 @@ GLOBAL_LIST_EMPTY(closets)
 			break
 		if(!I.anchored && I.can_put_in_closet)
 			I.forceMove(src)
+			itemcount++
+
+	if(store_large_structures)
+		for(var/obj/structure/structure in loc)
+			if(itemcount >= storage_capacity)
+				break
+			if(istype(structure, /obj/structure/closet))
+				continue
+			if(structure.anchored || structure.has_buckled_mobs())
+				continue
+			structure.forceMove(src)
 			itemcount++
 
 	for(var/mob/M in loc)

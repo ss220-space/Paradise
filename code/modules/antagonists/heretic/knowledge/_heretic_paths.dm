@@ -6,15 +6,6 @@ GLOBAL_LIST(heretic_research_tree)
 	var/route
 	///Used to determine if this is a side path or a main path
 	var/abstract_parent_type = /datum/heretic_knowledge_tree_column
-	///IDs od neighbours (to left and right)
-	var/neighbour_type_left
-	var/neighbour_type_right
-	///Tier1 knowledge (or knowledges)
-	var/tier1
-	///Tier2 knowledge (or knowledges)
-	var/tier2
-	///Tier3 knowledge (or knowledges)
-	var/tier3
 	///UI background
 	var/ui_bgr = "node_side"
 
@@ -23,14 +14,6 @@ GLOBAL_LIST(heretic_research_tree)
 
 	///Starting knowledge - first thing you pick
 	var/start
-	///Grasp upgrade
-	var/grasp
-	///Mark upgrade
-	var/mark
-	///Unique ritual of knoweldge
-	var/ritual_of_knowledge
-	///Path specific unique ability
-	var/unique_ability
 	///Blade upgrade
 	var/blade
 	///Ascension
@@ -99,8 +82,6 @@ GLOBAL_LIST(heretic_research_tree)
 		paths[column.type] = column
 
 	var/list/start_blacklist = list()
-	var/list/grasp_blacklist = list()
-	var/list/mark_blacklist = list()
 	var/list/blade_blacklist = list()
 	var/list/asc_blacklist = list()
 
@@ -110,10 +91,6 @@ GLOBAL_LIST(heretic_research_tree)
 		var/datum/heretic_knowledge_tree_column/main/column = paths[id]
 
 		start_blacklist += column.start
-		if(column.grasp)
-			grasp_blacklist += column.grasp
-		if(column.mark)
-			mark_blacklist += column.mark
 		blade_blacklist += column.blade
 		asc_blacklist += column.ascension
 
@@ -121,130 +98,12 @@ GLOBAL_LIST(heretic_research_tree)
 
 	for(var/id in paths)
 		var/datum/heretic_knowledge_tree_column/this_column = paths[id]
-
-		if(istype(this_column, /datum/heretic_knowledge_tree_column/main))
-			var/datum/heretic_knowledge_tree_column/main/maybe_modern = this_column
-			if(maybe_modern.knowledge_tier1)
-				build_tg_path_chain(heretic_research_tree, maybe_modern, start_blacklist, asc_blacklist, blade_blacklist)
-				continue
-
-		var/datum/heretic_knowledge_tree_column/neighbour_0 = paths[this_column.neighbour_type_left]
-		var/datum/heretic_knowledge_tree_column/neighbour_1 = paths[this_column.neighbour_type_right]
-		var/list/tier1 = this_column.tier1
-		var/list/tier2 = this_column.tier2
-		var/list/tier3 = this_column.tier3
-
-		if(!islist(this_column.tier1))
-			tier1 = list(this_column.tier1)
-
-		if(!islist(this_column.tier2))
-			tier2 = list(this_column.tier2)
-
-		if(!islist(this_column.tier3))
-			tier3 = list(this_column.tier3)
-
-		for(var/t1_knowledge in tier1)
-			if(isnull(t1_knowledge)) // a side column may legitimately leave a tier unset (e.g. moon_to_lock has no tier1)
-				continue
-			if(neighbour_0.tier1)
-				heretic_research_tree[t1_knowledge][HKT_NEXT] += neighbour_0.tier1
-			if(neighbour_1.tier1)
-				heretic_research_tree[t1_knowledge][HKT_NEXT] += neighbour_1.tier1
-			heretic_research_tree[t1_knowledge][HKT_ROUTE] = this_column.route
-			heretic_research_tree[t1_knowledge][HKT_UI_BGR] = this_column.ui_bgr
-			heretic_research_tree[t1_knowledge][HKT_DEPTH] = 4
-
-		for(var/t2_knowledge in tier2)
-			if(isnull(t2_knowledge))
-				continue
-			if(neighbour_0.tier2)
-				heretic_research_tree[t2_knowledge][HKT_NEXT] += neighbour_0.tier2
-			if(neighbour_1.tier2)
-				heretic_research_tree[t2_knowledge][HKT_NEXT] += neighbour_1.tier2
-			heretic_research_tree[t2_knowledge][HKT_ROUTE] = this_column.route
-			heretic_research_tree[t2_knowledge][HKT_UI_BGR] = this_column.ui_bgr
-			heretic_research_tree[t2_knowledge][HKT_DEPTH] = 8
-
-		for(var/t3_knowledge in tier3)
-			if(isnull(t3_knowledge))
-				continue
-			if(neighbour_0.tier3)
-				heretic_research_tree[t3_knowledge][HKT_NEXT] += neighbour_0.tier3
-			if(neighbour_1.tier3)
-				heretic_research_tree[t3_knowledge][HKT_NEXT] += neighbour_1.tier3
-			heretic_research_tree[t3_knowledge][HKT_ROUTE] = this_column.route
-			heretic_research_tree[t3_knowledge][HKT_UI_BGR] = this_column.ui_bgr
-			heretic_research_tree[t3_knowledge][HKT_DEPTH] = 10
-
-		if(this_column.abstract_parent_type != /datum/heretic_knowledge_tree_column/main)
+		if(!istype(this_column, /datum/heretic_knowledge_tree_column/main))
 			continue
-
 		var/datum/heretic_knowledge_tree_column/main/main_column = this_column
-		var/list/vertical_stages = list()
-		vertical_stages += list(list(main_column.start))
-		if(main_column.grasp)
-			vertical_stages += list(list(main_column.grasp))
-		vertical_stages += list(tier1)
-		if(main_column.mark)
-			vertical_stages += list(list(main_column.mark))
-		if(main_column.ritual_of_knowledge)
-			vertical_stages += list(list(main_column.ritual_of_knowledge))
-		vertical_stages += list(list(main_column.unique_ability))
-		vertical_stages += list(tier2)
-		vertical_stages += list(list(main_column.blade))
-		vertical_stages += list(tier3)
-		vertical_stages += list(list(main_column.ascension))
-
-		heretic_research_tree[/datum/heretic_knowledge/spell/basic] += main_column.start
-		for(var/stage_index in 1 to length(vertical_stages) - 1)
-			for(var/from_knowledge in vertical_stages[stage_index])
-				for(var/to_knowledge in vertical_stages[stage_index + 1])
-					heretic_research_tree[from_knowledge][HKT_NEXT] |= to_knowledge
-
-		heretic_research_tree[main_column.start][HKT_BAN] += (start_blacklist - main_column.start) + (asc_blacklist - main_column.ascension)
-		if(main_column.grasp)
-			heretic_research_tree[main_column.grasp][HKT_BAN] += (grasp_blacklist - main_column.grasp)
-		if(main_column.mark)
-			heretic_research_tree[main_column.mark][HKT_BAN] += (mark_blacklist - main_column.mark)
-		heretic_research_tree[main_column.blade][HKT_BAN] += (blade_blacklist - main_column.blade)
-
-		heretic_research_tree[main_column.start][HKT_ROUTE] = main_column.route
-		if(main_column.grasp)
-			heretic_research_tree[main_column.grasp][HKT_ROUTE] = main_column.route
-		if(main_column.mark)
-			heretic_research_tree[main_column.mark][HKT_ROUTE] = main_column.route
-		if(main_column.ritual_of_knowledge)
-			heretic_research_tree[main_column.ritual_of_knowledge][HKT_ROUTE] = main_column.route
-		heretic_research_tree[main_column.unique_ability][HKT_ROUTE] = main_column.route
-		heretic_research_tree[main_column.blade][HKT_ROUTE] = main_column.route
-		heretic_research_tree[main_column.ascension][HKT_ROUTE] = main_column.route
-
-		heretic_research_tree[main_column.start][HKT_UI_BGR] = main_column.ui_bgr
-		if(main_column.grasp)
-			heretic_research_tree[main_column.grasp][HKT_UI_BGR] = main_column.ui_bgr
-		if(main_column.mark)
-			heretic_research_tree[main_column.mark][HKT_UI_BGR] = main_column.ui_bgr
-		if(main_column.ritual_of_knowledge)
-			heretic_research_tree[main_column.ritual_of_knowledge][HKT_UI_BGR] = main_column.ui_bgr
-		heretic_research_tree[main_column.unique_ability][HKT_UI_BGR] = main_column.ui_bgr
-		heretic_research_tree[main_column.blade][HKT_UI_BGR] = main_column.ui_bgr
-		heretic_research_tree[main_column.ascension][HKT_UI_BGR] = main_column.ui_bgr
-		heretic_research_tree[main_column.start][HKT_DEPTH] = 2
-		if(main_column.grasp)
-			heretic_research_tree[main_column.grasp][HKT_DEPTH] = 3
-		if(main_column.mark)
-			heretic_research_tree[main_column.mark][HKT_DEPTH] = 5
-		if(main_column.ritual_of_knowledge)
-			heretic_research_tree[main_column.ritual_of_knowledge][HKT_DEPTH] = 6
-		heretic_research_tree[main_column.unique_ability][HKT_DEPTH] = 7
-		heretic_research_tree[main_column.blade][HKT_DEPTH] = 9
-		heretic_research_tree[main_column.ascension][HKT_DEPTH] = 11
-
-		for(var/t2_knowledge in tier2)
-			heretic_research_tree[t2_knowledge][HKT_NEXT] += /datum/heretic_knowledge/reroll_targets
-
-		for(var/t1_knowledge in tier1)
-			heretic_research_tree[t1_knowledge][HKT_NEXT] |= /datum/heretic_knowledge/codex_cicatrix
+		if(!main_column.knowledge_tier1)
+			continue
+		build_tg_path_chain(heretic_research_tree, main_column, start_blacklist, asc_blacklist, blade_blacklist)
 
 	heretic_research_tree[/datum/heretic_knowledge/reroll_targets][HKT_ROUTE] = PATH_SIDE
 	heretic_research_tree[/datum/heretic_knowledge/reroll_targets][HKT_DEPTH] = 2

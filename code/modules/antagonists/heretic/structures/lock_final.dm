@@ -31,7 +31,7 @@
 
 	if(!isnull(ascendant_mind))
 		ascendee = ascendant_mind
-		RegisterSignal(ascendant_mind.current, list(COMSIG_LIVING_DEATH, COMSIG_QDELETING), PROC_REF(end_madness))
+		RegisterSignals(ascendant_mind.current, list(COMSIG_LIVING_DEATH, COMSIG_QDELETING), PROC_REF(end_madness))
 
 	GLOB.poi_list |= src
 	notify_ghosts("Что это?", "???", source = src)

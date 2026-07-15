@@ -1,14 +1,3 @@
-/datum/heretic_knowledge_tree_column/flesh_to_void
-	neighbour_type_left = /datum/heretic_knowledge_tree_column/main/flesh
-	neighbour_type_right = /datum/heretic_knowledge_tree_column/main/void
-
-	route = PATH_SIDE
-
-	tier1 = /datum/heretic_knowledge/void_cloak
-	tier2 = /datum/heretic_knowledge/spell/blood_siphon
-	tier3 = /datum/heretic_knowledge/spell/cleave
-
-
 /datum/heretic_knowledge/void_cloak
 	drafting_tier = 1
 	name = "Плащ Пустоты"
@@ -30,17 +19,6 @@
 
 	research_tree_icon_path = 'icons/obj/clothing/suits.dmi'
 	research_tree_icon_state = "void_cloak"
-
-
-/datum/heretic_knowledge/spell/blood_siphon
-	name = "Вампиризм"
-	desc = "Дарует вам \"Вампиризм\", заклинание, высасывающее кровь и здоровье жертвы и передающее их вам. \
-			Также есть шанс передать раны от вас жертве."
-	gain_text = "\"Все мы разные, но кровь у всех идет одинаково\". Так мне сказал Маршал."
-	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
-	research_tree_icon_state = "blood_siphon"
-	spell_to_add = /obj/effect/proc_holder/spell/pointed/blood_siphon
-	cost = 1
 
 
 /datum/heretic_knowledge/spell/cleave

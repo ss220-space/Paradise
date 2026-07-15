@@ -98,7 +98,7 @@
 
 /// Sets up the proximity monitor which handles things that are within the area and leave once they get someone to crit
 /obj/effect/proc_holder/spell/wolves_among_sheep/proc/create_arena(turf/target)
-	RegisterSignal(action.owner, list(SIGNAL_ADDTRAIT(TRAIT_INCAPACITATED)), PROC_REF(on_caster_crit))
+	RegisterSignal(action.owner, SIGNAL_ADDTRAIT(TRAIT_INCAPACITATED), PROC_REF(on_caster_crit))
 
 	ongoing_arena = new /obj/effect/abstract/heretic_arena(target, max_range, 60 SECONDS, action.owner)
 	RegisterSignal(ongoing_arena, COMSIG_QDELETING, PROC_REF(on_arena_delete))

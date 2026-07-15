@@ -11,13 +11,14 @@
 	restricted_jobs = list(JOB_TITLE_CYBORG, JOB_TITLE_AI)
 	required_players = 10
 	required_enemies = 1
-	forbidden_antag_jobs = list(ROLE_VAMPIRE = list(JOB_TITLE_CHAPLAIN))
+	forbidden_antag_jobs = list(ROLE_VAMPIRE = list(JOB_TITLE_CHAPLAIN), ROLE_HERETIC = list(JOB_TITLE_CHAPLAIN))
 	var/list/protected_jobs_AI = list(JOB_TITLE_CIVILIAN, JOB_TITLE_PRISONER, JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_ATMOSTECH, JOB_TITLE_SPACEPOD_TECHNICIAN, JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MEDICAL_INTERN, JOB_TITLE_CORONER, JOB_TITLE_CHEMIST, JOB_TITLE_GENETICIST, JOB_TITLE_VIROLOGIST, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENCE_STUDENT, JOB_TITLE_ROBOTICIST, JOB_TITLE_HOP, JOB_TITLE_CHAPLAIN, JOB_TITLE_BARTENDER, JOB_TITLE_CHEF, JOB_TITLE_BOTANIST, JOB_TITLE_QUARTERMASTER, JOB_TITLE_CARGOTECH, JOB_TITLE_MINER, JOB_TITLE_MINING_MEDIC, JOB_TITLE_CLOWN, JOB_TITLE_MIME, JOB_TITLE_JANITOR, JOB_TITLE_LIBRARIAN, JOB_TITLE_EXPLORER)	// Basically all jobs, except AI.
 	var/list/antag_protected_species = list(
 		ROLE_VAMPIRE = SPECIES_BLOCKED_FOR_VAMPIRE,
 		ROLE_CHANGELING = SPECIES_BLOCKED_FOR_CHANGELING,
 	)
 	var/vampire_restricted_jobs = list(JOB_TITLE_CHAPLAIN)
+	var/heretic_restricted_jobs = list(JOB_TITLE_CHAPLAIN)
 	/// Chosen antags if any. Key - mind, value - antag type
 	var/list/datum/mind/pre_antags = list()
 	var/list/datum/mind/pre_double_antags = list()
@@ -165,7 +166,7 @@
 			if(special_antag_amount)
 				var/datum/mind/special_antag = safepick(antag_possibilities[ROLE_HERETIC])
 				if(special_antag)
-					special_antag.restricted_roles = restricted_jobs
+					special_antag.restricted_roles = restricted_jobs | heretic_restricted_jobs
 					special_antag.special_role = SPECIAL_ROLE_HERETIC
 					pre_antags[special_antag] = ROLE_HERETIC
 					antags_amount--
@@ -222,7 +223,7 @@
 					if(heretic.special_role)
 						continue
 					heretic.special_role = SPECIAL_ROLE_HERETIC
-					heretic.restricted_roles = restricted_jobs
+					heretic.restricted_roles = restricted_jobs | heretic_restricted_jobs
 					pre_antags[heretic] = ROLE_HERETIC
 
 	if(!length(pre_antags))

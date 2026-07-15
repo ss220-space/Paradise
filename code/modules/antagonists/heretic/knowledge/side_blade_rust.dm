@@ -1,15 +1,5 @@
-/datum/heretic_knowledge_tree_column/blade_to_rust
-	neighbour_type_left = /datum/heretic_knowledge_tree_column/main/blade
-	neighbour_type_right = /datum/heretic_knowledge_tree_column/main/rust
-
-	route = PATH_SIDE
-
-	tier1 = /datum/heretic_knowledge/armor
-	tier2 = list(/datum/heretic_knowledge/crucible, /datum/heretic_knowledge/rifle)
-	tier3 = list(/datum/heretic_knowledge/greaves_of_the_prophet)
-
-
 /datum/heretic_knowledge/armor
+	abstract_parent_type = /datum/heretic_knowledge/armor
 	name = "Ритуал Оружейника"
 	desc = "Позволяет преобразовать стол и противогаз в \"Потустороннюю броню\". \
 			\"Потусторонняя броня\" обеспечивает отличную защиту, а при надетом капюшоне \

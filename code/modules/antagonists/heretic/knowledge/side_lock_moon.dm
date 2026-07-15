@@ -1,13 +1,3 @@
-/datum/heretic_knowledge_tree_column/moon_to_lock
-	neighbour_type_left = /datum/heretic_knowledge_tree_column/main/moon
-	neighbour_type_right = /datum/heretic_knowledge_tree_column/main/lock
-
-	route = PATH_SIDE
-
-	tier2 = list(/datum/heretic_knowledge/unfathomable_curio, /datum/heretic_knowledge/painting)
-	tier3 = /datum/heretic_knowledge/codex_morbus
-
-
 /datum/heretic_knowledge/unfathomable_curio
 	drafting_tier = 4
 	name = "Непостижимая Диковинка"
@@ -39,8 +29,8 @@
 			жажду плоти на язычников. \
 			\"Мир без Всех Вас\": Требуется любое растение. При размещении разбрасывает кудзу \
 			и снабжает вас маками и колокольчиками. \
-			\"Леди за Вратами\": Требуется любая пара перчаток. Очищает ваши мутации, мутирует язычников и делает их \
-				радиоактивными. \
+			\"Леди за Вратами\": Требуется любая пара перчаток. Очищает ваши мутации, мутирует язычников и заставляет их \
+				яростно расцарапывать себя. \
 			\"Хозяйка Ржавой Горы\": Требуется кусок мусора. Накладывает на язычников проклятие, распространяющее ржавчину \
 			на полу, по которому они ходят."
 	gain_text = "Ветер вдохновения пронизывал меня. За завесой и за Вратами лежат величайшие творения, которые уже были \

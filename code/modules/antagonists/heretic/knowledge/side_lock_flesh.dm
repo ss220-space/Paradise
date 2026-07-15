@@ -1,13 +1,3 @@
-/datum/heretic_knowledge_tree_column/lock_to_flesh
-	neighbour_type_left = /datum/heretic_knowledge_tree_column/main/lock
-	neighbour_type_right = /datum/heretic_knowledge_tree_column/main/flesh
-
-	route = PATH_SIDE
-
-	tier1 = /datum/heretic_knowledge/phylactery
-	tier2 = /datum/heretic_knowledge/spell/opening_blast
-	tier3 = /datum/heretic_knowledge/spell/apetra_vulnera
-
 /datum/heretic_knowledge/phylactery
 	drafting_tier = 1
 	name = "Проклятая Филактерия"
@@ -38,18 +28,6 @@
 	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
 	research_tree_icon_state = "uncuff"
 	spell_to_add = /obj/effect/proc_holder/spell/aoe/wave_of_desperation
-	cost = 1
-
-
-/datum/heretic_knowledge/spell/apetra_vulnera
-	name = "Усугубление"
-	desc = "Предоставляет вам Усугубление, заклинание, ломающее части тела жертвы, \
-			имеющие более 15 единиц травм. Ломает случайную часть тела, если ни одна не была повреждена \
-			достаточно сильно."
-	gain_text = "Пусть разрывается плоть и льётся кровь! Мой господин жаждет жертв, а я исполняю его желания!"
-	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
-	research_tree_icon_state = "apetra_vulnera"
-	spell_to_add = /obj/effect/proc_holder/spell/pointed/apetra_vulnera
 	cost = 1
 
 

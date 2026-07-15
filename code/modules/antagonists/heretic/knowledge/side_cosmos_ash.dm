@@ -1,14 +1,3 @@
-/datum/heretic_knowledge_tree_column/cosmic_to_ash
-	neighbour_type_left = /datum/heretic_knowledge_tree_column/main/cosmic
-	neighbour_type_right = /datum/heretic_knowledge_tree_column/main/ash
-
-	route = PATH_SIDE
-
-	tier1 = /datum/heretic_knowledge/limited_amount/summon/fire_shark
-	tier2 = /datum/heretic_knowledge/spell/space_phase
-	tier3 = /datum/heretic_knowledge/eldritch_coin
-
-
 /datum/heretic_knowledge/limited_amount/summon/fire_shark
 	drafting_tier = 3
 	name = "Опаляющая Акула"

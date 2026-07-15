@@ -1,14 +1,3 @@
-/datum/heretic_knowledge_tree_column/rust_to_cosmic
-	neighbour_type_left = /datum/heretic_knowledge_tree_column/main/rust
-	neighbour_type_right = /datum/heretic_knowledge_tree_column/main/cosmic
-
-	route = PATH_SIDE
-
-	tier1 = /datum/heretic_knowledge/essence
-	tier2 = list(/datum/heretic_knowledge/entropy_pulse, /datum/heretic_knowledge/rust_sower)
-	tier3 = /datum/heretic_knowledge/limited_amount/summon/rusty
-
-
 /datum/heretic_knowledge/essence
 	drafting_tier = 1
 	name = "Ритуал Священника"
@@ -49,6 +38,7 @@
 
 
 /datum/heretic_knowledge/entropy_pulse
+	abstract_parent_type = /datum/heretic_knowledge/entropy_pulse
 	name = "Импульс Разложения"
 	desc = "Позволяет преобразовать 10 железных листов и мусор (например обертку), \
 			заполнив прилегающую к руне область ржавчиной."

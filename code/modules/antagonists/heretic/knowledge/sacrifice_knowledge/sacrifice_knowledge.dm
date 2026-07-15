@@ -307,6 +307,7 @@
 	var/turf/destination = get_turf(destination_landmark)
 
 	sac_target.visible_message(span_danger("[sac_target.declent_ru(NOMINATIVE)] начинает яростно содрогаться, когда темные щупальца утаскивают [GEND_HIS_HER(sac_target)] в пустоту!"))
+	sac_target.notify_ghost_cloning(message = "Обитель тянет вас обратно в тело! Вернитесь, чтобы побороться за выживание!", source = sac_target)
 	sac_target.set_handcuffed(new /obj/item/restraints/handcuffs/cable(sac_target))
 
 	if(sac_target.legcuffed)
