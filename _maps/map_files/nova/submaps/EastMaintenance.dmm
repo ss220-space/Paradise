@@ -1051,10 +1051,7 @@
 	},
 /area/station/maintenance/backstage)
 "mr" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -11
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = -28
 	},
@@ -3247,10 +3244,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "JC" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -11
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = -28
 	},

@@ -217,3 +217,8 @@
 /datum/movespeed_modifier/timestop_modifier
 	multiplicative_slowdown = 25
 	flags = IGNORE_NOSLOW
+
+///Slowdown for swimming on deep water tiles
+/datum/movespeed_modifier/swimming_deep
+	blacklisted_movetypes = MOVETYPES_NOT_TOUCHING_GROUND
+	multiplicative_slowdown = 7

@@ -273,9 +273,7 @@
 	},
 /area/ruin/powered)
 "Q" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},

@@ -15,19 +15,21 @@
 
 	var/image/cross = image('icons/obj/library.dmi',"bible")
 	var/font_color = "purple"
-	var/prayer_type = "PRAYER"
+	var/prayer_type = DEFAULT_PRAYER
 	var/deity
 	if(job == JOB_TITLE_CHAPLAIN)
 		if(SSticker?.Bible_deity_name)
 			deity = SSticker.Bible_deity_name
 		cross = image('icons/obj/library.dmi',"bible_kingyellow")
 		font_color = "blue"
-		prayer_type = "CHAPLAIN PRAYER"
+		prayer_type = CHAPLAIN_PRAYER
 	else if(iscultist(usr))
 		cross = image('icons/obj/cult.dmi',"tome")
 		font_color = "red"
-		prayer_type = "CULTIST PRAYER"
+		prayer_type = CULT_PRAYER
 		deity = SSticker.cultdat.entity_name
+	else if(HAS_TRAIT(src, TRAIT_EVIL))
+		prayer_type = EVIL_PRAYER
 
 	add_game_logs("Prayed to the gods: [msg]", usr)
 	GLOB.requests.pray(client, msg, job == JOB_TITLE_CHAPLAIN)

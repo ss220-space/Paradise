@@ -75,13 +75,6 @@
 			desc = "A translucent balloon with some form of liquid sloshing around in it."
 			update_icon(UPDATE_ICON_STATE)
 
-/obj/item/toy/balloon/wash(mob/user, atom/source)
-	if(reagents.total_volume < 10)
-		reagents.add_reagent("water", min(10-reagents.total_volume, 10))
-		to_chat(user, span_notice("Вы наполняете шарик из [source.declent_ru(GENITIVE)]."))
-		desc = "A translucent balloon with some form of liquid sloshing around in it."
-		update_icon(UPDATE_ICON_STATE)
-
 /obj/item/toy/balloon/attackby(obj/item/I, mob/user, params)
 	if(isglassreagentcontainer(I) || istype(I, /obj/item/reagent_containers/food/drinks/drinkingglass))
 		add_fingerprint(user)

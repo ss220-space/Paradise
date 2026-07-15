@@ -1329,11 +1329,7 @@
 /turf/simulated/floor/wood/dark,
 /area/template_noop)
 "Gu" = (
-/obj/structure/sink{
-	dir = 1;
-	layer = 5;
-	pixel_y = -5
-	},
+/obj/structure/sink/directional/north,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/engine/cult,
 /area/template_noop)

@@ -588,35 +588,33 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
 /// Called when a player uses an airlock painter on this airlock
 /obj/machinery/door/airlock/proc/change_paintjob(obj/item/airlock_painter/painter, mob/user)
-	if((!in_range(src, user) && loc != user)) // user should be adjacent to the airlock.
+	if(!in_range(src, user) || !painter.can_use(user)) // user should be adjacent to the airlock, and the painter should have a toner cartridge that isn't empty
 		return
 
-	if(!painter.paint_setting)
-		to_chat(user, span_warning("You need to select a paintjob first."))
+	// reads from the airlock painter's `available paintjob` list. lets the player choose a paint option, or cancel painting
+	var/current_paintjob = tgui_input_list(user, "Paintjob for this airlock", "Customize", sort_list(painter.available_paint_jobs))
+	if(isnull(current_paintjob) || !in_range(src, user) || !painter.can_use(user)) // if the user clicked cancel on the popup, or moved away, or ran out of ink, return
 		return
 
-	if(!paintable)
-		to_chat(user, span_warning("This type of airlock cannot be painted."))
-		return
-
-	var/obj/machinery/door/airlock/airlock = painter.available_paint_jobs["[painter.paint_setting]"] // get the airlock type path associated with the airlock name the user just chose
+	var/airlock_type = painter.available_paint_jobs["[current_paintjob]"] // get the airlock type path associated with the airlock name the user just chose
+	var/obj/machinery/door/airlock/airlock = airlock_type // we need to create a new instance of the airlock and assembly to read vars from them
 	var/obj/structure/door_assembly/assembly = initial(airlock.assemblytype)
-
-	if(assemblytype == assembly)
-		to_chat(user, span_notice("This airlock is already painted [painter.paint_setting]!"))
-		return
 
 	if(airlock_material == "glass" && initial(assembly.noglass)) // prevents painting glass airlocks with a paint job that doesn't have a glass version, such as the freezer
 		to_chat(user, span_warning("This paint job can only be applied to non-glass airlocks."))
 		return
 
-	if(do_after(user, 2 SECONDS, src))
-		// applies the user-chosen airlock's icon, overlays and assemblytype to the src airlock
-		painter.paint(user)
+	// applies the user-chosen airlock's icon, overlays and assemblytype to the src airlock
+	painter.use_paint(user)
+	if(initial(airlock.greyscale_config))
+		greyscale_config = initial(airlock.greyscale_config)
+		greyscale_colors = initial(airlock.greyscale_colors)
+		update_greyscale()
+	else
 		icon = initial(airlock.icon)
-		overlays_file = initial(airlock.overlays_file)
-		assemblytype = initial(airlock.assemblytype)
-		update_icon()
+	overlays_file = initial(airlock.overlays_file)
+	assemblytype = initial(airlock.assemblytype)
+	update_appearance()
 
 /obj/machinery/door/airlock/examine(mob/user)
 	. = ..()

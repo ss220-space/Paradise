@@ -159,7 +159,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "av" = (
-/obj/item/reagent_containers/glass/rag,
+/obj/item/rag,
 /obj/item/reagent_containers/spray/cleaner,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
@@ -177,11 +177,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "ay" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = -28
 	},
