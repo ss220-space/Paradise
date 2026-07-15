@@ -406,12 +406,12 @@
 	desc = "Gathers the power of all of your thralls and compares it to what is needed for ascendance. Also gains you new abilities."
 	base_cooldown = 3 SECONDS
 	clothes_req = FALSE
+	action_icon_state = "collective_mind"
+	action_background_icon_state = "bg_shadowling"
 	var/blind_smoke_acquired
 	var/screech_acquired
 	var/null_charge_acquired
 	var/revive_thrall_acquired
-	action_icon_state = "collective_mind"
-	action_background_icon_state = "bg_shadowling"
 
 /obj/effect/proc_holder/spell/shadowling_collective_mind/create_new_targeting()
 	return new /datum/spell_targeting/self
