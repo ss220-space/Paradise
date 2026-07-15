@@ -98,8 +98,9 @@
 
 		pixel_x = -ICON_SIZE_X
 		pixel_y = -ICON_SIZE_Y
+		var/clamped_balls_length = clamp(length(orbiting_balls), 2, 3)
 		for(var/ball in orbiting_balls)
-			var/range = rand(1, clamp(length(orbiting_balls), 2, 3))
+			var/range = rand(1, clamped_balls_length)
 			var/list/temp_shock = list()
 			// We zap off the main ball instead of ourselves to make things looks proper
 			tesla_zap(source = src, zap_range = range, power = TESLA_MINI_ENERGY / 7 * range, shocked_targets = temp_shock, zap_flags = ZAP_TESLA_FLAGS)
