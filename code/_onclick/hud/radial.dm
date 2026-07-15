@@ -312,17 +312,17 @@ GLOBAL_LIST_EMPTY(radial_menus)
 /datum/radial_menu/proc/set_choices(list/new_choices, use_tooltips, click_on_hover = FALSE, set_page = 1)
 	if(length(choices))
 		Reset()
-	for(var/choice, image in new_choices)
+	for(var/choice, choice_image in new_choices)
 		var/id = get_next_id()
 		choices += id
 		choices_values[id] = choice
-		if(image)
-			var/extracted_image = extract_image(image)
+		if(choice_image)
+			var/extracted_image = extract_image(choice_image)
 			if(extracted_image)
 				choices_icons[id] = extracted_image
 
-			if(istype(image, /datum/radial_menu_choice))
-				choice_datums[id] = image
+			if(istype(choice_image, /datum/radial_menu_choice))
+				choice_datums[id] = choice_image
 	setup_menu(use_tooltips, set_page, click_on_hover)
 
 /datum/radial_menu/proc/extract_image(to_extract_from)
