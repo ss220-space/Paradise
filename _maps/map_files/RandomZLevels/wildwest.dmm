@@ -1328,9 +1328,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/wwrefine)
 "ey" = (
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -1353,9 +1351,7 @@
 	},
 /area/awaymission/wwmines)
 "eD" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"

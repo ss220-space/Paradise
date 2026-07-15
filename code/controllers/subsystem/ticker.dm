@@ -656,6 +656,7 @@ SUBSYSTEM_DEF(ticker)
 
 	// Save the data before end of the round griefing
 	SSpersistent_data.save()
+	SSpersistent_paintings.save_paintings()
 	to_chat(world, end_of_round_info.Join("<br>"))
 
 	// Display the scoreboard window

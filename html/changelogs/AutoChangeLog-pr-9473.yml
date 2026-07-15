@@ -1,4 +1,0 @@
-author: "makaroshka003"
-delete-after: True
-changes:
-  - bugfix: "traitor tool-belt может хранить RPD и RCD (PR #9473)"

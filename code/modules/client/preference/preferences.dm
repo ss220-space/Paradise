@@ -206,6 +206,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 
 	//Keeps track of preferrence for not getting any wanted jobs
 	var/alternate_option = 2
+	var/final_alternate_option
 
 	// maps each organ to either null(intact), "cyborg" or "amputated"
 	// will probably not be able to do this for head and torso ;)

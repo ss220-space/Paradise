@@ -1,0 +1,4 @@
+author: "SCPfollower"
+delete-after: True
+changes:
+  - bugfix: "Возвращена текстурка стола с убежища шахтеров. (PR #9488)"

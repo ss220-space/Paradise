@@ -9,7 +9,7 @@
 	container_type = OPENCONTAINER
 	//copypaste sorry
 	var/amount_per_transfer_from_this = 5 //shit I dunno, adding this so syringes stop runtime erroring. --NeoFite
-	var/obj/item/storage/bag/trash/mybag	= null
+	var/obj/item/storage/bag/trash/mybag = null
 	var/obj/item/mop/mymop = null
 	var/obj/item/reagent_containers/spray/cleaner/myspray = null
 	var/obj/item/lightreplacer/myreplacer = null
@@ -20,6 +20,7 @@
 	. = ..()
 	create_reagents(100)
 	GLOB.janitorial_equipment += src
+	register_context()
 
 /obj/structure/janitorialcart/Destroy()
 	GLOB.janitorial_equipment -= src
@@ -29,6 +30,52 @@
 	QDEL_NULL(myreplacer)
 	return ..()
 
+/obj/structure/janitorialcart/add_context(atom/source, list/context, obj/item/held_item, mob/living/user)
+	. = ..()
+
+	if(istype(held_item, /obj/item/mop))
+		if(!mymop)
+			context[SCREENTIP_CONTEXT_LMB] = "Put [held_item]"
+		context[SCREENTIP_CONTEXT_RMB] = "Wet [held_item]"
+		return CONTEXTUAL_SCREENTIP_SET
+
+	if(istype(held_item, /obj/item/storage/bag/trash) && !mybag)
+		context[SCREENTIP_CONTEXT_LMB] = "Put [held_item]"
+		return CONTEXTUAL_SCREENTIP_SET
+
+	if(istype(held_item, /obj/item/lightreplacer) && !myreplacer)
+		context[SCREENTIP_CONTEXT_LMB] = "Put [held_item]"
+		return CONTEXTUAL_SCREENTIP_SET
+
+	if(istype(held_item, /obj/item/reagent_containers/spray/cleaner) && !myspray)
+		context[SCREENTIP_CONTEXT_LMB] = "Put [held_item]"
+		return CONTEXTUAL_SCREENTIP_SET
+
+	if(istype(held_item, /obj/item/caution) && signs < max_signs)
+		context[SCREENTIP_CONTEXT_LMB] = "Put [held_item]"
+		return CONTEXTUAL_SCREENTIP_SET
+
+	if(is_reagent_container(held_item))
+		context[SCREENTIP_CONTEXT_LMB] = "Fill cart bucket"
+		return CONTEXTUAL_SCREENTIP_SET
+
+	if(!held_item)
+		context[SCREENTIP_CONTEXT_LMB] = "Take equipment"
+		return CONTEXTUAL_SCREENTIP_SET
+
+	if(held_item?.tool_behaviour == TOOL_CROWBAR)
+		context[SCREENTIP_CONTEXT_LMB] = "Empty cart bucket"
+		return CONTEXTUAL_SCREENTIP_SET
+
+	if(held_item?.tool_behaviour == TOOL_WRENCH)
+		if(anchored)
+			context[SCREENTIP_CONTEXT_LMB] = "Unanchore"
+		else
+			context[SCREENTIP_CONTEXT_LMB] = "Anchore"
+		return CONTEXTUAL_SCREENTIP_SET
+
+	return .
+
 /obj/structure/janitorialcart/proc/put_in_cart(obj/item/I, mob/user)
 	. = user.drop_transfer_item_to_loc(I, src)
 	if(.)
@@ -37,16 +84,38 @@
 /obj/structure/janitorialcart/on_reagent_change()
 	update_icon(UPDATE_OVERLAYS)
 
+/obj/structure/janitorialcart/attackby_secondary(obj/item/weapon, mob/user, list/modifiers, list/attack_modifiers)
+	if(istype(weapon, /obj/item/mop))
+		if(weapon.reagents.total_volume >= weapon.reagents.maximum_volume)
+			balloon_alert(user, "already soaked!")
+			return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+		reagents.trans_to(weapon, weapon.reagents.maximum_volume)
+		balloon_alert(user, "doused mop")
+		playsound(src, 'sound/effects/slosh.ogg', 25, vary = TRUE)
+
+	if(is_reagent_container(weapon) || istype(weapon, /obj/item/mop))
+		update_appearance(UPDATE_OVERLAYS)
+		return SECONDARY_ATTACK_CONTINUE_CHAIN // skip attack animations when refilling cart
+
+	return SECONDARY_ATTACK_CONTINUE_CHAIN
+
 /obj/structure/janitorialcart/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM || I.is_robot_module())
 		return ..()
 
 	var/fail_msg = span_notice("There is already one of those in [src].")
 
+
 	if(istype(I, /obj/item/mop))
+		if(mymop)
+			to_chat(user, fail_msg)
+			return ATTACK_CHAIN_BLOCKED_ALL
 		add_fingerprint(user)
-		var/obj/item/mop/mop = I
-		mop.wet_mop(src, user)
+		if(!put_in_cart(I, user))
+			return ..()
+		mymop = I
+		SStgui.update_uis(src)
+		update_appearance(UPDATE_OVERLAYS)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(istype(I, /obj/item/storage/bag/trash))
@@ -57,7 +126,7 @@
 		if(!put_in_cart(I, user))
 			return ..()
 		mybag = I
-		updateUsrDialog()
+		SStgui.update_uis(src)
 		update_icon(UPDATE_OVERLAYS)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -69,7 +138,7 @@
 		if(!put_in_cart(I, user))
 			return ..()
 		myreplacer = I
-		updateUsrDialog()
+		SStgui.update_uis(src)
 		update_icon(UPDATE_OVERLAYS)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -81,9 +150,13 @@
 		if(!put_in_cart(I, user))
 			return ..()
 		myspray = I
-		updateUsrDialog()
+		SStgui.update_uis(src)
 		update_icon(UPDATE_OVERLAYS)
 		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(is_reagent_container(I))
+		update_appearance(UPDATE_OVERLAYS)
+		return ATTACK_CHAIN_BLOCKED // skip attack animation when refilling cart
 
 	if(istype(I, /obj/item/caution))
 		add_fingerprint(user)
@@ -93,7 +166,7 @@
 		if(!put_in_cart(I, user))
 			return ..()
 		signs++
-		updateUsrDialog()
+		SStgui.update_uis(src)
 		update_icon(UPDATE_OVERLAYS)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -142,68 +215,82 @@
 			span_italics("You hear ratchet."),
 		)
 
+/obj/structure/janitorialcart/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(isnull(ui))
+		ui = new(user, src, "Janicart", "Тележка уборщика")
+		ui.open()
+
 /obj/structure/janitorialcart/attack_hand(mob/user)
 	add_fingerprint(user)
-	user.set_machine(src)
-	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
-	if(mybag)
-		dat += "<a href='byond://?src=[UID()];garbage=1'>[mybag.name]</a><br>"
-	if(mymop)
-		dat += "<a href='byond://?src=[UID()];mop=1'>[mymop.name]</a><br>"
-	if(myspray)
-		dat += "<a href='byond://?src=[UID()];spray=1'>[myspray.name]</a><br>"
-	if(myreplacer)
-		dat += "<a href='byond://?src=[UID()];replacer=1'>[myreplacer.name]</a><br>"
-	if(signs)
-		dat += "<a href='byond://?src=[UID()];sign=1'>[signs] sign\s</a><br>"
-	var/datum/browser/popup = new(user, "janicart", name, 240, 160)
-	popup.set_content(dat)
-	popup.open()
+	ui_interact(user)
 
-/obj/structure/janitorialcart/Topic(href, href_list)
-	if(!in_range(src, usr))
+/obj/structure/janitorialcart/ui_data(mob/user)
+	. = ..()
+	.["mybag"] = mybag?.declent_ru(NOMINATIVE)
+	.["mymop"] = mymop?.declent_ru(NOMINATIVE)
+	.["myspray"] = myspray?.declent_ru(NOMINATIVE)
+	.["myreplacer"] = myreplacer?.declent_ru(NOMINATIVE)
+	.["signs"] = signs
+
+/obj/structure/janitorialcart/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	. = ..()
+	var/mob/living/user = ui.user
+	if(!isliving(user))
 		return
-	if(!isliving(usr))
-		return
-	var/mob/living/user = usr
-	if(href_list["garbage"])
-		if(mybag)
+
+	switch(action)
+		if("garbage")
+			if(!mybag)
+				return
 			mybag.forceMove_turf()
 			user.put_in_hands(mybag, ignore_anim = FALSE)
 			to_chat(user, span_notice("You take [mybag] from [src]."))
 			mybag = null
-	if(href_list["mop"])
-		if(mymop)
+			. = TRUE
+
+		if("mop")
+			if(!mymop)
+				return
 			mymop.forceMove_turf()
 			user.put_in_hands(mymop, ignore_anim = FALSE)
 			to_chat(user, span_notice("You take [mymop] from [src]."))
 			mymop = null
-	if(href_list["spray"])
-		if(myspray)
+			. = TRUE
+
+		if("spray")
+			if(!myspray)
+				return
 			myspray.forceMove_turf()
 			user.put_in_hands(myspray, ignore_anim = FALSE)
 			to_chat(user, span_notice("You take [myspray] from [src]."))
 			myspray = null
-	if(href_list["replacer"])
-		if(myreplacer)
+			. = TRUE
+
+		if("replacer")
+			if(!myreplacer)
+				return
 			myreplacer.forceMove_turf()
 			user.put_in_hands(myreplacer, ignore_anim = FALSE)
 			to_chat(user, span_notice("You take [myreplacer] from [src]."))
 			myreplacer = null
-	if(href_list["sign"])
-		if(signs)
-			var/obj/item/caution/Sign = locate() in src
-			if(Sign)
-				Sign.forceMove_turf()
-				user.put_in_hands(Sign, ignore_anim = FALSE)
-				to_chat(user, span_notice("You take \a [Sign] from [src]."))
-				signs--
-			else
+			. = TRUE
+
+		if("sign")
+			if(!signs)
+				return
+			var/obj/item/caution/sign = locate() in src
+			if(!sign)
 				WARNING("Signs ([signs]) didn't match contents")
 				signs = 0
+				return
+			sign.forceMove_turf()
+			user.put_in_hands(sign, ignore_anim = FALSE)
+			to_chat(user, span_notice("You take \a [sign] from [src]."))
+			signs--
+			. = TRUE
 
-	update_icon(UPDATE_OVERLAYS)
-	updateUsrDialog()
+	update_appearance(UPDATE_OVERLAYS)
 
 /obj/structure/janitorialcart/update_overlays()
 	. = ..()
