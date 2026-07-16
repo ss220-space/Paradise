@@ -1299,7 +1299,7 @@
 	key_third_person = "fluff_feathers"
 	message = "распуша%(ет,ют)% перья."
 	emote_type = EMOTE_AUDIBLE
-	sound = 'sound/voice/resomichirp.ogg'
+	sound = 'sound/creatures/wings_flapping.ogg'
 
 /datum/emote/living/carbon/human/resomi/shake_feathers
 	key = "shake_feathers"

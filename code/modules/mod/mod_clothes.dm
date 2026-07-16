@@ -13,6 +13,7 @@
 	heat_protection = HEAD
 	cold_protection = HEAD
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/modsuit/species/resomi/mod_clothing.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/modsuit/species/vulpkanin/mod_clothing.dmi',
 		SPECIES_TAJARAN = 'icons/mob/clothing/modsuit/species/tajaran/mod_clothing.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/modsuit/species/unathi/mod_clothing.dmi',
@@ -51,6 +52,7 @@
 	heat_protection = HANDS|ARMS
 	cold_protection = HANDS|ARMS
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/modsuit/species/resomi/mod_clothing.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/modsuit/species/vulpkanin/mod_clothing.dmi',
 		SPECIES_TAJARAN = 'icons/mob/clothing/modsuit/species/tajaran/mod_clothing.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/modsuit/species/unathi/mod_clothing.dmi',
@@ -86,6 +88,7 @@
 	cold_protection = FEET|LEGS
 	permeability_coefficient = 0.01
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/modsuit/species/resomi/mod_clothing.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/modsuit/species/vulpkanin/mod_clothing.dmi',
 		SPECIES_TAJARAN = 'icons/mob/clothing/modsuit/species/tajaran/mod_clothing.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/modsuit/species/unathi/mod_clothing.dmi',
@@ -128,6 +131,7 @@
 	cold_protection = UPPER_TORSO|LOWER_TORSO|TAIL
 	hide_tail_by_species = list("modsuit")
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/modsuit/species/resomi/mod_clothing.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/modsuit/species/vulpkanin/mod_clothing.dmi',
 		SPECIES_TAJARAN = 'icons/mob/clothing/modsuit/species/tajaran/mod_clothing.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/modsuit/species/unathi/mod_clothing.dmi',

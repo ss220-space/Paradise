@@ -547,7 +547,8 @@
 		balloon_alert(mod.wearer, "нет гравитации!")
 		return FALSE
 	playsound(src, 'sound/items/modsuit/ballin.ogg', 100, TRUE)
-	mod.wearer.add_filter("mod_ball", 1, alpha_mask_filter(icon = icon('icons/mob/clothing/modsuit/mod_modules.dmi', "ball_mask"), flags = MASK_INVERSE))
+	var/ball_mask_icon = sprite_sheets[mod.wearer?.dna?.species?.name] || overlay_icon_file
+	mod.wearer.add_filter("mod_ball", 1, alpha_mask_filter(icon = icon(ball_mask_icon, "ball_mask"), flags = MASK_INVERSE))
 	mod.wearer.add_filter("mod_blur", 2, angular_blur_filter(size = 15))
 	mod.wearer.add_filter("mod_outline", 3, outline_filter(color = "#000000AA"))
 	mod.wearer.add_offsets(UID(), y_add = -4)

@@ -26,6 +26,7 @@
 		ITEM_SLOT_BACK_STRING = 'icons/mob/clothing/modsuit/mod_clothing.dmi',
 	)
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/modsuit/species/resomi/mod_clothing.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/modsuit/species/grey/mod_clothing.dmi',
 	)
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
