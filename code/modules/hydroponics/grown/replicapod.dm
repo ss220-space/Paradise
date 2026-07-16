@@ -81,7 +81,7 @@
 						make_podman = 1
 						break
 				else
-					if(M.ckey == ckey && M.stat == DEAD && !M.suiciding)
+					if(M.ckey == ckey && M.stat == DEAD && !M.suiciding && !HAS_TRAIT(M, TRAIT_MIND_TEMPORARILY_GONE))
 						make_podman = 1
 						break
 		else //If the player has ghosted from his corpse before blood was drawn, his ckey is no longer attached to the mob, so we need to match up the cloned player through the mind key
