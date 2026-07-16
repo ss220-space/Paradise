@@ -156,7 +156,7 @@
 	new_player.possess_by_player(ckey)
 	players_info[MOB_KEY] = new_player
 
-	var/datum/deathmatch_modifier/our_target = GLOB.deathmatch_game.modifiers
+	var/list/datum/deathmatch_modifier/our_target = GLOB.deathmatch_game.modifiers
 	for(var/datum/deathmatch_modifier/modifier as anything in modifiers)
 		our_target[modifier].apply(new_player, src)
 
@@ -199,7 +199,7 @@
 		value[MOB_KEY] = null
 		loser.ghostize()
 		qdel(loser)
-	var/datum/deathmatch_modifier/our_target = GLOB.deathmatch_game.modifiers
+	var/list/datum/deathmatch_modifier/our_target = GLOB.deathmatch_game.modifiers
 	for(var/datum/deathmatch_modifier/modifier in modifiers)
 		our_target[modifier].on_end_game(src)
 
@@ -334,7 +334,7 @@
 			continue
 		value[LOADOUT_KEY] = loadouts[1]
 
-	var/datum/deathmatch_modifier/our_target = GLOB.deathmatch_game.modifiers
+	var/list/datum/deathmatch_modifier/our_target = GLOB.deathmatch_game.modifiers
 	for(var/deathmatch_mod in modifiers)
 		our_target[deathmatch_mod].on_map_changed(src)
 

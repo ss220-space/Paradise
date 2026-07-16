@@ -22,7 +22,7 @@
 		return FALSE
 	if(map_incompatible(lobby.map))
 		return FALSE
-	var/datum/deathmatch_modifier/our_target = GLOB.deathmatch_game.modifiers
+	var/list/datum/deathmatch_modifier/our_target = GLOB.deathmatch_game.modifiers
 	for(var/modpath in lobby.modifiers)
 		if(src in our_target[modpath].blacklisted_modifiers)
 			return FALSE
