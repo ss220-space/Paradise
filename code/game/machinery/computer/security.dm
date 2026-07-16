@@ -300,7 +300,7 @@
 			if(!logged_in)
 				return
 			if(state.law_level < LAW_LEVEL_WARDEN)
-				to_chat(ui.user, span_danger("Не удалось удалить данный Комментарии/Записи") + ": вы не имеете достаточных прав для удаления.")
+				to_chat(ui.user, span_danger("Не удалось удалить данный комментарий или запись") + ": вы не имеете достаточных прав для удаления.")
 				return
 			var/index = text2num(params["id"])
 			if(!index || !record_security)
