@@ -2,10 +2,179 @@
 "a" = (
 /turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air,
 /area/deathmatch/fullbright)
+"b" = (
+/obj/structure/railing,
+/turf/simulated/floor/indestructible/asteroid,
+/area/deathmatch/fullbright)
+"c" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/structure/flora/ausbushes/sparsegrass/hell,
+/turf/simulated/floor/indestructible/asteroid,
+/area/deathmatch/fullbright)
+"e" = (
+/obj/structure/railing,
+/obj/structure/flora/ausbushes/fullgrass/hell,
+/turf/simulated/floor/indestructible/asteroid,
+/area/deathmatch/fullbright)
+"g" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/structure/flora/ausbushes/fullgrass/hell,
+/turf/simulated/floor/indestructible/asteroid,
+/area/deathmatch/fullbright)
+"i" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/deathmatch/fullbright)
+"j" = (
+/obj/structure/railing,
+/obj/structure/flora/ausbushes/fernybush/hell,
+/turf/simulated/floor/indestructible/asteroid,
+/area/deathmatch/fullbright)
 "l" = (
 /turf/simulated/wall/indestructible/mineral_rock,
 /area/deathmatch/fullbright)
+"o" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/structure/flora/ausbushes/hell,
+/turf/simulated/floor/indestructible/asteroid,
+/area/deathmatch/fullbright)
+"p" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/structure/flora/ausbushes/sparsegrass/hell,
+/turf/simulated/floor/indestructible/asteroid,
+/area/deathmatch/fullbright)
+"q" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/structure/flora/ausbushes/ywflowers/hell,
+/turf/simulated/floor/indestructible/asteroid,
+/area/deathmatch/fullbright)
+"r" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/obj/structure/flora/firebush,
+/turf/simulated/floor/indestructible/asteroid,
+/area/deathmatch/fullbright)
+"s" = (
+/obj/structure/railing,
+/obj/structure/flora/ausbushes/grassybush/hell,
+/turf/simulated/floor/indestructible/asteroid,
+/area/deathmatch/fullbright)
+"v" = (
+/obj/structure/lattice/catwalk/mapping,
+/obj/structure/lattice/catwalk/mapping,
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air,
+/area/deathmatch/fullbright)
+"w" = (
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/obj/structure/flora/ausbushes/fullgrass/hell,
+/turf/simulated/floor/indestructible/asteroid,
+/area/deathmatch/fullbright)
 "y" = (
+/turf/simulated/floor/indestructible/asteroid,
+/area/deathmatch/fullbright)
+"A" = (
+/obj/structure/lattice/catwalk/mapping,
+/obj/effect/landmark/deathmatch_player_spawn,
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air,
+/area/deathmatch/fullbright)
+"C" = (
+/obj/structure/lattice,
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air,
+/area/deathmatch/fullbright)
+"D" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/structure/flora/ausbushes/grassybush/hell,
+/turf/simulated/floor/indestructible/asteroid,
+/area/deathmatch/fullbright)
+"E" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/structure/flora/ausbushes/fullgrass/hell,
+/turf/simulated/floor/indestructible/asteroid,
+/area/deathmatch/fullbright)
+"G" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/structure/flora/ausbushes/fernybush/hell,
+/turf/simulated/floor/indestructible/asteroid,
+/area/deathmatch/fullbright)
+"H" = (
+/obj/structure/railing,
+/obj/structure/flora/firebush,
+/turf/simulated/floor/indestructible/asteroid,
+/area/deathmatch/fullbright)
+"I" = (
+/obj/structure/lattice/catwalk/mapping,
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air,
+/area/deathmatch/fullbright)
+"J" = (
+/obj/structure/flora/ausbushes/ywflowers/hell,
+/turf/simulated/floor/indestructible/asteroid,
+/area/deathmatch/fullbright)
+"K" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/structure/flora/ausbushes/hell,
+/turf/simulated/floor/indestructible/asteroid,
+/area/deathmatch/fullbright)
+"L" = (
+/obj/structure/railing/corner,
+/turf/simulated/floor/indestructible/asteroid,
+/area/deathmatch/fullbright)
+"O" = (
+/obj/structure/flora/ausbushes/sparsegrass/hell,
+/turf/simulated/floor/indestructible/asteroid,
+/area/deathmatch/fullbright)
+"P" = (
+/obj/structure/flora/ausbushes/fullgrass/hell,
+/turf/simulated/floor/indestructible/asteroid,
+/area/deathmatch/fullbright)
+"Q" = (
+/obj/structure/lattice/catwalk/mapping,
+/obj/structure/lattice/catwalk/mapping,
+/obj/effect/landmark/deathmatch_player_spawn,
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air,
+/area/deathmatch/fullbright)
+"S" = (
+/obj/structure/flora/ausbushes/fernybush/hell,
+/turf/simulated/floor/indestructible/asteroid,
+/area/deathmatch/fullbright)
+"V" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/structure/flora/ausbushes/grassybush/hell,
+/turf/simulated/floor/indestructible/asteroid,
+/area/deathmatch/fullbright)
+"W" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/structure/flora/ausbushes/sparsegrass/hell,
+/turf/simulated/floor/indestructible/asteroid,
+/area/deathmatch/fullbright)
+"X" = (
+/obj/structure/flora/ausbushes/hell,
 /turf/simulated/floor/indestructible/asteroid,
 /area/deathmatch/fullbright)
 
@@ -39,7 +208,7 @@ l
 (2,1,1) = {"
 l
 l
-y
+J
 y
 y
 l
@@ -67,7 +236,7 @@ l
 l
 y
 y
-y
+X
 y
 y
 l
@@ -94,13 +263,13 @@ l
 l
 y
 y
-y
-y
-y
-y
-y
-y
-y
+J
+L
+p
+p
+i
+q
+D
 l
 l
 l
@@ -122,7 +291,7 @@ l
 l
 y
 y
-y
+H
 a
 a
 a
@@ -148,24 +317,24 @@ l
 l
 l
 l
-y
-y
+O
+b
+a
+I
+a
+C
+C
+a
+a
+C
+C
+a
+C
 a
 a
 a
 a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-y
+K
 l
 l
 l
@@ -179,20 +348,20 @@ l
 l
 a
 a
+I
+I
+I
+I
+I
+C
+C
+I
+C
+C
+I
+I
 a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-y
+g
 l
 l
 l
@@ -203,24 +372,24 @@ l
 l
 l
 l
-y
+b
 a
 a
+I
+Q
+I
+C
+I
+A
+I
+I
+C
+I
+A
+I
 a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-y
-y
+K
+J
 l
 l
 l
@@ -229,24 +398,24 @@ l
 l
 l
 y
-y
-y
+X
+e
 a
+C
+I
+C
+I
+v
+v
+v
+I
+C
+I
+v
+I
+I
 a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-y
+g
 y
 l
 l
@@ -257,24 +426,24 @@ l
 l
 l
 y
-y
+j
 a
+C
+I
 a
+I
+v
+C
+I
+I
+I
+I
+I
 a
+I
 a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-y
-y
+K
+S
 l
 l
 l
@@ -283,24 +452,24 @@ l
 l
 l
 l
-y
-y
+O
+b
 a
 a
+I
+I
+I
+I
+v
+Q
+v
+C
 a
+I
+I
+I
 a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-y
+G
 l
 l
 l
@@ -311,20 +480,20 @@ l
 l
 l
 y
-y
+H
 a
+C
+I
+I
 a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+I
+I
+I
+I
+I
+I
+I
+I
 a
 a
 l
@@ -338,21 +507,21 @@ l
 l
 l
 l
-y
+s
 a
+C
+I
+I
+I
+v
+C
+I
 a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+v
+Q
+I
+I
+C
 a
 l
 l
@@ -367,19 +536,19 @@ l
 l
 l
 a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+C
+v
+Q
+I
+I
+I
+I
+I
+I
+I
+C
+I
+C
 l
 l
 l
@@ -395,18 +564,18 @@ l
 l
 l
 a
+I
+I
+I
 a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+I
+C
+v
+v
+C
+I
+v
+C
 l
 l
 l
@@ -423,16 +592,16 @@ l
 l
 l
 a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+I
+I
+v
+I
+I
+I
+I
+I
+I
+I
 a
 l
 l
@@ -449,17 +618,17 @@ l
 l
 l
 a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+I
+A
+I
+v
+A
+I
+I
+C
+I
+Q
+C
 a
 l
 l
@@ -476,18 +645,18 @@ l
 l
 a
 a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+C
+I
+I
+I
+I
+v
+I
+I
+I
+v
+I
+C
 l
 l
 l
@@ -503,18 +672,18 @@ l
 a
 a
 a
+C
+I
+I
 a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+I
+C
+C
+C
+I
+C
+I
+C
 a
 l
 l
@@ -529,6 +698,9 @@ l
 l
 a
 a
+I
+I
+I
 a
 a
 a
@@ -537,13 +709,10 @@ a
 a
 a
 a
+I
+I
 a
-a
-a
-a
-a
-a
-y
+g
 l
 l
 l
@@ -553,26 +722,26 @@ l
 l
 l
 l
+b
+a
+a
+a
+a
+a
+a
+l
+l
+l
+l
+l
+l
+a
+a
+a
+a
+c
 y
-a
-a
-a
-a
-a
-a
-l
-l
-l
-l
-l
-l
-a
-a
-a
-a
-y
-y
-y
+P
 l
 l
 "}
@@ -580,10 +749,10 @@ l
 l
 l
 l
-y
-y
-y
-y
+r
+E
+E
+V
 l
 l
 l
@@ -594,11 +763,11 @@ l
 l
 l
 l
-y
-y
-y
-y
-y
+E
+W
+o
+w
+S
 l
 l
 l
@@ -609,7 +778,7 @@ l
 l
 l
 y
-y
+S
 l
 l
 l

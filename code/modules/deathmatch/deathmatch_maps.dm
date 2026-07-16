@@ -84,6 +84,15 @@
 	map_name = "instagib"
 	key = LAZY_TEMPLATE_KEY_DEATHMATCH_INSTAGIB
 
+/datum/lazy_template/deathmatch/lattice_battle
+	name = "Битва над разломом"
+	desc = "Надоело сражаться с помощью кулаков? Попробуйте сломать под ногами соперника!"
+	max_players = 9
+	allowed_loadouts = list(
+		/datum/outfit/deathmatch_loadout/lattice_battle,
+	)
+	map_name = "lattice_battle"
+	key = LAZY_TEMPLATE_KEY_DEATHMATCH_LATTICE_BATTLE
 
 // TODO:
-// 16 more maps, at least
+// 13 more maps, at least
