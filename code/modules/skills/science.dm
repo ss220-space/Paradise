@@ -17,6 +17,7 @@
 	id = "research.mech_construct"
 	name = "Конструирование мехов"
 	desc = "Влияет на скорость постройки мехов и печати их запчастей."
+	duration_mod_signals = list(COMSIG_GET_MECH_CONSTRUCT_DURATION_MOD)
 
 /datum/skill/research/anomaly
 	id = "research.anomaly"

@@ -99,3 +99,7 @@
 #define COMSIG_GET_CHEMISTRY_DISPENSE_RAND_SIZE "get_chemistry_dispense_rand_size"
 /// Get genetic irradiation duration modifier for genetic skill (mob/living/user, list/modifiers)
 #define COMSIG_GET_IRRADIATION_DURATION_MOD "get_irradiation_duration_mod"
+
+// MARK: Research
+/// Get mech construction duration modifier for mech construct skill (mob/living/user, list/modifiers)
+#define COMSIG_GET_MECH_CONSTRUCT_DURATION_MOD "get_mech_construct_duration_mod"
