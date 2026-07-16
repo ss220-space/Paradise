@@ -360,7 +360,6 @@
  */
 /mob/proc/reset_perspective(atom/new_eye)
 	SHOULD_CALL_PARENT(TRUE)
-	SEND_SIGNAL(src, COMSIG_MOB_RESET_PERSPECTIVE)
 	if(!client)
 		return
 
@@ -392,7 +391,8 @@
 		else
 			client.perspective = EYE_PERSPECTIVE
 			client.set_eye(loc)
-
+	/// Signal sent after the eye has been successfully updated, with the client existing.
+	SEND_SIGNAL(src, COMSIG_MOB_RESET_PERSPECTIVE)
 	return TRUE
 
 /mob/living/reset_perspective(atom/new_eye)
@@ -419,9 +419,6 @@
 		if(hud_used)
 			client.clear_screen()
 			hud_used.show_hud(hud_used.hud_version)
-		if(!new_eye)
-			client.set_eye(src)
-			client.perspective = MOB_PERSPECTIVE
 
 /mob/proc/clear_client_in_contents()
 	if(!client?.movingmob)

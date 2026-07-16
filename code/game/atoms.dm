@@ -1449,6 +1449,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(check_level_trait(gravity_turf.z, ZTRAIT_GRAVITY))
 		return TRUE
 
+	if(gravity_turf.force_no_gravity)
+		return FALSE
+
 	var/list/forced_gravity = list()
 
 	SEND_SIGNAL(src, COMSIG_ATOM_HAS_GRAVITY, gravity_turf, forced_gravity)
@@ -1468,9 +1471,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	var/list/gravity_deltas = list()
 
 	var/area/turf_area = gravity_turf.loc
-	if(turf_area.area_flags & NO_GRAVITY)
-		return FALSE
-
 	if(turf_area.has_gravity || !turf_area.ignore_gravgen && length(GLOB.gravity_generators["[gravity_turf.z]"]) && !(GRAVITY_SOURCE_GRAVGEN in ignored_gravity_sources))
 		gravity_deltas.Add(1)
 
