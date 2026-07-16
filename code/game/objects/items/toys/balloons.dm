@@ -25,22 +25,22 @@
 	return ATTACK_CHAIN_PROCEED
 
 /obj/item/toy/waterballoon/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
-    if(!istype(target, /obj/structure/reagent_dispensers))
-        return
+	if(!istype(target, /obj/structure/reagent_dispensers))
+		return
 
-    var/obj/structure/reagent_dispensers/dispencer = target
-    if(dispencer.reagents.total_volume <= 0)
-        to_chat(user, span_warning("[DECLENT_RU_CAP(dispencer, NOMINATIVE)] пустой."))
-        return
-    else if(reagents.total_volume >= 10)
-        to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] полный."))
-        return
+	var/obj/structure/reagent_dispensers/dispencer = target
+	if(dispencer.reagents.total_volume <= 0)
+		to_chat(user, span_warning("[DECLENT_RU_CAP(dispencer, NOMINATIVE)] пустой."))
+		return
+	else if(reagents.total_volume >= 10)
+		to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] полный."))
+		return
 
-    user.changeNext_move(CLICK_CD_MELEE)
-    target.reagents.trans_to(src, 10)
-    to_chat(user, span_notice("Вы наполняете шарик из [target.declent_ru(GENITIVE)]."))
-    desc = "Полупрозрачный воздушный шарик, внутри которого плещется какая-то жидкость."
-    update_icon(UPDATE_ICON_STATE)
+	user.changeNext_move(CLICK_CD_MELEE)
+	target.reagents.trans_to(src, 10)
+	to_chat(user, span_notice("Вы наполняете шарик из [target.declent_ru(GENITIVE)]."))
+	desc = "Полупрозрачный воздушный шарик, внутри которого плещется какая-то жидкость."
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/toy/waterballoon/attackby(obj/item/item, mob/user, params)
 	if(!isglassreagentcontainer(item) && !istype(item, /obj/item/reagent_containers/food/drinks/drinkingglass))
