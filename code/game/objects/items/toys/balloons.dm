@@ -43,13 +43,6 @@
 			desc = "Полупрозрачный воздушный шарик, внутри которого плещется какая-то жидкость."
 			update_icon(UPDATE_ICON_STATE)
 
-/obj/item/toy/waterballoon/wash(mob/user, atom/source)
-	if(reagents.total_volume < 10)
-		reagents.add_reagent("water", min(10-reagents.total_volume, 10))
-		to_chat(user, span_notice("Вы наполняете шарик из [source.declent_ru(GENITIVE)]."))
-		desc = "Полупрозрачный воздушный шарик, внутри которого плещется какая-то жидкость."
-		update_icon(UPDATE_ICON_STATE)
-
 /obj/item/toy/waterballoon/attackby(obj/item/item, mob/user, params)
 	if(isglassreagentcontainer(item) || istype(item, /obj/item/reagent_containers/food/drinks/drinkingglass))
 		add_fingerprint(user)
