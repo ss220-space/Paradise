@@ -293,7 +293,7 @@
 	)
 
 /obj/item/mod/module/grappling_hook/used()
-	if(get_gravity(get_turf(src)) && !upgraded)
+	if(has_gravity(get_turf(src)) && !upgraded)
 		balloon_alert(mod.wearer, "нельзя использовать!")
 		playsound(src, 'sound/weapons/gun_interactions/dry_fire.ogg', 25, TRUE)
 		return FALSE

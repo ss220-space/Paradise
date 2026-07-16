@@ -313,31 +313,37 @@
 
 /obj/machinery/suit_storage_unit/update_overlays()
 	. = ..()
+	//if things aren't powered, these show anyways
 	if(panel_open)
 		. += "[base_icon_state]_panel"
-
-	if(uv)
-		if(uv_super)
-			. += "[base_icon_state]_super"
-			. += "[base_icon_state]_[occupant ? "body" : "uvstrong"]"
-		else
-			. += "[base_icon_state]_[occupant ? "body" : "uv"]"
-		. += "[base_icon_state]_lights_red"
-		return
-
 	if(state_open)
 		. += "[base_icon_state]_open"
-		. += "[base_icon_state]_lights_open"
 		if(suit)
 			. += "[base_icon_state]_suit"
 		if(helmet)
 			. += "[base_icon_state]_helm"
 		if(storage)
 			. += "[base_icon_state]_storage"
-	else
-		. += "[base_icon_state]_lights_closed"
-
-	. += "[base_icon_state]_[occupant ? "body" : "ready"]"
+	if(!(broken || stat & NOPOWER))
+		if(state_open)
+			. += "[base_icon_state]_lights_open"
+		else
+			if(uv)
+				if(uv_super)
+					. += "[base_icon_state]_super"
+				. += "[base_icon_state]_lights_red"
+			else
+				. += "[base_icon_state]_lights_closed"
+		//top lights
+		if(uv)
+			if(uv_super)
+				. += "[base_icon_state]_uvstrong"
+			else
+				. += "[base_icon_state]_uv"
+		else if(locked)
+			. += "[base_icon_state]_locked"
+		else
+			. += "[base_icon_state]_ready"
 
 /obj/machinery/suit_storage_unit/attackby(obj/item/I, mob/user, params)
 	if(shocked && shock(user, 100))

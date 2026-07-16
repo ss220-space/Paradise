@@ -22,6 +22,9 @@
 	if(!isliving(arrived))
 		return
 
+	if(arrived.anchored || HAS_TRAIT(arrived, TRAIT_WALLMOUNTED))
+		return
+
 	if(arrived.movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
 		return
 

@@ -2347,10 +2347,7 @@
 /area/ruin/space/ancientstation/charlie_hydroponics)
 "iz" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	name = "dusty mirror";
 	pixel_x = 26
@@ -2710,10 +2707,7 @@
 /area/template_noop)
 "jV" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -4365,11 +4359,7 @@
 /area/ruin/space/ancientstation/charlie_warden)
 "pC" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sink{
-	dir = 1;
-	layer = 5;
-	pixel_y = -5
-	},
+/obj/structure/sink/directional/north,
 /obj/machinery/light_construct/small{
 	dir = 8
 	},
@@ -5569,9 +5559,7 @@
 /area/ruin/space/ancientstation/beta_atmos)
 "tP" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sink/kitchen{
-	pixel_y = 22
-	},
+/obj/structure/sink/kitchen/directional/south,
 /obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -5742,10 +5730,7 @@
 /area/ruin/space/ancientstation/charlie_dininghall)
 "uA" = (
 /obj/machinery/optable,
-/obj/machinery/shower{
-	pixel_x = -3;
-	pixel_y = 3
-	},
+/obj/machinery/shower/directional/south,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
@@ -5900,10 +5885,7 @@
 "uY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/optable,
-/obj/machinery/shower{
-	pixel_x = -3;
-	pixel_y = 3
-	},
+/obj/machinery/shower/directional/south,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
@@ -6265,9 +6247,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/west,
 /obj/item/soap/nanotrasen,
 /obj/structure/curtain/open,
 /turf/simulated/floor/plasteel{
@@ -6781,7 +6761,7 @@
 /obj/item/kitchen/utensil/pspork,
 /obj/item/kitchen/utensil/pspork,
 /obj/item/kitchen/rollingpin,
-/obj/item/reagent_containers/glass/rag,
+/obj/item/rag,
 /obj/item/flashlight/lamp,
 /obj/item/storage/belt/chef,
 /turf/simulated/floor/plasteel{
@@ -9703,9 +9683,7 @@
 /area/ruin/space/ancientstation/theta_corridor)
 "It" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sink/kitchen{
-	pixel_y = 22
-	},
+/obj/structure/sink/kitchen/directional/south,
 /obj/structure/foodcart,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -10000,9 +9978,7 @@
 "Jv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/curtain/open,
-/obj/machinery/shower{
-	pixel_y = 18
-	},
+/obj/machinery/shower/directional/south,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_punishmentcell)
 "JA" = (

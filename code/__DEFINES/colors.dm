@@ -639,3 +639,5 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 
 #define COLOR_ANCIENT_ROCK "#575757"
 #define COLOR_COLD_ANCIENT_ROCK "#575764"
+
+#define COLOR_DMI_MASK "#a0a0a000"
