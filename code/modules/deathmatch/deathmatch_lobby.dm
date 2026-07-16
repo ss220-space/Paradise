@@ -100,7 +100,7 @@
 		our_target.modifiers[modpath].on_start_game(src)
 
 	for(var/key, value in players)
-		var/mob/dead/observer/observer = players[key][MOB_KEY]
+		var/mob/dead/observer/observer = value[MOB_KEY]
 		if(isnull(observer) || !observer.client)
 			log_game("Removed player [key] from deathmatch lobby [host], as they couldn't be found.")
 			remove_ckey_from_play(key)
@@ -355,7 +355,7 @@
 /// fills the lobby with fake players for the sake of UI debug, can only be called via VV
 /datum/deathmatch_lobby/proc/fakefill(count)
 	for(var/i in 1 to count)
-		players["[rand(1, 999)]"] = list("mob" = usr, "host" = FALSE, "ready" = FALSE, "loadout" = pick(loadouts))
+		players["[rand(1, 999)]"] = list(MOB_KEY = usr, "host" = FALSE, "ready" = FALSE, LOADOUT_KEY = pick(loadouts))
 
 /datum/deathmatch_lobby/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, null)
