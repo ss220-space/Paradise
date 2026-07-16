@@ -32,11 +32,11 @@
 		/obj/item/camera_assembly,
 		/obj/item/tank,
 		/obj/item/circuitboard,
+		/obj/item/assembly/igniter,
 		/obj/item/stack/tile/light,
 		/obj/item/stack/ore/bluespace_crystal,
 		/obj/item/stack/sheet/plasteel,
 		/obj/item/stack/tile/wood,
-		/obj/item/assembly/igniter,
 	)
 
 	//Item currently being held.
@@ -186,6 +186,7 @@
 		/obj/item/camera_assembly,
 		/obj/item/tank,
 		/obj/item/circuitboard,
+		/obj/item/assembly/igniter,
 		/obj/item/stack/tile/light,
 		/obj/item/stack/ore/bluespace_crystal,
 		/obj/item/organ,
