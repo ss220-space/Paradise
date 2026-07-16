@@ -577,3 +577,11 @@ GLOBAL_ALIST_INIT(body_zone, alist(
 		var/datum/dice_roll/d_roll = new roll_path()
 		rolls[d_roll.number] = d_roll
 	GLOB.dice_rolls = rolls
+
+/// Functions like init_subtypes, but uses the subtype's path as a key for easy access
+/proc/init_subtypes_w_path_keys(prototype, list/our_list)
+	if(!istype(our_list))
+		our_list = list()
+	for(var/path in subtypesof(prototype))
+		our_list[path] = new path()
+	return our_list

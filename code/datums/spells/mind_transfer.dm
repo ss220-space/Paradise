@@ -25,7 +25,7 @@
 	return T
 
 /obj/effect/proc_holder/spell/mind_transfer/valid_target(mob/living/target, mob/user)
-	return target.stat != DEAD && target.key && target.mind
+	return target.stat != DEAD && target.key && target.mind && !HAS_TRAIT(target, TRAIT_MIND_TEMPORARILY_GONE)
 
 /*
 Urist: I don't feel like figuring out how you store object spells so I'm leaving this for you to do.

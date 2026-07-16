@@ -119,6 +119,11 @@
 	smoothing_groups = SMOOTH_GROUP_WOOD_WALLS
 	smooth = SMOOTH_BITMASK
 
+/turf/simulated/wall/indestructible/fakedoor
+	name = "airlock"
+	icon = 'icons/obj/doors/airlocks/hatch/maintenance.dmi'
+	icon_state = "closed"
+
 /turf/simulated/wall/indestructible/necropolis
 	name = "necropolis wall"
 	desc = "A seemingly impenetrable wall."
