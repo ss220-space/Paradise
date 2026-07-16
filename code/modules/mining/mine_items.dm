@@ -29,7 +29,6 @@
 /obj/effect/light_emitter/thunderdome
 	light_range = 4
 	light_power = 8
-	anchored = TRUE
 	icon_state = "impact_laser_orange"
 
 /**********************Miner Lockers**************************/

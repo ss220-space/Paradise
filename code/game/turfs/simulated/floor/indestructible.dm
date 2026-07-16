@@ -87,7 +87,6 @@
 	icon_state = "light_on"
 	light_range = 3
 	light_color = LIGHT_COLOR_CYAN
-	light_on = TRUE
 
 /turf/simulated/floor/indestructible/abductor_vault
 	icon_state = "alienvault"
