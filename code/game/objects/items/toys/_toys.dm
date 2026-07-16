@@ -22,14 +22,14 @@
 		. += span_notice("Используйте ручку на игрушке, чтобы переименовать её.")
 
 /obj/item/toy/attackby(obj/item/I, mob/user, params)
-    if(!unique_toy_rename || !is_pen(I))
-        return ..()
+	if(!unique_toy_rename || !is_pen(I))
+		return ..()
 
-    add_fingerprint(user)
-    var/new_name = rename_interactive(user, I, use_prefix = FALSE)
-    if(!isnull(new_name))
-        to_chat(user, span_notice("Вы называете игрушку '[name]'. Поздоровайтесь со своим новым другом."))
-    return ATTACK_CHAIN_PROCEED_SUCCESS
+	add_fingerprint(user)
+	var/new_name = rename_interactive(user, I, use_prefix = FALSE)
+	if(!isnull(new_name))
+		to_chat(user, span_notice("Вы называете игрушку '[name]'. Поздоровайтесь со своим новым другом."))
+	return ATTACK_CHAIN_PROCEED_SUCCESS
 
 // MARK: Fake singularity
 /obj/item/toy/spinningtoy
