@@ -260,11 +260,6 @@
 	},
 /turf/simulated/floor/indestructible/brig_black,
 /area/deathmatch)
-"K" = (
-/obj/structure/lattice/fireproof,
-/obj/structure/lattice/fireproof,
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air,
-/area/deathmatch)
 "L" = (
 /obj/effect/turf_decal/siding/yellow/corner{
 	dir = 8
@@ -566,7 +561,7 @@ C
 X
 m
 m
-K
+m
 m
 X
 C
@@ -575,7 +570,7 @@ P
 C
 X
 m
-K
+m
 m
 m
 X
@@ -800,7 +795,7 @@ C
 X
 m
 m
-K
+m
 m
 X
 C
@@ -809,7 +804,7 @@ j
 C
 X
 m
-K
+m
 m
 m
 X

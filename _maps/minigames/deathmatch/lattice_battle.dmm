@@ -72,11 +72,6 @@
 /obj/structure/flora/ausbushes/grassybush/hell,
 /turf/simulated/floor/indestructible/asteroid,
 /area/deathmatch/fullbright)
-"v" = (
-/obj/structure/lattice/catwalk/mapping,
-/obj/structure/lattice/catwalk/mapping,
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air,
-/area/deathmatch/fullbright)
 "w" = (
 /obj/structure/railing/corner{
 	dir = 1
@@ -148,12 +143,6 @@
 "P" = (
 /obj/structure/flora/ausbushes/fullgrass/hell,
 /turf/simulated/floor/indestructible/asteroid,
-/area/deathmatch/fullbright)
-"Q" = (
-/obj/structure/lattice/catwalk/mapping,
-/obj/structure/lattice/catwalk/mapping,
-/obj/effect/landmark/deathmatch_player_spawn,
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air,
 /area/deathmatch/fullbright)
 "S" = (
 /obj/structure/flora/ausbushes/fernybush/hell,
@@ -376,7 +365,7 @@ b
 a
 a
 I
-Q
+A
 I
 C
 I
@@ -405,13 +394,13 @@ C
 I
 C
 I
-v
-v
-v
+I
+I
+I
 I
 C
 I
-v
+I
 I
 I
 a
@@ -432,7 +421,7 @@ C
 I
 a
 I
-v
+I
 C
 I
 I
@@ -460,9 +449,9 @@ I
 I
 I
 I
-v
-Q
-v
+I
+A
+I
 C
 a
 I
@@ -513,12 +502,12 @@ C
 I
 I
 I
-v
+I
 C
 I
 a
-v
-Q
+I
+A
 I
 I
 C
@@ -537,8 +526,8 @@ l
 l
 a
 C
-v
-Q
+I
+A
 I
 I
 I
@@ -570,11 +559,11 @@ I
 a
 I
 C
-v
-v
+I
+I
 C
 I
-v
+I
 C
 l
 l
@@ -594,7 +583,7 @@ l
 a
 I
 I
-v
+I
 I
 I
 I
@@ -621,13 +610,13 @@ a
 I
 A
 I
-v
+I
 A
 I
 I
 C
 I
-Q
+A
 C
 a
 l
@@ -650,11 +639,11 @@ I
 I
 I
 I
-v
 I
 I
 I
-v
+I
+I
 I
 C
 l
