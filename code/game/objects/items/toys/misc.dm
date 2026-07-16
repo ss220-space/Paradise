@@ -229,9 +229,9 @@
 	return TRUE
 
 /obj/item/toy/redbutton/proc/boom()
+	playsound(src, 'sound/effects/explosionfar.ogg', 50, FALSE, 0)
 	for(var/mob/M in range(10, get_turf(src))) // Checks range
 		if(!M.stat && !isAI(M)) // Checks to make sure whoever's getting shaken is alive/not the AI
-			playsound(src, 'sound/effects/explosionfar.ogg', 50, FALSE, 0)
 			shake_camera(M, 2, 1)
 /*
  * Fake cuffs (honk honk)

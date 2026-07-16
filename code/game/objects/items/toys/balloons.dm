@@ -134,6 +134,7 @@
 		list("green", "orange") = /obj/item/toy/balloon_animal/lizard,
 		list("green", "purple") = /obj/item/toy/balloon_animal/slime,
 		list("yellow", "orange") = /obj/item/toy/balloon_animal/moth,
+		list("yellow", "purple") = /obj/item/toy/balloon_animal/lamp, // tg shit, change later
 		list("orange", "purple") = /obj/item/toy/balloon_animal/plasmaman,
 	)
 
@@ -381,6 +382,11 @@
 	name = "balloon moth"
 	desc = "Фигурка из воздушных шариков, изображающая распространенного представителя расы Ниан. Очень немногие из них решают поселиться на планете клоунов, но те, кто это делает, демонстрируют лучшие трюки с \"исчезновением трусов\"."
 	icon_state = "balloon_moth"
+
+/obj/item/toy/balloon_animal/lamp
+	name = "balloon lamp"
+	desc = "Фигурка лампочки, выполненная из воздушных шариков. Отдаленно напоминает эфириальную сущность с других планов бытия, но на самом деле это просто лампочка."
+	icon_state = "balloon_lamp"
 
 /obj/item/toy/balloon_animal/plasmaman
 	name = "balloon plasmaman"
