@@ -109,7 +109,7 @@
 		if(forceMove)
 			forceMove(targetloc)
 		else
-			loc = targetloc
+			abstract_move(targetloc)
 		lastloc = loc
 		var/atom/movable/B = A
 		if(istype(B))

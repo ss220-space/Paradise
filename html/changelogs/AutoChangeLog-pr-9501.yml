@@ -1,0 +1,4 @@
+author: "KINGDICE666"
+delete-after: True
+changes:
+  - bugfix: "Чинит гравитацию (PR #9501)"

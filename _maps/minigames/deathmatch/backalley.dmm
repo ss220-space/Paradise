@@ -1,0 +1,1082 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"bw" = (
+/obj/machinery/door/airlock/maintenance_hatch,
+/obj/effect/spawner/random_barrier/possibly_welded_airlock,
+/turf/simulated/floor/indestructible/stone_floor,
+/area/template_noop)
+"df" = (
+/turf/simulated/floor/indestructible/stone_floor,
+/area/template_noop)
+"dh" = (
+/turf/simulated/wall/indestructible/fakedoor,
+/area/template_noop)
+"dl" = (
+/obj/machinery/conveyor/auto{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/plating,
+/area/template_noop)
+"dt" = (
+/obj/structure/closet/crate/medical,
+/turf/simulated/floor/indestructible/brig_black,
+/area/template_noop)
+"dS" = (
+/obj/structure/fence{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/template_noop)
+"dT" = (
+/obj/machinery/door_control/secure/directional/east{
+	id = "deathmatch_shutter_1"
+	},
+/turf/simulated/floor/indestructible/stone_floor,
+/area/template_noop)
+"ep" = (
+/obj/structure/fence,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/template_noop)
+"ez" = (
+/obj/machinery/door/poddoor/shutters/invincible{
+	dir = 8;
+	id_tag = "deathmatch_shutter_3"
+	},
+/turf/simulated/floor/indestructible/stone_floor,
+/area/template_noop)
+"eI" = (
+/obj/structure/table,
+/obj/effect/spawner/random/food_trash,
+/turf/simulated/floor/indestructible/stone_floor,
+/area/template_noop)
+"eL" = (
+/obj/structure/table,
+/obj/item/stack/medical/bruise_pack/advanced,
+/turf/simulated/floor/indestructible/brig_black,
+/area/template_noop)
+"fJ" = (
+/obj/structure/bed/wicker,
+/obj/effect/landmark/deathmatch_player_spawn,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/template_noop)
+"gg" = (
+/obj/structure/window/reinforced,
+/obj/structure/grille,
+/obj/structure/barricade/wooden,
+/turf/simulated/floor/indestructible/plating,
+/area/template_noop)
+"gQ" = (
+/obj/machinery/kitchen_machine/oven,
+/turf/simulated/floor/indestructible/stone_floor,
+/area/template_noop)
+"hL" = (
+/obj/structure/table,
+/obj/item/stack/medical/suture,
+/turf/simulated/floor/indestructible/brig_black,
+/area/template_noop)
+"jW" = (
+/obj/machinery/light/small/directional/north,
+/obj/effect/landmark/deathmatch_player_spawn,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/template_noop)
+"kA" = (
+/obj/machinery/light/small/directional/south,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/template_noop)
+"le" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/snacks/waffles,
+/turf/simulated/floor/indestructible/stone_floor,
+/area/template_noop)
+"lS" = (
+/obj/effect/landmark/deathmatch_player_spawn,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/template_noop)
+"mj" = (
+/obj/structure/closet/crate/trashcart,
+/obj/effect/spawner/random_spawners/syndicate/loot/stetchkin,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/template_noop)
+"mt" = (
+/obj/structure/barricade/security,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/template_noop)
+"nV" = (
+/obj/structure/reagent_dispensers/fueltank,
+/obj/item/weldingtool,
+/turf/simulated/floor/indestructible/plating,
+/area/template_noop)
+"qj" = (
+/obj/structure/closet/crate/wooden,
+/obj/effect/spawner/random_spawners/syndicate/loot/stetchkin,
+/turf/simulated/floor/indestructible/stone_floor,
+/area/template_noop)
+"qm" = (
+/turf/simulated/floor/indestructible/brig_black,
+/area/template_noop)
+"qN" = (
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/template_noop)
+"sf" = (
+/obj/structure/barricade/sandbags,
+/turf/simulated/floor/indestructible/stone_floor,
+/area/template_noop)
+"sH" = (
+/obj/structure/chair/office{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/medical_white,
+/area/template_noop)
+"tQ" = (
+/obj/structure/barricade/security,
+/turf/simulated/floor/indestructible/stone_floor,
+/area/template_noop)
+"vb" = (
+/obj/machinery/light/directional/west,
+/obj/structure/closet/crate/medical,
+/obj/item/storage/firstaid/brute,
+/turf/simulated/floor/indestructible/brig_black,
+/area/template_noop)
+"vj" = (
+/obj/machinery/kitchen_machine/grill,
+/turf/simulated/floor/indestructible/stone_floor,
+/area/template_noop)
+"vs" = (
+/obj/structure/barricade/wooden,
+/turf/simulated/floor/indestructible/plating,
+/area/template_noop)
+"vC" = (
+/obj/effect/mine/explosive,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/template_noop)
+"vH" = (
+/obj/machinery/light/directional/west,
+/turf/simulated/floor/indestructible/brig_black,
+/area/template_noop)
+"xh" = (
+/obj/structure/closet/crate/trashcart,
+/obj/effect/spawner/lootdrop/maintenance/double,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/template_noop)
+"xv" = (
+/obj/item/wirecutters,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/template_noop)
+"yp" = (
+/obj/machinery/light/small/directional/north,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/template_noop)
+"zx" = (
+/obj/machinery/light/small/directional/west,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/template_noop)
+"zA" = (
+/obj/effect/turf_decal/box,
+/obj/effect/landmark/deathmatch_player_spawn,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/template_noop)
+"zH" = (
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/indestructible/plating,
+/area/template_noop)
+"zU" = (
+/obj/effect/mine/explosive,
+/obj/item/shard{
+	pixel_x = 8;
+	pixel_y = -4
+	},
+/obj/item/shard{
+	pixel_y = 8;
+	pixel_x = -5
+	},
+/turf/simulated/floor/indestructible/plating,
+/area/template_noop)
+"AE" = (
+/obj/machinery/light/small/directional/north,
+/obj/structure/bed/wicker,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/template_noop)
+"AF" = (
+/obj/effect/turf_decal/caution,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/template_noop)
+"AR" = (
+/obj/structure/bed/wicker,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/template_noop)
+"Bd" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/box/revolver_kit,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/stone_floor,
+/area/template_noop)
+"BI" = (
+/obj/structure/bed/mattress,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/template_noop)
+"CO" = (
+/obj/structure/fence/door/opened{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/template_noop)
+"DK" = (
+/obj/structure/rack,
+/obj/item/storage/firstaid/fire,
+/turf/simulated/floor/indestructible/brig_black,
+/area/template_noop)
+"El" = (
+/obj/structure/table,
+/obj/item/storage/box/syndie_kit/throwing_weapons,
+/turf/simulated/floor/indestructible/stone_floor,
+/area/template_noop)
+"EM" = (
+/obj/effect/turf_decal/caution{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/template_noop)
+"Gi" = (
+/obj/effect/spawner/lootdrop/maintenance/double,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/template_noop)
+"Gk" = (
+/obj/structure/table,
+/obj/machinery/kitchen_machine/microwave,
+/turf/simulated/floor/indestructible/stone_floor,
+/area/template_noop)
+"Hl" = (
+/obj/machinery/light/small/directional/west,
+/obj/structure/barricade/sandbags,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/template_noop)
+"Hs" = (
+/obj/machinery/light/floor/built,
+/turf/simulated/floor/indestructible/medical_white,
+/area/template_noop)
+"Jp" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/template_noop)
+"JD" = (
+/obj/structure/closet/crate/wooden,
+/obj/effect/spawner/random_spawners/syndicate/loot/stetchkin,
+/turf/simulated/floor/indestructible/brig_black,
+/area/template_noop)
+"JG" = (
+/obj/machinery/light/small/directional/east,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/template_noop)
+"Kk" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1
+	},
+/obj/structure/barricade/sandbags,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/template_noop)
+"Ks" = (
+/obj/structure/bed/wicker,
+/turf/simulated/floor/indestructible/stone_floor,
+/area/template_noop)
+"Lr" = (
+/obj/effect/spawner/random_spawners/syndicate/loot/stetchkin,
+/obj/structure/closet/crate/wooden,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/template_noop)
+"LY" = (
+/obj/effect/spawner/random/food_trash,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/template_noop)
+"Mx" = (
+/obj/structure/rack,
+/obj/item/ammo_box/shotgun/buck,
+/obj/item/gun/projectile/shotgun/riot,
+/turf/simulated/floor/indestructible/stone_floor,
+/area/template_noop)
+"MK" = (
+/turf/simulated/wall/indestructible,
+/area/template_noop)
+"Nz" = (
+/turf/simulated/floor/indestructible/medical_white,
+/area/template_noop)
+"NE" = (
+/obj/structure/barricade/sandbags,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/template_noop)
+"NY" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/normal{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/normal{
+	pixel_x = 9;
+	pixel_y = 2
+	},
+/turf/simulated/floor/indestructible/stone_floor,
+/area/template_noop)
+"PA" = (
+/obj/machinery/light/directional/north,
+/turf/simulated/floor/indestructible/brig_black,
+/area/template_noop)
+"PK" = (
+/obj/structure/rack,
+/turf/simulated/floor/indestructible/brig_black,
+/area/template_noop)
+"PQ" = (
+/obj/effect/turf_decal/caution{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/template_noop)
+"Qk" = (
+/obj/effect/mine/explosive,
+/turf/simulated/floor/indestructible/plating,
+/area/template_noop)
+"QH" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/snacks/sliceable/cheesewheel,
+/turf/simulated/floor/indestructible/stone_floor,
+/area/template_noop)
+"Ra" = (
+/obj/structure/chair/office{
+	dir = 8
+	},
+/obj/effect/landmark/deathmatch_player_spawn,
+/turf/simulated/floor/indestructible/medical_white,
+/area/template_noop)
+"RH" = (
+/obj/structure/rack,
+/obj/item/grenade/frag,
+/obj/item/grenade/frag,
+/turf/simulated/floor/indestructible/stone_floor,
+/area/template_noop)
+"Sj" = (
+/obj/effect/turf_decal/caution{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/template_noop)
+"Sm" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1
+	},
+/obj/machinery/light/floor/built,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/template_noop)
+"Sz" = (
+/obj/machinery/kitchen_machine/tribal_oven,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/template_noop)
+"Tk" = (
+/obj/structure/table,
+/turf/simulated/floor/indestructible/brig_black,
+/area/template_noop)
+"Ty" = (
+/obj/effect/spawner/random/food_trash,
+/turf/simulated/floor/indestructible/stone_floor,
+/area/template_noop)
+"Uc" = (
+/obj/structure/barricade/security,
+/turf/simulated/floor/indestructible/medical_white,
+/area/template_noop)
+"Uu" = (
+/obj/structure/bed/wicker,
+/obj/item/reagent_containers/food/pill/stimulative_agent,
+/obj/item/twohanded/spear,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/template_noop)
+"Uy" = (
+/obj/machinery/light/floor/built,
+/turf/simulated/floor/indestructible/plating,
+/area/template_noop)
+"Wv" = (
+/obj/effect/spawner/random/trash,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/template_noop)
+"WN" = (
+/obj/structure/bed/wicker,
+/obj/item/gun/projectile/automatic/pistol/m1911,
+/obj/item/clothing/suit/armor/hos,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/template_noop)
+"Xj" = (
+/obj/structure/closet/crate/trashcart,
+/obj/effect/spawner/lootdrop/maintenance/double,
+/obj/effect/spawner/lootdrop/maintenance/double,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/template_noop)
+"XB" = (
+/obj/effect/landmark/deathmatch_player_spawn,
+/turf/simulated/floor/indestructible/stone_floor,
+/area/template_noop)
+"XD" = (
+/obj/structure/table,
+/obj/effect/spawner/random/food_trash,
+/obj/effect/spawner/random/food_trash,
+/turf/simulated/floor/indestructible/stone_floor,
+/area/template_noop)
+"ZR" = (
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/template_noop)
+"ZT" = (
+/obj/structure/closet/crate/wooden,
+/obj/effect/spawner/random_spawners/syndicate/loot/stetchkin,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/template_noop)
+
+(1,1,1) = {"
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+"}
+(2,1,1) = {"
+MK
+qm
+qm
+vH
+qm
+qm
+qm
+vb
+dt
+MK
+BI
+qN
+zx
+Wv
+qN
+Hl
+qN
+qN
+qN
+qN
+Hl
+lS
+AR
+MK
+"}
+(3,1,1) = {"
+MK
+PA
+qm
+DK
+PK
+qm
+qm
+qm
+qm
+MK
+Wv
+qN
+qN
+qN
+qN
+qN
+ZT
+qN
+qN
+qN
+qN
+qN
+qN
+MK
+"}
+(4,1,1) = {"
+MK
+qm
+qm
+MK
+MK
+eL
+hL
+Tk
+MK
+MK
+xh
+Wv
+qN
+qN
+Wv
+xh
+qN
+qN
+qN
+qN
+NE
+qN
+Wv
+MK
+"}
+(5,1,1) = {"
+MK
+qm
+qm
+MK
+Nz
+Nz
+Nz
+Nz
+sH
+MK
+jW
+qN
+EM
+qN
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+"}
+(6,1,1) = {"
+MK
+PA
+qm
+dh
+Nz
+sH
+Ra
+sH
+sH
+MK
+Lr
+PQ
+zA
+AF
+qN
+MK
+yp
+qN
+qN
+Wv
+qN
+zx
+qN
+MK
+"}
+(7,1,1) = {"
+MK
+JD
+qm
+MK
+Nz
+Nz
+Nz
+Nz
+sH
+MK
+ZR
+qN
+Sj
+qN
+qN
+qN
+qN
+qN
+MK
+qN
+qN
+NE
+qN
+MK
+"}
+(8,1,1) = {"
+MK
+MK
+MK
+MK
+MK
+Uc
+Hs
+Uc
+MK
+MK
+MK
+dS
+dS
+CO
+MK
+MK
+dl
+MK
+MK
+MK
+MK
+qN
+qN
+MK
+"}
+(9,1,1) = {"
+MK
+Sz
+WN
+Wv
+ep
+qN
+qN
+qN
+xh
+Wv
+qN
+qN
+mt
+kA
+MK
+zH
+Qk
+zH
+zH
+zH
+MK
+BI
+qN
+MK
+"}
+(10,1,1) = {"
+MK
+yp
+qN
+lS
+ep
+qN
+qN
+qN
+qN
+qN
+mt
+qN
+qN
+qN
+MK
+MK
+dl
+MK
+MK
+MK
+MK
+qN
+qN
+MK
+"}
+(11,1,1) = {"
+MK
+qN
+qN
+xv
+ep
+JG
+Wv
+LY
+JG
+qN
+qN
+qN
+qN
+qN
+qN
+qN
+qN
+mt
+ZT
+qN
+qN
+qN
+NE
+MK
+"}
+(12,1,1) = {"
+MK
+qN
+qN
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+AE
+qN
+qN
+mt
+qN
+JG
+qN
+qN
+qN
+JG
+qN
+xh
+MK
+"}
+(13,1,1) = {"
+MK
+qN
+Wv
+MK
+Bd
+qj
+df
+MK
+fJ
+Wv
+MK
+qN
+qN
+qN
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+"}
+(14,1,1) = {"
+MK
+yp
+xh
+MK
+df
+df
+df
+gg
+qN
+qN
+MK
+qN
+qN
+kA
+MK
+df
+Ks
+df
+df
+Ty
+df
+df
+df
+MK
+"}
+(15,1,1) = {"
+MK
+qN
+Wv
+MK
+df
+df
+df
+gg
+qN
+qN
+ZT
+qN
+Gi
+xh
+MK
+df
+df
+df
+XD
+eI
+Ty
+df
+df
+MK
+"}
+(16,1,1) = {"
+MK
+mt
+qN
+MK
+dh
+zU
+MK
+MK
+yp
+qN
+qN
+qN
+Gi
+Xj
+MK
+qj
+df
+XB
+df
+Ty
+Ty
+df
+df
+MK
+"}
+(17,1,1) = {"
+MK
+qN
+qN
+NE
+qN
+qN
+AR
+NE
+qN
+mj
+mj
+qN
+qN
+qN
+Jp
+sf
+df
+tQ
+gQ
+gQ
+df
+tQ
+df
+MK
+"}
+(18,1,1) = {"
+MK
+yp
+qN
+vC
+qN
+qN
+qN
+vC
+qN
+Wv
+mj
+Wv
+qN
+NE
+Sm
+df
+df
+df
+df
+df
+df
+df
+df
+MK
+"}
+(19,1,1) = {"
+MK
+qN
+mt
+MK
+MK
+vs
+MK
+MK
+xh
+qN
+qN
+qN
+qN
+qN
+Sm
+df
+tQ
+df
+df
+df
+tQ
+df
+df
+MK
+"}
+(20,1,1) = {"
+MK
+qN
+qN
+MK
+nV
+Uy
+nV
+MK
+qN
+qN
+qN
+qN
+mt
+qN
+Kk
+df
+df
+df
+vj
+vj
+df
+qj
+df
+MK
+"}
+(21,1,1) = {"
+MK
+qN
+qN
+MK
+MK
+MK
+MK
+MK
+ez
+ez
+MK
+qN
+qN
+kA
+MK
+df
+le
+df
+df
+df
+XB
+El
+df
+MK
+"}
+(22,1,1) = {"
+MK
+yp
+qN
+MK
+qj
+df
+df
+df
+df
+df
+MK
+qN
+Wv
+mt
+MK
+df
+QH
+df
+df
+df
+df
+eI
+df
+MK
+"}
+(23,1,1) = {"
+MK
+Wv
+qN
+bw
+df
+df
+df
+df
+df
+df
+MK
+Uu
+lS
+kA
+MK
+df
+df
+df
+Gk
+eI
+df
+df
+df
+MK
+"}
+(24,1,1) = {"
+MK
+xh
+Wv
+MK
+df
+df
+NY
+dT
+Mx
+RH
+MK
+qN
+qN
+xh
+MK
+df
+df
+df
+df
+df
+df
+df
+df
+MK
+"}
+(25,1,1) = {"
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+MK
+"}
