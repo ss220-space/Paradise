@@ -621,3 +621,6 @@
 		UNTYPED_LIST_ADD(player_list, player)
 
 	return player_list
+
+#undef MOB_KEY
+#undef LOADOUT_KEY
