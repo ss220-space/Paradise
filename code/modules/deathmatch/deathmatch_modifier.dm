@@ -22,8 +22,9 @@
 		return FALSE
 	if(map_incompatible(lobby.map))
 		return FALSE
+	var/datum/deathmatch_controller/our_target = GLOB.deathmatch_game
 	for(var/modpath in lobby.modifiers)
-		if(src in GLOB.deathmatch_game.modifiers[modpath].blacklisted_modifiers)
+		if(src in our_target.modifiers[modpath].blacklisted_modifiers)
 			return FALSE
 	return TRUE
 
@@ -68,8 +69,9 @@
 
 /datum/deathmatch_modifier/random/on_select(datum/deathmatch_lobby/lobby)
 	///remove any other global modifier if chosen. It'll pick random ones when the time comes.
+	var/list/our_modifiers = GLOB.deathmatch_game.modifiers
 	for(var/modpath in lobby.modifiers)
-		var/datum/deathmatch_modifier/modifier = GLOB.deathmatch_game.modifiers[modpath]
+		var/datum/deathmatch_modifier/modifier = our_modifiers[modpath]
 		if(modifier.random_exempted)
 			continue
 		modifier.unselect(lobby)
@@ -85,14 +87,15 @@
 			if(initial(modpath.random_exempted))
 				static_pool -= modpath
 	var/list/modifiers_pool = static_pool.Copy()
+	var/list/our_modifiers = GLOB.deathmatch_game.modifiers
 	for(var/modpath in modifiers_pool)
-		var/datum/deathmatch_modifier/modifier = GLOB.deathmatch_game.modifiers[modpath]
+		var/datum/deathmatch_modifier/modifier = our_modifiers[modpath]
 		if(!modifier.selectable(lobby))
 			modifiers_pool -= modpath
 
 	///Pick global modifiers at random.
 	for(var/iteration in 1 to rand(3, 5))
-		var/datum/deathmatch_modifier/modifier = GLOB.deathmatch_game.modifiers[pick_n_take(modifiers_pool)]
+		var/datum/deathmatch_modifier/modifier = our_modifiers[pick_n_take(modifiers_pool)]
 		modifier.on_select(lobby)
 		modifier.on_start_game(lobby)
 		lobby.modifiers += modifier.type
@@ -161,10 +164,11 @@
 	//blacklisted_modifiers = list(/datum/deathmatch_modifier/mounts, /datum/deathmatch_modifier/paraplegic, /datum/deathmatch_modifier/minefield)
 
 /datum/deathmatch_modifier/no_gravity/on_start_game(datum/deathmatch_lobby/lobby)
-	ASYNC
-		for(var/turf/turf as anything in lobby.location.reserved_turfs)
-			turf.AddElement(/datum/element/forced_gravity, 0)
-			CHECK_TICK
+	for(var/turf/turf as anything in lobby.location.reserved_turfs)
+		INVOKE_ASYNC(turf, PROC_REF(make_less_gravity))
+
+/datum/deathmatch_modifier/no_gravity/proc/make_less_gravity(turf/our_turf)
+	our_turf.AddElement(/datum/element/forced_gravity, 0)
 
 /datum/deathmatch_modifier/no_gravity/on_end_game(datum/deathmatch_lobby/lobby)
 	for(var/turf/turf as anything in lobby.location.reserved_turfs)
@@ -207,16 +211,20 @@
 	)
 
 	///1 every 11 turfs, but it will actually spawn fewer mines since groundless and closed turfs are skipped.
-	var/mines_to_spawn = length(lobby.location.reserved_turfs) * 0.09
+	var/our_turfs = lobby.location.reserved_turfs
+	var/mines_to_spawn = length(our_turfs) * 0.09
 	for(var/iteration in 1 to mines_to_spawn)
-		var/turf/target_turf = pick(lobby.location.reserved_turfs)
-		if(!issimulatedturf(target_turf) || isgroundlessturf(target_turf))
+		var/turf/target_turf = pick(our_turfs)
+		if(!issimulatedturf(target_turf) || isgroundlessturf(target_turf) || iswallturf(target_turf))
 			continue
 		///don't spawn mine next to player spawns.
 		if(locate(/obj/effect/landmark/deathmatch_player_spawn) in range(1, target_turf))
 			continue
 		///skip belt loops or they'll explode right away.
-		if(locate(/obj/machinery/conveyor) in target_turf.contents)
+		if(locate(/obj/machinery) in target_turf.contents)
+			continue
+		///skip all taken turfs, like crates or tables
+		if(locate(/obj/structure) in target_turf.contents)
 			continue
 		var/mine_path = pick(mines)
 		new mine_path (target_turf)

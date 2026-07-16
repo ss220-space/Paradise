@@ -1,3 +1,6 @@
+#define MOB_KEY "mob"
+#define LOADOUT_KEY "loadout"
+
 /datum/deathmatch_lobby
 	/// Ckey of the host
 	var/host
@@ -42,9 +45,10 @@
 
 /datum/deathmatch_lobby/Destroy(force, ...)
 	. = ..()
-	for(var/key in players+observers)
+	for(var/key in players + observers)
 		var/datum/tgui/ui = SStgui.get_open_ui(get_mob_by_ckey(key), src)
-		if(ui) ui.close()
+		if(ui)
+			ui.close()
 		remove_ckey_from_play(key)
 	if(playing && !isnull(location))
 		clear_reservation()
@@ -91,11 +95,12 @@
 		playing = FALSE
 		return FALSE
 
+	var/datum/deathmatch_controller/our_target = GLOB.deathmatch_game
 	for(var/modpath in modifiers)
-		GLOB.deathmatch_game.modifiers[modpath].on_start_game(src)
+		our_target.modifiers[modpath].on_start_game(src)
 
-	for(var/key in players)
-		var/mob/dead/observer/observer = players[key]["mob"]
+	for(var/key, value in players)
+		var/mob/dead/observer/observer = players[key][MOB_KEY]
 		if(isnull(observer) || !observer.client)
 			log_game("Removed player [key] from deathmatch lobby [host], as they couldn't be found.")
 			remove_ckey_from_play(key)
@@ -110,8 +115,9 @@
 	QDEL_LIST(player_spawns)
 
 	for(var/observer_key in observers)
-		var/mob/observer = observers[observer_key]["mob"]
-		observer.forceMove(pick(location.reserved_turfs))
+		var/mob/observer = observers[observer_key][MOB_KEY]
+		if(observer)
+			observer.forceMove(pick(location.reserved_turfs))
 
 	playing = DEATHMATCH_PLAYING
 	addtimer(CALLBACK(src, PROC_REF(game_took_too_long)), initial(map.automatic_gameend_time))
@@ -126,13 +132,13 @@
 
 /datum/deathmatch_lobby/proc/spawn_observer_as_player(ckey, loc)
 	var/list/players_info = players[ckey]
-	var/mob/dead/observer/observer = players_info["mob"]
+	var/mob/dead/observer/observer = players_info[MOB_KEY]
 	if(isnull(observer) || !observer.client)
 		remove_ckey_from_play(ckey)
 		return
 
 	// equip player
-	var/datum/outfit/deathmatch_loadout/loadout = players_info["loadout"]
+	var/datum/outfit/deathmatch_loadout/loadout = players_info[LOADOUT_KEY]
 	if(!(loadout in loadouts))
 		loadout = loadouts[1]
 
@@ -148,10 +154,11 @@
 		)
 	new_player.equipOutfit(loadout) // Loadout
 	new_player.possess_by_player(ckey)
-	players_info["mob"] = new_player
+	players_info[MOB_KEY] = new_player
 
+	var/datum/deathmatch_controller/our_target = GLOB.deathmatch_game
 	for(var/datum/deathmatch_modifier/modifier as anything in modifiers)
-		GLOB.deathmatch_game.modifiers[modifier].apply(new_player, src)
+		our_target.modifiers[modifier].apply(new_player, src)
 
 	// register death handling.
 	register_player_signals(new_player)
@@ -179,22 +186,22 @@
 	if(!location)
 		CRASH("Reservation of deathmatch game [host] deleted during game.")
 	var/mob/winner
-	if(players.len)
+	if(length(players))
 		var/list/winner_info = players[pick(players)]
-		if(!isnull(winner_info["mob"]))
-			winner = winner_info["mob"] //only one should remain anyway but incase of a draw
+		if(!isnull(winner_info[MOB_KEY]))
+			winner = winner_info[MOB_KEY] //only one should remain anyway but incase of a draw
 
 	announce(span_reallybig("Игра окончена.<br>Победитель: [winner ? winner.real_name : "никто"]."))
 
-	for(var/ckey in players)
-		var/mob/loser = players[ckey]["mob"]
+	for(var/ckey, value in players)
+		var/mob/loser = players[ckey][MOB_KEY]
 		unregister_player_signals(loser)
-		players[ckey]["mob"] = null
+		players[ckey][MOB_KEY] = null
 		loser.ghostize()
 		qdel(loser)
-
+	var/datum/deathmatch_controller/our_target = GLOB.deathmatch_game
 	for(var/datum/deathmatch_modifier/modifier in modifiers)
-		GLOB.deathmatch_game.modifiers[modifier].on_end_game(src)
+		our_target.modifiers[modifier].on_end_game(src)
 
 	clear_reservation()
 	GLOB.deathmatch_game.remove_lobby(host)
@@ -203,7 +210,7 @@
 /datum/deathmatch_lobby/proc/player_wabbajacked(mob/living/player, mob/living/new_mob)
 	SIGNAL_HANDLER
 	unregister_player_signals(player)
-	players[player.ckey]["mob"] = new_mob
+	players[player.ckey][MOB_KEY] = new_mob
 	register_player_signals(new_mob)
 
 /datum/deathmatch_lobby/proc/player_died(mob/living/player, gibbed)
@@ -213,9 +220,9 @@
 
 	var/ckey = player.ckey ? player.ckey : player.mind?.key
 	if(!islist(players[ckey])) // potentially the player info could hold a reference to this mob so we can figure the ckey out without worrying about ghosting and suicides n such
-		for(var/potential_ckey in players)
+		for(var/potential_ckey, value in players)
 			var/list/player_info = players[potential_ckey]
-			if(player_info["mob"] && player_info["mob"] == player)
+			if(player_info[MOB_KEY] && player_info[MOB_KEY] == player)
 				ckey = potential_ckey
 				break
 
@@ -256,7 +263,7 @@
 	main_list -= ckey
 
 /datum/deathmatch_lobby/proc/announce(message)
-	for(var/key in players+observers)
+	for(var/key in players + observers)
 		var/mob/player = get_mob_by_ckey(key)
 		if(!player.client)
 			remove_ckey_from_play(key)
@@ -265,20 +272,20 @@
 
 /datum/deathmatch_lobby/proc/leave(ckey)
 	if(host == ckey)
-		var/total_count = players.len + observers.len
+		var/total_count = length(players) + length(observers)
 		if(total_count <= 1) // <= just in case.
 			GLOB.deathmatch_game.remove_lobby(host)
 			return
 		else
-			if(players[ckey] && players.len <= 1)
-				for(var/key in observers)
+			if(players[ckey] && length(players) <= 1)
+				for(var/key, value in observers)
 					if(host == key)
 						continue
 					host = key
 					observers[key]["host"] = TRUE
 					break
 			else
-				for(var/key in players)
+				for(var/key, value in players)
 					if(host == key)
 						continue
 					host = key
@@ -291,7 +298,7 @@
 /datum/deathmatch_lobby/proc/join(mob/player)
 	if(playing || !player)
 		return
-	if(!(player.ckey in (players+observers)))
+	if(!(player.ckey in (players + observers)))
 		if(players.len >= map.max_players)
 			add_observer(player)
 		else
@@ -310,21 +317,22 @@
 		return
 	map = GLOB.deathmatch_game.maps[new_map]
 	var/max_players = map.max_players
-	for(var/possible_unlucky_loser in players)
+	for(var/possible_unlucky_loser, value in players)
 		max_players--
 		if(max_players < 0)
-			var/loser_mob = players[possible_unlucky_loser]["mob"]
+			var/loser_mob = players[possible_unlucky_loser][MOB_KEY]
 			remove_ckey_from_play(possible_unlucky_loser)
 			add_observer(loser_mob)
 
 	loadouts = map.allowed_loadouts ? map.allowed_loadouts : GLOB.deathmatch_game.loadouts
-	for(var/player_key in players)
-		if(players[player_key]["loadout"] in loadouts)
+	for(var/player_key, value in players)
+		if(players[player_key][LOADOUT_KEY] in loadouts)
 			continue
-		players[player_key]["loadout"] = loadouts[1]
+		players[player_key][LOADOUT_KEY] = loadouts[1]
 
+	var/datum/deathmatch_controller/our_target = GLOB.deathmatch_game
 	for(var/deathmatch_mod in modifiers)
-		GLOB.deathmatch_game.modifiers[deathmatch_mod].on_map_changed(src)
+		our_target.modifiers[deathmatch_mod].on_map_changed(src)
 
 /datum/deathmatch_lobby/proc/clear_reservation()
 	if(isnull(location) || isnull(map))
@@ -347,7 +355,7 @@
 /// fills the lobby with fake players for the sake of UI debug, can only be called via VV
 /datum/deathmatch_lobby/proc/fakefill(count)
 	for(var/i in 1 to count)
-		players["[rand(1,999)]"] = list("mob" = usr, "host" = FALSE, "ready" = FALSE, "loadout" = pick(loadouts))
+		players["[rand(1, 999)]"] = list("mob" = usr, "host" = FALSE, "ready" = FALSE, "loadout" = pick(loadouts))
 
 /datum/deathmatch_lobby/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, null)
@@ -397,8 +405,8 @@
 			mod_names += modpath::name
 		data["active_mods"] = "Выбранные модификаторы: [russian_list(mod_names)]"
 
-	if(is_player && !isnull(players[user.ckey]["loadout"]))
-		var/datum/outfit/deathmatch_loadout/loadout = players[user.ckey]["loadout"]
+	if(is_player && !isnull(players[user.ckey][LOADOUT_KEY]))
+		var/datum/outfit/deathmatch_loadout/loadout = players[user.ckey][LOADOUT_KEY]
 		data["loadoutdesc"] = loadout::desc
 	else
 		data["loadoutdesc"] = "Вы наблюдатель! Вас перебросит на арену в момент начала раунда."
@@ -557,8 +565,9 @@
 	if(!mod_menu_open)
 		return modifier_list
 
-	for(var/modpath in GLOB.deathmatch_game.modifiers)
-		var/datum/deathmatch_modifier/mod = GLOB.deathmatch_game.modifiers[modpath]
+	var/list/our_modifiers = GLOB.deathmatch_game.modifiers
+	for(var/modpath in our_modifiers)
+		var/datum/deathmatch_modifier/mod = our_modifiers[modpath]
 
 		UNTYPED_LIST_ADD(modifier_list, list(
 			"name" = mod.name,
@@ -575,9 +584,9 @@
 /datum/deathmatch_lobby/proc/get_observer_list()
 	var/list/observer_list = list()
 
-	for(var/observer_key in observers)
+	for(var/observer_key, value in observers)
 		var/list/observer_info = observers[observer_key]
-		var/mob/observer_mob = observer_info["mob"]
+		var/mob/observer_mob = observer_info[MOB_KEY]
 
 		if(isnull(observer_mob) || !observer_mob.client)
 			leave(observer_key)
@@ -595,9 +604,9 @@
 /datum/deathmatch_lobby/proc/get_player_list()
 	var/list/player_list = list()
 
-	for(var/player_key in players)
+	for(var/player_key, value in players)
 		var/list/player_info = players[player_key]
-		var/mob/player_mob = player_info["mob"]
+		var/mob/player_mob = player_info[MOB_KEY]
 
 		if(isnull(player_mob) || !player_mob.client)
 			leave(player_key)
@@ -605,8 +614,8 @@
 
 		var/list/player = player_info.Copy()
 
-		var/datum/outfit/deathmatch_loadout/dm_loadout = player_info["loadout"]
-		player["loadout"] = dm_loadout::display_name
+		var/datum/outfit/deathmatch_loadout/dm_loadout = player_info[LOADOUT_KEY]
+		player[LOADOUT_KEY] = dm_loadout::display_name
 		player["key"] = player_key
 
 		UNTYPED_LIST_ADD(player_list, player)
