@@ -44,11 +44,6 @@
 	desc = "Влияет на скорость постройки мехов и печати их запчастей."
 	duration_mod_signals = list(COMSIG_GET_MECH_CONSTRUCT_DURATION_MOD, COMSIG_GET_PROTOLATHE_RESOURCE_MOD)
 
-/datum/skill/research/anomaly
-	id = "research.anomaly"
-	name = "Обращение с аномалиями"
-	desc = "Влияет на шансы при работе с аномалиями."
-
 /datum/skill/research/xenobiology
 	id = "research.xenobiology"
 	name = "Ксенобиология"

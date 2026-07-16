@@ -301,7 +301,6 @@
 		/datum/skill/research/research = 2,
 		/datum/skill/research/protolathe = 2,
 		/datum/skill/research/mech_construct = 2,
-		/datum/skill/research/anomaly = 2,
 		/datum/skill/research/xenobiology = 2,
 	)
 

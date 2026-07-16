@@ -33,7 +33,6 @@
 		/datum/skill/research/research = SKILL_LEVEL_PROFESSIONAL,
 		/datum/skill/research/protolathe = SKILL_LEVEL_PROFESSIONAL,
 		/datum/skill/research/mech_construct = SKILL_LEVEL_PROFESSIONAL,
-		/datum/skill/research/anomaly = SKILL_LEVEL_PROFESSIONAL,
 		/datum/skill/research/xenobiology = SKILL_LEVEL_PROFESSIONAL,
 	)
 
@@ -97,7 +96,6 @@
 		/datum/skill/research/research = SKILL_LEVEL_ADVANCED,
 		/datum/skill/research/protolathe = SKILL_LEVEL_ADVANCED,
 		/datum/skill/research/mech_construct = SKILL_LEVEL_BEGINNER,
-		/datum/skill/research/anomaly = SKILL_LEVEL_BEGINNER,
 		/datum/skill/research/xenobiology = SKILL_LEVEL_BEGINNER,
 	)
 	alt_skill_levels = alist(
@@ -107,15 +105,7 @@
 			/datum/skill/research/research = SKILL_LEVEL_BEGINNER,
 			/datum/skill/research/protolathe = SKILL_LEVEL_BEGINNER,
 			/datum/skill/research/mech_construct = SKILL_LEVEL_BEGINNER,
-			/datum/skill/research/anomaly = SKILL_LEVEL_BEGINNER,
 			/datum/skill/research/xenobiology = SKILL_LEVEL_ADVANCED,
-		),
-		ALT_JOB_TITLE_RU_ANOMALIST = list(
-			/datum/skill/research/research = SKILL_LEVEL_BEGINNER,
-			/datum/skill/research/protolathe = SKILL_LEVEL_BEGINNER,
-			/datum/skill/research/mech_construct = SKILL_LEVEL_BEGINNER,
-			/datum/skill/research/anomaly = SKILL_LEVEL_ADVANCED,
-			/datum/skill/research/xenobiology = SKILL_LEVEL_BEGINNER,
 		),
 		ALT_JOB_TITLE_RU_PLASMOLOGIST = list(
 			/datum/skill/engineering/atmos = SKILL_LEVEL_BASIC,
@@ -123,7 +113,6 @@
 			/datum/skill/research/research = SKILL_LEVEL_BEGINNER,
 			/datum/skill/research/protolathe = SKILL_LEVEL_BEGINNER,
 			/datum/skill/research/mech_construct = SKILL_LEVEL_BEGINNER,
-			/datum/skill/research/anomaly = SKILL_LEVEL_BEGINNER,
 			/datum/skill/research/xenobiology = SKILL_LEVEL_BEGINNER,
 		)
 	)
@@ -164,7 +153,6 @@
 		/datum/skill/research/research = SKILL_LEVEL_BEGINNER,
 		/datum/skill/research/protolathe = SKILL_LEVEL_BEGINNER,
 		/datum/skill/research/mech_construct = SKILL_LEVEL_BEGINNER,
-		/datum/skill/research/anomaly = SKILL_LEVEL_BEGINNER,
 		/datum/skill/research/xenobiology = SKILL_LEVEL_BEGINNER,
 	)
 
@@ -204,7 +192,6 @@
 		/datum/skill/research/research = SKILL_LEVEL_BEGINNER,
 		/datum/skill/research/protolathe = SKILL_LEVEL_BASIC,
 		/datum/skill/research/mech_construct = SKILL_LEVEL_ADVANCED,
-		/datum/skill/research/anomaly = SKILL_LEVEL_BEGINNER,
 		/datum/skill/research/xenobiology = SKILL_LEVEL_BEGINNER,
 	)
 
