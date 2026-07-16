@@ -194,9 +194,9 @@
 	announce(span_reallybig("Игра окончена.<br>Победитель: [winner ? winner.real_name : "никто"]."))
 
 	for(var/ckey, value in players)
-		var/mob/loser = players[ckey][MOB_KEY]
+		var/mob/loser = value[MOB_KEY]
 		unregister_player_signals(loser)
-		players[ckey][MOB_KEY] = null
+		value[MOB_KEY] = null
 		loser.ghostize()
 		qdel(loser)
 	var/datum/deathmatch_controller/our_target = GLOB.deathmatch_game
@@ -221,7 +221,7 @@
 	var/ckey = player.ckey ? player.ckey : player.mind?.key
 	if(!islist(players[ckey])) // potentially the player info could hold a reference to this mob so we can figure the ckey out without worrying about ghosting and suicides n such
 		for(var/potential_ckey, value in players)
-			var/list/player_info = players[potential_ckey]
+			var/list/player_info = value
 			if(player_info[MOB_KEY] && player_info[MOB_KEY] == player)
 				ckey = potential_ckey
 				break
@@ -282,14 +282,14 @@
 					if(host == key)
 						continue
 					host = key
-					observers[key]["host"] = TRUE
+					value["host"] = TRUE
 					break
 			else
 				for(var/key, value in players)
 					if(host == key)
 						continue
 					host = key
-					players[key]["host"] = TRUE
+					value["host"] = TRUE
 					break
 			GLOB.deathmatch_game.passoff_lobby(ckey, host)
 
@@ -320,15 +320,15 @@
 	for(var/possible_unlucky_loser, value in players)
 		max_players--
 		if(max_players < 0)
-			var/loser_mob = players[possible_unlucky_loser][MOB_KEY]
+			var/loser_mob = value[MOB_KEY]
 			remove_ckey_from_play(possible_unlucky_loser)
 			add_observer(loser_mob)
 
 	loadouts = map.allowed_loadouts ? map.allowed_loadouts : GLOB.deathmatch_game.loadouts
 	for(var/player_key, value in players)
-		if(players[player_key][LOADOUT_KEY] in loadouts)
+		if(value[LOADOUT_KEY] in loadouts)
 			continue
-		players[player_key][LOADOUT_KEY] = loadouts[1]
+		value[LOADOUT_KEY] = loadouts[1]
 
 	var/datum/deathmatch_controller/our_target = GLOB.deathmatch_game
 	for(var/deathmatch_mod in modifiers)
@@ -585,7 +585,7 @@
 	var/list/observer_list = list()
 
 	for(var/observer_key, value in observers)
-		var/list/observer_info = observers[observer_key]
+		var/list/observer_info = value
 		var/mob/observer_mob = observer_info[MOB_KEY]
 
 		if(isnull(observer_mob) || !observer_mob.client)
@@ -605,7 +605,7 @@
 	var/list/player_list = list()
 
 	for(var/player_key, value in players)
-		var/list/player_info = players[player_key]
+		var/list/player_info = value
 		var/mob/player_mob = player_info[MOB_KEY]
 
 		if(isnull(player_mob) || !player_mob.client)
