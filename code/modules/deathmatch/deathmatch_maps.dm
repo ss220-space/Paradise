@@ -10,8 +10,8 @@
 	var/max_players = 2 // TODO: make this automatic.
 	/// The map will end in this time
 	var/automatic_gameend_time = 8 MINUTES
-	/// List of allowed loadouts for this map, otherwise defaults to all loadouts
-	var/list/allowed_loadouts = list()
+	/// List of allowed loadouts for this map
+	var/list/allowed_loadouts = list(/datum/outfit/deathmatch_loadout/naked)
 	/// whether we are currently being loaded by a lobby
 	var/template_in_use = FALSE
 
@@ -36,6 +36,10 @@
 	name = "Космическая Станция"
 	desc = "Всё необходимое для убийства, оказывается, можно было уместить на небольшой станции."
 	max_players = 10
+	allowed_loadouts = list(
+		/datum/outfit/deathmatch_loadout/securing_sec,
+		/datum/outfit/deathmatch_loadout/tider,
+	)
 	map_name = "arena_station"
 	key = LAZY_TEMPLATE_KEY_DEATHMATCH_ARENA_STATION
 
@@ -48,7 +52,7 @@
 		/datum/outfit/deathmatch_loadout/naked,
 	)
 	map_name = "backalley"
-	key = "LAZY_TEMPLATE_KEY_DEATHMATCH_BACKALLEY"
+	key = LAZY_TEMPLATE_KEY_DEATHMATCH_BACKALLEY
 
 // TODO:
 // 16 more maps, at least

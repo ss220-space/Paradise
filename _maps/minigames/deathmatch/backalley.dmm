@@ -93,7 +93,6 @@
 /area/template_noop)
 "mj" = (
 /obj/structure/closet/crate/trashcart,
-/obj/effect/spawner/random_spawners/syndicate/loot/stetchkin,
 /turf/simulated/floor/indestructible/dirt_floor,
 /area/template_noop)
 "mt" = (
@@ -106,9 +105,9 @@
 /turf/simulated/floor/indestructible/plating,
 /area/template_noop)
 "qj" = (
-/obj/structure/closet/crate/wooden,
+/obj/structure/bed/wicker,
 /obj/effect/spawner/random_spawners/syndicate/loot/stetchkin,
-/turf/simulated/floor/indestructible/stone_floor,
+/turf/simulated/floor/indestructible/dirt_floor,
 /area/template_noop)
 "qm" = (
 /turf/simulated/floor/indestructible/brig_black,
@@ -282,11 +281,6 @@
 /obj/structure/bed/wicker,
 /turf/simulated/floor/indestructible/stone_floor,
 /area/template_noop)
-"Lr" = (
-/obj/effect/spawner/random_spawners/syndicate/loot/stetchkin,
-/obj/structure/closet/crate/wooden,
-/turf/simulated/floor/indestructible/dirt_floor,
-/area/template_noop)
 "LY" = (
 /obj/effect/spawner/random/food_trash,
 /turf/simulated/floor/indestructible/dirt_floor,
@@ -317,6 +311,7 @@
 	pixel_x = 9;
 	pixel_y = 2
 	},
+/obj/effect/spawner/random_spawners/syndicate/loot/stetchkin,
 /turf/simulated/floor/indestructible/stone_floor,
 /area/template_noop)
 "PA" = (
@@ -404,12 +399,6 @@
 /obj/item/clothing/suit/armor/hos,
 /turf/simulated/floor/indestructible/dirt_floor,
 /area/template_noop)
-"Xj" = (
-/obj/structure/closet/crate/trashcart,
-/obj/effect/spawner/lootdrop/maintenance/double,
-/obj/effect/spawner/lootdrop/maintenance/double,
-/turf/simulated/floor/indestructible/dirt_floor,
-/area/template_noop)
 "XB" = (
 /obj/effect/landmark/deathmatch_player_spawn,
 /turf/simulated/floor/indestructible/stone_floor,
@@ -425,9 +414,10 @@
 /turf/simulated/floor/indestructible/dirt_floor,
 /area/template_noop)
 "ZT" = (
-/obj/structure/closet/crate/wooden,
+/obj/structure/table,
+/obj/effect/spawner/random/food_trash,
 /obj/effect/spawner/random_spawners/syndicate/loot/stetchkin,
-/turf/simulated/floor/indestructible/dirt_floor,
+/turf/simulated/floor/indestructible/stone_floor,
 /area/template_noop)
 
 (1,1,1) = {"
@@ -479,7 +469,7 @@ qN
 qN
 Hl
 lS
-AR
+qj
 MK
 "}
 (3,1,1) = {"
@@ -499,7 +489,7 @@ qN
 qN
 qN
 qN
-ZT
+qN
 qN
 qN
 qN
@@ -519,12 +509,12 @@ hL
 Tk
 MK
 MK
-xh
+mj
 Wv
 qN
 qN
 Wv
-xh
+qN
 qN
 qN
 qN
@@ -571,7 +561,7 @@ Ra
 sH
 sH
 MK
-Lr
+qN
 PQ
 zA
 AF
@@ -647,7 +637,7 @@ ep
 qN
 qN
 qN
-xh
+mj
 Wv
 qN
 qN
@@ -709,7 +699,7 @@ qN
 qN
 qN
 mt
-ZT
+qN
 qN
 qN
 qN
@@ -738,8 +728,8 @@ qN
 qN
 qN
 JG
-qN
-xh
+Gi
+mj
 MK
 "}
 (13,1,1) = {"
@@ -748,7 +738,7 @@ qN
 Wv
 MK
 Bd
-qj
+df
 df
 MK
 fJ
@@ -805,16 +795,16 @@ df
 gg
 qN
 qN
-ZT
+qN
 qN
 Gi
-xh
+Gi
 MK
 df
 df
 df
 XD
-eI
+ZT
 Ty
 df
 df
@@ -834,9 +824,9 @@ qN
 qN
 qN
 Gi
-Xj
+mj
 MK
-qj
+df
 df
 XB
 df
@@ -856,8 +846,8 @@ qN
 AR
 NE
 qN
-mj
-mj
+qN
+Wv
 qN
 qN
 qN
@@ -946,7 +936,7 @@ df
 vj
 vj
 df
-qj
+df
 df
 MK
 "}
@@ -981,7 +971,7 @@ MK
 yp
 qN
 MK
-qj
+df
 df
 df
 df
