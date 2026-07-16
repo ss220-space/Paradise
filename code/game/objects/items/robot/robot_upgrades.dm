@@ -496,7 +496,6 @@
 	require_module = TRUE
 	var/repair_amount = -1
 	var/repair_tick = 1
-	var/msg_cooldown = 0
 	var/on = FALSE
 	var/powercost = 10
 	var/mob/living/silicon/robot/cyborg
@@ -549,21 +548,22 @@
 /obj/item/borg/upgrade/selfrepair/proc/activate_sr()
 	START_PROCESSING(SSobj, src)
 	on = TRUE
+	balloon_alert(cyborg, "саморемонт начат")
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/borg/upgrade/selfrepair/proc/deactivate_sr()
 	STOP_PROCESSING(SSobj, src)
 	on = FALSE
+	balloon_alert(cyborg, "саморемонт остановлен")
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/borg/upgrade/selfrepair/process()
 	if(!repair_tick)
-		repair_tick = 1
+		repair_tick = TRUE
 		return
 
 	if(cyborg && (cyborg.stat != DEAD) && on)
 		if(!cyborg.cell)
-			balloon_alert(cyborg, "саморемонт остановлен")
 			deactivate_sr()
 			return
 
@@ -581,20 +581,13 @@
 				powercost = 10
 			cyborg.heal_overall_damage(repair_amount, repair_amount)
 			cyborg.cell.use(powercost)
+			return
 		else
 			cyborg.cell.use(5)
-		repair_tick = 0
+			repair_tick = FALSE
+			return
 
-		if((world.time - 2000) > msg_cooldown)
-			if(cyborg.health < 0)
-				balloon_alert(cyborg, "саморемонт в интенсивном режиме")
-			else if(cyborg.health < cyborg.maxHealth)
-				balloon_alert(cyborg, "саморемонт в обычном режиме")
-			else
-				balloon_alert(cyborg, "саморемонт в спящем режиме")
-			msg_cooldown = world.time
-	else
-		deactivate_sr()
+	deactivate_sr()
 
 /obj/item/borg/upgrade/storageincreaser
 	name = "storage increaser"

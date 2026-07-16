@@ -6,14 +6,14 @@
 
 			if(I)
 				uneq_active()
-				balloon_alert_to_viewers("обезоружен", "мы обезоружены")
+				balloon_alert_to_viewers("обезоружен!")
 				add_attack_logs(M, src, "alien disarmed")
 
 			else
 				Stun(4 SECONDS)
 				step(src, get_dir(M,src))
 				add_attack_logs(M, src, "Alien pushed over")
-				balloon_alert_to_viewers("оглушен", "мы оглушены")
+				balloon_alert_to_viewers("оглушён!")
 
 			playsound(loc, 'sound/weapons/pierce.ogg', 50, TRUE, -1)
 

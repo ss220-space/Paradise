@@ -202,6 +202,7 @@ ADMIN_VERB(borg_panel_in_list, R_ADMIN, "Show Borg Panel in List", "Open Borg Pa
 		if("reset_module")
 			var/obj/item/borg/upgrade/reset/reset = new(borg)
 			if(!borg.install_upgrade(reset, user))
+				qdel(reset)
 				return
 			message_admins("[key_name_admin(user)] resets module of [ADMIN_LOOKUPFLW(borg)].")
 			log_admin("[key_name(user)] resets module of [key_name(borg)].")

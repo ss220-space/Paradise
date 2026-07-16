@@ -44,7 +44,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/atom/movable/screen/thruster_button = null
 
 	/// Used to determine whether they have the module menu shown or not
-	var/shown_robot_modules = 0
+	var/shown_robot_modules = FALSE
 	var/atom/movable/screen/robot_modules_background
 
 	//3 Modules can be activated at any one time.
@@ -361,7 +361,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return FALSE
 
 	if(!allow_rename)
-		balloon_alert(src, "нельзя сменить имя")
+		balloon_alert(src, "нельзя сменить имя!")
 		return FALSE
 
 	rename_self(braintype, 1)
@@ -676,7 +676,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/proc/toggle_ionpulse(silent = FALSE)
 	if(!ionpulse)
 		if(!silent)
-			to_chat(src, span_notice("Ионные трасера не установлены!"))
+			to_chat(src, span_notice("Ионные двигатели не установлены!"))
 
 		return
 
@@ -687,7 +687,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	ionpulse_on = !ionpulse_on
 
 	if(!silent)
-		to_chat(src, span_notice("Вы [ionpulse_on ? "в" : "вы"]ключили ионные трасера."))
+		to_chat(src, span_notice("Вы [ionpulse_on ? "в" : "вы"]ключили ионные двигатели."))
 
 	if(thruster_button)
 		thruster_button.icon_state = "ionpulse[ionpulse_on]"
@@ -788,7 +788,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(istype(I, /obj/item/robot_parts/robot_component))
 		add_fingerprint(user)
 		if(!opened)
-			balloon_alert(user, "техпанель закрыта")
+			balloon_alert(user, "техпанель закрыта!")
 			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return ATTACK_CHAIN_PROCEED
 
@@ -818,24 +818,22 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			return
 
 		if(!wiresexposed && !isdrone(src))
-			balloon_alert(user, "внутренняя панель закрыта")
+			balloon_alert(user, "внутренняя панель закрыта!")
 			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return ATTACK_CHAIN_PROCEED
 
 		if(!getFireLoss())
-			balloon_alert(user, "ожоги отсутствуют")
+			balloon_alert(user, "повреждения отсутствуют!")
 			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return ATTACK_CHAIN_PROCEED
 
 		if(!getFireLoss(TRUE))
-			to_chat(user, span_warning("The damaged components are beyond saving!"))
-			to_chat(user, span_boldwarning("Уже слишком поздно что-то ремонтировать!"))
-			to_chat(user, span_notice("Этого робота спасет только полная замена поврежденных компонентов..."))
+			to_chat(user, span_warning("Повреждённые компоненты нуждаются в полной замене!"))
 			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return ATTACK_CHAIN_PROCEED
 
 		if(!coil.use(1))
-			balloon_alert(user, "недостаточно проводки")
+			balloon_alert(user, "недостаточно проводов!")
 			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return ATTACK_CHAIN_PROCEED
 
@@ -846,17 +844,17 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(iscell(I))	// trying to put a cell inside
 		add_fingerprint(user)
 		if(!opened)
-			balloon_alert(user, "техпанель закрыта")
+			balloon_alert(user, "техпанель закрыта!")
 			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return ATTACK_CHAIN_PROCEED
 
 		if(wiresexposed)
-			balloon_alert(user, "внутренняя панель открыта")
+			balloon_alert(user, "внутренняя панель открыта!")
 			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return ATTACK_CHAIN_PROCEED
 
 		if(cell)
-			balloon_alert(user, "аккумулятор уже установлен")
+			balloon_alert(user, "аккумулятор уже установлен!")
 			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return ATTACK_CHAIN_PROCEED
 
@@ -889,12 +887,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(istype(I, /obj/item/encryptionkey))
 		add_fingerprint(user)
 		if(!opened)
-			balloon_alert(user, "техпанель закрыта")
+			balloon_alert(user, "техпанель закрыта!")
 			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return ATTACK_CHAIN_PROCEED
 
 		if(!radio) //sanityyyyyy
-			balloon_alert(user, "радио отсутствует")
+			balloon_alert(user, "радио отсутствует!")
 			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return ATTACK_CHAIN_PROCEED
 
@@ -905,20 +903,20 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		add_fingerprint(user)
 
 		if(opened)
-			balloon_alert(user, "техпанель уже открыта")
+			balloon_alert(user, "техпанель уже открыта!")
 			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return ATTACK_CHAIN_PROCEED
 
 		if(emagged)	//still allow them to open the cover
-			to_chat(user, span_danger("кажется, айди-замок сломан"))
+			to_chat(user, span_danger("кажется, ID-замок сломан"))
 
 		if(!allowed(I))
-			balloon_alert(user, "отказано в доступе")
+			balloon_alert(user, "доступ запрещён!")
 			playsound(src, SFX_BUTTON_DENIED, YEET_SOUND_VOLUME, use_reverb = TRUE)
 			return ATTACK_CHAIN_PROCEED
 
 		locked = !locked
-		balloon_alert_to_viewers("айди-замок [locked ? "за" : "раз"]блокирован", "ваша техпанель [locked ? "за" : "раз"]блокирована")
+		balloon_alert_to_viewers("техпанель [locked ? "за" : "раз"]блокирована")
 		update_icons()
 
 		return ATTACK_CHAIN_PROCEED_SUCCESS
@@ -927,12 +925,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		add_fingerprint(user)
 		var/obj/item/borg/upgrade/upgrade = I
 		if(!opened)
-			balloon_alert(user, "техпанель закрыта")
+			balloon_alert(user, "техпанель закрыта!")
 			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return ATTACK_CHAIN_PROCEED
 
 		if(!module && upgrade.require_module)
-			balloon_alert(user, "требуется специализация")
+			balloon_alert(user, "требуется специализация!")
 			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return ATTACK_CHAIN_PROCEED
 
@@ -950,17 +948,17 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(istype(I, /obj/item/mmi_radio_upgrade))
 		add_fingerprint(user)
 		if(!opened)
-			balloon_alert(user, "техпанель закрыта")
+			balloon_alert(user, "техпанель закрыта!")
 			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return ATTACK_CHAIN_PROCEED
 
 		if(!mmi)
-			balloon_alert(user, "мми отсутствует")
+			balloon_alert(user, UNLINT("ММИ отсутствует!"))
 			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return ATTACK_CHAIN_PROCEED
 
 		if(mmi.radio)
-			balloon_alert(user, "уже установлено")
+			balloon_alert(user, "уже установлено!")
 			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return ATTACK_CHAIN_PROCEED
 
@@ -977,7 +975,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		add_fingerprint(user)
 		locked = !locked
 
-		balloon_alert_to_viewers("айди-замок [locked ? "за" : "раз"]блокирован", "ваша техпанель [locked ? "за" : "раз"]блокирована")
+		balloon_alert_to_viewers("техпанель [locked ? "за" : "раз"]блокирована")
 		update_icons()
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -1031,7 +1029,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(radio)
 			radio.screwdriver_act(user, I)//Push it to the radio to let it handle everything
 		else
-			balloon_alert(user, "радио отсутствует")
+			balloon_alert(user, "радио отсутствует!")
 			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 
 		update_icons()
@@ -1046,7 +1044,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	if(!opened)
 		if(locked)
-			balloon_alert(user, "айди-замок заблокирован")
+			balloon_alert(user, "айди-замок заблокирован!")
 			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return
 
@@ -1054,7 +1052,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			return
 
 		opened = TRUE
-		balloon_alert_to_viewers("техпанель открыта", "ваша техпанель открыта")
+		balloon_alert_to_viewers("техпанель открыта")
 		update_icons()
 		return
 
@@ -1063,24 +1061,24 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			return
 
 		opened = FALSE
-		balloon_alert_to_viewers("техпанель закрыта", "ваша техпанель закрыта")
+		balloon_alert_to_viewers("техпанель закрыта")
 		update_icons()
 		return
 
 	else if(wiresexposed && wires.is_all_cut())
 		//Cell is out, wires are exposed, remove MMI, produce damaged chassis, baleet original mob.
 		if(!mmi && !shell)
-			balloon_alert(user, "мозг отсуствует")
+			balloon_alert(user, "мозг отсуствует!")
 			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return
 
-		balloon_alert(user, "деконструкция начата")
+		balloon_alert(user, "деконструкция начата...")
 		if(I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
 			if(cell || !wiresexposed || !wires.is_all_cut() || (!mmi && !shell))
-				user.balloon_alert(user, "не удалось")
+				user.balloon_alert(user, "невозможно!")
 				SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 				return
-			user.visible_message("[user] разбир[PLUR_ET_UT(user)] [src]!", span_notice("Вы снимаете поддерживающие заклёпки, и [src] разваливается на составные части!"))
+			user.visible_message(span_alert("[user] разбир[PLUR_ET_UT(user)] [declent_ru()]!"), span_notice("Вы снимаете поддерживающие заклёпки, и [declent_ru()] разваливается на составные части!"))
 			deconstruct()
 
 		return
@@ -1133,13 +1131,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	. = TRUE
 	if(!getBruteLoss())
-		balloon_alert(user, "вмятины отсутствуют")
+		balloon_alert(user, "повреждений нет!")
 		SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 		return .
 
 	if(!getBruteLoss(TRUE))
-		to_chat(user, span_boldwarning("Уже слишком поздно что-то ремонтировать!"))
-		to_chat(user, span_notice("Этого робота спасет только полная замена поврежденных компонентов..."))
+		to_chat(user, span_warning("Повреждённые компоненты нуждаются в полной замене!"))
 		SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 		return .
 
@@ -1148,7 +1145,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	heal_overall_damage(brute = 30)
 
-	balloon_alert_to_viewers("корпус отремонтирован", "вас отремонтировали")
+	balloon_alert_to_viewers("корпус отремонтирован")
 
 /mob/living/silicon/robot/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
 	. = ..()
@@ -1182,10 +1179,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 		else if(locked)
 			add_attack_logs(user, src, "emagged cover")
-			balloon_alert(user, "айди-замок разблокирован")
+			balloon_alert(user, "техпанель разблокирована")
 			locked = FALSE
 		else
-			balloon_alert(user, "уже разблокировано")
+			balloon_alert(user, "уже разблокировано!")
 
 		return
 
@@ -1194,7 +1191,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			return//Prevents the X has hit Y with Z message also you cant emag them twice
 
 		if(wiresexposed)
-			balloon_alert(user, "внутренняя панель открыта")
+			balloon_alert(user, "внутренняя панель открыта!")
 			return
 
 		if(shell)
@@ -1455,6 +1452,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(!upgrade)
 		return FALSE
 	if(!upgrade.action(src, user))
+		if(iscarbon(user))
+			var/mob/living/carbon/carbon = user
+			carbon.put_in_any_hand_if_possible(upgrade, TRUE, FALSE)
+			return FALSE
 		upgrade.forceMove(drop_location())
 		return FALSE
 
@@ -2178,7 +2179,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return FALSE
 	if(is_simple_animal(target) || is_monkeybasic(target))
 		return FALSE
-	..()
+	return ..()
 
 /mob/living/silicon/robot/post_buckle_mob(mob/living/target)
 	. = ..()
