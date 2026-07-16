@@ -10,6 +10,7 @@
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/helmet.dmi',
@@ -42,6 +43,7 @@
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/suit.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
@@ -79,6 +81,7 @@
 	dog_fashion = /datum/dog_fashion/back/deathsquad
 	species_restricted = null
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/suit.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
@@ -99,6 +102,7 @@
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/suit.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 	)
@@ -111,6 +115,7 @@
 	flags_inv = NONE
 	flags_cover = NONE
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
@@ -245,6 +250,7 @@
 	icon_state = "santahat"
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/Grey/head.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/Drask/helmet.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
@@ -278,6 +284,7 @@
 	allowed = list(/obj/item) //for stuffing extra special presents
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/suit.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
@@ -301,6 +308,7 @@
 	species_restricted = null
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
@@ -321,6 +329,7 @@
 	put_on_delay = 20
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/suit.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
@@ -340,6 +349,7 @@
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
 		SPECIES_SKRELL = 'icons/mob/clothing/species/skrell/helmet.dmi',
@@ -362,6 +372,7 @@
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_SKRELL = 'icons/mob/clothing/species/skrell/suit.dmi',
 		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/suit.dmi',
@@ -381,6 +392,7 @@
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/suit.dmi',
 		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/suit.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
@@ -398,6 +410,7 @@
 	flash_protect = FLASH_PROTECTION_NONE
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/helmet.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/helmet.dmi',
@@ -460,6 +473,7 @@
 	desc = "A lightweight pirate-themed EVA suit designed to protect from vacuum and those nasty lasers flying from the victims of pirate raid."
 	armor = list(melee = 10, bullet = 5, laser = 30, energy = 25, bomb = 0, bio = 100, fire = 50, acid = 65)
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/suit.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
@@ -478,6 +492,7 @@
 	armor = list(melee = 10, bullet = 5, laser = 30, energy = 25, bomb = 0, bio = 100, fire = 50, acid = 65)
 	flash_protect = FLASH_PROTECTION_WELDER
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/helmet.dmi',

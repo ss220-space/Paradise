@@ -68,6 +68,7 @@
 	item_state = "welding"
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/mask.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/mask.dmi',
@@ -146,6 +147,7 @@
 	item_state = "swat"
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',

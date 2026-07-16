@@ -8,6 +8,7 @@
 		ITEM_SLOT_FEET_STRING = /datum/greyscale_config/sneakers_worn,
 	)
 	greyscale_config_worn_species = list(
+		SPECIES_RESOMI = /datum/greyscale_config/sneakers_worn/resomi,
 		SPECIES_VOX = /datum/greyscale_config/sneakers_worn/vox,
 		SPECIES_DRASK = /datum/greyscale_config/sneakers_worn/drask,
 		SPECIES_UNATHI = /datum/greyscale_config/sneakers_worn/unathi,
@@ -158,6 +159,7 @@
 		ITEM_SLOT_FEET_STRING = /datum/greyscale_config/sneakers_orange_worn,
 	)
 	greyscale_config_worn_species = list(
+		SPECIES_RESOMI = /datum/greyscale_config/sneakers_orange_worn/resomi,
 		SPECIES_VOX = /datum/greyscale_config/sneakers_orange_worn/vox,
 		SPECIES_DRASK = /datum/greyscale_config/sneakers_orange_worn/drask,
 		SPECIES_UNATHI = /datum/greyscale_config/sneakers_orange_worn/unathi,

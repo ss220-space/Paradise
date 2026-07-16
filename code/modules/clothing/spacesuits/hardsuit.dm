@@ -16,6 +16,7 @@
 	//Species-specific stuff.
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/helmet.dmi',
@@ -79,6 +80,7 @@
 	hide_tail_by_species = list(SPECIES_VOX , SPECIES_VULPKANIN , SPECIES_UNATHI, SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_DRACONOID, SPECIES_TAJARAN)
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/suit.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',

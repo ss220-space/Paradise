@@ -9,6 +9,9 @@
 	drop_sound = 'sound/items/handling/drop/accessory_drop.ogg'
 	gender = MALE
 	cares_about_temperature = TRUE
+	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/accessories.dmi',
+	)
 	var/slot = ACCESSORY_SLOT_DECOR
 	/// the suit the tie may be attached to
 	var/obj/item/clothing/under/has_suit
@@ -179,6 +182,7 @@
 	item_state = "waistcoat"
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/accessories.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
@@ -989,6 +993,7 @@
 	icon_state = "jacket_ntrf"
 	item_state = "jacket_ntrf"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/accessories.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
@@ -1012,6 +1017,7 @@
 	item_state = "cowboyshirt"
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/accessories.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
@@ -1027,6 +1033,7 @@
 	item_state = "cowboyshirt_s"
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/accessories.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
@@ -1042,6 +1049,7 @@
 	item_state = "cowboyshirt_white"
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/accessories.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
@@ -1057,6 +1065,7 @@
 	item_state = "cowboyshirt_whites"
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/accessories.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
@@ -1072,6 +1081,7 @@
 	item_state = "cowboyshirt_pink"
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/accessories.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
@@ -1087,6 +1097,7 @@
 	item_state = "cowboyshirt_pinks"
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/accessories.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
@@ -1102,6 +1113,7 @@
 	item_state = "cowboyshirt_navy"
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/accessories.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
@@ -1117,6 +1129,7 @@
 	item_state = "cowboyshirt_navys"
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/accessories.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
@@ -1132,6 +1145,7 @@
 	item_state = "cowboyshirt_red"
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/accessories.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
@@ -1147,6 +1161,7 @@
 	item_state = "cowboyshirt_reds"
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/accessories.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
@@ -1310,4 +1325,3 @@
 /obj/item/clothing/accessory/medal/smile/examine(mob/user)
 	. = ..()
 	user.emote("smile")
-

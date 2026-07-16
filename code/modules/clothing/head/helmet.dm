@@ -19,6 +19,7 @@
 	drop_sound = 'sound/items/handling/drop/helmet_drop.ogg'
 	undyeable = TRUE
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/helmet.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
@@ -49,6 +50,7 @@
 	flags_inv = HIDEHEADSETS
 	flags_cover = null
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/helmet.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
@@ -112,6 +114,7 @@
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 	flash_protect = FLASH_PROTECTION_FLASH
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/helmet.dmi',
@@ -139,6 +142,7 @@
 	strip_delay = 80
 	dog_fashion = null
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
@@ -153,6 +157,7 @@
 	flags_inv = parent_type::flags_inv|HIDEMASK|HIDEHAIR|HIDENAME
 	dog_fashion = null
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 	)
 
@@ -191,6 +196,7 @@
 	strip_delay = 80
 	dog_fashion = null
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
@@ -290,6 +296,7 @@
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
@@ -302,6 +309,7 @@
 	icon_state = "knight_blue"
 	item_state = "knight_blue"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
 	)
@@ -310,6 +318,7 @@
 	icon_state = "knight_yellow"
 	item_state = "knight_yellow"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
 	)
@@ -318,6 +327,7 @@
 	icon_state = "knight_red"
 	item_state = "knight_red"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
 	)
@@ -329,6 +339,7 @@
 	item_state = "knight_templar"
 	armor = list(MELEE = 10, BULLET = 10, LASER = 5, ENERGY = 5, BOMB = 5, BIO = 5, FIRE = 80, ACID = 80)
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
 	)
@@ -342,6 +353,7 @@
 	item_state = "skull"
 	strip_delay = 100
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
 	)
@@ -360,6 +372,7 @@
 	name = "Йорик"
 	desc = "Бедный Йорик..."
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
 	)
@@ -381,6 +394,7 @@
 	desc = "An in-atmosphere helmet worn by the commander of a Nanotrasen Emergency Response Team. Has blue highlights."
 	icon_state = "erthelmet_cmd"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
 	)
 
@@ -390,6 +404,7 @@
 	desc = "An in-atmosphere helmet worn by security members of the Nanotrasen Emergency Response Team. Has red highlights."
 	icon_state = "erthelmet_sec"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
 	)
 
@@ -399,6 +414,7 @@
 	icon_state = "knight_templar"
 	item_state = "knight_templar"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 	)
 
@@ -408,6 +424,7 @@
 	desc = "An in-atmosphere helmet worn by engineering members of the Nanotrasen Emergency Response Team. Has orange highlights."
 	icon_state = "erthelmet_eng"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
 	)
 
@@ -417,6 +434,7 @@
 	desc = "A set of armor worn by medical members of the Nanotrasen Emergency Response Team. Has red and white highlights."
 	icon_state = "erthelmet_med"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
 	)
 
@@ -426,6 +444,7 @@
 	desc = "A set of armor worn by janitorial members of the Nanotrasen Emergency Response Team. Has red and white highlights."
 	icon_state = "erthelmet_jan"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
 	)
 
@@ -439,6 +458,7 @@
 	armor = list(MELEE = 8, BULLET = 5, LASER = 5, ENERGY = 30, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
 	strip_delay = 7 SECONDS
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/helmet.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
@@ -467,6 +487,7 @@
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/helmet.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
@@ -486,6 +507,7 @@
 	flags_cover = NONE
 	dog_fashion = null
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/helmet.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
@@ -507,6 +529,7 @@
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 	color = "#161515"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
 	)
 	species_restricted = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_NUCLEATION, SPECIES_MACHINEPERSON, SPECIES_DIONA, SPECIES_SHADOW_BASIC, SPECIES_MONKEY)

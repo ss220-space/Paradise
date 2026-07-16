@@ -178,7 +178,9 @@
 	name = "nitrogen tank"
 	desc = "A tank of nitrogen."
 	icon_state = "oxygen_fr"
-	sprite_sheets = list(SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/back.dmi') //Do it for Big Bird.
+	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/back.dmi',
+		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/back.dmi') //Do it for Big Bird.
 	distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
 
 /obj/item/tank/internals/nitrogen/populate_gas()

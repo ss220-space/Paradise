@@ -7,6 +7,7 @@
 	desc = "Has a tag on it: Totally not property of a hostile corporation, honest!"
 	armor = list(MELEE = 40, BULLET = 50, LASER = 30,ENERGY = 25, BOMB = 30, BIO = 30, FIRE = 80, ACID = 85)
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
 		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/helmet.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/helmet.dmi',
@@ -25,6 +26,7 @@
 	allowed = list(/obj/item/gun, /obj/item/ammo_box,/obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
 	armor = list(MELEE = 40, BULLET = 50, LASER = 30,ENERGY = 25, BOMB = 30, BIO = 30, FIRE = 80, ACID = 85)
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/suit.dmi',
 		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/suit.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',

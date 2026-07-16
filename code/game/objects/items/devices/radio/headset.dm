@@ -7,6 +7,7 @@
 	item_state = "headset"
 	equip_sound = 'sound/items/handling/equip/generic_equip4.ogg'
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/ears.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/ears.dmi',
 		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/ears.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/ears.dmi',

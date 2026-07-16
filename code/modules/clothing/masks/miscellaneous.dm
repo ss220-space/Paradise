@@ -13,6 +13,7 @@
 	var/locked = FALSE //Indicates if a mask is locked, should always start as 0.
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/mask.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/mask.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/mask.dmi',
@@ -76,6 +77,7 @@
 	var/trashtype = /obj/item/trash/tapetrash
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/mask.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/mask.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/mask.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/mask.dmi',
@@ -120,6 +122,7 @@
 	materials = list(MAT_METAL=500, MAT_GLASS=50)
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/mask.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/mask.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/mask.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/mask.dmi',
@@ -229,6 +232,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 25, FIRE = 0, ACID = 0)
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/mask.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/mask.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/mask.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/mask.dmi',
@@ -271,6 +275,7 @@
 	dog_fashion = /datum/dog_fashion/head/not_ian
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/mask.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/mask.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/mask.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/mask.dmi',
@@ -346,6 +351,7 @@
 	var/originalname = ""
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/mask.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/mask.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/mask.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/mask.dmi',
@@ -395,6 +401,7 @@
 	icon_state = "rat"
 	item_state = "rat"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/mask.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
 	)
 
@@ -404,6 +411,7 @@
 	icon_state = "fox"
 	item_state = "fox"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/mask.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
 	)
 
@@ -413,6 +421,7 @@
 	icon_state = "bee"
 	item_state = "bee"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/mask.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
 	)
 
@@ -422,6 +431,7 @@
 	icon_state = "bear"
 	item_state = "bear"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/mask.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
 	)
 
@@ -431,6 +441,7 @@
 	icon_state = "bat"
 	item_state = "bat"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/mask.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
 	)
 
@@ -440,6 +451,7 @@
 	icon_state = "raven"
 	item_state = "raven"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/mask.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
 	)
 
@@ -449,6 +461,7 @@
 	icon_state = "jackal"
 	item_state = "jackal"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/mask.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
 	)
 
@@ -458,6 +471,7 @@
 	icon_state = "bumba"
 	item_state = "bumba"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/mask.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
 	)
 
@@ -467,6 +481,7 @@
 	icon_state = "fawkes"
 	item_state = "fawkes"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/mask.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
 	)
 
@@ -476,6 +491,7 @@
 	icon_state = "pennywise_mask"
 	item_state = "pennywise_mask"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/mask.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
 		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi',
 	)
@@ -486,6 +502,7 @@
 	icon_state = "sweettooth_mask"
 	item_state = "sweettooth_mask"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/mask.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/mask.dmi',
 		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/mask.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
@@ -513,6 +530,7 @@
 	icon_state = "rocksomask"
 	item_state = "rocksomask"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/mask.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/mask.dmi',
 		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/mask.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
@@ -535,6 +553,7 @@
 	adjusted_flags_inv = HIDENAME|HIDEFACIALHAIR
 	can_toggle = TRUE
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/mask.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/mask.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/mask.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/mask.dmi',
@@ -709,6 +728,7 @@
 	permeability_coefficient = 0.90
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/mask.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/mask.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/mask.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/mask.dmi',
@@ -739,6 +759,7 @@
 	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDENAME|HIDEMASK|HIDENECK|HIDE_ALL_HAIR
 	item_flags = DROPDEL
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',

@@ -304,6 +304,7 @@
 	muhtar_fashion = /datum/muhtar_fashion/head/detective
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
@@ -604,6 +605,7 @@
 	icon_state = "surgcap_blue"
 	flags_inv = HIDEHEADHAIR
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
@@ -795,4 +797,3 @@
 		INSTRUMENTAL = "беретом шахтёрского врача",
 		PREPOSITIONAL = "берете шахтёрского врача",
 	)
-

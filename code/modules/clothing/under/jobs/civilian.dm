@@ -167,6 +167,7 @@
 	icon_state = "hydroponicsf"
 	item_color = "hydroponicsf"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/uniform.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',

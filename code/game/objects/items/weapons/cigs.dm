@@ -41,6 +41,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	drop_sound = 'sound/items/handling/drop/generic_small_drop.ogg'
 	equip_sound = 'sound/items/handling/equip/generic_equip5.ogg'
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/mask.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/mask.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/mask.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/mask.dmi',

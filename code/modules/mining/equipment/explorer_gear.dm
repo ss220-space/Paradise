@@ -17,6 +17,7 @@
 	hide_tail_by_species = list(SPECIES_VOX , SPECIES_VULPKANIN , SPECIES_UNATHI, SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_DRACONOID, SPECIES_TAJARAN)
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
 		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/suit.dmi',
@@ -54,6 +55,7 @@
 	resistance_flags = FIRE_PROOF
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
 		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/head.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/head.dmi',
@@ -95,6 +97,7 @@
 	jetpack_upgradable = TRUE
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/suit.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/suit.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
@@ -150,6 +153,7 @@
 	resistance_flags = FIRE_PROOF | LAVA_PROOF | ACID_PROOF
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/helmet.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/helmet.dmi',
@@ -194,6 +198,7 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, fire = 80, acid = 80)
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
 		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/helmet.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/helmet.dmi',
@@ -225,6 +230,7 @@
 	allowed = ALLOWED_MINING_SUIT_ITEMS
 	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, fire = 80, acid = 80)
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/suit.dmi',
 		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/suit.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
@@ -356,6 +362,7 @@
 	species_restricted = list("exclude", "lesser form")
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
 		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/suit.dmi',
@@ -386,6 +393,7 @@
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',

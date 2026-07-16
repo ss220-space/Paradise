@@ -18,11 +18,6 @@
 	name = "resomi eyes"
 	desc = "Пара глаз резоми, приспособленных улавливать мельчайшие движения на высокой скорости."
 
-/obj/item/organ/internal/eyes/resomi/generate_icon(mob/living/carbon/human/human)
-	var/icon/eyes_icon = new /icon('icons/mob/sprite_accessories/resomi/resomi_eyes.dmi', "eyes_resomi")
-	eyes_icon.Blend(eye_colour, ICON_ADD)
-	return eyes_icon
-
 /obj/item/organ/internal/eyes/resomi/get_ru_names()
 	return alist(
 		NOMINATIVE = "глаза резоми",

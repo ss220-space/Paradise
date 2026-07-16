@@ -27,6 +27,7 @@
 			COMSIG_MOB_UPDATE_HELD_ITEMS,
 			COMSIG_MOB_UNEQUIPPED_ITEM,
 			COMSIG_HUMAN_REGENERATE_ICONS,
+			COMSIG_QDELETING,
 		))
 	held_mob = null
 
@@ -48,6 +49,10 @@
 /obj/item/holder/proc/on_held_mob_icon_updated(datum/source)
 	SIGNAL_HANDLER
 	update_held_mob_appearance()
+
+/obj/item/holder/proc/on_held_mob_qdeleting(datum/source)
+	SIGNAL_HANDLER
+	held_mob = null
 
 /obj/item/holder/process()
 
@@ -143,11 +148,12 @@
 		COMSIG_MOB_UNEQUIPPED_ITEM,
 		COMSIG_HUMAN_REGENERATE_ICONS,
 	), TYPE_PROC_REF(/obj/item/holder, on_held_mob_icon_updated))
+	H.RegisterSignal(src, COMSIG_QDELETING, TYPE_PROC_REF(/obj/item/holder, on_held_mob_qdeleting))
 	H.update_held_mob_appearance()
 	src.forceMove(H)
 	if(grabber)
 		H.attack_hand(grabber)
-		to_chat(grabber, span_notice("Вы подняли [src.name] на руки."))
+		to_chat(grabber, span_notice("Вы подняли [src.declent_ru(ACCUSATIVE)] на руки."))
 		to_chat(src, span_notice("[grabber.name] поднял[GEND_A_O_I(grabber)] вас на руки."))
 		grabber.status_flags |= PASSEMOTES
 

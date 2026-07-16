@@ -22,6 +22,7 @@
 	var/flashing_lights = TRUE
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/neck.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/neck.dmi',
 		SPECIES_KIDAN = 'icons/mob/clothing/species/kidan/neck.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/neck.dmi',

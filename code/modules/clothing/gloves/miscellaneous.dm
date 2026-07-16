@@ -92,6 +92,7 @@
 	icon_state = "riotgloves"
 	item_state = "riotgloves"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/hands.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/gloves.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/gloves.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/gloves.dmi',
@@ -368,6 +369,7 @@
 	var/knock_damage_high = 10 // min and max
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 100, ACID = 0)
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/hands.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/gloves.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/gloves.dmi')
 
@@ -427,6 +429,7 @@
 	icon_state = "brown_short_gloves"
 	item_state = "brown_short_gloves"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/hands.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/gloves.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/gloves.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/gloves.dmi',
@@ -444,6 +447,7 @@
 	item_state = "nt_swat_gl"
 	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, BIO = 0, FIRE = 75, ACID = 75)
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/hands.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/gloves.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/gloves.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/gloves.dmi',
@@ -468,6 +472,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 50, ENERGY = 50, BOMB = 0, BIO = 0, FIRE = 50, ACID = 100)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/hands.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/gloves.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/gloves.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/gloves.dmi',
@@ -507,6 +512,7 @@
 	armor = list(MELEE = 10, BULLET = 10, LASER = 60, ENERGY = 60, BOMB = 0, BIO = 0, FIRE = 90, ACID = 100)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/helmet.dmi',
@@ -549,6 +555,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 50, ENERGY = 50, BOMB = 0, BIO = 0, FIRE = 50, ACID = 100)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/feet.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/shoes.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/shoes.dmi',
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/shoes.dmi',

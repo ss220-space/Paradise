@@ -38,6 +38,7 @@
 	item_state = "wizhatmime"
 	dog_fashion = null
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
@@ -58,6 +59,7 @@
 	magical = FALSE
 	resistance_flags = FLAMMABLE
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
 	)
@@ -84,6 +86,7 @@
 	dog_fashion = null
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
@@ -99,6 +102,7 @@
 	dog_fashion = null
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
@@ -113,6 +117,7 @@
 	item_state = "artmage"
 	dog_fashion = null
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
 	)
@@ -124,6 +129,7 @@
 	item_state = "visionmage"
 	dog_fashion = null
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
 	)
@@ -135,6 +141,7 @@
 	item_state = "healmage"
 	dog_fashion = null
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
 	)
 
@@ -185,6 +192,7 @@
 	icon_state = "wizzmime"
 	item_state = "wizzmime"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/suit.dmi',
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
@@ -208,6 +216,7 @@
 	icon_state = "magusblue"
 	item_state = "magusblue"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/suit.dmi',
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
@@ -221,6 +230,7 @@
 	icon_state = "magusred"
 	item_state = "magusred"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/suit.dmi',
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
@@ -234,6 +244,7 @@
 	icon_state = "magusdefender"
 	item_state = "magusdefender"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
 	)
@@ -244,6 +255,7 @@
 	icon_state = "necromage"
 	item_state = "necromage"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
 	)
@@ -254,6 +266,7 @@
 	icon_state = "artmage"
 	item_state = "artmage"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
 	)
@@ -264,6 +277,7 @@
 	icon_state = "visionmage"
 	item_state = "visionmage"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
 	)
@@ -274,6 +288,7 @@
 	icon_state = "healmage"
 	item_state = "healmage"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',

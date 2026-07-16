@@ -8,6 +8,7 @@
 	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
 	armor = list(MELEE = 30, BULLET = 15, LASER = 15, ENERGY = 30, BOMB = 30, BIO = 100, FIRE = 75, ACID = 75)
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
 		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/head.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/head.dmi',
@@ -41,6 +42,7 @@
 	armor = list(MELEE = 30, BULLET = 15, LASER = 15, ENERGY = 30, BOMB = 30, BIO = 100, FIRE = 75, ACID = 75)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/multitool, /obj/item/radio)
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/suit.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
 		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/head.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/head.dmi',

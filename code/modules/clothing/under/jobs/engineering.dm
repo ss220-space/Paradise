@@ -29,6 +29,7 @@
 	item_color = "atmosf"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/uniform.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
@@ -82,6 +83,7 @@
 	item_color = "enginef"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/uniform.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',

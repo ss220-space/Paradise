@@ -12,6 +12,7 @@
 	strip_delay = 130
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
@@ -67,6 +68,7 @@
 	slowdown = 0
 	resistance_flags = FIRE_PROOF
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/suit.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
@@ -81,6 +83,7 @@
 	name = "emergency response team commander helmet"
 	desc = "A helmet worn by the commander of a Nanotrasen Emergency Response Team. Has blue highlights. Armoured and space ready."
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 	)
 
@@ -206,6 +209,7 @@
 	actions_types = null
 	has_camera = FALSE
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
 		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/helmet.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/helmet.dmi',
@@ -224,6 +228,7 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal
 	jetpack = null
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/suit.dmi',
 		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/suit.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
@@ -302,6 +307,7 @@
 	HUDType = MEDHUD
 	strip_delay = 130
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 	)
 
@@ -325,6 +331,7 @@
 	dog_fashion = /datum/dog_fashion/back/deathsquad
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/suit.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',

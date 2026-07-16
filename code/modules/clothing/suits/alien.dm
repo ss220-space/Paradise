@@ -33,6 +33,7 @@
 	icon_state = "mantle-unathi"
 	body_parts_covered = UPPER_TORSO
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/neck.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/neck.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/neck.dmi',
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/neck.dmi',

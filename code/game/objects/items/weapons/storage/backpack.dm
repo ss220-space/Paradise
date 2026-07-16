@@ -17,6 +17,7 @@
 	storage_slots = 21
 	max_integrity = 300
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/back.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/back.dmi',
 		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/back.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/back.dmi',
@@ -1007,6 +1008,7 @@
 	max_combined_w_class = 4
 	storage_slots = 1
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/back.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/back.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/back.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/back.dmi',

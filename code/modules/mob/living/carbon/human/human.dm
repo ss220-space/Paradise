@@ -1141,10 +1141,6 @@
 
 	maxHealth = dna.species.total_health
 	max_stamina = dna.species.total_stamina
-	inhand_sprite_offset_x = dna.species.inhand_sprite_offset_x
-	inhand_sprite_offset_y = dna.species.inhand_sprite_offset_y
-	inhand_sprite_scale = dna.species.inhand_sprite_scale
-
 	if(dna.species.language)
 		add_language(dna.species.language)
 
@@ -2109,9 +2105,11 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/proc/offer_self_pick_up(mob/living/carbon/human/target_human)
 	if(!can_request_pick_up_from(target_human))
 		return FALSE
-	to_chat(src, span_notice("Вы попросили [target_human] взять вас на руки."))
-	var/answer = tgui_alert(target_human, "[src] просит взять [src.p_them()] на руки.", "Взять на руки?", list("Да", "Нет"))
+	to_chat(src, span_notice("Вы попросили [target_human.declent_ru(ACCUSATIVE)] взять вас на руки."))
+	var/answer = tgui_alert(target_human, "[src] просит взять [declent_ru(ACCUSATIVE)] на руки.", "Взять на руки?", list("Да", "Нет"))
 	if(answer != "Да")
+		return TRUE
+	if(QDELETED(src) || QDELETED(target_human))
 		return TRUE
 	if(!can_request_pick_up_from(target_human))
 		to_chat(target_human, span_warning("[src] уже нельзя взять на руки."))
@@ -2130,8 +2128,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(!can_complete_grab_pickup(target_mob))
 		return FALSE
 	visible_message(
-		span_notice("[src] начинает поднимать [target_mob] на руки."),
-		span_notice("Вы начинаете поднимать [target_mob] на руки."),
+		span_notice("[src] начинает поднимать [target_mob.declent_ru(ACCUSATIVE)] на руки."),
+		span_notice("Вы начинаете поднимать [target_mob.declent_ru(ACCUSATIVE)] на руки."),
 	)
 	if(!do_after(src, 2 SECONDS, target_mob, DA_IGNORE_HELD_ITEM | DA_IGNORE_TARGET_LOC_CHANGE, extra_checks = CALLBACK(src, PROC_REF(can_complete_grab_pickup), target_mob), max_interact_count = 1, cancel_on_max = TRUE))
 		return TRUE

@@ -35,6 +35,7 @@
 	var/paint = null
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/helmet.dmi',
@@ -195,6 +196,7 @@
 	toggle_on_message = "You raise the ear flaps on"
 	toggle_off_message = "You lower the ear flaps on"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
@@ -247,6 +249,7 @@
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
@@ -318,6 +321,7 @@
 	species_disguise = "High-tech robot"
 	dog_fashion = /datum/dog_fashion/head/cardborg
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
@@ -347,6 +351,7 @@
 	item_state = "head_mirror"
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
@@ -363,6 +368,7 @@
 	icon_state = "shapka_pepega"
 	item_state = "shapka_pepega"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
@@ -390,6 +396,7 @@
 	icon_state = "carp_hat"
 	item_state = "carp_hat"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',

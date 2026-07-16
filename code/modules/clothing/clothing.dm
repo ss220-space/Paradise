@@ -296,6 +296,7 @@
 	abstract_type = /obj/item/clothing/ears
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/ears.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/ears.dmi',
 		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/ears.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/ears.dmi',
@@ -390,6 +391,7 @@
 	righthand_file = 'icons/mob/inhands/gloves_righthand.dmi'
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/hands.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/gloves.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/gloves.dmi',
 	)
@@ -574,6 +576,7 @@
 	var/lighting_alpha
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
@@ -644,6 +647,7 @@
 	var/adjusted_flags_inv_transparent = NONE
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/mask.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/mask.dmi',
@@ -760,6 +764,7 @@
 	permeability_coefficient = 0.50
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/feet.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/shoes.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/shoes.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/shoes.dmi',
@@ -911,6 +916,7 @@
 	integrity_failure = 160
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/suit.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
@@ -1149,6 +1155,7 @@
 	abstract_type = /obj/item/clothing/under
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/uniform.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/uniform.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/uniform.dmi',
@@ -1396,6 +1403,7 @@
 	abstract_type = /obj/item/clothing/neck
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/neck.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/neck.dmi',
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/neck.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/neck.dmi',

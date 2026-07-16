@@ -23,6 +23,7 @@
 	icon_state = "wardenf"
 	item_color = "wardenf"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/uniform.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/uniform.dmi',
@@ -71,6 +72,7 @@
 	desc = "Standard feminine fashion for Security Officers.  It's made of sturdier material than the standard jumpskirts."
 	icon_state = "securityf"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/uniform.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/uniform.dmi',
@@ -119,6 +121,7 @@
 	strip_delay = 50
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/uniform.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/uniform.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/uniform.dmi',
@@ -136,6 +139,7 @@
 	icon_state = "detective_skirt"
 	item_color = "detective_skirt"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/uniform.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/uniform.dmi',
@@ -158,6 +162,7 @@
 	item_state = "noir_skirt"
 	item_color = "noirdet_skirt"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/uniform.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
 	)
@@ -169,6 +174,7 @@
 	name = "hard-worn skirt"
 	icon_state = "detective_skirt_grey"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/uniform.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/uniform.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/uniform.dmi',
@@ -200,6 +206,7 @@
 	name = "head of security's jumpskirt"
 	icon_state = "hosf"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/uniform.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/uniform.dmi',
@@ -224,6 +231,7 @@
 	item_state = "hosalt_skirt"
 	item_color = "hosalt_skirt"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/uniform.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
 	)
@@ -235,6 +243,7 @@
 	item_state = "hos_parade_fem"
 	item_color = "hos_parade_fem"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/uniform.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
 	)
@@ -309,6 +318,7 @@
 	item_state = "brig_physf"
 	item_color = "brig_physf"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/uniform.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
@@ -335,6 +345,7 @@
 	item_state = "brigmed_skirt"
 	item_color = "brigmed_skirt"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/uniform.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
 	)

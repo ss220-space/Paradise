@@ -132,6 +132,7 @@
 	flags_inv = HIDEJUMPSUIT
 	magical = TRUE
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/suit.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
@@ -152,6 +153,7 @@
 	magical = TRUE
 	species_restricted = null
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 	)
 
@@ -168,6 +170,7 @@
 	magical = TRUE
 	species_restricted = null
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/suit.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 	)
 
@@ -183,6 +186,7 @@
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie
 	species_restricted = null
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/suit.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 	)
 
@@ -223,6 +227,7 @@
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	armor = list(MELEE = -50, BULLET = -50, LASER = -50,ENERGY = -50, BOMB = -50, BIO = -50, FIRE = 0, ACID = 0)
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
@@ -258,6 +263,7 @@
 	flags_cover = HEADCOVERSEYES
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
@@ -795,4 +801,3 @@
 	item_state = "summoning_orb"
 	desc = "It's an orb of crystalized blood. Can be used to transfer blood between cultists."
 	var/blood = 50
-

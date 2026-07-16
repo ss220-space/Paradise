@@ -13,6 +13,7 @@
 		ITEM_SLOT_CLOTH_INNER_STRING = /datum/greyscale_config/jumpsuit_worn,
 	)
 	greyscale_config_worn_species = list(
+		SPECIES_RESOMI = /datum/greyscale_config/jumpsuit_worn/resomi,
 		SPECIES_VOX = /datum/greyscale_config/jumpsuit_worn/vox,
 		SPECIES_UNATHI = /datum/greyscale_config/jumpsuit_worn/unathi,
 		SPECIES_ASHWALKER_BASIC = /datum/greyscale_config/jumpsuit_worn/unathi,
@@ -191,6 +192,7 @@
 		ITEM_SLOT_CLOTH_INNER_STRING = /datum/greyscale_config/jumpsuit_prison_worn,
 	)
 	greyscale_config_worn_species = list(
+		SPECIES_RESOMI = /datum/greyscale_config/jumpsuit_prison_worn/resomi,
 		SPECIES_VOX = /datum/greyscale_config/jumpsuit_prison_worn/vox,
 		SPECIES_DRASK = /datum/greyscale_config/jumpsuit_prison_worn/drask,
 		SPECIES_UNATHI = /datum/greyscale_config/jumpsuit_prison_worn/unathi,
@@ -318,6 +320,7 @@
 
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/uniform.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',

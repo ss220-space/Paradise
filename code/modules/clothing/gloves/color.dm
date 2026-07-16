@@ -174,6 +174,7 @@
 	armor = list(MELEE = 5, BULLET = 25, LASER = 10, ENERGY = 5, BOMB = 5, BIO = 0, FIRE = 75, ACID = 75)
 	can_be_cut = FALSE
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/hands.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/gloves.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/gloves.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/gloves.dmi',

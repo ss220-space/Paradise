@@ -16,6 +16,9 @@
 	custom_price = PAYCHECK_COMMAND // belts are useful => they're expensive
 	abstract_type = /obj/item/storage/belt
 	dynamic_storage_size = TRUE
+	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/belt.dmi',
+	)
 
 	/// Do we have overlays for items held inside the belt?
 	var/use_item_overlays = FALSE

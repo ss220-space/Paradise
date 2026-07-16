@@ -355,12 +355,7 @@
 
 	var/icon/face_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = "bald_s")
 	if(!(current_species.bodyflags & NO_EYES))
-		var/eyes_icon = 'icons/mob/human_face.dmi'
-		var/eyes_state = current_species ? current_species.eyes : "eyes_s"
-		if(current_species?.name == SPECIES_RESOMI)
-			eyes_icon = 'icons/mob/sprite_accessories/resomi/resomi_eyes.dmi'
-			eyes_state = "eyes_resomi"
-		var/icon/eyes_s = new/icon("icon" = eyes_icon, "icon_state" = eyes_state)
+		var/icon/eyes_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = current_species ? current_species.eyes : "eyes_s")
 		eyes_s.Blend(e_colour, ICON_ADD)
 		face_s.Blend(eyes_s, ICON_OVERLAY)
 

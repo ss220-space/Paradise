@@ -57,6 +57,7 @@ do { \
 	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 50)
 	actions_types = list(/datum/action/item_action/chameleon/change/suit)
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
@@ -80,6 +81,7 @@ do { \
 	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 50)
 	actions_types = list(/datum/action/item_action/chameleon/change/glasses)
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/eyes.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/eyes.dmi',
@@ -143,6 +145,7 @@ do { \
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 50)
 	actions_types = list(/datum/action/item_action/chameleon/change/hat)
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/head.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
@@ -184,6 +187,7 @@ do { \
 	flags_cover = MASKCOVERSEYES|MASKCOVERSMOUTH
 	actions_types = list(/datum/action/item_action/chameleon/change/mask)
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/mask.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/mask.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/mask.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/mask.dmi',
@@ -321,4 +325,3 @@ do { \
 	BREAK_CHAMELEON_ACTION(src)
 
 #undef BREAK_CHAMELEON_ACTION
-

@@ -136,7 +136,6 @@
 	var/breathid = "o2"
 
 	var/clothing_flags = 0 //! Underwear and socks.
-	var/list/clothing_icon_sheets
 	var/exotic_blood
 	var/skinned_type
 	var/list/no_equip = list()	//! slots the race can't equip stuff to
@@ -146,9 +145,6 @@
 	var/bodyflags = 0
 
 	var/blood_color = BLOOD_COLOR_RED
-	var/inhand_sprite_offset_x = 0
-	var/inhand_sprite_offset_y = 0
-	var/inhand_sprite_scale = 1
 	var/flesh_color = "#d1aa2e" //Gold.
 	var/single_gib_type = /obj/effect/decal/cleanable/blood/gibs
 	var/remains_type = /obj/effect/decal/remains/human //What sort of remains is left behind when the species dusts
@@ -1128,83 +1124,6 @@
 /**
  * Proc that provide delayed item equip. Returns `TRUE` on success.
  */
-/datum/species/proc/get_clothing_icon_file(obj/item/item, default_icon_file)
-	var/icon_file = item.sprite_sheets?[name] || clothing_icon_sheets?[default_icon_file]
-	if(icon_file || !length(clothing_icon_sheets))
-		return icon_file
-	if(istype(item, /obj/item/clothing/accessory))
-		return clothing_icon_sheets[DEFAULT_ICON_ACCESSORY]
-	if(item.slot_flags & ITEM_SLOT_EARS)
-		return clothing_icon_sheets[DEFAULT_ICON_LEFT_EAR]
-	if(item.slot_flags & ITEM_SLOT_BELT)
-		return clothing_icon_sheets[DEFAULT_ICON_BELT]
-	if(item.slot_flags & ITEM_SLOT_BACK)
-		return clothing_icon_sheets[DEFAULT_ICON_BACK]
-	if(item.slot_flags & ITEM_SLOT_CLOTH_OUTER)
-		return clothing_icon_sheets[DEFAULT_ICON_OUTER_SUIT]
-	if(item.slot_flags & ITEM_SLOT_CLOTH_INNER)
-		return clothing_icon_sheets[DEFAULT_ICON_JUMPSUIT]
-	if(item.slot_flags & ITEM_SLOT_GLOVES)
-		return clothing_icon_sheets[DEFAULT_ICON_GLOVES]
-	if(item.slot_flags & ITEM_SLOT_EYES)
-		return clothing_icon_sheets[DEFAULT_ICON_GLASSES]
-	if(item.slot_flags & ITEM_SLOT_MASK)
-		return clothing_icon_sheets[DEFAULT_ICON_WEAR_MASK]
-	if(item.slot_flags & ITEM_SLOT_HEAD)
-		return clothing_icon_sheets[DEFAULT_ICON_HEAD]
-	if(item.slot_flags & ITEM_SLOT_FEET)
-		return clothing_icon_sheets[DEFAULT_ICON_SHOES]
-	if(item.slot_flags & ITEM_SLOT_NECK)
-		return clothing_icon_sheets[DEFAULT_ICON_NECK]
-
-/datum/species/proc/get_clothing_icon_state(obj/item/item, icon_file, requested_state)
-	var/initial_icon_state = initial(item.icon_state)
-	var/last_path_separator = findlasttext(initial_icon_state, "/")
-	if(last_path_separator)
-		var/path_state = copytext(initial_icon_state, last_path_separator + 1)
-		var/aliased_path_state = get_clothing_state_alias(path_state, icon_file)
-		if(endswith(requested_state, "_d_s") && aliased_path_state && icon_exists(icon_file, "[aliased_path_state]_d"))
-			return "[aliased_path_state]_d"
-		if(aliased_path_state && icon_exists(icon_file, aliased_path_state))
-			return aliased_path_state
-	if(icon_exists(icon_file, requested_state))
-		return requested_state
-	var/normalized_state = requested_state
-	if(endswith(requested_state, "_s"))
-		normalized_state = copytext(requested_state, 1, -2)
-		if(icon_exists(icon_file, normalized_state))
-			return normalized_state
-	if(endswith(normalized_state, "_open"))
-		var/closed_state = copytext(normalized_state, 1, -5)
-		if(icon_exists(icon_file, "[closed_state]_t"))
-			return "[closed_state]_t"
-		if(icon_exists(icon_file, closed_state))
-			return closed_state
-		var/aliased_closed_state = get_clothing_state_alias(closed_state, icon_file)
-		if(aliased_closed_state && icon_exists(icon_file, "[aliased_closed_state]_t"))
-			return "[aliased_closed_state]_t"
-		if(aliased_closed_state && icon_exists(icon_file, aliased_closed_state))
-			return aliased_closed_state
-	if(last_path_separator)
-		var/path_state = copytext(initial_icon_state, last_path_separator + 1)
-		if(endswith(requested_state, "_d_s") && icon_exists(icon_file, "[path_state]_d"))
-			return "[path_state]_d"
-		if(icon_exists(icon_file, path_state))
-			return path_state
-	if(item.item_state && icon_exists(icon_file, item.item_state))
-		return item.item_state
-	if(item.icon_state && icon_exists(icon_file, item.icon_state))
-		return item.icon_state
-	var/aliased_state = get_clothing_state_alias(requested_state, icon_file)
-	if(aliased_state && icon_exists(icon_file, aliased_state))
-		return aliased_state
-
-/datum/species/proc/get_clothing_state_alias(requested_state, icon_file)
-	return
-
-/datum/species/proc/transform_clothing_fallback(mutable_appearance/clothing_appearance, obj/item/item)
-	return
-
 /datum/species/proc/equip_delay_self_check(obj/item/I, slot, mob/living/carbon/human/user)
 	user.visible_message(
 		span_notice("[user] начина[PLUR_ET_UT(user)] надевать [I.declent_ru(ACCUSATIVE)]..."),

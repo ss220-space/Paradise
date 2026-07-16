@@ -95,6 +95,7 @@ MEDICAL
 	examine_extensions = EXAMINE_HUD_MEDICAL
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/eyes.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/eyes.dmi',
@@ -145,6 +146,7 @@ MEDICAL
 	actions_types = list(/datum/action/item_action/toggle)
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/eyes.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/eyes.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
@@ -203,6 +205,7 @@ MEDICAL
 	icon_state = "monohudmed"
 	item_state = "monohud"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/eyes.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi',
@@ -220,6 +223,7 @@ DIAGNOSTIC
 	HUDType = DATA_HUD_DIAGNOSTIC
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/eyes.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/eyes.dmi',
@@ -299,6 +303,7 @@ DIAGNOSTIC
 	icon_state = "monohuddiag"
 	item_state = "monohud"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/eyes.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi',
@@ -318,6 +323,7 @@ SECURITY
 	examine_extensions = EXAMINE_HUD_SECURITY_READ | EXAMINE_HUD_SECURITY_WRITE
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/eyes.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/eyes.dmi',
@@ -360,6 +366,7 @@ SECURITY
 	tint = 1
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/eyes.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/eyes.dmi',
@@ -389,6 +396,7 @@ SECURITY
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT | VISOR_DARKNESSVIEW | VISOR_FULL_HUD
 	visor_flags_cover = GLASSESCOVERSEYES
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/eyes.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/eyes.dmi',
@@ -435,6 +443,7 @@ SECURITY
 	actions_types = list(/datum/action/item_action/toggle)
 
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/eyes.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/eyes.dmi',
@@ -471,6 +480,7 @@ SECURITY
 	icon_state = "monohudsec"
 	item_state = "monohud"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/eyes.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi',
@@ -487,6 +497,7 @@ HYDROPONIC
 	HUDType = DATA_HUD_HYDROPONIC
 	examine_extensions = EXAMINE_HUD_BOTANY
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/eyes.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/eyes.dmi',
@@ -566,6 +577,7 @@ HYDROPONIC
 	icon_state = "monohudhydro"
 	item_state = "monohud"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/eyes.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi',
@@ -583,6 +595,7 @@ SKILLS
 	HUDType = DATA_HUD_SECURITY_BASIC
 	examine_extensions = EXAMINE_HUD_SKILLS
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/eyes.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
 		SPECIES_GREY  = 'icons/mob/clothing/species/grey/eyes.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -614,6 +627,7 @@ SKILLS
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = 1
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/eyes.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
 		SPECIES_GREY  = 'icons/mob/clothing/species/grey/eyes.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -651,6 +665,7 @@ SKILLS
 	tint = 1
 	HUDType = DATA_HUD_MEDICAL_ADVANCED
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/eyes.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
 		SPECIES_GREY  = 'icons/mob/clothing/species/grey/eyes.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -681,6 +696,7 @@ SKILLS
 	icon_state = "sunhudcap"
 	item_state = "sunhudcap"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/eyes.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
 		SPECIES_GREY  = 'icons/mob/clothing/species/grey/eyes.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -741,6 +757,7 @@ SKILLS
 	icon_state = "monohudskill"
 	item_state = "monohud"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/eyes.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi',

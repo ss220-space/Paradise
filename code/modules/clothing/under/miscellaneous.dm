@@ -337,6 +337,7 @@
 	item_state = "navy_goldf"
 	item_color = "navy_goldf"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/uniform.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
@@ -735,6 +736,7 @@
 	icon_state = "red_suitf"
 	item_color = "red_suitf"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/uniform.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
@@ -1794,6 +1796,7 @@
 	item_color = "sweettooth_uniform"
 	body_parts_covered = UPPER_TORSO | LOWER_TORSO
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/uniform.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
@@ -1820,6 +1823,7 @@
 	item_color = "rocksouniform"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/uniform.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
@@ -2373,6 +2377,7 @@
 	item_state = "colorize_skirt"
 	item_color = "colorize_skirt"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/uniform.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
@@ -2513,6 +2518,7 @@
 	item_state = "steampunkdress"
 	item_color = "steampunkdress"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/uniform.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
@@ -2535,6 +2541,7 @@
 	item_state = "dress50s"
 	item_color = "dress50s"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/uniform.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
@@ -2554,6 +2561,7 @@
 	item_state = "maid"
 	item_color = "maid"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/uniform.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
@@ -2572,6 +2580,7 @@
 	item_state = "satan"
 	item_color = "satan"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/uniform.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',

@@ -14,6 +14,7 @@
 	actions_types = list(/datum/action/item_action/toggle_paddles)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 50)
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/back.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/back.dmi',
 	)
 

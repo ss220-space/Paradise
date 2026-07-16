@@ -8,6 +8,10 @@
 	icon_file = 'icons/mob/clothing/uniform.dmi'
 	json_config = 'code/datums/greyscale/json_configs/jumpsuit_worn.json'
 
+/datum/greyscale_config/jumpsuit_worn/resomi
+	name = "Worn Jumpsuit (Resomi)"
+	icon_file = 'icons/mob/clothing/species/resomi/uniform.dmi'
+
 /datum/greyscale_config/jumpsuit_worn/vox
 	name = "Worn Jumpsuit (Vox)"
 	icon_file = 'icons/mob/clothing/species/vox/uniform.dmi'
@@ -47,6 +51,10 @@
 	name = "Worn Prison Jumpsuit"
 	icon_file = 'icons/mob/clothing/uniform.dmi'
 	json_config = 'code/datums/greyscale/json_configs/jumpsuit_prison_worn.json'
+
+/datum/greyscale_config/jumpsuit_prison_worn/resomi
+	name = "Worn Prison Jumpsuit (Resomi)"
+	icon_file = 'icons/mob/clothing/species/resomi/uniform.dmi'
 
 /datum/greyscale_config/jumpsuit_prison_worn/vox
 	name = "Worn Prison Jumpsuit (Vox)"
@@ -88,6 +96,10 @@
 	icon_file = 'icons/mob/clothing/feet.dmi'
 	json_config = 'code/datums/greyscale/json_configs/sneakers_worn.json'
 
+/datum/greyscale_config/sneakers_worn/resomi
+	name = "Worn Sneakers (Resomi)"
+	icon_file = 'icons/mob/clothing/species/resomi/feet.dmi'
+
 /datum/greyscale_config/sneakers_orange
 	name = "Orange Sneakers"
 	icon_file = 'icons/obj/clothing/shoes.dmi'
@@ -97,6 +109,10 @@
 	name = "Worn Orange Sneakers"
 	icon_file = 'icons/mob/clothing/feet.dmi'
 	json_config = 'code/datums/greyscale/json_configs/sneakers_orange_worn.json'
+
+/datum/greyscale_config/sneakers_orange_worn/resomi
+	name = "Worn Orange Sneakers (Resomi)"
+	icon_file = 'icons/mob/clothing/species/resomi/feet.dmi'
 
 /datum/greyscale_config/sneakers_worn/vox
 	name = "Worn Sneakers (Vox)"

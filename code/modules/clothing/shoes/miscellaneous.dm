@@ -23,6 +23,7 @@
 	icon_state = "riotboots"
 	item_state = "riotboots"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/feet.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/shoes.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/shoes.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/shoes.dmi',
@@ -203,6 +204,7 @@
 	item_state = "armored_shoes"
 	armor = list(MELEE = 5, BULLET = 25, LASER = 10, ENERGY = 5, BOMB = 5, BIO = 0, FIRE = 75, ACID = 75)
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/feet.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/shoes.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/shoes.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/shoes.dmi',
@@ -663,6 +665,7 @@
 	icon_state = "leather_boots"
 	item_state = "leather_boots"
 	sprite_sheets = list(
+		SPECIES_RESOMI = 'icons/mob/clothing/species/resomi/feet.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/shoes.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/shoes.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/shoes.dmi',
