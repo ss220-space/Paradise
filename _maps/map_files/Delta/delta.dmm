@@ -119959,7 +119959,8 @@
 "wOF" = (
 /obj/structure/sign/painting/large/library{
 	dir = 8;
-	pixel_x = -28
+	pixel_x = -28;
+	pixel_y = -16
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -155813,7 +155814,7 @@ oMI
 lxJ
 lxJ
 wOF
-wOF
+lxJ
 vTY
 lQS
 fHJ
