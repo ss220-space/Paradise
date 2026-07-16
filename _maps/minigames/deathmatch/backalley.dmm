@@ -3,181 +3,181 @@
 /obj/machinery/door/airlock/maintenance_hatch,
 /obj/effect/spawner/random_barrier/possibly_welded_airlock,
 /turf/simulated/floor/indestructible/stone_floor,
-/area/template_noop)
+/area/deathmatch)
 "df" = (
 /turf/simulated/floor/indestructible/stone_floor,
-/area/template_noop)
+/area/deathmatch)
 "dh" = (
 /turf/simulated/wall/indestructible/fakedoor,
-/area/template_noop)
+/area/deathmatch)
 "dl" = (
 /obj/machinery/conveyor/auto{
 	dir = 8
 	},
 /turf/simulated/floor/indestructible/plating,
-/area/template_noop)
+/area/deathmatch)
 "dt" = (
 /obj/structure/closet/crate/medical,
 /turf/simulated/floor/indestructible/brig_black,
-/area/template_noop)
+/area/deathmatch)
 "dS" = (
 /obj/structure/fence{
 	dir = 8
 	},
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/template_noop)
+/area/deathmatch)
 "dT" = (
 /obj/machinery/door_control/secure/directional/east{
 	id = "deathmatch_shutter_1"
 	},
 /turf/simulated/floor/indestructible/stone_floor,
-/area/template_noop)
+/area/deathmatch)
 "ep" = (
 /obj/structure/fence,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/template_noop)
+/area/deathmatch)
 "ez" = (
 /obj/machinery/door/poddoor/shutters/invincible{
 	dir = 8;
 	id_tag = "deathmatch_shutter_3"
 	},
 /turf/simulated/floor/indestructible/stone_floor,
-/area/template_noop)
+/area/deathmatch)
 "eI" = (
 /obj/structure/table,
 /obj/effect/spawner/random/food_trash,
 /turf/simulated/floor/indestructible/stone_floor,
-/area/template_noop)
+/area/deathmatch)
 "eL" = (
 /obj/structure/table,
 /obj/item/stack/medical/bruise_pack/advanced,
 /turf/simulated/floor/indestructible/brig_black,
-/area/template_noop)
+/area/deathmatch)
 "fJ" = (
 /obj/structure/bed/wicker,
 /obj/effect/landmark/deathmatch_player_spawn,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/template_noop)
+/area/deathmatch)
 "gg" = (
 /obj/structure/window/reinforced,
 /obj/structure/grille,
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/indestructible/plating,
-/area/template_noop)
+/area/deathmatch)
 "gQ" = (
 /obj/machinery/kitchen_machine/oven,
 /turf/simulated/floor/indestructible/stone_floor,
-/area/template_noop)
+/area/deathmatch)
 "hL" = (
 /obj/structure/table,
 /obj/item/stack/medical/suture,
 /turf/simulated/floor/indestructible/brig_black,
-/area/template_noop)
+/area/deathmatch)
 "jW" = (
 /obj/machinery/light/small/directional/north,
 /obj/effect/landmark/deathmatch_player_spawn,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/template_noop)
+/area/deathmatch)
 "kA" = (
 /obj/machinery/light/small/directional/south,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/template_noop)
+/area/deathmatch)
 "le" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/snacks/waffles,
 /turf/simulated/floor/indestructible/stone_floor,
-/area/template_noop)
+/area/deathmatch)
 "lS" = (
 /obj/effect/landmark/deathmatch_player_spawn,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/template_noop)
+/area/deathmatch)
 "mj" = (
 /obj/structure/closet/crate/trashcart,
 /obj/effect/spawner/random_spawners/syndicate/loot/stetchkin,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/template_noop)
+/area/deathmatch)
 "mt" = (
 /obj/structure/barricade/security,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/template_noop)
+/area/deathmatch)
 "nV" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/item/weldingtool,
 /turf/simulated/floor/indestructible/plating,
-/area/template_noop)
+/area/deathmatch)
 "qj" = (
 /obj/structure/closet/crate/wooden,
 /obj/effect/spawner/random_spawners/syndicate/loot/stetchkin,
 /turf/simulated/floor/indestructible/stone_floor,
-/area/template_noop)
+/area/deathmatch)
 "qm" = (
 /turf/simulated/floor/indestructible/brig_black,
-/area/template_noop)
+/area/deathmatch)
 "qN" = (
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/template_noop)
+/area/deathmatch)
 "sf" = (
 /obj/structure/barricade/sandbags,
 /turf/simulated/floor/indestructible/stone_floor,
-/area/template_noop)
+/area/deathmatch)
 "sH" = (
 /obj/structure/chair/office{
 	dir = 8
 	},
 /turf/simulated/floor/indestructible/medical_white,
-/area/template_noop)
+/area/deathmatch)
 "tQ" = (
 /obj/structure/barricade/security,
 /turf/simulated/floor/indestructible/stone_floor,
-/area/template_noop)
+/area/deathmatch)
 "vb" = (
 /obj/machinery/light/directional/west,
 /obj/structure/closet/crate/medical,
 /obj/item/storage/firstaid/brute,
 /turf/simulated/floor/indestructible/brig_black,
-/area/template_noop)
+/area/deathmatch)
 "vj" = (
 /obj/machinery/kitchen_machine/grill,
 /turf/simulated/floor/indestructible/stone_floor,
-/area/template_noop)
+/area/deathmatch)
 "vs" = (
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/indestructible/plating,
-/area/template_noop)
+/area/deathmatch)
 "vC" = (
 /obj/effect/mine/explosive,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/template_noop)
+/area/deathmatch)
 "vH" = (
 /obj/machinery/light/directional/west,
 /turf/simulated/floor/indestructible/brig_black,
-/area/template_noop)
+/area/deathmatch)
 "xh" = (
 /obj/structure/closet/crate/trashcart,
 /obj/effect/spawner/lootdrop/maintenance/double,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/template_noop)
+/area/deathmatch)
 "xv" = (
 /obj/item/wirecutters,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/template_noop)
+/area/deathmatch)
 "yp" = (
 /obj/machinery/light/small/directional/north,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/template_noop)
+/area/deathmatch)
 "zx" = (
 /obj/machinery/light/small/directional/west,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/template_noop)
+/area/deathmatch)
 "zA" = (
 /obj/effect/turf_decal/box,
 /obj/effect/landmark/deathmatch_player_spawn,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/template_noop)
+/area/deathmatch)
 "zH" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/indestructible/plating,
-/area/template_noop)
+/area/deathmatch)
 "zU" = (
 /obj/effect/mine/explosive,
 /obj/item/shard{
@@ -189,20 +189,20 @@
 	pixel_x = -5
 	},
 /turf/simulated/floor/indestructible/plating,
-/area/template_noop)
+/area/deathmatch)
 "AE" = (
 /obj/machinery/light/small/directional/north,
 /obj/structure/bed/wicker,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/template_noop)
+/area/deathmatch)
 "AF" = (
 /obj/effect/turf_decal/caution,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/template_noop)
+/area/deathmatch)
 "AR" = (
 /obj/structure/bed/wicker,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/template_noop)
+/area/deathmatch)
 "Bd" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/revolver_kit,
@@ -211,102 +211,102 @@
 	dir = 4
 	},
 /turf/simulated/floor/indestructible/stone_floor,
-/area/template_noop)
+/area/deathmatch)
 "BI" = (
 /obj/structure/bed/mattress,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/template_noop)
+/area/deathmatch)
 "CO" = (
 /obj/structure/fence/door/opened{
 	dir = 4
 	},
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/template_noop)
+/area/deathmatch)
 "DK" = (
 /obj/structure/rack,
 /obj/item/storage/firstaid/fire,
 /turf/simulated/floor/indestructible/brig_black,
-/area/template_noop)
+/area/deathmatch)
 "El" = (
 /obj/structure/table,
 /obj/item/storage/box/syndie_kit/throwing_weapons,
 /turf/simulated/floor/indestructible/stone_floor,
-/area/template_noop)
+/area/deathmatch)
 "EM" = (
 /obj/effect/turf_decal/caution{
 	dir = 8
 	},
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/template_noop)
+/area/deathmatch)
 "Gi" = (
 /obj/effect/spawner/lootdrop/maintenance/double,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/template_noop)
+/area/deathmatch)
 "Gk" = (
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave,
 /turf/simulated/floor/indestructible/stone_floor,
-/area/template_noop)
+/area/deathmatch)
 "Hl" = (
 /obj/machinery/light/small/directional/west,
 /obj/structure/barricade/sandbags,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/template_noop)
+/area/deathmatch)
 "Hs" = (
 /obj/machinery/light/floor/built,
 /turf/simulated/floor/indestructible/medical_white,
-/area/template_noop)
+/area/deathmatch)
 "Jp" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1
 	},
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/template_noop)
+/area/deathmatch)
 "JD" = (
 /obj/structure/closet/crate/wooden,
 /obj/effect/spawner/random_spawners/syndicate/loot/stetchkin,
 /turf/simulated/floor/indestructible/brig_black,
-/area/template_noop)
+/area/deathmatch)
 "JG" = (
 /obj/machinery/light/small/directional/east,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/template_noop)
+/area/deathmatch)
 "Kk" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1
 	},
 /obj/structure/barricade/sandbags,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/template_noop)
+/area/deathmatch)
 "Ks" = (
 /obj/structure/bed/wicker,
 /turf/simulated/floor/indestructible/stone_floor,
-/area/template_noop)
+/area/deathmatch)
 "Lr" = (
 /obj/effect/spawner/random_spawners/syndicate/loot/stetchkin,
 /obj/structure/closet/crate/wooden,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/template_noop)
+/area/deathmatch)
 "LY" = (
 /obj/effect/spawner/random/food_trash,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/template_noop)
+/area/deathmatch)
 "Mx" = (
 /obj/structure/rack,
 /obj/item/ammo_box/shotgun/buck,
 /obj/item/gun/projectile/shotgun/riot,
 /turf/simulated/floor/indestructible/stone_floor,
-/area/template_noop)
+/area/deathmatch)
 "MK" = (
 /turf/simulated/wall/indestructible,
-/area/template_noop)
+/area/deathmatch)
 "Nz" = (
 /turf/simulated/floor/indestructible/medical_white,
-/area/template_noop)
+/area/deathmatch)
 "NE" = (
 /obj/structure/barricade/sandbags,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/template_noop)
+/area/deathmatch)
 "NY" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup/normal{
@@ -318,117 +318,117 @@
 	pixel_y = 2
 	},
 /turf/simulated/floor/indestructible/stone_floor,
-/area/template_noop)
+/area/deathmatch)
 "PA" = (
 /obj/machinery/light/directional/north,
 /turf/simulated/floor/indestructible/brig_black,
-/area/template_noop)
+/area/deathmatch)
 "PK" = (
 /obj/structure/rack,
 /turf/simulated/floor/indestructible/brig_black,
-/area/template_noop)
+/area/deathmatch)
 "PQ" = (
 /obj/effect/turf_decal/caution{
 	dir = 1
 	},
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/template_noop)
+/area/deathmatch)
 "Qk" = (
 /obj/effect/mine/explosive,
 /turf/simulated/floor/indestructible/plating,
-/area/template_noop)
+/area/deathmatch)
 "QH" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/snacks/sliceable/cheesewheel,
 /turf/simulated/floor/indestructible/stone_floor,
-/area/template_noop)
+/area/deathmatch)
 "Ra" = (
 /obj/structure/chair/office{
 	dir = 8
 	},
 /obj/effect/landmark/deathmatch_player_spawn,
 /turf/simulated/floor/indestructible/medical_white,
-/area/template_noop)
+/area/deathmatch)
 "RH" = (
 /obj/structure/rack,
 /obj/item/grenade/frag,
 /obj/item/grenade/frag,
 /turf/simulated/floor/indestructible/stone_floor,
-/area/template_noop)
+/area/deathmatch)
 "Sj" = (
 /obj/effect/turf_decal/caution{
 	dir = 4
 	},
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/template_noop)
+/area/deathmatch)
 "Sm" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1
 	},
 /obj/machinery/light/floor/built,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/template_noop)
+/area/deathmatch)
 "Sz" = (
 /obj/machinery/kitchen_machine/tribal_oven,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/template_noop)
+/area/deathmatch)
 "Tk" = (
 /obj/structure/table,
 /turf/simulated/floor/indestructible/brig_black,
-/area/template_noop)
+/area/deathmatch)
 "Ty" = (
 /obj/effect/spawner/random/food_trash,
 /turf/simulated/floor/indestructible/stone_floor,
-/area/template_noop)
+/area/deathmatch)
 "Uc" = (
 /obj/structure/barricade/security,
 /turf/simulated/floor/indestructible/medical_white,
-/area/template_noop)
+/area/deathmatch)
 "Uu" = (
 /obj/structure/bed/wicker,
 /obj/item/reagent_containers/food/pill/stimulative_agent,
 /obj/item/twohanded/spear,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/template_noop)
+/area/deathmatch)
 "Uy" = (
 /obj/machinery/light/floor/built,
 /turf/simulated/floor/indestructible/plating,
-/area/template_noop)
+/area/deathmatch)
 "Wv" = (
 /obj/effect/spawner/random/trash,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/template_noop)
+/area/deathmatch)
 "WN" = (
 /obj/structure/bed/wicker,
 /obj/item/gun/projectile/automatic/pistol/m1911,
 /obj/item/clothing/suit/armor/hos,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/template_noop)
+/area/deathmatch)
 "Xj" = (
 /obj/structure/closet/crate/trashcart,
 /obj/effect/spawner/lootdrop/maintenance/double,
 /obj/effect/spawner/lootdrop/maintenance/double,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/template_noop)
+/area/deathmatch)
 "XB" = (
 /obj/effect/landmark/deathmatch_player_spawn,
 /turf/simulated/floor/indestructible/stone_floor,
-/area/template_noop)
+/area/deathmatch)
 "XD" = (
 /obj/structure/table,
 /obj/effect/spawner/random/food_trash,
 /obj/effect/spawner/random/food_trash,
 /turf/simulated/floor/indestructible/stone_floor,
-/area/template_noop)
+/area/deathmatch)
 "ZR" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/template_noop)
+/area/deathmatch)
 "ZT" = (
 /obj/structure/closet/crate/wooden,
 /obj/effect/spawner/random_spawners/syndicate/loot/stetchkin,
 /turf/simulated/floor/indestructible/dirt_floor,
-/area/template_noop)
+/area/deathmatch)
 
 (1,1,1) = {"
 MK
