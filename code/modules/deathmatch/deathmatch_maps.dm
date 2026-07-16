@@ -49,3 +49,6 @@
 	)
 	map_name = "backalley"
 	key = "LAZY_TEMPLATE_KEY_DEATHMATCH_BACKALLEY"
+
+// TODO:
+// 16 more maps, at least

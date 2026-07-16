@@ -50,11 +50,11 @@
 	.["lobbies"] = list()
 	.["hosting"] = FALSE
 	.["admin"] = check_rights_for(user.client, R_ADMIN)
-	for(var/ckey in lobbies)
-		var/datum/deathmatch_lobby/lobby = lobbies[ckey]
+	for(var/ckey, value in lobbies)
+		var/datum/deathmatch_lobby/lobby = value
 		if(user.ckey == ckey)
 			.["hosting"] = TRUE
-		if(user.ckey in (lobby.observers+lobby.players))
+		if(user.ckey in (lobby.observers + lobby.players))
 			.["playing"] = ckey
 		.["lobbies"] += list(list(
 			name = ckey,
@@ -65,8 +65,8 @@
 		))
 
 /datum/deathmatch_controller/proc/find_lobby_by_user(ckey)
-	for(var/lobbykey in lobbies)
-		var/datum/deathmatch_lobby/lobby = lobbies[lobbykey]
+	for(var/lobbykey, value in lobbies)
+		var/datum/deathmatch_lobby/lobby = value
 		if(ckey in (lobby.players + lobby.observers))
 			return lobby
 
