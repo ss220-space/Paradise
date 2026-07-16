@@ -121,3 +121,4 @@
 	WXH_TO_HEIGHT(client.MeasureText(new_maptext, null, active_hud.screentip_text.maptext_width), map_height)
 	active_hud.screentip_text.maptext = new_maptext
 	active_hud.screentip_text.maptext_y = 26 - map_height
+

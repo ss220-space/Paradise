@@ -157,7 +157,7 @@
 /// Handles gravity effects. Call if something about our gravity has potentially changed!
 /mob/living/proc/refresh_gravity()
 	var/old_grav_state = gravity_state
-	gravity_state = get_gravity()
+	gravity_state = has_gravity()
 	if(gravity_state == old_grav_state)
 		return
 
@@ -377,3 +377,16 @@
 		return
 	return ..()
 
+/mob/living/proc/get_strength_level()
+	var/list/strength_list = list()
+	SEND_SIGNAL(src, COMSIG_GET_STRENGTH, strength_list)
+	return !length(strength_list) ? STRENGTH_LEVEL_DEFAULT : strength_list[1]
+
+/mob/living/proc/get_strength_level_number()
+	var/datum/strength_level/level = get_strength_level()
+	return level.level_num
+
+/mob/living/proc/get_weak_mob_modifiers()
+	var/list/weak_mob_modifier = list()
+	SEND_SIGNAL(src, COMSIG_GET_WEAK_MOB_MODIFIERS, weak_mob_modifier)
+	return !length(weak_mob_modifier) ? 1 : weak_mob_modifier[1]

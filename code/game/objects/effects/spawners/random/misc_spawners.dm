@@ -41,3 +41,15 @@
 		/obj/item/stock_parts/cell/high/slime,
 		/obj/item/stock_parts/cell/potato,
 	)
+
+/obj/effect/spawner/random/decals_spawner
+	name = "decals spawner"
+
+/obj/effect/spawner/random/decals_spawner/Initialize(mapload)
+	var/static/list/decals_list
+	if(!decals_list)
+		decals_list = valid_subtypesof(/obj/effect/decal/cleanable) - list(/obj/effect/decal/cleanable/cobweb, /obj/effect/decal/cleanable/cobweb2)
+	loot = decals_list
+	return ..()
+
+

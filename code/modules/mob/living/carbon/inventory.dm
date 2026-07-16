@@ -1,3 +1,32 @@
+/// Convers HIDEX to ITEM_SLOT_X, should be phased out in favor of using latter everywhere later
+/proc/hidden_slots_to_inventory_slots(hidden_slots)
+	var/obscured = NONE
+	if(hidden_slots & HIDENECK)
+		obscured |= ITEM_SLOT_NECK
+	if(hidden_slots & HIDEMASK)
+		obscured |= ITEM_SLOT_MASK
+	/*
+	if(hidden_slots & HIDEBELT)
+		obscured |= ITEM_SLOT_BELT
+	*/
+	if(hidden_slots & HIDEGLASSES)
+		obscured |= ITEM_SLOT_EYES
+	if(hidden_slots & HIDEHEADSETS)
+		obscured |= ITEM_SLOT_EARS
+	if(hidden_slots & HIDEGLOVES)
+		obscured |= ITEM_SLOT_GLOVES
+	if(hidden_slots & HIDEJUMPSUIT)
+		obscured |= ITEM_SLOT_CLOTH_INNER
+	if(hidden_slots & HIDESHOES)
+		obscured |= ITEM_SLOT_FEET
+	if(hidden_slots & HIDESUITSTORAGE)
+		obscured |= ITEM_SLOT_SUITSTORE
+	/*
+	if(hidden_slots & HIDEHEADGEAR)
+		obscured |= ITEM_SLOT_HEAD
+	*/
+	return obscured
+
 /mob/living/carbon/swap_hand()
 	var/obj/item/item_in_hand = get_active_hand()
 

@@ -417,6 +417,8 @@
 		if(briefing_msg)
 			to_chat(new_mob, custom_boxed_message("red_box center", span_userdanger("[briefing_msg]")))
 
+		SEND_SIGNAL(M, COMSIG_LIVING_ON_WABBAJACKED, new_mob)
+
 		qdel(M)
 		return new_mob
 

@@ -242,7 +242,7 @@
 		var/can_reenter = ghost_can_reenter() && !suiciding && mind
 		var/revivable = timeofdeath && (round(world.time - timeofdeath) < DEFIB_TIME_LIMIT)
 
-		if(revivable && can_reenter)
+		if(revivable && (can_reenter || HAS_TRAIT(src, TRAIT_MIND_TEMPORARILY_GONE)))
 			set_hud_image_state(STATUS_HUD, STATUS_HUD_FLATLINE)
 		else
 			if(can_reenter)

@@ -148,3 +148,6 @@
 
 /proc/cmp_sheet_list(list/a, list/b)
 	return a["value"] - b["value"]
+
+/proc/cmp_deathmatch_mods(datum/deathmatch_modifier/a, datum/deathmatch_modifier/b)
+	return sorttext(b.name, a.name)

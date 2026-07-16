@@ -2231,10 +2231,7 @@
 /turf/simulated/floor/carpet/red,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "sf" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -4812,7 +4809,7 @@
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "Pv" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/reagent_containers/glass/rag,
+/obj/item/rag,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

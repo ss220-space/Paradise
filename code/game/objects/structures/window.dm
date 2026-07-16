@@ -531,6 +531,23 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 /obj/structure/window/get_explosion_block()
 	return reinf && fulltile ? real_explosion_block : 0
 
+/obj/structure/window/wash_tg(clean_types)
+	. = ..()
+	if(!(clean_types & CLEAN_SCRUB))
+		return
+	var/initial_opacity = initial(opacity)
+	if(opacity != initial_opacity)
+		set_opacity(initial_opacity)
+		. |= COMPONENT_CLEANED|COMPONENT_CLEANED_GAIN_XP
+	for(var/atom/movable/cleanables as anything in src)
+		if(cleanables == src)
+			continue
+		var/cleanable_washed = cleanables.wash_tg(clean_types)
+		if(!cleanable_washed)
+			continue
+		. |= cleanable_washed
+		vis_contents -= cleanables
+		
 /obj/structure/window/proc/on_painted(datum/source, new_color)
 	SIGNAL_HANDLER
 	if(painted)

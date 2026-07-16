@@ -1,0 +1,316 @@
+/turf/simulated/floor/water
+	name = "water"
+	gender = PLURAL
+	desc = "Shallow water."
+	icon_state = "riverwater_motion"
+	baseturf = /turf/simulated/floor/water
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_TEMPERATE
+	slowdown = 1
+	//bullet_sizzle = TRUE
+	//bullet_bounce_sound = null //needs a splashing sound one day.
+	footstep = FOOTSTEP_WATER
+	barefootstep = FOOTSTEP_WATER
+	clawfootstep = FOOTSTEP_WATER
+	heavyfootstep = FOOTSTEP_WATER
+	underfloor_accessibility = UNDERFLOOR_INTERACTABLE
+	///The transparency of the immerse element's overlay
+	var/immerse_overlay_alpha = 180
+	///Icon state to use for the immersion mask
+	var/immerse_overlay = "immerse"
+
+	///// Fishing element for this specific water tile
+	//var/datum/fish_source/fishing_datum = /datum/fish_source/river
+
+	/// Whether the immerse element has been added yet or not
+	var/immerse_added = FALSE
+
+	/**
+	 * Variables used for the swimming tile element. If TRUE, we pass these values to the element.
+	 * - is_swimming_tile: Whether or not we add the element to this tile.
+	 * - stamina_entry_cost: how much stamina it costs to enter the swimming tile, and for each move into a tile
+	 * - ticking_stamina_cost: How much stamina is lost for staying in the water.
+	 * - ticking_oxy_damage: How much oxygen is lost per tick when drowning in water. Also determines how many breathes are lost.
+	 * - exhaust_swimmer_prob: The likelihood that someone suffers stamina damage when entering a swimming tile.
+	 */
+	var/is_swimming_tile = FALSE
+	var/stamina_entry_cost = 7
+	var/ticking_stamina_cost = 5
+	var/ticking_oxy_damage = 2
+	var/exhaust_swimmer_prob = 30
+
+	var/datum/reagent/reagent_to_extract = /datum/reagent/water
+
+/turf/simulated/floor/water/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON, PROC_REF(on_atom_inited))
+	AddElement(/datum/element/watery_tile)
+	/*
+	if(!isnull(fishing_datum))
+		add_lazy_fishing(fishing_datum)
+	*/
+	//ADD_TRAIT(src, TRAIT_CATCH_AND_RELEASE, INNATE_TRAIT)
+	if(reagent_to_extract)
+		AddElement(/datum/element/reagent_scoopable_atom, reagent_to_extract)
+
+///We lazily add the immerse element when something is spawned or crosses this turf and not before.
+/turf/simulated/floor/water/proc/on_atom_inited(datum/source, atom/movable/movable)
+	SIGNAL_HANDLER
+	UnregisterSignal(src, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON)
+	make_immersed(movable)
+
+/**
+ * turf/Initialize() calls Entered on its contents too, however
+ * we need to wait for movables that still need to be initialized
+ * before we add the immerse element.
+ */
+/turf/simulated/floor/water/Entered(atom/movable/arrived)
+	. = ..()
+	make_immersed(arrived)
+
+///Makes this turf immersable, return true if we actually did anything so child procs don't have to repeat our checks
+/turf/simulated/floor/water/proc/make_immersed(atom/movable/triggering_atom)
+	if(immerse_added || is_type_in_typecache(triggering_atom, GLOB.immerse_ignored_movable))
+		return FALSE
+	AddElement(/datum/element/immerse, immerse_overlay, immerse_overlay_alpha)
+	immerse_added = TRUE
+	if(is_swimming_tile)
+		AddElement(/datum/element/swimming_tile, stamina_entry_cost, ticking_stamina_cost, ticking_oxy_damage, exhaust_swimmer_prob)
+	return TRUE
+
+/turf/simulated/floor/water/Destroy()
+	UnregisterSignal(src, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON)
+	return ..()
+
+
+/turf/simulated/floor/water/jungle
+
+/turf/simulated/floor/water/no_planet_atmos
+	baseturf = /turf/simulated/floor/water/no_planet_atmos
+	atmos_mode = ATMOS_MODE_SEALED
+
+/turf/simulated/floor/water/no_planet_atmos/deep
+	name = "deep water"
+	desc = "Less shallow water."
+	icon_state = "deep_riverwater_motion"
+	immerse_overlay = "immerse_deep"
+	baseturf = /turf/simulated/floor/water/no_planet_atmos/deep
+	is_swimming_tile = TRUE
+
+/turf/simulated/floor/water/no_planet_atmos/deep/lethal
+	name = "treacherous water"
+	desc = "Less shallow, very dangerous water. You feel like it would be a very bad idea to enter this water."
+	stamina_entry_cost = 25
+	ticking_stamina_cost = 15
+	exhaust_swimmer_prob = 100
+
+/turf/simulated/floor/water/beach
+	atmos_mode = ATMOS_MODE_SEALED
+	desc = "Come on in, it's great!"
+	icon = 'icons/turf/beach.dmi'
+	icon_state = "water"
+	base_icon_state = "water"
+	baseturf = /turf/simulated/floor/water/beach
+	//fishing_datum = /datum/fish_source/ocean/beach
+	reagent_to_extract = /datum/reagent/water/salt
+
+/*
+/turf/simulated/floor/water/beach/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_MESSAGE_IN_A_BOTTLE_LOCATION, INNATE_TRAIT)
+*/
+
+/// Deep water drains stamina and starts drowning you
+/turf/simulated/floor/water/deep_beach
+	name = "deep water"
+	desc = "Don't forget your life jacket."
+	immerse_overlay = "immerse_deep"
+	icon = 'icons/turf/beach.dmi'
+	icon_state = "deepwater"
+	base_icon_state = "deepwater"
+	baseturf = /turf/simulated/floor/water/deep_beach
+	//fishing_datum = /datum/fish_source/ocean
+	is_swimming_tile = TRUE
+
+/turf/simulated/floor/water/deep_beach/lethal
+	name = "treacherous water"
+	desc = "You think entering this water would probably go extremely badly."
+
+/turf/simulated/floor/water/lavaland_atmos
+	atmos_environment = ENVIRONMENT_LAVALAND
+
+/turf/simulated/floor/water/lavaland_atmos/basalt
+	icon = 'icons/turf/floors/water_lavaland.dmi'
+	icon_state = "water_lavaland-255"
+	base_icon_state = "water_lavaland"
+	smooth = SMOOTH_BITMASK | SMOOTH_BORDER
+	smoothing_groups = SMOOTH_GROUP_FLOOR + SMOOTH_GROUP_FLOOR_WATER_LAVALAND
+	canSmoothWith = SMOOTH_GROUP_FLOOR_WATER_LAVALAND + SMOOTH_GROUP_FLOOR_BASALT + SMOOTH_GROUP_MINERAL_WALLS
+	//fishing_datum = /datum/fish_source/ocean
+	/// *Inverse* smoothing bitflag for basalt overlays
+	var/basalt_junction = NONE
+	/// *Inverse* smoothing bitflag for siderite overlays
+	var/siderite_junction = NONE
+	/// *Inverse* smoothing bitflag for shale overlays
+	var/shale_junction = NONE
+
+/turf/simulated/floor/water/lavaland_atmos/basalt/bitmask_smooth()
+	. = ..()
+	basalt_junction = ALL_SMOOTHING_JUNCTIONS
+	siderite_junction = ALL_SMOOTHING_JUNCTIONS
+	shale_junction = ALL_SMOOTHING_JUNCTIONS
+	// We need to convert basalt/siderite/shale groups into a readable format
+	var/static/basalt_group = null
+	//var/static/siderite_group = null
+	//var/static/shale_group = null
+	if(isnull(basalt_group))
+		SET_SMOOTHING_GROUPS(SMOOTH_GROUP_FLOOR_BASALT + SMOOTH_GROUP_MINERAL_WALLS, basalt_group)
+		//SET_SMOOTHING_GROUPS(SMOOTH_GROUP_FLOOR_SIDERITE + SMOOTH_GROUP_RED_ROCK_WALLS, siderite_group)
+		//SET_SMOOTHING_GROUPS(SMOOTH_GROUP_FLOOR_SHALE + SMOOTH_GROUP_SHALE_WALLS, shale_group)
+	// After smoothing normally we can check our smoothed directions for possible basalt/siderite/shale tiles
+	for(var/check_dir in GLOB.alldirs)
+		var/junction = dir_to_junction(check_dir) | all_junctions_of_dir(check_dir)
+		if(!(junction & smoothing_junction))
+			continue
+		var/turf/to_smooth = get_step(src, check_dir)
+		if(!istype(to_smooth) || !to_smooth.smoothing_groups)
+			continue
+		for(var/key, group in to_smooth.smoothing_groups)
+			if(group & basalt_group[key])
+				basalt_junction &= ~junction
+			/*
+			else if(group & siderite_group[key])
+				siderite_junction &= ~junction
+			else if(group & shale_group[key])
+				shale_junction &= ~junction
+			*/
+	update_appearance()
+
+/turf/simulated/floor/water/lavaland_atmos/basalt/update_overlays()
+	. = ..()
+	if(basalt_junction != ALL_SMOOTHING_JUNCTIONS)
+		. += mutable_appearance('icons/turf/floors/basalt_outline.dmi', "basalt_outline-[basalt_junction]")
+	/*
+	if(siderite_junction != ALL_SMOOTHING_JUNCTIONS)
+		. += mutable_appearance('icons/turf/floors/siderite_outline.dmi', "siderite_outline-[siderite_junction]")
+	if(shale_junction != ALL_SMOOTHING_JUNCTIONS)
+		. += mutable_appearance('icons/turf/floors/shale_outline.dmi', "shale_outline-[shale_junction]")
+	*/
+
+/turf/simulated/floor/water/lavaland_atmos/basalt/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
+	underlay_appearance.icon = /turf/simulated/floor/plating/asteroid/basalt::icon
+	underlay_appearance.icon_state = /turf/simulated/floor/plating/asteroid/basalt::icon_state
+	return TRUE
+
+/turf/simulated/floor/water/beach/tizira
+	desc = "Shallow water. It somehow reminds you of lizardfolk."
+	icon_state = "tizira_water"
+	base_icon_state = "tizira_water"
+	baseturf = /turf/simulated/floor/water/beach/tizira
+	//fishing_datum = /datum/fish_source/tizira
+
+/**
+ * A special subtype of water with steam particles and a status effect similar to showers, that's however only applied if
+ * the living mob inside the turf is actually immersed in it (eg. not flying, not floating).
+ */
+/turf/simulated/floor/water/hot_spring
+	name = "hot spring"
+	icon_state = "pool_1"
+	desc = "Water kept warm through some unknown heat source, possibly a geothermal heat source far underground. \
+		Whatever it is, it feels pretty damn nice to swim, and you can even catch a glimpse of \
+		the odd fish darting through the water."
+	baseturf = /turf/simulated/floor/water/hot_spring
+	atmos_mode = ATMOS_MODE_SEALED
+	immerse_overlay_alpha = 190
+	//fishing_datum = /datum/fish_source/hot_spring
+	reagent_to_extract = /datum/reagent/water/mineral
+
+/turf/simulated/floor/water/hot_spring/Initialize(mapload)
+	. = ..()
+	// We need to add the immerse element now because the icon_states are randomized and
+	// we don't want to end up with 4 different immerse elements, which would cause
+	// the immerse trait to be repeatedly removed and readded as someone moves within the pool,
+	// replacing the status effect over and over, which can be seen through the status effect alert icon.
+	if(!immerse_added)
+		AddElement(/datum/element/immerse, immerse_overlay, immerse_overlay_alpha)
+		immerse_added = TRUE
+	icon_state = "pool_[rand(1, 4)]"
+	var/obj/effect/abstract/shared_particle_holder/holder = add_shared_particles(/particles/hotspring_steam, "hot_springs_[GET_TURF_PLANE_OFFSET(src)]", pool_size = 4)
+	// Render the steam over mobs and objects on the game plane
+	holder.vis_flags &= ~VIS_INHERIT_PLANE
+	// And be unaffected by ambient occlusions, which would render the steam grey
+	holder.plane = MUTATE_PLANE(MASSIVE_OBJ_PLANE, src)
+	add_filter("hot_spring_waves", 1, wave_filter(y = 1, size = 1, offset = 0, flags = WAVE_BOUNDED))
+	var/filter = get_filter("hot_spring_waves")
+	animate(filter, offset = 1, time = 3 SECONDS, loop = -1, easing = QUAD_EASING)
+	animate(offset = 0, time = 3 SECONDS, easing = QUAD_EASING)
+
+/turf/simulated/floor/water/hot_spring/Destroy()
+	remove_shared_particles("hot_springs_[GET_TURF_PLANE_OFFSET(src)]")
+	remove_filter("hot_spring_waves")
+	for(var/atom/movable/movable as anything in contents)
+		exit_hot_spring(movable)
+	return ..()
+
+/turf/simulated/floor/water/hot_spring/Entered(atom/movable/arrived, atom/old_loc)
+	. = ..()
+	if(!(flags & INITIALIZED))
+		return
+	enter_hot_spring(arrived)
+
+/turf/simulated/floor/water/hot_spring/on_atom_inited(datum/source, atom/movable/movable)
+	enter_hot_spring(movable)
+
+///Registers the signals from the immerse element and calls dip_in if the movable has the required trait.
+/turf/simulated/floor/water/hot_spring/proc/enter_hot_spring(atom/movable/movable)
+	if(is_type_in_typecache(movable, GLOB.immerse_ignored_movable)) // So we don't immerse weird things like turf decals/effects, projectiles, etc
+		return FALSE
+	RegisterSignal(movable, SIGNAL_ADDTRAIT(TRAIT_IMMERSED), PROC_REF(dip_in))
+	if(isliving(movable)) //so far, exiting a hot spring only has effects on living mobs.
+		RegisterSignal(movable, SIGNAL_REMOVETRAIT(TRAIT_IMMERSED), PROC_REF(dip_out))
+
+	if(HAS_TRAIT(movable, TRAIT_IMMERSED))
+		dip_in(movable)
+
+///Handles washing the movable and adding a status effect plus mood event to living mobs.
+/turf/simulated/floor/water/hot_spring/proc/dip_in(atom/movable/movable)
+	SIGNAL_HANDLER
+	movable.wash_tg(CLEAN_RAD | CLEAN_WASH)
+	if(!isliving(movable))
+		return
+
+	var/mob/living/living = movable
+	if(living.has_status_effect(/datum/status_effect/washing_regen/hot_spring))
+		return
+	living.apply_status_effect(/datum/status_effect/washing_regen/hot_spring)
+	/*
+	if(!HAS_TRAIT(living, TRAIT_WATER_HATER) || HAS_TRAIT(living, TRAIT_WATER_ADAPTATION))
+		living.add_mood_event("hot_spring", /datum/mood_event/hot_spring)
+	else
+		living.add_mood_event("hot_spring", /datum/mood_event/hot_spring_hater)
+	*/
+
+/turf/simulated/floor/water/hot_spring/Exited(atom/movable/gone, atom/new_loc)
+	. = ..()
+	exit_hot_spring(gone)
+
+//Unregister the signals and remove the status effect from mobs unless they're moving to another hot spring turf.
+/turf/simulated/floor/water/hot_spring/proc/exit_hot_spring(atom/movable/movable)
+	UnregisterSignal(movable, list(SIGNAL_ADDTRAIT(TRAIT_IMMERSED), SIGNAL_REMOVETRAIT(TRAIT_IMMERSED)))
+	if(!isliving(movable))
+		return
+	var/mob/living/living = movable
+	if(!living.has_status_effect(/datum/status_effect/washing_regen/hot_spring) || istype(living.loc, /turf/simulated/floor/water/hot_spring))
+		return
+	dip_out(living)
+
+///Handles removing the status effect from mobs.
+/turf/simulated/floor/water/hot_spring/proc/dip_out(mob/living/living)
+	SIGNAL_HANDLER
+	living.remove_status_effect(/datum/status_effect/washing_regen/hot_spring)
+	/*
+	if(!HAS_TRAIT(living, TRAIT_WATER_HATER) || HAS_TRAIT(living, TRAIT_WATER_ADAPTATION))
+		living.add_mood_event("hot_spring", /datum/mood_event/hot_spring_left)
+	else
+		living.add_mood_event("hot_spring", /datum/mood_event/hot_spring_hater_left)
+	*/
