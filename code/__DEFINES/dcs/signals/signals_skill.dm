@@ -103,3 +103,7 @@
 // MARK: Research
 /// Get mech construction duration modifier for mech construct skill (mob/living/user, list/modifiers)
 #define COMSIG_GET_MECH_CONSTRUCT_DURATION_MOD "get_mech_construct_duration_mod"
+/// Get mech protolathe item creation duration modifier for protolathe skill (mob/living/user, list/modifiers)
+#define COMSIG_GET_PROTOLATHE_DURATION_MOD "get_protolathe_duration_mod"
+/// Get mech protolathe item creation resource modifier for protolathe skill (mob/living/user, list/modifiers)
+#define COMSIG_GET_PROTOLATHE_RESOURCE_MOD "get_protolathe_resource_mod"

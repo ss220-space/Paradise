@@ -459,20 +459,25 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	var/max_amount = is_lathe ? 10 : 1
 	amount = max(1, min(max_amount, amount))
+	GET_SKILL_LEVEL(usr, /datum/skill/research/protolathe, protolathe_skill_level)
+	if(protolathe_skill_level < SKILL_LEVEL_BASIC)
+		amount += rand(0, 3)
 
 	var/power = BUILD_POWER
 	for(var/M in being_built.materials)
 		power += round(being_built.materials[M] * amount / 5)
 	power = max(BUILD_POWER, power)
 
+
+	CALCULATE_SKILL_MOD(usr, COMSIG_GET_PROTOLATHE_DURATION_MOD, skill_duration_mod)
 	// goes down (1 -> 0.4) with upgrades
 	var/coeff = machine.efficiency_coeff
 
 	var/time_to_construct = 0
 	if(is_imprinter)
-		time_to_construct = IMPRINTER_DELAY * amount
+		time_to_construct = IMPRINTER_DELAY * amount * skill_duration_mod
 	else
-		time_to_construct = PROTOLATHE_CONSTRUCT_DELAY * coeff * being_built.lathe_time_factor * amount ** 0.8
+		time_to_construct = PROTOLATHE_CONSTRUCT_DELAY * coeff * skill_duration_mod * being_built.lathe_time_factor * amount ** 0.8
 
 	if(is_lathe)
 		add_wait_message("Печать объекта. Ожидайте...", time_to_construct)
@@ -485,6 +490,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	machine.busy = TRUE
 	use_power(power)
 
+	CALCULATE_SKILL_MOD(usr, COMSIG_GET_PROTOLATHE_RESOURCE_MOD, skill_resource_mod)
+	coef *= skill_resource_mod
 	var/list/efficient_mats = list()
 	for(var/MAT in being_built.materials)
 		efficient_mats[MAT] = being_built.materials[MAT] * coeff
