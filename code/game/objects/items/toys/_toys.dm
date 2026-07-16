@@ -22,18 +22,16 @@
 		. += span_notice("Используйте ручку на игрушке, чтобы переименовать её.")
 
 /obj/item/toy/attackby(obj/item/I, mob/user, params)
-	if(unique_toy_rename && is_pen(I))
-		add_fingerprint(user)
-		var/new_name = rename_interactive(user, I, use_prefix = FALSE)
-		if(!isnull(new_name))
-			to_chat(user, span_notice("Вы называете игрушку '[name]'. Поздоровайтесь со своим новым другом."))
-		return ATTACK_CHAIN_PROCEED_SUCCESS
+    if(!unique_toy_rename || !is_pen(I))
+        return ..()
 
-	return ..()
+    add_fingerprint(user)
+    var/new_name = rename_interactive(user, I, use_prefix = FALSE)
+    if(!isnull(new_name))
+        to_chat(user, span_notice("Вы называете игрушку '[name]'. Поздоровайтесь со своим новым другом."))
+    return ATTACK_CHAIN_PROCEED_SUCCESS
 
-/*
- * Fake singularity
- */
+// MARK: Fake singularity
 /obj/item/toy/spinningtoy
 	name = "Gravitational Singularity"
 	desc = "Знаменитая вращающаяся игрушка марки \"Сингуло\"."
@@ -87,24 +85,35 @@
 			span_warning("[user] нажима[PLUR_ET_YUT(user)] кнопку на [declent_ru(DATIVE)]"), span_notice("Вы активируете [declent_ru(ACCUSATIVE)], раздаётся громкий звук!"),
 			span_notice("Слышишь щелчок кнопки.")
 		)
-	INVOKE_ASYNC(src, PROC_REF(async_animation))
 	COOLDOWN_START(src, cooldown, 3 MINUTES)
+	start_animation()
 	return TRUE
 
-/obj/item/toy/nuke/proc/async_animation()
+/obj/item/toy/nuke/proc/start_animation()
+	if(animation_stage != 0)
+		return
+
 	animation_stage++
 	update_icon(UPDATE_ICON_STATE)
 	playsound(src, 'sound/machines/alarm.ogg', 100, FALSE, 0)
-	sleep(13 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(animation_stage_2)), 13 SECONDS)
+
+/obj/item/toy/nuke/proc/animation_stage_2()
+	if(animation_stage != 1)
+		return
+
 	animation_stage++
 	update_icon(UPDATE_ICON_STATE)
-	sleep(COOLDOWN_TIMELEFT(src, cooldown))
+	addtimer(CALLBACK(src, PROC_REF(reset_animation)), COOLDOWN_TIMELEFT(src, cooldown))
+
+/obj/item/toy/nuke/proc/reset_animation()
+	if(animation_stage != 2)
+		return
+
 	animation_stage = 0
 	update_icon(UPDATE_ICON_STATE)
 
-/*
- * Fake meteor
- */
+// MARK: Fake meteor
 /obj/item/toy/minimeteor
 	name = "Mini-Meteor"
 	desc = "Вновь почувствуйте то волнение когда начинается метеоритный дождь! Компания \"Сладкие Мясо-риты\" не несёт ответственности за любые травмы, головные боли или потерю слуха."
@@ -124,14 +133,12 @@
 /obj/item/toy/minimeteor/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	..()
 	playsound(src, 'sound/effects/meteorimpact.ogg', 40, TRUE)
-	for(var/mob/M in range(10, src))
-		if(!M.stat && !isAI(M))\
-			shake_camera(M, 3, 1)
+	for(var/mob/target in range(10, src))
+		if(!target.stat && !isAI(target))\
+		shake_camera(target, 3, 1)
 	qdel(src)
 
-/*
- * AI core prizes
- */
+// MARK: AI core
 /obj/item/toy/AI
 	name = "toy AI"
 	desc = "Небольшая игрушечная модель ядра станционного Искусственного Интеллекта с реальными функциями объявления законов!"
@@ -160,9 +167,7 @@
 	COOLDOWN_START(src, cooldown, 5 SECONDS)
 	return TRUE
 
-/*
- * Pet Rocks
- */
+// MARK: Pet Rocks
 /obj/item/toy/pet_rock
 	name = "pet rock"
 	desc = "Идеальный питомец!"

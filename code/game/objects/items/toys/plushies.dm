@@ -1,18 +1,15 @@
-/*
- * Plushies
- */
-
+// MARK: Plushies
 /obj/item/toy/plushie
 	abstract_type = /obj/item/toy/plushie
 	name = "plushie"
 	desc = "Очаровательная, мягкая и приятная на ощупь плюшевая игрушка."
-	var/poof_sound = 'sound/weapons/thudswoosh.ogg'
-	// used for custom plushie cuddles
-	var/list/cuddle_verb
 	attack_verb = list("тыкнул", "ударил", "шлёпнул")
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
 	unique_toy_rename = TRUE
+	var/poof_sound = 'sound/weapons/thudswoosh.ogg'
+	// used for custom plushie cuddles
+	var/list/cuddle_verb
 
 /obj/item/toy/plushie/Initialize(mapload)
 	. = ..()
@@ -45,7 +42,7 @@
 	play_poof_sound() // Play the whoosh sound in local area
 	cuddle_counter(user)
 	if(iscarbon(target) && prob(10))
-		target.reagents.add_reagent("hugs", 10)
+		target.reagents.add_reagent(/datum/reagent/hugs, 10)
 
 /obj/item/toy/plushie/attack_self(mob/user as mob)
 	if(!COOLDOWN_FINISHED(src, cooldown))
@@ -72,10 +69,7 @@
 /obj/random/plushie/item_to_spawn()
 	return pick(valid_subtypesof(/obj/item/toy/plushie) - typesof(/obj/item/toy/plushie/fluff) - subtypesof(/obj/item/toy/plushie/plasmamanplushie/standart)) //exclude the base type and 11 random plasma plushies
 
-/*
- * Foxes
- */
-
+// MARK: Foxes
 /obj/item/toy/plushie/fox
 	name = "fox plushie"
 	icon_state = "redfox"
@@ -123,21 +117,7 @@
 	name = "orange fox plushie"
 	icon_state = "orangefox"
 
-/obj/item/toy/plushie/fox/orange/grump
-	name = "grumpy fox"
-	desc = "An ancient plushie that seems particularly grumpy."
-
-/obj/item/toy/plushie/fox/orange/grump/ComponentInitialize()
-	. = ..()
-	var/static/list/grumps = list("Ahh, yes, you're so clever, var editing that.", "Really?", "If you make a runtime with var edits, it's your own damn fault.",
-	"Don't you dare post issues on the git when you don't even know how this works.", "Was that necessary?", "Ohhh, setting admin edited var must be your favorite pastime!",
-	"Oh, so you have time to var edit, but you don't have time to ban that greytider?", "Oh boy, is this another one of those 'events'?", "Seriously, just stop.", "You do realize this is incurring proc call overhead.",
-	"Congrats, you just left a reference with your dirty client and now that thing you edited will never garbage collect properly.", "Is it that time of day, again, for unecessary adminbus?")
-	AddComponent(/datum/component/edit_complainer, grumps)
-
-/*
- * Cats
- */
+// MARK: Cats
 /obj/item/toy/plushie/cat
 	name = "cat plushie"
 	icon_state = "blackcat"
@@ -227,9 +207,7 @@
 		PREPOSITIONAL = "игрушке Манула",
 	)
 
-/*
- * Cat Toy
- */
+// MARK: Cat Toy
 /obj/item/toy/plushie/cattoy
 	name = "toy mouse"
 	desc = "Яркая игрушечная мышка!"
@@ -246,9 +224,7 @@
 		PREPOSITIONAL = "игрушечной мыши",
 	)
 
-/*
- * Races
- */
+// MARK: Race plushies
 /obj/item/toy/plushie/voxplushie
 	name = "vox plushie"
 	desc = "Сшитый из разных кусков вокc, только что со своего Скипджека. Нажмите на живот, чтобы услышать его нереальный визг!"
@@ -505,9 +481,7 @@
 		PREPOSITIONAL = "плюшевой пчёлке",
 	)
 
-/*
- * Heads
- */
+// MARK: Heads plushies
 /obj/item/toy/plushie/rdplushie
 	name = "RD doll"
 	desc = "Это обычная кукла РД."
@@ -596,7 +570,7 @@
 		"А что такое клятва Гиппократа?",
 		"Датчики в третий!",
 		"Несмотря на все старания врачей — больной выжил...",
-		"Вскрытие показало, что больной спал",
+		"Вскрытие показало, что больной спал.",
 		"Ну что, будем лечить или пусть живет?",
 		"Ещё минута и я активирую уголь!",
 		"К-К-Какая т-т-тр-рав-вк-ка?",
@@ -616,15 +590,15 @@
 	)
 
 // Smoking CMO
-/obj/item/toy/plushie/cmoplushie/attackby(obj/item/I, mob/user, params)
+/obj/item/toy/plushie/cmoplushie/attackby(obj/item/item, mob/user, params)
 	if(high)
 		return ATTACK_CHAIN_BLOCKED
 
-	if(istype(I, /obj/item/clothing/mask/cigarette))
+	if(istype(item, /obj/item/clothing/mask/cigarette))
 		add_fingerprint(user)
 		to_chat(user, span_notice("Вы передаёте сигарету игрушке."))
 		playsound(loc, 'sound/items/lighter/light.ogg', 50, TRUE)
-		qdel(I)
+		qdel(item)
 		high = TRUE
 		icon_state = "CMO_doll_high"
 		update_icon(UPDATE_ICON_STATE)
@@ -638,9 +612,7 @@
 	icon_state = "CMO_doll"
 	update_icon(UPDATE_ICON_STATE)
 
-/*
- * Sharks
- */
+// MARK: Sharks
 /obj/item/toy/plushie/blahaj
 	name = "shark plushie"
 	desc = "Уменьшенная, более дружелюбная и пушистая версия чем настоящая."
@@ -673,9 +645,7 @@
 	. = ..()
 	AddComponent(/datum/component/two_handed, require_twohands = TRUE)
 
-/*
- * Plasmaman
- */
+// MARK: Plasmamans
 /obj/item/toy/plushie/plasmamanplushie
 	name = "plasmaman plushie"
 	desc = "Мягкая игрушка, похожая на ваших плазменных коллег. Как бы дизайнер не старался, её не получилось сделать милой."
@@ -744,10 +714,7 @@
 	name = "shaft miner plasmaman plushie"
 	icon_state = "plasmaman_plushie_shaftminer"
 
-/*
- * Carp plushie
- */
-
+// MARK: Carp plushie
 /obj/item/toy/plushie/carp
 	name = "space carp plushie"
 	desc = "Очаровательная плюшевая игрушка, похожая на космического карпа."
@@ -815,9 +782,7 @@
 	name = "void carp"
 	icon_state = "voidcarp"
 
-/*
- * Hampters
- */
+// MARK: Hampters
 /obj/item/toy/plushie/hampter
 	name = "Hampter"
 	desc = "Народ требует хомяков!"
@@ -854,9 +819,7 @@
 	desc = "Я буду называть тебя Деном."
 	icon_state = "hampter_jan"
 
-/*
- * Beavers
- */
+// MARK: Beavers
 /obj/item/toy/plushie/beaver
 	name = "beaver plushie"
 	desc = "Милая мягкая игрушка бобра. Держа его в руках, вы едва можете сдержаться от криков счастья."
@@ -879,9 +842,7 @@
 	poof_sound = 'sound/items/beaver_plushie.ogg'
 	cuddle_verb = "BOBR KURWA!"
 
-/*
- * Others
- */
+// MARK: Others
 /obj/item/toy/plushie/corgi
 	name = "corgi plushie"
 	icon_state = "corgi"

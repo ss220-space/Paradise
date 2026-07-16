@@ -38496,7 +38496,7 @@
 /turf/simulated/floor/mineral/plastitanium/nitrogen,
 /area/centcom/vox_station)
 "rDI" = (
-/obj/item/toy/plushie/fox/orange/grump{
+/obj/item/toy/plushie/fox/orange{
 	desc = "Эта лиса и её друг однажды спасли станцию.";
 	name = "savior grumpy fox"
 	},

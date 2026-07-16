@@ -6,9 +6,7 @@
  *		Action figures
  */
 
-/*
- * Mech prizes
- */
+// MARK: Mech prizes
 /obj/item/toy/prize
 	abstract_type = /obj/item/toy/prize
 	icon_state = "ripleytoy"
@@ -27,13 +25,14 @@
 	if(!COOLDOWN_FINISHED(src, cooldown))
 		return FALSE
 
-	if(loc == user)
-		to_chat(user, span_notice("Вы играете с [declent_ru(INSTRUMENTAL)]."))
-		playsound(user, 'sound/mecha/mechturn.ogg', 20, TRUE)
+	if(loc != user)
+		..()
 
-		COOLDOWN_START(src, cooldown, 1 SECONDS)
-		return TRUE
-	..()
+	to_chat(user, span_notice("Вы играете с [declent_ru(INSTRUMENTAL)]."))
+	playsound(user, 'sound/mecha/mechturn.ogg', 20, TRUE)
+
+	COOLDOWN_START(src, cooldown, 1 SECONDS)
+	return TRUE
 
 /obj/random/mech
 	abstract_type = /obj/random/mech
@@ -210,9 +209,7 @@
 		PREPOSITIONAL = "фигурке меха \"Фазон\"",
 	)
 
-/*
- * Owl and griffin
- */
+// MARK: Owl and griffin
 /obj/item/toy/owl
 	name = "owl action figure"
 	desc = "Фигурка, созданная по образу \"Совы\", защитницы справедливости."
@@ -269,10 +266,9 @@
 	COOLDOWN_START(src, cooldown, 3 SECONDS)
 	return TRUE
 
-/*
- * DND Character minis
- * Use the naming convention (type)character for the icon states.
- */
+
+// MARK: DND Character minis
+// Use the naming convention (type)character for the icon states.
 /obj/item/toy/character
 	abstract_type = /obj/item/toy/character
 	w_class = WEIGHT_CLASS_SMALL
@@ -406,17 +402,13 @@
 	new /obj/item/toy/character/cthulhu(src)
 	new /obj/item/toy/character/lich(src)
 
-/*
- * Xenomorph action figure
- */
-
+// MARK: Xenomorph action figure
 /obj/item/toy/toy_xeno
 	icon_state = "toy_xeno"
 	name = "xenomorph action figure"
 	desc = "MEGA представляет новую фигурку \"Xenos Isolated\"! В комплект входят реалистичные звуковые эффекты. Чтобы активировать их, потяните за шнурок."
 	w_class = WEIGHT_CLASS_SMALL
 	bubble_icon = "alien"
-	var/animating = FALSE
 
 /obj/item/toy/toy_xeno/get_ru_names()
 	return alist(
@@ -429,7 +421,7 @@
 	)
 
 /obj/item/toy/toy_xeno/update_icon_state()
-	icon_state = animating ? "[initial(icon_state)]_used" : initial(icon_state)
+	icon_state = COOLDOWN_FINISHED(src, cooldown) ? initial(icon_state) : "[initial(icon_state)]_used"
 
 /obj/item/toy/toy_xeno/attack_self(mob/user)
 	if(!COOLDOWN_FINISHED(src, cooldown))
@@ -437,25 +429,26 @@
 		return FALSE
 
 	user.visible_message(span_notice("[user] дергает[PLUR_ET_YUT(user)] верёвку на [declent_ru(PREPOSITIONAL)]."))
-	INVOKE_ASYNC(src, PROC_REF(async_animation))
 	COOLDOWN_START(src, cooldown, 5 SECONDS)
+	update_icon(UPDATE_ICON_STATE)
+
+	addtimer(CALLBACK(src, PROC_REF(play_hiss)), 0.5 SECONDS)
+
+	addtimer(CALLBACK(src, PROC_REF(reset_icon)), 5 SECONDS)
 	return TRUE
 
+/obj/item/toy/toy_xeno/proc/play_hiss()
+	if(COOLDOWN_FINISHED(src, cooldown))
+		return
 
-/obj/item/toy/toy_xeno/proc/async_animation()
-	animating = TRUE
-	update_icon(UPDATE_ICON_STATE)
-	sleep(0.5 SECONDS)
 	atom_say("Hiss!")
 	var/list/possible_sounds = list('sound/voice/hiss1.ogg', 'sound/voice/hiss2.ogg', 'sound/voice/hiss3.ogg', 'sound/voice/hiss4.ogg')
 	playsound(get_turf(src), pick(possible_sounds), 50, TRUE)
-	sleep(4.5 SECONDS)
-	animating = FALSE
+
+/obj/item/toy/toy_xeno/proc/reset_icon()
 	update_icon(UPDATE_ICON_STATE)
 
-/*
- * Action figures
- */
+// MARK: Action figures
 /obj/random/figure
 	abstract_type = /obj/item/toy/figure
 	name = "Random Action Figure"

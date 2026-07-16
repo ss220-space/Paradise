@@ -898,12 +898,12 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sink, (-14), (-14))
 		return ATTACK_CHAIN_PROCEED
 
 	if(istype(I, /obj/item/toy/waterballoon))
-		var/obj/item/toy/waterballoon/B = I
-		if(B.reagents.total_volume < 10)
-			B.reagents.add_reagent("water", min(10 - B.reagents.total_volume, 10))
+		var/obj/item/toy/waterballoon/balloon = I
+		if(balloon.reagents.total_volume < 10)
+			balloon.reagents.add_reagent("water", min(10 - balloon.reagents.total_volume, 10))
 			to_chat(user, span_notice("Вы наполняете шарик из [src.declent_ru(GENITIVE)]."))
-			B.desc = "Полупрозрачный воздушный шарик, внутри которого плещется какая-то жидкость."
-			B.update_icon(UPDATE_ICON_STATE)
+			balloon.desc = "Полупрозрачный воздушный шарик, внутри которого плещется какая-то жидкость."
+			balloon.update_icon(UPDATE_ICON_STATE)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(is_reagent_container(I))

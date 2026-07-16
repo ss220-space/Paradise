@@ -12,15 +12,15 @@
 	if(!isitem(target))
 		return ELEMENT_INCOMPATIBLE
 	RegisterSignal(target, COMSIG_ATOM_UPDATED_ICON, PROC_REF(update_onmob))
-	update_flags = flags
+	update_flags = flags || NONE
 	update_body = body
 
 /datum/element/update_icon_updates_onmob/proc/update_onmob(obj/item/target)
 	SIGNAL_HANDLER
 
 	if(ismob(target.loc))
-		var/mob/M = target.loc
-		if(M.is_in_hands(target))
-			M.update_held_items()
+		var/mob/target_mob = target.loc
+		if(target_mob.is_in_hands(target))
+			target_mob.update_held_items()
 		else
-			M.update_clothing((target.slot_flags|update_flags))
+			target_mob.update_clothing((target.slot_flags|update_flags))

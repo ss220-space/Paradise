@@ -1,6 +1,4 @@
-/*
- * Balloons
- */
+// MARK: Balloons
 /obj/item/toy/waterballoon
 	name = "water balloon"
 	desc = "Полупрозрачный воздушный шарик. В нём ничего нет."
@@ -27,58 +25,66 @@
 	return ATTACK_CHAIN_PROCEED
 
 /obj/item/toy/waterballoon/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
-	if(!proximity_flag)
-		return
+    if(!istype(target, /obj/structure/reagent_dispensers))
+        return
 
-	if(istype(target, /obj/structure/reagent_dispensers))
-		var/obj/structure/reagent_dispensers/RD = target
-		if(RD.reagents.total_volume <= 0)
-			to_chat(user, span_warning("[DECLENT_RU_CAP(RD, NOMINATIVE)] пустой."))
-		else if(reagents.total_volume >= 10)
-			to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] полный."))
-		else
-			user.changeNext_move(CLICK_CD_MELEE)
-			target.reagents.trans_to(src, 10)
-			to_chat(user, span_notice("Вы наполняете шарик из [target.declent_ru(GENITIVE)]."))
-			desc = "Полупрозрачный воздушный шарик, внутри которого плещется какая-то жидкость."
-			update_icon(UPDATE_ICON_STATE)
+    var/obj/structure/reagent_dispensers/dispencer = target
+    if(dispencer.reagents.total_volume <= 0)
+        to_chat(user, span_warning("[DECLENT_RU_CAP(dispencer, NOMINATIVE)] пустой."))
+        return
+    else if(reagents.total_volume >= 10)
+        to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] полный."))
+        return
+
+    user.changeNext_move(CLICK_CD_MELEE)
+    target.reagents.trans_to(src, 10)
+    to_chat(user, span_notice("Вы наполняете шарик из [target.declent_ru(GENITIVE)]."))
+    desc = "Полупрозрачный воздушный шарик, внутри которого плещется какая-то жидкость."
+    update_icon(UPDATE_ICON_STATE)
 
 /obj/item/toy/waterballoon/attackby(obj/item/item, mob/user, params)
-	if(isglassreagentcontainer(item) || istype(item, /obj/item/reagent_containers/food/drinks/drinkingglass))
-		add_fingerprint(user)
-		if(!item.reagents || item.reagents.total_volume < 1)
-			to_chat(user, span_warning("[DECLENT_RU_CAP(item, NOMINATIVE)] пуст!"))
-			return ATTACK_CHAIN_PROCEED
-		if(item.reagents.has_reagent("facid", 1) || item.reagents.has_reagent("acid", 1))
-			to_chat(user, span_warning("Кислота прожигает шарик!"))
-			item.reagents.reaction(user)
-			qdel(src)
-			return ATTACK_CHAIN_BLOCKED_ALL
-		desc = "Полупрозрачный воздушный шарик, внутри которого плещется какая-то жидкость."
-		to_chat(user, span_notice("Вы наполняете шарик из [item.declent_ru(GENITIVE)]."))
-		item.reagents.trans_to(src, 10)
-		update_icon(UPDATE_ICON_STATE)
-		return ATTACK_CHAIN_PROCEED_SUCCESS
+	if(!isglassreagentcontainer(item) && !istype(item, /obj/item/reagent_containers/food/drinks/drinkingglass))
+		return ..()
 
-	return ..()
+	add_fingerprint(user)
+
+	if(!item.reagents || item.reagents.total_volume < 1)
+		to_chat(user, span_warning("[DECLENT_RU_CAP(item, NOMINATIVE)] пуст!"))
+		return ATTACK_CHAIN_PROCEED
+
+	if(item.reagents.has_reagent(/datum/reagent/acid/facid, 1) || item.reagents.has_reagent(/datum/reagent/acid, 1))
+		to_chat(user, span_warning("Кислота прожигает шарик!"))
+		item.reagents.reaction(user)
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	desc = "Полупрозрачный воздушный шарик, внутри которого плещется какая-то жидкость."
+	to_chat(user, span_notice("Вы наполняете шарик из [item.declent_ru(GENITIVE)]."))
+	item.reagents.trans_to(src, 10)
+	update_icon(UPDATE_ICON_STATE)
+	return ATTACK_CHAIN_PROCEED_SUCCESS
 
 /obj/item/toy/waterballoon/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(!..()) //was it caught by a mob?
 		balloon_burst(hit_atom)
 
 /obj/item/toy/waterballoon/proc/balloon_burst(atom/hit_atom)
-	if(reagents.total_volume >= 1)
-		visible_message(
-			span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] лопается!"),
-			"Вы слышите хлопок и всплеск."
-		)
-		reagents.reaction(get_turf(hit_atom))
-		for(var/atom/A in get_turf(hit_atom))
-			reagents.reaction(A)
-		icon_state = "burst"
-		spawn(5)
-			if(src)
-				qdel(src)
+	if(reagents.total_volume < 1)
+		return
+
+	visible_message(
+		span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] лопается!"),
+		"Вы слышите хлопок и всплеск."
+	)
+	reagents.reaction(get_turf(hit_atom))
+	for(var/atom/A in get_turf(hit_atom))
+		reagents.reaction(A)
+	icon_state = "burst"
+	addtimer(CALLBACK(src, PROC_REF(delete_balloon)), 0.5 SECONDS)
+
+/obj/item/toy/waterballoon/proc/delete_balloon()
+	if(src)
+		qdel(src)
 
 /obj/item/toy/waterballoon/update_icon_state()
 	if(reagents.total_volume >= 1)
@@ -161,13 +167,15 @@
 			user.put_in_hands(new path_to_spawn)
 			break
 
-	qdel(hit_by)
-	qdel(src)
+/obj/item/toy/balloon/attackby(obj/item/attack_item, mob/user, list/modifiers, list/attack_modifiers)
+	if(istype(attack_item, /obj/projectile/bullet/reusable/foam_dart) && ismonkey(user))
+		pop_balloon(monkey_pop = TRUE)
+	else
+		return ..()
 
-	return ATTACK_CHAIN_BLOCKED_ALL
-
-/obj/item/toy/balloon/attackby(obj/item/I, mob/user, list/modifiers, list/attack_modifiers)
-	if(istype(I, /obj/projectile/bullet/reusable/foam_dart) && ismonkey(user))
+/obj/item/toy/balloon/hitby(atom/movable/hit_atom, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
+	var/mob/thrower = throwingdatum?.thrower
+	if(ismonkey(thrower) && istype(hit_atom, /obj/projectile/bullet/reusable/foam_dart))
 		pop_balloon(monkey_pop = TRUE)
 	else
 		return ..()
@@ -305,10 +313,7 @@
 
 #undef BALLOON_COLORS
 
-/*
-* Balloon animals
-*/
-
+// MARK: Balloon animals
 /obj/item/toy/balloon_animal
 	abstract_type = /obj/item/toy/balloon_animal
 	name = "balloon animal"

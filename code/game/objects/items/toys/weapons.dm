@@ -8,9 +8,7 @@
  *		Russian roulette
  */
 
-/*
- * Toy swords
- */
+// MARK: Toy swords
 /obj/item/toy/sword
 	name = "toy sword"
 	desc = "Дешевая пластиковая копия энергетического меча. Реалистичные звуки! Для детей от 8 лет и старше."
@@ -60,33 +58,34 @@
 		playsound(user, 'sound/weapons/saberoff.ogg', 20, TRUE)
 
 	update_sword_state()
+	add_fingerprint(user)
+
+/obj/item/toy/sword/attackby(obj/item/item, mob/living/user, params)
+	if(!istype(item, /obj/item/toy/sword))
+		return ..()
 
 	add_fingerprint(user)
 
-/obj/item/toy/sword/attackby(obj/item/I, mob/living/user, params)
-	if(istype(I, /obj/item/toy/sword))
-		add_fingerprint(user)
-		if(I == src)
-			to_chat(user, span_warning("Вы пытаетесь прикрепить конец пластикового меча... к самому себе. Вы не очень умный, да?"))
-			user.apply_damage(10, BRAIN)
-			return ATTACK_CHAIN_PROCEED
-		if(loc == user && !user.can_unEquip(src))
-			return ATTACK_CHAIN_PROCEED
-		if(!user.drop_transfer_item_to_loc(I, src))
-			return ATTACK_CHAIN_PROCEED
-		to_chat(user, span_notice("Вы соединяете два пластиковых меча, создавая двулезвийную игрушку! Выглядит по-дурацки круто!"))
-		var/obj/item/twohanded/dualsaber/toy/toy_saber = new(drop_location())
-		user.temporarily_remove_item_from_inventory(src)
-		user.put_in_hands(toy_saber, ignore_anim = FALSE)
-		qdel(I)
-		qdel(src)
-		return ATTACK_CHAIN_BLOCKED_ALL
+	if(item == src)
+		to_chat(user, span_warning("Вы пытаетесь прикрепить конец пластикового меча... к самому себе. Вы не очень умный, да?"))
+		user.apply_damage(10, BRAIN)
+		return ATTACK_CHAIN_PROCEED
 
-	return ..()
+	if(loc == user && !user.can_unEquip(src))
+		return ATTACK_CHAIN_PROCEED
 
-/*
- * Subtype of Double-Bladed Energy Swords
- */
+	if(!user.drop_transfer_item_to_loc(item, src))
+		return ATTACK_CHAIN_PROCEED
+
+	to_chat(user, span_notice("Вы соединяете два пластиковых меча, создавая двулезвийную игрушку! Выглядит по-дурацки круто!"))
+	var/obj/item/twohanded/dualsaber/toy/toy_saber = new(drop_location())
+	user.temporarily_remove_item_from_inventory(src)
+	user.put_in_hands(toy_saber, ignore_anim = FALSE)
+	qdel(item)
+	qdel(src)
+	return ATTACK_CHAIN_BLOCKED_ALL
+
+// MARK: Subtype of Double-Bladed Energy Swords
 /obj/item/twohanded/dualsaber/toy
 	name = "double-bladed toy sword"
 	desc = "Дешевая пластиковая копия ДВУХ энергетических мечей. Вдвойне веселее!"
@@ -113,10 +112,6 @@
 
 /obj/item/twohanded/dualsaber/toy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	return 0
-
-/obj/item/twohanded/dualsaber/toy/IsReflect()
-	if(wielded)
-		return 2
 
 /obj/item/toy/katana
 	name = "replica katana"
@@ -150,9 +145,7 @@
 	user.visible_message(span_suicide("[dmsg] Похоже, [GEND_HE_SHE(user)] пыта[PLUR_ET_YUT(user)]ся покончить с собой."))
 	return BRUTELOSS
 
-/*
- * Foam Armblade
- */
+// MARK: Foam Armblade
 /obj/item/toy/foamblade
 	name = "foam armblade"
 	desc = "На нём написано: \"Фанат мистера Сигма номер один\"."
@@ -174,9 +167,7 @@
 		PREPOSITIONAL = "игрушечном армблейде",
 	)
 
-/*
- * Toy/fake flash
- */
+// MARK: Toy/fake flash
 /obj/item/toy/flash
 	name = "toy flash"
 	desc = "ЗА РЕВОЛЮЦИЮ! — Ой, подождите, это же просто игрушка."
@@ -201,9 +192,7 @@
 	user.visible_message(span_disarm("[user] ослепля[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)] вспышкой флешера!"))
 	return ATTACK_CHAIN_PROCEED_SUCCESS
 
-/*
- * Rubber Chainsaw
- */
+// MARK: Rubber Chainsaw
 /obj/item/twohanded/toy/chainsaw
 	name = "Toy Chainsaw"
 	desc = "Игрушечная бензопила с резиновым лезвием. Для детей от 8 лет и старше."
@@ -226,9 +215,7 @@
 /obj/item/twohanded/toy/chainsaw/update_icon_state()
 	icon_state = "chainsaw[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
-/*
- * Rubber Toolbox
- */
+// MARK: Rubber Toolbox
 /obj/item/toy/toolbox
 	name = "Rubber Toolbox"
 	desc = "Практикуйте свой робаст!"
@@ -250,9 +237,7 @@
 		PREPOSITIONAL = "резиновом тулбоксе",
 	)
 
-/*
- * Russian roulette
- */
+// MARK: Russian roulette
 /obj/item/toy/russian_revolver
 	name = "russian revolver"
 	desc = "For fun and games!"
@@ -309,26 +294,27 @@
 	return
 
 /obj/item/toy/russian_revolver/proc/shoot_gun(mob/living/carbon/human/user)
+	if(bullets_left <= 0)
+		to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] нужно перезарядить."))
+		return FALSE
+
 	if(bullets_left > 1)
 		bullets_left--
 		user.visible_message(span_danger("*клик*"))
 		playsound(src, 'sound/weapons/empty.ogg', 100, TRUE)
 		return FALSE
-	if(bullets_left == 1)
-		bullets_left = 0
-		var/zone = BODY_ZONE_HEAD
-		if(!(user.get_organ(zone))) // If they somehow don't have a head.
-			zone = BODY_ZONE_CHEST
-		playsound(src, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, TRUE)
-		user.visible_message(span_danger("[src] goes off!"))
-		post_shot(user)
-		user.apply_damage(300, BRUTE, zone, sharp = TRUE, used_weapon = "Self-inflicted gunshot wound to the [zone].")
-		user.bleed(BLOOD_VOLUME_NORMAL)
-		user.death() // Just in case
-		return TRUE
-	else
-		to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] нужно перезарядить."))
-		return FALSE
+
+	bullets_left = 0
+	var/zone = BODY_ZONE_HEAD
+	if(!(user.get_organ(zone))) // If they somehow don't have a head.
+		zone = BODY_ZONE_CHEST
+	playsound(src, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, TRUE)
+	user.visible_message(span_danger("[src] goes off!"))
+	post_shot(user)
+	user.apply_damage(300, BRUTE, zone, sharp = TRUE, used_weapon = "Self-inflicted gunshot wound to the [zone].")
+	user.bleed(BLOOD_VOLUME_NORMAL)
+	user.death() // Just in case
+	return TRUE
 
 /obj/item/toy/russian_revolver/trick_revolver
 	name = ".357 revolver"

@@ -8,9 +8,7 @@
  *		Office desk toys
  */
 
-/*
- * Snap pops
- */
+// MARK: Snap pops
 /obj/item/toy/snappop
 	name = "snap pop"
 	desc = "Ого!"
@@ -91,9 +89,7 @@
 	new /obj/item/toy/snappop/phoenix(get_turf(src))
 	qdel(src)
 
-/*
- * Codex gigas
- */
+// MARK: Codex gigas
 /obj/item/toy/codex_gigas
 	name = "Toy Codex Gigas"
 	desc = "Книга, которая поможет вам выдумывать дьяволов!"
@@ -103,6 +99,8 @@
 	icon_state = "demonomicon"
 	item_state = "demonomicon"
 	w_class = WEIGHT_CLASS_SMALL
+	var/list/messages_to_display = list()
+	var/current_message_index = 0
 
 /obj/item/toy/codex_gigas/get_ru_names()
 	return alist(
@@ -124,25 +122,31 @@
 		span_sinister("Слышишь тихий щелчок.")
 	)
 
-	var/list/messages = list()
 	var/datum/devilinfo/devil = new
-
-	LAZYADD(messages, "Интересные факты о: [devil.truename]")
-	LAZYADD(messages, devil.bane.law)
-	LAZYADD(messages, devil.ban.law)
-	LAZYADD(messages, devil.obligation.law)
-	LAZYADD(messages, devil.banish.law)
+	messages_to_display = list()
+	messages_to_display += "Интересные факты о: [devil.truename]"
+	messages_to_display += devil.bane.law
+	messages_to_display += devil.ban.law
+	messages_to_display += devil.obligation.law
+	messages_to_display += devil.banish.law
 
 	playsound(loc, 'sound/machines/click.ogg', 20, TRUE)
-	COOLDOWN_START(src, cooldown, 2 SECONDS)
+	COOLDOWN_START(src, cooldown, 60 SECONDS)
 
-	for(var/message in messages)
-		user.loc.visible_message(span_danger("[get_examine_icon(viewers(user.loc))] [message]"))
-		sleep(1 SECONDS)
+	current_message_index = 1
+	display_next_message(user)
 
-/*
- * Mini gibber
- */
+/obj/item/toy/codex_gigas/proc/display_next_message(mob/user)
+	if(current_message_index > messages_to_display.len)
+		messages_to_display = list()
+		return
+
+	var/message = messages_to_display[current_message_index]
+	user.loc.visible_message(span_danger("[get_examine_icon(viewers(user.loc))] [message]"))
+	current_message_index++
+	addtimer(CALLBACK(src, PROC_REF(display_next_message), user), 1 SECONDS)
+
+// MARK: Mini gibber
 /obj/item/toy/minigibber
 	name = "miniature gibber"
 	desc = "Миниатюрная копия знаменитой мясорубки компании \"Нанотрейзен\"."
@@ -175,25 +179,23 @@
 		COOLDOWN_START(src, cooldown, 5 SECONDS)
 
 /obj/item/toy/minigibber/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/toy/character))
-		add_fingerprint(user)
-		if(stored_miniature)
-			to_chat(user, span_warning("Внутри уже есть [stored_miniature.declent_ru(NOMINATIVE)]!"))
-			return ATTACK_CHAIN_PROCEED
-		user.visible_message(span_notice("[user] вставляет [icon2html(I, viewers(I))] [I.declent_ru(ACCUSATIVE)] в мини-приёмник [declent_ru(GENITIVE)]..."))
-		if(!do_after(user, 1 SECONDS, src, category = DA_CAT_TOOL) || stored_miniature)
-			return ATTACK_CHAIN_PROCEED
-		if(!user.drop_transfer_item_to_loc(I, src))
-			return ..()
-		to_chat(user, span_notice("Вы вставили [icon2html(I, user)] [I.declent_ru(ACCUSATIVE)] в [declent_ru(GENITIVE)]!"))
-		stored_miniature = I
-		return ATTACK_CHAIN_BLOCKED_ALL
+	if(!istype(I, /obj/item/toy/character))
+		return ..()
 
-	return ..()
+	add_fingerprint(user)
+	if(stored_miniature)
+		to_chat(user, span_warning("Внутри уже есть [stored_miniature.declent_ru(NOMINATIVE)]!"))
+		return ATTACK_CHAIN_PROCEED
+	user.visible_message(span_notice("[user] вставляет [icon2html(I, viewers(I))] [I.declent_ru(ACCUSATIVE)] в мини-приёмник [declent_ru(GENITIVE)]..."))
+	if(!do_after(user, 1 SECONDS, src, category = DA_CAT_TOOL) || stored_miniature)
+		return ATTACK_CHAIN_PROCEED
+	if(!user.drop_transfer_item_to_loc(I, src))
+		return ..()
+	to_chat(user, span_notice("Вы вставили [icon2html(I, user)] [I.declent_ru(ACCUSATIVE)] в [declent_ru(GENITIVE)]!"))
+	stored_miniature = I
+	return ATTACK_CHAIN_BLOCKED_ALL
 
-/*
- * Toy big red button
- */
+// MARK: Toy big red button
 /obj/item/toy/redbutton
 	name = "big red button"
 	desc = "Большая красная пластиковая кнопка. На обратной стороне надпись: \"От HonkCo Pranks?\"."
@@ -229,21 +231,18 @@
 
 /obj/item/toy/redbutton/proc/boom()
 	playsound(src, 'sound/effects/explosionfar.ogg', 50, FALSE, 0)
-	for(var/mob/M in range(10, get_turf(src))) // Checks range
-		if(!M.stat && !isAI(M)) // Checks to make sure whoever's getting shaken is alive/not the AI
-			shake_camera(M, 2, 1)
-/*
- * Fake cuffs (honk honk)
- */
+	for(var/mob/mob_in_range in range(10, get_turf(src))) // Checks range
+		if(!mob_in_range.stat && !isAI(mob_in_range)) // Checks to make sure whoever's getting shaken is alive/not the AI
+			shake_camera(mob_in_range, 2, 1)
+
+// MARK: Fake handcuffs
 /obj/item/restraints/handcuffs/toy
 	desc = "Игрушечные наручники. Пластиковые, сделаны крайне дёшево."
 	throwforce = 0
 	breakout_time = 0
 	ignoresClumsy = TRUE
 
-/*
- * Magic 8-Ball
- */
+// MARK: Magic 8-Ball
 /obj/item/toy/eight_ball
 	name = "Magic 8-Ball"
 	desc = "Мистический! Волшебный! Для детей от 8 лет!"
@@ -289,9 +288,7 @@
 		PREPOSITIONAL = "волшебной раковине",
 	)
 
-/*
-* Office desk toys
-*/
+// MARK: Office desk toys
 /obj/item/toy/desk
 	abstract_type = /obj/item/toy/desk
 	name = "desk toy master"
