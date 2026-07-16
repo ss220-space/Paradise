@@ -182,8 +182,6 @@
 	icon_state = "shuttle"
 	icon = 'icons/turf/walls/shuttle/shuttle_wall.dmi'
 
-/turf/simulated/wall/indestructible/mineral_wall
-
 /turf/simulated/wall/indestructible/splashscreen
 	name = "Splash Screen"
 	icon = 'config/title_screens/images/blank.png'

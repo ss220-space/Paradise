@@ -86,7 +86,7 @@
 
 /datum/lazy_template/deathmatch/lattice_battle
 	name = "Битва над разломом"
-	desc = "Надоело сражаться с помощью кулаков? Попробуйте сломать под ногами соперника!"
+	desc = "Надоело сражаться с помощью кулаков? Попробуйте сломать мостки под ногами соперника!"
 	max_players = 9
 	allowed_loadouts = list(
 		/datum/outfit/deathmatch_loadout/lattice_battle,
