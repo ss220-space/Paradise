@@ -234,11 +234,13 @@
 	/// How radioactive is this reagent
 	var/rad_power = 2
 
+#define NUCLEATION_RADIOACTIVE_HEAL -3
+
 /datum/reagent/radium/on_mob_life(mob/living/affected_mob)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(isnucleation(affected_mob))
-		update_flags |= affected_mob.adjustBruteLoss(-3 * REM, updating_health = FALSE)
-		update_flags |= affected_mob.adjustFireLoss(-3 * REM, updating_health = FALSE)
+		update_flags |= affected_mob.adjustBruteLoss(NUCLEATION_RADIOACTIVE_HEAL * REM, updating_health = FALSE)
+		update_flags |= affected_mob.adjustFireLoss(NUCLEATION_RADIOACTIVE_HEAL * REM, updating_health = FALSE)
 		return ..() | update_flags
 	if(!HAS_TRAIT(affected_mob, TRAIT_IRRADIATED) && SSradiation.can_irradiate_basic(affected_mob))
 		var/chance = min(volume / (20 - rad_power * 5), rad_power)
@@ -276,8 +278,8 @@
 /datum/reagent/polonium/on_mob_life(mob/living/affected_mob)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(isnucleation(affected_mob))
-		update_flags |= affected_mob.adjustBruteLoss(-3 * REM, updating_health = FALSE)
-		update_flags |= affected_mob.adjustFireLoss(-3 * REM, updating_health = FALSE)
+		update_flags |= affected_mob.adjustBruteLoss(NUCLEATION_RADIOACTIVE_HEAL * REM, updating_health = FALSE)
+		update_flags |= affected_mob.adjustFireLoss(NUCLEATION_RADIOACTIVE_HEAL * REM, updating_health = FALSE)
 		return ..() | update_flags
 	if(!HAS_TRAIT(affected_mob, TRAIT_IRRADIATED) && SSradiation.can_irradiate_basic(affected_mob))
 		var/chance = min(volume / (20 - rad_power * 5), rad_power)
@@ -378,8 +380,8 @@
 /datum/reagent/uranium/on_mob_life(mob/living/affected_mob)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(isnucleation(affected_mob))
-		update_flags |= affected_mob.adjustBruteLoss(-3 * REM, updating_health = FALSE)
-		update_flags |= affected_mob.adjustFireLoss(-3 * REM, updating_health = FALSE)
+		update_flags |= affected_mob.adjustBruteLoss(NUCLEATION_RADIOACTIVE_HEAL * REM, updating_health = FALSE)
+		update_flags |= affected_mob.adjustFireLoss(NUCLEATION_RADIOACTIVE_HEAL * REM, updating_health = FALSE)
 		return ..() | update_flags
 	if(!HAS_TRAIT(affected_mob, TRAIT_IRRADIATED) && SSradiation.can_irradiate_basic(affected_mob))
 		var/chance = min(volume / (20 - rad_power * 5), rad_power)
@@ -400,6 +402,8 @@
 			threshold = RAD_VERY_LIGHT_INSULATION,
 			chance = (min(volume * rad_power, CALCULATE_RAD_MAX_CHANCE(rad_power))),
 		)
+
+#undef NUCLEATION_RADIOACTIVE_HEAL
 
 /datum/reagent/lexorin
 	name = "Лексорин"
