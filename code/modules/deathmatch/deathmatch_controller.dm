@@ -50,11 +50,12 @@
 	.["lobbies"] = list()
 	.["hosting"] = FALSE
 	.["admin"] = check_rights_for(user.client, R_ADMIN)
+	var/target_ckey = user.ckey
 	for(var/ckey, value in lobbies)
 		var/datum/deathmatch_lobby/lobby = value
-		if(user.ckey == ckey)
+		if(target_ckey == ckey)
 			.["hosting"] = TRUE
-		if(user.ckey in (lobby.observers + lobby.players))
+		if(target_ckey in (lobby.observers + lobby.players))
 			.["playing"] = ckey
 		.["lobbies"] += list(list(
 			name = ckey,

@@ -95,9 +95,9 @@
 		playing = FALSE
 		return FALSE
 
-	var/datum/deathmatch_controller/our_target = GLOB.deathmatch_game
+	var/list/datum/deathmatch_modifier/our_target = GLOB.deathmatch_game.modifiers
 	for(var/modpath in modifiers)
-		our_target.modifiers[modpath].on_start_game(src)
+		our_target[modpath].on_start_game(src)
 
 	for(var/key, value in players)
 		var/mob/dead/observer/observer = value[MOB_KEY]
@@ -114,8 +114,8 @@
 	// Remove rest of spawns.
 	QDEL_LIST(player_spawns)
 
-	for(var/observer_key in observers)
-		var/mob/observer = observers[observer_key][MOB_KEY]
+	for(var/observer_key, value in observers)
+		var/mob/observer = value[MOB_KEY]
 		if(observer)
 			observer.forceMove(pick(location.reserved_turfs))
 
@@ -156,9 +156,9 @@
 	new_player.possess_by_player(ckey)
 	players_info[MOB_KEY] = new_player
 
-	var/datum/deathmatch_controller/our_target = GLOB.deathmatch_game
+	var/datum/deathmatch_modifier/our_target = GLOB.deathmatch_game.modifiers
 	for(var/datum/deathmatch_modifier/modifier as anything in modifiers)
-		our_target.modifiers[modifier].apply(new_player, src)
+		our_target[modifier].apply(new_player, src)
 
 	// register death handling.
 	register_player_signals(new_player)
@@ -199,9 +199,9 @@
 		value[MOB_KEY] = null
 		loser.ghostize()
 		qdel(loser)
-	var/datum/deathmatch_controller/our_target = GLOB.deathmatch_game
+	var/datum/deathmatch_modifier/our_target = GLOB.deathmatch_game.modifiers
 	for(var/datum/deathmatch_modifier/modifier in modifiers)
-		our_target.modifiers[modifier].on_end_game(src)
+		our_target[modifier].on_end_game(src)
 
 	clear_reservation()
 	GLOB.deathmatch_game.remove_lobby(host)
@@ -271,27 +271,31 @@
 		to_chat(player.client, message)
 
 /datum/deathmatch_lobby/proc/leave(ckey)
-	if(host == ckey)
-		var/total_count = length(players) + length(observers)
-		if(total_count <= 1) // <= just in case.
-			GLOB.deathmatch_game.remove_lobby(host)
-			return
-		else
-			if(players[ckey] && length(players) <= 1)
-				for(var/key, value in observers)
-					if(host == key)
-						continue
-					host = key
-					value["host"] = TRUE
-					break
-			else
-				for(var/key, value in players)
-					if(host == key)
-						continue
-					host = key
-					value["host"] = TRUE
-					break
-			GLOB.deathmatch_game.passoff_lobby(ckey, host)
+	if(host != ckey)
+		remove_ckey_from_play(ckey)
+		return
+
+	//if host leaves, we pass lobby
+	var/total_count = length(players) + length(observers)
+	if(total_count <= 1) // <= just in case.
+		GLOB.deathmatch_game.remove_lobby(host)
+		return
+
+	if(players[ckey] && length(players) <= 1)
+		for(var/key, value in observers)
+			if(host == key)
+				continue
+			host = key
+			value["host"] = TRUE
+			break
+	else
+		for(var/key, value in players)
+			if(host == key)
+				continue
+			host = key
+			value["host"] = TRUE
+			break
+	GLOB.deathmatch_game.passoff_lobby(ckey, host)
 
 	remove_ckey_from_play(ckey)
 
@@ -330,9 +334,9 @@
 			continue
 		value[LOADOUT_KEY] = loadouts[1]
 
-	var/datum/deathmatch_controller/our_target = GLOB.deathmatch_game
+	var/datum/deathmatch_modifier/our_target = GLOB.deathmatch_game.modifiers
 	for(var/deathmatch_mod in modifiers)
-		our_target.modifiers[deathmatch_mod].on_map_changed(src)
+		our_target[deathmatch_mod].on_map_changed(src)
 
 /datum/deathmatch_lobby/proc/clear_reservation()
 	if(isnull(location) || isnull(map))
@@ -566,8 +570,8 @@
 		return modifier_list
 
 	var/list/our_modifiers = GLOB.deathmatch_game.modifiers
-	for(var/modpath in our_modifiers)
-		var/datum/deathmatch_modifier/mod = our_modifiers[modpath]
+	for(var/modpath, value in our_modifiers)
+		var/datum/deathmatch_modifier/mod = value
 
 		UNTYPED_LIST_ADD(modifier_list, list(
 			"name" = mod.name,
