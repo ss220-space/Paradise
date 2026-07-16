@@ -147,7 +147,7 @@
 	desc = "Снаряжение, выдаваемое ядерному оперативнику. Ваша задача проста."
 
 	uniform = /obj/item/clothing/under/syndicate
-	back = /obj/item/mod/control/pre_equipped/nuclear
+	back = /obj/item/mod/control/pre_equipped/traitor_elite
 	r_hand = /obj/item/gun/projectile/automatic/shotgun/bulldog
 	belt = /obj/item/gun/projectile/automatic/pistol
 	l_pocket = /obj/item/grenade/syndieminibomb
