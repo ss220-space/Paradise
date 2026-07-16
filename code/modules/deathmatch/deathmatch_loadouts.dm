@@ -184,6 +184,7 @@
 	r_pocket = /obj/item/stock_parts/cell/high
 	belt = /obj/item/storage/belt/utility/full
 
+/*
 /datum/outfit/deathmatch_loadout/lattice_battle
 	name = "Deathmatch: Lattice loadout"
 	display_name = "Разрушитель мостков"
@@ -195,6 +196,7 @@
 
 	r_hand = /obj/item/wirecutters
 	l_hand = /obj/item/wirecutters
+*/
 
 // TODO:
 // ALL BATTLERS

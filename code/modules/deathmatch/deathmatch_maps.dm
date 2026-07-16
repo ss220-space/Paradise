@@ -84,6 +84,7 @@
 	map_name = "instagib"
 	key = LAZY_TEMPLATE_KEY_DEATHMATCH_INSTAGIB
 
+/*
 /datum/lazy_template/deathmatch/lattice_battle
 	name = "Битва над разломом"
 	desc = "Надоело сражаться с помощью кулаков? Попробуйте сломать мостки под ногами соперника!"
@@ -93,6 +94,6 @@
 	)
 	map_name = "lattice_battle"
 	key = LAZY_TEMPLATE_KEY_DEATHMATCH_LATTICE_BATTLE
-
+*/
 // TODO:
 // 13 more maps, at least
