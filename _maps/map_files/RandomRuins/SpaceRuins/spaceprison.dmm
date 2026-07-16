@@ -1889,10 +1889,7 @@
 	},
 /area/ruin/space_prison)
 "xG" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plating,
 /area/ruin/space_prison)
 "xW" = (
@@ -1935,10 +1932,7 @@
 	},
 /area/ruin/space_prison)
 "yH" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/wryn/floor,
 /obj/structure/window/reinforced{
 	dir = 4
@@ -2485,10 +2479,7 @@
 	},
 /area/ruin/space_prison)
 "Mj" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /obj/effect/decal/cleanable/dust,
 /obj/structure/window/reinforced{
 	dir = 4
@@ -2535,10 +2526,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space_prison)
 "MI" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /obj/effect/decal/cleanable/vomit,
 /turf/simulated/floor/plating,
 /area/ruin/space_prison)
@@ -2601,10 +2589,7 @@
 	},
 /area/ruin/space_prison)
 "NM" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/plating,
 /area/ruin/space_prison)
 "NS" = (
@@ -2762,10 +2747,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space_prison)
 "Rr" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /obj/effect/decal/cleanable/dust,
 /obj/structure/window/reinforced{
 	dir = 8
@@ -2956,10 +2938,7 @@
 	},
 /area/ruin/space_prison)
 "Yc" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/window/reinforced{
 	dir = 8
 	},

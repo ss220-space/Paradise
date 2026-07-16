@@ -2475,10 +2475,7 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/spacebotany/Garden)
 "Gd" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -11
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/spacevine,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -3284,10 +3281,7 @@
 /area/ruin/space/spacebotany/WestGarden)
 "Rk" = (
 /obj/machinery/optable,
-/obj/machinery/shower{
-	pixel_x = -3;
-	pixel_y = 3
-	},
+/obj/machinery/shower/directional/south,
 /obj/effect/decal/cleanable/dirt/blackpowder,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel{

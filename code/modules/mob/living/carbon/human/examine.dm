@@ -214,7 +214,7 @@
 							if(G.can_reenter_corpse == 0)
 								foundghost = FALSE
 							break
-				if(!foundghost)
+				if(!foundghost && !HAS_TRAIT(src, TRAIT_MIND_TEMPORARILY_GONE))
 					msg += span_deadsay(" [GEND_HIS_HER_CAP(src)] душа покинула тело")
 		msg += span_deadsay("...\n")
 
@@ -397,7 +397,7 @@
 	if(istype(implant) && implant.activated)
 		msg += span_italics("Вы замечаете странный [implant.biological ? "нарост" : "блеск"] на [GEND_HIS_HER(src)] хвосте.\n")
 
-	if(get_gravity(src) < -NO_GRAVITY && !buckled)
+	if(has_gravity(src) < -NO_GRAVITY && !buckled)
 		msg += "[GEND_HE_SHE_CAP(src)] наход[PLUR_IT_YAT(src)]ся на потолке.\n"
 
 	if(user.no_gravity() && !buckled)

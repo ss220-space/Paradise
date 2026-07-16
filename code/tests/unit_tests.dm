@@ -24,6 +24,7 @@
 #include "test_modsuit.dm"
 #include "test_missing_icons.dm"
 #include "test_orphaned_genturf.dm"
+#include "test_paintings.dm"
 #include "test_plane_double_transform.dm"
 #include "test_plane_dupe_detector.dm"
 #include "test_reagent_id_typos.dm"
@@ -39,6 +40,7 @@
 #include "test_subsystem_metric_sanity.dm"
 #include "test_tgui_create_message.dm"
 #include "test_timer_sanity.dm"
+#include "test_washing.dm"
 #endif
 
 #ifdef MAP_TESTS

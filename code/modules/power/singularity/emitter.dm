@@ -437,6 +437,13 @@
 		disconnect_from_network()
 		welded = FALSE
 
+/obj/machinery/power/emitter/deathmatch //it doesn't fires anyway
+	active_power_usage = 0
+	idle_power_usage = 0
+	locked = TRUE
+	welded = TRUE
+	req_access = list("science")
+
 /obj/item/emitter_disk
 	name = "Diode Disk: Debugger"
 	desc = "This disk can be used on an emitter with an open panel to reset its projectile. Unless this was handed to you by an admin, you should report this on github."

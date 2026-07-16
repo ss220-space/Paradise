@@ -1,5 +1,6 @@
 #define TESLA_DEFAULT_ENERGY (1.73826 MEGA JOULES)
 #define TESLA_MINI_ENERGY (869.13 KILO JOULES)
+#define MAX_ENERGY_BALLS_COUNT 15
 
 // Zap constants, speeds up targeting
 #define BIKE (COIL + 1)
@@ -98,8 +99,9 @@
 
 		pixel_x = -ICON_SIZE_X
 		pixel_y = -ICON_SIZE_Y
+		var/clamped_balls_length = clamp(length(orbiting_balls), 2, 3)
 		for(var/ball in orbiting_balls)
-			var/range = rand(1, clamp(length(orbiting_balls), 2, 3))
+			var/range = rand(1, clamped_balls_length)
 			var/list/temp_shock = list()
 			// We zap off the main ball instead of ourselves to make things looks proper
 			tesla_zap(source = src, zap_range = range, power = TESLA_MINI_ENERGY / 7 * range, shocked_targets = temp_shock, zap_flags = ZAP_TESLA_FLAGS)
@@ -156,6 +158,9 @@
 
 /obj/energy_ball/proc/new_mini_ball()
 	if(!loc)
+		return
+
+	if(length(orbiting_balls) > MAX_ENERGY_BALLS_COUNT)
 		return
 
 	var/obj/energy_ball/miniball = new(
@@ -414,3 +419,4 @@
 
 #undef TESLA_DEFAULT_ENERGY
 #undef TESLA_MINI_ENERGY
+#undef MAX_ENERGY_BALLS_COUNT
