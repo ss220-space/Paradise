@@ -86,10 +86,6 @@
 /obj/effect/landmark/deathmatch_player_spawn,
 /turf/simulated/floor/indestructible/stone_floor,
 /area/deathmatch/fullbright)
-"C" = (
-/turf/simulated/floor/indestructible/stone_floor,
-/turf/simulated/floor/indestructible/stone_floor,
-/area/deathmatch/fullbright)
 "D" = (
 /obj/structure/railing{
 	dir = 4
@@ -453,7 +449,7 @@ I
 a
 a
 I
-C
+I
 I
 a
 G
