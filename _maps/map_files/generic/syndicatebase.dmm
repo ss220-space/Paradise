@@ -15647,10 +15647,10 @@
 	dir = 8
 	},
 /obj/item/radio/intercom/syndicate/directional/north,
-/obj/effect/mob_spawn/human/space_base_syndicate/chef{
+/obj/effect/mob_spawn/human/space_base_syndicate/medic{
 	dir = 4
 	},
-/turf/simulated/floor/carpet/green,
+/turf/simulated/floor/carpet/cyan,
 /area/syndicate/unpowered/syndicate_space_base/cryo)
 "oOV" = (
 /obj/effect/turf_decal/tile/red{
@@ -20288,10 +20288,10 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
-/obj/effect/mob_spawn/human/space_base_syndicate/medic{
+/obj/effect/mob_spawn/human/space_base_syndicate/chef{
 	dir = 8
 	},
-/turf/simulated/floor/carpet/cyan,
+/turf/simulated/floor/carpet/green,
 /area/syndicate/unpowered/syndicate_space_base/cryo)
 "sNv" = (
 /obj/structure/grille,
