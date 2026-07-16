@@ -14,6 +14,7 @@
 	throw_speed = 4
 	throw_range = 20
 	var/unique_toy_rename = FALSE
+	COOLDOWN_DECLARE(cooldown)
 
 /obj/item/toy/examine(mob/user)
 	. = ..()
@@ -56,7 +57,6 @@
 	icon_state = "nuketoyidle"
 	w_class = WEIGHT_CLASS_SMALL
 	var/animation_stage = 0
-	COOLDOWN_DECLARE(cooldown)
 
 /obj/item/toy/nuke/get_ru_names()
 	return alist(
@@ -137,7 +137,6 @@
 	desc = "Небольшая игрушечная модель ядра станционного Искусственного Интеллекта с реальными функциями объявления законов!"
 	icon_state = "AI"
 	w_class = WEIGHT_CLASS_SMALL
-	COOLDOWN_DECLARE(cooldown)
 
 /obj/item/toy/AI/get_ru_names()
 	return alist(
@@ -154,7 +153,7 @@
 		return FALSE
 
 	var/message = generate_ion_law()
-	to_chat(user, span_notice("Вы нажимаете кнопку на [declent_ru(DATIVE)]."))
+	to_chat(user, span_notice("Вы нажимаете кнопку на [declent_ru(PREPOSITIONAL)]."))
 	playsound(user, 'sound/machines/click.ogg', 20, TRUE)
 	user.visible_message(span_danger("[get_examine_icon(viewers(user))] [message]"))
 

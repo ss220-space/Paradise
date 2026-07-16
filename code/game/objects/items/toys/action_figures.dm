@@ -12,7 +12,6 @@
 /obj/item/toy/prize
 	abstract_type = /obj/item/toy/prize
 	icon_state = "ripleytoy"
-	COOLDOWN_DECLARE(cooldown)
 
 /obj/item/toy/prize/attack_self(mob/user as mob)
 	if(!COOLDOWN_FINISHED(src, cooldown))
@@ -77,7 +76,7 @@
 
 /obj/item/toy/prize/deathripley
 	name = "toy deathsquad ripley"
-	desc = "Mаленькая фигурка меха, собери всю коллекцию! Номер 3 из 11. Эта фигурка изображает чёрный вариант рипли, который использовался \
+	desc = "Mаленькая фигурка меха, собери всю коллекцию! Номер 3 из 11. Эта фигурка изображает чёрный вариант Рипли, который использовался \
 			героем сериала \"Отряд смерти\", повествующего о безбашенных офицерах отряда быстрого реагирования."
 	icon_state = "deathripleytoy"
 
@@ -138,7 +137,7 @@
 
 /obj/item/toy/prize/marauder
 	name = "toy marauder"
-	desc = "Mаленькая фигурка меха, собери всю коллекцию! Номер 7 из 11. Эта фигурка изображает мощного боевого меха — \"Мародёр\". Бегите в укрытие!"
+	desc = "Mаленькая фигурка меха, собери всю коллекцию! Номер 7 из 11. Эта фигурка изображает мощный боевой мех — \"Мародёр\". Бегите в укрытие!"
 	icon_state = "marauderprize"
 
 /obj/item/toy/prize/marauder/get_ru_names()
@@ -219,7 +218,6 @@
 	desc = "Фигурка, созданная по образу \"Совы\", защитницы справедливости."
 	icon_state = "owlprize"
 	w_class = WEIGHT_CLASS_SMALL
-	var/cooldown = 0
 
 /obj/item/toy/owl/get_ru_names()
 	return alist(
@@ -232,22 +230,22 @@
 	)
 
 /obj/item/toy/owl/attack_self(mob/user)
-	if(!cooldown) //for the sanity of everyone
-		var/message = pick("На этот раз тебе не уйти, Грифон!", "Стой, преступник!", "Ух! Ух!", "Я — ночь!")
-		to_chat(user, span_notice("Вы дёргаете верёвочку на [declent_ru(PREPOSITIONAL)]."))
-		playsound(user, 'sound/creatures/hoot.ogg', 25, TRUE)
-		user.visible_message(span_danger("[get_examine_icon(viewers(user))] [message]"))
-		cooldown = 1
-		spawn(30) cooldown = 0
-		return
-	..()
+	if(!COOLDOWN_FINISHED(src, cooldown))
+		return FALSE
+
+	var/message = pick("На этот раз тебе не уйти, Грифон!", "Стой, преступник!", "Ух! Ух!", "Я — ночь!")
+	to_chat(user, span_notice("Вы дёргаете верёвочку на [declent_ru(PREPOSITIONAL)]."))
+	playsound(user, 'sound/creatures/hoot.ogg', 25, TRUE)
+	user.visible_message(span_danger("[get_examine_icon(viewers(user))] [message]"))
+
+	COOLDOWN_START(src, cooldown, 3 SECONDS)
+	return TRUE
 
 /obj/item/toy/griffin
 	name = "griffin action figure"
 	desc = "Фигурка, созданная по образу и подобию \"Грифона\", криминального гения."
 	icon_state = "griffinprize"
 	w_class = WEIGHT_CLASS_SMALL
-	var/cooldown = 0
 
 /obj/item/toy/griffin/get_ru_names()
 	return alist(
@@ -260,15 +258,16 @@
 	)
 
 /obj/item/toy/griffin/attack_self(mob/user)
-	if(!cooldown) //for the sanity of everyone
-		var/message = pick("Ты не остановишь меня, Сова!", "Мой план безупречен! Хранилище моё!", "Карррр!", "Меня никогда не поймаешь!")
-		to_chat(user, span_notice("Вы дёргаете верёвочку на [declent_ru(PREPOSITIONAL)]."))
-		playsound(user, 'sound/creatures/caw.ogg', 25, TRUE)
-		user.visible_message(span_danger("[get_examine_icon(viewers(user))] [message]"))
-		cooldown = 1
-		spawn(30) cooldown = 0
-		return
-	..()
+	if(!COOLDOWN_FINISHED(src, cooldown))
+		return FALSE
+
+	var/message = pick("Ты не остановишь меня, Сова!", "Мой план безупречен! Хранилище моё!", "Карррр!", "Меня никогда не поймаешь!")
+	to_chat(user, span_notice("Вы дёргаете верёвочку на [declent_ru(PREPOSITIONAL)]."))
+	playsound(user, 'sound/creatures/caw.ogg', 25, TRUE)
+	user.visible_message(span_danger("[get_examine_icon(viewers(user))] [message]"))
+
+	COOLDOWN_START(src, cooldown, 3 SECONDS)
+	return TRUE
 
 /*
  * DND Character minis
@@ -417,7 +416,6 @@
 	desc = "MEGA представляет новую фигурку \"Xenos Isolated\"! В комплект входят реалистичные звуковые эффекты. Чтобы активировать их, потяните за шнурок."
 	w_class = WEIGHT_CLASS_SMALL
 	bubble_icon = "alien"
-	COOLDOWN_DECLARE(cooldown)
 	var/animating = FALSE
 
 /obj/item/toy/toy_xeno/get_ru_names()
@@ -474,7 +472,6 @@
 	desc = "Бренд \"Space Life\"... погодите, что это вообще за штука?"
 	icon_state = "nuketoy"
 	w_class = WEIGHT_CLASS_SMALL
-	COOLDOWN_DECLARE(cooldown)
 	var/toysay = "Чё за хуйню вы натворили?"
 
 /obj/item/toy/figure/get_ru_names()

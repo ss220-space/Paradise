@@ -13,7 +13,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
 	unique_toy_rename = TRUE
-	COOLDOWN_DECLARE(cooldown)
 
 /obj/item/toy/plushie/Initialize(mapload)
 	. = ..()
@@ -213,7 +212,7 @@
 
 /obj/item/toy/plushie/manulplushie
 	name = "manul plushie"
-	desc = "Чёрный котик в красными ушами, в халатике. На халате бирка \"Манул\". Кто-то оставил эту игрушку здесь в память..."
+	desc = "Чёрный котик с красными ушами, в халатике. На халате бирка \"Манул\". Эту игрушку оставили здесь в память о ком-то..."
 	icon_state = "kotik_plushie"
 	item_state = "kotik_hand"
 	gender = FEMALE
@@ -310,7 +309,7 @@
 	item_state = "plushie_grey"
 	cuddle_verb = list("☝︎❒︎♏︎♏︎⧫︎♓︎■︎♑︎⬧︎📬︎", "☟︎□︎⬥︎ ♋︎❒︎♏︎ ⍓︎□︎◆︎✍︎", "☹︎♓︎●︎◆︎ ♓︎⬧︎ ⧫︎♒︎♏︎ ♌︎♏︎⬧︎⧫︎", "✋︎ ●︎□︎❖︎♏︎ ❍︎♏︎♍︎♒︎⬧︎✏︎")
 	var/singed = FALSE
-	var/scream_cooldown = FALSE //Defaults the plushie to being off cooldown. Sets the scream_cooldown var.
+	COOLDOWN_DECLARE(scream_cooldown)
 	gender = MALE
 
 /obj/item/toy/plushie/greyplushie/get_ru_names()
@@ -325,23 +324,21 @@
 
 /obj/item/toy/plushie/greyplushie/water_act(volume, temperature, source, method = REAGENT_TOUCH) //If water touches the plushie the following code executes.
 	. = ..()
-	if(scream_cooldown)
+	if(!COOLDOWN_FINISHED(src, scream_cooldown))
 		return
-	scream_cooldown = TRUE //water_act executes the scream_cooldown var, setting it on cooldown.
-	addtimer(CALLBACK(src, PROC_REF(reset_screamdown)), 30 SECONDS) //After 30 seconds the reset_coolodown() proc will execute, resetting the cooldown.
-	playsound(src, 'sound/goonstation/voice/male_scream.ogg', 10, FALSE)//If the plushie gets wet it screams and "AAAAAH!" appears in chat.
+
+	COOLDOWN_START(src, scream_cooldown, 30 SECONDS)
+	playsound(src, 'sound/goonstation/voice/male_scream.ogg', 10, FALSE) //If the plushie gets wet it screams and "AAAAAH!" appears in chat.
 	visible_message("[get_examine_icon(viewers(loc))] [span_danger("AAAAAAХ!")]")
+
 	if(singed)
 		return
 	singed = TRUE
 	cuddle_verb = list("За что...", "Изверги...")
 	icon_state = "grey_singed"
-	item_state = "grey_singed"//If the plushie gets wet the sprite changes to a singed version.
+	item_state = "grey_singed" //If the plushie gets wet the sprite changes to a singed version.
 	update_icon(UPDATE_ICON_STATE)
 	desc = "Испорченная плюшевая игрушка грея. Похоже, что кто-то прогнал его под водой."
-
-/obj/item/toy/plushie/greyplushie/proc/reset_screamdown()
-	scream_cooldown = FALSE //Resets the scream interaction cooldown.
 
 /obj/item/toy/plushie/ipcplushie
 	name = "IPC plushie"
@@ -1277,6 +1274,7 @@
 	/// Is it in evil mode now or not
 	var/is_evil = FALSE
 	var/cooldown_time = 2 SECONDS
+	COOLDOWN_DECLARE(water_cooldown)
 
 /obj/item/toy/plushie/wet_owl/get_ru_names()
 	return alist(
@@ -1290,6 +1288,10 @@
 
 /obj/item/toy/plushie/wet_owl/water_act(volume, temperature, source, method)
 	. = ..()
+	if(!COOLDOWN_FINISHED(src, water_cooldown))
+		return
+
+	COOLDOWN_START(src, water_cooldown, 30 SECONDS)
 	visible_message(span_cultitalic("[DECLENT_RU_CAP(src, NOMINATIVE)] недовольно завывает."))
 	playsound(src, 'sound/effects/wet_owl_horror.ogg', 50, FALSE, -1)
 	temporary_become_evil(30 SECONDS)

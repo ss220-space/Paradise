@@ -103,7 +103,6 @@
 	icon_state = "demonomicon"
 	item_state = "demonomicon"
 	w_class = WEIGHT_CLASS_SMALL
-	COOLDOWN_DECLARE(cooldown)
 
 /obj/item/toy/codex_gigas/get_ru_names()
 	return alist(
@@ -150,7 +149,6 @@
 	icon_state = "minigibber"
 	attack_verb = list("перемолол", "гибнул")
 	w_class = WEIGHT_CLASS_SMALL
-	var/cooldown = 0
 	var/obj/stored_miniature = null
 
 /obj/item/toy/minigibber/get_ru_names()
@@ -168,12 +166,13 @@
 		user.visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] издаёт жуткий скрежет, уничтожая миниатюрную фигурку внутри!"))
 		QDEL_NULL(stored_miniature)
 		playsound(user, 'sound/goonstation/effects/gib.ogg', 20, TRUE)
-		cooldown = world.time
+		COOLDOWN_START(src, cooldown, 5 SECONDS)
+		return
 
-	if(cooldown < world.time - 8)
+	if(COOLDOWN_FINISHED(src, cooldown))
 		to_chat(user, span_notice("Вы нажимаете кнопку гиба на [declent_ru(PREPOSITIONAL)]."))
 		playsound(user, 'sound/goonstation/effects/gib.ogg', 20, TRUE)
-		cooldown = world.time
+		COOLDOWN_START(src, cooldown, 5 SECONDS)
 
 /obj/item/toy/minigibber/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/toy/character))
@@ -201,7 +200,6 @@
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "bigred"
 	w_class = WEIGHT_CLASS_SMALL
-	COOLDOWN_DECLARE(cooldown)
 
 /obj/item/toy/redbutton/get_ru_names()
 	return alist(
@@ -220,7 +218,8 @@
 
 	user.visible_message(
 		span_warning("[user] нажима[PLUR_ET_YUT(user)] большую красную кнопку."),
-		span_notice("Вы нажимаете кнопку, раздаётся громкий звук!"), span_notice("Кнопка громко щёлкает.")
+		span_notice("Вы нажимаете кнопку, раздаётся громкий звук!"),
+		span_notice("Кнопка громко щёлкает.")
 	)
 
 	addtimer(CALLBACK(src, PROC_REF(boom)), 1 SECONDS)
@@ -250,7 +249,6 @@
 	desc = "Мистический! Волшебный! Для детей от 8 лет!"
 	icon_state = "eight-ball"
 	var/use_action = "трясёт шар"
-	COOLDOWN_DECLARE(cooldown)
 	var/list/possible_answers = list("Определённо", "Все признаки указывают на \"да\".", "Скорее всего.", "Да.", "Спроси позже.", "Лучше не сейчас.", "Будущее неясно.", "Возможно.", "Сомнительно.", "Нет.", "Не рассчитывай на это.", "Никогда.")
 
 /obj/item/toy/eight_ball/get_ru_names()
