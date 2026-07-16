@@ -522,10 +522,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/toilets)
 "aEz" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = 28
 	},
@@ -1456,9 +1453,7 @@
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "brk" = (
 /obj/structure/curtain/open/shower,
-/obj/machinery/shower{
-	pixel_y = 20
-	},
+/obj/machinery/shower/directional/south,
 /obj/item/bikehorn/rubberducky,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -1558,10 +1553,7 @@
 /obj/structure/mirror{
 	pixel_x = 28
 	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /obj/machinery/power/apc/syndicate/directional/south,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
@@ -8285,9 +8277,7 @@
 	name = "Riot Control";
 	req_access = list(150)
 	},
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -8425,9 +8415,7 @@
 /obj/structure/sign/restroom{
 	pixel_y = -30
 	},
-/obj/structure/sink{
-	dir = 1
-	},
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -9829,10 +9817,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/structure/sink/kitchen{
-	dir = 8;
-	pixel_x = 13
-	},
+/obj/structure/sink/kitchen/directional/west,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -11445,10 +11430,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -11838,10 +11820,7 @@
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet/directional/east,
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -13935,9 +13914,7 @@
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "nvz" = (
 /obj/effect/turf_decal/delivery/hollow,
-/obj/machinery/shower{
-	dir = 1
-	},
+/obj/machinery/shower/directional/north,
 /obj/structure/mirror{
 	pixel_x = 32
 	},
@@ -16475,9 +16452,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/medbay)
 "pve" = (
-/obj/machinery/shower{
-	pixel_y = 20
-	},
+/obj/machinery/shower/directional/south,
 /obj/structure/curtain/open/shower/security,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
@@ -23091,9 +23066,7 @@
 	on = 1
 	},
 /obj/structure/extinguisher_cabinet/directional/north,
-/obj/machinery/shower{
-	pixel_y = 20
-	},
+/obj/machinery/shower/directional/south,
 /obj/structure/curtain/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -23148,9 +23121,7 @@
 	on = 1
 	},
 /obj/structure/extinguisher_cabinet/directional/north,
-/obj/machinery/shower{
-	pixel_y = 20
-	},
+/obj/machinery/shower/directional/south,
 /obj/structure/curtain/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -23918,10 +23889,7 @@
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "vzU" = (
 /obj/effect/turf_decal/delivery/hollow,
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -11
-	},
+/obj/structure/sink/directional/east,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
@@ -24993,9 +24961,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/cargo/storage)
 "wtW" = (
-/obj/machinery/shower{
-	dir = 1
-	},
+/obj/machinery/shower/directional/north,
 /obj/structure/curtain/open/shower/security,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1

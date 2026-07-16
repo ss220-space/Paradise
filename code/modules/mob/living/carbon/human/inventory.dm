@@ -362,6 +362,8 @@
 	I.layer = ABOVE_HUD_LAYER
 	SET_PLANE_EXPLICIT(I, ABOVE_HUD_PLANE, src)
 
+	var/not_handled = FALSE
+
 	switch(slot)
 		if(ITEM_SLOT_BACK)
 			back = I
@@ -383,11 +385,11 @@
 			update_legcuffed_status()
 
 		if(ITEM_SLOT_HAND_LEFT)
-			l_hand = I
+			. ||= put_in_l_hand(I)
 			update_held_items()
 
 		if(ITEM_SLOT_HAND_RIGHT)
-			r_hand = I
+			. ||= put_in_r_hand(I)
 			update_held_items()
 
 		if(ITEM_SLOT_BELT)
@@ -473,9 +475,32 @@
 			uniform.attackby(I, src)
 
 		else
+			not_handled = TRUE
 			to_chat(src, span_warning("You are trying to equip this item to an unsupported inventory slot. Report this to a coder!"))
+	//Item has been handled at this point and equipped callback can be safely called
+	//We cannot call it for items that have not been handled as they are not yet correctly
+	//in a slot (handled further down inheritance chain, probably living/carbon/human/equip_to_slot
+	if(!not_handled && !(slot & ITEM_SLOT_HANDS)) // put in hands calls equipped on its own, annoyingly
+		return has_equipped(I, slot, initial)
 
-	return I.equipped(src, slot, initial)
+/mob/living/carbon/has_equipped(obj/item/item, slot, initial = FALSE)
+	. = ..()
+	if(!.)
+		return
+
+	hud_used?.update_locked_slots()
+	if(!(slot & item.slot_flags)) // Things below only update if slotted in (ie: not held)
+		return
+	add_item_coverage(item)
+
+
+/mob/living/carbon/has_unequipped(obj/item/item)
+	. = ..()
+	if(!.)
+		return
+
+	hud_used?.update_locked_slots()
+	remove_item_coverage(item)
 
 /**
  * Returns the item currently in the slot
@@ -729,3 +754,56 @@
 	if(!stored || stored.on_found(src))
 		return
 	stored.attack_hand(src) // take out thing from item in storage slot
+
+/// Adds the passed item's coverage to the mob's coverage related flags
+/mob/living/carbon/proc/add_item_coverage(obj/item/item)
+	var/pre_coverage = obscured_slots
+	obscured_slots |= item.flags_inv
+	covered_slots |= item.flags_inv /*| item.transparent_protection*/
+	if(pre_coverage != obscured_slots)
+		item_coverage_changed(obscured_slots & ~pre_coverage, pre_coverage & ~obscured_slots)
+
+/// Removes the passed item's coverage from the mob's coverage related flags
+/mob/living/carbon/proc/remove_item_coverage(obj/item/item)
+	refresh_obscured() // No way to remove a single item's coverage without recalculating everything
+
+/mob/living/carbon/refresh_obscured()
+	var/pre_coverage = obscured_slots
+
+	obscured_slots = NONE
+	covered_slots = NONE
+	for(var/obj/item/other_equipped_item as anything in get_equipped_items())
+		obscured_slots |= other_equipped_item.flags_inv
+		covered_slots |= other_equipped_item.flags_inv /*| other_equipped_item.transparent_protection*/
+
+	if(HAS_TRAIT(src, TRAIT_HUSK) /*|| HAS_TRAIT(src, TRAIT_INVISIBLE_MAN)*/)
+		obscured_slots |= HIDEHAIR|HIDEFACIALHAIR
+
+	if(pre_coverage != obscured_slots)
+		item_coverage_changed(obscured_slots & ~pre_coverage, pre_coverage & ~obscured_slots)
+
+/**
+ * Called when a mob's obscured slots change
+ *
+ * Args
+ * * added_slots - slots that were added to obscured_slots
+ * * removed_slots - slots that were removed from obscured_slots
+ */
+/mob/living/carbon/proc/item_coverage_changed(added_slots, removed_slots)
+	SEND_SIGNAL(src, COMSIG_CARBON_ITEM_COVERAGE_CHANGED, added_slots, removed_slots)
+	update_clothing(hidden_slots_to_inventory_slots(added_slots|removed_slots))
+	/*
+	if((added_slots|removed_slots) & HIDESNOUT)
+		synchronize_bodyshapes()
+	*/
+	if((added_slots|removed_slots) & (HIDEHAIR|HIDEFACIALHAIR))
+		update_hair()
+	/*
+	if((added_slots|removed_slots) & HIDEEYES)
+		update_eyes()
+	*/
+	// HIDEJUMPSUIT is for digitigrade legs, HIDEEARS is for lizard frills, HIDEHAIR is for felinid ears and lizard horns, the others should be obvious
+	// future todo; we should collect a list of all bodypart overlays and what conceals/reveals them dynamically, rather than hardcoding this
+	if((added_slots|removed_slots) & (HIDEJUMPSUIT|HIDEHAIR|HIDETAIL))
+		update_body()
+

@@ -1,4 +1,4 @@
-#define PHOTOCOPIER_DELAY 15
+#define PHOTOCOPIER_DELAY 5 SECONDS
 ///Global limit on copied papers and photos, bundles are counted as a sum of their parts
 #define MAX_COPIES_PRINTABLE 300
 
@@ -30,7 +30,17 @@
 	var/mob/living/copymob = null
 
 	var/copies = 1
-	var/toner = 30
+
+	/// A reference to the toner cartridge that's inserted into the copier. Null if there is no cartridge.
+	var/obj/item/toner/toner_cartridge
+	/// Type path of toner this photocopier should starts with. Null if he should start without it.
+	var/obj/item/toner/starting_toner = /obj/item/toner
+
+	/// How long it takes to print something in seconds
+	var/time_to_print
+	/// How efficent our toner is when printing
+	var/toner_efficiency
+
 	///Max number of copies that can be made at one time
 	var/maxcopies = 10
 	var/max_saved_documents = 5
@@ -101,6 +111,28 @@
 /obj/machinery/photocopier/Initialize(mapload)
 	. = ..()
 	forms = new
+	if(starting_toner)
+		toner_cartridge = new starting_toner(src)
+	component_parts = list()
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/micro_laser(null)
+	component_parts += new /obj/item/stock_parts/scanning_module(null)
+	RefreshParts()
+
+/obj/machinery/photocopier/RefreshParts()
+	. = ..()
+	toner_efficiency = 1
+	for(var/obj/item/stock_parts/micro_laser/micro_laser in component_parts)
+		toner_efficiency += micro_laser.rating
+
+	time_to_print = PHOTOCOPIER_DELAY
+	for(var/obj/item/stock_parts/scanning_module/scanning_module in component_parts)
+		time_to_print -= (scanning_module.rating SECONDS)
+
+/obj/machinery/photocopier/Destroy()
+	QDEL_NULL(toner_cartridge)
+	QDEL_LIST(saved_documents)
+	return ..()
 
 /obj/machinery/photocopier/attack_ai(mob/user)
 	src.add_hiddenprint(user)
@@ -128,7 +160,7 @@
  */
 /obj/machinery/photocopier/proc/papercopy(obj/item/paper/copy, scanning = FALSE, bundled = FALSE)
 	if(!scanning)
-		if(toner < 1)
+		if(toner_cartridge.charges < 1)
 			balloon_alert(usr, "недостаточно чернил!")
 			visible_message(span_notice("На корпусе [declent_ru(GENITIVE)] загорается жёлтая лампочка, обозначая недостаток чернил для завершения операции."))
 			return null
@@ -176,7 +208,7 @@
  */
 /obj/machinery/photocopier/proc/photocopy(obj/item/photo/photocopy, scanning = FALSE, bundled = FALSE)
 	if(!scanning) //If we're just storing this as a file inside the copier then we don't expend toner
-		if(toner < 5)
+		if(toner_cartridge.charges < 5)
 			balloon_alert(usr, "недостаточно чернил!")
 			visible_message(span_notice("На корпусе [declent_ru(GENITIVE)] загорается жёлтая лампочка, обозначая недостаток чернил для завершения операции."))
 			return null
@@ -203,7 +235,7 @@
 		balloon_alert(usr, "невозможно копировать!")
 		return
 
-	if(toner < original.required_toner)
+	if(toner_cartridge.charges < original.required_toner)
 		balloon_alert(usr, "недостаточно чернил!")
 		visible_message(span_notice("На корпусе [declent_ru(GENITIVE)] загорается жёлтая лампочка, обозначая недостаток чернил для завершения операции."))
 		return
@@ -225,7 +257,7 @@
 
 /obj/machinery/photocopier/proc/copyass(scanning = FALSE)
 	if(!scanning) //If we're just storing this as a file inside the copier then we don't expend toner
-		if(toner < 5)
+		if(toner_cartridge.charges < 5)
 			balloon_alert(usr, "недостаточно чернил!")
 			visible_message(span_notice("На корпусе [declent_ru(GENITIVE)] загорается жёлтая лампочка, обозначая недостаток чернил для завершения операции."))
 			return null
@@ -283,11 +315,11 @@
 		if(istype(thing, /obj/item/paper))
 			thing = papercopy(thing, bundled = TRUE)
 			if(use_toner && thing)
-				toner-- //In order to allow partial bundles we have to handle toner +- inside the proc
+				use_toner(1) //In order to allow partial bundles we have to handle toner +- inside the proc
 		else if(istype(thing, /obj/item/photo))
 			thing = photocopy(thing, bundled = TRUE)
 			if(use_toner && thing)
-				toner -= 5
+				use_toner(5)
 		if(!thing)
 			break
 		thing.forceMove(P)
@@ -351,7 +383,7 @@
 	if(copying) //are we in the process of copying something already?
 		balloon_alert(usr, "сканер ещё работает!")
 		return FALSE
-	if(!scancopy && toner <= 0) //if we're not scanning lets check early that we actually have toner
+	if(!scancopy && toner_cartridge.charges <= 0) //if we're not scanning lets check early that we actually have toner
 		balloon_alert(usr, "недостаточно чернил!")
 		visible_message(span_notice("На корпусе [declent_ru(GENITIVE)] загорается жёлтая лампочка, обозначая недостаток чернил для завершения операции."))
 		return FALSE
@@ -388,18 +420,18 @@
 		for(var/i in copies to 1 step -1)
 			if(!papercopy(C))
 				break
-			toner -= 1
+			use_toner(1)
 			count_of_copies++
 			use_power(active_power_usage)
-			addtimer(CALLBACK(src, PROC_REF(finish_copying)), PHOTOCOPIER_DELAY)
+			addtimer(CALLBACK(src, PROC_REF(finish_copying)), time_to_print)
 	else if(istype(C, /obj/item/photo))
 		for(var/i in copies to 1 step -1)
 			if(!photocopy(C))
 				break
-			toner -= 5
+			use_toner(5)
 			count_of_copies++
 			use_power(active_power_usage)
-			addtimer(CALLBACK(src, PROC_REF(finish_copying)), PHOTOCOPIER_DELAY)
+			addtimer(CALLBACK(src, PROC_REF(finish_copying)), time_to_print)
 	else if(istype(C, /obj/item/paper_bundle))
 		var/obj/item/paper_bundle/B = C
 		for(var/i in copies to 1 step -1)
@@ -407,13 +439,13 @@
 				break
 			count_of_copies++
 			use_power(active_power_usage)
-			addtimer(CALLBACK(src, PROC_REF(finish_copying)), PHOTOCOPIER_DELAY * (B.amount + 1))
+			addtimer(CALLBACK(src, PROC_REF(finish_copying)), time_to_print * (B.amount + 1))
 	else if(check_mob()) //Once we've scanned the copy_mob's ass we do not need to again
 		for(var/i in copies to 1 step -1)
 			if(!copyass())
 				balloon_alert(usr, "нельзя отсканировать!")
 				break
-			toner -= 5
+			use_toner(5)
 			count_of_copies++
 		finish_copying()
 	else if(istype(C, /obj/item/craft_blueprints))
@@ -421,10 +453,10 @@
 		for(var/i in copies to 1 step -1)
 			if(!blueprintcopy(original))
 				break
-			toner -= original.required_toner
+			use_toner(original.required_toner)
 			count_of_copies++
 			use_power(active_power_usage)
-			addtimer(CALLBACK(src, PROC_REF(finish_copying)), PHOTOCOPIER_DELAY)
+			addtimer(CALLBACK(src, PROC_REF(finish_copying)), time_to_print)
 	else
 		balloon_alert(usr, "нельзя отсканировать!")
 		to_chat(usr, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] не способен отсканировать [copyitem.declent_ru(ACCUSATIVE)], [copyitem.declent_ru(NOMINATIVE)] будет извлечен[GEND_A_O_Y(copyitem)]."))
@@ -461,7 +493,7 @@
 		copying = FALSE
 		return
 	use_power(active_power_usage)
-	COOLDOWN_START(src, copying_cooldown, PHOTOCOPIER_DELAY)
+	COOLDOWN_START(src, copying_cooldown, time_to_print)
 	LAZYADD(saved_documents, O)
 	copying = FALSE
 	playsound(loc, 'sound/machines/ping.ogg', 50, FALSE)
@@ -495,7 +527,12 @@
 	data["isAI"] = issilicon(user)
 	data["copies"] = copies
 	data["maxcopies"] = maxcopies
-	data["toner"] = toner
+	if(toner_cartridge)
+		data["has_toner"] = TRUE
+		data["current_toner"] = toner_cartridge.charges
+		data["max_toner"] = toner_cartridge.max_charges
+	else
+		data["has_toner"] = FALSE
 	data["copyitem"] = (copyitem ? copyitem.name : null)
 	data["folder"] = (folder ? folder.name : null)
 	data["mob"] = (copymob ? copymob.name : null)
@@ -544,7 +581,7 @@
 			. = TRUE
 		if("print_form")
 			for(var/i in 1 to copies)
-				if(toner <= 0)
+				if(toner_cartridge.charges <= 0)
 					break
 				print_form(form)
 			. = TRUE
@@ -558,7 +595,16 @@
 		if("copies")
 			copies = clamp(text2num(params["new"]), 0, maxcopies)
 
-	update_icon()
+		if("remove_toner")
+			var/success = usr.put_in_hands(toner_cartridge)
+			if(!success)
+				toner_cartridge.forceMove(drop_location())
+
+			toner_cartridge = null
+			return TRUE
+
+	update_appearance(UPDATE_ICON)
+
 
 /obj/machinery/photocopier/proc/ai_text(mob/user)
 	if(!issilicon(user))
@@ -569,23 +615,23 @@
 	var/text = tgui_input_text(user, "Напишите то, что хотите:", "Письмо")
 	if(!text)
 		return
-	if(toner < 1 || !user)
+	if(toner_cartridge.charges < 1 || !user)
 		return
 	playsound(loc, pick(print_sounds), 50, TRUE)
-	var/obj/item/paper/p = new /obj/item/paper(loc)
+	var/obj/item/paper/p = new (loc)
 	text = p.parsepencode(text, null, user)
 	p.info = text
 	p.populatefields()
-	toner -= 1
+	use_toner(1)
 	use_power(active_power_usage)
-	COOLDOWN_START(src, copying_cooldown, PHOTOCOPIER_DELAY)
+	COOLDOWN_START(src, copying_cooldown, time_to_print)
 
 /obj/machinery/photocopier/proc/ai_pic()
 	if(!issilicon(usr))
 		return
 	if(stat & (BROKEN|NOPOWER))
 		return
-	if(toner < 5)
+	if(toner_cartridge.charges < 5)
 		return
 	var/mob/living/silicon/tempAI = usr
 	var/obj/item/camera/siliconcam/camera = tempAI.aiCamera
@@ -603,9 +649,9 @@
 		p.desc += "Ксерокопия была сделана [tempAI.name]"
 	else
 		p.desc += " – Ксерокопия была сделана [tempAI.name]"
-	toner -= 5
+	use_toner(5)
 	use_power(active_power_usage)
-	COOLDOWN_START(src, copying_cooldown, PHOTOCOPIER_DELAY)
+	COOLDOWN_START(src, copying_cooldown, time_to_print)
 
 /obj/machinery/photocopier/proc/parse_forms(mob/user)
 	var/list/access = user.get_access()
@@ -619,23 +665,23 @@
 			continue
 		if(!syndicate && !emagged && (ff in subtypesof(/obj/item/paper/form/syndieform)))
 			continue
-		var/form[0]
+		var/form = list()
 		form["path"] = F
 		form["id"] = initial(ff.id)
 		form["altername"] = initial(ff.altername)
 		form["category"] = initial(ff.category)
-		forms[++forms.len] = form
+		forms += form
 
 /obj/machinery/photocopier/proc/print_form(obj/item/paper/form/form)
 	if(copying)
 		balloon_alert(usr, "сканер ещё работает!")
 		return FALSE
 
-	toner--
+	use_toner(1)
 	copying = TRUE
 	playsound(loc, pick(print_sounds), 50)
 	use_power(active_power_usage)
-	addtimer(CALLBACK(src, PROC_REF(do_print_form_paper), form), PHOTOCOPIER_DELAY)
+	addtimer(CALLBACK(src, PROC_REF(do_print_form_paper), form), time_to_print)
 
 /obj/machinery/photocopier/proc/do_print_form_paper(obj/item/paper/form/form)
 	var/obj/item/paper/paper = new form(loc)
@@ -661,15 +707,13 @@
 
 	if(istype(I, /obj/item/toner))
 		add_fingerprint(user)
-		var/obj/item/toner/toner = I
-		if(src.toner > 10) //allow replacing when low toner is affecting the print darkness
-			balloon_alert(user, "тонер ещё полон!")
+		if(toner_cartridge)
+			balloon_alert(user, "another cartridge inside!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
+		toner_cartridge = I
 		balloon_alert(user, "вставлено")
-		src.toner += toner.toner_amount
-		qdel(I)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
@@ -692,10 +736,10 @@
 	default_unfasten_wrench(user, I)
 
 /obj/machinery/photocopier/obj_break(damage_flag)
-	if(!(obj_flags & NODECONSTRUCT))
-		if(toner > 0)
-			new /obj/effect/decal/cleanable/blood/oil(get_turf(src))
-			toner = 0
+	. = ..()
+	if(. && toner_cartridge?.charges && !(obj_flags & NODECONSTRUCT))
+		new /obj/effect/decal/cleanable/blood/oil(get_turf(src))
+		toner_cartridge.charges = 0
 
 /obj/machinery/photocopier/mouse_drop_receive(mob/target, mob/living/user, params)
 	if(!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || isAI(user))
@@ -719,10 +763,6 @@
 	atom_say("Внимание: На стеклянной плаформе обнаружены ягодицы!", FALSE)
 	SStgui.update_uis(src)
 
-/obj/machinery/photocopier/Destroy()
-	QDEL_LIST(saved_documents)
-	return ..()
-
 /**
  * Internal proc for checking the Mob on top of the copier
  * Reports FALSE if there is no copymob or if the copymob is in a diff location than the copy machine, otherwise reports TRUE
@@ -744,12 +784,24 @@
 	else if(user)
 		balloon_alert(user, "уже взломано!")
 
+/**
+ * Removes a certain amount of toner that is affected by the efficiency of stock parts
+ */
+/obj/machinery/photocopier/proc/use_toner(amount)
+	toner_cartridge.charges -= (amount / toner_efficiency)
+
+/*
+ * Toner cartridge
+ */
 /obj/item/toner
 	name = "toner cartridge"
 	desc = "Стандартный картридж с чернилами для ксероксов на 30 использований. Пользуется высоким спросом у бюрократов."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "tonercartridge"
-	var/toner_amount = 30
+	w_class = WEIGHT_CLASS_SMALL
+	//custom_materials = list(/datum/material/iron = SMALL_MATERIAL_AMOUNT * 0.1, /datum/material/glass = SMALL_MATERIAL_AMOUNT * 0.1)
+	var/charges = 5
+	var/max_charges = 5
 
 /obj/item/toner/get_ru_names()
 	return alist(
@@ -759,6 +811,69 @@
 		ACCUSATIVE = "тонер-картридж",
 		INSTRUMENTAL = "тонер-картриджом",
 		PREPOSITIONAL = "тонер-картридже",
+	)
+/*
+/obj/item/toner/grind_results()
+	return list(/datum/reagent/iodine = 40, /datum/reagent/iron = 10)
+*/
+
+/obj/item/toner/examine(mob/user)
+	. = ..()
+	. += span_notice("The ink level gauge on the side reads [round(charges / max_charges * 100)]%")
+
+/obj/item/toner/large
+	name = "large toner cartridge"
+	desc = "A hefty cartridge of Nanotrasen ValueBrand toner. Fits photocopiers and autopainters alike."
+	//custom_materials = list(/datum/material/iron = SMALL_MATERIAL_AMOUNT * 0.5, /datum/material/glass = SMALL_MATERIAL_AMOUNT * 0.5)
+	charges = 25
+	max_charges = 25
+
+/obj/item/toner/large/get_ru_names()
+	return alist(
+		NOMINATIVE = "большой тонер-картридж",
+		GENITIVE = "большого тонер-картриджа",
+		DATIVE = "большому тонер-картриджу",
+		ACCUSATIVE = "большой тонер-картридж",
+		INSTRUMENTAL = "большим тонер-картриджом",
+		PREPOSITIONAL = "большом тонер-картридже",
+	)
+/*
+/obj/item/toner/large/grind_results()
+	return list(/datum/reagent/iodine = 90, /datum/reagent/iron = 10)
+*/
+
+/obj/item/toner/extreme
+	name = "extremely large toner cartridge"
+	desc = "Why would ANYONE need THIS MUCH TONER?"
+	w_class = WEIGHT_CLASS_NORMAL
+	//custom_materials = list(/datum/material/iron = SMALL_MATERIAL_AMOUNT * 4, /datum/material/glass = SMALL_MATERIAL_AMOUNT * 4)
+	charges = 200
+	max_charges = 200
+
+/obj/item/toner/extreme/get_ru_names()
+	return alist(
+		NOMINATIVE = "огромный тонер-картридж",
+		GENITIVE = "огромного тонер-картриджа",
+		DATIVE = "огромному тонер-картриджу",
+		ACCUSATIVE = "огромный тонер-картридж",
+		INSTRUMENTAL = "огромным тонер-картриджом",
+		PREPOSITIONAL = "огромном тонер-картридже",
+	)
+
+/obj/item/toner/infinite
+	name = "infinite toner cartridge"
+	desc = "...are you satisfied now?"
+	charges = INFINITY
+	max_charges = INFINITY
+
+/obj/item/toner/infinite/get_ru_names()
+	return alist(
+		NOMINATIVE = "бесконечный тонер-картридж",
+		GENITIVE = "бесконечного тонер-картриджа",
+		DATIVE = "бесконечному тонер-картриджу",
+		ACCUSATIVE = "бесконечный тонер-картридж",
+		INSTRUMENTAL = "бесконечным тонер-картриджом",
+		PREPOSITIONAL = "бесконечном тонер-картридже",
 	)
 
 #undef PHOTOCOPIER_DELAY

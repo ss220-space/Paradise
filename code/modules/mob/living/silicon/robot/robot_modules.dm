@@ -52,6 +52,9 @@
 /obj/item/robot_module/proc/on_apply(mob/living/silicon/robot/robot)
 	return TRUE
 
+/obj/item/robot_module/proc/on_remove(mob/living/silicon/robot/robot)
+	return TRUE
+
 /obj/item/robot_module/proc/set_appearance(mob/living/silicon/robot/robot)
 	return TRUE
 
@@ -527,6 +530,16 @@
 	emag.name = "Lube spray"
 
 	fix_modules()
+
+/obj/item/robot_module/janitor/on_apply(mob/living/silicon/robot/robot)
+	. = ..()
+	robot.AddElement(/datum/element/cleaning)
+
+/obj/item/robot_module/janitor/on_remove(mob/living/silicon/robot/robot)
+	. = ..()
+	robot.RemoveElement(/datum/element/cleaning)
+
+/obj/item/robot_module/janitor/ins
 
 /obj/item/robot_module/janitor/respawn_consumable(mob/living/silicon/robot/R)
 	var/obj/item/reagent_containers/spray/cleaner/cleaner = locate() in modules

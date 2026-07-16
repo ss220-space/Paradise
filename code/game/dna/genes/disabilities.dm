@@ -364,12 +364,14 @@
 /datum/dna/gene/disability/catears/activate(mob/living/carbon/human/mutant, flags)
 	. = ..()
 	ADD_TRAIT(mutant, TRAIT_WEAK_EARS, DNA_TRAIT)
+	ADD_TRAIT(mutant, TRAIT_WATER_HATER, DNA_TRAIT)
 	mutant.update_mutant_ears()
 	mutant.update_body(TRUE)
 
 /datum/dna/gene/disability/catears/deactivate(mob/living/carbon/human/mutant, flags)
 	. = ..()
 	REMOVE_TRAIT(mutant, TRAIT_WEAK_EARS, DNA_TRAIT)
+	REMOVE_TRAIT(mutant, TRAIT_WATER_HATER, DNA_TRAIT)
 	mutant.update_mutant_ears()
 	mutant.update_body(TRUE)
 

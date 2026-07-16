@@ -358,7 +358,7 @@
 /datum/surgery_step/treat_necrosis/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
-	if(!istype(tool, /obj/item/reagent_containers))
+	if(!is_reagent_container(tool))
 		return SURGERY_STEP_INCOMPLETE
 
 	var/obj/item/reagent_containers/container = tool

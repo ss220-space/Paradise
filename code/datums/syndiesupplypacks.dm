@@ -2321,7 +2321,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/item/caution,
 		/obj/item/storage/bag/trash,
 		/obj/item/reagent_containers/spray/cleaner,
-		/obj/item/reagent_containers/glass/rag,
+		/obj/item/rag,
 		/obj/item/grenade/chem_grenade/cleaner,
 		/obj/item/grenade/chem_grenade/cleaner,
 		/obj/item/grenade/chem_grenade/cleaner,

@@ -1,0 +1,5 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - bugfix: "Исправлена причина, по которой не росла тесла. (PR #9499)"
+  - refactor: "Оптимизирована сборка сетей труб. (PR #9499)"

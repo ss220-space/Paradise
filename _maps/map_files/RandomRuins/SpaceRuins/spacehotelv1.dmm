@@ -1567,9 +1567,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/ruin/space/spacehotelv1/reception)
 "lY" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -1949,9 +1947,7 @@
 	},
 /area/ruin/space/spacehotelv1/kitchen)
 "pj" = (
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -1986,11 +1982,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/aftmaints)
 "pA" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = -26;
 	pixel_y = -1
@@ -2361,9 +2353,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/guestroom1)
 "sy" = (
-/obj/machinery/shower{
-	pixel_y = 20
-	},
+/obj/machinery/shower/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -2559,10 +2549,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "tH" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -11
-	},
+/obj/structure/sink/directional/east,
 /obj/machinery/light/small,
 /obj/machinery/door_control{
 	desiredstate = 1;
@@ -2676,9 +2663,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/ruin/space/spacehotelv1/guestroom3)
 "us" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -2751,9 +2736,7 @@
 /turf/simulated/wall,
 /area/ruin/space/spacehotelv1/guestroom1)
 "vb" = (
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/east,
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -2815,11 +2798,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "vv" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = -26;
 	pixel_y = -1
@@ -2860,10 +2839,7 @@
 	},
 /area/ruin/space/spacehotelv1/bar)
 "vU" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = 26;
 	pixel_y = -1
@@ -3141,9 +3117,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/forehallway)
 "yj" = (
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -3918,11 +3892,7 @@
 	},
 /area/ruin/space/spacehotelv1/bar)
 "Es" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = -26;
 	pixel_y = -1
@@ -4227,11 +4197,7 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/forehallway)
 "Gi" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = -26;
 	pixel_y = -1
@@ -4626,10 +4592,7 @@
 /area/ruin/space/spacehotelv1/reception)
 "JL" = (
 /obj/machinery/firealarm/directional/north,
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = 26;
 	pixel_y = -1
@@ -4649,9 +4612,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/restoraunt)
 "JO" = (
-/obj/machinery/shower{
-	pixel_y = 20
-	},
+/obj/machinery/shower/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -5294,9 +5255,7 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/forehallway)
 "NV" = (
-/obj/machinery/shower{
-	pixel_y = 20
-	},
+/obj/machinery/shower/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -5471,10 +5430,7 @@
 	},
 /area/ruin/space/spacehotelv1/guestroom5)
 "Pc" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = 26;
 	pixel_y = -1
@@ -5719,10 +5675,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacehotelv1/centralhallway)
 "QI" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -5878,10 +5831,7 @@
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/spacehotelv1/guestroom6)
 "RQ" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = 26;
 	pixel_y = -1
@@ -6823,10 +6773,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/bar)
 "YD" = (
-/obj/structure/sink{
-	layer = 4;
-	pixel_y = 26
-	},
+/obj/structure/sink/directional/west,
 /mob/living/simple_animal/mouse{
 	name = "Nicolas"
 	},
@@ -6946,7 +6893,7 @@
 /area/ruin/space/spacehotelv1/restoraunt2)
 "ZH" = (
 /obj/item/reagent_containers/food/drinks/shaker,
-/obj/item/reagent_containers/glass/rag,
+/obj/item/rag,
 /obj/structure/table,
 /obj/item/storage/box/matches,
 /obj/item/storage/fancy/cigarettes/cigpack_random,

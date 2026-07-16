@@ -1,0 +1,5 @@
+author: "FlitchTime"
+delete-after: True
+changes:
+  - balance: "Ослабление кровотечений. (PR #9402)"
+  - balance: "Изменение бинтов, мазей, бёрн/брут китов, шин и жгутов. (PR #9402)"
