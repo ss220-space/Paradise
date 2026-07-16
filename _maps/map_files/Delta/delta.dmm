@@ -23703,6 +23703,16 @@
 	icon_state = "dark"
 	},
 /area/station/ai/satellite/exterior)
+"feG" = (
+/obj/structure/sign/painting/large/library{
+	dir = 8;
+	pixel_x = -28;
+	pixel_y = -25
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/station/service/library)
 "feI" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -119960,7 +119970,7 @@
 /obj/structure/sign/painting/large/library{
 	dir = 8;
 	pixel_x = -28;
-	pixel_y = -16
+	pixel_y = -8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -155812,9 +155822,9 @@ rWR
 pwX
 oMI
 lxJ
+feG
 lxJ
 wOF
-lxJ
 vTY
 lQS
 fHJ
