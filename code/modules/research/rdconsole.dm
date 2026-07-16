@@ -358,10 +358,12 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			return
 
 	linked_destroy.busy = TRUE
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_RESEARCH_DURATION_MOD, skill_duration_mod)
+	var/deconstruct_delay = DECONSTRUCT_DELAY * skill_duration_mod
 	flick("[linked_destroy.base_icon_state]_process", linked_destroy)
-	add_wait_message("Разборка объекта и обновление базы данных...", DECONSTRUCT_DELAY)
+	add_wait_message("Разборка объекта и обновление базы данных...", deconstruct_delay)
 	playsound(loc, 'sound/machines/rnd_machines/destructor_scanning.ogg', HALFWAY_SOUND_VOLUME, TRUE, -1, use_reverb = TRUE)
-	addtimer(CALLBACK(src, PROC_REF(finish_destroyer), temp_tech, user), DECONSTRUCT_DELAY)
+	addtimer(CALLBACK(src, PROC_REF(finish_destroyer), temp_tech, user), deconstruct_delay)
 
 // Sends salvaged materials to a linked protolathe, if any.
 /obj/machinery/computer/rdconsole/proc/send_mats()
@@ -382,7 +384,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(!linked_destroy || !temp_tech)
 		return
 
-	if(!linked_destroy.hacked)
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_RESEARCH_SUCCESS_MOD, skill_chance_mod)
+	if(!linked_destroy.hacked && prob(100 * skill_chance_mod)) // item destroyed, but tech level not increase if skill check failed
 		if(!linked_destroy.loaded_item)
 			to_chat(usr, span_danger("[DECLENT_RU_CAP(linked_destroy, NOMINATIVE)] пуст!"))
 		else
@@ -467,7 +470,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	for(var/M in being_built.materials)
 		power += round(being_built.materials[M] * amount / 5)
 	power = max(BUILD_POWER, power)
-
 
 	CALCULATE_SKILL_MOD(usr, COMSIG_GET_PROTOLATHE_DURATION_MOD, skill_duration_mod)
 	// goes down (1 -> 0.4) with upgrades

@@ -7,6 +7,30 @@
 	id = "research.research"
 	name = "Исследования"
 	desc = "Влияет на шансы разбора для получения техов."
+	duration_mod_signals = list(COMSIG_GET_RESEARCH_DURATION_MOD)
+	// success deconstruct chance modifier ([0-1])
+	var/success_chance_mod = alist(
+		SKILL_LEVEL_NONE = 0.1,
+		SKILL_LEVEL_BEGINNER = 0.25,
+		SKILL_LEVEL_BASIC = 0.5,
+		SKILL_LEVEL_ADVANCED = 0.7,
+		SKILL_LEVEL_PROFESSIONAL = 0.8,
+		SKILL_LEVEL_EXPERT = 0.9,
+		SKILL_LEVEL_LEGEND = 1,
+		SKILL_LEVEL_UNAVAILABLE = 0.01,
+	)
+
+/datum/skill/research/research/apply_to_mob(mob/owner)
+	. = ..()
+	RegisterSignal(owner, COMSIG_GET_RESEARCH_SUCCESS_MOD, PROC_REF(get_success_chance_mod))
+
+/datum/skill/research/research/remove_from_mob(mob/owner)
+	. = ..()
+	UnregisterSignal(owner, COMSIG_GET_RESEARCH_SUCCESS_MOD)
+
+/datum/skill/research/research/proc/get_success_chance_mod(mob/living/user, list/chances)
+	SIGNAL_HANDLER
+	get_modifier(user, chances, success_chance_mod)
 
 /datum/skill/research/protolathe
 	id = "research.protolathe"

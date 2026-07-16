@@ -107,3 +107,7 @@
 #define COMSIG_GET_PROTOLATHE_DURATION_MOD "get_protolathe_duration_mod"
 /// Get mech protolathe item creation resource modifier for protolathe skill (mob/living/user, list/modifiers)
 #define COMSIG_GET_PROTOLATHE_RESOURCE_MOD "get_protolathe_resource_mod"
+/// Get research duration modifier for research skill (mob/living/user, list/modifiers)
+#define COMSIG_GET_RESEARCH_DURATION_MOD "get_research_duration_mod"
+/// Get research success chance modifier for research skill (mob/living/user, list/modifiers)
+#define COMSIG_GET_RESEARCH_SUCCESS_MOD "get_research_success_mod"
