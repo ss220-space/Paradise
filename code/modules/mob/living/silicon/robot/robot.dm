@@ -405,13 +405,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		forced_module = text2path(forced_module)
 
 	var/list/modules = list(
-			"Генералист" = /obj/item/robot_module/standard,
-			"Инженер" = /obj/item/robot_module/engineering,
-			"Медик" = /obj/item/robot_module/medical,
-			"Шахтёр" = /obj/item/robot_module/miner,
-			"Уборщик" = /obj/item/robot_module/janitor,
-			"Сервисный работник" = /obj/item/robot_module/butler,
-			"Охранник" = /obj/item/robot_module/security
+			CYBORG_MODULE_NAME_GENERALIST = /obj/item/robot_module/standard,
+			CYBORG_MODULE_NAME_ENGINEER = /obj/item/robot_module/engineering,
+			CYBORG_MODULE_NAME_MEDIC = /obj/item/robot_module/medical,
+			CYBORG_MODULE_NAME_MINER = /obj/item/robot_module/miner,
+			CYBORG_MODULE_NAME_JANITOR = /obj/item/robot_module/janitor,
+			CYBORG_MODULE_NAME_SERVICE = /obj/item/robot_module/butler,
+			CYBORG_MODULE_NAME_SECURITY = /obj/item/robot_module/security
 		)
 
 	if(islist(limited_modules) && LAZYLEN(limited_modules))
@@ -422,9 +422,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	if(mmi?.syndicate)
 		modules = list(
-				"Саботёр" = /obj/item/robot_module/syndicate_saboteur,
-				"Боевой медик" = /obj/item/robot_module/syndicate_medical,
-				"Штурмовик" = /obj/item/robot_module/syndicate
+				CYBORG_MODULE_NAME_SABOTEUR = /obj/item/robot_module/syndicate_saboteur,
+				CYBORG_MODULE_NAME_MEDIC_ERT_SPECIAL = /obj/item/robot_module/syndicate_medical,
+				CYBORG_MODULE_NAME_BATTLEDROID = /obj/item/robot_module/syndicate
 			)
 
 	if(mmi?.ninja)
@@ -910,7 +910,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			return ATTACK_CHAIN_PROCEED
 
 		if(emagged)	//still allow them to open the cover
-			to_chat(user, span_danger("кажется, ID-замок сломан"))
+			to_chat(user, span_danger("Кажется, ID-замок сломан!"))
 
 		if(!allowed(I))
 			balloon_alert(user, "доступ запрещён!")
@@ -1046,7 +1046,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	if(!opened)
 		if(locked)
-			balloon_alert(user, "айди-замок заблокирован!")
+			balloon_alert(user, "техпанель заблокирована!")
 			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return
 
@@ -1070,7 +1070,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	else if(wiresexposed && wires.is_all_cut())
 		//Cell is out, wires are exposed, remove MMI, produce damaged chassis, baleet original mob.
 		if(!mmi && !shell)
-			balloon_alert(user, "мозг отсуствует!")
+			balloon_alert(user, "мозг отсутствует!")
 			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return
 
@@ -1080,7 +1080,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				user.balloon_alert(user, "невозможно!")
 				SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 				return
-			user.visible_message(span_alert("[user] разбир[PLUR_ET_UT(user)] [declent_ru()]!"), span_notice("Вы снимаете поддерживающие заклёпки, и [declent_ru()] разваливается на составные части!"))
+			user.visible_message(
+				span_alert("[user] разбир[PLUR_ET_UT(user)] [declent_ru(GENITIVE)]!"),
+				span_notice("Вы снимаете поддерживающие заклёпки, и [declent_ru(NOMINATIVE)] разваливается на составные части!")
+			)
 			deconstruct()
 
 		return
@@ -1910,10 +1913,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	req_access = list(ACCESS_CENT_SPECOPS)
 	ionpulse = 1
 	limited_modules = list(
-		"Боевой инженер" = /obj/item/robot_module/engineering,
-		"Медик" = /obj/item/robot_module/medical,
-		"Боец" = /obj/item/robot_module/security,
-		"Тактический уборщик" = /obj/item/robot_module/janitor/ert,
+		CYBORG_MODULE_NAME_ENGINEER_ERT = /obj/item/robot_module/engineering,
+		CYBORG_MODULE_NAME_MEDIC_ERT = /obj/item/robot_module/medical,
+		CYBORG_MODULE_NAME_SOLIDER = /obj/item/robot_module/security,
+		CYBORG_MODULE_NAME_JANITOR_ERT = /obj/item/robot_module/janitor/ert,
 	)
 	allow_rename = FALSE
 	can_lock_cover = TRUE
@@ -1953,10 +1956,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/ert/gamma
 	default_cell_type = /obj/item/stock_parts/cell/bluespace
 	limited_modules = list(
-		"Штурмовик" = /obj/item/robot_module/combat,
-		"Боевой инженер" = /obj/item/robot_module/engineering/ert,
-		"Тактический медик" = /obj/item/robot_module/medical/ert,
-		"Тактический уборщик" = /obj/item/robot_module/janitor/ert,
+		CYBORG_MODULE_NAME_BATTLEDROID = /obj/item/robot_module/combat,
+		CYBORG_MODULE_NAME_ENGINEER_ERT = /obj/item/robot_module/engineering/ert,
+		CYBORG_MODULE_NAME_MEDIC_ERT_SPECIAL = /obj/item/robot_module/medical/ert,
+		CYBORG_MODULE_NAME_JANITOR_ERT = /obj/item/robot_module/janitor/ert,
 	)
 	damage_protection = 5 // Reduce all incoming damage by this number
 	eprefix = "Gamma"

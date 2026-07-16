@@ -495,7 +495,7 @@
 	icon_state = "cyborg_upgrade5"
 	require_module = TRUE
 	var/repair_amount = -1
-	var/repair_tick = 1
+	var/repair_tick = TRUE
 	var/on = FALSE
 	var/powercost = 10
 	var/mob/living/silicon/robot/cyborg
@@ -584,8 +584,9 @@
 			return
 		else
 			cyborg.cell.use(5)
-			repair_tick = FALSE
-			return
+
+		repair_tick = FALSE
+		return
 
 	deactivate_sr()
 
