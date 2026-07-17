@@ -48,3 +48,26 @@
 	id = "research.xenobiology"
 	name = "Ксенобиология"
 	desc = "Влияет на шанс двойного лута с ядра слаймов."
+	// success deconstruct chance modifier ([0-1])
+	var/double_loot_mod = alist(
+		SKILL_LEVEL_NONE = 0.05,
+		SKILL_LEVEL_BEGINNER = 0.1,
+		SKILL_LEVEL_BASIC = 0.25,
+		SKILL_LEVEL_ADVANCED = 0.5,
+		SKILL_LEVEL_PROFESSIONAL = 0.5,
+		SKILL_LEVEL_EXPERT = 0.75,
+		SKILL_LEVEL_LEGEND = 1,
+		SKILL_LEVEL_UNAVAILABLE = 0.001,
+	)
+
+/datum/skill/research/xenobiology/apply_to_mob(mob/owner)
+	. = ..()
+	RegisterSignal(owner, COMSIG_GET_XENOBIO_DOUBLE_LOOT_MOD, PROC_REF(get_double_loot_mod))
+
+/datum/skill/research/xenobiology/remove_from_mob(mob/owner)
+	. = ..()
+	UnregisterSignal(owner, COMSIG_GET_XENOBIO_DOUBLE_LOOT_MOD)
+
+/datum/skill/research/xenobiology/proc/get_double_loot_mod(mob/living/user, list/chances)
+	SIGNAL_HANDLER
+	get_modifier(user, chances, double_loot_mod)

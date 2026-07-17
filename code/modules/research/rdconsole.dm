@@ -493,7 +493,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	use_power(power)
 
 	CALCULATE_SKILL_MOD(usr, COMSIG_GET_PROTOLATHE_RESOURCE_MOD, skill_resource_mod)
-	coef *= skill_resource_mod
+	coeff *= skill_resource_mod
 	var/list/efficient_mats = list()
 	for(var/MAT in being_built.materials)
 		efficient_mats[MAT] = being_built.materials[MAT] * coeff

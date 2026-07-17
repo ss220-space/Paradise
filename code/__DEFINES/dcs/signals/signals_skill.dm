@@ -111,3 +111,6 @@
 #define COMSIG_GET_RESEARCH_DURATION_MOD "get_research_duration_mod"
 /// Get research success chance modifier for research skill (mob/living/user, list/modifiers)
 #define COMSIG_GET_RESEARCH_SUCCESS_MOD "get_research_success_mod"
+/// Get xenobio double loot chance modifier for xenobio skill (mob/living/user, list/modifiers)
+#define COMSIG_GET_XENOBIO_DOUBLE_LOOT_MOD "get_xenobio_double_loot_mod"
+
