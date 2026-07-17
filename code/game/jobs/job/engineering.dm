@@ -21,17 +21,14 @@
 	outfit = /datum/outfit/job/chief_engineer
 	liver_traits = list(TRAIT_ENGINEER_METABOLISM)
 	skill_levels = list(
-		//engineering
 		/datum/skill/engineering/building = SKILL_LEVEL_PROFESSIONAL,
 		/datum/skill/engineering/construction = SKILL_LEVEL_PROFESSIONAL,
 		/datum/skill/engineering/electrician = SKILL_LEVEL_PROFESSIONAL,
 		/datum/skill/engineering/atmos = SKILL_LEVEL_PROFESSIONAL,
-		/datum/skill/engineering/lockpick = SKILL_LEVEL_PROFESSIONAL,
-		//combat
+		/datum/skill/general/lockpick = SKILL_LEVEL_PROFESSIONAL,
 		/datum/skill/combat/accuracy = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
-		//science
 		/datum/skill/general/mech_drive = SKILL_LEVEL_ADVANCED,
 		/datum/skill/general/mod_use = SKILL_LEVEL_ADVANCED,
 	)
@@ -88,13 +85,11 @@
 	)
 	outfit = /datum/outfit/job/engineer
 	skill_levels = list(
-		//engineering
 		/datum/skill/engineering/building = SKILL_LEVEL_PROFESSIONAL,
 		/datum/skill/engineering/construction = SKILL_LEVEL_ADVANCED,
 		/datum/skill/engineering/electrician = SKILL_LEVEL_ADVANCED,
 		/datum/skill/engineering/atmos = SKILL_LEVEL_BASIC,
-		/datum/skill/engineering/lockpick = SKILL_LEVEL_ADVANCED,
-		//science
+		/datum/skill/general/lockpick = SKILL_LEVEL_ADVANCED,
 		/datum/skill/general/mech_drive = SKILL_LEVEL_BASIC,
 		/datum/skill/general/mod_use = SKILL_LEVEL_BASIC,
 	)
@@ -137,8 +132,7 @@
 		/datum/skill/engineering/construction = SKILL_LEVEL_BASIC,
 		/datum/skill/engineering/electrician = SKILL_LEVEL_BASIC,
 		/datum/skill/engineering/atmos = SKILL_LEVEL_ADVANCED,
-		/datum/skill/engineering/lockpick = SKILL_LEVEL_BASIC,
-		//science
+		/datum/skill/general/lockpick = SKILL_LEVEL_BASIC,
 		/datum/skill/general/mech_drive = SKILL_LEVEL_BASIC,
 		/datum/skill/general/mod_use = SKILL_LEVEL_BASIC,
 	)
@@ -175,13 +169,11 @@
 	outfit = /datum/outfit/job/engineer/trainee
 	paycheck = PAYCHECK_LOWER
 	skill_levels = list(
-		//engineering
 		/datum/skill/engineering/building = SKILL_LEVEL_BEGINNER,
 		/datum/skill/engineering/construction = SKILL_LEVEL_BEGINNER,
 		/datum/skill/engineering/electrician = SKILL_LEVEL_BEGINNER,
 		/datum/skill/engineering/atmos = SKILL_LEVEL_BEGINNER,
-		/datum/skill/engineering/lockpick = SKILL_LEVEL_BEGINNER,
-		//science
+		/datum/skill/general/lockpick = SKILL_LEVEL_BEGINNER,
 		/datum/skill/general/mech_drive = SKILL_LEVEL_BEGINNER,
 		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 	)

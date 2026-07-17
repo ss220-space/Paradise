@@ -133,6 +133,8 @@
 	var/free_skill_points = BASIC_SKILL_POINTS_COUNT
 	/// Temp variable for skill leveling (for skill_select_win works)
 	var/list/selected_skills = null
+	/// Active skill bonuses from skill manuals
+	var/list/active_skill_bonuses = list()
 
 	///Owned cyborg skin permissions
 	var/list/cyborg_skin_permissions = list()

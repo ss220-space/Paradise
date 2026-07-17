@@ -220,7 +220,7 @@
 		/datum/skill/general/mech_drive = SKILL_LEVEL_BASIC,
 		/datum/skill/general/mod_use = SKILL_LEVEL_BASIC,
 		/datum/skill/engineering/construction = SKILL_LEVEL_BASIC,
-		/datum/skill/engineering/lockpick = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/lockpick = SKILL_LEVEL_BEGINNER,
 		/datum/skill/research/protolathe = SKILL_LEVEL_BEGINNER,
 		/datum/skill/research/mech_construct = SKILL_LEVEL_BASIC,
 	)

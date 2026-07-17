@@ -4074,6 +4074,7 @@
 #include "code\modules\skills\combat.dm"
 #include "code\modules\skills\engineering.dm"
 #include "code\modules\skills\general.dm"
+#include "code\modules\skills\manual.dm"
 #include "code\modules\skills\medical.dm"
 #include "code\modules\skills\mind_skill.dm"
 #include "code\modules\skills\science.dm"

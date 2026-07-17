@@ -22,6 +22,13 @@
 	desc = "Влияет на скорость одевания МЭКов и РИГов."
 	duration_mod_signals = list(COMSIG_GET_MOD_ACTIVATION_SPEED_MOD, COMSIG_GET_SPACESUIT_SLOWDOWN_MOD)
 
+/datum/skill/general/lockpick
+	id = "general.lockpick"
+	name = "Взлом"
+	desc = "Влияет на взлом шлюзов, ящиков и шкафчиков."
+	duration_mod_signals = list(COMSIG_GET_LOCKPICK_SPEED_MOD)
+	quality_modifiers = list(COMSIG_GET_LOCKPICK_POSITIVE_CHANCE_MOD)
+
 /datum/skill/general/cooking
 	id = "general.cooking"
 	name = "Готовка"

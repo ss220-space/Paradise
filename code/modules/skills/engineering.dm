@@ -27,10 +27,3 @@
 	name = "Атмостехника"
 	desc = "Влияет на работу с трубами и остальной атмосферной техникой."
 	duration_mod_signals = list(COMSIG_GET_ATMOS_SPEED_MOD)
-
-/datum/skill/engineering/lockpick
-	id = "engineering.lockpick"
-	name = "Взлом"
-	desc = "Влияет на взлом шлюзов, ящиков и шкафчиков."
-	duration_mod_signals = list(COMSIG_GET_LOCKPICK_SPEED_MOD)
-	quality_modifiers = list(COMSIG_GET_LOCKPICK_POSITIVE_CHANCE_MOD)

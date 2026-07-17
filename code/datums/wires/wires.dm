@@ -267,7 +267,7 @@
 	if(user.can_admin_interact())
 		return TRUE
 	GET_SKILL_LEVEL(user, /datum/skill/engineering/electrician, electricity_level)
-	GET_SKILL_LEVEL(user, /datum/skill/engineering/lockpick, lockpick_level)
+	GET_SKILL_LEVEL(user, /datum/skill/general/lockpick, lockpick_level)
 	if(electricity_level >= SKILL_LEVEL_PROFESSIONAL || lockpick_level >= SKILL_LEVEL_PROFESSIONAL)
 		return TRUE
 
