@@ -63,7 +63,6 @@
 /obj/machinery/computer/skill_manuals/ui_data(mob/user)
 	var/list/data = list()
 	data["modal"] = ui_modal_data(src)
-		data["shuttle_loc"] = "Шаттл не найден"
 	if(ishuman(user))
 		var/datum/money_account/money_account = get_card_account(user)
 		var/mob/living/carbon/human/human_user = user
