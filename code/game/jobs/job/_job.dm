@@ -335,6 +335,8 @@
 		var/obj/item/mod/control/mod_control = H.back
 		mod_control.quick_activation()
 
+	INVOKE_ASYNC(src, PROC_REF(skill_select_offer), H)
+
 	return TRUE
 
 /datum/outfit/job/proc/imprint_idcard(mob/living/carbon/human/H)
@@ -370,6 +372,11 @@
 		PDA.ownjob = C.assignment
 		PDA.ownrank = C.rank
 		PDA.update_appearance(UPDATE_NAME)
+
+/datum/outfit/job/proc/skill_select_offer(mob/living/carbon/human/user)
+	var/choice = tgui_alert(user, message = "Хотите настроить навыки?", title = "Настройка навыков", buttons = list("Да", "Позже"))
+	if(choice == "Да")
+		GLOB.skills_select_window.ui_interact(user)
 
 /datum/outfit/job/get_chameleon_disguise_info()
 	var/list/types = ..()
