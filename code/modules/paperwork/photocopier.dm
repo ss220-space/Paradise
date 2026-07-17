@@ -670,7 +670,7 @@
 		form["id"] = initial(ff.id)
 		form["altername"] = initial(ff.altername)
 		form["category"] = initial(ff.category)
-		forms += form
+		forms += list(form)
 
 /obj/machinery/photocopier/proc/print_form(obj/item/paper/form/form)
 	if(copying)

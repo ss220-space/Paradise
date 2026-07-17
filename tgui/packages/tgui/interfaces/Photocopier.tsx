@@ -38,7 +38,8 @@ type PhotocopierData = {
   category: string;
   maxcopies: number;
   ui_theme: string;
-  toner: number;
+  current_toner: number;
+  max_toner: number;
   forms: Form[];
   form_id: string;
   copyitem: string;
@@ -86,8 +87,8 @@ export const Photocopier = (_props: unknown) => {
                   <Stack.Item width="50%">
                     <ProgressBar
                       minValue={0}
-                      maxValue={30}
-                      value={data.toner}
+                      maxValue={data.max_toner || 30}
+                      value={data.current_toner || 0}
                     />
                   </Stack.Item>
                 </Stack>
@@ -137,7 +138,7 @@ export const Photocopier = (_props: unknown) => {
                       fluid
                       textAlign="center"
                       icon="print"
-                      disabled={data.toner === 0 || data.form === null}
+                      disabled={data.current_toner === 0 || data.form === null}
                       onClick={() => act('print_form')}
                     >
                       Печать
@@ -149,7 +150,7 @@ export const Photocopier = (_props: unknown) => {
                         fluid
                         textAlign="center"
                         icon="image"
-                        disabled={data.toner < 5}
+                        disabled={data.current_toner < 5}
                         tooltip="Распечатать фото с Базы Данных"
                         onClick={() => act('ai_pic')}
                       >
@@ -165,7 +166,8 @@ export const Photocopier = (_props: unknown) => {
                       textAlign="center"
                       icon="copy"
                       disabled={
-                        data.toner === 0 || (!data.copyitem && !data.mob)
+                        data.current_toner === 0 ||
+                        (!data.copyitem && !data.mob)
                       }
                       onClick={() => act('copy')}
                     >
@@ -179,7 +181,7 @@ export const Photocopier = (_props: unknown) => {
                         textAlign="center"
                         icon="i-cursor"
                         tooltip="Распечатать свой текст"
-                        disabled={data.toner === 0}
+                        disabled={data.current_toner === 0}
                         onClick={() => act('ai_text')}
                       >
                         Текст
@@ -257,8 +259,7 @@ export const Photocopier = (_props: unknown) => {
               title={data.category || 'Все формы'}
               buttons={
                 <Input
-                  mr={18.5}
-                  width="100%"
+                  style={{ maxWidth: '160px' }}
                   placeholder="Поиск формы"
                   expensive
                   onChange={setSearchText}
