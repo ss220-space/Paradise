@@ -136,21 +136,21 @@
 
 	var/list/possible_clothings = list()
 	var/obj/item/suit_item = our_human.s_store
-	if(suit_item)
+	if(suit_item && !(suit_item.item_flags & ABSTRACT))
 		possible_clothings += suit_item
 	var/obj/item/backpack = our_human.back
-	if(backpack)
+	if(backpack && !(backpack.item_flags & ABSTRACT))
 		possible_clothings += backpack
 	var/obj/item/under = our_human.w_uniform
-	if(under)
+	if(under && !(under.item_flags & ABSTRACT))
 		possible_clothings += under
 
 	// The "we really need held_items() proc" code block
 	var/obj/item/hand_item = our_human.l_hand
-	if(hand_item)
+	if(hand_item && !(hand_item.item_flags & ABSTRACT))
 		possible_clothings += hand_item
 	var/obj/item/second_hand_item = our_human.r_hand
-	if(second_hand_item)
+	if(second_hand_item && !(second_hand_item.item_flags & ABSTRACT))
 		possible_clothings += second_hand_item
 
 	if(!length(possible_clothings))
