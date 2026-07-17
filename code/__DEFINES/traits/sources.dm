@@ -208,6 +208,9 @@
 /// Trait acquired from being painted a certain color
 #define ATOM_COLOR_TRAIT "atom_color"
 
+/// Trait associated with deathmatch
+#define DEATHMATCH_TRAIT "deathmatch"
+
 /// From the item_scaling element
 #define ITEM_SCALING_TRAIT "item_scaling"
 

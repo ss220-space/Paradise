@@ -1,0 +1,4 @@
+author: "NightDawnFox"
+delete-after: True
+changes:
+  - bugfix: "Картины в галерее больше друг на друга не накладываются (PR #9509)"

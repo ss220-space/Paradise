@@ -31,6 +31,7 @@
 		/obj/item/seeds,
 		/obj/item/spacepod_equipment/key,
 		/obj/item/stack/medical,
+		/obj/item/tourniquet,
 		/obj/item/stack/spacecash,
 		/obj/item/stamp,
 		/obj/item/toy/crayon,

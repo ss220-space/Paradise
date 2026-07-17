@@ -1550,12 +1550,13 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 // Update icons if this is being carried by a mob
 /obj/item/wash_tg(clean_types)
 	. = ..()
-	if(!.) // we don't need mob updates when the item was already clean
-		return
 
 	if((clean_types & CLEAN_TYPE_BLOOD) && initial(icon) && initial(icon_state))
-		remove_filter("blood_splatter")
-		. |= COMPONENT_CLEANED
+		if(remove_filter("blood_splatter"))
+			. |= COMPONENT_CLEANED
+
+	if(!.) // we don't need mob updates when the item was already clean
+		return
 
 	if(ismob(loc))
 		var/mob/mob_loc = loc

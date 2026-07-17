@@ -58,6 +58,15 @@ export const MiniGamesMenu = (props: unknown) => {
             ? 'Отключить уведомления о боевых мини-играх'
             : 'Включить уведомления о боевых мини-играх'}
         </Button>
+        <Button
+          fluid
+          textAlign="center"
+          icon="power-off"
+          lineHeight="3"
+          fontSize={3}
+          content="Deathmatch"
+          onClick={() => act('deathmatch')}
+        />
         <Section>
           {spawners.map((spawner) => (
             <Section
