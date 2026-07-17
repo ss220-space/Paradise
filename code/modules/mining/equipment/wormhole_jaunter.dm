@@ -160,7 +160,7 @@
 	if(picked_item.resistance_flags & FIRE_PROOF || picked_item.resistance_flags & LAVA_PROOF)
 		return
 	our_human.temporarily_remove_item_from_inventory(picked_item)
-	to_chat(our_human, span_warning("[picked_item.declent_ru(NOMINATIVE)] не выдерживает температуры и разрушается!"))
+	to_chat(our_human, span_warning("[DECLENT_RU_CAP(picked_item, NOMINATIVE)] не выдерживает температуры и разрушается!"))
 	qdel(picked_item)
 
 /obj/item/grenade/jaunter_grenade
