@@ -34,7 +34,6 @@
 	default_genes = list(/datum/dna/gene/basic/grant_spell/remotetalk)
 
 	inherent_traits = list(
-		TRAIT_WEAK_PULLING,
 		TRAIT_NO_VOCAL_CORDS,
 		TRAIT_HAS_LIPS,
 		TRAIT_HAS_REGENERATION,

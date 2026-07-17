@@ -1,5 +1,6 @@
 /// Global list of all skills in game
 GLOBAL_LIST_EMPTY(skills)
+GLOBAL_LIST_EMPTY(skill_manual_types)
 
 /*
  * Basic skill datum

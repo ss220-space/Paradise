@@ -188,6 +188,8 @@
 /obj/structure/bookcase/manuals/medical/Initialize(mapload)
 	. = ..()
 	new /obj/item/book/manual/medical_cloning(src)
+	for(var/i = 0; i <= 3; i++)
+		new /obj/item/book/skill_manual/medical/random(src)
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/bookcase/manuals/engineering
@@ -202,6 +204,8 @@
 	new /obj/item/book/manual/engineering_guide(src)
 	new /obj/item/book/manual/engineering_singularity_safety(src)
 	new /obj/item/book/manual/robotics_cyborgs(src)
+	for(var/i = 0; i <= 3; i++)
+		new /obj/item/book/skill_manual/engineering/random(src)
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/bookcase/manuals/research_and_development
@@ -211,6 +215,18 @@
 /obj/structure/bookcase/manuals/research_and_development/Initialize(mapload)
 	. = ..()
 	new /obj/item/book/manual/research_and_development(src)
+	for(var/i = 0; i <= 3; i++)
+		new /obj/item/book/skill_manual/research/random(src)
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/structure/bookcase/manuals/skills
+	manual_name = "Medical Manuals "
+	manual_name_ru = " с различными учебниками"
+
+/obj/structure/bookcase/manuals/skills/Initialize(mapload)
+	. = ..()
+	for(var/i = 0; i <= 5; i++)
+		new /obj/item/book/skill_manual/random(src)
 	update_icon(UPDATE_ICON_STATE)
 
 /*

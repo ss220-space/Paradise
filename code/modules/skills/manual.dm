@@ -1,6 +1,7 @@
 /obj/item/book/skill_manual
 	w_class = WEIGHT_CLASS_SMALL
 	desc = "Неизвестное руководство."
+	has_drm = TRUE
 	/// title for localization
 	var/manual_title = "Неизвестно"
 	/// skill for bonus
@@ -69,11 +70,23 @@
 		user.mind.active_skill_bonuses -= skill_type
 	applyed_bonus_points = 0
 
+/obj/item/book/skill_manual/random/Initialize(mapload)
+	. = ..()
+	var/newtype = pick(GLOB.skill_manual_types)
+	new newtype(loc)
+	return INITIALIZE_HINT_QDEL
 
 // MARK: General
 /obj/item/book/skill_manual/general
 	icon_state = "cooked_book"
 	item_state = "cooked_book"
+
+/obj/item/book/skill_manual/general/random/Initialize(mapload)
+	. = ..()
+	var/static/banned_books = list(/obj/item/book/skill_manual/general/random)
+	var/newtype = pick(subtypesof(/obj/item/book/skill_manual/general) - banned_books)
+	new newtype(loc)
+	return INITIALIZE_HINT_QDEL
 
 /obj/item/book/skill_manual/general/carrying
 	manual_title = "Переноска"
@@ -105,6 +118,13 @@
 	icon_state = "bookHydroponicsPodPeople"
 	item_state = "bookHydroponicsPodPeople"
 
+/obj/item/book/skill_manual/service/random/Initialize(mapload)
+	. = ..()
+	var/static/banned_books = list(/obj/item/book/skill_manual/service/random)
+	var/newtype = pick(subtypesof(/obj/item/book/skill_manual/service) - banned_books)
+	new newtype(loc)
+	return INITIALIZE_HINT_QDEL
+
 /obj/item/book/skill_manual/service/drink_mixing
 	manual_title = "Напитки"
 	desc = "Руководство по напиткам."
@@ -124,6 +144,13 @@
 /obj/item/book/skill_manual/combat
 	icon_state = "bookSpaceLaw"
 	item_state = "bookSpaceLaw"
+
+/obj/item/book/skill_manual/combat/random/Initialize(mapload)
+	. = ..()
+	var/static/banned_books = list(/obj/item/book/skill_manual/combat/random)
+	var/newtype = pick(subtypesof(/obj/item/book/skill_manual/combat) - banned_books)
+	new newtype(loc)
+	return INITIALIZE_HINT_QDEL
 
 /obj/item/book/skill_manual/combat/accuracy
 	manual_title = "Точный выстрел"
@@ -150,6 +177,13 @@
 	icon_state = "bookEngineering"
 	item_state = "bookEng"
 
+/obj/item/book/skill_manual/engineering/random/Initialize(mapload)
+	. = ..()
+	var/static/banned_books = list(/obj/item/book/skill_manual/engineering/random)
+	var/newtype = pick(subtypesof(/obj/item/book/skill_manual/engineering) - banned_books)
+	new newtype(loc)
+	return INITIALIZE_HINT_QDEL
+
 /obj/item/book/skill_manual/engineering/building
 	manual_title = "Строительство"
 	desc = "Руководство по строительству."
@@ -174,6 +208,13 @@
 /obj/item/book/skill_manual/medical
 	icon_state = "bookCloning"
 	item_state = "bookCloning"
+
+/obj/item/book/skill_manual/medical/random/Initialize(mapload)
+	. = ..()
+	var/static/banned_books = list(/obj/item/book/skill_manual/medical/random)
+	var/newtype = pick(subtypesof(/obj/item/book/skill_manual/medical) - banned_books)
+	new newtype(loc)
+	return INITIALIZE_HINT_QDEL
 
 /obj/item/book/skill_manual/medical/surgery
 	manual_title = "Хирургия"
@@ -204,6 +245,13 @@
 /obj/item/book/skill_manual/research
 	icon_state = "rdbook"
 	item_state = "rdbook"
+
+/obj/item/book/skill_manual/research/random/Initialize(mapload)
+	. = ..()
+	var/static/banned_books = list(/obj/item/book/skill_manual/research/random)
+	var/newtype = pick(subtypesof(/obj/item/book/skill_manual/research) - banned_books)
+	new newtype(loc)
+	return INITIALIZE_HINT_QDEL
 
 /obj/item/book/skill_manual/research/research
 	manual_title = "Исследование"

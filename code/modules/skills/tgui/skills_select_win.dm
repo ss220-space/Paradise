@@ -66,7 +66,7 @@ GLOBAL_DATUM_INIT(skills_select_window, /datum/ui_module/skills_select_win, new)
 			var/skill_level_color = GLOB.skill_level_colors[actual_skill_level]
 			skill_data["level_color"] = skill_level_color
 			skill_data["desc"] = skill.desc
-			skill_data["can_increase"] = skill_used_points < 2 && actual_skill_level < SKILL_LEVEL_LEGEND && skill_level != SKILL_LEVEL_UNAVAILABLE && free_points > 0
+			skill_data["can_increase"] = skill_used_points < 2 && actual_skill_level < SKILL_LEVEL_EXPERT && skill_level != SKILL_LEVEL_UNAVAILABLE && free_points > 0
 			skill_data["can_decrease"] = skill_used_points > 0
 			skills.Add(list(skill_data))
 
