@@ -543,7 +543,7 @@
 	)
 
 /obj/item/mod/module/sphere_transform/on_activation()
-	if(!get_gravity(get_turf(src)))
+	if(!has_gravity(get_turf(src)))
 		balloon_alert(mod.wearer, "нет гравитации!")
 		return FALSE
 	playsound(src, 'sound/items/modsuit/ballin.ogg', 100, TRUE)
@@ -590,7 +590,7 @@
 /obj/item/mod/module/sphere_transform/on_active_process()
 	animate(mod.wearer) //stop the animation
 	mod.wearer.SpinAnimation(1.5) //start it back again
-	if(!get_gravity(get_turf(src)))
+	if(!has_gravity(get_turf(src)))
 		on_deactivation() //deactivate in no grav
 
 /obj/item/mod/module/sphere_transform/proc/on_statchange(datum/source)

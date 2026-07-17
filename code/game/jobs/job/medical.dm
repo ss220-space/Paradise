@@ -172,6 +172,7 @@
 		ALT_JOB_TITLE_RU_THANATOLOGIST,
 	)
 	outfit = /datum/outfit/job/coroner
+	mind_traits = list(TRAIT_MORBID)
 	skill_levels = list(
 		//medical
 		/datum/skill/medical/surgery = SKILL_LEVEL_BASIC,

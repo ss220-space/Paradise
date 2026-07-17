@@ -69,7 +69,7 @@
 		beaker.attackby(item, user, params)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(item, /obj/item/reagent_containers))
+	if(is_reagent_container(item))
 		add_fingerprint(user)
 		if(!(item.container_type & OPENCONTAINER))
 			balloon_alert(user, "несовместимо!")

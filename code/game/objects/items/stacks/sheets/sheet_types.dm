@@ -198,6 +198,8 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 		new /datum/stack_recipe("wooden bucket", /obj/item/reagent_containers/glass/bucket/wooden, 3, time = 1 SECONDS),
 		new /datum/stack_recipe("wooden buckler", /obj/item/shield/riot/buckler, 20, time = 4 SECONDS),
 		new /datum/stack_recipe("wooden sandals", /obj/item/clothing/shoes/sandal),
+		new /datum/stack_recipe("painting frame", /obj/item/wallframe/painting, 1, time = 1 SECONDS),
+		new /datum/stack_recipe("easel", /obj/structure/easel, 5, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	)),
 	new /datum/stack_recipe_list("wood structures", list(
 		new /datum/stack_recipe("bookcase", /obj/structure/bookcase, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
@@ -309,7 +311,10 @@ GLOBAL_LIST_INIT(cloth_recipes, list(
 	)),
 	new /datum/stack_recipe_list("misc", list(
 		new /datum/stack_recipe("improvised gauze", /obj/item/stack/medical/bruise_pack/improvised, res_amount = 2, max_res_amount = 6),
-		new /datum/stack_recipe("rag", /obj/item/reagent_containers/glass/rag),
+		new /datum/stack_recipe("rag", /obj/item/rag),
+		new/datum/stack_recipe("19x19 canvas", /obj/item/canvas/nineteen_nineteen, 3),
+		new/datum/stack_recipe("23x19 canvas", /obj/item/canvas/twentythree_nineteen, 4),
+		new/datum/stack_recipe("23x23 canvas", /obj/item/canvas/twentythree_twentythree, 5),
 	)),
 	null,
 ))

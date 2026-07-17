@@ -116,71 +116,124 @@
 		return null
 	return msg
 
-/// Filters out undesirable characters from names
-/proc/reject_bad_name(t_in, allow_numbers=0, max_length=MAX_NAME_LEN)
-	// Decode so that names with characters like < are still rejected
-	t_in = html_decode(t_in)
-	if(!t_in || length_char(t_in) > max_length)
-		return //Rejects the input if it is null or if it is longer than the max length allowed
+#define NO_CHARS_DETECTED 0
+#define SPACES_DETECTED 1
+#define SYMBOLS_DETECTED 2
+#define NUMBERS_DETECTED 3
+#define LETTERS_DETECTED 4
+
+/**
+ * Filters out undesirable characters from names.
+ *
+ * * strict - return null immediately instead of filtering out
+ * * allow_numbers - allows numbers and common special characters - used for silicon/other weird things names
+ * * cap_after_symbols - words like Bob's will be capitalized to Bob'S by default. False is good for titles.
+ * * cap_at_start - capitalize the start of words. False is good for modular computer file names.
+ */
+/proc/reject_bad_name(t_in, allow_numbers = FALSE, max_length = MAX_NAME_LEN, ascii_only = TRUE, strict = FALSE, cap_after_symbols = TRUE, cap_at_start = TRUE)
+	if(!t_in)
+		return //Rejects the input if it is null
 
 	var/number_of_alphanumeric = 0
-	var/last_char_group = 0
+	var/last_char_group = NO_CHARS_DETECTED
 	var/t_out = ""
+	var/t_len = length(t_in)
+	var/charcount = 0
+	var/char = ""
 
-	for(var/i=1, i<=length_char(t_in), i++)
-		var/ascii_char = text2ascii_char(t_in,i)
-		switch(ascii_char)
+	// This is a sanity short circuit, if the users name is three times the maximum allowable length of name
+	// We bail out on trying to process the name at all, as it could be a bug or malicious input and we don't
+	// Want to iterate all of it.
+	if(t_len > 3 * MAX_NAME_LEN)
+		return
+	for(var/i = 1, i <= t_len, i += length(char))
+		char = t_in[i]
+		switch(text2ascii(char))
+
 			// A  .. Z, А .. Я, Ё
-			if(65 to 90, 1040 to 1071, 1025) //Uppercase Letters
-				t_out += ascii2text(ascii_char)
+			if(65 to 90 , 1040 to 1071, 1025) //Uppercase Letters
 				number_of_alphanumeric++
-				last_char_group = 4
+				last_char_group = LETTERS_DETECTED
 
 			// a  .. z, а .. я, ё
 			if(97 to 122, 1072 to 1103, 1105) //Lowercase Letters
-				if(last_char_group<2) t_out += uppertext(ascii2text(ascii_char)) //Force uppercase first character
-				else t_out += ascii2text(ascii_char)
+				if(((last_char_group == NO_CHARS_DETECTED || last_char_group == SPACES_DETECTED) && cap_at_start) || (cap_after_symbols && last_char_group == SYMBOLS_DETECTED)) //start of a word
+					char = uppertext(char)
 				number_of_alphanumeric++
-				last_char_group = 4
+				last_char_group = LETTERS_DETECTED
 
 			// 0  .. 9
 			if(48 to 57) //Numbers
-				if(!last_char_group) continue //suppress at start of string
-				if(!allow_numbers) continue
-				t_out += ascii2text(ascii_char)
+				if(!allow_numbers) //allow name to start with number if AI/Borg
+					if(strict)
+						return
+					continue
 				number_of_alphanumeric++
-				last_char_group = 3
-
-			// '  -  . ,
+				last_char_group = NUMBERS_DETECTED
+			// '  -  .
 			if(39, 45, 46, 44) //Common name punctuation
-				if(!last_char_group) continue
-				t_out += ascii2text(ascii_char)
-				last_char_group = 2
-
-			// ~   |   @  :  #  $  %  & *  +  !
-			if(126, 124, 64, 58, 35, 36, 37, 38, 42, 43, 33) //Other symbols that we'll allow (mainly for AI)
-				if(!last_char_group) continue //suppress at start of string
-				if(!allow_numbers) continue
-				t_out += ascii2text(ascii_char)
-				last_char_group = 2
+				if(last_char_group == NO_CHARS_DETECTED)
+					if(strict)
+						return
+					continue
+				last_char_group = SYMBOLS_DETECTED
+			// ~   |   @  :  #  $  %  &  *  +
+			if(126, 124, 64, 58, 35, 36, 37, 38, 42, 43, 43, 33) //Other symbols that we'll allow (mainly for AI)
+				if(last_char_group == NO_CHARS_DETECTED || !allow_numbers) //suppress at start of string
+					if(strict)
+						return
+					continue
+				last_char_group = SYMBOLS_DETECTED
 
 			//Space
 			if(32)
-				if(last_char_group <= 1) continue //suppress double-spaces and spaces at start of string
-				t_out += ascii2text(ascii_char)
-				last_char_group = 1
+				if(last_char_group == NO_CHARS_DETECTED || last_char_group == SPACES_DETECTED) //suppress double-spaces and spaces at start of string
+					if(strict)
+						return
+					continue
+				last_char_group = SPACES_DETECTED
+
+			if(127 to INFINITY)
+				if(ascii_only)
+					if(strict)
+						return
+					continue
+				last_char_group = SYMBOLS_DETECTED //for now, we'll treat all non-ascii characters like symbols even though most are letters
+
 			else
-				return
+				continue
+		t_out += char
+		charcount++
+		if(charcount >= max_length)
+			break
 
-	if(number_of_alphanumeric < 2) return //protects against tiny names like "A" and also names like "' ' ' ' ' ' ' '"
+	if(number_of_alphanumeric < 2)
+		return //protects against tiny names like "A" and also names like "' ' ' ' ' ' ' '"
 
-	if(last_char_group == 1)
-		t_out = copytext(t_out,1,length(t_out)) //removes the last character (in this case a space)
+	if(last_char_group == SPACES_DETECTED)
+		t_out = copytext_char(t_out, 1, -1) //removes the last character (in this case a space)
 
-	for(var/bad_name in list("space","floor","wall","r-wall","monkey","unknown","inactive ai","plating")) //prevents these common metagamey names
-		if(cmptext(t_out,bad_name)) return //(not case sensitive)
+	if(!filter_name_ic(t_out))
+		return
 
 	return t_out
+
+#undef NO_CHARS_DETECTED
+#undef SPACES_DETECTED
+#undef NUMBERS_DETECTED
+#undef LETTERS_DETECTED
+
+/// Helper proc to check if a name is valid for the IC filter
+/proc/filter_name_ic(name)
+	for(var/bad_name in list("space", "floor", "wall", "r-wall", "monkey", "unknown", "inactive ai", "plating")) //prevents these common metagamey names
+		if(cmptext(name, bad_name))
+			return FALSE //(not case sensitive)
+	/*
+	// Protects against names containing IC chat prohibited words.
+	if(is_ic_filtered(name) || is_soft_ic_filtered(name))
+		return FALSE
+	*/
+	return TRUE
 
 /// Checks the beginning of a string for a specified sub-string. This proc is case sensitive
 /// Returns the position of the substring or 0 if it was not found
@@ -769,3 +822,4 @@
 		return json_decode(data)
 	catch
 		return null
+

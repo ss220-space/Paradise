@@ -381,18 +381,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 
 	dump_contents()
 
-/obj/machinery/washing_machine/clean_blood()
-	. = ..()
-	if(!(state & STATE_BLOODY))
-		return .
-	if(state & STATE_OPENED)
-		if(usr)
-			to_chat(usr, span_notice("You have completely cleaned [src]."))
-		toggle_state(STATE_BLOODY)
-	else
-		if(usr)
-			to_chat(usr, span_warning("Open [src]'s hatch first!"))
-
 /obj/machinery/washing_machine/attackby(obj/item/I, mob/user, params)
 	var/is_mob_holder = istype(I, /obj/item/holder)
 	if(!(state & STATE_OPENED) || user.a_intent == INTENT_HARM || istype(I, /obj/item/card/emag) || issoap(I) || (!(state & STATE_HACKED) && is_mob_holder))
@@ -487,7 +475,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 /// Ending of the machine wash cycle
 /obj/machinery/washing_machine/proc/wash_cycle_end()
 	for(var/atom/movable/thing as anything in contents)
-		thing.clean_blood()
+		thing.wash_tg(CLEAN_WASH)
 		SEND_SIGNAL(thing, COMSIG_COMPONENT_CLEAN_ACT, 20)
 		thing.machine_wash(src)
 
@@ -499,6 +487,13 @@ GLOBAL_LIST_INIT(dye_registry, list(
 /obj/machinery/washing_machine/proc/pulsed_callback(wire_check, state_check)
 	if(!wires.is_cut(wire_check) && (state & state_check))
 		toggle_state(state_check)
+
+/obj/machinery/washing_machine/wash_tg(clean_types)
+	. = ..()
+	if(!(state & STATE_WORKING) && state & STATE_BLOODY && (clean_types & CLEAN_TYPE_BLOOD))
+		toggle_state(STATE_BLOODY)
+		update_appearance()
+		. |= COMPONENT_CLEANED
 
 /// What happens to this object when washed inside a washing machine
 /atom/movable/proc/machine_wash(obj/machinery/washing_machine/washer)

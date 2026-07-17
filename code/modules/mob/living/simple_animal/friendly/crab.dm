@@ -36,6 +36,10 @@
 		PREPOSITIONAL = "крабе",
 	)
 
+/mob/living/simple_animal/crab/Initialize(mapload)
+	. = ..()
+	add_traits(list(TRAIT_NODROWN, TRAIT_SWIMMER), INNATE_TRAIT)
+
 /mob/living/simple_animal/crab/royal
 	name = "royal crab"
 	desc = "Величественный королевский краб."

@@ -3,12 +3,22 @@
 	desc = "A folded membrane which rapidly expands into a large cubical shape on activation."
 	icon = 'icons/obj/inflatable.dmi'
 	icon_state = "folded_wall"
+	var/obj/structure/inflatable/structure_path = /obj/structure/inflatable
 
 /obj/item/inflatable/attack_self(mob/user)
 	playsound(loc, 'sound/items/zip.ogg', 75, TRUE)
 	to_chat(user, span_notice("You inflate [src]."))
-	var/obj/structure/inflatable/R = new /obj/structure/inflatable(user.loc)
-	transfer_fingerprints_to(R)
+	inflate(user)
+
+/obj/item/inflatable/proc/inflate(mob/user)
+	if(QDELETED(src))
+		return
+	if(!do_after(user, 0.5 SECONDS, src))
+		return
+	if(QDELETED(src) || QDELETED(user))
+		return
+	var/obj/structure/inflatable/inflated_structure = new structure_path(user.loc)
+	transfer_fingerprints_to(inflated_structure)
 	qdel(src)
 
 /obj/structure/inflatable
@@ -77,14 +87,7 @@
 	name = "inflatable door"
 	desc = "A folded membrane which rapidly expands into a simple door on activation."
 	icon_state = "folded_door"
-
-/obj/item/inflatable/door/attack_self(mob/user)
-	playsound(loc, 'sound/items/zip.ogg', 75, TRUE)
-	to_chat(user, span_notice("You inflate [src]."))
-	var/obj/structure/inflatable/door/R = new /obj/structure/inflatable/door(user.loc)
-	src.transfer_fingerprints_to(R)
-	R.add_fingerprint(user)
-	qdel(src)
+	structure_path = /obj/structure/inflatable/door
 
 /obj/structure/inflatable/door //Based on mineral door code
 	name = "inflatable door"

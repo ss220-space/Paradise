@@ -4,4 +4,5 @@
 		display.mode = AI_DISPLAY_MODE_BLANK
 		display.update_icon(UPDATE_OVERLAYS)
 	src.view_core()
+	update_appearance(UPDATE_ICON)
 	return

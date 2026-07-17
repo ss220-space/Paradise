@@ -912,6 +912,19 @@
 	build_path = /obj/item/assembly/mousetrap
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_MISC)
 
+/datum/design/toner
+	id = "toner"
+	build_type = AUTOLATHE | PROTOLATHE
+	materials = list(MAT_METAL = SMALL_MATERIAL_AMOUNT * 0.1, MAT_GLASS = SMALL_MATERIAL_AMOUNT * 0.1)
+	build_path = /obj/item/toner
+	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_MISC)
+
+/datum/design/toner/large
+	id = "toner_large"
+	materials = list(MAT_METAL = SMALL_MATERIAL_AMOUNT * 0.5, MAT_GLASS = SMALL_MATERIAL_AMOUNT * 0.5)
+	build_path = /obj/item/toner/large
+	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_MISC)
+
 /datum/design/vendor
 	id = "vendor"
 	build_type = AUTOLATHE

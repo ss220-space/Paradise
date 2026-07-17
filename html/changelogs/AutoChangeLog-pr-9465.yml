@@ -1,4 +1,0 @@
-author: "SCPfollower"
-delete-after: True
-changes:
-  - bugfix: "Фикс черно-фиолетовых текстурки при взрыве тайлов травы. (PR #9465)"

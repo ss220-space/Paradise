@@ -27,6 +27,7 @@
 	smoothing_groups = SMOOTH_GROUP_TABLES
 	canSmoothWith = SMOOTH_GROUP_TABLES
 	creates_cover = TRUE
+	var/static/list/give_turf_traits
 	var/frame = /obj/structure/table_frame
 	var/framestack = /obj/item/stack/rods
 	var/buildstack = /obj/item/stack/sheet/metal
@@ -440,7 +441,7 @@
 /obj/structure/table/proc/update_flipped_turf()
 	var/static/list/give_turf_traits
 	if(!give_turf_traits)
-		give_turf_traits = string_list(list(TRAIT_TURF_IGNORE_SLOWDOWN, TRAIT_TURF_IGNORE_SLIPPERY))
+		give_turf_traits = string_list(list(TRAIT_TURF_IGNORE_SLOWDOWN, TRAIT_TURF_IGNORE_SLIPPERY, TRAIT_IMMERSE_STOPPED))
 	if(flipped)
 		RemoveElement(/datum/element/give_turf_traits, give_turf_traits)
 	else
@@ -499,7 +500,7 @@
 		return
 
 	// It won't break with neative gravity.
-	if(M.get_gravity() > NO_GRAVITY && M.mob_size > MOB_SIZE_SMALL)
+	if(M.has_gravity() > NO_GRAVITY && M.mob_size > MOB_SIZE_SMALL)
 		table_shatter(M)
 
 /obj/structure/table/glass/flip(direction, throw_around = TRUE)

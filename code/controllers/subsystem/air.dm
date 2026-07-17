@@ -474,6 +474,7 @@ SUBSYSTEM_DEF(air)
 			var/temperature = currentrun[offset + MILLA_INDEX_TEMPERATURE]
 			if(temperature < T100C && istype(simulated_turf))
 				simulated_turf.MakeSlippery(temperature > T0C ? TURF_WET_WATER : TURF_WET_ICE, 7.9 SECONDS, randfloat(7.9 SECONDS, 8.2 SECONDS))
+				simulated_turf.wash_tg(CLEAN_WASH | CLEAN_RAD, TRUE)
 
 		if(reasons & MILLA_INTERESTING_REASON_CREATE_HOT_ICE)
 			new /obj/item/stack/sheet/hot_ice(turf)

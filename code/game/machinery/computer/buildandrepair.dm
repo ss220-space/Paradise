@@ -578,6 +578,11 @@
 	build_path = /obj/machinery/computer/turbine_computer
 	origin_tech = "programming=4;engineering=4;powerstorage=4"
 
+/obj/item/circuitboard/portrait_printer
+	board_name = "Portrait Printer"
+	greyscale_colors = CIRCUIT_COLOR_SERVICE
+	build_path = /obj/machinery/computer/portrait_printer
+
 /obj/item/circuitboard/HONKputer
 	board_name = "HONKputer"
 	build_path = /obj/machinery/computer/HONKputer

@@ -162,6 +162,7 @@
 	adjust_light()
 
 /obj/structure/fireplace/extinguish()
+	. = ..()
 	if(!lit)
 		return
 

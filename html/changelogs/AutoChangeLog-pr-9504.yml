@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - bugfix: "Буй в гейте пляжа больше не ложит сабсистему инпута. (PR #9504)"

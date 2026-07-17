@@ -289,6 +289,6 @@
 	new /obj/item/storage/box/mousetraps(src)
 	new /obj/item/clothing/under/rank/chef(src)
 	new /obj/item/clothing/head/chefhat(src)
-	new /obj/item/reagent_containers/glass/rag(src)
+	new /obj/item/rag(src)
 	new /obj/item/storage/backpack/syndicate(src)
 	new /obj/item/storage/backpack/duffel/syndie(src)

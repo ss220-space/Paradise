@@ -5283,7 +5283,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/caution,
 		/obj/item/storage/bag/trash,
 		/obj/item/reagent_containers/spray/cleaner,
-		/obj/item/reagent_containers/glass/rag,
+		/obj/item/rag,
 		/obj/item/grenade/chem_grenade/cleaner,
 		/obj/item/grenade/chem_grenade/cleaner,
 		/obj/item/grenade/chem_grenade/cleaner,
