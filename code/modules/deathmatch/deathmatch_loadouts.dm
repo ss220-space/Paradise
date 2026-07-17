@@ -89,10 +89,24 @@
 
 /datum/outfit/deathmatch_loadout/assistant/instagib
 	name = "DM: Instagib"
-	display_name = "Инстагиб-пушка"
-	desc = "Ассистент с инстагиб пушкой"
+	display_name = "Инстагиб-пушка (!!)"
+	desc = "Ассистент с инстагиб пушкой."
 
 	l_hand = /obj/item/gun/energy/laser/instakill
+
+/datum/outfit/deathmatch_loadout/assistant/pulse
+	name = "DM: Pulse Rifle"
+	display_name = "Пульс-карабин (!!)"
+	desc = "Ассистент с пульсовкой отряда смерти."
+
+	l_hand =  /obj/item/gun/energy/pulse
+
+/datum/outfit/deathmatch_loadout/assistant/annihilator
+	name = "DM: Pulse annihilator"
+	display_name = "Пульс-аннигилятор (!!)"
+	desc = "Достаточно веская причина выгнать вас из лобби."
+
+	l_hand = /obj/item/gun/energy/pulse/destroyer/annihilator
 
 /datum/outfit/deathmatch_loadout/operative/sniper
 	name = "Deathmatch: Sniper"
@@ -156,7 +170,6 @@
 		/obj/item/ammo_box/m10mm = 2,
 		/obj/item/ammo_box/magazine/m12g/slug = 5,
 	)
-
 
 /datum/outfit/deathmatch_loadout/tider
 	name = "Deathmatch: Tider"
