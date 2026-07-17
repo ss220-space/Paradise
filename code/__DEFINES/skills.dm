@@ -53,3 +53,15 @@ GLOBAL_LIST_INIT(skill_level_colors, alist(
 	SKILL_LEVEL_LEGEND = "#a64d79",
 	SKILL_LEVEL_UNAVAILABLE = "#999999",
 ))
+
+GLOBAL_LIST_INIT(skill_neurotrainer_blacklist, list(
+	/obj/item/neurotrainer/all_without_combat,
+	/obj/item/neurotrainer/general,
+	/obj/item/neurotrainer/service,
+	/obj/item/neurotrainer/combat,
+	/obj/item/neurotrainer/engineering,
+	/obj/item/neurotrainer/medical,
+	/obj/item/neurotrainer/research,
+))
+GLOBAL_LIST_EMPTY(skill_neurotrainers)
+GLOBAL_LIST_EMPTY(skill_types)

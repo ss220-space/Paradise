@@ -238,7 +238,18 @@
 		/obj/item/book/skill_manual/research,
 		/obj/item/book/skill_manual/research/random,
 	)
-	GLOB.skill_manual_types += subtypesof(/obj/item/book/skill_manual) - banned_skill_books
+	GLOB.skill_manual_types = subtypesof(/obj/item/book/skill_manual) - banned_skill_books
+
+	GLOB.skill_neurotrainers = subtypesof(/obj/item/neurotrainer) - GLOB.skill_neurotrainer_blacklist
+
+	var/list/banned_skill_types = list(
+		/datum/skill/general,
+		/datum/skill/service,
+		/datum/skill/combat,
+		/datum/skill/medical,
+		/datum/skill/research,
+	)
+	GLOB.skill_types = subtypesof(/datum/skill) - banned_skill_types
 
 /**
  * Creates every subtype of a given prototype (excluding the prototype itself) and adds them to a list

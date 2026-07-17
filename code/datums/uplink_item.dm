@@ -2336,6 +2336,18 @@
 	item = /obj/item/implanter/fake_mindshield
 	cost = 5
 
+/datum/uplink_item/implants/neurotrainer
+	name = "Нейротренер небоевых навыков"
+	desc = "Нейротренер который позволяет улучший любой небоевой навык на ваш выбор."
+	item = /obj/item/neurotrainer/all_without_combat
+	cost = 3
+
+/datum/uplink_item/implants/combat_neurotrainer
+	name = "Нейротренер боевых навыков"
+	desc = "Нейротренер который позволяет улучший любой боевой навык на ваш выбор."
+	item = /obj/item/neurotrainer/combat
+	cost = 6
+
 /**
  * MARK: Cybernetic Implants
  */

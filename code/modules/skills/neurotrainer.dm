@@ -16,7 +16,7 @@
 	/// Name of train skill
 	var/manual_title = "Неизвестно"
 	/// Skill points amount
-	var/skill_points = 2
+	var/skill_points = 1
 
 /obj/item/neurotrainer/Initialize(mapload)
 	. = ..()
@@ -49,10 +49,39 @@
 		if(!do_after(user, 5 SECONDS * toolspeed, target, category = DA_CAT_TOOL) || QDELETED(user) || QDELETED(target) || QDELETED(src) || !skill_types)
 			return .
 
-	if(!apply_neurtrainer(target))
-		return .
-
+	addtimer(CALLBACK(src, PROC_REF(apply_neurtrainer), user, target), 1)
 	. |= ATTACK_CHAIN_SUCCESS
+
+/obj/item/neurotrainer/proc/apply_neurtrainer(mob/living/user, mob/living/carbon/target)
+	. = FALSE
+	if(!target.mind)
+		return
+
+	if(skill_types && islist(skill_types))
+		var/choices = list()
+		for(var/datum/skill/skill_type as anything in skill_types)
+			choices[skill_type::name] = skill_type
+		var/choice = tgui_input_list(usr, "Выберите навык для прокачки: ", "Прокачка навыка", choices)
+		if(!skill_types || !choice)
+			return
+		skill_types = choices[choice]
+
+	var/current_skill_level = target.mind.skills[skill_types]
+	if(!current_skill_level)
+		current_skill_level = SKILL_LEVEL_NONE
+	var/applyed_bonus_points = skill_points
+	if(current_skill_level + applyed_bonus_points > SKILL_LEVEL_LEGEND)
+		applyed_bonus_points = SKILL_LEVEL_LEGEND - current_skill_level
+	if(applyed_bonus_points > 0)
+		target.mind.skills[skill_types] = current_skill_level + applyed_bonus_points
+		. = TRUE
+
+	if(!.)
+		return
+
+	skill_types = null
+	update_icon(UPDATE_ICON_STATE)
+
 	if(user == target)
 		to_chat(user, span_notice("Вы использовали нейротренер."))
 	else
@@ -60,34 +89,24 @@
 			span_warning("[user] использовал[GEND_A_O_I(user)] нейротренер в [target]."),
 			span_notice("[user] использовал[GEND_A_O_I(user)] нейротренер на вас."),
 		)
-	skill_types = null
-	update_icon(UPDATE_ICON_STATE)
-
-/obj/item/neurotrainer/proc/apply_neurtrainer(mob/living/carbon/target)
-	. = FALSE
-	if(!target.mind)
-		return
-
-	if(skill_types && !islist(skill_types))
-		skill_types = list(skill_types)
-
-	for(var/skill_type in skill_types)
-		var/current_skill_level = target.mind.skills[skill_type]
-		if(!current_skill_level)
-			current_skill_level = SKILL_LEVEL_NONE
-		var/applyed_bonus_points = skill_points
-		if(current_skill_level + applyed_bonus_points > SKILL_LEVEL_LEGEND)
-			applyed_bonus_points = SKILL_LEVEL_LEGEND - current_skill_level
-		if(applyed_bonus_points > 0)
-			target.mind.skills[skill_type] = current_skill_level + applyed_bonus_points
-			. = TRUE
-
 
 // MARK: Random
+/obj/item/neurotrainer/all_without_combat
+	manual_title = "Небоевые"
+
+/obj/item/neurotrainer/all_without_combat/Initialize(mapload)
+	var/static/combat_skills = list(
+		/datum/skill/combat/accuracy,
+		/datum/skill/combat/guns,
+		/datum/skill/combat/melee,
+		/datum/skill/combat/fists,,
+	)
+	skill_types = GLOB.skill_types - combat_skills
+	. = ..()
+
 /obj/item/neurotrainer/random/Initialize(mapload)
 	. = ..()
-	var/static/banned_books = list(/obj/item/neurotrainer/random)
-	var/newtype = pick(subtypesof(/obj/item/neurotrainer) - banned_books)
+	var/newtype = pick(GLOB.skill_neurotrainers)
 	new newtype(loc)
 	return INITIALIZE_HINT_QDEL
 
@@ -101,7 +120,6 @@
 		/datum/skill/general/lockpick,
 		/datum/skill/general/cooking,
 	)
-	skill_points = 1
 
 /obj/item/neurotrainer/general/carrying
 	manual_title = "Переноска"
@@ -131,7 +149,6 @@
 		/datum/skill/service/botany,
 		/datum/skill/service/cleaning,
 	)
-	skill_points = 1
 
 /obj/item/neurotrainer/service/drink_mixing
 	manual_title = "Напитки"
@@ -154,14 +171,6 @@
 		/datum/skill/combat/melee,
 		/datum/skill/combat/fists,
 	)
-	skill_points = 1
-
-/obj/item/neurotrainer/combat/random/Initialize(mapload)
-	. = ..()
-	var/static/banned_books = list(/obj/item/neurotrainer/combat/random)
-	var/newtype = pick(subtypesof(/obj/item/neurotrainer/combat) - banned_books)
-	new newtype(loc)
-	return INITIALIZE_HINT_QDEL
 
 /obj/item/neurotrainer/combat/accuracy
 	manual_title = "Точный выстрел"
@@ -188,7 +197,6 @@
 		/datum/skill/engineering/electrician,
 		/datum/skill/engineering/atmos,
 	)
-	skill_points = 1
 
 /obj/item/neurotrainer/engineering/building
 	manual_title = "Строительство"
@@ -216,7 +224,6 @@
 		/datum/skill/medical/genetic,
 		/datum/skill/medical/virusology,
 	)
-	skill_points = 1
 
 /obj/item/neurotrainer/medical/surgery
 	manual_title = "Хирургия"
@@ -247,7 +254,6 @@
 		/datum/skill/research/mech_construct,
 		/datum/skill/research/xenobiology,
 	)
-	skill_points = 1
 
 /obj/item/neurotrainer/research/research
 	manual_title = "Исследование"
