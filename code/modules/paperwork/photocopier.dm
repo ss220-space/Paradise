@@ -655,21 +655,24 @@
 
 /obj/machinery/photocopier/proc/parse_forms(mob/user)
 	var/list/access = user.get_access()
-	forms = new/list()
-	for(var/F in subtypesof(/obj/item/paper/form))
-		var/obj/item/paper/form/ff = F
-		var/req_access = initial(ff.access)
+	forms = list()
+	var/static/list/printer_forms
+	if(!printer_forms)
+		printer_forms = valid_subtypesof(/obj/item/paper/form)
+	var/cached_syndicate = syndicate
+	for(var/obj/item/paper/form/form_type as anything in printer_forms)
+		var/req_access = form_type.access
 		if(req_access && !(req_access in access))
 			continue
-		if(syndicate && !(ff in subtypesof(/obj/item/paper/form/syndieform))) //Если у нас синдипритер, нам не нужны другие формы
+		if(cached_syndicate && !(form_type.syndicate))
 			continue
-		if(!syndicate && !emagged && (ff in subtypesof(/obj/item/paper/form/syndieform)))
+		if(!cached_syndicate && !emagged && (form_type.syndicate))
 			continue
-		var/form = list()
-		form["path"] = F
-		form["id"] = initial(ff.id)
-		form["altername"] = initial(ff.altername)
-		form["category"] = initial(ff.category)
+		var/list/form = list()
+		form["path"] = form_type
+		form["id"] = form_type.id
+		form["altername"] = form_type.altername
+		form["category"] = form_type.category
 		forms += list(form)
 
 /obj/machinery/photocopier/proc/print_form(obj/item/paper/form/form)
