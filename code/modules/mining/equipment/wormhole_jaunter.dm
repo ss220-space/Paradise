@@ -31,9 +31,6 @@
 	if(!device_turf || !is_teleport_allowed(device_turf.z))
 		return "Ошибка! Телепортация невозможна."
 
-	if(!is_mining_level(device_turf.z) || istype(get_area(device_turf), /area/ruin/space/bubblegum_arena))
-		return "Ошибка! Требуется натуральная гравитация для размещения якоря."
-
 	return TRUE
 
 /obj/item/wormhole_jaunter/proc/get_destinations()
@@ -83,9 +80,9 @@
 		emagged = TRUE
 		if(user)
 			balloon_alert(user, "протоколы защиты сняты!")
-		var/turf/T = get_turf(src)
-		do_sparks(5, FALSE, T)
-		playsound(T, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		var/turf/our_turf = get_turf(src)
+		do_sparks(5, FALSE, our_turf)
+		playsound(our_turf, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
 /obj/effect/portal/jaunt_tunnel
 	name = "jaunt tunnel"
@@ -108,22 +105,63 @@
 /obj/effect/portal/jaunt_tunnel/update_overlays()
 	. = list()	// we need no mask here
 
-/obj/effect/portal/jaunt_tunnel/can_teleport(atom/movable/M, silent = FALSE)
-	if(!emagged && ismegafauna(M))
+/obj/effect/portal/jaunt_tunnel/can_teleport(atom/movable/movable, silent = FALSE)
+	if(!emagged && ismegafauna(movable))
 		return FALSE
 	return ..()
 
-/obj/effect/portal/jaunt_tunnel/teleport(atom/movable/M)
+/obj/effect/portal/jaunt_tunnel/teleport(atom/movable/movable)
 	. = ..()
-	if(.)
-		// KERPLUNK
-		playsound(M,'sound/weapons/resonator_blast.ogg', 50, TRUE)
-		if(iscarbon(M))
-			var/mob/living/carbon/L = M
-			L.Weaken(12 SECONDS)
-			if(ishuman(L))
-				shake_camera(L, 20, 1)
-				addtimer(CALLBACK(L, TYPE_PROC_REF(/mob/living/carbon, vomit)), 20)
+	if(!.)
+		return .
+	playsound(movable, 'sound/weapons/resonator_blast.ogg', 50, TRUE)
+
+	if(!iscarbon(movable))
+		return
+
+	var/mob/living/carbon/living_target = movable
+	if(ishuman(living_target)) //we need to check this first, because after weaken all held items will be dropped
+		handle_clothing_destruction(living_target)
+	living_target.Weaken(12 SECONDS)
+
+	if(!ishuman(living_target))
+		return
+
+	shake_camera(living_target, 20, 1)
+	addtimer(CALLBACK(living_target, TYPE_PROC_REF(/mob/living/carbon, vomit)), 2 SECONDS)
+
+/obj/effect/portal/jaunt_tunnel/proc/handle_clothing_destruction(mob/living/carbon/human/our_human)
+	if(!ishuman(our_human))
+		return
+
+	var/list/possible_clothings = list()
+	var/obj/item/suit_item = our_human.s_store
+	if(suit_item && !(suit_item.item_flags & ABSTRACT))
+		possible_clothings += suit_item
+	var/obj/item/backpack = our_human.back
+	if(backpack && !(backpack.item_flags & ABSTRACT))
+		possible_clothings += backpack
+	var/obj/item/under = our_human.w_uniform
+	if(under && !(under.item_flags & ABSTRACT))
+		possible_clothings += under
+
+	// The "we really need held_items() proc" code block
+	var/obj/item/hand_item = our_human.l_hand
+	if(hand_item && !(hand_item.item_flags & ABSTRACT))
+		possible_clothings += hand_item
+	var/obj/item/second_hand_item = our_human.r_hand
+	if(second_hand_item && !(second_hand_item.item_flags & ABSTRACT))
+		possible_clothings += second_hand_item
+
+	if(!length(possible_clothings))
+		return
+
+	var/obj/item/picked_item = pick(possible_clothings)
+	if(picked_item.resistance_flags & FIRE_PROOF || picked_item.resistance_flags & LAVA_PROOF)
+		return
+	our_human.temporarily_remove_item_from_inventory(picked_item)
+	to_chat(our_human, span_warning("[DECLENT_RU_CAP(picked_item, NOMINATIVE)] не выдерживает температуры и разрушается!"))
+	qdel(picked_item)
 
 /obj/item/grenade/jaunter_grenade
 	name = "chasm jaunter recovery grenade"
