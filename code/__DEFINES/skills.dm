@@ -14,7 +14,7 @@
 #define DEFAULT_SKILL_LEVEL 2
 
 /// Countf of free skill points by default
-#define BASIC_SKILL_POINTS_COUNT 4
+#define BASIC_SKILL_POINTS_COUNT 5
 
 /// Calculate skill modifier by signal
 #define CALCULATE_SKILL_MOD(user, signal, mod) var/mod = 1;\
