@@ -97,7 +97,7 @@
 /datum/skill/combat/melee
 	id = "combat.melee"
 	name = "Владение оружием ближнего боя"
-	desc = "Влияет на урон и скорость работы с оружием ближнего боя."
+	desc = "Влияет на урон и шансы блока с оружием ближнего боя и щитами."
 	var/damage_mod = alist(
 		SKILL_LEVEL_NONE = 0.70,
 		SKILL_LEVEL_BEGINNER = 0.80,
@@ -108,19 +108,34 @@
 		SKILL_LEVEL_LEGEND = 1.50,
 		SKILL_LEVEL_UNAVAILABLE = 0.01,
 	)
+	var/block_chance_mod = alist(
+		SKILL_LEVEL_NONE = 0.25,
+		SKILL_LEVEL_BEGINNER = 0.50,
+		SKILL_LEVEL_BASIC = 0.75,
+		SKILL_LEVEL_ADVANCED = 1,
+		SKILL_LEVEL_PROFESSIONAL = 1.25,
+		SKILL_LEVEL_EXPERT = 1.5,
+		SKILL_LEVEL_LEGEND = 1.75,
+		SKILL_LEVEL_UNAVAILABLE = 0.001,
+	)
 
 /datum/skill/combat/melee/apply_to_mob(mob/owner)
 	. = ..()
 	RegisterSignal(owner, COMSIG_GET_MELEE_DAMAGE_MOD, PROC_REF(get_melee_damage_mod))
+	RegisterSignal(owner, COMSIG_GET_SHIELD_MOD, PROC_REF(get_shields_mod))
 
 /datum/skill/combat/melee/remove_from_mob(mob/owner)
 	. = ..()
 	UnregisterSignal(owner, COMSIG_GET_MELEE_DAMAGE_MOD)
+	UnregisterSignal(owner, COMSIG_GET_SHIELD_MOD)
 
 /datum/skill/combat/melee/proc/get_melee_damage_mod(mob/living/user, list/results)
 	SIGNAL_HANDLER
 	get_modifier(user, results, damage_mod)
 
+/datum/skill/combat/melee/proc/get_shields_mod(mob/living/user, list/results)
+	SIGNAL_HANDLER
+	get_modifier(user, results, block_chance_mod)
 
 // MARK: Fists
 /datum/skill/combat/fists
@@ -151,32 +166,3 @@
 /datum/skill/combat/fists/proc/get_fists_damage_mod(mob/living/user, list/results)
 	SIGNAL_HANDLER
 	get_modifier(user, results, damage_mod)
-
-
-// MARK: Shields
-/datum/skill/combat/shields
-	id = "combat.shields"
-	name = "Владение щитами (парирование)"
-	desc = "Влияет на шансы блока щитами и парирование."
-	var/block_chance_mod = alist(
-		SKILL_LEVEL_NONE = 0.25,
-		SKILL_LEVEL_BEGINNER = 0.50,
-		SKILL_LEVEL_BASIC = 0.75,
-		SKILL_LEVEL_ADVANCED = 1,
-		SKILL_LEVEL_PROFESSIONAL = 1.25,
-		SKILL_LEVEL_EXPERT = 1.5,
-		SKILL_LEVEL_LEGEND = 1.75,
-		SKILL_LEVEL_UNAVAILABLE = 0.001,
-	)
-
-/datum/skill/combat/shields/apply_to_mob(mob/owner)
-	. = ..()
-	RegisterSignal(owner, COMSIG_GET_SHIELD_MOD, PROC_REF(get_shields_mod))
-
-/datum/skill/combat/shields/remove_from_mob(mob/owner)
-	. = ..()
-	UnregisterSignal(owner, COMSIG_GET_SHIELD_MOD)
-
-/datum/skill/combat/shields/proc/get_shields_mod(mob/living/user, list/results)
-	SIGNAL_HANDLER
-	get_modifier(user, results, block_chance_mod)

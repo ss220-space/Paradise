@@ -179,7 +179,6 @@
 		/datum/skill/combat/guns = SKILL_LEVEL_ADVANCED,
 		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
 		/datum/skill/combat/fists = SKILL_LEVEL_ADVANCED,
-		/datum/skill/combat/shields = SKILL_LEVEL_ADVANCED,
 		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
 	)
 

@@ -30,7 +30,6 @@
 		/datum/skill/combat/guns = SKILL_LEVEL_PROFESSIONAL,
 		/datum/skill/combat/melee = SKILL_LEVEL_PROFESSIONAL,
 		/datum/skill/combat/fists = SKILL_LEVEL_ADVANCED,
-		/datum/skill/combat/shields = SKILL_LEVEL_PROFESSIONAL,
 		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
 	)
 
@@ -104,7 +103,6 @@
 		/datum/skill/combat/guns = SKILL_LEVEL_ADVANCED,
 		/datum/skill/combat/melee = SKILL_LEVEL_ADVANCED,
 		/datum/skill/combat/fists = SKILL_LEVEL_ADVANCED,
-		/datum/skill/combat/shields = SKILL_LEVEL_ADVANCED,
 		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
 	)
 
@@ -158,7 +156,6 @@
 		/datum/skill/combat/guns = SKILL_LEVEL_BASIC,
 		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/fists = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/shields = SKILL_LEVEL_BEGINNER,
 	)
 
 /datum/outfit/job/detective
@@ -222,7 +219,6 @@
 		/datum/skill/combat/guns = SKILL_LEVEL_BASIC,
 		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
 		/datum/skill/combat/fists = SKILL_LEVEL_BASIC,
-		/datum/skill/combat/shields = SKILL_LEVEL_BASIC,
 		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
 	)
 	alt_skill_levels = alist(
@@ -232,7 +228,6 @@
 			/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
 			/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
 			/datum/skill/combat/fists = SKILL_LEVEL_BEGINNER,
-			/datum/skill/combat/shields = SKILL_LEVEL_BEGINNER,
 		),
 	)
 
@@ -332,7 +327,6 @@
 		/datum/skill/combat/guns = SKILL_LEVEL_BASIC,
 		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/fists = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/shields = SKILL_LEVEL_BASIC,
 		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
 	)
 

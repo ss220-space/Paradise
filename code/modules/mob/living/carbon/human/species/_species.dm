@@ -292,7 +292,6 @@
 		/datum/skill/combat/guns = 2,
 		/datum/skill/combat/melee = 2,
 		/datum/skill/combat/fists = 2,
-		/datum/skill/combat/shields = 2,
 		/datum/skill/medical/surgery = 2,
 		/datum/skill/medical/heal = 2,
 		/datum/skill/medical/chemistry = 2,
