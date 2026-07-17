@@ -4,7 +4,6 @@ import { Layout, Window } from '../layouts';
 import { decodeHtmlEntities } from 'common/string';
 import { COLORS } from '../constants';
 
-
 type SkillSelectData = {
   id: string;
   name: string;
@@ -46,24 +45,32 @@ const SkillCategoryTable = (category: SkillsSelectCategory) => {
                 Уровень:
                 <Box inline bold textColor={skill.level_color}>
                   {skill.value + ' '}
-                  {skill.can_decrease ?
+                  {skill.can_decrease ? (
                     <Button
-                      onClick={() => act('decrease', {
-                        "skill": skill.id
-                      })}
-                    >-</Button>
-                    :
+                      onClick={() =>
+                        act('decrease', {
+                          'skill': skill.id,
+                        })
+                      }
+                    >
+                      -
+                    </Button>
+                  ) : (
                     ' '
-                  }
-                  {skill.can_increase ?
+                  )}
+                  {skill.can_increase ? (
                     <Button
-                      onClick={() => act('increase', {
-                        "skill": skill.id
-                      })}
-                    >+</Button>
-                    :
+                      onClick={() =>
+                        act('increase', {
+                          'skill': skill.id,
+                        })
+                      }
+                    >
+                      +
+                    </Button>
+                  ) : (
                     ' '
-                  }
+                  )}
                 </Box>
               </Box>
               <br />
@@ -84,8 +91,14 @@ export const SkillsSelectWin = (props: unknown) => {
     <Window width={725} height={800} theme="nologo">
       <Window.Content>
         <Section
-          title={'Использовано очков навыков: ' + (total_point-free_points) + '/' + total_point}
-          scrollable fill
+          title={
+            'Использовано очков навыков: ' +
+            (total_point - free_points) +
+            '/' +
+            total_point
+          }
+          scrollable
+          fill
           buttons={
             <>
               <Button
@@ -95,13 +108,17 @@ export const SkillsSelectWin = (props: unknown) => {
                 icon="save"
                 disabled={free_points !== 0}
                 onClick={() => act('save')}
-              >Сохранить</Button>
+              >
+                Сохранить
+              </Button>
               <Button
                 ml={0.5}
                 tooltip="Сбросить распределенные очки"
                 icon="refresh"
                 onClick={() => act('reset')}
-              >Сбросить</Button>
+              >
+                Сбросить
+              </Button>
             </>
           }
         >

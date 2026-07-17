@@ -42,17 +42,20 @@ export const SkillManualsShop = (props: unknown) => {
         <ComplexModal />
         <Stack fill vertical>
           <Stack.Item>
-            <Box><b>Баланс:</b> {data.cash} кредитов.</Box>
+            <Box>
+              <b>Баланс:</b> {data.cash} кредитов.
+            </Box>
           </Stack.Item>
           <Stack.Item grow>
             <Section
-              scrollable fill
+              scrollable
+              fill
               title="Список товаров"
               buttons={
                 <Button
                   icon="refresh"
                   disabled={!data.refresh_available}
-                  color='green'
+                  color="green"
                   onClick={() => act('refresh')}
                 >
                   Обновить ассортимент
@@ -75,7 +78,13 @@ export const SkillManualsShop = (props: unknown) => {
                       >
                         {manual.name}
                       </Table.Cell>
-                      <Table.Cell width="40%" textAlign="left" pr="2%" pt="5px" pb="5px">
+                      <Table.Cell
+                        width="40%"
+                        textAlign="left"
+                        pr="2%"
+                        pt="5px"
+                        pb="5px"
+                      >
                         {manual.desc}
                       </Table.Cell>
                       <Table.Cell
