@@ -1,0 +1,4 @@
+author: "NightDawnFox"
+delete-after: True
+changes:
+  - balance: "Джаунтером снова можно пользоваться, но он уничтожает некоторые предметы (PR #9517)"

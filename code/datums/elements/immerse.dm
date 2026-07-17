@@ -248,14 +248,14 @@ GLOBAL_LIST_INIT(immerse_ignored_movable, typecacheof(list(
 	var/x_offset = 0
 	var/y_offset = 0
 	var/movable_width = movable.get_cached_width()
-	/*
+
 	if(ishuman(movable))
 		var/mob/living/carbon/human/as_human = movable
 		if(as_human.cached_body_min_x_offset && movable_width > ICON_SIZE_X)
 			x_offset = as_human.cached_body_min_x_offset
 		if(as_human.cached_body_min_y_offset && movable.get_cached_height() > ICON_SIZE_Y)
 			y_offset = as_human.cached_body_min_y_offset
-	*/
+
 	// Tall mobs still only get covered to their feet, unless they're offset down
 	var/mutable_appearance/immerse_mask = generate_immerse_mask(movable_width, max(ICON_SIZE_Y - movable.pixel_z - y_offset, ICON_SIZE_Y), is_below_water)
 	if(!immerse_mask)

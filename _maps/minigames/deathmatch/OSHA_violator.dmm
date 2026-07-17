@@ -694,9 +694,6 @@
 	dir = 5
 	},
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/machinery/power/emitter/energycannon{
-	dir = 8
-	},
 /turf/simulated/floor/indestructible/gray_floor,
 /area/deathmatch)
 "PZ" = (

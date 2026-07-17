@@ -639,8 +639,6 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	if(freq in SSradio.ANTAG_FREQS)
 		if(!(syndiekey))//Checks to see if it's allowed on that frequency, based on the encryption keys
 			return -1
-		if(freq == SYND_TAIPAN_FREQ && !istype(syndiekey, /obj/item/encryptionkey/syndicate/taipan)) //Чтобы тайпановскую частоту, слышали только тайпановцы
-			return -1
 
 	if(!freq) //received on main frequency
 		if(!listening)
@@ -648,7 +646,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	else if(syndiekey && !(freq in SSradio.syndicate_blacklist))
 		return canhear_range
 	else
-		var/accept = (freq==frequency && listening)
+		var/accept = (freq == frequency && listening)
 		if(!accept)
 			for(var/ch_name in channels)
 				var/datum/radio_frequency/RF = LAZYACCESS(secure_radio_connections, ch_name)
