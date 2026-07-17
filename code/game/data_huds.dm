@@ -711,7 +711,7 @@
 	return get_cached_height() - ICON_SIZE_Y
 
 /atom/proc/adjust_hud_position(image/holder, animate_time = null)
-	if (animate_time)
+	if(animate_time)
 		animate(holder, pixel_w = get_hud_x_offset(), pixel_z = get_hud_y_offset(), time = animate_time)
 		return
 	holder.pixel_w = get_hud_x_offset()

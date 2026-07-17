@@ -67,8 +67,8 @@
 	SEND_SIGNAL(src, COMSIG_LIVING_POST_UPDATE_TRANSFORM, resize, lying_angle, is_opposite_angle)
 
 /mob/living/proc/readjust_atom_huds(animate_time = null)
-	for(var/hud_key in hud_list)
-		var/image/hud_image = hud_list[hud_key]
+	for(var/hud_key, hud_value in hud_list)
+		var/image/hud_image = hud_value
 		if(istype(hud_image))
 			adjust_hud_position(hud_image, animate_time = animate_time)
 
