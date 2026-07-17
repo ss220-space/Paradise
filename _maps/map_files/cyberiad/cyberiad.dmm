@@ -36637,6 +36637,7 @@
 /area/station/engineering/atmos)
 "dbK" = (
 /obj/machinery/light/small,
+/obj/machinery/computer/skill_manuals,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},

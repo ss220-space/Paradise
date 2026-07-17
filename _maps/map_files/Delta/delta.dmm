@@ -107774,8 +107774,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint3)
 "uBF" = (
-/obj/structure/table/wood,
-/obj/item/stack/tape_roll,
+/obj/machinery/computer/skill_manuals,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -115993,6 +115992,7 @@
 	pixel_x = 2;
 	pixel_y = 6
 	},
+/obj/item/stack/tape_roll,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},

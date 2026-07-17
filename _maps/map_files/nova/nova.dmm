@@ -124541,6 +124541,7 @@
 	pixel_x = 1;
 	pixel_y = -2
 	},
+/obj/machinery/computer/skill_manuals,
 /turf/simulated/floor/carpet,
 /area/station/service/library)
 "tcb" = (

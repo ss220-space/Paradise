@@ -249,8 +249,7 @@
 	},
 /area/coldcolony/malta/resid_serv/kitchen)
 "adN" = (
-/obj/structure/table/wood,
-/obj/item/flashlight/lamp,
+/obj/machinery/computer/skill_manuals,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -6840,13 +6839,13 @@
 /turf/simulated/floor/carpet,
 /area/coldcolony/malta/maintenance/casino)
 "cwm" = (
-/obj/structure/table/wood,
 /obj/item/clipboard,
 /obj/item/folder,
 /obj/item/pen/red{
 	pixel_x = 2;
 	pixel_y = 6
 	},
+/obj/structure/table/wood,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -24496,8 +24495,9 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/security/lobby)
 "jif" = (
-/obj/structure/table/wood,
 /obj/item/taperecorder,
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
