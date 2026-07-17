@@ -186,6 +186,10 @@
 			*/
 	update_appearance()
 
+/turf/simulated/floor/water/lavaland_atmos/basalt/smooth_icon()
+	. = ..()
+	update_appearance()
+
 /turf/simulated/floor/water/lavaland_atmos/basalt/update_overlays()
 	. = ..()
 	if(basalt_junction != ALL_SMOOTHING_JUNCTIONS)

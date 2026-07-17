@@ -34,9 +34,9 @@
 	/// Is the lava close to the shore
 	var/deep_water = TRUE
 	/// The icon that covers the lava bits of our turf
-	var/mask_icon = 'icons/turf/floors.dmi'
+	var/mask_icon = 'icons/turf/lava_mask.dmi'
 	/// The icon state that covers the lava bits of our turf
-	var/mask_state = "lava-lightmask"
+	var/mask_state = "lava-255"
 	/// Whether the immerse element has been added yet or not
 	var/immerse_added = FALSE
 
@@ -105,6 +105,16 @@
 		return
 
 	set_light(l_on = TRUE)
+
+/turf/simulated/floor/lava/get_lumcount(minlum, maxlum)
+	if(!light_on)
+		return maxlum
+	return ..()
+
+/turf/simulated/floor/lava/smooth_icon()
+	. = ..()
+	mask_state = "lava-[smoothing_junction]"
+	update_appearance()
 
 /turf/simulated/floor/lava/ChangeTurf(path, defer_change, keep_icon, after_flags, copy_existing_baseturf)
 	var/turf/result = ..()
