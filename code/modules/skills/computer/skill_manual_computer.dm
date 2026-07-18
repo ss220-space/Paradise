@@ -5,6 +5,9 @@
 #define MANUAL_PRICE_MIN 500
 #define MANUAL_PRICE_MAX 1500
 
+GLOBAL_VAR_INIT(skill_manual_computer_refresh_time, world.time)
+GLOBAL_LIST_EMPTY(skill_manual_orders)
+
 /obj/item/circuitboard/computer/skill_manuals
 	board_name = "skill manuals console"
 	greyscale_colors = CIRCUIT_COLOR_COMMAND
@@ -29,14 +32,11 @@
 	icon_screen = "request"
 	req_access = list(ACCESS_LIBRARY)
 	circuit = /obj/item/circuitboard/computer/skill_manuals
-	/// Last refresh time
-	var/orders_refresh_time
-	/// Available purchase items
-	var/list/datum/skill_manual_order/manuals = list()
 
 /obj/machinery/computer/skill_manuals/Initialize(mapload, obj/structure/computerframe/frame)
 	. = ..()
-	refresh_available_manuals()
+	if(length(GLOB.skill_manual_orders) == 0)
+		refresh_available_manuals()
 
 /obj/machinery/computer/skill_manuals/get_ru_names()
 	return alist(
@@ -74,9 +74,9 @@
 	else
 		data["cash"] = "Нет данных!"
 
-	data["refresh_available"] = orders_refresh_time + ORDERS_REFRESH_DURATION <= world.time
+	data["refresh_available"] = GLOB.skill_manual_computer_refresh_time + ORDERS_REFRESH_DURATION <= world.time
 	var/list/manuals_data = list()
-	for(var/datum/skill_manual_order/manual in manuals)
+	for(var/datum/skill_manual_order/manual in GLOB.skill_manual_orders)
 		var/list/manual_data = list()
 		manual_data["type"] = manual.manual_type
 		manual_data["name"] = manual.name
@@ -146,13 +146,13 @@
 
 
 /obj/machinery/computer/skill_manuals/proc/find_manual_by_type(var/type)
-	for(var/datum/skill_manual_order/manual in manuals)
+	for(var/datum/skill_manual_order/manual in GLOB.skill_manual_orders)
 		if(manual.manual_type == type)
 			return manual
 	return null
 
 /obj/machinery/computer/skill_manuals/proc/refresh_available_manuals()
-	QDEL_LIST(manuals)
+	QDEL_LIST(GLOB.skill_manual_orders)
 	var/list/manual_types = pick_multiple_unique(GLOB.skill_manual_types, AVAILABLE_MANUALS_COUNT)
 	for(var/manual_type in manual_types)
 		var/datum/skill_manual_order/manual = new()
@@ -163,8 +163,8 @@
 		manual.price = rand(MANUAL_PRICE_MIN, MANUAL_PRICE_MAX)
 		manual.amount = rand(MANUAL_AMOUNT_MIN, MANUAL_AMOUNT_MAX)
 		qdel(manual_obj)
-		manuals += manual
-	orders_refresh_time = world.time
+		GLOB.skill_manual_orders += manual
+	GLOB.skill_manual_computer_refresh_time = world.time
 
 
 #undef ORDERS_REFRESH_DURATION
