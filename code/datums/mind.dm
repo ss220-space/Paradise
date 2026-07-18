@@ -2644,6 +2644,9 @@
 
 	ASSERT(antag.owner && antag.owner.current)
 	antag.on_gain()
+
+	apply_antag_skills()
+
 	return antag
 
 /**

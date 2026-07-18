@@ -15,6 +15,9 @@
 
 /// Countf of free skill points by default
 #define BASIC_SKILL_POINTS_COUNT 5
+/// Countf of free skill points for antags
+#define BASIC_ANTAG_SKILL_POINTS_COUNT 6
+
 /// Default limit for use free skill points on single skill
 #define DEFAULT_FREE_POINTS_USE_LIMIT 2
 
