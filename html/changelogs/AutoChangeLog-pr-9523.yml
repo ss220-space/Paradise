@@ -1,0 +1,4 @@
+author: "NightDawnFox"
+delete-after: True
+changes:
+  - tweak: "Джаунтером снова нельзя пользоваться на станции (PR #9523)"

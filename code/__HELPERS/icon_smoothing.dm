@@ -184,24 +184,24 @@ GLOBAL_LIST_INIT(adjacent_direction_lookup, generate_adjacent_directions())
 	)
 
 //do not use, use queue_smooth(atom)
-/proc/smooth_icon(atom/A)
-	if(!A || !A.smooth || !A.z)
+/atom/proc/smooth_icon()
+	if(!smooth || !z)
 		return
 
-	if(QDELETED(A))
+	if(QDELETED(src))
 		return
 
-	A.smooth &= ~SMOOTH_QUEUED
-	if(A.smooth & (SMOOTH_TRUE | SMOOTH_MORE))
-		var/adjacencies = calculate_adjacencies(A)
+	smooth &= ~SMOOTH_QUEUED
+	if(smooth & (SMOOTH_TRUE | SMOOTH_MORE))
+		var/adjacencies = calculate_adjacencies(src)
 
-		if(A.smooth & SMOOTH_DIAGONAL)
-			A.diagonal_smooth(adjacencies)
+		if(smooth & SMOOTH_DIAGONAL)
+			diagonal_smooth(adjacencies)
 		else
-			cardinal_smooth(A, adjacencies)
+			cardinal_smooth(src, adjacencies)
 
-	else if(A.smooth & SMOOTH_BITMASK)
-		A.bitmask_smooth()
+	else if(smooth & SMOOTH_BITMASK)
+		bitmask_smooth()
 
 	//if(isturf(A))
 	//	SSdemo.mark_turf(A)
@@ -515,13 +515,13 @@ GLOBAL_LIST_INIT(adjacent_direction_lookup, generate_adjacent_directions())
 	for(var/turf/turf_to_smooth as anything in away_turfs)
 		if(turf_to_smooth.smooth & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 			if(now)
-				smooth_icon(turf_to_smooth)
+				turf_to_smooth.smooth_icon()
 			else
 				QUEUE_SMOOTH(turf_to_smooth)
 		for(var/atom/movable/movable_to_smooth as anything in turf_to_smooth)
 			if(movable_to_smooth.smooth & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 				if(now)
-					smooth_icon(movable_to_smooth)
+					movable_to_smooth.smooth_icon()
 				else
 					QUEUE_SMOOTH(movable_to_smooth)
 

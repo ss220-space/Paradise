@@ -3,6 +3,7 @@
 */
 
 #define RPD_COOLDOWN_TIME 4 //How long should we have to wait between dispensing pipes?
+#define RPD_DISPOSAL_PIPE_CONSTRUCT_DELAY (2 SECONDS)
 #define RPD_WALLBUILD_TIME 40 //How long should drilling into a wall take?
 #define RPD_MENU_ROTATE "Rotate pipes" //Stuff for radial menu
 #define RPD_MENU_FLIP "Flip pipes" //Stuff for radial menu
@@ -131,7 +132,20 @@
 	if(!do_after(user, use_duration * atmos_mod, T))
 		return
 	var/rotate_dir = iconrotation ? iconrotation : user.dir
-	var/obj/structure/disposalconstruct/construct = new(T, whatdpipe, rotate_dir)
+	var/obj/structure/disposalconstruct/construct = new(null, whatdpipe, rotate_dir)
+	if(construct.density)
+		if(check_dpipe_duplicate(T, construct))
+			user.balloon_alert(user, "не хватает места!")
+			qdel(construct)
+			return
+		do_sparks(3, TRUE, T)
+		if(!do_after(user, RPD_DISPOSAL_PIPE_CONSTRUCT_DELAY, T, category = DA_CAT_TOOL))
+			user?.balloon_alert(user, "прервано!")
+			qdel(construct)
+			return
+	if(QDELETED(src) || QDELETED(construct))
+		return
+	construct.forceMove(T)
 	to_chat(user, span_notice("[src] rapidly dispenses the [construct.pipename]!"))
 	var/obj/item/inactive_hand_item = user.get_inactive_hand()
 	if(auto_wrench)
@@ -139,7 +153,6 @@
 	else if(iswrench(inactive_hand_item) && (construct.IsReachableBy(user, inactive_hand_item.reach)))
 		construct.wrench_act(user, inactive_hand_item)
 	activate_rpd(TRUE)
-
 
 /obj/item/rpd/proc/rotate_all_pipes(mob/user, turf/T) //Rotate all pipes on a turf
 	CALCULATE_SKILL_MOD(user, COMSIG_GET_ATMOS_SPEED_MOD, atmos_mod)
@@ -357,7 +370,14 @@
 /obj/item/rpd/proc/draw_beam(atom/target, mob/user)
 	user.Beam(target, icon = 'icons/effects/effects.dmi', icon_state = "rped_upgrade", time = 0.5 SECONDS)
 
+/obj/item/rpd/proc/check_dpipe_duplicate(turf/turf_to_check, obj/structure/disposalconstruct/dpipe_to_compare)
+	for(var/obj/structure/disposalconstruct/disposal_pipe_in_turf in turf_to_check)
+		if(disposal_pipe_in_turf.pipe_type == dpipe_to_compare.pipe_type)
+			return TRUE
+	return FALSE
+
 #undef RPD_COOLDOWN_TIME
+#undef RPD_DISPOSAL_PIPE_CONSTRUCT_DELAY
 #undef RPD_WALLBUILD_TIME
 #undef RPD_MENU_ROTATE
 #undef RPD_MENU_FLIP

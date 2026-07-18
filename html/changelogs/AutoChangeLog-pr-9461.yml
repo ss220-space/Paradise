@@ -1,0 +1,4 @@
+author: "NuSanya"
+delete-after: True
+changes:
+  - bugfix: "Исправлены баги с крафтом и химическими операциями (PR #9461)"
