@@ -30,7 +30,7 @@ GLOBAL_DATUM_INIT(skills_select_window, /datum/ui_module/skills_select_win, new)
 	data["username"] = user.real_name
 	data["job"] = user.job
 	var/used_points = collect_used_skill_points(user)
-	var/total_points = user.mind.free_skill_points
+	var/total_points = user.mind.free_skill_points + user.dna.species.bonus_skill_free_points
 	var/free_points = total_points - used_points
 	data["total_point"] = total_points
 	data["free_points"] = free_points
@@ -110,11 +110,16 @@ GLOBAL_DATUM_INIT(skills_select_window, /datum/ui_module/skills_select_win, new)
 	return used_points
 
 /datum/ui_module/skills_select_win/proc/add_skill_level(mob/user, skill, delta)
-	user.mind.selected_skills[skill] += delta
+	var/max_skill_delta = user.dna.species.max_select_skills[skill]
+	if(!max_skill_delta)
+		max_skill_delta = DEFAULT_FREE_POINTS_USE_LIMIT
+	var/used_points = user.mind.selected_skills[skill]
+	if(used_points + delta > max_skill_delta)
+		delta = max_skill_delta - used_points
 
 /datum/ui_module/skills_select_win/proc/save_skills(mob/user)
 	var/total_used_points = collect_used_skill_points(user)
-	if(total_used_points < user.mind.free_skill_points)
+	if(total_used_points < user.mind.free_skill_points + user.dna.species.bonus_skill_free_points)
 		to_chat(user, span_notice("Распределите все очки!"))
 		return //TODO использовать tgui окно с вопросом, в случае отказа рандомно распределить свободные очки
 

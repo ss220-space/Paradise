@@ -11,10 +11,12 @@
 /// Maximal level of skill level
 #define MAX_SKILL_LEVEL 6
 /// Skill level if not exists skill datum
-#define DEFAULT_SKILL_LEVEL 2
+#define DEFAULT_SKILL_LEVEL 1
 
 /// Countf of free skill points by default
 #define BASIC_SKILL_POINTS_COUNT 5
+/// Default limit for use free skill points on single skill
+#define DEFAULT_FREE_POINTS_USE_LIMIT 2
 
 /// Calculate skill modifier by signal
 #define CALCULATE_SKILL_MOD(user, signal, mod) var/mod = 1;\

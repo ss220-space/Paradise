@@ -60,6 +60,18 @@
 		JOB_MIN_AGE_COMMAND = 13,
 	)
 
+	max_select_skills = list(
+		/datum/skill/general/carrying = 0,
+		/datum/skill/general/mech_drive = 3,
+		/datum/skill/service/drink_mixing = 1,
+		/datum/skill/service/cleaning = 1,
+		/datum/skill/combat/melee = 1,
+		/datum/skill/combat/fists = 1,
+		/datum/skill/medical/surgery = 3,
+		/datum/skill/medical/heal = 3,
+		/datum/skill/research/mech_construct = 3,
+	)
+
 /datum/species/grey/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
 	H.gene_stability += GREYS_ADDITIONAL_GENE_STABILITY

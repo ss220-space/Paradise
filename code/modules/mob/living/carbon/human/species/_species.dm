@@ -284,6 +284,7 @@
 		/datum/skill/general/carrying = 2,
 		/datum/skill/general/mech_drive = 2,
 		/datum/skill/general/mod_use = 2,
+		/datum/skill/general/lockpick = 2,
 		/datum/skill/general/cooking = 2,
 		/datum/skill/service/drink_mixing = 2,
 		/datum/skill/service/botany = 2,
@@ -292,6 +293,10 @@
 		/datum/skill/combat/guns = 2,
 		/datum/skill/combat/melee = 2,
 		/datum/skill/combat/fists = 2,
+		/datum/skill/engineering/building = 2,
+		/datum/skill/engineering/construction = 2,
+		/datum/skill/engineering/electrician = 2,
+		/datum/skill/engineering/atmos = 2,
 		/datum/skill/medical/surgery = 2,
 		/datum/skill/medical/heal = 2,
 		/datum/skill/medical/chemistry = 2,
@@ -302,6 +307,7 @@
 		/datum/skill/research/mech_construct = 2,
 		/datum/skill/research/xenobiology = 2,
 	)
+	var/bonus_skill_free_points = 0
 
 /datum/species/New()
 	unarmed = new unarmed_type()
