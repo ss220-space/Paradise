@@ -21217,7 +21217,6 @@
 	pixel_y = 6
 	},
 /obj/structure/table/wood,
-/obj/structure/table/wood,
 /obj/item/clipboard,
 /obj/item/folder,
 /obj/item/pen/red{
