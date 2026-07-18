@@ -1029,13 +1029,41 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/storage/box/syndie_kit/bonerepair(src)
 
 
+/obj/item/storage/box/syndie_kit/scarecrow
+	name = "scarecrow kit"
+	desc = "Компактный набор с пистолетом «Пугало» и снаряжением."
+
+/obj/item/storage/box/syndie_kit/scarecrow/get_ru_names()
+	return alist(
+		NOMINATIVE = "набор «Пугало»",
+		GENITIVE = "набора «Пугало»",
+		DATIVE = "набору «Пугало»",
+		ACCUSATIVE = "набор «Пугало»",
+		INSTRUMENTAL = "набором «Пугало»",
+		PREPOSITIONAL = "наборе «Пугало»",
+	)
+
 /obj/item/storage/box/syndie_kit/scarecrow/populate_contents()
-	new	/obj/item/gun/projectile/automatic/pistol/aps/scarecrow(src)
+	new /obj/item/gun/projectile/automatic/pistol/aps/scarecrow(src)
 	new /obj/item/ammo_box/magazine/m10mm(src)
 	new /obj/item/ammo_box/magazine/m10mm(src)
 	new /obj/item/clothing/accessory/holster(src)
 	new /obj/item/storage/belt/security/webbing/pouch/fast(src)
 
+
+/obj/item/storage/box/syndie_kit/chameleon_base
+	name = "chameleon kit"
+	desc = "Набор маскировочной одежды и средств связи для оперативной работы."
+
+/obj/item/storage/box/syndie_kit/chameleon_base/get_ru_names()
+	return alist(
+		NOMINATIVE = "набор «Хамелеон»",
+		GENITIVE = "набора «Хамелеон»",
+		DATIVE = "набору «Хамелеон»",
+		ACCUSATIVE = "набор «Хамелеон»",
+		INSTRUMENTAL = "набором «Хамелеон»",
+		PREPOSITIONAL = "наборе «Хамелеон»",
+	)
 
 /obj/item/storage/box/syndie_kit/chameleon_base/populate_contents()
 	new /obj/item/clothing/under/chameleon(src)
@@ -1048,6 +1076,20 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/card/id/syndicate(src)
 
 
+/obj/item/storage/belt/grenade/grenadier
+	name = "grenadier's belt"
+	desc = "Пояс, набитый разнообразными гранатами для создания хаоса."
+
+/obj/item/storage/belt/grenade/grenadier/get_ru_names()
+	return alist(
+		NOMINATIVE = "пояс «гренадера»",
+		GENITIVE = "пояса «гренадера»",
+		DATIVE = "поясу «гренадера»",
+		ACCUSATIVE = "пояс «гренадера»",
+		INSTRUMENTAL = "поясом «гренадера»",
+		PREPOSITIONAL = "поясе «гренадера»",
+	)
+
 /obj/item/storage/belt/grenade/grenadier/populate_contents()
 	for(var/I in 1 to 8)
 		new /obj/item/grenade/smokebomb(src)
@@ -1058,6 +1100,20 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 		new /obj/item/grenade/chem_grenade/metalfoam(src)
 
 
+/obj/item/storage/box/syndie_kit/knife
+	name = "knife kit"
+	desc = "Набор для ближнего боя и стильной экипировки."
+
+/obj/item/storage/box/syndie_kit/knife/get_ru_names()
+	return alist(
+		NOMINATIVE = "набор «нож»",
+		GENITIVE = "набора «нож»",
+		DATIVE = "набору «нож»",
+		ACCUSATIVE = "набор «нож»",
+		INSTRUMENTAL = "набором «нож»",
+		PREPOSITIONAL = "наборе «нож»",
+	)
+
 /obj/item/storage/box/syndie_kit/knife/populate_contents()
 	new /obj/item/kitchen/knife/combat(src)
 	new /obj/item/clothing/accessory/holster/knives(src)
@@ -1066,6 +1122,20 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/clothing/shoes/combat(src)
 	new /obj/item/clothing/gloves/combat(src)
 	new /obj/item/clothing/under/syndicate(src)
+
+/obj/item/storage/box/syndie_kit/slip
+	name = "slip kit"
+	desc = "Набор для создания максимально скользких ситуаций."
+
+/obj/item/storage/box/syndie_kit/slip/get_ru_names()
+	return alist(
+		NOMINATIVE = "набор «Скольжение»",
+		GENITIVE = "набора «Скольжение»",
+		DATIVE = "набору «Скольжение»",
+		ACCUSATIVE = "набор «Скольжение»",
+		INSTRUMENTAL = "набором «Скольжение»",
+		PREPOSITIONAL = "наборе «Скольжение»",
+	)
 
 /obj/item/storage/box/syndie_kit/slip/populate_contents()
 	new /obj/item/clothing/shoes/chameleon/noslip(src)
