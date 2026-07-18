@@ -7,7 +7,7 @@ GLOBAL_DATUM_INIT(skills_select_window, /datum/ui_module/skills_select_win, new)
 /datum/ui_module/skills_select_win/ui_state(mob/user)
 	if(isobserver(user))
 		return ..()
-	if(!user.mind)
+	if(!user.mind || !user.dna || !user.dna.species)
 		return ..()
 	return GLOB.not_incapacitated_state
 

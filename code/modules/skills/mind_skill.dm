@@ -1,12 +1,14 @@
 /datum/mind/proc/init_skills(mob/user)
+	if(skills_initialized)
+		return
 	for(var/skill_name in GLOB.skills)
 		var/datum/skill/skill = GLOB.skills[skill_name]
-		set_skill_level(skill.type, DEFAULT_SKILL_LEVEL)
+		set_skill_level(skill.type, SKILL_LEVEL_BASIC)
 
 /datum/mind/proc/get_skill_level(skill_type)
 	var/level = skills[skill_type]
 	if(level == null)
-		return SKILL_LEVEL_UNAVAILABLE
+		return SKILL_LEVEL_BASIC
 	return level
 
 /datum/mind/proc/set_skill_level(skill_type, level)
@@ -17,6 +19,7 @@
 		return
 	if(skills_initialized)
 		unregister_skill_signals_for_user(skills_initialized)
+	init_skills(user)
 	skills_initialized = user
 	RegisterSignal(user, COMSIG_GET_SKILL_LEVEL, PROC_REF(get_skill_level_from_signal))
 	RegisterSignal(user, COMSIG_SKILL_AVAILABLE, PROC_REF(get_skill_available_from_signal))
