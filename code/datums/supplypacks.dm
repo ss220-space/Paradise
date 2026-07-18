@@ -6183,11 +6183,11 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/vending/manuals
 	name = "Набор различных руководств"
 	contains = list(
-		/obj/item/neurotrainer/random,
-		/obj/item/neurotrainer/random,
-		/obj/item/neurotrainer/random,
-		/obj/item/neurotrainer/random,
-		/obj/item/neurotrainer/random,
+		/obj/item/book/skill_manual/general/random,
+		/obj/item/book/skill_manual/general/random,
+		/obj/item/book/skill_manual/general/random,
+		/obj/item/book/skill_manual/general/random,
+		/obj/item/book/skill_manual/general/random,
 	)
 	credits_cost = 5000
 	containername = "ящик различных руководств"
