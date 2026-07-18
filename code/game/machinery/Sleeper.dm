@@ -246,30 +246,27 @@
 		data["isBeakerLoaded"] = FALSE
 
 	var/chemicals[0]
-	for(var/re in possible_chems)
-		var/datum/reagent/temp = new re()
-		if(temp)
-			var/reagent_amount = 0
-			var/pretty_amount
-			var/injectable = occupant ? 1 : 0
-			var/overdosing = 0
-			var/caution = 0 // To make things clear that you're coming close to an overdose
-			if(crisis && !(temp.type in emergency_chems))
-				injectable = 0
+	for(var/datum/reagent/re in possible_chems)
+		var/datum/reagent/temp = GLOB.chemical_reagents_list[re]
+		var/reagent_amount = 0
+		var/pretty_amount
+		var/injectable = occupant ? 1 : 0
+		var/overdosing = 0
+		var/caution = 0 // To make things clear that you're coming close to an overdose
+		if(crisis && !(re in emergency_chems))
+			injectable = 0
 
-			if(occupant?.reagents)
-				reagent_amount = occupant.reagents.get_reagent_amount(temp.type)
-				// If they're mashing the highest concentration, they get one warning
-				if(temp.overdose_threshold && reagent_amount + 10 > temp.overdose_threshold)
-					caution = 1
-				if(temp.type in occupant.reagents.overdose_list())
-					overdosing = 1
+		if(occupant?.reagents)
+			reagent_amount = occupant.reagents.get_reagent_amount(re)
+			// If they're mashing the highest concentration, they get one warning
+			if(temp.overdose_threshold && reagent_amount + 10 > temp.overdose_threshold)
+				caution = 1
+			if(temp.type in occupant.reagents.overdose_list())
+				overdosing = 1
 
-			pretty_amount = round(reagent_amount, 0.05)
+		pretty_amount = round(reagent_amount, 0.05)
 
-			chemicals.Add(list(list("title" = temp.name, "id" = temp.type, "commands" = list("chemical" = temp.id), "occ_amount" = reagent_amount, "pretty_amount" = pretty_amount, "injectable" = injectable, "overdosing" = overdosing, "od_warning" = caution)))
-
-			QDEL_NULL(temp)
+		chemicals.Add(list(list("title" = temp.name, "id" = temp.type, "commands" = list("chemical" = temp.id), "occ_amount" = reagent_amount, "pretty_amount" = pretty_amount, "injectable" = injectable, "overdosing" = overdosing, "od_warning" = caution)))
 
 	data["chemicals"] = chemicals
 	return data

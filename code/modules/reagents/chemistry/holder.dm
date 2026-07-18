@@ -698,6 +698,10 @@
 		return TRUE
 
 /datum/reagents/proc/remove_reagent(reagent, amount, safety) //Added a safety check for the trans_id_to
+	if(!ispath(reagent))
+		stack_trace("invalid reagent passed to remove reagent [reagent]")
+		return FALSE
+
 	if(!isnum(amount))
 		return TRUE
 
@@ -722,6 +726,10 @@
 	return FALSE
 
 /datum/reagents/proc/has_reagent(reagent, amount = -1)
+	if(!ispath(reagent))
+		stack_trace("invalid reagent passed to has reagent [reagent]")
+		return FALSE
+
 	for(var/datum/reagent/R in reagent_list)
 		if(R.type == reagent)
 			if(!amount)
@@ -734,6 +742,10 @@
 	return FALSE
 
 /datum/reagents/proc/has_addict_supertype_reagent(reagent, amount = -1)
+	if(!ispath(reagent))
+		stack_trace("invalid reagent passed to has addict supertype reagent [reagent]")
+		return FALSE
+
 	for(var/datum/reagent/R in reagent_list)
 		if(R.type == R.addict_supertype)
 			if(!amount)

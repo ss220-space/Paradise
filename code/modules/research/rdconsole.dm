@@ -722,9 +722,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if("disposeI")  //Causes the circuit imprinter to dispose of a single reagent (all of it)
 			if(linked_imprinter)
-				var/reagent_id = params["id"]
-				var/datum/reagent/reagent = find_chemical_reagent_by_id(reagent_id)
-				linked_imprinter.reagents.del_reagent(reagent.type)
+				var/reagent_type = text2path(params["id"])
+				linked_imprinter.reagents.del_reagent(reagent_type)
 
 		if("disposeallI") //Causes the circuit imprinter to dispose of all it's reagents.
 			if(linked_imprinter)
@@ -732,9 +731,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if("disposeP")  //Causes the protolathe to dispose of a single reagent (all of it)
 			if(linked_lathe)
-				var/reagent_id = params["id"]
-				var/datum/reagent/reagent = find_chemical_reagent_by_id(reagent_id)
-				linked_lathe.reagents.del_reagent(reagent.type)
+				var/reagent_type = text2path(params["id"])
+				linked_lathe.reagents.del_reagent(reagent_type)
 
 		if("disposeallP") //Causes the protolathe to dispose of all it's reagents.
 			if(linked_lathe)
@@ -891,7 +889,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			loaded_chemicals[++loaded_chemicals.len] = loaded_chemical
 			loaded_chemical["name"] = R.name
 			loaded_chemical["volume"] = R.volume
-			loaded_chemical["id"] = R.id
+			loaded_chemical["id"] = R.type
 
 /obj/machinery/computer/rdconsole/proc/can_copy_design(datum/design/D)
 	if(D)
