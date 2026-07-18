@@ -122,12 +122,12 @@
 /datum/skill/combat/melee/apply_to_mob(mob/owner)
 	. = ..()
 	RegisterSignal(owner, COMSIG_GET_MELEE_DAMAGE_MOD, PROC_REF(get_melee_damage_mod))
-	RegisterSignal(owner, COMSIG_GET_SHIELD_MOD, PROC_REF(get_shields_mod))
+	//RegisterSignal(owner, COMSIG_GET_SHIELD_MOD, PROC_REF(get_shields_mod)) //TODO temp disable
 
 /datum/skill/combat/melee/remove_from_mob(mob/owner)
 	. = ..()
 	UnregisterSignal(owner, COMSIG_GET_MELEE_DAMAGE_MOD)
-	UnregisterSignal(owner, COMSIG_GET_SHIELD_MOD)
+	//UnregisterSignal(owner, COMSIG_GET_SHIELD_MOD)
 
 /datum/skill/combat/melee/proc/get_melee_damage_mod(mob/living/user, list/results)
 	SIGNAL_HANDLER
