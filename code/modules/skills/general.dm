@@ -13,8 +13,31 @@
 	id = "general.mech_drive"
 	name = "Управление мехами (подами)"
 	desc = "Влияет на скорость передвижения мехов и подов. Также влияет на скорость разряда батареи."
-	duration_mod_signals = list(COMSIG_GET_MECHA_DRIVING_SPEED_MOD, COMSIG_GET_MECHA_CLIMBING_SPEED_MOD)
+	duration_mod_signals = list(COMSIG_GET_MECHA_CLIMBING_SPEED_MOD)
 	quality_mod_signals = list(COMSIG_GET_MECHA_CELL_USAGE_MOD, COMSIG_GET_SPACEPOD_BATTERY_USAGE_MOD)
+	var/mech_speed_mod = alist(
+		SKILL_LEVEL_NONE = 0.75,
+		SKILL_LEVEL_BEGINNER = 0.90,
+		SKILL_LEVEL_BASIC = 1.05,
+		SKILL_LEVEL_ADVANCED = 1.20,
+		SKILL_LEVEL_PROFESSIONAL = 1.35,
+		SKILL_LEVEL_EXPERT = 1.5,
+		SKILL_LEVEL_LEGEND = 1.75,
+		SKILL_LEVEL_UNAVAILABLE = 0.01,
+	)
+
+/datum/skill/general/mech_drive/apply_to_mob(mob/owner)
+	. = ..()
+	RegisterSignal(owner, COMSIG_GET_MECHA_DRIVING_SPEED_MOD, PROC_REF(get_mech_speed_mod))
+
+/datum/skill/general/mech_drive/remove_from_mob(mob/owner)
+	. = ..()
+	UnregisterSignal(owner, COMSIG_GET_MECHA_DRIVING_SPEED_MOD)
+
+/datum/skill/general/mech_drive/proc/get_mech_speed_mod(mob/living/user, list/results)
+	SIGNAL_HANDLER
+	get_modifier(user, results, mech_speed_mod)
+
 
 /datum/skill/general/mod_use
 	id = "general.mod_use"
