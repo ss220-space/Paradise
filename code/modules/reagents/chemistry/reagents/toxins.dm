@@ -238,7 +238,7 @@
 
 /datum/reagent/radium/on_mob_life(mob/living/affected_mob)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(isnucleation(affected_mob))
+	if(HAS_TRAIT(affected_mob, TRAIT_RAD_HEAL))
 		update_flags |= affected_mob.adjustBruteLoss(NUCLEATION_RADIOACTIVE_HEAL * REM, updating_health = FALSE)
 		update_flags |= affected_mob.adjustFireLoss(NUCLEATION_RADIOACTIVE_HEAL * REM, updating_health = FALSE)
 		return ..() | update_flags
@@ -277,7 +277,7 @@
 
 /datum/reagent/polonium/on_mob_life(mob/living/affected_mob)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(isnucleation(affected_mob))
+	if(HAS_TRAIT(affected_mob, TRAIT_RAD_HEAL))
 		update_flags |= affected_mob.adjustBruteLoss(NUCLEATION_RADIOACTIVE_HEAL * REM, updating_health = FALSE)
 		update_flags |= affected_mob.adjustFireLoss(NUCLEATION_RADIOACTIVE_HEAL * REM, updating_health = FALSE)
 		return ..() | update_flags
@@ -379,7 +379,7 @@
 
 /datum/reagent/uranium/on_mob_life(mob/living/affected_mob)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(isnucleation(affected_mob))
+	if(HAS_TRAIT(affected_mob, TRAIT_RAD_HEAL))
 		update_flags |= affected_mob.adjustBruteLoss(NUCLEATION_RADIOACTIVE_HEAL * REM, updating_health = FALSE)
 		update_flags |= affected_mob.adjustFireLoss(NUCLEATION_RADIOACTIVE_HEAL * REM, updating_health = FALSE)
 		return ..() | update_flags
