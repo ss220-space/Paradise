@@ -60,13 +60,16 @@ GLOBAL_DATUM_INIT(skills_select_window, /datum/ui_module/skills_select_win, new)
 			skill_data["name"] = skill.name
 			GET_SKILL_LEVEL(user, skill.type, skill_level)
 			var/skill_used_points = user.mind.selected_skills[skill.type]
+			var/max_skill_delta = DEFAULT_FREE_POINTS_USE_LIMIT
+			if(skill.type in user.dna.species.max_select_skills)
+				max_skill_delta = user.dna.species.max_select_skills[skill.type]
 			var/actual_skill_level = skill_level + skill_used_points
 			var/skill_level_name = GLOB.skill_level_names[actual_skill_level]
 			skill_data["value"] = "[skill_level_name] ([actual_skill_level])"
 			var/skill_level_color = GLOB.skill_level_colors[actual_skill_level]
 			skill_data["level_color"] = skill_level_color
 			skill_data["desc"] = skill.desc
-			skill_data["can_increase"] = skill_used_points < 2 && actual_skill_level < SKILL_LEVEL_EXPERT && skill_level != SKILL_LEVEL_UNAVAILABLE && free_points > 0
+			skill_data["can_increase"] = skill_used_points < max_skill_delta && actual_skill_level < SKILL_LEVEL_EXPERT && skill_level != SKILL_LEVEL_UNAVAILABLE && free_points > 0
 			skill_data["can_decrease"] = skill_used_points > 0
 			skills.Add(list(skill_data))
 
@@ -110,12 +113,13 @@ GLOBAL_DATUM_INIT(skills_select_window, /datum/ui_module/skills_select_win, new)
 	return used_points
 
 /datum/ui_module/skills_select_win/proc/add_skill_level(mob/user, skill, delta)
-	var/max_skill_delta = user.dna.species.max_select_skills[skill]
-	if(!max_skill_delta)
-		max_skill_delta = DEFAULT_FREE_POINTS_USE_LIMIT
+	var/max_skill_delta = DEFAULT_FREE_POINTS_USE_LIMIT
+	if(skill in user.dna.species.max_select_skills)
+		max_skill_delta = user.dna.species.max_select_skills[skill]
 	var/used_points = user.mind.selected_skills[skill]
 	if(used_points + delta > max_skill_delta)
 		delta = max_skill_delta - used_points
+	user.mind.selected_skills[skill] += delta
 
 /datum/ui_module/skills_select_win/proc/save_skills(mob/user)
 	var/total_used_points = collect_used_skill_points(user)

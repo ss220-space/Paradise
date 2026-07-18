@@ -88,7 +88,7 @@ export const SkillsSelectWin = (props: unknown) => {
   const { username, job, categories, free_points, total_point } = data;
 
   return (
-    <Window width={725} height={800} theme="nologo">
+    <Window width={725} height={820} theme="nologo">
       <Window.Content>
         <Section
           title={
