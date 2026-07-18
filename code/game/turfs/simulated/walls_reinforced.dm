@@ -68,7 +68,7 @@
 			to_chat(user, span_warning("You need at least [d_state] sheets of metal repair the damage."))
 			return .
 		to_chat(user, span_notice("You begin patching-up the wall with [metal]..."))
-		if(!do_after(user, max(2 SECONDS * d_state, 10 SECONDS) * metal.toolspeed * building_mod, src, category = DA_CAT_TOOL) || d_state == RWALL_INTACT || QDELETED(metal))
+		if(!do_after(user, max(2 SECONDS * d_state, 10 SECONDS) * metal.toolspeed * building_mod, src, category = DA_CAT_TOOL, max_interact_count = 1) || d_state == RWALL_INTACT || QDELETED(metal))
 			return .
 		if(!metal.use(d_state))
 			to_chat(user, span_warning("At some point during the repair process you lost some metal or the wall state has changed. Make sure you have [d_state] sheets of metal before trying again."))
@@ -85,7 +85,7 @@
 			to_chat(user, span_notice("The wall is already coated!"))
 			return .
 		to_chat(user, span_notice("You begin adding an additional layer of coating to the wall with [plasteel]..."))
-		if(!do_after(user, 4 SECONDS * plasteel.toolspeed * building_mod, src, category = DA_CAT_TOOL) || d_state != RWALL_INTACT || QDELETED(plasteel))
+		if(!do_after(user, 4 SECONDS * plasteel.toolspeed * building_mod, src, category = DA_CAT_TOOL, max_interact_count = 1) || d_state != RWALL_INTACT || QDELETED(plasteel))
 			return .
 		if(!plasteel.use(2))
 			to_chat(user, span_warning("You don't have enough [plasteel.name] for that!"))
@@ -234,7 +234,7 @@
 	if(istype(I, /obj/item/pickaxe/drill/diamonddrill))
 		to_chat(user, span_notice("You begin to drill though the wall..."))
 
-		if(do_after(user, 80 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL)) // Diamond drill has 0.25 toolspeed, so 200
+		if(do_after(user, 80 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL, max_interact_count = 1)) // Diamond drill has 0.25 toolspeed, so 200
 			to_chat(user, span_notice("Your drill tears through the last of the reinforced plating."))
 			dismantle_wall()
 		return TRUE
@@ -242,14 +242,14 @@
 	if(istype(I, /obj/item/pickaxe/drill/jackhammer))
 		to_chat(user, span_notice("You begin to disintegrate the wall..."))
 		var/obj/item/pickaxe/drill/jackhammer/jh = I
-		if(do_after(user, 100 SECONDS * jh.wall_toolspeed, src, category = DA_CAT_TOOL)) // Jackhammer has 0.1 toolspeed, so 100
+		if(do_after(user, 100 SECONDS * jh.wall_toolspeed, src, category = DA_CAT_TOOL, max_interact_count = 1)) // Jackhammer has 0.1 toolspeed, so 100
 			to_chat(user, span_notice("Your sonic jackhammer disintegrates the reinforced plating."))
 			dismantle_wall()
 		return TRUE
 
 	if(istype(I, /obj/item/twohanded/required/pyro_claws))
 		to_chat(user, span_notice("You begin to melt the wall..."))
-		if(do_after(user, 15 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL)) // claws has 0.5 toolspeed, so 7.5 seconds
+		if(do_after(user, 15 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL, max_interact_count = 1)) // claws has 0.5 toolspeed, so 7.5 seconds
 			to_chat(user, span_notice("Your [I] melt the reinforced plating."))
 			dismantle_wall()
 		return TRUE
