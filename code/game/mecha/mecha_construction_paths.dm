@@ -7,7 +7,7 @@
 /datum/construction/mecha/custom_action(step, atom/used_atom, mob/user)
 	CALCULATE_SKILL_MOD(usr, COMSIG_GET_MECH_CONSTRUCT_DURATION_MOD, skill_duration_mod)
 	if(iscoil(used_atom))
-		if(!do_after(user, skill_duration_mod, src))
+		if(!do_after(user, skill_duration_mod, holder))
 			return FALSE
 		var/obj/item/stack/cable_coil/C = used_atom
 		if(C.use(4))
@@ -22,14 +22,12 @@
 			to_chat(user, ("There's not enough material in this stack."))
 			return FALSE
 		else
-			if(!do_after(user, skill_duration_mod, src))
+			if(!do_after(user, skill_duration_mod, holder))
 				return FALSE
 			S.use(STANDARD_STACK_AMOUNT)
 			return TRUE
 	else
-		if(!do_after(user, skill_duration_mod, src))
-			return FALSE
-		return TRUE
+		return ..()
 
 /datum/construction/mecha/spawn_result(name)
 	SSblackbox.record_feedback("tally", "mechas_created", 1, "[name]")
@@ -37,7 +35,7 @@
 /datum/construction/reversible/mecha/custom_action(index as num, diff as num, atom/used_atom, mob/user as mob)
 	CALCULATE_SKILL_MOD(usr, COMSIG_GET_MECH_CONSTRUCT_DURATION_MOD, skill_duration_mod)
 	if(iscoil(used_atom))
-		if(!do_after(user, skill_duration_mod, src))
+		if(!do_after(user, skill_duration_mod, holder))
 			return FALSE
 		var/obj/item/stack/cable_coil/C = used_atom
 		if(C.use(4))
@@ -52,7 +50,7 @@
 			to_chat(user, ("There's not enough material in this stack."))
 			return 0
 		else
-			if(!do_after(user, skill_duration_mod, src))
+			if(!do_after(user, skill_duration_mod, holder))
 				return FALSE
 			S.use(STANDARD_STACK_AMOUNT)
 			return TRUE
@@ -63,9 +61,7 @@
 				return 0
 			return TRUE
 	else
-		if(!do_after(user, skill_duration_mod, src))
-			return FALSE
-		return TRUE
+		return ..()
 
 #undef STANDARD_STACK_AMOUNT
 

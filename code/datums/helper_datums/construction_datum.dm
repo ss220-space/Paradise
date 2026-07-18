@@ -47,7 +47,7 @@
 /datum/construction/proc/custom_action(step, used_atom, user)
 	CALCULATE_SKILL_MOD(usr, COMSIG_GET_CONSTRUCTING_SPEED_MOD, skill_duration_mod)
 	if(iscoil(used_atom))
-		if(!do_after(user, skill_duration_mod, src))
+		if(!do_after(user, skill_duration_mod, holder))
 			return FALSE
 		var/obj/item/stack/cable_coil/C = used_atom
 		if(C.get_amount() < 4)
@@ -57,7 +57,7 @@
 			C.use(4)
 			playsound(holder, C.usesound, 50, TRUE)
 	else if(isstack(used_atom))
-		if(!do_after(user, skill_duration_mod, src))
+		if(!do_after(user, skill_duration_mod, holder))
 			return FALSE
 		var/obj/item/stack/S = used_atom
 		if(S.get_amount() < 5)
@@ -70,7 +70,7 @@
 		if(I.tool_behaviour in CONSTRUCTION_TOOL_BEHAVIOURS)
 			if(!I.use_tool(holder, user, skill_duration_mod, volume = I.tool_volume))
 				return 0
-	if(!do_after(user, skill_duration_mod, src))
+	if(!do_after(user, skill_duration_mod, holder))
 		return FALSE
 	return TRUE
 
