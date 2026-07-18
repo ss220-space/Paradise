@@ -6747,7 +6747,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 
 /datum/supply_packs/contraband/neurotrainers
-	name = "Пистолет пулемет \"Узи\""
+	name = "Случайные нейротренеры навыков"
 	contains = list(
 		/obj/item/neurotrainer/random,
 		/obj/item/neurotrainer/random,
