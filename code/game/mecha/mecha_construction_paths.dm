@@ -60,8 +60,7 @@
 			if(!I.use_tool(holder, user, skill_duration_mod, volume = I.tool_volume))
 				return 0
 			return TRUE
-	else
-		return ..()
+	return TRUE
 
 #undef STANDARD_STACK_AMOUNT
 
