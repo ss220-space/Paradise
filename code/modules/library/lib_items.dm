@@ -267,6 +267,8 @@
 	var/obj/item/store
 	/// Book DRM. If this var is TRUE, it cannot be scanned and re-uploaded
 	var/has_drm = FALSE
+	/// Begin read with examine
+	var/read_by_examine = TRUE
 
 /obj/item/book/get_ru_names()
 	return alist(
@@ -285,10 +287,11 @@
 /obj/item/book/examine(mob/user)
 	. = ..()
 	if(user.is_literate())
-		if(in_range(user, src) || isobserver(user))
-			attack_self(user)
-		else
-			. += span_notice("Вам стоит подойти ближе, чтобы её прочесть.")
+		if(read_by_examine)
+			if(in_range(user, src) || isobserver(user))
+				attack_self(user)
+			else
+				. += span_notice("Вам стоит подойти ближе, чтобы её прочесть.")
 	else
 		. += span_notice("Вы не умеете читать.")
 

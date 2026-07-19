@@ -135,6 +135,8 @@
 	var/list/selected_skills = null
 	/// Active skill bonuses from skill manuals
 	var/list/active_skill_bonuses = list()
+	/// Active skill bonuses from skill manuals
+	var/list/read_manuals = list()
 
 	///Owned cyborg skin permissions
 	var/list/cyborg_skin_permissions = list()

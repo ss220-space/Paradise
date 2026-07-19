@@ -1,9 +1,15 @@
+#define MANUAL_READ_PAGES_AMOUNT 36
+#define MANUAL_PAGE_READ_DURATION 5 SECONDS
+
 /obj/item/book/skill_manual
 	w_class = WEIGHT_CLASS_SMALL
 	desc = "Неизвестное руководство."
 	has_drm = TRUE
+	read_by_examine = FALSE
 	/// title for localization
 	var/manual_title = "Неизвестно"
+	/// Count of pages for read
+	var/pages_amount = MANUAL_READ_PAGES_AMOUNT
 	/// skill for bonus
 	var/skill_type
 	/// how many points increase skill
@@ -69,6 +75,45 @@
 		user.mind.skills[skill_type] = user.mind.skills[skill_type] - applyed_bonus_points
 		user.mind.active_skill_bonuses -= skill_type
 	applyed_bonus_points = 0
+
+/obj/item/book/skill_manual/attack_self(mob/user)
+	if(carved)
+		return ..()
+
+	if(!user.mind || !user.is_literate())
+		to_chat(user, span_notice("Вы не можете читать [declent_ru(NOMINATIVE)]!"))
+		return
+
+	if(type in user.mind.read_manuals)
+		var/pages = user.mind.read_manuals[type]
+		if(pages >= pages_amount)
+			to_chat(user, span_notice("Вы уже прочитали [declent_ru(NOMINATIVE)]!"))
+			return
+
+	to_chat(user, span_notice("Вы начинаете читать [declent_ru(NOMINATIVE)]..."))
+
+	while(do_after(user, 5 SECONDS, src, max_interact_count = 1))
+		if(!(type in user.mind.read_manuals))
+			user.mind.read_manuals[type] = 0
+		user.mind.read_manuals[type] += 1
+		if(user.mind.read_manuals[type] >= pages_amount)
+			// remove temo variable from manual, but bonus hold in active_skill_bonuses (prevent dupe bonuses)
+			applyed_bonus_points = 0
+			to_chat(user, span_notice("Вы полностью прочитали [declent_ru(NOMINATIVE)] и запомнили все что в нем было!"))
+			balloon_alert(user, "чтение завершено!")
+			return
+
+	balloon_alert(user, "чтение прервано!")
+
+/obj/item/book/skill_manual/examine(mob/user)
+	. = ..()
+	var/complete_pages = 0
+	if(type in user.mind.read_manuals)
+		complete_pages = user.mind.read_manuals[type]
+	if(complete_pages >= pages_amount)
+		. += span_notice("Вы уже полностью прочитали и запомнили данное руководство.")
+		return
+	. += span_notice("Прочитано [complete_pages] страниц из [pages_amount].")
 
 /obj/item/book/skill_manual/random/Initialize(mapload)
 	. = ..()
@@ -272,3 +317,7 @@
 	manual_title = "Ксенобиология"
 	desc = "Энциклопедия с различными экзотическими животными с детальным описанием."
 	skill_type = /datum/skill/research/xenobiology
+
+
+#undef MANUAL_READ_PAGES_AMOUNT
+#undef MANUAL_PAGE_READ_DURATION
