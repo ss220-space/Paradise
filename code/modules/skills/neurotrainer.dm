@@ -99,7 +99,7 @@
 		/datum/skill/combat/accuracy,
 		/datum/skill/combat/guns,
 		/datum/skill/combat/melee,
-		/datum/skill/combat/fists,,
+		/datum/skill/combat/fists,
 	)
 	skill_types = GLOB.skill_types - combat_skills
 	. = ..()
