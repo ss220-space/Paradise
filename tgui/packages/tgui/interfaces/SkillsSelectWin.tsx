@@ -87,18 +87,27 @@ const SkillCategoryTable = (category: SkillsSelectCategory) => {
 
 export const SkillsSelectWin = (props: unknown) => {
   const { act, data } = useBackend<SkillsSelectData>();
-  const { username, job, admin, can_save, categories, free_points, total_point } = data;
+  const {
+    username,
+    job,
+    admin,
+    can_save,
+    categories,
+    free_points,
+    total_point,
+  } = data;
 
   return (
     <Window width={725} height={820} theme="nologo">
       <Window.Content>
         <Section
           title={
-            admin ? 'Админ-абуз, очки неограничены' :
-            'Использовано очков навыков: ' +
-            (total_point - free_points) +
-            '/' +
-            total_point
+            admin
+              ? 'Админ-абуз, очки неограничены'
+              : 'Использовано очков навыков: ' +
+                (total_point - free_points) +
+                '/' +
+                total_point
           }
           scrollable
           fill

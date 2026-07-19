@@ -669,10 +669,10 @@ const MobManipulationSection = (_props: unknown) => {
             </Button>
           ) : null}
           <Button
-              fluid
-              icon="circle-user"
-              onClick={() => handleAction('editskills')}
-            >
+            fluid
+            icon="circle-user"
+            onClick={() => handleAction('editskills')}
+          >
             EDIT SKILLS
           </Button>
         </Grid.Column>
