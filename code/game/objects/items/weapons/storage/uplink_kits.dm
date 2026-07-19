@@ -1021,10 +1021,10 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	var/selected_type = pick(possible_kits)
 	new selected_type(src)
 	new /obj/item/clothing/glasses/sunglasses(src)
-	new /obj/item/stack/medical/ointment/advanced(src)
-	new /obj/item/stack/medical/ointment/advanced(src)
-	new /obj/item/stack/medical/bruise_pack/advanced(src)
-	new /obj/item/stack/medical/bruise_pack/advanced(src)
+	for(var/I in 1 to 2)
+		new /obj/item/stack/medical/ointment/advanced(src)
+	for(var/I in 1 to 2)
+		new /obj/item/stack/medical/bruise_pack/advanced(src)
 	new /obj/item/stack/medical/bruise_pack/military(src)
 	new /obj/item/storage/box/syndie_kit/bonerepair(src)
 
@@ -1045,8 +1045,8 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 
 /obj/item/storage/box/syndie_kit/scarecrow/populate_contents()
 	new /obj/item/gun/projectile/automatic/pistol/aps/scarecrow(src)
-	new /obj/item/ammo_box/magazine/m10mm(src)
-	new /obj/item/ammo_box/magazine/m10mm(src)
+	for(var/I in 1 to 2)
+		new /obj/item/ammo_box/magazine/m10mm(src)
 	new /obj/item/clothing/accessory/holster(src)
 	new /obj/item/storage/belt/security/webbing/pouch/fast(src)
 
