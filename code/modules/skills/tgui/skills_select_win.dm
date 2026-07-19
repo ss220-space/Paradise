@@ -138,8 +138,9 @@ GLOBAL_DATUM_INIT(skills_select_window, /datum/ui_module/skills_select_win, new)
 	if(used_points < 0)
 		user.mind.selected_skills[skill] = 0
 		return
-	if(used_points > SKILL_LEVEL_LEGEND)
-		user.mind.selected_skills[skill] = SKILL_LEVEL_LEGEND
+	GET_SKILL_LEVEL(target_user, skill.type, skill_level)
+	if(skill_level + used_points > SKILL_LEVEL_LEGEND)
+		user.mind.selected_skills[skill] = SKILL_LEVEL_LEGEND - skill_level
 		return
 	user.mind.selected_skills[skill] += delta
 
