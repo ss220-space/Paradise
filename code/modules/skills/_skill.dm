@@ -93,7 +93,8 @@ GLOBAL_LIST_EMPTY(skill_manual_types)
 	set category = VERB_CATEGORY_IC
 	if(mind)
 		if(mind.free_skill_points > 0)
-			GLOB.skills_select_window.ui_interact(usr)
+			var/datum/ui_module/skills_select_win/tgui = new(usr)
+			tgui.show(usr, src)
 		else
 			GLOB.skills_window.ui_interact(usr)
 	else

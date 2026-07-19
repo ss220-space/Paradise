@@ -382,7 +382,8 @@
 /datum/outfit/job/proc/skill_select_offer(mob/living/carbon/human/user)
 	var/choice = tgui_alert(user, message = "Хотите настроить навыки?", title = "Настройка навыков", buttons = list("Да", "Позже"))
 	if(choice == "Да")
-		GLOB.skills_select_window.ui_interact(user)
+		var/datum/ui_module/skills_select_win/tgui = new(user)
+		tgui.show(user, user)
 
 /datum/outfit/job/get_chameleon_disguise_info()
 	var/list/types = ..()

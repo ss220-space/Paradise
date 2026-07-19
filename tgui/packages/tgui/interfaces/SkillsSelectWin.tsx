@@ -23,6 +23,8 @@ type SkillsSelectCategory = {
 export type SkillsSelectData = {
   username: string;
   job: string;
+  admin: boolean;
+  can_save: boolean;
   free_points: number;
   total_point: number;
   categories: SkillsSelectCategory[];
@@ -85,13 +87,14 @@ const SkillCategoryTable = (category: SkillsSelectCategory) => {
 
 export const SkillsSelectWin = (props: unknown) => {
   const { act, data } = useBackend<SkillsSelectData>();
-  const { username, job, categories, free_points, total_point } = data;
+  const { username, job, admin, can_save, categories, free_points, total_point } = data;
 
   return (
     <Window width={725} height={820} theme="nologo">
       <Window.Content>
         <Section
           title={
+            admin ? 'Админ-абуз, очки неограничены' :
             'Использовано очков навыков: ' +
             (total_point - free_points) +
             '/' +
@@ -106,7 +109,7 @@ export const SkillsSelectWin = (props: unknown) => {
                 tooltip="Схранить"
                 tooltipPosition="bottom-end"
                 icon="save"
-                disabled={free_points !== 0}
+                disabled={can_save}
                 onClick={() => act('save')}
               >
                 Сохранить
