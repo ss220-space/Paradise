@@ -73,7 +73,6 @@
 	desc = "An elegant weapon, for a more civilized age."
 	icon_state = "rapier"
 	item_state = "rapier"
-	block_type = MELEE_ATTACKS
 
 /obj/item/melee/rapier/captain/Initialize(mapload)
 	. = ..()
