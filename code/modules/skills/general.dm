@@ -15,7 +15,7 @@
 	desc = "Влияет на скорость передвижения мехов и подов. Также влияет на скорость разряда батареи."
 	duration_mod_signals = list(COMSIG_GET_MECHA_CLIMBING_SPEED_MOD)
 	quality_mod_signals = list(COMSIG_GET_MECHA_CELL_USAGE_MOD, COMSIG_GET_SPACEPOD_BATTERY_USAGE_MOD)
-	var/mech_speed_mod = alist(
+	var/mech_slow_mod = alist(
 		SKILL_LEVEL_NONE = 1.75,
 		SKILL_LEVEL_BEGINNER = 1.5,
 		SKILL_LEVEL_BASIC = 1.35,
@@ -28,15 +28,15 @@
 
 /datum/skill/general/mech_drive/apply_to_mob(mob/owner)
 	. = ..()
-	RegisterSignal(owner, COMSIG_GET_MECHA_DRIVING_SPEED_MOD, PROC_REF(get_mech_speed_mod))
+	RegisterSignal(owner, COMSIG_GET_MECHA_DRIVING_SPEED_MOD, PROC_REF(get_mech_slow_mod))
 
 /datum/skill/general/mech_drive/remove_from_mob(mob/owner)
 	. = ..()
 	UnregisterSignal(owner, COMSIG_GET_MECHA_DRIVING_SPEED_MOD)
 
-/datum/skill/general/mech_drive/proc/get_mech_speed_mod(mob/living/user, list/results)
+/datum/skill/general/mech_drive/proc/get_mech_slow_mod(mob/living/user, list/results)
 	SIGNAL_HANDLER
-	get_modifier(user, results, mech_speed_mod)
+	get_modifier(user, results, mech_slow_mod)
 
 
 /datum/skill/general/mod_use
