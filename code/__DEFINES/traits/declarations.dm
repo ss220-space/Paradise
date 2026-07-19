@@ -446,6 +446,9 @@
 /// Mob with this trait will not suffer from radiation effects
 #define TRAIT_NO_RADIATION_EFFECTS "no_radiation_effects"
 
+/// Mob with this trait heals from radiation
+#define TRAIT_RAD_HEAL "rad_heal"
+
 #define TRAIT_TWOHANDED_BLOCKED "twohandec_blocked"
 
 #define TRAIT_CLEAVE_BLOCKED "cleave_blocked"

@@ -452,8 +452,7 @@
 	BIG STOMPY MECHS
 ~~~~~~~~~~~~~~~~~~~~~*/
 /obj/mecha/proc/diag_hud_set_mechhealth()
-	var/pixel_y = get_cached_height() - ICON_SIZE_Y
-	set_hud_image_state(DIAG_MECH_HUD, "huddiag[RoundDiagBar(obj_integrity/max_integrity)]", y_offset = pixel_y)
+	set_hud_image_state(DIAG_MECH_HUD, "huddiag[RoundDiagBar(obj_integrity/max_integrity)]")
 
 /obj/mecha/proc/diag_hud_set_mechcell()
 	if(cell)
@@ -705,6 +704,19 @@
 	)
 	return max(scale_list) - min(scale_list)
 
+/atom/proc/get_hud_x_offset()
+	return -(get_cached_width() - ICON_SIZE_X) / 2
+
+/atom/proc/get_hud_y_offset()
+	return get_cached_height() - ICON_SIZE_Y
+
+/atom/proc/adjust_hud_position(image/holder, animate_time = null)
+	if(animate_time)
+		animate(holder, pixel_w = get_hud_x_offset(), pixel_z = get_hud_y_offset(), time = animate_time)
+		return
+	holder.pixel_w = get_hud_x_offset()
+	holder.pixel_z = get_hud_y_offset()
+
 
 /atom/proc/set_hud_image_state(hud_type, hud_state, x_offset = 0, y_offset = 0)
 	if(!hud_list) // Still initializing
@@ -720,8 +732,11 @@
 
 	holder.icon_state = hud_state
 
+	adjust_hud_position(holder)
+
 	if(!x_offset && !y_offset)
 		return
+
 
 	holder.pixel_w += x_offset
 	holder.pixel_z += y_offset

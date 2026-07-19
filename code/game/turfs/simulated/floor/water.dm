@@ -184,6 +184,9 @@
 			else if(group & shale_group[key])
 				shale_junction &= ~junction
 			*/
+
+/turf/simulated/floor/water/lavaland_atmos/basalt/smooth_icon()
+	. = ..()
 	update_appearance()
 
 /turf/simulated/floor/water/lavaland_atmos/basalt/update_overlays()

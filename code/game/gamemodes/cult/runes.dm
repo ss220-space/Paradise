@@ -138,7 +138,7 @@ To draw a rune, use a ritual dagger.
 /obj/effect/rune/wash_tg(clean_types)
 	. = ..()
 
-	if(!.)
+	if(!. && !(clean_types & CLEAN_TYPE_BLOOD))
 		return
 
 	qdel(src)
