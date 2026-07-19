@@ -46,6 +46,7 @@
 	force = 15
 	throwforce = 10
 	w_class = WEIGHT_CLASS_BULKY
+	block_type = MELEE_ATTACKS
 	block_chance = 50
 	armour_penetration = 75
 	sharp = TRUE
