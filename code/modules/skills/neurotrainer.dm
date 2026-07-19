@@ -17,6 +17,7 @@
 	var/manual_title = "Неизвестно"
 	/// Skill points amount
 	var/skill_points = 1
+	var/used = FALSE
 
 /obj/item/neurotrainer/Initialize(mapload)
 	. = ..()
@@ -57,6 +58,9 @@
 	if(!target.mind)
 		return
 
+	if(used)
+		return
+
 	if(skill_types && islist(skill_types))
 		var/choices = list()
 		for(var/datum/skill/skill_type as anything in skill_types)
@@ -65,6 +69,9 @@
 		if(!skill_types || !choice)
 			return
 		skill_types = choices[choice]
+
+	if(used)
+		return
 
 	var/current_skill_level = target.mind.skills[skill_types]
 	if(!current_skill_level)
@@ -75,6 +82,7 @@
 	if(applyed_bonus_points > 0)
 		target.mind.skills[skill_types] = current_skill_level + applyed_bonus_points
 		. = TRUE
+		used = TRUE
 
 	if(!.)
 		return

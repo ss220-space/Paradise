@@ -6753,7 +6753,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/neurotrainer/random,
 		/obj/item/neurotrainer/random,
 	)
-	credits_cost = 10000
+	credits_cost = 50000
 	containertype = /obj/structure/closet/crate/syndicate
 	required_tech = list(RESEARCH_TREE_ILLEGAL = 3, RESEARCH_TREE_BIOTECH = 7, RESEARCH_TREE_MAGNETS = 5)
 	containername = "ящик со случайными нейротренерами навыков"

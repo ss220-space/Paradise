@@ -162,7 +162,6 @@
 		/obj/item/storage/pill_bottle/fakedeath = 2,
 		/obj/item/storage/box/syndie_kit/mr_chang_technique = 1,
 		/obj/item/clothing/glasses/chameleon/meson = 7,
-		/obj/item/neurotrainer/random = 1,
 		/obj/item/book/skill_manual/combat/random = 1,
 		"" = 70,
 	)
