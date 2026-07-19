@@ -189,6 +189,7 @@
 	skill_levels = list(
 		/datum/skill/general/mech_drive = SKILL_LEVEL_ADVANCED,
 		/datum/skill/engineering/construction = SKILL_LEVEL_BEGINNER,
+		/datum/skill/medical/surgery = SKILL_LEVEL_BEGINNER,
 		/datum/skill/research/research = SKILL_LEVEL_BEGINNER,
 		/datum/skill/research/protolathe = SKILL_LEVEL_BASIC,
 		/datum/skill/research/mech_construct = SKILL_LEVEL_ADVANCED,
