@@ -86,10 +86,10 @@
 
 	if(ishuman(target))
 		var/mob/living/carbon/human/human_target = target
-		for(var/obj/item/organ/external/limb as anything in human_target.bodyparts)
+		for(var/obj/item/organ/external/limb as anything in human_target.bodyparts.Copy())
 			if(!isroboticorgan(limb))
 				continue
-			limb.external_receive_damage(500, 0)
+			limb.droplimb(disintegrate = DROPLIMB_BLUNT, nodamage = TRUE)
 
 	if(!issilicon(target))
 		return

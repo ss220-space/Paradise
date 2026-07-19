@@ -3,6 +3,8 @@
 #define SACRIFICE_SLEEP_DURATION (12 SECONDS)
 /// How long sacrifices must stay in the shadow realm to survive.
 #define SACRIFICE_REALM_DURATION (2.5 MINUTES)
+#define SACRIFICE_BRAIN_DAMAGE 50
+#define SACRIFICE_BRAIN_DAMAGE_MAX 90
 
 /// Allows the heretic to sacrifice living heart targets.
 /datum/heretic_knowledge/hunt_and_sacrifice
@@ -307,7 +309,9 @@
 	var/turf/destination = get_turf(destination_landmark)
 
 	sac_target.visible_message(span_danger("[sac_target.declent_ru(NOMINATIVE)] начинает яростно содрогаться, когда темные щупальца утаскивают [GEND_HIS_HER(sac_target)] в пустоту!"))
-	sac_target.notify_ghost_cloning(message = "Обитель тянет вас обратно в тело! Вернитесь, чтобы побороться за выживание!", source = sac_target)
+	sac_target.grab_ghost()
+	sac_target.revive()
+	sac_target.visible_message(span_danger("Сердце [sac_target.declent_ru(GENITIVE)] начинает биться с нечестивой силой, когда [GEND_HE_SHE(sac_target)] возвраща[PLUR_ET_YUT(sac_target)]ся из объятий смерти!"))
 	sac_target.set_handcuffed(new /obj/item/restraints/handcuffs/cable(sac_target))
 
 	if(sac_target.legcuffed)
@@ -316,15 +320,11 @@
 		sac_target.legcuffed = null
 		sac_target.update_legcuffed_status()
 
-	sac_target.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 85, 150)
+	sac_target.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, SACRIFICE_BRAIN_DAMAGE, SACRIFICE_BRAIN_DAMAGE_MAX)
 	sac_target.do_jitter_animation()
 
 	addtimer(CALLBACK(sac_target, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation)), SACRIFICE_SLEEP_DURATION * (1/3))
 	addtimer(CALLBACK(sac_target, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation)), SACRIFICE_SLEEP_DURATION * (2/3))
-
-	sac_target.adjustOxyLoss(-100, FALSE)
-	if(!sac_target.heal_and_revive(50, span_danger("Сердце [sac_target.declent_ru(GENITIVE)] начинает биться с нечестивой силой, когда [GEND_HE_SHE(sac_target)] возвраща[PLUR_ET_YUT(sac_target)]ся из объятий смерти!")))
-		return
 
 	if(sac_target.Sleeping(SACRIFICE_SLEEP_DURATION))
 		to_chat(sac_target, span_purple("Ваш разум разрывается на части, когда вы погружаетесь в поверхностный сон..."))
@@ -354,15 +354,9 @@
 		return
 
 	sac_target.adjustOxyLoss(-100, FALSE)
-	if(!sac_target.heal_and_revive(0, span_danger("Сердце [sac_target.declent_ru(GENITIVE)] начинает биться с нечестивой силой, когда [GEND_HE_SHE(sac_target)] возвраща[PLUR_ET_YUT(sac_target)]ся из объятий смерти!")))
+	if(!sac_target.heal_and_revive(60, span_danger("Сердце [sac_target.declent_ru(GENITIVE)] начинает биться с нечестивой силой, когда [GEND_HE_SHE(sac_target)] возвраща[PLUR_ET_YUT(sac_target)]ся из объятий смерти!")))
 		disembowel_target(sac_target)
 		return
-
-	sac_target.adjustBruteLoss(20)
-	sac_target.adjustFireLoss(10)
-
-	if(!sac_target.handcuffed)
-		sac_target.set_handcuffed(new /obj/item/restraints/handcuffs/cable(sac_target))
 
 	to_chat(sac_target, span_big(span_purple("Противоестественные силы из-за завесы начинают терзать ваши тело и душу!")))
 	playsound(sac_target, 'sound/music/heretic/heretic_sacrifice.ogg', 50, FALSE) // play theme
@@ -553,6 +547,8 @@
 
 #undef SACRIFICE_SLEEP_DURATION
 #undef SACRIFICE_REALM_DURATION
+#undef SACRIFICE_BRAIN_DAMAGE
+#undef SACRIFICE_BRAIN_DAMAGE_MAX
 
 /// Drops a mob's organs on the floor.
 /mob/living/proc/spill_organs()
@@ -713,6 +709,7 @@
 	var/burn_to_heal = heal_to - getFireLoss()
 	var/oxy_to_heal = heal_to - getOxyLoss()
 	var/tox_to_heal = heal_to - getToxLoss()
+	var/clone_to_heal = heal_to - getCloneLoss()
 	if(brute_to_heal < 0)
 		adjustBruteLoss(brute_to_heal, updating_health = FALSE)
 
@@ -724,6 +721,9 @@
 
 	if(tox_to_heal < 0)
 		adjustToxLoss(tox_to_heal, updating_health = FALSE, forced = TRUE)
+
+	if(clone_to_heal < 0)
+		adjustCloneLoss(clone_to_heal, updating_health = FALSE)
 
 	updatehealth()
 
