@@ -273,7 +273,7 @@
 
 /obj/item/book/skill_manual/medical/chemistry
 	manual_title = "Химия"
-	desc = "Руководство по химии с таблицец Менделеева внутри."
+	desc = "Руководство по химии с таблицей Менделеева внутри."
 	skill_type = /datum/skill/medical/chemistry
 
 /obj/item/book/skill_manual/medical/genetic
