@@ -151,6 +151,7 @@
 	blocked_race_for_job = list(SPECIES_VOX)
 	outfit = /datum/outfit/job/detective
 	skill_levels = list(
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/accuracy = SKILL_LEVEL_BASIC,
 		/datum/skill/combat/guns = SKILL_LEVEL_BASIC,
 		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
@@ -214,6 +215,7 @@
 	outfit = /datum/outfit/job/officer
 	skill_levels = list(
 		/datum/skill/general/mech_drive = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/accuracy = SKILL_LEVEL_BASIC,
 		/datum/skill/combat/guns = SKILL_LEVEL_BASIC,
 		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
@@ -222,6 +224,7 @@
 	)
 	alt_skill_levels = alist(
 		ALT_JOB_TITLE_RU_SECURITY_CADET = list(
+			/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 			/datum/skill/combat/accuracy = SKILL_LEVEL_BEGINNER,
 			/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
 			/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,

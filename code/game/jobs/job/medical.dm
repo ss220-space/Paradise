@@ -14,17 +14,14 @@
 	exp_type = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/cmo
 	skill_levels = list(
-		//medical
 		/datum/skill/medical/surgery = SKILL_LEVEL_PROFESSIONAL,
 		/datum/skill/medical/heal = SKILL_LEVEL_PROFESSIONAL,
 		/datum/skill/medical/chemistry = SKILL_LEVEL_PROFESSIONAL,
 		/datum/skill/medical/genetic = SKILL_LEVEL_PROFESSIONAL,
 		/datum/skill/medical/virusology = SKILL_LEVEL_PROFESSIONAL,
-		//combat
 		/datum/skill/combat/accuracy = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
-		//science
 		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 	)
 
@@ -78,6 +75,7 @@
 	)
 	outfit = /datum/outfit/job/doctor
 	skill_levels = list(
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/surgery = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/heal = SKILL_LEVEL_ADVANCED,
 		/datum/skill/medical/chemistry = SKILL_LEVEL_BASIC,
@@ -86,6 +84,7 @@
 	)
 	alt_skill_levels = alist(
 		ALT_JOB_TITLE_RU_SURGEON = list(
+			/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 			/datum/skill/medical/surgery = SKILL_LEVEL_ADVANCED,
 			/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
 			/datum/skill/medical/chemistry = SKILL_LEVEL_BEGINNER,
@@ -136,7 +135,7 @@
 	outfit = /datum/outfit/job/doctor/intern
 	paycheck = PAYCHECK_LOWER
 	skill_levels = list(
-		//medical
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/surgery = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/chemistry = SKILL_LEVEL_BEGINNER,
@@ -174,7 +173,7 @@
 	outfit = /datum/outfit/job/coroner
 	mind_traits = list(TRAIT_MORBID)
 	skill_levels = list(
-		//medical
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/surgery = SKILL_LEVEL_BASIC,
 		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/chemistry = SKILL_LEVEL_BASIC,
@@ -220,7 +219,7 @@
 	)
 	outfit = /datum/outfit/job/chemist
 	skill_levels = list(
-		//medical
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/surgery = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
 		/datum/skill/medical/chemistry = SKILL_LEVEL_ADVANCED,
@@ -261,7 +260,7 @@
 	)
 	outfit = /datum/outfit/job/geneticist
 	skill_levels = list(
-		//medical
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/surgery = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
 		/datum/skill/medical/chemistry = SKILL_LEVEL_BASIC,
@@ -302,7 +301,7 @@
 	)
 	outfit = /datum/outfit/job/virologist
 	skill_levels = list(
-		//medical
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/surgery = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
 		/datum/skill/medical/chemistry = SKILL_LEVEL_BASIC,
@@ -343,6 +342,7 @@
 	)
 	outfit = /datum/outfit/job/psychiatrist
 	skill_levels = list(
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/surgery = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/chemistry = SKILL_LEVEL_BEGINNER,
@@ -386,6 +386,7 @@
 	skill_levels = list(
 		/datum/skill/general/carrying = SKILL_LEVEL_BASIC,
 		/datum/skill/general/mech_drive = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/mod_use = SKILL_LEVEL_BASIC,
 		/datum/skill/general/lockpick = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/surgery = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,

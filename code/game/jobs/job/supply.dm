@@ -76,6 +76,7 @@
 	skill_levels = list(
 		/datum/skill/general/carrying = SKILL_LEVEL_ADVANCED,
 		/datum/skill/general/mech_drive = SKILL_LEVEL_BASIC,
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/fists = SKILL_LEVEL_BEGINNER,
 	)
 
@@ -102,6 +103,7 @@
 	skill_levels = list(
 		/datum/skill/general/carrying = SKILL_LEVEL_BASIC,
 		/datum/skill/general/mech_drive = SKILL_LEVEL_BASIC,
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/accuracy = SKILL_LEVEL_BASIC,
 		/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
@@ -172,6 +174,7 @@
 	exp_type = EXP_TYPE_MEDICAL
 	skill_levels = list(
 		/datum/skill/general/carrying = SKILL_LEVEL_BASIC,
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/surgery = SKILL_LEVEL_BASIC,
 		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
 		/datum/skill/medical/chemistry = SKILL_LEVEL_BEGINNER,

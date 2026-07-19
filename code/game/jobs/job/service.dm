@@ -30,6 +30,7 @@
 	outfit = /datum/outfit/job/hop
 	skill_levels = list(
 		/datum/skill/general/cooking = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 		/datum/skill/service/drink_mixing = SKILL_LEVEL_ADVANCED,
 		/datum/skill/service/botany = SKILL_LEVEL_ADVANCED,
 		/datum/skill/service/cleaning = SKILL_LEVEL_ADVANCED,
@@ -81,6 +82,7 @@
 	)
 	outfit = /datum/outfit/job/bartender
 	skill_levels = list(
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 		/datum/skill/general/cooking = SKILL_LEVEL_BASIC,
 		/datum/skill/service/drink_mixing = SKILL_LEVEL_PROFESSIONAL,
 		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
@@ -122,6 +124,7 @@
 	)
 	outfit = /datum/outfit/job/chef
 	skill_levels = list(
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 		/datum/skill/general/cooking = SKILL_LEVEL_PROFESSIONAL,
 		/datum/skill/service/drink_mixing = SKILL_LEVEL_BASIC,
 		/datum/skill/service/botany = SKILL_LEVEL_BASIC,
@@ -175,6 +178,7 @@
 	)
 	outfit = /datum/outfit/job/botanist
 	skill_levels = list(
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
 		/datum/skill/service/drink_mixing = SKILL_LEVEL_BEGINNER,
 		/datum/skill/service/botany = SKILL_LEVEL_PROFESSIONAL,
@@ -209,6 +213,7 @@
 	)
 	outfit = /datum/outfit/job/clown
 	skill_levels = list(
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
 		/datum/skill/service/drink_mixing = SKILL_LEVEL_BEGINNER,
 	)
@@ -426,6 +431,7 @@
 	)
 	outfit = /datum/outfit/job/mime
 	skill_levels = list(
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
 		/datum/skill/service/drink_mixing = SKILL_LEVEL_BEGINNER,
 	)
@@ -480,6 +486,7 @@
 	)
 	outfit = /datum/outfit/job/janitor
 	skill_levels = list(
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
 		/datum/skill/service/drink_mixing = SKILL_LEVEL_BEGINNER,
 		/datum/skill/service/cleaning = SKILL_LEVEL_PROFESSIONAL,
@@ -541,6 +548,7 @@
 	)
 	outfit = /datum/outfit/job/chaplain
 	skill_levels = list(
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 		/datum/skill/general/carrying = SKILL_LEVEL_BEGINNER,
 		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
