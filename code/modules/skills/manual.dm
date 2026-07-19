@@ -9,7 +9,7 @@
 	/// how many points increase skill
 	var/bonus_size = 1
 	/// cap of skill level for bonus
-	var/max_skill_level = SKILL_LEVEL_EXPERT
+	var/max_skill_level = SKILL_LEVEL_PROFESSIONAL
 	/// flag for hold using state
 	var/applyed_bonus_points = FALSE
 
