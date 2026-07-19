@@ -365,7 +365,7 @@
 		if(can_be_dirty)
 			dirty += 1
 		CALCULATE_SKILL_MOD(user, COMSIG_GET_COOKING_BROKE_MOD, broke_skill_mod)
-		var/broke_chance = max(10,dirty*5) * broke_skill_mod //chance to get so dirty we require cleaning before next use
+		var/broke_chance = max(10, dirty * 5) * broke_skill_mod //chance to get so dirty we require cleaning before next use
 		if(prob(broke_chance))
 			if(!wzhzhzh(4 * cooking_skill_mod))
 				abort()
@@ -445,7 +445,7 @@
 			if(prob(skill_addition_efficiency_chance))
 				actual_efficiency += 1
 
-			for(var/e=1 to actual_efficiency)		//upgraded machine? make additional servings and split the ingredient reagents among each serving equally.
+			for(var/e in 1 to actual_efficiency)		//upgraded machine? make additional servings and split the ingredient reagents among each serving equally.
 				var/obj/cooked = new recipe.result()
 				if(transfer_reagents_from_ingredients)
 					temp_reagents.trans_to(cooked, temp_reagents.total_volume/efficiency, no_react = TRUE) // Don't react with the abstract holder please
