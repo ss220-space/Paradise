@@ -206,7 +206,6 @@
 
 	transfer_antag_huds(hud_to_transfer) // inherit the antag HUD
 	transfer_actions(new_character, old_current)
-	unregister_skill_signals_for_user(old_current)
 	register_skill_signals_for_user(current)
 
 	if(martial_art)
