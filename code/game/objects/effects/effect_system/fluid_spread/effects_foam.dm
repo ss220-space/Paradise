@@ -29,11 +29,11 @@
 	/// The amount of time this foam stick around for before it dissipates.
 	var/lifetime = 8 SECONDS
 	/// Whether or not this foam should be slippery.
-	var/SLIPPERY_TIME_FOAM = TRUE
+	var/slippery_foam = TRUE
 
 /obj/effect/particle_effect/fluid/foam/Initialize(mapload)
 	. = ..()
-	if(SLIPPERY_TIME_FOAM)
+	if(slippery_foam)
 		AddComponent(/datum/component/slippery, SLIPPERY_TIME_FOAM, can_slip_callback = CALLBACK(src, PROC_REF(try_slip)))
 	if(HAS_TRAIT(loc, TRAIT_ELEVATED_TURF))
 		layer = WATER_LEVEL_LAYER
@@ -301,7 +301,7 @@
 	name = "aluminium foam"
 	result_type = /obj/structure/foamedmetal
 	icon_state = "mfoam"
-	SLIPPERY_TIME_FOAM = FALSE
+	slippery_foam = FALSE
 	allow_duplicate_results = FALSE
 	var/make_floor = TRUE
 
