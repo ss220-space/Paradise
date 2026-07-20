@@ -85,6 +85,7 @@
 		to_chat(to_curse, span_warning("На мгновение вас охватывает жуткий холод."))
 		return TRUE
 
+	add_attack_logs(user, to_curse, "cursed via heretic ritual ([name])")
 	var/obj/item/codex_cicatrix/morbus/cursed_book = locate() in selected_atoms
 	curse(to_curse, cursed_book)
 	to_chat(user, span_hierophant("Вы применяете \"[name]\". Ваша цель — [to_curse.real_name]."))
@@ -287,7 +288,7 @@
 /datum/status_effect/race_swap/on_remove()
 	. = ..()
 	var/mob/living/carbon/human/human = owner
-	human.set_species(old_species)
+	human.set_species(old_species.type)
 
 
 /datum/heretic_knowledge/curse/indulgence

@@ -222,6 +222,9 @@
 		return
 
 	ongoing_duel = new(src, user, challenged)
+	if(QDELETED(ongoing_duel))
+		ongoing_duel = null
+		return
 	RegisterSignal(ongoing_duel, COMSIG_QDELETING, PROC_REF(on_duel_over))
 
 
@@ -294,6 +297,7 @@
 	reservation = arena.lazy_load()
 	if(!reservation)
 		qdel(src)
+		return
 
 
 /datum/dream_duel/Destroy(force)

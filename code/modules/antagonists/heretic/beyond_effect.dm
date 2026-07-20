@@ -167,7 +167,7 @@ GLOBAL_LIST_INIT(beyond_glitch_sounds, list(
 	anchored = TRUE
 	density = FALSE
 	var/mob/living/original
-	var/frame_delay = 2
+	var/frame_delay = 0.2 SECONDS
 	var/popped = FALSE
 
 

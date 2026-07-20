@@ -100,6 +100,13 @@
 	fireball_type = /obj/projectile/magic/aoe/rust_wave
 
 
+/obj/effect/proc_holder/spell/fireball/rust_wave/update_icon_state()
+	if(!action)
+		return
+	action.targeting_process = active
+	action.UpdateButtonIcon(ALL)
+
+
 /obj/projectile/magic/aoe/rust_wave
 	name = "rust wave"
 	gender = MALE
@@ -161,4 +168,4 @@
 
 /obj/projectile/magic/aoe/rust_wave/short
 	range = 7
-	speed = 0.5
+	speed = 2

@@ -1443,7 +1443,7 @@
 
 	COOLDOWN_START(src, duplication_cooldown, 40 SECONDS)
 	for(var/copy_number in 1 to 2)
-		new /obj/effect/beyond_clone(get_turf(user), user, copy_number * 2, 12 SECONDS)
+		new /obj/effect/beyond_clone(get_turf(user), user, copy_number * 0.2 SECONDS, 12 SECONDS)
 
 	to_chat(user, span_hierophant("Ваши прошлые версии отстают от вас, всё ещё уверенные, что они настоящие."))
 
@@ -1455,7 +1455,7 @@
 		return
 
 	COOLDOWN_START(src, misfire_cooldown, 8 SECONDS)
-	new /obj/effect/beyond_clone(get_turf(wearer), wearer, 4, 6 SECONDS)
+	new /obj/effect/beyond_clone(get_turf(wearer), wearer, 0.4 SECONDS, 6 SECONDS)
 	give_runtime_error(wearer, null)
 
 	if(wearer.has_status_effect(/datum/status_effect/crash_immunity))

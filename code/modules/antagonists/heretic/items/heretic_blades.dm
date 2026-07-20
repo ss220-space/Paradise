@@ -45,8 +45,8 @@
 
 
 /obj/item/melee/sickly_blade/Destroy()
-	. = ..()
 	UnregisterSignal(src, COMSIG_ITEM_HARVESTED_SOMEBODY)
+	return ..()
 
 
 /obj/item/melee/sickly_blade/proc/on_harvest(obj/item/source, mob/living/carbon/human/target, mob/harvester)
@@ -137,8 +137,8 @@
 	to_chat(user, span_purple(span_big("Трусливые овцы будут зарезаны!")))
 	playsound(src, pick('sound/effects/glassbr1.ogg','sound/effects/glassbr2.ogg','sound/effects/glassbr3.ogg'), 70, TRUE)
 	var/mob/living/carbon/human/human = user
-	var/obj/item/organ/external/to_remove = human.get_organ(human.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
-	to_remove.dismember()
+	var/obj/item/organ/external/to_remove = ishuman(user) ? human.get_organ(human.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND) : null
+	to_remove?.dismember()
 	deltimer(escape_timer)
 	qdel(src)
 	return
