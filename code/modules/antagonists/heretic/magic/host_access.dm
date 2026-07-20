@@ -156,7 +156,6 @@
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
 
-	cast_range = 7
 	active_msg = "Вы выбираете существо, которое больше не должно существовать..."
 	var/deletion_time = 3 SECONDS
 

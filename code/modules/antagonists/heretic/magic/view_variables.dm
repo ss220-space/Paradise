@@ -22,7 +22,6 @@
 	invocation_type = INVOCATION_WHISPER
 	spell_requirements = NONE
 
-	cast_range = 7
 	active_msg = "Вы выбираете существо, чьи свойства хотите прочесть..."
 	var/static/list/editable_variables = list(
 		"anchored = TRUE" = /datum/status_effect/beyond_variable/anchored,

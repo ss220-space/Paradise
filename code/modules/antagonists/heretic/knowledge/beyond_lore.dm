@@ -126,7 +126,6 @@
 		/obj/item/stock_parts/manipulator = 3,
 	)
 	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/eldritch/beyond)
-	research_tree_icon_path = 'icons/obj/clothing/suits.dmi'
 	research_tree_icon_state = "glitch_armor"
 	research_tree_icon_frame = 1
 

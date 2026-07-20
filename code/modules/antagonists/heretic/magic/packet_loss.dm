@@ -20,7 +20,6 @@
 	invocation_type = INVOCATION_WHISPER
 	spell_requirements = NONE
 
-	cast_range = 7
 	active_msg = "Вы нащупываете соединение цели..."
 
 

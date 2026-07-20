@@ -50,7 +50,6 @@ GLOBAL_LIST_INIT(beyond_glitch_sounds, list(
 	gender = FEMALE
 	icon = 'icons/effects/eldritch.dmi'
 	icon_state = "beyond_rubberband"
-	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	layer = BELOW_MOB_LAYER
 
@@ -164,8 +163,6 @@ GLOBAL_LIST_INIT(beyond_glitch_sounds, list(
 	name = "frame"
 	desc = "Кадр, который так и не был отброшен."
 	gender = MALE
-	anchored = TRUE
-	density = FALSE
 	var/mob/living/original
 	var/frame_delay = 0.2 SECONDS
 	var/popped = FALSE

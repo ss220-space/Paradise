@@ -7,7 +7,6 @@
 	name = "Dream Catcher"
 	desc = "Плетёный обруч из костяных спиц и волоса, натянутый на череп. Сквозь его сеть \
 			чужие сны выглядят как двери, которые кто-то забыл запереть."
-	gender = MALE
 	icon_state = "dream_catcher"
 	flags_cover = HEADCOVERSEYES
 	var/mode = DREAM_MODE_PROWL

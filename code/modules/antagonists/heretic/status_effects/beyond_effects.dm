@@ -22,7 +22,6 @@
 /datum/status_effect/runtime_error
 	id = "runtime_error"
 	duration = 15 SECONDS
-	status_type = STATUS_EFFECT_UNIQUE
 	tick_interval = -1
 	alert_type = /atom/movable/screen/alert/status_effect/runtime_error
 	show_duration = TRUE
@@ -184,7 +183,6 @@
 
 /datum/status_effect/lag_stutter
 	id = "lag_stutter"
-	duration = -1
 	status_type = STATUS_EFFECT_REFRESH
 	tick_interval = 2 SECONDS
 	alert_type = null
@@ -524,8 +522,6 @@
 
 /datum/status_effect/host_identity
 	id = "host_identity"
-	duration = -1
-	status_type = STATUS_EFFECT_UNIQUE
 	tick_interval = 4 SECONDS
 	alert_type = null
 	var/static/list/host_names = list("Azizonkg", "HOST", "rv666")
