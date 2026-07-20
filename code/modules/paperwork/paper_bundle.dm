@@ -291,7 +291,7 @@
 		page.layer = initial(page.layer)
 		page.plane = initial(page.plane)
 		page.add_fingerprint(usr)
-		LAZYREMOVE(papers, page)
+	LAZYCLEARLIST(papers)
 	usr.temporarily_remove_item_from_inventory(src)
 	qdel(src)
 	return
