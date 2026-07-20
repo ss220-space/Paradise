@@ -198,6 +198,7 @@
 #include "code\__DEFINES\si.dm"
 #include "code\__DEFINES\sibyl.dm"
 #include "code\__DEFINES\sight.dm"
+#include "code\__DEFINES\slippery.dm"
 #include "code\__DEFINES\slot_machine.dm"
 #include "code\__DEFINES\smites.dm"
 #include "code\__DEFINES\song.dm"

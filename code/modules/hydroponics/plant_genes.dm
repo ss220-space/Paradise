@@ -249,7 +249,7 @@
 	if(!istype(our_plant, /obj/item/grown/bananapeel) && (!our_plant.reagents || !our_plant.reagents.has_reagent("lube")))
 		knockdown_len /= 3
 
-	knockdown_len = min(knockdown_len, 4 SECONDS)// No fun allowed
+	knockdown_len = min(knockdown_len, SLIPPERY_TIME_LUBE)// No fun allowed
 
 	our_plant.AddComponent(/datum/component/slippery, knockdown_len, 0, NONE, CALLBACK(src, PROC_REF(handle_slip), our_plant))
 

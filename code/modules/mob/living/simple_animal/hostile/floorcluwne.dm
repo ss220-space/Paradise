@@ -215,7 +215,7 @@
 		if(STAGE_SPOOK)
 
 			if(prob(4))
-				H.slip(4 SECONDS)
+				H.slip(SLIPPERY_TIME_LUBE)
 				to_chat(H, span_warning("The floor shifts underneath you!"))
 
 			if(prob(3))
