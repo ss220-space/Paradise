@@ -2193,3 +2193,14 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 	if(wear_mask && !(covered_slots & HIDEMASK) && wear_mask.wash_tg(clean_types))
 		. = TRUE
+
+
+/mob/living/carbon/human/get_lootpanel_cache_key()
+	return "[generate_icon_render_key()] \
+			[w_uniform?.icon] [w_uniform?.icon_state] \
+			[wear_suit?.icon] [wear_suit?.icon_state] \
+			[head?.icon] [head?.icon_state] \
+			[shoes?.icon] [shoes?.icon_state] \
+			[gloves?.icon] [gloves?.icon_state] \
+			[glasses?.icon] [glasses?.icon_state] \
+			[belt?.icon] [belt?.icon_state]"

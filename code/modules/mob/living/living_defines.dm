@@ -88,6 +88,7 @@
 	var/list/mob_surgery_speed_mods
 
 	var/gene_stability = DEFAULT_GENE_STABILITY
+
 	var/ignore_gene_stability = 0
 
 	/// the id a mob gets when it's created

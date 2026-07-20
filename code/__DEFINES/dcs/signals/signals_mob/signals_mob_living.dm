@@ -28,7 +28,11 @@
 #define COMSIG_LIVING_WET_TICK "living_wet_tick"
 //sent from living mobs when they are ahealed
 #define COMSIG_LIVING_AHEAL "living_aheal"
-///From living/Life(). (deltatime, times_fired)
+///From living/Life(). (deltatime)
+#define COMSIG_LIVING_PRE_LIFE "living_pre_life"
+	/// Block the Life() proc from proceeding... this should really only be done in some really wacky situations.
+	#define COMPONENT_LIVING_CANCEL_LIFE_PROCESSING (1<<0)
+///From living/Life(). (deltatime)
 #define COMSIG_LIVING_LIFE "living_life"
 ///from base of mob/living/death(): (gibbed)
 #define COMSIG_LIVING_EARLY_DEATH "living_early_death"

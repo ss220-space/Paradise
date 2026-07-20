@@ -51,3 +51,5 @@ GLOBAL_VAR_INIT(geoip_next_counter_reset, 0)
 //CPU Affinity for FFmpeg
 GLOBAL_VAR(ffmpeg_cpuaffinity)
 GLOBAL_PROTECT(ffmpeg_cpuaffinity)
+
+GLOBAL_VAR_INIT(hub_visibility, FALSE)
