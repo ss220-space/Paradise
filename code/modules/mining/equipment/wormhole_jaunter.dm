@@ -31,6 +31,9 @@
 	if(!device_turf || !is_teleport_allowed(device_turf.z))
 		return "Ошибка! Телепортация невозможна."
 
+	if(!is_mining_level(device_turf.z) || istype(get_area(device_turf), /area/ruin/space/bubblegum_arena))
+		return "Ошибка! Требуется натуральная гравитация для размещения якоря."
+
 	return TRUE
 
 /obj/item/wormhole_jaunter/proc/get_destinations()

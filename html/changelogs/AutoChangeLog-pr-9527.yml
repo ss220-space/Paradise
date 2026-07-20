@@ -1,0 +1,4 @@
+author: "Den109G"
+delete-after: True
+changes:
+  - bugfix: "Теперь распускание пачки бумаг не удаляет эту пачку (PR #9527)"

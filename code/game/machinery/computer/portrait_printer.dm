@@ -80,6 +80,10 @@
 
 /obj/machinery/computer/portrait_printer/ui_act(action, params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
+
+	if(!isliving(ui.user))
+		return
+
 	switch(action)
 		if("search")
 			if(search_string != params["to_search"])
@@ -91,8 +95,6 @@
 			generate_matching_paintings_list()
 			. = TRUE
 		if("print")
-			if(!isliving(ui.user))
-				return
 			print_painting(params["selected"])
 		/*
 		if("download")

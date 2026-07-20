@@ -1,0 +1,4 @@
+author: "FlitchTime"
+delete-after: True
+changes:
+  - tweak: "Перевёл кнокдауны от воды, льда, смазки и пены к дефайнам. (PR #9529)"
