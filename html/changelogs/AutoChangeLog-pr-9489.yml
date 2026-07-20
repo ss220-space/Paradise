@@ -1,4 +1,0 @@
-author: "FlitchTime"
-delete-after: True
-changes:
-  - map: "Делает шлюзы на ЦК и в синдитюрьме неразрушимыми. (PR #9489)"

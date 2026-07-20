@@ -1,0 +1,5 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - bugfix: "Исправлен дюп рамок. (PR #9533)"
+  - bugfix: "Исправлено взаимодействие гостов с консолью печати картин. (PR #9533)"

@@ -45,7 +45,7 @@
 	if(reagents.has_reagent(amount = 1/*, chemical_flags = REAGENT_CLEANS*/))
 		return CLEAN_ALLOWED
 	*/
-	if(reagents.has_reagent(/datum/reagent/water, 1) && reagents.has_reagent(/datum/reagent/space_cleaner, 1))
+	if(reagents.has_reagent(/datum/reagent/water, 1) || reagents.has_reagent(/datum/reagent/space_cleaner, 1))
 		return CLEAN_ALLOWED
 	return CLEAN_ALLOWED|CLEAN_NO_XP|CLEAN_NO_WASH
 

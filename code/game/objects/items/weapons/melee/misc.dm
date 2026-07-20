@@ -50,6 +50,7 @@
 	force = 15
 	throwforce = 10
 	w_class = WEIGHT_CLASS_BULKY
+	block_type = MELEE_ATTACKS
 	block_chance = 50
 	armour_penetration = 75
 	sharp = TRUE
@@ -76,7 +77,6 @@
 	desc = "An elegant weapon, for a more civilized age."
 	icon_state = "rapier"
 	item_state = "rapier"
-	block_type = MELEE_ATTACKS
 
 /obj/item/melee/rapier/captain/Initialize(mapload)
 	. = ..()

@@ -244,14 +244,14 @@
 	if(istype(our_plant) && ispath(our_plant.trash, /obj/item/grown))
 		return
 
-	var/stun_len = our_plant.seed.potency * rate * 0.8 SECONDS
+	var/knockdown_len = our_plant.seed.potency * rate * 0.8 SECONDS
 
 	if(!istype(our_plant, /obj/item/grown/bananapeel) && (!our_plant.reagents || !our_plant.reagents.has_reagent("lube")))
-		stun_len /= 3
+		knockdown_len /= 3
 
-	stun_len = min(stun_len, 14 SECONDS)// No fun allowed
+	knockdown_len = min(knockdown_len, SLIPPERY_TIME_LUBE)// No fun allowed
 
-	our_plant.AddComponent(/datum/component/slippery, stun_len, 0, NONE, CALLBACK(src, PROC_REF(handle_slip), our_plant))
+	our_plant.AddComponent(/datum/component/slippery, knockdown_len, 0, NONE, CALLBACK(src, PROC_REF(handle_slip), our_plant))
 
 /// On slip, sends a signal that our plant was slipped on out.
 /datum/plant_gene/trait/slip/proc/handle_slip(obj/item/reagent_containers/food/snacks/grown/our_plant, mob/slipped_target)
