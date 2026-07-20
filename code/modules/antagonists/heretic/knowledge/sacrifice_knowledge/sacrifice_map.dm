@@ -73,6 +73,11 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 	for_heretic_path = PATH_BLADE
 
 
+/obj/effect/landmark/heretic/beyond
+	name = "beyond heretic sacrifice landmark"
+	for_heretic_path = PATH_BEYOND
+
+
 /obj/structure/no_effect_signpost
 	name = "signpost"
 	desc = "Кто-нибудь подаст мне знак?"
@@ -252,6 +257,13 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 /area/centcom/heretic_sacrifice/moon
 	name = "Лунные Врата Обители"
 	sound_environment = SOUND_ENVIRONMENT_PSYCHOTIC
+
+
+/area/centcom/heretic_sacrifice/beyond
+	name = "Нескомпилированные Врата Обители"
+	base_lighting_color = "#6FE3D4"
+	base_lighting_alpha = 255
+	sound_environment = SOUND_ENVIRONMENT_PADDED_CELL
 
 
 /area/centcom/heretic_sacrifice/moon2

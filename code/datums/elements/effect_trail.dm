@@ -46,6 +46,17 @@
 	if(slows_projectiles)
 		new_field.slows_projectiles()
 
+/datum/element/effect_trail/beyond_afterimage/generate_effect(atom/movable/target_object)
+	var/turf/open_turf = get_turf(target_object)
+	if(!istype(open_turf))
+		return
+	var/obj/effect/temp_visual/beyond_afterimage/frame = new chosen_effect(open_turf)
+	frame.appearance = target_object.appearance
+	frame.alpha = /obj/effect/temp_visual/beyond_afterimage::alpha
+	frame.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	frame.setDir(target_object.dir)
+	frame.add_atom_colour(COLOR_CYAN, TEMPORARY_COLOUR_PRIORITY)
+
 /datum/element/effect_trail/cosmic_field/antiexplosion
 	prevents_explosions = TRUE
 

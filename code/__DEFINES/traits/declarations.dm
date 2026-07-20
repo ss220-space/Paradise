@@ -112,6 +112,7 @@
 #define TRAIT_CHASM_IGNORED "chasm_ignored"
 /// This mob has red glowing eyes with special text upon examination
 #define TRAIT_RED_EYES "red_eyes"
+#define TRAIT_DREAMT_EYES "dreamt_eyes"
 /// This mob's hands will glow amber with special text upon examination
 #define TRAIT_CLOCK_HANDS "clock_hands"
 

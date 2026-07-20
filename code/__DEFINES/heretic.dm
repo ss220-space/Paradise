@@ -12,6 +12,7 @@
 #define PATH_COSMIC "Путь Космоса"
 #define PATH_LOCK "Путь Замка́"
 #define PATH_MOON "Путь Луны"
+#define PATH_BEYOND "Путь Beyond"
 
 // Heretic knowledge tree defines (keys used in the knowledge tree assoc lists).
 #define HKT_NEXT "next"
@@ -54,6 +55,8 @@
 /// Ritual priority ceiling for heretic knowledge.
 #define MAX_KNOWLEDGE_PRIORITY 100
 
+#define BEYOND_MAX_RUNTIME_ERRORS 3
+
 #define FACTION_HERETIC "heretic"
 #define FACTION_HOSTILE "hostile"
 
@@ -63,6 +66,9 @@
 
 /// JSON string file for all of our heretic influence flavors.
 #define HERETIC_INFLUENCE_FILE "heretic_influences.json"
+
+/// How long it takes to drain an influence bare-handed.
+#define HERETIC_RIFT_DEFAULT_DRAIN_SPEED (15 SECONDS)
 
 /// TRUE if the given mob is in the Mansus (the heretic sacrifice arena z-level).
 #define IS_IN_MANSUS(mob) (istype(get_area(mob), /area/centcom/heretic_sacrifice))

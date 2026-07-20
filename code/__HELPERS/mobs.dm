@@ -310,6 +310,9 @@
  * * cancel_on_max - If `TRUE`, when the interaction limit is reached, the currently running action(s) with the same interaction_key and max_interact_count will be cancelled and the proc will fail. Note: Requires either consistent max_interact_count per interaction_key, or unique interaction_key per distinct max_interact_count value.
  * * cancel_message - Message shown to the user if cancel_on_max is set to `TRUE` and they exceeds max interaction count. Use empty string ("") to skip default cancel message.
  * * category - Used to apply proper action speed modifier to passed delay.
+ * * hidden - By default, any action 1 second or longer shows a cog over the user while it is in progress. If hidden is set to `TRUE`, the cog will not be shown.
+ * * cog_icon - The icon file of the cog.
+ * * cog_state - The icon state of the cog.
  *
  * Returns `TRUE` on success, `FALSE` on failure.
  */
@@ -325,6 +328,9 @@
 	cancel_on_max = FALSE,
 	cancel_message = span_warning("Attempt cancelled."),
 	category = DA_CAT_ALL,
+	hidden = FALSE,
+	cog_icon = 'icons/effects/progressbar.dmi',
+	cog_state = "cog",
 )
 	if(!user)
 		return FALSE
@@ -362,12 +368,17 @@
 		delay *= user.get_actionspeed_by_category(category)
 
 	var/datum/progressbar/progbar
+	var/datum/cogbar/cog
 	var/endtime = world.time + delay
 	var/starttime = world.time
 
 	// progress bar will not show up if there is no delay at all
-	if(progress && user.client && starttime < endtime)
-		progbar = new(user, delay, target || user)
+	if(progress && starttime < endtime)
+		if(user.client)
+			progbar = new(user, delay, target || user)
+
+		if(!hidden && delay >= 1 SECONDS)
+			cog = new(user, cog_icon, cog_state)
 
 	SEND_SIGNAL(user, COMSIG_DO_AFTER_BEGAN)
 
@@ -415,6 +426,8 @@
 
 	if(!QDELETED(progbar))
 		progbar.end_progress()
+
+	cog?.remove()
 
 	if(interaction_key)
 		var/reduced_interaction_count = (LAZYACCESS(user.do_afters, interaction_key) || 0) - 1

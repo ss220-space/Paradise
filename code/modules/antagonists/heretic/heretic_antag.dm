@@ -8,6 +8,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		PATH_COSMIC = COLOR_PURPLE,
 		PATH_LOCK = COLOR_YELLOW,
 		PATH_MOON = COLOR_BLUE_LIGHT,
+		PATH_BEYOND = COLOR_MAGENTA,
 	))
 
 /// Generates a string of garbled symbols up to [length] characters, used for spooky ascension announcements.
@@ -673,7 +674,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	else
 		drawing_effect = new(target_turf, rune_colour, drawing_time)
 
-	if(!do_after(user, drawing_time, target_turf, extra_checks = additional_checks))
+	if(!do_after(user, drawing_time, target_turf, extra_checks = additional_checks, hidden = TRUE))
 		target_turf.balloon_alert(user, "прервано!")
 		new /obj/effect/temp_visual/drawing_heretic_rune/fail(target_turf, rune_colour)
 		qdel(drawing_effect)
@@ -818,7 +819,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 
 	var/mob/living/heretic_mob = owner?.current
 	if(!QDELETED(heretic_mob) && (heretic_mob.stat == CONSCIOUS || heretic_mob.IsSleeping()))
-		to_chat(heretic_mob, "[span_hear("Вы слышите шёпот...")] [span_purple(pick_list(HERETIC_INFLUENCE_FILE, "drain_message"))]")
+		to_chat(heretic_mob, "[span_hear("Вы слышите шёпот...")] [span_hypnophrase(pick_list(HERETIC_INFLUENCE_FILE, "drain_message"))]")
 
 	addtimer(CALLBACK(src, PROC_REF(passive_influence_gain)), passive_gain_timer)
 
@@ -981,7 +982,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 
 	var/mob/living/pawn = owner.current
 	pawn.equip_to_slot_if_possible(new /obj/item/clothing/neck/heretic_focus(get_turf(pawn)), ITEM_SLOT_NECK, TRUE, TRUE)
-	to_chat(pawn, span_purple("Обитель даровала вам способность колдовать без фокуса."))
+	to_chat(pawn, span_hypnophrase("Обитель даровала вам способность колдовать без фокуса."))
 
 /// Learns the passed [typepath] of knowledge, creating a knowledge datum and adding it to our researched
 /// knowledge list. Returns TRUE if the knowledge was added successfully, FALSE otherwise.

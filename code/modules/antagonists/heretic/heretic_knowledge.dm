@@ -576,7 +576,7 @@
 	to_chat(user, span_hierophant("[name] требует следующих подношений:"))
 	for(var/obj/item/path as anything in required_atoms)
 		var/amount_needed = required_atoms[path]
-		to_chat(user, span_purple("[amount_needed] ед. [path.declent_ru(NOMINATIVE)]\s..."))
+		to_chat(user, span_hypnophrase("[amount_needed] ед. [path.declent_ru(NOMINATIVE)]\s..."))
 		requirements_string += "[amount_needed == 1 ? "" : "[amount_needed]"] [path.declent_ru(NOMINATIVE)]\s"
 
 	to_chat(user, span_hierophant("Завершив этот ритуал, вы получите в награду [KNOWLEDGE_RITUAL_POINTS] очк[declension_ru(KNOWLEDGE_RITUAL_POINTS, "о", "а", "ов")] знаний. Вы можете проверить свои знания в разделе \"Изученные знания\"."))
@@ -598,7 +598,7 @@
 	was_completed = TRUE
 
 	to_chat(user, span_boldnotice("[name] завершён!"))
-	to_chat(user, span_purple(span_big("[pick_list(HERETIC_INFLUENCE_FILE, "drain_message")]")))
+	to_chat(user, span_hypnophrase(span_big("[pick_list(HERETIC_INFLUENCE_FILE, "drain_message")]")))
 	desc += " (Завершён!)"
 	user.store_memory("Проведён Ритуал Знания.")
 	return TRUE

@@ -28,6 +28,9 @@
 #define COOLDOWN_BORG_SELF_REPAIR "borg_self_repair"
 #define COOLDOWN_EXPRESSPOD_CONSOLE "expresspod_console"
 
+#define COOLDOWN_BEYOND_LAG_SPIKE "beyond_lag_spike"
+#define COOLDOWN_BEYOND_BLADE_ERROR "beyond_blade_error"
+
 // Mecha cooldowns
 #define COOLDOWN_MECHA_MESSAGE "mecha_message"
 #define COOLDOWN_MECHA_EQUIPMENT(type) ("mecha_equip_[type]")

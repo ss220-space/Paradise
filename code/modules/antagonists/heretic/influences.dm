@@ -182,7 +182,7 @@
 
 /obj/effect/visible_heretic_influence/examine(mob/living/user)
 	. = ..()
-	. += span_purple(pick_list(HERETIC_INFLUENCE_FILE, "examine"))
+	. += span_hypnophrase(pick_list(HERETIC_INFLUENCE_FILE, "examine"))
 	if(isheretic(user) || !ishuman(user))
 		return
 
@@ -246,7 +246,7 @@
 	if(being_drained)
 		loc.balloon_alert(user, "уже иссушается!")
 	else
-		INVOKE_ASYNC(src, PROC_REF(drain_influence), user, 1, 15 SECONDS)
+		INVOKE_ASYNC(src, PROC_REF(drain_influence), user, 1)
 
 
 /obj/effect/heretic_influence/attackby(obj/item/weapon, mob/user, list/modifiers, list/attack_modifiers)
@@ -272,18 +272,25 @@
  *
  * If successful, the influence is drained and deleted.
  */
-/obj/effect/heretic_influence/proc/drain_influence(mob/living/user, knowledge_to_gain, drain_speed = 10 SECONDS)
+/obj/effect/heretic_influence/proc/drain_influence(mob/living/user, knowledge_to_gain, drain_speed = HERETIC_RIFT_DEFAULT_DRAIN_SPEED)
 
 	being_drained = TRUE
 	loc.balloon_alert(user, "иссушение разлома...")
 
-	if(!do_after(user, drain_speed, src))
+	var/mutable_appearance/draining_overlay = mutable_appearance('icons/mob/effects/heretic_aura.dmi', "heretic_eye_dripping")
+	if(drain_speed < HERETIC_RIFT_DEFAULT_DRAIN_SPEED)
+		draining_overlay.pixel_y = 16
+		user.add_overlay(draining_overlay)
+
+	if(!do_after(user, drain_speed, src, hidden = TRUE))
 		being_drained = FALSE
 		if(!QDELETED(src))
 			loc.balloon_alert(user, "прервано!")
+		user.cut_overlay(draining_overlay)
 		return
 
 	loc.balloon_alert(user, "разлом иссушен")
+	user.cut_overlay(draining_overlay)
 
 	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	heretic_datum.knowledge_points += knowledge_to_gain
@@ -296,7 +303,7 @@
  */
 /obj/effect/heretic_influence/proc/after_drain(mob/living/user)
 	if(user)
-		to_chat(user, span_purple(pick_list(HERETIC_INFLUENCE_FILE, "drain_message")))
+		to_chat(user, span_hypnophrase(pick_list(HERETIC_INFLUENCE_FILE, "drain_message")))
 		to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] начинает проявляться в реальности!"))
 
 	var/obj/effect/visible_heretic_influence/illusion = new /obj/effect/visible_heretic_influence(drop_location())

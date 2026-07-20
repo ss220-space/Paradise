@@ -165,6 +165,8 @@
 				msg += "[GEND_HIS_HER_CAP(src)] глаза закрыты [icon2html(glasses, user)] <b>[glasses.declent_ru(INSTRUMENTAL)]</b>.\n"
 		else if(HAS_TRAIT(src, TRAIT_RED_EYES) && get_int_organ(/obj/item/organ/internal/eyes))
 			msg += span_boldwarning("[GEND_HIS_HER_CAP(src)] глаза горят кроваво-красным цветом.\n")
+		else if(HAS_TRAIT(src, TRAIT_DREAMT_EYES) && get_int_organ(/obj/item/organ/internal/eyes))
+			msg += span_hypnophrase("[GEND_HIS_HER_CAP(src)] глаза странно переливаются бирюзовым.\n")
 
 	//left ear
 	if(l_ear && !skipears)

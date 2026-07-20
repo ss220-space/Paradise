@@ -167,3 +167,78 @@
 #undef PROGRESSBAR_ANIMATION_TIME
 #undef PROGRESSBAR_HEIGHT
 
+#define COGBAR_ANIMATION_TIME (0.5 SECONDS)
+
+/datum/cogbar
+	var/mob/user
+	var/client/user_client
+	var/obj/effect/overlay/vis/cog
+	var/image/blank
+	var/cog_icon
+	var/cog_state
+	var/offset_y
+
+/datum/cogbar/New(mob/user, cog_icon, cog_state)
+	. = ..()
+	if(isnull(cog_icon) || isnull(cog_state))
+		stack_trace("/datum/cogbar was created without an icon or icon state.")
+		qdel(src)
+		return
+
+	src.user = user
+	user_client = user.client
+	src.cog_icon = cog_icon
+	src.cog_state = cog_state
+
+	var/list/icon_offsets = user.get_oversized_icon_offsets()
+	offset_y = icon_offsets["y"]
+
+	add_cog_to_user()
+	RegisterSignal(user, COMSIG_QDELETING, PROC_REF(on_user_delete))
+
+/datum/cogbar/Destroy()
+	if(user)
+		UnregisterSignal(user, COMSIG_QDELETING)
+		SSvis_overlays.remove_vis_overlay(user, list(cog))
+		user_client?.images -= blank
+
+	user = null
+	user_client = null
+	cog = null
+	QDEL_NULL(blank)
+	return ..()
+
+/datum/cogbar/proc/add_cog_to_user()
+	cog = SSvis_overlays.add_vis_overlay(user,
+		icon = cog_icon,
+		iconstate = cog_state,
+		plane = HIGH_GAME_PLANE,
+		add_appearance_flags = APPEARANCE_UI_IGNORE_ALPHA,
+		unique = TRUE,
+		alpha = 0,
+	)
+	cog.pixel_y = ICON_SIZE_Y + offset_y
+	animate(cog, alpha = user.alpha, time = COGBAR_ANIMATION_TIME)
+
+	if(isnull(user_client))
+		return
+
+	blank = image('icons/blanks/32x32.dmi', cog, "nothing")
+	SET_PLANE_EXPLICIT(blank, HIGH_GAME_PLANE, user)
+	blank.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
+	blank.override = TRUE
+	user_client.images += blank
+
+/datum/cogbar/proc/remove()
+	if(isnull(cog))
+		qdel(src)
+		return
+
+	animate(cog, alpha = 0, time = COGBAR_ANIMATION_TIME)
+	QDEL_IN(src, COGBAR_ANIMATION_TIME)
+
+/datum/cogbar/proc/on_user_delete(datum/source)
+	SIGNAL_HANDLER
+	qdel(src)
+
+#undef COGBAR_ANIMATION_TIME

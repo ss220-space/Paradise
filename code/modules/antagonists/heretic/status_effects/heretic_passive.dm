@@ -477,6 +477,50 @@
 		owner.updatehealth()
 
 
+/datum/status_effect/heretic_passive/beyond
+	id = "heretic_passive_beyond"
+	name = "Ошибка Состояния"
+	passive_descriptions = list(
+		"Вас невозможно уронить скользкой поверхностью: вода, лёд, мыло, кровь и кожура вас не касаются.",
+		"Ползание больше не замедляет вас — лёжа вы двигаетесь со скоростью шага.",
+		"Полный иммунитет к оглушению, параличу, обездвиживанию и сбиванию с ног.",
+	)
+	var/static/list/slip_traits = list(TRAIT_NO_SLIP_WATER, TRAIT_NO_SLIP_ICE, TRAIT_NO_SLIP_SLIDE, TRAIT_NO_SLIP_ALL)
+
+
+/datum/status_effect/heretic_passive/beyond/on_apply()
+	. = ..()
+	if(!.)
+		return
+	owner.add_traits(slip_traits, TRAIT_STATUS_EFFECT(id))
+
+
+/datum/status_effect/heretic_passive/beyond/level_upgrade()
+	. = ..()
+	if(!.)
+		return
+	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(shed_crawl_slowdown))
+	shed_crawl_slowdown()
+
+
+/datum/status_effect/heretic_passive/beyond/level_final()
+	. = ..()
+	if(!.)
+		return
+	owner.add_traits(list(TRAIT_STUNIMMUNE, TRAIT_PUSHIMMUNE), TRAIT_STATUS_EFFECT(id))
+
+
+/datum/status_effect/heretic_passive/beyond/on_remove()
+	owner.remove_traits(slip_traits + list(TRAIT_STUNIMMUNE, TRAIT_PUSHIMMUNE), TRAIT_STATUS_EFFECT(id))
+	UnregisterSignal(owner, COMSIG_MOVABLE_MOVED)
+	return ..()
+
+
+/datum/status_effect/heretic_passive/beyond/proc/shed_crawl_slowdown(datum/source)
+	SIGNAL_HANDLER
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/carbon_crawling)
+
+
 /datum/status_effect/heretic_passive/void
 	id = "heretic_passive_void"
 	name = "Путь Аристократа"

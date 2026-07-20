@@ -444,6 +444,102 @@
 	force = initial(force)
 
 
+/obj/item/melee/sickly_blade/beyond
+	name = "impossible blade"
+	desc = "Клинок, часть лезвия которого просто не отрисована. Там, где должен быть металл, \
+			остаётся цианово-пурпурный разрыв, а сам спрайт иногда отстаёт от руки."
+	icon_state = "beyond_blade"
+	base_icon_state = "beyond_blade"
+	item_state = "beyond_blade"
+	after_use_message = "Наблюдатель слышит ваш зов..."
+	COOLDOWN_DECLARE(null_reference_cooldown)
+
+
+/obj/item/melee/sickly_blade/beyond/Initialize(mapload)
+	. = ..()
+	qdel(GetComponent(/datum/component/cleave_attack))
+
+
+/obj/item/melee/sickly_blade/beyond/get_ru_names()
+	return alist(
+		NOMINATIVE = "невозможный клинок",
+		GENITIVE = "невозможного клинка",
+		DATIVE = "невозможному клинку",
+		ACCUSATIVE = "невозможный клинок",
+		INSTRUMENTAL = "невозможным клинком",
+		PREPOSITIONAL = "невозможном клинке",
+	)
+
+
+/obj/item/melee/sickly_blade/beyond/examine(mob/user)
+	. = ..()
+	if(!wielder_has_null_reference(user))
+		return
+
+	. += span_notice("Правым кликом по существу можно обнулить ссылку на предмет в его руке, а по лежащему предмету — на него самого.")
+
+
+/obj/item/melee/sickly_blade/beyond/proc/wielder_has_null_reference(mob/user)
+	var/datum/antagonist/heretic/heretic_datum = isheretic(user)
+	return !isnull(heretic_datum?.get_knowledge(/datum/heretic_knowledge/blade_upgrade/beyond))
+
+
+/obj/item/melee/sickly_blade/beyond/equipped(mob/user, slot, initial = FALSE)
+	. = ..()
+	update_appearance(UPDATE_ICON)
+	user.update_held_items()
+
+
+/obj/item/melee/sickly_blade/beyond/dropped(mob/user, silent = FALSE)
+	. = ..()
+	update_appearance(UPDATE_ICON)
+
+
+/obj/item/melee/sickly_blade/beyond/update_icon_state()
+	. = ..()
+	if(ismob(loc) && wielder_has_null_reference(loc))
+		icon_state = base_icon_state + "_infused"
+		item_state = icon_state
+		return
+
+	icon_state = base_icon_state
+	item_state = base_icon_state
+
+
+/obj/item/melee/sickly_blade/beyond/pre_attack_secondary(atom/target, mob/living/user, list/modifiers, list/attack_modifiers)
+	if(try_null_reference(target, user))
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+	return ..()
+
+
+/obj/item/melee/sickly_blade/beyond/ranged_interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
+	if(try_null_reference(interacting_with, user))
+		return ITEM_INTERACT_SUCCESS
+	return ..()
+
+
+/obj/item/melee/sickly_blade/beyond/proc/try_null_reference(atom/target, mob/living/user)
+	if(!wielder_has_null_reference(user))
+		return FALSE
+
+	var/obj/item/nulled = target
+	if(isliving(target) && target != user)
+		var/mob/living/victim = target
+		nulled = victim.get_active_hand()
+
+	if(!isitem(nulled) || nulled == src)
+		return FALSE
+
+	if(!COOLDOWN_FINISHED(src, null_reference_cooldown))
+		balloon_alert(user, "ссылка ещё держится!")
+		return TRUE
+
+	COOLDOWN_START(src, null_reference_cooldown, 15 SECONDS)
+	nulled.AddComponent(/datum/component/nulled_reference, 4 SECONDS, block_pickup = TRUE)
+	nulled.balloon_alert_to_viewers("ссылка обнулена")
+	return TRUE
+
+
 /obj/item/melee/sickly_blade/cursed
 	name = "cursed blade"
 	desc = "Тёмный клинок, обречённый вечно кровоточить. В постоянной борьбе между тьмой и \

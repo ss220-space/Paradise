@@ -1370,3 +1370,122 @@
 	ADD_TRAIT(loc, TRAIT_RESIST_COLD, UID())
 	loc.balloon_alert(loc, "плащ виден")
 	loc.visible_message(span_notice("Калейдоскоп цветов обрушивается на [loc.declent_ru(NOMINATIVE)], вырисовывая ранее скрытый плащ!"))
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/beyond
+	name = "uncompiled skin"
+	desc = "Мантия, часть которой отрисована пурпурно-чёрной клеткой отсутствующей текстуры. \
+			По швам тянутся циановые линии отладочной сетки, а в грудь вшиты мультитул и медный кабель."
+	icon_state = "glitch_armor"
+	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch/beyond
+	armor = list("melee" = 40, "bullet" = 40, "laser" = 40, "energy" = 40, "bomb" = 40, "bio" = 40, "fire" = 40, "acid" = 40)
+	actions_types = list(/datum/action/item_action/toggle, /datum/action/item_action/frame_duplication)
+	COOLDOWN_DECLARE(duplication_cooldown)
+	COOLDOWN_DECLARE(misfire_cooldown)
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/beyond/get_ru_names()
+	return alist(
+		NOMINATIVE = "некомпилируемая оболочка",
+		GENITIVE = "некомпилируемой оболочки",
+		DATIVE = "некомпилируемой оболочке",
+		ACCUSATIVE = "некомпилируемую оболочку",
+		INSTRUMENTAL = "некомпилируемой оболочкой",
+		PREPOSITIONAL = "некомпилируемой оболочке",
+	)
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/beyond/update_icon_state()
+	icon_state = "glitch_armor[suit_adjusted ? "_hood" : ""]"
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/beyond/equipped(mob/user, slot, initial = FALSE)
+	. = ..()
+	if(slot != ITEM_SLOT_CLOTH_OUTER)
+		return
+	if(isheretic(user))
+		RegisterSignal(user, COMSIG_MOB_EXAMINING_MORE, PROC_REF(reveal_true_name))
+		return
+	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(misfire))
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/beyond/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
+	UnregisterSignal(user, list(COMSIG_MOVABLE_MOVED, COMSIG_MOB_EXAMINING_MORE))
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/beyond/proc/reveal_true_name(mob/examiner, atom/examined, list/examine_list)
+	SIGNAL_HANDLER
+
+	if(!ismob(examined))
+		return
+	var/mob/victim = examined
+	var/true_name = victim.ckey || victim.mind?.key
+	if(!true_name)
+		return
+	examine_list += span_hierophant("Истинное имя: <b>[true_name]</b>.")
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/beyond/ui_action_click(mob/user, datum/action/action, leftclick)
+	if(istype(action, /datum/action/item_action/frame_duplication))
+		duplicate_frames(user)
+		return
+	return ..()
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/beyond/proc/duplicate_frames(mob/living/user)
+	if(!isheretic(user))
+		return
+
+	if(!COOLDOWN_FINISHED(src, duplication_cooldown))
+		balloon_alert(user, "кадры ещё догоняют!")
+		return
+
+	COOLDOWN_START(src, duplication_cooldown, 40 SECONDS)
+	for(var/copy_number in 1 to 2)
+		new /obj/effect/beyond_clone(get_turf(user), user, copy_number * 2, 12 SECONDS)
+
+	to_chat(user, span_hierophant("Ваши прошлые версии отстают от вас, всё ещё уверенные, что они настоящие."))
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/beyond/proc/misfire(mob/living/wearer)
+	SIGNAL_HANDLER
+
+	if(!COOLDOWN_FINISHED(src, misfire_cooldown))
+		return
+
+	COOLDOWN_START(src, misfire_cooldown, 8 SECONDS)
+	new /obj/effect/beyond_clone(get_turf(wearer), wearer, 4, 6 SECONDS)
+	give_runtime_error(wearer, null)
+
+	if(wearer.has_status_effect(/datum/status_effect/crash_immunity))
+		wearer.drop_item_ground(src, force = TRUE)
+		wearer.visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] сползает с [wearer.declent_ru(GENITIVE)], потеряв к [GEND_HIM_HER(wearer)] всякий интерес."))
+
+
+/obj/item/clothing/head/hooded/cult_hoodie/eldritch/beyond
+	name = "uncompiled hood"
+	desc = "Капюшон, под которым вместо лица — пурпурно-чёрная клетка отсутствующей текстуры \
+			и две циановые рамки выделения там, где должны быть глаза."
+	icon_state = "glitch_armor"
+
+
+/obj/item/clothing/head/hooded/cult_hoodie/eldritch/beyond/get_ru_names()
+	return alist(
+		NOMINATIVE = "некомпилируемый капюшон",
+		GENITIVE = "некомпилируемого капюшона",
+		DATIVE = "некомпилируемому капюшону",
+		ACCUSATIVE = "некомпилируемый капюшон",
+		INSTRUMENTAL = "некомпилируемым капюшоном",
+		PREPOSITIONAL = "некомпилируемом капюшоне",
+	)
+
+
+/datum/action/item_action/frame_duplication
+	name = "Дублирование Кадров"
+	button_icon = 'icons/mob/actions/actions_ecult.dmi'
+	button_icon_state = "frame_duplication"
+	background_icon = 'icons/mob/actions/backgrounds.dmi'
+	background_icon_state = "bg_heretic"
+	overlay_icon = 'icons/mob/actions/backgrounds.dmi'
+	overlay_icon_state = "bg_heretic_border"
