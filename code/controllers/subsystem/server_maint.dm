@@ -8,11 +8,6 @@ SUBSYSTEM_DEF(server_maint)
 	init_stage = INITSTAGE_EARLY
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
 	var/list/currentrun
-	///Associated list of list names to lists to clear of nulls
-	var/list/lists_to_clear
-	///Delay between list clearings in ticks
-	var/delay = 5
-	var/cleanup_ticker = 0
 
 /datum/controller/subsystem/server_maint/PreInit()
 	world.hub_password = "" //quickly! before the hubbies see us.
