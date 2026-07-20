@@ -243,7 +243,7 @@
 		if(STAGE_TORMENT)
 
 			if(prob(5))
-				H.slip(4 SECONDS)
+				H.slip(SLIPPERY_TIME_LUBE)
 				to_chat(H, span_warning("The floor shifts underneath you!"))
 
 			if(prob(5))
@@ -313,7 +313,7 @@
 				if(!eating)
 					addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/simple_animal/hostile/floor_cluwne, Grab), H), 70)
 					for(var/turf/simulated/floor/O in range(src, 6))
-						O.MakeSlippery(TURF_WET_LUBE, 20 SECONDS)
+						O.MakeSlippery(TURF_WET_LUBE, SLIPPERY_TIME_LUBE)
 						playsound(src, 'sound/effects/meteorimpact.ogg', 30, TRUE)
 
 				eating = TRUE
