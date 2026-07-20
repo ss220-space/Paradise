@@ -130,7 +130,7 @@
 	update_counter_viewer()
 	var/mob/living/culprit = culprit_ref?.resolve()
 	if(culprit)
-		owner.balloon_alert(culprit, "ERROR [errors]/[BEYOND_MAX_RUNTIME_ERRORS]")
+		UNLINT(owner.balloon_alert(culprit, "ERROR [errors]/[BEYOND_MAX_RUNTIME_ERRORS]"))
 	playsound(owner, pick(GLOB.beyond_error_sounds), 40, TRUE)
 
 
@@ -383,7 +383,7 @@
 /datum/status_effect/packet_loss/proc/on_clickon(mob/living/source, atom/target, list/modifiers)
 	SIGNAL_HANDLER
 
-	source.balloon_alert_to_viewers("Packet dropped")
+	UNLINT(source.balloon_alert_to_viewers("Packet dropped"))
 	playsound(source, pick(GLOB.beyond_error_sounds), 50, TRUE)
 	to_chat(source, span_userdanger("Действие потеряно по дороге."))
 	give_runtime_error(source, caster_ref?.resolve())
@@ -564,7 +564,7 @@
 	owner.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED, TRAIT_MUTE), TRAIT_STATUS_EFFECT(id))
 	ADD_TRAIT(owner, TRAIT_GODMODE, TRAIT_STATUS_EFFECT(id))
 	owner.add_atom_colour(COLOR_CYAN, TEMPORARY_COLOUR_PRIORITY)
-	owner.balloon_alert_to_viewers("Pause()")
+	UNLINT(owner.balloon_alert_to_viewers("Pause()"))
 	playsound(owner, 'sound/magic/heretic/beyond/beyond_glitch.ogg', 40, TRUE)
 	return TRUE
 
