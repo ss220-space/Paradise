@@ -1,4 +1,0 @@
-author: "dageavtobusnick"
-delete-after: True
-changes:
-  - bugfix: "Теперь в центре лавы нет темных зон из-за отключения ненужного света. (PR #9521)"

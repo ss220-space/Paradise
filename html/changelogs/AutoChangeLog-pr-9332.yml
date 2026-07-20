@@ -1,4 +1,0 @@
-author: "FlitchTime"
-delete-after: True
-changes:
-  - balance: "Станы культов работают против мщ. (PR #9332)"
