@@ -79,6 +79,7 @@
 */
 /datum/dna/gene/proc/OnMobLife(mob/M)
 	SIGNAL_HANDLER
+	return
 
 /**
 * Called when the mob dies

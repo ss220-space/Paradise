@@ -2203,4 +2203,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			[shoes?.icon] [shoes?.icon_state] \
 			[gloves?.icon] [gloves?.icon_state] \
 			[glasses?.icon] [glasses?.icon_state] \
+			[wear_mask?.icon] [wear_mask?.icon_state] \
+			[back?.icon] [back?.icon_state] \
 			[belt?.icon] [belt?.icon_state]"

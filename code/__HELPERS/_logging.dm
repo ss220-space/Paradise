@@ -76,9 +76,9 @@ GLOBAL_PROTECT(log_end)
 		if(last_mob.ckey in GLOB.admin_datums)
 			WRITE_LOG(GLOB.world_game_log, "ADMIN: Admin [key_name(last_mob)] logged out[GLOB.log_end]")
 
-/proc/log_access_afk(mob/last_mob)
+/proc/log_access_afk(client/last_mob)
 	if(CONFIG_GET(flag/log_access))
-		var/message = "[key_name(last_mob)] - IP:[last_mob.lastKnownIP] - CID:[last_mob.computer_id]"
+		var/message = "[key_name(last_mob)]"
 		WRITE_LOG(GLOB.world_game_log, "AFK: [message][GLOB.log_end]")
 
 /proc/log_say(text, mob/speaker)

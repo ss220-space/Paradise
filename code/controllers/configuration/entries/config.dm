@@ -899,6 +899,4 @@
 
 /// Pop requirement for the server to be removed from the hub
 /datum/config_entry/number/max_hub_pop
-	default = 0 //0 means disabled
-	integer = TRUE
 	min_val = 0

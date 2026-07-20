@@ -38,14 +38,16 @@ SUBSYSTEM_DEF(server_maint)
 	var/afk_period
 	if(kick_inactive)
 		afk_period = CONFIG_GET(number/afk_period)
-	for(var/client/user as anything in currentrun)
+	while(length(currentrun))
+		var/client/processing_client = currentrun[length(currentrun)]
+		currentrun.len--
 		//handle kicking inactive players
-		if(round_started && kick_inactive && !user.holder && user.is_afk(afk_period))
-			var/cmob = user.mob
+		if(round_started && kick_inactive && !processing_client.holder && processing_client.is_afk(afk_period))
+			var/cmob = processing_client.mob
 			if(!isnewplayer(cmob) /* || !SSticker.queued_players.Find(cmob)*/)
-				log_access_afk(user)
-				to_chat(user, span_userdanger("You have been inactive for more than [DisplayTimeText(afk_period)] and have been disconnected.</span><br><span class='danger'>You may reconnect via the button in the file menu or by <b><u><a href='byond://winset?command=.reconnect'>clicking here to reconnect</a></u></b>."))
-				QDEL_IN(user, 1) //to ensure they get our message before getting disconnected
+				log_access_afk(processing_client)
+				to_chat(processing_client, span_userdanger("You have been inactive for more than [DisplayTimeText(afk_period)] and have been disconnected.</span><br><span class='danger'>You may reconnect via the button in the file menu or by <b><u><a href='byond://winset?command=.reconnect'>clicking here to reconnect</a></u></b>."))
+				QDEL_IN(processing_client, 1) //to ensure they get our message before getting disconnected
 				continue
 
 		if(MC_TICK_CHECK) //one day, when ss13 has 1000 people per server, you guys are gonna be glad I added this tick check
