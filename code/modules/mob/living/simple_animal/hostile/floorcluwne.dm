@@ -215,7 +215,7 @@
 		if(STAGE_SPOOK)
 
 			if(prob(4))
-				H.slip(10 SECONDS)
+				H.slip(4 SECONDS)
 				to_chat(H, span_warning("The floor shifts underneath you!"))
 
 			if(prob(3))
@@ -243,7 +243,7 @@
 		if(STAGE_TORMENT)
 
 			if(prob(5))
-				H.slip(10 SECONDS)
+				H.slip(4 SECONDS)
 				to_chat(H, span_warning("The floor shifts underneath you!"))
 
 			if(prob(5))
@@ -412,7 +412,7 @@
 
 /obj/effect/temp_visual/fcluwne_manifest/Initialize(mapload)
 	. = ..()
-	
+
 	playsound(src, 'sound/spookoween/scary_clown_appear.ogg', 100, TRUE)
 
 #undef STAGE_HAUNT
