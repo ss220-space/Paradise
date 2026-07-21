@@ -3000,6 +3000,18 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/engineering/break_room)
 "bbM" = (
+/obj/structure/table/wood,
+/obj/item/clipboard,
+/obj/item/folder,
+/obj/item/pen/red{
+	pixel_x = 2;
+	pixel_y = 6
+	},
+/obj/item/taperecorder,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
 /obj/item/clipboard,
 /obj/item/folder,
 /obj/item/pen/red{
