@@ -27,7 +27,8 @@
 /obj/machinery/mass_driver/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	to_chat(user, "You begin to unscrew the bolts off [src]...")
-	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_CONSTRUCTING_SPEED_MOD, construction_mod)
+	if(!I.use_tool(src, user, 3 SECONDS * construction_mod, volume = I.tool_volume))
 		return .
 	var/obj/machinery/mass_driver_frame/frame = new(loc)
 	frame.setDir(dir)
@@ -98,17 +99,18 @@
 	if(build != MASS_DRIVER_BUILD_LOOSE && build != MASS_DRIVER_BUILD_ANCHORED)
 		return FALSE
 	. = TRUE
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_CONSTRUCTING_SPEED_MOD, construction_mod)
 	switch(build)
 		if(MASS_DRIVER_BUILD_LOOSE)
 			to_chat(user, "You begin to anchor [src] on the floor.")
-			if(!I.use_tool(src, user, 1 SECONDS, volume = I.tool_volume) || build != MASS_DRIVER_BUILD_LOOSE)
+			if(!I.use_tool(src, user, 1 SECONDS * construction_mod, volume = I.tool_volume) || build != MASS_DRIVER_BUILD_LOOSE)
 				return .
 			set_anchored(TRUE)
 			build = MASS_DRIVER_BUILD_ANCHORED
 			to_chat(user, span_notice("You anchor [src]!"))
 		if(MASS_DRIVER_BUILD_ANCHORED)
 			to_chat(user, "You begin to de-anchor [src] from the floor.")
-			if(!I.use_tool(src, user, 1 SECONDS, volume = I.tool_volume) || build != MASS_DRIVER_BUILD_ANCHORED)
+			if(!I.use_tool(src, user, 1 SECONDS * construction_mod, volume = I.tool_volume) || build != MASS_DRIVER_BUILD_ANCHORED)
 				return .
 			set_anchored(FALSE)
 			build = MASS_DRIVER_BUILD_LOOSE
@@ -119,7 +121,8 @@
 		return FALSE
 	. = TRUE
 	to_chat(user, "You begin to remove the wiring from [src].")
-	if(!I.use_tool(src, user, 1 SECONDS, volume = I.tool_volume) || build != MASS_DRIVER_BUILD_WIRED)
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_CONSTRUCTING_SPEED_MOD, construction_mod)
+	if(!I.use_tool(src, user, 1 SECONDS * construction_mod, volume = I.tool_volume) || build != MASS_DRIVER_BUILD_WIRED)
 		return .
 	build = MASS_DRIVER_BUILD_WELDED
 	to_chat(user, span_notice("You've removed the cables from [src]."))
@@ -129,7 +132,8 @@
 		return FALSE
 	. = TRUE
 	to_chat(user, "You begin to pry off the grille from [src]...")
-	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume) || build != MASS_DRIVER_BUILD_GRILLE)
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_CONSTRUCTING_SPEED_MOD, construction_mod)
+	if(!I.use_tool(src, user, 3 SECONDS * construction_mod, volume = I.tool_volume) || build != MASS_DRIVER_BUILD_GRILLE)
 		return .
 	build = MASS_DRIVER_BUILD_WIRED
 	new /obj/item/stack/rods(loc, 2)
@@ -138,9 +142,10 @@
 	if(build != MASS_DRIVER_BUILD_GRILLE) // Grille in place
 		return FALSE
 	. = TRUE
-	if(!I.use_tool(src, user, volume = I.tool_volume))
-		return .
 	to_chat(user, "You finalize the Mass Driver...")
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_CONSTRUCTING_SPEED_MOD, construction_mod)
+	if(!I.use_tool(src, user, 1 SECONDS * construction_mod, volume = I.tool_volume))
+		return .
 	var/obj/machinery/mass_driver/driver = new(loc)
 	driver.setDir(dir)
 	qdel(src)
@@ -159,7 +164,8 @@
 					return ATTACK_CHAIN_PROCEED
 				to_chat(user, "You start adding cables to [src]...")
 				playsound(loc, coil.usesound, 50, TRUE)
-				if(!do_after(user, 2 SECONDS * coil.toolspeed, src, category = DA_CAT_TOOL) || build != MASS_DRIVER_BUILD_WELDED || QDELETED(coil) || !coil.use(2))
+				CALCULATE_SKILL_MOD(user, COMSIG_GET_CONSTRUCTING_SPEED_MOD, construction_mod)
+				if(!do_after(user, 2 SECONDS * coil.toolspeed * construction_mod, src, category = DA_CAT_TOOL) || build != MASS_DRIVER_BUILD_WELDED || QDELETED(coil) || !coil.use(2))
 					return ATTACK_CHAIN_PROCEED
 				to_chat(user, span_notice("You've added cables to [src]."))
 				build = MASS_DRIVER_BUILD_WIRED
@@ -174,7 +180,8 @@
 					return ATTACK_CHAIN_PROCEED
 				to_chat(user, "You start adding rods to [src]...")
 				playsound(loc, rods.usesound, 50, TRUE)
-				if(!do_after(user, 2 SECONDS * rods.toolspeed, src, category = DA_CAT_TOOL) || build != MASS_DRIVER_BUILD_WIRED || QDELETED(rods) || !rods.use(2))
+				CALCULATE_SKILL_MOD(user, COMSIG_GET_CONSTRUCTING_SPEED_MOD, construction_mod)
+				if(!do_after(user, 2 SECONDS * rods.toolspeed * construction_mod, src, category = DA_CAT_TOOL) || build != MASS_DRIVER_BUILD_WIRED || QDELETED(rods) || !rods.use(2))
 					return ATTACK_CHAIN_PROCEED
 				to_chat(user, span_notice("You've added rods to [src]."))
 				build = MASS_DRIVER_BUILD_GRILLE
@@ -188,10 +195,11 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return .
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_CONSTRUCTING_SPEED_MOD, construction_mod)
 	switch(build)
 		if(MASS_DRIVER_BUILD_LOOSE)
 			WELDER_ATTEMPT_SLICING_MESSAGE
-			if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume) || build != MASS_DRIVER_BUILD_LOOSE)
+			if(!I.use_tool(src, user, 3 SECONDS * construction_mod, volume = I.tool_volume) || build != MASS_DRIVER_BUILD_LOOSE)
 				return .
 			WELDER_SLICING_SUCCESS_MESSAGE
 			new /obj/item/stack/sheet/plasteel(drop_location(),3)
@@ -199,14 +207,14 @@
 
 		if(MASS_DRIVER_BUILD_ANCHORED)
 			WELDER_ATTEMPT_FLOOR_WELD_MESSAGE
-			if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume) || build != MASS_DRIVER_BUILD_ANCHORED)
+			if(!I.use_tool(src, user, 4 SECONDS * construction_mod, volume = I.tool_volume) || build != MASS_DRIVER_BUILD_ANCHORED)
 				return .
 			WELDER_FLOOR_WELD_SUCCESS_MESSAGE
 			build = MASS_DRIVER_BUILD_WELDED
 
 		if(MASS_DRIVER_BUILD_WELDED)
 			WELDER_ATTEMPT_FLOOR_SLICE_MESSAGE
-			if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume) || build != MASS_DRIVER_BUILD_WELDED)
+			if(!I.use_tool(src, user, 4 SECONDS * construction_mod, volume = I.tool_volume) || build != MASS_DRIVER_BUILD_WELDED)
 				return .
 			WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
 			build = MASS_DRIVER_BUILD_ANCHORED

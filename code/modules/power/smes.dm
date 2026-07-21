@@ -162,7 +162,8 @@
 	return TRUE
 
 /obj/machinery/power/smes/proc/check_electrocute(mob/user, power_source, obj/source)
-	if(prob(50) && electrocute_mob(user, power_source, source, 1, TRUE))
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_ELECTRICITY_NEGATIVE_CHANCE_MOD, prob_mod)
+	if(prob(50 * prob_mod) && electrocute_mob(user, power_source, source, 1, TRUE))
 		do_sparks(5, TRUE, src)
 		return TRUE
 	return FALSE

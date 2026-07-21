@@ -51,12 +51,7 @@
 		current_turf_slowdown = 0
 
 /mob/living/proc/get_strength_pull_slowdown_modifier()
-	var/mod = 1
-	var/list/mods = list()
-	SEND_SIGNAL(src, COMSIG_GET_PULL_SLOWDOWN_MODIFIERS, mods)
-	for(var/modifier in mods)
-		mod *= modifier
-
+	CALCULATE_SKILL_MOD(src, COMSIG_GET_PULL_SLOWDOWN_MODIFIERS, mod)
 	return mod
 
 /mob/living/proc/update_pull_movespeed()
