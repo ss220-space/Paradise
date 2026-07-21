@@ -479,7 +479,6 @@
 	icon_state = "ghostface_knife"
 	force = 34
 	armour_penetration = 70
-	block_chance = 30
 	throwforce = 34
 	attack_verb = list("полоснул", "уколол", "поранил", "порезал", "рубанул")
 
@@ -492,6 +491,9 @@
 		INSTRUMENTAL = "старым ножом",
 		PREPOSITIONAL = "старом ноже",
 	)
+
+/obj/item/kitchen/knife/ghostface_knife/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (7 / 3) SECONDS) // 2.3333 seconds of cooldown for 30% uptime
 
 /obj/item/kitchen/knife/ghostface_knife/ComponentInitialize()
 	. = ..()

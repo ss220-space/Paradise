@@ -630,3 +630,8 @@
 
 /// Trait given to objects with the wallmounted component
 #define TRAIT_WALLMOUNTED "wallmounted"
+
+#define TRAIT_PUSH_BLOCKED "push_blocked"
+
+/// Makes an item active, this is generally used by energy based weapons or toggle based items.
+#define TRAIT_ITEM_ACTIVE "item_active"
