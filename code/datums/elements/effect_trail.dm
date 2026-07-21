@@ -37,7 +37,6 @@
 	var/slows_projectiles = FALSE
 
 /datum/element/effect_trail/cosmic_field/generate_effect(atom/movable/target_object)
-	SIGNAL_HANDLER
 	var/turf/open_turf = get_turf(target_object)
 	if(!istype(open_turf))
 		return
@@ -48,7 +47,6 @@
 		new_field.slows_projectiles()
 
 /datum/element/effect_trail/beyond_afterimage/generate_effect(atom/movable/target_object)
-	SIGNAL_HANDLER
 	var/turf/open_turf = get_turf(target_object)
 	if(!istype(open_turf))
 		return
