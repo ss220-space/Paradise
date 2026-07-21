@@ -59,21 +59,21 @@
 
 /obj/item/syndicate_reverse_card/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(attack_type != PROJECTILE_ATTACK)
-		return FALSE //this means the attack goes through
+		return HIT_RESULT_FAILED //this means the attack goes through
 	if(isprojectile(hitby))
 		var/obj/projectile/P = hitby
 		if(P?.firer && P.firer_source_atom && (P.firer != P.firer_source_atom)) //if the projectile comes from YOU, like your spit or some shit, you can't steal that bro. Also protects mechs
 			if(iscarbon(P.firer)) //You can't switcharoo with turrets or simplemobs, or borgs
 				return switcharoo(P.firer, owner, P.firer_source_atom)
-	return FALSE
+	return HIT_RESULT_FAILED
 
 /obj/item/syndicate_reverse_card/proc/switcharoo(mob/firer, mob/user, obj/item/gun/target_gun) //this proc teleports the target_gun out of the firer's hands and into the user's. The firer gets the card.
 	if(!user.drop_item_ground(src)) //firstly, check for ani-drop on card owner
-		return FALSE
+		return HIT_RESULT_FAILED
 
 	if(!firer.drop_item_ground(target_gun)) //then, check for anti-drop on gun owner. Don't do it in the same proc
 		user.put_in_hands(src)
-		return FALSE
+		return HIT_RESULT_FAILED
 	//first, the sparks!
 	do_sparks(12, TRUE, user)
 	//next, we move the gun to the user and the card to the firer
@@ -83,7 +83,7 @@
 	firer.put_in_hands(src)
 	used = TRUE
 	update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
-	return TRUE
+	return HIT_RESULT_SUCCESS
 
 
 /obj/item/ecig

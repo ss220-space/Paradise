@@ -163,7 +163,7 @@
 /obj/item/melee/energy/sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
 		return ..()
-	return FALSE
+	return HIT_RESULT_FAILED
 
 /obj/item/melee/energy/sword/cyborg
 	var/hitcost = 50
@@ -195,7 +195,7 @@
 	item_color = null
 
 /obj/item/melee/energy/sword/cyborg/saw/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
-	return 0
+	return HIT_RESULT_FAILED
 
 /obj/item/melee/energy/sword/saber
 
@@ -261,7 +261,7 @@
 
 /obj/item/melee/energy/sword/saber/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(!HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
-		return FALSE
+		return HIT_RESULT_FAILED
 	. = ..()
 	if(!.) // they did not block the attack
 		return
@@ -270,11 +270,11 @@
 		if(P.reflectability == REFLECTABILITY_NEVER) //only 1 magic spell does this, but hey, needed
 			owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"), projectile_message = TRUE)
 			playsound(src, 'sound/weapons/effects/ric3.ogg', 100, TRUE)
-			return TRUE
+			return HIT_RESULT_SUCCESS
 		owner.visible_message(span_danger("[owner] parries [attack_text] with [src]!"), projectile_message = TRUE)
 		add_attack_logs(P.firer, src, "hit by [P.type] but got parried by [src]")
-		return -1
-	return TRUE
+		return HIT_RESULT_REFLECY_BACK
+	return HIT_RESULT_SUCCESS
 
 /obj/item/melee/energy/sword/pirate
 	name = "energy cutlass"

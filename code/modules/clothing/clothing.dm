@@ -1434,9 +1434,9 @@
 			turfs += pick(/turf in orange(3, H))
 		var/turf/picked = pick(turfs)
 		if(!isturf(picked))
-			return
+			return HIT_RESULT_FAILED
 		H.forceMove(picked)
-		return 1
+		return HIT_RESULT_SUCCESS
 	return ..()
 
 /**
