@@ -11,6 +11,7 @@
 	invisibility = INVISIBILITY_LIGHTING
 	simulated = FALSE
 	move_resist = INFINITY
+	vis_flags = VIS_INHERIT_ID
 	///whether we are already in the SSlighting.objects_queue list
 	var/needs_update = FALSE
 
