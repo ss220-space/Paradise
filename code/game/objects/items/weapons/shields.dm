@@ -201,7 +201,6 @@
 	icon_state = "teleriot[HAS_TRAIT(src, TRAIT_ITEM_ACTIVE)]"
 
 /obj/item/shield/riot/tele/attack_self(mob/living/user)
-	update_icon(UPDATE_ICON_STATE)
 	playsound(loc, 'sound/weapons/batonextend.ogg', 50, TRUE)
 
 	if(!HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
@@ -220,6 +219,7 @@
 		w_class = WEIGHT_CLASS_NORMAL
 		slot_flags = NONE
 		to_chat(user, span_notice("[src] can now be concealed."))
+	update_icon(UPDATE_ICON_STATE)
 	update_equipped_item()
 	add_fingerprint(user)
 
