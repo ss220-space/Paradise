@@ -466,7 +466,7 @@
 
 /obj/item/clothing/suit/armor/reactive/teleport/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "атаку", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(!active)
-		return 0
+		return HIT_RESULT_FAILED
 	if(prob(hit_reaction_chance))
 		var/mob/living/carbon/human/H = owner
 		owner.visible_message(
@@ -488,17 +488,17 @@
 			turfs += pick(/turf in orange(tele_range, H))
 		var/turf/picked = pick(turfs)
 		if(!isturf(picked))
-			return
+			return HIT_RESULT_FAILED
 		H.forceMove(picked)
-		return 1
-	return 0
+		return HIT_RESULT_SUCCESS
+	return HIT_RESULT_FAILED
 
 /obj/item/clothing/suit/armor/reactive/fire
 	name = "reactive incendiary armor"
 
 /obj/item/clothing/suit/armor/reactive/fire/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "атаку", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(!active)
-		return 0
+		return HIT_RESULT_FAILED
 	if(prob(hit_reaction_chance))
 		owner.visible_message(
 			span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] блокирует [attack_text], выпуская струи пламени!"),
@@ -509,15 +509,15 @@
 				C.fire_stacks += 8
 				C.IgniteMob()
 		owner.fire_stacks = -20
-		return 1
-	return 0
+		return HIT_RESULT_SUCCESS
+	return HIT_RESULT_FAILED
 
 /obj/item/clothing/suit/armor/reactive/stealth
 	name = "reactive stealth armor"
 
 /obj/item/clothing/suit/armor/reactive/stealth/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "удар", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(!active)
-		return 0
+		return HIT_RESULT_FAILED
 	if(prob(hit_reaction_chance))
 		var/mob/living/simple_animal/hostile/illusion/escape/E = new(owner.loc)
 		E.Copy_Parent(owner, 50)
@@ -530,14 +530,14 @@
 		) //We pretend to be hit, since blocking it would stop the message otherwise
 		spawn(40)
 			owner.alpha = initial(owner.alpha)
-		return 1
+		return HIT_RESULT_SUCCESS
 
 /obj/item/clothing/suit/armor/reactive/tesla
 	name = "reactive tesla armor"
 
 /obj/item/clothing/suit/armor/reactive/tesla/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "атаку", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(!active)
-		return 0
+		return HIT_RESULT_FAILED
 	if(prob(hit_reaction_chance))
 		owner.visible_message(
 			span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] блокирует [attack_text], испуская разряды молний!"),
@@ -549,7 +549,7 @@
 			owner.Beam(M,icon_state="lightning[rand(1, 12)]",icon='icons/effects/effects.dmi',time=5)
 			M.adjustFireLoss(25)
 			playsound(M, 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
-		return 1
+		return HIT_RESULT_SUCCESS
 
 //All of the armor below is mostly unused
 

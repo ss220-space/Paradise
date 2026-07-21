@@ -442,7 +442,7 @@
 /obj/item/holo/esword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
 		return ..()
-	return 0
+	return HIT_RESULT_FAILED
 
 /obj/item/holo/esword/update_icon_state()
 	icon_state = HAS_TRAIT(src, TRAIT_ITEM_ACTIVE) ? "sword[item_color]" : "sword0"

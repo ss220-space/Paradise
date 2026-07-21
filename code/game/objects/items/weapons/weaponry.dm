@@ -276,7 +276,7 @@
 /obj/item/melee/baseball_bat/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	. = ..()
 	if(!isitem(hitby) || attack_type != THROWN_PROJECTILE_ATTACK)
-		return FALSE
+		return HIT_RESULT_FAILED
 	var/obj/item/I = hitby
 	if(I.w_class <= WEIGHT_CLASS_NORMAL || istype(I, /obj/item/beach_ball)) // baseball bat deflecting
 		if(deflectmode)
@@ -288,7 +288,7 @@
 				deflectmode = FALSE
 				if(!istype(I, /obj/item/beach_ball))
 					lastdeflect = world.time + 600
-				return TRUE
+				return HIT_RESULT_SUCCESS
 			else if(prob(30))
 				visible_message(span_warning("[owner] замахива[PLUR_ET_YUT(owner)]ся... и промахива[PLUR_ET_YUT(owner)]ся! Как неловко..."), span_warning("Вы замахиваетесь... и промахиваетесь! Вот чёрт!"))
 				playsound(get_turf(owner), 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
@@ -296,7 +296,7 @@
 				deflectmode = FALSE
 				if(!istype(I, /obj/item/beach_ball))
 					lastdeflect = world.time + 600
-				return FALSE
+				return HIT_RESULT_FAILED
 			else
 				visible_message(span_warning("[owner] замахива[PLUR_ET_YUT(owner)]ся и отбивает [I.declent_ru(ACCUSATIVE)]!"), span_warning("Вы отбиваете [I.declent_ru(ACCUSATIVE)]!"))
 				playsound(get_turf(owner), 'sound/weapons/baseball_hit.ogg', 50, TRUE, -1)
@@ -305,7 +305,7 @@
 				deflectmode = FALSE
 				if(!istype(I, /obj/item/beach_ball))
 					lastdeflect = world.time + 600
-				return TRUE
+				return HIT_RESULT_SUCCESS
 
 /obj/item/melee/baseball_bat/attack_self(mob/user)
 	if(!homerun_able && can_deflect)

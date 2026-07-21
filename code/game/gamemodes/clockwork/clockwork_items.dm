@@ -860,8 +860,8 @@
 		playsound(loc, "sparks", 100, TRUE)
 		new /obj/effect/temp_visual/ratvar/sparks(get_turf(owner))
 		deplete_spell()
-		return TRUE
-	return FALSE
+		return HIT_RESULT_SUCCESS
+	return HIT_RESULT_FAILED
 
 /obj/item/clothing/suit/armor/clockwork/IsReflect(def_zone)
 	if(!ishuman(loc))

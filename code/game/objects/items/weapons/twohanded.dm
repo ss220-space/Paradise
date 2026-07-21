@@ -366,7 +366,7 @@
 /obj/item/twohanded/dualsaber/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "атакует", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		return ..()
-	return FALSE
+	return HIT_RESULT_FAILED
 
 /obj/item/twohanded/dualsaber/green
 	blade_color = "green"
@@ -714,8 +714,8 @@
 	if(attack_type == PROJECTILE_ATTACK)
 		owner.visible_message(span_danger("Дальние атаки только сильнее злят [owner.declent_ru(ACCUSATIVE)]!"), projectile_message = TRUE)
 		playsound(src, pick('sound/weapons/bulletflyby.ogg','sound/weapons/bulletflyby2.ogg','sound/weapons/bulletflyby3.ogg'), 75, 1)
-		return TRUE
-	return FALSE
+		return HIT_RESULT_SUCCESS
+	return HIT_RESULT_FAILED
 
 ///CHAINSAW///
 /obj/item/twohanded/chainsaw
