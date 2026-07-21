@@ -401,7 +401,9 @@
 	throwforce = 10
 	w_class = WEIGHT_CLASS_BULKY
 	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
-	block_chance = 50
+
+/obj/item/holo/claymore/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
 
 /obj/item/holo/claymore/blue
 	icon_state = "claymoreblue"
@@ -421,8 +423,10 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
 	armour_penetration = 50
-	block_chance = 50
 	var/active = 0
+
+/obj/item/holo/esword/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
 
 /obj/item/holo/esword/green/Initialize(mapload)
 	. = ..()

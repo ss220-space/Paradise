@@ -157,10 +157,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 	if(istype(item, /obj/item/melee/energy/sword/saber))
 		add_fingerprint(user)
-		var/obj/item/melee/energy/sword/saber/saber = item
-		if(!saber.active)
+		if(!HAS_TRAIT(item, TRAIT_ITEM_ACTIVE))
 			return ..()
-		light(span_warning("[user] дела[PLUR_ET_YUT(user)] резкое движение [saber.declent_ru(INSTRUMENTAL)], проводя [GEND_IM_EI_IM_IMI(saber)] в считанных сантиметрах перед своим лицом и поджигая [declent_ru(ACCUSATIVE)] в процессе."))
+		light(span_warning("[user] дела[PLUR_ET_YUT(user)] резкое движение [item.declent_ru(INSTRUMENTAL)], проводя [GEND_IM_EI_IM_IMI(item)] в считанных сантиметрах перед своим лицом и поджигая [declent_ru(ACCUSATIVE)] в процессе."))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(isigniter(item))

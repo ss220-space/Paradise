@@ -1141,6 +1141,7 @@
 	. = ..()
 	if(slot != ITEM_SLOT_CLOTH_OUTER)
 		return
+	RegisterSignal(user, COMSIG_HUMAN_CHECK_SHIELDS, PROC_REF(shield_reaction), override = TRUE)
 	if(!isheretic(user) && isliving(user))
 		INVOKE_ASYNC(src, PROC_REF(freeze_thief), user)
 
@@ -1156,6 +1157,7 @@
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/void/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
+	UnregisterSignal(user, COMSIG_HUMAN_CHECK_SHIELDS)
 	if(!timeleft(stealth_timer))
 		return
 	deltimer(stealth_timer)
@@ -1163,12 +1165,11 @@
 
 
 /// Every 20s the weave nullifies one attack entirely and cloaks the wearer for 5s.
-/obj/item/clothing/suit/hooded/cultrobes/eldritch/void/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "атаку", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
-	. = ..()
-	if(.)
-		return
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/void/proc/shield_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "атаку", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
+	SIGNAL_HANDLER
+
 	if(!COOLDOWN_FINISHED(src, stealth_cooldown))
-		return
+		return NONE
 	COOLDOWN_START(src, stealth_cooldown, 20 SECONDS)
 	stealth_timer = addtimer(CALLBACK(src, PROC_REF(end_stealth), owner), 5 SECONDS, TIMER_STOPPABLE)
 	owner.visible_message(
@@ -1176,7 +1177,7 @@
 		span_userdanger("Плетение поглощает [attack_text] и скрывает вас из виду!"),
 	)
 	owner.alpha = 0
-	return TRUE
+	return SHIELD_BLOCK
 
 
 /// Fades the wearer back into view once the short stealth runs out.

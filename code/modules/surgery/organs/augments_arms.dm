@@ -624,3 +624,138 @@
 	contents = newlist(/obj/item/mop/advanced)
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/janitor.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "advmop")
+
+/datum/action/item_action/organ_action/toggle/v1_arm
+	button_icon = 'icons/obj/items.dmi'
+	button_icon_state = "v1_arm"
+
+/obj/item/organ/internal/cyberimp/arm/v1_arm
+	name = "vortex feedback arm implant"
+	desc = "An implant, that when deployed surrounds the users arm in armor and circuitry, allowing them to redirect nearby projectiles with feedback from the vortex anomaly core."
+	origin_tech = "combat=6;magnets=6;biotech=6;engineering=6"
+	materials = list(MAT_GOLD = 5000, MAT_URANIUM = 4000, MAT_METAL = 10000, MAT_TITANIUM = 2000, MAT_BLUESPACE = 2000)
+	icon = 'icons/obj/items.dmi'
+	icon_state = "v1_arm"
+	parent_organ_zone = INTERNAL_ORGAN_L_ARM_DEVICE //Left arm by default
+	slot = "l_arm_device"
+
+	contents = newlist(/obj/item/shield/v1_arm)
+	actions_types = list(/datum/action/item_action/organ_action/toggle/v1_arm)
+	var/disabled = FALSE
+
+/obj/item/organ/internal/cyberimp/arm/v1_arm/emp_act(severity)
+	if(emp_proof && !disabled)
+		return
+	disabled = TRUE
+	addtimer(VARSET_CALLBACK(src, disabled, FALSE), 10 SECONDS)
+
+/obj/item/organ/internal/cyberimp/arm/v1_arm/Extend(obj/item/item)
+	if(disabled)
+		to_chat(owner, span_warning("Your arm fails to extend!"))
+		return FALSE
+	..()
+
+/obj/item/organ/internal/cyberimp/arm/v1_arm/Retract()
+	if(disabled)
+		to_chat(owner, span_warning("Your arm fails to retract!"))
+		return FALSE
+	..()
+
+/obj/item/shield/v1_arm
+	name = "vortex feedback arm"
+	desc = "A modification to a users arm, allowing them to use a vortex core energy feedback, to parry, reflect, and even empower projectile attacks. Rumors that it runs on the user's blood are unconfirmed."
+	icon_state = "v1_arm"
+	sprite_sheets_inhand = list(SPECIES_DRASK = 'icons/mob/clothing/species/drask/held.dmi', SPECIES_VOX = 'icons/mob/clothing/species/vox/held.dmi')
+	force = 20 //bonk, not sharp
+	attack_verb = list("slamed", "punched", "parried", "judged", "styled on", "disrespected", "interrupted", "gored")
+	hitsound = 'sound/effects/bang.ogg'
+	light_power = 3
+	light_color = "#9933ff"
+	hit_reaction_chance = -1
+	flags = ABSTRACT
+	/// The damage the reflected projectile will be increased by
+	var/reflect_damage_boost = 10
+	/// The cap of the reflected damage. Damage will not be increased above 50, however it will not be reduced to 50 either.
+	var/reflect_damage_cap = 50
+	var/disabled = FALSE
+	var/force_when_disabled = 5 //still basically a metal pipe, just hard to move
+
+/obj/item/shield/v1_arm/emp_act(severity)
+	if(disabled)
+		return
+	to_chat(loc, span_warning("Your arm seises up!"))
+	disabled = TRUE
+	force = force_when_disabled
+	addtimer(CALLBACK(src, PROC_REF(reboot)), 10 SECONDS)
+
+/obj/item/shield/v1_arm/proc/reboot()
+	disabled = FALSE
+	force = initial(force)
+
+/obj/item/shield/v1_arm/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.35, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (4 / 3) SECONDS, _no_parry_sound = TRUE) // 0.3333 seconds of cooldown for 75% uptime, countered by ions and plasma pistols
+
+/obj/item/shield/v1_arm/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
+	if(disabled)
+		return FALSE
+	// Hit by a melee weapon or blocked a projectile
+	. = ..()
+
+	if(!.) // they did not block the attack
+		return
+
+	if(. == 1) // a normal block
+		owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"))
+		playsound(src, 'sound/weapons/effects/ric3.ogg', 100, TRUE)
+		return TRUE
+
+	set_light(3)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 0.25 SECONDS)
+
+	if(isprojectile(hitby))
+		var/obj/projectile/projectile_hitby = hitby
+		if(projectile_hitby.shield_buster || istype(projectile_hitby, /obj/projectile/ion)) //EMP's and unpariable attacks, after all.
+			return FALSE
+		if(projectile_hitby.reflectability == REFLECTABILITY_NEVER) //only 1 magic spell does this, but hey, needed
+			owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"))
+			playsound(src, 'sound/weapons/effects/ric3.ogg', 100, TRUE)
+			return TRUE
+
+		projectile_hitby.damage = clamp((projectile_hitby.damage + 10), projectile_hitby.damage, reflect_damage_cap)
+		var/sound = SFX_EXPLOSION
+		projectile_hitby.hitsound = sound
+		projectile_hitby.hitsound_wall = sound
+		projectile_hitby.add_overlay(mutable_appearance('icons/obj/weapons/guns/projectiles.dmi', "parry"))
+		playsound(src, 'sound/weapons/v1_parry.ogg', 100, TRUE)
+		owner.visible_message(span_danger("[owner] parries [attack_text] with [src]!"))
+		add_attack_logs(projectile_hitby.firer, src, "hit by [projectile_hitby.type] but got parried by [src]")
+		return -1
+
+	owner.visible_message(span_danger("[owner] parries [attack_text] with [src]!"))
+	playsound(src, 'sound/weapons/v1_parry.ogg', 100, TRUE)
+	if(attack_type == THROWN_PROJECTILE_ATTACK)
+		if(!isitem(hitby))
+			return TRUE
+		var/obj/item/item_hitby = hitby
+		addtimer(CALLBACK(item_hitby, TYPE_PROC_REF(/atom/movable, throw_at), locateUID(item_hitby.thrownby), 10, 4, owner), 0.2 SECONDS) //Timer set to 0.2 seconds to ensure item finshes the throwing to prevent double embeds
+		return TRUE
+
+	if(isitem(hitby))
+		melee_attack_chain(owner, hitby.loc)
+	else
+		melee_attack_chain(owner, hitby)
+	return TRUE
+
+/obj/item/v1_arm_shell
+	name = "vortex feedback arm implant frame"
+	desc = "An implant awaiting installation of a vortex anomaly core."
+	icon_state = "v1_arm"
+	materials = list(MAT_GOLD = 5000, MAT_URANIUM = 4000, MAT_METAL = 10000, MAT_TITANIUM = 2000, MAT_BLUESPACE = 2000)
+
+/obj/item/v1_arm_shell/attackby(obj/item/item, mob/living/user, list/modifiers)
+	if(iscorevortex(item))
+		to_chat(user, span_notice("You insert [item] into the back of the hand, and the implant begins to boot up."))
+		new /obj/item/organ/internal/cyberimp/arm/v1_arm(get_turf(src))
+		qdel(src)
+		qdel(item)
+	return ..()

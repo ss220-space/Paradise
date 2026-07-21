@@ -847,6 +847,7 @@
 #include "code\datums\components\paint_splat.dm"
 #include "code\datums\components\paintable.dm"
 #include "code\datums\components\palette.dm"
+#include "code\datums\components\parry.dm"
 #include "code\datums\components\pellet_cloud.dm"
 #include "code\datums\components\persistent_overlay.dm"
 #include "code\datums\components\pet_command.dm"

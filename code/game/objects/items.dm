@@ -142,7 +142,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	/// Flags, that used in breakout do_after
 	var/breakout_flags = DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM
 
-	var/block_chance = 0
 	var/block_type = ALL
 	/// If you want to have something unrelated to blocking/armour piercing etc. Maybe not needed, but trying to think ahead/allow more freedom
 	var/hit_reaction_chance = 0
@@ -328,7 +327,11 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		determine_move_resist()
 
 	add_eatable_component()
+	add_parry_component()
 	scatter_item()
+
+/obj/item/proc/add_parry_component()
+	return
 
 /obj/item/proc/add_eatable_component()
 	AddElement(/datum/element/eatable)

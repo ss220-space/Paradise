@@ -548,7 +548,6 @@
 			устремлён на вас."
 	force = 25
 	throwforce = 15
-	block_chance = 35
 	icon_state = "cursed_blade"
 	item_state = "cursed_blade"
 
@@ -562,6 +561,10 @@
 		INSTRUMENTAL = "проклятым клинком",
 		PREPOSITIONAL = "проклятом клинке",
 	)
+
+
+/obj/item/melee/sickly_blade/cursed/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 
 /obj/item/melee/sickly_blade/cursed/Initialize(mapload)
