@@ -119,7 +119,6 @@
 /datum/keybinding/carbon/parry
 	name = "Parry"
 	keys = list("Space")
-	signa
 
 /datum/keybinding/carbon/parry/down(client/user)
 	. = ..()
