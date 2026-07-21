@@ -97,7 +97,7 @@
 /datum/skill/combat/melee
 	id = "combat.melee"
 	name = "Владение оружием ближнего боя"
-	desc = "Влияет на урон и шансы блока с оружием ближнего боя и щитами."
+	desc = "Влияет на урон и расход выносливости при парировании оружием ближнего боя и щитами."
 	var/damage_mod = alist(
 		SKILL_LEVEL_NONE = 0.70,
 		SKILL_LEVEL_BEGINNER = 0.80,
@@ -109,25 +109,25 @@
 		SKILL_LEVEL_UNAVAILABLE = 0.01,
 	)
 	var/block_chance_mod = alist(
-		SKILL_LEVEL_NONE = 0.25,
-		SKILL_LEVEL_BEGINNER = 0.50,
-		SKILL_LEVEL_BASIC = 0.75,
-		SKILL_LEVEL_ADVANCED = 1,
-		SKILL_LEVEL_PROFESSIONAL = 1.15,
-		SKILL_LEVEL_EXPERT = 1.35,
-		SKILL_LEVEL_LEGEND = 1.5,
+		SKILL_LEVEL_NONE = 2,
+		SKILL_LEVEL_BEGINNER = 1.5,
+		SKILL_LEVEL_BASIC = 1,
+		SKILL_LEVEL_ADVANCED = 0.9,
+		SKILL_LEVEL_PROFESSIONAL = 0.8,
+		SKILL_LEVEL_EXPERT = 0.7,
+		SKILL_LEVEL_LEGEND = 0.5,
 		SKILL_LEVEL_UNAVAILABLE = 0.001,
 	)
 
 /datum/skill/combat/melee/apply_to_mob(mob/owner)
 	. = ..()
 	RegisterSignal(owner, COMSIG_GET_MELEE_DAMAGE_MOD, PROC_REF(get_melee_damage_mod))
-	//RegisterSignal(owner, COMSIG_GET_SHIELD_MOD, PROC_REF(get_shields_mod)) //TODO temp disable
+	RegisterSignal(owner, COMSIG_GET_SHIELD_MOD, PROC_REF(get_shields_mod))
 
 /datum/skill/combat/melee/remove_from_mob(mob/owner)
 	. = ..()
 	UnregisterSignal(owner, COMSIG_GET_MELEE_DAMAGE_MOD)
-	//UnregisterSignal(owner, COMSIG_GET_SHIELD_MOD)
+	UnregisterSignal(owner, COMSIG_GET_SHIELD_MOD)
 
 /datum/skill/combat/melee/proc/get_melee_damage_mod(mob/living/user, list/results)
 	SIGNAL_HANDLER
