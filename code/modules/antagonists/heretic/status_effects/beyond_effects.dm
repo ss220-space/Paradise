@@ -21,7 +21,7 @@
 
 /datum/status_effect/runtime_error
 	id = "runtime_error"
-	duration = 15 SECONDS
+	duration = 20 SECONDS
 	tick_interval = -1
 	alert_type = /atom/movable/screen/alert/status_effect/runtime_error
 	show_duration = TRUE
@@ -168,14 +168,14 @@
 
 /atom/movable/screen/alert/status_effect/runtime_error
 	name = "Runtime Error"
-	desc = "Движок больше не уверен, что вы существуете. Накопите три ошибки — и он сдастся."
+	desc = "Движок больше не уверен, что вы существуете. Накопите две ошибки — и он сдастся."
 	icon = 'icons/mob/screen_alert_heretic.dmi'
 	icon_state = "runtime_error1"
 
 
 /datum/status_effect/crash_immunity
 	id = "crash_immunity"
-	duration = 12 SECONDS
+	duration = 8 SECONDS
 	status_type = STATUS_EFFECT_REFRESH
 	tick_interval = -1
 	alert_type = null

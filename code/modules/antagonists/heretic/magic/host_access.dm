@@ -3,7 +3,8 @@
 	name = "Pause()"
 	desc = "Останавливает всех не-еретиков и все снаряды в радиусе шести плиток на четыре секунды. \
 			Остановленные неуязвимы и не могут действовать, но вы свободно перемещаетесь между ними. \
-			Навредить замершему нельзя — зато \"Подмена Ссылок\" и \"Просмотр Переменных\" работают как обычно."
+			Навредить замершему нельзя — зато \"Подмена Ссылок\" работает как обычно, \
+			а \"Просмотр Переменных\" снимает паузу с цели и переписывает свойство."
 	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
@@ -137,8 +138,8 @@
 
 /obj/effect/proc_holder/spell/pointed/host_qdel
 	name = "qdel()"
-	desc = "Помечает на удаление существо, которое едва держится на ногах и недавно пережило краш. \
-			Через три секунды оно перестаёт существовать. Удаление прерывается, если цель исцелится, \
+	desc = "Помечает на удаление существо без сознания, которое только что пережило краш. \
+			Через три секунды оно перестаёт существовать. Удаление прерывается, если цель придёт в себя, \
 			уйдёт из поля зрения или если вы потеряете возможность поддерживать заклинание."
 	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
@@ -158,6 +159,7 @@
 
 	active_msg = "Вы выбираете существо, которое больше не должно существовать..."
 	var/deletion_time = 3 SECONDS
+	var/deletion_range = 7
 
 
 /obj/effect/proc_holder/spell/pointed/host_qdel/valid_target(atom/cast_on, mob/user)
@@ -166,7 +168,11 @@
 	var/mob/living/living_target = cast_on
 	if(IS_HERETIC_OR_MONSTER(living_target) || living_target.mob_size > MOB_SIZE_HUMAN)
 		return FALSE
-	return TRUE
+	return is_corrupted(living_target)
+
+
+/obj/effect/proc_holder/spell/pointed/host_qdel/proc/is_corrupted(mob/living/target)
+	return target.stat != CONSCIOUS && target.has_status_effect(/datum/status_effect/crash_immunity)
 
 
 /obj/effect/proc_holder/spell/pointed/host_qdel/cast(list/targets, mob/user = usr)
@@ -180,13 +186,19 @@
 	cast_on.add_atom_colour(COLOR_MAGENTA, TEMPORARY_COLOUR_PRIORITY)
 	playsound(cast_on, 'sound/magic/disintegrate.ogg', 60, TRUE)
 	to_chat(caster, span_hierophant("qdel(): force deleting corrupted mob."))
-	addtimer(CALLBACK(src, PROC_REF(finish_deletion), cast_on), deletion_time)
+	addtimer(CALLBACK(src, PROC_REF(finish_deletion), caster, cast_on), deletion_time)
 	return TRUE
 
 
-/obj/effect/proc_holder/spell/pointed/host_qdel/proc/finish_deletion(mob/living/cast_on)
+/obj/effect/proc_holder/spell/pointed/host_qdel/proc/finish_deletion(mob/living/caster, mob/living/cast_on)
 	if(QDELETED(cast_on))
 		return
-	cast_on.visible_message(span_userdanger("[DECLENT_RU_CAP(cast_on, NOMINATIVE)] распадается на пиксели и исчезает!"))
+
 	cast_on.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, COLOR_MAGENTA)
+	if(QDELETED(caster) || caster.incapacitated() || !caster.can_see(cast_on, deletion_range) || !is_corrupted(cast_on))
+		cast_on.balloon_alert_to_viewers("ссылка восстановлена")
+		to_chat(caster, span_warning("qdel(): mob is still referenced, deletion aborted."))
+		return
+
+	cast_on.visible_message(span_userdanger("[DECLENT_RU_CAP(cast_on, NOMINATIVE)] распадается на пиксели и исчезает!"))
 	cast_on.dust()

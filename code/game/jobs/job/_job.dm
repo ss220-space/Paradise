@@ -225,6 +225,19 @@
 /datum/job/proc/is_position_available()
 	return (current_positions < total_positions) || (total_positions == -1)
 
+/datum/job/proc/shares_department(datum/job/other)
+	if(!other)
+		return FALSE
+
+	return (is_command && other.is_command) \
+		|| (is_security && other.is_security) \
+		|| (is_engineering && other.is_engineering) \
+		|| (is_medical && other.is_medical) \
+		|| (is_science && other.is_science) \
+		|| (is_supply && other.is_supply) \
+		|| (is_service && other.is_service) \
+		|| (is_legal && other.is_legal)
+
 //MARK: Outfit datum
 
 /datum/outfit/job

@@ -357,7 +357,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	for(var/i in 1 to reward)
 		user.emote("scream")
 		playsound(loc, 'sound/items/eatfood.ogg', 100, TRUE)
-		heretic_datum.knowledge_points++
+		heretic_datum.adjust_knowledge_points(1)
 		to_chat(user, span_danger("Вы чувствуете, как что-то невидимое разрывает самую вашу суть!"))
 		user.do_jitter_animation()
 		sleep(1 SECONDS)

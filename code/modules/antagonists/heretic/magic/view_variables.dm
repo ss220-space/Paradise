@@ -65,20 +65,26 @@
 		to_chat(caster, span_warning("Цель ускользнула из области видимости."))
 		return FALSE
 
+	cast_on.remove_status_effect(/datum/status_effect/beyond_paused)
+
 	if(picked == VV_UNCONSCIOUS_CHOICE)
-		knock_out(caster, cast_on)
-		return TRUE
+		return knock_out(caster, cast_on)
 
 	cast_on.apply_status_effect(editable_variables[picked], caster)
 	return TRUE
 
 
 /obj/effect/proc_holder/spell/pointed/view_variables/proc/knock_out(mob/living/caster, mob/living/cast_on)
+	cast_on.SetSleeping(2 SECONDS)
+	if(!cast_on.IsSleeping())
+		to_chat(caster, span_warning("Это свойство [cast_on.declent_ru(GENITIVE)] не поддаётся записи."))
+		return FALSE
+
 	cast_on.remove_status_effect(/datum/status_effect/runtime_error)
 	cast_on.apply_status_effect(/datum/status_effect/crash_immunity)
-	cast_on.SetSleeping(2 SECONDS)
 	cast_on.balloon_alert_to_viewers("stat = UNCONSCIOUS")
 	playsound(cast_on, pick(GLOB.beyond_glitch_sounds), 50, TRUE)
+	return TRUE
 
 
 /obj/effect/proc_holder/spell/pointed/view_variables/after_cast(list/targets, mob/user)

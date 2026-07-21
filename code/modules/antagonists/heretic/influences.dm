@@ -293,7 +293,7 @@
 	user.cut_overlay(draining_overlay)
 
 	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
-	heretic_datum.knowledge_points += knowledge_to_gain
+	heretic_datum.adjust_knowledge_points(knowledge_to_gain)
 
 	after_drain(user)
 

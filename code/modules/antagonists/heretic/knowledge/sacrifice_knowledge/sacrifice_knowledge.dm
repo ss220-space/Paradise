@@ -154,15 +154,16 @@
 		break
 
 	for(var/datum/mind/sec_mind as anything in shuffle(valid_targets))
-		if(!HASBIT(sec_mind?.assigned_job?.department_flag, JOBCAT_ENGSEC))
+		if(!sec_mind.assigned_job?.is_security)
 			continue
 
 		final_targets += sec_mind
 		valid_targets -= sec_mind
 		break
 
+	var/datum/job/heretic_job = user.mind.assigned_job
 	for(var/datum/mind/department_mind as anything in shuffle(valid_targets))
-		if(!HASBIT(department_mind?.assigned_job?.department_flag, user.mind.assigned_job?.department_flag))
+		if(!heretic_job?.shares_department(department_mind.assigned_job))
 			continue
 
 		final_targets += department_mind
@@ -199,17 +200,19 @@
 	if(sacrifice.mind)
 		LAZYADD(target_blacklist, sacrifice.mind)
 
-	heretic_datum.remove_sacrifice_target(sacrifice)
+	for(var/datum/antagonist/heretic/other_heretic in GLOB.antagonists)
+		other_heretic.remove_sacrifice_target(sacrifice)
+
 	var/feedback = "Ваши покровители принимают вашу жертву"
 	var/datum/job/sac_job = sacrifice.mind?.assigned_job
 	heretic_datum.total_sacrifices++
 	if(sac_job?.is_command)
-		heretic_datum.knowledge_points += 3
+		heretic_datum.adjust_knowledge_points(3)
 		heretic_datum.high_value_sacrifices++
-		feedback += "Ваши покровители <i>с радостью</i> принимают вашу жертву"
+		feedback = "Ваши покровители <i>с радостью</i> принимают вашу жертву"
 
 	if(!iscultist(sacrifice))
-		heretic_datum.knowledge_points += 2
+		heretic_datum.adjust_knowledge_points(2)
 		to_chat(user, span_purple("[feedback]."))
 		if(!begin_sacrifice(sacrifice))
 			disembowel_target(sacrifice)
@@ -218,7 +221,7 @@
 		sacrifice.apply_status_effect(/datum/status_effect/heretic_curse, user)
 		return
 
-	heretic_datum.knowledge_points += 2
+	heretic_datum.adjust_knowledge_points(1)
 	grant_reward(user, sacrifice, loc)
 	var/rewards_given = heretic_datum.rewards_given
 	if(!prob(min(15 * rewards_given)) || (rewards_given > 5))
@@ -442,7 +445,7 @@
 	sac_target.uncuff()
 	if(isheretic(sac_target))
 		var/datum/antagonist/heretic/victim_heretic = sac_target.mind?.has_antag_datum(/datum/antagonist/heretic)
-		victim_heretic.knowledge_points -= 3
+		victim_heretic.adjust_knowledge_points(-3)
 
 	sac_target.apply_status_effect(/*/datum/status_effect/speech/slurring/heretic*/ STATUS_EFFECT_CLOCK_CULT_SLUR, 40 SECONDS)
 	sac_target.Stuttering(40 SECONDS)

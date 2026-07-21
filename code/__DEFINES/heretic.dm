@@ -55,7 +55,7 @@
 /// Ritual priority ceiling for heretic knowledge.
 #define MAX_KNOWLEDGE_PRIORITY 100
 
-#define BEYOND_MAX_RUNTIME_ERRORS 3
+#define BEYOND_MAX_RUNTIME_ERRORS 2
 
 #define FACTION_HERETIC "heretic"
 #define FACTION_HOSTILE "hostile"
