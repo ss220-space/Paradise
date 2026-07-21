@@ -1,4 +1,0 @@
-author: "Kamizuwu"
-delete-after: True
-changes:
-  - bugfix: "нуклеации более не получают урон от радия и урана. (PR #9494)"

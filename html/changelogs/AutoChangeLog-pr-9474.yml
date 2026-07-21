@@ -1,4 +1,0 @@
-author: "DraumLord"
-delete-after: True
-changes:
-  - tweak: "Добавлен игнайтер в список гриппера (PR #9474)"

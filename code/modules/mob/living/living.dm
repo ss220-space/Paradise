@@ -313,11 +313,6 @@
 	// not if he's not CANPUSH of course
 	if(!(bumped_mob.status_flags & CANPUSH) || HAS_TRAIT(bumped_mob, TRAIT_PUSHIMMUNE))
 		return TRUE
-	//anti-riot equipment is also anti-push
-	if(bumped_mob.r_hand && !isclothing(bumped_mob.r_hand) && prob(bumped_mob.r_hand.block_chance * 2))
-		return TRUE
-	if(bumped_mob.l_hand && !isclothing(bumped_mob.l_hand) && prob(bumped_mob.l_hand.block_chance * 2))
-		return TRUE
 
 //Called when we bump into an obj
 /mob/living/proc/ObjBump(obj/object)

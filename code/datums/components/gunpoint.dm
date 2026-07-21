@@ -280,7 +280,7 @@
 	if(istype(weapon, /obj/item/gun/projectile/revolver/rocketlauncher) && weapon.chambered)
 		if(target.stat == CONSCIOUS && shooter.mind.has_antag_datum(/datum/antagonist/nuclear_operative) && !target.mind.has_antag_datum(/datum/antagonist/nuclear_operative))
 			if(locate(/obj/item/disk/nuclear) in target.get_contents())
-				target.client.give_award(/datum/award/achievement/misc/rocket_holdup, target)
+				shooter.client.give_award(/datum/award/achievement/misc/rocket_holdup, shooter)
 				return
 
 #undef GUNPOINT_DELAY_STAGE_2

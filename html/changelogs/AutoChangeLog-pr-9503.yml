@@ -1,4 +1,0 @@
-author: "dageavtobusnick"
-delete-after: True
-changes:
-  - bugfix: "Теперь при эмоуте sfx обрабатывается корректно. (PR #9503)"
