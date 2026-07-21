@@ -94,3 +94,6 @@
 
 /// From /mob/living/carbon/item_coverage_changed: (added_slots, removed_slots)
 #define COMSIG_CARBON_ITEM_COVERAGE_CHANGED "carbon_item_coverage_changed"
+
+//sent from living mobs when they parry
+#define COMSIG_CARBON_PARRY "carbon_parry"
