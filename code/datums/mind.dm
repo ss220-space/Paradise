@@ -125,6 +125,19 @@
 	///a list of objectives that a player with this job could complete for space credit rewards
 	var/list/job_objectives = list()
 
+	/// Flag for skills initialization
+	var/skills_initialized = FALSE
+	/// List of skill levels (associative map of type to level (number))
+	var/list/skills = list()
+	/// Available free skill points
+	var/free_skill_points = BASIC_SKILL_POINTS_COUNT
+	/// Temp variable for skill leveling (for skill_select_win works)
+	var/list/selected_skills = null
+	/// Active skill bonuses from skill manuals
+	var/list/active_skill_bonuses = list()
+	/// Active skill bonuses from skill manuals
+	var/list/read_manuals = list()
+
 	///Owned cyborg skin permissions
 	var/list/cyborg_skin_permissions = list()
 
@@ -144,6 +157,7 @@
 
 		qdel(antag)
 
+	unregister_skill_signals_for_user(current)
 	current = null
 	soulOwner = null
 	return ..()
@@ -194,6 +208,7 @@
 
 	transfer_antag_huds(hud_to_transfer) // inherit the antag HUD
 	transfer_actions(new_character, old_current)
+	register_skill_signals_for_user(current)
 
 	if(martial_art)
 		for(var/datum/martial_art/MA in known_martial_arts)
@@ -2702,6 +2717,9 @@
 
 	ASSERT(antag.owner && antag.owner.current)
 	antag.on_gain()
+
+	apply_antag_skills()
+
 	return antag
 
 /**
@@ -3193,9 +3211,11 @@
 			SSticker.minds += mind
 		else
 			error("mind_initialize(): No ticker ready yet! Please inform Carn")
+		mind.init_skills(src)
 	if(!mind.name)
 		mind.name = real_name
 	mind.current = src
+	mind.register_skill_signals_for_user(src)
 	RegisterSignal(src, COMSIG_ADMIN_DELETING, PROC_REF(ghost_before_admin_delete), override = TRUE)
 	SEND_SIGNAL(src, COMSIG_MOB_MIND_INITIALIZED, mind)
 

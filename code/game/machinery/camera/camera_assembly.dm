@@ -141,13 +141,14 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	WELDER_ATTEMPT_WELD_MESSAGE
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_CONSTRUCTING_SPEED_MOD, construction_mod)
 	if(state == ASSEMBLY_WRENCHED)
-		if(!I.use_tool(src, user, 50, volume = I.tool_volume))
+		if(!I.use_tool(src, user, 5 SECONDS * construction_mod, volume = I.tool_volume))
 			return
 		to_chat(user, span_notice("You weld [src] into place."))
 		state = ASSEMBLY_WELDED
 	else if(state == ASSEMBLY_WELDED)
-		if(!I.use_tool(src, user, 50, volume = I.tool_volume))
+		if(!I.use_tool(src, user, 5 SECONDS * construction_mod, volume = I.tool_volume))
 			return
 		to_chat(user, span_notice("You unweld [src] from its place."))
 		state = ASSEMBLY_WRENCHED
