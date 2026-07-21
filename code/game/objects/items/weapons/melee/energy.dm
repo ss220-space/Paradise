@@ -68,8 +68,8 @@
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		to_chat(user, span_warning("You accidentally cut yourself with [src], like a doofus!"))
 		user.take_organ_damage(5,5)
-	if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
-		REMOVE_TRAIT(src, TRAIT_ITEM_ACTIVE, GENERIC_TRAIT)
+	if(!HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
+		ADD_TRAIT(src, TRAIT_ITEM_ACTIVE, GENERIC_TRAIT)
 		force = force_on
 		throwforce = throwforce_on
 		hitsound = 'sound/weapons/blade1.ogg'
@@ -78,7 +78,7 @@
 		playsound(user, 'sound/weapons/saberon.ogg', 35, TRUE) //changed it from 50% volume to 35% because deafness
 		to_chat(user, span_notice("[src] is now active."))
 	else
-		ADD_TRAIT(src, TRAIT_ITEM_ACTIVE, GENERIC_TRAIT)
+		REMOVE_TRAIT(src, TRAIT_ITEM_ACTIVE, GENERIC_TRAIT)
 		force = initial(force)
 		throwforce = initial(throwforce)
 		hitsound = initial(hitsound)
@@ -367,8 +367,8 @@
 		if(HAS_TRAIT(H, TRAIT_CLUMSY) && prob(50))
 			to_chat(H, span_warning("You accidentally cut yourself with [src], like a doofus!"))
 			H.take_organ_damage(10,10)
-	if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
-		REMOVE_TRAIT(src, TRAIT_ITEM_ACTIVE, GENERIC_TRAIT)
+	if(!HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
+		ADD_TRAIT(src, TRAIT_ITEM_ACTIVE, GENERIC_TRAIT)
 		force = force_on
 		throwforce = throwforce_on
 		hitsound = 'sound/weapons/bladeslice.ogg'
@@ -379,7 +379,7 @@
 		playsound(user, 'sound/magic/fellowship_armory.ogg', 35, TRUE, frequency = 90000 - (HAS_TRAIT(src, TRAIT_ITEM_ACTIVE) * 30000))
 		to_chat(user, span_notice("You open [src]. It will now cleave enemies in a wide arc and deal additional damage to fauna."))
 	else
-		ADD_TRAIT(src, TRAIT_ITEM_ACTIVE, GENERIC_TRAIT)
+		REMOVE_TRAIT(src, TRAIT_ITEM_ACTIVE, GENERIC_TRAIT)
 		force = initial(force)
 		throwforce = initial(throwforce)
 		hitsound = initial(hitsound)

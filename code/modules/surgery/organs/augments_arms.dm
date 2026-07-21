@@ -665,7 +665,6 @@
 	name = "vortex feedback arm"
 	desc = "A modification to a users arm, allowing them to use a vortex core energy feedback, to parry, reflect, and even empower projectile attacks. Rumors that it runs on the user's blood are unconfirmed."
 	icon_state = "v1_arm"
-	icon = 'icons/obj/items.dmi'
 	sprite_sheets_inhand = list(SPECIES_DRASK = 'icons/mob/clothing/species/drask/held.dmi', SPECIES_VOX = 'icons/mob/clothing/species/vox/held.dmi')
 	force = 20 //bonk, not sharp
 	attack_verb = list("slamed", "punched", "parried", "judged", "styled on", "disrespected", "interrupted", "gored")
@@ -754,7 +753,7 @@
 	materials = list(MAT_GOLD = 5000, MAT_URANIUM = 4000, MAT_METAL = 10000, MAT_TITANIUM = 2000, MAT_BLUESPACE = 2000)
 
 /obj/item/v1_arm_shell/attackby(obj/item/item, mob/living/user, list/modifiers)
-	if(istype(item, /obj/item/assembly/signaler/core/vortex))
+	if(iscorevortex(item))
 		to_chat(user, span_notice("You insert [item] into the back of the hand, and the implant begins to boot up."))
 		new /obj/item/organ/internal/cyberimp/arm/v1_arm(get_turf(src))
 		qdel(src)

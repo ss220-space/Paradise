@@ -50,7 +50,7 @@
 	parryable_attack_types = _parryable_attack_types
 
 	var/static/alist/attack_types_english = alist(
-		MELEE_ATTACK = "melee attacks",
+		ITEM_ATTACK = "melee attacks",
 		UNARMED_ATTACK = "unarmed attacks",
 		PROJECTILE_ATTACK = "projectiles",
 		THROWN_PROJECTILE_ATTACK = "thrown projectiles",

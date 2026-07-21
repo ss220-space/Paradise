@@ -608,7 +608,6 @@
 	enchants = GLOB.shield_spells
 
 /obj/item/shield/clock_buckler/add_parry_component()
-	. = ..()
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.4, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/shield/clock_buckler/update_overlays()

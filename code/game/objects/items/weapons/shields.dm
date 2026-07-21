@@ -110,7 +110,7 @@
 		PREPOSITIONAL = "щите из пластин голиафа",
 	)
 
-/obj/item/shield/add_parry_component()
+/obj/item/shield/riot/goliath/add_parry_component()
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.55, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/shield/energy
@@ -204,8 +204,8 @@
 	update_icon(UPDATE_ICON_STATE)
 	playsound(loc, 'sound/weapons/batonextend.ogg', 50, TRUE)
 
-	if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
-		REMOVE_TRAIT(src,TRAIT_ITEM_ACTIVE, GENERIC_TRAIT)
+	if(!HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
+		ADD_TRAIT(src, TRAIT_ITEM_ACTIVE, GENERIC_TRAIT)
 		force = 8
 		throwforce = 5
 		throw_speed = 2
@@ -213,7 +213,7 @@
 		slot_flags = ITEM_SLOT_BACK
 		to_chat(user, span_notice("You extend \the [src]."))
 	else
-		ADD_TRAIT(src, TRAIT_ITEM_ACTIVE, GENERIC_TRAIT)
+		REMOVE_TRAIT(src,TRAIT_ITEM_ACTIVE, GENERIC_TRAIT)
 		force = 3
 		throwforce = 3
 		throw_speed = 3
