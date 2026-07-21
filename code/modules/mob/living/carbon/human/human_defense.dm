@@ -242,8 +242,6 @@ emp_act
 
 //End Here
 
-#define CAP_OF_BLOCK_CHANCE 95
-
 /mob/living/carbon/human/proc/check_shields(atom/AM, damage, attack_text = "атаку", attack_type = ITEM_ATTACK, armour_penetration = 0, shields_penetration = 0)
 	var/obj/item/shield = get_best_shield()
 
