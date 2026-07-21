@@ -63,7 +63,8 @@
 
 /obj/machinery/driver_button/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_CONSTRUCTING_SPEED_MOD, construction_mod)
+	if(!I.use_tool(src, user, 3 SECONDS * construction_mod, volume = I.tool_volume))
 		return .
 	to_chat(user, span_notice("You detach [src] from the wall."))
 	new /obj/item/mounted/frame/driver_button(loc)

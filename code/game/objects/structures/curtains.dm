@@ -54,14 +54,15 @@
 	. = TRUE
 	if(!I.tool_start_check(src, user, 0))
 		return
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_CONSTRUCTING_SPEED_MOD, construction_mod)
 	if(anchored)
 		user.visible_message(span_warning("[user] unscrews [src] from the floor."), span_notice("You start to unscrew [src] from the floor..."), "You hear rustling noises.")
-		if(I.use_tool(src, user, 50, volume = I.tool_volume) && anchored)
+		if(I.use_tool(src, user, 5 SECONDS * construction_mod, volume = I.tool_volume) && anchored)
 			set_anchored(FALSE)
 			to_chat(user, span_notice("You unscrew [src] from the floor."))
 	else
 		user.visible_message(span_warning("[user] screws [src] to the floor."), span_notice("You start to screw [src] to the floor..."), "You hear rustling noises.")
-		if(I.use_tool(src, user, 50, volume = I.tool_volume) && !anchored)
+		if(I.use_tool(src, user, 5 SECONDS * construction_mod, volume = I.tool_volume) && !anchored)
 			set_anchored(TRUE)
 			to_chat(user, span_notice("You screw [src] to the floor."))
 
@@ -72,7 +73,8 @@
 	if(!I.tool_start_check(src, user, 0))
 		return
 	WIRECUTTER_ATTEMPT_DISMANTLE_MESSAGE
-	if(I.use_tool(src, user, 50, volume = I.tool_volume))
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_CONSTRUCTING_SPEED_MOD, construction_mod)
+	if(I.use_tool(src, user, 5 SECONDS * construction_mod, volume = I.tool_volume))
 		WIRECUTTER_DISMANTLE_SUCCESS_MESSAGE
 		deconstruct()
 

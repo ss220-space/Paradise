@@ -6,6 +6,11 @@
 "ay" = (
 /turf/space,
 /area/space)
+"aG" = (
+/obj/structure/table,
+/obj/item/reagent_containers/dropper,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "aJ" = (
 /obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/mineral/titanium/blue,
@@ -160,6 +165,10 @@
 /obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
+"Ew" = (
+/obj/machinery/computer/pandemic,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "Fv" = (
 /obj/machinery/door/airlock/engineering,
 /turf/simulated/floor/mineral/titanium/blue,
@@ -184,6 +193,15 @@
 "HE" = (
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
+"Is" = (
+/obj/structure/table,
+/obj/item/reagent_containers/glass/beaker,
+/obj/item/reagent_containers/glass/beaker,
+/obj/item/reagent_containers/glass/beaker,
+/obj/item/reagent_containers/glass/beaker,
+/obj/item/reagent_containers/glass/beaker,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "JC" = (
 /obj/machinery/computer/account_database,
 /turf/simulated/floor/mineral/titanium/purple,
@@ -192,6 +210,11 @@
 /obj/machinery/computer/secure_data,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
+"LL" = (
+/obj/structure/table,
+/obj/item/storage/box/syringes,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "Nb" = (
 /obj/structure/ladder,
 /turf/simulated/floor/mineral/titanium/purple,
@@ -212,6 +235,7 @@
 /area/fastload/blue)
 "RU" = (
 /obj/item/radio/intercom/directional/north,
+/obj/machinery/smartfridge/secure/chemistry/virology/preloaded,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
 "Tl" = (
@@ -2658,7 +2682,7 @@ ay
 ay
 ay
 jk
-HE
+Ew
 HE
 HE
 HE
@@ -2724,7 +2748,7 @@ ay
 ay
 ay
 jk
-HE
+Ew
 HE
 HE
 HE
@@ -2791,9 +2815,9 @@ ay
 ay
 jk
 HE
-HE
-HE
-HE
+Is
+aG
+LL
 HE
 HE
 HE

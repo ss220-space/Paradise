@@ -47254,6 +47254,7 @@
 	pixel_y = 6
 	},
 /obj/item/stack/tape_roll,
+/obj/item/flashlight/lamp,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -53366,8 +53367,7 @@
 	},
 /area/station/ai/satellite)
 "kFJ" = (
-/obj/structure/table/wood,
-/obj/item/flashlight/lamp,
+/obj/machinery/computer/skill_manuals,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},

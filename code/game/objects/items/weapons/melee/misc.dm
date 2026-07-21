@@ -4,6 +4,10 @@
 	lefthand_file = 'icons/mob/inhands/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/melee_righthand.dmi'
 
+/obj/item/melee/energy/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_MELEE_WEAPON, ROUNDSTART_TRAIT)
+
 /obj/item/melee/proc/check_martial_counter(mob/living/carbon/human/target, mob/living/carbon/human/user)
 	var/message = span_danger("[target.name] blocks [src] and twists [user]'s arm behind [user.p_their()] back!")
 	var/self_message = span_userdanger("You block the attack!")
