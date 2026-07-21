@@ -636,9 +636,8 @@
 	materials = list(MAT_GOLD = 5000, MAT_URANIUM = 4000, MAT_METAL = 10000, MAT_TITANIUM = 2000, MAT_BLUESPACE = 2000)
 	icon = 'icons/obj/items.dmi'
 	icon_state = "v1_arm"
-	parent_organ_zone = INTERNAL_ORGAN_L_ARM_DEVICE //Left arm by default
-	slot = "l_arm_device"
-
+	parent_organ_zone = BODY_ZONE_L_ARM //Left arm by default
+	slot = INTERNAL_ORGAN_L_ARM_DEVICE
 	contents = newlist(/obj/item/shield/v1_arm)
 	actions_types = list(/datum/action/item_action/organ_action/toggle/v1_arm)
 	var/disabled = FALSE
