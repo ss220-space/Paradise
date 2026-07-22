@@ -3,7 +3,7 @@
 	flag = JOB_FLAG_QUARTERMASTER
 	department_flag = JOBCAT_SUPPORT
 	department = STATION_DEPARTMENT_SUPPLY
-	is_supply = 1
+	departments_bitflags = DEPARTMENT_BITFLAG_SUPPLY
 	selection_color = "#9f8545"
 	access = list(ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_HEADS_VAULT, ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_HEADS,
 		ACCESS_SEC_DOORS, ACCESS_EVA, ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO,
@@ -54,7 +54,7 @@
 	abstract_type = /datum/job/supply
 	department_flag = JOBCAT_SUPPORT
 	department = STATION_DEPARTMENT_SUPPLY
-	is_supply = 1
+	departments_bitflags = DEPARTMENT_BITFLAG_SUPPLY
 	supervisors = "Квартирмейстером"
 	department_head = list(JOB_TITLE_QUARTERMASTER)
 	selection_color = "#e2dbc8"

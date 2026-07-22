@@ -94,8 +94,9 @@
 		to_chat(user, span_cultitalic("The magic in [src] is weak, it will be ready to use again in [get_ETA()]."))
 		return
 
-	var/choice = show_radial_menu(user, src, choosable_items, require_near = TRUE)
-	var/picked_type = choosable_items[choice]
+	var/list/available_items = get_choosable_items()
+	var/choice = show_radial_menu(user, src, available_items, require_near = TRUE)
+	var/picked_type = available_items[choice]
 	if(!QDELETED(src) && picked_type && Adjacent(user) && !user.incapacitated() && cooldowntime <= world.time)
 		add_fingerprint(user)
 		cooldowntime = world.time + creation_delay
@@ -103,6 +104,9 @@
 		if(!isstructure(O))
 			user.put_in_hands(O, ignore_anim = FALSE)
 		to_chat(user, replacetext("[creation_message]", "%ITEM%", "[O.name]"))
+
+/obj/structure/cult/functional/proc/get_choosable_items()
+	return choosable_items
 
 /**
  * Returns the cooldown time in minutes and seconds
@@ -166,6 +170,11 @@
 	creation_message = span_cultitalic_alt("You work the forge as dark knowledge guides your hands, creating a %ITEM%!")
 	choosable_items = list("Shielded Robe" = /obj/item/clothing/suit/hooded/cultrobes/cult_shield, "Flagellant's Robe" = /obj/item/clothing/suit/hooded/cultrobes/flagellant_robe,
 							"Mirror Shield" = /obj/item/shield/mirror)
+
+/obj/structure/cult/functional/forge/get_choosable_items()
+	if(!SSticker.mode.cult_objs.unlocked_heretic_items[CURSED_BLADE_UNLOCKED])
+		return ..()
+	return ..() + list(CURSED_BLADE_UNLOCKED = /obj/item/melee/sickly_blade/cursed)
 
 /obj/structure/cult/functional/forge/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
@@ -323,6 +332,11 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 	creation_message = span_cultitalic_alt("You invoke the dark magic of the tomes creating a %ITEM%!")
 	choosable_items = list("Shuttle Curse" = /obj/item/shuttle_curse, "Zealot's Blindfold" = /obj/item/clothing/glasses/hud/health/night/cultblind,
 							"Veil Shifter" = /obj/item/cult_shift) //Add void torch to veil shifter spawn
+
+/obj/structure/cult/functional/archives/get_choosable_items()
+	if(!SSticker.mode.cult_objs.unlocked_heretic_items[CRIMSON_MEDALLION_UNLOCKED])
+		return ..()
+	return ..() + list(CRIMSON_MEDALLION_UNLOCKED = /obj/item/clothing/neck/heretic_focus/crimson_medallion)
 
 /obj/effect/gateway
 	name = "gateway"

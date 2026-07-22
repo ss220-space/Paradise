@@ -3,7 +3,7 @@
 	flag = JOB_FLAG_CMO
 	department = STATION_DEPARTMENT_MEDICAL
 	department_flag = JOBCAT_MEDSCI
-	is_medical = 1
+	departments_bitflags = DEPARTMENT_BITFLAG_MEDICAL
 	selection_color = "#66c6ff"
 	access = list(ACCESS_EVA, ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS, ACCESS_HEADS,
 			ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_CMO, ACCESS_SURGERY, ACCESS_RC_ANNOUNCE,
@@ -51,7 +51,7 @@
 	abstract_type = /datum/job/medical
 	department = STATION_DEPARTMENT_MEDICAL
 	department_flag = JOBCAT_MEDSCI
-	is_medical = 1
+	departments_bitflags = DEPARTMENT_BITFLAG_MEDICAL
 	supervisors = "Главным врачом"
 	department_head = list(JOB_TITLE_CMO)
 	selection_color = "#d1eeff"

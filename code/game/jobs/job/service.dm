@@ -3,7 +3,7 @@
 	flag = JOB_FLAG_HOP
 	department = STATION_DEPARTMENT_SERVICE
 	department_flag = JOBCAT_SUPPORT
-	is_service = 1
+	departments_bitflags = DEPARTMENT_BITFLAG_SERVICE
 	blocked_race_for_job = list(SPECIES_VOX)
 	selection_color = "#6bef76"
 	access = list(
@@ -62,7 +62,7 @@
 	abstract_type = /datum/job/service
 	department = STATION_DEPARTMENT_SERVICE
 	department_flag = JOBCAT_SUPPORT
-	is_service = 1
+	departments_bitflags = DEPARTMENT_BITFLAG_SERVICE
 	supervisors = "Главой персонала"
 	department_head = list(JOB_TITLE_HOP)
 	selection_color = "#d1e8d3"

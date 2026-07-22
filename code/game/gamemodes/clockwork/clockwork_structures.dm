@@ -329,9 +329,7 @@
 				else
 					converting.take_overall_damage(5, 5)
 			if(17)
-				adjust_clockwork_power(CLOCK_POWER_SACRIFICE)
-				var/obj/item/mmi/robotic_brain/clockwork/cube = new (get_turf(src))
-				cube.try_to_transfer(converting)
+				finish_convert(converting)
 	else if(first_stage)
 		stop_convert()
 
@@ -358,6 +356,24 @@
 		target.Weaken(10 SECONDS) //Accept new power... and new information
 		target.EyeBlind(10 SECONDS)
 		stop_convert(TRUE)
+
+/obj/structure/clockwork/functional/altar/proc/finish_convert(mob/living/carbon/human/target)
+	adjust_clockwork_power(CLOCK_POWER_SACRIFICE)
+
+	var/list/invokers = list()
+	for(var/mob/living/clocker in range(1, src))
+		if(!isclocker(clocker))
+			continue
+		invokers += clocker
+
+	if(SEND_SIGNAL(target, COMSIG_LIVING_CLOCK_SACRIFICED, invokers) & DUST_SACRIFICE)
+		playsound(src, 'sound/magic/disintegrate.ogg', 100, TRUE)
+		target.dust()
+		stop_convert(TRUE)
+		return
+
+	var/obj/item/mmi/robotic_brain/clockwork/cube = new (get_turf(src))
+	cube.try_to_transfer(target)
 
 /obj/structure/clockwork/functional/altar/proc/stop_convert(silent = FALSE)
 	QDEL_NULL(glow)

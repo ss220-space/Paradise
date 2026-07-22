@@ -130,7 +130,7 @@
 
 	var/command_roles = FALSE
 
-	if(ismindshielded(H) || J.is_command)
+	if(ismindshielded(H) || (J.departments_bitflags & DEPARTMENT_BITFLAG_COMMAND))
 		command_roles = TRUE
 
 	if(!translator_pref && !command_roles) // Not command and didn't want wingdings chip, so..

@@ -459,6 +459,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 
 	ADD_TRAIT(our_mob, TRAIT_MANSUS_TOUCHED, UID())
 	RegisterSignal(our_mob, COMSIG_LIVING_CULT_SACRIFICED, PROC_REF(on_cult_sacrificed))
+	RegisterSignal(our_mob, COMSIG_LIVING_CLOCK_SACRIFICED, PROC_REF(on_clock_sacrificed))
 	RegisterSignals(our_mob, list(COMSIG_MOB_BEFORE_SPELL_CAST, COMSIG_MOB_SPELL_ACTIVATED), PROC_REF(on_spell_cast))
 	RegisterSignal(our_mob, SIGNAL_ADDTRAIT(TRAIT_ALLOW_HERETIC_CASTING), PROC_REF(on_focus_regained))
 	RegisterSignal(our_mob, COMSIG_MOB_ITEM_AFTERATTACK, PROC_REF(on_item_use))
@@ -486,6 +487,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		COMSIG_MOB_SPELL_ACTIVATED,
 		COMSIG_MOB_ITEM_AFTERATTACK,
 		COMSIG_LIVING_CULT_SACRIFICED,
+		COMSIG_LIVING_CLOCK_SACRIFICED,
 		COMSIG_MOB_LOGIN,
 		COMSIG_ATOM_UPDATE_OVERLAYS,
 		COMSIG_ATOM_EXAMINE,
@@ -691,17 +693,20 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	var/obj/item/offhand = user.get_inactive_hand()
 	return !QDELETED(offhand) && istype(offhand, /obj/item/melee/touch_attack/mansus_fist)
 
-/// Signal proc for [COMSIG_LIVING_CULT_SACRIFICED] to reward cultists for sacrificing a heretic
-/datum/antagonist/heretic/proc/on_cult_sacrificed(mob/living/source, list/invokers)
-	SIGNAL_HANDLER
-
-	for(var/mob/dead/observer/ghost in GLOB.dead_mob_list)
-		if((ghost.mind?.current == source) && ghost.client)
-			ghost.reenter_corpse()
+/datum/antagonist/heretic/proc/scatter_sacrificed_loot(mob/living/source, list/invokers)
+	var/mob/dead/observer/ghost = source.get_ghost()
+	if(ghost?.client)
+		ghost.reenter_corpse()
 
 	var/list/dustee_items = source.unequip_everything()
 	for(var/obj/item/loot as anything in dustee_items)
 		loot.throw_at(get_step_rand(source), 2, 4, pick(invokers), TRUE)
+
+/// Signal proc for [COMSIG_LIVING_CULT_SACRIFICED] to reward cultists for sacrificing a heretic
+/datum/antagonist/heretic/proc/on_cult_sacrificed(mob/living/source, list/invokers)
+	SIGNAL_HANDLER
+
+	scatter_sacrificed_loot(source, invokers)
 
 	var/obj/item/melee/cultblade/haunted/haunted_blade = new(get_turf(source), source, pick(invokers))
 
@@ -719,7 +724,32 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	for(var/mob/living/culto as anything in invokers)
 		to_chat(culto, span_cultlarge("Душа последователя забытых богов... Ты будешь вознаграждён за столь ценную жертву."))
 
+	SSticker.mode.cult_objs.unlock_heretic_item()
+
 	return SILENCE_SACRIFICE_MESSAGE|DUST_SACRIFICE
+
+/datum/antagonist/heretic/proc/on_clock_sacrificed(mob/living/source, list/invokers)
+	SIGNAL_HANDLER
+
+	scatter_sacrificed_loot(source, invokers)
+
+	for(var/mob/living/clocker as anything in invokers)
+		to_chat(clocker, span_clocklarge("Душа последователя забытых богов... Механизмы Ратвара с радостью примут столь ценную жертву."))
+
+	SSticker.mode.clocker_objs.unlock_heretic_item()
+
+	return DUST_SACRIFICE
+
+/mob/living/proc/mansus_absorbs_magic(mob/living/user, victim_message)
+	var/old_color = color
+	color = COLOR_HERETIC_GREEN
+	animate(src, color = old_color, time = 4 SECONDS, easing = EASE_IN)
+	mob_light(range = 1.5, power = 2.5, color = COLOR_HERETIC_GREEN, duration = 0.5 SECONDS)
+	playsound(src, 'sound/magic/curse.ogg', 50, TRUE)
+
+	to_chat(user, span_warning("Потусторонняя сила вмешивается, поглощая большую часть эффектов!"))
+	to_chat(src, span_warning(victim_message))
+	balloon_alert_to_viewers("поглощено!")
 
 /// Creates an animation of the item slowly lifting up from the floor with a colored outline, then slowly
 /// drifting back down.

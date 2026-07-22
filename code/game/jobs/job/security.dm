@@ -3,7 +3,7 @@
 	flag = JOB_FLAG_HOS
 	department = STATION_DEPARTMENT_SECURITY
 	department_flag = JOBCAT_ENGSEC
-	is_security = 1
+	departments_bitflags = DEPARTMENT_BITFLAG_SECURITY
 	selection_color = "#c25656"
 	access = list(
 		ACCESS_EVA, ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT,
@@ -68,7 +68,7 @@
 	abstract_type = /datum/job/security
 	department = STATION_DEPARTMENT_SECURITY
 	department_flag = JOBCAT_ENGSEC
-	is_security = 1
+	departments_bitflags = DEPARTMENT_BITFLAG_SECURITY
 	supervisors = "Главой службы безопасности"
 	department_head = list(JOB_TITLE_HOS)
 	selection_color = "#edcdcd"

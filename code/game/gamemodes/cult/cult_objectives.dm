@@ -4,6 +4,27 @@
 	var/datum/objective/eldergod/obj_summon = new
 	var/sacrifices_done = 0
 	var/sacrifices_required = 2
+	var/list/unlocked_heretic_items = list(
+		CURSED_BLADE_UNLOCKED = FALSE,
+		CRIMSON_MEDALLION_UNLOCKED = FALSE,
+	)
+
+/datum/cult_objectives/proc/unlock_heretic_item()
+	var/list/still_locked = list()
+	for(var/item_name in unlocked_heretic_items)
+		if(!unlocked_heretic_items[item_name])
+			still_locked += item_name
+
+	if(!length(still_locked))
+		return
+
+	var/unlocked_item = pick(still_locked)
+	unlocked_heretic_items[unlocked_item] = TRUE
+	for(var/datum/mind/cultist_mind as anything in SSticker.mode.cult)
+		if(!cultist_mind.current)
+			continue
+		SEND_SOUND(cultist_mind.current, 'sound/magic/clockwork/narsie_attack.ogg')
+		to_chat(cultist_mind.current, span_cultlarge("Запретное знание наполняет ваши кузни и архивы. Культ научился создавать [unlocked_item]!"))
 
 /datum/cult_objectives/proc/setup()
 	if(cult_status != NARSIE_IS_ASLEEP)

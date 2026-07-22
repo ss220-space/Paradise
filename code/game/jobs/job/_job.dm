@@ -42,15 +42,7 @@
 	/// If this is set to 1, a text is printed to the player when jobs are assigned, telling him that he should let admins know that he has to disconnect.
 	var/req_admin_notify
 
-	//Various Departmental identifiers
-	var/is_supply
-	var/is_service
-	var/is_command
-	var/is_legal
-	var/is_engineering
-	var/is_medical
-	var/is_science
-	var/is_security
+	var/departments_bitflags = NONE
 	var/is_novice
 
 	/// If you have use_age_restriction_for_jobs config option enabled and the database set up, this option will add a requirement for players to be at least minimal_player_age days old. (meaning they first signed in at least that many days before.)
@@ -224,19 +216,6 @@
 
 /datum/job/proc/is_position_available()
 	return (current_positions < total_positions) || (total_positions == -1)
-
-/datum/job/proc/shares_department(datum/job/other)
-	if(!other)
-		return FALSE
-
-	return (is_command && other.is_command) \
-		|| (is_security && other.is_security) \
-		|| (is_engineering && other.is_engineering) \
-		|| (is_medical && other.is_medical) \
-		|| (is_science && other.is_science) \
-		|| (is_supply && other.is_supply) \
-		|| (is_service && other.is_service) \
-		|| (is_legal && other.is_legal)
 
 //MARK: Outfit datum
 

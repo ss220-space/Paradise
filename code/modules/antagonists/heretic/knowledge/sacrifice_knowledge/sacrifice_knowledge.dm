@@ -146,7 +146,7 @@
 	var/list/datum/mind/final_targets = list()
 
 	for(var/datum/mind/head_mind as anything in shuffle(valid_targets))
-		if(!head_mind?.assigned_job?.is_command)
+		if(!head_mind.assigned_job?.head_position)
 			continue
 
 		final_targets += head_mind
@@ -154,16 +154,16 @@
 		break
 
 	for(var/datum/mind/sec_mind as anything in shuffle(valid_targets))
-		if(!sec_mind.assigned_job?.is_security)
+		if(!(sec_mind.assigned_job?.departments_bitflags & DEPARTMENT_BITFLAG_SECURITY))
 			continue
 
 		final_targets += sec_mind
 		valid_targets -= sec_mind
 		break
 
-	var/datum/job/heretic_job = user.mind.assigned_job
+	var/heretic_departments = user.mind.assigned_job?.departments_bitflags
 	for(var/datum/mind/department_mind as anything in shuffle(valid_targets))
-		if(!heretic_job?.shares_department(department_mind.assigned_job))
+		if(!(department_mind.assigned_job?.departments_bitflags & heretic_departments))
 			continue
 
 		final_targets += department_mind
@@ -204,9 +204,9 @@
 		other_heretic.remove_sacrifice_target(sacrifice)
 
 	var/feedback = "Ваши покровители принимают вашу жертву"
-	var/datum/job/sac_job = sacrifice.mind?.assigned_job
+	var/datum/job/sac_job = sacrifice.mind?.assigned_job || sacrifice.last_mind?.assigned_job
 	heretic_datum.total_sacrifices++
-	if(sac_job?.is_command)
+	if(sac_job?.head_position)
 		heretic_datum.adjust_knowledge_points(3)
 		heretic_datum.high_value_sacrifices++
 		feedback = "Ваши покровители <i>с радостью</i> принимают вашу жертву"

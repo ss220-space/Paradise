@@ -42,8 +42,8 @@
 		return
 
 	carbon_hit.AdjustKnockdown(0.5 SECONDS)
-	carbon_hit.Confused(1.5 SECONDS, 3 SECONDS)
-	carbon_hit.Dizzy(1.5 SECONDS, 3 SECONDS)
+	carbon_hit.AdjustConfused(1.5 SECONDS, bound_upper = 3 SECONDS)
+	carbon_hit.AdjustDizzy(1.5 SECONDS, bound_upper = 3 SECONDS)
 
 	var/old_color = carbon_hit.color
 	carbon_hit.color = COLOR_CULT_RED

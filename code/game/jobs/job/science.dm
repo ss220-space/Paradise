@@ -3,7 +3,7 @@
 	flag = JOB_FLAG_RD
 	department = STATION_DEPARTMENT_SCIENCE
 	department_flag = JOBCAT_MEDSCI
-	is_science = 1
+	departments_bitflags = DEPARTMENT_BITFLAG_SCIENCE
 	selection_color = "#aa66cc"
 	access = list(ACCESS_EVA, ACCESS_RD, ACCESS_HEADS, ACCESS_TOX, ACCESS_GENETICS, ACCESS_MORGUE,
 					ACCESS_TOX_STORAGE, ACCESS_TECH_STORAGE, ACCESS_TELEPORTER, ACCESS_SEC_DOORS,
@@ -61,7 +61,7 @@
 	abstract_type = /datum/job/science
 	department = STATION_DEPARTMENT_SCIENCE
 	department_flag = JOBCAT_MEDSCI
-	is_science = 1
+	departments_bitflags = DEPARTMENT_BITFLAG_SCIENCE
 	supervisors = "Научным руководителем"
 	department_head = list(JOB_TITLE_RD)
 	selection_color = "#e6d1f0"

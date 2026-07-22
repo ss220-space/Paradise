@@ -287,17 +287,17 @@
 					// Add the job opening to the corresponding categories
 					// Ugly!
 					opening_data = list(opening_data)
-					if(job.is_security)
+					if(job.departments_bitflags & DEPARTMENT_BITFLAG_SECURITY)
 						jobs["security"] += opening_data
-					if(job.is_engineering)
+					if(job.departments_bitflags & DEPARTMENT_BITFLAG_ENGINEERING)
 						jobs["engineering"] += opening_data
-					if(job.is_medical)
+					if(job.departments_bitflags & DEPARTMENT_BITFLAG_MEDICAL)
 						jobs["medical"] += opening_data
-					if(job.is_science)
+					if(job.departments_bitflags & DEPARTMENT_BITFLAG_SCIENCE)
 						jobs["science"] += opening_data
-					if(job.is_service)
+					if(job.departments_bitflags & DEPARTMENT_BITFLAG_SERVICE)
 						jobs["service"] += opening_data
-					if(job.is_supply)
+					if(job.departments_bitflags & DEPARTMENT_BITFLAG_SUPPLY)
 						jobs["supply"] += opening_data
 
 	// Append temp photo

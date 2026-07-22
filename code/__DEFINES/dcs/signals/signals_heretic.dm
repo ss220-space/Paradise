@@ -50,6 +50,7 @@
 #define COMSIG_GET_DREAMS "get_dreams"
 #define COMSIG_ITEM_HARVESTED_SOMEBODY "item_harvested_somebody"
 #define COMSIG_LADDER_TRAVEL "ladder-travel"
+#define COMSIG_LIVING_CLOCK_SACRIFICED "living_clock_sacrificed"
 #define COMSIG_LIVING_CULT_SACRIFICED "living_cult_sacrificed"
 	#define STOP_SACRIFICE (1<<0)
 	#define SILENCE_SACRIFICE_MESSAGE (1<<1)

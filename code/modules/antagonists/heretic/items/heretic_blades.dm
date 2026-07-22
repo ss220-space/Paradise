@@ -609,6 +609,63 @@
 	return TRUE
 
 
+/obj/item/melee/sickly_blade/brass
+	name = "brass blade"
+	desc = "Клинок, перекованный в латунь до последнего волокна. Вместо глаза в его рукоять вживлён \
+			тлеющий багровый камень, а по кромке без устали проворачиваются крохотные шестерни, \
+			отсчитывая время, оставшееся его владельцу."
+	force = 25
+	throwforce = 15
+	icon_state = "clock_blade"
+	item_state = "cursed_blade"
+
+
+/obj/item/melee/sickly_blade/brass/get_ru_names()
+	return alist(
+		NOMINATIVE = "латунный клинок",
+		GENITIVE = "латунного клинка",
+		DATIVE = "латунному клинку",
+		ACCUSATIVE = "латунный клинок",
+		INSTRUMENTAL = "латунным клинком",
+		PREPOSITIONAL = "латунном клинке",
+	)
+
+
+/obj/item/melee/sickly_blade/brass/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
+
+
+/obj/item/melee/sickly_blade/brass/click_alt(mob/user)
+	seek_safety(user, TRUE)
+
+
+/obj/item/melee/sickly_blade/brass/seek_safety(mob/user, secondary_attack = FALSE)
+	if(isclocker(user) && !secondary_attack)
+		return FALSE
+
+	return ..()
+
+
+/obj/item/melee/sickly_blade/brass/check_usability(mob/living/user)
+	if(IS_HERETIC_OR_MONSTER(user) || isclocker(user))
+		return TRUE
+
+	if(prob(15))
+		to_chat(user, span_clocklarge(pick("\"Ещё одна шестерня в моём механизме.\"", "\"Смазка не бывает лишней.\"", "\"Твоё время сочтено, но пока можешь взять его.\"", "\"Работай, раз уж взялся.\"")))
+		user.apply_damage(5, BURN, user.get_active_hand())
+		playsound(src, 'sound/weapons/sear.ogg', 25, TRUE)
+		to_chat(user, span_danger("Ваша рука шипит."))
+		return TRUE
+
+	if(!prob(15))
+		return TRUE
+
+	to_chat(user, span_big(span_purple("ТИК ТАК ТИК ТАК ТИК ТАК")))
+	to_chat(user, span_danger("Грохот исполинских шестерён заполоняет ваш разум!"))
+	user.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 15)
+	return TRUE
+
+
 /obj/item/melee/sickly_blade/cursed/equipped(mob/user, slot)
 	. = ..()
 	if(IS_HERETIC_OR_MONSTER(user))
