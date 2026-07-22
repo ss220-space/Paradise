@@ -209,6 +209,13 @@
 #define MECH_FAB_CATEGORY_DARK_GYGAX "Тёмный Гигакс"
 #define MECH_FAB_CATEGORY_SYNDICATE "Синдикат"
 
+// Biogen categories
+#define BIOGEN_FOOD "Еда"
+#define BIOGEN_CUBES "Кубы"
+#define BIOGEN_LEATHER_CLOTH "Кожа и ткань"
+#define BIOGEN_ORGANIC "Органические материалы"
+#define BIOGEN_CHEMICALS "Ботанические реагенты"
+
 
 // Pod fabricator categories
 #define POD_FAB_CATEGORY_WEAPONRY "Вооружение"

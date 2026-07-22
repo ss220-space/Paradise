@@ -119,6 +119,11 @@
 	smoothing_groups = SMOOTH_GROUP_WOOD_WALLS
 	smooth = SMOOTH_BITMASK
 
+/turf/simulated/wall/indestructible/fakedoor
+	name = "airlock"
+	icon = 'icons/obj/doors/airlocks/hatch/maintenance.dmi'
+	icon_state = "closed"
+
 /turf/simulated/wall/indestructible/necropolis
 	name = "necropolis wall"
 	desc = "A seemingly impenetrable wall."
@@ -168,6 +173,14 @@
 	name = "alien wall"
 	desc = "A wall with alien alloy plating."
 	icon_state = "alien1"
+
+/turf/simulated/wall/indestructible/abductor/normal
+	icon_state = "abductor"
+	icon = 'icons/turf/walls/abductor_wall.dmi'
+
+/turf/simulated/wall/indestructible/titanium
+	icon_state = "shuttle"
+	icon = 'icons/turf/walls/shuttle/shuttle_wall.dmi'
 
 /turf/simulated/wall/indestructible/splashscreen
 	name = "Splash Screen"

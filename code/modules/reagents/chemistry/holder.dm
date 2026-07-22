@@ -199,6 +199,9 @@
 	if(!target.reagents || total_volume <= 0 || !get_reagent_amount(reagent))
 		return
 
+	if(!isnum(amount) || amount <= 0 || !IS_FINITE(amount))
+		return
+
 	var/datum/reagents/R = target.reagents
 	if(get_reagent_amount(reagent) < amount)
 		amount = get_reagent_amount(reagent)
@@ -704,7 +707,7 @@
 		return TRUE
 
 /datum/reagents/proc/remove_reagent(reagent, amount, safety) //Added a safety check for the trans_id_to
-	if(!isnum(amount))
+	if(!isnum(amount) || amount <= 0 || !IS_FINITE(amount))
 		return TRUE
 
 	for(var/A in reagent_list)
@@ -729,7 +732,7 @@
 
 /datum/reagents/proc/has_reagent(reagent, amount = -1)
 	for(var/datum/reagent/R in reagent_list)
-		if(R.id == reagent)
+		if(R.id == reagent || R.type == reagent)
 			if(!amount)
 				return R
 			else

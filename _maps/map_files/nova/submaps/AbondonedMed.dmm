@@ -1806,9 +1806,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/medroom)
 "sg" = (
-/obj/structure/sink/kitchen{
-	pixel_y = 25
-	},
+/obj/structure/sink/kitchen/directional/south,
 /obj/effect/decal/cleanable/cobweb2,
 /obj/machinery/newscaster/directional/east,
 /obj/effect/decal/cleanable/dirt,
@@ -4849,9 +4847,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/medroom)
 "Xd" = (
-/obj/structure/sink/kitchen{
-	pixel_y = 25
-	},
+/obj/structure/sink/kitchen/directional/south,
 /obj/effect/decal/cleanable/blood,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,

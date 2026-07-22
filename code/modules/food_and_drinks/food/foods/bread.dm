@@ -252,7 +252,9 @@
 /obj/item/reagent_containers/food/snacks/baguette/combat
 	sharp = TRUE
 	force = 20
-	block_chance = 40
+
+/obj/item/reagent_containers/food/snacks/baguette/combat/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/reagent_containers/food/snacks/twobread
 	name = "two bread"

@@ -178,7 +178,7 @@
 	if(victim.incorporeal_move)
 		return FALSE
 	if(victim.body_position == STANDING_UP)
-		if(!victim.get_gravity(get_turf(victim)))
+		if(!victim.has_gravity(get_turf(victim)))
 			return FALSE
 		if(victim.movement_type & (FLYING | FLOATING))
 			return FALSE

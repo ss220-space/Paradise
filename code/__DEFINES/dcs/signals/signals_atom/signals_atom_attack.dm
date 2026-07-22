@@ -50,3 +50,5 @@
 /// from base of atom/attack_robot_secondary(): (mob/user)
 #define COMSIG_ATOM_ATTACK_ROBOT_SECONDARY "atom_attack_robot_secondary"
 
+/// from base of [/atom/proc/extinguish]
+#define COMSIG_ATOM_EXTINGUISH "atom_extinguish"

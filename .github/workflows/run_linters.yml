@@ -28,12 +28,12 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-bootstrap-
 
-      - uses: actions/setup-python@v6
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.13"
           cache: "pip"
 
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v7
         with:
           node-version: 22.11.0
           cache: "yarn"
@@ -49,7 +49,7 @@ jobs:
           bash tools/ci/install_dreamchecker.sh
 
       - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v5
+        uses: actions/setup-dotnet@v6
         with:
           dotnet-version: 9.x
 

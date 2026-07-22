@@ -40,6 +40,9 @@
 #define SOUTHWEST_JUNCTION (1<<6)
 #define NORTHWEST_JUNCTION (1<<7)
 
+#define CARDINAL_SMOOTHING_JUNCTIONS (NORTH_JUNCTION|SOUTH_JUNCTION|EAST_JUNCTION|WEST_JUNCTION)
+#define ALL_SMOOTHING_JUNCTIONS (NORTH_JUNCTION|SOUTH_JUNCTION|EAST_JUNCTION|WEST_JUNCTION|NORTHEAST_JUNCTION|SOUTHEAST_JUNCTION|SOUTHWEST_JUNCTION|NORTHWEST_JUNCTION)
+
 /*smoothing macros*/
 
 #define QUEUE_SMOOTH(thing_to_queue) if(thing_to_queue.smooth & (SMOOTH_CORNERS|SMOOTH_BITMASK)) {SSicon_smooth.add_to_queue(thing_to_queue)}
@@ -115,6 +118,8 @@
 #define SMOOTH_GROUP_CARPET_SIMPLE_NEON_VIOLET_NODOTS S_TURF(50) //![turf/simulated/floor/carpet/neon/simple/violet/nodots]
 #define SMOOTH_GROUP_CARPET_SIMPLE_NEON_PINK_NODOTS S_TURF(51) //![turf/simulated/floor/carpet/neon/simple/pink/nodots]
 #define SMOOTH_GROUP_BAMBOO_FLOOR S_TURF(52) //![/turf/simulated/floor/bamboo]
+#define SMOOTH_GROUP_FLOOR_WATER_LAVALAND S_TURF(61) //![/turf/open/water/lavaland_atmos/basalt]
+#define SMOOTH_GROUP_FLOOR_BASALT S_TURF(62) //![/turf/simulated/floor/plating/asteroid/basalt]
 
 #define SMOOTH_GROUP_CLOSED_TURFS S_TURF(53) ///turf/closed
 #define SMOOTH_GROUP_MATERIAL_WALLS S_TURF(54) ///turf/simulated/wall/material
@@ -125,7 +130,7 @@
 #define SMOOTH_GROUP_SURVIVAL_TITANIUM_WALLS S_TURF(59) ///turf/simulated/wall/mineral/titanium/survival
 #define SMOOTH_GROUP_FLOOR_CLIFF S_TURF(60) ///turf/simulated/cliff
 
-#define MAX_S_TURF 60 //Always match this value with the one above it.
+#define MAX_S_TURF 62 //Always match this value with the one above it.
 
 #define S_OBJ(num) ("-" + #num + ",")
 /* /obj included */
@@ -211,7 +216,7 @@
 /// TODO: RETURN TESTS WHEN THEY ARE READY
 #define SETUP_SMOOTHING(...) \
 	if(smoothing_groups) { \
-		SET_SMOOTHING_GROUPS(smoothing_groups); \
+		SET_SMOOTHING_GROUPS(smoothing_groups, smoothing_groups); \
 	} \
 \
 	if(canSmoothWith) { \
@@ -219,7 +224,7 @@
 		if(canSmoothWith[1] == "-") { \
 			smooth |= SMOOTH_OBJ; \
 		} \
-		SET_SMOOTHING_GROUPS(canSmoothWith); \
+		SET_SMOOTHING_GROUPS(canSmoothWith, canSmoothWith); \
 	}
 
 /// Given a smoothing groups variable, will set out to the actual numbers inside it
