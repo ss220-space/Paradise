@@ -1,0 +1,1019 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air,
+/area/deathmatch)
+"b" = (
+/obj/effect/turf_decal/siding/dark_green{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/dark_green{
+	dir = 4
+	},
+/obj/effect/landmark/deathmatch_player_spawn,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"c" = (
+/obj/effect/turf_decal/siding/yellow/end{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"d" = (
+/obj/effect/turf_decal/siding/red,
+/obj/effect/turf_decal/siding/red{
+	dir = 1
+	},
+/obj/effect/light_emitter/thunderdome,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"e" = (
+/obj/effect/light_emitter/thunderdome,
+/obj/effect/turf_decal/siding/yellow,
+/obj/effect/turf_decal/siding/yellow{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"f" = (
+/obj/effect/turf_decal/siding/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/red{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"h" = (
+/obj/effect/light_emitter/thunderdome,
+/obj/effect/turf_decal/siding/dark_green/corner,
+/obj/effect/turf_decal/siding/dark_green/inner_corner{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"i" = (
+/obj/effect/turf_decal/siding/red/corner,
+/obj/effect/turf_decal/siding/red/inner_corner{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"j" = (
+/obj/effect/light_emitter/thunderdome,
+/obj/effect/turf_decal/siding/dark_green,
+/obj/effect/turf_decal/siding/dark_green{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"k" = (
+/obj/effect/turf_decal/siding/red,
+/obj/effect/turf_decal/siding/red{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"l" = (
+/obj/effect/turf_decal/siding/red/end{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"m" = (
+/obj/effect/turf_decal/siding/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/red,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"n" = (
+/obj/effect/turf_decal/siding/dark_blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/dark_blue,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"o" = (
+/obj/effect/light_emitter/thunderdome,
+/obj/effect/turf_decal/siding/dark_blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/dark_blue{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"p" = (
+/obj/effect/turf_decal/siding/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/red{
+	dir = 4
+	},
+/obj/effect/landmark/deathmatch_player_spawn,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"q" = (
+/obj/effect/turf_decal/siding/dark_blue/inner_corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/dark_blue/corner{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"r" = (
+/obj/effect/turf_decal/siding/yellow,
+/obj/effect/turf_decal/siding/yellow{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"s" = (
+/obj/effect/turf_decal/siding/dark_blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/dark_blue{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"t" = (
+/obj/effect/turf_decal/siding/dark_blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/dark_blue{
+	dir = 8
+	},
+/obj/effect/landmark/deathmatch_player_spawn,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"u" = (
+/obj/effect/turf_decal/siding/red,
+/obj/effect/turf_decal/siding/red{
+	dir = 1
+	},
+/obj/effect/landmark/deathmatch_player_spawn,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"v" = (
+/obj/effect/turf_decal/siding/dark_green{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/dark_green{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"w" = (
+/obj/effect/turf_decal/siding/yellow{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/yellow{
+	dir = 4
+	},
+/obj/effect/landmark/deathmatch_player_spawn,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"x" = (
+/obj/effect/turf_decal/siding/yellow{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/yellow{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"y" = (
+/obj/effect/turf_decal/siding/dark_green/end{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"z" = (
+/obj/effect/light_emitter/thunderdome,
+/obj/effect/turf_decal/siding/yellow/inner_corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/yellow/corner{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"A" = (
+/obj/effect/turf_decal/siding/dark_blue,
+/obj/effect/turf_decal/siding/dark_blue{
+	dir = 1
+	},
+/obj/effect/landmark/deathmatch_player_spawn,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"B" = (
+/obj/effect/turf_decal/siding/yellow/end,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"C" = (
+/turf/simulated/floor/indestructible/gray_floor,
+/area/deathmatch)
+"D" = (
+/obj/effect/turf_decal/siding/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/red{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"E" = (
+/obj/effect/turf_decal/siding/dark_green,
+/obj/effect/turf_decal/siding/dark_green{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"F" = (
+/obj/effect/turf_decal/siding/yellow,
+/obj/effect/turf_decal/siding/yellow{
+	dir = 1
+	},
+/obj/effect/landmark/deathmatch_player_spawn,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"G" = (
+/obj/effect/turf_decal/siding/dark_blue/end{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"H" = (
+/obj/effect/turf_decal/siding/dark_green/inner_corner,
+/obj/effect/turf_decal/siding/dark_green/corner{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"I" = (
+/obj/effect/light_emitter/thunderdome,
+/obj/effect/turf_decal/siding/dark_blue/inner_corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/dark_blue/corner{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"J" = (
+/obj/effect/turf_decal/siding/red/inner_corner,
+/obj/effect/light_emitter/thunderdome,
+/obj/effect/turf_decal/siding/red/corner{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"K" = (
+/obj/effect/turf_decal/siding/dark_green{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/dark_green,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"L" = (
+/obj/effect/turf_decal/siding/yellow/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/yellow/inner_corner{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"M" = (
+/obj/effect/turf_decal/siding/dark_blue,
+/obj/effect/turf_decal/siding/dark_blue{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"N" = (
+/obj/effect/turf_decal/siding/red/inner_corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/red/corner,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"O" = (
+/obj/effect/turf_decal/siding/dark_green{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/dark_green{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"P" = (
+/obj/effect/light_emitter/thunderdome,
+/obj/effect/turf_decal/siding/dark_blue,
+/obj/effect/turf_decal/siding/dark_blue{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"Q" = (
+/obj/effect/turf_decal/siding/dark_blue/end{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"R" = (
+/obj/effect/turf_decal/siding/yellow/inner_corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/yellow/corner{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"S" = (
+/obj/effect/turf_decal/siding/dark_green/end{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"T" = (
+/obj/effect/light_emitter/thunderdome,
+/obj/effect/turf_decal/siding/dark_green{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/dark_green{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"U" = (
+/obj/effect/turf_decal/siding/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/red{
+	dir = 8
+	},
+/obj/effect/light_emitter/thunderdome,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"V" = (
+/obj/effect/turf_decal/siding/red/end,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"W" = (
+/turf/simulated/floor/indestructible/light,
+/area/deathmatch)
+"X" = (
+/obj/effect/turf_decal/siding/yellow{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/yellow{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"Y" = (
+/obj/effect/light_emitter/thunderdome,
+/obj/effect/turf_decal/siding/yellow{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/yellow{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"Z" = (
+/obj/effect/turf_decal/siding/dark_green,
+/obj/effect/turf_decal/siding/dark_green{
+	dir = 1
+	},
+/obj/effect/landmark/deathmatch_player_spawn,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+
+(1,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(2,1,1) = {"
+a
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+a
+a
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+a
+"}
+(3,1,1) = {"
+a
+W
+i
+f
+f
+f
+f
+p
+f
+f
+V
+W
+W
+G
+s
+s
+t
+s
+s
+s
+s
+q
+W
+a
+"}
+(4,1,1) = {"
+a
+W
+k
+C
+C
+C
+C
+C
+C
+C
+C
+C
+C
+C
+C
+C
+C
+C
+C
+C
+C
+M
+W
+a
+"}
+(5,1,1) = {"
+a
+W
+k
+C
+W
+D
+D
+D
+D
+W
+C
+N
+q
+C
+W
+s
+s
+s
+s
+W
+C
+M
+W
+a
+"}
+(6,1,1) = {"
+a
+W
+k
+C
+k
+a
+a
+a
+a
+m
+C
+k
+M
+C
+n
+a
+a
+a
+a
+n
+C
+M
+W
+a
+"}
+(7,1,1) = {"
+a
+W
+k
+C
+k
+a
+a
+a
+a
+m
+C
+d
+P
+C
+n
+a
+a
+a
+a
+n
+C
+M
+W
+a
+"}
+(8,1,1) = {"
+a
+W
+u
+C
+k
+a
+a
+a
+a
+m
+C
+d
+P
+C
+n
+a
+a
+a
+a
+n
+C
+A
+W
+a
+"}
+(9,1,1) = {"
+a
+W
+k
+C
+k
+a
+a
+a
+a
+m
+C
+k
+M
+C
+n
+a
+a
+a
+a
+n
+C
+M
+W
+a
+"}
+(10,1,1) = {"
+a
+W
+k
+C
+W
+D
+D
+D
+D
+W
+C
+k
+M
+C
+W
+s
+s
+s
+s
+W
+C
+M
+W
+a
+"}
+(11,1,1) = {"
+a
+W
+l
+C
+C
+C
+C
+C
+C
+C
+C
+k
+M
+C
+C
+C
+C
+C
+C
+C
+C
+Q
+W
+a
+"}
+(12,1,1) = {"
+a
+a
+W
+C
+N
+D
+U
+U
+D
+D
+D
+J
+I
+s
+s
+s
+o
+o
+s
+q
+C
+W
+a
+a
+"}
+(13,1,1) = {"
+a
+a
+W
+C
+R
+x
+Y
+Y
+x
+x
+x
+z
+h
+O
+O
+O
+T
+T
+v
+H
+C
+W
+a
+a
+"}
+(14,1,1) = {"
+a
+W
+c
+C
+C
+C
+C
+C
+C
+C
+C
+r
+E
+C
+C
+C
+C
+C
+C
+C
+C
+S
+W
+a
+"}
+(15,1,1) = {"
+a
+W
+r
+C
+W
+X
+X
+X
+X
+W
+C
+r
+E
+C
+W
+v
+v
+v
+v
+W
+C
+E
+W
+a
+"}
+(16,1,1) = {"
+a
+W
+r
+C
+r
+a
+a
+a
+a
+r
+C
+r
+E
+C
+K
+a
+a
+a
+a
+K
+C
+E
+W
+a
+"}
+(17,1,1) = {"
+a
+W
+F
+C
+r
+a
+a
+a
+a
+r
+C
+e
+j
+C
+K
+a
+a
+a
+a
+K
+C
+Z
+W
+a
+"}
+(18,1,1) = {"
+a
+W
+r
+C
+r
+a
+a
+a
+a
+r
+C
+e
+j
+C
+K
+a
+a
+a
+a
+K
+C
+E
+W
+a
+"}
+(19,1,1) = {"
+a
+W
+r
+C
+r
+a
+a
+a
+a
+r
+C
+r
+E
+C
+K
+a
+a
+a
+a
+K
+C
+E
+W
+a
+"}
+(20,1,1) = {"
+a
+W
+r
+C
+W
+X
+X
+X
+X
+W
+C
+L
+H
+C
+W
+v
+v
+v
+v
+W
+C
+E
+W
+a
+"}
+(21,1,1) = {"
+a
+W
+r
+C
+C
+C
+C
+C
+C
+C
+C
+C
+C
+C
+C
+C
+C
+C
+C
+C
+C
+E
+W
+a
+"}
+(22,1,1) = {"
+a
+W
+R
+x
+x
+x
+x
+w
+x
+x
+B
+W
+W
+y
+O
+O
+b
+O
+O
+O
+O
+H
+W
+a
+"}
+(23,1,1) = {"
+a
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+a
+a
+W
+W
+W
+W
+W
+W
+W
+W
+W
+W
+a
+"}
+(24,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}

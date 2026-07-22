@@ -276,7 +276,6 @@
 	armour_penetration = 35
 	origin_tech = "magnets=4;syndicate=5"
 	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
-	block_chance = 75
 	sharp_when_wielded = TRUE // only sharp when wielded
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
@@ -302,6 +301,9 @@
 	RegisterSignal(src, COMSIG_TWOHANDED_WIELD, PROC_REF(on_wield))	//We need to listen for item wield
 	if(!blade_color)
 		blade_color = pick("red", "blue", "green", "purple", "yellow", "pink", "orange", "darkblue", "rainbow")
+
+/obj/item/twohanded/dualsaber/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.25, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (1 / 3) SECONDS, _requires_two_hands = TRUE) // 0.3333 seconds of cooldown for 75% uptime
 
 /obj/item/twohanded/dualsaber/ComponentInitialize()
 	. = ..()
@@ -364,7 +366,7 @@
 /obj/item/twohanded/dualsaber/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "атакует", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		return ..()
-	return FALSE
+	return HIT_RESULT_FAILED
 
 /obj/item/twohanded/dualsaber/green
 	blade_color = "green"
@@ -712,8 +714,8 @@
 	if(attack_type == PROJECTILE_ATTACK)
 		owner.visible_message(span_danger("Дальние атаки только сильнее злят [owner.declent_ru(ACCUSATIVE)]!"), projectile_message = TRUE)
 		playsound(src, pick('sound/weapons/bulletflyby.ogg','sound/weapons/bulletflyby2.ogg','sound/weapons/bulletflyby3.ogg'), 75, 1)
-		return TRUE
-	return FALSE
+		return HIT_RESULT_SUCCESS
+	return HIT_RESULT_FAILED
 
 ///CHAINSAW///
 /obj/item/twohanded/chainsaw
@@ -1050,7 +1052,6 @@
 	throwforce = 24
 	force_unwielded = 19
 	force_wielded = 25
-	block_chance = 50
 	block_type = MELEE_ATTACKS
 	light_system = OVERLAY_LIGHT
 	light_range = 3
@@ -1068,6 +1069,9 @@
 		INSTRUMENTAL = "демоническими вилами",
 		PREPOSITIONAL = "демонических вилах",
 	)
+
+/obj/item/twohanded/pitchfork/demonic/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS, _requires_two_hands = TRUE)
 
 /obj/item/twohanded/pitchfork/demonic/greater
 	force = 24

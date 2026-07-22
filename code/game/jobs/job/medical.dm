@@ -134,6 +134,7 @@
 		ALT_JOB_TITLE_RU_THANATOLOGIST,
 	)
 	outfit = /datum/outfit/job/coroner
+	mind_traits = list(TRAIT_MORBID)
 
 /datum/outfit/job/coroner
 	name = JOB_TITLE_RU_CORONER

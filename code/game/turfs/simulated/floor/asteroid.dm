@@ -146,6 +146,7 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 	icon_plating = "basalt"
 	environment_type = "basalt"
 	floor_variance = 15
+	smoothing_groups = SMOOTH_GROUP_FLOOR_BASALT
 
 /turf/simulated/floor/plating/asteroid/basalt/get_ru_names()
 	return alist(

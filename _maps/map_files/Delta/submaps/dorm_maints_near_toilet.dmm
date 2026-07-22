@@ -83,7 +83,7 @@
 /area/template_noop)
 "eA" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/glass/rag,
+/obj/item/rag,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken3"
 	},

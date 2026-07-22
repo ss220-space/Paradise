@@ -51,6 +51,7 @@
 ///from base of obj/item/hit_reaction(): (list/args)
 #define COMSIG_ITEM_HIT_REACT "item_hit_react"
 	#define COMPONENT_BLOCK_SUCCESSFUL (1 << 0)
+	#define COMPONENT_BLOCK_PERFECT (1 << 2)
 ///called on item when crossed by something (): (/atom/movable, mob/living/crossed)
 #define COMSIG_ITEM_WEARERCROSSED "wearer_crossed"
 ///from base of item/sharpener/attackby(): (amount, max)
@@ -368,5 +369,9 @@
 
 /// Called when item removed from storage. [/obj/item/storage/proc/remove_from_storage()]: (obj/item/W, atom/new_location)
 #define COMSIG_ITEM_REMOVED_FROM_STORAGE "removed_from_storage"
+
 /// Called when the spraycan interacts.
 #define COMSIG_OBJ_PAINTED "obj_painted"
+
+/// from /datum/component/subtype_picker/pick_subtype(): (obj/item/old_item, mob/picker)
+#define COMSIG_ITEM_SUBTYPE_PICKER_SELECTED "item_subtype_picker_selected"

@@ -15,7 +15,7 @@
 
 // Space Base Spawners. Исспользуется переделанная копия спавнеров лавалендовских.
 /obj/effect/mob_spawn/human/space_base_syndicate
-	name = "Syndicate Scientist sleeper"
+	name = "Syndicate sleeper"
 	mob_name = "Syndicate Scientist"
 	roundstart = FALSE
 	death = FALSE
@@ -104,7 +104,6 @@
 	return ..()
 
 /obj/effect/mob_spawn/human/space_base_syndicate/medic
-	name = "Syndicate Medic sleeper"
 	mob_name = "Syndicate Medic"
 	id_job = "Syndicate Medic"
 	description = "Проводите медицинские опыты сомнительного содержания. Вылечивайте своих коллег, которые опять поссорились с генералом Синди, или оживляйте неудачливых космических путников, для допросов или киборгизации. Даже \"Синдикату\" нужны врачи!"
@@ -126,12 +125,12 @@
 	)
 
 /obj/effect/mob_spawn/human/space_base_syndicate/botanist
-	name = "Syndicate Botanist sleeper"
 	mob_name = "Syndicate Botanist"
 	id_job = "Syndicate Botanist"
 	description = "Выращивайте сомнительные растения. Помогите повару накормить экипаж, а учёным — создать опаснейшие растения! Наслаждайтесь силой природы в руках \"Синдиката\"!"
 	outfit = /datum/outfit/space_base_syndicate/botanist
 	assignedrole = JOB_TITLE_TAIPAN_BOTANIST
+
 /datum/outfit/space_base_syndicate/botanist
 	name = "Space Base Syndicate Botanist"
 	glasses = /obj/item/clothing/glasses/hud/hydroponic
@@ -142,13 +141,13 @@
 	implants = list(/obj/item/implant/weapons_auth)
 
 /obj/effect/mob_spawn/human/space_base_syndicate/cargotech
-	name = "Syndicate Cargo Technician sleeper"
 	mob_name = "Syndicate Cargo Technician"
 	id_job = "Syndicate Cargo Technician"
 	description = "Даже \"Синдикату\" нужны рабочие руки, приносите людям их посылки, заказывайте и продавайте, наслаждайтесь простой работой среди всех этих учёных. Здесь всё равно платят в разы лучше!"
 	flavour_text = "Вы — грузчик \"Синдиката\", работающий на сверхсекретной научно-наблюдательной станции Тайпан, занимающейся созданием биооружия и взаимодействием с чёрным рынком. К несчастью, ваш самый главный враг, компания \"Нанотрейзен\", имеет собственную массивную научную базу в вашем секторе. Работайте с грузами, заказывайте всё, что может потребоваться станции или вам и зарабатывайте реальные деньги, а не виртуальные очки!"
 	outfit = /datum/outfit/space_base_syndicate/cargotech
 	assignedrole = JOB_TITLE_TAIPAN_CARGO
+
 /datum/outfit/space_base_syndicate/cargotech
 	name = "Space Base Syndicate Cargo Technician"
 	head = /obj/item/clothing/head/soft
@@ -159,7 +158,6 @@
 	back = /obj/item/storage/backpack/syndicate/cargo
 
 /obj/effect/mob_spawn/human/space_base_syndicate/chef
-	name = "Syndicate Chef Sleeper"
 	mob_name = "Syndicate Chef"
 	id_job = "Syndicate Chef"
 	description = "Даже \"Синдикату\" нужны рабочие руки! У вас в распоряжении свой бар, кухня и ботаника. Накормите этих голодных учёных или помогите им создать последнее блюдо для ваших врагов. Здесь всё равно платят в разы лучше!"
@@ -182,7 +180,6 @@
 	back = /obj/item/storage/backpack/syndicate
 
 /obj/effect/mob_spawn/human/space_base_syndicate/engineer
-	name = "Syndicate Atmos Engineer Sleeper"
 	mob_name = "Syndicate Atmos Engineer"
 	id_job = "Syndicate Atmos Engineer"
 	description = "Там, где есть космическая станция, есть и двигатели с трубами, которым нужно своё техобслуживание. Обеспечьте станцию энергией, чините повреждения после неудачных опытов учёных и отдыхайте в баре, пока снова что-нибудь не взорвут. "
@@ -190,6 +187,7 @@
 	outfit = /datum/outfit/space_base_syndicate/engineer
 	assignedrole = JOB_TITLE_TAIPAN_ENGINEER
 	exp_type = EXP_TYPE_ENGINEERING
+
 /datum/outfit/space_base_syndicate/engineer
 	name = "Space Base Syndicate Engineer"
 	head = /obj/item/clothing/head/beret/eng
@@ -199,8 +197,10 @@
 	shoes = /obj/item/clothing/shoes/workboots
 	back = /obj/item/storage/backpack/syndicate/engineer
 
-/obj/effect/mob_spawn/human/space_base_syndicate/comms
-	name = "Syndicate Comms Officer sleeper"
+/obj/effect/mob_spawn/human/space_base_syndicate/command
+	name = "Syndicate elite sleeper"
+
+/obj/effect/mob_spawn/human/space_base_syndicate/command/comms
 	mob_name = "Syndicate Comms Officer"
 	id_job = "Syndicate Comms Officer"
 	description = "Проверяйте камеры и коммуникации, руководите станцией в случае ЧП, старайтесь помогать любым агентам \"Синдиката\" на станции, при этом сохраняя свою базу в секрете от НТ. Вы являетесь единственным агентом с доступом в хранилище и оружейную."
@@ -210,6 +210,7 @@
 	assignedrole = JOB_TITLE_TAIPAN_COMMS
 	min_hours = 50
 	exp_type = EXP_TYPE_COMMAND
+
 /datum/outfit/space_base_syndicate/comms
 	name = "Space Base Syndicate Comms Officer"
 	r_ear = /obj/item/radio/headset/syndicate/taipan/tcomms_agent // See del_types above
@@ -225,8 +226,7 @@
 		/obj/item/ammo_box/magazine/m50 = 3,
 	)
 
-/obj/effect/mob_spawn/human/space_base_syndicate/rd
-	name = "Syndicate Research Director sleeper"
+/obj/effect/mob_spawn/human/space_base_syndicate/command/rd
 	mob_name = "Syndicate Research Director"
 	id_job = "Syndicate Research Director"
 	description = "Следите за тем, чтобы учёные занимались исследованиями и не подорвали всю станцию, предоставьте \"Синдикату\" результаты своих исследований через карго и помните: смерть \"Нанотрейзен\"!"
@@ -236,6 +236,7 @@
 	assignedrole = JOB_TITLE_TAIPAN_RD
 	min_hours = 50
 	exp_type = EXP_TYPE_SCIENCE
+
 /datum/outfit/space_base_syndicate/rd
 	name = "Space Base Syndicate Research Director"
 	r_hand = /obj/item/melee/baton/telescopic
@@ -332,10 +333,10 @@
 			S.setDir(dir)
 			Destroy()
 		if(JOB_TITLE_TAIPAN_COMMS)
-			var/obj/effect/mob_spawn/human/space_base_syndicate/comms/S = new(get_turf(src))
+			var/obj/effect/mob_spawn/human/space_base_syndicate/command/comms/S = new(get_turf(src))
 			S.setDir(dir)
 			Destroy()
 		if(JOB_TITLE_TAIPAN_RD)
-			var/obj/effect/mob_spawn/human/space_base_syndicate/rd/S = new(get_turf(src))
+			var/obj/effect/mob_spawn/human/space_base_syndicate/command/rd/S = new(get_turf(src))
 			S.setDir(dir)
 			Destroy()

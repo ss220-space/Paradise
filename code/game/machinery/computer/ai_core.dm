@@ -9,6 +9,10 @@
 	var/obj/item/circuitboard/aicore/circuit = null
 	var/obj/item/mmi/brain = null
 
+/obj/structure/AIcore/Initialize(mapload)
+	. = ..()
+	update_appearance(UPDATE_ICON_STATE)
+
 /obj/structure/AIcore/Destroy(force)
 	QDEL_NULL(laws)
 	QDEL_NULL(circuit)
@@ -221,22 +225,28 @@
 	default_unfasten_wrench(user, I, 20)
 
 /obj/structure/AIcore/update_icon_state()
-	switch(state)
-		if(EMPTY_CORE)
-			icon_state = "0"
-		if(CIRCUIT_CORE)
-			icon_state = "1"
-		if(SCREWED_CORE)
-			icon_state = "2"
-		if(CABLED_CORE)
-			if(brain)
-				icon_state = "3b"
-			else
-				icon_state = "3"
-		if(GLASS_CORE)
-			icon_state = "4"
-		if(AI_READY_CORE)
-			icon_state = "ai-empty"
+	cut_overlays()
+
+	if(state != AI_READY_CORE)
+		icon_state = "[state]"
+		if(state == CABLED_CORE && brain)
+			icon_state += "b"
+		set_light_on(FALSE)
+	else
+
+		icon_state = "ai-core"
+
+		var/mutable_appearance/screen = mutable_appearance(icon, "ai-empty")
+		screen.layer = FLOAT_LAYER
+		screen.appearance_flags = RESET_COLOR | KEEP_APART
+
+		add_overlay(screen)
+
+		add_overlay(emissive_appearance(icon, "ai-empty", src, alpha = 255))
+
+		set_light(0.2, 0.2, LIGHT_COLOR_FAINT_CYAN, l_on = TRUE)
+
+	return ..()
 
 /obj/structure/AIcore/deconstruct(disassembled = TRUE)
 	if(state == GLASS_CORE)

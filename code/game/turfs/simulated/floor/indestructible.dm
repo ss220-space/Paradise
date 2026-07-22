@@ -53,6 +53,53 @@
 	icon = 'icons/turf/floors/plating.dmi'
 	footstep = FOOTSTEP_PLATING
 
+/turf/simulated/floor/indestructible/gray_floor
+	icon_state = "floor"
+
+/turf/simulated/floor/indestructible/brig_floor
+	icon_state = "darkredfull"
+
+/turf/simulated/floor/indestructible/brig_black
+	icon_state = "blackfull"
+
+/turf/simulated/floor/indestructible/medical_floor
+	icon_state = "bluefull"
+
+/turf/simulated/floor/indestructible/medical_white
+	icon_state = "white"
+
+/turf/simulated/floor/indestructible/asteroid_ground
+	icon_state = "asteroidfloor"
+
+/turf/simulated/floor/indestructible/cargo_floor
+	icon_state = "yellowfull"
+
+/turf/simulated/floor/indestructible/grime_floor
+	icon_state = "floorgrime"
+
+/turf/simulated/floor/indestructible/dirt_floor
+	icon_state = "dirt"
+
+/turf/simulated/floor/indestructible/stone_floor
+	icon_state = "stone_floor"
+
+/turf/simulated/floor/indestructible/light
+	icon_state = "light_on"
+	light_range = 3
+	light_color = LIGHT_COLOR_CYAN
+
+/turf/simulated/floor/indestructible/abductor_vault
+	icon_state = "alienvault"
+
+/turf/simulated/floor/indestructible/green_light
+	icon_state = "light_on-g"
+
+/turf/simulated/floor/indestructible/yellow_light
+	icon_state = "light_on-y"
+
+/turf/simulated/floor/indestructible/green_circuit
+	icon_state = "gcircuit"
+
 /turf/simulated/floor/indestructible/necropolis
 	name = "necropolis floor"
 	desc = "It's regarding you suspiciously."

@@ -30,10 +30,10 @@
 
 /obj/item/hardsuit_taser_proof/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(!hardsuit)
-		return FALSE
+		return HIT_RESULT_FAILED
 	if(!hardsuit.suit_adjusted)
-		return FALSE
+		return HIT_RESULT_FAILED
 	var/obj/projectile/P = hitby
 	if(istype(P) && P.shockbull)
-		return TRUE
-	return FALSE
+		return HIT_RESULT_SUCCESS
+	return HIT_RESULT_FAILED

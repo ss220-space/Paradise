@@ -1,4 +1,3 @@
-#define SECSPEAR_BLOCK_CHANCE 30
 #define SECSPEAR_CHARGE_MEDIUM 33
 #define SECSPEAR_CHARGE_HIGH 66
 
@@ -49,6 +48,9 @@
 	spear_mode = GLOB.secspear_modes[spear_mode.name]
 	spear_mode.on_activate(src)
 	force_charge_overlay_update()
+
+/obj/item/twohanded/spear/secspear/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = NON_PROJECTILE_ATTACKS, _parry_cooldown = (7 / 3) SECONDS, _requires_activation = TRUE) // 2.3333 seconds of cooldown for 30% uptime
 
 /obj/item/twohanded/spear/secspear/examine(mob/user)
 	. = ..()
@@ -237,7 +239,7 @@
 		add_traits(list(TRAIT_TWOHANDED_BLOCKED, TRAIT_CLEAVE_BLOCKED), UNIQUE_TRAIT_SOURCE(src))
 		w_class = WEIGHT_CLASS_NORMAL
 		slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_SUITSTORE // Belt or suit slot for folded
-		block_chance = initial(block_chance)
+		REMOVE_TRAIT(src, TRAIT_ITEM_ACTIVE, GENERIC_TRAIT)
 		force_charge_overlay_update()
 		user.update_held_items()
 		user.update_action_buttons_icon()
@@ -247,7 +249,7 @@
 	remove_traits(list(TRAIT_TWOHANDED_BLOCKED, TRAIT_CLEAVE_BLOCKED), UNIQUE_TRAIT_SOURCE(src))
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
-	block_chance = SECSPEAR_BLOCK_CHANCE
+	ADD_TRAIT(src, TRAIT_ITEM_ACTIVE, GENERIC_TRAIT)
 	force_charge_overlay_update()
 	user.update_held_items()
 	user.update_action_buttons_icon()
@@ -295,6 +297,5 @@
 	var/obj/item/twohanded/spear/secspear/spear = target
 	spear.toggle_folded(owner)
 
-#undef SECSPEAR_BLOCK_CHANCE
 #undef SECSPEAR_CHARGE_MEDIUM
 #undef SECSPEAR_CHARGE_HIGH
