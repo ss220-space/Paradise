@@ -83,6 +83,23 @@
 /turf/simulated/floor/indestructible/stone_floor
 	icon_state = "stone_floor"
 
+/turf/simulated/floor/indestructible/light
+	icon_state = "light_on"
+	light_range = 3
+	light_color = LIGHT_COLOR_CYAN
+
+/turf/simulated/floor/indestructible/abductor_vault
+	icon_state = "alienvault"
+
+/turf/simulated/floor/indestructible/green_light
+	icon_state = "light_on-g"
+
+/turf/simulated/floor/indestructible/yellow_light
+	icon_state = "light_on-y"
+
+/turf/simulated/floor/indestructible/green_circuit
+	icon_state = "gcircuit"
+
 /turf/simulated/floor/indestructible/necropolis
 	name = "necropolis floor"
 	desc = "It's regarding you suspiciously."

@@ -1037,6 +1037,18 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 	var/list/dimensions = get_icon_dimensions(icon)
 	return dimensions[CACHED_HEIGHT_INDEX]
 
+/image/proc/get_cached_width()
+	if(isnull(icon))
+		return 0
+	var/list/dimensions = get_icon_dimensions(icon)
+	return dimensions[CACHED_WIDTH_INDEX]
+
+/image/proc/get_cached_height()
+	if(isnull(icon))
+		return 0
+	var/list/dimensions = get_icon_dimensions(icon)
+	return dimensions[CACHED_HEIGHT_INDEX]
+
 #undef CACHED_WIDTH_INDEX
 #undef CACHED_HEIGHT_INDEX
 

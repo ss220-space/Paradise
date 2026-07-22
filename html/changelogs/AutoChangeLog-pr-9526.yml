@@ -1,0 +1,4 @@
+author: "Dimempers"
+delete-after: True
+changes:
+  - tweak: "Ачивка \"Ваш диск, пожалуйста!\" выдается оперативнику, а не дискхолдеру (PR #9526)"

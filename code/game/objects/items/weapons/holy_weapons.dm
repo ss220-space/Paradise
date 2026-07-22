@@ -165,7 +165,9 @@
 	w_class = WEIGHT_CLASS_HUGE
 	force = 5
 	slot_flags = ITEM_SLOT_BACK
-	block_chance = 50
+
+/obj/item/nullrod/staff/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/nullrod/staff/ComponentInitialize()
 	. = ..()
@@ -188,13 +190,15 @@
 	desc = "A weapon fit for a crusade!"
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_BACK
-	block_chance = 30
 	block_type = MELEE_ATTACKS
 	sharp = TRUE
 	embed_chance = 20
 	embedded_ignore_throwspeed_threshold = TRUE
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
+
+/obj/item/nullrod/claymore/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = NON_PROJECTILE_ATTACKS, _parry_cooldown = (7 / 3) SECONDS) // 2.3333 seconds of cooldown for 30% uptime
 
 /obj/item/nullrod/claymore/ComponentInitialize()
 	. = ..()
@@ -492,13 +496,15 @@
 	name = "monk's staff"
 	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts, now used to harass the clown."
 	force = 13
-	block_chance = 40
 	slot_flags = ITEM_SLOT_BACK
 	sharp = FALSE
 	hitsound = SFX_SWING_HIT
 	attack_verb = list("сокрушил", "ударил", "огрел")
 	icon_state = "bostaff0"
 	item_state = "bostaff0"
+
+/obj/item/nullrod/claymore/bostaff/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.4, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (5 / 3) SECONDS ) // will remove the other component, 0.666667 seconds for 60% uptime.
 
 /obj/item/nullrod/tribal_knife
 	name = "arrhythmic knife"
@@ -739,7 +745,6 @@
 	w_class = WEIGHT_CLASS_HUGE
 	force = 5
 	slot_flags = ITEM_SLOT_BACK
-	block_chance = 50
 
 	var/team_color = "red"
 	var/obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/robes = null		//the robes linked with this staff
@@ -755,6 +760,9 @@
 	icon_state = "godstaff-[team_color]"
 	item_state = "godstaff-[team_color]"
 	name = "[team_color] holy staff"
+
+/obj/item/nullrod/missionary_staff/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/nullrod/missionary_staff/Destroy()
 	if(robes)		//delink on destruction

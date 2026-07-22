@@ -1174,7 +1174,7 @@
 /obj/effect/mob_spawn/human/space_base_syndicate/botanist{
 	dir = 8
 	},
-/turf/simulated/floor/carpet/black,
+/turf/simulated/floor/carpet/green,
 /area/syndicate/unpowered/syndicate_space_base/cryo)
 "bbZ" = (
 /obj/structure/lattice,
@@ -9624,7 +9624,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
-/obj/effect/mob_spawn/human/space_base_syndicate/rd{
+/obj/effect/mob_spawn/human/space_base_syndicate/command/rd{
 	dir = 4
 	},
 /turf/simulated/floor/carpet/black,
@@ -15624,10 +15624,10 @@
 	dir = 8
 	},
 /obj/item/radio/intercom/syndicate/directional/north,
-/obj/effect/mob_spawn/human/space_base_syndicate/chef{
+/obj/effect/mob_spawn/human/space_base_syndicate/medic{
 	dir = 4
 	},
-/turf/simulated/floor/carpet/black,
+/turf/simulated/floor/carpet/cyan,
 /area/syndicate/unpowered/syndicate_space_base/cryo)
 "oOV" = (
 /obj/effect/turf_decal/tile/red{
@@ -15656,7 +15656,7 @@
 /obj/effect/mob_spawn/human/space_base_syndicate/cargotech{
 	dir = 8
 	},
-/turf/simulated/floor/carpet/black,
+/turf/simulated/floor/carpet,
 /area/syndicate/unpowered/syndicate_space_base/cryo)
 "oQj" = (
 /obj/effect/turf_decal/tile/neutral{
@@ -16573,7 +16573,7 @@
 /obj/effect/mob_spawn/human/space_base_syndicate{
 	dir = 8
 	},
-/turf/simulated/floor/carpet/black,
+/turf/simulated/floor/carpet/purple,
 /area/syndicate/unpowered/syndicate_space_base/cryo)
 "pBo" = (
 /turf/simulated/floor/plasteel{
@@ -18474,7 +18474,7 @@
 /obj/effect/mob_spawn/human/space_base_syndicate{
 	dir = 8
 	},
-/turf/simulated/floor/carpet/black,
+/turf/simulated/floor/carpet/purple,
 /area/syndicate/unpowered/syndicate_space_base/cryo)
 "qWC" = (
 /obj/effect/turf_decal/tile/neutral{
@@ -20236,7 +20236,7 @@
 /obj/effect/mob_spawn/human/space_base_syndicate/engineer{
 	dir = 4
 	},
-/turf/simulated/floor/carpet/black,
+/turf/simulated/floor/carpet/orange,
 /area/syndicate/unpowered/syndicate_space_base/cryo)
 "sMs" = (
 /obj/effect/turf_decal/tile/red,
@@ -20263,10 +20263,10 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
-/obj/effect/mob_spawn/human/space_base_syndicate/cargotech{
+/obj/effect/mob_spawn/human/space_base_syndicate/chef{
 	dir = 8
 	},
-/turf/simulated/floor/carpet/black,
+/turf/simulated/floor/carpet/green,
 /area/syndicate/unpowered/syndicate_space_base/cryo)
 "sNv" = (
 /obj/structure/grille,
@@ -20488,7 +20488,7 @@
 /area/syndicate/unpowered/syndicate_space_base/telecomms/agent_room)
 "tbq" = (
 /obj/machinery/alarm/syndicate/directional/east,
-/obj/effect/mob_spawn/human/space_base_syndicate/comms{
+/obj/effect/mob_spawn/human/space_base_syndicate/command/comms{
 	dir = 8
 	},
 /turf/simulated/floor/carpet/black,
@@ -24854,10 +24854,10 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red,
-/obj/effect/mob_spawn/human/space_base_syndicate/medic{
+/obj/effect/mob_spawn/human/space_base_syndicate/cargotech{
 	dir = 8
 	},
-/turf/simulated/floor/carpet/black,
+/turf/simulated/floor/carpet,
 /area/syndicate/unpowered/syndicate_space_base/cryo)
 "wrs" = (
 /obj/structure/chair/sofa{

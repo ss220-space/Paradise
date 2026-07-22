@@ -164,6 +164,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(stand_icon)
 		qdel(stand_icon)
 
+
+	cached_body_width = ICON_SIZE_X
+	cached_body_height = ICON_SIZE_Y
+
 	update_misc_effects()
 	stand_icon = new (dna.species.icon_template ? dna.species.icon_template : 'icons/mob/human.dmi', "blank")
 	var/list/standing = list()
@@ -225,8 +229,15 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/mutable_appearance/new_base = mutable_appearance(base_icon, layer = -LIMBS_LAYER)
 		GLOB.human_icon_cache[icon_key] = new_base
 		standing += new_base
+		base = new_base
 
 		//END CACHED ICON GENERATION.
+
+	if(base)
+		cached_body_width = max(cached_body_width, base.get_cached_width())
+		cached_body_height = max(cached_body_height, base.get_cached_height())
+		cached_body_min_x_offset = min(cached_body_min_x_offset, base.pixel_x + base.pixel_w)
+		cached_body_min_y_offset = min(cached_body_min_y_offset, base.pixel_y + pixel_z)
 
 	overlays_standing[LIMBS_LAYER] = standing
 	apply_overlay(LIMBS_LAYER)
@@ -1233,46 +1244,46 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(g == DNA_GENDER_PLURAL)
 		g = DNA_GENDER_FEMALE
 
-	. = ""
+	var/list/result = list()
 
 	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
 	if(eyes)
-		. += "[eyes.eye_colour]"
+		result += "[eyes.eye_colour]"
 	else
-		. += "#000000"
+		result += "#000000"
 
 	if(lip_color && HAS_TRAIT(src, TRAIT_HAS_LIPS))
-		. += "[lip_color]"
+		result += "[lip_color]"
 	else
-		. += "#000000"
+		result += "#000000"
 
 	for(var/limb_zone in dna.species.has_limbs)
 		var/obj/item/organ/external/part = bodyparts_by_name[limb_zone]
 		if(isnull(part))
-			. += "0"
+			result += "0"
 		else if(part.is_robotic())
-			. += "2[part.model ? "-[part.model]" : ""]"
+			result += "2[part.model ? "-[part.model]" : ""]"
 		else if(part.is_dead())
-			. += "3"
+			result += "3"
 		else
-			. += "1"
+			result += "1"
 
 		if(part)
 			var/datum/species/S = GLOB.all_species[part.dna.species.name]
-			. += "[S.race_key]"
-			. += "[part.dna.GetUIValue(DNA_UI_SKIN_TONE)]"
-			. += "[g]"
+			result += "[S.race_key]"
+			result += "[part.dna.GetUIValue(DNA_UI_SKIN_TONE)]"
+			result += "[g]"
 			if(part.s_col)
-				. += "[part.s_col]"
+				result += "[part.s_col]"
 			if(part.s_tone)
-				. += "[part.s_tone]"
+				result += "[part.s_tone]"
 
 	var/list/bonus_info = list()
 	SEND_SIGNAL(src, COMSIG_GET_ICON_RENDER_KEY_INFO, bonus_info)
 	for(var/info in bonus_info)
-		. += "[info]"
+		result += "[info]"
 
-	. = "[.][!!husk][!!hulk][!!skeleton]"
+	return "[result.Join("")][!!husk][!!hulk][!!skeleton]"
 
 /mob/living/carbon/human/update_ssd_overlay()
 	if(!isnull(player_logged))
@@ -1381,4 +1392,19 @@ use_item_state: SS1984 legacy var, used to fix fact, that item_state randomly us
 	standing.color = color
 
 	return standing
+
+// Wide organs or bodyparts shouldn't offset human HUD directly
+/mob/living/carbon/human/get_hud_x_offset()
+	return 0
+
+// But they are affected by height
+/mob/living/carbon/human/get_hud_y_offset()
+	return 0
+	//return GLOB.human_heights_to_offsets[mob_height]["[UPPER_BODY]"]
+
+/mob/living/carbon/human/get_cached_width()
+	return cached_body_width
+
+/mob/living/carbon/human/get_cached_height()
+	return cached_body_height
 

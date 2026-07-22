@@ -174,6 +174,14 @@
 	desc = "A wall with alien alloy plating."
 	icon_state = "alien1"
 
+/turf/simulated/wall/indestructible/abductor/normal
+	icon_state = "abductor"
+	icon = 'icons/turf/walls/abductor_wall.dmi'
+
+/turf/simulated/wall/indestructible/titanium
+	icon_state = "shuttle"
+	icon = 'icons/turf/walls/shuttle/shuttle_wall.dmi'
+
 /turf/simulated/wall/indestructible/splashscreen
 	name = "Splash Screen"
 	icon = 'config/title_screens/images/blank.png'
