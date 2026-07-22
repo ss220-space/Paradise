@@ -37,6 +37,7 @@ GLOBAL_LIST(heretic_research_tree)
 	var/guaranteed_side_tier3
 	///Subtracted from each shop tier's cost for this path (min 1)
 	var/shop_cost_discount = 0
+	var/disabled_reason
 
 	///Difficulty label shown in the Path Info tab
 	var/complexity = "Средняя"
@@ -54,6 +55,13 @@ GLOBAL_LIST(heretic_research_tree)
 	var/passive_name
 	///Per-tier descriptions of this path's passive (index = tier), shown in the Path Info tab.
 	var/list/passive_descriptions = list()
+
+/proc/get_heretic_path_column_by_start(datum/heretic_knowledge/start_type)
+	for(var/datum/heretic_knowledge_tree_column/main/column_type as anything in subtypesof(/datum/heretic_knowledge_tree_column/main))
+		if(initial(column_type.abstract_parent_type) == column_type)
+			continue
+		if(initial(column_type.start) == start_type)
+			return column_type
 
 /proc/generate_heretic_research_tree()
 	var/list/heretic_research_tree = list()

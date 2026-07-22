@@ -280,6 +280,8 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 			continue
 		if(!initial(column.start))
 			continue
+		if(initial(column.disabled_reason) && !researched_knowledge[initial(column.start)])
+			continue
 		var/datum/heretic_knowledge_tree_column/main/column_instance = new column_type()
 		var/datum/heretic_knowledge/start_knowledge = column_instance.start
 		var/list/path_entry = list()
@@ -342,6 +344,10 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 			if(!ispath(researched_path, /datum/heretic_knowledge))
 				CRASH("Heretic attempted to learn non-heretic_knowledge path! (Got: [researched_path || "invalid path"])")
 			if(researched_knowledge[researched_path])
+				return TRUE
+			var/datum/heretic_knowledge_tree_column/main/path_column = get_heretic_path_column_by_start(researched_path)
+			if(path_column && initial(path_column.disabled_reason))
+				to_chat(owner.current, span_warning("[initial(path_column.route)]: [initial(path_column.disabled_reason)]"))
 				return TRUE
 			if(!(researched_path in get_researchable_knowledge()))
 				message_admins("Heretic [key_name(owner)] potentially attempted to href exploit to learn knowledge they can't learn!")

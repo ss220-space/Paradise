@@ -3,6 +3,7 @@
 
 	route = PATH_BEYOND
 	ui_bgr = "node_glitch"
+	disabled_reason = "Путь отправлен на переработку и временно недоступен для выбора."
 	complexity = "Сложный"
 	complexity_color = "#c93b3b"
 	path_description = list(
