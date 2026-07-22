@@ -98,7 +98,7 @@
 	block = GLOB.twitchblock
 
 /datum/dna/gene/disability/tourettes/OnMobLife(mob/living/carbon/human/H)
-	if((prob(10) && H.AmountParalyzed() <= 2 SECONDS))
+	if((prob(10) && H.AmountParalyzed() <= 2 SECONDS) && H.stat)
 		H.Stun(20 SECONDS)
 		switch(rand(1, 3))
 			if(1)
