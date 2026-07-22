@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - bugfix: "Парирование армблейдом больше не требует двуручного хвата. (PR #9546)"

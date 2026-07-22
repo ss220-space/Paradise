@@ -1,0 +1,4 @@
+author: "Dimempers"
+delete-after: True
+changes:
+  - server: "Удален Gemini Review (PR #9545)"
