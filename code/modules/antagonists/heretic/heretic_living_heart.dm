@@ -85,8 +85,12 @@
 	var/datum/status_effect/agent_pinpointer/scan/heretic/heretic_pinpointer
 
 
+/obj/effect/proc_holder/spell/track_target/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+
 /obj/effect/proc_holder/spell/track_target/can_add(mob/granted)
-	return isheretic(granted)
+	return IS_HERETIC(granted)
 
 
 /obj/effect/proc_holder/spell/track_target/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
@@ -94,7 +98,7 @@
 	if(!.)
 		return
 
-	if(!isheretic(action.owner))
+	if(!IS_HERETIC(action.owner))
 		return FALSE
 
 	if(radial_open)
@@ -109,7 +113,7 @@
 
 
 /obj/effect/proc_holder/spell/track_target/cast(list/targets, mob/user = usr)
-	var/datum/antagonist/heretic/heretic_datum = action.owner.mind.has_antag_datum(/datum/antagonist/heretic)
+	var/datum/antagonist/heretic/heretic_datum = GET_HERETIC(action.owner)
 	var/datum/heretic_knowledge/sac_knowledge = heretic_datum.get_knowledge(/datum/heretic_knowledge/hunt_and_sacrifice)
 
 	if(!LAZYLEN(heretic_datum.sac_targets))
@@ -184,7 +188,7 @@
 	if(QDELETED(src))
 		return FALSE
 
-	if(!isheretic(action.owner))
+	if(!IS_HERETIC(action.owner))
 		return FALSE
 
 	return TRUE

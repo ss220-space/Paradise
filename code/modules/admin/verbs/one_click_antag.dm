@@ -399,7 +399,7 @@ ADMIN_VERB(one_click_antag, R_SERVER|R_EVENT, "Create Antagonist", "Auto-create 
 	var/mob/living/carbon/human/heretic
 	for(var/i in 1 to num_heretics)
 		heretic = pick_n_take(candidates)
-		if(!heretic || isheretic(heretic))
+		if(!heretic || IS_HERETIC(heretic))
 			continue
 
 		heretic.mind.add_antag_datum(/datum/antagonist/heretic)

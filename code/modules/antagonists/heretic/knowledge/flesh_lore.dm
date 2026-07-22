@@ -348,7 +348,7 @@
 	. = ..()
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/shapeshift/shed_human_form)
 
-	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
+	var/datum/antagonist/heretic/heretic_datum = GET_HERETIC(user)
 	var/datum/heretic_knowledge/limited_amount/starting/base_flesh/blade_ritual = heretic_datum.get_knowledge(/datum/heretic_knowledge/limited_amount/starting/base_flesh)
 	blade_ritual.limit = 999
 	var/datum/heretic_knowledge/limited_amount/flesh_ghoul/ritual_ghoul = heretic_datum.get_knowledge(/datum/heretic_knowledge/limited_amount/flesh_ghoul)

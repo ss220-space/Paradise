@@ -135,7 +135,7 @@
 				deplete_spell()
 				return
 
-			if(isheretic(living))
+			if(IS_HERETIC(living))
 				living.Knockdown(0.5 SECONDS)
 				living.apply_damage(15, STAMINA)
 				living.flash_eyes(1, TRUE)

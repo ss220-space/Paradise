@@ -3,7 +3,7 @@
  */
 
 /datum/heretic_knowledge/curse
-	abstract_parent_type = /datum/heretic_knowledge/curse
+	abstract_type = /datum/heretic_knowledge/curse
 	/// How far can we curse people?
 	var/max_range = 64
 	/// The duration of the curse
@@ -77,7 +77,7 @@
 		loc.balloon_alert(user, "цель слишком далеко!")
 		return FALSE
 
-	if(isheretic(to_curse) && to_curse != user)
+	if(IS_HERETIC(to_curse) && to_curse != user)
 		to_chat(user, span_warning("Жертва крепко связана с Обителью, вы не можете её проклясть."))
 		return TRUE
 
@@ -143,7 +143,7 @@
 
 
 /datum/heretic_knowledge/curse/paralysis
-	abstract_parent_type = /datum/heretic_knowledge/curse/paralysis
+	abstract_type = /datum/heretic_knowledge/curse/paralysis
 	name = "Проклятье Паралича"
 	desc = "Накладывает проклятие паралича на члена экипажа.<br>\
 			Пока жертва проклята, она не сможет ходить. Вы можете дополнительно использовать предмет, которого коснулась жертва \
@@ -179,7 +179,7 @@
 
 
 /datum/heretic_knowledge/curse/corrosion
-	abstract_parent_type = /datum/heretic_knowledge/curse/corrosion
+	abstract_type = /datum/heretic_knowledge/curse/corrosion
 	name = "Проклятье Болезни"
 	desc = "Накладывает проклятие болезни на члена экипажа.<br>\
 			Пока жертва проклята, её будет постоянно тошнить, а её органы будут получать повреждения. \
@@ -209,7 +209,7 @@
 
 
 /datum/heretic_knowledge/curse/transmutation
-	abstract_parent_type = /datum/heretic_knowledge/curse/transmutation
+	abstract_type = /datum/heretic_knowledge/curse/transmutation
 	name = "Проклятье Трансмутации"
 	duration = 0 // Infinite curse, it breaks when our codex is destroyed
 	curse_color = NONE
@@ -292,7 +292,7 @@
 
 
 /datum/heretic_knowledge/curse/indulgence
-	abstract_parent_type = /datum/heretic_knowledge/curse/indulgence
+	abstract_type = /datum/heretic_knowledge/curse/indulgence
 	name = "Проклятье Восприимчивости"
 	duration = 8 MINUTES
 	curse_color = COLOR_MAROON

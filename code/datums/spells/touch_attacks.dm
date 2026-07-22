@@ -83,3 +83,10 @@
 
 	action_icon_state = "statue"
 
+/obj/item/melee/touch_attack/proc/remove_hand_with_no_refund(mob/holder)
+	var/obj/effect/proc_holder/spell/touch/hand_spell = attached_spell
+	if(!QDELETED(hand_spell))
+		hand_spell.discharge_hand(holder)
+		return
+	holder.drop_item_ground(src, force = TRUE)
+	qdel(src)

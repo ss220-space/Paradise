@@ -135,7 +135,7 @@
 	var/mob/living/carbon/human/human_user = user
 	add_fingerprint(human_user)
 
-	if(isheretic(human_user))
+	if(IS_HERETIC(human_user))
 		var/datum/ui_module/appearance_changer/heretic_mirror/changer = ui_users[human_user]
 		if(!changer)
 			var/list/race_list = list(SPECIES_HUMAN)

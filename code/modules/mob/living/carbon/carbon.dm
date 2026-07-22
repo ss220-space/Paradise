@@ -1100,3 +1100,6 @@ so that different stomachs can handle things in different ways VB*/
 		if(!(covered & slot))
 			// /obj/item/wash() already updates our clothing slot
 			. = worn.wash_tg(clean_types) || .
+
+/mob/living/carbon/proc/get_covered_body_zones()
+	return list()

@@ -36,8 +36,8 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	var/force_can_ascend = FALSE
 	/// Whether we've ascended! (Completed one of the final rituals)
 	var/ascended = FALSE
-	/// The path our heretic has chosen. Mostly used for flavor.
-	var/heretic_path = PATH_START
+	/// The tree column datum of the path our heretic has chosen, null until they pick a starting knowledge.
+	var/datum/heretic_knowledge_tree_column/main/heretic_path
 	/// A sum of how many knowledge points this heretic CURRENTLY has. Used to research.
 	var/knowledge_points = 1
 	/// The time between gaining influence passively. The heretic gain +1 knowledge points every this duration of time.
@@ -94,33 +94,6 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	/// Simpler version of above used to limit amount of loot that can be hoarded
 	var/rewards_given = 0
 
-	var/list/dreams_what_you_can_see = list(
-		/obj/item,
-		/obj/structure,
-		/obj/machinery,
-	)
-	var/static/list/dreams_what_you_cant_see = typecacheof(list(
-		/obj/item/radio/intercom,
-		/obj/structure/cable,
-		/obj/structure/disposalpipe/segment,
-		/obj/machinery/atmospherics,
-		/obj/machinery/atmospherics/unary/vent_scrubber,
-		/obj/machinery/atmospherics/unary/vent_pump,
-		/obj/machinery/navbeacon,
-		/obj/machinery/power/terminal,
-		/obj/machinery/power/apc,
-		/obj/machinery/light_switch,
-		/obj/machinery/light,
-		/obj/machinery/camera,
-		/obj/machinery/door/firedoor,
-		/obj/machinery/firealarm,
-		/obj/machinery/alarm,
-		/obj/structure/window,
-		/obj/structure/grille,
-		/obj/structure/sign/poster,
-	))
-	/// Cached list of allowed typecaches for each type in dreams_what_you_can_see
-	var/static/list/dreams_allowed_typecaches_by_root_type = null
 
 
 /datum/antagonist/heretic/Destroy()
@@ -150,12 +123,6 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		var/mob/living/result_mob = summon_knowledge.mob_to_summon
 		icon_path = result_mob.icon
 		icon_state = result_mob.icon_state
-
-	else if(ispath(knowledge,/datum/heretic_knowledge/mark))
-		var/datum/heretic_knowledge/mark/mark_knowledge = knowledge
-		var/datum/status_effect/eldritch/mark_effect = mark_knowledge.mark_type
-		icon_path = mark_effect.effect_icon
-		icon_state = mark_effect.effect_icon_state
 
 	var/list/result_parameters = list()
 	result_parameters["icon"] = icon_path
@@ -223,12 +190,10 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	var/list/shop = list()
 
 	var/list/path_start_knowledges = list()
-	for(var/datum/heretic_knowledge_tree_column/main/column_type as anything in subtypesof(/datum/heretic_knowledge_tree_column/main))
-		if(initial(column_type.abstract_parent_type) == column_type)
-			continue
-		var/start_type = initial(column_type.start)
-		if(start_type)
-			path_start_knowledges[start_type] = TRUE
+	for(var/route in GLOB.heretic_path_datums)
+		var/datum/heretic_knowledge_tree_column/main/column = GLOB.heretic_path_datums[route]
+		if(istype(column) && column.start)
+			path_start_knowledges[column.start] = TRUE
 
 	for(var/datum/heretic_knowledge/knowledge as anything in researched_knowledge)
 		if(drafted_knowledge[knowledge] || shop_knowledge_pool[knowledge])
@@ -274,52 +239,13 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	data["passive_level"] = passive_level
 
 	var/list/paths_data = list()
-	for(var/column_type in subtypesof(/datum/heretic_knowledge_tree_column/main))
-		var/datum/heretic_knowledge_tree_column/main/column = column_type
-		if(initial(column.abstract_parent_type) == column_type)
+	for(var/route in GLOB.heretic_path_datums)
+		var/datum/heretic_knowledge_tree_column/main/column = GLOB.heretic_path_datums[route]
+		if(!istype(column) || !column.start)
 			continue
-		if(!initial(column.start))
+		if(column.disabled_reason && !researched_knowledge[column.start])
 			continue
-		if(initial(column.disabled_reason) && !researched_knowledge[initial(column.start)])
-			continue
-		var/datum/heretic_knowledge_tree_column/main/column_instance = new column_type()
-		var/datum/heretic_knowledge/start_knowledge = column_instance.start
-		var/list/path_entry = list()
-		path_entry["route"] = column_instance.route
-		path_entry["complexity"] = column_instance.complexity
-		path_entry["complexity_color"] = column_instance.complexity_color
-		path_entry["description"] = column_instance.path_description
-		path_entry["pros"] = column_instance.path_pros
-		path_entry["cons"] = column_instance.path_cons
-		path_entry["tips"] = column_instance.path_tips
-		if(column_instance.passive_name)
-			path_entry["passive"] = list(
-				"name" = column_instance.passive_name,
-				"description" = column_instance.passive_descriptions,
-			)
-		path_entry["starting_knowledge"] = get_knowledge_data(start_knowledge, (start_knowledge in researched_knowledge))
-
-		var/list/preview_abilities = list()
-		var/list/preview_slots = list(
-			column_instance.knowledge_tier1,
-			column_instance.knowledge_tier2,
-			column_instance.robes,
-			column_instance.knowledge_tier3,
-			column_instance.blade,
-			column_instance.knowledge_tier4,
-		)
-		for(var/slot in preview_slots)
-			if(!slot)
-				continue
-			if(islist(slot))
-				for(var/sub_knowledge in slot)
-					preview_abilities += list(get_knowledge_data(sub_knowledge, (sub_knowledge in researched_knowledge)))
-			else
-				preview_abilities += list(get_knowledge_data(slot, (slot in researched_knowledge)))
-		path_entry["preview_abilities"] = preview_abilities
-
-		paths_data += list(path_entry)
-		qdel(column_instance)
+		paths_data += list(column.get_ui_data(src))
 
 	data["paths"] = paths_data
 
@@ -346,8 +272,8 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 			if(researched_knowledge[researched_path])
 				return TRUE
 			var/datum/heretic_knowledge_tree_column/main/path_column = get_heretic_path_column_by_start(researched_path)
-			if(path_column && initial(path_column.disabled_reason))
-				to_chat(owner.current, span_warning("[initial(path_column.route)]: [initial(path_column.disabled_reason)]"))
+			if(path_column?.disabled_reason)
+				to_chat(owner.current, span_warning("[path_column.route]: [path_column.disabled_reason]"))
 				return TRUE
 			if(!(researched_path in get_researchable_knowledge()))
 				message_admins("Heretic [key_name(owner)] potentially attempted to href exploit to learn knowledge they can't learn!")
@@ -355,14 +281,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 			if(ispath(researched_path, /datum/heretic_knowledge/ultimate) && !can_ascend(TRUE))
 				message_admins("Heretic [key_name(owner)] potentially attempted to href exploit to learn ascension knowledge without completing objectives!")
 				CRASH("Heretic attempted to learn a final knowledge despite not being able to ascend!")
-			var/research_cost = get_research_cost(researched_path)
-			if(research_cost > knowledge_points)
-				return TRUE
-			if(!gain_knowledge(researched_path))
-				return TRUE
-
-			log_game("[key_name(owner)] gained knowledge: [initial(researched_path.name)]")
-			knowledge_points -= research_cost
+			purchase_knowledge(researched_path)
 			return TRUE
 
 
@@ -535,7 +454,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		return FALSE // Not powerful enough yet, or temporarily suppressed (e.g. disguised).
 	if(feast_of_owls)
 		return FALSE // No use giving an aura to a heretic that can't ascend.
-	if(heretic_path == PATH_LOCK)
+	if(heretic_path?.route == PATH_LOCK)
 		return FALSE // Lock heretics never get this aura.
 	return TRUE
 
@@ -674,7 +593,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 /datum/antagonist/heretic/proc/draw_rune(mob/living/user, turf/target_turf, drawing_time = 20 SECONDS, additional_checks)
 	drawing_rune = TRUE
 
-	var/rune_colour = GLOB.heretic_path_to_color[heretic_path]
+	var/rune_colour = GLOB.heretic_path_to_color[heretic_path?.route || PATH_START]
 	target_turf.balloon_alert(user, "черчение руны...")
 	var/obj/effect/temp_visual/drawing_heretic_rune/drawing_effect
 	if(drawing_time < (10 SECONDS))
@@ -1020,6 +939,19 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	pawn.equip_to_slot_if_possible(new /obj/item/clothing/neck/heretic_focus(get_turf(pawn)), ITEM_SLOT_NECK, TRUE, TRUE)
 	to_chat(pawn, span_hypnophrase("Обитель даровала вам способность колдовать без фокуса."))
 
+/// Pays for and learns the passed [typepath] of knowledge, if we can currently afford and research it.
+/// Returns TRUE if the knowledge was bought, FALSE otherwise.
+/datum/antagonist/heretic/proc/purchase_knowledge(datum/heretic_knowledge/knowledge_type)
+	var/research_cost = get_research_cost(knowledge_type)
+	if(research_cost > knowledge_points)
+		return FALSE
+	if(!gain_knowledge(knowledge_type))
+		return FALSE
+
+	log_game("[key_name(owner)] gained knowledge: [initial(knowledge_type.name)]")
+	adjust_knowledge_points(-research_cost)
+	return TRUE
+
 /// Learns the passed [typepath] of knowledge, creating a knowledge datum and adding it to our researched
 /// knowledge list. Returns TRUE if the knowledge was added successfully, FALSE otherwise.
 /datum/antagonist/heretic/proc/gain_knowledge(datum/heretic_knowledge/knowledge_type)
@@ -1031,6 +963,10 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		return FALSE
 
 	var/datum/heretic_knowledge/initialized_knowledge = new knowledge_type()
+	if(!initialized_knowledge.pre_research(owner.current, src))
+		qdel(initialized_knowledge)
+		return FALSE
+
 	researched_knowledge[knowledge_type] = initialized_knowledge
 	initialized_knowledge.on_research(owner.current, src)
 	SStgui.update_uis(src)
@@ -1066,124 +1002,6 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 /// Check if the wanted type-path is in the list of research knowledge.
 /datum/antagonist/heretic/proc/get_knowledge(wanted)
 	return researched_knowledge[wanted]
-
-/// Returns a freshly instantiated tree column datum for the given route (caller must qdel), or null.
-/datum/antagonist/heretic/proc/get_path_column(route)
-	for(var/datum/heretic_knowledge_tree_column/main/column_type as anything in subtypesof(/datum/heretic_knowledge_tree_column/main))
-		if(initial(column_type.abstract_parent_type) == column_type)
-			continue
-		var/datum/heretic_knowledge_tree_column/main/column = new column_type()
-		if(column.route == route)
-			return column
-		qdel(column)
-	return null
-
-/**
- * Generates this heretic's per-tier DRAFTS and the tiered SHOP for their chosen TG-format path (TG 1:1).
- * Each draft tier offers up to 3 side knowledges (one guaranteed) - picking one is FREE and bans the
- * siblings. The shop lets you BUY any side knowledge for points, unlocked tier-by-tier as you research.
- */
-/datum/antagonist/heretic/proc/generate_path_drafts()
-	drafted_knowledge = list()
-	shop_knowledge_pool = list()
-
-	var/datum/heretic_knowledge_tree_column/main/column = get_path_column(heretic_path)
-	if(!column)
-		return
-	if(!column.knowledge_tier1) // only TG-format paths use the draft/shop engine (legacy paths keep their own)
-		qdel(column)
-		return
-
-	var/t1 = column.knowledge_tier1
-	var/t2 = column.knowledge_tier2
-	var/t3 = column.knowledge_tier3
-	var/t4 = column.knowledge_tier4
-	var/list/guaranteed = list(column.guaranteed_side_tier1, column.guaranteed_side_tier2, column.guaranteed_side_tier3)
-	var/list/shop_unlock = list(t1, t2, column.robes, t3, t4)
-
-	var/list/shop_costs = list(1, 2, 2, 2, 3)
-	if(column.shop_cost_discount)
-		for(var/i in 1 to length(shop_costs))
-			shop_costs[i] = max(1, shop_costs[i] - column.shop_cost_discount)
-
-	var/list/draft_ineligible = list(t1, t2, t3, t4) + guaranteed
-
-	var/list/elligible = list()
-	var/list/shop_pool = list()
-	for(var/tier in 1 to HERETIC_DRAFT_TIER_MAX)
-		elligible += list(list())
-		shop_pool += list(list())
-	for(var/datum/heretic_knowledge/potential as anything in subtypesof(/datum/heretic_knowledge))
-		var/draft_tier = initial(potential.drafting_tier)
-		if(draft_tier <= 0)
-			continue
-		if(potential in draft_ineligible)
-			continue
-		if(!initial(potential.is_shop_only))
-			elligible[draft_tier] += potential
-		shop_pool[draft_tier] += potential
-
-	var/list/draft_specs = list(
-		list("parent" = t1, "guaranteed" = guaranteed[1], "supplementary" = list(/datum/heretic_knowledge/spell/cloak_of_shadows), "weights" = list("1"=50, "2"=50, "3"=0, "4"=0, "5"=0), "depth" = HKT_DEPTH_DRAFT_1),
-		list("parent" = t2, "guaranteed" = guaranteed[2], "weights" = list("1"=50, "2"=25, "3"=25, "4"=0, "5"=0), "depth" = HKT_DEPTH_DRAFT_2),
-		list("parent" = t3, "guaranteed" = guaranteed[3], "weights" = list("1"=20, "2"=20, "3"=20, "4"=20, "5"=20), "depth" = HKT_DEPTH_DRAFT_3),
-		list("parent" = t4, "guaranteed" = null, "weights" = list("1"=0, "2"=0, "3"=0, "4"=0, "5"=100), "depth" = HKT_DEPTH_DRAFT_4),
-	)
-	for(var/list/spec in draft_specs)
-		var/list/group = list()
-		for(var/datum/heretic_knowledge/supplementary as anything in spec["supplementary"])
-			group += supplementary
-			drafted_knowledge[supplementary] = list(
-				HKT_PARENT = spec["parent"],
-				HKT_DEPTH = spec["depth"],
-				HKT_DRAFT_TIER = initial(supplementary.drafting_tier),
-				HKT_COST = 0,
-				HKT_BAN = list(),
-			)
-		for(var/cycle in 1 to 3)
-			var/datum/heretic_knowledge/picked
-			if(spec["guaranteed"] && cycle == 1)
-				picked = spec["guaranteed"]
-				var/g_tier = initial(picked.drafting_tier)
-				if(g_tier >= 1 && g_tier <= length(shop_pool) && !(picked in shop_pool[g_tier]))
-					shop_pool[g_tier] += picked
-			else
-				var/chosen_tier = min(text2num(pickweight(spec["weights"])), length(elligible))
-				if(chosen_tier < 1 || !length(elligible[chosen_tier]))
-					continue
-				picked = pick_n_take(elligible[chosen_tier])
-			if(isnull(picked) || (picked in group))
-				continue
-			group += picked
-			drafted_knowledge[picked] = list(
-				HKT_PARENT = spec["parent"],
-				HKT_DEPTH = spec["depth"],
-				HKT_DRAFT_TIER = initial(picked.drafting_tier),
-				HKT_COST = 0,
-				HKT_BAN = list(),
-			)
-		for(var/sibling in group)
-			drafted_knowledge[sibling][HKT_BAN] = group - sibling
-
-	for(var/tier in 1 to length(shop_pool))
-		for(var/knowledge_type in shop_pool[tier])
-			shop_knowledge_pool[knowledge_type] = list(
-				HKT_PARENT = shop_unlock[tier],
-				HKT_DEPTH = tier, // shop "Тир N" label
-				HKT_DRAFT_TIER = tier,
-				HKT_COST = shop_costs[tier],
-				HKT_BAN = list(),
-			)
-	if(shop_knowledge_pool[/datum/heretic_knowledge/rifle])
-		shop_knowledge_pool[/datum/heretic_knowledge/rifle_ammo] = list(
-			HKT_PARENT = /datum/heretic_knowledge/rifle,
-			HKT_DEPTH = 2,
-			HKT_DRAFT_TIER = 2,
-			HKT_COST = 0, // TG: free follow-up unlock once you've researched the rifle.
-			HKT_BAN = list(),
-		)
-
-	qdel(column)
 
 /// Whether a side knowledge is currently offered as an available (free) draft pick.
 /datum/antagonist/heretic/proc/is_available_draft(datum/heretic_knowledge/knowledge_type)
@@ -1327,43 +1145,6 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	return HERETIC_HAS_LIVING_HEART
 
 
-#define DREAM_VIEW_RANGE	5
-
-/datum/antagonist/heretic/proc/get_dreams(mob/living/carbon/sleeper, list/dreams)
-	SIGNAL_HANDLER
-	if(!length(GLOB.reality_smash_track?.smashes))
-		return
-	dreams += "Вы бродите по лесу вокруг Обители"
-	dreams += "Вы видите " + pick("пруд", "колодец", "озеро", "лужу", "ручей", "реку", "болото")
-
-	if(isnull(dreams_allowed_typecaches_by_root_type))
-		dreams_allowed_typecaches_by_root_type = list()
-		for(var/type in dreams_what_you_can_see)
-			dreams_allowed_typecaches_by_root_type[type] = typecacheof(type) - dreams_what_you_cant_see
-
-	var/list/all_objects = oview(DREAM_VIEW_RANGE, pick(GLOB.reality_smash_track.smashes))
-	var/something_found = FALSE
-	for(var/object_type in dreams_allowed_typecaches_by_root_type)
-		var/list/filtered_objects = typecache_filter_list(all_objects, dreams_allowed_typecaches_by_root_type[object_type])
-		if(!filtered_objects.len)
-			continue
-
-		if(!something_found)
-			dreams += "Вы видите отражение на поверхности воды"
-			something_found = TRUE
-
-		var/obj/found_object = pick(filtered_objects)
-		dreams += found_object.declent_ru(NOMINATIVE)
-
-	if(!something_found)
-		dreams += pick("Вода полностью чёрная", "Отражение слишкмо размыто", "Вы бесцельно бродите")
-	else
-		dreams += "Изображения на поверхности воды постепенно рассеиваются"
-
-	dreams += "Вы чувствуете сильную усталость"
-
-#undef DREAM_VIEW_RANGE
-
 /// Heretic's minor sacrifice objective. "Minor sacrifices" includes anyone.
 /datum/objective/heretic_sacrifice
 	name = "жертва Обители"
@@ -1427,22 +1208,3 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 
 /datum/objective/heretic_summon/check_completion()
 	return completed || (num_summoned >= target_amount)
-
-
-/// Takes any datum `source` and checks it for heretic datum.
-/proc/isheretic(datum/source)
-	if(!source)
-		return FALSE
-
-	if(istype(source, /datum/mind))
-		var/datum/mind/our_mind = source
-		return our_mind.has_antag_datum(/datum/antagonist/heretic)
-
-	if(!ismob(source))
-		return FALSE
-
-	var/mob/mind_holder = source
-	if(!mind_holder.mind)
-		return FALSE
-
-	return mind_holder.mind.has_antag_datum(/datum/antagonist/heretic)

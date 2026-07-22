@@ -40,7 +40,7 @@
 	. = ..()
 	if(slot != ITEM_SLOT_HEAD)
 		return
-	if(!isheretic(user))
+	if(!IS_HERETIC(user))
 		return
 	RegisterSignal(user, COMSIG_LIVING_STATUS_SLEEP, PROC_REF(on_wearer_sleep), override = TRUE)
 	if(mode == DREAM_MODE_DUEL)
@@ -54,13 +54,13 @@
 
 /obj/item/clothing/head/dream_catcher/examine(mob/user)
 	. = ..()
-	if(!isheretic(user))
+	if(!IS_HERETIC(user))
 		return
 	. += span_hierophant("Режим: [mode == DREAM_MODE_PROWL ? "охота во сне" : "вызов на дуэль"].")
 
 
 /obj/item/clothing/head/dream_catcher/attack_self(mob/user)
-	if(!isheretic(user))
+	if(!IS_HERETIC(user))
 		to_chat(user, span_warning("Сеть путается в ваших пальцах и не желает слушаться."))
 		return
 
@@ -83,7 +83,7 @@
 
 	if(amount <= 0 || mode != DREAM_MODE_PROWL || prowler_ref || ongoing_duel)
 		return
-	if(!isheretic(wearer))
+	if(!IS_HERETIC(wearer))
 		return
 
 	INVOKE_ASYNC(src, PROC_REF(begin_possession), wearer)

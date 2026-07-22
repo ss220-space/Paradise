@@ -57,6 +57,10 @@
 	var/duration = 1 MINUTES
 
 
+/obj/effect/proc_holder/spell/fire_sworn/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+
 /obj/effect/proc_holder/spell/fire_sworn/on_spell_loss(mob/living/remove_from)
 	remove_from.remove_status_effect(/datum/status_effect/fire_ring)
 	return ..()
@@ -122,6 +126,10 @@
 
 	/// The radius the flames will go around the caster.
 	var/flame_radius = 4
+
+
+/obj/effect/proc_holder/spell/fire_cascade/create_new_targeting()
+	return new /datum/spell_targeting/self
 
 
 /obj/effect/proc_holder/spell/fire_cascade/cast(list/targets, mob/user = usr)

@@ -51,9 +51,6 @@
 	. = ..()
 	soundloop = new(src, TRUE)
 
-/obj/projectile/moon_parade/process()
-	return process_paced()
-
 /// The parade reflects off ANY solid surface, not only the walls that carry a RICOCHET_* flag like the base
 /// game requires. We bounce off everything that isn't a living mob; the living we PIERCE instead (see on_hit)
 /// so the whole crowd gets dragged into the march rather than stopping the shield.

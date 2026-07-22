@@ -39,7 +39,7 @@
 	if(viewer.has_status_effect(applied_status_effect))
 		return
 
-	if(isheretic(viewer))
+	if(IS_HERETIC(viewer))
 		return
 
 	if(viewer.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND))
@@ -75,7 +75,7 @@
 
 
 /obj/structure/sign/painting/eldritch/proc/examine_effects(mob/living/carbon/examiner)
-	if(isheretic(examiner))
+	if(IS_HERETIC(examiner))
 		to_chat(examiner, span_notice("Какая захватывающая картина!"))
 		return
 
@@ -116,7 +116,7 @@
 	)
 
 /obj/structure/sign/painting/eldritch/weeping/examine_effects(mob/living/carbon/examiner)
-	if(!isheretic(examiner))
+	if(!IS_HERETIC(examiner))
 		to_chat(examiner, span_hypnophrase("Отдохните. Пока можете..."))
 		return
 
@@ -158,7 +158,7 @@
 	)
 
 /obj/structure/sign/painting/eldritch/desire/examine_effects(mob/living/carbon/examiner)
-	if(!isheretic(examiner))
+	if(!IS_HERETIC(examiner))
 		examiner.adjust_nutrition(50)
 		to_chat(examiner, span_warning("Вы чувствуете жгучую боль в животе!"))
 		examiner.adjustOrganLoss(INTERNAL_ORGAN_STOMACH, 5)
@@ -237,7 +237,7 @@
 
 /obj/structure/sign/painting/eldritch/vines/examine_effects(mob/living/carbon/examiner)
 	. = ..()
-	if(!isheretic(examiner))
+	if(!IS_HERETIC(examiner))
 		new /obj/structure/spacevine_controller/event(get_turf(examiner), mutations, 0, 10)
 		to_chat(examiner, span_hypnophrase("Вас завораживает изображение виноградной лозы на картине."))
 		to_chat(examiner, span_notice("Вы чувствуете, как что-то извивается вокруг вас."))
@@ -289,7 +289,7 @@
 	if(!examiner.dna)
 		return
 
-	if(!isheretic(examiner))
+	if(!IS_HERETIC(examiner))
 		to_chat(examiner, span_hypnophrase("Вы не чисты."))
 		randmutb(examiner)
 		return
@@ -334,7 +334,7 @@
 /obj/structure/sign/painting/eldritch/rust/examine_effects(mob/living/carbon/examiner)
 	. = ..()
 
-	if(!isheretic(examiner))
+	if(!IS_HERETIC(examiner))
 		to_chat(examiner, span_hypnophrase("Вы чувствуете ржавчину. Гниль."))
 		return
 

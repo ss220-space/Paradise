@@ -35,7 +35,7 @@
 /datum/element/heretic_focus/proc/on_examine(obj/item/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
 
-	if(!isheretic(user))
+	if(!IS_HERETIC(user))
 		return
 
 	examine_list += span_notice("При ношении позволяет применять сложные еретические заклинания.")
@@ -45,7 +45,7 @@
 /datum/element/heretic_focus/proc/on_equip(obj/item/source, mob/user, slot)
 	SIGNAL_HANDLER
 
-	if(!isheretic(user))
+	if(!IS_HERETIC(user))
 		return
 
 	if(source.slot_flags && !(source.slot_flags & slot))

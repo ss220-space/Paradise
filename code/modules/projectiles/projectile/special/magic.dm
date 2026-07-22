@@ -665,7 +665,4 @@
 	. = ..()
 	if(isliving(target))
 		var/mob/living/victim = target
-		freeze(victim)
-
-/obj/projectile/magic/frost/proc/freeze(mob/living/target)
-	target.apply_status_effect(/datum/status_effect/freon/frost)
+		victim.apply_status_effect(/datum/status_effect/freon/frost)

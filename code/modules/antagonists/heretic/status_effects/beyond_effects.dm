@@ -162,7 +162,7 @@
 
 
 /datum/status_effect/runtime_error/proc/null_reference_crash(mob/living/culprit)
-	var/datum/antagonist/heretic/heretic_datum = culprit?.mind?.has_antag_datum(/datum/antagonist/heretic)
+	var/datum/antagonist/heretic/heretic_datum = GET_HERETIC(culprit)
 	return !isnull(heretic_datum?.get_knowledge(/datum/heretic_knowledge/blade_upgrade/beyond))
 
 

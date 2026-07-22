@@ -37,17 +37,10 @@
 	damage = clamp(amount, 0, max_damage)
 
 
-/// tg stun-absorption buff (blade path "Furious Steel"). No-op until ported; stun immunity won't apply yet.
-/mob/living/proc/add_stun_absorption(source, message, self_message, examine_message, max_seconds_of_stuns_blocked, delete_after_passing_max, recharge_time)
-	return TRUE
-
 /// tg "can this mob give up / be finished off" check. master220 approximation: in crit or dead.
 /mob/living/proc/CanSuccumb()
 	return (stat == UNCONSCIOUS || stat == DEAD)
 
-/// tg freezes an object solid. master220 lacks it; report "not frozen" so callers skip the freeze visual.
-/obj/proc/freeze_add()
-	return FALSE
 
 /mob/living/proc/cause_hallucination(hallucination_type, reason, duration = 30 SECONDS, affects_us = TRUE, affects_others = FALSE)
 	if(affects_us)
@@ -72,17 +65,15 @@
 /mob/living/proc/AdjustAllImmobility(amount, ignore_canstun = FALSE)
 	return AdjustImmobilized(amount, ignore_canstun)
 
-/// tg calls this after editing turf air; master220 MILLA propagates automatically. No-op.
-/turf/proc/air_update_turf(update = FALSE, update_visuals = FALSE)
-	return
-
 /// tg "does this mob need a heart to live"; master220 approximation: carbons do.
 /mob/living/carbon/proc/needs_heart()
 	return TRUE
 
-/// tg unequip_everything strips a mob; master220 approximation drops held items (worn = runtime polish).
+/// Strips every held and worn item off the mob, returning what came off.
 /mob/living/proc/unequip_everything()
-	drop_all_held_items()
+	. = get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD)
+	for(var/obj/item/stripped as anything in .)
+		drop_item_ground(stripped, force = TRUE, silent = TRUE)
 
 /// tg's is_centcomm(z); master220 treats centcom as an admin z-level.
 /proc/is_centcomm(z)
@@ -92,9 +83,6 @@
 /// for flavor but master220 won't honor the delay (runtime polish).
 /atom/proc/get_examine_time()
 	return 0
-
-/obj/projectile/proc/is_hostile_projectile()
-	return damage > 0
 
 /atom/proc/rust_heretic_act(strength)
 	return
@@ -119,7 +107,7 @@
 
 /// Wrapper proc that passes our mob's rust_strength to the target we are rusting.
 /mob/proc/do_rust_heretic_act(atom/target)
-	var/datum/antagonist/heretic/heretic_data = mind?.has_antag_datum(/datum/antagonist/heretic)
+	var/datum/antagonist/heretic/heretic_data = GET_HERETIC(src)
 	target.rust_heretic_act(heretic_data?.rust_strength)
 
 /mob/living/silicon/rust_heretic_act(strength)
@@ -130,10 +118,6 @@
 
 /obj/mecha/rust_heretic_act(strength)
 	take_damage(500, BRUTE)
-
-/proc/is_phase_allowed(z)
-	return TRUE
-
 
 /proc/dir2rustext_where(direction)
 	return "на [dir2rustext(direction)]е"
@@ -182,12 +166,6 @@
 /// TRUE if the given mob is currently inside a jaunt dummy.
 /proc/is_jaunting(mob/living/possibly_jaunting)
 	return istype(possibly_jaunting?.loc, /obj/effect/dummy/spell_jaunt)
-
-/obj/item/proc/visual_equipped(mob/user, slot, initial = FALSE)
-	return
-
-/mob/living/carbon/proc/get_covered_body_zones()
-	return list()
 
 /// tg's get_held_items() - master220 exposes hands via get_active_hand()/get_inactive_hand().
 /mob/living/proc/get_held_items()
@@ -257,24 +235,6 @@
 /datum/ai_behavior/proc/set_movement_target(datum/ai_controller/controller, atom/target)
 	controller.current_movement_target = target
 
-/proc/isspacecola(datum/reagent/reagent)
-	return istype(reagent, /datum/reagent/consumable/drink/cold/space_cola)
-
-/proc/isacid(datum/reagent/reagent)
-	return istype(reagent, /datum/reagent/acid)
-
-/datum/status_effect/rust_corruption
-	alert_type = null
-	id = "rust_turf_effects"
-	tick_interval = 2 SECONDS
-
-/datum/status_effect/rust_corruption/tick(seconds_between_ticks)
-	if(issilicon(owner))
-		owner.adjustBruteLoss(10 * seconds_between_ticks)
-		return
-	owner.Disgust(5 * seconds_between_ticks)
-	owner.reagents?.remove_all(0.75 * seconds_between_ticks)
-
 
 /datum/atom_hud/alternate_appearance/basic/heretic
 	add_ghost_version = TRUE
@@ -283,101 +243,6 @@
 	return IS_HERETIC_OR_MONSTER(viewer) || isobserver(viewer)
 
 
-/obj/proc/unfreeze()
-	return FALSE
-
-/obj/effect/decal/cleanable/blood/gibs/torso
-	random_icon_states = list("gibtorso")
-
-/obj/effect/gibspawner/human/bodypartless
-	gibtypes = list(/obj/effect/decal/cleanable/blood/gibs, /obj/effect/decal/cleanable/blood/gibs/core, /obj/effect/decal/cleanable/blood/gibs, /obj/effect/decal/cleanable/blood/gibs/core, /obj/effect/decal/cleanable/blood/gibs, /obj/effect/decal/cleanable/blood/gibs/torso)
-	gibamounts = list(1, 1, 1, 1, 1, 1)
-
-/obj/effect/gibspawner/human/bodypartless/Initialize(mapload, datum/dna/mob_dna)
-	gibdirections = list(list(NORTH, NORTHEAST, NORTHWEST), list(SOUTH, SOUTHEAST, SOUTHWEST), list(WEST, NORTHWEST, SOUTHWEST), list(EAST, NORTHEAST, SOUTHEAST), GLOB.alldirs, list())
-	return ..()
-
-
-/proc/bicon(atom/thing)
-	return icon2html(thing, usr)
-
-/mob/living/carbon/proc/mob_light2(range, power, color, duration)
-	return
-
 /obj/effect/proc_holder/spell/watchers_look/heretic
 	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
-
-
-/datum/reagent/inverse
-	name = "Inverse reagent"
-	id = "inverse"
-	description = "An inverted reagent effect."
-
-/datum/reagent/inverse/helgrasp
-	name = "Helgrasp"
-	id = "helgrasp"
-	description = "A forbidden drink that calls grasping hands from beyond."
-	reagent_state = LIQUID
-	color = "#5d0f75"
-	taste_description = "ice and old dust"
-	metabolization_rate = 1 * REM
-	var/list/timer_ids
-
-/datum/reagent/inverse/helgrasp/on_mob_add(mob/living/carbon/human/user)
-	. = ..()
-	to_chat(user, span_hierophant("Вы слышите смех, когда перед вами появляются жуткие руки, жаждущие утащить вас в ад! Берегитесь!"))
-	playsound(user.loc, 'sound/effects/ahaha.ogg', 80, TRUE, -1)
-
-/datum/reagent/inverse/helgrasp/on_mob_life(mob/living/M)
-	. = ..()
-	if(!iscarbon(M))
-		return
-	var/mob/living/carbon/affected_mob = M
-	spawn_hands(affected_mob)
-	LAZYADD(timer_ids, addtimer(CALLBACK(src, PROC_REF(spawn_hands), affected_mob), 1 SECONDS, TIMER_STOPPABLE))
-
-/datum/reagent/inverse/helgrasp/proc/spawn_hands(mob/living/carbon/affected_mob)
-	if(!affected_mob && iscarbon(holder?.my_atom))
-		affected_mob = holder.my_atom
-	if(!affected_mob)
-		return
-	fire_curse_hand(affected_mob)
-
-/datum/reagent/inverse/helgrasp/on_mob_delete(mob/living/carbon/human/user)
-	. = ..()
-	clear_hand_timers()
-
-/datum/reagent/inverse/helgrasp/Destroy()
-	clear_hand_timers()
-	return ..()
-
-/datum/reagent/inverse/helgrasp/proc/clear_hand_timers()
-	for(var/timer_id in timer_ids)
-		deltimer(timer_id)
-	timer_ids = null
-
-/datum/reagent/inverse/helgrasp/heretic
-	name = "Хватка Обители"
-	id = "mansus_touch"
-	description = "Чья-то рука у вашего горла..."
-
-
-/obj/projectile/proc/process_paced()
-	if(!loc || !trajectory)
-		return PROCESS_KILL
-	if(paused || !isturf(loc))
-		last_projectile_move = world.time
-		return
-	var/elapsed_time_deciseconds = (world.time - last_projectile_move) + time_offset
-	last_projectile_move = world.time // THE FIX: refresh every tick so elapsed isn't re-counted
-	time_offset = 0
-	var/required_moves = floor(elapsed_time_deciseconds / speed)
-	if(required_moves > SSprojectiles.global_max_tick_moves)
-		var/overrun = required_moves - SSprojectiles.global_max_tick_moves
-		required_moves = SSprojectiles.global_max_tick_moves
-		time_offset += overrun * speed
-	time_offset += MODULUS(elapsed_time_deciseconds, speed)
-
-	for(var/i in 1 to required_moves)
-		pixel_move(1)

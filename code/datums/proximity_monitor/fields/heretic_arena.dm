@@ -59,7 +59,7 @@ GLOBAL_LIST_EMPTY(heretic_arenas)
 	for(var/mob/living/carbon/human/human_in_range in things_in_range)
 		human_in_range.add_traits(given_immunities, HERETIC_ARENA_TRAIT)
 		contained_mobs += human_in_range
-		if(!isheretic(human_in_range))
+		if(!IS_HERETIC(human_in_range))
 			var/obj/item/melee/sickly_blade/training/new_blade = new(get_turf(human_in_range))
 			welfare_blades += new_blade
 			INVOKE_ASYNC(human_in_range, TYPE_PROC_REF(/mob, put_in_hands), new_blade)
@@ -191,7 +191,7 @@ GLOBAL_LIST_EMPTY(heretic_arenas)
 	crit_count++
 
 	// The mansus celebrates your efforts
-	if(isheretic(owner))
+	if(IS_HERETIC(owner))
 		owner.heal_overall_damage(round(30 / crit_count, DAMAGE_PRECISION), round(30 / crit_count, DAMAGE_PRECISION))
 		owner.adjustToxLoss(round(-20 / crit_count, DAMAGE_PRECISION), forced = TRUE) // Slime heretics everywhere...
 		owner.adjustOxyLoss(round(-20 / crit_count, DAMAGE_PRECISION))
@@ -205,7 +205,7 @@ GLOBAL_LIST_EMPTY(heretic_arenas)
 	if(arena_victor) // No need to spam if we've already killed at least 1 person
 		return
 
-	if(isheretic(owner))
+	if(IS_HERETIC(owner))
 		to_chat(owner, span_big(span_purple("Обитель довольна вашим выступлением, теперь вы свободны.")))
 	else
 		to_chat(owner, span_big(span_purple("Вы хорошо постарались, теперь вы можете идти.")))

@@ -171,7 +171,7 @@
 
 /datum/heretic_knowledge/armor/rust/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..() // Parent grants the tier-2 passive upgrade (+ aura).
-	var/datum/antagonist/heretic/our_heretic = user.mind?.has_antag_datum(/datum/antagonist/heretic)
+	var/datum/antagonist/heretic/our_heretic = GET_HERETIC(user)
 	our_heretic?.increase_rust_strength()
 
 
@@ -192,7 +192,7 @@
 
 /datum/heretic_knowledge/spell/entropic_plume/on_gain(mob/user)
 	. = ..()
-	var/datum/antagonist/heretic/our_heretic = user.mind.has_antag_datum(/datum/antagonist/heretic)
+	var/datum/antagonist/heretic/our_heretic = GET_HERETIC(user)
 	our_heretic.increase_rust_strength(TRUE)
 
 
@@ -262,10 +262,7 @@
 /datum/heretic_knowledge/ultimate/rust_final/proc/trigger(turf/center)
 	var/greatest_dist = 0
 	var/list/turfs_to_transform = list()
-	var/list/station_turfs = list()
-	for(var/z_level in levels_by_trait(STATION_LEVEL))
-		station_turfs += block(1, 1, z_level, world.maxx, world.maxy, z_level)
-	for(var/turf/transform_turf as anything in station_turfs)
+	for(var/turf/transform_turf as anything in GLOB.station_turfs)
 
 		var/dist = get_dist(center, transform_turf)
 		if(dist > greatest_dist)
@@ -351,3 +348,46 @@
 
 	if(need_mob_update)
 		source.updatehealth()
+
+
+/datum/heretic_knowledge/spell/rust_charge
+	name = "Заряд Ржавчины"
+	desc = "Дает заклинание, которое необходимо начать стоя на ржавой плитке. Уничтожит все ржавые \
+			объекты, которых вы коснётесь, нанесет большой урон нержавым и покроет ржавчиной всё вокруг."
+	gain_text = "Холмы теперь сверкали. Чем ближе я был к ним, тем ужасней были мои мысли. \
+				Я быстро собрался с духом и двинулся вперёд: последний отрезок пути был самым опасным."
+	research_tree_icon_path = 'icons/mob/actions/actions_items.dmi'
+	research_tree_icon_state = "sniper_zoom"
+	spell_to_add = /obj/effect/proc_holder/spell/mob_cooldown/charge/rust
+	cost = 2
+
+
+/datum/heretic_knowledge/entropy_pulse
+	abstract_type = /datum/heretic_knowledge/entropy_pulse
+	name = "Импульс Разложения"
+	desc = "Позволяет преобразовать 10 железных листов и мусор (например обертку), \
+			заполнив прилегающую к руне область ржавчиной."
+	gain_text = "Реальность шепчет мне. Она молит, чтобы это всё закончилось. Я помогу ей вернуться в первозданный вид."
+	required_atoms = list(
+		/obj/item/stack/sheet/metal = 10,
+		/obj/item/trash = 1,
+	)
+
+	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
+	research_tree_icon_state = "corrode"
+	research_tree_icon_frame = 10
+
+	var/rusting_range = 8
+
+
+/datum/heretic_knowledge/entropy_pulse/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
+	for(var/turf/nearby_turf in view(rusting_range, loc))
+		if(get_dist(nearby_turf, loc) <= 1) //tiles on rune should always be rusted
+			nearby_turf.rust_heretic_act()
+
+		if(prob(10) || iswallturf(nearby_turf))
+			continue
+
+		nearby_turf.rust_heretic_act()
+
+	return TRUE

@@ -1,4 +1,3 @@
-
 /// Global list of all heretic knowledge that have is_starting_knowledge = TRUE. List of PATHS.
 GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 
@@ -135,7 +134,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 
 
 /datum/heretic_knowledge/living_heart/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
-	var/datum/antagonist/heretic/our_heretic = user.mind.has_antag_datum(/datum/antagonist/heretic)
+	var/datum/antagonist/heretic/our_heretic = GET_HERETIC(user)
 	var/obj/item/organ/our_living_heart = user.get_organ_slot(our_heretic.living_heart_organ_slot)
 	if(QDELETED(our_living_heart))
 		loc.balloon_alert(user, "провал, нет сердца!")
@@ -153,7 +152,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 
 
 /datum/heretic_knowledge/living_heart/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
-	var/datum/antagonist/heretic/our_heretic = user.mind.has_antag_datum(/datum/antagonist/heretic)
+	var/datum/antagonist/heretic/our_heretic = GET_HERETIC(user)
 	var/obj/item/organ/our_new_heart = user.get_organ_slot(our_heretic.living_heart_organ_slot)
 	selected_atoms -= our_new_heart
 	our_new_heart.AddComponent(/datum/component/living_heart)
@@ -213,116 +212,6 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	drafting_tier = 1
 	is_shop_only = TRUE
 
-/// Кодекс Истязания: lets heretics rush influences stealthily, or build a codex to take what's left
-/// for more points - a tradeoff between speed/stealth and power, with strip searches as the downside.
-/datum/heretic_knowledge/codex_cicatrix
-	drafting_tier = 1
-	is_shop_only = TRUE
-	name = "Кодекс Истязания"
-	desc = "Позволяет трансмутировать книгу, любую уникальную ручку (не обычную) и любой предмет на ваш выбор из туши (животного или человека), кожи или шкуры, чтобы создать Кодекс Истязания. \
-			Кодекс Истязания можно использовать для получения дополнительных знаний при поглощении раскола реальности. \
-			Кроме этого его можно использовать для более удобного рисования и удаления рун трансмутации, а также в качестве источника фокуса при сотворении заклинаний."
-	gain_text = "Потусторонние силы оставляют фрагменты знаний и силы повсюду. Кодекс Истязания — одно из доказательств. \
-				На кожанных страницах находятся знания, открывающие путь к Обители."
-	required_atoms = list(
-		/obj/item/book = 1,
-		/obj/item/pen = 1,
-		list(/mob/living, /obj/item/stack/sheet/leather, /obj/item/stack/sheet/animalhide) = 1,
-	)
-	banned_atom_types = list(/obj/item/pen)
-	result_atoms = list(/obj/item/codex_cicatrix)
-	cost = 1
-	priority = MAX_KNOWLEDGE_PRIORITY - 4 // Low ritual priority, as it's an optional boon.
-	var/static/list/non_mob_bindings = typecacheof(list(/obj/item/stack/sheet/leather, /obj/item/stack/sheet/animalhide, /mob/living/simple_animal/mouse))
-	research_tree_icon_path = 'icons/obj/eldritch.dmi'
-	research_tree_icon_state = "book"
-
-
-/datum/heretic_knowledge/codex_cicatrix/parse_required_item(atom/item_path, number_of_things)
-	if(item_path == /obj/item/pen)
-		return "особый вид ручки"
-
-	return ..()
-
-
-/datum/heretic_knowledge/codex_cicatrix/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
-	. = ..()
-	if(!.)
-		return FALSE
-
-	for(var/thingy in atoms)
-		if(is_type_in_typecache(thingy, non_mob_bindings))
-			selected_atoms += thingy
-			return TRUE
-
-		else if(!isliving(thingy))
-			continue
-
-		var/mob/living/body = thingy
-		if(body.stat != DEAD)
-			continue
-
-		selected_atoms += body
-		return TRUE
-
-	user.balloon_alert(user, "нет трупа!")
-	return FALSE
-
-
-/datum/heretic_knowledge/codex_cicatrix/cleanup_atoms(list/selected_atoms)
-	var/mob/living/body = locate() in selected_atoms
-	if(!body)
-		return ..()
-
-	var/atom/movable/ripped_thing = body
-
-	if(iscarbon(body))
-		var/mob/living/carbon/human/human_body = body
-		var/obj/item/organ/external/bodypart = pick(human_body.bodyparts)
-		ripped_thing = bodypart
-
-		human_body.apply_damage(25, BRUTE, bodypart, sharp = TRUE)
-	else
-		body.apply_damage(25, BRUTE, sharp = TRUE)
-
-	var/obj/item/book/le_book = locate() in selected_atoms
-	if(!le_book)
-		stack_trace("Somehow, no book in Codex Cicatrix selected atoms! [english_list(selected_atoms)]")
-
-	playsound(body, 'sound/items/poster_ripped.ogg', 100, TRUE)
-	body.do_jitter_animation()
-	body.visible_message(span_danger("Раздается ужасный звук, когда кожа отделяется от [ripped_thing.declent_ru(GENITIVE)] и обретает жутковатый синий оттенок, становясь обложкой [le_book.declent_ru(GENITIVE)]!"))
-	return ..()
-
-
-/datum/heretic_knowledge/miraculous_mirror
-	drafting_tier = 1
-	is_shop_only = TRUE
-	name = "Чудотворное Зеркало"
-	desc = "Позволяет создать Чудотворное Зеркало.<br>\
-			Чудотворное Зеркало позволяет вам свободно менять любые черты своей внешности. \
-			Через него можно даже сменить расу, но при этом зеркало разобьётся. \
-			Язычник, заглянувший в зеркало, впадёт в транс, и отражение изменит его по своей прихоти."
-	transmute_text = "Преобразуйте пять слитков серебра и пару органических глаз."
-	gain_text = "Я был несовершенен, слаб. Как я мог достичь столь великих свершений в столь жалком состоянии? \
-				В каждом окне, мимо которого я проходил, я видел своё отражение — и всякий раз чувствовал жгучее желание измениться, стать лучше, начать заново."
-	required_atoms = list(
-		/obj/item/organ/internal/eyes = 1,
-		/obj/item/stack/sheet/mineral/silver = 5,
-	)
-	result_atoms = list(/obj/item/mounted/mirror/heretic)
-	cost = 1
-	research_tree_icon_path = 'icons/obj/watercloset.dmi'
-	research_tree_icon_state = "magic_mirror"
-
-
-/datum/heretic_knowledge/miraculous_mirror/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
-	. = ..()
-	for(var/obj/item/organ/internal/eyes/eye in atoms)
-		if(eye.is_robotic())
-			atoms -= eye
-
-
 /datum/heretic_knowledge/feast_of_owls
 	name = "Фестиваль Сов"
 	desc = "Позволяет пройти ритуал, дающий 5 очков знаний, но блокирующий возможность вознесения. Это можно сделать только один раз."
@@ -344,7 +233,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	if(alert != "Да" || QDELETED(user) || QDELETED(src) || get_dist(user, loc) > 2)
 		return FALSE
 
-	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
+	var/datum/antagonist/heretic/heretic_datum = GET_HERETIC(user)
 	if(QDELETED(heretic_datum) || heretic_datum.feast_of_owls)
 		return FALSE
 
@@ -368,52 +257,3 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	var/drain_message = pick_list(HERETIC_INFLUENCE_FILE, "drain_message")
 	to_chat(user, span_purple(span_big("[drain_message]")))
 	return .
-
-/// Warren King's Welcome: lets heretics gain maintenance/external airlock access without relying on
-/// a HoP or having to off some poor assistant, and brand nearby airlocks as their own.
-/datum/heretic_knowledge/bookworm
-	drafting_tier = 1
-	name = "Приветствие короля Уоррена"
-	desc = "Ставит клеймо на все принесённые ID-карты и ближайшие шлюзы.<br>\
-			Заклеймённые ID-карты получают доступ к тех тоннелям, внешним шлюзам, а также к заклеймённым шлюзам.<br>\
-			Заклеймённые шлюзы открываются только заклеймённой ID-картой."
-	transmute_text = "Преобразуйте 10 кусков кабеля, лист бумаги и мультитул."
-	gain_text = "Въевшись в кости пальцев, существо направляет мой гудящий, затуманенный разум к массивной двери. \
-				Медленно свет танцует среди наползающей тьмы, покрывая зловонный променад бесконечными бликами. \
-				Но король скоро получит свой фунт плоти. Даже здесь сборщик налогов получает свою долю. Ибо нужно кормить тысячи ртов."
-	required_atoms = list(
-		/obj/item/stack/cable_coil = 10,
-		/obj/item/paper = 1,
-		/obj/item/multitool = 1,
-	)
-	cost = 1
-	priority = MAX_KNOWLEDGE_PRIORITY - 3
-	research_tree_icon_path = 'icons/obj/card.dmi'
-	research_tree_icon_state = "eldritch"
-
-
-/datum/heretic_knowledge/bookworm/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
-	. = ..()
-	for(var/obj/item/card/id/used_id in atoms)
-		selected_atoms += used_id
-	var/obj/item/card/id/user_card = user.get_id_card()
-	if(istype(user_card))
-		selected_atoms |= user_card
-
-
-/datum/heretic_knowledge/bookworm/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
-	. = ..()
-	for(var/obj/item/card/id/improved_id in selected_atoms)
-		improved_id.access |= list(ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_HERETIC)
-		selected_atoms -= improved_id
-	for(var/obj/machinery/door/airlock/door in view(7, loc))
-		door.req_access = list(ACCESS_HERETIC)
-		door.wires?.cut(WIRE_AI_CONTROL)
-		do_sparks(3, FALSE, door.loc)
-		var/obj/effect/light_emitter/brand_light = new(door.loc)
-		brand_light.set_light(1.75, 1.5, "#a95c68")
-		QDEL_IN(brand_light, 1 SECONDS)
-		playsound(door, 'sound/magic/castsummon.ogg', 20, vary = TRUE, extrarange = SILENCED_SOUND_EXTRARANGE, ignore_walls = FALSE)
-		playsound(door, SFX_SPARKS, 33, vary = TRUE, extrarange = SILENCED_SOUND_EXTRARANGE, ignore_walls = FALSE)
-
-	return TRUE

@@ -360,12 +360,13 @@
 	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, PROC_REF(on_eldritch_blade))
 	RegisterSignal(user, COMSIG_LIVING_LIFE, PROC_REF(suppress_external_bleeding))
 	user.apply_status_effect(/datum/status_effect/protective_blades/recharging, STATUS_EFFECT_PERMANENT, 8, 30, 0.25 SECONDS, /obj/effect/floating_blade, 60 SECONDS)
-	user.add_stun_absorption(
-		source = name,
+	user.add_status_effect_absorption(
+		source = type,
+		effect_type = list(STUN, WEAKEN, KNOCKDOWN, PARALYZE, IMMOBILIZE),
 		message = span_warning("%EFFECT_OWNER выдерживает оглушение!"),
 		self_message = span_warning("Вы выдерживаете оглушение!"),
-		examine_message = span_purple("%EFFECT_OWNER слегка покачивается."),
-		max_seconds_of_stuns_blocked = 45 SECONDS,
+		examine_message = span_purple("%EFFECT_OWNER_THEYRE слегка покачивается."),
+		max_seconds_of_effect_blocked = 45 SECONDS,
 		delete_after_passing_max = FALSE,
 		recharge_time = 2 MINUTES,
 	)

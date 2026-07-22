@@ -22,6 +22,10 @@
 	var/datum/status_effect/shadow_cloak/active_cloak
 
 
+/obj/effect/proc_holder/spell/shadow_cloak/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+
 /obj/effect/proc_holder/spell/shadow_cloak/on_spell_loss(mob/living/remove_from)
 	if(!active_cloak)
 		return ..()
@@ -43,7 +47,7 @@
 	if(. & SPELL_CANCEL_CAST)
 		return
 
-	var/datum/antagonist/heretic/heretic_datum = cast_on.mind?.has_antag_datum(/datum/antagonist/heretic)
+	var/datum/antagonist/heretic/heretic_datum = GET_HERETIC(cast_on)
 	if(heretic_datum && heretic_datum.has_living_heart() != HERETIC_HAS_LIVING_HEART)
 		to_chat(cast_on, span_hypnophrase("Вам нужно Живое Сердце, чтобы применить \"[name]\"!"))
 		return . | SPELL_CANCEL_CAST

@@ -432,7 +432,7 @@ const KnowledgeShop = (props) => {
             tier?.length > 0 && (
               <Stack.Item key={index}>
                 <b>Тир {index + 1}</b>
-                <Flex justify="center" align="center" wrap="wrap">
+                <Flex wrap="wrap">
                   {tier.map((node) => (
                     <Flex.Item key={node.name}>
                       <KnowledgeNode node={node} />

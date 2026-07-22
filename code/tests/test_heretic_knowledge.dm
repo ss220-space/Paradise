@@ -5,10 +5,9 @@
 
 	var/list/reachable = list()
 	var/list/queue = GLOB.heretic_start_knowledge.Copy()
-	for(var/datum/heretic_knowledge/knowledge_type as anything in subtypesof(/datum/heretic_knowledge))
-		if(initial(knowledge_type.abstract_parent_type) == knowledge_type)
-			continue
-		if(initial(knowledge_type.drafting_tier) > 0)
+	var/list/all_knowledge = valid_subtypesof(/datum/heretic_knowledge)
+	for(var/datum/heretic_knowledge/knowledge_type as anything in all_knowledge)
+		if(knowledge_type::drafting_tier > 0)
 			queue += knowledge_type
 
 	var/i = 0
@@ -22,9 +21,7 @@
 			if(!reachable[next])
 				queue += next
 
-	for(var/datum/heretic_knowledge/knowledge_type as anything in subtypesof(/datum/heretic_knowledge))
-		if(initial(knowledge_type.abstract_parent_type) == knowledge_type)
-			continue
+	for(var/datum/heretic_knowledge/knowledge_type as anything in all_knowledge)
 		if(reachable[knowledge_type])
 			continue
 		TEST_FAIL("Heretic Knowledge: [knowledge_type] is unreachable by players! Wire it into a path (knowledge_tier/robes/blade/ascension), give it a drafting_tier for the side pool, or mark is_starting_knowledge.")

@@ -198,6 +198,10 @@
 	var/jaunt_type = /obj/effect/dummy/spell_jaunt
 
 
+/obj/effect/proc_holder/spell/jaunt/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+
 /obj/effect/proc_holder/spell/jaunt/before_cast(atom/cast_on)
 	return ..() | SPELL_NO_FEEDBACK // Don't do the feedback until after we're jaunting
 

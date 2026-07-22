@@ -91,7 +91,7 @@
 
 		return
 
-	if(isheretic(exposed_mob))
+	if(IS_HERETIC(exposed_mob))
 		return
 
 	if(exposed_mob.can_block_magic(MAGIC_RESISTANCE_HOLY))

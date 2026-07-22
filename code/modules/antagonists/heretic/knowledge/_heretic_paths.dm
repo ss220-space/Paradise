@@ -1,16 +1,24 @@
 
 GLOBAL_LIST(heretic_research_tree)
+/// Assoc list of [route string] to the single instance of that route's tree column.
+GLOBAL_LIST_INIT(heretic_path_datums, init_heretic_path_datums())
+
+/proc/init_heretic_path_datums()
+	var/list/paths = list()
+	for(var/datum/heretic_knowledge_tree_column/column_path as anything in valid_subtypesof(/datum/heretic_knowledge_tree_column))
+		var/datum/heretic_knowledge_tree_column/heretic_route = new column_path()
+		paths[heretic_route.route] = heretic_route
+	return paths
 
 /datum/heretic_knowledge_tree_column
 	///Route that symbolizes what path this is
 	var/route
-	///Used to determine if this is a side path or a main path
-	var/abstract_parent_type = /datum/heretic_knowledge_tree_column
+	abstract_type = /datum/heretic_knowledge_tree_column
 	///UI background
 	var/ui_bgr = "node_side"
 
 /datum/heretic_knowledge_tree_column/main
-	abstract_parent_type = /datum/heretic_knowledge_tree_column/main
+	abstract_type = /datum/heretic_knowledge_tree_column/main
 
 	///Starting knowledge - first thing you pick
 	var/start
@@ -57,11 +65,38 @@ GLOBAL_LIST(heretic_research_tree)
 	var/list/passive_descriptions = list()
 
 /proc/get_heretic_path_column_by_start(datum/heretic_knowledge/start_type)
-	for(var/datum/heretic_knowledge_tree_column/main/column_type as anything in subtypesof(/datum/heretic_knowledge_tree_column/main))
-		if(initial(column_type.abstract_parent_type) == column_type)
+	for(var/route in GLOB.heretic_path_datums)
+		var/datum/heretic_knowledge_tree_column/main/column = GLOB.heretic_path_datums[route]
+		if(istype(column) && column.start == start_type)
+			return column
+
+/// Builds this path's entry for the "Path Info" tab of the heretic's antag UI.
+/datum/heretic_knowledge_tree_column/main/proc/get_ui_data(datum/antagonist/heretic/our_heretic)
+	var/list/data = list(
+		"route" = route,
+		"complexity" = complexity,
+		"complexity_color" = complexity_color,
+		"description" = path_description.Copy(),
+		"pros" = path_pros.Copy(),
+		"cons" = path_cons.Copy(),
+		"tips" = path_tips.Copy(),
+		"starting_knowledge" = our_heretic.get_knowledge_data(start, !!our_heretic.researched_knowledge[start]),
+	)
+
+	if(passive_name)
+		data["passive"] = list(
+			"name" = passive_name,
+			"description" = passive_descriptions.Copy(),
+		)
+
+	var/list/preview_abilities = list()
+	for(var/knowledge in list(knowledge_tier1, knowledge_tier2, robes, knowledge_tier3, blade, knowledge_tier4))
+		if(!knowledge)
 			continue
-		if(initial(column_type.start) == start_type)
-			return column_type
+		preview_abilities += list(our_heretic.get_knowledge_data(knowledge, !!our_heretic.researched_knowledge[knowledge]))
+	data["preview_abilities"] = preview_abilities
+
+	return data
 
 /proc/generate_heretic_research_tree()
 	var/list/heretic_research_tree = list()
@@ -80,23 +115,14 @@ GLOBAL_LIST(heretic_research_tree)
 
 		heretic_research_tree[type][HKT_ROUTE] = null
 
-	var/list/paths = list()
-	for(var/type in subtypesof(/datum/heretic_knowledge_tree_column))
-		var/datum/heretic_knowledge_tree_column/column_path = type
-		if(initial(column_path.abstract_parent_type) == column_path)
-			continue
-
-		var/datum/heretic_knowledge_tree_column/column = new type()
-		paths[column.type] = column
-
 	var/list/start_blacklist = list()
 	var/list/blade_blacklist = list()
 	var/list/asc_blacklist = list()
 
-	for(var/id in paths)
-		if(!istype(paths[id],/datum/heretic_knowledge_tree_column/main))
+	for(var/route in GLOB.heretic_path_datums)
+		var/datum/heretic_knowledge_tree_column/main/column = GLOB.heretic_path_datums[route]
+		if(!istype(column))
 			continue
-		var/datum/heretic_knowledge_tree_column/main/column = paths[id]
 
 		start_blacklist += column.start
 		blade_blacklist += column.blade
@@ -104,14 +130,11 @@ GLOBAL_LIST(heretic_research_tree)
 
 	heretic_research_tree[/datum/heretic_knowledge/spell/basic][HKT_NEXT] += start_blacklist
 
-	for(var/id in paths)
-		var/datum/heretic_knowledge_tree_column/this_column = paths[id]
-		if(!istype(this_column, /datum/heretic_knowledge_tree_column/main))
+	for(var/route in GLOB.heretic_path_datums)
+		var/datum/heretic_knowledge_tree_column/main/column = GLOB.heretic_path_datums[route]
+		if(!istype(column) || !column.knowledge_tier1)
 			continue
-		var/datum/heretic_knowledge_tree_column/main/main_column = this_column
-		if(!main_column.knowledge_tier1)
-			continue
-		build_tg_path_chain(heretic_research_tree, main_column, start_blacklist, asc_blacklist, blade_blacklist)
+		build_tg_path_chain(heretic_research_tree, column, start_blacklist, asc_blacklist, blade_blacklist)
 
 	heretic_research_tree[/datum/heretic_knowledge/reroll_targets][HKT_ROUTE] = PATH_SIDE
 	heretic_research_tree[/datum/heretic_knowledge/reroll_targets][HKT_DEPTH] = 2
@@ -123,7 +146,6 @@ GLOBAL_LIST(heretic_research_tree)
 	heretic_research_tree[/datum/heretic_knowledge/rifle_ammo][HKT_ROUTE] = PATH_SIDE
 	heretic_research_tree[/datum/heretic_knowledge/rifle_ammo][HKT_DEPTH] = 2
 
-	QDEL_LIST_ASSOC_VAL(paths)
 	return heretic_research_tree
 
 /**
@@ -165,3 +187,105 @@ GLOBAL_LIST(heretic_research_tree)
 
 	tree[t1][HKT_NEXT] |= /datum/heretic_knowledge/codex_cicatrix
 	tree[t2][HKT_NEXT] |= /datum/heretic_knowledge/reroll_targets
+
+/**
+ * Generates this heretic's per-tier DRAFTS and the tiered SHOP for their chosen TG-format path (TG 1:1).
+ * Each draft tier offers up to 3 side knowledges (one guaranteed) - picking one is FREE and bans the
+ * siblings. The shop lets you BUY any side knowledge for points, unlocked tier-by-tier as you research.
+ */
+/datum/antagonist/heretic/proc/generate_path_drafts()
+	drafted_knowledge = list()
+	shop_knowledge_pool = list()
+
+	var/datum/heretic_knowledge_tree_column/main/column = heretic_path
+	if(!column?.knowledge_tier1)
+		return
+
+	var/t1 = column.knowledge_tier1
+	var/t2 = column.knowledge_tier2
+	var/t3 = column.knowledge_tier3
+	var/t4 = column.knowledge_tier4
+	var/list/guaranteed = list(column.guaranteed_side_tier1, column.guaranteed_side_tier2, column.guaranteed_side_tier3)
+	var/list/shop_unlock = list(t1, t2, column.robes, t3, t4)
+
+	var/list/shop_costs = list(1, 2, 2, 2, 3)
+	if(column.shop_cost_discount)
+		for(var/i in 1 to length(shop_costs))
+			shop_costs[i] = max(1, shop_costs[i] - column.shop_cost_discount)
+
+	var/list/draft_ineligible = list(t1, t2, t3, t4) + guaranteed
+
+	var/list/elligible = list()
+	var/list/shop_pool = list()
+	for(var/tier in 1 to HERETIC_DRAFT_TIER_MAX)
+		elligible += list(list())
+		shop_pool += list(list())
+	for(var/datum/heretic_knowledge/potential as anything in subtypesof(/datum/heretic_knowledge))
+		var/draft_tier = initial(potential.drafting_tier)
+		if(draft_tier <= 0)
+			continue
+		if(potential in draft_ineligible)
+			continue
+		if(!initial(potential.is_shop_only))
+			elligible[draft_tier] += potential
+		shop_pool[draft_tier] += potential
+
+	var/list/draft_specs = list(
+		list("parent" = t1, "guaranteed" = guaranteed[1], "supplementary" = list(/datum/heretic_knowledge/spell/cloak_of_shadows), "weights" = list("1"=50, "2"=50, "3"=0, "4"=0, "5"=0), "depth" = HKT_DEPTH_DRAFT_1),
+		list("parent" = t2, "guaranteed" = guaranteed[2], "weights" = list("1"=50, "2"=25, "3"=25, "4"=0, "5"=0), "depth" = HKT_DEPTH_DRAFT_2),
+		list("parent" = t3, "guaranteed" = guaranteed[3], "weights" = list("1"=20, "2"=20, "3"=20, "4"=20, "5"=20), "depth" = HKT_DEPTH_DRAFT_3),
+		list("parent" = t4, "guaranteed" = null, "weights" = list("1"=0, "2"=0, "3"=0, "4"=0, "5"=100), "depth" = HKT_DEPTH_DRAFT_4),
+	)
+	for(var/list/spec in draft_specs)
+		var/list/group = list()
+		for(var/datum/heretic_knowledge/supplementary as anything in spec["supplementary"])
+			group += supplementary
+			drafted_knowledge[supplementary] = list(
+				HKT_PARENT = spec["parent"],
+				HKT_DEPTH = spec["depth"],
+				HKT_DRAFT_TIER = initial(supplementary.drafting_tier),
+				HKT_COST = 0,
+				HKT_BAN = list(),
+			)
+		for(var/cycle in 1 to 3)
+			var/datum/heretic_knowledge/picked
+			if(spec["guaranteed"] && cycle == 1)
+				picked = spec["guaranteed"]
+				var/g_tier = initial(picked.drafting_tier)
+				if(g_tier >= 1 && g_tier <= length(shop_pool) && !(picked in shop_pool[g_tier]))
+					shop_pool[g_tier] += picked
+			else
+				var/chosen_tier = min(text2num(pickweight(spec["weights"])), length(elligible))
+				if(chosen_tier < 1 || !length(elligible[chosen_tier]))
+					continue
+				picked = pick_n_take(elligible[chosen_tier])
+			if(isnull(picked) || (picked in group))
+				continue
+			group += picked
+			drafted_knowledge[picked] = list(
+				HKT_PARENT = spec["parent"],
+				HKT_DEPTH = spec["depth"],
+				HKT_DRAFT_TIER = initial(picked.drafting_tier),
+				HKT_COST = 0,
+				HKT_BAN = list(),
+			)
+		for(var/sibling in group)
+			drafted_knowledge[sibling][HKT_BAN] = group - sibling
+
+	for(var/tier in 1 to length(shop_pool))
+		for(var/knowledge_type in shop_pool[tier])
+			shop_knowledge_pool[knowledge_type] = list(
+				HKT_PARENT = shop_unlock[tier],
+				HKT_DEPTH = tier, // shop "Тир N" label
+				HKT_DRAFT_TIER = tier,
+				HKT_COST = shop_costs[tier],
+				HKT_BAN = list(),
+			)
+	if(shop_knowledge_pool[/datum/heretic_knowledge/rifle])
+		shop_knowledge_pool[/datum/heretic_knowledge/rifle_ammo] = list(
+			HKT_PARENT = /datum/heretic_knowledge/rifle,
+			HKT_DEPTH = 2,
+			HKT_DRAFT_TIER = 2,
+			HKT_COST = 0, // TG: free follow-up unlock once you've researched the rifle.
+			HKT_BAN = list(),
+		)

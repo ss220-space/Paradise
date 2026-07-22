@@ -790,6 +790,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /obj/item/proc/on_give(mob/living/carbon/giver, mob/living/carbon/receiver)
 	return
 
+/obj/item/proc/visual_equipped(mob/user, slot, initial = FALSE)
+	return
+
 /**
  * Called after an item is placed in an equipment slot.
  * Note that hands count as slots.

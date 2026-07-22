@@ -130,7 +130,7 @@
 		return
 
 	. = TRUE
-	if(isheretic(user))
+	if(IS_HERETIC(user))
 		to_chat(user, span_boldwarning("Вы решаете, что не стоит играть с неподконтрольными вам силами!"))
 		return
 
@@ -156,7 +156,7 @@
 
 	. = COMPONENT_CANCEL_ATTACK_CHAIN
 
-	if(isheretic(user))
+	if(IS_HERETIC(user))
 		to_chat(user, span_boldwarning("Вы решаете, что не стоит играть с неподконтрольными вам силами!"))
 		return
 
@@ -183,7 +183,7 @@
 /obj/effect/visible_heretic_influence/examine(mob/living/user)
 	. = ..()
 	. += span_hypnophrase(pick_list(HERETIC_INFLUENCE_FILE, "examine"))
-	if(isheretic(user) || !ishuman(user))
+	if(IS_HERETIC(user) || !ishuman(user))
 		return
 
 	. += span_userdanger("Ваш разум горит, когда вы смотрите на разлом!")
@@ -240,7 +240,7 @@
 
 
 /obj/effect/heretic_influence/attack_hand(mob/living/user, list/modifiers)
-	if(!isheretic(user))
+	if(!IS_HERETIC(user))
 		return ..()
 
 	if(being_drained)
@@ -292,7 +292,7 @@
 	loc.balloon_alert(user, "разлом иссушен")
 	user.cut_overlay(draining_overlay)
 
-	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
+	var/datum/antagonist/heretic/heretic_datum = GET_HERETIC(user)
 	heretic_datum.adjust_knowledge_points(knowledge_to_gain)
 
 	after_drain(user)
@@ -345,7 +345,7 @@
 	if(!COOLDOWN_FINISHED(src, xray_cooldown))
 		return
 	var/mob/living/arrived_living = arrived
-	if(!isheretic(arrived_living))
+	if(!IS_HERETIC(arrived_living))
 		return
 	arrived_living.apply_status_effect(/datum/status_effect/temporary_xray/eldritch)
 	COOLDOWN_START(src, xray_cooldown, 3 MINUTES)

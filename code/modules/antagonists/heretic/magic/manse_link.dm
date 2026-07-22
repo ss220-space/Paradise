@@ -26,14 +26,14 @@
 	var/datum/component/mind_linker/linker
 
 
-/obj/effect/proc_holder/spell/pointed/manse_link/New(Target)
+/obj/effect/proc_holder/spell/pointed/manse_link/Initialize(mapload, datum/component/mind_linker/linker)
 	. = ..()
-	if(isnull(Target)) // instantiated bare (e.g. unit tests) — the linker will never be set, but don't runtime
+	if(isnull(linker)) // instantiated bare (e.g. unit tests) — the linker will never be set, but don't runtime
 		return
-	if(!istype(Target, /datum/component/mind_linker))
+	if(!istype(linker))
 		stack_trace("[name] ([type]) was instantiated on a non-mind_linker target, this doesn't work.")
 		return
-	linker = Target
+	src.linker = linker
 
 
 /obj/effect/proc_holder/spell/pointed/manse_link/Destroy(force)

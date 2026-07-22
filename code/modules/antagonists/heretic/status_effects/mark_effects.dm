@@ -98,7 +98,7 @@
 	if(repetitions <= 1)
 		return ..()
 	for(var/mob/living/carbon/victim in shuffle(range(3, carbon_owner)))
-		if(isheretic(victim) || victim == carbon_owner)
+		if(IS_HERETIC(victim) || victim == carbon_owner)
 			continue
 
 		victim.apply_status_effect(type, repetitions - 1)
@@ -196,7 +196,7 @@
 /datum/status_effect/eldritch/blade/proc/on_move(mob/living/source, turf/old_loc, movement_dir, forced)
 	SIGNAL_HANDLER
 
-	if(ismob(source.pulledby) && isheretic(source.pulledby))
+	if(ismob(source.pulledby) && IS_HERETIC(source.pulledby))
 		return
 
 	if(forced || !is_escaping_locked_area(old_loc, source))

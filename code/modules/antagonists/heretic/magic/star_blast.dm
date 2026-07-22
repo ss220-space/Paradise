@@ -71,7 +71,7 @@
 		return
 	action.targeting_overlay = active ? "bg_spell_border_active_green" : ACTION_BUTTON_DEFAULT_TARGETING_OVERLAY
 	action.targeting_process = active
-	action.UpdateButtonIcon(ALL)
+	action.UpdateButtonIcon()
 
 
 /obj/effect/temp_visual/circle_wave/star_blast

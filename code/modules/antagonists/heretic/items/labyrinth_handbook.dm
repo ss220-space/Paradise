@@ -26,13 +26,21 @@
 	. = ..()
 
 
+/obj/effect/forcefield/wizard/heretic/CanAllowThrough(atom/movable/mover, border_dir)
+	var/atom/thrower = mover.throwing?.thrower
+	if(istype(thrower, /obj/effect/forcefield/wizard/heretic))
+		return TRUE
+
+	return ..()
+
+
 /obj/effect/forcefield/wizard/heretic/Bumped(mob/living/bumpee)
 	. = ..()
 	if(!istype(bumpee) || IS_HERETIC_OR_MONSTER(bumpee))
 		return
 
 	var/throwtarget = get_edge_target_turf(loc, get_dir(loc, get_step_away(bumpee, loc)))
-	bumpee.throw_at(throwtarget, 10, 1, force = MOVE_FORCE_EXTREMELY_STRONG)
+	bumpee.throw_at(throwtarget, 10, 1, src, force = MOVE_FORCE_EXTREMELY_STRONG)
 	visible_message(span_danger("[declent_ru(NOMINATIVE)] отталкивают [bumpee.declent_ru(ACCUSATIVE)] окружая бумажным штормом!"))
 
 
@@ -92,7 +100,7 @@
 
 
 /obj/item/heretic_labyrinth_handbook/ranged_interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
-	if(!isheretic(user))
+	if(!IS_HERETIC(user))
 		if(ishuman(user))
 			var/mob/living/carbon/human/human_user = user
 			to_chat(human_user, span_userdanger("Ваш разум горит, когда вы начинаете читать книгу, \

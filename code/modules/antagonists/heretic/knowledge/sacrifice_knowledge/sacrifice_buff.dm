@@ -136,3 +136,56 @@
 		return
 
 	hand.fire()
+
+/datum/reagent/inverse
+	name = "Inverse reagent"
+	id = "inverse"
+	description = "An inverted reagent effect."
+
+/datum/reagent/inverse/helgrasp
+	name = "Helgrasp"
+	id = "helgrasp"
+	description = "A forbidden drink that calls grasping hands from beyond."
+	reagent_state = LIQUID
+	color = "#5d0f75"
+	taste_description = "ice and old dust"
+	metabolization_rate = 1 * REM
+	var/list/timer_ids
+
+/datum/reagent/inverse/helgrasp/on_mob_add(mob/living/carbon/human/user)
+	. = ..()
+	to_chat(user, span_hierophant("Вы слышите смех, когда перед вами появляются жуткие руки, жаждущие утащить вас в ад! Берегитесь!"))
+	playsound(user.loc, 'sound/effects/ahaha.ogg', 80, TRUE, -1)
+
+/datum/reagent/inverse/helgrasp/on_mob_life(mob/living/M)
+	. = ..()
+	if(!iscarbon(M))
+		return
+	var/mob/living/carbon/affected_mob = M
+	spawn_hands(affected_mob)
+	LAZYADD(timer_ids, addtimer(CALLBACK(src, PROC_REF(spawn_hands), affected_mob), 1 SECONDS, TIMER_STOPPABLE))
+
+/datum/reagent/inverse/helgrasp/proc/spawn_hands(mob/living/carbon/affected_mob)
+	if(!affected_mob && iscarbon(holder?.my_atom))
+		affected_mob = holder.my_atom
+	if(!affected_mob)
+		return
+	fire_curse_hand(affected_mob)
+
+/datum/reagent/inverse/helgrasp/on_mob_delete(mob/living/carbon/human/user)
+	. = ..()
+	clear_hand_timers()
+
+/datum/reagent/inverse/helgrasp/Destroy()
+	clear_hand_timers()
+	return ..()
+
+/datum/reagent/inverse/helgrasp/proc/clear_hand_timers()
+	for(var/timer_id in timer_ids)
+		deltimer(timer_id)
+	timer_ids = null
+
+/datum/reagent/inverse/helgrasp/heretic
+	name = "Хватка Обители"
+	id = "mansus_touch"
+	description = "Чья-то рука у вашего горла..."

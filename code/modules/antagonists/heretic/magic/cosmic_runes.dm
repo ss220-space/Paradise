@@ -27,6 +27,10 @@
 	var/obj/effect/rune_remove_effect = /obj/effect/temp_visual/cosmic_rune_fade
 
 
+/obj/effect/proc_holder/spell/cosmic_rune/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+
 /obj/effect/proc_holder/spell/cosmic_rune/cast(list/targets, mob/user = usr)
 	. = ..()
 	var/atom/cast_on = targets[1]
@@ -156,7 +160,7 @@
 	var/obj/effect/cosmic_rune/linked_rune_resolved = linked_rune?.resolve()
 	new rune_effect(get_turf(src))
 	var/atom/movable/pulled_thing
-	if(isheretic(user) && user.pulling)
+	if(IS_HERETIC(user) && user.pulling)
 		pulled_thing = user.pulling
 		do_teleport(pulled_thing, get_turf(linked_rune_resolved), ignore_bluespace_interference = TRUE, no_effects = TRUE)
 	do_teleport(
@@ -175,7 +179,7 @@
 
 		do_teleport(person_on_rune, get_turf(linked_rune_resolved), ignore_bluespace_interference = TRUE, no_effects = TRUE)
 
-	if(!isheretic(user))
+	if(!IS_HERETIC(user))
 		user.apply_status_effect(/datum/status_effect/star_mark)
 
 	new rune_effect(get_turf(linked_rune_resolved))

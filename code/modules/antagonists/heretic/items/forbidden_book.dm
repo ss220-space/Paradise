@@ -51,7 +51,7 @@
 
 /obj/item/codex_cicatrix/examine(mob/user)
 	. = ..()
-	if(!isheretic(user))
+	if(!IS_HERETIC(user))
 		return
 
 	. += span_notice("Может использоваться для поглощения расколов реальности с целью получения дополнительных очков знаний.")
@@ -75,7 +75,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/codex_cicatrix/melee_attack_chain(mob/user, atom/target, params)
-	if(isheretic(user))
+	if(IS_HERETIC(user))
 		var/obj/effect/decal/heretic_rune/rune = istype(target, /obj/effect/decal/heretic_rune) \
 			? target \
 			: (locate(/obj/effect/decal/heretic_rune) in get_turf(target))
@@ -88,7 +88,7 @@
 		return ..()
 
 	. = ..()
-	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
+	var/datum/antagonist/heretic/heretic_datum = GET_HERETIC(user)
 	if(!heretic_datum)
 		return ATTACK_CHAIN_BLOCKED
 
@@ -138,7 +138,7 @@
 
 /obj/item/codex_cicatrix/morbus/examine(mob/user)
 	. = ..()
-	if(isheretic(user))
+	if(IS_HERETIC(user))
 		. += span_notice("Можно использовать для наложения проклятия через кровь в ваших руках, щелкнув правой кнопкой мыши по руне.")
 		return
 

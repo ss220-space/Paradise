@@ -58,7 +58,7 @@
 
 	RegisterSignal(user, COMSIG_HUMAN_CHECK_SHIELDS, PROC_REF(shield_reaction))
 
-	if(isheretic(user))
+	if(IS_HERETIC(user))
 		return
 
 	to_chat(user, span_warning("Диковинка обволакивает вас, и вы чувствуете биение чего-то темного внутри неё..."))
@@ -82,7 +82,7 @@
 
 /obj/item/storage/belt/unfathomable_curio/proc/shield_damaged(mob/living/carbon/human/wearer, attack_text, new_current_charges)
 	wearer.visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] обволакивает [wearer.declent_ru(ACCUSATIVE)], блокируя атаку!"))
-	if(isheretic(wearer))
+	if(IS_HERETIC(wearer))
 		return
 
 	to_chat(wearer, span_warning("Смех раздаётся в вашем сознании..."))
@@ -104,7 +104,7 @@
 
 /obj/item/storage/belt/unfathomable_curio/examine(mob/living/carbon/user)
 	. = ..()
-	if(isheretic(user))
+	if(IS_HERETIC(user))
 		return
 
 	user.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 10, 160)

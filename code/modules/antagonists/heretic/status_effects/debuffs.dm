@@ -380,3 +380,15 @@
 	name = "Хозяйка Ржавой Горы"
 	desc = "Каждый ваш шаг разъедает землю под ногами! Всё рассыпается в прах! Быть может, вглядевшись в гору на картине, вы найдёте путь..."
 	icon_state = "eldritch_painting_rust"
+
+/datum/status_effect/rust_corruption
+	id = "rust_turf_effects"
+	alert_type = null
+	tick_interval = 2 SECONDS
+
+/datum/status_effect/rust_corruption/tick(seconds_between_ticks)
+	if(issilicon(owner))
+		owner.adjustBruteLoss(10 * seconds_between_ticks)
+		return
+	owner.Disgust(5 * seconds_between_ticks)
+	owner.reagents?.remove_all(0.75 * seconds_between_ticks)

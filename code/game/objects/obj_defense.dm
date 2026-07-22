@@ -282,6 +282,20 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 	addtimer(TRAIT_CALLBACK_REMOVE(src, TRAIT_BEING_SHOCKED, WAS_SHOCKED), 1 SECONDS)
 	return power * 0.5
 
+/// Attempt to freeze this obj solid. Returns TRUE if it succeeded, FALSE otherwise.
+/obj/proc/freeze()
+	if(HAS_TRAIT(src, TRAIT_FROZEN))
+		return FALSE
+	if(resistance_flags & FREEZE_PROOF)
+		return FALSE
+
+	AddElement(/datum/element/frozen)
+	return TRUE
+
+/// Thaws this obj out if it is frozen.
+/obj/proc/unfreeze()
+	SEND_SIGNAL(src, COMSIG_OBJ_UNFREEZE)
+
 /// The obj is deconstructed into pieces, whether through careful disassembly or when destroyed.
 /obj/proc/deconstruct(disassembled = TRUE)
 	SEND_SIGNAL(src, COMSIG_OBJ_DECONSTRUCT, disassembled)

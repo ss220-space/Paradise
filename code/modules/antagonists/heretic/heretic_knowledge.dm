@@ -17,8 +17,7 @@
 	var/notice = ""
 	/// What's shown to the heretic when the knowledge is acquired
 	var/gain_text
-	/// The abstract parent type of the knowledge, used in determine mutual exclusivity in some cases
-	var/datum/heretic_knowledge/abstract_parent_type = /datum/heretic_knowledge
+	abstract_type = /datum/heretic_knowledge
 	/// Assoc list of [typepaths we need] to [amount needed].
 	/// If set, this knowledge allows the heretic to do a ritual on a transmutation rune with the components set.
 	/// If one of the items in the list is a list, it's treated as 'any of these items will work'
@@ -48,6 +47,18 @@
 	var/research_tree_icon_frame = 1
 	var/research_tree_icon_dir = SOUTH
 
+/**
+ * Called before the knowledge is researched, to confirm the purchase.
+ *
+ * Return FALSE to abort the research, TRUE to let it through.
+ */
+/datum/heretic_knowledge/proc/pre_research(mob/user, datum/antagonist/heretic/our_heretic)
+	if(is_final_knowledge && !our_heretic.unlimited_blades)
+		var/choice = tgui_alert(user, "Изучение этого знания навсегда лишит вас возможности ломать клинки, но снимет ограничение на их количество. Продолжить?", "Финальное знание", list("Да", "Нет"))
+		if(choice != "Да")
+			return FALSE
+	return TRUE
+
 /** Called when the knowledge is first researched.
  * This is only ever called once per heretic.
  *
@@ -62,6 +73,8 @@
 		to_chat(user, span_purple("[gain_text]"))
 
 	on_gain(user, our_heretic)
+	if(is_final_knowledge && !our_heretic.unlimited_blades)
+		our_heretic.disable_blade_breaking()
 
 /**
  * Called when the knowledge is applied to a mob.
@@ -193,7 +206,7 @@
  * A knowledge subtype that grants the heretic a certain spell.
  */
 /datum/heretic_knowledge/spell
-	abstract_parent_type = /datum/heretic_knowledge/spell
+	abstract_type = /datum/heretic_knowledge/spell
 	/// Spell path we add to the heretic. Type-path.
 	var/obj/effect/proc_holder/spell/spell_to_add
 
@@ -221,7 +234,7 @@
  * created at once.
  */
 /datum/heretic_knowledge/limited_amount
-	abstract_parent_type = /datum/heretic_knowledge/limited_amount
+	abstract_type = /datum/heretic_knowledge/limited_amount
 	/// The limit to how many items we can create at once.
 	var/limit = 1
 	/// A list of weakrefs to all items we've created.
@@ -256,28 +269,29 @@
 /**
  * A knowledge subtype for limited_amount knowledge
  * used for base knowledge (the ones that make blades)
+ * Grants your path-relevant grasp upgrade, passive and grasp mark
  *
  * A heretic can only learn one /starting type knowledge,
  * and their ascension depends on whichever they chose.
  */
 /datum/heretic_knowledge/limited_amount/starting
-	abstract_parent_type = /datum/heretic_knowledge/limited_amount/starting
+	abstract_type = /datum/heretic_knowledge/limited_amount/starting
 	limit = 2
 	cost = 1
 	priority = MAX_KNOWLEDGE_PRIORITY - 5
-	/// The Mansus Grasp mark status effect this path applies, if any. Some paths fold their grasp/mark
-	/// mechanics into their starting knowledge instead of a separate tree node (e.g. Ash). Leave null
-	/// for paths that still use a dedicated /datum/heretic_knowledge/mark.
+	/// The status effect typepath we apply on people on mansus grasp.
 	var/datum/status_effect/eldritch/mark_type
-	/// This path's passive ("empowerment") effect, granted when the path is chosen. See
-	/// /datum/status_effect/heretic_passive. Leave null for paths whose passive isn't set up yet.
+	/// The status effect of our passive
 	var/datum/status_effect/heretic_passive/passive_type
 
 /datum/heretic_knowledge/limited_amount/starting/on_research(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
-	our_heretic.heretic_path = GLOB.heretic_research_tree[type][HKT_ROUTE]
+	our_heretic.heretic_path = GLOB.heretic_path_datums[GLOB.heretic_research_tree[type][HKT_ROUTE]]
+	if(!our_heretic.heretic_path)
+		stack_trace("[type] has no tree column to take its route from, the heretic is now pathless.")
+		return
 	our_heretic.generate_path_drafts()
-	SSblackbox.record_feedback("tally", "heretic_path_taken", 1, our_heretic.heretic_path)
+	SSblackbox.record_feedback("tally", "heretic_path_taken", 1, our_heretic.heretic_path.route)
 
 /datum/heretic_knowledge/limited_amount/starting/on_gain(mob/user, datum/antagonist/heretic/our_heretic, mind_transfer = FALSE)
 	. = ..()
@@ -292,64 +306,17 @@
 	our_heretic.clear_passive()
 
 /datum/heretic_knowledge/limited_amount/starting/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
-	var/datum/antagonist/heretic/our_heretic = user.mind?.has_antag_datum(/datum/antagonist/heretic)
+	var/datum/antagonist/heretic/our_heretic = GET_HERETIC(user)
 	if(our_heretic?.unlimited_blades)
 		return TRUE
 	return ..()
-
-/// Signal proc for [COMSIG_HERETIC_MANSUS_GRASP_ATTACK]: apply our path's mark, if we carry one.
-/datum/heretic_knowledge/limited_amount/starting/proc/on_mansus_grasp(mob/living/source, mob/living/target)
-	SIGNAL_HANDLER
-	create_mark(source, target)
-
-/// Signal proc for [COMSIG_HERETIC_BLADE_ATTACK]: trigger any mark on the target.
-/datum/heretic_knowledge/limited_amount/starting/proc/on_eldritch_blade(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
-	SIGNAL_HANDLER
-	if(!isliving(target))
-		return
-	trigger_mark(source, target)
-
-/// Creates this path's mark status effect on the target (no-op if the path has no mark_type).
-/datum/heretic_knowledge/limited_amount/starting/proc/create_mark(mob/living/source, mob/living/target)
-	if(!mark_type || target.stat == DEAD)
-		return
-	return target.apply_status_effect(mark_type)
-
-/// Triggers an existing mark on the target. Returns TRUE if one was triggered.
-/datum/heretic_knowledge/limited_amount/starting/proc/trigger_mark(mob/living/source, mob/living/target)
-	if(!mark_type)
-		return FALSE
-	var/datum/status_effect/eldritch/mark = target.has_status_effect(/datum/status_effect/eldritch)
-	if(!istype(mark))
-		return FALSE
-	mark.on_effect()
-	return TRUE
-
-/**
- * A knowledge subtype for heretic knowledge
- * that applies a mark on use.
- *
- * A heretic can only learn one /mark type knowledge.
- */
-/datum/heretic_knowledge/mark
-	abstract_parent_type = /datum/heretic_knowledge/mark
-	cost = 2
-	/// The status effect typepath we apply on people on mansus grasp.
-	var/datum/status_effect/eldritch/mark_type
-
-/datum/heretic_knowledge/mark/on_gain(mob/user, datum/antagonist/heretic/our_heretic, mind_transfer = FALSE)
-	RegisterSignals(user, list(COMSIG_HERETIC_MANSUS_GRASP_ATTACK, COMSIG_LIONHUNTER_ON_HIT), PROC_REF(on_mansus_grasp), override = TRUE)
-	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, PROC_REF(on_eldritch_blade))
-
-/datum/heretic_knowledge/mark/on_lose(mob/user, datum/antagonist/heretic/our_heretic, mind_transfer = FALSE)
-	UnregisterSignal(user, list(COMSIG_HERETIC_MANSUS_GRASP_ATTACK, COMSIG_HERETIC_BLADE_ATTACK))
 
 /**
  * Signal proc for [COMSIG_HERETIC_MANSUS_GRASP_ATTACK].
  *
  * Whenever we cast mansus grasp on someone, apply our mark.
  */
-/datum/heretic_knowledge/mark/proc/on_mansus_grasp(mob/living/source, mob/living/target)
+/datum/heretic_knowledge/limited_amount/starting/proc/on_mansus_grasp(mob/living/source, mob/living/target)
 	SIGNAL_HANDLER
 
 	create_mark(source, target)
@@ -359,7 +326,7 @@
  *
  * Whenever we attack someone with our blade, attempt to trigger any marks on them.
  */
-/datum/heretic_knowledge/mark/proc/on_eldritch_blade(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
+/datum/heretic_knowledge/limited_amount/starting/proc/on_eldritch_blade(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
 	SIGNAL_HANDLER
 
 	if(!isliving(target))
@@ -373,7 +340,7 @@
  *
  * Can be overriden to set or pass in additional vars of the status effect.
  */
-/datum/heretic_knowledge/mark/proc/create_mark(mob/living/source, mob/living/target)
+/datum/heretic_knowledge/limited_amount/starting/proc/create_mark(mob/living/source, mob/living/target)
 	if(target.stat == DEAD)
 		return
 	return target.apply_status_effect(mark_type)
@@ -383,7 +350,7 @@
  *
  * If there is no mark, returns FALSE. Returns TRUE if a mark was triggered.
  */
-/datum/heretic_knowledge/mark/proc/trigger_mark(mob/living/source, mob/living/target)
+/datum/heretic_knowledge/limited_amount/starting/proc/trigger_mark(mob/living/source, mob/living/target)
 	var/datum/status_effect/eldritch/mark = target.has_status_effect(/datum/status_effect/eldritch)
 	if(!istype(mark))
 		return FALSE
@@ -398,7 +365,7 @@
  * A heretic can only learn one /blade_upgrade type knowledge.
  */
 /datum/heretic_knowledge/blade_upgrade
-	abstract_parent_type = /datum/heretic_knowledge/blade_upgrade
+	abstract_type = /datum/heretic_knowledge/blade_upgrade
 	cost = 1
 
 
@@ -448,7 +415,7 @@
  * A knowledge subtype lets the heretic summon a monster with the ritual.
  */
 /datum/heretic_knowledge/limited_amount/summon
-	abstract_parent_type = /datum/heretic_knowledge/limited_amount/summon
+	abstract_type = /datum/heretic_knowledge/limited_amount/summon
 	limit = 3
 	/// Typepath of a mob to summon when we finish the recipe.
 	var/mob/living/mob_to_summon
@@ -520,7 +487,7 @@
 	desc = "Случайный ритуал трансмутации, который дарует знания."
 	notice = "Этот ритуал может быть проведён только один раз."
 	gain_text = "Всё может быть ключом к разгадке секретов за Вратами. Я должен быть осторожным и мудрым."
-	abstract_parent_type = /datum/heretic_knowledge/knowledge_ritual
+	abstract_type = /datum/heretic_knowledge/knowledge_ritual
 	cost = 1
 	priority = MAX_KNOWLEDGE_PRIORITY - 10 // A pretty important midgame ritual.
 	research_tree_icon_path = 'icons/obj/eldritch.dmi'
@@ -593,7 +560,7 @@
 
 
 /datum/heretic_knowledge/knowledge_ritual/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
-	var/datum/antagonist/heretic/our_heretic = user.mind.has_antag_datum(/datum/antagonist/heretic)
+	var/datum/antagonist/heretic/our_heretic = GET_HERETIC(user)
 	our_heretic.adjust_knowledge_points(KNOWLEDGE_RITUAL_POINTS)
 	was_completed = TRUE
 
@@ -609,7 +576,7 @@
  * The special final tier of knowledges that unlocks ASCENSION.
  */
 /datum/heretic_knowledge/ultimate
-	abstract_parent_type = /datum/heretic_knowledge/ultimate
+	abstract_type = /datum/heretic_knowledge/ultimate
 	cost = 2
 	priority = MAX_KNOWLEDGE_PRIORITY + 1 // Yes, the final ritual should be ABOVE the max priority.
 	required_atoms = list(/mob/living/carbon/human = 3)
@@ -633,7 +600,7 @@
 
 
 /datum/heretic_knowledge/ultimate/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc, say_result = FALSE)
-	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
+	var/datum/antagonist/heretic/heretic_datum = GET_HERETIC(user)
 	if(!can_be_invoked(heretic_datum, TRUE))
 		return FALSE
 
@@ -654,7 +621,7 @@
 
 
 /datum/heretic_knowledge/ultimate/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
-	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
+	var/datum/antagonist/heretic/heretic_datum = GET_HERETIC(user)
 	heretic_datum.ascended = TRUE
 	heretic_datum.set_passive_level(3)
 

@@ -465,7 +465,7 @@
 
 	user.mob_light(LIGHT_COLOR_BLOOD_MAGIC, 3, duration = 2)
 
-	if(isheretic(target))
+	if(IS_HERETIC(L))
 		L.AdjustKnockdown(0.5 SECONDS)
 		L.AdjustConfused(1.5 SECONDS, bound_upper = 3 SECONDS)
 		L.AdjustDizzy(1.5 SECONDS, bound_upper = 3 SECONDS)

@@ -172,7 +172,7 @@
 		return
 
 	var/mob/living/living_firer = firer
-	if(!isheretic(living_firer))
+	if(!IS_HERETIC(living_firer))
 		return
 
 	living_firer.forceMove(src)
@@ -204,7 +204,7 @@
 
 	var/mob/living/victim = target
 	var/mob/firing_mob = firer
-	if(IS_HERETIC_OR_MONSTER(victim) || !isheretic(firing_mob))
+	if(IS_HERETIC_OR_MONSTER(victim) || !IS_HERETIC(firing_mob))
 		return
 
 	SEND_SIGNAL(firer, COMSIG_LIONHUNTER_ON_HIT, victim)

@@ -318,10 +318,10 @@
 	star_gazer_mob.leash_to(star_gazer_mob, user)
 	user.AddComponent(/datum/component/death_linked, star_gazer_mob)
 
-	user.mind.AddSpell(new /obj/effect/proc_holder/spell/open_mob_commands(star_gazer_mob))
-	user.mind.AddSpell(new /obj/effect/proc_holder/spell/replace_star_gazer(star_gazer_mob))
+	user.mind.AddSpell(new /obj/effect/proc_holder/spell/open_mob_commands(null, star_gazer_mob))
+	user.mind.AddSpell(new /obj/effect/proc_holder/spell/replace_star_gazer(null, star_gazer_mob))
 
-	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
+	var/datum/antagonist/heretic/heretic_datum = GET_HERETIC(user)
 	var/datum/heretic_knowledge/blade_upgrade/cosmic/blade_upgrade = heretic_datum.get_knowledge(/datum/heretic_knowledge/blade_upgrade/cosmic)
 	blade_upgrade.combo_duration = 10 SECONDS
 	blade_upgrade.combo_duration_amount = 10 SECONDS
@@ -351,9 +351,13 @@
 	var/mob/living/simple_animal/hostile/heretic_summon/star_gazer/our_mob
 
 
-/obj/effect/proc_holder/spell/open_mob_commands/New(gazer)
+/obj/effect/proc_holder/spell/open_mob_commands/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+
+/obj/effect/proc_holder/spell/open_mob_commands/Initialize(mapload, mob/living/simple_animal/hostile/heretic_summon/star_gazer/our_mob)
 	. = ..()
-	our_mob = gazer
+	src.our_mob = our_mob
 
 
 /obj/effect/proc_holder/spell/open_mob_commands/cast(list/targets, mob/user)
@@ -392,9 +396,9 @@
 	return new /datum/spell_targeting/self
 
 
-/obj/effect/proc_holder/spell/replace_star_gazer/New(gazer)
+/obj/effect/proc_holder/spell/replace_star_gazer/Initialize(mapload, mob/living/simple_animal/hostile/heretic_summon/star_gazer/our_mob)
 	. = ..()
-	our_mob = gazer
+	src.our_mob = our_mob
 
 
 /obj/effect/proc_holder/spell/replace_star_gazer/cast(list/targets, mob/user)

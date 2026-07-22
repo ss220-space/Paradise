@@ -696,3 +696,9 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /// Called when a spell is removed
 /obj/effect/proc_holder/spell/proc/on_spell_removed(mob/user = usr)
 	return
+
+/mob/proc/can_block_magic(magic_flags = MAGIC_RESISTANCE, charge_cost = 0)
+	return FALSE
+
+/mob/proc/can_cast_magic(magic_flags = MAGIC_RESISTANCE)
+	return !can_block_magic(magic_flags)

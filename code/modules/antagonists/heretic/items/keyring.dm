@@ -69,7 +69,7 @@
 		qdel(src)
 		return
 
-	if(!is_phase_allowed(z) || !is_phase_allowed(destination.z))
+	if(!is_teleport_allowed(z) || !is_teleport_allowed(destination.z))
 		qdel(src)
 		return
 
@@ -144,7 +144,7 @@
 
 /obj/item/card/id/advanced/heretic/attack_self(mob/user)
 	. = ..()
-	if(!isheretic(user))
+	if(!IS_HERETIC(user))
 		return
 
 	if(!fused_ids)
@@ -161,7 +161,7 @@
 
 
 /obj/item/card/id/advanced/heretic/click_alt(mob/user)
-	if(!isheretic(user))
+	if(!IS_HERETIC(user))
 		return CLICK_ACTION_BLOCKING
 
 	inverted = !inverted
@@ -221,7 +221,7 @@
 
 
 /obj/item/card/id/advanced/heretic/melee_attack_chain(mob/user, atom/target, params)
-	if(!isheretic(user))
+	if(!IS_HERETIC(user))
 		return ..()
 
 	if(is_id_card(target))
@@ -235,7 +235,7 @@
 	if(!istype(target, /obj/machinery/door))
 		return ..()
 
-	if(!is_phase_allowed(target.z))
+	if(!is_teleport_allowed(target.z))
 		return ..()
 
 	var/reference_resolved = link?.resolve()
@@ -255,7 +255,7 @@
 
 
 /obj/item/card/id/advanced/heretic/attackby(obj/item/I, mob/user, params)
-	if(isheretic(user) && is_id_card(I))
+	if(IS_HERETIC(user) && is_id_card(I))
 		eat_card(I, user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 

@@ -97,7 +97,7 @@
 	if(unfreeze_object_duration <= 0 SECONDS) // 0 duration = don't apply a freeze
 		return
 
-	if(!target_obj.freeze_add())
+	if(!target_obj.freeze())
 		return
 
 	if(unfreeze_object_duration == INFINITY) // Infinity duration = don't set an unfreeze timer
@@ -127,6 +127,10 @@
 	var/cone_levels = 3
 	/// This value determines if the cone penetrates walls.
 	var/respect_density = FALSE
+
+
+/obj/effect/proc_holder/spell/cone/create_new_targeting()
+	return new /datum/spell_targeting/self
 
 
 /obj/effect/proc_holder/spell/cone/cast(list/targets, mob/user = usr)

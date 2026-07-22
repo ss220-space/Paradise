@@ -65,7 +65,7 @@
 
 /obj/effect/decal/heretic_rune/examine(mob/user)
 	. = ..()
-	if(!isheretic(user))
+	if(!IS_HERETIC(user))
 		return
 
 	. += span_notice("Позволяет трансмутировать предметы, после соблюдения некоторых условий.")
@@ -73,7 +73,7 @@
 
 
 /obj/effect/decal/heretic_rune/proc/can_interact(mob/living/user)
-	if(!isheretic(user))
+	if(!IS_HERETIC(user))
 		return FALSE
 
 	if(is_in_use)
@@ -110,7 +110,7 @@
 /obj/effect/decal/heretic_rune/proc/try_rituals(mob/living/user)
 	is_in_use = TRUE
 
-	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
+	var/datum/antagonist/heretic/heretic_datum = GET_HERETIC(user)
 	var/list/rituals = heretic_datum.get_rituals()
 	if(!length(rituals))
 		loc.balloon_alert(user, "нет доступных ритуалов!")

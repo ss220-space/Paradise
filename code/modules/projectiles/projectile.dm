@@ -403,6 +403,9 @@
 /obj/projectile/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE //Bullets don't drift in space
 
+/obj/projectile/proc/is_hostile_projectile()
+	return damage > 0
+
 /obj/projectile/process()
 	if(!loc || !trajectory)
 		return PROCESS_KILL
@@ -410,6 +413,7 @@
 		last_projectile_move = world.time
 		return
 	var/elapsed_time_deciseconds = (world.time - last_projectile_move) + time_offset
+	last_projectile_move = world.time
 	time_offset = 0
 	var/required_moves = hitscan ? MOVES_HITSCAN : floor(elapsed_time_deciseconds / speed)
 	if(required_moves == MOVES_HITSCAN)

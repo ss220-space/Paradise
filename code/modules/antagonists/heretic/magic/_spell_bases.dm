@@ -28,7 +28,7 @@
 	var/aim_assist = TRUE
 
 
-/obj/effect/proc_holder/spell/pointed/New(Target)
+/obj/effect/proc_holder/spell/pointed/Initialize(mapload)
 	. = ..()
 	if(!active_msg)
 		active_msg = "Вы готовитесь использовать [declent_ru(ACCUSATIVE)] на цели..."
@@ -174,62 +174,3 @@
 	if(istext(click_params))
 		click_params = params2list(click_params)
 	to_fire.preparePixelProjectile(target, user, click_params)
-
-
-/obj/effect/proc_holder/spell/jaunt/create_new_targeting()
-	return new /datum/spell_targeting/self
-
-/obj/effect/proc_holder/spell/cone/create_new_targeting()
-	return new /datum/spell_targeting/self
-
-/obj/effect/proc_holder/spell/shadow_cloak/create_new_targeting()
-	return new /datum/spell_targeting/self
-
-/obj/effect/proc_holder/spell/heretic_menu/create_new_targeting()
-	return new /datum/spell_targeting/self
-
-/obj/effect/proc_holder/spell/realignment/create_new_targeting()
-	return new /datum/spell_targeting/self
-
-/obj/effect/proc_holder/spell/fire_sworn/create_new_targeting()
-	return new /datum/spell_targeting/self
-
-/obj/effect/proc_holder/spell/fire_cascade/create_new_targeting()
-	return new /datum/spell_targeting/self
-
-/obj/effect/proc_holder/spell/cosmic_rune/create_new_targeting()
-	return new /datum/spell_targeting/self
-
-/obj/effect/proc_holder/spell/wolves_among_sheep/create_new_targeting()
-	return new /datum/spell_targeting/self
-
-/obj/effect/proc_holder/spell/lunatic_track/create_new_targeting()
-	return new /datum/spell_targeting/self
-
-/obj/effect/proc_holder/spell/seek_master/create_new_targeting()
-	return new /datum/spell_targeting/self
-
-/obj/effect/proc_holder/spell/open_mob_commands/create_new_targeting()
-	return new /datum/spell_targeting/self
-
-/obj/effect/proc_holder/spell/track_target/create_new_targeting()
-	return new /datum/spell_targeting/self
-
-/// Mob-cooldown abilities are click-targeted by default (charge overrides this itself).
-/obj/effect/proc_holder/spell/mob_cooldown/create_new_targeting()
-	return new /datum/spell_targeting/clicked_atom
-
-
-/mob/proc/can_block_magic(magic_flags = MAGIC_RESISTANCE, charge_cost = 0)
-	return FALSE
-
-/mob/proc/can_cast_magic(magic_flags = MAGIC_RESISTANCE)
-	return !can_block_magic(magic_flags)
-
-/obj/item/melee/touch_attack/proc/remove_hand_with_no_refund(mob/holder)
-	var/obj/effect/proc_holder/spell/touch/hand_spell = attached_spell
-	if(!QDELETED(hand_spell))
-		hand_spell.discharge_hand(holder)
-		return
-	holder.drop_item_ground(src, force = TRUE)
-	qdel(src)

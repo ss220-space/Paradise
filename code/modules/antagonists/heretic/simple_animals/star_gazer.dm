@@ -223,7 +223,7 @@
 	return new /datum/spell_targeting/self
 
 
-/obj/effect/proc_holder/spell/stargazer_laser/New(Target)
+/obj/effect/proc_holder/spell/stargazer_laser/Initialize(mapload)
 	. = ..()
 	sound_loop = new
 

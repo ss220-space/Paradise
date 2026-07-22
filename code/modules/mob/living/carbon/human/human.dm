@@ -1623,6 +1623,16 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return TRUE
 	return FALSE
 
+/mob/living/carbon/human/get_covered_body_zones()
+	var/covered_flags = NONE
+	for(var/obj/item/worn in get_equipped_items())
+		covered_flags |= worn.body_parts_covered
+
+	. = list()
+	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+		if(covered_flags & bodypart.limb_body_flag)
+			. += bodypart.limb_zone
+
 /mob/living/carbon/human/get_permeability_protection()
 	var/list/prot = list("hands"=0, "chest"=0, "groin"=0, "legs"=0, "feet"=0, "arms"=0, "head"=0)
 	for(var/obj/item/I in get_equipped_items())

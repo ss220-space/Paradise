@@ -104,7 +104,7 @@
 	if(!action)
 		return
 	action.targeting_process = active
-	action.UpdateButtonIcon(ALL)
+	action.UpdateButtonIcon()
 
 
 /obj/projectile/magic/aoe/rust_wave

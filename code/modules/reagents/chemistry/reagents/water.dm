@@ -369,7 +369,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 			M.emote("scream")
 			update_flags |= M.adjustFireLoss(1.5, updating_health = FALSE)
 
-		if(isheretic(M) && !HAS_TRAIT(M, TRAIT_ALLOW_HERETIC_CASTING) && !HAS_TRAIT(M, TRAIT_HERETIC_HOLY_LOCKED))
+		if(IS_HERETIC(M) && !HAS_TRAIT(M, TRAIT_ALLOW_HERETIC_CASTING) && !HAS_TRAIT(M, TRAIT_HERETIC_HOLY_LOCKED))
 			ADD_TRAIT(M, TRAIT_HERETIC_HOLY_LOCKED, HOLYWATER_TRAIT)
 			to_chat(M, span_hypnophrase("Святая вода туманит ваш разум, отрезая его от Обители! Вам нужен фокус, чтобы вновь дотянуться до её сил."))
 

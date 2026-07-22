@@ -17,9 +17,9 @@
 	var/obj/item/melee/cultblade/haunted/flinged_sword
 
 
-/obj/effect/proc_holder/spell/pointed/sword_fling/New(Target, to_fling)
+/obj/effect/proc_holder/spell/pointed/sword_fling/Initialize(mapload, obj/item/melee/cultblade/haunted/flinged_sword)
 	. = ..()
-	flinged_sword = to_fling
+	src.flinged_sword = flinged_sword
 
 
 /obj/effect/proc_holder/spell/pointed/sword_fling/Destroy()

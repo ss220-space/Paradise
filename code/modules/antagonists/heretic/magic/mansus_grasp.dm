@@ -20,7 +20,7 @@
 
 
 /obj/effect/proc_holder/spell/touch/mansus_grasp/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
-	return ..() && (isheretic(user) || !!IS_LUNATIC(user))
+	return ..() && (IS_HERETIC(user) || !!IS_LUNATIC(user))
 
 
 /obj/item/melee/touch_attack/mansus_fist/proc/attack_effect(atom/victim, mob/living/carbon/caster)
@@ -48,7 +48,7 @@
 	var/old_color = carbon_hit.color
 	carbon_hit.color = COLOR_CULT_RED
 	animate(carbon_hit, color = old_color, time = 4 SECONDS, easing = EASE_IN)
-	carbon_hit.mob_light2(range = 1.5, power = 2.5, color = COLOR_CULT_RED, duration = 0.5 SECONDS)
+	carbon_hit.mob_light(range = 1.5, power = 2.5, color = COLOR_CULT_RED, duration = 0.5 SECONDS)
 	playsound(carbon_hit, 'sound/magic/curse.ogg', 50, TRUE)
 
 	to_chat(caster, span_warning("Нечестивая сила вмешивается, поглощая большую часть эффектов!"))
@@ -147,7 +147,7 @@
 	user.visible_message(span_suicide("[user.declent_ru(NOMINATIVE)] делает фейспалм [declent_ru(INSTRUMENTAL)]! Похоже [GEND_HE_SHE(user)] пыта[PLUR_ET_YUT(user)]ся убить себя!"))
 	var/mob/living/carbon/carbon_user = user //iscarbon already used in spell's parent
 	var/obj/effect/proc_holder/spell/touch/mansus_grasp/source = attached_spell//?.resolve()
-	if(QDELETED(source) || !isheretic(user))
+	if(QDELETED(source) || !IS_HERETIC(user))
 		return SHAME
 
 	if(user.can_block_magic(source.antimagic_flags))

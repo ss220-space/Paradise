@@ -63,7 +63,7 @@
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/examine(mob/user)
 	. = ..()
-	if(!isheretic(user))
+	if(!IS_HERETIC(user))
 		return
 
 	. += span_notice("Позволяет использовать еретические заклинания при надетом капюшоне.")
@@ -94,7 +94,7 @@
 	. = ..()
 	if(slot != ITEM_SLOT_CLOTH_OUTER)
 		return
-	if(!isheretic(user))
+	if(!IS_HERETIC(user))
 		robes_side_effect(user)
 
 
@@ -107,8 +107,9 @@
 	. = ..()
 	if(!.) // hood didn't actually go up (already up, no robe worn, head occupied, etc.)
 		return
-	if(isheretic(loc))
-		grant_guise(loc)
+	var/mob/living/wearer = isliving(loc) ? loc : null
+	if(IS_HERETIC(wearer))
+		grant_guise(wearer)
 
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/lock/RemoveHood()
@@ -494,7 +495,7 @@
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/rust/examine(mob/user)
 	. = ..()
-	if(!isheretic(user))
+	if(!IS_HERETIC(user))
 		return
 	. += span_notice("Ваша защита значительно усиливается, когда вы стоите на ржавчине.")
 
@@ -788,7 +789,7 @@
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/moon/examine(mob/user)
 	. = ..()
-	if(!isheretic(user))
+	if(!IS_HERETIC(user))
 		return
 	. += span_notice("Делает вас невосприимчивым к выводящим из строя эффектам, но не даёт брони, \
 		умиротворяет и не позволяет пользоваться огнестрельным оружием. Атаковать клинком возможно только с Амулетом Лунного Света.")
@@ -982,7 +983,7 @@
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/blade/examine(mob/user)
 	. = ..()
-	if(!isheretic(user))
+	if(!IS_HERETIC(user))
 		return
 	. += span_notice("Полностью защищает от шока и сопротивляется оглушению дубинками, пока надета.")
 
@@ -992,7 +993,7 @@
 	if(slot != ITEM_SLOT_CLOTH_OUTER)
 		user.remove_traits(panoply_traits, UID())
 		return
-	if(isheretic(user))
+	if(IS_HERETIC(user))
 		user.add_traits(panoply_traits, UID())
 	else
 		INVOKE_ASYNC(src, PROC_REF(start_throwing_blades), user)
@@ -1019,7 +1020,7 @@
 
 /// Keeps the barrage going only while the (living, non-heretic) victim is still wearing us.
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/blade/proc/should_keep_cutting(mob/living/target)
-	if(QDELETED(target) || target.stat == DEAD || isheretic(target))
+	if(QDELETED(target) || target.stat == DEAD || IS_HERETIC(target))
 		return FALSE
 	if(!ishuman(target))
 		return FALSE
@@ -1132,7 +1133,7 @@
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/void/examine(mob/user)
 	. = ..()
-	if(!isheretic(user))
+	if(!IS_HERETIC(user))
 		return
 	. += span_notice("Время от времени плетение полностью поглощает направленную на вас атаку и на несколько секунд скрывает вас из виду.")
 
@@ -1142,13 +1143,13 @@
 	if(slot != ITEM_SLOT_CLOTH_OUTER)
 		return
 	RegisterSignal(user, COMSIG_HUMAN_CHECK_SHIELDS, PROC_REF(shield_reaction), override = TRUE)
-	if(!isheretic(user) && isliving(user))
+	if(!IS_HERETIC(user) && isliving(user))
 		INVOKE_ASYNC(src, PROC_REF(freeze_thief), user)
 
 
 /// A heathen who puts the Hollow Weave on is instantly deep-frozen.
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/void/proc/freeze_thief(mob/living/thief)
-	if(QDELETED(thief) || isheretic(thief))
+	if(QDELETED(thief) || IS_HERETIC(thief))
 		return
 	to_chat(thief, span_userdanger("Пустота высасывает из вас всё тепло!"))
 	thief.adjust_bodytemperature(-INFINITY)
@@ -1277,7 +1278,7 @@
 
 /obj/item/clothing/suit/hooded/cultrobes/void/examine(mob/user)
 	. = ..()
-	if(!isheretic(user))
+	if(!IS_HERETIC(user))
 		return
 
 	. += span_notice("Позволяет использовать еретические заклинания, пока капюшон опущен.")
@@ -1404,7 +1405,7 @@
 	. = ..()
 	if(slot != ITEM_SLOT_CLOTH_OUTER)
 		return
-	if(isheretic(user))
+	if(IS_HERETIC(user))
 		RegisterSignal(user, COMSIG_MOB_EXAMINING_MORE, PROC_REF(reveal_true_name))
 		return
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(misfire))
@@ -1435,7 +1436,7 @@
 
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/beyond/proc/duplicate_frames(mob/living/user)
-	if(!isheretic(user))
+	if(!IS_HERETIC(user))
 		return
 
 	if(!COOLDOWN_FINISHED(src, duplication_cooldown))

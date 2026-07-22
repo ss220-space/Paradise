@@ -49,7 +49,7 @@
 	heretic_mind = our_heretic.owner
 
 /datum/heretic_knowledge/hunt_and_sacrifice/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
-	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
+	var/datum/antagonist/heretic/heretic_datum = GET_HERETIC(user)
 	if(heretic_datum.has_living_heart() != HERETIC_HAS_LIVING_HEART)
 		loc.balloon_alert(user, "нет живого сердца!")
 		return FALSE
@@ -104,7 +104,7 @@
 
 
 /datum/heretic_knowledge/hunt_and_sacrifice/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
-	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
+	var/datum/antagonist/heretic/heretic_datum = GET_HERETIC(user)
 	var/mob/living/carbon/human/sac = selected_atoms[1]
 	if(!LAZYLEN(heretic_datum.sac_targets) && !iscultist(sac))
 		if(obtain_targets(user, heretic_datum = heretic_datum))
@@ -190,7 +190,7 @@
 /// Begins the process of sacrificing the target. selected_atoms should contain (at least) one human.
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/sacrifice_process(mob/living/user, list/selected_atoms, turf/loc)
 
-	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
+	var/datum/antagonist/heretic/heretic_datum = GET_HERETIC(user)
 	var/mob/living/carbon/human/sacrifice = locate() in selected_atoms
 	if(!sacrifice)
 		CRASH("[type] sacrifice_process didn't have a human in the atoms list. How'd it make it so far?")
@@ -253,7 +253,7 @@
 
 	sacrifice.dust(TRUE, TRUE)
 
-	var/datum/antagonist/heretic/antag = user.mind.has_antag_datum(/datum/antagonist/heretic)
+	var/datum/antagonist/heretic/antag = GET_HERETIC(user)
 	antag.rewards_given++
 
 	var/obj/effect/decal/heretic_rune/rune = locate() in range(2, user)
@@ -273,7 +273,7 @@
 		return
 	rune?.remove_filter("reward_outline")
 	playsound(loc, 'sound/magic/repulse.ogg', 75, TRUE)
-	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
+	var/datum/antagonist/heretic/heretic_datum = GET_HERETIC(user)
 	ASSERT(heretic_datum)
 	var/list/rewards = heretic_datum.unlocked_heretic_items.Copy()
 	for(var/possible_reward in heretic_datum.unlocked_heretic_items)
@@ -307,7 +307,7 @@
 		CRASH("[type] - begin_sacrifice was called, and no heretic [heretic_mind ? "antag datum":"mind"] could be found!")
 
 
-	var/obj/effect/landmark/heretic/destination_landmark = GLOB.heretic_sacrifice_landmarks[our_heretic.heretic_path] || GLOB.heretic_sacrifice_landmarks[PATH_START]
+	var/obj/effect/landmark/heretic/destination_landmark = GLOB.heretic_sacrifice_landmarks[our_heretic.heretic_path?.route] || GLOB.heretic_sacrifice_landmarks[PATH_START]
 
 	var/turf/destination = get_turf(destination_landmark)
 
@@ -443,8 +443,8 @@
 	sac_target.remove_status_effect(/datum/status_effect/unholy_determination)
 	sac_target.reagents?.del_reagent(/datum/reagent/inverse/helgrasp/heretic)
 	sac_target.uncuff()
-	if(isheretic(sac_target))
-		var/datum/antagonist/heretic/victim_heretic = sac_target.mind?.has_antag_datum(/datum/antagonist/heretic)
+	if(IS_HERETIC(sac_target))
+		var/datum/antagonist/heretic/victim_heretic = GET_HERETIC(sac_target)
 		victim_heretic.adjust_knowledge_points(-3)
 
 	sac_target.apply_status_effect(/*/datum/status_effect/speech/slurring/heretic*/ STATUS_EFFECT_CLOCK_CULT_SLUR, 40 SECONDS)
@@ -503,7 +503,7 @@
 /// Gives [sac_target] some after-effects upon arriving back to reality.
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/after_return_live_target(mob/living/carbon/human/sac_target)
 	to_chat(sac_target, span_purple("Борьба окончена, но дорогой ценой. Вы вернулись на станцию целым и невредимым."))
-	if(isheretic(sac_target))
+	if(IS_HERETIC(sac_target))
 		to_chat(sac_target, span_big(span_purple("Вы не помните ничего, что предшествовало этому опыту, \
 											но чувствуете, что ваша связь с Обителью ослабла — когда-то известные знания забыты...")))
 	else
@@ -604,10 +604,6 @@
 	. = ..()
 	handedness = prob(50)
 	icon_state = "[base_icon_state][handedness]"
-
-/obj/projectile/curse_hand/process()
-	return process_paced()
-
 
 /obj/projectile/curse_hand/Destroy()
 	QDEL_NULL(arm)

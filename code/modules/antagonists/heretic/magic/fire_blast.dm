@@ -192,7 +192,7 @@
 	var/sound/charge_sound_instance
 
 
-/obj/effect/proc_holder/spell/charged/New(Target, original)
+/obj/effect/proc_holder/spell/charged/Initialize(mapload)
 	. = ..()
 	if(!channel_message)
 		channel_message = span_notice("Вы начинаете взывать к [src]...")

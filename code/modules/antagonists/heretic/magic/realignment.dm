@@ -25,6 +25,10 @@
 	var/realign_cooldown_step = 6 SECONDS
 
 
+/obj/effect/proc_holder/spell/realignment/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+
 /obj/effect/proc_holder/spell/realignment/valid_target(atom/cast_on)
 	return isliving(cast_on)
 

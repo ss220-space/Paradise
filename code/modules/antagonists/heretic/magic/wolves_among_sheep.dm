@@ -33,6 +33,10 @@
 	var/ongoing_arena
 
 
+/obj/effect/proc_holder/spell/wolves_among_sheep/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+
 /obj/effect/proc_holder/spell/wolves_among_sheep/cast(list/targets, mob/user = usr)
 	. = ..()
 	center_turf = get_turf(action.owner)

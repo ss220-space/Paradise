@@ -81,11 +81,15 @@
 	var/mob/living/simple_animal/hostile/construct/the_construct
 
 
-/obj/effect/proc_holder/spell/seek_master/New(Target)
+/obj/effect/proc_holder/spell/seek_master/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+
+/obj/effect/proc_holder/spell/seek_master/Initialize(mapload, mob/living/simple_animal/hostile/construct/the_construct)
 	. = ..()
-	if(!isconstruct(Target)) // instantiated bare (e.g. unit tests)
+	if(!isconstruct(the_construct)) // instantiated bare (e.g. unit tests)
 		return
-	the_construct = Target
+	src.the_construct = the_construct
 	the_construct.seeking = TRUE
 
 
@@ -136,7 +140,7 @@
 		message_probability = 7,\
 		current_owner = src,\
 	)
-	var/obj/effect/proc_holder/spell/seek_master/seek = new(src)
+	var/obj/effect/proc_holder/spell/seek_master/seek = new(null, src)
 	mind.AddSpell(seek)
 
 

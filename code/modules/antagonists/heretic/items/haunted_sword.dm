@@ -287,13 +287,13 @@
 		)
 
 	trapped_entity = trapped_mind?.current
-	var/datum/antagonist/heretic/heretic_holder = trapped_entity.mind?.has_antag_datum(/datum/antagonist/heretic)
+	var/datum/antagonist/heretic/heretic_holder = GET_HERETIC(trapped_entity)
 	if(!heretic_holder)
 		stack_trace("[soul_to_bind] in but not a heretic on the heretic soul blade.")
 
 	trapped_entity.AddSpell(new /obj/effect/proc_holder/spell/pointed/sword_fling(null, awakener))
 
-	heretic_path = heretic_holder.heretic_path
+	heretic_path = heretic_holder.heretic_path?.route
 
 	var/list/copied_objectives = heretic_holder.objectives.Copy()
 	trapped_entity.mind.remove_antag_datum(/datum/antagonist/heretic)

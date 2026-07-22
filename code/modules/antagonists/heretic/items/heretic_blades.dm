@@ -63,7 +63,7 @@
 	if(!check_usability(user))
 		return
 
-	var/datum/antagonist/heretic/our_heretic = user.mind?.has_antag_datum(/datum/antagonist/heretic)
+	var/datum/antagonist/heretic/our_heretic = GET_HERETIC(user)
 	if(our_heretic?.unlimited_blades)
 		. += span_notice("Ваша аура пробудилась — Обитель больше не позволит вам ломать клинки.")
 		return
@@ -116,7 +116,7 @@
 
 /obj/item/melee/sickly_blade/attack_self(mob/user)
 	if(!HAS_TRAIT(user, TRAIT_ELDRITCH_ARENA_PARTICIPANT))
-		var/datum/antagonist/heretic/our_heretic = user.mind?.has_antag_datum(/datum/antagonist/heretic)
+		var/datum/antagonist/heretic/our_heretic = GET_HERETIC(user)
 		if(our_heretic?.unlimited_blades)
 			user.balloon_alert(user, UNLINT("Обитель не даёт сломать клинок!"))
 			return
@@ -307,7 +307,7 @@
 	if(!proximity || !infused || target == user || !isliving(target))
 		return
 
-	var/datum/antagonist/heretic/heretic_datum = isheretic(user)
+	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	var/mob/living/living_target = target
 	if(!heretic_datum)
 		return
@@ -354,7 +354,7 @@
 
 /// Returns TRUE if the wielder is a heretic who has learned Empowered Blades.
 /obj/item/melee/sickly_blade/dark/proc/wielder_has_empowered_blades(mob/user)
-	var/datum/antagonist/heretic/heretic_datum = isheretic(user)
+	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	return !isnull(heretic_datum?.get_knowledge(/datum/heretic_knowledge/blade_upgrade/blade))
 
 
@@ -480,7 +480,7 @@
 
 
 /obj/item/melee/sickly_blade/beyond/proc/wielder_has_null_reference(mob/user)
-	var/datum/antagonist/heretic/heretic_datum = isheretic(user)
+	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	return !isnull(heretic_datum?.get_knowledge(/datum/heretic_knowledge/blade_upgrade/beyond))
 
 
@@ -682,7 +682,7 @@
 	if(user.a_intent == INTENT_HARM || iswallturf(interacting_with))
 		return NONE
 
-	var/datum/antagonist/heretic/heretic_datum = isheretic(user)
+	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
 	if(!heretic_datum)
 		return NONE
 

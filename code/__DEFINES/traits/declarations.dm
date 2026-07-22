@@ -600,6 +600,9 @@
 /// Used for managing KEEP_TOGETHER in [/atom/var/appearance_flags]
 #define TRAIT_KEEP_TOGETHER "keep-together"
 
+/// Object has been frozen solid by cryogenic effects. See /datum/element/frozen.
+#define TRAIT_FROZEN "frozen"
+
 // --- Heretic antagonist traits (ported from tg via Paradise-selfharm) ---
 // Heretic-internal traits (the heretic code both sets and checks these):
 #define TRAIT_ALLOW_HERETIC_CASTING "allow_heretic_casting"

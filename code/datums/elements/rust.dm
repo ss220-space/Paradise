@@ -142,7 +142,7 @@
 		return
 
 	var/mob/living/victim = entered
-	if(isheretic(victim))
+	if(IS_HERETIC(victim))
 		return
 
 	if(victim.can_block_magic(MAGIC_RESISTANCE))

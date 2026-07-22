@@ -73,7 +73,7 @@
 	. = ..() // base transfers the mind back to the human and gibs the worm
 
 	if(!QDELETED(trapped_caster) && trapped_caster.mind)
-		var/datum/antagonist/heretic/our_heretic = trapped_caster.mind.has_antag_datum(/datum/antagonist/heretic)
+		var/datum/antagonist/heretic/our_heretic = GET_HERETIC(trapped_caster)
 		our_heretic?.resync_knowledge_spells(trapped_caster)
 		for(var/obj/effect/proc_holder/spell/spell as anything in trapped_caster.mind.spell_list)
 			spell.action?.Grant(trapped_caster)

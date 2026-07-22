@@ -33,7 +33,7 @@
 	if(!action?.owner)
 		return
 
-	if(isheretic(action.owner))
+	if(IS_HERETIC(action.owner))
 		RegisterSignal(action.owner, SIGNAL_REMOVETRAIT(TRAIT_ALLOW_HERETIC_CASTING), PROC_REF(on_focus_lost))
 
 

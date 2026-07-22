@@ -22,7 +22,7 @@
 	. = ..()
 	if(!.)
 		return
-	heretic_datum = owner.mind?.has_antag_datum(/datum/antagonist/heretic)
+	heretic_datum = GET_HERETIC(owner)
 	if(!heretic_datum)
 		return FALSE
 	if(heretic_datum.passive_level >= 2)
