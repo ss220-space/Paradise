@@ -80,7 +80,7 @@
 		if(VAULT_QUICK)
 			to_chat(H, span_notice("Ваши руки двигаются с молниеносной скоростью."))
 			H.next_move_modifier *= 0.5
-	H.gene_stability += 25
+	H.set_gene_stability(H.gene_stability + 25)
 	to_chat(H, span_notice("Вы ощущаете, как ваше тело изменяется."))
 	used = TRUE
 	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)

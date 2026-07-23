@@ -490,6 +490,17 @@
 	bound_width = 64
 	layer = EDGED_TURF_LAYER
 
+///////////Elder Atmosian///////////////////////////////////////////
+
+/obj/structure/statue/elder_atmosian
+	name = "Elder Atmosian"
+	desc = "A statue of an Elder Atmosian, capable of bending the laws of thermodynamics to their will."
+	icon_state = "eng"
+	//custom_materials = list(/datum/material/iron = SHEET_MATERIAL_AMOUNT * 30, /datum/material/metalhydrogen = SHEET_MATERIAL_AMOUNT * 20, /datum/material/zaukerite = SHEET_MATERIAL_AMOUNT * 15)
+	max_integrity = 1000
+	//impressiveness = 100
+	//uncarveable = TRUE
+
 /obj/structure/statue/unknown
 	name = "Unknown hero"
 	desc = "A pedestal for an unknown soldier, perhaps he was somehow connected with the solar system."

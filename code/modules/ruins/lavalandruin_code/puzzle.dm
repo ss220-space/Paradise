@@ -272,7 +272,7 @@
 		CRASH("Prison cube without prisoner")
 	prisoner.setDir(SOUTH)
 	var/icon/I = getFlatIcon(prisoner)
-	I.Scale(96,96)
+	I.Scale(96, 96)
 	return I
 
 /obj/effect/sliding_puzzle/prison/Destroy()

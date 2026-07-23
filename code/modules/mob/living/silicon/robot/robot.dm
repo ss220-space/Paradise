@@ -2300,3 +2300,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return FALSE
 	. = ..()
 
+/mob/living/silicon/robot/get_lootpanel_cache_key()
+	return "[module?.type] [selected_skin?.type]"
+

@@ -1,0 +1,4 @@
+author: "FlitchTime"
+delete-after: True
+changes:
+  - tweak: "Пиро-когти могут открывать шлюзы без питания. (PR #9534)"

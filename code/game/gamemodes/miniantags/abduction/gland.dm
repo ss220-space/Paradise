@@ -274,12 +274,12 @@
 /obj/item/organ/internal/heart/gland/electric/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
 	if(ishuman(owner))
-		owner.gene_stability += GENE_INSTABILITY_MODERATE // give them this gene for free
+		owner.set_gene_stability(owner.gene_stability + GENE_INSTABILITY_MODERATE) // give them this gene for free
 		owner.force_gene_block(GLOB.shockimmunityblock, TRUE)
 
 /obj/item/organ/internal/heart/gland/electric/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	if(ishuman(owner))
-		owner.gene_stability -= GENE_INSTABILITY_MODERATE // but return it to normal once it's removed
+		owner.set_gene_stability(owner.gene_stability - GENE_INSTABILITY_MODERATE) // but return it to normal once it's removed
 		owner.force_gene_block(GLOB.shockimmunityblock, FALSE)
 	return ..()
 
