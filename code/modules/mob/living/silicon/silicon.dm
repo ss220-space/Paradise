@@ -4,7 +4,7 @@
 	has_unlimited_silicon_privilege = TRUE
 	weather_immunities = list(TRAIT_WEATHER_IMMUNE)
 	abstract_type = /mob/living/silicon
-	looting_icon_mode = LOOT_ICON_FLAT_ICON
+	looting_icon_mode = LOOT_ICON_FLAT_ICON_TYPE_CACHABLE
 	examine_cursor_icon = null
 	var/syndicate = 0
 	var/obj/item/gps/cyborg/gps
@@ -445,3 +445,4 @@
 	. = ..()
 	var/damage = 10 + 1.5 * speed
 	hit_atom.hit_by_thrown_mob(src, throwingdatum, damage, FALSE, FALSE)
+

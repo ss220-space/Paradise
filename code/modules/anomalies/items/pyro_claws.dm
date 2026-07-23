@@ -83,7 +83,7 @@
 	user.visible_message(span_warning("[user] силой открыл[GEND_A_O_I(user)] шлюз при помощи [declent_ru(GENITIVE)]!"), \
 						span_warning("Вы силой открыли шлюз."), \
 						span_warning("Вы слышите металлический скрежет."))
-	airlock.open(2)
+	airlock.open(TRUE)
 
 /obj/item/twohanded/required/pyro_claws/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] начина[PLUR_ET_YUT(user)] пилить [declent_ru(NOMINATIVE)] друг об друга! \

@@ -17,6 +17,7 @@
 	pixel_y_lying_offset = -20
 	hud_type = /datum/hud/devil
 	tts_seed = "Mannoroth"
+	looting_icon_mode = LOOT_ICON_ICON_TO_HTML
 	var/datum/antagonist/devil/devilinfo
 	var/ascended = FALSE
 	var/list/devil_overlays[DEVIL_TOTAL_LAYERS]

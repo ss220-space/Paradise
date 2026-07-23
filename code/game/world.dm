@@ -166,15 +166,6 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	if(GLOB.pending_server_update)
 		to_chat(world, span_boldannounceooc("Reboot will take a little longer, due to pending updates."))
 
-	//log_debug("Sending roundrestart to all clients...")
-	// Send the reboot banner to all players
-	//var/position = 0 // queue autoreconnect
-	//for(var/client/C in GLOB.clients)
-	//	C?.tgui_panel?.send_roundrestart(position)
-	//	position++
-	//	if(CONFIG_GET(string/server)) // If you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
-	//		C << link("byond://[CONFIG_GET(string/server)]")
-
 	log_debug("Shutting down...")
 	// And begin the real shutdown
 	if(config && CONFIG_GET(flag/shutdown_on_reboot))
@@ -363,6 +354,15 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	if(SSredis.connected)
 		rustg_redis_disconnect() // Disconnects the redis connection. See above.
 	prof_stop()
+
+/world/proc/update_hub_visibility(new_visibility)
+	if(new_visibility == GLOB.hub_visibility)
+		return
+	GLOB.hub_visibility = new_visibility
+	if(GLOB.hub_visibility)
+		hub_password = "kMZy3U5jJHSiBQjr"
+	else
+		hub_password = "SORRYNOPASSWORD"
 
 /**
  * Handles incresing the world's maxx var and intializing the new turfs and assigning them to the global area.

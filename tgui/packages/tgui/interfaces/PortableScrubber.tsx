@@ -41,15 +41,24 @@ export const PortableScrubber = (_props: unknown) => {
 
 const PumpSettings = (_props: unknown) => {
   const { act, data } = useBackend<PortableScrubberData>();
-  const { on, port_connected } = data;
+  const { on, port_connected, hasHypernobCrystal, reactionSuppressionEnabled } =
+    data;
 
   return (
     <Section title="Pump Settings">
-      <Flex>
-        <Flex.Item mb={2.5} mt={0.5} mr={11.9} color="label">
-          Power:
-        </Flex.Item>
-        <Flex.Item>
+      <LabeledList>
+        {!!hasHypernobCrystal && (
+          <LabeledList.Item label="Reaction Suppression">
+            <Button
+              icon={reactionSuppressionEnabled ? 'snowflake' : 'times'}
+              selected={reactionSuppressionEnabled}
+              onClick={() => act('reaction_suppression')}
+            >
+              {reactionSuppressionEnabled ? 'Enabled' : 'Disabled'}
+            </Button>
+          </LabeledList.Item>
+        )}
+        <LabeledList.Item label="Power:">
           <Button
             icon={on ? 'power-off' : 'power-off'}
             color={on ? null : 'red'}
@@ -58,16 +67,14 @@ const PumpSettings = (_props: unknown) => {
           >
             {on ? 'On' : 'Off'}
           </Button>
-        </Flex.Item>
-      </Flex>
-      <Flex>
-        <Flex.Item mr={6.8} color="label">
-          Port Status:
-        </Flex.Item>
-        <Flex.Item color={port_connected ? 'green' : 'average'} bold={1}>
+        </LabeledList.Item>
+        <LabeledList.Item
+          color={port_connected ? 'green' : 'average'}
+          label="Port Status:"
+        >
           {port_connected ? 'Connected' : 'Disconnected'}
-        </Flex.Item>
-      </Flex>
+        </LabeledList.Item>
+      </LabeledList>
     </Section>
   );
 };
