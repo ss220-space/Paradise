@@ -93,6 +93,32 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	)
 	/// Simpler version of above used to limit amount of loot that can be hoarded
 	var/rewards_given = 0
+	var/list/dreams_what_you_can_see = list(
+		/obj/item,
+		/obj/structure,
+		/obj/machinery,
+	)
+	var/static/list/dreams_what_you_cant_see = typecacheof(list(
+		/obj/item/radio/intercom,
+		/obj/structure/cable,
+		/obj/structure/disposalpipe/segment,
+		/obj/machinery/atmospherics,
+		/obj/machinery/atmospherics/unary/vent_scrubber,
+		/obj/machinery/atmospherics/unary/vent_pump,
+		/obj/machinery/navbeacon,
+		/obj/machinery/power/terminal,
+		/obj/machinery/power/apc,
+		/obj/machinery/light_switch,
+		/obj/machinery/light,
+		/obj/machinery/camera,
+		/obj/machinery/door/firedoor,
+		/obj/machinery/firealarm,
+		/obj/machinery/alarm,
+		/obj/structure/window,
+		/obj/structure/grille,
+		/obj/structure/sign/poster,
+	))
+	var/static/list/dreams_allowed_typecaches_by_root_type = null
 
 /datum/antagonist/heretic/Destroy()
 	LAZYNULL(sac_targets)
