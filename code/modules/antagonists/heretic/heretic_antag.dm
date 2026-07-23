@@ -94,8 +94,6 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	/// Simpler version of above used to limit amount of loot that can be hoarded
 	var/rewards_given = 0
 
-
-
 /datum/antagonist/heretic/Destroy()
 	LAZYNULL(sac_targets)
 	return ..()

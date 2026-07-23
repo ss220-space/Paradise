@@ -121,7 +121,6 @@
 	name = "moonlit brain"
 	desc = "Мозг, до краёв напитанный лунным светом. Извилины мерцают перламутром, и кажется, будто он тихо улыбается вам в ответ."
 	icon = 'icons/obj/species_organs/moon_brain.dmi'
-	icon_state = "brain2"
 	var/original_brain_type = /obj/item/organ/internal/brain
 
 
