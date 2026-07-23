@@ -595,7 +595,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	if(!ishuman(target))
 		return
 
-	if(HAS_TRAIT(target, TRAIT_NO_HAIR_LOSS))
+	if(!(target.dna.species.bodyflags & HAS_HAIR))
 		return
 
 	if(!prob(3))

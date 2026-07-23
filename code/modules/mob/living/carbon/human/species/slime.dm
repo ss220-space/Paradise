@@ -41,7 +41,7 @@ GLOBAL_LIST_EMPTY(slime_actions)
 		TRAIT_NO_DNA,
 	)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = HAS_SKIN_COLOR | NO_EYES
+	bodyflags = HAS_SKIN_COLOR | NO_EYES | HAS_HAIR
 	reagent_tag = ORGANIC
 
 	flesh_color = "#5fe8b1"

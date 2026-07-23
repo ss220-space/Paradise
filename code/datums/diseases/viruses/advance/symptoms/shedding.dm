@@ -29,7 +29,7 @@ BONUS
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB))
 		var/mob/living/M = A.affected_mob
-		if(HAS_TRAIT(M, TRAIT_NO_HAIR_LOSS))
+		if(!(M.dna.species.bodyflags & HAS_HAIR))
 			return
 		to_chat(M, span_warning(pick("Вы ощущаете неприятный зуд в волосах.", "Ваша кожа шелушится.")))
 		if(ishuman(M))
