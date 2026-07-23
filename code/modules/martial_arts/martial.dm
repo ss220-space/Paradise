@@ -633,7 +633,9 @@
 	throwforce = 20
 	attack_verb = list("сокрушил", "ударил", "огрел")
 	icon_state = "bostaff0"
-	block_chance = 50
+
+/obj/item/twohanded/bostaff/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/twohanded/bostaff/update_icon_state()
 	icon_state = "bostaff[HAS_TRAIT(src, TRAIT_WIELDED)]"
@@ -699,7 +701,7 @@
 /obj/item/twohanded/bostaff/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		return ..()
-	return FALSE
+	return HIT_RESULT_FAILED
 
 /atom/movable/screen/combo
 	icon_state = ""

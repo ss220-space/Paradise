@@ -52,3 +52,16 @@
 #define MANIFEST_ERROR_NAME 1
 #define MANIFEST_ERROR_COUNT 2
 #define MANIFEST_ERROR_ITEM 4
+
+///Standard export define for not selling the item.
+#define EXPORT_NOT_SOLD 0
+///Sell the item
+#define EXPORT_SOLD 1
+///Sell the item, but for the love of god, don't delete it, we're handling it in a fancier way.
+#define EXPORT_SOLD_DONT_DELETE 2
+
+// Defines for use with `export_item_and_contents()`, aka the export code that sells the items.
+/// Default export define, these are things that are sold to centcom.
+#define EXPORT_MARKET_STATION "supply"
+
+#define CARGO_CRATE_VALUE 200

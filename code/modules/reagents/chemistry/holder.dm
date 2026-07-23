@@ -956,3 +956,16 @@
 
 #undef ADDICTION_TIME
 #undef MINOR_ADDICTION_TIME
+
+//Creates foam from the reagent. Metaltype is for metal foam, notification is what to show people in textbox
+/datum/reagents/proc/create_foam(foamtype, foam_volume, result_type = null, notification = null, log = FALSE, lifetime, slippery)
+	var/location = get_turf(my_atom)
+
+	var/datum/effect_system/fluid_spread/foam/foam = new foamtype(location, null, foam_volume, my_atom, carry = src, result_type = result_type)
+	foam.start(log = log, lifetime = lifetime, slippery = slippery)
+
+	clear_reagents()
+	if(!notification)
+		return
+	for(var/mob/M in viewers(5, location))
+		to_chat(M, notification)

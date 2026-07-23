@@ -1,4 +1,0 @@
-author: "SCPfollower"
-delete-after: True
-changes:
-  - balance: "Невозможность мгновенно блокировать проход за собой с помощью РПД (rapid pipe dispenser). (PR #9468)"

@@ -1,4 +1,0 @@
-author: "Dimempers"
-delete-after: True
-changes:
-  - code_imp: "subtype_picker. (PR #9479)"

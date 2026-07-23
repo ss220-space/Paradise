@@ -1599,3 +1599,33 @@
 	if(!.)
 		return
 	owner.drop_all_held_items()
+
+/datum/status_effect/gene_instability
+	id = "gene_instability"
+	abstract_type = /datum/status_effect/gene_instability
+	status_type = STATUS_EFFECT_REPLACE
+
+/datum/status_effect/gene_instability/minor/tick(seconds_between_ticks)
+	var/instability = DEFAULT_GENE_STABILITY - owner.gene_stability
+	if(SPT_PROB(instability * 0.1, seconds_between_ticks))
+		owner.adjustFireLoss(min(5, instability * 0.67) * seconds_between_ticks)
+		to_chat(owner, span_danger("Вы ощущаете, как ваша кожа горит и покрывается волдырями!"))
+
+/datum/status_effect/gene_instability/major/tick(seconds_between_ticks)
+	var/instability = DEFAULT_GENE_STABILITY - owner.gene_stability
+	if(SPT_PROB(instability * 0.83, seconds_between_ticks))
+		owner.adjustCloneLoss(min(4, instability * 0.05) * seconds_between_ticks)
+		to_chat(owner, span_danger("Вам кажется, что ваше тело теряет свою форму."))
+	if(SPT_PROB(instability * 0.1, seconds_between_ticks))
+		owner.adjustToxLoss(min(5, instability * 0.67) * seconds_between_ticks)
+		to_chat(owner, span_danger("Вы чувствуете слабость и тошноту."))
+
+/datum/status_effect/gene_instability/major/critical/tick(seconds_between_ticks)
+	. = ..()
+	if(SPT_PROB(1, seconds_between_ticks))
+		to_chat(owner, span_biggerdanger("Вам невероятно плохо... Что-то не так!"))
+		addtimer(CALLBACK(src, PROC_REF(on_time_end)), 30 SECONDS)
+
+/datum/status_effect/gene_instability/major/critical/proc/on_time_end()
+	if(owner.gene_stability < GENETIC_DAMAGE_STAGE_3)
+		owner.gib()

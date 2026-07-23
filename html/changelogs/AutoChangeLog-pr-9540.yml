@@ -1,0 +1,5 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - add: "Добавлена механика парирования (PR #9540)"
+  - del: "Удален пассивный блок в руках у всех предметов (PR #9540)"

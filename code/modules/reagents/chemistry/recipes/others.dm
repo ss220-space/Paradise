@@ -39,6 +39,13 @@
 	s.start()
 	holder.clear_reagents()
 
+/datum/chemical_reaction/smart_foam
+	id = "smart_foam"
+	required_reagents = list("aluminum" = 3, "smart_foaming_agent" = 1, "facid" = 1)
+
+/datum/chemical_reaction/smart_foam/on_reaction(datum/reagents/holder, created_volume)
+	holder.create_foam(/datum/effect_system/fluid_spread/foam/metal/smart, 5 * created_volume, /obj/structure/foamedmetal, span_danger("The solution spews out metallic foam!"), log = TRUE)
+
 /datum/chemical_reaction/metalfoam
 	name = "Metal Foam"
 	id = "metalfoam"

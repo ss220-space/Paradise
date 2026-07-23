@@ -46,7 +46,7 @@
 	force = 15
 	throwforce = 10
 	w_class = WEIGHT_CLASS_BULKY
-	block_chance = 50
+	block_type = MELEE_ATTACKS
 	armour_penetration = 75
 	sharp = TRUE
 	origin_tech = "combat=5"
@@ -56,6 +56,9 @@
 	hitsound = 'sound/weapons/rapierhit.ogg'
 	materials = list(MAT_METAL = 1000)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF // Theft targets should be hard to destroy
+
+/obj/item/melee/rapier/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
 
 /obj/item/melee/rapier/ComponentInitialize()
 	. = ..()
@@ -72,7 +75,6 @@
 	desc = "An elegant weapon, for a more civilized age."
 	icon_state = "rapier"
 	item_state = "rapier"
-	block_type = MELEE_ATTACKS
 
 /obj/item/melee/rapier/captain/Initialize(mapload)
 	. = ..()
@@ -101,9 +103,11 @@
 	materials = null
 	force = 25
 	throwforce = 20
-	block_chance = 95
 	armour_penetration = 100
 	actions_types = list(/datum/action/item_action/toggle_rapier_nodrop)
+
+/obj/item/melee/rapier/centcomm/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 0.5, _stamina_coefficient = 0.1, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/melee/rapier/centcomm/ComponentInitialize()
 	. = ..()

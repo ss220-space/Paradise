@@ -51,6 +51,7 @@
 ///from base of obj/item/hit_reaction(): (list/args)
 #define COMSIG_ITEM_HIT_REACT "item_hit_react"
 	#define COMPONENT_BLOCK_SUCCESSFUL (1 << 0)
+	#define COMPONENT_BLOCK_PERFECT (1 << 2)
 ///called on item when crossed by something (): (/atom/movable, mob/living/crossed)
 #define COMSIG_ITEM_WEARERCROSSED "wearer_crossed"
 ///from base of item/sharpener/attackby(): (amount, max)
@@ -374,3 +375,13 @@
 
 /// from /datum/component/subtype_picker/pick_subtype(): (obj/item/old_item, mob/picker)
 #define COMSIG_ITEM_SUBTYPE_PICKER_SELECTED "item_subtype_picker_selected"
+
+// /obj/item signals for economy
+///called before an item is sold by the exports system.
+#define COMSIG_ITEM_PRE_EXPORT "item_pre_sold"
+	/// Stops the export from calling sell_object() on the item, so you can handle it manually.
+	#define COMPONENT_STOP_EXPORT (1<<0)
+///called when an item is sold by the exports subsystem
+#define COMSIG_ITEM_EXPORTED "item_sold"
+	/// Stops the export from adding the export information to the report, so you can handle it manually.
+	#define COMPONENT_STOP_EXPORT_REPORT (1<<0)

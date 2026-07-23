@@ -313,11 +313,6 @@
 	// not if he's not CANPUSH of course
 	if(!(bumped_mob.status_flags & CANPUSH) || HAS_TRAIT(bumped_mob, TRAIT_PUSHIMMUNE))
 		return TRUE
-	//anti-riot equipment is also anti-push
-	if(bumped_mob.r_hand && !isclothing(bumped_mob.r_hand) && prob(bumped_mob.r_hand.block_chance * 2))
-		return TRUE
-	if(bumped_mob.l_hand && !isclothing(bumped_mob.l_hand) && prob(bumped_mob.l_hand.block_chance * 2))
-		return TRUE
 
 //Called when we bump into an obj
 /mob/living/proc/ObjBump(obj/object)
@@ -2397,3 +2392,25 @@
  **/
 /mob/living/proc/clean_lips()
 	return
+
+/mob/living/proc/set_gene_stability(value)
+	if(gene_stability == value)
+		return
+
+	gene_stability = value
+
+	if(ignore_gene_stability)
+		return
+
+	if(value < GENETIC_DAMAGE_STAGE_3)
+		apply_status_effect(/datum/status_effect/gene_instability/major/critical)
+		return
+
+	if(value < GENETIC_DAMAGE_STAGE_2)
+		apply_status_effect(/datum/status_effect/gene_instability/major)
+		return
+
+	if(value < GENETIC_DAMAGE_STAGE_1)
+		apply_status_effect(/datum/status_effect/gene_instability/minor)
+		return
+	remove_status_effect(/datum/status_effect/gene_instability)

@@ -98,13 +98,13 @@
 	block = GLOB.twitchblock
 
 /datum/dna/gene/disability/tourettes/OnMobLife(mob/living/carbon/human/H)
-	if((prob(10) && H.AmountParalyzed() <= 2 SECONDS))
+	if((prob(10) && H.AmountParalyzed() <= 2 SECONDS) && H.stat)
 		H.Stun(20 SECONDS)
 		switch(rand(1, 3))
 			if(1)
 				H.emote("twitch")
 			if(2 to 3)
-				H.say("[prob(50) ? ";" : ""][pick("ГОВНО", "МОЧА", "БЛЯТЬ", "ПИЗДА", "ХУЕСОС", "ВЫБЛЯДОК", "ХУЙ", "ХОС ХУЕСОС", "СУКА", "ПОШЁЛ НАХУЙ", "ХЕРНЯ", "КОКПИТАН", "ДОЛБАЁБ", "ЕБЛЯ", "НАМ ПИЗДА")]")
+				INVOKE_ASYNC(H, TYPE_PROC_REF(/mob, say), "[prob(50) ? ";" : ""][pick("ГОВНО", "МОЧА", "БЛЯТЬ", "ПИЗДА", "ХУЕСОС", "ВЫБЛЯДОК", "ХУЙ", "ХОС ХУЕСОС", "СУКА", "ПОШЁЛ НАХУЙ", "ХЕРНЯ", "КОКПИТАН", "ДОЛБАЁБ", "ЕБЛЯ", "НАМ ПИЗДА")]")
 		var/x_offset_old = H.pixel_x
 		var/y_offset_old = H.pixel_y
 		var/x_offset = H.pixel_x + rand(-2, 2)

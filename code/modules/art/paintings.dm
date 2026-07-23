@@ -754,6 +754,7 @@ GLOBAL_LIST_INIT(canvas_dimensions, init_canvas_dimensions())
 	current_canvas?.forceMove(drop_turf)
 	var/obj/item/wallframe/frame = new wallframe_type(drop_turf)
 	frame.update_integrity(get_integrity()) //Transfer how damaged it is.
+	qdel(src)
 
 /obj/structure/sign/painting/examine(mob/user)
 	. = ..()

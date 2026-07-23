@@ -28,13 +28,18 @@
 	var/allow_duplicate_results = TRUE
 	/// The amount of time this foam stick around for before it dissipates.
 	var/lifetime = 8 SECONDS
+	/// The orignal value of lifetime
+	var/original_lifetime = 8 SECONDS
 	/// Whether or not this foam should be slippery.
 	var/slippery_foam = TRUE
 
-/obj/effect/particle_effect/fluid/foam/Initialize(mapload)
+/obj/effect/particle_effect/fluid/foam/Initialize(mapload, fluid_group, source, lifetime, slippery)
 	. = ..()
+	src.lifetime = lifetime ? lifetime : src.lifetime
+	src.original_lifetime = src.lifetime
+	src.slippery_foam = !isnull(slippery) ? slippery : slippery_foam
 	if(slippery_foam)
-		AddComponent(/datum/component/slippery, 100, can_slip_callback = CALLBACK(src, PROC_REF(try_slip)))
+		AddComponent(/datum/component/slippery, SLIPPERY_TIME_FOAM, can_slip_callback = CALLBACK(src, PROC_REF(try_slip)))
 	if(HAS_TRAIT(loc, TRAIT_ELEVATED_TURF))
 		layer = WATER_LEVEL_LAYER
 	create_reagents(1000)
@@ -157,7 +162,7 @@
 				continue
 			foam_mob(foaming, seconds_per_tick)
 
-		var/obj/effect/particle_effect/fluid/foam/spread_foam = new type(spread_turf, group, src)
+		var/obj/effect/particle_effect/fluid/foam/spread_foam = new type(spread_turf, group, src, src.original_lifetime, src.slippery_foam)
 		reagents.copy_to(spread_foam, (reagents.total_volume))
 		spread_foam.add_atom_colour(color, FIXED_COLOUR_PRIORITY)
 		spread_foam.result_type = result_type
@@ -201,8 +206,8 @@
 		carry.remove_reagent(reagent, carry.total_volume, safety = TRUE)
 	carry.copy_to(chemholder, carry.total_volume, safety = TRUE)
 
-/datum/effect_system/fluid_spread/foam/start(log = FALSE)
-	var/obj/effect/particle_effect/fluid/foam/foam = new effect_type(location, new /datum/fluid_group(amount))
+/datum/effect_system/fluid_spread/foam/start(log = FALSE, lifetime, slippery)
+	var/obj/effect/particle_effect/fluid/foam/foam = new effect_type(location, new /datum/fluid_group(amount), null, lifetime, slippery)
 	var/foamcolor = mix_color_from_reagents(chemholder.reagent_list)
 	if(reagent_scale > 1) // Make room in case we were created by a particularly stuffed payload.
 		foam.reagents.maximum_volume *= reagent_scale
@@ -331,6 +336,21 @@
 
 /obj/effect/particle_effect/fluid/foam/metal/resin/halon/temperature_expose(exposed_temperature, exposed_volume)
 	return // Doesn't dissolve in heat.
+
+/// A factory which produces smart aluminium metal foam.
+/datum/effect_system/fluid_spread/foam/metal/smart
+	effect_type = /obj/effect/particle_effect/fluid/foam/metal/smart
+
+/obj/effect/particle_effect/fluid/foam/metal/smart/make_result() //Smart foam adheres to area borders for walls
+	var/turf/simulated/location = loc
+	if(isspaceturf(location) || isopenspaceturf(location))
+		location.ChangeTurf(/turf/simulated/floor/plating/metalfoam)
+
+	for(var/cardinal in GLOB.cardinal)
+		var/turf/cardinal_turf = get_step(location, cardinal)
+		if(get_area(cardinal_turf) != get_area(location))
+			return ..()
+	return null
 
 /// A factory which produces smart aluminium metal foam.
 /datum/effect_system/fluid_spread/foam/metal

@@ -1039,7 +1039,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sink/kitchen, (-16), (-16))
 
 /obj/structure/sink/puddle/Initialize(mapload)
 	. = ..()
-
+	if(!has_water_reclaimer)
+		reagents.add_reagent(dispensedreagent, capacity)
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
