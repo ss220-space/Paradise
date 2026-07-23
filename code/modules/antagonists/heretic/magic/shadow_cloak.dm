@@ -49,7 +49,7 @@
 
 	var/datum/antagonist/heretic/heretic_datum = GET_HERETIC(cast_on)
 	if(heretic_datum && heretic_datum.has_living_heart() != HERETIC_HAS_LIVING_HEART)
-		to_chat(cast_on, span_hypnophrase("Вам нужно Живое Сердце, чтобы применить \"[name]\"!"))
+		to_chat(cast_on, span_mansus("Вам нужно Живое Сердце, чтобы применить \"[name]\"!"))
 		return . | SPELL_CANCEL_CAST
 
 	sound = pick(

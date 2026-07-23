@@ -178,7 +178,7 @@
 	if(tracked_mob.stat != DEAD)
 		return
 
-	to_chat(action.owner, span_hierophant("[DECLENT_RU_CAP(tracked_mob, NOMINATIVE)] мертв[GEND_A_O_Y(tracked_mob)]. \
+	to_chat(action.owner, span_mansus("[DECLENT_RU_CAP(tracked_mob, NOMINATIVE)] мертв[GEND_A_O_Y(tracked_mob)]. \
 										Принесите [GEND_HIS_HER(tracked_mob)] на руну трансформации и используйте \
 										\"[sac_knowledge.name]\", чтобы принести [GEND_HIS_HER(tracked_mob)] в жертву!"))
 

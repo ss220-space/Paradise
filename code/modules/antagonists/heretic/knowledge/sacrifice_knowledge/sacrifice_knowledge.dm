@@ -62,26 +62,26 @@
 		loc.balloon_alert(user, "неподходящее место!")
 		switch(backdoor_sacrifice_attempts)
 			if(0)
-				to_chat(user, span_hypnophrase("Проводить жертвоприношение так близко к богам рискованно..."))
+				to_chat(user, span_mansus("Проводить жертвоприношение так близко к богам рискованно..."))
 			if(1)
-				to_chat(user, span_hypnophrase("<i>Вы слышите стук[HAS_TRAIT(user, TRAIT_DEAF) ? ", несмотря на свою глухоту" : ""]...</i>"))
+				to_chat(user, span_mansus("<i>Вы слышите стук[HAS_TRAIT(user, TRAIT_DEAF) ? ", несмотря на свою глухоту" : ""]...</i>"))
 			if(2)
-				to_chat(user, span_hypnophrase("<i>Стук становится громче...</i>"))
+				to_chat(user, span_mansus("<i>Стук становится громче...</i>"))
 				user.AdjustDeaf(10 SECONDS)
 				user.Weaken(1 SECONDS)
 				user.adjustBruteLoss(10)
 			if(3)
-				to_chat(user, span_hypnophrase("<i>Стук становится оглушительным!</i>"))
+				to_chat(user, span_mansus("<i>Стук становится оглушительным!</i>"))
 				user.AdjustDeaf(20 SECONDS)
 				user.Weaken(4 SECONDS)
 				user.adjustBruteLoss(20)
 			if(4)
 				if(begin_sacrifice(user))
-					to_chat(user, span_hypnophrase("<b><i>Ваша дерзость наказана!</i></b>"))
+					to_chat(user, span_mansus("<b><i>Ваша дерзость наказана!</i></b>"))
 				else
-					to_chat(user, span_hypnophrase("Стук прекращается — но вас не покидает чувство, что вы чудом избежали расправы."))
+					to_chat(user, span_mansus("Стук прекращается — но вас не покидает чувство, что вы чудом избежали расправы."))
 			if(5 to INFINITY)
-				to_chat(user, span_hypnophrase("Вы не думаете, что очередная попытка откроет вам что-то новое..."))
+				to_chat(user, span_mansus("Вы не думаете, что очередная попытка откроет вам что-то новое..."))
 
 		backdoor_sacrifice_attempts++
 		return FALSE
@@ -139,7 +139,7 @@
 
 	if(!length(valid_targets))
 		if(!silent)
-			to_chat(user, span_hierophant_warning("Целей для жертвоприношения не обнаружено!"))
+			to_chat(user, span_mansus("Целей для жертвоприношения не обнаружено!"))
 
 		return FALSE
 
@@ -244,7 +244,7 @@
 
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/grant_reward(mob/living/user, mob/living/sacrifice, turf/loc)
 	to_chat(user, span_big(span_purple("Слуга Кровавого Отступника!")))
-	to_chat(user, span_hierophant("Ваши покровители в восторге!"))
+	to_chat(user, span_mansus("Ваши покровители в восторге!"))
 	playsound(sacrifice, 'sound/magic/disintegrate.ogg', 75, TRUE)
 
 	var/list/dustee_items = sacrifice.unequip_everything()

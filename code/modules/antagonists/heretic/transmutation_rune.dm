@@ -230,7 +230,7 @@
 
 	if(length(what_are_we_missing))
 		loc.balloon_alert(user, "не хватает компонентов!")
-		to_chat(user, span_hierophant_warning("Для завершения ритуала \"[ritual.name]\" не хватает [russian_list(what_are_we_missing)]."))
+		to_chat(user, span_mansus("Для завершения ритуала \"[ritual.name]\" не хватает [russian_list(what_are_we_missing)]."))
 		return FALSE
 
 	ritual_animation()

@@ -32,7 +32,7 @@
 	playsound(src, SFX_SHATTER, 50, TRUE)
 	playsound(src, 'sound/magic/voidblink.ogg', 50, FALSE)
 	if(IS_HERETIC_OR_MONSTER(user))
-		to_chat(user, span_hypnophrase("Вы разбиваете [declent_ru(ACCUSATIVE)], высвобождая её силу вокруг себя!"))
+		to_chat(user, span_mansus("Вы разбиваете [declent_ru(ACCUSATIVE)], высвобождая её силу вокруг себя!"))
 		for(var/mob/living/nearby_mob in view(3, user))
 			if(IS_HERETIC_OR_MONSTER(nearby_mob))
 				continue
@@ -51,14 +51,14 @@
 			nearby_mob.apply_status_effect(/datum/status_effect/void_prison)
 
 	else if(user.can_block_magic(MAGIC_RESISTANCE))
-		to_chat(user, span_hypnophrase("Вы разбиваете [declent_ru(ACCUSATIVE)], но её сила начинает окутывать вас самих!"))
+		to_chat(user, span_mansus("Вы разбиваете [declent_ru(ACCUSATIVE)], но её сила начинает окутывать вас самих!"))
 		user.visible_message(
 			span_danger("Холодная, кружащаяся пустота окутывает [user.declent_ru(ACCUSATIVE)], но [GEND_HE_SHE(user)] вырыва[PLUR_ET_YUT(user)]ся на свободу!"),
 			span_userdanger("Перед вами разверзается зияющая пустота, но мощная волна жара разносит её вдребезги! Вы защищены!")
 		)
 
 	else
-		to_chat(user, span_hypnophrase("Вы разбиваете [declent_ru(ACCUSATIVE)], но её сила начинает окутывать вас самих!"))
+		to_chat(user, span_mansus("Вы разбиваете [declent_ru(ACCUSATIVE)], но её сила начинает окутывать вас самих!"))
 		user.visible_message(
 			span_danger("Холодная, кружащаяся пустота окутывает [user.declent_ru(ACCUSATIVE)]!"),
 			span_userdanger("Перед вами разверзается зияющая пустота! Тьма поглощает вас, и вы оказываетесь в полном небытии..."),

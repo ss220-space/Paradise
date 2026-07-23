@@ -223,7 +223,7 @@
 	gain_text = "Потусторонние силы оставляют фрагменты знаний и силы повсюду. Кодекс Истязания — одно из доказательств. \
 				На кожанных страницах находятся знания, открывающие путь к Обители."
 	required_atoms = list(
-		/obj/item/book = 1,
+		list(/obj/item/toy/eldritch_book, /obj/item/book) = 1,
 		/obj/item/pen = 1,
 		list(/mob/living, /obj/item/stack/sheet/leather, /obj/item/stack/sheet/animalhide) = 1,
 	)
@@ -283,13 +283,13 @@
 	else
 		body.apply_damage(25, BRUTE, sharp = TRUE)
 
-	var/obj/item/book/le_book = locate() in selected_atoms
+	var/obj/item/le_book = locate(/obj/item/book) in selected_atoms
 	if(!le_book)
-		stack_trace("Somehow, no book in Codex Cicatrix selected atoms! [english_list(selected_atoms)]")
+		le_book = locate(/obj/item/toy/eldritch_book) in selected_atoms
 
 	playsound(body, 'sound/items/poster_ripped.ogg', 100, TRUE)
 	body.do_jitter_animation()
-	body.visible_message(span_danger("Раздается ужасный звук, когда кожа отделяется от [ripped_thing.declent_ru(GENITIVE)] и обретает жутковатый синий оттенок, становясь обложкой [le_book.declent_ru(GENITIVE)]!"))
+	body.visible_message(span_danger("Раздается ужасный звук, когда кожа отделяется от [ripped_thing.declent_ru(GENITIVE)] и обретает жутковатый синий оттенок, становясь обложкой [le_book ? le_book.declent_ru(GENITIVE) : "книги"]!"))
 	return ..()
 
 

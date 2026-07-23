@@ -346,7 +346,7 @@
 	id = "heretic_passive_flesh"
 	name = "Ненасытный Голод"
 	passive_descriptions = list(
-		"Иммунитет к болезням и отвращению — никакая еда не вызывает у вас тошноты.",
+		"Иммунитет к болезням и отвращению — ни еда, ни вид и запах трупов не вызывают у вас тошноты.",
 		"Поедание мяса или органов исцеляет вас, а полнота больше вас не замедляет.",
 		"Будучи толстым, вы получаете 25% сопротивления урону и устойчивость к электродубинкам.",
 	)
@@ -356,7 +356,7 @@
 	. = ..()
 	if(!.)
 		return
-	owner.add_traits(list(TRAIT_VIRUSIMMUNE, TRAIT_NODISGUST), TRAIT_STATUS_EFFECT(id))
+	owner.add_traits(list(TRAIT_VIRUSIMMUNE, TRAIT_NODISGUST, TRAIT_MORBID), TRAIT_STATUS_EFFECT(id))
 	owner.SetDisgust(0)
 
 
@@ -380,7 +380,7 @@
 	if(ishuman(owner) && HAS_TRAIT_FROM(owner, TRAIT_BATON_RESISTANCE, TRAIT_STATUS_EFFECT(id)))
 		var/mob/living/carbon/human/heretic = owner
 		heretic.physiology.damage_resistance -= 25
-	owner.remove_traits(list(TRAIT_VIRUSIMMUNE, TRAIT_NODISGUST, TRAIT_BATON_RESISTANCE), TRAIT_STATUS_EFFECT(id))
+	owner.remove_traits(list(TRAIT_VIRUSIMMUNE, TRAIT_NODISGUST, TRAIT_MORBID, TRAIT_BATON_RESISTANCE), TRAIT_STATUS_EFFECT(id))
 	UnregisterSignal(owner, list(COMSIG_FOOD_EATEN, SIGNAL_ADDTRAIT(TRAIT_FAT), SIGNAL_REMOVETRAIT(TRAIT_FAT)))
 	return ..()
 

@@ -176,7 +176,7 @@
 /area/centcom/heretic_backdoor/proc/greet_message(mob/living/arrived_mob)
 	if(QDELETED(arrived_mob) || get_area(arrived_mob) != src)
 		return
-	to_chat(arrived_mob, span_hypnophrase("Сверху светит полое солнце."))
+	to_chat(arrived_mob, span_mansus("Сверху светит полое солнце."))
 
 
 /datum/movespeed_modifier/heretic_backdoor_slowdown

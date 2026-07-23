@@ -88,7 +88,7 @@
 	add_attack_logs(user, to_curse, "cursed via heretic ritual ([name])")
 	var/obj/item/codex_cicatrix/morbus/cursed_book = locate() in selected_atoms
 	curse(to_curse, cursed_book)
-	to_chat(user, span_hierophant("Вы применяете \"[name]\". Ваша цель — [to_curse.real_name]."))
+	to_chat(user, span_mansus("Вы применяете \"[name]\". Ваша цель — [to_curse.real_name]."))
 
 	fingerprints = null
 	blood_samples = null

@@ -354,6 +354,8 @@
 				continue
 			if(HAS_TRAIT(H, TRAIT_NO_BREATH))
 				continue //no puking if you can't smell!
+			if(HAS_TRAIT(H, TRAIT_MORBID))
+				continue
 			to_chat(H, span_warning("You smell something foul..."))
 			H.fakevomit()
 

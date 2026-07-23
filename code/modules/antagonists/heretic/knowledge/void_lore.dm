@@ -276,15 +276,15 @@
 		INVOKE_ASYNC(src, PROC_REF(create_conduit), affected_turf, source, sword)
 		return COMPONENT_CANCEL_ATTACK_CHAIN
 
-	to_chat(source, span_hypnophrase("[DECLENT_RU_CAP(sword, NOMINATIVE)] гудит от силы, но [affected_turf.declent_ru(NOMINATIVE)] недостаточно холодн[GEND_A_O_Y(affected_turf)], чтобы открыть врата!"))
+	to_chat(source, span_mansus("[DECLENT_RU_CAP(sword, NOMINATIVE)] гудит от силы, но [affected_turf.declent_ru(NOMINATIVE)] недостаточно холодн[GEND_A_O_Y(affected_turf)], чтобы открыть врата!"))
 	return NONE
 
 
 /datum/heretic_knowledge/void_conduit/proc/create_conduit(turf/affected_turf, mob/living/source, obj/item/sword)
 	playsound(source, 'sound/magic/voidblink.ogg', 50, TRUE)
-	to_chat(source, span_hypnophrase("Вы вонзаете [sword.declent_ru(ACCUSATIVE)] глубоко в [affected_turf.declent_ru(ACCUSATIVE)], пытаясь разорвать проход в Пустоту!"))
+	to_chat(source, span_mansus("Вы вонзаете [sword.declent_ru(ACCUSATIVE)] глубоко в [affected_turf.declent_ru(ACCUSATIVE)], пытаясь разорвать проход в Пустоту!"))
 	source.visible_message(
-		span_hypnophrase("[DECLENT_RU_CAP(source, NOMINATIVE)] вонзает [sword.declent_ru(ACCUSATIVE)] в [affected_turf.declent_ru(ACCUSATIVE)] — и из разлома начинает сочиться тёмная энергия!"),
+		span_mansus("[DECLENT_RU_CAP(source, NOMINATIVE)] вонзает [sword.declent_ru(ACCUSATIVE)] в [affected_turf.declent_ru(ACCUSATIVE)] — и из разлома начинает сочиться тёмная энергия!"),
 		ignored_mobs = list(source),
 	)
 	var/obj/effect/temp_visual/void_conduit_opening/animation = new(affected_turf)
@@ -292,9 +292,9 @@
 		animate(animation, alpha = 0, time = 1 SECONDS)
 		QDEL_IN(animation, 1 SECONDS)
 		return
-	to_chat(source, span_hypnophrase("Врата открываются, высвобождая шторм пустотной энергии! [DECLENT_RU_CAP(sword, NOMINATIVE)] рассыпается на миллион крошечных осколков!"))
+	to_chat(source, span_mansus("Врата открываются, высвобождая шторм пустотной энергии! [DECLENT_RU_CAP(sword, NOMINATIVE)] рассыпается на миллион крошечных осколков!"))
 	source.visible_message(
-		span_hypnophrase("Врата в Пустоту открываются, высвобождая шторм пустотной энергии!"),
+		span_mansus("Врата в Пустоту открываются, высвобождая шторм пустотной энергии!"),
 		ignored_mobs = list(source),
 	)
 	new /obj/structure/void_conduit(affected_turf)

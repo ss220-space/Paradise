@@ -406,19 +406,19 @@
 		to_chat(user, span_warning("У вас нет Звёздного Наблюдателя."))
 		return FALSE
 
-	to_chat(user, span_hierophant("Вы побуждаете [our_mob.declent_ru(ACCUSATIVE)] сменить свою личность..."))
+	to_chat(user, span_mansus("Вы побуждаете [our_mob.declent_ru(ACCUSATIVE)] сменить свою личность..."))
 	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите играть за [our_mob.declent_ru(ACCUSATIVE)] [span_danger("[user.real_name]")]?", null, FALSE, poll_time = 10 SECONDS, ignore_respawnability = TRUE, source = our_mob)
 	if(!length(candidates))
-		to_chat(user, span_hierophant("Никто не откликнулся на ваш зов. Похоже, пока придётся обойтись тем, что есть."))
+		to_chat(user, span_mansus("Никто не откликнулся на ваш зов. Похоже, пока придётся обойтись тем, что есть."))
 		return FALSE
 
 	var/mob/dead/observer/observer = pick(candidates)
 	if(our_mob.mind)
-		to_chat(our_mob, span_hierophant("Хозяин сбросил вас, и ваше тело занял другой призрак. Видимо, он остался недоволен."))
+		to_chat(our_mob, span_mansus("Хозяин сбросил вас, и ваше тело занял другой призрак. Видимо, он остался недоволен."))
 		our_mob.ghostize(FALSE)
 	our_mob.key = observer.key
 	if(our_mob.mind && !our_mob.mind.has_antag_datum(/datum/antagonist/heretic_monster))
 		var/datum/antagonist/heretic_monster/heretic_monster = our_mob.mind.add_antag_datum(/datum/antagonist/heretic_monster)
 		heretic_monster.set_owner(user.mind)
-	to_chat(user, span_hierophant("Разум [our_mob.declent_ru(GENITIVE)] перекроился под вас."))
+	to_chat(user, span_mansus("Разум [our_mob.declent_ru(GENITIVE)] перекроился под вас."))
 	return TRUE

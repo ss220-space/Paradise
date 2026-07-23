@@ -133,6 +133,7 @@
 		/obj/effect/spawner/random_spawners/mod/maint = 10,
 		/obj/item/tripod/camera = 1,
 		/obj/item/book/skill_manual/random = 2,
+		/obj/item/toy/eldritch_book = 2,
 		////////////////CONTRABAND STUFF//////////////////
 		/obj/item/grenade/clown_grenade = 3,
 		/obj/item/seeds/ambrosia/cruciatus = 3,

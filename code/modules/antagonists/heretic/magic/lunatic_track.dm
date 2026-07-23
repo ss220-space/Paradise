@@ -34,7 +34,7 @@
 		action.owner.balloon_alert(action.owner, get_balloon_message(ascended_heretic))
 
 		if(ascended_heretic.stat == DEAD)
-			to_chat(action.owner, span_hierophant("[ascended_heretic.declent_ru(NOMINATIVE)] [GEND_MERTV(ascended_heretic)]. Рыдайте, ибо ложь победила."))
+			to_chat(action.owner, span_mansus("[ascended_heretic.declent_ru(NOMINATIVE)] [GEND_MERTV(ascended_heretic)]. Рыдайте, ибо ложь победила."))
 
 		cooldown_handler.start_recharge()
 		return TRUE

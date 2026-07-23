@@ -1,3 +1,5 @@
+#define HOODED_MANTLE_HIDDEN_SLOTS (HIDEMASK|HIDEGLASSES|HIDEHEADSETS)
+
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch
 	name = "ominous hood"
 	desc = "Рваный, покрытый пылью капюшон. Внутри виднеются жуткие глаза."
@@ -67,6 +69,31 @@
 		return
 
 	. += span_notice("Позволяет использовать еретические заклинания при надетом капюшоне.")
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/EngageHood()
+	. = ..()
+	if(!.)
+		return
+	flags_inv |= HOODED_MANTLE_HIDDEN_SLOTS
+	update_hooded_face()
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/RemoveHood()
+	. = ..()
+	if(!.)
+		return
+	flags_inv &= ~HOODED_MANTLE_HIDDEN_SLOTS
+	update_hooded_face()
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/proc/update_hooded_face()
+	var/mob/living/carbon/human/wearer = loc
+	if(!ishuman(wearer))
+		return
+	wearer.update_worn_mask()
+	wearer.update_worn_glasses()
+	wearer.update_worn_ears()
 
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/lock
@@ -1491,3 +1518,5 @@
 	background_icon_state = "bg_heretic"
 	overlay_icon = 'icons/mob/actions/backgrounds.dmi'
 	overlay_icon_state = "bg_heretic_border"
+
+#undef HOODED_MANTLE_HIDDEN_SLOTS
