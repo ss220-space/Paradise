@@ -57,6 +57,8 @@
 
 #define BEYOND_MAX_RUNTIME_ERRORS 2
 
+#define MOON_BRAIN_DAMAGE_MODIFIER 0.6
+
 #define FACTION_HERETIC "heretic"
 #define FACTION_HOSTILE "hostile"
 

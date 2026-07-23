@@ -75,11 +75,79 @@
 /datum/heretic_knowledge/limited_amount/starting/base_moon/on_gain(mob/user, datum/antagonist/heretic/our_heretic, mind_transfer = FALSE)
 	. = ..()
 	ADD_TRAIT(user, TRAIT_EMPATHY, type)
+	apply_moon_brain(user)
 
 
 /datum/heretic_knowledge/limited_amount/starting/base_moon/on_lose(mob/user, datum/antagonist/heretic/our_heretic, mind_transfer = FALSE)
 	. = ..()
 	REMOVE_TRAIT(user, TRAIT_EMPATHY, type)
+	if(!mind_transfer)
+		restore_normal_brain(user)
+
+
+/datum/heretic_knowledge/limited_amount/starting/base_moon/proc/apply_moon_brain(mob/living/user)
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/human_user = user
+	var/obj/item/organ/internal/brain/existing = human_user.get_int_organ(/obj/item/organ/internal/brain)
+	if(istype(existing, /obj/item/organ/internal/brain/moon))
+		return
+
+	var/obj/item/organ/internal/brain/moon/moon_brain = new
+	if(existing)
+		moon_brain.original_brain_type = existing.type
+		moon_brain.damage = existing.damage
+		existing.remove(human_user, ORGAN_MANIPULATION_NOEFFECT)
+		qdel(existing)
+	moon_brain.insert(human_user, ORGAN_MANIPULATION_NOEFFECT)
+
+
+/datum/heretic_knowledge/limited_amount/starting/base_moon/proc/restore_normal_brain(mob/living/user)
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/human_user = user
+	var/obj/item/organ/internal/brain/moon/moon_brain = human_user.get_int_organ(/obj/item/organ/internal/brain/moon)
+	if(!moon_brain)
+		return
+
+	var/obj/item/organ/internal/brain/replacement = new moon_brain.original_brain_type
+	replacement.damage = moon_brain.damage
+	moon_brain.remove(human_user, ORGAN_MANIPULATION_NOEFFECT)
+	qdel(moon_brain)
+	replacement.insert(human_user, ORGAN_MANIPULATION_NOEFFECT)
+
+
+/obj/item/organ/internal/brain/moon
+	name = "moonlit brain"
+	desc = "Мозг, до краёв напитанный лунным светом. Извилины мерцают перламутром, и кажется, будто он тихо улыбается вам в ответ."
+	icon = 'icons/obj/species_organs/moon_brain.dmi'
+	icon_state = "brain2"
+	var/original_brain_type = /obj/item/organ/internal/brain
+
+
+/obj/item/organ/internal/brain/moon/get_ru_names()
+	return alist(
+		NOMINATIVE = "лунный мозг",
+		GENITIVE = "лунного мозга",
+		DATIVE = "лунному мозгу",
+		ACCUSATIVE = "лунный мозг",
+		INSTRUMENTAL = "лунным мозгом",
+		PREPOSITIONAL = "лунном мозге",
+	)
+
+
+/obj/item/organ/internal/brain/moon/insert(mob/living/target, special = ORGAN_MANIPULATION_DEFAULT)
+	. = ..()
+	if(ishuman(owner))
+		var/mob/living/carbon/human/human_owner = owner
+		human_owner.physiology?.brain_mod *= MOON_BRAIN_DAMAGE_MODIFIER
+
+
+/obj/item/organ/internal/brain/moon/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT)
+	if(ishuman(owner))
+		var/mob/living/carbon/human/human_owner = owner
+		human_owner.physiology?.brain_mod /= MOON_BRAIN_DAMAGE_MODIFIER
+	return ..()
 
 
 /// Mansus Grasp also makes the victim hallucinate everyone as moon-masked, and briefly hides our identity
