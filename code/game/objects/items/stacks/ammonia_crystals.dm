@@ -4,5 +4,4 @@
 	icon_state = "ammonia_crystal"
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
-	max_amount = 50
 	merge_type = /obj/item/stack/ammonia_crystals

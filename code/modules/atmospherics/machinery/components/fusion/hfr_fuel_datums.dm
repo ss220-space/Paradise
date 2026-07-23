@@ -86,11 +86,6 @@ GLOBAL_LIST_INIT(hfr_fuels_list, hfr_fuels_create_list())
 /datum/hfr_fuel/hydrogen_tritium_fuel
 	id = "h2_t2_fuel"
 	name = "Hydrogen + Tritium fuel"
-	negative_temperature_multiplier = 1
-	positive_temperature_multiplier = 1
-	energy_concentration_multiplier = 1
-	fuel_consumption_multiplier = 1
-	gas_production_multiplier = 1
 	temperature_change_multiplier = 0.85
 	requirements = list(TLV_H2, TLV_TRITIUM)
 	primary_products = list(TLV_HELIUM)
@@ -133,7 +128,6 @@ GLOBAL_LIST_INIT(hfr_fuels_list, hfr_fuels_create_list())
 	energy_concentration_multiplier = 2
 	fuel_consumption_multiplier = 0.01
 	gas_production_multiplier = 3
-	temperature_change_multiplier = 1
 	requirements = list(TLV_HYPERNOBLIUM, TLV_ANTINOBLIUM)
 	primary_products = list(TLV_HELIUM)
 	secondary_products = list(TLV_PL, TLV_O2, TLV_N2, TLV_PROTO_NITRATE, TLV_NITRIUM, TLV_MIASMA)

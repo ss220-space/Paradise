@@ -505,7 +505,6 @@ GLOBAL_LIST_INIT(metalhydrogen_recipes, list(
 	icon_state = "sheet-metalhydrogen"
 	item_state = null
 	singular_name = "metal hydrogen sheet"
-	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FIRE_PROOF | LAVA_PROOF | ACID_PROOF
 	merge_type = /obj/item/stack/sheet/mineral/metal_hydrogen
 	wall_allowed = FALSE
@@ -519,6 +518,5 @@ GLOBAL_LIST_INIT(metalhydrogen_recipes, list(
 	icon_state = "zaukerite"
 	item_state = "sheet-zaukerite"
 	singular_name = "zaukerite crystal"
-	w_class = WEIGHT_CLASS_NORMAL
 	merge_type = /obj/item/stack/sheet/mineral/zaukerite
 	wall_allowed = FALSE

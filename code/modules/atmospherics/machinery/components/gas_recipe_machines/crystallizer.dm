@@ -282,7 +282,6 @@
 		requirements = list("Select a recipe to see the requirements")
 	else
 		requirements = list("To create [selected_recipe.name] you will need:")
-		var/list/gas_meta = GLOB.gas_meta
 		for(var/gas_type, amount in selected_recipe.requirements)
 			var/amount_consumed = amount
 			requirements += "-[amount_consumed] moles of [gas_meta[gas_type][META_GAS_NAME]]"

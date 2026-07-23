@@ -491,21 +491,24 @@
 	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/atmospherics/unary/hypertorus/fuel_input
 	req_components = list(
-		/obj/item/stack/sheet/plasteel = 5)
+		/obj/item/stack/sheet/plasteel = 5,
+	)
 
 /obj/item/circuitboard/machine/HFR_waste_output
 	name = "HFR Waste Output"
 	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/atmospherics/unary/hypertorus/waste_output
 	req_components = list(
-		/obj/item/stack/sheet/plasteel = 5)
+		/obj/item/stack/sheet/plasteel = 5,
+	)
 
 /obj/item/circuitboard/machine/HFR_moderator_input
 	name = "HFR Moderator Input"
 	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/atmospherics/unary/hypertorus/moderator_input
 	req_components = list(
-		/obj/item/stack/sheet/plasteel = 5)
+		/obj/item/stack/sheet/plasteel = 5,
+	)
 
 /obj/item/circuitboard/machine/HFR_core
 	name = "HFR core"
@@ -514,14 +517,16 @@
 	req_components = list(
 		/obj/item/stack/cable_coil = 10,
 		/obj/item/stack/sheet/glass = 10,
-		/obj/item/stack/sheet/plasteel = 10)
+		/obj/item/stack/sheet/plasteel = 10,
+	)
 
 /obj/item/circuitboard/machine/HFR_corner
 	name = "HFR Corner"
 	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/hypertorus/corner
 	req_components = list(
-		/obj/item/stack/sheet/plasteel = 5)
+		/obj/item/stack/sheet/plasteel = 5,
+	)
 
 /obj/item/circuitboard/machine/HFR_interface
 	name = "HFR Interface"

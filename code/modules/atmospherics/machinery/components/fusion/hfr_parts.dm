@@ -9,7 +9,6 @@
 
 	name = "thermomachine"
 	desc = "Heats or cools gas in connected pipes."
-	anchored = TRUE
 	density = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	//flags_1 = PREVENT_CONTENTS_EXPLOSION_1

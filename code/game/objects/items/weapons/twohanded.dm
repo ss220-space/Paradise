@@ -256,13 +256,11 @@
 	icon_state = "metalh2_axe0"
 	base_icon_state = "metalh2_axe"
 	//icon_angle = -45
-	force_unwielded = 5
 	force_wielded = 15
 	throwforce = 30
 	//demolition_mod = 2
 	tool_behaviour = TOOL_CROWBAR
 	toolspeed = 1
-	usesound = 'sound/items/crowbar.ogg'
 
 /*
  * Double-Bladed Energy Swords - Cheridan

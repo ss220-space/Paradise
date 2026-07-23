@@ -33,7 +33,7 @@
 	/// Whether or not this foam should be slippery.
 	var/slippery_foam = TRUE
 
-/obj/effect/particle_effect/fluid/foam/Initialize(mapload, lifetime, fluid_group, source, lifetime, slippery)
+/obj/effect/particle_effect/fluid/foam/Initialize(mapload, fluid_group, source, lifetime, slippery)
 	. = ..()
 	src.lifetime = lifetime ? lifetime : src.lifetime
 	src.original_lifetime = src.lifetime

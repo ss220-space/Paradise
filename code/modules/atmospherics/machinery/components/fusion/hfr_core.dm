@@ -4,11 +4,7 @@
 /obj/machinery/atmospherics/unary/hypertorus/core
 	name = "HFR core"
 	desc = "This is the Hypertorus Fusion Reactor core, an advanced piece of technology to finely tune the reaction inside of the machine. It has I/O for cooling gases."
-	icon = 'icons/obj/pipes_and_stuff/atmospherics/hypertorus.dmi'
-	icon_state = "core"
-	base_icon_state = "core"
 	circuit = /obj/item/circuitboard/machine/HFR_core
-	use_power = IDLE_POWER_USE
 	idle_power_usage = BASE_MACHINE_IDLE_CONSUMPTION
 
 	/**
