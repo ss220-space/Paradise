@@ -465,3 +465,19 @@ Pipelines + Other Objects -> Pipe network
 
 /obj/machinery/atmospherics/proc/get_data()
 	return list()
+
+/**
+ * Turns the machine on/off
+ * Arguments
+ *
+ * * active - the state of the machine
+ */
+/obj/machinery/atmospherics/proc/set_on(active)
+	SHOULD_CALL_PARENT(TRUE)
+
+	if(active == on)
+		return
+
+	on = active
+	update_appearance(UPDATE_ICON)
+	SEND_SIGNAL(src, COMSIG_ATMOS_MACHINE_SET_ON, on)

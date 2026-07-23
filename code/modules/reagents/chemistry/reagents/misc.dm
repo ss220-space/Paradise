@@ -712,3 +712,10 @@
 	target_mob.reagents.add_reagent("cream", 0.4)
 	target_mob.reagents.add_reagent("salglu_solution", 0.4)
 	return ..()
+
+/datum/reagent/smart_foaming_agent //Smart foaming agent. Functions similarly to metal foam, but conforms to walls.
+	name = "Smart Foaming Agent"
+	id = "smart_foaming_agent"
+	description = "An agent that yields metallic foam which conforms to area boundaries when mixed with light metal and a strong acid."
+	color = "#664B63" // rgb: 102, 75, 99
+	taste_description = "metal"

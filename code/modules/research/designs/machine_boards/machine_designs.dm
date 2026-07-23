@@ -8,7 +8,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/thermomachine
-	category = list (CIRCUIT_IMPRINTER_CATEGORY_ENGINEERING)
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_ENGINEERING)
 
 /datum/design/cell_charger
 	id = "cell_charger"
@@ -32,7 +32,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/smes
-	category = list (CIRCUIT_IMPRINTER_CATEGORY_ENGINEERING)
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_ENGINEERING)
 
 /datum/design/emitter
 	id = "emitter"
@@ -40,7 +40,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/emitter
-	category = list (CIRCUIT_IMPRINTER_CATEGORY_ENGINEERING)
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_ENGINEERING)
 
 /datum/design/turbine_computer
 	id = "power_turbine_console"
@@ -48,7 +48,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/turbine_computer
-	category = list (CIRCUIT_IMPRINTER_CATEGORY_ENGINEERING)
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_ENGINEERING)
 
 /datum/design/power_compressor
 	id = "power_compressor"
@@ -56,7 +56,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/power_compressor
-	category = list (CIRCUIT_IMPRINTER_CATEGORY_ENGINEERING)
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_ENGINEERING)
 
 /datum/design/power_turbine
 	id = "power_turbine"
@@ -64,7 +64,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/power_turbine
-	category = list (CIRCUIT_IMPRINTER_CATEGORY_ENGINEERING)
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_ENGINEERING)
 
 /datum/design/quantumpad
 	id = "quantumpad"
@@ -72,7 +72,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/quantumpad
-	category = list (CIRCUIT_IMPRINTER_CATEGORY_TELEPORTATION)
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_TELEPORTATION)
 
 /datum/design/robotic_pad
 	id = "robo_quantumpad"
@@ -80,7 +80,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/roboquest_pad
-	category = list (CIRCUIT_IMPRINTER_CATEGORY_TELEPORTATION)
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_TELEPORTATION)
 
 /datum/design/teleport_hub
 	id = "tele_hub"
@@ -88,7 +88,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/teleporter_hub
-	category = list (CIRCUIT_IMPRINTER_CATEGORY_TELEPORTATION)
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_TELEPORTATION)
 
 /datum/design/teleport_station
 	id = "tele_station"
@@ -96,7 +96,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/teleporter_station
-	category = list (CIRCUIT_IMPRINTER_CATEGORY_TELEPORTATION)
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_TELEPORTATION)
 
 /datum/design/teleport_perma
 	id = "tele_perma"
@@ -104,7 +104,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/teleporter_perma
-	category = list (CIRCUIT_IMPRINTER_CATEGORY_TELEPORTATION)
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_TELEPORTATION)
 
 /datum/design/bodyscanner
 	id = "bodyscanner"
@@ -160,7 +160,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/chem_heater
-	category = list (CIRCUIT_IMPRINTER_CATEGORY_MEDICAL)
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_MEDICAL)
 
 /datum/design/reagentgrinder
 	id = "reagentgrinder"
@@ -168,7 +168,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/reagentgrinder
-	category = list (CIRCUIT_IMPRINTER_CATEGORY_MEDICAL)
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_MEDICAL)
 
 /datum/design/sleeper
 	id = "sleeper"
@@ -192,7 +192,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/biogenerator
-	category = list (CIRCUIT_IMPRINTER_CATEGORY_HYDROPONICS)
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_HYDROPONICS)
 
 /datum/design/hydroponics
 	id = "hydro_tray"
@@ -200,7 +200,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/hydroponics
-	category = list (CIRCUIT_IMPRINTER_CATEGORY_HYDROPONICS)
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_HYDROPONICS)
 
 /datum/design/autolathe
 	id = "autolathe"
@@ -288,7 +288,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/gibber
-	category = list (CIRCUIT_IMPRINTER_CATEGORY_MISC)
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_MISC)
 
 /datum/design/smartfridge
 	id = "smartfridge"
@@ -296,7 +296,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/smartfridge
-	category = list (CIRCUIT_IMPRINTER_CATEGORY_MISC)
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_MISC)
 
 /datum/design/monkey_recycler
 	id = "monkey_recycler"
@@ -304,7 +304,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/monkey_recycler
-	category = list (CIRCUIT_IMPRINTER_CATEGORY_MISC)
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_MISC)
 
 /datum/design/seed_extractor
 	id = "seed_extractor"
@@ -312,7 +312,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/seed_extractor
-	category = list (CIRCUIT_IMPRINTER_CATEGORY_HYDROPONICS)
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_HYDROPONICS)
 
 /datum/design/processor
 	id = "processor"
@@ -320,7 +320,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/processor
-	category = list (CIRCUIT_IMPRINTER_CATEGORY_MISC)
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_MISC)
 
 /datum/design/recycler
 	id = "recycler"
@@ -328,7 +328,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/recycler
-	category = list (CIRCUIT_IMPRINTER_CATEGORY_MISC)
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_MISC)
 
 /datum/design/holopad
 	id = "holopad"
@@ -336,7 +336,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/holopad
-	category = list (CIRCUIT_IMPRINTER_CATEGORY_MISC)
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_MISC)
 
 /datum/design/arcadebattle
 	id = "arcademachinebattle"
@@ -416,7 +416,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS=1000)
 	build_path = /obj/item/circuitboard/ore_redemption
-	category = list (CIRCUIT_IMPRINTER_CATEGORY_MISC)
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_MISC)
 
 /datum/design/mining_equipment_vendor
 	id = "mining_equipment_vendor"
@@ -424,7 +424,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS=1000)
 	build_path = /obj/item/circuitboard/mining_equipment_vendor
-	category = list (CIRCUIT_IMPRINTER_CATEGORY_MISC)
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_MISC)
 
 /datum/design/clawgame
 	id = "clawgame"
@@ -432,7 +432,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS=1000)
 	build_path = /obj/item/circuitboard/clawgame
-	category = list (CIRCUIT_IMPRINTER_CATEGORY_MISC)
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_MISC)
 
 /datum/design/prize_counter
 	id = "prize_counter"
@@ -464,7 +464,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/dnaforensics
-	category = list (CIRCUIT_IMPRINTER_CATEGORY_MISC)
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_MISC)
 
 /datum/design/microscope
 	id = "microscope"
@@ -472,7 +472,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/microscope
-	category = list (CIRCUIT_IMPRINTER_CATEGORY_MISC)
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_MISC)
 
 /datum/design/station_map
 	id = "station_map"
@@ -480,7 +480,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/machine/station_map
-	category = list (CIRCUIT_IMPRINTER_CATEGORY_MISC)
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_MISC)
 
 /datum/design/station_map_engineer
 	id = "engineering_station_map"
@@ -488,7 +488,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/machine/station_map/engineering
-	category = list (CIRCUIT_IMPRINTER_CATEGORY_MISC)
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_MISC)
 
 /datum/design/brs_server
 	id = "brs_server"
@@ -496,7 +496,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_BLUESPACE = 100)
 	build_path = /obj/item/circuitboard/brs_server
-	category = list (CIRCUIT_IMPRINTER_CATEGORY_RESEARCH)
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_RESEARCH)
 
 /datum/design/brs_portable_scanner
 	id = "brs_portable_scanner"
@@ -504,7 +504,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_BLUESPACE = 200)
 	build_path = /obj/item/circuitboard/brs_portable_scanner
-	category = list (CIRCUIT_IMPRINTER_CATEGORY_RESEARCH)
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_RESEARCH)
 
 /datum/design/brs_stationary_scanner
 	id = "brs_stationary_scanner"
@@ -512,7 +512,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_BLUESPACE = 500)
 	build_path = /obj/item/circuitboard/brs_stationary_scanner
-	category = list (CIRCUIT_IMPRINTER_CATEGORY_RESEARCH)
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_RESEARCH)
 
 /datum/design/anomaly_generator
 	id = "anomaly_generator"
@@ -520,7 +520,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/anomaly_generator
-	category = list (CIRCUIT_IMPRINTER_CATEGORY_RESEARCH)
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_RESEARCH)
 
 /datum/design/portrait_printer
 	id = "portrait_printer"
@@ -528,4 +528,62 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/portrait_printer
-	category = list (CIRCUIT_IMPRINTER_CATEGORY_COMPUTER)
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_COMPUTER)
+
+//Hypertorus fusion reactor designs
+
+/datum/design/HFR_core
+	id = "HFR_core"
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 4, RESEARCH_TREE_ENGINEERING = 4)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/machine/HFR_core
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_ENGINEERING)
+
+/datum/design/HFR_fuel_input
+	id = "HFR_fuel_input"
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 4, RESEARCH_TREE_ENGINEERING = 4)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/machine/HFR_fuel_input
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_ENGINEERING)
+
+/datum/design/HFR_waste_output
+	id = "HFR_waste_output"
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 4, RESEARCH_TREE_ENGINEERING = 4)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/machine/HFR_waste_output
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_ENGINEERING)
+
+/datum/design/HFR_moderator_input
+	id = "HFR_moderator_input"
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 4, RESEARCH_TREE_ENGINEERING = 4)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/machine/HFR_moderator_input
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_ENGINEERING)
+
+/datum/design/HFR_corner
+	id = "HFR_corner"
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 4, RESEARCH_TREE_ENGINEERING = 4)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/machine/HFR_corner
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_ENGINEERING)
+
+/datum/design/HFR_interface
+	id = "HFR_interface"
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 4, RESEARCH_TREE_ENGINEERING = 4)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/machine/HFR_interface
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_ENGINEERING)
+
+/datum/design/board/crystallizer
+	id = "crystallizer"
+	build_type = IMPRINTER
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 4, RESEARCH_TREE_ENGINEERING = 4)
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/machine/crystallizer
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_ENGINEERING)
