@@ -27,6 +27,7 @@
 	air1.volume = 200
 	air2.volume = 200
 
+
 /obj/machinery/atmospherics/binary/Destroy()
 	if(node1)
 		node1.disconnect(src)
@@ -37,6 +38,31 @@
 		node2 = null
 		nullifyPipenet(parent2)
 	return ..()
+
+/obj/machinery/atmospherics/binary/default_change_direction_wrench(mob/user, obj/item/wrench/W)
+	if(..())
+		switch(dir)
+			if(NORTH, SOUTH)
+				initialize_directions = NORTH|SOUTH
+			if(EAST, WEST)
+				initialize_directions = EAST|WEST
+		if(node1)
+			node1.disconnect(src)
+		node1 = null
+		if(node2)
+			node2.disconnect(src)
+		node2 = null
+		nullifyPipenet(parent1)
+		nullifyPipenet(parent2)
+		atmos_init()
+		if(node1)
+			node1.atmos_init()
+			node1.addMember(src)
+		if(node2)
+			node2.atmos_init()
+			node2.addMember(src)
+		build_network()
+		. = 1
 
 /obj/machinery/atmospherics/binary/atmos_init()
 	..()
