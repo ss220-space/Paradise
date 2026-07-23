@@ -1599,3 +1599,56 @@
 	if(!.)
 		return
 	owner.drop_all_held_items()
+
+/datum/status_effect/stamina_boost_restriction
+	id = "stamina_boost_restriction"
+	alert_type = /atom/movable/screen/alert/status_effect/stamina_boost_restriction
+	duration = 120 SECONDS
+
+	var/original_max_stamina
+	var/current_penalty = 0
+
+/datum/status_effect/stamina_boost_restriction/on_apply(initial_max)
+	if(!ishuman(owner))
+		return FALSE
+	original_max_stamina = (initial_max != null) ? initial_max : owner.max_stamina
+	current_penalty = STAMINA_PENALTY
+	owner.set_max_stamina(max(0, original_max_stamina - current_penalty))
+	return TRUE
+
+/datum/status_effect/stamina_boost_restriction/proc/add_stack()
+	var/mob/living/carbon/human/human = owner
+	if(!istype(human))
+		return
+
+	var/saved_original = original_max_stamina
+	var/saved_penalty = current_penalty + STAMINA_PENALTY
+	human.remove_status_effect(/datum/status_effect/stamina_boost_restriction)
+
+	var/datum/status_effect/stamina_boost_restriction/new_effect = human.apply_status_effect(/datum/status_effect/stamina_boost_restriction, initial(duration), saved_original)
+	if(!new_effect)
+		return
+
+	new_effect.current_penalty = saved_penalty
+	new_effect.original_max_stamina = saved_original
+	human.set_max_stamina(max(0, saved_original - saved_penalty))
+	new_effect.update_alert()
+
+/datum/status_effect/stamina_boost_restriction/proc/update_alert()
+	if(!linked_alert)
+		return
+
+	var/stacks = round(current_penalty / STAMINA_PENALTY)
+	linked_alert.name = "Ограничение выносливости x[stacks]"
+
+/datum/status_effect/stamina_boost_restriction/on_remove()
+	if(!istype(owner) && isnull(original_max_stamina))
+		return
+
+	owner.set_max_stamina(original_max_stamina)
+	original_max_stamina = null
+
+/atom/movable/screen/alert/status_effect/stamina_boost_restriction
+	name = "Ограничение выносливости"
+	desc = "Расплата за использование импланта."
+	icon_state = "pd_nopower"
