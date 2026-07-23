@@ -490,3 +490,33 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 /obj/item/stack/sheet/mineral/snow/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
 	recipes = GLOB.snow_recipes
+
+//Metal Hydrogen
+GLOBAL_LIST_INIT(metalhydrogen_recipes, list(
+	new /datum/stack_recipe("incomplete servant golem shell", /obj/item/golem_shell/servant, req_amount=20, res_amount=1),
+	//new /datum/stack_recipe("ancient armor", /obj/item/clothing/suit/armor/elder_atmosian, req_amount = 5, res_amount = 1),
+	//new /datum/stack_recipe("ancient helmet", /obj/item/clothing/head/helmet/elder_atmosian, req_amount = 3, res_amount = 1),
+	new /datum/stack_recipe("metallic hydrogen axe", /obj/item/twohanded/fireaxe/metal_h2_axe, req_amount = 15, res_amount = 1),
+	//new /datum/stack_recipe("metallic hydrogen bolts", /obj/item/ammo_casing/rebar/hydrogen, req_amount = 1, res_amount = 1),
+	))
+
+/obj/item/stack/sheet/mineral/metal_hydrogen
+	name = "metal hydrogen"
+	icon_state = "sheet-metalhydrogen"
+	item_state = null
+	singular_name = "metal hydrogen sheet"
+	resistance_flags = FIRE_PROOF | LAVA_PROOF | ACID_PROOF
+	merge_type = /obj/item/stack/sheet/mineral/metal_hydrogen
+	wall_allowed = FALSE
+
+/obj/item/stack/sheet/mineral/metal_hydrogen/Initialize(mapload, new_amount, merge = TRUE)
+	. = ..()
+	recipes = GLOB.metalhydrogen_recipes
+
+/obj/item/stack/sheet/mineral/zaukerite
+	name = "zaukerite"
+	icon_state = "zaukerite"
+	item_state = "sheet-zaukerite"
+	singular_name = "zaukerite crystal"
+	merge_type = /obj/item/stack/sheet/mineral/zaukerite
+	wall_allowed = FALSE
