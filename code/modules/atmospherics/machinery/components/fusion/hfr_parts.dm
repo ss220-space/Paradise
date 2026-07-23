@@ -32,7 +32,8 @@
 	. += span_notice("[src] can be rotated by first opening the panel with a screwdriver and then using a wrench on it.")
 
 /obj/machinery/atmospherics/unary/hypertorus/screwdriver_act(mob/living/user, obj/item/tool)
-	return fusion_started ? NONE : default_deconstruction_screwdriver(user, I = tool)
+	. = fusion_started ? NONE : default_deconstruction_screwdriver(user, icon_state, icon_state, tool)
+	update_appearance(UPDATE_ICON)
 
 /obj/machinery/atmospherics/unary/hypertorus/wrench_act(mob/living/user, obj/item/I)
 	return default_change_direction_wrench(user, I)
@@ -118,7 +119,8 @@
 	. += span_notice("[src] can be rotated by first opening the panel with a screwdriver and then using a wrench on it.")
 
 /obj/machinery/hypertorus/screwdriver_act(mob/living/user, obj/item/tool)
-	return fusion_started ? NONE : default_deconstruction_screwdriver(user, I = tool)
+	. = fusion_started ? NONE : default_deconstruction_screwdriver(user, icon_state, icon_state, tool)
+	update_appearance(UPDATE_ICON)
 
 /obj/machinery/hypertorus/wrench_act(mob/living/user, obj/item/tool)
 	return default_change_direction_wrench(user, tool)

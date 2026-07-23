@@ -587,3 +587,11 @@
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/machine/crystallizer
 	category = list(CIRCUIT_IMPRINTER_CATEGORY_ENGINEERING)
+
+/datum/design/board/electrolyzer
+	id = "electrolyzer"
+	build_type = IMPRINTER
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 4, RESEARCH_TREE_ENGINEERING = 4)
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/electrolyzer
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_ENGINEERING)

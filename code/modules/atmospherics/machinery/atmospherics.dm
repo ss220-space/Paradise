@@ -272,7 +272,7 @@ Pipelines + Other Objects -> Pipe network
 		transfer_fingerprints_to(stored)
 	..()
 
-/obj/machinery/atmospherics/on_construction(D, P, C)
+/obj/machinery/atmospherics/on_construction(D = dir, P = initialize_directions, C = null)
 	if(C)
 		color = C
 	dir = D
