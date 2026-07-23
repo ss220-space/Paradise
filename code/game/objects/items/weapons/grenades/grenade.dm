@@ -98,7 +98,7 @@
 			active = FALSE
 			return
 	SEND_SIGNAL(src, COMSIG_GRENADE_DETONATE, user)
-	return
+	return TRUE
 
 /obj/item/grenade/proc/update_mob()
 	if(ismob(loc))

@@ -16,13 +16,9 @@
 /obj/machinery/atmospherics/binary/Initialize(mapload)
 	. = ..()
 	switch(dir)
-		if(NORTH)
+		if(NORTH, SOUTH)
 			initialize_directions = NORTH|SOUTH
-		if(SOUTH)
-			initialize_directions = NORTH|SOUTH
-		if(EAST)
-			initialize_directions = EAST|WEST
-		if(WEST)
+		if(EAST, WEST)
 			initialize_directions = EAST|WEST
 
 	air1 = new

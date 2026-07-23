@@ -24,7 +24,6 @@
 		fusion_process(seconds_per_tick)
 		// Note that we process damage/healing even if the fusion process aborts.
 		// Running out of fuel won't save you if your moderator and coolant are exploding on their own.
-		/*
 		process_moderator_overflow(seconds_per_tick)
 		process_damageheal(seconds_per_tick)
 		check_alert()
@@ -37,7 +36,6 @@
 	if(linked_interface)
 		// The interface MUST be updated after every atmos tick to show accurate information.
 		SStgui.update_uis(linked_interface)
-	*/
 /**
  * Called by process()
  * Contains the main fusion calculations and checks, for more informations check the comments along the code.
