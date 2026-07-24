@@ -1,0 +1,4 @@
+author: "makaroshka003"
+delete-after: True
+changes:
+  - add: "Стартер кит у тритора имеет  \"случайное\" наполнение (PR #9410)"

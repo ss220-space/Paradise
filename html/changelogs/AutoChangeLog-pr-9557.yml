@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - bugfix: "Теперь графики в UI HFR должны отображаться правильно. (PR #9557)"
