@@ -101,7 +101,6 @@
 
 	max_select_skills = list(
 		/datum/skill/general/mech_drive = 3,
-		/datum/skill/general/lockpick = 3,
 		/datum/skill/general/cooking = 1,
 		/datum/skill/service/drink_mixing = 1,
 		/datum/skill/service/botany = 0,

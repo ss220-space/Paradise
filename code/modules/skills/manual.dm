@@ -148,10 +148,6 @@
 	desc = "Руководство для использования модульными экзокостюмами."
 	skill_type = /datum/skill/general/mod_use
 
-/obj/item/book/skill_manual/general/lockpick
-	manual_title = "Взлом"
-	desc = "Руководство по взлому."
-	skill_type = /datum/skill/general/lockpick
 
 /obj/item/book/skill_manual/general/cooking
 	manual_title = "Кулинария"

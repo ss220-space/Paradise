@@ -284,7 +284,6 @@
 		/datum/skill/general/carrying = 2,
 		/datum/skill/general/mech_drive = 2,
 		/datum/skill/general/mod_use = 2,
-		/datum/skill/general/lockpick = 2,
 		/datum/skill/general/cooking = 2,
 		/datum/skill/service/drink_mixing = 2,
 		/datum/skill/service/botany = 2,

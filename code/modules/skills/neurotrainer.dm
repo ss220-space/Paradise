@@ -125,7 +125,6 @@
 		/datum/skill/general/carrying,
 		/datum/skill/general/mech_drive,
 		/datum/skill/general/mod_use,
-		/datum/skill/general/lockpick,
 		/datum/skill/general/cooking,
 	)
 
@@ -140,10 +139,6 @@
 /obj/item/neurotrainer/general/mod_use
 	manual_title = "Внекорабельная деятельность"
 	skill_types = /datum/skill/general/mod_use
-
-/obj/item/neurotrainer/general/lockpick
-	manual_title = "Взлом"
-	skill_types = /datum/skill/general/lockpick
 
 /obj/item/neurotrainer/general/cooking
 	manual_title = "Кулинария"
