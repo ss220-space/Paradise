@@ -520,7 +520,7 @@
 		var/datum/gas_mixture/internal_remove
 		var/list/interesting_gasses = internal_fusion.get_interesting()
 		for(var/gas_tlv, amount in selected_fuel.primary_products)
-			if(interesting_gasses[gas_id] > 0)
+			if(interesting_gasses[gas_tlv] > 0)
 				internal_remove = internal_fusion.remove_specific(gas_tlv, amount * (1 - (1 - 0.25) ** seconds_per_tick))
 				linked_output.air_contents.merge(internal_remove)
 
