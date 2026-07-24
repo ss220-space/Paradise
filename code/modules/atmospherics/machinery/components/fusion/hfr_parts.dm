@@ -279,12 +279,12 @@
 
 	data["waste_remove"] = connected_core.waste_remove
 	data["filter_types"] = list()
-	var/cached_gas_info = GLOB.gas_meta
-	for(var/path in cached_gas_info[META_GAS_ID])
+	var/list/cached_gas_info = GLOB.gas_meta
+	for(var/gas_id in cached_gas_info)
 		data["filter_types"] += list(list(
-			"gas_id" = cached_gas_info[META_GAS_ID],
-			"gas_name" = cached_gas_info[META_GAS_NAME],
-			"enabled" = (path in connected_core.moderator_scrubbing)
+			"gas_id" = gas_id,
+			"gas_name" = cached_gas_info[gas_id][META_GAS_NAME],
+			"enabled" = (gas_id in connected_core.moderator_scrubbing)
 		))
 
 	data["cooling_volume"] = connected_core.air_contents.volume

@@ -461,7 +461,7 @@
 		mod *= modifier
 
 	var/normal_grab_update_time = GRAB_UPGRADE_TIME * mod
-	return isnull(grabber.mind?.martial_art?.grab_speed) ? normal_grab_update_time / mod : grabber.mind.martial_art.grab_speed
+	return isnull(grabber.mind?.martial_art?.grab_speed) ? normal_grab_update_time : grabber.mind.martial_art.grab_speed
 
 /mob/living/attack_slime(mob/living/simple_animal/slime/M)
 	if(!SSticker)
