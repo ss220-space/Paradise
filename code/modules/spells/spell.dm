@@ -90,6 +90,7 @@
 	var/datum/spell_handler/custom_handler
 	/// List with the handler datums per spell type. Key = src.type, value = the handler datum created by create_new_handler()
 	var/static/list/spell_handlers = list()
+	var/gain_desc
 
 /datum/action/cooldown/spell/New(Target, original)
 	. = ..()
@@ -126,6 +127,8 @@
 
 	RegisterSignals(owner, list(COMSIG_MOB_ENTER_JAUNT, COMSIG_MOB_AFTER_EXIT_JAUNT), PROC_REF(update_status_on_signal))
 	owner.client?.stat_panel.send_message("check_spells")
+	if(gain_desc)
+		to_chat(owner, span_boldnotice(gain_desc))
 
 /datum/action/cooldown/spell/Remove(mob/living/remove_from)
 

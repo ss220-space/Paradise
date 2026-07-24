@@ -51,7 +51,7 @@
 	/// The number of charges we currently have.
 	var/current_charges = 0
 	/// The cooldown between uses of charges.
-	var/charge_duration = 0
+	var/cooldown_between_charges = 0
 	var/charge_restore_time = 0
 	var/recharging = FALSE
 
@@ -184,7 +184,7 @@
 	if(max_charges > 1)
 		current_charges--
 		if(current_charges > 0)
-			cooldown = charge_duration
+			cooldown = cooldown_between_charges
 	next_use_time = world.time + cooldown
 	// Don't start a cooldown if we have a cooldown time of 0 seconds
 	if(next_use_time == world.time)

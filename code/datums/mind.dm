@@ -1704,7 +1704,7 @@
 					vamp.clear_subclass()
 					log_and_message_admins("has removed [key_name(current)]'s vampire subclass.")
 				else
-					vamp.upgrade_tiers -= /obj/effect/proc_holder/spell/vampire/self/specialize
+					vamp.upgrade_tiers -= /datum/action/cooldown/spell/vamp_specialize
 					vamp.change_subclass(subclass_type)
 					log_and_message_admins("has removed [key_name(current)]'s vampire subclass.")
 
