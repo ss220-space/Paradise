@@ -1,8 +1,5 @@
 /**
  * SUBSCRIPTIONS SUBSYSTEM
- * Created by Raingor
- * Architecture: Bucket Scheduler with Resume Support (Non-blocking)
- *
  * This subsystem manages the lifecycle of all active financial subscriptions on the station.
  * It uses the "Bucket Scheduler" pattern to distribute the load over time (like a timer), preventing server latency.
  * Makes subscriptions centarized and pay at the same time.

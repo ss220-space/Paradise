@@ -7,9 +7,8 @@
 	var/datum/money_account/recipient_account
 	var/cost = 0
 	var/description = ""
-	/// Path to class / Each subscription knows who it is | for creation
 	var/subscription_type_path
-a
+
 	/// must be a multiple of 5 minutes
 	var/interval = 0
 	var/next_payment_time = 0
