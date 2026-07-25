@@ -113,7 +113,7 @@ export const PDA = () => {
             overflow: 'hidden',
           }}
         >
-          <Box style={{ flexShrink: 0 }}>
+          <Box>
             <PDAHeader />
           </Box>
 
@@ -128,7 +128,7 @@ export const PDA = () => {
             <AppComponent />
           </Box>
 
-          <Box style={{ flexShrink: 0 }}>
+          <Box>
             <PDAFooter />
           </Box>
         </Box>

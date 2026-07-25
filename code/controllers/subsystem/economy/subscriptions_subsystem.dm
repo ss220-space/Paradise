@@ -84,13 +84,8 @@ SUBSYSTEM_DEF(subscriptions_subsystem)
 		if(current_sub.active)
 			add_subscription(current_sub)
 		else
-			// Inactive ("dead") subscriptions used to be dropped from scheduling entirely and
-			// would linger forever in GLOB.all_subscriptions / brg_profile.subscriptions.
-			// Instead, keep rescheduling them so we can count how long they've been dead and
-			// clean them up once they've been unpaid for too long.
-			// Forced/secure subscriptions (fines, salary modifiers) are exempt: they can go
-			// inactive simply because the account is suspended, and should survive until
-			// the account is unsuspended and resub() fires, not get erased in the meantime.
+			// Inactive subscriptions are re-queued to track overdue time without payment.
+			// Protected subscriptions (penalties, salary) are kept while the account recovers.
 			if(current_sub.secure)
 				add_subscription(current_sub)
 			else
@@ -131,9 +126,8 @@ SUBSYSTEM_DEF(subscriptions_subsystem)
  * This formula ensures correct wrap-around behavior within the circular buffer.
  */
 /datum/controller/subsystem/subscriptions_subsystem/proc/add_subscription(datum/subscription/added_subscription)
-	/// ticks means bucket, not ticks in the usual understanding of the DM engine
-	/// Calculate how many subsystem ticks (buckets) ahead this subscription should go.
-	/// Minimum 1 tick to ensure it doesn't run in the current pass.
+	/// "ticks" refers to bucket indices (not regular DM ticks).
+	/// Calculate how many subsystem steps to delay the subscription. Minimum is 1.
 	var/ticks = max(1, floor(added_subscription.interval / BASE_FREQUENCY_SUBSYSTEM))
 
 	/// Calculate the target bucket index.

@@ -1,54 +1,31 @@
-/**
- * If you want to know how your subscription will be included in
- * the "Possible Subscriptions Section of PDA Bank,"
- * follow this path: code/modules/pda/core_apps.dm
- *
- * To create your subscription correctly, please read this file in its entirety.
- * All documentation is available for this subsystem.
- * If anything is unclear, please contact the Raingor Discord.
- *
- * ======================================================================================
- *								Parent Subscription Class
- * ======================================================================================
- * This is the subscription parent class.
- * To create your own subscription, take it as a parent and extend it.
- *
- * Don't forget to register it in available_subscriptions
- * via the process in this file called "initialize_catalog"
-*/
-
+// Parent money subscription class; extend and register in available_subscriptions.
 /datum/subscription
-	var/subscription_name = "" /// this like primary key!!! Don't create multiple subscriptions with the same name.
+	/// this like primary key!!! Don't create multiple subscriptions with the same name.
+	var/subscription_name = ""
 	var/datum/money_account/subscriber_account
-	var/datum/money_account/recipient_account /// recipient (product owner)
+	/// recipient (product owner)
+	var/datum/money_account/recipient_account
 	var/cost = 0
 	var/description = ""
 	/// Path to class / Each subscription knows who it is | for creation
 	var/subscription_type_path
-
-	// time logic
-	var/interval = 0 /// must be a multiple of 5 minutes
+a
+	/// must be a multiple of 5 minutes
+	var/interval = 0
 	var/next_payment_time = 0
 	var/creation_time = 0
 
 	var/active = TRUE
-	/// This flag determines whether the subscriber can remove it
-	/// Ideally, this is used to add salary "modifiers" or similar items, like fines. || forced subscription
-	/// If it is enabled, do not add it to available_subscriptions
+	/// If secure, subscriber cannot remove it; used for forced or modifier subscriptions and excluded from available_subscriptions
 	var/secure = FALSE
 	var/cancel_reason
 
-	/// Counts consecutive subscriptions_subsystem cycles this subscription has spent inactive ("dead").
-	/// Reset to 0 whenever the subscription becomes active again (successful payment or resub).
-	/// Once it reaches SUBSCRIPTION_MAX_DEAD_CYCLES, the subsystem will qdel() this subscription.
+	/// Used to remove long-dead subscriptions after too many inactive subsystem cycles.
 	var/dead_cycles = 0
 
 /datum/subscription/New(datum/money_account/subscriber, list/extra_params)
-	if(!subscriber || !is_money_account(subscriber))
-		return
 	..()
 
-	// base init
 	set_subscriber_account(subscriber)
 	active = TRUE
 	cancel_reason = null
@@ -196,29 +173,29 @@
 /datum/subscription/proc/get_base_subscription_ui_data(counterpart_name, direction)
 	var/data = list()
 
-	data["subscription_name"] = src.subscription_name
+	data["subscription_name"] = subscription_name
 	data["recipient_name"] = counterpart_name
-	data["cost"] = src.cost
-	data["interval"] = src.interval
-	data["status"] = src.active
-	data["description"] = src.description
-	data["secure"] = src.secure
-	data["subscription_type"] = src.subscription_type_path
+	data["cost"] = cost
+	data["interval"] = interval
+	data["status"] = active
+	data["description"] = description
+	data["secure"] = secure
+	data["subscription_type"] = subscription_type_path
 	data["direction"] = direction
-	data["uid"] = src.UID()
+	data["uid"] = UID()
 
 	return data
 
 /datum/subscription/proc/get_template_subscription_ui_data()
 	var/data = list()
 
-	data["available_subscription_name"] = src.subscription_name
-	data["description"] = src.description
-	data["cost"] = src.cost
-	data["interval"] = src.interval
+	data["available_subscription_name"] = subscription_name
+	data["description"] = description
+	data["cost"] = cost
+	data["interval"] = interval
 	data["provider"] = "Нет доступа"
-	data["secure"] = src.secure
-	data["subscription_type"] = src.subscription_type_path
-	data["uid"] = src.UID()
+	data["secure"] = secure
+	data["subscription_type"] = subscription_type_path
+	data["uid"] = UID()
 
 	return data

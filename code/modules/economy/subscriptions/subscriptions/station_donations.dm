@@ -4,6 +4,6 @@
 	cost = 100
 	interval = SALARY_MODIFIER_INTERVAL
 
-/datum/subscription/station_donations/New(subscriber, extra_params)
+/datum/subscription/station_donations/New(subscriber, extra_params=null)
 	set_recipient_account(GLOB.station_account)
 	..(subscriber)

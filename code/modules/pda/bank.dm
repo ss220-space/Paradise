@@ -146,7 +146,7 @@
 				to_chat(usr, span_warning("Ошибка аккаунта."))
 				return
 
-			/// additional options for your subscriptions
+			// additional options for your subscriptions
 			var/list/extra_params = list()
 
 			create_subscription(sub_acc, sub_type, extra_params)

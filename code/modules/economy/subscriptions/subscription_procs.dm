@@ -1,6 +1,6 @@
-// ======================================================================================
-//								    Additional Tools
-// ======================================================================================
+
+// Finds the active subscription of a specific subscriber by type.
+// Used to check if the account already has a subscription of that type.
 /proc/find_subscription_with_type(datum/money_account/subscriber_account, subscription_type)
 	if(!subscriber_account || !subscriber_account.brg_profile)
 		return null
@@ -11,6 +11,8 @@
 			return sub
 	return null
 
+// Finds a specific salary_modifier subscription for a target account by owner name.
+// Used to get salary modification settings regardless of the specific subscriber.
 /proc/find_subscription_salary_modifier_spec(target_account_name, subscription_type)
 	for(var/datum/subscription/salary_modifier/sub in GLOB.all_subscriptions)
 		if(!sub || !sub.target_account)
@@ -52,25 +54,6 @@
 
 	to_chat(usr, span_good("Подписка '[new_sub.subscription_name]' оформлена."))
 	return TRUE
-
-/proc/find_existhing(datum/money_account/subscriber_account, subscription_type, datum/subscription/template)
-	var/datum/subscription/existing = find_subscription_with_type(subscriber_account.owner_name, subscription_type)
-
-	if(!existing)
-		return FALSE
-
-	if(existing.active)
-		to_chat(usr, span_warning("У вас уже есть активная подписка '[template.subscription_name]'."))
-		return FALSE
-
-	existing.resub()
-
-	if(existing.active)
-		to_chat(usr, span_warning("Подписка '[template.subscription_name]' была ранее оформлена и восстановлена."))
-		return TRUE
-
-	to_chat(usr, span_warning("Не удалось восстановить подписку '[template.subscription_name]'."))
-	return FALSE
 
 /proc/validate_subscription_inputs(datum/money_account/subscriber_account, subscription_type)
 	if(!is_money_account(subscriber_account))

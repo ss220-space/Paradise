@@ -6,7 +6,7 @@
 	secure = TRUE
 
 	var/modifier = 0
-	// This is necessary for dynamic changes and so that the search knows who to look for a subscription from | Whose salary is being modified?
+	/// This is necessary for dynamic changes and so that the search knows who to look for a subscription from | Whose salary is being modified?
 	var/datum/money_account/target_account
 
 /datum/subscription/salary_modifier/New(datum/money_account/subscriber, extra_params)
