@@ -38,6 +38,11 @@
 	var/secure = FALSE
 	var/cancel_reason
 
+	/// Counts consecutive subscriptions_subsystem cycles this subscription has spent inactive ("dead").
+	/// Reset to 0 whenever the subscription becomes active again (successful payment or resub).
+	/// Once it reaches SUBSCRIPTION_MAX_DEAD_CYCLES, the subsystem will qdel() this subscription.
+	var/dead_cycles = 0
+
 /datum/subscription/New(datum/money_account/subscriber, list/extra_params)
 	if(!subscriber || !is_money_account(subscriber))
 		return
@@ -87,6 +92,7 @@
 		cancel()
 		return
 
+	dead_cycles = 0
 	notify_payment_success()
 
 /**
@@ -105,6 +111,7 @@
 
 	active = TRUE
 	cancel_reason = null
+	dead_cycles = 0
 	if(SSsubscriptions_subsystem)
 		SSsubscriptions_subsystem.add_subscription(src)
 	notify_resubscribed()

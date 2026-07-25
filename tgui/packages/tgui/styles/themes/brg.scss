@@ -10,10 +10,6 @@
  * White       - #FFFFFF - Main text
  */
 
-/* ============================================
- *  BASE & VARIABLES
- * ============================================*/
-
 .theme-brg .Layout__content {
   background: linear-gradient(135deg, #2a0a0a 0%, #1a0505 100%);
   background-size: cover;
@@ -32,12 +28,6 @@
   --raingor-success: #28a745;
 }
 
-/**
- * ============================================s
- * LAYOUT COMPONENTS
- * ============================================
- */
-
 .theme-brg .TitleBar {
   background: linear-gradient(90deg, #300 0%, #200 100%);
   border-bottom: 2px solid #b8860b;
@@ -48,12 +38,6 @@
   border: 1px solid rgba(184, 134, 11, 0.5);
   border-radius: 6px;
 }
-
-/**
- * ============================================
- * TEXT UTILITIES
- * ============================================
- */
 
 .theme-brg .text-gold {
   color: #ffd700 !important;
@@ -75,12 +59,6 @@
 .theme-brg .text-muted {
   color: rgba(255, 255, 255, 0.6) !important;
 }
-
-/**
- * ============================================
- * BUTTONS (base class + modifiers) - DARKER
- * ============================================
- */
 
 .theme-brg .btn-bank {
   background: linear-gradient(
@@ -135,12 +113,6 @@
   );
 }
 
-/**
- * ============================================
- *  CARDS (base class + modifiers)
- * ============================================
- */
-
 .theme-brg .card {
   background: rgba(40, 0, 0, 0.7);
   border: 1px solid rgba(184, 134, 11, 0.6);
@@ -182,12 +154,6 @@
   text-align: center;
 }
 
-/**
- * ============================================
- * FORMS
- * ============================================
- */
-
 .theme-brg .input-field {
   background: rgba(30, 5, 5, 0.8);
   border: 1px solid rgba(184, 134, 11, 0.4);
@@ -218,12 +184,6 @@
   margin-bottom: 4px;
 }
 
-/**
- * ============================================
- *  BALANCE DISPLAY
- *  ============================================
- */
-
 .theme-brg .balance-display {
   background: linear-gradient(
     135deg,
@@ -251,12 +211,6 @@
   text-transform: uppercase;
   letter-spacing: 1px;
 }
-
-/**
- * ============================================
- *  SUBSCRIPTIONS
- * ============================================
- */
 
 .theme-brg .subscription-title {
   color: #ffd700;
@@ -326,12 +280,6 @@
   color: rgba(255, 255, 255, 0.7);
 }
 
-/**
- * ============================================
- * DIVIDERS
- * ============================================
- */
-
 .theme-brg .divider {
   height: 1px;
   background: linear-gradient(
@@ -342,12 +290,6 @@
   );
   margin: 24px 0;
 }
-
-/**
- * ============================================
- *  SECTION HEADERS
- * ============================================
- */
 
 .theme-brg .section-header {
   display: flex;
@@ -360,12 +302,6 @@
   padding-bottom: 12px;
   border-bottom: 1px solid rgba(184, 134, 11, 0.3);
 }
-
-/**
- * ============================================
- * LORE PAGE
- *  ============================================
- */
 
 .theme-brg .lore-container {
   max-width: 520px;
@@ -426,12 +362,6 @@
   text-align: center;
 }
 
-/**
- * ============================================
- * ERROR PAGE (переиспользует .card--error)
- * ============================================
- */
-
 .theme-brg .error-icon {
   color: #dc3545;
   font-size: 48px;
@@ -454,12 +384,6 @@
   line-height: 1.6;
   margin-bottom: 20px;
 }
-
-/**
- * ============================================
- * DROPDOWN
- * ============================================
- */
 
 .theme-brg .Dropdown,
 .theme-brg .Dropdown__input {
@@ -509,13 +433,6 @@
   text-align: center;
   color: rgba(255, 255, 255, 0.6);
 }
-
-/**
- * ============================================
- * SCROLLBAR - RAINGOR THEME
- * ============================================
- */
-
 .theme-brg * {
   scrollbar-width: thin;
   scrollbar-color: #800020 rgba(26, 5, 5, 0.8);

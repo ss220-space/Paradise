@@ -25,14 +25,6 @@ GLOBAL_LIST_EMPTY(available_subscriptions)
 /// Acts as a persistent database for auditing and lookup.
 GLOBAL_LIST_EMPTY(all_subscriptions)
 
-/// The base tick rate of this subsystem. All subscription intervals should ideally be
-/// multiples of this value for precise scheduling.
-#define BASE_FREQUENCY_SUBSYSTEM (5 MINUTES)
-
-/// Number of time buckets. With a 5-minute wait, 12 buckets cover 1 hour of scheduling.
-/// Increase this value if you plan to have subscriptions with intervals > 1 hour.
-#define BUCKET_COUNT 12
-
 SUBSYSTEM_DEF(subscriptions_subsystem)
 	name = "Subscriptions"
 	wait = BASE_FREQUENCY_SUBSYSTEM
@@ -88,10 +80,25 @@ SUBSYSTEM_DEF(subscriptions_subsystem)
 		if(current_sub.active)
 			current_sub.subscription_process()
 
-		// This check is necessary to verify whether the subscription survived after its processing
-		// and to prevent adding a non-working subscription to the scheduler.
+		// This check is necessary to verify whether the subscription survived after its processing.
 		if(current_sub.active)
 			add_subscription(current_sub)
+		else
+			// Inactive ("dead") subscriptions used to be dropped from scheduling entirely and
+			// would linger forever in GLOB.all_subscriptions / brg_profile.subscriptions.
+			// Instead, keep rescheduling them so we can count how long they've been dead and
+			// clean them up once they've been unpaid for too long.
+			// Forced/secure subscriptions (fines, salary modifiers) are exempt: they can go
+			// inactive simply because the account is suspended, and should survive until
+			// the account is unsuspended and resub() fires, not get erased in the meantime.
+			if(current_sub.secure)
+				add_subscription(current_sub)
+			else
+				current_sub.dead_cycles++
+				if(current_sub.dead_cycles >= SUBSCRIPTION_MAX_DEAD_CYCLES)
+					qdel(current_sub)
+				else
+					add_subscription(current_sub)
 
 		if(MC_TICK_CHECK)
 			cached_current_bucket.Cut(index_bucket)

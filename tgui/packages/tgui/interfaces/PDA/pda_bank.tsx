@@ -158,10 +158,8 @@ const UUMainMenuPage = ({ setPage, data }: PageProps) => {
 
   return (
     <Box>
-      {/* Hero Card */}
       <Section className="card--hero" fill mb={2}>
         <Stack vertical align="center" justify="center" p={3}>
-          {/* Bank Logo + FULL NAME - PROMINENT */}
           <Icon name="university" className="text-gold" size={3} mb={2} />
           <Box
             fontSize="15px"
@@ -183,19 +181,16 @@ const UUMainMenuPage = ({ setPage, data }: PageProps) => {
             INTERSTELLAR BANK
           </Box>
 
-          {/* Divider */}
           <Box
             className="divider"
             style={{ width: '60%', margin: '0 auto 20px' }}
           />
 
-          {/* Client Info */}
           <Box fontSize="12px" className="text-white" mb={1}>
             <Icon name="user-circle" mr={0.5} size={0.8} />
             {name || 'Неизвестно'}
           </Box>
 
-          {/* Balance - THE HERO */}
           <Box fontSize="48px" bold className="text-gold" mb={1}>
             {balance.toLocaleString()}
           </Box>
@@ -208,7 +203,6 @@ const UUMainMenuPage = ({ setPage, data }: PageProps) => {
             кредитов
           </Box>
 
-          {/* Security Badge */}
           <Box fontSize="11px" className="text-white" style={{ opacity: 0.75 }}>
             <Icon name="shield-alt" mr={0.5} size={0.8} />
             Защищённый счёт
@@ -250,13 +244,11 @@ const UUMainMenuPage = ({ setPage, data }: PageProps) => {
         </Section>
       )}
 
-      {/* Quick Operations Header */}
       <Box fontSize="16px" bold mb={1} className="text-gold">
         <Icon name="bolt" mr={0.5} />
         Быстрые операции
       </Box>
 
-      {/* Action Buttons */}
       <Stack mb={1}>
         <Stack.Item grow>
           <Button
@@ -290,7 +282,6 @@ const UUMainMenuPage = ({ setPage, data }: PageProps) => {
         </Stack.Item>
       </Stack>
 
-      {/* Secondary Buttons */}
       <Stack mb={2}>
         <Stack.Item grow>
           <Button
@@ -315,7 +306,6 @@ const UUMainMenuPage = ({ setPage, data }: PageProps) => {
         </Stack.Item>
       </Stack>
 
-      {/* Warning Notice */}
       <Section className="secure-notice" p={2}>
         <Box textAlign="center" className="text-gold" fontSize={1} bold>
           <Icon name="exclamation-triangle" mr={0.5} />
@@ -323,7 +313,6 @@ const UUMainMenuPage = ({ setPage, data }: PageProps) => {
         </Box>
       </Section>
 
-      {/* Transaction History */}
       <Section title="История операций" mt={2}>
         {transactions.length === 0 ? (
           <Box italic className="text-muted" textAlign="center" p={2}>
@@ -393,7 +382,6 @@ const UUTransferMenuPage = ({ setPage, data }: PageProps) => {
 
   return (
     <Box>
-      {/* Back Button */}
       <Box textAlign="center" mb={3}>
         <Button fluid className="btn-bank" onClick={() => setPage('main')}>
           <Icon name="step-backward" className="text-gold" mr={1} />
@@ -401,7 +389,6 @@ const UUTransferMenuPage = ({ setPage, data }: PageProps) => {
         </Button>
       </Box>
 
-      {/* Balance Display */}
       <Box className="balance-display">
         <Box className="balance-label">Доступный баланс</Box>
         <Box className="balance-amount">
@@ -412,7 +399,6 @@ const UUTransferMenuPage = ({ setPage, data }: PageProps) => {
         </Box>
       </Box>
 
-      {/* Transfer Form */}
       <Section>
         <Box className="section-header" mb={3} textAlign="center">
           <Icon name="exchange-alt" className="text-gold" mr={1} />
@@ -421,7 +407,6 @@ const UUTransferMenuPage = ({ setPage, data }: PageProps) => {
           </Box>
         </Box>
 
-        {/* Recipient */}
         <Box mb={3}>
           <Box className="field-label" mb={1}>
             <Icon name="user" mr={0.5} />
@@ -435,7 +420,6 @@ const UUTransferMenuPage = ({ setPage, data }: PageProps) => {
           />
         </Box>
 
-        {/* Amount */}
         <Box mb={3}>
           <Box className="field-label" mb={1}>
             <Icon name="coins" mr={0.5} />
@@ -466,10 +450,8 @@ const UUTransferMenuPage = ({ setPage, data }: PageProps) => {
           </Box>
         </Box>
 
-        {/* Divider */}
         <Box className="divider" />
 
-        {/* Purpose */}
         <Box mb={3}>
           <Box className="field-label" mb={1}>
             <Icon name="file-alt" mr={0.5} />
@@ -493,7 +475,6 @@ const UUTransferMenuPage = ({ setPage, data }: PageProps) => {
           </Box>
         </Box>
 
-        {/* Error Message */}
         {error && (
           <Box className="error-message" mb={2}>
             <Icon name="exclamation-circle" mr={0.5} />
@@ -501,7 +482,6 @@ const UUTransferMenuPage = ({ setPage, data }: PageProps) => {
           </Box>
         )}
 
-        {/* Submit Button */}
         <Button
           fluid
           className="btn-bank btn-bank--primary"
@@ -517,7 +497,6 @@ const UUTransferMenuPage = ({ setPage, data }: PageProps) => {
           </Stack>
         </Button>
 
-        {/* Security Notice */}
         <Box fontSize="10px" className="text-muted" textAlign="center" mt={2}>
           <Icon name="shield-alt" mr={0.5} />
           Перевод защищён протоколом Raingor SecureChain™
@@ -534,7 +513,6 @@ const UUSubscriptionsMenuPage = ({ setPage, data }: PageProps) => {
 
   return (
     <Box>
-      {/* Back Button */}
       <Box textAlign="center" mb={3}>
         <Button fluid className="btn-bank" onClick={() => setPage('main')}>
           <Icon name="step-backward" className="text-gold" mr={1} />
@@ -542,7 +520,6 @@ const UUSubscriptionsMenuPage = ({ setPage, data }: PageProps) => {
         </Button>
       </Box>
 
-      {/* Available Subscriptions */}
       <Section mb={2}>
         <Box className="section-header">
           <Icon name="credit-card" className="text-gold" mr={1} />
@@ -601,10 +578,8 @@ const UUSubscriptionsMenuPage = ({ setPage, data }: PageProps) => {
         )}
       </Section>
 
-      {/* Divider */}
       <Box className="divider" />
 
-      {/* Your Subscriptions */}
       <Section>
         <Box className="section-header">
           <Icon name="credit-card-alt" className="text-gold" mr={1} />
@@ -750,7 +725,6 @@ const UUSubscriptionsMenuPage = ({ setPage, data }: PageProps) => {
 const UUAboutMenuPage = ({ setPage }: PageProps) => {
   return (
     <Box>
-      {/* Back Button */}
       <Box textAlign="center" mb={4}>
         <Button fluid className="btn-bank" onClick={() => setPage('main')}>
           <Icon name="step-backward" className="text-gold" mr={1} />
@@ -758,7 +732,6 @@ const UUAboutMenuPage = ({ setPage }: PageProps) => {
         </Button>
       </Box>
 
-      {/* Main Section */}
       <Section>
         <Box className="lore-section-title" textAlign="center" mb={3}>
           <Icon name="university" className="text-gold" size={2} mr={1} />
@@ -773,7 +746,6 @@ const UUAboutMenuPage = ({ setPage }: PageProps) => {
         </Box>
 
         <Box className="lore-container">
-          {/* Paragraph 1: Identity & Parent Company */}
           <Box className="lore-paragraph">
             <Box as="span" className="lore-highlight">
               Raingor Interstellar Bank
@@ -787,7 +759,6 @@ const UUAboutMenuPage = ({ setPage }: PageProps) => {
             потоков в секторах присутствия корпорации.
           </Box>
 
-          {/* Paragraph 2: History & Tech (Sanitized) */}
           <Box className="lore-paragraph">
             Основанный в конце 24 века как инструмент консолидации активов
             группы компаний, банк быстро занял лидирующие позиции благодаря
@@ -803,14 +774,12 @@ const UUAboutMenuPage = ({ setPage }: PageProps) => {
             внешних факторов.
           </Box>
 
-          {/* Decorative Divider - Subtle/Corporate */}
           <Box className="lore-divider">
             <Icon name="chart-line" size={1} className="lore-icon-decor" />
             <Icon name="shield-halved" size={1} className="lore-icon-decor" />
             <Icon name="globe" size={1} className="lore-icon-decor" />
           </Box>
 
-          {/* Paragraph 3: Services (Legit facade) */}
           <Box className="lore-paragraph">
             Клиентская база банка включает как частных инвесторов, так и крупные
             исследовательские синдикаты.{' '}
@@ -822,7 +791,6 @@ const UUAboutMenuPage = ({ setPage }: PageProps) => {
             где капитал работает эффективно, а риски сведены к минимуму.
           </Box>
 
-          {/* Paragraph 4: Reliability (The "Clean" Promise) */}
           <Box className="lore-paragraph">
             Приоритет банка — абсолютная конфиденциальность и надежность
             хранения средств. Наши алгоритмы защиты данных соответствуют высшим
@@ -830,7 +798,6 @@ const UUAboutMenuPage = ({ setPage }: PageProps) => {
             условиях нестабильности рынка или локальных конфликтов.
           </Box>
 
-          {/* Quote / Slogan - Neutral but firm */}
           <Box className="card--quote">
             <Icon
               name="quote-left"
@@ -851,7 +818,6 @@ const UUAboutMenuPage = ({ setPage }: PageProps) => {
         </Box>
       </Section>
 
-      {/* Footer */}
       <Box textAlign="center" mt={3} className="text-muted" fontSize={0.9}>
         <Icon name="copyright" mr={0.5} />
         Raingor Interstellar Bank © 24XX | Part of Black Rain Group
@@ -865,7 +831,6 @@ const UUAboutMenuPage = ({ setPage }: PageProps) => {
 const UUErrorPage = ({ setPage }: PageBaseProps) => {
   return (
     <Box>
-      {/* Error Card */}
       <Box className="card card--error">
         <Box className="error-icon" textAlign="center">
           <Icon name="exclamation-triangle" />
@@ -895,7 +860,6 @@ const UUErrorPage = ({ setPage }: PageBaseProps) => {
         </Button>
       </Box>
 
-      {/* Footer Notice */}
       <Box textAlign="center" mt={3} className="text-muted" fontSize={0.9}>
         <Icon name="info-circle" mr={0.5} />
         Если ошибка повторяется, обратитесь в службу поддержки Raingor
