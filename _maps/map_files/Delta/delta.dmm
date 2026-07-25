@@ -13930,15 +13930,15 @@
 	dir = 4;
 	name = "Труба фильтрации"
 	},
-/obj/machinery/atmospherics/binary/pump{
-	desc = "Подаёт оксид азота для смешивания с другими газами";
-	dir = 1;
-	name = "Оксид азота (NO2) в смеситель";
-	target_pressure = 101
-	},
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 4
+	},
+/obj/machinery/atmospherics/binary/pump{
+	desc = "Подаёт токсины для смешивания с другими газами";
+	dir = 1;
+	name = "Токсины (Плазма) в смеситель";
+	target_pressure = 101
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -117737,15 +117737,15 @@
 	dir = 4;
 	name = "Труба фильтрации"
 	},
-/obj/machinery/atmospherics/binary/pump{
-	desc = "Подаёт токсины для смешивания с другими газами";
-	dir = 1;
-	name = "Токсины (Плазма) в смеситель";
-	target_pressure = 101
-	},
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 4
+	},
+/obj/machinery/atmospherics/binary/pump{
+	desc = "Подаёт оксид азота для смешивания с другими газами";
+	dir = 1;
+	name = "Оксид азота (NO2) в смеситель";
+	target_pressure = 101
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
