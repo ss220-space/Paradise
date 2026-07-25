@@ -522,10 +522,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/toilets)
 "aEz" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = 28
 	},
@@ -1177,7 +1174,7 @@
 /obj/effect/mob_spawn/human/space_base_syndicate/botanist{
 	dir = 8
 	},
-/turf/simulated/floor/carpet/black,
+/turf/simulated/floor/carpet/green,
 /area/syndicate/unpowered/syndicate_space_base/cryo)
 "bbZ" = (
 /obj/structure/lattice,
@@ -1456,9 +1453,7 @@
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "brk" = (
 /obj/structure/curtain/open/shower,
-/obj/machinery/shower{
-	pixel_y = 20
-	},
+/obj/machinery/shower/directional/south,
 /obj/item/bikehorn/rubberducky,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -1558,10 +1553,7 @@
 /obj/structure/mirror{
 	pixel_x = 28
 	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /obj/machinery/power/apc/syndicate/directional/south,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
@@ -8285,9 +8277,7 @@
 	name = "Riot Control";
 	req_access = list(150)
 	},
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -8425,9 +8415,7 @@
 /obj/structure/sign/restroom{
 	pixel_y = -30
 	},
-/obj/structure/sink{
-	dir = 1
-	},
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -9636,7 +9624,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
-/obj/effect/mob_spawn/human/space_base_syndicate/rd{
+/obj/effect/mob_spawn/human/space_base_syndicate/command/rd{
 	dir = 4
 	},
 /turf/simulated/floor/carpet/black,
@@ -9829,10 +9817,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/structure/sink/kitchen{
-	dir = 8;
-	pixel_x = 13
-	},
+/obj/structure/sink/kitchen/directional/west,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -11445,10 +11430,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -11838,10 +11820,7 @@
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet/directional/east,
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -13935,9 +13914,7 @@
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "nvz" = (
 /obj/effect/turf_decal/delivery/hollow,
-/obj/machinery/shower{
-	dir = 1
-	},
+/obj/machinery/shower/directional/north,
 /obj/structure/mirror{
 	pixel_x = 32
 	},
@@ -15647,10 +15624,10 @@
 	dir = 8
 	},
 /obj/item/radio/intercom/syndicate/directional/north,
-/obj/effect/mob_spawn/human/space_base_syndicate/chef{
+/obj/effect/mob_spawn/human/space_base_syndicate/medic{
 	dir = 4
 	},
-/turf/simulated/floor/carpet/black,
+/turf/simulated/floor/carpet/cyan,
 /area/syndicate/unpowered/syndicate_space_base/cryo)
 "oOV" = (
 /obj/effect/turf_decal/tile/red{
@@ -15679,7 +15656,7 @@
 /obj/effect/mob_spawn/human/space_base_syndicate/cargotech{
 	dir = 8
 	},
-/turf/simulated/floor/carpet/black,
+/turf/simulated/floor/carpet,
 /area/syndicate/unpowered/syndicate_space_base/cryo)
 "oQj" = (
 /obj/effect/turf_decal/tile/neutral{
@@ -16475,9 +16452,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/medbay)
 "pve" = (
-/obj/machinery/shower{
-	pixel_y = 20
-	},
+/obj/machinery/shower/directional/south,
 /obj/structure/curtain/open/shower/security,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
@@ -16598,7 +16573,7 @@
 /obj/effect/mob_spawn/human/space_base_syndicate{
 	dir = 8
 	},
-/turf/simulated/floor/carpet/black,
+/turf/simulated/floor/carpet/purple,
 /area/syndicate/unpowered/syndicate_space_base/cryo)
 "pBo" = (
 /turf/simulated/floor/plasteel{
@@ -18499,7 +18474,7 @@
 /obj/effect/mob_spawn/human/space_base_syndicate{
 	dir = 8
 	},
-/turf/simulated/floor/carpet/black,
+/turf/simulated/floor/carpet/purple,
 /area/syndicate/unpowered/syndicate_space_base/cryo)
 "qWC" = (
 /obj/effect/turf_decal/tile/neutral{
@@ -20261,7 +20236,7 @@
 /obj/effect/mob_spawn/human/space_base_syndicate/engineer{
 	dir = 4
 	},
-/turf/simulated/floor/carpet/black,
+/turf/simulated/floor/carpet/orange,
 /area/syndicate/unpowered/syndicate_space_base/cryo)
 "sMs" = (
 /obj/effect/turf_decal/tile/red,
@@ -20288,10 +20263,10 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
-/obj/effect/mob_spawn/human/space_base_syndicate/cargotech{
+/obj/effect/mob_spawn/human/space_base_syndicate/chef{
 	dir = 8
 	},
-/turf/simulated/floor/carpet/black,
+/turf/simulated/floor/carpet/green,
 /area/syndicate/unpowered/syndicate_space_base/cryo)
 "sNv" = (
 /obj/structure/grille,
@@ -20513,7 +20488,7 @@
 /area/syndicate/unpowered/syndicate_space_base/telecomms/agent_room)
 "tbq" = (
 /obj/machinery/alarm/syndicate/directional/east,
-/obj/effect/mob_spawn/human/space_base_syndicate/comms{
+/obj/effect/mob_spawn/human/space_base_syndicate/command/comms{
 	dir = 8
 	},
 /turf/simulated/floor/carpet/black,
@@ -23091,9 +23066,7 @@
 	on = 1
 	},
 /obj/structure/extinguisher_cabinet/directional/north,
-/obj/machinery/shower{
-	pixel_y = 20
-	},
+/obj/machinery/shower/directional/south,
 /obj/structure/curtain/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -23148,9 +23121,7 @@
 	on = 1
 	},
 /obj/structure/extinguisher_cabinet/directional/north,
-/obj/machinery/shower{
-	pixel_y = 20
-	},
+/obj/machinery/shower/directional/south,
 /obj/structure/curtain/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -23918,10 +23889,7 @@
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "vzU" = (
 /obj/effect/turf_decal/delivery/hollow,
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -11
-	},
+/obj/structure/sink/directional/east,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
@@ -24886,10 +24854,10 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red,
-/obj/effect/mob_spawn/human/space_base_syndicate/medic{
+/obj/effect/mob_spawn/human/space_base_syndicate/cargotech{
 	dir = 8
 	},
-/turf/simulated/floor/carpet/black,
+/turf/simulated/floor/carpet,
 /area/syndicate/unpowered/syndicate_space_base/cryo)
 "wrs" = (
 /obj/structure/chair/sofa{
@@ -24993,9 +24961,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/cargo/storage)
 "wtW" = (
-/obj/machinery/shower{
-	dir = 1
-	},
+/obj/machinery/shower/directional/north,
 /obj/structure/curtain/open/shower/security,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1

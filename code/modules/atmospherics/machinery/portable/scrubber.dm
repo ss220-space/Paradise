@@ -141,6 +141,8 @@
 		"rate" = round(volume_rate, 0.001),
 		"tank_pressure" = air_contents.return_pressure() > 0 ? round(air_contents.return_pressure(), 0.001) : 0
 	)
+	data["hasHypernobCrystal"] = nob_crystal_inserted
+	data["reactionSuppressionEnabled"] = suppress_reactions
 	if(holding)
 		data["has_holding_tank"] = TRUE
 		data["holding_tank"] = list("name" = holding.name, "tank_pressure" = holding.air_contents.return_pressure() > 0 ? round(holding.air_contents.return_pressure(), 0.001) : 0)
@@ -169,6 +171,15 @@
 			volume_rate = clamp(text2num(params["rate"]), 0, MAX_RATE)
 			return TRUE
 
+		if("reaction_suppression")
+			if(!nob_crystal_inserted)
+				message_admins("[ADMIN_LOOKUPFLW(usr)] tried to toggle reaction suppression on a pipe scrubber without a noblium crystal inside, possible href exploit attempt.")
+				return
+			suppress_reactions = !suppress_reactions
+			message_admins("[ADMIN_LOOKUPFLW(usr)] turned [suppress_reactions ? "on" : "off"] the [src] reaction suppression.")
+			usr.investigate_log("turned [suppress_reactions ? "on" : "off"] the [src] reaction suppression.", INVESTIGATE_ATMOS)
+			. = TRUE
+
 	add_fingerprint(usr)
 
 /obj/machinery/portable_atmospherics/scrubber/huge
@@ -185,7 +196,7 @@
 
 /obj/machinery/portable_atmospherics/scrubber/huge/Initialize(mapload)
 	. = ..()
-	
+
 	id = gid
 	gid++
 

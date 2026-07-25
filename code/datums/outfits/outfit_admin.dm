@@ -1282,7 +1282,7 @@
 	var/datum/action/cooldown/spell/shapeshift/hellhound/hound_spell = new
 	hound_spell.Grant(H)
 	H.force_gene_block(GLOB.jumpblock, TRUE)
-	H.gene_stability = 100
+	H.set_gene_stability(100)
 
 /datum/outfit/admin/wizard
 	name = "Blue Wizard"

@@ -360,7 +360,6 @@
  */
 /mob/proc/reset_perspective(atom/new_eye)
 	SHOULD_CALL_PARENT(TRUE)
-	SEND_SIGNAL(src, COMSIG_MOB_RESET_PERSPECTIVE)
 	if(!client)
 		return
 
@@ -392,7 +391,8 @@
 		else
 			client.perspective = EYE_PERSPECTIVE
 			client.set_eye(loc)
-
+	/// Signal sent after the eye has been successfully updated, with the client existing.
+	SEND_SIGNAL(src, COMSIG_MOB_RESET_PERSPECTIVE)
 	return TRUE
 
 /mob/living/reset_perspective(atom/new_eye)
@@ -419,9 +419,6 @@
 		if(hud_used)
 			client.clear_screen()
 			hud_used.show_hud(hud_used.hud_version)
-		if(!new_eye)
-			client.set_eye(src)
-			client.perspective = MOB_PERSPECTIVE
 
 /mob/proc/clear_client_in_contents()
 	if(!client?.movingmob)
@@ -1292,25 +1289,6 @@
 ///Force set the mob nutrition
 /mob/proc/set_nutrition(change, forced)
 	nutrition = max(0, change)
-
-/mob/clean_blood(clean_hands = TRUE, clean_mask = TRUE, clean_feet = TRUE)
-	. = ..()
-	if(bloody_hands && clean_hands)
-		bloody_hands = 0
-		update_worn_gloves()
-	if(l_hand?.clean_blood() || r_hand?.clean_blood())
-		update_held_items()
-	if(back?.clean_blood())
-		update_worn_back()
-	if(clean_mask && wear_mask?.clean_blood())
-		update_worn_mask()
-	if(clean_feet)
-		feet_blood_color = null
-		feet_blood_DNA = null
-		bloody_feet = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0,  BLOOD_STATE_NOT_BLOODY = 0)
-		blood_state = BLOOD_STATE_NOT_BLOODY
-		update_worn_shoes()
-	update_icons()	//apply the now updated overlays to the mob
 
 ///Makes a call in the context of a different usr. Use sparingly
 /world/proc/invoke_callback_with_usr(mob/user_mob, datum/callback/invoked_callback, ...)

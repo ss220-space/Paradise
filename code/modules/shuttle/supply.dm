@@ -144,8 +144,10 @@
 	var/crate_count = 0
 	var/quest_reward
 
-	var/msg = "<center>---[station_time_timestamp()]---</center><br>"
+	var/list/msg = list("<center>---[station_time_timestamp()]---</center><br>")
 	var/pointsEarned
+
+	var/datum/export_report/report = new
 
 	for(var/atom/movable/MA in areaInstance)
 		if(MA.anchored)
@@ -158,7 +160,7 @@
 			quest_reward += SScargo_quests.check_delivery(MA)
 
 		// Must be in a crate (or a critter crate)!
-		if(is_crate(MA) || istype(MA,/obj/structure/closet/crate/critter))
+		if(is_crate(MA) || istype(MA, /obj/structure/closet/crate/critter))
 			SSshuttle.sold_atoms += ":"
 			if(!length(MA.contents))
 				SSshuttle.sold_atoms += " (пусто)"
@@ -255,6 +257,9 @@
 				crate.quest.id.robo_bounty = null
 				crate.quest = null
 
+		export_item_and_contents(MA, apply_elastic = TRUE, dry_run = FALSE, external_report = report)
+
+
 		qdel(MA, force = TRUE)
 		SSshuttle.sold_atoms += "."
 
@@ -267,7 +272,17 @@
 		msg += "[span_good("+[pointsEarned]")]: Получен[declension_ru(crate_count, "", "ы", "о")] [crate_count] ящик[DECL_CREDIT(crate_count)].<br>"
 		SSshuttle.points += pointsEarned
 
-	SSshuttle.centcom_message += "[msg]<hr>"
+	var/datum/money_account/cargo_money_account = GLOB.department_accounts[STATION_DEPARTMENT_SUPPLY]
+
+	for(var/datum/export/exported_datum in report.total_amount)
+		var/export_text = exported_datum.total_printout(report)
+		if(!export_text)
+			continue
+
+		msg += export_text + "<br>"
+		cargo_money_account.credit(report.total_value[exported_datum], "Экспорт ценных ресурсов", "Терминал Бизель №[rand(111,333)]", "Счёт Отдела снабжения")
+
+	SSshuttle.centcom_message += "[msg.Join("")]<hr>"
 
 /********************
 	SUPPLY ORDER

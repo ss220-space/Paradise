@@ -1,4 +1,0 @@
-author: "SCPfollower"
-delete-after: True
-changes:
-  - bugfix: "Фикс пропадающих кнопок тонировки и голо. знака операционок. (PR #9462)"

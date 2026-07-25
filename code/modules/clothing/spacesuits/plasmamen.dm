@@ -13,11 +13,6 @@
 	light_on = FALSE
 	light_system = OVERLAY_LIGHT_DIRECTIONAL
 	can_toggle = TRUE
-	var/on = FALSE
-	var/smile = FALSE
-	var/smile_color = "#FF0000"
-	var/visor_icon = "envisor"
-	var/smile_state = "envirohelm_smile"
 	actions_types = list(/datum/action/item_action/toggle_helmet_light, /datum/action/item_action/toggle_welding_screen/plasmaman)
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
 	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDENAME
@@ -27,6 +22,11 @@
 	species_restricted = list(SPECIES_PLASMAMAN)
 	sprite_sheets = list(SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/helmet.dmi')
 	var/upgradable = FALSE
+	var/on = FALSE
+	var/smile = FALSE
+	var/smile_color = "#FF0000"
+	var/visor_icon = "envisor"
+	var/smile_state = "envirohelm_smile"
 
 /obj/item/clothing/head/helmet/space/plasmaman/get_ru_names()
 	return alist(
@@ -108,6 +108,14 @@
 	if(HUDType && istype(user) && slot == ITEM_SLOT_HEAD)
 		var/datum/atom_hud/H = GLOB.huds[HUDType]
 		H.hide_from(user)
+
+/obj/item/clothing/head/helmet/space/plasmaman/wash_tg(clean_types)
+	. = NONE
+	if(smile && (clean_types & CLEAN_TYPE_HARD_DECAL))
+		smile = FALSE
+		update_appearance(UPDATE_OVERLAYS)
+		. |= COMPONENT_CLEANED|COMPONENT_CLEANED_GAIN_XP
+	. |= ..()
 
 /obj/item/clothing/head/helmet/space/plasmaman/security
 	name = "security plasma envirosuit helmet"

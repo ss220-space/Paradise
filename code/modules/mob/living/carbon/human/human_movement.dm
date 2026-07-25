@@ -5,10 +5,10 @@
 
 /mob/living/carbon/human/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
-	if(!forced && (!old_loc || old_loc.no_gravity()) && get_gravity())
+	if(!forced && (!old_loc || old_loc.no_gravity()) && has_gravity())
 		thunk()
 
-	if(!forced && HAS_TRAIT(src, TRAIT_FRACTURE_FALL) && get_gravity())
+	if(!forced && HAS_TRAIT(src, TRAIT_FRACTURE_FALL) && has_gravity())
 		fracture_fall_check()
 
 /mob/living/carbon/human/get_movespeed_modifiers()
@@ -28,16 +28,6 @@
 	if(dna.species.spec_Process_Spacemove(src, movement_dir, continuous_move = FALSE))
 		return TRUE
 	return ..()
-
-/mob/living/carbon/human/proc/get_strength_level()
-	var/list/strength_list = list()
-	SEND_SIGNAL(src, COMSIG_GET_STRENGTH, strength_list)
-	return !length(strength_list) ? STRENGTH_LEVEL_DEFAULT : strength_list[1]
-
-/mob/living/carbon/human/proc/get_weak_mob_modifiers()
-	var/list/weak_mob_modifier = list()
-	SEND_SIGNAL(src, COMSIG_GET_WEAK_MOB_MODIFIERS, weak_mob_modifier)
-	return !length(weak_mob_modifier) ? 1 : weak_mob_modifier[1]
 
 /mob/living/carbon/human/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()

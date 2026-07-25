@@ -196,7 +196,7 @@
 	// If our sound emote is forced by code, don't worry about cooldowns at all.
 	if(tmp_sound && should_play_sound(user, intentional) && sound_volume > 0)
 		if(bypass_unintentional_cooldown || user.start_audio_emote_cooldown(intentional, intentional ? audio_cooldown : unintentional_audio_cooldown))
-			play_sound_effect(user, intentional, tmp_sound, sound_volume)
+			play_sound_effect(user, intentional, get_sfx(tmp_sound), sound_volume)
 
 	if(msg)
 		user.create_log(EMOTE_LOG, msg)

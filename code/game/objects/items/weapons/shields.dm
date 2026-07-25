@@ -1,31 +1,36 @@
 /obj/item/shield
 	name = "shield"
-	block_chance = 50
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 30, BIO = 0, FIRE = 80, ACID = 70)
 	obj_integrity = 380
 	max_integrity = 380
 	abstract_type = /obj/item/shield
+
+/obj/item/shield/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES, _block_callback = CALLBACK(src, PROC_REF(on_block)))
 
 /obj/item/shield/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	var/attack_angle = get_angle(owner, hitby)
 	var/facing_angle = dir2angle(owner.dir)
 	var/incidence = GET_ANGLE_OF_INCIDENCE(facing_angle, attack_angle)
 	if(incidence > 90 && incidence < 270)
-		return FALSE // blocking only in front of us
-	if(attack_type == THROWN_PROJECTILE_ATTACK)
-		final_block_chance += 30
-	. = ..()
-	if(!.)
-		return FALSE
+		return HIT_RESULT_FAILED // blocking only in front of us
+	return ..()
+
+/obj/item/shield/proc/on_block(obj/attack_obj)
 	var/damage_type = BRUTE
-	if(isprojectile(hitby))
-		var/obj/projectile/projectile = hitby
+	var/attack_obj_armor_penetration = 0
+	if(isprojectile(attack_obj))
+		var/obj/projectile/projectile = attack_obj
+		attack_obj_armor_penetration = max(attack_obj_armor_penetration, projectile.armour_penetration)
 		if(projectile.shield_buster)
 			take_damage(180, damage_type, sound_effect = FALSE) //2 shots for tele, 3 for riot
-	if(isobj(hitby))
-		var/obj/hitby_obj = hitby
-		damage_type = hitby_obj.damtype
-	take_damage(damage, damage_type, sound_effect = FALSE)
+		damage_type = attack_obj.damtype
+
+	else if(isitem(attack_obj))
+		var/obj/item/hitby_obj = attack_obj
+		attack_obj_armor_penetration = max(attack_obj_armor_penetration, hitby_obj.armour_penetration)
+		damage_type = attack_obj.damtype
+	take_damage(attack_obj_armor_penetration, damage_type, sound_effect = FALSE)
 
 /obj/item/shield/obj_destruction(damage_flag)
 	playsound(src, 'sound/weapons/smash.ogg', 50)
@@ -71,8 +76,10 @@
 
 /obj/item/shield/riot/roman/fake
 	desc = "Bears an inscription on the inside: <i>\"Romanes venio domus\"</i>. It appears to be a bit flimsy."
-	block_chance = 0
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, fire = 0, acid = 0)
+
+/obj/item/shield/riot/roman/fake/add_parry_component()
+	return
 
 /obj/item/shield/riot/buckler
 	name = "wooden buckler"
@@ -82,9 +89,11 @@
 	materials = list()
 	origin_tech = "materials=1;combat=3;biotech=2"
 	resistance_flags = FLAMMABLE
-	block_chance = 30
 	obj_integrity = 380
 	max_integrity = 380
+
+/obj/item/shield/riot/buckler/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (7 / 3) SECONDS) // 2.3333 seconds of cooldown for 30% uptime
 
 /obj/item/shield/riot/goliath
 	name = "goliath shield"
@@ -93,7 +102,6 @@
 	item_state = "goliath_shield"
 	materials = list()
 	origin_tech = "materials=1;combat=3;biotech=2"
-	block_chance = 45
 	obj_integrity = 380
 	max_integrity = 380
 
@@ -106,6 +114,9 @@
 		INSTRUMENTAL = "щитом из пластин голиафа",
 		PREPOSITIONAL = "щите из пластин голиафа",
 	)
+
+/obj/item/shield/riot/goliath/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.55, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/shield/energy
 	name = "energy combat shield"
@@ -126,7 +137,7 @@
 		if(P.shield_buster && active)
 			toggle(owner, TRUE)
 			to_chat(owner, span_warning("[hitby] overloaded your [src]!"))
-	return FALSE
+	return HIT_RESULT_FAILED
 
 /obj/item/shield/energy/IsReflect()
 	return (active)
@@ -185,22 +196,20 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	obj_integrity = 360
 	max_integrity = 360
-	var/active = 0
 
 /obj/item/shield/riot/tele/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
-	if(active)
+	if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
 		return ..()
-	return FALSE
+	return HIT_RESULT_FAILED
 
 /obj/item/shield/riot/tele/update_icon_state()
-	icon_state = "teleriot[active]"
+	icon_state = "teleriot[HAS_TRAIT(src, TRAIT_ITEM_ACTIVE)]"
 
 /obj/item/shield/riot/tele/attack_self(mob/living/user)
-	active = !active
-	update_icon(UPDATE_ICON_STATE)
 	playsound(loc, 'sound/weapons/batonextend.ogg', 50, TRUE)
 
-	if(active)
+	if(!HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
+		ADD_TRAIT(src, TRAIT_ITEM_ACTIVE, GENERIC_TRAIT)
 		force = 8
 		throwforce = 5
 		throw_speed = 2
@@ -208,12 +217,14 @@
 		slot_flags = ITEM_SLOT_BACK
 		to_chat(user, span_notice("You extend \the [src]."))
 	else
+		REMOVE_TRAIT(src,TRAIT_ITEM_ACTIVE, GENERIC_TRAIT)
 		force = 3
 		throwforce = 3
 		throw_speed = 3
 		w_class = WEIGHT_CLASS_NORMAL
 		slot_flags = NONE
 		to_chat(user, span_notice("[src] can now be concealed."))
+	update_icon(UPDATE_ICON_STATE)
 	update_equipped_item()
 	add_fingerprint(user)
 

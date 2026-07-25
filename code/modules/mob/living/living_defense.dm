@@ -254,7 +254,7 @@
 
 /mob/living/proc/WetMob(wet_type = /datum/status_effect/stacking/wet)
 	var/datum/status_effect/stacking/wet/effect = has_status_effect(wet_type)
-	return	effect?.WetMob()
+	return effect?.WetMob()
 
 /mob/living/proc/adjust_wet_stacks(add_wet_stacks, wet_type = /datum/status_effect/stacking/wet) //Adjusting the amount of fire_stacks we have on person
 	var/datum/status_effect/stacking/wet/effect = has_status_effect(wet_type)
@@ -461,7 +461,7 @@
 		mod *= modifier
 
 	var/normal_grab_update_time = GRAB_UPGRADE_TIME * mod
-	return isnull(grabber.mind?.martial_art?.grab_speed) ? normal_grab_update_time / mod : grabber.mind.martial_art.grab_speed
+	return isnull(grabber.mind?.martial_art?.grab_speed) ? normal_grab_update_time : grabber.mind.martial_art.grab_speed
 
 /mob/living/attack_slime(mob/living/simple_animal/slime/M)
 	if(!SSticker)

@@ -247,13 +247,13 @@ ADMIN_VERB(bless, R_EVENT, "Bless", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HI
 			logmsg = "a heal over time."
 		if("Permanent Regeneration")
 			H.force_gene_block(GLOB.regenerateblock, TRUE)
-			H.gene_stability = 100
+			H.set_gene_stability(100)
 			logmsg = "permanent regeneration."
 		if("Super Powers")
 			var/list/default_genes = list(GLOB.regenerateblock, GLOB.breathlessblock, GLOB.coldblock)
 			for(var/gene in default_genes)
 				H.force_gene_block(gene, TRUE)
-			H.gene_stability = 100
+			H.set_gene_stability(100)
 			logmsg = "superpowers."
 		if("Scarab Guardian")
 			var/obj/item/guardiancreator/biological/scarab = new /obj/item/guardiancreator/biological(H)

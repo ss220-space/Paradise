@@ -46,6 +46,10 @@
 		minbodytemp = 0, \
 	)
 
+/mob/living/simple_animal/hostile/bear/Initialize(mapload)
+	. = ..()
+	add_traits(list(TRAIT_SPACEWALK, TRAIT_SWIMMER, TRAIT_FENCE_CLIMBER, TRAIT_SNOWSTORM_IMMUNE), INNATE_TRAIT)
+
 /mob/living/simple_animal/hostile/bear/handle_automated_movement()
 	if(..())
 		playsound(src, src.trigger_sound, 40, TRUE)

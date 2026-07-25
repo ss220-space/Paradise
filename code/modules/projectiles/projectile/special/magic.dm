@@ -493,14 +493,16 @@
 	else
 		new_mob.possess_by_player(M.ckey)
 
-	if(is_new_mind)
-		to_chat(new_mob, span_danger("Вы потеряли свою личность и память! Отыгрывайте новое существо!"))
-	to_chat(new_mob, span_danger("ТЕПЕРЬ ВЫ [uppertext(randomize)]"))
-	if(briefing_msg)
-		to_chat(new_mob, custom_boxed_message("red_box center", span_userdanger("[briefing_msg]")))
-	SEND_SIGNAL(M, COMSIG_LIVING_ON_WABBAJACKED, new_mob)
-	qdel(M)
-	return new_mob
+		if(is_new_mind)
+			to_chat(new_mob, span_danger("Вы потеряли свою личность и память! Отыгрывайте новое существо!"))
+		to_chat(new_mob, span_danger("ТЕПЕРЬ ВЫ [uppertext(randomize)]"))
+		if(briefing_msg)
+			to_chat(new_mob, custom_boxed_message("red_box center", span_userdanger("[briefing_msg]")))
+
+		SEND_SIGNAL(M, COMSIG_LIVING_ON_WABBAJACKED, new_mob)
+
+		qdel(M)
+		return new_mob
 
 // MARK: Animation Bolt
 /obj/projectile/magic/animate

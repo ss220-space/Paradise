@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - bugfix: "Синдром Туретта больше не работает у мертвых мобов. (PR #9547)"

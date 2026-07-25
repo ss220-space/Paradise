@@ -21,7 +21,7 @@
 	if(!isliving(cast_on))
 		return FALSE
 	var/mob/living/target = cast_on
-	return target.stat != DEAD && target.key && target.mind
+	return target.stat != DEAD && target.key && target.mind && !HAS_TRAIT(target, TRAIT_MIND_TEMPORARILY_GONE)
 
 /*
 Urist: I don't feel like figuring out how you store object spells so I'm leaving this for you to do.

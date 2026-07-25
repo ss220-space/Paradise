@@ -323,7 +323,7 @@
 			continue
 		return rebound
 
-/mob/get_gravity(turf/gravity_turf)
+/mob/has_gravity(turf/gravity_turf)
 	if(!isnull(GLOB.gravity_is_on))	// global admin override.
 		return GLOB.gravity_is_on
 	return mob_negates_gravity() || ..()
@@ -538,15 +538,7 @@
 
 /mob/abstract_move(atom/destination)
 	var/turf/new_turf = get_turf(destination)
-
-	var/atom/oldloc = loc
-	var/area/oldarea = get_area(oldloc)
-	var/area/newarea = get_area(destination)
-
-	if(oldarea != newarea)
-		newarea.Entered(src, oldarea)
-
-	if(new_turf && (iscordon(new_turf)))
+	if(new_turf && iscordon(new_turf) && !client?.holder)
 		return
 	return ..()
 

@@ -1,0 +1,4 @@
+author: "FlitchTime"
+delete-after: True
+changes:
+  - qol: "Прыжок хантера теперь можно биндить и двигать. (PR #9548)"

@@ -63,7 +63,7 @@
 
 /datum/species/grey/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
-	H.gene_stability += GREYS_ADDITIONAL_GENE_STABILITY
+	H.set_gene_stability(H.gene_stability + GREYS_ADDITIONAL_GENE_STABILITY)
 	RegisterSignal(H, COMSIG_SINK_ACT, PROC_REF(sink_act))
 
 /datum/species/grey/gain_muscles(mob/living/target, default, max_level, can_become_stronger)
@@ -71,7 +71,7 @@
 
 /datum/species/grey/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
-	H.gene_stability -= GREYS_ADDITIONAL_GENE_STABILITY
+	H.set_gene_stability(H.gene_stability - GREYS_ADDITIONAL_GENE_STABILITY)
 	UnregisterSignal(H, COMSIG_SINK_ACT)
 
 /datum/species/grey/handle_dna(mob/living/carbon/human/H, remove = FALSE)

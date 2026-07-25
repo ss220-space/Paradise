@@ -98,7 +98,7 @@
 	if(!length(tool_list))
 		to_chat(user, span_warning("[src] doesn't seem to lead anywhere!"))
 		return
-	var/result = show_radial_menu(user, src, tool_list, custom_check = CALLBACK(src, PROC_REF(check_menu), user, is_ghost), require_near = !is_ghost)
+	var/result = show_radial_menu(user, src, tool_list, custom_check = CALLBACK(src, PROC_REF(check_menu), user, is_ghost), require_near = !is_ghost, autopick_single_option = FALSE)
 	if(!is_ghost && !in_range(src, user))
 		return  // nice try
 	switch(result)
