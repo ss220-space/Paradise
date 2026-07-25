@@ -58,7 +58,7 @@
 			cogbar = new(user, cog_icon, cog_iconstate)
 
 #ifdef UNIT_TESTS
-	timed_action_flags &= ~IGNORE_SLOWDOWNS // Test dummies are a special case
+	timed_action_flags &= ~DA_IGNORE_SLOWDOWNS // Test dummies are a special case
 #endif
 
 	if(!ismob(user))
