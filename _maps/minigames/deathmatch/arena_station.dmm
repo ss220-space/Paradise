@@ -232,7 +232,7 @@
 /turf/simulated/floor/indestructible/medical_floor,
 /area/deathmatch)
 "qM" = (
-/obj/effect/spawner/random_spawners/syndicate/loot/stetchkin,
+/obj/structure/mystery_box/tdome,
 /turf/simulated/floor/indestructible/plating,
 /area/deathmatch)
 "rp" = (
@@ -415,10 +415,7 @@
 /turf/simulated/floor/indestructible/plating,
 /area/deathmatch)
 "Iq" = (
-/obj/structure/rack/holorack,
-/obj/item/throwing_star,
-/obj/item/throwing_star,
-/obj/item/throwing_star,
+/obj/structure/mystery_box/tdome,
 /turf/simulated/floor/indestructible/brig_black,
 /area/deathmatch)
 "IG" = (
@@ -551,6 +548,11 @@
 /obj/machinery/light/small/directional/north,
 /turf/simulated/floor/indestructible/plating,
 /area/deathmatch)
+"Ss" = (
+/obj/machinery/light/directional/east,
+/obj/structure/mystery_box/tdome,
+/turf/simulated/floor/indestructible/cargo_floor,
+/area/deathmatch)
 "SD" = (
 /obj/structure/table/glass,
 /obj/item/retractor,
@@ -610,7 +612,7 @@
 /turf/simulated/floor/indestructible/brig_floor,
 /area/deathmatch)
 "XZ" = (
-/obj/structure/closet/crate/internals,
+/obj/structure/mystery_box/tdome,
 /turf/simulated/floor/indestructible/medical_floor,
 /area/deathmatch)
 "Yb" = (
@@ -1329,7 +1331,7 @@ Rk
 Gc
 fG
 AS
-jG
+Oz
 Oz
 Yb
 Yb
@@ -1358,7 +1360,7 @@ AS
 Ga
 Oz
 jG
-gi
+Ss
 Yb
 Yb
 UH

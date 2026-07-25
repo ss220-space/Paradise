@@ -1,0 +1,1059 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"az" = (
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"bd" = (
+/obj/machinery/cooker/deepfryer/upgraded,
+/turf/simulated/floor/indestructible/kitchen_floor,
+/area/deathmatch)
+"bm" = (
+/obj/item/pizzabox/margherita,
+/turf/simulated/floor/indestructible/necropolis/air,
+/area/deathmatch)
+"eF" = (
+/obj/machinery/conveyor/auto{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/meat/humanoid/tajaran,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"fe" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/snacks/sliceable/pizza/seafood,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"fi" = (
+/obj/structure/table,
+/obj/effect/spawner/random_spawners/syndicate/trap/pizzabomb,
+/turf/simulated/floor/indestructible/kitchen_floor,
+/area/deathmatch)
+"fY" = (
+/obj/machinery/conveyor/auto{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/meat/humanoid/machine,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"gq" = (
+/obj/structure/table,
+/obj/machinery/reagentgrinder,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"gD" = (
+/obj/structure/sign/poster/contraband/eat,
+/turf/simulated/wall/indestructible/necropolis,
+/area/deathmatch)
+"gP" = (
+/obj/effect/landmark/deathmatch_player_spawn,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"hQ" = (
+/obj/structure/table,
+/obj/machinery/kitchen_machine/microwave,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"hX" = (
+/obj/machinery/conveyor/auto,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/kidan,
+/turf/simulated/floor/indestructible/kitchen_floor,
+/area/deathmatch)
+"ia" = (
+/obj/machinery/conveyor/auto{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/meat/humanoid/neara,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"iK" = (
+/obj/machinery/conveyor/auto{
+	dir = 8
+	},
+/obj/item/reagent_containers/food/snacks/meat/humanoid/kidan,
+/turf/simulated/floor/indestructible/kitchen_floor,
+/area/deathmatch)
+"jd" = (
+/obj/machinery/conveyor/auto{
+	dir = 8
+	},
+/obj/item/reagent_containers/food/snacks/meat/humanoid/wryn,
+/turf/simulated/floor/indestructible/kitchen_floor,
+/area/deathmatch)
+"jo" = (
+/obj/machinery/light/directional/west,
+/obj/structure/reagent_dispensers/oil,
+/turf/simulated/floor/indestructible/necropolis/air,
+/area/deathmatch)
+"lc" = (
+/obj/structure/table,
+/obj/item/desk_bell,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"lP" = (
+/obj/structure/table,
+/obj/machinery/reagentgrinder,
+/turf/simulated/floor/indestructible/kitchen_floor,
+/area/deathmatch)
+"mV" = (
+/obj/machinery/conveyor/auto,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/neara,
+/turf/simulated/floor/indestructible/kitchen_floor,
+/area/deathmatch)
+"mX" = (
+/obj/machinery/conveyor/auto{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/meat/humanoid/farwa,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"nj" = (
+/obj/machinery/conveyor/auto{
+	dir = 4
+	},
+/obj/effect/spawner/random_spawners/syndicate/trap/pizzabomb,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"nJ" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/condiment/peppermill{
+	pixel_x = 3;
+	pixel_y = 11
+	},
+/obj/item/reagent_containers/food/condiment/saltshaker{
+	pixel_x = -3;
+	pixel_y = 11
+	},
+/turf/simulated/floor/indestructible/kitchen_floor,
+/area/deathmatch)
+"nL" = (
+/obj/machinery/conveyor/auto{
+	dir = 4
+	},
+/obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
+/turf/simulated/floor/indestructible/kitchen_floor,
+/area/deathmatch)
+"nP" = (
+/obj/machinery/conveyor/auto,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/diona,
+/turf/simulated/floor/indestructible/kitchen_floor,
+/area/deathmatch)
+"oP" = (
+/obj/item/reagent_containers/food/snacks/baconpizzaslice,
+/turf/simulated/floor/indestructible/kitchen_floor,
+/area/deathmatch)
+"pi" = (
+/obj/structure/closet/coffin,
+/obj/item/gun/magic/hook,
+/obj/item/book/manual/chef_recipes,
+/turf/simulated/floor/indestructible/necropolis/air,
+/area/deathmatch)
+"pD" = (
+/obj/structure/table,
+/obj/item/pizzabox/vegetable,
+/turf/simulated/floor/indestructible/kitchen_floor,
+/area/deathmatch)
+"pK" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/condiment/peppermill{
+	pixel_x = 3;
+	pixel_y = 11
+	},
+/obj/item/reagent_containers/food/condiment/saltshaker{
+	pixel_x = -3;
+	pixel_y = 11
+	},
+/obj/item/kitchen/knife/butcher,
+/turf/simulated/floor/indestructible/kitchen_floor,
+/area/deathmatch)
+"rf" = (
+/turf/simulated/floor/indestructible/kitchen_floor,
+/area/deathmatch)
+"rl" = (
+/obj/machinery/conveyor/auto{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/kitchen_floor,
+/area/deathmatch)
+"rQ" = (
+/obj/machinery/light/directional/east,
+/obj/structure/kitchenspike,
+/obj/item/reagent_containers/food/snacks/sliceable/pizza/meatpizza,
+/turf/simulated/floor/indestructible/necropolis/air,
+/area/deathmatch)
+"sa" = (
+/obj/machinery/conveyor/auto{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/kitchen_floor,
+/area/deathmatch)
+"se" = (
+/obj/machinery/conveyor/auto{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/kitchen_floor,
+/area/deathmatch)
+"sr" = (
+/obj/machinery/conveyor/auto{
+	dir = 4
+	},
+/obj/item/reagent_containers/food/snacks/meat/humanoid/wolpin,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"tH" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/snacks/baconpizzaslice,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"vL" = (
+/obj/machinery/kitchen_machine/grill/upgraded,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"vY" = (
+/turf/simulated/wall/indestructible/necropolis,
+/area/deathmatch)
+"xe" = (
+/obj/structure/table,
+/obj/item/kitchen/knife/butcher,
+/turf/simulated/floor/indestructible/kitchen_floor,
+/area/deathmatch)
+"xh" = (
+/obj/machinery/conveyor/auto{
+	dir = 8
+	},
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"xW" = (
+/obj/machinery/conveyor/auto,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/vox,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"yp" = (
+/obj/machinery/conveyor/auto,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/stok,
+/turf/simulated/floor/indestructible/kitchen_floor,
+/area/deathmatch)
+"yO" = (
+/turf/simulated/floor/lava,
+/area/deathmatch)
+"yX" = (
+/obj/machinery/conveyor/auto{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"zG" = (
+/obj/machinery/conveyor/auto{
+	dir = 10
+	},
+/turf/simulated/floor/indestructible/kitchen_floor,
+/area/deathmatch)
+"Aj" = (
+/obj/machinery/conveyor/auto{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"AV" = (
+/obj/structure/reagent_dispensers/oil,
+/turf/simulated/floor/indestructible/kitchen_floor,
+/area/deathmatch)
+"Ef" = (
+/obj/machinery/conveyor/auto{
+	dir = 8
+	},
+/obj/item/reagent_containers/food/snacks/meat/humanoid/grey,
+/turf/simulated/floor/indestructible/kitchen_floor,
+/area/deathmatch)
+"Er" = (
+/obj/machinery/conveyor/auto{
+	dir = 9
+	},
+/turf/simulated/floor/indestructible/kitchen_floor,
+/area/deathmatch)
+"EJ" = (
+/obj/machinery/kitchen_machine/oven/upgraded,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"Fp" = (
+/obj/machinery/conveyor/auto{
+	dir = 4
+	},
+/obj/effect/landmark/deathmatch_player_spawn,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"FT" = (
+/obj/machinery/cooker/deepfryer/upgraded,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"HW" = (
+/obj/machinery/light/directional/west,
+/obj/machinery/gibber/autogibber,
+/turf/simulated/floor/indestructible/necropolis/air,
+/area/deathmatch)
+"Jc" = (
+/obj/item/pizza_bomb/autoarm,
+/turf/simulated/floor/indestructible/necropolis/air,
+/area/deathmatch)
+"JJ" = (
+/obj/machinery/conveyor/auto{
+	dir = 4
+	},
+/obj/item/reagent_containers/food/snacks/meat/humanoid/drask,
+/turf/simulated/floor/indestructible/kitchen_floor,
+/area/deathmatch)
+"JX" = (
+/obj/machinery/conveyor/auto{
+	dir = 4
+	},
+/obj/item/reagent_containers/food/snacks/meat/humanoid/nian,
+/turf/simulated/floor/indestructible/kitchen_floor,
+/area/deathmatch)
+"KI" = (
+/obj/machinery/conveyor/auto,
+/obj/effect/spawner/random_spawners/syndicate/trap/pizzabomb,
+/turf/simulated/floor/indestructible/kitchen_floor,
+/area/deathmatch)
+"KO" = (
+/obj/machinery/kitchen_machine/grill/upgraded,
+/turf/simulated/floor/indestructible/kitchen_floor,
+/area/deathmatch)
+"KV" = (
+/obj/machinery/conveyor/auto{
+	dir = 8
+	},
+/obj/effect/spawner/random_spawners/syndicate/trap/pizzabomb,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"Li" = (
+/obj/machinery/light/directional/east,
+/obj/machinery/cooker/deepfryer/upgraded,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"LZ" = (
+/obj/machinery/conveyor/auto{
+	dir = 5
+	},
+/turf/simulated/floor/indestructible/kitchen_floor,
+/area/deathmatch)
+"MI" = (
+/obj/structure/table,
+/obj/machinery/kitchen_machine/microwave,
+/turf/simulated/floor/indestructible/kitchen_floor,
+/area/deathmatch)
+"Ox" = (
+/obj/machinery/conveyor/auto{
+	dir = 4
+	},
+/obj/item/kitchen/knife/butcher,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"OI" = (
+/obj/machinery/conveyor/auto,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"OK" = (
+/obj/machinery/light/directional/south,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"Pk" = (
+/obj/machinery/conveyor/auto{
+	dir = 6
+	},
+/turf/simulated/floor/indestructible/kitchen_floor,
+/area/deathmatch)
+"Po" = (
+/obj/machinery/light/directional/west,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"PO" = (
+/obj/machinery/conveyor/auto{
+	dir = 8
+	},
+/obj/effect/landmark/deathmatch_player_spawn,
+/turf/simulated/floor/indestructible/kitchen_floor,
+/area/deathmatch)
+"QS" = (
+/obj/machinery/conveyor/auto{
+	dir = 1
+	},
+/obj/effect/landmark/deathmatch_player_spawn,
+/turf/simulated/floor/indestructible/kitchen_floor,
+/area/deathmatch)
+"QV" = (
+/obj/item/pizzabox/vegetable,
+/turf/simulated/floor/indestructible/necropolis/air,
+/area/deathmatch)
+"Ra" = (
+/obj/item/reagent_containers/food/snacks/baconpizzaslice,
+/turf/simulated/floor/indestructible/necropolis/air,
+/area/deathmatch)
+"Re" = (
+/obj/machinery/conveyor/auto{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/meat/humanoid/drask,
+/turf/simulated/floor/indestructible/kitchen_floor,
+/area/deathmatch)
+"Sj" = (
+/turf/simulated/floor/indestructible/necropolis/air,
+/area/deathmatch)
+"Sr" = (
+/obj/item/pizza_bomb,
+/turf/simulated/floor/indestructible/necropolis/air,
+/area/deathmatch)
+"Sz" = (
+/obj/machinery/conveyor/auto,
+/turf/simulated/floor/indestructible/kitchen_floor,
+/area/deathmatch)
+"SI" = (
+/obj/effect/landmark/deathmatch_player_spawn,
+/turf/simulated/floor/indestructible/kitchen_floor,
+/area/deathmatch)
+"ST" = (
+/obj/machinery/conveyor/auto{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/meat/humanoid/unathi,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"Td" = (
+/obj/machinery/light/directional/north,
+/obj/machinery/kitchen_machine/grill/upgraded,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"Uo" = (
+/obj/machinery/conveyor/auto{
+	dir = 8
+	},
+/obj/item/reagent_containers/food/snacks/meat/humanoid/skrell,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"Uy" = (
+/obj/structure/table,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"UA" = (
+/obj/machinery/conveyor/auto{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"UY" = (
+/obj/structure/barricade/wooden,
+/obj/structure/barricade/wooden/crude,
+/turf/simulated/floor/indestructible/necropolis/air,
+/area/deathmatch)
+"Xr" = (
+/obj/structure/table,
+/obj/effect/spawner/random_spawners/syndicate/trap/pizzabomb,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"Yc" = (
+/obj/structure/table,
+/obj/item/pizza_bomb/autoarm,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"Yn" = (
+/obj/machinery/vending/dinnerware,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"Yv" = (
+/obj/structure/table,
+/obj/effect/spawner/random_spawners/syndicate/trap/pizzabomb,
+/obj/item/kitchen/knife/butcher,
+/turf/simulated/floor/indestructible/kitchen_floor,
+/area/deathmatch)
+"YH" = (
+/obj/structure/sign/poster/contraband/bread,
+/turf/simulated/wall/indestructible/necropolis,
+/area/deathmatch)
+"YL" = (
+/obj/machinery/light/directional/east,
+/mob/living/simple_animal/hostile/retaliate/goat/hump,
+/turf/simulated/floor/indestructible/necropolis/air,
+/area/deathmatch)
+"Zw" = (
+/obj/machinery/light/directional/north,
+/obj/structure/table,
+/obj/machinery/kitchen_machine/microwave,
+/turf/simulated/floor/indestructible/brig_black,
+/area/deathmatch)
+"ZF" = (
+/turf/simulated/wall/indestructible/reinforced,
+/area/deathmatch)
+
+(1,1,1) = {"
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+"}
+(2,1,1) = {"
+ZF
+yO
+yO
+yO
+yO
+yO
+yO
+yO
+yO
+yO
+yO
+yO
+yO
+yO
+yO
+yO
+yO
+yO
+yO
+yO
+yO
+yO
+ZF
+"}
+(3,1,1) = {"
+ZF
+yO
+LZ
+Aj
+sa
+eF
+sa
+Aj
+Re
+Aj
+sa
+mX
+QS
+ST
+sa
+fY
+sa
+ia
+sa
+Aj
+Er
+yO
+ZF
+"}
+(4,1,1) = {"
+ZF
+yO
+sr
+rf
+Xr
+nJ
+vL
+rf
+az
+rf
+az
+rf
+az
+rf
+az
+fi
+gq
+KO
+az
+AV
+UA
+yO
+ZF
+"}
+(5,1,1) = {"
+ZF
+yO
+rl
+az
+rf
+gP
+rf
+az
+rf
+az
+rf
+az
+rf
+az
+rf
+az
+rf
+az
+SI
+Uy
+se
+yO
+ZF
+"}
+(6,1,1) = {"
+ZF
+yO
+nj
+bd
+az
+rf
+az
+rf
+Li
+lP
+Uy
+rf
+az
+rf
+Li
+rf
+az
+rf
+az
+pD
+UA
+yO
+ZF
+"}
+(7,1,1) = {"
+ZF
+yO
+rl
+hQ
+rf
+az
+oP
+az
+vY
+vY
+vY
+Sj
+vY
+vY
+vY
+Yc
+rf
+az
+rf
+az
+Ef
+yO
+ZF
+"}
+(8,1,1) = {"
+ZF
+yO
+yX
+Yv
+az
+rf
+Yn
+vY
+vY
+Sj
+Sj
+Sj
+Sj
+Jc
+vY
+vY
+vL
+rf
+az
+rf
+UA
+yO
+ZF
+"}
+(9,1,1) = {"
+ZF
+yO
+JJ
+vL
+rf
+OK
+vY
+vY
+jo
+Sj
+vY
+Sj
+vY
+Sj
+HW
+vY
+vY
+Zw
+rf
+gq
+jd
+yO
+ZF
+"}
+(10,1,1) = {"
+ZF
+yO
+yX
+rf
+az
+rf
+vY
+bm
+Sj
+Sj
+Sj
+Sj
+Sj
+Ra
+Sj
+Sj
+vY
+bd
+az
+pK
+UA
+yO
+ZF
+"}
+(11,1,1) = {"
+ZF
+yO
+rl
+az
+rf
+az
+vY
+Sj
+vY
+Sj
+gD
+UY
+vY
+Sj
+vY
+Sj
+vY
+az
+rf
+az
+PO
+yO
+ZF
+"}
+(12,1,1) = {"
+ZF
+yO
+Fp
+oP
+az
+rf
+Sj
+Sj
+Sj
+QV
+UY
+pi
+UY
+Sj
+Sj
+Sj
+Sj
+rf
+az
+rf
+xh
+yO
+ZF
+"}
+(13,1,1) = {"
+ZF
+yO
+nL
+az
+rf
+az
+vY
+Sj
+vY
+Sj
+vY
+UY
+YH
+Sj
+vY
+Sj
+vY
+tH
+rf
+az
+se
+yO
+ZF
+"}
+(14,1,1) = {"
+ZF
+yO
+Ox
+rf
+az
+rf
+vY
+Sj
+Sj
+Sj
+Sj
+Ra
+Sj
+Sj
+Sj
+Sj
+vY
+pD
+az
+rf
+KV
+yO
+ZF
+"}
+(15,1,1) = {"
+ZF
+yO
+rl
+az
+rf
+OK
+vY
+vY
+YL
+Sj
+vY
+Sj
+vY
+Sj
+rQ
+vY
+vY
+Td
+rf
+az
+se
+yO
+ZF
+"}
+(16,1,1) = {"
+ZF
+yO
+yX
+rf
+az
+rf
+FT
+vY
+vY
+Sr
+Sj
+Sj
+Sj
+Sj
+vY
+vY
+FT
+rf
+az
+rf
+Uo
+yO
+ZF
+"}
+(17,1,1) = {"
+ZF
+yO
+JX
+az
+MI
+az
+rf
+EJ
+vY
+vY
+vY
+Sj
+vY
+vY
+vY
+az
+rf
+az
+rf
+Yn
+se
+yO
+ZF
+"}
+(18,1,1) = {"
+ZF
+yO
+yX
+rf
+fe
+rf
+az
+rf
+Po
+rf
+az
+rf
+az
+rf
+Po
+rf
+EJ
+rf
+az
+xe
+UA
+yO
+ZF
+"}
+(19,1,1) = {"
+ZF
+yO
+rl
+az
+rf
+gP
+rf
+az
+rf
+az
+rf
+gP
+rf
+az
+rf
+az
+KO
+az
+SI
+lc
+iK
+yO
+ZF
+"}
+(20,1,1) = {"
+ZF
+yO
+yX
+rf
+az
+rf
+az
+rf
+az
+rf
+vL
+pD
+gq
+rf
+az
+rf
+lc
+rf
+az
+rf
+UA
+yO
+ZF
+"}
+(21,1,1) = {"
+ZF
+yO
+Pk
+OI
+mV
+OI
+nP
+OI
+Sz
+OI
+yp
+OI
+Sz
+OI
+hX
+OI
+Sz
+xW
+KI
+OI
+zG
+yO
+ZF
+"}
+(22,1,1) = {"
+ZF
+yO
+yO
+yO
+yO
+yO
+yO
+yO
+yO
+yO
+yO
+yO
+yO
+yO
+yO
+yO
+yO
+yO
+yO
+yO
+yO
+yO
+ZF
+"}
+(23,1,1) = {"
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+ZF
+"}
