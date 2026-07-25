@@ -131,7 +131,7 @@ GLOBAL_LIST_INIT(mystery_box_extended, list(
 /// The box has been activated, play the sound and spawn the prop item
 /obj/structure/mystery_box/proc/activate(mob/living/user)
 	box_state = MYSTERY_BOX_CHOOSING
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 	presented_item = new(src)
 	presented_item.vis_flags = VIS_INHERIT_PLANE
 	vis_contents += presented_item
@@ -159,7 +159,7 @@ GLOBAL_LIST_INIT(mystery_box_extended, list(
 /// The box is closed, whether because the prize fully expired, or it was claimed. Start resetting all of the state stuff
 /obj/structure/mystery_box/proc/close_box()
 	box_state = MYSTERY_BOX_COOLING_DOWN
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 	QDEL_NULL(presented_item)
 	deltimer(box_close_timer)
 	deltimer(box_expire_timer)
