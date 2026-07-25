@@ -1716,7 +1716,6 @@
 	check_flags = AB_TRANSFER_MIND | AB_CHECK_PHASED | AB_CHECK_INCAPACITATED
 	cooldown_time = 30 SECONDS
 	summon_radius = 1
-	summon_amount = 1
 	summon_type = /mob/living/simple_animal/hostile/vampire/bats_summoned
 	var/required_blood = 50
 

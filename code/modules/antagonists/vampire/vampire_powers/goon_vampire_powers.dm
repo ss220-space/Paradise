@@ -483,7 +483,6 @@
 	name = "Облик тумана"
 	desc = "Вы на короткое время превращаетесь в облако тумана"
 	gain_desc = "Вы получили способность «Облик тумана», которая позволит вам превращаться в облако тумана и проходить сквозь любые препятствия."
-	button_icon_state = "jaunt"
 	background_icon_state = "bg_vampire_old"
 	cooldown_time = 60 SECONDS
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
