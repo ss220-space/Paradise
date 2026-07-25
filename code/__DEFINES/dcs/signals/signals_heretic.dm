@@ -62,7 +62,6 @@
 #define COMSIG_CARBON_CUFF_PREVENT (1<<0)
 #define COMSIG_CARBON_POST_ATTACH_LIMB "carbon_post_attach_limb"
 #define COMSIG_CARBON_POST_REMOVE_LIMB "carbon_post_remove_limb"
-#define COMSIG_MOB_EQUIPPED_ITEM "mob_equipped_item"
 
 /// Sent on a mob right before they cast a spell. Used by some heretic buffs to react/intercept.
 /// NOTE: master220 does not yet emit this anywhere; the listeners compile but won't fire until wired in the runtime pass.

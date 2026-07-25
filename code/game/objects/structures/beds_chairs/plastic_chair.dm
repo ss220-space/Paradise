@@ -27,7 +27,7 @@
 
 	to_chat(target, span_warning("Стул начинает хрустеть и трещать, ты слишком тяжёлый!"))
 
-	if(!do_after(target, 6 SECONDS, progress = FALSE))
+	if(!do_after(target, 6 SECONDS, show_progress = FALSE))
 		return
 
 	target.visible_message(span_warning("[DECLENT_RU_CAP(target, NOMINATIVE)] садится на пластиковый стул, и проламывает его своим весом!"))

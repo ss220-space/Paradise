@@ -75,7 +75,7 @@
 
 	jaunter.Beam(nearby_reflection, icon_state = "light_beam", time = phase_out_time)
 	nearby_reflection.visible_message(span_warning("[DECLENT_RU_CAP(nearby_reflection, NOMINATIVE)] начинает светиться и подрагивать!"))
-	if(!do_after(jaunter, phase_out_time, nearby_reflection, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_USER_LOC_CHANGE|DA_IGNORE_INCAPACITATED, hidden = TRUE))
+	if(!do_after(jaunter, phase_out_time, nearby_reflection, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_USER_LOC_CHANGE|DA_IGNORE_INCAPACITATED, cog_icon = null))
 		return
 
 	playsound(jaunter, 'sound/magic/ethereal_enter.ogg', 50, TRUE, -1)
@@ -101,7 +101,7 @@
 
 	nearby_reflection.Beam(phase_turf, icon_state = "light_beam", time = phase_in_time)
 	nearby_reflection.visible_message(span_warning("[DECLENT_RU_CAP(nearby_reflection, NOMINATIVE)] начинает светиться и подрагивать!"))
-	if(!do_after(unjaunter, phase_in_time, nearby_reflection, hidden = TRUE))
+	if(!do_after(unjaunter, phase_in_time, nearby_reflection, cog_icon = null))
 		return FALSE
 
 	return ..(unjaunter, phase_turf)

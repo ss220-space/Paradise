@@ -284,7 +284,12 @@
 	if(!silent)
 		balloon_alert(loc, "предмет выброшен")
 	gripped_item.forceMove(get_turf(src))
-	gripped_item = null
+	set_gripper_item(null)
+
+/obj/item/gripper/proc/set_gripper_item(new_item)
+	PRIVATE_PROC(TRUE)
+	gripped_item = new_item
+	SEND_SIGNAL(src, COMSIG_GRIPPED_ITEM_CHANGE, new_item)
 
 /obj/item/gripper/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED
@@ -309,9 +314,9 @@
 
 		//If gripped_item either didn't get deleted, or it failed to be transfered to its target
 		if(!gripped_item && length(contents))
-			gripped_item = contents[1]
+			set_gripper_item(contents[1])
 		else if(gripped_item && !length(contents))
-			gripped_item = null
+			set_gripper_item(null)
 
 	else if(isitem(target)) //Check that we're not pocketing a mob.
 		var/obj/item/I = target
@@ -319,7 +324,7 @@
 			. |= ATTACK_CHAIN_SUCCESS
 			balloon_alert(user, "подобрано")
 			I.forceMove(src)
-			gripped_item = I
+			set_gripper_item(I)
 			I.update_icon(UPDATE_OVERLAYS) //Some items change their appearance upon being pulled (IV drip as an example)
 			update_icon(UPDATE_OVERLAYS)
 			RegisterSignals(I, list(COMSIG_MOVABLE_MOVED, COMSIG_QDELETING), PROC_REF(handle_item_moving))
@@ -335,7 +340,7 @@
 	SIGNAL_HANDLER
 	UnregisterSignal(gripped_item, list(COMSIG_MOVABLE_MOVED, COMSIG_QDELETING, COMSIG_ATOM_UPDATED_ICON))
 	gripped_item.update_icon(UPDATE_OVERLAYS)
-	gripped_item = null
+	set_gripper_item(null)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/gripper/proc/handle_item_icon_update()

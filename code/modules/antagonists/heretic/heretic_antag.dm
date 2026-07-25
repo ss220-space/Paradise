@@ -625,7 +625,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	else
 		drawing_effect = new(target_turf, rune_colour, drawing_time)
 
-	if(!do_after(user, drawing_time, target_turf, extra_checks = additional_checks, hidden = TRUE))
+	if(!do_after(user, drawing_time, target_turf, extra_checks = additional_checks, cog_icon = null))
 		target_turf.balloon_alert(user, "прервано!")
 		new /obj/effect/temp_visual/drawing_heretic_rune/fail(target_turf, rune_colour)
 		qdel(drawing_effect)
