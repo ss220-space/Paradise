@@ -224,6 +224,9 @@
 /// Sent from /proc/do_after once a do_after action completes, whether via the bar filling or via interruption.
 #define COMSIG_DO_AFTER_ENDED "mob_do_after_ended"
 
+/// Sent from /proc/do_after if someone starts a do_after action bar. Sends after interaction_key creation
+#define COMSIG_DO_AFTER_PRE_BEGAN "mob_do_after_pre_began"
+
 /// Sent from /client/MouseDown(): (atom/object, turf/location, control, params)
 #define COMSIG_MOB_MOUSEDOWN "mob_mousedown"
 /// Sent from /client/MouseUp(): (atom/object, turf/location, control, params)
