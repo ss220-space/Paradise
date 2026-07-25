@@ -441,6 +441,8 @@ GLOBAL_ALIST_INIT(shower_mode_descriptions, alist(
 	var/has_water_reclaimer = TRUE
 	/// Which mode the shower is operating in.
 	var/mode = SHOWER_MODE_UNTIL_EMPTY
+	/// How far to shift the sprite when placing.
+	var/pixel_shift = SHIFTING_SHOWER
 
 /obj/machinery/shower/Initialize(mapload, newdir)
 	. = ..()
@@ -450,16 +452,16 @@ GLOBAL_ALIST_INIT(shower_mode_descriptions, alist(
 	switch(dir)
 		if(NORTH)
 			pixel_x = 0
-			pixel_y = SHIFTING_SHOWER
+			pixel_y = pixel_shift
 		if(SOUTH)
 			pixel_x = 0
-			pixel_y = -SHIFTING_SHOWER
+			pixel_y = -pixel_shift
 			layer = FLY_LAYER
 		if(EAST)
-			pixel_x = SHIFTING_SHOWER
+			pixel_x = pixel_shift
 			pixel_y = 0
 		if(WEST)
-			pixel_x = -SHIFTING_SHOWER
+			pixel_x = -pixel_shift
 			pixel_y = 0
 	create_reagents(reagent_capacity)
 	if(src.has_water_reclaimer)
@@ -577,13 +579,13 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/shower, (16), (16))
 	water_falling.dir = dir
 	switch(dir)
 		if(NORTH)
-			water_falling.pixel_y -= SHIFTING_SHOWER
+			water_falling.pixel_y -= pixel_shift
 		if(SOUTH)
-			water_falling.pixel_y += SHIFTING_SHOWER
+			water_falling.pixel_y += pixel_shift
 		if(EAST)
-			water_falling.pixel_x -= SHIFTING_SHOWER
+			water_falling.pixel_x -= pixel_shift
 		if(WEST)
-			water_falling.pixel_x += SHIFTING_SHOWER
+			water_falling.pixel_x += pixel_shift
 	. += water_falling
 
 /obj/machinery/shower/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
