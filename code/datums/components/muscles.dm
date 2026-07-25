@@ -315,7 +315,7 @@
 /datum/strength_level/weak
 	next_level = /datum/strength_level/normal
 	level_num = 1
-	grab_speed_modifier = 0.8
+	grab_speed_modifier = 1.2
 	pull_slowdown_modifier = 1.2
 	melee_damage_delta = -2
 	break_ties_speed_modifier = 0.8
@@ -349,7 +349,7 @@
 	next_level = /datum/strength_level/ideal
 	prev_level = /datum/strength_level/normal
 	level_num = 3
-	grab_speed_modifier = 1.15
+	grab_speed_modifier = 0.85
 	pull_slowdown_modifier = 0.75
 	melee_damage_delta = 2
 	break_ties_speed_modifier = 1.3
@@ -366,7 +366,7 @@
 	next_level = /datum/strength_level/superhuman
 	prev_level = /datum/strength_level/strong
 	level_num = 4
-	grab_speed_modifier = 1.3
+	grab_speed_modifier = 0.7
 	pull_slowdown_modifier = 0.5
 	melee_damage_delta = 4
 	break_ties_speed_modifier = 1.5
@@ -382,7 +382,7 @@
 /datum/strength_level/superhuman
 	prev_level = /datum/strength_level/ideal
 	level_num = 5
-	grab_speed_modifier = 1.5
+	grab_speed_modifier = 0.5
 	pull_slowdown_modifier = 0
 	melee_damage_delta = 6
 	break_ties_speed_modifier = 2
