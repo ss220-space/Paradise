@@ -71,6 +71,10 @@
 	. += span_notice("Позволяет использовать еретические заклинания при надетом капюшоне.")
 
 
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/update_icon_state()
+	return
+
+
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/EngageHood()
 	. = ..()
 	if(!.)
@@ -326,10 +330,6 @@
 	)
 
 
-/obj/item/clothing/suit/hooded/cultrobes/eldritch/cosmic/update_icon_state()
-	icon_state = "cosmic_armor[suit_adjusted ? "_hood" : ""]"
-
-
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/cosmic/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(istype(action, /datum/action/item_action/toggle_gravity))
 		toggle_gravity(user)
@@ -499,13 +499,12 @@
 	var/atom/movable/rust_overlay
 	/// Worn overlay mirroring rust_overlay through render_source, so the flicked animation shows on the mob.
 	var/mutable_appearance/rust_appearance
+	var/atom/movable/hood_rust_overlay
+	var/mutable_appearance/hood_rust_appearance
 	/// The rust overlay drawn on the suit's own (inventory/in-hand) icon.
 	var/image/object_overlay
 	/// The rust overlay drawn on the hood's (inventory) icon.
 	var/image/hood_object_overlay
-	/// Render-target id shared between rust_overlay and rust_appearance.
-	var/render_id
-	/// Static counter guaranteeing a unique render id per equip.
 	var/static/overlay_id = 0
 
 
@@ -527,10 +526,6 @@
 	. += span_notice("Ваша защита значительно усиливается, когда вы стоите на ржавчине.")
 
 
-/obj/item/clothing/suit/hooded/cultrobes/eldritch/rust/update_icon_state()
-	icon_state = "rust_armor[suit_adjusted ? "_hood" : ""]"
-
-
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/rust/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
 	if(slot == ITEM_SLOT_CLOTH_OUTER)
@@ -549,28 +544,37 @@
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/rust/Destroy()
 	QDEL_NULL(rust_overlay)
+	QDEL_NULL(hood_rust_overlay)
 	rust_appearance = null
+	hood_rust_appearance = null
 	return ..()
 
 
-/// Builds the invisible vis_contents atom we flick the rust animation on, plus the matching worn render-source
-/// overlay and the static item-icon overlays.
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/rust/proc/setup_rust_overlay(mob/living/user)
 	if(rust_overlay || !isliving(user))
 		return
-	overlay_id++
-	render_id = "*heretic_rust_overlay_[overlay_id]"
-	rust_overlay = new()
-	rust_overlay.icon = 'icons/mob/clothing/suit.dmi'
-	rust_overlay.render_target = render_id
-	rust_overlay.vis_flags |= VIS_INHERIT_DIR | VIS_INHERIT_LAYER | VIS_INHERIT_ID
-	user.vis_contents += rust_overlay // invisible itself (render_target); we just mirror its sprite onto the worn robe
+	rust_overlay = make_rust_mirror(user, 'icons/mob/clothing/suit.dmi')
 	rust_appearance = new /mutable_appearance()
-	rust_appearance.render_source = render_id
+	rust_appearance.render_source = rust_overlay.render_target
+	hood_rust_overlay = make_rust_mirror(user, 'icons/mob/clothing/head.dmi')
+	hood_rust_appearance = new /mutable_appearance()
+	hood_rust_appearance.render_source = hood_rust_overlay.render_target
 	if(!object_overlay)
 		object_overlay = image('icons/obj/clothing/suits.dmi', icon_state = "rust_armor_overlay")
 	if(!hood_object_overlay)
 		hood_object_overlay = image('icons/obj/clothing/hats.dmi', icon_state = "rust_armor_overlay")
+	if(hood)
+		RegisterSignal(hood, COMSIG_ITEM_GET_WORN_OVERLAYS, PROC_REF(on_hood_worn_overlays), override = TRUE)
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/rust/proc/make_rust_mirror(mob/living/user, icon_file)
+	overlay_id++
+	var/atom/movable/mirror = new()
+	mirror.icon = icon_file
+	mirror.render_target = "*heretic_rust_overlay_[overlay_id]"
+	mirror.vis_flags |= VIS_INHERIT_DIR | VIS_INHERIT_LAYER | VIS_INHERIT_ID
+	user.vis_contents += mirror
+	return mirror
 
 
 /// Tears everything setup_rust_overlay built back down and reverts to the base (un-rusted) armor.
@@ -579,14 +583,18 @@
 		UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
 	clear_turf_listener()
 	reset_rust_armor(user)
-	if(rust_overlay)
+	for(var/atom/movable/mirror in list(rust_overlay, hood_rust_overlay))
 		if(isliving(user))
-			user.vis_contents -= rust_overlay
-		QDEL_NULL(rust_overlay)
+			user.vis_contents -= mirror
+		qdel(mirror)
+	rust_overlay = null
+	hood_rust_overlay = null
 	rust_appearance = null
+	hood_rust_appearance = null
 	cut_overlay(object_overlay)
-	var/obj/item/clothing/head/hooded/cult_hoodie/eldritch/rust/our_hood = hood
-	our_hood?.cut_overlay(hood_object_overlay)
+	if(hood)
+		UnregisterSignal(hood, COMSIG_ITEM_GET_WORN_OVERLAYS)
+		hood.cut_overlay(hood_object_overlay)
 
 
 /// Signal proc for [COMSIG_MOVABLE_MOVED]: re-evaluate the on-rust armor bonus when the wearer moves.
@@ -649,33 +657,23 @@
 	update_rust(wearer)
 
 
-/// The worn-sprite state prefix for the current hood position. When the hood is up the suit's body sprite is
-/// the hooded "rust_armor_hood" (which draws the cowl over the head - the head slot itself is blank); when
-/// down it's the plain "rust_armor". The rust animation/overlay states mirror this prefix.
-/obj/item/clothing/suit/hooded/cultrobes/eldritch/rust/proc/rust_state_prefix()
-	return suit_adjusted ? "rust_armor_hood" : "rust_armor"
-
-
-/// Plays the rust-in / rust-out animation and toggles the static item-icon overlays. The worn animation is
-/// driven by flicking rust_overlay (mirrored onto the mob via rust_appearance in worn_overlays). The hood the
-/// player sees is the suit's own hood-up body sprite, so its rust uses the matching "_hood" overlay states.
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/rust/proc/update_rust(mob/living/wearer)
-	var/obj/item/clothing/head/hooded/cult_hoodie/eldritch/rust/our_hood = hood
-	var/prefix = rust_state_prefix()
+	for(var/atom/movable/mirror in list(rust_overlay, hood_rust_overlay))
+		if(rusted)
+			mirror.icon_state = "rust_armor_overlay"
+			flick("rust_armor_on", mirror)
+		else
+			mirror.icon_state = null
+			flick("rust_armor_off", mirror)
 	if(rusted)
-		if(rust_overlay)
-			rust_overlay.icon_state = "[prefix]_overlay" // settle here once the rust-in flick finishes
-			flick("[prefix]_on", rust_overlay)
 		add_overlay(object_overlay)
-		our_hood?.add_overlay(hood_object_overlay)
+		hood?.add_overlay(hood_object_overlay)
 	else
-		if(rust_overlay)
-			rust_overlay.icon_state = null
-			flick("[prefix]_off", rust_overlay)
 		cut_overlay(object_overlay)
-		our_hood?.cut_overlay(hood_object_overlay)
+		hood?.cut_overlay(hood_object_overlay)
 	if(ishuman(wearer))
 		wearer.update_worn_oversuit()
+		wearer.update_worn_head()
 		wearer.balloon_alert(wearer, rusted ? "ржавчина укрепляет броню" : "ржавчина спадает")
 
 
@@ -683,8 +681,16 @@
 	. = ..()
 	if(isinhands || !rust_appearance)
 		return
-	rust_overlay?.icon_state = rusted ? "[rust_state_prefix()]_overlay" : null
+	rust_overlay?.icon_state = rusted ? "rust_armor_overlay" : null
 	. += rust_appearance
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/rust/proc/on_hood_worn_overlays(obj/item/source, list/overlays, mutable_appearance/standing, isinhands, icon_file)
+	SIGNAL_HANDLER
+	if(isinhands || !hood_rust_appearance)
+		return
+	hood_rust_overlay?.icon_state = rusted ? "rust_armor_overlay" : null
+	overlays += hood_rust_appearance
 
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/rust
@@ -1422,10 +1428,6 @@
 		INSTRUMENTAL = "некомпилируемой оболочкой",
 		PREPOSITIONAL = "некомпилируемой оболочке",
 	)
-
-
-/obj/item/clothing/suit/hooded/cultrobes/eldritch/beyond/update_icon_state()
-	icon_state = "glitch_armor[suit_adjusted ? "_hood" : ""]"
 
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/beyond/equipped(mob/user, slot, initial = FALSE)
