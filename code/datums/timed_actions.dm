@@ -174,6 +174,8 @@
 	if(interaction_key == src.interaction_key)
 		var/reduced_interaction_count = LAZYACCESS(source.do_afters, interaction_key)
 		if(reduced_interaction_count >= max_interact_count)
+			if(cancel_message)
+					to_chat(user, "[cancel_message]")
 			cancel()
 
 /datum/timed_action/proc/on_target_deleted(datum/source)
