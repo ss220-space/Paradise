@@ -364,13 +364,12 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 // Selling normal things in syndicate space
 
 /datum/export/crate/syndicate
-	unit_name = "crate"
 	cost = SYNDICATE_CRATE_VALUE
 	scannable = FALSE
 	sales_market = EXPORT_MARKET_SYNDICATE
 	exclude_types = list(
-	/obj/structure/closet/crate/secure/syndicate,
-	/obj/structure/closet/crate/syndicate,
+		/obj/structure/closet/crate/secure/syndicate,
+		/obj/structure/closet/crate/syndicate,
 	) // Has special code attached to them
 
 /datum/export/manifest_correct/syndicate
@@ -410,7 +409,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 	cost = SYNDICATE_CRATE_VALUE * 2
 	sales_market = EXPORT_MARKET_SYNDICATE
 
-/datum/export/design_disc
+/datum/export/design_disc/syndicate
 	cost = SYNDICATE_CRATE_VALUE * 10
 	sales_market = EXPORT_MARKET_SYNDICATE
 
