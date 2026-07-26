@@ -83,10 +83,9 @@
 		positive_temperature_multiplier = selected_fuel.positive_temperature_multiplier
 		negative_temperature_multiplier = selected_fuel.negative_temperature_multiplier
 
-		var/list/fuel_list_values = selected_fuel.requirements | selected_fuel.primary_products
-		for(var/gas_tlv, amount in internal_fusion.get_interesting())
-			if(!(gas_tlv in fuel_list_values))
-				continue
+		var/list/interesting_gas = internal_fusion.get_interesting()
+		for(var/gas_tlv in selected_fuel.requirements | selected_fuel.primary_products)
+			var/amount = interesting_gas[gas_tlv] || 0
 			fuel_list[gas_tlv] = amount
 			scaled_fuel_list[gas_tlv] = max((amount - FUSION_MOLE_THRESHOLD) / scale_factor, 0)
 
@@ -519,9 +518,9 @@
 
 	if(selected_fuel)
 		var/datum/gas_mixture/internal_remove
-		var/list/selected_primary_products = selected_fuel.primary_products
-		for(var/gas_tlv, amount in internal_fusion.get_interesting())
-			if(gas_tlv in selected_primary_products)
+		var/list/interesting_gasses = internal_fusion.get_interesting()
+		for(var/gas_tlv, amount in selected_fuel.primary_products)
+			if(interesting_gasses[gas_tlv] > 0)
 				internal_remove = internal_fusion.remove_specific(gas_tlv, amount * (1 - (1 - 0.25) ** seconds_per_tick))
 				linked_output.air_contents.merge(internal_remove)
 

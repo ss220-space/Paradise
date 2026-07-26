@@ -1,0 +1,1484 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"as" = (
+/mob/living/carbon/human/lesser/monkey/agressive,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"av" = (
+/obj/structure/barricade/sandbags,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"bn" = (
+/obj/item/reagent_containers/food/pill/initropidril,
+/turf/simulated/floor/indestructible/green_light,
+/area/deathmatch)
+"bp" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/stock_parts/cell/bluespace,
+/obj/item/crowbar/red,
+/turf/simulated/floor/carpet/black,
+/area/deathmatch)
+"bA" = (
+/obj/machinery/door_control/secure/directional/south{
+	id = "dm1"
+	},
+/turf/simulated/floor/carpet/black,
+/area/deathmatch)
+"bH" = (
+/obj/machinery/door_control/secure/directional/east{
+	id = "dm3"
+	},
+/obj/effect/turf_decal/box,
+/obj/effect/landmark/deathmatch_player_spawn,
+/turf/simulated/floor/carpet/black,
+/area/deathmatch)
+"cB" = (
+/obj/machinery/vending/sustenance,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"de" = (
+/obj/machinery/light/directional/south,
+/turf/simulated/floor/sepia,
+/area/deathmatch)
+"di" = (
+/obj/item/storage/firstaid/doctor,
+/turf/simulated/floor/noslip,
+/area/deathmatch)
+"dp" = (
+/obj/machinery/light/directional/east,
+/obj/structure/table/wood,
+/obj/item/gun/projectile/bombarda,
+/turf/simulated/floor/sepia,
+/area/deathmatch)
+"dq" = (
+/obj/item/twohanded/fireaxe,
+/turf/simulated/floor/indestructible/green_light,
+/area/deathmatch)
+"dI" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/snacks/monstermeat/spidermeat,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"dS" = (
+/obj/structure/table,
+/turf/simulated/floor/carpet/black,
+/area/deathmatch)
+"eq" = (
+/obj/machinery/door/poddoor/shutters{
+	dir = 2;
+	id_tag = "dm1"
+	},
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"eN" = (
+/obj/machinery/door_control/secure/directional/south{
+	id = "dm4"
+	},
+/turf/simulated/floor/carpet/black,
+/area/deathmatch)
+"fv" = (
+/obj/structure/table/wood,
+/obj/item/gun/projectile/automatic/arg,
+/turf/simulated/floor/sepia,
+/area/deathmatch)
+"fy" = (
+/turf/simulated/floor/indestructible/yellow_light,
+/area/deathmatch)
+"fD" = (
+/obj/structure/window/reinforced/survival_pod,
+/turf/simulated/floor/sepia,
+/area/deathmatch)
+"gk" = (
+/obj/machinery/light/directional/east,
+/turf/simulated/floor/carpet/black,
+/area/deathmatch)
+"gL" = (
+/obj/structure/table,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"gP" = (
+/obj/structure/barricade/security,
+/turf/simulated/floor/carpet/black,
+/area/deathmatch)
+"hV" = (
+/obj/machinery/light/directional/east,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"ir" = (
+/obj/effect/decal/cleanable/blood/gibs/core,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"jv" = (
+/obj/structure/table/reinforced,
+/obj/item/weldingtool/largetank,
+/obj/item/clothing/head/welding,
+/obj/machinery/light/directional/east,
+/turf/simulated/floor/carpet/black,
+/area/deathmatch)
+"kb" = (
+/obj/item/weldingtool/experimental,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"lb" = (
+/obj/machinery/light/directional/north,
+/obj/item/storage/bag/trash,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"lg" = (
+/obj/machinery/light/directional/north,
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"mq" = (
+/obj/structure/closet/l3closet/janitor,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"mC" = (
+/obj/structure/table,
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/medium,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"mS" = (
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/carpet/black,
+/area/deathmatch)
+"nB" = (
+/obj/machinery/sleeper,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"oj" = (
+/obj/structure/table/wood,
+/obj/item/gun/projectile/shotgun/boltaction,
+/turf/simulated/floor/sepia,
+/area/deathmatch)
+"oq" = (
+/obj/structure/urinal{
+	pixel_y = 32
+	},
+/obj/machinery/light/directional/east,
+/turf/simulated/floor/noslip,
+/area/deathmatch)
+"os" = (
+/obj/structure/table/reinforced,
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy,
+/turf/simulated/floor/carpet/black,
+/area/deathmatch)
+"oK" = (
+/obj/structure/barricade/wooden,
+/turf/simulated/floor/carpet/black,
+/area/deathmatch)
+"oX" = (
+/obj/structure/table/reinforced,
+/obj/item/weldingtool/largetank,
+/obj/item/clothing/head/welding,
+/obj/machinery/light/directional/west,
+/turf/simulated/floor/carpet/black,
+/area/deathmatch)
+"pg" = (
+/obj/machinery/light/directional/south,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"qD" = (
+/obj/machinery/door/poddoor/shutters{
+	dir = 2;
+	id_tag = "dm4"
+	},
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"qR" = (
+/obj/structure/urinal{
+	pixel_y = 32
+	},
+/turf/simulated/floor/noslip,
+/area/deathmatch)
+"qS" = (
+/turf/simulated/floor/carpet/black,
+/area/deathmatch)
+"rw" = (
+/obj/machinery/light/directional/east,
+/turf/simulated/floor/sepia,
+/area/deathmatch)
+"rJ" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"rY" = (
+/obj/machinery/door_control/secure/directional/west{
+	id = "dm1"
+	},
+/obj/effect/turf_decal/box,
+/obj/effect/landmark/deathmatch_player_spawn,
+/turf/simulated/floor/carpet/black,
+/area/deathmatch)
+"rZ" = (
+/obj/effect/spawner/window,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"sZ" = (
+/obj/machinery/light/directional/north,
+/obj/item/weldingtool/experimental,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"tt" = (
+/obj/machinery/light/directional/north,
+/obj/machinery/optable,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"tS" = (
+/obj/structure/table,
+/obj/item/storage/belt/janitor/full,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"tW" = (
+/obj/machinery/light/directional/east,
+/turf/simulated/floor/noslip,
+/area/deathmatch)
+"tX" = (
+/obj/structure/table,
+/obj/item/reagent_containers/spray/cleaner/janitor,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"uh" = (
+/obj/item/reagent_containers/food/pill/lsd,
+/turf/simulated/floor/indestructible/green_light,
+/area/deathmatch)
+"uo" = (
+/obj/machinery/vending/medical,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"uy" = (
+/obj/structure/reagent_dispensers/water_cooler,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"vK" = (
+/obj/machinery/door/poddoor/shutters{
+	dir = 2;
+	id_tag = "dm3"
+	},
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"wr" = (
+/obj/mecha/combat/gygax,
+/turf/simulated/floor/carpet/black,
+/area/deathmatch)
+"wH" = (
+/obj/machinery/light/directional/west,
+/turf/simulated/floor/carpet/black,
+/area/deathmatch)
+"xa" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/snacks/meatpie/human,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"xv" = (
+/obj/machinery/light/directional/south,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 8
+	},
+/turf/simulated/floor/sepia,
+/area/deathmatch)
+"yq" = (
+/obj/machinery/light/directional/north,
+/turf/simulated/floor/sepia,
+/area/deathmatch)
+"zr" = (
+/obj/machinery/light/directional/north,
+/obj/item/grenade/smokebomb,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"zF" = (
+/obj/effect/decal/cleanable/blood/gibs/core,
+/obj/item/shard,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"zR" = (
+/obj/structure/extinguisher_cabinet/directional/north,
+/turf/simulated/floor/carpet/black,
+/area/deathmatch)
+"Aa" = (
+/turf/simulated/wall/indestructible/abductor/normal,
+/area/deathmatch)
+"Ae" = (
+/obj/machinery/light/directional/west,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"BF" = (
+/obj/structure/table,
+/obj/item/grenade/smokebomb,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"Ca" = (
+/turf/simulated/wall/mineral/plastitanium,
+/area/deathmatch)
+"Cf" = (
+/obj/item/grenade/smokebomb,
+/turf/simulated/floor/carpet/black,
+/area/deathmatch)
+"Cp" = (
+/obj/item/chair,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"Cy" = (
+/obj/machinery/door/poddoor/shutters{
+	dir = 2;
+	id_tag = "dm2"
+	},
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"CJ" = (
+/obj/machinery/door_control/secure/directional/east{
+	id = "dm4"
+	},
+/obj/effect/turf_decal/box,
+/obj/effect/landmark/deathmatch_player_spawn,
+/turf/simulated/floor/carpet/black,
+/area/deathmatch)
+"CN" = (
+/obj/machinery/door/airlock/hatch,
+/turf/simulated/floor/carpet/black,
+/area/deathmatch)
+"CP" = (
+/obj/machinery/light/directional/south,
+/mob/living/carbon/human/lesser/monkey/agressive,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"Dk" = (
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"Dt" = (
+/obj/structure/table/reinforced,
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot,
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/laser,
+/obj/machinery/light/directional/south,
+/turf/simulated/floor/carpet/black,
+/area/deathmatch)
+"DG" = (
+/obj/machinery/light/directional/north,
+/obj/machinery/vending/coffee,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"DK" = (
+/obj/machinery/door/airlock/hatch,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"Ei" = (
+/obj/structure/barricade/security,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"EZ" = (
+/obj/effect/turf_decal/stripes/asteroid/line,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"Ff" = (
+/obj/structure/barricade/wooden,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"Fm" = (
+/obj/machinery/light/directional/north,
+/turf/simulated/floor/carpet/black,
+/area/deathmatch)
+"FS" = (
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"Gp" = (
+/obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"GG" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"Ha" = (
+/obj/item/reagent_containers/food/pill/hydrocodone,
+/turf/simulated/floor/indestructible/green_light,
+/area/deathmatch)
+"Hs" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"Iu" = (
+/obj/machinery/sleeper{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"IL" = (
+/obj/machinery/door_control/secure/directional/west{
+	id = "dm2"
+	},
+/obj/effect/turf_decal/box,
+/obj/effect/landmark/deathmatch_player_spawn,
+/turf/simulated/floor/carpet/black,
+/area/deathmatch)
+"IY" = (
+/obj/machinery/clonepod,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"JK" = (
+/obj/structure/table/reinforced,
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot,
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/laser,
+/obj/machinery/light/directional/north,
+/turf/simulated/floor/carpet/black,
+/area/deathmatch)
+"Ka" = (
+/obj/structure/table/wood,
+/obj/item/gun/projectile/revolver,
+/turf/simulated/floor/sepia,
+/area/deathmatch)
+"Lq" = (
+/obj/item/gun/energy/ionrifle/carbine{
+	pixel_y = 7
+	},
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"Ls" = (
+/obj/machinery/light/directional/east,
+/obj/structure/table,
+/obj/item/reagent_containers/food/snacks/meatsteak/nian,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"LK" = (
+/obj/structure/table,
+/obj/item/storage/briefcase,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"LO" = (
+/turf/simulated/floor/noslip,
+/area/deathmatch)
+"MA" = (
+/obj/machinery/light/directional/north,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"Nj" = (
+/obj/structure/extinguisher_cabinet/directional/south,
+/turf/simulated/floor/carpet/black,
+/area/deathmatch)
+"Nw" = (
+/obj/effect/turf_decal/stripes/asteroid/line{
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"NG" = (
+/obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"NS" = (
+/obj/machinery/door_control/secure/directional/north{
+	id = "dm3"
+	},
+/turf/simulated/floor/carpet/black,
+/area/deathmatch)
+"NT" = (
+/obj/machinery/vending/cola,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"OF" = (
+/obj/structure/chair/office{
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"ON" = (
+/obj/structure/toilet/directional/west,
+/turf/simulated/floor/indestructible/yellow_light,
+/area/deathmatch)
+"OS" = (
+/obj/structure/janitorialcart,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"PZ" = (
+/obj/machinery/light/directional/east,
+/obj/machinery/clonepod,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"QE" = (
+/obj/machinery/door_control/secure/directional/north{
+	id = "dm2"
+	},
+/turf/simulated/floor/carpet/black,
+/area/deathmatch)
+"Rg" = (
+/turf/simulated/floor/lava,
+/area/deathmatch)
+"RK" = (
+/obj/structure/chair/office/dark,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"RR" = (
+/obj/machinery/light/directional/south,
+/obj/structure/reagent_dispensers/watertank,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"Td" = (
+/obj/structure/statue/silver/janitor,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"Un" = (
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/carpet/black,
+/area/deathmatch)
+"US" = (
+/obj/structure/table/reinforced,
+/obj/item/gun/energy/laser,
+/turf/simulated/floor/carpet/black,
+/area/deathmatch)
+"UW" = (
+/obj/machinery/light/directional/south,
+/turf/simulated/floor/carpet/black,
+/area/deathmatch)
+"Vm" = (
+/turf/simulated/floor/sepia,
+/area/deathmatch)
+"VH" = (
+/obj/structure/table,
+/obj/item/mecha_parts/mecha_equipment/repair_droid,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"WZ" = (
+/obj/structure/closet/crate/trashcart,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"Xi" = (
+/obj/machinery/light/directional/west,
+/obj/structure/window/reinforced/survival_pod,
+/turf/simulated/floor/sepia,
+/area/deathmatch)
+"Xu" = (
+/obj/structure/showcase/horrific_experiment,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"XX" = (
+/obj/item/ammo_box/a40mm,
+/turf/simulated/floor/sepia,
+/area/deathmatch)
+"Yb" = (
+/obj/machinery/light/directional/south,
+/obj/structure/extinguisher_cabinet/directional/south,
+/turf/simulated/floor/carpet/black,
+/area/deathmatch)
+"Yn" = (
+/obj/machinery/kitchen_machine/grill,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"Zc" = (
+/obj/machinery/light/directional/north,
+/obj/structure/closet/crate/trashcart,
+/turf/simulated/floor/engine,
+/area/deathmatch)
+"Zu" = (
+/obj/item/reagent_containers/food/pill/morphine,
+/turf/simulated/floor/indestructible/green_light,
+/area/deathmatch)
+"Zw" = (
+/obj/item/reagent_containers/food/pill/happy,
+/turf/simulated/floor/indestructible/yellow_light,
+/area/deathmatch)
+
+(1,1,1) = {"
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+"}
+(2,1,1) = {"
+Aa
+bp
+oX
+qS
+qD
+Dk
+Ca
+Dk
+rZ
+pg
+Ca
+tt
+Iu
+Iu
+NG
+Ca
+Dk
+av
+Dk
+Ca
+Dk
+Dk
+vK
+qS
+oX
+bp
+Aa
+"}
+(3,1,1) = {"
+Aa
+JK
+qS
+eN
+Aa
+pg
+Ca
+MA
+rZ
+Ff
+CN
+oK
+Dk
+Dk
+Dk
+Ca
+Dk
+av
+Dk
+Ca
+Dk
+Dk
+Aa
+NS
+qS
+Dt
+Aa
+"}
+(4,1,1) = {"
+Aa
+qS
+CJ
+wr
+Aa
+Dk
+CN
+Dk
+rZ
+pg
+Ca
+Fm
+qS
+qS
+UW
+Ca
+MA
+av
+pg
+Ca
+MA
+Dk
+Aa
+wr
+bH
+qS
+Aa
+"}
+(5,1,1) = {"
+Aa
+qD
+Aa
+Aa
+Aa
+pg
+Ca
+MA
+rZ
+Dk
+Ca
+Dk
+Dk
+Dk
+oK
+CN
+oK
+qS
+qS
+CN
+Dk
+Dk
+Aa
+Aa
+Aa
+vK
+Aa
+"}
+(6,1,1) = {"
+Aa
+Dk
+Dk
+Dk
+Dk
+Dk
+Ca
+Dk
+rZ
+Dk
+Ca
+Dk
+Dk
+Dk
+pg
+Ca
+MA
+Cf
+pg
+Ca
+MA
+Dk
+Dk
+Dk
+Dk
+Dk
+Aa
+"}
+(7,1,1) = {"
+Aa
+Dk
+hV
+Dk
+hV
+Dk
+Ca
+Dk
+rZ
+Dk
+Ca
+gL
+nB
+nB
+uo
+Ca
+Dk
+qS
+Dk
+Ca
+Dk
+Dk
+Dk
+hV
+Dk
+Dk
+Aa
+"}
+(8,1,1) = {"
+Aa
+Ca
+Ca
+CN
+Ca
+Ca
+Ca
+Ca
+Ca
+Ca
+Ca
+Ca
+Ca
+Ca
+Ca
+Ca
+Ca
+CN
+Ca
+Ca
+Ca
+Ca
+Ca
+Ca
+Ca
+DK
+Aa
+"}
+(9,1,1) = {"
+Aa
+zR
+wH
+qS
+wH
+qS
+qS
+wH
+qS
+qS
+Nj
+Ca
+NT
+Dk
+Dk
+uy
+Ae
+qS
+Ae
+Dk
+Dk
+Dk
+Dk
+Ca
+tS
+Dk
+Aa
+"}
+(10,1,1) = {"
+Aa
+Fm
+Ei
+Ei
+Ei
+Dk
+Dk
+Dk
+Dk
+Dk
+qS
+Ca
+cB
+Dk
+qS
+qS
+qS
+qS
+gP
+gP
+dS
+VH
+Dk
+Ca
+gL
+RR
+Aa
+"}
+(11,1,1) = {"
+Aa
+qS
+Dk
+rJ
+rJ
+Dk
+Dk
+rJ
+rJ
+Dk
+UW
+Ca
+DG
+Dk
+qS
+Dk
+Dk
+Dk
+Dk
+Dk
+qS
+BF
+Dk
+Ca
+tX
+Dk
+Aa
+"}
+(12,1,1) = {"
+Aa
+qS
+EZ
+Rg
+Rg
+Nw
+EZ
+Rg
+Rg
+Nw
+qS
+GG
+Dk
+Dk
+qS
+Dk
+LK
+OF
+Dk
+Dk
+qS
+Dk
+pg
+Ca
+MA
+Dk
+Aa
+"}
+(13,1,1) = {"
+Aa
+qS
+Dk
+Hs
+Hs
+Dk
+Dk
+Hs
+Hs
+Dk
+qS
+CN
+qS
+qS
+qS
+RK
+FS
+OF
+Dk
+Dk
+qS
+qS
+qS
+CN
+Dk
+Dk
+Aa
+"}
+(14,1,1) = {"
+Aa
+gP
+Ei
+Dk
+Dk
+Dk
+Dk
+Dk
+Dk
+Ei
+gP
+GG
+Dk
+Ei
+qS
+Dk
+mC
+OF
+Dk
+Dk
+qS
+Dk
+pg
+Ca
+lb
+Dk
+Aa
+"}
+(15,1,1) = {"
+Aa
+Fm
+Dk
+Dk
+qS
+qS
+qS
+qS
+Dk
+Dk
+UW
+Ca
+MA
+Ei
+qS
+Dk
+Dk
+Dk
+Dk
+Dk
+gP
+Ei
+Dk
+Ca
+OS
+Dk
+Aa
+"}
+(16,1,1) = {"
+Aa
+qS
+Dk
+Dk
+qS
+US
+os
+qS
+Dk
+Dk
+qS
+Ca
+Dk
+Ei
+dS
+qS
+qS
+qS
+qS
+qS
+gP
+gL
+Dk
+Ca
+mq
+pg
+Aa
+"}
+(17,1,1) = {"
+Aa
+qS
+Dk
+Dk
+qS
+Un
+US
+qS
+Dk
+Dk
+qS
+Ca
+Dk
+Dk
+Cp
+Dk
+hV
+qS
+hV
+Dk
+Dk
+Cp
+Dk
+Ca
+Td
+Dk
+Aa
+"}
+(18,1,1) = {"
+Aa
+Fm
+Dk
+Dk
+qS
+qS
+qS
+qS
+Dk
+Dk
+qS
+Ca
+Ca
+Ca
+Ca
+Ca
+Ca
+DK
+Ca
+Ca
+Ca
+Ca
+Ca
+Ca
+Ca
+DK
+Aa
+"}
+(19,1,1) = {"
+Aa
+qS
+Dk
+Dk
+Dk
+Dk
+Dk
+Dk
+Dk
+Dk
+gP
+Ca
+Dk
+Gp
+Ae
+Dk
+Ca
+Vm
+Xi
+Ka
+Ca
+qR
+LO
+LO
+di
+LO
+Aa
+"}
+(20,1,1) = {"
+Aa
+qS
+Dk
+rJ
+rJ
+Dk
+Dk
+rJ
+rJ
+Dk
+qS
+Ca
+ir
+Xu
+IY
+Dk
+Ca
+Vm
+fD
+oj
+Ca
+oq
+ON
+ON
+tW
+LO
+Aa
+"}
+(21,1,1) = {"
+Aa
+qS
+EZ
+Rg
+Rg
+Nw
+EZ
+Rg
+Rg
+Nw
+qS
+Ca
+Dk
+Dk
+Dk
+Dk
+Ca
+Vm
+fD
+fv
+Ca
+Ca
+Ca
+Ca
+Ca
+DK
+Aa
+"}
+(22,1,1) = {"
+Aa
+qS
+Dk
+Hs
+Hs
+Dk
+Dk
+Hs
+Hs
+Dk
+UW
+Ca
+zr
+IY
+IY
+CP
+Ca
+yq
+Vm
+xv
+Ca
+lg
+Yn
+Yn
+Ae
+Dk
+Aa
+"}
+(23,1,1) = {"
+Aa
+Fm
+Ei
+Ei
+Ei
+Dk
+Dk
+Dk
+Dk
+Dk
+qS
+CN
+qS
+qS
+mS
+qS
+CN
+Vm
+Vm
+Vm
+DK
+Dk
+Dk
+Dk
+Dk
+Dk
+Aa
+"}
+(24,1,1) = {"
+Aa
+zR
+gk
+qS
+gk
+qS
+qS
+gk
+qS
+qS
+Yb
+Ca
+MA
+as
+Dk
+pg
+Ca
+yq
+Vm
+de
+Ca
+sZ
+Dk
+dI
+Ls
+xa
+Aa
+"}
+(25,1,1) = {"
+Aa
+Ca
+Ca
+CN
+Ca
+Ca
+Ca
+Ca
+Ca
+Ca
+Ca
+Ca
+Dk
+IY
+Xu
+zF
+Ca
+XX
+Vm
+Vm
+Ca
+Ca
+DK
+Ca
+Ca
+Ca
+Aa
+"}
+(26,1,1) = {"
+Aa
+Dk
+Dk
+Dk
+Dk
+Dk
+pg
+Ca
+Zc
+WZ
+WZ
+Ca
+as
+Dk
+Dk
+Dk
+Ca
+rw
+Vm
+dp
+Ca
+Dk
+Dk
+Dk
+Dk
+Dk
+Aa
+"}
+(27,1,1) = {"
+Aa
+eq
+Aa
+Aa
+Aa
+Dk
+Dk
+CN
+Dk
+Lq
+kb
+Ca
+Dk
+IY
+PZ
+as
+Ca
+Ca
+DK
+Ca
+Ca
+Dk
+Aa
+Aa
+Aa
+Cy
+Aa
+"}
+(28,1,1) = {"
+Aa
+qS
+rY
+wr
+Aa
+Dk
+pg
+Ca
+MA
+av
+Dk
+Ca
+Ca
+Ca
+Ca
+Ca
+Ca
+Zu
+fy
+Ha
+Ca
+Dk
+Aa
+wr
+IL
+qS
+Aa
+"}
+(29,1,1) = {"
+Aa
+JK
+qS
+bA
+Aa
+Dk
+Dk
+Ca
+Dk
+av
+Dk
+Dk
+av
+Dk
+Dk
+Dk
+DK
+Zw
+uh
+fy
+Ca
+MA
+Aa
+QE
+qS
+Dt
+Aa
+"}
+(30,1,1) = {"
+Aa
+bp
+jv
+qS
+eq
+Dk
+Dk
+Ca
+Dk
+av
+Dk
+hV
+Dk
+Dk
+av
+pg
+Ca
+dq
+fy
+bn
+DK
+Dk
+Cy
+qS
+jv
+bp
+Aa
+"}
+(31,1,1) = {"
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+Aa
+"}

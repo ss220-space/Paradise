@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - bugfix: "Исправлен баг, из-за которого не выводились опции фильтра HFR. (PR #9559)"

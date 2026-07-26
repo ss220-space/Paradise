@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - bugfix: "do_after без cancel_on_max больше не прерываются при макс числе интеракций. (PR #9571)"

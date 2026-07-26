@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - bugfix: "Исправлена возможная причина неполного процессинга HFR. (PR #9556)"

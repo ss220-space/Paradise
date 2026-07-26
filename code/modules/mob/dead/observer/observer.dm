@@ -9,6 +9,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 #define GHOST_ORBIT_SQUARE "square"
 #define GHOST_ORBIT_PENTAGON "pentagon"
 
+#define GHOST_SELF_APPEARANCE "ghost_selfvision"
+
 /mob/dead/observer
 	name = "ghost"
 	desc = "Это п-п-п-п-призраааак!" //jinkies!
@@ -34,6 +36,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	universal_speak = TRUE
 	var/image/ghostimage = null //this mobs ghost image, for deleting and stuff
 	var/ghostvision = TRUE //is the ghost able to see things humans can't?
+	var/selfvision = TRUE
 	var/seedarkness = TRUE
 	var/sightchanged = FALSE
 	/// Defines from __DEFINES/hud.dm go here based on which huds the ghost has activated.
@@ -770,6 +773,25 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	update_sight()
 	to_chat(usr, span_notice("Видимость призраков [(ghostvision?"включена":"отключена")]."))
 
+/mob/dead/observer/verb/toggle_selfsee()
+	set name = "Видимость себя"
+	set desc = "Toggles your ability to see your own ghost. Other ghosts still see you"
+	set category = VERB_CATEGORY_GHOST
+
+	selfvision = !selfvision
+	update_selfvision()
+	to_chat(usr, span_notice("Видимость себя [(selfvision ? "включена" : "отключена")]."))
+
+/mob/dead/observer/proc/update_selfvision()
+	if(selfvision)
+		remove_alt_appearance(GHOST_SELF_APPEARANCE)
+		return
+
+	var/image/hidden_self = image(icon = icon, loc = src)
+	hidden_self.override = TRUE
+	hidden_self.alpha = 0
+	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/one_person, GHOST_SELF_APPEARANCE, hidden_self, AA_TARGET_SEE_APPEARANCE, src)
+
 /mob/dead/observer/verb/pick_darkness()
 	set name = "Освещённость"
 	set desc = "Choose how much darkness you want to see."
@@ -944,3 +966,4 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 #undef GHOST_ORBIT_HEXAGON
 #undef GHOST_ORBIT_SQUARE
 #undef GHOST_ORBIT_PENTAGON
+#undef GHOST_SELF_APPEARANCE

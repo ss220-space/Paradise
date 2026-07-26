@@ -5506,13 +5506,13 @@
 /area/station/maintenance/bar)
 "bhQ" = (
 /obj/structure/table/glass,
-/obj/item/storage/box/masks,
-/obj/item/storage/box/gloves{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/item/reagent_containers/spray/cleaner/chemical,
 /obj/machinery/alarm/directional/east,
+/obj/item/reagent_containers/spray/cleaner/chemical{
+	pixel_x = -5
+	},
+/obj/item/reagent_containers/spray/cleaner/chemical{
+	pixel_x = 5
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteyellow"
@@ -13930,15 +13930,15 @@
 	dir = 4;
 	name = "Труба фильтрации"
 	},
-/obj/machinery/atmospherics/binary/pump{
-	desc = "Подаёт оксид азота для смешивания с другими газами";
-	dir = 1;
-	name = "Оксид азота (NO2) в смеситель";
-	target_pressure = 101
-	},
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 4
+	},
+/obj/machinery/atmospherics/binary/pump{
+	desc = "Подаёт токсины для смешивания с другими газами";
+	dir = 1;
+	name = "Токсины (Плазма) в смеситель";
+	target_pressure = 101
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -25229,8 +25229,8 @@
 /area/station/hallway/secondary/entry/eastarrival)
 "fpF" = (
 /obj/machinery/atmospherics/trinary/filter/flipped/n2o{
-	dir = 8;
 	desc = "Отфильтровывает оксид азота из трубы и отправляет его в камеру хранения.";
+	dir = 8;
 	name = "Фильтр Оксида Азота (NO2)";
 	on = 1;
 	target_pressure = 4500
@@ -31177,11 +31177,11 @@
 /area/station/command/office/rd)
 "guW" = (
 /obj/machinery/atmospherics/trinary/filter/flipped{
+	desc = "Отфильтровывает токсины из трубы и отправляет их в камеру хранения.";
 	dir = 8;
 	name = "Фильтр Токсинов (Плазма).";
-	desc = "Отфильтровывает токсины из трубы и отправляет их в камеру хранения.";
-	target_pressure = 4500;
-	on = 1
+	on = 1;
+	target_pressure = 4500
 	},
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -33883,8 +33883,8 @@
 "gUn" = (
 /obj/machinery/camera{
 	c_tag = "Atmospherics Gas Mix Tank";
-	network = list("SS13","Engineering");
-	dir = 8
+	dir = 8;
+	network = list("SS13","Engineering")
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/station/engineering/atmos/mixing_atmos)
@@ -59923,9 +59923,9 @@
 "lLm" = (
 /obj/machinery/atmospherics/binary/pump{
 	desc = "Позволяет пропустить смесь не загружая её в хранилище";
+	dir = 8;
 	name = "Смесь в обход хранилища";
-	target_pressure = 101;
-	dir = 8
+	target_pressure = 101
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/mixing_atmos)
@@ -85562,20 +85562,13 @@
 /area/station/hallway/primary/starboard/east)
 "qyr" = (
 /obj/structure/table/glass,
-/obj/item/stack/packageWrap,
-/obj/item/reagent_scanner/adv,
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/item/storage/box/beakers{
-	pixel_x = 2;
-	pixel_y = 2
-	},
-/obj/item/storage/box/pillbottles{
-	pixel_x = 2;
-	pixel_y = 2
-	},
 /obj/machinery/firealarm/directional/north,
+/obj/item/reagent_scanner/adv,
+/obj/item/stack/packageWrap,
+/obj/item/hand_labeler,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteyellow"
@@ -105035,8 +105028,8 @@
 "tUk" = (
 /obj/machinery/camera{
 	c_tag = "Atmospherics Toxins Tank";
-	network = list("SS13","Engineering");
-	dir = 8
+	dir = 8;
+	network = list("SS13","Engineering")
 	},
 /turf/simulated/floor/engine/plasma,
 /area/station/engineering/atmos/mixing_atmos)
@@ -107991,16 +107984,25 @@
 /area/station/science/toxins/test)
 "uxf" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/spray/cleaner{
-	desc = "Someone has crossed out the 'Space' from Space Cleaner and written in Chemistry. Scrawled on the back is, 'Okay, whoever filled this with polytrinic acid, it was only funny the first time. It was hard enough replacing the CMO's first cat!'";
-	name = "Chemistry Cleaner"
-	},
-/obj/item/hand_labeler,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/structure/window/reinforced{
 	dir = 4
+	},
+/obj/item/storage/box/pillbottles{
+	pixel_x = -5
+	},
+/obj/item/storage/box/beakers{
+	pixel_x = 5
+	},
+/obj/item/storage/box/masks{
+	pixel_x = -5;
+	pixel_y = 10
+	},
+/obj/item/storage/box/gloves{
+	pixel_x = 5;
+	pixel_y = 10
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -117737,15 +117739,15 @@
 	dir = 4;
 	name = "Труба фильтрации"
 	},
-/obj/machinery/atmospherics/binary/pump{
-	desc = "Подаёт токсины для смешивания с другими газами";
-	dir = 1;
-	name = "Токсины (Плазма) в смеситель";
-	target_pressure = 101
-	},
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 4
+	},
+/obj/machinery/atmospherics/binary/pump{
+	desc = "Подаёт оксид азота для смешивания с другими газами";
+	dir = 1;
+	name = "Оксид азота (NO2) в смеситель";
+	target_pressure = 101
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -121357,8 +121359,8 @@
 "wSO" = (
 /obj/machinery/camera{
 	c_tag = "Atmospherics N2O Tank";
-	network = list("SS13","Engineering");
-	dir = 8
+	dir = 8;
+	network = list("SS13","Engineering")
 	},
 /turf/simulated/floor/engine/n20,
 /area/station/engineering/atmos/mixing_atmos)
@@ -122043,11 +122045,11 @@
 	pixel_x = 5;
 	pixel_y = 10
 	},
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = 5
-	},
 /obj/item/reagent_containers/spray/cleaner/medical{
 	pixel_x = -5
+	},
+/obj/item/reagent_containers/spray/cleaner/medical{
+	pixel_x = 5
 	},
 /obj/structure/extinguisher_cabinet/directional/east,
 /obj/structure/reagent_dispensers/spacecleanertank{
@@ -122943,11 +122945,11 @@
 /area/station/hallway/secondary/exit/maint)
 "xhA" = (
 /obj/machinery/atmospherics/trinary/filter/flipped/co2{
-	dir = 8;
-	target_pressure = 4500;
-	on = 1;
 	desc = "Отфильтровывает углекислый газ из трубы и отправляет его в камеру хранения.";
-	name = "Фильтр Углекислого Газа (СO2)."
+	dir = 8;
+	name = "Фильтр Углекислого Газа (СO2).";
+	on = 1;
+	target_pressure = 4500
 	},
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -126026,8 +126028,8 @@
 "xOb" = (
 /obj/machinery/camera{
 	c_tag = "Atmospherics CO2 Tank";
-	network = list("SS13","Engineering");
-	dir = 8
+	dir = 8;
+	network = list("SS13","Engineering")
 	},
 /turf/simulated/floor/engine/co2,
 /area/station/engineering/atmos/mixing_atmos)
