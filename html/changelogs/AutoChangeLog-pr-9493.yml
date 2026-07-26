@@ -1,0 +1,4 @@
+author: "Bess3"
+delete-after: True
+changes:
+  - bugfix: "Расы с рогами и их аналогами не теряют волосы от различных вещей (PR #9493)"
