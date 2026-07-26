@@ -37,6 +37,8 @@
 #define NO_NEW_GAGS_PREVIEW (1<<12)
 /// Whether or not this atom has contextual screentips when hovered OVER
 #define HAS_CONTEXTUAL_SCREENTIPS (1<<13)
+/// Should this object be unpaintable?
+#define UNPAINTABLE (1<<14)
 
 // Update flags for [/atom/proc/update_appearance]
 /// Update the atom's name
@@ -290,6 +292,8 @@ GLOBAL_LIST_INIT(more_bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024
 #define DA_IGNORE_EMPTY_GRIPPER (1<<8)
 /// Used to prevent important slowdowns to be modified by mob's actions slowdown
 #define DA_IGNORE_SLOWDOWNS (1<<9)
+/// Cancel the action if the user does another action (mainly via clicking)
+#define DA_DO_AFTER_CHECK_NEXT_MOVE (1<<10)
 
 /// All ignore flags considered as default old do_after behavior.
 #define DEFAULT_DOAFTER_IGNORE (DA_IGNORE_LYING|DA_IGNORE_RESTRAINED)

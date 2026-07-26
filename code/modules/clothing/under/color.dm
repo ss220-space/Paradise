@@ -159,7 +159,7 @@
 
 /obj/item/clothing/under/color/grey/glorf/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	owner.forcesay(GLOB.hit_appends)
-	return 0
+	return HIT_RESULT_FAILED
 
 /obj/item/clothing/under/color/orange
 	name = "orange jumpsuit"

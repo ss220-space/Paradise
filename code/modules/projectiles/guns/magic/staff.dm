@@ -85,7 +85,9 @@
 	hitsound = 'sound/weapons/rapierhit.ogg'
 	force = 25
 	armour_penetration = 75
-	block_chance = 50
 	block_type = MELEE_ATTACKS
 	sharp = 1
 	max_charges = 4
+
+/obj/item/gun/magic/staff/spellblade/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)

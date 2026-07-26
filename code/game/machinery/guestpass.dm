@@ -47,15 +47,10 @@
 
 	var/list/internal_log = list()
 	var/mode = 0  // 0 - making pass, 1 - viewing logs
-	var/list/region_map = list(
-		"Service" = REGION_GENERAL,
-		"Security" = REGION_SECURITY,
-		"Medical" = REGION_MEDBAY,
-		"Science" = REGION_RESEARCH,
-		"Engineering" = REGION_ENGINEERING,
-		"Supply" = REGION_SUPPLY,
-		"Command" = REGION_COMMAND
-	)
+
+	var/region_min = REGION_GENERAL
+	var/region_max = REGION_COMMAND
+
 	var/uid
 
 /obj/machinery/computer/guestpass/Initialize(mapload, obj/structure/computerframe/frame)
@@ -84,6 +79,8 @@
 
 /obj/machinery/computer/guestpass/syndicate
 	name = "Syndicate guest pass terminal"
+	region_min = REGION_TAIPAN
+	region_max = REGION_TAIPAN
 
 /obj/machinery/computer/guestpass/hop
 	name = "HoP guest pass terminal"
@@ -115,26 +112,7 @@
 	if(giver)
 		selectedAccess = accesses
 		grantableList = get_changeable_accesses()
-
-		for(var/region in region_map)
-			var/list/accs = list()
-			for(var/region_ref in get_region_accesses(region_map[region]))
-				var/access_name = get_access_desc(region_ref)
-				if(!access_name)
-					continue
-
-				accs += list(list(
-					"ref" = region_ref,
-					"desc" = "[access_name]",
-					"name" = "[access_name]"
-				))
-
-			if(length(accs))
-				regions += list(list(
-					"name" = region,
-					"regid" = region_map[region],
-					"accesses" = accs
-				))
+		regions = get_accesslist_static_data(region_min, region_max, grantableList)
 
 	data["regions"] = regions
 	data["selectedAccess"] = selectedAccess
@@ -193,11 +171,15 @@
 
 		if("grant_region")
 			var/rid = text2num(params["region"])
+			if(isnull(rid) || rid < region_min || rid > region_max)
+				return TRUE
 			accesses |= (get_region_accesses(rid) & get_changeable_accesses())
 			return TRUE
 
 		if("deny_region")
 			var/rid = text2num(params["region"])
+			if(isnull(rid) || rid < region_min || rid > region_max)
+				return TRUE
 			accesses -= get_region_accesses(rid)
 			return TRUE
 

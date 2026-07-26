@@ -237,9 +237,6 @@
 /datum/config_entry/string/medal_hub_address
 	default = null
 
-/datum/config_entry/string/medal_hub_password
-	default = null
-
 ///enables assistant limiting
 /datum/config_entry/flag/assistant_limit
 
@@ -883,3 +880,23 @@
 	default = TRUE
 
 /datum/config_entry/flag/generate_assets_in_init
+
+/// if the game appears on the hub or not
+/datum/config_entry/flag/hub
+	default = TRUE
+
+/datum/config_entry/flag/kick_inactive //force disconnect for inactive players
+
+/datum/config_entry/number/afk_period //time in ds until a player is considered inactive
+	default = 3000
+	integer = FALSE
+	min_val = 0
+
+/datum/config_entry/number/afk_period/ValidateAndSet(str_val)
+	. = ..()
+	if(.)
+		config_entry_value *= 10 //documented as seconds in config.txt
+
+/// Pop requirement for the server to be removed from the hub
+/datum/config_entry/number/max_hub_pop
+	min_val = 0

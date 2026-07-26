@@ -615,9 +615,7 @@
 	},
 /area/moonoutpost19/syndicateoutpost)
 "bw" = (
-/obj/structure/sink{
-	pixel_y = 28
-	},
+/obj/structure/sink/directional/south,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -3204,11 +3202,7 @@
 	},
 /area/moonoutpost19/mo19research)
 "gt" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/alien/weeds{
 	icon_state = "weeds2"
 	},
@@ -4038,10 +4032,7 @@
 	},
 /area/moonoutpost19/mo19arrivals)
 "hT" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/urinal{
 	pixel_y = 29
 	},
@@ -4054,18 +4045,14 @@
 	},
 /area/moonoutpost19/mo19arrivals)
 "hU" = (
-/obj/machinery/shower{
-	pixel_y = 16
-	},
+/obj/machinery/shower/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
 /area/moonoutpost19/mo19arrivals)
 "hV" = (
-/obj/machinery/shower{
-	pixel_y = 16
-	},
+/obj/machinery/shower/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -4229,10 +4216,7 @@
 	},
 /area/moonoutpost19/mo19arrivals)
 "il" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	broken = 1;
 	desc = "Oh no, seven years of bad luck!";
@@ -4258,9 +4242,7 @@
 	},
 /area/moonoutpost19/mo19arrivals)
 "io" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -4381,9 +4363,7 @@
 	},
 /area/moonoutpost19/mo19arrivals)
 "iB" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/west,
 /obj/item/bikehorn/rubberducky,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -4427,9 +4407,7 @@
 	},
 /area/moonoutpost19/mo19research)
 "iH" = (
-/obj/structure/sink{
-	pixel_y = 28
-	},
+/obj/structure/sink/directional/south,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -4483,10 +4461,7 @@
 /obj/structure/sign/securearea{
 	pixel_y = 32
 	},
-/obj/machinery/shower{
-	dir = 4;
-	name = "emergency shower"
-	},
+/obj/machinery/shower/directional/east,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
@@ -4526,9 +4501,7 @@
 	},
 /area/moonoutpost19/mo19research)
 "iQ" = (
-/obj/machinery/shower{
-	dir = 1
-	},
+/obj/machinery/shower/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -4630,11 +4603,7 @@
 	},
 /area/moonoutpost19/mo19research)
 "jd" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -5648,11 +5617,7 @@
 /turf/simulated/floor/plasteel,
 /area/moonoutpost19/mo19arrivals)
 "lw" = (
-/obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
-	pixel_y = 28
-	},
+/obj/structure/sink/kitchen/directional/south,
 /turf/simulated/floor/plasteel/t0c{
 	icon_state = "showroomfloor"
 	},
@@ -6766,7 +6731,7 @@
 "ot" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
-/obj/item/reagent_containers/glass/rag{
+/obj/item/rag{
 	pixel_y = 5
 	},
 /obj/machinery/door/poddoor/shutters{

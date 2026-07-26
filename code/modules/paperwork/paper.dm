@@ -940,6 +940,7 @@
 	var/from // = "Научная станция Nanotrasen &#34;Cyberiad&#34;"
 	var/notice = "Перед заполнением прочтите от начала до конца | Во всех PDA имеется ручка"
 	var/access = null //form visible only with appropriate access
+	var/syndicate = FALSE
 	paper_width = 600 //Width of the window that opens
 	paper_height = 700 //Height of the window that opens
 	var/is_header_needed = TRUE
@@ -1465,6 +1466,7 @@
 	access = ACCESS_SYNDICATE_COMMAND
 	confidential = TRUE
 	category = null
+	syndicate = TRUE
 	var/const/footer_to_taipan =   "<i><font face=\"Verdana\" color=black size = \"1\">\
 									<hr>\
 									*Несоблюдение и/или нарушение указаний, содержащихся в данном письме, карается смертью.\

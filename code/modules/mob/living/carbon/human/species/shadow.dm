@@ -86,10 +86,10 @@
 /datum/species/shadow/proc/empower_handler(mob/living/carbon/human/human, empowering = FALSE)
 	switch(empowering)
 		if(TRUE)
-			if(do_after(human, TIME_TO_EMPOWER, human, ALL, progress = FALSE, max_interact_count = 1, extra_checks = CALLBACK(src, PROC_REF(light_check), human)))
+			if(do_after(human, TIME_TO_EMPOWER, human, ALL, show_progress = FALSE, max_interact_count = 1, extra_checks = CALLBACK(src, PROC_REF(light_check), human)))
 				human.apply_status_effect(STATUS_EFFECT_SHADOW_EMPOWER)
 		if(FALSE)
-			if(do_after(human, TIME_TO_EXHAUST, human, ALL, progress = FALSE, max_interact_count = 1)) // NO extra_checks. Out in the light? Lose empower.
+			if(do_after(human, TIME_TO_EXHAUST, human, ALL, show_progress = FALSE, max_interact_count = 1)) // NO extra_checks. Out in the light? Lose empower.
 				human.remove_status_effect(STATUS_EFFECT_SHADOW_EMPOWER)
 
 /datum/species/shadow/proc/light_check(mob/living/carbon/human/human)

@@ -36,7 +36,7 @@
 		data["spawners"] += list(this)
 	return data
 
-/datum/minigames_explorer/ui_act(action, params)
+/datum/minigames_explorer/ui_act(action, params, datum/tgui/ui)
 	if(..())
 		return
 	switch(action)
@@ -53,6 +53,12 @@
 			owner.client?.prefs?.minigames_notifications = !owner.client?.prefs?.minigames_notifications
 			return
 
+	switch(action)
+		if("deathmatch")
+			ui.close()
+			deathmatch()
+			return TRUE
+
 	var/list/possible_spawners = params["ID"]
 	var/obj/MS = locateUID(pick(possible_spawners))
 	if(!MS || !MS.is_mob_spawnable())
@@ -64,3 +70,8 @@
 		if("spawn")
 			MS.attack_ghost(owner)
 			. = TRUE
+
+/datum/minigames_explorer/proc/deathmatch()
+	if(isnull(GLOB.deathmatch_game))
+		GLOB.deathmatch_game = new
+	GLOB.deathmatch_game.ui_interact(usr)

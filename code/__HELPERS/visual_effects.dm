@@ -30,3 +30,24 @@
 
 /// The duration of the animate call in mob/living/update_transform
 #define UPDATE_TRANSFORM_ANIMATION_TIME (0.2 SECONDS)
+
+///Animates source spinning around itself. For docmentation on the args, check atom/proc/SpinAnimation()
+/atom/proc/do_spin_animation(speed = 1 SECONDS, loops = -1, segments = 3, angle = 120, parallel = TRUE, tag = null)
+	var/list/matrices = list()
+	for(var/i in 1 to segments-1)
+		var/matrix/segment_matrix = matrix(transform)
+		segment_matrix.Turn(angle*i)
+		matrices += segment_matrix
+	var/matrix/last = matrix(transform)
+	matrices += last
+
+	speed /= segments
+
+	if(parallel)
+		animate(src, transform = matrices[1], time = speed, loop = loops, flags = ANIMATION_PARALLEL, tag = tag)
+	else
+		animate(src, transform = matrices[1], time = speed, loop = loops)
+	for(var/i in 2 to segments) //2 because 1 is covered above
+		animate(transform = matrices[i], time = speed)
+		//doesn't have an object argument because this is "Stacking" with the animate call above
+		//3 billion% intentional

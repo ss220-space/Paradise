@@ -44,3 +44,10 @@
 	var/mob/living/carbon/carbon_mob = user.mob
 	carbon_mob.toggle_give()
 	return TRUE
+/datum/keybinding/carbon/parry
+	name = "Parry"
+	keys = list("Space")
+
+/datum/keybinding/carbon/parry/down(client/user)
+	. = ..()
+	SEND_SIGNAL(user.mob, COMSIG_CARBON_PARRY)

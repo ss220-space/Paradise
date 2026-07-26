@@ -28,7 +28,11 @@
 #define COMSIG_LIVING_WET_TICK "living_wet_tick"
 //sent from living mobs when they are ahealed
 #define COMSIG_LIVING_AHEAL "living_aheal"
-///From living/Life(). (deltatime, times_fired)
+///From living/Life(). (deltatime)
+#define COMSIG_LIVING_PRE_LIFE "living_pre_life"
+	/// Block the Life() proc from proceeding... this should really only be done in some really wacky situations.
+	#define COMPONENT_LIVING_CANCEL_LIFE_PROCESSING (1<<0)
+///From living/Life(). (deltatime)
 #define COMSIG_LIVING_LIFE "living_life"
 ///from base of mob/living/death(): (gibbed)
 #define COMSIG_LIVING_EARLY_DEATH "living_early_death"
@@ -167,3 +171,10 @@
 
 /// From /mob/living/update_offsets(animate) : (new_x, new_y, new_w, new_z, animate)
 #define COMSIG_LIVING_UPDATE_OFFSETS "living_update_offsets"
+
+///From mob/living/proc/on_wabbajack(): (mob/living/new_mob)
+#define COMSIG_LIVING_ON_WABBAJACKED "living_wabbajacked"
+
+
+/// From /mob/living/changeNext_move() : (next_move, delay)
+#define COMSIG_LIVING_CHANGENEXT_MOVE "living_changenext_move"

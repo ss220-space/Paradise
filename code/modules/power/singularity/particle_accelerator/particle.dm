@@ -64,7 +64,7 @@
 
 /obj/effect/accelerated_particle/Bump(obj/singularity/bumped_singulo)
 	. = ..()
-	if(. || !istype(bumped_singulo))
+	if(. || (!istype(bumped_singulo) && !istype(bumped_singulo, /obj/energy_ball)))
 		return .
 	bumped_singulo.energy += energy
 	energy = 0

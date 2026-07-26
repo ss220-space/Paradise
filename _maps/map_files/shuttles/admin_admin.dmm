@@ -237,9 +237,7 @@
 /obj/item/stack/nanopaste,
 /obj/item/mmi,
 /obj/item/stack/nanopaste,
-/obj/structure/sink{
-	dir = 1
-	},
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor3"
 	},

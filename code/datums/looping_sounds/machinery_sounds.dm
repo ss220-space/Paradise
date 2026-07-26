@@ -74,3 +74,11 @@
 	falloff_distance = 5
 	falloff_exponent = 20
 	use_sound_tokens = TRUE
+
+/datum/looping_sound/hypertorus
+	mid_sounds = list('sound/machines/hypertorus/loops/hypertorus_nominal.ogg')
+	mid_length = 6 SECONDS
+	volume = 55
+	extra_range = 15
+	vary = TRUE
+	use_sound_tokens = TRUE

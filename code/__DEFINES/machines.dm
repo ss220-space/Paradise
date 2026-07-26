@@ -209,6 +209,13 @@
 #define MECH_FAB_CATEGORY_DARK_GYGAX "Тёмный Гигакс"
 #define MECH_FAB_CATEGORY_SYNDICATE "Синдикат"
 
+// Biogen categories
+#define BIOGEN_FOOD "Еда"
+#define BIOGEN_CUBES "Кубы"
+#define BIOGEN_LEATHER_CLOTH "Кожа и ткань"
+#define BIOGEN_ORGANIC "Органические материалы"
+#define BIOGEN_CHEMICALS "Ботанические реагенты"
+
 
 // Pod fabricator categories
 #define POD_FAB_CATEGORY_WEAPONRY "Вооружение"
@@ -254,3 +261,10 @@
 #define FG_OFFLINE 0
 #define FG_CHARGING 1
 #define FG_ONLINE 2
+
+#define HYPERTORUS_INACTIVE 0 // No or minimal energy
+#define HYPERTORUS_NOMINAL 1 // Normal operation
+#define HYPERTORUS_WARNING 2 // Integrity damaged
+#define HYPERTORUS_DANGER 3 // Integrity < 50%
+#define HYPERTORUS_EMERGENCY 4 // Integrity < 25%
+#define HYPERTORUS_MELTING 5 // Pretty obvious.

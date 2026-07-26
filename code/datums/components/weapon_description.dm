@@ -95,8 +95,8 @@
 		else
 			readout += "- Не наносит значимого ущерба в ближнем бою."
 
-		if(source.armour_penetration > 0 || source.block_chance > 0)
-			readout += "- Имеет [span_warning("[weapon_tag_convert(source.armour_penetration)]")] способность к пробитию брони и [span_warning("[weapon_tag_convert(source.block_chance)]")] вероятность заблокировать атаку."
+		if(source.armour_penetration > 0)
+			readout += "- Имеет [span_warning("[weapon_tag_convert(source.armour_penetration)]")] способность к пробитию брони."
 
 	// Custom manual notes
 	if(source.offensive_notes)

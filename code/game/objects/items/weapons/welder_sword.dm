@@ -10,7 +10,6 @@
 	belt_icon = null
 	force_enabled = 30
 	low_fuel_changes_icon = FALSE
-	block_chance = 50
 	item_flags = NOSHARPENING
 	sharp = 1
 	tool_behaviour = NONE
@@ -29,11 +28,16 @@
 		PREPOSITIONAL = "сварочном мече",
 	)
 
+/obj/item/weldingtool/sword/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS, _requires_activation = TRUE)
+
 /obj/item/weldingtool/sword/toggle_welder(turn_off)
 	. = ..()
 	if(tool_enabled)
+		ADD_TRAIT(src, TRAIT_ITEM_ACTIVE, GENERIC_TRAIT)
 		tool_behaviour = NONE
 	else
+		REMOVE_TRAIT(src, TRAIT_ITEM_ACTIVE, GENERIC_TRAIT)
 		tool_behaviour = TOOL_WELDER
 
 /obj/item/weldingtool/sword/update_icon_state()
@@ -89,7 +93,6 @@
 	righthand_file = 'icons/mob/inhands/twohanded_righthand.dmi'
 	force_enabled = 40
 	force = 5
-	block_chance = 75
 	maximum_fuel = 70
 	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 	origin_tech = "combat=5;magnets=5;plasmatech=6;"
@@ -104,6 +107,9 @@
 		INSTRUMENTAL = "двойным сварочным мечом",
 		PREPOSITIONAL = "двойном сварочном мече",
 	)
+
+/obj/item/weldingtool/sword/double/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.25, _parryable_attack_types = NON_PROJECTILE_ATTACKS, _parry_cooldown = (1 / 3) SECONDS, _requires_two_hands = TRUE)
 
 /obj/item/weldingtool/sword/double/ComponentInitialize()
 	AddComponent(/datum/component/two_handed, \
@@ -141,5 +147,4 @@
 /obj/item/weldingtool/sword/double/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(tool_enabled)
 		return ..()
-	return FALSE
-
+	return HIT_RESULT_FAILED

@@ -45,6 +45,7 @@
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+	add_traits(list(TRAIT_NODROWN, TRAIT_SWIMMER), INNATE_TRAIT)
 
 /mob/living/simple_animal/frog/ComponentInitialize()
 	AddComponent( \

@@ -166,9 +166,7 @@
 	},
 /area/shuttle/transport)
 "G" = (
-/obj/machinery/shower{
-	pixel_y = 20
-	},
+/obj/machinery/shower/directional/south,
 /obj/structure/curtain/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -220,9 +218,7 @@
 	},
 /area/shuttle/transport)
 "V" = (
-/obj/structure/sink{
-	pixel_y = 22
-	},
+/obj/structure/sink/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitebluecorner"

@@ -75,13 +75,6 @@
 			desc = "A translucent balloon with some form of liquid sloshing around in it."
 			update_icon(UPDATE_ICON_STATE)
 
-/obj/item/toy/balloon/wash(mob/user, atom/source)
-	if(reagents.total_volume < 10)
-		reagents.add_reagent("water", min(10-reagents.total_volume, 10))
-		to_chat(user, span_notice("Вы наполняете шарик из [source.declent_ru(GENITIVE)]."))
-		desc = "A translucent balloon with some form of liquid sloshing around in it."
-		update_icon(UPDATE_ICON_STATE)
-
 /obj/item/toy/balloon/attackby(obj/item/I, mob/user, params)
 	if(isglassreagentcontainer(I) || istype(I, /obj/item/reagent_containers/food/drinks/drinkingglass))
 		add_fingerprint(user)
@@ -235,7 +228,7 @@
 	needs_permit = FALSE
 
 /obj/item/twohanded/dualsaber/toy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
-	return 0
+	return HIT_RESULT_FAILED
 
 /obj/item/twohanded/dualsaber/toy/IsReflect()
 	if(wielded)

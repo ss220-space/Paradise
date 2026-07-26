@@ -146,7 +146,6 @@
 	sharp = TRUE
 	force = 45
 	armour_penetration = -15
-	block_chance = 75
 	block_type = MELEE_ATTACKS
 	hitsound = 'sound/weapons/armblade.ogg'
 	throw_range = 0
@@ -163,6 +162,9 @@
 		INSTRUMENTAL = "рукой-клинком",
 		PREPOSITIONAL = "руке-клинке",
 	)
+
+/obj/item/melee/changeling/arm_blade/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.25, _parryable_attack_types = NON_PROJECTILE_ATTACKS, _parry_cooldown = (1 / 3) SECONDS)
 
 /obj/item/melee/changeling/arm_blade/Initialize(mapload, silent, new_parent_action)
 	. = ..()

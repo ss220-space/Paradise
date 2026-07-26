@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - refactor: "do_after(прогресс бар при действиях) датумизирован. (PR #9568)"
