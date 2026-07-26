@@ -222,7 +222,7 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	add_fingerprint(user)
-	if(is_type_in_list(I, dried_items) && is_grownsnacks(I))
+	if(is_type_in_list(I, dried_items) && istype(I, /obj/item/reagent_containers/food/snacks/grown))
 		var/obj/item/reagent_containers/food/snacks/grown/grown = I
 		if(!grown.dry)
 			balloon_alert(user, "сначала высушите!")

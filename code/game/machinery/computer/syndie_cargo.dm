@@ -442,7 +442,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 						msg += "[span_good("+[data_storage.cash_per_design]")]: [design.name] design.<br>"
 
 					// Sell exotic plants
-					if(is_seeds(thing))
+					if(istype(thing, obj/item/seeds))
 						var/obj/item/seeds/S = thing
 						if(!S.rarity) // Mundane species
 							msg += "[span_bad("+0")]: We don't need samples of mundane species \"[capitalize(S.species)]\".<br>"

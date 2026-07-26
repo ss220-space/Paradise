@@ -99,7 +99,7 @@
 /datum/devil_bane/harvest/proc/harvest_attack(datum/source, obj/item/item, mob/attacker, params)
 	SIGNAL_HANDLER
 
-	if(!is_grownsnacks(item) || !isgrown(item))
+	if(!istype(item, /obj/item/reagent_containers/food/snacks/grown) || !istype(item, /obj/item/grown))
 		return
 
 	owner.apply_damage(item.force * bonus_damage)

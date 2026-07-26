@@ -192,16 +192,6 @@ GLOBAL_VAR_INIT(refid_filter, TYPEID(filter(type="angular_blur")))
 
 #define is_syndi_camera_bug(A) (istype(A, /obj/item/camera_bug/syndicate))
 
-#define isgrown(A) (istype(A, /obj/item/grown))
-
-#define is_grownsnacks(A) (istype(A, /obj/item/reagent_containers/food/snacks/grown))
-
-#define is_seeds(A) (istype(A, /obj/item/seeds))
-
-#define is_hydroponics(A) (istype(A, /obj/machinery/hydroponics))
-
-#define is_reagentcontainer(A) (istype(A, /obj/item/reagent_containers))
-
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,
 	/obj/item/screwdriver,

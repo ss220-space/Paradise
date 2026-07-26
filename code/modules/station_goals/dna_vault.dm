@@ -99,7 +99,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 	if(!proximity_flag || !target)
 		return
 	//tray plants
-	if(is_hydroponics(target))
+	if(istype(target,/obj/machinery/hydroponics))
 		var/obj/machinery/hydroponics/H = target
 		if(!H.myseed)
 			return

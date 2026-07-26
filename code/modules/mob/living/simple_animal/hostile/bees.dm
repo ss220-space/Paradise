@@ -142,7 +142,7 @@
 	if(isliving(A))
 		var/mob/living/H = A
 		return !H.bee_friendly()
-	if(is_hydroponics(A))
+	if(istype(A, /obj/machinery/hydroponics))
 		var/obj/machinery/hydroponics/Hydro = A
 		if(Hydro.myseed && !Hydro.dead && !Hydro.recent_bee_visit)
 			wanted_objects |= hydroponicstypecache //so we only hunt them while they're alive/seeded/not visisted
@@ -151,7 +151,7 @@
 
 /mob/living/simple_animal/hostile/poison/bees/AttackingTarget()
 	//Pollinate
-	if(is_hydroponics(target))
+	if(istype(target, /obj/machinery/hydroponics))
 		var/obj/machinery/hydroponics/Hydro = target
 		pollinate(Hydro)
 	else if(istype(target, /obj/structure/beebox))

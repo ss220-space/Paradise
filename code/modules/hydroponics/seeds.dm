@@ -149,7 +149,7 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 	var/return_yield = yield
 
 	var/obj/machinery/hydroponics/parent = loc
-	if(is_hydroponics(loc))
+	if(istype(loc, /obj/machinery/hydroponics))
 		if(parent.yieldmod == 0)
 			return_yield = min(return_yield, 1)//1 if above zero, 0 otherwise
 		else
@@ -188,7 +188,7 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 			data = list("blood_type" = "O-", "blood_species" = "Human")
 		if(rid == "nutriment" || rid == "vitamin" || rid == "protein" || rid == "plantmatter")
 			// apple tastes of apple.
-			if(is_grownsnacks(T))
+			if(istype(T, /obj/item/reagent_containers/food/snacks/grown))
 				var/obj/item/reagent_containers/food/snacks/grown/grown_edible = T
 				data = grown_edible.tastes.Copy()
 

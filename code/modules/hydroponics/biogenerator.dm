@@ -140,7 +140,7 @@
 		SStgui.update_uis(src)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(is_grownsnacks(I))
+	if(istype(I, /obj/item/reagent_containers/food/snacks/grown))
 		if(length(stored_plants) >= max_storable_plants)
 			to_chat(user, span_warning("The [name] cannot hold any more plants."))
 			return ATTACK_CHAIN_PROCEED

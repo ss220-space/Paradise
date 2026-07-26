@@ -105,7 +105,7 @@
 	for(var/i in 1 to length(non_corner_turfs))
 		var/turf/field_turf = non_corner_turfs[i]
 		var/dir = quotient_to_edge_dir[floor((i - 1) / shields_per_side)]
-		var/obj/structure/swarmer_core_field/field = new(field_turf, shields_duration, dir)
+		new /obj/structure/swarmer_core_field(field_turf, shields_duration, dir)
 
 	// And now the corner turfs, also an assoc list for easier reading
 	// RANGE_EDGE_TURFS returns north and south edges first (with corners), left to right, thus these values
@@ -113,7 +113,7 @@
 	for(var/i in 1 to length(corner_turfs))
 		var/turf/field_turf = corner_turfs[i]
 		var/dir = index_to_corner_dir[i]
-		var/obj/structure/swarmer_core_field/field = new(field_turf, shields_duration, dir)
+		new /obj/structure/swarmer_core_field(field_turf, shields_duration, dir)
 
 /// Changes safe to change walls and removes dense objects nearby
 /datum/event/swarmers/proc/clean_stuff_around(turf/target_turf)
