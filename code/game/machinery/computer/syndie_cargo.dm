@@ -133,8 +133,6 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 	var/area/cargoarea
 	var/cash = 5000
 	var/cash_per_crate = 50			//points gained per crate returned
-	var/cash_per_design = 500		//points gained per research design returned
-	var/cash_multiplier = 100		//points bonus for plants, tech disks, etc.
 	var/blackmarket_message = null	//Remarks from Black Market on how well you checked the last order.
 /***************************
 Возможные статусы для телепадов
