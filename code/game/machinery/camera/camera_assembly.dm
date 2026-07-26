@@ -141,7 +141,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	WELDER_ATTEMPT_WELD_MESSAGE
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_CONSTRUCTING_SPEED_MOD, construction_mod)
+	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
 	if(state == ASSEMBLY_WRENCHED)
 		if(!I.use_tool(src, user, 5 SECONDS * construction_mod, volume = I.tool_volume))
 			return

@@ -200,7 +200,7 @@
 			user.visible_message(span_notice("[user] начина[PLUR_ET_YUT(user)] сверлить отверстие в [declent_ru(PREPOSITIONAL)]..."),
 				span_notice("Вы начинаете сверлить отверстие в [declent_ru(PREPOSITIONAL)]..."),
 				span_italics("Вы слышите звук сверления."))
-			CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+			CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 			if(!do_after(user, our_rpd.walldelay * building_mod, src, max_interact_count = 1)) //Drilling into walls takes time
 				return
 		our_rpd.create_atmos_pipe(user, src)
@@ -216,7 +216,7 @@
 	if(our_rcd.checkResource(RCD_COST_WALL * 2, user))
 		to_chat(user, "Деконструкция стены...")
 		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
-		CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+		CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 		if(do_after(user, 4 SECONDS * our_rcd.toolspeed * building_mod, src, category = DA_CAT_TOOL, max_interact_count = 1))
 			if(!our_rcd.useResource(RCD_COST_WALL * 2, user))
 				return RCD_ACT_FAILED
@@ -450,7 +450,7 @@
 		WELDER_ATTEMPT_SLICING_MESSAGE
 	else
 		WELDER_ATTEMPT_REPAIR_MESSAGE
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 	if(I.use_tool(src, user, time_required * building_mod, volume = I.tool_volume))
 		if(intention == "Разобрать")
 			WELDER_SLICING_SUCCESS_MESSAGE
@@ -474,7 +474,7 @@
 		playsound(src, I.usesound, 100, TRUE)
 
 		var/delay = istype(sheet_type, /obj/item/stack/sheet/mineral/diamond) ? 12 SECONDS : 6 SECONDS
-		CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+		CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 		if(do_after(user, delay * I.toolspeed * building_mod, src, category = DA_CAT_TOOL, max_interact_count = 1))
 			to_chat(user, span_notice("Вы удаляете внешнюю обшивку."))
 			dismantle_wall()

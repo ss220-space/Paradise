@@ -341,7 +341,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(!(stat & BROKEN) || syndicate)
 		return FALSE
 	. = TRUE
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_CONSTRUCTING_SPEED_MOD, construction_mod)
+	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
 	if(!I.use_tool(src, user, 2 SECONDS * construction_mod, volume = I.tool_volume) || !(stat & BROKEN))
 		return .
 	if(prob(70))
@@ -375,7 +375,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		span_notice("You begin [anchored ? "un" : ""]securing the turret."),
 	)
 	wrenching = TRUE
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_CONSTRUCTING_SPEED_MOD, construction_mod)
+	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
 	if(!I.use_tool(src, user, 2 SECONDS * construction_mod, volume = I.tool_volume) || enabled || raised || (!anchored && isinspace()))
 		wrenching = FALSE
 		return .
@@ -866,7 +866,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(build_step != TURRET_BUILD_LOOSEN)
 		return FALSE
 	. = TRUE
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_CONSTRUCTING_SPEED_MOD, construction_mod)
+	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
 	if(!I.use_tool(src, user, 3 SECONDS * construction_mod, volume = I.tool_volume) || build_step != TURRET_BUILD_LOOSEN)
 		return .
 	to_chat(user, span_notice("You dismantle the turret construction."))
@@ -965,7 +965,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			if(!I.tool_use_check(user, 0))
 				return .
 			to_chat(user, span_notice("You start removing the turret's interior metal armor..."))
-			CALCULATE_SKILL_MOD(user, COMSIG_GET_CONSTRUCTING_SPEED_MOD, construction_mod)
+			CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
 			if(!I.use_tool(src, user, 2 SECONDS * construction_mod, volume = I.tool_volume) || build_step != TURRET_BUILD_ARMORED)
 				return .
 			to_chat(user, span_notice("You remove the turret's interior metal armor."))
@@ -977,7 +977,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			if(!I.tool_use_check(user, 5))
 				return .
 			to_chat(user, span_notice("You start welding the turret's armor down..."))
-			CALCULATE_SKILL_MOD(user, COMSIG_GET_CONSTRUCTING_SPEED_MOD, construction_mod)
+			CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
 			if(!I.use_tool(src, user, 5 SECONDS * construction_mod, amount = 5, volume = I.tool_volume) || build_step != TURRET_BUILD_COATED)
 				return .
 			to_chat(user, span_notice("You weld the turret's armor down."))

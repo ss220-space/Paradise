@@ -58,7 +58,7 @@
 		to_chat(user, span_notice("You replace the outer grille."))
 		return .|ATTACK_CHAIN_SUCCESS
 
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 	if(d_state != RWALL_INTACT)
 		if(!istype(I, /obj/item/stack/sheet/metal))
 			to_chat(user, span_warning("You need metal sheets to repair the damage."))
@@ -106,7 +106,7 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 	if(d_state == RWALL_COVER)
 		to_chat(user, span_notice("You begin slicing through the metal cover..."))
 		if(I.use_tool(src, user, 6 SECONDS * building_mod, volume = I.tool_volume) && d_state == RWALL_COVER)
@@ -129,7 +129,7 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 	switch(d_state)
 		if(RWALL_CUT_COVER)
 			to_chat(user, span_notice("You struggle to pry off the cover..."))
@@ -164,7 +164,7 @@
 		to_chat(user, span_notice("You begin unsecuring the support lines..."))
 	else
 		to_chat(user, span_notice("You begin securing the support lines..."))
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 	if(!I.use_tool(src, user, 4 SECONDS * building_mod, volume = I.tool_volume) || state_check != d_state)
 		return
 	if(d_state == RWALL_SUPPORT_LINES)
@@ -179,7 +179,7 @@
 	if(d_state != RWALL_INTACT)
 		return
 	. = TRUE
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 	if(!I.use_tool(src, user, 1 SECONDS * building_mod, volume = I.tool_volume))
 		return
 	d_state = RWALL_SUPPORT_LINES
@@ -198,7 +198,7 @@
 		to_chat(user, span_notice("You start loosening the anchoring bolts which secure the support rods to their frame..."))
 	else
 		to_chat(user, span_notice("You start tightening the bolts which secure the support rods to their frame..."))
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 	if(!I.use_tool(src, user, 4 SECONDS * building_mod, volume = I.tool_volume) || state_check != d_state)
 		return
 	if(d_state == RWALL_BOLTS)
@@ -214,7 +214,7 @@
 		return FALSE
 	if(!iswelder(I))
 		return FALSE
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 	if(d_state == RWALL_COVER)
 		to_chat(user, span_notice("You begin slicing through the metal cover..."))
 		if(!I.use_tool(src, user, 4 SECONDS * building_mod, volume = I.tool_volume) || d_state != RWALL_COVER)

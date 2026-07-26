@@ -45,7 +45,7 @@
 	return 0
 
 /datum/construction/proc/custom_action(step, used_atom, user)
-	CALCULATE_SKILL_MOD(usr, COMSIG_GET_CONSTRUCTING_SPEED_MOD, skill_duration_mod)
+	CALCULATE_SKILL_MOD(usr, CONSTRUCTING_SPEED_MOD, skill_duration_mod)
 	if(iscoil(used_atom))
 		if(!do_after(user, skill_duration_mod, holder))
 			return FALSE

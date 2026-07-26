@@ -296,7 +296,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	if(our_rcd.checkResource(RCD_COST_FLOOR * 2, user))
 		to_chat(user, "Деконструкция пола...")
 		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
-		CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+		CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 		if(do_after(user, 5 SECONDS * our_rcd.toolspeed * building_mod, src, category = DA_CAT_TOOL))
 			if(!our_rcd.useResource(RCD_COST_FLOOR * 2, user))
 				return RCD_ACT_FAILED
@@ -315,7 +315,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 		to_chat(user, span_warning("ОШИБКА! В соответствии с протоколами безопасности строительства в высокоэнергетических зонах запрещено!"))
 		playsound(loc, 'sound/machines/click.ogg', 50, TRUE)
 		return RCD_ACT_FAILED
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 	switch(rcd_mode)
 		if(RCD_MODE_TURF)
 			if(our_rcd.checkResource(RCD_COST_WALL, user))

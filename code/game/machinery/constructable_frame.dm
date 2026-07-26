@@ -92,7 +92,7 @@
 /obj/machinery/constructable_frame/machine_frame/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	add_fingerprint(user)
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_CONSTRUCTING_SPEED_MOD, construction_mod)
+	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
 	if(!I.use_tool(src, user, 3 SECONDS * construction_mod, volume = I.tool_volume))
 		return .
 
@@ -119,7 +119,7 @@
 	if(state != STATE_WIRED)
 		return .
 
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_CONSTRUCTING_SPEED_MOD, construction_mod)
+	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
 	if(!I.use_tool(src, user, 3 SECONDS * construction_mod, volume = I.tool_volume) || state != STATE_WIRED)
 		return .
 
@@ -134,7 +134,7 @@
 	if(state != STATE_COMPONENTS)
 		return .
 
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_CONSTRUCTING_SPEED_MOD, construction_mod)
+	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
 	if(!I.use_tool(src, user, 3 SECONDS * construction_mod, volume = I.tool_volume) || state != STATE_COMPONENTS)
 		return .
 
@@ -171,7 +171,7 @@
 		to_chat(user, span_warning("Machine frame requires more components!"))
 		return .
 
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_CONSTRUCTING_SPEED_MOD, construction_mod)
+	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
 	if(!I.use_tool(src, user, 5 SECONDS * construction_mod, volume = I.tool_volume))
 		return .
 
@@ -208,7 +208,7 @@
 
 			playsound(loc, coil.usesound, 50, TRUE)
 			to_chat(user, span_notice("You start to add cables to the frame..."))
-			CALCULATE_SKILL_MOD(user, COMSIG_GET_CONSTRUCTING_SPEED_MOD, construction_mod)
+			CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
 			if(!do_after(user, 2 SECONDS * coil.toolspeed * construction_mod, src, category = DA_CAT_TOOL) || state != STATE_EMPTY || QDELETED(coil))
 				return .
 

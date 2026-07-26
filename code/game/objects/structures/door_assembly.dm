@@ -100,7 +100,7 @@
 			span_notice("[user] adds [new_sheet.name] to the airlock assembly."),
 			span_notice("You start to install [new_sheet.name] into the airlock assembly..."),
 		)
-		CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+		CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 		if(!do_after(user, 4 SECONDS * new_sheet.toolspeed * building_mod, src, category = DA_CAT_TOOL) || QDELETED(new_sheet) || glass || mineral)
 			return ATTACK_CHAIN_PROCEED
 		var/cached_sheettype = new_sheet.sheettype
@@ -140,7 +140,7 @@
 				span_notice("[user] wires the airlock assembly."),
 				span_notice("You start to wire the airlock assembly..."),
 			)
-			CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+			CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 			if(!do_after(user, 4 SECONDS * coil.toolspeed * building_mod, src, category = DA_CAT_TOOL) || state != AIRLOCK_ASSEMBLY_NEEDS_WIRES || QDELETED(coil))
 				return ATTACK_CHAIN_PROCEED
 			if(!coil.use(1))
@@ -171,7 +171,7 @@
 				span_notice("[user] starts to install the airlock electronics into the airlock assembly."),
 				span_notice("You start to install airlock electronics into the airlock assembly..."),
 			)
-			CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+			CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 			if(!do_after(user, 4 SECONDS * new_circuit.toolspeed * building_mod, src, category = DA_CAT_TOOL) || state != AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS || I.icon_state == "door_electronics_smoked" || (new_circuit.access_electronics && (access_electronics || new_circuit.access_electronics.emagged)))
 				return ATTACK_CHAIN_PROCEED
 			if(!user.drop_transfer_item_to_loc(new_circuit, src))
@@ -205,7 +205,7 @@
 				span_notice("[user] installs the access control electronics into the airlock assembly."),
 				span_notice("You start to install the access control electronics into the airlock assembly..."),
 			)
-			CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+			CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 			if(!do_after(user, 4 SECONDS * control.toolspeed * building_mod, src, category = DA_CAT_TOOL) || state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER || access_electronics || control.emagged)
 				return ATTACK_CHAIN_PROCEED
 			if(!user.drop_transfer_item_to_loc(control, src))
@@ -223,7 +223,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	user.visible_message("[user] is removing the electronics from the airlock assembly...", "You start to remove electronics from the airlock assembly...")
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 	if(!I.use_tool(src, user, 4 SECONDS * building_mod, volume = I.tool_volume) || state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
 		return
 	to_chat(user, span_notice("You remove the airlock electronics."))
@@ -251,7 +251,7 @@
 	user.visible_message("[user] is finishing the airlock...", \
 							span_notice("You start finishing the airlock..."))
 	. = TRUE
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 	if(!I.use_tool(src, user, 4 SECONDS * building_mod, volume = I.tool_volume) || state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
 		return
 	to_chat(user, span_notice("You finish the airlock."))
@@ -303,7 +303,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	user.visible_message("[user] is cutting the wires from the airlock assembly...", "You start to cut the wires from airlock assembly...")
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 	if(!I.use_tool(src, user, 4 SECONDS * building_mod, volume = I.tool_volume) || state != AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS)
 		return
 	to_chat(user, span_notice("You cut the wires from the airlock assembly."))
@@ -321,7 +321,7 @@
 		user.visible_message("[user] is unsecuring the airlock assembly from the floor...", "You start to unsecure the airlock assembly from the floor...")
 	else
 		user.visible_message("[user] is securing the airlock assembly to the floor...", "You start to secure the airlock assembly to the floor...")
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 	if(!I.use_tool(src, user, 4 SECONDS * building_mod, volume = I.tool_volume) || state != AIRLOCK_ASSEMBLY_NEEDS_WIRES)
 		return
 	to_chat(user, span_notice("You [anchored ? "un" : ""]secure the airlock assembly."))
@@ -331,7 +331,7 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 	if(mineral)
 		// damn wood
 		var/mineral_path = (mineral == "wood") ? /obj/item/stack/sheet/wood : text2path("/obj/item/stack/sheet/mineral/[mineral]")

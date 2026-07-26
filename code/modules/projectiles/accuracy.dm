@@ -203,7 +203,7 @@ GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
 	// spread increase logic
 	if(spread_increase_step)
 		current_spread = min(current_spread + spread_increase_step * shoots_count, max_spread)
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_SPREAD_MOD, skill_mod)
+	CALCULATE_SKILL_MOD(user, SPREAD_MOD, skill_mod)
 	// randomize spread
 	var/rnd_angle = round((rand() - 0.5) * (current_spread + bonus_spread) * skill_mod)
 	if(HAS_TRAIT(user, TRAIT_BADASS))
@@ -224,7 +224,7 @@ GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
 	var/distance_mod = accuracy_for_distance(distance) / 100
 	var/skill_mod = 1
 	if(projectile.firer)
-		CALCULATE_SKILL_MOD(projectile.firer, COMSIG_GET_ACCURACY_MOD, skill_modifier)
+		CALCULATE_SKILL_MOD(projectile.firer, ACCURACY_MOD, skill_modifier)
 		skill_mod = skill_modifier
 	return clamp(def_zone_accuracy * distance_mod * skill_mod, 0, 100)
 
@@ -248,7 +248,7 @@ GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
 	var/distance_accuracy = max(100 - 3*distance, 33) / 100
 	var/skill_mod
 	if(projectile.firer)
-		CALCULATE_SKILL_MOD(projectile.firer, COMSIG_GET_ACCURACY_MOD, skill_modifier)
+		CALCULATE_SKILL_MOD(projectile.firer, ACCURACY_MOD, skill_modifier)
 		skill_mod = skill_modifier
 	return clamp(def_zone_accuracy * distance_accuracy * skill_mod, 0, 100)
 

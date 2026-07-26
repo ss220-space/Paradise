@@ -601,7 +601,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light/small, 0, 0)
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !(I.flags & CONDUCT) || !has_power())
 		return
 
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_ELECTRICITY_NEGATIVE_CHANCE_MOD, prob_mod)
+	CALCULATE_SKILL_MOD(user, ELECTRICITY_NEGATIVE_CHANCE_MOD, prob_mod)
 	if(status != initial_status && prob(12 * prob_mod))	// Proceed only if changed `state` during `take_damage`.
 		electrocute_mob(user, get_area(src), src, 0.3, TRUE)
 

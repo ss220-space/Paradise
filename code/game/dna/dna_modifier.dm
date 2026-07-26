@@ -537,7 +537,7 @@
 			connected.locked = TRUE //lock it
 
 			SStgui.update_uis(src)
-			CALCULATE_SKILL_MOD(usr, COMSIG_GET_IRRADIATION_DURATION_MOD, skill_mod)
+			CALCULATE_SKILL_MOD(usr, IRRADIATION_DURATION_MOD, skill_mod)
 			sleep(10 * radiation_duration * skill_mod) // sleep for radiation_duration seconds
 
 			irradiating = 0
@@ -582,7 +582,7 @@
 			connected.locked = TRUE //lock it
 
 			SStgui.update_uis(src)
-			CALCULATE_SKILL_MOD(usr, COMSIG_GET_IRRADIATION_DURATION_MOD, skill_mod)
+			CALCULATE_SKILL_MOD(usr, IRRADIATION_DURATION_MOD, skill_mod)
 			sleep(10 * radiation_duration * skill_mod) // sleep for radiation_duration seconds
 
 			irradiating = 0
@@ -634,7 +634,7 @@
 			connected.locked = TRUE //lock it
 
 			SStgui.update_uis(src)
-			CALCULATE_SKILL_MOD(usr, COMSIG_GET_IRRADIATION_DURATION_MOD, skill_mod)
+			CALCULATE_SKILL_MOD(usr, IRRADIATION_DURATION_MOD, skill_mod)
 			sleep(10 * radiation_duration * skill_mod) // sleep for radiation_duration seconds
 
 			irradiating = 0
@@ -726,7 +726,7 @@
 					connected.locked = TRUE //lock it
 
 					SStgui.update_uis(src)
-					CALCULATE_SKILL_MOD(usr, COMSIG_GET_IRRADIATION_DURATION_MOD, skill_mod)
+					CALCULATE_SKILL_MOD(usr, IRRADIATION_DURATION_MOD, skill_mod)
 					sleep(2 SECONDS * skill_mod)
 
 					irradiating = 0
@@ -786,7 +786,7 @@
 
 	// Cooldown
 	injector_ready = FALSE
-	CALCULATE_SKILL_MOD(usr, COMSIG_GET_IRRADIATION_DURATION_MOD, skill_mod)
+	CALCULATE_SKILL_MOD(usr, IRRADIATION_DURATION_MOD, skill_mod)
 	addtimer(CALLBACK(src, PROC_REF(injector_cooldown_finish)), (30 / connected.precision_coeff * skill_mod) SECONDS)
 
 	// Create it

@@ -7,23 +7,23 @@
 	id = "engineering.building"
 	name = "Строительство"
 	desc = "Влияет на скорость строительства."
-	duration_mod_signals = list(COMSIG_GET_BUILDING_SPEED_MOD)
+	duration_mod_names = list(BUILDING_SPEED_MOD)
 
 /datum/skill/engineering/construction
 	id = "engineering.construction"
 	name = "Конструирование"
 	desc = "Влияет на скорость конструирования машинерии."
-	duration_mod_signals = list(COMSIG_GET_CONSTRUCTING_SPEED_MOD)
+	duration_mod_names = list(CONSTRUCTING_SPEED_MOD)
 
 /datum/skill/engineering/electrician
 	id = "engineering.electrician"
 	name = "Электрика"
 	desc = "Влияет на работу с проводами, взлом вещей и безопасность трогать провода (шанс удара током)."
-	duration_mod_signals = list(COMSIG_GET_ELECTRICITY_SPEED_MOD, COMSIG_GET_ELECTRICITY_NEGATIVE_CHANCE_MOD, COMSIG_GET_LOCKPICK_SPEED_MOD)
-	quality_mod_signals = list(COMSIG_GET_ELECTRICITY_POSITIVE_CHANCE_MOD, COMSIG_GET_LOCKPICK_POSITIVE_CHANCE_MOD)
+	duration_mod_names = list(ELECTRICITY_SPEED_MOD, ELECTRICITY_NEGATIVE_CHANCE_MOD, LOCKPICK_SPEED_MOD)
+	quality_mod_names = list(ELECTRICITY_POSITIVE_CHANCE_MOD, LOCKPICK_POSITIVE_CHANCE_MOD)
 
 /datum/skill/engineering/atmos
 	id = "engineering.atmos"
 	name = "Атмостехника"
 	desc = "Влияет на работу с трубами и остальной атмосферной техникой."
-	duration_mod_signals = list(COMSIG_GET_ATMOS_SPEED_MOD)
+	duration_mod_names = list(ATMOS_SPEED_MOD)

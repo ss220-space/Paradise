@@ -184,7 +184,7 @@
 	var/ammo_casing = isammocasing(I)
 
 	if(ammo_box)
-		CALCULATE_SKILL_MOD(user, COMSIG_GET_MAGAZINE_RELOAD_MOD, skill_modifier)
+		CALCULATE_SKILL_MOD(user, MAGAZINE_RELOAD_MOD, skill_modifier)
 		var/obj/item/ammo_box/box = I
 		for(var/obj/item/ammo_casing/casing in box.stored_ammo)
 			if(!can_fast_load)

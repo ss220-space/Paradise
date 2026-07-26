@@ -11,9 +11,8 @@ GLOBAL_LIST_EMPTY(skill_manual_types)
 	var/category_color = "#776f96"
 	var/name
 	var/desc
-	// Signals for subscribe
-	var/list/duration_mod_signals = list()
-	var/list/quality_mod_signals = list()
+	var/list/duration_mod_names = list()
+	var/list/quality_mod_names = list()
 	// Default modifiers
 	var/speed_modifiers = alist(
 		SKILL_LEVEL_NONE = 1.5,
@@ -35,34 +34,37 @@ GLOBAL_LIST_EMPTY(skill_manual_types)
 		SKILL_LEVEL_LEGEND = 2,
 		SKILL_LEVEL_UNAVAILABLE = 0.001,
 	)
+	var/alist/skills_mods
+
+/datum/skill/New()
+	if(!skills_mods)
+		skills_mods = new
+	for(var/mod_name in duration_mod_names)
+		skills_mods[mod_name] = speed_modifiers
+	for(var/mod_name in quality_mod_names)
+		skills_mods[mod_name] = quality_modifiers
 
 /datum/skill/proc/apply_to_mob(mob/owner)
-	for(var/signal in duration_mod_signals)
-		RegisterSignal(owner, signal, PROC_REF(get_duration_mod_signal))
-	for(var/signal in quality_mod_signals)
-		RegisterSignal(owner, signal, PROC_REF(get_quality_mod_signal))
+	for(var/mod_name in skills_mods)
+		RegisterSignal(owner, COMSIG_GET_SKILL_MOD(mod_name), PROC_REF(get_skill_modifier))
 
-/datum/skill/proc/get_duration_mod_signal(mob/living/user, list/results)
+/datum/skill/proc/get_skill_modifier(mob/living/user, alist/results, mod_name)
 	SIGNAL_HANDLER
-	get_modifier(user, results, speed_modifiers)
+	get_modifier(user, results, mod_name)
 
-/datum/skill/proc/get_quality_mod_signal(mob/living/user, list/results)
+/datum/skill/proc/get_modifier(mob/living/user, list/results, mod_name)
 	SIGNAL_HANDLER
-	get_modifier(user, results, quality_modifiers)
-
-/datum/skill/proc/get_modifier(mob/living/user, list/results, alist/modifiers)
-	SIGNAL_HANDLER
+	var/alist/modifiers = skills_mods[mod_name]
 	GET_SKILL_LEVEL(user, src.type, level)
 	var/mod = modifiers[level]
 	if(mod != null)
-		results.Add(mod)
+		results[mod_name] = mod
 	else
 		log_debug("not found modifier result for user=[user.name] skill=[src.type] modifiers=[modifiers] level=[level]")
 
 /datum/skill/proc/remove_from_mob(mob/owner)
-	UnregisterSignal(owner, duration_mod_signals)
-	UnregisterSignal(owner, quality_mod_signals)
-
+	for(var/mod_name in skills_mods)
+		UnregisterSignal(owner, COMSIG_GET_SKILL_MOD(mod_name))
 
 // load job defined skills
 /datum/job/proc/apply_skills(mob/living/carbon/human/user)

@@ -27,7 +27,7 @@
 	/// Resulting atom is a cult structure
 	var/cult_structure = FALSE
 	/// Modifier signal, use this signal (if not null) for calculate modifiers
-	var/modifier_signal = null
+	var/modifier_name = null
 
 /datum/stack_recipe/New(
 		title,
@@ -42,7 +42,7 @@
 		on_lattice = FALSE,
 		check_direction = FALSE,
 		cult_structure = FALSE,
-		modifier_signal = null
+		modifier_name = null
 	)
 	src.title = title
 	src.result_type = result_type
@@ -56,7 +56,7 @@
 	src.on_lattice = on_lattice
 	src.check_direction = check_direction || is_fulltile
 	src.cult_structure = cult_structure
-	src.modifier_signal = modifier_signal
+	src.modifier_name = modifier_name
 
 	// We create base64 image only if item have color. Otherwise use icon_ref for TGUI
 	var/obj/item/result = result_type
@@ -141,8 +141,8 @@
 	if(time)
 		to_chat(user, span_notice("Building [title]..."))
 		var/calculated_time = time
-		if(modifier_signal)
-			CALCULATE_SKILL_MOD(user, modifier_signal, mod)
+		if(modifier_name)
+			CALCULATE_SKILL_MOD(user, modifier_name, mod)
 			calculated_time = calculated_time * mod
 		if(!do_after(user, calculated_time, target = material.loc))
 			return FALSE

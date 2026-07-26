@@ -358,7 +358,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			return
 
 	linked_destroy.busy = TRUE
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_RESEARCH_DURATION_MOD, skill_duration_mod)
+	CALCULATE_SKILL_MOD(user, RESEARCH_DURATION_MOD, skill_duration_mod)
 	var/deconstruct_delay = DECONSTRUCT_DELAY * skill_duration_mod
 	flick("[linked_destroy.base_icon_state]_process", linked_destroy)
 	add_wait_message("Разборка объекта и обновление базы данных...", deconstruct_delay)
@@ -384,7 +384,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(!linked_destroy || !temp_tech)
 		return
 
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_RESEARCH_SUCCESS_MOD, skill_chance_mod)
+	CALCULATE_SKILL_MOD(user, RESEARCH_SUCCESS_MOD, skill_chance_mod)
 	var/success = prob(100 * skill_chance_mod)
 	if(!linked_destroy.hacked)
 		if(!linked_destroy.loaded_item)
@@ -475,7 +475,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		power += round(being_built.materials[M] * amount / 5)
 	power = max(BUILD_POWER, power)
 
-	CALCULATE_SKILL_MOD(usr, COMSIG_GET_PROTOLATHE_DURATION_MOD, skill_duration_mod)
+	CALCULATE_SKILL_MOD(usr, PROTOLATHE_DURATION_MOD, skill_duration_mod)
 	// goes down (1 -> 0.4) with upgrades
 	var/coeff = machine.efficiency_coeff
 
@@ -496,7 +496,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	machine.busy = TRUE
 	use_power(power)
 
-	CALCULATE_SKILL_MOD(usr, COMSIG_GET_PROTOLATHE_RESOURCE_MOD, skill_resource_mod)
+	CALCULATE_SKILL_MOD(usr, PROTOLATHE_RESOURCE_MOD, skill_resource_mod)
 	coeff *= skill_resource_mod
 	var/list/efficient_mats = list()
 	for(var/MAT in being_built.materials)

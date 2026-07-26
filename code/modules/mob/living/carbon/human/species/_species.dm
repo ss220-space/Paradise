@@ -648,7 +648,7 @@
 			delta += addition
 
 		var/damage = rand(user.dna.species.punchdamagelow + user.physiology.punch_damage_low, user.dna.species.punchdamagehigh + user.physiology.punch_damage_high) + delta
-		CALCULATE_SKILL_MOD(user, COMSIG_GET_FISTS_DAMAGE_MOD, skill_mod)
+		CALCULATE_SKILL_MOD(user, FISTS_DAMAGE_MOD, skill_mod)
 		damage *= skill_mod
 		damage += attack.damage
 		if(!damage)
@@ -729,7 +729,7 @@
 			var/obj/item/clothing/gloves/gloves = user.gloves
 			extra_knock_chance = gloves.extra_knock_chance
 	var/knockdown_chance = 5 + extra_knock_chance
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_FISTS_DISARM_MOD, disarm_skill_mod)
+	CALCULATE_SKILL_MOD(user, FISTS_DISARM_MOD, disarm_skill_mod)
 	if(randn <= knockdown_chance * disarm_skill_mod)
 		target.apply_effect(4 SECONDS, KNOCKDOWN, target.run_armor_check(affecting, MELEE))
 		playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)

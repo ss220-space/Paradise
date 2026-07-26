@@ -233,7 +233,7 @@
 	var/datum/mod_part/part_datum = get_part_datum(part)
 	var/skill_factor = 1
 	if(wearer)
-		CALCULATE_SKILL_MOD(wearer, COMSIG_GET_MOD_ACTIVATION_SPEED_MOD, skill_modifier)
+		CALCULATE_SKILL_MOD(wearer, MOD_ACTIVATION_SPEED_MOD, skill_modifier)
 		skill_factor = skill_modifier
 	if(!do_after(wearer, activation_step_time * skill_factor, wearer, MOD_ACTIVATION_STEP_FLAGS, max_interact_count = 1, extra_checks = CALLBACK(src, PROC_REF(get_wearer))))
 		return FALSE
@@ -246,7 +246,7 @@
 /obj/item/mod/control/proc/delayed_activation()
 	var/skill_factor = 1
 	if(wearer)
-		CALCULATE_SKILL_MOD(wearer, COMSIG_GET_MOD_ACTIVATION_SPEED_MOD, skill_modifier)
+		CALCULATE_SKILL_MOD(wearer, MOD_ACTIVATION_SPEED_MOD, skill_modifier)
 		skill_factor = skill_modifier
 	if(!do_after(wearer, activation_step_time * skill_factor, wearer, MOD_ACTIVATION_STEP_FLAGS, extra_checks = CALLBACK(src, PROC_REF(get_wearer))))
 		return FALSE

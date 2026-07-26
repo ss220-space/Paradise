@@ -5,7 +5,7 @@
 ////////////////////////////////
 
 /datum/construction/mecha/custom_action(step, atom/used_atom, mob/user)
-	CALCULATE_SKILL_MOD(usr, COMSIG_GET_MECH_CONSTRUCT_DURATION_MOD, skill_duration_mod)
+	CALCULATE_SKILL_MOD(usr, MECH_CONSTRUCT_DURATION_MOD, skill_duration_mod)
 	if(iscoil(used_atom))
 		if(!do_after(user, skill_duration_mod, holder))
 			return FALSE
@@ -33,7 +33,7 @@
 	SSblackbox.record_feedback("tally", "mechas_created", 1, "[name]")
 
 /datum/construction/reversible/mecha/custom_action(index as num, diff as num, atom/used_atom, mob/user as mob)
-	CALCULATE_SKILL_MOD(usr, COMSIG_GET_MECH_CONSTRUCT_DURATION_MOD, skill_duration_mod)
+	CALCULATE_SKILL_MOD(usr, MECH_CONSTRUCT_DURATION_MOD, skill_duration_mod)
 	if(iscoil(used_atom))
 		if(!do_after(user, skill_duration_mod, holder))
 			return FALSE

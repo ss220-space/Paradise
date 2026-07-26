@@ -309,7 +309,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		return
 	if(decon_speed) // Only show this if it actually takes time
 		to_chat(user, span_notice("Вы начинаете [state == WINDOW_OUT_OF_FRAME ? "приподнимать окно для установки в раму" : "выводить окно из рамы"]..."))
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 	if(!I.use_tool(src, user, decon_speed * building_mod, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_state_and_anchored), state, anchored)))
 		return
 	state = (state == WINDOW_OUT_OF_FRAME ? WINDOW_IN_FRAME : WINDOW_OUT_OF_FRAME)
@@ -321,7 +321,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	. = TRUE
 	if(!can_be_reached(user))
 		return
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 	if(reinf)
 		if(state == WINDOW_SCREWED_TO_FRAME || state == WINDOW_IN_FRAME)
 			if(decon_speed)
@@ -361,7 +361,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		return
 	if(decon_speed)
 		TOOL_ATTEMPT_DISMANTLE_MESSAGE
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 	if(!I.use_tool(src, user, decon_speed * building_mod, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_state_and_anchored), state, anchored)))
 		return
 	var/obj/item/stack/sheet/G = new glass_type(user.loc, glass_amount)
@@ -381,7 +381,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		return
 	if(!I.tool_use_check(user, 0))
 		return
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 	WELDER_ATTEMPT_REPAIR_MESSAGE
 	if(I.use_tool(src, user, 4 SECONDS * building_mod, volume = I.tool_volume))
 		update_integrity(max_integrity)
@@ -551,7 +551,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 			continue
 		. |= cleanable_washed
 		vis_contents -= cleanables
-		
+
 /obj/structure/window/proc/on_painted(datum/source, new_color)
 	SIGNAL_HANDLER
 	if(painted)

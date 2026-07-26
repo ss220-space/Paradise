@@ -65,7 +65,7 @@
 		return
 	if(!hasPower())
 		to_chat(user, span_notice("You start forcing [src] open..."))
-		CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+		CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 		if(do_after(user, 5 SECONDS * I.toolspeed * building_mod, src, category = DA_CAT_TOOL))
 			if(!hasPower())
 				open()

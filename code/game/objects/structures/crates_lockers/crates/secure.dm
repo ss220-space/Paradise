@@ -92,7 +92,7 @@
 		return
 	. = TRUE
 	balloon_alert(user, "откручиваем панель...")
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_LOCKPICK_SPEED_MOD, lockpick_mod)
+	CALCULATE_SKILL_MOD(user, LOCKPICK_SPEED_MOD, lockpick_mod)
 	if(!tool.use_tool(src, user, 16 SECONDS * lockpick_mod, volume = tool.tool_volume))
 		return
 	if(prob(95)) // EZ
@@ -116,10 +116,10 @@
 		return
 	. = TRUE
 	balloon_alert(user, "подготавливаем провода...")
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_LOCKPICK_SPEED_MOD, lockpick_mod)
+	CALCULATE_SKILL_MOD(user, LOCKPICK_SPEED_MOD, lockpick_mod)
 	if(!tool.use_tool(src, user, 16 SECONDS * lockpick_mod, volume = tool.tool_volume))
 		return
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_LOCKPICK_POSITIVE_CHANCE_MOD, prob_mod)
+	CALCULATE_SKILL_MOD(user, LOCKPICK_POSITIVE_CHANCE_MOD, prob_mod)
 	if(prob(80 * prob_mod)) // Good hacker!
 		if(broken == SECURE_CRATE_STAGE_WIRES_PREPARED)
 			return
@@ -137,10 +137,10 @@
 		return
 	. = TRUE
 	balloon_alert(user, "подключаем провода...")
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_LOCKPICK_SPEED_MOD, lockpick_mod)
+	CALCULATE_SKILL_MOD(user, LOCKPICK_SPEED_MOD, lockpick_mod)
 	if(!tool.use_tool(src, user, 16 SECONDS * lockpick_mod, volume = tool.tool_volume))
 		return
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_LOCKPICK_POSITIVE_CHANCE_MOD, prob_mod)
+	CALCULATE_SKILL_MOD(user, LOCKPICK_POSITIVE_CHANCE_MOD, prob_mod)
 	if(prob(80 * prob_mod)) // Good hacker!
 		if(broken == SECURE_CRATE_STAGE_NO_BROKEN || broken == SECURE_CRATE_STAGE_OPENED)
 			return

@@ -30,7 +30,7 @@
 	var/list/hacked_reagents = list("toxin")
 	var/is_drink = FALSE
 	var/base_skill = /datum/skill/medical/chemistry
-	var/dispence_skill_signal = COMSIG_GET_CHEMISTRY_DISPENSE_RAND_SIZE
+	var/ dispence_skill_name = CHEMISTRY_DISPENSE_RAND_SIZE
 
 /obj/machinery/chem_dispenser/get_ru_names()
 	return alist(
@@ -245,7 +245,7 @@
 				return
 			var/datum/reagents/R = beaker.reagents
 			var/free = R.maximum_volume - R.total_volume
-			CALCULATE_SKILL_MOD(usr, dispence_skill_signal, dispense_rand_size)
+			CALCULATE_SKILL_MOD(usr, dispence_skill_name, dispense_rand_size)
 			var/actual = min(round(amount + (amount * dispense_rand_size * (rand() - 0.5)), 0.1), (cell.charge * powerefficiency) * 10, free)
 			if(!cell.use(actual / powerefficiency))
 				atom_say("Недостаточно энергии для завершения операции!")
@@ -401,7 +401,7 @@
 	var/list/hackedupgrade_reagents = list("zaza") //I possess zaza
 	is_drink = TRUE
 	base_skill = /datum/skill/service/drink_mixing
-	dispence_skill_signal = COMSIG_GET_DRINKS_DISPENSE_RAND_SIZE
+	 dispence_skill_name = DRINKS_DISPENSE_RAND_SIZE
 
 /obj/machinery/chem_dispenser/soda/get_ru_names()
 	return alist(
@@ -459,7 +459,7 @@
 	hacked_reagents = list("goldschlager", "patron", "absinthe", "ethanol", "nothing", "sake", "bitter", "champagne", "aperol", "noalco_beer")
 	is_drink = TRUE
 	base_skill = /datum/skill/service/drink_mixing
-	dispence_skill_signal = COMSIG_GET_DRINKS_DISPENSE_RAND_SIZE
+	 dispence_skill_name = DRINKS_DISPENSE_RAND_SIZE
 
 /obj/machinery/chem_dispenser/beer/get_ru_names()
 	return alist(

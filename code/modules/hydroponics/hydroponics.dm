@@ -850,7 +850,7 @@
 		plant_hud_set_health()
 		plant_hud_set_status()
 		lastcycle = world.time
-		CALCULATE_SKILL_MOD(user, COMSIG_GET_PLANT_GROWTH_RATE, skill_growth_rate)
+		CALCULATE_SKILL_MOD(user, PLANT_GROWTH_RATE, skill_growth_rate)
 		growth_rate = skill_growth_rate
 		update_state()
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -873,7 +873,7 @@
 			span_notice("You start to uproot the weeds..."),
 		)
 		weed_pulling = TRUE
-		CALCULATE_SKILL_MOD(user, COMSIG_GET_HYDROPONIC_CULTIVATION_MOD, cultivation_skill_mod)
+		CALCULATE_SKILL_MOD(user, HYDROPONIC_CULTIVATION_MOD, cultivation_skill_mod)
 		while(do_after(user, 2 SECONDS * I.toolspeed * cultivation_skill_mod, src, category = DA_CAT_TOOL, max_interact_count = 1))
 			if(weedlevel <= 0)
 				break
@@ -912,7 +912,7 @@
 			span_notice("You start digging out [src]'s plants..."),
 		)
 		I.play_tool_sound(src)
-		CALCULATE_SKILL_MOD(user, COMSIG_GET_HYDROPONIC_CULTIVATION_MOD, shovel_skill_mod)
+		CALCULATE_SKILL_MOD(user, HYDROPONIC_CULTIVATION_MOD, shovel_skill_mod)
 		if(!do_after(user, 2.5 SECONDS * I.toolspeed * shovel_skill_mod, src, category = DA_CAT_TOOL, max_interact_count = 1) || (!myseed && !weedlevel))
 			return ATTACK_CHAIN_PROCEED
 		I.play_tool_sound(src)
@@ -1002,12 +1002,12 @@
 		return
 	if(harvest)
 		add_fingerprint(user)
-		CALCULATE_SKILL_MOD(user, COMSIG_GET_HYDROPONIC_HARVEST_MOD, harvest_skill_mod)
+		CALCULATE_SKILL_MOD(user, HYDROPONIC_HARVEST_MOD, harvest_skill_mod)
 		if(do_after(user, 2 SECONDS * harvest_skill_mod, src, max_interact_count = 1))
 			myseed.harvest(user)
 	else if(dead)
 		add_fingerprint(user)
-		CALCULATE_SKILL_MOD(user, COMSIG_GET_HYDROPONIC_HARVEST_MOD, harvest_skill_mod)
+		CALCULATE_SKILL_MOD(user, HYDROPONIC_HARVEST_MOD, harvest_skill_mod)
 		if(!do_after(user, 1.5 SECONDS * harvest_skill_mod, src, max_interact_count = 1))
 			return
 		dead = 0

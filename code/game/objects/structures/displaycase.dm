@@ -122,7 +122,7 @@
 			return ATTACK_CHAIN_PROCEED
 		glass.play_tool_sound(src)
 		to_chat(user, span_notice("You start replacing [src]'s glass panel..."))
-		CALCULATE_SKILL_MOD(user, COMSIG_GET_CONSTRUCTING_SPEED_MOD, construction_mod)
+		CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
 		if(!do_after(user, 2 SECONDS * glass.toolspeed * construction_mod, src, category = DA_CAT_TOOL) || !broken || QDELETED(glass))
 			return ATTACK_CHAIN_PROCEED
 		if(!glass.use(2))
@@ -165,7 +165,7 @@
 			qdel(src)
 	else
 		to_chat(user, span_notice("You start to [open ? "close":"open"] [src]."))
-		CALCULATE_SKILL_MOD(user, COMSIG_GET_CONSTRUCTING_SPEED_MOD, construction_mod)
+		CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
 		if(!I.use_tool(src, user, 2 SECONDS * construction_mod, volume = I.tool_volume))
 			return
 		to_chat(user,  span_notice("You [open ? "close":"open"] [src]."))
@@ -209,7 +209,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_CONSTRUCTING_SPEED_MOD, construction_mod)
+	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
 	if(istype(I, /obj/item/access_control))
 		add_fingerprint(user)
 		var/obj/item/access_control/control = I

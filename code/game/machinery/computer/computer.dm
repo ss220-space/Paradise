@@ -208,7 +208,7 @@
 	if(!I.tool_start_check(src, user, 0))
 		return
 	if(circuit && !(obj_flags & NODECONSTRUCT))
-		CALCULATE_SKILL_MOD(user, COMSIG_GET_CONSTRUCTING_SPEED_MOD, construction_mod)
+		CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
 		if(I.use_tool(src, user, 2 SECONDS * construction_mod, volume = I.tool_volume))
 			deconstruct(TRUE, user)
 

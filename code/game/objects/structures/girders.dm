@@ -133,7 +133,7 @@
 		to_chat(user, span_warning("You can't seem to make the metal bend."))
 		return .
 
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 
 	if(istype(I, /obj/item/stack/rods))
 		var/obj/item/stack/rods/rods = stack
@@ -317,7 +317,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	to_chat(user, span_notice("You start dislodging the girder..."))
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 	if(!I.use_tool(src, user, 4 SECONDS * building_mod, volume = I.tool_volume) || state != GIRDER_NORMAL)
 		return
 	to_chat(user, span_notice("You dislodge the girder."))
@@ -331,7 +331,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 	switch(state)
 		if(GIRDER_DISPLACED)
 			TOOL_ATTEMPT_DISMANTLE_MESSAGE
@@ -361,7 +361,7 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 	to_chat(user, span_notice("You start removing the inner grille..."))
 	if(!I.use_tool(src, user, 4 SECONDS * building_mod, volume = I.tool_volume) || state != GIRDER_REINF_STRUTS)
 		return
@@ -377,7 +377,7 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 	if(state == GIRDER_NORMAL)
 		TOOL_ATTEMPT_DISMANTLE_MESSAGE
 		if(!I.use_tool(src, user, 4 SECONDS * building_mod, volume = I.tool_volume) || state != GIRDER_NORMAL)
@@ -402,7 +402,7 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 	WELDER_ATTEMPT_SLICING_MESSAGE
 	if(I.use_tool(src, user, 4 SECONDS * building_mod, volume = I.tool_volume))
 		WELDER_SLICING_SUCCESS_MESSAGE
@@ -504,7 +504,7 @@
 			span_notice("[user] starts laying runed metal on [src]."),
 			span_notice("You start constructing a runed wall..."),
 		)
-		CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+		CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 		if(!do_after(user, 1 SECONDS * metal.toolspeed * building_mod, src, category = DA_CAT_TOOL) || !isfloorturf(loc) || QDELETED(metal) || !metal.use(1))
 			return ATTACK_CHAIN_PROCEED
 		user.visible_message(
@@ -545,7 +545,7 @@
 			span_notice("[user] starts laying runed metal on [src]."),
 			span_notice("You start constructing a runed wall..."),
 		)
-		CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+		CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 		if(!do_after(user, 1 SECONDS * metal.toolspeed * building_mod, src, category = DA_CAT_TOOL) || !isfloorturf(loc) || QDELETED(metal) || !metal.use(1))
 			return ATTACK_CHAIN_PROCEED
 		user.visible_message(

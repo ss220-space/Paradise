@@ -1019,7 +1019,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 				to_chat(user, span_warning("You need at least two metal sheets to reinforce [src]."))
 				return ATTACK_CHAIN_PROCEED
 			to_chat(user, span_notice("You start reinforcing [src]..."))
-			CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+			CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 			if(!do_after(user, 2 SECONDS * metal.toolspeed * building_mod, src, category = DA_CAT_TOOL) || security_level != AIRLOCK_SECURITY_NONE || !panel_open || QDELETED(metal))
 				return ATTACK_CHAIN_PROCEED
 			if(!metal.use(2))
@@ -1040,7 +1040,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 				to_chat(user, span_warning("You need at least two plasteel sheets to reinforce [src]."))
 				return ATTACK_CHAIN_PROCEED
 			to_chat(user, span_notice("You start reinforcing [src]..."))
-			CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+			CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 			if(!do_after(user, 2 SECONDS * plasteel.toolspeed * building_mod, src, category = DA_CAT_TOOL) || security_level != AIRLOCK_SECURITY_NONE || !panel_open || QDELETED(plasteel))
 				return ATTACK_CHAIN_PROCEED
 			if(!plasteel.use(2))
@@ -1090,7 +1090,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(user.a_intent == INTENT_HARM)
 		return
 	. = TRUE
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_LOCKPICK_SPEED_MOD, lockpick_mod)
+	CALCULATE_SKILL_MOD(user, LOCKPICK_SPEED_MOD, lockpick_mod)
 	if(!I.use_tool(src, user, 1 SECONDS * lockpick_mod, volume = I.tool_volume))
 		return
 	panel_open = !panel_open
@@ -1105,7 +1105,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 	if(panel_open && security_level == AIRLOCK_SECURITY_PLASTEEL_I_S)
 		to_chat(user, span_notice("You start removing the inner layer of shielding..."))
 		if(I.use_tool(src, user, 4 SECONDS * building_mod, volume = I.tool_volume))
@@ -1151,7 +1151,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		if(arePowerSystemsOn() && shock(user, 60)) // Protective grille of wiring is electrified
 			return
 		to_chat(user, span_notice("You start cutting through the outer grille."))
-		CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+		CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 		if(I.use_tool(src, user, 1 SECONDS * building_mod, volume = I.tool_volume))
 			if(!panel_open || security_level != AIRLOCK_SECURITY_PLASTEEL)
 				return
@@ -1182,7 +1182,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		return
 	if(isAllPowerLoss())
 		to_chat(user, span_notice("You start wrenching bolt reducer."))
-		CALCULATE_SKILL_MOD(user, COMSIG_GET_LOCKPICK_SPEED_MOD, lockpick_mod)
+		CALCULATE_SKILL_MOD(user, LOCKPICK_SPEED_MOD, lockpick_mod)
 		if(I.use_tool(src, user, 30 SECONDS * lockpick_mod, volume = I.tool_volume))
 			user.visible_message(
 				span_notice("[user] raise \the [src]'s bolt manually."),
@@ -1197,7 +1197,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 	if(panel_open) // panel should be open before we try to slice out any shielding.
 		switch(security_level)
 			if(AIRLOCK_SECURITY_METAL)
@@ -1277,7 +1277,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			"[user] removes the electronics from the airlock assembly.", \
 			span_notice("You start to remove electronics from the airlock assembly...")
 		)
-		CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+		CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 		if(I.use_tool(src, user, 4 SECONDS * building_mod, volume = I.tool_volume))
 			deconstruct(TRUE, user)
 		return
@@ -1301,7 +1301,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(!density)//already open
 		return
 
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_LOCKPICK_SPEED_MOD, lockpick_mod)
+	CALCULATE_SKILL_MOD(user, LOCKPICK_SPEED_MOD, lockpick_mod)
 	if(istype(I, /obj/item/twohanded/fireaxe)) //let's make this more specific //FUCK YOU
 		var/obj/item/twohanded/fireaxe/F = I
 		if(!F.wielded)
@@ -1703,7 +1703,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(our_rcd.checkResource(RCD_COST_AIRLOCK * 2, user))
 		to_chat(user, "Деконструкция шлюза...")
 		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
-		CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
+		CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 		if(do_after(user, 5 SECONDS * our_rcd.toolspeed * building_mod, src, category = DA_CAT_TOOL))
 			if(!our_rcd.useResource(RCD_COST_AIRLOCK * 2, user))
 				return RCD_ACT_FAILED

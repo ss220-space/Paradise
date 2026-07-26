@@ -387,7 +387,7 @@
 				add_attack_logs(grabber, src, "attempted to neck grab", ATKLOG_ALL)
 			if(GRAB_NECK)
 				add_attack_logs(grabber, src, "attempted to strangle", ATKLOG_ALL)
-		CALCULATE_SKILL_MOD(grabber, COMSIG_GET_FISTS_GRAB_MOD, grab_skill_mod)
+		CALCULATE_SKILL_MOD(grabber, FISTS_GRAB_MOD, grab_skill_mod)
 		if(!do_after(grabber, get_grab_upgrade_time(grabber) * grab_skill_mod, src, DA_IGNORE_USER_LOC_CHANGE|DA_IGNORE_TARGET_LOC_CHANGE|DA_IGNORE_HELD_ITEM, extra_checks = CALLBACK(src, PROC_REF(grab_checks_callback), grabber, old_grab_state), max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_notice("Вы перестали усиливать захват.")))
 			return FALSE
 		if(!grab_checks_callback(grabber, old_grab_state))
@@ -455,7 +455,7 @@
 	if(vampire_grab)
 		return vampire_grab.grab_speed
 
-	CALCULATE_SKILL_MOD(src, COMSIG_GET_GRAB_SPEED_MODIFIERS, mod)
+	CALCULATE_SKILL_MOD(src, GRAB_SPEED_MODIFIERS, mod)
 	var/normal_grab_update_time = GRAB_UPGRADE_TIME * mod
 	return isnull(grabber.mind?.martial_art?.grab_speed) ? normal_grab_update_time / mod : grabber.mind.martial_art.grab_speed
 
