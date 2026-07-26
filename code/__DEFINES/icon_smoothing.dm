@@ -205,7 +205,6 @@
 #define SMOOTH_GROUP_CULT_WALLS S_OBJ(84)
 #define SMOOTH_GROUP_TRANSPARENT_FLOOR S_OBJ(85)
 #define SMOOTH_GROUP_BINGLE_PIT S_OBJ(86)
-#define SMOOTH_GROUP_SWARMER_WALLS S_OBJ(86)
 
 /// Performs the work to set smoothing_groups and canSmoothWith.
 /// An inlined function used in both turf/Initialize and atom/Initialize.

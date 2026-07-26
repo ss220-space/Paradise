@@ -20,7 +20,6 @@ GLOBAL_LIST_INIT(swarmer_actions_by_type, list(
 	// Combat swarmer
 	/mob/living/simple_animal/hostile/swarmer/combat = list(
 		/datum/action/cooldown/swarmer/build/barricade,
-		/datum/action/cooldown/swarmer/mode_switcher,
 		),
 	// Builder swarmer
 	/mob/living/simple_animal/hostile/swarmer/builder = list(
@@ -177,15 +176,23 @@ GLOBAL_LIST_INIT(swarmer_actions_by_type, list(
 	swap_resource_cost = COMBAT_SWAP_COST
 	swarmer_class_info = "Данный класс является защитной единицей, оснащённой более сильной защитой и пушками.\n\
 		Оснащён следующими типами выстрелов: Обычный выстрел, двойной выстрел, сильный выстрел, саботажный выстрел.\n\
+		Менять тип выстрела на ПКМ по самому себе.\n\
 		Способен строить баррикады.\n\
 		Чинится автоматически у ядра, становится быстрее у ядра."
 	/// What speed do we have if there is any swarmer structure nearby
 	var/increased_speed = 0
+	/// List of all modes used in ranged_mob_switcher element
+	var/static/list/combat_modes = list(
+		/datum/ranged_mob_switcher_mode/combat_swarmer_double,
+		/datum/ranged_mob_switcher_mode/combat_swarmer_strong,
+		/datum/ranged_mob_switcher_mode/combat_swarmer_sabotage,
+	)
 
 /mob/living/simple_animal/hostile/swarmer/combat/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSprocessing, src)
 	ADD_TRAIT(src, TRAIT_HEALS_FROM_SWARMER_CORES, INNATE_TRAIT)
+	AddElement(/datum/element/ranged_mob_switcher, combat_modes, SWARMER_MODE_SWITCH_DELAY)
 
 /mob/living/simple_animal/hostile/swarmer/combat/Destroy()
 	STOP_PROCESSING(SSprocessing, src)

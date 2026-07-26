@@ -331,10 +331,14 @@ GLOBAL_LIST_EMPTY(swarmer_objects)
 	..()
 	if(!currently_processing)
 		return
+
+	// grind sound after a bit
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), loc, 'sound/machines/juicer.ogg', 20, TRUE), SWARMER_STRUCTURE_EMP_DURATION * severity, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT | TIMER_DELETE_ME)
+	animate(src, transform=matrix())
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(animate_rumble), src), SWARMER_STRUCTURE_EMP_DURATION * severity, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT | TIMER_DELETE_ME)
+
 	var/new_delay = SWARMER_ORGANIC_ITEM_PROCESS_DELAY + SWARMER_STRUCTURE_EMP_DURATION * severity
-	animate(src, transform=matrix()) // Reset animation if disabled
 	addtimer(CALLBACK(src, PROC_REF(finish_processing)), new_delay, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT | TIMER_DELETE_ME)
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, spasm_animation)), SWARMER_STRUCTURE_EMP_DURATION * severity, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT | TIMER_DELETE_ME)
 
 /**
  * Main signal proc of this structure.
@@ -351,11 +355,12 @@ GLOBAL_LIST_EMPTY(swarmer_objects)
 		return FALSE
 	if(!currently_processing) // Start the timer if we dont have one currently
 		addtimer(CALLBACK(src, PROC_REF(finish_processing)), SWARMER_ORGANIC_ITEM_PROCESS_DELAY, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT | TIMER_DELETE_ME)
+		playsound(loc, 'sound/machines/juicer.ogg', 20, TRUE)
 	if(item) // Sometimes we are putting "nothing", which is intended. Example: Clearing out hydroponic trays.
 		item.forceMove(src)
 	currently_processing += 1
 	spark_system.start()
-	spasm_animation()
+	animate_rumble(src)
 	return TRUE
 
 /**
@@ -372,12 +377,14 @@ GLOBAL_LIST_EMPTY(swarmer_objects)
 		if(!QDELETED(item))
 			qdel(item)
 	balloon_alert_to_viewers("обработано!")
-	playsound(loc, 'sound/machines/ding.ogg', 50, TRUE)
 	adjust_swarmer_organic_resources(SWARMER_ORGANIC_ITEM_PROCESS_GAIN)
 	currently_processing -= 1
 	if(currently_processing) // Restart the timer
+		playsound(loc, 'sound/machines/juicer.ogg', 20, TRUE)
 		addtimer(CALLBACK(src, PROC_REF(finish_processing)), SWARMER_ORGANIC_ITEM_PROCESS_DELAY, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT | TIMER_DELETE_ME)
 		return
+
+	playsound(loc, 'sound/machines/ding.ogg', 50, TRUE)
 	animate(src, transform=matrix()) // Reset animation if no work
 
 /obj/structure/swarmer/organic_processer/get_ru_names()
@@ -405,6 +412,8 @@ GLOBAL_LIST_EMPTY(swarmer_objects)
 	var/mob/living/occupant
 	/// Spark system (since we use them a lot)
 	var/datum/effect_system/spark_spread/spark_system
+	/// Active processing sound loop
+	var/datum/looping_sound/swarmer_analyzer/sound_loop
 	/// Organ removal chance for non-machine carbons
 	var/organ_removal_chance = SWARMER_ANALYZE_ORGAN_REMOVE_CHANCE
 	/// How many bodyparts we take from machine carbons
@@ -413,6 +422,7 @@ GLOBAL_LIST_EMPTY(swarmer_objects)
 /obj/structure/swarmer/organic_analyzer/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_SWARMER_ANALYZE_MOB_CHECK, PROC_REF(try_load_mob))
+	sound_loop = new(src, FALSE)
 	spark_system = new
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
@@ -420,6 +430,7 @@ GLOBAL_LIST_EMPTY(swarmer_objects)
 /obj/structure/swarmer/organic_analyzer/Destroy(force)
 	UnregisterSignal(src, COMSIG_SWARMER_ANALYZE_MOB_CHECK)
 	QDEL_NULL(spark_system)
+	QDEL_NULL(sound_loop)
 	if(occupant)
 		occupant.forceMove(loc)
 		occupant.SetParalysis(0)
@@ -432,9 +443,11 @@ GLOBAL_LIST_EMPTY(swarmer_objects)
 	..()
 	if(!occupant)
 		return
+
+	sound_loop.stop()
+	addtimer(CALLBACK(sound_loop, TYPE_PROC_REF(/datum/looping_sound, start)), SWARMER_STRUCTURE_EMP_DURATION * severity, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT | TIMER_DELETE_ME)
+
 	var/new_delay = SWARMER_ANALYZE_DELAY(occupant) + SWARMER_STRUCTURE_EMP_DURATION * severity
-	animate(src, transform=matrix()) // Reset animation if disabled
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, spasm_animation)), SWARMER_STRUCTURE_EMP_DURATION * severity, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT | TIMER_DELETE_ME)
 	addtimer(CALLBACK(src, PROC_REF(finish_analyzing)), new_delay, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT | TIMER_DELETE_ME)
 	occupant.SetParalysis(new_delay + 1 SECONDS, TRUE) // Extra second just incase
 	occupant.SetSleeping(new_delay + 1 SECONDS) // Extra second just incase
@@ -456,15 +469,17 @@ GLOBAL_LIST_EMPTY(swarmer_objects)
 		return FALSE
 	if(occupant)
 		return FALSE
+
 	occupant = target
-	var/delay = SWARMER_ANALYZE_DELAY(target)
+	var/delay = SWARMER_ANALYZE_DELAY(occupant)
+	addtimer(CALLBACK(src, PROC_REF(finish_analyzing)), delay, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT | TIMER_DELETE_ME)
 	occupant.Paralyse(delay + 1 SECONDS, TRUE) // Extra second just incase
 	occupant.Sleeping(delay + 1 SECONDS) // Extra second just incase
 	occupant.forceMove(src)
-	addtimer(CALLBACK(src, PROC_REF(finish_analyzing)), delay, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT | TIMER_DELETE_ME)
+
 	spark_system.start()
+	sound_loop.start()
 	update_icon(UPDATE_ICON_STATE)
-	spasm_animation()
 	return TRUE
 
 /**
@@ -481,9 +496,9 @@ GLOBAL_LIST_EMPTY(swarmer_objects)
 	if(!(locate(occupant) in src))
 		occupant = null
 		return
+
 	balloon_alert_to_viewers("обработано!")
-	animate(src, transform=matrix()) // Reset animation if no work
-	playsound(loc, 'sound/machines/ding.ogg', 50, TRUE)
+	sound_loop.stop()
 	take_random_organs()
 	adjust_resources()
 	teleport_to_safe()
@@ -745,7 +760,7 @@ GLOBAL_LIST_EMPTY(swarmer_objects)
  */
 /obj/structure/swarmer/acp_turret
 	name = "swarmer ACP turret"
-	desc = "Стационарная установка \"Свармеров\", которая способна оглушать и влиять на магнитное поле целей."
+	desc = "Стационарная установка \"Свармеров\", способная оглушать и влиять на магнитное поле целей."
 	swarmer_examine = "Бьёт всех по области, нанося урон стамине и останавливая метаболизацию реагентов."
 	icon_state = "turret_acp"
 	max_integrity = 200
@@ -765,6 +780,8 @@ GLOBAL_LIST_EMPTY(swarmer_objects)
 	var/slowed_chance = SWARMER_ACP_SLOWED_CHANCE
 	/// Slowed duration after hit
 	var/slowed_duration = SWARMER_ACP_SLOWED_DURATION
+	/// Basic knockdown duration
+	var/knockdown_duration = SWARMER_ACT_KNOCKDOWN_DURATION
 	/// Targets that are currently processed by turret. Used by process()
 	var/list/processing_targets = list()
 
@@ -799,7 +816,7 @@ GLOBAL_LIST_EMPTY(swarmer_objects)
 		START_PROCESSING(SSobj, src)
 
 // Handles checking if targets are in range and calls the attack
-/obj/structure/swarmer/acp_turret/process()
+/obj/structure/swarmer/acp_turret/process(seconds_per_tick)
 	if(!length(processing_targets))
 		return PROCESS_KILL
 	if(!anchored)
@@ -821,6 +838,7 @@ GLOBAL_LIST_EMPTY(swarmer_objects)
 	for(var/mob/living/target as anything in processing_targets)
 		apply_range_based_effects(target)
 		target.apply_status_effect(STATUS_EFFECT_METABOLIZE_BLOCK, SWARMER_ACP_DISABLE_METABOLIZATION_DURATION, strike_overlay)
+		animate_shockwave(target) // must be after range based effects proc
 
 /// Applies stamina damage, slow duration and chance, together with effects based on distance relative to the turret
 /obj/structure/swarmer/acp_turret/proc/apply_range_based_effects(mob/living/target)
@@ -832,8 +850,10 @@ GLOBAL_LIST_EMPTY(swarmer_objects)
 	var/final_slowed_chance = round(slowed_chance + modifier * slow_chance_increase_per_tile)
 	var/final_slowed_duration = round(slowed_duration + modifier * slow_duration_increase_per_tile)
 	var/final_damage = damage + damage * modifier * SWARMER_ACP_RANGE_DAMAGE_MODIFIER
+	var/final_knockdown_duration = knockdown_duration * modifier
 
 	target.apply_damage(final_damage, STAMINA)
+	target.Knockdown(final_knockdown_duration)
 	if(prob(final_slowed_chance))
 		target.Slowed(final_slowed_duration, SWARMER_ACP_SLOWED_MULTIPLIER)
 
@@ -863,3 +883,41 @@ GLOBAL_LIST_EMPTY(swarmer_objects)
 	// Increase size based on range input + 1 (accounting for src tile)
 	animate(src, transform = M * 2 * (range + 1), time = duration, alpha = 0)
 	playsound(loc, 'sound/swarmer/acp_turret.ogg', 100, TRUE)
+
+// Core field, here since its a structure
+/obj/structure/swarmer_core_field
+	name = "core field"
+	desc = "Защищает ядро Свармеров. Видно, что оно ослабевает с каждой прошедшей секундой."
+	icon = 'icons/obj/swarmer.dmi'
+	icon_state = "core_field"
+	density = TRUE
+	anchored = TRUE
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+
+/obj/structure/swarmer_core_field/get_ru_names()
+	return alist(
+		NOMINATIVE = "поле защиты ядра",
+		GENITIVE = "поля защиты ядра",
+		DATIVE = "полю защиты ядра",
+		ACCUSATIVE = "полем защиты ядра",
+		INSTRUMENTAL = "полем защиты ядра",
+		PREPOSITIONAL = "поле защиты ядра",
+	)
+
+/obj/structure/swarmer_core_field/Initialize(mapload, duration, new_dir)
+	. = ..()
+	if(new_dir)
+		dir = new_dir
+	if(duration)
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), duration)
+
+/obj/structure/swarmer_core_field/Destroy(force)
+	if(prob(30))
+		do_sparks(5, FALSE, loc)
+	return ..()
+
+/obj/structure/swarmer_core_field/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(isswarmer(mover))
+		return TRUE
+

@@ -15,6 +15,8 @@
  * * * SWARMER_ACT_IMPOSSIBLE_REASON_TEAM - if the reason is because the act would sabotage the team
  * * * SWARMER_ACT_IMPOSSIBLE_REASON_OVERRIDE = if action's default behaviour is completely different from original purpose
  * * * SWARMER_ACT_IMPOSSIBLE_REASON_DEFAULT - if we should just attack normally (example: ladders)
+ *
+ * May return SWARMER_ACT_RIGHT_CLICK_DEFAULT with any other flags, if the action is default on right click
  */
 /atom/proc/swarmer_act(mob/living/simple_animal/hostile/swarmer/user)
 	return SWARMER_ACT_POSSIBLE | SWARMER_ACT_POSSIBLE_ACTION_DAMAGE

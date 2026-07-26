@@ -2,11 +2,16 @@
 /mob/living/proc/right_click_attack_chain(atom/target, list/modifiers)
 	if(!LAZYACCESS(modifiers, RIGHT_CLICK))
 		return
-	var/secondary_result = resolve_right_click_attack(target, modifiers)
 
+	var/signal = SEND_SIGNAL(src, COMSIG_LIVING_RIGHT_CLICK_ATTACK, target, modifiers)
+	if(signal & SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
+		return TRUE
+
+	var/secondary_result = resolve_right_click_attack(target, modifiers)
 	if(secondary_result == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN || secondary_result == SECONDARY_ATTACK_CONTINUE_CHAIN)
 		return TRUE
-	else if(secondary_result != SECONDARY_ATTACK_CALL_NORMAL)
+
+	if(secondary_result != SECONDARY_ATTACK_CALL_NORMAL)
 		CRASH("resolve_right_click_attack (probably attack_hand_secondary) did not return a SECONDARY_ATTACK_* define.")
 
 /*

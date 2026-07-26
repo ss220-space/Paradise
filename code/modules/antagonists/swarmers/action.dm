@@ -13,10 +13,10 @@
 	return ..()
 
 /// Updates description to include material cost.
-/datum/action/cooldown/swarmer/update_button_name(atom/movable/screen/movable/action_button/button, force)
+/datum/action/cooldown/swarmer/New(Target, original = TRUE)
 	. = ..()
 	if(action_cost)
-		desc = "[initial(desc)] Стоимость: [action_cost] металлических материалов."
+		desc = "[initial(desc)] Стоимость: [action_cost] металлических материал[DECL_CREDIT(action_cost)]."
 
 /datum/action/cooldown/swarmer/build
 	name = "Создать что-то"
@@ -73,10 +73,9 @@
 /// Trap is built immediately for rover swarmers, and instead has cooldown
 /datum/action/cooldown/swarmer/build/trap/Grant(mob/granted_to)
 	. = ..()
-	if(!is_roverswarmer(granted_to))
-		return
-	cooldown_time = build_time
-	build_time = 0
+	if(is_roverswarmer(granted_to))
+		cooldown_time = build_time
+		build_time = 0
 
 /datum/action/cooldown/swarmer/build/transport_hub
 	name = "Создать Хаб"
@@ -152,38 +151,7 @@
 	action_cost = SWARMER_ACP_COST
 	build_time = SWARMER_NORMAL_BUILD_DELAY
 
-/// Action for combat swarmer for projectile mode switching
-/datum/action/cooldown/swarmer/mode_switcher
-	name = "Сменить режим стрельбы"
-	desc = "Сменяет текущий режим стрельбы на другие доступные."
-	button_icon_state = "shoot_mode"
-	/// Datum that handles switching modes
-	var/datum/swarmer_proj_mode/swarmer_proj_mode
-
-/datum/action/cooldown/swarmer/mode_switcher/Grant(mob/living/simple_animal/hostile/swarmer/swarmer)
-	. = ..()
-	swarmer_proj_mode = new /datum/swarmer_proj_mode/general // set to default mode on grant
-	swarmer_proj_mode.link_mode(swarmer) // link the mode swapper to swarmer
-	swarmer_proj_mode.apply_mode()
-
-/datum/action/cooldown/swarmer/mode_switcher/Activate()
-	. = ..()
-	var/choice = swarmer_proj_mode.swap_radial_menu_to_path()
-	if(!choice)
-		return
-	if(!do_after(owner, SWARMER_MODE_SWITCH_DELAY, owner, DA_IGNORE_USER_LOC_CHANGE | DA_IGNORE_TARGET_LOC_CHANGE, max_interact_count = 1, cancel_on_max = TRUE))
-		owner.balloon_alert(owner, "сбито!")
-		return
-	owner.balloon_alert(owner, "успех!")
-	swarmer_proj_mode = new choice
-	swarmer_proj_mode.link_mode(owner)
-	swarmer_proj_mode.apply_mode()
-
-/datum/action/cooldown/swarmer/mode_switcher/Remove(mob/user)
-	. = ..()
-	QDEL_NULL(swarmer_proj_mode)
-
-/// Action for moving the core to any available transport hub
+// Action for moving the core to any available transport hub
 /datum/action/cooldown/swarmer/move_core
 	name = "Переместить ядро"
 	desc = "Перемещает ядро на выбранный \"Хаб\", при этом уничтожая его."

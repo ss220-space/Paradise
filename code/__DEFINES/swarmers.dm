@@ -141,7 +141,9 @@
 /// ACP turret slowed chance (gets scaled)
 #define SWARMER_ACP_SLOWED_CHANCE 60
 /// ACP turret slowed duration (gets scaled up to 2x)
-#define SWARMER_ACP_SLOWED_DURATION 2 SECONDS
+#define SWARMER_ACP_SLOWED_DURATION 2
+/// ACP turret knockdown duration (gets scaled)
+#define SWARMER_ACT_KNOCKDOWN_DURATION 0.5 SECONDS
 /// ACP turret slowed multiplier (doesn't scale)
 #define SWARMER_ACP_SLOWED_MULTIPLIER 2
 /// ACP turret metabolize disable duration
@@ -188,25 +190,29 @@
 #define SWARMER_ACT_POSSIBLE (1<<0)
 /// Value returned if an atom can't be swarmer_act'ed
 #define SWARMER_ACT_IMPOSSIBLE (1<<1)
+/// Value returned if an atom has default behaviour on right click
+/// For it to work correctly, an atom must have
+/// attack_swarmer_secondary proc always return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+#define SWARMER_ACT_RIGHT_CLICK_DEFAULT (1<<2)
 
 /// Bitflag combinaton for possible swarmer_act, means we should damage the atom
-#define SWARMER_ACT_POSSIBLE_ACTION_DAMAGE (1<<2)
+#define SWARMER_ACT_POSSIBLE_ACTION_DAMAGE (1<<3)
 /// Bitflag combination for possible swarmer_act, means we should slowly dismantle the atom
-#define SWARMER_ACT_POSSIBLE_ACTION_DISMANTLE (1<<3)
+#define SWARMER_ACT_POSSIBLE_ACTION_DISMANTLE (1<<4)
 /// Bitflag combination for possible swarmer_act, means we should immediately consume the atom (and gain something)
-#define SWARMER_ACT_POSSIBLE_ACTION_CONSUME (1<<4)
+#define SWARMER_ACT_POSSIBLE_ACTION_CONSUME (1<<5)
 /// Bitflag combination for possible swarmer_act, means we should immediately delete the atom
-#define SWARMER_ACT_POSSIBLE_ACTION_DESTROY (1<<5)
+#define SWARMER_ACT_POSSIBLE_ACTION_DESTROY (1<<6)
 
 /// Bitflag combinaton for impossible swarmer_act, means the act was failed since atom is needed for energy
-#define SWARMER_ACT_IMPOSSIBLE_REASON_ENERGY (1<<2)
+#define SWARMER_ACT_IMPOSSIBLE_REASON_ENERGY (1<<3)
 /// Bitflag combinaton for impossible swarmer_act, means the act was failed since atom is important for stuff to live
-#define SWARMER_ACT_IMPOSSIBLE_REASON_LIVING (1<<3)
+#define SWARMER_ACT_IMPOSSIBLE_REASON_LIVING (1<<4)
 /// Bitflag combinaton for impossible swarmer_act, means the act was failed since atom is important for atmos to work correctly
-#define SWARMER_ACT_IMPOSSIBLE_REASON_ATMOS (1<<4)
+#define SWARMER_ACT_IMPOSSIBLE_REASON_ATMOS (1<<5)
 /// Bitflag combinaton for impossible swarmer_act, means the act was failed since atom is created by swarmers
-#define SWARMER_ACT_IMPOSSIBLE_REASON_TEAM (1<<5)
+#define SWARMER_ACT_IMPOSSIBLE_REASON_TEAM (1<<6)
 /// Bitflag combination for impossible swarmer_act, means the act's default behaviour is overridden
-#define SWARMER_ACT_IMPOSSIBLE_REASON_OVERRIDE (1<<6)
+#define SWARMER_ACT_IMPOSSIBLE_REASON_OVERRIDE (1<<7)
 /// Bitflag combination for impossible swarmer_act, means the act's default behaviour is ignored, and we just attack
-#define SWARMER_ACT_IMPOSSIBLE_REASON_DEFAULT (1<<7)
+#define SWARMER_ACT_IMPOSSIBLE_REASON_DEFAULT (1<<8)

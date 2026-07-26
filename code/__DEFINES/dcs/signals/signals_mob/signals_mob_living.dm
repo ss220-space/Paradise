@@ -149,6 +149,8 @@
 
 /// Source: /mob/living/UnarmedAttack (atom/atom, proximity_flag)
 #define COMSIG_LIVING_UNARMED_ATTACK "living_unarmed_attack"
+/// Source: /mob/living/right_click_attack_chain (atom/target, list/modifiers)
+#define COMSIG_LIVING_RIGHT_CLICK_ATTACK "living_unarmed_right_click_attack"
 
 /// from /proc/healthscan(): (list/scan_results, advanced, mob/user, mode)
 /// Consumers are allowed to mutate the scan_results list to add extra information

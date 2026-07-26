@@ -443,11 +443,13 @@
 /proc/animate_shockwave(atom/target)
 	if(!istype(target))
 		return
+
+	var/matrix/original_transform = target.transform
 	var/rotation_strength = rand(10, 20)
 	var/original_y_position = target.pixel_y
-	animate(target, transform = matrix(rotation_strength, MATRIX_ROTATE), pixel_y = 16, time = 0.2 SECONDS, color = "#eeeeee", easing = BOUNCE_EASING)
-	animate(transform = matrix(-rotation_strength, MATRIX_ROTATE), pixel_y = original_y_position, time = 0.2 SECONDS, color = COLOR_WHITE, easing = BOUNCE_EASING)
-	animate(transform = null, time = 0.3 SECONDS, easing = BOUNCE_EASING)
+	animate(target, transform = matrix(original_transform, rotation_strength, MATRIX_ROTATE), pixel_y = 16, time = 0.2 SECONDS, color = "#eeeeee", easing = BOUNCE_EASING)
+	animate(transform = matrix(original_transform, -rotation_strength, MATRIX_ROTATE), pixel_y = original_y_position, time = 0.2 SECONDS, color = COLOR_WHITE, easing = BOUNCE_EASING)
+	animate(transform = original_transform, time = 0.3 SECONDS, easing = BOUNCE_EASING)
 
 /**
  * Animates a rumbling effect by translating the atom in four directions

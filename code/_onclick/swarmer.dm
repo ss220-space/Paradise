@@ -3,7 +3,8 @@
 
 /**
  * Called when a swarmer right clicks an atom.
- * For this to function, a swarmer_act on this atom type MUST return SWARMER_ACT_IMPOSSIBLE_REASON_DEFAULT flag.
+ * For this to function, a swarmer_act on this atom type MUST return
+ * SWARMER_ACT_IMPOSSIBLE_REASON_DEFAULT or SWARMER_ACT_RIGHT_CLICK_DEFAULT flag.
  * Returns a SECONDARY_ATTACK_* value.
  */
 /atom/proc/attack_swarmer_secondary(mob/living/simple_animal/hostile/swarmer/user, list/modifiers)

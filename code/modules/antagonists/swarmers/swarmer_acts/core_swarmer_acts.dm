@@ -26,9 +26,7 @@
 
 	return SWARMER_ACT_IMPOSSIBLE | SWARMER_ACT_IMPOSSIBLE_REASON_OVERRIDE
 
-
 // MARK: Organic processer related stuff
-
 /obj/item/reagent_containers/food/snacks/swarmer_act(mob/living/simple_animal/hostile/swarmer/user)
 	user.send_organic_processer_signal(src, SWARMER_SEND_ORGANIC_DELAY)
 	return SWARMER_ACT_IMPOSSIBLE | SWARMER_ACT_IMPOSSIBLE_REASON_OVERRIDE

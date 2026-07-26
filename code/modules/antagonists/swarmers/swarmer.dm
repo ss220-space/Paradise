@@ -166,54 +166,71 @@ GLOBAL_LIST_EMPTY(swarmers)
 /**
  * Unarmed_Attack signal proc
  *
- * Used to handle the following:
- * Swarmer acts on non-living beings
- * Sending organic stuff to the organic processer
- * Repairing other swarmers
+ * Redirects all attacks to be handled by swarmer_act return values
  */
 /mob/living/simple_animal/hostile/swarmer/proc/on_unarmed_attack(datum/source, atom/movable/atom, proximity_flag, list/modifiers)
 	SIGNAL_HANDLER
-	handle_swarmer_act(atom, proximity_flag, modifiers)
-	return COMPONENT_CANCEL_ATTACK_CHAIN
+	return handle_swarmer_act(atom, proximity_flag, modifiers)
 
-/// Handles swarmer_act and its return values, with some extra checks in separate procs
+/**
+ * Handles swarmer_act main flag returns and proc separation.
+ *
+ * Returns COMPONENT_CANCEL_ATTACK_CHAIN if we fully cancel the attack
+ */
 /mob/living/simple_animal/hostile/swarmer/proc/handle_swarmer_act(atom/movable/atom, proximity_flag, list/modifiers)
+	. = COMPONENT_CANCEL_ATTACK_CHAIN
 	var/swarmer_act_result = atom.swarmer_act(src)
+	if(swarmer_act_result & SWARMER_ACT_RIGHT_CLICK_DEFAULT)
+		if(LAZYACCESS(modifiers, RIGHT_CLICK))
+			return FALSE
+
 	if(swarmer_act_result & SWARMER_ACT_POSSIBLE)
-		handle_possible_swarmer_act(atom, swarmer_act_result, proximity_flag, modifiers)
-		return
+		return handle_possible_swarmer_act(atom, swarmer_act_result, proximity_flag, modifiers)
 
-	if((swarmer_act_result & ~SWARMER_ACT_IMPOSSIBLE) == swarmer_act_result)
-		CRASH("Swarmer act was called without either of the two main flags. Atom called on: [atom.type], act return value: [swarmer_act_result].")
+	if(swarmer_act_result & SWARMER_ACT_IMPOSSIBLE)
+		return handle_impossible_swarmer_act(atom, swarmer_act_result, proximity_flag, modifiers)
 
-	handle_impossible_swarmer_act(atom, swarmer_act_result, proximity_flag, modifiers)
+	stack_trace("Swarmer act was called without either of the two main flags. Atom called on: [atom.type], act return value: [swarmer_act_result].")
 
-/// Handles impossible swarmer acts. Look for impossible values in atom/proc/swarmer_act(mob/living/simple_animal/hostile/swarmer/user).
+/**
+ * Handles swarmer_act calls that returned SWARMER_ACT_IMPOSSIBLE flag.
+ *
+ * Returns COMPONENT_CANCEL_ATTACK_CHAIN if we fully cancel the attack
+ */
 /mob/living/simple_animal/hostile/swarmer/proc/handle_impossible_swarmer_act(atom/movable/atom, swarmer_act_result, proximity_flag, list/modifiers)
+	. = COMPONENT_CANCEL_ATTACK_CHAIN
 	if(swarmer_act_result == SWARMER_ACT_IMPOSSIBLE)
-		return balloon_alert(src, "нельзя!")
+		balloon_alert(src, "нельзя!")
+		return
 
 	if(swarmer_act_result & SWARMER_ACT_IMPOSSIBLE_REASON_OVERRIDE)
 		return
 
 	if(swarmer_act_result & SWARMER_ACT_IMPOSSIBLE_REASON_DEFAULT)
-		if(!right_click_attack_chain(atom, modifiers))
-			OnUnarmedAttack(atom, proximity_flag, modifiers)
-		return
+		return FALSE
 
 	if(swarmer_act_result & SWARMER_ACT_IMPOSSIBLE_REASON_ENERGY)
-		return balloon_alert(src, "повредит электроэнергию!")
-	if(swarmer_act_result & SWARMER_ACT_IMPOSSIBLE_REASON_LIVING)
-		return balloon_alert(src, "повредит жизни экипажа!")
-	if(swarmer_act_result & SWARMER_ACT_IMPOSSIBLE_REASON_ATMOS)
-		return balloon_alert(src, "повредит системе воздуха!")
-	if(swarmer_act_result & SWARMER_ACT_IMPOSSIBLE_REASON_TEAM)
-		return balloon_alert(src, "повредит команде!")
+		balloon_alert(src, "повредит электроэнергию!")
+	else if(swarmer_act_result & SWARMER_ACT_IMPOSSIBLE_REASON_LIVING)
+		balloon_alert(src, "повредит жизни экипажа!")
+	else if(swarmer_act_result & SWARMER_ACT_IMPOSSIBLE_REASON_ATMOS)
+		balloon_alert(src, "повредит системе воздуха!")
+	else if(swarmer_act_result & SWARMER_ACT_IMPOSSIBLE_REASON_TEAM)
+		balloon_alert(src, "повредит команде!")
 
-/// Handles possible swarmer acts. Look for possible values in atom/proc/swarmer_act(mob/living/simple_animal/hostile/swarmer/user).
+/**
+ * Handles swarmer_act calls that returned SWARMER_ACT_POSSIBLE flag.
+ *
+ * Returns COMPONENT_CANCEL_ATTACK_CHAIN if we fully cancel the attack
+ */
 /mob/living/simple_animal/hostile/swarmer/proc/handle_possible_swarmer_act(atom/movable/atom, swarmer_act_result, proximity_flag, list/modifiers)
+	. = COMPONENT_CANCEL_ATTACK_CHAIN
 	if(swarmer_act_result == SWARMER_ACT_POSSIBLE)
 		CRASH("Swarmer act returned only SWARMER_ACT_POSSIBLE flag, which should not happen. Atom: [atom.type].")
+
+	if(atom.resistance_flags & INDESTRUCTIBLE)
+		balloon_alert("невозможно сломать!")
+		return
 
 	var/datum/callback/action_cb
 	if(swarmer_act_result & SWARMER_ACT_POSSIBLE_ACTION_DAMAGE)
@@ -229,26 +246,32 @@ GLOBAL_LIST_EMPTY(swarmers)
 		CRASH("Swarmer act returned SWARMER_ACT_POSSIBLE flag with none of the correct flag combinations. Atom: [atom.type], flag: [swarmer_act_result]")
 
 	if(isitem(atom)) // we can skip all checks if this is an item
-		return action_cb.Invoke()
+		action_cb.Invoke()
+		return
 
 	if(istype(atom, /obj/structure/lattice/catwalk)) // edge case for catwalks
 		var/turf/atom_turf = atom.loc
 		if(locate(/obj/structure/cable) in atom_turf)
-			return balloon_alert(src, "нельзя, кабель!")
-		return action_cb.Invoke()
+			balloon_alert(src, "нельзя, кабель!")
+			return
+
+		action_cb.Invoke()
+		return
 
 	// now we check if its atmos important (blocks air flow)
 	var/blocks_air = !atom.CanAtmosPass(NORTH) || !atom.CanAtmosPass(WEST) || !atom.CanAtmosPass(EAST) || !atom.CanAtmosPass(SOUTH)
 	if(!blocks_air)
-		return action_cb.Invoke()
+		action_cb.Invoke()
+		return
 
 	// and if we are, check if its space nearby or supermatter
 	var/turf/atom_turf = get_turf(atom)
 	for(var/turf/turf as anything in atom_turf.AdjacentTurfs(cardinal_only = TRUE))
 		if(isspaceturf(turf) || istype(get_area(turf), /area/station/engineering/supermatter))
-			return balloon_alert(src, "нельзя, опасная среда!")
+			balloon_alert(src, "нельзя, опасная среда!")
+			return
 
-	return action_cb.Invoke()
+	action_cb.Invoke()
 
 /**
  * Proc for organic processing.
@@ -267,6 +290,7 @@ GLOBAL_LIST_EMPTY(swarmers)
 		balloon_alert(src, "успешно отправлено!")
 		spark_system.start()
 		return
+
 	balloon_alert(src, "нету места для органики!")
 
 /**
@@ -401,6 +425,9 @@ GLOBAL_LIST_EMPTY(swarmers)
 /// Tries to send a mob to the processer, or teleport them randomly if none exist
 /mob/living/attack_swarmer_secondary(mob/living/simple_animal/hostile/swarmer/user, list/modifiers)
 	user.try_disperse(src)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+/mob/living/simple_animal/hostile/swarmer/attack_swarmer_secondary(mob/living/simple_animal/hostile/swarmer/user, list/modifiers)
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 /// Tries to convert a cyborg into a swarmer
