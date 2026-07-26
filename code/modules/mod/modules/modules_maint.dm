@@ -193,7 +193,7 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/stamp/mod/update_icon_state()
-	icon_state = "stamp_" + stamp_mode
+	icon_state = "stamp-" + stamp_mode
 
 #undef STAMP_MODE_OK
 #undef STAMP_MODE_DENY

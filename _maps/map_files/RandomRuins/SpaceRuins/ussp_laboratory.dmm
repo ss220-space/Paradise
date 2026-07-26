@@ -920,9 +920,7 @@
 	},
 /area/ruin/ussp_xeno/entrance)
 "nU" = (
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /obj/item/bikehorn/rubberducky{
 	pixel_x = 11;
 	pixel_y = 12
@@ -2123,7 +2121,7 @@
 /obj/machinery/alarm/directional/south{
 	alarm_frequency = 1200
 	},
-/obj/structure/sink/directional/north,
+/obj/structure/sink/directional/south,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -3588,7 +3586,7 @@
 	},
 /area/ruin/ussp_xeno/entrance)
 "YA" = (
-/obj/structure/sink/directional/east,
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = -26
 	},
