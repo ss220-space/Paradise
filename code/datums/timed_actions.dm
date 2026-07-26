@@ -90,14 +90,14 @@
 	if(cancel_on_max && interaction_key)
 		RegisterSignal(user, COMSIG_DO_AFTER_PRE_BEGAN, PROC_REF(on_do_after_pre_began))
 
+	if(timed_action_flags & DA_DO_AFTER_CHECK_NEXT_MOVE)
+		RegisterSignal(user, COMSIG_LIVING_CHANGENEXT_MOVE, PROC_REF(on_changenext_move))
+
 	if(!(timed_action_flags & DA_IGNORE_USER_LOC_CHANGE))
 		RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(on_user_moved))
 
 	if(!(timed_action_flags & DA_IGNORE_INCAPACITATED))
 		RegisterSignal(user, SIGNAL_ADDTRAIT(TRAIT_INCAPACITATED), PROC_REF(on_user_incapacitated))
-
-	if(!(timed_action_flags & DA_DO_AFTER_CHECK_NEXT_MOVE))
-		RegisterSignal(user, COMSIG_LIVING_CHANGENEXT_MOVE, PROC_REF(on_changenext_move))
 
 	if(!(timed_action_flags & DA_IGNORE_LYING))
 		RegisterSignal(user, COMSIG_LIVING_SET_BODY_POSITION, PROC_REF(on_living_set_body_position))
