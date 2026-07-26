@@ -828,7 +828,7 @@
 
 		return ATTACK_CHAIN_PROCEED_SUCCESS|ATTACK_CHAIN_NO_AFTERATTACK
 
-	if(istype(I, obj/item/seeds) && !istype(I, /obj/item/seeds/sample))
+	if(istype(I, /obj/item/seeds) && !istype(I, /obj/item/seeds/sample))
 		add_fingerprint(user)
 		if(myseed)
 			to_chat(user, span_warning("The [name] already has [myseed] inside."))

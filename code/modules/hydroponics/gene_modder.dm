@@ -104,7 +104,7 @@
 	if(exchange_parts(user, I))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(istype(I, obj/item/seeds))
+	if(istype(I, /obj/item/seeds))
 		if(add_seed(I, user))
 			return ATTACK_CHAIN_BLOCKED_ALL
 		return ATTACK_CHAIN_PROCEED
@@ -281,7 +281,7 @@
 				update_icon(UPDATE_OVERLAYS)
 			else
 				var/obj/item/I = user.get_active_hand()
-				if(istype(I, obj/item/seeds))
+				if(istype(I, /obj/item/seeds))
 					add_seed(I, user)
 
 		if("eject_disk")

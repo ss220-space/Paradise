@@ -93,7 +93,7 @@
 		to_chat(user, span_notice("You have transfered seeds from [bag] into [src]."))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(istype(I, obj/item/seeds))
+	if(istype(I, /obj/item/seeds))
 		add_fingerprint(user)
 		if(length(contents) >= max_seeds)
 			to_chat(user, span_warning("The [name] is full."))
