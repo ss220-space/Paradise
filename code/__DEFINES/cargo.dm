@@ -64,4 +64,12 @@
 /// Default export define, these are things that are sold to centcom.
 #define EXPORT_MARKET_STATION "supply"
 
+// Export define, things are sent to black market, or syndicate
+#define EXPORT_MARKET_SYNDICATE "black market"
+
+// Export define. For now, used when cargo quest take priority or points-economy clashes with credit-economy
+#define EXPORT_NONE "None"
+
 #define CARGO_CRATE_VALUE 200
+
+#define SYNDICATE_CRATE_VALUE 50
