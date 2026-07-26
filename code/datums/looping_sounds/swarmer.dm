@@ -6,4 +6,4 @@
 	end_sound = 'sound/machines/swarmer/analyzer_end.ogg'
 	use_sound_tokens = TRUE
 	ignore_walls = FALSE
-	direct = TRUE
+	use_reverb = FALSE

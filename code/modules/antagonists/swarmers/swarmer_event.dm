@@ -39,7 +39,7 @@
  */
 /datum/event/swarmers/proc/create_swarmers()
 	var/mob/living/simple_animal/hostile/swarmer/swarmer_type = spawn_type // for source variable
-	candidates = SSghost_spawns.poll_candidates("Вы хотите занять роль Свармеров?", ROLE_SWARMER, TRUE, 30 SECONDS, source = swarmer_type)
+	candidates = SSghost_spawns.poll_candidates("Вы хотите занять роль Свармеров?", ROLE_SWARMER, TRUE, 5 SECONDS, source = swarmer_type)
 	if(length(candidates) < SWARMERS_SPAWN_AMOUNT)
 		message_admins("Warning: not enough players volunteered to be swarmers. Only [length(candidates)] out of [SWARMERS_SPAWN_AMOUNT]!")
 		return FALSE
@@ -117,30 +117,28 @@
 
 /// Changes safe to change walls and removes dense objects nearby
 /datum/event/swarmers/proc/clean_stuff_around(turf/target_turf)
-	for(var/atom/movable/atom in range(1, target_turf))
-		if(iswallturf(atom)) // Changing wall turfs to floors
-			if(!check_safe_to_remove(atom))
-				continue
-			var/turf/simulated/wall/wall = atom
-			wall.ChangeTurf(/turf/simulated/floor/plating)
-		else if(isobj(atom)) // Destroying dense objects
-			if(atom == pod)
-				continue
-			if(!atom.density)
-				continue
-			if(istype(atom, /obj/structure/swarmer))
-				continue
-			if(!check_safe_to_remove(atom))
-				continue
-			qdel(atom)
-		else if(isliving(atom)) // Knocking off mobs
-			if(isswarmer(atom))
-				continue
-			var/mob/living/mob = atom
-			mob.adjustStaminaLoss(MAX_STAMINA_LOSS, forced = TRUE)
-			var/throw_direction = get_dir(mob, target_turf)
-			var/throw_target = get_edge_target_turf(pod, throw_direction)
-			mob.throw_at(throw_target, 5, 20)
+	for(var/turf/simulated/wall/wall_turf in range(shields_radius - 1, target_turf))
+		if(check_safe_to_remove(wall_turf))
+			wall_turf.ChangeTurf(/turf/simulated/floor/plating)
+
+	for(var/obj/obj in range(shields_radius, target_turf))
+		if(obj == pod)
+			continue
+		if(!obj.density)
+			continue
+		if(istype(obj, /obj/structure/swarmer))
+			continue
+		if(check_safe_to_remove(obj))
+			qdel(obj)
+
+	for(var/mob/living/living_mob in range(shields_radius, target_turf))
+		if(isswarmer(living_mob))
+			continue
+
+		living_mob.adjustStaminaLoss(MAX_STAMINA_LOSS, forced = TRUE)
+		var/throw_direction = get_dir(living_mob, target_turf)
+		var/throw_target = get_edge_target_turf(pod, throw_direction)
+		living_mob.throw_at(throw_target, 5, 20)
 
 /// Used to check on landing if there are any space turfs nearby an atom
 /datum/event/swarmers/proc/check_safe_to_remove(atom/movable/target)

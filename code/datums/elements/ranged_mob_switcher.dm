@@ -76,7 +76,7 @@
 /// Shows radial menu and returns type of chosen mode
 /datum/element/ranged_mob_switcher/proc/get_radial_menu_choice(mob/living/simple_animal/hostile/target)
 	var/list/final_radial_menu_list = radial_menu_list - find_current_mode_name(target)
-	var/choice = show_radial_menu(target, target, final_radial_menu_list)
+	var/choice = show_radial_menu(target, target, final_radial_menu_list, tooltips = TRUE)
 	if(!choice)
 		return
 

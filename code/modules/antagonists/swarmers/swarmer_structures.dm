@@ -892,6 +892,7 @@ GLOBAL_LIST_EMPTY(swarmer_objects)
 	icon_state = "core_field"
 	density = TRUE
 	anchored = TRUE
+	layer = HIGH_OBJ_LAYER
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/structure/swarmer_core_field/get_ru_names()
@@ -910,6 +911,8 @@ GLOBAL_LIST_EMPTY(swarmer_objects)
 		dir = new_dir
 	if(duration)
 		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), duration)
+	if(iswallturf(loc))
+		SET_PLANE(src, FLOOR_PLANE, loc)
 
 /obj/structure/swarmer_core_field/Destroy(force)
 	if(prob(30))
