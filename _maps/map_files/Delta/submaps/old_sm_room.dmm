@@ -1329,7 +1329,7 @@
 /turf/simulated/floor/wood/dark,
 /area/template_noop)
 "Gu" = (
-/obj/structure/sink/directional/north,
+/obj/structure/sink/directional/south,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/engine/cult,
 /area/template_noop)

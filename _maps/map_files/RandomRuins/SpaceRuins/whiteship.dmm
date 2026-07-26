@@ -27,7 +27,7 @@
 	},
 /area/shuttle/abandoned)
 "aO" = (
-/obj/structure/sink/directional/south,
+/obj/structure/sink/directional/north,
 /obj/structure/mirror{
 	pixel_y = 35
 	},
@@ -339,11 +339,10 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/toilet/cancollectmapitems{
-	desc = "The HT-451, a torque rotation-based, waste disposal unit for small matter. This one seems remarkably clean. The cistern lid looking a bit cracked from an edge...";
-	dir = 4
-	},
 /obj/item/clothing/gloves/color/red/insulated,
+/obj/structure/toilet/directional/west{
+	desc = "The HT-451, a torque rotation-based, waste disposal unit for small matter. This one seems remarkably clean. The cistern lid looking a bit cracked from an edge."
+	},
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -706,7 +705,7 @@
 	},
 /area/shuttle/abandoned)
 "qp" = (
-/obj/structure/sink/directional/west,
+/obj/structure/sink/directional/east,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
@@ -1265,9 +1264,9 @@
 	height = 31;
 	id = "whiteship";
 	name = "NT Medical Ship";
+	preferred_direction = 4;
 	rebuildable = 1;
-	width = 17;
-	preferred_direction = 4
+	width = 17
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)

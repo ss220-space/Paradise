@@ -2060,7 +2060,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "auv" = (
-/obj/structure/sink/directional/east,
+/obj/structure/sink/directional/west,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/mirror{
 	pixel_x = -26
@@ -5383,7 +5383,7 @@
 	pixel_x = -25;
 	specialfunctions = 4
 	},
-/obj/structure/toilet,
+/obj/structure/toilet/directional/north,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -9477,7 +9477,7 @@
 /turf/simulated/floor/plating,
 /area/station/security/prisoner_shuttle)
 "bSA" = (
-/obj/structure/sink/directional/south,
+/obj/structure/sink/directional/north,
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/mop,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -10609,6 +10609,7 @@
 /area/station/engineering/supermatter/engine)
 "ceW" = (
 /obj/structure/toilet/captain_toilet{
+	dir = 1;
 	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel{
@@ -10755,7 +10756,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "cgc" = (
-/obj/machinery/shower/directional/west,
+/obj/machinery/shower/directional/east,
 /obj/structure/curtain/open/shower,
 /obj/machinery/door_control{
 	id = "showers";
@@ -12068,7 +12069,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/detectives_office)
 "ctN" = (
-/obj/structure/sink/directional/east,
+/obj/structure/sink/directional/west,
 /obj/structure/closet/walllocker/emerglocker/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -20578,9 +20579,7 @@
 	pixel_y = -25;
 	specialfunctions = 4
 	},
-/obj/structure/toilet{
-	dir = 1
-	},
+/obj/structure/toilet/directional/south,
 /turf/simulated/floor/plasteel,
 /area/station/commons/toilet/locker_toilet)
 "epP" = (
@@ -31600,7 +31599,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/shower/directional/west,
+/obj/machinery/shower/directional/east,
 /turf/simulated/floor/plasteel,
 /area/station/medical/virology/lab)
 "gye" = (
@@ -32852,7 +32851,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/structure/sink/directional/south,
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel,
 /area/station/medical/virology/lab)
 "gJo" = (
@@ -40677,7 +40676,7 @@
 	},
 /area/station/engineering/atmos/control)
 "ieV" = (
-/obj/structure/sink/directional/east,
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = -26
 	},
@@ -43008,7 +43007,7 @@
 	},
 /area/station/maintenance/garden)
 "izO" = (
-/obj/structure/sink/directional/north,
+/obj/structure/sink/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel{
@@ -43666,7 +43665,7 @@
 /obj/structure/mirror{
 	pixel_y = 32
 	},
-/obj/structure/sink/directional/south,
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -51261,7 +51260,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "kbq" = (
-/obj/structure/sink/directional/north,
+/obj/structure/sink/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -53391,7 +53390,7 @@
 	},
 /area/station/medical/virology)
 "kwy" = (
-/obj/structure/sink/directional/north,
+/obj/structure/sink/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -58105,9 +58104,7 @@
 	pixel_y = -25;
 	specialfunctions = 4
 	},
-/obj/structure/toilet{
-	dir = 1
-	},
+/obj/structure/toilet/directional/south,
 /turf/simulated/floor/plasteel,
 /area/station/commons/toilet/locker_toilet)
 "lnR" = (
@@ -58690,10 +58687,7 @@
 	},
 /area/station/maintenance/asmaint4)
 "ltJ" = (
-/obj/structure/toilet{
-	desc = "Старый грязный туалет, по какой-то причине стоящий в техах. У вас нет ни единого понятия откуда он здесь.";
-	name = "Параша"
-	},
+/obj/structure/toilet/directional/north,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
 "ltL" = (
@@ -69838,7 +69832,7 @@
 	},
 /area/station/service/library)
 "nyJ" = (
-/obj/structure/sink/directional/north,
+/obj/structure/sink/directional/south,
 /obj/item/reagent_containers/glass/bucket,
 /turf/simulated/floor/carpet,
 /area/station/commons/fitness)
@@ -75015,7 +75009,7 @@
 /obj/item/bikehorn/rubberducky,
 /obj/structure/curtain/open/shower,
 /obj/effect/landmark/spawner/blob,
-/obj/machinery/shower/directional/west,
+/obj/machinery/shower/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -79429,7 +79423,7 @@
 /obj/structure/mirror{
 	pixel_y = 32
 	},
-/obj/structure/sink/directional/south,
+/obj/structure/sink/directional/north,
 /obj/effect/landmark/start/security_officer,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -84923,7 +84917,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/structure/sink/directional/south,
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel,
 /area/station/medical/virology/lab)
 "qju" = (
@@ -85791,7 +85785,7 @@
 	},
 /area/station/medical/secondary)
 "qsq" = (
-/obj/machinery/shower/directional/west,
+/obj/machinery/shower/directional/east,
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -88004,7 +87998,7 @@
 	pixel_x = -25;
 	specialfunctions = 4
 	},
-/obj/structure/toilet,
+/obj/structure/toilet/directional/north,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -88595,9 +88589,7 @@
 	},
 /area/station/hallway/primary/central/sw)
 "qRf" = (
-/obj/structure/toilet{
-	dir = 1
-	},
+/obj/structure/toilet/directional/south,
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
 	},
@@ -89045,22 +89037,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/supermatter/room)
-"qUg" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/window/eastright{
-	dir = 2;
-	name = "Virology Work Zone";
-	req_access = list(5)
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/shower/directional/east,
-/turf/simulated/floor/plasteel,
-/area/station/medical/virology/lab)
 "qUk" = (
 /obj/machinery/vending/artvend,
 /turf/simulated/floor/plating,
@@ -89624,7 +89600,7 @@
 /area/station/engineering/break_room)
 "qZE" = (
 /obj/effect/turf_decal/delivery/hollow,
-/obj/structure/sink/directional/east,
+/obj/structure/sink/directional/west,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -93077,7 +93053,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/shower/directional/west,
+/obj/machinery/shower/directional/east,
 /turf/simulated/floor/plasteel,
 /area/station/medical/virology/lab)
 "rFg" = (
@@ -93266,7 +93242,7 @@
 	},
 /area/station/medical/reception)
 "rGP" = (
-/obj/structure/sink/directional/east,
+/obj/structure/sink/directional/west,
 /obj/machinery/firealarm/directional/west,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -97452,7 +97428,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/checkpoint/aft)
 "sze" = (
-/obj/structure/sink/directional/north,
+/obj/structure/sink/directional/south,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/mirror{
 	pixel_y = -30
@@ -98525,7 +98501,7 @@
 	},
 /area/station/engineering/atmos)
 "sJp" = (
-/obj/structure/sink/directional/south,
+/obj/structure/sink/directional/north,
 /obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -101048,9 +101024,7 @@
 	},
 /area/station/science/research)
 "tfF" = (
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /obj/item/wirecutters,
 /obj/effect/turf_decal/delivery/blue/hollow,
 /obj/machinery/light/small{
@@ -101849,7 +101823,7 @@
 "toe" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/landmark/lightsout,
-/obj/structure/sink/directional/south,
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -106691,7 +106665,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/banya)
 "ujs" = (
-/obj/structure/sink/directional/east,
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "purple"
@@ -110817,9 +110791,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "uVp" = (
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /obj/effect/turf_decal/delivery/blue/hollow,
 /obj/machinery/light/small{
 	dir = 4
@@ -113756,12 +113728,12 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "vxS" = (
-/obj/structure/sink/directional/east,
+/obj/structure/sink/directional/west,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
 /mob/living/simple_animal/mouse/rat/Ratatui,
-/obj/structure/sink/directional/east,
+/obj/structure/sink/directional/west,
 /obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
@@ -117473,7 +117445,7 @@
 	icon_state = "mirror_broke";
 	pixel_y = 32
 	},
-/obj/structure/sink/directional/south,
+/obj/structure/sink/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -118689,7 +118661,7 @@
 /obj/structure/mirror{
 	pixel_y = 32
 	},
-/obj/structure/sink/directional/south,
+/obj/structure/sink/directional/north,
 /obj/structure/closet/loot_crate/blue,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -119869,7 +119841,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/solars/starboard/fore)
 "wEa" = (
-/obj/structure/sink/directional/east,
+/obj/structure/sink/directional/west,
 /obj/item/radio/intercom/directional/west,
 /obj/item/reagent_containers/glass/bucket,
 /obj/structure/disposalpipe/segment{
@@ -128168,9 +128140,7 @@
 	},
 /area/station/security/prison/perma)
 "xYL" = (
-/obj/structure/toilet{
-	dir = 1
-	},
+/obj/structure/toilet/directional/east,
 /obj/item/reagent_containers/food/drinks/drinkingglass{
 	pixel_x = -8;
 	pixel_y = 13
@@ -129407,9 +129377,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/supermatter/room)
 "yls" = (
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -178040,7 +178008,7 @@ gjH
 dWO
 hBf
 gXp
-qUg
+rFc
 vpk
 qER
 sgx

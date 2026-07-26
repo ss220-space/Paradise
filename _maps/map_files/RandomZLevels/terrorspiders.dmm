@@ -267,13 +267,13 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
 "aQ" = (
-/obj/structure/sink/directional/south,
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
 /area/awaymission/UO71/plaza)
 "aR" = (
-/obj/structure/sink/directional/south,
+/obj/structure/sink/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -468,9 +468,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
 "br" = (
-/obj/structure/toilet{
-	dir = 1
-	},
+/obj/structure/toilet/directional/south,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -479,9 +477,7 @@
 	},
 /area/awaymission/UO71/plaza)
 "bs" = (
-/obj/structure/toilet{
-	dir = 1
-	},
+/obj/structure/toilet/directional/south,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -1042,7 +1038,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/sink/directional/south,
+/obj/structure/sink/directional/north,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
@@ -1121,7 +1117,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
-/obj/structure/sink/directional/south,
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "green"
@@ -1970,7 +1966,7 @@
 	},
 /area/awaymission/UO71/centralhall)
 "fw" = (
-/obj/structure/sink/kitchen/directional/south,
+/obj/structure/sink/kitchen/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -2174,7 +2170,7 @@
 /turf/simulated/wall,
 /area/awaymission/UO71/centralhall)
 "fY" = (
-/obj/structure/sink/kitchen/directional/south,
+/obj/structure/sink/kitchen/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -3346,7 +3342,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/gateway)
 "ja" = (
-/obj/structure/sink/directional/south,
+/obj/structure/sink/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/nosmoking_2{
 	pixel_x = -32
@@ -3540,7 +3536,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/science)
 "jD" = (
-/obj/machinery/shower/directional/south,
+/obj/machinery/shower/directional/north,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -3549,7 +3545,7 @@
 	},
 /area/awaymission/UO71/science)
 "jE" = (
-/obj/structure/sink/directional/south,
+/obj/structure/sink/directional/north,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
@@ -6775,9 +6771,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/toilet{
-	dir = 4
-	},
+/obj/structure/toilet/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -6839,7 +6833,7 @@
 /obj/structure/mirror{
 	pixel_x = 28
 	},
-/obj/structure/sink/directional/west,
+/obj/structure/sink/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -6987,7 +6981,7 @@
 	},
 /area/awaymission/UO71/centralhall)
 "qQ" = (
-/obj/structure/sink/directional/west,
+/obj/structure/sink/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -7262,9 +7256,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/toilet{
-	dir = 4
-	},
+/obj/structure/toilet/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -7282,7 +7274,7 @@
 /obj/structure/mirror{
 	pixel_x = 28
 	},
-/obj/structure/sink/directional/west,
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -8076,12 +8068,6 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/awaymission/UO71/centralhall)
-"sZ" = (
-/obj/machinery/shower/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -10041,9 +10027,7 @@
 	},
 /area/awaymission/UO71/eng)
 "xu" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
+/obj/structure/toilet/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -10113,7 +10097,7 @@
 	},
 /area/awaymission/UO71/eng)
 "xE" = (
-/obj/structure/sink/directional/west,
+/obj/structure/sink/directional/east,
 /obj/machinery/light/small,
 /obj/structure/mirror{
 	pixel_x = 28
@@ -21942,8 +21926,8 @@ qw
 qQ
 ry
 fb
-sZ
-sZ
+tP
+tP
 fe
 fe
 rq
