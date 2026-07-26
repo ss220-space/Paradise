@@ -30,6 +30,9 @@
 	fire_sound = 'sound/weapons/plasma_cutter.ogg'
 	harmful = FALSE
 
+/obj/item/ammo_casing/energy/disabler/advtaser
+	projectile_type = /obj/projectile/beam/disabler/advtaser
+
 /obj/item/ammo_casing/energy/disabler/hos
 	e_cost = 40
 

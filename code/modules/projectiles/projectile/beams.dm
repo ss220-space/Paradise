@@ -1,3 +1,5 @@
+#define DISABLER_STAMINA_CAP 65
+
 /obj/projectile/beam
 	name = "laser"
 	icon_state = "laser"
@@ -15,6 +17,13 @@
 	light_color = COLOR_SOFT_RED
 	ricochets_max = 50	//Honk!
 	ricochet_chance = 80
+	var/stamina_damage_cap = 0
+
+/obj/projectile/beam/prehit(atom/target)
+	if(stamina_damage_cap && ishuman(target))
+		var/mob/living/carbon/human/victim = target
+		damage = clamp(stamina_damage_cap - victim.getStaminaLoss(), 0, damage)
+	return ..()
 
 /obj/projectile/beam/get_ru_names()
 	return alist(
@@ -160,6 +169,7 @@
 	tracer_type = /obj/effect/projectile/tracer/disabler
 	muzzle_type = /obj/effect/projectile/muzzle/disabler
 	impact_type = /obj/effect/projectile/impact/disabler
+	stamina_damage_cap = DISABLER_STAMINA_CAP
 
 /obj/projectile/beam/disabler/get_ru_names()
 	return alist(
@@ -170,6 +180,9 @@
 		INSTRUMENTAL = "дизейблером",
 		PREPOSITIONAL = "дизейблере",
 	)
+
+/obj/projectile/beam/disabler/advtaser
+	stamina_damage_cap = 0
 
 /obj/projectile/beam/specter/laser
 	name = "specter laser beam"
@@ -186,6 +199,7 @@
 	eyeblur = 0
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_LIGHT_CYAN
+	stamina_damage_cap = DISABLER_STAMINA_CAP
 
 /obj/projectile/beam/pulse
 	name = "pulse"
@@ -483,6 +497,7 @@
 	eyeblur = 0
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_CYAN
+	stamina_damage_cap = DISABLER_STAMINA_CAP
 
 /obj/projectile/beam/podsniper/disabler/get_ru_names()
 	return alist(
@@ -665,6 +680,7 @@
 	eyeblur = 0
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_LIGHT_CYAN
+	stamina_damage_cap = DISABLER_STAMINA_CAP
 
 /obj/projectile/beam/dominator/paralyzer/get_ru_names()
 	return alist(
@@ -808,3 +824,5 @@
 	hitsound = 'sound/weapons/parry.ogg'
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_particles
 	light_color = LIGHT_COLOR_GREEN
+
+#undef DISABLER_STAMINA_CAP
