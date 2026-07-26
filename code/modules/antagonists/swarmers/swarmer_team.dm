@@ -132,7 +132,7 @@
 			continue
 		target.balloon_alert(target, "обнаружено повреждение ядра!")
 		to_chat(target, span_swarmerboldlarge("Внимание: Обнаружено повреждение ядра! Местоположение: [locname]."))
-		// nuSanya -> add some sound
+		SEND_SOUND(target, sound('sound/machines/warning-buzzer.ogg'))
 
 /**
  * Signal proc sent on swarmer core being moved
@@ -149,7 +149,7 @@
 			continue
 		target.balloon_alert(target, "обнаружено перемещение ядра!")
 		to_chat(target, span_swarmerboldlarge("Внимание: Обнаружено перемещение ядра! Новое местоположение: [locname]."))
-		// nuSanya -> add some sound
+		SEND_SOUND(target, sound('sound/machines/warning-buzzer.ogg'))
 
 /**
  * Signal proc used in organic processing (not mobs)

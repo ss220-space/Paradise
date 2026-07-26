@@ -48,7 +48,6 @@
 		balloon_alert(user, "сбито!")
 		return SWARMER_ACT_IMPOSSIBLE | SWARMER_ACT_IMPOSSIBLE_REASON_OVERRIDE
 
-	// Clean the hydroponic lot, nusanya TODO: make a proc for this
 	age = 0
 	plant_health = 0
 	if(harvest)

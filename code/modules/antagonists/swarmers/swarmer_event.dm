@@ -117,7 +117,7 @@
 
 /// Changes safe to change walls and removes dense objects nearby
 /datum/event/swarmers/proc/clean_stuff_around(turf/target_turf)
-	for(var/atom/movable/atom as anything in range(1, target_turf))
+	for(var/atom/movable/atom in range(1, target_turf))
 		if(iswallturf(atom)) // Changing wall turfs to floors
 			if(!check_safe_to_remove(atom))
 				continue

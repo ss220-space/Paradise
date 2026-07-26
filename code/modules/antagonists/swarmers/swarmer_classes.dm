@@ -345,14 +345,6 @@ GLOBAL_LIST_INIT(swarmer_actions_by_type, list(
 	do_attack_animation(target)
 	changeNext_move(CLICK_CD_MELEE)
 
-// Grants achievement for, somehow, killing the mega swarmer with bare hands.
-/mob/living/simple_animal/hostile/swarmer/mega/attack_hand(mob/living/carbon/human/attacker)
-	. = ..()
-	if(. && is_dead() && attacker.client)
-		// nuSanya -> after swarmer pr
-		//attacker.client.give_award(/datum/award/achievement/misc/mega_swarmer_punch)
-		attacker.balloon_alert(attacker, "жесть вы крутой!!!") // to remove after
-
 /mob/living/simple_animal/hostile/swarmer/mega/get_ru_names()
 	return alist(
 		NOMINATIVE = "мега — свармер",

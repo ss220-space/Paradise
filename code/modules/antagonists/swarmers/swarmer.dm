@@ -229,7 +229,7 @@ GLOBAL_LIST_EMPTY(swarmers)
 		CRASH("Swarmer act returned only SWARMER_ACT_POSSIBLE flag, which should not happen. Atom: [atom.type].")
 
 	if(atom.resistance_flags & INDESTRUCTIBLE)
-		balloon_alert("невозможно сломать!")
+		balloon_alert(src, "невозможно сломать!")
 		return
 
 	var/datum/callback/action_cb
