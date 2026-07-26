@@ -411,7 +411,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 	cost = SYNDICATE_CRATE_VALUE * 10
 	sales_market = EXPORT_MARKET_SYNDICATE
 
-/datum/export/stacks/plasma/syndicate
+/datum/export/stack/plasma/syndicate
 	cost = SYNDICATE_CRATE_VALUE * 2
 	k_elasticity = 0
 	sales_market = EXPORT_MARKET_SYNDICATE

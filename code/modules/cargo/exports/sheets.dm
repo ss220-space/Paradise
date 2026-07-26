@@ -34,7 +34,7 @@
 	export_types = list(/obj/item/stack/ammonia_crystals)
 
 //Only for Syndicate for now, NT has quests
-/datum/export/stacks/plasma
+/datum/export/stack/plasma
 	cost = CARGO_CRATE_VALUE * 2
 	k_hit_percentile = 0.4 / MAX_STACK_SIZE //Meaning selling 1 full stack of materials will decrease subsequent sales by 40%
 	k_recovery_time = 4 MINUTES
