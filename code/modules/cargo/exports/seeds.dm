@@ -19,23 +19,23 @@
 		if(seed::rarity > highest_rarity)
 			highest_rarity = seed::rarity
 
-/datum/export/seed/get_base_cost(obj/item/seeds/S)
-	var/discovered = discovered_plants[S.type]
+/datum/export/seed/get_base_cost(obj/item/seeds/seed)
+	var/discovered = discovered_plants[seed.type]
 	if(!needs_discovery && discovered)
 		return 0
 	if(needs_discovery && !discovered)
 		return 0
-	return ..() * (S.rarity + S.potency)
+	return ..() * (seed.rarity + seed.potency)
 
-/datum/export/seed/sell_object(obj/item/seeds/S, datum/export_report/report, dry_run, apply_elastic)
+/datum/export/seed/sell_object(obj/item/seeds/seed, datum/export_report/report, dry_run, apply_elastic)
 	. = ..()
 	if(. && !dry_run)
-		discovered_plants[S.type] = S.potency
+		discovered_plants[seed.type] = seed.potency
 
 /datum/export/seed/potency
 	cost = CARGO_CRATE_VALUE * 0.0125 // Gets multiplied by potency and rarity.
 	unit_name = "improved plant sample"
 	needs_discovery = TRUE // Only for already discovered species
 
-/datum/export/seed/potency/get_base_cost(obj/item/seeds/S)
-	return ..() * (S.potency - discovered_plants[S.type])
+/datum/export/seed/potency/get_base_cost(obj/item/seeds/seed)
+	return ..() * (seed.potency - discovered_plants[seed.type])
