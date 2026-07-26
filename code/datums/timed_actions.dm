@@ -90,14 +90,14 @@
 	if(cancel_on_max && interaction_key)
 		RegisterSignal(user, COMSIG_DO_AFTER_PRE_BEGAN, PROC_REF(on_do_after_pre_began))
 
+	if(timed_action_flags & DA_DO_AFTER_CHECK_NEXT_MOVE)
+		RegisterSignal(user, COMSIG_LIVING_CHANGENEXT_MOVE, PROC_REF(on_changenext_move))
+
 	if(!(timed_action_flags & DA_IGNORE_USER_LOC_CHANGE))
 		RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(on_user_moved))
 
 	if(!(timed_action_flags & DA_IGNORE_INCAPACITATED))
 		RegisterSignal(user, SIGNAL_ADDTRAIT(TRAIT_INCAPACITATED), PROC_REF(on_user_incapacitated))
-
-	if(!(timed_action_flags & DA_DO_AFTER_CHECK_NEXT_MOVE))
-		RegisterSignal(user, COMSIG_LIVING_CHANGENEXT_MOVE, PROC_REF(on_changenext_move))
 
 	if(!(timed_action_flags & DA_IGNORE_LYING))
 		RegisterSignal(user, COMSIG_LIVING_SET_BODY_POSITION, PROC_REF(on_living_set_body_position))
@@ -277,7 +277,7 @@
  * - cancel_message - Message shown to the user if cancel_on_max is set to `TRUE` and they exceeds max interaction count. Use empty string ("") to skip default cancel message.
  * - category - Used to apply proper action speed modifier to passed delay.
  */
-/proc/do_after(atom/movable/user, delay, atom/target, timed_action_flags = NONE, show_progress = TRUE, datum/callback/extra_checks, interaction_key, max_interact_count = INFINITY, cog_icon = 'icons/effects/progressbar.dmi', cog_iconstate = "cog", mob/bar_override = null, cancel_on_max = FALSE, cancel_message = span_warning("Attempt cancelled."), category = DA_CAT_ALL)
+/proc/do_after(atom/movable/user, delay, atom/target, timed_action_flags = DEFAULT_DOAFTER_IGNORE, show_progress = TRUE, datum/callback/extra_checks, interaction_key, max_interact_count = INFINITY, cog_icon = 'icons/effects/progressbar.dmi', cog_iconstate = "cog", mob/bar_override = null, cancel_on_max = FALSE, cancel_message = span_warning("Attempt cancelled."), category = DA_CAT_ALL)
 	if(!user)
 		return FALSE
 	var/mob/as_mob = astype(user, /mob)
