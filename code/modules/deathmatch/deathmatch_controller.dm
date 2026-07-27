@@ -23,7 +23,7 @@
 
 /datum/deathmatch_controller/proc/create_new_lobby(mob/host)
 	lobbies[host.ckey] = new /datum/deathmatch_lobby(host)
-	notify_ghosts("Было открыто новое лобби режима \"Deathmatch\".")
+	notify_ghosts("Было открыто новое лобби режима \"Deathmatch\". <a href=byond://?src=[UID_of(lobbies[host.ckey])];join=1>(Подключиться)</a>")
 
 /datum/deathmatch_controller/proc/remove_lobby(ckey)
 	var/lobby = lobbies[ckey]

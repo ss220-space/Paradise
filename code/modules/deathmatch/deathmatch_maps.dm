@@ -94,5 +94,57 @@
 	map_name = "lattice_battle"
 	key = LAZY_TEMPLATE_KEY_DEATHMATCH_LATTICE_BATTLE
 
+/datum/lazy_template/deathmatch/maint_mania
+	name = "Технические туннели"
+	desc = "Плохо освещённые технические туннели, неизвестные таблетки, кровавые следы и самодельное оружие. Мечта ассистента."
+	max_players = 8
+	allowed_loadouts = list(
+		/datum/outfit/deathmatch_loadout/assistant,
+	)
+	map_name = "maint_mania"
+	key = LAZY_TEMPLATE_KEY_DEATHMATCH_MAINT_MANIA
+
+/datum/lazy_template/deathmatch/meat_tower
+	name = "Кухня"
+	desc = "Должен остаться только один шеф-повар."
+	max_players = 8
+	allowed_loadouts = list(
+		/datum/outfit/deathmatch_loadout/chef,
+	)
+	map_name = "meat_tower"
+	key = LAZY_TEMPLATE_KEY_DEATHMATCH_MEAT_TOWER
+
+/datum/lazy_template/deathmatch/mech_madness
+	name = "Битва Мехов"
+	desc = "Нравятся мехи? Нет? Ну а сражаться всё равно придётся."
+	max_players = 4
+	allowed_loadouts = list(
+		/datum/outfit/deathmatch_loadout/operative,
+	)
+	map_name = "mech_madness"
+	key = LAZY_TEMPLATE_KEY_DEATHMATCH_MECH_MADNESS
+
+/datum/lazy_template/deathmatch/meta_brig
+	name = "Бриг Метастанции"
+	desc = "Этой карты у нас как бы нет, но арена для битвы неплохая."
+	max_players = 8
+	allowed_loadouts = list(
+		/datum/outfit/deathmatch_loadout/assistant,
+	)
+	map_name = "meta_brig"
+	key = LAZY_TEMPLATE_KEY_DEATHMATCH_META_BRIG
+
+/datum/lazy_template/deathmatch/ragin_mages
+	name = "Корабль ФКВ"
+	desc = "Волшебный корабль, на котором призойдет не такая уж и волшебная резня. ВНИМАНИЕ: снаряжение магов не доделано."
+	max_players = 8
+	allowed_loadouts = list(
+		/datum/outfit/deathmatch_loadout/operative/ranged,
+		/datum/outfit/deathmatch_loadout/operative/melee,
+	)
+	map_name = "ragin_mages"
+	key = LAZY_TEMPLATE_KEY_DEATHMATCH_RAGIN_MAGES
+
+
 // TODO:
-// 13 more maps, at least
+// 8 more maps, at least

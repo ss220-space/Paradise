@@ -1,0 +1,4 @@
+author: "SCPfollower"
+delete-after: True
+changes:
+  - tweak: "Удаление игрока дэфматча если он покидает свой Z уровень. (PR #9574)"

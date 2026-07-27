@@ -14,6 +14,12 @@
 		PREPOSITIONAL = "манифесте снабжения",
 	)
 
+/obj/item/paper/manifest/proc/is_approved()
+	return LAZYLEN(stamped) && !is_denied()
+
+/obj/item/paper/manifest/proc/is_denied()
+	return LAZYLEN(stamped) && ( (/obj/item/stamp/denied in stamped) || ("stamp-deny" in stamped) )
+
 /obj/docking_port/mobile/supply
 	name = "supply shuttle"
 	id = "supply"
@@ -258,7 +264,6 @@
 				crate.quest = null
 
 		export_item_and_contents(MA, apply_elastic = TRUE, dry_run = FALSE, external_report = report)
-
 
 		qdel(MA, force = TRUE)
 		SSshuttle.sold_atoms += "."

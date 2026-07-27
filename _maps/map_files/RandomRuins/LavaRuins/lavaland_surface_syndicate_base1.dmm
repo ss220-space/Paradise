@@ -2498,7 +2498,7 @@
 /area/ruin/unpowered/syndicate_lava_base/main)
 "fF" = (
 /obj/effect/turf_decal/delivery/hollow,
-/obj/machinery/shower/directional/south,
+/obj/machinery/shower/directional/north,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "fG" = (
@@ -2890,7 +2890,7 @@
 /area/ruin/unpowered/syndicate_lava_base/virology)
 "gU" = (
 /obj/machinery/alarm/syndicate/directional/west,
-/obj/structure/sink/directional/east,
+/obj/structure/sink/directional/west,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
@@ -3295,10 +3295,8 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
 "id" = (
-/obj/structure/toilet{
-	pixel_y = 18
-	},
-/obj/structure/sink/directional/west,
+/obj/structure/toilet/directional/north,
+/obj/structure/sink/directional/east,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -3556,8 +3554,8 @@
 "iI" = (
 /obj/machinery/door/airlock/vault{
 	id_tag = "syndie_lavaland_vault";
-	req_access = list(150);
-	locked = 1
+	locked = 1;
+	req_access = list(150)
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -4097,8 +4095,8 @@
 "jK" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8;
-	volume_rate = 200;
-	id = "syndie_lavaland_waste"
+	id = "syndie_lavaland_waste";
+	volume_rate = 200
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
@@ -4209,10 +4207,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/shower/directional/east{
-	desc = "The HS-452. Installed recently by the DonkCo Hygiene Division.";
-	name = "emergency shower"
-	},
+/obj/machinery/shower/directional/west,
 /obj/structure/sign/radiation/rad_area{
 	pixel_y = -32
 	},
@@ -4607,7 +4602,7 @@
 "kN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sink/kitchen/directional/south,
+/obj/structure/sink/kitchen/directional/north,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "kO" = (
@@ -5106,7 +5101,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "mf" = (
-/obj/structure/sink/directional/west,
+/obj/structure/sink/directional/east,
 /obj/machinery/alarm/syndicate/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,

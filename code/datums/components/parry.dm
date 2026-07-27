@@ -137,7 +137,9 @@
 	if(armor_penetration_flat >= 100)
 		return
 
-	var/stamina_damage = stamina_coefficient * (((time_since_parry / parry_time_out_time)) * (damage + armor_penetration_flat)) + stamina_constant
+	CALCULATE_SKILL_MOD(owner, SHIELD_MOD, shield_skill_mod)
+
+	var/stamina_damage = (stamina_coefficient * (((time_since_parry / parry_time_out_time)) * (damage + armor_penetration_flat)) + stamina_constant) * shield_skill_mod
 
 	if(!no_parry_sound)
 		var/sound_to_play

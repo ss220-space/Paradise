@@ -243,6 +243,8 @@
 #define TRAIT_COMBAT_EXOFRAME_EMP_SHIELD "combat_exoframe_emp_shield"
 /// Item still allows you to examine items while blind and actively held.
 #define TRAIT_BLIND_TOOL "blind_tool"
+/// A melee weapon, for this items work combat/melee skill damage mod
+#define TRAIT_MELEE_WEAPON "melee_weapon"
 
 #define TRAIT_SHRAPNEL "shrapnel"
 /// Trait for items that can be attached to tripwire. Dont forget about on_tripwire_trigger(obj/item/tripwire/base, mob/user) proc for each item

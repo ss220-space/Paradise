@@ -1244,98 +1244,45 @@ What are the archived variables for?
 ///Removes an amount of a specific gas from the gas_mixture.
 ///Returns: gas_mixture with the gas removed
 /datum/gas_mixture/proc/remove_specific(gas, amount)
-	amount = QUANTIZE(amount)
-	if(amount <= 0)
-		return null
 	var/datum/gas_mixture/removed = new type
 	removed.private_temperature = private_temperature
+
+	#define REMOVE_GAS_CASE(GAS_FLAG, PRIVATE_VAR) \
+		if(GAS_FLAG) { \
+			amount = QUANTIZE(min(amount, PRIVATE_VAR)); \
+			if(amount <= 0) \
+				return null; \
+			PRIVATE_VAR -= amount; \
+			removed.PRIVATE_VAR = amount; \
+		}
+
 	switch(gas)
-		if(TLV_O2)
-			amount = min(amount, private_oxygen)
-			private_oxygen -= amount
-			removed.private_oxygen = amount
-		if(TLV_N2)
-			amount = min(amount, private_nitrogen)
-			private_nitrogen -= amount
-			removed.private_nitrogen = amount
-		if(TLV_PL)
-			amount = min(amount, private_toxins)
-			private_toxins -= amount
-			removed.private_toxins = amount
-		if(TLV_CO2)
-			amount = min(amount, private_carbon_dioxide)
-			private_carbon_dioxide -= amount
-			removed.private_carbon_dioxide = amount
-		if(TLV_N2O)
-			amount = min(amount, private_sleeping_agent)
-			private_sleeping_agent -= amount
-			removed.private_sleeping_agent = amount
-		if(TLV_H2)
-			amount = min(amount, private_hydrogen)
-			private_hydrogen -= amount
-			removed.private_hydrogen = amount
-		if(TLV_H2O)
-			amount = min(amount, private_water_vapor)
-			private_water_vapor -= amount
-			removed.private_water_vapor = amount
-		if(TLV_AGENT_B)
-			amount = min(amount, private_agent_b)
-			private_agent_b -= amount
-			removed.private_agent_b = amount
-		if(TLV_TRITIUM)
-			amount = min(amount, private_tritium)
-			private_tritium -= amount
-			removed.private_tritium = amount
-		if(TLV_BZ)
-			amount = min(amount, private_bz)
-			private_bz -= amount
-			removed.private_bz = amount
-		if(TLV_PLUOXIUM)
-			amount = min(amount, private_pluoxium)
-			private_pluoxium -= amount
-			removed.private_pluoxium = amount
-		if(TLV_MIASMA)
-			amount = min(amount, private_miasma)
-			private_miasma -= amount
-			removed.private_miasma = amount
-		if(TLV_FREON)
-			amount = min(amount, private_freon)
-			private_freon -= amount
-			removed.private_freon = amount
-		if(TLV_NITRIUM)
-			amount = min(amount, private_nitrium)
-			private_nitrium -= amount
-			removed.private_nitrium = amount
-		if(TLV_HEALIUM)
-			amount = min(amount, private_healium)
-			private_healium -= amount
-			removed.private_healium = amount
-		if(TLV_PROTO_NITRATE)
-			amount = min(amount, private_proto_nitrate)
-			private_proto_nitrate -= amount
-			removed.private_proto_nitrate = amount
-		if(TLV_ZAUKER)
-			amount = min(amount, private_zauker)
-			private_zauker -= amount
-			removed.private_zauker = amount
-		if(TLV_HALON)
-			amount = min(amount, private_halon)
-			private_halon -= amount
-			removed.private_halon = amount
-		if(TLV_HELIUM)
-			amount = min(amount, private_helium)
-			private_helium -= amount
-			removed.private_helium = amount
-		if(TLV_ANTINOBLIUM)
-			amount = min(amount, private_antinoblium)
-			private_antinoblium -= amount
-			removed.private_antinoblium = amount
-		if(TLV_HYPERNOBLIUM)
-			amount = min(amount, private_hypernoblium)
-			private_hypernoblium -= amount
-			removed.private_hypernoblium = amount
+		REMOVE_GAS_CASE(TLV_O2, private_oxygen)
+		REMOVE_GAS_CASE(TLV_N2, private_nitrogen)
+		REMOVE_GAS_CASE(TLV_PL, private_toxins)
+		REMOVE_GAS_CASE(TLV_CO2, private_carbon_dioxide)
+		REMOVE_GAS_CASE(TLV_N2O, private_sleeping_agent)
+		REMOVE_GAS_CASE(TLV_H2, private_hydrogen)
+		REMOVE_GAS_CASE(TLV_H2O, private_water_vapor)
+		REMOVE_GAS_CASE(TLV_AGENT_B, private_agent_b)
+		REMOVE_GAS_CASE(TLV_TRITIUM, private_tritium)
+		REMOVE_GAS_CASE(TLV_BZ, private_bz)
+		REMOVE_GAS_CASE(TLV_PLUOXIUM, private_pluoxium)
+		REMOVE_GAS_CASE(TLV_MIASMA, private_miasma)
+		REMOVE_GAS_CASE(TLV_FREON, private_freon)
+		REMOVE_GAS_CASE(TLV_NITRIUM, private_nitrium)
+		REMOVE_GAS_CASE(TLV_HEALIUM, private_healium)
+		REMOVE_GAS_CASE(TLV_PROTO_NITRATE, private_proto_nitrate)
+		REMOVE_GAS_CASE(TLV_ZAUKER, private_zauker)
+		REMOVE_GAS_CASE(TLV_HALON, private_halon)
+		REMOVE_GAS_CASE(TLV_HELIUM, private_helium)
+		REMOVE_GAS_CASE(TLV_ANTINOBLIUM, private_antinoblium)
+		REMOVE_GAS_CASE(TLV_HYPERNOBLIUM, private_hypernoblium)
 		else
 			CRASH("Unknown gas type: [gas]")
+
+	#undef REMOVE_GAS_CASE
+
 	set_dirty()
 	return removed
 
