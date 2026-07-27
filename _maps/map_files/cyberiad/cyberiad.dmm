@@ -24347,6 +24347,14 @@
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/north)
+"cbH" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/sink/directional/west,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whiteblue"
+	},
+/area/station/medical/patients_rooms)
 "cbM" = (
 /obj/machinery/door_control{
 	id = "CargoBay Shutters North";
@@ -54739,18 +54747,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
-"jih" = (
-/obj/effect/spawner/random_spawners/rodent,
-/obj/structure/toilet{
-	pixel_y = 8
-	},
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/station/security/prison/perma)
 "jiO" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "graveyard_church";
