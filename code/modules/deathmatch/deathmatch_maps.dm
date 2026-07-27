@@ -76,9 +76,9 @@
 	desc = "Отличная арена для стрельбы из гиб-пушек"
 	max_players = 8
 	allowed_loadouts = list(
-		/datum/outfit/deathmatch_loadout/assistant/instagib,
-		/datum/outfit/deathmatch_loadout/assistant/pulse,
-		/datum/outfit/deathmatch_loadout/assistant/annihilator,
+		/datum/outfit/deathmatch_loadout/unfunny,
+		/datum/outfit/deathmatch_loadout/unfunny/pulse,
+		/datum/outfit/deathmatch_loadout/unfunny/annihilator,
 	)
 
 	map_name = "instagib"

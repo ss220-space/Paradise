@@ -307,6 +307,10 @@ GLOBAL_LIST_INIT(body_zones, list(
 #define DEATHMATCH_PRE_PLAYING 1
 #define DEATHMATCH_PLAYING 2
 
+///Deathmatch loadout groups
+#define LOADOUT_ASSISTANT (1<<0)
+#define LOADOUT_UNFUNNY (1<<1)
+
 #define HIT_RESULT_FAILED 0
 #define HIT_RESULT_SUCCESS 1
 #define HIT_RESULT_REFLECY_BACK -1

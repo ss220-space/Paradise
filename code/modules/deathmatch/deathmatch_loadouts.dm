@@ -9,9 +9,25 @@
 	var/datum/species/species_override
 	/// This outfit will grant these spells if applied
 	var/list/spells_to_add = list()
-	/// This outfit will grant these mutations if applied
-	var/list/mutations_to_add = list()
+	// Apply mutations in post_equip procs!
+	/// Used for making a list for specific loadout groups
+	var/loadout_type
 
+/datum/outfit/deathmatch_loadout/pre_equip(mob/living/carbon/human/user, visuals_only = FALSE)
+	. = ..()
+
+	if(isdummy(user))
+		return
+
+	if(!isnull(species_override))
+		user.set_species(species_override)
+
+	else
+		user.set_species(/datum/species/human)
+
+	for(var/obj/effect/proc_holder/spell/aspell as anything in spells_to_add)
+		aspell.clothes_req = FALSE
+		user.mind.AddSpell(aspell)
 
 /datum/outfit/deathmatch_loadout/naked
 	name = "Deathmatch: Naked"
@@ -23,6 +39,8 @@
 	name = "Deathmatch: Assistant"
 	display_name = "Ассистент"
 	desc = "Классический ассистент — серый комбинезон и туллбокс в руках."
+
+	loadout_type = LOADOUT_ASSISTANT
 
 	l_hand = /obj/item/storage/toolbox/mechanical
 	uniform = /obj/item/clothing/under/color/grey
@@ -37,6 +55,9 @@
 	name = "Deathmatch: Assistant (Weaponless)"
 	display_name = "Ассистент (без оружия)"
 	desc = "Что есть ассистент без своего туллбокса? Правильно, ничто."
+
+	loadout_type = LOADOUT_ASSISTANT
+
 	l_hand = null
 
 /datum/outfit/deathmatch_loadout/operative
@@ -87,21 +108,30 @@
 	r_pocket = /obj/item/kitchen/knife/combat/survival
 	back = /datum/outfit/job/officer::backpack
 
-/datum/outfit/deathmatch_loadout/assistant/instagib
+/datum/outfit/deathmatch_loadout/unfunny
 	name = "DM: Instagib"
 	display_name = "Инстагиб-пушка (!!)"
 	desc = "Ассистент с инстагиб пушкой."
 
-	l_hand = /obj/item/gun/energy/laser/instakill
+	loadout_type = LOADOUT_UNFUNNY
 
-/datum/outfit/deathmatch_loadout/assistant/pulse
+	l_hand = /obj/item/gun/energy/laser/instakill
+	uniform = /obj/item/clothing/under/color/grey
+	back = /obj/item/storage/backpack
+	belt = /obj/item/flashlight
+
+	backpack_contents = list(
+		/obj/item/storage/box/survival = 1,
+	)
+
+/datum/outfit/deathmatch_loadout/unfunny/pulse
 	name = "DM: Pulse Rifle"
 	display_name = "Пульс-карабин (!!)"
 	desc = "Ассистент с пульсовкой отряда смерти."
 
 	l_hand =  /obj/item/gun/energy/pulse
 
-/datum/outfit/deathmatch_loadout/assistant/annihilator
+/datum/outfit/deathmatch_loadout/unfunny/annihilator
 	name = "DM: Pulse annihilator"
 	display_name = "Пульс-аннигилятор (!!)"
 	desc = "Достаточно веская причина выгнать вас из лобби."
@@ -176,6 +206,8 @@
 	display_name = "Грейтайд"
 	desc = "Глава среди ассистентов"
 
+	loadout_type = LOADOUT_ASSISTANT
+
 	back = /obj/item/melee/baton/security/cattleprod
 	r_hand = /obj/item/twohanded/fireaxe
 	uniform = /obj/item/clothing/under/color/grey
@@ -195,12 +227,14 @@
 	head = /obj/item/clothing/head/chefhat
 
 /datum/outfit/deathmatch_loadout/chef/post_equip(mob/living/carbon/human/brawler, visualsOnly = FALSE)
-	. = ..()
+	..()
 	if(visualsOnly)
 		return
 
 	var/datum/martial_art/cqc/not_just_a_cook = new
 	not_just_a_cook.teach(brawler)
+
+
 
 // TODO:
 // ALL BATTLERS
