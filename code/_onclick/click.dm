@@ -9,6 +9,18 @@
 /mob/proc/changeNext_move(num)
 	next_move = world.time + ((num + next_move_adjust) * next_move_modifier)
 
+/mob/living/changeNext_move(num)
+	/*
+	var/mod = next_move_modifier
+	var/adj = next_move_adjust
+	for(var/datum/status_effect/effect as anything in status_effects)
+		mod *= effect.nextmove_modifier()
+		adj += effect.nextmove_adjust()
+	next_move = world.time + ((num + adj)*mod)
+	*/
+	. = ..()
+	SEND_SIGNAL(src, COMSIG_LIVING_CHANGENEXT_MOVE, next_move, num)
+
 /**
  * Before anything else, defer these calls to a per-mobtype handler.  This allows us to
  * remove istype() spaghetti code, but requires the addition of other handler procs to simplify it.

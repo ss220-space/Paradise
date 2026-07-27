@@ -1,9 +1,16 @@
 //todo: toothbrushes, and some sort of "toilet-filthinator" for the hos
 
+#define WASH_CHOICE "Помыть"
 #define STASH_CHOICE "Спрятать предмет"
-#define DISCONNECT_CHOICE "Отсоеденить"
+#define DISCONNECT_CHOICE "Отключить"
 #define CONNECT_CHOICE "Подключить"
-#define ROTATE_CHOICE "Крутить"
+#define ROTATE_CHOICE "Повернуть"
+
+#define SHIFTING_SINK 14
+#define SHIFTING_SINK_KITCHEN 16
+#define SHIFTING_SHOWER 16
+#define SHIFTING_TOILET 8
+
 
 /obj/structure/toilet
 	name = "toilet"
@@ -27,7 +34,7 @@
 		PREPOSITIONAL = "унитазе",
 	)
 
-MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet, 8, -8, 0, 0)
+MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet, SHIFTING_TOILET, -SHIFTING_TOILET, 0, 0)
 
 /obj/structure/toilet/Initialize(mapload)
 	. = ..()
@@ -73,18 +80,21 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet, 8, -8, 0, 0)
 
 /obj/structure/toilet/update_icon_state()
 	icon_state = "toilet[open][cistern]"
+
 	if(!anchored)
 		pixel_x = 0
 		pixel_y = 0
-		layer = OBJ_LAYER
+		layer = initial(layer)
+		return
+
+	if(dir == NORTH || dir == SOUTH)
+		pixel_x = 0
+		pixel_y = (dir == NORTH) ? SHIFTING_TOILET : -SHIFTING_TOILET
+		layer = (dir == NORTH) ? OBJ_LAYER : FLY_LAYER
 	else
-		if(dir == SOUTH)
-			pixel_x = 0
-			pixel_y = 8
-		if(dir == NORTH)
-			pixel_x = 0
-			pixel_y = -8
-			layer = FLY_LAYER
+		pixel_x = 0
+		pixel_y = 0
+		layer = OBJ_LAYER
 
 /obj/structure/toilet/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
@@ -410,6 +420,7 @@ GLOBAL_ALIST_INIT(shower_mode_descriptions, alist(
 	icon_state = "shower"
 	anchored = TRUE
 	dir = EAST
+	layer = OBJ_LAYER
 	use_power = NO_POWER_USE
 	/// Does the user want the shower on or off?
 	var/intended_on = FALSE
@@ -431,9 +442,9 @@ GLOBAL_ALIST_INIT(shower_mode_descriptions, alist(
 	/// Which mode the shower is operating in.
 	var/mode = SHOWER_MODE_UNTIL_EMPTY
 	/// How far to shift the sprite when placing.
-	var/pixel_shift = 16
+	var/pixel_shift = SHIFTING_SHOWER
 
-/obj/machinery/shower/Initialize(mapload, newdir, building = FALSE)
+/obj/machinery/shower/Initialize(mapload, newdir)
 	. = ..()
 	if(newdir)
 		setDir(newdir)
@@ -441,15 +452,16 @@ GLOBAL_ALIST_INIT(shower_mode_descriptions, alist(
 	switch(dir)
 		if(NORTH)
 			pixel_x = 0
-			pixel_y = -pixel_shift
+			pixel_y = pixel_shift
 		if(SOUTH)
 			pixel_x = 0
-			pixel_y = pixel_shift
+			pixel_y = -pixel_shift
+			layer = FLY_LAYER
 		if(EAST)
-			pixel_x = -pixel_shift
+			pixel_x = pixel_shift
 			pixel_y = 0
 		if(WEST)
-			pixel_x = pixel_shift
+			pixel_x = -pixel_shift
 			pixel_y = 0
 	create_reagents(reagent_capacity)
 	if(src.has_water_reclaimer)
@@ -476,7 +488,7 @@ GLOBAL_ALIST_INIT(shower_mode_descriptions, alist(
 	. += span_notice("The auto shut-off is programmed to [GLOB.shower_mode_descriptions[mode]].")
 	. += span_notice("[reagents.total_volume]/[reagents.maximum_volume] liquids remaining.")
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/shower, (-16), (-16))
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/shower, (16), (16))
 
 //add heat controls? when emagged, you can freeze to death in it?
 
@@ -567,13 +579,13 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/shower, (-16), (-16))
 	water_falling.dir = dir
 	switch(dir)
 		if(NORTH)
-			water_falling.pixel_y += pixel_shift
-		if(SOUTH)
 			water_falling.pixel_y -= pixel_shift
+		if(SOUTH)
+			water_falling.pixel_y += pixel_shift
 		if(EAST)
-			water_falling.pixel_x += pixel_shift
-		if(WEST)
 			water_falling.pixel_x -= pixel_shift
+		if(WEST)
+			water_falling.pixel_x += pixel_shift
 	. += water_falling
 
 /obj/machinery/shower/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
@@ -793,7 +805,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/shower, (-16), (-16))
 	///Units of water to reclaim per second
 	var/reclaim_rate = 0.5
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sink, (-14), (-14))
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sink, (SHIFTING_SINK), (SHIFTING_SINK))
 
 /obj/structure/sink/Initialize(mapload)
 	. = ..()
@@ -942,67 +954,66 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sink, (-14), (-14))
 		return
 	var/choices = list()
 	if(anchored)
-		choices += "Wash"
+		choices += WASH_CHOICE
 		if(can_move)
-			choices += "Disconnect"
+			choices += DISCONNECT_CHOICE
 	else
-		choices += "Connect"
+		choices += CONNECT_CHOICE
 		if(can_rotate)
-			choices += "Rotate"
+			choices += ROTATE_CHOICE
 
 	var/response = tgui_input_list(user, "What do you want to do?", "[src]", choices)
 	if(!Adjacent(user) || !response)	//moved away or cancelled
 		return
 	switch(response)
-		if("Wash")
+		if(WASH_CHOICE)
 			busy = 1
 			var/wateract = 0
 			wateract = (I.wash_tg(CLEAN_WASH))
 			busy = 0
 			if(wateract)
 				I.water_act(20, COLD_WATER_TEMPERATURE, src)
-		if("Disconnect")
+		if(DISCONNECT_CHOICE)
 			user.visible_message(span_notice("[user] starts disconnecting [src]."), span_notice("You begin disconnecting [src]..."))
 			if(I.use_tool(src, user, 40, volume = I.tool_volume))
 				if(!loc || !anchored)
 					return
 				user.visible_message(span_notice("[user] disconnects [src]!"), span_notice("You disconnect [src]!"))
 				set_anchored(FALSE)
-		if("Connect")
+		if(CONNECT_CHOICE)
 			user.visible_message(span_notice("[user] starts connecting [src]."), span_notice("You begin connecting [src]..."))
 			if(I.use_tool(src, user, 40, volume = I.tool_volume))
 				if(!loc || anchored)
 					return
 				user.visible_message(span_notice("[user] connects [src]!"), span_notice("You connect [src]!"))
 				set_anchored(TRUE)
-		if("Rotate")
-			var/list/dir_choices = list("North" = NORTH, "East" = EAST, "South" = SOUTH, "West" = WEST)
-			var/selected = input(user, "Select a direction for the connector.", "Connector Direction") in dir_choices
+		if(ROTATE_CHOICE)
+			var/list/dir_choices = list("Север" = NORTH, "Восток" = EAST, "Юг" = SOUTH, "Запад" = WEST)
+			var/selected = tgui_input_list(user, "Выберите направление соединения.", "Направление соединения", dir_choices)
 			dir = dir_choices[selected]
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/sink/update_icon_state()
-	layer = OBJ_LAYER
+	if(!can_move)
+		return
+
+	if(!can_rotate)
+		return
+
 	if(!anchored)
 		pixel_x = 0
 		pixel_y = 0
+		layer = initial(layer)
+		return
+
+	if(dir == NORTH || dir == SOUTH)
+		pixel_x = 0
+		pixel_y = (dir == NORTH) ? SHIFTING_SINK : -SHIFTING_SINK
+		layer = (dir == NORTH) ? OBJ_LAYER : FLY_LAYER
 	else
-		//the following code will probably want to be updated in the future to be less reliant on hardcoded offsets based on the can_move/can_rotate values
-		if(!can_move)		//puddles
-			return
-		if(!can_rotate)		//kitchen sinks
-			pixel_x = 0
-			pixel_y = 28
-			return
-		else				//normal sinks
-			if(dir == NORTH || dir == SOUTH)
-				pixel_x = 0
-				pixel_y = (dir == NORTH) ? -5 : 30
-				if(dir == NORTH)
-					layer = FLY_LAYER
-			else
-				pixel_x = (dir == EAST) ? 12 : -12
-				pixel_y = 0
+		pixel_x = (dir == EAST) ? SHIFTING_SINK : -SHIFTING_SINK
+		pixel_y = 0
+		layer = OBJ_LAYER
 
 /obj/structure/sink/process(seconds_per_tick)
 	// Water reclamation complete?
@@ -1014,9 +1025,15 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sink, (-14), (-14))
 /obj/structure/sink/kitchen
 	name = "kitchen sink"
 	icon_state = "sink_alt"
-	can_rotate = 0
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sink/kitchen, (-16), (-16))
+/obj/structure/sink/kitchen/update_icon_state()
+	. = ..()
+	if(dir == NORTH || dir == SOUTH)
+		pixel_y = (dir == NORTH) ? SHIFTING_SINK_KITCHEN : -SHIFTING_SINK_KITCHEN
+	else
+		pixel_x = (dir == EAST) ? SHIFTING_SINK_KITCHEN : -SHIFTING_SINK_KITCHEN
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sink/kitchen, (SHIFTING_SINK_KITCHEN), (SHIFTING_SINK_KITCHEN))
 
 /obj/structure/sink/puddle	//splishy splashy ^_^
 	name = "puddle"
@@ -1102,8 +1119,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sink/kitchen, (-16), (-16))
 	item_state = "buildpipe"
 
 /obj/item/mounted/shower/do_build(turf/on_wall, mob/user)
-	var/obj/machinery/shower/S = new(get_turf(user), get_dir(on_wall, user), TRUE)
-	transfer_fingerprints_to(S)
+	var/obj/machinery/shower/shower = new(get_turf(user), get_dir(user, on_wall))
+	transfer_fingerprints_to(shower)
 	qdel(src)
 
 /obj/item/bathroom_parts
@@ -1149,7 +1166,13 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sink/kitchen, (-16), (-16))
 		if(prob(50))
 			new /obj/item/stack/sheet/cardboard(T)
 
+#undef WASH_CHOICE
 #undef STASH_CHOICE
 #undef DISCONNECT_CHOICE
 #undef CONNECT_CHOICE
 #undef ROTATE_CHOICE
+
+#undef SHIFTING_SINK
+#undef SHIFTING_SINK_KITCHEN
+#undef SHIFTING_SHOWER
+#undef SHIFTING_TOILET

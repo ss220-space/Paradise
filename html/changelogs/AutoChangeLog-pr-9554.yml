@@ -1,4 +1,0 @@
-author: "dageavtobusnick"
-delete-after: True
-changes:
-  - bugfix: "Теперь ключ меняет направление бинарных машин корректно. (PR #9554)"

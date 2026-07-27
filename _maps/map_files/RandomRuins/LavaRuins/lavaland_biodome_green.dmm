@@ -115,7 +115,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/powered/green_bio)
 "iW" = (
-/obj/structure/sink/directional/west,
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -326,7 +326,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/powered/green_bio)
 "xZ" = (
-/obj/structure/toilet,
+/obj/structure/toilet/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -390,7 +390,7 @@
 /turf/simulated/floor/carpet,
 /area/ruin/powered/green_bio)
 "Ci" = (
-/obj/structure/sink/directional/west,
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -603,7 +603,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/shower/directional/west,
+/obj/machinery/shower/directional/east,
 /obj/item/soap/syndie,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"

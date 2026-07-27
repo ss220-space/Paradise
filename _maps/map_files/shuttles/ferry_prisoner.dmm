@@ -12,10 +12,10 @@
 	height = 12;
 	id = "ferry";
 	name = "ferry shuttle";
+	preferred_direction = 4;
 	roundstart_move = "ferry_away";
 	timid = 1;
-	width = 5;
-	preferred_direction = 4
+	width = 5
 	},
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/shuttle{
@@ -154,7 +154,7 @@
 /turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/transport)
 "O" = (
-/obj/structure/toilet,
+/obj/structure/toilet/directional/north,
 /turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/transport)
 "U" = (

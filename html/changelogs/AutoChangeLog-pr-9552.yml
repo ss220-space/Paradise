@@ -1,5 +1,0 @@
-author: "dageavtobusnick"
-delete-after: True
-changes:
-  - bugfix: "Оверлей щитов одежды теперь корректно пропадает (PR #9552)"
-  - bugfix: "Теперь отвертка корректно взаимодействует с частями hfr (PR #9552)"

@@ -44,6 +44,7 @@
 /obj/item/twohanded/Initialize(mapload)
 	. = ..()
 	apply_twohanded_component()
+	ADD_TRAIT(src, TRAIT_MELEE_WEAPON, ROUNDSTART_TRAIT)
 
 /**
  * Proc handles adding component during Initialize()

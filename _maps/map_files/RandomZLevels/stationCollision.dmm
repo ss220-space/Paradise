@@ -268,8 +268,8 @@
 /area/awaymission/northblock)
 "bj" = (
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "bluecorner";
-	dir = 8
+	dir = 8;
+	icon_state = "bluecorner"
 	},
 /area/awaymission/northblock)
 "bk" = (
@@ -285,8 +285,8 @@
 /area/awaymission/northblock)
 "bm" = (
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "blue";
-	dir = 8
+	dir = 8;
+	icon_state = "blue"
 	},
 /area/awaymission/northblock)
 "bn" = (
@@ -319,8 +319,8 @@
 /area/awaymission/syndishuttle)
 "bu" = (
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "blue";
-	dir = 6
+	dir = 6;
+	icon_state = "blue"
 	},
 /area/awaymission/northblock)
 "bv" = (
@@ -349,14 +349,14 @@
 /area/awaymission/northblock)
 "bA" = (
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "blue";
-	dir = 10
+	dir = 10;
+	icon_state = "blue"
 	},
 /area/awaymission/northblock)
 "bB" = (
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "blue";
-	dir = 9
+	dir = 9;
+	icon_state = "blue"
 	},
 /area/awaymission/northblock)
 "bC" = (
@@ -369,8 +369,8 @@
 /area/awaymission/northblock)
 "bD" = (
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "blue";
-	dir = 1
+	dir = 1;
+	icon_state = "blue"
 	},
 /area/awaymission/northblock)
 "bF" = (
@@ -497,8 +497,8 @@
 /area/awaymission/syndishuttle)
 "bX" = (
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "blue";
-	dir = 5
+	dir = 5;
+	icon_state = "blue"
 	},
 /area/awaymission/northblock)
 "bY" = (
@@ -918,7 +918,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/northblock)
 "db" = (
-/obj/machinery/shower/directional/east,
+/obj/machinery/shower/directional/west,
 /obj/structure/window/reinforced/tinted,
 /turf/simulated/floor/plasteel,
 /area/awaymission/research)
@@ -1081,8 +1081,8 @@
 "dw" = (
 /obj/structure/computerframe,
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "blue";
-	dir = 4
+	dir = 4;
+	icon_state = "blue"
 	},
 /area/awaymission/northblock)
 "dx" = (
@@ -1102,8 +1102,8 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "blue";
-	dir = 4
+	dir = 4;
+	icon_state = "blue"
 	},
 /area/awaymission/northblock)
 "dA" = (
@@ -1114,7 +1114,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/research)
 "dB" = (
-/obj/machinery/shower/directional/east,
+/obj/machinery/shower/directional/west,
 /obj/structure/window/reinforced/tinted{
 	dir = 1
 	},
@@ -1204,8 +1204,8 @@
 "dM" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "bluecorner";
-	dir = 4
+	dir = 4;
+	icon_state = "bluecorner"
 	},
 /area/awaymission/northblock)
 "dN" = (
@@ -1221,21 +1221,21 @@
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "blue";
-	dir = 9
+	dir = 9;
+	icon_state = "blue"
 	},
 /area/awaymission/northblock)
 "dP" = (
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "blue";
-	dir = 1
+	dir = 1;
+	icon_state = "blue"
 	},
 /area/awaymission/northblock)
 "dQ" = (
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "bluecorner";
-	dir = 4
+	dir = 4;
+	icon_state = "bluecorner"
 	},
 /area/awaymission/northblock)
 "dR" = (
@@ -1324,22 +1324,22 @@
 /obj/machinery/light/small,
 /obj/structure/computerframe,
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "blue";
-	dir = 1
+	dir = 1;
+	icon_state = "blue"
 	},
 /area/awaymission/northblock)
 "ee" = (
 /obj/machinery/computer/crew,
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "bluecorner";
-	dir = 4
+	dir = 4;
+	icon_state = "bluecorner"
 	},
 /area/awaymission/northblock)
 "ef" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "blue";
-	dir = 1
+	dir = 1;
+	icon_state = "blue"
 	},
 /area/awaymission/northblock)
 "eg" = (
@@ -1978,8 +1978,8 @@
 "fH" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 1
+	dir = 1;
+	icon_state = "red"
 	},
 /area/awaymission/arrivalblock)
 "fI" = (
@@ -2405,15 +2405,15 @@
 "gV" = (
 /obj/machinery/computer/security,
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 9
+	dir = 9;
+	icon_state = "red"
 	},
 /area/awaymission/arrivalblock)
 "gW" = (
 /obj/machinery/computer/secure_data,
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 1
+	dir = 1;
+	icon_state = "red"
 	},
 /area/awaymission/arrivalblock)
 "gX" = (
@@ -2421,8 +2421,8 @@
 /obj/item/melee/baton/security,
 /obj/item/clothing/head/warden,
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 1
+	dir = 1;
+	icon_state = "red"
 	},
 /area/awaymission/arrivalblock)
 "gY" = (
@@ -2434,22 +2434,22 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 1
+	dir = 1;
+	icon_state = "red"
 	},
 /area/awaymission/arrivalblock)
 "gZ" = (
 /obj/structure/closet/secure_closet/security,
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 1
+	dir = 1;
+	icon_state = "red"
 	},
 /area/awaymission/arrivalblock)
 "ha" = (
 /obj/structure/closet/secure_closet/security,
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 5
+	dir = 5;
+	icon_state = "red"
 	},
 /area/awaymission/arrivalblock)
 "hb" = (
@@ -2604,8 +2604,8 @@
 	},
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 8
+	dir = 8;
+	icon_state = "red"
 	},
 /area/awaymission/arrivalblock)
 "hu" = (
@@ -2620,8 +2620,8 @@
 	name = "Windoor"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 4
+	dir = 4;
+	icon_state = "red"
 	},
 /area/awaymission/arrivalblock)
 "hy" = (
@@ -2646,7 +2646,7 @@
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/midblock)
 "hA" = (
-/obj/structure/sink/kitchen/directional/south,
+/obj/structure/sink/kitchen/directional/north,
 /turf/simulated/floor/plasteel,
 /area/awaymission/midblock)
 "hB" = (
@@ -2682,8 +2682,8 @@
 /area/awaymission/arrivalblock)
 "hF" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 8
+	dir = 8;
+	icon_state = "red"
 	},
 /area/awaymission/arrivalblock)
 "hG" = (
@@ -2704,8 +2704,8 @@
 /area/awaymission/arrivalblock)
 "hJ" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 4
+	dir = 4;
+	icon_state = "red"
 	},
 /area/awaymission/arrivalblock)
 "hK" = (
@@ -2796,8 +2796,8 @@
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 8
+	dir = 8;
+	icon_state = "red"
 	},
 /area/awaymission/arrivalblock)
 "hY" = (
@@ -2821,8 +2821,8 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 4
+	dir = 4;
+	icon_state = "red"
 	},
 /area/awaymission/arrivalblock)
 "ib" = (
@@ -2843,8 +2843,8 @@
 "id" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 5
+	dir = 5;
+	icon_state = "red"
 	},
 /area/awaymission/arrivalblock)
 "ie" = (
@@ -2907,8 +2907,8 @@
 /area/awaymission/arrivalblock)
 "in" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 10
+	dir = 10;
+	icon_state = "red"
 	},
 /area/awaymission/arrivalblock)
 "io" = (
@@ -2918,8 +2918,8 @@
 /area/awaymission/arrivalblock)
 "ip" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 6
+	dir = 6;
+	icon_state = "red"
 	},
 /area/awaymission/arrivalblock)
 "iq" = (
@@ -3068,18 +3068,16 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/arrivalblock)
 "iN" = (
-/obj/structure/toilet{
-	dir = 4
-	},
+/obj/structure/toilet/directional/west,
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 9
+	dir = 9;
+	icon_state = "red"
 	},
 /area/awaymission/arrivalblock)
 "iO" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 1
+	dir = 1;
+	icon_state = "red"
 	},
 /area/awaymission/arrivalblock)
 "iP" = (
@@ -3151,8 +3149,8 @@
 "ja" = (
 /obj/structure/closet/wardrobe/orange,
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 10
+	dir = 10;
+	icon_state = "red"
 	},
 /area/awaymission/arrivalblock)
 "jb" = (
@@ -3363,16 +3361,16 @@
 /area/awaymission/southblock)
 "jH" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "whitehall";
-	dir = 1
+	dir = 1;
+	icon_state = "whitehall"
 	},
 /area/awaymission/southblock)
 "jI" = (
 /obj/structure/table,
 /obj/item/pen,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitehall";
-	dir = 1
+	dir = 1;
+	icon_state = "whitehall"
 	},
 /area/awaymission/southblock)
 "jJ" = (
@@ -3666,16 +3664,16 @@
 /area/awaymission/gateroom)
 "kA" = (
 /obj/structure/shuttle/engine/propulsion{
-	icon_state = "propulsion_l";
-	dir = 1
+	dir = 1;
+	icon_state = "propulsion_l"
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/shuttle/plating,
 /area/awaymission/arrivalblock)
 "kB" = (
 /obj/structure/shuttle/engine/propulsion{
-	icon_state = "propulsion_r";
-	dir = 1
+	dir = 1;
+	icon_state = "propulsion_r"
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/shuttle/plating,
@@ -3696,7 +3694,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/arrivalblock)
 "kF" = (
-/obj/structure/sink/kitchen/directional/south,
+/obj/structure/sink/kitchen/directional/north,
 /turf/simulated/floor/plasteel,
 /area/awaymission/arrivalblock)
 "kG" = (
@@ -3718,8 +3716,8 @@
 "kI" = (
 /obj/structure/bed/roller,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitehall";
-	dir = 1
+	dir = 1;
+	icon_state = "whitehall"
 	},
 /area/awaymission/southblock)
 "kJ" = (
@@ -3790,8 +3788,8 @@
 /area/awaymission/arrivalblock)
 "kR" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "whitehall";
-	dir = 8
+	dir = 8;
+	icon_state = "whitehall"
 	},
 /area/awaymission/southblock)
 "kS" = (
@@ -3799,14 +3797,14 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitehall";
-	dir = 4
+	dir = 4;
+	icon_state = "whitehall"
 	},
 /area/awaymission/southblock)
 "kT" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "whitehall";
-	dir = 4
+	dir = 4;
+	icon_state = "whitehall"
 	},
 /area/awaymission/southblock)
 "kU" = (
@@ -3855,8 +3853,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitehall";
-	dir = 4
+	dir = 4;
+	icon_state = "whitehall"
 	},
 /area/awaymission/southblock)
 "ld" = (
@@ -3883,8 +3881,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitehall";
-	dir = 8
+	dir = 8;
+	icon_state = "whitehall"
 	},
 /area/awaymission/southblock)
 "li" = (
@@ -3898,8 +3896,8 @@
 /obj/structure/window/reinforced/tinted,
 /obj/item/bedsheet/medical,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitehall";
-	dir = 4
+	dir = 4;
+	icon_state = "whitehall"
 	},
 /area/awaymission/southblock)
 "lm" = (
@@ -3978,7 +3976,7 @@
 	},
 /area/awaymission/southblock)
 "ly" = (
-/obj/structure/sink/directional/south,
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -3989,8 +3987,8 @@
 /obj/item/bedsheet/medical,
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitehall";
-	dir = 4
+	dir = 4;
+	icon_state = "whitehall"
 	},
 /area/awaymission/southblock)
 "lA" = (
@@ -4060,8 +4058,8 @@
 	pixel_x = 31
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitehall";
-	dir = 4
+	dir = 4;
+	icon_state = "whitehall"
 	},
 /area/awaymission/southblock)
 "lL" = (
