@@ -166,9 +166,10 @@
 /datum/deathmatch_lobby/proc/register_player_signals(new_player)
 	RegisterSignals(new_player, list(COMSIG_LIVING_DEATH, COMSIG_QDELETING, COMSIG_MOB_GHOSTIZE), PROC_REF(player_died))
 	RegisterSignal(new_player, COMSIG_LIVING_ON_WABBAJACKED, PROC_REF(player_wabbajacked))
+	RegisterSignal(new_player, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(prevent_escaping))
 
 /datum/deathmatch_lobby/proc/unregister_player_signals(new_player)
-	UnregisterSignal(new_player, list(COMSIG_LIVING_DEATH, COMSIG_QDELETING, COMSIG_MOB_GHOSTIZE, COMSIG_LIVING_ON_WABBAJACKED))
+	UnregisterSignal(new_player, list(COMSIG_LIVING_DEATH, COMSIG_QDELETING, COMSIG_MOB_GHOSTIZE, COMSIG_LIVING_ON_WABBAJACKED, COMSIG_MOVABLE_Z_CHANGED))
 
 /datum/deathmatch_lobby/proc/game_took_too_long()
 	if(!location || QDELING(src))
@@ -243,6 +244,10 @@
 			player.dust(TRUE, TRUE, TRUE)
 	if(players.len <= 1)
 		end_game()
+
+/datum/deathmatch_lobby/proc/prevent_escaping(mob/living/player)
+	SIGNAL_HANDLER
+	qdel(player)
 
 /datum/deathmatch_lobby/proc/add_observer(mob/mob, host = FALSE)
 	if(players[mob.ckey])

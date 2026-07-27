@@ -1458,7 +1458,7 @@
 /obj/structure/curtain/open/shower,
 /obj/item/soap/deluxe,
 /obj/item/bikehorn/rubberducky,
-/obj/machinery/shower/directional/north,
+/obj/machinery/shower/directional/west,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/pod/dark/lavaland_air,
 /area/ruin/powered/pirateship)
@@ -1873,7 +1873,7 @@
 /area/ruin/powered/pirateship)
 "Ot" = (
 /obj/structure/spider/stickyweb,
-/obj/structure/toilet,
+/obj/structure/toilet/directional/north,
 /obj/structure/curtain/open/shower/security,
 /obj/structure/spider/cocoon,
 /obj/effect/decal/cleanable/dust,

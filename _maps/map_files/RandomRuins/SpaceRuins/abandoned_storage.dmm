@@ -424,8 +424,8 @@
 "hI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_pump{
-	on = 1;
-	dir = 4
+	dir = 4;
+	on = 1
 	},
 /obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plasteel,
@@ -660,7 +660,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "kO" = (
-/obj/machinery/shower/directional/south,
+/obj/machinery/shower/directional/north,
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
@@ -1024,7 +1024,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "qY" = (
-/obj/structure/sink/directional/east,
+/obj/structure/sink/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/ore/glass/basalt,
 /obj/structure/mirror{

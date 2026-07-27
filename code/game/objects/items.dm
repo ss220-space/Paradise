@@ -825,6 +825,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 	user.update_equipment_speed_mods()
 	SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED, user, slot)
+	SEND_SIGNAL(user, COMSIG_MOB_EQUIPPED_ITEM, src, slot)
 	return TRUE
 
 /// Gives one of our item actions to a mob, when equipped to a certain slot
@@ -1492,7 +1493,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	for(var/addition in deltas)
 		delta += addition
 
-	return force + delta
+	var/final_force = force + delta
+	if(!HAS_TRAIT(attacker, TRAIT_MELEE_WEAPON))
+		return final_force
+
+	CALCULATE_SKILL_MOD(attacker, MELEE_DAMAGE_MOD, skill_mod)
+	return final_force * skill_mod
 
 /// Returns the icon used for overlaying the object on a belt
 /obj/item/proc/get_belt_overlay()

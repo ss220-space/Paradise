@@ -836,7 +836,7 @@
 /turf/simulated/floor/mineral/silver,
 /area/syndicate_depot/core)
 "cr" = (
-/obj/structure/sink/directional/west,
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/mineral/silver,
 /area/syndicate_depot/core)
 "cs" = (
@@ -952,9 +952,7 @@
 	},
 /area/syndicate_depot/core)
 "cE" = (
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /turf/simulated/floor/mineral/silver,
 /area/syndicate_depot/core)
 "cF" = (

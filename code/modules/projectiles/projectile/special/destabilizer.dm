@@ -36,6 +36,11 @@
 		var/turf/simulated/mineral/mineral = target_turf
 		new /obj/effect/temp_visual/kinetic_blast(mineral)
 		mineral.attempt_drill(firer)
+		// If there is a mind, check for skill modifier to allow them to reload faster.
+		if(hammer_synced)
+			CALCULATE_SKILL_MOD(firer, MINING_SPEED_MOD, skill_modifier)
+			hammer_synced.attempt_recharge_projectile(hammer_synced.charge_time * skill_modifier) //If you hit a mineral, you might get a quicker reload. epic gamer style.
+
 	..()
 
 /obj/projectile/destabilizer/mega
