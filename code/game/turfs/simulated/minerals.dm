@@ -171,7 +171,7 @@
 	if(isliving(moving_atom))
 		var/mob/living/bumping = moving_atom
 		var/obj/item/held_item = bumping.get_active_hand()
-		if(held_item.tool_behaviour == TOOL_MINING)
+		if(held_item?.tool_behaviour == TOOL_MINING)
 			INVOKE_ASYNC(src, TYPE_PROC_REF(/atom, attackby), held_item, bumping)
 		return
 
