@@ -330,6 +330,7 @@
 	if(. & ITEM_INTERACT_ANY_BLOCKER)
 		return .
 	rpd_interaction(interacting_with, user, mode)
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/rpd/interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
 	rpd_interaction(interacting_with, user, mode = RPD_DELETE_MODE)
@@ -338,7 +339,11 @@
 /obj/item/rpd/proc/rpd_interaction(atom/target, mob/user, mode, is_ranged = FALSE)
 	if(loc != user)
 		return
+
 	if(world.time < lastused + spawndelay)
+		return
+
+	if(astype(target, /obj/item).item_flags & IN_INVENTORY)
 		return
 
 	var/turf/location = get_turf(target)
