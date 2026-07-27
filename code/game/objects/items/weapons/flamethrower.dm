@@ -251,7 +251,7 @@
 		add_game_logs("A projectile ([hitby]) detonated a flamethrower tank held by [key_name(owner)] at [COORD(target_turf)]", owner)
 		igniter.ignite_turf(src,target_turf, release_amount = 100)
 		QDEL_NULL(ptank)
-		return 1 //It hit the flamethrower, not them
+		return HIT_RESULT_SUCCESS //It hit the flamethrower, not them
 
 /obj/item/assembly/igniter/proc/flamethrower_process(turf/simulated/location)
 	location.hotspot_expose(700, 2)

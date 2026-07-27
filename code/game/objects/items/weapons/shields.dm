@@ -6,26 +6,31 @@
 	abstract_type = /obj/item/shield
 
 /obj/item/shield/add_parry_component()
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES, _block_callback = CALLBACK(src, PROC_REF(on_block)))
 
 /obj/item/shield/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	var/attack_angle = get_angle(owner, hitby)
 	var/facing_angle = dir2angle(owner.dir)
 	var/incidence = GET_ANGLE_OF_INCIDENCE(facing_angle, attack_angle)
 	if(incidence > 90 && incidence < 270)
-		return FALSE // blocking only in front of us
-	. = ..()
-	if(!.)
-		return FALSE
+		return HIT_RESULT_FAILED // blocking only in front of us
+	return ..()
+
+/obj/item/shield/proc/on_block(obj/attack_obj)
 	var/damage_type = BRUTE
-	if(isprojectile(hitby))
-		var/obj/projectile/projectile = hitby
+	var/attack_obj_armor_penetration = 0
+	if(isprojectile(attack_obj))
+		var/obj/projectile/projectile = attack_obj
+		attack_obj_armor_penetration = max(attack_obj_armor_penetration, projectile.armour_penetration)
 		if(projectile.shield_buster)
 			take_damage(180, damage_type, sound_effect = FALSE) //2 shots for tele, 3 for riot
-	if(isobj(hitby))
-		var/obj/hitby_obj = hitby
-		damage_type = hitby_obj.damtype
-	take_damage(damage, damage_type, sound_effect = FALSE)
+		damage_type = attack_obj.damtype
+
+	else if(isitem(attack_obj))
+		var/obj/item/hitby_obj = attack_obj
+		attack_obj_armor_penetration = max(attack_obj_armor_penetration, hitby_obj.armour_penetration)
+		damage_type = attack_obj.damtype
+	take_damage(attack_obj_armor_penetration, damage_type, sound_effect = FALSE)
 
 /obj/item/shield/obj_destruction(damage_flag)
 	playsound(src, 'sound/weapons/smash.ogg', 50)
@@ -132,7 +137,7 @@
 		if(P.shield_buster && active)
 			toggle(owner, TRUE)
 			to_chat(owner, span_warning("[hitby] overloaded your [src]!"))
-	return FALSE
+	return HIT_RESULT_FAILED
 
 /obj/item/shield/energy/IsReflect()
 	return (active)
@@ -195,7 +200,7 @@
 /obj/item/shield/riot/tele/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
 		return ..()
-	return FALSE
+	return HIT_RESULT_FAILED
 
 /obj/item/shield/riot/tele/update_icon_state()
 	icon_state = "teleriot[HAS_TRAIT(src, TRAIT_ITEM_ACTIVE)]"

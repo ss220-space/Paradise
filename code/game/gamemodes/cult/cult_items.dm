@@ -616,7 +616,7 @@
 			else if(P.damage_type == BURN)
 				threshold = energy_threshold
 			else
-				return FALSE
+				return HIT_RESULT_FAILED
 			// Assuming the projectile damage is 20 (WT-550), 'shatter_chance' will be 10
 			// 10 * 3 gives it a 30% chance to shatter per hit.
 			shatter_chance = min((P.damage - threshold) * 3, 75) // Maximum of 75% chance
@@ -628,10 +628,10 @@
 				playsound(T, 'sound/effects/glassbr3.ogg', 100)
 				owner.Knockdown(6 SECONDS)
 				qdel(src)
-				return FALSE
+				return HIT_RESULT_FAILED
 
 			if(P.is_reflectable(REFLECTABILITY_ENERGY))
-				return FALSE //To avoid reflection chance double-dipping with block chance
+				return HIT_RESULT_FAILED //To avoid reflection chance double-dipping with block chance
 
 		// Hit by a melee weapon or blocked a projectile
 		. = ..()
@@ -644,12 +644,12 @@
 					spawn_illusion(owner, TRUE) // Hostile illusion
 				else
 					spawn_illusion(owner, FALSE) // Running illusion
-			return TRUE
+			return HIT_RESULT_SUCCESS
 
 	else // Non-cultist holding the shield
 		if(prob(50))
 			spawn_illusion(owner, TRUE, TRUE)
-		return FALSE
+		return HIT_RESULT_FAILED
 
 /obj/item/shield/mirror/proc/spawn_illusion(mob/living/carbon/human/user, hostile, betray)
 	if(hostile)

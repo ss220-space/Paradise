@@ -18,6 +18,7 @@
 	status_info["listed"] = "Public"
 	if(!world.hub_password)
 		status_info["listed"] = "Invisible"
+	status_info["hub"] = GLOB.hub_visibility
 	var/player_count = 0
 	var/admin_count = 0
 

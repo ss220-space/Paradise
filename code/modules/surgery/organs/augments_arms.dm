@@ -670,6 +670,7 @@
 	hitsound = 'sound/effects/bang.ogg'
 	light_power = 3
 	light_color = "#9933ff"
+	light_system = OVERLAY_LIGHT
 	hit_reaction_chance = -1
 	flags = ABSTRACT
 	/// The damage the reflected projectile will be increased by
@@ -696,29 +697,30 @@
 
 /obj/item/shield/v1_arm/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(disabled)
-		return FALSE
+		return HIT_RESULT_FAILED
 	// Hit by a melee weapon or blocked a projectile
 	. = ..()
 
 	if(!.) // they did not block the attack
 		return
 
-	if(. == 1) // a normal block
+	if(!(. & COMPONENT_BLOCK_PERFECT)) // a normal block
 		owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"))
 		playsound(src, 'sound/weapons/effects/ric3.ogg', 100, TRUE)
-		return TRUE
+		return HIT_RESULT_SUCCESS
 
-	set_light(3)
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 0.25 SECONDS)
+	set_light_range(3)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light_range), 0), 0.25 SECONDS)
 
 	if(isprojectile(hitby))
 		var/obj/projectile/projectile_hitby = hitby
 		if(projectile_hitby.shield_buster || istype(projectile_hitby, /obj/projectile/ion)) //EMP's and unpariable attacks, after all.
-			return FALSE
+			return HIT_RESULT_FAILED
+
 		if(projectile_hitby.reflectability == REFLECTABILITY_NEVER) //only 1 magic spell does this, but hey, needed
 			owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"))
 			playsound(src, 'sound/weapons/effects/ric3.ogg', 100, TRUE)
-			return TRUE
+			return HIT_RESULT_SUCCESS
 
 		projectile_hitby.damage = clamp((projectile_hitby.damage + 10), projectile_hitby.damage, reflect_damage_cap)
 		var/sound = SFX_EXPLOSION
@@ -728,22 +730,22 @@
 		playsound(src, 'sound/weapons/v1_parry.ogg', 100, TRUE)
 		owner.visible_message(span_danger("[owner] parries [attack_text] with [src]!"))
 		add_attack_logs(projectile_hitby.firer, src, "hit by [projectile_hitby.type] but got parried by [src]")
-		return -1
+		return HIT_RESULT_REFLECY_BACK
 
 	owner.visible_message(span_danger("[owner] parries [attack_text] with [src]!"))
 	playsound(src, 'sound/weapons/v1_parry.ogg', 100, TRUE)
 	if(attack_type == THROWN_PROJECTILE_ATTACK)
 		if(!isitem(hitby))
-			return TRUE
+			return HIT_RESULT_SUCCESS
 		var/obj/item/item_hitby = hitby
 		addtimer(CALLBACK(item_hitby, TYPE_PROC_REF(/atom/movable, throw_at), locateUID(item_hitby.thrownby), 10, 4, owner), 0.2 SECONDS) //Timer set to 0.2 seconds to ensure item finshes the throwing to prevent double embeds
-		return TRUE
+		return HIT_RESULT_SUCCESS
 
 	if(isitem(hitby))
 		melee_attack_chain(owner, hitby.loc)
 	else
 		melee_attack_chain(owner, hitby)
-	return TRUE
+	return HIT_RESULT_SUCCESS
 
 /obj/item/v1_arm_shell
 	name = "vortex feedback arm implant frame"
@@ -752,7 +754,7 @@
 	materials = list(MAT_GOLD = 5000, MAT_URANIUM = 4000, MAT_METAL = 10000, MAT_TITANIUM = 2000, MAT_BLUESPACE = 2000)
 
 /obj/item/v1_arm_shell/attackby(obj/item/item, mob/living/user, list/modifiers)
-	if(iscorevortex(item))
+	if(istype(item, /obj/item/assembly/signaler/core/vortex/tier3))
 		to_chat(user, span_notice("You insert [item] into the back of the hand, and the implant begins to boot up."))
 		new /obj/item/organ/internal/cyberimp/arm/v1_arm(get_turf(src))
 		qdel(src)

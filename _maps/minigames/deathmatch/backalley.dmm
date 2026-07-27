@@ -102,6 +102,10 @@
 /obj/effect/turf_decal/caution,
 /turf/simulated/floor/indestructible/dirt_floor,
 /area/deathmatch)
+"lS" = (
+/obj/structure/mystery_box/tdome,
+/turf/simulated/floor/indestructible/dirt_floor,
+/area/deathmatch)
 "me" = (
 /obj/effect/turf_decal/caution{
 	dir = 1
@@ -109,8 +113,7 @@
 /turf/simulated/floor/indestructible/dirt_floor,
 /area/deathmatch)
 "mw" = (
-/obj/structure/closet/crate/wooden,
-/obj/effect/spawner/random_spawners/syndicate/loot/stetchkin,
+/obj/structure/mystery_box/tdome,
 /turf/simulated/floor/indestructible/brig_black,
 /area/deathmatch)
 "mT" = (
@@ -290,6 +293,10 @@
 	pixel_y = 2
 	},
 /obj/effect/spawner/random_spawners/syndicate/loot/stetchkin,
+/turf/simulated/floor/indestructible/stone_floor,
+/area/deathmatch)
+"Hw" = (
+/obj/structure/mystery_box/tdome,
 /turf/simulated/floor/indestructible/stone_floor,
 /area/deathmatch)
 "HA" = (
@@ -490,7 +497,7 @@ tW
 tW
 tW
 tW
-tW
+lS
 tW
 tW
 tW
@@ -561,7 +568,7 @@ HN
 Ee
 Ee
 rk
-tW
+lS
 me
 qY
 lR
@@ -596,7 +603,7 @@ tW
 tW
 tW
 rk
-tW
+lS
 tW
 kI
 tW
@@ -699,7 +706,7 @@ tW
 tW
 tW
 ln
-tW
+lS
 tW
 tW
 tW
@@ -738,7 +745,7 @@ tW
 Yb
 rk
 vO
-ee
+Hw
 ee
 rk
 Jq
@@ -795,7 +802,7 @@ ee
 AA
 tW
 tW
-tW
+lS
 tW
 xn
 xn
@@ -826,7 +833,7 @@ tW
 xn
 Od
 rk
-ee
+Hw
 ee
 fI
 ee
@@ -848,7 +855,7 @@ kI
 tW
 tW
 Yb
-tW
+lS
 tW
 tW
 BB
@@ -936,7 +943,7 @@ ee
 Ck
 Ck
 ee
-ee
+Hw
 ee
 rk
 "}
@@ -972,7 +979,7 @@ WT
 tW
 rk
 ee
-ee
+Hw
 ee
 ee
 ee

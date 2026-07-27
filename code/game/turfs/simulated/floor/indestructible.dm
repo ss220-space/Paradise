@@ -83,6 +83,12 @@
 /turf/simulated/floor/indestructible/stone_floor
 	icon_state = "stone_floor"
 
+/turf/simulated/floor/indestructible/kitchen_floor
+	icon_state = "freezerfloor"
+
+/turf/simulated/floor/indestructible/wooden_floor
+	icon_state = "wood"
+
 /turf/simulated/floor/indestructible/light
 	icon_state = "light_on"
 	light_range = 3

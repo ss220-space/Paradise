@@ -718,3 +718,10 @@
 			. += "Specter_overlay_full"
 		else
 			. += "Specter_overlay_empty"
+
+/obj/item/stock_parts/cell/crystal_cell
+	name = "crystal power cell"
+	desc = "A very high power cell made from crystallized plasma"
+	icon_state = "crystal_cell"
+	maxcharge = STANDARD_CELL_CHARGE * 50
+	chargerate = 0

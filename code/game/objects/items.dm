@@ -692,11 +692,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /obj/item/proc/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "атаку", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(!block_type || !(block_type & attack_type))
 		final_block_chance = 0
-	var/signal_result = (SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, owner, hitby, damage, attack_type) & COMPONENT_BLOCK_SUCCESSFUL) + prob(final_block_chance)
-	if(signal_result != 0)
+	var/signal_result = SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, owner, hitby, damage, attack_type)
+	var/block_successful = (signal_result & COMPONENT_BLOCK_SUCCESSFUL) || prob(final_block_chance)
+	if(block_successful)
 		owner.visible_message(span_danger("[owner] блокиру[PLUR_ET_YUT(owner)] [attack_text] с помощью [declent_ru(GENITIVE)]!"), projectile_message = (attack_type == PROJECTILE_ATTACK))
-		return signal_result
-	return FALSE
+		return signal_result || block_successful
+	return HIT_RESULT_FAILED
 
 // Generic use proc. Depending on the item, it uses up fuel, charges, sheets, etc.
 // Returns TRUE on success, FALSE on failure.
@@ -824,6 +825,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 	user.update_equipment_speed_mods()
 	SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED, user, slot)
+	SEND_SIGNAL(user, COMSIG_MOB_EQUIPPED_ITEM, src, slot)
 	return TRUE
 
 /// Gives one of our item actions to a mob, when equipped to a certain slot

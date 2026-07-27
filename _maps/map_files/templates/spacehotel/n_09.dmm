@@ -49,7 +49,7 @@
 /turf/simulated/floor/indestructible/carpet,
 /area/template_noop)
 "k" = (
-/obj/structure/sink/directional/east,
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	dir = 8;
 	pixel_x = -28
@@ -60,9 +60,7 @@
 	},
 /area/template_noop)
 "l" = (
-/obj/structure/toilet{
-	dir = 1
-	},
+/obj/structure/toilet/directional/south,
 /obj/effect/decal/cleanable/vomit,
 /turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
@@ -80,7 +78,7 @@
 	},
 /area/template_noop)
 "n" = (
-/obj/machinery/shower/directional/west,
+/obj/machinery/shower/directional/east,
 /turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
 	},

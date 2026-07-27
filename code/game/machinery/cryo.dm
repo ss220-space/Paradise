@@ -84,9 +84,6 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
-/obj/machinery/atmospherics/unary/cryo_cell/on_construction()
-	..(dir,dir)
-
 /obj/machinery/atmospherics/unary/cryo_cell/RefreshParts()
 	var/C
 	for(var/obj/item/stock_parts/matter_bin/M in component_parts)

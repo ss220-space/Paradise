@@ -349,6 +349,16 @@ ADMIN_VERB(vpn_whitelist, R_BAN, "VPN Ckey Whitelist", "Modify ckey's presence o
 	popup.open()
 	return
 
+ADMIN_VERB(toggle_hub, R_SERVER, "Toggle Hub", "Toggles the server's visilibility on the BYOND Hub.", ADMIN_CATEGORY_SERVER)
+	world.update_hub_visibility(!GLOB.hub_visibility)
+
+	log_admin("[key_name(user)] has toggled the server's hub status for the round, it is now [(GLOB.hub_visibility?"on":"off")] the hub.")
+	message_admins("[key_name_admin(user)] has toggled the server's hub status for the round, it is now [(GLOB.hub_visibility?"on":"off")] the hub.")
+	if(GLOB.hub_visibility && !world.reachable)
+		message_admins("WARNING: The server will not show up on the hub because byond is detecting that a filewall is blocking incoming connections.")
+
+	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggled Hub Visibility", "[GLOB.hub_visibility ? "Enabled" : "Disabled"]")) // If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+
 ADMIN_VERB(restart_server, R_SERVER, "Reboot World", "Restarts the world immediately.", ADMIN_CATEGORY_SERVER)
 	// Give an extra popup if they are rebooting a live server
 	var/is_live_server = TRUE
