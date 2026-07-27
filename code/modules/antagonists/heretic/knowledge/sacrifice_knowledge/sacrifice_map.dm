@@ -73,9 +73,9 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 	for_heretic_path = PATH_BLADE
 
 
-/obj/effect/landmark/heretic/beyond
-	name = "beyond heretic sacrifice landmark"
-	for_heretic_path = PATH_BEYOND
+/obj/effect/landmark/heretic/bluespace
+	name = "bluespace heretic sacrifice landmark"
+	for_heretic_path = PATH_BLUESPACE
 
 
 /obj/structure/no_effect_signpost
@@ -259,8 +259,8 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 	sound_environment = SOUND_ENVIRONMENT_PSYCHOTIC
 
 
-/area/centcom/heretic_sacrifice/beyond
-	name = "Нескомпилированные Врата Обители"
+/area/centcom/heretic_sacrifice/bluespace
+	name = "Блюспейс-Врата Обители"
 	base_lighting_color = "#6FE3D4"
 	base_lighting_alpha = 255
 	sound_environment = SOUND_ENVIRONMENT_PADDED_CELL

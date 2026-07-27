@@ -10720,7 +10720,7 @@
 /area/centcom/central_command_areas/evacuation)
 "fkq" = (
 /turf/simulated/floor/bluegrid,
-/area/centcom/heretic_sacrifice/beyond)
+/area/centcom/heretic_sacrifice/bluespace)
 "fkF" = (
 /obj/effect/turf_decal/siding{
 	color = "#444444";
@@ -12225,7 +12225,7 @@
 /area/centcom/central_command_areas/supply)
 "fRB" = (
 /turf/simulated/wall/indestructible/abductor/normal,
-/area/centcom/heretic_sacrifice/beyond)
+/area/centcom/heretic_sacrifice/bluespace)
 "fRH" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -19597,9 +19597,9 @@
 	},
 /area/centcom/syndicate_base/outside)
 "jvW" = (
-/obj/effect/landmark/heretic/beyond,
+/obj/effect/landmark/heretic/bluespace,
 /turf/simulated/floor/bluegrid,
-/area/centcom/heretic_sacrifice/beyond)
+/area/centcom/heretic_sacrifice/bluespace)
 "jwD" = (
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -41990,7 +41990,7 @@
 "tef" = (
 /obj/machinery/computer/arcade/orion_trail/pc_frame/macintosh,
 /turf/simulated/floor/bluegrid,
-/area/centcom/heretic_sacrifice/beyond)
+/area/centcom/heretic_sacrifice/bluespace)
 "tek" = (
 /obj/machinery/door/airlock/syndicate/security{
 	id_tag = "SyndFB_prison_stroll";
@@ -44656,7 +44656,7 @@
 /area/centcom/central_command_areas/special_operations)
 "ulI" = (
 /turf/simulated/floor/glass/plasma,
-/area/centcom/heretic_sacrifice/beyond)
+/area/centcom/heretic_sacrifice/bluespace)
 "uma" = (
 /obj/machinery/door/poddoor/shutters/invincible{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"fire"=100,"acid"=100);

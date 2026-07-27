@@ -1,5 +1,6 @@
 /// The max range we can zoom in on people from.
 #define MAX_LIONHUNTER_RANGE 30
+#define LIONHUNTER_TURN_SPEED 150
 
 /obj/item/gun/projectile/shotgun/boltaction/lionhunter
 	name = "lionhunter's rifle"
@@ -144,6 +145,8 @@
 		BB.stamina *= 2
 		BB.knockdown = 0.5 SECONDS
 		BB.stutter = 6 SECONDS
+		BB.homing_turn_speed = LIONHUNTER_TURN_SPEED
+		BB.set_homing_target(target)
 
 	return ..()
 
@@ -238,3 +241,4 @@
 
 
 #undef MAX_LIONHUNTER_RANGE
+#undef LIONHUNTER_TURN_SPEED

@@ -28,8 +28,8 @@
 #define COOLDOWN_BORG_SELF_REPAIR "borg_self_repair"
 #define COOLDOWN_EXPRESSPOD_CONSOLE "expresspod_console"
 
-#define COOLDOWN_BEYOND_LAG_SPIKE "beyond_lag_spike"
-#define COOLDOWN_BEYOND_BLADE_ERROR "beyond_blade_error"
+#define COOLDOWN_BLUESPACE_DISTORTION "bluespace_distortion"
+#define COOLDOWN_BLUESPACE_BLADE_TEAR "bluespace_blade_tear"
 
 // Mecha cooldowns
 #define COOLDOWN_MECHA_MESSAGE "mecha_message"

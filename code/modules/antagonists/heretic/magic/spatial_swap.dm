@@ -1,14 +1,14 @@
 
-/obj/effect/proc_holder/spell/pointed/reference_swap
-	name = "Подмена Ссылок"
-	desc = "Позволяет выбрать два объекта или существа и поменять их ссылки местами. \
+/obj/effect/proc_holder/spell/pointed/spatial_swap
+	name = "Пространственная Рокировка"
+	desc = "Позволяет выбрать два объекта или существа и поменять их местами. \
 			Обе цели должны быть на виду, не дальше девяти плиток от вас и не дальше девяти плиток друг от друга. \
-			Каждая перемещённая жертва получает Runtime Error."
+			Каждая перемещённая жертва получает Разлом."
 	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
-	action_icon_state = "reference_swap"
+	action_icon_state = "spatial_swap"
 
 	sound = 'sound/magic/blink.ogg'
 	school = SCHOOL_FORBIDDEN
@@ -17,12 +17,12 @@
 	base_cooldown = 25 SECONDS
 	should_recharge_after_cast = FALSE
 
-	invocation = "П'ДМ'Н С'СЛ'К!"
+	invocation = "Р'К'Р'ВК'!"
 	invocation_type = INVOCATION_WHISPER
 	spell_requirements = NONE
 
 	cast_range = 9
-	active_msg = "Вы выделяете первый объект для подмены..."
+	active_msg = "Вы выделяете первый объект для рокировки..."
 	var/datum/weakref/first_target_ref
 	var/datum/weakref/caster_ref
 	var/selection_timer
@@ -30,16 +30,16 @@
 	var/max_swap_distance = 9
 
 
-/obj/effect/proc_holder/spell/pointed/reference_swap/Destroy()
+/obj/effect/proc_holder/spell/pointed/spatial_swap/Destroy()
 	clear_selection()
 	return ..()
 
 
-/obj/effect/proc_holder/spell/pointed/reference_swap/should_remove_click_intercept(mob/user)
+/obj/effect/proc_holder/spell/pointed/spatial_swap/should_remove_click_intercept(mob/user)
 	return FALSE
 
 
-/obj/effect/proc_holder/spell/pointed/reference_swap/valid_target(atom/cast_on, mob/user)
+/obj/effect/proc_holder/spell/pointed/spatial_swap/valid_target(atom/cast_on, mob/user)
 	if(cast_on == first_target_ref?.resolve())
 		return FALSE
 	if(isliving(cast_on))
@@ -53,7 +53,7 @@
 	return TRUE
 
 
-/obj/effect/proc_holder/spell/pointed/reference_swap/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/pointed/spatial_swap/cast(list/targets, mob/user = usr)
 	var/mob/living/caster = action?.owner
 	var/atom/movable/picked = targets[1]
 	if(!caster || !ismovable(picked))
@@ -68,33 +68,33 @@
 	remove_ranged_ability(caster)
 
 
-/obj/effect/proc_holder/spell/pointed/reference_swap/after_cast(list/targets, mob/user)
+/obj/effect/proc_holder/spell/pointed/spatial_swap/after_cast(list/targets, mob/user)
 	. = ..()
 	if(first_target_ref)
 		return
 	cooldown_handler.start_recharge()
 
 
-/obj/effect/proc_holder/spell/pointed/reference_swap/proc/select_first(mob/living/caster, atom/movable/picked)
+/obj/effect/proc_holder/spell/pointed/spatial_swap/proc/select_first(mob/living/caster, atom/movable/picked)
 	first_target_ref = WEAKREF(picked)
 	caster_ref = WEAKREF(caster)
-	selection_outline = image('icons/effects/eldritch.dmi', picked, "beyond_select", ABOVE_LIGHTING_PLANE)
+	selection_outline = image('icons/effects/eldritch.dmi', picked, "bluespace_mark", ABOVE_LIGHTING_PLANE)
 	selection_outline.appearance_flags |= RESET_ALPHA
 	SET_PLANE_EXPLICIT(selection_outline, ABOVE_LIGHTING_PLANE, picked)
 	caster.client?.images |= selection_outline
 	picked.balloon_alert(caster, "выделено")
-	to_chat(caster, span_hierophant("Ссылка на [picked.declent_ru(ACCUSATIVE)] у вас в руках. Выберите вторую цель."))
+	to_chat(caster, span_hierophant("Точка, в которой находится [picked.declent_ru(NOMINATIVE)], у вас в руках. Выберите вторую цель."))
 	selection_timer = addtimer(CALLBACK(src, PROC_REF(selection_expired), caster), 5 SECONDS, TIMER_STOPPABLE)
 
 
-/obj/effect/proc_holder/spell/pointed/reference_swap/proc/selection_expired(mob/living/caster)
+/obj/effect/proc_holder/spell/pointed/spatial_swap/proc/selection_expired(mob/living/caster)
 	clear_selection()
 	to_chat(caster, span_warning("Выделение сброшено."))
 	remove_ranged_ability(caster)
 	cooldown_handler.start_recharge()
 
 
-/obj/effect/proc_holder/spell/pointed/reference_swap/proc/clear_selection()
+/obj/effect/proc_holder/spell/pointed/spatial_swap/proc/clear_selection()
 	var/mob/living/caster = caster_ref?.resolve()
 	caster?.client?.images -= selection_outline
 	selection_outline = null
@@ -106,7 +106,7 @@
 	selection_timer = null
 
 
-/obj/effect/proc_holder/spell/pointed/reference_swap/proc/perform_swap(mob/living/caster, atom/movable/first_target, atom/movable/second_target)
+/obj/effect/proc_holder/spell/pointed/spatial_swap/proc/perform_swap(mob/living/caster, atom/movable/first_target, atom/movable/second_target)
 	clear_selection()
 
 	var/turf/first_turf = get_turf(first_target)
@@ -130,11 +130,11 @@
 		var/mob/living/living_swapped = swapped
 		if(living_swapped == caster || !living_swapped.can_block_magic(MAGIC_RESISTANCE))
 			continue
-		to_chat(caster, span_warning("[DECLENT_RU_CAP(living_swapped, NOMINATIVE)] сопротивляется подмене!"))
+		to_chat(caster, span_warning("[DECLENT_RU_CAP(living_swapped, NOMINATIVE)] сопротивляется рокировке!"))
 		return FALSE
 
-	new /obj/effect/temp_visual/beyond_select(first_turf)
-	new /obj/effect/temp_visual/beyond_select(second_turf)
+	new /obj/effect/temp_visual/bluespace_marker(first_turf)
+	new /obj/effect/temp_visual/bluespace_marker(second_turf)
 
 	first_target.forceMove(second_turf)
 	second_target.forceMove(first_turf)
@@ -142,14 +142,12 @@
 	for(var/atom/movable/swapped as anything in list(first_target, second_target))
 		if(!isliving(swapped) || swapped == caster)
 			continue
-		give_runtime_error(swapped, caster)
+		give_spatial_instability(swapped, caster)
 
-	var/swap_sound = pick('sound/magic/blink.ogg', 'sound/magic/heretic/beyond/beyond_glitch.ogg')
-	playsound(first_turf, swap_sound, 50, TRUE)
-	playsound(second_turf, swap_sound, 50, TRUE)
+	playsound(first_turf, 'sound/magic/swap.ogg', 50, TRUE)
+	playsound(second_turf, 'sound/magic/swap.ogg', 50, TRUE)
 
-	for(var/obj/effect/beyond_clone/spent in list(first_target, second_target))
+	for(var/obj/effect/bluespace_double/spent in list(first_target, second_target))
 		qdel(spent)
 
 	return TRUE
-

@@ -130,7 +130,7 @@
 
 /datum/status_effect/marshal/on_remove()
 	owner.remove_movespeed_mod_immunities(id, /datum/movespeed_modifier/damage_slowdown)
-	if(!iscarbon(owner))
+	if(!ishuman(owner))
 		return
 
 	var/mob/living/carbon/human/drinker = owner
@@ -138,20 +138,17 @@
 		potentially_wounded.mend_fracture()
 		potentially_wounded.stop_internal_bleeding()
 
-	var/list/missing_bodyparts = list()
+	var/missing_limbs = 0
 	for(var/limb_zone in drinker.dna.species.has_limbs)
-		if(!isnull(drinker.bodyparts_by_name[limb_zone]))
-			continue
+		if(isnull(drinker.bodyparts_by_name[limb_zone]))
+			missing_limbs++
 
-		missing_bodyparts += limb_zone
-
-	if(!length(missing_bodyparts))
-		playsound(drinker, 'sound/effects/ahaha.ogg', 50, TRUE, -1, extrarange = SILENCED_SOUND_EXTRARANGE, frequency = 0.5)
+	playsound(drinker, 'sound/effects/ahaha.ogg', 50, TRUE, -1, extrarange = SILENCED_SOUND_EXTRARANGE, frequency = 0.5)
+	if(!missing_limbs)
 		return
 
-	drinker.dna.species.create_organs(drinker, missing_bodyparts)
-	to_chat(drinker, span_purple("Обитель возвращает вам [missing_bodyparts.len == 1 ? "утерянную конечность" : "утерянные конечности"]."))
-	playsound(drinker, 'sound/effects/ahaha.ogg', 50, TRUE, -1, extrarange = SILENCED_SOUND_EXTRARANGE, frequency = 0.5)
+	drinker.regenerate_limbs()
+	to_chat(drinker, span_purple("Обитель возвращает вам [missing_limbs == 1 ? "утерянную конечность" : "утерянные конечности"]."))
 
 
 /datum/status_effect/marshal/tick(seconds_between_ticks)

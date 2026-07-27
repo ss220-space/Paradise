@@ -120,7 +120,7 @@
 
 /obj/item/ether/attack_self(mob/living/user, modifiers)
 	. = ..()
-	user.rejuvenate()
+	user.revive()
 	for(var/obj/item/implant/to_remove in user.contents)
 		to_remove.removed(user)
 
@@ -142,16 +142,14 @@
 /datum/status_effect/eldritch_sleep/on_apply()
 	. = ..()
 	owner.add_traits(sleeping_traits, TRAIT_STATUS_EFFECT(id))
-	ADD_TRAIT(owner, TRAIT_FAKEDEATH, HERETIC_TRAIT)
-	owner.updatehealth("fakedeath")
+	ADD_TRAIT(owner, TRAIT_STASIS, TRAIT_STATUS_EFFECT(id))
 
 
 /datum/status_effect/eldritch_sleep/on_remove()
 	owner.SetSleeping(0) // Wake up bookworm, we have some heathens to burn
 	owner.remove_traits(sleeping_traits, TRAIT_STATUS_EFFECT(id))
 	owner.reagents?.remove_all(100) // If someone gives you over 100 units of poison while you sleep then you deserve this L
-	REMOVE_TRAIT(owner, TRAIT_FAKEDEATH, HERETIC_TRAIT)
-	owner.updatehealth("fakedeath")
+	REMOVE_TRAIT(owner, TRAIT_STASIS, TRAIT_STATUS_EFFECT(id))
 
 
 /atom/movable/screen/alert/status_effect/eldritch_sleep

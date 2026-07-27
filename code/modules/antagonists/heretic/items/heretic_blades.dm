@@ -444,61 +444,61 @@
 	force = initial(force)
 
 
-/obj/item/melee/sickly_blade/beyond
-	name = "impossible blade"
-	desc = "Клинок, часть лезвия которого просто не отрисована. Там, где должен быть металл, \
-			остаётся цианово-пурпурный разрыв, а сам спрайт иногда отстаёт от руки."
-	icon_state = "beyond_blade"
-	base_icon_state = "beyond_blade"
-	item_state = "beyond_blade"
-	after_use_message = "Наблюдатель слышит ваш зов..."
-	COOLDOWN_DECLARE(null_reference_cooldown)
+/obj/item/melee/sickly_blade/bluespace
+	name = "bluespace blade"
+	desc = "Клинок, лезвие которого наполовину ушло в изнанку пространства. Там, где должен быть металл, \
+			тянется цианово-синий разрыв, а сама рукоять иногда отстаёт от руки."
+	icon_state = "bluespace_blade"
+	base_icon_state = "bluespace_blade"
+	item_state = "bluespace_blade"
+	after_use_message = "Изнанка слышит ваш зов..."
+	COOLDOWN_DECLARE(displacement_cooldown)
 
 
-/obj/item/melee/sickly_blade/beyond/Initialize(mapload)
+/obj/item/melee/sickly_blade/bluespace/Initialize(mapload)
 	. = ..()
 	qdel(GetComponent(/datum/component/cleave_attack))
 
 
-/obj/item/melee/sickly_blade/beyond/get_ru_names()
+/obj/item/melee/sickly_blade/bluespace/get_ru_names()
 	return alist(
-		NOMINATIVE = "невозможный клинок",
-		GENITIVE = "невозможного клинка",
-		DATIVE = "невозможному клинку",
-		ACCUSATIVE = "невозможный клинок",
-		INSTRUMENTAL = "невозможным клинком",
-		PREPOSITIONAL = "невозможном клинке",
+		NOMINATIVE = "блюспейс-клинок",
+		GENITIVE = "блюспейс-клинка",
+		DATIVE = "блюспейс-клинку",
+		ACCUSATIVE = "блюспейс-клинок",
+		INSTRUMENTAL = "блюспейс-клинком",
+		PREPOSITIONAL = "блюспейс-клинке",
 	)
 
 
-/obj/item/melee/sickly_blade/beyond/examine(mob/user)
+/obj/item/melee/sickly_blade/bluespace/examine(mob/user)
 	. = ..()
-	if(!wielder_has_null_reference(user))
+	if(!wielder_can_displace(user))
 		return
 
-	. += span_notice("Правым кликом по существу можно обнулить ссылку на предмет в его руке, а по лежащему предмету — на него самого.")
+	. += span_notice("Правым кликом по существу можно сместить предмет в его руке, а по лежащему предмету — его самого.")
 
 
-/obj/item/melee/sickly_blade/beyond/proc/wielder_has_null_reference(mob/user)
+/obj/item/melee/sickly_blade/bluespace/proc/wielder_can_displace(mob/user)
 	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
-	return !isnull(heretic_datum?.get_knowledge(/datum/heretic_knowledge/blade_upgrade/beyond))
+	return !isnull(heretic_datum?.get_knowledge(/datum/heretic_knowledge/blade_upgrade/bluespace))
 
 
-/obj/item/melee/sickly_blade/beyond/equipped(mob/user, slot, initial = FALSE)
+/obj/item/melee/sickly_blade/bluespace/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
 	update_appearance(UPDATE_ICON)
 	user.update_held_items()
 
 
-/obj/item/melee/sickly_blade/beyond/dropped(mob/user, silent = FALSE)
+/obj/item/melee/sickly_blade/bluespace/dropped(mob/user, silent = FALSE)
 	. = ..()
 	update_appearance(UPDATE_ICON)
 
 
-/obj/item/melee/sickly_blade/beyond/update_icon_state()
+/obj/item/melee/sickly_blade/bluespace/update_icon_state()
 	. = ..()
-	if(ismob(loc) && wielder_has_null_reference(loc))
-		icon_state = base_icon_state + "_infused"
+	if(ismob(loc) && wielder_can_displace(loc))
+		icon_state = base_icon_state + "_shattered"
 		item_state = icon_state
 		return
 
@@ -506,37 +506,37 @@
 	item_state = base_icon_state
 
 
-/obj/item/melee/sickly_blade/beyond/pre_attack_secondary(atom/target, mob/living/user, list/modifiers, list/attack_modifiers)
-	if(try_null_reference(target, user))
+/obj/item/melee/sickly_blade/bluespace/pre_attack_secondary(atom/target, mob/living/user, list/modifiers, list/attack_modifiers)
+	if(try_displace(target, user))
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 	return ..()
 
 
-/obj/item/melee/sickly_blade/beyond/ranged_interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
-	if(try_null_reference(interacting_with, user))
+/obj/item/melee/sickly_blade/bluespace/ranged_interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
+	if(try_displace(interacting_with, user))
 		return ITEM_INTERACT_SUCCESS
 	return ..()
 
 
-/obj/item/melee/sickly_blade/beyond/proc/try_null_reference(atom/target, mob/living/user)
-	if(!wielder_has_null_reference(user))
+/obj/item/melee/sickly_blade/bluespace/proc/try_displace(atom/target, mob/living/user)
+	if(!wielder_can_displace(user))
 		return FALSE
 
-	var/obj/item/nulled = target
+	var/obj/item/displaced = target
 	if(isliving(target) && target != user)
 		var/mob/living/victim = target
-		nulled = victim.get_active_hand()
+		displaced = victim.get_active_hand()
 
-	if(!isitem(nulled) || nulled == src)
+	if(!isitem(displaced) || displaced == src)
 		return FALSE
 
-	if(!COOLDOWN_FINISHED(src, null_reference_cooldown))
-		balloon_alert(user, "ссылка ещё держится!")
+	if(!COOLDOWN_FINISHED(src, displacement_cooldown))
+		balloon_alert(user, "изнанка ещё не готова!")
 		return TRUE
 
-	COOLDOWN_START(src, null_reference_cooldown, 15 SECONDS)
-	nulled.AddComponent(/datum/component/nulled_reference, 4 SECONDS, block_pickup = TRUE)
-	nulled.balloon_alert_to_viewers("ссылка обнулена")
+	COOLDOWN_START(src, displacement_cooldown, 15 SECONDS)
+	displaced.AddComponent(/datum/component/displaced_item, 4 SECONDS, block_pickup = TRUE)
+	displaced.balloon_alert_to_viewers("предмет смещён")
 	return TRUE
 
 

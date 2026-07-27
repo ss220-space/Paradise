@@ -56,7 +56,7 @@
 	SIGNAL_HANDLER
 
 	if(isroboticorgan(replacement))
-		qdel(src)
+		on_organ_removed(source, source.owner)
 		return
 
 	replacement.TakeComponent(src)

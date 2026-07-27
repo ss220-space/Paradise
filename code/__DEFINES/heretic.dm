@@ -12,7 +12,7 @@
 #define PATH_COSMIC "Путь Космоса"
 #define PATH_LOCK "Путь Замка́"
 #define PATH_MOON "Путь Луны"
-#define PATH_BEYOND "Путь Beyond"
+#define PATH_BLUESPACE "Путь Блюспейса"
 
 // Heretic knowledge tree defines (keys used in the knowledge tree assoc lists).
 #define HKT_NEXT "next"
@@ -55,7 +55,7 @@
 /// Ritual priority ceiling for heretic knowledge.
 #define MAX_KNOWLEDGE_PRIORITY 100
 
-#define BEYOND_MAX_RUNTIME_ERRORS 2
+#define BLUESPACE_MAX_INSTABILITY 2
 
 #define MOON_BRAIN_DAMAGE_MODIFIER 0.6
 

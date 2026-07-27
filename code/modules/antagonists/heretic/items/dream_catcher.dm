@@ -135,7 +135,7 @@
 	wake_action = new(src)
 	wake_action.Grant(ridden)
 
-	playsound(ridden, 'sound/magic/heretic/beyond/beyond_glitch.ogg', 40, TRUE)
+	playsound(ridden, 'sound/magic/mindswap.ogg', 40, TRUE)
 	add_attack_logs(prowler, ridden, "Possessed via Dream Catcher")
 	to_chat(ridden, span_hypnophrase("Вы просыпаетесь в чужом теле. Оно послушно вам, но ненадолго."))
 	to_chat(captive, span_userdanger("Вы всё ещё здесь, за собственными глазами — но руки вас больше не слушаются."))

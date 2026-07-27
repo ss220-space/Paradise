@@ -1407,30 +1407,30 @@
 	loc.visible_message(span_notice("Калейдоскоп цветов обрушивается на [loc.declent_ru(NOMINATIVE)], вырисовывая ранее скрытый плащ!"))
 
 
-/obj/item/clothing/suit/hooded/cultrobes/eldritch/beyond
-	name = "uncompiled skin"
-	desc = "Мантия, часть которой отрисована пурпурно-чёрной клеткой отсутствующей текстуры. \
-			По швам тянутся циановые линии отладочной сетки, а в грудь вшиты мультитул и медный кабель."
-	icon_state = "glitch_armor"
-	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch/beyond
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/bluespace
+	name = "rift shroud"
+	desc = "Мантия, часть которой ушла в изнанку пространства и висит в пустоте отдельно от ткани. \
+			По швам тянутся циановые нити разлома, а в грудь вшиты мультитул и медный кабель."
+	icon_state = "bluespace_armor"
+	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch/bluespace
 	armor = list("melee" = 40, "bullet" = 40, "laser" = 40, "energy" = 40, "bomb" = 40, "bio" = 40, "fire" = 40, "acid" = 40)
-	actions_types = list(/datum/action/item_action/toggle, /datum/action/item_action/frame_duplication)
-	COOLDOWN_DECLARE(duplication_cooldown)
+	actions_types = list(/datum/action/item_action/toggle, /datum/action/item_action/bluespace_doubles)
+	COOLDOWN_DECLARE(doubles_cooldown)
 	COOLDOWN_DECLARE(misfire_cooldown)
 
 
-/obj/item/clothing/suit/hooded/cultrobes/eldritch/beyond/get_ru_names()
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/bluespace/get_ru_names()
 	return alist(
-		NOMINATIVE = "некомпилируемая оболочка",
-		GENITIVE = "некомпилируемой оболочки",
-		DATIVE = "некомпилируемой оболочке",
-		ACCUSATIVE = "некомпилируемую оболочку",
-		INSTRUMENTAL = "некомпилируемой оболочкой",
-		PREPOSITIONAL = "некомпилируемой оболочке",
+		NOMINATIVE = "мантия разлома",
+		GENITIVE = "мантии разлома",
+		DATIVE = "мантии разлома",
+		ACCUSATIVE = "мантию разлома",
+		INSTRUMENTAL = "мантией разлома",
+		PREPOSITIONAL = "мантии разлома",
 	)
 
 
-/obj/item/clothing/suit/hooded/cultrobes/eldritch/beyond/equipped(mob/user, slot, initial = FALSE)
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/bluespace/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
 	if(slot != ITEM_SLOT_CLOTH_OUTER)
 		return
@@ -1440,82 +1440,81 @@
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(misfire))
 
 
-/obj/item/clothing/suit/hooded/cultrobes/eldritch/beyond/dropped(mob/user, slot, silent = FALSE)
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/bluespace/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	UnregisterSignal(user, list(COMSIG_MOVABLE_MOVED, COMSIG_MOB_EXAMINING_MORE))
 
 
-/obj/item/clothing/suit/hooded/cultrobes/eldritch/beyond/proc/reveal_true_name(mob/examiner, atom/examined, list/examine_list)
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/bluespace/proc/reveal_true_name(mob/examiner, atom/examined, list/examine_list)
 	SIGNAL_HANDLER
 
-	if(!ismob(examined))
+	if(!ishuman(examined))
 		return
-	var/mob/victim = examined
-	var/true_name = victim.ckey || victim.mind?.key
-	if(!true_name)
+	var/mob/living/carbon/human/victim = examined
+	if(!victim.real_name)
 		return
-	examine_list += span_hierophant("Истинное имя: <b>[true_name]</b>.")
+	examine_list += span_hierophant("Истинное имя: <b>[victim.real_name]</b>.")
 
 
-/obj/item/clothing/suit/hooded/cultrobes/eldritch/beyond/ui_action_click(mob/user, datum/action/action, leftclick)
-	if(istype(action, /datum/action/item_action/frame_duplication))
-		duplicate_frames(user)
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/bluespace/ui_action_click(mob/user, datum/action/action, leftclick)
+	if(istype(action, /datum/action/item_action/bluespace_doubles))
+		summon_doubles(user)
 		return
 	return ..()
 
 
-/obj/item/clothing/suit/hooded/cultrobes/eldritch/beyond/proc/duplicate_frames(mob/living/user)
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/bluespace/proc/summon_doubles(mob/living/user)
 	if(!IS_HERETIC(user))
 		return
 
-	if(!COOLDOWN_FINISHED(src, duplication_cooldown))
-		balloon_alert(user, "кадры ещё догоняют!")
+	if(!COOLDOWN_FINISHED(src, doubles_cooldown))
+		balloon_alert(user, "двойники ещё догоняют!")
 		return
 
-	COOLDOWN_START(src, duplication_cooldown, 40 SECONDS)
+	COOLDOWN_START(src, doubles_cooldown, 40 SECONDS)
 	for(var/copy_number in 1 to 2)
-		new /obj/effect/beyond_clone(get_turf(user), user, copy_number * 0.2 SECONDS, 12 SECONDS)
+		new /obj/effect/bluespace_double(get_turf(user), user, copy_number * 0.2 SECONDS, 12 SECONDS)
 
-	to_chat(user, span_hierophant("Ваши прошлые версии отстают от вас, всё ещё уверенные, что они настоящие."))
+	to_chat(user, span_hierophant("Изнанка отпускает тех, кем вы были мгновение назад, всё ещё уверенных, что они настоящие."))
 
 
-/obj/item/clothing/suit/hooded/cultrobes/eldritch/beyond/proc/misfire(mob/living/wearer)
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/bluespace/proc/misfire(mob/living/wearer)
 	SIGNAL_HANDLER
 
 	if(!COOLDOWN_FINISHED(src, misfire_cooldown))
 		return
 
 	COOLDOWN_START(src, misfire_cooldown, 8 SECONDS)
-	new /obj/effect/beyond_clone(get_turf(wearer), wearer, 0.4 SECONDS, 6 SECONDS)
-	give_runtime_error(wearer, null)
+	new /obj/effect/bluespace_double(get_turf(wearer), wearer, 0.4 SECONDS, 6 SECONDS)
+	give_spatial_instability(wearer, null)
 
-	if(wearer.has_status_effect(/datum/status_effect/crash_immunity))
+	if(wearer.has_status_effect(/datum/status_effect/collapse_immunity))
 		wearer.drop_item_ground(src, force = TRUE)
 		wearer.visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] сползает с [wearer.declent_ru(GENITIVE)], потеряв к [GEND_HIM_HER(wearer)] всякий интерес."))
 
 
-/obj/item/clothing/head/hooded/cult_hoodie/eldritch/beyond
-	name = "uncompiled hood"
-	desc = "Капюшон, под которым вместо лица — пурпурно-чёрная клетка отсутствующей текстуры \
-			и две циановые рамки выделения там, где должны быть глаза."
-	icon_state = "glitch_armor"
+/obj/item/clothing/head/hooded/cult_hoodie/eldritch/bluespace
+	name = "rift hood"
+	desc = "Капюшон, под которым вместо лица — уходящий вглубь разлом \
+			и две циановые искры там, где должны быть глаза."
+	icon_state = "bluespace_armor"
 
 
-/obj/item/clothing/head/hooded/cult_hoodie/eldritch/beyond/get_ru_names()
+/obj/item/clothing/head/hooded/cult_hoodie/eldritch/bluespace/get_ru_names()
 	return alist(
-		NOMINATIVE = "некомпилируемый капюшон",
-		GENITIVE = "некомпилируемого капюшона",
-		DATIVE = "некомпилируемому капюшону",
-		ACCUSATIVE = "некомпилируемый капюшон",
-		INSTRUMENTAL = "некомпилируемым капюшоном",
-		PREPOSITIONAL = "некомпилируемом капюшоне",
+		NOMINATIVE = "капюшон разлома",
+		GENITIVE = "капюшона разлома",
+		DATIVE = "капюшону разлома",
+		ACCUSATIVE = "капюшон разлома",
+		INSTRUMENTAL = "капюшоном разлома",
+		PREPOSITIONAL = "капюшоне разлома",
 	)
 
 
-/datum/action/item_action/frame_duplication
-	name = "Дублирование Кадров"
+/datum/action/item_action/bluespace_doubles
+	name = "Блюспейс-Двойники"
 	button_icon = 'icons/mob/actions/actions_ecult.dmi'
-	button_icon_state = "frame_duplication"
+	button_icon_state = "bluespace_doubles"
 	background_icon = 'icons/mob/actions/backgrounds.dmi'
 	background_icon_state = "bg_heretic"
 	overlay_icon = 'icons/mob/actions/backgrounds.dmi'

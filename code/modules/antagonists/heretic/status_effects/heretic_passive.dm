@@ -175,12 +175,12 @@
 	if(!ishuman(carbon_owner))
 		return
 	var/mob/living/carbon/human/human_owner = carbon_owner
-	var/list/missing_bodyparts = list()
 	for(var/limb_zone in human_owner.dna.species.has_limbs)
-		if(isnull(human_owner.bodyparts_by_name[limb_zone]))
-			missing_bodyparts += limb_zone
-	if(length(missing_bodyparts))
-		human_owner.dna.species.create_organs(human_owner, missing_bodyparts)
+		if(!isnull(human_owner.bodyparts_by_name[limb_zone]))
+			continue
+
+		human_owner.regenerate_limbs()
+		break
 
 
 /datum/status_effect/heretic_passive/moon
@@ -477,9 +477,9 @@
 		owner.updatehealth()
 
 
-/datum/status_effect/heretic_passive/beyond
-	id = "heretic_passive_beyond"
-	name = "Ошибка Состояния"
+/datum/status_effect/heretic_passive/bluespace
+	id = "heretic_passive_bluespace"
+	name = "Расфазированное Тело"
 	passive_descriptions = list(
 		"Вас невозможно уронить скользкой поверхностью: вода, лёд, мыло, кровь и кожура вас не касаются.",
 		"Ползание больше не замедляет вас — лёжа вы двигаетесь со скоростью шага.",
@@ -488,14 +488,14 @@
 	var/static/list/slip_traits = list(TRAIT_NO_SLIP_WATER, TRAIT_NO_SLIP_ICE, TRAIT_NO_SLIP_SLIDE, TRAIT_NO_SLIP_ALL)
 
 
-/datum/status_effect/heretic_passive/beyond/on_apply()
+/datum/status_effect/heretic_passive/bluespace/on_apply()
 	. = ..()
 	if(!.)
 		return
 	owner.add_traits(slip_traits, TRAIT_STATUS_EFFECT(id))
 
 
-/datum/status_effect/heretic_passive/beyond/level_upgrade()
+/datum/status_effect/heretic_passive/bluespace/level_upgrade()
 	. = ..()
 	if(!.)
 		return
@@ -503,20 +503,20 @@
 	shed_crawl_slowdown()
 
 
-/datum/status_effect/heretic_passive/beyond/level_final()
+/datum/status_effect/heretic_passive/bluespace/level_final()
 	. = ..()
 	if(!.)
 		return
 	owner.add_traits(list(TRAIT_STUNIMMUNE, TRAIT_PUSHIMMUNE), TRAIT_STATUS_EFFECT(id))
 
 
-/datum/status_effect/heretic_passive/beyond/on_remove()
+/datum/status_effect/heretic_passive/bluespace/on_remove()
 	owner.remove_traits(slip_traits + list(TRAIT_STUNIMMUNE, TRAIT_PUSHIMMUNE), TRAIT_STATUS_EFFECT(id))
 	UnregisterSignal(owner, COMSIG_MOVABLE_MOVED)
 	return ..()
 
 
-/datum/status_effect/heretic_passive/beyond/proc/shed_crawl_slowdown(datum/source)
+/datum/status_effect/heretic_passive/bluespace/proc/shed_crawl_slowdown(datum/source)
 	SIGNAL_HANDLER
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/carbon_crawling)
 

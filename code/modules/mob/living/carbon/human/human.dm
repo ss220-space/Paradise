@@ -933,10 +933,7 @@
 	else
 		germ_level += n
 
-/**
- * Regenerate missing limbs/organs with defined in species datum.
- */
-/mob/living/carbon/human/proc/check_and_regenerate_organs()
+/mob/living/carbon/human/proc/regenerate_limbs()
 	var/datum/species/species = dna?.species
 	if(!species)
 		return FALSE
@@ -948,12 +945,21 @@
 			var/obj/item/organ/new_organ = new limb_path(src)
 			organ_data["descriptor"] = new_organ.name
 
-	for(var/organ_slot in species.has_organ)
+	recalculate_limbs_status()
+	return TRUE
+
+/**
+ * Regenerate missing limbs/organs with defined in species datum.
+ */
+/mob/living/carbon/human/proc/check_and_regenerate_organs()
+	if(!regenerate_limbs())
+		return FALSE
+
+	for(var/organ_slot in dna.species.has_organ)
 		if(!internal_organs_slot[organ_slot])
-			var/organ_path = species.has_organ[organ_slot]
+			var/organ_path = dna.species.has_organ[organ_slot]
 			new organ_path(src)
 
-	recalculate_limbs_status()
 	return TRUE
 
 /mob/living/carbon/human/revive()

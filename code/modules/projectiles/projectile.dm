@@ -123,6 +123,9 @@
 	var/datum/point_precise/vector/trajectory
 	/// Instructs forceMove to NOT reset our trajectory to the new location!
 	var/trajectory_ignore_forcemove = FALSE
+	var/homing = FALSE
+	var/atom/homing_target
+	var/homing_turn_speed = 10
 
 	/// Does this projectile do extra damage to / break shields?
 	var/shield_buster = FALSE
@@ -187,6 +190,7 @@
 		ammo_casing =  null
 	firer_source_atom = null
 	firer = null
+	homing_target = null
 	if(trajectory)
 		QDEL_NULL(trajectory)
 	if(beam_index)
@@ -434,6 +438,8 @@
 	if(!loc || !trajectory)
 		return
 	last_projectile_move = world.time
+	if(homing)
+		process_homing()
 	// Keep on course
 	if(!hitscanning)
 		var/matrix/matrix = new
@@ -579,6 +585,23 @@
 		point_cache = trajectory.copy_to()
 		store_hitscan_collision(point_cache)
 	return TRUE
+
+/obj/projectile/proc/set_homing_target(atom/target)
+	if(!isturf(target) && !isturf(target?.loc))
+		return FALSE
+
+	homing = TRUE
+	homing_target = target
+	return TRUE
+
+/obj/projectile/proc/process_homing()
+	if(QDELETED(homing_target) || !trajectory)
+		homing = FALSE
+		homing_target = null
+		return
+
+	var/turn_by = closer_angle_difference(Angle, angle_between_points(trajectory, RETURN_PRECISE_POINT(homing_target)))
+	set_angle(Angle + clamp(turn_by, -homing_turn_speed, homing_turn_speed))
 
 /obj/projectile/proc/set_angle_centered(new_angle)
 	set_angle(new_angle)
