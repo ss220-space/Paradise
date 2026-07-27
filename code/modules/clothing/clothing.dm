@@ -1073,8 +1073,6 @@
 	undyeable = TRUE
 	var/obj/item/tank/jetpack/suit/jetpack = null
 	var/jetpack_upgradable = FALSE
-	/// Original slowdown with modifiers
-	var/original_slowdown
 
 /obj/item/clothing/suit/space/Initialize(mapload)
 	. = ..()
@@ -1104,17 +1102,9 @@
 
 /obj/item/clothing/suit/space/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
-	if(slot == ITEM_SLOT_CLOTH_OUTER)
-		if(isnull(original_slowdown))
-			original_slowdown = slowdown
-		CALCULATE_SKILL_MOD(user, COMSIG_GET_SPACESUIT_SLOWDOWN_MOD, skill_factor)
-		slowdown = original_slowdown * skill_factor
-		if(jetpack)
-			for(var/datum/action/action as anything in jetpack.actions)
-				action.Grant(user)
-	else if(!isnull(original_slowdown))
-		slowdown = original_slowdown
-		original_slowdown = null
+	if(jetpack && slot == ITEM_SLOT_CLOTH_OUTER)
+		for(var/datum/action/action as anything in jetpack.actions)
+			action.Grant(user)
 
 /obj/item/clothing/suit/space/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
@@ -1122,8 +1112,6 @@
 		for(var/datum/action/action as anything in jetpack.actions)
 			action.Remove(user)
 		jetpack.turn_off(user)
-	if(!isnull(original_slowdown))
-		slowdown = original_slowdown
 
 /obj/item/clothing/suit/space/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/tank/jetpack/suit))

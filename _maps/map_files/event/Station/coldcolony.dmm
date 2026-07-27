@@ -3008,7 +3008,6 @@
 	pixel_y = 6
 	},
 /obj/item/taperecorder,
-/obj/item/flashlight/lamp,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -28381,7 +28380,8 @@
 	},
 /area/coldcolony/malta/engineering/atmos)
 "kzr" = (
-/obj/machinery/computer/skill_manuals,
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},

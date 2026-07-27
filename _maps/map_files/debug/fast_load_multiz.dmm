@@ -84,11 +84,6 @@
 	},
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
-"qB" = (
-/obj/structure/table,
-/obj/item/storage/box/syringes,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "rS" = (
 /obj/machinery/light,
 /turf/simulated/floor/mineral/titanium/purple,
@@ -163,12 +158,6 @@
 /area/fastload)
 "CC" = (
 /obj/item/radio/intercom/directional/north,
-/obj/machinery/smartfridge/secure/chemistry/virology/preloaded,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
-"DP" = (
-/obj/structure/table,
-/obj/item/reagent_containers/dropper,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
 "DZ" = (
@@ -190,15 +179,6 @@
 /obj/item/mounted/frame/alarm_frame,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
-"GE" = (
-/obj/structure/table,
-/obj/item/reagent_containers/glass/beaker,
-/obj/item/reagent_containers/glass/beaker,
-/obj/item/reagent_containers/glass/beaker,
-/obj/item/reagent_containers/glass/beaker,
-/obj/item/reagent_containers/glass/beaker,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "Hi" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -242,10 +222,6 @@
 /obj/effect/turf_decal/arrows/black{
 	dir = 8
 	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
-"VQ" = (
-/obj/machinery/computer/pandemic,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
 "Xa" = (
@@ -2682,7 +2658,7 @@ ay
 ay
 ay
 jk
-VQ
+HE
 HE
 HE
 HE
@@ -2748,7 +2724,7 @@ ay
 ay
 ay
 jk
-VQ
+HE
 HE
 HE
 HE
@@ -2815,9 +2791,9 @@ ay
 ay
 jk
 HE
-GE
-DP
-qB
+HE
+HE
+HE
 HE
 HE
 HE

@@ -62055,7 +62055,6 @@
 	pixel_y = 6
 	},
 /obj/item/stack/tape_roll,
-/obj/item/flashlight/lamp,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -104138,7 +104137,8 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/station/command/meeting_room)
 "tKL" = (
-/obj/machinery/computer/skill_manuals,
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},

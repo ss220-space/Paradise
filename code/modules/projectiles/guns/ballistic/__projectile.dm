@@ -11,8 +11,6 @@
 	var/can_tactical = FALSE //check to see if the gun can tactically reload
 	/// Register fireshoot component
 	var/can_air_shoot = FALSE
-	/// Magazine reload duration
-	var/reload_duration = 1.2 SECONDS
 
 /obj/item/gun/projectile/Initialize(mapload)
 	. = ..()
@@ -114,10 +112,6 @@
 
 /obj/item/gun/projectile/proc/reload(obj/item/ammo_box/magazine/new_magazine, mob/user)
 	playsound(loc, magin_sound, 50, TRUE)
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_MAGAZINE_RELOAD_MOD, skill_modifier)
-	if(!do_after(user, reload_duration * skill_modifier, src, DA_IGNORE_USER_LOC_CHANGE, max_interact_count = 1))
-		return FALSE
-
 	if(user && !user.drop_transfer_item_to_loc(new_magazine, src, silent = TRUE))
 		return FALSE
 
@@ -164,10 +158,6 @@
 		return FALSE
 
 	add_fingerprint(user)
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_MAGAZINE_RELOAD_MOD, skill_modifier)
-	if(!do_after(user, reload_duration * skill_modifier, src, DA_IGNORE_USER_LOC_CHANGE, max_interact_count = 1))
-		return FALSE
-
 	var/num_loaded = magazine.reload(item, user)
 	if(!num_loaded)
 		return
@@ -270,14 +260,3 @@
 		if(AC.BB)
 			fast_fire(user, user)
 			. = TRUE
-
-/obj/item/gun/projectile/on_pre_process_fire(mob/living/user, atom/target)
-	CALCULATE_SKILL_MOD(user, COMSIG_GET_MISSFIRE_CHANCE, missfire_chance)
-	if(missfire_chance <= 0  || !chambered || !chambered.BB)
-		return
-	if(!prob(missfire_chance))
-		return
-
-	QDEL_NULL(chambered.BB)
-	balloon_alert(user, "осечка!")
-	playsound(src, 'sound/weapons/empty.ogg', 100, TRUE)

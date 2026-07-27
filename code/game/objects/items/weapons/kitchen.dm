@@ -146,7 +146,6 @@
 	. = ..()
 	default_force = force
 	default_throwforce = throwforce
-	ADD_TRAIT(src, TRAIT_MELEE_WEAPON, ROUNDSTART_TRAIT)
 
 /obj/item/kitchen/knife/sharpen_act(obj/item/whetstone/whetstone, mob/user)
 	. = ..()

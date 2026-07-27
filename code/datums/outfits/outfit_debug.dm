@@ -361,7 +361,8 @@
 	name = "AVD-CNED advanced space cleaner"
 	desc = "AVD-CNED! — непенящееся чистящее средство для помещений! Как чудесно."
 	volume = 50000
-	spray_maxrange_mod = 5
+	spray_maxrange = 10
+	spray_currentrange = 10
 	list_reagents = list("cleaner" = 50000)
 	delay = 0.1 SECONDS // it costs 1000 reagents to fire this cleaner... for 12 seconds.
 
