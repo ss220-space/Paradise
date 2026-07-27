@@ -105,7 +105,7 @@
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .
 
-	if((istype(I, /obj/item/shovel) || istype(I, /obj/item/pickaxe)))
+	if((istype(I, /obj/item/shovel) || I.tool_behaviour == TOOL_MINING))
 		if(!can_dig(user))
 			return .
 		I.play_tool_sound()

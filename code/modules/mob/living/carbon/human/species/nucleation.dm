@@ -60,6 +60,15 @@
 		JOB_MIN_AGE_COMMAND = 30,
 	)
 
+	max_select_skills = list(
+		/datum/skill/general/cooking = 1,
+		/datum/skill/medical/surgery = 1,
+		/datum/skill/medical/heal = 1,
+		/datum/skill/medical/genetic = 0,
+		/datum/skill/medical/virusology = 0,
+	)
+	bonus_skill_free_points = 2
+
 /datum/species/nucleation/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
 	H.light_color = COLOR_NUCLEATION_LIGHT

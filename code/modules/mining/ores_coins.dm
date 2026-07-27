@@ -423,7 +423,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		wires.Interact(user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(I.force >= 10 || istype(I, /obj/item/pickaxe) || istype(I, /obj/item/resonator))
+	if(I.tool_behaviour == TOOL_MINING || I.force >= 10 || istype(I, /obj/item/pickaxe) || istype(I, /obj/item/resonator))
 		GibtoniteReaction(user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 

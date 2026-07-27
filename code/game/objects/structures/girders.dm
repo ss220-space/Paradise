@@ -133,6 +133,8 @@
 		to_chat(user, span_warning("You can't seem to make the metal bend."))
 		return .
 
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
+
 	if(istype(I, /obj/item/stack/rods))
 		var/obj/item/stack/rods/rods = stack
 		if(state == GIRDER_DISPLACED)
@@ -140,7 +142,7 @@
 				to_chat(user, span_warning("You need at least five rods to create a false wall!"))
 				return .
 			to_chat(user, span_notice("You start building a reinforced false wall..."))
-			if(!do_after(user, 2 SECONDS * rods.toolspeed, src, category = DA_CAT_TOOL) || state != GIRDER_DISPLACED || QDELETED(rods) || !rods.use(5))
+			if(!do_after(user, 2 SECONDS * rods.toolspeed * building_mod, src, category = DA_CAT_TOOL) || state != GIRDER_DISPLACED || QDELETED(rods) || !rods.use(5))
 				return .
 			to_chat(user, span_notice("You created a false wall. Push on it to open or close the passage."))
 			var/obj/structure/falsewall/iron/falsewall = new(loc)
@@ -153,7 +155,7 @@
 			to_chat(user, span_warning("You need at least five rods to finalize the iron wall!"))
 			return .
 		to_chat(user, span_notice("You start adding plating..."))
-		if(!do_after(user, 2 SECONDS * rods.toolspeed, src, category = DA_CAT_TOOL) || state == GIRDER_DISPLACED || !isfloorturf(loc) || QDELETED(rods) || !rods.use(5))
+		if(!do_after(user, 2 SECONDS * rods.toolspeed * building_mod, src, category = DA_CAT_TOOL) || state == GIRDER_DISPLACED || !isfloorturf(loc) || QDELETED(rods) || !rods.use(5))
 			return .
 		to_chat(user, span_notice("You have finalized the metal wall."))
 		var/turf/floor = loc
@@ -175,7 +177,7 @@
 				to_chat(user, span_warning("You need at least two planks of wood to create a false wall!"))
 				return .
 			to_chat(user, span_notice("You start building a false wall..."))
-			if(!do_after(user, 2 SECONDS * wood.toolspeed, src, category = DA_CAT_TOOL) || state != GIRDER_DISPLACED || QDELETED(wood) || !wood.use(2))
+			if(!do_after(user, 2 SECONDS * wood.toolspeed * building_mod, src, category = DA_CAT_TOOL) || state != GIRDER_DISPLACED || QDELETED(wood) || !wood.use(2))
 				return .
 			to_chat(user, span_notice("You created a false wall. Push on it to open or close the passage."))
 			var/obj/structure/falsewall/wood/falsewall = new(loc)
@@ -188,7 +190,7 @@
 			to_chat(user, span_warning("You need at least two planks of wood to finalize the wall!"))
 			return .
 		to_chat(user, span_notice("You start adding plating..."))
-		if(!do_after(user, 4 SECONDS * wood.toolspeed, src, category = DA_CAT_TOOL) || state == GIRDER_DISPLACED || !isfloorturf(loc) || QDELETED(wood) || !wood.use(2))
+		if(!do_after(user, 4 SECONDS * wood.toolspeed * building_mod, src, category = DA_CAT_TOOL) || state == GIRDER_DISPLACED || !isfloorturf(loc) || QDELETED(wood) || !wood.use(2))
 			return .
 		to_chat(user, span_notice("You have finalized the wooden wall."))
 		var/turf/floor = loc
@@ -205,7 +207,7 @@
 				to_chat(user, span_warning("You need at least two sheets of metal to create a false wall!"))
 				return .
 			to_chat(user, span_notice("You start building a false wall..."))
-			if(!do_after(user, 2 SECONDS * metal.toolspeed, src, category = DA_CAT_TOOL) || state != GIRDER_DISPLACED || QDELETED(metal) || !metal.use(2))
+			if(!do_after(user, 2 SECONDS * metal.toolspeed * building_mod, src, category = DA_CAT_TOOL) || state != GIRDER_DISPLACED || QDELETED(metal) || !metal.use(2))
 				return .
 			to_chat(user, span_notice("You created a false wall. Push on it to open or close the passage."))
 			var/obj/structure/falsewall/falsewall = new(loc)
@@ -218,7 +220,7 @@
 			to_chat(user, span_warning("You need at least two sheets of metal to finalize the wall!"))
 			return .
 		to_chat(user, span_notice("You start adding plating..."))
-		if(!do_after(user, 4 SECONDS * metal.toolspeed, src, category = DA_CAT_TOOL) || state == GIRDER_DISPLACED || !isfloorturf(loc) || QDELETED(metal) || !metal.use(2))
+		if(!do_after(user, 4 SECONDS * metal.toolspeed * building_mod, src, category = DA_CAT_TOOL) || state == GIRDER_DISPLACED || !isfloorturf(loc) || QDELETED(metal) || !metal.use(2))
 			return .
 		to_chat(user, span_notice("You have finalized the wall."))
 		var/turf/floor = loc
@@ -236,7 +238,7 @@
 					to_chat(user, span_warning("You need at least two sheets of plasteel to create a false wall!"))
 					return .
 				to_chat(user, span_notice("You start building a false wall..."))
-				if(!do_after(user, 2 SECONDS * plasteel.toolspeed, src, category = DA_CAT_TOOL) || state != GIRDER_DISPLACED || QDELETED(plasteel) || !plasteel.use(2))
+				if(!do_after(user, 2 SECONDS * plasteel.toolspeed * building_mod, src, category = DA_CAT_TOOL) || state != GIRDER_DISPLACED || QDELETED(plasteel) || !plasteel.use(2))
 					return .
 				to_chat(user, span_notice("You created a reinforced false wall. Push on it to open or close the passage."))
 				var/obj/structure/falsewall/reinforced/falsewall = new(loc)
@@ -250,7 +252,7 @@
 					to_chat(user, span_warning("You need at least one sheet of plasteel to finalize the reinforced wall!"))
 					return .
 				to_chat(user, span_notice("You start finalizing the reinforced wall..."))
-				if(!do_after(user, 2 SECONDS * plasteel.toolspeed, src, category = DA_CAT_TOOL) || state != GIRDER_REINF || !isfloorturf(loc) || QDELETED(plasteel) || !plasteel.use(1))
+				if(!do_after(user, 2 SECONDS * plasteel.toolspeed * building_mod, src, category = DA_CAT_TOOL) || state != GIRDER_REINF || !isfloorturf(loc) || QDELETED(plasteel) || !plasteel.use(1))
 					return .
 				to_chat(user, span_notice("You have finalized the reinforced wall."))
 				var/turf/floor = loc
@@ -265,7 +267,7 @@
 					to_chat(user, span_warning("You need at least one sheet of plasteel to reinforce the girder!"))
 					return .
 				to_chat(user, span_notice("You start reinforcing the girder..."))
-				if(!do_after(user, 6 SECONDS * plasteel.toolspeed, src, category = DA_CAT_TOOL) || state == GIRDER_DISPLACED || state == GIRDER_REINF || QDELETED(plasteel) || !plasteel.use(1))
+				if(!do_after(user, 6 SECONDS * plasteel.toolspeed * building_mod, src, category = DA_CAT_TOOL) || state == GIRDER_DISPLACED || state == GIRDER_REINF || QDELETED(plasteel) || !plasteel.use(1))
 					return .
 				to_chat(user, span_notice("You reinforce the girder."))
 				var/obj/structure/girder/reinforced/girder = new(loc)
@@ -284,7 +286,7 @@
 			to_chat(user, span_warning("You need at least two sheets of [cached_sheet_type] to create a false wall!"))
 			return .
 		to_chat(user, span_notice("You start building a false wall..."))
-		if(!do_after(user, 2 SECONDS * sheet.toolspeed, src, category = DA_CAT_TOOL) || state != GIRDER_DISPLACED || QDELETED(sheet) || !sheet.use(2))
+		if(!do_after(user, 2 SECONDS * sheet.toolspeed * building_mod, src, category = DA_CAT_TOOL) || state != GIRDER_DISPLACED || QDELETED(sheet) || !sheet.use(2))
 			return .
 		to_chat(user, span_notice("You created [cached_sheet_type] false wall. Push on it to open or close the passage."))
 		var/falsewall_path = text2path("/obj/structure/falsewall/[cached_sheet_type]")
@@ -298,7 +300,7 @@
 		to_chat(user, span_warning("You need at least two sheets of [cached_sheet_type] to add plating!"))
 		return .
 	to_chat(user, span_notice("You start adding plating..."))
-	if(!do_after(user, 4 SECONDS * sheet.toolspeed, src, category = DA_CAT_TOOL) || state == GIRDER_DISPLACED || !isfloorturf(loc) || QDELETED(sheet) || !sheet.use(2))
+	if(!do_after(user, 4 SECONDS * sheet.toolspeed * building_mod, src, category = DA_CAT_TOOL) || state == GIRDER_DISPLACED || !isfloorturf(loc) || QDELETED(sheet) || !sheet.use(2))
 		return .
 	to_chat(user, span_notice("You have finalized the [cached_sheet_type] wall."))
 	var/turf/floor = loc
@@ -315,7 +317,8 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	to_chat(user, span_notice("You start dislodging the girder..."))
-	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != GIRDER_NORMAL)
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
+	if(!I.use_tool(src, user, 4 SECONDS * building_mod, volume = I.tool_volume) || state != GIRDER_NORMAL)
 		return
 	to_chat(user, span_notice("You dislodge the girder."))
 	var/obj/structure/girder/displaced/D = new (loc)
@@ -328,10 +331,11 @@
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 	switch(state)
 		if(GIRDER_DISPLACED)
 			TOOL_ATTEMPT_DISMANTLE_MESSAGE
-			if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != GIRDER_DISPLACED)
+			if(!I.use_tool(src, user, 4 SECONDS * building_mod, volume = I.tool_volume) || state != GIRDER_DISPLACED)
 				return
 			state = GIRDER_DISASSEMBLED
 			TOOL_DISMANTLE_SUCCESS_MESSAGE
@@ -340,13 +344,13 @@
 			qdel(src)
 		if(GIRDER_REINF)
 			to_chat(user, span_notice("You start unsecuring support struts..."))
-			if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != GIRDER_REINF)
+			if(!I.use_tool(src, user, 4 SECONDS * building_mod, volume = I.tool_volume) || state != GIRDER_REINF)
 				return
 			to_chat(user, span_notice("You unsecure the support struts."))
 			state = GIRDER_REINF_STRUTS
 		if(GIRDER_REINF_STRUTS)
 			to_chat(user, span_notice("You start securing support struts..."))
-			if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != GIRDER_REINF_STRUTS)
+			if(!I.use_tool(src, user, 4 SECONDS * building_mod, volume = I.tool_volume) || state != GIRDER_REINF_STRUTS)
 				return
 			to_chat(user, span_notice("You secure the support struts."))
 			state = GIRDER_REINF
@@ -357,8 +361,9 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 	to_chat(user, span_notice("You start removing the inner grille..."))
-	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != GIRDER_REINF_STRUTS)
+	if(!I.use_tool(src, user, 4 SECONDS * building_mod, volume = I.tool_volume) || state != GIRDER_REINF_STRUTS)
 		return
 	to_chat(user, span_notice("You remove the inner grille."))
 	new /obj/item/stack/sheet/plasteel(get_turf(src))
@@ -372,9 +377,10 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 	if(state == GIRDER_NORMAL)
 		TOOL_ATTEMPT_DISMANTLE_MESSAGE
-		if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != GIRDER_NORMAL)
+		if(!I.use_tool(src, user, 4 SECONDS * building_mod, volume = I.tool_volume) || state != GIRDER_NORMAL)
 			return
 		state = GIRDER_DISASSEMBLED
 		TOOL_DISMANTLE_SUCCESS_MESSAGE
@@ -385,7 +391,7 @@
 			to_chat(user, span_warning("A floor must be present to secure the girder!"))
 			return
 		to_chat(user, span_notice("You start securing the girder..."))
-		if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != GIRDER_DISPLACED)
+		if(!I.use_tool(src, user, 4 SECONDS * building_mod, volume = I.tool_volume) || state != GIRDER_DISPLACED)
 			return
 		to_chat(user, span_notice("You secure the girder."))
 		var/obj/structure/girder/G = new(loc)
@@ -396,8 +402,9 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 	WELDER_ATTEMPT_SLICING_MESSAGE
-	if(I.use_tool(src, user, 40, volume = I.tool_volume))
+	if(I.use_tool(src, user, 4 SECONDS * building_mod, volume = I.tool_volume))
 		WELDER_SLICING_SUCCESS_MESSAGE
 		refundMetal(metalUsed)
 		qdel(src)
@@ -497,7 +504,8 @@
 			span_notice("[user] starts laying runed metal on [src]."),
 			span_notice("You start constructing a runed wall..."),
 		)
-		if(!do_after(user, 1 SECONDS * metal.toolspeed, src, category = DA_CAT_TOOL) || !isfloorturf(loc) || QDELETED(metal) || !metal.use(1))
+		CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
+		if(!do_after(user, 1 SECONDS * metal.toolspeed * building_mod, src, category = DA_CAT_TOOL) || !isfloorturf(loc) || QDELETED(metal) || !metal.use(1))
 			return ATTACK_CHAIN_PROCEED
 		user.visible_message(
 			span_notice("[user] plates [name] with runed metal."),
@@ -537,7 +545,8 @@
 			span_notice("[user] starts laying runed metal on [src]."),
 			span_notice("You start constructing a runed wall..."),
 		)
-		if(!do_after(user, 1 SECONDS * metal.toolspeed, src, category = DA_CAT_TOOL) || !isfloorturf(loc) || QDELETED(metal) || !metal.use(1))
+		CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
+		if(!do_after(user, 1 SECONDS * metal.toolspeed * building_mod, src, category = DA_CAT_TOOL) || !isfloorturf(loc) || QDELETED(metal) || !metal.use(1))
 			return ATTACK_CHAIN_PROCEED
 		user.visible_message(
 			span_notice("[user] plates [name] with runed metal."),

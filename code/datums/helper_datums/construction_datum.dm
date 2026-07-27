@@ -45,7 +45,10 @@
 	return 0
 
 /datum/construction/proc/custom_action(step, used_atom, user)
+	CALCULATE_SKILL_MOD(usr, CONSTRUCTING_SPEED_MOD, skill_duration_mod)
 	if(iscoil(used_atom))
+		if(!do_after(user, skill_duration_mod, holder))
+			return FALSE
 		var/obj/item/stack/cable_coil/C = used_atom
 		if(C.get_amount() < 4)
 			to_chat(user, (span_warning("There's not enough cable to finish the task.")))
@@ -54,6 +57,8 @@
 			C.use(4)
 			playsound(holder, C.usesound, 50, TRUE)
 	else if(isstack(used_atom))
+		if(!do_after(user, skill_duration_mod, holder))
+			return FALSE
 		var/obj/item/stack/S = used_atom
 		if(S.get_amount() < 5)
 			to_chat(user, (span_warning("There's not enough material in this stack.")))
@@ -63,9 +68,11 @@
 	else if(isitem(used_atom))
 		var/obj/item/I = used_atom
 		if(I.tool_behaviour in CONSTRUCTION_TOOL_BEHAVIOURS)
-			if(!I.use_tool(holder, user, 0, volume = I.tool_volume))
+			if(!I.use_tool(holder, user, skill_duration_mod, volume = I.tool_volume))
 				return 0
-	return 1
+	if(!do_after(user, skill_duration_mod, holder))
+		return FALSE
+	return TRUE
 
 /datum/construction/proc/check_all_steps(atom/used_atom,mob/user as mob) //check all steps, remove matching one.
 	for(var/i in 1 to length(steps))

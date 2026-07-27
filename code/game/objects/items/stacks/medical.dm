@@ -52,14 +52,14 @@
 			target.balloon_alert(user, "часть тела неорганическая!")
 			return .
 
+		CALCULATE_SKILL_MOD(user, HEAL_DURATION_MOD, skill_duration_mod)
 		if(human_target == user && !unique_handling)
 			user.visible_message(
 				span_notice("[user] применя[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] на [affecting.declent_ru(PREPOSITIONAL)]."),
 				ignored_mobs = user,
 			)
 			target.balloon_alert(user, "применение на [GLOB.body_zone[affecting.limb_zone][PREPOSITIONAL]]...")
-
-			if(!do_after(human_target, self_delay, human_target, use_flags, max_interact_count = 1))
+			if(!do_after(human_target, self_delay * skill_duration_mod, human_target, use_flags, max_interact_count = 1))
 				return .
 
 			var/obj/item/organ/external/affecting_rechecked = human_target.get_organ(selected_zone)
@@ -81,7 +81,7 @@
 			)
 			target.balloon_alert(user, "применение на [GLOB.body_zone[affecting.limb_zone][PREPOSITIONAL]] цели...")
 
-			if(use_duration && !do_after(user, use_duration, human_target))
+			if(use_duration && !do_after(user, use_duration * skill_duration_mod, human_target))
 				return .
 		return .|ATTACK_CHAIN_SUCCESS
 
@@ -98,7 +98,8 @@
 			return .
 		if(!use(1))
 			return .
-		critter.heal_organ_damage(heal_brute, heal_burn)
+		CALCULATE_SKILL_MOD(user, HEAL_AMOUNT_MOD, skill_amount_mod)
+		critter.heal_organ_damage(heal_brute * skill_amount_mod, heal_burn)
 		user.visible_message(
 			span_notice("[user] применя[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] на [critter.declent_ru(PREPOSITIONAL)]."),
 			ignored_mobs = user,
@@ -110,7 +111,8 @@
 	if(!use(1))
 		return .
 
-	target.heal_organ_damage(heal_brute, heal_burn)
+	CALCULATE_SKILL_MOD(user, HEAL_AMOUNT_MOD, skill_amount_mod)
+	target.heal_organ_damage(heal_brute * skill_amount_mod, heal_burn * skill_amount_mod)
 
 	user.visible_message(
 		span_notice("[user] применя[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] на [target.declent_ru(PREPOSITIONAL)]."),
@@ -125,16 +127,16 @@
 	var/obj/item/organ/external/affecting = target.get_organ(selected_zone)
 
 	target.balloon_alert(user, "применено")
-
-	var/rembrute = max(0, heal_brute - affecting.brute_dam) // Maxed with 0 since heal_damage let you pass in a negative value
-	var/remburn = max(0, heal_burn - affecting.burn_dam) // And deduct it from their health (aka deal damage)
+	CALCULATE_SKILL_MOD(user, HEAL_AMOUNT_MOD, skill_amount_mod)
+	var/rembrute = max(0, heal_brute * skill_amount_mod - affecting.brute_dam) // Maxed with 0 since heal_damage let you pass in a negative value
+	var/remburn = max(0, heal_burn * skill_amount_mod - affecting.burn_dam) // And deduct it from their health (aka deal damage)
 	var/nrembrute = rembrute
 	var/nremburn = remburn
 	var/should_update_health = FALSE
 	var/update_damage_icon = NONE
 	var/affecting_brute_was = affecting.brute_dam
 	var/affecting_burn_was = affecting.burn_dam
-	update_damage_icon |= affecting.heal_damage(heal_brute, heal_burn, updating_health = FALSE)
+	update_damage_icon |= affecting.heal_damage(heal_brute * skill_amount_mod, heal_burn * skill_amount_mod, updating_health = FALSE)
 	if(affecting.brute_dam != affecting_brute_was || affecting.burn_dam != affecting_burn_was)
 		should_update_health = TRUE
 	var/list/achildlist
@@ -892,10 +894,11 @@
 
 	affecting.germ_level = 0
 	if(affecting.bleeding_amount > 0)	//so you can't stack bleed suppression
-		affecting.heal_bleeding(user, target, bleeding_heal, damage)
+		CALCULATE_SKILL_MOD(user, HEAL_AMOUNT_MOD, skill_amount_mod)
+		affecting.heal_bleeding(user, target, bleeding_heal * skill_amount_mod, damage)
 		var/obj/item/organ/external/addition_affecting = target.get_affecting_limb_bodypart(affecting)
 		if(addition_affecting)
-			addition_affecting.heal_bleeding(user, target, bleeding_heal, 0)
+			addition_affecting.heal_bleeding(user, target, bleeding_heal * skill_amount_mod, 0)
 		target.updatehealth("[name] heal")
 	target.balloon_alert(user, "рана зашита")
 	target.UpdateDamageIcon()
@@ -1028,7 +1031,8 @@
 	)
 	balloon_alert(user, "наложение на [GLOB.body_zone[affecting.limb_zone][ACCUSATIVE]]...")
 
-	if(!do_after(user, self_duration, user, DA_IGNORE_USER_LOC_CHANGE | DA_IGNORE_LYING) || applied_bodypart)
+	CALCULATE_SKILL_MOD(user, HEAL_DURATION_MOD, skill_duration_mod)
+	if(!do_after(user, self_duration * skill_duration_mod, user, DA_IGNORE_USER_LOC_CHANGE | DA_IGNORE_LYING) || applied_bodypart)
 		return
 
 	var/obj/item/organ/external/affecting_rechecked = user.get_organ(selected_zone)
@@ -1056,7 +1060,8 @@
 	)
 	human_target.balloon_alert(user, "наложение на [GLOB.body_zone[affecting.limb_zone][ACCUSATIVE]]...")
 
-	if(!do_after(user, other_duration, human_target) || applied_bodypart)
+	CALCULATE_SKILL_MOD(user, HEAL_DURATION_MOD, skill_duration_mod)
+	if(!do_after(user, other_duration * skill_duration_mod, human_target) || applied_bodypart)
 		return
 
 	var/obj/item/organ/external/affecting_rechecked = human_target.get_organ(selected_zone)
@@ -1100,7 +1105,8 @@
 		return FALSE
 
 	applied_bodypart.owner.balloon_alert(user, "снятие турникета...")
-	if(!do_after(user, remove_duration, applied_bodypart.owner) || !applied_bodypart)
+	CALCULATE_SKILL_MOD(user, HEAL_DURATION_MOD, skill_duration_mod)
+	if(!do_after(user, remove_duration * skill_duration_mod, applied_bodypart.owner) || !applied_bodypart)
 		return FALSE
 
 	var/drop_loc = applied_bodypart.drop_location()
