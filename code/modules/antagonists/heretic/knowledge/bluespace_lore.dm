@@ -50,7 +50,7 @@
 	knowledge_tier4 = /datum/heretic_knowledge/spell/unravel
 	ascension = /datum/heretic_knowledge/ultimate/bluespace_final
 	guaranteed_side_tier1 = /datum/heretic_knowledge/eldritch_coin
-	guaranteed_side_tier2 = /datum/heretic_knowledge/spell/burglar_finesse
+	guaranteed_side_tier2 = /datum/heretic_knowledge/spell/opening_blast
 	guaranteed_side_tier3 = /datum/heretic_knowledge/essence
 
 
