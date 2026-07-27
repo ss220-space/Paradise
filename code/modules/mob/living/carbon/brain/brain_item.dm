@@ -10,6 +10,8 @@
 	attack_verb = list("атаковал", "шлёпнул", "огрел")
 	parent_organ_zone = BODY_ZONE_HEAD
 	slot = INTERNAL_ORGAN_BRAIN
+	/// Active brain traumas on this brain (tg heretic port, see _trauma_integration.dm).
+	var/list/traumas = list()
 	vital = TRUE
 	hidden_pain = TRUE //the brain has no pain receptors, and brain damage is meant to be a stealthy damage type.
 	var/mob/living/carbon/brain/brainmob = null

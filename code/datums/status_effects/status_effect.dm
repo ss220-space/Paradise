@@ -30,6 +30,8 @@
 	var/atom/movable/screen/alert/status_effect/linked_alert
 	/// Used to define if the status effect should be using SSfastprocess or SSprocessing
 	var/processing_speed = STATUS_EFFECT_FAST_PROCESS
+	/// If TRUE, the remaining duration (in seconds) is drawn as a countdown over our alert, like on /tg/.
+	var/show_duration = FALSE
 
 /datum/status_effect/New(list/arguments)
 	on_creation(arglist(arguments))
@@ -53,6 +55,7 @@
 		var/atom/movable/screen/alert/status_effect/A = owner.throw_alert(id, alert_type)
 		A.attached_effect = src //so the alert can reference us, if it needs to
 		linked_alert = A //so we can reference the alert, if we need to
+		update_shown_duration()
 	if(duration > world.time || tick_interval > world.time) //don't process if we don't care
 		switch(processing_speed)
 			if(STATUS_EFFECT_FAST_PROCESS)
@@ -96,6 +99,17 @@
 	if(duration != -1 && duration < world.time)
 		on_timeout()
 		qdel(src)
+		return
+	update_shown_duration()
+
+/// Updates the status effect alert's maptext to show the remaining duration in seconds (if show_duration is set).
+/// Note: master220 stores `duration` as the absolute world.time of expiry, so remaining = duration - world.time.
+/datum/status_effect/proc/update_shown_duration()
+	if(!linked_alert || !show_duration || duration == -1)
+		return
+	linked_alert.maptext_x = 2
+	linked_alert.maptext_y = 2
+	linked_alert.maptext = MAPTEXT_TINY_UNICODE("<span style='text-align:center'>[round(max(duration - world.time, 0) / 10, 1)]s</span>")
 
 /// Called whenever the effect is applied in on_created
 /// Returning FALSE will cause it to delete itself during creation instead.

@@ -15,6 +15,11 @@
 	if(!accessor) // likely a TK user, and we checked for free access above.
 		return FALSE
 
+	// Heretic Lock mark: a marked mob is refused access entirely (the mark handler returns ACCESS_DISALLOWED).
+	// Placed exactly where tg emits it - after the free-access early return - so only access-gated objects block.
+	if(SEND_SIGNAL(accessor, COMSIG_MOB_TRIED_ACCESS, src) & ACCESS_DISALLOWED)
+		return FALSE
+
 	var/acc = accessor.get_access() // see mob.dm
 
 	if(acc == IGNORE_ACCESS || accessor.can_admin_interact())

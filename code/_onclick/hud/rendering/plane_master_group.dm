@@ -195,6 +195,8 @@
 /datum/plane_master_group/popup/build_planes_offset(datum/hud/source, new_offset, use_scale = TRUE)
 	return ..(source, new_offset, FALSE)
 
+/datum/plane_master_group/popup/camera
+
 /// Holds the main plane master
 /datum/plane_master_group/main
 

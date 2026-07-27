@@ -155,6 +155,8 @@ GLOBAL_LIST_INIT(minigun_spells, list(
 #define CLOCK_COLOR "#ffb700"
 #define CLOCK_CLOTHING list(/obj/item/clothing/suit/hooded/clockrobe, /obj/item/clothing/suit/armor/clockwork, /obj/item/clothing/gloves/clockwork, /obj/item/clothing/shoes/clockwork, /obj/item/clothing/head/helmet/clockwork)
 
+#define BRASS_BLADE_UNLOCKED "Brass Blade"
+
 // Clockwork objective status
 #define RATVAR_IS_ASLEEP 0
 #define RATVAR_DEMANDS_POWER 1

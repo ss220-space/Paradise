@@ -17,6 +17,8 @@
 /datum/game_mode
 	var/name = "invalid"
 	var/config_tag = null
+	/// All heretic minds for the round (tg heretic port).
+	var/list/heretics = list()
 	/// Probablity for this mode in secret mode type.
 	var/probability = 0
 	/// Whether this mode can be voted by players.
@@ -882,6 +884,7 @@
 	. += auto_declare_completion_goon_enthralled()
 	. += auto_declare_completion_devil()
 	. += auto_declare_completion_sintouched()
+	. += auto_declare_completion_heretic()
 	list_clear_nulls(.)
 
 /datum/game_mode/proc/apocalypse_cinema(obj/god/god, inevitable = FALSE)

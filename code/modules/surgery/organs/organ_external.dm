@@ -774,6 +774,10 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(HAS_TRAIT(owner, TRAIT_GODMODE))
 		return
 
+	// Blade heretic "Stance of the Torn Champion" — limbs cannot be dismembered.
+	if(HAS_TRAIT(owner, TRAIT_NODISMEMBER))
+		return
+
 	if(!silent)
 		switch(disintegrate)
 			if(DROPLIMB_SHARP)

@@ -48,6 +48,8 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 	var/show_in_orbit = TRUE
 	/// Role name in antag menu
 	var/antag_menu_name
+	/// A weakref to the alt-appearance hud shown to this antag's teammates, created by `add_team_hud`.
+	var/datum/weakref/team_hud_ref
 
 /datum/antagonist/New()
 	GLOB.antagonists += src
@@ -263,6 +265,33 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 	var/datum/atom_hud/antag/hud = GLOB.huds[antag_hud_type]
 	hud.leave_hud(antag_mob)
 	set_antag_hud(antag_mob, null)
+
+/**
+ * Adds an alternate-appearance hud image on `antag_mob`, visible only to mobs the hud type deems teammates (Arguments below).
+ *
+ * Arguments:
+ * * antag_mob - the mob to draw the hud image on.
+ * * team_hud_type - the `/datum/atom_hud/alternate_appearance` subtype deciding who sees the image.
+ * * team_master - the mind identifying the team, passed through to the hud.
+ */
+/datum/antagonist/proc/add_team_hud(mob/living/antag_mob, team_hud_type, datum/mind/team_master)
+	remove_team_hud()
+	team_hud_ref = WEAKREF(antag_mob.add_alt_appearance(team_hud_type, "team_hud_[UID()]", hud_image_on(antag_mob), team_master))
+	// Show us the huds of teammates that were created before we joined.
+	for(var/datum/atom_hud/alternate_appearance/alt_hud as anything in GLOB.active_alternate_appearances)
+		if(istype(alt_hud, team_hud_type))
+			alt_hud.apply_to_new_mob(antag_mob)
+
+/datum/antagonist/proc/remove_team_hud()
+	var/datum/atom_hud/alternate_appearance/team_hud = team_hud_ref?.resolve()
+	team_hud_ref = null
+	if(team_hud)
+		qdel(team_hud)
+
+/datum/antagonist/proc/hud_image_on(mob/hud_loc)
+	var/image/hud = image('icons/mob/hud.dmi', hud_loc, antag_hud_name)
+	hud.appearance_flags = RESET_COLOR|PIXEL_SCALE|KEEP_APART
+	return hud
 
 /**
  * Re-sets the antag hud and `special_role` of the owner to that of the previous antag datum they had before this one was added.

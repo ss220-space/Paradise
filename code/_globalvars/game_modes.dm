@@ -31,4 +31,7 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 
 GLOBAL_VAR_INIT(respawn_delay, 20)
 
+/// Tracks heretic reality-smash influences and which minds can see them. (Heretic port.)
+GLOBAL_DATUM_INIT(reality_smash_track, /datum/reality_smash_tracker, new)
+
 GLOBAL_DATUM(deathmatch_game, /datum/deathmatch_controller) // Deathmatch Minigame controller

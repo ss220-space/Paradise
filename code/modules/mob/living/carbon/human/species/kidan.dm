@@ -110,6 +110,9 @@
 		"с" = list("з", "зс", "ззз", "ззсз"),
 	)
 	autohiss_exempt = list("Хитин")
+	max_select_skills = list(
+		/datum/skill/service/cleaning = 3,
+	)
 
 /datum/species/kidan/get_species_runechat_color(mob/living/carbon/human/H)
 	var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)

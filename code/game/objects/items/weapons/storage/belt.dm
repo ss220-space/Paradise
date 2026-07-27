@@ -133,6 +133,9 @@
 		/obj/item/clothing/gloves,
 		/obj/item/rcd,
 		/obj/item/rpd,
+		// Heretic Lock path: the key-blade is a crowbar tool and TG lets it ride in a toolbelt (it's added to
+		// the utility belt's holdable list there too). Mirror that here so the blade can be stored in the belt.
+		/obj/item/melee/sickly_blade/lock,
 	)
 
 /obj/item/storage/belt/utility/full/populate_contents()

@@ -1526,14 +1526,12 @@
 	playsound(owner, 'sound/effects/curse5.ogg', 20, TRUE, -1)
 	owner.adjustFireLoss(0.75)
 
-	//TODO uncomment after heretic
-	/*
+	// Heretic ported: fire_curse_hand + /obj/projectile/curse_hand now exist (heretic module).
 	if(curse_flags & CURSE_GRASPING)
 		if(effect_next_activation > world.time)
 			return
 		effect_next_activation = world.time + effect_cooldown
 		fire_curse_hand(owner, range = 5, projectile_type = /obj/projectile/curse_hand) // This one stuns people
-	*/
 
 /obj/effect/temp_visual/curse
 	icon_state = "curse"

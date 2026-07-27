@@ -301,7 +301,7 @@
 				set_anchored(TRUE)
 		if(REPLACE_TILE)
 			F = scan_target
-			if(istype(F, /turf/simulated/floor/plating)) //The floor must not already have a tile.
+			if(isplatingturf(F)) //The floor must not already have a tile.
 				result = F
 		if(FIX_TILE)	//Selects only damaged floors.
 			F = scan_target
@@ -309,7 +309,7 @@
 				result = F
 		if(TILE_EMAG) //Emag mode! Rip up the floor and cause breaches to space!
 			F = scan_target
-			if(!istype(F, /turf/simulated/floor/plating))
+			if(!isplatingturf(F))
 				result = F
 		else //If no special processing is needed, simply return the result.
 			result = scan_target

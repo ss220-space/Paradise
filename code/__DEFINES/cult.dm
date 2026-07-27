@@ -54,6 +54,9 @@
 	/obj/item/clothing/suit/hooded/cultrobes/flagellant_robe, /obj/item/clothing/glasses/hud/health/night/cultblind \
 )
 
+#define CURSED_BLADE_UNLOCKED "Cursed Blade"
+#define CRIMSON_MEDALLION_UNLOCKED "Crimson Medallion"
+
 // Cult objective status
 #define NARSIE_IS_ASLEEP 0
 #define NARSIE_DEMANDS_SACRIFICE 1

@@ -32,6 +32,8 @@
 #define ABOVE_GAME_PLANE -3
 
 /// Slightly above the game plane but does not catch mouse clicks. Useful for certain visuals that should be clicked through, like seethrough trees
+/// MUST be its own value (not shared with ABOVE_GAME_PLANE) - Paradise keys plane masters by "[plane]", so a
+/// shared value would collapse into ABOVE_GAME_PLANE's click-catching master and the clickthrough would never work.
 #define SEETHROUGH_PLANE -2
 
 #define RENDER_PLANE_GAME_WORLD -1
@@ -44,6 +46,14 @@
 #define MASSIVE_OBJ_PLANE 3
 #define GHOST_PLANE 4
 #define POINT_PLANE 5
+
+/// Holds the render-target proxy of lock-heretic robe wearers. Relays to the game world like GAME_PLANE, so
+/// they look and light up normally in person, but every camera view (console popups, the AI, advanced camera
+/// consoles) renders this plane at alpha 0, so they don't appear on any feed. Its own value for the same per-"[plane]"-keying
+/// reason as SEETHROUGH_PLANE above. There is no free integer left between GAME_PLANE and RENDER_PLANE_GAME_WORLD,
+/// so it lives up here - its relay layer (derived from the plane value) still sorts above the game plane's within
+/// RENDER_PLANE_GAME_WORLD, which is all that matters for draw order.
+#define CAMERA_CAMO_PLANE 6
 
 //---------- LIGHTING -------------
 /// Normal 1 per turf dynamic lighting underlays

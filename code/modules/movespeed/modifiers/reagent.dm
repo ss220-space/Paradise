@@ -3,6 +3,9 @@
 	blacklisted_movetypes = (FLYING|FLOATING)
 	conflicts_with = MOVE_CONFLICT_GOTTAGOFAST
 
+/datum/movespeed_modifier/reagent/pepperspray
+	multiplicative_slowdown = 0.25
+
 /datum/movespeed_modifier/reagent/methamphetamine
 	multiplicative_slowdown = -0.5
 

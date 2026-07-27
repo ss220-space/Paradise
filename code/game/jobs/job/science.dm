@@ -3,7 +3,7 @@
 	flag = JOB_FLAG_RD
 	department = STATION_DEPARTMENT_SCIENCE
 	department_flag = JOBCAT_MEDSCI
-	is_science = 1
+	departments_bitflags = DEPARTMENT_BITFLAG_SCIENCE
 	selection_color = "#aa66cc"
 	access = list(ACCESS_EVA, ACCESS_RD, ACCESS_HEADS, ACCESS_TOX, ACCESS_GENETICS, ACCESS_MORGUE,
 					ACCESS_TOX_STORAGE, ACCESS_TECH_STORAGE, ACCESS_TELEPORTER, ACCESS_SEC_DOORS,
@@ -22,6 +22,19 @@
 		/datum/job_objective/further_research,
 	)
 	outfit = /datum/outfit/job/rd
+	skill_levels = list(
+		/datum/skill/general/mech_drive = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/accuracy = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
+		/datum/skill/medical/chemistry = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/genetic = SKILL_LEVEL_BASIC,
+		/datum/skill/research/research = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/research/protolathe = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/research/mech_construct = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/research/xenobiology = SKILL_LEVEL_PROFESSIONAL,
+	)
 
 /datum/outfit/job/rd
 	name = JOB_TITLE_RU_RD
@@ -48,7 +61,7 @@
 	abstract_type = /datum/job/science
 	department = STATION_DEPARTMENT_SCIENCE
 	department_flag = JOBCAT_MEDSCI
-	is_science = 1
+	departments_bitflags = DEPARTMENT_BITFLAG_SCIENCE
 	supervisors = "Научным руководителем"
 	department_head = list(JOB_TITLE_RD)
 	selection_color = "#e6d1f0"
@@ -76,6 +89,42 @@
 		ALT_JOB_TITLE_RU_CHEMICAL_RESEARCHER,
 	)
 	outfit = /datum/outfit/job/scientist
+	skill_levels = list(
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+		/datum/skill/engineering/construction = SKILL_LEVEL_BEGINNER,
+		/datum/skill/medical/chemistry = SKILL_LEVEL_BEGINNER,
+		/datum/skill/medical/genetic = SKILL_LEVEL_BEGINNER,
+		/datum/skill/research/research = SKILL_LEVEL_ADVANCED,
+		/datum/skill/research/protolathe = SKILL_LEVEL_ADVANCED,
+		/datum/skill/research/mech_construct = SKILL_LEVEL_BEGINNER,
+		/datum/skill/research/xenobiology = SKILL_LEVEL_BEGINNER,
+	)
+	alt_skill_levels = alist(
+		ALT_JOB_TITLE_RU_XENOBIOLOGIST = list(
+			/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+			/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
+			/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+			/datum/skill/medical/chemistry = SKILL_LEVEL_BEGINNER,
+			/datum/skill/medical/genetic = SKILL_LEVEL_BEGINNER,
+			/datum/skill/research/research = SKILL_LEVEL_BEGINNER,
+			/datum/skill/research/protolathe = SKILL_LEVEL_BEGINNER,
+			/datum/skill/research/mech_construct = SKILL_LEVEL_BEGINNER,
+			/datum/skill/research/xenobiology = SKILL_LEVEL_ADVANCED,
+		),
+		ALT_JOB_TITLE_RU_PLASMOLOGIST = list(
+			/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+			/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
+			/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+			/datum/skill/engineering/atmos = SKILL_LEVEL_BASIC,
+			/datum/skill/medical/chemistry = SKILL_LEVEL_BASIC,
+			/datum/skill/research/research = SKILL_LEVEL_BEGINNER,
+			/datum/skill/research/protolathe = SKILL_LEVEL_BEGINNER,
+			/datum/skill/research/mech_construct = SKILL_LEVEL_BEGINNER,
+			/datum/skill/research/xenobiology = SKILL_LEVEL_BEGINNER,
+		)
+	)
 
 /datum/outfit/job/scientist
 	name = JOB_TITLE_RU_SCIENTIST
@@ -109,6 +158,15 @@
 	is_novice = TRUE
 	outfit = /datum/outfit/job/scientist/student
 	paycheck = PAYCHECK_LOWER
+	skill_levels = list(
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+		/datum/skill/research/research = SKILL_LEVEL_BEGINNER,
+		/datum/skill/research/protolathe = SKILL_LEVEL_BEGINNER,
+		/datum/skill/research/mech_construct = SKILL_LEVEL_BEGINNER,
+		/datum/skill/research/xenobiology = SKILL_LEVEL_BEGINNER,
+	)
 
 /datum/outfit/job/scientist/student
 	name = JOB_TITLE_RU_SCIENCE_STUDENT
@@ -140,6 +198,18 @@
 		ALT_JOB_TITLE_RU_CYBERNETIC_ENGINEER,
 	)
 	outfit = /datum/outfit/job/roboticist
+	skill_levels = list(
+		/datum/skill/general/mech_drive = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+		/datum/skill/engineering/construction = SKILL_LEVEL_BEGINNER,
+		/datum/skill/medical/surgery = SKILL_LEVEL_BEGINNER,
+		/datum/skill/research/research = SKILL_LEVEL_BEGINNER,
+		/datum/skill/research/protolathe = SKILL_LEVEL_BASIC,
+		/datum/skill/research/mech_construct = SKILL_LEVEL_ADVANCED,
+		/datum/skill/research/xenobiology = SKILL_LEVEL_BEGINNER,
+	)
 
 /datum/outfit/job/roboticist
 	name = JOB_TITLE_RU_ROBOTICIST
@@ -162,6 +232,16 @@
 	access = list(ACCESS_RESEARCH, ACCESS_TECH_STORAGE, ACCESS_MECHANIC, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MINERAL_STOREROOM, ACCESS_EMERGENCY_STORAGE)
 	minimal_access = list(ACCESS_RESEARCH, ACCESS_EMERGENCY_STORAGE, ACCESS_MECHANIC, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MINERAL_STOREROOM)
 	outfit = /datum/outfit/job/mechanic
+	skill_levels = list(
+		/datum/skill/general/mech_drive = SKILL_LEVEL_BASIC,
+		/datum/skill/general/mod_use = SKILL_LEVEL_BASIC,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+		/datum/skill/engineering/construction = SKILL_LEVEL_BASIC,
+		/datum/skill/engineering/electrician = SKILL_LEVEL_BEGINNER,
+		/datum/skill/research/protolathe = SKILL_LEVEL_BEGINNER,
+		/datum/skill/research/mech_construct = SKILL_LEVEL_BASIC,
+	)
 
 /datum/outfit/job/mechanic
 	name = JOB_TITLE_RU_SPACEPOD_TECHNICIAN

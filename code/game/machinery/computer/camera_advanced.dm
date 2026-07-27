@@ -43,6 +43,7 @@
 	for(var/datum/action/A as anything in actions)
 		A.Remove(user)
 	actions.Cut()
+	GLOB.camera_console_watchers -= user
 	if(user.client)
 		user.reset_perspective(null)
 		eyeobj.RemoveImages()
@@ -110,6 +111,7 @@
 	eyeobj.name = "Camera Eye ([user.name])"
 	user.remote_control = eyeobj
 	user.reset_perspective(eyeobj)
+	GLOB.camera_console_watchers |= user
 	// Who passes control like this god I hate static code
 	for(var/atom/movable/screen/plane_master/plane_static in user.hud_used?.get_true_plane_masters(CAMERA_STATIC_PLANE))
 		plane_static.unhide_plane(user)

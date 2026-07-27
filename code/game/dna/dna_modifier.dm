@@ -537,7 +537,8 @@
 			connected.locked = TRUE //lock it
 
 			SStgui.update_uis(src)
-			sleep(10 * radiation_duration) // sleep for radiation_duration seconds
+			CALCULATE_SKILL_MOD(usr, IRRADIATION_DURATION_MOD, skill_mod)
+			sleep(10 * radiation_duration * skill_mod) // sleep for radiation_duration seconds
 
 			irradiating = 0
 			connected.locked = lock_state
@@ -581,7 +582,8 @@
 			connected.locked = TRUE //lock it
 
 			SStgui.update_uis(src)
-			sleep(10 * radiation_duration) // sleep for radiation_duration seconds
+			CALCULATE_SKILL_MOD(usr, IRRADIATION_DURATION_MOD, skill_mod)
+			sleep(10 * radiation_duration * skill_mod) // sleep for radiation_duration seconds
 
 			irradiating = 0
 			connected.locked = lock_state
@@ -632,7 +634,8 @@
 			connected.locked = TRUE //lock it
 
 			SStgui.update_uis(src)
-			sleep(10 * radiation_duration) // sleep for radiation_duration seconds
+			CALCULATE_SKILL_MOD(usr, IRRADIATION_DURATION_MOD, skill_mod)
+			sleep(10 * radiation_duration * skill_mod) // sleep for radiation_duration seconds
 
 			irradiating = 0
 			connected.locked = lock_state
@@ -723,7 +726,8 @@
 					connected.locked = TRUE //lock it
 
 					SStgui.update_uis(src)
-					sleep(2 SECONDS)
+					CALCULATE_SKILL_MOD(usr, IRRADIATION_DURATION_MOD, skill_mod)
+					sleep(2 SECONDS * skill_mod)
 
 					irradiating = 0
 					connected.locked = lock_state
@@ -782,7 +786,8 @@
 
 	// Cooldown
 	injector_ready = FALSE
-	addtimer(CALLBACK(src, PROC_REF(injector_cooldown_finish)), (30 / connected.precision_coeff) SECONDS)
+	CALCULATE_SKILL_MOD(usr, IRRADIATION_DURATION_MOD, skill_mod)
+	addtimer(CALLBACK(src, PROC_REF(injector_cooldown_finish)), (30 / connected.precision_coeff * skill_mod) SECONDS)
 
 	// Create it
 	var/datum/dna2/record/buf = buffers[buffer_id]

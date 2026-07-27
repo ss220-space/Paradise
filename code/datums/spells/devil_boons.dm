@@ -44,13 +44,16 @@
 	action_icon_state = "camera_jump"
 	/// Currently selected view range
 	var/selected_view = "default"
-	/// View ranges to apply
+
+/// View ranges to apply
+/obj/effect/proc_holder/spell/view_range/proc/get_view_ranges()
 	var/static/list/view_ranges = list(
 		"default",
 		"17x17",
 		"19x19",
 		"21x21",
 	)
+	return view_ranges
 
 /obj/effect/proc_holder/spell/view_range/Destroy(force)
 	if(action)
@@ -77,7 +80,7 @@
 	RegisterSignal(user, COMSIG_LIVING_DEATH, TYPE_PROC_REF(/obj/effect/proc_holder/spell/view_range, make_view_normal))
 
 /obj/effect/proc_holder/spell/view_range/cast(list/targets, mob/user = usr)
-	var/new_view = tgui_input_list(user, "Выберите область видимости:", "Видимость", view_ranges, "default")
+	var/new_view = tgui_input_list(user, "Выберите область видимости:", "Видимость", get_view_ranges(), "default")
 	if(isnull(new_view) || !user.client)
 		return
 	if(new_view == "default")

@@ -100,6 +100,12 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/clothes_req = TRUE
 	/// Spell can only be cast by humans.
 	var/human_req = TRUE
+	/// Bitfield of tg-derived casting requirements, used by heretic spells. See SPELL_* defines in heretic.dm.
+	/// master220's native gating uses clothes_req / human_req / invocation_type; this is additive and only
+	/// consulted by code that opts in (currently the heretic port). SPELL_CASTABLE_WITHOUT_INVOCATION skips invocation.
+	var/spell_requirements = SPELL_REQUIRES_WIZARD_GARB
+	/// Which type of antimagic blocks this spell (MAGIC_RESISTANCE / _MIND / _HOLY). Used with SPELL_REQUIRES_NO_ANTIMAGIC.
+	var/antimagic_flags = MAGIC_RESISTANCE
 	/// Spell can only be cast by mobs that are physical entities. Currently checks whether caster is brain or pAI.
 	var/nonabstract_req = FALSE
 	/// Checks user stat on cast, could be "CONSCIOUS", "UNCONSCIOUS", "DEAD".
@@ -157,6 +163,11 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/action_background_icon = 'icons/mob/actions/actions.dmi'
 	/// State of the icon found in file, passed in "action_background_icon" variable.
 	var/action_background_icon_state = "bg_spell"
+	/// The icon_state (in action_background_icon) drawn over the button while the click ability is armed -
+	/// the "targeting" frame. Default "targeting" lives in actions.dmi; spells whose background is a
+	/// different file (e.g. heretic spells on backgrounds.dmi) must point this at a state that file actually
+	/// has, or no frame shows at all. See /datum/action/apply_button_overlay.
+	var/action_targeting_overlay = ACTION_BUTTON_DEFAULT_TARGETING_OVERLAY
 
 	/// Whether this spell need a white frame around the button while active, usefull for click based targeting.
 	var/need_active_overlay = FALSE
@@ -199,6 +210,10 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
  */
 /obj/effect/proc_holder/spell/proc/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/user = usr) //checks if the spell can be cast based on its settings; skipcharge is used when an additional cast_check is called inside the spell
 	if(!can_cast(user, charge_check, TRUE))
+		return FALSE
+
+	// Lets listeners (e.g. the heretic focus gate) veto the cast. No-op for mobs without listeners.
+	if(SEND_SIGNAL(user, COMSIG_MOB_BEFORE_SPELL_CAST, src) & SPELL_CANCEL_CAST)
 		return FALSE
 
 	if(ishuman(user))
@@ -417,7 +432,12 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /obj/effect/proc_holder/spell/proc/perform(list/targets, recharge = TRUE, mob/user = usr) //if recharge is started is important for the trigger spells
 	SHOULD_NOT_OVERRIDE(TRUE)
 
-	before_cast(targets, user)
+	// A before_cast override may veto the cast (returns SPELL_CANCEL_CAST, e.g. heretic pointed spells
+	// rejecting an invalid target): refund the spent cost and stop before any invocation/cooldown/effect.
+	// Legacy before_cast overrides return null, which never carries the flag.
+	if(before_cast(targets, user) & SPELL_CANCEL_CAST)
+		revert_cast(user)
+		return
 	invocation(user)
 
 	if(user?.ckey)
@@ -676,3 +696,9 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /// Called when a spell is removed
 /obj/effect/proc_holder/spell/proc/on_spell_removed(mob/user = usr)
 	return
+
+/mob/proc/can_block_magic(magic_flags = MAGIC_RESISTANCE, charge_cost = 0)
+	return FALSE
+
+/mob/proc/can_cast_magic(magic_flags = MAGIC_RESISTANCE)
+	return !can_block_magic(magic_flags)

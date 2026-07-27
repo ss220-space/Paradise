@@ -521,6 +521,7 @@
 	background_icon = spell.action_background_icon
 	button_icon_state = spell.action_icon_state
 	background_icon_state = spell.action_background_icon_state
+	targeting_overlay = spell.action_targeting_overlay
 
 /datum/action/spell_action/Destroy()
 	var/obj/effect/proc_holder/spell/S = target

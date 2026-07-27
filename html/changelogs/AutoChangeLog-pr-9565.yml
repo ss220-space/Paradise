@@ -1,4 +1,0 @@
-author: "FlitchTime"
-delete-after: True
-changes:
-  - map: "Заменяет обычные спреи из химии и раздевалки меда. (PR #9565)"

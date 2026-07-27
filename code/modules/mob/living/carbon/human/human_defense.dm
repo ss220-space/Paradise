@@ -12,6 +12,11 @@ emp_act
 	if(!dna.species.bullet_act(P, src))
 		add_attack_logs(P.firer, src, "hit by [P.type] but got deflected by species '[dna.species]'")
 		return FALSE
+	// Additive heretic hook (tg's COMSIG_ATOM_PRE_BULLET_ACT): a listener may re-aim the projectile
+	// and deflect it entirely - returning -1 keeps the projectile alive (see void ascension storm).
+	if(SEND_SIGNAL(src, COMSIG_HUMAN_TRY_DEFLECT_BULLET, P, def_zone) & COMPONENT_BULLET_DEFLECTED)
+		add_attack_logs(P.firer, src, "hit by [P.type] but got deflected")
+		return -1
 	if(P.is_reflectable(REFLECTABILITY_ENERGY))
 		var/can_reflect = check_reflect(def_zone)
 		var/reflected = FALSE

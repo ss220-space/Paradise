@@ -1,6 +1,6 @@
 //wrapper
 // Set *ignore_bluespace_interference* to TRUE if you don't want your teleportation to be affected by BoH, SoH and other bluespace stuff
-/proc/do_teleport(ateleatom, adestination, aprecision = 0, afteleport = 1, aeffectin = null, aeffectout = null, asoundin = null, asoundout = null, bypass_area_flag = FALSE, ignore_bluespace_interference = FALSE)
+/proc/do_teleport(ateleatom, adestination, aprecision = 0, afteleport = 1, aeffectin = null, aeffectout = null, asoundin = null, asoundout = null, bypass_area_flag = FALSE, ignore_bluespace_interference = FALSE, no_effects = FALSE, ignore_blocking_traits = FALSE)
 	var/datum/teleport/instant/science/D = new
 	if(D.start(arglist(args)))
 		return TRUE
@@ -16,13 +16,17 @@
 	var/soundout //soundfile to play after teleportation
 	var/force_teleport = 1 //if false, teleport will use Move() proc (dense objects will prevent teleportation)
 	var/ignore_area_flag = FALSE
+	var/no_effects = FALSE
+	var/ignore_blocking_traits = FALSE
 
-/datum/teleport/proc/start(ateleatom, adestination, aprecision = 0, afteleport = 1, aeffectin = null, aeffectout = null, asoundin = null, asoundout = null, bypass_area_flag = FALSE, ignore_bluespace_interference = FALSE)
+/datum/teleport/proc/start(ateleatom, adestination, aprecision = 0, afteleport = 1, aeffectin = null, aeffectout = null, asoundin = null, asoundout = null, bypass_area_flag = FALSE, ignore_bluespace_interference = FALSE, no_effects = FALSE, ignore_blocking_traits = FALSE)
 	if(!initTeleport(arglist(args)))
 		return FALSE
 	return TRUE
 
-/datum/teleport/proc/initTeleport(ateleatom, adestination, aprecision, afteleport, aeffectin, aeffectout, asoundin, asoundout, bypass_area_flag = FALSE, ignore_bluespace_interference = FALSE)
+/datum/teleport/proc/initTeleport(ateleatom, adestination, aprecision, afteleport, aeffectin, aeffectout, asoundin, asoundout, bypass_area_flag = FALSE, ignore_bluespace_interference = FALSE, no_effects = FALSE, ignore_blocking_traits = FALSE)
+	src.no_effects = no_effects
+	src.ignore_blocking_traits = ignore_blocking_traits
 	if(!setTeleatom(ateleatom))
 		return FALSE
 	if(!setDestination(adestination))
@@ -127,6 +131,11 @@
 	if(!destturf || !curturf)
 		return FALSE
 
+	if(!ignore_blocking_traits && HAS_TRAIT(teleatom, TRAIT_NO_TELEPORT))
+		if(ismob(teleatom))
+			teleatom.balloon_alert(teleatom, "что-то держит вас!")
+		return FALSE
+
 	if(SEND_SIGNAL(teleatom, COMSIG_MOVABLE_TELEPORTING, curturf, destturf) & COMPONENT_BLOCK_TELEPORT)
 		return FALSE
 	if(SEND_SIGNAL(destturf, COMSIG_ATOM_INTERCEPT_TELEPORTING, curturf) & COMPONENT_BLOCK_TELEPORT)
@@ -162,6 +171,8 @@
 /datum/teleport/instant/science
 
 /datum/teleport/instant/science/setEffects(datum/effect_system/aeffectin, datum/effect_system/aeffectout)
+	if(no_effects)
+		return ..()
 	if(aeffectin == null || aeffectout == null)
 		var/datum/effect_system/spark_spread/aeffect = new
 		aeffect.set_up(5, 1, teleatom)

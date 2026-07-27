@@ -1352,6 +1352,12 @@ use_item_state: SS1984 legacy var, used to fix fact, that item_state randomly us
 	use_item_state = FALSE
 )
 
+	// Items with TRAIT_NO_WORN_ICON render no worn sprite at all (e.g. heretic void cloak with the hood up).
+	// Inhand rendering is unaffected. Nothing in master220 sets this trait except the heretic port, so this
+	// is a no-op for everything else.
+	if(!isinhands && HAS_TRAIT(src, TRAIT_NO_WORN_ICON))
+		return
+
 	var/mob/living/carbon/wearer = loc
 	var/species
 	if(istype(wearer))

@@ -50,6 +50,7 @@ GLOBAL_LIST_EMPTY(starlight)
 	temperature = TCMB
 	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
 	heat_capacity = HEAT_CAPACITY_VACUUM
+	rust_resistance = RUST_RESISTANCE_ABSOLUTE
 	atmos_mode = ATMOS_MODE_SPACE
 
 	flags = NO_SCREENTIPS

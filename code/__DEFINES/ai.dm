@@ -1,4 +1,5 @@
 #define GET_AI_BEHAVIOR(behavior_type) SSai_behaviors.ai_behaviors[behavior_type]
+#define GET_TARGETING_STRATEGY(targeting_type) (ispath(targeting_type) ? new targeting_type() : targeting_type)
 #define HAS_AI_CONTROLLER_TYPE(thing, type) istype(thing?.ai_controller, type)
 
 #define AI_STATUS_ON 1
@@ -181,3 +182,18 @@
 #define BB_BASIC_MOB_CURRENT_TARGET "BB_basic_current_target"
 #define BB_BASIC_MOB_CURRENT_TARGET_HIDING_LOCATION "BB_basic_current_target_hiding_location"
 #define BB_TARGETTING_DATUM "targetting_datum"
+#define BB_TARGETING_STRATEGY BB_TARGETTING_DATUM
+#define BB_BASIC_MOB_HAS_TARGET_TIME "BB_basic_mob_has_target_time"
+#define BB_OBSTACLE_TARGETING_WHITELIST "BB_targeting_whitelist"
+#define BB_TARGET_MINIMUM_STAT "BB_target_minimum_stat"
+#define BB_BASIC_MOB_EXECUTION_TARGET "BB_basic_execution_target"
+#define BB_TARGETED_ACTION "BB_TARGETED_action"
+#define BB_GENERIC_ACTION "BB_generic_action"
+#define BB_SHAPESHIFT_ACTION "BB_shapeshift_action"
+
+#define CAN_ACT_IN_STASIS (1<<3)
+
+#define AI_BEHAVIOR_DELAY (1<<0)
+#define AI_BEHAVIOR_SUCCEEDED (1<<1)
+#define AI_BEHAVIOR_FAILED (1<<2)
+#define AI_BEHAVIOR_INSTANT (NONE)

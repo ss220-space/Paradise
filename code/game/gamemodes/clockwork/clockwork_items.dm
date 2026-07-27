@@ -135,6 +135,15 @@
 				deplete_spell()
 				return
 
+			if(IS_HERETIC(living))
+				living.Knockdown(0.5 SECONDS)
+				living.apply_damage(15, STAMINA)
+				living.flash_eyes(1, TRUE)
+				living.mansus_absorbs_magic(user, "[DECLENT_RU_CAP(user, NOMINATIVE)] бьёт вас светом Ратвара, но Обитель поглощает большую часть эффектов!")
+				add_attack_logs(user, target, "Stunned by [src]")
+				deplete_spell()
+				return
+
 			living.Knockdown(3 SECONDS)
 			living.apply_damage(55, STAMINA)
 			living.apply_status_effect(STATUS_EFFECT_STAMINADOT)

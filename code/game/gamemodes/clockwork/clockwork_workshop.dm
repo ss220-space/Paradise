@@ -56,6 +56,16 @@
 		CLOCK_DESIGN("Strange Shard", /obj/item/clockwork/shard, 2000, 500, 8),
 	)
 
+/obj/structure/clockwork/functional/workshop/proc/get_item_list()
+	var/datum/clockwork_objectives/clocker_objs = SSticker.mode.clocker_objs
+	if(!clocker_objs)
+		return item_list
+	if(!clocker_objs.unlocked_heretic_items[BRASS_BLADE_UNLOCKED])
+		return item_list
+
+	. = item_list.Copy()
+	.["Weapon"] = item_list["Weapon"] + list(CLOCK_DESIGN(BRASS_BLADE_UNLOCKED, /obj/item/melee/sickly_blade/brass, 1500, 300, 4))
+
 /obj/structure/clockwork/functional/workshop/Destroy()
 	// let all the brass out!
 	// Change it back from 2000x to 1x
@@ -110,10 +120,11 @@
 
 		// Available items - in static data because we don't wanna compute this list every time! It hardly changes.
 	static_data["items"] = list()
-	for(var/cat in item_list)
+	var/list/available_items = get_item_list()
+	for(var/cat in available_items)
 		var/list/cat_items = list()
-		for(var/item_name in item_list[cat])
-			var/datum/clockwork_design/design = item_list[cat][item_name]
+		for(var/item_name in available_items[cat])
+			var/datum/clockwork_design/design = available_items[cat][item_name]
 			var/list/matreq = list()
 			var/obj/item/I = design.design_path
 			if(design.brass_cost)
@@ -165,9 +176,10 @@
 		if("make")
 			var/category = params["cat"] // meow
 			var/name = params["name"]
-			if(!(category in item_list) || !(name in item_list[category])) // Not trying something that's not in the list, are you?
+			var/list/available_items = get_item_list()
+			if(!(category in available_items) || !(name in available_items[category])) // Not trying something that's not in the list, are you?
 				return
-			var/datum/clockwork_design/item = item_list[category][name]
+			var/datum/clockwork_design/item = available_items[category][name]
 			if(item.brass_cost > brass_amount) // shouldn't be able to access this since the button is greyed out, but..
 				to_chat(usr, span_danger("You have insufficient brass in workshop."))
 				return

@@ -11,6 +11,10 @@
 	var/sound_out = 'sound/magic/ethereal_exit.ogg'
 	var/jaunt_duration = 5 SECONDS //in deciseconds
 	var/jaunt_in_time = 0.5 SECONDS
+	/// How long after the reappear visual spawns before the mob is revealed (ejected from the holder).
+	/// Defaults to jaunt_in_time. Set higher to let a longer reappear animation play out fully before the
+	/// mob's sprite shows (so the model doesn't pop in mid-animation).
+	var/jaunt_in_reveal_time = null
 	var/jaunt_in_type = /obj/effect/temp_visual/wizard
 	var/jaunt_out_type = /obj/effect/temp_visual/wizard/out
 	var/jaunt_type_path = /obj/effect/dummy/spell_jaunt
@@ -65,7 +69,8 @@
 	new jaunt_in_type(mobloc, holder.dir)
 	target.setDir(holder.dir)
 
-	sleep(jaunt_in_time)
+	// Wait for the reappear animation to finish before revealing the mob, so the model doesn't pop in early.
+	sleep(isnull(jaunt_in_reveal_time) ? jaunt_in_time : jaunt_in_reveal_time)
 	qdel(holder)
 
 	if(QDELETED(target))
@@ -99,6 +104,15 @@
 	var/reappearing = FALSE
 	var/movedelay = 0
 	var/movespeed = 2
+	// tg heretic jaunt API (mirror_walk/space_crawl/ash_jaunt), see heretic _heretic_compat.dm
+	/// The movable currently jaunting inside this dummy (tg API).
+	var/atom/movable/jaunter
+	/// Icon we draw the jaunter's position indicator from (tg uses the projectiles sheet).
+	var/phased_mob_icon = 'icons/obj/weapons/guns/projectiles.dmi'
+	/// Icon state for the jaunter's position indicator (set by some heretic jaunt subtypes, e.g. ash = "red_1").
+	var/phased_mob_icon_state
+	/// The client image shown to the jaunter so they can see where they are (the "red dot").
+	var/image/position_indicator
 
 /obj/effect/dummy/spell_jaunt/Destroy()
 	// Eject contents if deleted somehow

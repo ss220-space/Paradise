@@ -2,9 +2,21 @@
 	movement_delay = 0.4 SECONDS
 
 /datum/ai_controller/basic_controller/TryPossessPawn(atom/new_pawn)
-	if(!isbasicmob(new_pawn))
+	// master220 adaptation: the heretic summons are /mob/living/simple_animal (not tg's basic mobs), and
+	// their behaviors were ported to drive them (AttackingTarget/abilities + the melee_attack shim on
+	// heretic_summon). Refusing them here made the controller CRASH + self-delete on every summon spawn,
+	// which also broke everything that needs a live controller (obeys_commands, the friends blackboard).
+	if(!isbasicmob(new_pawn) && !is_simple_animal(new_pawn))
 		return AI_CONTROLLER_INCOMPATIBLE
-	var/mob/living/basic/basic_mob = new_pawn
+
+	// A possessed simple_animal must not ALSO be driven by its native wakeup AI - park it, the
+	// controller is its brain now (same idiom the heretic shapeshift uses).
+	if(is_simple_animal(new_pawn))
+		var/mob/living/simple_animal/animal_pawn = new_pawn
+		animal_pawn.toggle_ai(AI_OFF)
+		animal_pawn.shouldwakeup = FALSE
+
+	var/mob/living/basic_mob = new_pawn
 
 	update_speed(basic_mob)
 

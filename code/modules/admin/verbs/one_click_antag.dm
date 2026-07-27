@@ -21,6 +21,7 @@ ADMIN_VERB(one_click_antag, R_SERVER|R_EVENT, "Create Antagonist", "Auto-create 
 		<a href='byond://?src=[UID()];makeAntag=13'>Make Terror Spiders</a><br>
 		<a href='byond://?src=[UID()];makeAntag=14'>Make Aliens</a><br>
 		<a href='byond://?src=[UID()];makeAntag=15'>Make Nuke Team</a><br>
+		<a href='byond://?src=[UID()];makeAntag=16'>Make Heretics</a><br>
 		"}
 	var/datum/browser/popup = new(usr, "oneclickantag", "One-click Antagonist", 400, 400)
 	popup.set_content(dat)
@@ -377,6 +378,33 @@ ADMIN_VERB(one_click_antag, R_SERVER|R_EVENT, "Create Antagonist", "Auto-create 
 
 		return 1
 	return 0
+
+/datum/admins/proc/makeHeretics()
+	var/list/mob/living/carbon/human/candidates = list()
+	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
+		if(CandCheck(ROLE_HERETIC, applicant, SSticker.mode))
+			candidates += applicant
+
+	var/antnum = tgui_input_number(owner, "How many heretics do you want to create? Enter 0 to cancel", "Amount:", 0)
+	if(!antnum || antnum <= 0)
+		return FALSE
+
+	log_admin("[key_name(owner)] tried making [antnum] heretics with One-Click-Antag")
+	message_admins("[key_name_admin(owner)] tried making [antnum] heretics with One-Click-Antag")
+
+	if(!length(candidates))
+		return FALSE
+
+	var/num_heretics = min(length(candidates), antnum)
+	var/mob/living/carbon/human/heretic
+	for(var/i in 1 to num_heretics)
+		heretic = pick_n_take(candidates)
+		if(!heretic || IS_HERETIC(heretic))
+			continue
+
+		heretic.mind.add_antag_datum(/datum/antagonist/heretic)
+
+	return TRUE
 
 /datum/admins/proc/makeThunderdomeTeams() // Not strictly an antag, but this seemed to be the best place to put it.
 

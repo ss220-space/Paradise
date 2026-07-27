@@ -402,6 +402,8 @@
 /mob/living/carbon/human/get_visible_name(add_id_name = TRUE)
 	if(name_override)
 		return name_override
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN) || HAS_TRAIT(src, TRAIT_UNKNOWN_APPEARANCE))	//Magically concealed (e.g. heretic's shadow cloak) - fully anonymous
+		return UNKNOWN_NAME_RUS
 	if(wear_mask && (wear_mask.flags_inv & HIDENAME))	//Wearing a mask which hides our face, use id-name if possible
 		return get_id_name(UNKNOWN_NAME_RUS)
 	if(head && (head.flags_inv & HIDENAME))
@@ -931,10 +933,7 @@
 	else
 		germ_level += n
 
-/**
- * Regenerate missing limbs/organs with defined in species datum.
- */
-/mob/living/carbon/human/proc/check_and_regenerate_organs()
+/mob/living/carbon/human/proc/regenerate_limbs()
 	var/datum/species/species = dna?.species
 	if(!species)
 		return FALSE
@@ -946,12 +945,21 @@
 			var/obj/item/organ/new_organ = new limb_path(src)
 			organ_data["descriptor"] = new_organ.name
 
-	for(var/organ_slot in species.has_organ)
+	recalculate_limbs_status()
+	return TRUE
+
+/**
+ * Regenerate missing limbs/organs with defined in species datum.
+ */
+/mob/living/carbon/human/proc/check_and_regenerate_organs()
+	if(!regenerate_limbs())
+		return FALSE
+
+	for(var/organ_slot in dna.species.has_organ)
 		if(!internal_organs_slot[organ_slot])
-			var/organ_path = species.has_organ[organ_slot]
+			var/organ_path = dna.species.has_organ[organ_slot]
 			new organ_path(src)
 
-	recalculate_limbs_status()
 	return TRUE
 
 /mob/living/carbon/human/revive()
@@ -1620,6 +1628,16 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(dna.species.has_fine_manipulation || ischangeling(src) || BorerControlling())
 		return TRUE
 	return FALSE
+
+/mob/living/carbon/human/get_covered_body_zones()
+	var/covered_flags = NONE
+	for(var/obj/item/worn in get_equipped_items())
+		covered_flags |= worn.body_parts_covered
+
+	. = list()
+	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+		if(covered_flags & bodypart.limb_body_flag)
+			. += bodypart.limb_zone
 
 /mob/living/carbon/human/get_permeability_protection()
 	var/list/prot = list("hands"=0, "chest"=0, "groin"=0, "legs"=0, "feet"=0, "arms"=0, "head"=0)

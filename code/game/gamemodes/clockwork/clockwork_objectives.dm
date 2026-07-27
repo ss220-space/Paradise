@@ -5,6 +5,26 @@
 	var/power_goal = 1
 	var/beacon_goal = 1
 	var/clocker_goal = 1
+	var/list/unlocked_heretic_items = list(
+		BRASS_BLADE_UNLOCKED = FALSE,
+	)
+
+/datum/clockwork_objectives/proc/unlock_heretic_item()
+	var/list/still_locked = list()
+	for(var/item_name in unlocked_heretic_items)
+		if(!unlocked_heretic_items[item_name])
+			still_locked += item_name
+
+	if(!length(still_locked))
+		return
+
+	var/unlocked_item = pick(still_locked)
+	unlocked_heretic_items[unlocked_item] = TRUE
+	for(var/datum/mind/clocker_mind as anything in SSticker.mode.clockwork_cult)
+		if(!clocker_mind.current)
+			continue
+		SEND_SOUND(clocker_mind.current, 'sound/magic/clockwork/reconstruct.ogg')
+		to_chat(clocker_mind.current, span_clocklarge("Запретное знание перековано в шестерни. Культ научился создавать [unlocked_item]!"))
 
 /datum/clockwork_objectives/proc/setup()
 	if(clock_status != RATVAR_IS_ASLEEP)

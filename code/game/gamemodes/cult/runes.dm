@@ -395,17 +395,25 @@ structure_check() searches for nearby cultist structures required for the invoca
 			SSticker.mode.ghost_summons += GHOST_SUMMONS_OBJECTIVE
 
 	new /obj/effect/temp_visual/cult/sac(loc)
-	for(var/M in invokers)
-		if(sacrifice_fulfilled)
-			to_chat(M, span_cultlarge("\"Yes! This is the one I desire! You have done well.\""))
-		else
-			if(ishuman(offering) || isrobot(offering))
-				to_chat(M, span_cultlarge("\"I accept this sacrifice.\""))
+	var/signal_result = SEND_SIGNAL(offering, COMSIG_LIVING_CULT_SACRIFICED, invokers)
+	if(!(signal_result & SILENCE_SACRIFICE_MESSAGE))
+		for(var/M in invokers)
+			if(sacrifice_fulfilled)
+				to_chat(M, span_cultlarge("\"Yes! This is the one I desire! You have done well.\""))
 			else
-				to_chat(M, span_cultlarge("\"I accept this meager sacrifice.\""))
+				if(ishuman(offering) || isrobot(offering))
+					to_chat(M, span_cultlarge("\"I accept this sacrifice.\""))
+				else
+					to_chat(M, span_cultlarge("\"I accept this meager sacrifice.\""))
 	playsound(offering, 'sound/misc/demon_consume.ogg', 100, TRUE)
 
-	if((ishuman(offering) || isrobot(offering) || isbrain(offering)) && offering.mind)
+	if(signal_result & STOP_SACRIFICE)
+		return FALSE
+
+	if(signal_result & DUST_SACRIFICE)
+		offering.dust()
+		playsound(offering, 'sound/magic/disintegrate.ogg', 100, TRUE)
+	else if((ishuman(offering) || isrobot(offering) || isbrain(offering)) && offering.mind)
 		if(isrobot(offering))
 			var/mob/living/silicon/robot/robot = offering
 			if(robot.shell && robot.mainframe)

@@ -459,6 +459,14 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define is_cargo_shelf(A) (istype(A, /obj/structure/cargo_shelf))
 #define is_crate(A) (istype(A, /obj/structure/closet/crate))
 
+/// Heretic helpers.
+#define isplatingturf(A) (istype(A, /turf/simulated/floor/plating))
+#define issnowturf(A) (istype(A, /turf/simulated/floor/plating/asteroid/snow))
+#define IS_HERETIC(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/heretic))
+#define GET_HERETIC(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/heretic))
+#define IS_LUNATIC(mob) (mob.mind?.has_antag_datum(/datum/antagonist/lunatic))
+#define IS_HERETIC_OR_MONSTER(mob) (IS_HERETIC(mob) || HAS_TRAIT(mob, TRAIT_HERETIC_SUMMON) || IS_LUNATIC(mob))
+
 #define is_area_nearby_station(checked_area) (istype(checked_area, /area/space) || istype(checked_area, /area/space/nearstation) || istype(checked_area, /area/centcom/asteroid))
 #define is_area_shuttle(checked_area) (istype(checked_area, /area/shuttle))
 

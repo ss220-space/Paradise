@@ -160,9 +160,11 @@
 	)
 
 /obj/item/mod/module/drill/on_activation()
+	tool_behaviour = TOOL_MINING
 	RegisterSignal(mod.wearer, COMSIG_MOVABLE_BUMP, PROC_REF(bump_mine))
 
 /obj/item/mod/module/drill/on_deactivation(display_message = TRUE, deleting = FALSE)
+	tool_behaviour = NONE
 	UnregisterSignal(mod.wearer, COMSIG_MOVABLE_BUMP)
 
 /obj/item/mod/module/drill/on_select_use(atom/target)

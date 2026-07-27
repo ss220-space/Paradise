@@ -205,6 +205,12 @@
 /// Trait from mob/living/update_transform()
 #define UPDATE_TRANSFORM_TRAIT "update_transform"
 
+/// Heretic antagonist trait sources.
+#define HERETIC_TRAIT "heretic"
+#define HERETIC_ARENA_TRAIT "heretic_arena"
+#define HOLYWATER_TRAIT "holywater"
+#define HAND_REPLACEMENT_TRAIT "magic-hand"
+
 /// Trait acquired from being painted a certain color
 #define ATOM_COLOR_TRAIT "atom_color"
 

@@ -125,6 +125,19 @@
 	///a list of objectives that a player with this job could complete for space credit rewards
 	var/list/job_objectives = list()
 
+	/// Flag for skills initialization
+	var/skills_initialized = FALSE
+	/// List of skill levels (associative map of type to level (number))
+	var/list/skills = list()
+	/// Available free skill points
+	var/free_skill_points = BASIC_SKILL_POINTS_COUNT
+	/// Temp variable for skill leveling (for skill_select_win works)
+	var/list/selected_skills = null
+	/// Active skill bonuses from skill manuals
+	var/list/active_skill_bonuses = list()
+	/// Active skill bonuses from skill manuals
+	var/list/read_manuals = list()
+
 	///Owned cyborg skin permissions
 	var/list/cyborg_skin_permissions = list()
 
@@ -144,6 +157,7 @@
 
 		qdel(antag)
 
+	unregister_skill_signals_for_user(current)
 	current = null
 	soulOwner = null
 	return ..()
@@ -194,6 +208,7 @@
 
 	transfer_antag_huds(hud_to_transfer) // inherit the antag HUD
 	transfer_actions(new_character, old_current)
+	register_skill_signals_for_user(current)
 
 	if(martial_art)
 		for(var/datum/martial_art/MA in known_martial_arts)
@@ -416,6 +431,31 @@
 		. += "<a href='byond://?src=[UID()];changeling=changeling'>changeling</a>|<b>NO</b>"
 
 	. += _memory_edit_role_enabled(ROLE_CHANGELING)
+
+/datum/mind/proc/memory_edit_heretic(mob/living/carbon/human/H)
+	. = _memory_edit_header("heretic", list())
+	var/datum/antagonist/heretic/heretic_datum = has_antag_datum(/datum/antagonist/heretic)
+	if(heretic_datum)
+		. += "<b><font color='red'>HERETIC</font></b>|<a href='byond://?src=[UID()];heretic=clear'>no</a>"
+		. += "<br>Очки знаний: <a href='byond://?src=[UID()];heretic=points'>[heretic_datum.knowledge_points]</a>"
+		. += " | Жертвоприношений: [heretic_datum.total_sacrifices]"
+		var/list/target_names = list()
+		for(var/mob/living/carbon/human/target as anything in heretic_datum.sac_targets)
+			target_names += "[target.real_name] ([target.mind?.assigned_role || "человек"])"
+		. += "<br>Текущие цели: [english_list(target_names, nothing_text = "нет")]"
+		// Mirrors TG/selfharm get_admin_commands(): show heart-target controls once the heretic
+		// actually has a Living Heart, otherwise offer to grant one.
+		switch(heretic_datum.has_living_heart())
+			if(HERETIC_HAS_LIVING_HEART)
+				. += "<br><a href='byond://?src=[UID()];heretic=addsac'>Добавить цель (отмеченный моб)</a>"
+				. += " | <a href='byond://?src=[UID()];heretic=remsac'>Убрать цель</a>"
+			else
+				. += "<br><a href='byond://?src=[UID()];heretic=heart'>Выдать Живое Сердце</a>"
+		. += "<br><a href='byond://?src=[UID()];heretic=focus'>Выдать фокус</a>"
+	else
+		. += "<a href='byond://?src=[UID()];heretic=heretic'>heretic</a>|<b>NO</b>"
+
+	. += _memory_edit_role_enabled(ROLE_HERETIC)
 
 /datum/mind/proc/memory_edit_vampire(mob/living/carbon/human/H)
 	. = _memory_edit_header("vampire", list("traitorvamp"))
@@ -756,6 +796,8 @@
 		sections["changeling"] = memory_edit_changeling(H)
 		/** VAMPIRE ***/
 		sections["vampire"] = memory_edit_vampire(H)
+		/** HERETIC ***/
+		sections["heretic"] = memory_edit_heretic(H)
 		/** NUCLEAR ***/
 		sections["nuclear"] = memory_edit_nuclear(H)
 		/** SHADOWLING **/
@@ -1595,6 +1637,51 @@
 					to_chat(usr, span_notice("The objectives for wizard apprentice [key] have been generated. You can edit them and announce manually."))
 					log_admin("[key_name(usr)] has automatically forged wizard apprentice objectives for [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has automatically forged wizard apprentice objectives for [key_name_admin(current)]")
+
+	else if(href_list["heretic"])
+		switch(href_list["heretic"])
+			if("clear")
+				if(IS_HERETIC(current))
+					remove_antag_datum(/datum/antagonist/heretic)
+					log_admin("[key_name(usr)] has de-hereticed [key_name(current)]")
+					message_admins("[key_name_admin(usr)] has de-hereticed [key_name_admin(current)]")
+
+			if("heretic")
+				if(!IS_HERETIC(current))
+					add_antag_datum(/datum/antagonist/heretic)
+					log_admin("[key_name(usr)] has hereticed [key_name(current)]")
+					message_admins("[key_name_admin(usr)] has hereticed [key_name_admin(current)]")
+
+			if("points")
+				var/datum/antagonist/heretic/heretic_datum = has_antag_datum(/datum/antagonist/heretic)
+				if(!heretic_datum)
+					return
+				heretic_datum.admin_change_points(usr)
+				log_admin("[key_name(usr)] adjusted knowledge points of [key_name(current)] to [heretic_datum.knowledge_points]")
+
+			if("addsac")
+				// TG/selfharm flow: add the admin's marked mob (VV "Mark Object") as a sacrifice target.
+				var/datum/antagonist/heretic/heretic_datum = has_antag_datum(/datum/antagonist/heretic)
+				if(!heretic_datum)
+					return
+				heretic_datum.add_marked_as_target(usr)
+				log_admin("[key_name(usr)] added a marked sacrifice target for [key_name(current)]")
+				message_admins("[key_name_admin(usr)] added a marked sacrifice target for [key_name_admin(current)]")
+
+			if("remsac")
+				var/datum/antagonist/heretic/heretic_datum = has_antag_datum(/datum/antagonist/heretic)
+				if(!heretic_datum)
+					return
+				heretic_datum.remove_target(usr)
+				log_admin("[key_name(usr)] removed a sacrifice target from [key_name(current)]")
+
+			if("focus")
+				var/datum/antagonist/heretic/heretic_datum = has_antag_datum(/datum/antagonist/heretic)
+				heretic_datum?.admin_give_focus(usr)
+
+			if("heart")
+				var/datum/antagonist/heretic/heretic_datum = has_antag_datum(/datum/antagonist/heretic)
+				heretic_datum?.give_living_heart(usr)
 
 	else if(href_list["changeling"])
 		switch(href_list["changeling"])
@@ -2641,6 +2728,9 @@
 
 	ASSERT(antag.owner && antag.owner.current)
 	antag.on_gain()
+
+	apply_antag_skills()
+
 	return antag
 
 /**
@@ -3027,7 +3117,14 @@
 	transfer_mindbound_actions(new_character)
 
 /datum/mind/proc/transfer_mindbound_actions(mob/living/new_character)
-	for(var/obj/effect/proc_holder/spell/spell as anything in spell_list)
+	// Iterate a copy: a stray qdeleted/null-action spell (e.g. duplicate spells left over from heretic
+	// shapeshift churn) used to runtime on `spell.action.Grant()` and ABORT the loop, so every spell after
+	// it silently failed to transfer - the "only my first couple of abilities come back" bug. Null-check and
+	// prune the dead entry instead, so the rest of the spells always transfer.
+	for(var/obj/effect/proc_holder/spell/spell as anything in spell_list?.Copy())
+		if(QDELETED(spell) || isnull(spell.action))
+			LAZYREMOVE(spell_list, spell)
+			continue
 		spell.action.Grant(new_character)
 
 /datum/mind/proc/disrupt_spells(delay, list/exceptions)
@@ -3128,6 +3225,7 @@
 	if(!mind.name)
 		mind.name = real_name
 	mind.current = src
+	mind.register_skill_signals_for_user(src)
 	RegisterSignal(src, COMSIG_ADMIN_DELETING, PROC_REF(ghost_before_admin_delete), override = TRUE)
 	SEND_SIGNAL(src, COMSIG_MOB_MIND_INITIALIZED, mind)
 

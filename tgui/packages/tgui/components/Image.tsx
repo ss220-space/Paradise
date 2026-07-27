@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { computeBoxProps } from 'common/ui';
 import type { BoxProps } from './Box';
 import { ReactNode } from 'react';
@@ -40,6 +40,21 @@ export const Image = (props: Props) => {
     ...rest
   } = props;
   const attempts = useRef(0);
+  // Holds the pending retry timer so we can cancel it. Without this (the old behaviour) a broken icon
+  // kept firing cache-busting retries that survived re-renders/unmounts, which made the heretic shop
+  // (and any non-autoupdating UI full of DmIcons) look like it was "constantly reloading". Matches
+  // upstream tgui-core.
+  const retryTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Cancel any in-flight retry when the component goes away.
+  useEffect(
+    () => () => {
+      if (retryTimeout.current) {
+        clearTimeout(retryTimeout.current);
+      }
+    },
+    []
+  );
 
   const computedProps = computeBoxProps(rest);
   computedProps.style = {
@@ -49,14 +64,18 @@ export const Image = (props: Props) => {
   };
 
   const handleError = (event) => {
-    if (fixErrors && attempts.current < maxAttempts) {
-      const imgElement = event.currentTarget;
-
-      setTimeout(() => {
-        imgElement.src = `${src}?attempt=${attempts.current}`;
-        attempts.current++;
-      }, 1000);
+    if (!fixErrors || attempts.current >= maxAttempts) {
+      if (retryTimeout.current) {
+        clearTimeout(retryTimeout.current);
+        retryTimeout.current = null;
+      }
+      return;
     }
+    const imgElement = event.currentTarget;
+    retryTimeout.current = setTimeout(() => {
+      imgElement.src = `${src}?attempt=${attempts.current}`;
+      attempts.current++;
+    }, 1000);
   };
 
   /* Use div instead img if used asset, cause img with class leaves white border on 516 */

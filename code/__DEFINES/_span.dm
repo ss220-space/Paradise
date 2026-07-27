@@ -175,6 +175,7 @@
 #define span_mind_control(str) ("<span class='mind_control'>[str]</span>")
 #define span_his_grace(str) ("<span class='his_grace'>[str]</span>")
 #define span_hypnophrase(str) ("<span class='hypnophrase'>" + str + "</span>")
+#define span_mansus(str) ("<span class='mansus'>" + str + "</span>")
 #define span_shadowling(str) ("<span class='shadowling'>[str]</span>")
 #define span_shadowling_alt(str) ("<span class='shadowling'>" + str + "</span>")
 #define span_holoparasite(str) ("<span class='holoparasite'>[str]</span>")
@@ -187,6 +188,7 @@
  * MARK: Cults
  */
 #define span_cult(str) ("<span class='cult'>[str]</span>")
+#define span_cultbold(str) ("<span class='cultbold'>[str]</span>")
 #define span_cultspeech(str) ("<span class='cultspeech'>[str]</span>")
 #define span_cultitalic(str) ("<span class='cultitalic'>[str]</span>")
 #define span_cultitalic_alt(str) ("<span class='cultitalic'>" + str + "</span>")

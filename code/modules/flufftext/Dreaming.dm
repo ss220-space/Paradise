@@ -1,6 +1,16 @@
 ///DREAMS
 
 /mob/living/carbon/proc/dream()
+	// Additive heretic hook: a listener (the heretic antag datum) may supply a complete replacement
+	// dream sequence - if it does, play that narrative in order instead of the random dream pool.
+	var/list/special_dreams = list()
+	SEND_SIGNAL(src, COMSIG_GET_DREAMS, special_dreams)
+	if(length(special_dreams))
+		for(var/i in 1 to length(special_dreams))
+			dreaming++
+			addtimer(CALLBACK(src, PROC_REF(experience_dream), special_dreams[i], FALSE), ((i - 1) * rand(30, 60)))
+		return TRUE
+
 	var/list/dreams = custom_dreams(GLOB.dream_strings, src)
 
 	for(var/obj/item/bedsheet/sheet in loc)

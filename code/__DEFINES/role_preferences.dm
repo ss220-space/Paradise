@@ -9,6 +9,7 @@
 #define ROLE_OPERATIVE "operative"
 #define ROLE_CHANGELING "changeling"
 #define ROLE_WIZARD "wizard"
+#define ROLE_HERETIC "heretic"
 #define ROLE_REV "revolutionary"
 #define ROLE_ALIEN "xenomorph"
 #define ROLE_THUNDERDOME "thunderdome"
@@ -69,6 +70,7 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_DEVIL, // Devil
 	ROLE_GSPIDER, // Giant spider
 	ROLE_GUARDIAN, // Guardian
+	ROLE_HERETIC, // Heretic
 	ROLE_ELITE, // Lavaland Elite
 	ROLE_MALF_AI = /datum/game_mode/traitor, // Malf AI
 	ROLE_ESCAPING_PRISONER = /datum/game_mode/traitor, // Escaping Prisoner

@@ -133,6 +133,8 @@
 #define ACCESS_CAPTAIN_REAL 310
 #define ACCESS_ARMORY_REAL 311
 
+#define ACCESS_HERETIC 320
+
 //Awaymissions
 #define ACCESS_AWAY01 271
 

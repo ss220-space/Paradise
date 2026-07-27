@@ -41,6 +41,8 @@ GLOBAL_ALIST_INIT(huds, alist(
 	ANTAG_HUD_VOX_RAIDER = new /datum/atom_hud/antag(),\
 	THOUGHTS_HUD = new/datum/atom_hud/thoughts(),
 	DATA_HUD_KIDAN_PHEROMONES = new/datum/atom_hud/kidan_pheromones(),
+	ANTAG_HUD_HERETIC = new/datum/atom_hud/antag/hidden(),
+	ANTAG_HUD_LUNATIC = new/datum/atom_hud/antag(),
 	PACIFISM_HUD = new/datum/atom_hud/pacifism(),
 	DIABLERIE_AURA_HUD = new /datum/atom_hud/diablerie_aura(),
 ))

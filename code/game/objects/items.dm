@@ -532,6 +532,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 /obj/item/proc/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity_flag, modifiers, status)
+	// Mob-side relay (heretic rune drawing etc.). No-op for mobs without listeners.
+	SEND_SIGNAL(user, COMSIG_MOB_ITEM_AFTERATTACK, target, src, proximity_flag, modifiers, status)
 
 /obj/item/attack_hand(mob/user, pickupfireoverride = FALSE)
 	. = ..()
@@ -786,6 +788,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
  * Called when the giver gives it to the receiver.
  */
 /obj/item/proc/on_give(mob/living/carbon/giver, mob/living/carbon/receiver)
+	return
+
+/obj/item/proc/visual_equipped(mob/user, slot, initial = FALSE)
 	return
 
 /**
@@ -1493,7 +1498,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	for(var/addition in deltas)
 		delta += addition
 
-	return force + delta
+	var/final_force = force + delta
+	if(!HAS_TRAIT(attacker, TRAIT_MELEE_WEAPON))
+		return final_force
+
+	CALCULATE_SKILL_MOD(attacker, MELEE_DAMAGE_MOD, skill_mod)
+	return final_force * skill_mod
 
 /// Returns the icon used for overlaying the object on a belt
 /obj/item/proc/get_belt_overlay()

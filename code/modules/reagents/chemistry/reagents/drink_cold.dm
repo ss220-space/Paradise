@@ -54,6 +54,15 @@
 	drink_desc = "Стакан освежающей КосмоКолы."
 	taste_description = "колы"
 
+// Space cola dissolves eldritch rust (tg) - douse a rusted wall/floor/object with it to strip the rust.
+/datum/reagent/consumable/drink/cold/space_cola/reaction_turf(turf/exposed_turf, volume, color)
+	. = ..()
+	exposed_turf.clean_rust()
+
+/datum/reagent/consumable/drink/cold/space_cola/reaction_obj(obj/exposed_obj, volume)
+	. = ..()
+	exposed_obj.clean_rust()
+
 /datum/reagent/consumable/drink/cold/energy
 	name = "Энергетический напиток"
 	id = "energetik"
