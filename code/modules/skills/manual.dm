@@ -66,7 +66,7 @@
 	if(applyed_bonus_points <= 0)
 		return
 	user.mind.skills[skill_type] = current_skill_level + applyed_bonus_points
-	user.mind.active_skill_bonuses += skill_type
+	user.mind.active_skill_bonuses[skill_type] = applyed_bonus_points
 
 /obj/item/book/skill_manual/proc/try_remove_skill_bonus(mob/user)
 	if(applyed_bonus_points <= 0)
