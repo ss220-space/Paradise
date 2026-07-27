@@ -110,7 +110,6 @@
 /datum/action/cooldown/spell/jaunt/ethereal_jaunt/shadowling_shadow_walk
 	name = "Shadow Walk"
 	desc = "На короткое время переносит вас в пространство между мирами, позволяя проходить сквозь стены и делая невидимым."
-	cooldown_time = 30 SECONDS //Used to be twice this, buffed
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	button_icon_state = "shadow_walk"
 	background_icon_state = "bg_shadowling"
@@ -802,7 +801,6 @@
 /datum/action/cooldown/spell/pointed/ascendant_annihilate
 	name = "Annihilate"
 	desc = "Моментально разрывает на куски."
-	cooldown_time = 0
 	spell_requirements = NONE
 	school = SCHOOL_FORBIDDEN
 	button_icon_state = "annihilate"
@@ -845,7 +843,6 @@
 /datum/action/cooldown/spell/pointed/ascendant_hypnosis
 	name = "Hypnosis"
 	desc = "Моментально подчиняет гуманойда."
-	cooldown_time = 0
 	spell_requirements = NONE
 	button_icon_state = "enthrall"
 	background_icon_state = "bg_shadowling"
