@@ -56,7 +56,8 @@
 	var/datum/job/current_job
 	if(ref_job)
 		current_job = SSjobs.GetJob(ref_job)
-	var/is_antag = iscarbon(current) && length(antag_datums) || force_antag
+	var/is_human = ishuman(current)
+	var/is_antag = is_human && length(antag_datums) || force_antag
 	var/basic_skill = is_antag? SKILL_LEVEL_BASIC : SKILL_LEVEL_NONE
 	var/list/cached_manual_bonuses = active_skill_bonuses
 	var/list/cached_neurotrainer_bonuses = active_neurotrainer_bonuses
@@ -72,7 +73,7 @@
 		if(current_job)
 			job_skill = current_job.get_skill_level(skill.type, role_alt_title)
 		var/level = max(job_skill, antag_skill_level)
-		var/bonus = cached_manual_bonuses[skill.type] || 0 + cached_neurotrainer_bonuses[skill.type] || 0
+		var/bonus = is_human? cached_manual_bonuses[skill.type] || 0 + cached_neurotrainer_bonuses[skill.type] || 0 : 0
 		level = min(level + bonus, SKILL_LEVEL_LEGEND)
 		set_skill_level(skill.type, level)
 

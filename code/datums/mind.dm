@@ -209,7 +209,7 @@
 	current = new_character // link ourself to our new body
 	new_character.mind = src // and link our new body to ourself
 
-	if(!iscarbon(new_character))
+	if(!ishuman(new_character))
 		if(!temporaly_skills_holder && length(skills))
 			temporaly_skills_holder = skills
 			skills = list()
