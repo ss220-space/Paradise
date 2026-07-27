@@ -104,10 +104,8 @@
 
 /obj/item/neurotrainer/all_without_combat/Initialize(mapload)
 	var/static/combat_skills = list(
-		/datum/skill/combat/accuracy,
 		/datum/skill/combat/guns,
 		/datum/skill/combat/melee,
-		/datum/skill/combat/fists,
 	)
 	skill_types = GLOB.skill_types - combat_skills
 	. = ..()
@@ -148,14 +146,9 @@
 /obj/item/neurotrainer/service
 	manual_title = "Сервис"
 	skill_types = list(
-		/datum/skill/service/drink_mixing,
 		/datum/skill/service/botany,
 		/datum/skill/service/cleaning,
 	)
-
-/obj/item/neurotrainer/service/drink_mixing
-	manual_title = "Напитки"
-	skill_types = /datum/skill/service/drink_mixing
 
 /obj/item/neurotrainer/service/botany
 	manual_title = "Ботаника"
@@ -169,15 +162,9 @@
 /obj/item/neurotrainer/combat
 	manual_title = "Боевые"
 	skill_types = list(
-		/datum/skill/combat/accuracy,
 		/datum/skill/combat/guns,
 		/datum/skill/combat/melee,
-		/datum/skill/combat/fists,
 	)
-
-/obj/item/neurotrainer/combat/accuracy
-	manual_title = "Точный выстрел"
-	skill_types = /datum/skill/combat/accuracy
 
 /obj/item/neurotrainer/combat/guns
 	manual_title = "Стрелковое оружие"
@@ -187,16 +174,11 @@
 	manual_title = "Оружие ближнего боя"
 	skill_types = /datum/skill/combat/melee
 
-/obj/item/neurotrainer/combat/fists
-	manual_title = "Рукопашный бой"
-	skill_types = /datum/skill/combat/fists
-
 // MARK: Engineering
 /obj/item/neurotrainer/engineering
 	manual_title = "Инженерные"
 	skill_types = list(
 		/datum/skill/engineering/building,
-		/datum/skill/engineering/construction,
 		/datum/skill/engineering/electrician,
 		/datum/skill/engineering/atmos,
 	)
@@ -204,10 +186,6 @@
 /obj/item/neurotrainer/engineering/building
 	manual_title = "Строительство"
 	skill_types = /datum/skill/engineering/building
-
-/obj/item/neurotrainer/engineering/construction
-	manual_title = "Конструирование"
-	skill_types = /datum/skill/engineering/construction
 
 /obj/item/neurotrainer/engineering/electrician
 	manual_title = "Электроника"
@@ -223,7 +201,6 @@
 	skill_types = list(
 		/datum/skill/medical/surgery,
 		/datum/skill/medical/heal,
-		/datum/skill/medical/chemistry,
 		/datum/skill/medical/genetic,
 		/datum/skill/medical/virusology,
 	)
@@ -235,10 +212,6 @@
 /obj/item/neurotrainer/medical/heal
 	manual_title = "Лечение"
 	skill_types = /datum/skill/medical/heal
-
-/obj/item/neurotrainer/medical/chemistry
-	manual_title = "Химия"
-	skill_types = /datum/skill/medical/chemistry
 
 /obj/item/neurotrainer/medical/genetic
 	manual_title = "Генетика"
@@ -253,7 +226,6 @@
 	manual_title = "Научные"
 	skill_types = list(
 		/datum/skill/research/research,
-		/datum/skill/research/protolathe,
 		/datum/skill/research/mech_construct,
 		/datum/skill/research/xenobiology,
 	)
@@ -261,11 +233,6 @@
 /obj/item/neurotrainer/research/research
 	manual_title = "Исследование"
 	skill_types = /datum/skill/research/research
-
-/obj/item/neurotrainer/research/protolathe
-	manual_title = "Протолат"
-	desc = "Руководство по работе с протолатом."
-	skill_types = /datum/skill/research/protolathe
 
 /obj/item/neurotrainer/research/mech_construct
 	manual_title = "Конструирование мехов"

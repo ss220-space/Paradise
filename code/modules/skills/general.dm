@@ -6,49 +6,70 @@
 /datum/skill/general/carrying
 	id = "general.carrying"
 	name = "Переноска"
-	desc = "Влияет на переноски вещей."
-	duration_mod_names = list(PULL_SLOWDOWN_MODIFIERS, GRAB_SPEED_MODIFIERS)
+	desc = "Влияет на переноску вещей и скорость захвата."
+	skills_mods = alist(
+		PULL_SLOWDOWN_MODIFIERS = alist(
+			SKILL_LEVEL_NONE = 1.2,
+			SKILL_LEVEL_BEGINNER = 1.1,
+			SKILL_LEVEL_BASIC = 1,
+			SKILL_LEVEL_ADVANCED = 0.9,
+			SKILL_LEVEL_PROFESSIONAL = 0.7,
+			SKILL_LEVEL_EXPERT = 0.6,
+			SKILL_LEVEL_LEGEND = 0.5,
+			SKILL_LEVEL_UNAVAILABLE = 3,
+		),
+		GRAB_SPEED_MODIFIERS = alist(
+			SKILL_LEVEL_NONE = 1.2,
+			SKILL_LEVEL_BEGINNER = 1.1,
+			SKILL_LEVEL_BASIC = 1,
+			SKILL_LEVEL_ADVANCED = 0.95,
+			SKILL_LEVEL_PROFESSIONAL = 0.9,
+			SKILL_LEVEL_EXPERT = 0.85,
+			SKILL_LEVEL_LEGEND = 0.8,
+			SKILL_LEVEL_UNAVAILABLE = 3,
+		),
+	)
 
 /datum/skill/general/mech_drive
 	id = "general.mech_drive"
-	name = "Управление мехами (подами)"
-	desc = "Влияет на скорость передвижения мехов и подов. Также влияет на скорость разряда батареи."
+	name = "Управление мехами и подами"
+	desc = "Влияет на скорость входа, а также потребление батареи."
 	duration_mod_names = list(MECHA_CLIMBING_SPEED_MOD)
 	quality_mod_names = list(MECHA_CELL_USAGE_MOD, SPACEPOD_BATTERY_USAGE_MOD)
-	skills_mods = alist(
-		MECHA_DRIVING_SPEED_MOD = alist(
-			SKILL_LEVEL_NONE = 1.75,
-			SKILL_LEVEL_BEGINNER = 1.5,
-			SKILL_LEVEL_BASIC = 1.35,
-			SKILL_LEVEL_ADVANCED = 1.20,
-			SKILL_LEVEL_PROFESSIONAL = 1.05,
-			SKILL_LEVEL_EXPERT = 0.9,
-			SKILL_LEVEL_LEGEND = 0.75,
-			SKILL_LEVEL_UNAVAILABLE = 0.01,
-		),
-	)
 
 /datum/skill/general/mod_use
 	id = "general.mod_use"
 	name = "ВКД"
-	desc = "Влияет на скорость одевания МЭКов и РИГов."
-	duration_mod_names = list(MOD_ACTIVATION_SPEED_MOD, SPACESUIT_SLOWDOWN_MOD)
+	desc = "Влияет на скорость одевания и передвижения в МЭКах и РИГах."
+	duration_mod_names = list(MOD_ACTIVATION_SPEED_MOD)
+	skills_mods = alist(
+		SPACESUIT_SLOWDOWN_MOD = alist(
+			SKILL_LEVEL_NONE = 1.2,
+			SKILL_LEVEL_BEGINNER = 1.1,
+			SKILL_LEVEL_BASIC = 1,
+			SKILL_LEVEL_ADVANCED = 0.9,
+			SKILL_LEVEL_PROFESSIONAL = 0.8,
+			SKILL_LEVEL_EXPERT = 0.7,
+			SKILL_LEVEL_LEGEND = 0.6,
+			SKILL_LEVEL_UNAVAILABLE = 3,
+		),
+	)
 
 /datum/skill/general/cooking
 	id = "general.cooking"
 	name = "Готовка"
-	desc = "Влияет на готовку."
+	desc = "Влияет на готовку (скорость приготовления блюд, шанс дополнительной порции, шанс поломки при неправильном рецепте)."
 	duration_mod_names = list(COOKING_SPEED_MOD, BUTCHERING_SPEED_MOD)
 	quality_mod_names = list(COOKING_BROKE_MOD)
 	skills_mods = alist(
 		COOKING_EXTRA_COUNT_CHANCE = alist(
-			SKILL_LEVEL_NONE = 0,
-			SKILL_LEVEL_BEGINNER = 5,
-			SKILL_LEVEL_BASIC = 10,
-			SKILL_LEVEL_ADVANCED = 25,
+			SKILL_LEVEL_NONE = 5,
+			SKILL_LEVEL_BEGINNER = 10,
+			SKILL_LEVEL_BASIC = 15,
+			SKILL_LEVEL_ADVANCED = 30,
 			SKILL_LEVEL_PROFESSIONAL = 50,
 			SKILL_LEVEL_EXPERT = 75,
 			SKILL_LEVEL_LEGEND = 100,
-			SKILL_LEVEL_UNAVAILABLE = 0.001,
+			SKILL_LEVEL_UNAVAILABLE = 0,
 		),
 	)

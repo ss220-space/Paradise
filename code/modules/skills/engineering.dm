@@ -6,26 +6,20 @@
 /datum/skill/engineering/building
 	id = "engineering.building"
 	name = "Строительство"
-	desc = "Влияет на скорость строительства."
+	desc = "Влияет на скорость строительства и взаимодействия с машинерией."
 	duration_mod_names = list(BUILDING_SPEED_MOD)
-
-/datum/skill/engineering/construction
-	id = "engineering.construction"
-	name = "Конструирование"
-	desc = "Влияет на скорость конструирования машинерии."
-	duration_mod_names = list(CONSTRUCTING_SPEED_MOD)
 
 /datum/skill/engineering/electrician
 	id = "engineering.electrician"
 	name = "Электрика"
-	desc = "Влияет на работу с проводами, взлом вещей и безопасность трогать провода (шанс удара током)."
-	duration_mod_names = list(ELECTRICITY_SPEED_MOD, ELECTRICITY_NEGATIVE_CHANCE_MOD, LOCKPICK_SPEED_MOD)
-	quality_mod_names = list(ELECTRICITY_POSITIVE_CHANCE_MOD, LOCKPICK_POSITIVE_CHANCE_MOD)
+	desc = "Влияет на работу с проводами (шанс удара током, отображение информации о проводе), а также на взлом (шкафы, кейсы)."
+	duration_mod_names = list(ELECTRICITY_NEGATIVE_CHANCE_MOD, LOCKPICK_SPEED_MOD)
+	quality_mod_names = list(LOCKPICK_POSITIVE_CHANCE_MOD)
 
 /datum/skill/engineering/atmos
 	id = "engineering.atmos"
 	name = "Атмостехника"
-	desc = "Влияет на работу с трубами и остальной атмосферной техникой, а так же на силу удара от давления в трубах."
+	desc = "Влияет на работу с трубами (скорость использования RPD и силу откидывания из-за труб под давлением)."
 	duration_mod_names = list(ATMOS_SPEED_MOD)
 	skills_mods = alist(
 		UNSAFE_PRESSURE_MOD = alist(

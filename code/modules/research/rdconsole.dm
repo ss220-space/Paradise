@@ -220,6 +220,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
+	GET_SKILL_LEVEL(usr, /datum/skill/research, protolathe_skill_level)
+	if(protolathe_skill_level <= SKILL_LEVEL_UNAVAILABLE)
+		balloon_alert(user, "нет навыка!")
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	//Loading a disk into it.
 	if(istype(I, /obj/item/disk))
 		add_fingerprint(user)
@@ -466,16 +471,18 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	var/max_amount = is_lathe ? 10 : 1
 	amount = max(1, min(max_amount, amount))
-	GET_SKILL_LEVEL(usr, /datum/skill/research/protolathe, protolathe_skill_level)
-	if(protolathe_skill_level < SKILL_LEVEL_BASIC)
-		amount += rand(0, 3)
+
+	CALCULATE_SKILL_MOD(usr, RESEARCH_ADDITIONAL_CHANCE, skill_additional_chance)
+	if(prob(skill_additional_chance))
+		CALCULATE_SKILL_MOD(usr, RESEARCH_ADDITIONAL_PRINT, skill_additional_print)
+		amount += skill_additional_print
 
 	var/power = BUILD_POWER
 	for(var/M in being_built.materials)
 		power += round(being_built.materials[M] * amount / 5)
 	power = max(BUILD_POWER, power)
 
-	CALCULATE_SKILL_MOD(usr, PROTOLATHE_DURATION_MOD, skill_duration_mod)
+	CALCULATE_SKILL_MOD(usr, RESEARCH_SUCCESS_MOD, skill_duration_mod)
 	// goes down (1 -> 0.4) with upgrades
 	var/coeff = machine.efficiency_coeff
 

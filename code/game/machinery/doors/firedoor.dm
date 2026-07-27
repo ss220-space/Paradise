@@ -126,12 +126,17 @@
 
 	user.changeNext_move(CLICK_CD_MELEE)
 
+	var/open_time = manual_open_time
+	if(ishuman(user))
+		var/datum/strength_level/level = user.get_strength_level()
+		if(level)
+			open_time = manual_open_time / max(0.1, level.door_open_speed_modifier)
+
 	user.visible_message(
 		span_notice("[user] tries to open [src] manually."),
 		span_notice("You operate the manual lever on [src]."))
 
-	CALCULATE_SKILL_MOD(user, LOCKPICK_SPEED_MOD, lockpick_mod)
-	if(do_after(user, manual_open_time * lockpick_mod, src))
+	if(do_after(user, open_time, src))
 		add_fingerprint(user)
 		user.visible_message(
 			span_notice("[user] opens [src]."),
@@ -153,8 +158,8 @@
 	if(operating || !welded)
 		return
 	. = TRUE
-	CALCULATE_SKILL_MOD(user, LOCKPICK_SPEED_MOD, lockpick_mod)
-	if(!I.use_tool(src, user, 1 SECONDS * lockpick_mod, volume = I.tool_volume))
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
+	if(!I.use_tool(src, user, 1 SECONDS * building_mod, volume = I.tool_volume))
 		return
 	user.visible_message(
 		span_notice("[user] [boltslocked ? "unlocks" : "locks"] [src]'s bolts."), \

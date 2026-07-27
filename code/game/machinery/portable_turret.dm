@@ -341,8 +341,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(!(stat & BROKEN) || syndicate)
 		return FALSE
 	. = TRUE
-	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
-	if(!I.use_tool(src, user, 2 SECONDS * construction_mod, volume = I.tool_volume) || !(stat & BROKEN))
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
+	if(!I.use_tool(src, user, 2 SECONDS * building_mod, volume = I.tool_volume) || !(stat & BROKEN))
 		return .
 	if(prob(70))
 		to_chat(user, span_notice("You remove the turret and salvage some components."))
@@ -375,8 +375,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		span_notice("You begin [anchored ? "un" : ""]securing the turret."),
 	)
 	wrenching = TRUE
-	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
-	if(!I.use_tool(src, user, 2 SECONDS * construction_mod, volume = I.tool_volume) || enabled || raised || (!anchored && isinspace()))
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
+	if(!I.use_tool(src, user, 2 SECONDS * building_mod, volume = I.tool_volume) || enabled || raised || (!anchored && isinspace()))
 		wrenching = FALSE
 		return .
 	wrenching = FALSE
@@ -866,8 +866,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(build_step != TURRET_BUILD_LOOSEN)
 		return FALSE
 	. = TRUE
-	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
-	if(!I.use_tool(src, user, 3 SECONDS * construction_mod, volume = I.tool_volume) || build_step != TURRET_BUILD_LOOSEN)
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
+	if(!I.use_tool(src, user, 3 SECONDS * building_mod, volume = I.tool_volume) || build_step != TURRET_BUILD_LOOSEN)
 		return .
 	to_chat(user, span_notice("You dismantle the turret construction."))
 	new /obj/item/stack/sheet/metal(loc, 5)
@@ -965,8 +965,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			if(!I.tool_use_check(user, 0))
 				return .
 			to_chat(user, span_notice("You start removing the turret's interior metal armor..."))
-			CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
-			if(!I.use_tool(src, user, 2 SECONDS * construction_mod, volume = I.tool_volume) || build_step != TURRET_BUILD_ARMORED)
+			CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
+			if(!I.use_tool(src, user, 2 SECONDS * building_mod, volume = I.tool_volume) || build_step != TURRET_BUILD_ARMORED)
 				return .
 			to_chat(user, span_notice("You remove the turret's interior metal armor."))
 			build_step = TURRET_BUILD_ANCHORED
@@ -977,8 +977,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			if(!I.tool_use_check(user, 5))
 				return .
 			to_chat(user, span_notice("You start welding the turret's armor down..."))
-			CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
-			if(!I.use_tool(src, user, 5 SECONDS * construction_mod, amount = 5, volume = I.tool_volume) || build_step != TURRET_BUILD_COATED)
+			CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
+			if(!I.use_tool(src, user, 5 SECONDS * building_mod, amount = 5, volume = I.tool_volume) || build_step != TURRET_BUILD_COATED)
 				return .
 			to_chat(user, span_notice("You weld the turret's armor down."))
 			//The final step: create a full turret

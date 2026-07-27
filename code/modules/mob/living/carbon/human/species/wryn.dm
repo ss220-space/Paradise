@@ -88,9 +88,7 @@
 	max_select_skills = list(
 		/datum/skill/general/carrying = 3,
 		/datum/skill/combat/melee = 1,
-		/datum/skill/combat/fists = 1,
 		/datum/skill/engineering/building = 3,
-		/datum/skill/engineering/construction = 3,
 		/datum/skill/engineering/atmos = 1,
 	)
 

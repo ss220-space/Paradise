@@ -102,15 +102,12 @@
 	max_select_skills = list(
 		/datum/skill/general/mech_drive = 3,
 		/datum/skill/general/cooking = 1,
-		/datum/skill/service/drink_mixing = 1,
 		/datum/skill/service/botany = 0,
 		/datum/skill/service/cleaning = 1,
-		/datum/skill/engineering/construction = 3,
 		/datum/skill/engineering/electrician = 4,
 		/datum/skill/medical/genetic = 0,
 		/datum/skill/medical/virusology = 0,
 		/datum/skill/research/research = 3,
-		/datum/skill/research/protolathe = 3,
 		/datum/skill/research/mech_construct = 3,
 		/datum/skill/research/xenobiology = 1,
 	)

@@ -102,7 +102,6 @@
 		/datum/skill/general/carrying = 3,
 		/datum/skill/general/mech_drive = 1,
 		/datum/skill/combat/melee = 1,
-		/datum/skill/combat/fists = 3,
 		/datum/skill/research/mech_construct = 1,
 	)
 

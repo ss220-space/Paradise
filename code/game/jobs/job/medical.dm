@@ -16,10 +16,8 @@
 	skill_levels = list(
 		/datum/skill/medical/surgery = SKILL_LEVEL_PROFESSIONAL,
 		/datum/skill/medical/heal = SKILL_LEVEL_PROFESSIONAL,
-		/datum/skill/medical/chemistry = SKILL_LEVEL_PROFESSIONAL,
 		/datum/skill/medical/genetic = SKILL_LEVEL_PROFESSIONAL,
 		/datum/skill/medical/virusology = SKILL_LEVEL_PROFESSIONAL,
-		/datum/skill/combat/accuracy = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
 		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
@@ -80,7 +78,6 @@
 		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/surgery = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/heal = SKILL_LEVEL_ADVANCED,
-		/datum/skill/medical/chemistry = SKILL_LEVEL_BASIC,
 		/datum/skill/medical/genetic = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/virusology = SKILL_LEVEL_BEGINNER,
 	)
@@ -89,7 +86,6 @@
 			/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 			/datum/skill/medical/surgery = SKILL_LEVEL_ADVANCED,
 			/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
-			/datum/skill/medical/chemistry = SKILL_LEVEL_BEGINNER,
 			/datum/skill/medical/genetic = SKILL_LEVEL_BEGINNER,
 			/datum/skill/medical/virusology = SKILL_LEVEL_BEGINNER,
 		)
@@ -142,7 +138,6 @@
 		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/surgery = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
-		/datum/skill/medical/chemistry = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/genetic = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/virusology = SKILL_LEVEL_BEGINNER,
 	)
@@ -182,7 +177,6 @@
 		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/surgery = SKILL_LEVEL_BASIC,
 		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
-		/datum/skill/medical/chemistry = SKILL_LEVEL_BASIC,
 		/datum/skill/medical/genetic = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/virusology = SKILL_LEVEL_BEGINNER,
 	)
@@ -230,7 +224,6 @@
 		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/surgery = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
-		/datum/skill/medical/chemistry = SKILL_LEVEL_ADVANCED,
 		/datum/skill/medical/genetic = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/virusology = SKILL_LEVEL_BEGINNER,
 	)
@@ -273,7 +266,6 @@
 		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/surgery = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
-		/datum/skill/medical/chemistry = SKILL_LEVEL_BASIC,
 		/datum/skill/medical/genetic = SKILL_LEVEL_ADVANCED,
 		/datum/skill/medical/virusology = SKILL_LEVEL_BEGINNER,
 	)
@@ -316,7 +308,6 @@
 		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/surgery = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
-		/datum/skill/medical/chemistry = SKILL_LEVEL_BASIC,
 		/datum/skill/medical/genetic = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/virusology = SKILL_LEVEL_ADVANCED,
 	)
@@ -359,7 +350,6 @@
 		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/surgery = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
-		/datum/skill/medical/chemistry = SKILL_LEVEL_BEGINNER,
 	)
 
 /datum/outfit/job/psychiatrist
@@ -406,7 +396,6 @@
 		/datum/skill/engineering/electrician = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/surgery = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
-		/datum/skill/medical/chemistry = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/genetic = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/virusology = SKILL_LEVEL_BEGINNER,
 	)

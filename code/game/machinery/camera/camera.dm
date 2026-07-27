@@ -225,8 +225,8 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	WELDER_ATTEMPT_WELD_MESSAGE
-	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
-	if(I.use_tool(src, user, 10 SECONDS * construction_mod, volume = I.tool_volume))
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
+	if(I.use_tool(src, user, 10 SECONDS * building_mod, volume = I.tool_volume))
 		visible_message(
 			span_warning("[user] unwelds [src], leaving it as just a frame bolted to the wall."),
 			span_warning("You unweld [src], leaving it as just a frame bolted to the wall")

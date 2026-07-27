@@ -3,23 +3,6 @@
 	category = "Сервис"
 	category_color = "#6ca729"
 
-/datum/skill/service/drink_mixing
-	id = "service.drink_mixing"
-	name = "Смешивание напитков"
-	desc = "Влияет на смешивание напитков."
-	skills_mods = alist(
-		DRINKS_DISPENSE_RAND_SIZE = alist(
-			SKILL_LEVEL_NONE = 0.25,
-			SKILL_LEVEL_BEGINNER = 0.2,
-			SKILL_LEVEL_BASIC = 0.1,
-			SKILL_LEVEL_ADVANCED = 0.05,
-			SKILL_LEVEL_PROFESSIONAL = 0.025,
-			SKILL_LEVEL_EXPERT = 0.01,
-			SKILL_LEVEL_LEGEND = 0,
-			SKILL_LEVEL_UNAVAILABLE = 0.5,
-		),
-	)
-
 /datum/skill/service/botany
 	id = "service.botany"
 	name = "Ботаника"

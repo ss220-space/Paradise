@@ -532,8 +532,6 @@
 	var/move_type = FALSE
 	var/old_direction = dir //Initial direction of the mecha
 	var/step_in_final = strafe ? (step_in * strafe_speed_factor) : step_in //Modifies strafe speed, if "strafe_speed_factor" is anything other than 1
-	CALCULATE_SKILL_MOD(occupant, MECHA_DRIVING_SPEED_MOD, skill_factor)
-	step_in_final *= skill_factor
 	var/strafed_backwards = FALSE //Checks if mecha moved backwards, while strafe is active (used later to modify speed and energy drain)
 
 	var/keyheld = FALSE //Checks if player pressed ALT button down while strafe is active

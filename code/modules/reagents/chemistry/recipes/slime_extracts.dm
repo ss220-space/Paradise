@@ -13,8 +13,9 @@
 	var/mob/user = get_mob_by_key(holder.my_atom.fingerprintslast)
 	if(!user)
 		user = usr
-	CALCULATE_SKILL_MOD(user, XENOBIO_DOUBLE_LOOT_MOD, skill_resource_mod)
-	var/actual_amount = prob(100 * skill_resource_mod) ? loot_amount * 2 : loot_amount
+	CALCULATE_SKILL_MOD(user, XENOBIO_LOOT_CHANCE, skill_additional_change)
+	CALCULATE_SKILL_MOD(user, XENOBIO_ADDITIONAL_LOOT, skill_additional_loot)
+	var/actual_amount = prob(skill_additional_change) ? loot_amount + skill_additional_loot : loot_amount
 	for(var/i = 1, i <= actual_amount, i++)
 		spawn_loot(holder, spawn_point)
 

@@ -188,9 +188,9 @@
 	if(!can_afford_design(D))
 		atom_say("Ошибка: недостаточно материалов для печати \"[D.build_object_name]\"!", FALSE)
 		return
-
+	CALCULATE_SKILL_MOD(usr, MECH_CONSTRUCT_RESOURCE_MOD, skill_resource_mod)
 	// Subtract the materials from the holder
-	var/list/final_cost = get_design_cost(D)
+	var/list/final_cost = get_design_cost(D) * skill_resource_mod
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	materials.use_amount(final_cost)
 

@@ -878,7 +878,8 @@
 
 	if(length(passengers) <= max_passengers)
 		visible_message(span_notice("[user] начинает забираться в [declent_ru(ACCUSATIVE)]."))
-		if(do_after(user, 4 SECONDS, src))
+		CALCULATE_SKILL_MOD(user, MECHA_CLIMBING_SPEED_MOD, skill_factor)
+		if(do_after(user, 4 SECONDS * skill_factor, src))
 			if(!pilot || pilot == null)
 				pilot = user
 				user.forceMove(src)

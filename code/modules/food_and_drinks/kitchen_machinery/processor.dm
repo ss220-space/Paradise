@@ -75,6 +75,7 @@
 /////////////////////////
 /////OBJECT RECIPIES/////
 /////////////////////////
+
 /datum/food_processor_process/meat
 	input = /obj/item/reagent_containers/food/snacks/meat
 	output = /obj/item/reagent_containers/food/snacks/meatball
@@ -117,6 +118,7 @@
 //////////////////////
 /////MOB RECIPIES/////
 //////////////////////
+
 /datum/food_processor_process/mob/slime
 	input = /mob/living/simple_animal/slime
 	output = null
@@ -160,6 +162,7 @@
 	bucket_of_blood.on_reagent_change()
 	//bucket_of_blood.reagents.handle_reactions() //blood doesn't react
 	..()
+
 ////////////////////////
 ////END MOB RECIPIES////
 ////////////////////////
@@ -242,30 +245,42 @@
 
 	if(processing)
 		balloon_alert(user, "работает!")
-		return 1
+		return TRUE
 
 	if(length(contents) == 0)
 		balloon_alert(user, "пусто!")
-		return 1
+		return TRUE
+
 	processing = TRUE
 	balloon_alert_to_viewers("включа[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]", "включено")
 	playsound(loc, 'sound/machines/blender.ogg', 50, TRUE)
 	use_power(500)
+
 	var/total_time = 0
 	for(var/O in contents)
-		var/datum/food_processor_process/P = select_recipe(O)
-		if(!P)
+		var/datum/food_processor_process/recipe = select_recipe(O)
+		if(!recipe)
 			log_debug("The [O] in processor([src]) does not have a suitable recipe, but it was somehow put inside of the processor anyways.")
 			continue
-		total_time += P.time
+
+		var/skill_mod = 1
+		if(istype(recipe, /datum/food_processor_process/mob/slime))
+			CALCULATE_SKILL_MOD(user, XENOBIO_DURATION_MOD, skill_xenobio_mod)
+			skill_mod = skill_xenobio_mod
+		else
+			CALCULATE_SKILL_MOD(user, COOKING_SPEED_MOD, skill_cook_mod)
+			skill_mod = skill_cook_mod
+
+		total_time += recipe.time * skill_mod
+
 	sleep(total_time / rating_speed)
 
 	for(var/O in contents)
-		var/datum/food_processor_process/P = select_recipe(O)
-		if(!P)
+		var/datum/food_processor_process/recipe = select_recipe(O)
+		if(!recipe)
 			log_debug("The [O] in processor([src]) does not have a suitable recipe, but it was somehow put inside of the processor anyways.")
 			continue
-		P.process_food(loc, O, src)
+		recipe.process_food(loc, O, src)
 	processing = FALSE
 
 	balloon_alert_to_viewers("обработка завершена")

@@ -118,10 +118,8 @@
 	skills_ref_job = JOB_TITLE_CIVILIAN
 	skills = alist(
 		/datum/skill/general/mod_use = SKILL_LEVEL_NONE,
-		/datum/skill/medical/chemistry = SKILL_LEVEL_NONE,
 		/datum/skill/medical/genetic = SKILL_LEVEL_NONE,
 		/datum/skill/medical/virusology = SKILL_LEVEL_NONE,
-		/datum/skill/combat/fists = SKILL_LEVEL_ADVANCED,
 		/datum/skill/combat/melee = SKILL_LEVEL_ADVANCED,
 		/datum/skill/combat/bows = SKILL_LEVEL_BASIC,
 	)

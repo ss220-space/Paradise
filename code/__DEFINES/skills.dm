@@ -24,14 +24,8 @@
 // MARK: Engineering
 /// Speed modifier for building skill
 #define BUILDING_SPEED_MOD "building_speed_mod"
-/// Speed modifier for constructing skill
-#define CONSTRUCTING_SPEED_MOD "constructing_speed_mod"
-/// Speed modifier for electricity skill
-#define ELECTRICITY_SPEED_MOD "electricity_speed_mod"
 /// Negative probability modifier for electricity skill
 #define ELECTRICITY_NEGATIVE_CHANCE_MOD "electricity_negative_chance_mod"
-/// Positive probability modifier for electricity skill
-#define ELECTRICITY_POSITIVE_CHANCE_MOD "electricity_positive_chance_mod"
 /// Speed modifier for atmos skill
 #define ATMOS_SPEED_MOD "atmos_speed_mod"
 /// Speed modifier for lockpick skill
@@ -50,8 +44,6 @@
 #define BUTCHERING_SPEED_MOD "butchering_speed_mod"
 /// Chance for extra cooking count
 #define COOKING_EXTRA_COUNT_CHANCE "cooking_extra_count_chance"
-/// Dispense random size modifier for drinks skill
-#define DRINKS_DISPENSE_RAND_SIZE "drinks_dispense_rand_size"
 /// Plant growth rate modifier for botany skill
 #define PLANT_GROWTH_RATE "plant_growth_rate"
 /// Hydroponic cultivation modifier for botany skill
@@ -132,16 +124,24 @@
 // MARK: Research
 /// Construction duration modifier for mech construct skill
 #define MECH_CONSTRUCT_DURATION_MOD "mech_construct_duration_mod"
-/// Protolathe item creation duration modifier
-#define PROTOLATHE_DURATION_MOD "protolathe_duration_mod"
+/// Mech fabricator item creation resource modifier
+#define MECH_CONSTRUCT_RESOURCE_MOD "mech_construct_resource_mod"
 /// Protolathe item creation resource modifier
 #define PROTOLATHE_RESOURCE_MOD "protolathe_resource_mod"
 /// Research duration modifier
 #define RESEARCH_DURATION_MOD "research_duration_mod"
 /// Research success chance modifier
 #define RESEARCH_SUCCESS_MOD "research_success_mod"
-/// Double loot chance modifier for xenobio skill
-#define XENOBIO_DOUBLE_LOOT_MOD "xenobio_double_loot_mod"
+/// Research additional print chance
+#define RESEARCH_ADDITIONAL_CHANCE "research_additional_chance"
+/// How much additional will be printed?
+#define RESEARCH_ADDITIONAL_PRINT "research_additional_print"
+/// Grind duration modifier for xenobio skill
+#define XENOBIO_DURATION_MOD "xenobio_duration_mod"
+/// Slime core chance to addtional loot
+#define XENOBIO_LOOT_CHANCE "xenobio_loot_chance"
+/// Slime core chance to addtional loot
+#define XENOBIO_ADDITIONAL_LOOT "xenobio_additional_loot"
 
 // MARK: Not skills mod sources
 #define STRENGTH_MOD_SOURCE "strength_mod_source"
@@ -199,8 +199,6 @@ GLOBAL_LIST_EMPTY(skill_neurotrainers)
 GLOBAL_LIST_EMPTY(skill_types)
 
 GLOBAL_LIST_INIT(antag_skills, list(
-		/datum/skill/combat/accuracy = SKILL_LEVEL_ADVANCED,
 		/datum/skill/combat/guns = SKILL_LEVEL_ADVANCED,
 		/datum/skill/combat/melee = SKILL_LEVEL_ADVANCED,
-		/datum/skill/combat/fists = SKILL_LEVEL_ADVANCED,
 ))

@@ -166,11 +166,6 @@
 	new newtype(loc)
 	return INITIALIZE_HINT_QDEL
 
-/obj/item/book/skill_manual/service/drink_mixing
-	manual_title = "Напитки"
-	desc = "Руководство по напиткам."
-	skill_type = /datum/skill/service/drink_mixing
-
 /obj/item/book/skill_manual/service/botany
 	manual_title = "Ботаника"
 	desc = "Руководство по выращиванию растений."
@@ -193,11 +188,6 @@
 	new newtype(loc)
 	return INITIALIZE_HINT_QDEL
 
-/obj/item/book/skill_manual/combat/accuracy
-	manual_title = "Точный выстрел"
-	desc = "Наставление по стрелковому делу."
-	skill_type = /datum/skill/combat/accuracy
-
 /obj/item/book/skill_manual/combat/guns
 	manual_title = "Стрелковое оружие"
 	desc = "Руководство по обращению с различным стрелковым оружием."
@@ -207,11 +197,6 @@
 	manual_title = "Оружие ближнего боя"
 	desc = "Руководство по обращению с различным оружием ближнего боя."
 	skill_type = /datum/skill/combat/melee
-
-/obj/item/book/skill_manual/combat/fists
-	manual_title = "Рукопашный бой"
-	desc = "Руководство по рукопашному бою."
-	skill_type = /datum/skill/combat/fists
 
 // MARK: Engineering
 /obj/item/book/skill_manual/engineering
@@ -229,11 +214,6 @@
 	manual_title = "Строительство"
 	desc = "Руководство по строительству."
 	skill_type = /datum/skill/engineering/building
-
-/obj/item/book/skill_manual/engineering/construction
-	manual_title = "Конструирование"
-	desc = "Руководство по конструированию различных механизмов."
-	skill_type = /datum/skill/engineering/construction
 
 /obj/item/book/skill_manual/engineering/electrician
 	manual_title = "Электроника"
@@ -267,11 +247,6 @@
 	desc = "Руководство по лечении различными препаратами и средствами."
 	skill_type = /datum/skill/medical/heal
 
-/obj/item/book/skill_manual/medical/chemistry
-	manual_title = "Химия"
-	desc = "Руководство по химии с таблицей Менделеева внутри."
-	skill_type = /datum/skill/medical/chemistry
-
 /obj/item/book/skill_manual/medical/genetic
 	manual_title = "Генетика"
 	desc = "Руководство по генетике."
@@ -298,11 +273,6 @@
 	manual_title = "Исследование"
 	desc = "Руководство по работе с деконструктором."
 	skill_type = /datum/skill/research/research
-
-/obj/item/book/skill_manual/research/protolathe
-	manual_title = "Протолат"
-	desc = "Руководство по работе с протолатом."
-	skill_type = /datum/skill/research/protolathe
 
 /obj/item/book/skill_manual/research/mech_construct
 	manual_title = "Конструирование мехов"

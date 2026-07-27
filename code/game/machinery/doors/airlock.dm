@@ -1182,8 +1182,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		return
 	if(isAllPowerLoss())
 		to_chat(user, span_notice("You start wrenching bolt reducer."))
-		CALCULATE_SKILL_MOD(user, LOCKPICK_SPEED_MOD, lockpick_mod)
-		if(I.use_tool(src, user, 30 SECONDS * lockpick_mod, volume = I.tool_volume))
+		CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
+		if(I.use_tool(src, user, 30 SECONDS * building_mod, volume = I.tool_volume))
 			user.visible_message(
 				span_notice("[user] raise \the [src]'s bolt manually."),
 				span_notice("You raise \the [src]'s bolt manually.")
@@ -1301,20 +1301,20 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(!density)//already open
 		return
 
-	CALCULATE_SKILL_MOD(user, LOCKPICK_SPEED_MOD, lockpick_mod)
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 	if(istype(I, /obj/item/twohanded/fireaxe)) //let's make this more specific //FUCK YOU
 		var/obj/item/twohanded/fireaxe/F = I
 		if(!F.wielded)
 			to_chat(user, span_warning("You need to be wielding the fire axe to do that!"))
 			return
 		playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE) //is it aliens or just the CE being a dick?
-		if(do_after(user, 5 SECONDS * lockpick_mod, src, max_interact_count = 1, category = DA_CAT_TOOL) && !open(TRUE) && density)
+		if(do_after(user, 5 SECONDS, src, max_interact_count = 1, category = DA_CAT_TOOL) && !open(TRUE) && density)
 			to_chat(user, span_warning("Despite your attempts, [src] refuses to open."))
 		return
 
 	if(ispowertool(I))
 		playsound(src, 'sound/machines/airlock_force_open.ogg', 100, TRUE) //scary
-		if(do_after(user, 4 SECONDS * lockpick_mod, src, max_interact_count = 1, category = DA_CAT_TOOL) && !open(TRUE) && density) // faster because of ITS A MECH
+		if(do_after(user, 4 SECONDS * building_mod, src, max_interact_count = 1, category = DA_CAT_TOOL) && !open(TRUE) && density) // faster because of ITS A MECH
 			to_chat(user, span_warning("Despite your attempts, [src] refuses to open."))
 		return
 
@@ -1327,7 +1327,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		return
 
 	playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE) //is it aliens or just the CE being a dick?
-	if(do_after(user, 5 SECONDS * lockpick_mod, src, max_interact_count = 1, category = DA_CAT_TOOL) && !open(TRUE) && density)
+	if(do_after(user, 5 SECONDS * building_mod, src, max_interact_count = 1, category = DA_CAT_TOOL) && !open(TRUE) && density)
 		to_chat(user, span_warning("Despite your attempts, [src] refuses to open."))
 
 /obj/machinery/door/airlock/open(forced = 0)

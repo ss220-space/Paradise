@@ -116,7 +116,6 @@
 	autohiss_exempt = list("Синт'Унати")
 
 	max_select_skills = list(
-		/datum/skill/combat/fists = 3,
 		/datum/skill/medical/heal = 1,
 		/datum/skill/medical/genetic = 1,
 	)
