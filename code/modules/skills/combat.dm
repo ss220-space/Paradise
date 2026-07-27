@@ -32,6 +32,35 @@
 		),
 	)
 
+// MARK: Bows
+/datum/skill/combat/bows
+	id = "combat.bows"
+	name = "Стрельба из лука"
+	desc = "Влияет на меткость стрельбы из лука, а так же на самедление при нятянутой тетеве."
+	duration_mod_names = list(BOW_SLOWDOWN_MOD)
+	skills_mods = alist(
+		BOW_ACCURACY_MOD = alist(
+			SKILL_LEVEL_NONE = 0.8,
+			SKILL_LEVEL_BEGINNER = 0.9,
+			SKILL_LEVEL_BASIC = 1,
+			SKILL_LEVEL_ADVANCED = 1.05,
+			SKILL_LEVEL_PROFESSIONAL = 1.10,
+			SKILL_LEVEL_EXPERT = 1.15,
+			SKILL_LEVEL_LEGEND = 1.20,
+			SKILL_LEVEL_UNAVAILABLE = 0.1,
+		),
+		BOW_SPREAD_MOD = alist(
+			SKILL_LEVEL_NONE = 2,
+			SKILL_LEVEL_BEGINNER = 1.5,
+			SKILL_LEVEL_BASIC = 1,
+			SKILL_LEVEL_ADVANCED = 0.8,
+			SKILL_LEVEL_PROFESSIONAL = 0.6,
+			SKILL_LEVEL_EXPERT = 0.4,
+			SKILL_LEVEL_LEGEND = 0.2,
+			SKILL_LEVEL_UNAVAILABLE = 5,
+		),
+	)
+
 // MARK: Guns
 /datum/skill/combat/guns
 	id = "combat.guns"

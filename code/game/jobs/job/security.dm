@@ -99,6 +99,8 @@
 	skill_levels = list(
 		/datum/skill/general/mech_drive = SKILL_LEVEL_BEGINNER,
 		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/accuracy = SKILL_LEVEL_ADVANCED,
 		/datum/skill/combat/guns = SKILL_LEVEL_ADVANCED,
 		/datum/skill/combat/melee = SKILL_LEVEL_ADVANCED,
@@ -152,6 +154,8 @@
 	outfit = /datum/outfit/job/detective
 	skill_levels = list(
 		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/accuracy = SKILL_LEVEL_BASIC,
 		/datum/skill/combat/guns = SKILL_LEVEL_BASIC,
 		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
@@ -216,6 +220,8 @@
 	skill_levels = list(
 		/datum/skill/general/mech_drive = SKILL_LEVEL_BEGINNER,
 		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/accuracy = SKILL_LEVEL_BASIC,
 		/datum/skill/combat/guns = SKILL_LEVEL_BASIC,
 		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
@@ -284,6 +290,8 @@
 	skill_levels = list(
 		/datum/skill/general/carrying = SKILL_LEVEL_BASIC,
 		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/surgery = SKILL_LEVEL_BASIC,
 		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
 		/datum/skill/medical/chemistry = SKILL_LEVEL_BEGINNER,
@@ -324,6 +332,8 @@
 	skill_levels = list(
 		/datum/skill/general/mech_drive = SKILL_LEVEL_ADVANCED,
 		/datum/skill/general/mod_use = SKILL_LEVEL_ADVANCED,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/accuracy = SKILL_LEVEL_ADVANCED,
 		/datum/skill/combat/guns = SKILL_LEVEL_BASIC,
 		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,

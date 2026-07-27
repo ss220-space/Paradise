@@ -38,6 +38,8 @@
 #define LOCKPICK_SPEED_MOD "lockpick_speed_mod"
 /// Positive probability modifier for lockpick skill
 #define LOCKPICK_POSITIVE_CHANCE_MOD "lockpick_positive_chance_mod"
+/// Unsafe pressure release mod
+#define UNSAFE_PRESSURE_MOD "unsafe_pressure_mod"
 
 // MARK: Service
 /// Speed modifier for cooking skill
@@ -60,6 +62,10 @@
 #define CLEANING_SPEED_MOD "cleaning_speed_mod"
 /// Cleaning distance modifier for cleaning skill
 #define CLEANING_DISTANCE "cleaning_distance"
+
+#define MINING_SPEED_MOD "mining_speed_mod"
+
+#define MINING_PROBS_MOD "mining_probs_mod"
 
 // MARK: General
 /// Speed modifier for mech driving skill
@@ -102,6 +108,12 @@
 #define FISTS_GRAB_MOD "fists_grab_mod"
 /// Shield chance modifier for shields skill
 #define SHIELD_MOD "shield_mod"
+/// Accuracy modifier for bows skill
+#define BOW_ACCURACY_MOD "bow_accuracy_mod"
+/// Spread modifier for bows skill
+#define BOW_SPREAD_MOD "bow_spread_mod"
+/// Slowdown modifier for bows skill
+#define BOW_SLOWDOWN_MOD "bow_slowdown_mod"
 
 // MARK: Medical
 /// Duration modifier for surgery skill
@@ -185,3 +197,10 @@ GLOBAL_LIST_INIT(skill_neurotrainer_blacklist, list(
 ))
 GLOBAL_LIST_EMPTY(skill_neurotrainers)
 GLOBAL_LIST_EMPTY(skill_types)
+
+GLOBAL_LIST_INIT(antag_skills, list(
+		/datum/skill/combat/accuracy = SKILL_LEVEL_ADVANCED,
+		/datum/skill/combat/guns = SKILL_LEVEL_ADVANCED,
+		/datum/skill/combat/melee = SKILL_LEVEL_ADVANCED,
+		/datum/skill/combat/fists = SKILL_LEVEL_ADVANCED,
+))

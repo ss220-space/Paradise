@@ -47,8 +47,8 @@ GLOBAL_DATUM_INIT(skills_select_window, /datum/ui_module/skills_select_win, new)
 
 	//create intermediate data format
 	var/list/list/datum/skill/categories_map = list()
-	for(var/skill_name in GLOB.skills)
-		var/datum/skill/skill = GLOB.skills[skill_name]
+	for(var/skill_name, skill_datum in GLOB.skills)
+		var/datum/skill/skill = skill_datum
 		if(categories_map[skill.category] == null)
 			categories_map[skill.category] = list()
 		categories_map[skill.category].Add(skill)

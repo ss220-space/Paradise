@@ -76,6 +76,8 @@
 	outfit = /datum/outfit/job/doctor
 	skill_levels = list(
 		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/surgery = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/heal = SKILL_LEVEL_ADVANCED,
 		/datum/skill/medical/chemistry = SKILL_LEVEL_BASIC,
@@ -136,6 +138,8 @@
 	paycheck = PAYCHECK_LOWER
 	skill_levels = list(
 		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/surgery = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/chemistry = SKILL_LEVEL_BEGINNER,
@@ -174,6 +178,8 @@
 	mind_traits = list(TRAIT_MORBID)
 	skill_levels = list(
 		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/surgery = SKILL_LEVEL_BASIC,
 		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/chemistry = SKILL_LEVEL_BASIC,
@@ -220,6 +226,8 @@
 	outfit = /datum/outfit/job/chemist
 	skill_levels = list(
 		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/surgery = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
 		/datum/skill/medical/chemistry = SKILL_LEVEL_ADVANCED,
@@ -261,6 +269,8 @@
 	outfit = /datum/outfit/job/geneticist
 	skill_levels = list(
 		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/surgery = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
 		/datum/skill/medical/chemistry = SKILL_LEVEL_BASIC,
@@ -302,6 +312,8 @@
 	outfit = /datum/outfit/job/virologist
 	skill_levels = list(
 		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/surgery = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
 		/datum/skill/medical/chemistry = SKILL_LEVEL_BASIC,
@@ -343,6 +355,8 @@
 	outfit = /datum/outfit/job/psychiatrist
 	skill_levels = list(
 		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/surgery = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/chemistry = SKILL_LEVEL_BEGINNER,
@@ -387,6 +401,8 @@
 		/datum/skill/general/carrying = SKILL_LEVEL_BASIC,
 		/datum/skill/general/mech_drive = SKILL_LEVEL_BEGINNER,
 		/datum/skill/general/mod_use = SKILL_LEVEL_BASIC,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
 		/datum/skill/engineering/electrician = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/surgery = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,

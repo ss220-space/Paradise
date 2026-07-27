@@ -401,7 +401,7 @@
 	var/list/hackedupgrade_reagents = list("zaza") //I possess zaza
 	is_drink = TRUE
 	base_skill = /datum/skill/service/drink_mixing
-	 dispence_skill_name = DRINKS_DISPENSE_RAND_SIZE
+	dispence_skill_name = DRINKS_DISPENSE_RAND_SIZE
 
 /obj/machinery/chem_dispenser/soda/get_ru_names()
 	return alist(
@@ -459,7 +459,7 @@
 	hacked_reagents = list("goldschlager", "patron", "absinthe", "ethanol", "nothing", "sake", "bitter", "champagne", "aperol", "noalco_beer")
 	is_drink = TRUE
 	base_skill = /datum/skill/service/drink_mixing
-	 dispence_skill_name = DRINKS_DISPENSE_RAND_SIZE
+	dispence_skill_name = DRINKS_DISPENSE_RAND_SIZE
 
 /obj/machinery/chem_dispenser/beer/get_ru_names()
 	return alist(

@@ -68,17 +68,12 @@ GLOBAL_LIST_EMPTY(skill_manual_types)
 
 // load job defined skills
 /datum/job/proc/apply_skills(mob/living/carbon/human/user)
-	var/static/list/antag_skills = list(
-		/datum/skill/combat/accuracy = SKILL_LEVEL_ADVANCED,
-		/datum/skill/combat/guns = SKILL_LEVEL_ADVANCED,
-		/datum/skill/combat/melee = SKILL_LEVEL_ADVANCED,
-		/datum/skill/combat/fists = SKILL_LEVEL_ADVANCED,
-	)
+	var/list/antag_skills = GLOB.antag_skills
 	if(!user.mind)
 		return
 	var/datum/mind/user_mind = user.mind
-	for(var/skill_name in GLOB.skills)
-		var/datum/skill/skill = GLOB.skills[skill_name]
+	for(var/skill_name, skill_datum in GLOB.skills)
+		var/datum/skill/skill = skill_datum
 		var/level = get_skill_level(skill.type, user.mind.role_alt_title)
 		if(user.mind.antag_datums)
 			var/antag_skill_level = antag_skills[skill.type]

@@ -41,7 +41,7 @@
 /datum/skill/service/cleaning
 	id = "service.cleaning"
 	name = "Уборка"
-	desc = "Влияет на мытье полов и уборку."
+	desc = "Влияет на мытье полов и уборку, а так же расход реагента шваброй при этом."
 	duration_mod_names = list(CLEANING_SPEED_MOD)
 	skills_mods = alist(
 		CLEANING_DISTANCE = alist(
@@ -52,6 +52,33 @@
 			SKILL_LEVEL_PROFESSIONAL = 5,
 			SKILL_LEVEL_EXPERT = 6,
 			SKILL_LEVEL_LEGEND = 7,
+			SKILL_LEVEL_UNAVAILABLE = 0,
+		),
+	)
+
+/datum/skill/service/mining
+	id = "service.mining"
+	name = "Горное дело"
+	desc = "Влияет на скорость копки, перезарядку кинетических устройств копки(только при копке породы) и шанс на скан руды при копке с помощью кирки или ее альтернативы."
+	skills_mods = alist(
+		MINING_SPEED_MOD = alist(
+			SKILL_LEVEL_NONE = 1.2,
+			SKILL_LEVEL_BEGINNER = 1.1,
+			SKILL_LEVEL_BASIC = 1,
+			SKILL_LEVEL_ADVANCED = 0.9,
+			SKILL_LEVEL_PROFESSIONAL = 0.8,
+			SKILL_LEVEL_EXPERT = 0.6,
+			SKILL_LEVEL_LEGEND = 0.5,
+			SKILL_LEVEL_UNAVAILABLE = 4,
+		),
+		MINING_PROBS_MOD = alist(
+			SKILL_LEVEL_NONE = 10,
+			SKILL_LEVEL_BEGINNER = 15,
+			SKILL_LEVEL_BASIC = 20,
+			SKILL_LEVEL_ADVANCED = 25,
+			SKILL_LEVEL_PROFESSIONAL = 30,
+			SKILL_LEVEL_EXPERT = 35,
+			SKILL_LEVEL_LEGEND = 40,
 			SKILL_LEVEL_UNAVAILABLE = 0,
 		),
 	)

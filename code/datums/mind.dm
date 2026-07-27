@@ -3132,7 +3132,6 @@
 			SSticker.minds += mind
 		else
 			error("mind_initialize(): No ticker ready yet! Please inform Carn")
-		mind.init_skills(src)
 	if(!mind.name)
 		mind.name = real_name
 	mind.current = src
