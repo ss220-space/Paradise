@@ -1,5 +1,0 @@
-author: "NuSanya"
-delete-after: True
-changes:
-  - bugfix: "Убрано отрицание у проверки флага  DO_AFTER_CHECK_NEXT_MOVE (PR #9573)"
-  - tweak: "Заменён дефолтный флаг do_after с NONE на DEFAULT_DOAFTER_IGNORE (PR #9573)"
