@@ -112,7 +112,8 @@ Made by Xhuis
 
 /datum/game_mode/proc/finalize_shadowling(datum/mind/shadow_mind)
 	var/mob/living/carbon/human/S = shadow_mind.current
-	shadow_mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_hatch(null))
+	var/datum/action/cooldown/spell/shadowling_hatch/hatch = new
+	hatch.Grant(shadow_mind.current)
 	spawn(0)
 		shadow_mind.current.add_language(LANGUAGE_HIVE_SHADOWLING)
 		update_shadow_icons_added(shadow_mind)
@@ -130,8 +131,10 @@ Made by Xhuis
 		add_conversion_logs(new_thrall_mind.current, "Became a Shadow thrall")
 		new_thrall_mind.current.add_language(LANGUAGE_HIVE_SHADOWLING)
 		//If you add spells to thrall, be sure to remove them on dethrallize
-		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_guise(null))
-		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_vision/thrall(null))
+		var/datum/action/cooldown/spell/shadowling_guise/guise_spell = new
+		guise_spell.Grant(new_thrall_mind.current)
+		var/datum/action/cooldown/spell/shadowling_vision/nv = new
+		nv.Grant(new_thrall_mind.current)
 		var/list/messages = list()
 		messages.Add(span_shadowling("><b>Ты видишь правду. Ты понимаешь, каким дураком ты был..</b>"))
 		messages.Add(span_shadowling("<b>Тенелинги — твои хозяева.</b> Служи им превыше всего и следите за тем, чтобы они достигли своих целей."))
@@ -177,8 +180,12 @@ Made by Xhuis
 	thrall_mind.special_role = null
 	update_shadow_icons_removed(thrall_mind)
 	//If you add spells to thrall, be sure to remove them on dethrallize
-	thrall_mind.RemoveSpell(/obj/effect/proc_holder/spell/shadowling_guise)
-	thrall_mind.RemoveSpell(/obj/effect/proc_holder/spell/shadowling_vision/thrall)
+	var/datum/action/cooldown/spell/shadowling_guise/guise_spell = locate() in thrall_mind.current.actions
+	guise_spell?.Remove(thrall_mind.current)
+	qdel(guise_spell)
+	var/datum/action/cooldown/spell/shadowling_vision/nv = locate() in thrall_mind.current.actions
+	nv?.Remove(thrall_mind.current)
+	qdel(nv)
 	thrall_mind.current.remove_language(LANGUAGE_HIVE_SHADOWLING)
 	if(kill && ishuman(thrall_mind.current)) //If dethrallization surgery fails, kill the mob as well as dethralling them
 		var/mob/living/carbon/human/H = thrall_mind.current
@@ -211,7 +218,7 @@ Made by Xhuis
 			if(ishuman(shadow.current))
 				var/mob/living/carbon/human/H = shadow.current
 				if(!isshadowling(H))
-					for(var/obj/effect/proc_holder/spell/shadowling_hatch/hatch_ability in shadow.spell_list)
+					for(var/datum/action/cooldown/spell/shadowling_hatch/hatch_ability in H.actions)
 						hatch_ability.cycles_unused++
 						if(prob(20) && hatch_ability.cycles_unused > CONFIG_GET(number/shadowling_max_age))
 							var/shadow_nag_messages = list("Ты едва можешь терпеть эту низшую форму!», «Желание стать чем-то большим непреодолимо!», «Ты чувствуешь жгучую страсть освободиться от этой оболочки и обрести божественность».!")
@@ -231,8 +238,10 @@ Made by Xhuis
 	shadows.Remove(ling_mind)
 	add_conversion_logs(ling_mind.current, "Deshadowlinged")
 	ling_mind.special_role = null
-	for(var/obj/effect/proc_holder/spell/spell as anything in ling_mind.spell_list)
-		ling_mind.RemoveSpell(spell)
+	for(var/datum/action/cooldown/spell/spell as anything in ling_mind.current.actions)
+		if(!spell.shadowling_spell)
+			continue
+		spell.Remove(ling_mind.current)
 	var/mob/living/M = ling_mind.current
 	if(issilicon(M))
 		M.audible_message(span_notice("[M] lets out a short blip."))

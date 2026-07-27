@@ -91,6 +91,7 @@
 	/// List with the handler datums per spell type. Key = src.type, value = the handler datum created by create_new_handler()
 	var/static/list/spell_handlers = list()
 	var/gain_desc
+	var/shadowling_spell = FALSE // it's shit(and so is shadowling's code), maybe do a global list later
 
 /datum/action/cooldown/spell/New(Target, original)
 	. = ..()

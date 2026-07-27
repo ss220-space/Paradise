@@ -1,30 +1,38 @@
 //In here: Hatch and Ascendance
 GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-uae", "Noaey'gief", "Mii`mahza", "Amerziox", "Gyrg-mylin", "Kanet'pruunance", "Vigistaezian")) //Unpronouncable 2: electric boogalo)
 
-/obj/effect/proc_holder/spell/shadowling_hatch
+/datum/action/cooldown/spell/shadowling_hatch
 	name = "Hatch"
 	desc = "Сбрасывает вашу маскировку."
-	base_cooldown = 5 MINUTES
-	clothes_req = FALSE
-	action_icon_state = "hatch"
-	action_background_icon_state = "bg_shadowling"
+	cooldown_time = 5 MINUTES
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN
+	school = SCHOOL_FORBIDDEN
+	button_icon_state = "hatch"
+	background_icon_state = "bg_shadowling"
 	var/cycles_unused = 0
+	var/list/datum/action/cooldown/spell/shadowling_spells = list(
+		/datum/action/cooldown/spell/pointed/shadowling_enthrall,
+		/datum/action/cooldown/spell/aoe/shadowling_glare,
+		/datum/action/cooldown/spell/aoe/shadowling_veil,
+		/datum/action/cooldown/spell/jaunt/ethereal_jaunt/shadowling_shadow_walk,
+		/datum/action/cooldown/spell/aoe/shadowling_icy_veins,
+		/datum/action/cooldown/spell/shadowling_regen_armor,
+	)
 
-/obj/effect/proc_holder/spell/shadowling_hatch/create_new_targeting()
-	return new /datum/spell_targeting/self
-
-/obj/effect/proc_holder/spell/shadowling_hatch/cast(list/targets, mob/living/carbon/human/user = usr)
-	if(user.stat || !ishuman(user) || !user || !is_shadow(user) || isinspace(user))
+/datum/action/cooldown/spell/shadowling_hatch/cast(atom/cast_on)
+	. = ..()
+	var/mob/living/carbon/human/user = cast_on
+	if(user.stat || !ishuman(user) || !user || !is_shadow(user) || user.isinspace())
 		return
 
 	if(!isturf(user.loc))
-		revert_cast(user)
+		reset_spell_cooldown()
 		to_chat(user, span_warning("Вы должны стоять на полу, чтобы раскрыться!"))
 		return
 
 	if(tgui_alert(user, "Вы уверены, что хотите раскрыться? Вы не сможете прервать это!", "Hatch", list("Yes", "No")) != "Yes")
 		to_chat(user, span_warning("Вы решили не раскрываться сейчас."))
-		revert_cast(user)
+		reset_spell_cooldown()
 		return
 
 	ADD_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
@@ -125,36 +133,42 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 	to_chat(user, span_shadowling("<b><i>Ваши силы пробудились. Теперь вы заживёте в полную меру. Помните свои цели. Сотрудничайте со своими союзниками и рабами.</b></i>"))
 	user.ExtinguishMob()
 	user.set_nutrition(NUTRITION_LEVEL_FED)
-	//user.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_vision(null))
-	user.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_enthrall(null))
-	user.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_glare(null))
-	user.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/shadowling_veil(null))
-	user.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_shadow_walk(null))
-	user.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/shadowling_icy_veins(null))
-	user.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_regen_armor(null))
+	for(var/spell in shadowling_spells)
+		var/datum/action/cooldown/spell/new_spell = new spell
+		new_spell.Grant(user)
 
 	QDEL_NULL(user.hud_used)
 	user.set_hud_used(new /datum/hud/human(user, ui_style2icon(user.client.prefs.UI_style), user.client.prefs.UI_style_color, user.client.prefs.UI_style_alpha))
 	user.hud_used.show_hud(user.hud_used.hud_version)
+	Remove(user)
+	qdel(src)
 
-/obj/effect/proc_holder/spell/shadowling_ascend
+/datum/action/cooldown/spell/shadowling_ascend
 	name = "Ascend"
 	desc = "Завершить свою истинную форму."
-	base_cooldown = 5 MINUTES
-	clothes_req = FALSE
-	action_icon_state = "ascend"
-	action_background_icon_state = "bg_shadowling"
+	cooldown_time = 5 MINUTES
+	spell_requirements = SPELL_REQUIRES_HUMAN
+	school = SCHOOL_FORBIDDEN
+	button_icon_state = "ascend"
+	background_icon_state = "bg_shadowling"
+	var/list/ascendant_spells = list(
+		/datum/action/cooldown/spell/pointed/ascendant_annihilate,
+		/datum/action/cooldown/spell/pointed/ascendant_hypnosis,
+		/datum/action/cooldown/spell/jaunt/ascendant_phase_shift,
+		/datum/action/cooldown/spell/aoe/ascendant_storm,
+		/datum/action/cooldown/spell/ascendant_transmit,
+		/datum/action/cooldown/spell/pointed/shadowling_revive_thrall/ascendant,
+	)
 
-/obj/effect/proc_holder/spell/shadowling_ascend/create_new_targeting()
-	return new /datum/spell_targeting/self
-
-/obj/effect/proc_holder/spell/shadowling_ascend/cast(list/targets, mob/living/carbon/human/user = usr)
+/datum/action/cooldown/spell/shadowling_ascend/cast(atom/cast_on)
+	. = ..()
+	var/mob/living/carbon/human/user = cast_on
 	if(!shadowling_check(user))
 		return
 
 	if(tgui_alert(user, "Время завершить свою форму. Вы уверены?", "Ascend", list("Yes", "No")) != "Yes")
 		to_chat(user, span_warning("Вы передумали завершать свою форму сейчас."))
-		revert_cast(user)
+		reset_spell_cooldown()
 		return
 
 	ADD_TRAIT(user, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
@@ -207,20 +221,18 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 
 	var/mob/living/simple_animal/ascendant_shadowling/ascendant = new (user.loc)
 	ascendant.announce("VYSHA NERADA YEKHEZET U'RUU!!", 5, 'sound/hallucinations/veryfar_noise.ogg')
-	for(var/obj/effect/proc_holder/spell/spell as anything in user.mind.spell_list)
-		if(spell == src)
+	for(var/datum/action/cooldown/spell/spell as anything in user.actions)
+		if(spell == src || !spell.shadowling_spell)
 			continue
-		user.mind.RemoveSpell(spell)
+		spell.Remove(user)
+		qdel(spell)
 
 	user.mind.transfer_to(ascendant)
 	ascendant.name = user.real_name
 	ascendant.languages = user.languages
-	ascendant.mind.AddSpell(new /obj/effect/proc_holder/spell/ascendant_annihilate(null))
-	ascendant.mind.AddSpell(new /obj/effect/proc_holder/spell/ascendant_hypnosis(null))
-	ascendant.mind.AddSpell(new /obj/effect/proc_holder/spell/ascendant_phase_shift(null))
-	ascendant.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/ascendant_storm(null))
-	ascendant.mind.AddSpell(new /obj/effect/proc_holder/spell/ascendant_transmit(null))
-	ascendant.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_revive_thrall/ascendant(null))
+	for(var/spell_to_add in ascendant_spells)
+		var/datum/action/cooldown/spell/new_spell = new spell_to_add
+		new_spell.Grant(ascendant)
 
 	if(ascendant.real_name)
 		ascendant.real_name = user.real_name
@@ -262,17 +274,26 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 
 	ExtinguishMob()
 	set_nutrition(NUTRITION_LEVEL_FED)
-	mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_enthrall(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_glare(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/shadowling_veil(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_shadow_walk(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/shadowling_icy_veins(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_regen_armor(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/shadowling_screech(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_blindness_smoke(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_null_charge(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_revive_thrall(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_ascend(null))
+	var/datum/action/cooldown/spell/pointed/shadowling_enthrall/enthrall = new
+	enthrall.Grant(src)
+	var/datum/action/cooldown/spell/aoe/shadowling_glare/glare = new
+	glare.Grant(src)
+	var/datum/action/cooldown/spell/aoe/shadowling_veil/veil = new
+	veil.Grant(src)
+	var/datum/action/cooldown/spell/jaunt/ethereal_jaunt/shadowling_shadow_walk/jaunt = new
+	jaunt.Grant(src)
+	var/datum/action/cooldown/spell/aoe/shadowling_icy_veins/ice = new
+	ice.Grant(src)
+	var/datum/action/cooldown/spell/shadowling_regen_armor/armor = new
+	armor.Grant(src)
+	var/datum/action/cooldown/spell/aoe/shadowling_screech/screech = new
+	screech.Grant(src)
+	var/datum/action/cooldown/spell/shadowling_blindness_smoke/smoke = new
+	smoke.Grant(src)
+	var/datum/action/cooldown/spell/pointed/shadowling_revive_thrall/revive = new
+	revive.Grant(src)
+	var/datum/action/cooldown/spell/shadowling_ascend/ascend = new
+	ascend.Grant(src)
 
 	mind.special_role = SPECIAL_ROLE_SHADOWLING
 	SSticker.mode.shadows += mind
