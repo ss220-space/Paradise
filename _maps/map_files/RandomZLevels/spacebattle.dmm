@@ -1183,7 +1183,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
 "dS" = (
-/obj/structure/sink/kitchen/directional/south,
+/obj/structure/sink/kitchen/directional/north,
 /turf/simulated/floor/plasteel/freezer,
 /area/awaymission/spacebattle/kitchen)
 "dT" = (
@@ -3395,7 +3395,7 @@
 	pixel_y = 25;
 	specialfunctions = 4
 	},
-/obj/structure/toilet,
+/obj/structure/toilet/directional/north,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "ks" = (
@@ -7371,7 +7371,7 @@
 	pixel_y = 25;
 	specialfunctions = 4
 	},
-/obj/structure/toilet,
+/obj/structure/toilet/directional/north,
 /obj/effect/decal/cleanable/blood,
 /obj/effect/mob_spawn/human/corpse/spacebattle/security,
 /obj/item/paper/crumpled/bloody/spacebattle/officer,
@@ -11441,7 +11441,7 @@
 /obj/structure/mirror{
 	pixel_y = -30
 	},
-/obj/structure/sink/directional/north,
+/obj/structure/sink/directional/south,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "Iw" = (
@@ -14663,7 +14663,7 @@
 	pixel_y = 25;
 	specialfunctions = 4
 	},
-/obj/structure/toilet,
+/obj/structure/toilet/directional/north,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "RZ" = (
@@ -17220,7 +17220,7 @@
 	},
 /area/awaymission/spacebattle/syndicate1)
 "ZM" = (
-/obj/structure/sink/directional/west,
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	icon_state = "mirror_broke";
 	pixel_x = 28

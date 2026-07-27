@@ -44,9 +44,10 @@ GLOBAL_DATUM_INIT(mob_hit_recoil, /datum/gun_recoil, GUN_RECOIL_LOW)
 		return // sights and recoil create visual bugs, disable recoil if we in sight mode.
 	if(HAS_TRAIT(user, TRAIT_BADASS))
 		return
+	CALCULATE_SKILL_MOD(user, RECOIL_MOD, recoil_modifier)
 	var/shot_angle = get_angle(target, user)
 	var/rand_angle = (rand() - 0.5) * recoil.angle + shot_angle
-	recoil_camera(user, recoil.strength, recoil.in_duration, recoil.back_duration, rand_angle)
+	recoil_camera(user, recoil.strength * recoil_modifier, recoil.in_duration * recoil_modifier, recoil.back_duration * recoil_modifier, rand_angle)
 
 /proc/recoil_camera(mob/user, strength, duration, backtime_duration, angle)
 	if(!user || !istype(user) || !user.client)

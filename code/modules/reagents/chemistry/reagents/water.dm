@@ -627,6 +627,9 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	if(!ishuman(target))
 		return
 
+	if(!(target.dna.species.bodyflags & HAS_HAIR))
+		return
+
 	if(!prob(3))
 		return
 
