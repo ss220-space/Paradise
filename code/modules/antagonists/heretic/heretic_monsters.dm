@@ -24,6 +24,7 @@
 /datum/antagonist/heretic_monster/apply_innate_effects(mob/living/mob_override)
 	. = ..()
 	var/mob/living/our_mob = mob_override || owner.current
+	ADD_TRAIT(our_mob, TRAIT_HERETIC_SUMMON, UID())
 	RegisterSignal(our_mob, COMSIG_MOB_DEATH, PROC_REF(on_monster_death))
 	RegisterSignal(our_mob, COMSIG_LIVING_REVIVE, PROC_REF(on_monster_revive))
 
@@ -31,6 +32,7 @@
 /datum/antagonist/heretic_monster/remove_innate_effects(mob/living/mob_override)
 	. = ..()
 	var/mob/living/our_mob = mob_override || owner.current
+	REMOVE_TRAIT(our_mob, TRAIT_HERETIC_SUMMON, UID())
 	UnregisterSignal(our_mob, list(COMSIG_MOB_DEATH, COMSIG_LIVING_REVIVE))
 
 

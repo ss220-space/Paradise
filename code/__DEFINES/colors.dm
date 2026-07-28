@@ -541,11 +541,6 @@ GLOBAL_LIST_INIT(cable_colors, list(
 	CABLE_COLOR_BROWN = CABLE_HEX_COLOR_BROWN
 ))
 
-// NOTE: heretic_path_to_color lives in the heretic module (heretic_antag.dm), NOT here. This file
-// (__DEFINES/colors.dm) is #included at paradise.dme:69, BEFORE __DEFINES/heretic.dm:109 where the
-// PATH_* macros are defined — so defining the list here left every key undefined/null (→ lookups
-// returned null → runes drew with the default green COLOR_LIME regardless of the heretic's path).
-
 #define HUSK_COLOR_TONE rgb(96, 88, 80)
 
 // Tweak these defines to change the available color ranges.
