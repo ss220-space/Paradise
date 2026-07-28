@@ -255,7 +255,7 @@
 	skill_types = list(
 		/datum/skill/research/research,
 		/datum/skill/research/protolathe,
-		/datum/skill/research/mech_construct,
+		/datum/skill/research/robotics,
 		/datum/skill/research/xenobiology,
 	)
 
@@ -270,7 +270,7 @@
 
 /obj/item/neurotrainer/research/mech_construct
 	manual_title = "Конструирование мехов"
-	skill_types = /datum/skill/research/mech_construct
+	skill_types = /datum/skill/research/robotics
 
 /obj/item/neurotrainer/research/xenobiology
 	manual_title = "Ксенобиология"

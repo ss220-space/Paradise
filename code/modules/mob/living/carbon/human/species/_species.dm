@@ -303,7 +303,7 @@
 		/datum/skill/medical/virusology = 2,
 		/datum/skill/research/research = 2,
 		/datum/skill/research/protolathe = 2,
-		/datum/skill/research/mech_construct = 2,
+		/datum/skill/research/robotics = 2,
 		/datum/skill/research/xenobiology = 2,
 	)
 	var/bonus_skill_free_points = 0

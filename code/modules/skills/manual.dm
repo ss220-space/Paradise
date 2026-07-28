@@ -307,7 +307,7 @@
 /obj/item/book/skill_manual/research/mech_construct
 	manual_title = "Конструирование мехов"
 	desc = "Руководство по конструированию различных видов мехов и подов."
-	skill_type = /datum/skill/research/mech_construct
+	skill_type = /datum/skill/research/robotics
 
 /obj/item/book/skill_manual/research/xenobiology
 	manual_title = "Ксенобиология"
