@@ -95,6 +95,8 @@
 	desc = "It's a spoon. You can see your own upside-down face in it."
 	icon_state = "spoon"
 	attack_verb = list("атаковал", "ткнул")
+	tool_behaviour = TOOL_MINING
+	toolspeed = 25 // Literally 25 times worse than the base pickaxe
 
 /obj/item/kitchen/utensil/pspoon
 	name = "plastic spoon"
@@ -146,6 +148,7 @@
 	. = ..()
 	default_force = force
 	default_throwforce = throwforce
+	ADD_TRAIT(src, TRAIT_MELEE_WEAPON, ROUNDSTART_TRAIT)
 
 /obj/item/kitchen/knife/sharpen_act(obj/item/whetstone/whetstone, mob/user)
 	. = ..()
