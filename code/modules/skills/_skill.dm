@@ -83,6 +83,7 @@ GLOBAL_LIST_EMPTY(skill_manual_types)
 		user_mind.set_skill_level(skill.type, level)
 		if(level == SKILL_LEVEL_UNAVAILABLE)
 			skill.remove_from_mob(user)
+	user_mind.free_skill_points = base_free_skill_point
 
 // Show skills window from verbs
 /mob/verb/view_skills_win()

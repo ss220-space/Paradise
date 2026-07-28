@@ -76,6 +76,6 @@
 		var/bonus = is_human? cached_manual_bonuses[skill.type] || 0 + cached_neurotrainer_bonuses[skill.type] || 0 : 0
 		level = min(level + bonus, SKILL_LEVEL_LEGEND)
 		set_skill_level(skill.type, level)
-
-	free_skill_points = is_antag? BASIC_ANTAG_SKILL_POINTS_COUNT : BASIC_SKILL_POINTS_COUNT
+	var/job_free_skill_points = current_job?.base_free_skill_point || BASIC_SKILL_POINTS_COUNT
+	free_skill_points = job_free_skill_points + (is_antag? BASIC_ANTAG_SKILL_POINTS_BONUS : 0)
 
