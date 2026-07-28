@@ -411,6 +411,9 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define iswelder(A) (istype(A, /obj/item/weldingtool))
 
+#define is_esword(A) (istype(A, /obj/item/melee/energy/sword))
+#define is_dualsaber(A) (istype(A, /obj/item/twohanded/dualsaber))
+
 #define iswirecutter(A) (istype(A, /obj/item/wirecutters))
 
 #define ismultitool(A) (istype(A, /obj/item/multitool))
@@ -447,9 +450,6 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define is_cargo_shelf(A) (istype(A, /obj/structure/cargo_shelf))
 #define is_crate(A) (istype(A, /obj/structure/closet/crate))
-
-#define is_esword(A) (istype(A, /obj/item/melee/energy/sword))
-#define is_dualsaber(A) (istype(A, /obj/item/twohanded/dualsaber))
 
 #define is_area_nearby_station(checked_area) (istype(checked_area, /area/space) || istype(checked_area, /area/space/nearstation) || istype(checked_area, /area/centcom/asteroid))
 #define is_area_shuttle(checked_area) (istype(checked_area, /area/shuttle))
