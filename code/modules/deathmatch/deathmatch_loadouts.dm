@@ -64,8 +64,6 @@
 	display_name = "Ассистент (без оружия)"
 	desc = "Что есть ассистент без своего туллбокса? Правильно, ничто."
 
-	loadout_type = LOADOUT_ASSISTANT
-
 	l_hand = null
 
 /datum/outfit/deathmatch_loadout/operative

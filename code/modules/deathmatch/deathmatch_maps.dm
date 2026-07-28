@@ -196,7 +196,7 @@
 
 /datum/lazy_template/deathmatch/secu_ring
 	name = "Офицерский ринг"
-	desc = "Небольшая арена для вашей любимой тактики - бесконечного обновления стана с помощью дизейблеров и батонов."
+	desc = "Небольшая арена для вашей любимой тактики — бесконечного обновления стана с помощью дизейблеров и батонов."
 	max_players = 4
 	allowed_loadouts = list(
 		/datum/outfit/deathmatch_loadout/securing_sec,
