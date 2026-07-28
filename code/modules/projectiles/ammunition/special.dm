@@ -42,6 +42,17 @@
 	projectile_type = pick(typesof(/obj/projectile/magic))
 	..()
 
+/obj/item/ammo_casing/magic/lesser_chaos/newshot()
+	var/static/list/magical_bullets = list(
+		/obj/projectile/magic/slipping,
+		/obj/projectile/magic/spellblade,
+		/obj/projectile/magic/fireball,
+		/obj/projectile/magic/resurrection,
+		/obj/projectile/magic/death,
+	)
+	projectile_type = pick(magical_bullets)
+	..()
+
 /obj/item/ammo_casing/magic/arcane_barrage
 	projectile_type = /obj/projectile/magic/arcane_barrage
 

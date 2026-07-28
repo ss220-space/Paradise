@@ -228,7 +228,7 @@
 			continue
 		var/mine_path = pick(mines)
 		new mine_path (target_turf)
-
+// MARK: Loadout mods
 /datum/deathmatch_modifier/any_loadout
 	name = "Свободный выбор снаряжения"
 	description = "Наблюдайте, как все берут инстагиб пушку."
@@ -236,6 +236,10 @@
 	blacklisted_modifiers = list(
 		/datum/deathmatch_modifier/special_loadouts,
 		/datum/deathmatch_modifier/special_loadouts/no_gibguns,
+		/datum/deathmatch_modifier/special_loadouts/syndicate,
+		/datum/deathmatch_modifier/special_loadouts/nanotrasen,
+		/datum/deathmatch_modifier/special_loadouts/nukie,
+		/datum/deathmatch_modifier/special_loadouts/wizards,
 	)
 	loadout_mod = TRUE
 
@@ -258,12 +262,16 @@
 		lobby.loadouts = GLOB.deathmatch_game.loadouts
 
 /datum/deathmatch_modifier/special_loadouts
-	name = "Тематическое снаряжение - Ассистенты"
+	name = "Тематическое снаряжение — Ассистенты"
 	description = "Вы сможете выбрать только ассистентов для этой карты."
 	random_exempted = TRUE
 	blacklisted_modifiers = list(
 		/datum/deathmatch_modifier/any_loadout,
 		/datum/deathmatch_modifier/special_loadouts/no_gibguns,
+		/datum/deathmatch_modifier/special_loadouts/syndicate,
+		/datum/deathmatch_modifier/special_loadouts/nanotrasen,
+		/datum/deathmatch_modifier/special_loadouts/nukie,
+		/datum/deathmatch_modifier/special_loadouts/wizards,
 	)
 	loadout_mod = TRUE
 	/// List of all correct loadouts
@@ -274,11 +282,15 @@
 	var/checking_blacklist
 
 /datum/deathmatch_modifier/special_loadouts/no_gibguns
-	name = "Свободный выбор снаряжения (без гиб-пушек)"
+	name = "Свободный выбор снаряжения (без гиб—пушек)"
 	description = "Никого не придется кикать!"
 	blacklisted_modifiers = list(
 		/datum/deathmatch_modifier/any_loadout,
 		/datum/deathmatch_modifier/special_loadouts,
+		/datum/deathmatch_modifier/special_loadouts/syndicate,
+		/datum/deathmatch_modifier/special_loadouts/nanotrasen,
+		/datum/deathmatch_modifier/special_loadouts/nukie,
+		/datum/deathmatch_modifier/special_loadouts/wizards,
 	)
 	checking_type = null
 	checking_blacklist = LOADOUT_UNFUNNY
@@ -310,6 +322,59 @@
 
 /datum/deathmatch_modifier/special_loadouts/on_map_changed(datum/deathmatch_lobby/lobby)
 	lobby.unselect_modifier(src) //for the better
+
+/datum/deathmatch_modifier/special_loadouts/syndicate
+	name = "Тематическое снаряжение — Синдикат"
+	description = "В битве учавствуют только оперативники Синдиката."
+	blacklisted_modifiers = list(
+		/datum/deathmatch_modifier/any_loadout,
+		/datum/deathmatch_modifier/special_loadouts,
+		/datum/deathmatch_modifier/special_loadouts/no_gibguns,
+		/datum/deathmatch_modifier/special_loadouts/nanotrasen,
+		/datum/deathmatch_modifier/special_loadouts/nukie,
+		/datum/deathmatch_modifier/special_loadouts/wizards,
+	)
+	checking_type = LOADOUT_SYNDICATE
+
+/datum/deathmatch_modifier/special_loadouts/nukie
+	name = "Тематическое снаряжение — \"Атом\" против НТ"
+	description = "Тяжеловооруженные оперативники и солдаты ОБР."
+	blacklisted_modifiers = list(
+		/datum/deathmatch_modifier/any_loadout,
+		/datum/deathmatch_modifier/special_loadouts,
+		/datum/deathmatch_modifier/special_loadouts/no_gibguns,
+		/datum/deathmatch_modifier/special_loadouts/syndicate,
+		/datum/deathmatch_modifier/special_loadouts/nanotrasen,
+		/datum/deathmatch_modifier/special_loadouts/wizards,
+	)
+	checking_type = LOADOUT_ATOM
+
+/datum/deathmatch_modifier/special_loadouts/nanotrasen
+	name = "Тематическое снаряжение — Нанотрейзен"
+	description = "В битве учавствуют только сотрудники НТ."
+	blacklisted_modifiers = list(
+		/datum/deathmatch_modifier/any_loadout,
+		/datum/deathmatch_modifier/special_loadouts,
+		/datum/deathmatch_modifier/special_loadouts/no_gibguns,
+		/datum/deathmatch_modifier/special_loadouts/syndicate,
+		/datum/deathmatch_modifier/special_loadouts/nukie,
+		/datum/deathmatch_modifier/special_loadouts/wizards,
+	)
+	checking_type = LOADOUT_NT
+
+/datum/deathmatch_modifier/special_loadouts/wizards
+	name = "Тематическое снаряжение — маги"
+	description = "В битве учавствуют только волшебники."
+	blacklisted_modifiers = list(
+		/datum/deathmatch_modifier/any_loadout,
+		/datum/deathmatch_modifier/special_loadouts,
+		/datum/deathmatch_modifier/special_loadouts/no_gibguns,
+		/datum/deathmatch_modifier/special_loadouts/syndicate,
+		/datum/deathmatch_modifier/special_loadouts/nukie,
+		/datum/deathmatch_modifier/special_loadouts/nanotrasen,
+	)
+
+	checking_type = LOADOUT_WIZARD
 
 // TODO:
 // DROP POD MODIFIERS
