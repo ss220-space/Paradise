@@ -6,7 +6,7 @@
 /datum/skill/service/botany
 	id = "service.botany"
 	name = "Ботаника"
-	desc = "Влияет на работу с растениями."
+	desc = "Влияет на скорость созревания расстения, скорость работы с лотком."
 	duration_mod_names = list(HYDROPONIC_CULTIVATION_MOD, HYDROPONIC_HARVEST_MOD)
 	skills_mods = alist(
 		PLANT_GROWTH_RATE = alist(
@@ -24,7 +24,7 @@
 /datum/skill/service/cleaning
 	id = "service.cleaning"
 	name = "Уборка"
-	desc = "Влияет на мытье полов и уборку, а так же расход реагента шваброй при этом."
+	desc = "Влияет на скорость мытья полов, дальность клинера, а так же расход реагента шваброй."
 	duration_mod_names = list(CLEANING_SPEED_MOD)
 	skills_mods = alist(
 		CLEANING_DISTANCE = alist(
@@ -42,7 +42,7 @@
 /datum/skill/service/mining
 	id = "service.mining"
 	name = "Горное дело"
-	desc = "Влияет на скорость копки, перезарядку кинетических устройств копки(только при копке породы) и шанс на скан руды при копке с помощью кирки или ее альтернативы."
+	desc = "Влияет на скорость копания, перезарядку кинетических устройств копания (только при копании породы) и шанс на скан руды при копании с помощью кирки или ее альтернативы."
 	skills_mods = alist(
 		MINING_SPEED_MOD = alist(
 			SKILL_LEVEL_NONE = 1.2,

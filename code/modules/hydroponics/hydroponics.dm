@@ -838,10 +838,13 @@
 		if(myseed)
 			to_chat(user, span_warning("The [name] already has [myseed] inside."))
 			return ATTACK_CHAIN_PROCEED
+
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
+
 		if(istype(I, /obj/item/seeds/kudzu))
 			investigate_log("had Kudzu [span_warning("planted")] in it by [key_name_log(user)]", INVESTIGATE_BOTANY)
+
 		to_chat(user, span_notice("You have planted [I] into [src]."))
 		dead = FALSE
 		myseed = I

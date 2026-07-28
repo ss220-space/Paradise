@@ -40,7 +40,7 @@
 /datum/skill/general/mod_use
 	id = "general.mod_use"
 	name = "ВКД"
-	desc = "Влияет на скорость одевания и передвижения в МЭКах и РИГах."
+	desc = "Влияет на скорость одевания и передвижения."
 	duration_mod_names = list(MOD_ACTIVATION_SPEED_MOD)
 	skills_mods = alist(
 		SPACESUIT_SLOWDOWN_MOD = alist(
@@ -58,7 +58,7 @@
 /datum/skill/general/mixing
 	id = "general.mixing"
 	name = "Смешивание"
-	desc = "Влияет на ввод реагентов в ёмкость, а также потребление энергии раздатчиком."
+	desc = "Влияет на ввод реагентов в ёмкость, а также потребление энергии."
 	duration_mod_names = list(MIXING_DISPENCE_CELL_USE_MOD)
 	skills_mods = alist(
 		MIXING_DISPENSE_RAND_SIZE = alist(

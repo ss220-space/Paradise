@@ -6,7 +6,7 @@
 /datum/skill/medical/heal
 	id = "medical.heal"
 	name = "Лечение"
-	desc = "Влияет на перевязку ран (скорось и величину лечения) и хирургические операции (скорось и шанс провала)."
+	desc = "Влияет на скорось и величину лечения медикаментами, а также скорость и шанс провала при хирургических операциях."
 	duration_mod_names = list(SURGERY_DURATION_MOD, HEAL_DURATION_MOD)
 	skills_mods = alist(
 		SURGERY_SUCCESS_MOD = alist(
@@ -34,10 +34,10 @@
 /datum/skill/medical/genetic
 	id = "medical.genetic"
 	name = "Генетика"
-	desc = "Влияет на работу с генетикой (скорость облучения и создания шприца)."
+	desc = "Влияет на скорость облучения и создания шприца."
 	duration_mod_names = list(IRRADIATION_DURATION_MOD)
 
 /datum/skill/medical/virusology
 	id = "medical.virusology"
 	name = "Вирусология"
-	desc = "Влияет на работу с вирусами (позволяет выбирать симптомы с 4 уровня)."
+	desc = "Позволяет выбирать симптомы с 4 уровня."

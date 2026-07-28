@@ -12,14 +12,14 @@
 /datum/skill/engineering/electrician
 	id = "engineering.electrician"
 	name = "Электрика"
-	desc = "Влияет на работу с проводами (шанс удара током, отображение информации о проводе), а также на взлом (шкафы, кейсы)."
+	desc = "Влияет на шанс удара током, отображение информации о проводе, а также на взлом шкафов и кейсов."
 	duration_mod_names = list(ELECTRICITY_NEGATIVE_CHANCE_MOD, LOCKPICK_SPEED_MOD)
 	quality_mod_names = list(LOCKPICK_POSITIVE_CHANCE_MOD)
 
 /datum/skill/engineering/atmos
 	id = "engineering.atmos"
 	name = "Атмостехника"
-	desc = "Влияет на работу с трубами (скорость использования RPD и силу откидывания из-за труб под давлением)."
+	desc = "Влияет на скорость использования RPD и силу откидывания из-за труб под давлением."
 	duration_mod_names = list(ATMOS_SPEED_MOD)
 	skills_mods = alist(
 		UNSAFE_PRESSURE_MOD = alist(

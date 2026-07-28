@@ -8,7 +8,7 @@
 /datum/skill/combat/guns
 	id = "combat.guns"
 	name = "Дальний бой"
-	desc = "Влияет на меткость, отдачу, осечки при стрельбе, а также скорость перезарядки."
+	desc = "Влияет на меткость, отдачу, разброс, а также скорость перезарядки магазинов."
 	duration_mod_names = list(MAGAZINE_RELOAD_MOD)
 	skills_mods = alist(
 		ACCURACY_MOD = alist(
@@ -47,7 +47,7 @@
 /datum/skill/combat/melee
 	id = "combat.melee"
 	name = "Ближний бой"
-	desc = "Влияет на урон и расход выносливости при парировании оружием ближнего боя и щитами, а также урон, шанс."
+	desc = "Влияет на урон, расход выносливости при парировании оружием ближнего боя и щитами, а также урон, шанс опрокинуть и скорость захвата при рукопашной атаке."
 	duration_mod_names = list(FISTS_GRAB_MOD)
 	quality_mod_names = list(FISTS_DISARM_MOD)
 	skills_mods = alist(
@@ -87,7 +87,7 @@
 /datum/skill/combat/bows
 	id = "combat.bows"
 	name = "Стрельба из лука"
-	desc = "Влияет на меткость стрельбы из лука, а так же на самедление при нятянутой тетеве."
+	desc = "Влияет на меткость, разброс, а так же на замедление при нятянутой тетеве."
 	duration_mod_names = list(BOW_SLOWDOWN_MOD)
 	skills_mods = alist(
 		BOW_ACCURACY_MOD = alist(
