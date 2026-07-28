@@ -30,7 +30,7 @@
 	var/list/hacked_reagents = list("toxin")
 	var/is_drink = FALSE
 	var/base_skill = /datum/skill/medical/chemistry
-	var/ dispence_skill_name = CHEMISTRY_DISPENSE_RAND_SIZE
+	var/dispence_skill_name = CHEMISTRY_DISPENSE_RAND_SIZE
 
 /obj/machinery/chem_dispenser/get_ru_names()
 	return alist(
@@ -245,11 +245,12 @@
 				return
 			var/datum/reagents/R = beaker.reagents
 			var/free = R.maximum_volume - R.total_volume
-			CALCULATE_SKILL_MOD(usr, dispence_skill_name, dispense_rand_size)
-			var/actual = min(round(amount + (amount * dispense_rand_size * (rand() - 0.5)), 0.1), (cell.charge * powerefficiency) * 10, free)
+			var/actual = min(amount, (cell.charge * powerefficiency) * 10, free)
 			if(!cell.use(actual / powerefficiency))
 				atom_say("Недостаточно энергии для завершения операции!")
 				return
+			CALCULATE_SKILL_MOD(usr, dispence_skill_name, dispense_rand_size)
+			actual += min(amount * dispense_rand_size * (rand() - 0.5), free) // assistants gets free drinks, but can evaporate energy in seconds
 			R.add_reagent(params["reagent"], actual)
 			update_icon(UPDATE_OVERLAYS)
 		if("remove")

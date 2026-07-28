@@ -339,7 +339,12 @@
 			connected_core.waste_remove = !connected_core.waste_remove
 			. = TRUE
 		if("filter")
-			connected_core.moderator_scrubbing += params["mode"]
+			var/mode = params["mode"]
+			var/list/cached_moderator_scrubbing = connected_core.moderator_scrubbing
+			if(mode in cached_moderator_scrubbing)
+				cached_moderator_scrubbing -= mode
+			else
+				cached_moderator_scrubbing += mode
 			. = TRUE
 		if("mod_filtering_rate")
 			var/mod_filtering_rate = text2num(params["mod_filtering_rate"])
