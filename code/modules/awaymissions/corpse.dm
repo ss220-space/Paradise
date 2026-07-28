@@ -433,7 +433,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 			var/datum/job/current_job = SSjobs.GetJob(skills_ref_job)
 			current_job.apply_skills(H)
 		else
-			H.mind.apply_antag_skills(skills_ref_job)
+			H.mind.recalculate_skills(ref_job = skills_ref_job, force_antag = TRUE)
 
 	for(var/skill, level in skills)
 		H.mind.set_skill_level(skill, level)

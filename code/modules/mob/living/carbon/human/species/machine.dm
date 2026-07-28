@@ -111,7 +111,7 @@
 		/datum/skill/medical/virusology = 0,
 		/datum/skill/research/research = 3,
 		/datum/skill/research/protolathe = 3,
-		/datum/skill/research/mech_construct = 3,
+		/datum/skill/research/robotics = 3,
 		/datum/skill/research/xenobiology = 1,
 	)
 

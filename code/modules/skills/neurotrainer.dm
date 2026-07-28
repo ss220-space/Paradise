@@ -81,6 +81,7 @@
 		applyed_bonus_points = SKILL_LEVEL_LEGEND - current_skill_level
 	if(applyed_bonus_points > 0)
 		target.mind.skills[skill_types] = current_skill_level + applyed_bonus_points
+		target.mind.active_neurotrainer_bonuses[skill_types] += applyed_bonus_points
 		. = TRUE
 		used = TRUE
 
@@ -254,7 +255,7 @@
 	skill_types = list(
 		/datum/skill/research/research,
 		/datum/skill/research/protolathe,
-		/datum/skill/research/mech_construct,
+		/datum/skill/research/robotics,
 		/datum/skill/research/xenobiology,
 	)
 
@@ -269,7 +270,7 @@
 
 /obj/item/neurotrainer/research/mech_construct
 	manual_title = "Конструирование мехов"
-	skill_types = /datum/skill/research/mech_construct
+	skill_types = /datum/skill/research/robotics
 
 /obj/item/neurotrainer/research/xenobiology
 	manual_title = "Ксенобиология"
