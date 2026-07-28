@@ -115,13 +115,22 @@
 					Добывайте для гнезда трупы гуманоидов и зверей. Щупальце поглотит их, порождая яйца новых пеплоходцев. Слава Некрополю!"
 	assignedrole = "Ash Walker"
 	respawn_cooldown = 10 MINUTES
-	skills_ref_job = JOB_TITLE_CIVILIAN
 	skills = alist(
-		/datum/skill/general/mod_use = SKILL_LEVEL_NONE,
-		/datum/skill/medical/genetic = SKILL_LEVEL_NONE,
-		/datum/skill/medical/virusology = SKILL_LEVEL_NONE,
-		/datum/skill/combat/melee = SKILL_LEVEL_ADVANCED,
-		/datum/skill/combat/bows = SKILL_LEVEL_BASIC,
+		/datum/skill/combat/guns = SKILL_LEVEL_UNAVAILABLE,
+		/datum/skill/combat/melee = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/combat/bows = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/engineering/electrician = SKILL_LEVEL_UNAVAILABLE,
+		/datum/skill/engineering/atmos = SKILL_LEVEL_UNAVAILABLE,
+		/datum/skill/general/carrying = SKILL_LEVEL_BASIC,
+		/datum/skill/general/mech_drive = SKILL_LEVEL_UNAVAILABLE,
+		/datum/skill/general/mod_use = SKILL_LEVEL_UNAVAILABLE,
+		/datum/skill/general/mixing = SKILL_LEVEL_UNAVAILABLE,
+		/datum/skill/medical/genetic = SKILL_LEVEL_UNAVAILABLE,
+		/datum/skill/medical/virusology = SKILL_LEVEL_UNAVAILABLE,
+		/datum/skill/research/research = SKILL_LEVEL_UNAVAILABLE,
+		/datum/skill/research/mech_construct = SKILL_LEVEL_UNAVAILABLE,
+		/datum/skill/research/xenobiology = SKILL_LEVEL_UNAVAILABLE,
+		/datum/skill/service/mining = SKILL_LEVEL_BEGINNER,
 	)
 	var/eggtype = "пеплоходца"
 
@@ -156,7 +165,28 @@
 	description = "Вы — шаман племени пеплоходцев. Ваше племя поклоняется некрополю. Обеспечьте выживание и лечение подконтрольных вам пеплоходцев. Проводите обряды, направленные на исцеление тела и души, обеспечивайте охотников пропитанием."
 	assignedrole = "Ash Walker Shaman"
 	eggtype = "шамана пеплоходцев"
-	skills_ref_job = JOB_TITLE_DOCTOR
+	skills = alist(
+		/datum/skill/combat/guns = SKILL_LEVEL_UNAVAILABLE,
+		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
+		/datum/skill/combat/bows = SKILL_LEVEL_BASIC,
+		/datum/skill/engineering/building = SKILL_LEVEL_BEGINNER,
+		/datum/skill/engineering/electrician = SKILL_LEVEL_UNAVAILABLE,
+		/datum/skill/engineering/atmos = SKILL_LEVEL_UNAVAILABLE,
+		/datum/skill/general/carrying = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/mech_drive = SKILL_LEVEL_UNAVAILABLE,
+		/datum/skill/general/mod_use = SKILL_LEVEL_UNAVAILABLE,
+		/datum/skill/general/mixing = SKILL_LEVEL_UNAVAILABLE,
+		/datum/skill/general/cooking = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/genetic = SKILL_LEVEL_UNAVAILABLE,
+		/datum/skill/medical/virusology = SKILL_LEVEL_UNAVAILABLE,
+		/datum/skill/research/research = SKILL_LEVEL_UNAVAILABLE,
+		/datum/skill/research/mech_construct = SKILL_LEVEL_UNAVAILABLE,
+		/datum/skill/research/xenobiology = SKILL_LEVEL_UNAVAILABLE,
+		/datum/skill/service/botany = SKILL_LEVEL_BASIC,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BASIC,
+		/datum/skill/service/mining = SKILL_LEVEL_BEGINNER,
+	)
 
 /obj/effect/mob_spawn/human/ash_walker/shaman/get_ru_names()
 	return alist(

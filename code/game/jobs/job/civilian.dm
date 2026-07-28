@@ -20,9 +20,15 @@
 	insurance_type = INSURANCE_TYPE_BUDGETARY
 	paycheck = PAYCHECK_MIN
 	skill_levels = list(
-		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
-		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+		/datum/skill/engineering/building = SKILL_LEVEL_BEGINNER,
+		/datum/skill/engineering/electrician = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/carrying = SKILL_LEVEL_BASIC,
+		/datum/skill/general/mixing = SKILL_LEVEL_BASIC,
+		/datum/skill/general/cooking = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/botany = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BASIC,
+		/datum/skill/service/mining = SKILL_LEVEL_BASIC,
 	)
 
 /datum/outfit/job/assistant

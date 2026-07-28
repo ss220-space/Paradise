@@ -14,21 +14,26 @@
 	outfit = /datum/outfit/job/syndicateofficer
 	insurance_type = INSURANCE_TYPE_NONE
 	skill_levels = list(
+		/datum/skill/combat/guns = SKILL_LEVEL_ADVANCED,
+		/datum/skill/combat/melee = SKILL_LEVEL_ADVANCED,
+		/datum/skill/combat/bows = SKILL_LEVEL_BASIC,
+		/datum/skill/engineering/building = SKILL_LEVEL_BASIC,
+		/datum/skill/engineering/electrician = SKILL_LEVEL_BASIC,
+		/datum/skill/engineering/atmos = SKILL_LEVEL_BASIC,
 		/datum/skill/general/carrying = SKILL_LEVEL_BASIC,
 		/datum/skill/general/mech_drive = SKILL_LEVEL_BASIC,
 		/datum/skill/general/mod_use = SKILL_LEVEL_BASIC,
+		/datum/skill/general/mixing = SKILL_LEVEL_BASIC,
 		/datum/skill/general/cooking = SKILL_LEVEL_BASIC,
-		/datum/skill/service/botany = SKILL_LEVEL_BASIC,
-		/datum/skill/service/cleaning = SKILL_LEVEL_BASIC,
-		/datum/skill/combat/guns = SKILL_LEVEL_ADVANCED,
-		/datum/skill/combat/melee = SKILL_LEVEL_ADVANCED,
-		/datum/skill/medical/surgery = SKILL_LEVEL_BASIC,
-		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/heal = SKILL_LEVEL_ADVANCED,
 		/datum/skill/medical/genetic = SKILL_LEVEL_BASIC,
 		/datum/skill/medical/virusology = SKILL_LEVEL_BASIC,
 		/datum/skill/research/research = SKILL_LEVEL_BASIC,
 		/datum/skill/research/mech_construct = SKILL_LEVEL_BASIC,
 		/datum/skill/research/xenobiology = SKILL_LEVEL_BASIC,
+		/datum/skill/service/botany = SKILL_LEVEL_BASIC,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BASIC,
+		/datum/skill/service/mining = SKILL_LEVEL_BASIC,
 	)
 
 /datum/job/syndicateofficer/get_access()

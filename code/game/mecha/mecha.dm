@@ -1138,8 +1138,9 @@
 		return
 	WELDER_ATTEMPT_REPAIR_MESSAGE
 	repairing = TRUE
+	CALCULATE_SKILL_MOD(user, MECH_CONSTRUCT_DURATION_MOD, skill_mod)
 	while(obj_integrity < max_integrity || (internal_damage & MECHA_INT_TANK_BREACH))
-		if(!welder.use_tool(src, user, 15, volume = welder.tool_volume))
+		if(!welder.use_tool(src, user, (1.5 * skill_mod) SECONDS, volume = welder.tool_volume))
 			break
 
 		if(internal_damage & MECHA_INT_TANK_BREACH)
@@ -1387,7 +1388,7 @@
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/mecha, put_in), user)
 
 /obj/mecha/proc/put_in(mob/user)
-	CALCULATE_SKILL_MOD(user, MECHA_CLIMBING_SPEED_MOD, skill_factor)
+	CALCULATE_SKILL_MOD(user, MECHA_DURATION_SPEED_MOD, skill_factor)
 	if(do_after(user, mech_enter_time * skill_factor, src, category = DA_CAT_TOOL))
 		if(obj_integrity <= 0)
 			to_chat(user, span_warning("You cannot get in the [name], it has been destroyed!"))

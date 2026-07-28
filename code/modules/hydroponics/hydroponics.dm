@@ -1007,9 +1007,6 @@
 			myseed.harvest(user)
 	else if(dead)
 		add_fingerprint(user)
-		CALCULATE_SKILL_MOD(user, HYDROPONIC_HARVEST_MOD, harvest_skill_mod)
-		if(!do_after(user, 1.5 SECONDS * harvest_skill_mod, src, max_interact_count = 1))
-			return
 		dead = 0
 		to_chat(user, span_notice("You remove the dead plant from [src]."))
 		QDEL_NULL(myseed)

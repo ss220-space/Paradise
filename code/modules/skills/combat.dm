@@ -41,23 +41,13 @@
 			SKILL_LEVEL_LEGEND = 0.1,
 			SKILL_LEVEL_UNAVAILABLE = 5,
 		),
-		MISFIRE_CHANCE = alist(
-			SKILL_LEVEL_NONE = 4,
-			SKILL_LEVEL_BEGINNER = 2,
-			SKILL_LEVEL_BASIC = 0,
-			SKILL_LEVEL_ADVANCED = 0,
-			SKILL_LEVEL_PROFESSIONAL = 0,
-			SKILL_LEVEL_EXPERT = 0,
-			SKILL_LEVEL_LEGEND = 0,
-			SKILL_LEVEL_UNAVAILABLE = 100,
-		),
 	)
 
 // MARK: Melee
 /datum/skill/combat/melee
 	id = "combat.melee"
 	name = "Ближний бой"
-	desc = "Влияет на урон и расход выносливости при парировании оружием ближнего боя и щитами."
+	desc = "Влияет на урон и расход выносливости при парировании оружием ближнего боя и щитами, а также урон, шанс."
 	duration_mod_names = list(FISTS_GRAB_MOD)
 	quality_mod_names = list(FISTS_DISARM_MOD)
 	skills_mods = alist(

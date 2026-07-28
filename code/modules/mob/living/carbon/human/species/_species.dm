@@ -292,7 +292,6 @@
 		/datum/skill/engineering/building = 2,
 		/datum/skill/engineering/electrician = 2,
 		/datum/skill/engineering/atmos = 2,
-		/datum/skill/medical/surgery = 2,
 		/datum/skill/medical/heal = 2,
 		/datum/skill/medical/genetic = 2,
 		/datum/skill/medical/virusology = 2,

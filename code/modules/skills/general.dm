@@ -33,8 +33,8 @@
 /datum/skill/general/mech_drive
 	id = "general.mech_drive"
 	name = "Управление мехами и подами"
-	desc = "Влияет на скорость входа, а также потребление батареи."
-	duration_mod_names = list(MECHA_CLIMBING_SPEED_MOD)
+	desc = "Влияет на скорость входа, скорость ремонта, а также потребление батареи."
+	duration_mod_names = list(MECHA_DURATION_SPEED_MOD)
 	quality_mod_names = list(MECHA_CELL_USAGE_MOD, SPACEPOD_BATTERY_USAGE_MOD)
 
 /datum/skill/general/mod_use
@@ -55,10 +55,28 @@
 		),
 	)
 
+/datum/skill/general/mixing
+	id = "general.mixing"
+	name = "Смешивание"
+	desc = "Влияет на ввод реагентов в ёмкость, а также потребление энергии раздатчиком."
+	duration_mod_names = list(MIXING_DISPENCE_CELL_USE_MOD)
+	skills_mods = alist(
+		MIXING_DISPENSE_RAND_SIZE = alist(
+			SKILL_LEVEL_NONE = 0.75,
+			SKILL_LEVEL_BEGINNER = 0.5,
+			SKILL_LEVEL_BASIC = 0,
+			SKILL_LEVEL_ADVANCED = 0,
+			SKILL_LEVEL_PROFESSIONAL = 0,
+			SKILL_LEVEL_EXPERT = 0,
+			SKILL_LEVEL_LEGEND = 0,
+			SKILL_LEVEL_UNAVAILABLE = 10,
+		),
+	)
+
 /datum/skill/general/cooking
 	id = "general.cooking"
 	name = "Готовка"
-	desc = "Влияет на готовку (скорость приготовления блюд, шанс дополнительной порции, шанс поломки при неправильном рецепте)."
+	desc = "Влияет на скорость приготовления блюд, шанс дополнительной порции, шанс поломки при неправильном рецепте."
 	duration_mod_names = list(COOKING_SPEED_MOD, BUTCHERING_SPEED_MOD)
 	quality_mod_names = list(COOKING_BROKE_MOD)
 	skills_mods = alist(

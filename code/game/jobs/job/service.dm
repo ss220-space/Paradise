@@ -29,12 +29,14 @@
 	exp_type = EXP_TYPE_SERVICE
 	outfit = /datum/outfit/job/hop
 	skill_levels = list(
+		/datum/skill/combat/guns = SKILL_LEVEL_BASIC,
+		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
+		/datum/skill/general/carrying = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/mixing = SKILL_LEVEL_ADVANCED,
 		/datum/skill/general/cooking = SKILL_LEVEL_ADVANCED,
-		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
 		/datum/skill/service/botany = SKILL_LEVEL_ADVANCED,
 		/datum/skill/service/cleaning = SKILL_LEVEL_ADVANCED,
-		/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
 	)
 
 
@@ -80,10 +82,13 @@
 	)
 	outfit = /datum/outfit/job/bartender
 	skill_levels = list(
-		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/cooking = SKILL_LEVEL_BASIC,
-		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/guns = SKILL_LEVEL_BASIC,
+		/datum/skill/general/carrying = SKILL_LEVEL_BASIC,
+		/datum/skill/general/mixing = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/general/cooking = SKILL_LEVEL_ADVANCED,
+		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
+		/datum/skill/service/botany = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BASIC,
 	)
 
 /datum/outfit/job/bartender
@@ -121,10 +126,13 @@
 	)
 	outfit = /datum/outfit/job/chef
 	skill_levels = list(
-		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
+		/datum/skill/general/carrying = SKILL_LEVEL_BASIC,
+		/datum/skill/general/mixing = SKILL_LEVEL_ADVANCED,
 		/datum/skill/general/cooking = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
 		/datum/skill/service/botany = SKILL_LEVEL_BASIC,
-		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BASIC,
 	)
 
 /datum/outfit/job/chef
@@ -173,10 +181,12 @@
 	)
 	outfit = /datum/outfit/job/botanist
 	skill_levels = list(
-		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
-		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/carrying = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/mixing = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/cooking = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
 		/datum/skill/service/botany = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BASIC,
 	)
 
 /datum/outfit/job/botanist
@@ -208,9 +218,13 @@
 	)
 	outfit = /datum/outfit/job/clown
 	skill_levels = list(
-		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
-		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/carrying = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/mech_drive = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/mod_use = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/cooking = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
+		/datum/skill/service/botany = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BASIC,
 	)
 
 /datum/outfit/job/clown
@@ -426,9 +440,13 @@
 	)
 	outfit = /datum/outfit/job/mime
 	skill_levels = list(
-		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
-		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/carrying = SKILL_LEVEL_BASIC,
+		/datum/skill/general/mech_drive = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/mod_use = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/cooking = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
+		/datum/skill/service/botany = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BASIC,
 	)
 
 /datum/outfit/job/mime
@@ -481,9 +499,13 @@
 	)
 	outfit = /datum/outfit/job/janitor
 	skill_levels = list(
-		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
-		/datum/skill/service/cleaning = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
+		/datum/skill/general/carrying = SKILL_LEVEL_BASIC,
+		/datum/skill/general/mixing = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/cooking = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
+		/datum/skill/service/botany = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cleaning = SKILL_LEVEL_EXPERT,
 	)
 
 /datum/outfit/job/janitor
@@ -509,9 +531,26 @@
 	)
 	outfit = /datum/outfit/job/librarian
 	skill_levels = list(
+		/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/bows = SKILL_LEVEL_BEGINNER,
+		/datum/skill/engineering/building = SKILL_LEVEL_BEGINNER,
+		/datum/skill/engineering/electrician = SKILL_LEVEL_BEGINNER,
+		/datum/skill/engineering/atmos = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/carrying = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/mech_drive = SKILL_LEVEL_BEGINNER,
 		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
-		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/mixing = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/cooking = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/genetic = SKILL_LEVEL_BEGINNER,
+		/datum/skill/medical/virusology = SKILL_LEVEL_BEGINNER,
+		/datum/skill/research/research = SKILL_LEVEL_BEGINNER,
+		/datum/skill/research/mech_construct = SKILL_LEVEL_BEGINNER,
+		/datum/skill/research/xenobiology = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/botany = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BASIC,
+		/datum/skill/service/mining = SKILL_LEVEL_BEGINNER,
 	)
 
 /datum/outfit/job/librarian
@@ -544,11 +583,12 @@
 	)
 	outfit = /datum/outfit/job/chaplain
 	skill_levels = list(
-		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/carrying = SKILL_LEVEL_BEGINNER,
-		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
+		/datum/skill/combat/melee = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/general/carrying = SKILL_LEVEL_BASIC,
+		/datum/skill/general/cooking = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
+		/datum/skill/service/botany = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BASIC,
 	)
 
 /datum/outfit/job/chaplain
@@ -629,6 +669,16 @@
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
 	outfit = /datum/outfit/job/explorer
 	hidden_from_job_prefs = TRUE
+	skill_levels = list(
+		/datum/skill/combat/guns = SKILL_LEVEL_ADVANCED,
+		/datum/skill/engineering/electrician = SKILL_LEVEL_BASIC,
+		/datum/skill/general/carrying = SKILL_LEVEL_BASIC,
+		/datum/skill/general/mod_use = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/general/cooking = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/mining = SKILL_LEVEL_ADVANCED,
+	)
 
 /datum/outfit/job/explorer
 	// This outfit is never used, because there are no slots for this job.

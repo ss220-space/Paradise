@@ -11,6 +11,14 @@
 	announce_job = FALSE
 	hidden_from_job_prefs = TRUE
 	admin_only = TRUE
+	skill_levels = list(
+		/datum/skill/general/carrying = SKILL_LEVEL_BASIC,
+		/datum/skill/general/mech_drive = SKILL_LEVEL_BASIC,
+		/datum/skill/general/mod_use = SKILL_LEVEL_BASIC,
+		/datum/skill/combat/guns = SKILL_LEVEL_BASIC,
+		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
+	)
 
 /datum/job/civilian/team1/get_access()
 	return get_all_accesses()
@@ -45,6 +53,14 @@
 	announce_job = FALSE
 	hidden_from_job_prefs = TRUE
 	admin_only = TRUE
+	skill_levels = list(
+		/datum/skill/general/carrying = SKILL_LEVEL_BASIC,
+		/datum/skill/general/mech_drive = SKILL_LEVEL_BASIC,
+		/datum/skill/general/mod_use = SKILL_LEVEL_BASIC,
+		/datum/skill/combat/guns = SKILL_LEVEL_BASIC,
+		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
+	)
 
 /datum/job/civilian/team2/get_access()
 	return get_all_accesses()
@@ -70,6 +86,28 @@
 	announce_job = FALSE
 	hidden_from_job_prefs = TRUE
 	admin_only = TRUE
+	skill_levels = list(
+		/datum/skill/combat/guns = SKILL_LEVEL_ADVANCED,
+		/datum/skill/combat/melee = SKILL_LEVEL_ADVANCED,
+		/datum/skill/combat/bows = SKILL_LEVEL_ADVANCED,
+		/datum/skill/engineering/building = SKILL_LEVEL_ADVANCED,
+		/datum/skill/engineering/electrician = SKILL_LEVEL_ADVANCED,
+		/datum/skill/engineering/atmos = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/carrying = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/mech_drive = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/mod_use = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/mixing = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/cooking = SKILL_LEVEL_ADVANCED,
+		/datum/skill/medical/heal = SKILL_LEVEL_ADVANCED,
+		/datum/skill/medical/genetic = SKILL_LEVEL_ADVANCED,
+		/datum/skill/medical/virusology = SKILL_LEVEL_ADVANCED,
+		/datum/skill/research/research = SKILL_LEVEL_ADVANCED,
+		/datum/skill/research/mech_construct = SKILL_LEVEL_ADVANCED,
+		/datum/skill/research/xenobiology = SKILL_LEVEL_ADVANCED,
+		/datum/skill/service/botany = SKILL_LEVEL_ADVANCED,
+		/datum/skill/service/cleaning = SKILL_LEVEL_ADVANCED,
+		/datum/skill/service/mining = SKILL_LEVEL_ADVANCED,
+	)
 
 /datum/job/civilian/team3/get_access()
 	return get_all_accesses()

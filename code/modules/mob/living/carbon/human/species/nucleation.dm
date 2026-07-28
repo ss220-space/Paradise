@@ -62,7 +62,6 @@
 
 	max_select_skills = list(
 		/datum/skill/general/cooking = 1,
-		/datum/skill/medical/surgery = 1,
 		/datum/skill/medical/heal = 1,
 		/datum/skill/medical/genetic = 0,
 		/datum/skill/medical/virusology = 0,

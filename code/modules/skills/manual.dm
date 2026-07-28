@@ -1,5 +1,5 @@
-#define MANUAL_READ_PAGES_AMOUNT 36
-#define MANUAL_PAGE_READ_DURATION 5 SECONDS
+#define MANUAL_READ_PAGES_AMOUNT 2
+#define MANUAL_PAGE_READ_DURATION 1 SECONDS
 
 /obj/item/book/skill_manual
 	w_class = WEIGHT_CLASS_SMALL
@@ -92,7 +92,7 @@
 
 	to_chat(user, span_notice("Вы начинаете читать [declent_ru(NOMINATIVE)]..."))
 
-	while(do_after(user, 5 SECONDS, src, max_interact_count = 1))
+	while(do_after(user, MANUAL_PAGE_READ_DURATION, src, max_interact_count = 1))
 		if(!(type in user.mind.read_manuals))
 			user.mind.read_manuals[type] = 0
 		user.mind.read_manuals[type] += 1
@@ -236,11 +236,6 @@
 	var/newtype = pick(subtypesof(/obj/item/book/skill_manual/medical) - banned_books)
 	new newtype(loc)
 	return INITIALIZE_HINT_QDEL
-
-/obj/item/book/skill_manual/medical/surgery
-	manual_title = "Хирургия"
-	desc = "Руководство по хирургии и анатомии."
-	skill_type = /datum/skill/medical/surgery
 
 /obj/item/book/skill_manual/medical/heal
 	manual_title = "Лечение"

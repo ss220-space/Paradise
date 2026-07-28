@@ -199,15 +199,10 @@
 /obj/item/neurotrainer/medical
 	manual_title = "Медицинские"
 	skill_types = list(
-		/datum/skill/medical/surgery,
 		/datum/skill/medical/heal,
 		/datum/skill/medical/genetic,
 		/datum/skill/medical/virusology,
 	)
-
-/obj/item/neurotrainer/medical/surgery
-	manual_title = "Хирургия"
-	skill_types = /datum/skill/medical/surgery
 
 /obj/item/neurotrainer/medical/heal
 	manual_title = "Лечение"

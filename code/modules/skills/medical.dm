@@ -3,11 +3,11 @@
 	category = "Медицинские"
 	category_color = "#57b8f0"
 
-/datum/skill/medical/surgery
-	id = "medical.surgery"
-	name = "Хирургия"
-	desc = "Влияет на скорось и шанс провала хирургических операций."
-	duration_mod_names = list(SURGERY_DURATION_MOD)
+/datum/skill/medical/heal
+	id = "medical.heal"
+	name = "Лечение"
+	desc = "Влияет на перевязку ран (скорось и величину лечения) и хирургические операции (скорось и шанс провала)."
+	duration_mod_names = list(SURGERY_DURATION_MOD, HEAL_DURATION_MOD)
 	skills_mods = alist(
 		SURGERY_SUCCESS_MOD = alist(
 			SKILL_LEVEL_NONE = 0.5,
@@ -19,14 +19,6 @@
 			SKILL_LEVEL_LEGEND = 2,
 			SKILL_LEVEL_UNAVAILABLE = 0.001,
 		),
-	)
-
-/datum/skill/medical/heal
-	id = "medical.heal"
-	name = "Лечение"
-	desc = "Влияет на скорось и величину лечения медикаментами."
-	duration_mod_names = list(HEAL_DURATION_MOD)
-	skills_mods = alist(
 		HEAL_AMOUNT_MOD = alist(
 			SKILL_LEVEL_NONE = 0.75,
 			SKILL_LEVEL_BEGINNER = 0.9,
@@ -48,4 +40,4 @@
 /datum/skill/medical/virusology
 	id = "medical.virusology"
 	name = "Вирусология"
-	desc = "Влияет на работу с вирусами (позволяет выбирать симптомы)."
+	desc = "Влияет на работу с вирусами (позволяет выбирать симптомы с 4 уровня)."

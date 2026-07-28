@@ -38,10 +38,14 @@
 	insurance_type = INSURANCE_TYPE_DELUXE
 	paycheck = PAYCHECK_MAX
 	skill_levels = list(
+		/datum/skill/combat/guns = SKILL_LEVEL_ADVANCED,
+		/datum/skill/combat/melee = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/general/carrying = SKILL_LEVEL_BEGINNER,
 		/datum/skill/general/mech_drive = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
+		/datum/skill/general/mod_use = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
 	)
 
 /datum/job/captain/get_access()
@@ -119,8 +123,11 @@
 	outfit = /datum/outfit/job/nanotrasenrep
 	paycheck = PAYCHECK_MAX
 	skill_levels = list(
+		/datum/skill/general/carrying = SKILL_LEVEL_BEGINNER,
 		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/guns = SKILL_LEVEL_BASIC,
+		/datum/skill/general/cooking = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BASIC,
 	)
 
 /datum/outfit/job/nanotrasenrep
@@ -174,12 +181,13 @@
 	insurance_type = INSURANCE_TYPE_DELUXE
 	paycheck = PAYCHECK_COMMAND
 	skill_levels = list(
-		/datum/skill/general/carrying = SKILL_LEVEL_BASIC,
-		/datum/skill/general/mech_drive = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/guns = SKILL_LEVEL_ADVANCED,
-		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
+		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/carrying = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/mod_use = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
 	)
 
 /datum/outfit/job/blueshield
@@ -237,9 +245,11 @@
 	outfit = /datum/outfit/job/judge
 	paycheck = PAYCHECK_MAX
 	skill_levels = list(
-		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
+		/datum/skill/general/carrying = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/cooking = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BASIC,
 	)
 
 /datum/outfit/job/judge
@@ -288,7 +298,10 @@
 	insurance_type = INSURANCE_TYPE_DELUXE
 	paycheck = PAYCHECK_COMMAND
 	skill_levels = list(
-		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/carrying = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/cooking = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BASIC,
 	)
 
 /datum/outfit/job/lawyer

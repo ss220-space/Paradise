@@ -15,13 +15,18 @@
 
 /// Countf of free skill points by default
 #define BASIC_SKILL_POINTS_COUNT 5
+/// Countf of free skill points for assistant
+#define BASIC_ASSISTANT_SKILL_POINTS_COUNT 10
 /// Countf of free skill points for antags
-#define BASIC_ANTAG_SKILL_POINTS_COUNT 6
+#define BASIC_ANTAG_SKILL_POINTS_COUNT 9
 
 /// Default limit for use free skill points on single skill
 #define DEFAULT_FREE_POINTS_USE_LIMIT 2
 
+/************************
 // MARK: Engineering
+************************/
+
 /// Speed modifier for building skill
 #define BUILDING_SPEED_MOD "building_speed_mod"
 /// Negative probability modifier for electricity skill
@@ -35,15 +40,10 @@
 /// Unsafe pressure release mod
 #define UNSAFE_PRESSURE_MOD "unsafe_pressure_mod"
 
+/************************
 // MARK: Service
-/// Speed modifier for cooking skill
-#define COOKING_SPEED_MOD "cooking_speed_mod"
-/// Broke modifier for cooking skill
-#define COOKING_BROKE_MOD "cooking_broke_mod"
-/// Speed modifier for butchering
-#define BUTCHERING_SPEED_MOD "butchering_speed_mod"
-/// Chance for extra cooking count
-#define COOKING_EXTRA_COUNT_CHANCE "cooking_extra_count_chance"
+************************/
+
 /// Plant growth rate modifier for botany skill
 #define PLANT_GROWTH_RATE "plant_growth_rate"
 /// Hydroponic cultivation modifier for botany skill
@@ -59,35 +59,47 @@
 
 #define MINING_PROBS_MOD "mining_probs_mod"
 
+/***********************
 // MARK: General
-/// Speed modifier for mech driving skill
-#define MECHA_DRIVING_SPEED_MOD "mecha_driving_speed_mod"
-/// Speed modifier for climbing into mech
-#define MECHA_CLIMBING_SPEED_MOD "mecha_climbing_speed_mod"
-/// Cell charge usage modifier for mechs
-#define MECHA_CELL_USAGE_MOD "mecha_cell_usage_mod"
-/// Speed modifier for activating MOD suits
-#define MOD_ACTIVATION_SPEED_MOD "mod_activation_speed_mod"
-/// Slowdown modifier for worn space-suits/hardsuits/MOD suits
-#define SPACESUIT_SLOWDOWN_MOD "spacesuit_slowdown_mod"
-/// Spacepod battery usage modifier
-#define SPACEPOD_BATTERY_USAGE_MOD "spacepod_battery_usage_mod"
+************************/
+
 /// Grab speed modifier
 #define GRAB_SPEED_MODIFIERS "grab_speed_modifiers"
 /// Grab slowdown modifier
 #define PULL_SLOWDOWN_MODIFIERS "pull_slowdown_modifiers"
+/// Duration modifier for mech_drive
+#define MECHA_DURATION_SPEED_MOD "mecha_duration_speed_mod"
+/// Cell charge usage modifier for mechs
+#define MECHA_CELL_USAGE_MOD "mecha_cell_usage_mod"
+/// Spacepod battery usage modifier
+#define SPACEPOD_BATTERY_USAGE_MOD "spacepod_battery_usage_mod"
+/// Speed modifier for activating MOD suits
+#define MOD_ACTIVATION_SPEED_MOD "mod_activation_speed_mod"
+/// Slowdown modifier for worn space-suits/hardsuits/MOD suits
+#define SPACESUIT_SLOWDOWN_MOD "spacesuit_slowdown_mod"
+/// Dispense random size modifier for chemistry skill
+#define MIXING_DISPENSE_RAND_SIZE "mixing_dispense_rand_size"
+/// Dispense power use modifier for chemistry skill
+#define MIXING_DISPENCE_CELL_USE_MOD "mixing_dispense_cell_use_mod"
+/// Speed modifier for cooking skill
+#define COOKING_SPEED_MOD "cooking_speed_mod"
+/// Broke modifier for cooking skill
+#define COOKING_BROKE_MOD "cooking_broke_mod"
+/// Speed modifier for butchering
+#define BUTCHERING_SPEED_MOD "butchering_speed_mod"
+/// Chance for extra cooking count
+#define COOKING_EXTRA_COUNT_CHANCE "cooking_extra_count_chance"
 
+/************************
 // MARK: Combat
+************************/
+
 /// Accuracy modifier for accuracy skill
 #define ACCURACY_MOD "accuracy_mod"
 /// Spread modifier for accuracy skill
 #define SPREAD_MOD "spread_mod"
-/// Gun reload speed modifier for guns skill
-#define GUN_RELOAD_MOD "gun_reload_mod"
 /// Magazine reload speed modifier for guns skill
 #define MAGAZINE_RELOAD_MOD "magazine_reload_mod"
-/// Misfire chance modifier for guns skill
-#define MISFIRE_CHANCE "misfire_chance"
 /// Recoil modifier for guns skill
 #define RECOIL_MOD "recoil_mod"
 /// Melee weapon damage modifier for melee skill
@@ -107,7 +119,10 @@
 /// Slowdown modifier for bows skill
 #define BOW_SLOWDOWN_MOD "bow_slowdown_mod"
 
+/************************
 // MARK: Medical
+************************/
+
 /// Duration modifier for surgery skill
 #define SURGERY_DURATION_MOD "surgery_duration_mod"
 /// Success chance modifier for surgery skill
@@ -116,26 +131,26 @@
 #define HEAL_DURATION_MOD "heal_duration_mod"
 /// Amount modifier for heal skill
 #define HEAL_AMOUNT_MOD "heal_amount_mod"
-/// Dispense random size modifier for chemistry skill
-#define CHEMISTRY_DISPENSE_RAND_SIZE "chemistry_dispense_rand_size"
 /// Irradiation duration modifier for genetic skill
 #define IRRADIATION_DURATION_MOD "irradiation_duration_mod"
 
+/************************
 // MARK: Research
-/// Construction duration modifier for mech construct skill
-#define MECH_CONSTRUCT_DURATION_MOD "mech_construct_duration_mod"
-/// Mech fabricator item creation resource modifier
-#define MECH_CONSTRUCT_RESOURCE_MOD "mech_construct_resource_mod"
+************************/
 /// Protolathe item creation resource modifier
 #define PROTOLATHE_RESOURCE_MOD "protolathe_resource_mod"
 /// Research duration modifier
 #define RESEARCH_DURATION_MOD "research_duration_mod"
 /// Research success chance modifier
-#define RESEARCH_SUCCESS_MOD "research_success_mod"
+#define RESEARCH_SUCCESS_DECONSTRUCT_MOD "research_success_deconstruct_mod"
 /// Research additional print chance
 #define RESEARCH_ADDITIONAL_CHANCE "research_additional_chance"
 /// How much additional will be printed?
 #define RESEARCH_ADDITIONAL_PRINT "research_additional_print"
+/// Construction duration modifier for mech construct skill
+#define MECH_CONSTRUCT_DURATION_MOD "mech_construct_duration_mod"
+/// Mech fabricator item creation resource modifier
+#define MECH_CONSTRUCT_RESOURCE_MOD "mech_construct_resource_mod"
 /// Grind duration modifier for xenobio skill
 #define XENOBIO_DURATION_MOD "xenobio_duration_mod"
 /// Slime core chance to addtional loot

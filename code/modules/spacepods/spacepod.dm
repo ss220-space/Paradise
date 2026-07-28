@@ -512,8 +512,9 @@
 	if(!welder.tool_use_check(user, 0))
 		return
 	WELDER_ATTEMPT_REPAIR_MESSAGE
+	CALCULATE_SKILL_MOD(user, MECH_CONSTRUCT_DURATION_MOD, skill_mod)
 	while(health < initial(health))
-		if(!welder.use_tool(src, user, 20, volume = welder.tool_volume))
+		if(!welder.use_tool(src, user, (2 * skill_mod) SECONDS, volume = welder.tool_volume))
 			break
 
 		repair_damage(10)
@@ -878,7 +879,7 @@
 
 	if(length(passengers) <= max_passengers)
 		visible_message(span_notice("[user] начинает забираться в [declent_ru(ACCUSATIVE)]."))
-		CALCULATE_SKILL_MOD(user, MECHA_CLIMBING_SPEED_MOD, skill_factor)
+		CALCULATE_SKILL_MOD(user, MECHA_DURATION_SPEED_MOD, skill_factor)
 		if(do_after(user, 4 SECONDS * skill_factor, src))
 			if(!pilot || pilot == null)
 				pilot = user

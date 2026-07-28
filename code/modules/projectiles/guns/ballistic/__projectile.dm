@@ -262,14 +262,3 @@
 		if(AC.BB)
 			fast_fire(user, user)
 			. = TRUE
-
-/obj/item/gun/projectile/on_pre_process_fire(mob/living/user, atom/target)
-	CALCULATE_SKILL_MOD(user, MISFIRE_CHANCE, missfire_chance)
-	if(missfire_chance <= 0  || !chambered || !chambered.BB)
-		return
-	if(!prob(missfire_chance))
-		return
-
-	QDEL_NULL(chambered.BB)
-	balloon_alert(user, "осечка!")
-	playsound(src, 'sound/weapons/empty.ogg', 100, TRUE)

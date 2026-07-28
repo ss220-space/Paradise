@@ -23,14 +23,20 @@
 	)
 	outfit = /datum/outfit/job/rd
 	skill_levels = list(
+		/datum/skill/combat/guns = SKILL_LEVEL_BASIC,
+		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
+		/datum/skill/engineering/building = SKILL_LEVEL_BASIC,
+		/datum/skill/general/carrying = SKILL_LEVEL_BEGINNER,
 		/datum/skill/general/mech_drive = SKILL_LEVEL_ADVANCED,
-		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
-		/datum/skill/medical/genetic = SKILL_LEVEL_BASIC,
+		/datum/skill/general/mod_use = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/mixing = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+		/datum/skill/medical/heal = SKILL_LEVEL_ADVANCED,
+		/datum/skill/medical/genetic = SKILL_LEVEL_ADVANCED,
 		/datum/skill/research/research = SKILL_LEVEL_PROFESSIONAL,
 		/datum/skill/research/mech_construct = SKILL_LEVEL_PROFESSIONAL,
 		/datum/skill/research/xenobiology = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
 	)
 
 /datum/outfit/job/rd
@@ -70,6 +76,17 @@
 	required_objectives = list(
 		/datum/job_objective/further_research,
 	)
+	skill_levels = list(
+		/datum/skill/engineering/building = SKILL_LEVEL_BASIC,
+		/datum/skill/general/carrying = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/mixing = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+		/datum/skill/medical/heal = SKILL_LEVEL_ADVANCED,
+		/datum/skill/research/research = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/research/mech_construct = SKILL_LEVEL_ADVANCED,
+		/datum/skill/research/xenobiology = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
+	)
 
 /datum/job/science/scientist
 	title = JOB_TITLE_SCIENTIST
@@ -86,35 +103,6 @@
 		ALT_JOB_TITLE_RU_CHEMICAL_RESEARCHER,
 	)
 	outfit = /datum/outfit/job/scientist
-	skill_levels = list(
-		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
-		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
-		/datum/skill/medical/genetic = SKILL_LEVEL_BEGINNER,
-		/datum/skill/research/research = SKILL_LEVEL_ADVANCED,
-		/datum/skill/research/mech_construct = SKILL_LEVEL_BEGINNER,
-		/datum/skill/research/xenobiology = SKILL_LEVEL_BEGINNER,
-	)
-	alt_skill_levels = alist(
-		ALT_JOB_TITLE_RU_XENOBIOLOGIST = list(
-			/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
-			/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
-			/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
-			/datum/skill/medical/genetic = SKILL_LEVEL_BEGINNER,
-			/datum/skill/research/research = SKILL_LEVEL_BEGINNER,
-			/datum/skill/research/mech_construct = SKILL_LEVEL_BEGINNER,
-			/datum/skill/research/xenobiology = SKILL_LEVEL_ADVANCED,
-		),
-		ALT_JOB_TITLE_RU_PLASMOLOGIST = list(
-			/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
-			/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
-			/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
-			/datum/skill/engineering/atmos = SKILL_LEVEL_BASIC,
-			/datum/skill/research/research = SKILL_LEVEL_BEGINNER,
-			/datum/skill/research/mech_construct = SKILL_LEVEL_BEGINNER,
-			/datum/skill/research/xenobiology = SKILL_LEVEL_BEGINNER,
-		)
-	)
 
 /datum/outfit/job/scientist
 	name = JOB_TITLE_RU_SCIENTIST
@@ -148,14 +136,6 @@
 	is_novice = TRUE
 	outfit = /datum/outfit/job/scientist/student
 	paycheck = PAYCHECK_LOWER
-	skill_levels = list(
-		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
-		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
-		/datum/skill/research/research = SKILL_LEVEL_BEGINNER,
-		/datum/skill/research/mech_construct = SKILL_LEVEL_BEGINNER,
-		/datum/skill/research/xenobiology = SKILL_LEVEL_BEGINNER,
-	)
 
 /datum/outfit/job/scientist/student
 	name = JOB_TITLE_RU_SCIENCE_STUDENT
@@ -188,14 +168,16 @@
 	)
 	outfit = /datum/outfit/job/roboticist
 	skill_levels = list(
-		/datum/skill/general/mech_drive = SKILL_LEVEL_ADVANCED,
-		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/engineering/building = SKILL_LEVEL_BASIC,
+		/datum/skill/engineering/electrician = SKILL_LEVEL_BASIC,
+		/datum/skill/general/carrying = SKILL_LEVEL_BASIC,
+		/datum/skill/general/mech_drive = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/general/mod_use = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/general/cooking = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/heal = SKILL_LEVEL_ADVANCED,
+		/datum/skill/research/research = SKILL_LEVEL_ADVANCED,
+		/datum/skill/research/mech_construct = SKILL_LEVEL_PROFESSIONAL,
 		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
-		/datum/skill/medical/surgery = SKILL_LEVEL_BEGINNER,
-		/datum/skill/research/research = SKILL_LEVEL_BEGINNER,
-		/datum/skill/research/mech_construct = SKILL_LEVEL_ADVANCED,
-		/datum/skill/research/xenobiology = SKILL_LEVEL_BEGINNER,
 	)
 
 /datum/outfit/job/roboticist
@@ -220,12 +202,17 @@
 	minimal_access = list(ACCESS_RESEARCH, ACCESS_EMERGENCY_STORAGE, ACCESS_MECHANIC, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MINERAL_STOREROOM)
 	outfit = /datum/outfit/job/mechanic
 	skill_levels = list(
-		/datum/skill/general/mech_drive = SKILL_LEVEL_BASIC,
-		/datum/skill/general/mod_use = SKILL_LEVEL_BASIC,
+		/datum/skill/combat/guns = SKILL_LEVEL_BASIC,
+		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
+		/datum/skill/engineering/building = SKILL_LEVEL_BASIC,
+		/datum/skill/general/carrying = SKILL_LEVEL_BASIC,
+		/datum/skill/general/mech_drive = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/mod_use = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/cooking = SKILL_LEVEL_BASIC,
+		/datum/skill/research/research = SKILL_LEVEL_BEGINNER,
+		/datum/skill/research/mech_construct = SKILL_LEVEL_PROFESSIONAL,
 		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
-		/datum/skill/engineering/electrician = SKILL_LEVEL_BEGINNER,
-		/datum/skill/research/mech_construct = SKILL_LEVEL_BASIC,
+		/datum/skill/service/mining = SKILL_LEVEL_BASIC,
 	)
 
 /datum/outfit/job/mechanic

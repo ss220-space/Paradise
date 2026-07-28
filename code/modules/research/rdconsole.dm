@@ -389,17 +389,17 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(!linked_destroy || !temp_tech)
 		return
 
-	CALCULATE_SKILL_MOD(user, RESEARCH_SUCCESS_MOD, skill_chance_mod)
+	CALCULATE_SKILL_MOD(user, RESEARCH_SUCCESS_DECONSTRUCT_MOD, skill_chance_mod)
 	var/success = prob(100 * skill_chance_mod)
 	if(!linked_destroy.hacked)
 		if(!linked_destroy.loaded_item)
 			to_chat(usr, span_danger("[DECLENT_RU_CAP(linked_destroy, NOMINATIVE)] пуст!"))
 		else if(success)
 			var/tech_log
-			for(var/T in temp_tech)
-				var/new_level = files.UpdateTech(T, temp_tech[T])
+			for(var/tech in temp_tech)
+				var/new_level = files.UpdateTech(tech, temp_tech[tech])
 				if(new_level)
-					tech_log += "[T] [new_level], "
+					tech_log += "[tech] [new_level], "
 			if(tech_log)
 				investigate_log("[user] increased tech deconstructing [linked_destroy.loaded_item]: [tech_log]. ", INVESTIGATE_RESEARCH)
 		else // item destroyed, but tech level not increase if skill check failed
@@ -408,18 +408,18 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		send_mats()
 		linked_destroy.loaded_item = null
 
-	for(var/obj/I in linked_destroy.contents)
-		for(var/mob/M in I.contents)
-			M.death()
-		if(istype(I, /obj/item/stack/sheet))//Only deconstructs one sheet at a time instead of the entire stack
-			var/obj/item/stack/sheet/S = I
-			if(S.amount > 1)
-				S.amount--
-				linked_destroy.loaded_item = S
+	for(var/obj/item in linked_destroy.contents)
+		for(var/mob/mob in item.contents)
+			mob.death()
+		if(istype(item, /obj/item/stack/sheet))//Only deconstructs one sheet at a time instead of the entire stack
+			var/obj/item/stack/sheet/sheet = item
+			if(sheet.amount > 1)
+				sheet.amount--
+				linked_destroy.loaded_item = sheet
 			else
-				qdel(S)
-		else if(!(I in linked_destroy.component_parts))
-			qdel(I)
+				qdel(sheet)
+		else if(!(item in linked_destroy.component_parts))
+			qdel(item)
 
 	linked_destroy.loaded_item = null
 	linked_destroy.busy = FALSE
@@ -471,18 +471,12 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	var/max_amount = is_lathe ? 10 : 1
 	amount = max(1, min(max_amount, amount))
-
-	CALCULATE_SKILL_MOD(usr, RESEARCH_ADDITIONAL_CHANCE, skill_additional_chance)
-	if(prob(skill_additional_chance))
-		CALCULATE_SKILL_MOD(usr, RESEARCH_ADDITIONAL_PRINT, skill_additional_print)
-		amount += skill_additional_print
-
 	var/power = BUILD_POWER
 	for(var/M in being_built.materials)
 		power += round(being_built.materials[M] * amount / 5)
 	power = max(BUILD_POWER, power)
 
-	CALCULATE_SKILL_MOD(usr, RESEARCH_SUCCESS_MOD, skill_duration_mod)
+	CALCULATE_SKILL_MOD(usr, RESEARCH_DURATION_MOD, skill_duration_mod)
 	// goes down (1 -> 0.4) with upgrades
 	var/coeff = machine.efficiency_coeff
 
@@ -490,7 +484,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(is_imprinter)
 		time_to_construct = IMPRINTER_DELAY * amount * skill_duration_mod
 	else
-		time_to_construct = PROTOLATHE_CONSTRUCT_DELAY * coeff * skill_duration_mod * being_built.lathe_time_factor * amount ** 0.8
+		time_to_construct = PROTOLATHE_CONSTRUCT_DELAY * coeff * skill_duration_mod * being_built.lathe_time_factor * amount
 
 	if(is_lathe)
 		add_wait_message("Печать объекта. Ожидайте...", time_to_construct)
@@ -515,15 +509,15 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		balloon_alert_to_viewers("недостаточно материала для печати!")
 		enough_materials = FALSE
 	else
-		for(var/R in being_built.reagents_list)
-			if(!machine.reagents.has_reagent(R, being_built.reagents_list[R]) * coeff)
+		for(var/reagent in being_built.reagents_list)
+			if(!machine.reagents.has_reagent(reagent, being_built.reagents_list[reagent]) * coeff)
 				balloon_alert_to_viewers("недостаточно реагентов для печати!")
 				enough_materials = FALSE
 
 	if(enough_materials)
 		machine.materials.use_amount(efficient_mats, amount)
-		for(var/R in being_built.reagents_list)
-			machine.reagents.remove_reagent(R, being_built.reagents_list[R] * coeff)
+		for(var/reagent in being_built.reagents_list)
+			machine.reagents.remove_reagent(reagent, being_built.reagents_list[reagent] * coeff)
 
 	addtimer(CALLBACK(src, PROC_REF(finish_machine), usr, amount, enough_materials, machine, being_built, coeff), time_to_construct)
 
@@ -537,6 +531,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /obj/machinery/computer/rdconsole/proc/finish_machine(mob/user, amount, enough_materials, obj/machinery/r_n_d/machine, datum/design/being_built, coeff)
 	if(machine)
+		CALCULATE_SKILL_MOD(user, RESEARCH_ADDITIONAL_CHANCE, skill_additional_chance)
+		if(prob(skill_additional_chance))
+			CALCULATE_SKILL_MOD(user, RESEARCH_ADDITIONAL_PRINT, skill_additional_print)
+			amount += skill_additional_print
+
 		if(enough_materials && being_built)
 			investigate_log("[key_name_log(user)] built [amount] of [being_built.build_path] via [machine].", INVESTIGATE_RESEARCH)
 
@@ -569,8 +568,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					lockbox.w_class = real_item.w_class > lockbox.w_class ? real_item.w_class : lockbox.w_class
 
 					var/list/lockbox_access
-					for(var/A in lockbox.req_access)
-						lockbox_access += "[get_access_desc(A)] "
+					for(var/access in lockbox.req_access)
+						lockbox_access += "[get_access_desc(access)] "
 					lockbox.desc = "Металлический контейнер с электронным замком. Требуемый уровень доступа — \"[lockbox_access]\"."
 				else
 					new_item.loc = machine.loc

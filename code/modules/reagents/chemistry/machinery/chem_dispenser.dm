@@ -1,5 +1,7 @@
 #define UPDATE_TYPE_HACK 1
 #define UPDATE_TYPE_COMPONENTS 2
+// (matter bin raiting + second matter bin raiting) / this mod * 0.1 = 200 for t1 bin OR 50 for t4 bin (if this mod = 4)
+#define DISPENSER_ENERGY_PER_UNIT_MOD 4
 
 /obj/machinery/chem_dispenser
 	name = "chem dispenser"
@@ -126,18 +128,20 @@
 
 /obj/machinery/chem_dispenser/RefreshParts()
 	recharge_amount = initial(recharge_amount)
-	var/newpowereff = 0.0666666
-	for(var/obj/item/stock_parts/cell/P in component_parts)
-		cell = P
-	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
-		newpowereff += 0.0166666666 * M.rating
-	for(var/obj/item/stock_parts/capacitor/C in component_parts)
-		recharge_amount *= C.rating
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		if(M.rating > 3)
+	var/newpowereff = 0
+
+	for(var/obj/item/stock_parts/cell/power in component_parts)
+		cell = power
+	for(var/obj/item/stock_parts/matter_bin/matter in component_parts)
+		newpowereff += matter.rating / DISPENSER_ENERGY_PER_UNIT_MOD
+	for(var/obj/item/stock_parts/capacitor/capacitor in component_parts)
+		recharge_amount *= capacitor.rating
+	for(var/obj/item/stock_parts/manipulator/manipulator in component_parts)
+		if(manipulator.rating > 3)
 			componentscheck = TRUE
 			update_reagents(UPDATE_TYPE_COMPONENTS)
-	powerefficiency = round(newpowereff, 0.01)
+
+	powerefficiency = round(initial(powerefficiency) * newpowereff, 0.01)
 
 /obj/machinery/chem_dispenser/Destroy()
 	QDEL_NULL(beaker)
@@ -149,7 +153,7 @@
 	if(panel_open)
 		. += span_notice("Панель техобслуживания открыта.")
 	if(in_range(user, src) || isobserver(user))
-		. += span_notice("<br>Монитор состояния сообщает: скорость зарядки - <b>[recharge_amount]</b> единиц[DECL_SEC_MIN(recharge_amount)] энергии за единицу времени.<br>Энергоэффективность увеличена на <b>[round((powerefficiency * 1000) - 100, 1)]%</b>")
+		. += span_notice("<br>Монитор состояния сообщает: скорость зарядки - <b>[recharge_amount]</b> единиц[DECL_SEC_MIN(recharge_amount)] энергии за единицу времени.<br>Потребление энергии за единицу <b>[powerefficiency]</b>")
 
 /obj/machinery/chem_dispenser/process()
 	if(recharge_counter >= 4)
@@ -184,8 +188,8 @@
 	var/list/data = list()
 	data["glass"] = is_drink
 	data["amount"] = amount
-	data["energy"] = cell.charge ? cell.charge * powerefficiency : "0" //To prevent NaN in the UI.
-	data["maxEnergy"] = cell.maxcharge * powerefficiency
+	data["energy"] = cell.charge ? cell.charge : "0" //To prevent NaN in the UI.
+	data["maxEnergy"] = cell.maxcharge
 	data["isBeakerLoaded"] = beaker ? 1 : 0
 
 	var/beakerContents[0]
@@ -228,26 +232,29 @@
 				return
 			if(!beaker || !dispensable_reagents.Find(params["reagent"]))
 				return
-			var/datum/reagents/R = beaker.reagents
-			var/free = R.maximum_volume - R.total_volume
-			var/actual = min(amount, (cell.charge * powerefficiency) * 10, free)
-			if(!cell.use(actual / powerefficiency))
+			var/datum/reagents/reagent = beaker.reagents
+			var/free = reagent.maximum_volume - reagent.total_volume
+			CALCULATE_SKILL_MOD(usr, MIXING_DISPENCE_CELL_USE_MOD, dispense_power_mod)
+			var/actual = min(amount, (cell.charge * (powerefficiency + dispense_power_mod)) * 10, free)
+			if(!cell.use(actual / (powerefficiency + dispense_power_mod)))
 				atom_say("Недостаточно энергии для завершения операции!")
 				return
-			R.add_reagent(params["reagent"], actual)
+			CALCULATE_SKILL_MOD(usr, MIXING_DISPENSE_RAND_SIZE, dispense_rand_size)
+			actual += min(amount * dispense_rand_size * (rand(0, 1) * dispense_rand_size), free) // assistants gets free drinks, but can evaporate energy in seconds
+			reagent.add_reagent(params["reagent"], actual)
 			update_icon(UPDATE_OVERLAYS)
 		if("remove")
 			var/amount = text2num(params["amount"])
 			if(!beaker || !amount)
 				return
-			var/datum/reagents/R = beaker.reagents
+			var/datum/reagents/reagent = beaker.reagents
 			var/id = params["reagent"]
 			if(amount > 0)
-				R.remove_reagent(id, amount)
+				reagent.remove_reagent(id, amount)
 			else if(amount == -1) //Isolate instead
-				R.isolate_reagent(id)
+				reagent.isolate_reagent(id)
 			else if(amount == -2) //Round to lesser number (a.k.a 14.61 -> 14)
-				R.floor_reagent(id)
+				reagent.floor_reagent(id)
 		if("ejectBeaker")
 			if(!beaker)
 				return
@@ -806,3 +813,4 @@
 
 #undef UPDATE_TYPE_HACK
 #undef UPDATE_TYPE_COMPONENTS
+#undef DISPENSER_ENERGY_PER_UNIT_MOD

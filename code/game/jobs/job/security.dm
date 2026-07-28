@@ -24,11 +24,14 @@
 	outfit = /datum/outfit/job/hos
 	min_age_type = JOB_MIN_AGE_COMMAND
 	skill_levels = list(
-		/datum/skill/general/mech_drive = SKILL_LEVEL_BASIC,
-		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/guns = SKILL_LEVEL_PROFESSIONAL,
-		/datum/skill/combat/melee = SKILL_LEVEL_PROFESSIONAL,
-		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/melee = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/carrying = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/mech_drive = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/mod_use = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
 	)
 
 /datum/outfit/job/hos
@@ -78,6 +81,16 @@
 	disabilities_allowed_slightly = 0
 	insurance_type = INSURANCE_TYPE_DELUXE
 	paycheck = PAYCHECK_CREW
+	skill_levels = list(
+		/datum/skill/combat/guns = SKILL_LEVEL_ADVANCED,
+		/datum/skill/combat/melee = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/carrying = SKILL_LEVEL_BASIC,
+		/datum/skill/general/mech_drive = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/mod_use = SKILL_LEVEL_BASIC,
+		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
+	)
 
 /datum/job/security/warden
 	title = JOB_TITLE_WARDEN
@@ -95,13 +108,14 @@
 	exp_requirements = 2100
 	outfit = /datum/outfit/job/warden
 	skill_levels = list(
-		/datum/skill/general/mech_drive = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
-		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/guns = SKILL_LEVEL_ADVANCED,
-		/datum/skill/combat/melee = SKILL_LEVEL_ADVANCED,
-		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/melee = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/general/carrying = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/mech_drive = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/mod_use = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
 	)
 
 /datum/outfit/job/warden
@@ -149,11 +163,13 @@
 	blocked_race_for_job = list(SPECIES_VOX)
 	outfit = /datum/outfit/job/detective
 	skill_levels = list(
-		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
-		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/guns = SKILL_LEVEL_BASIC,
-		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
+		/datum/skill/general/carrying = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/cooking = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BASIC,
 	)
 
 /datum/outfit/job/detective
@@ -211,22 +227,6 @@
 		ALT_JOB_TITLE_RU_PATROL_OFFICER, ALT_JOB_TITLE_RU_SECURITY_CADET,
 	)
 	outfit = /datum/outfit/job/officer
-	skill_levels = list(
-		/datum/skill/general/mech_drive = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
-		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/guns = SKILL_LEVEL_BASIC,
-		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
-		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
-	)
-	alt_skill_levels = alist(
-		ALT_JOB_TITLE_RU_SECURITY_CADET = list(
-			/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
-			/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
-			/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
-		),
-	)
 
 /datum/outfit/job/officer
 	name = JOB_TITLE_RU_OFFICER
@@ -278,12 +278,15 @@
 	exp_type = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/brigdoc
 	skill_levels = list(
-		/datum/skill/general/carrying = SKILL_LEVEL_BASIC,
-		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
-		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
-		/datum/skill/medical/surgery = SKILL_LEVEL_BASIC,
-		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
+		/datum/skill/general/carrying = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/mech_drive = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/mod_use = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/mixing = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/cooking = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/heal = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/medical/genetic = SKILL_LEVEL_BEGINNER,
+		/datum/skill/medical/virusology = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BASIC,
 	)
 
 /datum/outfit/job/brigdoc
@@ -319,13 +322,16 @@
 	law_level = LAW_LEVEL_SEC
 	outfit = /datum/outfit/job/pilot
 	skill_levels = list(
+		/datum/skill/combat/guns = SKILL_LEVEL_ADVANCED,
+		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
+		/datum/skill/engineering/building = SKILL_LEVEL_BASIC,
+		/datum/skill/engineering/electrician = SKILL_LEVEL_BASIC,
+		/datum/skill/general/carrying = SKILL_LEVEL_BASIC,
 		/datum/skill/general/mech_drive = SKILL_LEVEL_ADVANCED,
-		/datum/skill/general/mod_use = SKILL_LEVEL_ADVANCED,
-		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/guns = SKILL_LEVEL_BASIC,
-		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
-		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/mod_use = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
+		/datum/skill/research/mech_construct = SKILL_LEVEL_BASIC,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BASIC,
 	)
 
 /datum/outfit/job/pilot

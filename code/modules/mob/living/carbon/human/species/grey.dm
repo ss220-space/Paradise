@@ -65,7 +65,6 @@
 		/datum/skill/general/mech_drive = 3,
 		/datum/skill/service/cleaning = 1,
 		/datum/skill/combat/melee = 1,
-		/datum/skill/medical/surgery = 3,
 		/datum/skill/medical/heal = 3,
 		/datum/skill/research/mech_construct = 3,
 	)
