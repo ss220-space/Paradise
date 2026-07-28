@@ -27,10 +27,10 @@
 	desc = "Влияет на скорость и шанс успеха при работе с протолатом."
 	duration_mod_names = list(PROTOLATHE_DURATION_MOD)
 
-/datum/skill/research/mech_construct
-	id = "research.mech_construct"
-	name = "Конструирование мехов"
-	desc = "Влияет на скорость постройки мехов и печати их запчастей."
+/datum/skill/research/robotics
+	id = "research.robotics"
+	name = "Робототехника"
+	desc = "Влияет на скорость постройки мехов и печати их запчастей, а так же на работу с проводами роботов и киборгов."
 	duration_mod_names = list(MECH_CONSTRUCT_DURATION_MOD, PROTOLATHE_RESOURCE_MOD)
 
 /datum/skill/research/xenobiology

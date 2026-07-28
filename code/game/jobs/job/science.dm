@@ -32,7 +32,7 @@
 		/datum/skill/medical/genetic = SKILL_LEVEL_BASIC,
 		/datum/skill/research/research = SKILL_LEVEL_PROFESSIONAL,
 		/datum/skill/research/protolathe = SKILL_LEVEL_PROFESSIONAL,
-		/datum/skill/research/mech_construct = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/research/robotics = SKILL_LEVEL_PROFESSIONAL,
 		/datum/skill/research/xenobiology = SKILL_LEVEL_PROFESSIONAL,
 	)
 
@@ -98,7 +98,7 @@
 		/datum/skill/medical/genetic = SKILL_LEVEL_BEGINNER,
 		/datum/skill/research/research = SKILL_LEVEL_ADVANCED,
 		/datum/skill/research/protolathe = SKILL_LEVEL_ADVANCED,
-		/datum/skill/research/mech_construct = SKILL_LEVEL_BEGINNER,
+		/datum/skill/research/robotics = SKILL_LEVEL_BEGINNER,
 		/datum/skill/research/xenobiology = SKILL_LEVEL_BEGINNER,
 	)
 	alt_skill_levels = alist(
@@ -110,7 +110,7 @@
 			/datum/skill/medical/genetic = SKILL_LEVEL_BEGINNER,
 			/datum/skill/research/research = SKILL_LEVEL_BEGINNER,
 			/datum/skill/research/protolathe = SKILL_LEVEL_BEGINNER,
-			/datum/skill/research/mech_construct = SKILL_LEVEL_BEGINNER,
+			/datum/skill/research/robotics = SKILL_LEVEL_BEGINNER,
 			/datum/skill/research/xenobiology = SKILL_LEVEL_ADVANCED,
 		),
 		ALT_JOB_TITLE_RU_PLASMOLOGIST = list(
@@ -121,7 +121,17 @@
 			/datum/skill/medical/chemistry = SKILL_LEVEL_BASIC,
 			/datum/skill/research/research = SKILL_LEVEL_BEGINNER,
 			/datum/skill/research/protolathe = SKILL_LEVEL_BEGINNER,
-			/datum/skill/research/mech_construct = SKILL_LEVEL_BEGINNER,
+			/datum/skill/research/robotics = SKILL_LEVEL_BEGINNER,
+			/datum/skill/research/xenobiology = SKILL_LEVEL_BEGINNER,
+		),
+		ALT_JOB_TITLE_RU_CHEMICAL_RESEARCHER = list(
+			/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+			/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
+			/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+			/datum/skill/medical/chemistry = SKILL_LEVEL_ADVANCED,
+			/datum/skill/research/research = SKILL_LEVEL_BEGINNER,
+			/datum/skill/research/protolathe = SKILL_LEVEL_BEGINNER,
+			/datum/skill/research/robotics = SKILL_LEVEL_BEGINNER,
 			/datum/skill/research/xenobiology = SKILL_LEVEL_BEGINNER,
 		)
 	)
@@ -164,7 +174,7 @@
 		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
 		/datum/skill/research/research = SKILL_LEVEL_BEGINNER,
 		/datum/skill/research/protolathe = SKILL_LEVEL_BEGINNER,
-		/datum/skill/research/mech_construct = SKILL_LEVEL_BEGINNER,
+		/datum/skill/research/robotics = SKILL_LEVEL_BEGINNER,
 		/datum/skill/research/xenobiology = SKILL_LEVEL_BEGINNER,
 	)
 
@@ -207,7 +217,7 @@
 		/datum/skill/medical/surgery = SKILL_LEVEL_BEGINNER,
 		/datum/skill/research/research = SKILL_LEVEL_BEGINNER,
 		/datum/skill/research/protolathe = SKILL_LEVEL_BASIC,
-		/datum/skill/research/mech_construct = SKILL_LEVEL_ADVANCED,
+		/datum/skill/research/robotics = SKILL_LEVEL_ADVANCED,
 		/datum/skill/research/xenobiology = SKILL_LEVEL_BEGINNER,
 	)
 
@@ -240,7 +250,7 @@
 		/datum/skill/engineering/construction = SKILL_LEVEL_BASIC,
 		/datum/skill/engineering/electrician = SKILL_LEVEL_BEGINNER,
 		/datum/skill/research/protolathe = SKILL_LEVEL_BEGINNER,
-		/datum/skill/research/mech_construct = SKILL_LEVEL_BASIC,
+		/datum/skill/research/robotics = SKILL_LEVEL_BASIC,
 	)
 
 /datum/outfit/job/mechanic

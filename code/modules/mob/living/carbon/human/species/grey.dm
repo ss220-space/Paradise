@@ -69,7 +69,7 @@
 		/datum/skill/combat/fists = 1,
 		/datum/skill/medical/surgery = 3,
 		/datum/skill/medical/heal = 3,
-		/datum/skill/research/mech_construct = 3,
+		/datum/skill/research/robotics = 3,
 	)
 
 /datum/species/grey/on_species_gain(mob/living/carbon/human/H)
