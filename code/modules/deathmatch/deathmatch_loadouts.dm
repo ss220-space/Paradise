@@ -486,14 +486,14 @@
 /datum/outfit/deathmatch_loadout/wizard/chaos
 	name = "Deathmatch: Chaos Wizard"
 	display_name = "Волшебник (школа хаоса)"
-	desc = "Посох хаоса и форма стержня. Да начнется веселье!"
+	desc = "Посох хаоса и остановка времени. Да начнется веселье!"
 
 	l_hand = /obj/item/gun/magic/staff/chaos/lesser_chaos
 	suit = /obj/item/clothing/suit/wizrobe/visionmage
 	head = /obj/item/clothing/head/wizard/visionmage
 
 	spells_to_add = list(
-		/obj/effect/proc_holder/spell/rod_form,
+		/obj/effect/proc_holder/spell/aoe/conjure/timestop,
 		/obj/effect/proc_holder/spell/summonitem,
 	)
 
