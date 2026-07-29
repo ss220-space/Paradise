@@ -24,10 +24,10 @@
 	else
 		user.set_species(/datum/species/human)
 	// TODO: rewrite it for datum/action/cooldown when it's ported
-	for(var/obj/effect/proc_holder/spell/aspell as anything in spells_to_add)
-		var/obj/effect/proc_holder/spell/our_spell = new aspell(user)
-		our_spell.clothes_req = FALSE
-		user.AddSpell(our_spell)
+	for(var/aspell as anything in spells_to_add)
+		var/datum/action/cooldown/spell/our_spell = new aspell
+		our_spell.spell_requirements = NONE
+		our_spell.Grant(user)
 
 /datum/outfit/deathmatch_loadout/post_equip(mob/living/carbon/human/our_human, visualsOnly)
 	..()
@@ -385,9 +385,9 @@
 	)
 
 	spells_to_add = list(
-		/obj/effect/proc_holder/spell/projectile/magic_missile,
-		/obj/effect/proc_holder/spell/forcewall,
-		/obj/effect/proc_holder/spell/fireball,
+		/datum/action/cooldown/spell/aoe/magic_missile,
+		/datum/action/cooldown/spell/forcewall,
+		/datum/action/cooldown/spell/pointed/projectile/fireball,
 	)
 
 	loadout_type = LOADOUT_WIZARD
@@ -400,9 +400,9 @@
 	suit = /obj/item/clothing/suit/victcoat/red/suit/fire_robe
 	head = /obj/item/clothing/head/wizard/red
 	spells_to_add = list(
-		/obj/effect/proc_holder/spell/smoke,
-		/obj/effect/proc_holder/spell/fireball,
-		/obj/effect/proc_holder/spell/sacred_flame,
+		/datum/action/cooldown/spell/smoke,
+		/datum/action/cooldown/spell/pointed/projectile/fireball,
+		/datum/action/cooldown/spell/aoe/sacred_flame,
 	)
 
 /datum/outfit/deathmatch_loadout/wizard/electro
@@ -413,9 +413,9 @@
 	suit = /obj/item/clothing/suit/wizrobe/magusred
 	head = /obj/item/clothing/head/wizard/magus
 	spells_to_add = list(
-		/obj/effect/proc_holder/spell/charge_up/bounce/lightning,
-		/obj/effect/proc_holder/spell/aoe/repulse,
-		/obj/effect/proc_holder/spell/forcewall/greater,
+		/datum/action/cooldown/spell/charged/beam/tesla,
+		/datum/action/cooldown/spell/aoe/repulse,
+		/datum/action/cooldown/spell/forcewall/greater,
 	)
 
 /datum/outfit/deathmatch_loadout/wizard/lizard
@@ -430,11 +430,11 @@
 	l_hand = /obj/item/twohanded/spear/bonespear
 
 	spells_to_add = list(
-		/obj/effect/proc_holder/spell/aoe/conjure/legion_skulls,
-		/obj/effect/proc_holder/spell/goliath_tentacles,
-		/obj/effect/proc_holder/spell/goliath_dash,
-		/obj/effect/proc_holder/spell/watchers_look,
-		/obj/effect/proc_holder/spell/touch/healtouch/advanced,
+		/datum/action/cooldown/spell/conjure/legion_skulls,
+		/datum/action/cooldown/spell/pointed/goliath_tentacles,
+		/datum/action/cooldown/spell/pointed/goliath_dash,
+		/datum/action/cooldown/spell/pointed/projectile/watchers_look,
+		/datum/action/cooldown/spell/touch/healtouch,
 	)
 
 /datum/outfit/deathmatch_loadout/wizard/singulo
@@ -447,10 +447,10 @@
 	l_hand = /obj/item/twohanded/singularityhammer
 
 	spells_to_add = list(
-		/obj/effect/proc_holder/spell/summonitem,
-		/obj/effect/proc_holder/spell/aoe/repulse,
-		/obj/effect/proc_holder/spell/touch/healtouch/advanced,
-		/obj/effect/proc_holder/spell/forcewall,
+		/datum/action/cooldown/spell/summon_item,
+		/datum/action/cooldown/spell/aoe/repulse,
+		/datum/action/cooldown/spell/touch/healtouch,
+		/datum/action/cooldown/spell/forcewall,
 	)
 
 /datum/outfit/deathmatch_loadout/wizard/battlemage
@@ -463,7 +463,7 @@
 	head = /obj/item/clothing/head/wizard/magusdefender
 
 	spells_to_add = list(
-		/obj/effect/proc_holder/spell/summonitem,
+		/datum/action/cooldown/spell/summon_item,
 	)
 
 /datum/outfit/deathmatch_loadout/wizard/gunmancer
@@ -476,8 +476,8 @@
 	head = /obj/item/clothing/head/wizard/necromage
 
 	spells_to_add = list(
-		/obj/effect/proc_holder/spell/infinite_guns,
-		/obj/effect/proc_holder/spell/summonitem,
+		/datum/action/cooldown/spell/conjure_item/infinity_guns,
+		/datum/action/cooldown/spell/summon_item,
 	)
 
 /datum/outfit/deathmatch_loadout/wizard/chaos
@@ -490,8 +490,8 @@
 	head = /obj/item/clothing/head/wizard/visionmage
 
 	spells_to_add = list(
-		/obj/effect/proc_holder/spell/aoe/conjure/timestop,
-		/obj/effect/proc_holder/spell/summonitem,
+		/datum/action/cooldown/spell/conjure/timestop,
+		/datum/action/cooldown/spell/summon_item,
 	)
 
 /datum/outfit/deathmatch_loadout/wizard/spellblade
@@ -505,7 +505,7 @@
 	l_hand = /obj/item/gun/magic/staff/spellblade
 
 	spells_to_add = list(
-		/obj/effect/proc_holder/spell/summonitem,
+		/datum/action/cooldown/spell/summon_item,
 	)
 
 // TODO:
