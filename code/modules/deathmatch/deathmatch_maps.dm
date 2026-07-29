@@ -76,9 +76,9 @@
 	desc = "Отличная арена для стрельбы из гиб-пушек"
 	max_players = 8
 	allowed_loadouts = list(
-		/datum/outfit/deathmatch_loadout/assistant/instagib,
-		/datum/outfit/deathmatch_loadout/assistant/pulse,
-		/datum/outfit/deathmatch_loadout/assistant/annihilator,
+		/datum/outfit/deathmatch_loadout/unfunny,
+		/datum/outfit/deathmatch_loadout/unfunny/pulse,
+		/datum/outfit/deathmatch_loadout/unfunny/annihilator,
 	)
 
 	map_name = "instagib"
@@ -136,15 +136,94 @@
 
 /datum/lazy_template/deathmatch/ragin_mages
 	name = "Корабль ФКВ"
-	desc = "Волшебный корабль, на котором призойдет не такая уж и волшебная резня. ВНИМАНИЕ: снаряжение магов не доделано."
+	desc = "Волшебный корабль, на котором произойдет не такая уж и волшебная резня."
 	max_players = 8
 	allowed_loadouts = list(
-		/datum/outfit/deathmatch_loadout/operative/ranged,
-		/datum/outfit/deathmatch_loadout/operative/melee,
+		/datum/outfit/deathmatch_loadout/wizard,
+		/datum/outfit/deathmatch_loadout/wizard/pyro,
+		/datum/outfit/deathmatch_loadout/wizard/electro,
+		/datum/outfit/deathmatch_loadout/wizard/lizard,
+		/datum/outfit/deathmatch_loadout/wizard/singulo,
+		/datum/outfit/deathmatch_loadout/wizard/battlemage,
+		/datum/outfit/deathmatch_loadout/wizard/gunmancer,
+		/datum/outfit/deathmatch_loadout/wizard/chaos,
+		/datum/outfit/deathmatch_loadout/wizard/spellblade,
+
 	)
 	map_name = "ragin_mages"
 	key = LAZY_TEMPLATE_KEY_DEATHMATCH_RAGIN_MAGES
 
+/datum/lazy_template/deathmatch/delta_bridge
+	name = "Мостик Кербероса"
+	desc = "Копия привычного всем мостика Дельты. Потренируйтесь в убийстве капитана."
+	max_players = 8
+	allowed_loadouts = list(
+		/datum/outfit/deathmatch_loadout/nukie,
+		/datum/outfit/deathmatch_loadout/captain,
+		/datum/outfit/deathmatch_loadout/head_of_security,
+		/datum/outfit/deathmatch_loadout/ert,
+		/datum/outfit/deathmatch_loadout/tider,
+	)
+	map_name = "delta_bridge"
+	key = LAZY_TEMPLATE_KEY_DEATHMATCH_DELTA_BRIDGE
+
+/datum/lazy_template/deathmatch/delta_brig
+	name = "Бриг Кербероса"
+	desc = "Копия привычного всем брига Дельты. Потренируйтесь в штурме и мирном убийстве всего СБ."
+	max_players = 16
+	allowed_loadouts = list(
+		/datum/outfit/deathmatch_loadout/nukie,
+		/datum/outfit/deathmatch_loadout/captain,
+		/datum/outfit/deathmatch_loadout/head_of_security,
+		/datum/outfit/deathmatch_loadout/ert,
+		/datum/outfit/deathmatch_loadout/tider,
+	)
+	map_name = "delta_brig"
+	key = LAZY_TEMPLATE_KEY_DEATHMATCH_DELTA_BRIG
+
+/datum/lazy_template/deathmatch/ragnarok
+	name = "Рагнарёк"
+	desc = "Культисты (которых еще нет) и еретики (которых еще нет) собрались выяснять, кто из них сильнее."
+	max_players = 9
+	allowed_loadouts = list(
+		/datum/outfit/deathmatch_loadout/head_of_security,
+		/datum/outfit/deathmatch_loadout/securing_sec,
+		/datum/outfit/deathmatch_loadout/assistant,
+		/datum/outfit/deathmatch_loadout/tider,
+	)
+	map_name = "ragnarok"
+	key = LAZY_TEMPLATE_KEY_DEATHMATCH_RAGNAROK
+
+/datum/lazy_template/deathmatch/secu_ring
+	name = "Офицерский ринг"
+	desc = "Небольшая арена для вашей любимой тактики — бесконечного обновления стана с помощью дизейблеров и батонов."
+	max_players = 4
+	allowed_loadouts = list(
+		/datum/outfit/deathmatch_loadout/securing_sec,
+	)
+	map_name = "secu_ring"
+	key = LAZY_TEMPLATE_KEY_DEATHMATCH_SECU_RING
+
+/datum/lazy_template/deathmatch/shooting_range
+	name = "Перестрелка"
+	desc = "Простая комната с укрытиями для кровавой перестрелки."
+	max_players = 6
+	allowed_loadouts = list(
+		/datum/outfit/deathmatch_loadout/operative/ranged,
+	)
+	map_name = "shooting_range"
+	key = LAZY_TEMPLATE_KEY_DEATHMATCH_SHOOTING_RANGE
+
+/datum/lazy_template/deathmatch/sniper_elite
+	name = "Снайперская дуэль"
+	desc = "Звуки сломанных костей и оторванных конечностей это то, ради чего я живу."
+	max_players = 8
+	allowed_loadouts = list(
+		/datum/outfit/deathmatch_loadout/operative/sniper,
+		/datum/outfit/deathmatch_loadout/nukie/sniper,
+	)
+	map_name = "sniper_elite"
+	key = LAZY_TEMPLATE_KEY_DEATHMATCH_SNIPER_ELITE
 
 // TODO:
-// 8 more maps, at least
+// 2-4 more maps, at least

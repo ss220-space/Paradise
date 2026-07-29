@@ -11,6 +11,7 @@
 	head_position = TRUE
 	insurance_type = INSURANCE_TYPE_DELUXE
 	paycheck = PAYCHECK_COMMAND
+	law_level = LAW_LEVEL_HEAD
 
 /datum/job/captain
 	title = JOB_TITLE_CAPTAIN
