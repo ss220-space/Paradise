@@ -129,4 +129,4 @@
 	..()
 	user.queen_count++
 
-#undef LIVING_PLAYERS_COUNT_FOR_1_PRAETORIAN
+#undef XENO_PLAYERS_FOR_PRAETORIAN

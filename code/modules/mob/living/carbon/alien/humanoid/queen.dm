@@ -48,9 +48,6 @@
 	. = ..()
 	SSshuttle.remove_hostile_environment(src)
 
-	var/mob/living/carbon/alien/alien = src
-	alien.queen_count--
-
 /mob/living/carbon/alien/humanoid/queen/can_inject(mob/user, error_msg, target_zone, penetrate_thick, ignore_pierceimmune)
 	return FALSE
 
