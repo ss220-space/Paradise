@@ -581,7 +581,6 @@
 				powercost = 10
 			cyborg.heal_overall_damage(repair_amount, repair_amount)
 			cyborg.cell.use(powercost)
-			return
 		else
 			cyborg.cell.use(5)
 

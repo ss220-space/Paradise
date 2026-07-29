@@ -152,7 +152,7 @@
 	)
 	for(var/upgrade_path in ert_upgrades)
 		if(locate(upgrade_path) in robot.upgrades)
-			return
+			continue
 		var/obj/item/borg/upgrade/upgrade = new upgrade_path(robot)
 		if(!robot.install_upgrade(upgrade))
 			qdel(upgrade)
@@ -553,7 +553,7 @@
 	if(isrobot(loc))
 		var/mob/living/silicon/robot/robot = loc
 		robot.weapons_unlock = initial(robot.weapons_unlock)
-	..()
+	return ..()
 
 /obj/item/robot_module/janitor
 	name = "Janitor"
