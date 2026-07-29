@@ -11,30 +11,19 @@
 	var/hacked = 0
 	var/disabled = 0
 	var/shocked = 0
-	var/list/wires = list()
-	var/hack_wire
-	var/disable_wire
-	var/shock_wire
 	var/obj/machinery/computer/rdconsole/linked_console
 	var/obj/item/loaded_item = null
 	var/datum/component/material_container/materials	//Store for hyper speed!
 	var/efficiency_coeff = 1
 	var/list/categories = list()
+	var/datum/wires/r_n_d_machine_wires
+	var/datum/wires/wires_type = /datum/wires/rnd
 
 /obj/machinery/r_n_d/Initialize(mapload)
 	. = ..()
 	materials = AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE, MAT_PLASTIC), 0, TRUE, /obj/item/stack, CALLBACK(src, PROC_REF(is_insertion_ready)), CALLBACK(src, PROC_REF(AfterMaterialInsert)))
 	materials.precise_insertion = TRUE
-	wires["Красный"] = 0
-	wires["Синий"] = 0
-	wires["Зелёный"] = 0
-	wires["Жёлтый"] = 0
-	wires["Чёрный"] = 0
-	wires["Белый"] = 0
-	var/list/w = list("Красный", "Синий", "Зелёный", "Жёлтый", "Чёрный", "Белый")
-	hack_wire = pick_n_take(w)
-	shock_wire = pick_n_take(w)
-	disable_wire = pick_n_take(w)
+	r_n_d_machine_wires = new wires_type(src)
 
 /obj/machinery/r_n_d/Destroy()
 	if(loaded_item)
@@ -42,67 +31,30 @@
 		loaded_item = null
 	linked_console = null
 	materials = null
+	QDEL_NULL(r_n_d_machine_wires)
 	return ..()
 
-/obj/machinery/r_n_d/attack_hand(mob/user as mob)
-	if(..())
-		return TRUE
-	add_fingerprint(user)
-	if(shocked)
-		shock(user,50)
+/obj/machinery/r_n_d/multitool_act(mob/living/user, obj/item/tool)
 	if(panel_open)
-		var/list/dat = list()
-		dat += "Проводка [declent_ru(GENITIVE)]:<br>"
-		for(var/wire in wires)
-			dat += "[wire] провод: <a href='byond://?src=[UID()];wire=[wire];cut=1'>[wires[wire] ? "Восстановить" : "Перекусить"]</a> <a href='byond://?src=[UID()];wire=[wire];pulse=1'>Прозвонка</a><br>"
+		r_n_d_machine_wires.Interact(user)
+		return TRUE
+	return FALSE
 
-		dat += "Красная лампочка <b>[disabled ? "не" : ""]</b> горит.<br>"
-		dat += "Зелёная лампочка <b>[shocked ? "не" : ""]</b> горит.<br>"
-		dat += "Синяя лампочка <b>[hacked ? "не" : ""]</b> горит.<br>"
-		var/datum/browser/popup = new(user, "hack_win", "Проводка [declent_ru(GENITIVE)]")
-		popup.set_content(dat.Join(""))
-		popup.open(FALSE)
-	return
+/obj/machinery/r_n_d/wirecutter_act(mob/living/user, obj/item/tool)
+	if(panel_open)
+		r_n_d_machine_wires.Interact(user)
+		return TRUE
+	return FALSE
 
-/obj/machinery/r_n_d/Topic(href, href_list)
-	if(..())
-		return
-	usr.set_machine(src)
-	add_fingerprint(usr)
-	if(href_list["pulse"])
-		var/temp_wire = href_list["wire"]
-		if(!ismultitool(usr.get_active_hand()))
-			balloon_alert(usr, "неподходящий инструмент!")
-		else
-			if(wires[temp_wire])
-				balloon_alert(usr, "провод перекусан!")
-			else
-				if(hack_wire == href_list["wire"])
-					hacked = !hacked
-					spawn(100) hacked = !hacked
-				if(disable_wire == href_list["wire"])
-					disabled = !disabled
-					shock(usr,50)
-					spawn(100) disabled = !disabled
-				if(shock_wire == href_list["wire"])
-					shocked = !shocked
-					shock(usr,50)
-					spawn(100) shocked = !shocked
-	if(href_list["cut"])
-		if(!iswirecutter(usr.get_active_hand()))
-			balloon_alert(usr, "неподходящий инструмент!")
-		else
-			var/temp_wire = href_list["wire"]
-			wires[temp_wire] = !wires[temp_wire]
-			if(hack_wire == temp_wire)
-				hacked = !hacked
-			if(disable_wire == temp_wire)
-				disabled = !disabled
-				shock(usr,50)
-			if(shock_wire == temp_wire)
-				shocked = !shocked
-				shock(usr,50)
-	updateUsrDialog()
+/obj/machinery/r_n_d/attack_hand(mob/user)
+	if(shocked)
+		shock(user, 50)
+	return ..()
+
+/obj/machinery/r_n_d/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	if(shocked)
+		shock(user, 50)
+	return ..()
 
 //whether the machine can have an item inserted in its current state.
 /obj/machinery/r_n_d/proc/is_insertion_ready(mob/user)

@@ -189,6 +189,8 @@
 				/obj/item/cane = 10,
 				/obj/item/twohanded/staff/broom = 10,
 				/obj/item/twohanded/staff = 10,
+				/obj/item/toy/balloon = 10,
+				/obj/item/toy/balloon/long = 10,
 			),
 		),
 	)

@@ -71,7 +71,7 @@
 /area/ruin/powered/animal_hospital)
 "al" = (
 /obj/structure/table/wood,
-/obj/item/toy/carpplushie,
+/obj/item/toy/plushie/carp,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
@@ -412,7 +412,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "bi" = (
-/obj/item/toy/cattoy,
+/obj/item/toy/plushie/cattoy,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "bj" = (

@@ -61,11 +61,6 @@
 /obj/machinery/door/airlock/engineering,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
-"mb" = (
-/obj/structure/table,
-/obj/item/storage/box/syringes,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "nd" = (
 /obj/structure/rack,
 /obj/item/stack/sheet/metal/fifty,
@@ -89,11 +84,6 @@
 	},
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
-"qL" = (
-/obj/structure/table,
-/obj/item/reagent_containers/dropper,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "rS" = (
 /obj/machinery/light,
 /turf/simulated/floor/mineral/titanium/purple,
@@ -104,10 +94,6 @@
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
-"ts" = (
-/obj/machinery/computer/pandemic,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "uJ" = (
 /turf/simulated/wall/indestructible/reinforced,
 /area/fastload)
@@ -220,26 +206,12 @@
 "Pd" = (
 /turf/simulated/openspace,
 /area/fastload)
-"PA" = (
-/obj/structure/table,
-/obj/item/reagent_containers/glass/beaker,
-/obj/item/reagent_containers/glass/beaker,
-/obj/item/reagent_containers/glass/beaker,
-/obj/item/reagent_containers/glass/beaker,
-/obj/item/reagent_containers/glass/beaker,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "QS" = (
 /obj/machinery/station_map/security/directional/north,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
 "RU" = (
 /obj/item/radio/intercom/directional/north,
-/obj/machinery/smartfridge/secure/chemistry/virology/preloaded,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
-"SK" = (
-/obj/machinery/computer/pandemic,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
 "Tl" = (
@@ -2686,7 +2658,7 @@ ay
 ay
 ay
 jk
-ts
+HE
 HE
 HE
 HE
@@ -2752,7 +2724,7 @@ ay
 ay
 ay
 jk
-SK
+HE
 HE
 HE
 HE
@@ -2819,9 +2791,9 @@ ay
 ay
 jk
 HE
-PA
-qL
-mb
+HE
+HE
+HE
 HE
 HE
 HE

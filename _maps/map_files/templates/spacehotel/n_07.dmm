@@ -31,7 +31,7 @@
 /obj/structure/bed,
 /obj/item/bedsheet,
 /obj/effect/decal/cleanable/blood/old,
-/obj/item/toy/carpplushie/dehy_carp,
+/obj/item/toy/plushie/carp/dehy_carp,
 /turf/simulated/floor/indestructible/carpet,
 /area/template_noop)
 "h" = (

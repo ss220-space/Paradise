@@ -108,6 +108,22 @@
 	index_name = "Spraycan Slavic"
 	path = /obj/item/toy/crayon/spraycan/paintkit/slavic
 
+/datum/gear/donor/ricehat
+	index_name = "Rice cat"
+	path = /obj/item/toy/plushie/cat/ricehat
+
+/datum/gear/donor/kotrazumist
+	index_name = "Razumist cat"
+	path = /obj/item/toy/plushie/cat/kotrazumist
+
+/datum/gear/donor/heartballoon
+	index_name = "Heart balloon"
+	path = /obj/item/toy/balloon/heart
+
+/datum/gear/donor/corgiballoon
+	index_name = "Corgi balloon"
+	path = /obj/item/toy/balloon/corgi
+
 /datum/gear/donor/id_decal_silver
 	index_name = "Silver ID Decal"
 	path = /obj/item/id_decal/silver
@@ -476,6 +492,12 @@
 	index_name = "backpack, Military Satchel"
 	path = /obj/item/storage/backpack/fluff/syndiesatchel
 
+/datum/gear/donor/backpack_shitsec
+	donator_tier = 3
+	index_name = "backpack of justice"
+	path = /obj/item/storage/backpack/justice
+	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_OFFICER, JOB_TITLE_PILOT)
+
 /datum/gear/donor/spacecloak
 	donator_tier = 3
 	index_name = "Space cloak"
@@ -520,11 +542,6 @@
 	path = /obj/item/clothing/suit/storage/hazardvest/beltdonor/atmos
 	donator_tier = 3
 	allowed_roles = list(JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ATMOSTECH)
-
-/datum/gear/donor/beaver
-	index_name = "Beaver Plushie"
-	path = /obj/item/toy/plushie/beaver
-	donator_tier = 3
 
 /datum/gear/donor/earring_NT
 	index_name = "Earrings NT"
@@ -585,11 +602,25 @@
 	index_name = "GSBussy doll"
 	path = /obj/item/toy/plushie/gsbplushie
 
-/datum/gear/donor/backpack_shitsec
+/datum/gear/donor/cmoplushie
 	donator_tier = 3
-	index_name = "backpack of justice"
-	path = /obj/item/storage/backpack/justice
-	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_OFFICER, JOB_TITLE_PILOT)
+	index_name = "CMO doll"
+	path = /obj/item/toy/plushie/cmoplushie
+
+/datum/gear/donor/glorp
+	donator_tier = 3
+	index_name = "plushie glorp"
+	path = /obj/item/toy/plushie/glorp
+
+/datum/gear/donor/beaver
+	index_name = "Beaver Plushie"
+	path = /obj/item/toy/plushie/beaver
+	donator_tier = 3
+
+/datum/gear/donor/chikaboomchik
+	index_name = "Chikaboomchik Plushie"
+	path = /obj/item/toy/plushie/chikaboomchik
+	donator_tier = 3
 
 /datum/gear/donor/masterli
 	donator_tier = 1

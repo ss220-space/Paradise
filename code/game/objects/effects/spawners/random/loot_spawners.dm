@@ -115,8 +115,7 @@
 		/obj/item/stack/ore/bluespace_crystal/five = 2,
 		/obj/item/toy/balloon = 2,
 		/obj/item/toy/katana = 2,
-		/obj/item/toy/syndicateballoon = 2,
-
+		/obj/item/toy/balloon/syndicate = 2,
 		/obj/effect/spawner/random/loot/bank_robber = 1,
 		/obj/effect/spawner/random/loot/outfit/luchador = 1,
 		/obj/effect/spawner/random/loot/outfit/mime = 1,

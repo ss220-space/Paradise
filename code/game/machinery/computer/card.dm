@@ -67,6 +67,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 	var/static/list/law_levels  = list(
 		"Минимальные" = LAW_LEVEL_BASE,
+		"Глава отдела" = LAW_LEVEL_HEAD,
 		"Офицер СБ" = LAW_LEVEL_SEC,
 		"Варден" = LAW_LEVEL_WARDEN,
 		"ГСБ" = LAW_LEVEL_HOS,

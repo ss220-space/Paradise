@@ -446,7 +446,7 @@
 /area/ruin/unpowered)
 "Ue" = (
 /obj/structure/table/reinforced,
-/obj/item/toy/carpplushie,
+/obj/item/toy/plushie/carp,
 /obj/item/trash/candle{
 	pixel_y = 13
 	},
