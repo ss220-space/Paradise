@@ -53,10 +53,11 @@
 /datum/dna/gene/proc/activate(mob/living/mutant, flags)
 	SHOULD_CALL_PARENT(TRUE)
 	LAZYOR(mutant.active_genes, type)
-	mutant.gene_stability -= instability
+	mutant.set_gene_stability(mutant.gene_stability - instability)
 	if(length(traits_to_add))
 		mutant.add_traits(traits_to_add, DNA_TRAIT)
 	mutant.update_mutations()
+	RegisterSignal(mutant, COMSIG_LIVING_LIFE, PROC_REF(OnMobLife))
 
 /**
 * Called when the gene deactivates.  Undo your magic here.
@@ -65,10 +66,11 @@
 /datum/dna/gene/proc/deactivate(mob/living/mutant, flags)
 	SHOULD_CALL_PARENT(TRUE)
 	LAZYREMOVE(mutant.active_genes, type)
-	mutant.gene_stability += instability
+	mutant.set_gene_stability(mutant.gene_stability + instability)
 	if(length(traits_to_add))
 		mutant.remove_traits(traits_to_add, DNA_TRAIT)
 	mutant.update_mutations()
+	UnregisterSignal(mutant, list(COMSIG_LIVING_LIFE))
 
 // This section inspired by goone's bioEffects.
 
@@ -76,6 +78,7 @@
 * Called in each life() tick.
 */
 /datum/dna/gene/proc/OnMobLife(mob/M)
+	SIGNAL_HANDLER
 	return
 
 /**

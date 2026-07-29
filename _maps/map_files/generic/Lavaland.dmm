@@ -147,7 +147,7 @@
 "ay" = (
 /obj/item/bikehorn/rubberducky,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/shower/directional/west,
+/obj/machinery/shower/directional/east,
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel/white,
 /area/mine/laborcamp)
@@ -1318,6 +1318,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 1
 	},
+/obj/machinery/shower,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -2151,7 +2152,7 @@
 /area/mine/living_quarters)
 "gc" = (
 /obj/machinery/door/window/southleft,
-/obj/machinery/shower/directional/south,
+/obj/machinery/shower/directional/north,
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel/freezer,
 /area/mine/living_quarters)
@@ -2161,7 +2162,7 @@
 /area/mine/production)
 "ge" = (
 /obj/machinery/door/window/southright,
-/obj/machinery/shower/directional/south,
+/obj/machinery/shower/directional/north,
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel/freezer,
 /area/mine/living_quarters)
@@ -2221,7 +2222,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
 "gn" = (
-/obj/structure/sink/directional/west,
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -5417,8 +5418,8 @@
 "Bq" = (
 /obj/structure/ore_box,
 /obj/item/gps/ruin{
-	pixel_y = 32;
-	gpstag = "OUTPOST"
+	gpstag = "OUTPOST";
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -5575,7 +5576,7 @@
 	},
 /area/mine/laborcamp)
 "Dd" = (
-/obj/structure/toilet,
+/obj/structure/toilet/directional/north,
 /obj/effect/decal/cleanable/vomit,
 /obj/effect/decal/cleanable/cobweb2,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -5735,7 +5736,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "Fe" = (
-/obj/structure/sink/directional/east,
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = -28
 	},
@@ -6158,9 +6159,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
 "IK" = (
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/north,
 /turf/simulated/floor/plasteel/freezer,
 /area/mine/living_quarters)
 "IU" = (
@@ -6617,7 +6616,7 @@
 /area/lavaland/surface/outdoors/necropolis)
 "MW" = (
 /obj/structure/extinguisher_cabinet/directional/north,
-/obj/machinery/shower/directional/west,
+/obj/machinery/shower/directional/east,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "purplecorner"
@@ -6724,7 +6723,7 @@
 "NG" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/vomit,
-/obj/structure/sink/directional/east,
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = -28
 	},
@@ -6766,7 +6765,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "NZ" = (
-/obj/structure/toilet,
+/obj/structure/toilet/directional/north,
 /obj/effect/decal/cleanable/cobweb,
 /obj/item/clothing/mask/balaclava,
 /turf/simulated/floor/plasteel/white,
@@ -7121,6 +7120,9 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/item/tank/internals/anesthetic,
 /obj/item/clothing/mask/breath/medical,
+/obj/machinery/shower/directional/north{
+	layer = 3.21
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"

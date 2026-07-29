@@ -58,6 +58,7 @@
 		to_chat(user, span_notice("You replace the outer grille."))
 		return .|ATTACK_CHAIN_SUCCESS
 
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 	if(d_state != RWALL_INTACT)
 		if(!istype(I, /obj/item/stack/sheet/metal))
 			to_chat(user, span_warning("You need metal sheets to repair the damage."))
@@ -67,7 +68,7 @@
 			to_chat(user, span_warning("You need at least [d_state] sheets of metal repair the damage."))
 			return .
 		to_chat(user, span_notice("You begin patching-up the wall with [metal]..."))
-		if(!do_after(user, max(2 SECONDS * d_state, 10 SECONDS) * metal.toolspeed, src, category = DA_CAT_TOOL) || d_state == RWALL_INTACT || QDELETED(metal))
+		if(!do_after(user, max(2 SECONDS * d_state, 10 SECONDS) * metal.toolspeed * building_mod, src, category = DA_CAT_TOOL, max_interact_count = 1) || d_state == RWALL_INTACT || QDELETED(metal))
 			return .
 		if(!metal.use(d_state))
 			to_chat(user, span_warning("At some point during the repair process you lost some metal or the wall state has changed. Make sure you have [d_state] sheets of metal before trying again."))
@@ -84,7 +85,7 @@
 			to_chat(user, span_notice("The wall is already coated!"))
 			return .
 		to_chat(user, span_notice("You begin adding an additional layer of coating to the wall with [plasteel]..."))
-		if(!do_after(user, 4 SECONDS * plasteel.toolspeed, src, category = DA_CAT_TOOL) || d_state != RWALL_INTACT || QDELETED(plasteel))
+		if(!do_after(user, 4 SECONDS * plasteel.toolspeed * building_mod, src, category = DA_CAT_TOOL, max_interact_count = 1) || d_state != RWALL_INTACT || QDELETED(plasteel))
 			return .
 		if(!plasteel.use(2))
 			to_chat(user, span_warning("You don't have enough [plasteel.name] for that!"))
@@ -105,18 +106,19 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 	if(d_state == RWALL_COVER)
 		to_chat(user, span_notice("You begin slicing through the metal cover..."))
-		if(I.use_tool(src, user, 60, volume = I.tool_volume) && d_state == RWALL_COVER)
+		if(I.use_tool(src, user, 6 SECONDS * building_mod, volume = I.tool_volume) && d_state == RWALL_COVER)
 			d_state = RWALL_CUT_COVER
 			to_chat(user, span_notice("You press firmly on the cover, dislodging it."))
 	else if(d_state == RWALL_SUPPORT_RODS)
 		to_chat(user, span_notice("You begin slicing through the support rods..."))
-		if(I.use_tool(src, user, 100, volume = I.tool_volume) && d_state == RWALL_SUPPORT_RODS)
+		if(I.use_tool(src, user, 10 SECONDS * building_mod, volume = I.tool_volume) && d_state == RWALL_SUPPORT_RODS)
 			d_state = RWALL_SHEATH
 	else if(d_state == RWALL_CUT_COVER)
 		to_chat(user, span_notice("You begin welding the metal cover back to the frame..."))
-		if(I.use_tool(src, user, 60, volume = I.tool_volume) && d_state == RWALL_CUT_COVER)
+		if(I.use_tool(src, user, 6 SECONDS * building_mod, volume = I.tool_volume) && d_state == RWALL_CUT_COVER)
 			to_chat(user, span_notice("The metal cover has been welded securely to the frame."))
 			d_state = RWALL_COVER
 	update_icon()
@@ -127,16 +129,17 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 	switch(d_state)
 		if(RWALL_CUT_COVER)
 			to_chat(user, span_notice("You struggle to pry off the cover..."))
-			if(!I.use_tool(src, user, 100, volume = I.tool_volume) || d_state != RWALL_CUT_COVER)
+			if(!I.use_tool(src, user, 10 SECONDS * building_mod, volume = I.tool_volume) || d_state != RWALL_CUT_COVER)
 				return
 			d_state = RWALL_BOLTS
 			to_chat(user, span_notice("You pry off the cover."))
 		if(RWALL_SHEATH)
 			to_chat(user, span_notice("You struggle to pry off the outer sheath..."))
-			if(!I.use_tool(src, user, 100, volume = I.tool_volume))
+			if(!I.use_tool(src, user, 10 SECONDS * building_mod, volume = I.tool_volume))
 				return
 			if(dismantle_wall())
 				to_chat(user, span_notice("You pry off the outer sheath."))
@@ -144,7 +147,7 @@
 		if(RWALL_BOLTS)
 			to_chat(user, span_notice("You start to pry the cover back into place..."))
 			playsound(src, I.usesound, 100, TRUE)
-			if(!I.use_tool(src, user, 20, volume = I.tool_volume) || d_state != RWALL_BOLTS)
+			if(!I.use_tool(src, user, 2 SECONDS * building_mod, volume = I.tool_volume) || d_state != RWALL_BOLTS)
 				return
 			d_state = RWALL_CUT_COVER
 			to_chat(user, span_notice("The metal cover has been pried back into place."))
@@ -161,7 +164,8 @@
 		to_chat(user, span_notice("You begin unsecuring the support lines..."))
 	else
 		to_chat(user, span_notice("You begin securing the support lines..."))
-	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state_check != d_state)
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
+	if(!I.use_tool(src, user, 4 SECONDS * building_mod, volume = I.tool_volume) || state_check != d_state)
 		return
 	if(d_state == RWALL_SUPPORT_LINES)
 		d_state = RWALL_COVER
@@ -175,7 +179,8 @@
 	if(d_state != RWALL_INTACT)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
+	if(!I.use_tool(src, user, 1 SECONDS * building_mod, volume = I.tool_volume))
 		return
 	d_state = RWALL_SUPPORT_LINES
 	update_icon()
@@ -193,7 +198,8 @@
 		to_chat(user, span_notice("You start loosening the anchoring bolts which secure the support rods to their frame..."))
 	else
 		to_chat(user, span_notice("You start tightening the bolts which secure the support rods to their frame..."))
-	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state_check != d_state)
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
+	if(!I.use_tool(src, user, 4 SECONDS * building_mod, volume = I.tool_volume) || state_check != d_state)
 		return
 	if(d_state == RWALL_BOLTS)
 		d_state = RWALL_SUPPORT_RODS
@@ -208,16 +214,17 @@
 		return FALSE
 	if(!iswelder(I))
 		return FALSE
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 	if(d_state == RWALL_COVER)
 		to_chat(user, span_notice("You begin slicing through the metal cover..."))
-		if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume) || d_state != RWALL_COVER)
+		if(!I.use_tool(src, user, 4 SECONDS * building_mod, volume = I.tool_volume) || d_state != RWALL_COVER)
 			return FALSE
 		d_state = RWALL_CUT_COVER
 		update_icon()
 		to_chat(user, span_notice("You press firmly on the cover, dislodging it."))
 		return TRUE
 	to_chat(user, span_notice("You begin slicing through the support rods..."))
-	if(!I.use_tool(src, user, 7 SECONDS, volume = I.tool_volume) || d_state != RWALL_SUPPORT_RODS)
+	if(!I.use_tool(src, user, 7 SECONDS * building_mod, volume = I.tool_volume) || d_state != RWALL_SUPPORT_RODS)
 		return FALSE
 	d_state = RWALL_SHEATH
 	update_icon()
@@ -227,7 +234,7 @@
 	if(istype(I, /obj/item/pickaxe/drill/diamonddrill))
 		to_chat(user, span_notice("You begin to drill though the wall..."))
 
-		if(do_after(user, 80 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL)) // Diamond drill has 0.25 toolspeed, so 200
+		if(do_after(user, 80 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL, max_interact_count = 1)) // Diamond drill has 0.25 toolspeed, so 200
 			to_chat(user, span_notice("Your drill tears through the last of the reinforced plating."))
 			dismantle_wall()
 		return TRUE
@@ -235,14 +242,14 @@
 	if(istype(I, /obj/item/pickaxe/drill/jackhammer))
 		to_chat(user, span_notice("You begin to disintegrate the wall..."))
 		var/obj/item/pickaxe/drill/jackhammer/jh = I
-		if(do_after(user, 100 SECONDS * jh.wall_toolspeed, src, category = DA_CAT_TOOL)) // Jackhammer has 0.1 toolspeed, so 100
+		if(do_after(user, 100 SECONDS * jh.wall_toolspeed, src, category = DA_CAT_TOOL, max_interact_count = 1)) // Jackhammer has 0.1 toolspeed, so 100
 			to_chat(user, span_notice("Your sonic jackhammer disintegrates the reinforced plating."))
 			dismantle_wall()
 		return TRUE
 
 	if(istype(I, /obj/item/twohanded/required/pyro_claws))
 		to_chat(user, span_notice("You begin to melt the wall..."))
-		if(do_after(user, 15 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL)) // claws has 0.5 toolspeed, so 7.5 seconds
+		if(do_after(user, 15 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL, max_interact_count = 1)) // claws has 0.5 toolspeed, so 7.5 seconds
 			to_chat(user, span_notice("Your [I] melt the reinforced plating."))
 			dismantle_wall()
 		return TRUE

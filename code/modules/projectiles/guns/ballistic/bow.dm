@@ -16,6 +16,7 @@
 	slot_flags = ITEM_SLOT_BACK
 	weapon_weight = WEAPON_HEAVY
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
+	accuracy = GUN_ACCURACY_BOW
 
 	var/draw_sound = 'sound/weapons/bows/bow_pull.ogg'
 	var/ready_to_fire = FALSE
@@ -47,7 +48,8 @@
 		icon_state = initial(icon_state)
 
 /obj/item/gun/projectile/bow/proc/update_slowdown()
-	slowdown = ready_to_fire ? slowdown_when_ready : initial(slowdown)
+	CALCULATE_SKILL_MOD(gun_user, BOW_SLOWDOWN_MOD, skill_mod)
+	slowdown = ready_to_fire ? slowdown_when_ready * skill_mod : initial(slowdown)
 
 /obj/item/gun/projectile/bow/dropped(mob/user, slot, silent = FALSE)
 	if(chambered)

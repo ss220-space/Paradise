@@ -1692,3 +1692,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/extinguish()
 	SHOULD_CALL_PARENT(TRUE)
 	return SEND_SIGNAL(src, COMSIG_ATOM_EXTINGUISH)
+
+/atom/proc/get_lootpanel_cache_key()
+	return "[type]"

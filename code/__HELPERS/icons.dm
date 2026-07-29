@@ -985,20 +985,10 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 		return SSassets.transport.get_asset_url(key)
 	return "<img class='[extra_classes] icon icon-[icon_state]' src='[SSassets.transport.get_asset_url(key)]'>"
 
-//Costlier version of icon2html() that uses getFlatIcon() to account for overlays, underlays, etc. Use with extreme moderation, ESPECIALLY on mobs.
-/proc/costly_icon2html(thing, target, sourceonly = FALSE)
-	if(!thing)
-		return
-
-	if(isicon(thing))
-		return icon2html(thing, target)
-
-	return flat_icon2html(thing, target, sourceonly = FALSE)
-
 /proc/flat_icon2html(thing, target, sourceonly = FALSE, name = md5("[thing]"))
 	if(!thing)
 		return
-	var/icon/flat_icon = getFlatIcon(thing)
+	var/icon/flat_icon = get_icon_from_uni_icon(get_flat_uni_icon(thing, SOUTH), name)
 	return icon2html(flat_icon, target, sourceonly = sourceonly)
 
 /proc/get_icon_from_uni_icon(datum/universal_icon/flat_icon, name, dmi_icon = FALSE)
@@ -1017,10 +1007,10 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 	if(!size)
 		CRASH("Icon [name] UNKNOWN ERROR: [data_out]")
 
-	var/png_name = "[name]_[size].png"
+	var/png_name = "[name]_[size].[dmi_icon? "dmi" : "png"]"
 	var/file_directory = "tmp/icons/[png_name]"
+	SSasset_loading?.iconforge_uni_icon_generated = TRUE
 	return file(file_directory)
-
 
 #define CACHED_WIDTH_INDEX "width"
 #define CACHED_HEIGHT_INDEX "height"

@@ -76,9 +76,9 @@
 	desc = "Отличная арена для стрельбы из гиб-пушек"
 	max_players = 8
 	allowed_loadouts = list(
-		/datum/outfit/deathmatch_loadout/assistant/instagib,
-		/datum/outfit/deathmatch_loadout/assistant/pulse,
-		/datum/outfit/deathmatch_loadout/assistant/annihilator,
+		/datum/outfit/deathmatch_loadout/unfunny,
+		/datum/outfit/deathmatch_loadout/unfunny/pulse,
+		/datum/outfit/deathmatch_loadout/unfunny/annihilator,
 	)
 
 	map_name = "instagib"
@@ -94,5 +94,136 @@
 	map_name = "lattice_battle"
 	key = LAZY_TEMPLATE_KEY_DEATHMATCH_LATTICE_BATTLE
 
+/datum/lazy_template/deathmatch/maint_mania
+	name = "Технические туннели"
+	desc = "Плохо освещённые технические туннели, неизвестные таблетки, кровавые следы и самодельное оружие. Мечта ассистента."
+	max_players = 8
+	allowed_loadouts = list(
+		/datum/outfit/deathmatch_loadout/assistant,
+	)
+	map_name = "maint_mania"
+	key = LAZY_TEMPLATE_KEY_DEATHMATCH_MAINT_MANIA
+
+/datum/lazy_template/deathmatch/meat_tower
+	name = "Кухня"
+	desc = "Должен остаться только один шеф-повар."
+	max_players = 8
+	allowed_loadouts = list(
+		/datum/outfit/deathmatch_loadout/chef,
+	)
+	map_name = "meat_tower"
+	key = LAZY_TEMPLATE_KEY_DEATHMATCH_MEAT_TOWER
+
+/datum/lazy_template/deathmatch/mech_madness
+	name = "Битва Мехов"
+	desc = "Нравятся мехи? Нет? Ну а сражаться всё равно придётся."
+	max_players = 4
+	allowed_loadouts = list(
+		/datum/outfit/deathmatch_loadout/operative,
+	)
+	map_name = "mech_madness"
+	key = LAZY_TEMPLATE_KEY_DEATHMATCH_MECH_MADNESS
+
+/datum/lazy_template/deathmatch/meta_brig
+	name = "Бриг Метастанции"
+	desc = "Этой карты у нас как бы нет, но арена для битвы неплохая."
+	max_players = 8
+	allowed_loadouts = list(
+		/datum/outfit/deathmatch_loadout/assistant,
+	)
+	map_name = "meta_brig"
+	key = LAZY_TEMPLATE_KEY_DEATHMATCH_META_BRIG
+
+/datum/lazy_template/deathmatch/ragin_mages
+	name = "Корабль ФКВ"
+	desc = "Волшебный корабль, на котором произойдет не такая уж и волшебная резня."
+	max_players = 8
+	allowed_loadouts = list(
+		/datum/outfit/deathmatch_loadout/wizard,
+		/datum/outfit/deathmatch_loadout/wizard/pyro,
+		/datum/outfit/deathmatch_loadout/wizard/electro,
+		/datum/outfit/deathmatch_loadout/wizard/lizard,
+		/datum/outfit/deathmatch_loadout/wizard/singulo,
+		/datum/outfit/deathmatch_loadout/wizard/battlemage,
+		/datum/outfit/deathmatch_loadout/wizard/gunmancer,
+		/datum/outfit/deathmatch_loadout/wizard/chaos,
+		/datum/outfit/deathmatch_loadout/wizard/spellblade,
+
+	)
+	map_name = "ragin_mages"
+	key = LAZY_TEMPLATE_KEY_DEATHMATCH_RAGIN_MAGES
+
+/datum/lazy_template/deathmatch/delta_bridge
+	name = "Мостик Кербероса"
+	desc = "Копия привычного всем мостика Дельты. Потренируйтесь в убийстве капитана."
+	max_players = 8
+	allowed_loadouts = list(
+		/datum/outfit/deathmatch_loadout/nukie,
+		/datum/outfit/deathmatch_loadout/captain,
+		/datum/outfit/deathmatch_loadout/head_of_security,
+		/datum/outfit/deathmatch_loadout/ert,
+		/datum/outfit/deathmatch_loadout/tider,
+	)
+	map_name = "delta_bridge"
+	key = LAZY_TEMPLATE_KEY_DEATHMATCH_DELTA_BRIDGE
+
+/datum/lazy_template/deathmatch/delta_brig
+	name = "Бриг Кербероса"
+	desc = "Копия привычного всем брига Дельты. Потренируйтесь в штурме и мирном убийстве всего СБ."
+	max_players = 16
+	allowed_loadouts = list(
+		/datum/outfit/deathmatch_loadout/nukie,
+		/datum/outfit/deathmatch_loadout/captain,
+		/datum/outfit/deathmatch_loadout/head_of_security,
+		/datum/outfit/deathmatch_loadout/ert,
+		/datum/outfit/deathmatch_loadout/tider,
+	)
+	map_name = "delta_brig"
+	key = LAZY_TEMPLATE_KEY_DEATHMATCH_DELTA_BRIG
+
+/datum/lazy_template/deathmatch/ragnarok
+	name = "Рагнарёк"
+	desc = "Культисты (которых еще нет) и еретики (которых еще нет) собрались выяснять, кто из них сильнее."
+	max_players = 9
+	allowed_loadouts = list(
+		/datum/outfit/deathmatch_loadout/head_of_security,
+		/datum/outfit/deathmatch_loadout/securing_sec,
+		/datum/outfit/deathmatch_loadout/assistant,
+		/datum/outfit/deathmatch_loadout/tider,
+	)
+	map_name = "ragnarok"
+	key = LAZY_TEMPLATE_KEY_DEATHMATCH_RAGNAROK
+
+/datum/lazy_template/deathmatch/secu_ring
+	name = "Офицерский ринг"
+	desc = "Небольшая арена для вашей любимой тактики — бесконечного обновления стана с помощью дизейблеров и батонов."
+	max_players = 4
+	allowed_loadouts = list(
+		/datum/outfit/deathmatch_loadout/securing_sec,
+	)
+	map_name = "secu_ring"
+	key = LAZY_TEMPLATE_KEY_DEATHMATCH_SECU_RING
+
+/datum/lazy_template/deathmatch/shooting_range
+	name = "Перестрелка"
+	desc = "Простая комната с укрытиями для кровавой перестрелки."
+	max_players = 6
+	allowed_loadouts = list(
+		/datum/outfit/deathmatch_loadout/operative/ranged,
+	)
+	map_name = "shooting_range"
+	key = LAZY_TEMPLATE_KEY_DEATHMATCH_SHOOTING_RANGE
+
+/datum/lazy_template/deathmatch/sniper_elite
+	name = "Снайперская дуэль"
+	desc = "Звуки сломанных костей и оторванных конечностей это то, ради чего я живу."
+	max_players = 8
+	allowed_loadouts = list(
+		/datum/outfit/deathmatch_loadout/operative/sniper,
+		/datum/outfit/deathmatch_loadout/nukie/sniper,
+	)
+	map_name = "sniper_elite"
+	key = LAZY_TEMPLATE_KEY_DEATHMATCH_SNIPER_ELITE
+
 // TODO:
-// 13 more maps, at least
+// 2-4 more maps, at least

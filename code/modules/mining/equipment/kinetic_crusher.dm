@@ -28,6 +28,8 @@
 	var/adaptive_damage_bonus = 0
 	var/upgraded = FALSE //whether is our crusher is magmite-upgraded
 	var/obj/projectile/destabilizer/destab = /obj/projectile/destabilizer
+	/// Timer before our crusher recharges
+	var/charge_timer
 
 /obj/item/twohanded/kinetic_crusher/get_ru_names()
 	return alist(
@@ -233,7 +235,14 @@
 	destabilizer.fire()
 	charged = FALSE
 	update_appearance()
-	addtimer(CALLBACK(src, PROC_REF(recharge)), charge_time)
+	attempt_recharge_projectile()
+
+/// Handles the timer for reloading the projectile
+/obj/item/twohanded/kinetic_crusher/proc/attempt_recharge_projectile(set_recharge_time)
+	if(!set_recharge_time)
+		set_recharge_time = charge_time
+	deltimer(charge_timer)
+	charge_timer = addtimer(CALLBACK(src, PROC_REF(recharge)), set_recharge_time, TIMER_STOPPABLE)
 
 /obj/item/twohanded/kinetic_crusher/proc/recharge()
 	if(charged)

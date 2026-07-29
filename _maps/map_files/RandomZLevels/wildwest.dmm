@@ -188,11 +188,11 @@
 "aP" = (
 /obj/effect/forcefield{
 	desc = "You can't get in. Heh.";
-	layer = 1;
-	name = "Blocker";
-	lifetime = 0;
 	icon = 'icons/mob/actions/actions.dmi';
-	icon_state = "cultforcewall"
+	icon_state = "cultforcewall";
+	layer = 1;
+	lifetime = 0;
+	name = "Blocker"
 	},
 /turf/space,
 /area/space/nearstation)
@@ -1194,7 +1194,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/wwgov)
 "ec" = (
-/obj/structure/toilet,
+/obj/structure/toilet/directional/north,
 /mob/living/simple_animal/hostile/creature,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -1328,7 +1328,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/wwrefine)
 "ey" = (
-/obj/machinery/shower/directional/east,
+/obj/machinery/shower/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -1351,7 +1351,7 @@
 	},
 /area/awaymission/wwmines)
 "eD" = (
-/obj/machinery/shower/directional/west,
+/obj/machinery/shower/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -1506,15 +1506,11 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/wwmines)
 "fa" = (
-/obj/structure/toilet{
-	dir = 1
-	},
+/obj/structure/toilet/directional/south,
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "fb" = (
-/obj/structure/toilet{
-	dir = 1
-	},
+/obj/structure/toilet/directional/south,
 /obj/item/ammo_box/speedloader/a357,
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
@@ -1859,7 +1855,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/wwrefine)
 "gc" = (
-/obj/structure/sink,
+/obj/structure/sink/directional/north,
 /obj/machinery/light/small{
 	dir = 1
 	},

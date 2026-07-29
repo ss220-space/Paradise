@@ -222,6 +222,41 @@
 	plane = BELOW_GAME_PLANE
 	render_relay_planes = list(RENDER_PLANE_GAME_WORLD)
 
+// MARK: Cult Veil
+/atom/movable/screen/plane_master/cult_veil
+	name = "Cult veil"
+	documentation = "Holds cult structures and runes that have been hidden by the veiling spell.\
+		<br>Blanked with alpha for everyone who lacks TRAIT_CULT_VEIL_SIGHT, so the veil is a per viewer thing instead of engine invisibility.\
+		<br>Anything drawn here is meant to be non interactive, set mouse opacity on the atom itself."
+	plane = CULT_VEIL_PLANE
+	alpha = 100
+	render_relay_planes = list(RENDER_PLANE_GAME_WORLD)
+
+/atom/movable/screen/plane_master/cult_veil/show_to(mob/mymob)
+	. = ..()
+	if(!. || !mymob)
+		return .
+	RegisterSignal(mymob, SIGNAL_ADDTRAIT(TRAIT_CULT_VEIL_SIGHT), PROC_REF(veil_sight_gained), override = TRUE)
+	RegisterSignal(mymob, SIGNAL_REMOVETRAIT(TRAIT_CULT_VEIL_SIGHT), PROC_REF(veil_sight_lost), override = TRUE)
+	if(HAS_TRAIT(mymob, TRAIT_CULT_VEIL_SIGHT))
+		veil_sight_gained(mymob)
+	else
+		veil_sight_lost(mymob)
+
+/atom/movable/screen/plane_master/cult_veil/hide_from(mob/oldmob)
+	. = ..()
+	if(!oldmob)
+		return
+	UnregisterSignal(oldmob, list(SIGNAL_ADDTRAIT(TRAIT_CULT_VEIL_SIGHT), SIGNAL_REMOVETRAIT(TRAIT_CULT_VEIL_SIGHT)))
+
+/atom/movable/screen/plane_master/cult_veil/proc/veil_sight_gained(mob/source)
+	SIGNAL_HANDLER
+	enable_alpha()
+
+/atom/movable/screen/plane_master/cult_veil/proc/veil_sight_lost(mob/source)
+	SIGNAL_HANDLER
+	disable_alpha()
+
 // MARK: Game
 /atom/movable/screen/plane_master/game
 	name = "Game"

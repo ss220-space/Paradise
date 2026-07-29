@@ -72,6 +72,14 @@
 		"с" = list("сс", "ссс", "сссс"),
 	)
 
+	max_select_skills = list(
+		/datum/skill/general/mod_use = 4,
+		/datum/skill/service/botany = 0,
+		/datum/skill/engineering/atmos = 4,
+		/datum/skill/medical/genetic = 0,
+		/datum/skill/medical/virusology = 0,
+	)
+
 /datum/species/plasmaman/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
 	add_verb(H, /mob/living/carbon/human/proc/emote_rattle)
