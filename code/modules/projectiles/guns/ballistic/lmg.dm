@@ -13,6 +13,7 @@
 	fire_sound = 'sound/weapons/gunshots/1mg2.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/lmg_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/lmg_magout.ogg'
+	fire_delay = 0.2 SECONDS
 	accuracy = GUN_ACCURACY_RIFLE
 	recoil = GUN_RECOIL_HIGH
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER

@@ -130,6 +130,7 @@
 	desc = "An outdated personal defense weapon utilized by law enforcement. Chambered in 4.6x30mm."
 	icon_state = "wt550"
 	item_state = "arg"
+	fire_delay = 0.25 SECONDS
 	accuracy = GUN_ACCURACY_RIFLE_EXTEND_SPREAD
 	mag_type = /obj/item/ammo_box/magazine/wt550m9
 	fire_sound = 'sound/weapons/gunshots/1wt.ogg'
@@ -218,6 +219,7 @@
 		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 18, ATTACHMENT_OFFSET_Y = 7),
 		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 12),
 	)
+	fire_delay = 0.2 SECONDS
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_LOW
 
@@ -233,6 +235,7 @@
 	mag_type = /obj/item/ammo_box/magazine/tommygunm45
 	fire_sound = 'sound/weapons/gunshots/1saber.ogg'
 	burst_amount = 4
+	fire_delay = 0.2 SECONDS
 	recoil = GUN_RECOIL_MEDIUM
 	weapon_weight = WEAPON_HEAVY
 
@@ -264,6 +267,7 @@
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	burst_amount = 5
+	fire_delay = 0.2 SECONDS
 	accuracy = GUN_ACCURACY_PISTOL
 	weapon_weight = WEAPON_HEAVY
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
@@ -296,6 +300,7 @@
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	weapon_weight = WEAPON_LIGHT
+	fire_delay = 0.25 SECONDS
 	accuracy = GUN_ACCURACY_RIFLE
 	recoil = GUN_RECOIL_MEDIUM
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_SMG_STOCK

@@ -10,6 +10,7 @@
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	can_suppress = TRUE
+	fire_delay = 0.2 SECONDS
 	accuracy = GUN_ACCURACY_RIFLE_UPLINK
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
@@ -59,6 +60,7 @@
 	fire_sound = 'sound/weapons/gunshots/1m90.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
+	fire_delay = 0.2 SECONDS
 	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
@@ -80,7 +82,9 @@
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	burst_amount = 2
+	fire_delay = 0.2 SECONDS
 	accuracy = GUN_ACCURACY_RIFLE
+	fire_delay = 0.2 SECONDS
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 21, ATTACHMENT_OFFSET_Y = 1),
@@ -92,8 +96,8 @@
 /obj/item/gun/projectile/automatic/ak814/weakened
 	desc = "Импортная версия классической штурмовой винтовки AK-814 с уменьшенным магазином и планками для установки оружейных модулей."
 	mag_type = /obj/item/ammo_box/magazine/ak814/fusty
-	weapon_weight = WEAPON_HEAVY
 	fire_delay = 0.25 SECONDS
+	weapon_weight = WEAPON_HEAVY
 
 // MARK: AKS74-U
 /obj/item/gun/projectile/automatic/aks74u
@@ -101,6 +105,7 @@
 	desc = "An AK assault rifle favored by Soviet soldiers."
 	icon_state = "aksu"
 	item_state = "aksu"
+	fire_delay = 0.2 SECONDS
 	origin_tech = "combat=4;materials=3"
 	mag_type = /obj/item/ammo_box/magazine/aks74u
 	fire_sound = 'sound/weapons/gunshots/1m90.ogg'
@@ -160,7 +165,7 @@
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	burst_amount = 1
-	fire_delay = 0.6 SECONDS
+	fire_delay = 0.4 SECONDS
 	accuracy = GUN_ACCURACY_RIFLE_LASER
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
@@ -181,6 +186,7 @@
 	item_state = "arg"
 	fire_sound = 'sound/weapons/gunshots/aussec.ogg'
 	mag_type = /obj/item/ammo_box/magazine/m52mag
+	fire_delay = 0.2 SECONDS
 	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
