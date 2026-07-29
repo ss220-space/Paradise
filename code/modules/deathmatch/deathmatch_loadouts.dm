@@ -24,7 +24,7 @@
 	else
 		user.set_species(/datum/species/human)
 	// TODO: rewrite it for datum/action/cooldown when it's ported
-	for(var/aspell as anything in spells_to_add)
+	for(var/aspell in spells_to_add)
 		var/datum/action/cooldown/spell/our_spell = new aspell
 		our_spell.spell_requirements = NONE
 		our_spell.Grant(user)
