@@ -29,7 +29,7 @@
 	var/list/data = list()
 	data["isUsed"] = used
 	data["isBook"] = istype(src, /obj/item/contract/apprentice_choose_book)
-	
+
 	var/list/schools_data = list()
 	var/datum/possible_schools/schools = new
 	for(var/datum/magick_school/school in schools.schools_list)
@@ -39,12 +39,12 @@
 			"desc" = school.desc
 		)
 		schools_data += list(school_info)
-		
+
 	data["schools"] = schools_data
 	return data
 
 
-// MARK: BLOCK 1.2: APPRENTICE CONTRACT 
+// MARK: BLOCK 1.2: APPRENTICE CONTRACT
 
 /obj/item/contract/apprentice
 	name = "apprentice contract"
@@ -149,17 +149,17 @@
 
 	if(action == "choose_school")
 		var/school_id = params["school"]
-		
+
 		if(used)
 			to_chat(apprentice, span_notice("Учебник уже был изучен!"))
 			return TRUE
-			
+
 		if(!infinity_uses)
 			used = TRUE
 
 		var/list/href_list = list("school" = school_id)
 		school_href_choose(href_list, null, apprentice)
-		
+
 	return TRUE
 
 
@@ -341,6 +341,7 @@
 	name = "Школа Ваяния"
 	id = "sculpt"
 	desc = "Школа, практикующая оживление статики, и каменение динамики."
+
 /datum/magick_school/sculpt/kit()
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/touch/flesh_to_stone(null))
 	owner.equip_or_collect(new /obj/item/gun/magic/staff/animate(owner), ITEM_SLOT_HAND_RIGHT)
@@ -353,6 +354,7 @@
 	name = "Школа Хранителей"
 	id = "stand"
 	desc = "Школа, практикующее владение собственным стендом-защитником с защитной стеной."
+
 /datum/magick_school/stand/kit()
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/forcewall/greater(null))
 	owner.equip_or_collect(new /obj/item/guardiancreator(owner), ITEM_SLOT_HAND_RIGHT)
@@ -365,6 +367,7 @@
 	name = "Школа Неустойчивости"
 	id = "instability"
 	desc = "Школа, не позволяющая магглам стоять в полный рост перед волшебниками. Ей даже интересовалась федерация Клоунов."
+
 /datum/magick_school/instability/kit()
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/summonitem(null))
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/repulse(null))
@@ -443,7 +446,7 @@
 	suit.name = "Роба межпространства"
 	suit.desc = "Древняя броня последователя школы сингулярности."
 	owner.equip_or_collect(suit, ITEM_SLOT_CLOTH_OUTER)
-	
+
 	var/obj/item/clothing/head/wizard/magus/head = new
 	head.magical = TRUE
 	head.icon_state = "hardsuit0-singuloth"
@@ -457,7 +460,7 @@
 	name = "Школа Подмены"
 	id = "replace"
 	desc = "Старая школа, практикующая заклинания для чтения без мантии с подменам разума и открытием закрытых дверей."
-/datum/magick_school/replace/kit() 
+/datum/magick_school/replace/kit()
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/knock(null))
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/mind_transfer(null))
 
@@ -469,7 +472,7 @@
 	name = "Школа Разрушения"
 	id = "destruction"
 	desc = "Старая школа, практикующая заклинания на нанесении ущерба."
-/datum/magick_school/destruction/kit() 
+/datum/magick_school/destruction/kit()
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/projectile/magic_missile(null))
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/fireball(null))
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/charge_up/bounce/lightning(null))

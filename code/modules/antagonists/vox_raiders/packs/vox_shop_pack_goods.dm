@@ -33,19 +33,12 @@
 	cost = 25
 	random_subtype = /obj/item/toy/plushie
 
-/datum/vox_pack/goods/therapy
-	name = "Плюшка-Обнимашка"
-	desc = "Случайный товар для продажи."
-	reference = "G_THER"
-	cost = 25
-	random_subtype = /obj/item/toy/therapy
-
 /datum/vox_pack/goods/carp_plushie
 	name = "Плюшка-Карпушка"
 	desc = "Случайный товар для продажи."
 	reference = "G_CARP"
 	cost = 25
-	random_subtype = /obj/item/toy/carpplushie
+	random_subtype = /obj/item/toy/plushie/carp
 
 /datum/vox_pack/goods/food
 	name = "Еда"

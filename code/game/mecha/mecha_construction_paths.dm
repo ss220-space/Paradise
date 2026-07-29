@@ -5,20 +5,27 @@
 ////////////////////////////////
 
 /datum/construction/mecha/custom_action(step, atom/used_atom, mob/user)
+	CALCULATE_SKILL_MOD(usr, MECH_CONSTRUCT_DURATION_MOD, skill_duration_mod)
 	if(iscoil(used_atom))
+		if(!do_after(user, skill_duration_mod, holder))
+			return FALSE
 		var/obj/item/stack/cable_coil/C = used_atom
 		if(C.use(4))
 			playsound(holder, C.usesound, 50, TRUE)
+			return TRUE
 		else
 			to_chat(user, ("There's not enough cable to finish the task."))
-			return 0
+			return FALSE
 	else if(isstack(used_atom))
 		var/obj/item/stack/S = used_atom
 		if(S.get_amount() < STANDARD_STACK_AMOUNT)
 			to_chat(user, ("There's not enough material in this stack."))
-			return 0
+			return FALSE
 		else
+			if(!do_after(user, skill_duration_mod, holder))
+				return FALSE
 			S.use(STANDARD_STACK_AMOUNT)
+			return TRUE
 	else
 		return ..()
 
@@ -26,26 +33,34 @@
 	SSblackbox.record_feedback("tally", "mechas_created", 1, "[name]")
 
 /datum/construction/reversible/mecha/custom_action(index as num, diff as num, atom/used_atom, mob/user as mob)
+	CALCULATE_SKILL_MOD(usr, MECH_CONSTRUCT_DURATION_MOD, skill_duration_mod)
 	if(iscoil(used_atom))
+		if(!do_after(user, skill_duration_mod, holder))
+			return FALSE
 		var/obj/item/stack/cable_coil/C = used_atom
 		if(C.use(4))
 			playsound(holder, C.usesound, 50, TRUE)
+			return TRUE
 		else
 			to_chat(user, ("There's not enough cable to finish the task."))
-			return 0
+			return FALSE
 	else if(isstack(used_atom))
 		var/obj/item/stack/S = used_atom
 		if(S.get_amount() < STANDARD_STACK_AMOUNT)
 			to_chat(user, ("There's not enough material in this stack."))
 			return 0
 		else
+			if(!do_after(user, skill_duration_mod, holder))
+				return FALSE
 			S.use(STANDARD_STACK_AMOUNT)
+			return TRUE
 	else if(isitem(used_atom))
 		var/obj/item/I = used_atom
 		if(I.tool_behaviour in CONSTRUCTION_TOOL_BEHAVIOURS)
-			if(!I.use_tool(holder, user, 0, volume = I.tool_volume))
+			if(!I.use_tool(holder, user, skill_duration_mod, volume = I.tool_volume))
 				return 0
-	return 1
+			return TRUE
+	return TRUE
 
 #undef STANDARD_STACK_AMOUNT
 

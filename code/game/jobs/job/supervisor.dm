@@ -37,6 +37,14 @@
 	outfit = /datum/outfit/job/captain
 	insurance_type = INSURANCE_TYPE_DELUXE
 	paycheck = PAYCHECK_MAX
+	skill_levels = list(
+		/datum/skill/general/mech_drive = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/accuracy = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
+	)
+	base_free_skill_point = ADVANCED_SKILL_POINTS_COUNT
 
 /datum/job/captain/get_access()
 	return get_all_accesses()
@@ -112,6 +120,10 @@
 	)
 	outfit = /datum/outfit/job/nanotrasenrep
 	paycheck = PAYCHECK_MAX
+	skill_levels = list(
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/guns = SKILL_LEVEL_BASIC,
+	)
 
 /datum/outfit/job/nanotrasenrep
 	name = JOB_TITLE_RU_REPRESENTATIVE
@@ -163,6 +175,16 @@
 	outfit = /datum/outfit/job/blueshield
 	insurance_type = INSURANCE_TYPE_DELUXE
 	paycheck = PAYCHECK_COMMAND
+	skill_levels = list(
+		/datum/skill/general/carrying = SKILL_LEVEL_BASIC,
+		/datum/skill/general/mech_drive = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/accuracy = SKILL_LEVEL_ADVANCED,
+		/datum/skill/combat/guns = SKILL_LEVEL_ADVANCED,
+		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
+		/datum/skill/combat/fists = SKILL_LEVEL_ADVANCED,
+		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
+	)
 
 /datum/outfit/job/blueshield
 	name = JOB_TITLE_RU_BLUESHIELD
@@ -218,6 +240,12 @@
 	)
 	outfit = /datum/outfit/job/judge
 	paycheck = PAYCHECK_MAX
+	skill_levels = list(
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/accuracy = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
+	)
 
 /datum/outfit/job/judge
 	name = JOB_TITLE_RU_MAGISTRATE
@@ -264,6 +292,9 @@
 	outfit = /datum/outfit/job/lawyer
 	insurance_type = INSURANCE_TYPE_DELUXE
 	paycheck = PAYCHECK_COMMAND
+	skill_levels = list(
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+	)
 
 /datum/outfit/job/lawyer
 	name = JOB_TITLE_RU_LAWYER

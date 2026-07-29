@@ -189,6 +189,8 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 /// Sniper rifle accuracy (100% hit)
 #define GUN_ACCURACY_SNIPER new /datum/gun_accuracy/sniper()
 
+#define GUN_ACCURACY_BOW new /datum/gun_accuracy/default/bow()
+
 // Chrono beam stuff
 #define CHRONO_BEAM_RANGE 3
 #define CHRONO_FRAME_COUNT 22

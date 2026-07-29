@@ -45,7 +45,7 @@
 	time_to_open_doors = 0.2 SECONDS
 	environment_smash = ENVIRONMENT_SMASH_WALLS
 	role_text = "Вы — Преторианец. Вы являетесь более сильной и неповоротливой версией Часового. Ваша основная задача — защита гнезда от непрошенных гостей."
-	var/datum/action/innate/small_sprite_alien/praetorian/action_sprite
+	var/datum/action/innate/alien/sprite_toggle/praetorian/action_sprite
 
 /mob/living/carbon/alien/humanoid/praetorian/Initialize(mapload)
 	. = ..()

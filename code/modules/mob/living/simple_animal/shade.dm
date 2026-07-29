@@ -22,13 +22,16 @@
 	stop_automated_movement = TRUE
 	status_flags = 0
 	pull_force = 0
-	see_invisible = SEE_INVISIBLE_HIDDEN_RUNES
 	universal_speak = TRUE
 	faction = list("cult")
 	loot = list(/obj/item/reagent_containers/food/snacks/ectoplasm)
 	del_on_death = TRUE
 	deathmessage = "издаёт довольный вздох, пока его форма распадается."
 	var/holy = FALSE
+
+/mob/living/simple_animal/shade/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_CULT_VEIL_SIGHT, INNATE_TRAIT)
 
 /mob/living/simple_animal/shade/ComponentInitialize()
 	AddComponent( \

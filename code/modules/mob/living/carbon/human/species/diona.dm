@@ -88,6 +88,12 @@
 		JOB_MIN_AGE_COMMAND = 26,
 	)
 
+	max_select_skills = list(
+		/datum/skill/general/mech_drive = 0,
+		/datum/skill/service/botany = 5,
+		/datum/skill/research/robotics = 0,
+	)
+
 /datum/species/diona/can_understand(mob/other)
 	if(isnymph(other))
 		return TRUE

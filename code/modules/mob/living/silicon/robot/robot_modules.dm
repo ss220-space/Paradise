@@ -1248,7 +1248,7 @@
 	modules += new /obj/item/stack/sheet/brass/cyborg(src)
 	modules += new /obj/item/clockwork/brassmaker(src)
 	modules += new /obj/item/extinguisher/cyborg(src)
-	emag = new /obj/item/toy/carpplushie/gold(src)
+	emag = new /obj/item/toy/plushie/carp/gold(src)
 
 	fix_modules()
 	handle_storages()

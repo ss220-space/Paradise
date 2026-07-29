@@ -2,7 +2,7 @@
 
 /obj/effect/sliding_puzzle
 	name = "Sliding puzzle generator"
-	icon = 'icons/obj/items.dmi' //mapping
+	icon = 'icons/obj/toys/balloons.dmi' //mapping
 	icon_state = "syndballoon"
 	invisibility = INVISIBILITY_ABSTRACT
 	var/list/elements
@@ -272,7 +272,7 @@
 		CRASH("Prison cube without prisoner")
 	prisoner.setDir(SOUTH)
 	var/icon/I = getFlatIcon(prisoner)
-	I.Scale(96,96)
+	I.Scale(96, 96)
 	return I
 
 /obj/effect/sliding_puzzle/prison/Destroy()

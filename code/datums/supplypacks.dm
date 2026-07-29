@@ -4147,7 +4147,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/crate/critter/cat
 	contains = list(
 		/obj/item/clothing/accessory/petcollar,
-		/obj/item/toy/cattoy,
+		/obj/item/toy/plushie/cattoy,
 	)
 	containername = "ящик с кошкой"
 	container_ru_names = alist(
@@ -5728,7 +5728,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 15
 	contains = list(
 		/obj/item/circuitboard/machine/crematorium,
-		/obj/item/toy/plushie/orange_fox,
+		/obj/item/toy/plushie/fox/orange,
 	)
 	containername = "ящик деталей крематория"
 	container_ru_names = alist(
@@ -6178,6 +6178,26 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		ACCUSATIVE = "ящик наборов пополнения Кастоматов",
 		INSTRUMENTAL = "ящиком наборов пополнения Кастоматов",
 		PREPOSITIONAL = "ящике наборов пополнения Кастоматов",
+	)
+
+/datum/supply_packs/vending/manuals
+	name = "Набор различных руководств"
+	contains = list(
+		/obj/item/book/skill_manual/general/random,
+		/obj/item/book/skill_manual/general/random,
+		/obj/item/book/skill_manual/general/random,
+		/obj/item/book/skill_manual/general/random,
+		/obj/item/book/skill_manual/general/random,
+	)
+	credits_cost = 5000
+	containername = "ящик различных руководств"
+	container_ru_names = alist(
+		NOMINATIVE = "ящик различных руководств",
+		GENITIVE = "ящика различных руководств",
+		DATIVE = "ящику различных руководств",
+		ACCUSATIVE = "ящик различных руководств",
+		INSTRUMENTAL = "ящиком различных руководств",
+		PREPOSITIONAL = "ящике различных руководств",
 	)
 
 //////////////////////////////////////////////////////////////////////////////
@@ -6724,4 +6744,24 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		ACCUSATIVE = "ящик с пистолетом пулеметом \"Узи\"",
 		INSTRUMENTAL = "ящиком с пистолетом пулеметом \"Узи\"",
 		PREPOSITIONAL = "ящике с пистолетом пулеметом \"Узи\"",
+	)
+
+/datum/supply_packs/contraband/neurotrainers
+	name = "Случайные нейротренеры навыков"
+	contains = list(
+		/obj/item/neurotrainer/random,
+		/obj/item/neurotrainer/random,
+		/obj/item/neurotrainer/random,
+	)
+	credits_cost = 50000
+	containertype = /obj/structure/closet/crate/syndicate
+	required_tech = list(RESEARCH_TREE_ILLEGAL = 3, RESEARCH_TREE_BIOTECH = 7, RESEARCH_TREE_MAGNETS = 5)
+	containername = "ящик со случайными нейротренерами навыков"
+	container_ru_names = alist(
+		NOMINATIVE = "ящик со случайными нейротренерами навыков",
+		GENITIVE = "ящика со случайными нейротренерами навыков",
+		DATIVE = "ящику со случайными нейротренерами навыков",
+		ACCUSATIVE = "ящик со случайными нейротренерами навыков",
+		INSTRUMENTAL = "ящиком со случайными нейротренерами навыков",
+		PREPOSITIONAL = "ящике со случайными нейротренерами навыков",
 	)

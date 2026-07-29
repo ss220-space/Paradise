@@ -65,6 +65,7 @@
 		temp.layer = initial(target.layer)
 		SET_PLANE_EXPLICIT(temp, initial(plane), src)
 		saved_appearance = temp.appearance
+		qdel(temp)
 
 /obj/item/chameleon/proc/check_sprite(atom/target)
 	if(icon_exists(target.icon, target.icon_state))

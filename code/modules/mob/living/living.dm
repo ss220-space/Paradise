@@ -1449,7 +1449,9 @@
 	. = TRUE
 	to_chat(user, span_notice("Вы начинаете разделывать [declent_ru(ACCUSATIVE)]..."))
 	playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
-	if(!do_after(user, I.has_speed_harvest ? 1 SECONDS : (4 SECONDS * mob_size), src, NONE, max_interact_count = 1, cancel_on_max = TRUE) || !Adjacent(user))
+	CALCULATE_SKILL_MOD(user, BUTCHERING_SPEED_MOD, butchering_skill_mod)
+	var/butchering_duration = I.has_speed_harvest ? 1 SECONDS : (4 SECONDS * mob_size)
+	if(!do_after(user, butchering_duration * butchering_skill_mod, src, NONE, max_interact_count = 1, cancel_on_max = TRUE) || !Adjacent(user))
 		return .
 	harvest(user)
 
@@ -2392,3 +2394,25 @@
  **/
 /mob/living/proc/clean_lips()
 	return
+
+/mob/living/proc/set_gene_stability(value)
+	if(gene_stability == value)
+		return
+
+	gene_stability = value
+
+	if(ignore_gene_stability)
+		return
+
+	if(value < GENETIC_DAMAGE_STAGE_3)
+		apply_status_effect(/datum/status_effect/gene_instability/major/critical)
+		return
+
+	if(value < GENETIC_DAMAGE_STAGE_2)
+		apply_status_effect(/datum/status_effect/gene_instability/major)
+		return
+
+	if(value < GENETIC_DAMAGE_STAGE_1)
+		apply_status_effect(/datum/status_effect/gene_instability/minor)
+		return
+	remove_status_effect(/datum/status_effect/gene_instability)

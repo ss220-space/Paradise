@@ -375,6 +375,9 @@
 
 	var/step_result
 
+	CALCULATE_SKILL_MOD(user, SURGERY_SUCCESS_MOD, skill_success_mod)
+	prob_success *= skill_success_mod
+
 	if((prob(prob_success) || silicons_ignore_prob && isrobot(user)) && chem_check_result && !try_to_fail)
 		step_result = end_step(user, target, target_zone, tool, surgery)
 		INVOKE_ASYNC(src, PROC_REF(play_end_sound), user, target, tool)
@@ -643,4 +646,6 @@
 	var/basemod = 1.0
 	for(var/mod_id, mod_amt in patient.mob_surgery_speed_mods)
 		basemod *= mod_amt
+	CALCULATE_SKILL_MOD(surgeon, SURGERY_DURATION_MOD, surgery_skill_mod)
+	basemod *= surgery_skill_mod
 	return basemod

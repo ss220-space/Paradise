@@ -37,9 +37,6 @@
 	var/should_reset_color = TRUE
 	/// How hard the material is, we'll have to have more powerful stuff if we want to blast harder materials.
 	var/hardness = 1
-	/// Typecache of all the instruments allowed to dig us.
-	/// Populated in [/turf/simulated/mineral/proc/generate_picks()].
-	var/static/list/list/allowed_picks_typecache = list()
 	COOLDOWN_DECLARE(last_act)
 
 /turf/simulated/mineral/get_ru_names()
@@ -54,7 +51,6 @@
 
 /turf/simulated/mineral/Initialize(mapload)
 	. = ..()
-	generate_picks()
 	if(should_reset_color)
 		color = null
 	if(mineralType && mineralAmt && spread && spreadChance)
@@ -69,15 +65,6 @@
 
 /turf/simulated/mineral/add_blob_consume_component()
 	AddComponent(/datum/component/blob_turf_consuming, 2)
-
-/// Generates typecache of tools allowed to dig this mineral
-/turf/simulated/mineral/proc/generate_picks()
-	if(!allowed_picks_typecache[MINERAL_TYPE_BASE])
-		allowed_picks_typecache[MINERAL_TYPE_BASE] = typecacheof(list(
-		/obj/item/pickaxe,
-		/obj/item/pen/survival,
-	))
-	allowed_picks_typecache = allowed_picks_typecache[MINERAL_TYPE_BASE]
 
 /turf/simulated/mineral/proc/Spread(turf/T)
 	T.ChangeTurf(type)
@@ -96,7 +83,10 @@
 /turf/simulated/mineral/attackby(obj/item/I, mob/user, params)
 	. = ..()
 
-	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !isturf(user.loc) || !COOLDOWN_FINISHED(src, last_act) || !is_type_in_typecache(I, allowed_picks_typecache))
+	if(I.tool_behaviour != TOOL_MINING)
+		return .
+
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !isturf(user.loc) || !COOLDOWN_FINISHED(src, last_act))
 		return .
 
 	COOLDOWN_START(src, last_act, mine_time * I.toolspeed * user.get_actionspeed_by_category(DA_CAT_TOOL))	// Prevents message spam
@@ -178,17 +168,11 @@
 /turf/simulated/mineral/Bumped(atom/movable/moving_atom)
 	. = ..()
 
-	if(ishuman(moving_atom))
-		var/mob/living/carbon/human/human = moving_atom
-		var/active_hand = human.get_active_hand()
-		if(is_type_in_typecache(active_hand, allowed_picks_typecache))
-			INVOKE_ASYNC(src, TYPE_PROC_REF(/atom, attackby), active_hand, human)
-		return
-
-	if(isrobot(moving_atom))
-		var/mob/living/silicon/robot/robot = moving_atom
-		if(is_type_in_typecache(robot.module_active, allowed_picks_typecache))
-			INVOKE_ASYNC(src, TYPE_PROC_REF(/atom, attackby), robot.module_active, robot)
+	if(isliving(moving_atom))
+		var/mob/living/bumping = moving_atom
+		var/obj/item/held_item = bumping.get_active_hand()
+		if(held_item?.tool_behaviour == TOOL_MINING)
+			INVOKE_ASYNC(src, TYPE_PROC_REF(/atom, attackby), held_item, bumping)
 		return
 
 	if(ismecha(moving_atom))
