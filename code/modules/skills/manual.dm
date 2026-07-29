@@ -56,7 +56,7 @@
 	var/datum/mind/user_mind = user.mind
 	if(!user_mind)
 		return
-	if(skill_type in user_mind.active_skill_bonuses | user_mind.manual_skill_bonuses)
+	if(skill_type in (user_mind.active_skill_bonuses | user_mind.manual_skill_bonuses))
 		return
 	var/current_skill_level = user_mind.skills[skill_type]
 	if(!current_skill_level)
