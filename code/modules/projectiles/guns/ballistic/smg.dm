@@ -246,6 +246,7 @@
 	icon_state = "sfg-5"
 	item_state = "arg"
 	mag_type = /obj/item/ammo_box/magazine/sfg9mm
+	fire_delay = 0.25 SECONDS
 	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
