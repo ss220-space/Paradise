@@ -18,7 +18,7 @@
 	var/opened = FALSE
 
 /obj/item/gun/projectile/bombarda/bombplet/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кустарный гранатомет",
 		GENITIVE = "кустарного гранатомета",
 		DATIVE = "кустарному гранатомету",

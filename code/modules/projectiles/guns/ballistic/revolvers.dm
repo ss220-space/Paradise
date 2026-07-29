@@ -15,7 +15,7 @@
 	AddElement(/datum/element/item_skins)
 
 /obj/item/gun/projectile/revolver/detective/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "револьвер R38 \"Симплекс\" .38",
 		GENITIVE = "револьвера R38 \"Симплекс\" .38",
 		DATIVE = "револьверу R38 \"Симплекс\" .38",
@@ -104,7 +104,7 @@
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/projectile/revolver/fingergun/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пальцы-пистолеты",
 		GENITIVE = "пальцев-пистолетов",
 		DATIVE = "пальцам-пистолетам",
@@ -165,7 +165,7 @@
 	)
 
 /obj/item/gun/projectile/revolver/mateba/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "револьвер Уника-6 .357",
 		GENITIVE = "револьвера Уника-6 .357",
 		DATIVE = "револьверу Уника-6 .357",
@@ -190,7 +190,7 @@
 	)
 
 /obj/item/gun/projectile/revolver/ga12/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "револьвер UC-12 \"Дракон\" 12g",
 		GENITIVE = "револьвера UC-12 \"Дракон\" 12g",
 		DATIVE = "револьверу UC-12 \"Дракон\" 12g",
@@ -225,7 +225,7 @@
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/projectile/revolver/golden/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "золотой револьвер .357",
 		GENITIVE = "золотого револьвера .357",
 		DATIVE = "золотому револьверу .357",
@@ -247,7 +247,7 @@
 	)
 
 /obj/item/gun/projectile/revolver/capgun/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "игрушечный револьвер",
 		GENITIVE = "игрушечного револьвера",
 		DATIVE = "игрушечному револьверу",
@@ -272,7 +272,7 @@
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/projectile/revolver/improvised/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кустарный револьвер .257",
 		GENITIVE = "кустарного револьвера .257",
 		DATIVE = "кустарному револьверу .257",
@@ -465,7 +465,7 @@
 	)
 
 /obj/item/gun/projectile/revolver/nagant/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "револьвер Нагана 7,62x38",
 		GENITIVE = "револьвера Нагана 7,62x38",
 		DATIVE = "револьверу Нагана 7,62x38",
@@ -507,7 +507,7 @@
 	)
 
 /obj/item/gun/projectile/revolver/russian/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "револьвер для русской рулетки .357",
 		GENITIVE = "револьвера для русской рулетки .357",
 		DATIVE = "револьверу для русской рулетки .357",

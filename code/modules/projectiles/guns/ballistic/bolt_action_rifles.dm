@@ -19,7 +19,7 @@
 	available_reload_animation = FALSE
 
 /obj/item/gun/projectile/shotgun/boltaction/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "винтовка Мосина 7,62x54 мм",
 		GENITIVE = "винтовки Мосина 7,62x54 мм",
 		DATIVE = "винтовке Мосина 7,62x54 мм",
@@ -66,7 +66,7 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "магическая винтовка",
 		GENITIVE = "магической винтовки",
 		DATIVE = "магической винтовке",
@@ -114,7 +114,7 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "магический шквал",
 		GENITIVE = "магического шквала",
 		DATIVE = "магическому шквалу",
@@ -146,7 +146,7 @@
 	item_flags = NOBLUDGEON|DROPDEL
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/blood/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кровавый шквал",
 		GENITIVE = "кровавого шквала",
 		DATIVE = "кровавому шквалу",

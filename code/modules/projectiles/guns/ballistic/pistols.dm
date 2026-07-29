@@ -104,7 +104,7 @@
 	)
 
 /obj/item/gun/projectile/automatic/pistol/sp8/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пистолет P40-E \"Эйсер\" .40 N&R",
 		GENITIVE = "пистолета P40-E \"Эйсер\" .40 N&R",
 		DATIVE = "пистолету P40-E \"Эйсер\" .40 N&R",
@@ -145,7 +145,7 @@
 	)
 
 /obj/item/gun/projectile/automatic/pistol/stechkin/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пистолет \"Стечкин\" 10x25 мм",
 		GENITIVE = "пистолета \"Стечкин\" 10x25 мм",
 		DATIVE = "пистолету \"Стечкин\" 10x25 мм",
@@ -185,7 +185,7 @@
 	recoil = GUN_RECOIL_HIGH
 
 /obj/item/gun/projectile/automatic/pistol/deagle/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пистолет SGM-P \"Колосс\" .50 AE",
 		GENITIVE = "пистолета SGM-P \"Колосс\" .50 AE",
 		DATIVE = "пистолету SGM-P \"Колосс\" .50 AE",
@@ -274,7 +274,7 @@
 	)
 
 /obj/item/gun/projectile/automatic/pistol/m1911/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пистолет M1911 .45",
 		GENITIVE = "пистолета M1911 .45",
 		DATIVE = "пистолету M1911 .45",

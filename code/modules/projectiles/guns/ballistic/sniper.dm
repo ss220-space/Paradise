@@ -48,7 +48,7 @@
 	origin_tech = "combat=7;syndicate=6"
 
 /obj/item/gun/projectile/automatic/sniper_rifle/syndicate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "снайперская винтовка SGM-HSR-15 .50",
 		GENITIVE = "снайперской винтовки SGM-HSR-15 .50",
 		DATIVE = "снайперской винтовке SGM-HSR-15 .50",
@@ -99,7 +99,7 @@
 	)
 
 /obj/item/gun/projectile/automatic/sniper_rifle/compact/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "снайперская винтовка SGM-HSR-15-С \"Шершень\" .50L",
 		GENITIVE = "снайперской винтовки SGM-HSR-15-С \"Шершень\" .50L",
 		DATIVE = "снайперской винтовке SGM-HSR-15-С \"Шершень\" .50L",

@@ -27,7 +27,7 @@
 	var/cover_open = 0
 
 /obj/item/gun/projectile/automatic/l6_saw/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ручной пулемёт L6 SAW 7,62x51 мм",
 		GENITIVE = "ручного пулемёта L6 SAW 7,62x51 мм",
 		DATIVE = "ручному пулемёту L6 SAW 7,62x51 мм",
