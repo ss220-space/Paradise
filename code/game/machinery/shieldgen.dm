@@ -256,7 +256,8 @@
 			return ATTACK_CHAIN_PROCEED
 		to_chat(user, span_notice("You begin to replace the wires..."))
 		playsound(loc, coil.usesound, 50, TRUE)
-		if(!do_after(user, 3 SECONDS * coil.toolspeed, src, category = DA_CAT_TOOL) || !malfunction || !is_open || QDELETED(coil) || !coil.use(1))
+		CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
+		if(!do_after(user, 3 SECONDS * coil.toolspeed * construction_mod, src, category = DA_CAT_TOOL) || !malfunction || !is_open || QDELETED(coil) || !coil.use(1))
 			return ATTACK_CHAIN_PROCEED
 		health = max_health
 		malfunction = FALSE

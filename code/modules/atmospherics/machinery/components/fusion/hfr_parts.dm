@@ -32,7 +32,8 @@
 	. += span_notice("[src] can be rotated by first opening the panel with a screwdriver and then using a wrench on it.")
 
 /obj/machinery/atmospherics/unary/hypertorus/screwdriver_act(mob/living/user, obj/item/tool)
-	return fusion_started ? NONE : default_deconstruction_screwdriver(user, tool)
+	. = fusion_started ? NONE : default_deconstruction_screwdriver(user, icon_state, icon_state, tool)
+	update_appearance(UPDATE_ICON)
 
 /obj/machinery/atmospherics/unary/hypertorus/wrench_act(mob/living/user, obj/item/I)
 	return default_change_direction_wrench(user, I)
@@ -118,7 +119,8 @@
 	. += span_notice("[src] can be rotated by first opening the panel with a screwdriver and then using a wrench on it.")
 
 /obj/machinery/hypertorus/screwdriver_act(mob/living/user, obj/item/tool)
-	return fusion_started ? NONE : default_deconstruction_screwdriver(user, tool)
+	. = fusion_started ? NONE : default_deconstruction_screwdriver(user, icon_state, icon_state, tool)
+	update_appearance(UPDATE_ICON)
 
 /obj/machinery/hypertorus/wrench_act(mob/living/user, obj/item/tool)
 	return default_change_direction_wrench(user, tool)
@@ -277,12 +279,12 @@
 
 	data["waste_remove"] = connected_core.waste_remove
 	data["filter_types"] = list()
-	var/cached_gas_info = GLOB.gas_meta
-	for(var/path in cached_gas_info[META_GAS_ID])
+	var/list/cached_gas_info = GLOB.gas_meta
+	for(var/gas_id in cached_gas_info)
 		data["filter_types"] += list(list(
-			"gas_id" = cached_gas_info[META_GAS_ID],
-			"gas_name" = cached_gas_info[META_GAS_NAME],
-			"enabled" = (path in connected_core.moderator_scrubbing)
+			"gas_id" = gas_id,
+			"gas_name" = cached_gas_info[gas_id][META_GAS_NAME],
+			"enabled" = (gas_id in connected_core.moderator_scrubbing)
 		))
 
 	data["cooling_volume"] = connected_core.air_contents.volume
@@ -337,7 +339,12 @@
 			connected_core.waste_remove = !connected_core.waste_remove
 			. = TRUE
 		if("filter")
-			connected_core.moderator_scrubbing += params["mode"]
+			var/mode = params["mode"]
+			var/list/cached_moderator_scrubbing = connected_core.moderator_scrubbing
+			if(mode in cached_moderator_scrubbing)
+				cached_moderator_scrubbing -= mode
+			else
+				cached_moderator_scrubbing += mode
 			. = TRUE
 		if("mod_filtering_rate")
 			var/mod_filtering_rate = text2num(params["mod_filtering_rate"])

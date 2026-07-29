@@ -61,7 +61,8 @@
 	return CONTEXTUAL_SCREENTIP_SET
 
 /obj/machinery/atmospherics/binary/crystallizer/screwdriver_act(mob/living/user, obj/item/tool)
-	return on ? NONE : default_deconstruction_screwdriver(user, tool)
+	. = on ? NONE : default_deconstruction_screwdriver(user, icon_state, icon_state, tool)
+	update_appearance(UPDATE_ICON)
 
 /obj/machinery/atmospherics/binary/crystallizer/wrench_act(mob/living/user, obj/item/tool)
 	return default_change_direction_wrench(user, tool)

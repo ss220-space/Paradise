@@ -130,6 +130,8 @@
 #define TRAIT_HEALS_FROM_HOLY_PYLONS "heals_from_holy_pylons"
 /// This mob heals from bingle holes.
 #define TRAIT_HEALS_FROM_BINGLE_HOLES "heals_from_bingle_holes"
+#define TRAIT_CULT_VEIL_SIGHT "cult_veil_sight"
+#define TRAIT_CULT_CONCEALED "cult_concealed"
 
 #define TRAIT_LASEREYES "laser_eyes"	//traits that should be properly converted to genetic mutations one day
 /// Forces the user to stay unconscious.
@@ -243,6 +245,8 @@
 #define TRAIT_COMBAT_EXOFRAME_EMP_SHIELD "combat_exoframe_emp_shield"
 /// Item still allows you to examine items while blind and actively held.
 #define TRAIT_BLIND_TOOL "blind_tool"
+/// A melee weapon, for this items work combat/melee skill damage mod
+#define TRAIT_MELEE_WEAPON "melee_weapon"
 
 #define TRAIT_SHRAPNEL "shrapnel"
 /// Trait for items that can be attached to tripwire. Dont forget about on_tripwire_trigger(obj/item/tripwire/base, mob/user) proc for each item

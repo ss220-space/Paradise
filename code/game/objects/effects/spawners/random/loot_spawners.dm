@@ -70,6 +70,16 @@
 		/obj/item/clothing/suit/space,
 	)
 
+/obj/effect/spawner/random/loot/skill_manuals
+	name = "skill manuals spawner"
+	spawn_all_loot = TRUE
+	loot = list(
+		/obj/item/book/skill_manual/random,
+		/obj/item/book/skill_manual/random,
+		/obj/item/book/skill_manual/random,
+		/obj/item/book/skill_manual/random,
+	)
+
 /obj/effect/spawner/random/loot_crate
 	name = "lootcrate spawner"
 	icon_state = "crate_secure"
@@ -92,6 +102,7 @@
 		/obj/effect/spawner/random/loot/outfit/ian_fan = 2,
 		/obj/effect/spawner/random/loot/pet_uhhh_supplies = 2,
 		/obj/effect/spawner/random/loot/space_kit = 2,
+		/obj/effect/spawner/random/loot/skill_manuals = 2,
 		/obj/effect/spawner/random/stock_parts = 2,
 		///obj/effect/spawner/random/toy/mech_figure = 2,
 		/obj/item/defibrillator/compact = 2,

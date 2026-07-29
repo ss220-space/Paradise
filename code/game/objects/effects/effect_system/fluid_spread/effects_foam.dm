@@ -337,18 +337,23 @@
 /obj/effect/particle_effect/fluid/foam/metal/resin/halon/temperature_expose(exposed_temperature, exposed_volume)
 	return // Doesn't dissolve in heat.
 
+/// A variant of metal foam which only produces walls at area boundaries.
+/obj/effect/particle_effect/fluid/foam/metal/smart
+	name = "smart foam"
+
 /// A factory which produces smart aluminium metal foam.
 /datum/effect_system/fluid_spread/foam/metal/smart
 	effect_type = /obj/effect/particle_effect/fluid/foam/metal/smart
 
 /obj/effect/particle_effect/fluid/foam/metal/smart/make_result() //Smart foam adheres to area borders for walls
 	var/turf/simulated/location = loc
+	var/area/location_area = get_area(location)
 	if(isspaceturf(location) || isopenspaceturf(location))
 		location.ChangeTurf(/turf/simulated/floor/plating/metalfoam)
 
 	for(var/cardinal in GLOB.cardinal)
 		var/turf/cardinal_turf = get_step(location, cardinal)
-		if(get_area(cardinal_turf) != get_area(location))
+		if(get_area(cardinal_turf) != location_area)
 			return ..()
 	return null
 

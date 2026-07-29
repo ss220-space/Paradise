@@ -205,9 +205,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/space_bar)
 "bl" = (
-/obj/structure/toilet{
-	dir = 4
-	},
+/obj/structure/toilet/directional/west,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -347,7 +345,7 @@
 /area/ruin/unpowered)
 "mN" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sink/directional/south,
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/space_bar)
 "ng" = (
@@ -671,7 +669,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/space_bar)
 "Lt" = (
-/obj/structure/sink/directional/south,
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/space_bar)
 "LV" = (

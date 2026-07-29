@@ -55,7 +55,7 @@
 
 /obj/item/ammo_casing/energy/flora/gamma/fire(atom/target, mob/living/user, list/modifiers, distro, quiet, zone_override, spread, atom/firer_source_atom, damage_mod = 1, stamina_mod = 1)
 	playsound(src.loc, 'sound/weapons/floragun_gamma.ogg', 75, TRUE)
-	if(!do_after(user, 0.5 SECONDS, user, DA_IGNORE_USER_LOC_CHANGE, progress = FALSE))
+	if(!do_after(user, 0.5 SECONDS, user, DA_IGNORE_USER_LOC_CHANGE, show_progress = FALSE))
 		return FALSE
 	. = ..()
 

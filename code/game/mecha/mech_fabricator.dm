@@ -196,9 +196,10 @@
 
 	// Start building the design
 	var/build_time = get_design_build_time(D)
+	CALCULATE_SKILL_MOD(usr, MECH_CONSTRUCT_DURATION_MOD, skill_duration_mod)
 	being_built = D
 	build_start = world.time
-	build_end = build_start + build_time
+	build_end = build_start + build_time * skill_duration_mod
 	use_power = ACTIVE_POWER_USE
 	add_overlay("fabricator_active")
 	addtimer(CALLBACK(src, PROC_REF(build_design_timer_finish), D, final_cost), build_time)

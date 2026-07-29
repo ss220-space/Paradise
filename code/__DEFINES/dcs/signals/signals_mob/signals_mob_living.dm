@@ -172,3 +172,7 @@
 
 ///From mob/living/proc/on_wabbajack(): (mob/living/new_mob)
 #define COMSIG_LIVING_ON_WABBAJACKED "living_wabbajacked"
+
+
+/// From /mob/living/changeNext_move() : (next_move, delay)
+#define COMSIG_LIVING_CHANGENEXT_MOVE "living_changenext_move"

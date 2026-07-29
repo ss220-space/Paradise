@@ -355,7 +355,7 @@
 /area/ruin/powered/beach)
 "pg" = (
 /obj/effect/turf_decal/sand,
-/obj/structure/sink/directional/west,
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = 26;
 	pixel_y = -2
@@ -363,7 +363,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/powered/beach)
 "px" = (
-/obj/machinery/shower/directional/west,
+/obj/machinery/shower/directional/east,
 /turf/simulated/floor/pod/light/lavaland_air,
 /area/ruin/powered/beach)
 "pI" = (
@@ -402,7 +402,7 @@
 /area/ruin/powered/beach)
 "rX" = (
 /obj/item/tank/internals/oxygen,
-/obj/structure/sink/directional/west,
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/plating,
 /area/ruin/powered/beach)
 "sq" = (
@@ -476,7 +476,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/toilet,
+/obj/structure/toilet/directional/north,
 /turf/simulated/floor/plating,
 /area/ruin/powered/beach)
 "yc" = (
@@ -493,7 +493,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/powered/beach)
 "zI" = (
-/obj/machinery/shower/directional/east,
+/obj/machinery/shower/directional/west,
 /obj/effect/turf_decal/sand,
 /turf/simulated/floor/pod/light/lavaland_air,
 /area/ruin/powered/beach)
