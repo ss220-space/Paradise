@@ -298,15 +298,11 @@
 // Probably i can make it better, but i don't know how
 /datum/deathmatch_modifier/special_loadouts/on_select(datum/deathmatch_lobby/lobby)
 	for(var/datum/outfit/deathmatch_loadout/our_loadout as anything in GLOB.deathmatch_game.loadouts)
-		if(checking_type == LOADOUT_NONE) //we check only blacklists then
-			if(our_loadout.loadout_type & checking_blacklist)
-				continue
+		if(our_loadout.loadout_type & checking_blacklist)
+			continue
+
+		if((our_loadout.loadout_type & checking_type) || !checking_type)
 			choosen_loadouts += our_loadout
-		else
-			if(our_loadout.loadout_type & checking_blacklist) //blacklist are still ignored
-				continue
-			if(our_loadout.loadout_type & checking_type)
-				choosen_loadouts += our_loadout
 
 	if(isemptylist(choosen_loadouts))
 		return
