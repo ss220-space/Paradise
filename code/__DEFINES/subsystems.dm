@@ -86,6 +86,7 @@
 // Subsystem fire priority, from lowest to highest priority
 // If the subsystem isn't listed here it's either DEFAULT or PROCESS (if it's a processing subsystem child)
 #define FIRE_PRIORITY_PING 10
+#define FIRE_PRIORITY_SERVER_MAINT 10
 #define FIRE_PRIORITY_NIGHTSHIFT 10
 #define FIRE_PRIORITY_IDLE_NPC 10
 #define FIRE_PRIORITY_CLEANUP 10
@@ -120,6 +121,7 @@
 #define FIRE_PRIORITY_NEW_PLAYERS_INFO 199
 #define FIRE_PRIORITY_TICKER 200
 #define FIRE_PRIORITY_SINGULO 350
+#define FIRE_PRIORITY_TIMED_ACTIONS 360
 #define FIRE_PRIORITY_STATPANEL 390
 #define FIRE_PRIORITY_CHAT 400
 #define FIRE_PRIORITY_RUNECHAT 410 // I hate how high the fire priority on this is -aa

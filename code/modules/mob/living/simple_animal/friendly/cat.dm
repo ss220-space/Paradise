@@ -177,7 +177,7 @@
 				movement_target = null
 				stop_automated_movement = FALSE
 				break
-		for(var/obj/item/toy/cattoy/toy in view(1, src))
+		for(var/obj/item/toy/plushie/cattoy/toy in view(1, src))
 			if(toy.cooldown < world.time)
 				custom_emote(EMOTE_VISIBLE, "подбрасыва%(ет,ют)% игрушечную мышь своей лапой!")
 				toy.cooldown = world.time + 40 SECONDS

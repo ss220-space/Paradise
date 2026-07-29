@@ -59,6 +59,10 @@
 /area/station/engineering/atmos/distribution
 	name = "Atmospherics Distribution Loop"
 
+/area/station/engineering/atmos/mixing_atmos
+	name = "Atmospherics Mixing Room"
+	icon_state = "atmos_mixing"
+
 /area/station/engineering/storage/tech
 	name = "Technical Storage"
 	icon_state = "auxstorage"

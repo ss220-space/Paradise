@@ -202,7 +202,7 @@
 	to_chat(wizard_mob, "In your pockets you will find a teleport scroll. Use it as needed.")
 	wizard_mob.mind.store_memory("<b>Remember:</b> do not forget to prepare your spells.")
 	wizard_mob.update_icons()
-	wizard_mob.gene_stability += DEFAULT_GENE_STABILITY //magic
+	wizard_mob.set_gene_stability(wizard_mob.gene_stability + DEFAULT_GENE_STABILITY) //magic
 	return TRUE
 
 /datum/game_mode/proc/equip_wizard_apprentice(mob/living/carbon/human/wizard_mob)
@@ -250,7 +250,7 @@
 	to_chat(wizard_mob, span_notice("В карманах вы найдёте свиток телепортации. Используйте его при необходимости."))
 	wizard_mob.mind.store_memory("<b>Помните:</b> не забудьте выбрать предпочитаемый набор.")
 	wizard_mob.update_icons()
-	wizard_mob.gene_stability += DEFAULT_GENE_STABILITY //magic
+	wizard_mob.set_gene_stability(wizard_mob.gene_stability + DEFAULT_GENE_STABILITY) //magic
 	return TRUE
 
 // Checks if the game should end due to all wizards and apprentices being dead, or MMI'd/Borged

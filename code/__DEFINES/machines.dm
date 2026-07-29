@@ -261,3 +261,10 @@
 #define FG_OFFLINE 0
 #define FG_CHARGING 1
 #define FG_ONLINE 2
+
+#define HYPERTORUS_INACTIVE 0 // No or minimal energy
+#define HYPERTORUS_NOMINAL 1 // Normal operation
+#define HYPERTORUS_WARNING 2 // Integrity damaged
+#define HYPERTORUS_DANGER 3 // Integrity < 50%
+#define HYPERTORUS_EMERGENCY 4 // Integrity < 25%
+#define HYPERTORUS_MELTING 5 // Pretty obvious.

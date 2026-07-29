@@ -874,6 +874,8 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 				party_debris += new /obj/effect/decal/cleanable/confetti(party_turf_to_spawn_on)
 			if(prob(10))
 				party_debris += new /obj/item/toy/balloon(party_turf_to_spawn_on)
+			if(prob(5))
+				party_debris += new /obj/item/toy/balloon/long(party_turf_to_spawn_on)
 
 	if(!HAS_TRAIT(SSstation, STATION_TRAIT_HANGOVER))
 		return

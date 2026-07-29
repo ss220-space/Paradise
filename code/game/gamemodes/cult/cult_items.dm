@@ -306,7 +306,7 @@
 	desc = "May the master guide you through the darkness and shield you from the light."
 	icon_state = "blindfold"
 	item_state = "blindfold"
-	invis_override = SEE_INVISIBLE_HIDDEN_RUNES
+	clothing_traits = list(TRAIT_CULT_VEIL_SIGHT)
 	flash_protect = FLASH_PROTECTION_FLASH
 	prescription = TRUE
 	origin_tech = null

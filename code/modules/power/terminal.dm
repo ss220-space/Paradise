@@ -55,7 +55,8 @@
 	playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
 	if(!do_after(user, 5 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL) || HAS_TRAIT(src, TRAIT_UNDERFLOOR) || (master && !master.can_terminal_dismantle(user)))
 		return FALSE
-	if(prob(50) && electrocute_mob(user, powernet, src, 1, TRUE))
+	CALCULATE_SKILL_MOD(user, ELECTRICITY_NEGATIVE_CHANCE_MOD, prob_mod)
+	if(prob(50 * prob_mod) && electrocute_mob(user, powernet, src, 1, TRUE))
 		do_sparks(5, TRUE, master)
 		return FALSE
 	. = TRUE

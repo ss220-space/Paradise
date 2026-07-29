@@ -184,6 +184,24 @@
 	r_pocket = /obj/item/stock_parts/cell/high
 	belt = /obj/item/storage/belt/utility/full
 
+/datum/outfit/deathmatch_loadout/chef
+	name = "Deathmatch: Chef"
+	display_name = "Шеф-повар"
+	desc = "Любитель приготовить гречку."
+
+	uniform = /obj/item/clothing/under/rank/chef
+	suit = /obj/item/clothing/suit/chef
+	belt = /obj/item/storage/belt/chef
+	head = /obj/item/clothing/head/chefhat
+
+/datum/outfit/deathmatch_loadout/chef/post_equip(mob/living/carbon/human/brawler, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+
+	var/datum/martial_art/cqc/not_just_a_cook = new
+	not_just_a_cook.teach(brawler)
+
 // TODO:
 // ALL BATTLERS
 // ALL SPECIES

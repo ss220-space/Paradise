@@ -21,8 +21,8 @@
 	usable_strength_level = default_strength
 
 /datum/component/muscles/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_GET_GRAB_SPEED_MODIFIERS, PROC_REF(get_strength_grab_speed_modifier))
-	RegisterSignal(parent, COMSIG_GET_PULL_SLOWDOWN_MODIFIERS, PROC_REF(get_strength_pull_slowdown_modifier))
+	RegisterSignal(parent, COMSIG_GET_SKILL_MOD(GRAB_SPEED_MODIFIERS), PROC_REF(get_strength_grab_speed_modifier))
+	RegisterSignal(parent, COMSIG_GET_SKILL_MOD(PULL_SLOWDOWN_MODIFIERS), PROC_REF(get_strength_pull_slowdown_modifier))
 	RegisterSignal(parent, COMSIG_GET_MELEE_DAMAGE_DELTAS, PROC_REF(get_strength_melee_damage_delta))
 	RegisterSignal(parent, COMSIG_MOB_EXERCISED, PROC_REF(try_add_strength_points))
 	RegisterSignal(parent, COMSIG_GET_ICON_RENDER_KEY_INFO, PROC_REF(get_icon_render_key_info))
@@ -41,8 +41,8 @@
 
 /datum/component/muscles/UnregisterFromParent()
 	UnregisterSignal(parent, list(
-		COMSIG_GET_GRAB_SPEED_MODIFIERS,
-		COMSIG_GET_PULL_SLOWDOWN_MODIFIERS,
+		COMSIG_GET_SKILL_MOD(GRAB_SPEED_MODIFIERS),
+		COMSIG_GET_SKILL_MOD(PULL_SLOWDOWN_MODIFIERS),
 		COMSIG_GET_MELEE_DAMAGE_DELTAS,
 		COMSIG_MOB_EXERCISED,
 		COMSIG_GET_ICON_RENDER_KEY_INFO,
@@ -191,27 +191,27 @@
 
 	return strength_points / real_strength_level.strength_req_to_upgrade
 
-/datum/component/muscles/proc/get_strength_grab_speed_modifier(mob/living/user, list/modifiers)
+/datum/component/muscles/proc/get_strength_grab_speed_modifier(mob/living/user, alist/modifiers)
 	SIGNAL_HANDLER
 	var/strength_level_part = get_strength_level_part(user)
 	if(strength_level_part == 0)
-		modifiers.Add(usable_strength_level.grab_speed_modifier)
+		modifiers[STRENGTH_MOD_SOURCE] = usable_strength_level.grab_speed_modifier
 		return
 
 	var/datum/strength_level/next_strength_level = usable_strength_level.next_level
-	modifiers.Add(usable_strength_level.grab_speed_modifier + \
-		(next_strength_level.grab_speed_modifier - usable_strength_level.grab_speed_modifier) * strength_level_part)
+	modifiers[STRENGTH_MOD_SOURCE] = usable_strength_level.grab_speed_modifier + \
+		(next_strength_level.grab_speed_modifier - usable_strength_level.grab_speed_modifier) * strength_level_part
 
-/datum/component/muscles/proc/get_strength_pull_slowdown_modifier(mob/living/user, list/modifiers)
+/datum/component/muscles/proc/get_strength_pull_slowdown_modifier(mob/living/user, alist/modifiers)
 	SIGNAL_HANDLER
 	var/strength_level_part = get_strength_level_part(user)
 	if(strength_level_part == 0)
-		modifiers.Add(usable_strength_level.pull_slowdown_modifier)
+		modifiers[STRENGTH_MOD_SOURCE] = usable_strength_level.pull_slowdown_modifier
 		return
 
 	var/datum/strength_level/next_strength_level = usable_strength_level.next_level
-	modifiers.Add(usable_strength_level.pull_slowdown_modifier + \
-		(next_strength_level.pull_slowdown_modifier - usable_strength_level.pull_slowdown_modifier) * strength_level_part)
+	modifiers[STRENGTH_MOD_SOURCE] = usable_strength_level.pull_slowdown_modifier + \
+		(next_strength_level.pull_slowdown_modifier - usable_strength_level.pull_slowdown_modifier) * strength_level_part
 
 /datum/component/muscles/proc/get_strength_melee_damage_delta(mob/living/user, list/deltas, obj/item/weapon)
 	SIGNAL_HANDLER
@@ -315,7 +315,7 @@
 /datum/strength_level/weak
 	next_level = /datum/strength_level/normal
 	level_num = 1
-	grab_speed_modifier = 0.8
+	grab_speed_modifier = 1.2
 	pull_slowdown_modifier = 1.2
 	melee_damage_delta = -2
 	break_ties_speed_modifier = 0.8
@@ -349,7 +349,7 @@
 	next_level = /datum/strength_level/ideal
 	prev_level = /datum/strength_level/normal
 	level_num = 3
-	grab_speed_modifier = 1.15
+	grab_speed_modifier = 0.85
 	pull_slowdown_modifier = 0.75
 	melee_damage_delta = 2
 	break_ties_speed_modifier = 1.3
@@ -366,7 +366,7 @@
 	next_level = /datum/strength_level/superhuman
 	prev_level = /datum/strength_level/strong
 	level_num = 4
-	grab_speed_modifier = 1.3
+	grab_speed_modifier = 0.7
 	pull_slowdown_modifier = 0.5
 	melee_damage_delta = 4
 	break_ties_speed_modifier = 1.5
@@ -382,7 +382,7 @@
 /datum/strength_level/superhuman
 	prev_level = /datum/strength_level/ideal
 	level_num = 5
-	grab_speed_modifier = 1.5
+	grab_speed_modifier = 0.5
 	pull_slowdown_modifier = 0
 	melee_damage_delta = 6
 	break_ties_speed_modifier = 2

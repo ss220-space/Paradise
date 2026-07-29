@@ -34,8 +34,8 @@
 /area/ruin/space/spacebotany/Med)
 "aG" = (
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "whitegreen";
-	dir = 10
+	dir = 10;
+	icon_state = "whitegreen"
 	},
 /area/ruin/space/spacebotany/Chem)
 "aJ" = (
@@ -527,8 +527,8 @@
 /area/ruin/space/spacebotany/Med)
 "gX" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "bluecorner";
-	dir = 8
+	dir = 8;
+	icon_state = "bluecorner"
 	},
 /area/ruin/space/spacebotany/WestGarden)
 "ha" = (
@@ -541,8 +541,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "whitegreen";
-	dir = 1
+	dir = 1;
+	icon_state = "whitegreen"
 	},
 /area/ruin/space/spacebotany/Chem)
 "hf" = (
@@ -841,8 +841,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "whitegreen";
-	dir = 8
+	dir = 8;
+	icon_state = "whitegreen"
 	},
 /area/ruin/space/spacebotany/Chem)
 "kF" = (
@@ -1252,8 +1252,8 @@
 /area/ruin/space/spacebotany/Dorm)
 "pO" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "bluecorner";
-	dir = 1
+	dir = 1;
+	icon_state = "bluecorner"
 	},
 /area/ruin/space/spacebotany/WestGarden)
 "pP" = (
@@ -1323,8 +1323,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "whitegreen";
-	dir = 1
+	dir = 1;
+	icon_state = "whitegreen"
 	},
 /area/ruin/space/spacebotany/Chem)
 "rg" = (
@@ -2219,8 +2219,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "whitegreen";
-	dir = 8
+	dir = 8;
+	icon_state = "whitegreen"
 	},
 /area/ruin/space/spacebotany/Chem)
 "CI" = (
@@ -2284,8 +2284,8 @@
 "DL" = (
 /obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/plasteel{
-	icon_state = "bluecorner";
-	dir = 1
+	dir = 1;
+	icon_state = "bluecorner"
 	},
 /area/ruin/space/spacebotany/WestGarden)
 "DO" = (
@@ -2315,8 +2315,8 @@
 	dir = 9
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "bluecorner";
-	dir = 1
+	dir = 1;
+	icon_state = "bluecorner"
 	},
 /area/ruin/space/spacebotany/WestGarden)
 "DZ" = (
@@ -2475,7 +2475,7 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/spacebotany/Garden)
 "Gd" = (
-/obj/structure/sink/directional/east,
+/obj/structure/sink/directional/west,
 /obj/structure/spacevine,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -2932,8 +2932,8 @@
 "MX" = (
 /obj/effect/decal/cleanable/blood/drip,
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "whitegreen";
-	dir = 1
+	dir = 1;
+	icon_state = "whitegreen"
 	},
 /area/ruin/space/spacebotany/Chem)
 "MY" = (
@@ -2948,8 +2948,8 @@
 /area/ruin/space/spacebotany/WestGarden)
 "Nq" = (
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "whitegreen";
-	dir = 8
+	dir = 8;
+	icon_state = "whitegreen"
 	},
 /area/ruin/space/spacebotany/Chem)
 "Nz" = (
@@ -3281,7 +3281,7 @@
 /area/ruin/space/spacebotany/WestGarden)
 "Rk" = (
 /obj/machinery/optable,
-/obj/machinery/shower/directional/south,
+/obj/machinery/shower/directional/north,
 /obj/effect/decal/cleanable/dirt/blackpowder,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel{
@@ -3628,8 +3628,8 @@
 /area/ruin/space/spacebotany/Hydro)
 "Vh" = (
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "whitegreen";
-	dir = 9
+	dir = 9;
+	icon_state = "whitegreen"
 	},
 /area/ruin/space/spacebotany/Chem)
 "Vv" = (
@@ -6767,7 +6767,7 @@ Os
 Os
 ZG
 NS
-Gd
+Bb
 Bb
 rM
 vb

@@ -138,22 +138,7 @@
 		icon_state = initial_state
 
 /obj/structure/mineral_door/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/pickaxe))
-		add_fingerprint(user)
-		var/obj/item/pickaxe/pickaxe = I
-		user.visible_message(
-			span_notice("[user] start digging into [src]."),
-			span_notice("You start digging into [src]..."),
-		)
-		I.play_tool_sound(src, 100)
-		if(!do_after(user, 4 SECONDS * pickaxe.toolspeed * hardness, src, category = DA_CAT_TOOL))
-			return ATTACK_CHAIN_PROCEED
-		I.play_tool_sound(src, 100)
-		user.visible_message(
-			span_notice("[user] finishes digging into [src]."),
-			span_notice("You have finished digging into [src]."),
-		)
-		deconstruct(TRUE)
+	if(pickaxe_door(user, I))
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(user.a_intent != INTENT_HARM)
@@ -161,6 +146,17 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
+
+/obj/structure/mineral_door/proc/pickaxe_door(mob/living/user, obj/item/I) //override if the door isn't supposed to be a minable mineral.
+	if(!istype(user))
+		return
+	if(I.tool_behaviour != TOOL_MINING)
+		return
+	. = TRUE
+	to_chat(user, span_notice("You start digging [src]..."))
+	if(I.use_tool(src, user, 40, volume = 50))
+		to_chat(user, span_notice("You finish digging."))
+		deconstruct(TRUE)
 
 /obj/structure/mineral_door/deconstruct(disassembled = TRUE)
 	var/turf/T = get_turf(src)
@@ -246,6 +242,9 @@
 
 /obj/structure/mineral_door/wood/add_debris_element()
 	generate_debris_handler(DEBRIS_WOOD, -40, 5)
+
+/obj/structure/mineral_door/wood/pickaxe_door(mob/living/user, obj/item/I)
+	return
 
 /obj/structure/mineral_door/wood/paperframe
 	name = "Paperframe door"

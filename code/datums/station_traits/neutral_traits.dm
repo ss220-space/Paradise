@@ -163,13 +163,18 @@
 		spawned_mob.equip_to_slot_if_possible(hat, ITEM_SLOT_BACKPACK, disable_warning = TRUE)
 
 	var/obj/item/toy = pick_weight_classic(list(
-		/obj/item/toy/syndicateballoon = 3,
-		/obj/item/toy/syndicateballoon/contractor = 3,
-		/obj/item/toy/carpplushie/void = 1,
+		/obj/item/toy/balloon = 4,
+		/obj/item/toy/balloon/long = 4,
+		/obj/item/toy/balloon/syndicate = 3,
+		/obj/item/toy/balloon/contractor = 3,
+		/obj/item/toy/balloon/arrest = 3,
+		/obj/item/toy/balloon/corgi = 2,
+		/obj/item/toy/balloon/heart = 2,
+		/obj/item/toy/plushie/carp/void = 1,
 		/obj/item/toy/foamblade = 1,
 	))
 	toy = new toy(spawned_mob)
-	if(istype(toy, /obj/item/toy/syndicateballoon))
+	if(istype(toy, /obj/item/toy/balloon/syndicate))
 		spawned_mob.equip_to_slot_if_possible(toy, ITEM_SLOT_HAND_LEFT, disable_warning = TRUE) //Balloons do not fit inside of backpacks.
 	else
 		spawned_mob.equip_to_slot_if_possible(toy, ITEM_SLOT_BACK, disable_warning = TRUE)

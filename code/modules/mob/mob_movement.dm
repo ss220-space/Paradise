@@ -500,7 +500,7 @@
 		return
 
 	balloon_alert(src, "двигаетесь вверх...")
-	if(!do_after(src, 1 SECONDS/*, hidden = TRUE*/))
+	if(!do_after(src, 1 SECONDS, cog_icon = null))
 		return
 
 	if(zMove(UP, z_move_flags = ZMOVE_FLIGHT_FLAGS|ZMOVE_FEEDBACK|ventcrawling_flag))
@@ -528,7 +528,7 @@
 		return
 
 	balloon_alert(src, "двигаетесь вниз...")
-	if(!do_after(src, 1 SECONDS/*, hidden = TRUE*/))
+	if(!do_after(src, 1 SECONDS, cog_icon = null))
 		return
 
 	var/ventcrawling_flag = HAS_TRAIT(src, TRAIT_MOVE_VENTCRAWLING) ? ZMOVE_VENTCRAWLING : NONE

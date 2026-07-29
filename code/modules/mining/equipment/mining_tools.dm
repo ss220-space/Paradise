@@ -19,6 +19,7 @@
 	embedded_ignore_throwspeed_threshold = TRUE
 	var/excavation_amount = 100
 	usesound = 'sound/effects/picaxe1.ogg'
+	tool_behaviour = TOOL_MINING
 	toolspeed = 0.8
 
 /obj/item/pickaxe/get_ru_names()

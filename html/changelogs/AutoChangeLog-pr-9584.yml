@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - balance: "Капитан, ассистент, заключенный и инвестор теперь имеют 10 свободных очков навыков. (PR #9584)"

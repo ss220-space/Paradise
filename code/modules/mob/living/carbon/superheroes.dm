@@ -27,7 +27,7 @@
 	H.force_gene_block(GLOB.regenerateblock, TRUE)
 	H.force_gene_block(GLOB.breathlessblock, TRUE)
 	H.force_gene_block(GLOB.coldblock, TRUE)
-	H.gene_stability = 100
+	H.set_gene_stability(100)
 
 /datum/superheroes/proc/assign_spells(mob/living/carbon/human/H)
 	if(length(default_spells))
