@@ -4,6 +4,7 @@
 	job_rank = ROLE_SPACE_DRAGON
 	special_role = SPECIAL_ROLE_SPACE_DRAGON
 	antag_menu_name = "Космический дракон"
+	has_skill_bonus = FALSE
 	/// All space carps created by this antagonist space dragon
 	var/list/datum/mind/carp = list()
 	/// The innate ability to summon rifts
