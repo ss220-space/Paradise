@@ -1446,7 +1446,7 @@
 	name = "Дегидрированный Космический карп"
 	desc = "Просто добавьте воды, чтобы обзавестись ручным карпом, который будет настроен агрессивно по отношению ко всем, кроме вас. \
 			Он замаскирован под игрушечного карпа. Не забудьте обнять карпа перед тем, как налить воду, иначе он не признает вас своим хозяином."
-	item = /obj/item/toy/carpplushie/dehy_carp
+	item = /obj/item/toy/plushie/carp/dehy_carp
 	cost = 7
 
 /**
@@ -2336,6 +2336,18 @@
 	item = /obj/item/implanter/fake_mindshield
 	cost = 5
 
+/datum/uplink_item/implants/neurotrainer
+	name = "Нейротренер небоевых навыков"
+	desc = "Нейротренер который позволяет улучший любой небоевой навык на ваш выбор."
+	item = /obj/item/neurotrainer/all_without_combat
+	cost = 8
+
+/datum/uplink_item/implants/combat_neurotrainer
+	name = "Нейротренер боевых навыков"
+	desc = "Нейротренер который позволяет улучший любой боевой навык на ваш выбор."
+	item = /obj/item/neurotrainer/combat
+	cost = 15
+
 /**
  * MARK: Cybernetic Implants
  */
@@ -2459,7 +2471,7 @@
 /datum/uplink_item/badass/balloon
 	name = "Фирменный воздушный шар \"Синдикат\""
 	desc = "Изящный красный воздушный шар с эмблемой \"Синдиката\"."
-	item = /obj/item/toy/syndicateballoon
+	item = /obj/item/toy/balloon/syndicate
 	cost = 100
 	can_discount = FALSE
 
@@ -2625,7 +2637,7 @@
 	name = "Воздушный шарик Контрактника"
 	desc = "Изящный воздушный шар, выполненный в черно-золотых тонах и украшенный символикой контрактников. \
 			Чтобы приобрести этот предмет, необходимо успешно завершить все предоставленные контракты в самой сложной локации."
-	item = /obj/item/toy/syndicateballoon/contractor
+	item = /obj/item/toy/balloon/contractor
 	cost = 240
 
 /datum/uplink_item/contractor/baton

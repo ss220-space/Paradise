@@ -51,7 +51,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 	slip.points = object.cost
 	slip.ordernumber = ordernum
 
-	var/stationName = "Syndicate RaMSS 'Taipan' Supply Mannifest"
+	var/stationName = (errors & MANIFEST_ERROR_NAME) ? new_station_name() : "Syndicate RaMSS 'Taipan' Supply Mannifest"
 	var/packagesAmt = length(data_storage?.shoppinglist) + ((errors & MANIFEST_ERROR_COUNT) ? rand(1,2) : 0)
 
 	slip.name = "Shipping Manifest - '[object.name]' for [orderedby]"
@@ -132,13 +132,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 	/// Available money amount
 	var/area/cargoarea
 	var/cash = 5000
-	var/cash_per_slip = 20			//points gained per slip returned
 	var/cash_per_crate = 50			//points gained per crate returned
-	var/cash_per_intel = 2500		//points gained per intel returned
-	var/cash_per_plasma = 100		//points gained per plasma returned
-	var/cash_per_design = 500		//points gained per research design returned
-	var/cash_per_gem = 2000			//points gained per gem returned
-	var/cash_multiplier = 100		//points bonus for plants, tech disks, etc.
 	var/blackmarket_message = null	//Remarks from Black Market on how well you checked the last order.
 /***************************
 Возможные статусы для телепадов
@@ -307,11 +301,11 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 			return
 
 		var/errors = 0
-		if(prob(5))
+		if(prob(15))
 			errors |= MANIFEST_ERROR_COUNT
-		if(prob(5))
+		if(prob(15))
 			errors |= MANIFEST_ERROR_NAME
-		if(prob(5))
+		if(prob(15))
 			errors |= MANIFEST_ERROR_ITEM
 		SO.createObject(T, errors, data_storage) //А уже тут вызов штуки делающей коробки
 
@@ -319,7 +313,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 
 /obj/machinery/computer/syndie_supplycomp/proc/sell() //Этот код ищет зоны где находятся телепады отправки и продаёт ящики и товар в них
 
-	var/plasma_count = 0
+	var/datum/export_report/report = new
 	var/crate_count = 0
 
 	var/msg = "<center>---[station_time_timestamp()]---</center><br>"
@@ -343,145 +337,87 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 
 			data_storage.sold_atoms += "[MA.name]"
 
-			// Must be in a crate (or a critter crate)!
-			if(is_crate(MA) || istype(MA,/obj/structure/closet/crate/critter))
-				data_storage.sold_atoms += ":"
-				if(!length(MA.contents))
-					data_storage.sold_atoms += " (empty)"
-				++crate_count
+			export_item_and_contents(MA, apply_elastic = FALSE, dry_run = FALSE, external_report = report, export_markets = list(EXPORT_MARKET_SYNDICATE))
 
-				var/find_slip = 1
-				for(var/atom/thing in MA)
-					var/obj/OT = get_obj_in_atom_without_warning(thing)
-					var/mob/MT = get_mob_in_atom_without_warning(thing)
-					if(isobj(thing))
-						data_storage.sold_atoms += " [OT.name]"
-					else if(ismob(thing))
-						data_storage.sold_atoms += " [MT.name]"
-					else
-						data_storage.sold_atoms += "Not Specified"
-					// Sell manifests
-//					data_storage.sold_atoms += " [thing.name]"
-
-					if(find_slip && istype(thing,/obj/item/paper/manifest))
-						var/obj/item/paper/manifest/slip = thing
-						var/slip_stamped_len = LAZYLEN(slip.stamped)
-						if(slip_stamped_len) //yes, the clown stamp will work. clown is the highest authority on the station, it makes sense
-							// Did they mark it as erroneous?
-							var/denied = 0
-							for(var/i in 1 to slip_stamped_len)
-								if(slip.stamped[i] == /obj/item/stamp/denied)
-									denied = 1
-									break
-							if(slip.erroneous && denied) // Caught a mistake
-								cashEarned = slip.points - data_storage.cash_per_crate
-								data_storage.cash += cashEarned // For now, give a full refund for paying attention (minus the crate cost)
-								msg += "[span_good("+[cashEarned]")]: Station correctly denied package [slip.ordernumber]: "
-								if(slip.erroneous & MANIFEST_ERROR_NAME)
-									msg += "Destination station incorrect. "
-								else if(slip.erroneous & MANIFEST_ERROR_COUNT)
-									msg += "Packages incorrectly counted. "
-								else if(slip.erroneous & MANIFEST_ERROR_ITEM)
-									msg += "Package incomplete. "
-								msg += "Credits refunded.<br>"
-							else if(!slip.erroneous && !denied) // Approving a proper order awards the relatively tiny cash_per_slip
-								data_storage.cash += data_storage.cash_per_slip
-								msg += "[span_good("+[data_storage.cash_per_slip]")]: Package [slip.ordernumber] accorded.<br>"
-							else // You done goofed.
-								if(slip.erroneous)
-									msg += "[span_good("+0")]: Station approved package [slip.ordernumber] despite error: "
-									if(slip.erroneous & MANIFEST_ERROR_NAME)
-										msg += "Destination station incorrect."
-									else if(slip.erroneous & MANIFEST_ERROR_COUNT)
-										msg += "Packages incorrectly counted."
-									else if(slip.erroneous & MANIFEST_ERROR_ITEM)
-										msg += "We found unshipped items on our dock."
-									msg += "  Don't dissapoint us like that!<br>"
-								else
-									cashEarned = round(data_storage.cash_per_crate - slip.points)
-									data_storage.cash += cashEarned
-									msg += "[span_bad("[cashEarned]")]: Station denied package [slip.ordernumber]. Our records show no fault on our part.<br>"
-							find_slip = 0
-						continue
-
-					// Sell plasma
-					if(istype(thing, /obj/item/stack/sheet/mineral/plasma))
-						var/obj/item/stack/sheet/mineral/plasma/P = thing
-						plasma_count += P.amount
-
-					// Sell intel
-					if(istype(thing, /obj/item/documents))
-						var/obj/item/documents/docs = thing
-						if(INTEREST_SYNDICATE & docs.sell_interest)
-							cashEarned = round(data_storage.cash_per_intel * docs.sell_multiplier)
-							data_storage.cash += cashEarned
-							msg += "[span_good("+[cashEarned]")]: Received enemy intelligence.<br>"
-
-					// Sell tech levels
-					if(istype(thing, /obj/item/disk/tech_disk))
-						var/obj/item/disk/tech_disk/disk = thing
-						if(!disk.stored) continue
-						var/datum/tech/tech = disk.stored
-
-						var/cost = tech.getCost(data_storage.techLevels[tech.id]) * data_storage.cash_multiplier
-						if(cost)
-							data_storage.techLevels[tech.id] = tech.level
-							data_storage.cash += cost
-							msg += "[span_good("+[cost]")]: [tech.name] - new data.<br>"
-
-					// Sell designs
-					if(istype(thing, /obj/item/disk/design_disk))
-						var/obj/item/disk/design_disk/disk = thing
-						if(!disk.blueprint)
-							continue
-						var/datum/design/design = disk.blueprint
-						if(design.id in data_storage.researchDesigns)// This design has already been sent to Black Market
-							continue
-						data_storage.cash += data_storage.cash_per_design
-						data_storage.researchDesigns += design.id
-						msg += "[span_good("+[data_storage.cash_per_design]")]: [design.name] design.<br>"
-
-					// Sell exotic plants
-					if(istype(thing, /obj/item/seeds))
-						var/obj/item/seeds/S = thing
-						if(!S.rarity) // Mundane species
-							msg += "[span_bad("+0")]: We don't need samples of mundane species \"[capitalize(S.species)]\".<br>"
-						else if(data_storage.discoveredPlants[S.type]) // This species has already been sent to Black Market
-							var/potDiff = S.potency - data_storage.discoveredPlants[S.type] // Compare it to the previous best
-							if(potDiff > 0) // This sample is better
-								data_storage.discoveredPlants[S.type] = S.potency
-								msg += "[span_good("+[(potDiff * data_storage.cash_multiplier)]")]: New sample of \"[capitalize(S.species)]\" is superior. Good work.<br>"
-								data_storage.cash += (potDiff * data_storage.cash_multiplier)
-							else // This sample is worthless
-								msg += "[span_bad("+0")]: New sample of \"[capitalize(S.species)]\" is not more potent than existing sample ([data_storage.discoveredPlants[S.type]] potency).<br>"
-						else // This is a new discovery!
-							data_storage.discoveredPlants[S.type] = S.potency
-							msg += "[span_good("[(S.rarity + S.potency)*data_storage.cash_multiplier]")]: New species discovered: \"[capitalize(S.species)]\". Excellent work.<br>"
-							data_storage.cash += (S.rarity + S.potency)*data_storage.cash_multiplier// That's right, no bonus for potency.  Send a crappy sample first to "show improvement" later
-					// Sell gems
-					if(istype(thing, /obj/item/gem))
-						var/obj/item/gem/Gem = thing
-						cashEarned = round(Gem.sell_multiplier * data_storage.cash_per_gem)
-						msg += "[span_good("+[cashEarned]")]: Received [Gem.name]. Great work.<br>"
-						data_storage.cash += cashEarned
-						qdel(thing, force = TRUE) //ovveride for special gems
-
-					if(!QDELETED(thing))
-						qdel(thing)
-			qdel(MA)
 			data_storage.sold_atoms += "."
-
-	if(plasma_count > 0)
-		cashEarned = round(plasma_count * data_storage.cash_per_plasma)
-		msg += "[span_good("+[cashEarned]")]: Received [plasma_count] unit(s) of exotic material.<br>"
-		data_storage.cash += cashEarned
 
 	if(crate_count > 0)
 		cashEarned = round(crate_count * data_storage.cash_per_crate)
-		msg += "[span_good("+[cashEarned]")]: Received [crate_count] crate(s).<br>"
+		msg += "[span_good("+[cashEarned]")]: Received [crate_count] special crate(s).<br>"
 		data_storage.cash += cashEarned
 
+
+	for(var/datum/export/exported_datum in report.total_amount)
+		var/export_text = exported_datum.total_printout(report)
+		if(!export_text)
+			continue
+
+		data_storage.cash += report.total_value[exported_datum]
+		msg += export_text + "<br>"
+
+
 	data_storage.blackmarket_message += "[msg]<hr>"
+
+
+// Selling normal things in syndicate space
+
+/datum/export/crate/syndicate
+	cost = SYNDICATE_CRATE_VALUE
+	scannable = FALSE
+	sales_market = EXPORT_MARKET_SYNDICATE
+	exclude_types = list(
+		/obj/structure/closet/crate/secure/syndicate,
+		/obj/structure/closet/crate/syndicate,
+	) // Has special code attached to them
+
+/datum/export/manifest_correct/syndicate
+	cost = SYNDICATE_CRATE_VALUE / 2
+	sales_market = EXPORT_MARKET_SYNDICATE
+
+/datum/export/manifest_error_denied/syndicate
+	cost = -SYNDICATE_CRATE_VALUE
+	sales_market = EXPORT_MARKET_SYNDICATE
+
+/datum/export/manifest_error/syndicate
+	cost = -SYNDICATE_CRATE_VALUE
+	sales_market = EXPORT_MARKET_SYNDICATE
+
+/datum/export/manifest_correct_denied/syndicate
+	cost = -SYNDICATE_CRATE_VALUE
+	sales_market = EXPORT_MARKET_SYNDICATE
+
+/datum/export/documents/syndicate
+	cost = SYNDICATE_CRATE_VALUE * 50 //VERY rare
+	sales_market = EXPORT_MARKET_SYNDICATE
+	needed_interest = INTEREST_SYNDICATE
+
+/datum/export/gem/syndicate
+	cost = SYNDICATE_CRATE_VALUE * 40
+	sales_market = EXPORT_MARKET_SYNDICATE
+
+/datum/export/seed/syndicate
+	cost = SYNDICATE_CRATE_VALUE * 2
+	sales_market = EXPORT_MARKET_SYNDICATE
+
+/datum/export/seed/potency/syndicate
+	cost = SYNDICATE_CRATE_VALUE * 2
+	sales_market = EXPORT_MARKET_SYNDICATE
+
+/datum/export/tech_disc/syndicate
+	cost = SYNDICATE_CRATE_VALUE * 2
+	sales_market = EXPORT_MARKET_SYNDICATE
+
+/datum/export/design_disc/syndicate
+	cost = SYNDICATE_CRATE_VALUE * 10
+	sales_market = EXPORT_MARKET_SYNDICATE
+
+/datum/export/stack/plasma/syndicate
+	cost = SYNDICATE_CRATE_VALUE * 2
+	k_elasticity = 0
+	sales_market = EXPORT_MARKET_SYNDICATE
+	message = "cm3 of exotic material"
+
+// End of syndie sales
 
 /obj/machinery/computer/syndie_supplycomp/public
 	name = "Supply Ordering Console"

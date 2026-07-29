@@ -7,7 +7,7 @@
 			Чтобы приобрести этот предмет, необходимо успешно завершить все предоставленные контракты в самых сложной локации."
 	cost = 12
 	stock = 1
-	item_type = /obj/item/toy/syndicateballoon/contractor
+	item_type = /obj/item/toy/balloon/contractor
 
 /datum/rep_purchase/item/balloon/buy(datum/contractor_hub/hub, mob/living/carbon/human/user)
 	var/eligible = TRUE
@@ -20,20 +20,3 @@
 		to_chat(user, span_warning("Чтобы получить право на эту вещь, все ваши контракты должны быть выполнены в самых сложных локациях."))
 		return FALSE
 	return ..()
-
-/obj/item/toy/syndicateballoon/contractor
-	name = "contractor balloon"
-	desc = "Черно-золотой шар, который носят только легендарные агенты \"Синдиката\"."
-	gender = MALE
-	icon_state = "contractorballoon"
-	item_state = "contractorballoon"
-
-/obj/item/toy/syndicateballoon/contractor/get_ru_names()
-	return alist(
-		NOMINATIVE = "воздушный шарик контрактника",
-		GENITIVE = "воздушного шарика контрактника",
-		DATIVE = "воздушному шарику контрактника",
-		ACCUSATIVE = "воздушный шарик контрактника",
-		INSTRUMENTAL = "воздушным шариком контрактника",
-		PREPOSITIONAL = "воздушном шарике контрактника",
-	)

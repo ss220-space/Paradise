@@ -139,6 +139,9 @@
 /datum/component/shielded/proc/apply_shield_overlay()
 	SIGNAL_HANDLER //COMSIG_HUMAN_REGENERATE_ICONS
 	wearer.cut_overlay(shield)
+	shield = null
+	if(!current_charges)
+		return
 	var/mutable_appearance/shield_appearance = mutable_appearance(shield_icon_file, (current_charges > 0 ? shield_icon : "broken"), MOB_LAYER + 0.01)
 	if(show_charge_as_alpha)
 		shield_appearance.alpha = (current_charges/max_charges) * 255

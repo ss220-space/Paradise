@@ -80,7 +80,7 @@
 			icon = icon2html(item, owner, sourceonly = TRUE)
 
 		if(LOOT_ICON_FLAT_ICON_TYPE_CACHABLE)
-			var/hash = md5("[item.type]")
+			var/hash = md5(item.get_lootpanel_cache_key())
 			if(!(hash in icon_cache))
 				icon_cache[hash] = flat_icon2html(item, owner, sourceonly = TRUE, name = hash)
 			icon = icon_cache[hash]

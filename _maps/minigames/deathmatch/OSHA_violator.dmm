@@ -49,11 +49,7 @@
 /turf/simulated/floor/indestructible/gray_floor,
 /area/deathmatch)
 "gV" = (
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/mystery_box/tdome,
 /turf/simulated/floor/indestructible/gray_floor,
 /area/deathmatch)
 "he" = (
@@ -1035,7 +1031,7 @@ Wm
 Wm
 mr
 Um
-Hr
+gV
 Wm
 mb
 Um
@@ -1168,7 +1164,7 @@ qC
 pt
 Wm
 gu
-wl
+mr
 Wm
 qC
 Um
@@ -1190,10 +1186,10 @@ Hm
 nT
 ZW
 qC
-pt
+wl
 Wm
 Wm
-pt
+wl
 Wm
 Oj
 Um
@@ -1215,7 +1211,7 @@ ZP
 Tk
 ZW
 qC
-pt
+wl
 Wm
 Wm
 gV
@@ -1228,7 +1224,7 @@ OH
 OH
 Um
 nT
-Hr
+gV
 Wm
 gu
 Wm
@@ -1456,7 +1452,7 @@ fD
 mb
 mb
 mb
-mr
+gV
 PZ
 vV
 Wm
@@ -1466,7 +1462,7 @@ vV
 Wm
 mb
 mb
-wl
+gV
 Wm
 Wm
 AR

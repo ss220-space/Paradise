@@ -39,9 +39,6 @@
 	component_parts += new /obj/item/stack/cable_coil(src, 1)
 	RefreshParts()
 
-/obj/machinery/atmospherics/unary/thermomachine/on_construction()
-	..(dir, dir)
-
 /obj/machinery/atmospherics/unary/thermomachine/examine(mob/user)
 	. = ..()
 	. += span_notice("Cools or heats the gas of the connected pipenet, uses a large amount of electricity while activated.")

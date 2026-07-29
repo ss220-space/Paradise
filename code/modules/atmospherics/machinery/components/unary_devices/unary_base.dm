@@ -100,3 +100,41 @@
 
 	var/datum/gas_mixture/to_release = air_contents.remove(lost)
 	T.blind_release_air(to_release)
+
+/**
+ * Handles machinery deconstruction and unsafe pressure release
+ */
+/obj/machinery/atmospherics/unary/proc/crowbar_deconstruction_act(mob/living/user, obj/item/tool, internal_pressure = 0)
+	if(!panel_open)
+		balloon_alert(user, "open panel!")
+		return ITEM_INTERACT_SUCCESS
+
+	var/unsafe_wrenching = FALSE
+	var/filled_pipe = FALSE
+	var/turf/location = get_turf(src)
+	var/datum/gas_mixture/environment_air = location.get_readonly_air()
+
+	var/datum/gas_mixture/inside_air = air_contents
+	if(inside_air.total_moles() > 0 || internal_pressure)
+		filled_pipe = TRUE
+	if(!node || (istype(node, /obj/machinery/atmospherics/unary/portables_connector)))
+		internal_pressure = internal_pressure > air_contents.return_pressure() ? internal_pressure : air_contents.return_pressure()
+
+	if(!filled_pipe)
+		return default_deconstruction_crowbar(user, tool)
+
+	to_chat(user, span_notice("You begin to unfasten \the [src]..."))
+
+	internal_pressure -= environment_air.return_pressure()
+
+	if(internal_pressure > 2 * ONE_ATMOSPHERE)
+		to_chat(user, span_warning("As you begin deconstructing \the [src] a gush of air blows in your face... maybe you should reconsider?"))
+		unsafe_wrenching = TRUE
+
+	if(!do_after(user, 2 SECONDS, src))
+		return
+	if(unsafe_wrenching)
+		unsafe_pressure_release(user, internal_pressure)
+	tool.play_tool_sound(src, 50)
+	deconstruct(TRUE)
+	return ITEM_INTERACT_SUCCESS

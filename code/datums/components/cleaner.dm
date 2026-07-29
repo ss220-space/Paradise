@@ -126,7 +126,8 @@
 	all_cleaned[target] = target.blood_DNA || list()
 	//do the cleaning
 	var/clean_succeeded = FALSE
-	if(do_after(user, cleaning_duration, target = target))
+	CALCULATE_SKILL_MOD(user, CLEANING_SPEED_MOD, cleaning_skill_mod)
+	if(do_after(user, cleaning_duration * cleaning_skill_mod, target = target))
 		clean_succeeded = TRUE
 		for(var/obj/effect/decal/cleanable/cleanable_decal in target) //it's important to do this before you wash all of the cleanables off
 			/*

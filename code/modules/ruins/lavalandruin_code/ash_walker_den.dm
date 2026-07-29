@@ -115,6 +115,16 @@
 					Добывайте для гнезда трупы гуманоидов и зверей. Щупальце поглотит их, порождая яйца новых пеплоходцев. Слава Некрополю!"
 	assignedrole = "Ash Walker"
 	respawn_cooldown = 10 MINUTES
+	skills_ref_job = JOB_TITLE_CIVILIAN
+	skills = alist(
+		/datum/skill/general/mod_use = SKILL_LEVEL_NONE,
+		/datum/skill/medical/chemistry = SKILL_LEVEL_NONE,
+		/datum/skill/medical/genetic = SKILL_LEVEL_NONE,
+		/datum/skill/medical/virusology = SKILL_LEVEL_NONE,
+		/datum/skill/combat/fists = SKILL_LEVEL_ADVANCED,
+		/datum/skill/combat/melee = SKILL_LEVEL_ADVANCED,
+		/datum/skill/combat/bows = SKILL_LEVEL_BASIC,
+	)
 	var/eggtype = "пеплоходца"
 
 /obj/effect/mob_spawn/human/ash_walker/get_ru_names()
@@ -148,6 +158,7 @@
 	description = "Вы — шаман племени пеплоходцев. Ваше племя поклоняется некрополю. Обеспечьте выживание и лечение подконтрольных вам пеплоходцев. Проводите обряды, направленные на исцеление тела и души, обеспечивайте охотников пропитанием."
 	assignedrole = "Ash Walker Shaman"
 	eggtype = "шамана пеплоходцев"
+	skills_ref_job = JOB_TITLE_DOCTOR
 
 /obj/effect/mob_spawn/human/ash_walker/shaman/get_ru_names()
 	return alist(

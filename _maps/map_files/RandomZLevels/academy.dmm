@@ -254,9 +254,7 @@
 /turf/simulated/floor/sepia,
 /area/awaymission/academy/academyaft)
 "bq" = (
-/obj/structure/toilet{
-	dir = 4
-	},
+/obj/structure/toilet/directional/west,
 /obj/item/reagent_containers/syringe/charcoal,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -386,9 +384,7 @@
 	},
 /area/awaymission/academy/headmaster)
 "bX" = (
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -665,7 +661,7 @@
 	},
 /area/awaymission/academy/classrooms)
 "dk" = (
-/obj/structure/sink/kitchen/directional/south,
+/obj/structure/sink/kitchen/directional/north,
 /obj/item/reagent_containers/glass/bucket,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -874,7 +870,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "dX" = (
-/obj/structure/sink/kitchen/directional/south,
+/obj/structure/sink/kitchen/directional/north,
 /obj/effect/decal/cleanable/vomit{
 	pixel_x = 6;
 	pixel_y = 7
@@ -1351,9 +1347,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/classrooms)
 "fT" = (
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /obj/effect/decal/cleanable/vomit,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -2594,9 +2588,7 @@
 /turf/simulated/floor/mineral/plasma,
 /area/awaymission/academy/headmaster)
 "la" = (
-/obj/structure/toilet{
-	dir = 4
-	},
+/obj/structure/toilet/directional/west,
 /obj/item/robot_parts/r_leg,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -2673,9 +2665,7 @@
 	},
 /area/awaymission/academy/classrooms)
 "lB" = (
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /obj/item/reagent_containers/food/drinks/cans/cola,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -2942,7 +2932,7 @@
 	},
 /area/awaymission/academy/headmaster)
 "nS" = (
-/obj/structure/sink/directional/west,
+/obj/structure/sink/directional/east,
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
 	},
@@ -3945,7 +3935,7 @@
 /turf/simulated/floor/carpet/black,
 /area/awaymission/academy/headmaster)
 "ye" = (
-/obj/structure/sink/directional/east,
+/obj/structure/sink/directional/west,
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -32
 	},
@@ -5414,7 +5404,7 @@
 	},
 /area/awaymission/academy/academyaft)
 "Oo" = (
-/obj/structure/sink/directional/east,
+/obj/structure/sink/directional/west,
 /obj/effect/decal/cleanable/vomit,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -8903,7 +8893,7 @@ hV
 VZ
 hH
 Cr
-is
+jG
 ii
 Oo
 ii
@@ -11763,9 +11753,9 @@ My
 WO
 hH
 ZD
-jG
+is
 Yh
-jG
+is
 ii
 nS
 ii
