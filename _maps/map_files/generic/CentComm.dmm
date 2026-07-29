@@ -8676,19 +8676,6 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/ussp)
-"elS" = (
-/obj/machinery/door/airlock/external{
-	aiControlDisabled = 1;
-	frequency = 1379;
-	hackProof = 1;
-	id_tag = "emergency_away";
-	locked = 1;
-	name = "Arrival Airlock"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/central_command_areas/evacuation)
 "emk" = (
 /obj/machinery/computer/shuttle/vox,
 /turf/simulated/floor/mineral/plastitanium/nitrogen/pink,
@@ -89969,17 +89956,17 @@ iIs
 iIs
 iIs
 wLM
-elS
+vNw
 wLM
-elS
+vNw
 wLM
 iIs
 iIs
 iIs
 wLM
-elS
+vNw
 wLM
-elS
+vNw
 wLM
 onc
 omJ
@@ -107702,17 +107689,17 @@ dZA
 phM
 dZA
 wLM
-elS
+vNw
 wLM
-elS
+vNw
 wLM
 vMK
 gdL
 kwV
 wLM
-elS
+vNw
 wLM
-elS
+vNw
 wLM
 onc
 sUP
