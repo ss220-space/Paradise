@@ -136,7 +136,7 @@
 
 /datum/lazy_template/deathmatch/ragin_mages
 	name = "Корабль ФКВ"
-	desc = "Волшебный корабль, на котором призойдет не такая уж и волшебная резня."
+	desc = "Волшебный корабль, на котором произойдет не такая уж и волшебная резня."
 	max_players = 8
 	allowed_loadouts = list(
 		/datum/outfit/deathmatch_loadout/wizard,

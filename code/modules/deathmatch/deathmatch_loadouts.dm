@@ -21,7 +21,6 @@
 
 	if(!isnull(species_override))
 		user.set_species(species_override)
-
 	else
 		user.set_species(/datum/species/human)
 	// TODO: rewrite it for datum/action/cooldown when it's ported
@@ -214,7 +213,7 @@
 		/obj/item/ammo_box/magazine/m12g/slug = 5,
 	)
 
-	loadout_type = LOADOUT_SYNDICATE|LOADOUT_ATOM
+	loadout_type = LOADOUT_SYNDICATE|LOADOUT_NUKEOPS
 
 /datum/outfit/deathmatch_loadout/nukie/desword
 	name = "Deathmatch: Nuclear Operative (desword)"
@@ -282,7 +281,7 @@
 		/obj/item/kitchen/knife/combat = 1,
 	)
 
-	loadout_type = LOADOUT_NT|LOADOUT_ATOM
+	loadout_type = LOADOUT_NT|LOADOUT_NUKEOPS
 
 /datum/outfit/deathmatch_loadout/ert/inquisitor
 	name = "Deathmatch: ERT member (Inquisitor)"

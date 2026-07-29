@@ -279,7 +279,7 @@
 	/// Special loadout type, that we choose
 	var/checking_type = LOADOUT_ASSISTANT
 	/// Special Loadout type, that we don't wanna see
-	var/checking_blacklist
+	var/checking_blacklist = LOADOUT_NONE
 
 /datum/deathmatch_modifier/special_loadouts/no_gibguns
 	name = "Свободный выбор снаряжения (без гиб—пушек)"
@@ -292,24 +292,21 @@
 		/datum/deathmatch_modifier/special_loadouts/nukie,
 		/datum/deathmatch_modifier/special_loadouts/wizards,
 	)
-	checking_type = null
+	checking_type = LOADOUT_NONE
 	checking_blacklist = LOADOUT_UNFUNNY
 
 // Probably i can make it better, but i don't know how
 /datum/deathmatch_modifier/special_loadouts/on_select(datum/deathmatch_lobby/lobby)
-	if(isnull(checking_type))
-		for(var/datum/outfit/deathmatch_loadout/our_loadout as anything in GLOB.deathmatch_game.loadouts)
+	for(var/datum/outfit/deathmatch_loadout/our_loadout as anything in GLOB.deathmatch_game.loadouts)
+		if(checking_type == LOADOUT_NONE) //we check only blacklists then
 			if(our_loadout.loadout_type & checking_blacklist)
 				continue
 			choosen_loadouts += our_loadout
-		lobby.loadouts = choosen_loadouts
-		return
-
-	for(var/datum/outfit/deathmatch_loadout/our_loadout as anything in GLOB.deathmatch_game.loadouts)
-		if(our_loadout.loadout_type & checking_blacklist)
-			continue
-		if(our_loadout.loadout_type & checking_type)
-			choosen_loadouts += our_loadout
+		else
+			if(our_loadout.loadout_type & checking_blacklist) //blacklist are still ignored
+				continue
+			if(our_loadout.loadout_type & checking_type)
+				choosen_loadouts += our_loadout
 
 	if(isemptylist(choosen_loadouts))
 		return
@@ -347,7 +344,7 @@
 		/datum/deathmatch_modifier/special_loadouts/nanotrasen,
 		/datum/deathmatch_modifier/special_loadouts/wizards,
 	)
-	checking_type = LOADOUT_ATOM
+	checking_type = LOADOUT_NUKEOPS
 
 /datum/deathmatch_modifier/special_loadouts/nanotrasen
 	name = "Тематическое снаряжение — Нанотрейзен"
