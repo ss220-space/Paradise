@@ -316,11 +316,7 @@
 	normal_integrity = 1000
 	security_level = 6
 	hackable = FALSE
-
-/obj/machinery/door/airlock/centcom/attack_hand(mob/living/carbon/human/user)
-	. = ..()
-	if(user.a_intent == INTENT_HARM && ishuman(user) && (user.dna.species.obj_damage + user.physiology.punch_obj_damage > 0))
-		return
+	resistance_flags = INDESTRUCTIBLE
 
 /////////////////////////////////
 /*
@@ -881,6 +877,13 @@
 	. = ..()
 	if(user.a_intent == INTENT_HARM && ishuman(user) && (user.dna.species.obj_damage + user.physiology.punch_obj_damage > 0))
 		return
+
+/obj/machinery/door/airlock/syndicate/extmai/glass/jail
+	name = "Cell"
+	locked = TRUE
+	req_access = list(ACCESS_SYNDICATE_COMMAND)
+	id_tag = "syndicate_jail_cell"
+	resistance_flags = INDESTRUCTIBLE
 
 /*
 	Misc Airlocks

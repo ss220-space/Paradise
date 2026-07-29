@@ -9,7 +9,6 @@
 	force_wielded = 25
 	damtype = BURN
 	armour_penetration = 40
-	block_chance = 50
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut", "savaged", "clawed")
 	toolspeed = 0.5
@@ -28,6 +27,9 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 	START_PROCESSING(SSobj, src)
+
+/obj/item/twohanded/required/pyro_claws/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/twohanded/required/pyro_claws/ComponentInitialize()
 	. = ..()
@@ -155,7 +157,6 @@
 	claws.force = 25 * strength_mult
 	claws.force_wielded = 25 * strength_mult
 	claws.armour_penetration = 100 * (1 - 0.6 / strength_mult)
-	claws.block_chance = 100 * (1 - 0.5 / strength_mult)
 	claws.toolspeed = 0.5 / strength_mult
 
 	user.visible_message(span_warning("[user] со снопом искр выпуска[PLUR_ET_YUT(user)] [claws.declent_ru(NOMINATIVE)] из запястий!"), \
