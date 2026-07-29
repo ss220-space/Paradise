@@ -22,8 +22,6 @@
 	var/see_in_dark = 2
 	/// Level of invisibility the wearer can see (default SEE_INVISIBLE_LIVING).
 	var/invis_view = SEE_INVISIBLE_LIVING
-	/// Override to allow glasses to see higher invisibility levels than normal.
-	var/invis_override = 0
 	/// Alpha value for lighting plane when worn (affects darkness rendering).
 	var/lighting_alpha
 	/// List of examine extensions (e.g., medical HUD, science HUD).
