@@ -38,12 +38,9 @@
 	var/current_mode = 0
 	var/mode_cooldown = 300
 	var/mode_duration = 100
-	var/datum/action/innate/terrorspider/knight/defaultm/defaultmaction
-	var/datum/action/innate/terrorspider/knight/attackm/attackmaction
-	var/datum/action/innate/terrorspider/knight/defencem/defencemaction
 
 /mob/living/simple_animal/hostile/poison/terror_spider/knight/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Рыцарь Ужаса",
 		GENITIVE = "Рыцаря Ужаса",
 		DATIVE = "Рыцарю Ужаса",
@@ -52,11 +49,11 @@
 		PREPOSITIONAL = "Рыцаре Ужаса",
 	)
 
-/mob/living/simple_animal/hostile/poison/terror_spider/knight/New()
-	..()
-	attackmaction = new()
+/mob/living/simple_animal/hostile/poison/terror_spider/knight/Initialize(mapload)
+	. = ..()
+	var/datum/action/innate/terrorspider/knight/attackm/attackmaction = new()
 	attackmaction.Grant(src)
-	defencemaction = new()
+	var/datum/action/innate/terrorspider/knight/defencem/defencemaction = new()
 	defencemaction.Grant(src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/knight/Life(seconds, times_fired)
@@ -125,7 +122,7 @@
 	desc = "Эта паутина усилена прочными нитями для дополнительной прочности."
 
 /obj/structure/spider/terrorweb/knight/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "укрепленная паутина",
 		GENITIVE = "укрепленной паутины",
 		DATIVE = "укрепленной паутине",

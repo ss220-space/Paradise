@@ -1,3 +1,16 @@
+// MARK: Supply Groups
+#define SUPPLY_EMERGENCY 1
+#define SUPPLY_SECURITY 2
+#define SUPPLY_ENGINEER 3
+#define SUPPLY_MEDICAL 4
+#define SUPPLY_SCIENCE 5
+#define SUPPLY_ORGANIC 6
+#define SUPPLY_MATERIALS 7
+#define SUPPLY_MISC 8
+#define SUPPLY_VEND 9
+// Shit from a moron, delete and redo the Cut()
+#define SUPPLY_CONTRABAND 10
+
 #define STYLE_STANDARD 1
 #define STYLE_BLUESPACE 2
 #define STYLE_CENTCOM 3
@@ -36,9 +49,27 @@
 
 #define SUPPLYPOD_X_OFFSET -16
 
-// Shit from a moron, delete and redo the Cut()
-#define SUPPLY_CONTRABAND 10
-
 #define MANIFEST_ERROR_NAME 1
 #define MANIFEST_ERROR_COUNT 2
 #define MANIFEST_ERROR_ITEM 4
+
+///Standard export define for not selling the item.
+#define EXPORT_NOT_SOLD 0
+///Sell the item
+#define EXPORT_SOLD 1
+///Sell the item, but for the love of god, don't delete it, we're handling it in a fancier way.
+#define EXPORT_SOLD_DONT_DELETE 2
+
+// Defines for use with `export_item_and_contents()`, aka the export code that sells the items.
+/// Default export define, these are things that are sold to centcom.
+#define EXPORT_MARKET_STATION "supply"
+
+// Export define, things are sent to black market, or syndicate
+#define EXPORT_MARKET_SYNDICATE "black market"
+
+// Export define. For now, used when cargo quest take priority or points-economy clashes with credit-economy
+#define EXPORT_NONE "None"
+
+#define CARGO_CRATE_VALUE 200
+
+#define SYNDICATE_CRATE_VALUE 50

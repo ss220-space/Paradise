@@ -58,6 +58,8 @@
 	var/foldable_amt = 0
 	/// Lazy list of mobs which are currently viewing the storage inventory.
 	var/list/mobs_viewing
+	/// Increase "w_class" of storage when something inside it
+	var/dynamic_storage_size = FALSE
 
 /obj/item/storage/Initialize(mapload)
 	. = ..()
@@ -80,14 +82,14 @@
 	if(display_contents_with_number)
 		boxes = new /atom/movable/screen/storage()
 		boxes.name = "storage"
-		boxes.master = src
+		boxes.master_ref = WEAKREF(src)
 		boxes.icon_state = "block"
 		boxes.screen_loc = "7,7 to 10,8"
 		boxes.layer = HUD_LAYER
 		boxes.plane = HUD_PLANE
 
 	closer = new /atom/movable/screen/close()
-	closer.master = src
+	closer.master_ref = WEAKREF(src)
 
 	orient2hud()
 
@@ -237,21 +239,24 @@
 
 	for(var/mob/dead/observer/observe in user.inventory_observers)
 		if(!observe.client)
+			observe.handle_when_autoobserve_move()
 			LAZYREMOVE(user.inventory_observers, observe)
 			continue
 		show_to(observe, TRUE)
 
 /obj/item/storage/proc/hide_from(mob/user, from_inv_observers = FALSE)
 	LAZYREMOVE(mobs_viewing, user) // Remove clientless mobs too
-	if(!user.client)
-		return
-	user.client.screen -= boxes
 	var/datum/storage_box/box = LAZYACCESS(storage_boxes, user)
-	if(box)
-		user.client.screen -= box.screens_list()
+	var/client/user_client = user.client
+	if(storage_boxes)
 		storage_boxes -= user
-	user.client.screen -= closer
-	user.client.screen -= contents
+	if(user_client)
+		if(box)
+			user_client.screen -= box.screens_list()
+		user_client.screen -= boxes
+		user_client.screen -= closer
+		user_client.screen -= contents
+
 	if(user.s_active == src)
 		user.s_active = null
 
@@ -262,8 +267,8 @@
 
 	for(var/mob/dead/observer/observe in user.inventory_observers)
 		if(!observe.client)
+			observe.handle_when_autoobserve_move()
 			LAZYREMOVE(user.inventory_observers, observe)
-			continue
 		hide_from(observe, TRUE)
 
 /obj/item/storage/proc/on_mob_qdeleting(mob/source, force)
@@ -391,33 +396,33 @@
 	/// Storage closer ref
 	var/atom/movable/screen/close/closer
 
-/datum/storage_box/New(master)
+/datum/storage_box/New(new_master)
 	// Making ref to parent storage
-	storage = master
+	storage = new_master
 
 	// Initialize screen objects
 	start = new
 	start.icon_state = "storage_start"
-	start.master = master
+	start.master_ref = WEAKREF(new_master)
 
 	end = new
 	end.icon_state = "storage_end"
-	end.master = master
+	end.master_ref = WEAKREF(new_master)
 
 	continued = new
 	continued.icon_state = "storage_continue"
-	continued.master = master
+	continued.master_ref = WEAKREF(new_master)
 
 	top = new
 	top.icon_state = "storage_top"
-	top.master = master
+	top.master_ref = WEAKREF(new_master)
 
 	bottom = new
 	bottom.icon_state = "storage_bottom"
-	bottom.master = master
+	bottom.master_ref = WEAKREF(new_master)
 
 	closer = new
-	closer.master = master
+	closer.master_ref = WEAKREF(new_master)
 
 	place_items = new
 
@@ -698,6 +703,11 @@
 		if(!usr.can_unEquip(W))
 			return FALSE
 
+	if(dynamic_storage_size && isstorage(loc) && !istype(loc, /obj/item/storage/backpack/holding))
+		if(!stop_messages)
+			balloon_alert(usr, "не хватит места!")
+		return FALSE
+
 	return TRUE
 
 /// This proc handles items being inserted. It does not perform any checks of whether an item can or can't be inserted. That's done by can_be_inserted()
@@ -734,6 +744,7 @@
 
 		for(var/mob/dead/observer/observe in usr.inventory_observers)
 			if(!observe.client)
+				observe.handle_when_autoobserve_move()
 				LAZYREMOVE(usr.inventory_observers, observe)
 				continue
 			observe.client.screen -= W
@@ -757,6 +768,7 @@
 	W.pixel_x = initial(W.pixel_x)
 	W.mouse_opacity = MOUSE_OPACITY_OPAQUE //So you can click on the area around the item to equip it, instead of having to pixel hunt
 	update_icon()
+	SEND_SIGNAL(src, COMSIG_ITEM_INSERTED_INTO_STORAGE)
 	return TRUE
 
 /// Call this proc to handle the removal of an item from the storage item. The item will be moved to the atom sent as new_target
@@ -798,11 +810,12 @@
 		W.maptext = ""
 	W.on_exit_storage(src)
 	update_icon()
+	SEND_SIGNAL(src, COMSIG_ITEM_REMOVED_FROM_STORAGE)
 	return TRUE
 
-/obj/item/storage/Exited(atom/movable/departed, atom/newLoc)
-	remove_from_storage(departed, newLoc) //worry not, comrade; this only gets called once
-	. = ..()
+/obj/item/storage/Exited(atom/movable/gone, direction)
+	remove_from_storage(gone) //worry not, comrade; this only gets called once
+	return ..()
 
 /obj/item/storage/deconstruct(disassembled = TRUE)
 	var/drop_loc = loc
@@ -1018,6 +1031,11 @@
 		orient2hud(user)
 		show_to(user)
 	return TRUE
+
+/obj/item/storage/examine(mob/user)
+	. = ..()
+	if(dynamic_storage_size)
+		. += span_notice("Размер <b>изменяется</b> в зависимости от наличия содержимого.")
 
 #undef STORAGE_CAP_WIDTH
 #undef STORED_CAP_WIDTH

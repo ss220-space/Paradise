@@ -81,7 +81,7 @@
 			return ATTACK_CHAIN_PROCEED
 		if(LAZYLEN(cardhand.cards) > 1)
 			var/confirm = tgui_alert(user, "Вы уверены, что хотите вернуть [LAZYLEN(cardhand.cards)] [LAZYLEN(cardhand.cards) < 5 ? "карты" : "карт"] в колоду?", "Вернуть руку?", list("Да", "Нет"))
-			if(confirm != "Да" || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+			if(confirm != "Да" || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !user.is_in_hands(cardhand))
 				return ATTACK_CHAIN_PROCEED
 		for(var/datum/playingcard/card in cardhand.cards)
 			cards += card
@@ -336,7 +336,7 @@
 	var/pickedcard
 
 /obj/item/cardhand/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "игральные карты",
 		GENITIVE = "игральных карт",
 		DATIVE = "игральным картам",
@@ -571,7 +571,7 @@
 	. = ..()
 	if(LAZYLEN(cards) > 1)
 		name = "hand of [LAZYLEN(cards)] cards"
-		ru_names = list(
+		ru_names = alist(
 			NOMINATIVE = "[LAZYLEN(cards)] карт[declension_ru(LAZYLEN(cards), "а", "ы", "")]",
 			GENITIVE = "[LAZYLEN(cards)] карт[declension_ru(LAZYLEN(cards), "ы", "", "")]",
 			DATIVE = "[LAZYLEN(cards)] карт[declension_ru(LAZYLEN(cards), "е", "ам", "ам")]",
@@ -581,7 +581,7 @@
 		)
 	else
 		name = "playing card"
-		ru_names = list(
+		ru_names = alist(
 			NOMINATIVE = "игральная карта",
 			GENITIVE = "игральной карты",
 			DATIVE = "игральной карте",

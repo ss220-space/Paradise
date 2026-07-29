@@ -3,13 +3,13 @@
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "aF" = (
 /obj/structure/barricade/wooden,
 /obj/effect/spawner/random_barrier/possibly_welded_airlock,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "aG" = (
 /obj/structure/curtain/open/shower/security{
 	alpha = 255;
@@ -23,7 +23,7 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood/dark,
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "aL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -33,25 +33,27 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood/dark,
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "bn" = (
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/vault,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "bo" = (
 /obj/effect/turf_decal/siding/red{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood/dark,
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "by" = (
 /obj/structure/reagent_dispensers/fueltank,
-/obj/effect/decal/warning_stripes/green,
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/turf_decal/delivery/green,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "bK" = (
 /obj/structure/rack{
 	dir = 8;
@@ -61,12 +63,14 @@
 /obj/random/tool,
 /obj/random/tool,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/decal/warning_stripes/green,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/delivery/green,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/cobweb_right_rare,
 /turf/simulated/floor/engine,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "bN" = (
 /obj/effect/turf_decal{
 	dir = 10;
@@ -80,7 +84,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
 	},
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "ca" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/official/pinup_a{
@@ -90,16 +94,16 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "cD" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/power/port_gen/pacman,
 /turf/simulated/floor/plasteel,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "cE" = (
 /obj/effect/spawner/random_spawners/oil_20,
 /turf/simulated/floor/plating,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "cM" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/nova/Banya,
 /turf/template_noop,
@@ -109,14 +113,14 @@
 /obj/item/clothing/gloves/color/fyellow,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "cW" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	dir = 4
 	},
 /turf/simulated/wall,
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "dz" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	dir = 6
@@ -130,7 +134,7 @@
 /obj/structure/barricade/wooden,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "eu" = (
 /obj/effect/turf_decal{
 	dir = 2;
@@ -143,7 +147,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
 	},
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "ff" = (
 /obj/structure/chair/sofa/left{
 	dir = 4;
@@ -152,30 +156,28 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
 	},
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "fm" = (
 /obj/effect/turf_decal/siding/red,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood/dark,
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "fL" = (
 /obj/machinery/recharge_station,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "gp" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "gq" = (
 /obj/structure/grille,
 /turf/simulated/floor/plating,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "gw" = (
 /obj/structure/rack{
 	dir = 8;
@@ -183,17 +185,21 @@
 	},
 /obj/random/tool,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/decal/warning_stripes/green,
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/delivery/green,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "gJ" = (
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /obj/item/restraints/handcuffs/cable/random,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "hm" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	dir = 4
@@ -202,7 +208,7 @@
 	dir = 1
 	},
 /turf/simulated/wall,
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "hq" = (
 /turf/template_noop,
 /area/template_noop)
@@ -210,7 +216,7 @@
 /obj/effect/map_effect/marker/mapmanip/submap/extract/nova/Banya,
 /obj/effect/map_effect/marker_helper/submap_def/nova/Banya/entrance,
 /turf/simulated/wall,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "hM" = (
 /obj/effect/turf_decal/siding/red{
 	dir = 10
@@ -218,7 +224,7 @@
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/wood/dark,
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "hV" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	dir = 4
@@ -227,7 +233,7 @@
 	dir = 1
 	},
 /turf/simulated/wall,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "iL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -241,7 +247,7 @@
 	},
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plasteel,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "iX" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	dir = 1
@@ -250,7 +256,7 @@
 	dir = 8
 	},
 /turf/simulated/wall,
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "jh" = (
 /obj/machinery/computer/old_frame/thick,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -258,14 +264,14 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "jj" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/double,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "jk" = (
 /obj/structure/chair/sofa/left{
 	dir = 4;
@@ -273,7 +279,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "jK" = (
 /obj/machinery/constructable_frame/machine_frame,
 /obj/item/stack/cable_coil{
@@ -285,22 +291,22 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "jN" = (
 /obj/effect/decal/ants,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
 	},
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "jT" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance/double,
 /obj/item/multitool,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "jY" = (
 /obj/effect/turf_decal{
 	dir = 2;
@@ -316,7 +322,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
 	},
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "kd" = (
 /obj/structure/sign/poster/contraband/grey_tide{
 	pixel_x = -32
@@ -324,15 +330,15 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "km" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/table,
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high/plus,
 /obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/plasteel,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "kv" = (
 /obj/structure/sign/poster/contraband/missing_gloves{
 	pixel_x = -32
@@ -346,14 +352,14 @@
 	dir = 6
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "kL" = (
 /obj/effect/decal/ants,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
 	},
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "le" = (
 /obj/item/clothing/gloves/color/yellow,
 /obj/structure/closet/toolcloset,
@@ -364,7 +370,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "li" = (
 /obj/effect/turf_decal{
 	dir = 1;
@@ -378,11 +384,11 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
 	},
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "lj" = (
 /obj/machinery/autolathe,
 /turf/simulated/floor/plasteel,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "lF" = (
 /obj/effect/turf_decal{
 	dir = 9;
@@ -393,7 +399,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
 	},
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "lM" = (
 /obj/structure/curtain/open/shower/security{
 	alpha = 255;
@@ -406,17 +412,17 @@
 /obj/effect/decal/cleanable/glass/plasma,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood/dark,
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "lY" = (
 /obj/effect/spawner/random_barrier/obstruction,
 /turf/simulated/floor/plating,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "mc" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
 	},
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "mi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -426,12 +432,12 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "mF" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "mL" = (
 /obj/effect/turf_decal/siding/red{
 	dir = 8
@@ -445,17 +451,21 @@
 /obj/effect/decal/cleanable/glass/plasma,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood/dark,
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "mY" = (
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "ni" = (
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/decal/remains/mouse,
 /obj/effect/decal/ants,
 /obj/item/trash/semki{
@@ -469,7 +479,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/cobweb_right_rare,
 /turf/simulated/floor/plating,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "no" = (
 /obj/structure/chair/sofa/right{
 	dir = 4;
@@ -477,12 +487,14 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "np" = (
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/decal/remains/human,
 /obj/item/trash/tapetrash/thick{
 	pixel_y = 10;
@@ -491,7 +503,7 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "nP" = (
 /obj/structure/curtain/open/shower/security{
 	alpha = 255;
@@ -508,12 +520,14 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood/dark,
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "nQ" = (
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/decal/remains/mouse,
 /obj/item/trash/tapetrash,
 /obj/item/reagent_containers/glass/beaker/waterbottle/large/empty{
@@ -525,19 +539,19 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "nV" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/nova/Banya,
 /obj/effect/map_effect/marker_helper/submap_def/nova/Banya/consarea,
 /turf/simulated/wall,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "nY" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 2
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "oi" = (
 /obj/effect/turf_decal{
 	dir = 5;
@@ -558,14 +572,14 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
 	},
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "on" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/item/flashlight/flare/glowstick/random,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "oq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -582,7 +596,7 @@
 	name = "Alternate Construction Area"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "oy" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/double,
@@ -593,28 +607,30 @@
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plating,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "oF" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/vault,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "pr" = (
 /obj/effect/spawner/random_spawners/oil_20,
 /turf/simulated/floor/engine,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "pZ" = (
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "qk" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/barricade/wooden/crude,
 /turf/simulated/floor/plating,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "qC" = (
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 5
@@ -623,7 +639,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
 	},
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "rt" = (
 /obj/effect/spawner/random_spawners/oil_20,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -633,12 +649,12 @@
 	dir = 9
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "rF" = (
 /obj/effect/decal/cleanable/glass,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood/dark,
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "rH" = (
 /obj/effect/turf_decal{
 	dir = 2;
@@ -651,7 +667,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
 	},
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "rK" = (
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 10
@@ -661,12 +677,14 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
 	},
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "rT" = (
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/decal/ants,
 /obj/item/trash/syndi_cakes{
 	pixel_y = 13
@@ -677,7 +695,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "rV" = (
 /obj/effect/turf_decal{
 	dir = 1;
@@ -690,12 +708,14 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
 	},
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "sc" = (
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/decal/ants,
 /obj/item/trash/doshik{
 	pixel_x = -5;
@@ -703,20 +723,20 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "sd" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	icon_state = "rampbottom"
 	},
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "sh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/contraband/very_robust{
 	pixel_x = 32
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "sz" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/decal/cleanable/dirt,
@@ -724,24 +744,24 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "tb" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	dir = 4
 	},
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
 /turf/simulated/wall,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "tB" = (
 /turf/simulated/floor/engine,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "tF" = (
 /obj/structure/table,
 /obj/machinery/newscaster/directional/north,
 /obj/item/analyzer,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "tN" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	dir = 1
@@ -766,7 +786,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "ui" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -779,18 +799,18 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "uk" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "ut" = (
 /obj/structure/chair/office/dark{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "uv" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	dir = 6
@@ -799,7 +819,7 @@
 	dir = 4
 	},
 /turf/simulated/wall,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "uE" = (
 /obj/effect/turf_decal{
 	dir = 2;
@@ -810,21 +830,23 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
 	},
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "uW" = (
 /obj/structure/closet/toolcloset,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/structure/sign/poster/contraband/missing_gloves{
 	pixel_x = 32
 	},
-/obj/effect/decal/warning_stripes/green,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/delivery/green,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 4
 	},
 /turf/simulated/floor/engine,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "vk" = (
 /obj/effect/turf_decal/siding/wideplating/dark,
 /obj/structure/closet/wardrobe,
@@ -838,14 +860,14 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
 	},
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "vq" = (
 /obj/structure/sign/poster/random{
 	pixel_y = 32
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "vR" = (
 /obj/effect/turf_decal/siding/red{
 	dir = 9
@@ -855,7 +877,7 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood/dark,
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "vT" = (
 /obj/structure/chair/sofa/right{
 	dir = 4;
@@ -865,12 +887,14 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
 	},
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "wz" = (
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/decal/remains/mouse,
 /obj/item/trash/can{
 	pixel_x = 7;
@@ -882,13 +906,15 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/blood_5,
 /turf/simulated/floor/plating,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "xf" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "xi" = (
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 6
@@ -897,11 +923,11 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
 	},
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "xk" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "xs" = (
 /obj/effect/turf_decal{
 	dir = 8;
@@ -911,15 +937,15 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
 	},
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "xV" = (
 /obj/effect/spawner/random_spawners/oil_20,
 /turf/simulated/floor/plating,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "yh" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "yu" = (
 /obj/effect/turf_decal/siding/red{
 	dir = 10
@@ -929,20 +955,20 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood/dark,
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "yE" = (
 /obj/effect/turf_decal/siding/wideplating/dark,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
 	},
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "yM" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
 	},
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "yO" = (
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 9
@@ -951,7 +977,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
 	},
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "yW" = (
 /obj/effect/turf_decal/siding/red{
 	dir = 4
@@ -959,36 +985,42 @@
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/wood/dark,
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "yZ" = (
-/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "zU" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/nova/Banya,
 /obj/effect/map_effect/marker_helper/submap_def/nova/Banya/Club,
 /turf/simulated/wall,
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "zV" = (
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/item/trash/sosjerky{
 	pixel_x = 7
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "zZ" = (
 /obj/structure/closet/toolcloset,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/decal/warning_stripes/green,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/delivery/green,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "Aw" = (
 /obj/structure/chair/wood{
 	dir = 4
@@ -997,7 +1029,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
 	},
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "AP" = (
 /obj/machinery/door/airlock/engineering{
 	name = "Alternate Construction Area";
@@ -1005,11 +1037,11 @@
 	},
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "AZ" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "Ba" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/reagent_containers/food/drinks/bottle/vodka{
@@ -1025,7 +1057,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "Br" = (
 /obj/item/lighter/random,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -1033,9 +1065,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "Bv" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/sign/poster/contraband/missing_gloves{
 	pixel_x = -32
 	},
@@ -1044,10 +1076,10 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "CA" = (
 /turf/simulated/wall,
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "CR" = (
 /obj/effect/turf_decal{
 	dir = 1;
@@ -1061,22 +1093,22 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
 	},
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "CT" = (
 /turf/simulated/wall,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "Df" = (
 /obj/item/restraints/handcuffs/cable/random,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "Dr" = (
 /obj/effect/turf_decal/siding/wideplating/dark/corner,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
 	},
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "Dw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -1089,10 +1121,10 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/wood/dark,
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "DE" = (
 /turf/simulated/wall/rust,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "DY" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -1105,7 +1137,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "En" = (
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 4
@@ -1114,7 +1146,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
 	},
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "Er" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	dir = 4
@@ -1125,18 +1157,20 @@
 /turf/template_noop,
 /area/template_noop)
 "EF" = (
-/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "EW" = (
 /obj/structure/closet/emcloset,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "Fk" = (
 /obj/effect/turf_decal/siding/red{
 	dir = 5
@@ -1147,12 +1181,12 @@
 	dir = 4
 	},
 /turf/simulated/floor/wood/dark,
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "Gm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "Gs" = (
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 1
@@ -1168,20 +1202,20 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
 	},
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "GP" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/rack,
 /obj/random/tool,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "Hx" = (
 /obj/machinery/floodlight,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "Id" = (
 /obj/effect/turf_decal/siding/red{
 	dir = 6
@@ -1195,20 +1229,20 @@
 	dir = 4
 	},
 /turf/simulated/floor/wood/dark,
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "In" = (
 /obj/effect/spawner/random_spawners/oil_20,
 /turf/simulated/floor/vault,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "Ir" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "Iv" = (
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "IC" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	dir = 4
@@ -1217,7 +1251,7 @@
 	dir = 1
 	},
 /turf/simulated/wall,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "IO" = (
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/dirt,
@@ -1225,7 +1259,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "Jf" = (
 /obj/effect/turf_decal/siding/wideplating/dark/corner{
 	dir = 4
@@ -1234,33 +1268,35 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
 	},
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "Jn" = (
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "Ju" = (
 /obj/structure/reagent_dispensers/watertank,
-/obj/effect/decal/warning_stripes/green,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/delivery/green,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "JH" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "JW" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "rampbottom"
 	},
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "Kd" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "KA" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	dir = 1
@@ -1269,21 +1305,21 @@
 	dir = 8
 	},
 /turf/simulated/wall/rust,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "KB" = (
 /turf/simulated/floor/plating,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "Le" = (
 /obj/effect/spawner/random_barrier/possibly_welded_airlock,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "Ls" = (
 /obj/structure/grille,
 /obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "Lt" = (
 /obj/effect/turf_decal{
 	dir = 2;
@@ -1296,14 +1332,16 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
 	},
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "Mx" = (
 /obj/effect/spawner/random_spawners/crate_spawner,
-/obj/effect/decal/warning_stripes/green,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/delivery/green,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "MV" = (
 /obj/structure/table,
 /obj/item/assembly/timer{
@@ -1314,16 +1352,16 @@
 	pixel_x = -14
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "MW" = (
 /obj/effect/turf_decal/siding/red{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood/dark,
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "Nb" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
@@ -1332,17 +1370,17 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "Nk" = (
 /obj/structure/grille,
 /turf/simulated/floor/plating,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "NR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "NW" = (
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 4
@@ -1351,7 +1389,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
 	},
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "Oh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -1367,7 +1405,7 @@
 	icon_state = "light_on-p";
 	state = 7
 	},
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "Or" = (
 /obj/effect/turf_decal/siding/wideplating/dark,
 /obj/structure/closet/wardrobe,
@@ -1382,7 +1420,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
 	},
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "Oz" = (
 /obj/structure/rack{
 	dir = 8;
@@ -1402,13 +1440,17 @@
 /obj/structure/sign/poster/contraband/tools{
 	pixel_x = -32
 	},
-/obj/effect/decal/warning_stripes/green,
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/delivery/green,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "OK" = (
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /obj/structure/rack{
 	dir = 8;
 	layer = 2.9
@@ -1416,7 +1458,7 @@
 /obj/item/weldingtool/largetank,
 /obj/item/clothing/glasses/welding,
 /turf/simulated/floor/engine,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "OW" = (
 /obj/effect/turf_decal{
 	dir = 8;
@@ -1432,7 +1474,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
 	},
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "PS" = (
 /obj/structure/chair/wood{
 	dir = 8
@@ -1441,16 +1483,18 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
 	},
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "PW" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "QE" = (
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/decal/ants,
 /obj/item/trash/fried_vox,
 /obj/item/reagent_containers/syringe{
@@ -1461,15 +1505,15 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "QT" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "Rb" = (
 /turf/simulated/wall/rust,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "Rj" = (
 /obj/effect/turf_decal{
 	dir = 2;
@@ -1480,12 +1524,12 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
 	},
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "Rq" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/papershredder,
 /turf/simulated/floor/plasteel,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "Rs" = (
 /obj/effect/spawner/random_spawners/crate_spawner,
 /obj/effect/decal/cleanable/dirt,
@@ -1496,7 +1540,7 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "Rw" = (
 /obj/effect/turf_decal/siding/red/corner{
 	dir = 8
@@ -1504,7 +1548,7 @@
 /obj/effect/decal/cleanable/glass/plasma,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood/dark,
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "RJ" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -1514,7 +1558,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "RU" = (
 /obj/structure/rack,
 /obj/item/stack/cable_coil{
@@ -1532,7 +1576,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "Sd" = (
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 1
@@ -1541,7 +1585,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
 	},
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "Sl" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -1560,31 +1604,33 @@
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "SI" = (
 /obj/structure/barricade/wooden,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "SQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/secret/lizard{
 	pixel_x = 32
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "Ta" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/rack,
 /obj/item/storage/fancy/cigarettes/cigpack_random,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "Td" = (
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "Ua" = (
 /obj/effect/turf_decal{
 	dir = 10;
@@ -1595,16 +1641,18 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
 	},
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "Ug" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "Un" = (
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/decal/remains/robot,
 /obj/effect/decal/ants,
 /obj/item/trash/popcorn{
@@ -1614,18 +1662,18 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/blood_20,
 /turf/simulated/floor/plating,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "UO" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	dir = 1
 	},
 /turf/simulated/wall,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "UV" = (
 /obj/effect/decal/cleanable/glass/plasma,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood/dark,
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "Vl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -1635,12 +1683,10 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/wood/dark,
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "VV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -1654,11 +1700,11 @@
 	},
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "Wb" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "WN" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -1670,11 +1716,11 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "WQ" = (
 /obj/effect/spawner/random_spawners/blood_20,
 /turf/simulated/floor/vault,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "WW" = (
 /obj/effect/turf_decal{
 	dir = 1;
@@ -1684,18 +1730,17 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
 	},
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "WX" = (
 /obj/structure/sign/poster/contraband/atmosia_independence{
 	pixel_y = -32
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "Xc" = (
 /obj/structure/table,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/item/radio{
@@ -1709,20 +1754,22 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc/worn_out/directional/north,
 /turf/simulated/floor/plasteel,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "Xl" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
 	},
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "XW" = (
 /turf/simulated/floor/plating,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "Yi" = (
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/item/trash/broken_ashtray,
 /obj/item/trash/cheesie{
 	pixel_y = -18;
@@ -1736,14 +1783,14 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "Yj" = (
 /obj/structure/sign/poster/contraband/tools{
 	pixel_y = 32
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "Yk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -1755,30 +1802,30 @@
 /obj/structure/barricade/wooden,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 "Yt" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 2
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "Yz" = (
 /obj/item/camera_assembly,
 /obj/effect/spawner/random_spawners/oil_20,
 /turf/simulated/floor/plating,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "YC" = (
 /turf/simulated/wall,
-/area/maintenance/consarea)
+/area/station/maintenance/consarea)
 "Zd" = (
 /turf/simulated/wall/rust,
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "Zr" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "ZI" = (
 /obj/effect/turf_decal/siding/red/corner{
 	dir = 1
@@ -1789,7 +1836,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/wood/dark,
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "ZS" = (
 /obj/effect/turf_decal/siding/red{
 	dir = 9
@@ -1797,16 +1844,15 @@
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/power/apc/worn_out/directional/west,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/wood/dark,
-/area/maintenance/abandonedclub)
+/area/station/maintenance/abandonedclub)
 "ZW" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
-/area/maintenance/tourist)
+/area/station/maintenance/tourist)
 
 (1,1,1) = {"
 hq

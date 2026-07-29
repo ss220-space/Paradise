@@ -215,8 +215,17 @@ GLOBAL_LIST_EMPTY(employmentContracts)
 		var/datum/data/record/G = record
 		if(!G)
 			continue
-		if(G.fields["reference"])
-			addFile(G.fields["reference"])
+
+		if(!G.fields["reference"])
+			continue
+
+		var/datum/weakref/ref = G.fields["reference"]
+		var/mob/referenced_mob = ref.resolve()
+
+		if(!referenced_mob)
+			continue
+
+		addFile(referenced_mob)
 
 /obj/structure/filingcabinet/employment/proc/addFile(mob/living/carbon/human/employee)
 	new /obj/item/paper/contract/employment(src, employee)

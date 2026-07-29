@@ -133,7 +133,7 @@
 	return 0
 
 /obj/effect/sliding_puzzle/proc/elements_in_order()
-	return sortTim(elements, cmp = /proc/cmp_xy_desc)
+	return sortTim(elements, GLOBAL_PROC_REF(cmp_xy_desc))
 
 /obj/effect/sliding_puzzle/proc/get_base_icon()
 	var/icon/I = new('icons/obj/puzzle.dmi')
@@ -272,7 +272,7 @@
 		CRASH("Prison cube without prisoner")
 	prisoner.setDir(SOUTH)
 	var/icon/I = getFlatIcon(prisoner)
-	I.Scale(96,96)
+	I.Scale(96, 96)
 	return I
 
 /obj/effect/sliding_puzzle/prison/Destroy()

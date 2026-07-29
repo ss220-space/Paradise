@@ -32,15 +32,18 @@
 		/obj/item/camera_assembly,
 		/obj/item/tank,
 		/obj/item/circuitboard,
+		/obj/item/assembly/igniter,
 		/obj/item/stack/tile/light,
-		/obj/item/stack/ore/bluespace_crystal
+		/obj/item/stack/ore/bluespace_crystal,
+		/obj/item/stack/sheet/plasteel,
+		/obj/item/stack/tile/wood,
 	)
 
 	//Item currently being held.
 	var/obj/item/gripped_item = null
 
 /obj/item/gripper/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "магнитный захват",
 		GENITIVE = "магнитного захвата",
 		DATIVE = "магнитному захвату",
@@ -62,10 +65,12 @@
 		/obj/item/robot_parts/r_leg,
 		/obj/item/robot_parts/chest,
 		/obj/item/stack/sheet/mineral/plasma,
+		/obj/item/reagent_containers/food/snacks/monkeycube,
+		/obj/item/bodybag,
 	) //for repair plasmamans
 
 /obj/item/gripper/medical/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медицинский захват",
 		GENITIVE = "медицинского захвата",
 		DATIVE = "медицинскому захвату",
@@ -114,7 +119,7 @@
 	)
 
 /obj/item/gripper/service/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "карточный захват",
 		GENITIVE = "карточного захвата",
 		DATIVE = "карточному захвату",
@@ -133,7 +138,7 @@
 	icon_state = "clock_gripper"
 
 /obj/item/gripper/cogscarab/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "древний захват",
 		GENITIVE = "древнего захвата",
 		DATIVE = "древнему захвату",
@@ -142,7 +147,8 @@
 		PREPOSITIONAL = "древнем захвате",
 	)
 
-/obj/item/gripper/cogscarab/New()
+/obj/item/gripper/cogscarab/Initialize(mapload)
+	. = ..()
 	//Has a list of items that it can hold.
 	can_hold += list(
 		/obj/item/clockwork/integration_cog,
@@ -150,7 +156,6 @@
 		/obj/item/stack/sheet,
 		/obj/item/mmi/robotic_brain/clockwork
 	)
-	..()
 
 /obj/item/gripper/universal
 	name = "Universal gripper"
@@ -181,6 +186,7 @@
 		/obj/item/camera_assembly,
 		/obj/item/tank,
 		/obj/item/circuitboard,
+		/obj/item/assembly/igniter,
 		/obj/item/stack/tile/light,
 		/obj/item/stack/ore/bluespace_crystal,
 		/obj/item/organ,
@@ -203,7 +209,7 @@
 	)
 
 /obj/item/gripper/universal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "универсальный захват",
 		GENITIVE = "универсального захвата",
 		DATIVE = "универсальному захвату",
@@ -219,7 +225,7 @@
 	can_hold = list(/obj/item/disk/nuclear)
 
 /obj/item/gripper/nuclear/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ядерный захват",
 		GENITIVE = "ядерного захвата",
 		DATIVE = "ядерному захвату",
@@ -228,8 +234,8 @@
 		PREPOSITIONAL = "ядерном захвате",
 	)
 
-/obj/item/gripper/New()
-	..()
+/obj/item/gripper/Initialize(mapload)
+	. = ..()
 	can_hold = typecacheof(can_hold)
 
 /obj/item/gripper/verb/drop_item_gripped()
@@ -278,7 +284,12 @@
 	if(!silent)
 		balloon_alert(loc, "предмет выброшен")
 	gripped_item.forceMove(get_turf(src))
-	gripped_item = null
+	set_gripper_item(null)
+
+/obj/item/gripper/proc/set_gripper_item(new_item)
+	PRIVATE_PROC(TRUE)
+	gripped_item = new_item
+	SEND_SIGNAL(src, COMSIG_GRIPPED_ITEM_CHANGE, new_item)
 
 /obj/item/gripper/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED
@@ -303,9 +314,9 @@
 
 		//If gripped_item either didn't get deleted, or it failed to be transfered to its target
 		if(!gripped_item && length(contents))
-			gripped_item = contents[1]
+			set_gripper_item(contents[1])
 		else if(gripped_item && !length(contents))
-			gripped_item = null
+			set_gripper_item(null)
 
 	else if(isitem(target)) //Check that we're not pocketing a mob.
 		var/obj/item/I = target
@@ -313,11 +324,11 @@
 			. |= ATTACK_CHAIN_SUCCESS
 			balloon_alert(user, "подобрано")
 			I.forceMove(src)
-			gripped_item = I
+			set_gripper_item(I)
 			I.update_icon(UPDATE_OVERLAYS) //Some items change their appearance upon being pulled (IV drip as an example)
 			update_icon(UPDATE_OVERLAYS)
-			RegisterSignal(I, list(COMSIG_MOVABLE_MOVED, COMSIG_QDELETING), PROC_REF(handle_item_moving))
-			RegisterSignal(I, list(COMSIG_ATOM_UPDATED_ICON), PROC_REF(handle_item_icon_update))
+			RegisterSignals(I, list(COMSIG_MOVABLE_MOVED, COMSIG_QDELETING), PROC_REF(handle_item_moving))
+			RegisterSignals(I, list(COMSIG_ATOM_UPDATED_ICON), PROC_REF(handle_item_icon_update))
 		else
 			balloon_alert(user, "невозможно взять!")
 
@@ -329,7 +340,7 @@
 	SIGNAL_HANDLER
 	UnregisterSignal(gripped_item, list(COMSIG_MOVABLE_MOVED, COMSIG_QDELETING, COMSIG_ATOM_UPDATED_ICON))
 	gripped_item.update_icon(UPDATE_OVERLAYS)
-	gripped_item = null
+	set_gripper_item(null)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/gripper/proc/handle_item_icon_update()
@@ -362,7 +373,7 @@
 		)
 
 /obj/item/matter_decompiler/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "декомпилятор материи",
 		GENITIVE = "декомпилятора материи",
 		DATIVE = "декомпилятору материи",

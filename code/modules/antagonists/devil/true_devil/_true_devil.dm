@@ -17,12 +17,13 @@
 	pixel_y_lying_offset = -20
 	hud_type = /datum/hud/devil
 	tts_seed = "Mannoroth"
+	looting_icon_mode = LOOT_ICON_ICON_TO_HTML
 	var/datum/antagonist/devil/devilinfo
 	var/ascended = FALSE
 	var/list/devil_overlays[DEVIL_TOTAL_LAYERS]
 
 /mob/living/carbon/true_devil/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "истинный Дьявол",
 		GENITIVE = "истинного Дьявола",
 		DATIVE = "истинному Дьяволу",
@@ -229,7 +230,7 @@
 	)
 
 /mob/living/carbon/true_devil/krampus/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Крампус",
 		GENITIVE = "Крампуса",
 		DATIVE = "Крампусу",

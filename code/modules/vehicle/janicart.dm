@@ -15,6 +15,7 @@
 /obj/vehicle/ridden/janicart/Initialize(mapload)
 	. = ..()
 	update_appearance()
+	GLOB.janitorial_equipment += src
 	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/janicart)
 
 /obj/vehicle/ridden/janicart/Destroy()
@@ -22,15 +23,8 @@
 		QDEL_NULL(trash_bag)
 	if(installed_upgrade)
 		QDEL_NULL(installed_upgrade)
+	GLOB.janitorial_equipment -= src
 	return ..()
-
-/obj/vehicle/ridden/janicart/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
-	. = ..()
-	if(. && installed_upgrade && isturf(loc))
-		loc.clean_blood()
-		for(var/obj/effect/check in loc)
-			if(check.is_cleanable())
-				qdel(check)
 
 /obj/vehicle/ridden/janicart/examine(mob/user)
 	. = ..()
@@ -40,6 +34,7 @@
 /obj/vehicle/ridden/janicart/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
+
 	if(istype(I, /obj/item/storage/bag/trash))
 		add_fingerprint(user)
 		if(trash_bag)
@@ -52,7 +47,7 @@
 		update_appearance()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	else if(istype(I, /obj/item/janiupgrade))
+	if(istype(I, /obj/item/janiupgrade))
 		if(installed_upgrade)
 			balloon_alert(user, "уже установлено!")
 			return ATTACK_CHAIN_PROCEED
@@ -61,23 +56,16 @@
 		var/obj/item/janiupgrade/new_upgrade = I
 		new_upgrade.forceMove(src)
 		installed_upgrade = new_upgrade
+		AddElement(/datum/element/cleaning)
 		balloon_alert(user, "установлено")
 		update_appearance()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	else if(istype(I, /obj/item/screwdriver) && installed_upgrade)
-		installed_upgrade.forceMove(get_turf(user))
-		user.put_in_hands(installed_upgrade)
-		balloon_alert(user, "удалено")
-		installed_upgrade = null
-		update_appearance()
-		return ATTACK_CHAIN_BLOCKED_ALL
-
-	else if(trash_bag && (!is_key(I) || is_key(inserted_key))) // don't put a key in the trash when we need it
+	if(trash_bag && (!is_key(I) || is_key(inserted_key))) // don't put a key in the trash when we need it
 		trash_bag.attackby(I, user, params)
 		return ATTACK_CHAIN_BLOCKED_ALL
-	else
-		return ..()
+
+	return ..()
 
 /obj/vehicle/ridden/janicart/update_overlays()
 	. = ..()
@@ -88,6 +76,17 @@
 			. += "cart_garbage"
 	if(installed_upgrade)
 		. += "cart_buffer"
+
+/obj/vehicle/ridden/janicart/screwdriver_act(mob/living/user, obj/item/tool)
+	. = ..()
+	if(!installed_upgrade)
+		return
+	installed_upgrade.forceMove(get_turf(user))
+	user.put_in_hands(installed_upgrade)
+	balloon_alert(user, "удалено")
+	installed_upgrade = null
+	RemoveElement(/datum/element/cleaning)
+	update_appearance()
 
 /obj/vehicle/ridden/janicart/attack_hand(mob/user)
 	if(..())

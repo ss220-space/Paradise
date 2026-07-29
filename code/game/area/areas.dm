@@ -69,8 +69,6 @@
 	var/global/global_uid = 0
 	var/uid
 
-	var/list/ambientsounds = GENERIC_SOUNDS
-
 	var/list/firedoors
 	var/list/cameras
 	var/list/firealarms
@@ -93,13 +91,23 @@
 	var/moving = FALSE
 	/// "Haunted" areas such as the morgue and chapel are easier to boo. Because flavor.
 	var/is_haunted = FALSE
+
 	///Used to decide what kind of reverb the area makes sound have
 	var/sound_environment = SOUND_ENVIRONMENT_NONE
 
+	var/ambience_index = AMBIENCE_GENERIC
+	///A list of sounds to pick from every so often to play to clients.
+	var/list/ambientsounds
+	///Does this area immediately play an ambience track upon enter?
+	var/forced_ambience = FALSE
+	///The background droning loop that plays 24/7
+	var/ambient_buzz = 'sound/ambience/general/shipambience.ogg'
+	///The volume of the ambient buzz
+	var/ambient_buzz_vol = 35
 	///Used to decide what the minimum time between ambience is
-	var/min_ambience_cooldown = 30 SECONDS
+	var/min_ambience_cooldown = 4 SECONDS
 	///Used to decide what the maximum time between ambience is
-	var/max_ambience_cooldown = 90 SECONDS
+	var/max_ambience_cooldown = 10 SECONDS
 
 	///This datum, if set, allows terrain generation behavior to be ran on Initialize() // This is unfinished, used in Lavaland
 	var/datum/map_generator/cave_generator/map_generator
@@ -131,18 +139,32 @@
 	var/base_lighting_color = COLOR_WHITE
 	///Whether this area allows static lighting and thus loads the lighting objects
 	var/static_lighting = TRUE
-	///Whether this area is iluminated by starlight
-	var/use_starlight = FALSE
 
+/**
+ * Called when an area loads
+ *
+ *  Adds the item to the GLOB.areas_by_type list based on area type
+ */
 /area/New(loc, ...)
 	// This interacts with the map loader, so it needs to be set immediately
 	// rather than waiting for atoms to initialize.
 	if(area_flags & UNIQUE_AREA)
 		GLOB.areas_by_type[type] = src
 	GLOB.areas += src
-	..()
+	return ..()
 
+/*
+ * Initialize this area
+ *
+ * initializes the dynamic area lighting and also registers the area with the z level via
+ * reg_in_areas_in_z
+ *
+ * returns INITIALIZE_HINT_LATELOAD
+ */
 /area/Initialize(mapload)
+	if(!ambientsounds)
+		ambientsounds = GLOB.ambience_assoc[ambience_index]
+
 	if(is_station_level(z))
 		RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(on_security_level_update))
 
@@ -152,16 +174,15 @@
 
 	map_name = name // Save the initial (the name set in the map) name of the area.
 
-	if(use_starlight && CONFIG_GET(flag/starlight))
-		// Areas lit by starlight are not supposed to be fullbright 4head
-		base_lighting_alpha = 0
-		base_lighting_color = null
-		static_lighting = TRUE
-
-	if(!requires_power)
+	if(requires_power)
+		luminosity = 0
+	else
 		power_light = TRUE
 		power_equip = TRUE
 		power_environ = TRUE
+
+		if(static_lighting)
+			luminosity = 0
 
 	. = ..()
 
@@ -347,10 +368,23 @@
 /area/Destroy()
 	if(GLOB.areas_by_type[type] == src)
 		GLOB.areas_by_type[type] = null
-	GLOB.areas -= src
+	//this is not initialized until get_sorted_areas() is called so we have to do a null check
+	if(!isnull(GLOB.sortedAreas))
+		GLOB.sortedAreas -= src
+	//just for sanity sake cause why not
+	if(!isnull(GLOB.areas))
+		GLOB.areas -= src
+	//machinery cleanup
+	STOP_PROCESSING(SSobj, src)
+	firedoors = null
+	//atmos cleanup
+	firealarms = null
+	air_vents = null
+	air_scrubs = null
+	//turf cleanup
 	turfs_by_zlevel = null
 	turfs_to_uncontain_by_zlevel = null
-	STOP_PROCESSING(SSobj, src)
+	//parent cleanup
 	return ..()
 
 /**
@@ -642,26 +676,35 @@
 		if(ENVIRON)
 			used_environ += amount
 
+/**
+ * Call back when an atom enters an area
+ *
+ * Sends signals COMSIG_AREA_ENTERED and COMSIG_ENTER_AREA (to a list of atoms)
+ *
+ * If the area has ambience, then it plays some ambience music to the ambience channel
+ */
 /area/Entered(atom/movable/arrived, area/old_area)
-
+	set waitfor = FALSE
 	SEND_SIGNAL(src, COMSIG_AREA_ENTERED, arrived, old_area)
 	SEND_SIGNAL(arrived, COMSIG_ATOM_ENTERED_AREA, src, old_area)
+
+	if(ismob(arrived))
+		var/mob/arrived_mob = arrived
+		arrived_mob.update_ambience_area(src)
+		if(!arrived_mob.lastarea || old_area != src)
+			arrived_mob.lastarea = src
+
 	if(!LAZYACCESS(arrived.important_recursive_contents, RECURSIVE_CONTENTS_AREA_SENSITIVE))
 		return
 	for(var/atom/movable/recipient as anything in arrived.important_recursive_contents[RECURSIVE_CONTENTS_AREA_SENSITIVE])
 		SEND_SIGNAL(recipient, COMSIG_ENTER_AREA, src)
 
-	if(ismob(arrived))
-		var/mob/arrived_mob = arrived
-		if(!arrived_mob.lastarea || old_area != src)
-			arrived_mob.lastarea = src
-
-/area/Exited(atom/movable/departed, area/new_area)
-	SEND_SIGNAL(src, COMSIG_AREA_EXITED, departed, new_area)
-	SEND_SIGNAL(departed, COMSIG_ATOM_EXITED_AREA, src, new_area)
-	if(!LAZYACCESS(departed.important_recursive_contents, RECURSIVE_CONTENTS_AREA_SENSITIVE))
+/area/Exited(atom/movable/gone, direction)
+	SEND_SIGNAL(src, COMSIG_AREA_EXITED, gone, direction)
+	SEND_SIGNAL(gone, COMSIG_MOVABLE_EXITED_AREA, src, direction)
+	if(!LAZYACCESS(gone.important_recursive_contents, RECURSIVE_CONTENTS_AREA_SENSITIVE))
 		return
-	for(var/atom/movable/recipient as anything in departed.important_recursive_contents[RECURSIVE_CONTENTS_AREA_SENSITIVE])
+	for(var/atom/movable/recipient as anything in gone.important_recursive_contents[RECURSIVE_CONTENTS_AREA_SENSITIVE])
 		SEND_SIGNAL(recipient, COMSIG_EXIT_AREA, src)
 
 /area/proc/gravitychange()

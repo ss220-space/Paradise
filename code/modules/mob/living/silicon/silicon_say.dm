@@ -72,7 +72,7 @@
 		var/message = verb_message(message_pieces, message_clean, src, genderize_decode(src, verb))
 		var/message_tts = combine_message_tts(message_pieces, src)
 
-		if((client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && can_hear())
+		if((client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && !HAS_TRAIT(src, TRAIT_DEAF))
 			create_chat_message(H, message_clean, list("radio"))
 		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, H, src, message_tts, tts_seed, FALSE, SOUND_EFFECT_NONE)
 		log_debug("holopad_talk(): [message_clean]")

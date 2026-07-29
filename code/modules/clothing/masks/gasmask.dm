@@ -32,7 +32,7 @@
 	)
 
 /obj/item/clothing/mask/gas/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "противогаз",
 		GENITIVE = "противогаза",
 		DATIVE = "противогазу",
@@ -59,7 +59,7 @@
 	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/mask/gas/welding/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сварочный протовогаз",
 		GENITIVE = "сварочного протовогаза",
 		DATIVE = "сварочному протовогазу",
@@ -106,7 +106,7 @@
 	)
 
 /obj/item/clothing/mask/gas/explorer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "противогаз исследователя",
 		GENITIVE = "противогаза исследователя",
 		DATIVE = "противогазу исследователя",
@@ -149,7 +149,7 @@
 	permeability_coefficient = 0.01
 
 /obj/item/clothing/mask/banemask/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "маска Бейна",
 		GENITIVE = "маски Бейна",
 		DATIVE = "маске Бейна",
@@ -169,7 +169,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 2, ENERGY = 2, BOMB = 0, BIO = 75, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/mask/gas/plaguedoctor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "маска чумного доктора",
 		GENITIVE = "маски чумного доктора",
 		DATIVE = "маске чумного доктора",
@@ -186,7 +186,7 @@
 	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, BIO = 50, FIRE = 100, ACID = 50)
 
 /obj/item/clothing/mask/gas/swat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "маска спецназа",
 		GENITIVE = "маски спецназа",
 		DATIVE = "маске спецназа",
@@ -212,7 +212,7 @@
 	AddElement(/datum/element/tts_modifier, SOUND_EFFECT_MASKFILTER)
 
 /obj/item/clothing/mask/gas/syndicate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "маска \"Синдиката\"",
 		GENITIVE = "маски \"Синдиката\"",
 		DATIVE = "маске \"Синдиката\"",
@@ -243,7 +243,7 @@
 	dog_fashion = /datum/dog_fashion/head/clown
 
 /obj/item/clothing/mask/gas/clown_hat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "клоунский парик с маской",
 		GENITIVE = "клоунского парика с маской",
 		DATIVE = "клоунскому парику с маской",
@@ -282,7 +282,7 @@
 	item_state = "sexyclown"
 
 /obj/item/clothing/mask/gas/clown_hat/sexy/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сексуальный клоунский парик с маской",
 		GENITIVE = "сексуального клоунского парика с маской",
 		DATIVE = "сексуальному клоунскому парику с маской",
@@ -298,7 +298,7 @@
 	item_state = "joker"
 
 /obj/item/clothing/mask/gas/clown_hat/joker/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "клоунский парик с маской настоящего безумца",
 		GENITIVE = "клоунского парика с маской настоящего безумца",
 		DATIVE = "клоунскому парику с маской настоящего безумца",
@@ -318,7 +318,7 @@
 	)
 
 /obj/item/clothing/mask/gas/clown_hat/rainbow/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "радужный клоунский парик с маской",
 		GENITIVE = "радужного клоунского парика с маской",
 		DATIVE = "радужному клоунскому парику с маской",
@@ -337,7 +337,7 @@
 	magical = TRUE
 
 /obj/item/clothing/mask/gas/clownwiz/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "магический клоунский парик с маской",
 		GENITIVE = "магического клоунского парика с маской",
 		DATIVE = "магическому клоунскому парику с маской",
@@ -378,7 +378,7 @@
 	resistance_flags = FLAMMABLE
 
 /obj/item/clothing/mask/gas/mime/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "счастливая маска мима",
 		GENITIVE = "счастливой маски мима",
 		DATIVE = "счастливой маске мима",
@@ -453,7 +453,7 @@
 	icon_state = "sadmask"
 
 /obj/item/clothing/mask/gas/mime/sad/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "печальная маска мима",
 		GENITIVE = "печальной маски мима",
 		DATIVE = "печальной маске мима",
@@ -467,7 +467,7 @@
 	icon_state = "angrymask"
 
 /obj/item/clothing/mask/gas/mime/angry/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "злобная маска мима",
 		GENITIVE = "злобной маски мима",
 		DATIVE = "злобной маске мима",
@@ -481,7 +481,7 @@
 	icon_state = "cluelessmask"
 
 /obj/item/clothing/mask/gas/mime/clueless/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "равнодушная маска мима",
 		GENITIVE = "равнодушной маски мима",
 		DATIVE = "равнодушной маске мима",
@@ -495,7 +495,7 @@
 	icon_state = "morutopia"
 
 /obj/item/clothing/mask/gas/mime/morutopia/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "маска Трагика",
 		GENITIVE = "маски Трагика",
 		DATIVE = "маске Трагика",
@@ -511,7 +511,7 @@
 	magical = TRUE
 
 /obj/item/clothing/mask/gas/mime/wizard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "магическая маска мима",
 		GENITIVE = "магической маски мима",
 		DATIVE = "магической маске мима",
@@ -535,7 +535,7 @@
 	resistance_flags = FLAMMABLE
 
 /obj/item/clothing/mask/gas/monkeymask/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "маска обезьяны",
 		GENITIVE = "маски обезьяны",
 		DATIVE = "маске обезьяны",
@@ -551,7 +551,7 @@
 	item_state = "sexymime"
 
 /obj/item/clothing/mask/gas/mime/sexy/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сексуальная маска мима",
 		GENITIVE = "сексуальной маски мима",
 		DATIVE = "сексуальной маске мима",
@@ -568,7 +568,7 @@
 	item_state = "mime_old"
 
 /obj/item/clothing/mask/gas/mime/old/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "классическая маска мима",
 		GENITIVE = "классической маски мима",
 		DATIVE = "классической маске мима",
@@ -585,7 +585,7 @@
 	resistance_flags = FLAMMABLE
 
 /obj/item/clothing/mask/gas/cyborg/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "визор робота",
 		GENITIVE = "визора робота",
 		DATIVE = "визору робота",
@@ -603,7 +603,7 @@
 	actions_types = list(/datum/action/item_action/hoot)
 
 /obj/item/clothing/mask/gas/owl_mask/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "маска совы",
 		GENITIVE = "маски совы",
 		DATIVE = "маске совы",
@@ -677,7 +677,7 @@
 								)
 
 /obj/item/clothing/mask/gas/sechailer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "противогаз службы безопасности",
 		GENITIVE = "противогаза службы безопасности",
 		DATIVE = "противогазу службы безопасности",
@@ -721,7 +721,7 @@
 	custom_price = PAYCHECK_COMMAND
 
 /obj/item/clothing/mask/gas/sechailer/tactical/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тактический противогаз СБ",
 		GENITIVE = "тактического противогаза СБ",
 		DATIVE = "тактическому противогазу СБ",
@@ -741,7 +741,7 @@
 	actions_types = list(/datum/action/item_action/halt)
 
 /obj/item/clothing/mask/gas/sechailer/hos/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тактический противогаз ГСБ",
 		GENITIVE = "тактического противогаза ГСБ",
 		DATIVE = "тактическому противогазу ГСБ",
@@ -761,7 +761,7 @@
 	actions_types = list(/datum/action/item_action/halt)
 
 /obj/item/clothing/mask/gas/sechailer/warden/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тактический противогаз смотрителя",
 		GENITIVE = "тактического противогаза смотрителя",
 		DATIVE = "тактическому противогазу смотрителя",
@@ -781,7 +781,7 @@
 	actions_types = list(/datum/action/item_action/halt)
 
 /obj/item/clothing/mask/gas/sechailer/swat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тактический противогаз",
 		GENITIVE = "тактического противогаза",
 		DATIVE = "тактическому противогазу",
@@ -802,7 +802,7 @@
 	actions_types = list(/datum/action/item_action/halt)
 
 /obj/item/clothing/mask/gas/sechailer/blue/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "синий тактический противогаз",
 		GENITIVE = "синего тактического противогаза",
 		DATIVE = "синему тактическому противогазу",
@@ -820,7 +820,7 @@
 	actions_types = list(/datum/action/item_action/halt)
 
 /obj/item/clothing/mask/gas/sechailer/cyborg/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мегафон службы безопасности",
 		GENITIVE = "мегафона службы безопасности",
 		DATIVE = "мегафону службы безопасности",
@@ -949,10 +949,10 @@
 	item_state = "ghostface_mask"
 	flags_inv = HIDEGLASSES
 	flags_cover = HIDENAME|MASKCOVERSMOUTH|MASKCOVERSEYES
-	species_restricted = list(SPECIES_HUMAN, SPECIES_MACNINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_DIONA, SPECIES_NUCLEATION)
+	species_restricted = list(SPECIES_HUMAN, SPECIES_MACHINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_DIONA, SPECIES_NUCLEATION)
 
 /obj/item/clothing/mask/gas/ghostface/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кричащая маска",
 		GENITIVE = "кричащей маски",
 		DATIVE = "кричащей маске",
@@ -1003,7 +1003,7 @@
 	item_state = "mining_gas"
 
 /obj/item/clothing/mask/gas/mining_medic/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шахтёрский респиратор",
 		GENITIVE = "шахтёрского респиратора",
 		DATIVE = "шахтёрскому респиратору",

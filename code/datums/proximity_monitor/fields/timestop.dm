@@ -33,7 +33,7 @@
 /obj/effect/timestop/wizard
 	duration = 10 SECONDS
 
-/obj/effect/timestop/clockwork
+/obj/effect/timestop/slowing
 	duration = 10 SECONDS
 	timefreeze = TRUE
 	color_matrix = COLOR_MATRIX_SEPIATONE

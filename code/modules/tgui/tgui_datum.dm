@@ -80,24 +80,25 @@
  * public
  *
  * Open this UI (and initialize it with data).
+ *
+ * return bool - TRUE if a new pooled window is opened, FALSE in all other situations including if a new pooled window didn't open because one already exists.
  */
 /datum/tgui/proc/open()
 	if(!user.client)
-		return null
+		return FALSE
 	if(window)
-		return null
+		return FALSE
 	process_status()
 	if(status < UI_UPDATE)
-		return null
+		return FALSE
 	window = SStgui.request_pooled_window(user)
 	if(!window)
-		return null
+		return FALSE
 	opened_at = world.time
 	window.acquire_lock(src)
 	if(!window.is_ready())
 		window.initialize(
 			strict_mode = TRUE,
-			fancy = (user.client.prefs.toggles2 & PREFTOGGLE_2_FANCYUI),
 			assets = list(
 				get_asset_datum(/datum/asset/simple/tgui),
 			))
@@ -108,6 +109,8 @@
 		with_data = TRUE,
 		with_static_data = TRUE))
 	SStgui.on_open(src)
+
+	return TRUE
 
 /datum/tgui/proc/send_assets()
 	var/flushqueue = window.send_asset(get_asset_datum(
@@ -172,7 +175,7 @@
  */
 /datum/tgui/proc/send_asset(datum/asset/asset)
 	if(!window)
-		CRASH("send_asset() can only be called after open().")
+		CRASH("send_asset() was called either without calling open() first or when open() did not return TRUE.")
 	return window.send_asset(asset)
 
 /**
@@ -233,7 +236,6 @@
 		"window" = list(
 			"key" = window_key,
 			"size" = window_size,
-			"fancy" = (user.client?.prefs?.toggles2 & PREFTOGGLE_2_FANCYUI),
 			"locked" = (user.client?.prefs?.toggles2 & PREFTOGGLE_2_FANCYUI),
 			"scale" = (user.client?.prefs.toggles3 & PREFTOGGLE_3_UI_SCALE),
 		),
@@ -341,3 +343,17 @@
 			LAZYINITLIST(src_object.tgui_shared_states)
 			src_object.tgui_shared_states[href_list["key"]] = href_list["value"]
 			SStgui.update_uis(src_object)
+
+/**
+ * public
+ *
+ * Sends a message to the front end to push the UI window to position 0,0
+ *
+ * optional can_be_suspended bool
+ */
+/datum/tgui/proc/reset_ui_position()
+	if(window)
+		// Windows you want to keep are usually blue screens of death
+		// and we want to keep them around, to allow user to read
+		// the error message properly.
+		window.send_message("resetposition")

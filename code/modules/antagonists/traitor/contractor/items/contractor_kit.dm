@@ -35,7 +35,7 @@
 	)
 
 /obj/item/storage/box/syndie_kit/contractor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "набор контрактника",
 		GENITIVE = "набора контрактника",
 		DATIVE = "набору контрактника",
@@ -58,7 +58,7 @@
 	name = "contractor standard loadout box"
 	desc = "Стандартная коробка, входящая в комплект поставки для Контрактника."
 /obj/item/storage/box/syndie_kit/contractor_loadout/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "стандартный набор контрактника",
 		GENITIVE = "стандартного набора контрактника",
 		DATIVE = "стандартному набору контрактника",

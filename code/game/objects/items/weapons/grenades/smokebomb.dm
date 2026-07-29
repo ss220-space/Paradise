@@ -7,7 +7,7 @@
 	var/datum/effect_system/fluid_spread/smoke/bad/smoke
 
 /obj/item/grenade/smokebomb/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "дымовая граната",
 		GENITIVE = "дымовой гранаты",
 		DATIVE = "дымовой гранате",

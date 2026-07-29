@@ -9,11 +9,11 @@
 	icon = 'icons/obj/circuits.dmi'
 	icon_state = "setup_medium_box"
 
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_on = FALSE
 
 /obj/structure/bot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бот",
 		GENITIVE = "бота",
 		DATIVE = "боту",

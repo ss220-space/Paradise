@@ -23,22 +23,18 @@
 	area_type = /area
 	target_trait = ZTRAIT_SNOWSTORM
 	protected_areas = list(
-		/area/maintenance,
-		/area/turret_protected/ai_upload,
-		/area/turret_protected/ai_upload_foyer,
-		/area/turret_protected/ai,
-		/area/storage/emergency,
-		/area/storage/emergency2,
-		/area/solar,
-		/area/toxins/test_area,
-		/area/engineering/engine,
-		/area/crew_quarters/sleep,
-		/area/security/brig,
+		/area/station/maintenance,
+		/area/station/ai/upload/chamber,
+		/area/station/ai/satellite/chamber,
+		/area/station/solars,
+		/area/station/science/toxins/test,
+		/area/station/engineering/engine,
+		/area/station/commons/sleep,
+		/area/station/security/brig,
 		/area/shuttle,
 		/area/space,
 		/area/coldcolony/malta,
-		/area/crew_quarters/bar/atrium/safe,
-		/area/toxins/xenobiology,
+		/area/station/science/xenobiology,
 	)
 
 	immunity_type = TRAIT_SNOWSTORM_IMMUNE

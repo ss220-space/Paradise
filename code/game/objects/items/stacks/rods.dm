@@ -1,16 +1,16 @@
 GLOBAL_LIST_INIT(rod_recipes, list ( \
-	new /datum/stack_recipe("grille", /obj/structure/grille, 2, time = 10, one_per_turf = 1, on_floor = 1, on_lattice = 1), \
-	new /datum/stack_recipe("table frame", /obj/structure/table_frame, 2, time = 10, one_per_turf = 1, on_floor = 1), \
+	new /datum/stack_recipe("grille", /obj/structure/grille, 2, time = 10, one_per_turf = 1, on_floor = 1, on_lattice = 1, modifier_name = CONSTRUCTING_SPEED_MOD), \
+	new /datum/stack_recipe("table frame", /obj/structure/table_frame, 2, time = 10, one_per_turf = 1, on_floor = 1, modifier_name = CONSTRUCTING_SPEED_MOD), \
 	null,
-	new /datum/stack_recipe("railing", /obj/structure/railing, 3, time = 10, on_floor = 1, check_direction = TRUE), \
-	new /datum/stack_recipe("railing corner", /obj/structure/railing/corner, 3, time = 10, on_floor = 1, check_direction = TRUE), \
+	new /datum/stack_recipe("railing", /obj/structure/railing, 3, time = 10, on_floor = 1, check_direction = TRUE, modifier_name = CONSTRUCTING_SPEED_MOD), \
+	new /datum/stack_recipe("railing corner", /obj/structure/railing/corner, 3, time = 10, on_floor = 1, check_direction = TRUE, modifier_name = CONSTRUCTING_SPEED_MOD), \
 	null,
 	new /datum/stack_recipe_list("chainlink fence", list( \
-		new /datum/stack_recipe("chainlink fence", /obj/structure/fence, 5, time = 10, one_per_turf = 1, on_floor = 1), \
-		new /datum/stack_recipe("chainlink fence post", /obj/structure/fence/post, 5, time = 10, one_per_turf = 1, on_floor = 1), \
-		new /datum/stack_recipe("chainlink fence corner", /obj/structure/fence/corner, 5, time = 10, one_per_turf = 1, on_floor = 1), \
-		new /datum/stack_recipe("chainlink fence door", /obj/structure/fence/door, 10, time = 10, one_per_turf = 1, on_floor = 1), \
-		new /datum/stack_recipe("chainlink fence end", /obj/structure/fence/end, 3, time = 10, one_per_turf = 1, on_floor = 1), \
+		new /datum/stack_recipe("chainlink fence", /obj/structure/fence, 5, time = 10, one_per_turf = 1, on_floor = 1, modifier_name = CONSTRUCTING_SPEED_MOD), \
+		new /datum/stack_recipe("chainlink fence post", /obj/structure/fence/post, 5, time = 10, one_per_turf = 1, on_floor = 1, modifier_name = CONSTRUCTING_SPEED_MOD), \
+		new /datum/stack_recipe("chainlink fence corner", /obj/structure/fence/corner, 5, time = 10, one_per_turf = 1, on_floor = 1, modifier_name = CONSTRUCTING_SPEED_MOD), \
+		new /datum/stack_recipe("chainlink fence door", /obj/structure/fence/door, 10, time = 10, one_per_turf = 1, on_floor = 1, modifier_name = CONSTRUCTING_SPEED_MOD), \
+		new /datum/stack_recipe("chainlink fence end", /obj/structure/fence/end, 3, time = 10, one_per_turf = 1, on_floor = 1, modifier_name = CONSTRUCTING_SPEED_MOD), \
 		)), \
 	))
 
@@ -25,6 +25,7 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	throwforce = 10
 	throw_speed = 3
 	materials = list(MAT_METAL=1000)
+	matter_amount = 0.5
 	attack_verb = list("ударил", "огрел")
 	hitsound = 'sound/weapons/grenadelaunch.ogg'
 	usesound = 'sound/items/deconstruct.ogg'
@@ -90,6 +91,7 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	item_state = "f_rods"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	materials = list(MAT_METAL=800, MAT_PLASMA=200, MAT_TITANIUM=400)
+	matter_amount = 2
 
 /obj/item/stack/rods/fireproof/twentyfive
 	amount = 25

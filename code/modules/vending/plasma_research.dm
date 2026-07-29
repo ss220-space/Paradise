@@ -25,7 +25,7 @@
 	)
 
 /obj/machinery/vending/plasmaresearch/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат Toximate 3000",
 		GENITIVE = "торгового автомата Toximate 3000",
 		DATIVE = "торговому автомату Toximate 3000",

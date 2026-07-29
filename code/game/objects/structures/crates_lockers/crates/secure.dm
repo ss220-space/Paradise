@@ -92,7 +92,8 @@
 		return
 	. = TRUE
 	balloon_alert(user, "откручиваем панель...")
-	if(!tool.use_tool(src, user, 160, volume = tool.tool_volume))
+	CALCULATE_SKILL_MOD(user, LOCKPICK_SPEED_MOD, lockpick_mod)
+	if(!tool.use_tool(src, user, 16 SECONDS * lockpick_mod, volume = tool.tool_volume))
 		return
 	if(prob(95)) // EZ
 		if(broken == SECURE_CRATE_STAGE_PANEL_OPEN)
@@ -115,9 +116,11 @@
 		return
 	. = TRUE
 	balloon_alert(user, "подготавливаем провода...")
-	if(!tool.use_tool(src, user, 16 SECONDS, volume = tool.tool_volume))
+	CALCULATE_SKILL_MOD(user, LOCKPICK_SPEED_MOD, lockpick_mod)
+	if(!tool.use_tool(src, user, 16 SECONDS * lockpick_mod, volume = tool.tool_volume))
 		return
-	if(prob(80)) // Good hacker!
+	CALCULATE_SKILL_MOD(user, LOCKPICK_POSITIVE_CHANCE_MOD, prob_mod)
+	if(prob(80 * prob_mod)) // Good hacker!
 		if(broken == SECURE_CRATE_STAGE_WIRES_PREPARED)
 			return
 		balloon_alert(user, "провода подготовлены")
@@ -134,9 +137,11 @@
 		return
 	. = TRUE
 	balloon_alert(user, "подключаем провода...")
-	if(!tool.use_tool(src, user, 16 SECONDS, volume = tool.tool_volume))
+	CALCULATE_SKILL_MOD(user, LOCKPICK_SPEED_MOD, lockpick_mod)
+	if(!tool.use_tool(src, user, 16 SECONDS * lockpick_mod, volume = tool.tool_volume))
 		return
-	if(prob(80)) // Good hacker!
+	CALCULATE_SKILL_MOD(user, LOCKPICK_POSITIVE_CHANCE_MOD, prob_mod)
+	if(prob(80 * prob_mod)) // Good hacker!
 		if(broken == SECURE_CRATE_STAGE_NO_BROKEN || broken == SECURE_CRATE_STAGE_OPENED)
 			return
 		balloon_alert(user, "взломано!")
@@ -199,6 +204,9 @@
 	overlay_sparking = "largebinsparks"
 	overlay_broken = "largebinemag"
 
+/obj/structure/closet/crate/secure/bin/anchored
+	anchored = TRUE
+
 /obj/structure/closet/crate/secure/large
 	name = "large crate"
 	desc = "A hefty metal crate with an electronic locking system."
@@ -206,6 +214,7 @@
 	overlay_locked = "largemetalr"
 	overlay_unlocked = "largemetalg"
 	overlay_broken = ""
+	elevation = 22
 
 /obj/structure/closet/crate/secure/large/close()
 	. = ..()
@@ -271,7 +280,7 @@
 	req_access = list(ACCESS_MEDICAL)
 
 /obj/structure/closet/crate/secure/blood/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комплект донорской крови (человеческий)",
 		GENITIVE = "комплекта донорской крови (человеческий)",
 		DATIVE = "комплекту донорской крови (человеческий)",
@@ -286,7 +295,7 @@
 	icon_state = "xenobloodcrate"
 
 /obj/structure/closet/crate/secure/blood/xeno/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комплект донорской крови (ксено)",
 		GENITIVE = "комплекта донорской крови (ксено)",
 		DATIVE = "комплекту донорской крови (ксено)",
@@ -301,7 +310,7 @@
 	icon_state = "mixbloodcrate"
 
 /obj/structure/closet/crate/secure/blood/mixed/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комплект донорской крови (смешанная)",
 		GENITIVE = "комплекта донорской крови (смешанная)",
 		DATIVE = "комплекту донорской крови (смешанная)",
@@ -316,7 +325,7 @@
 	icon_state = "syntheticbloodcrate"
 
 /obj/structure/closet/crate/secure/blood/nitrogenis/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комплект донорской крови (синтетическая кровь — азот)",
 		GENITIVE = "комплекта донорской крови (синтетическая кровь — азот)",
 		DATIVE = "комплекту донорской крови (синтетическая кровь — азот)",
@@ -331,7 +340,7 @@
 	icon_state = "nitrogenbloodcrate"
 
 /obj/structure/closet/crate/secure/blood/oxygenis/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комплект донорской крови (синтетическая кровь — кислород)",
 		GENITIVE = "комплекта донорской крови (синтетическая кровь — кислород)",
 		DATIVE = "комплекту донорской крови (синтетическая кровь — кислород)",
@@ -339,6 +348,15 @@
 		INSTRUMENTAL = "комплектом донорской крови (синтетическая кровь — кислород)",
 		PREPOSITIONAL = "комплекте донорской крови (синтетическая кровь — кислород)",
 	)
+
+/obj/structure/closet/crate/secure/engineering/teg
+	name = "thermoelectric generator crate"
+	desc = "Ящик, в котором находятся детали для термоэлектрического генератора"
+
+/obj/structure/closet/crate/secure/engineering/teg/populate_contents()
+	new /obj/machinery/power/generator(src)
+	new /obj/item/pipe/circulator(src)
+	new /obj/item/pipe/circulator(src)
 
 #undef SECURE_CRATE_STAGE_NO_BROKEN
 #undef SECURE_CRATE_STAGE_PANEL_OPEN

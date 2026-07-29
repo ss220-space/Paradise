@@ -12,7 +12,7 @@ jobs:
       issues: write # to apply labels
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Run Auto Labeler
         uses: actions/github-script@v9
         with:

@@ -20,7 +20,7 @@
 	var/self_destroy = TRUE
 
 /obj/structure/energy_net/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "энергетическая сеть",
 		GENITIVE = "энергетической сети",
 		DATIVE = "энергетической сети",

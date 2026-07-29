@@ -10,6 +10,7 @@
 	no_overlays = TRUE
 	icon_closed = "wall-locker"
 	icon_opened = "wall-lockeropen"
+	wall_mounted = TRUE
 
 /obj/structure/closet/walllocker/close()
 	. = ..()

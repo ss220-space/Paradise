@@ -6,7 +6,7 @@
 	accuracy = GUN_ACCURACY_RIFLE_EXTEND_SPREAD
 	recoil = GUN_RECOIL_MEDIUM
 	weapon_weight = WEAPON_HEAVY
-	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
+	gun_firemode_list = list(GUN_FIREMODE_SEMIAUTO, GUN_FIREMODE_BURSTFIRE, GUN_FIREMODE_AUTOMATIC)
 
 	/// Exists chambered light indicator in gun
 	var/chambered_light_exists = FALSE
@@ -47,7 +47,7 @@
 	origin_tech = "combat=4;materials=2"
 	fire_sound = 'sound/weapons/gunshots/1c20.ogg'
 	recoil = GUN_RECOIL_LOW
-	fire_modes = GUN_MODE_SINGLE_BURST
+	gun_firemode_list = list(GUN_FIREMODE_SEMIAUTO, GUN_FIREMODE_BURSTFIRE)
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER | GUN_MODULE_CLASS_SMG_STOCK
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 16, ATTACHMENT_OFFSET_Y = 4),
@@ -59,7 +59,7 @@
 	chambered_light_exists = TRUE
 
 /obj/item/gun/projectile/automatic/smg/saber/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пистолет-пулемёт SABR-9 9x19 мм",
 		GENITIVE = "пистолета-пулемёта SABR-9 9x19 мм",
 		DATIVE = "пистолету-пулемёту SABR-9 9x19 мм",
@@ -84,7 +84,7 @@
 	origin_tech = "combat=5;materials=2;syndicate=6"
 	mag_type = /obj/item/ammo_box/magazine/smgm45
 	fire_sound = 'sound/weapons/gunshots/1c20.ogg'
-	burst_size = 2
+	burst_amount = 2
 	accuracy = GUN_ACCURACY_RIFLE_UPLINK
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
@@ -92,13 +92,13 @@
 		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 9, ATTACHMENT_OFFSET_Y = 6),
 	)
 	recoil = GUN_RECOIL_MEDIUM
-	autofire_delay = 0.25 SECONDS
+	fire_delay = 0.35 SECONDS
 	chambered_light_exists = TRUE
 	mag_ammo_counter_exists = TRUE
 	mag_ammo_counter_size = 4
 
 /obj/item/gun/projectile/automatic/smg/c20r/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пистолет-пулемёт DCA-S45 .45",
 		GENITIVE = "пистолет-пулемёта DCA-S45 .45",
 		DATIVE = "пистолет-пулемёту DCA-S45 .45",
@@ -140,11 +140,10 @@
 			огня за счёт снижения точности. Предназначен для ближнего боя, где плотность огня превалирует над точностью. Официально на рынке не представлен."
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_LOW
-	autofire_delay = 0.15 SECONDS
-	fire_delay = 0.15 SECONDS
+	fire_delay = 0.25 SECONDS
 
 /obj/item/gun/projectile/automatic/smg/c20r/auto/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пистолет-пулемёт DCA-S45M \"Жнец\" .45",
 		GENITIVE = "пистолет-пулемёта DCA-S45M \"Жнец\" .45",
 		DATIVE = "пистолет-пулемёту DCA-S45M \"Жнец\" .45",
@@ -169,11 +168,12 @@
 			Состоит на вооружении многих корпоративных охранных структур, в том числе \"Нанотрейзен\"."
 	icon_state = "wt550"
 	item_state = "arg"
+	accuracy = GUN_ACCURACY_RIFLE_EXTEND_SPREAD
 	mag_type = /obj/item/ammo_box/magazine/wt550m9
 	fire_sound = 'sound/weapons/gunshots/1wt.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
-	burst_size = 2
+	burst_amount = 2
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER | GUN_MODULE_CLASS_SMG_STOCK
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 28, ATTACHMENT_OFFSET_Y = 1),
@@ -186,7 +186,7 @@
 	mag_ammo_counter_exists = TRUE
 
 /obj/item/gun/projectile/automatic/smg/wt550/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пистолет-пулемёт WT-550 4,6x30 мм",
 		GENITIVE = "пистолет-пулемёта WT-550 4,6x30 мм",
 		DATIVE = "пистолет-пулемёту WT-550 4,6x30 мм",
@@ -218,6 +218,7 @@
 			одиночный, очередь по 2 патрона и автоматический. Предназначен для нелетального подавления беспорядков."
 	icon_state = "sp91"
 	item_state = "SP-91-RC"
+	accuracy = GUN_ACCURACY_RIFLE_EXTEND_SPREAD
 	mag_type = /obj/item/ammo_box/magazine/sp91rc
 	fire_sound = 'sound/weapons/gunshots/1sp_91.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
@@ -234,7 +235,7 @@
 	mag_ammo_counter_exists = TRUE
 
 /obj/item/gun/projectile/automatic/smg/sp91rc/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пистолет-пулемёт DCA-S91 \"Миротворец\" 4,6x30 мм",
 		GENITIVE = "пистолет-пулемёта DCA-S91 \"Миротворец\" 4,6x30 мм",
 		DATIVE = "пистолет-пулемёту DCA-S91 \"Миротворец\" 4,6x30 мм",
@@ -277,14 +278,14 @@
 		ATTACHMENT_SLOT_STOCK = list(ATTACHMENT_OFFSET_X = -4, ATTACHMENT_OFFSET_Y = 1),
 	)
 	starting_attachment_types = list(/obj/item/gun_module/stock, /obj/item/gun_module/muzzle/suppressor/integrated)
-	fire_modes = GUN_MODE_SINGLE_BURST
-	fire_delay = 1
+	gun_firemode_list = list(GUN_FIREMODE_SEMIAUTO, GUN_FIREMODE_BURSTFIRE)
+	fire_delay = 0.2 SECONDS
 	damage_mod = 0.7
 	chambered_light_exists = TRUE
 	mag_ammo_counter_exists = TRUE
 
 /obj/item/gun/projectile/automatic/smg/sparkle_a12/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пистолет-пулемёт A-12 \"Искра\" 9x19 мм",
 		GENITIVE = "пистолет-пулемёта A-12 \"Искра\" 9x19 мм",
 		DATIVE = "пистолет-пулемёту A-12 \"Искра\" 9x19 мм",
@@ -311,7 +312,7 @@
 	recoil = GUN_RECOIL_LOW
 
 /obj/item/gun/projectile/automatic/smg/mini_uzi/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пистолет-пулемёт Type 3 UZI 9x19 мм",
 		GENITIVE = "пистолет-пулемёта Type 3 UZI 9x19 мм",
 		DATIVE = "пистолет-пулемёту Type 3 UZI 9x19 мм",
@@ -331,12 +332,12 @@
 	origin_tech = "combat=5;materials=1;syndicate=3"
 	mag_type = /obj/item/ammo_box/magazine/tommygunm45
 	fire_sound = 'sound/weapons/gunshots/1saber.ogg'
-	burst_size = 4
-	fire_delay = 1
+	burst_amount = 4
+	fire_delay = 0.2 SECONDS
 	recoil = GUN_RECOIL_MEDIUM
 
 /obj/item/gun/projectile/automatic/tommygun/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пистолет-пулемёт Томсона 9x19 мм",
 		GENITIVE = "пистолет-пулемёта Томсона 9x19 мм",
 		DATIVE = "пистолет-пулемёту Томсона 9x19 мм",
@@ -362,7 +363,7 @@
 	recoil = GUN_RECOIL_MEDIUM
 
 /obj/item/gun/projectile/automatic/smg/sfg/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пистолет-пулемёт SFG-5 9x19 мм",
 		GENITIVE = "пистолет-пулемёта SFG-5 9x19 мм",
 		DATIVE = "пистолет-пулемёту SFG-5 9x19 мм",
@@ -382,9 +383,8 @@
 	fire_sound = 'sound/weapons/gunshots/1c20.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
-	burst_size = 5
-	autofire_delay = 0.15 SECONDS
-	fire_delay = 0.15 SECONDS
+	burst_amount = 5
+	fire_delay = 0.2 SECONDS
 	accuracy = GUN_ACCURACY_PISTOL
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
@@ -394,7 +394,7 @@
 	recoil = GUN_RECOIL_HIGH
 
 /obj/item/gun/projectile/automatic/smg/ppsh/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пистолет-пулемёт ППШ 7,62x25 мм",
 		GENITIVE = "пистолет-пулемёта ППШ 7,62x25 мм",
 		DATIVE = "пистолет-пулемёту ППШ 7,62x25 мм",
@@ -410,3 +410,38 @@
 	. = ..()
 	AddElement(/datum/element/rusted_weapon, face_shot_max_chance = 20, destroy_max_chance = 4, malf_low_bound = 15, malf_high_bound = 71)
 	AddElement(/datum/element/misfire_weapon, misfire_max_chance = 15, misfire_low_bound = 30, misfire_high_bound = 71)
+
+
+// MARK: SMG K-45 Kedr
+/obj/item/gun/projectile/automatic/smg/kedr
+	name = "SMG K-45"
+	desc = "Компактный пистолет-пулемет под калибр 9 мм. Часто используется агентами Синдиката при выполнении тайных операций."
+	icon_state = "kedr"
+	item_state = "arg"
+	mag_type = /obj/item/ammo_box/magazine/kedr
+	fire_sound = 'sound/weapons/gunshots/1wt.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
+	weapon_weight = WEAPON_LIGHT
+	accuracy = GUN_ACCURACY_RIFLE
+	recoil = GUN_RECOIL_MEDIUM
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_SMG_STOCK
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 33, ATTACHMENT_OFFSET_Y = 3),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 13, ATTACHMENT_OFFSET_Y = 8),
+		ATTACHMENT_SLOT_STOCK = list(ATTACHMENT_OFFSET_X = -5, ATTACHMENT_OFFSET_Y = -1),
+	)
+	starting_attachment_types = list(/obj/item/gun_module/stock/integrated_kedr)
+	chambered_light_exists = TRUE
+	mag_ammo_counter_exists = TRUE
+	mag_ammo_counter_size = 5
+
+/obj/item/gun/projectile/automatic/smg/kedr/get_ru_names()
+	return alist(
+		NOMINATIVE = "пистолет-пулемет K-45",
+		GENITIVE = "пистолета-пулемета K-45",
+		DATIVE = "пистолету-пулемету K-45",
+		ACCUSATIVE = "пистолет-пулемет K-45",
+		INSTRUMENTAL = "пистолетом-пулеметом K-45",
+		PREPOSITIONAL = "пистолете-пулемете K-45",
+	)

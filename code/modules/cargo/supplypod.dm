@@ -58,7 +58,7 @@
 	var/list/reverse_option_list = list(MOB_OPTION=FALSE, UNANCHORED_OPTION=FALSE, ANCHORED_OPTION=FALSE, MECHA_OPTION=FALSE)
 
 /obj/structure/closet/supplypod/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "капсула снабжения",
 		GENITIVE = "капсулы снабжения",
 		DATIVE = "капсуле снабжения",
@@ -112,7 +112,7 @@
 	reverse_option_list = list(MOB_OPTION = FALSE, UNANCHORED_OPTION = FALSE, ANCHORED_OPTION = FALSE, MECHA_OPTION = FALSE)
 
 /obj/structure/closet/supplypod/extractionpod/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "капсула эвакуации \"Синдиката\"",
 		GENITIVE = "капсулы эвакуации \"Синдиката\"",
 		DATIVE = "капсуле эвакуации \"Синдиката\"",
@@ -202,7 +202,7 @@
 	specialised = TRUE
 
 /obj/structure/closet/supplypod/back_to_station/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кроваво-красная капсула снабжения",
 		GENITIVE = "кроваво-красной капсулы снабжения",
 		DATIVE = "кроваво-красной капсуле снабжения",
@@ -222,7 +222,7 @@
 	effectMissile = TRUE
 
 /obj/structure/closet/supplypod/deadmatch_missile/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "крылатая ракета",
 		GENITIVE = "крылатой ракеты",
 		DATIVE = "крылатой ракете",
@@ -268,7 +268,7 @@
 /obj/structure/closet/supplypod/Initialize(mapload, customStyle = FALSE)
 	. = ..()
 	if(!loc)
-		var/shippingLane = GLOB.areas_by_type[/area/centcom/supplypod/supplypod_temp_holding] //temporary holder for supplypods mid-transit
+		var/shippingLane = GLOB.areas_by_type[/area/centcom/central_command_areas/supplypod/supplypod_temp_holding] //temporary holder for supplypods mid-transit
 		forceMove(shippingLane)
 	if(customStyle)
 		style = customStyle
@@ -283,9 +283,9 @@
 	SIGNAL_HANDLER
 	SEND_SIGNAL(src, COMSIG_SUPPLYPOD_ENTERED, arrived, old_loc, old_locs)
 
-/obj/structure/closet/supplypod/proc/on_exited(datum/source, mob/living/exited, atom/new_loc)
+/obj/structure/closet/supplypod/proc/on_exited(datum/source, mob/living/exited, direction)
 	SIGNAL_HANDLER
-	SEND_SIGNAL(src, COMSIG_SUPPLYPOD_EXITED, exited, new_loc)
+	SEND_SIGNAL(src, COMSIG_SUPPLYPOD_EXITED, exited, direction)
 
 /obj/structure/closet/supplypod/proc/setStyle(datum/pod_style/chosen_style) //Used to give the sprite an icon state, name, and description.
 	style = chosen_style
@@ -414,7 +414,7 @@
 	if(holder != src)
 		contents |= holder.contents
 		qdel(holder)
-	var/shippingLane = GLOB.areas_by_type[/area/centcom/supplypod/supplypod_temp_holding]
+	var/shippingLane = GLOB.areas_by_type[/area/centcom/central_command_areas/supplypod/supplypod_temp_holding]
 	forceMove(shippingLane) //Move to the centcom-z-level until the pod_landingzone says we can drop back down again
 	if(custom_rev_delay)
 		delays = reverse_delays
@@ -738,7 +738,7 @@
 	var/verticle_offset = 0
 
 /obj/effect/supplypod_rubble/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "обломки",
 		GENITIVE = "обломков",
 		DATIVE = "обломкам",
@@ -799,7 +799,7 @@
 	var/list/smoke_effects = new /list(13)
 
 /obj/effect/pod_landingzone/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "индикатор зоны приземления",
 		GENITIVE = "индикатора зоны приземления",
 		DATIVE = "индикатору зоны приземления",
@@ -905,4 +905,5 @@
 	QDEL_NULL(helper)
 	pod.preOpen() //Begin supplypod open procedures. Here effects like explosions, damage, and other dangerous (and potentially admin-caused, if the centcom_podlauncher datum was used) memes will take place
 	drawSmoke()
+	pod = null
 	qdel(src) //The pod_landingzone's purpose is complete. It can rest easy now

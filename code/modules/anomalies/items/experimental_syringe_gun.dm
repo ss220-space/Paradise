@@ -24,7 +24,7 @@
 	var/obj/item/assembly/signaler/core/vortex/core = null
 
 /obj/item/gun/syringe/rapidsyringe/experimental/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "экспериментальный шприцемёт", \
 		GENITIVE = "экспериментального шприцемёта", \
 		DATIVE = "экспериментальному шприцемёту", \
@@ -41,7 +41,7 @@
 	STOP_PROCESSING(SSobj, src)
 	core?.forceMove(get_turf(src))
 	core = null
-	QDEL_LAZYLIST(synth_reagents)
+	QDEL_LIST(synth_reagents)
 	qdel(ready_reagents)
 	return ..()
 

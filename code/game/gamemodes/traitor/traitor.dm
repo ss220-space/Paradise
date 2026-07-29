@@ -2,7 +2,7 @@
 	name = "traitor"
 	config_tag = "traitor"
 	restricted_jobs = list(JOB_TITLE_CYBORG, JOB_TITLE_AI)
-	protected_jobs = list(JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_HOS, JOB_TITLE_CAPTAIN, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_PILOT, JOB_TITLE_MAGISTRATE, JOB_TITLE_BRIGDOC, JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD, JOB_TITLE_CCSPECOPS, JOB_TITLE_CCSUPREME, JOB_TITLE_SYNDICATE_OFFICER, JOB_TITLE_PRISONER, JOB_TITLE_CMO, JOB_TITLE_RD, JOB_TITLE_QUARTERMASTER, JOB_TITLE_HOP, JOB_TITLE_CHIEF_ENGINEER)
+	protected_jobs = list(JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_HOS, JOB_TITLE_CAPTAIN, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_PILOT, JOB_TITLE_MAGISTRATE, JOB_TITLE_BRIGDOC, JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD, JOB_TITLE_CCSPECOPS, JOB_TITLE_CCCAPTAIN, JOB_TITLE_SYNDICATE_OFFICER, JOB_TITLE_PRISONER, JOB_TITLE_CMO, JOB_TITLE_RD, JOB_TITLE_QUARTERMASTER, JOB_TITLE_HOP, JOB_TITLE_CHIEF_ENGINEER)
 	/// Basically all jobs, except AI.
 	var/list/protected_jobs_AI = list(JOB_TITLE_CIVILIAN, JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_ATMOSTECH, JOB_TITLE_SPACEPOD_TECHNICIAN, JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MEDICAL_INTERN, JOB_TITLE_CORONER, JOB_TITLE_CHEMIST, JOB_TITLE_GENETICIST, JOB_TITLE_VIROLOGIST, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENCE_STUDENT, JOB_TITLE_ROBOTICIST, JOB_TITLE_HOP, JOB_TITLE_CHAPLAIN, JOB_TITLE_BARTENDER, JOB_TITLE_CHEF, JOB_TITLE_BOTANIST, JOB_TITLE_QUARTERMASTER, JOB_TITLE_CARGOTECH, JOB_TITLE_MINER, JOB_TITLE_MINING_MEDIC, JOB_TITLE_CLOWN, JOB_TITLE_MIME, JOB_TITLE_JANITOR, JOB_TITLE_LIBRARIAN, JOB_TITLE_EXPLORER)
 	required_enemies = 1
@@ -98,11 +98,12 @@
 			var/used_uplink = FALSE
 			var/purchases = ""
 
-			for(var/obj/item/uplink/uplink in GLOB.world_uplinks)
-				if(uplink?.uplink_owner && uplink.uplink_owner == traitor.key)
-					TC_uses += uplink.used_TC
-					purchases += uplink.purchase_log
-					used_uplink = TRUE
+			var/obj/item/uplink/traitor_uplink = traitor.find_syndicate_uplink() || traitor.find_uplink_by_key()
+
+			if(traitor_uplink && (traitor_uplink.used_TC > 0 || traitor_uplink.purchase_log != ""))
+				TC_uses += traitor_uplink.used_TC
+				purchases += traitor_uplink.purchase_log
+				used_uplink = TRUE
 
 			if(used_uplink)
 				text += " (used [TC_uses] TC) [purchases]"
@@ -136,10 +137,11 @@
 				special_role_text = "antagonist"
 
 			var/datum/antagonist/contractor/contractor = traitor?.has_antag_datum(/datum/antagonist/contractor)
-			if(istype(contractor) && contractor.contractor_uplink)
+			var/obj/item/contractor_uplink/uplink = contractor?.contractor_uplink_ref?.resolve()
+			if(istype(contractor) && uplink)
 				var/count = 1
-				var/earned_tc = contractor.contractor_uplink.hub.reward_tc_paid_out
-				for(var/datum/syndicate_contract/s_contract in contractor.contractor_uplink.hub.contracts)
+				var/earned_tc = uplink.hub.reward_tc_paid_out
+				for(var/datum/syndicate_contract/s_contract in uplink.hub.contracts)
 					// Locations
 					var/locations = list()
 					for(var/area/c_area in s_contract.contract.candidate_zones)

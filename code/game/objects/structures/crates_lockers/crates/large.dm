@@ -7,6 +7,7 @@
 	material_drop = /obj/item/stack/sheet/wood
 	material_drop_amount = 4
 	integrity_failure = 0
+	elevation = 22
 	/// What animal type this crate contains
 	var/animal_type
 
@@ -17,7 +18,7 @@
 	return ..()
 
 /obj/structure/closet/crate/large/add_debris_element()
-	AddElement(/datum/element/debris, DEBRIS_WOOD, -40, 5)
+	generate_debris_handler(DEBRIS_WOOD, -40, 5)
 
 /obj/structure/closet/crate/large/update_overlays()
 	. = ..()

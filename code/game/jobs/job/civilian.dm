@@ -19,12 +19,27 @@
 	outfit = /datum/outfit/job/assistant
 	insurance_type = INSURANCE_TYPE_BUDGETARY
 	paycheck = PAYCHECK_MIN
+	skill_levels = list(
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+	)
+	base_free_skill_point = ADVANCED_SKILL_POINTS_COUNT
 
 /datum/outfit/job/assistant
 	name = JOB_TITLE_RU_CIVILIAN
 	jobtype = /datum/job/civilian
 
 	uniform = /obj/item/clothing/under/color/random
+
+/datum/outfit/job/assistant/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(!HAS_TRAIT(SSstation, STATION_TRAIT_CLASSIC_ASSISTANTS))
+		return
+
+	uniform = /obj/item/clothing/under/color/grey
+	mask = /obj/item/clothing/mask/gas
+	gloves = /obj/item/clothing/gloves/color/yellow/fake
 
 /datum/job/civilian/prisoner
 	title = JOB_TITLE_PRISONER

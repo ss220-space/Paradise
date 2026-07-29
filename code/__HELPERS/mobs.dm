@@ -104,7 +104,7 @@
 			continue
 		if(gender == S.unsuitable_gender)
 			continue
-		if(species == SPECIES_MACNINEPERSON) //If the user is a species who can have a robotic head...
+		if(species == SPECIES_MACHINEPERSON) //If the user is a species who can have a robotic head...
 			if(!robohead)
 				robohead = GLOB.all_robolimbs["Morpheus Cyberkinetics"]
 			if((species in S.species_allowed) && robohead.is_monitor && ((S.models_allowed && (robohead.company in S.models_allowed)) || !S.models_allowed)) //If this is a facial hair style native to the user's species, check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
@@ -169,7 +169,7 @@
 					continue
 		if(location == "head")
 			var/datum/sprite_accessory/body_markings/head/M = GLOB.marking_styles_list[S.name]
-			if(species == SPECIES_MACNINEPERSON)//If the user is a species that can have a robotic head...
+			if(species == SPECIES_MACHINEPERSON)//If the user is a species that can have a robotic head...
 				if(!robohead)
 					robohead = GLOB.all_robolimbs["Morpheus Cyberkinetics"]
 				if(!(S.models_allowed && (robohead.company in S.models_allowed))) //Make sure they don't get markings incompatible with their head.
@@ -294,138 +294,6 @@
 	update_all_mob_security_hud()
 	return TRUE
 
-/**
- * Timed action involving one mob user. Target is optional.
- * Checks that `user` does not move, change hands, get stunned, etc. for the given `delay`.
- *
- * Arguments:
- * * user - The mob performing the action.
- * * delay - The time in deciseconds. Use the SECONDS define for readability. `1 SECONDS` is 10 deciseconds.
- * * target - The target of the action. This is where the progressbar will display.
- * * timed_action_flags - Flags to control the behavior of the timed action.
- * * progress - Whether to display a progress bar `TRUE` or `FALSE`.
- * * extra_checks - Additional checks to perform before the action is executed.
- * * interaction_key - The assoc key under which the do_after is capped, with max_interact_count being the cap. Interaction key will default to target if not set.
- * * max_interact_count - The maximum amount of interactions allowed.
- * * cancel_on_max - If `TRUE`, when the interaction limit is reached, the currently running action(s) with the same interaction_key and max_interact_count will be cancelled and the proc will fail. Note: Requires either consistent max_interact_count per interaction_key, or unique interaction_key per distinct max_interact_count value.
- * * cancel_message - Message shown to the user if cancel_on_max is set to `TRUE` and they exceeds max interaction count. Use empty string ("") to skip default cancel message.
- * * category - Used to apply proper action speed modifier to passed delay.
- *
- * Returns `TRUE` on success, `FALSE` on failure.
- */
-/proc/do_after(
-	mob/user,
-	delay,
-	atom/target,
-	timed_action_flags = DEFAULT_DOAFTER_IGNORE,
-	progress = TRUE,
-	datum/callback/extra_checks,
-	interaction_key,
-	max_interact_count = INFINITY,
-	cancel_on_max = FALSE,
-	cancel_message = span_warning("Attempt cancelled."),
-	category = DA_CAT_ALL,
-)
-	if(!user)
-		return FALSE
-
-	if(!isnum(delay))
-		CRASH("do_after was passed a non-number delay: [delay || "null"].")
-
-	if(!interaction_key && target)
-		if(cancel_on_max)
-			interaction_key = "[UID_of(target)]+[max_interact_count]"
-		else
-			interaction_key = target //Use the direct ref to the target
-	if(interaction_key) //Do we have a interaction_key now?
-		var/current_interaction_count = LAZYACCESS(user.do_afters, interaction_key) || 0
-		if(current_interaction_count >= max_interact_count) //We are at our peak
-			if(cancel_on_max && current_interaction_count == max_interact_count) // we are adding extra one, to catch this on while loop
-				LAZYSET(user.do_afters, interaction_key, current_interaction_count + 1)
-			return FALSE
-		LAZYSET(user.do_afters, interaction_key, current_interaction_count + 1)
-
-	var/atom/user_loc = user.loc
-	var/atom/target_loc = target?.loc
-
-	var/drifting = FALSE
-	if(GLOB.move_manager.processing_on(user, SSspacedrift))
-		drifting = TRUE
-
-	var/holding = user.get_active_hand()
-	var/obj/item/gripper/gripper = holding
-	var/gripper_check = FALSE
-	if(!(timed_action_flags & DA_IGNORE_EMPTY_GRIPPER) && istype(gripper) && !gripper.isEmpty())
-		gripper_check = TRUE
-
-	if(!(timed_action_flags & DA_IGNORE_SLOWDOWNS))
-		delay *= user.get_actionspeed_by_category(category)
-
-	var/datum/progressbar/progbar
-	var/endtime = world.time + delay
-	var/starttime = world.time
-
-	// progress bar will not show up if there is no delay at all
-	if(progress && user.client && starttime < endtime)
-		progbar = new(user, delay, target || user)
-
-	SEND_SIGNAL(user, COMSIG_DO_AFTER_BEGAN)
-
-	. = TRUE
-
-	while(world.time < endtime)
-		stoplag(1)
-
-		if(!QDELETED(progbar))
-			progbar.update(world.time - starttime)
-
-		if(QDELETED(user))
-			. = FALSE
-			break
-
-		if(cancel_on_max && interaction_key)
-			var/current_interaction_count = LAZYACCESS(user.do_afters, interaction_key) || 0
-			if(current_interaction_count > max_interact_count)
-				// we need to reduce count by one, since its just a marker
-				LAZYSET(user.do_afters, interaction_key, current_interaction_count - 1)
-				if(cancel_message)
-					to_chat(user, "[cancel_message]")
-				. = FALSE
-				break
-
-		if(drifting && (!(timed_action_flags & DA_IGNORE_SPACE_DRIFT) || !GLOB.move_manager.processing_on(user, SSspacedrift)))
-			drifting = FALSE
-			user_loc = user.loc
-
-		if((!(timed_action_flags & DA_IGNORE_USER_LOC_CHANGE) && !drifting && user.loc != user_loc) \
-			|| (!(timed_action_flags & DA_IGNORE_HELD_ITEM) && user.get_active_hand() != holding) \
-			|| (!(timed_action_flags & DA_IGNORE_CONSCIOUSNESS) && user.stat) \
-			|| (!(timed_action_flags & DA_IGNORE_LYING) && user.IsLying()) \
-			|| (!(timed_action_flags & DA_IGNORE_INCAPACITATED) && HAS_TRAIT_NOT_FROM(user, TRAIT_INCAPACITATED, STAT_TRAIT)) \
-			|| (!(timed_action_flags & DA_IGNORE_RESTRAINED) && HAS_TRAIT(user, TRAIT_RESTRAINED)) \
-			|| (gripper_check && gripper?.isEmpty()) \
-			|| (extra_checks && !extra_checks.Invoke()))
-			. = FALSE
-			break
-
-		if(target && (user != target) && \
-			(QDELETED(target) || (!(timed_action_flags & DA_IGNORE_TARGET_LOC_CHANGE) && target.loc != target_loc)))
-			. = FALSE
-			break
-
-	if(!QDELETED(progbar))
-		progbar.end_progress()
-
-	if(interaction_key)
-		var/reduced_interaction_count = (LAZYACCESS(user.do_afters, interaction_key) || 0) - 1
-		if(reduced_interaction_count > 0) // Not done yet!
-			LAZYSET(user.do_afters, interaction_key, reduced_interaction_count)
-			return .
-		// all out, let's clear er out fully
-		LAZYREMOVE(user.do_afters, interaction_key)
-
-	SEND_SIGNAL(user, COMSIG_DO_AFTER_ENDED)
-
 /// Returns the total amount of do_afters this mob is taking part in
 /mob/proc/do_after_count()
 	var/count = 0
@@ -456,19 +324,21 @@
 	var/datum/species/slime/species = target.dna.species
 	return species.evolved_slime
 
-/proc/spawn_atom_to_turf(spawn_type, target, amount, admin_spawn=FALSE, list/extra_args)
-	var/turf/T = get_turf(target)
-	if(!T)
+/proc/spawn_atom_to_turf(spawn_type, target, amount, admin_spawn = FALSE, list/extra_args)
+	var/turf/turf = get_turf(target)
+	if(!turf)
 		CRASH("attempt to spawn atom type: [spawn_type] in nullspace")
 
-	var/list/new_args = list(T)
+	var/list/new_args = list(turf)
 	if(extra_args)
 		new_args += extra_args
 
+	var/atom/atom
 	for(var/j in 1 to amount)
-		var/atom/X = new spawn_type(arglist(new_args))
+		atom = new spawn_type(arglist(new_args))
 		if(admin_spawn)
-			X.flags |= ADMIN_SPAWNED
+			atom.flags |= ADMIN_SPAWNED
+	return atom // return the last mob spawned
 
 /proc/admin_mob_info(mob/subject, mob/user = usr)
 	if(!ismob(subject))
@@ -540,7 +410,7 @@
 	exportable_text += "[special_role_description]<br>"
 	exportable_text += ADMIN_FULLMONTY_NONAME(subject)
 
-	to_chat(user, chat_box_examine(exportable_text), confidential = TRUE)
+	to_chat(user, boxed_message(exportable_text), confidential = TRUE)
 
 /// Gets the first mob contained in an atom, and warns the user if there's not exactly one
 /proc/get_mob_in_atom_with_warning(atom/A, mob/user = usr)
@@ -676,19 +546,8 @@
 		C = M.client
 	else if(M.last_known_ckey in GLOB.directory)
 		C = GLOB.directory[M.last_known_ckey]
-
-	// Now we see if we need to respect their privacy
-	var/out_ckey
-	if(C)
-		if(C.prefs.toggles2 & PREFTOGGLE_2_ANON)
-			out_ckey = "(Anon)"
-		else
-			out_ckey = C.ckey
-	else
-		// No client. Just mark as DC'd.
-		out_ckey = "(Disconnected)"
-
-	return out_ckey
+// Now we see if we need to respect their privacy
+	return get_display_key(C)
 
 ///Returns a list of strings for a given slot flag.
 /proc/parse_slot_flags(slot_flags)
@@ -991,8 +850,14 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		if(!QDELETED(brain.brainmob?.mind))
 			return brain.brainmob.mind
 
-/// Returns a string for the specified body zone. If we have a bodypart in this zone, refers to its plaintext_zone instead.
-/mob/living/proc/parse_zone_with_bodypart(zone)
-	var/obj/item/organ/external/part = get_bodypart(zone)
-
-	return part?.plaintext_zone || parse_zone(zone)
+/proc/dance_rotate(atom/movable/target_movable, datum/callback/call_per_rotate, set_original_dir = FALSE)
+	set waitfor = FALSE
+	var/original_dir = target_movable.dir
+	for(var/i in list(NORTH, SOUTH, EAST, WEST, EAST, SOUTH, NORTH, SOUTH, EAST, WEST, EAST, SOUTH))
+		if(!target_movable)
+			return
+		target_movable.setDir(i)
+		call_per_rotate?.Invoke()
+		sleep(0.1 SECONDS)
+	if(set_original_dir)
+		target_movable.setDir(original_dir)

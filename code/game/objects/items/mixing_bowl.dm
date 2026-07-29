@@ -12,7 +12,7 @@
 	var/is_GUI_opened = FALSE
 
 /obj/item/mixing_bowl/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "миска для смешивания",
 		GENITIVE = "миски для смешивания",
 		DATIVE = "миске для смешивания",
@@ -192,10 +192,12 @@
 	flags = OPENCONTAINER
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/mixing_bowl/wash(mob/user, atom/source)
-	if(..())
+/obj/item/mixing_bowl/wash_tg(clean_types)
+	. = ..()
+
+	if(.)
 		clean()
-		update_dialog(user)
+		update_dialog(usr)
 
 /obj/item/mixing_bowl/proc/fail(obj/source)
 	if(!source)

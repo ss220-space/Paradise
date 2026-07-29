@@ -20,6 +20,8 @@
 #define IGNORE_BLOB_ACT (1<<7)
 /// Admin possession yes/no
 #define DANGEROUS_POSSESSION (1<<8)
+/// Flag which tells an object to hang onto an support atom on late initialize. Usefull only during mapload and supported by some atoms only
+#define MOUNT_ON_LATE_INITIALIZE (1<<9)
 
 // Flags for the item_flags var on /obj/item
 

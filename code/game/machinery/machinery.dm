@@ -96,6 +96,8 @@
 	pull_push_slowdown = 1.3
 	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
 	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND | INTERACT_ATOM_UI_INTERACT
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
+
 	var/stat = 0
 	var/use_power = IDLE_POWER_USE
 		//0 = dont run the auto
@@ -149,7 +151,7 @@
 	return ..()
 
 /obj/machinery/add_debris_element()
-	AddElement(/datum/element/debris, null, -40, 8, 0.7)
+	generate_debris_handler(null, -40, 8, 0.7)
 
 /*
  * reimp, attempts to flicker this machinery if the behavior is supported.
@@ -169,12 +171,10 @@
 	if(myArea == get_area(src))
 		return
 	LAZYREMOVE(myArea.machinery_cache, src)
-	//message_admins("[src] exited [myArea]") Uncomment for debugging
 	myArea = get_area(src)
 	if(!myArea)
 		return
 	LAZYADD(myArea.machinery_cache, src)
-	//message_admins("[src] entered [myArea]")
 	power_change()
 
 /// Helper proc for telling a machine to start processing with the subsystem type that is located in its `subsystem_type` var.
@@ -360,11 +360,12 @@
 	if(!(obj_flags & NODECONSTRUCT))
 		stat |= BROKEN
 
-/obj/machinery/proc/default_deconstruction_crowbar(user, obj/item/I, ignore_panel = 0)
+/obj/machinery/proc/default_deconstruction_crowbar(mob/user, obj/item/I, ignore_panel = 0)
 	add_fingerprint(user)
 	if(I.tool_behaviour != TOOL_CROWBAR)
 		return FALSE
-	if(!I.use_tool(src, user, 0, volume = 0))
+	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
+	if(!I.use_tool(src, user, 1 SECONDS * construction_mod, volume = 0))
 		return FALSE
 	if((panel_open || ignore_panel) && !(obj_flags & NODECONSTRUCT))
 		deconstruct(TRUE)
@@ -377,7 +378,8 @@
 	add_fingerprint(user)
 	if(I.tool_behaviour != TOOL_SCREWDRIVER)
 		return FALSE
-	if(!I.use_tool(src, user, 0, volume = 0))
+	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
+	if(!I.use_tool(src, user, 1 SECONDS * construction_mod, volume = 0))
 		return FALSE
 	if(!(obj_flags & NODECONSTRUCT))
 		var/prev_icon_state = icon_state
@@ -414,15 +416,15 @@
 	if(.)
 		power_change()
 
-/obj/machinery/attackby(obj/item/I, mob/user, params)
-	if(has_prints() && !(istype(I, /obj/item/detective_scanner)))
+/obj/machinery/attackby(obj/item/item, mob/living/user, list/modifiers)
+	if(has_prints() && !(istype(item, /obj/item/detective_scanner)))
 		add_fingerprint(user)
 
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(I, /obj/item/stack/nanopaste))
-		var/obj/item/stack/nanopaste/nanopaste = I
+	if(istype(item, /obj/item/stack/nanopaste))
+		var/obj/item/stack/nanopaste/nanopaste = item
 		if(stat & BROKEN)
 			to_chat(user, span_notice("[src] is too damaged to be fixed with nanopaste!"))
 			return ATTACK_CHAIN_PROCEED
@@ -434,9 +436,10 @@
 		if(nanopaste.get_amount() < 1)
 			to_chat(user, span_warning("You don't have enough to complete this task!"))
 			return ATTACK_CHAIN_PROCEED
-		to_chat(user, span_notice("You start applying [I] to [src]."))
+		to_chat(user, span_notice("You start applying [nanopaste] to [src]."))
 		being_repaired = TRUE
-		var/result = do_after(user, 3 SECONDS, src, category = DA_CAT_TOOL)
+		CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
+		var/result = do_after(user, 3 SECONDS * construction_mod, src, category = DA_CAT_TOOL)
 		being_repaired = FALSE
 		if(!result || QDELETED(nanopaste))
 			return ATTACK_CHAIN_PROCEED
@@ -445,8 +448,8 @@
 			return ATTACK_CHAIN_PROCEED
 		update_integrity(min(obj_integrity + 50, max_integrity))
 		user.visible_message(
-			span_notice("[user] applied some [I.name] at [src]'s damaged areas."),
-			span_notice("You apply some [I.name] at [src]'s damaged areas."),
+			span_notice("[user] applied some [nanopaste.name] at [src]'s damaged areas."),
+			span_notice("You apply some [nanopaste.name] at [src]'s damaged areas."),
 		)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -585,7 +588,8 @@
 /obj/machinery/proc/shock(mob/living/user, prb)
 	if(!istype(user) || inoperable())
 		return FALSE
-	if(!prob(prb))
+	CALCULATE_SKILL_MOD(user, ELECTRICITY_NEGATIVE_CHANCE_MOD, prob_mod)
+	if(!prob(prb * prob_mod))
 		return FALSE
 	do_sparks(5, TRUE, src)
 	if(electrocute_mob(user, get_area(src), src, siemens_strength, TRUE))

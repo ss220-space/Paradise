@@ -72,6 +72,8 @@
 	return TRUE
 
 /obj/item/gun_module/proc/create_overlay()
+	if(!overlay_state)
+		return
 	if(!buffered_overlay)
 		buffered_overlay = mutable_appearance(icon, overlay_state, layer = FLOAT_LAYER - 1)
 	return buffered_overlay

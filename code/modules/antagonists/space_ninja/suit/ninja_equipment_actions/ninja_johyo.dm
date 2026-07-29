@@ -49,7 +49,7 @@
 	var/datum/action/item_action/advanced/ninja/johyo/my_action = null
 
 /obj/item/gun/magic/johyo/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "джохё",
 		GENITIVE = "джохё",
 		DATIVE = "джохё",
@@ -75,7 +75,7 @@
 /obj/item/gun/magic/johyo/can_trigger_gun(mob/living/user)
 	if(!my_action.IsAvailable(feedback = TRUE))
 		return FALSE
-	if(!my_suit.ninjacost(cost*burst_size))
+	if(!my_suit.ninjacost(cost * burst_amount))
 		my_action.use_action()
 		return TRUE
 	return FALSE

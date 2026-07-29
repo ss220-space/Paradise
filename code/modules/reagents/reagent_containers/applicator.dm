@@ -34,7 +34,7 @@
 	var/apply_sounds = SFX_MENDER
 
 /obj/item/reagent_containers/applicator/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "авто-мендер",
 		GENITIVE = "авто-мендера",
 		DATIVE = "авто-мендеру",
@@ -69,10 +69,13 @@
 	. = ..()
 	var/overlay_icon = 'icons/obj/chemical.dmi'
 	if(reagents.total_volume)
-		. += mutable_appearance(overlay_icon, "mender_liquid_overlay", color = get_color_matrix_from_reagents(reagents.reagent_list))
+		var/mutable_appearance/liquid_overlay = mutable_appearance(overlay_icon, "mender_liquid_overlay")
+		liquid_overlay.color = get_color_matrix_from_reagents(reagents.reagent_list)
+		. += liquid_overlay
 
 	if(applying)
-		var/mutable_appearance/applying_overlay = mutable_appearance(overlay_icon, "mender_applying_overlay", color = greyscale_colors)
+		var/mutable_appearance/applying_overlay = mutable_appearance(overlay_icon, "mender_applying_overlay")
+		applying_overlay.color = greyscale_colors
 		flick_overlay_view(applying_overlay, 1 SECONDS)
 
 	var/reag_pct = round((reagents.total_volume / volume) * 100)
@@ -137,7 +140,8 @@
 	var/cycle_count = 0
 
 	var/measured_health = 0
-	var/cycle_delay = (2 - reacting_to_applied_ratio) * (1 SECONDS)
+	CALCULATE_SKILL_MOD(user, HEAL_DURATION_MOD, skill_duration_mod)
+	var/cycle_delay = (2 - reacting_to_applied_ratio) * (1 SECONDS) * skill_duration_mod
 	while(do_after(user, cycle_delay, target))
 		measured_health = target.health
 		apply_to(target, user, 1, FALSE, def_zone)
@@ -173,7 +177,7 @@
 	list_reagents = list("styptic_powder" = 200)
 
 /obj/item/reagent_containers/applicator/brute/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "авто-мендер (Мех. Повреждения)",
 		GENITIVE = "авто-мендера (Мех. Повреждения)",
 		DATIVE = "авто-мендеру (Мех. Повреждения)",
@@ -190,7 +194,7 @@
 	list_reagents = list("silver_sulfadiazine" = 200)
 
 /obj/item/reagent_containers/applicator/burn/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "авто-мендер (Терм. Повреждения)",
 		GENITIVE = "авто-мендера (Терм. Повреждения)",
 		DATIVE = "авто-мендеру (Терм. Повреждения)",
@@ -207,7 +211,7 @@
 	list_reagents = list("synthflesh" = 200)
 
 /obj/item/reagent_containers/applicator/dual/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "авто-мендер (Синт-плоть)",
 		GENITIVE = "авто-мендера (Синт-плоть)",
 		DATIVE = "авто-мендеру (Синт-плоть)",

@@ -51,7 +51,7 @@
 	var/ui_theme = "nanotrasen"
 
 /obj/machinery/mecha_part_fabricator/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "фабрикатор экзоскелетов",
 		GENITIVE = "фабрикатора экзоскелетов",
 		DATIVE = "фабрикатору экзоскелетов",
@@ -196,9 +196,10 @@
 
 	// Start building the design
 	var/build_time = get_design_build_time(D)
+	CALCULATE_SKILL_MOD(usr, MECH_CONSTRUCT_DURATION_MOD, skill_duration_mod)
 	being_built = D
 	build_start = world.time
-	build_end = build_start + build_time
+	build_end = build_start + build_time * skill_duration_mod
 	use_power = ACTIVE_POWER_USE
 	add_overlay("fabricator_active")
 	addtimer(CALLBACK(src, PROC_REF(build_design_timer_finish), D, final_cost), build_time)
@@ -232,7 +233,7 @@
 			real_item.forceMove(lockbox)
 			lockbox.name += " ([real_item.name])"
 			var/real_item_ru_name = DECLENT_RU_CAP(real_item, NOMINATIVE)
-			lockbox.ru_names = list(
+			lockbox.ru_names = alist(
 				NOMINATIVE = "защищённый кейс ([real_item_ru_name])",
 				GENITIVE = "защищённого кейса ([real_item_ru_name])",
 				DATIVE = "защищённому кейсу ([real_item_ru_name])",
@@ -526,15 +527,13 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
-/obj/machinery/mecha_part_fabricator/spacepod/Initialize(mapload)
-	. = ..()
 	categories = list(
-		"Pod_Weaponry",
-		"Pod_Armor",
-		"Pod_Cargo",
-		"Pod_Parts",
-		"Pod_Frame",
-		"Misc",
+		POD_FAB_CATEGORY_WEAPONRY,
+		POD_FAB_CATEGORY_ARMOR,
+		POD_FAB_CATEGORY_CARGO,
+		POD_FAB_CATEGORY_PARTS,
+		POD_FAB_CATEGORY_FRAME,
+		POD_FAB_CATEGORY_MISC,
 	)
 
 /**
@@ -549,7 +548,7 @@
 	categories = list(MECH_FAB_CATEGORY_CYBORG)
 
 /obj/machinery/mecha_part_fabricator/robot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "фабрикатор роботов",
 		GENITIVE = "фабрикатора роботов",
 		DATIVE = "фабрикатору роботов",
@@ -566,7 +565,7 @@
 	ui_theme = "nologo"
 
 /obj/machinery/mecha_part_fabricator/syndicate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "фабрикатор экзоскелетов \"Синдиката\"",
 		GENITIVE = "фабрикатора экзоскелетов \"Синдиката\"",
 		DATIVE = "фабрикатору экзоскелетов \"Синдиката\"",

@@ -48,7 +48,7 @@
 	ttone = "honk"
 
 /obj/item/pda/clown/ComponentInitialize()
-	AddComponent(/datum/component/slippery, 10 SECONDS, lube_flags = (NO_SLIP_WHEN_WALKING|SLIDE))
+	AddComponent(/datum/component/slippery, SLIPPERY_TIME_LUBE, lube_flags = (NO_SLIP_WHEN_WALKING|SLIDE))
 
 /obj/item/pda/mime
 	default_cartridge = /obj/item/cartridge/mime
@@ -147,8 +147,8 @@
 /obj/item/pda/syndicate/no_cartridge/rd
 	icon_state = "pda-syndie-rd"
 
-/obj/item/pda/syndicate/New()
-	..()
+/obj/item/pda/syndicate/Initialize(mapload)
+	. = ..()
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	if(M)
 		M.m_hidden = 1
@@ -212,8 +212,8 @@
 	default_request_console_cartridge = /obj/item/cartridge/request_console/centcom
 	icon_state = "pda-h"
 
-/obj/item/pda/centcom/New()
-	..()
+/obj/item/pda/centcom/Initialize(mapload)
+	. = ..()
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	if(M)
 		M.m_hidden = 1

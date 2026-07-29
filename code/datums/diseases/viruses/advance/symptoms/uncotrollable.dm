@@ -67,7 +67,7 @@ Uncontrollable Aggression
 /datum/symptom/aggression/proc/GunAttack(mob/living/carbon/human/aggressor, obj/item/gun/attacking_item)
 	var/mob/living/victim = GetLivingTarget(7, aggressor)
 	if(istype(victim))
-		attacking_item.process_fire(victim, aggressor)
+		attacking_item.fast_fire(victim, aggressor)
 
 /datum/symptom/aggression/proc/WeaponAttack(mob/living/carbon/human/aggressor, obj/item/attacking_item)
 	var/mob/living/victim = GetLivingTarget(1, aggressor)
@@ -151,5 +151,5 @@ Uncontrollable Actions
 	var/list/targets = range(7, aggressor)
 	var/turf/target = locate(/turf) in shuffle(targets)
 	if(istype(target))
-		attacking_item.process_fire(target, aggressor)
+		attacking_item.fast_fire(target, aggressor)
 

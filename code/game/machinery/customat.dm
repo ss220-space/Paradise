@@ -154,7 +154,7 @@
 	var/obj/structure/disposalpipe/trunk/trunk
 
 /obj/machinery/customat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кастомат",
 		GENITIVE = "кастомата",
 		DATIVE = "кастомату",

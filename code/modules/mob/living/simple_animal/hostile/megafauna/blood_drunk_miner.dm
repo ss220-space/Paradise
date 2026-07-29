@@ -64,7 +64,7 @@ Difficulty: Medium
 	)
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кровожадный шахтёр",
 		GENITIVE = "кровожадного шахтёра",
 		DATIVE = "кровожадному шахтёру",
@@ -72,6 +72,10 @@ Difficulty: Medium
 		INSTRUMENTAL = "кровожадным шахтёром",
 		PREPOSITIONAL = "кровожадном шахтёре",
 	)
+/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/Initialize(mapload)
+	. = ..()
+	miner_saw = new /obj/item/melee/energy/cleaving_saw/miner(src)
+	AddComponent(/datum/component/boss_music, 'sound/music/boss/bdm_boss.ogg', COMSIG_HOSTILE_FOUND_TARGET)
 
 /* New costume */
 
@@ -83,7 +87,7 @@ Difficulty: Medium
 	var/obj/effect/proc_holder/spell/blood_suit/blood_spell
 
 /obj/item/clothing/suit/hooded/explorer/blood/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "усиленный костюм исследователя",
 		GENITIVE = "усиленного костюма исследователя",
 		DATIVE = "усиленному костюму исследователя",
@@ -98,7 +102,7 @@ Difficulty: Medium
 	armor = list(MELEE = 55, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 75, BIO = 100, FIRE = 100, ACID = 100)
 
 /obj/item/clothing/head/hooded/explorer/blood/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "усиленный капюшон исследователя",
 		GENITIVE = "усиленного капюшона исследователя",
 		DATIVE = "усиленному капюшону исследователя",
@@ -167,10 +171,6 @@ Difficulty: Medium
 		return .
 	LAZYREMOVE(user.mob_spell_list, blood_spell)
 	blood_spell.action.Remove(user)
-
-/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/Initialize(mapload)
-	. = ..()
-	miner_saw = new /obj/item/melee/energy/cleaving_saw/miner(src)
 
 /datum/action/innate/megafauna_attack/dash
 	name = "Рывок к цели"
@@ -387,13 +387,13 @@ Difficulty: Medium
 	if(time_until_next_transform <= world.time)
 		miner_saw.transform_cooldown = 0
 		miner_saw.transform_weapon(src, TRUE)
-		if(!miner_saw.active)
+		if(!HAS_TRAIT(miner_saw, TRAIT_ITEM_ACTIVE))
 			rapid_melee = 5 // 4 deci cooldown before changes, npcpool subsystem wait is 20, 20/4 = 5
 		else
 			rapid_melee = 3 // same thing but halved (slightly rounded up)
 		transform_stop_attack = TRUE
-		icon_state = "miner[miner_saw.active ? "_transformed":""]"
-		icon_living = "miner[miner_saw.active ? "_transformed":""]"
+		icon_state = "miner[HAS_TRAIT(miner_saw, TRAIT_ITEM_ACTIVE) ? "_transformed":""]"
+		icon_living = "miner[HAS_TRAIT(miner_saw, TRAIT_ITEM_ACTIVE) ? "_transformed":""]"
 		time_until_next_transform = world.time + rand(50, 100)
 
 /obj/effect/temp_visual/dir_setting/miner_death

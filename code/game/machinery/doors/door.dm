@@ -14,6 +14,8 @@
 	damage_deflection = 10
 	pass_flags_self = PASSDOOR
 	interaction_flags_atom = INTERACT_ATOM_UI_INTERACT
+	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
+
 	var/closingLayer = CLOSED_DOOR_LAYER
 	var/visible = 1
 	/// Is it currently in the process of opening, closing or being tampered
@@ -314,7 +316,8 @@
 	. = TRUE
 	if(operating)
 		return
-	if(!I.use_tool(src, user, 0, volume = 0))
+	CALCULATE_SKILL_MOD(user, LOCKPICK_SPEED_MOD, lockpick_mod)
+	if(!I.use_tool(src, user, 1 SECONDS * lockpick_mod, volume = 0))
 		return
 	try_to_crowbar(user, I)
 

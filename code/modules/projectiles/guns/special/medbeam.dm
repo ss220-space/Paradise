@@ -16,7 +16,7 @@
 	var/mounted = FALSE
 
 /obj/item/gun/medbeam/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медицинская лучевая пушка",
 		GENITIVE = "медицинской лучевой пушки",
 		DATIVE = "медицинской лучевой пушке",
@@ -71,7 +71,8 @@
 	active = FALSE // skip qdelling the beam again if we're doing this proc
 	LoseTarget()
 
-/obj/item/gun/medbeam/process_fire(atom/target, mob/living/user, message = TRUE, list/modifiers, zone_override, bonus_spread = 0)
+/obj/item/gun/medbeam/process_fire(zone_override, secondary_fire = FALSE)
+	var/mob/living/user = gun_user
 	if(isliving(user))
 		add_fingerprint(user)
 

@@ -33,17 +33,23 @@
 /area/awaymission/UO71/plaza)
 "ag" = (
 /obj/machinery/r_n_d/destructive_analyzer,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/science)
 "ah" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/science)
 "ai" = (
 /obj/machinery/r_n_d/protolathe,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/science)
 "aj" = (
@@ -82,7 +88,9 @@
 	},
 /area/awaymission/UO71/plaza)
 "ap" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -259,17 +267,13 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
 "aQ" = (
-/obj/structure/sink{
-	pixel_y = 25
-	},
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
 /area/awaymission/UO71/plaza)
 "aR" = (
-/obj/structure/sink{
-	pixel_y = 25
-	},
+/obj/structure/sink/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -464,9 +468,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
 "br" = (
-/obj/structure/toilet{
-	dir = 1
-	},
+/obj/structure/toilet/directional/south,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -475,9 +477,7 @@
 	},
 /area/awaymission/UO71/plaza)
 "bs" = (
-/obj/structure/toilet{
-	dir = 1
-	},
+/obj/structure/toilet/directional/south,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -903,7 +903,9 @@
 /obj/structure/sign/nosmoking_2{
 	pixel_x = -32
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -932,7 +934,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -1034,9 +1038,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/sink{
-	pixel_y = 25
-	},
+/obj/structure/sink/directional/north,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
@@ -1115,9 +1117,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
-/obj/structure/sink{
-	pixel_y = 25
-	},
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "green"
@@ -1625,7 +1625,6 @@
 	start_charge = 5
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -1967,9 +1966,7 @@
 	},
 /area/awaymission/UO71/centralhall)
 "fw" = (
-/obj/structure/sink/kitchen{
-	pixel_y = 28
-	},
+/obj/structure/sink/kitchen/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -2132,7 +2129,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -2171,9 +2170,7 @@
 /turf/simulated/wall,
 /area/awaymission/UO71/centralhall)
 "fY" = (
-/obj/structure/sink/kitchen{
-	pixel_y = 28
-	},
+/obj/structure/sink/kitchen/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -2437,7 +2434,7 @@
 "gJ" = (
 /obj/structure/table,
 /obj/item/stack/packageWrap,
-/obj/item/reagent_containers/glass/rag,
+/obj/item/rag,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -2570,7 +2567,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/northwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -2781,7 +2780,6 @@
 "hw" = (
 /obj/machinery/gateway,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -2999,12 +2997,16 @@
 /area/awaymission/UO71/gateway)
 "ib" = (
 /obj/structure/closet/l3closet/scientist,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/gateway)
 "ic" = (
 /obj/structure/closet/l3closet/scientist,
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/gateway)
 "if" = (
@@ -3048,7 +3050,9 @@
 	dir = 4;
 	on = 1
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/gateway)
 "ik" = (
@@ -3153,7 +3157,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/gateway)
 "iv" = (
@@ -3183,7 +3189,7 @@
 /area/awaymission/UO71/gateway)
 "iz" = (
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -3323,7 +3329,6 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -3337,14 +3342,14 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/gateway)
 "ja" = (
-/obj/structure/sink{
-	pixel_y = 25
-	},
+/obj/structure/sink/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/nosmoking_2{
 	pixel_x = -32
 	},
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -3531,19 +3536,19 @@
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/science)
 "jD" = (
-/obj/machinery/shower{
-	pixel_y = 15
+/obj/machinery/shower/directional/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
-/obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
 /area/awaymission/UO71/science)
 "jE" = (
-/obj/structure/sink{
-	pixel_y = 25
+/obj/structure/sink/directional/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
 	},
-/obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -3649,7 +3654,6 @@
 /area/awaymission/UO71/centralhall)
 "jU" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/noalarm/directional/north{
@@ -4099,7 +4103,9 @@
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	on = 1
 	},
-/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -4224,7 +4230,9 @@
 /obj/structure/closet/firecloset,
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -4235,7 +4243,9 @@
 	dir = 4;
 	on = 1
 	},
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -4570,7 +4580,6 @@
 /area/awaymission/UO71/science)
 "lQ" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/machinery/power/apc/noalarm/directional/south{
@@ -4931,7 +4940,7 @@
 	dir = 10;
 	initialize_directions = 10
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
 "mJ" = (
@@ -5268,7 +5277,7 @@
 /area/awaymission/UO71/centralhall)
 "nu" = (
 /obj/machinery/portable_atmospherics/canister/air,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
 "nv" = (
@@ -6397,11 +6406,9 @@
 	},
 /obj/item/wrench,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -6415,7 +6422,6 @@
 	name = "P.A.C.M.A.N.-type portable generator"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -6438,7 +6444,6 @@
 	name = "P.A.C.M.A.N.-type portable generator"
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -6649,7 +6654,7 @@
 /area/awaymission/UO71/science)
 "qd" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
 "qe" = (
@@ -6766,9 +6771,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/toilet{
-	dir = 4
-	},
+/obj/structure/toilet/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -6830,10 +6833,7 @@
 /obj/structure/mirror{
 	pixel_x = 28
 	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -6981,10 +6981,7 @@
 	},
 /area/awaymission/UO71/centralhall)
 "qQ" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -7009,7 +7006,6 @@
 /area/awaymission/UO71/eng)
 "qU" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/computer/monitor{
@@ -7161,7 +7157,7 @@
 	dir = 1
 	},
 /obj/machinery/portable_atmospherics/canister/air,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
 "rg" = (
@@ -7260,9 +7256,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/toilet{
-	dir = 4
-	},
+/obj/structure/toilet/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -7280,10 +7274,7 @@
 /obj/structure/mirror{
 	pixel_x = 28
 	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -7388,7 +7379,6 @@
 /area/awaymission/UO71/eng)
 "rK" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/noalarm/directional/west{
@@ -7432,7 +7422,9 @@
 /area/awaymission/UO71/eng)
 "rP" = (
 /obj/structure/closet/firecloset,
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/science)
 "rQ" = (
@@ -7449,7 +7441,9 @@
 	dir = 8;
 	initialize_directions = 11
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/science)
 "rS" = (
@@ -7463,7 +7457,9 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/science)
 "rT" = (
@@ -7876,7 +7872,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/portable_atmospherics/scrubber,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/science)
 "sF" = (
@@ -7999,7 +7997,6 @@
 	start_charge = 100
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -8060,9 +8057,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/bridge)
 "sX" = (
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/east,
 /obj/item/soap/nanotrasen,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -8073,14 +8068,6 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/awaymission/UO71/centralhall)
-"sZ" = (
-/obj/machinery/shower{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -8240,7 +8227,9 @@
 /area/awaymission/UO71/eng)
 "tp" = (
 /obj/machinery/atmospherics/binary/valve,
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/science)
 "tq" = (
@@ -8391,9 +8380,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/bridge)
 "tP" = (
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -8581,7 +8568,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
 "ui" = (
@@ -8611,7 +8598,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
 "un" = (
@@ -8704,12 +8691,14 @@
 	name = "engineering security door"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
 "uv" = (
 /obj/machinery/portable_atmospherics/scrubber,
-/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/science)
 "uw" = (
@@ -8751,9 +8740,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/bridge)
 "uA" = (
-/obj/machinery/shower{
-	dir = 1
-	},
+/obj/machinery/shower/directional/north,
 /obj/item/bikehorn/rubberducky,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -8770,9 +8757,7 @@
 /turf/simulated/wall,
 /area/awaymission/UO71/eng)
 "uD" = (
-/obj/machinery/shower{
-	dir = 1
-	},
+/obj/machinery/shower/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -8851,7 +8836,9 @@
 	dir = 1
 	},
 /obj/machinery/portable_atmospherics/canister/air,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/science)
 "uL" = (
@@ -8888,7 +8875,9 @@
 	dir = 1
 	},
 /obj/machinery/portable_atmospherics/canister/air,
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/science)
 "uP" = (
@@ -9101,7 +9090,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
 "vp" = (
@@ -9154,7 +9143,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
 "vx" = (
@@ -9162,7 +9151,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
 "vy" = (
@@ -9420,7 +9409,9 @@
 /obj/machinery/conveyor{
 	id = "UO71_mining"
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/mining)
 "wb" = (
@@ -9491,7 +9482,9 @@
 	input_dir = 4;
 	output_dir = 8
 	},
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/mining)
 "wj" = (
@@ -9542,10 +9535,10 @@
 /turf/simulated/floor/engine/o2,
 /area/awaymission/UO71/eng)
 "wp" = (
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/arrow{
+/obj/effect/turf_decal/arrows/black{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -9656,7 +9649,9 @@
 /obj/structure/sign/nosmoking_2{
 	pixel_x = -32
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/mining)
 "wE" = (
@@ -9684,7 +9679,9 @@
 /obj/machinery/mineral/processing_unit{
 	dir = 1
 	},
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/mining)
 "wI" = (
@@ -9754,7 +9751,9 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/mining)
 "wO" = (
@@ -9876,18 +9875,18 @@
 	input_dir = 8;
 	output_dir = 4
 	},
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/mining)
 "xf" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -9897,7 +9896,6 @@
 /obj/structure/window/full/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -9969,7 +9967,6 @@
 "xo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -10030,9 +10027,7 @@
 	},
 /area/awaymission/UO71/eng)
 "xu" = (
-/obj/structure/toilet{
-	pixel_y = 8
-	},
+/obj/structure/toilet/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -10046,10 +10041,10 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/mining)
 "xw" = (
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/arrow{
+/obj/effect/turf_decal/arrows/black{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -10102,10 +10097,7 @@
 	},
 /area/awaymission/UO71/eng)
 "xE" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/east,
 /obj/machinery/light/small,
 /obj/structure/mirror{
 	pixel_x = 28
@@ -10616,7 +10608,6 @@
 	dir = 8
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -10646,7 +10637,6 @@
 "yM" = (
 /obj/machinery/computer/mech_bay_power_console,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel,
@@ -11035,7 +11025,9 @@
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/science)
 "HH" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -21934,8 +21926,8 @@ qw
 qQ
 ry
 fb
-sZ
-sZ
+tP
+tP
 fe
 fe
 rq

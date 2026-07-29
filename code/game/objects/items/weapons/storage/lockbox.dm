@@ -62,6 +62,12 @@
 
 	return ..()
 
+/obj/item/storage/lockbox/dump_storage(mob/user, obj/item/storage/target)
+	if(locked)
+		user?.balloon_alert(user, "заперто")
+		return
+	return ..()
+
 /obj/item/storage/lockbox/show_to(mob/user)
 	if(locked)
 		to_chat(user, span_warning("It's locked!"))

@@ -50,7 +50,7 @@
 	var/datum/action/innate/diona/steal_blood/steal_blood_action = new()
 
 /mob/living/simple_animal/diona/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "нимфа дионы",
 		GENITIVE = "нимфы дионы",
 		DATIVE = "нимфе дионы",
@@ -92,8 +92,8 @@
 	var/mob/living/simple_animal/diona/user = owner
 	user.steal_blood()
 
-/mob/living/simple_animal/diona/New()
-	..()
+/mob/living/simple_animal/diona/Initialize(mapload)
+	. = ..()
 	if(name == initial(name)) //To stop Pun-Pun becoming generic.
 		name = "[name] ([rand(1, 1000)])"
 		real_name = name

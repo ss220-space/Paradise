@@ -40,7 +40,7 @@
 
 	RegisterSignal(parent, COMSIG_MATERIAL_CONTAINER_ON_INSERT_STACK, PROC_REF(on_insert_stack_signal))
 
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(OnAttackBy))
+	RegisterSignal(parent, COMSIG_ATOM_ATTACKBY, PROC_REF(OnAttackBy))
 	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(OnExamine))
 
 	var/list/possible_mats = list()
@@ -51,6 +51,10 @@
 		if(possible_mats[id])
 			var/mat_path = possible_mats[id]
 			materials[id] = new mat_path()
+
+/datum/component/material_container/Destroy(force)
+	QDEL_LIST_ASSOC_VAL(materials)
+	return ..()
 
 /// / Signal handler for stack insertion, returns container insertion flags.
 /datum/component/material_container/proc/on_insert_stack_signal(datum/source, obj/item/stack/stack, amt)

@@ -10,6 +10,7 @@
 	density = FALSE
 	no_overlays = TRUE
 	armor = list(MELEE = 50, BULLET = 20, LASER = 0, ENERGY = 100, BOMB = 10, FIRE = 90, ACID = 50)
+	ignore_shoves = TRUE
 	var/obj/item/twohanded/fireaxe/fireaxe
 	var/localopened = FALSE //Setting this to keep it from behaviouring like a normal closet and obstructing movement in the map. -Agouri
 	opened = TRUE
@@ -45,9 +46,11 @@
 		return FALSE
 
 	. = TRUE
+
+	CALCULATE_SKILL_MOD(user, LOCKPICK_SPEED_MOD, lockpick_mod)
 	if(locked)
 		to_chat(user, span_warning("Resetting circuitry..."))
-		if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume) || smashed || !locked)
+		if(!I.use_tool(src, user, 2 SECONDS * lockpick_mod, volume = I.tool_volume) || smashed || !locked)
 			return .
 		locked = FALSE
 		to_chat(user, span_caution("You disable the locking modules."))
@@ -61,7 +64,7 @@
 
 	to_chat(user, span_warning("Resetting circuitry..."))
 	playsound(user, 'sound/machines/lockenable.ogg', 50, TRUE)
-	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume) || smashed || locked)
+	if(!I.use_tool(src, user, 2 SECONDS * lockpick_mod, volume = I.tool_volume) || smashed || locked)
 		return .
 
 	locked = TRUE
@@ -165,10 +168,6 @@
 		to_chat(user, span_warning("Cabinet locked."))
 	else
 		to_chat(user, span_notice("Cabinet unlocked."))
-
-/obj/structure/closet/fireaxecabinet/shove_impact(mob/living/target, mob/living/attacker)
-	// no, you can't shove people into a fireaxe cabinet either
-	return FALSE
 
 /obj/structure/closet/fireaxecabinet/proc/operate_panel()
 	if(operating)

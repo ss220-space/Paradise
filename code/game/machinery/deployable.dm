@@ -26,7 +26,7 @@
 	var/list/directional_list = list()
 
 /obj/structure/barricade/add_debris_element()
-	AddElement(/datum/element/debris, DEBRIS_WOOD, -40, 5)
+	generate_debris_handler(DEBRIS_WOOD, -40, 5)
 
 /obj/structure/barricade/deconstruct(disassembled = TRUE)
 	if(!(obj_flags & NODECONSTRUCT))
@@ -48,7 +48,8 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	WELDER_ATTEMPT_REPAIR_MESSAGE
-	if(I.use_tool(src, user, 40, volume = I.tool_volume))
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
+	if(I.use_tool(src, user, 4 SECONDS * building_mod, volume = I.tool_volume))
 		WELDER_REPAIR_SUCCESS_MESSAGE
 		update_integrity(clamp(obj_integrity + 20, 0, max_integrity))
 		update_icon()
@@ -112,7 +113,8 @@
 			return ATTACK_CHAIN_PROCEED
 
 		to_chat(user, span_notice("You start adding [I] to [src]..."))
-		if(!do_after(user, 5 SECONDS, src) || QDELETED(wood) || !wood.use(5) || !isturf(loc))
+		CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
+		if(!do_after(user, 5 SECONDS * construction_mod, src) || QDELETED(wood) || !wood.use(5) || !isturf(loc))
 			return ATTACK_CHAIN_PROCEED
 
 		var/turf/our_turf = loc
@@ -131,7 +133,8 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	TOOL_ATTEMPT_DISMANTLE_MESSAGE
-	if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
+	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
+	if(!I.use_tool(src, user, 3 SECONDS * construction_mod, volume = I.tool_volume))
 		return
 	deconstruct(TRUE)
 	TOOL_DISMANTLE_SUCCESS_MESSAGE
@@ -162,11 +165,14 @@
 	proj_pass_rate = 20
 	pass_flags_self = LETPASSTHROW
 	bar_material = SAND
-	climbable = TRUE
 	smooth = SMOOTH_BITMASK
 	smoothing_groups = SMOOTH_GROUP_SANDBAGS
 	canSmoothWith = SMOOTH_GROUP_SECURITY_BARRICADE + SMOOTH_GROUP_SANDBAGS + SMOOTH_GROUP_WALLS
 	stacktype = null
+
+/obj/structure/barricade/sandbags/ComponentInitialize()
+	AddElement(/datum/element/climbable)
+	AddElement(/datum/element/elevation, pixel_shift = 12)
 
 /**
  * MARK: Security Barrier
@@ -231,7 +237,7 @@
 	var/obj/structure/dropwall_generator/source = null
 
 /obj/structure/barricade/dropwall/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "энергетический щит",
 		GENITIVE = "энергетического щита",
 		DATIVE = "энергетическому щиту",
@@ -284,7 +290,7 @@
 	var/armer
 
 /obj/item/grenade/barrier/dropwall/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "граната энергощита",
 		GENITIVE = "граната энергощита",
 		DATIVE = "граната энергощита",
@@ -343,7 +349,7 @@
 	var/cycle
 
 /obj/structure/dropwall_generator/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "генератор энергощита",
 		GENITIVE = "генератора энергощита",
 		DATIVE = "генератору энергощита",
@@ -425,7 +431,7 @@
 	materials = list(MAT_METAL = 500, MAT_GLASS = 300) //plasma burned up for power or something, plus not that much to reclaim
 
 /obj/item/used_dropwall/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сломанный генератор энергощита",
 		GENITIVE = "сломанного генератора энергощита",
 		DATIVE = "сломанному генератору энергощита",
@@ -438,7 +444,7 @@
 	name = "dropwall generator box"
 
 /obj/item/storage/box/syndie_kit/dropwall/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коробка с генераторами энергощита",
 		GENITIVE = "коробку с генераторами энергощита",
 		DATIVE = "коробке с генераторами энергощита",
@@ -446,6 +452,10 @@
 		INSTRUMENTAL = "коробке с генераторами энергощита",
 		PREPOSITIONAL = "коробкой с генераторами энергощита"
 	)
+
+/obj/item/storage/box/syndie_kit/dropwall/sec
+	icon_state = "box_security"
+	item_state = "sec"
 
 /obj/item/storage/box/syndie_kit/dropwall/populate_contents()
 	for(var/I in 1 to 5)
@@ -464,7 +474,7 @@
 	uptime = 5 MINUTES
 
 /obj/item/grenade/barrier/dropwall/firewall/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "граната огненного щита",
 		GENITIVE = "граната огненного щита",
 		DATIVE = "граната огненного щита",
@@ -483,7 +493,7 @@
 	barricade_type = /obj/structure/barricade/dropwall/firewall/strong
 
 /obj/structure/dropwall_generator/firewall/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "генератор огненного щита",
 		GENITIVE = "генератора огненного щита",
 		DATIVE = "генератору огненного щита",

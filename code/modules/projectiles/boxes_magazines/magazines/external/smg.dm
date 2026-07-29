@@ -24,6 +24,19 @@
 /obj/item/ammo_box/magazine/uzim9mm/update_icon_state()
 	icon_state = "uzi9mm-[round(ammo_count(),4)]"
 
+
+// MARK: 9mm - SMG K-45
+/obj/item/ammo_box/magazine/kedr
+	gun_name = "пистолета-пулемета K-45"
+	icon_state = "kedr"
+	ammo_type = /obj/item/ammo_casing/c9mm
+	caliber = CALIBER_9MM
+	max_ammo = 20
+
+/obj/item/ammo_box/magazine/kedr/update_icon_state()
+	icon_state = "[initial(icon_state)]-[round(ammo_count(), 5)]"
+
+
 // MARK: 9mm - Saber SMG
 /obj/item/ammo_box/magazine/smgm9mm
 	gun_name = "пистолет-пулемёта \"Saber SMG\""
@@ -47,6 +60,9 @@
 /obj/item/ammo_box/magazine/smgm9mm/update_icon_state()
 	icon_state = "[initial(icon_state)]-[round(ammo_count()+1,4)]"
 
+/obj/item/ammo_box/magazine/smgm9mm/empty
+	start_empty = TRUE
+
 // MARK: 9mm - SFG-5
 /obj/item/ammo_box/magazine/sfg9mm
 	gun_name = "пистолет-пулемёта SFG-5"
@@ -57,6 +73,9 @@
 
 /obj/item/ammo_box/magazine/sfg9mm/update_icon_state()
 	icon_state = "[initial(icon_state)]-[round(ammo_count(), 30)]"
+
+/obj/item/ammo_box/magazine/sfg9mm/empty
+	start_empty = TRUE
 
 // MARK: .45 - C-20r
 /obj/item/ammo_box/magazine/smgm45

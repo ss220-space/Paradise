@@ -41,3 +41,128 @@ GLOBAL_LIST_INIT(hex_characters, list("0","1","2","3","4","5","6","7","8","9","a
 
 /proc/ready_random_color()
 	return "#" + random_string(6, GLOB.hex_characters)
+
+/**
+ * Generates an HSL color transition matrix filter which nicely paints an object
+ * without making it a deep fried blob of color.
+ *
+ * saturation_behavior determines how we handle color saturation:
+ * * SATURATION_MULTIPLY - Multiply pixel's saturation by color's saturation. Paints accents while keeping dim areas dim.
+ * * SATURATION_OVERRIDE- Affects original lightness/saturation to ensure that pale objects still get doused in color
+ */
+/proc/color_transition_filter(new_color, saturation_behavior = SATURATION_MULTIPLY)
+	if(islist(new_color))
+		new_color = rgb(new_color[1], new_color[2], new_color[3])
+	new_color = rgb2num(new_color, COLORSPACE_HSL)
+	var/hue = new_color[1] / 360
+	var/saturation = new_color[2] / 100
+	var/added_saturation = 0
+	var/deducted_light = 0
+	if(saturation_behavior == SATURATION_OVERRIDE)
+		added_saturation = saturation * 0.75
+		deducted_light = saturation * 0.5
+		saturation = min(saturation, 1 - added_saturation)
+
+	var/list/new_matrix = list(
+		0, 0, 0, // Ignore original hue
+		0, saturation, 0, // Multiply the saturation by ours
+		0, 0, 1 - deducted_light, // If we're highly saturated then remove a bit of lightness to keep some color in
+		hue, added_saturation, 0, // And apply our preferred hue and some saturation if we're oversaturated
+	)
+	return color_matrix_filter(new_matrix, FILTER_COLOR_HSL)
+
+/// Applies a color filter to a hex/RGB list color
+/proc/apply_matrix_to_color(color, list/matrix, colorspace = COLORSPACE_HSL)
+	if(islist(color))
+		color = rgb(color[1], color[2], color[3], color[4])
+	color = rgb2num(color, colorspace)
+	// Pad alpha if we're lacking it
+	if(length(color) < 4)
+		color += 255
+
+	// Do we have a constants row?
+	var/has_constants = FALSE
+	// Do we have an alpha row/parameters?
+	var/has_alpha = FALSE
+
+	switch(length(matrix))
+		if(9)
+			has_constants = FALSE
+			has_alpha = FALSE
+		if(12)
+			has_constants = TRUE
+			has_alpha = FALSE
+		if(16)
+			has_constants = FALSE
+			has_alpha = TRUE
+		if(20)
+			has_constants = TRUE
+			has_alpha = TRUE
+		else
+			CRASH("Matrix of invalid length [length(matrix)] was passed into apply_matrix_to_color!")
+
+	var/list/new_color = list(0, 0, 0, 0)
+	var/row_length = 3
+	if(has_alpha)
+		row_length = 4
+	else
+		new_color[4] = 255
+
+	for(var/row_index in 1 to (length(matrix) / row_length))
+		for(var/row_elem in 1 to row_length)
+			var/elem = matrix[(row_index - 1) * row_length + row_elem]
+			if(!has_constants || row_index != (length(matrix) / row_length))
+				new_color[row_index] += color[row_elem] * elem
+				continue
+
+			// Constant values at the end of the list (if we have such)
+			if(colorspace != COLORSPACE_HSV && colorspace != COLORSPACE_HCY && colorspace != COLORSPACE_HSL)
+				new_color[row_elem] += elem * 255
+				continue
+
+			// HSV/HSL/HCY have non-255 maximums for their values
+			var/multiplier = 255
+			switch(row_elem)
+				// Hue goes from 0 to 360
+				if(1)
+					multiplier = 360
+				// Value, luminance, chroma, etc go from 0 to 100
+				if(2 to 3)
+					multiplier = 100
+				// Alpha still goes from 0 to 255
+				if(4)
+					multiplier = 255
+			new_color[row_elem] += elem * multiplier
+
+	var/rgbcolor = rgb(new_color[1], new_color[2], new_color[3], new_color[4], space = colorspace)
+	return rgbcolor
+
+/// Given a color in the format of "#RRGGBB" or "#RRGGBBAA", gives back a 4 entry list with the number values of each
+/proc/split_color(color)
+	var/list/output = rgb2num(color)
+	if(length(output) == 3)
+		output += 255
+	return output
+
+#define ALPHA_COMPOSE(src_a, comp_a, back_ch, src_ch) ((1 - src_a / comp_a) * back_ch + (src_a / comp_a) * src_ch)
+
+/// Blend two colors using the normal blend mode of the CSS compositing algorithm
+/proc/blend_color(backdrop = "#00000000", source)
+	var/list/rgb_source = split_color(source)
+	var/source_alpha = rgb_source[4]
+	if(source_alpha == 0)
+		return backdrop
+	if(source_alpha == 255)
+		return source
+	var/list/rgb_backdrop = split_color(backdrop)
+	var/backdrop_alpha = rgb_backdrop[4] / 255
+	source_alpha /= 255
+	var/output_alpha = source_alpha + backdrop_alpha - source_alpha * backdrop_alpha
+	return rgb(
+		ALPHA_COMPOSE(source_alpha, output_alpha, rgb_backdrop[1], rgb_source[1]),
+		ALPHA_COMPOSE(source_alpha, output_alpha, rgb_backdrop[2], rgb_source[2]),
+		ALPHA_COMPOSE(source_alpha, output_alpha, rgb_backdrop[3], rgb_source[3]),
+		output_alpha * 255
+	)
+
+#undef ALPHA_COMPOSE

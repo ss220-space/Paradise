@@ -19,7 +19,7 @@
 	var/active_mind_control = FALSE
 
 /obj/item/organ/internal/heart/gland/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мясистая масса",
 		GENITIVE = "мясистой массы",
 		DATIVE = "мясистой массе",
@@ -45,13 +45,13 @@
 /obj/item/organ/internal/heart/gland/proc/update_gland_hud()
 	if(!owner)
 		return
-	var/pixel_y = get_cached_height() - ICON_SIZE_Y
+
 	if(active_mind_control)
-		owner.set_hud_image_state(GLAND_HUD, "hudgland_active", y_offset = pixel_y)
+		owner.set_hud_image_state(GLAND_HUD, "hudgland_active")
 	else if(mind_control_uses)
-		owner.set_hud_image_state(GLAND_HUD, "hudgland_ready", y_offset = pixel_y)
+		owner.set_hud_image_state(GLAND_HUD, "hudgland_ready")
 	else
-		owner.set_hud_image_state(GLAND_HUD, "hudgland_spent", y_offset = pixel_y)
+		owner.set_hud_image_state(GLAND_HUD, "hudgland_spent")
 
 /obj/item/organ/internal/heart/gland/proc/mind_control(command, mob/living/user)
 	if(!ownerCheck() || !mind_control_uses || active_mind_control)
@@ -274,12 +274,12 @@
 /obj/item/organ/internal/heart/gland/electric/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
 	if(ishuman(owner))
-		owner.gene_stability += GENE_INSTABILITY_MODERATE // give them this gene for free
+		owner.set_gene_stability(owner.gene_stability + GENE_INSTABILITY_MODERATE) // give them this gene for free
 		owner.force_gene_block(GLOB.shockimmunityblock, TRUE)
 
 /obj/item/organ/internal/heart/gland/electric/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	if(ishuman(owner))
-		owner.gene_stability -= GENE_INSTABILITY_MODERATE // but return it to normal once it's removed
+		owner.set_gene_stability(owner.gene_stability - GENE_INSTABILITY_MODERATE) // but return it to normal once it's removed
 		owner.force_gene_block(GLOB.shockimmunityblock, FALSE)
 	return ..()
 

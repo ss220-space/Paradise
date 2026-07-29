@@ -1,5 +1,5 @@
 #define BLOB_RESTRICTED_JOBS list(JOB_TITLE_CYBORG, JOB_TITLE_AI)
-#define BLOB_RESTRICTED_SPECIES list(SPECIES_MACNINEPERSON, SPECIES_SKELETON)
+#define BLOB_RESTRICTED_SPECIES list(SPECIES_MACHINEPERSON, SPECIES_SKELETON)
 #define TIME_TO_BURST_HIGHT 25 MINUTES
 #define TIME_TO_BURST_LOW 23 MINUTES
 #define TIME_TO_BURST_ADDED_HIGHT 7 MINUTES
@@ -53,7 +53,6 @@
 #define NEEDED_BLOB_MASS SSticker?.mode?.blob_win_count
 
 //Few global vars to track the blob
-GLOBAL_LIST_EMPTY(blobs)
 GLOBAL_LIST_EMPTY(blob_cores)
 GLOBAL_LIST_EMPTY(blob_nodes)
 
@@ -185,3 +184,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 #define BLOBMOB_BLOBBERNAUT_HEALTH_DECAY 0.0125 // Percentage multiplier HP lost when not near blob tiles or without factory
 
 #define BLOB_ACT_PROTECTION_TIME 2 SECONDS
+
+#define BLOB_GROUP_INFECTED "infected"
+#define BLOB_GROUP_OFFSPRINGS "offsprings"
+#define BLOB_GROUP_MINIONS "minions"

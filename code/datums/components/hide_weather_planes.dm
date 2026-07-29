@@ -22,8 +22,8 @@
 		starting_signals += COMSIG_WEATHER_TELEGRAPH(weather_type)
 		ending_signals += COMSIG_WEATHER_END(weather_type)
 
-	RegisterSignal(SSdcs, starting_signals, PROC_REF(weather_started))
-	RegisterSignal(SSdcs, ending_signals, PROC_REF(weather_finished))
+	RegisterSignals(SSdcs, starting_signals, PROC_REF(weather_started))
+	RegisterSignals(SSdcs, ending_signals, PROC_REF(weather_finished))
 
 	if(home.our_hud)
 		attach_hud(home.our_hud)
@@ -57,7 +57,7 @@
 
 	care_about.disable_alpha()
 
-/datum/component/hide_weather_planes/proc/new_hud_attached(datum/source, datum/hud/new_hud)
+/datum/component/hide_weather_planes/proc/new_hud_attached(datum/source, datum/hud/old_hud, datum/hud/new_hud)
 	SIGNAL_HANDLER
 	attach_hud(new_hud)
 

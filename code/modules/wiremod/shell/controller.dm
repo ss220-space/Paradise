@@ -9,12 +9,12 @@
 	icon = 'icons/obj/circuits.dmi'
 	icon_state = "setup_small_calc"
 
-	light_system = MOVABLE_LIGHT_DIRECTIONAL
+	light_system = OVERLAY_LIGHT_DIRECTIONAL
 	light_on = FALSE
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/controller/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "контроллер",
 		GENITIVE = "контроллера",
 		DATIVE = "контроллеру",

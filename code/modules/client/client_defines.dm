@@ -1,5 +1,37 @@
+/**
+ * Client datum
+ *
+ * A datum that is created whenever a user joins a BYOND world, one will exist for every active connected
+ * player
+ *
+ * when they first connect, this client object is created and [/client/New] is called
+ *
+ * When they disconnect, this client object is deleted and [/client/Del] is called
+ *
+ * All client topic calls go through [/client/Topic] first, so a lot of our specialised
+ * topic handling starts here
+ */
 /client
-	/// Client is casted to /datum so that we're able to use datum variables, search for clients through datums, and not need to duplicate code for GCing
+	/**
+	 * This line makes clients parent type be a datum
+	 *
+	 * By default in byond if you define a proc on datums, that proc will exist on nearly every single type
+	 * from icons to images to atoms to mobs to objs to turfs to areas, it won't however, appear on client
+	 *
+	 * instead by default they act like their own independent type so while you can do isdatum(icon)
+	 * and have it return true, you can't do isdatum(client), it will always return false.
+	 *
+	 * This makes writing oo code hard, when you have to consider this extra special case
+	 *
+	 * This line prevents that, and has never appeared to cause any ill effects, while saving us an extra
+	 * pain to think about
+	 *
+	 * This line is widely considered black fucking magic, and the fact it works is a puzzle to everyone
+	 * involved, including the current engine developer, lummox
+	 *
+	 * If you are a future developer and the engine source is now available and you can explain why this
+	 * is the way it is, please do update this comment
+	 */
 	parent_type = /datum
 		////////////////
 		//ADMIN THINGS//
@@ -7,6 +39,7 @@
 
 	/// Hides the byond verb panel as we use our own custom version.
 	show_verb_panel = FALSE
+	/// Contains admin info. Null if client is not an admin.
 	var/datum/admins/holder = null
 
 	/// Contains the last message sent by this client - used to protect against copy-paste spamming.
@@ -38,7 +71,8 @@
 		//SOUND STUFF//
 		///////////////
 
-	var/white_noise_playing = FALSE
+	/// Sound tokens currently playing for this client. Managed by [/datum/sound_token] and the soundtoken subsystem.
+	var/list/datum/sound_token/sound_tokens = list()
 
 		////////////
 		//SECURITY//
@@ -234,8 +268,6 @@
 
 	var/tgui_panel_theme = "dark"
 
-	var/list/parallax_layers
-	var/list/parallax_layers_cached
 	var/atom/movable/screen/parallax_home/parallax_rock
 	var/atom/movable/movingmob
 	var/turf/previous_turf
@@ -243,13 +275,8 @@
 	var/dont_animate_parallax
 	/// Direction our current area wants to move parallax
 	var/parallax_movedir = 0
-	/// How many parallax layers to show our client
-	var/parallax_layers_max = 4
 	/// Timers for the area directional animation, one for each layer
 	var/list/parallax_animate_timers
-	/// Do we want to do parallax animations at all?
-	/// Exists to prevent laptop fires
-	var/do_parallax_animations = TRUE
 
 	var/list/ViewMods = list()
 	var/ViewModsActive = FALSE
@@ -263,6 +290,9 @@
 	var/selectedPlayerCkey = ""
 	/// This is used to hold the mob of the selected player in case the ckey can't be found (this enables pp'ing soulless mobs)
 	var/VUAP_selected_mob = null
+
+	///Which ambient sound this client is currently being provided.
+	var/current_ambient_sound
 
 /client/vv_edit_var(var_name, var_value)
 	if(var_name == NAMEOF(src, tos_consent))

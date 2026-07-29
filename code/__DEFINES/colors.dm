@@ -175,6 +175,7 @@
 #define COLOR_BENCH_BROWN "#af7d28"
 #define COLOR_LIGHT_BROWN "#996666"
 #define COLOR_BROWNER_BROWN "#663300"
+#define COLOR_CULT_RATVAR "#BE8700"
 
 // MARK: Gray
 #define COLOR_GREEN_GRAY "#99bb76"
@@ -635,3 +636,8 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 #define COLOR_MENDER_DUAL "#ffb3b3"
 #define COLOR_MENDER_BRUTE "#ff0000"
 #define COLOR_MENDER_BURN "#ff8800"
+
+#define COLOR_ANCIENT_ROCK "#575757"
+#define COLOR_COLD_ANCIENT_ROCK "#575764"
+
+#define COLOR_DMI_MASK "#a0a0a000"

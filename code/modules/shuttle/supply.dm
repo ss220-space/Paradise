@@ -5,7 +5,7 @@
 	var/ordernumber = 0
 
 /obj/item/paper/manifest/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "манифест снабжения",
 		GENITIVE = "манифеста снабжения",
 		DATIVE = "манифесту снабжения",
@@ -13,6 +13,12 @@
 		INSTRUMENTAL = "манифестом снабжения",
 		PREPOSITIONAL = "манифесте снабжения",
 	)
+
+/obj/item/paper/manifest/proc/is_approved()
+	return LAZYLEN(stamped) && !is_denied()
+
+/obj/item/paper/manifest/proc/is_denied()
+	return LAZYLEN(stamped) && ( (/obj/item/stamp/denied in stamped) || ("stamp-deny" in stamped) )
 
 /obj/docking_port/mobile/supply
 	name = "supply shuttle"
@@ -144,8 +150,10 @@
 	var/crate_count = 0
 	var/quest_reward
 
-	var/msg = "<center>---[station_time_timestamp()]---</center><br>"
+	var/list/msg = list("<center>---[station_time_timestamp()]---</center><br>")
 	var/pointsEarned
+
+	var/datum/export_report/report = new
 
 	for(var/atom/movable/MA in areaInstance)
 		if(MA.anchored)
@@ -158,7 +166,7 @@
 			quest_reward += SScargo_quests.check_delivery(MA)
 
 		// Must be in a crate (or a critter crate)!
-		if(is_crate(MA) || istype(MA,/obj/structure/closet/crate/critter))
+		if(is_crate(MA) || istype(MA, /obj/structure/closet/crate/critter))
 			SSshuttle.sold_atoms += ":"
 			if(!length(MA.contents))
 				SSshuttle.sold_atoms += " (пусто)"
@@ -255,6 +263,8 @@
 				crate.quest.id.robo_bounty = null
 				crate.quest = null
 
+		export_item_and_contents(MA, apply_elastic = TRUE, dry_run = FALSE, external_report = report)
+
 		qdel(MA, force = TRUE)
 		SSshuttle.sold_atoms += "."
 
@@ -267,7 +277,17 @@
 		msg += "[span_good("+[pointsEarned]")]: Получен[declension_ru(crate_count, "", "ы", "о")] [crate_count] ящик[DECL_CREDIT(crate_count)].<br>"
 		SSshuttle.points += pointsEarned
 
-	SSshuttle.centcom_message += "[msg]<hr>"
+	var/datum/money_account/cargo_money_account = GLOB.department_accounts[STATION_DEPARTMENT_SUPPLY]
+
+	for(var/datum/export/exported_datum in report.total_amount)
+		var/export_text = exported_datum.total_printout(report)
+		if(!export_text)
+			continue
+
+		msg += export_text + "<br>"
+		cargo_money_account.credit(report.total_value[exported_datum], "Экспорт ценных ресурсов", "Терминал Бизель №[rand(111,333)]", "Счёт Отдела снабжения")
+
+	SSshuttle.centcom_message += "[msg.Join("")]<hr>"
 
 /********************
 	SUPPLY ORDER
@@ -286,15 +306,15 @@
 
 	var/obj/item/paper/reqform = new /obj/item/paper(_loc)
 	playsound(_loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
-	reqform.name = "запрос на поставку — [crates] \"[object.name]\" для [orderedby]"
-	reqform.ru_names = new /list(6)
-	reqform.ru_names = list(
-		NOMINATIVE = "запрос на поставку — [crates] \"[object.name]\" для [orderedby]",
-		GENITIVE = "запроса на поставку — [crates] \"[object.name]\" для [orderedby]",
-		DATIVE = "запросу на поставку — [crates] \"[object.name]\" для [orderedby]",
-		ACCUSATIVE = "запрос на поставку — [crates] \"[object.name]\" для [orderedby]",
-		INSTRUMENTAL = "запросом на поставку — [crates] \"[object.name]\" для [orderedby]",
-		PREPOSITIONAL = "запросе на поставку — [crates] \"[object.name]\" для [orderedby]",
+	var/request_desc = "на поставку — [crates] \"[object.name]\" для [orderedby]"
+	reqform.name = "запрос [request_desc]"
+	reqform.ru_names = alist(
+		NOMINATIVE = "запрос [request_desc]",
+		GENITIVE = "запроса [request_desc]",
+		DATIVE = "запросу [request_desc]",
+		ACCUSATIVE = "запрос [request_desc]",
+		INSTRUMENTAL = "запросом [request_desc]",
+		PREPOSITIONAL = "запросе [request_desc]",
 	)
 	reqform.info += "<h3>[station_name()] — запрос на поставку грузов</h3><hr>"
 	reqform.info += "ИНДЕКС: №[SSshuttle.ordernum]<br>"
@@ -318,13 +338,13 @@
 		return
 	//create the crate
 	var/atom/Crate = new object.containertype(_loc)
-	Crate.name = "[object.containername] [comment ? "([comment])":"" ]"
-	Crate.ru_names = new /list(6)
-	for(var/i in 1 to 6)
-		if(i < length(object.container_ru_names))
-			Crate.ru_names[i] = "[object.container_ru_names[i]] [comment ? "([comment])":"" ]"
-		else
-			Crate.ru_names[i] = Crate.name
+	var/comment_suffix = comment ? " ([comment])" : ""
+	Crate.name = "[object.containername][comment_suffix]"
+	var/alist/base_names = object.container_ru_names
+	Crate.ru_names = alist()
+	for(var/case_id in NOMINATIVE to PREPOSITIONAL)
+		var/base_name = length(base_names) ? base_names[case_id] : null
+		Crate.ru_names[case_id] = base_name ? "[base_name][comment_suffix]" : Crate.name
 
 	if(object.access)
 		Crate:req_access = list(text2num(object.access))
@@ -338,15 +358,15 @@
 	var/stationName = (errors & MANIFEST_ERROR_NAME) ? new_station_name() : station_name()
 	var/packagesAmt = length(SSshuttle.shoppinglist) + ((errors & MANIFEST_ERROR_COUNT) ? rand(1,2) : 0)
 
-	slip.name = "Манифест поставки – \"[object.name]\" для [orderedby]"
-	slip.ru_names = new /list(6)
-	slip.ru_names = list(
-		NOMINATIVE = "манифест поставки – \"[object.name]\" для [orderedby]",
-		GENITIVE = "манифеста поставки – \"[object.name]\" для [orderedby]",
-		DATIVE = "манифесту поставки – \"[object.name]\" для [orderedby]",
-		ACCUSATIVE = "манифест поставки – \"[object.name]\" для [orderedby]",
-		INSTRUMENTAL = "манифестом поставки – \"[object.name]\" для [orderedby]",
-		PREPOSITIONAL = "манифесте поставки – \"[object.name]\" для [orderedby]",
+	var/order_desc = "поставки – \"[object.name]\" для [orderedby]"
+	slip.name = "Манифест [order_desc]"
+	slip.ru_names = alist(
+		NOMINATIVE = "манифест [order_desc]",
+		GENITIVE = "манифеста [order_desc]",
+		DATIVE = "манифесту [order_desc]",
+		ACCUSATIVE = "манифест [order_desc]",
+		INSTRUMENTAL = "манифестом [order_desc]",
+		PREPOSITIONAL = "манифесте [order_desc]",
 	)
 	slip.info = "<h3>[command_name()] Манифест поставки</h3><hr><br>"
 	slip.info +="Заказ: №[ordernum]<br>"
@@ -423,7 +443,7 @@
 	var/can_order_contraband = FALSE
 
 /obj/machinery/computer/supplycomp/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль оформления заказов",
 		GENITIVE = "консоли оформления заказов",
 		DATIVE = "консоли оформления заказов",
@@ -441,7 +461,7 @@
 	is_public = TRUE
 
 /obj/machinery/computer/supplycomp/public/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "публичная консоль оформления заказов",
 		GENITIVE = "публичной консоли оформления заказов",
 		DATIVE = "публичной консоли оформления заказов",

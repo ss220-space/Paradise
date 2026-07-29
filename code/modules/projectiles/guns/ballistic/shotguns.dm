@@ -22,7 +22,7 @@
 	)
 
 /obj/item/gun/projectile/shotgun/riot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "дробовик RS-870 12g",
 		GENITIVE = "дробовика RS-870 12g",
 		DATIVE = "дробовику RS-870 12g",
@@ -58,8 +58,7 @@
 
 	if(istype(I, /obj/item/melee/energy))
 		add_fingerprint(user)
-		var/obj/item/melee/energy/sword = I
-		if(sword.active && sawoff(user))
+		if(HAS_TRAIT(I, TRAIT_ITEM_ACTIVE) && sawoff(user))
 			return ATTACK_CHAIN_PROCEED_SUCCESS
 		return ATTACK_CHAIN_PROCEED
 
@@ -242,7 +241,7 @@
 	reload_sound = 'sound/weapons/gun_interactions/winchester_reload.ogg'
 
 /obj/item/gun/projectile/shotgun/winchester/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "рычажный дробовик \"Фронтир\"",
 		GENITIVE = "рычажного дробовика \"Фронтир\"",
 		DATIVE = "рычажному дробовику \"Фронтир\"",
@@ -286,7 +285,7 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/winchester/cargo
 
 /obj/item/gun/projectile/shotgun/winchester/cargo/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "рычажный дробовик \"Защитник карго\"",
 		GENITIVE = "рычажного дробовика \"Защитник карго\"",
 		DATIVE = "рычажному дробовику \"Защитник карго\"",
@@ -348,7 +347,7 @@
 	recoil = GUN_RECOIL_HIGH
 
 /obj/item/gun/projectile/shotgun/automatic/combat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "дробовик SG20 \"Феррокс\" 12g",
 		GENITIVE = "дробовика SG20 \"Феррокс\" 12g",
 		DATIVE = "дробовику SG20 \"Феррокс\" 12g",
@@ -375,7 +374,7 @@
 	recoil = GUN_RECOIL_HIGH
 
 /obj/item/gun/projectile/shotgun/automatic/dual_tube/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "двухмагазинный дробовик",
 		GENITIVE = "двухмагазинного дробовика",
 		DATIVE = "двухмагазинному дробовику",
@@ -429,8 +428,7 @@
 	suppressed_fire_sound = 'sound/weapons/gunshots/shotgunsupp.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
-	burst_size = 1
-	fire_delay = 0
+	burst_amount = 1
 	accuracy = GUN_ACCURACY_SHOTGUN
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
@@ -439,10 +437,10 @@
 		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 10, ATTACHMENT_OFFSET_Y = -6),
 	)
 	recoil = GUN_RECOIL_HIGH
-	fire_modes = GUN_MODE_SINGLE_ONLY
+	gun_firemode_list = list(GUN_FIREMODE_SEMIAUTO)
 
 /obj/item/gun/projectile/automatic/shotgun/bulldog/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "магазинный дробовик \"Бульдог\" 12g",
 		GENITIVE = "магазинного дробовика \"Бульдог\" 12g",
 		DATIVE = "магазинному дробовику \"Бульдог\" 12g",
@@ -489,7 +487,7 @@
 	color = COLOR_ASSEMBLY_BROWN
 
 /obj/item/gun/projectile/automatic/shotgun/bulldog/mastiff/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "магазинный дробовик \"Мастифф\" 12g",
 		GENITIVE = "магазинного дробовика \"Мастифф\" 12g",
 		DATIVE = "магазинному дробовику \"Мастифф\" 12g",
@@ -511,7 +509,7 @@
 	suppressed_fire_sound = 'sound/weapons/gunshots/shotgunsupp.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/autoshotgun_mag_in.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/autoshotgun_mag_out.ogg'
-	fire_delay = 1.5
+	fire_delay = 0.15 SECONDS
 	accuracy = GUN_ACCURACY_SHOTGUN
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
@@ -522,7 +520,7 @@
 	recoil = GUN_RECOIL_HIGH
 
 /obj/item/gun/projectile/automatic/shotgun/minotaur/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "магазинный дробовик AS-12 \"Минотавр\" 12g",
 		GENITIVE = "магазинного дробовика AS-12 \"Минотавр\" 12g",
 		DATIVE = "магазинному дробовику AS-12 \"Минотавр\" 12g",
@@ -535,9 +533,9 @@
 	. = ..()
 	AddElement(/datum/element/ammo_alarm, 'sound/weapons/smg_empty_alarm.ogg')
 
-/obj/item/gun/projectile/automatic/shotgun/minotaur/New()
+/obj/item/gun/projectile/automatic/shotgun/minotaur/Initialize(mapload)
+	. = ..()
 	magazine = new/obj/item/ammo_box/magazine/m12g/XtrLrg
-	..()
 
 // MARK: SG40 Vastus
 /obj/item/gun/projectile/automatic/cats
@@ -548,10 +546,9 @@
 	icon_state = "tla_cats"
 	item_state = "arg"
 	mag_type = /obj/item/ammo_box/magazine/cats12g
-	fire_delay = 0
 	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
 	suppressed_fire_sound = 'sound/weapons/gunshots/shotgunsupp.ogg'
-	burst_size = 2
+	burst_amount = 2
 	accuracy = GUN_ACCURACY_SHOTGUN
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL
 	attachable_offset = list(
@@ -561,7 +558,7 @@
 	recoil = GUN_RECOIL_HIGH
 
 /obj/item/gun/projectile/automatic/cats/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "дробовик SG40 \"Вастус\" 12g",
 		GENITIVE = "дробовика SG40 \"Вастус\" 12g",
 		DATIVE = "дробовику SG40 \"Вастус\" 12g",
@@ -591,8 +588,8 @@
 	name = "double-barreled shotgun"
 	desc = "Двуствольный дробовик 12-го калибра, собранный по открытой схеме из библиотеки \"Canon de Frontira\". \
 			Два патрона, высокая отдача, отсутствие креплений. Встречается повсеместно во множестве вариаций."
-	icon_state = "dshotgun"
-	item_state = "shotgun"
+	icon_state = "dshotgun-base"
+	item_state = "dshotgun-base"
 	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_HEAVY
 	force = 10
@@ -607,7 +604,7 @@
 	can_air_shoot = FALSE
 
 /obj/item/gun/projectile/revolver/doublebarrel/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "двуствольный дробовик 12g",
 		GENITIVE = "двуствольного дробовика 12g",
 		DATIVE = "двуствольному дробовику 12g",
@@ -629,8 +626,7 @@
 
 	if(istype(I, /obj/item/melee/energy))
 		add_fingerprint(user)
-		var/obj/item/melee/energy/sword = I
-		if(sword.active && sawoff(user))
+		if(HAS_TRAIT(I, TRAIT_ITEM_ACTIVE) && sawoff(user))
 			return ATTACK_CHAIN_PROCEED_SUCCESS
 		return ATTACK_CHAIN_PROCEED
 
@@ -679,7 +675,7 @@
 	recoil = GUN_RECOIL_MEGA
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кустарный дробовик 12g",
 		GENITIVE = "кустарного дробовика 12g",
 		DATIVE = "кустарному дробовику 12g",
@@ -739,7 +735,7 @@
 	recoil = GUN_RECOIL_MEDIUM
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "трость",
 		GENITIVE = "трости",
 		DATIVE = "трости",

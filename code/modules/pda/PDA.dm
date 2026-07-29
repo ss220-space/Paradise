@@ -35,7 +35,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	origin_tech = "programming=2"
 
 	light_on = FALSE
-	light_system = MOVABLE_LIGHT_DIRECTIONAL
+	light_system = OVERLAY_LIGHT_DIRECTIONAL
 	light_range = 2
 
 	interaction_flags_atom = parent_type::interaction_flags_atom | INTERACT_ATOM_ALLOW_USER_LOCATION | INTERACT_ATOM_IGNORE_MOBILITY
@@ -554,6 +554,8 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 
 /obj/item/pda/proc/play_ringtone(list/balloon_alertees)
 	var/sound_file = ttone_sound[ttone] ? ttone_sound[ttone] : 'sound/machines/twobeep_high.ogg'
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_PDA_GLITCHED))
+		sound_file = SFX_GLITCHED_PDA_RINGTONE
 	playsound(loc, sound_file, 50, TRUE)
 	var/ring_message = "*[ttone]*"
 	audible_message(ring_message)

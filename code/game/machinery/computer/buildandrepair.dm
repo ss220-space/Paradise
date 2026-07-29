@@ -26,9 +26,20 @@
 	board_type = "machine"
 	abstract_type = /obj/item/circuitboard/machine
 
+/obj/item/circuitboard/drone
+	board_type = "drone"
+	abstract_type = /obj/item/circuitboard/drone
+	var/tech_to_give
+
 /obj/item/circuitboard/Initialize(mapload)
 	. = ..()
 	format_board_name()
+
+/obj/item/circuitboard/drone/Initialize(mapload)
+	. = ..()
+	if(!tech_to_give)
+		return
+	origin_tech = "[tech_to_give]=[rand(3, 6)]"
 
 /obj/item/circuitboard/proc/format_board_name()
 	if(board_name) // Should always have this, but just in case.
@@ -46,6 +57,46 @@
 				continue
 			nice_list += list("[req_components[A]] [initial(A.name)]\s")
 		. += span_notice("Required components: [english_list(nice_list)].")
+
+/obj/item/circuitboard/drone/motherboard
+	name = "Drone CPU motherboard"
+	tech_to_give = "programming"
+
+/obj/item/circuitboard/drone/interface
+	name = "Drone neural interface"
+	tech_to_give = "biotech"
+
+/obj/item/circuitboard/drone/processor
+	name = "Drone suspension processor"
+	tech_to_give = "magnets"
+
+/obj/item/circuitboard/drone/controller
+	name = "Drone shielding controller"
+	tech_to_give = "bluespace"
+
+/obj/item/circuitboard/drone/capacitor
+	name = "Drone power capacitor"
+	tech_to_give = "powerstorage"
+
+/obj/item/circuitboard/drone/reinforcer
+	name = "Drone hull reinforcer"
+	tech_to_give = "materials"
+
+/obj/item/circuitboard/drone/system
+	name = "Drone auto-repair system"
+	tech_to_give = "engineering"
+
+/obj/item/circuitboard/drone/counter
+	name = "Drone plasma overcharge counter"
+	tech_to_give = "plasmatech"
+
+/obj/item/circuitboard/drone/targetting
+	name = "Drone targetting circuitboard"
+	tech_to_give = "combat"
+
+/obj/item/circuitboard/drone/core
+	name = "Corrupted drone morality core"
+	tech_to_give = "syndicate"
 
 /obj/item/circuitboard/message_monitor
 	board_name = "Message Monitor"
@@ -527,6 +578,11 @@
 	build_path = /obj/machinery/computer/turbine_computer
 	origin_tech = "programming=4;engineering=4;powerstorage=4"
 
+/obj/item/circuitboard/portrait_printer
+	board_name = "Portrait Printer"
+	greyscale_colors = CIRCUIT_COLOR_SERVICE
+	build_path = /obj/machinery/computer/portrait_printer
+
 /obj/item/circuitboard/HONKputer
 	board_name = "HONKputer"
 	build_path = /obj/machinery/computer/HONKputer
@@ -697,7 +753,8 @@
 
 /obj/structure/computerframe/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
+	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
+	if(!I.use_tool(src, user, 2 SECONDS * construction_mod, volume = I.tool_volume))
 		return .
 	set_anchored(!anchored)
 	to_chat(user, span_notice("You [anchored ? "fasten the frame into place" : "unfasten the frame"]."))
@@ -803,7 +860,8 @@
 				return ATTACK_CHAIN_PROCEED
 			coil.play_tool_sound(src)
 			to_chat(user, span_notice("You start to add cables to the frame..."))
-			if(!do_after(user, 2 SECONDS * coil.toolspeed, src, category = DA_CAT_TOOL) || state != STATE_NOWIRES || QDELETED(coil))
+			CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
+			if(!do_after(user, 2 SECONDS * coil.toolspeed * construction_mod, src, category = DA_CAT_TOOL) || state != STATE_NOWIRES || QDELETED(coil))
 				return ATTACK_CHAIN_PROCEED
 			if(!coil.use(5))
 				to_chat(user, span_warning("At some point during construction you lost some cable. Make sure you have five lengths before trying again."))
@@ -823,7 +881,8 @@
 				return ATTACK_CHAIN_PROCEED
 			glass.play_tool_sound(src)
 			to_chat(user, span_notice("You start to add the glass panel to the frame..."))
-			if(!do_after(user, 2 SECONDS * glass.toolspeed, src, category = DA_CAT_TOOL) || state != STATE_WIRES || QDELETED(glass))
+			CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
+			if(!do_after(user, 2 SECONDS * glass.toolspeed * construction_mod, src, category = DA_CAT_TOOL) || state != STATE_WIRES || QDELETED(glass))
 				return ATTACK_CHAIN_PROCEED
 			if(!glass.use(2))
 				to_chat(user, span_warning("At some point during construction you lost some glass. Make sure you have two sheets before trying again."))

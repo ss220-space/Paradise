@@ -8,7 +8,7 @@
 	var/piercing = FALSE
 
 /obj/projectile/bullet/dart/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "дротик",
 		GENITIVE = "дротика",
 		DATIVE = "дротику",
@@ -17,8 +17,9 @@
 		PREPOSITIONAL = "дротике",
 	)
 
-/obj/projectile/bullet/dart/New()
-	..()
+/obj/projectile/bullet/dart/Initialize(mapload)
+	. = ..()
+
 	create_reagents(volume)
 	reagents.set_reacting(FALSE)
 
@@ -43,8 +44,9 @@
 // MARK: Metal foam
 /obj/projectile/bullet/dart/metalfoam
 
-/obj/projectile/bullet/dart/metalfoam/New()
-	..()
+/obj/projectile/bullet/dart/metalfoam/Initialize(mapload)
+	. = ..()
+
 	reagents.add_reagent("aluminum", 15)
 	reagents.add_reagent("fluorosurfactant", 5)
 	reagents.add_reagent("sacid", 5)
@@ -57,7 +59,7 @@
 	volume = 15
 
 /obj/projectile/bullet/dart/syringe/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шприц",
 		GENITIVE = "шприца",
 		DATIVE = "шприцу",
@@ -68,6 +70,7 @@
 
 /obj/projectile/bullet/dart/syringe/tranquilizer
 
-/obj/projectile/bullet/dart/syringe/tranquilizer/New()
-	..()
+/obj/projectile/bullet/dart/syringe/tranquilizer/Initialize(mapload)
+	. = ..()
+
 	reagents.add_reagent("haloperidol", 15)

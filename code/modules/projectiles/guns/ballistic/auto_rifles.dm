@@ -19,7 +19,7 @@
 	recoil = GUN_RECOIL_MEDIUM
 
 /obj/item/gun/projectile/automatic/m52/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "боевая винтовка SGM-BR-52 7,62x51 мм",
 		GENITIVE = "боевой винтовки SGM-BR-52 7,62x51 мм",
 		DATIVE = "боевой винтовке SGM-BR-52 7,62x51 мм",
@@ -56,8 +56,7 @@
 	fire_sound = 'sound/weapons/gunshots/1m90.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
-	can_suppress = 1
-	var/obj/item/gun/projectile/revolver/grenadelauncher/underbarrel
+	can_suppress = TRUE
 	accuracy = GUN_ACCURACY_RIFLE_UPLINK
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
@@ -65,9 +64,10 @@
 		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 12, ATTACHMENT_OFFSET_Y = 7),
 	)
 	recoil = GUN_RECOIL_MEDIUM
+	starting_attachment_types = list(/obj/item/gun_module/under/gun/grenade_launcher/integrated)
 
 /obj/item/gun/projectile/automatic/m90/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "карабин M-90GL 5,56 мм",
 		GENITIVE = "карабина M-90GL 5,56 мм",
 		DATIVE = "карабину M-90GL 5,56 мм",
@@ -75,32 +75,6 @@
 		INSTRUMENTAL = "карабином M-90GL 5,56 мм",
 		PREPOSITIONAL = "карабине M-90GL 5,56 мм",
 	)
-
-/obj/item/gun/projectile/automatic/m90/Initialize(mapload)
-	. = ..()
-	underbarrel = new /obj/item/gun/projectile/revolver/grenadelauncher(src)
-	update_icon()
-
-/obj/item/gun/projectile/automatic/m90/Destroy()
-	QDEL_NULL(underbarrel)
-	return ..()
-
-/obj/item/gun/projectile/automatic/m90/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
-	if(select == 0)
-		underbarrel.afterattack(target, user, proximity_flag, modifiers, status)
-	else
-		..()
-
-/obj/item/gun/projectile/automatic/m90/attackby(obj/item/I, mob/user, params)
-	if(istype(I, underbarrel.magazine.ammo_type))
-		add_fingerprint(user)
-		var/reload = underbarrel.magazine.reload(I, user, replace_spent = TRUE)
-		if(reload)
-			underbarrel.chamber_round(FALSE)
-			return ATTACK_CHAIN_BLOCKED_ALL
-		return ATTACK_CHAIN_PROCEED
-
-	return ..()
 
 /obj/item/gun/projectile/automatic/m90/update_icon_state()
 	icon_state = "[initial(icon_state)][magazine ? "" : "-e"]"
@@ -113,32 +87,15 @@
 	. = ..()
 	if(magazine)
 		. += image(icon = icon, icon_state = "m90-[ceil(get_ammo(FALSE)/6)*6]")
-	switch(select)
-		if(GUN_SINGLE_MODE)
+	switch(gun_firemode)
+		if(GUN_FIREMODE_SEMIAUTO)
 			. += "[initial(icon_state)]gren"
-		if(GUN_BURST_MODE)
+		if(GUN_FIREMODE_BURSTFIRE)
 			.  += "[initial(icon_state)]burst"
-
-/obj/item/gun/projectile/automatic/m90/toggle_firemode()
-	var/mob/living/carbon/human/user = usr
-	switch(select)
-		if(GUN_SINGLE_MODE)
-			select = GUN_BURST_MODE
-			burst_size = initial(burst_size)
-			fire_delay = initial(fire_delay)
-			balloon_alert(user, "отсечка по [burst_size] [declension_ru(burst_size, "патрону",  "патрона",  "патронов")]")
-		if(GUN_BURST_MODE)
-			select = GUN_SINGLE_MODE
-			balloon_alert(user, "подствольный гранатомёт")
-	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, TRUE)
-	update_icon()
 
 /obj/item/gun/projectile/automatic/m90/rusted
 	damage_mod = 0.85
-
-/obj/item/gun/projectile/automatic/m90/rusted/Initialize(mapload)
-	. = ..()
-	QDEL_NULL(underbarrel.chambered)
+	starting_attachment_types = list(/obj/item/gun_module/under/gun/grenade_launcher/integrated/unloaded)
 
 /obj/item/gun/projectile/automatic/m90/rusted/ComponentInitialize()
 	. = ..()
@@ -159,7 +116,7 @@
 	fire_sound = 'sound/weapons/gunshots/1m90.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
-	fire_delay = 1
+	fire_delay = 0.2 SECONDS
 	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
@@ -170,7 +127,7 @@
 	recoil = GUN_RECOIL_MEDIUM
 
 /obj/item/gun/projectile/automatic/arg/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "штурмовая винтовка AR30 5,56x45 мм",
 		GENITIVE = "штурмовой винтовки AR30 5,56x45 мм",
 		DATIVE = "штурмовой винтовке AR30 5,56x45 мм",
@@ -193,9 +150,10 @@
 	fire_sound = 'sound/weapons/gunshots/1m90.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
-	burst_size = 2
-	fire_delay = 1
+	burst_amount = 2
+	fire_delay = 0.2 SECONDS
 	accuracy = GUN_ACCURACY_RIFLE
+	weapon_weight = WEAPON_HEAVY
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 21, ATTACHMENT_OFFSET_Y = 1),
@@ -205,7 +163,7 @@
 	recoil = GUN_RECOIL_MEDIUM
 
 /obj/item/gun/projectile/automatic/ak814/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "автомат АГ-814 5,45x39 мм",
 		GENITIVE = "автомата АГ-814 5,45x39 мм",
 		DATIVE = "автомату АГ-814 5,45x39 мм",
@@ -213,6 +171,11 @@
 		INSTRUMENTAL = "автоматом АГ-814 5,45x39 мм",
 		PREPOSITIONAL = "автомате АГ-814 5,45x39 мм",
 	)
+
+/obj/item/gun/projectile/automatic/ak814/weakened
+	desc = "Импортная версия штурмовой винтовки AГ-814, использующая уменьшенные магазины."
+	mag_type = /obj/item/ammo_box/magazine/ak814/fusty
+	fire_delay = 0.25 SECONDS
 
 // MARK: AGS74-U
 /obj/item/gun/projectile/automatic/aks74u
@@ -237,7 +200,7 @@
 	recoil = GUN_RECOIL_MEDIUM
 
 /obj/item/gun/projectile/automatic/aks74u/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "автомат АГС74-У 5,45x39 мм",
 		GENITIVE = "автомата АГС74-У 5,45x39 мм",
 		DATIVE = "автомату АГС74-У 5,45x39 мм",
@@ -266,7 +229,7 @@
 	fire_sound = 'sound/weapons/gunshots/gunshot_lascarbine.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
-	burst_size = 2
+	burst_amount = 2
 	accuracy = GUN_ACCURACY_RIFLE_LASER
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
@@ -276,7 +239,7 @@
 	recoil = GUN_RECOIL_MIN
 
 /obj/item/gun/projectile/automatic/ik60/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лазерный карабин IK-60",
 		GENITIVE = "лазерного карабина IK-60",
 		DATIVE = "лазерному карабину IK-60",
@@ -300,7 +263,7 @@
 	fire_sound = 'sound/weapons/gunshots/gunshot_lascarbine.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
-	burst_size = 1
+	burst_amount = 1
 	accuracy = GUN_ACCURACY_RIFLE_LASER
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
@@ -309,9 +272,10 @@
 	)
 	recoil = GUN_RECOIL_MIN
 	fire_modes = GUN_MODE_SINGLE_ONLY
+	gun_firemode_list = list(GUN_FIREMODE_SEMIAUTO)
 
 /obj/item/gun/projectile/automatic/lr30/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лазерная винтовка LR-30",
 		GENITIVE = "лазерной винтовки LR-30",
 		DATIVE = "лазерной винтовке LR-30",

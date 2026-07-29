@@ -14,7 +14,7 @@
 	autoclose = FALSE
 
 /obj/machinery/door/airlock/shell/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "программируемый шлюз",
 		GENITIVE = "программируемого шлюза",
 		DATIVE = "программируемому шлюзу",
@@ -194,7 +194,7 @@
 		return
 
 	attached_airlock = shell
-	RegisterSignal(shell, list(
+	RegisterSignals(shell, list(
 		COMSIG_OBJ_ALLOWED,
 		COMSIG_AIRLOCK_SHELL_ALLOWED,
 	), PROC_REF(handle_allowed))

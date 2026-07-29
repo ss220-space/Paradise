@@ -4,6 +4,9 @@
 /// Within given range, but not counting z-levels
 #define IN_GIVEN_RANGE(source, other, given_range) (get_dist(source, other) <= given_range && (get_step(source, 0)?:z) == (get_step(other, 0)?:z))
 
+/// Checks if potential_weakref is a weakref of thing.
+#define IS_WEAKREF_OF(thing, potential_weakref) (isdatum(thing) && !isnull(potential_weakref) && thing.weak_reference == potential_weakref)
+
 // Atoms
 #define isatom(A) (isloc(A))
 
@@ -15,7 +18,16 @@
 
 #define isimage(thing) (istype(thing, /image))
 
-#define IS_WEAKREF_OF(thing, potential_weakref) (isdatum(thing) && !isnull(potential_weakref) && thing.weak_reference == potential_weakref)
+GLOBAL_VAR_INIT(magic_appearance_detecting_image, new /image) // appearances are awful to detect safely, but this seems to be the best way ~ninjanomnom
+#define isappearance(thing) (!isimage(thing) && !ispath(thing) && istype(GLOB.magic_appearance_detecting_image, thing))
+
+// The filters list has the same ref type id as a filter, but isnt one and also isnt a list, so we have to check if the thing has Cut() instead
+GLOBAL_VAR_INIT(refid_filter, TYPEID(filter(type="angular_blur")))
+#define isfilter(thing) (!hascall(thing, "Cut") && TYPEID(thing) == GLOB.refid_filter)
+
+#define isgenerator(A) (istype(A, /generator))
+
+#define isalist(A) (istype(A, /alist))
 
 // Mobs
 
@@ -146,6 +158,8 @@
 
 #define is_cash(A) (istype(A, /obj/item/coin) || istype(A, /obj/item/stack/spacecash))
 
+#define isvoxcash(W) (istype(W, /obj/item/stack/vox_cash))
+
 #define is_airlock(A) (istype(A, /obj/machinery/door/airlock))
 
 #define is_camera(A) (istype(A, /obj/item/camera))
@@ -166,8 +180,11 @@
 
 #define is_module_input(A) (istype(A, /obj/item/circuit_component/module_input))
 
-
 #define is_mmi(A) (istype(A, /obj/item/mmi))
+
+#define isdisposalunit(A) (istype(A, /obj/machinery/disposal))
+
+#define is_syndi_camera_bug(A) (istype(A, /obj/item/camera_bug/syndicate))
 
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,
@@ -215,6 +232,10 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define isspaceturf(A) (istype(A, /turf/space))
 
+#define isnearstation(A) (istype(A, /area/space/nearstation))
+
+#define iscordon(A) (istype(A, /turf/cordon))
+
 #define isopenspaceturf(A) (istype(A, /turf/simulated/openspace) || istype(A, /turf/space/openspace))
 
 #define istransparentturf(A) (HAS_TRAIT(A, TURF_Z_TRANSPARENT_TRAIT))
@@ -222,6 +243,8 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define is_space_or_openspace(A) (isopenspaceturf(A) || isspaceturf(A))
 
 #define isfloorturf(A) (istype(A, /turf/simulated/floor))
+
+#define isplasteelfloor(A) (istype(A, /turf/simulated/floor/plasteel))
 
 #define iswallturf(A) (istype(A, /turf/simulated/wall))
 
@@ -265,9 +288,12 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define ismodcore(A) istype(A, /obj/item/mod/core)
 
 GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
-	/turf/space,
+	/turf/simulated/floor/beach/water,
 	/turf/simulated/floor/chasm,
+	/turf/simulated/floor/lava,
 	/turf/simulated/openspace,
+	/turf/space,
+	/turf/space/openspace,
 )))
 
 #define isgroundlessturf(A) (is_type_in_typecache(A, GLOB.turfs_without_ground))
@@ -378,6 +404,9 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define iswryn(A) (is_species(A, /datum/species/wryn))
 #define ismoth(A) (is_species(A, /datum/species/moth))
 
+// Antag
+#define IS_CHANGELING(A) (A?.mind?.has_antag_datum(/datum/antagonist/changeling))
+
 #define is_clown_job(job_type) (istype(job_type, /datum/job/service/clown))
 
 #define iswelder(A) (istype(A, /obj/item/weldingtool))
@@ -418,3 +447,8 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define is_cargo_shelf(A) (istype(A, /obj/structure/cargo_shelf))
 #define is_crate(A) (istype(A, /obj/structure/closet/crate))
+
+#define is_area_nearby_station(checked_area) (istype(checked_area, /area/space) || istype(checked_area, /area/space/nearstation) || istype(checked_area, /area/centcom/asteroid))
+#define is_area_shuttle(checked_area) (istype(checked_area, /area/shuttle))
+
+#define is_reagent_container(O) (istype(O, /obj/item/reagent_containers))

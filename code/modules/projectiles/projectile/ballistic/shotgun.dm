@@ -10,7 +10,7 @@
 	ricochet_chance = 20 //rubber bullets - high ricochet chance
 
 /obj/projectile/bullet/weakbullet/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "патрон \"Погремушка\"",
 		GENITIVE = "патрона \"Погремушка\"",
 		DATIVE = "патрону \"Погремушка\"",
@@ -53,7 +53,7 @@
 	ricochets_max = 0
 
 /obj/projectile/bullet/stunshot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "оглушающая пуля",
 		GENITIVE = "оглушающей пули",
 		DATIVE = "оглушающей пуле",
@@ -68,7 +68,7 @@
 	damage = 20
 
 /obj/projectile/bullet/incendiary/shell/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "зажигательная пуля",
 		GENITIVE = "зажигательной пули",
 		DATIVE = "зажигательной пуле",
@@ -95,7 +95,7 @@
 	range = 10
 
 /obj/projectile/bullet/incendiary/shell/dragonsbreath/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пуля \"Дыхание дракона\"",
 		GENITIVE = "пули \"Дыхание дракона\"",
 		DATIVE = "пуле \"Дыхание дракона\"",
@@ -114,7 +114,7 @@
 	range = 50
 
 /obj/projectile/bullet/incendiary/shell/dragonsbreath/mecha/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пуля \"Жидкая лава\"",
 		GENITIVE = "пули \"Жидкая лава\"",
 		DATIVE = "пуле \"Жидкая лава\"",
@@ -131,7 +131,7 @@
 	ricochets_max = 0
 
 /obj/projectile/bullet/frag12/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "разрывная пуля",
 		GENITIVE = "разрывной пули",
 		DATIVE = "разрывной пуле",
@@ -156,7 +156,7 @@
 	ricochets_max = 0
 
 /obj/projectile/bullet/meteorshot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "метеор",
 		GENITIVE = "метеора",
 		DATIVE = "метеору",
@@ -172,8 +172,9 @@
 		var/atom/throw_target = get_edge_target_turf(M, get_dir(src, get_step_away(M, src)))
 		M.throw_at(throw_target, 3, 2)
 
-/obj/projectile/bullet/meteorshot/New()
-	..()
+/obj/projectile/bullet/meteorshot/Initialize(mapload)
+	. = ..()
+
 	SpinAnimation()
 
 /obj/projectile/bullet/meteorshot/weak
@@ -191,7 +192,7 @@
 	ricochets_max = 0
 
 /obj/projectile/bullet/pellet/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "гранула",
 		GENITIVE = "гранулы",
 		DATIVE = "грануле",
@@ -221,7 +222,7 @@
 	armour_penetration = 20
 
 /obj/projectile/bullet/pellet/flechette/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "флешетта",
 		GENITIVE = "флешетты",
 		DATIVE = "флешетте",
@@ -239,7 +240,7 @@
 	ricochet_chance = 20
 
 /obj/projectile/bullet/pellet/rubber/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "резиновый шарик",
 		GENITIVE = "резинового шарика",
 		DATIVE = "резиновому шарику",
@@ -252,9 +253,9 @@
 	tile_dropoff = 0.55		//Come on it does 6 damage don't be like that.
 	damage = 8
 
-/obj/projectile/bullet/pellet/weak/New()
+/obj/projectile/bullet/pellet/weak/Initialize(mapload)
 	range = rand(1, 8)
-	..()
+	return ..()
 
 /obj/projectile/bullet/pellet/weak/on_range()
 	do_sparks(1, TRUE, src)
@@ -263,9 +264,9 @@
 /obj/projectile/bullet/pellet/overload
 	damage = 3
 
-/obj/projectile/bullet/pellet/overload/New()
+/obj/projectile/bullet/pellet/overload/Initialize(mapload)
 	range = rand(1, 10)
-	..()
+	return ..()
 
 /obj/projectile/bullet/pellet/assassination
 	damage = 12

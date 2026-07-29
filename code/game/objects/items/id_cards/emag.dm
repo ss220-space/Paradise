@@ -13,7 +13,7 @@
 	item_flags = NOBLUDGEON|NO_MAT_REDEMPTION
 
 /obj/item/card/emag/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "криптографический считыватель",
 		GENITIVE = "криптографического считывателя",
 		DATIVE = "криптографическому считывателю",
@@ -40,7 +40,7 @@
 	origin_tech = "magnets=2;syndicate=1"
 
 /obj/item/card/emag_broken/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сломанный криптографический считыватель",
 		GENITIVE = "сломанного криптографического считывателя",
 		DATIVE = "сломанному криптографическому считывателю",
@@ -59,7 +59,7 @@
 	item_flags = NOBLUDGEON|NO_MAT_REDEMPTION
 
 /obj/item/card/cmag/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шутографический считыватель",
 		GENITIVE = "шутографического считывателя",
 		DATIVE = "шутографическому считывателю",

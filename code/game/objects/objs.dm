@@ -73,7 +73,7 @@
 	else if(!istype(armor, /datum/armor))
 		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
 	if(sharp)
-		AddComponent(/datum/component/surgery_initiator)
+		AddElement(/datum/element/surgery_initiator)
 
 	if(on_blueprints && isturf(loc))
 		var/turf/T = loc
@@ -125,7 +125,7 @@
 
 //Output a creative message and then return the damagetype done
 /obj/proc/suicide_act(mob/user)
-	return FALSE
+	return NONE
 
 /obj/proc/handle_internal_lifeform(mob/lifeform_inside_me, breath_request, datum/gas_mixture/environment)
 	//Return: (NONSTANDARD)
@@ -195,6 +195,7 @@
 
 /mob/proc/unset_machine()
 	if(machine)
+		UnregisterSignal(machine, COMSIG_QDELETING)
 		machine.on_unset_machine(src)
 		machine = null
 
@@ -208,6 +209,7 @@
 	src.machine = O
 	if(istype(O))
 		O.in_use = TRUE
+		RegisterSignal(O, COMSIG_QDELETING, PROC_REF(unset_machine))
 
 /obj/item/proc/updateSelfDialog()
 	var/mob/M = src.loc
@@ -233,7 +235,8 @@
 		return
 	var/time = max(50 * (1 - obj_integrity / max_integrity), 5)
 	WELDER_ATTEMPT_REPAIR_MESSAGE
-	if(I.use_tool(src, user, time, volume = I.tool_volume))
+	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
+	if(I.use_tool(src, user, time * construction_mod, volume = I.tool_volume))
 		WELDER_REPAIR_SUCCESS_MESSAGE
 		update_integrity(max_integrity)
 		update_icon()
@@ -249,8 +252,9 @@
 	if(!I.tool_use_check(user, 0))
 		return FALSE
 	if(!(obj_flags & NODECONSTRUCT))
+		CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
 		to_chat(user, span_notice("Now [anchored ? "un" : ""]securing [name]."))
-		if(I.use_tool(src, user, time, volume = I.tool_volume))
+		if(I.use_tool(src, user, time * construction_mod, volume = I.tool_volume))
 			to_chat(user, span_notice("You've [anchored ? "un" : ""]secured [name]."))
 			set_anchored(!anchored)
 		return TRUE
@@ -261,10 +265,12 @@
 	extinguish()
 	acid_level = 0
 
-/obj/singularity_pull(S, current_size)
+/obj/singularity_pull(atom/singularity, current_size)
 	..()
+	if(move_resist == INFINITY)
+		return
 	if(!anchored || current_size >= STAGE_FIVE)
-		step_towards(src, S)
+		step_towards(src, singularity)
 
 /obj/proc/on_mob_move(mob/user, dir)
 	return
@@ -282,15 +288,6 @@
 	speed_process = FALSE
 	START_PROCESSING(SSobj, src)
 	STOP_PROCESSING(SSfastprocess, src)
-
-/obj/vv_get_dropdown()
-	. = ..()
-	.["Delete all of type"] = "byond://?_src_=vars;delall=[UID()]"
-	if(!speed_process)
-		.["Make speed process"] = "byond://?_src_=vars;makespeedy=[UID()]"
-	else
-		.["Make normal process"] = "byond://?_src_=vars;makenormalspeed=[UID()]"
-	.["Modify armor values"] = "byond://?_src_=vars;modifyarmor=[UID()]"
 
 /obj/proc/check_uplink_validity()
 	return TRUE
@@ -312,7 +309,7 @@
 	sharp = new_sharp_val
 	SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_SHARPNESS)
 	if(!sharp && new_sharp_val)
-		AddComponent(/datum/component/surgery_initiator)
+		AddElement(/datum/element/surgery_initiator)
 
 /obj/proc/force_eject_occupant(mob/target)
 	// This proc handles safely removing occupant mobs from the object if they must be teleported out (due to being SSD/AFK, by admin teleport, etc) or transformed.
@@ -373,6 +370,20 @@
 	RETURN_TYPE(/list)
 	SHOULD_CALL_PARENT(FALSE)
 	return list(src)
+
+/// Adds icons of contents (with get_uplink_log_items()) into uplink
+/obj/proc/log_contents_to_uplink(obj/item/uplink/target_uplink)
+	if(!target_uplink || QDELETED(target_uplink))
+		return
+
+	var/new_purchase_logs = ""
+	var/list/items_to_log = get_uplink_log_items()
+	if(!length(items_to_log))
+		return
+
+	for(var/atom/atom_to_display in items_to_log)
+		new_purchase_logs += span_fontsize4(icon2base64html(atom_to_display))
+	target_uplink.purchase_log += new_purchase_logs
 
 /**
  * Use this proc to attach `/datum/element/examine_lore` to an object.

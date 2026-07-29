@@ -27,6 +27,8 @@
 		TRAIT_NO_GERMS,
 		TRAIT_IGNOREDAMAGESLOWDOWN,
 		TRAIT_SUPERMATTER_IMMUNE,
+		TRAIT_LIVERLESS_METABOLISM,
+		TRAIT_RAD_HEAL,
 	)
 	bodyflags = HAS_BODY_MARKINGS
 	dies_at_threshold = TRUE
@@ -57,6 +59,15 @@
 		JOB_MIN_AGE_HIGH_ED = 30,
 		JOB_MIN_AGE_COMMAND = 30,
 	)
+
+	max_select_skills = list(
+		/datum/skill/general/cooking = 1,
+		/datum/skill/medical/surgery = 1,
+		/datum/skill/medical/heal = 1,
+		/datum/skill/medical/genetic = 0,
+		/datum/skill/medical/virusology = 0,
+	)
+	bonus_skill_free_points = 2
 
 /datum/species/nucleation/on_species_gain(mob/living/carbon/human/H)
 	. = ..()

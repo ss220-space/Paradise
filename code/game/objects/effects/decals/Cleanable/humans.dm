@@ -10,6 +10,7 @@
 	random_icon_states = list("mfloor1", "mfloor2", "mfloor3", "mfloor4", "mfloor5", "mfloor6", "mfloor7")
 	blood_DNA = list()
 	bloodiness = BLOOD_AMOUNT_PER_DECAL
+	clean_type = CLEAN_TYPE_BLOOD
 	var/base_icon = 'icons/effects/blood.dmi'
 	var/blood_state = BLOOD_STATE_HUMAN
 	var/basecolor = BLOOD_COLOR_RED
@@ -25,14 +26,14 @@
 #undef DRYING_TIME
 
 /obj/effect/decal/cleanable/blood/get_ru_names_cached() //we can't cache this now
-	return is_dry? list(
+	return is_dry? alist(
 		NOMINATIVE = "засохшая кровь",
 		GENITIVE = "засохшей крови",
 		DATIVE = "засохшей крови",
 		ACCUSATIVE = "засохшую кровь",
 		INSTRUMENTAL = "засохшей кровью",
 		PREPOSITIONAL = "засохшей крови",
-	): list(
+	): alist(
 		NOMINATIVE = "кровь",
 		GENITIVE = "крови",
 		DATIVE = "крови",
@@ -112,7 +113,7 @@
 
 	blood_decal_crossed(arrived)
 
-/obj/effect/decal/cleanable/blood/proc/on_exited(datum/source, atom/movable/departed, atom/newLoc)
+/obj/effect/decal/cleanable/blood/proc/on_exited(datum/source, atom/movable/departed, direction)
 	SIGNAL_HANDLER
 
 	if(off_floor || !ishuman(departed))
@@ -165,7 +166,7 @@
 	layer = ABOVE_WINDOW_LAYER
 	vis_flags = VIS_INHERIT_PLANE
 	alpha = 180
-	//is_mopped = FALSE
+	is_mopped = FALSE
 
 /obj/effect/decal/cleanable/blood/splatter/over_window/never_should_have_come_here(turf/here_turf)
 	return isgroundlessturf(here_turf)
@@ -181,7 +182,7 @@
 	var/drips = 1
 
 /obj/effect/decal/cleanable/blood/drip/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "капли крови",
 		GENITIVE = "капель крови",
 		DATIVE = "каплям крови",
@@ -204,7 +205,7 @@
 	var/list/existing_dirs = list()
 
 /obj/effect/decal/cleanable/trail_holder/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кровь",
 		GENITIVE = "крови",
 		DATIVE = "крови",
@@ -252,7 +253,7 @@
 	var/squishy = TRUE
 
 /obj/effect/decal/cleanable/blood/gibs/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кровавое месиво",
 		GENITIVE = "кровавого месива",
 		DATIVE = "кровавому месиву",
@@ -355,6 +356,7 @@
 	icon_state = "hitsplatter1"
 	random_icon_states = list("hitsplatter1", "hitsplatter2", "hitsplatter3")
 	layer = ABOVE_WINDOW_LAYER
+	is_mopped = FALSE
 	/// The turf we just came from, so we can back up when we hit a wall
 	var/turf/prev_loc
 	/// Skip making the final blood splatter when we're done, like if we're not in a turf

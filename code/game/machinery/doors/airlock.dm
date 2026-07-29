@@ -60,6 +60,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	interaction_flags_click = ALLOW_SILICON_REACH
 	cares_about_temperature = TRUE
 	rad_insulation = RAD_MEDIUM_INSULATION
+	blocks_emissive = EMISSIVE_BLOCK_NONE // Custom emissive blocker. We don't want the normal behavior.
 
 	var/security_level = 0 //How much are wires secured
 	var/aiControlDisabled = AICONTROLDISABLED_OFF
@@ -167,8 +168,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_R
 
 	prepare_huds()
-	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
-		diag_hud.add_atom_to_hud(src)
+	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
+	diag_hud.add_atom_to_hud(src)
 
 	diag_hud_set_electrified()
 
@@ -204,8 +205,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(SSradio)
 		SSradio.remove_object(src, frequency)
 	radio_connection = null
-	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
-		diag_hud.remove_atom_from_hud(src)
+	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
+	diag_hud.remove_atom_from_hud(src)
 	return ..()
 
 /obj/machinery/door/airlock/handle_atom_del(atom/A)
@@ -587,35 +588,33 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
 /// Called when a player uses an airlock painter on this airlock
 /obj/machinery/door/airlock/proc/change_paintjob(obj/item/airlock_painter/painter, mob/user)
-	if((!in_range(src, user) && loc != user)) // user should be adjacent to the airlock.
+	if(!in_range(src, user) || !painter.can_use(user)) // user should be adjacent to the airlock, and the painter should have a toner cartridge that isn't empty
 		return
 
-	if(!painter.paint_setting)
-		to_chat(user, span_warning("You need to select a paintjob first."))
+	// reads from the airlock painter's `available paintjob` list. lets the player choose a paint option, or cancel painting
+	var/current_paintjob = tgui_input_list(user, "Paintjob for this airlock", "Customize", sort_list(painter.available_paint_jobs))
+	if(isnull(current_paintjob) || !in_range(src, user) || !painter.can_use(user)) // if the user clicked cancel on the popup, or moved away, or ran out of ink, return
 		return
 
-	if(!paintable)
-		to_chat(user, span_warning("This type of airlock cannot be painted."))
-		return
-
-	var/obj/machinery/door/airlock/airlock = painter.available_paint_jobs["[painter.paint_setting]"] // get the airlock type path associated with the airlock name the user just chose
+	var/airlock_type = painter.available_paint_jobs["[current_paintjob]"] // get the airlock type path associated with the airlock name the user just chose
+	var/obj/machinery/door/airlock/airlock = airlock_type // we need to create a new instance of the airlock and assembly to read vars from them
 	var/obj/structure/door_assembly/assembly = initial(airlock.assemblytype)
-
-	if(assemblytype == assembly)
-		to_chat(user, span_notice("This airlock is already painted [painter.paint_setting]!"))
-		return
 
 	if(airlock_material == "glass" && initial(assembly.noglass)) // prevents painting glass airlocks with a paint job that doesn't have a glass version, such as the freezer
 		to_chat(user, span_warning("This paint job can only be applied to non-glass airlocks."))
 		return
 
-	if(do_after(user, 2 SECONDS, src))
-		// applies the user-chosen airlock's icon, overlays and assemblytype to the src airlock
-		painter.paint(user)
+	// applies the user-chosen airlock's icon, overlays and assemblytype to the src airlock
+	painter.use_paint(user)
+	if(initial(airlock.greyscale_config))
+		greyscale_config = initial(airlock.greyscale_config)
+		greyscale_colors = initial(airlock.greyscale_colors)
+		update_greyscale()
+	else
 		icon = initial(airlock.icon)
-		overlays_file = initial(airlock.overlays_file)
-		assemblytype = initial(airlock.assemblytype)
-		update_icon()
+	overlays_file = initial(airlock.overlays_file)
+	assemblytype = initial(airlock.assemblytype)
+	update_appearance()
 
 /obj/machinery/door/airlock/examine(mob/user)
 	. = ..()
@@ -1020,7 +1019,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 				to_chat(user, span_warning("You need at least two metal sheets to reinforce [src]."))
 				return ATTACK_CHAIN_PROCEED
 			to_chat(user, span_notice("You start reinforcing [src]..."))
-			if(!do_after(user, 2 SECONDS * metal.toolspeed, src, category = DA_CAT_TOOL) || security_level != AIRLOCK_SECURITY_NONE || !panel_open || QDELETED(metal))
+			CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
+			if(!do_after(user, 2 SECONDS * metal.toolspeed * building_mod, src, category = DA_CAT_TOOL) || security_level != AIRLOCK_SECURITY_NONE || !panel_open || QDELETED(metal))
 				return ATTACK_CHAIN_PROCEED
 			if(!metal.use(2))
 				to_chat(user, span_warning("At some point during construction you lost some metal. Make sure you have two metal sheets before trying again."))
@@ -1040,7 +1040,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 				to_chat(user, span_warning("You need at least two plasteel sheets to reinforce [src]."))
 				return ATTACK_CHAIN_PROCEED
 			to_chat(user, span_notice("You start reinforcing [src]..."))
-			if(!do_after(user, 2 SECONDS * plasteel.toolspeed, src, category = DA_CAT_TOOL) || security_level != AIRLOCK_SECURITY_NONE || !panel_open || QDELETED(plasteel))
+			CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
+			if(!do_after(user, 2 SECONDS * plasteel.toolspeed * building_mod, src, category = DA_CAT_TOOL) || security_level != AIRLOCK_SECURITY_NONE || !panel_open || QDELETED(plasteel))
 				return ATTACK_CHAIN_PROCEED
 			if(!plasteel.use(2))
 				to_chat(user, span_warning("At some point during construction you lost some plasteel. Make sure you have two plasteel sheets before trying again."))
@@ -1089,7 +1090,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(user.a_intent == INTENT_HARM)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	CALCULATE_SKILL_MOD(user, LOCKPICK_SPEED_MOD, lockpick_mod)
+	if(!I.use_tool(src, user, 1 SECONDS * lockpick_mod, volume = I.tool_volume))
 		return
 	panel_open = !panel_open
 	to_chat(user, span_notice("You [panel_open ? "open":"close"] [src]'s maintenance panel."))
@@ -1103,9 +1105,10 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 	if(panel_open && security_level == AIRLOCK_SECURITY_PLASTEEL_I_S)
 		to_chat(user, span_notice("You start removing the inner layer of shielding..."))
-		if(I.use_tool(src, user, 40, volume = I.tool_volume))
+		if(I.use_tool(src, user, 4 SECONDS * building_mod, volume = I.tool_volume))
 			if(!panel_open || security_level != AIRLOCK_SECURITY_PLASTEEL_I_S)
 				return
 			user.visible_message(
@@ -1119,7 +1122,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			update_icon()
 	else if(panel_open && security_level == AIRLOCK_SECURITY_PLASTEEL_O_S)
 		to_chat(user, span_notice("You start removing outer layer of shielding..."))
-		if(I.use_tool(src, user, 40, volume = I.tool_volume))
+		if(I.use_tool(src, user, 4 SECONDS * building_mod, volume = I.tool_volume))
 			if(!panel_open || security_level != AIRLOCK_SECURITY_PLASTEEL_O_S)
 				return
 			user.visible_message(
@@ -1148,7 +1151,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		if(arePowerSystemsOn() && shock(user, 60)) // Protective grille of wiring is electrified
 			return
 		to_chat(user, span_notice("You start cutting through the outer grille."))
-		if(I.use_tool(src, user, 10, volume = I.tool_volume))
+		CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
+		if(I.use_tool(src, user, 1 SECONDS * building_mod, volume = I.tool_volume))
 			if(!panel_open || security_level != AIRLOCK_SECURITY_PLASTEEL)
 				return
 			user.visible_message(
@@ -1178,7 +1182,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		return
 	if(isAllPowerLoss())
 		to_chat(user, span_notice("You start wrenching bolt reducer."))
-		if(I.use_tool(src, user, 300, volume = I.tool_volume))
+		CALCULATE_SKILL_MOD(user, LOCKPICK_SPEED_MOD, lockpick_mod)
+		if(I.use_tool(src, user, 30 SECONDS * lockpick_mod, volume = I.tool_volume))
 			user.visible_message(
 				span_notice("[user] raise \the [src]'s bolt manually."),
 				span_notice("You raise \the [src]'s bolt manually.")
@@ -1192,11 +1197,12 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
+	CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
 	if(panel_open) // panel should be open before we try to slice out any shielding.
 		switch(security_level)
 			if(AIRLOCK_SECURITY_METAL)
 				to_chat(user, span_notice("You begin cutting the panel's shielding..."))
-				if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
+				if(!I.use_tool(src, user, 4 SECONDS * building_mod, volume = I.tool_volume))
 					return
 				visible_message(
 					span_notice("[user] cuts through \the [src]'s shielding."),
@@ -1207,7 +1213,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 				spawn_atom_to_turf(/obj/item/stack/sheet/metal, user.loc, 2)
 			if(AIRLOCK_SECURITY_PLASTEEL_O)
 				to_chat(user, span_notice("You begin cutting the outer layer of shielding..."))
-				if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
+				if(!I.use_tool(src, user, 4 SECONDS * building_mod, volume = I.tool_volume))
 					return
 				visible_message(
 					span_notice("[user] cuts through \the [src]'s shielding."),
@@ -1217,7 +1223,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 				security_level = AIRLOCK_SECURITY_PLASTEEL_O_S
 			if(AIRLOCK_SECURITY_PLASTEEL_I)
 				to_chat(user, span_notice("You begin cutting the inner layer of shielding..."))
-				if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
+				if(!I.use_tool(src, user, 4 SECONDS * building_mod, volume = I.tool_volume))
 					return
 				user.visible_message(
 					span_notice("[user] cuts through \the [src]'s shielding."),
@@ -1231,7 +1237,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 				span_notice("You begin [welded ? "unwelding":"welding"] the airlock..."), \
 				span_italics("You hear welding."))
 
-			if(I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(weld_checks), I, user)))
+			if(I.use_tool(src, user, 4 SECONDS * building_mod, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(weld_checks), I, user)))
 				if(!density && !welded)
 					return
 				welded = !welded
@@ -1242,7 +1248,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			user.visible_message(span_notice("[user] is welding the airlock."), \
 				span_notice("You begin repairing the airlock..."), \
 				span_italics("You hear welding."))
-			if(I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(weld_checks), I, user)))
+			if(I.use_tool(src, user, 4 SECONDS * building_mod, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(weld_checks), I, user)))
 				update_integrity(max_integrity)
 				stat &= ~BROKEN
 				user.visible_message(span_notice("[user.name] has repaired [src]."), \
@@ -1271,7 +1277,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			"[user] removes the electronics from the airlock assembly.", \
 			span_notice("You start to remove electronics from the airlock assembly...")
 		)
-		if(I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
+		CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
+		if(I.use_tool(src, user, 4 SECONDS * building_mod, volume = I.tool_volume))
 			deconstruct(TRUE, user)
 		return
 
@@ -1294,19 +1301,20 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(!density)//already open
 		return
 
+	CALCULATE_SKILL_MOD(user, LOCKPICK_SPEED_MOD, lockpick_mod)
 	if(istype(I, /obj/item/twohanded/fireaxe)) //let's make this more specific //FUCK YOU
 		var/obj/item/twohanded/fireaxe/F = I
 		if(!F.wielded)
 			to_chat(user, span_warning("You need to be wielding the fire axe to do that!"))
 			return
 		playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE) //is it aliens or just the CE being a dick?
-		if(do_after(user, 5 SECONDS, src, max_interact_count = 1, category = DA_CAT_TOOL) && !open(TRUE) && density)
+		if(do_after(user, 5 SECONDS * lockpick_mod, src, max_interact_count = 1, category = DA_CAT_TOOL) && !open(TRUE) && density)
 			to_chat(user, span_warning("Despite your attempts, [src] refuses to open."))
 		return
 
 	if(ispowertool(I))
 		playsound(src, 'sound/machines/airlock_force_open.ogg', 100, TRUE) //scary
-		if(do_after(user, 4 SECONDS, src, max_interact_count = 1, category = DA_CAT_TOOL) && !open(TRUE) && density) // faster because of ITS A MECH
+		if(do_after(user, 4 SECONDS * lockpick_mod, src, max_interact_count = 1, category = DA_CAT_TOOL) && !open(TRUE) && density) // faster because of ITS A MECH
 			to_chat(user, span_warning("Despite your attempts, [src] refuses to open."))
 		return
 
@@ -1319,7 +1327,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		return
 
 	playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE) //is it aliens or just the CE being a dick?
-	if(do_after(user, 5 SECONDS, src, max_interact_count = 1, category = DA_CAT_TOOL) && !open(TRUE) && density)
+	if(do_after(user, 5 SECONDS * lockpick_mod, src, max_interact_count = 1, category = DA_CAT_TOOL) && !open(TRUE) && density)
 		to_chat(user, span_warning("Despite your attempts, [src] refuses to open."))
 
 /obj/machinery/door/airlock/open(forced = 0)
@@ -1692,19 +1700,20 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
 /obj/machinery/door/airlock/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
 	. = ..()
-	if(our_rcd.checkResource(20, user))
-		to_chat(user, "Deconstructing airlock...")
+	if(our_rcd.checkResource(RCD_COST_AIRLOCK * 2, user))
+		to_chat(user, "Деконструкция шлюза...")
 		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
-		if(do_after(user, 5 SECONDS * our_rcd.toolspeed, src, category = DA_CAT_TOOL))
-			if(!our_rcd.useResource(20, user))
+		CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
+		if(do_after(user, 5 SECONDS * our_rcd.toolspeed * building_mod, src, category = DA_CAT_TOOL))
+			if(!our_rcd.useResource(RCD_COST_AIRLOCK * 2, user))
 				return RCD_ACT_FAILED
 			playsound(get_turf(our_rcd), our_rcd.usesound, 50, TRUE)
 			add_attack_logs(user, src, "Deconstructed airlock with RCD")
 			qdel(src)
 			return RCD_ACT_SUCCESSFULL
-		to_chat(user, span_warning("ERROR! Deconstruction interrupted!"))
+		to_chat(user, span_warning("ОШИБКА! Деконструкция прервана!"))
 		return RCD_ACT_FAILED
-	to_chat(user, span_warning("ERROR! Not enough matter in unit to deconstruct this airlock!"))
+	to_chat(user, span_warning("ОШИБКА! Недостаточно материи для деконструкции шлюза!"))
 	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 	return RCD_ACT_FAILED
 

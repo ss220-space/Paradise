@@ -101,7 +101,7 @@
 	loot = list(/obj/effect/decal/cleanable/robot_debris, /obj/item/stack/ore/bluespace_crystal)
 	del_on_death = 1
 	deathmessage = "explodes with a sharp pop!"
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_color = LIGHT_COLOR_CYAN
 	light_range = 3
 	light_on = FALSE
@@ -127,11 +127,11 @@
 	to_chat(src, "2. Ensure that the station is fit for invasion at a later date, do not perform actions that would render it dangerous or inhospitable.")
 	to_chat(src, "3. Biological and sentient resources will be harvested at a later date, do not harm them.")
 
-/mob/living/simple_animal/hostile/swarmer/New()
-	..()
+/mob/living/simple_animal/hostile/swarmer/Initialize(mapload)
+	. = ..()
 	add_language(LANGUAGE_HIVE_SWARMER, 1)
-	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
-		diag_hud.add_atom_to_hud(src)
+	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
+	diag_hud.add_atom_to_hud(src)
 	updatename()
 	ADD_TRAIT(src, TRAIT_WET_IMMUNITY, INNATE_TRAIT)
 
@@ -276,14 +276,14 @@
 	return TRUE
 
 /obj/machinery/door/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	var/isonshuttle = istype(get_area(src), /area/shuttle)
+	var/isonshuttle = is_area_shuttle(get_area(src))
 	for(var/turf/T in range(1, src))
 		var/area/A = get_area(T)
-		if(isspaceturf(T) || (!isonshuttle && (istype(A, /area/shuttle) || isspacearea(A))) || (isonshuttle && !istype(A, /area/shuttle)))
+		if(isspaceturf(T) || (!isonshuttle && (is_area_shuttle(A) || isspacearea(A))) || (isonshuttle && !is_area_shuttle(A)))
 			to_chat(S, span_warning("Destroying this object has the potential to cause a hull breach. Aborting."))
 			S.GiveTarget(null)
 			return FALSE
-		else if(istype(A, /area/engineering/supermatter))
+		else if(istype(A, /area/station/engineering/supermatter/engine))
 			to_chat(S, span_warning("Disrupting the containment of a supermatter crystal would not be to our benefit. Aborting."))
 			S.GiveTarget(null)
 			return FALSE
@@ -391,42 +391,42 @@
 	return FALSE
 
 /turf/simulated/wall/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	var/isonshuttle = istype(loc, /area/shuttle)
+	var/isonshuttle = is_area_shuttle(loc)
 	for(var/turf/T in range(1, src))
 		var/area/A = get_area(T)
-		if(isspaceturf(T) || (!isonshuttle && (istype(A, /area/shuttle) || isspacearea(A))) || (isonshuttle && !istype(A, /area/shuttle)))
+		if(isspaceturf(T) || (!isonshuttle && (is_area_shuttle(A) || isspacearea(A))) || (isonshuttle && !is_area_shuttle(A)))
 			to_chat(S, span_warning("Destroying this object has the potential to cause a hull breach. Aborting."))
 			S.GiveTarget(null)
 			return TRUE
-		else if(istype(A, /area/engineering/supermatter))
+		else if(istype(A, /area/station/engineering/supermatter/engine))
 			to_chat(S, span_warning("Disrupting the containment of a supermatter crystal would not be to our benefit. Aborting."))
 			S.GiveTarget(null)
 			return TRUE
 	return ..()
 
 /obj/structure/window/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	var/isonshuttle = istype(get_area(src), /area/shuttle)
+	var/isonshuttle = is_area_shuttle(get_area(src))
 	for(var/turf/T in range(1, src))
 		var/area/A = get_area(T)
-		if(isspaceturf(T) || (!isonshuttle && (istype(A, /area/shuttle) || isspacearea(A))) || (isonshuttle && !istype(A, /area/shuttle)))
+		if(isspaceturf(T) || (!isonshuttle && (is_area_shuttle(A) || isspacearea(A))) || (isonshuttle && !is_area_shuttle(A)))
 			to_chat(S, span_warning("Destroying this object has the potential to cause a hull breach. Aborting."))
 			S.GiveTarget(null)
 			return TRUE
-		else if(istype(A, /area/engineering/supermatter))
+		else if(istype(A, /area/station/engineering/supermatter/engine))
 			to_chat(S, span_warning("Disrupting the containment of a supermatter crystal would not be to our benefit. Aborting."))
 			S.GiveTarget(null)
 			return TRUE
 	return ..()
 
 /obj/structure/holosign/barrier/atmos/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	var/isonshuttle = istype(get_area(src), /area/shuttle)
+	var/isonshuttle = is_area_shuttle(get_area(src))
 	for(var/turf/T in range(1, src))
 		var/area/A = get_area(T)
-		if(isspaceturf(T) || (!isonshuttle && (istype(A, /area/shuttle) || isspacearea(A))) || (isonshuttle && !istype(A, /area/shuttle)))
+		if(isspaceturf(T) || (!isonshuttle && (is_area_shuttle(A) || isspacearea(A))) || (isonshuttle && !is_area_shuttle(A)))
 			to_chat(S, span_warning("Destroying this object has the potential to cause a hull breach. Aborting."))
 			S.GiveTarget(null)
 			return TRUE
-		else if(istype(A, /area/engineering/supermatter))
+		else if(istype(A, /area/station/engineering/supermatter/engine))
 			to_chat(S, span_warning("Disrupting the containment of a supermatter crystal would not be to our benefit. Aborting."))
 			S.GiveTarget(null)
 			return TRUE

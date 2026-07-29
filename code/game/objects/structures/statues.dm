@@ -1,4 +1,5 @@
 /obj/structure/statue
+	abstract_type = /obj/structure/statue
 	name = "statue"
 	desc = "Placeholder. Yell at Firecage if you SOMEHOW see this."
 	icon = 'icons/obj/statue.dmi'
@@ -6,7 +7,7 @@
 	density = TRUE
 	max_integrity = 100
 	cares_about_temperature = TRUE
-	abstract_type = /obj/structure/statue
+	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 	var/oreAmount = 5
 	var/material_drop_type = /obj/item/stack/sheet/metal
 
@@ -247,6 +248,22 @@
 	name = "statue of a security cyborg"
 	icon_state = "secborg"
 
+/obj/structure/statue/silver/secborg/piano
+	name = "piano robot"
+	desc = "Статуя робота во фраке сидящего за пианино в открытом космосе. Судя по всему он здесь уже давно. И у него отличный металлический блестящий зад."
+	icon = 'icons/mob/robots.dmi'
+	icon_state = "Robot-MAN"
+
+/obj/structure/statue/silver/secborg/piano/get_ru_names()
+	return alist(
+		NOMINATIVE = "робот-пианист в глубоком космосе",
+		GENITIVE = "робота-пианиста в глубоком космосе",
+		DATIVE = "роботу-пианисту в глубоком космосе",
+		ACCUSATIVE = "робота-пианиста в глубоком космосе",
+		INSTRUMENTAL = "роботом-пианистом в глубоком космосе",
+		PREPOSITIONAL = "роботе-пианисте в глубоком космосе",
+	)
+
 /obj/structure/statue/silver/medborg
 	name = "statue of a medical cyborg"
 	icon_state = "medborg"
@@ -472,6 +489,17 @@
 	anchored = TRUE
 	bound_width = 64
 	layer = EDGED_TURF_LAYER
+
+///////////Elder Atmosian///////////////////////////////////////////
+
+/obj/structure/statue/elder_atmosian
+	name = "Elder Atmosian"
+	desc = "A statue of an Elder Atmosian, capable of bending the laws of thermodynamics to their will."
+	icon_state = "eng"
+	//custom_materials = list(/datum/material/iron = SHEET_MATERIAL_AMOUNT * 30, /datum/material/metalhydrogen = SHEET_MATERIAL_AMOUNT * 20, /datum/material/zaukerite = SHEET_MATERIAL_AMOUNT * 15)
+	max_integrity = 1000
+	//impressiveness = 100
+	//uncarveable = TRUE
 
 /obj/structure/statue/unknown
 	name = "Unknown hero"

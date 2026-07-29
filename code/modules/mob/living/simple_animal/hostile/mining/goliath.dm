@@ -43,7 +43,7 @@
 	COOLDOWN_DECLARE(post_charge_delay)
 
 /mob/living/simple_animal/hostile/asteroid/goliath/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "голиаф",
 		GENITIVE = "голиафа",
 		DATIVE = "голиафу",
@@ -218,7 +218,7 @@
 	robust_searching = TRUE
 
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "голиаф",
 		GENITIVE = "голиафа",
 		DATIVE = "голиафу",
@@ -248,14 +248,13 @@
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/goliath = 2, /obj/item/stack/sheet/animalhide/goliath_hide = 2, /obj/item/stack/sheet/bone = 2)
 	crusher_drop_mod = 30
 	wander = FALSE
-	var/list/cached_tentacle_turfs
-	var/turf/last_location
-	var/tentacle_recheck_cooldown = 100
 	reflect_chance = 50
 	bonus_tame_chance = 5
+	var/list/cached_tentacle_turfs
+	var/in_agro = FALSE
 
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "древний голиаф",
 		GENITIVE = "древнего голиафа",
 		DATIVE = "древнему голиафу",
@@ -264,23 +263,41 @@
 		PREPOSITIONAL = "древнем голиафе",
 	)
 
-/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient/Life()
+/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient/Initialize(mapload)
 	. = ..()
-	if(!.) // dead
+	find_tentacle_turfs()
+
+/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient/handle_automated_action()
+	. = ..()
+
+	if(AIStatus == AI_OFF || QDELETED(src))
+		return .
+
+	if(in_agro && isturf(loc))
+		for(var/turf in cached_tentacle_turfs)
+			if(!prob(10))
+				continue
+			new /obj/effect/temp_visual/goliath_tentacle(turf, src)
+
+/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient/Aggro()
+	in_agro = TRUE
+	return ..()
+
+/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient/LoseAggro()
+	in_agro = FALSE
+	return ..()
+
+/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
+	. = ..()
+	LAZYCLEARLIST(cached_tentacle_turfs)
+	find_tentacle_turfs()
+
+/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient/proc/find_tentacle_turfs()
+	if(!loc)
 		return
-	if(isturf(loc))
-		if(!LAZYLEN(cached_tentacle_turfs) || loc != last_location || tentacle_recheck_cooldown <= world.time)
-			LAZYCLEARLIST(cached_tentacle_turfs)
-			last_location = loc
-			tentacle_recheck_cooldown = world.time + initial(tentacle_recheck_cooldown)
-			for(var/turf/T as anything in RECT_TURFS(4, 4, loc))
-				LAZYADD(cached_tentacle_turfs, T)
-		for(var/t in cached_tentacle_turfs)
-			if(isfloorturf(t))
-				if(prob(10))
-					new /obj/effect/temp_visual/goliath_tentacle(t, src)
-			else
-				cached_tentacle_turfs -= t
+	LAZYINITLIST(cached_tentacle_turfs)
+	for(var/turf/simulated/floor/turf in RECT_TURFS(4, 4, loc))
+		cached_tentacle_turfs |= turf
 
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/tendril
 	fromtendril = TRUE
@@ -294,7 +311,7 @@
 	var/mob/living/spawner
 
 /obj/effect/temp_visual/goliath_tentacle/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "щупальце голиафа",
 		GENITIVE = "щупальца голиафа",
 		DATIVE = "щупальцу голиафа",

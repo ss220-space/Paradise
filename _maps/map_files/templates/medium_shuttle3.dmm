@@ -7,73 +7,73 @@
 	dir = 1
 	},
 /turf/simulated/floor/shuttle/plating,
-/area/ruin/powered/shuttle)
+/area/ruin/powered/shuttle_ruin)
 "d" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 1
 	},
 /turf/simulated/floor/shuttle/plating,
-/area/ruin/powered/shuttle)
+/area/ruin/powered/shuttle_ruin)
 "h" = (
 /turf/simulated/wall/shuttle,
-/area/ruin/powered/shuttle)
+/area/ruin/powered/shuttle_ruin)
 "j" = (
 /obj/machinery/door/airlock/external,
 /turf/simulated/floor/plating,
-/area/ruin/powered/shuttle)
+/area/ruin/powered/shuttle_ruin)
 "k" = (
 /obj/machinery/power/smes/magical,
 /turf/simulated/floor/plasteel,
-/area/ruin/powered/shuttle)
+/area/ruin/powered/shuttle_ruin)
 "l" = (
 /turf/simulated/floor/plasteel,
-/area/ruin/powered/shuttle)
+/area/ruin/powered/shuttle_ruin)
 "m" = (
 /turf/simulated/floor/plating,
-/area/ruin/powered/shuttle)
+/area/ruin/powered/shuttle_ruin)
 "n" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8
 	},
 /turf/simulated/floor/shuttle/plating,
-/area/ruin/powered/shuttle)
+/area/ruin/powered/shuttle_ruin)
 "o" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 8
 	},
 /turf/simulated/floor/shuttle/plating,
-/area/ruin/powered/shuttle)
+/area/ruin/powered/shuttle_ruin)
 "p" = (
 /obj/machinery/door/airlock/public/glass,
 /turf/simulated/floor/plasteel,
-/area/ruin/powered/shuttle)
+/area/ruin/powered/shuttle_ruin)
 "q" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4
 	},
 /turf/simulated/floor/shuttle/plating,
-/area/ruin/powered/shuttle)
+/area/ruin/powered/shuttle_ruin)
 "r" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4
 	},
 /turf/simulated/floor/shuttle/plating,
-/area/ruin/powered/shuttle)
+/area/ruin/powered/shuttle_ruin)
 "t" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/ruin/powered/shuttle)
+/area/ruin/powered/shuttle_ruin)
 "v" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteyellowfull"
 	},
-/area/ruin/powered/shuttle)
+/area/ruin/powered/shuttle_ruin)
 "w" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteyellowfull"
 	},
-/area/ruin/powered/shuttle)
+/area/ruin/powered/shuttle_ruin)
 "x" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -81,42 +81,42 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteyellowfull"
 	},
-/area/ruin/powered/shuttle)
+/area/ruin/powered/shuttle_ruin)
 "z" = (
 /obj/machinery/sleeper,
 /turf/simulated/floor/plasteel{
 	icon_state = "bluefull"
 	},
-/area/ruin/powered/shuttle)
+/area/ruin/powered/shuttle_ruin)
 "A" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/powered/shuttle)
+/area/ruin/powered/shuttle_ruin)
 "C" = (
 /obj/machinery/door/airlock/public/glass,
 /turf/simulated/floor/plating,
-/area/ruin/powered/shuttle)
+/area/ruin/powered/shuttle_ruin)
 "D" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "bluefull"
 	},
-/area/ruin/powered/shuttle)
+/area/ruin/powered/shuttle_ruin)
 "E" = (
 /obj/structure/table,
 /obj/item/storage/firstaid,
 /turf/simulated/floor/plasteel{
 	icon_state = "bluefull"
 	},
-/area/ruin/powered/shuttle)
+/area/ruin/powered/shuttle_ruin)
 "F" = (
 /obj/structure/shuttle/engine/heater,
 /turf/simulated/floor/shuttle/plating,
-/area/ruin/powered/shuttle)
+/area/ruin/powered/shuttle_ruin)
 "G" = (
 /obj/structure/shuttle/engine/propulsion,
 /turf/simulated/floor/shuttle/plating,
-/area/ruin/powered/shuttle)
+/area/ruin/powered/shuttle_ruin)
 
 (1,1,1) = {"
 a

@@ -10,11 +10,9 @@
 SUBSYSTEM_DEF(tgui)
 	name = "TGUI"
 	wait = 9
-	flags = SS_NO_INIT
+	ss_flags = SS_NO_INIT
 	priority = FIRE_PRIORITY_TGUI
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
-	offline_implications = "All TGUIs will no longer process. Shuttle call recommended."
-	ss_id = "tgui"
 
 	/// A list of UIs scheduled to process
 	var/list/current_run = list()
@@ -367,3 +365,23 @@ SUBSYSTEM_DEF(tgui)
 		return
 
 	basehtml = replacetext(basehtml, "\[tgui:storagecdn\]", storage_iframe)
+
+/**
+ * public
+ *
+ * Resets position of all UIs to 0, 0.
+ *
+ * required user mob The mob who opened/is using the UI.
+ * optional src_object datum If provided, only close UIs belonging this src_object.
+ *
+ * return int The number of UIs reset.
+ */
+/datum/controller/subsystem/tgui/proc/reset_ui_position(mob/user, datum/src_object)
+	var/count = 0
+	if(length(user?.tgui_open_uis) == 0)
+		return count
+	for(var/datum/tgui/ui in user.tgui_open_uis)
+		if(isnull(src_object) || ui.src_object == src_object)
+			ui.reset_ui_position()
+			count++
+	return count

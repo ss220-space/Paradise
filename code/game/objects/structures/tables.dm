@@ -21,13 +21,13 @@
 	layer = TABLE_LAYER
 	pass_flags_self = PASSTABLE|LETPASSTHROW
 	can_astar_pass = CANASTARPASS_ALWAYS_PROC
-	climbable = TRUE
 	max_integrity = 100
 	integrity_failure = 30
 	smooth = SMOOTH_BITMASK
 	smoothing_groups = SMOOTH_GROUP_TABLES
 	canSmoothWith = SMOOTH_GROUP_TABLES
 	creates_cover = TRUE
+	var/static/list/give_turf_traits
 	var/frame = /obj/structure/table_frame
 	var/framestack = /obj/item/stack/rods
 	var/buildstack = /obj/item/stack/sheet/metal
@@ -39,6 +39,10 @@
 	var/flipped = FALSE
 	/// Can this table be flipped?
 	var/can_be_flipped = TRUE
+
+/obj/structure/table/ComponentInitialize()
+	. = ..()
+	make_climbable()
 
 /obj/structure/table/Initialize(mapload)
 	. = ..()
@@ -93,9 +97,11 @@
 	new /obj/structure/table/reinforced/brass(loc)
 	qdel(src)
 
-/obj/structure/table/do_climb(mob/living/user)
-	. = ..()
-	item_placed(user)
+///Adds the element used to make the object climbable, and also the one that shift the mob buckled to it up.
+/obj/structure/table/proc/make_climbable()
+	AddElement(/datum/element/climb_walkable)
+	AddElement(/datum/element/climbable)
+	AddElement(/datum/element/elevation, pixel_shift = 12)
 
 /obj/structure/table/attack_hand(mob/living/user)
 	..()
@@ -156,7 +162,7 @@
 		return TRUE
 	return FALSE
 
-/obj/structure/table/proc/on_exit(datum/source, atom/movable/leaving, atom/newLoc)
+/obj/structure/table/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER
 
 	if(leaving.movement_type & PHASING)
@@ -171,7 +177,7 @@
 	if(checkpass(leaving, PASSTABLE) || ((pass_flags_self & LETPASSTHROW) && leaving.throwing))
 		return
 
-	if(density && dir == get_dir(leaving, newLoc))
+	if(density && dir == direction)
 		leaving.Bump(src)
 		return COMPONENT_ATOM_BLOCK_EXIT
 
@@ -355,12 +361,16 @@
 			return
 
 		user.visible_message(span_warning("[DECLENT_RU_CAP(user, NOMINATIVE)] переворачивает [declent_ru(ACCUSATIVE)]!"))
-
-		if(climbable)
+		if(HAS_TRAIT(src, TRAIT_CLIMBABLE))
 			structure_shaken()
+		RemoveElement(/datum/element/climb_walkable)
+		RemoveElement(/datum/element/climbable)
+		RemoveElement(/datum/element/elevation, pixel_shift = 12)
 	else
 		if(!unflip())
 			to_chat(user, span_notice("Никак не поддаётся."))
+			return
+		make_climbable()
 
 /obj/structure/table/proc/flip(direction, throw_around = TRUE)
 	if(flipped)
@@ -375,7 +385,6 @@
 			if(thing.anchored)
 				continue
 			INVOKE_ASYNC(thing, TYPE_PROC_REF(/atom/movable, throw_at), pick(targets), 1, 1)
-
 	dir = direction
 	if(dir != NORTH)
 		layer = 5
@@ -432,7 +441,7 @@
 /obj/structure/table/proc/update_flipped_turf()
 	var/static/list/give_turf_traits
 	if(!give_turf_traits)
-		give_turf_traits = string_list(list(TRAIT_TURF_IGNORE_SLOWDOWN, TRAIT_TURF_IGNORE_SLIPPERY))
+		give_turf_traits = string_list(list(TRAIT_TURF_IGNORE_SLOWDOWN, TRAIT_TURF_IGNORE_SLIPPERY, TRAIT_IMMERSE_STOPPED))
 	if(flipped)
 		RemoveElement(/datum/element/give_turf_traits, give_turf_traits)
 	else
@@ -491,7 +500,7 @@
 		return
 
 	// It won't break with neative gravity.
-	if(M.get_gravity() > NO_GRAVITY && M.mob_size > MOB_SIZE_SMALL)
+	if(M.has_gravity() > NO_GRAVITY && M.mob_size > MOB_SIZE_SMALL)
 		table_shatter(M)
 
 /obj/structure/table/glass/flip(direction, throw_around = TRUE)
@@ -559,7 +568,7 @@
 	resistance_flags = FLAMMABLE
 
 /obj/structure/table/wood/add_debris_element()
-	AddElement(/datum/element/debris, DEBRIS_WOOD, -40, 5)
+	generate_debris_handler(DEBRIS_WOOD, -40, 5)
 
 /obj/structure/table/wood/narsie_act(total_override = TRUE)
 	if(!total_override)

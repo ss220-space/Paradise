@@ -101,7 +101,7 @@
 		icon_state = "[base_icon_state][rand(1,3)]"
 	else
 		//if on the floor, glowshroom on-floor sprite
-		icon_state = "[base_icon_state]f"
+		icon_state = base_icon_state
 
 	addtimer(CALLBACK(src, PROC_REF(Spread)), SPREAD_DELAY, TIMER_UNIQUE|TIMER_NO_HASH_WAIT)
 	addtimer(CALLBACK(src, PROC_REF(Decay)), DECAY_DELAY, TIMER_UNIQUE|TIMER_NO_HASH_WAIT)	// Start decaying the plant

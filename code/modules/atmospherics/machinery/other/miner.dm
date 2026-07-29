@@ -209,7 +209,7 @@
 	name = "BZ Gas Miner"
 	overlay_color = COLOR_GAS_MINER_BZ
 
-/obj/machinery/atmospherics/miner/carbon_dioxide/add_gas_to(datum/gas_mixture/merger, count)
+/obj/machinery/atmospherics/miner/bz/add_gas_to(datum/gas_mixture/merger, count)
 	merger.set_bz(count)
 
 /obj/machinery/atmospherics/miner/agent_b

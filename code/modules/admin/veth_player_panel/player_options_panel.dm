@@ -72,6 +72,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(vuap_personal, R_ADMIN|R_MOD, "Open TGUI PP", mob/t
 					"deadchat" = check_mute(player.client.ckey, MUTE_DEADCHAT),
 					"tts" = check_mute(player.client.ckey, MUTE_TTS),
 					"emote" = check_mute(player.client.ckey, MUTE_EMOTE),
+					"webreq" = check_mute(player.client.ckey, MUTE_INTERNET_REQUEST),
 					"all" = check_mute(player.client.ckey, MUTE_ALL)
 				)
 		player_data["adminRights"] = rights2text(user.client.holder.rights)
@@ -323,6 +324,9 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(vuap_personal, R_ADMIN|R_MOD, "Open TGUI PP", mob/t
 		if("mirrorplayer")
 			usr.client.holder.Topic(null, list("cma_self" = selected_player.UID()))
 			return
+		if("editskills")
+			GLOB.skills_select_window.show(usr, selected_player, admin_interact = TRUE)
+			return
 		// Misc Section
 		if("forcesay")
 			usr.client.holder.Topic(null, list("forcespeech" = selected_player.UID()))
@@ -387,6 +391,10 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(vuap_personal, R_ADMIN|R_MOD, "Open TGUI PP", mob/t
 					return
 				if("emote")
 					cmd_admin_mute(selected_player, MUTE_EMOTE)
+					ui.send_update()
+					return
+				if("webreq")
+					cmd_admin_mute(selected_player, MUTE_INTERNET_REQUEST)
 					ui.send_update()
 					return
 				if("all")

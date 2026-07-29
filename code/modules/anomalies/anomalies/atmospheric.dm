@@ -101,7 +101,7 @@
 	collapse_gas_amount = 150
 
 /obj/effect/anomaly/atmospheric/tier1/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "малая атмосферная аномалия", \
 		GENITIVE = "малой атмосферной аномалии", \
 		DATIVE = "малой атмосферной аномалии", \
@@ -127,7 +127,7 @@
 	collapse_slimes_high = 2
 
 /obj/effect/anomaly/atmospheric/tier2/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "атмосферная аномалия", \
 		GENITIVE = "атмосферной аномалии", \
 		DATIVE = "атмосферной аномалии", \
@@ -152,7 +152,7 @@
 	collapse_slimes_high = 3
 
 /obj/effect/anomaly/atmospheric/tier3/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "большая атмосферная аномалия", \
 		GENITIVE = "большой атмосферной аномалии", \
 		DATIVE = "большой атмосферной аномалии", \
@@ -161,7 +161,7 @@
 		PREPOSITIONAL = "большой ​​атмосферной аномалии",
 	)
 
-/obj/effect/anomaly/atmospheric/tier3/New()
+/obj/effect/anomaly/atmospheric/tier3/Initialize(mapload, spawn_strength, spawn_stability)
 	. = ..()
 
 	for(var/mob/mob as anything in GLOB.player_list)
@@ -201,7 +201,7 @@
 	collapse_slimes_high = 6
 
 /obj/effect/anomaly/atmospheric/tier4/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "колосальная атмосферная аномалия", \
 		GENITIVE = "колоссальной атмосферной аномалии", \
 		DATIVE = "колоссальной атмосферной аномалии", \
@@ -219,7 +219,7 @@
 		to_chat(mob, span_danger("Вы были испепелены [declent_ru(INSTRUMENTAL)]!"))
 		mob.dust()
 
-/obj/effect/anomaly/atmospheric/tier4/New()
+/obj/effect/anomaly/atmospheric/tier4/Initialize(mapload, spawn_strength, spawn_stability)
 	. = ..()
 
 	for(var/mob/mob as anything in GLOB.player_list)

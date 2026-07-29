@@ -8,14 +8,14 @@
 	icon = 'icons/obj/circuits.dmi'
 	icon_state = "setup_large"
 
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_on = FALSE
 
 	var/stored_money = 0
 	var/locked = FALSE
 
 /obj/structure/money_bot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бот-банкомат",
 		GENITIVE = "бота-банкомата",
 		DATIVE = "боту-банкомату",
@@ -134,14 +134,14 @@
 
 	attached_bot = shell
 	total_money.set_output(attached_bot.stored_money)
-	RegisterSignal(shell, COMSIG_PARENT_ATTACKBY, PROC_REF(handle_money_insert))
+	RegisterSignal(shell, COMSIG_ATOM_ATTACKBY, PROC_REF(handle_money_insert))
 	RegisterSignal(shell, COMSIG_MONEYBOT_ADD_MONEY, PROC_REF(handle_money_update))
 	RegisterSignal(parent, COMSIG_CIRCUIT_SET_LOCKED, PROC_REF(on_set_locked))
 	attached_bot.locked = parent.locked
 
 /obj/item/circuit_component/money_bot/unregister_shell(atom/movable/shell)
 	UnregisterSignal(shell, list(
-		COMSIG_PARENT_ATTACKBY,
+		COMSIG_ATOM_ATTACKBY,
 		COMSIG_MONEYBOT_ADD_MONEY,
 	))
 	total_money.set_output(null)

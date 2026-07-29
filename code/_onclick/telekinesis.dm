@@ -67,7 +67,6 @@
 	w_class = WEIGHT_CLASS_GIGANTIC
 	layer = ABOVE_HUD_LAYER
 	plane = ABOVE_HUD_PLANE
-	blocks_emissive = FALSE
 
 	var/last_throw = 0
 	var/atom/movable/focus = null

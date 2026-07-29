@@ -6,7 +6,7 @@
 	if(!dname)
 		dname = M
 
-	return {"<tr><td><a href='byond://?src=[UID()];adminplayeropts=[M.UID()]'>[dname]</a><b>[caption]</b>[logout_status][istype(A, /area/security/permabrig) ? "<b><span style='color: red;'> (PERMA) </b></span>" : ""][M.stat == 2 ? " <b><span style='color: red;'>(DEAD)</span></b>" : ""]</td>
+	return {"<tr><td><a href='byond://?src=[UID()];adminplayeropts=[M.UID()]'>[dname]</a><b>[caption]</b>[logout_status][istype(A, /area/station/security/prison/perma) ? "<b><span style='color: red;'> (PERMA) </b></span>" : ""][M.stat == 2 ? " <b><span style='color: red;'>(DEAD)</span></b>" : ""]</td>
 		<td><a href='byond://?src=[usr.UID()];priv_msg=[M.client?.ckey]'>PM</a> [ADMIN_FLW(M, "FLW")] </td>[close ? "</tr>" : ""]"}
 
 /datum/admins/proc/check_antagonists()
@@ -94,7 +94,7 @@
 				else
 					dat += "<tr><td><i>Head not found!</i></td></tr>"
 			dat += "</table>"
-		var/list/blob_infected = SSticker?.mode?.blobs["infected"]
+		var/list/blob_infected = SSticker?.mode?.blobs[BLOB_GROUP_INFECTED]
 		if(blob_infected && length(blob_infected))
 			var/datum/game_mode/mode = SSticker.mode
 			dat += "<br><table cellspacing=5><tr><td><b>Blob</b></td><td></td><td></td></tr>"
@@ -109,7 +109,7 @@
 			dat += "<tr><td><a href='byond://?src=[UID()];toggle_blob_infinity_points=1'>Toggle blob infinity points</a> Now: [mode.is_blob_infinity_points? "ON" : "OFF"]<br></td></tr>"
 			dat += "</table>"
 			dat += "<br><table cellspacing=5><tr><td><b>Blobs</b></td><td></td></tr>"
-			for(var/datum/mind/blob in mode.blobs["infected"])
+			for(var/datum/mind/blob in mode.blobs[BLOB_GROUP_INFECTED])
 				var/mob/M = blob.current
 				if(M)
 					dat += "<tr><td>[ADMIN_PP(M,"[M.real_name]")][M.client ? "" : " <i>(ghost)</i>"][M.stat == 2 ? " <b><span style='color: red;'>(DEAD)</span></b>" : ""]</td>"
@@ -118,7 +118,7 @@
 					dat += "<tr><td><i>Blob not found!</i></td></tr>"
 			dat += "</table>"
 			dat += "<br><table cellspacing=5><tr><td><b>Offsprings</b></td><td></td></tr>"
-			for(var/datum/mind/blob in mode.blobs["offsprings"])
+			for(var/datum/mind/blob in mode.blobs[BLOB_GROUP_OFFSPRINGS])
 				var/mob/M = blob.current
 				if(M)
 					dat += "<tr><td>[ADMIN_PP(M,"[M.real_name]")][M.client ? "" : " <i>(ghost)</i>"][M.stat == 2 ? " <b><span style='color: red;'>(DEAD)</span></b>" : ""]</td>"
@@ -129,7 +129,7 @@
 			dat += "</table>"
 
 			dat += "<br><table cellspacing=5><tr><td><b>Minions</b></td><td></td></tr>"
-			for(var/datum/mind/blob in mode.blobs["minions"])
+			for(var/datum/mind/blob in mode.blobs[BLOB_GROUP_MINIONS])
 				var/mob/M = blob.current
 				if(M)
 					dat += "<tr><td>[ADMIN_PP(M,"[M.real_name]")][M.client ? "" : " <i>(ghost)</i>"][M.stat == 2 ? " <b><span style='color: red;'(DEAD)</span></b>" : ""]</td>"

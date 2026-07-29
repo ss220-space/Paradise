@@ -89,7 +89,7 @@
 
 	blobbernaut = new_naut
 	blobbernaut.link_to_factory(src)
-	RegisterSignal(new_naut, list(COMSIG_QDELETING, COMSIG_LIVING_DEATH), PROC_REF(on_blobbernaut_death))
+	RegisterSignals(new_naut, list(COMSIG_QDELETING, COMSIG_LIVING_DEATH), PROC_REF(on_blobbernaut_death))
 	update_blob()
 
 /// When our brave soldier dies, reset our max integrity

@@ -159,6 +159,9 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 /obj/effect/mob_spawn/proc/equip(mob/M, use_prefs = FALSE, _mob_name = FALSE, _mob_gender = FALSE, _mob_species = FALSE)
 	return
 
+/obj/effect/mob_spawn/proc/after_possess(mob/M)
+	return
+
 /obj/effect/mob_spawn/proc/create(mob/plr, flavour = TRUE, name, prefs = FALSE, _mob_name = FALSE, _mob_gender = FALSE, _mob_species = FALSE)
 	var/mob/living/mob = new mob_type(get_turf(src)) // Living mobs only
 	if(!random)
@@ -200,7 +203,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 		mob.possess_by_player(plr.ckey)
 		if(flavour)
 
-			to_chat(mob, chat_box_green(flavour_text))
+			to_chat(mob, custom_boxed_message("green_box", flavour_text))
 		var/datum/mind/MM = mob.mind
 
 		if(objectives)
@@ -211,6 +214,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 			mob.mind.assigned_role = assignedrole
 
 		mob.mind.offstation_role = offstation_role
+		after_possess(mob)
 		special(mob, name)
 		MM.name = mob.real_name
 		if(allow_tts_pick)
@@ -239,7 +243,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 	var/id_access_list = null	//Allows you to manually add access to an ID card.
 	assignedrole = "Ghost Role"
 
-	var/husk = null
+	var/husk = FALSE
 	//these vars are for lazy mappers to override parts of the outfit
 	//these cannot be null by default, or mappers cannot set them to null if they want nothing in that slot
 	var/uniform = -1
@@ -266,6 +270,9 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 	var/skin_tone
 
 	var/list/del_types = list(/obj/item/pda, /obj/item/radio/headset)
+	var/use_antag_skills = FALSE
+	var/skills_ref_job
+	var/alist/skills
 
 /obj/effect/mob_spawn/human/Initialize(mapload)
 	if(ispath(outfit))
@@ -419,6 +426,17 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 			W.assignment = id_job
 		W.registered_name = H.real_name
 		W.update_label()
+
+/obj/effect/mob_spawn/human/after_possess(mob/living/carbon/human/H)
+	if(skills_ref_job)
+		if(!use_antag_skills)
+			var/datum/job/current_job = SSjobs.GetJob(skills_ref_job)
+			current_job.apply_skills(H)
+		else
+			H.mind.recalculate_skills(ref_job = skills_ref_job, force_antag = TRUE)
+
+	for(var/skill, level in skills)
+		H.mind.set_skill_level(skill, level)
 
 /obj/effect/mob_spawn/human/special(mob/living/carbon/human/H)
 	if(!HAS_TRAIT(H, TRAIT_NO_DNA))
@@ -861,3 +879,41 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 	brute_damage = rand(150, 500)
 	burn_damage = rand(100, 300)
 	return ..()
+
+/obj/effect/mob_spawn/human/monkey
+	death = FALSE
+	random = TRUE
+	icon = 'icons/mob/monkey.dmi'
+	icon_state = "monkey1"
+	mob_species = /datum/species/monkey
+	mob_type = /mob/living/carbon/human/lesser/monkey
+
+/obj/effect/mob_spawn/human/monkey/pun
+	icon_state = "punpun1"
+	mob_type = /mob/living/carbon/human/lesser/monkey/punpun
+
+/obj/effect/mob_spawn/human/monkey/farwa
+	icon_state = "tajkey1"
+	mob_species = /datum/species/monkey/tajaran
+	mob_type = /mob/living/carbon/human/lesser/farwa
+
+/obj/effect/mob_spawn/human/monkey/farwa/wizard
+	random = FALSE
+	name = "wizard farwa"
+	mob_name = "dobby"
+	mob_gender = NEUTER
+
+/obj/effect/mob_spawn/human/monkey/wolpin
+	icon_state = "wolfling"
+	mob_species = /datum/species/monkey/vulpkanin
+	mob_type = /mob/living/carbon/human/lesser/wolpin
+
+/obj/effect/mob_spawn/human/monkey/neara
+	icon_state = "skrellkey1"
+	mob_species = /datum/species/monkey/skrell
+	mob_type = /mob/living/carbon/human/lesser/neara
+
+/obj/effect/mob_spawn/human/monkey/stok
+	icon_state = "stokkey1"
+	mob_species = /datum/species/monkey/unathi
+	mob_type = /mob/living/carbon/human/lesser/stok

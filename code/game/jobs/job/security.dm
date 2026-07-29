@@ -23,6 +23,15 @@
 	disabilities_allowed_slightly = 0
 	outfit = /datum/outfit/job/hos
 	min_age_type = JOB_MIN_AGE_COMMAND
+	skill_levels = list(
+		/datum/skill/general/mech_drive = SKILL_LEVEL_BASIC,
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/accuracy = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/combat/guns = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/combat/melee = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/combat/fists = SKILL_LEVEL_ADVANCED,
+		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
+	)
 
 /datum/outfit/job/hos
 	name = JOB_TITLE_RU_HOS
@@ -56,6 +65,7 @@
 	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/security
 
 /datum/job/security
+	abstract_type = /datum/job/security
 	department = STATION_DEPARTMENT_SECURITY
 	department_flag = JOBCAT_ENGSEC
 	is_security = 1
@@ -86,6 +96,17 @@
 	minimal_player_age = 21
 	exp_requirements = 2100
 	outfit = /datum/outfit/job/warden
+	skill_levels = list(
+		/datum/skill/general/mech_drive = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/accuracy = SKILL_LEVEL_ADVANCED,
+		/datum/skill/combat/guns = SKILL_LEVEL_ADVANCED,
+		/datum/skill/combat/melee = SKILL_LEVEL_ADVANCED,
+		/datum/skill/combat/fists = SKILL_LEVEL_ADVANCED,
+		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
+	)
 
 /datum/outfit/job/warden
 	name = JOB_TITLE_RU_WARDEN
@@ -131,6 +152,15 @@
 	)
 	blocked_race_for_job = list(SPECIES_VOX)
 	outfit = /datum/outfit/job/detective
+	skill_levels = list(
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/accuracy = SKILL_LEVEL_BASIC,
+		/datum/skill/combat/guns = SKILL_LEVEL_BASIC,
+		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/fists = SKILL_LEVEL_BEGINNER,
+	)
 
 /datum/outfit/job/detective
 	name = JOB_TITLE_RU_DETECTIVE
@@ -184,9 +214,29 @@
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
 	law_level = LAW_LEVEL_SEC
 	alt_titles = list(
-		ALT_JOB_TITLE_RU_PATROL_OFFICER,
+		ALT_JOB_TITLE_RU_PATROL_OFFICER, ALT_JOB_TITLE_RU_SECURITY_CADET,
 	)
 	outfit = /datum/outfit/job/officer
+	skill_levels = list(
+		/datum/skill/general/mech_drive = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/accuracy = SKILL_LEVEL_BASIC,
+		/datum/skill/combat/guns = SKILL_LEVEL_BASIC,
+		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
+		/datum/skill/combat/fists = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
+	)
+	alt_skill_levels = alist(
+		ALT_JOB_TITLE_RU_SECURITY_CADET = list(
+			/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+			/datum/skill/combat/accuracy = SKILL_LEVEL_BEGINNER,
+			/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
+			/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
+			/datum/skill/combat/fists = SKILL_LEVEL_BEGINNER,
+		),
+	)
 
 /datum/outfit/job/officer
 	name = JOB_TITLE_RU_OFFICER
@@ -237,6 +287,15 @@
 	blocked_race_for_job = list(SPECIES_VOX)
 	exp_type = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/brigdoc
+	skill_levels = list(
+		/datum/skill/general/carrying = SKILL_LEVEL_BASIC,
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+		/datum/skill/medical/surgery = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/chemistry = SKILL_LEVEL_BEGINNER,
+	)
 
 /datum/outfit/job/brigdoc
 	name = JOB_TITLE_RU_BRIGDOC
@@ -270,6 +329,17 @@
 	)
 	law_level = LAW_LEVEL_SEC
 	outfit = /datum/outfit/job/pilot
+	skill_levels = list(
+		/datum/skill/general/mech_drive = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/mod_use = SKILL_LEVEL_ADVANCED,
+		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/accuracy = SKILL_LEVEL_ADVANCED,
+		/datum/skill/combat/guns = SKILL_LEVEL_BASIC,
+		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/fists = SKILL_LEVEL_BEGINNER,
+		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
+	)
 
 /datum/outfit/job/pilot
 	name = JOB_TITLE_RU_PILOT

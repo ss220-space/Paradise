@@ -55,7 +55,7 @@
 
 /obj/machinery/door/poddoor/update_icon_state()
 	icon_state = density ? "closed" : "open"
-	SSdemo.mark_dirty(src)
+	//SSdemo.mark_dirty(src)
 
 /obj/machinery/door/poddoor/try_to_activate_door(mob/user)
 	return
@@ -65,11 +65,10 @@
 		return
 	if(!hasPower())
 		to_chat(user, span_notice("You start forcing [src] open..."))
-		if(do_after(user, 5 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL))
-			if(!hasPower())
-				open()
-			else
-				to_chat(user, span_warning("[src] resists your efforts to force it!"))
+		if(!hasPower())
+			open()
+		else
+			to_chat(user, span_warning("[src] resists your efforts to force it!"))
 	else
 		to_chat(user, span_warning("[src] resists your efforts to force it!"))
 

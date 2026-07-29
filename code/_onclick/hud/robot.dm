@@ -1,5 +1,6 @@
 /atom/movable/screen/robot
 	icon = 'icons/mob/screen_robot.dmi'
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/robot/module
 	name = "cyborg module"
@@ -199,6 +200,17 @@
 	using = new /atom/movable/screen/robot/state_laws(null, src)
 	using.screen_loc = ui_borg_lawmanager
 	static_inventory += using
+
+/datum/hud/robot/Destroy(force)
+	var/mob/living/silicon/robot/myrob = mymob
+	myrob.inv1 = null
+	myrob.hands = null
+	myrob.inv2 = null
+	myrob.inv3 = null
+	myrob.lamp_button = null
+	myrob.thruster_button = null
+
+	return ..()
 
 /datum/hud/proc/toggle_show_robot_modules()
 	if(!isrobot(mymob))

@@ -1,11 +1,13 @@
 /// The subsystem used to tick [/datum/ai_controllers] instances. Handling the re-checking of plans.
 SUBSYSTEM_DEF(ai_controllers)
 	name = "AI Controller Ticker"
-	flags = SS_POST_FIRE_TIMING|SS_BACKGROUND|SS_HIBERNATE
+	ss_flags = SS_POST_FIRE_TIMING|SS_BACKGROUND|SS_HIBERNATE
 	priority = FIRE_PRIORITY_NPC
-	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
-	init_order = INIT_ORDER_AI_CONTROLLERS
+	dependencies = list(
+		/datum/controller/subsystem/movement/ai_movement,
+	)
 	wait = 0.5 SECONDS //Plan every half second if required, not great not terrible.
+	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 
 	///List of all ai_subtree singletons, key is the typepath while assigned value is a newly created instance of the typepath. See setup_subtrees()
 	var/list/ai_subtrees = list()

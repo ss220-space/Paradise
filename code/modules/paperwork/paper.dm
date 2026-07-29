@@ -19,7 +19,6 @@
 	body_parts_covered = HEAD
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
-	blocks_emissive = FALSE
 	attack_verb = list("стукнул")
 	permeability_coefficient = 0.01
 	dog_fashion = /datum/dog_fashion/head
@@ -54,7 +53,7 @@
 	var/time = "00:00"
 
 /obj/item/paper/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бумага",
 		GENITIVE = "бумаги",
 		DATIVE = "бумаге",
@@ -869,7 +868,7 @@
 		GLOB.major_announcement.announce(
 			message = "[target.real_name] настоящим приказом был понижен до Гражданского. Немедленно обработайте этот запрос. Невыполнение этих распоряжений является основанием для расторжения контракта.",
 			new_title = ANNOUNCE_CCDEMOTE_RU,
-			new_sound = 'sound/AI/commandreport.ogg'
+			new_sound = SSstation.announcer.get_rand_report_sound(),
 		)
 		for(var/datum/data/record/R in sortRecord(GLOB.data_core.security))
 			if(R.fields["name"] == target.real_name)
@@ -881,7 +880,7 @@
 		GLOB.major_announcement.announce(
 			message = "[target.real_name] настоящим приказом был понижен до Гражданского. Немедленно обработайте этот запрос. Невыполнение этих распоряжений является основанием для расторжения контракта.",
 			new_title = ANNOUNCE_CCDEMOTE_RU,
-			new_sound = 'sound/AI/commandreport.ogg'
+			new_sound = SSstation.announcer.get_rand_report_sound(),
 		)
 		for(var/datum/data/record/R in sortRecord(GLOB.data_core.security))
 			if(R.fields["name"] == target.real_name)
@@ -941,6 +940,7 @@
 	var/from // = "Научная станция Nanotrasen &#34;Cyberiad&#34;"
 	var/notice = "Перед заполнением прочтите от начала до конца | Во всех PDA имеется ручка"
 	var/access = null //form visible only with appropriate access
+	var/syndicate = FALSE
 	paper_width = 600 //Width of the window that opens
 	paper_height = 700 //Height of the window that opens
 	var/is_header_needed = TRUE
@@ -1466,6 +1466,7 @@
 	access = ACCESS_SYNDICATE_COMMAND
 	confidential = TRUE
 	category = null
+	syndicate = TRUE
 	var/const/footer_to_taipan =   "<i><font face=\"Verdana\" color=black size = \"1\">\
 									<hr>\
 									*Несоблюдение и/или нарушение указаний, содержащихся в данном письме, карается смертью.\

@@ -1,9 +1,16 @@
 //todo: toothbrushes, and some sort of "toilet-filthinator" for the hos
 
+#define WASH_CHOICE "Помыть"
 #define STASH_CHOICE "Спрятать предмет"
-#define DISCONNECT_CHOICE "Отсоеденить"
+#define DISCONNECT_CHOICE "Отключить"
 #define CONNECT_CHOICE "Подключить"
-#define ROTATE_CHOICE "Крутить"
+#define ROTATE_CHOICE "Повернуть"
+
+#define SHIFTING_SINK 14
+#define SHIFTING_SINK_KITCHEN 16
+#define SHIFTING_SHOWER 16
+#define SHIFTING_TOILET 8
+
 
 /obj/structure/toilet
 	name = "toilet"
@@ -11,13 +18,14 @@
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "toilet00"
 	anchored = TRUE
+	dir = EAST
 	var/open = 0			//if the lid is up
 	var/cistern = 0			//if the cistern bit is open
 	var/w_items = 0			//the combined w_class of all the items in the cistern
 	var/mob/living/swirlie = null	//the mob being given a swirlie
 
 /obj/structure/toilet/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "унитаз",
 		GENITIVE = "унитаза",
 		DATIVE = "унитазу",
@@ -25,6 +33,8 @@
 		INSTRUMENTAL = "унитазом",
 		PREPOSITIONAL = "унитазе",
 	)
+
+MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet, SHIFTING_TOILET, -SHIFTING_TOILET, 0, 0)
 
 /obj/structure/toilet/Initialize(mapload)
 	. = ..()
@@ -70,18 +80,21 @@
 
 /obj/structure/toilet/update_icon_state()
 	icon_state = "toilet[open][cistern]"
+
 	if(!anchored)
 		pixel_x = 0
 		pixel_y = 0
-		layer = OBJ_LAYER
+		layer = initial(layer)
+		return
+
+	if(dir == NORTH || dir == SOUTH)
+		pixel_x = 0
+		pixel_y = (dir == NORTH) ? SHIFTING_TOILET : -SHIFTING_TOILET
+		layer = (dir == NORTH) ? OBJ_LAYER : FLY_LAYER
 	else
-		if(dir == SOUTH)
-			pixel_x = 0
-			pixel_y = 8
-		if(dir == NORTH)
-			pixel_x = 0
-			pixel_y = -8
-			layer = FLY_LAYER
+		pixel_x = 0
+		pixel_y = 0
+		layer = OBJ_LAYER
 
 /obj/structure/toilet/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
@@ -113,7 +126,7 @@
 		span_userdanger("[grabber] поднима[PLUR_ET_YUT(grabber)] вас над унитазом!"),
 	)
 	animate(victim, pixel_x = swirlie_x, pixel_y = swirlie_y, time = 0.8 SECONDS)
-	if(!do_after(grabber, 0.8 SECONDS, src, NONE) || grabber.pulling != victim)
+	if(!do_after(grabber, 0.8 SECONDS, src, NONE, max_interact_count = 1) || grabber.pulling != victim)
 		cancel_swirlie_act(victim, oldx, oldy, prev_angle)
 		return
 	// begin move down into toilet
@@ -122,7 +135,7 @@
 		span_userdanger("[grabber] начина[PLUR_ET_YUT(grabber)] окунать вашу голову в унитаз..."),
 	)
 	animate(victim, pixel_x = swirlie_x, pixel_y = swirlie_y_down, time = 1.2 SECONDS)
-	if(!do_after(grabber, 1.2 SECONDS, src, NONE) || grabber.pulling != victim)
+	if(!do_after(grabber, 1.2 SECONDS, src, NONE, max_interact_count = 1) || grabber.pulling != victim)
 		cancel_swirlie_act(victim, oldx, oldy, prev_angle)
 		return
 	// begin flushing water with victim
@@ -132,7 +145,7 @@
 		span_italics("Вы слышите звук смыва унитаза."),
 	)
 	playsound(loc, 'sound/items/toilet_flush.ogg', 80, TRUE)
-	if(!do_after(grabber, 1 SECONDS, src, NONE) || grabber.pulling != victim)
+	if(!do_after(grabber, 1 SECONDS, src, NONE, max_interact_count = 1) || grabber.pulling != victim)
 		cancel_swirlie_act(victim, oldx, oldy, prev_angle)
 		return
 	// success toilet swirlie
@@ -144,12 +157,26 @@
 /obj/structure/toilet/proc/cancel_swirlie_act(mob/living/victim, oldx, oldy, prev_angle)
 	animate(victim, pixel_x = oldx, pixel_y = oldy, time = 0.1 SECONDS)
 	victim.set_lying_angle(prev_angle)
+	victim.update_offsets()
+	if(victim.body_position == LYING_DOWN)
+		victim.on_lying_down()
+	else
+		victim.on_standing_up()
 	swirlie = null
 
 /obj/structure/toilet/proc/apply_swirlie_effect(mob/living/grabber, mob/living/victim)
-	if(!victim.internal)
-		victim.adjustOxyLoss(15)
 	victim.SetEyeBlurry(5 SECONDS)
+	if(victim.internal)
+		return
+
+	victim.adjustOxyLoss(15)
+	if(!victim.is_injectable(grabber) || victim.reagents.total_volume >= victim.reagents.maximum_volume)
+		return
+
+	var/datum/reagents/reagents = new()
+	reagents.add_reagent(/datum/reagent/fishwater/toiletwater, 5)
+	reagents.trans_to(victim, 5)
+	QDEL_NULL(reagents)
 
 /obj/structure/toilet/proc/do_smash_into_toilet(mob/living/grabber, mob/living/victim)
 	playsound(loc, 'sound/effects/bang.ogg', 25, TRUE)
@@ -163,7 +190,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(item, /obj/item/reagent_containers))
+	if(is_reagent_container(item))
 		add_fingerprint(user)
 		if(!open)
 			balloon_alert(user, "нужно открыть")
@@ -359,8 +386,32 @@
 			pixel_y = 32
 
 #define SHOWER_FREEZING "freezing"
+#define SHOWER_FREEZING_TEMP 100
 #define SHOWER_NORMAL "normal"
+#define SHOWER_NORMAL_TEMP 300
 #define SHOWER_BOILING "boiling"
+#define SHOWER_BOILING_TEMP 400
+/// The volume of its internal reagents the shower applies to everything it sprays.
+#define SHOWER_SPRAY_VOLUME 5
+/// How much the volume of the shower's spay reagents are amplified by when it sprays something.
+#define SHOWER_EXPOSURE_MULTIPLIER 2 // Showers effectively double exposed reagents
+/// How long we run in TIMED mode
+#define SHOWER_TIMED_LENGTH (15 SECONDS)
+
+/// Run the shower until we run out of reagents.
+#define SHOWER_MODE_UNTIL_EMPTY 0
+/// Run the shower for SHOWER_TIMED_LENGTH time, or until we run out of reagents.
+#define SHOWER_MODE_TIMED 1
+/// Run the shower forever, pausing when we run out of liquid, and then resuming later.
+#define SHOWER_MODE_FOREVER 2
+/// Number of modes to cycle through
+#define SHOWER_MODE_COUNT 3
+
+GLOBAL_ALIST_INIT(shower_mode_descriptions, alist(
+	SHOWER_MODE_UNTIL_EMPT = "run until empty",
+	SHOWER_MODE_TIMED = "run for 15 seconds or until empty",
+	SHOWER_MODE_FOREVER = "keep running forever and auto turn back on",
+))
 
 /obj/machinery/shower
 	name = "shower"
@@ -368,39 +419,76 @@
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "shower"
 	anchored = TRUE
+	dir = EAST
+	layer = OBJ_LAYER
 	use_power = NO_POWER_USE
-	///Is the shower on or off?
-	var/on = FALSE
-	///What temperature the shower reagents are set to.
+	/// Does the user want the shower on or off?
+	var/intended_on = FALSE
+	/// Is the shower actually spitting out water currently
+	var/actually_on = FALSE
+	/// What temperature the shower reagents are set to.
 	var/current_temperature = SHOWER_NORMAL
-	///What sound will be played on loop when the shower is on and pouring water.
+	/// What sound will be played on loop when the shower is on and pouring water.
 	var/datum/looping_sound/showering/soundloop
 	COOLDOWN_DECLARE(wash_cooldown)
+	/// What reagent should the shower be filled with when initially built.
+	var/reagent_id = /datum/reagent/water
+	/// How much reagent capacity should the shower begin with when built.
+	var/reagent_capacity = 200
+	/// How many units the shower refills every second.
+	var/refill_rate = 0.5
+	/// Does the shower have a water recycler to recollect its water supply?
+	var/has_water_reclaimer = TRUE
+	/// Which mode the shower is operating in.
+	var/mode = SHOWER_MODE_UNTIL_EMPTY
+	/// How far to shift the sprite when placing.
+	var/pixel_shift = SHIFTING_SHOWER
 
-/obj/machinery/shower/Initialize(mapload, newdir = SOUTH, building = FALSE)
+/obj/machinery/shower/Initialize(mapload, newdir)
 	. = ..()
-	soundloop = new(src, FALSE)
-	if(building)
+	if(newdir)
 		setDir(newdir)
-		pixel_x = 0
-		pixel_y = 0
-		switch(dir)
-			if(SOUTH)
-				pixel_y = 16
-			if(NORTH)
-				pixel_y = -5
-				layer = FLY_LAYER
+	soundloop = new(src, FALSE)
+	switch(dir)
+		if(NORTH)
+			pixel_x = 0
+			pixel_y = pixel_shift
+		if(SOUTH)
+			pixel_x = 0
+			pixel_y = -pixel_shift
+			layer = FLY_LAYER
+		if(EAST)
+			pixel_x = pixel_shift
+			pixel_y = 0
+		if(WEST)
+			pixel_x = -pixel_shift
+			pixel_y = 0
+	create_reagents(reagent_capacity)
+	if(src.has_water_reclaimer)
+		reagents.add_reagent(reagent_id, reagent_capacity)
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+		COMSIG_ATOM_EXITED = PROC_REF(on_exited),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/machinery/shower/Destroy()
 	QDEL_NULL(soundloop)
+	QDEL_NULL(reagents)
 	var/obj/effect/mist/mist = locate() in loc
 	if(!QDELETED(mist))
 		QDEL_IN(mist, 25 SECONDS)
 	return ..()
+
+/obj/machinery/shower/examine(mob/user)
+	. = ..()
+	. += span_notice("It looks like the thermostat has an adjustment screw.")
+	if(has_water_reclaimer)
+		. += span_notice("A water recycler is installed. It looks like you could pry it out.")
+	. += span_notice("The auto shut-off is programmed to [GLOB.shower_mode_descriptions[mode]].")
+	. += span_notice("[reagents.total_volume]/[reagents.maximum_volume] liquids remaining.")
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/shower, (16), (16))
 
 //add heat controls? when emagged, you can freeze to death in it?
 
@@ -412,19 +500,17 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /obj/machinery/shower/attack_hand(mob/user)
-	on = !on
-	update_icon()
-	handle_mist()
-	add_fingerprint(user)
-	if(on)
-		START_PROCESSING(SSmachines, src)
-		process()
-		soundloop.start()
-	else
-		soundloop.stop()
-		var/turf/simulated/source_turf = loc
-		if(istype(source_turf) && !source_turf.density)
-			source_turf.MakeSlippery(TURF_WET_WATER, min_wet_time = 5 SECONDS, wet_time_to_add = 1 SECONDS)
+	. = ..()
+	if(.)
+		return
+
+	intended_on = !intended_on
+	if(!update_actually_on(intended_on))
+		balloon_alert(user, "[src] is dry!")
+		return FALSE
+
+	balloon_alert(user, "turned [intended_on ? "on" : "off"]")
+	return TRUE
 
 /obj/machinery/shower/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/analyzer))
@@ -443,6 +529,7 @@
 				current_temperature = SHOWER_BOILING
 			if(SHOWER_BOILING)
 				current_temperature = SHOWER_NORMAL
+
 		user.visible_message(
 			span_notice("[user] adjusts the shower with [I]."),
 			span_notice("You adjust [src] to [current_temperature] temperature."),
@@ -453,7 +540,7 @@
 
 /obj/machinery/shower/welder_act(mob/user, obj/item/I)
 	. = TRUE
-	if(on)
+	if(actually_on)
 		to_chat(user, span_warning("Turn [src] off before you attempt to cut it loose."))
 		return
 	if(!I.tool_use_check(user, 0))
@@ -472,85 +559,190 @@
 		transfer_prints_to(shower, TRUE)
 		qdel(src)
 
+/obj/machinery/shower/multitool_act(mob/living/user, obj/item/tool)
+	. = ..()
+	if(.)
+		return
+
+	tool.play_tool_sound(src)
+	mode = (mode + 1) % SHOWER_MODE_COUNT
+	begin_processing()
+	to_chat(user, span_notice("You change the shower's auto shut-off mode to [GLOB.shower_mode_descriptions[mode]]."))
+	return TRUE
+
 /obj/machinery/shower/update_overlays()
 	. = ..()
-	if(on)
-		. += image(icon, icon_state = "water", layer = ABOVE_MOB_LAYER, dir = src.dir)
+	if(!actually_on)
+		return
+	var/mutable_appearance/water_falling = mutable_appearance(icon, "water", ABOVE_MOB_LAYER, appearance_flags = KEEP_APART)
+	water_falling.color = mix_color_from_reagents(reagents.reagent_list)
+	water_falling.dir = dir
+	switch(dir)
+		if(NORTH)
+			water_falling.pixel_y -= pixel_shift
+		if(SOUTH)
+			water_falling.pixel_y += pixel_shift
+		if(EAST)
+			water_falling.pixel_x -= pixel_shift
+		if(WEST)
+			water_falling.pixel_x += pixel_shift
+	. += water_falling
+
+/obj/machinery/shower/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
+	if(same_z_layer)
+		return ..()
+	update_appearance()
+	return ..()
 
 /obj/machinery/shower/proc/handle_mist()
 	// If there is no mist, and the shower was turned on (on a non-freezing temp): make mist in 5 seconds
 	// If there was already mist, and the shower was turned off (or made cold): remove the existing mist in 25 sec
 	var/obj/effect/mist/mist = locate() in loc
-	if(!mist && on && current_temperature != SHOWER_FREEZING)
+	if(!mist && actually_on && current_temperature != SHOWER_FREEZING)
 		addtimer(CALLBACK(src, PROC_REF(make_mist)), 5 SECONDS)
 
-	if(mist && (!on || current_temperature == SHOWER_FREEZING))
+	if(mist && (!actually_on || current_temperature == SHOWER_FREEZING))
 		addtimer(CALLBACK(src, PROC_REF(clear_mist)), 25 SECONDS)
 
 /obj/machinery/shower/proc/make_mist()
 	var/obj/effect/mist/mist = locate() in loc
-	if(!mist && on && current_temperature != SHOWER_FREEZING)
-		new /obj/effect/mist(loc)
+	if(!mist && actually_on && current_temperature != SHOWER_FREEZING)
+		var/obj/effect/mist/new_mist = new /obj/effect/mist(loc)
+		new_mist.color = mix_color_from_reagents(reagents.reagent_list)
 
 /obj/machinery/shower/proc/clear_mist()
 	var/obj/effect/mist/mist = locate() in loc
-	if(mist && (!on || current_temperature == SHOWER_FREEZING))
+	if(mist && (!actually_on || current_temperature == SHOWER_FREEZING))
 		qdel(mist)
 
-/obj/machinery/shower/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+/obj/machinery/shower/proc/on_entered(datum/source, atom/movable/enterer)
 	SIGNAL_HANDLER
 
-	if(on && COOLDOWN_FINISHED(src, wash_cooldown))
-		wash_atom(arrived)
-		COOLDOWN_START(src, wash_cooldown, 6 SECONDS)
-	else if(on)
-		wash_atom(arrived)
+	if(actually_on && reagents.total_volume)
+		expose_to_reagents(enterer)
+
+/obj/machinery/shower/proc/on_exited(datum/source, atom/movable/exiter)
+	SIGNAL_HANDLER
+
+	if(!iscarbon(exiter))
+		return
+
+	var/obj/machinery/shower/locate_new_shower = locate() in get_turf(exiter)
+	if(locate_new_shower && isturf(exiter.loc))
+		return
+	var/mob/living/take_his_status_effect = exiter
+	take_his_status_effect.remove_status_effect(/datum/status_effect/washing_regen)
+
+/obj/machinery/shower/proc/expose_to_reagents(atom/target)
+	var/purity_volume = reagents.total_volume * 0.70 	// need 70% of total reagents
+	var/datum/reagent/blood/bloody_shower = reagents.has_reagent(/datum/reagent/blood, amount=purity_volume)
+	var/datum/reagent/water/clean_shower = reagents.has_reagent(/datum/reagent/water, amount=purity_volume)
+	// we only care about blood and h20 for mood/status effect
+	var/datum/reagent/shower_reagent = bloody_shower || clean_shower || null
+
+	reagents.set_reagent_temp(convertHeat())
+	reagents.reaction(target, REAGENT_TOUCH, SHOWER_EXPOSURE_MULTIPLIER * SHOWER_SPRAY_VOLUME / max(reagents.total_volume, SHOWER_SPRAY_VOLUME))
+	if(!isliving(target))
+		return
+	var/mob/living/living_target = target
+	check_heat(living_target)
+
+	if(iscarbon(living_target))
+		living_target.apply_status_effect(/datum/status_effect/washing_regen, shower_reagent)
+		//living_target.add_mood_event("shower", /datum/mood_event/shower, shower_reagent)
 
 /obj/machinery/shower/proc/convertHeat()
 	switch(current_temperature)
 		if(SHOWER_BOILING)
-			return 340.15
+			return SHOWER_BOILING_TEMP
 		if(SHOWER_NORMAL)
-			return 310.15
+			return SHOWER_NORMAL_TEMP
 		if(SHOWER_FREEZING)
-			return 230.15
+			return SHOWER_FREEZING_TEMP
 
-//Yes, showers are super powerful as far as washing goes.
-/obj/machinery/shower/proc/wash_atom(atom/target)
-	if(!on)
-		return
+/**
+ * Toggle whether shower is actually on and outputting water.
+ * May not match what user asked to happen by clicking.
+ * Returns TRUE if the state was changed.
+ *
+ * Arguments:
+ * * new_on_state - new state
+ */
+/obj/machinery/shower/proc/update_actually_on(new_on_state)
+	if(new_on_state == actually_on)
+		return FALSE
 
-	if(isitem(target))
-		var/obj/item/item = target
-		item.extinguish()
+	// Check if we have enough reagents to actually turn on.
+	if(new_on_state && reagents.total_volume < SHOWER_SPRAY_VOLUME)
+		return FALSE
 
-	target.water_act(100, convertHeat(), src)
+	actually_on = new_on_state
 
-	if(isliving(target))
-		var/mob/living/living_target = target
-		living_target.ExtinguishMob()
-		living_target.adjust_fire_stacks(-20) //Douse ourselves with water to avoid fire more easily
-		//to_chat(living_target, span_warning("Вы насквозь промокли!"))
-
-	target.clean_blood()
-	target.wash_tg(CLEAN_RAD|CLEAN_WASH)
-
-/obj/machinery/shower/process()
-	if(on)
-		if(isturf(loc))
-			var/turf/tile = loc
-			tile.water_act(100, convertHeat(), src)
-			tile.clean_blood()
-			for(var/obj/effect/effect in tile)
-				if(effect.is_cleanable())
-					qdel(effect)
-		for(var/thing in loc)
-			wash_atom(thing)
+	update_appearance()
+	handle_mist()
+	if(new_on_state)
+		begin_processing()
+		soundloop.start()
+		COOLDOWN_START(src, wash_cooldown, SHOWER_TIMED_LENGTH)
 	else
-		on = FALSE
 		soundloop.stop()
-		handle_mist()
-		update_icon(UPDATE_OVERLAYS)
+		var/turf/simulated/tile = loc
+		if(istype(tile) && tile.density)
+			tile.MakeSlippery(TURF_WET_WATER, min_wet_time = 5 SECONDS, wet_time_to_add = 1 SECONDS)
+		for(var/mob/living/carbon/showerer in loc)
+			showerer.remove_status_effect(/datum/status_effect/washing_regen)
+	return TRUE
+
+/obj/machinery/shower/process(seconds_per_tick)
+	// the TIMED mode cutoff feature. User has to manually reactivate.
+	if(intended_on && mode == SHOWER_MODE_TIMED && COOLDOWN_FINISHED(src, wash_cooldown))
+		// the TIMED mode cutoff feature. User has to manually reactivate.
+		intended_on = FALSE
+
+	// Out of water.
+	if(actually_on && reagents.total_volume < SHOWER_SPRAY_VOLUME)
+		update_actually_on(FALSE)
+
+		// Don't turn back on.
+		if(mode != SHOWER_MODE_FOREVER)
+			intended_on = FALSE
+	else
+		// Cycle: update_actually_on() will only change state if appropriate.
+		update_actually_on(intended_on)
+
+	// Reclaim water
+	if(!actually_on)
+		if(has_water_reclaimer && reagents.total_volume < reagents.maximum_volume)
+			reagents.add_reagent(reagent_id, refill_rate * seconds_per_tick)
+			return 0
+
+		// FOREVER mode stays processing so it can cycle back on.
+		return mode == SHOWER_MODE_FOREVER ? 0 : PROCESS_KILL
+	// Assemble cleaning flags
+	var/purity_volume = reagents.total_volume * 0.70 	// need 70% of total reagents
+	var/datum/reagent/water/clean_shower = reagents.has_reagent(/datum/reagent/water, amount=purity_volume)
+
+	// radiation my beloved
+	var/rad_purity_volume = reagents.total_volume * 0.20 // need 20% of total reagents
+	var/radium_volume = reagents.get_reagent_amount(/datum/reagent/radium)
+	var/uranium_volume = reagents.get_reagent_amount(/datum/reagent/uranium)
+	var/polonium_volume = reagents.get_reagent_amount(/datum/reagent/polonium) * 3 // highly radioactive
+	var/total_radiation_volume = (radium_volume + uranium_volume + polonium_volume)
+	var/radioactive_shower = total_radiation_volume >= rad_purity_volume
+
+	var/wash_flags = NONE
+	if(clean_shower)
+		wash_flags |= CLEAN_WASH
+	if(!radioactive_shower)
+		// note it is possible to have a clean_shower that is radioactive (+70% water mixed with +20% radiation)
+		wash_flags |= CLEAN_RAD
+
+	// Wash up.
+	loc.wash_tg(wash_flags, TRUE)
+	expose_to_reagents(loc)
+	for(var/atom/movable/movable_content as anything in loc)
+		expose_to_reagents(movable_content) // Wash the items on the turf (=expose them to the shower reagent)
+	reagents.remove_all(SHOWER_SPRAY_VOLUME)
 
 /obj/machinery/shower/proc/check_heat(mob/M)
 	if(current_temperature == SHOWER_NORMAL)
@@ -559,17 +751,26 @@
 		var/mob/living/carbon/C = M
 
 		if(current_temperature == SHOWER_FREEZING)
-			//C.bodytemperature = max(80, C.bodytemperature - 80)
 			to_chat(C, span_warning("The water is freezing!"))
 
 		else if(current_temperature == SHOWER_BOILING)
-			//C.bodytemperature = min(500, C.bodytemperature + 35)
 			C.adjustFireLoss(5)
 			to_chat(C, span_danger("The water is searing!"))
 
 #undef SHOWER_FREEZING
+#undef SHOWER_FREEZING_TEMP
 #undef SHOWER_NORMAL
+#undef SHOWER_NORMAL_TEMP
 #undef SHOWER_BOILING
+#undef SHOWER_BOILING_TEMP
+#undef SHOWER_SPRAY_VOLUME
+#undef SHOWER_EXPOSURE_MULTIPLIER
+#undef SHOWER_TIMED_LENGTH
+#undef SHOWER_MODE_UNTIL_EMPTY
+#undef SHOWER_MODE_TIMED
+#undef SHOWER_MODE_FOREVER
+#undef SHOWER_MODE_COUNT
+
 
 /obj/item/bikehorn/rubberducky
 	name = "rubber ducky"
@@ -595,8 +796,49 @@
 	var/busy = 0	//Something's being washed at the moment
 	var/can_move = 1	//if the sink can be disconnected and moved
 	var/can_rotate = 1	//if the sink can be rotated to face alternate directions
+	///Capacity of this sink
+	var/capacity = 100
+	///What kind of reagent is produced by this sink by default? (We now have actual plumbing, Arcane, August 2020)
+	var/dispensedreagent = /datum/reagent/water
+	///Does the sink have a water recycler to recollect its water supply?
+	var/has_water_reclaimer = TRUE
+	///Units of water to reclaim per second
+	var/reclaim_rate = 0.5
 
-/obj/structure/sink/attack_hand(mob/user as mob)
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sink, (SHIFTING_SINK), (SHIFTING_SINK))
+
+/obj/structure/sink/Initialize(mapload)
+	. = ..()
+	create_reagents(capacity)
+	if(has_water_reclaimer)
+		reagents.add_reagent(dispensedreagent, capacity)
+	register_context()
+
+/obj/structure/sink/examine(mob/user)
+	. = ..()
+	if(has_water_reclaimer)
+		. += span_notice("A water recycler is installed. It looks like you could pry it out.")
+	. += span_notice("[reagents.total_volume]/[reagents.maximum_volume] liquids remaining.")
+
+/obj/structure/sink/add_context(atom/source, list/context, obj/item/held_item, mob/living/user)
+	. = NONE
+	if(isnull(held_item))
+		context[SCREENTIP_CONTEXT_LMB] = "Wash hands"
+		return CONTEXTUAL_SCREENTIP_SET
+
+	if(is_reagent_container(held_item) && held_item.is_refillable() && !held_item.reagents.holder_full())
+		context[SCREENTIP_CONTEXT_LMB] = "Fill container"
+		return CONTEXTUAL_SCREENTIP_SET
+
+	if(istype(held_item, /obj/item/mop) || astype(held_item, /obj/item/rag)?.blood_level == 0)
+		context[SCREENTIP_CONTEXT_LMB] = "Wet mop"
+		return CONTEXTUAL_SCREENTIP_SET
+
+	if(!user.a_intent != INTENT_HARM || (held_item.item_flags & NOBLUDGEON))
+		context[SCREENTIP_CONTEXT_LMB] = "Clean item"
+		return CONTEXTUAL_SCREENTIP_SET
+
+/obj/structure/sink/attack_hand(mob/user)
 	if(!user || !istype(user))
 		return
 	if(!iscarbon(user))
@@ -623,15 +865,19 @@
 		washing_face = TRUE
 	user.visible_message(span_notice("[user] начина[PLUR_ET_YUT(user)] мыть [washing_face ? "своё лицо" : "свои руки"]..."), \
 						span_notice("Вы начинаете мыть [washing_face ? "своё лицо" : "свои руки"]..."))
-	busy = 1
+	busy = TRUE
 
 	if(!do_after(user, 4 SECONDS, src))
-		busy = 0
+		busy = FALSE
 		return
 
 	add_fingerprint(user)
 
-	busy = 0
+	busy = FALSE
+
+	reagents.reaction(user, REAGENT_TOUCH, 5 / max(reagents.total_volume, 5))
+	reagents.remove_all(5)
+	START_PROCESSING(SSobj, src)
 
 	user.visible_message(span_notice("[user] помыл[GEND_A_O_I(user)] [washing_face ? "своё лицо" : "свои руки"], используя [declent_ru(ACCUSATIVE)]."), \
 						span_notice("Вы помыли [washing_face ? "своё лицо" : "свои руки"], используя [declent_ru(ACCUSATIVE)]."))
@@ -640,14 +886,14 @@
 		return
 
 	if(washing_face)
-		if(ishuman(user))
-			var/mob/living/carbon/human/H = user
-			H.lip_style = null //Washes off lipstick
-			H.lip_color = initial(H.lip_color)
-			H.regenerate_icons()
-			H.AdjustDrowsy(-rand(4 SECONDS, 6 SECONDS)) //Washing your face wakes you up if you're falling asleep
+		SEND_SIGNAL(user, COMSIG_COMPONENT_CLEAN_FACE_ACT, CLEAN_WASH)
+	else if(ishuman(user))
+		var/mob/living/carbon/human/human_user = user
+		if(!human_user.wash_hands(CLEAN_WASH))
+			to_chat(user, span_warning("Your hands are covered by something!"))
+			return
 	else
-		user.clean_blood()
+		user.wash_tg(CLEAN_WASH)
 
 /obj/structure/sink/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -663,10 +909,42 @@
 		to_chat(user, span_warning("Someone's already washing here."))
 		return ATTACK_CHAIN_PROCEED
 
+	if(is_reagent_container(I))
+		var/obj/item/reagent_containers/container = I
+		if(!reagents.total_volume)
+			to_chat(user, span_notice("\The [src] is dry."))
+			return ATTACK_CHAIN_PROCEED
+		if(container.is_refillable())
+			if(!container.reagents.holder_full())
+				reagents.trans_to(container, container.amount_per_transfer_from_this)
+				START_PROCESSING(SSobj, src)
+				to_chat(user, span_notice("You fill [container] from [src]."))
+				return ATTACK_CHAIN_PROCEED_SUCCESS
+			to_chat(user, span_notice("\The [container] is full."))
+		return ATTACK_CHAIN_PROCEED
+
+	if(istype(I, /obj/item/mop) || astype(I, /obj/item/rag)?.blood_level == 0)
+		if(!reagents.total_volume)
+			to_chat(user, span_notice("\The [src] is dry."))
+			return ATTACK_CHAIN_PROCEED
+		reagents.trans_to(I, 5)
+		START_PROCESSING(SSobj, src)
+		to_chat(user, span_notice("You wet [I] in [src]."))
+		playsound(loc, 'sound/effects/slosh.ogg', 25, TRUE)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 	busy = TRUE
-	var/wateract = I.wash(user, src)
+
+	if(!do_after(user, 4 SECONDS, target = src))
+		busy = FALSE
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	var/wateract = I.wash_tg(CLEAN_WASH)
 	busy = FALSE
+	reagents.reaction(I, REAGENT_TOUCH, 5 / max(reagents.total_volume, 5))
+	reagents.remove_all(5)
+	START_PROCESSING(SSobj, src)
 	if(wateract)
 		I.water_act(20, COLD_WATER_TEMPERATURE, src)
 
@@ -676,72 +954,86 @@
 		return
 	var/choices = list()
 	if(anchored)
-		choices += "Wash"
+		choices += WASH_CHOICE
 		if(can_move)
-			choices += "Disconnect"
+			choices += DISCONNECT_CHOICE
 	else
-		choices += "Connect"
+		choices += CONNECT_CHOICE
 		if(can_rotate)
-			choices += "Rotate"
+			choices += ROTATE_CHOICE
 
 	var/response = tgui_input_list(user, "What do you want to do?", "[src]", choices)
 	if(!Adjacent(user) || !response)	//moved away or cancelled
 		return
 	switch(response)
-		if("Wash")
+		if(WASH_CHOICE)
 			busy = 1
 			var/wateract = 0
-			wateract = (I.wash(user, src))
+			wateract = (I.wash_tg(CLEAN_WASH))
 			busy = 0
 			if(wateract)
 				I.water_act(20, COLD_WATER_TEMPERATURE, src)
-		if("Disconnect")
+		if(DISCONNECT_CHOICE)
 			user.visible_message(span_notice("[user] starts disconnecting [src]."), span_notice("You begin disconnecting [src]..."))
 			if(I.use_tool(src, user, 40, volume = I.tool_volume))
 				if(!loc || !anchored)
 					return
 				user.visible_message(span_notice("[user] disconnects [src]!"), span_notice("You disconnect [src]!"))
 				set_anchored(FALSE)
-		if("Connect")
+		if(CONNECT_CHOICE)
 			user.visible_message(span_notice("[user] starts connecting [src]."), span_notice("You begin connecting [src]..."))
 			if(I.use_tool(src, user, 40, volume = I.tool_volume))
 				if(!loc || anchored)
 					return
 				user.visible_message(span_notice("[user] connects [src]!"), span_notice("You connect [src]!"))
 				set_anchored(TRUE)
-		if("Rotate")
-			var/list/dir_choices = list("North" = NORTH, "East" = EAST, "South" = SOUTH, "West" = WEST)
-			var/selected = input(user, "Select a direction for the connector.", "Connector Direction") in dir_choices
+		if(ROTATE_CHOICE)
+			var/list/dir_choices = list("Север" = NORTH, "Восток" = EAST, "Юг" = SOUTH, "Запад" = WEST)
+			var/selected = tgui_input_list(user, "Выберите направление соединения.", "Направление соединения", dir_choices)
 			dir = dir_choices[selected]
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/sink/update_icon_state()
-	layer = OBJ_LAYER
+	if(!can_move)
+		return
+
+	if(!can_rotate)
+		return
+
 	if(!anchored)
 		pixel_x = 0
 		pixel_y = 0
+		layer = initial(layer)
+		return
+
+	if(dir == NORTH || dir == SOUTH)
+		pixel_x = 0
+		pixel_y = (dir == NORTH) ? SHIFTING_SINK : -SHIFTING_SINK
+		layer = (dir == NORTH) ? OBJ_LAYER : FLY_LAYER
 	else
-		//the following code will probably want to be updated in the future to be less reliant on hardcoded offsets based on the can_move/can_rotate values
-		if(!can_move)		//puddles
-			return
-		if(!can_rotate)		//kitchen sinks
-			pixel_x = 0
-			pixel_y = 28
-			return
-		else				//normal sinks
-			if(dir == NORTH || dir == SOUTH)
-				pixel_x = 0
-				pixel_y = (dir == NORTH) ? -5 : 30
-				if(dir == NORTH)
-					layer = FLY_LAYER
-			else
-				pixel_x = (dir == EAST) ? 12 : -12
-				pixel_y = 0
+		pixel_x = (dir == EAST) ? SHIFTING_SINK : -SHIFTING_SINK
+		pixel_y = 0
+		layer = OBJ_LAYER
+
+/obj/structure/sink/process(seconds_per_tick)
+	// Water reclamation complete?
+	if(!has_water_reclaimer || reagents.holder_full())
+		return PROCESS_KILL
+
+	reagents.add_reagent(dispensedreagent, reclaim_rate * seconds_per_tick)
 
 /obj/structure/sink/kitchen
 	name = "kitchen sink"
 	icon_state = "sink_alt"
-	can_rotate = 0
+
+/obj/structure/sink/kitchen/update_icon_state()
+	. = ..()
+	if(dir == NORTH || dir == SOUTH)
+		pixel_y = (dir == NORTH) ? SHIFTING_SINK_KITCHEN : -SHIFTING_SINK_KITCHEN
+	else
+		pixel_x = (dir == EAST) ? SHIFTING_SINK_KITCHEN : -SHIFTING_SINK_KITCHEN
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sink/kitchen, (SHIFTING_SINK_KITCHEN), (SHIFTING_SINK_KITCHEN))
 
 /obj/structure/sink/puddle	//splishy splashy ^_^
 	name = "puddle"
@@ -750,9 +1042,10 @@
 	can_move = 0
 	can_rotate = 0
 	resistance_flags = UNACIDABLE
+	has_water_reclaimer = FALSE
 
 /obj/structure/sink/puddle/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пруд",
 		GENITIVE = "пруда",
 		DATIVE = "пруду",
@@ -763,7 +1056,8 @@
 
 /obj/structure/sink/puddle/Initialize(mapload)
 	. = ..()
-
+	if(!has_water_reclaimer)
+		reagents.add_reagent(dispensedreagent, capacity)
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
@@ -811,7 +1105,7 @@
 		l_target.adjust_fire_stacks(-20)
 		to_chat(l_target, span_warning("Вы насквозь промокли!"))
 
-	target.clean_blood()
+	target.wash_tg(CLEAN_WASH)
 
 //////////////////////////////////
 //		Bathroom Fixture Items	//
@@ -825,8 +1119,8 @@
 	item_state = "buildpipe"
 
 /obj/item/mounted/shower/do_build(turf/on_wall, mob/user)
-	var/obj/machinery/shower/S = new(get_turf(user), get_dir(on_wall, user), TRUE)
-	transfer_fingerprints_to(S)
+	var/obj/machinery/shower/shower = new(get_turf(user), get_dir(user, on_wall))
+	transfer_fingerprints_to(shower)
 	qdel(src)
 
 /obj/item/bathroom_parts
@@ -848,8 +1142,8 @@
 	result = /obj/structure/sink
 	result_name = "sink"
 
-/obj/item/bathroom_parts/New()
-	..()
+/obj/item/bathroom_parts/Initialize(mapload)
+	. = ..()
 	desc = "An entire [result_name] in a box, straight from Space Sweden. It has an [pick("unpronounceable", "overly accented", "entirely gibberish", "oddly normal-sounding")] name."
 
 /obj/item/bathroom_parts/attack_self(mob/user)
@@ -872,7 +1166,13 @@
 		if(prob(50))
 			new /obj/item/stack/sheet/cardboard(T)
 
+#undef WASH_CHOICE
 #undef STASH_CHOICE
 #undef DISCONNECT_CHOICE
 #undef CONNECT_CHOICE
 #undef ROTATE_CHOICE
+
+#undef SHIFTING_SINK
+#undef SHIFTING_SINK_KITCHEN
+#undef SHIFTING_SHOWER
+#undef SHIFTING_TOILET

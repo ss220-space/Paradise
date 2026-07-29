@@ -123,7 +123,8 @@
 /mob/living/silicon/proc/law_channels()
 	var/list/channels = new()
 	channels += MAIN_CHANNEL
-	channels += common_radio?.channels
+	var/obj/item/radio/radio = get_radio()
+	channels += radio.channels
 	channels += additional_law_channels
 	return channels
 
@@ -138,9 +139,18 @@
 		else
 			laws = get_random_lawset()
 
+/// Used in station event, take lawset from pool
+/mob/living/silicon/proc/make_special_laws()
+	var/list/law_options[0]
+	var/paths = subtypesof(/datum/ai_laws/unique)
+	for(var/law in paths)
+		var/datum/ai_laws/special_law = new law
+		law_options += special_law
+	laws = pick(law_options)
+
 /mob/living/silicon/proc/get_random_lawset()
 	var/list/law_options[0]
-	var/paths = subtypesof(/datum/ai_laws)
+	var/paths = subtypesof(/datum/ai_laws) - subtypesof(/datum/ai_laws/unique) // only generic laws in lawlist
 	for(var/law in paths)
 		var/datum/ai_laws/L = new law
 		if(!L.default)

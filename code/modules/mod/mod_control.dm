@@ -25,6 +25,9 @@
 	onmob_sheets = list(
 		ITEM_SLOT_BACK_STRING = 'icons/mob/clothing/modsuit/mod_clothing.dmi',
 	)
+	sprite_sheets = list(
+		SPECIES_GREY = 'icons/mob/clothing/modsuit/species/grey/mod_clothing.dmi',
+	)
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	siemens_coefficient = 0.5
@@ -88,7 +91,7 @@
 	var/mob/living/silicon/ai_assistant
 
 /obj/item/mod/control/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "блок управления МЭК",
 		GENITIVE = "блока управления МЭК",
 		DATIVE = "блоку управления МЭК",
@@ -690,7 +693,11 @@
 
 /obj/item/mod/control/proc/update_speed()
 	var/total_slowdown = 0
-	total_slowdown += slowdown_deployed
+	var/skill_factor = 1
+	if(wearer)
+		CALCULATE_SKILL_MOD(wearer, SPACESUIT_SLOWDOWN_MOD, skill_modifier)
+		skill_factor = skill_modifier
+	total_slowdown += slowdown_deployed * skill_factor
 
 	var/list/module_slowdowns = list()
 	SEND_SIGNAL(src, COMSIG_MOD_UPDATE_SPEED, module_slowdowns)

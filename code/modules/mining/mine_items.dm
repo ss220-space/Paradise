@@ -7,7 +7,7 @@
 	invisibility = INVISIBILITY_ABSTRACT
 
 /obj/effect/light_emitter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "световой излучатель",
 		GENITIVE = "светового излучателя",
 		DATIVE = "световому излучателю",
@@ -20,11 +20,16 @@
 	. = ..()
 	icon_state = null
 
-/obj/effect/light_emitter/singularity_pull()
+/obj/effect/light_emitter/singularity_pull(atom/singularity, current_size)
 	return
 
 /obj/effect/light_emitter/singularity_act()
 	return
+
+/obj/effect/light_emitter/thunderdome
+	light_range = 4
+	light_power = 8
+	icon_state = "impact_laser_orange"
 
 /**********************Miner Lockers**************************/
 
@@ -34,7 +39,7 @@
 	icon_state = "mine_ward"
 
 /obj/structure/closet/wardrobe/miner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шахтёрский гардероб",
 		GENITIVE = "шахтёрского гардероба",
 		DATIVE = "шахтёрскому гардеробу",
@@ -67,7 +72,7 @@
 	req_access = list(ACCESS_MINING)
 
 /obj/structure/closet/secure_closet/miner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "снаряжение шахтёра",
 		GENITIVE = "снаряжения шахтёра",
 		DATIVE = "снаряжению шахтёра",
@@ -96,7 +101,7 @@
 	req_access = list(ACCESS_MEDICAL)
 
 /obj/structure/closet/secure_closet/mining_medic/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "снаряжение шахтёрского медика",
 		GENITIVE = "снаряжения шахтёрского медика",
 		DATIVE = "снаряжению шахтёрского медика",
@@ -132,7 +137,7 @@
 	lockdown_affected = TRUE
 
 /obj/machinery/computer/shuttle/mining/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль управления шахтёрским шаттлом",
 		GENITIVE = "консоли управления шахтёрским шаттлом",
 		DATIVE = "консоли управления шахтёрским шаттлом",
@@ -152,12 +157,12 @@
 	belt_icon = "lantern"
 	light_range = 6		// luminosity when on
 	light_color = LIGHT_COLOR_DIM_YELLOW
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	var/obj/item/gem/inserted_gem = null
 	var/mutable_appearance/lantern_light_overlay
 
 /obj/item/flashlight/lantern/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лампа",
 		GENITIVE = "лампы",
 		DATIVE = "лампе",
@@ -168,7 +173,8 @@
 
 /obj/item/flashlight/lantern/Initialize(mapload)
 	. = ..()
-	lantern_light_overlay = mutable_appearance('icons/obj/lighting.dmi',"lantern_light", color = light_color)
+	lantern_light_overlay = mutable_appearance('icons/obj/lighting.dmi', "lantern_light")
+	lantern_light_overlay.color = light_color
 
 /obj/item/flashlight/lantern/examine(mob/user)
 	. = ..()
@@ -202,10 +208,12 @@
 	cut_overlay(lantern_light_overlay)
 	if(!inserted_gem)
 		set_light_color(LIGHT_COLOR_DIM_YELLOW)
-		lantern_light_overlay = mutable_appearance('icons/obj/lighting.dmi',"lantern_light", color = light_color)
+		lantern_light_overlay = mutable_appearance('icons/obj/lighting.dmi', "lantern_light")
+		lantern_light_overlay.color = light_color
 	else
 		set_light_color(inserted_gem.light_color)
-		lantern_light_overlay = mutable_appearance('icons/obj/lighting.dmi',"lantern_light", color = light_color)
+		lantern_light_overlay = mutable_appearance('icons/obj/lighting.dmi', "lantern_light")
+		lantern_light_overlay.color = light_color
 
 /obj/item/flashlight/lantern/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -239,7 +247,7 @@
 	icon_state = "miningcar"
 
 /obj/structure/closet/crate/miningcar/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вагонетка",
 		GENITIVE = "вагонетки",
 		DATIVE = "вагонетке",

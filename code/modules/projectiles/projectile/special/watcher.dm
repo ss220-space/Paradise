@@ -5,7 +5,7 @@
 	speed = 0.8
 
 /obj/projectile/watcher/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "оглушающий выброс",
 		GENITIVE = "оглушающего выброса",
 		DATIVE = "оглушающему выбросу",

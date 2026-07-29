@@ -4,13 +4,18 @@
 	desc = "A rectangular steel crate."
 	icon = 'icons/obj/crates.dmi'
 	icon_state = "crate"
-	climbable = TRUE
 	open_sound = 'sound/machines/crate_open.ogg'
 	close_sound = 'sound/machines/crate_close.ogg'
 	pass_flags_self = PASSSTRUCTURE | LETPASSTHROW
 	x_shake_pixel_shift = 1
 	y_shake_pixel_shift = 2
 	dense_when_open = TRUE
+	/// Mobs standing on it are nudged up by this amount.
+	var/elevation = 14
+	/// The same, but when the crate is open
+	var/elevation_open = 14
+	/// The time spent to climb this crate.
+	var/crate_climb_time = 2 SECONDS
 	/// The reference of the manifest paper attached to the cargo crate.
 	var/datum/weakref/manifest
 	// A list of beacon names that the crate will announce the arrival of, when delivered.
@@ -21,6 +26,13 @@
 	var/can_be_emissive = FALSE
 	/// Wired up and ready to be fitted with an electropack trap.
 	var/wired_for_trap = FALSE
+
+/obj/structure/closet/crate/ComponentInitialize()
+	AddElement(/datum/element/climbable, climb_time = crate_climb_time, climb_stun = 0) //add element in closed state before parent init opens it(if it does)
+	if(!elevation)
+		return
+	AddElement(/datum/element/climb_walkable)
+	AddElement(/datum/element/elevation, pixel_shift = elevation)
 
 /obj/structure/closet/crate/Destroy()
 	manifest = null
@@ -52,6 +64,13 @@
 
 /obj/structure/closet/crate/after_open(mob/living/user, force)
 	. = ..()
+	RemoveElement(/datum/element/climbable, climb_time = crate_climb_time, climb_stun = 0)
+	AddElement(/datum/element/climbable, climb_time = crate_climb_time * 0.5, climb_stun = 0)
+	if(elevation != elevation_open)
+		if(elevation)
+			RemoveElement(/datum/element/elevation, pixel_shift = elevation)
+		if(elevation_open)
+			AddElement(/datum/element/elevation, pixel_shift = elevation_open)
 	tear_manifest(user)
 
 /obj/structure/closet/crate/before_open(mob/living/user, force)
@@ -59,10 +78,20 @@
 	if(!.)
 		return FALSE
 
-	if(climbable)
+	if(HAS_TRAIT(src, TRAIT_CLIMBABLE))
 		structure_shaken()
 
 	return do_trap_effect(user)
+
+/obj/structure/closet/crate/after_close(mob/living/user)
+	. = ..()
+	RemoveElement(/datum/element/climbable, climb_time = crate_climb_time * 0.5, climb_stun = 0)
+	AddElement(/datum/element/climbable, climb_time = crate_climb_time, climb_stun = 0)
+	if(elevation != elevation_open)
+		if(elevation_open)
+			RemoveElement(/datum/element/elevation, pixel_shift = elevation_open)
+		if(elevation)
+			AddElement(/datum/element/elevation, pixel_shift = elevation)
 
 /obj/structure/closet/crate/proc/do_trap_effect(mob/living/user)
 	if(!wired_for_trap || !locate(/obj/item/radio/electropack) in src)
@@ -173,13 +202,14 @@
 	if(!isliving(user))
 		return
 
-	// 1) Prevent dragging from shelf onto non-turf objects
-	if(is_cargo_shelf(loc) && !isturf(over_object))
-		return
-
-	// 2) If the target is a crate on a shelf, we work with the shelf itself.
+	// 1) If the target is a crate on a shelf, we work with the shelf itself.
 	if(is_crate(over_object) && is_cargo_shelf(over_object.loc))
 		over_object = over_object.loc
+
+	// 2) Prevent dragging from a shelf onto a non-turf that isn't another shelf (mobs, machines, etc).
+	//    Shelf-to-shelf, including repositioning on the same shelf, must stay allowed.
+	if(is_cargo_shelf(loc) && !isturf(over_object) && !is_cargo_shelf(over_object))
+		return
 
 	// 3) If the crate is on a shelf, the user must be able to reach the shelf (or the crate itself)
 	if(is_cargo_shelf(loc) && !loc.IsReachableBy(user) && !IsReachableBy(user))
@@ -196,7 +226,7 @@
 	var/list/modifiers = params2list(params)
 	var/y_offset = text2num(modifiers[ICON_Y])
 
-	// 5) Shelf to Shelf (drag from one shelf to another)
+	// 5) Shelf to Shelf (drag between shelves, or reposition within the same shelf)
 	if(is_cargo_shelf(over_object) && is_cargo_shelf(loc))
 		var/obj/structure/cargo_shelf/source_shelf = loc
 		var/obj/structure/cargo_shelf/destination_shelf = over_object
@@ -217,3 +247,9 @@
 			return
 		shelf.load(src, user, y_offset)
 		return
+
+/obj/structure/closet/crate/get_uplink_log_items()
+	. = list()
+	. += src
+	for(var/obj/item/contained_item in contents)
+		. += contained_item.get_uplink_log_items()

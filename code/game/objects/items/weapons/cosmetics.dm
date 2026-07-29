@@ -63,8 +63,12 @@
 
 /obj/item/lipstick/update_overlays()
 	. = ..()
-	if(open)
-		. += mutable_appearance(icon, icon_state = "lipstick_uncap_color", color = lipstick_colors[colour])
+
+	if(!open)
+		return
+	var/mutable_appearance/colored_overlay = mutable_appearance(icon, "lipstick_uncap_color")
+	colored_overlay.color = lipstick_colors[colour]
+	. += colored_overlay
 
 /obj/item/lipstick/attack_self(mob/user)
 	user.balloon_alert(user, "колпачок [open ? "надет" : "снят"]")
@@ -180,8 +184,8 @@
 	if(head.h_style == "Bald" || head.h_style == "Balding Hair" || head.h_style == "Skinhead")
 		to_chat(user, span_notice("There is not enough hair left to shave..."))
 		return .
-	if(isskrell(target))
-		to_chat(user, span_warning("Your razor isn't going to cut through tentacles."))
+	if(!(target.dna.species.bodyflags & HAS_HAIR))
+		to_chat(user, span_warning("Your razor isn't going to cut through that."))
 		return .
 	if(target == user)
 		user.visible_message(

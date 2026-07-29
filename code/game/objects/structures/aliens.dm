@@ -60,7 +60,7 @@
 	smooth = SMOOTH_BITMASK
 
 /obj/structure/alien/resin/add_debris_element()
-	AddElement(/datum/element/debris, null, -40, 8, 0.7)
+	generate_debris_handler(null, -40, 8, 0.7)
 
 /obj/structure/alien/resin/Initialize(mapload)
 	recalculate_atmos_connectivity()
@@ -338,9 +338,9 @@
 		icon_state = pick("weeds", "weeds1", "weeds2")
 
 	fullUpdateWeedOverlays()
-	spawn(rand(150, 200))
-		if(src)
-			Life()
+
+	addtimer(CALLBACK(src, PROC_REF(Life)), rand(15 SECONDS, 20 SECONDS))
+	RegisterSignal(linked_node, COMSIG_QDELETING, PROC_REF(clear_linked_node))
 
 /obj/structure/alien/weeds/Destroy()
 	var/turf/T = loc
@@ -348,6 +348,11 @@
 		W.updateWeedOverlays()
 	linked_node = null
 	return ..()
+
+/obj/structure/alien/weeds/proc/clear_linked_node()
+	SIGNAL_HANDLER
+	UnregisterSignal(linked_node, COMSIG_QDELETING)
+	linked_node = null
 
 /obj/structure/alien/weeds/proc/Life()
 	var/turf/U = get_turf(src)

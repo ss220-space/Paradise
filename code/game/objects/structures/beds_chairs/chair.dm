@@ -294,18 +294,27 @@
 	icon_state = "stool"
 	item_chair = /obj/item/chair/stool
 
+/obj/structure/chair/stool/post_buckle_mob(mob/living/target)
+	target.add_offsets(type, z_add = 4)
+	return ..()
+
+/obj/structure/chair/stool/post_unbuckle_mob(mob/living/target)
+	target.remove_offsets(type)
+	return ..()
+
 /obj/structure/chair/stool/bar
 	name = "bar stool"
 	desc = "It has some unsavory stains on it..."
 	icon_state = "bar"
 	item_chair = /obj/item/chair/stool/bar
 
+/obj/structure/chair/stool/bar/post_buckle_mob(mob/living/target)
+	target.add_offsets(type, z_add = 7)
+	return ..()
+
 /obj/structure/chair/stool/bar/dark
 	icon_state = "bar_dark"
 	item_chair = /obj/item/chair/stool/bar/dark
-
-/obj/structure/chair/stool/handle_layer()
-	return
 
 /obj/item/chair
 	name = "chair"
@@ -324,6 +333,9 @@
 	materials = list(MAT_METAL = 2000)
 	var/break_chance = 5 //Likely hood of smashing the chair.
 	var/obj/structure/chair/origin_type = /obj/structure/chair
+
+/obj/item/chair/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 3, _stamina_coefficient = 0.6, _parryable_attack_types = UNARMED_ATTACK, _parry_cooldown = (2 / 3) SECONDS ) // 0.666667 seconds for 60% uptime.
 
 /obj/item/chair/stool
 	name = "stool"
@@ -377,12 +389,6 @@
 		for(var/M=1 to remaining_mats)
 			new stack_type(get_turf(loc))
 	qdel(src)
-
-/obj/item/chair/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
-	if(attack_type == UNARMED_ATTACK && prob(hit_reaction_chance))
-		owner.visible_message(span_danger("[owner] fends off [attack_text] with [src]!"))
-		return TRUE
-	return FALSE
 
 /obj/item/chair/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
@@ -451,7 +457,7 @@
 /obj/structure/chair/brass/click_alt(mob/living/user)
 	add_fingerprint(user)
 	turns = 0
-	if(!isprocessing)
+	if(!(datum_flags & DF_ISPROCESSING))
 		user.visible_message(span_notice("[user] spins [src] around, and Ratvarian technology keeps it spinning FOREVER."), \
 		span_notice("Automated spinny chairs. The pinnacle of Ratvarian technology."))
 		START_PROCESSING(SSfastprocess, src)
@@ -485,7 +491,7 @@
 	buildstacktype = null
 
 /obj/structure/chair/comfy/mouse/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кресло господина Мышкина",
 		GENITIVE = "кресла господина Мышкина",
 		DATIVE = "креслу господина Мышкина",

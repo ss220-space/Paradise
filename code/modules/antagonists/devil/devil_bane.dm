@@ -36,10 +36,10 @@
 	bonus_damage = BANE_TOOLBOX_DAMAGE_MODIFIER
 
 /datum/devil_bane/toolbox/init_bane()
-	RegisterSignal(owner, COMSIG_PARENT_ATTACKBY, PROC_REF(toolbox_attack))
+	RegisterSignal(owner, COMSIG_ATOM_ATTACKBY, PROC_REF(toolbox_attack))
 
 /datum/devil_bane/toolbox/remove_bane()
-	UnregisterSignal(owner, COMSIG_PARENT_ATTACKBY)
+	UnregisterSignal(owner, COMSIG_ATOM_ATTACKBY)
 
 /datum/devil_bane/toolbox/proc/toolbox_attack(datum/source, obj/item/item, mob/attacker, params)
 	SIGNAL_HANDLER
@@ -59,10 +59,10 @@
 	law = "Те, кто облачен в безупречно белые одежды, наводят на вас ужас."
 
 /datum/devil_bane/whiteclothes/init_bane()
-	RegisterSignal(owner, COMSIG_PARENT_ATTACKBY, PROC_REF(whiteclothes_attack))
+	RegisterSignal(owner, COMSIG_ATOM_ATTACKBY, PROC_REF(whiteclothes_attack))
 
 /datum/devil_bane/whiteclothes/remove_bane()
-	UnregisterSignal(owner, COMSIG_PARENT_ATTACKBY)
+	UnregisterSignal(owner, COMSIG_ATOM_ATTACKBY)
 
 /datum/devil_bane/whiteclothes/proc/whiteclothes_attack(datum/source, obj/item/item, mob/attacker, params)
 	SIGNAL_HANDLER
@@ -91,10 +91,10 @@
 	bonus_damage = BANE_HARVEST_DAMAGE_MULTIPLIER
 
 /datum/devil_bane/harvest/init_bane()
-	RegisterSignal(owner, COMSIG_PARENT_ATTACKBY, PROC_REF(harvest_attack))
+	RegisterSignal(owner, COMSIG_ATOM_ATTACKBY, PROC_REF(harvest_attack))
 
 /datum/devil_bane/harvest/remove_bane()
-	UnregisterSignal(owner, COMSIG_PARENT_ATTACKBY)
+	UnregisterSignal(owner, COMSIG_ATOM_ATTACKBY)
 
 /datum/devil_bane/harvest/proc/harvest_attack(datum/source, obj/item/item, mob/attacker, params)
 	SIGNAL_HANDLER

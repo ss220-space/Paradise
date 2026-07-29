@@ -162,7 +162,7 @@
 			readout += "Нет информации о прочности или защите."
 
 		var/formatted_readout = span_notice("<b>ЗАЩИТНЫЕ ХАРАКТЕРИСТИКИ</b><hr>[jointext(readout, "\n")]")
-		to_chat(usr, chat_box_examine(formatted_readout))
+		to_chat(usr, boxed_message(formatted_readout))
 
 /obj/item/clothing/update_icon_state()
 	if(!can_toggle)
@@ -238,9 +238,11 @@
 	update_appearance()
 
 // Aurora forensics port.
-/obj/item/clothing/clean_blood()
+/obj/item/clothing/wash_tg(clean_types)
 	. = ..()
-	gunshot_residue = null
+	if(clean_types & CLEAN_TYPE_FIBERS)
+		gunshot_residue = null
+		. |= COMPONENT_CLEANED
 
 /obj/item/clothing/proc/can_use(mob/user)
 	if(isliving(user) && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -477,6 +479,12 @@
 		if(blood_overlay)
 			. += blood_overlay
 
+/obj/item/clothing/gloves/wash_tg(clean_types)
+	. = ..()
+	if((clean_types & CLEAN_TYPE_BLOOD) && transfer_blood > 0)
+		transfer_blood = 0
+		. |= COMPONENT_CLEANED|COMPONENT_CLEANED_GAIN_XP
+
 /obj/item/clothing/under/proc/set_sensors(mob/living/user)
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
@@ -517,16 +525,16 @@
 	else if(ismob(src.loc))
 		switch(sensor_mode)
 			if(0)
-				for(var/mob/V in viewers(user, 1))
+				for(var/mob/V in viewers(1, user))
 					V.show_message(span_warning("[user] отключа[PLUR_ET_YUT(user)] датчики [src.loc]."), 1)
 			if(1)
-				for(var/mob/V in viewers(user, 1))
+				for(var/mob/V in viewers(1, user))
 					V.show_message("[user] устанавлива[PLUR_ET_YUT(user)] датчики [src.loc] в бинарный режим.", 1)
 			if(2)
-				for(var/mob/V in viewers(user, 1))
+				for(var/mob/V in viewers(1, user))
 					V.show_message("[user] устанавлива[PLUR_ET_YUT(user)] датчики [src.loc] в режим мониторинга жизненных показателей.", 1)
 			if(3)
-				for(var/mob/V in viewers(user, 1))
+				for(var/mob/V in viewers(1, user))
 					V.show_message("[user] устанавлива[PLUR_ET_YUT(user)] датчики [src.loc] в режим мониторинга жизненных показателей и текущего местоположения.", 1)
 		if(ishuman(src))
 			var/mob/living/carbon/human/H = src
@@ -823,6 +831,14 @@
 		return
 	name = "mangled [initial(name)]"
 
+/obj/item/clothing/shoes/wash_tg(clean_types)
+	. = ..()
+
+	if(clean_types & CLEAN_TYPE_BLOOD)
+		bloody_shoes = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_NOT_BLOODY = 0)
+		blood_state = BLOOD_STATE_NOT_BLOODY
+		. |= COMPONENT_CLEANED
+
 /obj/item/clothing/shoes/update_desc()
 	. = ..()
 	if(!cut_open)
@@ -1057,6 +1073,8 @@
 	undyeable = TRUE
 	var/obj/item/tank/jetpack/suit/jetpack = null
 	var/jetpack_upgradable = FALSE
+	/// Original slowdown with modifiers
+	var/original_slowdown
 
 /obj/item/clothing/suit/space/Initialize(mapload)
 	. = ..()
@@ -1086,9 +1104,17 @@
 
 /obj/item/clothing/suit/space/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
-	if(jetpack && slot == ITEM_SLOT_CLOTH_OUTER)
-		for(var/datum/action/action as anything in jetpack.actions)
-			action.Grant(user)
+	if(slot == ITEM_SLOT_CLOTH_OUTER)
+		if(isnull(original_slowdown))
+			original_slowdown = slowdown
+		CALCULATE_SKILL_MOD(user, SPACESUIT_SLOWDOWN_MOD, skill_factor)
+		slowdown = original_slowdown * skill_factor
+		if(jetpack)
+			for(var/datum/action/action as anything in jetpack.actions)
+				action.Grant(user)
+	else if(!isnull(original_slowdown))
+		slowdown = original_slowdown
+		original_slowdown = null
 
 /obj/item/clothing/suit/space/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
@@ -1096,6 +1122,8 @@
 		for(var/datum/action/action as anything in jetpack.actions)
 			action.Remove(user)
 		jetpack.turn_off(user)
+	if(!isnull(original_slowdown))
+		slowdown = original_slowdown
 
 /obj/item/clothing/suit/space/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/tank/jetpack/suit))
@@ -1418,9 +1446,9 @@
 			turfs += pick(/turf in orange(3, H))
 		var/turf/picked = pick(turfs)
 		if(!isturf(picked))
-			return
+			return HIT_RESULT_FAILED
 		H.forceMove(picked)
-		return 1
+		return HIT_RESULT_SUCCESS
 	return ..()
 
 /**
@@ -1470,4 +1498,6 @@
 	if(istype(user) && user.dna && ("[blood_state]blood" in user.dna.species.get_blood_overlays()))
 		blood_mask = user.dna.species.blood_mask
 
-	return mutable_appearance(blood_mask, "[blood_state]blood", color = blood_color)
+	var/mutable_appearance/blood_overlay = mutable_appearance(blood_mask, "[blood_state]blood")
+	blood_overlay.color = blood_color
+	return blood_overlay

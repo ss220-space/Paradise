@@ -53,7 +53,7 @@
 	for(M in ohearers(7, T))
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-			if(!H.can_hear())
+			if(HAS_TRAIT(H, TRAIT_DEAF))
 				continue
 		M.emote("flip")
 

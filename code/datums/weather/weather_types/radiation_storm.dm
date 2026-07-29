@@ -10,16 +10,27 @@
 	weather_overlay = "ash_storm"
 	weather_duration_lower = 600
 	weather_color = "green"
-	weather_sound = 'sound/misc/bloblarm.ogg'
+	weather_sound = 'sound/announcer/bloblarm.ogg'
 
 	end_duration = 100
 	end_message = span_notice_alt("The air seems to be cooling off again.")
 	var/pre_maint_all_access
 	area_type = /area
-	protected_areas = list(/area/maintenance, /area/turret_protected/ai_upload, /area/turret_protected/ai_upload_foyer,
-	/area/turret_protected/ai, /area/storage/emergency, /area/storage/emergency2, /area/crew_quarters/sleep, /area/security/brig, /area/shuttle,
-	/area/coldcolony/malta/maintenance, /area/coldcolony/malta/turret_protected, /area/coldcolony/malta/outer/roadblock, /area/coldcolony/malta/resid_serv/crew_quarters/sleep,
-	/area/coldcolony/malta/security/brig, /area/coldcolony/malta/security/securehallway, /area/coldcolony/malta/hallway/cargo_escape/exit)
+	protected_areas = list(
+		/area/station/maintenance,
+		/area/station/ai/upload/chamber,
+		/area/station/ai/satellite/chamber,
+		/area/station/commons/sleep,
+		/area/station/security/brig,
+		/area/shuttle,
+		/area/coldcolony/malta/maintenance,
+		/area/coldcolony/malta/turret_protected,
+		/area/coldcolony/malta/outer/roadblock,
+		/area/coldcolony/malta/resid_serv/crew_quarters/sleep,
+		/area/coldcolony/malta/security/brig,
+		/area/coldcolony/malta/security/securehallway,
+		/area/coldcolony/malta/hallway/cargo_escape/exit,
+	)
 
 	immunity_type = TRAIT_RADSTORM_IMMUNE
 

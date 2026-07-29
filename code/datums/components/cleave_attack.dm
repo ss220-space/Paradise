@@ -136,9 +136,7 @@
 		return // if it needs to be wielded, check to make sure it is
 
 	if(istype(item, /obj/item/melee/energy))
-		var/obj/item/melee/energy/energy
-		energy = item
-		if(energy.active == FALSE)
+		if(!HAS_TRAIT(item, TRAIT_ITEM_ACTIVE))
 			return
 
 	// some information we're going to need later

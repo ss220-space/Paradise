@@ -1,4 +1,4 @@
-/datum/game_test/admin_verb_unique_names/Run()
+/datum/unit_test/admin_verb_unique_names/Run()
 	var/list/seen_names = list()
 	for(var/type in SSadmin_verbs.admin_verbs_by_type)
 		var/datum/admin_verb/verb = SSadmin_verbs.admin_verbs_by_type[type]

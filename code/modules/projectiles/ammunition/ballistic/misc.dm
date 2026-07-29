@@ -27,7 +27,6 @@
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/energy
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	muzzle_flash_color = COLOR_SOFT_RED
-	bullet_type = BULLET_TYPE_LASER
 
 // MARK: Glockroack
 /obj/item/ammo_casing/caseless/glockroach
@@ -36,7 +35,7 @@
 	projectile_type = /obj/projectile/glockroachbullet
 
 /obj/item/ammo_casing/caseless/glockroach/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "гильза 0,9 мм",
 		GENITIVE = "гильзы 0,9 мм",
 		DATIVE = "гильзе 0,9 мм",

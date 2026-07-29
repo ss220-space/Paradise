@@ -31,7 +31,9 @@
 /obj/machinery/door/window/westleft{
 	dir = 2
 	},
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -76,8 +78,8 @@
 /area/ruin/space/ancientstation/charlie_sec)
 "ao" = (
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "whiteblue";
-	dir = 8
+	dir = 8;
+	icon_state = "whiteblue"
 	},
 /area/ruin/space/ancientstation/beta_surgery1)
 "ap" = (
@@ -131,7 +133,7 @@
 /area/ruin/space/ancientstation/charlie_engi)
 "ax" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_docks)
 "ay" = (
@@ -300,9 +302,9 @@
 "aW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/window{
+	color = "red";
 	dir = 2;
-	req_access = list(271);
-	color = "red"
+	req_access = list(271)
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_armory)
@@ -320,8 +322,8 @@
 /area/ruin/space/ancientstation/charlie_corridor)
 "bd" = (
 /obj/item/fish_eggs/babycarp{
-	pixel_y = 16;
-	pixel_x = 11
+	pixel_x = 11;
+	pixel_y = 16
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/template_noop)
@@ -553,8 +555,8 @@
 "bR" = (
 /obj/structure/table/glass,
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "whiteblue";
-	dir = 1
+	dir = 1;
+	icon_state = "whiteblue"
 	},
 /area/ruin/space/ancientstation/beta_surgery1)
 "bS" = (
@@ -648,7 +650,9 @@
 /area/ruin/space/ancientstation/charlie_restroom)
 "ck" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /obj/machinery/r_n_d/protolathe,
 /obj/machinery/light/small{
 	dir = 8
@@ -729,8 +733,8 @@
 "cA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/medical{
-	req_access = list(271);
-	name = "Medical Storage"
+	name = "Medical Storage";
+	req_access = list(271)
 	},
 /obj/structure/curtain/medical,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -935,8 +939,8 @@
 "do" = (
 /obj/item/circuitboard/sleeper,
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "whiteblue";
-	dir = 1
+	dir = 1;
+	icon_state = "whiteblue"
 	},
 /area/template_noop)
 "dp" = (
@@ -1454,8 +1458,8 @@
 /area/ruin/space/ancientstation/theta_experi)
 "fh" = (
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "whiteblue";
-	dir = 9
+	dir = 9;
+	icon_state = "whiteblue"
 	},
 /area/ruin/space/ancientstation/beta_surgery1)
 "fk" = (
@@ -1611,8 +1615,8 @@
 "fK" = (
 /obj/structure/closet/secure_closet/medical2,
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "whiteblue";
-	dir = 1
+	dir = 1;
+	icon_state = "whiteblue"
 	},
 /area/ruin/space/ancientstation/beta_surgery1)
 "fL" = (
@@ -1701,7 +1705,7 @@
 /area/ruin/space/ancientstation/beta_atmos)
 "gb" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/ore_box,
 /obj/machinery/light/small{
 	dir = 8
@@ -1749,7 +1753,9 @@
 /area/ruin/space/ancientstation/theta_experi)
 "gn" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/machinery/computer/rdconsole/public,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1795,8 +1801,8 @@
 "gz" = (
 /obj/machinery/light/small,
 /obj/machinery/conveyor{
-	id = "trash";
-	dir = 4
+	dir = 4;
+	id = "trash"
 	},
 /obj/machinery/mineral/stacking_machine{
 	input_dir = 2;
@@ -1825,8 +1831,8 @@
 /obj/item/clothing/gloves/color/latex/nitrile,
 /obj/machinery/alarm/old/directional/west,
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "whiteblue";
-	dir = 8
+	dir = 8;
+	icon_state = "whiteblue"
 	},
 /area/ruin/space/ancientstation/beta_surgery1)
 "gG" = (
@@ -1964,7 +1970,7 @@
 /area/ruin/space/ancientstation/charlie_engi)
 "ha" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 1
 	},
 /obj/structure/railing,
@@ -1986,8 +1992,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet,
 /obj/item/clothing/under/retro/engineering{
-	name = "retro miners' uniforms";
-	desc = "Faded dingy overalls and jumpsuit overalls. It's covered in oil, dust and sand."
+	desc = "Faded dingy overalls and jumpsuit overalls. It's covered in oil, dust and sand.";
+	name = "retro miners' uniforms"
 	},
 /obj/item/clothing/mask/gas/explorer,
 /obj/item/mining_scanner{
@@ -2050,8 +2056,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "whiteblue";
-	dir = 8
+	dir = 8;
+	icon_state = "whiteblue"
 	},
 /area/ruin/space/ancientstation/beta_surgery1)
 "hq" = (
@@ -2063,8 +2069,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/mineral/processing_unit,
 /obj/machinery/conveyor{
-	id = "oreredemp";
-	dir = 4
+	dir = 4;
+	id = "oreredemp"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/theta_docks)
@@ -2152,8 +2158,8 @@
 /area/ruin/space/ancientstation/charlie_sec)
 "hJ" = (
 /obj/machinery/door/airlock/medical{
-	req_access = list(271);
-	name = "Operating room"
+	name = "Operating room";
+	req_access = list(271)
 	},
 /obj/structure/curtain/medical,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -2341,10 +2347,7 @@
 /area/ruin/space/ancientstation/charlie_hydroponics)
 "iz" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	name = "dusty mirror";
 	pixel_x = 26
@@ -2403,8 +2406,8 @@
 	start_charge = 0
 	},
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "whiteblue";
-	dir = 1
+	dir = 1;
+	icon_state = "whiteblue"
 	},
 /area/ruin/space/ancientstation/beta_surgery)
 "iJ" = (
@@ -2557,7 +2560,7 @@
 /area/ruin/space/ancientstation/beta_atmos)
 "jn" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_docks)
 "jq" = (
@@ -2704,10 +2707,7 @@
 /area/template_noop)
 "jV" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -2991,8 +2991,8 @@
 /obj/structure/table,
 /obj/item/reagent_containers/food/condiment/enzyme{
 	layer = 5;
-	pixel_y = 16;
-	pixel_x = -6
+	pixel_x = -6;
+	pixel_y = 16
 	},
 /obj/item/reagent_containers/food/condiment/saltshaker{
 	pixel_x = -3;
@@ -3003,8 +3003,8 @@
 	pixel_y = 11
 	},
 /obj/item/reagent_containers/glass/beaker/large{
-	pixel_y = 2;
-	pixel_x = 7
+	pixel_x = 7;
+	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -3314,8 +3314,8 @@
 /area/ruin/space/ancientstation/charlie_corridor)
 "lN" = (
 /obj/item/fish_eggs/babycarp{
-	pixel_y = 16;
-	pixel_x = 11
+	pixel_x = 11;
+	pixel_y = 16
 	},
 /obj/item/fish_eggs/babycarp{
 	pixel_x = -16
@@ -3344,7 +3344,7 @@
 /area/ruin/space/ancientstation/hivebot)
 "lW" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/ore_box,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_storage)
@@ -3385,8 +3385,8 @@
 "mc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/medical{
-	req_access = list(271);
-	name = "Operating room"
+	name = "Operating room";
+	req_access = list(271)
 	},
 /obj/structure/curtain/medical,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -3590,7 +3590,7 @@
 /area/ruin/space/ancientstation/beta_atmos)
 "mK" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow/partial,
+/obj/effect/turf_decal/delivery/partial,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_docks)
 "mM" = (
@@ -3709,27 +3709,27 @@
 	dir = 4
 	},
 /obj/item/reagent_scanner{
-	pixel_y = 13;
-	pixel_x = -8
+	pixel_x = -8;
+	pixel_y = 13
 	},
 /obj/item/reagent_scanner{
 	pixel_y = 13
 	},
 /obj/item/reagent_scanner{
-	pixel_y = 13;
-	pixel_x = 8
+	pixel_x = 8;
+	pixel_y = 13
 	},
 /obj/item/roller{
-	pixel_y = 1;
-	pixel_x = 6
+	pixel_x = 6;
+	pixel_y = 1
 	},
 /obj/item/roller{
-	pixel_y = 1;
-	pixel_x = -8
+	pixel_x = -8;
+	pixel_y = 1
 	},
 /obj/item/roller{
-	pixel_y = 7;
-	pixel_x = -2
+	pixel_x = -2;
+	pixel_y = 7
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -3757,10 +3757,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/trinary/filter/co2{
 	desc = "Отфильтровывает углекислый газ из трубы и отправляет его в камеру хранения";
+	dir = 1;
 	name = "Фильтр Углекислого Газа (СO2)";
 	on = 1;
-	target_pressure = 4500;
-	dir = 1
+	target_pressure = 4500
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/beta_atmos)
@@ -3842,7 +3842,7 @@
 /area/ruin/space/ancientstation/hivebot)
 "nS" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/constructable_frame/machine_frame,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_storage)
@@ -4077,8 +4077,8 @@
 	pixel_y = 16
 	},
 /obj/item/fish_eggs/babycarp{
-	pixel_y = 16;
-	pixel_x = -9
+	pixel_x = -9;
+	pixel_y = 16
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/template_noop)
@@ -4219,8 +4219,8 @@
 /area/ruin/space/ancientstation/charlie_prison)
 "pi" = (
 /obj/item/fish_eggs/babycarp{
-	pixel_y = 16;
-	pixel_x = -9
+	pixel_x = -9;
+	pixel_y = 16
 	},
 /obj/item/fish_eggs/babycarp{
 	pixel_x = -16
@@ -4359,11 +4359,7 @@
 /area/ruin/space/ancientstation/charlie_warden)
 "pC" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sink{
-	dir = 1;
-	layer = 5;
-	pixel_y = -5
-	},
+/obj/structure/sink/directional/south,
 /obj/machinery/light_construct/small{
 	dir = 8
 	},
@@ -4522,7 +4518,7 @@
 "qf" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /mob/living/simple_animal/hostile/hivebot/range,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_corridor)
@@ -4688,8 +4684,8 @@
 	pixel_x = 16
 	},
 /obj/item/fish_eggs/babycarp{
-	pixel_y = 16;
-	pixel_x = 11
+	pixel_x = 11;
+	pixel_y = 16
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/template_noop)
@@ -4780,8 +4776,8 @@
 /area/ruin/space/ancientstation/charlie_secrest)
 "re" = (
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "whiteblue";
-	dir = 8
+	dir = 8;
+	icon_state = "whiteblue"
 	},
 /area/template_noop)
 "rh" = (
@@ -4930,7 +4926,7 @@
 /area/ruin/space/ancientstation/charlie_corridor)
 "rE" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/crate,
 /obj/machinery/atmospherics/unary/vent_scrubber/on_tox{
 	dir = 1
@@ -4940,7 +4936,9 @@
 /area/ruin/space/ancientstation/theta_storage)
 "rF" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -4961,7 +4959,7 @@
 /area/ruin/space/ancientstation/charlie_kitchen)
 "rL" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/crate,
 /obj/machinery/light_construct/small,
 /turf/simulated/floor/plasteel,
@@ -5258,8 +5256,8 @@
 	pixel_y = 16
 	},
 /obj/item/fish_eggs/babycarp{
-	pixel_y = 16;
-	pixel_x = -9
+	pixel_x = -9;
+	pixel_y = 16
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/template_noop)
@@ -5268,7 +5266,9 @@
 /obj/machinery/door/window/westleft{
 	dir = 2
 	},
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /mob/living/simple_animal/hostile/hivebot/strong,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -5341,7 +5341,7 @@
 /area/ruin/space/ancientstation/hivebot)
 "tj" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/item/stack/sheet/metal/fifty,
 /obj/structure/closet/crate/large,
 /obj/item/stack/sheet/glass/fifty,
@@ -5537,8 +5537,8 @@
 "tM" = (
 /obj/structure/nest/carppuppy,
 /obj/item/fish_eggs/babycarp{
-	pixel_y = 16;
-	pixel_x = -9
+	pixel_x = -9;
+	pixel_y = 16
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/template_noop)
@@ -5559,9 +5559,7 @@
 /area/ruin/space/ancientstation/beta_atmos)
 "tP" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sink/kitchen{
-	pixel_y = 22
-	},
+/obj/structure/sink/kitchen/directional/north,
 /obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -5664,8 +5662,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "whiteblue";
-	dir = 4
+	dir = 4;
+	icon_state = "whiteblue"
 	},
 /area/template_noop)
 "uo" = (
@@ -5717,7 +5715,7 @@
 /area/ruin/space/ancientstation/charlie_corridor)
 "ut" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/crate,
 /obj/item/spacepod_equipment/sec_cargo/chair,
 /obj/item/spacepod_equipment/sec_cargo/chair,
@@ -5732,10 +5730,7 @@
 /area/ruin/space/ancientstation/charlie_dininghall)
 "uA" = (
 /obj/machinery/optable,
-/obj/machinery/shower{
-	pixel_x = -3;
-	pixel_y = 3
-	},
+/obj/machinery/shower/directional/south,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
@@ -5847,7 +5842,9 @@
 "uQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/window/reinforced,
-/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /obj/machinery/r_n_d/circuit_imprinter,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -5868,7 +5865,7 @@
 /area/ruin/space/ancientstation/theta_exit)
 "uT" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/light_construct/small{
 	dir = 4
 	},
@@ -5888,10 +5885,7 @@
 "uY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/optable,
-/obj/machinery/shower{
-	pixel_x = -3;
-	pixel_y = 3
-	},
+/obj/machinery/shower/directional/south,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
@@ -5927,7 +5921,7 @@
 /area/ruin/space/ancientstation/theta_corridor)
 "vk" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 1
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -6023,7 +6017,7 @@
 /area/ruin/space/ancientstation/hivebot)
 "vx" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 1
 	},
 /obj/structure/spacepod_frame,
@@ -6160,7 +6154,7 @@
 /area/ruin/space/ancientstation/charlie_comm)
 "wa" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow/partial,
+/obj/effect/turf_decal/delivery/partial,
 /obj/item/pod_parts/pod_frame/aft_starboard,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/theta_docks)
@@ -6182,8 +6176,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "whiteblue";
-	dir = 4
+	dir = 4;
+	icon_state = "whiteblue"
 	},
 /area/template_noop)
 "wi" = (
@@ -6253,9 +6247,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /obj/item/soap/nanotrasen,
 /obj/structure/curtain/open,
 /turf/simulated/floor/plasteel{
@@ -6314,8 +6306,8 @@
 "ww" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/medical{
-	req_access = list(271);
-	name = "Medical Storage"
+	name = "Medical Storage";
+	req_access = list(271)
 	},
 /obj/structure/curtain/medical,
 /turf/simulated/floor/plasteel{
@@ -6371,8 +6363,8 @@
 "wG" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/conveyor{
-	id = "oreredemp";
-	dir = 4
+	dir = 4;
+	id = "oreredemp"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/theta_docks)
@@ -6453,8 +6445,8 @@
 	pixel_x = 16
 	},
 /obj/item/fish_eggs/babycarp{
-	pixel_y = 16;
-	pixel_x = -9
+	pixel_x = -9;
+	pixel_y = 16
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/template_noop)
@@ -6463,8 +6455,8 @@
 	pixel_y = 16
 	},
 /obj/item/fish_eggs/babycarp{
-	pixel_y = 16;
-	pixel_x = 11
+	pixel_x = 11;
+	pixel_y = 16
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/template_noop)
@@ -6614,15 +6606,15 @@
 /area/ruin/space/ancientstation/theta_solar)
 "xB" = (
 /obj/item/fish_eggs/babycarp{
-	pixel_y = 16;
-	pixel_x = 11
+	pixel_x = 11;
+	pixel_y = 16
 	},
 /obj/item/fish_eggs/babycarp{
 	pixel_x = 16
 	},
 /obj/item/fish_eggs/babycarp{
-	pixel_y = 16;
-	pixel_x = -9
+	pixel_x = -9;
+	pixel_y = 16
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/template_noop)
@@ -6636,7 +6628,7 @@
 /area/template_noop)
 "xG" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -6658,8 +6650,8 @@
 /obj/item/ammo_box/magazine/enforcer,
 /obj/item/circuitboard/holopad,
 /obj/item/gun/projectile/automatic/pistol/enforcer{
-	name = "Glock 25";
-	desc = "Rare weapon, engraving reads: Command with style! To the best captain of NRS ABOTC."
+	desc = "Rare weapon, engraving reads: Command with style! To the best captain of NRS ABOTC.";
+	name = "Glock 25"
 	},
 /obj/structure/window/reinforced,
 /obj/item/clothing/suit/space/nasavoid/captain,
@@ -6769,7 +6761,7 @@
 /obj/item/kitchen/utensil/pspork,
 /obj/item/kitchen/utensil/pspork,
 /obj/item/kitchen/rollingpin,
-/obj/item/reagent_containers/glass/rag,
+/obj/item/rag,
 /obj/item/flashlight/lamp,
 /obj/item/storage/belt/chef,
 /turf/simulated/floor/plasteel{
@@ -6942,8 +6934,8 @@
 	start_charge = 0
 	},
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "whiteblue";
-	dir = 1
+	dir = 1;
+	icon_state = "whiteblue"
 	},
 /area/ruin/space/ancientstation/beta_surgery1)
 "yH" = (
@@ -6996,8 +6988,8 @@
 "yP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/conveyor{
-	id = "oreredemp";
-	dir = 5
+	dir = 5;
+	id = "oreredemp"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/theta_docks)
@@ -7379,7 +7371,7 @@
 /area/ruin/space/ancientstation/charlie_dininghall)
 "At" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow/partial,
+/obj/effect/turf_decal/delivery/partial,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/theta_docks)
 "Av" = (
@@ -7534,8 +7526,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "whiteblue";
-	dir = 8
+	dir = 8;
+	icon_state = "whiteblue"
 	},
 /area/template_noop)
 "AV" = (
@@ -7687,7 +7679,7 @@
 /area/template_noop)
 "Bs" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/ore_box,
 /obj/machinery/light_switch/directional/east,
 /obj/item/paintkit/firefighter_zairjah,
@@ -7758,9 +7750,9 @@
 "BF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/computer/monitor{
-	name = "Grid Power Monitoring Computer";
+	icon = 'icons/obj/machines/computer3.dmi';
 	icon_state = "frame-eng";
-	icon = 'icons/obj/machines/computer3.dmi'
+	name = "Grid Power Monitoring Computer"
 	},
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -7856,8 +7848,8 @@
 	output_dir = 1
 	},
 /obj/machinery/conveyor{
-	id = "oreredemp";
-	dir = 1
+	dir = 1;
+	id = "oreredemp"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/theta_docks)
@@ -7915,7 +7907,9 @@
 /obj/machinery/door/window/westleft{
 	dir = 2
 	},
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -7925,7 +7919,7 @@
 /area/ruin/space/ancientstation/cowasteroid)
 "Ch" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
@@ -8072,7 +8066,7 @@
 "CI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/obj/structure/toilet,
+/obj/structure/toilet/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -8568,7 +8562,7 @@
 /area/ruin/space/ancientstation/hivebot)
 "EC" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/item/pod_parts/pod_frame/fore_starboard,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_corridor)
@@ -8617,7 +8611,7 @@
 /area/ruin/space/ancientstation/hivebot)
 "EL" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 1
 	},
 /obj/structure/railing,
@@ -8771,8 +8765,8 @@
 	pixel_y = 10
 	},
 /obj/item/storage/box/bodybags{
-	pixel_y = 5;
-	pixel_x = 5
+	pixel_x = 5;
+	pixel_y = 5
 	},
 /obj/item/storage/box/bodybags{
 	pixel_x = 5
@@ -8866,9 +8860,7 @@
 /area/template_noop)
 "FI" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/north,
 /obj/structure/curtain/open,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_punishmentcell)
@@ -8916,7 +8908,7 @@
 /area/ruin/space/ancientstation/charlie_cryo)
 "FT" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_storage)
@@ -9023,8 +9015,8 @@
 "Gm" = (
 /obj/machinery/recycler,
 /obj/machinery/conveyor{
-	id = "trash";
-	dir = 4
+	dir = 4;
+	id = "trash"
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/ancientstation/charlie_recycler)
@@ -9343,8 +9335,8 @@
 /area/ruin/space/ancientstation/beta_atmos)
 "Hn" = (
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "whiteblue";
-	dir = 1
+	dir = 1;
+	icon_state = "whiteblue"
 	},
 /area/template_noop)
 "Hp" = (
@@ -9444,7 +9436,7 @@
 /area/ruin/space/ancientstation/charlie_dininghall)
 "HC" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 1
 	},
 /obj/item/pod_parts/pod_frame/fore_port,
@@ -9689,9 +9681,7 @@
 /area/ruin/space/ancientstation/theta_corridor)
 "It" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sink/kitchen{
-	pixel_y = 22
-	},
+/obj/structure/sink/kitchen/directional/north,
 /obj/structure/foodcart,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -9700,7 +9690,9 @@
 "Iu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/window/reinforced,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -9883,8 +9875,8 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/apc/directional/east{
-	start_charge = 0;
-	report_power_alarm = 0
+	report_power_alarm = 0;
+	start_charge = 0
 	},
 /obj/structure/chair{
 	dir = 8
@@ -9984,9 +9976,7 @@
 "Jv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/curtain/open,
-/obj/machinery/shower{
-	pixel_y = 18
-	},
+/obj/machinery/shower/directional/south,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_punishmentcell)
 "JA" = (
@@ -10246,7 +10236,7 @@
 "KH" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/hivebot/range,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_corridor)
 "KK" = (
@@ -10444,8 +10434,8 @@
 	pixel_x = 16
 	},
 /obj/item/fish_eggs/babycarp{
-	pixel_y = 16;
-	pixel_x = 11
+	pixel_x = 11;
+	pixel_y = 16
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/template_noop)
@@ -10459,8 +10449,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "whiteblue";
-	dir = 1
+	dir = 1;
+	icon_state = "whiteblue"
 	},
 /area/template_noop)
 "Ls" = (
@@ -10796,7 +10786,7 @@
 /area/ruin/space/ancientstation/charlie_warden)
 "MM" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow/partial,
+/obj/effect/turf_decal/delivery/partial,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
@@ -11045,8 +11035,8 @@
 "NC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/paper/fluff/ruins/oldstation{
-	pixel_y = 8;
-	pixel_x = -7
+	pixel_x = -7;
+	pixel_y = 8
 	},
 /obj/item/paper/fluff/ruins/oldstation{
 	pixel_y = 3
@@ -11171,8 +11161,8 @@
 /area/ruin/space/ancientstation/charlie_corridor)
 "NW" = (
 /obj/item/fish_eggs/babycarp{
-	pixel_y = 16;
-	pixel_x = -9
+	pixel_x = -9;
+	pixel_y = 16
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/template_noop)
@@ -11195,8 +11185,8 @@
 /obj/machinery/door_control{
 	id = "proto";
 	name = "Theta Prototype Lab Lockdown Button";
-	pixel_y = -1;
 	pixel_x = -22;
+	pixel_y = -1;
 	req_access = list(271)
 	},
 /turf/simulated/floor/plasteel{
@@ -11728,8 +11718,8 @@
 	pixel_x = 16
 	},
 /obj/item/fish_eggs/babycarp{
-	pixel_y = 16;
-	pixel_x = -9
+	pixel_x = -9;
+	pixel_y = 16
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/template_noop)
@@ -11818,8 +11808,8 @@
 /obj/machinery/kitchen_machine/candy_maker,
 /obj/item/trash/snack_bowl,
 /obj/item/trash/snack_bowl{
-	pixel_y = 7;
-	pixel_x = -3
+	pixel_x = -3;
+	pixel_y = 7
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -11997,8 +11987,8 @@
 /area/ruin/space/ancientstation/theta_mine)
 "QN" = (
 /obj/item/fish_eggs/babycarp{
-	pixel_y = 16;
-	pixel_x = -9
+	pixel_x = -9;
+	pixel_y = 16
 	},
 /obj/item/fish_eggs/babycarp{
 	pixel_y = 16
@@ -12603,7 +12593,7 @@
 /area/ruin/space/ancientstation/charlie_engi)
 "Tg" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow/partial,
+/obj/effect/turf_decal/delivery/partial,
 /obj/item/pod_parts/pod_frame/aft_port,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/theta_docks)
@@ -13154,8 +13144,8 @@
 	pixel_x = 12
 	},
 /obj/item/reagent_containers/glass/beaker/waterbottle/large{
-	pixel_y = -2;
-	pixel_x = 12
+	pixel_x = 12;
+	pixel_y = -2
 	},
 /obj/structure/closet/secure_closet/freezer/fridge/empty,
 /obj/item/reagent_containers/food/snacks/monstermeat/rotten,
@@ -13208,8 +13198,8 @@
 "VX" = (
 /obj/machinery/constructable_frame/machine_frame,
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "whiteblue";
-	dir = 1
+	dir = 1;
+	icon_state = "whiteblue"
 	},
 /area/ruin/space/ancientstation/beta_surgery1)
 "VY" = (
@@ -13228,8 +13218,8 @@
 /area/ruin/space/ancientstation/beta_atmos)
 "Wb" = (
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "whiteblue";
-	dir = 10
+	dir = 10;
+	icon_state = "whiteblue"
 	},
 /area/ruin/space/ancientstation/beta_surgery1)
 "Wc" = (
@@ -13341,20 +13331,20 @@
 	dir = 1
 	},
 /obj/item/storage/box/patch_packs{
-	pixel_y = -7;
-	pixel_x = 8
+	pixel_x = 8;
+	pixel_y = -7
 	},
 /obj/item/storage/box/pillbottles{
-	pixel_y = -8;
-	pixel_x = -3
+	pixel_x = -3;
+	pixel_y = -8
 	},
 /obj/item/storage/box/iv_bags{
 	pixel_x = -3;
 	pixel_y = 2
 	},
 /obj/item/storage/box/beakers{
-	pixel_y = 4;
-	pixel_x = 9
+	pixel_x = 9;
+	pixel_y = 4
 	},
 /obj/item/storage/fancy/vials,
 /obj/machinery/light_construct{
@@ -13551,7 +13541,9 @@
 "Xe" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/autolathe,
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /obj/machinery/light_construct/small{
 	dir = 4
 	},
@@ -13694,7 +13686,7 @@
 /area/ruin/space/ancientstation/theta_experi)
 "XR" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_storage)
 "XS" = (
@@ -13944,7 +13936,7 @@
 /area/ruin/space/ancientstation/charlie_cryo)
 "Zj" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/item/stack/sheet/metal/fifty,
 /obj/structure/closet/crate/large,
 /obj/item/stack/sheet/glass/fifty,

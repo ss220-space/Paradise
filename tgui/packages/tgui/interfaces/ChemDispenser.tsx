@@ -10,7 +10,6 @@ import {
 import { BeakerContents } from '../interfaces/common/BeakerContents';
 import { Window } from '../layouts';
 
-const dispenseAmounts = [1, 5, 10, 20, 30, 50, 100];
 const removeAmounts = [1, 5, 10];
 
 type DispenserChemical = {
@@ -25,6 +24,7 @@ type ChemDispenserData = {
   energy: number;
   maxEnergy: number;
   glass: boolean;
+  dispenseAmounts: number[];
 };
 
 export const ChemDispenser = (props: unknown) => {
@@ -66,7 +66,7 @@ const ChemDispenserSettings = (properties) => {
           </LabeledList.Item>
           <LabeledList.Item label="Объём синтеза" verticalAlign="middle">
             <Stack>
-              {dispenseAmounts.map((a, i) => (
+              {data.dispenseAmounts.map((a, i) => (
                 <Stack.Item key={i} grow width="15%">
                   <Button
                     fluid
