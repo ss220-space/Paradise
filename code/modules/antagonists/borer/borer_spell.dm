@@ -1,7 +1,6 @@
 /datum/action/cooldown/spell/pointed/borer_infest
 	name = "Infest"
 	desc = "Infest a suitable humanoid host."
-	cooldown_time = 0
 	spell_requirements = NONE
 	button_icon_state = "infest"
 	background_icon_state = "bg_alien"
