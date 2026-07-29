@@ -104,7 +104,7 @@
 		if(player.client && player.stat != DEAD)
 			living_players_count++
 
-	if(spell_owner.praetorian_count < (living_players_count/XENO_PLAYERS_FOR_PRAETORIAN))
+	if(spell_owner.praetorian_count < (living_players_count / XENO_PLAYERS_FOR_PRAETORIAN))
 		..()
 	else
 		to_chat(user, span_warning("We have too many praetorians."))

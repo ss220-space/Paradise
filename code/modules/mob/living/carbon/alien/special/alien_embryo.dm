@@ -7,6 +7,7 @@
 	icon_state = "larva0_dead"
 	var/stage = 0
 	var/polling = FALSE
+	var/mob/candidate = null
 	COOLDOWN_DECLARE(xeno_embryo)
 
 /obj/item/organ/internal/body_egg/alien_embryo/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
@@ -72,13 +73,14 @@
 		return
 
 	polling = TRUE
+	INVOKE_ASYNC(src, PROC_REF(handle_async), gib_on_success)
 
+/obj/item/organ/internal/body_egg/alien_embryo/proc/handle_async(gib_on_success)
 	spawn()
 		if(QDELETED(src))
 			return
 
-		var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыгрять за Чужого?", ROLE_ALIEN, FALSE, source = /mob/living/carbon/alien/larva)
-		var/mob/candidate = null
+		var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыгрять за Чужого?", ROLE_ALIEN, FALSE, poll_time = 5 SECONDS, source = /mob/living/carbon/alien/larva)
 
 		if(QDELETED(src))
 			return
@@ -96,30 +98,33 @@
 			polling = FALSE
 			return
 
+		addtimer(CALLBACK(src, PROC_REF(spawn_larva), gib_on_success), 1 SECONDS)
+
+/obj/item/organ/internal/body_egg/alien_embryo/proc/spawn_larva(gib_on_success)
+	spawn()
+		if(QDELETED(src) || QDELETED(owner))
+			return
+
 		var/stand_check = owner.body_position == STANDING_UP
 		var/overlay = mutable_appearance('icons/mob/alien.dmi', icon_state = stand_check? "burst_stand" : "burst_lie")
 		owner.add_overlay(overlay)
 
-		spawn(6)
-			if(QDELETED(src) || QDELETED(owner))
-				return
+		var/mob/living/carbon/alien/larva/new_xeno = new(owner.drop_location())
+		new_xeno.possess_by_player(candidate.key)
+		new_xeno.mind.name = new_xeno.name
+		new_xeno.update_datum()
+		SEND_SOUND(new_xeno, sound('sound/voice/hiss5.ogg'))//To get the player's attention
+		log_game("[new_xeno.key] has become Alien Larva from [owner](ckey: [owner.key ? owner.key : "None"]) body.")
 
-			var/mob/living/carbon/alien/larva/new_xeno = new(owner.drop_location())
-			new_xeno.possess_by_player(candidate.key)
-			new_xeno.mind.name = new_xeno.name
-			new_xeno.update_datum()
-			SEND_SOUND(new_xeno, sound('sound/voice/hiss5.ogg'))//To get the player's attention
-			log_game("[new_xeno.key] has become Alien Larva from [owner](ckey: [owner.key ? owner.key : "None"]) body.")
-
-			if(gib_on_success)
-				owner.gib()
-			else
-				owner.adjustBruteLoss(40)
-				owner.cut_overlay(overlay)
-				stand_check = owner.body_position == STANDING_UP
-				overlay = mutable_appearance('icons/mob/alien.dmi', icon_state = stand_check? "bursted_stand" : "bursted_lie")
-				owner.add_overlay(overlay)
-			qdel(src)
+		if(gib_on_success)
+			owner.gib()
+		else
+			owner.adjustBruteLoss(40)
+			owner.cut_overlay(overlay)
+			stand_check = owner.body_position == STANDING_UP
+			overlay = mutable_appearance('icons/mob/alien.dmi', icon_state = stand_check? "bursted_stand" : "bursted_lie")
+			owner.add_overlay(overlay)
+		qdel(src)
 
 /*----------------------------------------
 Proc: AddInfectionImages(C)
