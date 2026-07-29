@@ -271,7 +271,6 @@
 		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 10, ATTACHMENT_OFFSET_Y = -2),
 	)
 	recoil = GUN_RECOIL_MIN
-	fire_modes = GUN_MODE_SINGLE_ONLY
 	gun_firemode_list = list(GUN_FIREMODE_SEMIAUTO)
 
 /obj/item/gun/projectile/automatic/lr30/get_ru_names()
