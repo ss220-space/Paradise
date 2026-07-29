@@ -418,7 +418,6 @@
 	desc = "Jump between the cameras in your APC's area. Right click to return to the APC."
 	button_icon_state = "pd_camera_view"
 	background_icon_state = "bg_pulsedemon"
-	cooldown_time = 0
 	var/current_camera = 0
 
 /datum/action/cooldown/spell/pulse_demon_cycle_camera/proc/exit_camera(mob/living/simple_animal/demon/pulse_demon)
@@ -465,7 +464,6 @@
 	name = "Open Upgrade Menu"
 	desc = "Open the upgrades menu. Alt-click for descriptions and costs."
 	button_icon_state = "pd_upgrade"
-	cooldown_time = 0
 	var/static/list/upgrade_icons = list(
 		PD_UPGRADE_HIJACK_SPEED = image(icon = 'icons/obj/engines_and_power/power.dmi', icon_state = "apcemag"),
 		PD_UPGRADE_DRAIN_SPEED  = image(icon = 'icons/obj/engines_and_power/power.dmi', icon_state = "ccharger1"),

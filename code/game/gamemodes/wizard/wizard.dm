@@ -331,9 +331,9 @@
 			if(LAZYLEN(wizard.spell_list))
 				text += "<br><b>[wizard.name] used the following spells: </b>"
 				var/i = 1
-				for(var/obj/effect/proc_holder/spell/spell as anything in wizard.spell_list)
+				for(var/datum/action/cooldown/spell/spell as anything in wizard.current.actions)
 					text += "[spell.name]"
-					if(length(wizard.spell_list) > i)
+					if(length(wizard.current.actions) > i)
 						text += ", "
 					i++
 			text += "<br>"
