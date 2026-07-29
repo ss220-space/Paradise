@@ -45,6 +45,8 @@ GLOBAL_VAR_INIT(refid_filter, TYPEID(filter(type="angular_blur")))
 
 #define ishuman(A) (istype(A, /mob/living/carbon/human))
 
+#define isdummy(A) (istype(A, /mob/living/carbon/human/dummy))
+
 #define isalien(A) (istype(A, /mob/living/carbon/alien))
 
 #define isdevil(A) (istype(A, /mob/living/carbon/true_devil))

@@ -33,6 +33,7 @@ type Modifier = {
   player_selected: BooleanLike;
   selectable: BooleanLike;
   selected: BooleanLike;
+  loadout_mod: BooleanLike;
 };
 
 type Map = {
@@ -342,7 +343,7 @@ const ModSelector = (props) => {
           mb={2}
           checked={mod.selected}
           tooltip={mod.desc}
-          color={mod.selected ? 'green' : 'blue'}
+          color={mod.selected ? 'green' : mod.loadout_mod ? 'white' : 'blue'}
           disabled={!mod.selected && !mod.selectable}
           onClick={() =>
             act('toggle_modifier', {
