@@ -137,8 +137,8 @@
 	var/datum/action/innate/borer/sneak_mode/sneak_mode_action = new
 	var/datum/action/innate/borer/focus_menu/focus_menu_action = new
 
-	var/obj/effect/proc_holder/spell/borer_infest/infest_spell = new
-	var/obj/effect/proc_holder/spell/borer_dominate/dominate_spell = new
+	var/datum/action/cooldown/spell/pointed/borer_infest/infest_spell = new
+	var/datum/action/cooldown/spell/pointed/borer_dominate/dominate_spell = new
 
 /mob/living/simple_animal/borer/get_ru_names()
 	return alist(
@@ -799,15 +799,16 @@
 	toggle_hide_action.Remove(src)
 
 /mob/living/simple_animal/borer/proc/GrantBorerSpells()
-	mind.AddSpell(infest_spell)
-	mind.AddSpell(dominate_spell)
+	infest_spell.Grant(src)
+	dominate_spell.Grant(src)
 
 /mob/living/simple_animal/borer/proc/RemoveBorerSpells()
-	mind.deactivate_spell(infest_spell)
-	mind.deactivate_spell(dominate_spell)
+	infest_spell.Remove(src)
+	dominate_spell.Remove(src)
 
 /mob/living/simple_animal/borer/proc/GrantInfestActions()
-	mind?.AddSpell(new /obj/effect/proc_holder/spell/borer_force_say)
+	var/datum/action/cooldown/spell/borer_force_say/say_spell = new
+	say_spell.Grant(src)
 	talk_to_host_action.Grant(src)
 	leave_body_action.Grant(src)
 	take_control_action.Grant(src)
@@ -816,7 +817,9 @@
 	torment_action.Grant(src)
 
 /mob/living/simple_animal/borer/proc/RemoveInfestActions()
-	mind?.RemoveSpell(/obj/effect/proc_holder/spell/borer_force_say)
+	var/datum/action/cooldown/spell/borer_force_say/say_spell = locate() in actions
+	say_spell.Remove(src)
+	qdel(say_spell)
 	talk_to_host_action.Remove(src)
 	take_control_action.Remove(src)
 	leave_body_action.Remove(src)
