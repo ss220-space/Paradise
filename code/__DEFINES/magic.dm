@@ -32,7 +32,8 @@
 #define SCHOOL_SANGUINE "sanguine"
 ///Lavaland magic
 #define SCHOOL_LAVALAND "lavaland"
-
+///Pulse demon magic
+#define SCHOOL_ENERGY "pulse demon"
 // Invocation types - what does the wizard need to do to invoke (cast) the spell?
 /// Allows being able to cast the spell without saying or doing anything.
 #define INVOCATION_NONE "none"
