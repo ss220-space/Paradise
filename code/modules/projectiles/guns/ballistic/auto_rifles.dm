@@ -41,6 +41,7 @@
 	name = "M-90gl Carbine (Rusted)"
 	desc = "A three-round burst 5.56 toploading carbine, designated 'M-90gl'. Has an attached underbarrel grenade launcher which can be toggled on and off. Looks rusty."
 	damage_mod = 0.85
+	fire_delay = 0.3 SECONDS
 	starting_attachment_types = list(/obj/item/gun_module/under/gun/grenade_launcher/integrated/unloaded)
 
 /obj/item/gun/projectile/automatic/m90/rusted/ComponentInitialize()

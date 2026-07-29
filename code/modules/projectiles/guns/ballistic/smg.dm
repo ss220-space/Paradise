@@ -108,6 +108,7 @@
 	name = "C-20r SMG (Rusted)"
 	desc = "A .45 SMG, designated 'C-20r'. Has a 'Scarborough Arms - Per falcis, per pravitas' buttstamp. Looks rusty."
 	damage_mod = 0.85
+	fire_delay = 0.3 SECONDS
 
 /obj/item/gun/projectile/automatic/smg/c20r/rusted/get_ru_names()
 	return alist(
