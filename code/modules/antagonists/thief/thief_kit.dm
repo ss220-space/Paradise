@@ -223,7 +223,7 @@
 		/obj/item/storage/toolbox/syndicate,
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate,
 		//syndi trash
-		/obj/item/toy/syndicateballoon,
+		/obj/item/toy/balloon/syndicate,
 		/obj/item/soap/syndie,
 		/obj/item/clothing/shoes/combat,
 		/obj/item/clothing/under/syndicate,

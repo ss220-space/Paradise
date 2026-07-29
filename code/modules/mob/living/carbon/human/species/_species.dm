@@ -303,7 +303,7 @@
 		/datum/skill/medical/virusology = 2,
 		/datum/skill/research/research = 2,
 		/datum/skill/research/protolathe = 2,
-		/datum/skill/research/mech_construct = 2,
+		/datum/skill/research/robotics = 2,
 		/datum/skill/research/xenobiology = 2,
 	)
 	var/bonus_skill_free_points = 0
@@ -1229,10 +1229,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		human.add_sight(glasses.vision_flags)
 		human.nightvision = max(glasses.see_in_dark, human.nightvision)
 
-		if(glasses.invis_override)
-			human.set_invis_see(glasses.invis_override)
-		else
-			human.set_invis_see(min(glasses.invis_view, human.see_invisible))
+		human.set_invis_see(min(glasses.invis_view, human.see_invisible))
 
 		if(!isnull(glasses.lighting_alpha))
 			human.lighting_alpha = min(glasses.lighting_alpha, human.lighting_alpha)

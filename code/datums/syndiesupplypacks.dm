@@ -1730,7 +1730,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	containertype = /obj/structure/closet/crate/critter/cat
 	contains = list(
 		/obj/item/clothing/accessory/petcollar,
-		/obj/item/toy/cattoy,
+		/obj/item/toy/plushie/cattoy,
 	)
 	containername = "cat crate"
 
