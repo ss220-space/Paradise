@@ -134,7 +134,6 @@
 	name = "Stechkin pistol"
 	desc = "Компактный пистолет калибра 10x25 мм, собранный по открытой схеме из библиотеки \"Canon de Frontira\". Имеет два слота под \
 			тактические модули, а также совместим с широким спектром специальных боеприпасов. Встречается повсеместно — от гражданского рынка до криминальных структур."
-	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "combat=3;materials=2;syndicate=3"
 	fire_sound = 'sound/weapons/gunshots/1stechkin.ogg'
 	accuracy = GUN_ACCURACY_PISTOL_STECHKIN
@@ -236,7 +235,6 @@
 	magin_sound = 'sound/weapons/gun_interactions/scarecrowmagin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/scarecrowmagout.ogg'
 	origin_tech = "combat=3;materials=2;syndicate=1"
-	w_class = WEIGHT_CLASS_SMALL
 	magazine_icon = "pistol_mag"
 	damage_mod = 0.5
 	mag_type = /obj/item/ammo_box/magazine/m10mm
