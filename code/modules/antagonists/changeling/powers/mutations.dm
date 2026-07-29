@@ -358,6 +358,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	item_flags = ABSTRACT|DROPDEL
 	icon_state = "ling_shield"
+	materials = null
 	throw_range = 0
 	throw_speed = 0
 
