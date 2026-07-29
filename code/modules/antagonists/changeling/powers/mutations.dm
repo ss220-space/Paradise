@@ -6,11 +6,12 @@
 	helptext = "Это точно был Зюзя!"
 	req_human = TRUE
 	var/weapon_type = /obj/item
+	var/weapon_check_type
 	var/weapon_name_simple = ""
 	var/recharge_slowdown = 0
 
 /datum/action/changeling/weapon/try_to_sting(mob/living/carbon/human/user, mob/target)
-	if(istype(user.get_active_hand(), weapon_type) || istype(user.get_inactive_hand(), weapon_type))
+	if(istype(user.get_active_hand(), weapon_check_type) || istype(user.get_inactive_hand(), weapon_check_type))
 		retract(user, any_hand = TRUE)
 		return FALSE
 
@@ -45,15 +46,15 @@
 	if(!ischangeling(user))
 		return
 
-	if(!any_hand && !istype(user.get_active_hand(), weapon_type))
+	if(!any_hand && !istype(user.get_active_hand(), weapon_check_type))
 		return
 
 	var/done = FALSE
-	if(istype(user.get_active_hand(), weapon_type))
+	if(istype(user.get_active_hand(), weapon_check_type))
 		qdel(user.get_active_hand())
 		done = TRUE
 
-	if(istype(user.get_inactive_hand(), weapon_type))
+	if(istype(user.get_inactive_hand(), weapon_check_type))
 		qdel(user.get_inactive_hand())
 		done = TRUE
 
@@ -150,6 +151,7 @@
 	button_icon_state = "armblade"
 	power_type = CHANGELING_PURCHASABLE_POWER
 	weapon_type = /obj/item/melee/changeling/arm_blade
+	weapon_check_type = /obj/item/melee/changeling
 	weapon_name_simple = "клинок из кости"
 
 /obj/item/melee/changeling/arm_blade
@@ -229,6 +231,7 @@
 	button_icon_state = "flesh_maul"
 	power_type = CHANGELING_PURCHASABLE_POWER
 	weapon_type = /obj/item/melee/changeling/fleshy_maul
+	weapon_check_type = /obj/item/melee/changeling
 	weapon_name_simple = "молот плоти"
 
 /obj/item/melee/changeling/fleshy_maul
@@ -304,6 +307,7 @@
 	dna_cost = 1
 	chemical_cost = 10
 	weapon_type = /obj/item/gun/magic/tentacle
+	weapon_check_type = /obj/item/gun/magic/tentacle
 	weapon_name_simple = "мясное щупальце"
 
 /obj/item/gun/magic/tentacle
@@ -345,6 +349,7 @@
 	dna_cost = 1
 	recharge_slowdown = 0.25
 	weapon_type = /obj/item/shield/riot/changeling
+	weapon_check_type = /obj/item/shield/riot/changeling
 	weapon_name_simple = "костяной щит"
 
 /obj/item/shield/riot/changeling
