@@ -297,6 +297,16 @@
 /obj/proc/cult_reveal() //Called by cult reveal spell and chaplain's bible
 	return
 
+/obj/proc/set_cult_veil(veiled)
+	if(veiled)
+		ADD_TRAIT(src, TRAIT_CULT_CONCEALED, CULT_TRAIT)
+		SET_PLANE_IMPLICIT(src, CULT_VEIL_PLANE)
+		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+		return
+	REMOVE_TRAIT(src, TRAIT_CULT_CONCEALED, CULT_TRAIT)
+	SET_PLANE_IMPLICIT(src, initial(plane))
+	mouse_opacity = initial(mouse_opacity)
+
 /obj/proc/is_mob_spawnable() //Called by spawners_menu methods to determine if you can use an object through spawn-menu
 	//just override it to return TRUE in your object if you want to use it through spawn menu
 	return

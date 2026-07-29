@@ -81,7 +81,7 @@
 	if(!iscultist(user))
 		to_chat(user, "[heathen_message]")
 		return
-	if(invisibility)
+	if(HAS_TRAIT(src, TRAIT_CULT_CONCEALED))
 		to_chat(user, span_cultitalic("The magic in [src] is being channeled into Redspace, reveal the structure first!"))
 		return
 	if(HAS_TRAIT(user, TRAIT_HULK))
@@ -122,17 +122,15 @@
 /obj/structure/cult/functional/cult_conceal()
 	set_density(FALSE)
 	visible_message(span_danger("[src] fades away."))
-	invisibility = INVISIBILITY_HIDDEN_RUNES
-	alpha = 100 //To help ghosts distinguish hidden objs
+	set_cult_veil(TRUE)
 	light_range = 0
 	light_power = 0
 	update_light()
 
 /obj/structure/cult/functional/cult_reveal()
 	set_density(initial(density))
-	invisibility = 0
+	set_cult_veil(FALSE)
 	visible_message(span_danger("[src] suddenly appears!"))
-	alpha = initial(alpha)
 	light_range = initial(light_range)
 	light_power = initial(light_power)
 	update_light()

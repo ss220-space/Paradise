@@ -32,7 +32,7 @@
 		update_tint()
 	if(our_glasses.prescription)
 		update_nearsighted_effects()
-	if(our_glasses.vision_flags || our_glasses.see_in_dark || our_glasses.invis_override || our_glasses.invis_view || !isnull(our_glasses.lighting_alpha))
+	if(our_glasses.vision_flags || our_glasses.see_in_dark || our_glasses.invis_view || !isnull(our_glasses.lighting_alpha))
 		update_sight()
 		update_client_colour()
 	if(our_glasses.flags_cover & GLASSESCOVERSEYES)
