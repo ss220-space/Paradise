@@ -223,6 +223,7 @@
 	fire_delay = 0.2 SECONDS
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_LOW
+	weapon_weight = WEAPON_LIGHT
 
 // MARK: Tommy Gun
 /obj/item/gun/projectile/automatic/tommygun
@@ -238,7 +239,6 @@
 	burst_amount = 4
 	fire_delay = 0.2 SECONDS
 	recoil = GUN_RECOIL_MEDIUM
-	weapon_weight = WEAPON_HEAVY
 
 // MARK: SFG-5
 /obj/item/gun/projectile/automatic/smg/sfg
@@ -271,7 +271,6 @@
 	burst_amount = 5
 	fire_delay = 0.2 SECONDS
 	accuracy = GUN_ACCURACY_PISTOL
-	weapon_weight = WEAPON_HEAVY
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 20, ATTACHMENT_OFFSET_Y = 2),

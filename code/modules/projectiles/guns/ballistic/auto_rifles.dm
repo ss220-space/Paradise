@@ -98,7 +98,6 @@
 	desc = "Импортная версия классической штурмовой винтовки AK-814 с уменьшенным магазином и планками для установки оружейных модулей."
 	mag_type = /obj/item/ammo_box/magazine/ak814/fusty
 	fire_delay = 0.25 SECONDS
-	weapon_weight = WEAPON_HEAVY
 
 // MARK: AKS74-U
 /obj/item/gun/projectile/automatic/aks74u
@@ -106,13 +105,13 @@
 	desc = "An AK assault rifle favored by Soviet soldiers."
 	icon_state = "aksu"
 	item_state = "aksu"
-	fire_delay = 0.2 SECONDS
 	origin_tech = "combat=4;materials=3"
 	mag_type = /obj/item/ammo_box/magazine/aks74u
 	fire_sound = 'sound/weapons/gunshots/1m90.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	slot_flags = ITEM_SLOT_BACK
+	fire_delay = 0.2 SECONDS
 	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
@@ -125,6 +124,7 @@
 	name = "Rusted AKSU assault rifle"
 	desc = "An old AK assault rifle favored by Soviet soldiers."
 	damage_mod = 0.75
+	fire_delay = 0.3 SECONDS
 
 /obj/item/gun/projectile/automatic/aks74u/rusted/ComponentInitialize()
 	. = ..()

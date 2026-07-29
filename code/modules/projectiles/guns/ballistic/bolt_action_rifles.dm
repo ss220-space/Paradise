@@ -54,7 +54,6 @@
 	desc = "Careful not to lose your head."
 	var/guns_left = 30
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted
-	weapon_weight = WEAPON_LIGHT
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/Initialize(mapload)
 	. = ..()
