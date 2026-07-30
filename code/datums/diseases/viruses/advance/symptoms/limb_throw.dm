@@ -20,14 +20,11 @@ Limb Rejection
 
 /datum/symptom/limb_throw/Activate(datum/disease/virus/advance/A)
 	if(!spell_learned && A.stage >= 4)
-		var/datum/action/cooldown/spell/pointed/projectile/limb_throw/spell = new
-		spell.Grant(A.affected_mob)
-		spell_learned = TRUE
+		A.affected_mob.AddSpell(new /datum/action/cooldown/spell/pointed/projectile/limb_throw)
 	return
 
 /datum/symptom/limb_throw/End(datum/disease/virus/advance/A)
-	var/datum/action/cooldown/spell/pointed/projectile/limb_throw/spell = locate() in A.affected_mob.actions
-	spell.Remove(A.affected_mob)
+	A.affected_mob.RemoveSpell(/datum/action/cooldown/spell/pointed/projectile/limb_throw)
 	spell_learned = FALSE
 	return
 

@@ -1022,18 +1022,16 @@
 				visible_message(span_warning("[src.name] наблевал[GEND_A_O_I(src)] на себя!"),span_warning("Вы наблевали на себя!"))
 			location.add_vomit_floor(TRUE)
 
-/mob/proc/AddSpell(obj/effect/proc_holder/spell/spell)
+/mob/proc/AddSpell(datum/action/cooldown/spell/spell)
 	if(!istype(spell))
 		return
 	LAZYADD(mob_spell_list, spell)
-	spell.action.allow_observer_click = TRUE
-	spell.action.Grant(src)
-	spell.on_spell_gain(src)
+	spell.Grant(src)
 
-/mob/proc/RemoveSpell(obj/effect/proc_holder/spell/instance_or_path)
+/mob/proc/RemoveSpell(datum/action/cooldown/spell/instance_or_path)
 	if(!ispath(instance_or_path))
 		instance_or_path = instance_or_path.type
-	for(var/obj/effect/proc_holder/spell/spell as anything in mob_spell_list)
+	for(var/datum/action/cooldown/spell/spell as anything in mob_spell_list)
 		if(spell.type == instance_or_path)
 			LAZYREMOVE(mob_spell_list, spell)
 			qdel(spell)

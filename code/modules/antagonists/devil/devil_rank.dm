@@ -30,7 +30,7 @@
 	if(!devil.owner)
 		return
 
-	for(var/datum/action/cooldown/spell/spell as anything in devil.owner.current.actions)
+	for(var/datum/action/cooldown/spell/spell as anything in devil.owner.spell_list)
 		if(!is_type_in_list(spell, rank_spells))
 			continue
 
@@ -47,7 +47,7 @@
 		if(is_type_in_list(spell, rank_spells))
 			continue
 		var/datum/action/cooldown/spell/spell_to_add = new spell
-		spell_to_add.Grant(devil.owner.current)
+		devil.owner.AddSpell(spell_to_add)
 
 /datum/devil_rank/basic_devil
 	name = "Низший дьявол"

@@ -23,11 +23,10 @@
 		user.set_species(species_override)
 	else
 		user.set_species(/datum/species/human)
-	// TODO: rewrite it for datum/action/cooldown when it's ported
 	for(var/aspell in spells_to_add)
 		var/datum/action/cooldown/spell/our_spell = new aspell
 		our_spell.spell_requirements = NONE
-		our_spell.Grant(user)
+		user.AddSpell(our_spell)
 
 /datum/outfit/deathmatch_loadout/post_equip(mob/living/carbon/human/our_human, visualsOnly)
 	..()

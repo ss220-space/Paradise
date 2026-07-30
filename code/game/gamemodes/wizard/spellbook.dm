@@ -26,7 +26,7 @@
 	return LearnSpell(user, book, spell)
 
 /datum/spellbook_entry/proc/LearnSpell(mob/living/carbon/human/user, obj/item/spellbook/book, datum/action/cooldown/spell/newspell)
-	for(var/datum/action/cooldown/spell/aspell in user.actions)
+	for(var/datum/action/cooldown/spell/aspell in user.mind.spell_list)
 		if(initial(newspell.name) == initial(aspell.name)) // Not using directly in case it was learned from one spellbook then upgraded in another
 			if(aspell.spell_level >= aspell.spell_max_level)
 				to_chat(user, span_warning("This spell cannot be improved further."))
@@ -38,7 +38,7 @@
 				return TRUE
 	//No same spell found - just learn it
 	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
-	newspell.Grant(user)
+	user.mind.AddSpell(newspell)
 	to_chat(user, span_notice("You have learned [newspell.name]."))
 	return TRUE
 
@@ -47,7 +47,7 @@
 		return FALSE
 	if(!spell)
 		spell = new spell_type()
-	for(var/datum/action/cooldown/spell/aspell in user.actions)
+	for(var/datum/action/cooldown/spell/aspell in user.mind.spell_list)
 		if(initial(spell.name) == initial(aspell.name))
 			return TRUE
 	return FALSE
@@ -60,10 +60,10 @@
 	if(!spell) //This happens when the spell's source is from another spellbook, from loadouts, or adminery, this create a new template temporary spell
 		spell = new spell_type()
 	var/spell_levels = 0
-	for(var/datum/action/cooldown/spell/aspell in user.actions)
+	for(var/datum/action/cooldown/spell/aspell in user.mind.spell_list)
 		if(initial(spell.name) == initial(aspell.name))
 			spell_levels = aspell.spell_level
-			aspell.Remove(user)
+			user.mind.RemoveSpell(aspell)
 			if(spell) //If we created a temporary spell above, delete it now.
 				QDEL_NULL(spell)
 			return cost * (spell_levels + 1)
@@ -432,8 +432,7 @@
 /datum/spellbook_entry/item/soulstones/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	. = ..()
 	if(.)
-		var/datum/action/cooldown/spell/conjure/construct/c_spell = new()
-		c_spell.Grant(user)
+		user.mind.AddSpell(new /datum/action/cooldown/spell/conjure/construct)
 	return .
 
 /datum/spellbook_entry/item/wands
@@ -1008,7 +1007,7 @@
 
 /obj/item/spellbook/oneuse/attack_self(mob/user)
 	spell = new spell_type()
-	for(var/datum/action/cooldown/spell/knownspell in user.actions)
+	for(var/datum/action/cooldown/spell/knownspell in user.mind.spell_list)
 		if(knownspell.type == spell_type)
 			if(user.mind)
 				if(user.mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE || user.mind.special_role == SPECIAL_ROLE_WIZARD)
@@ -1019,7 +1018,7 @@
 	if(used)
 		recoil(user)
 	else
-		spell.Grant(user)
+		user.mind.AddSpell(spell)
 		to_chat(user, span_notice("Вы пробегаетесь взглядом по страницам таинственной книги. Внезапно вы осознаёте, что изучили заклинание [spellname_ru]!"))
 		add_misc_logs(user, "learned the spell [spellname] ([spell])")
 		onlearned(user)
@@ -1285,15 +1284,14 @@
 /obj/item/spellbook/oneuse/mime/attack_self(mob/user)
 	if(!user.mind)
 		return
-	for(var/datum/action/cooldown/spell/spell as anything in user.actions)
+	for(var/datum/action/cooldown/spell/spell as anything in user.mind.spell_list)
 		if(spell.type == spell_type)
 			balloon_alert(user, "вы уже знаете это!")
 			return
 	if(used)
 		recoil(user)
 	else
-		spell = new spell_type
-		spell.Grant(user)
+		user.mind.AddSpell(new spell_type)
 		to_chat(user, span_notice("Вы впитываете в себя содержимое книги, приобретая новую способность - <b>\"[spellname]\"</b>!"))
 		user.create_log(MISC_LOG, "learned the spell [spellname]")
 		user.create_attack_log("<font color='orange'>[key_name(user)] learned the spell [spellname].</font>")
@@ -1304,9 +1302,8 @@
 
 /obj/item/spellbook/oneuse/mime/onlearned(mob/user)
 	used = TRUE
-	if(!locate(/datum/action/cooldown/spell/mime) in user.actions) //add vow of silence if not known by user
-		var/datum/action/cooldown/spell/mime_spell = new /datum/action/cooldown/spell/mime
-		mime_spell.Grant(user)
+	if(!locate(/datum/action/cooldown/spell/mime) in user.mind.spell_list) //add vow of silence if not known by user
+		user.mind.AddSpell(new /datum/action/cooldown/spell/mime)
 		to_chat(user, span_notice("Вы узнали, как применять обет молчания в своих представлениях."))
 
 /obj/item/spellbook/oneuse/mime/fingergun

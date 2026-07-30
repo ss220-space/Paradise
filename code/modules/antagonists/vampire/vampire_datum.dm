@@ -443,7 +443,7 @@
 /datum/antagonist/vampire/proc/force_add_ability(path)
 	var/datum/action/cooldown/spell/spell = new path
 	if(istype(spell, /datum/action/cooldown/spell))
-		spell.Grant(owner.current)
+		owner.AddSpell(spell)
 		spell.on_trophie_update(src, force = TRUE)
 		// We give cooldown reduction bonus from current diablerie level to all new spells. Covers body transfers as well.
 		if(diablerie && spell.cooldown_time)
@@ -477,7 +477,7 @@
 			subclass.spell_TGUI = null
 		if(istype(ability, /datum/action/cooldown/spell))
 			var/datum/action/cooldown/spell/ability_spell = ability
-			ability_spell.Remove(owner.current)
+			owner.RemoveSpell(ability_spell)
 			qdel(ability_spell)
 		else if(istype(ability, /datum/vampire_passive))
 			var/datum/vampire_passive/passive = ability

@@ -26,16 +26,14 @@
 
 /datum/devil_obligation/proc/give_spells()
 	for(var/datum/action/cooldown/spell/spell as anything in obligation_spells)
-		if(owner.mind && (locate(spell) in owner.actions))
+		if(owner.mind && (locate(spell) in owner.mind.spell_list))
 			continue
 		var/datum/action/cooldown/spell/spell_to_add = new spell
-		spell_to_add.Grant(owner)
+		owner.mind.AddSpell(spell_to_add)
 
 /datum/devil_obligation/proc/remove_spells()
-	for(var/datum/action/cooldown/spell/spell as anything in owner.actions)
-		if(!(owner.mind && (locate(spell) in owner.actions)))
-			continue
-		qdel(spell)
+	for(var/datum/action/cooldown/spell/spell as anything in obligation_spells)
+		owner.mind.RemoveSpell(spell)
 
 /datum/devil_obligation/proc/apply_obligation_effect()
 	return

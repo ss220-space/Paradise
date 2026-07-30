@@ -473,10 +473,8 @@
 		return
 
 	if(H.mind)
-		var/datum/action/cooldown/spell/mime/mime = new
-		var/datum/action/cooldown/spell/forcewall/mime/mime_wall = new
-		mime_wall.Grant(H)
-		mime.Grant(H)
+		H.mind.AddSpell(new /datum/action/cooldown/spell/mime)
+		H.mind.AddSpell(new /datum/action/cooldown/spell/forcewall/mime)
 
 /datum/job/service/janitor
 	title = JOB_TITLE_JANITOR

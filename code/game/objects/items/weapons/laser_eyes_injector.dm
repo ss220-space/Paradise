@@ -33,7 +33,7 @@
 		balloon_alert(user, UNLINT("ДНК не обнаружена!"))
 		return .
 
-	if(locate(/datum/action/cooldown/spell/lasereyes, target.actions))
+	if(locate(/datum/action/cooldown/spell/lasereyes, target.mob_spell_list))
 		balloon_alert(user, "ген уже имеется!")
 		return .
 
@@ -42,8 +42,7 @@
 		return .
 
 	. |= ATTACK_CHAIN_SUCCESS
-	var/datum/action/cooldown/spell/lasereyes/spell = new
-	spell.Grant(target)
+	target.AddSpell(new /datum/action/cooldown/spell/lasereyes)
 	used = TRUE
 	update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
 

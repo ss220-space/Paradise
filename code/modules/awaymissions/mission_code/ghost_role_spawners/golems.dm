@@ -146,10 +146,8 @@
 		else
 			H.rename_character(null, name)
 		if(is_species(H, /datum/species/golem/tranquillite) && H.mind)
-			var/datum/action/cooldown/spell/mime/mime = new
-			var/datum/action/cooldown/spell/forcewall/mime/mime_wall = new
-			mime_wall.Grant(H)
-			mime.Grant(H)
+			new_spawn.AddSpell(new /datum/action/cooldown/spell/mime)
+			new_spawn.AddSpell(new /datum/action/cooldown/spell/forcewall/mime)
 			ADD_TRAIT(H.mind, TRAIT_MIMING, UNIQUE_TRAIT_SOURCE(H.mind))
 
 	if(has_owner)

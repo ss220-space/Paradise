@@ -32,9 +32,8 @@
 /datum/superheroes/proc/assign_spells(mob/living/carbon/human/H)
 	if(!length(default_spells))
 		return
-	for(var/datum/action/cooldown/spell/spell in default_spells)
-		var/datum/action/cooldown/spell/new_spell = new spell
-		new_spell.Grant(H)
+	for(var/spell in default_spells)
+		H.mind.AddSpell(new spell)
 
 /datum/superheroes/proc/assign_id(mob/living/carbon/human/H)
 	var/obj/item/card/id/syndicate/W = new(H)

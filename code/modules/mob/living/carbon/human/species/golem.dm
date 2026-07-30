@@ -1250,10 +1250,8 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	H.equip_to_slot_or_del(new	/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing(H), ITEM_SLOT_POCKET_RIGHT)
 	H.equip_to_slot_or_del(new	/obj/item/cane(H), ITEM_SLOT_HAND_LEFT)
 	if(H.mind)
-		var/datum/action/cooldown/spell/mime/mime = new
-		var/datum/action/cooldown/spell/forcewall/mime/mime_wall = new
-		mime_wall.Grant(H)
-		mime.Grant(H)
+		H.AddSpell(new /datum/action/cooldown/spell/mime)
+		H.AddSpell(new /datum/action/cooldown/spell/forcewall/mime)
 		ADD_TRAIT(H.mind, TRAIT_MIMING, UNIQUE_TRAIT_SOURCE(H.mind))
 
 /datum/species/golem/tranquillite/get_heal_material_types()

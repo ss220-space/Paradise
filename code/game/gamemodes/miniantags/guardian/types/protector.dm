@@ -18,8 +18,7 @@
 
 /mob/living/simple_animal/hostile/guardian/protector/Initialize(mapload)
 	. = ..()
-	var/datum/action/cooldown/spell/forcewall/guardian/spell = new
-	spell.Grant(src)
+	AddSpell(new /datum/action/cooldown/spell/forcewall/guardian)
 
 /mob/living/simple_animal/hostile/guardian/protector/ToggleMode()
 	if(cooldown > world.time)

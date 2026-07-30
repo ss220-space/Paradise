@@ -5,7 +5,7 @@
 	cooldown_time = 15 SECONDS
 	invocation = "TRAKI SUMON!"
 	invocation_type = INVOCATION_SHOUT
-	check_flags = AB_CHECK_CONSCIOUS | AB_TRANSFER_MIND | AB_CHECK_PHASED
+	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_PHASED
 	button_icon_state = "sumon_skulls"
 	summon_type = list(/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/magic)
 	summon_amount = 3

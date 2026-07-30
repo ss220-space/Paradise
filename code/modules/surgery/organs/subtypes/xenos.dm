@@ -13,8 +13,7 @@
 	..()
 	if(length(alien_powers))
 		for(var/power_to_add in alien_powers)
-			var/datum/action/cooldown/spell/spell = new power_to_add
-			spell.Grant(user)
+			user.AddSpell(new power_to_add)
 
 /obj/item/organ/internal/xenos/remove(mob/living/carbon/user, special = ORGAN_MANIPULATION_DEFAULT)
 	if(length(alien_powers))

@@ -8,5 +8,4 @@
 	if(name == "alien vector")
 		name = "alien vector ([rand(1, 1000)])"
 	real_name = name
-	var/datum/action/cooldown/spell/list_target/impregnate/spell = new
-	spell.Grant(src)
+	AddSpell(new /datum/action/cooldown/spell/list_target/impregnate)

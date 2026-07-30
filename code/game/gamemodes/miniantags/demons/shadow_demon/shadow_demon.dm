@@ -28,11 +28,9 @@
 /mob/living/simple_animal/demon/shadow/Initialize(mapload)
 	. = ..()
 	remove_from_all_data_huds()
-	var/datum/action/cooldown/spell/pointed/projectile/shadow_grapple/spell = new
-	spell.Grant(src)
+	AddSpell(new /datum/action/cooldown/spell/pointed/projectile/shadow_grapple)
 	ADD_TRAIT(src, TRAIT_HEALS_FROM_HELL_RIFTS, INNATE_TRAIT)
-	var/datum/action/cooldown/spell/jaunt/bloodcrawl/shadow_crawl/action = new()
-	action.Grant(src)
+	AddSpell(new /datum/action/cooldown/spell/jaunt/bloodcrawl/shadow_crawl)
 	whisper_action.button_icon_state = "shadow_whisper"
 	whisper_action.background_icon_state = "shadow_demon_bg"
 	if(istype(loc, /obj/effect/dummy/phased_mob/blood))
@@ -210,12 +208,10 @@
 
 /obj/item/organ/internal/heart/demon/shadow/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
-	var/datum/action/cooldown/spell/pointed/projectile/shadow_grapple/spell = new
-	spell.Grant(M)
+	M.AddSpell(new /datum/action/cooldown/spell/pointed/projectile/shadow_grapple)
 
 /obj/item/organ/internal/heart/demon/shadow/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
-	var/datum/action/cooldown/spell/pointed/projectile/shadow_grapple/spell = locate() in M.actions
-	qdel(spell)
+	M.RemoveSpell(/datum/action/cooldown/spell/pointed/projectile/shadow_grapple)
 	. = ..()
 
 /mob/living/simple_animal/demon/shadow/attempt_objectives()

@@ -207,7 +207,7 @@
 
 	switch(stage)
 		if(DEVIL_ASCEND_START_STAGE)
-			var/datum/action/cooldown/spell/jaunt/infernal_jaunt/jaunt = locate() in invoker.actions
+			var/datum/action/cooldown/spell/jaunt/infernal_jaunt/jaunt = locate() in invoker.mind.spell_list
 			if(jaunt)
 				qdel(jaunt)
 			to_chat(invoker, span_warning("Вы чувствуете, будто вот-вот возвыситесь."))

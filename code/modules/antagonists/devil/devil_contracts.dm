@@ -47,8 +47,7 @@ GLOBAL_LIST_INIT(devil_guns, (GLOB.summoned_guns - NOT_DEVIL_GUNS + DEVIL_GUNS))
 	return TRUE
 
 /datum/devil_contract/power/fulfill_contract(mob/living/carbon/human/user)
-	var/datum/action/cooldown/spell/hulk_transform/contract/spell = new
-	spell.Grant(user)
+	user.mind.AddSpell(new /datum/action/cooldown/spell/hulk_transform/contract)
 	var/obj/item/organ/internal/regenerative_core/organ = new /obj/item/organ/internal/regenerative_core/cooldown
 	organ.insert(user)
 
@@ -67,8 +66,7 @@ GLOBAL_LIST_INIT(devil_guns, (GLOB.summoned_guns - NOT_DEVIL_GUNS + DEVIL_GUNS))
 	return TRUE
 
 /datum/devil_contract/wealth/fulfill_contract(mob/living/carbon/human/user)
-	var/datum/action/cooldown/spell/summon_friend/spell = new()
-	spell.Grant(user)
+	user.mind.AddSpell(new /datum/action/cooldown/spell/summon_friend)
 
 /datum/devil_contract/prestige
 	name = "контракт престижа"
@@ -143,10 +141,10 @@ GLOBAL_LIST_INIT(devil_guns, (GLOB.summoned_guns - NOT_DEVIL_GUNS + DEVIL_GUNS))
 	var/list/spell_list = possible_magic.Copy()
 	for(var/i in 1 to MAGIC_SPELLS_COUNT)
 		var/spell_type = pick_n_take(spell_list)
-		var/datum/action/cooldown/spell/spell = new spell_type(null)
+		var/datum/action/cooldown/spell/spell = new spell_type
 		spell.spell_requirements = FALSE
 		spell.cooldown_time *= 2
-		spell.Grant(user)
+		user.mind.AddSpell(spell)
 
 /datum/devil_contract/revive
 	name = "контракт воскрешения"
@@ -199,8 +197,7 @@ GLOBAL_LIST_INIT(devil_guns, (GLOB.summoned_guns - NOT_DEVIL_GUNS + DEVIL_GUNS))
 	ADD_TRAIT(user, TRAIT_XRAY, UNIQUE_TRAIT_SOURCE(src))
 	user.update_sight()
 	user.update_misc_effects()
-	var/datum/action/cooldown/spell/view_range/spell = new()
-	spell.Grant(user)
+	user.mind.AddSpell(new /datum/action/cooldown/spell/view_range)
 
 
 /datum/devil_contract/friendship
@@ -215,8 +212,7 @@ GLOBAL_LIST_INIT(devil_guns, (GLOB.summoned_guns - NOT_DEVIL_GUNS + DEVIL_GUNS))
 	return TRUE
 
 /datum/devil_contract/friendship/fulfill_contract(mob/living/carbon/human/user)
-	var/datum/action/cooldown/spell/summon_friend/spell = new()
-	spell.Grant(user)
+	user.mind.AddSpell(new /datum/action/cooldown/spell/summon_friend)
 
 
 /datum/devil_contract/unwilling
@@ -261,8 +257,7 @@ GLOBAL_LIST_INIT(devil_guns, (GLOB.summoned_guns - NOT_DEVIL_GUNS + DEVIL_GUNS))
 	return TRUE
 
 /datum/devil_contract/return_dead/fulfill_contract(mob/living/carbon/human/user)
-	var/datum/action/cooldown/spell/touch/revive_touch/spell = new()
-	spell.Grant(user)
+	user.mind.AddSpell(new /datum/action/cooldown/spell/touch/revive_touch)
 	var/datum/action/cooldown/spell/lichdom/lich_spell = new
 	lich_spell.Grant(user)
 	lich_spell.create_lich(user)
@@ -280,9 +275,7 @@ GLOBAL_LIST_INIT(devil_guns, (GLOB.summoned_guns - NOT_DEVIL_GUNS + DEVIL_GUNS))
 	return TRUE
 
 /datum/devil_contract/gun/fulfill_contract(mob/living/carbon/human/user)
-	var/datum/action/cooldown/spell/conjure_item/contract_gun/spell = new()
-	spell.Grant(user)
-
+	user.AddSpell(new /datum/action/cooldown/spell/conjure_item/contract_gun)
 
 #undef MAGIC_SPELLS_COUNT
 #undef HULK_COOLDOWN

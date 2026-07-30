@@ -434,7 +434,7 @@
 		var/mob/living/mob = arrived
 		mob.add_traits(list(TRAIT_MUTE, TRAIT_GODMODE, TRAIT_NO_TRANSFORM), UNIQUE_TRAIT_SOURCE(src))
 		mob.mind.transfer_to(holder_animal)
-		posession_spell.Grant(holder_animal)
+		holder_animal.AddSpell(posession_spell)
 
 /obj/structure/closet/stasis/dump_contents(kill = TRUE)
 	STOP_PROCESSING(SSobj, src)

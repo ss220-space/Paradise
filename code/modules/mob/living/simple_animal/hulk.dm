@@ -212,5 +212,4 @@
 	real_name = name
 	status_flags ^= CANPUSH
 	for(var/spell in hulk_powers)
-		var/datum/action/cooldown/spell/spell_to_add = new spell
-		spell_to_add.Grant(src)
+		AddSpell(new spell)

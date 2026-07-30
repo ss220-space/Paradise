@@ -134,14 +134,12 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 	user.ExtinguishMob()
 	user.set_nutrition(NUTRITION_LEVEL_FED)
 	for(var/spell in shadowling_spells)
-		var/datum/action/cooldown/spell/new_spell = new spell
-		new_spell.Grant(user)
+		user.mind.AddSpell(new spell)
 
 	QDEL_NULL(user.hud_used)
 	user.set_hud_used(new /datum/hud/human(user, ui_style2icon(user.client.prefs.UI_style), user.client.prefs.UI_style_color, user.client.prefs.UI_style_alpha))
 	user.hud_used.show_hud(user.hud_used.hud_version)
-	Remove(user)
-	qdel(src)
+	user.RemoveSpell(src)
 
 /datum/action/cooldown/spell/shadowling_ascend
 	name = "Ascend"
@@ -221,18 +219,16 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 
 	var/mob/living/simple_animal/ascendant_shadowling/ascendant = new (user.loc)
 	ascendant.announce("VYSHA NERADA YEKHEZET U'RUU!!", 5, 'sound/hallucinations/veryfar_noise.ogg')
-	for(var/datum/action/cooldown/spell/spell as anything in user.actions)
+	for(var/datum/action/cooldown/spell/spell as anything in user.mind.spell_list)
 		if(spell == src || !spell.shadowling_spell)
 			continue
-		spell.Remove(user)
-		qdel(spell)
+		user.mind.RemoveSpell(spell)
 
 	user.mind.transfer_to(ascendant)
 	ascendant.name = user.real_name
 	ascendant.languages = user.languages
 	for(var/spell_to_add in ascendant_spells)
-		var/datum/action/cooldown/spell/new_spell = new spell_to_add
-		new_spell.Grant(ascendant)
+		user.mind.AddSpell(new spell_to_add)
 
 	if(ascendant.real_name)
 		ascendant.real_name = user.real_name
@@ -274,26 +270,16 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 
 	ExtinguishMob()
 	set_nutrition(NUTRITION_LEVEL_FED)
-	var/datum/action/cooldown/spell/pointed/shadowling_enthrall/enthrall = new
-	enthrall.Grant(src)
-	var/datum/action/cooldown/spell/aoe/shadowling_glare/glare = new
-	glare.Grant(src)
-	var/datum/action/cooldown/spell/aoe/shadowling_veil/veil = new
-	veil.Grant(src)
-	var/datum/action/cooldown/spell/jaunt/ethereal_jaunt/shadowling_shadow_walk/jaunt = new
-	jaunt.Grant(src)
-	var/datum/action/cooldown/spell/aoe/shadowling_icy_veins/ice = new
-	ice.Grant(src)
-	var/datum/action/cooldown/spell/shadowling_regen_armor/armor = new
-	armor.Grant(src)
-	var/datum/action/cooldown/spell/aoe/shadowling_screech/screech = new
-	screech.Grant(src)
-	var/datum/action/cooldown/spell/shadowling_blindness_smoke/smoke = new
-	smoke.Grant(src)
-	var/datum/action/cooldown/spell/pointed/shadowling_revive_thrall/revive = new
-	revive.Grant(src)
-	var/datum/action/cooldown/spell/shadowling_ascend/ascend = new
-	ascend.Grant(src)
+	mind.AddSpell(new /datum/action/cooldown/spell/pointed/shadowling_enthrall)
+	mind.AddSpell(new /datum/action/cooldown/spell/aoe/shadowling_glare)
+	mind.AddSpell(new /datum/action/cooldown/spell/aoe/shadowling_veil)
+	mind.AddSpell(new /datum/action/cooldown/spell/jaunt/ethereal_jaunt/shadowling_shadow_walk)
+	mind.AddSpell(new /datum/action/cooldown/spell/aoe/shadowling_icy_veins)
+	mind.AddSpell(new /datum/action/cooldown/spell/shadowling_regen_armor)
+	mind.AddSpell(new /datum/action/cooldown/spell/aoe/shadowling_screech)
+	mind.AddSpell(new /datum/action/cooldown/spell/shadowling_blindness_smoke/)
+	mind.AddSpell(new /datum/action/cooldown/spell/pointed/shadowling_revive_thrall)
+	mind.AddSpell(new /datum/action/cooldown/spell/shadowling_ascend)
 
 	mind.special_role = SPECIAL_ROLE_SHADOWLING
 	SSticker.mode.shadows += mind

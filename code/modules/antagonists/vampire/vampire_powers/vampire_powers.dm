@@ -64,7 +64,7 @@
 	background_icon_state = "bg_vampire"
 	cooldown_time = 20 SECONDS
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
-	check_flags = AB_TRANSFER_MIND | AB_CHECK_PHASED
+	check_flags = AB_CHECK_PHASED
 	charge_restore_time = 10 SECONDS
 	cooldown_between_charges = 5 SECONDS
 
@@ -238,7 +238,7 @@
 	school = SCHOOL_SANGUINE
 	cooldown_time = 30 SECONDS
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
-	check_flags = AB_TRANSFER_MIND | AB_CHECK_PHASED
+	check_flags = AB_CHECK_PHASED
 	aoe_radius = 1
 	max_charges = 2
 	charge_restore_time = 30 SECONDS

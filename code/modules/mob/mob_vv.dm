@@ -14,7 +14,6 @@
 	VV_DROPDOWN_OPTION(VV_HK_DROP_ALL, "Drop Everything")
 	VV_DROPDOWN_OPTION(VV_HK_GIVE_DISEASE, "Give Disease")
 	VV_DROPDOWN_OPTION(VV_HK_GIVE_SPELL, "Give Spell")
-	VV_DROPDOWN_OPTION(VV_HK_GIVE_SPELL_A, "Give Spell(A)")
 	VV_DROPDOWN_OPTION(VV_HK_GODMODE, "Toggle Godmode")
 	VV_DROPDOWN_OPTION(VV_HK_REGEN_ICONS, "Regenerate Icons")
 	VV_DROPDOWN_OPTION(VV_HK_GIB, "Gib")
@@ -154,7 +153,7 @@
 		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/give_spell, src)
 
 	if(href_list[VV_HK_GIVE_SPELL_A])
-		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/give_spell_a, src)
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/give_spell, src)
 
 	if(href_list[VV_HK_MOB_PLAYER_PANEL])
 		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/vuap_personal, src)

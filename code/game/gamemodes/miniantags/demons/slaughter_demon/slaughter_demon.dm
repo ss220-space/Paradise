@@ -37,8 +37,7 @@
 	remove_from_all_data_huds()
 	ADD_TRAIT(src, TRAIT_BLOODCRAWL_EAT, TRAIT_BLOODCRAWL_EAT)
 	ADD_TRAIT(src, TRAIT_HEALS_FROM_HELL_RIFTS, INNATE_TRAIT)
-	var/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/action = new()
-	action.Grant(src)
+	AddSpell(new /datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon)
 
 /mob/living/simple_animal/demon/slaughter/Destroy()
 	// Only execute the below if we successfully died
@@ -217,8 +216,7 @@
 	if(M.mind)
 		REMOVE_TRAIT(M, TRAIT_BLOODCRAWL, TRAIT_BLOODCRAWL)
 		REMOVE_TRAIT(M, TRAIT_BLOODCRAWL_EAT, TRAIT_BLOODCRAWL_EAT)
-		var/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/action = locate() in M.actions
-		action.Remove(M)
+		M.RemoveSpell(/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon)
 	. = ..()
 
 /**

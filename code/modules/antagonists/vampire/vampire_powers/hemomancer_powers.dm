@@ -356,7 +356,7 @@
 	desc = "Вы превращаете свою форму в лужу крови, делая ее неуязвимой и способной перемещаться сквозь всё, что не является стеной или космосом. После этого за вами остаётся кровавый след."
 	gain_desc = "Вы получили способность превращаться в лужу крови, что позволяет вам уходить от преследователей с большой мобильностью."
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
-	check_flags = AB_CHECK_CONSCIOUS | AB_TRANSFER_MIND | AB_CHECK_PHASED
+	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_PHASED
 	school = SCHOOL_SANGUINE
 	background_icon_state = "bg_vampire"
 	button_icon_state = "blood_pool"

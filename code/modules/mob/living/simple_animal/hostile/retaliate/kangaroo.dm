@@ -25,8 +25,7 @@
 /mob/living/simple_animal/hostile/retaliate/kangaroo/Initialize(mapload)
 	. = ..()
 	// Leap spell, player-only usage
-	var/datum/action/cooldown/spell/leap/leap = new()
-	leap.Grant(src)
+	AddSpell(new /datum/action/cooldown/spell/leap)
 
 /mob/living/simple_animal/hostile/retaliate/kangaroo/AttackingTarget()
 	if(client && a_intent != INTENT_HARM)

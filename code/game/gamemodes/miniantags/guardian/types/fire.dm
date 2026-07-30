@@ -27,7 +27,7 @@
 	. = ..()
 	var/datum/action/cooldown/spell/aoe/guardian_hallucination/spell = new
 	spell.summoner = summoner
-	spell.Grant(src)
+	AddSpell(spell)
 
 /mob/living/simple_animal/hostile/guardian/fire/AttackingTarget()
 	. = ..()

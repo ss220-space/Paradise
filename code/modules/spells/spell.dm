@@ -48,7 +48,7 @@
 	overlay_icon_state = "bg_spell_border"
 	active_overlay_icon_state = "targeting"
 	background_icon_state_active = "bg_spell"
-	check_flags = AB_CHECK_CONSCIOUS | AB_TRANSFER_MIND | AB_CHECK_PHASED | AB_CHECK_INCAPACITATED
+	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_PHASED | AB_CHECK_INCAPACITATED
 	panel = "Spells"
 
 	/// The sound played on cast.
@@ -540,62 +540,3 @@
 			return "Ludicrous "
 
 	return ""
-
-
-// Legacy shit
-/datum/action/spell_action
-	background_icon_state = "bg_spell"
-	var/recharge_text_color = "#FFFFFF"
-
-/datum/action/spell_action/New(Target)
-	..()
-	var/obj/effect/proc_holder/spell/spell = target
-	spell.action = src
-	name = spell.name
-	desc = spell.desc
-	button_icon = spell.action_icon
-	background_icon = spell.action_background_icon
-	button_icon_state = spell.action_icon_state
-	background_icon_state = spell.action_background_icon_state
-
-/datum/action/spell_action/Destroy()
-	var/obj/effect/proc_holder/spell/S = target
-	S.action = null
-	return ..()
-
-/datum/action/spell_action/Trigger(mob/clicker, trigger_flags)
-	. = ..()
-	if(!.)
-		return
-
-	if(target)
-		var/obj/effect/proc_holder/spell = target
-		spell.Click()
-		return TRUE
-
-/datum/action/spell_action/AltTrigger(mob/clicker, trigger_flags)
-	if(target)
-		var/obj/effect/proc_holder/spell/spell = target
-		owner.base_click_alt(spell)
-		return TRUE
-
-/datum/action/spell_action/IsAvailable(feedback = FALSE)
-	if(!target)
-		return FALSE
-	var/obj/effect/proc_holder/spell/spell = target
-
-	if(owner)
-		return spell.can_cast(owner, show_message = feedback)
-	return FALSE
-
-/datum/action/spell_action/update_button_status(atom/movable/screen/movable/action_button/button, force = FALSE)
-	. = ..()
-	var/obj/effect/proc_holder/spell/spell = target
-	if(!istype(spell))
-		return
-
-	if(!owner || IsAvailable(FALSE))
-		button.maptext = ""
-	else
-		var/text = spell.cooldown_handler.cooldown_last_duration()
-		button.maptext = MAPTEXT_TINY_UNICODE(text) //[round(time_left/10, 0.1)]

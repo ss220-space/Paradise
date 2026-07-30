@@ -1277,10 +1277,8 @@
 	V.bloodtotal = 9999
 	H.mind.offstation_role = TRUE
 	V.add_subclass(SUBCLASS_ANCIENT, FALSE)
-	var/datum/action/cooldown/spell/shapeshift/bats/bats_spell = new
-	bats_spell.Grant(H)
-	var/datum/action/cooldown/spell/shapeshift/hellhound/hound_spell = new
-	hound_spell.Grant(H)
+	H.mind.AddSpell(new /datum/action/cooldown/spell/shapeshift/bats)
+	H.mind.AddSpell(new /datum/action/cooldown/spell/shapeshift/hellhound)
 	H.force_gene_block(GLOB.jumpblock, TRUE)
 	H.set_gene_stability(100)
 

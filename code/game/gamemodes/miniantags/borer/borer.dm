@@ -799,16 +799,16 @@
 	toggle_hide_action.Remove(src)
 
 /mob/living/simple_animal/borer/proc/GrantBorerSpells()
-	infest_spell.Grant(src)
-	dominate_spell.Grant(src)
+	AddSpell(infest_spell)
+	AddSpell(dominate_spell)
 
 /mob/living/simple_animal/borer/proc/RemoveBorerSpells()
-	infest_spell.Remove(src)
-	dominate_spell.Remove(src)
+	RemoveSpell(infest_spell)
+	RemoveSpell(dominate_spell)
 
 /mob/living/simple_animal/borer/proc/GrantInfestActions()
 	var/datum/action/cooldown/spell/borer_force_say/say_spell = new
-	say_spell.Grant(src)
+	AddSpell(say_spell)
 	talk_to_host_action.Grant(src)
 	leave_body_action.Grant(src)
 	take_control_action.Grant(src)
@@ -818,7 +818,7 @@
 
 /mob/living/simple_animal/borer/proc/RemoveInfestActions()
 	var/datum/action/cooldown/spell/borer_force_say/say_spell = locate() in actions
-	say_spell.Remove(src)
+	RemoveSpell(say_spell)
 	qdel(say_spell)
 	talk_to_host_action.Remove(src)
 	take_control_action.Remove(src)

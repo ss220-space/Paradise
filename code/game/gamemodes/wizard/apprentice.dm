@@ -189,8 +189,7 @@
 
 /datum/magick_school/proc/kit()
 	for(var/datum/action/cooldown/spell/spell_to_add in spells)
-		spell_to_add = new
-		spell_to_add.Grant(owner)
+		owner.mind.AddSpell(new spell_to_add)
 
 // MARK 2: CONTENT & DATA
 

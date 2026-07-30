@@ -285,8 +285,7 @@
 
 /mob/living/simple_animal/demon/pulse_demon/proc/give_spells()
 	for(var/spell_type in spells)
-		var/datum/action/cooldown/spell/spell = new spell_type
-		spell.Grant(src)
+		AddSpell(new spell_type)
 
 /mob/living/simple_animal/demon/pulse_demon/get_status_tab_items()
 	var/list/status_tab_data = ..()

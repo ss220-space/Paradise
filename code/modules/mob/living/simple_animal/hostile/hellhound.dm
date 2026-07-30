@@ -130,27 +130,26 @@
 /mob/living/simple_animal/hostile/hellhound/greater/Initialize(mapload)
 	. = ..()
 	// Movement
-	var/datum/action/cooldown/spell/jaunt/ethereal_jaunt/shift/j_spell = new
-	j_spell.Grant(src)
+	AddSpell(new /datum/action/cooldown/spell/jaunt/ethereal_jaunt/shift)
 	var/datum/action/cooldown/spell/teleport/area_teleport/telespell = new
 	telespell.spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	telespell.invocation_type = INVOCATION_NONE
-	telespell.Grant(src)
+	AddSpell(telespell)
 	var/datum/action/cooldown/spell/aoe/knock/knockspell = new
 	knockspell.invocation_type = INVOCATION_NONE
-	knockspell.Grant(src)
+	AddSpell(knockspell)
 	// Defense
 	var/datum/action/cooldown/spell/forcewall/greater/wallspell = new
 	wallspell.spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	wallspell.invocation_type = INVOCATION_NONE
-	wallspell.Grant(src)
+	AddSpell(wallspell)
 	// Offense
 	var/datum/action/cooldown/spell/conjure/creature/summonspell = new
 	summonspell.cooldown_time = 1
 	summonspell.invocation_type = INVOCATION_NONE
 	summonspell.summon_type = list(/mob/living/simple_animal/hostile/hellhound)
 	summonspell.summon_amount = 1
-	summonspell.Grant(src)
+	AddSpell(summonspell)
 
 /mob/living/simple_animal/hostile/hellhound/greater/AttackingTarget()
 	. = ..()

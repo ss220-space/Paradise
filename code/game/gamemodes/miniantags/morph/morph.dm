@@ -88,30 +88,20 @@
 
 /mob/living/simple_animal/hostile/morph/Initialize(mapload)
 	. = ..()
-	mimic_spell = new
-	mimic_spell.Grant(src)
-	ambush_spell = new
-	ambush_spell.Grant(src)
-	open_vent_spell = new
-	open_vent_spell.Grant(src)
-	pass_airlock_spell = new
-	pass_airlock_spell.Grant(src)
-	reproduce_spell = new
-	reproduce_spell.Grant(src)
+	AddSpell(new mimic_spell)
+	AddSpell(new ambush_spell)
+	AddSpell(new open_vent_spell)
+	AddSpell(new pass_airlock_spell)
+	AddSpell(new reproduce_spell)
 	GLOB.morphs_alive_list += src
 	check_morphs()
 
 /mob/living/simple_animal/hostile/morph/Destroy()
 	RemoveSpell(mimic_spell)
-	mimic_spell = null
-	ambush_spell.Remove(src)
-	qdel(ambush_spell)
-	open_vent_spell.Remove(src)
-	qdel(open_vent_spell)
-	pass_airlock_spell.Remove(src)
-	qdel(pass_airlock_spell)
-	reproduce_spell.Remove(src)
-	qdel(reproduce_spell)
+	RemoveSpell(ambush_spell)
+	RemoveSpell(open_vent_spell)
+	RemoveSpell(pass_airlock_spell)
+	RemoveSpell(reproduce_spell)
 	return ..()
 
 /mob/living/simple_animal/hostile/morph/ComponentInitialize()
@@ -151,10 +141,8 @@
 
 /mob/living/simple_animal/hostile/morph/wizard/Initialize(mapload)
 	. = ..()
-	var/datum/action/cooldown/spell/smoke/smoke = new
-	var/datum/action/cooldown/spell/forcewall/forcewall = new
-	smoke.Grant(src)
-	forcewall.Grant(src)
+	AddSpell(new /datum/action/cooldown/spell/smoke)
+	AddSpell(new /datum/action/cooldown/spell/forcewall)
 
 /mob/living/simple_animal/hostile/morph/proc/try_eat(atom/movable/item)
 	var/food_value = calc_food_gained(item)

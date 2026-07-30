@@ -14,11 +14,9 @@
 	if(name == "alien drone")
 		name = "alien drone ([rand(1, 1000)])"
 	real_name = name
-	var/datum/action/cooldown/spell/pointed/break_vent/vent_spell = new
-	vent_spell.Grant(src)
+	AddSpell(new /datum/action/cooldown/spell/pointed/break_vent)
 	if(!sterile)
-		var/datum/action/cooldown/spell/evolve/queen/evolve_spell = new
-		evolve_spell.Grant(src)
+		AddSpell(new /datum/action/cooldown/spell/evolve/queen)
 
 /mob/living/carbon/alien/humanoid/drone/get_caste_organs()
 	. = ..()

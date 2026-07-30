@@ -160,14 +160,14 @@ Difficulty: Medium
 	if(!ishuman(user) || slot != ITEM_SLOT_CLOTH_OUTER)
 		return .
 	LAZYADD(user.mob_spell_list, blood_spell)
-	blood_spell.Grant(user)
+	user.AddSpell(blood_spell)
 
 /obj/item/clothing/suit/hooded/explorer/blood/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
 	. = ..()
 	if(!ishuman(user) || slot != ITEM_SLOT_CLOTH_OUTER)
 		return .
 	LAZYREMOVE(user.mob_spell_list, blood_spell)
-	blood_spell.Remove(user)
+	user.RemoveSpell(blood_spell)
 
 /datum/action/innate/megafauna_attack/dash
 	name = "Рывок к цели"

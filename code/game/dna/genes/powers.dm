@@ -142,17 +142,14 @@
 
 /datum/dna/gene/basic/hulk/activate(mob/living/carbon/human/mutant, flags)
 	. = ..()
-	var/datum/action/cooldown/spell/hulk_transform/spell = new
-	spell.Grant(mutant)
+	mutant.AddSpell(new /datum/action/cooldown/spell/hulk_transform)
 	mutant.change_eye_color("red", FALSE)
 	mutant.update_body(TRUE)
 	mutant.update_transform(hulk_humanbody_size / RESIZE_DEFAULT_SIZE)
 
 /datum/dna/gene/basic/hulk/deactivate(mob/living/carbon/human/mutant, flags)
 	. = ..()
-	var/datum/action/cooldown/spell/hulk_transform/spell = locate() in mutant.actions
-	spell.Remove(mutant)
-	qdel(spell)
+	mutant.RemoveSpell(/datum/action/cooldown/spell/hulk_transform)
 	mutant.change_eye_color(mutant.original_eye_color, FALSE)
 	mutant.update_body(TRUE)
 	mutant.update_transform(RESIZE_DEFAULT_SIZE / hulk_humanbody_size)
@@ -206,15 +203,10 @@
 
 /datum/dna/gene/basic/farvision/activate(mob/living/mutant, flags)
 	. = ..()
-	var/datum/action/cooldown/spell/view_range/genetic/spell = new
-	spell.Grant(mutant)
+	mutant.AddSpell(new /datum/action/cooldown/spell/view_range/genetic)
 
 /datum/dna/gene/basic/farvision/deactivate(mob/living/mutant, flags)
 	. = ..()
-	var/datum/action/cooldown/spell/view_range/genetic/spell = locate() in mutant.actions
-	if(!spell)
-		return
-	spell.Remove(mutant)
-	qdel(spell)
+	mutant.RemoveSpell(/datum/action/cooldown/spell/view_range/genetic)
 
 #undef HULK_HUMANBODY_MULTIPLIER

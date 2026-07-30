@@ -3,7 +3,7 @@
 	desc = "A dark necromantic pact that can forever bind your soul to an item of your choosing. So long as both your body and the item remain intact and on the same plane you can revive from death, though the time between reincarnations grows steadily with use."
 	school = SCHOOL_NECROMANCY
 	cooldown_time = 1 SECONDS
-	check_flags = AB_TRANSFER_MIND
+	check_flags = NONE
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_STATION | SPELL_REQUIRES_HUMAN
 	invocation = "NECREM IMORTIUM!"
 	invocation_type = INVOCATION_SHOUT
@@ -21,7 +21,7 @@
 	marked_item = null
 	current_body = null
 	for(var/datum/mind/w_mind in SSticker.mode.wizards) //Make sure no other bones are about
-		for(var/datum/action/cooldown/spell/lichdom/spell in w_mind.current?.actions)
+		for(var/datum/action/cooldown/spell/lichdom/spell in w_mind.spell_list)
 			if(spell != src && spell.existence_stops_round_end)
 				return ..()
 

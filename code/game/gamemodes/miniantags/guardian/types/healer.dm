@@ -31,7 +31,7 @@
 	. = ..()
 	var/datum/action/cooldown/spell/guardian_quickmend/spell = new
 	spell.summoner = summoner
-	spell.Grant(src)
+	AddSpell(spell)
 
 /mob/living/simple_animal/hostile/guardian/healer/Destroy()
 	beacon = null

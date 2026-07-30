@@ -178,12 +178,11 @@
 			user.set_species(/datum/species/skeleton)
 		if(2)
 			if(user.mind)
-				if(locate(/datum/action/cooldown/spell/shapeshift/dragon) in user.actions)
+				if(locate(/datum/action/cooldown/spell/shapeshift/dragon) in user.mind.spell_list)
 					to_chat(user, span_danger("Знакомая сила течёт по вашим жилам! Но вы уже умеете превращаться в дракона..."))
 				else
 					to_chat(user, span_danger("Сила переполняет вас! Теперь вы можете менять форму по желанию."))
-					var/datum/action/cooldown/spell/shapeshift/dragon/shapeshift = new
-					shapeshift.Grant(user)
+					user.mind.AddSpell(new /datum/action/cooldown/spell/shapeshift/dragon)
 		if(3)
 			to_chat(user, span_danger("Кажется, теперь вы могли бы пройтись прямо сквозь лаву."))
 			ADD_TRAIT(user, TRAIT_LAVA_IMMUNE, name)

@@ -233,7 +233,7 @@
 /**
  * Upgrade rejuvenate spells cooldown charges
  */
-/datum/diablerie_level/proc/upgrade_rejuvenate_charges(datum/spell_cooldown/charges/charges)
+/datum/diablerie_level/proc/upgrade_rejuvenate_charges()
 	return
 
 /**
@@ -245,7 +245,7 @@
 /**
  * Downgrade rejuvenate spells cooldown charges
  */
-/datum/diablerie_level/proc/downgrade_rejuvenate_charges(datum/spell_cooldown/charges/charges)
+/datum/diablerie_level/proc/downgrade_rejuvenate_charges()
 	return
 
 /**

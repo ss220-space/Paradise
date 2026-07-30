@@ -152,7 +152,7 @@
 
 	if(update_spells)
 		check_vampire_upgrade()
-		for(var/datum/action/cooldown/spell/spell in owner.current.actions)
+		for(var/datum/action/cooldown/spell/spell in owner.spell_list)
 			spell.on_trophie_update(src, trophie_type)
 
 /datum/action/cooldown/spell/proc/on_trophie_update(datum/antagonist/vampire/vampire, trophie_type, force = FALSE)
@@ -461,7 +461,7 @@
 	button_icon_state = "blood_rush"
 	background_icon_state = "bg_vampire"
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
-	check_flags = AB_TRANSFER_MIND
+	check_flags = NONE
 	school = SCHOOL_SANGUINE
 	cooldown_time = 1 SECONDS
 
@@ -966,7 +966,7 @@
 	required_blood = 60
 
 /datum/action/cooldown/spell/shapeshift/vampire/hound/can_cast_spell(feedback)
-	var/datum/action/cooldown/spell/lunge_finale/finale = locate() in owner.actions
+	var/datum/action/cooldown/spell/lunge_finale/finale = locate() in owner.mind.spell_list
 	if(finale?.lunge_timer)
 		if(feedback)
 			to_chat(owner, span_warning("Вы не можете трансформироваться, пока длится [finale]!"))
@@ -1713,7 +1713,7 @@
 	sound = 'sound/creatures/bats_spawn.ogg'
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	school = SCHOOL_SANGUINE
-	check_flags = AB_TRANSFER_MIND | AB_CHECK_PHASED | AB_CHECK_INCAPACITATED
+	check_flags = AB_CHECK_PHASED | AB_CHECK_INCAPACITATED
 	cooldown_time = 30 SECONDS
 	summon_radius = 1
 	summon_type = /mob/living/simple_animal/hostile/vampire/bats_summoned
@@ -1923,7 +1923,7 @@
 /mob/living/simple_animal/hostile/vampire/bats/add_spells()
 	var/datum/action/cooldown/spell/aoe/bat_screech/spell = new
 	spell.on_trophie_update(vampire, force = TRUE)
-	spell.Grant(src)
+	AddSpell(spell)
 
 /mob/living/simple_animal/hostile/vampire/bats/AttackingTarget()
 	. = ..()
@@ -2042,7 +2042,7 @@
 /mob/living/simple_animal/hostile/vampire/hound/add_spells()
 	var/datum/action/cooldown/spell/lunge_finale/spell = new
 	spell.on_trophie_update(vampire, force = TRUE)
-	spell.Grant(src)
+	AddSpell(spell)
 
 /**
  * Summoned bats.

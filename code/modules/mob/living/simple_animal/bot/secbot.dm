@@ -176,8 +176,7 @@
 	access_card.access += J.get_access()
 	prev_access = access_card.access
 
-	var/datum/action/cooldown/spell/bot_speed/spell = new
-	spell.Grant(src)
+	AddSpell(new /datum/action/cooldown/spell/bot_speed)
 
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),

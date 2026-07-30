@@ -363,29 +363,23 @@
 
 	if(thralls >= ceil(1 * SSticker.mode.thrall_ratio) && !blind_smoke_acquired)
 		blind_smoke_acquired = TRUE
-		var/datum/action/cooldown/spell/shadowling_blindness_smoke/smoke = new
-		smoke.Grant(user)
+		user.mind.AddSpell(new /datum/action/cooldown/spell/shadowling_blindness_smoke)
 
 	if(thralls >= ceil(3 * SSticker.mode.thrall_ratio) && !screech_acquired)
 		screech_acquired = TRUE
-		var/datum/action/cooldown/spell/aoe/shadowling_screech/screech = new
-		screech.Grant(user)
+		user.mind.AddSpell(new /datum/action/cooldown/spell/aoe/shadowling_screech)
 
 	if(thralls >= ceil(5 * SSticker.mode.thrall_ratio) && !revive_thrall_acquired)
 		revive_thrall_acquired = TRUE
-		var/datum/action/cooldown/spell/pointed/shadowling_revive_thrall/revive = new
-		revive.Grant(user)
+		user.mind.AddSpell(new /datum/action/cooldown/spell/pointed/shadowling_revive_thrall)
 
 	if(thralls >= victory_threshold)
 		for(var/mob/shadowling in GLOB.alive_mob_list)
 			if(!is_shadow(shadowling))
 				continue
 
-			var/datum/action/cooldown/spell/shadowling_hatch/hatch = locate() in user.actions
-			hatch?.Remove(user)
-			qdel(hatch)
-			var/datum/action/cooldown/spell/shadowling_ascend/ascend = new
-			ascend.Grant(user)
+			user.RemoveSpell(/datum/action/cooldown/spell/shadowling_hatch)
+			user.mind.AddSpell(new /datum/action/cooldown/spell/shadowling_ascend)
 
 			if(shadowling == user)
 				to_chat(shadowling, span_shadowling("<i>Ты проецируешь эту силу на остальных тенелингов..</i>"))
@@ -681,13 +675,9 @@
 								span_shadowling("<b>Вы чувствуете, как в вас вливается новая сила. Вы получили дар от своих хозяев. Теперь вы очень похожи на них. Вы обретаете силу во тьме, но медленно увядаете при свете. Кроме того, теперь вы обладаете способностью использовать ослепляющий взгляд и ходить в тени.</b>"))
 
 		thrall.set_species(/datum/species/shadow/ling/lesser)
-		var/datum/action/cooldown/spell/shadowling_guise/guise_spell = locate() in thrall.actions
-		guise_spell?.Remove(thrall)
-		qdel(guise_spell)
-		var/datum/action/cooldown/spell/aoe/shadowling_glare/glare = new
-		glare.Grant(thrall)
-		var/datum/action/cooldown/spell/jaunt/ethereal_jaunt/shadowling_shadow_walk/jaunt = new
-		jaunt.Grant(thrall)
+		thrall.mind.RemoveSpell(/datum/action/cooldown/spell/shadowling_guise)
+		thrall.mind.AddSpell(new /datum/action/cooldown/spell/aoe/shadowling_glare)
+		thrall.mind.AddSpell(new /datum/action/cooldown/spell/jaunt/ethereal_jaunt/shadowling_shadow_walk)
 
 	else if(thrall.stat == DEAD)
 		owner.visible_message(span_danger("[owner] опуска[PLUR_ET_YUT(owner)]ся на колени над [thrall], кладя свои ладони на [GEND_HIS_HER(thrall)] грудь."), \

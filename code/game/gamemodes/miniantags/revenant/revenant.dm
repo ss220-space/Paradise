@@ -228,8 +228,7 @@
 
 /mob/living/simple_animal/revenant/proc/giveSpells()
 	for(var/spell_type in revenant_spells)
-		var/datum/action/cooldown/spell/spell = new spell_type
-		spell.Grant(src)
+		AddSpell(new spell_type)
 	return TRUE
 
 /mob/living/simple_animal/revenant/dust()

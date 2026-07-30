@@ -43,8 +43,7 @@
 			icon_state = SSticker.cultdat.get_icon(construct_type)
 
 	for(var/spell in construct_spells)
-		var/datum/action/cooldown/spell/spell_to_add = new spell
-		spell_to_add.Grant(src)
+		AddSpell(new spell)
 
 	set_light_range_power_color(2, 3, SSticker.cultdat ? SSticker.cultdat.construct_glow : LIGHT_COLOR_BLOOD_MAGIC)
 

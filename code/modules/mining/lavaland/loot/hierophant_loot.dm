@@ -531,12 +531,12 @@
 
 /obj/item/clothing/accessory/necklace/hierophant_talisman/proc/toggle_spell_actions(add_actions)
 	if(add_actions)
-		spell_heal.Grant(slave)
-		spell_teleport.Grant(slave)
-		spell_message.Grant(slave)
+		slave.AddSpell(spell_heal)
+		slave.AddSpell(spell_teleport)
+		slave.AddSpell(spell_message)
 	else
-		spell_heal.Remove(slave)
-		spell_teleport.Remove(slave)
-		spell_message.Remove(slave)
+		slave.RemoveSpell(spell_heal)
+		slave.RemoveSpell(spell_teleport)
+		slave.RemoveSpell(spell_message)
 
 #undef HIEROPHANT_CLUB_CARDINAL_DAMAGE

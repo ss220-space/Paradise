@@ -84,15 +84,11 @@
 
 /datum/dna/gene/basic/grant_spell/activate(mob/living/mutant, flags)
 	. = ..()
-	var/datum/action/cooldown/spell/spell = new spelltype
-	spell.Grant(mutant)
+	mutant.AddSpell(new spelltype)
 
 /datum/dna/gene/basic/grant_spell/deactivate(mob/living/mutant, flags)
 	. = ..()
-	for(var/datum/action/cooldown/spell/spell as anything in mutant.actions)
-		if(istype(spell, spelltype))
-			spell.Remove(mutant)
-			qdel(spell)
+	mutant.RemoveSpell(spelltype)
 
 /datum/dna/gene/basic/grant_verb
 	var/verbtype

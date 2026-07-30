@@ -243,7 +243,7 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SNOWSTORM_IMMUNE, INNATE_TRAIT)
 	for(var/datum/action/cooldown/spell/spell in spell_list)
-		spell.Grant(src)
+		AddSpell(spell)
 
 /mob/living/carbon/true_devil/krampus/Destroy()
 	var/turf/drop_loc = get_turf(src)

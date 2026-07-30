@@ -149,7 +149,7 @@
 	background_icon_state = "bg_vampire"
 	school = SCHOOL_SANGUINE
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
-	check_flags = AB_CHECK_CONSCIOUS | AB_TRANSFER_MIND
+	check_flags = AB_CHECK_CONSCIOUS
 	cooldown_time = 2 SECONDS
 
 /datum/action/cooldown/spell/dantalion_thrall_commune/proc/choose_targets(mob/user) // Returns the vampire and their thralls. If user is a thrall then it will look up their master's network

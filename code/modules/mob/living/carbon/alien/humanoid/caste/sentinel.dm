@@ -14,10 +14,8 @@
 		name = text("alien sentinel ([rand(1, 1000)])")
 	real_name = name
 	. = ..()
-	var/datum/action/cooldown/spell/pointed/break_vent/vent_spell = new
-	vent_spell.Grant(src)
-	var/datum/action/cooldown/spell/evolve/praetorian/evolve_spell = new
-	evolve_spell.Grant(src)
+	AddSpell(new /datum/action/cooldown/spell/pointed/break_vent)
+	AddSpell(new /datum/action/cooldown/spell/evolve/praetorian)
 
 /mob/living/carbon/alien/humanoid/sentinel/get_caste_organs()
 	. = ..()

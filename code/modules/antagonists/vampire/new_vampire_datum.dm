@@ -24,13 +24,11 @@
 /datum/antagonist/mindslave/thrall/new_thrall/remove_innate_effects(mob/living/mob_override)
 	var/mob/living/user = ..()
 	if(!mob_override)
-		var/datum/action/cooldown/spell/dantalion_thrall_commune/spell = locate() in user.actions
-		spell?.Remove(user)
+		user.mind.RemoveSpell(/datum/action/cooldown/spell/dantalion_thrall_commune)
 	return user
 
 /datum/antagonist/mindslave/thrall/new_thrall/apply_innate_effects(mob/living/mob_override)
 	var/mob/living/user = ..()
 	if(!mob_override)
-		var/datum/action/cooldown/spell/dantalion_thrall_commune/spell = new
-		spell.Grant(user)
+		user.mind.AddSpell(new /datum/action/cooldown/spell/dantalion_thrall_commune)
 	return user
