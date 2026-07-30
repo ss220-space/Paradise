@@ -121,31 +121,30 @@
 /mob/living/simple_animal/demon/slaughter/cult/attempt_objectives()
 	return
 
-/obj/effect/proc_holder/spell/sense_victims
+/datum/action/cooldown/spell/sense_victims
 	name = "Охота за душами"
 	desc = "Определите местоположение еретиков."
-	base_cooldown = 0
-	clothes_req = FALSE
-	human_req = FALSE
-	overlay = null
-	action_icon_state = "bloodcrawl"
-	action_background_icon_state = "bg_cult"
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+	button_icon_state = "bloodcrawl"
+	background_icon_state = "bg_cult"
 
-/obj/effect/proc_holder/spell/sense_victims/create_new_targeting()
-	return new /datum/spell_targeting/alive_mob_list
-
-/obj/effect/proc_holder/spell/sense_victims/valid_target(mob/living/target, user)
-	return target.stat == CONSCIOUS && target.key && !iscultist(target) // Only conscious, non cultist players
-
-/obj/effect/proc_holder/spell/sense_victims/cast(list/targets, mob/user)
-	var/mob/living/victim = targets[1]
-	to_chat(victim, span_userdanger("Вы чувствуете ужасное ощущение, что за вами наблюдают..."))
-	victim.Stun(6 SECONDS) //HUE
-	var/area/A = get_area(victim)
-	if(!A)
-		to_chat(user, span_warning("Вы не смогли найти разумных еретиков для Резни."))
+/datum/action/cooldown/spell/sense_victims/cast(atom/cast_on)
+	. = ..()
+	var/mob/living/target = try_pick_target()
+	if(!target)
+		to_chat(owner, span_warning("Вы не смогли найти разумных еретиков для Резни."))
 		return
-	to_chat(user, span_danger("Вы чувствуете испуганную душу в [A.declent_ru(PREPOSITIONAL)]. <b>Покажите [GEND_HIM_HER(victim)] ошибку [GEND_HIS_HER(victim)] пути.</b>"))
+	to_chat(target, span_userdanger("Вы чувствуете ужасное ощущение, что за вами наблюдают..."))
+	target.Stun(6 SECONDS) //HUE
+	var/area/A = get_area(target)
+	to_chat(owner, span_danger("Вы чувствуете испуганную душу в [A.declent_ru(PREPOSITIONAL)]. <b>Покажите [GEND_HIM_HER(target)] ошибку [GEND_HIS_HER(target)] пути.</b>"))
+
+/datum/action/cooldown/spell/sense_victims/proc/try_pick_target()
+	var/list/possible_targets = GLOB.alive_mob_list
+	shuffle(possible_targets)
+	for(var/mob/living/target in possible_targets)
+		if(target.stat == CONSCIOUS && target.key && !iscultist(target))
+			return target
 
 /mob/living/simple_animal/demon/slaughter/cult/Initialize(mapload)
 	. = ..()
@@ -174,8 +173,8 @@
 		S.mind.special_role = "Harbinger of the Slaughter"
 		to_chat(S, playstyle_string)
 		SSticker.mode.add_cultist(S.mind)
-		var/obj/effect/proc_holder/spell/sense_victims/SV = new
-		AddSpell(SV)
+		var/datum/action/cooldown/spell/sense_victims/SV = new
+		SV.Grant(src)
 		var/datum/objective/new_objective = new /datum/objective
 		new_objective.owner = S.mind
 		new_objective.explanation_text = "Устройте Резню неверующим!"

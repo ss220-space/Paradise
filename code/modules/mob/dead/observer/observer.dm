@@ -66,7 +66,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	))
 
 	// Our new boo spell.
-	AddSpell(new /obj/effect/proc_holder/spell/boo(null))
+	var/datum/action/cooldown/spell/pointed/Boo/spell = new
+	spell.Grant(src)
 
 	can_reenter_corpse = flags & GHOST_CAN_REENTER
 	started_as_observer = flags & GHOST_IS_OBSERVER

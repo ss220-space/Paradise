@@ -555,12 +555,6 @@ GLOBAL_LIST_INIT(spells_a, typesof(/datum/action/cooldown/spell))
 		else
 			target.vars[type] += amount //I bear no responsibility for the runtimes that'll happen if you try to adjust non-numeric or even non-existant vars
 
-/obj/effect/proc_holder/spell/aoe
-	create_attack_logs = FALSE
-	create_custom_logs = TRUE
-	/// How far does it effect
-	var/aoe_range = 7
-
 /**
  * Normally, AoE spells will generate an attack log for every turf they loop over, while searching for targets.
  * With this override, all /aoe type spells will only generate 1 log, saying that the user has cast the spell.

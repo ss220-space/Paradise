@@ -75,7 +75,8 @@
 	set_weapon() //giving it the right projectile and firing sound.
 	setup_access()
 
-	AddSpell(new /obj/effect/proc_holder/spell/bot_speed)
+	var/datum/action/cooldown/spell/bot_speed/spell = new
+	spell.Grant(src)
 
 	if(lasercolor)
 		shot_delay = 6 //Longer shot delay because JESUS CHRIST

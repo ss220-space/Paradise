@@ -1095,7 +1095,6 @@
 #include "code\datums\spell_targeting\self_targeting.dm"
 #include "code\datums\spell_targeting\spell_targeting.dm"
 #include "code\datums\spell_targeting\targeted.dm"
-#include "code\datums\spells\conjure.dm"
 #include "code\datums\station_traits\_station_trait.dm"
 #include "code\datums\station_traits\admin_panel.dm"
 #include "code\datums\station_traits\negative_traits.dm"
