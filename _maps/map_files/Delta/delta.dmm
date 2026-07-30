@@ -18760,13 +18760,6 @@
 /obj/item/multitool,
 /obj/item/clothing/ears/earmuffs,
 /obj/item/clothing/ears/earmuffs,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/smartfridge/medbay,
-/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
@@ -33954,7 +33947,6 @@
 	dir = 4
 	},
 /obj/machinery/smartfridge/medbay,
-/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -36338,14 +36330,7 @@
 /obj/item/reagent_containers/dropper/precision,
 /obj/item/reagent_containers/dropper/precision,
 /obj/machinery/alarm/directional/north,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/reagent_dispensers/fueltank,
 /obj/structure/extinguisher_cabinet/directional/north,
-/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -75760,16 +75745,9 @@
 /obj/item/reagent_containers/glass/beaker/large,
 /obj/item/reagent_containers/glass/beaker/large,
 /obj/item/reagent_containers/glass/beaker/large,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/vending/plasmaresearch,
 /obj/structure/sign/nosmoking_2{
 	pixel_y = 32
 	},
-/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitepurple"
@@ -92037,7 +92015,6 @@
 	pixel_y = -24
 	},
 /obj/structure/reagent_dispensers/fueltank,
-/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -94392,7 +94369,6 @@
 /area/station/engineering/supermatter/room)
 "rUq" = (
 /obj/machinery/vending/plasmaresearch,
-/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whitepurple"
@@ -99369,13 +99345,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/command/vip)
 "sOQ" = (
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/hologram/holopad,
-/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -100569,7 +100539,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	dir = 1;
