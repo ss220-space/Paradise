@@ -1299,6 +1299,13 @@
 	cost = 4
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
+/datum/uplink_item/ammo/quiver
+	name = "Колчан стрел"
+	desc = "Колчан с 30 композитными стрелами"
+	item = /obj/item/storage/backpack/quiver/modern/full
+	cost = 4
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_TRAITOR)
+
 /**
  * MARK: Stealthy Weapons
  */
@@ -2574,6 +2581,13 @@
 	item = /obj/item/storage/box/syndicate
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	var/crate_value = 250
+
+/datum/uplink_item/bundles_TC/bow
+	name = "Набор — Тактический лук"
+	desc = "Сумка, в которой находятся: тактический лук и 2 колчана со стрелами"
+	item = /obj/item/storage/backpack/duffel/syndie/bow
+	cost = 30
+	uplinktypes = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/bundles_TC/surplus_crate/super
 	name = "Большой ящик снабжения \"Синдиката\""

@@ -1,6 +1,3 @@
-// Skills window tgui
-GLOBAL_DATUM_INIT(skills_select_window, /datum/ui_module/skills_select_win, new)
-
 /datum/ui_module/skills_select_win
 	name = "Распределение свободных очков навыков"
 	/// Unlimited actions
@@ -53,6 +50,8 @@ GLOBAL_DATUM_INIT(skills_select_window, /datum/ui_module/skills_select_win, new)
 			categories_map[skill.category] = list()
 		categories_map[skill.category].Add(skill)
 
+	var/list/current_mob_skills = target_user?.mind?.get_skills_for_skills_select()
+
 	//create categories
 	var/list/categories = list()
 	for(var/category_name in categories_map)
@@ -68,7 +67,7 @@ GLOBAL_DATUM_INIT(skills_select_window, /datum/ui_module/skills_select_win, new)
 			var/list/skill_data = list()
 			skill_data["id"] = skill.type
 			skill_data["name"] = skill.name
-			GET_SKILL_LEVEL(target_user, skill.type, skill_level)
+			var/skill_level = current_mob_skills[skill.type]
 			var/skill_used_points = target_user.mind.selected_skills[skill.type]
 			var/max_skill_delta = DEFAULT_FREE_POINTS_USE_LIMIT
 			if(skill.type in target_user.dna.species.max_select_skills)
@@ -92,7 +91,7 @@ GLOBAL_DATUM_INIT(skills_select_window, /datum/ui_module/skills_select_win, new)
 
 	data["categories"] = categories
 
-	data["can_save"] = admin_interact || free_points != 0
+	data["can_save"] = admin_interact || free_points == 0
 	return data
 
 
@@ -154,8 +153,9 @@ GLOBAL_DATUM_INIT(skills_select_window, /datum/ui_module/skills_select_win, new)
 		var/used_points = user.mind.selected_skills[skill]
 		if(used_points <= 0)
 			continue
-		user.mind.skills[skill] += used_points
+		user.mind.selected_skills_levels[skill] = (user.mind.selected_skills_levels[skill] || 0) + used_points
 
+	user.mind.refresh_skills()
 	// cleanup
 	user.mind.selected_skills = null
 	user.mind.free_skill_points = 0

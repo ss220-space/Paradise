@@ -305,7 +305,7 @@ GLOBAL_LIST_INIT(canvas_dimensions, init_canvas_dimensions())
 		return
 
 	var/datum/money_account/account = get_money_account(id_card.associated_account_number)
-	if(account.money < painting_metadata.credit_value)
+	if(account.money <= painting_metadata.credit_value)
 		to_chat(user, span_warning("You can't afford this."))
 		return
 
@@ -317,7 +317,7 @@ GLOBAL_LIST_INIT(canvas_dimensions, init_canvas_dimensions())
 	if(sniped_amount != painting_metadata.credit_value)
 		return
 
-	if(!account.charge(-offer_amount, GLOB.department_accounts[STATION_DEPARTMENT_SERVICE], "Painting: Patron of [painting_metadata.title]"))
+	if(!account.charge(offer_amount, GLOB.department_accounts[STATION_DEPARTMENT_SERVICE], "Painting: Patron of [painting_metadata.title]"))
 		to_chat(user, span_warning("Transaction failure. Please try again."))
 		return
 

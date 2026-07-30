@@ -43,6 +43,10 @@ const SkillCategoryTable = (category: SkillsSelectCategory) => {
               <br />
             </Table.Cell>
             <Table.Cell width="50%" mb={5}>
+              <span color="#828163">
+                <i>{skill.desc}</i>
+              </span>
+              <div />
               <Box inline>
                 Уровень:
                 <Box inline bold textColor={skill.level_color}>
@@ -118,7 +122,7 @@ export const SkillsSelectWin = (props: unknown) => {
                 tooltip="Схранить"
                 tooltipPosition="bottom-end"
                 icon="save"
-                disabled={can_save}
+                disabled={!can_save}
                 onClick={() => act('save')}
               >
                 Сохранить

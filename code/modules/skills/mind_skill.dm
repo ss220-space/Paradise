@@ -1,10 +1,11 @@
 /datum/mind/proc/init_skills(mob/user)
 	if(skills_initialized)
 		return
+	var/list/cached_selected_skills_levels = selected_skills_levels
 	for(var/skill_name, skill_datum in GLOB.skills)
 		var/datum/skill/skill = skill_datum
-		set_skill_level(skill.type, SKILL_LEVEL_BASIC)
-
+		cached_selected_skills_levels[skill.type] = SKILL_LEVEL_BEGINNER
+	refresh_skills()
 	skills_initialized = WEAKREF(user)
 
 /datum/mind/proc/get_skill_level(skill_type)
@@ -51,31 +52,90 @@
 		return SKILL_NOT_AVAILABLE_RESULT
 	return SKILL_AVAILABLE_RESULT
 
-/datum/mind/proc/recalculate_skills(ref_job = current.job, force_antag = FALSE)
+/datum/mind/proc/give_basic_skills()
+	for(var/skill_name, skill_datum in GLOB.skills)
+		var/datum/skill/skill = skill_datum
+		set_skill_level(skill.type, SKILL_LEVEL_BASIC)
+
+/datum/mind/proc/refresh_skills(ref_job = current.job)
+	skills = list()
+
+	if(!ishuman(current))
+		give_basic_skills()
+		return
+
 	var/list/antag_skills = GLOB.antag_skills
 	var/datum/job/current_job
 	if(ref_job)
 		current_job = SSjobs.GetJob(ref_job)
-	var/is_human = ishuman(current)
-	var/is_antag = is_human && length(antag_datums) || force_antag
+	var/is_antag = HAS_TRAIT(src, TRAIT_HAS_ANTAG_SKILLS)
 	var/basic_skill = is_antag? SKILL_LEVEL_BASIC : SKILL_LEVEL_NONE
 	var/list/cached_manual_bonuses = active_skill_bonuses
 	var/list/cached_neurotrainer_bonuses = active_neurotrainer_bonuses
-	for(var/obj/item/book/skill_manual/manual in current.get_equipped_items(INCLUDE_HELD))
-		current.drop_item_ground(manual, TRUE)
-	selected_skills = null
+	var/list/cached_manual_skill_bonuses = manual_skill_bonuses
+	var/list/cached_selected_skills_levels = selected_skills_levels
 	for(var/skill_name, skill_datum in GLOB.skills)
 		var/datum/skill/skill = skill_datum
+		var/datum/skill/skill_type = skill.type
 		var/antag_skill_level = basic_skill
 		if(is_antag)
-			antag_skill_level = antag_skills[skill.type] || basic_skill
+			antag_skill_level = antag_skills[skill_type] || basic_skill
 		var/job_skill = basic_skill
 		if(current_job)
-			job_skill = current_job.get_skill_level(skill.type, role_alt_title)
+			job_skill = current_job.get_skill_level(skill_type, role_alt_title)
+		if(job_alt_skills && (skill_type in job_alt_skills))
+			job_skill = job_alt_skills[skill_type]
 		var/level = max(job_skill, antag_skill_level)
-		var/bonus = is_human? cached_manual_bonuses[skill.type] || 0 + cached_neurotrainer_bonuses[skill.type] || 0 : 0
-		level = min(level + bonus, SKILL_LEVEL_LEGEND)
-		set_skill_level(skill.type, level)
+		if(skill_type in cached_selected_skills_levels)
+			level += cached_selected_skills_levels[skill_type]
+		if(skill_type in cached_manual_bonuses)
+			level = min(level + cached_manual_bonuses[skill_type], SKILL_LEVEL_PROFESSIONAL)
+		if(skill_type in cached_manual_skill_bonuses)
+			level = min(level + cached_manual_skill_bonuses[skill_type], SKILL_LEVEL_PROFESSIONAL)
+		if(skill_type in cached_neurotrainer_bonuses)
+			level = min(level + cached_neurotrainer_bonuses[skill_type], SKILL_LEVEL_LEGEND)
+		if(level == SKILL_LEVEL_UNAVAILABLE)
+			skill.remove_from_mob(current)
+		set_skill_level(skill_type, level)
+
+/datum/mind/proc/get_skills_for_skills_select(ref_job = current.job)
+	var/skills = list()
+	var/list/antag_skills = GLOB.antag_skills
+	var/datum/job/current_job
+	if(ref_job)
+		current_job = SSjobs.GetJob(ref_job)
+	var/is_antag = HAS_TRAIT(src, TRAIT_HAS_ANTAG_SKILLS)
+	var/basic_skill = is_antag? SKILL_LEVEL_BASIC : SKILL_LEVEL_NONE
+	var/list/cached_neurotrainer_bonuses = active_neurotrainer_bonuses
+	var/list/cached_selected_skills_levels = selected_skills_levels
+	for(var/skill_name, skill_datum in GLOB.skills)
+		var/datum/skill/skill = skill_datum
+		var/datum/skill/skill_type = skill.type
+		var/antag_skill_level = basic_skill
+		if(is_antag)
+			antag_skill_level = antag_skills[skill_type] || basic_skill
+		var/job_skill = basic_skill
+		if(current_job)
+			job_skill = current_job.get_skill_level(skill_type, role_alt_title)
+		if(job_alt_skills && (skill_type in job_alt_skills))
+			job_skill = job_alt_skills[skill_type]
+		var/level = max(job_skill, antag_skill_level)
+		if(skill_type in cached_selected_skills_levels)
+			level += cached_selected_skills_levels[skill_type]
+		if(skill_type in cached_neurotrainer_bonuses)
+			level = min(level + cached_neurotrainer_bonuses[skill_type], SKILL_LEVEL_LEGEND)
+		skills[skill_type] = level
+
+	return skills
+
+
+/datum/mind/proc/recalculate_skills(ref_job = current.job)
+	selected_skills_levels = list()
+	var/datum/job/current_job
+	if(ref_job)
+		current_job = SSjobs.GetJob(ref_job)
+	var/is_antag = HAS_TRAIT(src, TRAIT_HAS_ANTAG_SKILLS)
+	refresh_skills(ref_job)
 	var/job_free_skill_points = current_job?.base_free_skill_point || BASIC_SKILL_POINTS_COUNT
 	free_skill_points = job_free_skill_points + (is_antag? BASIC_ANTAG_SKILL_POINTS_BONUS : 0)
 
