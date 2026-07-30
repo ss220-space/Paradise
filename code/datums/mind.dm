@@ -133,10 +133,14 @@
 	var/free_skill_points = BASIC_SKILL_POINTS_COUNT
 	/// Temp variable for skill leveling (for skill_select_win works)
 	var/list/selected_skills = null
-	/// Active skill bonuses from skill manuals
+	var/list/selected_skills_levels = list()
+	/// Active temporaly skill bonuses from skill manuals
 	var/list/active_skill_bonuses = list()
+	/// Active skill bonuses from skill manuals
+	var/list/manual_skill_bonuses = list()
 	/// Active skill bonuses from neurotrainer
 	var/list/active_neurotrainer_bonuses = list()
+	var/list/job_alt_skills
 	/// Active skill bonuses from skill manuals
 	var/list/read_manuals = list()
 
@@ -2656,6 +2660,8 @@
 
 	ASSERT(antag.owner && antag.owner.current)
 	antag.on_gain()
+	if(antag.has_skill_bonus)
+		ADD_TRAIT(src, TRAIT_HAS_ANTAG_SKILLS, UNIQUE_TRAIT_SOURCE(antag))
 
 	recalculate_skills()
 
@@ -2672,6 +2678,8 @@
 
 	if(!antag)
 		return
+
+	REMOVE_TRAIT(src, TRAIT_HAS_ANTAG_SKILLS, UNIQUE_TRAIT_SOURCE(antag))
 
 	qdel(antag)
 	recalculate_skills()

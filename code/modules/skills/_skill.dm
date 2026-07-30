@@ -66,25 +66,6 @@ GLOBAL_LIST_EMPTY(skill_manual_types)
 	for(var/mod_name in skills_mods)
 		UnregisterSignal(owner, COMSIG_GET_SKILL_MOD(mod_name))
 
-// load job defined skills
-/datum/job/proc/apply_skills(mob/living/carbon/human/user)
-	var/list/antag_skills = GLOB.antag_skills
-	if(!user.mind)
-		return
-	var/datum/mind/user_mind = user.mind
-	for(var/skill_name, skill_datum in GLOB.skills)
-		var/datum/skill/skill = skill_datum
-		var/level = get_skill_level(skill.type, user.mind.role_alt_title)
-		if(user.mind.antag_datums)
-			var/antag_skill_level = antag_skills[skill.type]
-			if(!antag_skill_level)
-				antag_skill_level = SKILL_LEVEL_BASIC
-			level = max(level, antag_skill_level)
-		user_mind.set_skill_level(skill.type, level)
-		if(level == SKILL_LEVEL_UNAVAILABLE)
-			skill.remove_from_mob(user)
-	user_mind.free_skill_points = base_free_skill_point
-
 // Show skills window from verbs
 /mob/verb/view_skills_win()
 	set name = "Навыки персонажа"
