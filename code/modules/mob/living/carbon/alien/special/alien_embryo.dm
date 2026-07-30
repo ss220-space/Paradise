@@ -76,55 +76,53 @@
 	INVOKE_ASYNC(src, PROC_REF(handle_async), gib_on_success)
 
 /obj/item/organ/internal/body_egg/alien_embryo/proc/handle_async(gib_on_success)
-	spawn()
-		if(QDELETED(src))
-			return
+	if(QDELETED(src))
+		return
 
-		var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыгрять за Чужого?", ROLE_ALIEN, FALSE, poll_time = 5 SECONDS, source = /mob/living/carbon/alien/larva)
+	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыгрять за Чужого?", ROLE_ALIEN, FALSE, poll_time = 5 SECONDS, source = /mob/living/carbon/alien/larva)
 
-		if(QDELETED(src))
-			return
-		// To stop clientless larva, we will check that our host has a client
-		// if we find no ghosts to become the alien. If the host has a client
-		// he will become the alien but if he doesn't then we will set the stage
-		// to 4, so we don't do a process heavy check everytime.
+	if(QDELETED(src))
+		return
+	// To stop clientless larva, we will check that our host has a client
+	// if we find no ghosts to become the alien. If the host has a client
+	// he will become the alien but if he doesn't then we will set the stage
+	// to 4, so we don't do a process heavy check everytime.
 
-		if(length(candidates))
-			candidate = pick(candidates)
-		else if(owner.client)
-			candidate = owner.client
-		else
-			stage = 4 // Let's try again later.
-			polling = FALSE
-			return
+	if(length(candidates))
+		candidate = pick(candidates)
+	else if(owner.client)
+		candidate = owner.client
+	else
+		stage = 4 // Let's try again later.
+		polling = FALSE
+		return
 
-		addtimer(CALLBACK(src, PROC_REF(spawn_larva), gib_on_success), 1 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(spawn_larva), gib_on_success), 1 SECONDS)
 
 /obj/item/organ/internal/body_egg/alien_embryo/proc/spawn_larva(gib_on_success)
-	spawn()
-		if(QDELETED(src) || QDELETED(owner))
-			return
+	if(QDELETED(src) || QDELETED(owner))
+		return
 
-		var/stand_check = owner.body_position == STANDING_UP
-		var/overlay = mutable_appearance('icons/mob/alien.dmi', icon_state = stand_check? "burst_stand" : "burst_lie")
+	var/stand_check = owner.body_position == STANDING_UP
+	var/overlay = mutable_appearance('icons/mob/alien.dmi', icon_state = stand_check? "burst_stand" : "burst_lie")
+	owner.add_overlay(overlay)
+
+	var/mob/living/carbon/alien/larva/new_xeno = new(owner.drop_location())
+	new_xeno.possess_by_player(candidate.key)
+	new_xeno.mind.name = new_xeno.name
+	new_xeno.update_datum()
+	SEND_SOUND(new_xeno, sound('sound/voice/hiss5.ogg'))//To get the player's attention
+	log_game("[new_xeno.key] has become Alien Larva from [owner](ckey: [owner.key ? owner.key : "None"]) body.")
+
+	if(gib_on_success)
+		owner.gib()
+	else
+		owner.adjustBruteLoss(40)
+		owner.cut_overlay(overlay)
+		stand_check = owner.body_position == STANDING_UP
+		overlay = mutable_appearance('icons/mob/alien.dmi', icon_state = stand_check? "bursted_stand" : "bursted_lie")
 		owner.add_overlay(overlay)
-
-		var/mob/living/carbon/alien/larva/new_xeno = new(owner.drop_location())
-		new_xeno.possess_by_player(candidate.key)
-		new_xeno.mind.name = new_xeno.name
-		new_xeno.update_datum()
-		SEND_SOUND(new_xeno, sound('sound/voice/hiss5.ogg'))//To get the player's attention
-		log_game("[new_xeno.key] has become Alien Larva from [owner](ckey: [owner.key ? owner.key : "None"]) body.")
-
-		if(gib_on_success)
-			owner.gib()
-		else
-			owner.adjustBruteLoss(40)
-			owner.cut_overlay(overlay)
-			stand_check = owner.body_position == STANDING_UP
-			overlay = mutable_appearance('icons/mob/alien.dmi', icon_state = stand_check? "bursted_stand" : "bursted_lie")
-			owner.add_overlay(overlay)
-		qdel(src)
+	qdel(src)
 
 /*----------------------------------------
 Proc: AddInfectionImages(C)
