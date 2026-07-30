@@ -122,7 +122,7 @@ export const SkillsSelectWin = (props: unknown) => {
                 tooltip="Схранить"
                 tooltipPosition="bottom-end"
                 icon="save"
-                disabled={can_save}
+                disabled={!can_save}
                 onClick={() => act('save')}
               >
                 Сохранить
