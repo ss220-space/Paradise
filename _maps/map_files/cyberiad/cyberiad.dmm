@@ -21164,6 +21164,7 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
+/obj/effect/landmark/spawner/swarmer,
 /turf/simulated/floor/plating,
 /area/station/maintenance/engineering)
 "bPG" = (
@@ -54606,6 +54607,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
+/obj/effect/landmark/spawner/swarmer,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -57021,6 +57023,11 @@
 	icon_state = "whitegreen"
 	},
 /area/station/medical/virology)
+"kiQ" = (
+/obj/structure/grille/broken,
+/obj/effect/landmark/spawner/swarmer,
+/turf/simulated/floor/plating,
+/area/station/maintenance/asmaint2)
 "kiR" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/railing,
@@ -66980,6 +66987,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/reagent_containers/food/snacks/grown/banana,
 /obj/effect/spawner/random_spawners/rodent,
+/obj/effect/landmark/spawner/swarmer,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
@@ -141130,7 +141138,7 @@ bGG
 bGG
 bGG
 bGG
-xKt
+kiQ
 bGG
 cuQ
 cuQ

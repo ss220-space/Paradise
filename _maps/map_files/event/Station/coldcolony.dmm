@@ -4915,6 +4915,10 @@
 	},
 /turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
+"bLC" = (
+/obj/effect/landmark/spawner/swarmer,
+/turf/simulated/floor/plating,
+/area/coldcolony/malta/research/test_chamber)
 "bLN" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/machinery/power/apc/directional/east{
@@ -22594,6 +22598,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
+/obj/effect/landmark/spawner/swarmer,
 /turf/simulated/floor/engine,
 /area/coldcolony/malta/maintenance/incinerator)
 "izh" = (
@@ -42051,6 +42056,7 @@
 /obj/effect/spawner/random_spawners/rodent,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/landmark/spawner/swarmer,
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/maintenance/kitchen)
 "pHk" = (
@@ -103095,7 +103101,7 @@ hkf
 sBl
 pGn
 iBA
-iBA
+bLC
 uhH
 uhH
 iBA

@@ -2250,6 +2250,7 @@
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/genericbush,
 /obj/structure/flora/ausbushes/brflowers,
+/obj/effect/landmark/spawner/swarmer,
 /turf/simulated/floor/grass,
 /area/station/maintenance/casino)
 "asW" = (
@@ -32088,6 +32089,11 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/commons/storage/primary)
+"fgs" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/spawner/swarmer,
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/apmaint)
 "fgx" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -66614,6 +66620,11 @@
 	},
 /turf/simulated/floor/carpet,
 /area/station/maintenance/casino)
+"ksX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/spawner/swarmer,
+/turf/simulated/floor/plating,
+/area/station/maintenance/fsmaint3)
 "ktb" = (
 /obj/machinery/recharger/wallcharger{
 	pixel_x = 5;
@@ -78764,6 +78775,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/spawner/random_spawners/blood_5,
+/obj/effect/landmark/spawner/swarmer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -263662,7 +263674,7 @@ irR
 pzU
 umy
 fgO
-umy
+fgs
 nmw
 oNP
 oNP
@@ -272072,7 +272084,7 @@ eUg
 xqk
 aDg
 rJu
-eKV
+ksX
 eQS
 jOO
 eFp

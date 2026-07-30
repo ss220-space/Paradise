@@ -3919,6 +3919,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/effect/landmark/spawner/swarmer,
 /turf/simulated/floor/engine,
 /area/station/science/sm_chamber)
 "aRh" = (
@@ -9150,6 +9151,16 @@
 	icon_state = "fancy-wood-oak-broken5"
 	},
 /area/station/maintenance/banya)
+"bYB" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/spawner/swarmer,
+/turf/simulated/floor/plating,
+/area/station/maintenance/starboard)
 "bYL" = (
 /obj/structure/chair/comfy/black,
 /obj/effect/decal/cleanable/dirt,
@@ -28767,6 +28778,11 @@
 	icon_state = "darkyellow"
 	},
 /area/station/engineering/mechanic_workshop/hangar)
+"gad" = (
+/obj/effect/decal/cleanable/blood/xeno,
+/obj/effect/landmark/spawner/swarmer,
+/turf/simulated/floor/greengrid,
+/area/station/science/xenobiology)
 "gae" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -59633,6 +59649,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/effect/landmark/spawner/swarmer,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow"
 	},
@@ -110040,6 +110057,7 @@
 /area/station/ai/satellite/chamber)
 "uPZ" = (
 /obj/effect/spawner/random_spawners/rodent,
+/obj/effect/landmark/spawner/swarmer,
 /turf/simulated/floor/wood,
 /area/station/service/theatre)
 "uQn" = (
@@ -152100,7 +152118,7 @@ hMW
 aDT
 tRI
 tRI
-oPz
+gad
 mVD
 dHE
 qYC
@@ -178819,7 +178837,7 @@ hrm
 hrm
 hrm
 bBv
-hrm
+bYB
 hrm
 dDN
 bsc
