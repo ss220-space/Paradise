@@ -53,11 +53,12 @@
 /obj/item/book/skill_manual/proc/try_apply_skill_bonus(mob/user)
 	if(applyed_bonus_points > 0)
 		return
-	if(!user.mind)
+	var/datum/mind/user_mind = user.mind
+	if(!user_mind)
 		return
-	if(skill_type in user.mind.active_skill_bonuses)
+	if(skill_type in (user_mind.active_skill_bonuses | user_mind.manual_skill_bonuses))
 		return
-	var/current_skill_level = user.mind.skills[skill_type]
+	var/current_skill_level = user_mind.skills[skill_type]
 	if(!current_skill_level)
 		current_skill_level = SKILL_LEVEL_NONE
 	applyed_bonus_points = bonus_size
@@ -65,27 +66,29 @@
 		applyed_bonus_points = max_skill_level - current_skill_level
 	if(applyed_bonus_points <= 0)
 		return
-	user.mind.skills[skill_type] = current_skill_level + applyed_bonus_points
-	user.mind.active_skill_bonuses[skill_type] = applyed_bonus_points
+	user_mind.active_skill_bonuses[skill_type] = applyed_bonus_points
+	user_mind.refresh_skills()
 
 /obj/item/book/skill_manual/proc/try_remove_skill_bonus(mob/user)
 	if(applyed_bonus_points <= 0)
 		return
 	if(user.mind)
-		user.mind.skills[skill_type] = user.mind.skills[skill_type] - applyed_bonus_points
 		user.mind.active_skill_bonuses -= skill_type
+		user.mind.refresh_skills()
 	applyed_bonus_points = 0
 
 /obj/item/book/skill_manual/attack_self(mob/user)
 	if(carved)
 		return ..()
 
-	if(!user.mind || !user.is_literate())
+	var/datum/mind/user_mind = user.mind
+
+	if(!user_mind || !user.is_literate())
 		to_chat(user, span_notice("Вы не можете читать [declent_ru(NOMINATIVE)]!"))
 		return
 
-	if(type in user.mind.read_manuals)
-		var/pages = user.mind.read_manuals[type]
+	if(type in user_mind.read_manuals)
+		var/pages = user_mind.read_manuals[type]
 		if(pages >= pages_amount)
 			to_chat(user, span_notice("Вы уже прочитали [declent_ru(NOMINATIVE)]!"))
 			return
@@ -93,12 +96,15 @@
 	to_chat(user, span_notice("Вы начинаете читать [declent_ru(NOMINATIVE)]..."))
 
 	while(do_after(user, 5 SECONDS, src, max_interact_count = 1))
-		if(!(type in user.mind.read_manuals))
-			user.mind.read_manuals[type] = 0
-		user.mind.read_manuals[type] += 1
-		if(user.mind.read_manuals[type] >= pages_amount)
+		if(!(type in user_mind.read_manuals))
+			user_mind.read_manuals[type] = 0
+		user_mind.read_manuals[type] += 1
+		if(user_mind.read_manuals[type] >= pages_amount)
 			// remove temo variable from manual, but bonus hold in active_skill_bonuses (prevent dupe bonuses)
+			user_mind.active_skill_bonuses -= skill_type
+			user_mind.manual_skill_bonuses[skill_type] = applyed_bonus_points
 			applyed_bonus_points = 0
+			user_mind.refresh_skills()
 			to_chat(user, span_notice("Вы полностью прочитали [declent_ru(NOMINATIVE)] и запомнили все что в нем было!"))
 			balloon_alert(user, "чтение завершено!")
 			return

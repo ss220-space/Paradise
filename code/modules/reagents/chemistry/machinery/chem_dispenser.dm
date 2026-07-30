@@ -31,6 +31,7 @@
 	var/is_drink = FALSE
 	var/base_skill = /datum/skill/medical/chemistry
 	var/dispence_skill_name = CHEMISTRY_DISPENSE_RAND_SIZE
+	var/dispence_random_prob_name = CHEMISTRY_DISPENSE_RAND_REAGENT_PROB
 
 /obj/machinery/chem_dispenser/get_ru_names()
 	return alist(
@@ -250,8 +251,13 @@
 				atom_say("Недостаточно энергии для завершения операции!")
 				return
 			CALCULATE_SKILL_MOD(usr, dispence_skill_name, dispense_rand_size)
+			CALCULATE_SKILL_MOD(usr, dispence_random_prob_name, dispence_random_prob)
+			dispence_random_prob *= 100
 			actual += min(amount * dispense_rand_size * (rand() - 0.5), free) // assistants gets free drinks, but can evaporate energy in seconds
-			R.add_reagent(params["reagent"], actual)
+			var/reagent = params["reagent"]
+			if(prob(dispence_random_prob))
+				reagent = pick(dispensable_reagents)
+			R.add_reagent(reagent, actual)
 			update_icon(UPDATE_OVERLAYS)
 		if("remove")
 			var/amount = text2num(params["amount"])
@@ -403,6 +409,7 @@
 	is_drink = TRUE
 	base_skill = /datum/skill/service/drink_mixing
 	dispence_skill_name = DRINKS_DISPENSE_RAND_SIZE
+	dispence_random_prob_name = DRINKS_DISPENSE_RAND_REAGENT_PROB
 
 /obj/machinery/chem_dispenser/soda/get_ru_names()
 	return alist(
