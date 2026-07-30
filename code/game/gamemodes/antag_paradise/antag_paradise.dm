@@ -216,6 +216,7 @@
 					thief.special_role = SPECIAL_ROLE_THIEF
 					thief.restricted_roles = restricted_jobs
 					pre_antags[thief] = ROLE_THIEF
+/*
 				if(ROLE_HERETIC)
 					var/datum/mind/heretic = pick_n_take(antag_possibilities[ROLE_HERETIC])
 					if(!heretic)
@@ -225,6 +226,7 @@
 					heretic.special_role = SPECIAL_ROLE_HERETIC
 					heretic.restricted_roles = restricted_jobs | heretic_restricted_jobs
 					pre_antags[heretic] = ROLE_HERETIC
+*/
 
 	if(!length(pre_antags))
 		return FALSE
