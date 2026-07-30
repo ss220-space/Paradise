@@ -413,6 +413,8 @@
 /// Owner mob sometimes will headbutts airlocks as if it had 60+ braindamage.
 #define TRAIT_AIRLOCK_HIT "airlock_hit"
 
+/// If a mob is grasped with force grab
+#define TRAIT_FORCE_GRASPED "force_grasped"
 
 /// Anti stun reagent in blood
 #define TRAIT_ANTI_STUN_REAGENT "anti_stun_reagent"
@@ -592,9 +594,6 @@
 #define TRAIT_DISCO_DANCER "disco_dancer"
 
 #define TRAIT_GIVE_READY "give_ready"
-
-/// If a mob is grasped with force grab
-#define TRAIT_FORCE_GRASPED "force_grasped"
 
 /// Mob has fov applied to it
 #define TRAIT_FOV_APPLIED "fov_applied"
