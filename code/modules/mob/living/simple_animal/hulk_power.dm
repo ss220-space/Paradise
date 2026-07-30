@@ -441,5 +441,3 @@
 	projectile_type = /obj/projectile/beam
 	cooldown_time = 7 SECONDS
 	sound = 'sound/weapons/laser.ogg'
-	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_PHASED | AB_CHECK_INCAPACITATED
-

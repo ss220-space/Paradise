@@ -131,7 +131,6 @@
 /datum/action/cooldown/spell/pointed/revenant_transmit
 	name = "Шёпот"
 	desc = "Телепатически передаёт сообщение цели."
-	cooldown_time = 0
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	button_icon_state = "r_transmit"
 	background_icon_state = "bg_revenant"
