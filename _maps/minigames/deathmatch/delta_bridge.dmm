@@ -240,10 +240,9 @@
 /turf/simulated/floor/plating,
 /area/deathmatch)
 "gk" = (
-/obj/structure/extinguisher_cabinet/directional/east,
+/obj/item/storage/toolbox/emergency,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
+	icon_state = "dark"
 	},
 /area/deathmatch)
 "gm" = (
@@ -592,13 +591,6 @@
 /obj/structure/chair/comfy/brown,
 /turf/simulated/floor/wood/fancy/light,
 /area/deathmatch)
-"tF" = (
-/obj/structure/extinguisher_cabinet/directional/west,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkblue"
-	},
-/area/deathmatch)
 "tP" = (
 /obj/item/flag/nt,
 /obj/machinery/light{
@@ -776,13 +768,6 @@
 /obj/item/storage/box/ids,
 /obj/item/storage/box/PDAs,
 /turf/simulated/floor/carpet/orange,
-/area/deathmatch)
-"zd" = (
-/obj/machinery/alarm/directional/east,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
-	},
 /area/deathmatch)
 "zg" = (
 /obj/machinery/computer,
@@ -1003,12 +988,6 @@
 /obj/item/toy/figure/ian,
 /turf/simulated/floor/wood/fancy/light,
 /area/deathmatch)
-"GC" = (
-/obj/structure/extinguisher_cabinet/directional/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
-/area/deathmatch)
 "GH" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -1110,7 +1089,6 @@
 /area/deathmatch)
 "MA" = (
 /obj/structure/table/wood,
-/obj/structure/extinguisher_cabinet/directional/west,
 /obj/machinery/coffeemaker/impressa{
 	pixel_y = 11
 	},
@@ -1468,8 +1446,6 @@ Zn
 Zn
 Zn
 Zn
-Zn
-Zn
 gA
 gA
 ge
@@ -1493,8 +1469,6 @@ Zn
 Zn
 "}
 (2,1,1) = {"
-Zn
-Zn
 Zn
 Zn
 Zn
@@ -1532,8 +1506,6 @@ Zn
 Zn
 Zn
 Zn
-Zn
-Zn
 gA
 gK
 gp
@@ -1557,8 +1529,6 @@ Zn
 Zn
 "}
 (4,1,1) = {"
-Zn
-Zn
 Zn
 Zn
 gA
@@ -1591,8 +1561,6 @@ Zn
 (5,1,1) = {"
 Zn
 Zn
-Zn
-Zn
 gA
 sx
 cF
@@ -1621,8 +1589,6 @@ Zn
 Zn
 "}
 (6,1,1) = {"
-Zn
-Zn
 Zn
 Zn
 gA
@@ -1655,13 +1621,11 @@ Zn
 (7,1,1) = {"
 Zn
 Zn
-Zn
-Zn
 gA
 MY
 cF
 cF
-GC
+yc
 gA
 gA
 gA
@@ -1685,8 +1649,6 @@ Zn
 Zn
 "}
 (8,1,1) = {"
-Zn
-Zn
 Zn
 Zn
 gA
@@ -1719,8 +1681,6 @@ Zn
 (9,1,1) = {"
 Zn
 Zn
-Zn
-Zn
 ge
 Vd
 Ll
@@ -1732,8 +1692,8 @@ cF
 cF
 cF
 AC
-zd
-gk
+jz
+jz
 jz
 jz
 jz
@@ -1749,8 +1709,6 @@ Zn
 Zn
 "}
 (10,1,1) = {"
-Zn
-Zn
 Zn
 Zn
 ge
@@ -1781,8 +1739,6 @@ Zn
 Zn
 "}
 (11,1,1) = {"
-Zn
-Zn
 gA
 ge
 gA
@@ -1813,8 +1769,6 @@ Zn
 Zn
 "}
 (12,1,1) = {"
-Zn
-Zn
 ge
 eO
 Ju
@@ -1845,8 +1799,6 @@ Zn
 Zn
 "}
 (13,1,1) = {"
-Zn
-Zn
 ge
 vo
 ji
@@ -1877,8 +1829,6 @@ Zn
 Zn
 "}
 (14,1,1) = {"
-Zn
-Zn
 ge
 vo
 xY
@@ -1909,8 +1859,6 @@ Zn
 Zn
 "}
 (15,1,1) = {"
-Zn
-Zn
 gA
 MH
 cF
@@ -1941,8 +1889,6 @@ Zn
 Zn
 "}
 (16,1,1) = {"
-Zn
-Zn
 ge
 gR
 xY
@@ -1973,8 +1919,6 @@ Zn
 Zn
 "}
 (17,1,1) = {"
-Zn
-Zn
 ge
 gR
 cF
@@ -1986,7 +1930,7 @@ hL
 DE
 Iu
 Iu
-cF
+gk
 cF
 Ff
 gA
@@ -2005,8 +1949,6 @@ Zn
 Zn
 "}
 (18,1,1) = {"
-Zn
-Zn
 ge
 gR
 xY
@@ -2037,8 +1979,6 @@ Zn
 Zn
 "}
 (19,1,1) = {"
-Zn
-Zn
 gA
 QP
 cF
@@ -2069,8 +2009,6 @@ Zn
 Zn
 "}
 (20,1,1) = {"
-Zn
-Zn
 ge
 uR
 xY
@@ -2101,8 +2039,6 @@ Zn
 Zn
 "}
 (21,1,1) = {"
-Zn
-Zn
 ge
 uR
 Ll
@@ -2133,8 +2069,6 @@ Zn
 Zn
 "}
 (22,1,1) = {"
-Zn
-Zn
 ge
 zg
 uK
@@ -2165,8 +2099,6 @@ gA
 gA
 "}
 (23,1,1) = {"
-Zn
-Zn
 gA
 ge
 gA
@@ -2199,8 +2131,6 @@ gA
 (24,1,1) = {"
 Zn
 Zn
-Zn
-Zn
 ge
 Vd
 xY
@@ -2231,8 +2161,6 @@ gA
 (25,1,1) = {"
 Zn
 Zn
-Zn
-Zn
 ge
 Vd
 xY
@@ -2245,7 +2173,7 @@ cF
 cF
 oS
 Al
-tF
+Al
 Al
 Al
 Al
@@ -2261,8 +2189,6 @@ gA
 gA
 "}
 (26,1,1) = {"
-Zn
-Zn
 Zn
 Zn
 gA
@@ -2295,13 +2221,11 @@ gA
 (27,1,1) = {"
 Zn
 Zn
-Zn
-Zn
 gA
 QY
 cF
 aA
-GC
+yc
 gA
 gA
 fp
@@ -2325,8 +2249,6 @@ uP
 gA
 "}
 (28,1,1) = {"
-Zn
-Zn
 Zn
 Zn
 gA
@@ -2359,8 +2281,6 @@ gA
 (29,1,1) = {"
 Zn
 Zn
-Zn
-Zn
 gA
 sx
 cF
@@ -2389,8 +2309,6 @@ gA
 gA
 "}
 (30,1,1) = {"
-Zn
-Zn
 Zn
 Zn
 gA
@@ -2428,8 +2346,6 @@ Zn
 Zn
 Zn
 Zn
-Zn
-Zn
 gA
 IK
 eE
@@ -2460,8 +2376,6 @@ Zn
 Zn
 Zn
 Zn
-Zn
-Zn
 gA
 KH
 sg
@@ -2485,8 +2399,6 @@ Zn
 Zn
 "}
 (33,1,1) = {"
-Zn
-Zn
 Zn
 Zn
 Zn

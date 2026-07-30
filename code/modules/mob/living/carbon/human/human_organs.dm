@@ -160,7 +160,7 @@
 		if(step_count >= bodypart.splinted_count + SPLINT_LIFE)
 			bodypart.remove_splint(splint_break = TRUE)	// oh no, we actually need surgery now!
 
-/mob/living/carbon/human/proc/embed_item_inside(obj/item/thing, embedded_zone, silent = FALSE)
+/mob/living/carbon/human/embed_item_inside(obj/item/thing, embedded_zone, silent = FALSE)
 	if(isliving(thing.loc))
 		var/mob/living/holder = thing.loc
 		holder.drop_item_ground(thing)

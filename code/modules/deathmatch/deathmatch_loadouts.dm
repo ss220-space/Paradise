@@ -263,6 +263,7 @@
 /datum/outfit/deathmatch_loadout/ert
 	name = "Deathmatch: ERT member (ARG)"
 	display_name = "Офицер ОБР (Солдат с АРГ)"
+	desc = "Бравый член отряда быстрого реагирования."
 
 	uniform = /obj/item/clothing/under/rank/security/sensor
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
