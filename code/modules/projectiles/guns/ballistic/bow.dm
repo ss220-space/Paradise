@@ -188,7 +188,6 @@
 	speed_modifier = 0.8
 	range_modifier = 1.1
 	zoomable = TRUE
-	zoom_amt = 3
 	ready_to_fire_time = 0.5 SECONDS
 
 /obj/item/gun/projectile/bow/tactical/get_ru_names()
