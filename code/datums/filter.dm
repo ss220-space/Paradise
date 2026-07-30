@@ -1,6 +1,3 @@
-/proc/cmp_filter_data_priority(list/A, list/B)
-	return A["priority"] - B["priority"]
-
 /** Add a filter to the datum.
  * This is on datum level, despite being most commonly / primarily used on atoms, so that filters can be applied to images / mutable appearances.
  * Can also be used to assert a filter's existence. I.E. update a filter regardless if it exists or not.
@@ -195,6 +192,8 @@
 		if(!(filter_info["name"] in names))
 			new_data += list(filter_info)
 			new_cache += filter_cache[index]
+		else
+			. = TRUE
 	filter_data = new_data
 	filter_cache = new_cache
 	if(update)

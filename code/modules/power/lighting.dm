@@ -235,6 +235,8 @@
 	/// If true, this light cannot ever have an emergency mode
 	var/no_emergency = FALSE
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light, 0, 0)
+
 /**
  * # Small light fixture
  *
@@ -251,6 +253,8 @@
 	nightshift_light_color = "#ffefa0"
 	light_type = /obj/item/light/bulb
 	deconstruct_type = /obj/machinery/light_construct/small
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light/small, 0, 0)
 
 /obj/machinery/light/spot
 	name = "spotlight"
@@ -597,10 +601,11 @@
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !(I.flags & CONDUCT) || !has_power())
 		return
 
-	if(status != initial_status && prob(12))	// Proceed only if changed `state` during `take_damage`.
+	CALCULATE_SKILL_MOD(user, ELECTRICITY_NEGATIVE_CHANCE_MOD, prob_mod)
+	if(status != initial_status && prob(12 * prob_mod))	// Proceed only if changed `state` during `take_damage`.
 		electrocute_mob(user, get_area(src), src, 0.3, TRUE)
 
-	else if(status == LIGHT_EMPTY && prob(75))
+	else if(status == LIGHT_EMPTY && prob(75 * prob_mod))
 		to_chat(user, span_userdanger("You aimed right into the light socket."))
 		electrocute_mob(user, get_area(src), src, randfloat(0.7, 1), TRUE)
 		do_sparks(3, TRUE, src)
@@ -874,7 +879,6 @@
 	force = 2
 	throwforce = 5
 	w_class = WEIGHT_CLASS_TINY
-	blocks_emissive = FALSE
 	/// Light status (LIGHT_OK | LIGHT_BURNED | LIGHT_BROKEN)
 	var/status = LIGHT_OK
 	/// How many times has the light been switched on/off?

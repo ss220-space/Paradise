@@ -17,15 +17,14 @@
 /// Chance for arterial bleeding based on inflicting damage
 #define LIMB_ARTERIAL_BLEEDING_CHANCE_MOD 0.5
 /// Arterial bleeding size
-#define LIMB_ARTERIAL_BLEEDING_SIZE 21
+#define LIMB_ARTERIAL_BLEEDING_SIZE 15
 
 // MARK: External organs
 
 /obj/item/organ/external
 	name = "external"
 	max_damage = 0
-	blocks_emissive = FALSE
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_on = FALSE
 
 	/// External body part zone
@@ -151,7 +150,7 @@
 	else
 		application_surgery = /datum/surgery/reattach_synth
 
-	AddComponent(/datum/component/surgery_initiator/limb, forced_surgery = application_surgery)
+	AddElement(/datum/element/surgery_initiator/limb, forced_surgery = application_surgery)
 
 /obj/item/organ/external/Destroy()
 	if(parent)
@@ -250,11 +249,14 @@
 			var/atom/movable/thing = childpart.remove(organ_owner, special)
 			if(!QDELETED(thing))
 				thing.forceMove(src)
-		organ_owner.updatehealth("limb remove")
 
 	release_restraints(organ_owner)
 	organ_owner.bodyparts -= src
 	organ_owner.bodyparts_by_name[limb_zone] = null	// Remove from owner's vars.
+
+	// Must happen after bodyparts cleanup
+	if(!ignore_children)
+		organ_owner.updatehealth("limb remove")
 
 	//Robotic limbs explode if sabotaged.
 	if(is_robotic() && sabotaged && !special)
@@ -355,6 +357,9 @@
 		remove_splint(splint_break = TRUE, silent = silent)	// Taking damage to splinted limbs removes the splints
 
 	if(used_weapon)
+		if(isobj(used_weapon))
+			var/obj/weapon_obj = used_weapon
+			used_weapon = weapon_obj.declent_ru(NOMINATIVE)
 		add_autopsy_data("[used_weapon]", brute + burn)
 	else
 		add_autopsy_data(null, brute + burn)
@@ -1185,7 +1190,10 @@ Note that amputating the affected organ does in fact remove the infection from t
 	encased = null
 
 	// override the existing initiator
-	AddComponent(/datum/component/surgery_initiator/limb, forced_surgery = /datum/surgery/reattach_synth)
+
+	if(!is_robotic())
+		RemoveElement(/datum/element/surgery_initiator/limb, forced_surgery = /datum/surgery/reattach)
+		AddElement(/datum/element/surgery_initiator/limb, forced_surgery = /datum/surgery/reattach_synth)
 
 	if(istext(company))
 		set_company(company)
@@ -1207,6 +1215,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(owner)
 		owner.update_body()
 		if(!silent)
+			owner.balloon_alert(owner, "конечность не двигается!")
 			to_chat(owner, span_danger("Вы перестаёте чувствовать [GEND_YOUR(src)] [declent_ru(ACCUSATIVE)]!"))
 		if(vital)
 			owner.death()

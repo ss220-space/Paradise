@@ -51,6 +51,7 @@
 ///from base of obj/item/hit_reaction(): (list/args)
 #define COMSIG_ITEM_HIT_REACT "item_hit_react"
 	#define COMPONENT_BLOCK_SUCCESSFUL (1 << 0)
+	#define COMPONENT_BLOCK_PERFECT (1 << 2)
 ///called on item when crossed by something (): (/atom/movable, mob/living/crossed)
 #define COMSIG_ITEM_WEARERCROSSED "wearer_crossed"
 ///from base of item/sharpener/attackby(): (amount, max)
@@ -67,6 +68,11 @@
 #define COMSIG_ITEM_DISABLE_EMBED "item_disable_embed"
 ///from [/obj/effect/mine/proc/triggermine]:
 #define COMSIG_MINE_TRIGGERED "minegoboom"
+
+///from base of obj/item/do_pickup_animation(): ()
+#define COMSIG_ITEM_BEFORE_PICKUP_ANIMATION "item_before_pickup_animation"
+///from base of obj/item/do_drop_animation(): ()
+#define COMSIG_ITEM_BEFORE_DROP_ANIMATION "item_before_drop_animation"
 
 // Jetpack things
 //called in /obj/item/tank/jetpack/proc/turn_on() : ()
@@ -234,6 +240,12 @@
 /// Sent from /datum/powernet/remove_cable()
 #define COMSIG_UPDATE_TWOHANDED_DAMAGE "update_twohanded_damage"
 
+/// called on implants, after a successful implantation: (mob/living/target, mob/user, silent, force)
+#define COMSIG_IMPLANT_IMPLANTED "implant_implanted"
+
+/// called on implants, after an implant has been removed: (mob/living/source, silent, special)
+#define COMSIG_IMPLANT_REMOVED "implant_removed"
+
 /// Sent from /obj/structure/bingle_hole to /datum/team/bingles
 #define COMSIG_BINGLE_HOLE_INITIALIZED "bingle_hole_initialized"
 
@@ -348,3 +360,33 @@
 
 /// Called when attempting to swap two-handed weapons
 #define COMSIG_ITEM_SWAP_BLOCKED "item_swap_blocked"
+
+/// Called when card decal applied to ID card.
+#define COMSIG_CARD_DECAL_APPLIED "card_decal_applied"
+
+/// Called when item inserted into storage. [/obj/item/storage/proc/handle_item_insertion()]: (obj/item/W, prevent_warning = FALSE)
+#define COMSIG_ITEM_INSERTED_INTO_STORAGE "inserted_into_storage"
+
+/// Called when item removed from storage. [/obj/item/storage/proc/remove_from_storage()]: (obj/item/W, atom/new_location)
+#define COMSIG_ITEM_REMOVED_FROM_STORAGE "removed_from_storage"
+
+/// Called when the spraycan interacts.
+#define COMSIG_OBJ_PAINTED "obj_painted"
+
+/// from /datum/component/subtype_picker/pick_subtype(): (obj/item/old_item, mob/picker)
+#define COMSIG_ITEM_SUBTYPE_PICKER_SELECTED "item_subtype_picker_selected"
+
+// /obj/item signals for economy
+///called before an item is sold by the exports system.
+#define COMSIG_ITEM_PRE_EXPORT "item_pre_sold"
+	/// Stops the export from calling sell_object() on the item, so you can handle it manually.
+	#define COMPONENT_STOP_EXPORT (1<<0)
+///called when an item is sold by the exports subsystem
+#define COMSIG_ITEM_EXPORTED "item_sold"
+	/// Stops the export from adding the export information to the report, so you can handle it manually.
+	#define COMPONENT_STOP_EXPORT_REPORT (1<<0)
+
+/// A mob has just equipped an item. Called on [/mob] from base of [/obj/item/equipped()]: (/obj/item/equipped_item, slot)
+#define COMSIG_MOB_EQUIPPED_ITEM "mob_equipped_item"
+
+#define COMSIG_GRIPPED_ITEM_CHANGE "gripped_item_change"

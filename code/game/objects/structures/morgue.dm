@@ -39,7 +39,7 @@
 	var/status
 
 /obj/structure/morgue/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "холодильник для трупов",
 		GENITIVE = "холодильника для трупов",
 		DATIVE = "холодильнику для трупов",
@@ -255,7 +255,7 @@
 	var/obj/structure/morgue/morgue
 
 /obj/structure/m_tray/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "поддон холодильника для трупов",
 		GENITIVE = "поддона холодильника для трупов",
 		DATIVE = "поддону холодильника для трупов",
@@ -305,7 +305,6 @@
 
 	if(user != dropping)
 		user.visible_message(span_warning("[user] помеща[PLUR_ET_YUT(user)] [dropping.declent_ru(GENITIVE)] на [declent_ru(GENITIVE)]!"))
-	return TRUE
 
 /obj/structure/m_tray/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
@@ -357,7 +356,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	var/toggle_sound = 'sound/items/deconstruct.ogg'
 
 /obj/machinery/crematorium/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "крематорий",
 		GENITIVE = "крематория",
 		DATIVE = "крематорию",
@@ -667,7 +666,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	var/obj/machinery/crematorium/crematorium
 
 /obj/structure/c_tray/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "поддон крематория",
 		GENITIVE = "поддона крематория",
 		DATIVE = "поддону крематория",
@@ -724,7 +723,6 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 	if(user != dropping)
 		user.visible_message(span_warning("[user] помеща[PLUR_ET_YUT(user)] [dropping.declent_ru(GENITIVE)] на [declent_ru(GENITIVE)]!"))
-	return TRUE
 
 /obj/structure/c_tray/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
@@ -741,7 +739,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	var/id = 1
 
 /obj/machinery/crema_switch/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "активатор крематория",
 		GENITIVE = "активатора крематория",
 		DATIVE = "активатору крематория",

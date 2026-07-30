@@ -18,6 +18,7 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 		TRAIT_NO_GUNS,
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_EMBEDIMMUNE,
+		TRAIT_LIVERLESS_METABOLISM,
 	)
 	dies_at_threshold = TRUE
 	speed_mod = 2
@@ -49,7 +50,7 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	heat_level_2 = INFINITY
 	heat_level_3 = INFINITY
 
-	blood_color = "#515573"
+	blood_color = BLOOD_COLOR_GOLEM
 	flesh_color = "#137E8F"
 	skinned_type = /obj/item/stack/ore/iron
 
@@ -250,6 +251,7 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	blacklisted = FALSE
 	dangerous_existence = FALSE
 	var/static/list/random_golem_types
+	random_eligible = FALSE
 
 /datum/species/golem/random/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	. = ..()
@@ -560,6 +562,7 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_EMBEDIMMUNE,
 		TRAIT_ASHSTORM_IMMUNE,
+		TRAIT_LIVERLESS_METABOLISM,
 	)
 
 	material_heal = 25
@@ -600,6 +603,7 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 		TRAIT_EMBEDIMMUNE,
 		TRAIT_ASHSTORM_IMMUNE,
 		TRAIT_LAVA_IMMUNE,
+		TRAIT_LIVERLESS_METABOLISM,
 	)
 
 /datum/species/golem/plastitanium/get_info_text()
@@ -686,6 +690,7 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 		TRAIT_NO_GUNS,
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_EMBEDIMMUNE,
+		TRAIT_LIVERLESS_METABOLISM,
 	)
 	brute_mod = 0.7 // 30% damage reduction down from 55%
 	burn_mod = 0.875
@@ -818,6 +823,7 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_EMBEDIMMUNE,
 		TRAIT_VENTCRAWLER_NUDE,
+		TRAIT_LIVERLESS_METABOLISM,
 	)
 	golem_colour = rgb(255, 255, 255)
 	skinned_type = /obj/item/stack/sheet/plastic

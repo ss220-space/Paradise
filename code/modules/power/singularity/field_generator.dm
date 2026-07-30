@@ -9,17 +9,6 @@ no power level overlay is currently in the overlays list.
 -Aygar
 */
 
-#define field_generator_max_power 250
-
-// Field generator construction defines
-#define FG_UNSECURED 0
-#define FG_SECURED 1
-#define FG_WELDED 2
-
-#define FG_OFFLINE 0
-#define FG_CHARGING 1
-#define FG_ONLINE 2
-
 /obj/machinery/field/generator
 	name = "field generator"
 	desc = "A large thermal battery that projects a high amount of energy when powered."
@@ -176,9 +165,11 @@ no power level overlay is currently in the overlays list.
 	else
 		return ..()
 
+#define FIELD_GENERATOR_MAX_POWER 250
+
 /obj/machinery/field/generator/bullet_act(obj/projectile/considered_bullet)
 	if(considered_bullet.flag != BULLET)
-		power = min(power + considered_bullet.damage, field_generator_max_power)
+		power = min(power + considered_bullet.damage, FIELD_GENERATOR_MAX_POWER)
 		check_power_level()
 	return ..()
 
@@ -188,10 +179,12 @@ no power level overlay is currently in the overlays list.
  * no power level overlay is currently in the overlays list.
  */
 /obj/machinery/field/generator/proc/check_power_level()
-	var/new_level = round(6 * power / field_generator_max_power)
+	var/new_level = round(6 * power / FIELD_GENERATOR_MAX_POWER)
 	if(new_level != power_level)
 		power_level = new_level
 		update_appearance()
+
+#undef FIELD_GENERATOR_MAX_POWER
 
 /obj/machinery/field/generator/proc/turn_off()
 	active = FG_OFFLINE
@@ -360,23 +353,6 @@ no power level overlay is currently in the overlays list.
 
 	move_resist = initial(move_resist)
 
-	// This is here to help fight the "hurr durr, release singulo cos nobody will notice before the
-	// singulo eats the evidence". It's not fool-proof but better than nothing.
-	// I want to avoid using global variables.
-	INVOKE_ASYNC(src, PROC_REF(admin_alert))
-
-/obj/machinery/field/generator/proc/admin_alert()
-	var/alert_sent = FALSE
-	for(var/thing in GLOB.singularities)
-		var/obj/singularity/singulo = thing
-		if(alert_sent || !singulo.last_warning || !are_zs_connected(singulo, src) || (world.time - singulo.last_warning) <= 50)
-			singulo.last_warning = world.time
-			continue
-		alert_sent = TRUE
-		message_admins("A singularity exists and a containment field has failed on the same Z-Level. Singulo location: [ADMIN_VERBOSEJMP(singulo)] | Field generator location: [ADMIN_VERBOSEJMP(src)]")
-		investigate_log("has FAILED whilst a singulo exists (size: [singulo.current_size], energy: [singulo.energy]).", INVESTIGATE_ENGINE)
-		singulo.last_warning = world.time
-
 /obj/machinery/field/generator/proc/shield_floor(create)
 	if(length(connected_gens) < 2)
 		return
@@ -448,11 +424,3 @@ no power level overlay is currently in the overlays list.
 
 /obj/machinery/field/generator/starts_on/magic/process()
 	return PROCESS_KILL // this is the only place calc_power is called, and doing it here avoids one unnecessary proc call
-
-#undef FG_UNSECURED
-#undef FG_SECURED
-#undef FG_WELDED
-
-#undef FG_OFFLINE
-#undef FG_CHARGING
-#undef FG_ONLINE

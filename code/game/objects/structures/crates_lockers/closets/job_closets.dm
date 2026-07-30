@@ -60,7 +60,7 @@
 	new /obj/item/storage/box/mousetraps(src)
 	new /obj/item/clothing/under/rank/chef(src)
 	new /obj/item/clothing/head/chefhat(src)
-	new /obj/item/reagent_containers/glass/rag(src)
+	new /obj/item/rag(src)
 	new /obj/item/storage/belt/chef/artist(src)
 	new /obj/item/storage/belt/chef/artistred(src)
 
@@ -170,7 +170,7 @@
 	desc = "В данном ящике хранится траурная одежда."
 
 /obj/structure/closet/burial/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ящик с траурной одеждой",
 		GENITIVE = "ящика с траурной одеждой",
 		DATIVE = "ящику с траурной одеждой",

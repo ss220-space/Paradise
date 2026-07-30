@@ -7,7 +7,7 @@
 	temperature = TCMB
 
 /turf/simulated/floor/engine/hull/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
-	to_chat(user, span_warning("The flooring is too thick to be regularly deconstructed!"))
+	balloon_alert(user, "нельзя деконструировать!")
 	return RCD_ACT_FAILED
 
 /// RCD-immune plating generated only by shuttle code for shuttle ceilings on multi-z maps, should not be mapped in or creatable in any other way
@@ -16,8 +16,8 @@
 	var/old_turf_type = /turf/simulated/openspace // set to this one, if getting oldtype got ruined somehow
 
 /turf/simulated/floor/engine/hull/ceiling/AfterChange(flags, oldType)
-	. = ..()
 	old_turf_type = oldType
+	return ..()
 
 /turf/simulated/floor/engine/hull/reinforced
 	name = "exterior reinforced hull plating"

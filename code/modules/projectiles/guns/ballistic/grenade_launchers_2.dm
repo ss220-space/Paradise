@@ -30,7 +30,7 @@
 /obj/item/gun/projectile/revolver/grenadelauncher/multi/cyborg/attack_self()
 	return
 
-// MARK: Rocket launcher
+// MARK: PML-8 rocket launcher
 /obj/item/gun/projectile/revolver/rocketlauncher //nice revolver you got here
 	name = "PML-9"
 	desc = "A reusable rocket propelled grenade launcher. The words \"NT this way\" and an arrow have been written near the barrel."
@@ -126,7 +126,7 @@
 		animate(user, pixel_z = 0, time = 0.5 SECONDS, easing = LINEAR_EASING)
 		sleep(0.5 SECONDS)
 		REMOVE_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
-		process_fire(user, user, TRUE)
+		fast_fire(user, user)
 		if(!QDELETED(user)) //if they weren't gibbed by the explosion, take care of them for good.
 			user.gib()
 		return OBLITERATION
@@ -138,6 +138,15 @@
 		sleep(2 SECONDS)
 		return OXYLOSS
 
+// MARK: RPG-232 rocket launcher
+/obj/item/gun/projectile/revolver/rocketlauncher/rpg232
+	name = "RPG-232"
+	desc = "Разработанный в ТСФ многоразовый гранатомет, так и не поступивший на вооружение Федерации. Модель стала популярна среди тяжеловооруженных отрядов ОЗА \"Нанотрейзен\"."
+	icon_state = "rpg232"
+	item_state = "rpg232"
+	mag_type = /obj/item/ammo_box/magazine/internal/rpg232
+	recoil = GUN_RECOIL_LOW
+
 // MARK: Gyropistol
 /obj/item/gun/projectile/automatic/gyropistol
 	name = "gyrojet pistol"
@@ -147,11 +156,10 @@
 	origin_tech = "combat=5"
 	mag_type = /obj/item/ammo_box/magazine/m75
 	can_holster = TRUE // Override default automatic setting since it is a handgun sized gun
-	burst_size = 1
-	fire_delay = 0
+	burst_amount = 1
 	actions_types = null
 	accuracy = GUN_ACCURACY_MINIMAL
-	fire_modes = GUN_MODE_SINGLE_ONLY
+	gun_firemode_list = list(GUN_FIREMODE_SEMIAUTO)
 
 /obj/item/gun/projectile/automatic/gyropistol/process_chamber(eject_casing = FALSE, empty_chamber = TRUE)
 	..()

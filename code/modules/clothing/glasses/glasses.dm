@@ -22,8 +22,6 @@
 	var/see_in_dark = 2
 	/// Level of invisibility the wearer can see (default SEE_INVISIBLE_LIVING).
 	var/invis_view = SEE_INVISIBLE_LIVING
-	/// Override to allow glasses to see higher invisibility levels than normal.
-	var/invis_override = 0
 	/// Alpha value for lighting plane when worn (affects darkness rendering).
 	var/lighting_alpha
 	/// List of examine extensions (e.g., medical HUD, science HUD).
@@ -157,7 +155,7 @@
 	var/active_on_equip = TRUE
 
 /obj/item/clothing/glasses/meson/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мезонные очки",
 		GENITIVE = "мезонных очков",
 		DATIVE = "мезонным очкам",
@@ -202,7 +200,7 @@
 	prescription_upgradable = FALSE
 
 /obj/item/clothing/glasses/meson/night/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мезонные очки ночного видения",
 		GENITIVE = "мезонных очков ночного видения",
 		DATIVE = "мезонным очкам ночного видения",
@@ -227,7 +225,7 @@
 	sharp = TRUE
 
 /obj/item/clothing/glasses/meson/gar/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "гар-мезонные очки",
 		GENITIVE = "гар-мезонных очков",
 		DATIVE = "гар-мезонным очкам",
@@ -255,7 +253,7 @@
 	item_state = "mesonvisor"
 
 /obj/item/clothing/glasses/meson/visor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мезонный оптический визор",
 		GENITIVE = "мезонного оптического визора",
 		DATIVE = "мезонному оптическому визору",
@@ -329,7 +327,7 @@
 	item_state = "sciencevisor"
 
 /obj/item/clothing/glasses/science/visor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "научный оптический визор",
 		GENITIVE = "научного оптического визора",
 		DATIVE = "научному оптическому визору",

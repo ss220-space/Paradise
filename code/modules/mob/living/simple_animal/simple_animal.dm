@@ -215,6 +215,8 @@
 	master_commander = null
 	GLOB.simple_animals[AIStatus] -= src
 	SSnpcpool.currentrun -= src
+	SSidlenpcpool.currentrun -= src
+	walk(src, NONE)
 
 	if(nest)
 		nest.spawned_mobs -= src
@@ -652,6 +654,7 @@
 	overlay_fullscreen("see_through_darkness", /atom/movable/screen/fullscreen/see_through_darkness)
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
+	return ..()
 
 /mob/living/simple_animal/proc/toggle_ai(togglestatus)
 	if(AIStatus == togglestatus)
@@ -730,9 +733,6 @@
 
 	update_fire()
 
-	if(blocks_emissive)
-		add_overlay(get_emissive_block())
-
 /mob/living/simple_animal/Login()
 	..()
 	GLOB.move_manager.stop_looping(src) // if mob is moving under ai control, then stop AI movement
@@ -742,7 +742,7 @@
 	. = ..()
 	toggle_ai(AI_ON)
 
-/mob/living/simple_animal/say(message, verb = "говор%(ит,ят)%", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
+/mob/living/simple_animal/say(message, verb = "говор[PLUR_IT_YAT(src)]", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE, ignore_emotes = FALSE)
 	. = ..()
 	if(. && length(talk_sound))
 		playsound(src, pick(talk_sound), 75, TRUE)
@@ -844,14 +844,14 @@
 	leash_radius = radius
 
 /mob/living/simple_animal/deadchat_plays(mode = DEADCHAT_ANARCHY_MODE, cooldown = 12 SECONDS)
-	. = AddComponent(/datum/component/deadchat_control/cardinal_movement, mode, list(), cooldown, CALLBACK(src, PROC_REF(end_dchat_plays)))
+	. = AddComponent(/datum/component/deadchat_control/cardinal_movement, mode, list(), cooldown, CALLBACK(src, PROC_REF(stop_deadchat_plays)))
 
 	if(. == COMPONENT_INCOMPATIBLE)
 		return
 
 	stop_automated_movement = TRUE
 
-/mob/living/simple_animal/proc/end_dchat_plays()
+/mob/living/simple_animal/proc/stop_deadchat_plays()
 	stop_automated_movement = FALSE
 
 /mob/living/simple_animal/can_use_machinery(obj/machinery/mach)

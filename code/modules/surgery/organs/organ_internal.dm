@@ -9,7 +9,7 @@
 	var/can_see_food = FALSE
 	/// Empty list == all species allowed
 	var/list/species_restrictions
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_on = FALSE
 
 	lefthand_file = 'icons/mob/inhands/organ_lefthand.dmi'
@@ -210,7 +210,7 @@
 	var/inflamed = FALSE
 
 /obj/item/organ/internal/appendix/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "аппендикс",
 		GENITIVE = "аппендикса",
 		DATIVE = "аппендиксу",
@@ -255,7 +255,7 @@
 	max_integrity = 3
 
 /obj/item/organ/internal/shadowtumor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "чёрная опухоль",
 		GENITIVE = "чёрной опухоли",
 		DATIVE = "чёрной опухоли",
@@ -264,8 +264,8 @@
 		PREPOSITIONAL = "чёрной опухоли",
 	)
 
-/obj/item/organ/internal/shadowtumor/New()
-	..()
+/obj/item/organ/internal/shadowtumor/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/organ/internal/shadowtumor/Destroy()
@@ -302,7 +302,7 @@
 	var/datum/component/squeak
 
 /obj/item/organ/internal/honktumor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "банановая опухоль",
 		GENITIVE = "банановой опухоли",
 		DATIVE = "банановой опухоли",
@@ -347,10 +347,7 @@
 			if(isobj(H.shoes))
 				var/thingy = H.shoes
 				if(H.drop_item_ground(H.shoes))
-					GLOB.move_manager.move_away(thingy, H, 15, 2)
-					spawn(20)
-						if(thingy)
-							GLOB.move_manager.stop_looping(thingy)
+					GLOB.move_manager.move_away(thingy, H, 15, 2, timeout = 2 SECONDS)
 
 /obj/item/organ/internal/honktumor/cursed
 	unremovable = TRUE
@@ -373,7 +370,7 @@
 	var/datum/component/squeak
 
 /obj/item/organ/internal/honkbladder/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "гудящий пузырь",
 		GENITIVE = "гудящего пузыря",
 		DATIVE = "гудящему пузырю",
@@ -401,7 +398,7 @@
 	slot = INTERNAL_ORGAN_HAIR
 
 /obj/item/organ/internal/beard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бородатый орган",
 		GENITIVE = "бородатого органа",
 		DATIVE = "бородатому органу",

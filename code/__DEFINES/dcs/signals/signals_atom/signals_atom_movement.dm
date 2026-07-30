@@ -56,3 +56,6 @@
 #define COMSIG_ATOM_PRE_PRESSURE_PUSH "atom_pre_pressure_push"
 	///prevents pressure movement
 	#define COMSIG_ATOM_BLOCKS_PRESSURE (1<<0)
+
+/// From base of area/Exited(): (area/left, direction)
+#define COMSIG_MOVABLE_EXITED_AREA "movable_exited_area"

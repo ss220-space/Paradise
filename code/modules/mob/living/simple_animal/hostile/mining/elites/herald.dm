@@ -53,7 +53,7 @@
 	var/is_mirror = FALSE
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вестник",
 		GENITIVE = "вестника",
 		DATIVE = "вестнику",
@@ -77,7 +77,7 @@
 /mob/living/simple_animal/hostile/asteroid/elite/herald/proc/become_ghost()
 	icon_state = "herald_ghost"
 
-/mob/living/simple_animal/hostile/asteroid/elite/herald/say(message, verb = "говор%(ит,ят)%", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
+/mob/living/simple_animal/hostile/asteroid/elite/herald/say(message, verb = "говор[PLUR_IT_YAT(src)]", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE, ignore_emotes = FALSE)
 	. = ..()
 	playsound(get_turf(src), 'sound/magic/clockwork/invoke_general.ogg', 20, TRUE)
 
@@ -225,7 +225,7 @@
 	var/mob/living/simple_animal/hostile/asteroid/elite/herald/my_master = null
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/mirror/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "зеркало вестника",
 		GENITIVE = "зеркала вестника",
 		DATIVE = "зеркалу вестника",
@@ -257,7 +257,7 @@
 	actions_types = list(/datum/action/item_action/accessory/herald)
 
 /obj/item/clothing/accessory/necklace/herald_cloak/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плащ пророка",
 		GENITIVE = "плаща пророка",
 		DATIVE = "плащу пророка",

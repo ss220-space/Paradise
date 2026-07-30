@@ -16,7 +16,7 @@
 	device = /obj/item/gps/mod
 
 /obj/item/mod/module/gps/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль ГПС",
 		GENITIVE = "модуля ГПС",
 		DATIVE = "модулю ГПС",
@@ -48,7 +48,7 @@
 	var/list/stored_crates = list()
 
 /obj/item/mod/module/clamp/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль гидравлической клешни",
 		GENITIVE = "модуля гидравлической клешни",
 		DATIVE = "модулю гидравлической клешни",
@@ -124,7 +124,7 @@
 	required_slots = list(ITEM_SLOT_BACK)
 
 /obj/item/mod/module/clamp/loader/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль грузовой клешни",
 		GENITIVE = "модуля грузовой клешни",
 		DATIVE = "модулю грузовой клешни",
@@ -150,7 +150,7 @@
 	required_slots = list(ITEM_SLOT_GLOVES)
 
 /obj/item/mod/module/drill/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль дрели",
 		GENITIVE = "модуля дрели",
 		DATIVE = "модулю дрели",
@@ -160,9 +160,11 @@
 	)
 
 /obj/item/mod/module/drill/on_activation()
+	tool_behaviour = TOOL_MINING
 	RegisterSignal(mod.wearer, COMSIG_MOVABLE_BUMP, PROC_REF(bump_mine))
 
 /obj/item/mod/module/drill/on_deactivation(display_message = TRUE, deleting = FALSE)
+	tool_behaviour = NONE
 	UnregisterSignal(mod.wearer, COMSIG_MOVABLE_BUMP)
 
 /obj/item/mod/module/drill/on_select_use(atom/target)
@@ -205,7 +207,7 @@
 	var/list/ores = list()
 
 /obj/item/mod/module/orebag/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль хранилища руды",
 		GENITIVE = "модуля хранилища руды",
 		DATIVE = "модулю хранилища руды",
@@ -266,7 +268,7 @@
 	var/image/charge_up_overlay
 
 /obj/item/mod/module/hydraulic/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль гидравлических рук",
 		GENITIVE = "модуля гидравлических рук",
 		DATIVE = "модулю гидравлических рук",
@@ -331,7 +333,7 @@
 	required_slots = list(ITEM_SLOT_BACK)
 
 /obj/item/mod/module/magnet/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль грузового магнита",
 		GENITIVE = "модуля грузового магнита",
 		DATIVE = "модулю грузового магнита",
@@ -403,7 +405,7 @@
 	var/static/list/keep_turfs
 
 /obj/item/mod/module/ash_accretion/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль пепельного аттрактора",
 		GENITIVE = "модуля пепельного аттрактора",
 		DATIVE = "модулю пепельного аттрактора",
@@ -533,7 +535,7 @@
 	balloon_alert(user, "протоколы безопасности [safe ? "восстановлены" : "сняты"]!")
 
 /obj/item/mod/module/sphere_transform/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль превращения в сферу",
 		GENITIVE = "модуля превращения в сферу",
 		DATIVE = "модулю превращения в сферу",
@@ -543,14 +545,14 @@
 	)
 
 /obj/item/mod/module/sphere_transform/on_activation()
-	if(!get_gravity(get_turf(src)))
+	if(!has_gravity(get_turf(src)))
 		balloon_alert(mod.wearer, "нет гравитации!")
 		return FALSE
 	playsound(src, 'sound/items/modsuit/ballin.ogg', 100, TRUE)
 	mod.wearer.add_filter("mod_ball", 1, alpha_mask_filter(icon = icon('icons/mob/clothing/modsuit/mod_modules.dmi', "ball_mask"), flags = MASK_INVERSE))
 	mod.wearer.add_filter("mod_blur", 2, angular_blur_filter(size = 15))
 	mod.wearer.add_filter("mod_outline", 3, outline_filter(color = "#000000AA"))
-	animate(mod.wearer, animate_time, pixel_y = mod.wearer.pixel_y - 4, flags = ANIMATION_PARALLEL)
+	mod.wearer.add_offsets(UID(), y_add = -4)
 	mod.wearer.SpinAnimation(1.5)
 	mod.wearer.add_traits(user_traits, MODSUIT_TRAIT)
 	mod.wearer.add_movespeed_modifier(/datum/movespeed_modifier/sphere)
@@ -559,7 +561,7 @@
 /obj/item/mod/module/sphere_transform/on_deactivation(display_message = TRUE, deleting = FALSE)
 	if(!deleting)
 		playsound(src, 'sound/items/modsuit/ballin.ogg', 100, TRUE, frequency = -1)
-	animate(mod.wearer, animate_time, pixel_y = 0)
+	mod.wearer.remove_offsets(UID())
 	addtimer(CALLBACK(mod.wearer, TYPE_PROC_REF(/datum, remove_filter), list("mod_ball", "mod_blur", "mod_outline")), animate_time)
 	mod.wearer.remove_traits(user_traits, MODSUIT_TRAIT)
 	mod.wearer.remove_movespeed_modifier(/datum/movespeed_modifier/sphere)
@@ -590,7 +592,7 @@
 /obj/item/mod/module/sphere_transform/on_active_process()
 	animate(mod.wearer) //stop the animation
 	mod.wearer.SpinAnimation(1.5) //start it back again
-	if(!get_gravity(get_turf(src)))
+	if(!has_gravity(get_turf(src)))
 		on_deactivation() //deactivate in no grav
 
 /obj/item/mod/module/sphere_transform/proc/on_statchange(datum/source)
@@ -620,7 +622,7 @@
 	var/static/image/explosion_image
 
 /obj/structure/mining_bomb/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шахтёрская бомба",
 		GENITIVE = "шахтёрской бомбы",
 		DATIVE = "шахтёрскую бомбу",

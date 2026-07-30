@@ -5,7 +5,7 @@
 	see_in_dark = 5
 
 /obj/item/organ/internal/eyes/nian/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "глаза луам",
 		GENITIVE = "глаз луам",
 		DATIVE = "глазам луам",
@@ -19,7 +19,7 @@
 	desc = "Парный орган, отвечающий за аудиальное восприятие окружающей среды и получение информации о положении гуманоида в пространстве. Эти принадлежали луам."
 
 /obj/item/organ/internal/ears/nian/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "уши луам",
 		GENITIVE = "ушей луам",
 		DATIVE = "ушам луам",
@@ -35,7 +35,7 @@
 	item_state = "nian_liver"
 
 /obj/item/organ/internal/liver/nian/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "печень луам",
 		GENITIVE = "печени луам",
 		DATIVE = "печени луам",
@@ -52,7 +52,7 @@
 	item_base = "nian_heart"
 
 /obj/item/organ/internal/heart/nian/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сердце луам",
 		GENITIVE = "сердца луам",
 		DATIVE = "сердцу луам",
@@ -68,7 +68,7 @@
 	mmi_icon = 'icons/obj/species_organs/nian.dmi'
 
 /obj/item/organ/internal/brain/nian/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мозг луам",
 		GENITIVE = "мозга луам",
 		DATIVE = "мозгу луам",
@@ -84,7 +84,7 @@
 	item_state = "nian_lungs"
 
 /obj/item/organ/internal/lungs/nian/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лёгкие луам",
 		GENITIVE = "лёгких луам",
 		DATIVE = "лёгким луам",
@@ -100,7 +100,7 @@
 	item_state = "nian_kidneys"
 
 /obj/item/organ/internal/kidneys/nian/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "почки луам",
 		GENITIVE = "почек луам",
 		DATIVE = "почкам луам",
@@ -115,7 +115,7 @@
 	max_damage = 25
 
 /obj/item/organ/external/wing/nian/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "крылья луам",
 		GENITIVE = "крыльев луам",
 		DATIVE = "крыльям луам",

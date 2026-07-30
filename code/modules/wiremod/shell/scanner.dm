@@ -7,12 +7,12 @@
 	name = "scanner"
 	icon = 'icons/obj/circuits.dmi'
 	icon_state = "setup_small"
-	light_system = MOVABLE_LIGHT_DIRECTIONAL
+	light_system = OVERLAY_LIGHT_DIRECTIONAL
 	light_on = FALSE
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/wiremod_scanner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сканер",
 		GENITIVE = "сканера",
 		DATIVE = "сканеру",

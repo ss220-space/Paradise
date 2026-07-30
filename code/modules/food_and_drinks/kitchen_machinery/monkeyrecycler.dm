@@ -19,7 +19,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	var/list/connected = list()
 
 /obj/machinery/monkey_recycler/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "утилизатор обезьян",
 		GENITIVE = "утилизатора обезьян",
 		DATIVE = "утилизатору обезьян",
@@ -45,8 +45,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 
 /obj/machinery/monkey_recycler/Destroy()
 	GLOB.monkey_recyclers -= src
-	for(var/thing in connected)
-		var/obj/machinery/computer/camera_advanced/xenobio/console = thing
+	for(var/obj/machinery/computer/camera_advanced/xenobio/console in connected)
 		console.connected_recycler = null
 	connected.Cut()
 	return ..()
@@ -137,6 +136,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	to_chat(grabber, span_notice("Вы запихиваете [victim] в [declent_ru(ACCUSATIVE)]."))
 	grabber.stop_pulling()
 	qdel(victim)
+	victim = null
 	playsound(loc, 'sound/machines/juicer.ogg', 50, TRUE)
 	Shake(pixelshiftx = 1, pixelshifty = 0, duration = 3.4 SECONDS)
 	use_power(500)

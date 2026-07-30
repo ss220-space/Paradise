@@ -101,6 +101,10 @@
 	var/obj/current_hand = host.hand ? host.get_organ(BODY_ZONE_L_ARM) : host.get_organ(BODY_ZONE_R_ARM)
 	if(hand != current_hand)
 		return //wrong hand
+	// We should not react to the item when it's not in our hand,
+	// it makes no sense and other items with something like TRAIT_NODROP might fuck us very badly
+	if(!active_item || active_item != host.get_active_hand())
+		return
 	if(Retract())
 		return COMPONENT_CANCEL_DROP
 
@@ -179,7 +183,7 @@
 	var/list/choices = list()
 	for(var/obj/I in items_list)
 		choices["[I.name]"] = image(icon = I.icon, icon_state = I.icon_state)
-	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
+	var/choice = show_radial_menu(owner, owner, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
 	if(!check_menu(user))
 		return
 	var/obj/item/selected
@@ -322,8 +326,8 @@
 	contents = newlist(/obj/item/melee/energy/blade/hardlight, /obj/item/gun/medbeam, /obj/item/borg/stun, /obj/item/flash/armimplant)
 	origin_tech = "materials=5;combat=7;biotech=5;powerstorage=5;syndicate=6;programming=5"
 
-/obj/item/organ/internal/cyberimp/arm/combat/New()
-	..()
+/obj/item/organ/internal/cyberimp/arm/combat/Initialize(mapload)
+	. = ..()
 	if(locate(/obj/item/flash/armimplant) in items_list)
 		var/obj/item/flash/armimplant/F = locate(/obj/item/flash/armimplant) in items_list
 		F.I = src
@@ -380,17 +384,123 @@
 	crit_fail = FALSE
 
 /obj/item/organ/internal/cyberimp/arm/surgery
-	name = "surgical toolset implant"
-	desc = "A set of surgical tools hidden behind a concealed panel on the user's arm"
-	icon_state = "surgical_arm_implant"
-	contents = newlist(/obj/item/retractor/augment, /obj/item/hemostat/augment, /obj/item/cautery/augment, /obj/item/bonesetter/augment, /obj/item/scalpel/augment, /obj/item/circular_saw/augment, /obj/item/bonegel/augment, /obj/item/FixOVein/augment, /obj/item/surgicaldrill/augment)
+	name = "Inugami toolset implant"
+	desc = "Набор хирургических инструментов, спрятанный за потайной панелью на руке пользователя."
+	icon = 'icons/map_icons/items/_item.dmi'
+	post_init_icon_state = "armimp"
+	icon_state = "/obj/item/organ/internal/cyberimp/arm/surgery"
+	item_state = "armimp"
+	greyscale_config = /datum/greyscale_config/armimp
+	greyscale_config_inhand_left = /datum/greyscale_config/armimp_inhand_left
+	greyscale_config_inhand_right = /datum/greyscale_config/armimp_inhand_right
+	greyscale_colors = "#ffffff#269a9d#269a9d#269a9d"
+	contents = newlist(
+		/obj/item/retractor/augment,
+		/obj/item/hemostat/augment,
+		/obj/item/cautery/augment,
+		/obj/item/bonesetter/augment,
+		/obj/item/scalpel/augment,
+		/obj/item/circular_saw/augment,
+		/obj/item/bonegel/augment,
+		/obj/item/FixOVein/augment,
+		/obj/item/surgicaldrill/augment,
+		)
 	origin_tech = "materials=3;engineering=3;biotech=3;programming=2;magnets=3"
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/storage.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "duffel-med")
 
-/obj/item/organ/internal/cyberimp/arm/surgery/l
-	parent_organ_zone = BODY_ZONE_L_ARM
-	slot = INTERNAL_ORGAN_L_ARM_DEVICE
+/obj/item/organ/internal/cyberimp/arm/surgery/get_ru_names()
+	return alist(
+		NOMINATIVE = "имплант хирургических инструментов",
+		GENITIVE = "импланта хирургических инструментов",
+		DATIVE = "импланту хирургических инструментов",
+		ACCUSATIVE = "имплант хирургических инструментов",
+		INSTRUMENTAL = "имплантом хирургических инструментов",
+		PREPOSITIONAL = "импланте хирургических инструментов",
+	)
+
+/obj/item/organ/internal/cyberimp/arm/surgery/adv
+	desc = "Набор лазерных хирургических инструментов, спрятанный за потайной панелью на руке пользователя. Новейшая разработка Inugami!"
+	icon_state = "/obj/item/organ/internal/cyberimp/arm/surgery/adv"
+	greyscale_colors = "#ffffff#89d640#89d640#89d640"
+	contents = newlist(
+		/obj/item/scalpel/laser/laser3,
+		/obj/item/hemostat/laser,
+		/obj/item/retractor/laser,
+		/obj/item/surgicaldrill/laser,
+		/obj/item/circular_saw/laser,
+		/obj/item/bonesetter/laser,
+		/obj/item/bonegel,
+		/obj/item/FixOVein,
+		)
+	origin_tech = "materials=5;biotech=3;magnets=4"
+	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "surgerykit_advanced")
+
+/obj/item/organ/internal/cyberimp/arm/surgery/adv/get_ru_names()
+	return alist(
+		NOMINATIVE = "имплант Inugami",
+		GENITIVE = "импланта Inugami",
+		DATIVE = "импланту Inugami",
+		ACCUSATIVE = "имплант Inugami",
+		INSTRUMENTAL = "имплантом Inugami",
+		PREPOSITIONAL = "импланте Inugami",
+	)
+
+/obj/item/organ/internal/cyberimp/arm/surgery/adv/ert
+	name = "NT-Med toolset implant"
+	desc = "Набор хирургических инструментов для военных нужд, спрятанный за потайной панелью на руке пользователя. Крайне редкая модель, используется военными врачами корпорации Nanotrasen."
+	icon_state = "/obj/item/organ/internal/cyberimp/arm/surgery/adv/ert"
+	greyscale_colors = "#8f8a8a#89d640#89d640#89d640"
+	contents = newlist(
+		/obj/item/bodyanalyzer/advanced,
+		/obj/item/scalpel/laser/manager,
+		/obj/item/surgicaldrill/laser,
+		/obj/item/circular_saw/laser,
+		/obj/item/bonesetter/laser,
+		/obj/item/bonegel,
+		/obj/item/FixOVein,
+		)
+	origin_tech = "materials=8;biotech=4;magnets=5;programming=4"
+	emp_proof = 1
+
+/obj/item/organ/internal/cyberimp/arm/surgery/adv/ert/get_ru_names()
+	return alist(
+		NOMINATIVE = "имплант NT-Med",
+		GENITIVE = "импланта NT-Med",
+		DATIVE = "импланту NT-Med",
+		ACCUSATIVE = "имплант NT-Med",
+		INSTRUMENTAL = "имплантом NT-Med",
+		PREPOSITIONAL = "импланте NT-Med",
+	)
+
+/obj/item/organ/internal/cyberimp/arm/surgery/alien
+	name = "alien surgical toolset implant"
+	desc = "Набор экспериментальных хирургических инструментов, спрятанный за потайной панелью на руке пользователя."
+	icon_state = "/obj/item/organ/internal/cyberimp/arm/surgery/alien"
+	greyscale_colors = "#848fe6#8b045c#5005d4#7e79ad"
+	contents = newlist(
+		/obj/item/scalpel/alien,
+		/obj/item/hemostat/alien,
+		/obj/item/retractor/alien,
+		/obj/item/circular_saw/alien,
+		/obj/item/surgicaldrill/alien,
+		/obj/item/cautery/alien,
+		/obj/item/bonegel/alien,
+		/obj/item/bonesetter/alien,
+		/obj/item/FixOVein/alien,
+		)
+	origin_tech = "materials=4;biotech=3;abductor=2"
+	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "surgerykit_alien")
+
+/obj/item/organ/internal/cyberimp/arm/surgery/alien/get_ru_names()
+	return alist(
+		NOMINATIVE = "инородный имплант",
+		GENITIVE = "инородного импланта",
+		DATIVE = "инородному импланту",
+		ACCUSATIVE = "инородный имплант",
+		INSTRUMENTAL = "инородным имплантом",
+		PREPOSITIONAL = "инородном импланте",
+	)
 
 /obj/item/organ/internal/cyberimp/arm/janitorial
 	name = "janitorial toolset implant"
@@ -514,3 +624,139 @@
 	contents = newlist(/obj/item/mop/advanced)
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/janitor.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "advmop")
+
+/datum/action/item_action/organ_action/toggle/v1_arm
+	button_icon = 'icons/obj/items.dmi'
+	button_icon_state = "v1_arm"
+
+/obj/item/organ/internal/cyberimp/arm/v1_arm
+	name = "vortex feedback arm implant"
+	desc = "An implant, that when deployed surrounds the users arm in armor and circuitry, allowing them to redirect nearby projectiles with feedback from the vortex anomaly core."
+	origin_tech = "combat=6;magnets=6;biotech=6;engineering=6"
+	materials = list(MAT_GOLD = 5000, MAT_URANIUM = 4000, MAT_METAL = 10000, MAT_TITANIUM = 2000, MAT_BLUESPACE = 2000)
+	icon = 'icons/obj/items.dmi'
+	icon_state = "v1_arm"
+	parent_organ_zone = BODY_ZONE_L_ARM //Left arm by default
+	slot = INTERNAL_ORGAN_L_ARM_DEVICE
+	contents = newlist(/obj/item/shield/v1_arm)
+	actions_types = list(/datum/action/item_action/organ_action/toggle/v1_arm)
+	var/disabled = FALSE
+
+/obj/item/organ/internal/cyberimp/arm/v1_arm/emp_act(severity)
+	if(emp_proof && !disabled)
+		return
+	disabled = TRUE
+	addtimer(VARSET_CALLBACK(src, disabled, FALSE), 10 SECONDS)
+
+/obj/item/organ/internal/cyberimp/arm/v1_arm/Extend(obj/item/item)
+	if(disabled)
+		to_chat(owner, span_warning("Your arm fails to extend!"))
+		return FALSE
+	..()
+
+/obj/item/organ/internal/cyberimp/arm/v1_arm/Retract()
+	if(disabled)
+		to_chat(owner, span_warning("Your arm fails to retract!"))
+		return FALSE
+	..()
+
+/obj/item/shield/v1_arm
+	name = "vortex feedback arm"
+	desc = "A modification to a users arm, allowing them to use a vortex core energy feedback, to parry, reflect, and even empower projectile attacks. Rumors that it runs on the user's blood are unconfirmed."
+	icon_state = "v1_arm"
+	sprite_sheets_inhand = list(SPECIES_DRASK = 'icons/mob/clothing/species/drask/held.dmi', SPECIES_VOX = 'icons/mob/clothing/species/vox/held.dmi')
+	force = 20 //bonk, not sharp
+	attack_verb = list("slamed", "punched", "parried", "judged", "styled on", "disrespected", "interrupted", "gored")
+	hitsound = 'sound/effects/bang.ogg'
+	light_power = 3
+	light_color = "#9933ff"
+	light_system = OVERLAY_LIGHT
+	hit_reaction_chance = -1
+	flags = ABSTRACT
+	/// The damage the reflected projectile will be increased by
+	var/reflect_damage_boost = 10
+	/// The cap of the reflected damage. Damage will not be increased above 50, however it will not be reduced to 50 either.
+	var/reflect_damage_cap = 50
+	var/disabled = FALSE
+	var/force_when_disabled = 5 //still basically a metal pipe, just hard to move
+
+/obj/item/shield/v1_arm/emp_act(severity)
+	if(disabled)
+		return
+	to_chat(loc, span_warning("Your arm seises up!"))
+	disabled = TRUE
+	force = force_when_disabled
+	addtimer(CALLBACK(src, PROC_REF(reboot)), 10 SECONDS)
+
+/obj/item/shield/v1_arm/proc/reboot()
+	disabled = FALSE
+	force = initial(force)
+
+/obj/item/shield/v1_arm/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.35, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (4 / 3) SECONDS, _no_parry_sound = TRUE) // 0.3333 seconds of cooldown for 75% uptime, countered by ions and plasma pistols
+
+/obj/item/shield/v1_arm/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
+	if(disabled)
+		return HIT_RESULT_FAILED
+	// Hit by a melee weapon or blocked a projectile
+	. = ..()
+
+	if(!.) // they did not block the attack
+		return
+
+	if(!(. & COMPONENT_BLOCK_PERFECT)) // a normal block
+		owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"))
+		playsound(src, 'sound/weapons/effects/ric3.ogg', 100, TRUE)
+		return HIT_RESULT_SUCCESS
+
+	set_light_range(3)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light_range), 0), 0.25 SECONDS)
+
+	if(isprojectile(hitby))
+		var/obj/projectile/projectile_hitby = hitby
+		if(projectile_hitby.shield_buster || istype(projectile_hitby, /obj/projectile/ion)) //EMP's and unpariable attacks, after all.
+			return HIT_RESULT_FAILED
+
+		if(projectile_hitby.reflectability == REFLECTABILITY_NEVER) //only 1 magic spell does this, but hey, needed
+			owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"))
+			playsound(src, 'sound/weapons/effects/ric3.ogg', 100, TRUE)
+			return HIT_RESULT_SUCCESS
+
+		projectile_hitby.damage = clamp((projectile_hitby.damage + 10), projectile_hitby.damage, reflect_damage_cap)
+		var/sound = SFX_EXPLOSION
+		projectile_hitby.hitsound = sound
+		projectile_hitby.hitsound_wall = sound
+		projectile_hitby.add_overlay(mutable_appearance('icons/obj/weapons/guns/projectiles.dmi', "parry"))
+		playsound(src, 'sound/weapons/v1_parry.ogg', 100, TRUE)
+		owner.visible_message(span_danger("[owner] parries [attack_text] with [src]!"))
+		add_attack_logs(projectile_hitby.firer, src, "hit by [projectile_hitby.type] but got parried by [src]")
+		return HIT_RESULT_REFLECY_BACK
+
+	owner.visible_message(span_danger("[owner] parries [attack_text] with [src]!"))
+	playsound(src, 'sound/weapons/v1_parry.ogg', 100, TRUE)
+	if(attack_type == THROWN_PROJECTILE_ATTACK)
+		if(!isitem(hitby))
+			return HIT_RESULT_SUCCESS
+		var/obj/item/item_hitby = hitby
+		addtimer(CALLBACK(item_hitby, TYPE_PROC_REF(/atom/movable, throw_at), locateUID(item_hitby.thrownby), 10, 4, owner), 0.2 SECONDS) //Timer set to 0.2 seconds to ensure item finshes the throwing to prevent double embeds
+		return HIT_RESULT_SUCCESS
+
+	if(isitem(hitby))
+		melee_attack_chain(owner, hitby.loc)
+	else
+		melee_attack_chain(owner, hitby)
+	return HIT_RESULT_SUCCESS
+
+/obj/item/v1_arm_shell
+	name = "vortex feedback arm implant frame"
+	desc = "An implant awaiting installation of a vortex anomaly core."
+	icon_state = "v1_arm"
+	materials = list(MAT_GOLD = 5000, MAT_URANIUM = 4000, MAT_METAL = 10000, MAT_TITANIUM = 2000, MAT_BLUESPACE = 2000)
+
+/obj/item/v1_arm_shell/attackby(obj/item/item, mob/living/user, list/modifiers)
+	if(istype(item, /obj/item/assembly/signaler/core/vortex/tier3))
+		to_chat(user, span_notice("You insert [item] into the back of the hand, and the implant begins to boot up."))
+		new /obj/item/organ/internal/cyberimp/arm/v1_arm(get_turf(src))
+		qdel(src)
+		qdel(item)
+	return ..()

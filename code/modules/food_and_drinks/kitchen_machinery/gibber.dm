@@ -25,7 +25,7 @@
 	active_power_usage = 500
 
 /obj/machinery/gibber/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мясорубка",
 		GENITIVE = "мясорубки",
 		DATIVE = "мясорубке",
@@ -137,7 +137,7 @@
 
 	if(targetl.buckled)
 		return
-	. = TRUE
+
 	add_fingerprint(user)
 	move_into_gibber(user,target)
 

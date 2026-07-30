@@ -14,7 +14,6 @@
 	var/players_per_core = BLOB_PLAYERS_PER_CORE
 
 /datum/game_mode/blob/pre_setup()
-
 	var/list/possible_blobs = get_players_for_role(ROLE_BLOB)
 
 	// stop setup if no possible traitors
@@ -23,16 +22,16 @@
 
 	cores_to_spawn = max(round(num_players() / players_per_core, 1), 1)
 
-	for(var/j = 0, j < cores_to_spawn, j++)
+	for(var/j in 1 to cores_to_spawn)
 		if(!length(possible_blobs))
 			break
 
 		var/datum/mind/blob = pick(possible_blobs)
-		blobs["infected"] += blob
+		blobs[BLOB_GROUP_INFECTED] += blob
 		blob.restricted_roles = restricted_jobs
 		add_game_logs("has been selected as a Blob", blob)
 		possible_blobs -= blob
-	var/list/blob_infected = blobs["infected"]
+	var/list/blob_infected = blobs[BLOB_GROUP_INFECTED]
 	if(!length(blob_infected))
 		return FALSE
 	blob_win_count += BLOB_TARGET_POINT_PER_CORE * cores_to_spawn
@@ -40,7 +39,7 @@
 	return TRUE
 
 /datum/game_mode/blob/post_setup()
-	for(var/datum/mind/blob in blobs["infected"])
+	for(var/datum/mind/blob in blobs[BLOB_GROUP_INFECTED])
 		var/datum_type = blob.get_blob_infected_type()
 		var/datum/antagonist/blob_infected/blob_datum = new datum_type()
 		blob_datum.need_new_blob = TRUE
@@ -59,7 +58,7 @@
 	var/list/candidates = list()
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
 		if(!player.stat && player.mind && !player.mind.special_role)
-			if(jobban_isbanned(player, "Syndicate") || jobban_isbanned(player, ROLE_BLOB))
+			if(jobban_isbanned(player, ROLE_SYNDICATE) || jobban_isbanned(player, ROLE_BLOB))
 				continue
 			if(player.client.prefs?.skip_antag || !(ROLE_BLOB in player.client.prefs.be_special))
 				continue
@@ -80,9 +79,17 @@
 		update_blob_objective()
 	return blob_objective
 
+/datum/game_mode/proc/add_blob_tile(obj/structure/blob/blob_tile)
+	legit_blobs |= blob_tile
+	update_blob_objective()
+
+/datum/game_mode/proc/remove_blob_tile(obj/structure/blob/blob_tile)
+	legit_blobs -= blob_tile
+	update_blob_objective()
+
 /datum/game_mode/proc/update_blob_objective()
 	if(blob_objective && !blob_objective.completed)
-		blob_objective.critical_mass = legit_blobs.len
+		blob_objective.critical_mass = length(legit_blobs)
 		blob_objective.needed_critical_mass = blob_win_count
 		blob_objective.set_target()
 		blob_objective.owner = src
@@ -93,11 +100,11 @@
 
 /datum/game_mode/proc/get_blobs_minds()
 	var/list/blob_list = list()
-	for(var/value in blobs["infected"])
+	for(var/value in blobs[BLOB_GROUP_INFECTED])
 		blob_list.Add(value)
-	for(var/value in blobs["offsprings"])
+	for(var/value in blobs[BLOB_GROUP_OFFSPRINGS])
 		blob_list.Add(value)
-	for(var/value in blobs["minions"])
+	for(var/value in blobs[BLOB_GROUP_MINIONS])
 		blob_list.Add(value)
 	return blob_list
 
@@ -120,7 +127,7 @@
 	var/list/candidates = get_blob_candidates()
 	var/mob/living/carbon/human/blob = null
 	count = min(count, length(candidates))
-	for(var/i = 0, i < count, i++)
+	for(var/i in 1 to count)
 		blob = pick(candidates)
 		var/datum_type = blob.mind.get_blob_infected_type()
 		var/datum/antagonist/blob_infected/blob_datum = new datum_type()
@@ -140,20 +147,21 @@
 		return FALSE
 
 	for(var/i in 1 to count)
-		if(length(candidates))
-			var/obj/vent = pick(vents)
-			var/mob/living/simple_animal/mouse/blob = new(vent.loc)
-			blob.move_into_vent(vent, FALSE)
-			var/mob/ghost = pick_n_take(candidates)
-			blob.possess_by_player(ghost.key)
-			var/datum_type = blob.mind.get_blob_infected_type()
-			var/datum/antagonist/blob_infected/blob_datum = new datum_type()
-			blob_datum.time_to_burst_hight = TIME_TO_BURST_MOUSE_HIGHT
-			blob_datum.time_to_burst_low = TIME_TO_BURST_MOUSE_LOW
-			blob.mind.add_antag_datum(blob_datum)
-			to_chat(blob, span_userdanger("Теперь вы мышь, заражённая спорами Блоба. Найдите какое-нибудь укромное место до того, как вы взорветесь и станете Блобом! Вы можете перемещаться по вентиляции, нажав Alt+ЛКМ на вентиляционном отверстии."))
-			log_game("[blob.key] has become blob infested mouse.")
-			notify_ghosts("Заражённая мышь появилась в [get_area(blob)].", source = blob, action = NOTIFY_FOLLOW)
+		if(!length(candidates))
+			continue
+		var/obj/vent = pick(vents)
+		var/mob/living/simple_animal/mouse/blob = new(vent.loc)
+		var/mob/ghost = pick_n_take(candidates)
+		blob.possess_by_player(ghost.key)
+		var/datum_type = blob.mind.get_blob_infected_type()
+		var/datum/antagonist/blob_infected/blob_datum = new datum_type()
+		blob_datum.time_to_burst_hight = TIME_TO_BURST_MOUSE_HIGHT
+		blob_datum.time_to_burst_low = TIME_TO_BURST_MOUSE_LOW
+		blob.mind.add_antag_datum(blob_datum)
+		blob.move_into_vent(vent, FALSE)
+		to_chat(blob, span_userdanger("Теперь вы мышь, заражённая спорами Блоба. Найдите какое-нибудь укромное место до того, как вы взорветесь и станете Блобом! Вы можете перемещаться по вентиляции, нажав Alt+ЛКМ на вентиляционном отверстии."))
+		log_game("[blob.key] has become blob infested mouse.")
+		notify_ghosts("Заражённая мышь появилась в [get_area(blob)].", source = blob, action = NOTIFY_FOLLOW)
 
 	return TRUE
 
@@ -162,6 +170,7 @@
 		return
 	if(blob_stage == BLOB_STAGE_NONE)
 		blob_stage = BLOB_STAGE_ZERO
+
 	if(blob_stage == BLOB_STAGE_ZERO && length(legit_blobs) >= min(FIRST_STAGE_COEF * blob_win_count, FIRST_STAGE_THRESHOLD))
 		blob_stage = BLOB_STAGE_FIRST
 		send_intercept(BLOB_FIRST_REPORT)
@@ -173,7 +182,7 @@
 		GLOB.major_announcement.announce(
 			message = "Подтверждена вспышка биологической угрозы 5-го уровня на борту [station_name()]. Весь персонал обязан локализовать угрозу.",
 			new_title = ANNOUNCE_BIOHAZARD_RU,
-			new_sound = 'sound/AI/outbreak5.ogg'
+			new_sound = ANNOUNCER_OUTBREAK5,
 		)
 		if(!off_auto_gamma)
 			addtimer(CALLBACK(SSsecurity_level, TYPE_PROC_REF(/datum/controller/subsystem/security_level, set_level), SEC_LEVEL_GAMMA), TIME_TO_SWITCH_CODE)
@@ -192,11 +201,12 @@
 	addtimer(CALLBACK(src, PROC_REF(process_blob_stages)), STAGES_CALLBACK_TIME)
 
 /datum/game_mode/proc/show_warning(message)
-	for(var/datum/mind/blob in (blobs["infected"] + blobs["offsprings"]))
-		if(blob.current.stat != DEAD)
-			to_chat(blob.current, span_warning("[message]"))
+	for(var/datum/mind/blob as anything in (blobs[BLOB_GROUP_INFECTED] + blobs[BLOB_GROUP_OFFSPRINGS]))
+		var/mob/living/blob_mob = blob.current
+		if(blob_mob && blob_mob.stat != DEAD)
+			to_chat(blob_mob, span_warning("[message]"))
 
 /datum/game_mode/proc/burst_blobs()
-	for(var/datum/mind/blob in get_blobs_minds())
+	for(var/datum/mind/blob as anything in get_blobs_minds())
 		var/datum/antagonist/blob_infected/blob_datum = blob.has_antag_datum(/datum/antagonist/blob_infected)
 		blob_datum.burst_blob()

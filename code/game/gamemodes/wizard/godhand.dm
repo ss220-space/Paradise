@@ -21,13 +21,10 @@
 	/// Current owner of the item
 	var/mob/living/carbon/owner
 
-/obj/item/melee/touch_attack/New(spell, owner)
+/obj/item/melee/touch_attack/Initialize(mapload, spell, owner)
+	. = ..()
 	attached_spell = spell
 	src.owner = owner
-	..()
-
-/obj/item/melee/touch_attack/Initialize(mapload)
-	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 
 /obj/item/melee/touch_attack/Destroy()
@@ -44,10 +41,10 @@
 
 /obj/item/melee/touch_attack/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!iscarbon(user)) //Look ma, no hands
-		return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+		return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, span_warning("You can't reach out!"))
-		return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+		return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 	return ..()
 
 /obj/item/melee/touch_attack/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
@@ -55,7 +52,8 @@
 		return
 	if(catchphrase)
 		user.say(catchphrase)
-	playsound(get_turf(user), on_use_sound, 50, TRUE)
+	if(on_use_sound)
+		playsound(get_turf(user), on_use_sound, 50, TRUE)
 	if(attached_spell)
 		attached_spell.perform(list())
 	qdel(src)

@@ -2,7 +2,7 @@
 	name = "laser"
 	icon_state = "laser"
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
-	damage = 23
+	damage = 25
 	damage_type = BURN
 	hitsound = 'sound/weapons/sear.ogg'
 	hitsound_wall = 'sound/weapons/effects/searwall.ogg'
@@ -10,14 +10,14 @@
 	eyeblur = 4 SECONDS
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
 	reflectability = REFLECTABILITY_ENERGY
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_range = 2
 	light_color = COLOR_SOFT_RED
 	ricochets_max = 50	//Honk!
 	ricochet_chance = 80
 
 /obj/projectile/beam/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лазер",
 		GENITIVE = "лазера",
 		DATIVE = "лазеру",
@@ -45,7 +45,7 @@
 	hitsound = 'sound/weapons/resonator_blast.ogg'
 
 /obj/projectile/beam/laser/heavylaser/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мощный лазер",
 		GENITIVE = "мощного лазера",
 		DATIVE = "мощному лазеру",
@@ -60,7 +60,7 @@
 	stamina = 33
 
 /obj/projectile/beam/laser/slug/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лазерный импульс",
 		GENITIVE = "лазерного импульса",
 		DATIVE = "лазерному импульсу",
@@ -75,7 +75,7 @@
 	damage = 15
 
 /obj/projectile/beam/laser/shot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лазерная дробь",
 		GENITIVE = "лазерной дроби",
 		DATIVE = "лазерной дроби",
@@ -98,7 +98,7 @@
 	log_override = TRUE
 
 /obj/projectile/beam/practice/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "безвредный лазер",
 		GENITIVE = "безвредного лазера",
 		DATIVE = "безвредному лазеру",
@@ -113,7 +113,7 @@
 	damage = 5
 
 /obj/projectile/beam/scatter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лазерная гранула",
 		GENITIVE = "лазерной гранулы",
 		DATIVE = "лазерной грануле",
@@ -130,6 +130,7 @@
 	tile_dropoff = 0.75
 	forcedodge = -1
 	range = 15
+	armour_penetration = 100
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
 	light_color = LIGHT_COLOR_GREEN
 	tracer_type = /obj/effect/projectile/tracer/xray
@@ -137,7 +138,7 @@
 	impact_type = /obj/effect/projectile/impact/xray
 
 /obj/projectile/beam/xray/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "рентгеновский луч",
 		GENITIVE = "рентгеновского луча",
 		DATIVE = "рентгеновскому лучу",
@@ -149,7 +150,6 @@
 /obj/projectile/beam/disabler
 	name = "disabler beam"
 	icon_state = "omnilaser"
-	damage = 25
 	shockbull = TRUE
 	damage_type = STAMINA
 	flag = ENERGY
@@ -162,7 +162,7 @@
 	impact_type = /obj/effect/projectile/impact/disabler
 
 /obj/projectile/beam/disabler/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "дизейблер",
 		GENITIVE = "дизейблера",
 		DATIVE = "дизейблеру",
@@ -173,7 +173,6 @@
 
 /obj/projectile/beam/specter/laser
 	name = "specter laser beam"
-	damage = 25
 
 /obj/projectile/beam/specter/disabler
 	name = "specter paralyzer beam"
@@ -202,7 +201,7 @@
 	impact_type = /obj/effect/projectile/impact/pulse
 
 /obj/projectile/beam/pulse/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "импульсный заряд",
 		GENITIVE = "импульсного заряда",
 		DATIVE = "импульсному заряду",
@@ -254,7 +253,7 @@
 	light_color = LIGHT_COLOR_GREEN
 
 /obj/projectile/beam/emitter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "импульс излучателя",
 		GENITIVE = "импульса излучателя",
 		DATIVE = "импульсу излучателя",
@@ -284,8 +283,8 @@
 	// Add this to SM psi coefficient on hit for lasers
 	var/psi_change
 
-/obj/projectile/beam/emitter/singularity_pull()
-	return //don't want the emitters to miss
+/obj/projectile/beam/emitter/singularity_pull(atom/singularity, current_size)
+	return // don't want the emitters to miss
 
 /obj/projectile/beam/emitter/hitscan/bluelens
 	name = "electrodisruptive beam"
@@ -410,7 +409,7 @@
 	light_color = LIGHT_COLOR_DARK_BLUE
 
 /obj/projectile/beam/lasertag/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лазертаг",
 		GENITIVE = "лазертага",
 		DATIVE = "лазертагу",
@@ -465,7 +464,7 @@
 	light_color = LIGHT_COLOR_PINK
 
 /obj/projectile/beam/sniper/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "снайперский луч",
 		GENITIVE = "снайперского луча",
 		DATIVE = "снайперскому лучу",
@@ -486,7 +485,7 @@
 	light_color = LIGHT_COLOR_CYAN
 
 /obj/projectile/beam/podsniper/disabler/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "луч снайперского дизейблера",
 		GENITIVE = "луча снайперского дизейблера",
 		DATIVE = "лучу снайперского дизейблера",
@@ -502,7 +501,7 @@
 	hitsound = 'sound/weapons/resonator_blast.ogg'
 
 /obj/projectile/beam/podsniper/laser/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "снайперский лазер",
 		GENITIVE = "снайперского лазера",
 		DATIVE = "снайперскому лазеру",
@@ -517,7 +516,7 @@
 	immolate = 2
 
 /obj/projectile/beam/immolator/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "импульс иммолятора",
 		GENITIVE = "импульса иммолятора",
 		DATIVE = "импульсу иммолятора",
@@ -533,7 +532,7 @@
 	immolate = 3
 
 /obj/projectile/beam/immolator/strong/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мощный импульс иммолятора",
 		GENITIVE = "мощного импульса иммолятора",
 		DATIVE = "мощному импульсу иммолятора",
@@ -549,7 +548,7 @@
 	immolate = 1
 
 /obj/projectile/beam/immolator/weak/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лёгкий импульс иммолятора",
 		GENITIVE = "лёгкого импульса иммолятора",
 		DATIVE = "лёгкому импульсу иммолятора",
@@ -579,7 +578,7 @@
 	damage = 15
 
 /obj/projectile/beam/immolator/mech/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "импульс иммолятора меха",
 		GENITIVE = "импульса иммолятора меха",
 		DATIVE = "импульсу иммолятора меха",
@@ -604,7 +603,7 @@
 	light_color = LIGHT_COLOR_PURPLE
 
 /obj/projectile/beam/instakill/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "инстагиб лазер",
 		GENITIVE = "инстагиб лазера",
 		DATIVE = "инстагиб лазеру",
@@ -646,7 +645,7 @@
 	hitsound_wall = 'sound/weapons/sear.ogg'
 
 /obj/projectile/beam/dominator/slaughter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "луч казни",
 		GENITIVE = "луча казни",
 		DATIVE = "лучу казни",
@@ -658,7 +657,6 @@
 /obj/projectile/beam/dominator/paralyzer
 	name = "paralyzer beam"
 	icon_state = "omnilaser"
-	damage = 25
 	shockbull = TRUE
 	damage_type = STAMINA
 	flag = ENERGY
@@ -669,7 +667,7 @@
 	light_color = LIGHT_COLOR_LIGHT_CYAN
 
 /obj/projectile/beam/dominator/paralyzer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "дизейблер",
 		GENITIVE = "дизейблера",
 		DATIVE = "дизейблеру",
@@ -699,7 +697,7 @@
 	var/weaken_time = 0
 
 /obj/projectile/beam/anomaly/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "луч стабилизатора аномалий",
 		GENITIVE = "луча стабилизатора аномалий",
 		DATIVE = "лучу стабилизатора аномалий",
@@ -733,7 +731,7 @@
 	light_color = LIGHT_COLOR_BLUE
 
 /obj/projectile/beam/anomaly/stabilizer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "стабилизирующий луч",
 		GENITIVE = "стабилизирующего луча",
 		DATIVE = "стабилизирующему лучу",
@@ -749,7 +747,7 @@
 	light_color = COLOR_SOFT_RED
 
 /obj/projectile/beam/anomaly/destabilizer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "дестабилизирующий луч",
 		GENITIVE = "дестабилизирующего луча",
 		DATIVE = "дестабилизирующему лучу",
@@ -764,7 +762,7 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/orange_laser
 
 /obj/projectile/beam/laser/light/rat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лазер часовой энергии",
 		GENITIVE = "лазера часовой энергии",
 		DATIVE = "лазеру часовой энергии",

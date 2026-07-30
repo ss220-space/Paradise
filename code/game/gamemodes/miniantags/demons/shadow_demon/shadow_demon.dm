@@ -16,7 +16,7 @@
 	var/list/wrapped_victims
 
 /mob/living/simple_animal/demon/shadow/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "теневой демон",
 		GENITIVE = "теневого демона",
 		DATIVE = "теневому демону",
@@ -124,7 +124,7 @@
 	var/silent = TRUE
 
 /obj/structure/shadowcocoon/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "теневой кокон",
 		GENITIVE = "теневого кокона",
 		DATIVE = "теневому кокону",
@@ -211,7 +211,7 @@
 	color = COLOR_BLACK
 
 /obj/item/organ/internal/heart/demon/shadow/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сердце тьмы",
 		GENITIVE = "сердца тьмы",
 		DATIVE = "сердцу тьмы",
@@ -257,7 +257,7 @@
 	mind.objectives += wrap_objective
 	mind.objectives += survive_objective
 	messages.Add(mind.prepare_announce_objectives())
-	to_chat(src, chat_box_red(messages.Join("<br>")))
+	to_chat(src, custom_boxed_message("red_box center", messages.Join("<br>")))
 
 /datum/objective/wrap
 	name = "Обёртывание"

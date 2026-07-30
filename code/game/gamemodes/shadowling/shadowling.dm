@@ -48,7 +48,7 @@ Made by Xhuis
 	required_enemies = 2
 	recommended_enemies = 2
 	restricted_jobs = list(JOB_TITLE_AI, JOB_TITLE_CYBORG)
-	protected_jobs = list(JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_HOS, JOB_TITLE_HOP, JOB_TITLE_CAPTAIN, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_PILOT, JOB_TITLE_MAGISTRATE, JOB_TITLE_BRIGDOC, JOB_TITLE_LAWYER, JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD, JOB_TITLE_CCSPECOPS, JOB_TITLE_CCSUPREME, JOB_TITLE_SYNDICATE_OFFICER, JOB_TITLE_PRISONER, JOB_TITLE_CMO, JOB_TITLE_RD, JOB_TITLE_QUARTERMASTER, JOB_TITLE_HOP, JOB_TITLE_CHIEF_ENGINEER)
+	protected_jobs = list(JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_HOS, JOB_TITLE_HOP, JOB_TITLE_CAPTAIN, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_PILOT, JOB_TITLE_MAGISTRATE, JOB_TITLE_BRIGDOC, JOB_TITLE_LAWYER, JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD, JOB_TITLE_CCSPECOPS, JOB_TITLE_CCCAPTAIN, JOB_TITLE_SYNDICATE_OFFICER, JOB_TITLE_PRISONER, JOB_TITLE_CMO, JOB_TITLE_RD, JOB_TITLE_QUARTERMASTER, JOB_TITLE_HOP, JOB_TITLE_CHIEF_ENGINEER)
 
 /datum/game_mode/shadowling/announce()
 	to_chat(world, "<b>The current game mode is - Shadowling!</b>")
@@ -89,7 +89,7 @@ Made by Xhuis
 			messages.Add(greet_shadow(shadow))
 			messages.Add(process_shadow_objectives(shadow))
 			finalize_shadowling(shadow)
-			to_chat(shadow.current, chat_box_red(messages.Join("<br>")))
+			to_chat(shadow.current, custom_boxed_message("red_box center", messages.Join("<br>")))
 		//give_shadowling_abilities(shadow)
 	..()
 
@@ -139,7 +139,7 @@ Made by Xhuis
 		messages.Add(span_shadowling("Твоё тело необратимо изменилось. Внимательный может это увидеть — ты можешь скрыть это, надев маску."))
 		messages.Add(span_shadowling("Хотя ты и не так силён, как твои хозяева, но ты обладаете некоторыми способностями."))
 		messages.Add(span_shadowling("Ты можете общаться со своими союзниками, используя Телепатическую сеть тенелингов. '[get_language_prefix(LANGUAGE_HIVE_SHADOWLING)]'."))
-		to_chat(new_thrall_mind.current, chat_box_red(messages.Join("<br>")))
+		to_chat(new_thrall_mind.current, custom_boxed_message("red_box center", messages.Join("<br>")))
 		if(jobban_isbanned(new_thrall_mind.current, ROLE_SHADOWLING) || jobban_isbanned(new_thrall_mind.current, ROLE_SYNDICATE))
 			replace_jobbanned_player(new_thrall_mind.current, ROLE_SHADOWLING)
 
@@ -164,7 +164,7 @@ Made by Xhuis
 			GLOB.major_announcement.announce(
 				message = "Сканерами дальнего действия обнаружена большая концентрация психической блюспейс-энергии. Вероятность вознесения тенеморфов высока, всему экипажу следует предотвратить вознесение любой ценой!",
 				new_title = ANNOUNCE_CCPARANORMAL_RU,
-				new_sound = 'sound/AI/commandreport.ogg'
+				new_sound = SSstation.announcer.get_rand_report_sound(),
 			)
 			log_game("Shadowling reveal. Powergame and validhunt allowed.")
 		return 1
@@ -283,7 +283,7 @@ Made by Xhuis
 	if(length(shadows))
 		text += "<br>[span_big("<b>Тенелингами были:</b>")]"
 		for(var/datum/mind/shadow in shadows)
-			text += "<br>[shadow.get_display_key()] was [shadow.name] ("
+			text += "<br>[shadow.get_mind_key()] was [shadow.name] ("
 			if(shadow.current)
 				if(shadow.current.stat == DEAD)
 					text += "мертвы"
@@ -298,7 +298,7 @@ Made by Xhuis
 		if(length(shadowling_thralls))
 			text += "<br>[span_big("<b>Рабами были:</b>")]"
 			for(var/datum/mind/thrall in shadowling_thralls)
-				text += "<br>[thrall.get_display_key()] was [thrall.name] ("
+				text += "<br>[thrall.get_mind_key()] was [thrall.name] ("
 				if(thrall.current)
 					if(thrall.current.stat == DEAD)
 						text += "мертвы"

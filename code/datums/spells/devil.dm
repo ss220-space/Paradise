@@ -215,7 +215,7 @@
 /obj/effect/proc_holder/spell/infernal_jaunt/cast(list/targets, mob/living/user = usr)
 	if(istype(user.loc, /obj/effect/dummy/slaughter))
 		var/continuing = 0
-		if(istype(get_area(user), /area/shuttle)) // Can always phase in in a shuttle.
+		if(is_area_shuttle(get_area(user))) // Can always phase in in a shuttle.
 			continuing = TRUE
 		else
 			for(var/mob/living/C in orange(2, get_turf(user.loc))) //Can also phase in when nearby a potential buyer.
@@ -476,7 +476,7 @@
 	human.set_species(/datum/species/shadow)
 	var/text = "Вы — создание тьмы. Старайтесь сохранить свою истинную форму и выполнить свои цели."
 	human.store_memory(text, TRUE)
-	to_chat(human, chat_box_red(text))
+	to_chat(human, custom_boxed_message("red_box center", text))
 
 	var/datum/objective/assassinate/shadow_kill/kill = new
 	kill.owner = human.mind
@@ -486,7 +486,7 @@
 	LAZYADD(human.faction, "hell")
 
 	var/list/messages = human.mind.prepare_announce_objectives()
-	to_chat(human, chat_box_red(messages.Join("<br>")))
+	to_chat(human, custom_boxed_message("red_box center", messages.Join("<br>")))
 
 	LAZYOR(devil.shadows, human.mind)
 	playsound(human, 'sound/magic/mutate.ogg', 100, TRUE)

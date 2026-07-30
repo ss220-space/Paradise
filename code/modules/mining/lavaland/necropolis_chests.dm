@@ -9,7 +9,7 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/structure/closet/crate/necropolis/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сундук некрополя",
 		GENITIVE = "сундука некрополя",
 		DATIVE = "сундуку некрополя",
@@ -125,7 +125,7 @@
 	name = "puzzling chest"
 
 /obj/structure/closet/crate/necropolis/puzzle/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "загадочный сундук",
 		GENITIVE = "загадочного сундука",
 		DATIVE = "загадочному сундуку",
@@ -152,7 +152,7 @@
 	icon_state = "datadisk1"
 	var/modkit_design = /datum/design/unique_modkit
 
-/obj/item/disk/design_disk/modkit_disc/New()
+/obj/item/disk/design_disk/modkit_disc/Initialize(mapload)
 	. = ..()
 	blueprint = new modkit_design
 
@@ -222,7 +222,7 @@
 	var/usedHand
 
 /obj/item/rod_of_asclepius/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "посох асклепия",
 		GENITIVE = "посоха асклепия",
 		DATIVE = "посоху асклепия",
@@ -282,8 +282,12 @@
 	else
 		to_chat(itemUser, failText)
 		return
-	to_chat(itemUser, span_notice("Змея, довольная вашей клятвой, намертво прирастает к вашему предплечью. Ваши мысли теперь вращаются только вокруг помощи другим, а вред — всего лишь смутное, греховное воспоминание..."))
-	var/datum/status_effect/hippocraticOath/effect = itemUser.apply_status_effect(STATUS_EFFECT_HIPPOCRATIC_OATH)
+
+	apply_oath(itemUser)
+
+/obj/item/rod_of_asclepius/proc/apply_oath(mob/living/carbon/user)
+	to_chat(user, span_notice("Змея, довольная вашей клятвой, намертво прирастает к вашему предплечью. Ваши мысли теперь вращаются только вокруг помощи другим, а вред — всего лишь смутное, греховное воспоминание..."))
+	var/datum/status_effect/hippocraticOath/effect = user.apply_status_effect(STATUS_EFFECT_HIPPOCRATIC_OATH)
 	effect.hand = usedHand
 	activated()
 
@@ -306,7 +310,7 @@
 	attack_verb = list("коснулся", "погладил", "провёл")
 
 /obj/item/eflowers/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "зачарованные цветы",
 		GENITIVE = "зачарованных цветов",
 		DATIVE = "зачарованным цветам",
@@ -383,7 +387,7 @@
 	attack_verb = list("плс'л","атк'л","руб'л")
 
 /obj/item/rune_scimmy/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "рунический ятаган",
 		GENITIVE = "рунического ятагана",
 		DATIVE = "руническому ятагану",
@@ -407,9 +411,11 @@
 	status = NONE
 	item_flags = NO_PIXEL_RANDOM_DROP
 	contents = newlist(/obj/item/cursed_katana)
+	sound_on = 'sound/weapons/swings/katana_swing4.ogg'
+	sound_off = 'sound/weapons/swings/katana_swing4.ogg'
 
 /obj/item/organ/internal/cyberimp/arm/katana/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тёмный осколок",
 		GENITIVE = "тёмного осколка",
 		DATIVE = "тёмному осколку",
@@ -442,7 +448,7 @@
 		playsound(owner, 'sound/misc/demon_attack1.ogg', 50, TRUE)
 		owner.apply_damage(25, BRUTE, parent_organ_zone, TRUE)
 	katana.drew_blood = FALSE
-	katana.clean_blood()
+	katana.wash_tg(CLEAN_TYPE_BLOOD)
 	return ..()
 
 /obj/item/organ/internal/cyberimp/arm/katana/Extend()
@@ -483,7 +489,6 @@
 	icon_state = "cursed_katana"
 	force = 15
 	armour_penetration = 15
-	block_chance = 50
 	block_type = MELEE_ATTACKS
 	sharp = TRUE
 	w_class = WEIGHT_CLASS_HUGE
@@ -498,10 +503,10 @@
 		ATTACK_CUT = list(COMBO_STEPS = list(DISARM_SLASH, DISARM_SLASH, HARM_SLASH), COMBO_PROC = PROC_REF(cut)),
 		ATTACK_HEAL = list(COMBO_STEPS = list(HARM_SLASH, DISARM_SLASH, HARM_SLASH, DISARM_SLASH), COMBO_PROC = PROC_REF(heal)),
 		ATTACK_SHATTER = list(COMBO_STEPS = list(DISARM_SLASH, HARM_SLASH, DISARM_SLASH, HARM_SLASH), COMBO_PROC = PROC_REF(shatter)),
-		)
+	)
 
 /obj/item/cursed_katana/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "проклятая катана",
 		GENITIVE = "проклятой катаны",
 		DATIVE = "проклятой катане",
@@ -509,6 +514,9 @@
 		INSTRUMENTAL = "проклятой катаной",
 		PREPOSITIONAL = "проклятой катане",
 	)
+
+/obj/item/cursed_katana/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
 
 /obj/item/cursed_katana/ComponentInitialize()
 	. = ..()

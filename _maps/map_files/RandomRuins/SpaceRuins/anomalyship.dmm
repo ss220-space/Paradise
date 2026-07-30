@@ -889,9 +889,7 @@
 /obj/machinery/computer/operating{
 	dir = 8
 	},
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_y = -34
-	},
+/obj/machinery/defibrillator_mount/loaded/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkblue"
@@ -1106,10 +1104,7 @@
 /area/ae13/medbay)
 "yJ" = (
 /obj/machinery/optable,
-/obj/machinery/shower{
-	pixel_x = -3;
-	pixel_y = 3
-	},
+/obj/machinery/shower/directional/south,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"

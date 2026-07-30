@@ -527,7 +527,7 @@
 /area/template_noop)
 "ln" = (
 /obj/structure/reagent_dispensers/oil,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -747,7 +747,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc/worn_out/directional/north,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2";
 	pixel_y = 1
 	},
@@ -1096,7 +1095,7 @@
 /area/template_noop)
 "yf" = (
 /obj/structure/reagent_dispensers/fueltank,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1330,11 +1329,7 @@
 /turf/simulated/floor/wood/dark,
 /area/template_noop)
 "Gu" = (
-/obj/structure/sink{
-	dir = 1;
-	layer = 5;
-	pixel_y = -5
-	},
+/obj/structure/sink/directional/south,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/engine/cult,
 /area/template_noop)
@@ -1472,7 +1467,7 @@
 /area/template_noop)
 "Ll" = (
 /obj/structure/dispenser/oxygen,
-/obj/effect/decal/warning_stripes/blue,
+/obj/effect/turf_decal/delivery/blue,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1537,7 +1532,7 @@
 /area/template_noop)
 "Ng" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
-/obj/effect/decal/warning_stripes/blue,
+/obj/effect/turf_decal/delivery/blue,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1590,7 +1585,6 @@
 /obj/structure/curtain/black,
 /obj/effect/spawner/random_spawners/grille_50,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2";
 	pixel_y = 1
 	},

@@ -9,11 +9,11 @@
 	role_text = "Вы — Часовой. Ваша основная задача — защита гнезда от непрошенных гостей."
 	can_evolve = TRUE
 
-/mob/living/carbon/alien/humanoid/sentinel/New()
+/mob/living/carbon/alien/humanoid/sentinel/Initialize(mapload)
 	if(name == "alien sentinel")
 		name = text("alien sentinel ([rand(1, 1000)])")
 	real_name = name
-	..()
+	. = ..()
 	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/break_vents)
 	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/evolve/praetorian)
 
@@ -45,15 +45,15 @@
 	time_to_open_doors = 0.2 SECONDS
 	environment_smash = ENVIRONMENT_SMASH_WALLS
 	role_text = "Вы — Преторианец. Вы являетесь более сильной и неповоротливой версией Часового. Ваша основная задача — защита гнезда от непрошенных гостей."
-	var/datum/action/innate/small_sprite_alien/praetorian/action_sprite
+	var/datum/action/innate/alien/sprite_toggle/praetorian/action_sprite
 
-/mob/living/carbon/alien/humanoid/praetorian/New()
+/mob/living/carbon/alien/humanoid/praetorian/Initialize(mapload)
+	. = ..()
 	if(name == "alien praetorian")
 		name = text("alien praetorian ([rand(1, 1000)])")
 	real_name = name
 	action_sprite = new
 	action_sprite.Grant(src)
-	..()
 	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/break_vents)
 	praetorian_count++
 
@@ -93,7 +93,3 @@
 	update_held_items()
 	update_pockets()
 	update_fire()
-
-	if(blocks_emissive)
-		add_overlay(get_emissive_block())
-

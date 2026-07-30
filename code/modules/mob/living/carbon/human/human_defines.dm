@@ -16,6 +16,7 @@
 	usable_hands = 0 //Populated on init through list/bodyparts
 	status_flags = parent_type::status_flags|CANSTAMCRIT
 	hud_type = /datum/hud/human
+	looting_icon_mode = LOOT_ICON_FLAT_ICON_TYPE_CACHABLE
 	//Marking colour and style
 	var/list/m_colours = DEFAULT_MARKING_COLOURS //All colours set to #000000.
 	var/list/m_styles = DEFAULT_MARKING_STYLES //All markings set to None.
@@ -72,7 +73,6 @@
 	var/decaylevel = 0 // For rotting bodies
 	var/max_blood = BLOOD_VOLUME_NORMAL // For stuff in the vessel
 	var/bleed_rate = 0
-	var/bleedsuppress = 0 //for stopping bloodloss
 
 	var/heartbeat = 0
 	var/receiving_cpr = FALSE
@@ -112,3 +112,13 @@
 
 	/// Bleeding bodyparts (optimisation)
 	var/list/bleeding_bodyparts = list()
+
+	/// Combined width of our body sprite
+	VAR_PRIVATE/cached_body_width = ICON_SIZE_X
+	/// Combined height of our body sprite
+	VAR_PRIVATE/cached_body_height = ICON_SIZE_Y
+
+	/// Leftmost offset of our overlays
+	var/cached_body_min_x_offset = 0
+	/// Rightmost offset of our overlays
+	var/cached_body_min_y_offset = 0

@@ -34,13 +34,11 @@
 	var/can_fast_load = TRUE
 	/// One bullet load duration
 	var/bullet_load_duration = 0.4 SECONDS
-	/// Use bullet type overlay
-	var/use_bullet_type_overlay = FALSE
 	/// Additional info to be added to examine text.
 	var/extra_info = ""
 
 /obj/item/ammo_box/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коробка [get_ammo_descriptor()] [get_cartridge_marking()]",
 		GENITIVE = "коробки [get_ammo_descriptor()] [get_cartridge_marking()]",
 		DATIVE = "коробке [get_ammo_descriptor()] [get_cartridge_marking()]",
@@ -119,27 +117,6 @@
 	. = ..()
 	. += span_notice("[capitalize(get_ammo_descriptor())] внутри: <b>[length(stored_ammo)]/[max_ammo]</b>.")
 
-/obj/item/ammo_box/update_overlays()
-	. = ..()
-	if(!use_bullet_type_overlay)
-		return
-	var/ammo = length(stored_ammo)
-	if(!ammo)
-		return
-	var/bullet_type = get_bullet_type()
-	if(!bullet_type)
-		return
-	. += image('icons/obj/weapons/ammo_type_overlay.dmi', icon_state = bullet_type)
-
-/obj/item/ammo_box/proc/get_bullet_type()
-	var/ammo = length(stored_ammo)
-	if(!ammo)
-		return null
-	var/obj/item/ammo_casing/last_bullet = stored_ammo[length(stored_ammo)]
-	if(!istype(last_bullet))
-		return null
-	return last_bullet.bullet_type
-
 /obj/item/ammo_box/proc/give_round(obj/item/ammo_casing/new_casing, replace_spent = FALSE, count_chambered = FALSE, mob/user)
 	if(!ammo_suitability(new_casing))
 		return FALSE
@@ -207,11 +184,12 @@
 	var/ammo_casing = isammocasing(I)
 
 	if(ammo_box)
+		CALCULATE_SKILL_MOD(user, MAGAZINE_RELOAD_MOD, skill_modifier)
 		var/obj/item/ammo_box/box = I
 		for(var/obj/item/ammo_casing/casing in box.stored_ammo)
 			if(!can_fast_load)
 				playsound(src, insert_sound, 50, TRUE)
-				if(!do_after(user, bullet_load_duration, box, DA_IGNORE_USER_LOC_CHANGE, max_interact_count = 1))
+				if(!do_after(user, bullet_load_duration * skill_modifier, box, DA_IGNORE_USER_LOC_CHANGE, max_interact_count = 1))
 					break
 				box.update_appearance()
 				box.update_equipped_item()
@@ -303,13 +281,12 @@
 	gender = MALE
 	materials = list(MAT_METAL = 2000)
 	can_fast_load = FALSE
-	use_bullet_type_overlay = TRUE
 	/// Name of the gun this magazine is for.
 	/// Should be in genitive case like `"пистолета \"Стечкин\""` or `"пулемёта L6 SAW"`.
 	var/gun_name = ""
 
 /obj/item/ammo_box/magazine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "магазин [gun_name] [get_cartridge_marking()]",
 		GENITIVE = "магазина [gun_name] [get_cartridge_marking()]",
 		DATIVE = "магазину [gun_name] [get_cartridge_marking()]",

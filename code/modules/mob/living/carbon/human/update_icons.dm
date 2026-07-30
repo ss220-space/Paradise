@@ -118,6 +118,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	var/mutable_appearance/damage_overlay = mutable_appearance(dna.species.damage_overlays, "00", layer = -H_DAMAGE_LAYER)
 	overlays_standing[H_DAMAGE_LAYER] = damage_overlay
 
+	if(HAS_TRAIT(src, TRAIT_NO_BLOOD)) // no blood, no bleeding wounds to render
+		apply_overlay(H_DAMAGE_LAYER)
+		return
+
 	// blend the individual damage states with our icons
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		bodypart.update_state()
@@ -159,6 +163,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	//Create a new, blank icon for our mob to use.
 	if(stand_icon)
 		qdel(stand_icon)
+
+
+	cached_body_width = ICON_SIZE_X
+	cached_body_height = ICON_SIZE_Y
 
 	update_misc_effects()
 	stand_icon = new (dna.species.icon_template ? dna.species.icon_template : 'icons/mob/human.dmi', "blank")
@@ -221,8 +229,15 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/mutable_appearance/new_base = mutable_appearance(base_icon, layer = -LIMBS_LAYER)
 		GLOB.human_icon_cache[icon_key] = new_base
 		standing += new_base
+		base = new_base
 
 		//END CACHED ICON GENERATION.
+
+	if(base)
+		cached_body_width = max(cached_body_width, base.get_cached_width())
+		cached_body_height = max(cached_body_height, base.get_cached_height())
+		cached_body_min_x_offset = min(cached_body_min_x_offset, base.pixel_x + base.pixel_w)
+		cached_body_min_y_offset = min(cached_body_min_y_offset, base.pixel_y + pixel_z)
 
 	overlays_standing[LIMBS_LAYER] = standing
 	apply_overlay(LIMBS_LAYER)
@@ -524,8 +539,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	update_worn_pda()
 	update_transform()
 	UpdateDamageIcon()
-	if(blocks_emissive)
-		add_overlay(get_emissive_block())
 	SEND_SIGNAL(src, COMSIG_MOB_HALO_GAINED)
 	update_fire()
 	update_ssd_overlay()
@@ -563,7 +576,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	for(var/obj/item/clothing/accessory/accessory as anything in w_uniform.accessories)
 		var/acc_state_type = accessory.item_state ? accessory.item_state : accessory.icon_state
-		var/mutable_appearance/acc_olay = mutable_appearance(accessory.onmob_sheets[ITEM_SLOT_ACCESSORY_STRING], acc_state_type, alpha = accessory.alpha, color = accessory.color)
+		var/mutable_appearance/acc_olay = mutable_appearance(accessory.onmob_sheets[ITEM_SLOT_ACCESSORY_STRING], acc_state_type, alpha = accessory.alpha)
+		acc_olay.color = accessory.color
 		if(accessory.sprite_sheets?[dna.species.name])
 			acc_olay.icon = accessory.sprite_sheets[dna.species.name]
 		uniform_overlay.overlays += acc_olay
@@ -625,11 +639,13 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/mutable_appearance/hands_combined = mutable_appearance(layer = -GLOVES_LAYER, appearance_flags = KEEP_TOGETHER)
 		if(clock_hands)
 			if(has_left_hand())
-				var/mutable_appearance/clock_hands_overlay = mutable_appearance('icons/effects/clockwork_effects.dmi', "clockedhands_l", color = COLOR_LIGHT_ORANGE)
+				var/mutable_appearance/clock_hands_overlay = mutable_appearance('icons/effects/clockwork_effects.dmi', "clockedhands_l")
+				clock_hands_overlay.color = COLOR_LIGHT_ORANGE
 				hands_combined.overlays += clock_hands_overlay
 
 			if(has_right_hand())
-				var/mutable_appearance/clock_hands_overlay = mutable_appearance('icons/effects/clockwork_effects.dmi', "clockedhands_r", color = COLOR_LIGHT_ORANGE)
+				var/mutable_appearance/clock_hands_overlay = mutable_appearance('icons/effects/clockwork_effects.dmi', "clockedhands_r")
+				clock_hands_overlay.color = COLOR_LIGHT_ORANGE
 				hands_combined.overlays += clock_hands_overlay
 
 		else if(blood_DNA)
@@ -637,11 +653,13 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			if(dna && ("bloodyhands_left" in dna.species.get_blood_overlays()))
 				blood_mask = dna.species.blood_mask
 			if(has_left_hand())
-				var/mutable_appearance/blood_hands_overlay = mutable_appearance(blood_mask, "bloodyhands_left", color = hand_blood_color)
+				var/mutable_appearance/blood_hands_overlay = mutable_appearance(blood_mask, "bloodyhands_left")
+				blood_hands_overlay.color = hand_blood_color
 				hands_combined.overlays += blood_hands_overlay
 
 			if(has_right_hand())
-				var/mutable_appearance/blood_hands_overlay = mutable_appearance(blood_mask, "bloodyhands_right", color = hand_blood_color)
+				var/mutable_appearance/blood_hands_overlay = mutable_appearance(blood_mask, "bloodyhands_right")
+				blood_hands_overlay.color = hand_blood_color
 				hands_combined.overlays += blood_hands_overlay
 
 		overlays_standing[GLOVES_LAYER] = hands_combined
@@ -737,7 +755,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(!shoes)
 		if(!feet_blood_DNA)
 			return
-		overlays_standing[SHOES_LAYER] = mutable_appearance(dna.species.blood_mask, "shoeblood", layer = -SHOES_LAYER, color = feet_blood_color)
+		var/mutable_appearance/shoeblood_overlay = mutable_appearance(dna.species.blood_mask, "shoeblood", layer = -SHOES_LAYER)
+		shoeblood_overlay.color = feet_blood_color
+		overlays_standing[SHOES_LAYER] = shoeblood_overlay
 		apply_overlay(SHOES_LAYER)
 		return
 
@@ -1209,7 +1229,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 /mob/living/carbon/human/proc/get_overlays_copy(list/unwantedLayers)
 	var/list/out = new
-	for(var/i=1;i<=TOTAL_LAYERS;i++)
+	for(var/i in 1 to TOTAL_LAYERS)
 		if(overlays_standing[i])
 			if(i in unwantedLayers)
 				continue
@@ -1224,46 +1244,46 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(g == DNA_GENDER_PLURAL)
 		g = DNA_GENDER_FEMALE
 
-	. = ""
+	var/list/result = list()
 
 	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
 	if(eyes)
-		. += "[eyes.eye_colour]"
+		result += "[eyes.eye_colour]"
 	else
-		. += "#000000"
+		result += "#000000"
 
 	if(lip_color && HAS_TRAIT(src, TRAIT_HAS_LIPS))
-		. += "[lip_color]"
+		result += "[lip_color]"
 	else
-		. += "#000000"
+		result += "#000000"
 
 	for(var/limb_zone in dna.species.has_limbs)
 		var/obj/item/organ/external/part = bodyparts_by_name[limb_zone]
 		if(isnull(part))
-			. += "0"
+			result += "0"
 		else if(part.is_robotic())
-			. += "2[part.model ? "-[part.model]" : ""]"
+			result += "2[part.model ? "-[part.model]" : ""]"
 		else if(part.is_dead())
-			. += "3"
+			result += "3"
 		else
-			. += "1"
+			result += "1"
 
 		if(part)
 			var/datum/species/S = GLOB.all_species[part.dna.species.name]
-			. += "[S.race_key]"
-			. += "[part.dna.GetUIValue(DNA_UI_SKIN_TONE)]"
-			. += "[g]"
+			result += "[S.race_key]"
+			result += "[part.dna.GetUIValue(DNA_UI_SKIN_TONE)]"
+			result += "[g]"
 			if(part.s_col)
-				. += "[part.s_col]"
+				result += "[part.s_col]"
 			if(part.s_tone)
-				. += "[part.s_tone]"
+				result += "[part.s_tone]"
 
 	var/list/bonus_info = list()
 	SEND_SIGNAL(src, COMSIG_GET_ICON_RENDER_KEY_INFO, bonus_info)
 	for(var/info in bonus_info)
-		. += "[info]"
+		result += "[info]"
 
-	. = "[.][!!husk][!!hulk][!!skeleton]"
+	return "[result.Join("")][!!husk][!!hulk][!!skeleton]"
 
 /mob/living/carbon/human/update_ssd_overlay()
 	if(!isnull(player_logged))
@@ -1372,4 +1392,19 @@ use_item_state: SS1984 legacy var, used to fix fact, that item_state randomly us
 	standing.color = color
 
 	return standing
+
+// Wide organs or bodyparts shouldn't offset human HUD directly
+/mob/living/carbon/human/get_hud_x_offset()
+	return 0
+
+// But they are affected by height
+/mob/living/carbon/human/get_hud_y_offset()
+	return 0
+	//return GLOB.human_heights_to_offsets[mob_height]["[UPPER_BODY]"]
+
+/mob/living/carbon/human/get_cached_width()
+	return cached_body_width
+
+/mob/living/carbon/human/get_cached_height()
+	return cached_body_height
 

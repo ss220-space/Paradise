@@ -17,6 +17,8 @@
 	if(.) // not dead
 		handle_pain()
 		handle_heartbeat()
+		// Handles liver failure effects, if we lack a liver
+		handle_liver(seconds)
 		dna.species.handle_life(src)
 
 		if(!client)
@@ -157,28 +159,6 @@
 					say(pick(s2))
 				if(3)
 					emote("drool")
-
-/mob/living/carbon/human/handle_mutations(time_since_irradiated, seconds_per_tick)
-	for(var/datum/dna/gene/gene as anything in GLOB.dna_genes)
-		if(gene.is_active(src))
-			gene.OnMobLife(src)
-	if(!ignore_gene_stability && gene_stability < GENETIC_DAMAGE_STAGE_1)
-		var/instability = DEFAULT_GENE_STABILITY - gene_stability
-		if(prob(instability * 0.1))
-			adjustFireLoss(min(5, instability * 0.67))
-			to_chat(src, span_danger("Вы ощущаете, как ваша кожа горит и покрывается волдырями!"))
-		if(gene_stability < GENETIC_DAMAGE_STAGE_2)
-			if(prob(instability * 0.83))
-				adjustCloneLoss(min(4, instability * 0.05))
-				to_chat(src, span_danger("Вам кажется, что ваше тело теряет свою форму."))
-			if(prob(instability * 0.1))
-				adjustToxLoss(min(5, instability * 0.67))
-				to_chat(src, span_danger("Вы чувствуете слабость и тошноту."))
-			if(gene_stability < GENETIC_DAMAGE_STAGE_3 && prob(1))
-				to_chat(src, span_biggerdanger("Вам невероятно плохо... Что-то не так!"))
-				spawn(300)
-					if(gene_stability < GENETIC_DAMAGE_STAGE_3)
-						gib()
 
 /mob/living/carbon/human/breathe()
 	if(!dna.species.breathe(src))

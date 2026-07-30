@@ -19,6 +19,7 @@
 	desc = "Устройство, позволяющее получить доступ к самым свежим новостям со всей Галактики. Лицензировано \"Нанотрейзен\" для использования на коммерческих объектах."
 	icon = 'icons/obj/machines/terminals.dmi'
 	icon_state = "newscaster"
+	base_icon_state = "newscaster"
 	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 30)
 	integrity_failure = 50
 	anchored = TRUE
@@ -50,7 +51,7 @@
 	var/static/last_views
 
 /obj/machinery/newscaster/get_ru_names()
-	return list(
+	return alist(
 			NOMINATIVE = "новостник",
 			GENITIVE = "новостника",
 			DATIVE = "новостнику",
@@ -66,7 +67,7 @@
 	is_security = TRUE
 
 /obj/machinery/newscaster/security_unit/get_ru_names()
-	return list(
+	return alist(
 			NOMINATIVE = "новостник службы безопасности",
 			GENITIVE = "новостника службы безопасности",
 			DATIVE = "новостнику службы безопасности",
@@ -79,7 +80,7 @@
 	. = ..()
 	GLOB.allNewscasters += src
 	unit_number = length(GLOB.allNewscasters)
-	update_icon(UPDATE_OVERLAYS) //for any custom ones on the map...
+	update_appearance() //for any custom ones on the map...
 	if(!last_views)
 		last_views = list()
 
@@ -93,7 +94,7 @@
 			/datum/job/head_of_staff/nanotrasenrep,
 			/datum/job/ntnavyofficer,
 			/datum/job/ntnavyofficer/field,
-			/datum/job/ntspecops/supreme,
+			/datum/job/ntspecops/captain,
 			/datum/job/ntspecops,
 			/datum/job/ntspecops/solgovspecops,
 			/datum/job/civilian,
@@ -107,41 +108,50 @@
 	QDEL_NULL(photo)
 	return ..()
 
+/obj/machinery/newscaster/update_appearance(updates=ALL)
+	. = ..()
+	if(stat & (NOPOWER|BROKEN))
+		set_light(0)
+		return
+	set_light(1.5, 0.7, "#34D352") // green light
+
 /obj/machinery/newscaster/update_overlays()
 	. = ..()
-	underlays.Cut()
 	if(inoperable())
 		return
 
-	if(!(stat & NOPOWER))
-		underlays += emissive_appearance(icon, "newscaster_lightmask", src)
+	if(!(stat & (NOPOWER|BROKEN)))
+		var/state = "[base_icon_state]_[GLOB.news_network.wanted_issue ? "wanted" : "normal"]"
+		. += mutable_appearance(icon, state)
+		. += emissive_appearance(icon, state, src, alpha = src.alpha)
 
-	if(GLOB.news_network.wanted_issue)
-		. += "newscaster_wanted"
-	else
-		. += "newscaster_normal"
-
-	if(!GLOB.news_network.wanted_issue && alert) //wanted icon state, there can be no overlays on it as it's a priority message
-		. += "newscaster_alert"
+		if(GLOB.news_network.wanted_issue && alert)
+			. += mutable_appearance(icon, "[base_icon_state]_alert")
+			. += emissive_appearance(icon, "[base_icon_state]_alert", src, alpha = src.alpha,)
 
 	var/hp_percent = round(obj_integrity * 100 / max_integrity)
 	switch(hp_percent)
-		if(-INFINITY to 25)
-			. += "crack3"
-		if(26 to 50)
-			. += "crack2"
-		if(51 to 75)
+		if(75 to 100)
+			return
+		if(50 to 75)
 			. += "crack1"
+			. += emissive_blocker(icon, "crack1", src, alpha = src.alpha)
+		if(25 to 50)
+			. += "crack2"
+			. += emissive_blocker(icon, "crack2", src, alpha = src.alpha)
+		else
+			. += "crack3"
+			. += emissive_blocker(icon, "crack3", src, alpha = src.alpha)
 
 /obj/machinery/newscaster/power_change(forced = FALSE)
 	. = ..()
 	if(.)
-		update_icon(UPDATE_OVERLAYS)
+		update_appearance()
 
 /obj/machinery/newscaster/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = TRUE, attack_dir, armour_penetration = 0)
 	. = ..()
 	if(.)
-		update_icon(UPDATE_OVERLAYS)
+		update_appearance()
 
 /obj/machinery/newscaster/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -189,7 +199,7 @@
 	if(!(stat & BROKEN) && !(obj_flags & NODECONSTRUCT))
 		stat |= BROKEN
 		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
-		update_icon(UPDATE_OVERLAYS)
+		update_appearance()
 
 /obj/machinery/newscaster/attack_ghost(mob/user)
 	ui_interact(user)
@@ -256,8 +266,7 @@
 							m["view_count"] = FM.view_count
 				// Update the last viewed times for the user
 				LAZYINITLIST(last_views[user_name])
-				for(var/c in GLOB.news_network.channels)
-					var/datum/feed_channel/C = c
+				for(var/datum/feed_channel/C as anything in GLOB.news_network.channels)
 					if(screen == NEWSCASTER_CHANNEL && C != viewing_channel)
 						continue
 					last_views[user_name][C.UID()] = now
@@ -304,12 +313,12 @@
 	// Append channels
 	var/list/channels = list()
 	data["channels"] = channels
-	for(var/c in GLOB.news_network.channels)
-		var/datum/feed_channel/C = c
+	for(var/datum/feed_channel/C as anything in GLOB.news_network.channels)
 		var/list/channel = list(
 			uid = C.UID(),
 			name = C.channel_name,
 			author = C.author,
+			author_ckey = (is_admin(user) ? C.author_ckey : "N/A"),
 			description = C.description,
 			icon = C.icon,
 			public = C.is_public,
@@ -321,8 +330,7 @@
 		// Add the number of unseen stories if authed
 		if(user_name)
 			var/last_view_time = (last_views[user_name] && last_views[user_name][C.UID()]) || 0
-			for(var/m in C.messages)
-				var/datum/feed_message/M = m
+			for(var/datum/feed_message/M as anything in C.messages)
 				if(last_view_time < M.publish_time)
 					channel["unread"]++
 		channels += list(channel)
@@ -342,6 +350,7 @@
 	return list(list(
 		uid = FM.UID(),
 		author = (FM.censor_flags & CENSOR_AUTHOR) ? "" : FM.author,
+		author_ckey = (is_admin(M) ? FM.author_ckey : "N/A"),
 		title = (FM.censor_flags & CENSOR_STORY) ? "" : FM.title,
 		body = (FM.censor_flags & CENSOR_STORY) ? "" : FM.body,
 		admin_locked = FM.admin_locked,
@@ -442,7 +451,7 @@
 			GLOB.news_network.wanted_issue = null
 			set_temp("Уведомление о розыске снято.", update_now = TRUE)
 			for(var/obj/machinery/newscaster/NC as anything in GLOB.allNewscasters)
-				NC.update_icon(UPDATE_OVERLAYS)
+				NC.update_appearance()
 			return FALSE
 		if("toggle_mute")
 			is_silent = !is_silent
@@ -495,11 +504,11 @@
 		if(UI_MODAL_ANSWER)
 			switch(id)
 				if("create_channel", "manage_channel")
-					var/author = trim(arguments["author"])
-					var/name = trim(arguments["name"])
+					var/author = strip_html_full(trim(arguments["author"]))
+					var/name = strip_html_full(trim(arguments["name"]))
 					if(!length(author) || !length(name))
 						return
-					var/description = trim(arguments["description"])
+					var/description = strip_html_full(trim(arguments["description"]))
 					var/icon = arguments["icon"]
 					var/public = text2num(arguments["public"])
 					var/admin_locked = text2num(arguments["admin_locked"])
@@ -527,14 +536,16 @@
 					FC.description = copytext_char(description, 1, CHANNEL_DESC_MAX_LENGTH)
 					FC.icon = usr.can_admin_interact() ? icon : "newspaper"
 					FC.author = usr.can_admin_interact() ? author : scanned_user
+					FC.author_ckey = usr.ckey
 					FC.is_public = public
 					FC.admin_locked = usr.can_admin_interact() && admin_locked
 					set_temp("Канал \"[FC.channel_name]\" создан.", "good")
+					usr.create_log(MISC_LOG, "Newscaster channel [name] created with desc [description].")
 				if("create_story")
-					var/author = trim(arguments["author"])
-					var/channel = trim(arguments["channel"])
-					var/title = trim(arguments["title"])
-					var/body = trim(arguments["body"])
+					var/author = strip_html_full(trim(arguments["author"]))
+					var/channel = strip_html_full(trim(arguments["channel"]))
+					var/title = strip_html_full(trim(arguments["title"]))
+					var/body = strip_html_full(trim(arguments["body"]))
 					var/admin_locked = text2num(arguments["admin_locked"])
 					if(!length(author) || !length(title) || !length(body))
 						return
@@ -545,6 +556,7 @@
 						return
 					var/datum/feed_message/FM = new
 					FM.author = usr.can_admin_interact() ? author : scanned_user
+					FM.author_ckey = usr.ckey
 					FM.title = copytext_char(title, 1, STORY_NAME_MAX_LENGTH)
 					FM.body = copytext_char(body, 1, STORY_BODY_MAX_LENGTH)
 					FM.img = photo?.img
@@ -554,8 +566,7 @@
 					SSblackbox.record_feedback("amount", "newscaster_stories", 1)
 					var/announcement = FC.get_announce_text(title)
 					// Announce it
-					for(var/nc in GLOB.allNewscasters)
-						var/obj/machinery/newscaster/NC = nc
+					for(var/obj/machinery/newscaster/NC as anything in GLOB.allNewscasters)
 						NC.alert_news(announcement)
 					// Redirect and eject photo
 					LAZYINITLIST(last_views[user_name])
@@ -564,12 +575,13 @@
 					viewing_channel = FC
 					eject_photo(usr)
 					set_temp("Статья была опубликована в канале \"[FC.channel_name]\".", "good")
+					usr.create_log(MISC_LOG, "Newscaster story [title] created with desc [body].")
 				if("wanted_notice")
 					if(id == "wanted_notice" && !(is_security || usr.can_admin_interact()))
 						return
-					var/author = trim(arguments["author"])
-					var/name = trim(arguments["name"])
-					var/description = trim(arguments["description"])
+					var/author = strip_html_full(trim(arguments["author"]))
+					var/name = strip_html_full(trim(arguments["name"]))
+					var/description = strip_html_full(trim(arguments["description"]))
 					var/admin_locked = text2num(arguments["admin_locked"])
 					if(!length(author) || !length(name) || !length(description))
 						return
@@ -588,11 +600,11 @@
 					WN.admin_locked = usr.can_admin_interact() && admin_locked
 					WN.publish_time = world.time
 					// Announce it and eject photo
-					for(var/nc in GLOB.allNewscasters)
-						var/obj/machinery/newscaster/NC = nc
+					for(var/obj/machinery/newscaster/NC as anything in GLOB.allNewscasters)
 						NC.alert_news(wanted_notice = TRUE)
 					eject_photo(usr)
 					set_temp("Уведомление о розыске опубликовано.", "good")
+					usr.create_log(MISC_LOG, "Wanted notice for [name] created with desc [description].")
 				else
 					return FALSE
 		else
@@ -706,14 +718,14 @@
 		return
 	alert = TRUE
 	addtimer(CALLBACK(src, PROC_REF(alert_timer_finish)), 30 SECONDS)
-	update_icon(UPDATE_OVERLAYS)
+	update_appearance()
 
 /**
  * Called when the timer following a call to [/obj/machinery/newscaster/proc/alert_news] finishes.
  */
 /obj/machinery/newscaster/proc/alert_timer_finish()
 	alert = FALSE
-	update_icon(UPDATE_OVERLAYS)
+	update_appearance()
 
 #undef CHANNEL_NAME_MAX_LENGTH
 #undef CHANNEL_DESC_MAX_LENGTH

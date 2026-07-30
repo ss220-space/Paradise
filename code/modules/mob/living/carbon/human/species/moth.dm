@@ -21,7 +21,7 @@
 	reagent_tag = ORGANIC
 	tox_mod = 1.5
 	blood_species = "Nian"
-	blood_color = "#b9ae9c"
+	blood_color = BLOOD_COLOR_MOTH
 	unarmed_type = /datum/unarmed_attack/claws
 	scream_verb = "жужж%(ит,ат)%"
 	female_giggle_sound = list('sound/voice/mothchitter.ogg')
@@ -87,6 +87,11 @@
 		SPECIES_AGE_MAX = 60,
 		JOB_MIN_AGE_HIGH_ED = 15,
 		JOB_MIN_AGE_COMMAND = 15,
+	)
+
+	max_select_skills = list(
+		/datum/skill/service/cleaning = 3,
+		/datum/skill/combat/accuracy = 1,
 	)
 
 /datum/species/moth/on_species_gain(mob/living/carbon/human/H)

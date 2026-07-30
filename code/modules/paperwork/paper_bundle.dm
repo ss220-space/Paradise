@@ -251,7 +251,10 @@
 				usr.temporarily_remove_item_from_inventory(src, force = TRUE)
 				usr.put_in_hands(P, ignore_anim = FALSE)
 				close_window(usr, "PaperBundle[UID()]")
+				usr.unset_machine() // Ensure the bundle GCs
 				qdel(src)
+				return
+
 			else if(page == amount)
 				screen = 2
 			else if(page == amount+1)
@@ -283,11 +286,12 @@
 	set src in usr
 
 	to_chat(usr, span_notice("You loosen the bundle."))
-	for(var/obj/O in src)
-		O.loc = usr.loc
-		O.layer = initial(O.layer)
-		O.plane = initial(O.plane)
-		O.add_fingerprint(usr)
+	for(var/obj/item/page in papers)
+		page.forceMove_turf(usr.loc)
+		page.layer = initial(page.layer)
+		page.plane = initial(page.plane)
+		page.add_fingerprint(usr)
+	LAZYCLEARLIST(papers)
 	usr.temporarily_remove_item_from_inventory(src)
 	qdel(src)
 	return

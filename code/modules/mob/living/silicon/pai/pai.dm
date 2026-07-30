@@ -12,6 +12,7 @@
 	can_buckle_to = FALSE
 	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	interaction_flags_mouse_drop = NEED_HANDS | ALLOW_PAI
+	looting_icon_mode = LOOT_ICON_ICON_TO_HTML
 
 	var/ram = 100	// Used as currency to purchase different abilities
 	var/userDNA		// The DNA string of our assigned user
@@ -216,7 +217,7 @@
 		return list("Перезагрузка систем связи через:", "[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]")
 
 /mob/living/silicon/pai/init_subsystems()
-	gps = new(src, gpstag = "pAI0", upgraded = TRUE, tracking = FALSE)
+	gps = new(src, "pAI0", TRUE, FALSE)
 
 /mob/living/silicon/pai/get_status_tab_items()
 	var/list/status_tab_data = ..()

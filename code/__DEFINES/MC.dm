@@ -28,12 +28,12 @@
 
 #define NEW_SS_GLOBAL(varname) if(varname != src){if(istype(varname)){Recover();qdel(varname);}varname = src;}
 
-#define START_PROCESSING(Processor, Datum) if(!Datum.isprocessing) {Datum.isprocessing = TRUE;Processor.processing += Datum}
-#define STOP_PROCESSING(Processor, Datum) Datum.isprocessing = FALSE;Processor.processing -= Datum
+#define START_PROCESSING(Processor, Datum) if(!(Datum.datum_flags & DF_ISPROCESSING)) {Datum.datum_flags |= DF_ISPROCESSING;Processor.processing += Datum}
+#define STOP_PROCESSING(Processor, Datum) Datum.datum_flags &= ~DF_ISPROCESSING;Processor.processing -= Datum;Processor.currentrun -= Datum
 
 /// Returns true if the MC is initialized and running.
-/// Optional argument init_stage controls what stage the mc must have initializted to count as initialized. Defaults to INITSTAGE_MAX if not specified.
-#define MC_RUNNING(INIT_STAGE...) (Master && Master.processing > 0 && Master.current_runlevel && Master.init_stage_completed == (max(min(INITSTAGE_MAX, ##INIT_STAGE), 1)))
+/// Optional argument init_stage controls what stage the mc must have initialized to count as initialized. Defaults to INITSTAGE_MAX if not specified.
+#define MC_RUNNING(INIT_STAGE...) (Master && Master.processing > 0 && Master.current_runlevel && Master.init_stage_completed >= (max(min(INITSTAGE_MAX, ##INIT_STAGE), 1)))
 
 #define MC_LOOP_RTN_NEWSTAGES 1
 #define MC_LOOP_RTN_GRACEFUL_EXIT 2
@@ -68,29 +68,36 @@
 /// This flag overrides SS_KEEP_TIMING
 #define SS_POST_FIRE_TIMING (1<<5)
 
+/// If this subsystem doesn't initialize, it should not report as a hard error in CI.
+/// This should be used for subsystems that are flaky for complicated reasons, such as
+/// the Lua subsystem, which relies on auxtools, which is unstable.
+/// It should not be used simply to silence CI.
+#define SS_OK_TO_FAIL_INIT (1<<6)
+
 /** This subsystem should not be queued if it has no work. */
 /// Populate the [hibernate_checks] list with the names of vars to check before a subsystem is queued.
 /// If the length() of each var is 0, it will not be queued.
 #define SS_HIBERNATE (1<<7)
 
 //! SUBSYSTEM STATES
-#define SS_IDLE 0 /// ain't doing shit.
-#define SS_QUEUED 1 /// queued to run
-#define SS_RUNNING 2 /// actively running
-#define SS_PAUSED 3 /// paused by mc_tick_check
-#define SS_SLEEPING 4 /// fire() slept.
-#define SS_PAUSING 5 /// in the middle of pausing
+#define SS_IDLE 0 //! ain't doing shit
+#define SS_QUEUED 1 //! queued to run
+#define SS_RUNNING 2 //! actively running
+#define SS_PAUSED 3 //! paused by mc_tick_check
+#define SS_SLEEPING 4 //! fire() slept
+#define SS_PAUSING 5 //! in the middle of pausing
 
 // Subsystem init stages
-#define INITSTAGE_EARLY 1 //! Early init stuff that doesn't need to wait for mapload
-#define INITSTAGE_MAIN 2 //! Main init stage
-#define INITSTAGE_MAX 2 //! Highest initstage.
+#define INITSTAGE_FIRST 1
+#define INITSTAGE_EARLY 2 //! Early init stuff that doesn't need to wait for mapload
+#define INITSTAGE_MAIN 3 //! Main init stage
+#define INITSTAGE_LAST 4
+#define INITSTAGE_MAX 4 //! Highest initstage.
 
 #define SUBSYSTEM_DEF(X) GLOBAL_REAL(SS##X, /datum/controller/subsystem/##X);\
 /datum/controller/subsystem/##X/New(){\
 	NEW_SS_GLOBAL(SS##X);\
 	PreInit();\
-	ss_id=#X;\
 }\
 /datum/controller/subsystem/##X
 
@@ -98,7 +105,6 @@
 /datum/controller/subsystem/processing/##X/New(){\
 	NEW_SS_GLOBAL(SS##X);\
 	PreInit();\
-	ss_id="processing_[#X]";\
 }\
 /datum/controller/subsystem/processing/##X/fire() {..() /*just so it shows up on the profiler*/} \
 /datum/controller/subsystem/processing/##X
@@ -107,7 +113,6 @@
 /datum/controller/subsystem/fluids/##X/New(){\
 	NEW_SS_GLOBAL(SS##X);\
 	PreInit();\
-	ss_id="fluid_[#X]";\
 }\
 /datum/controller/subsystem/fluids/##X/fire() {..() /*just so it shows up on the profiler*/} \
 /datum/controller/subsystem/fluids/##X
@@ -116,7 +121,6 @@
 /datum/controller/subsystem/timer/##X/New(){\
 	NEW_SS_GLOBAL(SS##X);\
 	PreInit();\
-	ss_id="timer_[#X]";\
 }\
 /datum/controller/subsystem/timer/##X/fire() {..() /*just so it shows up on the profiler*/} \
 /datum/controller/subsystem/timer/##X
@@ -125,7 +129,6 @@
 /datum/controller/subsystem/movement/##X/New(){\
 	NEW_SS_GLOBAL(SS##X);\
 	PreInit();\
-	ss_id="movement_[#X]";\
 }\
 /datum/controller/subsystem/movement/##X/fire() {..() /*just so it shows up on the profiler*/} \
 /datum/controller/subsystem/movement/##X
@@ -134,7 +137,6 @@
 /datum/controller/subsystem/verb_manager/##X/New(){\
 	NEW_SS_GLOBAL(SS##X);\
 	PreInit();\
-	ss_id="verb_[#X]";\
 }\
 /datum/controller/subsystem/verb_manager/##X/fire() {..() /*just so it shows up on the profiler*/} \
 /datum/controller/subsystem/verb_manager/##X

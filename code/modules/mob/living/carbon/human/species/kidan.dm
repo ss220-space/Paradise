@@ -18,7 +18,7 @@
 	eyes = "kidan_eyes_s"
 	flesh_color = "#ba7814"
 	blood_species = "Kidan"
-	blood_color = "#FB9800"
+	blood_color = BLOOD_COLOR_KIDAN
 	reagent_tag = ORGANIC
 	//Default styles for created mobs.
 	default_headacc = "Normal Antennae"
@@ -110,6 +110,9 @@
 		"с" = list("з", "зс", "ззз", "ззсз"),
 	)
 	autohiss_exempt = list("Хитин")
+	max_select_skills = list(
+		/datum/skill/service/cleaning = 3,
+	)
 
 /datum/species/kidan/get_species_runechat_color(mob/living/carbon/human/H)
 	var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
@@ -198,8 +201,8 @@
 
 	// Add itself to the kidan hud
 	prepare_huds()
-	for(var/datum/atom_hud/kidan_pheromones/kidan_hud in GLOB.huds)
-		kidan_hud.add_atom_to_hud(src)
+	var/datum/atom_hud/kidan_pheromones/kidan_hud = GLOB.huds[DATA_HUD_KIDAN_PHEROMONES]
+	kidan_hud.add_atom_to_hud(src)
 	var/image/holder = hud_list[KIDAN_PHEROMONES_HUD]
 	holder.icon = icon
 	holder.icon_state = icon_state

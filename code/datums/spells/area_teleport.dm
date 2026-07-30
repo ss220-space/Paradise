@@ -1,5 +1,4 @@
 /obj/effect/proc_holder/spell/area_teleport
-	name = "Area teleport"
 	desc = "This spell teleports you to a type of area of your selection."
 	nonabstract_req = TRUE
 
@@ -30,7 +29,7 @@
 
 	var/area/thearea = SSmapping.teleportlocs[A]
 
-	if(thearea.tele_proof && !istype(thearea, /area/wizard_station))
+	if(thearea.tele_proof && !istype(thearea, /area/centcom/wizard_station))
 		to_chat(user, "A mysterious force disrupts your arcane spell matrix, and you remain where you are.")
 		return
 

@@ -131,7 +131,7 @@
 		owner.visible_message(span_danger("[attack_text] hits [owner]'s [src], setting it off! What a shot!"))
 		add_attack_logs(P.firer, owner, "A projectile ([hitby]) detonated a grenade held", ATKLOG_FEW)
 		prime()
-		return 1 //It hit the grenade, not them
+		return HIT_RESULT_SUCCESS //It hit the grenade, not them
 
 /obj/item/grenade/chem_grenade/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/hand_labeler))
@@ -597,7 +597,7 @@
 	stage = GRENADE_READY
 
 /obj/item/grenade/chem_grenade/teargas/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "газовая граната (Капсаицин)",
 		GENITIVE = "газовой гранаты (Капсаицин)",
 		DATIVE = "газовой гранате (Капсаицин)",

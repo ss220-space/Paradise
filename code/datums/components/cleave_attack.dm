@@ -93,11 +93,11 @@
 			cleave_effect = /obj/effect/temp_visual/dir_setting/firing_effect/sweep_attack/full_circle
 
 /datum/component/cleave_attack/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(parent, COMSIG_RANGED_ITEM_INTERACTING_WITH_ATOM_SECONDARY, PROC_REF(on_afterattack))
 
 /datum/component/cleave_attack/UnregisterFromParent()
-	UnregisterSignal(parent, list(COMSIG_PARENT_EXAMINE, COMSIG_RANGED_ITEM_INTERACTING_WITH_ATOM_SECONDARY))
+	UnregisterSignal(parent, list(COMSIG_ATOM_EXAMINE, COMSIG_RANGED_ITEM_INTERACTING_WITH_ATOM_SECONDARY))
 
 /datum/component/cleave_attack/proc/on_examine(atom/examined_item, mob/user, list/examine_list)
 	var/arc_desc
@@ -136,9 +136,7 @@
 		return // if it needs to be wielded, check to make sure it is
 
 	if(istype(item, /obj/item/melee/energy))
-		var/obj/item/melee/energy/energy
-		energy = item
-		if(energy.active == FALSE)
+		if(!HAS_TRAIT(item, TRAIT_ITEM_ACTIVE))
 			return
 
 	// some information we're going to need later

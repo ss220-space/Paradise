@@ -17,16 +17,15 @@
 	righthand_file = 'icons/mob/inhands/antag/ninja_righthand.dmi'
 	icon_state = "energy_katana_green"
 	item_state = "energy_katana_green"
-	var/color_style = "green"
 	force = 40
 	throwforce = 20
-	block_chance = 50
 	armour_penetration = 50
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("атаковал", "порезал", "уколол", "полоснул", "рубанул", "пронзил")
 	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_BACK
 	sharp = TRUE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	var/color_style = "green"
 	var/datum/effect_system/spark_spread/spark_system
 	var/datum/action/innate/dash/ninja/jaunt
 
@@ -41,6 +40,9 @@
 	spark_system = new /datum/effect_system/spark_spread()
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
+
+/obj/item/melee/energy_katana/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/melee/energy_katana/ComponentInitialize()
 	. = ..()
@@ -57,7 +59,8 @@
 		if(isninja(user))
 			jaunt.teleport(user, target)
 			if(user.client)
-				user.client.mouse_pointer_icon = file(jaunt.update_cursor())
+				user.client.mouse_override_icon = jaunt.update_cursor()
+				user.client.mouse_pointer_icon = user.client.mouse_override_icon
 				jaunt.update_action_style(color_style)
 		else
 			var/mob/living/carbon/human/H = user
@@ -72,7 +75,8 @@
 	. = ..()
 	if(user?.client)
 		jaunt.Grant(user, src)
-		user.client.mouse_pointer_icon = file(jaunt.update_cursor())
+		user.client.mouse_override_icon = jaunt.update_cursor()
+		user.client.mouse_pointer_icon = user.client.mouse_override_icon
 		jaunt.update_action_style(color_style)
 		user.update_icons()
 		playsound(get_turf(src), 'sound/items/unsheath.ogg', 25, TRUE, 5)
@@ -85,6 +89,7 @@
 	. = ..()
 	if(user?.client)
 		jaunt.Remove(user)
+		user.client.mouse_override_icon = null
 		user.client.mouse_pointer_icon = initial(user.client.mouse_pointer_icon)
 		user.update_icons()
 
@@ -176,13 +181,13 @@
 /datum/action/innate/dash/ninja/proc/update_cursor()
 	switch(current_charges)
 		if(3)
-			return "icons/misc/mouse_pointers/ninja_cursor_three.dmi"
+			return 'icons/misc/mouse_pointers/ninja_cursor_three.dmi'
 		if(2)
-			return "icons/misc/mouse_pointers/ninja_cursor_two.dmi"
+			return 'icons/misc/mouse_pointers/ninja_cursor_two.dmi'
 		if(1)
-			return "icons/misc/mouse_pointers/ninja_cursor_one.dmi"
+			return 'icons/misc/mouse_pointers/ninja_cursor_one.dmi'
 		if(0)
-			return "icons/misc/mouse_pointers/ninja_cursor_off.dmi"
+			return 'icons/misc/mouse_pointers/ninja_cursor_off.dmi'
 
 /datum/action/innate/dash/ninja/proc/update_action_style(color_style)
 	button_icon_state = "arrows_[clamp(current_charges, 0, max_charges)]" //Защита от потери иконок при админ абузе
@@ -194,7 +199,8 @@
 /datum/action/innate/dash/ninja/charge()
 	. = ..()
 	if(owner?.client)
-		owner.client.mouse_pointer_icon = file(update_cursor())
+		owner.client.mouse_override_icon = update_cursor()
+		owner.client.mouse_pointer_icon = owner.client.mouse_override_icon
 		var/obj/item/melee/energy_katana/katana = dashing_item
 		update_action_style(katana.color_style)
 
@@ -208,5 +214,4 @@
 	icon_state = "energy_katana_red"
 	item_state = "energy_katana_red"
 	force = 30
-	block_chance = 40
 	armour_penetration = 40

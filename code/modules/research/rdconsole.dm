@@ -131,7 +131,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	return capitalize(return_name)
 
 /obj/machinery/computer/rdconsole/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль НИО",
 		GENITIVE = "консоли НИО",
 		DATIVE = "консоли НИО",
@@ -195,7 +195,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	QDEL_NULL(files)
 	QDEL_NULL(t_disk)
 	QDEL_NULL(d_disk)
-	matching_designs.Cut()
+	LAZYCLEARLIST(matching_designs)
 	if(linked_destroy)
 		linked_destroy.linked_console = null
 		linked_destroy = null
@@ -358,10 +358,12 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			return
 
 	linked_destroy.busy = TRUE
+	CALCULATE_SKILL_MOD(user, RESEARCH_DURATION_MOD, skill_duration_mod)
+	var/deconstruct_delay = DECONSTRUCT_DELAY * skill_duration_mod
 	flick("[linked_destroy.base_icon_state]_process", linked_destroy)
-	add_wait_message("Разборка объекта и обновление базы данных...", DECONSTRUCT_DELAY)
+	add_wait_message("Разборка объекта и обновление базы данных...", deconstruct_delay)
 	playsound(loc, 'sound/machines/rnd_machines/destructor_scanning.ogg', HALFWAY_SOUND_VOLUME, TRUE, -1, use_reverb = TRUE)
-	addtimer(CALLBACK(src, PROC_REF(finish_destroyer), temp_tech, user), DECONSTRUCT_DELAY)
+	addtimer(CALLBACK(src, PROC_REF(finish_destroyer), temp_tech, user), deconstruct_delay)
 
 // Sends salvaged materials to a linked protolathe, if any.
 /obj/machinery/computer/rdconsole/proc/send_mats()
@@ -382,10 +384,12 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(!linked_destroy || !temp_tech)
 		return
 
+	CALCULATE_SKILL_MOD(user, RESEARCH_SUCCESS_MOD, skill_chance_mod)
+	var/success = prob(100 * skill_chance_mod)
 	if(!linked_destroy.hacked)
 		if(!linked_destroy.loaded_item)
 			to_chat(usr, span_danger("[DECLENT_RU_CAP(linked_destroy, NOMINATIVE)] пуст!"))
-		else
+		else if(success)
 			var/tech_log
 			for(var/T in temp_tech)
 				var/new_level = files.UpdateTech(T, temp_tech[T])
@@ -393,6 +397,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					tech_log += "[T] [new_level], "
 			if(tech_log)
 				investigate_log("[user] increased tech deconstructing [linked_destroy.loaded_item]: [tech_log]. ", INVESTIGATE_RESEARCH)
+		else // item destroyed, but tech level not increase if skill check failed
+			linked_destroy.add_shared_particles(/particles/smoke)
+			addtimer(CALLBACK(linked_destroy, TYPE_PROC_REF(/atom/movable, remove_shared_particles), /particles/smoke), 3 SECONDS)
 		send_mats()
 		linked_destroy.loaded_item = null
 
@@ -438,6 +445,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		to_chat(usr, span_danger("Выбран неизвестный шаблон печати!"))
 		return
 
+	CALCULATE_SKILL_MOD(usr, PROTOLATHE_RAND_BUILD_PROB, skill_rand_prob)
+	skill_rand_prob *= 100
+	if(prob(skill_rand_prob))
+		being_built = pick(matching_designs)
+
 	for(var/obj/machinery/r_n_d/server/rnd_server as anything in connected_servers)
 		if(!rnd_server || QDELETED(rnd_server))
 			continue
@@ -459,20 +471,24 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	var/max_amount = is_lathe ? 10 : 1
 	amount = max(1, min(max_amount, amount))
+	GET_SKILL_LEVEL(usr, /datum/skill/research/protolathe, protolathe_skill_level)
+	if(protolathe_skill_level < SKILL_LEVEL_BASIC)
+		amount += rand(0, 3)
 
 	var/power = BUILD_POWER
 	for(var/M in being_built.materials)
 		power += round(being_built.materials[M] * amount / 5)
 	power = max(BUILD_POWER, power)
 
+	CALCULATE_SKILL_MOD(usr, PROTOLATHE_DURATION_MOD, skill_duration_mod)
 	// goes down (1 -> 0.4) with upgrades
 	var/coeff = machine.efficiency_coeff
 
 	var/time_to_construct = 0
 	if(is_imprinter)
-		time_to_construct = IMPRINTER_DELAY * amount
+		time_to_construct = IMPRINTER_DELAY * amount * skill_duration_mod
 	else
-		time_to_construct = PROTOLATHE_CONSTRUCT_DELAY * coeff * being_built.lathe_time_factor * amount ** 0.8
+		time_to_construct = PROTOLATHE_CONSTRUCT_DELAY * coeff * skill_duration_mod * being_built.lathe_time_factor * amount ** 0.8
 
 	if(is_lathe)
 		add_wait_message("Печать объекта. Ожидайте...", time_to_construct)
@@ -485,6 +501,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	machine.busy = TRUE
 	use_power(power)
 
+	CALCULATE_SKILL_MOD(usr, PROTOLATHE_RESOURCE_MOD, skill_resource_mod)
+	coeff *= skill_resource_mod
 	var/list/efficient_mats = list()
 	for(var/MAT in being_built.materials)
 		efficient_mats[MAT] = being_built.materials[MAT] * coeff
@@ -536,7 +554,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					real_item.forceMove(lockbox)
 					lockbox.name += " ([real_item.name])"
 					var/real_item_ru_name = DECLENT_RU_CAP(real_item, NOMINATIVE)
-					lockbox.ru_names = list(
+					lockbox.ru_names = alist(
 						NOMINATIVE = "защищённый кейс ([real_item_ru_name])",
 						GENITIVE = "защищённого кейса ([real_item_ru_name])",
 						DATIVE = "защищённому кейсу ([real_item_ru_name])",
@@ -634,7 +652,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			if(t_disk && known)
 				var/datum/tech/new_known = known.copyTech()
 				t_disk.name = "[t_disk.default_name] ([new_known])"
-				t_disk.ru_names = list(
+				t_disk.ru_names = alist(
 					NOMINATIVE = "дискета технологий ([new_known])",
 					GENITIVE = "дискеты технологий ([new_known])",
 					DATIVE = "дискете технологий ([new_known])",
@@ -836,15 +854,14 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	if(submenu == SUBMENU_LATHE_CATEGORY)
 		for(var/datum/design/D in matching_designs)
-			var/item_name = D.build_object_name
 			var/list/design_list = list()
 			designs_list[++designs_list.len] = design_list
 			var/list/design_materials_list = list()
 			var/obj/item/created_object = D.build_path
 			design_list["materials"] = design_materials_list
 			design_list["id"] = D.id
-			design_list["name"] = item_name
-			design_list["desc"] = created_object.desc
+			design_list["name"] = D.build_object_name
+			design_list["desc"] = D.build_object_desc
 			design_list["icon"] = created_object.icon
 			design_list["icon_state"] = created_object.icon_state
 			var/can_build = is_imprinter ? 1 : 50
@@ -1051,7 +1068,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	id = 1
 
 /obj/machinery/computer/rdconsole/core/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "главная консоль НИО",
 		GENITIVE = "главной консоли НИО",
 		DATIVE = "главной консоли НИО",
@@ -1076,7 +1093,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	circuit = /obj/item/circuitboard/rdconsole/robotics
 
 /obj/machinery/computer/rdconsole/robotics/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "робототехническая консоль НИО",
 		GENITIVE = "робототехнической консоли НИО",
 		DATIVE = "робототехнической консоли НИО",
@@ -1095,7 +1112,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	circuit = /obj/item/circuitboard/rdconsole/experiment
 
 /obj/machinery/computer/rdconsole/experiment/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль НИО (Э.К.С.П.Е.Р.И-МЕНТОР)",
 		GENITIVE = "консоли НИО (Э.К.С.П.Е.Р.И-МЕНТОР)",
 		DATIVE = "консоли НИО (Э.К.С.П.Е.Р.И-МЕНТОР)",
@@ -1114,7 +1131,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	circuit = /obj/item/circuitboard/rdconsole/mechanics
 
 /obj/machinery/computer/rdconsole/mechanics/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль НИО (Мастерская челноков)",
 		GENITIVE = "консоли НИО (Мастерская челноков)",
 		DATIVE = "консоли НИО (Мастерская челноков)",
@@ -1138,7 +1155,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	circuit = /obj/item/circuitboard/rdconsole/public
 
 /obj/machinery/computer/rdconsole/public/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "публичная консоль НИО",
 		GENITIVE = "публичной консоли НИО",
 		DATIVE = "публичной консоли НИО",
@@ -1161,7 +1178,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	icon_keyboard = null
 
 /obj/machinery/computer/rdconsole/cargo/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль НИО отдела Снабжения",
 		GENITIVE = "консоли НИО отдела Снабжения",
 		DATIVE = "консоли НИО отдела Снабжения",

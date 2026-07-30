@@ -1,18 +1,13 @@
 // Sleeper, and Syringe gun
 
 /obj/item/mecha_parts/mecha_equipment/medical
+	module_type = MECH_EQUIPMENT_MEDICAL
 
 /obj/item/mecha_parts/mecha_equipment/medical/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
-/obj/item/mecha_parts/mecha_equipment/medical/can_attach(obj/mecha/M)
-	if(..())
-		if(istype(M, /obj/mecha/medical) || istype(M, /obj/mecha/combat/lockersyndie))
-			return TRUE
-	return FALSE
-
-/obj/item/mecha_parts/mecha_equipment/medical/attach_act(obj/mecha/M)
+/obj/item/mecha_parts/mecha_equipment/medical/attach_act(obj/mecha/mech)
 	START_PROCESSING(SSobj, src)
 
 /obj/item/mecha_parts/mecha_equipment/medical/Destroy()
@@ -61,7 +56,7 @@
 		AM.forceMove(get_turf(src))
 	return ..()
 
-/obj/item/mecha_parts/mecha_equipment/medical/sleeper/Exit(atom/movable/leaving, atom/newLoc)
+/obj/item/mecha_parts/mecha_equipment/medical/sleeper/Exit(atom/movable/leaving, direction)
 	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/action(mob/living/carbon/target, list/modifiers)
@@ -262,12 +257,6 @@
 	..()
 	if(reagents)
 		reagents.set_reacting(TRUE)
-
-/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/can_attach(obj/mecha/M)
-	if(..())
-		if(istype(M, /obj/mecha/medical) || istype(M, /obj/mecha/combat/lockersyndie))
-			return TRUE
-	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/get_snowflake_data()
 	var/list/analyzed_reagents = list() // we need to make this list because .tsk wont map over an indexed array
@@ -478,23 +467,25 @@
 	var/improv_max_volume = 300
 	var/imrov_synth_speed = 20
 
-/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade/can_attach(obj/mecha/M)
-	if(..())
-		for(var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/S in M.equipment)
-			return TRUE
+/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade/can_attach(obj/mecha/mech)
+	if(!..())
+		return FALSE
+	var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/module = locate() in mech.equipment
+	if(module)
+		return TRUE
 	return FALSE
 
-/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade/attach_act(obj/mecha/M)
-	for(var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/S in chassis.equipment)
-		S.max_volume = improv_max_volume
-		S.synth_speed = imrov_synth_speed
-		S.reagents.maximum_volume = improv_max_volume
+/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade/attach_act(obj/mecha/mech)
+	for(var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/sgun in chassis.equipment)
+		sgun.max_volume = improv_max_volume
+		sgun.synth_speed = imrov_synth_speed
+		sgun.reagents.maximum_volume = improv_max_volume
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade/detach_act()
-	for(var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/S in chassis.equipment)
-		S.max_volume = initial(S.max_volume)
-		S.synth_speed = initial(S.synth_speed)
-		S.reagents.maximum_volume = S.max_volume
+	for(var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/sgun in chassis.equipment)
+		sgun.max_volume = initial(sgun.max_volume)
+		sgun.synth_speed = initial(sgun.synth_speed)
+		sgun.reagents.maximum_volume = sgun.max_volume
 
 /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw
 	name = "rescue jaw"
@@ -503,6 +494,7 @@
 	equip_cooldown = 1.5 SECONDS
 	energy_drain = 10
 	var/dam_force = 20
+	module_type = MECH_EQUIPMENT_MEDICAL | MECH_EQUIPMENT_FIREFIGHTER
 
 /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw/action(atom/target, list/modifiers)
 	if(!action_checks(target))
@@ -538,12 +530,6 @@
 			else
 				step(L, SOUTH)
 
-/obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw/can_attach(obj/mecha/M)
-	if(istype(M, /obj/mecha/medical) || istype(M, /obj/mecha/working/ripley/firefighter) || istype(M, /obj/mecha/combat/lockersyndie))	//Odys or firefighters or syndielocker
-		if(length(M.equipment) < M.max_equip)
-			return TRUE
-	return FALSE
-
 /obj/item/mecha_parts/mecha_equipment/medical/beamgun
 	name = "Medical Beamgun"
 	desc = "Передает целебные наниты своим сфокусированным лучом прямо из вашего уютного меха. Не скрещивайте лучи!"
@@ -555,7 +541,7 @@
 	var/obj/item/gun/medbeam/mech/mbeam
 
 /obj/item/mecha_parts/mecha_equipment/medical/beamgun/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Медицинская Лучпушка",
 		GENITIVE = "Медицинской Лучпушки",
 		DATIVE = "Медицинской Лучпушке",
@@ -584,7 +570,7 @@
 		return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/medical/beamgun/action(mob/target, list/modifiers)
-	if(!mbeam.process_fire(target, loc))
+	if(!mbeam.fast_fire(target, loc))
 		STOP_PROCESSING(SSobj, src)
 		return
 

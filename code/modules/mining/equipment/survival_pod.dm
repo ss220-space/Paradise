@@ -18,7 +18,7 @@
 	var/used = FALSE
 
 /obj/item/survivalcapsule/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "капсула блюспейс-убежища",
 		GENITIVE = "капсулы блюспейс-убежища",
 		DATIVE = "капсуле блюспейс-убежища",
@@ -142,7 +142,7 @@
 	template_id = "shelter_beta"
 
 /obj/item/survivalcapsule/luxury/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "капсула роскошного блюспейс-убежища",
 		GENITIVE = "капсулы роскошного блюспейс-убежища",
 		DATIVE = "капсуле роскошного блюспейс-убежища",
@@ -156,7 +156,7 @@
 	template_id = "shelter_charlie"
 
 /obj/item/survivalcapsule/luxuryelite/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "капсула элитного бара",
 		GENITIVE = "капсулы элитного бара",
 		DATIVE = "капсуле элитного бара",
@@ -232,6 +232,10 @@
 	opacity = FALSE
 	glass = TRUE
 
+/obj/machinery/door/airlock/survival_pod/glass/secure
+	aiControlDisabled = TRUE
+	hackProof = TRUE
+
 /obj/structure/door_assembly/door_assembly_pod
 	name = "pod airlock assembly"
 	icon = 'icons/obj/doors/airlocks/survival/survival.dmi'
@@ -249,6 +253,8 @@
 //Table
 /obj/structure/table/survival_pod
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
+	smoothing_groups = null
+	canSmoothWith = null
 	smooth = NONE
 	can_be_flipped = FALSE
 
@@ -284,7 +290,7 @@
 	contraband = list()
 
 /obj/machinery/vending/wallmed/survival_pod/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медицинский модуль аварийного убежища",
 		GENITIVE = "медицинского модуля аварийного убежища",
 		DATIVE = "медицинскому модулю аварийного убежища",
@@ -424,7 +430,7 @@
 	buildstackamount = 2
 
 /obj/structure/fans/tiny/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "система контроля среды",
 		GENITIVE = "системы контроля среды",
 		DATIVE = "системе контроля среды",
@@ -449,7 +455,7 @@
 	icon_state = "ntpod"
 
 /obj/structure/sign/mining/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "знак шахтёрского корпуса НТ",
 		GENITIVE = "знака шахтёрского корпуса НТ",
 		DATIVE = "знаку шахтёрского корпуса НТ",
@@ -464,7 +470,7 @@
 	icon_state = "survival"
 
 /obj/structure/sign/mining/survival/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "знак убежища",
 		GENITIVE = "знака убежища",
 		DATIVE = "знаку убежища",
@@ -479,7 +485,7 @@
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
 	name = "tubes"
 	anchored = TRUE
-	layer = MOB_LAYER - 0.2
+	layer = BELOW_MOB_LAYER
 
 /obj/structure/tubes/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -515,7 +521,7 @@
 						/obj/item/stack/telecrystal/hundred,
 						/obj/item/banhammer)
 
-/obj/item/fakeartefact/New()
+/obj/item/fakeartefact/Initialize(mapload)
 	. = ..()
 	var/obj/item/I = pick(possible)
 	name = initial(I.name)

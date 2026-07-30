@@ -144,11 +144,11 @@
 		creature.ExtinguishMob()
 	linkedcontroller.mobinpool += arrived
 
-/turf/simulated/floor/beach/water/Exited(atom/movable/departed, atom/newLoc)
+/turf/simulated/floor/beach/water/Exited(atom/movable/gone, direction)
 	. = ..()
-	if(!linkedcontroller || !ismob(departed))
+	if(!linkedcontroller || !ismob(gone))
 		return .
-	linkedcontroller.mobinpool -= departed
+	linkedcontroller.mobinpool -= gone
 
 /turf/simulated/floor/beach/water/proc/initialized_on(atom/target)
 	if(!linkedcontroller)
@@ -187,7 +187,7 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		to_chat(H, span_warning("You lose your footing trying to pry off the tile!"))
-		H.slip(10 SECONDS, src, TURF_WET_LUBE)
+		H.slip(SLIPPERY_TIME_LUBE, src, TURF_WET_LUBE)
 	return
 
 /turf/simulated/floor/lubed/lavaland_air

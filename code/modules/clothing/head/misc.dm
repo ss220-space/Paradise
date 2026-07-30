@@ -514,6 +514,20 @@
 	icon_state = "lordadmiralhat"
 	item_state = "lordadmiralhat"
 
+/obj/item/clothing/head/lordadmiralhat/admiral
+	name = "admiral hat"
+	desc = "Шляпа снятая с головы самого адмирала флота НТ. Или ССП? ТСФ? Не важно. Она снята с головы о-о-очень важной шишки."
+
+/obj/item/clothing/head/lordadmiralhat/admiral/get_ru_names()
+	return alist(
+		NOMINATIVE = "адмиральская шляпа",
+		GENITIVE = "адмиральской шляпы",
+		DATIVE = "адмиральской шляпе",
+		ACCUSATIVE = "адмиральскую шляпу",
+		INSTRUMENTAL = "адмиральской шляпы",
+		PREPOSITIONAL = "адмиральской шляпе",
+	)
+
 /obj/item/clothing/head/human_head
 	name = "bloated human head"
 	desc = "A horribly bloated and mismatched human head."
@@ -602,7 +616,7 @@
 	)
 
 /obj/item/clothing/head/scorched_skull/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "обожжённый череп",
 		GENITIVE = "обожжённого черепа",
 		DATIVE = "обожжённому черепу",
@@ -631,7 +645,7 @@
 	)
 
 /obj/item/clothing/head/roach/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "роуч",
 		GENITIVE = "роуча",
 		DATIVE = "роучу",
@@ -724,7 +738,7 @@
 	)
 
 /obj/item/clothing/head/colour/headband/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "повязка на голову",
 		GENITIVE = "повязки на голову",
 		DATIVE = "повязке на голову",

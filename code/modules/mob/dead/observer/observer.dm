@@ -9,6 +9,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 #define GHOST_ORBIT_SQUARE "square"
 #define GHOST_ORBIT_PENTAGON "pentagon"
 
+#define GHOST_SELF_APPEARANCE "ghost_selfvision"
+
 /mob/dead/observer
 	name = "ghost"
 	desc = "Это п-п-п-п-призраааак!" //jinkies!
@@ -19,7 +21,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	stat = DEAD
 	movement_type = GROUND|FLYING
 	density = FALSE
-	blocks_emissive = FALSE // Ghosts are transparent, duh
 	alpha = 127
 	light_system = NO_LIGHT_SUPPORT
 	invisibility = INVISIBILITY_OBSERVER
@@ -35,6 +36,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	universal_speak = TRUE
 	var/image/ghostimage = null //this mobs ghost image, for deleting and stuff
 	var/ghostvision = TRUE //is the ghost able to see things humans can't?
+	var/selfvision = TRUE
 	var/seedarkness = TRUE
 	var/sightchanged = FALSE
 	/// Defines from __DEFINES/hud.dm go here based on which huds the ghost has activated.
@@ -49,11 +51,12 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	var/datum/orbit_menu/orbit_menu
 	var/mob/living/do_observe_target = null
 
-/mob/dead/observer/New(mob/body=null, flags=1)
+/mob/dead/observer/Initialize(mapload, flags = 1)
 	set_invisibility(GLOB.observer_default_invisibility)
 
 	add_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS|SEE_SELF)
 	set_invis_see(SEE_INVISIBLE_OBSERVER_AI_EYE)
+	ADD_TRAIT(src, TRAIT_CULT_VEIL_SIGHT, INNATE_TRAIT)
 	add_verb(src, list(
 		/mob/dead/observer/proc/dead_tele,
 		/mob/dead/observer/proc/open_spawners_menu,
@@ -70,9 +73,10 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
 	set_stat(DEAD)
 
-	var/turf/T
+	var/turf/location
+	var/mob/body = loc
 	if(ismob(body))
-		T = get_turf(body)				//Where is the body located?
+		location = get_turf(body)				//Where is the body located?
 
 		var/mutable_appearance/MA = copy_appearance(body)
 		if(body.mind && body.mind.name)
@@ -97,8 +101,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	appearance_flags |= KEEP_TOGETHER
 	GLOB.ghost_images |= ghostimage
 	updateallghostimages()
-	if(!T)
-		T = pick(GLOB.latejoin)			//Safety in case we cannot find the body's position
+	if(!location)
+		location = pick(GLOB.latejoin)			//Safety in case we cannot find the body's position
 
 	if(!name)							//To prevent nameless ghosts
 		name = capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names_male))
@@ -113,10 +117,11 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	for(var/datum/atom_hud/alternate_appearance/alt_hud as anything in GLOB.active_alternate_appearances)
 		alt_hud.apply_to_new_mob(src)
 
-	..()
-	abstract_move(T) //let ghost initialize properly, then off to spawn point
+	. = ..()
+	abstract_move(location) //let ghost initialize properly, then off to spawn point
 
 /mob/dead/observer/Destroy()
+	handle_when_autoobserve_move()
 	toggle_all_huds_off()
 	remove_the_hud(THOUGHTS_HUD)
 	UnregisterSignal(src, COMSIG_MOB_HUD_CREATED)
@@ -128,7 +133,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	if(orbit_menu)
 		SStgui.close_uis(orbit_menu)
 		QDEL_NULL(orbit_menu)
-	GLOB.respawnable_list -= src
+	remove_from_respawnable_list()
 	return ..()
 
 /mob/dead/observer/examine(mob/user)
@@ -207,10 +212,10 @@ Works together with spawning an observer, noted above.
 		recordable_time = former_mob.timeofdeath
 
 	ghost.persistent_client?.time_of_death = recordable_time
-	GLOB.respawnable_list -= src
+	remove_from_respawnable_list()
 
 	if(ghost.can_reenter_corpse)
-		GLOB.respawnable_list += ghost
+		ghost.add_to_respawnable_list()
 	else
 		GLOB.non_respawnable_keys[ckey] = 1
 
@@ -335,6 +340,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	. = status_tab_data
 	status_tab_data[++status_tab_data.len] = list("Возрождение:", "[(src in GLOB.respawnable_list) ? "Возможно" : "Невозможно"]")
 
+/mob/dead/observer/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
+	. = ..()
+	var/area/new_area = get_area(src)
+	if(new_area != ambience_tracked_area)
+		update_ambience_area(new_area)
+
 /mob/dead/observer/verb/reenter_corpse()
 	set category = VERB_CATEGORY_GHOST
 	set name = "Вернуться в тело"
@@ -400,8 +411,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!check_rights((R_ADMIN | R_MOD), FALSE, user))
 		return
 	antagHUD = TRUE
-	for(var/datum/atom_hud/antag/H in GLOB.huds)
-		H.show_to(src)
+	for(var/hud_key, hud_type in GLOB.huds)
+		astype(hud_type, /datum/atom_hud/antag)?.show_to(src)
 
 /**
  * Toggles off all HUDs for the ghost player.
@@ -412,8 +423,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	remove_the_hud(DATA_HUD_SECURITY_ADVANCED)
 	remove_the_hud(DATA_HUD_MEDICAL_ADVANCED)
 	antagHUD = FALSE
-	for(var/datum/atom_hud/antag/H in GLOB.huds)
-		H.hide_from(src)
+	for(var/hud_key, hud_type in GLOB.huds)
+		astype(hud_type, /datum/atom_hud/antag)?.hide_from(src)
 
 /mob/dead/observer/verb/set_dnr()
 	set name = "Запретить реанимацию"
@@ -540,7 +551,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 				rot_seg = 36 //360/10 bby, smooth enough aproximation of a circle
 
 		to_chat(src, span_notice("Вы следуете за [target]"))
-		orbit(target, orbitsize, FALSE, 20, rot_seg, forceMove = TRUE)
+		orbit(target, orbitsize, FALSE, 20, rot_seg)
 
 /mob/dead/observer/orbit(atom/A, radius, clockwise, rotation_speed, rotation_segments, pre_rotation, lockinorbit, forceMove)
 	setDir(SOUTH)//reset dir so the right directional sprites show up
@@ -551,29 +562,25 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set name = "К существу"
 	set desc = "Teleport to a mob"
 
-	if(isobserver(usr)) //Make sure they're an observer!
-		var/jumping = tgui_input_list(src, "Существо для телепортации", "Телепортироваться к существу", GLOB.mob_list)
-		if(jumping)
-			return jump_to_mob(jumping)
-
-/mob/dead/observer/proc/jump_to_mob(mob/M)
-	if(!M || !isobserver(usr))
+	if(!isobserver(usr)) //Make sure they're an observer!
 		return
-	var/mob/A = src			 //Source mob
-	var/turf/T = get_turf(M) //Turf of the destination mob
 
-	if(T && isturf(T))	//Make sure the turf exists, then move the source to that destination.
-		A.forceMove(T)
-		M.update_parallax_contents()
+	var/target = tgui_input_list(src, "Существо для телепортации", "Телепортироваться к существу", GLOB.mob_living_list)
+	if(isnull(target) || !isobserver(usr))
 		return
-	to_chat(A, "Это существо не находится в игровом мире.")
+
+	var/turf/destination_turf = get_turf(target) // Turf of the destination mob
+	if(isturf(destination_turf))
+		abstract_move(destination_turf)
+	else
+		to_chat(src, "Это существо не находится в игровом мире.")
 
 /mob/dead/observer/memory()
-	set hidden = 1
+	set hidden = TRUE
 	to_chat(src, span_warning("Вы мертвы! У вас нет разума для хранения воспоминаний!"))
 
 /mob/dead/observer/add_memory()
-	set hidden = 1
+	set hidden = TRUE
 	to_chat(src, span_warning("Вы мертвы! У вас нет разума для хранения воспоминаний!"))
 
 /mob/dead/observer/verb/toggle_health_scan()
@@ -619,8 +626,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 //this is called when a ghost is drag clicked to something.
 /mob/dead/observer/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	if(isobserver(user) && user.client.holder && (isliving(over_object) || isAIEye(over_object)))
-		user.client.holder.cmd_ghost_drag(src, over_object)
+	if(!isobserver(user) || !user?.client?.holder || !over_object)
+		return
+
+	user.client.holder.cmd_ghost_drag(src, over_object)
 
 /**
  * Generates follow links for ghosts to track specific atoms, with special handling for AIs and observer mobs
@@ -743,6 +752,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	do_observe_target = null
 	REMOVE_TRAIT(src, TRAIT_OBSERVING_INVENTORY, UNIQUE_TRAIT_SOURCE(src))
+	hud_used?.show_hud(hud_used?.hud_version, src)
 
 /mob/dead/observer/proc/handle_when_autoobserve_sight_updated()
 	SIGNAL_HANDLER
@@ -763,6 +773,25 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	ghostvision = !(ghostvision)
 	update_sight()
 	to_chat(usr, span_notice("Видимость призраков [(ghostvision?"включена":"отключена")]."))
+
+/mob/dead/observer/verb/toggle_selfsee()
+	set name = "Видимость себя"
+	set desc = "Toggles your ability to see your own ghost. Other ghosts still see you"
+	set category = VERB_CATEGORY_GHOST
+
+	selfvision = !selfvision
+	update_selfvision()
+	to_chat(usr, span_notice("Видимость себя [(selfvision ? "включена" : "отключена")]."))
+
+/mob/dead/observer/proc/update_selfvision()
+	if(selfvision)
+		remove_alt_appearance(GHOST_SELF_APPEARANCE)
+		return
+
+	var/image/hidden_self = image(icon = icon, loc = src)
+	hidden_self.override = TRUE
+	hidden_self.alpha = 0
+	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/one_person, GHOST_SELF_APPEARANCE, hidden_self, AA_TARGET_SEE_APPEARANCE, src)
 
 /mob/dead/observer/verb/pick_darkness()
 	set name = "Освещённость"
@@ -861,7 +890,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(invisibility) // Only show the button if the ghost is not visible to the living
 			follow_button = "([ghost_follow_link(target, current_mob)])" // Ghost needs to be link clicker, otherwise it breaks
 
-		current_mob.show_message(span_deadsay("<b>[src]</b> указыва[PLUR_ET_YUT(src)] на [follow_button] [target]."), EMOTE_VISIBLE)
+		current_mob.show_message(span_deadsay("<b>[src]</b> указыва[PLUR_ET_YUT(src)] на [follow_button] [target.declent_ru(ACCUSATIVE)]."), EMOTE_VISIBLE)
 		add_deadchat_logs(src, "point to [key_name(target)] [COORD(target)]")
 
 	return TRUE
@@ -929,8 +958,13 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	var/datum/minigames_explorer = new /datum/minigames_explorer(src)
 	minigames_explorer.ui_interact(src)
 
+/mob/dead/observer/AltClickSecondaryOn(atom/target)
+	if(client && check_rights_for(client, R_DEBUG))
+		client.toggle_tag_datum(src)
+
 #undef GHOST_ORBIT_CIRCLE
 #undef GHOST_ORBIT_TRIANGLE
 #undef GHOST_ORBIT_HEXAGON
 #undef GHOST_ORBIT_SQUARE
 #undef GHOST_ORBIT_PENTAGON
+#undef GHOST_SELF_APPEARANCE

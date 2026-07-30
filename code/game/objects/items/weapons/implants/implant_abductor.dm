@@ -16,6 +16,7 @@
 		COOLDOWN_START(src, abductor_recall_cooldown, cooldown)
 	else
 		to_chat(imp_in, span_warning("You must wait [round(COOLDOWN_TIMELEFT(src, abductor_recall_cooldown) / 10)] seconds to use [src] again!"))
+	return ..()
 
 /obj/item/implant/abductor/implant(mob/living/carbon/human/source, mob/user, force = FALSE)
 	. = ..()

@@ -6,14 +6,15 @@
 	trigger_causes = BIOCHIP_TRIGGER_DEATH_ANY
 	implant_data = /datum/implant_fluff/death_alarm
 	var/mobname = UNKNOWN_NAME_RUS
-	var/static/list/stealth_areas = typecacheof(list(/area/syndicate_mothership, /area/shuttle/syndicate_elite))
+	var/static/list/stealth_areas = typecacheof(list(/area/centcom/syndicate_base, /area/shuttle/syndicate_elite))
 
 /obj/item/implant/death_alarm/implant(mob/living/carbon/human/source, mob/user, force = FALSE)
 	. = ..()
 	if(.)
 		mobname = source.real_name
 
-/obj/item/implant/death_alarm/activate(cause) // Death signal sends name followed by the gibbed / not gibbed check
+// Death signal sends name followed by the gibbed/not gibbed check
+/obj/item/implant/death_alarm/activate(cause)
 	var/area/mob_area = get_area(imp_in)
 
 	var/message
@@ -34,6 +35,8 @@
 				message = "Потерян сигнал жизнедеятельности от [mobname] в [mob_area.name]!"
 			destroy = TRUE
 	radio_announce(message, "Оповещение о смерти [mobname]", PUB_FREQ, follow_target_override = imp_in)
+
+	. = ..()
 
 	if(!destroy)
 		return

@@ -1,12 +1,11 @@
 // Basically it's both an ammo box and external magazine
 /obj/item/ammo_box/speedloader
 	gender = MALE
-	use_bullet_type_overlay = TRUE
 	can_fast_load = FALSE
 	var/gun_name = "револьверов"
 
 /obj/item/ammo_box/speedloader/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ускоритель заряжания [get_cartridge_marking()]",
 		GENITIVE = "ускорителя заряжания [get_cartridge_marking()]",
 		DATIVE = "ускорителю заряжания [get_cartridge_marking()]",
@@ -178,7 +177,7 @@
 	gun_name = "винтовок"
 
 /obj/item/ammo_box/speedloader/a762/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "обойма [get_cartridge_marking()]",
 		GENITIVE = "обоймы [get_cartridge_marking()]",
 		DATIVE = "обойме [get_cartridge_marking()]",

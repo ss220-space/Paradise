@@ -50,7 +50,7 @@
 #define GC_CURRENTLY_BEING_QDELETED -2
 
 #define QDELING(X) (X.gc_destroyed)
-#define QDELETED(X) (!X || QDELING(X))
+#define QDELETED(X) (isnull(X) || QDELING(X))
 #define QDESTROYING(X) (!X || X.gc_destroyed == GC_CURRENTLY_BEING_QDELETED)
 
 // This is a bit hacky, we do it to avoid people relying on a return value for the macro
@@ -60,10 +60,10 @@
 #define QDEL_IN_STOPPABLE(item, time) addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), (time) > GC_FILTER_QUEUE ? WEAKREF(item) : item), time, TIMER_STOPPABLE)
 #define QDEL_IN_CLIENT_TIME(item, time) addtimer(CALLBACK(GLOBAL_PROC, /proc/qdel, item), time, TIMER_STOPPABLE | TIMER_CLIENT_TIME)
 #define QDEL_NULL(item) if(item) { qdel(item); item = null }
-#define QDEL_LIST(L) if(L) { for(var/___I in L) qdel(___I); if(L) { L.Cut() }; }
-#define QDEL_LIST_IN(L, time) addtimer(CALLBACK(GLOBAL_PROC, /proc/______qdel_list_wrapper, L), time, TIMER_STOPPABLE)
-#define QDEL_LIST_ASSOC(L) if(L) { for(var/___I in L) { qdel(L[___I]); qdel(___I); } L.Cut(); }
-#define QDEL_LIST_ASSOC_VAL(L) if(L) { for(var/___I in L) qdel(L[___I]); L.Cut(); }
+#define QDEL_LIST(L) if(L) { for(var/I in L) qdel(I); L?.Cut(); }
+#define QDEL_LIST_IN(L, time) addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(______qdel_list_wrapper), L), time, TIMER_STOPPABLE)
+#define QDEL_LIST_ASSOC(L) if(L) { for(var/I in L) { qdel(L[I]); qdel(I); } L.Cut(); }
+#define QDEL_LIST_ASSOC_VAL(L) if(L) { for(var/I in L) qdel(L[I]); L.Cut(); }
 
 ///Sleep check QDEL. Like sleep check death, but checks deleting. Good for non mobs.
 #define SLEEP_CHECK_QDEL(X) sleep(X); if(QDELETED(src)) return;

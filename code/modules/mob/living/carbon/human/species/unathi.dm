@@ -41,6 +41,7 @@
 	flesh_color = "#34AF10"
 	reagent_tag = ORGANIC
 	base_color = "#066000"
+	blood_color = BLOOD_COLOR_LIZARD
 
 	speciesbox = /obj/item/storage/box/survival/species/unathi
 
@@ -113,6 +114,12 @@
 		"ч" = list("щ", "щщ", "щщщ"),
 	)
 	autohiss_exempt = list("Синт'Унати")
+
+	max_select_skills = list(
+		/datum/skill/combat/fists = 3,
+		/datum/skill/medical/heal = 1,
+		/datum/skill/medical/genetic = 1,
+	)
 
 /datum/species/unathi/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()

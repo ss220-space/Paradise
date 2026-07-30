@@ -6,7 +6,7 @@
 /obj/effect/proc_holder/singularity_act()
 	return
 
-/obj/effect/proc_holder/singularity_pull()
+/obj/effect/proc_holder/singularity_pull(atom/singularity, current_size)
 	return
 
 GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
@@ -36,7 +36,11 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /datum/click_intercept/proc_holder/Destroy()
 	holder.mouse_override_icon = null
 	holder.mouse_pointer_icon = initial(holder.mouse_pointer_icon)
-	. = ..()
+	var/client/user_client = spell?.ranged_ability_user?.client
+	if(user_client && user_client.click_intercept == src)
+		user_client.click_intercept = null
+	spell = null
+	return ..()
 
 /obj/effect/proc_holder/proc/add_ranged_ability(mob/user, msg)
 	if(!user || !user.client)
@@ -68,14 +72,14 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	ranged_ability_user = null
 	active = FALSE
 	if(user.client)
-		qdel(user.client.click_intercept)
-		user.client.click_intercept = null
+		QDEL_NULL(user.client.click_intercept)
 		remove_mousepointer(user.client)
 		if(msg)
 			to_chat(user, msg)
 	update_icon()
 
 /obj/effect/proc_holder/spell
+	abstract_type = /obj/effect/proc_holder/spell
 	name = "Spell"
 	desc = "A wizard spell"
 	/// What panel the proc holder needs to go on.
@@ -254,8 +258,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /obj/effect/proc_holder/spell/proc/playMagSound()
 	playsound(get_turf(usr), sound, 50, TRUE)
 
-/obj/effect/proc_holder/spell/New()
-	..()
+/obj/effect/proc_holder/spell/Initialize(mapload)
+	. = ..()
 	action = new(src)
 	still_recharging_msg = span_notice("[name] is still recharging.")
 	if(!gain_desc)
@@ -463,8 +467,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 			spell.icon_state = overlay_icon_state
 			spell.set_anchored(TRUE)
 			spell.set_density(FALSE)
-			spawn(overlay_lifespan)
-				qdel(spell)
+			QDEL_IN(spell, overlay_lifespan)
 
 	custom_handler?.before_cast(targets, user, src)
 

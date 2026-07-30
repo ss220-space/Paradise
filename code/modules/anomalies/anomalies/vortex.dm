@@ -137,7 +137,7 @@
 	grav_pull_strength = STAGE_THREE
 
 /obj/effect/anomaly/vortex/tier1/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "малая вихревая аномалия", \
 		GENITIVE = "малой вихревой аномалии", \
 		DATIVE = "малой вихревой аномалии", \
@@ -163,7 +163,7 @@
 	collapse_range = 1
 
 /obj/effect/anomaly/vortex/tier2/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вихревая аномалия", \
 		GENITIVE = "вихревой аномалии", \
 		DATIVE = "вихревой аномалии", \
@@ -189,7 +189,7 @@
 	has_warp = TRUE
 
 /obj/effect/anomaly/vortex/tier3/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "большая вихревая аномалия", \
 		GENITIVE = "большой вихревой аномалии", \
 		DATIVE = "большой вихревой аномалии", \
@@ -198,7 +198,7 @@
 		PREPOSITIONAL = "большой вихревой аномалии",
 	)
 
-/obj/effect/anomaly/vortex/tier3/New()
+/obj/effect/anomaly/vortex/tier3/Initialize(mapload, spawn_strength, spawn_stability)
 	. = ..()
 
 	for(var/mob/mob as anything in GLOB.player_list)
@@ -230,7 +230,7 @@
 	has_warp = TRUE
 
 /obj/effect/anomaly/vortex/tier4/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "колоссальная вихревая аномалия", \
 		GENITIVE = "колоссальной вихревой аномалии", \
 		DATIVE = "колоссальной вихревой аномалии", \
@@ -239,7 +239,7 @@
 		PREPOSITIONAL = "колоссальной вихревой аномалии",
 	)
 
-/obj/effect/anomaly/vortex/tier4/New()
+/obj/effect/anomaly/vortex/tier4/Initialize(mapload, spawn_strength, spawn_stability)
 	. = ..()
 
 	for(var/mob/mob as anything in GLOB.player_list)

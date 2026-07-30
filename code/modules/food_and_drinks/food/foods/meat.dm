@@ -16,7 +16,7 @@
 	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/meat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кусок мяса",
 		GENITIVE = "куска мяса",
 		DATIVE = "куску мяса",
@@ -86,7 +86,7 @@
 	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/roasted_meat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "жаренное мясо",
 		GENITIVE = "жаренного мяса",
 		DATIVE = "жаренному мясу",
@@ -151,8 +151,8 @@
 	var/type1 = "meat_drask"
 	var/type2 = "meat_drask2"
 
-/obj/item/reagent_containers/food/snacks/meat/humanoid/drask/New()
-	..()
+/obj/item/reagent_containers/food/snacks/meat/humanoid/drask/Initialize(mapload)
+	. = ..()
 	icon_state = pick(type1, type2)
 
 /obj/item/reagent_containers/food/snacks/meat/humanoid/grey
@@ -164,8 +164,8 @@
 	var/type1 = "meat_grey"
 	var/type2 = "meat_grey2"
 
-/obj/item/reagent_containers/food/snacks/meat/humanoid/grey/New()
-	..()
+/obj/item/reagent_containers/food/snacks/meat/humanoid/grey/Initialize(mapload)
+	. = ..()
 	icon_state = pick(type1, type2)
 
 /obj/item/reagent_containers/food/snacks/meat/humanoid/skrell
@@ -456,7 +456,7 @@
 	tastes = list("паутины" = 1, "слабых подёргиваний во рту" = 1)
 
 /obj/item/reagent_containers/food/snacks/monstermeat/spiderleg/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "паучья лапка",
 		GENITIVE = "паучьей лапки",
 		DATIVE = "паучьей лапке",
@@ -494,7 +494,7 @@
 	tastes = list("жёсткого мяса" = 1)
 
 /obj/item/reagent_containers/food/snacks/monstermeat/goliath/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мясо голиафа",
 		GENITIVE = "мяса голиафа",
 		DATIVE = "мясу голиафа",
@@ -516,7 +516,7 @@
 	tastes = list("слизистого мяса" = 1)
 
 /obj/item/reagent_containers/food/snacks/monstermeat/goldgrub/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мясо златожора",
 		GENITIVE = "мяса златожора",
 		DATIVE = "мясу златожору",
@@ -696,9 +696,13 @@
 	tastes = list("bacon" = 1)
 	foodtype = MEAT
 
-/obj/item/reagent_containers/food/snacks/telebacon/New()
-	..()
+/obj/item/reagent_containers/food/snacks/telebacon/Initialize(mapload)
+	. = ..()
 	baconbeacon = new /obj/item/beacon/bacon(src)
+
+/obj/item/reagent_containers/food/snacks/telebacon/Destroy()
+	QDEL_NULL(baconbeacon)
+	return ..()
 
 /obj/item/reagent_containers/food/snacks/telebacon/On_Consume(mob/M, mob/user)
 	if(!reagents.total_volume)
@@ -779,7 +783,7 @@
 	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/goliath_steak/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "стейк из мяса голиафа",
 		GENITIVE = "стейка из мяса голиафа",
 		DATIVE = "стейку из мяса голиафа",
@@ -801,7 +805,7 @@
 	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/roasted_spiderleg/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "жаренная паучья лапка",
 		GENITIVE = "жаренной паучьей лапки",
 		DATIVE = "жаренной паучьей лапке",
@@ -864,11 +868,6 @@
 	. = ..()
 	if(volume >= 1)
 		return Expand()
-
-/obj/item/reagent_containers/food/snacks/monkeycube/wash(mob/user, atom/source)
-	user.drop_from_active_hand()
-	forceMove(get_turf(source))
-	return 1
 
 /obj/item/reagent_containers/food/snacks/monkeycube/proc/Expand()
 	if(LAZYLEN(SSmobs.cubemonkeys) >= CONFIG_GET(number/cubemonkey_cap))

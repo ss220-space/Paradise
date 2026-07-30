@@ -4,11 +4,12 @@
 SUBSYSTEM_DEF(asset_loading)
 	name = "Asset Loading"
 	priority = FIRE_PRIORITY_ASSETS
-	flags = SS_NO_INIT|SS_HIBERNATE
+	ss_flags = SS_NO_INIT|SS_HIBERNATE
 	runlevels = RUNLEVEL_LOBBY|RUNLEVELS_DEFAULT
 	var/assets_generating = 0
 	var/list/datum/asset/generate_queue = list()
 	var/last_queue_len = 0
+	var/iconforge_uni_icon_generated = FALSE
 
 /datum/controller/subsystem/asset_loading/PreInit()
 	. = ..()
@@ -29,9 +30,15 @@ SUBSYSTEM_DEF(asset_loading)
 			return
 
 	// We just emptied the queue
-	if(last_queue_len && !length(generate_queue) && !assets_generating)
+	if((last_queue_len || iconforge_uni_icon_generated) && !length(generate_queue) && !assets_generating)
 		// Clean up cached icons, freeing memory.
+		iconforge_uni_icon_generated = FALSE
 		rustlib_iconforge_cleanup()
+
+/datum/controller/subsystem/asset_loading/Shutdown()
+	while(assets_generating)
+		sleep(1)
+	return ..()
 
 /datum/controller/subsystem/asset_loading/proc/queue_asset(datum/asset/queue)
 #ifdef DO_NOT_DEFER_ASSETS

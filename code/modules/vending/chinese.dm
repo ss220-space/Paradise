@@ -1,5 +1,5 @@
 /obj/machinery/vending/chinese
-	name = "\"Мистер Чанг\""
+	name = "Mr. Chang"
 	desc = "Машина самообслуживания, созданная специально для удовлетворения вашей потребности в азиатской кухне."
 	slogan_list = list(
 		"Попр+обуйте 5000 лет культ+уры!",
@@ -34,7 +34,7 @@
 	)
 
 /obj/machinery/vending/chinese/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат \"Мистер Чанг\"",
 		GENITIVE = "торгового автомата \"Мистер Чанг\"",
 		DATIVE = "торговому автомату \"Мистер Чанг\"",

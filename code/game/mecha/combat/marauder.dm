@@ -19,8 +19,8 @@
 	starting_voice = /obj/item/mecha_modkit/voice/nanotrasen
 	destruction_sleep_duration = 2 SECONDS
 	strafe_allowed = TRUE
-
 	mech_type = MECH_TYPE_MARAUDER
+	allowed_equipment = MECH_EQUIPMENT_MARAUDER
 
 /obj/mecha/combat/marauder/GrantActions(mob/living/user, human_occupant = 0)
 	. = ..()
@@ -81,6 +81,8 @@
 	ME = new /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay(src)
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster(src)
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/repair_droid(src)
 	ME.attach(src)
 
 /obj/mecha/combat/marauder/mauler

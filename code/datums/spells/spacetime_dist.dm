@@ -95,7 +95,7 @@
 /obj/effect/cross_action/singularity_act()
 	return
 
-/obj/effect/cross_action/singularity_pull()
+/obj/effect/cross_action/singularity_pull(atom/singularity, current_size)
 	return
 
 /obj/effect/cross_action/spacetime_dist/proc/walk_link(atom/movable/AM)

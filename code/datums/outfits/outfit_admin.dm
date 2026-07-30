@@ -143,9 +143,11 @@
 	name = "Syndicate Stirke Team Officer"
 	pda = /obj/item/pinpointer
 
-/datum/outfit/admin/syndicate_strike_team/officer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	.=..()
-	H.back.contents += new /obj/item/disk/nuclear/unrestricted
+/datum/outfit/admin/syndicate_strike_team/officer/post_equip(mob/living/carbon/human/officer, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+	officer.equip_or_collect(new /obj/item/disk/nuclear/unrestricted, ITEM_SLOT_BACKPACK)
 
 /datum/outfit/admin/syndicate_strike_team/full_gear
 	can_be_admin_equipped = TRUE
@@ -204,7 +206,6 @@
 
 /datum/outfit/admin/special_reaction_team
 	name = "Special Reaction Team Member"
-
 	uniform = /obj/item/clothing/under/fluff/jay_turtleneck
 	suit = /obj/item/clothing/suit/storage/blueshield/srt
 	back = /obj/item/storage/backpack/satchel_blueshield/srt
@@ -223,7 +224,7 @@
 		/obj/item/ammo_box/magazine/sp8 = 2,
 		/obj/item/storage/box/survival/responseteam = 1,
 		/obj/item/gun/energy/gun/blueshield = 1,
-		/obj/item/gun/projectile/automatic/proto = 1,
+		/obj/item/gun/projectile/automatic/smg/saber = 1,
 		/obj/item/ammo_box/magazine/smgm9mm = 4,
 		/obj/item/shield/riot/tele = 1,
 		/obj/item/gun_module/muzzle/suppressor = 1,
@@ -261,40 +262,6 @@
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access("Special Reaction Team Member"), "Special Reaction Team Member")
 		I.law_level = LAW_LEVEL_RESPONSE_TEAM
-	H.update_hud_set()
-
-/datum/outfit/admin/nt_navy_captain
-	name = "NT Navy Captain"
-
-	uniform = /obj/item/clothing/under/rank/centcom/captain
-	back = /obj/item/storage/backpack/satchel
-	belt = /obj/item/storage/belt/rapier/centcomm
-	gloves = /obj/item/clothing/gloves/color/white
-	shoes = /obj/item/clothing/shoes/centcom
-	head = /obj/item/clothing/head/beret/centcom/captain
-	l_ear = /obj/item/radio/headset/centcom
-	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
-	id = /obj/item/card/id/centcom
-	pda = /obj/item/pda/centcom
-	backpack_contents = list(
-		/obj/item/storage/box/survival/centcomofficer = 1,
-		/obj/item/gun/energy/pulse/pistol = 1,
-		/obj/item/implanter/death_alarm = 1,
-	)
-	implants = list(
-		/obj/item/implant/mindshield/ert,
-		/obj/item/implant/dust,
-	)
-
-/datum/outfit/admin/nt_navy_captain/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = ..()
-	if(visualsOnly)
-		return
-
-	var/obj/item/card/id/I = H.wear_id
-	if(istype(I))
-		apply_to_card(I, H, get_centcom_access("Nanotrasen Navy Captain"), "Nanotrasen Navy Captain")
-		I.law_level = LAW_LEVEL_CENTCOMM
 	H.update_hud_set()
 
 /datum/outfit/admin/nt_diplomat
@@ -413,7 +380,6 @@
 	. = ..()
 	if(visualsOnly)
 		return
-
 	var/obj/item/radio/R = H.l_ear
 	R.set_frequency(DTH_FREQ)
 	R.requires_tcomms = FALSE
@@ -430,9 +396,12 @@
 	name = "NT Death Commando officer"
 	can_be_admin_equipped = FALSE
 
-/datum/outfit/admin/death_commando/officer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	.=..()
-	H.back.contents += new /obj/item/disk/nuclear/unrestricted
+/datum/outfit/admin/death_commando/officer/post_equip(mob/living/carbon/human/officer, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+
+	officer.equip_or_collect(new /obj/item/disk/nuclear/unrestricted, ITEM_SLOT_BACKPACK)
 
 /datum/outfit/admin/pirate
 	name = "Space Pirate"
@@ -754,7 +723,7 @@
 	suit = /obj/item/clothing/suit/sovietcoat
 	glasses = /obj/item/clothing/glasses/sunglasses
 	r_pocket = /obj/item/flashlight/seclite
-	belt = /obj/item/gun/projectile/automatic/pistol/APS
+	belt = /obj/item/gun/projectile/automatic/pistol/aps
 
 	backpack_contents = list(
 		/obj/item/lighter = 1,
@@ -794,7 +763,7 @@
 	suit_store = /obj/item/tank/internals/emergency_oxygen/double
 
 	backpack_contents = list(
-		/obj/item/gun/projectile/automatic/pistol/APS = 1,
+		/obj/item/gun/projectile/automatic/pistol/aps = 1,
 		/obj/item/ammo_box/magazine/pistolm9mm = 1,
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
 		/obj/item/lighter/zippo = 1,
@@ -1108,7 +1077,7 @@
 	head = /obj/item/clothing/head/det_hat
 	glasses = /obj/item/clothing/glasses/thermal/monocle
 	l_pocket = /obj/item/ammo_box/speedloader/a357
-	r_hand = /obj/item/gun/projectile/automatic/proto
+	r_hand = /obj/item/gun/projectile/automatic/smg/saber
 
 /datum/outfit/admin/tournament_chef //Steven Seagal FTW
 	name = "Tournament Chef"
@@ -1311,7 +1280,7 @@
 	H.mind.AddSpell(new /obj/effect/proc_holder/spell/shapeshift/bats)
 	H.mind.AddSpell(new /obj/effect/proc_holder/spell/shapeshift/hellhound)
 	H.force_gene_block(GLOB.jumpblock, TRUE)
-	H.gene_stability = 100
+	H.set_gene_stability(100)
 
 /datum/outfit/admin/wizard
 	name = "Blue Wizard"

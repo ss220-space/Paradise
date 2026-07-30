@@ -236,7 +236,7 @@
 	anchored = TRUE
 
 /obj/structure/decorative_structures/garland/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "новогодняя гирлянда",
 		GENITIVE = "новогодней гирлянды",
 		DATIVE = "новогодней гирлянде",

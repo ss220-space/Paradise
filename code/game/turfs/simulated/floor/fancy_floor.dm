@@ -118,20 +118,18 @@
 /turf/simulated/floor/grass
 	name = "grass patch"
 	icon_state = "grass1"
+	base_icon_state = "grass"
 	floor_tile = /obj/item/stack/tile/grass
 	footstep = FOOTSTEP_GRASS
 	barefootstep = FOOTSTEP_GRASS
 	clawfootstep = FOOTSTEP_GRASS
-
-/turf/simulated/floor/grass/broken_states()
-	return list("sand")
 
 /turf/simulated/floor/grass/Initialize(mapload)
 	. = ..()
 	update_icon()
 
 /turf/simulated/floor/grass/update_icon_state()
-	icon_state = "grass[pick("1","2","3","4")]"
+	icon_state = "[base_icon_state][pick("1","2","3","4")]"
 
 /turf/simulated/floor/grass/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -169,6 +167,10 @@
 	name = "grass patch airless"
 	oxygen = 0
 	nitrogen = 0
+
+/turf/simulated/floor/grass/jungle
+	icon_state = "jungle_grass1"
+	base_icon_state = "jungle_grass"
 
 // CARPETS
 /turf/simulated/floor/carpet
@@ -299,8 +301,9 @@
 // FAKESPACE
 /turf/simulated/floor/fakespace
 	icon = 'icons/turf/space.dmi'
-	icon_state = "0"
+	icon_state = "space"
 	floor_tile = /obj/item/stack/tile/fakespace
+	layer = SPACE_LAYER
 	plane = PLANE_SPACE
 
 /turf/simulated/floor/fakespace/Initialize(mapload)
@@ -311,9 +314,7 @@
 	return list("damaged")
 
 /turf/simulated/floor/fakespace/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
-	underlay_appearance.icon = 'icons/turf/space.dmi'
-	underlay_appearance.icon_state = SPACE_ICON_STATE
-	SET_PLANE(underlay_appearance, PLANE_SPACE, src)
+	generate_space_underlay(underlay_appearance, asking_turf)
 	return TRUE
 
 /turf/simulated/floor/carpet/arcade

@@ -157,8 +157,29 @@
 	nitrogen = 0
 	temperature = TCMB
 
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen
+	oxygen = 0
+	nitrogen = MOLES_N2STANDARD + MOLES_O2STANDARD
+
 /turf/simulated/floor/mineral/plastitanium/red/brig
 	name = "brig floor"
+
+/turf/simulated/floor/mineral/plastitanium/nitrogen
+	oxygen = 0
+	nitrogen = MOLES_N2STANDARD + MOLES_O2STANDARD
+
+/turf/simulated/floor/mineral/plastitanium/nitrogen/yellow
+	color = "#fff894"
+
+/turf/simulated/floor/mineral/plastitanium/nitrogen/orange
+	color = "#ffae00"
+
+/turf/simulated/floor/mineral/plastitanium/nitrogen/pink
+
+	color = "#ff78f4"
+
+/turf/simulated/floor/mineral/plastitanium/nitrogen/blue
+	color = "#00ffea"
 
 //BANANIUM
 /turf/simulated/floor/mineral/bananium
@@ -205,7 +226,7 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		to_chat(H, span_warning("You lose your footing trying to pry off the tile!"))
-		H.slip(10 SECONDS, src, TURF_WET_LUBE)
+		H.slip(SLIPPERY_TIME_LUBE, src, TURF_WET_LUBE)
 	return
 
 /turf/simulated/floor/mineral/bananium/lubed/lavaland_air

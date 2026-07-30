@@ -10,7 +10,7 @@
 	dog_fashion = /datum/dog_fashion/head/chef
 
 /obj/item/clothing/head/chefhat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "поварской колпак",
 		GENITIVE = "поварского колпака",
 		DATIVE = "поварскому колпаку",
@@ -31,7 +31,7 @@
 	dog_fashion = /datum/dog_fashion/head/captain
 
 /obj/item/clothing/head/caphat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "капитанская шляпа",
 		GENITIVE = "капитанской шляпы",
 		DATIVE = "капитанской шляпе",
@@ -49,7 +49,7 @@
 	dog_fashion = null
 
 /obj/item/clothing/head/caphat/parade/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "капитанская фуражка",
 		GENITIVE = "капитанской фуражки",
 		DATIVE = "капитанской фуражке",
@@ -66,7 +66,7 @@
 	dog_fashion = null
 
 /obj/item/clothing/head/caphat/blue/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "капитанская белая фуражка",
 		GENITIVE = "капитанской белой фуражки",
 		DATIVE = "капитанской белой фуражке",
@@ -83,7 +83,7 @@
 	dog_fashion = null
 
 /obj/item/clothing/head/caphat/office/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "капитанская синяя фуражка",
 		GENITIVE = "капитанской синей фуражки",
 		DATIVE = "капитанской синей фуражке",
@@ -100,7 +100,7 @@
 	item_state = "cap_beret"
 
 /obj/item/clothing/head/caphat/beret/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "капитанский берет",
 		GENITIVE = "капитанского берета",
 		DATIVE = "капитанскому берету",
@@ -119,7 +119,7 @@
 	dog_fashion = /datum/dog_fashion/head/hop
 
 /obj/item/clothing/head/hopcap/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "фуражка главы персонала",
 		GENITIVE = "фуражки главы персонала",
 		DATIVE = "фуражке главы персонала",
@@ -136,7 +136,7 @@
 	icon_state = "ntrep"
 
 /obj/item/clothing/head/ntrep/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "фуражка представителя \"Нанотрейзен\"",
 		GENITIVE = "фуражки представителя \"Нанотрейзен\"",
 		DATIVE = "фуражке представителя \"Нанотрейзен\"",
@@ -153,7 +153,7 @@
 	item_state = "purpleberet"
 
 /obj/item/clothing/head/beret/purple/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "берет учёного",
 		GENITIVE = "берета учёного",
 		DATIVE = "берету учёного",
@@ -167,7 +167,7 @@
 	desc = "Фиолетовый берет с небольшим золотым полумесяцем, прикреплённым к нему. От берета исходит запах плазмы."
 
 /obj/item/clothing/head/beret/purple/rd/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "берет научного руководителя",
 		GENITIVE = "берета научного руководителя",
 		DATIVE = "берету научного руководителя",
@@ -184,7 +184,7 @@
 	flags_cover = HEADCOVERSEYES
 
 /obj/item/clothing/head/hooded/chaplain_hood/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "капюшон священника",
 		GENITIVE = "капюшона священника",
 		DATIVE = "капюшону священника",
@@ -198,7 +198,7 @@
 	flags_inv = parent_type::flags_inv|HIDENAME
 
 /obj/item/clothing/head/hooded/chaplain_hood/no_name/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "капюшон от тёмной мантии",
 		GENITIVE = "капюшона от тёмной мантии",
 		DATIVE = "капюшону от тёмной мантии",
@@ -215,7 +215,7 @@
 	flags_cover = HEADCOVERSEYES
 
 /obj/item/clothing/head/hooded/nun_hood/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "капюшон монахини",
 		GENITIVE = "капюшона монахини",
 		DATIVE = "капюшону монахини",
@@ -232,7 +232,7 @@
 	flags_cover = HEADCOVERSEYES
 
 /obj/item/clothing/head/hooded/monk_hood/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "капюшон монаха",
 		GENITIVE = "капюшона монаха",
 		DATIVE = "капюшону монаха",
@@ -250,7 +250,7 @@
 	flags_cover = HEADCOVERSEYES
 
 /obj/item/clothing/head/witchhunter_hat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шляпа охотника на ведьм",
 		GENITIVE = "шляпы охотника на ведьм",
 		DATIVE = "шляпе охотника на ведьм",
@@ -267,7 +267,7 @@
 	item_state = "bishopmitre"
 
 /obj/item/clothing/head/bishopmitre/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "минтра эпископа",
 		GENITIVE = "минтры эпископа",
 		DATIVE = "минтре эпископа",
@@ -284,7 +284,7 @@
 	item_state = "blackbishopmitre"
 
 /obj/item/clothing/head/blackbishopmitre/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "чёрная минтра эпископа",
 		GENITIVE = "чёрной минтры эпископа",
 		DATIVE = "чёрной минтре эпископа",
@@ -313,7 +313,7 @@
 	)
 
 /obj/item/clothing/head/det_hat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шляпа детектива",
 		GENITIVE = "шляпы детектива",
 		DATIVE = "шляпе детектива",
@@ -339,7 +339,7 @@
 	dog_fashion = /datum/dog_fashion/head/beret
 
 /obj/item/clothing/head/beret/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "берет",
 		GENITIVE = "берета",
 		DATIVE = "берету",
@@ -356,7 +356,7 @@
 	armor = list(MELEE = 15, BULLET = 5, LASER = 15, ENERGY = 5, BOMB = 10, BIO = 0, FIRE = 30, ACID = 5)
 
 /obj/item/clothing/head/beret/durathread/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "берет из дюраткани",
 		GENITIVE = "берета из дюраткани",
 		DATIVE = "берету из дюраткани",
@@ -375,7 +375,7 @@
 	strip_delay = 80
 
 /obj/item/clothing/head/HoS/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "фуражка главы службы безопасности",
 		GENITIVE = "фуражки главы службы безопасности",
 		DATIVE = "фуражке главы службы безопасности",
@@ -392,7 +392,7 @@
 	snake_fashion = /datum/snake_fashion/head/beret_hos_black
 
 /obj/item/clothing/head/HoS/beret/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "берет главы службы безопасности",
 		GENITIVE = "берета главы службы безопасности",
 		DATIVE = "берету главы службы безопасности",
@@ -411,7 +411,7 @@
 	dog_fashion = /datum/dog_fashion/head/warden
 
 /obj/item/clothing/head/warden/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "полицейская фуражка смотрителя",
 		GENITIVE = "полицейской фуражки смотрителя",
 		DATIVE = "полицейской фуражке смотрителя",
@@ -430,7 +430,7 @@
 	strip_delay = 60
 
 /obj/item/clothing/head/officer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "офицерская кепка",
 		GENITIVE = "офицерской кепки",
 		DATIVE = "офицерской кепке",
@@ -449,7 +449,7 @@
 	muhtar_fashion = /datum/muhtar_fashion/head/beret
 
 /obj/item/clothing/head/beret/sec/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "офицерский берет",
 		GENITIVE = "офицерского берета",
 		DATIVE = "офицерскому берету",
@@ -464,7 +464,7 @@
 	icon_state = "beret_officer_black"
 
 /obj/item/clothing/head/beret/sec/black/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "чёрный офицерский берет",
 		GENITIVE = "чёрного офицерского берета",
 		DATIVE = "чёрного офицерскому берету",
@@ -480,7 +480,7 @@
 	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 0, FIRE = 30, ACID = 50)
 
 /obj/item/clothing/head/beret/sec/warden/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "берет смотрителя",
 		GENITIVE = "берета смотрителя",
 		DATIVE = "берету смотрителя",
@@ -494,7 +494,7 @@
 	icon_state = "brigphysberet"
 
 /obj/item/clothing/head/beret/brigphys/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "берет бригмедика",
 		GENITIVE = "берета бригмедика",
 		DATIVE = "берету бригмедика",
@@ -509,7 +509,7 @@
 	icon_state = "beret_engineering"
 
 /obj/item/clothing/head/beret/eng/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "инженерный берет",
 		GENITIVE = "инженерного берета",
 		DATIVE = "инженерному берету",
@@ -524,7 +524,7 @@
 	icon_state = "beret_atmospherics"
 
 /obj/item/clothing/head/beret/atmos/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "берет атмосферника",
 		GENITIVE = "берета атмосферника",
 		DATIVE = "берету атмосферника",
@@ -539,7 +539,7 @@
 	icon_state = "beret_ce"
 
 /obj/item/clothing/head/beret/ce/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "берет старшего инженера",
 		GENITIVE = "берета старшего инженера",
 		DATIVE = "берету старшего инженера",
@@ -554,7 +554,7 @@
 	icon_state = "beret_sci"
 
 /obj/item/clothing/head/beret/sci/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "берет учёного",
 		GENITIVE = "берета учёного",
 		DATIVE = "берету учёного",
@@ -570,7 +570,7 @@
 	icon_state = "beret_med"
 
 /obj/item/clothing/head/beret/med/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медицинский берет",
 		GENITIVE = "медицинского берета",
 		DATIVE = "медицинскому берету",
@@ -588,7 +588,7 @@
 	item_state = "elo-beret"
 
 /obj/item/clothing/head/beret/elo/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "берет главного врача",
 		GENITIVE = "берета главного врача",
 		DATIVE = "берету главного врача",
@@ -613,7 +613,7 @@
 	)
 
 /obj/item/clothing/head/surgery/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хирургическая шапочка",
 		GENITIVE = "хирургической шапочки",
 		DATIVE = "хирургической шапочке",
@@ -628,7 +628,7 @@
 	icon_state = "surgcap_purple"
 
 /obj/item/clothing/head/surgery/purple/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "фиолетовая хирургическая шапочка",
 		GENITIVE = "фиолетовой хирургической шапочки",
 		DATIVE = "фиолетовой хирургической шапочке",
@@ -642,7 +642,7 @@
 	desc = "Голубая шапочка, которую носят хирурги во время операций. Защищает внутренние органы пациента от попадания на них волос."
 
 /obj/item/clothing/head/surgery/blue/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "голубая хирургическая шапочка",
 		GENITIVE = "голубой хирургической шапочки",
 		DATIVE = "голубой хирургической шапочке",
@@ -657,7 +657,7 @@
 	icon_state = "surgcap_darkgreen"
 
 /obj/item/clothing/head/surgery/green/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тёмно-зелёная хирургическая шапочка",
 		GENITIVE = "тёмно-зелёной хирургической шапочки",
 		DATIVE = "тёмно-зелёной хирургической шапочке",
@@ -672,7 +672,7 @@
 	icon_state = "surgcap_green"
 
 /obj/item/clothing/head/surgery/lightgreen/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "зелёная хирургическая шапочка",
 		GENITIVE = "зелёной хирургической шапочки",
 		DATIVE = "зелёной хирургической шапочке",
@@ -687,7 +687,7 @@
 	icon_state = "surgcap_black"
 
 /obj/item/clothing/head/surgery/black/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "чёрная хирургическая шапочка",
 		GENITIVE = "чёрной хирургической шапочки",
 		DATIVE = "чёрной хирургической шапочке",
@@ -706,7 +706,7 @@
 	strip_delay = 80
 
 /obj/item/clothing/head/beret/solgov/command/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "берет лейтенанта ТСФ",
 		GENITIVE = "берета лейтенанта ТСФ",
 		DATIVE = "берету лейтенанта ТСФ",
@@ -722,7 +722,7 @@
 	icon_state = "solgov_elite_beret"
 
 /obj/item/clothing/head/beret/solgov/command/elite/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "берет офицера специальных операций ТСФ",
 		GENITIVE = "берета специальных операций ТСФ",
 		DATIVE = "берету специальных операций ТСФ",
@@ -739,7 +739,7 @@
 	icon_state = "redchefcap"
 
 /obj/item/clothing/head/chefcap/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "красный поварской колпак",
 		GENITIVE = "красного поварского колпака",
 		DATIVE = "красному поварскому колпаку",
@@ -754,7 +754,7 @@
 	icon_state = "surgcap_brown"
 
 /obj/item/clothing/head/surgery/brown/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коричневая хирургическая шапочка",
 		GENITIVE = "коричневой хирургической шапочки",
 		DATIVE = "коричневой хирургической шапочке",
@@ -771,7 +771,7 @@
 	icon_state = "prison_hat"
 
 /obj/item/clothing/head/prison/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тюремная шапка",
 		GENITIVE = "тюремную шапкапу",
 		DATIVE = "тюремной шапке",
@@ -787,7 +787,7 @@
 	icon_state = "beret_minmed"
 
 /obj/item/clothing/head/beret/mining_medic/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "берет шахтёрского врача",
 		GENITIVE = "берета шахтёрского врача",
 		DATIVE = "берету шахтёрского врача",

@@ -183,7 +183,7 @@
 	light_range = 2
 	light_color = COLOR_SOFT_RED
 	light_on = FALSE
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	armour_penetration = 20
 	var/on = FALSE
 	var/backstab_sound = 'sound/items/unsheath.ogg'
@@ -289,6 +289,7 @@
 	name = "survival pen"
 	desc = "The latest in portable survival technology, this pen was designed as a miniature diamond pickaxe."
 	icon_state = "digging_pen"
+	tool_behaviour = TOOL_MINING //For the classic "digging out of prison with a spoon but you're in space so this analogy doesn't work" situation.
 	toolspeed = 10 //You will never willingly choose to use one of these over a shovel.
 	colour = COLOR_BLUE
 	usesound = 'sound/effects/picaxe1.ogg'

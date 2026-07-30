@@ -6,6 +6,7 @@
 #define TOOL_WRENCH "wrench"
 #define TOOL_WELDER "welder"
 #define TOOL_ANALYZER "analyzer"
+#define TOOL_MINING "mining"
 
 // Surgery tools
 #define TOOL_RETRACTOR "retractor"
@@ -40,6 +41,12 @@ GLOBAL_LIST_INIT(surgery_tool_behaviors, list(
 #define CROWBAR_PRY_CIRCUIT_SUCCESS_MESSAGE balloon_alert_to_viewers("извлека[PLUR_ET_YUT(user)] плату", "плата извлечена")
 
 // Screwdriver messages
+#define SCREWDRIVER_ATTEMPT_SCREW_MESSAGE \
+	balloon_alert_to_viewers("начина[PLUR_ET_YUT(user)] закручивать...", "закручивание...");\
+	user.visible_message(blind_message = span_hear("Слышны звуки закручивания."));
+#define SCREWDRIVER_ATTEMPT_UNSCREW_MESSAGE \
+	balloon_alert_to_viewers("начина[PLUR_ET_YUT(user)] откручивать...", "откручивание...");\
+	user.visible_message(blind_message = span_hear("Слышны звуки откручивания."));
 #define SCREWDRIVER_SCREW_MESSAGE \
 	balloon_alert_to_viewers("затягива[PLUR_ET_YUT(user)] винты", "винты затянуты");\
 	user.visible_message(blind_message = span_hear("Слышны звуки закручивания."));
@@ -126,3 +133,13 @@ GLOBAL_LIST_INIT(surgery_tool_behaviors, list(
 
 /// Combination flag for any item interaction that blocks the rest of the attack chain
 #define ITEM_INTERACT_ANY_BLOCKER (ITEM_INTERACT_SUCCESS | ITEM_INTERACT_BLOCKING)
+
+// Used by the decal painter to get information about the decal being painted
+/// Icon state to paint
+#define DECAL_INFO_ICON_STATE "icon_state"
+/// Color to paint the decal with
+#define DECAL_INFO_COLOR "color"
+/// Dir of the decal sprite
+#define DECAL_INFO_DIR "dir"
+/// Alpha of the decal
+#define DECAL_INFO_ALPHA "alpha"

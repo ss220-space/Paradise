@@ -25,12 +25,11 @@
 	web_type = /obj/structure/spider/terrorweb/green
 	special_abillity = list(/obj/effect/proc_holder/spell/aoe/terror_healing)
 	spider_intro_text = "Будучи Лекарем Ужаса, ваша задача — исцелять других пауков и откладывать яйца. Чем больше трупов вы поглотили, тем эффективнее исцеление и тем больше яиц вы сможете отложить."
-	var/feedings_to_lay = 3
-	var/datum/action/innate/terrorspider/greeneggs/greeneggs_action
 	tts_seed = "Jolene"
+	var/feedings_to_lay = 3
 
 /mob/living/simple_animal/hostile/poison/terror_spider/healer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Лекарь Ужаса",
 		GENITIVE = "Лекаря Ужаса",
 		DATIVE = "Лекарю Ужаса",
@@ -46,10 +45,10 @@
 	melee_damage_lower = 20
 	melee_damage_upper = 25
 
-/mob/living/simple_animal/hostile/poison/terror_spider/healer/New()
-	..()
-	greeneggs_action = new()
-	greeneggs_action.Grant(src)
+/mob/living/simple_animal/hostile/poison/terror_spider/healer/Initialize(mapload)
+	. = ..()
+	var/datum/action/innate/terrorspider/greeneggs/act = new
+	act.Grant(src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/healer/proc/DoLayGreenEggs()
 	var/obj/structure/spider/eggcluster/E = locate() in get_turf(src)
@@ -141,7 +140,7 @@
 	desc = "Эта паутина частично состоит из нитей зелёной слизи."
 
 /obj/structure/spider/terrorweb/green/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "скользкая паутина",
 		GENITIVE = "скользкой паутины",
 		DATIVE = "скользкой паутине",

@@ -53,7 +53,8 @@
 	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/plasmaman
 
 	speciesbox = /obj/item/storage/box/survival/species/plasmaman
-	flesh_color = "#8b3fba"
+	flesh_color = BLOOD_COLOR_PLASMAMAN
+	//blood_color = BLOOD_COLOR_PLASMAMAN
 
 	toxic_food = NONE
 	disliked_food = NONE
@@ -69,6 +70,14 @@
 	autohiss_basic_map = list(
 		"s" = list("ss", "sss", "ssss"),
 		"с" = list("сс", "ссс", "сссс"),
+	)
+
+	max_select_skills = list(
+		/datum/skill/general/mod_use = 4,
+		/datum/skill/service/botany = 0,
+		/datum/skill/engineering/atmos = 4,
+		/datum/skill/medical/genetic = 0,
+		/datum/skill/medical/virusology = 0,
 	)
 
 /datum/species/plasmaman/on_species_gain(mob/living/carbon/human/H)

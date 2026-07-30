@@ -34,7 +34,6 @@
 	default_genes = list(/datum/dna/gene/basic/grant_spell/remotetalk)
 
 	inherent_traits = list(
-		TRAIT_WEAK_PULLING,
 		TRAIT_NO_VOCAL_CORDS,
 		TRAIT_HAS_LIPS,
 		TRAIT_HAS_REGENERATION,
@@ -49,7 +48,7 @@
 	reagent_tag = ORGANIC
 	flesh_color = "#a598ad"
 	blood_species = "Grey"
-	blood_color = "#A200FF"
+	blood_color = BLOOD_COLOR_GREY
 
 	disliked_food = SUGAR | FRIED
 	liked_food = VEGETABLES | GRAIN | MEAT
@@ -61,9 +60,21 @@
 		JOB_MIN_AGE_COMMAND = 13,
 	)
 
+	max_select_skills = list(
+		/datum/skill/general/carrying = 0,
+		/datum/skill/general/mech_drive = 3,
+		/datum/skill/service/drink_mixing = 1,
+		/datum/skill/service/cleaning = 1,
+		/datum/skill/combat/melee = 1,
+		/datum/skill/combat/fists = 1,
+		/datum/skill/medical/surgery = 3,
+		/datum/skill/medical/heal = 3,
+		/datum/skill/research/robotics = 3,
+	)
+
 /datum/species/grey/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
-	H.gene_stability += GREYS_ADDITIONAL_GENE_STABILITY
+	H.set_gene_stability(H.gene_stability + GREYS_ADDITIONAL_GENE_STABILITY)
 	RegisterSignal(H, COMSIG_SINK_ACT, PROC_REF(sink_act))
 
 /datum/species/grey/gain_muscles(mob/living/target, default, max_level, can_become_stronger)
@@ -71,7 +82,7 @@
 
 /datum/species/grey/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
-	H.gene_stability -= GREYS_ADDITIONAL_GENE_STABILITY
+	H.set_gene_stability(H.gene_stability - GREYS_ADDITIONAL_GENE_STABILITY)
 	UnregisterSignal(H, COMSIG_SINK_ACT)
 
 /datum/species/grey/handle_dna(mob/living/carbon/human/H, remove = FALSE)

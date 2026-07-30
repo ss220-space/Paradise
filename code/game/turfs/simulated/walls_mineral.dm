@@ -7,7 +7,7 @@
 	abstract_type = /turf/simulated/wall/mineral
 
 /turf/simulated/wall/mineral/add_debris_element()
-	AddElement(/datum/element/debris, DEBRIS_ROCK, -40, 5, 1)
+	generate_debris_handler(DEBRIS_ROCK, -40, 5, 1)
 
 /turf/simulated/wall/mineral/shuttleRotate(rotation)
 	return // This override is needed to properly rotate the object when on a shuttle that is rotated.
@@ -200,7 +200,7 @@
 	explosion_block = 0
 
 /turf/simulated/wall/mineral/wood/add_debris_element()
-	AddElement(/datum/element/debris, DEBRIS_WOOD, -40, 5)
+	generate_debris_handler(DEBRIS_WOOD, -40, 5)
 
 /turf/simulated/wall/mineral/wood/try_decon(obj/item/I, mob/user, params)
 	if(I.sharp && I.force)
@@ -351,7 +351,8 @@
 /turf/simulated/wall/mineral/titanium/nodecon/welder_act()
 	return
 
-/turf/simulated/wall/mineral/titanium/nodecon/rcd_deconstruct_act()
+/turf/simulated/wall/mineral/titanium/nodecon/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
+	balloon_alert(user, "нельзя деконструировать!")
 	return RCD_NO_ACT
 
 /////////////////////Plastitanium walls/////////////////////

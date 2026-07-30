@@ -32,7 +32,7 @@
 		return ..()
 
 /obj/item/reagent_containers/glass/paint/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ведро [paint_title_ru]",
 		GENITIVE = "ведра [paint_title_ru]",
 		DATIVE = "ведру [paint_title_ru]",
@@ -104,7 +104,7 @@
 	qdel(src)
 
 /obj/item/random_paint_box/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коробка красок",
 		GENITIVE = "коробки красок",
 		DATIVE = "коробке красок",

@@ -4,6 +4,7 @@
 	job_rank = ROLE_BORER
 	special_role = SPECIAL_ROLE_BORER
 	antag_menu_name = "Борер"
+	has_skill_bonus = FALSE
 	var/mob/living/simple_animal/borer/user
 	/// Rank of our borer
 	var/datum/borer_rank/borer_rank

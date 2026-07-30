@@ -7,11 +7,8 @@ SUBSYSTEM_DEF(throwing)
 	name = "Throwing"
 	priority = FIRE_PRIORITY_THROWING
 	wait = 1
-	flags = SS_NO_INIT|SS_KEEP_TIMING|SS_TICKER
+	ss_flags = SS_NO_INIT|SS_TICKER
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
-	offline_implications = "Thrown objects may not react properly. Shuttle call recommended."
-	cpu_display = SS_CPUDISPLAY_LOW
-	ss_id = "throwing"
 
 	var/list/currentrun
 	var/list/processing = list()
@@ -191,7 +188,7 @@ SUBSYSTEM_DEF(throwing)
 		 * If A will become X times bigger, T will become sqrt(X) times lower.
 		 */
 		if(!AM.no_gravity()) // If no gravity, it causes some problems. I think, it will work normally this way.
-			dist_travelled += 1 * sqrt(abs(AM.get_gravity()))
+			dist_travelled += 1 * sqrt(abs(AM.has_gravity()))
 
 		if(dist_travelled > MAX_THROWING_DIST)
 			finalize()

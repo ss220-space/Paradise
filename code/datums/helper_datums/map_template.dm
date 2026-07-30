@@ -17,7 +17,7 @@
 		name = rename
 
 /datum/map_template/proc/preload_size(path)
-	var/bounds = GLOB.maploader.load_map(wrap_file(path), 1, 1, 1, shouldCropMap = FALSE, measureOnly = TRUE)
+	var/bounds = GLOB.maploader.load_map(WRAP_FILE(path), 1, 1, 1, shouldCropMap = FALSE, measureOnly = TRUE)
 	if(bounds)
 		width = bounds[MAP_MAXX] // Assumes all templates are rectangular, have a single Z level, and begin at 1,1,1
 		height = bounds[MAP_MAXY]
@@ -72,6 +72,7 @@
 
 	SSicon_smooth.remove_halt_source(src)
 	GLOB.space_manager.remove_dirt(placement.z)
+	//SSlighting.setup_static_lighting_if_needed(block(bot_left, top_right))
 	var/datum/milla_safe_must_sleep/late_setup_level/milla = new()
 	milla.invoke_async(bot_left, top_right, block(ST_bot_left, ST_top_right))
 	add_game_logs("[name] loaded at [min_x],[min_y],[placement.z]")
@@ -81,7 +82,7 @@
 	if(mapfile)
 		. = mapfile
 	else if(mappath)
-		. = wrap_file(mappath)
+		. = WRAP_FILE(mappath)
 
 	if(!.)
 		stack_trace("  The file of [src] appears to be empty/non-existent.")

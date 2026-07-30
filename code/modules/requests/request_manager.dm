@@ -10,6 +10,8 @@
 #define REQUEST_HONK "request_honk"
 /// Requests for the nuke code
 #define REQUEST_NUKE "request_nuke"
+/// Requests to play an internet sound
+#define REQUEST_INTERNET_SOUND "request_internet_sound"
 
 GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 
@@ -34,106 +36,116 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
  * reference re-assigned to the 'owner' variable of any requests
  *
  * Arguments:
- * * C - The client who is logging in
+ * * requester - The client who is logging in
  */
-/datum/request_manager/proc/client_login(client/C)
-	if(!requests[C.ckey])
+/datum/request_manager/proc/client_login(client/requester)
+	if(!requests[requester.ckey])
 		return
-	for(var/datum/request/request as anything in requests[C.ckey])
-		request.owner = C
+	for(var/datum/request/request as anything in requests[requester.ckey])
+		request.owner = requester
 
 /**
  * Used in the destroy client pipeline to catch when clients are disconnecting and need to have their
  * reference nulled on the 'owner' variable of any requests
  *
  * Arguments:
- * * C - The client who is logging out
+ * * requester - The client who is logging out
  */
-/datum/request_manager/proc/client_logout(client/C)
-	if(!requests[C.ckey])
+/datum/request_manager/proc/client_logout(client/requester)
+	if(!requests[requester.ckey])
 		return
-	for(var/datum/request/request as anything in requests[C.ckey])
+	for(var/datum/request/request as anything in requests[requester.ckey])
 		request.owner = null
 
 /**
  * Creates a request for a prayer, and notifies admins who have the sound notifications enabled when appropriate
  *
  * Arguments:
- * * C - The client who is praying
+ * * requester - The client who is praying
  * * message - The prayer
  * * is_chaplain - Boolean operator describing if the prayer is from a chaplain
  */
-/datum/request_manager/proc/pray(client/C, message, is_chaplain)
-	request_for_client(C, REQUEST_PRAYER, message)
+/datum/request_manager/proc/pray(client/requester, message, is_chaplain)
+	request_for_client(requester, REQUEST_PRAYER, message)
 
 /**
  * Creates a request for a Centcom message
  *
  * Arguments:
- * * C - The client who is sending the request
+ * * requester - The client who is sending the request
  * * message - The message
  */
-/datum/request_manager/proc/message_centcom(client/C, message)
-	request_for_client(C, REQUEST_CENTCOM, message)
+/datum/request_manager/proc/message_centcom(client/requester, message)
+	request_for_client(requester, REQUEST_CENTCOM, message)
 
 /**
  * Creates a request for a Syndicate message
  *
  * Arguments:
- * * C - The client who is sending the request
+ * * requester - The client who is sending the request
  * * message - The message
  */
-/datum/request_manager/proc/message_syndicate(client/C, message)
-	request_for_client(C, REQUEST_SYNDICATE, message)
+/datum/request_manager/proc/message_syndicate(client/requester, message)
+	request_for_client(requester, REQUEST_SYNDICATE, message)
 
 /**
  * Creates a request for a ERT request
  *
  * Arguments:
- * * C - The client who is sending the request
+ * * requester - The client who is sending the request
  * * message - The message
  */
-/datum/request_manager/proc/request_ert(client/C, message)
-	request_for_client(C, REQUEST_ERT, message)
+/datum/request_manager/proc/request_ert(client/requester, message)
+	request_for_client(requester, REQUEST_ERT, message)
 
 /**
  * Creates a request for a Honk message
  *
  * Arguments:
- * * C - The client who is sending the request
+ * * requester - The client who is sending the request
  * * message - The message
  */
-/datum/request_manager/proc/message_honk(client/C, message)
-	request_for_client(C, REQUEST_HONK, message)
+/datum/request_manager/proc/message_honk(client/requester, message)
+	request_for_client(requester, REQUEST_HONK, message)
 
 /**
  * Creates a request for the nuclear self destruct codes
  *
  * Arguments:
- * * C - The client who is sending the request
+ * * requester - The client who is sending the request
  * * message - The message
  */
-/datum/request_manager/proc/nuke_request(client/C, message)
-	request_for_client(C, REQUEST_NUKE, message)
+/datum/request_manager/proc/nuke_request(client/requester, message)
+	request_for_client(requester, REQUEST_NUKE, message)
+
+/**
+ * Creates a request to play an internet sound
+ *
+ * Arguments:
+ * * requester - The client who is sending the request
+ * * message - The URL of the requested sound
+ */
+/datum/request_manager/proc/music_request(client/requester, message)
+	request_for_client(requester, REQUEST_INTERNET_SOUND, message)
 
 /**
  * Creates a request and registers the request with all necessary internal tracking lists
  *
  * Arguments:
- * * C - The client who is sending the request
+ * * requester - The client who is sending the request
  * * type - The type of request, see defines
  * * message - The message
  */
-/datum/request_manager/proc/request_for_client(client/C, type, message)
-	var/datum/request/request = new(C, type, message)
-	if(!requests[C.ckey])
-		requests[C.ckey] = list()
-	requests[C.ckey] += request
+/datum/request_manager/proc/request_for_client(client/requester, type, message)
+	var/datum/request/request = new(requester, type, message)
+	if(!requests[requester.ckey])
+		requests[requester.ckey] = list()
+	requests[requester.ckey] += request
 	requests_by_id.len++
 	requests_by_id[request.id] = request
 
-	var/data = " **\[[uppertext(replacetext(type, "request_", ""))]\]** [C.ckey]/([C?.mob?.name ? C.mob.name : "INVALID"]): [message]"
-	SSdiscord.send2discord_simple(DISCORD_WEBHOOK_REQUESTS, data)
+	var/data = " **\[[uppertext(replacetext(type, "request_", ""))]\]** [requester.ckey]/([requester?.mob?.name ? requester.mob.name : "INVALID"]): [message]"
+	GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_REQUESTS, data)
 
 /datum/request_manager/ui_state(mob/user)
 	return ADMIN_STATE(R_ADMIN)
@@ -256,6 +268,13 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 			to_chat(usr, "<b>The nuke code is: [get_nuke_code()]!</b>", confidential = TRUE)
 			return TRUE
 
+		if("play")
+			if(request.req_type != REQUEST_INTERNET_SOUND)
+				to_chat(usr, span_warning("This request has no sound to play."), confidential = TRUE)
+				return TRUE
+			web_sound(usr.client, request.message)
+			return TRUE
+
 /datum/request_manager/ui_data(mob/user)
 	. = list(
 		"requests" = list()
@@ -280,3 +299,4 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 #undef REQUEST_ERT
 #undef REQUEST_HONK
 #undef REQUEST_NUKE
+#undef REQUEST_INTERNET_SOUND

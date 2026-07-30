@@ -177,7 +177,7 @@
 /turf/simulated/floor/shuttle/syndicate,
 /area/shuttle/transport)
 "L" = (
-/obj/machinery/disco{
+/obj/machinery/jukebox/disco{
 	anchored = 1
 	},
 /turf/simulated/floor/shuttle/syndicate,

@@ -373,8 +373,7 @@ GLOBAL_LIST_EMPTY(closets)
 		bust_open()
 
 /obj/structure/closet/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
-	mouse_drop_receive(grabbed_thing, grabber)	//act like they were dragged onto the closet
-	return TRUE
+	return mouse_drop_receive(grabbed_thing, grabber) //act like they were dragged onto the closet
 
 /obj/structure/closet/attackby(obj/item/used, mob/user, params)
 	if(opened)
@@ -448,7 +447,8 @@ GLOBAL_LIST_EMPTY(closets)
 		return
 	if(opened)
 		WELDER_ATTEMPT_SLICING_MESSAGE
-		if(used.use_tool(src, user, 40, volume = used.tool_volume))
+		CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
+		if(used.use_tool(src, user, 4 SECONDS * construction_mod, volume = used.tool_volume))
 			WELDER_SLICING_SUCCESS_MESSAGE
 			deconstruct(TRUE)
 			return
@@ -461,7 +461,8 @@ GLOBAL_LIST_EMPTY(closets)
 			span_notice("You begin welding [src] [adjective]..."),
 			span_warning("You hear welding.")
 		)
-		if(used.use_tool(src, user, 15, volume = used.tool_volume))
+		CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
+		if(used.use_tool(src, user, 1.5 SECONDS * construction_mod, volume = used.tool_volume))
 			if(opened)
 				to_chat(user, span_notice("Keep [src] shut while doing that!"))
 				return
@@ -628,7 +629,7 @@ GLOBAL_LIST_EMPTY(closets)
 // Objects that try to exit a locker by stepping were doing so successfully,
 // and due to an oversight in turf/Enter() were going through walls.  That
 // should be independently resolved, but this is also an interesting twist.
-/obj/structure/closet/Exit(atom/movable/leaving, atom/newLoc)
+/obj/structure/closet/Exit(atom/movable/leaving, direction)
 	open()
 	if(leaving.loc == src)
 		return FALSE
@@ -739,7 +740,7 @@ GLOBAL_LIST_EMPTY(closets)
 
 /obj/structure/closet/singularity_act()
 	dump_contents()
-	..()
+	return ..()
 
 /obj/structure/closet/AllowDrop()
 	return TRUE

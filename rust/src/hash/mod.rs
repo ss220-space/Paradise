@@ -1,5 +1,7 @@
 use base64::Engine;
-use byondapi::value::ByondValue;
+use meowtonin::{byond_fn, ByondError, ByondResult, ByondValue, ToByond};
+use std::error::Error;
+
 use const_random::const_random;
 const XXHASH_SEED: u64 = const_random!(u64);
 use md5::Md5;
@@ -15,37 +17,36 @@ use std::{
 };
 use twox_hash::XxHash64;
 
-#[byondapi::bind]
-fn hash_string(algorithm: ByondValue, string: ByondValue) -> eyre::Result<ByondValue> {
-    Ok(string_hash(&algorithm.get_string()?, &string.get_string()?)?.try_into()?)
+#[byond_fn]
+fn hash_string(algorithm: ByondValue, string: ByondValue) -> ByondResult<ByondValue> {
+    string_hash(&algorithm.get_string()?, &string.get_string()?)?.to_byond()
 }
 
-#[byondapi::bind]
-fn decode_base64(string: ByondValue) -> eyre::Result<ByondValue> {
-    let decoded_bytes = base64::prelude::BASE64_STANDARD.decode(&string.get_string()?)?;
+#[byond_fn]
+fn decode_base64(string: ByondValue) -> ByondResult<ByondValue> {
+    let decoded_bytes = base64::prelude::BASE64_STANDARD
+        .decode(&string.get_string()?)
+        .map_err(ByondError::boxed)?;
 
     let mut list = ByondValue::new_list()?;
     for &byte in decoded_bytes.iter() {
-        let _ = list.push_list(ByondValue::from(byte as f32))?;
+        let _ = list.push_list(byte.to_byond()?)?;
     }
     Ok(list)
 }
 
-#[byondapi::bind]
-fn hash_file(algorithm: ByondValue, string: ByondValue) -> eyre::Result<ByondValue> {
-    Ok(file_hash(&algorithm.get_string()?, &string.get_string()?)?.try_into()?)
+#[byond_fn]
+fn hash_file(algorithm: ByondValue, string: ByondValue) -> ByondResult<ByondValue> {
+    file_hash(&algorithm.get_string()?, &string.get_string()?)?.to_byond()
 }
 
-#[byondapi::bind]
-fn generate_totp(hex_seed: ByondValue) -> eyre::Result<ByondValue> {
-    Ok(totp_generate(&hex_seed.get_string()?, 0, None)?.try_into()?)
+#[byond_fn]
+fn generate_totp(hex_seed: ByondValue) -> ByondResult<ByondValue> {
+    totp_generate(&hex_seed.get_string()?, 0, None)?.to_byond()
 }
 
-#[byondapi::bind]
-fn generate_totp_tolerance(
-    hex_seed: ByondValue,
-    tolerance: ByondValue,
-) -> eyre::Result<ByondValue> {
+#[byond_fn]
+fn generate_totp_tolerance(hex_seed: ByondValue, tolerance: ByondValue) -> ByondResult<ByondValue> {
     let tolerance_value: i32 = tolerance.get_number()? as i32;
     Ok(totp_generate_tolerance(
         &hex_seed.get_string()?,
@@ -54,7 +55,7 @@ fn generate_totp_tolerance(
     )?)
 }
 
-pub fn string_hash(algorithm: &str, string: &str) -> eyre::Result<String> {
+pub fn string_hash(algorithm: &str, string: &str) -> ByondResult<String> {
     let mut hasher = HashDispatcher::new(algorithm)?;
     hasher.update(string);
     Ok(hasher.finish())
@@ -64,13 +65,13 @@ const BUFFER_SIZE: usize = 65536;
 // don't allocate another buffer every time we hash a file, just reuse the same buffer.
 thread_local!( static FILE_HASH_BUFFER: RefCell<[u8; BUFFER_SIZE]> = const { RefCell::new([0; BUFFER_SIZE]) } );
 
-pub fn file_hash(algorithm: &str, path: &str) -> eyre::Result<String> {
+pub fn file_hash(algorithm: &str, path: &str) -> ByondResult<String> {
     let mut hasher = HashDispatcher::new(algorithm)?;
-    let mut file = File::open(path)?;
+    let mut file = File::open(path).map_err(ByondError::boxed)?;
 
     FILE_HASH_BUFFER.with_borrow_mut(|buffer| {
         loop {
-            let bytes_read = file.read(buffer)?;
+            let bytes_read = file.read(buffer).map_err(ByondError::boxed)?;
             if bytes_read == 0 {
                 break;
             }
@@ -86,11 +87,11 @@ fn totp_generate_tolerance(
     hex_seed: &str,
     tolerance: i32,
     time_override: Option<i64>,
-) -> eyre::Result<ByondValue> {
+) -> ByondResult<ByondValue> {
     let mut results: ByondValue = ByondValue::new_list()?;
     for i in -tolerance..(tolerance + 1) {
         let result = totp_generate(hex_seed, i.into(), time_override)?;
-        let _ = results.push_list(result.try_into()?);
+        let _ = results.push_list(result.to_byond()?);
     }
     Ok(results)
 }
@@ -99,12 +100,16 @@ fn totp_generate_tolerance(
 /// time_override is used as the current unix time instead of the current system time for testing
 /// TOTP algorithm described https://blogs.unimelb.edu.au/sciencecommunication/2021/09/30/totp/
 /// HMAC algorithm described https://csrc.nist.gov/csrc/media/publications/fips/198/1/final/documents/fips-198-1_final.pdf
-fn totp_generate(hex_seed: &str, offset: i64, time_override: Option<i64>) -> eyre::Result<String> {
+fn totp_generate(hex_seed: &str, offset: i64, time_override: Option<i64>) -> ByondResult<String> {
     let mut seed: [u8; 64] = [0; 64];
 
     match hex::decode_to_slice(hex_seed, &mut seed[..10] as &mut [u8]) {
         Ok(value) => value,
-        Err(_) => return Err(eyre::eyre!("HexDecode Error")),
+        Err(_) => {
+            return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                "HexDecode Error",
+            )))
+        }
     };
 
     let ipad: [u8; 64] = seed.map(|x| x ^ 0x36); // HMAC Step 4
@@ -155,7 +160,7 @@ enum HashDispatcher {
 }
 
 impl HashDispatcher {
-    fn new(name: &str) -> eyre::Result<Self> {
+    fn new(name: &str) -> ByondResult<Self> {
         match name {
             "md5" => Ok(Self::Md5(Md5::new())),
             "sha1" => Ok(Self::Sha1(Sha1::new())),
@@ -164,7 +169,9 @@ impl HashDispatcher {
             "xxh64" => Ok(Self::Xxh64(XxHash64::with_seed(XXHASH_SEED))),
             "xxh64_fixed" => Ok(Self::Xxh64(XxHash64::with_seed(17479268743136991876))), // this seed is just a random number that should stay the same between builds and runs
             "base64" => Ok(Self::Base64(Vec::new())),
-            _ => Err(eyre::eyre!("InvalidAlgorithm")),
+            _ => Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                "InvalidAlgorithm",
+            ))),
         }
     }
 

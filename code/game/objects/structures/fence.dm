@@ -55,7 +55,6 @@
 /obj/structure/fence/cut/medium
 	icon_state = "straight_cut2"
 	hole_size = MEDIUM_HOLE
-	climbable = TRUE
 
 /obj/structure/fence/cut/large
 	icon_state = "straight_cut3"
@@ -72,7 +71,8 @@
 	Totally not stolen from code\game\objects\structures\grille.dm
 */
 /obj/structure/fence/proc/shock(mob/user, prb)
-	if(!prob(prb))
+	CALCULATE_SKILL_MOD(user, ELECTRICITY_NEGATIVE_CHANCE_MOD, prob_mod)
+	if(!prob(prb * prob_mod))
 		return FALSE
 	if(!in_range(src, user)) //To prevent TK and mech users from getting shocked
 		return FALSE
@@ -168,14 +168,14 @@
 	switch(hole_size)
 		if(NO_HOLE)
 			icon_state = initial(icon_state)
-			climbable = FALSE
+			RemoveElement(/datum/element/climbable)
 		if(MEDIUM_HOLE)
 			icon_state = "straight_cut2"
-			climbable = TRUE
+			AddElement(/datum/element/climbable)
 		if(LARGE_HOLE)
 			icon_state = "straight_cut3"
 			new_density = FALSE
-			climbable = FALSE
+			RemoveElement(/datum/element/climbable)
 	set_density(new_density)
 
 //FENCE DOORS

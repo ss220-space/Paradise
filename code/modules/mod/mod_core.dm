@@ -94,7 +94,7 @@
 	var/obj/item/stock_parts/cell/cell
 
 /obj/item/mod/core/standard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "стандартное ядро МЭК",
 		GENITIVE = "стандартного ядра МЭК",
 		DATIVE = "стандартному ядру МЭК",
@@ -112,7 +112,7 @@
 	. = ..()
 	if(cell)
 		install_cell(cell)
-	RegisterSignal(mod, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(mod, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(mod, COMSIG_ATOM_ATTACK_HAND, PROC_REF(on_attack_hand))
 	RegisterSignal(mod, COMSIG_MOD_WEARER_SET, PROC_REF(on_wearer_set))
 	if(mod.wearer)
@@ -121,7 +121,7 @@
 /obj/item/mod/core/standard/uninstall()
 	if(!QDELETED(cell))
 		cell.forceMove(drop_location())
-	UnregisterSignal(mod, list(COMSIG_PARENT_EXAMINE, COMSIG_ATOM_ATTACK_HAND, COMSIG_MOD_WEARER_SET))
+	UnregisterSignal(mod, list(COMSIG_ATOM_EXAMINE, COMSIG_ATOM_ATTACK_HAND, COMSIG_MOD_WEARER_SET))
 	if(mod.wearer)
 		on_wearer_unset(mod, mod.wearer)
 	return ..()
@@ -289,7 +289,7 @@
 	var/list/charger_list = list(/obj/item/stack/ore/plasma, /obj/item/stack/sheet/mineral/plasma)
 
 /obj/item/mod/core/plasma/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плазменное ядро МЭК",
 		GENITIVE = "плазменного ядра МЭК",
 		DATIVE = "плазменному ядру МЭК",

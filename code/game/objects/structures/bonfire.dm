@@ -26,7 +26,7 @@
 	var/lighter
 
 /obj/structure/bonfire/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "костёр",
 		GENITIVE = "костра",
 		DATIVE = "костру",
@@ -187,6 +187,7 @@
 	bonfire_burn(seconds_per_tick)
 
 /obj/structure/bonfire/extinguish()
+	. = ..()
 	if(!burning)
 		return
 

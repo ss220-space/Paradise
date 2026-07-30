@@ -1,33 +1,9 @@
-// MARK: Rocket
-/obj/item/ammo_casing/rocket
-	name = "rocket shell"
-	desc = "Ракеты для стрельбы из ракетницы."
-	icon_state = "rocketshell"
-	materials = list(MAT_METAL = 10000)
-	caliber = CALIBER_ROCKET
-	projectile_type = /obj/item/missile
-	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
-	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
-	no_update_desc = TRUE
-	no_update_names = TRUE
-
-/obj/item/ammo_casing/rocket/get_ru_names()
-	return list(
-		NOMINATIVE = "ракета",
-		GENITIVE = "ракеты",
-		DATIVE = "ракете",
-		ACCUSATIVE = "ракету",
-		INSTRUMENTAL = "ракетой",
-		PREPOSITIONAL = "ракете",
-	)
-
 // MARK: 84mm HE
 /obj/item/ammo_casing/caseless/rocket
 	ammo_marking = "84 мм HE"
 	desc = "Осколочно-фугасная ракета. Предназначена для поражения пехоты."
 	caliber = CALIBER_84MM
 	w_class = WEIGHT_CLASS_NORMAL //thats the rocket!
-	icon = 'icons/obj/weapons/guns/projectiles.dmi'
 	icon_state = "84mm-he"
 	projectile_type = /obj/projectile/bullet/a84mm_he
 	casing_drop_sound = 'sound/weapons/gun_interactions/shotgun_fall.ogg'	// better than default casing but not ideal
@@ -37,6 +13,14 @@
 	desc = "Кумулятивно-осколочная ракета двойного назначения. Предназначена для поражения бронированной техники и тяжёлых экзоскелетов."
 	icon_state = "84mm-hedp"
 	projectile_type = /obj/projectile/bullet/a84mm_hedp
+
+// MARK: 70mm HE
+/obj/item/ammo_casing/caseless/rocket/a70mm_he
+	ammo_marking = "70 мм HE"
+	desc = "Осколочно-фугасная ракета малого калибра. Предназначена для поражения пехоты."
+	caliber = CALIBER_ROCKET_70MM
+	icon_state = "70mm-he"
+	projectile_type = /obj/projectile/bullet/a70mm_he
 
 // MARK: 40mm HE
 /obj/item/ammo_casing/a40mm
@@ -49,7 +33,7 @@
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
 /obj/item/ammo_casing/a40mm/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "выстрел [ammo_marking]",
 		GENITIVE = "выстрела [ammo_marking]",
 		DATIVE = "выстрелу [ammo_marking]",

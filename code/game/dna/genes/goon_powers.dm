@@ -168,18 +168,6 @@
 		C.visible_message(span_warning("[user] распыля[PLUR_ET_YUT(user)] облако мелких ледяных кристаллов, поглощая [C]!"))
 		add_attack_logs(user, C, "Cryokinesis- NO SUIT/INTERNALS")
 
-/obj/effect/self_deleting
-	icon = null
-	desc = ""
-	//layer = 15
-
-/obj/effect/self_deleting/New(atom/location, icon/I, duration = 20, oname = "something")
-	. = ..()
-	name = oname
-	loc=location
-	icon = I
-	QDEL_IN(src, duration)
-
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 // WAS: /datum/bioEffect/mattereater
@@ -337,6 +325,8 @@
 							span_notice("Вы слышите, как напрягаются мощные мышцы, и внезапно раздается грохот, когда тело падает на пол."))
 			return FALSE
 		var/prevLayer = user.layer
+		var/old_pixel_x = user.pixel_x
+		var/old_pixel_y = user.pixel_y
 		user.layer = LOW_LANDMARK_LAYER
 
 		ADD_TRAIT(user, TRAIT_MOVE_FLYING, SPELL_LEAP_TRAIT)
@@ -357,6 +347,8 @@
 			user.AdjustWeakened(20 SECONDS)
 
 		user.layer = prevLayer
+		user.pixel_x = old_pixel_x
+		user.pixel_y = old_pixel_y
 
 	if(isobj(user.loc))
 		var/obj/container = user.loc

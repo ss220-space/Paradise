@@ -128,21 +128,16 @@
 				return
 			var/mob/living/living = target
 			visible_message(span_warning("[user]'s [src] sparks for a moment with bright light!"))
-			user.mob_light(LIGHT_COLOR_HOLY_MAGIC, 3, _duration = 2) //No questions
+			user.mob_light(LIGHT_COLOR_HOLY_MAGIC, 3, duration = 2) //No questions
 
 			if(living.null_rod_check())
 				visible_message(span_warning("[target]'s holy weapon absorbs the light!"))
 				deplete_spell()
 				return
 
-			if(ismindshielded(living))
-				target.visible_message(span_warning("Имплант [target.declent_ru(GENITIVE)] блокирует свет!"))
-				return
-
 			living.Knockdown(3 SECONDS)
 			living.apply_damage(55, STAMINA)
-			if(!ismindshielded(living))
-				living.apply_status_effect(STATUS_EFFECT_STAMINADOT)
+			living.apply_status_effect(STATUS_EFFECT_STAMINADOT)
 			living.flash_eyes(1, TRUE)
 			if(isrobot(living))
 				var/mob/living/silicon/robot/robot = living
@@ -232,12 +227,14 @@
 	attack_verb = list("уколол", "ткнул", "полоснул")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	w_class = WEIGHT_CLASS_HUGE
-	block_chance = 20
 	needs_permit = TRUE
 
 /obj/item/twohanded/ratvarian_spear/Initialize(mapload)
 	. = ..()
 	enchants = GLOB.spear_spells
+
+/obj/item/twohanded/ratvarian_spear/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2.5, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (2 / 3) SECONDS ) // 0.666667 seconds for 60% uptime.
 
 /obj/item/twohanded/ratvarian_spear/update_icon_state()
 	icon_state = "ratvarian_spear[HAS_TRAIT(src, TRAIT_WIELDED)]"
@@ -321,12 +318,14 @@
 	force = 25
 	armour_penetration = 30
 	sharp = TRUE
-	block_chance = 25
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
 /obj/item/clock_borg_spear/Initialize(mapload)
 	. = ..()
 	enchants = GLOB.spear_spells
+
+/obj/item/clock_borg_spear/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2.2, _stamina_coefficient = 0.45, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (2 / 3) SECONDS ) // 0.666667 seconds for 60% uptime.
 
 /obj/item/clock_borg_spear/update_overlays()
 	. = ..()
@@ -377,11 +376,13 @@
 	throwforce = 40
 	w_class = WEIGHT_CLASS_HUGE
 	needs_permit = TRUE
-	block_chance = 25
 
 /obj/item/twohanded/clock_hammer/Initialize(mapload)
 	. = ..()
 	enchants = GLOB.hammer_spells
+
+/obj/item/twohanded/clock_hammer/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2.2, _stamina_coefficient = 0.45, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (2 / 3) SECONDS ) // 0.666667 seconds for 60% uptime.
 
 /obj/item/twohanded/clock_hammer/ComponentInitialize()
 	. = ..()
@@ -566,16 +567,16 @@
 	if(isclocker(target))
 		return
 	if(ishuman(target) && enchant_type == BLOODSHED_SPELL)
-		var/mob/living/carbon/human/human = target
-		var/obj/item/organ/external/bodypart = pick(human.bodyparts)
+		var/mob/living/carbon/human/human_target = target
+		var/obj/item/organ/external/bodypart = pick(human_target.bodyparts)
 		if(bodypart.internal_bleeding())
-			to_chat(user, span_warning("You tear through [human]'s skin releasing the blood from [human.p_their()] [bodypart.name]!"))
-			playsound(get_turf(human), 'sound/effects/pierce.ogg', 30, TRUE)
-			human.setBlood(max(human.blood_volume - 100, 0))
-			var/splatter_dir = get_angle(user, human)
-			blood_color = human.dna.species.blood_color
-			new /obj/effect/temp_visual/dir_setting/bloodsplatter(human.drop_location(), splatter_dir, blood_color)
-			human.emote("scream")
+			to_chat(user, span_warning("You tear through [human_target]'s skin releasing the blood from [human_target.p_their()] [bodypart.name]!"))
+			playsound(get_turf(human_target), 'sound/effects/pierce.ogg', 30, TRUE)
+			human_target.setBlood(max(human_target.blood_volume - 100, 0))
+			var/splatter_color = human_target.get_blood_color()
+			if(splatter_color)
+				new /obj/effect/temp_visual/dir_setting/bloodsplatter(human_target.drop_location(), get_angle(user, human_target), splatter_color)
+			human_target.emote("scream")
 			deplete_spell()
 	if(swordsman)
 		user.changeNext_move(CLICK_CD_RAPID)
@@ -601,11 +602,13 @@
 	throw_range = 3
 	attack_verb = list("стукнул", "толкнул", "долбанул", "ударил")
 	hitsound = 'sound/weapons/smash.ogg'
-	block_chance = 55
 
 /obj/item/shield/clock_buckler/Initialize(mapload)
 	. = ..()
 	enchants = GLOB.shield_spells
+
+/obj/item/shield/clock_buckler/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.4, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/shield/clock_buckler/update_overlays()
 	. = ..()
@@ -857,8 +860,8 @@
 		playsound(loc, "sparks", 100, TRUE)
 		new /obj/effect/temp_visual/ratvar/sparks(get_turf(owner))
 		deplete_spell()
-		return TRUE
-	return FALSE
+		return HIT_RESULT_SUCCESS
+	return HIT_RESULT_FAILED
 
 /obj/item/clothing/suit/armor/clockwork/IsReflect(def_zone)
 	if(!ishuman(loc))
@@ -1384,7 +1387,7 @@
 			if(TIME_SPELL)
 				add_attack_logs(user, user, "Time stopped with [src]")
 				qdel(src)
-				new /obj/effect/timestop/clockwork(get_turf(user), null, null, list(user))
+				new /obj/effect/timestop/slowing(get_turf(user), null, null, list(user))
 			if(RECONSTRUCT_SPELL)
 				add_attack_logs(user, user, "Reconstructed with [src]")
 				qdel(src)
@@ -1579,7 +1582,7 @@
 	. = ..()
 	playsound(src, soundin = 'sound/magic/clockwork/heart_beat.ogg', vol = 100, vary = FALSE, extrarange = radius, pressure_affected = FALSE, falloff_distance = radius)
 
-/obj/effect/temp_visual/ratvar/reconstruct/heart_pulse/New()
+/obj/effect/temp_visual/ratvar/reconstruct/heart_pulse/Initialize(mapload)
 	radius = GLOB.heart.pulse_range
 	sleep_time = 1 * GLOB.heart.pulse_range
 	duration = 1 * GLOB.heart.pulse_range

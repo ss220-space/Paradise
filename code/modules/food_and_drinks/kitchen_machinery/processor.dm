@@ -15,7 +15,7 @@
 	var/rating_amount = 0
 
 /obj/machinery/processor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кухонный комбайн",
 		GENITIVE = "кухонного комбайна",
 		DATIVE = "кухонному комбайну",
@@ -45,7 +45,7 @@
 		return
 	var/mob/living/simple_animal/slime/picked_slime
 	for(var/mob/living/simple_animal/slime/slime in range(1, src))
-		if(!slime.IsReachableBy(src)) //don't take slimes behind glass panes or somesuch; also makes it ignore slimes inside the processor
+		if(slime.loc == src)
 			continue
 		if(slime.stat)
 			picked_slime = slime

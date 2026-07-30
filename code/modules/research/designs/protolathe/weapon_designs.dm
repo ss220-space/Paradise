@@ -181,10 +181,10 @@
 
 /datum/design/stunrevolver
 	id = "stunrevolver"
-	req_tech = list(RESEARCH_TREE_COMBAT = 4, RESEARCH_TREE_MATERIALS = 4, RESEARCH_TREE_POWERSTORAGE = 5)
+	req_tech = list(RESEARCH_TREE_COMBAT = 6, RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_POWERSTORAGE = 5)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 10000, MAT_GLASS = 10000, MAT_SILVER = 10000)
-	build_path = /obj/item/gun/energy/shock_revolver
+	materials = list(MAT_METAL = SHEET_MATERIAL_AMOUNT * 5, MAT_GLASS = SHEET_MATERIAL_AMOUNT * 5, MAT_SILVER = SHEET_MATERIAL_AMOUNT * 5)
+	build_path = /obj/item/gun/energy/tesla_cannon
 	locked = TRUE
 	category = list(PROTOLATHE_CATEGORY_WEAPON)
 
@@ -384,7 +384,7 @@
 	req_tech = list(RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_PROGRAMMING = 7, RESEARCH_TREE_ILLEGAL = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 3000)
-	build_path = /obj/item/camera_bug
+	build_path = /obj/item/camera_bug/syndicate
 	locked = TRUE
 	category = list(PROTOLATHE_CATEGORY_ILLEGAL)
 
@@ -500,4 +500,13 @@
 	materials = list(MAT_SILVER = 6000, MAT_TITANIUM = 4000, MAT_PLASMA = 4000)
 	build_path = /obj/item/gun/energy/plasma_pistol
 	locked = TRUE
+	category = list(PROTOLATHE_CATEGORY_WEAPON)
+
+/datum/design/v1_arm
+	id = "v1_arm"
+	req_tech = list(RESEARCH_TREE_COMBAT = 7, RESEARCH_TREE_MAGNETS = 6, RESEARCH_TREE_ENGINEERING = 6, RESEARCH_TREE_BIOTECH = 7)
+	build_type = PROTOLATHE
+	materials = list(MAT_GOLD = 5000, MAT_URANIUM = 4000, MAT_METAL = 10000, MAT_TITANIUM = 2000, MAT_BLUESPACE = 2000)
+	reagents_list = list("blood" = 50)
+	build_path = /obj/item/v1_arm_shell
 	category = list(PROTOLATHE_CATEGORY_WEAPON)

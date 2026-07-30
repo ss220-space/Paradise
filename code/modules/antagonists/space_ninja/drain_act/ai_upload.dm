@@ -18,7 +18,7 @@
 	if(objective.completed)
 		to_chat(ninja, span_warning("Вы уже заразили их системы вирусом. Повторная установка ничего не даст!"))
 		return INVALID_DRAIN
-	if(!istype(get_area(src), /area/turret_protected/ai_upload))
+	if(!istype(get_area(src), /area/station/ai/upload/chamber))
 		to_chat(usr, span_warning("Консоль в этой зоне не подключена к необходимому бэкдору. Вирус не возымеет эффекта!"))
 		return INVALID_DRAIN
 

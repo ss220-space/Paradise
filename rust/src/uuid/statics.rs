@@ -1,4 +1,5 @@
-use byondapi::value::ByondValue;
+use meowtonin::ByondValue;
+
 use slotmap::{DefaultKey, SlotMap};
 use std::cell::RefCell;
 

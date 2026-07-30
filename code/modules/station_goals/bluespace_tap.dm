@@ -91,11 +91,11 @@
 		/obj/item/toy/katana = 10,
 		/obj/item/stack/sheet/mineral/abductor/fifty = 20,
 		/obj/item/sord = 20,
-		/obj/item/toy/syndicateballoon = 15,
+		/obj/item/toy/balloon/syndicate = 15,
 		/obj/item/lighter/zippo/gonzofist = 5,
 		/obj/item/lighter/zippo/engraved = 5,
 		/obj/item/lighter/zippo/nt_rep = 5,
-		/obj/item/gun/projectile/automatic/c20r/toy = 1,
+		/obj/item/gun/projectile/automatic/smg/c20r/toy = 1,
 		/obj/item/gun/projectile/automatic/l6_saw/toy = 1,
 		/obj/item/gun/projectile/automatic/toy/pistol = 2,
 		/obj/item/gun/projectile/automatic/toy/pistol/enforcer/riot = 1,
@@ -108,7 +108,6 @@
 		/obj/item/clothing/head/kitty = 5,
 		/obj/item/coin/antagtoken = 5,
 		/obj/item/toy/prizeball/figure = 15,
-		/obj/item/toy/prizeball/therapy = 10,
 		/obj/item/bedsheet/patriot = 2,
 		/obj/item/bedsheet/rainbow = 2,
 		/obj/item/bedsheet/captain = 2,
@@ -245,7 +244,7 @@
 	var/safe_levels = 10
 
 /obj/machinery/power/bluespace_tap/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "блюспейс сборщик",
 		GENITIVE = "блюспейс сборщика",
 		DATIVE = "блюспейс сборщику",

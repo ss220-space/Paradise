@@ -244,20 +244,20 @@
 			brainmob.emp_damage += rand(0, 10)
 	..()
 
-/obj/item/mmi/robotic_brain/New()
+/obj/item/mmi/robotic_brain/Initialize(mapload)
+	. = ..()
 	brainmob = new(src)
 	brainmob.name = "[pick(list("PBU", "HIU", "SINA", "ARMA", "OSI"))]-[rand(100, 999)]"
 	brainmob.real_name = brainmob.name
 	brainmob.container = src
 	brainmob.forceMove(src)
-	brainmob.stat = CONSCIOUS
+	brainmob.set_stat(CONSCIOUS)
 	brainmob.SetSilence(0)
 	brainmob.dna = new(brainmob)
 	brainmob.dna.species = new /datum/species/machine() // Else it will default to human. And we don't want to clone IRC humans now do we?
 	brainmob.dna.ResetSE()
 	brainmob.dna.ResetUI()
 	brainmob.remove_from_dead_mob_list()
-	..()
 
 /obj/item/mmi/robotic_brain/attack_ghost(mob/dead/observer/O)
 	if(searching)

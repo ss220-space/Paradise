@@ -1,22 +1,39 @@
-/mob/Destroy()//This makes sure that mobs with clients/keys are not just deleted from the game.
+// This makes sure that mobs with clients/keys are not just deleted from the game.
+/mob/Destroy()
 	persistent_client?.set_mob(null)
 	remove_from_mob_list()
 	remove_from_alive_mob_list()
 	remove_from_dead_mob_list()
 	focus = null
+	if(s_active)
+		s_active.close(src)
 	for(var/mob/dead/observer/observe in orbiters)
 		if(!istype(observe))
 			continue
 		observe.stop_orbit()
 		observe.reset_perspective(null)
+
+	for(var/mob/dead/observer/ghost as anything in inventory_observers)
+		ghost.handle_when_autoobserve_move()
+
 	QDEL_NULL(hud_used)
 	lose_hearing_sensitivity()
 	if(mind && mind.current == src)
 		spellremove(src)
 	mobspellremove(src)
 	QDEL_LIST(diseases)
+	for(var/datum/action/action in actions)
+		action.HideFrom(src)
+		action.clear_ref(src)
+	LAZYCLEARLIST(actions)
+
+	if(length(progressbars))
+		stack_trace("[src] destroyed with elements in its progressbars list")
+		progressbars = null
+
 	for(var/alert in alerts)
-		clear_alert(alert)
+		clear_alert(alert, TRUE)
+
 	if(client)
 		clear_client_in_contents()
 	ghostize()
@@ -29,6 +46,9 @@
 
 	if(mind?.current == src)
 		mind.current = null
+
+	LAZYCLEARLIST(screens)
+	clear_fullscreens()
 
 	key = null
 	ckey = null
@@ -154,7 +174,7 @@
 			type = alt_type
 			. = FALSE
 
-		if(type & EMOTE_AUDIBLE && !can_hear())	//Hearing related
+		if(type & EMOTE_AUDIBLE && HAS_TRAIT(src, TRAIT_DEAF))	//Hearing related
 			if(!alt_msg)
 				return FALSE
 			msg = alt_msg
@@ -340,7 +360,6 @@
  */
 /mob/proc/reset_perspective(atom/new_eye)
 	SHOULD_CALL_PARENT(TRUE)
-	SEND_SIGNAL(src, COMSIG_MOB_RESET_PERSPECTIVE)
 	if(!client)
 		return
 
@@ -372,7 +391,8 @@
 		else
 			client.perspective = EYE_PERSPECTIVE
 			client.set_eye(loc)
-
+	/// Signal sent after the eye has been successfully updated, with the client existing.
+	SEND_SIGNAL(src, COMSIG_MOB_RESET_PERSPECTIVE)
 	return TRUE
 
 /mob/living/reset_perspective(atom/new_eye)
@@ -399,9 +419,6 @@
 		if(hud_used)
 			client.clear_screen()
 			hud_used.show_hud(hud_used.hud_version)
-		if(!new_eye)
-			client.set_eye(src)
-			client.perspective = MOB_PERSPECTIVE
 
 /mob/proc/clear_client_in_contents()
 	if(!client?.movingmob)
@@ -445,7 +462,7 @@
 			var/list/result = examinify.examine_more(src)
 			if(!length(result))
 				result += span_notice("<i>Вы внимательно осматриваете [examinify.declent_ru(ACCUSATIVE)], но не замечаете новых деталей...</i>")
-			result_combined = chat_box_examine(jointext(result, "<br>"))
+			result_combined = boxed_message(jointext(result, "<br>"))
 		else
 			client.recent_examines[ref_to_atom] = world.time // set to when we last normal examine'd them
 			addtimer(CALLBACK(src, PROC_REF(clear_from_recent_examines), ref_to_atom), RECENT_EXAMINE_MAX_WINDOW)
@@ -457,7 +474,7 @@
 		examining(examinify, result)
 		SEND_SIGNAL(src, COMSIG_MOB_EXAMINING, examinify, result)
 		result += span_notice("<i>Вы можете <a href='byond://?src=[UID()];run_examinate=[examinify.UID()]'>осмотреть</a> [examinify.declent_ru(ACCUSATIVE)] более тщательно...</i>")
-		result_combined = (atom_title ? fieldset_block("[atom_title].", jointext(result, "<br>"), "boxed_message left_align_text") : chat_box_examine(jointext(result, "<br>")))
+		result_combined = (atom_title ? fieldset_block("[atom_title].", jointext(result, "<br>"), "boxed_message left_align_text") : boxed_message(jointext(result, "<br>")))
 
 	to_chat(src, span_infoplain(result_combined))
 	SEND_SIGNAL(src, COMSIG_MOB_EXAMINATE, examinify)
@@ -557,16 +574,16 @@
 
 	// check to see if their face is blocked or, if not, a signal blocks it
 	if(examined_mob.can_eye_contact() && SEND_SIGNAL(src, COMSIG_MOB_EYECONTACT, examined_mob, TRUE) != COMSIG_BLOCK_EYECONTACT)
-		var/obj/item/clothing/eye_cover = examined_mob.is_eyes_covered()
-		if(!eye_cover || (!eye_cover.tint && !eye_cover.flash_protect))
+		var/obj/item/clothing/eye_cover = examined_mob.get_item_by_slot(ITEM_SLOT_EYES)
+		if(!istype(eye_cover) || (!eye_cover.tint && !eye_cover.flash_protect))
 			var/msg = span_smallnotice("Вы встречаетесь взглядом с [examined_mob.declent_ru(INSTRUMENTAL)].")
 			addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), src, msg), 0.3 SECONDS) // so the examine signal has time to fire and this will print after
 
 	if(!(!imagined_eye_contact && can_eye_contact() && !examined_mob.is_blind() && SEND_SIGNAL(examined_mob, COMSIG_MOB_EYECONTACT, src, FALSE) != COMSIG_BLOCK_EYECONTACT))
 		return
 
-	var/obj/item/clothing/eye_cover = is_eyes_covered()
-	if(!eye_cover || (!eye_cover.tint && !eye_cover.flash_protect))
+	var/obj/item/clothing/eye_cover = get_item_by_slot(ITEM_SLOT_EYES)
+	if(!istype(eye_cover) || (!eye_cover.tint && !eye_cover.flash_protect))
 		var/msg = span_smallnotice("[DECLENT_RU_CAP(src, NOMINATIVE)] встреча[PLUR_ET_YUT(src)]ся с вами взглядом.")
 		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), examined_mob, msg), 0.3 SECONDS)
 
@@ -738,7 +755,7 @@
 		add_game_logs("respawn failed due to disconnect.", usr)
 		return
 
-	GLOB.respawnable_list -= usr
+	usr.remove_from_respawnable_list()
 	var/mob/new_player/M = new /mob/new_player()
 	if(!client)
 		add_game_logs("respawn failed due to disconnect.", usr)
@@ -746,7 +763,7 @@
 		return
 
 	M.possess_by_player(key)
-	GLOB.respawnable_list += usr
+	usr.add_to_respawnable_list()
 	return
 
 /mob/proc/is_dead()
@@ -782,7 +799,7 @@
 
 /mob/mouse_drop_dragged(atom/over_object, mob/living/user, src_location, over_location, params)
 	if(user == src || over_object != user || !HAS_TRAIT(user, TRAIT_CAN_STRIP))
-		return 
+		return
 	if(!user.can_strip || isliving(user) && user.mob_size <= MOB_SIZE_SMALL)
 		return // Stops pAI drones and small mobs (borers, parrots, crabs) from stripping people. --DZD
 	if(IsFrozen(src) && !is_admin(user))
@@ -790,7 +807,6 @@
 		return
 	if(isLivingSSD(src) && user.client?.send_ssd_warning(src))
 		return
-	SEND_SIGNAL(src, COMSIG_MOUSEDROP_ONTO, user, user)
 
 /**
  * Checks whether a mob can perform an action to interact with an object
@@ -833,7 +849,7 @@
 
 	// They should be in a cell or the Brig portion of the shuttle.
 	var/area/A = loc.loc
-	if(!istype(A, /area/security/prison))
+	if(!istype(A, /area/station/security/prison))
 		if(!istype(A, /area/shuttle/escape) || loc.name != "Brig floor")
 			return 0
 
@@ -950,7 +966,7 @@
 		return
 
 	to_chat(usr, span_notice(message))
-	GLOB.respawnable_list -= usr
+	usr.remove_from_respawnable_list()
 	picked_mob.possess_by_player(key)
 
 /mob/proc/become_mouse()
@@ -963,7 +979,7 @@
 	//find a viable mouse candidate
 	var/list/found_vents = get_valid_vent_spawns(min_network_size = 0)
 	if(length(found_vents))
-		GLOB.respawnable_list -= src
+		remove_from_respawnable_list()
 		client.time_joined_as_mouse = world.time
 		var/obj/vent_found = pick(found_vents)
 		var/choosen_type = prob(90) ? /mob/living/simple_animal/mouse : /mob/living/simple_animal/mouse/rat
@@ -1157,36 +1173,6 @@
 
 	target += new_log
 
-/mob/vv_get_dropdown()
-	. = ..()
-	.["Show player panel"] = "byond://?_src_=vars;mob_player_panel=[UID()]"
-
-	.["Give Spell"] = "byond://?_src_=vars;give_spell=[UID()]"
-	.["Give Martial Art"] = "byond://?_src_=vars;givemartialart=[UID()]"
-	.["Give Disease"] = "byond://?_src_=vars;give_disease=[UID()]"
-	.["Give Taipan Hud"] = "byond://?_src_=vars;give_taipan_hud=[UID()]"
-	.["Toggle Godmode"] = "byond://?_src_=vars;godmode=[UID()]"
-	.["Toggle Build Mode"] = "byond://?_src_=vars;build_mode=[UID()]"
-
-	.["Make 2spooky"] = "byond://?_src_=vars;make_skeleton=[UID()]"
-
-	.["Assume Direct Control"] = "byond://?_src_=vars;direct_control=[UID()]"
-	.["Offer Control to Ghosts"] = "byond://?_src_=vars;offer_control=[UID()]"
-	.["Drop Everything"] = "byond://?_src_=vars;drop_everything=[UID()]"
-
-	.["Regenerate Icons"] = "byond://?_src_=vars;regenerateicons=[UID()]"
-	.["Add Language"] = "byond://?_src_=vars;addlanguage=[UID()]"
-	.["Remove Language"] = "byond://?_src_=vars;remlanguage=[UID()]"
-	.["Grant All Language"] = "byond://?_src_=vars;grantalllanguage=[UID()]"
-	.["Change Voice"] = "byond://?_src_=vars;changevoice=[UID()]"
-	.["Add Organ"] = "byond://?_src_=vars;addorgan=[UID()]"
-	.["Remove Organ"] = "byond://?_src_=vars;remorgan=[UID()]"
-
-	.["Add Verb"] = "byond://?_src_=vars;addverb=[UID()]"
-	.["Remove Verb"] = "byond://?_src_=vars;remverb=[UID()]"
-
-	.["Gib"] = "byond://?_src_=vars;gib=[UID()]"
-
 ///Can this mob resist (default FALSE)
 /mob/proc/can_resist()
 	return FALSE		//overridden in living.dm
@@ -1245,6 +1231,7 @@
 	return FALSE
 
 /mob/proc/update_sight()
+	//SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
 
@@ -1268,6 +1255,7 @@
 		vision_type = new O
 		for(var/mob/dead/observer/observe as anything in inventory_observers)
 			if(!observe.client)
+				observe.handle_when_autoobserve_move()
 				LAZYREMOVE(inventory_observers, observe)
 				continue
 			observe.vision_type = vision_type
@@ -1276,7 +1264,7 @@
 /mob/proc/sync_lighting_plane_alpha()
 	if(!hud_used)
 		return
-	for(var/atom/movable/screen/plane_master/rendering_plate/lighting/light_plane in hud_used.get_true_plane_masters(RENDER_PLANE_LIGHTING))
+	for(var/atom/movable/screen/plane_master/rendering_plate/lighting/light_plane as anything in hud_used.get_true_plane_masters(RENDER_PLANE_LIGHTING))
 		light_plane.set_alpha(lighting_alpha)
 
 	sync_nightvision_screen() //Sync up the overlay used for nightvision to the amount of see_in_dark a mob has. This needs to be called everywhere sync_lighting_plane_alpha() is.
@@ -1302,25 +1290,6 @@
 /mob/proc/set_nutrition(change, forced)
 	nutrition = max(0, change)
 
-/mob/clean_blood(clean_hands = TRUE, clean_mask = TRUE, clean_feet = TRUE)
-	. = ..()
-	if(bloody_hands && clean_hands)
-		bloody_hands = 0
-		update_worn_gloves()
-	if(l_hand?.clean_blood() || r_hand?.clean_blood())
-		update_held_items()
-	if(back?.clean_blood())
-		update_worn_back()
-	if(clean_mask && wear_mask?.clean_blood())
-		update_worn_mask()
-	if(clean_feet)
-		feet_blood_color = null
-		feet_blood_DNA = null
-		bloody_feet = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0,  BLOOD_STATE_NOT_BLOODY = 0)
-		blood_state = BLOOD_STATE_NOT_BLOODY
-		update_worn_shoes()
-	update_icons()	//apply the now updated overlays to the mob
-
 ///Makes a call in the context of a different usr. Use sparingly
 /world/proc/invoke_callback_with_usr(mob/user_mob, datum/callback/invoked_callback, ...)
 	var/temp = usr
@@ -1332,8 +1301,8 @@
 	usr = temp
 
 GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
-	/area/chapel,
-	/area/maintenance/chapel
+	/area/station/service/chapel,
+	/area/station/maintenance/chapel
 )))
 
 /mob/proc/holy_check()
@@ -1513,3 +1482,37 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 
 /mob/compressor_grind()
 	gib()
+
+/**
+ * Checks if there is enough light where the mob is located
+ *
+ * Args:
+ *  light_amount (optional) - A decimal amount between 1.0 through 0.0 (default is 0.2)
+ */
+/mob/proc/has_light_nearby(light_amount = LIGHTING_TILE_IS_DARK)
+	var/turf/mob_location = get_turf(src)
+	var/area/mob_area = get_area(src)
+
+	if(mob_location.get_lumcount() > light_amount)
+		return TRUE
+	else if(!mob_area.static_lighting)
+		return TRUE
+
+	return FALSE
+
+/**
+ * Helpful for when a players uplink window gets glitched to above their screen.
+ * preventing them from moving the UPLINK window.
+ */
+/mob/verb/reset_ui_positions_for_mob()
+	set name = "Reset UI Positions"
+	set category = VERB_CATEGORY_SPECIALVERBS
+	SStgui.reset_ui_position(src)
+
+/mob/proc/add_to_respawnable_list()
+	GLOB.respawnable_list |= src
+	RegisterSignal(src, COMSIG_QDELETING, PROC_REF(remove_from_respawnable_list))
+
+/mob/proc/remove_from_respawnable_list()
+	GLOB.respawnable_list -= src
+	UnregisterSignal(src, COMSIG_QDELETING)

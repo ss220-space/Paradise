@@ -27,32 +27,17 @@ RLF
 	if(!receiver.client)
 		to_chat(user, span_warning("You offer lollipop to [receiver], but they don't seem to respond..."))
 		return
-	var/obj/item/I = new /obj/item/reagent_containers/food/snacks/candy/sucker/lollipop
-	receiver.throw_alert("take item [I.UID()]", /atom/movable/screen/alert/take_item/RLF, alert_args = list(user, receiver, I))
+	var/obj/item/sucker = new /obj/item/reagent_containers/food/snacks/candy/sucker/lollipop
+	receiver.throw_alert("take item [sucker.UID()]", /atom/movable/screen/alert/take_item/RLF, alert_args = list(user, receiver, sucker))
 	to_chat(user, span_notice("You offer lollipop to [receiver]."))
 
 /atom/movable/screen/alert/take_item/RLF
 
 /atom/movable/screen/alert/take_item/RLF/Click(location, control, params)
-	var/mob/living/receiver = locateUID(receiver_UID)
-	if(receiver.stat != CONSCIOUS)
-		return
-	var/obj/item/reagent_containers/food/snacks/candy/sucker/I = locateUID(item_UID)
-	if(receiver.r_hand && receiver.l_hand)
-		to_chat(receiver, span_warning("You need to have your hands free to accept [I]!"))
-		return
-	var/mob/living/giver = locateUID(giver_UID)
-	if(!isrobot(giver))
-		return
-	if(!giver.Adjacent(receiver))
-		to_chat(receiver, span_warning("You need to stay in reaching distance of [giver] to take [I]!"))
-		return
-	UnregisterSignal(I, list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED))
-	var/mob/living/silicon/robot/borg = giver
-	borg.cell.charge -= 500
-	I.forceMove(get_turf(giver))
-	receiver.put_in_hands(I, ignore_anim = FALSE)
-	I.add_fingerprint(receiver)
-	I.on_give(giver, receiver)
-	receiver.visible_message(span_notice("[giver] handed [I] to [receiver]."))
-	receiver.clear_alert("take item [item_UID]")
+	var/mob/living/silicon/robot/borg = locateUID(giver_UID)
+	. = ..()
+	if(!.)
+		return FALSE
+	if(isrobot(borg) && borg.cell)
+		borg.cell.charge -= 500
+	return TRUE

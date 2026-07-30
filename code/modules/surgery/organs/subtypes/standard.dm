@@ -10,7 +10,7 @@
 	icon_name = "torso"
 	max_damage = 100
 	min_broken_damage = 35
-	max_bleeding_amount = 5
+	max_bleeding_amount = 3
 	w_class = WEIGHT_CLASS_HUGE
 	limb_body_flag = UPPER_TORSO
 	vital = TRUE
@@ -21,7 +21,7 @@
 	convertable_children = list(/obj/item/organ/external/groin)
 
 /obj/item/organ/external/chest/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "грудь",
 		GENITIVE = "груди",
 		DATIVE = "груди",
@@ -50,7 +50,7 @@
 	icon_name = "groin"
 	max_damage = 100
 	min_broken_damage = 35
-	max_bleeding_amount = 5
+	max_bleeding_amount = 3
 	w_class = WEIGHT_CLASS_BULKY // if you know what I mean ;)
 	limb_body_flag = LOWER_TORSO
 	vital = TRUE
@@ -59,7 +59,7 @@
 	gendered_icon = TRUE
 
 /obj/item/organ/external/groin/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "живот",
 		GENITIVE = "живота",
 		DATIVE = "животу",
@@ -75,7 +75,7 @@
 	icon_name = "l_arm"
 	limb_zone = BODY_ZONE_L_ARM
 	max_damage = 50
-	max_bleeding_amount = 2.5
+	max_bleeding_amount = 1
 	bleeding_mod = 0.8
 	limb_body_flag = ARM_LEFT
 	amputation_point = "левое плечо"
@@ -83,7 +83,7 @@
 	convertable_children = list(/obj/item/organ/external/hand)
 
 /obj/item/organ/external/arm/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "левая рука",
 		GENITIVE = "левой руки",
 		DATIVE = "левой руке",
@@ -146,7 +146,7 @@
 	convertable_children = list(/obj/item/organ/external/hand/right)
 
 /obj/item/organ/external/arm/right/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "правая рука",
 		GENITIVE = "правой руки",
 		DATIVE = "правой руке",
@@ -162,7 +162,7 @@
 	icon_name = "l_leg"
 	limb_zone = BODY_ZONE_L_LEG
 	max_damage = 50
-	max_bleeding_amount = 2.5
+	max_bleeding_amount = 1
 	bleeding_mod = 0.8
 	limb_body_flag = LEG_LEFT
 	icon_position = LEFT
@@ -171,7 +171,7 @@
 	convertable_children = list(/obj/item/organ/external/foot)
 
 /obj/item/organ/external/leg/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "левая нога",
 		GENITIVE = "левой ноги",
 		DATIVE = "левой ноге",
@@ -247,7 +247,7 @@
 	convertable_children = list(/obj/item/organ/external/foot/right)
 
 /obj/item/organ/external/leg/right/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "правая нога",
 		GENITIVE = "правой ноги",
 		DATIVE = "правой ноге",
@@ -263,7 +263,7 @@
 	icon_name = "l_foot"
 	limb_zone = BODY_ZONE_PRECISE_L_FOOT
 	max_damage = 30
-	max_bleeding_amount = 1.5
+	max_bleeding_amount = 0.5
 	cannot_internal_bleed = TRUE
 	cannot_arterial_bleed = TRUE
 	min_broken_damage = 15
@@ -275,7 +275,7 @@
 	amputation_point = "левую лодыжку"
 
 /obj/item/organ/external/foot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "левая ступня",
 		GENITIVE = "левой ступни",
 		DATIVE = "левой ступне",
@@ -391,7 +391,7 @@
 	amputation_point = "правую лодыжку"
 
 /obj/item/organ/external/foot/right/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "правая ступня",
 		GENITIVE = "правой ступни",
 		DATIVE = "правой ступне",
@@ -408,7 +408,7 @@
 	limb_zone = BODY_ZONE_PRECISE_L_HAND
 	max_damage = 30
 	min_broken_damage = 15
-	max_bleeding_amount = 1.5
+	max_bleeding_amount = 0.5
 	cannot_internal_bleed = TRUE
 	cannot_arterial_bleed = TRUE
 	bleeding_mod = 0.65
@@ -419,7 +419,7 @@
 	can_grasp = TRUE
 
 /obj/item/organ/external/hand/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "левая кисть",
 		GENITIVE = "левой кисти",
 		DATIVE = "левой кисти",
@@ -526,7 +526,7 @@
 	amputation_point = "правое запястье"
 
 /obj/item/organ/external/hand/right/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "правая кисть",
 		GENITIVE = "правой кисти",
 		DATIVE = "правой кисти",
@@ -543,7 +543,7 @@
 	icon_name = "head"
 	max_damage = 75
 	min_broken_damage = 35
-	max_bleeding_amount = 3.75
+	max_bleeding_amount = 2
 	bleeding_mod = 1.1
 	limb_body_flag = HEAD
 	gendered_icon = TRUE
@@ -571,8 +571,15 @@
 	var/sec_facial_colour = "#000000"
 	var/f_style = "Shaved"
 
+	///Type of lipstick being used, basically
+	var/lip_style
+	///Lipstick color
+	var/lip_color
+	///Current lipstick trait, if any (such as TRAIT_KISS_OF_DEATH)
+	var/stored_lipstick_trait
+
 /obj/item/organ/external/head/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "голова",
 		GENITIVE = "головы",
 		DATIVE = "голове",
@@ -668,10 +675,9 @@
 	limb_zone = BODY_ZONE_TAIL
 	icon_name = "tail"
 	max_damage = 30
-	min_broken_damage = 15
-	max_bleeding_amount = 1.25
-	bleeding_mod = 0.65
+	cannot_internal_bleed = TRUE
 	cannot_arterial_bleed = TRUE
+	cannot_break = TRUE
 	w_class = WEIGHT_CLASS_SMALL
 	limb_body_flag = TAIL
 	parent_organ_zone = BODY_ZONE_PRECISE_GROIN
@@ -682,7 +688,7 @@
 	s_col = "#000000"
 
 /obj/item/organ/external/tail/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хвост",
 		GENITIVE = "хвоста",
 		DATIVE = "хвосту",
@@ -726,7 +732,7 @@
 	min_broken_damage = 10
 
 /obj/item/organ/external/tail/monkey/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хвост обезьяны",
 		GENITIVE = "хвоста обезьяны",
 		DATIVE = "хвосту обезьяны",
@@ -742,7 +748,7 @@
 	species_type = /datum/species/monkey/tajaran
 
 /obj/item/organ/external/tail/monkey/tajaran/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хвост фарвы",
 		GENITIVE = "хвоста фарвы",
 		DATIVE = "хвосту фарвы",
@@ -758,7 +764,7 @@
 	species_type = /datum/species/monkey/vulpkanin
 
 /obj/item/organ/external/tail/monkey/vulpkanin/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хвост вульпина",
 		GENITIVE = "хвоста вульпина",
 		DATIVE = "хвосту вульпина",
@@ -774,7 +780,7 @@
 	species_type = /datum/species/monkey/unathi
 
 /obj/item/organ/external/tail/monkey/unathi/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хвост стока",
 		GENITIVE = "хвоста стока",
 		DATIVE = "хвосту стока",
@@ -790,7 +796,7 @@
 	icon_name = "wing"
 	limb_zone = BODY_ZONE_WING
 	max_damage = 30
-	min_broken_damage = 15
+	cannot_internal_bleed = TRUE
 	cannot_arterial_bleed = TRUE
 	cannot_break = TRUE
 	w_class = WEIGHT_CLASS_SMALL
@@ -802,7 +808,7 @@
 	s_col = "#000000"
 
 /obj/item/organ/external/wing/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "крылья",
 		GENITIVE = "крыльев",
 		DATIVE = "крыльям",

@@ -76,6 +76,11 @@ GLOBAL_PROTECT(log_end)
 		if(last_mob.ckey in GLOB.admin_datums)
 			WRITE_LOG(GLOB.world_game_log, "ADMIN: Admin [key_name(last_mob)] logged out[GLOB.log_end]")
 
+/proc/log_access_afk(client/last_mob)
+	if(CONFIG_GET(flag/log_access))
+		var/message = "[key_name(last_mob)]"
+		WRITE_LOG(GLOB.world_game_log, "AFK: [message][GLOB.log_end]")
+
 /proc/log_say(text, mob/speaker)
 	if(CONFIG_GET(flag/log_say))
 		WRITE_LOG(GLOB.world_game_log, "SAY: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
@@ -123,6 +128,9 @@ GLOBAL_PROTECT(log_end)
 /proc/log_qdel(text)
 	WRITE_LOG(GLOB.world_qdel_log, "QDEL: [text][GLOB.log_end]")
 
+/proc/log_signal(text)
+	WRITE_LOG(GLOB.signal_log, "SIGNAL: [text][GLOB.log_end]")
+
 /proc/log_mentorsay(text, mob/speaker)
 	if(CONFIG_GET(flag/log_adminchat))
 		WRITE_LOG(GLOB.world_game_log, "MENTORSAY: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
@@ -165,7 +173,7 @@ GLOBAL_PROTECT(log_end)
 		WRITE_LOG(GLOB.world_game_log, "GAME: End objective log for [html_decode(Mind.key)]/[html_decode(Mind.name)][GLOB.log_end]")
 
 /proc/log_world(text, root_log = FALSE)
-	#if defined(GAME_TESTS) || defined(MAP_TESTS) || defined(TESTING)
+	#if defined(UNIT_TESTS) || defined(MAP_TESTS) || defined(TESTING)
 	SEND_TEXT(world.log, text)
 	#else
 	if(config && CONFIG_GET(flag/enable_root_log) || root_log)

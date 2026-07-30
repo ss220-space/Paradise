@@ -205,9 +205,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/space_bar)
 "bl" = (
-/obj/structure/toilet{
-	dir = 4
-	},
+/obj/structure/toilet/directional/west,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -228,10 +226,7 @@
 /turf/simulated/wall/r_wall,
 /area/ruin/powered/space_bar)
 "bn" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/wood,
 /area/ruin/powered/space_bar)
 "bp" = (
@@ -257,7 +252,7 @@
 /area/ruin/powered/space_bar)
 "dG" = (
 /obj/structure/sink/puddle,
-/obj/item/toy/carpplushie/dehy_carp,
+/obj/item/toy/plushie/carp/dehy_carp,
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/unpowered)
 "eb" = (
@@ -350,9 +345,7 @@
 /area/ruin/unpowered)
 "mN" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sink{
-	pixel_y = 22
-	},
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/space_bar)
 "ng" = (
@@ -676,9 +669,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/space_bar)
 "Lt" = (
-/obj/structure/sink{
-	pixel_y = 22
-	},
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/space_bar)
 "LV" = (

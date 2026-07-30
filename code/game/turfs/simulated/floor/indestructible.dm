@@ -10,7 +10,7 @@
 /turf/simulated/floor/indestructible/singularity_act()
 	return
 
-/turf/simulated/floor/indestructible/singularity_pull(S, current_size)
+/turf/simulated/floor/indestructible/singularity_pull(atom/singularity, current_size)
 	return
 
 /turf/simulated/floor/indestructible/narsie_act()
@@ -44,6 +44,7 @@
 	return
 
 /turf/simulated/floor/indestructible/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
+	balloon_alert(user, "нельзя деконструировать!")
 	return
 
 /turf/simulated/floor/indestructible/plating
@@ -51,6 +52,59 @@
 	icon_state = "plating"
 	icon = 'icons/turf/floors/plating.dmi'
 	footstep = FOOTSTEP_PLATING
+
+/turf/simulated/floor/indestructible/gray_floor
+	icon_state = "floor"
+
+/turf/simulated/floor/indestructible/brig_floor
+	icon_state = "darkredfull"
+
+/turf/simulated/floor/indestructible/brig_black
+	icon_state = "blackfull"
+
+/turf/simulated/floor/indestructible/medical_floor
+	icon_state = "bluefull"
+
+/turf/simulated/floor/indestructible/medical_white
+	icon_state = "white"
+
+/turf/simulated/floor/indestructible/asteroid_ground
+	icon_state = "asteroidfloor"
+
+/turf/simulated/floor/indestructible/cargo_floor
+	icon_state = "yellowfull"
+
+/turf/simulated/floor/indestructible/grime_floor
+	icon_state = "floorgrime"
+
+/turf/simulated/floor/indestructible/dirt_floor
+	icon_state = "dirt"
+
+/turf/simulated/floor/indestructible/stone_floor
+	icon_state = "stone_floor"
+
+/turf/simulated/floor/indestructible/kitchen_floor
+	icon_state = "freezerfloor"
+
+/turf/simulated/floor/indestructible/wooden_floor
+	icon_state = "wood"
+
+/turf/simulated/floor/indestructible/light
+	icon_state = "light_on"
+	light_range = 3
+	light_color = LIGHT_COLOR_CYAN
+
+/turf/simulated/floor/indestructible/abductor_vault
+	icon_state = "alienvault"
+
+/turf/simulated/floor/indestructible/green_light
+	icon_state = "light_on-g"
+
+/turf/simulated/floor/indestructible/yellow_light
+	icon_state = "light_on-y"
+
+/turf/simulated/floor/indestructible/green_circuit
+	icon_state = "gcircuit"
 
 /turf/simulated/floor/indestructible/necropolis
 	name = "necropolis floor"
@@ -143,7 +197,6 @@
 /turf/simulated/floor/indestructible/abductor
 	name = "alien floor"
 	icon_state = "alienpod1"
-	always_lit = TRUE
 
 /turf/simulated/floor/indestructible/abductor/Initialize(mapload)
 	. = ..()
@@ -228,11 +281,11 @@
 		creature.ExtinguishMob()
 	linkedcontroller.mobinpool += arrived
 
-/turf/simulated/floor/indestructible/beach/water/Exited(atom/movable/departed, atom/newLoc)
+/turf/simulated/floor/indestructible/beach/water/Exited(atom/movable/gone, direction)
 	. = ..()
-	if(!linkedcontroller || !ismob(departed))
+	if(!linkedcontroller || !ismob(gone))
 		return .
-	linkedcontroller.mobinpool -= departed
+	linkedcontroller.mobinpool -= gone
 
 /turf/simulated/floor/indestructible/beach/water/proc/initialized_on(atom/target)
 	if(!linkedcontroller)
@@ -310,7 +363,6 @@
 	icon = null
 	icon_state = null
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	always_lit = TRUE
 
 /turf/simulated/floor/indestructible/view_portal/dense
 	density = TRUE
@@ -327,7 +379,7 @@
 	heavyfootstep = FOOTSTEP_MEAT
 
 /turf/simulated/floor/indestructible/bingle/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "яма Бинглов",
 		GENITIVE = "ямы Бинглов",
 		DATIVE = "яме Бинглов",

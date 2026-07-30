@@ -15,6 +15,8 @@
 	var/donation_tier = NO_DONATOR_TIER
 	/// Allowed ckeys list (allow all if list are null)
 	var/list/allowed_ckeys = null
+	/// use gags for color setup
+	var/greyscale_colors = null
 
 /datum/item_skin_data/proc/on_apply(obj/item/target)
 	if(item_state)

@@ -2,6 +2,8 @@ GLOBAL_LIST_INIT(alphabet, list("a","b","c","d","e","f","g","h","i","j","k","l",
 GLOBAL_LIST_INIT(alphabet_uppercase, list("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"))
 GLOBAL_LIST_INIT(alphabet_cyrillic, list("а","б","в","г","д","е","ё","ж","з","и","й","к","л","м","н","о","п","р","с","т","у","ф","х","ц","ч","ш","щ","ъ","ы","ь","э","ю","я"))
 GLOBAL_LIST_INIT(zero_character_only, list("0"))
+GLOBAL_LIST_INIT(numerals, list("1","2","3","4","5","6","7","8","9","0"))
+GLOBAL_LIST_INIT(space, list(" "))
 GLOBAL_LIST_INIT(binary, list("0","1"))
 GLOBAL_LIST_INIT(html_colors, list("Alice Blue","Antique White","Aqua","Aquamarine","Azure","Beige","Bisque","Black","Blanched Almond","Blue","Blue Violet",
 									"Brown","Burly Wood","Cadet Blue","Chartreuse","Chocolate","Coral","Cornflower Blue","Cornsilk","Crimson","Cyan",
@@ -72,8 +74,6 @@ GLOBAL_LIST_INIT(cooking_reagents, list(RECIPE_MICROWAVE = list(), RECIPE_OVEN =
 
 #define EGG_LAYING_MESSAGES list("lays an egg.", "squats down and croons.", "begins making a huge racket.", "begins clucking raucously.")
 
-GLOBAL_LIST_EMPTY(geoip_ckey_updated)
-
 GLOBAL_LIST_INIT(all_taipan_jobs, list(JOB_TITLE_TAIPAN_SCIENTIST,JOB_TITLE_TAIPAN_MEDIC,JOB_TITLE_TAIPAN_BOTANIST,JOB_TITLE_TAIPAN_CARGO,JOB_TITLE_TAIPAN_CHEF,JOB_TITLE_TAIPAN_ENGINEER,JOB_TITLE_TAIPAN_COMMS,JOB_TITLE_TAIPAN_RD,JOB_TITLE_TAIPAN_CYBORG))
 
 /// List of looping sounds
@@ -88,27 +88,6 @@ GLOBAL_LIST_EMPTY(cargo_announcers)
 GLOBAL_LIST_EMPTY(devil_contracts)
 
 GLOBAL_LIST_EMPTY(nuke_codes)
-
-GLOBAL_LIST_INIT(permissions_name_to_flag, list(
-	R_BUILDMODE_NAME = R_BUILDMODE,
-	R_ADMIN_NAME = R_ADMIN,
-	R_BAN_NAME = R_BAN,
-	R_EVENT_NAME = R_EVENT,
-	R_SERVER_NAME = R_SERVER,
-	R_DEBUG_NAME = R_DEBUG,
-	R_POSSESS_NAME = R_POSSESS,
-	R_PERMISSIONS_NAME = R_PERMISSIONS,
-	R_STEALTH_NAME = R_STEALTH,
-	R_REJUVINATE_NAME = R_REJUVINATE,
-	R_VAREDIT_NAME = R_VAREDIT,
-	R_SOUNDS_NAME = R_SOUNDS,
-	R_SPAWN_NAME = R_SPAWN,
-	R_PROCCALL_NAME = R_PROCCALL,
-	R_MOD_NAME = R_MOD,
-	R_MENTOR_NAME = R_MENTOR,
-	R_VIEWRUNTIMES_NAME = R_VIEWRUNTIMES,
-	R_SKINS_NAME = R_SKINS
-))
 
 GLOBAL_LIST_EMPTY(exoframe_types)
 

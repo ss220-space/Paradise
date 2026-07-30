@@ -6,7 +6,6 @@
 	projectile_type = /obj/projectile/bullet
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
-	bullet_type = BULLET_TYPE_PLAIN
 
 // MARK: .38
 /obj/item/ammo_casing/c38
@@ -17,7 +16,6 @@
 	projectile_type = /obj/projectile/bullet/weakbullet2
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
-	bullet_type = BULLET_TYPE_RUBBER
 
 /obj/item/ammo_casing/c38/hp
 	ammo_marking = ".38 HP"
@@ -25,7 +23,6 @@
 	icon_state = "rhp-casing"
 	materials = list(MAT_METAL = 5000)
 	projectile_type = /obj/projectile/bullet/hp38
-	bullet_type = BULLET_TYPE_EXPANSIVE
 
 /obj/item/ammo_casing/c38/invisible
 	projectile_type = /obj/projectile/bullet/weakbullet2/invisible
@@ -39,7 +36,6 @@
 	ammo_marking = ".36"
 	caliber = CALIBER_DOT_36
 	projectile_type = /obj/projectile/bullet/midbullet2
-	bullet_type = BULLET_TYPE_PLAIN
 
 // MARK: 7.62x38mm
 /obj/item/ammo_casing/n762
@@ -49,7 +45,6 @@
 	projectile_type = /obj/projectile/bullet
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
-	bullet_type = BULLET_TYPE_PLAIN
 
 // MARK: .257 Improvised
 /obj/item/ammo_casing/revolver/improvised
@@ -61,7 +56,6 @@
 	projectile_type = /obj/projectile/bullet/weakbullet3/c257
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
-	bullet_type = BULLET_TYPE_PLAIN
 
 /obj/item/ammo_casing/revolver/improvised/update_desc(updates = ALL)
 	. = ..()

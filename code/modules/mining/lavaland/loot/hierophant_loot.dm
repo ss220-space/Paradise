@@ -28,7 +28,7 @@
 	var/friendly_fire_check = FALSE //if the blasts we make will consider our faction against the faction of hit targets
 
 /obj/item/hierophant_club/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "посох Иерофанта",
 		GENITIVE = "посоха Иерофанта",
 		DATIVE = "посоху Иерофанта",
@@ -322,7 +322,7 @@
 	var/obj/effect/proc_holder/spell/hierophant_talisman_message/spell_message
 
 /obj/item/clothing/accessory/necklace/hierophant_talisman/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "дремлющий защитный талисман",
 		GENITIVE = "дремлющего защитного талисмана",
 		DATIVE = "дремлющему защитному талисману",
@@ -361,7 +361,7 @@
 		slave.possess_by_player(theghost.ckey)
 		slave.master = user.ckey
 		name = "Talisman of warding"
-		ru_names = list(
+		ru_names = alist(
 			NOMINATIVE = "защитный талисман",
 			GENITIVE = "защитного талисмана",
 			DATIVE = "защитному талисману",

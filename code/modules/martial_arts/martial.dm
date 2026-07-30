@@ -473,7 +473,7 @@
 	item_state = "cqcmanual"
 
 /obj/item/CQC_manual/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "старое руководство",
 		GENITIVE = "старого руководства",
 		DATIVE = "старому руководству",
@@ -515,7 +515,7 @@
 	item_state = "syringe_0"
 
 /obj/item/CQC_manual/chef/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "имплант улучшения CQC",
 		GENITIVE = "импланта улучшения CQC",
 		DATIVE = "импланту улучшения CQC",
@@ -571,7 +571,7 @@
 	item_state = "mr_cheng_manual"
 
 /obj/item/mr_chang_technique/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "журнал \"Техника Агрессивного Маркетинга\"",
 		GENITIVE = "журнала \"Техника Агрессивного Маркетинга\"",
 		DATIVE = "журналу \"Техника Агрессивного Маркетинга\"",
@@ -601,7 +601,7 @@
 	item_state = "throwingknives"
 
 /obj/item/throwing_manual/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мануал \"Курс Техники метания ножей молодого Десантника\"",
 		GENITIVE = "мануала \"Курс Техники метания ножей молодого Десантника\"",
 		DATIVE = "мануалу \"Курс Техники метания ножей молодого Десантника\"",
@@ -633,7 +633,9 @@
 	throwforce = 20
 	attack_verb = list("сокрушил", "ударил", "огрел")
 	icon_state = "bostaff0"
-	block_chance = 50
+
+/obj/item/twohanded/bostaff/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/twohanded/bostaff/update_icon_state()
 	icon_state = "bostaff[HAS_TRAIT(src, TRAIT_WIELDED)]"
@@ -699,7 +701,7 @@
 /obj/item/twohanded/bostaff/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		return ..()
-	return FALSE
+	return HIT_RESULT_FAILED
 
 /atom/movable/screen/combo
 	icon_state = ""

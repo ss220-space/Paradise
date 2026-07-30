@@ -11,6 +11,7 @@
 
 // MARK: Base coffeemaker
 /obj/machinery/coffeemaker
+	abstract_type = /obj/machinery/coffeemaker
 	name = "coffeemaker"
 	desc = "Нет, эту кофемашину вы ТОЧНО не должны были увидеть. Пожалуйста, сообщите о баге."
 	gender = FEMALE
@@ -49,12 +50,12 @@
 	QDEL_LIST(coffee)
 	return ..()
 
-/obj/machinery/coffeemaker/Exited(atom/movable/departed, atom/newLoc)
+/obj/machinery/coffeemaker/Exited(atom/movable/gone, direction)
 	. = ..()
-	if(departed == coffeepot)
+	if(gone == coffeepot)
 		coffeepot = null
 		update_appearance(UPDATE_OVERLAYS)
-	if(departed == cartridge)
+	if(gone == cartridge)
 		cartridge = null
 		update_appearance(UPDATE_OVERLAYS)
 
@@ -279,7 +280,7 @@
 	uses_cartridges = TRUE
 
 /obj/machinery/coffeemaker/standard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кофемашина \"Моделло 3\"",
 		GENITIVE = "кофемашины \"Моделло 3\"",
 		DATIVE = "кофемашине \"Моделло 3\"",
@@ -356,7 +357,7 @@
 	brew_time = 15 SECONDS //industrial grade, its faster than the regular one
 
 /obj/machinery/coffeemaker/impressa/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кофемашина \"Импресса Моделло 5\"",
 		GENITIVE = "кофемашины \"Импресса Моделло 5\"",
 		DATIVE = "кофемашине \"Импресса Моделло 5\"",

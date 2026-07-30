@@ -11,14 +11,19 @@
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
-	var/spray_maxrange = 3 //what the sprayer will set spray_currentrange to in the attack_self.
-	var/spray_currentrange = 3 //the range of tiles the sprayer will reach when in fixed mode.
+	/// Flag for clean setup (if TRUE - use range 1, FALSE - use maxrange)
+	var/close_clean_mode = FALSE
+	/// max spray distance mod
+	var/spray_maxrange_mod = 1
 	volume = 250
 	possible_transfer_amounts = null
 	var/delay = CLICK_CD_RANGE * 2
+	var/spray_maxrange = 3 //what the sprayer will set spray_currentrange to in the attack_self.
+	var/spray_currentrange = 3 //the range of tiles the sprayer will reach when in fixed mode.
+	var/spray_sound = 'sound/effects/spray2.ogg'
 
 /obj/item/reagent_containers/spray/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "распылитель",
 		GENITIVE = "распылителя",
 		DATIVE = "распылителю",
@@ -27,9 +32,13 @@
 		PREPOSITIONAL = "распылителе",
 	)
 
+/obj/item/reagent_containers/spray/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/reagents_item_heatable)
+
 /obj/item/reagent_containers/spray/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(isstorage(target) || istable(target) || istype(target, /obj/structure/rack) || iscloset(target) \
-	|| istype(target, /obj/item/reagent_containers) || istype(target, /obj/structure/sink) || istype(target, /obj/structure/janitorialcart) || istype(target, /obj/machinery/hydroponics))
+	|| is_reagent_container(target) || istype(target, /obj/structure/sink) || istype(target, /obj/structure/janitorialcart) || istype(target, /obj/machinery/hydroponics))
 		return
 
 	if(istype(target, /obj/effect/proc_holder/spell))
@@ -53,9 +62,9 @@
 		return
 
 	var/contents_log = reagents.reagent_list.Join(", ")
-	INVOKE_ASYNC(src, PROC_REF(spray), target)
+	INVOKE_ASYNC(src, PROC_REF(spray), user, target)
 
-	playsound(loc, 'sound/effects/spray2.ogg', 50, TRUE, -6)
+	playsound(loc, spray_sound, 50, TRUE, -6)
 	user.changeNext_move(delay)
 	user.newtonian_move(get_dir(target, user))
 
@@ -75,25 +84,26 @@
 	add_attack_logs(user, target, "Used a spray bottle. Contents: [contents_log] - Temperature: [reagents.chem_temp]K", attack_log_type)
 	return
 
-/obj/item/reagent_containers/spray/proc/spray(atom/A)
-	var/obj/effect/decal/chempuff/D = new /obj/effect/decal/chempuff(get_turf(src))
-	D.create_reagents(amount_per_transfer_from_this)
-	reagents.trans_to(D, amount_per_transfer_from_this, 1/spray_currentrange)
-	D.color = mix_color_from_reagents(D.reagents.reagent_list)
-	var/turf/target_turf = get_turf(A)
+/obj/item/reagent_containers/spray/proc/spray(mob/user, atom/target)
+	var/obj/effect/decal/chempuff/puff_decal = new /obj/effect/decal/chempuff(get_turf(src))
+	puff_decal.create_reagents(amount_per_transfer_from_this)
+	CALCULATE_SKILL_MOD(user, CLEANING_DISTANCE, cleaning_skill_mod)
+	var/spray_currentrange = close_clean_mode ? 1 : max(1, round(spray_maxrange_mod * cleaning_skill_mod, 1))
+	reagents.trans_to(puff_decal, amount_per_transfer_from_this, 1/spray_currentrange)
+	puff_decal.color = mix_color_from_reagents(puff_decal.reagents.reagent_list)
+	var/turf/target_turf = get_turf(target)
 	for(var/i in 1 to spray_currentrange)
-		step_towards(D, target_turf)
-		D.reagents.reaction(get_turf(D))
-		for(var/atom/T in get_turf(D))
-			D.reagents.reaction(T)
+		step_towards(puff_decal, target_turf)
+		puff_decal.reagents.reaction(get_turf(puff_decal))
+		for(var/atom/T in get_turf(puff_decal))
+			puff_decal.reagents.reaction(T)
 		sleep(3)
-	qdel(D)
+	qdel(puff_decal)
 
 /obj/item/reagent_containers/spray/attack_self(mob/user)
-
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
-	spray_currentrange = (spray_currentrange == 1 ? spray_maxrange : 1)
-	to_chat(user, span_notice("Вы [amount_per_transfer_from_this == 10 ? "снимаете" : "надеваете"] насадку. Теперь вы будете распылять по [amount_per_transfer_from_this] единиц[declension_ru(amount_per_transfer_from_this, "е", "ы", "")] содержимого за раз."))
+	close_clean_mode = !close_clean_mode
+	user.balloon_alert(user, "насадка на [amount_per_transfer_from_this] ед")
 
 /obj/item/reagent_containers/spray/examine(mob/user)
 	. = ..()
@@ -106,11 +116,9 @@
 	desc = "Распылитель, заполненный непенящимся средством для очистки поверхностей. Произведено компанией \"BLAM!\"."
 	list_reagents = list("cleaner" = 250)
 	amount_per_transfer_from_this = 10
-	spray_maxrange = 2
-	spray_currentrange = 2
 
 /obj/item/reagent_containers/spray/cleaner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "распылитель",
 		GENITIVE = "распылителя",
 		DATIVE = "распылителю",
@@ -126,7 +134,7 @@
 	item_state = "cleaner_brig"
 
 /obj/item/reagent_containers/spray/cleaner/brig/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "распылитель СБ",
 		GENITIVE = "распылителя СБ",
 		DATIVE = "распылителю СБ",
@@ -145,7 +153,7 @@
 	item_state = "cleaner_medchem"
 
 /obj/item/reagent_containers/spray/cleaner/chemical/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "химический распылитель",
 		GENITIVE = "химическего распылителя",
 		DATIVE = "химическому распылителю",
@@ -162,11 +170,10 @@
 	desc = "Распылитель, заполненный непенящимся средством для очистки поверхностей. Стильный дизайн, специально для самого продуктивного работника станции!"
 	icon_state = "cleaner_janitor"
 	item_state = "cleaner_jan"
-	spray_maxrange = 6
-	spray_currentrange = 6
+	spray_maxrange_mod = 1.5
 
 /obj/item/reagent_containers/spray/cleaner/janitor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "распылитель уборщика",
 		GENITIVE = "распылителя уборщика",
 		DATIVE = "распылителю уборщика",
@@ -185,7 +192,7 @@
 	item_state = "cleaner_med"
 
 /obj/item/reagent_containers/spray/cleaner/medical/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медицинский распылитель",
 		GENITIVE = "медицинского распылителя",
 		DATIVE = "медицинскому распылителю",
@@ -202,11 +209,10 @@
 	desc = "Бутылочка из прочнейшего тёмно-синего пластика, наверху которой прикреплён распылитель, оборудованный коллиматорным прицелом и глушителем. Разработано Уборочно-Силовыми Структурами \"Нанотрейзен\" для ЗАЧИСТКИ и контроля грязи в помещениях. Порадуйте своего внутреннего тактикульщика!"
 	icon_state = "cleaner_tactical"
 	item_state = "cleaner_tactical"
-	spray_maxrange = 5
-	spray_currentrange = 5
+	spray_maxrange_mod = 1.25
 
 /obj/item/reagent_containers/spray/cleaner/tactical/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тактический распылитель",
 		GENITIVE = "тактическего распылителя",
 		DATIVE = "тактическому распылителю",
@@ -220,12 +226,10 @@
 	desc = "Распылитель с увеличенным объёмом, изготовленный с использованием блюспейс-технологий. Оно точно того стоило?"
 	icon_state = "cleaner_bluespace"
 	item_state = "cleaner_bs"
-	spray_maxrange = 4
-	spray_currentrange = 4
 	volume = 450
 
 /obj/item/reagent_containers/spray/blue_cleaner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "блюспейс распылитель",
 		GENITIVE = "блюспейс распылителя",
 		DATIVE = "блюспейс распылителю",
@@ -247,10 +251,6 @@
 			else
 				visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] определяет и удаляет недопустимое вещество."))
 
-/obj/item/reagent_containers/spray/cleaner/drone
-	volume = 50
-	list_reagents = list("cleaner" = 50)
-
 //spray tan
 /obj/item/reagent_containers/spray/spraytan
 	name = "spray tan"
@@ -259,7 +259,7 @@
 	list_reagents = list("spraytan" = 50)
 
 /obj/item/reagent_containers/spray/spraytan/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "спрей для авто-загара",
 		GENITIVE = "спрея для авто-загара",
 		DATIVE = "спрею для авто-загара",
@@ -278,11 +278,11 @@
 	item_state = "pepperspray"
 	belt_icon = "pepperspray"
 	volume = 40
-	spray_maxrange = 4
+	spray_maxrange_mod = 2
 	list_reagents = list("condensedcapsaicin" = 40)
 
 /obj/item/reagent_containers/spray/pepper/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "перцовый баллончик",
 		GENITIVE = "перцового баллончика",
 		DATIVE = "перцовому баллончику",
@@ -303,7 +303,7 @@
 	list_reagents = list("water" = 10)
 
 /obj/item/reagent_containers/spray/waterflower/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "водяной подсолнух",
 		GENITIVE = "водяного подсолнуха",
 		DATIVE = "водяному подсолнуху",
@@ -323,14 +323,12 @@
 	icon_state = "chemsprayer"
 	item_state = "chemsprayer"
 	w_class = WEIGHT_CLASS_NORMAL
-	spray_maxrange = 7
-	spray_currentrange = 7
 	amount_per_transfer_from_this = 10
 	volume = 600
 	origin_tech = "combat=3;materials=3;engineering=3"
 
 /obj/item/reagent_containers/spray/chemsprayer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "химический распылитель веществ",
 		GENITIVE = "химическего распылителя веществ",
 		DATIVE = "химическому распылителю веществ",
@@ -357,6 +355,7 @@
 	var/turf/T1 = get_step(T,turn(direction, 90))
 	var/turf/T2 = get_step(T,turn(direction, -90))
 	var/list/the_targets = list(T,T1,T2)
+	var/spray_currentrange = close_clean_mode ? 1 : 7
 
 	for(var/i in 1 to length(Sprays))
 		spawn()
@@ -391,7 +390,7 @@
 	list_reagents = list("glyphosate" = 100)
 
 /obj/item/reagent_containers/spray/plantbgone/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "распылитель гербицидов \"Plant-B-Gone\"",
 		GENITIVE = "распылителя гербицидов \"Plant-B-Gone\"",
 		DATIVE = "распылителю гербицидов \"Plant-B-Gone\"",

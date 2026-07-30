@@ -41,11 +41,11 @@ GLOBAL_LIST_EMPTY(slime_actions)
 		TRAIT_NO_DNA,
 	)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = HAS_SKIN_COLOR | NO_EYES
+	bodyflags = HAS_SKIN_COLOR | NO_EYES | HAS_HAIR
 	reagent_tag = ORGANIC
 
 	flesh_color = "#5fe8b1"
-	blood_color = "#0064C8"
+	blood_color = BLOOD_COLOR_SLIMEPERSON
 	exotic_blood = "slimejelly"
 
 	butt_sprite = "slime"
@@ -89,6 +89,12 @@ GLOBAL_LIST_EMPTY(slime_actions)
 		SPECIES_AGE_MAX = 140,
 		JOB_MIN_AGE_HIGH_ED = 30,
 		JOB_MIN_AGE_COMMAND = 30,
+	)
+
+	max_select_skills = list(
+		/datum/skill/service/cleaning = 1,
+		/datum/skill/engineering/atmos = 1,
+		/datum/skill/research/xenobiology = 4,
 	)
 
 /datum/species/slime/on_species_gain(mob/living/carbon/human/slime)
@@ -137,9 +143,6 @@ GLOBAL_LIST_EMPTY(slime_actions)
 			slime.update_body()
 			blend(slime)
 	..()
-
-/datum/species/slime/can_hear(mob/living/carbon/human/user)
-	return !HAS_TRAIT(user, TRAIT_DEAF)
 
 /datum/species/slime/get_vision_organ(mob/living/carbon/human/user)
 	return NO_VISION_ORGAN

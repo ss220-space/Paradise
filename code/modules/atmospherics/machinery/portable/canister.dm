@@ -264,6 +264,8 @@
 	data["name"] = name
 	data["canLabel"] = can_label ? 1 : 0
 	data["hasHoldingTank"] = holding ? 1 : 0
+	data["hasHypernobCrystal"] = !!nob_crystal_inserted
+	data["reactionSuppressionEnabled"] = !!suppress_reactions
 	if(holding)
 		data["holdingTank"] = list("name" = holding.name, "tankPressure" = round(holding.air_contents.return_pressure()))
 
@@ -341,8 +343,22 @@
 			)
 			menu.ui_interact(usr)
 
+		if("reaction_suppression")
+			toggle_reaction_suppression(usr)
+			. = TRUE
+
 	add_fingerprint(usr)
 	update_icon()
+
+/// Turns hyper-noblium crystal reaction suppression in the canister on or off
+/obj/machinery/portable_atmospherics/canister/proc/toggle_reaction_suppression(mob/user, wire_pulsed = FALSE)
+	if(!nob_crystal_inserted)
+		if(!wire_pulsed)
+			stack_trace("[user] tried to toggle reaction suppression on a canister without a noblium crystal inside and without pulsing wires, possible href exploit attempt.")
+		return
+	suppress_reactions = !suppress_reactions
+	message_admins("[ADMIN_LOOKUPFLW(user)] turned [suppress_reactions ? "on" : "off"] [wire_pulsed ? "via wire pulse" : ""] the [src] reaction suppression.")
+	user.investigate_log("turned [suppress_reactions ? "on" : "off"] [wire_pulsed ? "via wire pulse" : ""] the [src] reaction suppression.", INVESTIGATE_ATMOS)
 
 /obj/machinery/portable_atmospherics/canister/toxins
 	name = "Canister \[Toxin (Plasma)\]"
@@ -573,6 +589,7 @@
 	air_contents.set_antinoblium((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
 
 /obj/machinery/portable_atmospherics/canister/halon/init_internal_atmos()
+	. = ..()
 	air_contents.set_halon((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
 
 /obj/machinery/portable_atmospherics/canister/bullet_act(obj/projectile/proj)
