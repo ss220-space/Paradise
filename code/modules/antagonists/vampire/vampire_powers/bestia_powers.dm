@@ -1082,7 +1082,6 @@
 	background_icon_state = "bg_vampire"
 	school = SCHOOL_SANGUINE
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
-	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_PHASED | AB_CHECK_INCAPACITATED
 	cooldown_time = 1 MINUTES
 	var/required_blood = 80
 	var/datum/action/cooldown/spell/pointed/bestia_lunge/lunge
