@@ -136,7 +136,7 @@
 		to_chat(user, span_warning("You cut off [src]'s fingertips while wearing it!"))
 		return .
 	var/confirm = tgui_alert(user, "Do you want to cut off the gloves fingertips? Warning: It might destroy their functionality.", "Cut tips?", list("Yes", "No"))
-	if(confirm != "Yes" || icon_state != initial(icon_state) || !Adjacent(user) || user.incapacitated())
+	if(confirm != "Yes" || icon_state != initial(icon_state) || !Adjacent(user) || user.incapacitated)
 		return .
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .

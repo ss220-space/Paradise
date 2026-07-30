@@ -424,7 +424,7 @@
 		var/lovely_phrase = pick("оценивают по достоинству", "любят", "ценят", "уважают", "признают")
 		to_chat(target_mob, span_notice("Вы чувствуете, что вас [lovely_phrase]."))
 
-	else if(!target_mob.incapacitated() && !HAS_TRAIT(target_mob, TRAIT_HANDS_BLOCKED))
+	else if(!target_mob.incapacitated && !HAS_TRAIT(target_mob, TRAIT_HANDS_BLOCKED))
 		for(var/mob/living/carbon/target_carbon in orange(1, target_mob))
 			if(target_carbon)
 				if(target_carbon == target_mob)

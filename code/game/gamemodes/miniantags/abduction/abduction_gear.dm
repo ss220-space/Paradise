@@ -534,7 +534,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	target.Weaken(knockdown_time)
 
 /obj/item/melee/baton/abductor/proc/SleepAttack(mob/living/target, mob/living/user)
-	if(target.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB))
+	if(INCAPACITATED_IGNORING(target, INCAPABLE_RESTRAINTS|INCAPABLE_GRAB))
 		target.visible_message(
 			span_danger("[user] induces sleep in [target] with [src]!"),
 			span_userdanger("You suddenly feel very drowsy!"),
@@ -542,13 +542,14 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		playsound(src, on_stun_sound, 50, TRUE, -1)
 		target.Sleeping(2 MINUTES)
 		add_attack_logs(user, target, "put to sleep with [src]")
-	else
-		target.AdjustDrowsy(2 SECONDS)
-		to_chat(user, span_warning("Sleep inducement works fully only on stunned specimens! "))
-		target.visible_message(
-			span_danger("[user] tried to induce sleep in [target] with [src]!"),
-			span_userdanger("You suddenly feel drowsy!"),
-		)
+		return
+
+	target.AdjustDrowsy(2 SECONDS)
+	to_chat(user, span_warning("Sleep inducement works fully only on stunned specimens! "))
+	target.visible_message(
+		span_danger("[user] tried to induce sleep in [target] with [src]!"),
+		span_userdanger("You suddenly feel drowsy!"),
+	)
 
 /obj/item/melee/baton/abductor/proc/CuffAttack(mob/living/carbon/target, mob/living/user)
 	if(!iscarbon(target))

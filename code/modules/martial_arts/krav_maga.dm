@@ -38,7 +38,7 @@
 	if(!istype(H.mind.martial_art, /datum/martial_art/krav_maga))
 		to_chat(owner, span_warning("You don't know how to do that right now."))
 		return
-	if(owner.incapacitated())
+	if(owner.incapacitated)
 		to_chat(owner, span_warning("You can't use Krav Maga while you're incapacitated."))
 		return
 	to_chat(owner, "<b><i>Your next attack will be a Neck Chop.</i></b>")
@@ -61,7 +61,7 @@
 	if(!istype(H.mind.martial_art, /datum/martial_art/krav_maga))
 		to_chat(owner, span_warning("You don't know how to do that right now."))
 		return
-	if(owner.incapacitated())
+	if(owner.incapacitated)
 		to_chat(owner, span_warning("You can't use Krav Maga while you're incapacitated."))
 		return
 	to_chat(owner, "<b><i>Your next attack will be a Leg Sweep.</i></b>")
@@ -84,7 +84,7 @@
 	if(!istype(H.mind.martial_art, /datum/martial_art/krav_maga))
 		to_chat(owner, span_warning("You don't know how to do that right now."))
 		return
-	if(owner.incapacitated())
+	if(owner.incapacitated)
 		to_chat(owner, span_warning("You can't use Krav Maga while you're incapacitated."))
 		return
 	to_chat(owner, "<b><i>Your next attack will be a Lung Punch.</i></b>")

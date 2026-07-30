@@ -63,7 +63,7 @@
 	return ..()
 
 /mob/living/simple_animal/hostile/gorilla/hear_say(list/message_pieces, verb = "говор%(ит,ят)%", italics = FALSE, mob/speaker = null, sound/speech_sound, sound_vol, sound_frequency, use_voice = TRUE, is_whisper = FALSE)
-	if(client || !can_befriend || !ishuman(speaker) || speaker == src || incapacitated() || is_on_cooldown())
+	if(client || !can_befriend || !ishuman(speaker) || speaker == src || incapacitated || is_on_cooldown())
 		return ..()
 
 	var/full_message = lowertext(multilingual_to_message(message_pieces))
@@ -253,7 +253,7 @@
 		to_chat(master, span_warning("[capitalize(name)] сейчас занят[GEND_A_O_Y(src)]."))
 		return
 
-	if(incapacitated())
+	if(incapacitated)
 		start_custom_emote(EMOTE_VISIBLE, "жалобно мыч%(ит,ат)% в сторону [master].", intentional = TRUE)
 		return
 

@@ -107,7 +107,7 @@
 /obj/item/fluff/tattoo_gun/elliot_cybernetic_tat/attack_self(mob/user as mob)
 	if(!used)
 		var/ink_color = tgui_input_color(usr, "Please select an ink color.", "Tattoo Ink Color", rgb(tattoo_r, tattoo_g, tattoo_b))
-		if(!isnull(ink_color) && !(user.incapacitated() || used))
+		if(!isnull(ink_color) && !(user.incapacitated || used))
 			tattoo_r = color2R(ink_color)
 			tattoo_g = color2G(ink_color)
 			tattoo_b = color2B(ink_color)
@@ -201,7 +201,7 @@
 	)
 
 /obj/item/fluff/rapid_wheelchair_kit/afterattack(obj/vehicle/ridden/wheelchair/target, mob/user, proximity_flag, list/modifiers, status)
-	if(!proximity_flag || !ishuman(user) || user.incapacitated())
+	if(!proximity_flag || !ishuman(user) || user.incapacitated)
 		return
 
 	if(istype(target))
@@ -280,7 +280,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/fluff/desolate_coat_kit/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
-	if(!proximity_flag || !ishuman(user) || user.incapacitated())
+	if(!proximity_flag || !ishuman(user) || user.incapacitated)
 		return
 
 	if(!istype(target, /obj/item/clothing/suit/armor/hos))
@@ -312,7 +312,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/fluff/fei_gasmask_kit/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
-	if(!proximity_flag || !ishuman(user) || user.incapacitated())
+	if(!proximity_flag || !ishuman(user) || user.incapacitated)
 		return
 
 	if(istype(target, /obj/item/clothing/mask/gas) && !istype(target, /obj/item/clothing/mask/gas/welding))
@@ -344,7 +344,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/fluff/desolate_baton_kit/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
-	if(!proximity_flag || !ishuman(user) || user.incapacitated())
+	if(!proximity_flag || !ishuman(user) || user.incapacitated)
 		return
 
 	if(istype(target, /obj/item/melee/baton/security) && !istype(target, /obj/item/melee/baton/security/cattleprod))
@@ -368,7 +368,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/fluff/cardgage_helmet_kit/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
-	if(!proximity_flag || !ishuman(user) || user.incapacitated())
+	if(!proximity_flag || !ishuman(user) || user.incapacitated)
 		return
 
 	if(istype(target, /obj/item/clothing/head/welding))
@@ -388,7 +388,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/fluff/merchant_sallet_modkit/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
-	if(!proximity_flag || !ishuman(user) || user.incapacitated())
+	if(!proximity_flag || !ishuman(user) || user.incapacitated)
 		return
 
 	var/mob/living/carbon/human/H = user
@@ -429,7 +429,7 @@
 	w_class = 2
 
 /obj/item/fluff/k3_webbing_modkit/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
-	if(!proximity_flag || !ishuman(user) || user.incapacitated())
+	if(!proximity_flag || !ishuman(user) || user.incapacitated)
 		return
 
 	if(istype(target, /obj/item/clothing/suit/storage/labcoat) || istype(target, /obj/item/clothing/suit/storage/hazardvest))
@@ -454,7 +454,7 @@
 
 /*
 /obj/item/fluff/pyro_wintersec_kit/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
-	if(!proximity || !ishuman(user) || user.incapacitated())
+	if(!proximity || !ishuman(user) || user.incapacitated)
 		return
 	var/mob/living/carbon/human/H = user
 
@@ -509,7 +509,7 @@
 
 /*
 /obj/item/fluff/sylus_conversion_kit/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
-	if(!proximity || !ishuman(user) || user.incapacitated())
+	if(!proximity || !ishuman(user) || user.incapacitated)
 		return
 	var/mob/living/carbon/human/H = user
 
@@ -660,7 +660,7 @@
 	var/state = "Soldier Up"
 
 /obj/item/clothing/head/helmet/fluff/merchant_sallet/attack_self(mob/user)
-	if(!user.incapacitated() && (world.time > cooldown + toggle_cooldown) && Adjacent(user))
+	if(!user.incapacitated && (world.time > cooldown + toggle_cooldown) && Adjacent(user))
 		var/list/options = list()
 		options["Soldier Up"] = list(
 			"icon_state"	= "merchant_sallet_visor_bevor",
@@ -685,7 +685,7 @@
 
 		var/choice = tgui_input_list(user, "How would you like to adjust the helmet?", "Adjust Helmet", options)
 
-		if(choice && choice != state && !user.incapacitated() && Adjacent(user))
+		if(choice && choice != state && !user.incapacitated && Adjacent(user))
 			var/list/new_state = options[choice]
 			icon_state = new_state["icon_state"]
 			state = choice
@@ -824,7 +824,7 @@
 
 GAME_VERB_SRC(/obj/item/clothing/suit/fluff/kluys, toggle, usr, "Режим наноткани", VERB_CATEGORY_HIDDEN)
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return FALSE
 
 	switch(icon_state)
@@ -924,7 +924,7 @@ GAME_VERB_SRC(/obj/item/clothing/suit/fluff/kluys, toggle, usr, "Режим на
 	item_state = suit_adjusted ? "[base_item_state]_on" : base_item_state
 
 /obj/item/clothing/suit/storage/fluff/k3_webbing/adjustsuit(mob/user)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return
 
 	suit_adjusted = !suit_adjusted
@@ -1093,7 +1093,7 @@ GAME_VERB_SRC(/obj/item/clothing/suit/fluff/kluys, toggle, usr, "Режим на
 
 GAME_VERB_SRC(/obj/item/clothing/under/fluff/jane_sidsuit, toggle_zipper, usr, "Молния костюма", VERB_CATEGORY_HIDDEN)
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return FALSE
 
 	up = !up
@@ -1425,7 +1425,7 @@ GAME_VERB_SRC(/obj/item/clothing/under/fluff/jane_sidsuit, toggle_zipper, usr, "
 	icon_state = "modkit"
 
 /obj/item/fluff/decemviri_spacepod_kit/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
-	if(!proximity_flag || !ishuman(user) || user.incapacitated())
+	if(!proximity_flag || !ishuman(user) || user.incapacitated)
 		return
 
 	if(!isspacepod(target))
