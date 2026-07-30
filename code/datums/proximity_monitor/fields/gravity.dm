@@ -69,7 +69,6 @@
 	icon = 'icons/obj/smooth_structures/grav_field.dmi'
 	icon_state = "grav_field-0"
 	base_icon_state = "grav_field"
-	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	pass_flags_self = LETPASSCLICKS
 	smooth = SMOOTH_BITMASK

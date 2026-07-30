@@ -80,7 +80,10 @@ export const Portagrav = () => {
                 {wireMode ? 'Силовой кабель' : 'Батарея'}
               </Button>
             </LabeledList.Item>
-            <LabeledList.Item label="Батарея" color={!hasPowercell ? 'bad' : ''}>
+            <LabeledList.Item
+              label="Батарея"
+              color={!hasPowercell ? 'bad' : ''}
+            >
               {(!!hasPowercell && (
                 <ProgressBar
                   value={powerLevel / 100}
