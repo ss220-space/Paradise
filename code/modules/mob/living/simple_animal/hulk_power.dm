@@ -1,62 +1,59 @@
 //Transform spell
 
-/obj/effect/proc_holder/spell/hulk_transform
+/datum/action/cooldown/spell/hulk_transform
 	name = "Transform"
 	desc = "Превращение в халка."
-	action_icon_state = "transformarion_hulk"
-	action_background_icon_state = "bg_hulk"
-	clothes_req = FALSE
-	human_req = FALSE
+	button_icon_state = "transformarion_hulk"
+	background_icon_state = "bg_hulk"
+	spell_requirements = NONE
+	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_PHASED | AB_CHECK_INCAPACITATED
 
-/obj/effect/proc_holder/spell/hulk_transform/create_new_targeting()
-	return new /datum/spell_targeting/self
-
-/obj/effect/proc_holder/spell/hulk_transform/cast(list/targets, mob/user = usr)
-	if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
-		to_chat(user, span_warning("Not enough angry power."))
+/datum/action/cooldown/spell/hulk_transform/cast(atom/cast_on)
+	. = ..()
+	if(HAS_TRAIT(owner, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
+		to_chat(owner, span_warning("Not enough angry power."))
 		return
-	if(istype(user,/mob/living/simple_animal/hulk))
-		to_chat(user, span_warning("You are already hulk."))
+	if(istype(owner,/mob/living/simple_animal/hulk))
+		to_chat(owner, span_warning("You are already hulk."))
 		return
-	to_chat(user, span_boldnotice("You can feel real POWER."))
-	if(istype(user.loc, /obj/machinery/dna_scannernew))
-		var/obj/machinery/dna_scannernew/DSN = loc
+	to_chat(owner, span_boldnotice("You can feel real POWER."))
+	if(istype(owner.loc, /obj/machinery/dna_scannernew))
+		var/obj/machinery/dna_scannernew/DSN = owner.loc
 		DSN.occupant = null
 		DSN.icon_state = "scanner_0"
 	var/mob/living/simple_animal/hulk/Monster
-	if(HAS_TRAIT(user, TRAIT_CLUMSY))
-		Monster = new /mob/living/simple_animal/hulk/clown_hulk(get_turf(user))
-	else if(isunathi(user))
-		Monster = new /mob/living/simple_animal/hulk/zilla(get_turf(user))
+	if(HAS_TRAIT(owner, TRAIT_CLUMSY))
+		Monster = new /mob/living/simple_animal/hulk/clown_hulk(get_turf(owner))
+	else if(isunathi(owner))
+		Monster = new /mob/living/simple_animal/hulk/zilla(get_turf(owner))
 	else
-		Monster = new /mob/living/simple_animal/hulk/human(get_turf(user))
+		Monster = new /mob/living/simple_animal/hulk/human(get_turf(owner))
 
 	var/datum/effect_system/fluid_spread/smoke/smoke = new
-	smoke.set_up(amount = 10, location = user.loc)
+	smoke.set_up(amount = 10, location = owner.loc)
 	smoke.start()
-	playsound(user, 'sound/effects/bamf.ogg', CHANNEL_BUZZ)
-	Monster.original_body = user
-	user.forceMove(Monster)
-	ADD_TRAIT(user, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(Monster))
-	user.mind.transfer_to(Monster)
+	playsound(owner, 'sound/effects/bamf.ogg', CHANNEL_BUZZ)
+	Monster.original_body = owner
+	owner.forceMove(Monster)
+	ADD_TRAIT(owner, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(Monster))
+	owner.mind.transfer_to(Monster)
 	Monster.say(pick("RAAAAAAAARGH!", "HNNNNNNNNNGGGGGGH!", "GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", "AAAAAAARRRGH!" ))
 
 //HUMAN HULK
 
 //Dash
-/obj/effect/proc_holder/spell/hulk_dash
+/datum/action/cooldown/spell/hulk_dash
 	name = "Dash"
 	desc = "Разбег. Чем он дольше, тем больнее будет, тем кто встанет у вас на пути."
-	action_icon_state = "charge_hulk"
-	action_background_icon_state = "bg_hulk"
-	base_cooldown = 13 SECONDS
-	clothes_req = FALSE
-	human_req = FALSE
+	button_icon_state = "charge_hulk"
+	background_icon_state = "bg_hulk"
+	cooldown_time = 13 SECONDS
+	spell_requirements = NONE
+	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_PHASED | AB_CHECK_INCAPACITATED
 
-/obj/effect/proc_holder/spell/hulk_dash/create_new_targeting()
-	return new /datum/spell_targeting/self
-
-/obj/effect/proc_holder/spell/hulk_dash/cast(list/targets, mob/living/user)
+/datum/action/cooldown/spell/hulk_dash/cast(atom/cast_on)
+	. = ..()
+	var/mob/living/simple_animal/hulk/user = cast_on
 	var/turf/T = get_turf(get_step(user,user.dir))
 	for(var/mob/living/M in T.contents)
 		to_chat(user, span_warning("Something right in front of you!"))
@@ -208,19 +205,18 @@
 	return
 
 //Jump
-/obj/effect/proc_holder/spell/hulk_jump
+/datum/action/cooldown/spell/hulk_jump
 	name = "Leap"
 	desc = "Прыжок. Можно легко сломать кому-то кость при столкновении."
-	action_icon_state = "jump_hulk"
-	action_background_icon_state = "bg_hulk"
-	base_cooldown = 13 SECONDS
-	clothes_req = FALSE
-	human_req = FALSE
+	button_icon_state = "jump_hulk"
+	background_icon_state = "bg_hulk"
+	cooldown_time = 13 SECONDS
+	spell_requirements = NONE
+	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_PHASED | AB_CHECK_INCAPACITATED
 
-/obj/effect/proc_holder/spell/hulk_jump/create_new_targeting()
-	return new /datum/spell_targeting/self
-
-/obj/effect/proc_holder/spell/hulk_jump/cast(list/targets, mob/living/user)
+/datum/action/cooldown/spell/hulk_jump/cast(atom/cast_on)
+	. = ..()
+	var/mob/living/simple_animal/hulk/user = cast_on
 	var/failure = 0
 	if(!user)
 		return
@@ -327,23 +323,18 @@
 //Clown-Hulk
 
 //Hulk Honk
-/obj/effect/proc_holder/spell/hulk_honk
+/datum/action/cooldown/spell/hulk_honk
 	name = "HulkHONK"
 	desc = "Ваш хонк заставляет ваших врагов пасть на пол и налить под себя смазку (от страха). На ваших братьях-клоунах работает как лечение."
-	action_icon_state = "honk_hulk"
-	action_background_icon_state = "bg_hulk"
-	base_cooldown = 25 SECONDS
-	clothes_req = FALSE
-	human_req = FALSE
+	button_icon_state = "honk_hulk"
+	background_icon_state = "bg_hulk"
+	cooldown_time = 25 SECONDS
+	spell_requirements = NONE
+	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_PHASED | AB_CHECK_INCAPACITATED
 
-/obj/effect/proc_holder/spell/hulk_honk/create_new_targeting()
-	return new /datum/spell_targeting/self
-
-/obj/effect/proc_holder/spell/hulk_honk/cast(list/targets, mob/user)
-	if(user.incapacitated())
-		to_chat(user, span_red("You can't right now!"))
-		return
-	playsound(user, 'sound/items/airhorn.ogg', CHANNEL_BUZZ)
+/datum/action/cooldown/spell/hulk_honk/cast(atom/cast_on)
+	. = ..()
+	playsound(cast_on)
 	for(var/mob/living/carbon/M in ohearers(2))
 		if(HAS_TRAIT(M, TRAIT_CLUMSY))
 			var/update = NONE
@@ -365,64 +356,52 @@
 			victim_loc.MakeSlippery(TURF_WET_LUBE, 5 SECONDS)
 
 //Hulk Joke
-/obj/effect/proc_holder/spell/hulk_joke
+/datum/action/cooldown/spell/hulk_joke
 	name = "Joke"
 	desc = "Пускает большое облако дыма, а так-же лечит вас. Хорошее решение если вам нужно отступить."
-	action_icon_state = "joke_hulk"
-	action_background_icon_state = "bg_hulk"
-	base_cooldown = 35 SECONDS
-	clothes_req = FALSE
-	human_req = FALSE
+	button_icon_state = "joke_hulk"
+	background_icon_state = "bg_hulk"
+	cooldown_time = 35 SECONDS
+	spell_requirements = NONE
+	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_PHASED | AB_CHECK_INCAPACITATED
 
-/obj/effect/proc_holder/spell/hulk_joke/create_new_targeting()
-	return new /datum/spell_targeting/self
-
-/obj/effect/proc_holder/spell/hulk_joke/cast(list/targets,mob/user)
-	if(user.incapacitated())
-		to_chat(user, span_warning("You can't right now!"))
-		return
-
-	var/mob/living/simple_animal/hulk/clown_hulk = user
+/datum/action/cooldown/spell/hulk_joke/cast(atom/cast_on)
+	. = ..()
+	var/mob/living/simple_animal/hulk/clown_hulk = cast_on
 	clown_hulk.heal_damages(brute = 50, tox = 10, oxy = 10)
 	clown_hulk.AdjustWeakened(-2 SECONDS)
 	clown_hulk.AdjustStunned(-2 SECONDS)
 
 	var/datum/effect_system/fluid_spread/smoke/smoke = new
-	smoke.set_up(amount = 10, location = user.loc)
+	smoke.set_up(amount = 10, location = clown_hulk.loc)
 	smoke.start()
-	playsound(user,pick('sound/spookoween/scary_clown_appear.ogg','sound/spookoween/scary_horn.ogg','sound/spookoween/scary_horn2.ogg','sound/spookoween/scary_horn3.ogg'),CHANNEL_BUZZ, 100)
+	playsound(clown_hulk,pick('sound/spookoween/scary_clown_appear.ogg','sound/spookoween/scary_horn.ogg','sound/spookoween/scary_horn2.ogg','sound/spookoween/scary_horn3.ogg'),CHANNEL_BUZZ, 100)
 
 //Zilla
 
 //Hulk Mill
-/obj/effect/proc_holder/spell/hulk_mill
+/datum/action/cooldown/spell/hulk_mill
 	name = "Windmill"
 	desc = "Вы начинаете крутить хвостом во все стороны и наносить им урон. Хорошим выбором будет использовать это в узких помещаниях."
-	action_icon_state = "mill_hulk"
-	action_background_icon_state = "bg_hulk"
-	base_cooldown = 20 SECONDS
-	clothes_req = FALSE
-	human_req = FALSE
+	button_icon_state = "mill_hulk"
+	background_icon_state = "bg_hulk"
+	cooldown_time = 20 SECONDS
+	spell_requirements = NONE
+	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_PHASED | AB_CHECK_INCAPACITATED
 
-/obj/effect/proc_holder/spell/hulk_mill/create_new_targeting()
-	return new /datum/spell_targeting/self
-
-/obj/effect/proc_holder/spell/hulk_mill/cast(list/targets, mob/user = usr)
-	if(user.incapacitated())
-		to_chat(user, span_warning("You can't do that right now!"))
-		return
-
+/datum/action/cooldown/spell/hulk_mill/cast(atom/cast_on)
+	. = ..()
 	for(var/i in 1 to 45)
-		if(user.dir == 1)
-			user.setDir(2)
-		else if(user.dir == 2)
-			user.setDir(4)
-		else if(user.dir == 4)
-			user.setDir(8)
-		else if(user.dir == 8)
-			user.setDir(1)
+		if(owner.dir == 1)
+			owner.setDir(2)
+		else if(owner.dir == 2)
+			owner.setDir(4)
+		else if(owner.dir == 4)
+			owner.setDir(8)
+		else if(owner.dir == 8)
+			owner.setDir(1)
 
-		for(var/mob/living/M in view(2, user) - user - user.contents)
+		for(var/mob/living/M in view(2, owner) - owner - owner.contents)
 			if(ishuman(M))
 				var/mob/living/carbon/human/H = M
 				var/bodypart_name = pick(BODY_ZONE_CHEST,BODY_ZONE_L_ARM,BODY_ZONE_R_ARM,BODY_ZONE_L_LEG,BODY_ZONE_R_LEG,BODY_ZONE_HEAD,BODY_ZONE_TAIL, BODY_ZONE_WING)
@@ -444,6 +423,7 @@
 	deactive_msg = span_notice_alt("You swallow your spit...for now.")
 	projectile_type = /obj/projectile/energy/hulkspit
 	cooldown_time = 25 SECONDS
+	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_PHASED | AB_CHECK_INCAPACITATED
 
 /datum/action/cooldown/spell/pointed/projectile/hulk_spit/can_cast_spell(feedback)
 	if(owner.incapacitated())
@@ -461,4 +441,5 @@
 	projectile_type = /obj/projectile/beam
 	cooldown_time = 7 SECONDS
 	sound = 'sound/weapons/laser.ogg'
+	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_PHASED | AB_CHECK_INCAPACITATED
 

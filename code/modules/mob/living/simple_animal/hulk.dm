@@ -37,8 +37,8 @@
 
 /mob/living/simple_animal/hulk/human
 	hulk_powers = list(
-		/obj/effect/proc_holder/spell/hulk_jump,
-		/obj/effect/proc_holder/spell/hulk_dash,
+		/datum/action/cooldown/spell/hulk_jump,
+		/datum/action/cooldown/spell/hulk_dash,
 	)
 
 //Clown Hulk
@@ -62,8 +62,8 @@
 	health_regen = 24
 
 	hulk_powers = list(
-		/obj/effect/proc_holder/spell/hulk_honk,
-		/obj/effect/proc_holder/spell/hulk_joke,
+		/datum/action/cooldown/spell/hulk_honk,
+		/datum/action/cooldown/spell/hulk_joke,
 	)
 
 //Godzilla
@@ -87,7 +87,7 @@
 	attack_sound = list('sound/weapons/bite.ogg')
 
 	hulk_powers = list(
-		/obj/effect/proc_holder/spell/hulk_mill,
+		/datum/action/cooldown/spell/hulk_mill,
 		/datum/action/cooldown/spell/pointed/projectile/hulk_spit,
 		/datum/action/cooldown/spell/pointed/projectile/hulk_spit/hulk_lazor,
 	)

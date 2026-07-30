@@ -644,30 +644,6 @@ GLOBAL_LIST_INIT(spells_a, typesof(/datum/action/cooldown/spell))
 
 	return TRUE
 
-/obj/effect/proc_holder/spell/summonmob
-	name = "Summon Servant"
-	desc = "This spell can be used to call your servant, whenever you need it."
-	clothes_req = FALSE
-	invocation = "JE VES"
-	invocation_type = "whisper"
-	level_max = 0 //cannot be improved
-	cooldown_min = 10 SECONDS
-	action_icon_state = "summons"
-	var/mob/living/target_mob
-
-/obj/effect/proc_holder/spell/summonmob/create_new_targeting()
-	return new /datum/spell_targeting/self
-
-/obj/effect/proc_holder/spell/summonmob/cast(list/targets, mob/user = usr)
-	if(!target_mob)
-		return
-
-	var/turf/Start = get_turf(user)
-	for(var/direction in GLOB.alldirs)
-		var/turf/step_turf = get_step(Start,direction)
-		if(!step_turf.density)
-			target_mob.Move(step_turf)
-
 /// Called when a spell is added
 /obj/effect/proc_holder/spell/proc/on_spell_gain(mob/user = usr)
 	return

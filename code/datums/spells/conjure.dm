@@ -83,12 +83,3 @@
 		cooldown_handler.start_recharge(0.5 SECONDS)
 
 	return what_conjure_summoned
-
-/obj/effect/proc_holder/spell/aoe/conjure/summonEdSwarm //test purposes
-	name = "Dispense Wizard Justice"
-	desc = "This spell dispenses wizard justice."
-	summon_type = list(/mob/living/simple_animal/bot/ed209)
-	summon_amt = 10
-	newVars = list("emagged" = 1,"name" = "Wizard's Justicebot")
-	aoe_range = 3
-

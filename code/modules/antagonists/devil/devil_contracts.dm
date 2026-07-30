@@ -47,12 +47,13 @@ GLOBAL_LIST_INIT(devil_guns, (GLOB.summoned_guns - NOT_DEVIL_GUNS + DEVIL_GUNS))
 	return TRUE
 
 /datum/devil_contract/power/fulfill_contract(mob/living/carbon/human/user)
-	user.mind.AddSpell(new /obj/effect/proc_holder/spell/hulk_transform/contract(null))
+	var/datum/action/cooldown/spell/hulk_transform/contract/spell = new
+	spell.Grant(user)
 	var/obj/item/organ/internal/regenerative_core/organ = new /obj/item/organ/internal/regenerative_core/cooldown
 	organ.insert(user)
 
-/obj/effect/proc_holder/spell/hulk_transform/contract
-	base_cooldown = HULK_COOLDOWN
+/datum/action/cooldown/spell/hulk_transform/contract
+	cooldown_time = HULK_COOLDOWN
 
 /datum/devil_contract/wealth
 	name = "контракт богатства"

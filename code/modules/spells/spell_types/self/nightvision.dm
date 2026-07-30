@@ -24,5 +24,5 @@
 			caster.lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
 			name = "Toggle Nightvision \[ON]"
 	caster.update_sight()
-	to_chat(caster, span_notice("You toggle your night vision!"))
+	to_chat(caster, span_notice("Вы переключаете ночное зрение."))
 

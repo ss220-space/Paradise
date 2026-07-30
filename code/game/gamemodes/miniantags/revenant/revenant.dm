@@ -51,6 +51,16 @@
 	var/draining = 0 //If the revenant is draining someone.
 	var/list/drained_mobs //Cannot harvest the same mob twice
 	var/perfectsouls = 0 //How many perfect, regen-cap increasing souls the revenant has.
+	var/list/revenant_spells = list(
+		/datum/action/cooldown/spell/nightvision/revenant,
+		/datum/action/cooldown/spell/pointed/revenant_transmit,
+		/datum/action/cooldown/spell/aoe/revenant/overload/defile,
+		/datum/action/cooldown/spell/aoe/revenant/malfunction,
+		/datum/action/cooldown/spell/aoe/revenant/overload,
+		/datum/action/cooldown/spell/aoe/revenant/blight,
+		/datum/action/cooldown/spell/aoe/revenant/haunt_object,
+		/datum/action/cooldown/spell/aoe/revenant/hallucinations,
+	)
 
 /mob/living/simple_animal/revenant/get_ru_names()
 	return alist(
@@ -217,15 +227,9 @@
 			to_chat(src, custom_boxed_message("red_box center", messages.Join("<br>")))
 
 /mob/living/simple_animal/revenant/proc/giveSpells()
-	var/datum/action/cooldown/spell/nightvision/nightvision = new()
-	nightvision.Grant(src)
-	mind.AddSpell(new /obj/effect/proc_holder/spell/revenant_transmit(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/defile(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/malfunction(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/overload(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/blight(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/haunt_object(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/hallucinations(null))
+	for(var/spell_type in revenant_spells)
+		var/datum/action/cooldown/spell/spell = new spell_type
+		spell.Grant(src)
 	return TRUE
 
 /mob/living/simple_animal/revenant/dust()
