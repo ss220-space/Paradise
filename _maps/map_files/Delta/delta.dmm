@@ -23403,9 +23403,6 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -43763,11 +43760,11 @@
 /turf/space,
 /area/turret_protected/ai)
 "fXQ" = (
-/obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "experimentor";
 	name = "Experimentor Blast Door"
 	},
+/obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
 /area/toxins/explab)
 "fXV" = (
@@ -44977,19 +44974,6 @@
 /obj/item/camera,
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
-"goC" = (
-/obj/structure/window/plasmareinforced{
-	dir = 4
-	},
-/obj/structure/window/plasmareinforced{
-	dir = 1
-	},
-/obj/structure/window/plasmareinforced{
-	dir = 8
-	},
-/obj/structure/grille,
-/turf/simulated/floor/plating,
-/area/toxins/launch)
 "goD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
@@ -45459,15 +45443,9 @@
 	dir = 8;
 	network = list("Research","SS13")
 	},
-/obj/machinery/firealarm/directional/east,
+/obj/item/radio/intercom/directional/east,
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/dropper/precision,
-/obj/item/reagent_containers/dropper/precision,
-/obj/item/reagent_containers/dropper,
-/obj/item/reagent_containers/dropper,
-/obj/item/storage/box/pillbottles,
-/obj/item/storage/box/syringes,
-/obj/item/storage/box/gloves,
+/obj/machinery/reagentgrinder,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -48920,13 +48898,13 @@
 /obj/machinery/status_display{
 	pixel_x = -32
 	},
-/obj/structure/table/reinforced,
-/obj/machinery/reagentgrinder,
 /obj/machinery/button/windowtint{
 	id = "chem";
 	pixel_x = -24;
 	pixel_y = -24
 	},
+/obj/structure/reagent_dispensers/fueltank,
+/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -57944,7 +57922,7 @@
 /area/crew_quarters/cabin2)
 "jjC" = (
 /obj/machinery/status_display,
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall/r_wall/coated,
 /area/toxins/explab)
 "jjD" = (
 /obj/machinery/sparker{
@@ -60773,13 +60751,11 @@
 	},
 /area/medical/sleeper)
 "jOW" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/multitool,
-/obj/item/multitool,
-/obj/item/clothing/ears/earmuffs,
-/obj/item/clothing/ears/earmuffs,
-/obj/machinery/alarm/directional/east,
+/obj/item/twohanded/required/kirbyplants,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/apc/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -61070,17 +61046,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
-/obj/structure/grille,
-/obj/structure/window/plasmareinforced{
-	dir = 1
-	},
-/obj/structure/window/plasmareinforced{
-	dir = 8
-	},
-/obj/structure/window/plasmareinforced,
-/obj/structure/window/plasmareinforced{
-	dir = 4
-	},
+/obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
 /area/toxins/launch)
 "jTD" = (
@@ -63617,9 +63583,15 @@
 	},
 /area/hallway/secondary/exit)
 "kyX" = (
-/obj/structure/reagent_dispensers/fueltank,
-/obj/structure/extinguisher_cabinet/directional/north,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/table/reinforced,
+/obj/item/storage/box/gloves,
+/obj/item/storage/box/syringes,
+/obj/item/storage/box/pillbottles,
+/obj/item/reagent_containers/dropper,
+/obj/item/reagent_containers/dropper,
+/obj/item/reagent_containers/dropper/precision,
+/obj/item/reagent_containers/dropper/precision,
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -63943,6 +63915,8 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -70569,8 +70543,14 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "mkX" = (
-/obj/item/radio/intercom/directional/east,
-/obj/item/twohanded/required/kirbyplants,
+/obj/machinery/firealarm/directional/east,
+/obj/structure/table/reinforced,
+/obj/item/storage/bag/chemistry,
+/obj/item/storage/bag/chemistry,
+/obj/item/storage/bag/chemistry,
+/obj/item/storage/bag/chemistry,
+/obj/item/clothing/mask/gas,
+/obj/item/clothing/mask/gas,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -80426,7 +80406,7 @@
 /area/maintenance/tourist)
 "osx" = (
 /obj/structure/sign/securearea,
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall/r_wall/coated,
 /area/toxins/explab)
 "osE" = (
 /obj/structure/window/reinforced{
@@ -80474,17 +80454,6 @@
 	},
 /turf/simulated/floor/carpet,
 /area/bridge)
-"otn" = (
-/obj/structure/grille,
-/obj/structure/window/plasmareinforced{
-	dir = 8
-	},
-/obj/structure/window/plasmareinforced,
-/obj/structure/window/plasmareinforced{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/toxins/launch)
 "ots" = (
 /turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/serviceyard)
@@ -84164,11 +84133,15 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/medical/psych)
 "pln" = (
-/obj/machinery/smartfridge/medbay,
-/obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
+/obj/structure/table/reinforced,
+/obj/item/storage/toolbox/mechanical,
+/obj/item/multitool,
+/obj/item/multitool,
+/obj/item/clothing/ears/earmuffs,
+/obj/item/clothing/ears/earmuffs,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitepurple"
@@ -86491,11 +86464,7 @@
 	},
 /area/crew_quarters/hor)
 "pKg" = (
-/obj/machinery/hologram/holopad,
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/turf/simulated/wall/r_wall/coated,
 /area/toxins/misc_lab)
 "pKh" = (
 /obj/machinery/door/airlock/maintenance{
@@ -88473,21 +88442,11 @@
 	},
 /area/security/brig)
 "qhH" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/box/beakers,
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/item/reagent_containers/glass/beaker/large,
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/machinery/smartfridge/medbay,
+/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -89714,11 +89673,21 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "qtD" = (
-/obj/machinery/vending/plasmaresearch,
 /obj/structure/sign/nosmoking_2{
 	pixel_y = 32
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/table/reinforced,
+/obj/item/storage/box/beakers,
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/glass/beaker/large,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitepurple"
@@ -111590,6 +111559,9 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -115613,19 +115585,8 @@
 	},
 /area/engineering/break_room)
 "wiT" = (
-/obj/structure/grille,
-/obj/structure/window/plasmareinforced{
-	dir = 1
-	},
-/obj/structure/window/plasmareinforced{
-	dir = 8
-	},
-/obj/structure/window/plasmareinforced,
-/obj/structure/window/plasmareinforced{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/toxins/launch)
+/turf/simulated/wall/r_wall/coated,
+/area/toxins/explab)
 "wiW" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -115854,13 +115815,7 @@
 /turf/simulated/floor/wood,
 /area/library)
 "wmd" = (
-/obj/structure/window/plasmareinforced{
-	dir = 4
-	},
-/obj/structure/window/plasmareinforced{
-	dir = 8
-	},
-/obj/structure/grille,
+/obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
 /area/toxins/launch)
 "wmf" = (
@@ -120426,6 +120381,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/structure/extinguisher_cabinet/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -123669,17 +123625,8 @@
 	},
 /area/hallway/primary/port/west)
 "xTF" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/bag/chemistry,
-/obj/item/storage/bag/chemistry,
-/obj/item/storage/bag/chemistry,
-/obj/item/storage/bag/chemistry,
-/obj/item/clothing/mask/gas,
-/obj/item/clothing/mask/gas,
-/obj/machinery/power/apc/directional/east,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/machinery/vending/plasmaresearch,
+/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whitepurple"
@@ -152048,9 +151995,9 @@ fvu
 pmu
 lbz
 lbz
-goC
 wmd
-otn
+wmd
+wmd
 lbz
 jsz
 lbz
@@ -152308,7 +152255,7 @@ sWO
 wqb
 vsE
 tnE
-wiT
+wmd
 dHp
 jHC
 obv
@@ -152822,7 +152769,7 @@ fec
 xLY
 ydv
 kLY
-wiT
+wmd
 agr
 lbz
 fjF
@@ -153819,7 +153766,7 @@ qUe
 oOZ
 kyX
 xSG
-pKg
+cWV
 sIL
 qGp
 voL
@@ -154330,12 +154277,12 @@ eTz
 yhX
 ugg
 cbC
-oOZ
-oOZ
-oOZ
-oOZ
-oOZ
-oOZ
+pKg
+pKg
+pKg
+pKg
+pKg
+pKg
 oOZ
 oOZ
 oOZ
@@ -154587,7 +154534,7 @@ lzy
 cbC
 ugg
 cbC
-ddi
+wiT
 tHr
 tLc
 tHr
@@ -154844,7 +154791,7 @@ gMw
 qUe
 dam
 cbC
-ddi
+wiT
 tHr
 tHr
 tHr
@@ -155101,12 +155048,12 @@ olI
 raR
 hKO
 jiD
-ddi
+wiT
 tHr
 tHr
 xYt
 xuG
-ddi
+wiT
 rkO
 sHY
 xdB
@@ -155358,7 +155305,7 @@ gMw
 cbC
 qIQ
 cbC
-ddi
+wiT
 mps
 tHr
 quP
@@ -155615,7 +155562,7 @@ gMw
 nQm
 cAT
 qac
-ddi
+wiT
 lGO
 tHr
 tHr
@@ -155872,7 +155819,7 @@ gMw
 qUe
 cAT
 lGR
-ddi
+wiT
 tHr
 tHr
 mFH
@@ -156129,7 +156076,7 @@ vSU
 nUy
 frh
 qUe
-ddi
+wiT
 dtO
 tHr
 tHr
@@ -156386,7 +156333,7 @@ gMw
 cbC
 ugg
 ikA
-ddi
+wiT
 tHr
 cRX
 tHr
@@ -156643,12 +156590,12 @@ gMw
 yhX
 ugg
 cbC
-ddi
-ddi
-ddi
-ddi
-ddi
-ddi
+wiT
+wiT
+wiT
+wiT
+wiT
+wiT
 ddi
 ddi
 ddi
