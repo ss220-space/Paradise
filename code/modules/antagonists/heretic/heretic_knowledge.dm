@@ -540,10 +540,10 @@
 	var/list/requirements_string = list()
 
 	to_chat(user, span_mansus("[name] требует следующих подношений:"))
-	for(var/obj/item/path as anything in required_atoms)
-		var/amount_needed = required_atoms[path]
-		to_chat(user, span_hypnophrase("[amount_needed] ед. [path.declent_ru(NOMINATIVE)]\s..."))
-		requirements_string += "[amount_needed == 1 ? "" : "[amount_needed]"] [path.declent_ru(NOMINATIVE)]\s"
+	for(var/path in required_atoms)
+		var/requirement_text = parse_required_item(path, required_atoms[path])
+		to_chat(user, span_hypnophrase("[requirement_text]..."))
+		requirements_string += requirement_text
 
 	to_chat(user, span_mansus("Завершив этот ритуал, вы получите в награду [KNOWLEDGE_RITUAL_POINTS] очк[declension_ru(KNOWLEDGE_RITUAL_POINTS, "о", "а", "ов")] знаний. Вы можете проверить свои знания в разделе \"Изученные знания\"."))
 	transmute_text = "Преобразуйте [russian_list(requirements_string)]."

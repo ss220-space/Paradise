@@ -5,6 +5,8 @@
 	desc = "Рваный, покрытый пылью капюшон. Внутри виднеются жуткие глаза."
 	icon_state = "eldritch"
 	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME|HIDEHAIR
+	clothing_flags = THICKMATERIAL
+	resistance_flags = FIRE_PROOF|UNACIDABLE|ACID_PROOF
 	flash_protect = FLASH_PROTECTION_WELDER
 	sprite_sheets = list(
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
@@ -39,6 +41,11 @@
 	icon_state = "eldritch_armor"
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS
+	clothing_flags = THICKMATERIAL
+	resistance_flags = FIRE_PROOF|UNACIDABLE|ACID_PROOF
+	cold_protection = FULL_BODY
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+	clothing_traits = list(TRAIT_HERETIC_AURA_HIDDEN)
 	allowed = list(/obj/item/melee/sickly_blade, /obj/item/gun/projectile/shotgun/boltaction/lionhunter, /obj/item/flashlight/lantern/heretic)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch
 	armor = list("melee" = 50, "bullet" = 50, "laser" = 50,"energy" = 50, "bomb" = 35, "bio" = 20, "fire" = 20, "acid" = 20)
@@ -208,7 +215,7 @@
 	flags_inv = HIDEJUMPSUIT
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch/ash
 	armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 35, "bio" = 20, "fire" = 100, "acid" = 20)
-	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF | LAVA_PROOF
+	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF | LAVA_PROOF | FREEZE_PROOF
 	heat_protection = FULL_BODY
 	max_heat_protection_temperature = 50000
 	cold_protection = FULL_BODY
@@ -304,7 +311,7 @@
 	icon_state = "cosmic_armor"
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch/cosmic
 	armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 35, "bio" = 20, "fire" = 20, "acid" = 20)
-	clothing_flags = STOPSPRESSUREDAMAGE
+	clothing_flags = THICKMATERIAL|STOPSPRESSUREDAMAGE
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	actions_types = list(/datum/action/item_action/toggle, /datum/action/item_action/toggle_gravity)
@@ -360,7 +367,7 @@
 	name = "starwoven hood"
 	icon_state = "cosmic_armor"
 	armor = list("melee" = 30, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 15, "bio" = 10, "fire" = 10, "acid" = 10)
-	clothing_flags = STOPSPRESSUREDAMAGE
+	clothing_flags = THICKMATERIAL|STOPSPRESSUREDAMAGE
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 
