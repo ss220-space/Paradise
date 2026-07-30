@@ -499,7 +499,7 @@
 	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/area_creator/Click()
-	if(isobserver(usr) || usr.incapacitated())
+	if(!usr.can_admin_interact() && (isobserver(usr) || usr.incapacitated()))
 		return
 	var/area/our_area = get_area(usr)
 	if(!our_area.outdoors)

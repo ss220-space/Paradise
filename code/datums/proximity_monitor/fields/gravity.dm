@@ -75,7 +75,6 @@
 	smoothing_groups = SMOOTH_GROUP_GRAV_FIELD
 	canSmoothWith = SMOOTH_GROUP_GRAV_FIELD
 	alpha = 200
-	var/mutable_appearance/emissive
 	var/particles/particle_type
 
 /obj/effect/gravity_fluff_field/Initialize(mapload, strength)
@@ -100,14 +99,15 @@
 /obj/effect/gravity_fluff_field/Destroy(force)
 	if(particle_type)
 		remove_shared_particles(particle_type)
-	emissive = null
 	return ..()
 
 /obj/effect/gravity_fluff_field/set_smoothed_icon_state(new_junction)
 	. = ..()
-	cut_overlay(emissive)
-	emissive = emissive_appearance('icons/obj/smooth_structures/grav_field_emissive.dmi', "grav_field_emissive-[new_junction]", src)
-	add_overlay(emissive)
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/effect/gravity_fluff_field/update_overlays()
+	. = ..()
+	. += emissive_appearance('icons/obj/smooth_structures/grav_field_emissive.dmi', "grav_field_emissive-[smoothing_junction]", src)
 
 /datum/proximity_monitor/advanced/gravity/subtle_effect
 
