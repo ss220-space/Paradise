@@ -196,9 +196,37 @@ GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
 	min_spread = 10
 	max_spread = 23
 
-/datum/gun_accuracy/default/bow
+/datum/gun_accuracy/bow
+	head = 75
+	arms = 66
+	legs = 66
+	hands = 50
+	foots = 50
+	other = 50
+	min_spread = 10
+	max_spread = 25
 	spread_skill_mod = BOW_SPREAD_MOD
 	accuracy_skill_mod = BOW_ACCURACY_MOD
+
+/datum/gun_accuracy/bow/advanced
+	head = 85
+	arms = 76
+	legs = 76
+	hands = 60
+	foots = 60
+	other = 60
+	min_spread = 8
+	max_spread = 20
+
+/datum/gun_accuracy/bow/master
+	head = 90
+	arms = 81
+	legs = 81
+	hands = 70
+	foots = 70
+	other = 70
+	min_spread = 6
+	max_spread = 15
 
 // MARK: Procs
 
