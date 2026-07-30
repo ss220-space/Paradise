@@ -6,7 +6,6 @@
 	button_icon_state = "transformarion_hulk"
 	background_icon_state = "bg_hulk"
 	spell_requirements = NONE
-	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_PHASED | AB_CHECK_INCAPACITATED
 
 /datum/action/cooldown/spell/hulk_transform/cast(atom/cast_on)
 	. = ..()
@@ -49,7 +48,6 @@
 	background_icon_state = "bg_hulk"
 	cooldown_time = 13 SECONDS
 	spell_requirements = NONE
-	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_PHASED | AB_CHECK_INCAPACITATED
 
 /datum/action/cooldown/spell/hulk_dash/cast(atom/cast_on)
 	. = ..()
@@ -212,7 +210,6 @@
 	background_icon_state = "bg_hulk"
 	cooldown_time = 13 SECONDS
 	spell_requirements = NONE
-	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_PHASED | AB_CHECK_INCAPACITATED
 
 /datum/action/cooldown/spell/hulk_jump/cast(atom/cast_on)
 	. = ..()
@@ -330,7 +327,6 @@
 	background_icon_state = "bg_hulk"
 	cooldown_time = 25 SECONDS
 	spell_requirements = NONE
-	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_PHASED | AB_CHECK_INCAPACITATED
 
 /datum/action/cooldown/spell/hulk_honk/cast(atom/cast_on)
 	. = ..()
@@ -363,7 +359,6 @@
 	background_icon_state = "bg_hulk"
 	cooldown_time = 35 SECONDS
 	spell_requirements = NONE
-	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_PHASED | AB_CHECK_INCAPACITATED
 
 /datum/action/cooldown/spell/hulk_joke/cast(atom/cast_on)
 	. = ..()
@@ -387,7 +382,6 @@
 	background_icon_state = "bg_hulk"
 	cooldown_time = 20 SECONDS
 	spell_requirements = NONE
-	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_PHASED | AB_CHECK_INCAPACITATED
 
 /datum/action/cooldown/spell/hulk_mill/cast(atom/cast_on)
 	. = ..()
@@ -423,7 +417,6 @@
 	deactive_msg = span_notice_alt("You swallow your spit...for now.")
 	projectile_type = /obj/projectile/energy/hulkspit
 	cooldown_time = 25 SECONDS
-	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_PHASED | AB_CHECK_INCAPACITATED
 
 /datum/action/cooldown/spell/pointed/projectile/hulk_spit/can_cast_spell(feedback)
 	if(owner.incapacitated())

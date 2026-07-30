@@ -841,7 +841,6 @@
 	school = SCHOOL_SANGUINE
 	cooldown_time = 30 SECONDS
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN
-	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_PHASED | AB_CHECK_INCAPACITATED
 	possible_shapes = list(/mob/living/simple_animal/hostile/vampire)
 	var/required_blood = 0
 	var/transform_blood = 0
@@ -986,7 +985,6 @@
 	sound = 'sound/effects/creepyshriek.ogg'
 	school = SCHOOL_SANGUINE
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
-	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_PHASED | AB_CHECK_INCAPACITATED
 	cooldown_time = 20 SECONDS
 	var/required_blood = 40
 	var/t_hearts = 0
