@@ -584,6 +584,7 @@
 			"name" = mod.name,
 			"desc" = mod.description,
 			"modpath" = "[modpath]",
+			"loadout_mod" = mod.loadout_mod,
 			"selected" = (modpath in modifiers),
 			"selectable" = is_host && mod.selectable(src),
 		))

@@ -80,8 +80,8 @@
 	if(current_skill_level + applyed_bonus_points > SKILL_LEVEL_LEGEND)
 		applyed_bonus_points = SKILL_LEVEL_LEGEND - current_skill_level
 	if(applyed_bonus_points > 0)
-		target.mind.skills[skill_types] = current_skill_level + applyed_bonus_points
 		target.mind.active_neurotrainer_bonuses[skill_types] += applyed_bonus_points
+		target.mind.refresh_skills()
 		. = TRUE
 		used = TRUE
 
