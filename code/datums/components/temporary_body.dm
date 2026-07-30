@@ -52,6 +52,8 @@
 	if(!ghost)
 		CRASH("[src] belonging to [parent] was completely unable to find a ghost to put back into a body!")
 	ghost.mind = old_mind
+	if(!isliving(old_body))
+		return
 	if(old_body?.stat != DEAD)
 		old_mind.transfer_to(old_body)
 	else

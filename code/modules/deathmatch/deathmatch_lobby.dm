@@ -510,6 +510,8 @@
 						add_player(umob, loadouts[1], host == uckey)
 					return TRUE
 				if("change_map")
+					if(playing == DEATHMATCH_PRE_PLAYING)
+						return FALSE
 					if(!(params["map"] in GLOB.deathmatch_game.maps))
 						return FALSE
 					change_map(params["map"])
