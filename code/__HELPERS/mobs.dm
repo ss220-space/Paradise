@@ -243,7 +243,7 @@
 	var/list/fields = target_records.fields
 	var/their_name = fields["name"]
 	var/their_rank = fields["rank"]
-	var/static/list/protected_levels = list(SEC_RECORD_STATUS_ARREST, SEC_RECORD_STATUS_EXECUTE, SEC_RECORD_STATUS_INCARCERATED)
+	var/static/list/protected_levels = list(SEC_RECORD_STATUS_ARREST, SEC_RECORD_STATUS_EXECUTE, SEC_RECORD_STATUS_INCARCERATED, SEC_RECORD_STATUS_DEMOTE)
 
 	switch(criminal_status)
 

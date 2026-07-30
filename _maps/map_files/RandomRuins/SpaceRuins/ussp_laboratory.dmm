@@ -3670,7 +3670,7 @@
 /area/ruin/ussp_xeno/entrance)
 "Zr" = (
 /obj/structure/dresser,
-/obj/item/toy/plushie/blue_fox{
+/obj/item/toy/plushie/fox/blue{
 	layer = 3.1;
 	pixel_y = 12
 	},

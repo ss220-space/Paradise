@@ -252,7 +252,7 @@
 /area/ruin/powered/space_bar)
 "dG" = (
 /obj/structure/sink/puddle,
-/obj/item/toy/carpplushie/dehy_carp,
+/obj/item/toy/plushie/carp/dehy_carp,
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/unpowered)
 "eb" = (

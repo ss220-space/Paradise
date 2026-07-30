@@ -91,7 +91,7 @@
 	max_select_skills = list(
 		/datum/skill/general/mech_drive = 0,
 		/datum/skill/service/botany = 5,
-		/datum/skill/research/mech_construct = 0,
+		/datum/skill/research/robotics = 0,
 	)
 
 /datum/species/diona/can_understand(mob/other)

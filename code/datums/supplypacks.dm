@@ -4147,7 +4147,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/crate/critter/cat
 	contains = list(
 		/obj/item/clothing/accessory/petcollar,
-		/obj/item/toy/cattoy,
+		/obj/item/toy/plushie/cattoy,
 	)
 	containername = "ящик с кошкой"
 	container_ru_names = alist(
@@ -5728,7 +5728,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 15
 	contains = list(
 		/obj/item/circuitboard/machine/crematorium,
-		/obj/item/toy/plushie/orange_fox,
+		/obj/item/toy/plushie/fox/orange,
 	)
 	containername = "ящик деталей крематория"
 	container_ru_names = alist(

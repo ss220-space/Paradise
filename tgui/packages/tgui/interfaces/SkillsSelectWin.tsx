@@ -43,6 +43,10 @@ const SkillCategoryTable = (category: SkillsSelectCategory) => {
               <br />
             </Table.Cell>
             <Table.Cell width="50%" mb={5}>
+              <span color="#828163">
+                <i>{skill.desc}</i>
+              </span>
+              <div />
               <Box inline>
                 Уровень:
                 <Box inline bold textColor={skill.level_color}>

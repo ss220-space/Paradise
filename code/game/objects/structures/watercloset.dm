@@ -909,6 +909,15 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sink, (SHIFTING_SINK), (SHIFTING_SINK
 		to_chat(user, span_warning("Someone's already washing here."))
 		return ATTACK_CHAIN_PROCEED
 
+	if(istype(I, /obj/item/toy/waterballoon))
+		var/obj/item/toy/waterballoon/balloon = I
+		if(balloon.reagents.total_volume < 10)
+			balloon.reagents.add_reagent(/datum/reagent/water, min(10 - balloon.reagents.total_volume, 10))
+			to_chat(user, span_notice("Вы наполняете шарик из [src.declent_ru(GENITIVE)]."))
+			balloon.desc = "Полупрозрачный воздушный шарик, внутри которого плещется какая-то жидкость."
+			balloon.update_icon(UPDATE_ICON_STATE)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	if(is_reagent_container(I))
 		var/obj/item/reagent_containers/container = I
 		if(!reagents.total_volume)

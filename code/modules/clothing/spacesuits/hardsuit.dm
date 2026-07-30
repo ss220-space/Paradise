@@ -762,6 +762,9 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/singuloth
 	sprite_sheets = null
 
+/obj/item/clothing/suit/space/hardsuit/singuloth/deathmatch
+	slowdown = 0
+
 //Battlemage Hardsuit — code\modules\clothing\suits\wiz_robe.dm
 //Deathsquad Hardsuit — code\modules\clothing\spacesuits\ert.dm
 //Prototype RIG Hardsuit — code\modules\awaymissions\mission_code\ruins\oldstation.dm
