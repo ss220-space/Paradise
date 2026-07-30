@@ -190,6 +190,7 @@
 	var/turf/target_turf = get_turf(actual_selected_hub)
 	core.forceMove(target_turf)
 	qdel(actual_selected_hub)
+	swarmer_shield_around_turf(target_turf, 2, 15 SECONDS)
 
 /// Used to get a list of all active transport hubs
 /datum/action/cooldown/swarmer/move_core/proc/get_hub_list()

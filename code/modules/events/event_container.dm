@@ -260,7 +260,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(
 			EVENT_LEVEL_MODERATE, EVENT_REVENANT, /datum/event/revenant, 150),
 		new /datum/event_meta(
-			EVENT_LEVEL_MODERATE, EVENT_SWARMERS, /datum/event/swarmers, 100, is_one_shot = TRUE),
+			EVENT_LEVEL_MODERATE, EVENT_SWARMERS, /datum/event/swarmers, 0, is_one_shot = TRUE),
 		new /datum/event_meta(
 			EVENT_LEVEL_MODERATE, EVENT_MORPH, /datum/event/spawn_morph, 40, list(ASSIGNMENT_SECURITY = 10), is_one_shot = TRUE),
 		new /datum/event_meta(

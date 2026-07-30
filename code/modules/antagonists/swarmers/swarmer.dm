@@ -39,6 +39,8 @@ GLOBAL_LIST_EMPTY(swarmers)
 	var/swarmer_class_info = "Напишите баг-репорт, если увидили это."
 	/// How much time does it take to dismantle a machine
 	var/dismantle_speed = NORMAL_SWARMER_DISMANTLE_DELAY
+	/// How many items from a stack can we consume at once
+	var/stack_extract_amount = 3
 	/// How many resources does it require to swap to this class from an existing one
 	var/swap_resource_cost = 0
 	/// Can swarmers swap to this type in core?
@@ -109,6 +111,7 @@ GLOBAL_LIST_EMPTY(swarmers)
 /mob/living/simple_animal/hostile/swarmer/proc/handle_mmi_on_destroy()
 	if(!mmi || !mind)
 		return
+
 	mind.transfer_to(mmi.brainmob)
 	mmi.forceMove(get_turf(src))
 	addtimer(CALLBACK(mmi.brainmob, TYPE_PROC_REF(/mob, offer_ghostize)), 10 SECONDS, TIMER_DELETE_ME)
@@ -364,19 +367,23 @@ GLOBAL_LIST_EMPTY(swarmers)
 	if(!resource_gain)
 		balloon_alert(src, "не совместимо!")
 		to_chat(src, span_warning("[target] не является совместимым с нашим переработчиком материалов."))
-		stack_trace("[target] swarmer_act uses consume return value, yet ")
+		stack_trace("[target] swarmer_act uses consume return value, yet integrate_amount proc returned zero or null")
 		return FALSE
+
 	. = TRUE
-	adjust_swarmer_metallic_resources(resource_gain, TRUE)
 	do_attack_animation(target)
 	changeNext_move(CLICK_CD_MELEE)
 	var/obj/effect/temp_visual/swarmer/integrate/integrate_effect = new(get_turf(target))
 	integrate_effect.adjust_size(target)
 	if(!isstack(target))
+		adjust_swarmer_metallic_resources(resource_gain, TRUE)
 		qdel(target)
-		return .
+		return
+
 	var/obj/item/stack/stack_item = target
-	stack_item.use(1)
+	var/stack_amount_consumed = min(stack_extract_amount, stack_item.amount)
+	adjust_swarmer_metallic_resources(resource_gain * stack_amount_consumed, TRUE)
+	stack_item.use(stack_amount_consumed)
 
 /// Proc called in swarmer_act to damage target.
 /mob/living/simple_animal/hostile/swarmer/proc/damage_object(atom/movable/target)

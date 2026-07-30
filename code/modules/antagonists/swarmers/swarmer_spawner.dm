@@ -26,7 +26,9 @@
 	density = FALSE
 	layer = ABOVE_ALL_MOB_LAYER
 	anchored = FALSE
+	max_integrity = 100
 	mob_type = /mob/living/simple_animal/hostile/swarmer/basic
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	death = FALSE
 	roundstart = FALSE
 	allow_tts_pick = FALSE

@@ -13,7 +13,7 @@
 	/// Radius of shields spawned
 	var/shields_radius = 2
 	/// How long the shields last for
-	var/shields_duration = 1 MINUTES
+	var/shields_duration = 30 SECONDS
 
 /datum/event/swarmers/start()
 	// It is necessary to wrap this to avoid the event triggering repeatedly.
@@ -83,37 +83,13 @@
 		log_game("[swarmer.key] has become [swarmer].")
 
 	candidates = null
-	create_safety_shield(pod_turf)
+	swarmer_shield_around_turf(pod_turf, shields_radius, shields_duration)
 
 /// Cleans up signals and stuff
 /datum/event/swarmers/proc/on_pod_qdel()
 	SIGNAL_HANDLER
 	UnregisterSignal(pod, list(COMSIG_SUPPLYPOD_LANDED, COMSIG_SUPPLYPOD_OPENED, COMSIG_QDELETING))
 	pod = null
-
-/// Creates a safety shield around the landing spot, through which only swarmers may pass
-/datum/event/swarmers/proc/create_safety_shield(turf/target_turf)
-	var/list/shield_turfs = RANGE_EDGE_TURFS(shields_radius, target_turf)
-	var/list/corner_turfs = list(shield_turfs[1], shield_turfs[1 + 2 * shields_radius], shield_turfs[2 + 2 * shields_radius], shield_turfs[2 + 4 * shields_radius])
-	var/list/non_corner_turfs = shield_turfs - corner_turfs
-
-	// Amount of shields per side without corners
-	var/shields_per_side = length(non_corner_turfs) / 4
-	// Helper associative list, tells in which order turfs are
-	// Reference: Order of turfs from RANGE_EDGE_TURFS
-	var/alist/quotient_to_edge_dir = alist(0 = EAST, 1 = WEST, 2 = NORTH, 3 = SOUTH)
-	for(var/i in 1 to length(non_corner_turfs))
-		var/turf/field_turf = non_corner_turfs[i]
-		var/dir = quotient_to_edge_dir[floor((i - 1) / shields_per_side)]
-		new /obj/structure/swarmer/swarmer_core_field(field_turf, shields_duration, dir)
-
-	// And now the corner turfs, also an assoc list for easier reading
-	// RANGE_EDGE_TURFS returns north and south edges first (with corners), left to right, thus these values
-	var/alist/index_to_corner_dir = alist(1 = NORTHEAST, 2 = SOUTHEAST, 3 = NORTHWEST, 4 = SOUTHWEST)
-	for(var/i in 1 to length(corner_turfs))
-		var/turf/field_turf = corner_turfs[i]
-		var/dir = index_to_corner_dir[i]
-		new /obj/structure/swarmer/swarmer_core_field(field_turf, shields_duration, dir)
 
 /// Changes safe to change walls and removes dense objects nearby
 /datum/event/swarmers/proc/clean_stuff_around(turf/target_turf)
@@ -151,6 +127,28 @@
 	for(var/turf/turf as anything in target_turf.AdjacentTurfs(cardinal_only = TRUE))
 		if(isspaceturf(turf))
 			return FALSE
+
+/// Creates an unbreakable shield around a turf, with set duration
+/proc/swarmer_shield_around_turf(turf/target_turf, shield_radius, shield_duration)
+	var/list/shield_turfs = RANGE_EDGE_TURFS(shield_radius, target_turf)
+	var/list/corner_turfs = list(shield_turfs[1], shield_turfs[1 + 2 * shield_radius], shield_turfs[2 + 2 * shield_radius], shield_turfs[2 + 4 * shield_radius])
+	var/list/non_corner_turfs = shield_turfs - corner_turfs
+
+	// Based on order of turfs from RANGE_EDGE_TURFS
+	var/static/alist/quotient_to_edge_dir = alist(0 = EAST, 1 = WEST, 2 = NORTH, 3 = SOUTH)
+	var/static/alist/index_to_corner_dir = alist(1 = NORTHEAST, 2 = SOUTHEAST, 3 = NORTHWEST, 4 = SOUTHWEST)
+
+	// Amount of shields per side without corners
+	var/shields_per_side = length(non_corner_turfs) / 4
+	for(var/i in 1 to length(non_corner_turfs))
+		var/turf/field_turf = non_corner_turfs[i]
+		var/dir = quotient_to_edge_dir[floor((i - 1) / shields_per_side)]
+		new /obj/structure/swarmer/swarmer_core_field(field_turf, shield_duration, dir)
+
+	for(var/i in 1 to length(corner_turfs))
+		var/turf/field_turf = corner_turfs[i]
+		var/dir = index_to_corner_dir[i]
+		new /obj/structure/swarmer/swarmer_core_field(field_turf, shield_duration, dir)
 
 #undef SWARMERS_MINPLAYERS_TRIGGER
 #undef SWARMERS_SPAWN_AMOUNT
