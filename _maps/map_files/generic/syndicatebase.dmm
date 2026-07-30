@@ -15453,7 +15453,7 @@
 /area/syndicate/unpowered/syndicate_space_base/dormitories/cabin1)
 "oIK" = (
 /obj/structure/table/wood,
-/obj/item/toy/plushie/black_fox,
+/obj/item/toy/plushie/fox/black,
 /turf/simulated/floor/wood,
 /area/syndicate/unpowered/syndicate_space_base/dormitories/cabin1)
 "oJk" = (
@@ -20458,7 +20458,7 @@
 /obj/structure/table/wood,
 /obj/item/clipboard,
 /obj/machinery/firealarm/syndicate/taipan/directional/south,
-/obj/item/toy/plushie/coffee_fox{
+/obj/item/toy/plushie/fox/coffee{
 	desc = "Extremely soft toy, sewn by a truly professional artist who loves his job. There is a tag with the inscription \"Fur...\" hanging on the paw."
 	},
 /obj/item/storage/toolbox/syndicate,
@@ -24003,7 +24003,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
-/obj/item/toy/syndicateballoon,
+/obj/item/toy/balloon/syndicate,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/secure/syndicate{
@@ -26166,7 +26166,7 @@
 /area/syndicate/unpowered/syndicate_space_base/firing_range)
 "xhi" = (
 /obj/structure/table/reinforced,
-/obj/item/toy/plushie/crimson_fox,
+/obj/item/toy/plushie/fox/crimson,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

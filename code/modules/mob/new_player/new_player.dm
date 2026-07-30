@@ -385,7 +385,7 @@
 		return FALSE
 
 	if("[client.prefs.default_slot]" in persistent_client.joined_as_slots)
-		tgui_alert(usr, span_warning("Вы уже играли за этого персонажа в этом раунде!"))
+		tgui_alert(usr, "Вы уже играли за этого персонажа в этом раунде!")
 		return FALSE
 
 	if(rank == "RandomJob")

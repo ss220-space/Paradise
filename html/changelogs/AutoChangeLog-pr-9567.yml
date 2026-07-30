@@ -1,4 +1,0 @@
-author: "SCPfollower"
-delete-after: True
-changes:
-  - tweak: "Кнопка \"Подключиться\" в чат для дэфматча. (PR #9567)"

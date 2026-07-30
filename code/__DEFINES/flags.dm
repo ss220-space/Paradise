@@ -86,6 +86,7 @@
 #define HAS_BODYACC_COLOR (1<<13)
 #define BALD (1<<14)
 #define ALL_RPARTS (1<<15)
+#define HAS_HAIR (1<<16)
 
 //Pre-baked combinations of the above body flags
 #define HAS_BODY_ACCESSORY (HAS_TAIL|HAS_WING)

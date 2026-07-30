@@ -132,7 +132,7 @@
 		return FALSE
 	mod.wearer.adjustOxyLoss(20)
 	playsound(src, 'sound/items/modsuit/inflate_bloon.ogg', 50, TRUE)
-	var/obj/item/toy/balloon/balloon = new(get_turf(src))
+	var/obj/item/toy/balloon/long/balloon = new(get_turf(src))
 	mod.wearer.put_in_hands(balloon)
 	drain_power(use_energy_cost)
 

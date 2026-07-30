@@ -1,4 +1,0 @@
-author: "SCPfollower"
-delete-after: True
-changes:
-  - map: "Фикс перепутанных помп в новостройке. (PR #9562)"
