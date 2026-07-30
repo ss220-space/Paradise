@@ -10,6 +10,8 @@
 	antag_menu_name = "Свармер"
 	/// Text we send on greet to tell about current class. Created on gain.
 	var/swarmer_class_info = "Если ты это видишь, это баг."
+	/// Sound file played on greet
+	var/greet_sound = 'sound/swarmer/swarmer_intro.ogg'
 
 /datum/antagonist/swarmer/on_gain()
 	if(!isswarmer(owner.current))
@@ -37,7 +39,10 @@
 	messages.Add("Все ваши выстрелы и атаки, включая от построек, накладывают на цель блокировку лечения стамины.")
 	messages.Add("Все ваши выстрелы, включая от турелей, пролетают насквозь всех структур \"Свармеров\", кроме турелей.")
 	messages.Add("Вы можете телепортировать в обработчики семена, овощи, реагенты и растения с лотков, добывая с них органические ресурсы.")
-	messages.Add("Используя Ctrl + Click на цели, вы сможете начать процесс телепортации существ, а также конвертации киборгов.\n")
+	messages.Add("Используя ПКМ на цели, вы сможете начать процесс телепортации существ, а также конвертации киборгов.\n")
 	messages.Add("[swarmer_class_info]\n")
-	SEND_SOUND(owner.current, sound('sound/swarmer/swarmer_intro.ogg'))
+	SEND_SOUND(owner.current, sound(greet_sound))
 	return messages
+
+/datum/antagonist/swarmer/mega
+	greet_sound = 'sound/swarmer/megaswarmer_intro.ogg'

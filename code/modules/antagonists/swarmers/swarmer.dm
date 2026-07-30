@@ -137,7 +137,6 @@ GLOBAL_LIST_EMPTY(swarmers)
 	var/list/status_tab_data = ..()
 	. = status_tab_data
 	status_tab_data[++status_tab_data.len] = list("Металлические ресурсы: ", team.metallic_resources)
-	status_tab_data[++status_tab_data.len] = list("Органические ресурсы: ", team.organic_resources)
 	if(team.swarmer_core)
 		status_tab_data[++status_tab_data.len] = list("Здоровье ядра: ", "[team.swarmer_core.obj_integrity]/[team.swarmer_core.max_integrity]")
 
@@ -289,6 +288,7 @@ GLOBAL_LIST_EMPTY(swarmers)
 	if(SEND_SIGNAL(team, COMSIG_SWARMER_TRY_PROCESS_ORGANIC_ITEM, item) & TRUE)
 		balloon_alert(src, "успешно отправлено!")
 		spark_system.start()
+		playsound(loc, 'sound/swarmer/swarmer_send.ogg', 100, TRUE)
 		return
 
 	balloon_alert(src, "нету места для органики!")
@@ -305,9 +305,11 @@ GLOBAL_LIST_EMPTY(swarmers)
 	if(!do_after(src, SWARMER_SEND_ANALYZER_DELAY, target, max_interact_count = 1))
 		balloon_alert(src, "сбито!")
 		return
+
 	spark_system.start()
 	if(SEND_SIGNAL(team, COMSIG_SWARMER_TRY_ANALYZE_MOB, target) & TRUE)
 		balloon_alert(src, "отправлено в анализатор!")
+		playsound(loc, 'sound/swarmer/swarmer_send.ogg', 100, TRUE)
 		return
 	if(!iscarbon(target))
 		balloon_alert(src, "нету места для органики!")

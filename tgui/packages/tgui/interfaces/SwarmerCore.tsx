@@ -67,7 +67,6 @@ export const SwarmerCore = (_props: unknown) => {
     if (selectedClass) {
       act('select_class', {
         class: selectedClass.path,
-        cost: selectedClass.cost,
       });
     }
   };

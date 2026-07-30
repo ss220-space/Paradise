@@ -190,20 +190,23 @@ GLOBAL_LIST_INIT(swarmer_actions_by_type, list(
 
 /mob/living/simple_animal/hostile/swarmer/combat/Initialize(mapload)
 	. = ..()
-	START_PROCESSING(SSprocessing, src)
 	ADD_TRAIT(src, TRAIT_HEALS_FROM_SWARMER_CORES, INNATE_TRAIT)
 	AddElement(/datum/element/ranged_mob_switcher, combat_modes, SWARMER_MODE_SWITCH_DELAY)
 
 /mob/living/simple_animal/hostile/swarmer/combat/Destroy()
-	STOP_PROCESSING(SSprocessing, src)
 	REMOVE_TRAIT(src, TRAIT_HEALS_FROM_SWARMER_CORES, INNATE_TRAIT)
 	return ..()
 
 /// Increases speed if any swarmer structure is nearby
-/mob/living/simple_animal/hostile/swarmer/combat/process(seconds_per_tick)
+/mob/living/simple_animal/hostile/swarmer/combat/Life(seconds, times_fired)
+	. = ..()
+	if(!.)
+		return
+
 	if(locate(/obj/structure/swarmer) in range(7, src))
 		set_varspeed(increased_speed)
 		return
+
 	set_varspeed(initial(speed))
 
 /mob/living/simple_animal/hostile/swarmer/combat/get_ru_names()
@@ -344,6 +347,19 @@ GLOBAL_LIST_INIT(swarmer_actions_by_type, list(
 	target.ex_act(EXPLODE_HEAVY) // This is what actually damages structures on swarmer_act
 	do_attack_animation(target)
 	changeNext_move(CLICK_CD_MELEE)
+
+/mob/living/simple_animal/hostile/swarmer/mega/add_datum_if_not_exist()
+	if(mind && !mind.has_antag_datum(/datum/antagonist/swarmer/mega))
+		mind.add_antag_datum(/datum/antagonist/swarmer/mega, /datum/team/swarmer_team)
+	team = GLOB.antagonist_teams[/datum/team/swarmer_team]
+
+/mob/living/simple_animal/hostile/swarmer/mega/Life(seconds, times_fired)
+	. = ..()
+	if(!.)
+		return
+
+	if(times_fired % 10 == 0) // Every 20 seconds or so
+		playsound(src, 'sound/swarmer/megaswarmer_ambient.ogg', 100, TRUE)
 
 /mob/living/simple_animal/hostile/swarmer/mega/get_ru_names()
 	return alist(

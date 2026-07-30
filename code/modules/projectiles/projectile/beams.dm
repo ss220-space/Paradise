@@ -815,7 +815,7 @@
  */
 /obj/projectile/beam/disabler/swarmer
 	name = "swarmer laser"
-	icon_state = "omnilaser_alt"
+	icon_state = "default_swarmer"
 
 /**
  * Deals burn damage instead of stamina if the target is silicon or animal.

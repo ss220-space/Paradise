@@ -32,7 +32,7 @@
 	return TRUE
 
 /// How many metallic resources swarmers get on core init
-#define METALLIC_START_RESOURCES 150
+#define METALLIC_START_RESOURCES 75
 /// Delay between destroying swarmer mobs/structures on core destroy
 #define DESTROY_DELAY 0.1 SECONDS
 
@@ -252,12 +252,14 @@
 
 /// Destroys swarmer objects one-by-one with a delay
 /datum/team/swarmer_team/proc/destroy_swarmer_objects()
-	if(length(GLOB.swarmer_objects))
-		var/obj/swarmer_obj = GLOB.swarmer_objects[1]
-		explosion(swarmer_obj, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 2)
-		if(!QDELETED(swarmer_obj))
-			qdel(swarmer_obj)
-		addtimer(CALLBACK(src, PROC_REF(destroy_swarmer_objects)), DESTROY_DELAY, TIMER_DELETE_ME)
+	if(!length(GLOB.swarmer_objects))
+		return
+
+	var/obj/swarmer_obj = GLOB.swarmer_objects[1]
+	explosion(swarmer_obj, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 2)
+	if(!QDELETED(swarmer_obj))
+		qdel(swarmer_obj)
+	addtimer(CALLBACK(src, PROC_REF(destroy_swarmer_objects)), DESTROY_DELAY, TIMER_DELETE_ME)
 
 #undef METALLIC_START_RESOURCES
 #undef DESTROY_DELAY

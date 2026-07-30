@@ -39,7 +39,7 @@
  */
 /datum/event/swarmers/proc/create_swarmers()
 	var/mob/living/simple_animal/hostile/swarmer/swarmer_type = spawn_type // for source variable
-	candidates = SSghost_spawns.poll_candidates("Вы хотите занять роль Свармеров?", ROLE_SWARMER, TRUE, 5 SECONDS, source = swarmer_type)
+	candidates = SSghost_spawns.poll_candidates("Вы хотите занять роль Свармеров?", ROLE_SWARMER, TRUE, 30 SECONDS, source = swarmer_type)
 	if(length(candidates) < SWARMERS_SPAWN_AMOUNT)
 		message_admins("Warning: not enough players volunteered to be swarmers. Only [length(candidates)] out of [SWARMERS_SPAWN_AMOUNT]!")
 		return FALSE
@@ -105,7 +105,7 @@
 	for(var/i in 1 to length(non_corner_turfs))
 		var/turf/field_turf = non_corner_turfs[i]
 		var/dir = quotient_to_edge_dir[floor((i - 1) / shields_per_side)]
-		new /obj/structure/swarmer_core_field(field_turf, shields_duration, dir)
+		new /obj/structure/swarmer/swarmer_core_field(field_turf, shields_duration, dir)
 
 	// And now the corner turfs, also an assoc list for easier reading
 	// RANGE_EDGE_TURFS returns north and south edges first (with corners), left to right, thus these values
@@ -113,7 +113,7 @@
 	for(var/i in 1 to length(corner_turfs))
 		var/turf/field_turf = corner_turfs[i]
 		var/dir = index_to_corner_dir[i]
-		new /obj/structure/swarmer_core_field(field_turf, shields_duration, dir)
+		new /obj/structure/swarmer/swarmer_core_field(field_turf, shields_duration, dir)
 
 /// Changes safe to change walls and removes dense objects nearby
 /datum/event/swarmers/proc/clean_stuff_around(turf/target_turf)
