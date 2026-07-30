@@ -29,6 +29,8 @@
 	BB.firer_source_atom = firer_source_atom
 	BB.damage *= damage_mod
 	BB.stamina *= stamina_mod
+	BB.range *= range_modifier
+	BB.speed *= speed_modifier
 	if(zone_override)
 		BB.def_zone = zone_override
 	else

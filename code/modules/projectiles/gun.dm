@@ -688,11 +688,11 @@
 		rotate_to_target(target)
 
 	if(chambered)
-		on_pre_process_fire(user, target)
 		if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt) // If the user has the pacifist trait, then they won't be able to fire [src] if the round chambered inside of [src] is lethal.
 			if(chambered.harmful) // Is the bullet chambered harmful?
 				to_chat(user, span_warning("В [declent_ru(ACCUSATIVE)] заряжены смертельные патроны! Лучше не рисковать..."))
 				return
+		on_pre_process_fire(user, target)
 		sprd = accuracy.randomize_spread(user, bonus_spread, shots_counter)
 		if(!chambered.fire(target = target, user = user, modifiers = modifiers, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src, damage_mod = damage_mod, stamina_mod = stamina_mod))
 			shoot_with_empty_chamber(user)
