@@ -620,7 +620,7 @@
 	var/ignore_prer = FALSE
 
 /datum/action/cooldown/spell/pointed/shadowling_revive_thrall/is_valid_target(atom/cast_on)
-	return is_thrall(target) && ..()
+	return is_thrall(cast_on) && ..()
 
 /datum/action/cooldown/spell/pointed/shadowling_revive_thrall/cast(atom/cast_on)
 	. = ..()
