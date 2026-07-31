@@ -362,13 +362,7 @@
 	belt = /obj/item/storage/belt/chef
 	head = /obj/item/clothing/head/chefhat
 
-/datum/outfit/deathmatch_loadout/chef/post_equip(mob/living/carbon/human/brawler, visualsOnly = FALSE)
-	..()
-	if(visualsOnly)
-		return
-
-	var/datum/martial_art/cqc/not_just_a_cook = new
-	not_just_a_cook.teach(brawler)
+	l_hand = /obj/item/sleeping_carp_scroll
 
 /datum/outfit/deathmatch_loadout/wizard
 	name = "Deathmatch: Wizard"

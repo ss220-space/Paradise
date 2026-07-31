@@ -170,7 +170,7 @@
 /datum/lazy_template/deathmatch/delta_brig
 	name = "Бриг Кербероса"
 	desc = "Копия привычного всем брига Дельты. Потренируйтесь в штурме и мирном убийстве всего СБ."
-	max_players = 16
+	max_players = 8
 	allowed_loadouts = list(
 		/datum/outfit/deathmatch_loadout/nukie,
 		/datum/outfit/deathmatch_loadout/captain,
