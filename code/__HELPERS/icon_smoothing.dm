@@ -203,6 +203,8 @@ GLOBAL_LIST_INIT(adjacent_direction_lookup, generate_adjacent_directions())
 	else if(smooth & SMOOTH_BITMASK)
 		bitmask_smooth()
 
+	SEND_SIGNAL(src, COMSIG_ATOM_SMOOTHED_ICON)
+
 	//if(isturf(A))
 	//	SSdemo.mark_turf(A)
 

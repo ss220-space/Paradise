@@ -8,6 +8,7 @@
 	show_in_roundend = FALSE
 	show_in_orbit = FALSE
 	antag_menu_name = "Надразум блоба"
+	has_skill_bonus = FALSE
 	/// Variable responsible for the need to add a mind to blob_infected list in game mode
 	var/add_to_mode = TRUE
 	/// Is a blob a offspring of another blob.

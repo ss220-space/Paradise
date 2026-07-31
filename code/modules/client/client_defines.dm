@@ -294,6 +294,8 @@
 	///Which ambient sound this client is currently being provided.
 	var/current_ambient_sound
 
+	var/datum/ui_module/skills_select_win/skills_select_window
+
 /client/vv_edit_var(var_name, var_value)
 	if(var_name == NAMEOF(src, tos_consent))
 		// I know we will never be in a world where admins are editing client vars to let people bypass TOS

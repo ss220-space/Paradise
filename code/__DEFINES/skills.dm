@@ -55,6 +55,8 @@
 #define COOKING_EXTRA_COUNT_CHANCE "cooking_extra_count_chance"
 /// Dispense random size modifier for drinks skill
 #define DRINKS_DISPENSE_RAND_SIZE "drinks_dispense_rand_size"
+/// Сhance to dispense a random reagent
+#define DRINKS_DISPENSE_RAND_REAGENT_PROB "drinks_dispense_rand_reagent_prob"
 /// Plant growth rate modifier for botany skill
 #define PLANT_GROWTH_RATE "plant_growth_rate"
 /// Hydroponic cultivation modifier for botany skill
@@ -117,6 +119,8 @@
 #define BOW_SPREAD_MOD "bow_spread_mod"
 /// Slowdown modifier for bows skill
 #define BOW_SLOWDOWN_MOD "bow_slowdown_mod"
+/// Bow ready to fire time modifier
+#define BOW_READY_TO_FIRE_MOD "bow_ready_to_fire_mod"
 
 // MARK: Medical
 /// Duration modifier for surgery skill
@@ -129,12 +133,18 @@
 #define HEAL_AMOUNT_MOD "heal_amount_mod"
 /// Dispense random size modifier for chemistry skill
 #define CHEMISTRY_DISPENSE_RAND_SIZE "chemistry_dispense_rand_size"
+/// Сhance to dispense a random reagent
+#define CHEMISTRY_DISPENSE_RAND_REAGENT_PROB "chemistry_dispense_rand_reagent_prob"
 /// Irradiation duration modifier for genetic skill
 #define IRRADIATION_DURATION_MOD "irradiation_duration_mod"
 
 // MARK: Research
+/// Mech Construction сhance to print a random item from the category
+#define MECH_CONSTRUCT_RAND_BUILD_PROB "mech_construct_rand_build_prob"
 /// Construction duration modifier for mech construct skill
 #define MECH_CONSTRUCT_DURATION_MOD "mech_construct_duration_mod"
+/// Protolathe сhance to print a random item from the category
+#define PROTOLATHE_RAND_BUILD_PROB "protolathe_rand_build_prob"
 /// Protolathe item creation duration modifier
 #define PROTOLATHE_DURATION_MOD "protolathe_duration_mod"
 /// Protolathe item creation resource modifier

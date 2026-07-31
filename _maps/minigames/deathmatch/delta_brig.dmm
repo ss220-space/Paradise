@@ -1,6 +1,5 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/plasteel{
@@ -22,24 +21,9 @@
 	},
 /area/deathmatch)
 "av" = (
-/obj/machinery/suit_storage_unit/security,
+/obj/structure/barricade/security,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
-	},
-/area/deathmatch)
-"aN" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
-	},
-/area/deathmatch)
-"aV" = (
-/obj/machinery/door/airlock/security/glass{
-	locked = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
 	},
 /area/deathmatch)
 "aW" = (
@@ -55,51 +39,11 @@
 	icon_state = "red"
 	},
 /area/deathmatch)
-"ba" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/structure/mystery_box/tdome,
-/turf/simulated/floor/wood,
-/area/deathmatch)
 "bq" = (
 /obj/machinery/light,
 /obj/machinery/computer,
 /turf/simulated/floor/plasteel{
 	dir = 10;
-	icon_state = "darkred"
-	},
-/area/deathmatch)
-"bt" = (
-/obj/structure/sign/poster/official/random{
-	pixel_y = -32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
-/area/deathmatch)
-"bS" = (
-/obj/structure/sign/poster/official/random{
-	pixel_y = 32
-	},
-/obj/machinery/newscaster/directional/west,
-/obj/structure/mystery_box/tdome,
-/turf/simulated/floor/plasteel{
-	icon_state = "bcarpet05"
-	},
-/area/deathmatch)
-"cc" = (
-/obj/structure/extinguisher_cabinet/directional/west,
-/obj/structure/mystery_box/tdome,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
-	},
-/area/deathmatch)
-"cl" = (
-/obj/structure/closet/secure_closet/guncabinet/secspear,
-/turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "darkred"
 	},
 /area/deathmatch)
@@ -155,17 +99,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/deathmatch)
-"dN" = (
-/obj/structure/table,
-/obj/item/storage/box/bodybags,
-/obj/item/assembly/signaler{
-	code = 6;
-	frequency = 1445
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/deathmatch)
 "dZ" = (
 /obj/item/flag/nt,
 /turf/simulated/floor/plasteel{
@@ -186,9 +119,6 @@
 /obj/effect/landmark/deathmatch_player_spawn,
 /turf/simulated/floor/plasteel,
 /area/deathmatch)
-"eq" = (
-/turf/simulated/floor/wood,
-/area/deathmatch)
 "ev" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -196,26 +126,11 @@
 	icon_state = "darkred"
 	},
 /area/deathmatch)
-"eC" = (
-/obj/machinery/vending/cigarette,
-/obj/effect/turf_decal/delivery/red/hollow,
-/turf/simulated/floor/plasteel,
-/area/deathmatch)
 "eP" = (
-/obj/machinery/treadmill_monitor{
-	id = "Cell 4";
-	pixel_y = -29
-	},
 /obj/structure/mystery_box/tdome,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "red"
-	},
-/area/deathmatch)
-"eR" = (
-/obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
 	},
 /area/deathmatch)
 "eT" = (
@@ -233,12 +148,6 @@
 	icon_state = "dark"
 	},
 /area/deathmatch)
-"fv" = (
-/obj/machinery/door/airlock/security/glass,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/deathmatch)
 "fw" = (
 /obj/machinery/power/treadmill{
 	dir = 8;
@@ -252,73 +161,15 @@
 	icon_state = "red"
 	},
 /area/deathmatch)
-"fz" = (
-/obj/effect/spawner/random_spawners/security_ballistics,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
-	},
-/area/deathmatch)
-"fB" = (
-/obj/structure/table/wood,
-/obj/item/clipboard,
-/obj/item/toy/figure/hos{
-	pixel_x = 7;
-	pixel_y = 7
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/deathmatch)
 "fC" = (
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/deathmatch)
-"fD" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/reagent_dispensers/fueltank,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/deathmatch)
-"fG" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/mug/hos{
-	pixel_x = -5;
-	pixel_y = -2
-	},
-/obj/structure/sign/poster/secret/lady{
-	pixel_x = 32
-	},
-/obj/item/lighter/zippo/hos{
-	pixel_x = 10;
-	pixel_y = -3
-	},
-/turf/simulated/floor/wood,
-/area/deathmatch)
 "fH" = (
-/obj/machinery/suit_storage_unit/security,
+/obj/structure/barricade/security,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/deathmatch)
-"gk" = (
-/obj/structure/reagent_dispensers/fueltank,
-/turf/simulated/floor/plasteel{
-	icon_state = "redcorner"
-	},
-/area/deathmatch)
-"gn" = (
-/obj/machinery/vending/cigarette,
-/turf/simulated/floor/wood,
-/area/deathmatch)
-"gp" = (
-/obj/structure/chair/comfy/brown{
-	dir = 4
-	},
-/turf/simulated/floor/wood,
 /area/deathmatch)
 "gt" = (
 /obj/structure/rack,
@@ -357,44 +208,6 @@
 /obj/machinery/door/poddoor/impassable,
 /turf/simulated/floor/plating,
 /area/deathmatch)
-"gQ" = (
-/obj/structure/chair/sofa/bench/left/security_red{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
-	},
-/area/deathmatch)
-"gT" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/obj/structure/table/reinforced,
-/obj/item/storage/fancy/cigarettes/cigpack_robust{
-	pixel_x = 6;
-	pixel_y = 2
-	},
-/obj/item/lighter{
-	pixel_x = -5;
-	pixel_y = 3
-	},
-/turf/simulated/floor/engine,
-/area/deathmatch)
-"ho" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/item/clothing/suit/armor/bulletproof,
-/obj/item/clothing/suit/armor/bulletproof,
-/obj/item/clothing/suit/armor/bulletproof,
-/obj/item/clothing/suit/armor/bulletproof,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
-	},
-/area/deathmatch)
 "ht" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -428,13 +241,6 @@
 /obj/item/megaphone,
 /turf/simulated/floor/plasteel,
 /area/deathmatch)
-"hR" = (
-/obj/structure/table,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "red"
-	},
-/area/deathmatch)
 "hT" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "bcarpet05"
@@ -465,20 +271,6 @@
 	icon_state = "redcorner"
 	},
 /area/deathmatch)
-"iG" = (
-/obj/item/flag/sec,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "red"
-	},
-/area/deathmatch)
-"jk" = (
-/obj/effect/landmark/deathmatch_player_spawn,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "redcorner"
-	},
-/area/deathmatch)
 "jn" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -499,13 +291,6 @@
 	icon_state = "red"
 	},
 /area/deathmatch)
-"jQ" = (
-/obj/vehicle/ridden/secway,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
-	},
-/area/deathmatch)
 "ka" = (
 /obj/machinery/door/window/brigdoor/southleft{
 	dir = 1;
@@ -515,28 +300,8 @@
 	icon_state = "dark"
 	},
 /area/deathmatch)
-"kn" = (
-/obj/machinery/light,
-/obj/structure/table/wood,
-/obj/item/toy/russian_revolver,
-/obj/item/reagent_containers/food/drinks/bottle/whiskey{
-	pixel_y = 18
-	},
-/turf/simulated/floor/wood,
-/area/deathmatch)
-"kq" = (
-/obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/carpet,
-/area/deathmatch)
 "kG" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/item/clothing/suit/armor/riot,
-/obj/item/clothing/suit/armor/riot,
-/obj/item/clothing/suit/armor/riot,
-/obj/item/clothing/suit/armor/riot,
+/obj/structure/barricade/security,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -545,9 +310,6 @@
 "kL" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/turf_decal/delivery/red/hollow,
-/obj/structure/sign/poster/official/random{
-	pixel_x = 32
-	},
 /obj/machinery/newscaster/security_unit/directional/east,
 /turf/simulated/floor/plasteel,
 /area/deathmatch)
@@ -557,12 +319,6 @@
 	icon_state = "red"
 	},
 /area/deathmatch)
-"la" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/turf/simulated/floor/engine,
-/area/deathmatch)
 "ll" = (
 /obj/structure/table,
 /obj/item/storage/fancy/donut_box,
@@ -571,22 +327,15 @@
 	icon_state = "darkred"
 	},
 /area/deathmatch)
-"lA" = (
-/obj/machinery/light,
-/obj/structure/mystery_box/tdome,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/deathmatch)
 "lB" = (
-/turf/simulated/floor/carpet,
+/obj/machinery/door/poddoor/impassable,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkred"
+	},
 /area/deathmatch)
 "lH" = (
 /obj/machinery/door/airlock/security/glass,
-/turf/simulated/floor/plasteel,
-/area/deathmatch)
-"lN" = (
-/obj/machinery/light,
 /turf/simulated/floor/plasteel,
 /area/deathmatch)
 "lO" = (
@@ -603,33 +352,6 @@
 /obj/structure/holosign/barrier,
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
-	},
-/area/deathmatch)
-"ms" = (
-/obj/structure/table/wood,
-/obj/machinery/photocopier/faxmachine/longrange{
-	department = "Head of Security's Office"
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/deathmatch)
-"mz" = (
-/obj/structure/chair/office/dark{
-	dir = 1
-	},
-/turf/simulated/floor/wood,
-/area/deathmatch)
-"mE" = (
-/obj/structure/mirror{
-	pixel_y = 32
-	},
-/obj/structure/sink/directional/north,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
 	},
 /area/deathmatch)
 "mL" = (
@@ -664,26 +386,6 @@
 	icon_state = "darkred"
 	},
 /area/deathmatch)
-"nv" = (
-/obj/item/gun/energy/gun/advtaser{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/gun/energy/gun/advtaser{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/gun/energy/gun/advtaser,
-/obj/structure/closet/secure_closet/guncabinet{
-	anchored = 1;
-	name = "Tasers";
-	req_access = list(1)
-	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "red"
-	},
-/area/deathmatch)
 "nw" = (
 /obj/effect/turf_decal/delivery/red/hollow,
 /obj/structure/mystery_box/tdome,
@@ -701,20 +403,8 @@
 	},
 /area/deathmatch)
 "nP" = (
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 6;
-	icon_state = "darkred"
-	},
-/area/deathmatch)
-"oe" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/item/gun/energy/ionrifle,
-/turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "darkred"
 	},
 /area/deathmatch)
@@ -728,32 +418,6 @@
 /area/deathmatch)
 "ok" = (
 /turf/simulated/wall,
-/area/deathmatch)
-"ou" = (
-/obj/machinery/atmospherics/binary/valve/digital,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/deathmatch)
-"oI" = (
-/obj/machinery/vending/cola,
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "red"
-	},
-/area/deathmatch)
-"oU" = (
-/obj/structure/sign/poster/official/random{
-	pixel_y = -32
-	},
-/obj/structure/curtain/open/shower/security,
-/obj/structure/mystery_box/tdome,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
 /area/deathmatch)
 "oY" = (
 /obj/structure/mystery_box/tdome,
@@ -776,15 +440,6 @@
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/deathmatch)
-"ph" = (
-/obj/structure/bed/dogbed,
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/pet/dog/security,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "red"
-	},
-/area/deathmatch)
 "pl" = (
 /obj/structure/closet/secure_closet/security,
 /obj/effect/turf_decal/delivery/red/hollow,
@@ -798,16 +453,6 @@
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
-	},
-/area/deathmatch)
-"pw" = (
-/obj/structure/bed,
-/obj/item/bedsheet/hos,
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
 	},
 /area/deathmatch)
 "pJ" = (
@@ -824,7 +469,6 @@
 /area/deathmatch)
 "qf" = (
 /obj/effect/decal/cleanable/cobweb2,
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/mystery_box/tdome,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -837,16 +481,6 @@
 	icon_state = "darkred"
 	},
 /area/deathmatch)
-"qv" = (
-/obj/effect/turf_decal/delivery/red/hollow,
-/obj/machinery/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = 28
-	},
-/obj/structure/table,
-/obj/machinery/coffeemaker/standard,
-/turf/simulated/floor/plasteel,
-/area/deathmatch)
 "qx" = (
 /obj/structure/holosign/barrier,
 /turf/simulated/floor/plasteel{
@@ -855,20 +489,10 @@
 	},
 /area/deathmatch)
 "qz" = (
-/obj/structure/rack,
-/obj/item/camera_film,
-/obj/item/camera{
-	desc = "A one use - polaroid camera. 30 photos left.";
-	name = "detectives camera";
-	pictures_left = 30
+/obj/machinery/door/poddoor/impassable,
+/turf/simulated/floor/plasteel{
+	icon_state = "red"
 	},
-/obj/item/taperecorder,
-/obj/item/storage/briefcase,
-/obj/item/hand_labeler,
-/obj/item/storage/box/evidence,
-/obj/item/storage/box/evidence,
-/obj/item/storage/box/tapes,
-/turf/simulated/floor/wood,
 /area/deathmatch)
 "qA" = (
 /obj/machinery/light{
@@ -878,23 +502,11 @@
 	icon_state = "bcarpet05"
 	},
 /area/deathmatch)
-"qH" = (
-/obj/machinery/vending/wallmed{
-	pixel_y = 30
-	},
-/obj/structure/table,
-/obj/item/flashlight/lamp,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "red"
-	},
-/area/deathmatch)
 "qQ" = (
 /obj/machinery/vending/coffee,
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -918,29 +530,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/deathmatch)
-"ri" = (
-/obj/machinery/light,
-/obj/machinery/papershredder,
-/obj/structure/sign/poster/official/random{
-	pixel_y = -32
-	},
-/turf/simulated/floor/wood,
-/area/deathmatch)
-"rm" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/structure/mystery_box/tdome,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/deathmatch)
-"ru" = (
-/obj/structure/table/wood,
-/obj/item/storage/fancy/cigarettes/dromedaryco,
-/obj/effect/spawner/lootdrop/officetoys,
-/turf/simulated/floor/carpet,
-/area/deathmatch)
 "rz" = (
 /obj/machinery/door_timer/cell_4{
 	pixel_y = -32
@@ -949,10 +538,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
-/area/deathmatch)
-"rB" = (
-/obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/wood,
 /area/deathmatch)
 "rU" = (
 /obj/machinery/light{
@@ -974,14 +559,7 @@
 	},
 /area/deathmatch)
 "sa" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/item/clothing/shoes/combat/riot,
-/obj/item/clothing/shoes/combat/riot,
-/obj/item/clothing/shoes/combat/riot,
-/obj/item/clothing/shoes/combat/riot,
+/obj/structure/mystery_box/tdome,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkred"
@@ -992,7 +570,6 @@
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet/directional/west,
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -1001,13 +578,9 @@
 "sn" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/turf_decal/delivery/red/hollow,
-/obj/structure/sign/poster/official/random{
-	pixel_x = -32
-	},
 /turf/simulated/floor/plasteel,
 /area/deathmatch)
 "sq" = (
-/obj/structure/closet/secure_closet/security,
 /obj/effect/turf_decal/delivery/red/hollow,
 /obj/machinery/light{
 	dir = 1
@@ -1016,6 +589,7 @@
 	color = "red";
 	dir = 4
 	},
+/obj/structure/barricade/security,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "red"
@@ -1032,31 +606,6 @@
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
-	},
-/area/deathmatch)
-"sQ" = (
-/obj/structure/table/wood,
-/obj/machinery/recharger,
-/turf/simulated/floor/wood,
-/area/deathmatch)
-"sR" = (
-/obj/structure/rack{
-	dir = 1
-	},
-/obj/item/storage/box/bodybags{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/storage/box/evidence,
-/obj/item/storage/box/evidence{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/hand_labeler,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
 	},
 /area/deathmatch)
 "sS" = (
@@ -1099,11 +648,10 @@
 	},
 /area/deathmatch)
 "tu" = (
-/obj/item/twohanded/required/kirbyplants,
-/obj/structure/window/reinforced,
+/obj/structure/barricade/security,
 /turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "darkred"
+	dir = 9;
+	icon_state = "red"
 	},
 /area/deathmatch)
 "tA" = (
@@ -1113,23 +661,13 @@
 	icon_state = "darkred"
 	},
 /area/deathmatch)
-"tN" = (
-/obj/structure/table/wood,
-/obj/item/taperecorder{
-	pixel_x = -5
-	},
-/obj/item/radio/sec{
-	pixel_x = 5
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/deathmatch)
 "tW" = (
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/reagent_dispensers/water_cooler,
+/obj/structure/closet/gun_stand/sechammer{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -1141,24 +679,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/deathmatch)
-"uy" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/deathmatch)
 "uF" = (
 /obj/structure/chair{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "red"
-	},
-/area/deathmatch)
-"uS" = (
-/obj/machinery/light,
-/obj/structure/barricade/security,
-/turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
 /area/deathmatch)
@@ -1198,12 +724,6 @@
 	icon_state = "dark"
 	},
 /area/deathmatch)
-"vw" = (
-/obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/deathmatch)
 "vV" = (
 /obj/machinery/door_timer/cell_1{
 	dir = 1;
@@ -1218,26 +738,18 @@
 	},
 /area/deathmatch)
 "we" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/mystery_box/tdome,
+/obj/machinery/door/poddoor/impassable,
 /turf/simulated/floor/plasteel{
-	dir = 4;
+	dir = 1;
 	icon_state = "red"
 	},
 /area/deathmatch)
 "wf" = (
 /obj/structure/bed,
-/obj/item/radio/intercom/locked/prison/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "red"
 	},
-/area/deathmatch)
-"wl" = (
-/obj/structure/chair/comfy/red{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
 /area/deathmatch)
 "wq" = (
 /obj/structure/barricade/security,
@@ -1246,100 +758,30 @@
 	},
 /area/deathmatch)
 "xc" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/item/clothing/gloves/color/black/ballistic,
-/obj/item/clothing/gloves/color/black/ballistic,
-/obj/item/clothing/gloves/color/black/ballistic,
-/obj/item/clothing/gloves/color/black/ballistic,
+/obj/structure/barricade/security,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
+	icon_state = "redfull"
 	},
 /area/deathmatch)
 "xd" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/mystery_box/tdome,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
 	},
 /area/deathmatch)
-"xe" = (
-/obj/machinery/door/poddoor/impassable,
+"xX" = (
+/obj/structure/barricade/security,
 /turf/simulated/floor/plasteel{
-	dir = 4;
+	dir = 1;
 	icon_state = "redcorner"
 	},
 /area/deathmatch)
-"xo" = (
-/obj/structure/mystery_box/tdome,
-/turf/simulated/floor/carpet,
-/area/deathmatch)
-"xt" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/reagent_dispensers/fueltank,
-/turf/simulated/floor/plasteel,
-/area/deathmatch)
-"xP" = (
-/obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkred"
-	},
-/area/deathmatch)
-"xS" = (
-/obj/structure/filingcabinet/chestdrawer,
-/turf/simulated/floor/wood,
-/area/deathmatch)
-"xX" = (
-/obj/structure/extinguisher_cabinet/directional/east,
-/obj/structure/mystery_box/tdome,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/deathmatch)
-"yc" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/structure/sign/poster/official/random{
-	pixel_x = 32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "red"
-	},
-/area/deathmatch)
-"yh" = (
-/obj/machinery/photocopier,
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/structure/sign/poster/official/random{
-	pixel_y = 32
-	},
-/turf/simulated/floor/carpet,
-/area/deathmatch)
 "yj" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/poddoor/impassable,
-/turf/simulated/floor/plating,
-/area/deathmatch)
-"yk" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/item/clothing/head/helmet/alt,
-/obj/item/clothing/head/helmet/alt,
-/obj/item/clothing/head/helmet/alt,
-/obj/item/clothing/head/helmet/alt,
+/obj/structure/mystery_box/tdome,
 /turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkred"
+	dir = 1;
+	icon_state = "red"
 	},
 /area/deathmatch)
 "yr" = (
@@ -1361,16 +803,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/computer,
-/turf/simulated/floor/plasteel,
-/area/deathmatch)
-"yD" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/brigdoor{
-	dir = 8;
-	name = "Security Reception";
-	req_access = list(1)
-	},
+/obj/structure/barricade/security,
 /turf/simulated/floor/plasteel,
 /area/deathmatch)
 "yI" = (
@@ -1383,20 +816,14 @@
 	icon_state = "red"
 	},
 /area/deathmatch)
-"yJ" = (
-/obj/structure/sign/mech{
-	pixel_y = 32
+"yN" = (
+/obj/structure/closet/gun_stand/sechammer{
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 9;
+	dir = 4;
 	icon_state = "red"
 	},
-/area/deathmatch)
-"yN" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/turf/simulated/floor/engine,
 /area/deathmatch)
 "yP" = (
 /obj/machinery/door/airlock/security,
@@ -1406,44 +833,6 @@
 /obj/structure/table/reinforced,
 /obj/item/flashlight/lamp,
 /turf/simulated/floor/plasteel,
-/area/deathmatch)
-"yY" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/beer{
-	pixel_x = -4
-	},
-/obj/item/reagent_containers/food/drinks/cans/beer{
-	pixel_x = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/deathmatch)
-"ze" = (
-/obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
-	},
-/area/deathmatch)
-"zl" = (
-/obj/structure/table,
-/obj/item/clothing/under/color/orange/prison,
-/obj/item/clothing/shoes/color/orange/prison,
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "red"
-	},
-/area/deathmatch)
-"zo" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkredfull"
-	},
-/area/deathmatch)
-"zr" = (
-/obj/structure/closet/secure_closet/cabinet/detective,
-/turf/simulated/floor/wood,
 /area/deathmatch)
 "zv" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -1466,10 +855,13 @@
 /turf/simulated/floor/plasteel,
 /area/deathmatch)
 "zI" = (
-/obj/structure/closet/secure_closet/warden,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/structure/barricade/security,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkred"
+	icon_state = "red"
 	},
 /area/deathmatch)
 "zR" = (
@@ -1491,48 +883,10 @@
 	icon_state = "darkred"
 	},
 /area/deathmatch)
-"Al" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/atmospherics/unary/outlet_injector/on{
-	dir = 1
-	},
-/turf/simulated/floor/engine,
-/area/deathmatch)
 "Ar" = (
 /obj/structure/table,
 /obj/item/book/manual/security_space_law,
 /turf/simulated/floor/plasteel,
-/area/deathmatch)
-"AC" = (
-/obj/structure/table/reinforced,
-/obj/item/mod/module/quick_cuff{
-	pixel_x = -8;
-	pixel_y = -6
-	},
-/obj/item/mod/module/quick_cuff{
-	pixel_x = -8;
-	pixel_y = 6
-	},
-/obj/item/mod/module/pepper_shoulders{
-	pixel_x = 9;
-	pixel_y = 6
-	},
-/obj/item/mod/module/hat_stabilizer{
-	pixel_x = 8;
-	pixel_y = -6
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkred"
-	},
-/area/deathmatch)
-"AG" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/poddoor/impassable,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
 /area/deathmatch)
 "AH" = (
 /obj/structure/sign/poster/contraband/armor{
@@ -1541,29 +895,13 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/structure/mystery_box/tdome,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
 	},
 /area/deathmatch)
 "AQ" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/item/shield/riot{
-	pixel_x = -6;
-	pixel_y = -6
-	},
-/obj/item/shield/riot{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/item/shield/riot,
-/obj/item/shield/riot{
-	pixel_x = 3;
-	pixel_y = 3
-	},
 /obj/structure/closet/gun_stand/sechammer{
 	pixel_x = 32
 	},
@@ -1573,19 +911,10 @@
 	},
 /area/deathmatch)
 "AR" = (
-/obj/machinery/photocopier,
-/obj/machinery/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_y = 28
-	},
+/obj/structure/mystery_box/tdome,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/deathmatch)
-"AT" = (
-/obj/machinery/recharge_station,
-/obj/effect/turf_decal/delivery/red/hollow,
-/turf/simulated/floor/plasteel,
 /area/deathmatch)
 "AW" = (
 /obj/structure/reagent_dispensers/fueltank,
@@ -1624,75 +953,20 @@
 "Bt" = (
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/deathmatch)
-"Bu" = (
-/obj/structure/table/wood,
-/obj/item/clipboard,
-/obj/item/toy/figure/detective,
-/turf/simulated/floor/wood,
-/area/deathmatch)
-"Bz" = (
-/obj/structure/chair/e_chair{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/light,
-/turf/simulated/floor/engine,
-/area/deathmatch)
-"BJ" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "red"
-	},
-/area/deathmatch)
-"BM" = (
-/obj/structure/table/wood,
-/obj/machinery/keycard_auth{
-	pixel_x = -4;
-	pixel_y = 6
-	},
-/obj/item/paper/monitorkey,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/deathmatch)
 "BR" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "red"
 	},
 /area/deathmatch)
-"BU" = (
-/obj/structure/bed/dogbed,
-/mob/living/simple_animal/pet/dog/security/warden,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
-	},
-/area/deathmatch)
 "Cc" = (
 /obj/machinery/vending/cigarette,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/poster/official/safety_report{
-	pixel_y = 32
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
 	},
 /area/deathmatch)
-"Ch" = (
-/obj/machinery/door/airlock/security,
-/turf/simulated/floor/wood,
-/area/deathmatch)
-"Ci" = (
-/obj/effect/landmark/deathmatch_player_spawn,
-/turf/simulated/floor/wood,
-/area/deathmatch)
 "Cs" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/bed,
 /turf/simulated/floor/plasteel,
 /area/deathmatch)
@@ -1702,54 +976,10 @@
 	icon_state = "redcorner"
 	},
 /area/deathmatch)
-"CN" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/pill/fakedeath{
-	pixel_x = -4;
-	pixel_y = 9
-	},
-/obj/item/reagent_containers/food/pill/morphine{
-	pixel_x = 7;
-	pixel_y = 9
-	},
-/obj/item/reagent_containers/syringe{
-	pixel_x = -3;
-	pixel_y = 4
-	},
-/obj/item/reagent_containers/syringe/capulettium_plus{
-	pixel_x = -3;
-	pixel_y = -2
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/deathmatch)
 "CV" = (
-/obj/structure/sign/poster/official/random{
-	pixel_y = -32
-	},
-/obj/machinery/newscaster/directional/west,
 /obj/structure/mystery_box/tdome,
 /turf/simulated/floor/plasteel{
 	icon_state = "bcarpet05"
-	},
-/area/deathmatch)
-"Dc" = (
-/obj/structure/table,
-/obj/item/reagent_containers/glass/bottle/morphine{
-	pixel_x = 8;
-	pixel_y = 2
-	},
-/obj/item/reagent_containers/glass/bottle/sulfonal{
-	pixel_x = -4;
-	pixel_y = 2
-	},
-/obj/machinery/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_x = -28
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
 	},
 /area/deathmatch)
 "Do" = (
@@ -1773,37 +1003,14 @@
 	},
 /area/deathmatch)
 "DF" = (
-/obj/effect/spawner/random_spawners/security_shotguns,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkred"
 	},
 /area/deathmatch)
-"DI" = (
-/obj/structure/table,
-/obj/machinery/kitchen_machine/microwave{
-	pixel_x = -1;
-	pixel_y = 7
-	},
-/turf/simulated/floor/plasteel,
-/area/deathmatch)
 "DL" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
-	},
-/area/deathmatch)
-"DM" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/item/clothing/head/helmet/riot,
-/obj/item/clothing/head/helmet/riot,
-/obj/item/clothing/head/helmet/riot,
-/obj/item/clothing/head/helmet/riot,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
 	},
 /area/deathmatch)
 "Em" = (
@@ -1817,12 +1024,6 @@
 	},
 /area/deathmatch)
 "Eq" = (
-/obj/item/storage/fancy/cigarettes/cigpack_robust,
-/obj/item/lighter,
-/obj/item/storage/ashtray/glass{
-	pixel_x = 6;
-	pixel_y = 7
-	},
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -1846,7 +1047,6 @@
 	},
 /area/deathmatch)
 "Fk" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/security/glass{
 	locked = 1
 	},
@@ -1855,49 +1055,13 @@
 	},
 /area/deathmatch)
 "Fm" = (
-/obj/machinery/door/airlock/security/glass,
+/obj/machinery/door/poddoor/impassable,
 /turf/simulated/floor/wood,
-/area/deathmatch)
-"Fo" = (
-/obj/structure/mystery_box/tdome,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "red"
-	},
-/area/deathmatch)
-"FA" = (
-/obj/structure/chair/comfy/red{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/deathmatch)
-"FG" = (
-/obj/structure/closet/secure_closet/security,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "red"
-	},
 /area/deathmatch)
 "FL" = (
 /obj/machinery/door/airlock/security/glass,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "red"
-	},
-/area/deathmatch)
-"FS" = (
-/obj/structure/chair/comfy/brown{
-	dir = 1
-	},
-/turf/simulated/floor/wood,
-/area/deathmatch)
-"FT" = (
-/obj/machinery/treadmill_monitor{
-	id = "Cell 3";
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
 	icon_state = "red"
 	},
 /area/deathmatch)
@@ -1926,14 +1090,6 @@
 "FW" = (
 /obj/structure/holosign/barrier,
 /turf/simulated/floor/plasteel,
-/area/deathmatch)
-"Gi" = (
-/obj/structure/curtain/open/shower/security,
-/obj/machinery/shower/directional/south,
-/obj/structure/mystery_box/tdome,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
 /area/deathmatch)
 "Gq" = (
 /obj/structure/table,
@@ -1968,37 +1124,9 @@
 	icon_state = "whiteredfull"
 	},
 /area/deathmatch)
-"GO" = (
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
-	},
-/obj/item/pen/multi{
-	pixel_x = -7;
-	pixel_y = 5
-	},
-/obj/structure/table/wood,
-/turf/simulated/floor/carpet,
-/area/deathmatch)
-"GP" = (
-/obj/structure/extinguisher_cabinet/directional/west,
-/obj/structure/chair/sofa/bench/right/security_red{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
-	},
-/area/deathmatch)
 "GQ" = (
 /obj/structure/barricade/security,
 /turf/simulated/floor/plasteel,
-/area/deathmatch)
-"GS" = (
-/obj/machinery/vending/ammo,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkredfull"
-	},
 /area/deathmatch)
 "GV" = (
 /obj/machinery/light{
@@ -2017,13 +1145,6 @@
 /area/deathmatch)
 "Hy" = (
 /obj/structure/table/reinforced,
-/obj/item/toy/russian_revolver{
-	pixel_y = -5
-	},
-/obj/item/key/security{
-	pixel_x = 5;
-	pixel_y = 5
-	},
 /obj/item/stamp/warden{
 	pixel_x = -5;
 	pixel_y = 5
@@ -2032,20 +1153,6 @@
 	dir = 4;
 	icon_state = "darkred"
 	},
-/area/deathmatch)
-"HR" = (
-/obj/machinery/computer/guestpass{
-	pixel_y = 28
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
-	},
-/area/deathmatch)
-"Ih" = (
-/obj/machinery/newscaster/security_unit/directional/east,
-/obj/structure/filingcabinet/chestdrawer,
-/turf/simulated/floor/carpet,
 /area/deathmatch)
 "Ii" = (
 /obj/structure/sign/poster/contraband/fun_police{
@@ -2056,40 +1163,15 @@
 	icon_state = "darkred"
 	},
 /area/deathmatch)
-"Ij" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/whiskey,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
-/obj/item/reagent_containers/food/drinks/flask/detflask,
-/obj/item/lighter/zippo/detective,
-/turf/simulated/floor/wood,
-/area/deathmatch)
 "Ik" = (
 /obj/effect/turf_decal/delivery/red/hollow,
 /obj/machinery/vending/gun_mods,
 /turf/simulated/floor/plasteel,
 /area/deathmatch)
-"In" = (
-/obj/machinery/suit_storage_unit/security/hos,
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/deathmatch)
 "Iq" = (
 /obj/machinery/computer,
 /turf/simulated/floor/plasteel{
 	dir = 6;
-	icon_state = "red"
-	},
-/area/deathmatch)
-"Jr" = (
-/obj/structure/table,
-/obj/item/book/manual/security_space_law,
-/turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "red"
 	},
 /area/deathmatch)
@@ -2099,25 +1181,11 @@
 /obj/structure/reagent_dispensers/water_cooler,
 /turf/simulated/floor/plasteel,
 /area/deathmatch)
-"Jy" = (
-/obj/machinery/vending/snack,
-/obj/effect/turf_decal/delivery/red/hollow,
-/turf/simulated/floor/plasteel,
-/area/deathmatch)
 "JA" = (
 /obj/machinery/door/airlock/security/glass,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
-	},
-/area/deathmatch)
-"JF" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 10
-	},
-/obj/effect/landmark/deathmatch_player_spawn,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
 	},
 /area/deathmatch)
 "JI" = (
@@ -2128,7 +1196,6 @@
 	},
 /area/deathmatch)
 "JJ" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/mystery_box/tdome,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -2178,20 +1245,9 @@
 	icon_state = "red"
 	},
 /area/deathmatch)
-"Lc" = (
-/obj/machinery/vending/wallmed{
-	pixel_x = 26;
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
-	},
-/area/deathmatch)
 "Lf" = (
 /obj/structure/bed,
 /obj/item/bedsheet/red,
-/obj/item/radio/intercom/locked/prison/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -2222,22 +1278,6 @@
 	icon_state = "vault"
 	},
 /area/deathmatch)
-"LD" = (
-/obj/structure/table,
-/obj/item/flashlight/lamp{
-	layer = 4;
-	pixel_x = -2;
-	pixel_y = 9
-	},
-/obj/item/folder{
-	pixel_x = 3
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkred"
-	},
-/area/deathmatch)
 "LE" = (
 /obj/effect/landmark/deathmatch_player_spawn,
 /turf/simulated/floor/plasteel{
@@ -2246,9 +1286,9 @@
 	},
 /area/deathmatch)
 "LI" = (
-/obj/structure/dispenser/oxygen,
+/obj/effect/landmark/deathmatch_player_spawn,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkredfull"
+	icon_state = "darkred"
 	},
 /area/deathmatch)
 "LX" = (
@@ -2268,17 +1308,11 @@
 	},
 /area/deathmatch)
 "Mo" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/machinery/door/poddoor/impassable,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
+	dir = 4;
+	icon_state = "darkred"
 	},
-/area/deathmatch)
-"MB" = (
-/obj/effect/spawner/window/reinforced/polarized{
-	id = "execution"
-	},
-/turf/simulated/floor/plating,
 /area/deathmatch)
 "MG" = (
 /obj/machinery/door/airlock/security/glass,
@@ -2297,34 +1331,9 @@
 /obj/structure/chair/office/dark,
 /turf/simulated/floor/plasteel,
 /area/deathmatch)
-"Nk" = (
-/obj/structure/window/reinforced,
-/obj/machinery/bodyscanner{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkred"
-	},
-/area/deathmatch)
-"Nq" = (
-/obj/machinery/vending/security,
-/turf/simulated/floor/plasteel,
-/area/deathmatch)
 "Nu" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
-	},
-/area/deathmatch)
-"NG" = (
-/obj/machinery/autolathe/security,
-/turf/simulated/floor/plasteel,
-/area/deathmatch)
-"NN" = (
-/obj/effect/spawner/random_spawners/security_lasers,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
 	},
 /area/deathmatch)
 "NT" = (
@@ -2340,58 +1349,10 @@
 	icon_state = "red"
 	},
 /area/deathmatch)
-"Ob" = (
-/obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "red"
-	},
-/area/deathmatch)
 "Og" = (
 /obj/effect/landmark/deathmatch_player_spawn,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
-	},
-/area/deathmatch)
-"Ox" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/machinery/computer,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/deathmatch)
-"OC" = (
-/obj/structure/chair,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/deathmatch)
-"OJ" = (
-/obj/item/flag/sec,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/deathmatch)
-"OT" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/table/reinforced,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/storage/box/lights/mixed,
-/obj/item/stack/sheet/plasteel{
-	amount = 10
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/deathmatch)
-"OY" = (
-/obj/machinery/door/poddoor/impassable,
-/turf/simulated/floor/plasteel{
-	icon_state = "redcorner"
 	},
 /area/deathmatch)
 "Pg" = (
@@ -2400,27 +1361,8 @@
 	icon_state = "darkred"
 	},
 /area/deathmatch)
-"PE" = (
-/obj/machinery/vending/wallmed{
-	name = "Emergency NanoMed";
-	pixel_x = 24;
-	pixel_y = 28
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
-	},
-/area/deathmatch)
-"PM" = (
-/obj/machinery/light,
-/obj/machinery/newscaster/directional/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
-/area/deathmatch)
 "PZ" = (
 /obj/machinery/recharge_station,
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "red"
@@ -2477,16 +1419,6 @@
 	icon_state = "red"
 	},
 /area/deathmatch)
-"QF" = (
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 4
-	},
-/obj/item/wrench,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
-	},
-/area/deathmatch)
 "QO" = (
 /obj/effect/turf_decal/delivery/red/hollow,
 /obj/structure/mystery_box/tdome,
@@ -2497,23 +1429,6 @@
 	icon_state = "redcorner"
 	},
 /area/deathmatch)
-"Rd" = (
-/obj/structure/closet/secure_closet/injection,
-/obj/effect/turf_decal/delivery/red,
-/obj/structure/extinguisher_cabinet/directional/north,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/deathmatch)
-"Rl" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/obj/structure/table/reinforced,
-/obj/item/taperecorder,
-/obj/item/clothing/glasses/sunglasses/blindfold/black,
-/turf/simulated/floor/engine,
-/area/deathmatch)
 "Rm" = (
 /obj/structure/mystery_box/tdome,
 /turf/simulated/floor/plasteel{
@@ -2522,13 +1437,7 @@
 	},
 /area/deathmatch)
 "Ry" = (
-/obj/structure/sign/medbay/redcross{
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
-	},
+/turf/simulated/wall/indestructible/reinforced,
 /area/deathmatch)
 "RJ" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -2537,29 +1446,9 @@
 	icon_state = "red"
 	},
 /area/deathmatch)
-"RP" = (
-/obj/structure/chair/sofa/bench/security_red{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
-	},
-/area/deathmatch)
 "RX" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkred"
-	},
-/area/deathmatch)
-"Sb" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/mystery_box/tdome,
-/turf/simulated/floor/plasteel{
-	dir = 9;
 	icon_state = "darkred"
 	},
 /area/deathmatch)
@@ -2595,14 +1484,6 @@
 	icon_state = "red"
 	},
 /area/deathmatch)
-"Su" = (
-/obj/structure/bed,
-/obj/structure/curtain/black,
-/obj/effect/turf_decal/delivery/red/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/deathmatch)
 "Sv" = (
 /obj/structure/mystery_box/tdome,
 /turf/simulated/floor/plasteel,
@@ -2612,9 +1493,6 @@
 /obj/item/restraints/handcuffs{
 	pixel_y = -3
 	},
-/obj/item/restraints/handcuffs{
-	pixel_y = 3
-	},
 /obj/item/flashlight/seclite,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -2622,11 +1500,9 @@
 	},
 /area/deathmatch)
 "SD" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/plasteel,
 /area/deathmatch)
 "SL" = (
@@ -2655,17 +1531,6 @@
 "Th" = (
 /obj/machinery/computer,
 /turf/simulated/floor/plasteel,
-/area/deathmatch)
-"Tq" = (
-/obj/machinery/vending/wallmed{
-	layer = 3.3;
-	name = "Emergency NanoMed";
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
-	},
 /area/deathmatch)
 "Tt" = (
 /obj/effect/turf_decal/delivery/red/hollow,
@@ -2710,16 +1575,6 @@
 /obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel,
 /area/deathmatch)
-"Ug" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/structure/barricade/security,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "red"
-	},
-/area/deathmatch)
 "Ul" = (
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
@@ -2736,25 +1591,10 @@
 /obj/effect/decal/cleanable/cobweb{
 	layer = 4
 	},
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/mystery_box/tdome,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
-	},
-/area/deathmatch)
-"UA" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/item/clothing/gloves/combat/riot,
-/obj/item/clothing/gloves/combat/riot,
-/obj/item/clothing/gloves/combat/riot,
-/obj/item/clothing/gloves/combat/riot,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
 	},
 /area/deathmatch)
 "UC" = (
@@ -2765,24 +1605,6 @@
 	icon_state = "red"
 	},
 /area/deathmatch)
-"UH" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/item/clothing/shoes/jackboots/armored,
-/obj/item/clothing/shoes/jackboots/armored,
-/obj/item/clothing/shoes/jackboots/armored,
-/obj/item/clothing/shoes/jackboots/armored,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
-	},
-/area/deathmatch)
-"US" = (
-/obj/structure/mystery_box/tdome,
-/turf/simulated/floor/wood,
-/area/deathmatch)
 "Vb" = (
 /obj/structure/mystery_box/tdome,
 /turf/simulated/floor/plasteel{
@@ -2790,27 +1612,10 @@
 	icon_state = "darkred"
 	},
 /area/deathmatch)
-"Vm" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table,
-/obj/item/book/manual/security_space_law,
-/turf/simulated/floor/plasteel,
-/area/deathmatch)
 "Vt" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
-	},
-/area/deathmatch)
-"Vv" = (
-/obj/structure/table/wood,
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
-	},
-/obj/item/pen,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
 	},
 /area/deathmatch)
 "Vy" = (
@@ -2840,57 +1645,16 @@
 	icon_state = "red"
 	},
 /area/deathmatch)
-"VT" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/deathmatch)
-"VV" = (
-/obj/effect/turf_decal/delivery/red/hollow,
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/structure/sign/poster/official/random{
-	pixel_x = -32
-	},
-/obj/structure/mystery_box/tdome,
-/turf/simulated/floor/plasteel,
-/area/deathmatch)
 "VY" = (
 /obj/machinery/light,
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
-	},
-/area/deathmatch)
-"VZ" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/machinery/newscaster/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
 	},
 /area/deathmatch)
 "Wz" = (
 /obj/structure/barricade/security,
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
-	},
-/area/deathmatch)
-"WC" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/floodlight,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/deathmatch)
-"WG" = (
-/obj/structure/table/reinforced,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkred"
 	},
 /area/deathmatch)
 "WQ" = (
@@ -2929,28 +1693,6 @@
 	icon_state = "darkredfull"
 	},
 /area/deathmatch)
-"Xu" = (
-/obj/structure/table,
-/obj/item/storage/box/donkpockets{
-	pixel_x = -5;
-	pixel_y = 2
-	},
-/obj/item/storage/fancy/coffee_cart_rack{
-	pixel_x = 7;
-	pixel_y = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/deathmatch)
-"Xv" = (
-/obj/structure/table/wood,
-/obj/item/book/manual/security_space_law,
-/obj/item/flashlight/lamp/green{
-	on = 0;
-	pixel_x = -6;
-	pixel_y = 14
-	},
-/turf/simulated/floor/carpet,
-/area/deathmatch)
 "Xx" = (
 /obj/structure/extinguisher_cabinet/directional/north,
 /turf/simulated/floor/plasteel{
@@ -2967,12 +1709,6 @@
 	icon_state = "darkred"
 	},
 /area/deathmatch)
-"XP" = (
-/obj/machinery/vending/cigarette,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/deathmatch)
 "XQ" = (
 /obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
@@ -2985,13 +1721,6 @@
 /obj/item/clipboard,
 /obj/item/toy/figure/secofficer,
 /turf/simulated/floor/plasteel,
-/area/deathmatch)
-"Yh" = (
-/obj/structure/extinguisher_cabinet/directional/east,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "red"
-	},
 /area/deathmatch)
 "Yj" = (
 /obj/machinery/door/poddoor/impassable,
@@ -3013,29 +1742,11 @@
 	icon_state = "darkred"
 	},
 /area/deathmatch)
-"YG" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/obj/structure/mystery_box/tdome,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/deathmatch)
 "YN" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/box/syndie_kit/dropwall/sec{
-	pixel_x = -6
-	},
-/obj/item/storage/box/trackimp{
-	pixel_x = 8
-	},
-/obj/item/storage/box/chemimp{
-	pixel_x = 8;
-	pixel_y = 6
-	},
+/obj/effect/landmark/deathmatch_player_spawn,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkred"
+	dir = 1;
+	icon_state = "red"
 	},
 /area/deathmatch)
 "YR" = (
@@ -3048,12 +1759,7 @@
 	icon_state = "darkred"
 	},
 /area/deathmatch)
-"YY" = (
-/obj/structure/chair/comfy/brown,
-/turf/simulated/floor/carpet,
-/area/deathmatch)
 "YZ" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -3067,11 +1773,6 @@
 	icon_state = "darkred"
 	},
 /area/deathmatch)
-"Zh" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/deathmatch)
 "Zo" = (
 /obj/machinery/light{
 	dir = 8
@@ -3082,55 +1783,12 @@
 	icon_state = "red"
 	},
 /area/deathmatch)
-"Zp" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/barricade/security,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
-	},
-/area/deathmatch)
-"Zq" = (
-/obj/machinery/computer,
-/turf/simulated/floor/wood,
-/area/deathmatch)
-"Zv" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
-	},
-/area/deathmatch)
-"Zz" = (
-/obj/effect/turf_decal/delivery,
-/obj/structure/sign/poster/official/random{
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutralcorner"
-	},
-/area/deathmatch)
 "ZD" = (
 /obj/structure/chair/comfy/red{
 	dir = 1
 	},
 /obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel,
-/area/deathmatch)
-"ZH" = (
-/obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	icon_state = "redcorner"
-	},
-/area/deathmatch)
-"ZJ" = (
-/obj/effect/landmark/deathmatch_player_spawn,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
 /area/deathmatch)
 "ZT" = (
 /obj/structure/table,
@@ -3155,16 +1813,16 @@ gA
 gA
 gA
 gA
-JV
-JV
+Ry
+Ry
 gP
-JV
+Ry
 gP
 gP
-JV
+Ry
 gP
-JV
-JV
+Ry
+Ry
 gA
 gA
 gA
@@ -3194,8 +1852,8 @@ gA
 gA
 gA
 gA
-JV
-bS
+Ry
+CV
 hT
 lO
 ll
@@ -3203,19 +1861,19 @@ ZT
 lO
 hT
 CV
-JV
-JV
-JV
-JV
-JV
-JV
-JV
-JV
-JV
-xe
-lS
-OY
-JV
+Ry
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
 gA
 gA
 gA
@@ -3242,19 +1900,19 @@ ip
 vv
 hT
 ii
-JV
-Zq
-eq
-US
-qz
-Bu
-Ij
-gp
-JV
-Ko
-GQ
-Wz
-JV
+Ry
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
 gA
 gA
 gA
@@ -3272,7 +1930,7 @@ gA
 gA
 gA
 gA
-JV
+Ry
 iA
 mL
 fC
@@ -3281,19 +1939,19 @@ Sn
 lO
 ht
 Lf
-JV
-Zq
-eq
-eq
-eq
-Zh
-Zh
-eq
-lO
-ht
-WV
-ZH
-JV
+Ry
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
 gA
 gA
 gA
@@ -3311,7 +1969,7 @@ gA
 gA
 gA
 gA
-JV
+Ry
 lO
 lO
 JV
@@ -3320,19 +1978,19 @@ VB
 JV
 fC
 lO
-JV
-yh
-lB
-Xv
-eq
-ZJ
-Zh
-eq
-Ch
-ht
-eT
-QP
-JV
+Ry
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
 gA
 gA
 gA
@@ -3350,8 +2008,8 @@ gA
 gA
 gA
 gA
-JV
-FT
+Ry
+BR
 fw
 lO
 sz
@@ -3359,19 +2017,19 @@ wq
 lO
 aW
 eP
-JV
-kq
-YY
-ru
-mz
-Zh
-Zh
-eq
-lO
-ht
-WV
-gk
-JV
+Ry
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
 gA
 gA
 gA
@@ -3389,28 +2047,28 @@ gA
 gA
 gA
 gA
-JV
-VZ
+Ry
+SL
 eT
 gv
 ip
 ip
 vv
 eT
-PM
-JV
-Ih
-xo
-GO
-ba
-sQ
-zr
-gn
-JV
-Zz
-vw
-ze
-JV
+if
+Ry
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
 gA
 gA
 gA
@@ -3421,14 +2079,14 @@ gA
 "}
 (8,1,1) = {"
 gA
-JV
-JV
-JV
+Ry
+Ry
+Ry
 gP
 gP
-JV
-JV
-JV
+Ry
+Ry
+Ry
 sS
 Ly
 JV
@@ -3437,19 +2095,19 @@ Sn
 JV
 no
 wf
-JV
-JV
-lO
-lO
-JV
-lO
-lO
-JV
-JV
-Cz
-WV
-QP
-JV
+Ry
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
 gA
 gA
 gA
@@ -3459,15 +2117,15 @@ gA
 gA
 "}
 (9,1,1) = {"
-JV
-JV
+Ry
+Ry
 xd
 oY
-sR
-LD
+dg
+mS
 Ux
 JJ
-JV
+Ry
 fC
 lO
 JV
@@ -3476,19 +2134,19 @@ rz
 JV
 lO
 fC
-JV
-qH
-Jr
-dc
-GP
-RP
-RP
-gQ
-Mo
-Cz
-GQ
-Wz
-JV
+Ry
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
 gA
 gA
 gA
@@ -3498,8 +2156,8 @@ gA
 gA
 "}
 (10,1,1) = {"
-JV
-Sb
+Ry
+Em
 rZ
 ip
 ip
@@ -3508,26 +2166,26 @@ ka
 VY
 JV
 eT
-Vm
+Ar
 lO
 Ym
 TC
 MG
 dg
 dg
-MG
-Cz
-eT
-eT
-ej
-GQ
-eT
-eT
-eT
-eT
-WV
-QP
-JV
+lB
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
 gA
 gA
 gA
@@ -3537,36 +2195,36 @@ gA
 gA
 "}
 (11,1,1) = {"
-JV
+Ry
 qf
 RX
-aN
+RX
 Kb
 nP
 LB
 JJ
 JV
 SD
-VT
+eT
 gv
 ip
 Nu
 Ty
 RX
 RX
-Ty
-ht
-eT
-eT
-eT
-GQ
-eT
-eT
-eT
-eT
-eT
-QP
-JV
+Mo
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
 gA
 gA
 gA
@@ -3576,7 +2234,7 @@ gA
 gA
 "}
 (12,1,1) = {"
-JV
+Ry
 JV
 JV
 JV
@@ -3586,26 +2244,26 @@ JV
 JV
 JV
 Cs
-xt
+yv
 lO
 sz
 Sn
 JV
 lO
 lO
-JV
-RJ
-zl
-hR
-WX
-no
-WQ
-oI
-gM
-ht
-WV
-ZH
-JV
+Ry
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
 gA
 gA
 gA
@@ -3615,7 +2273,7 @@ gA
 gA
 "}
 (13,1,1) = {"
-JV
+Ry
 aa
 dc
 SC
@@ -3632,30 +2290,30 @@ XE
 JV
 Th
 Th
-JV
-JV
-JV
-JV
-lO
-yD
-lO
-JV
-JV
-JA
-fC
-MH
-JV
-JV
-JV
-JV
-JV
-JV
-JV
+Ry
+Ry
+Ry
+Ry
+gP
+jG
+gP
+Ry
+Ry
+we
+gP
+qz
+Ry
+Ry
+Ry
+Ry
+Ry
+Ry
+Ry
 gA
 "}
 (14,1,1) = {"
-JV
 Ry
+GB
 eT
 eT
 eT
@@ -3674,22 +2332,22 @@ ve
 Zo
 Bs
 lO
-FG
+BR
 pJ
 ve
 NU
 XT
 lO
 GB
-eT
-DL
+Sv
+fj
 JV
 zC
 Lb
 GV
 Lb
 Sg
-JV
+Ry
 gA
 "}
 (15,1,1) = {"
@@ -3720,7 +2378,7 @@ Ng
 Qe
 lO
 SL
-WV
+Og
 if
 JV
 pl
@@ -3728,7 +2386,7 @@ eT
 WV
 eT
 Qt
-JV
+Ry
 gA
 "}
 (16,1,1) = {"
@@ -3736,7 +2394,7 @@ GJ
 JI
 eT
 kM
-Lb
+dD
 uF
 Lb
 uF
@@ -3767,7 +2425,7 @@ eT
 ej
 eT
 Gx
-JV
+Ry
 gA
 "}
 (17,1,1) = {"
@@ -3806,11 +2464,11 @@ eT
 WV
 eT
 Qt
-JV
+Ry
 gA
 "}
 (18,1,1) = {"
-JV
+Ry
 Cc
 eT
 VP
@@ -3825,7 +2483,7 @@ FL
 Kg
 JW
 GV
-Lb
+dD
 Lb
 Lb
 Lb
@@ -3841,15 +2499,15 @@ eT
 DL
 JV
 sq
-ht
-eT
+Ko
+GQ
 QP
 Tt
-JV
+Ry
 gA
 "}
 (19,1,1) = {"
-JV
+Ry
 qQ
 eT
 WV
@@ -3857,14 +2515,14 @@ eT
 hA
 hA
 eT
-WV
+xc
 eT
 FW
 lH
 FW
 WV
 eT
-eT
+GQ
 eT
 eT
 GQ
@@ -3879,16 +2537,16 @@ eT
 WV
 if
 JV
-Nq
+eT
 GB
 WV
 DL
-Nq
-JV
+eT
+Ry
 gA
 "}
 (20,1,1) = {"
-JV
+Ry
 WT
 eT
 kM
@@ -3896,7 +2554,7 @@ uF
 Lb
 Lb
 uF
-BR
+tu
 eT
 ma
 Sl
@@ -3904,7 +2562,7 @@ LX
 eT
 QP
 gM
-no
+yN
 no
 va
 no
@@ -3912,7 +2570,7 @@ eT
 no
 no
 no
-Yh
+no
 no
 ht
 eT
@@ -3920,15 +2578,15 @@ DL
 JV
 Sv
 GB
-eT
-DL
-JV
-JV
+GQ
+Tf
+Ry
+Ry
 gA
 "}
 (21,1,1) = {"
-AG
-Zp
+Yj
+JI
 eT
 DL
 EB
@@ -3959,22 +2617,22 @@ DL
 lO
 jn
 GB
-WV
+Og
 DL
 gP
 gA
 gA
 "}
 (22,1,1) = {"
-JV
+Ry
 GB
 eT
 Tu
 QB
 no
 QB
-no
-Fj
+va
+FU
 eT
 DL
 lO
@@ -3983,7 +2641,7 @@ eT
 DL
 JV
 Em
-jQ
+dg
 dg
 ev
 dg
@@ -4005,20 +2663,20 @@ gA
 gA
 "}
 (23,1,1) = {"
-JV
+Ry
 ea
 eT
 Lb
 GQ
 Kx
-Cz
+xX
 eT
-dD
+Lb
 eT
 yI
 ok
-SL
-WV
+zI
+xc
 DL
 lO
 oj
@@ -4044,8 +2702,8 @@ gA
 gA
 "}
 (24,1,1) = {"
-JV
-Tq
+Ry
+GB
 eT
 eT
 eT
@@ -4078,7 +2736,7 @@ lO
 JI
 Tf
 lO
-JV
+Ry
 gA
 gA
 "}
@@ -4090,16 +2748,16 @@ eT
 QP
 tW
 AW
-ph
+Ly
 WX
 WQ
 FV
-JV
+Ry
 GB
 eT
 DL
 lO
-zI
+Vb
 ip
 ip
 ip
@@ -4113,11 +2771,11 @@ GB
 eT
 DL
 JV
-NG
+yv
 GB
 JW
 gt
-JV
+Ry
 gA
 gA
 "}
@@ -4127,20 +2785,20 @@ JI
 eT
 ut
 GE
-JV
-JV
-JV
-JV
+Ry
+Ry
+Ry
+Ry
 gP
 gP
-JV
+Ry
 GB
 GQ
 Tf
 JV
 YR
-Lc
-BU
+RX
+RX
 dZ
 RX
 zv
@@ -4148,7 +2806,7 @@ Hy
 Ul
 df
 JV
-HR
+GB
 eT
 DL
 lO
@@ -4156,7 +2814,7 @@ Lb
 Cz
 eT
 Vy
-JV
+Ry
 gA
 gA
 "}
@@ -4164,15 +2822,15 @@ gA
 gP
 Fj
 YZ
-we
+Ly
 Eq
-JV
+Ry
 gA
 gA
 gA
 gA
 gA
-JV
+Ry
 GB
 eT
 DL
@@ -4181,7 +2839,7 @@ JV
 lO
 lO
 JV
-aV
+Ho
 JV
 lO
 lO
@@ -4195,17 +2853,17 @@ eT
 ej
 eT
 hC
-JV
+Ry
 gA
 gA
 "}
 (28,1,1) = {"
-JV
-JV
-JV
-JV
-JV
-JV
+Ry
+Ry
+Ry
+Ry
+Ry
+Ry
 gA
 gA
 gA
@@ -4213,17 +2871,17 @@ gA
 gA
 lS
 GB
-eT
+ej
 Mh
 JV
-yk
-ho
-xc
-UH
+Pg
 dg
-DM
+dg
 kG
-UA
+dg
+dg
+kG
+oY
 sa
 JV
 GB
@@ -4234,7 +2892,7 @@ no
 ht
 eT
 Vy
-JV
+Ry
 gA
 gA
 "}
@@ -4250,18 +2908,18 @@ gA
 gA
 gA
 gA
-JV
-GB
-eT
+Ry
+JI
+GQ
 DL
 JV
 AH
+fu
 ip
+fH
+fH
 ip
-ip
-ip
-ip
-ip
+fH
 ip
 Ii
 JV
@@ -4272,8 +2930,8 @@ JV
 Ik
 GB
 eT
-nv
-JV
+tn
+Ry
 gA
 gA
 "}
@@ -4289,7 +2947,7 @@ gA
 gA
 gA
 gA
-JV
+Ry
 JA
 lH
 MH
@@ -4300,9 +2958,9 @@ Xa
 ip
 Xa
 ip
-Xa
+av
 ip
-AC
+LI
 JV
 JA
 lH
@@ -4312,8 +2970,8 @@ lO
 JA
 lH
 lO
-JV
-JV
+Ry
+Ry
 gA
 "}
 (31,1,1) = {"
@@ -4328,20 +2986,20 @@ gA
 gA
 gA
 gA
-JV
+Ry
 GB
 eT
 DL
 JV
-Vb
+sz
 ip
-fH
+ip
 av
-av
+Xa
 av
 fH
 ip
-YN
+Sn
 JV
 GB
 eT
@@ -4352,8 +3010,8 @@ GB
 eT
 kM
 QO
-JV
-JV
+Ry
+Ry
 "}
 (32,1,1) = {"
 gA
@@ -4367,20 +3025,20 @@ gA
 gA
 gA
 gA
-JV
+Ry
 Xx
-WV
-DL
+xc
+Tf
 JV
-Vb
-ip
-ip
+Ym
+fH
+fH
 ip
 Xa
 ip
+fH
 ip
-ip
-WG
+wq
 JV
 GB
 GQ
@@ -4392,7 +3050,7 @@ eT
 JW
 kM
 sn
-JV
+Ry
 "}
 (33,1,1) = {"
 gA
@@ -4406,12 +3064,12 @@ gA
 gA
 gA
 gA
-JV
+Ry
 GB
 eT
 if
 JV
-Vb
+sz
 ip
 ip
 ip
@@ -4445,21 +3103,21 @@ gA
 gA
 gA
 gA
-JV
+Ry
 GB
 eT
 DL
 JV
 pb
 sU
-ip
-LI
-GS
-zo
+fH
+Xa
+av
+av
 ip
 ip
 Sn
-aV
+Ho
 GB
 eT
 ej
@@ -4484,19 +3142,19 @@ gA
 gA
 gA
 gA
-JV
+Ry
 JI
 GQ
 DL
 JV
 yx
-sz
-Xa
+Ym
+av
 ip
 Xa
-ip
-Xa
-ip
+fH
+av
+fH
 Vt
 JV
 SL
@@ -4524,7 +3182,7 @@ gA
 gA
 gA
 gP
-GB
+YN
 eT
 DL
 JV
@@ -4532,10 +3190,10 @@ Bt
 sz
 ip
 ip
+fu
 ip
 ip
-ip
-ip
+AR
 Sn
 JV
 JI
@@ -4563,18 +3221,18 @@ gA
 gA
 gA
 gP
-GB
-eT
+yj
+Sv
 DL
 JV
 pf
 DF
-fz
+RX
 tA
 AQ
-oe
-NN
-cl
+RX
+RX
+RX
 Zd
 JV
 GB
@@ -4602,9 +3260,9 @@ gA
 gA
 gA
 gP
-GB
-eT
-DL
+we
+jG
+qz
 JV
 JV
 JV
@@ -4626,7 +3284,7 @@ GQ
 Wz
 Tu
 kL
-JV
+Ry
 "}
 (39,1,1) = {"
 gA
@@ -4640,22 +3298,22 @@ gA
 gA
 gA
 gA
-JV
-SL
-eT
-DL
-lO
-rm
-rm
-rm
-ok
-DI
-Xu
-VV
-iG
-Ob
-lO
-PE
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gA
+gP
+GB
 eT
 DL
 SQ
@@ -4664,8 +3322,8 @@ FU
 eT
 LE
 QO
-JV
-JV
+Ry
+Ry
 "}
 (40,1,1) = {"
 gA
@@ -4679,34 +3337,9 @@ gA
 gA
 gA
 gA
-Yj
-eT
-WV
-eT
-lH
-eT
-ej
-lN
-ok
-qv
-BR
-Lb
-Cz
-DL
-ok
-JA
-lH
-MH
-JV
-JV
-lO
-Fm
-lO
-JV
-JV
 gA
-"}
-(41,1,1) = {"
+gA
+gA
 gA
 gA
 gA
@@ -4719,536 +3352,15 @@ gA
 gA
 gA
 JV
-GB
-eT
-DL
-lO
-WC
-OT
-fD
-ok
-Jy
-GB
-wl
-wl
-DL
-lO
-GB
-eT
-DL
-JV
-AR
-eq
-eq
-eq
-xS
-JV
-gA
-"}
-(42,1,1) = {"
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gP
-GB
-GQ
-uS
-ok
-ok
-MB
-ok
-ok
-yJ
-jk
-yY
-sV
-eT
-lH
-GB
-WV
-DL
-lO
-ms
-eq
-Zh
-eq
-ri
-JV
-JV
-"}
-(43,1,1) = {"
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gP
-GB
-eT
-DL
-ok
-Rd
-Su
-Dc
-ok
-FU
-no
-ht
-FA
-DL
-lO
-GB
-eT
-DL
-lO
-Vv
-Zh
-Zh
-Zh
-eq
-rB
-JV
-"}
-(44,1,1) = {"
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gP
-GB
-WV
-DL
-MB
-Pg
-mS
-CN
-ok
-AT
-eC
-BJ
-no
-DL
-ok
-JI
-GQ
-DL
-JV
-eR
-Zh
-Zh
-fB
-eq
-Zq
-gP
-"}
-(45,1,1) = {"
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-JV
-GB
-eT
-DL
-MB
-Vb
-Sn
-dN
-ok
-MB
-MB
-ok
-fv
-ok
-ok
-SL
-eT
-DL
-Ho
-ip
-Zh
-OC
-BM
-FS
-Zq
-gP
-"}
-(46,1,1) = {"
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-JV
-JA
-lH
-MH
-ok
-Zv
-TC
-QF
-Nk
-yN
-Rl
-ok
-mE
-Gi
-ok
-GB
-eT
-DL
-JV
-eR
-Zh
-Zh
-tN
-eq
-Zq
-gP
-"}
-(47,1,1) = {"
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gP
-GB
-eT
-eT
-Ho
-ip
-ip
-JF
-ou
-Al
-Bz
-ok
-uy
-lA
-ok
-GB
-eT
-DL
-lO
-XP
-Zh
-Zh
-Zh
-eq
-rB
-JV
-"}
-(48,1,1) = {"
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-Yj
-eT
-eT
-DL
-ok
-xP
-tA
-tA
-tu
-la
-gT
-ok
-mE
-oU
-ok
-GB
-eT
-DL
-lO
-Ox
-eq
-Zh
-eq
-kn
-JV
-JV
-"}
-(49,1,1) = {"
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gP
-GB
-eT
-DL
-ok
-ok
-MB
-MB
-ok
-MB
-MB
-ok
-ok
-ok
-ok
-jI
-GQ
-Tf
-JV
-xX
-eq
-eq
-US
-JV
-JV
-gA
-"}
-(50,1,1) = {"
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-JV
-SL
-eT
-JW
-Ug
-Lb
-Lb
-Lb
-Lb
-Lb
-Lb
-cc
-dD
-GV
-Lb
-Cz
-eT
-if
-JV
-JV
-lO
-Fm
-lO
-JV
-gA
-gA
-"}
-(51,1,1) = {"
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-JV
-GB
-Og
-eT
-GQ
-eT
-eT
-GQ
-eT
-WV
-eT
-eT
-GQ
-eT
-eT
-eT
-WV
-bt
-JV
-US
-eq
-Ci
-In
-gP
-gA
-gA
-"}
-(52,1,1) = {"
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-JV
-Fo
-no
-no
-no
-eT
-no
-va
-yc
-no
-no
-no
-no
-eT
-no
-no
-no
-Tu
-lO
-OJ
-Zh
-eq
-YG
-gP
-gA
-gA
-"}
-(53,1,1) = {"
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-JV
-gP
-gP
-JV
-gP
-yj
-gP
-JV
-JV
-JV
-gP
-gP
-JV
+we
 jG
-JV
-gP
-gP
-JV
-JV
-pw
-Zh
-fG
-JV
-JV
-gA
-gA
-"}
-(54,1,1) = {"
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
-gA
+qz
 JV
 JV
 gP
+Fm
+gP
 JV
-JV
-gA
-gA
+Ry
 gA
 "}
