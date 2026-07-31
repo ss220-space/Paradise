@@ -5,7 +5,7 @@
 	var/targets_need = 0
 
 /datum/objective/xeno_get_power/proc/generate_text()
-	targets_need = EMPRESS_EVOLVE_TARGET_COUNT
+	targets_need = XENO_PLAYERS_FOR_EMPRESS
 	explanation_text = "Расплодитесь. Для того, чтобы вы могли эволюционировать, в вашем улье долж[declension_ru(targets_need, "ен", "но", "но")] быть [targets_need] ксеноморф[DECL_CREDIT(targets_need)]."
 	return
 
@@ -40,3 +40,5 @@
 /datum/objective/protect_cocon/proc/generate_text(area/location)
 	explanation_text = "Королева начала эволюционировать в [location.name]. Она находится в стазисе внутри кокона и полностью беззащитна. Защитите её любой ценой."
 	return
+
+#undef XENO_PLAYERS_FOR_EMPRESS

@@ -588,6 +588,14 @@
 	build_path = /obj/item/circuitboard/machine/crystallizer
 	category = list(CIRCUIT_IMPRINTER_CATEGORY_ENGINEERING)
 
+/datum/design/board/portagrav
+	id = "portagrav"
+	build_type = IMPRINTER
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 3, RESEARCH_TREE_ENGINEERING = 4, RESEARCH_TREE_MAGNETS = 3)
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/portagrav
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_ENGINEERING)
+
 /datum/design/board/electrolyzer
 	id = "electrolyzer"
 	build_type = IMPRINTER
