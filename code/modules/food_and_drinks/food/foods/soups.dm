@@ -75,9 +75,9 @@
 	tastes = list("chaos" = 1)
 
 /obj/item/reagent_containers/food/snacks/soup/mysterysoup/Initialize(mapload)
+	. = ..()
 	extra_reagent = pick("capsaicin", "frostoil", "omnizine", "banana", "blood", "slimejelly", "toxin", "banana", "carbon", "oculine")
 	reagents.add_reagent("[extra_reagent]", 5)
-	. = ..()
 
 /obj/item/reagent_containers/food/snacks/soup/wishsoup
 	name = "wish soup"
