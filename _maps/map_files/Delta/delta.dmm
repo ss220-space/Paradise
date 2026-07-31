@@ -36331,7 +36331,6 @@
 /obj/item/reagent_containers/dropper/precision,
 /obj/item/reagent_containers/dropper/precision,
 /obj/machinery/alarm/directional/north,
-/obj/structure/extinguisher_cabinet/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
