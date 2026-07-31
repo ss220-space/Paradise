@@ -3,7 +3,8 @@
 // MARK: Basic (Mosin-Nagant)
 /obj/item/gun/projectile/shotgun/boltaction
 	name = "Mosin Nagant"
-	desc = "Старинная винтовка с продольно-скользящим затвором калибра 7,62x54."
+	desc = "Старинная винтовка с продольно-скользящим затвором калибра 7,62x54 мм."
+	gender = FEMALE
 	icon_state = "moistnugget"
 	item_state = "moistnugget"
 	slot_flags = NONE //no ITEM_SLOT_BACK sprite, alas

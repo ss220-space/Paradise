@@ -1,6 +1,6 @@
 // TODO: Merge it with bolt_action_rifles.dm
 
-// MARK: Generic
+// MARK: Base Sniper Rifle
 /obj/item/gun/projectile/automatic/sniper_rifle
 	name = "sniper rifle"
 	desc = "Крупнокалиберная снайперская винтовка."

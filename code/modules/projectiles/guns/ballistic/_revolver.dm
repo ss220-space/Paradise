@@ -2,9 +2,10 @@
  * Located in it's own file because we have revolver-like weapons which are not revolvers (like grenade launchers)
  */
 
+//TODO: make it a proper base revolver class
 /obj/item/gun/projectile/revolver
 	name = ".357 revolver"
-	desc = "A suspicious revolver. Uses .357 ammo."
+	desc = "Классический револьвер с барабаном на 6 патронов."
 	gender = MALE
 	icon_state = "revolver"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder
@@ -19,6 +20,16 @@
 	can_air_shoot = TRUE
 	/// If TRUE will show empty casing on examine
 	var/show_live_rounds = TRUE
+
+/obj/item/gun/projectile/revolver/get_ru_names()
+	return alist(
+		NOMINATIVE = "револьвер .357 Magnum",
+		GENITIVE = "револьвера .357 Magnum",
+		DATIVE = "револьверу .357 Magnum",
+		ACCUSATIVE = "револьвер .357 Magnum",
+		INSTRUMENTAL = "револьвером .357 Magnum",
+		PREPOSITIONAL = "револьвере .357 Magnum",
+	)
 
 /obj/item/gun/projectile/revolver/Initialize(mapload)
 	. = ..()

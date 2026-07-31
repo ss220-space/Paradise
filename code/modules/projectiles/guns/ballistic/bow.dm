@@ -5,24 +5,21 @@
 	gender = MALE
 	icon_state = "bow"
 	item_state = "bow"
-
 	fire_sound = 'sound/weapons/bows/bow_fire.ogg'
 	pickup_sound = 'sound/weapons/bows/bow_pickup.ogg'
 	drop_sound = 'sound/weapons/bows/bow_drop.ogg'
 	equip_sound = 'sound/weapons/bows/bow_equip.ogg'
-
 	mag_type = /obj/item/ammo_box/magazine/internal/bow
 	item_flags = SLOWS_WHILE_IN_HAND
 	slot_flags = ITEM_SLOT_BACK
 	weapon_weight = WEAPON_HEAVY
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 	accuracy = GUN_ACCURACY_BOW
-
+	accuracy = GUN_ACCURACY_DEFAULT
+	recoil = null
 	var/draw_sound = 'sound/weapons/bows/bow_pull.ogg'
 	var/ready_to_fire = FALSE
 	var/slowdown_when_ready = 2
-	accuracy = GUN_ACCURACY_DEFAULT
-	recoil = null
 
 /obj/item/gun/projectile/bow/get_ru_names()
 	return alist(
@@ -98,11 +95,9 @@
 	desc = "Примитивный лук с тетивой, сделанной из жилы. Обычно используется племенными охотниками и воинами."
 	icon_state = "ashenbow"
 	item_state = "ashenbow"
-
 	fire_sound = 'sound/weapons/bows/bonebow_fire.ogg'
 	drop_sound = 'sound/weapons/bows/bonebow_drop.ogg'
 	draw_sound = 'sound/weapons/bows/bonebow_pull.ogg'
-
 	item_flags = NONE
 	flags = NONE
 	force = 10
@@ -118,7 +113,6 @@
 		INSTRUMENTAL = "костяным луком",
 		PREPOSITIONAL = "костяном луке",
 	)
-
 
 // MARK: Arrow storages
 // TODO: move it into it's own files
