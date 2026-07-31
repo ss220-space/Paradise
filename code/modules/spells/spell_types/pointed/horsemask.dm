@@ -18,7 +18,6 @@
 		return FALSE
 	. = ..()
 
-
 /datum/action/cooldown/spell/pointed/horsemask/cast(atom/cast_on)
 	. = ..()
 

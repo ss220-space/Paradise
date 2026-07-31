@@ -6,6 +6,7 @@
 	invocation = "SOGESE DE RAGET'RE!"
 	invocation_type = INVOCATION_SHOUT
 	button_icon_state = "goliath_tentacles"
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
 /datum/action/cooldown/spell/pointed/goliath_tentacles/cast(atom/cast_on)
 	. = ..()

@@ -6,7 +6,7 @@
 	cooldown_reduction_per_rank = 2.5 SECONDS
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	smoke_type = /datum/effect_system/fluid_spread/smoke/bad
-	smoke_amt = 10
+	smoke_amt = 5
 	button_icon_state = "smoke"
 
 /datum/action/cooldown/spell/smoke/disable
