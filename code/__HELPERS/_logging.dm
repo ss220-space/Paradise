@@ -173,7 +173,7 @@ GLOBAL_PROTECT(log_end)
 		WRITE_LOG(GLOB.world_game_log, "GAME: End objective log for [html_decode(Mind.key)]/[html_decode(Mind.name)][GLOB.log_end]")
 
 /proc/log_world(text, root_log = FALSE)
-	#if defined(UNIT_TESTS) || defined(MAP_TESTS) || defined(TESTING)
+	#if defined(UNIT_TESTS) || defined(MAP_TEST) || defined(TESTING)
 	SEND_TEXT(world.log, text)
 	#else
 	if(config && CONFIG_GET(flag/enable_root_log) || root_log)
@@ -212,6 +212,13 @@ GLOBAL_PROTECT(log_end)
 	messages.Add(": [text]")
 	messages.Add("[GLOB.log_end]")
 	WRITE_LOG(GLOB.tgui_log, messages.Join())
+
+#if defined(REFERENCE_TRACKING) // Doing it locally
+#define log_reftracker(msg) log_gc("## REF SEARCH [msg]")
+
+#else //Not tracking at all
+#define log_reftracker(msg)
+#endif
 
 #ifdef REFERENCE_TRACKING
 /proc/log_gc(text)
@@ -433,10 +440,3 @@ GLOBAL_PROTECT(log_end)
 		return "([AREACOORD(T)])"
 	else if(A.loc)
 		return "(UNKNOWN (?, ?, ?))"
-
-#if defined(REFERENCE_TRACKING) // Doing it locally
-#define log_reftracker(msg) log_gc("## REF SEARCH [msg]")
-
-#else //Not tracking at all
-#define log_reftracker(msg)
-#endif

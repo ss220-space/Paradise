@@ -67,17 +67,6 @@
 	/// so we cut down on filter creation and appearance update costs by editing *this* list, and then assigning ours to itCollapse commentComment on lines R60 to R62Ghommie commented on Sep 21, 2025 Ghommieon Sep 21, 2025MemberMore actionsThat's nigh accursed. But I shouldn't expect less from images and mutable appearances having the "same" variables as atoms when datums strangely don't.ReactWrite a replyResolve comment
 	var/list/filter_cache
 
-#ifdef TESTING
-	var/running_find_references
-	var/last_find_references = 0
-	/// How many references we're trying to find when searching
-	var/references_to_clear = 0
-	#ifdef REFERENCE_TRACKING_DEBUG
-	///Stores info about where refs are found, used for sanity checks and testing
-	var/list/found_refs
-	#endif
-#endif
-
 	/// If we have called dump_harddel_info already. Used to avoid duped calls (since we call it immediately in some cases on failure to process)
 	/// Create and destroy is weird and I wanna cover my bases
 	var/harddel_deets_dumped = FALSE
@@ -94,6 +83,10 @@
 	///Stores info about where refs are found, used for sanity checks and testing
 	var/list/found_refs
 	#endif
+#endif
+
+#ifdef DATUMVAR_DEBUGGING_MODE
+	var/list/cached_vars
 #endif
 
 	/**
@@ -138,6 +131,12 @@
 				continue
 			qdel(timer)
 
+	#ifdef REFERENCE_TRACKING
+	#ifdef REFERENCE_TRACKING_DEBUG
+	found_refs = null
+	#endif
+	#endif
+
 	//BEGIN: ECS SHIT
 	var/list/components = _datum_components
 	if(components)
@@ -177,6 +176,33 @@
 
 	for(var/target in _signal_procs)
 		UnregisterSignal(target, _signal_procs[target])
+
+#ifdef DATUMVAR_DEBUGGING_MODE
+/datum/proc/save_vars()
+	cached_vars = list()
+	for(var/i in vars)
+		if(i == "cached_vars")
+			continue
+		cached_vars[i] = vars[i]
+
+/datum/proc/check_changed_vars()
+	. = list()
+	for(var/i in vars)
+		if(i == "cached_vars")
+			continue
+		if(cached_vars[i] != vars[i])
+			.[i] = list(cached_vars[i], vars[i])
+
+/datum/proc/txt_changed_vars()
+	var/list/l = check_changed_vars()
+	var/t = "[src]([REF(src)]) changed vars:"
+	for(var/i in l)
+		t += "\"[i]\" \[[l[i][1]]\] --> \[[l[i][2]]\] "
+	t += "."
+
+/datum/proc/to_chat_check_changed_vars(target = world)
+	to_chat(target, txt_changed_vars())
+#endif
 
 /// Return text from this proc to provide extra context to hard deletes that happen to it
 /// Optional, you should use this for cases where replication is difficult and extra context is required

@@ -1269,7 +1269,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		hud.remove_atom_from_hud(src)
 
 	var/list/path_images = active_hud_list[DIAG_PATH_HUD]
-	QDEL_LIST(path_images)
+	LAZYCLEARLIST(path_images)
 	if(newpath)
 		for(var/i in 1 to length(newpath))
 			var/turf/T = newpath[i]

@@ -308,6 +308,12 @@
 	)
 	var/bonus_skill_free_points = 0
 
+	/**
+	 * Was on_species_gain ever actually called?
+	 * Species code is really odd...
+	 **/
+	var/properly_gained = FALSE
+
 /datum/species/New()
 	unarmed = new unarmed_type()
 
@@ -455,6 +461,8 @@
 	target.hud_used?.update_locked_slots()
 	gain_muscles(target, STRENGTH_LEVEL_DEFAULT, STRENGTH_LEVEL_MAXDEFAULT, TRUE)
 	target.update_body(TRUE)
+
+	properly_gained = TRUE
 
 /datum/species/proc/gain_muscles(mob/living/carbon/human/target, default, max_level, can_become_stronger = TRUE)
 	target.AddComponent(/datum/component/muscles, max_level, default, can_become_stronger)
@@ -1412,3 +1420,9 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	head_organ.h_style = "Bald"
 	target.update_hair()
 	target.update_fhair()
+
+/datum/species/dump_harddel_info()
+	if(harddel_deets_dumped)
+		return
+	harddel_deets_dumped = TRUE
+	return "Gained / Owned: [properly_gained ? "Yes" : "No"]"

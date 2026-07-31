@@ -553,7 +553,7 @@ ADMIN_VERB(display_del_log, R_DEBUG|R_VIEWRUNTIMES, "Display del() Log", "Displa
 			dellog += "<li>Ignored force: [item.no_respect_force]</li>"
 		if(item.no_hint)
 			dellog += "<li>No hint: [item.no_hint]</li>"
-		if(length(item.extra_details))
+		if(LAZYLEN(item.extra_details))
 			var/details = item.extra_details.Join("</li><li>")
 			dellog += "<li>Extra Info: <ul><li>[details]</li></ul>"
 		dellog += "</ul></li>"

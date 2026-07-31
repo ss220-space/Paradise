@@ -21,11 +21,11 @@
 	SSticker.force_start = TRUE
 
 /datum/test_runner/proc/RunAll()
-	#ifdef MAP_TESTS
+	#ifdef MAP_TEST
 	// Run map tests first in case unit tests futz with map state
 	RunMap()
 	#endif
-	#if defined(UNIT_TESTS) || defined(MAP_TESTS)
+	#if defined(UNIT_TESTS) || defined(MAP_TEST)
 	Run()
 	#endif
 	SSticker.reboot_helper("Unit Test Reboot", "tests ended", 0)
@@ -34,7 +34,9 @@
 	log_world("Test runner: unit tests.")
 	CHECK_TICK
 
-	for(var/I in subtypesof(/datum/unit_test) - /datum/unit_test/room_test)
+	var/list/tests_to_run = subtypesof(/datum/unit_test) - /datum/unit_test/room_test
+	sortTim(tests_to_run, GLOBAL_PROC_REF(cmp_unit_test_priority))
+	for(var/I in tests_to_run)
 		var/datum/unit_test/test = new I
 		test_logs[I] = list()
 

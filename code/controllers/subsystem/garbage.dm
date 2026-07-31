@@ -52,7 +52,6 @@ SUBSYSTEM_DEF(garbage)
 
 	#ifdef REFERENCE_TRACKING
 	var/list/reference_find_on_fail = list()
-	var/ref_search_stop = FALSE
 	#ifdef REFERENCE_TRACKING_DEBUG
 	//Should we save found refs. Used for game testing
 	var/should_save_refs = FALSE
@@ -122,12 +121,15 @@ SUBSYSTEM_DEF(garbage)
 		if(I.hard_deletes)
 			dellog += "\tTotal Hard Deletes [I.hard_deletes]"
 			dellog += "\tTime Spent Hard Deleting: [I.hard_delete_time]ms"
+			dellog += "\tHighest Time Spent Hard Deleting: [I.hard_delete_max]ms"
 		if(I.slept_destroy)
 			dellog += "\tSleeps: [I.slept_destroy]"
 		if(I.no_respect_force)
 			dellog += "\tIgnored force: [I.no_respect_force] times"
 		if(I.no_hint)
 			dellog += "\tNo hint: [I.no_hint] times"
+		if(LAZYLEN(I.extra_details))
+			dellog += "\tExtra Info: [I.extra_details]"
 	log_qdel(dellog.Join("\n"))
 
 #ifndef PASSIVE_GC
