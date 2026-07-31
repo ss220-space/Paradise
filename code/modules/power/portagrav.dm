@@ -48,7 +48,15 @@
 	if(anchored && wire_mode)
 		connect_to_network()
 	update_icon(UPDATE_OVERLAYS)
-	register_context()
+
+	AddElement(/datum/element/contextual_screentip_bare_hands, rmb_text = "Включить/выключить")
+
+	var/static/list/tool_behaviors = list(
+		TOOL_WRENCH = list(
+			SCREENTIP_CONTEXT_LMB = "Закрепить",
+		),
+	)
+	AddElement(/datum/element/contextual_screentip_tools, tool_behaviors)
 
 /obj/machinery/power/portagrav/Destroy()
 	QDEL_NULL(gravity_field)
@@ -76,18 +84,6 @@
 
 /obj/machinery/power/portagrav/get_cell()
 	return cell
-
-/obj/machinery/power/portagrav/add_context(atom/source, list/context, obj/item/held_item, mob/user)
-	. = ..()
-	context[SCREENTIP_CONTEXT_RMB] = "Включить/выключить"
-	if(!held_item)
-		return CONTEXTUAL_SCREENTIP_SET
-	switch(held_item.tool_behaviour)
-		if(TOOL_SCREWDRIVER)
-			context[SCREENTIP_CONTEXT_LMB] = "[panel_open ? "Закрыть" : "Открыть"] панель"
-		if(TOOL_WRENCH)
-			context[SCREENTIP_CONTEXT_LMB] = "[anchored ? "Открепить" : "Закрепить"]"
-	return CONTEXTUAL_SCREENTIP_SET
 
 /obj/machinery/power/portagrav/examine(mob/user)
 	. = ..()

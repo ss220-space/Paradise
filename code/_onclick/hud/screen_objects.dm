@@ -499,12 +499,12 @@
 	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/area_creator/Click()
-	if(!usr.can_admin_interact() && (isobserver(usr) || usr.incapacitated()))
-		return
+	if(usr.incapacitated() || (isobserver(usr) && !usr.can_admin_interact()))
+		return TRUE
 	var/area/our_area = get_area(usr)
 	if(!our_area.outdoors)
 		to_chat(usr, span_warning("Здесь уже есть обозначенная зона."))
-		return
+		return TRUE
 	create_area(usr)
 
 /atom/movable/screen/inventory
