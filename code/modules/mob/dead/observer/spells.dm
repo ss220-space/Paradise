@@ -18,9 +18,8 @@ GLOBAL_LIST_INIT(boo_phrases, list(
 	desc = "К черту живых."
 	active_msg = span_shadowling_alt("Ваше присутствие останется незамеченным. Пока что.")
 	deactive_msg = span_shadowling_alt("Вы готовы протянуть руку сквозь завесу. <b>ЛКМ по цели для воздействия!</b>")
-
 	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_INCAPACITATED
-
+	spell_requirements = NONE
 	button_icon_state = "boo"
 	school = SCHOOL_TRANSMUTATION
 	cooldown_time = 2 MINUTES
