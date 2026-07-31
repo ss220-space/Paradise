@@ -1,11 +1,8 @@
-#define INJECT_LARVA_COOLDOWN 10 MINUTES
-#define IMPREGNATION_PROCESS_TIME 5 SECONDS
-
 /obj/effect/proc_holder/spell/alien_spell/impregnate
 	name = "Inject Embryo"
 	desc = "Impregnate your victim with Alien Embryo."
 	action_icon_state = "alien_hide"
-	base_cooldown = INJECT_LARVA_COOLDOWN
+	base_cooldown = XENO_VECTOR_INJECT_COOLDOWN
 
 /obj/effect/proc_holder/spell/alien_spell/impregnate/create_new_targeting()
 	var/datum/spell_targeting/targeted/T = new
@@ -40,7 +37,7 @@
 		revert_cast(user)
 		return
 
-	if(!do_after(user, IMPREGNATION_PROCESS_TIME, human, max_interact_count = 1))
+	if(!do_after(user, 5 SECONDS, human, max_interact_count = 1))
 		to_chat(user, span_danger("Victim managed to escape!"))
 		revert_cast(user)
 		return
@@ -55,5 +52,4 @@
 		revert_cast(user)
 		return
 
-#undef INJECT_LARVA_COOLDOWN
-#undef IMPREGNATION_PROCESS_TIME
+#undef XENO_VECTOR_INJECT_COOLDOWN

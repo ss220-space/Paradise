@@ -166,6 +166,9 @@
 			var/path_to_spawn = balloon_combos[pair_of_colors]
 			user.put_in_hands(new path_to_spawn)
 			break
+	qdel(hit_by)
+	qdel(src)
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/toy/balloon/attackby(obj/item/attack_item, mob/user, list/modifiers, list/attack_modifiers)
 	if(istype(attack_item, /obj/projectile/bullet/reusable/foam_dart) && ismonkey(user))
