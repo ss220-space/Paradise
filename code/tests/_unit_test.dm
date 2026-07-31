@@ -316,4 +316,8 @@ GLOBAL_LIST_EMPTY(unit_test_tguis)
 	returnable_list += typesof(/obj/effect/temp_visual/dir_setting/bloodsplatter)
 	// Can't exist without player
 	returnable_list += typesof(/obj/effect/hallucination)
+	// Can't exist without a water tank
+	returnable_list += typesof(/obj/item/reagent_containers/spray/mister)
+	// See above
+	returnable_list += typesof(/obj/item/extinguisher/mini/nozzle)
 	return returnable_list
