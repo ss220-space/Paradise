@@ -16,12 +16,12 @@
 
 /obj/item/gun/projectile/revolver/detective/get_ru_names()
 	return alist(
-		NOMINATIVE = "револьвер R38 \"Симплекс\" .38",
-		GENITIVE = "револьвера R38 \"Симплекс\" .38",
-		DATIVE = "револьверу R38 \"Симплекс\" .38",
-		ACCUSATIVE = "револьвер R38 \"Симплекс\" .38",
-		INSTRUMENTAL = "револьвером R38 \"Симплекс\" .38",
-		PREPOSITIONAL = "револьвере R38 \"Симплекс\" .38",
+		NOMINATIVE = "револьвер R38 \"Симплекс\"",
+		GENITIVE = "револьвера R38 \"Симплекс\"",
+		DATIVE = "револьверу R38 \"Симплекс\"",
+		ACCUSATIVE = "револьвер R38 \"Симплекс\"",
+		INSTRUMENTAL = "револьвером R38 \"Симплекс\"",
+		PREPOSITIONAL = "револьвере R38 \"Симплекс\"",
 	)
 
 /obj/item/gun/projectile/revolver/detective/add_deep_lore()
@@ -59,12 +59,12 @@
 
 /obj/item/gun/projectile/revolver/taurus/get_ru_names()
 	return alist(
-		NOMINATIVE = "револьвер R45 \"Таурус\" .45 Colt",
-		GENITIVE = "револьвера R45 \"Таурус\" .45 Colt",
-		DATIVE = "револьверу R45 \"Таурус\" .45 Colt",
-		ACCUSATIVE = "револьверу R45 \"Таурус\" .45 Colt",
-		INSTRUMENTAL = "револьвером R45 \"Таурус\" .45 Colt",
-		PREPOSITIONAL = "револьвере R45 \"Таурус\" .45 Colt",
+		NOMINATIVE = "револьвер R45 \"Таурус\"",
+		GENITIVE = "револьвера R45 \"Таурус\"",
+		DATIVE = "револьверу R45 \"Таурус\"",
+		ACCUSATIVE = "револьверу R45 \"Таурус\"",
+		INSTRUMENTAL = "револьвером R45 \"Таурус\"",
+		PREPOSITIONAL = "револьвере R45 \"Таурус\"",
 	)
 
 /obj/item/gun/projectile/revolver/taurus/add_deep_lore()
@@ -166,18 +166,18 @@
 
 /obj/item/gun/projectile/revolver/mateba/get_ru_names()
 	return alist(
-		NOMINATIVE = "револьвер Уника-6 .357",
-		GENITIVE = "револьвера Уника-6 .357",
-		DATIVE = "револьверу Уника-6 .357",
-		ACCUSATIVE = "револьвер Уника-6 .357",
-		INSTRUMENTAL = "револьвером Уника-6 .357",
-		PREPOSITIONAL = "револьвере Уника-6 .357",
+		NOMINATIVE = "револьвер Уника-6",
+		GENITIVE = "револьвера Уника-6",
+		DATIVE = "револьверу Уника-6",
+		ACCUSATIVE = "револьвер Уника-6",
+		INSTRUMENTAL = "револьвером Уника-6",
+		PREPOSITIONAL = "револьвере Уника-6",
 	)
 
 // MARK: UC-12 Dragon
 /obj/item/gun/projectile/revolver/ga12
 	name = "UC-12 \"Dragon\" revolver"
-	desc = "Массивный реввольвер 12-го калибра производства \"Дядя Чанг\". Колоссальная огневая мощь компенсируется \
+	desc = "Массивный револьвер 12-го калибра производства \"Дядя Чанг\". Колоссальная огневая мощь компенсируется \
 			экстремальной отдачей, низкой скорострельностью и барабаном на 3 патрона. Популярен среди наёмников и бандитов пограничных секторов."
 	icon_state = "12garevolver"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/ga12
@@ -191,12 +191,12 @@
 
 /obj/item/gun/projectile/revolver/ga12/get_ru_names()
 	return alist(
-		NOMINATIVE = "револьвер UC-12 \"Дракон\" 12g",
-		GENITIVE = "револьвера UC-12 \"Дракон\" 12g",
-		DATIVE = "револьверу UC-12 \"Дракон\" 12g",
-		ACCUSATIVE = "револьвер UC-12 \"Дракон\" 12g",
-		INSTRUMENTAL = "револьвером UC-12 \"Дракон\" 12g",
-		PREPOSITIONAL = "револьвере UC-12 \"Дракон\" 12g",
+		NOMINATIVE = "револьвер UC-12 \"Дракон\"",
+		GENITIVE = "револьвера UC-12 \"Дракон\"",
+		DATIVE = "револьверу UC-12 \"Дракон\"",
+		ACCUSATIVE = "револьвер UC-12 \"Дракон\"",
+		INSTRUMENTAL = "револьвером UC-12 \"Дракон\"",
+		PREPOSITIONAL = "револьвере UC-12 \"Дракон\"",
 	)
 
 /obj/item/gun/projectile/revolver/ga12/add_deep_lore()
@@ -226,12 +226,12 @@
 
 /obj/item/gun/projectile/revolver/golden/get_ru_names()
 	return alist(
-		NOMINATIVE = "золотой револьвер .357",
-		GENITIVE = "золотого револьвера .357",
-		DATIVE = "золотому револьверу .357",
-		ACCUSATIVE = "золотой револьвер .357",
-		INSTRUMENTAL = "золотым револьвером .357",
-		PREPOSITIONAL = "золотом револьвере .357",
+		NOMINATIVE = "золотой револьвер",
+		GENITIVE = "золотого револьвера",
+		DATIVE = "золотому револьверу",
+		ACCUSATIVE = "золотой револьвер",
+		INSTRUMENTAL = "золотым револьвером",
+		PREPOSITIONAL = "золотом револьвере",
 	)
 
 // MARK: Capgun
@@ -273,12 +273,12 @@
 
 /obj/item/gun/projectile/revolver/improvised/get_ru_names()
 	return alist(
-		NOMINATIVE = "кустарный револьвер .257",
-		GENITIVE = "кустарного револьвера .257",
-		DATIVE = "кустарному револьверу .257",
-		ACCUSATIVE = "кустарный револьвер .257",
-		INSTRUMENTAL = "кустарным револьвером .257",
-		PREPOSITIONAL = "кустарном револьвере .257",
+		NOMINATIVE = "кустарный револьвер",
+		GENITIVE = "кустарного револьвера",
+		DATIVE = "кустарному револьверу",
+		ACCUSATIVE = "кустарный револьвер",
+		INSTRUMENTAL = "кустарным револьвером",
+		PREPOSITIONAL = "кустарном револьвере",
 	)
 
 /obj/item/gun/projectile/revolver/improvised/Initialize(mapload)
@@ -410,12 +410,12 @@
 
 /obj/item/gun/projectile/revolver/rsh_12/get_ru_names()
 	return alist(
-		NOMINATIVE = "револьвер \"РШ-12\"",
-		GENITIVE = "револьвера \"РШ-12\"",
-		DATIVE = "револьверу \"РШ-12\"",
-		ACCUSATIVE = "револьвер \"РШ-12\"",
-		INSTRUMENTAL = "револьвером \"РШ-12\"",
-		PREPOSITIONAL = "револьвере \"РШ-12\"",
+		NOMINATIVE = "револьвер РШ-12",
+		GENITIVE = "револьвера РШ-12",
+		DATIVE = "револьверу РШ-12",
+		ACCUSATIVE = "револьвер РШ-12",
+		INSTRUMENTAL = "револьвером РШ-12",
+		PREPOSITIONAL = "револьвере РШ-12",
 	)
 
 /obj/item/gun/projectile/revolver/rsh_12/attack_self(mob/living/user)
@@ -466,12 +466,12 @@
 
 /obj/item/gun/projectile/revolver/nagant/get_ru_names()
 	return alist(
-		NOMINATIVE = "револьвер Нагана 7,62x38",
-		GENITIVE = "револьвера Нагана 7,62x38",
-		DATIVE = "револьверу Нагана 7,62x38",
-		ACCUSATIVE = "револьвер Нагана 7,62x38",
-		INSTRUMENTAL = "револьвером Нагана 7,62x38",
-		PREPOSITIONAL = "револьвере Нагана 7,62x38",
+		NOMINATIVE = "револьвер Нагана",
+		GENITIVE = "револьвера Нагана",
+		DATIVE = "револьверу Нагана",
+		ACCUSATIVE = "револьвер Нагана",
+		INSTRUMENTAL = "револьвером Нагана",
+		PREPOSITIONAL = "револьвере Нагана",
 	)
 
 /obj/item/gun/projectile/revolver/nagant/rusted
@@ -508,12 +508,12 @@
 
 /obj/item/gun/projectile/revolver/russian/get_ru_names()
 	return alist(
-		NOMINATIVE = "револьвер для русской рулетки .357",
-		GENITIVE = "револьвера для русской рулетки .357",
-		DATIVE = "револьверу для русской рулетки .357",
-		ACCUSATIVE = "револьвер для русской рулетки .357",
-		INSTRUMENTAL = "револьвером для русской рулетки .357",
-		PREPOSITIONAL = "револьвере для русской рулетки .357",
+		NOMINATIVE = "револьвер для русской рулетки",
+		GENITIVE = "револьвера для русской рулетки",
+		DATIVE = "револьверу для русской рулетки",
+		ACCUSATIVE = "револьвер для русской рулетки",
+		INSTRUMENTAL = "револьвером для русской рулетки",
+		PREPOSITIONAL = "револьвере для русской рулетки",
 	)
 
 /obj/item/gun/projectile/revolver/russian/Initialize(mapload)

@@ -49,12 +49,12 @@
 
 /obj/item/gun/projectile/automatic/sniper_rifle/syndicate/get_ru_names()
 	return alist(
-		NOMINATIVE = "снайперская винтовка SGM-HSR-15 .50",
-		GENITIVE = "снайперской винтовки SGM-HSR-15 .50",
-		DATIVE = "снайперской винтовке SGM-HSR-15 .50",
-		ACCUSATIVE = "снайперскую винтовку SGM-HSR-15 .50",
-		INSTRUMENTAL = "снайперской винтовкой SGM-HSR-15 .50",
-		PREPOSITIONAL = "снайперской винтовке SGM-HSR-15 .50",
+		NOMINATIVE = "снайперская винтовка SGM-HSR-15",
+		GENITIVE = "снайперской винтовки SGM-HSR-15",
+		DATIVE = "снайперской винтовке SGM-HSR-15",
+		ACCUSATIVE = "снайперскую винтовку SGM-HSR-15",
+		INSTRUMENTAL = "снайперской винтовкой SGM-HSR-15",
+		PREPOSITIONAL = "снайперской винтовке SGM-HSR-15",
 	)
 
 /obj/item/gun/projectile/automatic/sniper_rifle/syndicate/add_deep_lore()
@@ -100,12 +100,12 @@
 
 /obj/item/gun/projectile/automatic/sniper_rifle/compact/get_ru_names()
 	return alist(
-		NOMINATIVE = "снайперская винтовка SGM-HSR-15-С \"Шершень\" .50L",
-		GENITIVE = "снайперской винтовки SGM-HSR-15-С \"Шершень\" .50L",
-		DATIVE = "снайперской винтовке SGM-HSR-15-С \"Шершень\" .50L",
-		ACCUSATIVE = "снайперскую винтовку SGM-HSR-15-С \"Шершень\" .50L",
-		INSTRUMENTAL = "снайперской винтовкой SGM-HSR-15-С \"Шершень\" .50L",
-		PREPOSITIONAL = "снайперской винтовке SGM-HSR-15-С \"Шершень\" .50L",
+		NOMINATIVE = "снайперская винтовка SGM-HSR-15-С \"Шершень\"",
+		GENITIVE = "снайперской винтовки SGM-HSR-15-С \"Шершень\"",
+		DATIVE = "снайперской винтовке SGM-HSR-15-С \"Шершень\"",
+		ACCUSATIVE = "снайперскую винтовку SGM-HSR-15-С \"Шершень\"",
+		INSTRUMENTAL = "снайперской винтовкой SGM-HSR-15-С \"Шершень\"",
+		PREPOSITIONAL = "снайперской винтовке SGM-HSR-15-С \"Шершень\"",
 	)
 
 /obj/item/gun/projectile/automatic/sniper_rifle/compact/add_deep_lore()
@@ -139,10 +139,10 @@
 
 /obj/item/gun/projectile/automatic/sniper_rifle/axmc/get_ru_names()
 	return alist(
-		NOMINATIVE = "снайперская винтовка AXMC .338",
-		GENITIVE = "снайперской винтовки AXMC .338",
-		DATIVE = "снайперской винтовке AXMC .338",
-		ACCUSATIVE = "снайперскую винтовку AXMC .338",
-		INSTRUMENTAL = "снайперской винтовкой AXMC .338",
-		PREPOSITIONAL = "снайперской винтовке AXMC .338",
+		NOMINATIVE = "снайперская винтовка AXMC",
+		GENITIVE = "снайперской винтовки AXMC",
+		DATIVE = "снайперской винтовке AXMC",
+		ACCUSATIVE = "снайперскую винтовку AXMC",
+		INSTRUMENTAL = "снайперской винтовкой AXMC",
+		PREPOSITIONAL = "снайперской винтовке AXMC",
 	)

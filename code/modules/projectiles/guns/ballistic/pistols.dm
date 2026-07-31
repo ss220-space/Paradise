@@ -51,12 +51,12 @@
 
 /obj/item/gun/projectile/automatic/pistol/enforcer/get_ru_names()
 	return alist(
-		NOMINATIVE = "пистолет DCA-P9 \"Блюститель\" 9x19 мм",
-		GENITIVE = "пистолета DCA-P9 \"Блюститель\" 9x19 мм",
-		DATIVE = "пистолету DCA-P9 \"Блюститель\" 9x19 мм",
-		ACCUSATIVE = "пистолет DCA-P9 \"Блюститель\" 9x19 мм",
-		INSTRUMENTAL = "пистолетом DCA-P9 \"Блюститель\" 9x19 мм",
-		PREPOSITIONAL = "пистолете DCA-P9 \"Блюститель\" 9x19 мм",
+		NOMINATIVE = "пистолет DCA-P9 \"Блюститель\"",
+		GENITIVE = "пистолета DCA-P9 \"Блюститель\"",
+		DATIVE = "пистолету DCA-P9 \"Блюститель\"",
+		ACCUSATIVE = "пистолет DCA-P9 \"Блюститель\"",
+		INSTRUMENTAL = "пистолетом DCA-P9 \"Блюститель\"",
+		PREPOSITIONAL = "пистолете DCA-P9 \"Блюститель\"",
 	)
 
 /obj/item/gun/projectile/automatic/pistol/enforcer/add_deep_lore()
@@ -105,12 +105,12 @@
 
 /obj/item/gun/projectile/automatic/pistol/sp8/get_ru_names()
 	return alist(
-		NOMINATIVE = "пистолет P40-E \"Эйсер\" .40 N&R",
-		GENITIVE = "пистолета P40-E \"Эйсер\" .40 N&R",
-		DATIVE = "пистолету P40-E \"Эйсер\" .40 N&R",
-		ACCUSATIVE = "пистолет P40-E \"Эйсер\" .40 N&R",
-		INSTRUMENTAL = "пистолетом P40-E \"Эйсер\" .40 N&R",
-		PREPOSITIONAL = "пистолете P40-E \"Эйсер\" .40 N&R",
+		NOMINATIVE = "пистолет P40-E \"Эйсер\"",
+		GENITIVE = "пистолета P40-E \"Эйсер\"",
+		DATIVE = "пистолету P40-E \"Эйсер\"",
+		ACCUSATIVE = "пистолет P40-E \"Эйсер\"",
+		INSTRUMENTAL = "пистолетом P40-E \"Эйсер\"",
+		PREPOSITIONAL = "пистолете P40-E \"Эйсер\"",
 	)
 
 /obj/item/gun/projectile/automatic/pistol/sp8/ComponentInitialize()
@@ -132,12 +132,12 @@
 
 /obj/item/gun/projectile/automatic/pistol/stechkin/get_ru_names()
 	return alist(
-		NOMINATIVE = "пистолет \"Стечкин\" 10x25 мм",
-		GENITIVE = "пистолета \"Стечкин\" 10x25 мм",
-		DATIVE = "пистолету \"Стечкин\" 10x25 мм",
-		ACCUSATIVE = "пистолет \"Стечкин\" 10x25 мм",
-		INSTRUMENTAL = "пистолетом \"Стечкин\" 10x25 мм",
-		PREPOSITIONAL = "пистолете \"Стечкин\" 10x25 мм",
+		NOMINATIVE = "пистолет \"Стечкин\"",
+		GENITIVE = "пистолета \"Стечкин\"",
+		DATIVE = "пистолету \"Стечкин\"",
+		ACCUSATIVE = "пистолет \"Стечкин\"",
+		INSTRUMENTAL = "пистолетом \"Стечкин\"",
+		PREPOSITIONAL = "пистолете \"Стечкин\"",
 	)
 
 // MARK: SGM-P Colossus
@@ -162,12 +162,12 @@
 
 /obj/item/gun/projectile/automatic/pistol/deagle/get_ru_names()
 	return alist(
-		NOMINATIVE = "пистолет SGM-P \"Колосс\" .50 AE",
-		GENITIVE = "пистолета SGM-P \"Колосс\" .50 AE",
-		DATIVE = "пистолету SGM-P \"Колосс\" .50 AE",
-		ACCUSATIVE = "пистолет SGM-P \"Колосс\" .50 AE",
-		INSTRUMENTAL = "пистолетом SGM-P \"Колосс\" .50 AE",
-		PREPOSITIONAL = "пистолете SGM-P \"Колосс\" .50 AE",
+		NOMINATIVE = "пистолет SGM-P \"Колосс\"",
+		GENITIVE = "пистолета SGM-P \"Колосс\"",
+		DATIVE = "пистолету SGM-P \"Колосс\"",
+		ACCUSATIVE = "пистолет SGM-P \"Колосс\"",
+		INSTRUMENTAL = "пистолетом SGM-P \"Колосс\"",
+		PREPOSITIONAL = "пистолете SGM-P \"Колосс\"",
 	)
 
 /obj/item/gun/projectile/automatic/pistol/deagle/ComponentInitialize()
@@ -193,12 +193,12 @@
 
 /obj/item/gun/projectile/automatic/pistol/aps/get_ru_names()
 	return alist(
-		NOMINATIVE = "пистолет АПС 9x19 мм",
-		GENITIVE = "пистолета АПС 9x19 мм",
-		DATIVE = "пистолету АПС 9x19 мм",
-		ACCUSATIVE = "пистолет АПС 9x19 мм",
-		INSTRUMENTAL = "пистолетом АПС 9x19 мм",
-		PREPOSITIONAL = "пистолете АПС 9x19 мм",
+		NOMINATIVE = "пистолет АПС",
+		GENITIVE = "пистолета АПС",
+		DATIVE = "пистолету АПС",
+		ACCUSATIVE = "пистолет АПС",
+		INSTRUMENTAL = "пистолетом АПС",
+		PREPOSITIONAL = "пистолете АПС",
 	)
 
 /obj/item/gun/projectile/automatic/pistol/aps/scarecrow
@@ -224,12 +224,12 @@
 
 /obj/item/gun/projectile/automatic/pistol/aps/scarecrow/get_ru_names()
 	return alist(
-		NOMINATIVE = "пистолет \"Пугало\" 10x25 мм",
-		GENITIVE = "пистолета \"Пугало\" 10x25 мм",
-		DATIVE = "пистолету \"Пугало\" 10x25 мм",
-		ACCUSATIVE = "пистолет \"Пугало\" 10x25 мм",
-		INSTRUMENTAL = "пистолетом \"Пугало\" 10x25 мм",
-		PREPOSITIONAL = "пистолете \"Пугало\" 10x25 мм",
+		NOMINATIVE = "пистолет \"Пугало\"",
+		GENITIVE = "пистолета \"Пугало\"",
+		DATIVE = "пистолету \"Пугало\"",
+		ACCUSATIVE = "пистолет \"Пугало\"",
+		INSTRUMENTAL = "пистолетом \"Пугало\"",
+		PREPOSITIONAL = "пистолете \"Пугало\"",
 	)
 
 // MARK: M1911
@@ -249,10 +249,10 @@
 
 /obj/item/gun/projectile/automatic/pistol/m1911/get_ru_names()
 	return alist(
-		NOMINATIVE = "пистолет M1911 .45",
-		GENITIVE = "пистолета M1911 .45",
-		DATIVE = "пистолету M1911 .45",
-		ACCUSATIVE = "пистолет M1911 .45",
-		INSTRUMENTAL = "пистолетом M1911 .45",
-		PREPOSITIONAL = "пистолете M1911 .45",
+		NOMINATIVE = "пистолет M1911",
+		GENITIVE = "пистолета M1911",
+		DATIVE = "пистолету M1911",
+		ACCUSATIVE = "пистолет M1911",
+		INSTRUMENTAL = "пистолетом M1911",
+		PREPOSITIONAL = "пистолете M1911",
 	)

@@ -28,12 +28,12 @@
 
 /obj/item/gun/projectile/automatic/l6_saw/get_ru_names()
 	return alist(
-		NOMINATIVE = "ручной пулемёт L6 SAW 7,62x51 мм",
-		GENITIVE = "ручного пулемёта L6 SAW 7,62x51 мм",
-		DATIVE = "ручному пулемёту L6 SAW 7,62x51 мм",
-		ACCUSATIVE = "ручной пулемёт L6 SAW 7,62x51 мм",
-		INSTRUMENTAL = "ручным пулемётом L6 SAW 7,62x51 мм",
-		PREPOSITIONAL = "ручном пулемёте L6 SAW 7,62x51 мм",
+		NOMINATIVE = "ручной пулемёт L6 SAW",
+		GENITIVE = "ручного пулемёта L6 SAW",
+		DATIVE = "ручному пулемёту L6 SAW",
+		ACCUSATIVE = "ручной пулемёт L6 SAW",
+		INSTRUMENTAL = "ручным пулемётом L6 SAW",
+		PREPOSITIONAL = "ручном пулемёте L6 SAW",
 	)
 
 /obj/item/gun/projectile/automatic/l6_saw/attack_self(mob/user)

@@ -23,12 +23,12 @@
 
 /obj/item/gun/projectile/shotgun/riot/get_ru_names()
 	return alist(
-		NOMINATIVE = "дробовик RS-870 12g",
-		GENITIVE = "дробовика RS-870 12g",
-		DATIVE = "дробовику RS-870 12g",
-		ACCUSATIVE = "дробовик RS-870 12g",
-		INSTRUMENTAL = "дробовиком RS-870 12g",
-		PREPOSITIONAL = "дробовике RS-870 12g",
+		NOMINATIVE = "дробовик RS-870",
+		GENITIVE = "дробовика RS-870",
+		DATIVE = "дробовику RS-870",
+		ACCUSATIVE = "дробовик RS-870",
+		INSTRUMENTAL = "дробовиком RS-870",
+		PREPOSITIONAL = "дробовике RS-870",
 	)
 
 /obj/item/gun/projectile/shotgun/riot/add_deep_lore()
@@ -345,12 +345,12 @@
 
 /obj/item/gun/projectile/shotgun/automatic/combat/get_ru_names()
 	return alist(
-		NOMINATIVE = "дробовик SG20 \"Феррокс\" 12g",
-		GENITIVE = "дробовика SG20 \"Феррокс\" 12g",
-		DATIVE = "дробовику SG20 \"Феррокс\" 12g",
-		ACCUSATIVE = "дробовик SG20 \"Феррокс\" 12g",
-		INSTRUMENTAL = "дробовиком SG20 \"Феррокс\" 12g",
-		PREPOSITIONAL = "дробовике SG20 \"Феррокс\" 12g",
+		NOMINATIVE = "дробовик SG20 \"Феррокс\"",
+		GENITIVE = "дробовика SG20 \"Феррокс\"",
+		DATIVE = "дробовику SG20 \"Феррокс\"",
+		ACCUSATIVE = "дробовик SG20 \"Феррокс\"",
+		INSTRUMENTAL = "дробовиком SG20 \"Феррокс\"",
+		PREPOSITIONAL = "дробовике SG20 \"Феррокс\"",
 	)
 
 // MARK: Dual Tube
@@ -438,12 +438,12 @@
 
 /obj/item/gun/projectile/automatic/shotgun/bulldog/get_ru_names()
 	return alist(
-		NOMINATIVE = "магазинный дробовик \"Бульдог\" 12g",
-		GENITIVE = "магазинного дробовика \"Бульдог\" 12g",
-		DATIVE = "магазинному дробовику \"Бульдог\" 12g",
-		ACCUSATIVE = "магазинный дробовик \"Бульдог\" 12g",
-		INSTRUMENTAL = "магазинным дробовиком \"Бульдог\" 12g",
-		PREPOSITIONAL = "магазинном дробовике \"Бульдог\" 12g",
+		NOMINATIVE = "магазинный дробовик \"Бульдог\"",
+		GENITIVE = "магазинного дробовика \"Бульдог\"",
+		DATIVE = "магазинному дробовику \"Бульдог\"",
+		ACCUSATIVE = "магазинный дробовик \"Бульдог\"",
+		INSTRUMENTAL = "магазинным дробовиком \"Бульдог\"",
+		PREPOSITIONAL = "магазинном дробовике \"Бульдог\"",
 	)
 
 /obj/item/gun/projectile/automatic/shotgun/bulldog/ComponentInitialize()
@@ -485,12 +485,12 @@
 
 /obj/item/gun/projectile/automatic/shotgun/bulldog/mastiff/get_ru_names()
 	return alist(
-		NOMINATIVE = "магазинный дробовик \"Мастифф\" 12g",
-		GENITIVE = "магазинного дробовика \"Мастифф\" 12g",
-		DATIVE = "магазинному дробовику \"Мастифф\" 12g",
-		ACCUSATIVE = "магазинный дробовик \"Мастифф\" 12g",
-		INSTRUMENTAL = "магазинным дробовиком \"Мастифф\" 12g",
-		PREPOSITIONAL = "магазинном дробовике \"Мастифф\" 12g",
+		NOMINATIVE = "магазинный дробовик \"Мастифф\"",
+		GENITIVE = "магазинного дробовика \"Мастифф\"",
+		DATIVE = "магазинному дробовику \"Мастифф\"",
+		ACCUSATIVE = "магазинный дробовик \"Мастифф\"",
+		INSTRUMENTAL = "магазинным дробовиком \"Мастифф\"",
+		PREPOSITIONAL = "магазинном дробовике \"Мастифф\"",
 	)
 
 // MARK: AS-12 Minotaur
@@ -518,12 +518,12 @@
 
 /obj/item/gun/projectile/automatic/shotgun/minotaur/get_ru_names()
 	return alist(
-		NOMINATIVE = "магазинный дробовик AS-12 \"Минотавр\" 12g",
-		GENITIVE = "магазинного дробовика AS-12 \"Минотавр\" 12g",
-		DATIVE = "магазинному дробовику AS-12 \"Минотавр\" 12g",
-		ACCUSATIVE = "магазинный дробовик AS-12 \"Минотавр\" 12g",
-		INSTRUMENTAL = "магазинным дробовиком AS-12 \"Минотавр\" 12g",
-		PREPOSITIONAL = "магазинном дробовике AS-12 \"Минотавр\" 12g",
+		NOMINATIVE = "магазинный дробовик AS-12 \"Минотавр\"",
+		GENITIVE = "магазинного дробовика AS-12 \"Минотавр\"",
+		DATIVE = "магазинному дробовику AS-12 \"Минотавр\"",
+		ACCUSATIVE = "магазинный дробовик AS-12 \"Минотавр\"",
+		INSTRUMENTAL = "магазинным дробовиком AS-12 \"Минотавр\"",
+		PREPOSITIONAL = "магазинном дробовике AS-12 \"Минотавр\"",
 	)
 
 /obj/item/gun/projectile/automatic/shotgun/minotaur/ComponentInitialize()
@@ -556,12 +556,12 @@
 
 /obj/item/gun/projectile/automatic/cats/get_ru_names()
 	return alist(
-		NOMINATIVE = "дробовик SG40 \"Вастус\" 12g",
-		GENITIVE = "дробовика SG40 \"Вастус\" 12g",
-		DATIVE = "дробовику SG40 \"Вастус\" 12g",
-		ACCUSATIVE = "дробовик SG40 \"Вастус\" 12g",
-		INSTRUMENTAL = "дробовиком SG40 \"Вастус\" 12g",
-		PREPOSITIONAL = "дробовике SG40 \"Вастус\" 12g",
+		NOMINATIVE = "дробовик SG40 \"Вастус\"",
+		GENITIVE = "дробовика SG40 \"Вастус\"",
+		DATIVE = "дробовику SG40 \"Вастус\"",
+		ACCUSATIVE = "дробовик SG40 \"Вастус\"",
+		INSTRUMENTAL = "дробовиком SG40 \"Вастус\"",
+		PREPOSITIONAL = "дробовике SG40 \"Вастус\"",
 	)
 
 /obj/item/gun/projectile/automatic/cats/add_deep_lore()
@@ -602,12 +602,12 @@
 
 /obj/item/gun/projectile/revolver/doublebarrel/get_ru_names()
 	return alist(
-		NOMINATIVE = "двуствольный дробовик 12g",
-		GENITIVE = "двуствольного дробовика 12g",
-		DATIVE = "двуствольному дробовику 12g",
-		ACCUSATIVE = "двуствольный дробовик 12g",
-		INSTRUMENTAL = "двуствольным дробовиком 12g",
-		PREPOSITIONAL = "двуствольном дробовике 12g",
+		NOMINATIVE = "двуствольный дробовик",
+		GENITIVE = "двуствольного дробовика",
+		DATIVE = "двуствольному дробовику",
+		ACCUSATIVE = "двуствольный дробовик",
+		INSTRUMENTAL = "двуствольным дробовиком",
+		PREPOSITIONAL = "двуствольном дробовике",
 	)
 
 /obj/item/gun/projectile/revolver/doublebarrel/ComponentInitialize()
@@ -673,12 +673,12 @@
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/get_ru_names()
 	return alist(
-		NOMINATIVE = "кустарный дробовик 12g",
-		GENITIVE = "кустарного дробовика 12g",
-		DATIVE = "кустарному дробовику 12g",
-		ACCUSATIVE = "кустарный дробовик 12g",
-		INSTRUMENTAL = "кустарным дробовиком 12g",
-		PREPOSITIONAL = "кустарном дробовике 12g",
+		NOMINATIVE = "кустарный дробовик",
+		GENITIVE = "кустарного дробовика",
+		DATIVE = "кустарному дробовику",
+		ACCUSATIVE = "кустарный дробовик",
+		INSTRUMENTAL = "кустарным дробовиком",
+		PREPOSITIONAL = "кустарном дробовике",
 	)
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/attackby(obj/item/I, mob/user, params)

@@ -21,12 +21,12 @@
 
 /obj/item/gun/projectile/shotgun/boltaction/get_ru_names()
 	return alist(
-		NOMINATIVE = "винтовка Мосина 7,62x54 мм",
-		GENITIVE = "винтовки Мосина 7,62x54 мм",
-		DATIVE = "винтовке Мосина 7,62x54 мм",
-		ACCUSATIVE = "винтовку Мосина 7,62x54 мм",
-		INSTRUMENTAL = "винтовкой Мосина 7,62x54 мм",
-		PREPOSITIONAL = "винтовке Мосина 7,62x54 мм",
+		NOMINATIVE = "винтовка Мосина",
+		GENITIVE = "винтовки Мосина",
+		DATIVE = "винтовке Мосина",
+		ACCUSATIVE = "винтовку Мосина",
+		INSTRUMENTAL = "винтовкой Мосина",
+		PREPOSITIONAL = "винтовке Мосина",
 	)
 
 /obj/item/gun/projectile/shotgun/boltaction/pump(mob/M)

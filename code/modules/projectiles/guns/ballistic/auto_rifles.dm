@@ -20,12 +20,12 @@
 
 /obj/item/gun/projectile/automatic/m52/get_ru_names()
 	return alist(
-		NOMINATIVE = "боевая винтовка SGM-BR-52 7,62x51 мм",
-		GENITIVE = "боевой винтовки SGM-BR-52 7,62x51 мм",
-		DATIVE = "боевой винтовке SGM-BR-52 7,62x51 мм",
-		ACCUSATIVE = "боевую винтовку SGM-BR-52 7,62x51 мм",
-		INSTRUMENTAL = "боевой винтовкой SGM-BR-52 7,62x51 мм",
-		PREPOSITIONAL = "боевой винтовке SGM-BR-52 7,62x51 мм",
+		NOMINATIVE = "боевая винтовка SGM-BR-52",
+		GENITIVE = "боевой винтовки SGM-BR-52",
+		DATIVE = "боевой винтовке SGM-BR-52",
+		ACCUSATIVE = "боевую винтовку SGM-BR-52",
+		INSTRUMENTAL = "боевой винтовкой SGM-BR-52",
+		PREPOSITIONAL = "боевой винтовке SGM-BR-52",
 	)
 
 /obj/item/gun/projectile/automatic/m52/add_deep_lore()
@@ -46,7 +46,7 @@
 // MARK: M-90GL Carbine
 /obj/item/gun/projectile/automatic/m90
 	name = "M-90GL Carbine"
-	desc = "Карабин калибра 5,56 мм, выпускаемый по лицензии \"Aegis Ordinance\". \
+	desc = "Карабин калибра 5,56x45 мм, выпускаемый по лицензии \"Aegis Ordinance\". \
 			Оснащён встроенным подствольным гранатомётом."
 	icon_state = "m90"
 	item_state = "m90-4"
@@ -67,12 +67,12 @@
 
 /obj/item/gun/projectile/automatic/m90/get_ru_names()
 	return alist(
-		NOMINATIVE = "карабин M-90GL 5,56 мм",
-		GENITIVE = "карабина M-90GL 5,56 мм",
-		DATIVE = "карабину M-90GL 5,56 мм",
-		ACCUSATIVE = "карабин M-90GL 5,56 мм",
-		INSTRUMENTAL = "карабином M-90GL 5,56 мм",
-		PREPOSITIONAL = "карабине M-90GL 5,56 мм",
+		NOMINATIVE = "карабин M-90GL",
+		GENITIVE = "карабина M-90GL",
+		DATIVE = "карабину M-90GL",
+		ACCUSATIVE = "карабин M-90GL",
+		INSTRUMENTAL = "карабином M-90GL",
+		PREPOSITIONAL = "карабине M-90GL",
 	)
 
 /obj/item/gun/projectile/automatic/m90/update_icon_state()
@@ -104,7 +104,7 @@
 // MARK: AR-30
 /obj/item/gun/projectile/automatic/arg
 	name = "AR-30 assault rifle"
-	desc = "Штурмовая винтовка калибра 5,56 мм производства \"Mars Special\" — штатное вооружение вооружённых сил Транс-солнечной Федерации. \
+	desc = "Штурмовая винтовка калибра 5,56x45 мм производства \"Mars Special\" — штатное вооружение вооружённых сил Транс-солнечной Федерации. \
 			Высокая точность и управляемая отдача."
 	gender = FEMALE
 	icon_state = "arg"
@@ -127,12 +127,12 @@
 
 /obj/item/gun/projectile/automatic/arg/get_ru_names()
 	return alist(
-		NOMINATIVE = "штурмовая винтовка AR-30 5,56x45 мм",
-		GENITIVE = "штурмовой винтовки AR-30 5,56x45 мм",
-		DATIVE = "штурмовой винтовке AR-30 5,56x45 мм",
-		ACCUSATIVE = "штурмовую винтовку AR-30 5,56x45 мм",
-		INSTRUMENTAL = "штурмовой винтовкой AR-30 5,56x45 мм",
-		PREPOSITIONAL = "штурмовой винтовке AR-30 5,56x45 мм",
+		NOMINATIVE = "штурмовая винтовка AR-30 \"Регула\"",
+		GENITIVE = "штурмовой винтовки AR-30 \"Регула\"",
+		DATIVE = "штурмовой винтовке AR-30 \"Регула\"",
+		ACCUSATIVE = "штурмовую винтовку AR-30 \"Регула\"",
+		INSTRUMENTAL = "штурмовой винтовкой AR-30 \"Регула\"",
+		PREPOSITIONAL = "штурмовой винтовке AR-30 \"Регула\"",
 	)
 
 // MARK: AG-814
@@ -163,12 +163,12 @@
 
 /obj/item/gun/projectile/automatic/ak814/get_ru_names()
 	return alist(
-		NOMINATIVE = "автомат АГ-814 5,45x39 мм",
-		GENITIVE = "автомата АГ-814 5,45x39 мм",
-		DATIVE = "автомату АГ-814 5,45x39 мм",
-		ACCUSATIVE = "автомат АГ-814 5,45x39 мм",
-		INSTRUMENTAL = "автоматом АГ-814 5,45x39 мм",
-		PREPOSITIONAL = "автомате АГ-814 5,45x39 мм",
+		NOMINATIVE = "автомат АГ-814",
+		GENITIVE = "автомата АГ-814",
+		DATIVE = "автомату АГ-814",
+		ACCUSATIVE = "автомат АГ-814",
+		INSTRUMENTAL = "автоматом АГ-814",
+		PREPOSITIONAL = "автомате АГ-814",
 	)
 
 /obj/item/gun/projectile/automatic/ak814/weakened
@@ -200,12 +200,12 @@
 
 /obj/item/gun/projectile/automatic/aks74u/get_ru_names()
 	return alist(
-		NOMINATIVE = "автомат АГС74-У 5,45x39 мм",
-		GENITIVE = "автомата АГС74-У 5,45x39 мм",
-		DATIVE = "автомату АГС74-У 5,45x39 мм",
-		ACCUSATIVE = "автомат АГС74-У 5,45x39 мм",
-		INSTRUMENTAL = "автоматом АГС74-У 5,45x39 мм",
-		PREPOSITIONAL = "автомате АГС74-У 5,45x39 мм",
+		NOMINATIVE = "автомат АГС74-У",
+		GENITIVE = "автомата АГС74-У",
+		DATIVE = "автомату АГС74-У",
+		ACCUSATIVE = "автомат АГС74-У",
+		INSTRUMENTAL = "автоматом АГС74-У",
+		PREPOSITIONAL = "автомате АГС74-У",
 	)
 
 /obj/item/gun/projectile/automatic/aks74u/rusted
