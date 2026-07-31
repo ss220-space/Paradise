@@ -239,7 +239,7 @@
 	name = "Deathmatch: Nuclear Operative (sniper)"
 	display_name = "Ядерный оперативник (снайпер)"
 
-	r_hand = /obj/item/gun/projectile/automatic/sniper_rifle/syndicate/penetrator
+	r_hand = /obj/item/gun/projectile/automatic/sniper_rifle/syndicate
 
 	backpack_contents = list(
 		/obj/item/ammo_box/magazine/m10mm = 3,
