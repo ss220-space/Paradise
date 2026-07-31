@@ -386,26 +386,6 @@
 	icon_state = "darkred"
 	},
 /area/deathmatch)
-"nv" = (
-/obj/item/gun/energy/gun/advtaser{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/gun/energy/gun/advtaser{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/gun/energy/gun/advtaser,
-/obj/structure/closet/secure_closet/guncabinet{
-	anchored = 1;
-	name = "Tasers";
-	req_access = list(1)
-	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "red"
-	},
-/area/deathmatch)
 "nw" = (
 /obj/effect/turf_decal/delivery/red/hollow,
 /obj/structure/mystery_box/tdome,
@@ -601,7 +581,6 @@
 /turf/simulated/floor/plasteel,
 /area/deathmatch)
 "sq" = (
-/obj/structure/closet/secure_closet/security,
 /obj/effect/turf_decal/delivery/red/hollow,
 /obj/machinery/light{
 	dir = 1
@@ -610,6 +589,7 @@
 	color = "red";
 	dir = 4
 	},
+/obj/structure/barricade/security,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "red"
@@ -1351,18 +1331,10 @@
 /obj/structure/chair/office/dark,
 /turf/simulated/floor/plasteel,
 /area/deathmatch)
-"Nq" = (
-/obj/machinery/vending/security,
-/turf/simulated/floor/plasteel,
-/area/deathmatch)
 "Nu" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
 	},
-/area/deathmatch)
-"NG" = (
-/obj/machinery/autolathe/security,
-/turf/simulated/floor/plasteel,
 /area/deathmatch)
 "NT" = (
 /obj/item/flag/species,
@@ -2527,8 +2499,8 @@ eT
 DL
 JV
 sq
-ht
-eT
+Ko
+GQ
 QP
 Tt
 Ry
@@ -2565,11 +2537,11 @@ eT
 WV
 if
 JV
-Nq
+eT
 GB
 WV
 DL
-Nq
+eT
 Ry
 gA
 "}
@@ -2606,8 +2578,8 @@ DL
 JV
 Sv
 GB
-eT
-DL
+GQ
+Tf
 Ry
 Ry
 gA
@@ -2645,7 +2617,7 @@ DL
 lO
 jn
 GB
-WV
+Og
 DL
 gP
 gA
@@ -2799,7 +2771,7 @@ GB
 eT
 DL
 JV
-NG
+yv
 GB
 JW
 gt
@@ -2945,7 +2917,7 @@ AH
 fu
 ip
 fH
-ip
+fH
 ip
 fH
 ip
@@ -2958,7 +2930,7 @@ JV
 Ik
 GB
 eT
-nv
+tn
 Ry
 gA
 gA
@@ -3024,7 +2996,7 @@ ip
 ip
 av
 Xa
-Xa
+av
 fH
 ip
 Sn
@@ -3061,7 +3033,7 @@ JV
 Ym
 fH
 fH
-fH
+ip
 Xa
 ip
 fH
@@ -3138,7 +3110,7 @@ DL
 JV
 pb
 sU
-ip
+fH
 Xa
 av
 av
