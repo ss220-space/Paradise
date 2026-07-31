@@ -148,7 +148,21 @@
 		UnregisterSignal(src, COMSIG_ATOM_EXITED_AREA)
 	SSmachines.unregister_machine(src)
 	end_processing()
+	clear_components()
 	return ..()
+
+/**
+ * This should be called before mass qdeling components to make space for replacements.
+ * If not done, things will go away as Exited() destroys the machine when it detects
+ * even a single component exiting the atom.
+ */
+/obj/machinery/proc/clear_components()
+	if(!component_parts)
+		return
+	var/list/old_components = component_parts
+	component_parts = null
+	for(var/atom/atom_part in old_components)
+		qdel(atom_part)
 
 /obj/machinery/add_debris_element()
 	generate_debris_handler(null, -40, 8, 0.7)
