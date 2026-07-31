@@ -1,6 +1,3 @@
-#define INJECT_LARVA_COOLDOWN 10 MINUTES
-#define IMPREGNATION_PROCESS_TIME 5 SECONDS
-
 /datum/action/cooldown/spell/list_target/impregnate
 	name = "Inject Embryo"
 	desc = "Impregnate your victim with Alien Embryo."
@@ -8,7 +5,7 @@
 	check_flags = AB_CHECK_CONSCIOUS
 	button_icon_state = "alien_hide"
 	background_icon_state = "bg_alien"
-	cooldown_time = INJECT_LARVA_COOLDOWN
+	cooldown_time = XENO_VECTOR_INJECT_COOLDOWN
 	target_radius = 1
 	var/impregnated = FALSE
 
@@ -44,7 +41,7 @@
 		to_chat(owner, span_warning("No victims found"))
 		return
 
-	if(!do_after(owner, IMPREGNATION_PROCESS_TIME, victim, max_interact_count = 1))
+	if(!do_after(owner, 5 SECONDS, victim, max_interact_count = 1))
 		to_chat(owner, span_danger("Victim managed to escape!"))
 		return
 
@@ -67,6 +64,4 @@
 	impregnated = FALSE
 	. = ..()
 
-
-#undef INJECT_LARVA_COOLDOWN
-#undef IMPREGNATION_PROCESS_TIME
+#undef XENO_VECTOR_INJECT_COOLDOWN

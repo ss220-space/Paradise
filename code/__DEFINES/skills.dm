@@ -119,6 +119,8 @@
 #define BOW_SPREAD_MOD "bow_spread_mod"
 /// Slowdown modifier for bows skill
 #define BOW_SLOWDOWN_MOD "bow_slowdown_mod"
+/// Bow ready to fire time modifier
+#define BOW_READY_TO_FIRE_MOD "bow_ready_to_fire_mod"
 
 // MARK: Medical
 /// Duration modifier for surgery skill

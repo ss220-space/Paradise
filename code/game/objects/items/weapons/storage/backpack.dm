@@ -785,6 +785,11 @@
 		new /obj/item/circular_saw(src)
 		new /obj/item/surgicaldrill(src)
 
+/obj/item/storage/backpack/duffel/syndie/bow/populate_contents()
+	new /obj/item/gun/projectile/bow/tactical(src)
+	new /obj/item/storage/backpack/quiver/modern/full(src)
+	new /obj/item/storage/backpack/quiver/modern/full(src)
+
 /obj/item/storage/backpack/duffel/captain
 	name = "captain's duffelbag"
 	desc = "A duffelbag designed to hold large quantities of condoms."

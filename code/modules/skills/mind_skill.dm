@@ -1,10 +1,11 @@
 /datum/mind/proc/init_skills(mob/user)
 	if(skills_initialized)
 		return
+	var/list/cached_selected_skills_levels = selected_skills_levels
 	for(var/skill_name, skill_datum in GLOB.skills)
 		var/datum/skill/skill = skill_datum
-		set_skill_level(skill.type, SKILL_LEVEL_BASIC)
-
+		cached_selected_skills_levels[skill.type] = SKILL_LEVEL_BEGINNER
+	refresh_skills()
 	skills_initialized = WEAKREF(user)
 
 /datum/mind/proc/get_skill_level(skill_type)
@@ -61,6 +62,7 @@
 
 	if(!ishuman(current))
 		give_basic_skills()
+		return
 
 	var/list/antag_skills = GLOB.antag_skills
 	var/datum/job/current_job

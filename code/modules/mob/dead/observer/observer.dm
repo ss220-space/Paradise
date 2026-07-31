@@ -895,7 +895,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	return TRUE
 
-/mob/dead/observer/proc/incarnate_ghost(use_old_mind=FALSE)
+/mob/dead/observer/proc/incarnate_ghost(use_old_mind = FALSE)
 	if(!client)
 		return
 

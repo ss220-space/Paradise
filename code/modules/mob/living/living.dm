@@ -2416,3 +2416,6 @@
 		apply_status_effect(/datum/status_effect/gene_instability/minor)
 		return
 	remove_status_effect(/datum/status_effect/gene_instability)
+
+/mob/living/proc/embed_item_inside(obj/item/thing, embedded_zone, silent = FALSE)
+	return

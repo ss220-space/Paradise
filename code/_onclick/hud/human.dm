@@ -111,6 +111,12 @@
 	using.alpha = ui_alpha
 	static_inventory += using
 
+	using = new /atom/movable/screen/area_creator(null, src)
+	using.icon = ui_style
+	using.color = ui_color
+	using.alpha = ui_alpha
+	static_inventory += using
+
 	using = new /atom/movable/screen/act_intent(null, src)
 	using.icon_state = mymob.a_intent
 	using.alpha = ui_alpha
