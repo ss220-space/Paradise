@@ -2,7 +2,7 @@
 	name = "alien larva"
 	real_name = "alien larva"
 	icon_state = "larva0"
-	pass_flags = PASSTABLE | PASSMOB
+	pass_flags = PASSTABLE | PASSMOB | PASSFENCE | PASSVEHICLE | PASSDOOR
 	mob_size = MOB_SIZE_SMALL
 	attack_damage = 3
 	obj_damage = 10
