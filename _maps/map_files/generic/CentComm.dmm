@@ -38119,6 +38119,19 @@
 	icon_state = "freezerfloor"
 	},
 /area/centcom/syndicate_base/elite_squad)
+"rrw" = (
+/obj/machinery/door/airlock/external{
+	aiControlDisabled = 1;
+	frequency = 1379;
+	hackProof = 1;
+	id_tag = "emergency_away";
+	locked = 1;
+	name = "Arrival Airlock"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/central_command_areas/evacuation)
 "rrC" = (
 /obj/machinery/door/airlock/hatch/secure{
 	frequency = 1331;
@@ -89956,17 +89969,17 @@ iIs
 iIs
 iIs
 wLM
-vNw
+rrw
 wLM
-vNw
+rrw
 wLM
 iIs
 iIs
 iIs
 wLM
-vNw
+rrw
 wLM
-vNw
+rrw
 wLM
 onc
 omJ
@@ -107689,17 +107702,17 @@ dZA
 phM
 dZA
 wLM
-vNw
+rrw
 wLM
-vNw
+rrw
 wLM
 vMK
 gdL
 kwV
 wLM
-vNw
+rrw
 wLM
-vNw
+rrw
 wLM
 onc
 sUP
