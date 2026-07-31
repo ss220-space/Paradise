@@ -35,6 +35,7 @@
 		return
 	var/obj/item/mod/control/mod_control = our_human.back
 	mod_control.quick_activation()
+	our_human.mind?.offstation_role = TRUE
 
 /datum/outfit/deathmatch_loadout/naked
 	name = "Deathmatch: Naked"
