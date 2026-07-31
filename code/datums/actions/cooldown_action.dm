@@ -135,7 +135,7 @@
 
 /datum/action/cooldown/Remove(mob/removed_from)
 	UnregisterSignal(removed_from, COMSIG_HOSTILE_PRE_ATTACKINGTARGET)
-	if(click_to_activate && removed_from.client.?click_intercept == src)
+	if(click_to_activate && removed_from.client?.click_intercept == src)
 		unset_click_ability(removed_from, refund_cooldown = FALSE)
 	for(var/datum/action/cooldown/ability as anything in initialized_actions)
 		ability.Remove(removed_from)
