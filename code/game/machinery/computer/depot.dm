@@ -21,6 +21,10 @@
 	. = ..()
 	depotarea = get_area(src)
 
+/obj/machinery/computer/syndicate_depot/Destroy()
+	depotarea = null
+	return ..()
+
 /obj/machinery/computer/syndicate_depot/attack_ai(mob/user)
 	if(length(req_access) && !("syndicate" in user.faction))
 		to_chat(user, span_warning("A firewall blocks your access."))
