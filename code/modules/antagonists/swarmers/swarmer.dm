@@ -247,6 +247,9 @@ GLOBAL_LIST_EMPTY(swarmers)
 	if(!action_cb)
 		CRASH("Swarmer act returned SWARMER_ACT_POSSIBLE flag with none of the correct flag combinations. Atom: [atom.type], flag: [swarmer_act_result]")
 
+	changeNext_move(CLICK_CD_MELEE)
+	do_attack_animation(atom, no_effect = TRUE) // other animations for each action
+
 	if(isitem(atom)) // we can skip all checks if this is an item
 		action_cb.Invoke()
 		return
@@ -366,13 +369,10 @@ GLOBAL_LIST_EMPTY(swarmers)
 
 	if(!resource_gain)
 		balloon_alert(src, "не совместимо!")
-		to_chat(src, span_warning("[target] не является совместимым с нашим переработчиком материалов."))
 		stack_trace("[target] swarmer_act uses consume return value, yet integrate_amount proc returned zero or null")
 		return FALSE
 
 	. = TRUE
-	do_attack_animation(target)
-	changeNext_move(CLICK_CD_MELEE)
 	var/obj/effect/temp_visual/swarmer/integrate/integrate_effect = new(get_turf(target))
 	integrate_effect.adjust_size(target)
 	if(!isstack(target))
@@ -390,8 +390,6 @@ GLOBAL_LIST_EMPTY(swarmers)
 	var/obj/effect/temp_visual/swarmer/disintegration/disintegrate_effect = new(get_turf(target))
 	disintegrate_effect.adjust_size(target)
 	target.ex_act(EXPLODE_LIGHT) // This is what actually damages structures on swarmer_act
-	do_attack_animation(target)
-	changeNext_move(CLICK_CD_MELEE)
 
 /// Proc called in swarmer_act to destroy the target.
 /mob/living/simple_animal/hostile/swarmer/proc/destroy_object(atom/movable/target)
@@ -405,7 +403,6 @@ GLOBAL_LIST_EMPTY(swarmers)
 
 /// Proc called in swarmer_act to dismantle machinery.
 /mob/living/simple_animal/hostile/swarmer/proc/dismantle_machine(obj/machinery/target)
-	do_attack_animation(target)
 	balloon_alert(src, "разбор...")
 	var/obj/effect/temp_visual/swarmer/dismantle/dismantle_effect = new(get_turf(target))
 	dismantle_effect.adjust_size(target)

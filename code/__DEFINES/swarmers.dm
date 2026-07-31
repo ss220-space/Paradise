@@ -15,11 +15,11 @@
 
 // === TIMING & DELAYS ===
 /// Worst swarmer deconstruction speed modifier
-#define SLOW_SWARMER_DISMANTLE_DELAY 15 SECONDS
+#define SLOW_SWARMER_DISMANTLE_DELAY 8 SECONDS
 /// Average swarmer deconstruction speed modifier
-#define NORMAL_SWARMER_DISMANTLE_DELAY 8 SECONDS
+#define NORMAL_SWARMER_DISMANTLE_DELAY 5 SECONDS
 /// Best swarmer deconstruction speed modifier
-#define FAST_SWARMER_DISMANTLE_DELAY 3 SECONDS
+#define FAST_SWARMER_DISMANTLE_DELAY 2 SECONDS
 
 /// Smallest build delay
 #define SWARMER_FAST_BUILD_DELAY 2 SECONDS

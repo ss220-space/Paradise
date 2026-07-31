@@ -113,6 +113,7 @@
 	layer = HIGH_OBJ_LAYER
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	swarmer_examine = "Временно защищает ядро от недоброжелателей. Пропадёт через время."
+	swarmers_pass = TRUE
 
 /obj/structure/swarmer/swarmer_core_field/get_ru_names()
 	return alist(

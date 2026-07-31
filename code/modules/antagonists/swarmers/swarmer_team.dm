@@ -32,7 +32,7 @@
 	return TRUE
 
 /// How many metallic resources swarmers get on core init
-#define METALLIC_START_RESOURCES 75
+#define METALLIC_START_RESOURCES 90
 /// Delay between destroying swarmer mobs/structures on core destroy
 #define DESTROY_DELAY 0.1 SECONDS
 
@@ -130,9 +130,8 @@
 		var/mob/living/target = swarmer_mind?.current
 		if(!target)
 			continue
-		target.balloon_alert(target, "обнаружено повреждение ядра!")
+		target.balloon_alert(target, "повреждение ядра!")
 		to_chat(target, span_swarmerboldlarge("Внимание: Обнаружено повреждение ядра! Местоположение: [locname]."))
-		SEND_SOUND(target, sound('sound/machines/warning-buzzer.ogg'))
 
 /**
  * Signal proc sent on swarmer core being moved
@@ -147,9 +146,8 @@
 		var/mob/living/target = swarmer_mind?.current
 		if(!target)
 			continue
-		target.balloon_alert(target, "обнаружено перемещение ядра!")
+		target.balloon_alert(target, "перемещение ядра!")
 		to_chat(target, span_swarmerboldlarge("Внимание: Обнаружено перемещение ядра! Новое местоположение: [locname]."))
-		SEND_SOUND(target, sound('sound/machines/warning-buzzer.ogg'))
 
 /**
  * Signal proc used in organic processing (not mobs)
@@ -217,7 +215,7 @@
 	made_announcement = TRUE
 	swarmer_objective.completed = TRUE
 	GLOB.major_announcement.announce(
-		message = "Обнаружено появление \"Мега-Свармера\" на борту станции [station_name()]. Экипаж должен любой ценой остановить его до того, как станция перейдёт под полный контроль \"Свармеров\".",
+		message = "Обнаружено появление \"Мега-Свармера\" на борту станции [station_name()]. Экипаж должен любой ценой остановить его до того, как станция перейдёт под их полный контроль.",
 		new_title = ANNOUNCE_CCMSG_RU,
 		new_sound = 'sound/AI/commandreport.ogg'
 	)
@@ -248,6 +246,7 @@
 			qdel(swarmer)
 		addtimer(CALLBACK(src, PROC_REF(start_swarmers_destroying)), DESTROY_DELAY, TIMER_DELETE_ME)
 		return
+
 	destroy_swarmer_objects()
 
 /// Destroys swarmer objects one-by-one with a delay
