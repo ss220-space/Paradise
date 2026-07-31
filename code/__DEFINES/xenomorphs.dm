@@ -1,6 +1,6 @@
 
 /// Cooldown for vector inject larva ablity
-#define XENO_VECTOR_INJECT_COOLDOWN 2 MINUTES
+#define XENO_VECTOR_INJECT_COOLDOWN 3.5 MINUTES
 
 /// How many players we need for evolve to one praetorian
 #define XENO_PLAYERS_FOR_PRAETORIAN 25
