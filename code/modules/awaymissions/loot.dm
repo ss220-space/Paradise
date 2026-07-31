@@ -6,13 +6,13 @@
 	var/loot = ""			//a list of possible items to spawn- a string of paths
 
 /obj/effect/spawner/away/lootdrop/Initialize(mapload)
-	..()
+	. = ..()
 	var/list/things = params2list(loot)
 
 	if(things && length(things))
 		for(var/i = lootcount, i > 0, i--)
 			if(!length(things))
-				return
+				return INITIALIZE_HINT_QDEL
 
 			var/loot_spawn = pick(things)
 			var/loot_path = text2path(loot_spawn)
@@ -22,4 +22,4 @@
 				continue
 
 			new loot_path(get_turf(src))
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
