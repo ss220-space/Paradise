@@ -320,4 +320,6 @@ GLOBAL_LIST_EMPTY(unit_test_tguis)
 	returnable_list += typesof(/obj/item/reagent_containers/spray/mister)
 	// See above
 	returnable_list += typesof(/obj/item/extinguisher/mini/nozzle)
+	// Can't exist without a suit
+	returnable_list += typesof(/obj/item/clothing/head/hooded)
 	return returnable_list
