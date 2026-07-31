@@ -684,7 +684,7 @@
 	pixel_x = 8
 	},
 /obj/item/reagent_containers/spray/cleaner/chemical,
-/obj/machinery/light_switch/directional/east,
+/obj/item/radio/intercom/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -60113,7 +60113,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/extinguisher_cabinet/directional/east,
+/obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -72840,9 +72840,7 @@
 	dir = 8;
 	network = list("Research","SS13")
 	},
-/obj/item/radio/intercom/directional/east,
-/obj/structure/table/reinforced,
-/obj/machinery/reagentgrinder,
+/obj/structure/extinguisher_cabinet/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -92014,7 +92012,8 @@
 	pixel_x = -24;
 	pixel_y = -24
 	},
-/obj/structure/reagent_dispensers/fueltank,
+/obj/structure/table/reinforced,
+/obj/machinery/reagentgrinder,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -114360,6 +114359,9 @@
 /obj/structure/window/plasmareinforced{
 	dir = 4
 	},
+/obj/structure/reagent_dispensers/fueltank/chem{
+	pixel_y = 32
+	},
 /turf/simulated/floor/engine,
 /area/station/science/chem_lab)
 "vCp" = (
@@ -115739,6 +115741,9 @@
 /obj/machinery/chem_heater,
 /obj/structure/window/plasmareinforced{
 	dir = 4
+	},
+/obj/structure/reagent_dispensers/fueltank/chem{
+	pixel_y = -32
 	},
 /turf/simulated/floor/engine,
 /area/station/science/chem_lab)
