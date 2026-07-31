@@ -326,8 +326,6 @@
 	name = "\improper outstretched hand"
 	desc = "High Five?"
 	item_state = "lgloves"
-	lefthand_file = 'icons/mob/inhands/melee_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/melee_righthand.dmi'
 	w_class = WEIGHT_CLASS_HUGE
 	throw_range = 0
 	throw_speed = 0
