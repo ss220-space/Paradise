@@ -33947,6 +33947,7 @@
 	dir = 4
 	},
 /obj/machinery/smartfridge/medbay,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -94368,6 +94369,7 @@
 /area/station/engineering/supermatter/room)
 "rUq" = (
 /obj/machinery/vending/plasmaresearch,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whitepurple"
@@ -99343,12 +99345,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/command/vip)
-"sOQ" = (
-/obj/machinery/hologram/holopad,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/station/science/chem_lab)
 "sPc" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -100539,6 +100535,7 @@
 	dir = 4
 	},
 /obj/machinery/hologram/holopad,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -156665,7 +156662,7 @@ ilf
 xTz
 hfZ
 uPJ
-sOQ
+gZF
 rCu
 vuV
 qNS
