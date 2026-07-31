@@ -248,7 +248,6 @@ GLOBAL_LIST_EMPTY(unit_test_tguis)
 //	returnable_list += typesof(/obj/item/poster/wanted)
 	//Needs clients / mobs to observe it to exist. Also includes hallucinations.
 	returnable_list += typesof(/obj/effect/client_image_holder)
-	returnable_list += typesof(/obj/effect/hallucination)
 	//Same to above. Needs a client / mob / hallucination to observe it to exist.
 //	returnable_list += typesof(/obj/projectile/hallucination)
 //	returnable_list += typesof(/obj/item/hallucinated)
@@ -311,4 +310,10 @@ GLOBAL_LIST_EMPTY(unit_test_tguis)
 //	returnable_list += typesof(/obj/item/robot_model) // These should never be spawned outside of a robot.
 	//A lot of these depend on a hud datum to function and should not be created in a vacuum
 	returnable_list += typesof(/atom/movable/screen)
+
+	//1984 edition (along with some alterations of the paths above)
+	//Requires blood color and already checks for it in every place it spawned
+	returnable_list += typesof(/obj/effect/temp_visual/dir_setting/bloodsplatter)
+	// Can't exist without player
+	returnable_list += typesof(/obj/effect/hallucination)
 	return returnable_list
