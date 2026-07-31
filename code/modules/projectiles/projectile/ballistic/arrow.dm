@@ -23,6 +23,13 @@
 
 	return ..()
 
+/obj/projectile/bullet/reusable/arrow/apply_effect_on_hit(mob/living/target, blocked, hit_zone)
+	var/obj/item/arrow_type = ammo_type
+	if(!blocked && !HAS_TRAIT(target, TRAIT_EMBEDIMMUNE) && prob(arrow_type.embed_chance))
+		target.embed_item_inside(new arrow_type(loc), hit_zone)
+		dropped = TRUE
+	return..()
+
 /obj/projectile/bullet/reusable/arrow/bone //A fully upgraded normal arrow; it's got the stats to show. Still *less* damage than a slug, slower, and with negative AP. Only for bone bow!
 	name = "bone-tipped arrow"
 	icon_state = "bone_arrow"
@@ -40,3 +47,17 @@
 	damage = 50
 	armour_penetration = -30
 	faction_bonus_damage = 60
+
+/obj/projectile/bullet/reusable/arrow/modern
+	name = "modern arrow"
+	icon_state = "arrow_modern"
+	ammo_type = /obj/item/ammo_casing/caseless/arrow/modern
+	range = 15
+	damage = 30
+	armour_penetration = 10
+
+/obj/projectile/bullet/reusable/arrow/homemade
+	name = "homemade arrow"
+	icon_state = "arrow_homemade"
+	ammo_type = /obj/item/ammo_casing/caseless/arrow/homemade
+	range = 8
