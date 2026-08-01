@@ -1656,7 +1656,7 @@
 
 	return list(0, update_flags)
 
-/datum/reagent/medicine/noradrenaline //ling's special chem
+/datum/reagent/medicine/noradrenaline //was a ling's special chem
 	name = "Норадреналин"
 	id = "noradrenaline"
 	description = "Мощный стимулятор, который делает вас невосприимчивым к оглушению на некоторое время."
