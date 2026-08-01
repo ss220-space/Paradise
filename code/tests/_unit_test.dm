@@ -230,6 +230,13 @@ GLOBAL_LIST_EMPTY(unit_test_tguis)
 		// Abstract type, controlled by turfs
 		// Literally errors on creation/deletion
 		/atom/movable/lighting_object,
+		// 1984 edition
+		// Requires APC to spawn in
+		/obj/machinery/integration_cog,
+		// Can't exist without possesed item
+		/mob/living/simple_animal/possessed_object,
+		// Doesn't exist on its own
+		/obj/effect/countdown/clockworkgate,
 	)
 
 	// Everything that follows is a typesof() check.
@@ -322,6 +329,10 @@ GLOBAL_LIST_EMPTY(unit_test_tguis)
 	returnable_list += typesof(/obj/item/extinguisher/mini/nozzle)
 	// Can't exist without a suit
 	returnable_list += typesof(/obj/item/clothing/head/hooded)
+	// See above
+	returnable_list += typesof(/obj/item/clothing/head/helmet/space/hardsuit)
 	// Instantiated only once per spell type and then cached in a static list for this type to reuse, are not meant to be deleted
 	returnable_list += typesof(/datum/spell_handler)
+	// Destroying these causes the game to call evac shuttle
+	returnable_list += typesof(/obj/machinery/computer/communications)
 	return returnable_list
