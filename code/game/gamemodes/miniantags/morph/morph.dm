@@ -88,11 +88,16 @@
 
 /mob/living/simple_animal/hostile/morph/Initialize(mapload)
 	. = ..()
-	AddSpell(new mimic_spell)
-	AddSpell(new ambush_spell)
-	AddSpell(new open_vent_spell)
-	AddSpell(new pass_airlock_spell)
-	AddSpell(new reproduce_spell)
+	mimic_spell = new
+	ambush_spell = new
+	open_vent_spell = new
+	pass_airlock_spell = new
+	reproduce_spell = new
+	AddSpell(mimic_spell)
+	AddSpell(ambush_spell)
+	AddSpell(open_vent_spell)
+	AddSpell(pass_airlock_spell)
+	AddSpell(reproduce_spell)
 	GLOB.morphs_alive_list += src
 	check_morphs()
 

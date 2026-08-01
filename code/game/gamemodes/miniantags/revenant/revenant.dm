@@ -54,7 +54,7 @@
 	var/list/revenant_spells = list(
 		/datum/action/cooldown/spell/nightvision/revenant,
 		/datum/action/cooldown/spell/pointed/revenant_transmit,
-		/datum/action/cooldown/spell/aoe/revenant/overload/defile,
+		/datum/action/cooldown/spell/aoe/revenant/defile,
 		/datum/action/cooldown/spell/aoe/revenant/malfunction,
 		/datum/action/cooldown/spell/aoe/revenant/overload,
 		/datum/action/cooldown/spell/aoe/revenant/blight,
@@ -91,6 +91,7 @@
 		death()
 	if(essence_regenerating && !inhibited && essence < essence_regen_cap) //While inhibited, essence will not regenerate
 		essence = min(essence_regen_cap, essence+essence_regen_amount)
+		update_spell_icons()
 	if(unreveal_time && world.time >= unreveal_time)
 		unreveal_time = 0
 		revealed = 0
@@ -138,6 +139,7 @@
 	essence = max(0, essence-amount)
 	if(essence == 0)
 		to_chat(src, span_revendanger("Вы чувствуете, как ваша сущность распадается!"))
+	update_spell_icons()
 
 /mob/living/simple_animal/revenant/say(message, verb = "говор[PLUR_IT_YAT(src)]", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE, ignore_emotes = FALSE)
 	if(!message)
@@ -308,6 +310,7 @@
 			to_chat(src, span_revennotice("Получено [essence_amt] эссенци[declension_ru(essence_amt,"я","и","и")] от [source]."))
 		else
 			to_chat(src, span_revenminor("Потеряно [essence_amt] эссенци[declension_ru(essence_amt,"я","и","и")] из-за [source]."))
+	update_spell_icons()
 	return 1
 
 /mob/living/simple_animal/revenant/proc/reveal(time)
@@ -352,6 +355,10 @@
 			icon_state = icon_reveal
 	else
 		icon_state = icon_idle
+
+/mob/living/simple_animal/revenant/proc/update_spell_icons()
+	for(var/datum/action/cooldown/spell/aoe/revenant/spell in mob_spell_list)
+		spell.UpdateButtonIcon()
 
 /datum/objective/revenant
 	needs_target = FALSE

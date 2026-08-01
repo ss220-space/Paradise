@@ -134,6 +134,7 @@
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	button_icon_state = "r_transmit"
 	background_icon_state = "bg_revenant"
+	background_icon_state_active = "bg_revenant"
 
 /datum/action/cooldown/spell/pointed/revenant_transmit/is_valid_target(atom/cast_on)
 	return isliving(cast_on)
@@ -196,6 +197,7 @@
 	return ..()
 
 /datum/action/cooldown/spell/aoe/revenant/proc/attempt_cast(mob/living/simple_animal/revenant/user = owner)
+	cooldown_time = initial(cooldown_time)
 	if(locked)
 		if(!user.castcheck(-unlock_amount))
 			reset_spell_cooldown()
@@ -205,7 +207,7 @@
 		to_chat(user, span_revenwarning("Вы открыли способность <b>\"[initial(name)]\"</b>!"))
 
 		locked = FALSE
-		reset_spell_cooldown()
+		cooldown_time = 0
 
 		return FALSE
 
@@ -239,10 +241,14 @@
 		targets += target
 	return targets
 
-/datum/action/cooldown/spell/aoe/revenant/overload/cast_on_thing_in_aoe(atom/victim, atom/caster)
+/datum/action/cooldown/spell/aoe/revenant/overload/cast(atom/cast_on)
 	var/mob/living/simple_animal/revenant/user = owner
-	if(attempt_cast(user))
-		INVOKE_ASYNC(src, PROC_REF(shock_lights), victim, user)
+	if(!attempt_cast(user))
+		return
+	. = ..()
+
+/datum/action/cooldown/spell/aoe/revenant/overload/cast_on_thing_in_aoe(atom/victim, atom/caster)
+	INVOKE_ASYNC(src, PROC_REF(shock_lights), victim, caster)
 
 /datum/action/cooldown/spell/aoe/revenant/overload/proc/shock_lights(obj/machinery/light/L, mob/living/simple_animal/revenant/user)
 	if(!L.on)
@@ -267,7 +273,7 @@
 		playsound(M, 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
 
 //Defile: Corrupts nearby stuff, unblesses floor tiles.
-/datum/action/cooldown/spell/aoe/revenant/overload/defile
+/datum/action/cooldown/spell/aoe/revenant/defile
 	name = "Осквернить"
 	desc = "Искажает и оскверняет ближайшую территорию, а также рассеивает святую ауру на полу."
 	cooldown_time = 15 SECONDS
@@ -278,16 +284,19 @@
 	button_icon_state = "r_defile"
 	aoe_radius = 4
 
-/datum/action/cooldown/spell/aoe/revenant/overload/defile/get_things_to_cast_on(atom/center)
+/datum/action/cooldown/spell/aoe/revenant/defile/get_things_to_cast_on(atom/center)
 	var/list/turfs = list()
 	for(var/turf/turf in range(aoe_radius, center))
 		turfs += turf
 	return turfs
 
-/datum/action/cooldown/spell/aoe/revenant/overload/defile/cast_on_thing_in_aoe(atom/victim, atom/caster)
+/datum/action/cooldown/spell/aoe/revenant/defile/cast(atom/cast_on)
 	var/mob/living/simple_animal/revenant/user = owner
 	if(!attempt_cast(user))
 		return
+	. = ..()
+
+/datum/action/cooldown/spell/aoe/revenant/defile/cast_on_thing_in_aoe(atom/victim, atom/caster)
 	var/turf/turf = victim
 	turf.defile()
 
@@ -310,11 +319,15 @@
 		turfs += turf
 	return turfs
 
-//A note to future coders: do not replace this with an EMP because it will wreck malf AIs and gang dominators and everyone will hate you.
-/datum/action/cooldown/spell/aoe/revenant/malfunction/cast_on_thing_in_aoe(atom/victim, atom/caste)
+/datum/action/cooldown/spell/aoe/revenant/malfunction/cast(atom/cast_on)
 	var/mob/living/simple_animal/revenant/user = owner
-	if(attempt_cast(user))
-		INVOKE_ASYNC(src, PROC_REF(effect), user, victim)
+	if(!attempt_cast(user))
+		return
+	. = ..()
+
+//A note to future coders: do not replace this with an EMP because it will wreck malf AIs and gang dominators and everyone will hate you.
+/datum/action/cooldown/spell/aoe/revenant/malfunction/cast_on_thing_in_aoe(atom/victim, atom/caster)
+		INVOKE_ASYNC(src, PROC_REF(effect), caster, victim)
 
 /datum/action/cooldown/spell/aoe/revenant/malfunction/proc/effect(mob/living/simple_animal/revenant/user, turf/T)
 	T.rev_malfunction(TRUE)
@@ -442,10 +455,13 @@
 		targets += target
 	return targets
 
-/datum/action/cooldown/spell/aoe/revenant/hallucinations/cast_on_thing_in_aoe(atom/victim, atom/caster)
+/datum/action/cooldown/spell/aoe/revenant/hallucinations/cast(atom/cast_on)
 	var/mob/living/simple_animal/revenant/user = owner
 	if(!attempt_cast(user))
 		return
+	. = ..()
+
+/datum/action/cooldown/spell/aoe/revenant/hallucinations/cast_on_thing_in_aoe(atom/victim, atom/caster)
 	var/mob/living/carbon/human/target = victim
 	target.AdjustHallucinate(60 SECONDS, bound_upper = 300 SECONDS) //Lets not let them get more than 5 minutes of hallucinations
 	new /obj/effect/temp_visual/revenant(get_turf(target))
@@ -478,11 +494,13 @@
 		targets += target
 	return targets
 
-/datum/action/cooldown/spell/aoe/revenant/blight/cast_on_thing_in_aoe(atom/victim, atom/caster)
+/datum/action/cooldown/spell/aoe/revenant/blight/cast(atom/cast_on)
 	var/mob/living/simple_animal/revenant/user = owner
 	if(!attempt_cast(user))
 		return
+	. = ..()
 
+/datum/action/cooldown/spell/aoe/revenant/blight/cast_on_thing_in_aoe(atom/victim, atom/caster)
 	var/mob/living/carbon/human/human = victim
 	var/datum/disease/ectoplasmic/disease = new
 	disease.Contract(human)
