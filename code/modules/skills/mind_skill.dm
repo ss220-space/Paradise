@@ -80,7 +80,7 @@
 		if(current_job)
 			job_skill = current_job.get_skill_level(skill_type, role_alt_title)
 			if(!(skill_type in job_alt_skills))
-				job_alt_skills[skill_type] = job_skill
+				LAZYSET(job_alt_skills, skill_type, job_skill)
 		if(job_alt_skills && (skill_type in job_alt_skills))
 			job_skill = job_alt_skills[skill_type]
 		var/level = max(job_skill, antag_skill_level)
