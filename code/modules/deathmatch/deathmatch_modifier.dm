@@ -297,6 +297,7 @@
 
 // Probably i can make it better, but i don't know how
 /datum/deathmatch_modifier/special_loadouts/on_select(datum/deathmatch_lobby/lobby)
+	choosen_loadouts.Cut() //sanity_check
 	for(var/datum/outfit/deathmatch_loadout/our_loadout as anything in GLOB.deathmatch_game.loadouts)
 		if(our_loadout.loadout_type & checking_blacklist)
 			continue

@@ -40,7 +40,7 @@
 				return FALSE
 
 			var/static/list/cardinal_directions = list("[NORTH]" = TRUE, "[EAST]" = TRUE, "[SOUTH]" = TRUE, "[WEST]" = TRUE)
-			if(!cardinal_directions["[direction]"] || adjacent_turf.blocks_air || !current_turf.CanAtmosPass(direction))
+			if(!cardinal_directions["[direction]"] || !current_turf.CanAtmosPass(direction) || !adjacent_turf.CanAtmosPass(REVERSE_DIR(direction)))
 				continue
 
 			turfs_to_process += adjacent_turf
@@ -79,10 +79,12 @@
 		var/area/place = get_area(the_turf)
 		if(blacklisted_areas[place.type])
 			continue
-		if(!isnull(place.apc))
-			apc_map[place.name] = place.apc
+		if(!place.requires_power || place.tele_proof || place.no_teleportlocs)
+			continue
 		if(!LAZYLEN(the_turf.GetAtmosAdjacentTurfs(TRUE))) // No expanding areas on blocked turfs
 			continue
+		if(length(place.apc))
+			apc_map[place.name] = place.apc
 		if(length(apc_map) > 1) // When merging 2 or more areas make sure we arent merging their apc into 1 area
 			to_chat(creator, span_warning("Multiple APC's detected in the vicinity. only 1 is allowed."))
 			return

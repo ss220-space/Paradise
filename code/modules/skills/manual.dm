@@ -214,6 +214,11 @@
 	desc = "Руководство по обращению с различным оружием ближнего боя."
 	skill_type = /datum/skill/combat/melee
 
+/obj/item/book/skill_manual/combat/bows
+	manual_title = "Стрельба из лука"
+	desc = "Руководство по стрельбе из лука и обращению с ним."
+	skill_type = /datum/skill/combat/bows
+
 /obj/item/book/skill_manual/combat/fists
 	manual_title = "Рукопашный бой"
 	desc = "Руководство по рукопашному бою."
