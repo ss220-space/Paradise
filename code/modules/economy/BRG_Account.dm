@@ -37,6 +37,7 @@ Stores your account balance, photos, and other necessary variables.
 	// Base account information
 	member["name"] = owner.owner_name
 	member["account_number"] = owner.account_number
+	member["account_balance"] = owner.money
 	member["photo"] = photo
 	// RainDrop-specific account information
 	member["rating"] = get_rating()

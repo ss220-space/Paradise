@@ -1,11 +1,10 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
 import { useBackend } from '../../backend';
 import {
   Box,
   Button,
   Divider,
-  Dropdown,
   Icon,
   Image,
   Input,
@@ -18,10 +17,6 @@ import {
   TextArea,
 } from '../../components';
 import { Window } from '../../layouts';
-
-// ---------------------------------------------------------------------------
-// Types
-// ---------------------------------------------------------------------------
 
 type OfferStatus =
   | 'open'
@@ -38,6 +33,7 @@ type Account = {
   rating: number;
   rating_count: number;
   completed_count: number;
+  account_balance: number;
 };
 
 type Offer = {
@@ -52,19 +48,13 @@ type Offer = {
   worker?: Account;
 };
 
-type Target = {
-  name: string;
-  account_number: number;
-};
-
 type Data = {
   account: Account;
   offers: Offer[];
-  targets: Target[];
   world_time: number;
 };
 
-type TabName = 'market' | 'create' | 'deals' | 'transfer' | 'about';
+type TabName = 'market' | 'create' | 'deals' | 'about';
 
 const PDA_UI = {
   window: { width: 600, height: 870 },
@@ -428,17 +418,13 @@ const OfferCard = (props: {
 
 export const pda_rainDrop = (_props: unknown) => {
   const { act, data } = useBackend<Data>();
-  const { account, offers = [], targets = [], world_time = 0 } = data;
+  const { account, offers = [], world_time = 0 } = data;
 
   const [tab, setTab] = useState<TabName>('market');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [reward, setReward] = useState(100);
   const [ratings, setRatings] = useState<Record<string, number>>({});
-
-  const [transferTarget, setTransferTarget] = useState<Target | null>(null);
-  const [transferAmount, setTransferAmount] = useState(100);
-  const [transferNote, setTransferNote] = useState('');
 
   if (!account) {
     return (
@@ -472,15 +458,6 @@ export const pda_rainDrop = (_props: unknown) => {
 
   const executorPreview = Math.round(reward * 0.8);
 
-  const targetOptions = useMemo(
-    () =>
-      targets.map((target) => ({
-        displayText: `${target.name} · #${target.account_number}`,
-        value: target.account_number,
-      })),
-    [targets]
-  );
-
   return (
     <Window
       width={PDA_UI.window.width}
@@ -510,7 +487,7 @@ export const pda_rainDrop = (_props: unknown) => {
                         RainDrop
                       </Box>
                       <Box color="label" fontSize="0.85em">
-                        Биржа услуг · Переводы Raingor Bank
+                        Биржа услуг от Black Rain Group
                       </Box>
                     </Stack.Item>
                   </Stack>
@@ -524,7 +501,7 @@ export const pda_rainDrop = (_props: unknown) => {
                     <Stack.Item>
                       <Box bold>{account.name}</Box>
                       <Box color="label" fontSize="0.85em">
-                        #{account.account_number}
+                        {account.account_balance}$
                       </Box>
                       <Box fontSize="0.85em">
                         <StarDisplay rating={account.rating} />
@@ -571,13 +548,6 @@ export const pda_rainDrop = (_props: unknown) => {
                 onClick={() => setTab('deals')}
               >
                 Мои сделки
-              </Tabs.Tab>
-              <Tabs.Tab
-                icon="right-left"
-                selected={tab === 'transfer'}
-                onClick={() => setTab('transfer')}
-              >
-                Переводы
               </Tabs.Tab>
               <Tabs.Tab
                 icon="circle-info"
@@ -631,12 +601,11 @@ export const pda_rainDrop = (_props: unknown) => {
                           placeholder="Нужен инженер для ремонта шлюза"
                         />
                       </LabeledList.Item>
-
                       <LabeledList.Item label="Оплата">
                         <NumberInput
                           value={reward}
                           minValue={10}
-                          maxValue={100000}
+                          maxValue={account.account_balance}
                           step={50}
                           unit="кр"
                           onChange={(value) => setReward(value)}
@@ -734,103 +703,16 @@ export const pda_rainDrop = (_props: unknown) => {
             </Stack.Item>
           )}
 
-          {tab === 'transfer' && (
-            <Stack.Item grow>
-              <Section title="Перевод средств" fill>
-                <Stack vertical>
-                  <Stack.Item>
-                    <LabeledList>
-                      <LabeledList.Item label="Получатель">
-                        <Dropdown
-                          fluid
-                          search
-                          placeholder="Выберите получателя"
-                          options={targetOptions}
-                          selected={
-                            transferTarget
-                              ? targetOptions.find(
-                                  (option) =>
-                                    option.value ===
-                                    transferTarget.account_number
-                                )
-                              : undefined
-                          }
-                          onSelected={(value) =>
-                            setTransferTarget(
-                              targets.find(
-                                (target) => target.account_number === value
-                              ) || null
-                            )
-                          }
-                        />
-                      </LabeledList.Item>
-
-                      <LabeledList.Item label="Сумма">
-                        <NumberInput
-                          value={transferAmount}
-                          minValue={1}
-                          maxValue={100000}
-                          step={50}
-                          unit="кр"
-                          onChange={(value) => setTransferAmount(value)}
-                        />
-                      </LabeledList.Item>
-                    </LabeledList>
-                  </Stack.Item>
-
-                  <Stack.Item>
-                    <Box mb={0.5} bold>
-                      Комментарий (необязательно)
-                    </Box>
-                    <Input
-                      fluid
-                      value={transferNote}
-                      maxLength={60}
-                      onChange={(value) => setTransferNote(value)}
-                      placeholder="За что перевод"
-                    />
-                  </Stack.Item>
-
-                  <Stack.Item>
-                    <Button
-                      fluid
-                      color="good"
-                      icon="right-left"
-                      disabled={!transferTarget || transferAmount <= 0}
-                      onClick={() => {
-                        act('transfer_money', {
-                          target: transferTarget?.account_number,
-                          amount: transferAmount,
-                          note: transferNote,
-                        });
-                        setTransferNote('');
-                      }}
-                    >
-                      Перевести {transferAmount} кр
-                    </Button>
-                  </Stack.Item>
-
-                  <Stack.Item>
-                    <NoticeBox info>
-                      Переводы идут напрямую, без комиссии RainDrop, и
-                      необратимы — внимательно проверяйте получателя.
-                    </NoticeBox>
-                  </Stack.Item>
-                </Stack>
-              </Section>
-            </Stack.Item>
-          )}
-
           {tab === 'about' && (
             <Stack.Item grow>
               <Section title="О RainDrop" fill scrollable>
                 <Stack vertical>
                   <Stack.Item>
                     <Box color="label">
-                      Цифровая биржа услуг и платёжный сервис на инфраструктуре
-                      Black Rain Group. Соединяет тех, кому нужна помощь, с
-                      теми, кто готов её оказать за плату — и переводит деньги
-                      между счетами напрямую.
+                      Цифровая биржа услуг на инфраструктуре Black Rain Group.
+                      Соединяет тех, кому нужна помощь, с теми, кто готов её
+                      оказать за плату, и гарантирует расчёт между сторонами
+                      через эскроу-счёт.
                     </Box>
                   </Stack.Item>
 
@@ -869,9 +751,6 @@ export const pda_rainDrop = (_props: unknown) => {
                         <LabeledList.Item label="При споре">
                           40% заказчику / 20% исполнителю
                         </LabeledList.Item>
-                        <LabeledList.Item label="P2P переводы">
-                          без комиссии
-                        </LabeledList.Item>
                       </LabeledList>
                     </Section>
                   </Stack.Item>
@@ -888,7 +767,7 @@ export const pda_rainDrop = (_props: unknown) => {
 
                   <Stack.Item>
                     <Box color="label" fontSize="0.8em">
-                      RainDrop PDA Client v2.0 · Raingor SecureChain™
+                      RainDrop PDA Client v4.2 · Raingor SecureChain™
                     </Box>
                   </Stack.Item>
                 </Stack>
