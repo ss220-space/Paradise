@@ -239,6 +239,12 @@ GLOBAL_LIST_EMPTY(unit_test_tguis)
 		/obj/effect/countdown/clockworkgate,
 		// Mapping only object
 		/obj/structure/toilet/cancollectmapitems,
+		// Can't exist without parent pit
+		/obj/structure/bingle_pit_overlay,
+		// Shouldn't be spawned outside of syndie depot
+		/obj/structure/fusionreactor,
+		// Requires start and end turfs passed in
+		/obj/effect/immovablerod/smite,
 	)
 
 	// Everything that follows is a typesof() check.
