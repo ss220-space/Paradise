@@ -187,6 +187,11 @@
 	desc = "Руководство по эффективной уборке помещений."
 	skill_type = /datum/skill/service/cleaning
 
+/obj/item/book/skill_manual/service/mining
+	manual_title = "Горное дело"
+	desc = "Руководство по эффективной добыче полезных ископаемых."
+	skill_type = /datum/skill/service/mining
+
 // MARK: Combat
 /obj/item/book/skill_manual/combat
 	icon_state = "bookSpaceLaw"

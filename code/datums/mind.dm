@@ -129,7 +129,6 @@
 	var/datum/weakref/skills_initialized
 	/// List of skill levels (associative map of type to level (number))
 	var/list/skills = list()
-	var/list/temporaly_skills_holder
 	/// Available free skill points
 	var/free_skill_points = BASIC_SKILL_POINTS_COUNT
 	/// Temp variable for skill leveling (for skill_select_win works)
@@ -212,14 +211,6 @@
 
 	current = new_character // link ourself to our new body
 	new_character.mind = src // and link our new body to ourself
-
-	if(!ishuman(new_character))
-		if(!temporaly_skills_holder && length(skills))
-			temporaly_skills_holder = skills
-			skills = list()
-	else if(temporaly_skills_holder && !length(skills))
-		skills = temporaly_skills_holder
-		temporaly_skills_holder = null
 
 
 	transfer_antag_huds(hud_to_transfer) // inherit the antag HUD
