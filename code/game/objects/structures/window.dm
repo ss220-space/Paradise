@@ -1028,7 +1028,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	)
 
 /obj/structure/window/full/abductor/Initialize(mapload, direct)
-	..()
+	. = ..()
 	AddComponent(/datum/component/obj_regenerate)
 
 /obj/structure/window/full/shuttle
