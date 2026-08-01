@@ -108,6 +108,10 @@
 	var/can_move = TRUE
 	var/obj/item/chameleon/master = null
 
+/obj/effect/dummy/chameleon/Destroy()
+	master = null
+	return ..()
+
 /obj/effect/dummy/chameleon/proc/activate(mob/M, saved_appearance, obj/item/chameleon/C)
 	appearance = saved_appearance
 	if(isvehicle(M.buckled))
