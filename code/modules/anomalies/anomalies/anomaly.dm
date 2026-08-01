@@ -95,6 +95,7 @@
 
 /obj/effect/anomaly/Destroy()
 	STOP_PROCESSING(SSobj, src)
+	GLOB.poi_list -= src
 	QDEL_LIST(impulses)
 	if(!has_warp)
 		return ..()
