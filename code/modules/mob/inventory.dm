@@ -205,6 +205,21 @@
 /mob/proc/equip_to_slot(obj/item/I, slot, initial)
 	return
 
+/// This proc is called after an item has been successfully handled and equipped to a slot.
+/mob/proc/has_equipped(obj/item/item, slot, initial = FALSE)
+	SHOULD_CALL_PARENT(TRUE)
+	item.item_flags |= IN_INVENTORY
+	. = item.equipped(src, slot, initial)
+	if(.)
+		update_equipment_speed_mods()
+
+/// This proc is called after an item has been removed from a mob but before it has been officially deslotted.
+/mob/proc/has_unequipped(obj/item/item, silent = FALSE)
+	SHOULD_CALL_PARENT(TRUE)
+	item.dropped(src, silent)
+	update_equipment_speed_mods()
+	return TRUE
+
 /**
  * Returns if a certain item can be equipped to a certain slot.
  * Always call [obj/item/mob_can_equip()] instead of this proc.
@@ -557,6 +572,7 @@
 		// For inventory observing
 		for(var/mob/dead/observer/observe as anything in inventory_observers)
 			if(!observe.client)
+				observe.handle_when_autoobserve_move()
 				LAZYREMOVE(inventory_observers, observe)
 				continue
 			observe.client.screen -= I
@@ -570,7 +586,7 @@
 		I.dropped(src, slot, silent, newloc)
 
 	SEND_SIGNAL(I, COMSIG_ITEM_POST_UNEQUIP, force, newloc, no_move, invdrop, silent, src)
-	SEND_SIGNAL(src, COMSIG_MOB_UNEQUIPPED_ITEM, I, force, newloc, no_move, invdrop, silent)
+	SEND_SIGNAL(src, COMSIG_MOB_UNEQUIPPED_ITEM, I, force, newloc, no_move, invdrop, silent, slot)
 	if(!not_handled)
 		update_equipment_speed_mods()
 	return TRUE

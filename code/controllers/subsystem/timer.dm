@@ -430,12 +430,13 @@ SUBSYSTEM_DEF(timer)
 	if(flags & TIMER_UNIQUE && hash)
 		timer_subsystem.hashes -= hash
 
-	if(callBack?.object && callBack.object != GLOBAL_PROC && callBack.object._active_timers)
-		callBack.object._active_timers -= src
-		UNSETEMPTY(callBack.object._active_timers)
-	callBack.object = null
-	LAZYCLEARLIST(callBack?.arguments)
-	callBack = null
+	if(callBack)
+		if(callBack.object && callBack.object != GLOBAL_PROC && callBack.object._active_timers)
+			callBack.object._active_timers -= src
+			UNSETEMPTY(callBack.object._active_timers)
+		callBack.object = null
+		LAZYCLEARLIST(callBack.arguments)
+		callBack = null
 
 	if(flags & TIMER_STOPPABLE)
 		timer_subsystem.timer_id_dict -= id
@@ -656,7 +657,6 @@ ADMIN_VERB(debug_timers, R_DEBUG|R_VIEWRUNTIMES, "Debug Timers", "Shows currentl
 		stack_trace("addtimer called with a negative wait. Converting to [world.tick_lag]")
 
 	if(callback.object != GLOBAL_PROC && QDELETED(callback.object) && !QDESTROYING(callback.object))
-		SSgarbage.HardDelete(callback.object, TRUE)		//Okay, in this case we really should harddel the object
 		stack_trace("addtimer called with a callback assigned to a qdeleted object. In the future such timers will not \
 			be supported and may refuse to run or run with a 0 wait")
 

@@ -1,9 +1,5 @@
 // Signals for receiving of information
 
-/// Called when proc need to get pull slowdown modifiers.
-#define COMSIG_GET_PULL_SLOWDOWN_MODIFIERS "get_pull_slowdown_modifiers"
-/// Called when proc need to get grab speed modifiers.
-#define COMSIG_GET_GRAB_SPEED_MODIFIERS "get_grab_speed_modifiers"
 /// Called when proc need to get melee damage deltas.
 #define COMSIG_GET_MELEE_DAMAGE_DELTAS "get_melee_damage_deltas"
 /// Called when proc need to get bonus icon render key info.

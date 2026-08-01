@@ -24,7 +24,7 @@
 		var/list/messages = list()
 		messages.Add("<b>You are a Highlander. Kill all other Highlanders. There can be only one.</b>")
 		messages.Add(H.mind.prepare_announce_objectives(FALSE))
-		to_chat(H, chat_box_red(messages.Join("<br>")))
+		to_chat(H, custom_boxed_message("red_box center", messages.Join("<br>")))
 
 		for(var/obj/item/I in H)
 			if(istype(I, /obj/item/implant))
@@ -85,7 +85,7 @@
 		var/list/messages = list()
 		messages.Add("<b>You are the multiverse summoner. Activate your blade to summon copies of yourself from another universe to fight by your side.</b>")
 		messages.Add(H.mind.prepare_announce_objectives(FALSE))
-		to_chat(H, chat_box_red(messages.Join("<br>")))
+		to_chat(H, custom_boxed_message("red_box center", messages.Join("<br>")))
 
 		var/obj/item/slot_item_ID = H.get_item_by_slot(ITEM_SLOT_ID)
 		qdel(slot_item_ID)

@@ -8,7 +8,7 @@
 	icon = 'icons/obj/circuits.dmi'
 	icon_state = "setup_drone_arms"
 
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_on = FALSE
 
 	var/max_weight = WEIGHT_CLASS_NORMAL
@@ -18,7 +18,7 @@
 	var/locked = FALSE
 
 /obj/structure/dispenser_bot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бот-раздатчик",
 		GENITIVE = "бота-раздатчика",
 		DATIVE = "боту-раздатчику",

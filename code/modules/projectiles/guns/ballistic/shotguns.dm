@@ -32,8 +32,7 @@
 
 	if(istype(I, /obj/item/melee/energy))
 		add_fingerprint(user)
-		var/obj/item/melee/energy/sword = I
-		if(sword.active && sawoff(user))
+		if(HAS_TRAIT(I, TRAIT_ITEM_ACTIVE) && sawoff(user))
 			return ATTACK_CHAIN_PROCEED_SUCCESS
 		return ATTACK_CHAIN_PROCEED
 
@@ -200,7 +199,7 @@
 	reload_sound = 'sound/weapons/gun_interactions/winchester_reload.ogg'
 
 /obj/item/gun/projectile/shotgun/winchester/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "рычажный дробовик",
 		GENITIVE = "рычажного дробовика",
 		DATIVE = "рычажному дробовику",
@@ -227,7 +226,7 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/winchester/cargo
 
 /obj/item/gun/projectile/shotgun/winchester/cargo/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "дробовик \"Защитник карго\"",
 		GENITIVE = "дробовика \"Защитник карго\"",
 		DATIVE = "дробовику \"Защитник карго\"",
@@ -472,8 +471,7 @@
 
 	if(istype(I, /obj/item/melee/energy))
 		add_fingerprint(user)
-		var/obj/item/melee/energy/sword = I
-		if(sword.active && sawoff(user))
+		if(HAS_TRAIT(I, TRAIT_ITEM_ACTIVE) && sawoff(user))
 			return ATTACK_CHAIN_PROCEED_SUCCESS
 		return ATTACK_CHAIN_PROCEED
 
@@ -573,7 +571,7 @@
 	recoil = GUN_RECOIL_MEDIUM
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "трость",
 		GENITIVE = "трости",
 		DATIVE = "трости",

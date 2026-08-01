@@ -130,7 +130,7 @@
 	var/enabled_waddle = TRUE
 
 /obj/item/clothing/shoes/magboots/clown/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "клоунские башмаки",
 		GENITIVE = "клоунских башмаков",
 		DATIVE = "клоунским башмакам",
@@ -174,7 +174,7 @@
 	slowdown_active = SHOES_SLOWDOWN //wiz hardsuit already slows you down, no need to double it
 	magpulse_name = "gripping ability"
 	magical = TRUE
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_on = FALSE
 	light_range = 2
 

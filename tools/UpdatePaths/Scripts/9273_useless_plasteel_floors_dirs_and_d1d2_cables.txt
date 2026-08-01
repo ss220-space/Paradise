@@ -1,0 +1,229 @@
+# barber
+/turf/simulated/floor/plasteel{icon_state="barber";dir=1} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="barber";dir=2} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="barber";dir=4} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="barber";dir=5} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="barber";dir=6} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="barber";dir=8} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="barber";dir=9} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="barber";dir=10} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+
+# tranquillite
+/turf/simulated/floor/plasteel{icon_state="tranquillite";dir=1} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="tranquillite";dir=2} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="tranquillite";dir=4} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="tranquillite";dir=5} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="tranquillite";dir=6} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="tranquillite";dir=8} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="tranquillite";dir=9} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="tranquillite";dir=10} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+
+# dark
+/turf/simulated/floor/plasteel{icon_state="dark";dir=1} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="dark";dir=2} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="dark";dir=4} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="dark";dir=5} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="dark";dir=6} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="dark";dir=8} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="dark";dir=9} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="dark";dir=10} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+
+# bluefull
+/turf/simulated/floor/plasteel{icon_state="bluefull";dir=1} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="bluefull";dir=2} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="bluefull";dir=4} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="bluefull";dir=5} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="bluefull";dir=6} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="bluefull";dir=8} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="bluefull";dir=9} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="bluefull";dir=10} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+
+# darkgreenfull
+/turf/simulated/floor/plasteel{icon_state="darkgreenfull";dir=1} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="darkgreenfull";dir=2} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="darkgreenfull";dir=4} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="darkgreenfull";dir=5} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="darkgreenfull";dir=6} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="darkgreenfull";dir=8} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="darkgreenfull";dir=9} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="darkgreenfull";dir=10} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+
+# darkredfull
+/turf/simulated/floor/plasteel{icon_state="darkredfull";dir=1} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="darkredfull";dir=2} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="darkredfull";dir=4} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="darkredfull";dir=5} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="darkredfull";dir=6} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="darkredfull";dir=8} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="darkredfull";dir=9} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="darkredfull";dir=10} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+
+# neutralfull
+/turf/simulated/floor/plasteel{icon_state="neutralfull";dir=1} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="neutralfull";dir=2} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="neutralfull";dir=4} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="neutralfull";dir=5} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="neutralfull";dir=6} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="neutralfull";dir=8} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="neutralfull";dir=9} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="neutralfull";dir=10} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+
+# white
+/turf/simulated/floor/plasteel{icon_state="white";dir=1} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="white";dir=2} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="white";dir=4} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="white";dir=5} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="white";dir=6} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="white";dir=8} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="white";dir=9} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="white";dir=10} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+
+# cmo
+/turf/simulated/floor/plasteel{icon_state="cmo";dir=1} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="cmo";dir=2} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="cmo";dir=4} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="cmo";dir=5} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="cmo";dir=6} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="cmo";dir=8} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="cmo";dir=9} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+/turf/simulated/floor/plasteel{icon_state="cmo";dir=10} : /turf/simulated/floor/plasteel{@OLD;dir=@SKIP}
+
+
+# clearing d1 d2 for cables
+/obj/structure/cable{d1=1} : /obj/structure/cable{@OLD;d1=@SKIP}
+/obj/structure/cable{d1=2} : /obj/structure/cable{@OLD;d1=@SKIP}
+/obj/structure/cable{d1=4} : /obj/structure/cable{@OLD;d1=@SKIP}
+/obj/structure/cable{d1=5} : /obj/structure/cable{@OLD;d1=@SKIP}
+/obj/structure/cable{d1=6} : /obj/structure/cable{@OLD;d1=@SKIP}
+/obj/structure/cable{d1=8} : /obj/structure/cable{@OLD;d1=@SKIP}
+/obj/structure/cable{d1=9} : /obj/structure/cable{@OLD;d1=@SKIP}
+/obj/structure/cable{d1=10} : /obj/structure/cable{@OLD;d1=@SKIP}
+/obj/structure/cable{d2=1} : /obj/structure/cable{@OLD;d2=@SKIP}
+/obj/structure/cable{d2=2} : /obj/structure/cable{@OLD;d2=@SKIP}
+/obj/structure/cable{d2=4} : /obj/structure/cable{@OLD;d2=@SKIP}
+/obj/structure/cable{d2=5} : /obj/structure/cable{@OLD;d2=@SKIP}
+/obj/structure/cable{d2=6} : /obj/structure/cable{@OLD;d2=@SKIP}
+/obj/structure/cable{d2=8} : /obj/structure/cable{@OLD;d2=@SKIP}
+/obj/structure/cable{d2=9} : /obj/structure/cable{@OLD;d2=@SKIP}
+/obj/structure/cable{d2=10} : /obj/structure/cable{@OLD;d2=@SKIP}
+
+/obj/structure/cable/blue{d1=1} : /obj/structure/cable/blue{@OLD;d1=@SKIP}
+/obj/structure/cable/blue{d1=2} : /obj/structure/cable/blue{@OLD;d1=@SKIP}
+/obj/structure/cable/blue{d1=4} : /obj/structure/cable/blue{@OLD;d1=@SKIP}
+/obj/structure/cable/blue{d1=8} : /obj/structure/cable/blue{@OLD;d1=@SKIP}
+/obj/structure/cable/blue{d2=1} : /obj/structure/cable/blue{@OLD;d2=@SKIP}
+/obj/structure/cable/blue{d2=2} : /obj/structure/cable/blue{@OLD;d2=@SKIP}
+/obj/structure/cable/blue{d2=4} : /obj/structure/cable/blue{@OLD;d2=@SKIP}
+/obj/structure/cable/blue{d2=8} : /obj/structure/cable/blue{@OLD;d2=@SKIP}
+
+/obj/structure/cable/cyan{d1=1} : /obj/structure/cable/cyan{@OLD;d1=@SKIP}
+/obj/structure/cable/cyan{d1=2} : /obj/structure/cable/cyan{@OLD;d1=@SKIP}
+/obj/structure/cable/cyan{d1=4} : /obj/structure/cable/cyan{@OLD;d1=@SKIP}
+/obj/structure/cable/cyan{d1=8} : /obj/structure/cable/cyan{@OLD;d1=@SKIP}
+/obj/structure/cable/cyan{d2=1} : /obj/structure/cable/cyan{@OLD;d2=@SKIP}
+/obj/structure/cable/cyan{d2=2} : /obj/structure/cable/cyan{@OLD;d2=@SKIP}
+/obj/structure/cable/cyan{d2=4} : /obj/structure/cable/cyan{@OLD;d2=@SKIP}
+/obj/structure/cable/cyan{d2=8} : /obj/structure/cable/cyan{@OLD;d2=@SKIP}
+
+/obj/structure/cable/green{d1=1} : /obj/structure/cable/green{@OLD;d1=@SKIP}
+/obj/structure/cable/green{d1=2} : /obj/structure/cable/green{@OLD;d1=@SKIP}
+/obj/structure/cable/green{d1=4} : /obj/structure/cable/green{@OLD;d1=@SKIP}
+/obj/structure/cable/green{d1=8} : /obj/structure/cable/green{@OLD;d1=@SKIP}
+/obj/structure/cable/green{d2=1} : /obj/structure/cable/green{@OLD;d2=@SKIP}
+/obj/structure/cable/green{d2=2} : /obj/structure/cable/green{@OLD;d2=@SKIP}
+/obj/structure/cable/green{d2=4} : /obj/structure/cable/green{@OLD;d2=@SKIP}
+/obj/structure/cable/green{d2=8} : /obj/structure/cable/green{@OLD;d2=@SKIP}
+
+/obj/structure/cable/orange{d1=1} : /obj/structure/cable/orange{@OLD;d1=@SKIP}
+/obj/structure/cable/orange{d1=2} : /obj/structure/cable/orange{@OLD;d1=@SKIP}
+/obj/structure/cable/orange{d1=4} : /obj/structure/cable/orange{@OLD;d1=@SKIP}
+/obj/structure/cable/orange{d1=8} : /obj/structure/cable/orange{@OLD;d1=@SKIP}
+/obj/structure/cable/orange{d2=1} : /obj/structure/cable/orange{@OLD;d2=@SKIP}
+/obj/structure/cable/orange{d2=2} : /obj/structure/cable/orange{@OLD;d2=@SKIP}
+/obj/structure/cable/orange{d2=4} : /obj/structure/cable/orange{@OLD;d2=@SKIP}
+/obj/structure/cable/orange{d2=8} : /obj/structure/cable/orange{@OLD;d2=@SKIP}
+
+/obj/structure/cable/pink{d1=1} : /obj/structure/cable/pink{@OLD;d1=@SKIP}
+/obj/structure/cable/pink{d1=2} : /obj/structure/cable/pink{@OLD;d1=@SKIP}
+/obj/structure/cable/pink{d1=4} : /obj/structure/cable/pink{@OLD;d1=@SKIP}
+/obj/structure/cable/pink{d1=8} : /obj/structure/cable/pink{@OLD;d1=@SKIP}
+/obj/structure/cable/pink{d2=1} : /obj/structure/cable/pink{@OLD;d2=@SKIP}
+/obj/structure/cable/pink{d2=2} : /obj/structure/cable/pink{@OLD;d2=@SKIP}
+/obj/structure/cable/pink{d2=4} : /obj/structure/cable/pink{@OLD;d2=@SKIP}
+/obj/structure/cable/pink{d2=8} : /obj/structure/cable/pink{@OLD;d2=@SKIP}
+
+/obj/structure/cable/white{d1=1} : /obj/structure/cable/white{@OLD;d1=@SKIP}
+/obj/structure/cable/white{d1=2} : /obj/structure/cable/white{@OLD;d1=@SKIP}
+/obj/structure/cable/white{d1=4} : /obj/structure/cable/white{@OLD;d1=@SKIP}
+/obj/structure/cable/white{d1=8} : /obj/structure/cable/white{@OLD;d1=@SKIP}
+/obj/structure/cable/white{d2=1} : /obj/structure/cable/white{@OLD;d2=@SKIP}
+/obj/structure/cable/white{d2=2} : /obj/structure/cable/white{@OLD;d2=@SKIP}
+/obj/structure/cable/white{d2=4} : /obj/structure/cable/white{@OLD;d2=@SKIP}
+/obj/structure/cable/white{d2=8} : /obj/structure/cable/white{@OLD;d2=@SKIP}
+
+/obj/structure/cable/yellow{d1=1} : /obj/structure/cable/yellow{@OLD;d1=@SKIP}
+/obj/structure/cable/yellow{d1=2} : /obj/structure/cable/yellow{@OLD;d1=@SKIP}
+/obj/structure/cable/yellow{d1=4} : /obj/structure/cable/yellow{@OLD;d1=@SKIP}
+/obj/structure/cable/yellow{d1=8} : /obj/structure/cable/yellow{@OLD;d1=@SKIP}
+/obj/structure/cable/yellow{d2=1} : /obj/structure/cable/yellow{@OLD;d2=@SKIP}
+/obj/structure/cable/yellow{d2=2} : /obj/structure/cable/yellow{@OLD;d2=@SKIP}
+/obj/structure/cable/yellow{d2=4} : /obj/structure/cable/yellow{@OLD;d2=@SKIP}
+/obj/structure/cable/yellow{d2=8} : /obj/structure/cable/yellow{@OLD;d2=@SKIP}
+
+
+# --- Парные d1 и d2 (для всех цветов, основные направления) ---
+/obj/structure/cable{d1=1;d2=2} : /obj/structure/cable{@OLD;d1=@SKIP;d2=@SKIP}
+/obj/structure/cable{d1=1;d2=4} : /obj/structure/cable{@OLD;d1=@SKIP;d2=@SKIP}
+/obj/structure/cable{d1=1;d2=8} : /obj/structure/cable{@OLD;d1=@SKIP;d2=@SKIP}
+/obj/structure/cable{d1=2;d2=4} : /obj/structure/cable{@OLD;d1=@SKIP;d2=@SKIP}
+/obj/structure/cable{d1=2;d2=8} : /obj/structure/cable{@OLD;d1=@SKIP;d2=@SKIP}
+/obj/structure/cable{d1=4;d2=8} : /obj/structure/cable{@OLD;d1=@SKIP;d2=@SKIP}
+
+/obj/structure/cable/blue{d1=1;d2=2} : /obj/structure/cable/blue{@OLD;d1=@SKIP;d2=@SKIP}
+/obj/structure/cable/blue{d1=1;d2=4} : /obj/structure/cable/blue{@OLD;d1=@SKIP;d2=@SKIP}
+/obj/structure/cable/blue{d1=1;d2=8} : /obj/structure/cable/blue{@OLD;d1=@SKIP;d2=@SKIP}
+/obj/structure/cable/blue{d1=2;d2=4} : /obj/structure/cable/blue{@OLD;d1=@SKIP;d2=@SKIP}
+/obj/structure/cable/blue{d1=2;d2=8} : /obj/structure/cable/blue{@OLD;d1=@SKIP;d2=@SKIP}
+/obj/structure/cable/blue{d1=4;d2=8} : /obj/structure/cable/blue{@OLD;d1=@SKIP;d2=@SKIP}
+
+/obj/structure/cable/cyan{d1=1;d2=2} : /obj/structure/cable/cyan{@OLD;d1=@SKIP;d2=@SKIP}
+/obj/structure/cable/cyan{d1=1;d2=4} : /obj/structure/cable/cyan{@OLD;d1=@SKIP;d2=@SKIP}
+/obj/structure/cable/cyan{d1=1;d2=8} : /obj/structure/cable/cyan{@OLD;d1=@SKIP;d2=@SKIP}
+/obj/structure/cable/cyan{d1=2;d2=4} : /obj/structure/cable/cyan{@OLD;d1=@SKIP;d2=@SKIP}
+/obj/structure/cable/cyan{d1=2;d2=8} : /obj/structure/cable/cyan{@OLD;d1=@SKIP;d2=@SKIP}
+/obj/structure/cable/cyan{d1=4;d2=8} : /obj/structure/cable/cyan{@OLD;d1=@SKIP;d2=@SKIP}
+
+/obj/structure/cable/green{d1=1;d2=2} : /obj/structure/cable/green{@OLD;d1=@SKIP;d2=@SKIP}
+/obj/structure/cable/green{d1=1;d2=4} : /obj/structure/cable/green{@OLD;d1=@SKIP;d2=@SKIP}
+/obj/structure/cable/green{d1=1;d2=8} : /obj/structure/cable/green{@OLD;d1=@SKIP;d2=@SKIP}
+/obj/structure/cable/green{d1=2;d2=4} : /obj/structure/cable/green{@OLD;d1=@SKIP;d2=@SKIP}
+/obj/structure/cable/green{d1=2;d2=8} : /obj/structure/cable/green{@OLD;d1=@SKIP;d2=@SKIP}
+/obj/structure/cable/green{d1=4;d2=8} : /obj/structure/cable/green{@OLD;d1=@SKIP;d2=@SKIP}
+
+/obj/structure/cable/orange{d1=1;d2=2} : /obj/structure/cable/orange{@OLD;d1=@SKIP;d2=@SKIP}
+/obj/structure/cable/orange{d1=1;d2=4} : /obj/structure/cable/orange{@OLD;d1=@SKIP;d2=@SKIP}
+/obj/structure/cable/orange{d1=1;d2=8} : /obj/structure/cable/orange{@OLD;d1=@SKIP;d2=@SKIP}
+/obj/structure/cable/orange{d1=2;d2=4} : /obj/structure/cable/orange{@OLD;d1=@SKIP;d2=@SKIP}
+/obj/structure/cable/orange{d1=2;d2=8} : /obj/structure/cable/orange{@OLD;d1=@SKIP;d2=@SKIP}
+/obj/structure/cable/orange{d1=4;d2=8} : /obj/structure/cable/orange{@OLD;d1=@SKIP;d2=@SKIP}
+
+/obj/structure/cable/pink{d1=1;d2=2} : /obj/structure/cable/pink{@OLD;d1=@SKIP;d2=@SKIP}
+/obj/structure/cable/pink{d1=1;d2=4} : /obj/structure/cable/pink{@OLD;d1=@SKIP;d2=@SKIP}
+/obj/structure/cable/pink{d1=1;d2=8} : /obj/structure/cable/pink{@OLD;d1=@SKIP;d2=@SKIP}
+/obj/structure/cable/pink{d1=2;d2=4} : /obj/structure/cable/pink{@OLD;d1=@SKIP;d2=@SKIP}
+/obj/structure/cable/pink{d1=2;d2=8} : /obj/structure/cable/pink{@OLD;d1=@SKIP;d2=@SKIP}
+/obj/structure/cable/pink{d1=4;d2=8} : /obj/structure/cable/pink{@OLD;d1=@SKIP;d2=@SKIP}
+
+/obj/structure/cable/white{d1=1;d2=2} : /obj/structure/cable/white{@OLD;d1=@SKIP;d2=@SKIP}
+/obj/structure/cable/white{d1=1;d2=4} : /obj/structure/cable/white{@OLD;d1=@SKIP;d2=@SKIP}
+/obj/structure/cable/white{d1=1;d2=8} : /obj/structure/cable/white{@OLD;d1=@SKIP;d2=@SKIP}
+/obj/structure/cable/white{d1=2;d2=4} : /obj/structure/cable/white{@OLD;d1=@SKIP;d2=@SKIP}
+/obj/structure/cable/white{d1=2;d2=8} : /obj/structure/cable/white{@OLD;d1=@SKIP;d2=@SKIP}
+/obj/structure/cable/white{d1=4;d2=8} : /obj/structure/cable/white{@OLD;d1=@SKIP;d2=@SKIP}
+
+/obj/structure/cable/yellow{d1=1;d2=2} : /obj/structure/cable/yellow{@OLD;d1=@SKIP;d2=@SKIP}
+/obj/structure/cable/yellow{d1=1;d2=4} : /obj/structure/cable/yellow{@OLD;d1=@SKIP;d2=@SKIP}
+/obj/structure/cable/yellow{d1=1;d2=8} : /obj/structure/cable/yellow{@OLD;d1=@SKIP;d2=@SKIP}
+/obj/structure/cable/yellow{d1=2;d2=4} : /obj/structure/cable/yellow{@OLD;d1=@SKIP;d2=@SKIP}
+/obj/structure/cable/yellow{d1=2;d2=8} : /obj/structure/cable/yellow{@OLD;d1=@SKIP;d2=@SKIP}
+/obj/structure/cable/yellow{d1=4;d2=8} : /obj/structure/cable/yellow{@OLD;d1=@SKIP;d2=@SKIP}

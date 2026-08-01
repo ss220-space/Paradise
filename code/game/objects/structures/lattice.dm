@@ -14,16 +14,27 @@
 	smooth = SMOOTH_BITMASK
 	smoothing_groups = SMOOTH_GROUP_LATTICE
 	obj_flags = BLOCK_Z_OUT_DOWN | BLOCK_Z_IN_UP
-	var/list/give_turf_traits = list(TRAIT_CHASM_STOPPED)
+	var/list/give_turf_traits = list(TRAIT_CHASM_STOPPED, TRAIT_IMMERSE_STOPPED)
 
 /obj/structure/lattice/Initialize(mapload)
 	. = ..()
-	for(var/obj/structure/lattice/LAT in loc)
-		if(LAT != src)
-			QDEL_IN(LAT, 0)
+	for(var/obj/structure/lattice/lattice in loc)
+		if(lattice == src)
+			continue
+		WARNING("multiple lattices found in ([loc.x], [loc.y], [loc.z], [get_area(lattice)])")
+		return INITIALIZE_HINT_QDEL
+
 	if(length(give_turf_traits))
 		give_turf_traits = string_list(give_turf_traits)
 		AddElement(/datum/element/give_turf_traits, give_turf_traits)
+
+// so items on the lattice fall when the lattice is destroyed
+/obj/structure/lattice/Destroy(force)
+	var/turf/turfloc = loc
+	. = ..()
+	if(isturf(turfloc))
+		for(var/thing_that_falls in turfloc)
+			turfloc.zFall(thing_that_falls)
 
 /obj/structure/lattice/examine(mob/user)
 	. = ..()
@@ -51,6 +62,15 @@
 		C.deconstruct()
 	..()
 
+/obj/structure/lattice/proc/replace_with_catwalk()
+	var/list/post_replacement_callbacks = list()
+	SEND_SIGNAL(src, COMSIG_LATTICE_PRE_REPLACE_WITH_CATWALK, post_replacement_callbacks)
+	var/turf/turf = loc
+	qdel(src)
+	var/new_catwalk = new /obj/structure/lattice/catwalk(turf)
+	for(var/datum/callback/callback as anything in post_replacement_callbacks)
+		callback.Invoke(new_catwalk)
+
 /obj/structure/lattice/attackby(obj/item/I, mob/user, list/modifiers)
 	if((resistance_flags & INDESTRUCTIBLE) || !isturf(loc))
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -73,14 +93,14 @@
 	. = ..()
 	if(rcd_mode != RCD_MODE_TURF)
 		return RCD_NO_ACT
-	if(our_rcd.useResource(1, user))
-		to_chat(user, "Building Floor...")
+	if(our_rcd.useResource(RCD_COST_FLOOR, user))
+		to_chat(user, "Печать пола...")
 		playsound(get_turf(our_rcd), our_rcd.usesound, 50, TRUE)
 		var/turf/AT = get_turf(src)
 		add_attack_logs(user, AT, "Constructed floor with RCD")
 		AT.ChangeTurf(our_rcd.floor_type)
 		return RCD_ACT_SUCCESSFULL
-	to_chat(user, span_warning("ERROR! Not enough matter in unit to construct this floor!"))
+	to_chat(user, span_warning("ОШИБКА! Недостаточно материи для печати пола!"))
 	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 	return RCD_ACT_FAILED
 
@@ -114,7 +134,7 @@
 	number_of_rods = 2
 	canSmoothWith = SMOOTH_GROUP_CATWALK
 	smoothing_groups = SMOOTH_GROUP_CATWALK
-	give_turf_traits = list(TRAIT_CHASM_STOPPED, TRAIT_TURF_IGNORE_SLOWDOWN)
+	give_turf_traits = list(TRAIT_CHASM_STOPPED, TRAIT_TURF_IGNORE_SLOWDOWN, TRAIT_IMMERSE_STOPPED)
 
 /obj/structure/lattice/catwalk/deconstruction_hints(mob/user)
 	to_chat(user, span_notice("The supporting rods look like they could be <b>cut</b>."))

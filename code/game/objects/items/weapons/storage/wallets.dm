@@ -7,7 +7,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
 	slot_flags = ITEM_SLOT_ID
-	storage_slots = 4
+	storage_slots = 5
 	can_hold = list(
 		/obj/item/card,
 		/obj/item/clothing/gloves/ring,
@@ -31,12 +31,17 @@
 		/obj/item/seeds,
 		/obj/item/spacepod_equipment/key,
 		/obj/item/stack/medical,
+		/obj/item/tourniquet,
 		/obj/item/stack/spacecash,
 		/obj/item/stamp,
 		/obj/item/toy/crayon,
 	)
 	var/obj/item/card/id/front_id = null
 	var/image/front_id_overlay = null
+
+/obj/item/storage/wallet/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_CARD_DECAL_APPLIED, PROC_REF(refresh_id_on_signal))
 
 /obj/item/storage/wallet/remove_from_storage(obj/item/I, atom/new_location)
 	. = ..()
@@ -55,6 +60,11 @@
 
 /obj/item/storage/wallet/orient2hud(mob/user)
 	. = ..()
+	refresh_ID()
+
+/obj/item/storage/wallet/proc/refresh_id_on_signal(datum/source)
+	SIGNAL_HANDLER
+
 	refresh_ID()
 
 /obj/item/storage/wallet/proc/refresh_ID()
@@ -107,7 +117,6 @@
 /obj/item/storage/wallet/color
 	name = "cheap wallet"
 	desc = "A cheap wallet from the arcade."
-	storage_slots = 5		//smaller storage than normal wallets
 
 /obj/item/storage/wallet/color/Initialize(mapload)
 	. = ..()

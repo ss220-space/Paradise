@@ -21,10 +21,10 @@
 	var/state_warning = "urgentwarning"
 	/// Overlay added when you are in danger
 	var/state_danger = "direwarning"
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 
 /obj/item/radio/weather_monitor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "метеорологическое радио",
 		GENITIVE = "метеорологического радио",
 		DATIVE = "метеорологическому радио",

@@ -13,7 +13,6 @@
 	container_type = OPENCONTAINER
 	has_lid = TRUE
 	resistance_flags = ACID_PROOF
-	blocks_emissive = FALSE
 	var/label_text = ""
 
 /obj/item/reagent_containers/glass/Initialize(mapload)
@@ -144,7 +143,7 @@
 	var/can_assembly = TRUE
 
 /obj/item/reagent_containers/glass/beaker/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мерный стакан",
 		GENITIVE = "мерного стакана",
 		DATIVE = "мерному стакану",
@@ -195,7 +194,7 @@
 
 	if(!is_open_container())
 		. += "lid_[initial(icon_state)]"
-		if(blocks_emissive == FALSE)
+		if(blocks_emissive == EMISSIVE_BLOCK_NONE)
 			. += emissive_blocker(icon, "lid_[initial(icon_state)]", src)
 
 	if(assembly)
@@ -272,7 +271,7 @@
 	possible_transfer_amounts = list(5, 10, 15, 25, 30, 50, 100)
 
 /obj/item/reagent_containers/glass/beaker/large/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "большой мерный стакан",
 		GENITIVE = "большого мерного стакана",
 		DATIVE = "большому мерному стакану",
@@ -292,7 +291,7 @@
 	can_assembly = 0
 
 /obj/item/reagent_containers/glass/beaker/vial/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пробирка",
 		GENITIVE = "пробирки",
 		DATIVE = "пробирке",
@@ -311,7 +310,7 @@
 	can_assembly = 0
 
 /obj/item/reagent_containers/glass/beaker/drugs/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пластиковый пакетик",
 		GENITIVE = "пластикового пакетика",
 		DATIVE = "пластиковому пакетику",
@@ -331,7 +330,7 @@
 	list_reagents = list("thermite" = 25)
 
 /obj/item/reagent_containers/glass/beaker/thermite/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пластиковый пакетик (Термит)",
 		GENITIVE = "пластикового пакетика (Термит)",
 		DATIVE = "пластиковому пакетику (Термит)",
@@ -346,10 +345,9 @@
 	icon_state = "beakernoreact"
 	materials = list(MAT_METAL=3000)
 	origin_tech = "materials=2;engineering=3;plasmatech=3"
-	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
 /obj/item/reagent_containers/glass/beaker/noreact/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "криостазиный мерный стакан",
 		GENITIVE = "криостазиного мерного стакана",
 		DATIVE = "криостазиному мерному стакану",
@@ -369,11 +367,10 @@
 	materials = list(MAT_GLASS=3000)
 	volume = 300
 	possible_transfer_amounts = list(5, 10, 15, 25, 30, 50, 100, 300)
-	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	origin_tech = "bluespace=5;materials=4;plasmatech=4"
 
 /obj/item/reagent_containers/glass/beaker/bluespace/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "блюспейс мерный стакан",
 		GENITIVE = "блюспейс мерного стакана",
 		DATIVE = "блюспейс мерному стакану",
@@ -411,11 +408,10 @@
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 75, ACID = 50) //Weak melee protection, because you can wear it on your head
 	slot_flags = ITEM_SLOT_HEAD
 	resistance_flags = NONE
-	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	var/paintable = TRUE
 
 /obj/item/reagent_containers/glass/bucket/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "металлическое ведро",
 		GENITIVE = "металлического ведра",
 		DATIVE = "металлическому ведру",
@@ -436,10 +432,10 @@
 		var/obj/item/toy/crayon/spraycan/can = I
 		if(!paintable)
 			balloon_alert(user, "нельзя покрасить!")
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		if(can.capped)
 			balloon_alert(user, "закрыто крышкой!")
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		balloon_alert(user, "перекрашено!")
 		playsound(user.loc, 'sound/effects/spray.ogg', 20, TRUE)
 		color = can.colour
@@ -447,9 +443,12 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS|ATTACK_CHAIN_NO_AFTERATTACK
 
 	if(istype(I, /obj/item/mop))
-		add_fingerprint(user)
-		var/obj/item/mop/mop = I
-		mop.wet_mop(src, user)
+		if(reagents.total_volume < 1)
+			user.balloon_alert(user, "empty!")
+			return ATTACK_CHAIN_PROCEED
+		reagents.trans_to(I, 5)
+		user.balloon_alert(user, "doused [I]")
+		playsound(src, 'sound/effects/slosh.ogg', 25, TRUE)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(isprox(I))
@@ -499,7 +498,7 @@
 	paintable = FALSE
 
 /obj/item/reagent_containers/glass/bucket/wooden/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "деревянное ведро",
 		GENITIVE = "деревянного ведра",
 		DATIVE = "деревянному ведру",
@@ -522,7 +521,7 @@
 	materials = list(MAT_GLASS = 0)
 
 /obj/item/reagent_containers/glass/beaker/waterbottle/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка воды",
 		GENITIVE = "бутылки воды",
 		DATIVE = "бутылке воды",
@@ -543,7 +542,7 @@
 	amount_per_transfer_from_this = 20
 
 /obj/item/reagent_containers/glass/beaker/waterbottle/large/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "большая бутылка воды",
 		GENITIVE = "большой бутылки воды",
 		DATIVE = "большой бутылке воды",
@@ -568,11 +567,10 @@
 	possible_transfer_amounts = null
 	volume = 15
 	resistance_flags = FLAMMABLE
-	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	color = "#0085E5"
 
 /obj/item/reagent_containers/glass/pet_bowl/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "миска для животных",
 		GENITIVE = "миски для животных",
 		DATIVE = "миске для животных",
@@ -591,7 +589,7 @@
 		var/obj/item/toy/crayon/spraycan/can = I
 		if(can.capped)
 			balloon_alert(user, "закрыто крышкой!")
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		balloon_alert(user, "перекрашено")
 		playsound(user.loc, 'sound/effects/spray.ogg', 20, TRUE)
 		color = can.colour
@@ -621,7 +619,9 @@
 					feed_overlay.icon_state = "petfood_15"
 			. += feed_overlay
 		else
-			. += mutable_appearance(icon, "liquid_overlay", color = mix_color_from_reagents(reagents.reagent_list), appearance_flags = RESET_COLOR)
+			var/mutable_appearance/liquid_overlay = mutable_appearance(icon, "liquid_overlay", appearance_flags = RESET_COLOR)
+			liquid_overlay.color = mix_color_from_reagents(reagents.reagent_list)
+			. += liquid_overlay
 
 /obj/item/reagent_containers/glass/pet_bowl/attack_animal(mob/living/simple_animal/pet)
 	if(!pet.client || !pet.safe_respawn(pet, check_station_level = FALSE) || !reagents.total_volume)
@@ -650,7 +650,7 @@
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 3500)
 
 /obj/item/reagent_containers/glass/coffeepot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кофейник",
 		GENITIVE = "кофейника",
 		DATIVE = "кофейнику",
@@ -679,3 +679,17 @@
 
 	filling.color = get_color_matrix_from_reagents(reagents.reagent_list)
 	. += filling
+
+/obj/item/reagent_containers/glass/bucket/wooden/shit
+	name = "shit bucket"
+	desc = "Омерзительно. Им кто-то недавно пользовался?!"
+
+/obj/item/reagent_containers/glass/bucket/wooden/shit/get_ru_names()
+	return alist(
+		NOMINATIVE = "сральное ведро",
+		GENITIVE = "срального ведра",
+		DATIVE = "сральному ведру",
+		ACCUSATIVE = "сральное ведро",
+		INSTRUMENTAL = "сральным ведром",
+		PREPOSITIONAL = "сральном ведре",
+	)

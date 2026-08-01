@@ -88,6 +88,12 @@
 	database_id = MEDAL_DEEP_DRAW
 	icon_state = "deep_draw"
 
+/datum/award/achievement/misc/rocket_holdup
+	name = "Ваш диск, пожалуйста!"
+	desc = "Эй, я наставил на тебя ракетницу, ты не боишься? Я бы на твоем месте не двигался и отдал мне диск."
+	database_id = MEDAL_DISKPLEASE
+	icon_state = "rocket_holdup"
+
 //TODO Uncomment when be implemented
 /*
 /datum/award/achievement/misc/round_and_full
@@ -113,12 +119,6 @@
 	desc = "Make your first unique material item!"
 	database_id = MEDAL_MATERIALCRAFT
 	icon_state = "upgrade"
-
-/datum/award/achievement/misc/rocket_holdup
-	name = "Disk, Please!" // REQ /datum/component/gunpoint
-	desc = "Is the man currently pointing a loaded rocket launcher at your head point blank really dumb enough to pull the trigger? Do you really want to find out?"
-	database_id = MEDAL_DISKPLEASE
-	icon_state = "rocket_holdup"
 
 /datum/award/achievement/misc/cleanboss
 	name = "One Lean, Mean, Cleaning Machine" // REQ tgstation cleanbots

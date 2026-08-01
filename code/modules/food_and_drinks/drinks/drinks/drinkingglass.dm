@@ -16,7 +16,7 @@
 	custom_price = PAYCHECK_MIN * 0.2
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "стакан",
 		GENITIVE = "стакана",
 		DATIVE = "стакану",
@@ -65,7 +65,9 @@
 	if(length(reagents.reagent_list))
 		var/datum/reagent/check = reagents.get_master_reagent()
 		if(!check.drink_icon)
-			. += mutable_appearance(icon, "glassoverlay", color = get_color_matrix_from_reagents(reagents.reagent_list))
+			var/mutable_appearance/glass_overlay = mutable_appearance(icon, "glassoverlay")
+			glass_overlay.color = get_color_matrix_from_reagents(reagents.reagent_list)
+			. += glass_overlay
 	else
 		icon_state = initial(icon_state)
 

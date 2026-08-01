@@ -46,7 +46,7 @@
 	var/bingles_evolved
 
 /obj/structure/bingle_hole/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "яма Бинглов",
 		GENITIVE = "ямы Бинглов",
 		DATIVE = "яме Бинглов",
@@ -178,7 +178,7 @@
 	if(victim.incorporeal_move)
 		return FALSE
 	if(victim.body_position == STANDING_UP)
-		if(!victim.get_gravity(get_turf(victim)))
+		if(!victim.has_gravity(get_turf(victim)))
 			return FALSE
 		if(victim.movement_type & (FLYING | FLOATING))
 			return FALSE
@@ -449,7 +449,7 @@
 	var/obj/structure/bingle_hole/parent_pit
 
 /obj/structure/bingle_pit_overlay/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "яма Бинглов",
 		GENITIVE = "ямы Бинглов",
 		DATIVE = "яме Бинглов",

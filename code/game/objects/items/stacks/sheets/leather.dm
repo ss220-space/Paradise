@@ -123,7 +123,7 @@ GLOBAL_LIST_INIT(xeno_recipes, list (
 	origin_tech = ""
 
 /obj/item/stack/sheet/hairlesshide/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "очищенная шкура",
 		GENITIVE = "очищенной шкуры",
 		DATIVE = "очищенной шкуре",
@@ -143,7 +143,7 @@ GLOBAL_LIST_INIT(xeno_recipes, list (
 	var/drying_threshold_temperature = 500 //Kelvin to start drying
 
 /obj/item/stack/sheet/wetleather/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мокрая шкура",
 		GENITIVE = "мокрой шкуры",
 		DATIVE = "мокрой шкуре",
@@ -160,7 +160,7 @@ GLOBAL_LIST_INIT(xeno_recipes, list (
 	origin_tech = "materials=2"
 
 /obj/item/stack/sheet/leather/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кожа",
 		GENITIVE = "кожи",
 		DATIVE = "коже",
@@ -181,7 +181,7 @@ GLOBAL_LIST_INIT(leather_recipes, list (
 	new/datum/stack_recipe("leather overcoat", /obj/item/clothing/suit/jacket/leather/overcoat, 10),
 	new/datum/stack_recipe("FireSuit", /obj/item/clothing/suit/fire/firefighter, 15),
 	new/datum/stack_recipe("hide mantle", /obj/item/clothing/neck/mantle/unathi, 4),
-	new/datum/stack_recipe("leather bed", /obj/structure/bed/leather, 10, one_per_turf = TRUE, on_floor = TRUE, time = 5 SECONDS),
+	new/datum/stack_recipe("leather bed", /obj/structure/bed/leather, 10, one_per_turf = TRUE, on_floor = TRUE, time = 5 SECONDS, modifier_name = CONSTRUCTING_SPEED_MOD),
 	new/datum/stack_recipe("gem satchel", /obj/item/storage/bag/gem, 1),
 	new/datum/stack_recipe("cloth", /obj/item/stack/sheet/cloth, 2),
 	))
@@ -199,7 +199,7 @@ GLOBAL_LIST_INIT(leather_recipes, list (
 	origin_tech = "biotech=4"
 
 /obj/item/stack/sheet/sinew/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сухожилия наблюдателя",
 		GENITIVE = "сухожилий наблюдателя",
 		DATIVE = "сухожилиям наблюдателя",
@@ -245,7 +245,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	))
 
 /obj/item/stack/sheet/animalhide/goliath_hide/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пластина шкуры голиафа",
 		GENITIVE = "пластины шкуры голиафа",
 		DATIVE = "пластине шкуры голиафа",
@@ -345,7 +345,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	layer = MOB_LAYER
 
 /obj/item/stack/sheet/cartilage_plate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "толстая хрящевая пластина",
 		GENITIVE = "толстой хрящевой пластины",
 		DATIVE = "толстой хрящевой пластине",
@@ -364,7 +364,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	layer = MOB_LAYER
 
 /obj/item/stack/sheet/animalhide/ashdrake/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шкура пепельного дрейка",
 		GENITIVE = "шкуры пепельного дрейка",
 		DATIVE = "шкуре пепельного дрейка",
@@ -394,6 +394,10 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
+
+/obj/item/stack/sheet/hairlesshide/wash_tg(clean_types)
+	. = ..()
+	. |= COMPONENT_CLEANED
 
 //Step two - washing (also handled by water reagent code and washing machine code)
 /obj/item/stack/sheet/hairlesshide/water_act(volume, temperature, source, method = REAGENT_TOUCH)

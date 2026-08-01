@@ -9,6 +9,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 #define GHOST_ORBIT_SQUARE "square"
 #define GHOST_ORBIT_PENTAGON "pentagon"
 
+#define GHOST_SELF_APPEARANCE "ghost_selfvision"
+
 /mob/dead/observer
 	name = "ghost"
 	desc = "Это п-п-п-п-призраааак!" //jinkies!
@@ -19,7 +21,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	stat = DEAD
 	movement_type = GROUND|FLYING
 	density = FALSE
-	blocks_emissive = FALSE // Ghosts are transparent, duh
 	alpha = 127
 	light_system = NO_LIGHT_SUPPORT
 	invisibility = INVISIBILITY_OBSERVER
@@ -35,6 +36,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	universal_speak = TRUE
 	var/image/ghostimage = null //this mobs ghost image, for deleting and stuff
 	var/ghostvision = TRUE //is the ghost able to see things humans can't?
+	var/selfvision = TRUE
 	var/seedarkness = TRUE
 	var/sightchanged = FALSE
 	/// Defines from __DEFINES/hud.dm go here based on which huds the ghost has activated.
@@ -54,6 +56,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
 	add_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS|SEE_SELF)
 	set_invis_see(SEE_INVISIBLE_OBSERVER_AI_EYE)
+	ADD_TRAIT(src, TRAIT_CULT_VEIL_SIGHT, INNATE_TRAIT)
 	add_verb(src, list(
 		/mob/dead/observer/proc/dead_tele,
 		/mob/dead/observer/proc/open_spawners_menu,
@@ -118,6 +121,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	abstract_move(location) //let ghost initialize properly, then off to spawn point
 
 /mob/dead/observer/Destroy()
+	handle_when_autoobserve_move()
 	toggle_all_huds_off()
 	remove_the_hud(THOUGHTS_HUD)
 	UnregisterSignal(src, COMSIG_MOB_HUD_CREATED)
@@ -129,8 +133,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	if(orbit_menu)
 		SStgui.close_uis(orbit_menu)
 		QDEL_NULL(orbit_menu)
-	do_observe_target = null
-	GLOB.respawnable_list -= src
+	remove_from_respawnable_list()
 	return ..()
 
 /mob/dead/observer/examine(mob/user)
@@ -209,10 +212,10 @@ Works together with spawning an observer, noted above.
 		recordable_time = former_mob.timeofdeath
 
 	ghost.persistent_client?.time_of_death = recordable_time
-	GLOB.respawnable_list -= src
+	remove_from_respawnable_list()
 
 	if(ghost.can_reenter_corpse)
-		GLOB.respawnable_list += ghost
+		ghost.add_to_respawnable_list()
 	else
 		GLOB.non_respawnable_keys[ckey] = 1
 
@@ -408,8 +411,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!check_rights((R_ADMIN | R_MOD), FALSE, user))
 		return
 	antagHUD = TRUE
-	for(var/datum/atom_hud/antag/H in GLOB.huds)
-		H.show_to(src)
+	for(var/hud_key, hud_type in GLOB.huds)
+		astype(hud_type, /datum/atom_hud/antag)?.show_to(src)
 
 /**
  * Toggles off all HUDs for the ghost player.
@@ -420,8 +423,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	remove_the_hud(DATA_HUD_SECURITY_ADVANCED)
 	remove_the_hud(DATA_HUD_MEDICAL_ADVANCED)
 	antagHUD = FALSE
-	for(var/datum/atom_hud/antag/H in GLOB.huds)
-		H.hide_from(src)
+	for(var/hud_key, hud_type in GLOB.huds)
+		astype(hud_type, /datum/atom_hud/antag)?.hide_from(src)
 
 /mob/dead/observer/verb/set_dnr()
 	set name = "Запретить реанимацию"
@@ -548,7 +551,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 				rot_seg = 36 //360/10 bby, smooth enough aproximation of a circle
 
 		to_chat(src, span_notice("Вы следуете за [target]"))
-		orbit(target, orbitsize, FALSE, 20, rot_seg, forceMove = TRUE)
+		orbit(target, orbitsize, FALSE, 20, rot_seg)
 
 /mob/dead/observer/orbit(atom/A, radius, clockwise, rotation_speed, rotation_segments, pre_rotation, lockinorbit, forceMove)
 	setDir(SOUTH)//reset dir so the right directional sprites show up
@@ -749,6 +752,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	do_observe_target = null
 	REMOVE_TRAIT(src, TRAIT_OBSERVING_INVENTORY, UNIQUE_TRAIT_SOURCE(src))
+	hud_used?.show_hud(hud_used?.hud_version, src)
 
 /mob/dead/observer/proc/handle_when_autoobserve_sight_updated()
 	SIGNAL_HANDLER
@@ -769,6 +773,25 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	ghostvision = !(ghostvision)
 	update_sight()
 	to_chat(usr, span_notice("Видимость призраков [(ghostvision?"включена":"отключена")]."))
+
+/mob/dead/observer/verb/toggle_selfsee()
+	set name = "Видимость себя"
+	set desc = "Toggles your ability to see your own ghost. Other ghosts still see you"
+	set category = VERB_CATEGORY_GHOST
+
+	selfvision = !selfvision
+	update_selfvision()
+	to_chat(usr, span_notice("Видимость себя [(selfvision ? "включена" : "отключена")]."))
+
+/mob/dead/observer/proc/update_selfvision()
+	if(selfvision)
+		remove_alt_appearance(GHOST_SELF_APPEARANCE)
+		return
+
+	var/image/hidden_self = image(icon = icon, loc = src)
+	hidden_self.override = TRUE
+	hidden_self.alpha = 0
+	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/one_person, GHOST_SELF_APPEARANCE, hidden_self, AA_TARGET_SEE_APPEARANCE, src)
 
 /mob/dead/observer/verb/pick_darkness()
 	set name = "Освещённость"
@@ -872,7 +895,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	return TRUE
 
-/mob/dead/observer/proc/incarnate_ghost(use_old_mind=FALSE)
+/mob/dead/observer/proc/incarnate_ghost(use_old_mind = FALSE)
 	if(!client)
 		return
 
@@ -944,3 +967,4 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 #undef GHOST_ORBIT_HEXAGON
 #undef GHOST_ORBIT_SQUARE
 #undef GHOST_ORBIT_PENTAGON
+#undef GHOST_SELF_APPEARANCE

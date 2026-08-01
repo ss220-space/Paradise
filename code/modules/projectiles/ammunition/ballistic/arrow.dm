@@ -5,6 +5,7 @@
 	icon_state = "arrow"
 	item_state = "arrow"
 	force = 10
+	sharp = TRUE
 	projectile_type = /obj/projectile/bullet/reusable/arrow
 	muzzle_flash_effect = null
 	caliber = CALIBER_ARROW
@@ -12,7 +13,7 @@
 	no_update_desc = TRUE
 
 /obj/item/ammo_casing/caseless/arrow/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "деревянная стрела",
 		GENITIVE = "деревянной стрелы",
 		DATIVE = "деревянной стреле",
@@ -31,7 +32,7 @@
 	projectile_type = /obj/projectile/bullet/reusable/arrow/bone
 
 /obj/item/ammo_casing/caseless/arrow/bone_tipped/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "костяная стрела",
 		GENITIVE = "костяной стрелы",
 		DATIVE = "костяной стреле",
@@ -49,11 +50,48 @@
 	projectile_type = /obj/projectile/bullet/reusable/arrow/jagged
 
 /obj/item/ammo_casing/caseless/arrow/jagged/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "зазубренная стрела",
 		GENITIVE = "зазубренной стрелы",
 		DATIVE = "зазубренной стреле",
 		ACCUSATIVE = "зазубренную стрелу",
 		INSTRUMENTAL = "зазубренной стрелой",
 		PREPOSITIONAL = "зазубренной стреле",
+	)
+
+/obj/item/ammo_casing/caseless/arrow/modern
+	name = "modern arrow"
+	desc = "Используется для стрельбы из лука. Стрела из высококачественных композитных материалов."
+	ammo_marking = "\"композитная стрела\""
+	icon_state = "arrow_modern"
+	item_state = "arrow_modern"
+	force = 16
+	projectile_type = /obj/projectile/bullet/reusable/arrow/modern
+
+/obj/item/ammo_casing/caseless/arrow/modern/get_ru_names()
+	return alist(
+		NOMINATIVE = "композитная стрела",
+		GENITIVE = "композитной стрелы",
+		DATIVE = "композитной стреле",
+		ACCUSATIVE = "композитную стрелу",
+		INSTRUMENTAL = "композитной стрелой",
+		PREPOSITIONAL = "композитной стреле",
+	)
+
+/obj/item/ammo_casing/caseless/arrow/homemade
+	name = "homemade arrow"
+	desc = "Используется для стрельбы из лука. Подобие стрелы из куска арматуры с ближайшей кучи мусора. Как этим вообще можно стрелять?"
+	ammo_marking = "\"самодельная стрела\""
+	icon_state = "arrow_homemade"
+	item_state = "arrow_homemade"
+	projectile_type = /obj/projectile/bullet/reusable/arrow/homemade
+
+/obj/item/ammo_casing/caseless/arrow/homemade/get_ru_names()
+	return alist(
+		NOMINATIVE = "самодельная стрела",
+		GENITIVE = "самодельной стрелы",
+		DATIVE = "самодельной стреле",
+		ACCUSATIVE = "самодельную стрелу",
+		INSTRUMENTAL = "самодельной стрелой",
+		PREPOSITIONAL = "самодельной стреле",
 	)

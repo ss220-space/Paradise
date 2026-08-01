@@ -36,6 +36,9 @@
 	/// Whether we can pick this shell by clicking on it with the ammo box
 	var/can_be_box_inserted = TRUE
 
+	var/speed_modifier = 1
+	var/range_modifier = 1
+
 	/// What type of muzzle flash effect will be shown. If null then no effect and flash of light will be shown
 	var/muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash
 	/// What color the flash has. If null then the flash won't cause lighting
@@ -62,6 +65,14 @@
 	. = ..()
 	if(projectile_type)
 		BB = new projectile_type(src)
+		BB.ru_names = string_assoc_list(alist(
+			NOMINATIVE = "пуля [get_ammo_marking()]",
+			GENITIVE = "пули [get_ammo_marking()]",
+			DATIVE = "пуле [get_ammo_marking()]",
+			ACCUSATIVE = "пулю [get_ammo_marking()]",
+			INSTRUMENTAL = "пулей [get_ammo_marking()]",
+			PREPOSITIONAL = "пуле [get_ammo_marking()]",
+		))
 	pixel_x = rand(-10, 10)
 	pixel_y = rand(-10, 10)
 	dir = pick(GLOB.alldirs)
@@ -146,7 +157,7 @@
 	if(BB)
 		gender = MALE
 		name = "[get_ammo_marking()] cartridge"
-		ru_names = string_list(list(
+		ru_names = string_assoc_list(alist(
 			NOMINATIVE = "патрон [get_ammo_marking()]",
 			GENITIVE = "патрона [get_ammo_marking()]",
 			DATIVE = "патрону [get_ammo_marking()]",
@@ -157,7 +168,7 @@
 	else
 		gender = FEMALE
 		name = "[caliber] bullet casing"
-		ru_names = string_list(list(
+		ru_names = string_assoc_list(alist(
 			NOMINATIVE = "гильза [caliber]",
 			GENITIVE = "гильзы [caliber]",
 			DATIVE = "гильзе [caliber]",
@@ -241,7 +252,7 @@
 		BB.name = initial(BB.name)
 	else
 		to_chat(user, span_notice("Вы наносите \"[label_text]\" на патрон."))
-		BB.ru_names = list(
+		BB.ru_names = alist(
 			NOMINATIVE = "пуля \"[label_text]\"",
 			GENITIVE = "пули \"[label_text]\"",
 			DATIVE = "пуле \"[label_text]\"",

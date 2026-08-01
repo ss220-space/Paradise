@@ -32,7 +32,7 @@
 	speed = -0.5
 	mob_size = MOB_SIZE_TINY
 	density = FALSE
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	attacktext = "electrocutes"
 	attack_sound = SFX_SPARKS
 	harm_intent_damage = 0
@@ -267,7 +267,7 @@
 	tampermach.owner = mind
 	greeting.Add(mind.prepare_announce_objectives(FALSE))
 	greeting.Add(span_motd("С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Pulse_Demon\">Электродемон</a>"))
-	to_chat(src, chat_box_yellow(greeting.Join("<br>")))
+	to_chat(src, custom_boxed_message("yellow_box", greeting.Join("<br>")))
 	SSticker.mode.traitors |= mind
 	return
 
@@ -560,7 +560,7 @@
 	for(var/i = 1 to 10)
 		. += pick("!", "@", "#", "$", "%", "^", "&", "*")
 
-/mob/living/simple_animal/demon/pulse_demon/say(message, verb, sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
+/mob/living/simple_animal/demon/pulse_demon/say(message, verb = "говор[PLUR_IT_YAT(src)]", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE, ignore_emotes = FALSE)
 	if(check_mute(ckey, MUTE_IC))
 		to_chat(src, span_danger("You cannot speak in IC (Muted)."))
 		return FALSE

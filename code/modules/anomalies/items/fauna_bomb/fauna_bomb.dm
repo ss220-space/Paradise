@@ -45,7 +45,7 @@
 	var/cur_choosing = 0
 
 /obj/item/fauna_bomb/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "фаунная бомба", \
 		GENITIVE = "фаунной бомбы", \
 		DATIVE = "фаунной бомбе", \
@@ -58,14 +58,14 @@
 	for(var/mob/living/mob in created_mobs)
 		mob.death()
 
-	QDEL_LAZYLIST(created_mobs)
-	QDEL_LAZYLIST(datas)
+	QDEL_LIST(created_mobs)
+	QDEL_LIST(datas)
 	current_target = null
 	owner = null
 	chooser = null
 	core?.forceMove(get_turf(src))
 	core = null
-	. = ..()
+	return ..()
 
 /obj/item/fauna_bomb/proc/use_charge(amount)
 	if(amount > charge)

@@ -11,8 +11,9 @@
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/spawner/lootdrop/proc/spawn_loot()
+	var/list/weighted_loot = fill_with_ones(loot)
 	while(lootcount)
-		var/lootspawn = pickweight(loot)
+		var/lootspawn = pickweight(weighted_loot)
 		if(lootspawn)
 			new lootspawn(get_turf(src))
 			if(!lootdoubles)
@@ -131,10 +132,11 @@
 		/obj/item/mod/construction/broken_core = 4,
 		/obj/effect/spawner/random_spawners/mod/maint = 10,
 		/obj/item/tripod/camera = 1,
+		/obj/item/book/skill_manual/random = 2,
 		////////////////CONTRABAND STUFF//////////////////
 		/obj/item/grenade/clown_grenade = 3,
 		/obj/item/seeds/ambrosia/cruciatus = 3,
-		/obj/item/gun/projectile/automatic/pistol = 1,
+		/obj/item/gun/projectile/automatic/pistol/aps/scarecrow = 1,
 		/obj/item/ammo_box/magazine/m10mm = 4,
 		/obj/item/implanter/fake_mindshield = 1,
 		/obj/item/soap/syndie = 7,
@@ -160,6 +162,7 @@
 		/obj/item/storage/pill_bottle/fakedeath = 2,
 		/obj/item/storage/box/syndie_kit/mr_chang_technique = 1,
 		/obj/item/clothing/glasses/chameleon/meson = 7,
+		/obj/item/book/skill_manual/combat/random = 1,
 		"" = 70,
 	)
 

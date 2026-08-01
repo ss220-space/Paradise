@@ -210,6 +210,15 @@
 	tastes = list("cake" = 5, "sweetness" = 1, "chocolate" = 4)
 	foodtype = SUGAR | GRAIN
 
+/obj/item/reagent_containers/food/snacks/sliceable/chocolatecake/liarscake
+	desc = "Торт — это ложь."
+	icon_state = "liars_cake"
+	slice_path = /obj/item/reagent_containers/food/snacks/chocolatecakeslice/liarsslice
+
+/obj/item/reagent_containers/food/snacks/chocolatecakeslice/liarsslice
+	desc = "Торт — это ложь."
+	icon_state = "liars_slice"
+
 /obj/item/reagent_containers/food/snacks/sliceable/birthdaycake
 	name = "birthday cake"
 	desc = "Happy Birthday..."
@@ -874,7 +883,7 @@
 	foodtype = GRAIN
 
 /obj/item/reagent_containers/food/snacks/croissant/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "круассан",
 		GENITIVE = "круассана",
 		DATIVE = "круассану",

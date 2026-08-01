@@ -67,7 +67,6 @@
 	equipment_channel = 0
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/reagent_dispensers/fueltank,
@@ -331,7 +330,6 @@
 "fL" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
@@ -393,7 +391,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/storage)
@@ -923,9 +920,7 @@
 	},
 /area/ruin/ussp_xeno/entrance)
 "nU" = (
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/east,
 /obj/item/bikehorn/rubberducky{
 	pixel_x = 11;
 	pixel_y = 12
@@ -957,7 +952,6 @@
 	equipment_channel = 0
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -1156,7 +1150,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/admiral)
@@ -1299,7 +1292,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/storage)
@@ -1544,7 +1536,6 @@
 	dir = 2
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/smes/engineering{
@@ -1769,7 +1760,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/medbay)
@@ -2080,7 +2070,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/storage)
@@ -2132,9 +2121,7 @@
 /obj/machinery/alarm/directional/south{
 	alarm_frequency = 1200
 	},
-/obj/structure/sink{
-	dir = 1
-	},
+/obj/structure/sink/directional/south,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -2234,7 +2221,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/port_gen/pacman,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/effect/turf_decal/delivery,
@@ -2795,7 +2781,6 @@
 "Nh" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -2960,7 +2945,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/baracks)
@@ -3042,7 +3026,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/terminal{
@@ -3181,7 +3164,6 @@
 "RO" = (
 /obj/effect/decal/cleanable/blood/writing,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/dorms_ussp)
@@ -3410,7 +3392,6 @@
 	equipment_channel = 0
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -3497,7 +3478,6 @@
 	equipment_channel = 0
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -3523,7 +3503,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/dorms_ussp)
@@ -3607,18 +3586,11 @@
 	},
 /area/ruin/ussp_xeno/entrance)
 "YA" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = -26
 	},
-/obj/machinery/shower{
-	pixel_x = 23;
-	pixel_y = 20
-	},
+/obj/machinery/shower/directional/south,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -3679,7 +3651,6 @@
 	equipment_channel = 0
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/chair/comfy/red{
@@ -3699,7 +3670,7 @@
 /area/ruin/ussp_xeno/entrance)
 "Zr" = (
 /obj/structure/dresser,
-/obj/item/toy/plushie/blue_fox{
+/obj/item/toy/plushie/fox/blue{
 	layer = 3.1;
 	pixel_y = 12
 	},
@@ -3747,7 +3718,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/gym_ussp)

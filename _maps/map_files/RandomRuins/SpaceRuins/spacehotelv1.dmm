@@ -408,7 +408,6 @@
 /obj/structure/lattice/catwalk,
 /obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/space,
@@ -497,7 +496,6 @@
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "dQ" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/machinery/power/terminal,
@@ -590,7 +588,6 @@
 	},
 /obj/machinery/power/apc/generator/directional/east,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -624,9 +621,7 @@
 /turf/space,
 /area/space)
 "eX" = (
-/obj/structure/toilet{
-	dir = 4
-	},
+/obj/structure/toilet/directional/north,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -648,7 +643,6 @@
 	name = "Aft Starboard Solar Panel"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -700,7 +694,6 @@
 "fF" = (
 /obj/machinery/power/tracker,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -710,7 +703,6 @@
 "fI" = (
 /obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -841,7 +833,6 @@
 	input_level = 200000
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -966,7 +957,6 @@
 "hL" = (
 /obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/wood,
@@ -1575,9 +1565,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/ruin/space/spacehotelv1/reception)
 "lY" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -1709,7 +1697,7 @@
 	},
 /area/ruin/space/spacehotelv1/entryhallway)
 "nx" = (
-/obj/structure/toilet,
+/obj/structure/toilet/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -1759,7 +1747,6 @@
 /area/ruin/space/spacehotelv1/guestroom2)
 "nO" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/power/solar_control/autostart,
@@ -1826,7 +1813,6 @@
 "om" = (
 /obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/wood,
@@ -1959,9 +1945,7 @@
 	},
 /area/ruin/space/spacehotelv1/kitchen)
 "pj" = (
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -1996,11 +1980,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/aftmaints)
 "pA" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = -26;
 	pixel_y = -1
@@ -2156,7 +2136,6 @@
 "qM" = (
 /obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -2184,7 +2163,6 @@
 /area/ruin/space/spacehotelv1/centralhallway)
 "qY" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/directional/south,
@@ -2201,9 +2179,7 @@
 /turf/simulated/floor/carpet,
 /area/ruin/space/spacehotelv1/restoraunt)
 "rc" = (
-/obj/structure/toilet{
-	dir = 1
-	},
+/obj/structure/toilet/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -2228,7 +2204,6 @@
 	name = "Aft Starboard Solar Panel"
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
@@ -2292,9 +2267,7 @@
 	},
 /area/ruin/space/spacehotelv1/bar)
 "rH" = (
-/obj/structure/toilet{
-	dir = 1
-	},
+/obj/structure/toilet/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -2329,7 +2302,6 @@
 	},
 /obj/machinery/power/apc/directional/south,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel/grimy,
@@ -2375,9 +2347,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/guestroom1)
 "sy" = (
-/obj/machinery/shower{
-	pixel_y = 20
-	},
+/obj/machinery/shower/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -2387,7 +2357,6 @@
 	name = "Aft Starboard Solar Panel"
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -2423,7 +2392,6 @@
 	name = "Grid Power Monitoring Computer"
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -2497,7 +2465,6 @@
 /area/ruin/space/spacehotelv1/cargostorage)
 "tb" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/power/terminal,
@@ -2576,10 +2543,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "tH" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -11
-	},
+/obj/structure/sink/directional/west,
 /obj/machinery/light/small,
 /obj/machinery/door_control{
 	desiredstate = 1;
@@ -2693,9 +2657,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/ruin/space/spacehotelv1/guestroom3)
 "us" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -2748,7 +2710,6 @@
 "uR" = (
 /obj/machinery/power/apc/directional/south,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/structure/table/reinforced/brass,
@@ -2769,9 +2730,7 @@
 /turf/simulated/wall,
 /area/ruin/space/spacehotelv1/guestroom1)
 "vb" = (
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/west,
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -2783,7 +2742,6 @@
 /obj/item/clothing/under/kilt,
 /obj/item/clothing/head/beret,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/structure/closet/cabinet,
@@ -2823,7 +2781,6 @@
 "vt" = (
 /obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/structure/sign/poster/contraband/random{
@@ -2835,11 +2792,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "vv" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = -26;
 	pixel_y = -1
@@ -2880,10 +2833,7 @@
 	},
 /area/ruin/space/spacehotelv1/bar)
 "vU" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = 26;
 	pixel_y = -1
@@ -2944,7 +2894,6 @@
 "wy" = (
 /obj/machinery/power/apc/directional/south,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/structure/table/wood/fancy/black,
@@ -3018,7 +2967,6 @@
 	input_level = 200000
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -3101,9 +3049,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/foremaints)
 "xO" = (
-/obj/structure/toilet{
-	dir = 1
-	},
+/obj/structure/toilet/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -3163,9 +3109,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/forehallway)
 "yj" = (
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -3582,7 +3526,6 @@
 	name = "Aft Starboard Solar Panel"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/structure/cable{
@@ -3723,7 +3666,6 @@
 /area/ruin/space/spacehotelv1/forehallway)
 "CO" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/directional/north,
@@ -3942,11 +3884,7 @@
 	},
 /area/ruin/space/spacehotelv1/bar)
 "Es" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = -26;
 	pixel_y = -1
@@ -4145,7 +4083,6 @@
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
@@ -4214,7 +4151,6 @@
 "FX" = (
 /obj/machinery/power/apc/directional/south,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/vehicle/ridden/janicart{
@@ -4253,11 +4189,7 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/forehallway)
 "Gi" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = -26;
 	pixel_y = -1
@@ -4350,7 +4282,6 @@
 	name = "Aft Starboard Solar Panel"
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/structure/cable{
@@ -4424,7 +4355,6 @@
 "HP" = (
 /obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/filingcabinet,
@@ -4504,7 +4434,7 @@
 /turf/simulated/floor/plating/airless,
 /area/space)
 "IB" = (
-/obj/structure/toilet,
+/obj/structure/toilet/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -4570,7 +4500,6 @@
 	name = "Aft Starboard Solar Panel"
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -4655,10 +4584,7 @@
 /area/ruin/space/spacehotelv1/reception)
 "JL" = (
 /obj/machinery/firealarm/directional/north,
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/kitchen/directional/east,
 /obj/structure/mirror{
 	pixel_x = 26;
 	pixel_y = -1
@@ -4678,9 +4604,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/restoraunt)
 "JO" = (
-/obj/machinery/shower{
-	pixel_y = 20
-	},
+/obj/machinery/shower/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -5323,9 +5247,7 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/forehallway)
 "NV" = (
-/obj/machinery/shower{
-	pixel_y = 20
-	},
+/obj/machinery/shower/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -5333,7 +5255,6 @@
 "NW" = (
 /obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/structure/table/abductor,
@@ -5475,7 +5396,6 @@
 "OX" = (
 /obj/machinery/power/tracker,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -5502,10 +5422,7 @@
 	},
 /area/ruin/space/spacehotelv1/guestroom5)
 "Pc" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/kitchen/directional/east,
 /obj/structure/mirror{
 	pixel_x = 26;
 	pixel_y = -1
@@ -5750,10 +5667,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacehotelv1/centralhallway)
 "QI" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -5764,7 +5678,6 @@
 	},
 /obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -5910,10 +5823,7 @@
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/spacehotelv1/guestroom6)
 "RQ" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = 26;
 	pixel_y = -1
@@ -6244,7 +6154,6 @@
 "Uo" = (
 /obj/machinery/power/apc/generator/directional/east,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -6328,7 +6237,6 @@
 "UM" = (
 /obj/machinery/power/apc/directional/south,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -6460,7 +6368,6 @@
 "Wc" = (
 /obj/machinery/power/apc/directional/south,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -6636,7 +6543,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacehotelv1/centralhallway)
 "XD" = (
-/obj/structure/toilet,
+/obj/structure/toilet/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -6837,7 +6744,7 @@
 	},
 /area/ruin/space/spacehotelv1/kitchen)
 "YB" = (
-/obj/structure/toilet,
+/obj/structure/toilet/directional/north,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -6858,10 +6765,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/bar)
 "YD" = (
-/obj/structure/sink{
-	layer = 4;
-	pixel_y = 26
-	},
+/obj/structure/sink/directional/west,
 /mob/living/simple_animal/mouse{
 	name = "Nicolas"
 	},
@@ -6981,7 +6885,7 @@
 /area/ruin/space/spacehotelv1/restoraunt2)
 "ZH" = (
 /obj/item/reagent_containers/food/drinks/shaker,
-/obj/item/reagent_containers/glass/rag,
+/obj/item/rag,
 /obj/structure/table,
 /obj/item/storage/box/matches,
 /obj/item/storage/fancy/cigarettes/cigpack_random,
@@ -7005,7 +6909,6 @@
 "ZP" = (
 /obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/wood,

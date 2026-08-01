@@ -19,7 +19,7 @@
 	end_message = span_notice_alt("Поток частиц осел.")
 
 	area_type = /area
-	protected_areas = list(/area/space, /area/crew_quarters/sleep)
+	protected_areas = list(/area/space, /area/station/commons/sleep)
 
 	immunity_type = TRAIT_BLOBSTORM_IMMUNE
 

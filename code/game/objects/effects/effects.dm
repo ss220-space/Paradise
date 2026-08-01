@@ -7,6 +7,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	move_resist = INFINITY
 	anchored = TRUE
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
 /obj/effect/add_debris_element()
 	return // They're not hittable, and prevents recursions.
@@ -91,7 +92,7 @@
 /obj/effect/abstract/singularity_act()
 	return
 
-/obj/effect/abstract/get_gravity(turf/gravity_turf)
+/obj/effect/abstract/has_gravity(turf/gravity_turf)
 	return FALSE
 
 /obj/effect/abstract/narsie_act()

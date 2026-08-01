@@ -24,7 +24,7 @@
 	var/ignores_pierceimmune = FALSE
 
 /obj/item/reagent_containers/syringe/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шприц",
 		GENITIVE = "шприца",
 		DATIVE = "шприцу",
@@ -194,7 +194,7 @@
 	list_reagents = list("spaceacillin" = 15)
 
 /obj/item/reagent_containers/syringe/antiviral/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шприц (Космоциллин)",
 		GENITIVE = "шприца (Космоциллин)",
 		DATIVE = "шприцу (Космоциллин)",
@@ -209,7 +209,7 @@
 	list_reagents = list("charcoal" = 15)
 
 /obj/item/reagent_containers/syringe/charcoal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шприц (Активированный уголь)",
 		GENITIVE = "шприца (Активированный уголь)",
 		DATIVE = "шприцу (Активированный уголь)",
@@ -224,7 +224,7 @@
 	list_reagents = list("epinephrine" = 15)
 
 /obj/item/reagent_containers/syringe/epinephrine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шприц (Эпинефрин)",
 		GENITIVE = "шприца (Эпинефрин)",
 		DATIVE = "шприцу (Эпинефрин)",
@@ -239,7 +239,7 @@
 	list_reagents = list("insulin" = 15)
 
 /obj/item/reagent_containers/syringe/insulin/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шприц (Инсулин)",
 		GENITIVE = "шприца (Инсулин)",
 		DATIVE = "шприцу (Инсулин)",
@@ -254,7 +254,7 @@
 	list_reagents = list("calomel" = 15)
 
 /obj/item/reagent_containers/syringe/calomel/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шприц (Каломель)",
 		GENITIVE = "шприца (Каломель)",
 		DATIVE = "шприцу (Каломель)",
@@ -269,7 +269,7 @@
 	list_reagents = list("heparin" = 15)
 
 /obj/item/reagent_containers/syringe/heparin/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шприц (Гепарин)",
 		GENITIVE = "шприца (Гепарин)",
 		DATIVE = "шприцу (Гепарин)",
@@ -284,7 +284,7 @@
 	list_reagents = list("neurotoxin" = 5, "capulettium_plus" = 5, "sodium_thiopental" = 5)
 
 /obj/item/reagent_containers/syringe/bioterror/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шприц (Нейротоксины)",
 		GENITIVE = "шприца (Нейротоксины)",
 		DATIVE = "шприцу (Нейротоксины)",
@@ -301,7 +301,7 @@
 	list_reagents = list("gluttonytoxin" = 1)
 
 /obj/item/reagent_containers/syringe/gluttony/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шприц (Благословение Чревоугодия)",
 		GENITIVE = "шприца (Благословение Чревоугодия)",
 		DATIVE = "шприцу (Благословение Чревоугодия)",
@@ -316,7 +316,7 @@
 	list_reagents = list("capulettium_plus" = 15)
 
 /obj/item/reagent_containers/syringe/capulettium_plus/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шприц (Капулеттий+)",
 		GENITIVE = "шприца (Капулеттий+)",
 		DATIVE = "шприцу (Капулеттий+)",
@@ -331,7 +331,7 @@
 	list_reagents = list("sarin" = 15)
 
 /obj/item/reagent_containers/syringe/sarin/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шприц (Зарин)",
 		GENITIVE = "шприца (Зарин)",
 		DATIVE = "шприцу (Зарин)",
@@ -346,7 +346,7 @@
 	list_reagents = list("pancuronium" = 15)
 
 /obj/item/reagent_containers/syringe/pancuronium/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шприц (Панкуроний+)",
 		GENITIVE = "шприца (Панкуроний+)",
 		DATIVE = "шприцу (Панкуроний+)",
@@ -363,7 +363,7 @@
 	list_reagents = list("toxin" = 15, "pancuronium" = 10, "cyanide" = 5, "facid" = 10, "fluorine" = 10)
 
 /obj/item/reagent_containers/syringe/lethal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шприц (Смертельная инъекция)",
 		GENITIVE = "шприца (Смертельная инъекция)",
 		DATIVE = "шприцу (Смертельная инъекция)",
@@ -378,7 +378,7 @@
 	list_reagents = list("steroids" = 15)
 
 /obj/item/reagent_containers/syringe/steroids/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шприц (Стероиды)",
 		GENITIVE = "шприца (Стероиды)",
 		DATIVE = "шприцу (Стероиды)",

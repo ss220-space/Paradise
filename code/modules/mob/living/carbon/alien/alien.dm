@@ -12,6 +12,7 @@
 	dna = null
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALIEN
 	abstract_type = /mob/living/carbon/alien
+	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 	var/nightvision_enabled = FALSE
 	nightvision = 4
 
@@ -21,6 +22,7 @@
 	verb_yell = "ревёт"
 
 	blood_color = BLOOD_COLOR_XENO
+	looting_icon_mode = LOOT_ICON_ICON_TO_HTML
 
 	var/obj/item/card/id/wear_id = null // Fix for station bounced radios -- Skie
 	var/has_fine_manipulation = FALSE
@@ -53,7 +55,7 @@
 	var/death_message = "изда%(ет,ют)% тихий гортанный звук, зелёная кровь пузырится из %(его,её,его,их)% пасти..."
 	var/death_sound = 'sound/voice/hiss6.ogg'
 
-	var/datum/action/innate/alien_nightvision_toggle/night_vision_action
+	var/datum/action/innate/alien/thermal_toogle/thermal_toogle
 	var/static/praetorian_count = 0
 	var/static/queen_count = 0
 	var/static/queen_maximum = 0
@@ -62,8 +64,8 @@
 	. = ..()
 	create_reagents(1000)
 	add_verb(src, /mob/living/verb/mob_sleep)
-	night_vision_action = new
-	night_vision_action.Grant(src)
+	thermal_toogle = new
+	thermal_toogle.Grant(src)
 
 	for(var/organ_path in get_caste_organs())
 		new organ_path(src)
@@ -76,9 +78,9 @@
 	GLOB.aliens_list += src
 
 /mob/living/carbon/alien/Destroy()
-	if(night_vision_action)
-		night_vision_action.Remove(src)
-		night_vision_action = null
+	if(thermal_toogle)
+		thermal_toogle.Remove(src)
+		thermal_toogle = null
 	GLOB.aliens_list -= src
 	return ..()
 

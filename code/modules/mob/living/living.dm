@@ -28,9 +28,13 @@
 	if(length(weather_immunities))
 		add_traits(weather_immunities, INNATE_TRAIT)
 
+	register_context()
+
 	GLOB.mob_living_list += src
 
 /mob/living/Destroy()
+	if(leaned_object)
+		stop_leaning()
 	for(var/s in ownedSoullinks)
 		var/datum/soullink/S = s
 		S.ownerDies(FALSE)
@@ -53,7 +57,10 @@
 			else
 				S.be_replaced()
 	GLOB.mob_living_list -= src
-	GLOB.respawnable_list -= src
+	remove_from_respawnable_list()
+	QDEL_NULL(middleClickOverride)
+	if(mind?.current == src)
+		mind.current = null
 	return ..()
 
 // Used to determine the forces dependend on the mob size
@@ -305,11 +312,6 @@
 	// okay, so we didn't switch. but should we push?
 	// not if he's not CANPUSH of course
 	if(!(bumped_mob.status_flags & CANPUSH) || HAS_TRAIT(bumped_mob, TRAIT_PUSHIMMUNE))
-		return TRUE
-	//anti-riot equipment is also anti-push
-	if(bumped_mob.r_hand && !isclothing(bumped_mob.r_hand) && prob(bumped_mob.r_hand.block_chance * 2))
-		return TRUE
-	if(bumped_mob.l_hand && !isclothing(bumped_mob.l_hand) && prob(bumped_mob.l_hand.block_chance * 2))
 		return TRUE
 
 //Called when we bump into an obj
@@ -617,13 +619,7 @@
 			visible_message("<b>[declent_ru(NOMINATIVE)]</b> указыва[PLUR_ET_YUT(src)] [hand_item.declent_ru(INSTRUMENTAL)] на [pointed_object].")
 			return TRUE
 
-		target.visible_message(
-			span_danger("[declent_ru(NOMINATIVE)] направля[PLUR_ET_YUT(src)] [hand_item.declent_ru(INSTRUMENTAL)] на [pointed_object]!"),
-			span_userdanger("[declent_ru(NOMINATIVE)] направля[PLUR_ET_YUT(src)] [hand_item.declent_ru(INSTRUMENTAL)] на вас!"),
-		)
-		SEND_SOUND(target, sound('sound/weapons/targeton.ogg'))
-		SEND_SOUND(src, sound('sound/weapons/targeton.ogg'))
-		add_emote_logs(src, "point [hand_item] HARM to [key_name(target)] [COORD(target)]")
+		hand_item.interact_with_atom_secondary(target, src)
 		return TRUE
 
 	if(istype(hand_item, /obj/item/toy/russian_revolver/trick_revolver) && target != hand_item)
@@ -961,59 +957,69 @@
 	puller.stop_pulling()
 	visible_message(span_danger("Ноги [name] путаются и [GEND_HE_SHE(src)] с грохотом пада[PLUR_ET_YUT(src)] на пол!"))
 
-/mob/living/proc/makeTrail(turf/T)
+/mob/living/proc/makeTrail(turf/target_turf)
 	if(no_gravity())
 		return
 
-	var/blood_exists = FALSE
+	if(!isturf(loc))
+		return
 
-	for(var/obj/effect/decal/cleanable/trail_holder/C in loc) // checks for blood splatter already on the floor
-		blood_exists = TRUE
+	var/trail_type = getTrail()
+	if(!trail_type)
+		return
 
-	if(isturf(loc))
-		var/trail_type = getTrail()
+	if(blood_volume < 0.5 * BLOOD_VOLUME_SURVIVE) // don't leave trail if blood volume below a threshold
+		return
 
-		if(trail_type)
-			var/brute_ratio = round(getBruteLoss()/maxHealth, 0.1)
+	apply_blood_trail_bleeding()
 
-			if(blood_volume && blood_volume > max(BLOOD_VOLUME_NORMAL*(1 - brute_ratio * 0.25), 0)) // don't leave trail if blood volume below a threshold
-				setBlood(max(blood_volume - max(1, brute_ratio * 2), 0)) // that depends on our brute damage.
-				var/newdir = get_dir(T, loc)
+	var/newdir = get_dir(target_turf, loc)
+	if(newdir != src.dir)
+		newdir = newdir | dir
 
-				if(newdir != src.dir)
-					newdir = newdir | dir
+		if(newdir == 3) //N + S
+			newdir = NORTH
 
-					if(newdir == 3) //N + S
-						newdir = NORTH
+		else if(newdir == 12) //E + W
+			newdir = EAST
 
-					else if(newdir == 12) //E + W
-						newdir = EAST
+	if((newdir in GLOB.cardinal) && (prob(50)))
+		newdir = turn(get_dir(target_turf, loc), 180)
 
-				if((newdir in GLOB.cardinal) && (prob(50)))
-					newdir = turn(get_dir(T, loc), 180)
+	//prepare on floor blood trail
+	var/on_floor_blood_exists = FALSE
+	for(var/obj/effect/decal/cleanable/trail_holder/trail in loc) // checks for blood splatter already on the floor
+		on_floor_blood_exists = TRUE
+	if(!on_floor_blood_exists)
+		new /obj/effect/decal/cleanable/trail_holder(loc)
 
-				if(!blood_exists)
-					new /obj/effect/decal/cleanable/trail_holder(loc)
+	for(var/obj/effect/decal/cleanable/trail_holder/trail in loc)
+		if((((newdir in trail.existing_dirs) && trail_type != "trails_1" && trail_type != "trails_2") || length(trail.existing_dirs) > 16))
+			continue //maximum amount of overlays is 16 (all light & heavy directions filled)
 
-				for(var/obj/effect/decal/cleanable/trail_holder/TH in loc)
-					if((!(newdir in TH.existing_dirs) || trail_type == "trails_1" || trail_type == "trails_2") && length(TH.existing_dirs) <= 16) //maximum amount of overlays is 16 (all light & heavy directions filled)
-						TH.existing_dirs += newdir
-						TH.overlays.Add(image('icons/effects/blood.dmi', trail_type, dir = newdir))
-						TH.transfer_mob_blood_dna(src)
+		trail.existing_dirs += newdir
+		trail.overlays.Add(image('icons/effects/blood.dmi', trail_type, dir = newdir))
+		trail.transfer_mob_blood_dna(src)
 
-						if(ishuman(src))
-							var/mob/living/carbon/human/H = src
+		if(ishuman(src))
+			var/mob/living/carbon/human/human_target = src
+			if(human_target.dna.species.blood_color)
+				trail.color = human_target.dna.species.blood_color
+			continue
 
-							if(H.dna.species.blood_color)
-								TH.color = H.dna.species.blood_color
+		trail.color = BLOOD_COLOR_RED
 
-						else
-							TH.color = BLOOD_COLOR_RED
+/mob/living/proc/apply_blood_trail_bleeding() // that depends on our brute damage.
+	var/brute_ratio = round(getBruteLoss() / maxHealth, 0.1)
+	setBlood(max(blood_volume - max(1, brute_ratio * 2), 0))
 
 /mob/living/carbon/human/makeTrail(turf/T)
 	if(HAS_TRAIT(src, TRAIT_NO_BLOOD) || !bleed_rate)
 		return
 	..()
+
+/mob/living/carbon/human/apply_blood_trail_bleeding() // that depends on our bleed rate
+	AdjustBlood(-bleed_rate)
 
 /mob/living/proc/getTrail()
 	if(getBruteLoss() < 300)
@@ -1443,7 +1449,9 @@
 	. = TRUE
 	to_chat(user, span_notice("Вы начинаете разделывать [declent_ru(ACCUSATIVE)]..."))
 	playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
-	if(!do_after(user, I.has_speed_harvest ? 1 SECONDS : (4 SECONDS * mob_size), src, NONE, max_interact_count = 1, cancel_on_max = TRUE) || !Adjacent(user))
+	CALCULATE_SKILL_MOD(user, BUTCHERING_SPEED_MOD, butchering_skill_mod)
+	var/butchering_duration = I.has_speed_harvest ? 1 SECONDS : (4 SECONDS * mob_size)
+	if(!do_after(user, butchering_duration * butchering_skill_mod, src, NONE, max_interact_count = 1, cancel_on_max = TRUE) || !Adjacent(user))
 		return .
 	harvest(user)
 
@@ -1457,11 +1465,17 @@
 	visible_message(span_notice("[DECLENT_RU_CAP(user, NOMINATIVE)] разделывает [declent_ru(ACCUSATIVE)]."))
 	gib()
 
-/mob/living/proc/can_use_guns(obj/item/gun/G)
-	if(G.trigger_guard != TRIGGER_GUARD_ALLOW_ALL && !IsAdvancedToolUser() && !is_monkeybasic(src))
+/mob/living/proc/can_use_guns(obj/item/gun/gun)
+	if(gun.trigger_guard != TRIGGER_GUARD_ALLOW_ALL && !IsAdvancedToolUser() && !is_monkeybasic(src))
 		to_chat(src, span_warning("У вас недостаточно ловкости для этого!"))
-		return 0
-	return 1
+		return FALSE
+	if(gun.trigger_guard == TRIGGER_GUARD_NONE)
+		to_chat(src, span_warning("Вы не можете стрелять из этого!"))
+		return FALSE
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
+		balloon_alert(src, "руки скованы!")
+		return FALSE
+	return TRUE
 
 /mob/living/can_be_pulled(atom/movable/puller, grab_state, force, supress_message)
 	return ..() && !(buckled?.buckle_prevents_pull)
@@ -1730,7 +1744,7 @@
 		return TRUE
 	face_atom(target)
 	if(!has_vision(information_only = TRUE))
-		to_chat(src, chat_box_regular(span_notice("Здесь что-то есть, но вы не видите — что именно.")), MESSAGE_TYPE_INFO, confidential = TRUE)
+		to_chat(src, boxed_message(span_notice("Здесь что-то есть, но вы не видите — что именно.")), MESSAGE_TYPE_INFO, confidential = TRUE)
 		return TRUE
 	return FALSE
 
@@ -2352,3 +2366,56 @@
 	var/obj/item/organ/external/part = get_bodypart(zone)
 
 	return part?.plaintext_zone || parse_zone(zone)
+
+/mob/living/add_context(atom/source, list/context, obj/item/held_item, mob/user)
+	. = ..()
+	if(!isgun(held_item))
+		return
+
+	var/obj/item/gun/held_gun = held_item
+	if(!held_gun.can_hold_up || user.a_intent != INTENT_HARM)
+		return
+
+	context[SCREENTIP_CONTEXT_RMB] = "Взять на мушку"
+	return CONTEXTUAL_SCREENTIP_SET
+
+/mob/living/proc/adjust_max_health(amount)
+	maxHealth = (maxHealth + amount)
+	updatehealth()
+
+/**
+ * Used to update the makeup on a human and apply/remove lipstick traits, then store/unstore them on the head object in case it gets severed
+ **/
+/mob/living/proc/update_lips(new_style, new_color, apply_trait, update = TRUE)
+	return
+
+/**
+ * A wrapper for [mob/living/carbon/human/proc/update_lips] that sets the lip style and color to null.
+ **/
+/mob/living/proc/clean_lips()
+	return
+
+/mob/living/proc/set_gene_stability(value)
+	if(gene_stability == value)
+		return
+
+	gene_stability = value
+
+	if(ignore_gene_stability)
+		return
+
+	if(value < GENETIC_DAMAGE_STAGE_3)
+		apply_status_effect(/datum/status_effect/gene_instability/major/critical)
+		return
+
+	if(value < GENETIC_DAMAGE_STAGE_2)
+		apply_status_effect(/datum/status_effect/gene_instability/major)
+		return
+
+	if(value < GENETIC_DAMAGE_STAGE_1)
+		apply_status_effect(/datum/status_effect/gene_instability/minor)
+		return
+	remove_status_effect(/datum/status_effect/gene_instability)
+
+/mob/living/proc/embed_item_inside(obj/item/thing, embedded_zone, silent = FALSE)
+	return

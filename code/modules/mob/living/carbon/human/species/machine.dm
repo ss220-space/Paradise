@@ -1,5 +1,5 @@
 /datum/species/machine
-	name = SPECIES_MACNINEPERSON
+	name = SPECIES_MACHINEPERSON
 	name_plural = "Machines"
 
 	blurb = "Positronic intelligence really took off in the 26th century, and it is not uncommon to see independant, free-willed \
@@ -97,6 +97,22 @@
 		SPECIES_AGE_MAX = 58,
 		JOB_MIN_AGE_HIGH_ED = 15,
 		JOB_MIN_AGE_COMMAND = 15,
+	)
+
+	max_select_skills = list(
+		/datum/skill/general/mech_drive = 3,
+		/datum/skill/general/cooking = 1,
+		/datum/skill/service/drink_mixing = 1,
+		/datum/skill/service/botany = 0,
+		/datum/skill/service/cleaning = 1,
+		/datum/skill/engineering/construction = 3,
+		/datum/skill/engineering/electrician = 4,
+		/datum/skill/medical/genetic = 0,
+		/datum/skill/medical/virusology = 0,
+		/datum/skill/research/research = 3,
+		/datum/skill/research/protolathe = 3,
+		/datum/skill/research/robotics = 3,
+		/datum/skill/research/xenobiology = 1,
 	)
 
 /datum/species/machine/on_species_gain(mob/living/carbon/human/human)

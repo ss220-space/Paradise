@@ -366,7 +366,6 @@
 "aV" = (
 /obj/machinery/gateway,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -616,9 +615,7 @@
 	},
 /area/moonoutpost19/syndicateoutpost)
 "bw" = (
-/obj/structure/sink{
-	pixel_y = 28
-	},
+/obj/structure/sink/directional/north,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -682,9 +679,7 @@
 /turf/simulated/floor/plasteel,
 /area/moonoutpost19/syndicateoutpost)
 "bF" = (
-/obj/structure/toilet{
-	dir = 1
-	},
+/obj/structure/toilet/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -788,14 +783,12 @@
 	outputting = 0
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
 /area/moonoutpost19/syndicateoutpost)
 "bT" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/computer/monitor,
@@ -991,7 +984,6 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -1607,7 +1599,6 @@
 	name = "S.U.P.E.R.P.A.C.M.A.N.-type portable generator"
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/mapping_helpers/turfs/damage,
@@ -2000,7 +1991,6 @@
 /area/moonoutpost19/mo19research)
 "ek" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/machinery/shieldwallgen{
@@ -2008,7 +1998,6 @@
 	req_access = null
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
@@ -2167,7 +2156,6 @@
 /area/moonoutpost19/mo19research)
 "ez" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/door/poddoor/preopen{
@@ -2390,7 +2378,6 @@
 	name = "P.A.C.M.A.N.-type portable generator"
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
@@ -2414,7 +2401,6 @@
 /area/moonoutpost19/mo19utilityroom)
 "fb" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/smes{
@@ -2431,7 +2417,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/alarm/all_access/directional/north,
@@ -2555,7 +2540,6 @@
 "fo" = (
 /obj/structure/cable,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/door/poddoor/preopen{
@@ -3003,7 +2987,6 @@
 /area/moonoutpost19/mo19research)
 "gc" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/grille,
@@ -3217,11 +3200,7 @@
 	},
 /area/moonoutpost19/mo19research)
 "gt" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/alien/weeds{
 	icon_state = "weeds2"
 	},
@@ -3242,7 +3221,6 @@
 /area/moonoutpost19/mo19research)
 "gv" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/disposalpipe/segment{
@@ -3480,7 +3458,6 @@
 	name = "Acid-Proof containment chamber blast door"
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/grille,
@@ -4025,9 +4002,7 @@
 	},
 /area/moonoutpost19/mo19research)
 "hQ" = (
-/obj/structure/toilet{
-	dir = 4
-	},
+/obj/structure/toilet/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 1
@@ -4053,10 +4028,7 @@
 	},
 /area/moonoutpost19/mo19arrivals)
 "hT" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/urinal{
 	pixel_y = 29
 	},
@@ -4069,18 +4041,14 @@
 	},
 /area/moonoutpost19/mo19arrivals)
 "hU" = (
-/obj/machinery/shower{
-	pixel_y = 16
-	},
+/obj/machinery/shower/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
 /area/moonoutpost19/mo19arrivals)
 "hV" = (
-/obj/machinery/shower{
-	pixel_y = 16
-	},
+/obj/machinery/shower/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -4244,10 +4212,7 @@
 	},
 /area/moonoutpost19/mo19arrivals)
 "il" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	broken = 1;
 	desc = "Oh no, seven years of bad luck!";
@@ -4273,9 +4238,7 @@
 	},
 /area/moonoutpost19/mo19arrivals)
 "io" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -4363,9 +4326,7 @@
 	},
 /area/moonoutpost19/mo19research)
 "ix" = (
-/obj/structure/toilet{
-	dir = 4
-	},
+/obj/structure/toilet/directional/west,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -4396,9 +4357,7 @@
 	},
 /area/moonoutpost19/mo19arrivals)
 "iB" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /obj/item/bikehorn/rubberducky,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -4442,9 +4401,7 @@
 	},
 /area/moonoutpost19/mo19research)
 "iH" = (
-/obj/structure/sink{
-	pixel_y = 28
-	},
+/obj/structure/sink/directional/north,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -4498,10 +4455,7 @@
 /obj/structure/sign/securearea{
 	pixel_y = 32
 	},
-/obj/machinery/shower{
-	dir = 4;
-	name = "emergency shower"
-	},
+/obj/machinery/shower/directional/west,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
@@ -4541,9 +4495,7 @@
 	},
 /area/moonoutpost19/mo19research)
 "iQ" = (
-/obj/machinery/shower{
-	dir = 1
-	},
+/obj/machinery/shower/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -4619,9 +4571,7 @@
 	},
 /area/moonoutpost19/mo19arrivals)
 "ja" = (
-/obj/structure/toilet{
-	dir = 1
-	},
+/obj/structure/toilet/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -4645,11 +4595,7 @@
 	},
 /area/moonoutpost19/mo19research)
 "jd" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -5284,7 +5230,6 @@
 /area/moonoutpost19/mo19arrivals)
 "kD" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/noalarm/directional/north{
@@ -5664,11 +5609,7 @@
 /turf/simulated/floor/plasteel,
 /area/moonoutpost19/mo19arrivals)
 "lw" = (
-/obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "old sink";
-	pixel_y = 28
-	},
+/obj/structure/sink/kitchen/directional/north,
 /turf/simulated/floor/plasteel/t0c{
 	icon_state = "showroomfloor"
 	},
@@ -6782,7 +6723,7 @@
 "ot" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
-/obj/item/reagent_containers/glass/rag{
+/obj/item/rag{
 	pixel_y = 5
 	},
 /obj/machinery/door/poddoor/shutters{

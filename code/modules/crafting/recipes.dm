@@ -75,7 +75,7 @@
 	name = "Molotov"
 	result = /obj/item/reagent_containers/food/drinks/bottle/molotov
 	reqs = list(
-		/obj/item/reagent_containers/glass/rag = 1,
+		/obj/item/rag = 1,
 		/obj/item/reagent_containers/food/drinks/bottle = 1,
 	)
 	blacklist = list(/obj/item/reagent_containers/food/drinks/bottle/molotov)
@@ -443,6 +443,42 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
+/datum/crafting_recipe/handmade_bow
+	name = "Самодельный лук"
+	result = /obj/item/gun/projectile/bow/handmade
+	reqs = list(
+		/obj/item/stack/cable_coil = 15,
+		/obj/item/stack/tape_roll = 10,
+		/obj/item/stack/rods = 2,
+	)
+	tools = list(TOOL_WELDER)
+	time = 40
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
+/datum/crafting_recipe/handmade_quiver
+	name = "Самодельный колчан"
+	result = /obj/item/storage/backpack/quiver/homemade
+	reqs = list(
+		/obj/item/stack/cable_coil = 10,
+		/obj/item/storage/bag/plasticbag = 1,
+	)
+	tools = list(TOOL_WIRECUTTER)
+	time = 40
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
+/datum/crafting_recipe/makeshift_arrow
+	name = "Самодельная стрела"
+	result = /obj/item/ammo_casing/caseless/arrow/homemade
+	time = 5
+	reqs = list(
+		/obj/item/stack/rods = 1,
+	)
+	tools = list(TOOL_WELDER)
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+
 /datum/crafting_recipe/nunchucks
 	name = "Nunchucks"
 	result = /obj/item/nunchuck
@@ -470,7 +506,9 @@
 /datum/crafting_recipe/tripwire
 	name = "Самодельная растяжка"
 	result = /obj/item/tripwire/two_for_craft
-	reqs = list(/obj/item/stack/rods)
+	reqs = list(
+		/obj/item/stack/rods = 1,
+	)
 	tools = list(TOOL_WELDER, TOOL_WIRECUTTER)
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
@@ -1139,7 +1177,7 @@
 
 /datum/crafting_recipe/chitinquiver
 	name = "Chitin Quiver"
-	result = /obj/item/storage/belt/quiver_weaver
+	result = /obj/item/storage/backpack/quiver/weaver
 	time = 8 SECONDS
 	reqs = list(
 		/obj/item/stack/sheet/animalhide/weaver_chitin = 4,
@@ -1304,7 +1342,7 @@
 		/obj/item/storage/toolbox = 1,
 	) //Paint in reagents so it doesnt take the container up, yet still take it from the beaker
 	blacklist = list(/obj/item/storage/toolbox/fakesyndi)
-	pathtools = list(/obj/item/reagent_containers/glass/rag = 1) //need something to paint with it
+	pathtools = list(/obj/item/rag = 1) //need something to paint with it
 	category = CAT_MISC
 
 /datum/crafting_recipe/snowman
@@ -2126,3 +2164,14 @@
 		/obj/item/stack/sheet/cloth = 2,
 	)
 	category = CAT_MISC
+
+/datum/crafting_recipe/elder_atmosian_statue
+	name = "Elder Atmosian Statue"
+	result = /obj/structure/statue/elder_atmosian
+	time = 6 SECONDS
+	reqs = list(
+		/obj/item/stack/sheet/mineral/metal_hydrogen = 20,
+		/obj/item/stack/sheet/mineral/zaukerite = 15,
+		/obj/item/stack/sheet/metal = 30,
+	)
+	category = CAT_DECORATIONS

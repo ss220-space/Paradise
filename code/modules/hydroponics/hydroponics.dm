@@ -28,6 +28,8 @@
 	var/lastproduce = 0		//Last time it was harvested
 	var/lastcycle = 0		//Used for timing of cycles.
 	var/cycledelay = 200	//About 10 seconds / cycle
+	/// Growth rate (set when plant seed, depends on botany skill. Higher value - faster loops calls)
+	var/growth_rate = 1
 	var/harvest = 0			//Ready to harvest?
 	var/obj/item/seeds/myseed = null	//The currently planted seed
 	var/rating = 1
@@ -157,7 +159,7 @@
 		adjustPests(-2)
 		adjustToxic(-2)
 
-	if(world.time > (lastcycle + cycledelay))
+	if(world.time > (lastcycle + (cycledelay / growth_rate)))
 		lastcycle = world.time
 		if(myseed && !dead)
 			// Advance age
@@ -406,6 +408,7 @@
 	age = 0
 	plant_health = myseed.endurance
 	lastcycle = world.time
+	growth_rate = 1
 	harvest = 0
 	adjustWeeds(-10) // Reset
 	adjustPests(-10) // Reset
@@ -445,6 +448,7 @@
 	age = 0
 	plant_health = myseed.endurance
 	lastcycle = world.time
+	growth_rate = 1
 	harvest = 0
 	plant_hud_set_health()
 	plant_hud_set_status()
@@ -464,6 +468,7 @@
 		age = 0
 		plant_health = myseed.endurance
 		lastcycle = world.time
+		growth_rate = 1
 		harvest = 0
 		plant_hud_set_health()
 		plant_hud_set_status()
@@ -743,13 +748,13 @@
 				to_chat(user, span_warning("Nothing happens..."))
 
 /obj/machinery/hydroponics/attackby(obj/item/I, mob/user, params)
-	var/is_reagent_container = istype(I, /obj/item/reagent_containers)
+	var/is_reagent_container = is_reagent_container(I)
 	if(user.a_intent == INTENT_HARM)
 		if(is_reagent_container)
 			return ..() | ATTACK_CHAIN_NO_AFTERATTACK
 		return ..()
 
-	if(istype(I, /obj/item/reagent_containers))  // Syringe stuff (and other reagent containers now too)
+	if(is_reagent_container(I))  // Syringe stuff (and other reagent containers now too)
 		add_fingerprint(user)
 		var/obj/item/reagent_containers/reagent_source = I
 		var/is_syringe = issyringe(reagent_source)
@@ -757,15 +762,15 @@
 			var/obj/item/reagent_containers/syringe/syringe = reagent_source
 			if(syringe.mode != 1)
 				to_chat(user, span_warning("You cannot get any extract out of this plant."))		//That. Gives me an idea...
-				return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+				return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 
 		if(!reagent_source.reagents.total_volume)
 			to_chat(user, span_warning("The [reagent_source.name] is empty."))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 
 		if(reagent_source.has_lid && !reagent_source.is_drainable()) //if theres a LID then cannot transfer reagents.
 			to_chat(user, span_warning("You need to open [reagent_source] first."))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 
 		var/list/trays = list(src)//makes the list just this in cases of syringes and compost etc
 		var/target = myseed ? myseed.plantname : name
@@ -845,6 +850,8 @@
 		plant_hud_set_health()
 		plant_hud_set_status()
 		lastcycle = world.time
+		CALCULATE_SKILL_MOD(user, PLANT_GROWTH_RATE, skill_growth_rate)
+		growth_rate = skill_growth_rate
 		update_state()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -866,7 +873,8 @@
 			span_notice("You start to uproot the weeds..."),
 		)
 		weed_pulling = TRUE
-		while(do_after(user, 2 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL))
+		CALCULATE_SKILL_MOD(user, HYDROPONIC_CULTIVATION_MOD, cultivation_skill_mod)
+		while(do_after(user, 2 SECONDS * I.toolspeed * cultivation_skill_mod, src, category = DA_CAT_TOOL, max_interact_count = 1))
 			if(weedlevel <= 0)
 				break
 			adjustWeeds(-2)
@@ -904,7 +912,8 @@
 			span_notice("You start digging out [src]'s plants..."),
 		)
 		I.play_tool_sound(src)
-		if(!do_after(user, 2.5 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL) || (!myseed && !weedlevel))
+		CALCULATE_SKILL_MOD(user, HYDROPONIC_CULTIVATION_MOD, shovel_skill_mod)
+		if(!do_after(user, 2.5 SECONDS * I.toolspeed * shovel_skill_mod, src, category = DA_CAT_TOOL, max_interact_count = 1) || (!myseed && !weedlevel))
 			return ATTACK_CHAIN_PROCEED
 		I.play_tool_sound(src)
 		user.visible_message(
@@ -993,7 +1002,9 @@
 		return
 	if(harvest)
 		add_fingerprint(user)
-		myseed.harvest(user)
+		CALCULATE_SKILL_MOD(user, HYDROPONIC_HARVEST_MOD, harvest_skill_mod)
+		if(do_after(user, 2 SECONDS * harvest_skill_mod, src, max_interact_count = 1))
+			myseed.harvest(user)
 	else if(dead)
 		add_fingerprint(user)
 		dead = 0
@@ -1123,7 +1134,7 @@
 	msg += "- Toxicity level: [span_notice("[toxic] / 100")]"
 	msg += "- Water level: [span_notice("[waterlevel] / [maxwater]")]"
 	msg += "- Nutrition level: [span_notice("[nutrilevel] / [maxnutri]")]"
-	to_chat(user, chat_box_examine(msg.Join("\n")))
+	to_chat(user, boxed_message(msg.Join("\n")))
 
 /obj/machinery/hydroponics/attack_ghost(mob/dead/observer/user)
 	if(!istype(user)) // Make sure user is actually an observer. Revenents also use attack_ghost, but do not have the toggle plant analyzer var.

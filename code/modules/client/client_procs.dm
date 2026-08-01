@@ -399,6 +399,8 @@
 
 	loot_panel = new(src)
 
+	skills_select_window = new()
+
 	Master.UpdateTickRate()
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/client, nag_516))
 
@@ -474,6 +476,13 @@
 
 /client/Del()
 	if(!gc_destroyed)
+		gc_destroyed = world.time
+		if(!QDELING(src))
+			stack_trace("Client does not purport to be QDELING, this is going to cause bugs in other places!")
+
+		// Yes this is the same as what's found in qdel(). Yes it does need to be here
+		// Get off my back
+		SEND_SIGNAL(src, COMSIG_QDELETING, TRUE)
 		Destroy() //Clean up signals and timers.
 	return ..()
 
@@ -500,16 +509,20 @@
 		LAZYREMOVE(movingmob.client_mobs_in_contents, mob)
 		movingmob = null
 
+	sound_tokens = null
+
 	SSambience.remove_ambience_client(src)
 	SSmouse_entered.hovers -= src
 	SSping.currentrun -= src
+	SSsound_tokens.clients_needing_update -= src
+	SSsound_tokens.currentrun -= src
 	QDEL_NULL(void)
 	QDEL_NULL(tooltips)
 	QDEL_NULL(loot_panel)
 	QDEL_NULL(parallax_rock)
-	QDEL_LIST(parallax_layers_cached)
-	parallax_layers = null
+	QDEL_NULL(skills_select_window)
 	seen_messages = null
+	sound_tokens = null
 	Master.UpdateTickRate()
 	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
 	return QDEL_HINT_HARDDEL_NOW
@@ -709,7 +722,7 @@
 	var/watchreason = check_watchlist(ckey)
 	if(watchreason)
 		message_admins(span_red("<b>Notice: </b></font><font color='#EB4E00'>[key_name_admin(src)] is on the watchlist and has just connected - Reason: [watchreason]"))
-		SSdiscord.send2discord_simple_noadmins("**\[Watchlist]** [key_name(src)] is on the watchlist and has just connected - Reason: [watchreason]")
+		GLOB.discord_manager.send2discord_simple_noadmins("**\[Watchlist]** [key_name(src)] is on the watchlist and has just connected - Reason: [watchreason]")
 
 	//Just the standard check to see if it's actually a number
 	if(sql_id)
@@ -978,7 +991,7 @@
 
 			if(!cidcheck_failedckeys[ckey])
 				message_admins(span_adminnotice("[ADMIN_LOOKUP(src)] has been detected as using a CID randomizer. Connection rejected."))
-				SSdiscord.send2discord_simple_noadmins("**\[Warning]** [key_name(src)] has been detected as using a CID randomizer. Connection rejected.")
+				GLOB.discord_manager.send2discord_simple_noadmins("**\[Warning]** [key_name(src)] has been detected as using a CID randomizer. Connection rejected.")
 				cidcheck_failedckeys[ckey] = TRUE
 				note_randomizer_user()
 
@@ -991,7 +1004,7 @@
 			if(cidcheck_failedckeys[ckey])
 				// Atonement
 				message_admins(span_adminnotice("[ADMIN_LOOKUP(src)] has been allowed to connect after showing they removed their cid randomizer"))
-				SSdiscord.send2discord_simple_noadmins("**\[Info]** [key_name(src)] has been allowed to connect after showing they removed their cid randomizer.")
+				GLOB.discord_manager.send2discord_simple_noadmins("**\[Info]** [key_name(src)] has been allowed to connect after showing they removed their cid randomizer.")
 				cidcheck_failedckeys -= ckey
 			if(cidcheck_spoofckeys[ckey])
 				message_admins(span_adminnotice("[ADMIN_LOOKUP(src)] has been allowed to connect after appearing to have attempted to spoof a cid randomizer check because it <i>appears</i> they aren't spoofing one this time"))
@@ -1348,7 +1361,7 @@
 	if(prefs)
 		prefs.load_preferences(usr)
 	if(prefs?.discord_id && length(prefs.discord_id) < 32)
-		to_chat(usr, chat_box_red(span_darkmblue("Аккаунт Discord уже привязан!<br>Чтобы отвязать используйте команду [span_boldannounceooc("!отвязать_аккаунт")]<br>В канале <b>#дом-бота</b> в Discord-сообществе!")), confidential = TRUE)
+		to_chat(usr, custom_boxed_message("red_box center", span_darkmblue("Аккаунт Discord уже привязан!<br>Чтобы отвязать используйте команду [span_boldannounceooc("!отвязать_аккаунт")]<br>В канале <b>#дом-бота</b> в Discord-сообществе!")), confidential = TRUE)
 		return
 	var/token = md5("[world.time+rand(1000,1000000)]")
 	if(SSdbcore.IsConnected())
@@ -1359,7 +1372,7 @@
 			qdel(query_update_token)
 			return
 		qdel(query_update_token)
-		to_chat(usr, chat_box_notice(span_darkmblue("Для завершения привязки используйте команду<br>[span_boldannounceooc("!привязать_аккаунт [token]")]<br>В канале <b>#дом-бота</b> в Discord-сообществе!")), confidential = TRUE)
+		to_chat(usr, custom_boxed_message("blue_box", span_darkmblue("Для завершения привязки используйте команду<br>[span_boldannounceooc("!привязать_аккаунт [token]")]<br>В канале <b>#дом-бота</b> в Discord-сообществе!")), confidential = TRUE)
 		if(prefs)
 			prefs.load_preferences(usr)
 
@@ -1525,6 +1538,7 @@
 
 	for(var/mob/dead/observer/observe in mob.inventory_observers)
 		if(!observe.client)
+			observe.handle_when_autoobserve_move()
 			LAZYREMOVE(mob.inventory_observers, observe)
 			continue
 		observe.client.eye = new_eye

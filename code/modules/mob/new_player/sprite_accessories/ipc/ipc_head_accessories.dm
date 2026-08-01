@@ -1,7 +1,7 @@
 
 /datum/sprite_accessory/head_accessory/ipc
 	icon = 'icons/mob/sprite_accessories/ipc/ipc_head_accessories.dmi'
-	species_allowed = list(SPECIES_MACNINEPERSON)
+	species_allowed = list(SPECIES_MACHINEPERSON)
 	over_hair = TRUE
 
 /datum/sprite_accessory/head_accessory/ipc/ipc_antennae

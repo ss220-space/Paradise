@@ -57,7 +57,7 @@
 /mob/living/carbon/alien/humanoid/queen/large
 	icon = 'icons/mob/alienlarge.dmi'
 	pixel_x = -16
-	var/datum/action/innate/small_sprite_alien/action_sprite
+	var/datum/action/innate/alien/sprite_toggle/action_sprite
 
 /mob/living/carbon/alien/humanoid/queen/large/Initialize(mapload)
 	. = ..()
@@ -83,7 +83,3 @@
 	update_held_items()
 	update_pockets()
 	update_fire()
-
-	if(blocks_emissive)
-		add_overlay(get_emissive_block())
-

@@ -116,7 +116,7 @@
 			return TRUE
 		// If it's a surgery initiator, make sure it calls its attack chain down the line.
 		// Make sure this comes after the operation though, especially for things like scalpels
-		if(tool && tool.GetComponent(/datum/component/surgery_initiator))
+		if(tool && HAS_TRAIT(tool, TRAIT_SURGERY_INITIATOR))
 			return FALSE
 		if(tool && HAS_TRAIT(tool, TRAIT_SURGICAL))
 			user.balloon_alert(user, "неподходящий инструмент!")
@@ -374,6 +374,9 @@
 	prob_success *= pain_mod
 
 	var/step_result
+
+	CALCULATE_SKILL_MOD(user, SURGERY_SUCCESS_MOD, skill_success_mod)
+	prob_success *= skill_success_mod
 
 	if((prob(prob_success) || silicons_ignore_prob && isrobot(user)) && chem_check_result && !try_to_fail)
 		step_result = end_step(user, target, target_zone, tool, surgery)
@@ -643,4 +646,6 @@
 	var/basemod = 1.0
 	for(var/mod_id, mod_amt in patient.mob_surgery_speed_mods)
 		basemod *= mod_amt
+	CALCULATE_SKILL_MOD(surgeon, SURGERY_DURATION_MOD, surgery_skill_mod)
+	basemod *= surgery_skill_mod
 	return basemod

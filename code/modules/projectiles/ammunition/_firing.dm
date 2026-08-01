@@ -29,6 +29,8 @@
 	BB.firer_source_atom = firer_source_atom
 	BB.damage *= damage_mod
 	BB.stamina *= stamina_mod
+	BB.range *= range_modifier
+	BB.speed *= speed_modifier
 	if(zone_override)
 		BB.def_zone = zone_override
 	else
@@ -45,7 +47,8 @@
 		return
 	BB.ammo_casing = src
 
-	if(target && get_dist(user, target) <= 1) //Point blank shot must always hit
+	// Point blank adjacent mob/object always gets hit.
+	if(target && !isturf(target) && get_dist(user, target) <= 1)
 		BB.starting = curloc
 		BB.prehit(target)
 		target.bullet_act(BB, BB.def_zone)

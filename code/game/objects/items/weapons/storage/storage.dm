@@ -58,6 +58,8 @@
 	var/foldable_amt = 0
 	/// Lazy list of mobs which are currently viewing the storage inventory.
 	var/list/mobs_viewing
+	/// Increase "w_class" of storage when something inside it
+	var/dynamic_storage_size = FALSE
 
 /obj/item/storage/Initialize(mapload)
 	. = ..()
@@ -237,21 +239,24 @@
 
 	for(var/mob/dead/observer/observe in user.inventory_observers)
 		if(!observe.client)
+			observe.handle_when_autoobserve_move()
 			LAZYREMOVE(user.inventory_observers, observe)
 			continue
 		show_to(observe, TRUE)
 
 /obj/item/storage/proc/hide_from(mob/user, from_inv_observers = FALSE)
 	LAZYREMOVE(mobs_viewing, user) // Remove clientless mobs too
-	if(!user.client)
-		return
-	user.client.screen -= boxes
 	var/datum/storage_box/box = LAZYACCESS(storage_boxes, user)
-	if(box)
-		user.client.screen -= box.screens_list()
+	var/client/user_client = user.client
+	if(storage_boxes)
 		storage_boxes -= user
-	user.client.screen -= closer
-	user.client.screen -= contents
+	if(user_client)
+		if(box)
+			user_client.screen -= box.screens_list()
+		user_client.screen -= boxes
+		user_client.screen -= closer
+		user_client.screen -= contents
+
 	if(user.s_active == src)
 		user.s_active = null
 
@@ -262,8 +267,8 @@
 
 	for(var/mob/dead/observer/observe in user.inventory_observers)
 		if(!observe.client)
+			observe.handle_when_autoobserve_move()
 			LAZYREMOVE(user.inventory_observers, observe)
-			continue
 		hide_from(observe, TRUE)
 
 /obj/item/storage/proc/on_mob_qdeleting(mob/source, force)
@@ -698,6 +703,11 @@
 		if(!usr.can_unEquip(W))
 			return FALSE
 
+	if(dynamic_storage_size && isstorage(loc) && !istype(loc, /obj/item/storage/backpack/holding))
+		if(!stop_messages)
+			balloon_alert(usr, "не хватит места!")
+		return FALSE
+
 	return TRUE
 
 /// This proc handles items being inserted. It does not perform any checks of whether an item can or can't be inserted. That's done by can_be_inserted()
@@ -734,6 +744,7 @@
 
 		for(var/mob/dead/observer/observe in usr.inventory_observers)
 			if(!observe.client)
+				observe.handle_when_autoobserve_move()
 				LAZYREMOVE(usr.inventory_observers, observe)
 				continue
 			observe.client.screen -= W
@@ -757,6 +768,7 @@
 	W.pixel_x = initial(W.pixel_x)
 	W.mouse_opacity = MOUSE_OPACITY_OPAQUE //So you can click on the area around the item to equip it, instead of having to pixel hunt
 	update_icon()
+	SEND_SIGNAL(src, COMSIG_ITEM_INSERTED_INTO_STORAGE)
 	return TRUE
 
 /// Call this proc to handle the removal of an item from the storage item. The item will be moved to the atom sent as new_target
@@ -798,6 +810,7 @@
 		W.maptext = ""
 	W.on_exit_storage(src)
 	update_icon()
+	SEND_SIGNAL(src, COMSIG_ITEM_REMOVED_FROM_STORAGE)
 	return TRUE
 
 /obj/item/storage/Exited(atom/movable/gone, direction)
@@ -1018,6 +1031,11 @@
 		orient2hud(user)
 		show_to(user)
 	return TRUE
+
+/obj/item/storage/examine(mob/user)
+	. = ..()
+	if(dynamic_storage_size)
+		. += span_notice("Размер <b>изменяется</b> в зависимости от наличия содержимого.")
 
 #undef STORAGE_CAP_WIDTH
 #undef STORED_CAP_WIDTH

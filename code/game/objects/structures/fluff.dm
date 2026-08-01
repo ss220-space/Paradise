@@ -65,7 +65,7 @@
 	layer = EDGED_TURF_LAYER
 
 /obj/structure/fluff/drake_statue/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "статуя дрейка",
 		GENITIVE = "статуи дрейка",
 		DATIVE = "статуе дрейка",
@@ -77,6 +77,22 @@
 /obj/structure/fluff/drake_statue/falling //A variety of statue in disrepair; parts are broken off and a gemstone is missing
 	desc = "A towering basalt sculpture of a drake. Cracks run down its surface and parts of it have fallen off."
 	icon_state = "drake_statue_falling"
+
+/obj/structure/fluff/drake_statue/great
+	name = "great lizard statue"
+
+	desc = "Когда-то племена ящеров поклонялись огромному ящеру, вселяющий ужас во всех неугодных. Но некий Русс его сразил. О былом величии Великого Ящера теперь напоминают только такие статуи, которые уже успели растащить коллекционеры-чаелюбы, не оставив ничего аборигенам."
+	color = COLOR_YELLOW
+
+/obj/structure/fluff/drake_statue/great/get_ru_names()
+	return alist(
+		NOMINATIVE = "cтатуя Великому Ящеру",
+		GENITIVE = "статуи Великого Ящера",
+		DATIVE = "статуе Великого Ящера",
+		ACCUSATIVE = "статую Великому Ящеру",
+		INSTRUMENTAL = "статуей Великого Ящера",
+		PREPOSITIONAL = "статуе Великого Ящера",
+	)
 
 /obj/structure/fluff/divine
 	name = "Miracle"
@@ -107,7 +123,7 @@
 	icon_state = "grave_empty"
 
 /obj/structure/fluff/grave/empty/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пустая могила",
 		GENITIVE = "пустой могилы",
 		DATIVE = "пустой могиле",

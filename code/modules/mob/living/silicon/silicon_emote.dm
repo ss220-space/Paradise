@@ -30,6 +30,7 @@
 	vary = TRUE
 	sound = 'sound/goonstation/voice/robot_scream.ogg'
 	volume = 80
+	use_sound_tokens = TRUE
 
 /datum/emote/living/silicon/ping
 	key = "ping"

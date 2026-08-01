@@ -204,6 +204,11 @@ SUBSYSTEM_DEF(air)
 	was_paused = TRUE
 	return ..()
 
+/datum/controller/subsystem/air/Shutdown()
+	while(!milla_idle)
+		sleep(1)
+	return ..()
+
 /datum/controller/subsystem/air/fire(resumed = 0)
 	// All atmos stuff assumes MILLA is synchronous. Ensure it actually is.
 	var/now = world.timeofday + (world.tick_lag * world.tick_usage) / 100
@@ -469,6 +474,7 @@ SUBSYSTEM_DEF(air)
 			var/temperature = currentrun[offset + MILLA_INDEX_TEMPERATURE]
 			if(temperature < T100C && istype(simulated_turf))
 				simulated_turf.MakeSlippery(temperature > T0C ? TURF_WET_WATER : TURF_WET_ICE, 7.9 SECONDS, randfloat(7.9 SECONDS, 8.2 SECONDS))
+				simulated_turf.wash_tg(CLEAN_WASH | CLEAN_RAD, TRUE)
 
 		if(reasons & MILLA_INTERESTING_REASON_CREATE_HOT_ICE)
 			new /obj/item/stack/sheet/hot_ice(turf)

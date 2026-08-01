@@ -17,16 +17,15 @@
 	righthand_file = 'icons/mob/inhands/antag/ninja_righthand.dmi'
 	icon_state = "energy_katana_green"
 	item_state = "energy_katana_green"
-	var/color_style = "green"
 	force = 40
 	throwforce = 20
-	block_chance = 50
 	armour_penetration = 50
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("атаковал", "порезал", "уколол", "полоснул", "рубанул", "пронзил")
 	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_BACK
 	sharp = TRUE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	var/color_style = "green"
 	var/datum/effect_system/spark_spread/spark_system
 	var/datum/action/innate/dash/ninja/jaunt
 
@@ -41,6 +40,9 @@
 	spark_system = new /datum/effect_system/spark_spread()
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
+
+/obj/item/melee/energy_katana/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/melee/energy_katana/ComponentInitialize()
 	. = ..()
@@ -212,5 +214,4 @@
 	icon_state = "energy_katana_red"
 	item_state = "energy_katana_red"
 	force = 30
-	block_chance = 40
 	armour_penetration = 40

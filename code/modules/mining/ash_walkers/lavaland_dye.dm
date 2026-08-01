@@ -21,7 +21,7 @@
 	totem_dye = "cinnabar"
 
 /obj/item/lavaland_dye/cinnabar/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "селезёнка киноварного цвета",
 		GENITIVE = "селезёнки киноварного цвета",
 		DATIVE = "селезёнке киноварного цвета",
@@ -39,7 +39,7 @@
 	fluff_name = "кровавая"
 
 /obj/item/lavaland_dye/crimson/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "селезёнка кровавого цвета",
 		GENITIVE = "селезёнки кровавого цвета",
 		DATIVE = "селезёнке кровавого цвета",
@@ -57,7 +57,7 @@
 	fluff_name = "тёмно-синяя"
 
 /obj/item/lavaland_dye/indigo/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "селезёнка тёмно-синего цвета",
 		GENITIVE = "селезёнки тёмно-синего цвета",
 		DATIVE = "селезёнке тёмно-синего цвета",
@@ -75,7 +75,7 @@
 	fluff_name = "мятная"
 
 /obj/item/lavaland_dye/mint/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "селезёнка мятного цвета",
 		GENITIVE = "селезёнки мятного цвета",
 		DATIVE = "селезёнке мятного цвета",
@@ -93,7 +93,7 @@
 	fluff_name = "янтарная"
 
 /obj/item/lavaland_dye/amber/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "селезёнка янтарного цвета",
 		GENITIVE = "селезёнки янтарного цвета",
 		DATIVE = "селезёнке янтарного цвета",
@@ -122,7 +122,7 @@
 	var/uses = 5
 
 /obj/item/lavaland_mortar/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "деревянная ступка",
 		GENITIVE = "деревянной ступки",
 		DATIVE = "деревянной ступке",

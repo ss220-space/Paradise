@@ -37,6 +37,8 @@
 #define NO_NEW_GAGS_PREVIEW (1<<12)
 /// Whether or not this atom has contextual screentips when hovered OVER
 #define HAS_CONTEXTUAL_SCREENTIPS (1<<13)
+/// Should this object be unpaintable?
+#define UNPAINTABLE (1<<14)
 
 // Update flags for [/atom/proc/update_appearance]
 /// Update the atom's name
@@ -84,6 +86,7 @@
 #define HAS_BODYACC_COLOR (1<<13)
 #define BALD (1<<14)
 #define ALL_RPARTS (1<<15)
+#define HAS_HAIR (1<<16)
 
 //Pre-baked combinations of the above body flags
 #define HAS_BODY_ACCESSORY (HAS_TAIL|HAS_WING)
@@ -158,6 +161,7 @@
 #define DF_USE_TAG (1<<0)
 #define DF_VAR_EDITED (1<<1)
 #define DF_ISPROCESSING (1<<2)
+#define DF_UID_INVALID (1<<3)
 
 //TURF FLAGS
 /// If a turf cant be jaunted through.
@@ -289,6 +293,8 @@ GLOBAL_LIST_INIT(more_bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024
 #define DA_IGNORE_EMPTY_GRIPPER (1<<8)
 /// Used to prevent important slowdowns to be modified by mob's actions slowdown
 #define DA_IGNORE_SLOWDOWNS (1<<9)
+/// Cancel the action if the user does another action (mainly via clicking)
+#define DA_DO_AFTER_CHECK_NEXT_MOVE (1<<10)
 
 /// All ignore flags considered as default old do_after behavior.
 #define DEFAULT_DOAFTER_IGNORE (DA_IGNORE_LYING|DA_IGNORE_RESTRAINED)
@@ -298,3 +304,18 @@ GLOBAL_LIST_INIT(more_bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024
 //alternate appearance flags
 #define AA_TARGET_SEE_APPEARANCE (1<<0)
 #define AA_MATCH_TARGET_OVERLAYS (1<<1)
+
+#define KEEP_TOGETHER_ORIGINAL "keep_together_original"
+
+/// Setter for KEEP_TOGETHER to allow for multiple sources to set and unset it
+#define ADD_KEEP_TOGETHER(x, source) \
+	if((x.appearance_flags & KEEP_TOGETHER) && !HAS_TRAIT(x, TRAIT_KEEP_TOGETHER)) ADD_TRAIT(x, TRAIT_KEEP_TOGETHER, KEEP_TOGETHER_ORIGINAL); \
+	ADD_TRAIT(x, TRAIT_KEEP_TOGETHER, source); \
+	x.appearance_flags |= KEEP_TOGETHER
+
+#define REMOVE_KEEP_TOGETHER(x, source)\
+	REMOVE_TRAIT(x, TRAIT_KEEP_TOGETHER, source);\
+	if(HAS_TRAIT_FROM_ONLY(x, TRAIT_KEEP_TOGETHER, KEEP_TOGETHER_ORIGINAL))\
+		REMOVE_TRAIT(x, TRAIT_KEEP_TOGETHER, KEEP_TOGETHER_ORIGINAL);\
+	else if(!HAS_TRAIT(x, TRAIT_KEEP_TOGETHER))\
+		x.appearance_flags &= ~KEEP_TOGETHER

@@ -1,7 +1,6 @@
 #define BH_FAKE_PM_STRINGS "strings/fake_pms_texts.txt"
 #define BH_ADMIN_NULL_CKEY "rusifikator"
 #define BH_ADMIN_NULL_ROLE "Главный Администратор Проекта"
-#define BH_ADMIN_PM "PM"
 #define BH_NULL_MESSAGE list("Привет, есть минутка?")
 GLOBAL_LIST_EMPTY(fake_pm_messages)
 
@@ -37,6 +36,7 @@ GLOBAL_LIST_EMPTY(fake_pm_messages)
 	var/client/target_client = get_target_client(target)
 	if(!target_client)
 		return
+	var/target_ckey_chached = target_client.ckey
 
 	var/chosen_admin_name = BH_ADMIN_NULL_CKEY
 	var/chosen_admin_rank = BH_ADMIN_NULL_ROLE
@@ -45,7 +45,7 @@ GLOBAL_LIST_EMPTY(fake_pm_messages)
 
 	for(var/client/admin_client in active_admins)
 		if(admin_client?.holder && (admin_client.holder.rights & R_ADMIN))
-			if(admin_client.holder.fakekey || admin_client.holder.big_brother)
+			if(admin_client.holder.fakekey || admin_client.holder.big_brother || target_ckey_chached == admin_client.ckey)
 				continue
 			valid_online_candidates += admin_client
 
@@ -62,7 +62,7 @@ GLOBAL_LIST_EMPTY(fake_pm_messages)
 		for(var/admin_ckey in admin_datums_cached)
 			var/datum/admins/admin_datum = admin_datums_cached[admin_ckey]
 			if(admin_datum && (admin_datum.rights & R_ADMIN))
-				if(admin_datum.fakekey || admin_datum.big_brother)
+				if(admin_datum.fakekey || admin_datum.big_brother || target_ckey_chached == admin_ckey)
 					continue
 				valid_offline_ckeys += admin_ckey
 
@@ -91,18 +91,19 @@ GLOBAL_LIST_EMPTY(fake_pm_messages)
 		var/mob/living_mob = target
 		return living_mob.client
 
-	return
-
-/proc/fake_admin_pm(target, message_text, admin_name, admin_rank, type_help = BH_ADMIN_PM)
+/proc/fake_admin_pm(target, message_text, admin_name, admin_rank)
 	if(!target)
 		return
 
-	var/full_message = chat_box_ahelp(span_adminhelp("[type_help] from-<b>[admin_rank] <a href=''>[admin_name]</a></b>:<br><br>[span_emojienabled("[message_text]")]<br>"))
+	var/full_message = fieldset_block(
+		span_adminhelp("Сообщение от — <b>[admin_rank] <a href=''>[admin_name]</a></b>"),
+		span_adminhelp(span_emojienabled("[message_text]")),
+		"boxed_message red_box" \
+	)
 	to_chat(target, full_message)
 	SEND_SOUND(target, sound('sound/effects/adminhelp.ogg'))
 
 #undef BH_FAKE_PM_STRINGS
 #undef BH_ADMIN_NULL_CKEY
 #undef BH_ADMIN_NULL_ROLE
-#undef BH_ADMIN_PM
 #undef BH_NULL_MESSAGE

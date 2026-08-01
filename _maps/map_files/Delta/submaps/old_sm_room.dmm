@@ -747,7 +747,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc/worn_out/directional/north,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2";
 	pixel_y = 1
 	},
@@ -1330,11 +1329,7 @@
 /turf/simulated/floor/wood/dark,
 /area/template_noop)
 "Gu" = (
-/obj/structure/sink{
-	dir = 1;
-	layer = 5;
-	pixel_y = -5
-	},
+/obj/structure/sink/directional/south,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/engine/cult,
 /area/template_noop)
@@ -1590,7 +1585,6 @@
 /obj/structure/curtain/black,
 /obj/effect/spawner/random_spawners/grille_50,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2";
 	pixel_y = 1
 	},

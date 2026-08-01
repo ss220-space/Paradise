@@ -32,6 +32,16 @@
 
 /obj/item/ammo_casing/magic/chaos
 
+/obj/item/ammo_casing/magic/lesser_chaos
+	/// List of our magical projectiles, because we really don't wanna teleport people out of deathmatch arena
+	var/static/list/magical_bullets = list(
+		/obj/projectile/magic/slipping,
+		/obj/projectile/magic/spellblade,
+		/obj/projectile/magic/fireball,
+		/obj/projectile/magic/resurrection,
+		/obj/projectile/magic/death,
+	)
+
 /obj/item/ammo_casing/magic/spellblade
 	projectile_type = /obj/projectile/magic/spellblade
 
@@ -40,6 +50,10 @@
 
 /obj/item/ammo_casing/magic/chaos/newshot()
 	projectile_type = pick(typesof(/obj/projectile/magic))
+	..()
+
+/obj/item/ammo_casing/magic/lesser_chaos/newshot()
+	projectile_type = pick(magical_bullets)
 	..()
 
 /obj/item/ammo_casing/magic/arcane_barrage
@@ -91,7 +105,7 @@
 	icon_state = "kunai"
 
 /obj/item/ammo_casing/magic/johyo/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "джохё",
 		GENITIVE = "джохё",
 		DATIVE = "джохё",
@@ -111,7 +125,7 @@
 	caliber = "skulls"
 
 /obj/item/ammo_casing/magic/skull_gun_casing/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "гильза для черепного пистолета",
 		GENITIVE = "гильзы для черепного пистолета",
 		DATIVE = "гильзе для черепного пистолета",
@@ -134,7 +148,7 @@
 	muzzle_flash_effect = null
 
 /obj/item/ammo_casing/magic/hook/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "крюк",
 		GENITIVE = "крюка",
 		DATIVE = "крюку",
@@ -154,7 +168,7 @@
 	muzzle_flash_effect = null
 
 /obj/item/ammo_casing/magic/contractor_hook/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "крюк из твёрдого света",
 		GENITIVE = "крюка из твёрдого света",
 		DATIVE = "крюку из твёрдого света",

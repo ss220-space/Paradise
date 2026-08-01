@@ -15,10 +15,6 @@
 #define INVISIBILITY_RUNES 25
 #define SEE_INVISIBLE_LIVING 25
 
-// Hidden cult runes
-#define INVISIBILITY_HIDDEN_RUNES 30
-#define SEE_INVISIBLE_HIDDEN_RUNES 30
-
 #define SEE_INVISIBLE_LEVEL_ONE 35 //Used by some stuff in code. It's really poorly organized.
 
 #define SEE_INVISIBLE_LEVEL_TWO 45 //Used by some other stuff in code. It's really poorly organized.
@@ -87,6 +83,10 @@
 /// we can then hijack that plane with a plane master, and start drawing it anywhere we want
 /// NOTE: this does not function with the SIDE_MAP map format. So we can't. :(
 //#define SEE_BLACKNESS (1<<10)
+
+/// Bitfield of sight flags that show THINGS but no lighting
+/// Since lighting is an underlay on turfs, this is everything but that
+#define SEE_AVOID_TURF_BLACKNESS (SEE_MOBS|SEE_OBJS)
 
 /// Bitfield of sight flags that show things "inside" the blackness plane
 /// We've gotta alpha it down if we get this, cause otherwise the sight flag won't work

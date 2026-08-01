@@ -6,7 +6,7 @@
 	damage = 0
 
 /obj/projectile/clown/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "щёлк-хлоп",
 		GENITIVE = "щёлк-хлопа",
 		DATIVE = "щёлк-хлопу",

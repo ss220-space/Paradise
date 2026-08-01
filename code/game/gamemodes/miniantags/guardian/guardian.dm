@@ -47,7 +47,7 @@ GLOBAL_LIST_EMPTY(parasites)
 	var/name_color = "white"//only used with protector shields for the time being
 
 /mob/living/simple_animal/hostile/guardian/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Дух-Хранитель",
 		GENITIVE = "Духа-Хранителя",
 		DATIVE = "Духу-Хранителю",
@@ -82,11 +82,10 @@ GLOBAL_LIST_EMPTY(parasites)
 
 /mob/living/simple_animal/hostile/guardian/med_hud_set_status()
 	if(summoner)
-		var/pixel_y = get_cached_height() - ICON_SIZE_Y
 		if(summoner.stat == DEAD)
-			set_hud_image_state(STATUS_HUD, STATUS_HUD_DEAD, y_offset = pixel_y)
+			set_hud_image_state(STATUS_HUD, STATUS_HUD_DEAD)
 		else
-			set_hud_image_state(STATUS_HUD, STATUS_HUD_HEALTHY, y_offset = pixel_y)
+			set_hud_image_state(STATUS_HUD, STATUS_HUD_HEALTHY)
 
 /mob/living/simple_animal/hostile/guardian/Life(seconds, times_fired)
 	..()
@@ -281,7 +280,7 @@ GLOBAL_LIST_EMPTY(parasites)
 	var/name_list = list("Aries", "Leo", "Sagittarius", "Taurus", "Virgo", "Capricorn", "Gemini", "Libra", "Aquarius", "Cancer", "Scorpio", "Pisces")
 
 /obj/item/guardiancreator/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "колода карт Таро",
 		GENITIVE = "колоды карт Таро",
 		DATIVE = "колоде карт Таро",
@@ -435,7 +434,7 @@ GLOBAL_LIST_EMPTY(parasites)
 	name_list = list("Gallium", "Indium", "Thallium", "Bismuth", "Aluminium", "Mercury", "Iron", "Silver", "Zinc", "Titanium", "Chromium", "Nickel", "Platinum", "Tellurium", "Palladium", "Rhodium", "Cobalt", "Osmium", "Tungsten", "Iridium")
 
 /obj/item/guardiancreator/tech/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "инъектор голопаразитов",
 		GENITIVE = "инъектора голопаразитов",
 		DATIVE = "инъектору голопаразитов",
@@ -483,7 +482,7 @@ GLOBAL_LIST_EMPTY(parasites)
 	name_list = list("brood", "hive", "nest")
 
 /obj/item/guardiancreator/biological/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "скопление яиц скарабеев",
 		GENITIVE = "скопления яиц скарабеев",
 		DATIVE = "скоплению яиц скарабеев",

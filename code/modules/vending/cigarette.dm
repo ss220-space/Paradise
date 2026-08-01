@@ -72,7 +72,7 @@
 	)
 
 /obj/machinery/vending/cigarette/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат ShadyCigs Deluxe",
 		GENITIVE = "торгового автомата ShadyCigs Deluxe",
 		DATIVE = "торговому автомату ShadyCigs Deluxe",
@@ -80,6 +80,9 @@
 		INSTRUMENTAL = "торговым автоматом ShadyCigs Deluxe",
 		PREPOSITIONAL = "торговом автомате ShadyCigs Deluxe",
 	)
+
+/obj/machinery/vending/cigarette/free
+	all_products_free = TRUE
 
 /obj/machinery/vending/cigarette/syndicate
 	product_categories = list(
@@ -159,7 +162,7 @@
 	)
 
 /obj/machinery/vending/cigarette/beach/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат ShadyCigs Ultra",
 		GENITIVE = "торгового автомата ShadyCigs Ultra",
 		DATIVE = "торговому автомату ShadyCigs Ultra",

@@ -237,7 +237,7 @@
 	default_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
 
 /obj/structure/closet/cardboard/agent/nullspace/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "блюспейс коробка",
 		GENITIVE = "блюспейс коробки",
 		DATIVE = "блюспейс коробке",

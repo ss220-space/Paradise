@@ -204,3 +204,15 @@
 #define GIVE_TRAIT "give"
 /// Trait from mob/living/update_transform()
 #define UPDATE_TRANSFORM_TRAIT "update_transform"
+
+/// Trait acquired from being painted a certain color
+#define ATOM_COLOR_TRAIT "atom_color"
+
+/// Trait associated with deathmatch
+#define DEATHMATCH_TRAIT "deathmatch"
+
+/// From the item_scaling element
+#define ITEM_SCALING_TRAIT "item_scaling"
+
+/// Trait granted by lipstick
+#define LIPSTICK_TRAIT "lipstick_trait"

@@ -125,6 +125,26 @@
 	///a list of objectives that a player with this job could complete for space credit rewards
 	var/list/job_objectives = list()
 
+	/// Flag for skills initialization
+	var/datum/weakref/skills_initialized
+	/// List of skill levels (associative map of type to level (number))
+	var/list/skills = list()
+	var/list/temporaly_skills_holder
+	/// Available free skill points
+	var/free_skill_points = BASIC_SKILL_POINTS_COUNT
+	/// Temp variable for skill leveling (for skill_select_win works)
+	var/list/selected_skills = null
+	var/list/selected_skills_levels = list()
+	/// Active temporaly skill bonuses from skill manuals
+	var/list/active_skill_bonuses = list()
+	/// Active skill bonuses from skill manuals
+	var/list/manual_skill_bonuses = list()
+	/// Active skill bonuses from neurotrainer
+	var/list/active_neurotrainer_bonuses = list()
+	var/list/job_alt_skills
+	/// Active skill bonuses from skill manuals
+	var/list/read_manuals = list()
+
 	///Owned cyborg skin permissions
 	var/list/cyborg_skin_permissions = list()
 
@@ -144,6 +164,7 @@
 
 		qdel(antag)
 
+	unregister_skill_signals_for_user(current)
 	current = null
 	soulOwner = null
 	return ..()
@@ -192,8 +213,18 @@
 	current = new_character // link ourself to our new body
 	new_character.mind = src // and link our new body to ourself
 
+	if(!ishuman(new_character))
+		if(!temporaly_skills_holder && length(skills))
+			temporaly_skills_holder = skills
+			skills = list()
+	else if(temporaly_skills_holder && !length(skills))
+		skills = temporaly_skills_holder
+		temporaly_skills_holder = null
+
+
 	transfer_antag_huds(hud_to_transfer) // inherit the antag HUD
 	transfer_actions(new_character, old_current)
+	register_skill_signals_for_user(current)
 
 	if(martial_art)
 		for(var/datum/martial_art/MA in known_martial_arts)
@@ -579,7 +610,8 @@
 	var/datum/antagonist/contractor/C = has_antag_datum(/datum/antagonist/contractor)
 	if(traitor_datum?.contractor_pending)
 		var/status
-		if(C?.contractor_uplink) // Offer accepted
+		var/obj/item/contractor_uplink/contractor_uplink = C?.contractor_uplink_ref?.resolve()
+		if(contractor_uplink) // Offer accepted
 			status = "<b><font color='red'>CONTRACTOR</font></b>"
 		else if(world.time >= traitor_datum.contractor_pending.offer_deadline)
 			status = "<b><font color='darkorange'>CONTRACTOR (EXPIRED)</font></b>"
@@ -587,11 +619,11 @@
 			status = "<b><font color='orange'>CONTRACTOR (PENDING)</font></b>"
 		. += "[status]|<a href='byond://?src=[UID()];contractor=clear'>no</a>"
 		// List all their contracts
-		if(C?.contractor_uplink)
+		if(contractor_uplink)
 			. += "<br><b>Contracts:</b>"
-			if(C.contractor_uplink.hub.contracts)
+			if(contractor_uplink.hub.contracts)
 				var/count = 1
-				for(var/co in C.contractor_uplink.hub.contracts)
+				for(var/co in contractor_uplink.hub.contracts)
 					var/datum/syndicate_contract/CO = co
 					. += "<br><b>Contract #[count++]</b>: "
 					. += "<a href='byond://?src=[UID()];cuid=[CO.UID()];contractor=target'><b>[CO.contract.target?.name || "Invalid target!"]</b></a>|"
@@ -612,8 +644,8 @@
 							. += "<font color='red'>FAILED</font>"
 				. += "<br>"
 				. += "<a href='byond://?src=[UID()];contractor=add'>Add Contract</a><br>"
-				. += "Claimable TC: <a href='byond://?src=[UID()];contractor=tc'>[C.contractor_uplink.hub.reward_tc_available]</a><br>"
-				. += "Available Rep: <a href='byond://?src=[UID()];contractor=rep'>[C.contractor_uplink.hub.rep]</a><br>"
+				. += "Claimable TC: <a href='byond://?src=[UID()];contractor=tc'>[contractor_uplink.hub.reward_tc_available]</a><br>"
+				. += "Available Rep: <a href='byond://?src=[UID()];contractor=rep'>[contractor_uplink.hub.rep]</a><br>"
 			else
 				. += "<br>"
 				. += "<i>Has not logged in to contractor uplink</i>"
@@ -696,6 +728,18 @@
 		. += "." //hiel grammar
 		//         ^ whoever left this comment is literally a grammar nazi. stalin better. in russia grammar correct you.
 
+/datum/mind/proc/memory_edit_vox_raider()
+	. = _memory_edit_header("vox raider")
+	if(has_antag_datum(/datum/antagonist/vox_raider))
+		. += "<b>[span_color("VOX RAIDER", "red")]</b>|<a href='byond://?src=[UID()];vox_raider=clear'>Remove</a>"
+		. += "<br><a href='byond://?src=[UID()];vox_raider=landmark'>To Vox Base</a>."
+		. += "<br><a href='byond://?src=[UID()];vox_raider=equip'>Equip</a>."
+		. += "<br><a href='byond://?src=[UID()];vox_raider=body'>Transform body</a>."
+	else
+		. += "<a href='byond://?src=[UID()];vox_raider=make'>Make Vox Raider</a>"
+
+	. += _memory_edit_role_enabled(ROLE_VOX_RAIDER)
+
 /datum/mind/proc/edit_memory()
 	if(!SSticker || !SSticker.mode)
 		tgui_alert(usr, "Not before round-start!", "Alert")
@@ -746,6 +790,8 @@
 		sections["thief"] = memory_edit_thief()
 		/** TRAITOR ***/
 		sections["traitor"] = memory_edit_traitor()
+		/** VOX RAIDER ***/
+		sections["vox raider"] = memory_edit_vox_raider()
 
 	if(isAI(current))
 		sections["malf_ai"] = memory_edit_malf_ai()
@@ -1584,7 +1630,7 @@
 					cling.give_objectives = FALSE
 					add_antag_datum(cling)
 					to_chat(usr, span_notice("Changeling [key] has no objectives. You can add custom ones or generate random set by using <b>Randomize!</b> button."))
-					to_chat(current, span_biggerdanger("Your powers have awoken. A flash of memory returns to us... we are a changeling!"))
+					to_chat(current, span_biggerdanger("Наши способности пробудились. Мы вернули обрывки воспоминаний... Мы ГЕНОКРАД!"))
 					log_admin("[key_name(usr)] has changelinged [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has changelinged [key_name_admin(current)]")
 
@@ -1997,7 +2043,8 @@
 
 	else if(href_list["contractor"])
 		var/datum/antagonist/contractor/C = has_antag_datum(/datum/antagonist/contractor)
-		var/datum/contractor_hub/H = C?.contractor_uplink?.hub
+		var/obj/item/contractor_uplink/contractor_uplink = C?.contractor_uplink_ref?.resolve()
+		var/datum/contractor_hub/H = contractor_uplink?.hub
 		var/datum/antagonist/traitor/traitor = has_antag_datum(/datum/antagonist/traitor)
 		switch(href_list["contractor"])
 			if("clear")
@@ -2030,7 +2077,7 @@
 				var/datum/syndicate_contract/new_contract = new(H, src, list(), target)
 				new_contract.reward_tc = list(0, 0, 0)
 				H.contracts += new_contract
-				SStgui.update_uis(C.contractor_uplink.hub)
+				SStgui.update_uis(contractor_uplink.hub)
 				log_admin("[key_name(usr)] has given a new contract to [key_name(current)] with [target.current] as the target")
 				message_admins("[key_name_admin(usr)] has given a new contract to [key_name_admin(current)] with [target.current] as the target")
 
@@ -2042,7 +2089,7 @@
 				if(isnull(new_tc) || new_tc < 0)
 					return
 				H.reward_tc_available = new_tc
-				SStgui.update_uis(C.contractor_uplink.hub)
+				SStgui.update_uis(contractor_uplink.hub)
 				log_admin("[key_name(usr)] has set [key_name(current)]'s claimable TC to [new_tc]")
 				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s claimable TC to [new_tc]")
 
@@ -2054,7 +2101,7 @@
 				if(isnull(new_rep) || new_rep < 0)
 					return
 				H.rep = new_rep
-				SStgui.update_uis(C.contractor_uplink.hub)
+				SStgui.update_uis(contractor_uplink.hub)
 				log_admin("[key_name(usr)] has set [key_name(current)]'s contractor Rep to [new_rep]")
 				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s contractor Rep to [new_rep]")
 
@@ -2088,7 +2135,7 @@
 					temp.Blend(R.fields["photo"], ICON_OVERLAY)
 					CO.target_photo = temp
 				// Notify
-				SStgui.update_uis(C.contractor_uplink.hub)
+				SStgui.update_uis(contractor_uplink.hub)
 				log_admin("[key_name(usr)] has set [key_name(current)]'s contract target to [target.current]")
 				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s contract target to [target.current]")
 
@@ -2125,7 +2172,7 @@
 					return
 				CO.contract.candidate_zones[difficulty] = new_area
 				CO.reward_tc[difficulty] = new_reward
-				SStgui.update_uis(C.contractor_uplink.hub)
+				SStgui.update_uis(contractor_uplink.hub)
 				log_admin("[key_name(usr)] has set [key_name(current)]'s contract location to [new_area] with [new_reward] TC as reward")
 				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s contract location to [new_area] with [new_reward] TC as reward")
 
@@ -2170,7 +2217,7 @@
 						message_admins("[key_name_admin(usr)] has deleted [key_name_admin(current)]'s contract")
 					else
 						return
-				SStgui.update_uis(C.contractor_uplink.hub)
+				SStgui.update_uis(contractor_uplink.hub)
 
 			if("interrupt")
 				if(!C)
@@ -2195,7 +2242,7 @@
 				if(!fail_reason || CO.status != CONTRACT_STATUS_ACTIVE)
 					return
 				CO.fail(fail_reason)
-				SStgui.update_uis(C.contractor_uplink.hub)
+				SStgui.update_uis(contractor_uplink.hub)
 				log_admin("[key_name(usr)] has failed [key_name(current)]'s contract with reason: [fail_reason]")
 				message_admins("[key_name_admin(usr)] has failed [key_name_admin(current)]'s contract with reason: [fail_reason]")
 
@@ -2494,6 +2541,30 @@
 				alien.update_datum()
 				log_and_message_admins("has made [key_name(current)] into a \"Xenomorph\"")
 
+	else if(href_list["vox_raider"])
+		switch(href_list["vox_raider"])
+			if("clear")
+				remove_antag_datum(/datum/antagonist/vox_raider)
+
+			if("make")
+				add_antag_datum(/datum/antagonist/vox_raider, /datum/team/vox_raiders)
+
+			if("equip")
+				if(!ishuman(current))
+					return
+				var/mob/living/carbon/human/current_human = current
+				current_human.equipOutfit(/datum/outfit/vox)
+
+			if("body")
+				if(!ishuman(current))
+					return
+				transform_body_vox_raider(current)
+
+			if("landmark")
+				var/picked_landmark = safepick(GLOB.raider_spawn)
+				var/turf/loc_spawn = get_turf(picked_landmark)
+				current.forceMove(loc_spawn)
+
 	else if(href_list["common"])
 		switch(href_list["common"])
 			if("undress")
@@ -2550,7 +2621,7 @@
 
 	else if(href_list["obj_announce"])
 		var/list/messages = prepare_announce_objectives()
-		to_chat(current, chat_box_red(messages.Join("<br>")))
+		to_chat(current, custom_boxed_message("red_box center", messages.Join("<br>")))
 		SEND_SOUND(current, sound('sound/ambience/misc/alarm4.ogg'))
 		log_admin("[key_name(usr)] has announced [key_name(current)]'s objectives")
 		message_admins("[key_name_admin(usr)] has announced [key_name_admin(current)]'s objectives")
@@ -2590,6 +2661,11 @@
 
 	ASSERT(antag.owner && antag.owner.current)
 	antag.on_gain()
+	if(antag.has_skill_bonus)
+		ADD_TRAIT(src, TRAIT_HAS_ANTAG_SKILLS, UNIQUE_TRAIT_SOURCE(antag))
+
+	recalculate_skills()
+
 	return antag
 
 /**
@@ -2604,7 +2680,10 @@
 	if(!antag)
 		return
 
+	REMOVE_TRAIT(src, TRAIT_HAS_ANTAG_SKILLS, UNIQUE_TRAIT_SOURCE(antag))
+
 	qdel(antag)
+	recalculate_skills()
 
 /**
  * Removes all antag datums from the src mind.
@@ -2694,7 +2773,7 @@
 	if(!contractor_datum && !traitor_datum?.contractor_pending)
 		return
 
-	if(contractor_datum?.contractor_uplink && !traitor_datum.contractor_pending.is_admin_forced)
+	if(contractor_datum?.contractor_uplink_ref?.resolve() && !traitor_datum.contractor_pending.is_admin_forced)
 		SSticker?.mode?.contractor_accepted--
 	remove_antag_datum(/datum/antagonist/contractor)
 	traitor_datum.contractor_pending = null
@@ -2803,6 +2882,16 @@
 		return nuclear_datum.uplink = null
 
 	qdel(uplink)
+
+/// Old uplink's owner search via "owner" var in uplink in GLOB.world_uplinks and traitor "key"
+/datum/mind/proc/find_uplink_by_key()
+	if(!key)
+		return
+	var/my_ckey = ckey(key)
+	for(var/obj/item/uplink/uplink as anything in GLOB.world_uplinks)
+		if(!uplink.uplink_owner || ckey(uplink.uplink_owner) != my_ckey)
+			continue
+		return uplink
 
 /datum/mind/proc/make_Traitor()
 	if(!has_antag_datum(/datum/antagonist/traitor))
@@ -3067,6 +3156,7 @@
 	if(!mind.name)
 		mind.name = real_name
 	mind.current = src
+	mind.register_skill_signals_for_user(src)
 	RegisterSignal(src, COMSIG_ADMIN_DELETING, PROC_REF(ghost_before_admin_delete), override = TRUE)
 	SEND_SIGNAL(src, COMSIG_MOB_MIND_INITIALIZED, mind)
 

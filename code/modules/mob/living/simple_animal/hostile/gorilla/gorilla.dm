@@ -176,7 +176,7 @@
 		parts += bodypart
 	return parts
 
-/mob/living/simple_animal/hostile/gorilla/say(message, verb = "говор%(ит,ят)%", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
+/mob/living/simple_animal/hostile/gorilla/say(message, verb = "говор[PLUR_IT_YAT(src)]", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE, ignore_emotes = FALSE)
 	. = ..()
 	if(.)
 		oogaooga(100, rand(30, 100))

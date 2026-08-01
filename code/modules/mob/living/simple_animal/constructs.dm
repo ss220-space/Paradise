@@ -11,7 +11,6 @@
 	speed = 0
 	stop_automated_movement = TRUE
 	nightvision = 8
-	see_invisible = SEE_INVISIBLE_HIDDEN_RUNES
 	attack_sound = 'sound/weapons/punch1.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	faction = list("cult")
@@ -27,7 +26,7 @@
 	var/playstyle_string = "<b>You are a generic construct! Your job is to not exist, and you should probably adminhelp this.</b>"
 	var/holy = FALSE
 	healable = FALSE
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 
 /mob/living/simple_animal/hostile/construct/Initialize(mapload)
 	. = ..()
@@ -55,6 +54,7 @@
 	else
 		ADD_TRAIT(src, TRAIT_HEALS_FROM_CULT_PYLONS, INNATE_TRAIT)
 	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, INNATE_TRAIT)
+	ADD_TRAIT(src, TRAIT_CULT_VEIL_SIGHT, INNATE_TRAIT)
 	AddElement(/datum/element/simple_flying)
 
 /mob/living/simple_animal/hostile/construct/ComponentInitialize()

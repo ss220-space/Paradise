@@ -89,13 +89,13 @@
 			return ATTACK_CHAIN_BLOCKED_ALL
 		if(!anchored && !isfloorturf(loc))
 			to_chat(user, span_warning("A floor must be present to secure [src]!"))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		if(locate(/obj/structure/clockwork) in (loc.contents-src))
 			to_chat(user, span_warning("There is a structure here!"))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		if(locate(/obj/structure/falsewall) in loc)
 			to_chat(user, span_warning("There is a structure here!"))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		set_anchored(!anchored)
 		to_chat(user, span_notice("You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor."))
 		update_icon(UPDATE_ICON_STATE)
@@ -281,13 +281,13 @@
 			return ATTACK_CHAIN_BLOCKED_ALL
 		if(!anchored && !isfloorturf(loc))
 			to_chat(user, span_warning("A floor must be present to secure [src]!"))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		if(!anchored && locate(/obj/structure/clockwork) in (loc.contents-src))
 			to_chat(user, span_warning("There is a structure here!"))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		if(locate(/obj/structure/falsewall) in loc)
 			to_chat(user, span_warning("There is a structure here!"))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		set_anchored(!anchored)
 		update_icon(UPDATE_ICON_STATE)
 		to_chat(user, span_notice("You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor."))
@@ -458,6 +458,13 @@
 	timer_fabrictor = addtimer(CALLBACK(src, PROC_REF(open_slot)), TIME_NEW_COGSCRAB SECONDS)
 	notify_ghosts("[src] is created at [get_area(src)].", title = "New cogscarab fabricator!", source = src, flashwindow = FALSE, action = NOTIFY_JUMP)
 
+/obj/structure/clockwork/functional/cogscarab_fabricator/Destroy(force)
+	GLOB.clockwork_fabricators -= src
+	for(var/mob/living/silicon/robot/cogscarab/crab as anything in cogscarab_list)
+		crab.fabr = null
+	LAZYCLEARLIST(cogscarab_list)
+	return ..()
+
 /obj/structure/clockwork/functional/cogscarab_fabricator/obj_destruction()
 	. = ..()
 	GLOB.clockwork_fabricators -= src
@@ -481,13 +488,13 @@
 		add_fingerprint(user)
 		if(!anchored && !isfloorturf(loc))
 			to_chat(user, span_warning("A floor must be present to secure [src]!"))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		if(locate(/obj/structure/clockwork) in (loc.contents-src))
 			to_chat(user, span_warning("There is a structure here!"))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		if(locate(/obj/structure/falsewall) in loc)
 			to_chat(user, span_warning("There is a structure here!"))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		set_anchored(!anchored)
 		update_icon(UPDATE_ICON_STATE)
 		to_chat(user, span_notice("You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor."))

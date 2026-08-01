@@ -4,16 +4,16 @@
  */
 
 // Child of carpplushie because this should do everything the toy does and more
-/obj/item/toy/carpplushie/dehy_carp
+/obj/item/toy/plushie/carp/dehy_carp
 	var/mob/owner = null	// Carp doesn't attack owner, set when using in hand
 	var/owned = 1	// Boolean, no owner to begin with
 
-/obj/item/toy/carpplushie/dehy_carp/Destroy()
+/obj/item/toy/plushie/carp/dehy_carp/Destroy()
 	owner = null
 	return ..()
 
 // Attack self
-/obj/item/toy/carpplushie/dehy_carp/attack_self(mob/user as mob)
+/obj/item/toy/plushie/carp/dehy_carp/attack_self(mob/user as mob)
 	src.add_fingerprint(user)	// Anyone can add their fingerprints to it with this
 	if(owned)
 		to_chat(user, span_notice("[src] stares up at you with friendly eyes."))
@@ -21,12 +21,12 @@
 		owned = 0
 	return ..()
 
-/obj/item/toy/carpplushie/dehy_carp/water_act(volume, temperature, source, method = REAGENT_TOUCH)
+/obj/item/toy/plushie/carp/dehy_carp/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
 	if(volume >= 1)
 		Swell()
 
-/obj/item/toy/carpplushie/dehy_carp/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+/obj/item/toy/plushie/carp/dehy_carp/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!proximity_flag)
 		return
 
@@ -37,7 +37,7 @@
 		return Swell()
 	return ..()
 
-/obj/item/toy/carpplushie/dehy_carp/proc/Swell()
+/obj/item/toy/plushie/carp/dehy_carp/proc/Swell()
 	desc = "It's growing!"
 	visible_message(span_notice("[src] swells up!"))
 

@@ -1,4 +1,0 @@
-author: "littleboobs"
-delete-after: True
-changes:
-  - local: "При указывании гостом на что-то будет показываться его русское название. (PR #9253)"

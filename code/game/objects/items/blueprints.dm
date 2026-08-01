@@ -68,11 +68,10 @@
 		return AREA_SPACE
 	var/static/list/special_areas = typecacheof(list(
 		/area/shuttle,
-		/area/admin,
+		/area/centcom/admin_room,
 		/area/centcom,
-		/area/asteroid,
-		/area/tdome,
-		/area/wizard_station,
+		/area/centcom/tdome,
+		/area/centcom/wizard_station,
 	))
 	if(is_type_in_typecache(check_area, special_areas))
 		return AREA_SPECIAL

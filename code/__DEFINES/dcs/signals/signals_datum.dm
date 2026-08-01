@@ -167,3 +167,10 @@
 
 /// Sent after removing a camera from the cameranet datum (/datum/cameranet/proc/removeCamera(obj/machinery/camera/c))
 #define COMSIG_CAMERANET_CAMERA_REMOVED "cameranet_camera_removed"
+
+/// from /datum/species/proc/spec_hitby()
+#define COMSIG_SPECIES_HITBY "species_hitby"
+
+///from /datum/sprite_editor_workspace/is_valid_color(): (color)
+#define COMSIG_SPRITE_EDITOR_VALIDATE_COLOR "sprite_editor_validate_color"
+	#define COLOR_IS_INVALID (1<<0)

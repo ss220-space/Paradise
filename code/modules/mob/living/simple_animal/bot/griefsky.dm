@@ -22,7 +22,7 @@
 	var/syndie = FALSE	// taipan griefsky
 
 /mob/living/simple_animal/bot/secbot/griefsky/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Генерал Грифски",
 		GENITIVE = "Генерала Грифски",
 		DATIVE = "Генералу Грифски",
@@ -48,7 +48,7 @@
 	locked = FALSE
 
 /mob/living/simple_animal/bot/secbot/griefsky/toy/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Гиневал Гифтски",
 		GENITIVE = "Гиневала Гифтски",
 		DATIVE = "Гиневалу Гифтски",
@@ -78,7 +78,7 @@
 	syndie = TRUE
 
 /mob/living/simple_animal/bot/secbot/griefsky/syndicate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Генерал Синди",
 		GENITIVE = "Генерала Синди",
 		DATIVE = "Генералу Синди",
@@ -93,7 +93,7 @@
 /mob/living/simple_animal/bot/secbot/griefsky/Initialize(mapload)
 	. = ..()
 	icon_state = "[base_icon][on]"
-	var/datum/job/security/detective/J = new/datum/job/security/detective
+	var/datum/job/security/detective/J = SSjobs.GetJob(JOB_TITLE_DETECTIVE)
 	access_card.access += J.get_access()
 	prev_access = access_card.access
 

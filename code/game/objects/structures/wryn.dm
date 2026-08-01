@@ -60,7 +60,7 @@
 	obj_flags = BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
 
 /obj/structure/wryn/wax/wall/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "соты",
 		GENITIVE = "сот",
 		DATIVE = "сотам",
@@ -80,7 +80,7 @@
 	max_integrity = 20
 
 /obj/structure/wryn/wax/window/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "прозрачныые соты",
 		GENITIVE = "прозрачных сот",
 		DATIVE = "прозрачным сотам сотам",
@@ -106,7 +106,7 @@
 	obj_flags = BLOCK_Z_OUT_DOWN | BLOCK_Z_IN_UP
 
 /obj/structure/wryn/floor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пол из воска",
 		GENITIVE = "пола из воска",
 		DATIVE = "полу из воска",
@@ -137,7 +137,7 @@
 
 /obj/structure/wryn/floor/Initialize(mapload)
 	. = ..()
-	
+
 	var/picked = pick(icons)
 	icon_state = picked
 	fullUpdateWeedOverlays()
@@ -175,7 +175,7 @@
 	max_integrity = 50
 
 /obj/structure/alien/resin/door/wax/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "дверь из сот",
 		GENITIVE = "двери из сот",
 		DATIVE = "двери из сот",

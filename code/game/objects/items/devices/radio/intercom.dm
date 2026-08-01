@@ -15,14 +15,13 @@
 	anchored = TRUE
 	w_class = WEIGHT_CLASS_BULKY
 	canhear_range = 2
-	blocks_emissive = FALSE
 	dog_fashion = null
 	var/circuitry_installed = TRUE
 	/// Current buildstage of the object
 	var/buildstage = INTERCOM_BUILD_NO_CIRCUIT
 
 /obj/item/radio/intercom/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "станционный интерком (Общий)",
 		GENITIVE = "станционного интеркома (Общий)",
 		DATIVE = "станционному интеркому (Общий)",
@@ -43,7 +42,7 @@
 		b_stat = TRUE
 		set_on(FALSE)
 	GLOB.global_intercoms |= src
-	update_icon()
+	update_appearance()
 
 /obj/item/radio/intercom/Destroy()
 	GLOB.global_intercoms -= src
@@ -142,9 +141,9 @@
 	b_stat = FALSE
 	buildstage = INTERCOM_BUILD_SECURED
 	user.balloon_alert(user, "корпус заблокирован")
-	update_icon()
+	update_appearance()
 	update_operating_status()
-	for(var/i = 1 to 5)
+	for(var/i in 1 to 5)
 		wires.on_cut(i, TRUE)
 
 /obj/item/radio/intercom/wirecutter_act(mob/user, obj/item/I)
@@ -158,7 +157,7 @@
 	set_on(FALSE)
 	b_stat = TRUE
 	buildstage = INTERCOM_BUILD_CIRCUIT
-	update_icon()
+	update_appearance()
 	update_operating_status(FALSE)
 
 /obj/item/radio/intercom/welder_act(mob/user, obj/item/I)
@@ -182,9 +181,9 @@
 
 /obj/item/radio/intercom/update_overlays()
 	. = ..()
-	underlays.Cut()
 	if(on && buildstage == INTERCOM_BUILD_SECURED)
-		underlays += emissive_appearance(icon, "intercom_lightmask", src)
+		. += emissive_appearance(icon, "intercom_lightmask", src, alpha = src.alpha)
+		set_light(1.5, 0.7, LIGHT_COLOR_BLUEGREEN)
 
 /obj/item/radio/intercom/proc/update_operating_status(on = TRUE)
 	var/area/current_area = get_area(src)
@@ -196,7 +195,7 @@
 		UnregisterSignal(current_area, COMSIG_AREA_POWER_CHANGE)
 
 /**
- * Proc called whenever the intercom's area loses or gains power. Responsible for setting the `on` variable and calling `update_icon()`.
+ * Proc called whenever the intercom's area loses or gains power. Responsible for setting the `on` variable and calling `update_appearance()`.
  *
  * Normally called after the intercom's area receives the `COMSIG_AREA_POWER_CHANGE` signal, but it can also be called directly.
  *
@@ -211,7 +210,7 @@
 		set_on(FALSE)
 	else
 		set_on(current_area.powered(EQUIP)) // set "on" to the equipment power status of our area.
-	update_icon()
+	update_appearance()
 
 // MARK: Custom
 /obj/item/radio/intercom/custom
@@ -219,7 +218,7 @@
 	should_be_listening = FALSE
 
 /obj/item/radio/intercom/custom/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "станционный интерком (Персонализированный)",
 		GENITIVE = "станционного интеркома (Персонализированный)",
 		DATIVE = "станционному интеркому (Персонализированный)",
@@ -238,7 +237,7 @@
 	default_frequency = AIRLOCK_FREQ
 
 /obj/item/radio/intercom/interrogation/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "станционный интерком (Допросный)",
 		GENITIVE = "станционного интеркома (Допросный)",
 		DATIVE = "станционному интеркому (Допросный)",
@@ -257,7 +256,7 @@
 	default_frequency = AI_FREQ
 
 /obj/item/radio/intercom/private/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "станционный интерком (Приватный)",
 		GENITIVE = "станционного интеркома (Приватный)",
 		DATIVE = "станционному интеркому (Приватный)",
@@ -276,7 +275,7 @@
 	default_frequency = COMM_FREQ
 
 /obj/item/radio/intercom/command/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "станционный интерком (Командный)",
 		GENITIVE = "станционного интеркома (Командный)",
 		DATIVE = "станционному интеркому (Командный)",
@@ -295,7 +294,7 @@
 	default_frequency = ERT_FREQ
 
 /obj/item/radio/intercom/specops/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "интерком спецопераций",
 		GENITIVE = "интеркома спецопераций",
 		DATIVE = "интеркому спецопераций",
@@ -317,7 +316,7 @@
 	default_frequency = MED_I_FREQ
 
 /obj/item/radio/intercom/department/medbay/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "станционный интерком (Медицинский)",
 		GENITIVE = "станционного интеркома (Медицинский)",
 		DATIVE = "станционному интеркому (Медицинский)",
@@ -336,7 +335,7 @@
 	default_frequency = SEC_I_FREQ
 
 /obj/item/radio/intercom/department/security/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "станционный интерком (Служба безопасности)",
 		GENITIVE = "станционного интеркома (Служба безопасности)",
 		DATIVE = "станционному интеркому (Служба безопасности)",
@@ -362,7 +361,7 @@
 	default_frequency = SYND_FREQ
 
 /obj/item/radio/intercom/syndicate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "нелегальный интерком",
 		GENITIVE = "нелегального интеркома",
 		DATIVE = "нелегальному интеркому",
@@ -382,7 +381,7 @@
 			позволяет подключаться к широкому диапазону радиочастот, однако не обладает протоколами защиты и шифрования."
 
 /obj/item/radio/intercom/pirate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пиратский интерком",
 		GENITIVE = "пиратского интеркома",
 		DATIVE = "пиратскому интеркому",
@@ -408,7 +407,7 @@
 	usesound = 'sound/items/deconstruct.ogg'
 
 /obj/item/intercom_electronics/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "печатная плата интеркома",
 		GENITIVE = "печатной платы интеркома",
 		DATIVE = "печатной плате интеркома",
@@ -430,7 +429,7 @@
 	default_frequency = AI_FREQ
 
 /obj/item/radio/intercom/locked/ai_private/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "интерком ИИ",
 		GENITIVE = "интеркома ИИ",
 		DATIVE = "интеркому ИИ",
@@ -449,7 +448,7 @@
 	default_frequency = 1480
 
 /obj/item/radio/intercom/locked/confessional/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "исповедальный интерком",
 		GENITIVE = "исповедального интеркома",
 		DATIVE = "исповедальному интеркому",
@@ -466,7 +465,7 @@
 			на общую частоту. Возможность смены частоты заблокирована на уровне прошивки, а микрофон отключён на аппаратном уровне."
 
 /obj/item/radio/intercom/locked/prison/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тюремный интерком",
 		GENITIVE = "тюремного интеркома",
 		DATIVE = "тюремному интеркому",

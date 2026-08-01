@@ -29,6 +29,8 @@
 	var/to_transfer = 0
 	/// The maximum amount of this stack. Also see stack recipes initialisation, param "max_res_amount" must be equal to this max_amount
 	var/max_amount = 50
+	/// Amount of matter given back to RCDs
+	var/matter_amount = 0
 	/// The path and its children that should merge with this stack, defaults to src.type.
 	var/merge_type
 	/// The type of table that is made when applying this stack to a frame.
@@ -283,7 +285,11 @@
 	var/obj/item/stack/material = src
 	if(action != "make")
 		return
+
 	var/datum/stack_recipe/recipe = locateUID(params["recipe_uid"])
+	if(!is_valid_recipe(recipe, recipes)) // href exploit protection
+		CRASH("Incorrect recipe [recipe.title] used in stack creation [src], [usr] is most likely attempting an exploit")
+
 	var/multiplier = text2num(params["multiplier"])
 	if(!recipe.try_build(user, material, multiplier))
 		return FALSE
@@ -438,3 +444,23 @@
 	fingerprints		= material.fingerprints
 	fingerprintshidden	= material.fingerprintshidden
 	fingerprintslast	= material.fingerprintslast
+
+/**
+ * Checks if the recipe is valid to be used
+ *
+ * Arguments:
+ * * recipe - The stack recipe we are checking if it is valid
+ * * recipe_list - The list of recipes we are using to check the given recipe
+ */
+/obj/item/stack/proc/is_valid_recipe(datum/stack_recipe/recipe, list/recipe_list)
+	. = FALSE
+	for(var/possible_recipe in recipe_list)
+		if(possible_recipe == recipe)
+			return TRUE
+
+		if(!istype(possible_recipe, /datum/stack_recipe_list))
+			continue
+
+		var/datum/stack_recipe_list/possible_recipe_list = possible_recipe
+		if(is_valid_recipe(recipe, possible_recipe_list.recipes))
+			return TRUE

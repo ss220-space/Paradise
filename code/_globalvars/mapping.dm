@@ -13,6 +13,17 @@ GLOBAL_LIST_INIT(alldirs_multiz, list(
 	UP, UP|NORTH, UP|SOUTH, UP|EAST, UP|WEST, UP|NORTHEAST, UP|NORTHWEST, UP|SOUTHEAST, UP|SOUTHWEST,
 	DOWN, DOWN|NORTH, DOWN|SOUTH, DOWN|EAST, DOWN|WEST, DOWN|NORTHEAST, DOWN|NORTHWEST, DOWN|SOUTHEAST, DOWN|SOUTHWEST))
 
+GLOBAL_LIST_INIT(alldirs_dmi_order, list(
+	SOUTH,
+	NORTH,
+	EAST,
+	WEST,
+	SOUTHEAST,
+	SOUTHWEST,
+	NORTHEAST,
+	NORTHWEST,
+))
+
 GLOBAL_LIST(global_map) // This is the array of zlevels | list(list(1,5),list(4,3)) | becomes a 2D array of zlevels
 	//Resulting sector map looks like
 	//|_1_|_4_|
@@ -76,6 +87,8 @@ GLOBAL_LIST_INIT(battle_teams_spawns, list(
 	JOB_TITLE_TEAM2 = list(),
 	JOB_TITLE_TEAM3 = list()
 ))
+
+GLOBAL_LIST_EMPTY(raider_spawn)
 
 //away missions
 GLOBAL_LIST_EMPTY(awaydestinations) //a list of landmarks that the warpgate can take you to

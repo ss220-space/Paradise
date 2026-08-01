@@ -61,10 +61,10 @@ To draw a rune, use a ritual dagger.
 	. = ..()
 	if(set_keyword)
 		keyword = set_keyword
-	var/image/blood = image(loc = src)
-	blood.override = 1
-	for(var/mob/living/silicon/ai/AI in GLOB.player_list)
-		AI.client.images += blood
+	var/image/I = image(icon = 'icons/effects/blood.dmi', icon_state = null, loc = src)
+	I.override = TRUE
+	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/silicons, "cult_runes", I)
+	ADD_TRAIT(src, TRAIT_MOPABLE, INNATE_TRAIT)
 
 /obj/effect/rune/examine(mob/user)
 	. = ..()
@@ -124,16 +124,23 @@ To draw a rune, use a ritual dagger.
 
 /obj/effect/rune/cult_conceal() //for concealing spell
 	visible_message(span_danger("[src] fades away."))
-	invisibility = INVISIBILITY_HIDDEN_RUNES
-	alpha = 100 //To help ghosts distinguish hidden runes
+	set_cult_veil(TRUE)
 
 /obj/effect/rune/cult_reveal() //for revealing spell
-	invisibility = 0
+	set_cult_veil(FALSE)
 	visible_message(span_danger("[src] suddenly appears!"))
-	alpha = initial(alpha)
 
 /obj/effect/rune/is_cleanable()
 	return TRUE
+
+/obj/effect/rune/wash_tg(clean_types)
+	. = ..()
+
+	if(!. && !(clean_types & CLEAN_TYPE_BLOOD))
+		return
+
+	qdel(src)
+	. |= COMPONENT_CLEANED|COMPONENT_CLEANED_GAIN_XP
 
 /*
 There are a few different procs each rune runs through when a cultist activates it.
@@ -146,7 +153,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	//This proc determines if the rune can be invoked at the time. If there are multiple required cultists, it will find all nearby cultists.
 	var/list/invokers = list() //people eligible to invoke the rune
 	var/list/chanters = list() //people who will actually chant the rune when passed to invoke()
-	if(invisibility == INVISIBILITY_HIDDEN_RUNES)//hidden rune
+	if(HAS_TRAIT(src, TRAIT_CULT_CONCEALED))//hidden rune
 		return
 	// Get the user
 	if(user)
@@ -215,7 +222,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 /obj/effect/rune/proc/fail_invoke()
 	//This proc contains the effects of a rune if it is not invoked correctly, through either invalid wording or not enough cultists. By default, it's just a basic fizzle.
-	if(!invisibility) // No visible messages if not visible
+	if(!HAS_TRAIT(src, TRAIT_CULT_CONCEALED)) // No visible messages if not visible
 		visible_message(span_warning("The markings pulse with a small flash of red light, then fall dark."))
 	animate(src, color = rgb(255, 0, 0), time = 0)
 	animate(src, color = rune_blood_color, time = 5)
@@ -893,7 +900,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	notify_ghosts("Manifest rune created in [get_area(src)].", ghost_sound = 'sound/effects/ghost2.ogg', source = src)
 	var/list/ghosts_on_rune = list()
 	for(var/mob/dead/observer/O in T)
-		if(O.client && !iscultist(O) && !jobban_isbanned(O, ROLE_CULTIST) && !O.has_enabled_antagHUD && !QDELETED(src) && !QDELETED(O))
+		if(O.client && !iscultist(O) && !jobban_isbanned(O, ROLE_CULTIST) && !O.persistent_client?.antaghud_enabled && !QDELETED(src) && !QDELETED(O))
 			ghosts_on_rune += O
 	if(!length(ghosts_on_rune))
 		to_chat(user, span_cultitalic("There are no spirits near [src]!"))

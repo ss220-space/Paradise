@@ -48,7 +48,7 @@
 	..()
 	if(stored_item && isgun(stored_item) && !Adjacent(target))
 		var/obj/item/gun/stored_gun = stored_item
-		stored_gun.afterattack(target, user, proximity_flag, modifiers)
+		stored_gun.fast_fire(target, user)
 
 /obj/item/storage/briefcase/false_bottomed/attackby(obj/item/I, mob/user, params)
 	if(bottom_open)
@@ -108,7 +108,7 @@
 	var/opened = FALSE
 
 /obj/item/case_with_bipki/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "чемодан с бипками",
 		GENITIVE = "чемодана с бипками",
 		DATIVE = "чемодану с бипками",

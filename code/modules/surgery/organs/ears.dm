@@ -7,7 +7,7 @@
 	slot = INTERNAL_ORGAN_EARS
 
 /obj/item/organ/internal/ears/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "уши человека",
 		GENITIVE = "ушей человека",
 		DATIVE = "ушам человека",
@@ -76,7 +76,7 @@
 	drop_sound = 'sound/items/handling/drop/component_drop.ogg'
 
 /obj/item/organ/internal/ears/cybernetic/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кибернетические уши",
 		GENITIVE = "кибернетических ушей",
 		DATIVE = "кибернетическим ушам",

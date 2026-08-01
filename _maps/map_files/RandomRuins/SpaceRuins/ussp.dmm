@@ -117,7 +117,6 @@
 /area/derelict/bridge)
 "av" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/computer/monitor/secret/old_frame,
@@ -710,7 +709,7 @@
 /area/derelict/bridge)
 "bR" = (
 /obj/structure/curtain/open,
-/obj/structure/toilet,
+/obj/structure/toilet/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -851,9 +850,7 @@
 	},
 /area/derelict/crew_quarters)
 "ck" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /obj/structure/curtain/open/shower,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -935,10 +932,7 @@
 	},
 /area/derelict/bridge)
 "cy" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	dir = 4;
 	pixel_x = -32
@@ -1054,10 +1048,7 @@
 /area/derelict/security)
 "cO" = (
 /obj/structure/curtain/open/shower,
-/obj/machinery/shower{
-	dir = 4;
-	pixel_x = 5
-	},
+/obj/machinery/shower/directional/west,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -1706,7 +1697,6 @@
 /area/derelict/engineer_area)
 "ex" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/power/smes/vintage{
@@ -1911,7 +1901,6 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2";
 	pixel_y = 1
 	},
@@ -2323,7 +2312,6 @@
 "fS" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2";
 	pixel_y = 1
 	},
@@ -2556,9 +2544,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -2717,7 +2703,7 @@
 /area/derelict/engineer_area)
 "gV" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/glass/rag,
+/obj/item/rag,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -2866,7 +2852,6 @@
 	id = "russolar"
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2";
 	pixel_y = 1
 	},
@@ -2910,11 +2895,7 @@
 	},
 /area/derelict/security)
 "hw" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/sign/nosmoking_1{
 	pixel_x = -32
 	},
@@ -2958,7 +2939,6 @@
 /area/derelict/engineer_area)
 "hD" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/machinery/computer/monitor/secret/old_frame,
@@ -3034,7 +3014,6 @@
 /area/derelict/dock)
 "hN" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/noalarm/directional/west,
@@ -3298,7 +3277,6 @@
 /area/derelict/church)
 "im" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/engine/vacuum,
@@ -3431,7 +3409,6 @@
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/power/apc/noalarm/directional/west,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -4186,7 +4163,6 @@
 	id = "russolar"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -4331,7 +4307,6 @@
 	id = "russolar"
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -4631,7 +4606,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/seeds/sunflower,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/noalarm/directional/west,
@@ -5098,14 +5072,10 @@
 /turf/space,
 /area/derelict/garden)
 "ne" = (
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/north,
 /obj/structure/curtain/open/shower,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/shower{
-	pixel_y = 16
-	},
+/obj/machinery/shower/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -5116,9 +5086,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/curtain/open/shower,
-/obj/machinery/shower{
-	pixel_y = 16
-	},
+/obj/machinery/shower/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -5266,11 +5234,7 @@
 	},
 /area/derelict/dining)
 "nC" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/camera{
 	c_tag = "Кухня";
@@ -5877,7 +5841,6 @@
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -7103,7 +7066,6 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -7267,7 +7229,6 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -7357,7 +7318,6 @@
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
@@ -7642,7 +7602,6 @@
 /area/derelict/rnd)
 "zn" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2";
 	pixel_y = 1
 	},
@@ -7758,7 +7717,6 @@
 "Aw" = (
 /obj/machinery/power/tracker,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -7805,7 +7763,6 @@
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -7970,7 +7927,6 @@
 	id = "russolar"
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -8054,7 +8010,6 @@
 /obj/item/clothing/gloves/combat,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/noalarm/directional/north{
@@ -8198,7 +8153,6 @@
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -8217,7 +8171,6 @@
 	start_charge = 0
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/spider/stickyweb,
@@ -8313,7 +8266,6 @@
 /area/derelict/dining)
 "FA" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/machinery/power/apc/noalarm/directional/north{
@@ -8560,7 +8512,6 @@
 /area/derelict/asteroidbelt)
 "IP" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/solar/fake{
@@ -8632,7 +8583,6 @@
 "Jw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2";
 	pixel_y = 1
 	},
@@ -8754,7 +8704,6 @@
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2";
 	pixel_y = 1
 	},
@@ -8898,7 +8847,6 @@
 "ML" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/item/flag/ussp,
@@ -9364,9 +9312,7 @@
 	},
 /area/derelict/common)
 "Sq" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /obj/structure/curtain/open/shower,
 /obj/effect/decal/cleanable/dirt,
 /mob/living/basic/cockroach,
@@ -9396,7 +9342,6 @@
 	start_charge = 0
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -9498,7 +9443,6 @@
 "Ug" = (
 /obj/effect/decal/cleanable/dust,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/machinery/power/apc/noalarm/directional/east,
@@ -9509,7 +9453,6 @@
 /area/derelict/dock)
 "Uo" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/noalarm/directional/west{
@@ -9706,7 +9649,6 @@
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -9715,7 +9657,6 @@
 /area/derelict/bridge)
 "Wo" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2";
 	pixel_y = 1
 	},
@@ -9922,7 +9863,6 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,

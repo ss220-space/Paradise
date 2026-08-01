@@ -985,20 +985,10 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 		return SSassets.transport.get_asset_url(key)
 	return "<img class='[extra_classes] icon icon-[icon_state]' src='[SSassets.transport.get_asset_url(key)]'>"
 
-//Costlier version of icon2html() that uses getFlatIcon() to account for overlays, underlays, etc. Use with extreme moderation, ESPECIALLY on mobs.
-/proc/costly_icon2html(thing, target, sourceonly = FALSE)
-	if(!thing)
-		return
-
-	if(isicon(thing))
-		return icon2html(thing, target)
-
-	return flat_icon2html(thing, target, sourceonly = FALSE)
-
 /proc/flat_icon2html(thing, target, sourceonly = FALSE, name = md5("[thing]"))
 	if(!thing)
 		return
-	var/icon/flat_icon = getFlatIcon(thing)
+	var/icon/flat_icon = get_icon_from_uni_icon(get_flat_uni_icon(thing, SOUTH), name)
 	return icon2html(flat_icon, target, sourceonly = sourceonly)
 
 /proc/get_icon_from_uni_icon(datum/universal_icon/flat_icon, name, dmi_icon = FALSE)
@@ -1017,10 +1007,10 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 	if(!size)
 		CRASH("Icon [name] UNKNOWN ERROR: [data_out]")
 
-	var/png_name = "[name]_[size].png"
+	var/png_name = "[name]_[size].[dmi_icon? "dmi" : "png"]"
 	var/file_directory = "tmp/icons/[png_name]"
+	SSasset_loading?.iconforge_uni_icon_generated = TRUE
 	return file(file_directory)
-
 
 #define CACHED_WIDTH_INDEX "width"
 #define CACHED_HEIGHT_INDEX "height"
@@ -1032,6 +1022,18 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 	return dimensions[CACHED_WIDTH_INDEX]
 
 /atom/proc/get_cached_height()
+	if(isnull(icon))
+		return 0
+	var/list/dimensions = get_icon_dimensions(icon)
+	return dimensions[CACHED_HEIGHT_INDEX]
+
+/image/proc/get_cached_width()
+	if(isnull(icon))
+		return 0
+	var/list/dimensions = get_icon_dimensions(icon)
+	return dimensions[CACHED_WIDTH_INDEX]
+
+/image/proc/get_cached_height()
 	if(isnull(icon))
 		return 0
 	var/list/dimensions = get_icon_dimensions(icon)
@@ -1146,3 +1148,53 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 			shift = list("x" = -amount_x, "y" = -amount_y)
 
 	return shift
+
+// Given a number of frames for an icon state, and the dimensions of the icon, returns the ideal dimensions for a DMI file
+/proc/calculate_optimal_icon_grid_dimensions(width, height, count)
+	var/grid_width = 1
+	var/grid_height = 1
+	while(grid_width * grid_height < count)
+		if(height * grid_height < width * grid_width)
+			grid_height++
+		else
+			grid_width++
+	return list(grid_height, grid_width)
+
+// Reorder the 2d pixel data of the passed in frames into a data string that can be passed to rustg_dmi_create_png
+/proc/reorder_pixels(icon_width, icon_height, grid_width, grid_height, list/frames)
+	var/file_width = icon_width * grid_width
+
+	// This little trick right here reduces the total iteration of repeat_string from the product of the arguments to their sum.
+	// Can't be applied to the general case without a complex partitioning algorithm,
+	// since the count could either be a large prime or have large primes as factors
+	var/linear_pixels = COLOR_DMI_MASK
+	for(var/count in list(icon_width, icon_height, grid_width, grid_height))
+		if(count == 1)
+			continue
+		linear_pixels = repeat_string(count, linear_pixels)
+
+	for(var/i in 1 to length(frames))
+		var/list/frame = frames[i]
+		var/row_index = floor((i - 1) / grid_width)
+		var/column = (i - 1) % grid_width
+		for(var/y in 1 to length(frame))
+			var/list/row = jointext(frame[y], "")
+			var/splice_start = (row_index * icon_height + y - 1) * file_width + column * icon_width + 1
+			linear_pixels = splicetext(linear_pixels, (splice_start - 1) * 9 + 1, (splice_start+icon_width - 1) * 9 + 1, row)
+
+	var/zero_alpha_regex = regex(@@#(?:(?!a0a0a0)([0-9]|[a-f]){6}00)@, "gi")
+	linear_pixels = replacetext(linear_pixels, zero_alpha_regex, COLOR_DMI_MASK)
+	return linear_pixels
+
+/**
+ * Copies the pixel colors from the passed in icon `I` to the 2d list `grid`
+ */
+/proc/fill_grid_from_icon(list/grid, icon/I)
+	var/width = I.Width()
+	var/height = I.Height()
+	for(var/x in 1 to width)
+		for(var/y in 1 to height)
+			var/pixel = I.GetPixel(x,height+1-y)
+			if(length(pixel) == 7)
+				pixel += "ff"
+			grid[y][x] = pixel

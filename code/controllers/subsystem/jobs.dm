@@ -365,6 +365,11 @@ SUBSYSTEM_DEF(jobs)
 	for(var/mob/new_player/player in GLOB.player_list)
 		if(player.ready && player.mind && !player.mind.assigned_role)
 			unassigned += player
+			var/datum/preferences/prefs = player.client.prefs
+			if(prefs.alternate_option == RETURN_TO_LOBBY && !prefs.skip_antag)
+				prefs.final_alternate_option = BE_ASSISTANT
+			else
+				prefs.final_alternate_option = prefs.alternate_option
 
 	Debug("DO, Len: [length(unassigned)]")
 	if(length(unassigned) == 0)
@@ -411,7 +416,7 @@ SUBSYSTEM_DEF(jobs)
 
 	// Loop through all levels from high to low
 	var/list/shuffledoccupations = shuffle(occupations)
-	for(var/level = 1 to 3)
+	for(var/level in 1 to 3)
 		//Check the head jobs first each level
 		CheckHeadPositions(level)
 
@@ -468,7 +473,7 @@ SUBSYSTEM_DEF(jobs)
 	// Hand out random jobs to the people who didn't get any in the last check
 	// Also makes sure that they got their preference correct
 	for(var/mob/new_player/player in unassigned)
-		if(player.client.prefs.alternate_option == GET_RANDOM_JOB)
+		if(player.client.prefs.final_alternate_option == GET_RANDOM_JOB)
 			GiveRandomJob(player)
 
 	Debug("DO, Standard Check end")
@@ -478,7 +483,7 @@ SUBSYSTEM_DEF(jobs)
 	// Antags, who have to get in, come first
 	for(var/mob/new_player/player in unassigned)
 		if(player.mind.special_role)
-			if(player.client.prefs.alternate_option != BE_ASSISTANT)
+			if(player.client.prefs.final_alternate_option != BE_ASSISTANT)
 				GiveRandomJob(player)
 				if(player in unassigned)
 					AssignRole(player, JOB_TITLE_CIVILIAN)
@@ -487,10 +492,10 @@ SUBSYSTEM_DEF(jobs)
 
 	// Then we assign what we can to everyone else.
 	for(var/mob/new_player/player in unassigned)
-		if(player.client.prefs.alternate_option == BE_ASSISTANT)
+		if(player.client.prefs.final_alternate_option == BE_ASSISTANT)
 			Debug("AC2 Assistant located, Player: [player]")
 			AssignRole(player, JOB_TITLE_CIVILIAN)
-		else if(player.client.prefs.alternate_option == RETURN_TO_LOBBY)
+		else if(player.client.prefs.final_alternate_option == RETURN_TO_LOBBY)
 			to_chat(player, span_danger("Unfortunately, none of the round start roles you selected had a free slot. Please join the game by using \"Join Game!\" button and selecting a role with a free slot."))
 			player.ready = 0
 			unassigned -= player
@@ -539,7 +544,7 @@ SUBSYSTEM_DEF(jobs)
 	if(job.is_novice)
 		L.Add("<b>Ваша должность ограничена во всех взаимодействиях с рабочим имуществом отдела и экипажем станции, при отсутствии приставленного к нему квалифицированного сотрудника или полученного разрешения от вышестоящего начальства. Не забудьте ознакомиться с СРП вашей должности. По истечению срока прохождения стажировки, данная должность более не будет вам доступна. Используйте её для обучения, не стесняйтесь задавать вопросы вашим старшим коллегам!</b>")
 
-	to_chat(human, chat_box_green(L.Join("<br>")))
+	to_chat(human, custom_boxed_message("green_box", L.Join("<br>")))
 
 	return human
 
@@ -565,7 +570,7 @@ SUBSYSTEM_DEF(jobs)
 
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_RANDOM_ARRIVALS))
 		if(rank == JOB_TITLE_PRISONER)
-			mark_spawn = get_safe_random_station_turf(typesof(/area/security))  || pick(GLOB.latejoin_prisoner)
+			mark_spawn = get_safe_random_station_turf(typesof(/area/station/security))  || pick(GLOB.latejoin_prisoner)
 		else
 			mark_spawn = get_safe_random_station_turf()  || pick(GLOB.latejoin)
 
@@ -595,7 +600,7 @@ SUBSYSTEM_DEF(jobs)
 
 	if(!mark_spawn || HAS_TRAIT(SSstation, STATION_TRAIT_LATE_ARRIVALS)) // still no spawn, fall back to the arrivals shuttle
 		if(rank == JOB_TITLE_PRISONER)
-			mark_spawn = get_random_area_turf_for_spawn(/area/security/permabrig)
+			mark_spawn = get_random_area_turf_for_spawn(/area/station/security/prison/perma)
 		else
 			mark_spawn = get_random_area_turf_for_spawn(/area/shuttle/arrival/station)
 

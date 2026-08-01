@@ -48,7 +48,7 @@
 	item_flags = ABSTRACT
 
 /obj/item/bloodcrawl/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кровавый путь",
 		GENITIVE = "кровавого пути",
 		DATIVE = "кровавому пути",
@@ -68,7 +68,7 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/effect/dummy/slaughter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "странная кровь",
 		GENITIVE = "странной крови",
 		DATIVE = "странной крови",

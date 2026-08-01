@@ -19,7 +19,12 @@
 	/// Description swapped into desc once the part is fully assembled and powered.
 	var/desc_holder = null
 
+/obj/structure/particle_accelerator/Initialize(mapload)
+	. = ..()
+	GLOB.particle_accelerator_list += src
+
 /obj/structure/particle_accelerator/Destroy()
+	GLOB.particle_accelerator_list -= src
 	construction_state = ACCELERATOR_UNWRENCHED
 	update_master_ui()
 	return ..()

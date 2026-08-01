@@ -463,7 +463,7 @@
 		span_cultitalic("You attempt to stun [L] with the spell!"),
 	)
 
-	user.mob_light(LIGHT_COLOR_BLOOD_MAGIC, 3, _duration = 2)
+	user.mob_light(LIGHT_COLOR_BLOOD_MAGIC, 3, duration = 2)
 
 	var/obj/item/nullrod/N = locate() in target
 
@@ -473,13 +473,6 @@
 			span_userdanger("Ваше святое оружие поглощает ослепляющий свет!"),
 		)
 		uses--
-		return ..()
-
-	if(ismindshielded(L))
-		target.visible_message(
-			span_warning("Имплант [target.declent_ru(GENITIVE)] блокирует красный свет!"),
-			span_userdanger("Ваш имплант блокирует ослепляющий свет!"),
-		)
 		return ..()
 
 	to_chat(user, span_cultitalic("In a brilliant flash of red, [L] falls to the ground!"))

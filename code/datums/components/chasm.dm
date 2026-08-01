@@ -10,6 +10,7 @@
 	var/static/list/forbidden_types = typecacheof(list(
 		/mob/living/simple_animal/hostile/asteroid/elite,
 		/mob/living/simple_animal/hostile/megafauna,
+		/obj/bfl_crack,
 		/obj/docking_port,
 		/obj/effect/abstract,
 		/obj/effect/collapse,
@@ -225,7 +226,7 @@
 
 	if(isrobot(dropped_thing))
 		var/mob/living/silicon/robot/robot = dropped_thing
-		qdel(robot.mmi)
+		QDEL_NULL(robot.mmi)
 		qdel(dropped_thing)
 		falling_atoms -= falling_ref
 		return

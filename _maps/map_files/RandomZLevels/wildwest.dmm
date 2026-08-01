@@ -173,7 +173,6 @@
 /area/awaymission/wwvault)
 "aL" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/awaymission/wwmines)
@@ -189,11 +188,11 @@
 "aP" = (
 /obj/effect/forcefield{
 	desc = "You can't get in. Heh.";
-	layer = 1;
-	name = "Blocker";
-	lifetime = 0;
 	icon = 'icons/mob/actions/actions.dmi';
-	icon_state = "cultforcewall"
+	icon_state = "cultforcewall";
+	layer = 1;
+	lifetime = 0;
+	name = "Blocker"
 	},
 /turf/space,
 /area/space/nearstation)
@@ -1195,7 +1194,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/wwgov)
 "ec" = (
-/obj/structure/toilet,
+/obj/structure/toilet/directional/north,
 /mob/living/simple_animal/hostile/creature,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -1329,9 +1328,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/wwrefine)
 "ey" = (
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -1354,9 +1351,7 @@
 	},
 /area/awaymission/wwmines)
 "eD" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -1511,15 +1506,11 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/wwmines)
 "fa" = (
-/obj/structure/toilet{
-	dir = 1
-	},
+/obj/structure/toilet/directional/south,
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "fb" = (
-/obj/structure/toilet{
-	dir = 1
-	},
+/obj/structure/toilet/directional/south,
 /obj/item/ammo_box/speedloader/a357,
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
@@ -1556,7 +1547,6 @@
 "fh" = (
 /obj/effect/mob_spawn/human/doctor,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/awaymission/wwmines)
@@ -1790,14 +1780,12 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/awaymission/wwmines)
 "fR" = (
 /obj/machinery/vending/coffee,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/awaymission/wwmines)
@@ -1817,7 +1805,6 @@
 "fU" = (
 /obj/machinery/vending/cigarette,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/awaymission/wwmines)
@@ -1832,7 +1819,6 @@
 "fX" = (
 /obj/machinery/vending/snack,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/awaymission/wwmines)
@@ -1846,14 +1832,12 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/awaymission/wwmines)
 "ga" = (
 /obj/machinery/vending/cola,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/awaymission/wwmines)
@@ -1871,7 +1855,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/wwrefine)
 "gc" = (
-/obj/structure/sink,
+/obj/structure/sink/directional/north,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -1882,14 +1866,12 @@
 	icon_state = "gibdown1"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/awaymission/wwmines)
 "ge" = (
 /obj/item/stack/medical/bruise_pack,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/awaymission/wwmines)
@@ -1909,7 +1891,6 @@
 "gg" = (
 /obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/awaymission/wwmines)
@@ -1918,7 +1899,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/awaymission/wwmines)
@@ -1942,7 +1922,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/awaymission/wwmines)
@@ -1951,7 +1930,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/awaymission/wwmines)
@@ -1995,7 +1973,6 @@
 	icon_state = "gibup1"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/awaymission/wwmines)
@@ -2054,7 +2031,6 @@
 "gD" = (
 /obj/structure/chair/wood,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/awaymission/wwmines)
@@ -2103,7 +2079,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/awaymission/wwmines)
@@ -2137,7 +2112,6 @@
 	},
 /obj/structure/chair/wood,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/awaymission/wwmines)

@@ -237,9 +237,6 @@
 /datum/config_entry/string/medal_hub_address
 	default = null
 
-/datum/config_entry/string/medal_hub_password
-	default = null
-
 ///enables assistant limiting
 /datum/config_entry/flag/assistant_limit
 
@@ -284,7 +281,7 @@
 		SPECIES_DRASK,
 		SPECIES_GREY,
 		SPECIES_KIDAN,
-		SPECIES_MACNINEPERSON,
+		SPECIES_MACHINEPERSON,
 		SPECIES_NUCLEATION,
 		SPECIES_PLASMAMAN,
 		SPECIES_SLIMEPERSON,
@@ -443,6 +440,7 @@
 	default = list(
 		ROLE_TRAITOR,
 		ROLE_VAMPIRE,
+		ROLE_CHANGELING,
 	)
 
 /datum/config_entry/keyed_list/antag_paradise_single_antags_weights
@@ -452,7 +450,7 @@
 		ROLE_TRAITOR = 60,
 		ROLE_THIEF = 0,
 		ROLE_VAMPIRE = 20,
-		ROLE_CHANGELING = 0,
+		ROLE_CHANGELING = 20,
 	)
 
 /datum/config_entry/keyed_list/antag_paradise_double_antags_weights
@@ -589,6 +587,8 @@
 /datum/config_entry/flag/disable_ooc_emoji
 
 /datum/config_entry/flag/shutdown_on_reboot
+
+/datum/config_entry/flag/kill_on_shutdown
 
 /datum/config_entry/flag/autoreconnect
 
@@ -822,6 +822,15 @@
 /datum/config_entry/string/invoke_youtubedl
 	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
 
+/// Allows players to request internet sounds (via the OOC verb) for admins to play.
+/datum/config_entry/flag/request_internet_sound
+	default = TRUE
+
+/// Comma separated list of url patterns players are allowed to request. Each entry is matched as a regex.
+/datum/config_entry/string/request_internet_allowed
+	protection = CONFIG_ENTRY_LOCKED
+	default = "youtube.com/watch,youtu.be/,soundcloud.com/,bandcamp.com/track/"
+
 /datum/config_entry/str_list/lobby_music
 
 /datum/config_entry/string/override_away_mission
@@ -871,3 +880,23 @@
 	default = TRUE
 
 /datum/config_entry/flag/generate_assets_in_init
+
+/// if the game appears on the hub or not
+/datum/config_entry/flag/hub
+	default = TRUE
+
+/datum/config_entry/flag/kick_inactive //force disconnect for inactive players
+
+/datum/config_entry/number/afk_period //time in ds until a player is considered inactive
+	default = 3000
+	integer = FALSE
+	min_val = 0
+
+/datum/config_entry/number/afk_period/ValidateAndSet(str_val)
+	. = ..()
+	if(.)
+		config_entry_value *= 10 //documented as seconds in config.txt
+
+/// Pop requirement for the server to be removed from the hub
+/datum/config_entry/number/max_hub_pop
+	min_val = 0

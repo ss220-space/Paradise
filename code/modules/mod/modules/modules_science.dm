@@ -14,7 +14,7 @@
 	required_slots = list(ITEM_SLOT_HEAD|ITEM_SLOT_EYES|ITEM_SLOT_MASK)
 
 /obj/item/mod/module/reagent_scanner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль сканера реагентов",
 		GENITIVE = "модуля сканера реагентов",
 		DATIVE = "модулю сканера реагентов",
@@ -49,7 +49,7 @@
 	var/explosion_detection_dist = 21
 
 /obj/item/mod/module/reagent_scanner/advanced/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль продвинутого сканера реагентов",
 		GENITIVE = "модуля продвинутого сканера реагентов",
 		DATIVE = "модулю продвинутого сканера реагентов",
@@ -101,7 +101,7 @@
 	var/limited_range = 12
 
 /obj/item/mod/module/anomaly_locked/teleporter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль телепортера",
 		GENITIVE = "модуля телепортера",
 		DATIVE = "модулю телепортера",
@@ -183,7 +183,7 @@ tier 3 - 10-12 range, 125 energy per teleport, 1 sec teleport
 	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 
 /obj/item/mod/module/anomaly_locked/antigrav/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль антигравитации",
 		GENITIVE = "модуля антигравитации",
 		DATIVE = "модулю антигравитации",
@@ -193,7 +193,7 @@ tier 3 - 10-12 range, 125 energy per teleport, 1 sec teleport
 	)
 
 /obj/item/mod/module/anomaly_locked/antigrav/on_activation()
-	if(mod.wearer.get_gravity())
+	if(mod.wearer.has_gravity())
 		new /obj/effect/temp_visual/mook_dust(get_turf(src))
 	mod.wearer.AddElement(/datum/element/forced_gravity, 0)
 	playsound(src, 'sound/effects/gravhit.ogg', 50)
@@ -202,7 +202,7 @@ tier 3 - 10-12 range, 125 energy per teleport, 1 sec teleport
 	mod.wearer.RemoveElement(/datum/element/forced_gravity, 0)
 	if(deleting)
 		return
-	if(mod.wearer.get_gravity())
+	if(mod.wearer.has_gravity())
 		new /obj/effect/temp_visual/mook_dust(get_turf(src))
 	playsound(src, 'sound/effects/gravhit.ogg', 50)
 

@@ -5,15 +5,15 @@ jobs:
   setup_build_artifact_unit_tests:
     name: Setup build artifact # UNIT_TESTS
     runs-on: ubuntu-24.04
-    timeout-minutes: 5
+    timeout-minutes: 15
     strategy:
       fail-fast: false
       matrix:
         byondtype: ["STABLE"]
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v7
         with:
           node-version: 22.11.0
           cache: "yarn"

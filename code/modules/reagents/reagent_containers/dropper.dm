@@ -14,7 +14,7 @@
 	custom_price = PAYCHECK_MIN * 0.2
 
 /obj/item/reagent_containers/dropper/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пипетка",
 		GENITIVE = "пипетки",
 		DATIVE = "пипетке",
@@ -139,7 +139,7 @@
 	volume = 10
 
 /obj/item/reagent_containers/dropper/cyborg/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "промышленная пипетка",
 		GENITIVE = "промышленной пипетки",
 		DATIVE = "промышленной пипетке",
@@ -163,7 +163,7 @@
 	icon_state = "[initial(icon_state)][reagents.total_volume ? "1" : ""]"
 
 /obj/item/reagent_containers/dropper/precision/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "микропипетка",
 		GENITIVE = "микропипетки",
 		DATIVE = "микропипетке",

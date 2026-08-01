@@ -238,8 +238,7 @@
  */
 /datum/game_mode/proc/post_setup()
 
-	spawn(ROUNDSTART_LOGOUT_REPORT_TIME)
-		display_roundstart_logout_report()
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(display_roundstart_logout_report)), ROUNDSTART_LOGOUT_REPORT_TIME)
 
 	INVOKE_ASYNC(src, PROC_REF(set_mode_in_db)) // Async query, dont bother slowing roundstart
 
@@ -411,7 +410,7 @@
 	if(escaped_on_pod_5)
 		SSblackbox.record_feedback("nested tally", "round_end_stats", escaped_on_pod_5, list("escapees", "on_pod_5"))
 
-	SSdiscord.send2discord_simple(DISCORD_WEBHOOK_PRIMARY, "A round of [name] has ended - [surviving_total] survivors, [ghosts] ghosts. Round ID - [GLOB.round_id]. Duration - [ROUND_TIME_TEXT()]")
+	GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_PRIMARY, "A round of [name] has ended - [surviving_total] survivors, [ghosts] ghosts. Round ID - [GLOB.round_id]. Duration - [ROUND_TIME_TEXT()]")
 
 	if(!SSredis.connected)
 		return FALSE
@@ -878,7 +877,6 @@
 	. += auto_declare_completion_sst()
 	. += auto_declare_completion_sit()
 	. += auto_declare_completion_blob()
-	. += auto_declare_completion_heist()
 	. += auto_declare_completion_ninja()
 	. += auto_declare_completion_thief()
 	. += auto_declare_completion_goon_vampire()

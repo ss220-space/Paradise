@@ -22,6 +22,7 @@
 	armor = list(melee = 50, bullet = 30, laser = 30, energy = 30, bomb = 30, bio = 0, fire = 90, acid = 90)
 
 	req_access = list(ACCESS_SECURITY, ACCESS_HEADS)
+	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 
 	var/raised = FALSE			//if the turret cover is "open" and the turret is raised
 	var/raising= FALSE			//if the turret is currently opening or closing its cover
@@ -340,7 +341,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(!(stat & BROKEN) || syndicate)
 		return FALSE
 	. = TRUE
-	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume) || !(stat & BROKEN))
+	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
+	if(!I.use_tool(src, user, 2 SECONDS * construction_mod, volume = I.tool_volume) || !(stat & BROKEN))
 		return .
 	if(prob(70))
 		to_chat(user, span_notice("You remove the turret and salvage some components."))
@@ -373,7 +375,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		span_notice("You begin [anchored ? "un" : ""]securing the turret."),
 	)
 	wrenching = TRUE
-	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume) || enabled || raised || (!anchored && isinspace()))
+	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
+	if(!I.use_tool(src, user, 2 SECONDS * construction_mod, volume = I.tool_volume) || enabled || raised || (!anchored && isinspace()))
 		wrenching = FALSE
 		return .
 	wrenching = FALSE
@@ -863,7 +866,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(build_step != TURRET_BUILD_LOOSEN)
 		return FALSE
 	. = TRUE
-	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume) || build_step != TURRET_BUILD_LOOSEN)
+	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
+	if(!I.use_tool(src, user, 3 SECONDS * construction_mod, volume = I.tool_volume) || build_step != TURRET_BUILD_LOOSEN)
 		return .
 	to_chat(user, span_notice("You dismantle the turret construction."))
 	new /obj/item/stack/sheet/metal(loc, 5)
@@ -961,7 +965,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			if(!I.tool_use_check(user, 0))
 				return .
 			to_chat(user, span_notice("You start removing the turret's interior metal armor..."))
-			if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume) || build_step != TURRET_BUILD_ARMORED)
+			CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
+			if(!I.use_tool(src, user, 2 SECONDS * construction_mod, volume = I.tool_volume) || build_step != TURRET_BUILD_ARMORED)
 				return .
 			to_chat(user, span_notice("You remove the turret's interior metal armor."))
 			build_step = TURRET_BUILD_ANCHORED
@@ -972,7 +977,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			if(!I.tool_use_check(user, 5))
 				return .
 			to_chat(user, span_notice("You start welding the turret's armor down..."))
-			if(!I.use_tool(src, user, 5 SECONDS, amount = 5, volume = I.tool_volume) || build_step != TURRET_BUILD_COATED)
+			CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
+			if(!I.use_tool(src, user, 5 SECONDS * construction_mod, amount = 5, volume = I.tool_volume) || build_step != TURRET_BUILD_COATED)
 				return .
 			to_chat(user, span_notice("You weld the turret's armor down."))
 			//The final step: create a full turret
@@ -1116,6 +1122,12 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	health = 100
 	projectile = /obj/projectile/bullet/weakbullet3
 	eprojectile = /obj/projectile/bullet/weakbullet3
+
+/obj/machinery/porta_turret/syndicate/vox
+	name = "vox turret"
+	projectile = /obj/projectile/beam/disabler
+	eprojectile = /obj/projectile/beam/disabler
+	faction = "Vox"
 
 #undef TURRET_BUILD_LOOSEN
 #undef TURRET_BUILD_ANCHORED

@@ -20,8 +20,7 @@
 	},
 /obj/structure/cable{
 	icon_state = "0-2";
-	pixel_y = 1;
-	d2 = 2
+	pixel_y = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
@@ -31,8 +30,7 @@
 	},
 /obj/structure/cable{
 	icon_state = "0-2";
-	pixel_y = 1;
-	d2 = 2
+	pixel_y = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
@@ -40,8 +38,7 @@
 /obj/machinery/power/apc/noalarm/directional/north,
 /obj/structure/cable{
 	icon_state = "0-2";
-	pixel_y = 1;
-	d2 = 2
+	pixel_y = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
@@ -96,8 +93,7 @@
 "ao" = (
 /obj/structure/cable{
 	icon_state = "0-2";
-	pixel_y = 1;
-	d2 = 2
+	pixel_y = 1
 	},
 /obj/machinery/gateway/centeraway,
 /turf/simulated/floor/plasteel,
@@ -143,7 +139,6 @@
 /area/awaymission/example)
 "av" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -153,8 +148,7 @@
 /area/awaymission/example)
 "ax" = (
 /obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/example)
@@ -259,8 +253,8 @@
 /area/awaymission/example)
 "aQ" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "yellowfull";
-	dir = 8
+	dir = 8;
+	icon_state = "yellowfull"
 	},
 /area/awaymission/example)
 "aR" = (
@@ -442,8 +436,8 @@
 /area/awaymission/example)
 "bo" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "stage_stairs";
-	dir = 8
+	dir = 8;
+	icon_state = "stage_stairs"
 	},
 /area/awaymission/example)
 "bp" = (
@@ -477,9 +471,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/example)
 "bs" = (
-/obj/structure/toilet{
-	pixel_y = 12
-	},
+/obj/structure/toilet/directional/north,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -551,11 +543,7 @@
 	},
 /area/awaymission/example)
 "bC" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},

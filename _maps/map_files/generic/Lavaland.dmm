@@ -81,10 +81,9 @@
 /turf/simulated/wall,
 /area/mine/laborcamp)
 "ar" = (
-/obj/machinery/camera{
+/obj/machinery/camera/labor_camp{
 	c_tag = "Labor Camp Bathroom";
-	dir = 4;
-	network = list("Labor    Camp")
+	dir = 4
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -148,9 +147,7 @@
 "ay" = (
 /obj/item/bikehorn/rubberducky,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel/white,
 /area/mine/laborcamp)
@@ -187,10 +184,9 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
-/obj/machinery/camera{
+/obj/machinery/camera/labor_camp{
 	c_tag = "Labor Camp Storage";
-	dir = 1;
-	network = list("Labor    Camp")
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
@@ -900,7 +896,6 @@
 	anchored = 1
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -1323,6 +1318,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 1
 	},
+/obj/machinery/shower,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -2156,9 +2152,7 @@
 /area/mine/living_quarters)
 "gc" = (
 /obj/machinery/door/window/southleft,
-/obj/machinery/shower{
-	pixel_y = 22
-	},
+/obj/machinery/shower/directional/north,
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel/freezer,
 /area/mine/living_quarters)
@@ -2168,9 +2162,7 @@
 /area/mine/production)
 "ge" = (
 /obj/machinery/door/window/southright,
-/obj/machinery/shower{
-	pixel_y = 22
-	},
+/obj/machinery/shower/directional/north,
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel/freezer,
 /area/mine/living_quarters)
@@ -2230,10 +2222,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
 "gn" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -2898,10 +2887,9 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "jp" = (
-/obj/machinery/camera{
+/obj/machinery/camera/labor_camp{
 	c_tag = "Labor Camp Breakroom";
-	dir = 8;
-	network = list("Labor    Camp")
+	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -3257,9 +3245,8 @@
 	},
 /obj/item/pen,
 /obj/machinery/power/apc/directional/east,
-/obj/machinery/camera{
-	c_tag = "Labor Camp Monitoring";
-	network = list("Labor    Camp")
+/obj/machinery/camera/labor_camp{
+	c_tag = "Labor Camp Monitoring"
 	},
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -4206,9 +4193,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/mine/maintenance)
 "qA" = (
-/obj/machinery/camera{
-	c_tag = "Labor Camp Central 2";
-	network = list("Labor    Camp")
+/obj/machinery/camera/labor_camp{
+	c_tag = "Labor Camp Central 2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -4254,10 +4240,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/mine/laborcamp)
 "ro" = (
-/obj/machinery/camera{
+/obj/machinery/camera/labor_camp{
 	c_tag = "Labor Camp External";
-	dir = 4;
-	network = list("Labor    Camp")
+	dir = 4
 	},
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -4415,9 +4400,8 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "sr" = (
-/obj/machinery/camera{
-	c_tag = "Labor Camp Infirmary";
-	network = list("Labor    Camp")
+/obj/machinery/camera/labor_camp{
+	c_tag = "Labor Camp Infirmary"
 	},
 /obj/effect/decal/cleanable/cobweb,
 /obj/machinery/alarm/directional/west,
@@ -4487,9 +4471,7 @@
 /area/mine/living_quarters)
 "sO" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer/security{
-	network = list("Labor    Camp")
-	},
+/obj/machinery/computer/security/labor_camp,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
@@ -4583,9 +4565,8 @@
 	},
 /area/mine/laborcamp)
 "tC" = (
-/obj/machinery/camera{
-	c_tag = "Labor Camp Airlock";
-	network = list("Labor    Camp")
+/obj/machinery/camera/labor_camp{
+	c_tag = "Labor Camp Airlock"
 	},
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plasteel{
@@ -5437,8 +5418,8 @@
 "Bq" = (
 /obj/structure/ore_box,
 /obj/item/gps/ruin{
-	pixel_y = 32;
-	gpstag = "OUTPOST"
+	gpstag = "OUTPOST";
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -5595,7 +5576,7 @@
 	},
 /area/mine/laborcamp)
 "Dd" = (
-/obj/structure/toilet,
+/obj/structure/toilet/directional/north,
 /obj/effect/decal/cleanable/vomit,
 /obj/effect/decal/cleanable/cobweb2,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -5755,10 +5736,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "Fe" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = -28
 	},
@@ -6181,9 +6159,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
 "IK" = (
-/obj/structure/toilet{
-	dir = 8
-	},
+/obj/structure/toilet/directional/north,
 /turf/simulated/floor/plasteel/freezer,
 /area/mine/living_quarters)
 "IU" = (
@@ -6336,10 +6312,9 @@
 "JP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/old,
-/obj/machinery/camera{
+/obj/machinery/camera/labor_camp{
 	c_tag = "Labor Bedroom 2";
-	dir = 1;
-	network = list("Labor    Camp")
+	dir = 1
 	},
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken3"
@@ -6641,9 +6616,7 @@
 /area/lavaland/surface/outdoors/necropolis)
 "MW" = (
 /obj/structure/extinguisher_cabinet/directional/north,
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/east,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "purplecorner"
@@ -6750,10 +6723,7 @@
 "NG" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/vomit,
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = -28
 	},
@@ -6795,7 +6765,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "NZ" = (
-/obj/structure/toilet,
+/obj/structure/toilet/directional/north,
 /obj/effect/decal/cleanable/cobweb,
 /obj/item/clothing/mask/balaclava,
 /turf/simulated/floor/plasteel/white,
@@ -7137,10 +7107,9 @@
 /obj/item/plant_analyzer,
 /obj/item/seeds/lavaland/fireblossom,
 /obj/machinery/light/small,
-/obj/machinery/camera{
+/obj/machinery/camera/labor_camp{
 	c_tag = "Labor Camp Breakroom";
-	dir = 1;
-	network = list("Labor Camp")
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "green"
@@ -7151,6 +7120,9 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/item/tank/internals/anesthetic,
 /obj/item/clothing/mask/breath/medical,
+/obj/machinery/shower/directional/north{
+	layer = 3.21
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -7303,16 +7275,14 @@
 /area/ruin/unpowered/safe_cave)
 "Tj" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/camera{
-	c_tag = "Labor Camp Central";
-	network = list("Labor    Camp")
+/obj/machinery/camera/labor_camp{
+	c_tag = "Labor Camp Central"
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "Tk" = (
-/obj/machinery/camera{
-	c_tag = "Labor Camp Bedroom 1";
-	network = list("Labor    Camp")
+/obj/machinery/camera/labor_camp{
+	c_tag = "Labor Camp Bedroom 1"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/maintenance,

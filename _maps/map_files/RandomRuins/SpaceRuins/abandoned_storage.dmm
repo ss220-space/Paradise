@@ -424,8 +424,8 @@
 "hI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_pump{
-	on = 1;
-	dir = 4
+	dir = 4;
+	on = 1
 	},
 /obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plasteel,
@@ -660,9 +660,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "kO" = (
-/obj/machinery/shower{
-	pixel_y = 20
-	},
+/obj/machinery/shower/directional/north,
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
@@ -1026,11 +1024,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "qY" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/ore/glass/basalt,
 /obj/structure/mirror{
@@ -1210,7 +1204,6 @@
 /area/ruin/unpowered)
 "sZ" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/power/smes,
@@ -1531,9 +1524,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "Av" = (
-/obj/machinery/shower{
-	dir = 1
-	},
+/obj/machinery/shower/directional/north,
 /obj/structure/curtain/open/shower,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -3028,7 +3019,7 @@
 /obj/structure/closet/secure_closet{
 	req_access = list(128)
 	},
-/obj/item/gun/projectile/automatic/pistol/APS{
+/obj/item/gun/projectile/automatic/pistol/aps{
 	desc = "The original russian version of a widely used Syndicate sidearm. Uses 9mm ammo. The engraving N.E.K.T.O.E.N is stamped on the side, perhaps it is the owner of the gun or the name of some corporation."
 	},
 /turf/simulated/floor/plasteel,

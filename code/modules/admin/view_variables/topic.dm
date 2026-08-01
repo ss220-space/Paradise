@@ -24,10 +24,13 @@
 
 	if(href_list["Vars"])
 		var/vars_target = locate_vv_href(href_list["Vars"])
+		if(href_list["special_varname"]) // Some special vars can't be located even if you have their ref, you have to use this instead
+			var/datum/datum_vars_target = vars_target
+			vars_target = datum_vars_target.vars[href_list["special_varname"]]
 		debug_variables(vars_target)
 
 	// MARK: rename
-	else if(href_list["rename"])
+	if(href_list["rename"])
 		if(!check_rights(R_ADMIN))
 			return
 

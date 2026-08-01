@@ -60,9 +60,17 @@
 	var/animate_time = is_opposite_angle ? 0 : UPDATE_TRANSFORM_ANIMATION_TIME
 	animate(src, transform = ntransform, time = animate_time, dir = final_dir, easing = (EASE_IN|EASE_OUT))
 
+	readjust_atom_huds(animate_time)
+
 	handle_transform_change()
 
 	SEND_SIGNAL(src, COMSIG_LIVING_POST_UPDATE_TRANSFORM, resize, lying_angle, is_opposite_angle)
+
+/mob/living/proc/readjust_atom_huds(animate_time = null)
+	for(var/hud_key, hud_value in hud_list)
+		var/image/hud_image = hud_value
+		if(istype(hud_image))
+			adjust_hud_position(hud_image, animate_time = animate_time)
 
 /mob/living/proc/handle_transform_change()
 	return
@@ -150,7 +158,8 @@
 
 /mob/living/carbon/proc/update_observer_view(obj/item/worn_item, inventory)
 	for(var/mob/dead/observer/observe as anything in inventory_observers)
-		if(!observe.client || observe.client.eye != src || !observe.do_observe_target != src)
+		if(!observe.client || observe.client.eye != src || observe.do_observe_target != src)
+			observe.handle_when_autoobserve_move()
 			LAZYREMOVE(inventory_observers, observe)
 			continue
 

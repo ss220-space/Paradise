@@ -110,6 +110,7 @@
 
 // MARK: .50L - Compact Syndicate SR
 /obj/projectile/bullet/sniper/compact //Can't dismember, and can't break things; just deals massive damage.
+	damage = 70
 	knockdown = 4 SECONDS
 	weaken = 0
 	breakthings = FALSE

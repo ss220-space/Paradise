@@ -148,7 +148,7 @@
 	refill_canister = /obj/item/vending_refill/clothing
 
 /obj/machinery/vending/clothesmate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат ClothesMate",
 		GENITIVE = "торгового автомата ClothesMate",
 		DATIVE = "торговому автомату ClothesMate",
@@ -156,3 +156,6 @@
 		INSTRUMENTAL = "торговым автоматом ClothesMate",
 		PREPOSITIONAL = "торговом автомате ClothesMate",
 	)
+
+/obj/machinery/vending/clothesmate/free
+	all_products_free = TRUE

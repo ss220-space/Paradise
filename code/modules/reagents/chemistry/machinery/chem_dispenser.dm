@@ -29,9 +29,12 @@
 	var/list/upgrade_reagents = list("oil", "ash", "acetone", "saltpetre", "ammonia", "diethylamine", "fuel")
 	var/list/hacked_reagents = list("toxin")
 	var/is_drink = FALSE
+	var/base_skill = /datum/skill/medical/chemistry
+	var/dispence_skill_name = CHEMISTRY_DISPENSE_RAND_SIZE
+	var/dispence_random_prob_name = CHEMISTRY_DISPENSE_RAND_REAGENT_PROB
 
 /obj/machinery/chem_dispenser/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "химический раздатчик",
 		GENITIVE = "химического раздатчика",
 		DATIVE = "химическому раздатчику",
@@ -103,7 +106,7 @@
 	upgrade_reagents = list()
 
 /obj/machinery/chem_dispenser/mutagensaltpeter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ботанический раздатчик",
 		GENITIVE = "ботанического раздатчика",
 		DATIVE = "ботаническому раздатчику",
@@ -181,6 +184,16 @@
 		ui.open()
 
 /obj/machinery/chem_dispenser/ui_data(mob/user)
+	var/static/alist/dispense_amounts = alist(
+		SKILL_LEVEL_NONE = list(10, 50, 100),
+		SKILL_LEVEL_BEGINNER = list(5, 10, 50, 100),
+		SKILL_LEVEL_BASIC = list(5, 10, 30, 50, 100),
+		SKILL_LEVEL_ADVANCED = list(5, 10, 20, 30, 50, 100),
+		SKILL_LEVEL_PROFESSIONAL = list(1, 5, 10, 20, 30, 50, 100),
+		SKILL_LEVEL_EXPERT = list(1, 3, 5, 10, 20, 30, 50, 100),
+		SKILL_LEVEL_LEGEND = list(1, 3, 5, 10, 15, 20, 30, 50, 100),
+		SKILL_LEVEL_UNAVAILABLE = list(50),
+	)
 	var/list/data = list()
 
 	data["glass"] = is_drink
@@ -188,6 +201,8 @@
 	data["energy"] = cell.charge ? cell.charge * powerefficiency : "0" //To prevent NaN in the UI.
 	data["maxEnergy"] = cell.maxcharge * powerefficiency
 	data["isBeakerLoaded"] = beaker ? 1 : 0
+	GET_SKILL_LEVEL(user, base_skill, skill_level)
+	data["dispenseAmounts"] = dispense_amounts[skill_level]
 
 	var/beakerContents[0]
 	var/beakerCurrentVolume = 0
@@ -235,7 +250,14 @@
 			if(!cell.use(actual / powerefficiency))
 				atom_say("Недостаточно энергии для завершения операции!")
 				return
-			R.add_reagent(params["reagent"], actual)
+			CALCULATE_SKILL_MOD(usr, dispence_skill_name, dispense_rand_size)
+			CALCULATE_SKILL_MOD(usr, dispence_random_prob_name, dispence_random_prob)
+			dispence_random_prob *= 100
+			actual += min(amount * dispense_rand_size * (rand() - 0.5), free) // assistants gets free drinks, but can evaporate energy in seconds
+			var/reagent = params["reagent"]
+			if(prob(dispence_random_prob))
+				reagent = pick(dispensable_reagents)
+			R.add_reagent(reagent, actual)
 			update_icon(UPDATE_OVERLAYS)
 		if("remove")
 			var/amount = text2num(params["amount"])
@@ -385,9 +407,12 @@
 	hacked_reagents = list("thirteenloko")
 	var/list/hackedupgrade_reagents = list("zaza") //I possess zaza
 	is_drink = TRUE
+	base_skill = /datum/skill/service/drink_mixing
+	dispence_skill_name = DRINKS_DISPENSE_RAND_SIZE
+	dispence_random_prob_name = DRINKS_DISPENSE_RAND_REAGENT_PROB
 
 /obj/machinery/chem_dispenser/soda/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "раздатчик напитков",
 		GENITIVE = "раздатчика напитков",
 		DATIVE = "раздатчику напитков",
@@ -441,9 +466,11 @@
 	upgrade_reagents = list("iced_beer", "irishcream", "manhattan", "antihol", "synthignon", "bravebull")
 	hacked_reagents = list("goldschlager", "patron", "absinthe", "ethanol", "nothing", "sake", "bitter", "champagne", "aperol", "noalco_beer")
 	is_drink = TRUE
+	base_skill = /datum/skill/service/drink_mixing
+	dispence_skill_name = DRINKS_DISPENSE_RAND_SIZE
 
 /obj/machinery/chem_dispenser/beer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "раздатчик алкоголя",
 		GENITIVE = "раздатчика алкоголя",
 		DATIVE = "раздатчику алкоголя",
@@ -485,7 +512,7 @@
 	upgrade_reagents = list("atrazine", "glyphosate", "pestkiller", "diethylamine", "ash")
 
 /obj/machinery/chem_dispenser/botanical/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ботанический раздатчик",
 		GENITIVE = "ботанического раздатчика",
 		DATIVE = "ботаническому раздатчику",
@@ -538,7 +565,7 @@
 	var/recharge_rate = 1 // Keep this as an integer
 
 /obj/item/handheld_chem_dispenser/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ручной химический раздатчик",
 		GENITIVE = "ручного химического раздатчика",
 		DATIVE = "ручному химическому раздатчику",
@@ -727,7 +754,7 @@
 	"sake", "bitter", "champagne", "aperol", "noalco_beer")
 
 /obj/item/handheld_chem_dispenser/booze/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ручной алкогольный раздатчик",
 		GENITIVE = "ручного алкогольного раздатчика",
 		DATIVE = "ручному алкогольному раздатчику",
@@ -748,7 +775,7 @@
 	"triple_citrus", "icecoffe", "icetea", "thirteenloko")
 
 /obj/item/handheld_chem_dispenser/soda/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ручной раздатчик напитков",
 		GENITIVE = "ручного раздатчика напитков",
 		DATIVE = "ручному раздатчику напитков",
@@ -776,7 +803,7 @@
 	)
 
 /obj/item/handheld_chem_dispenser/botanical/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "компактный кухонный раздатчик",
 		GENITIVE = "компактного кухонного раздатчика",
 		DATIVE = "компактному кухонному раздатчику",
@@ -796,7 +823,7 @@
 	)
 
 /obj/item/handheld_chem_dispenser/cooking/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "компактный кухонный раздатчик",
 		GENITIVE = "компактного кухонного раздатчика",
 		DATIVE = "компактному кухонному раздатчику",

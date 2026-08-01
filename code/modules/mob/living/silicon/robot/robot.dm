@@ -14,8 +14,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	bubble_icon = "robot"
 	universal_understand = 1
 	deathgasp_on_death = TRUE
+
 	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT_DIRECTIONAL
 	light_on = FALSE
 
 	var/sight_mode = 0
@@ -162,7 +163,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	update_headlamp()
 
 	radio = new /obj/item/radio/borg(src)
-	common_radio = radio
 
 	init(alien, connect_to_AI, ai_to_sync_to)
 
@@ -186,27 +186,22 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	else if(mmi.clock)
 		INVOKE_ASYNC(src, TYPE_PROC_REF(/atom, ratvar_act), TRUE)
 
-	if(!cell) // Make sure a new cell gets created *before* executing initialize_components(). The cell component needs an existing cell for it to get set up properly
-		cell = new default_cell_type(src)
-
 	initialize_components()
 
-	for(var/V in components)
-		if(V != "power cell")
-			var/datum/robot_component/C = components[V]
-			C.installed = 1
-			C.wrapped = new C.external_type
+	for(var/key, value in components)
+		if(key != "power cell")
+			var/datum/robot_component/component = value
+			component.install(new component.external_type, FALSE)
 
 	. = ..()
 
 	robot_module_hat_offset(icon_state)
 	add_robot_verbs()
 
-	if(cell)
-		var/datum/robot_component/cell_component = components["power cell"]
-		cell_component.wrapped = cell
-		cell_component.installed = 1
-		cell_component.install()
+	// Install a default cell into the borg if none is there yet
+	var/datum/robot_component/cell_component = components["power cell"]
+	var/obj/item/stock_parts/cell/new_cell = cell || new default_cell_type(src)
+	cell_component.install(new_cell)
 
 	diag_hud_set_borgcell()
 	scanner = new()
@@ -270,8 +265,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	QDEL_LIST_ASSOC_VAL(components)
 	QDEL_LIST(upgrades)
 	QDEL_LIST(module_actions)
-
 	return ..()
+
+/mob/living/silicon/robot/get_radio()
+	return radio
 
 /mob/living/silicon/robot/proc/add_strippable_element()
 	AddElement(/datum/element/strippable, create_strippable_list(list(/datum/strippable_item/borg_head)))
@@ -305,8 +302,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		setup_PDA()
 
 		//We also need to update name of internal camera.
-		if(camera)
-			camera.c_tag = newname
+		camera?.c_tag = newname
+
+		gps?.gpstag = "[newname] (Robot)"
 
 	if(mmi?.brainmob)
 		mmi.brainmob.name = newname
@@ -531,11 +529,14 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	icon = initial(icon)
 	icon_state = "robot"
 	base_icon = "robot"
-	module.remove_subsystems_and_actions(src)
+	if(module)
+		module.remove_subsystems_and_actions(src)
 	transform = matrix()
 
 	for(var/obj/item/borg/upgrade/upgrade in upgrades) //remove all upgrades, cuz we reseting
 		qdel(upgrade)
+
+	module.on_remove(src)
 
 	QDEL_NULL(module)
 
@@ -575,11 +576,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	set desc = "Toggle a component, conserving power."
 
 	var/list/installed_components = list()
-	for(var/V in components)
-		if(V == "power cell") continue
-		var/datum/robot_component/C = components[V]
-		if(C.installed)
-			installed_components += V
+	for(var/key, value in components)
+		if(key == "power cell")
+			continue
+		var/datum/robot_component/component = value
+		if(!component.is_missing())
+			installed_components += key
 
 	var/toggle = tgui_input_list(src, "Which component do you want to toggle?", "Toggle Component", installed_components)
 	if(!toggle)
@@ -770,25 +772,23 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(user, span_warning("You must open the cover to access cyborg's internals!"))
 			return ATTACK_CHAIN_PROCEED
 
-		for(var/V in components)
-			var/datum/robot_component/component = components[V]
-			if(!component.installed && istype(I, component.external_type))
-				if(!user.drop_transfer_item_to_loc(I, src))
-					return ..()
+		for(var/key, value in components)
+			var/datum/robot_component/component = value
+			if(!component.is_missing() || !istype(I, component.external_type))
+				continue
 
-				component.installed = TRUE
-				component.wrapped = I
-				component.install()
+			if(!user.drop_transfer_item_to_loc(I, src))
+				return ..()
 
-				I.move_to_null_space()
-				var/obj/item/robot_parts/robot_component/robot_component = I
+			component.install(I)
+			var/obj/item/robot_parts/robot_component/robot_component = I
 
-				if(istype(robot_component))
-					component.brute_damage = robot_component.brute
-					component.electronics_damage = robot_component.burn
+			if(istype(robot_component))
+				component.brute_damage = robot_component.brute
+				component.electronics_damage = robot_component.burn
 
-				to_chat(user, span_notice("You have installed [I]."))
-				return ATTACK_CHAIN_BLOCKED_ALL
+			to_chat(user, span_notice("You have installed [I]."))
+			return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(iscoil(I))
 		add_fingerprint(user)
@@ -839,11 +839,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		to_chat(user, span_notice("You have installed the power cell."))
 		var/datum/robot_component/cell/cell_component = components["power cell"]
 
-		cell = I
-		cell_component.installed = TRUE
-		cell_component.wrapped = I
-		cell_component.install()
-		cell_component.external_type = I.type // Update the cell component's `external_type` to the path of new cell
+		cell_component.install(I)
 		//This will mean that removing and replacing a power cell will repair the mount, but I don't care at this point. ~Z
 		cell_component.brute_damage = 0
 		cell_component.electronics_damage = 0
@@ -1073,13 +1069,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return
 	// Okay we're not removing the cell or an MMI, but maybe something else?
 	var/list/removable_components = list()
-	for(var/V in components)
-		if(V == "power cell")
+	for(var/key, value in components)
+		if(key == "power cell")
 			continue
 
-		var/datum/robot_component/C = components[V]
-		if(C.installed == 1 || C.installed == -1)
-			removable_components += V
+		var/datum/robot_component/component = value
+		if(!component.is_missing())
+			removable_components += key
 
 	if(module)
 		removable_components += module.custom_removals
@@ -1091,23 +1087,24 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(module && module.handle_custom_removal(remove, user, I))
 		return
 
+	var/datum/robot_component/component = components[remove]
+
+	if(component.is_missing()) // Somebody else removed it during the input
+		return
+
+
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 
-	var/datum/robot_component/C = components[remove]
-	var/obj/item/robot_parts/robot_component/thing = C.wrapped
+	var/obj/item/robot_parts/robot_component/thing = component.wrapped
 	to_chat(user, "You remove \the [thing].")
 
 	if(istype(thing))
-		thing.brute = C.brute_damage
-		thing.burn = C.electronics_damage
+		thing.brute = component.brute_damage
+		thing.burn = component.electronics_damage
 
-	thing.loc = loc
-	var/was_installed = C.installed
-	C.installed = 0
-
-	if(was_installed == 1)
-		C.uninstall()
+	component.uninstall()
+	thing.forceMove(loc)
 
 /mob/living/silicon/robot/welder_act(mob/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)	// no interactions in combat
@@ -1347,9 +1344,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	update_fire()
 
-	if(blocks_emissive)
-		add_overlay(get_emissive_block())
-
 	if(module)
 		module.set_appearance(src)
 
@@ -1505,7 +1499,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return TRUE
 
 /mob/living/silicon/robot/proc/radio_menu()
-	radio.interact(src)
+	if(radio)
+		radio.interact(src)
 
 /mob/living/silicon/robot/proc/control_headlamp()
 	if(stat || lamp_cooldown > world.time || low_power_mode)
@@ -1604,63 +1599,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	eject_riders()
 	qdel(src)
 
-/mob/living/silicon/robot/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
-	var/oldLoc = src.loc
+/mob/living/silicon/robot/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
 	. = ..()
-
 	if(.)
-		if(camera && oldLoc != src.loc)
+		if(camera && old_loc != src.loc)
 			GLOB.cameranet.updatePortableCamera(src.camera)
-
-	if(module)
-		if(module.type == /obj/item/robot_module/janitor)
-			var/turf/tile = loc
-			if(stat != DEAD && isturf(tile))
-				var/floor_only = TRUE
-
-				for(var/A in tile)
-					if(iseffect(A))
-						var/obj/effect/check = A
-
-						if(check.is_cleanable())
-							var/obj/effect/decal/cleanable/blood/B = check
-
-							if(istype(B) && B.off_floor)
-								floor_only = FALSE
-
-							else
-								qdel(B)
-
-					else if(isitem(A))
-						var/obj/item/cleaned_item = A
-						cleaned_item.clean_blood()
-
-					else if(ishuman(A))
-						var/mob/living/carbon/human/cleaned_human = A
-
-						if(cleaned_human.body_position == LYING_DOWN)
-							if(cleaned_human.head)
-								cleaned_human.head.clean_blood()
-								cleaned_human.update_worn_head()
-
-							if(cleaned_human.wear_suit)
-								cleaned_human.wear_suit.clean_blood()
-								cleaned_human.update_worn_oversuit()
-
-							else if(cleaned_human.w_uniform)
-								cleaned_human.w_uniform.clean_blood()
-								cleaned_human.update_worn_undersuit()
-
-							if(cleaned_human.shoes)
-								cleaned_human.shoes.clean_blood()
-								cleaned_human.update_worn_shoes()
-
-							cleaned_human.clean_blood()
-							to_chat(cleaned_human, span_danger("[src] cleans your face!"))
-
-				if(floor_only)
-					tile.clean_blood()
-		return
 
 /mob/living/silicon/robot/proc/self_destruct()
 	apply_status_effect(/datum/status_effect/selfdestruct, src)
@@ -1738,10 +1681,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 // Proc that calls radial menu for borg to choose AFTER he chose his module.
 // In module there is borg_skins
 /mob/living/silicon/robot/proc/choose_icon()
-	var/datum/robot_skin/skin = select_skin(module.borg_skins, module?.default_skin)
+	if(!module)
+		return
+	var/datum/robot_skin/skin = select_skin(module.borg_skins, module.default_skin)
 	if(!skin)
 		return
-	set_skin(skin, TRUE, skin.type != module?.default_skin)
+	set_skin(skin, TRUE, skin.type != module.default_skin)
 	return
 
 /mob/living/silicon/robot/proc/select_skin(list/skins, default_skin_name)
@@ -2071,14 +2016,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	for(var/datum/robot_component/borked_part in borked_parts)
 		brute = borked_part.brute_damage
 		burn = borked_part.electronics_damage
-		borked_part.installed = 1
-		borked_part.wrapped = new borked_part.external_type
-
-		if(ispath(borked_part.external_type, /obj/item/stock_parts/cell)) // is the broken part a cell?
-			cell = new borked_part.external_type // borgs that have their cell destroyed have their `cell` var set to null. we need create a new cell for them based on their old cell type.
-
 		borked_part.heal_damage(brute,burn)
-		borked_part.install()
+		borked_part.install(new borked_part.external_type)
 
 /mob/living/silicon/robot/check_eye_prot()
 	return eye_protection
@@ -2158,15 +2097,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/proc/toggle_seat(/datum/action/innate/action)
 	can_buckle = !can_buckle
-	switch(can_buckle)
-		if(FALSE)
-			eject_riders()
-			balloon_alert(src, "сидение задвинуто")
-			playsound(loc, 'sound/machines/pda_button1.ogg', 50, TRUE)
-
-		if(TRUE)
-			balloon_alert(src, "сидение выдвинуто")
-			playsound(loc, 'sound/machines/terminal_eject.ogg', 50, TRUE)
+	if(can_buckle)
+		balloon_alert(src, "сидение выдвинуто")
+		playsound(loc, 'sound/machines/terminal_eject.ogg', 50, TRUE)
+	else
+		eject_riders()
+		balloon_alert(src, "сидение задвинуто")
+		playsound(loc, 'sound/machines/pda_button1.ogg', 50, TRUE)
 
 /mob/living/silicon/robot/proc/eject_riders()
 	if(!length(buckled_mobs))
@@ -2296,7 +2233,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	set_hud_image_state(DIAG_AISHELL_STAT_HUD, "hudtrackingai-active")
 	mainframe.set_hud_image_state(DIAG_AISHELL_STAT_HUD, "hudtrackingai")
-	module.channels = mainframe.aiRadio.channels
+	if(module && mainframe?.aiRadio)
+		module.channels = mainframe.aiRadio.channels
 	radio.recalculate_channels()
 
 //Called when the AI is leaving the AIshell.
@@ -2361,4 +2299,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(!check_rights(R_SKINS) && (var_name in list("icon", "icon_state")))
 		return FALSE
 	. = ..()
+
+/mob/living/silicon/robot/get_lootpanel_cache_key()
+	return "[module?.type] [selected_skin?.type]"
 

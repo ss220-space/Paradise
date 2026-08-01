@@ -46,7 +46,7 @@
 	var/obj/item/emitter_disk/diskie
 
 /obj/machinery/power/emitter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "эмиттер",
 		GENITIVE = "эмиттера",
 		DATIVE = "эмиттеру",
@@ -436,6 +436,13 @@
 		WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
 		disconnect_from_network()
 		welded = FALSE
+
+/obj/machinery/power/emitter/deathmatch //it doesn't fires anyway
+	active_power_usage = 0
+	idle_power_usage = 0
+	locked = TRUE
+	welded = TRUE
+	req_access = list("science")
 
 /obj/item/emitter_disk
 	name = "Diode Disk: Debugger"

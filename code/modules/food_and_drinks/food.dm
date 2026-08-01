@@ -32,20 +32,25 @@
 	resistance_flags = FLAMMABLE
 	container_type = INJECTABLE
 	var/log_eating = FALSE // do we log if someone eats us?
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_on = FALSE
+	var/randomize_position = TRUE
 
 /obj/item/reagent_containers/food/get_short_name()
 	return declent_ru(NOMINATIVE)
 
 /obj/item/reagent_containers/food/Initialize(mapload)
 	. = ..()
-	pixel_x = rand(-5, 5) //Randomizes postion
-	pixel_y = rand(-5, 5)
-	if(antable)
-		START_PROCESSING(SSobj, src)
-		ant_location = get_turf(src)
-		last_ant_time = world.time
+	if(randomize_position)
+		pixel_x = rand(-5, 5) //Randomizes postion
+		pixel_y = rand(-5, 5)
+
+	if(!antable)
+		return
+
+	START_PROCESSING(SSobj, src)
+	ant_location = get_turf(src)
+	last_ant_time = world.time
 
 /obj/item/reagent_containers/food/Destroy()
 	ant_location = null

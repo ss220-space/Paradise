@@ -80,7 +80,6 @@
 "aD" = (
 /obj/machinery/vending/cigarette,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
@@ -99,7 +98,6 @@
 /obj/structure/table/wood/fancy/royalblack,
 /obj/machinery/chem_dispenser/soda,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
@@ -583,7 +581,6 @@
 	},
 /obj/machinery/vending/boozeomat,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
@@ -1468,7 +1465,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
 "mb" = (
-/obj/item/toy/carpplushie/ice,
+/obj/item/toy/plushie/carp/ice,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
 	slowdown = 0
 	},
@@ -1950,7 +1947,6 @@
 	on = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
@@ -2235,10 +2231,7 @@
 /turf/simulated/floor/carpet/red,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "sf" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -2668,7 +2661,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/hut_n)
 "wi" = (
-/obj/item/toy/carpplushie/pink,
+/obj/item/toy/plushie/carp/pink,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
 	slowdown = 0
 	},
@@ -2707,7 +2700,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
@@ -2869,7 +2861,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
 "xQ" = (
-/obj/item/gun/projectile/automatic/pistol/APS,
+/obj/item/gun/projectile/automatic/pistol/aps,
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_l)
 "xS" = (
@@ -3085,7 +3077,6 @@
 /obj/item/reagent_containers/food/drinks/cans/non_alcoholic_beer,
 /obj/item/reagent_containers/food/drinks/cans/non_alcoholic_beer,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
@@ -3195,7 +3186,7 @@
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "Ba" = (
-/obj/item/toy/carpplushie/ice,
+/obj/item/toy/plushie/carp/ice,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
 	slowdown = 0
 	},
@@ -3304,7 +3295,6 @@
 /obj/structure/table/wood/fancy/royalblack,
 /obj/machinery/chem_dispenser/beer,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
@@ -4819,9 +4809,8 @@
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "Pv" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/reagent_containers/glass/rag,
+/obj/item/rag,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
@@ -4893,7 +4882,6 @@
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "Qb" = (
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
@@ -4952,7 +4940,7 @@
 /turf/simulated/floor/vault,
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "QC" = (
-/obj/item/toy/carpplushie/candy,
+/obj/item/toy/plushie/carp/candy,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
 	slowdown = 0
 	},

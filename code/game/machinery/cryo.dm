@@ -33,7 +33,7 @@
 	var/running_bob_animation = 0 // This is used to prevent threads from building up if update_icons is called multiple times
 
 /obj/machinery/atmospherics/unary/cryo_cell/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "криогенная капсула",
 		GENITIVE = "криогенной капсулы",
 		DATIVE = "криогенной капсуле",
@@ -83,9 +83,6 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
-
-/obj/machinery/atmospherics/unary/cryo_cell/on_construction()
-	..(dir,dir)
 
 /obj/machinery/atmospherics/unary/cryo_cell/RefreshParts()
 	var/C

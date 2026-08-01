@@ -33,7 +33,7 @@
 	///Do we lose energy over time?
 	var/dissipate = TRUE
 	/// How long should it take for us to dissipate in seconds?
-	var/dissipate_delay = 10
+	var/dissipate_delay = 20
 	/// How much energy do we lose every dissipate_delay?
 	var/dissipate_strength = 1
 	/// How long its been (in seconds) since the last dissipation
@@ -171,13 +171,13 @@
 	time_since_act += seconds_per_tick
 	if(time_since_act < 2)
 		return
+	var/seconds_since_last_act = time_since_act
 	time_since_act = 0
 	if(current_size >= STAGE_TWO)
-		radiation_pulse(src, max_range = 4, threshold = RAD_HEAVY_INSULATION, chance = 30)
 		pulse()
 		if(prob(event_chance))
 			event()
-	dissipate(seconds_per_tick)
+	dissipate(seconds_since_last_act)
 	check_energy()
 	update_warp()
 
@@ -239,7 +239,7 @@
 			pixel_y = 0
 			new_grav_pull = 4
 			new_consume_range = 0
-			dissipate_delay = 10
+			dissipate_delay = 20
 			time_since_last_dissipiation = 0
 			dissipate_strength = 1
 			if(warp)
@@ -252,7 +252,7 @@
 				pixel_y = -32
 				new_grav_pull = 6
 				new_consume_range = 1
-				dissipate_delay = 5
+				dissipate_delay = 10
 				time_since_last_dissipiation = 0
 				dissipate_strength = 5
 				if(!warp)
@@ -266,7 +266,7 @@
 				pixel_y = -64
 				new_grav_pull = 8
 				new_consume_range = 2
-				dissipate_delay = 4
+				dissipate_delay = 8
 				time_since_last_dissipiation = 0
 				dissipate_strength = 20
 				if(!warp) // In the event the singularity eats a clown and skips stage 2.
@@ -280,7 +280,7 @@
 				pixel_y = -96
 				new_grav_pull = 10
 				new_consume_range = 3
-				dissipate_delay = 10
+				dissipate_delay = 20
 				time_since_last_dissipiation = 0
 				dissipate_strength = 10
 		if(STAGE_FIVE) // this one also lacks a check for gens because it eats everything

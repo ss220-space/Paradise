@@ -23,7 +23,7 @@
 						<b>Вы двигаетесь быстро, покидая лужу крови, но материальный мир скоро лишит вас сил и сделает медлительным.</b>"
 
 /mob/living/simple_animal/demon/slaughter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "демон резни",
 		GENITIVE = "демона резни",
 		DATIVE = "демону резни",
@@ -72,7 +72,7 @@
 	mind.objectives += fluffObjective
 	messages.Add(mind.prepare_announce_objectives(FALSE))
 	messages.Add(span_motd("С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Slaughter_Demon\">Демон резни</a>"))
-	to_chat(src, chat_box_red(messages.Join("<br>")))
+	to_chat(src, custom_boxed_message("red_box center", messages.Join("<br>")))
 
 /obj/effect/decal/cleanable/blood/innards
 	icon = 'icons/obj/surgery.dmi'
@@ -81,7 +81,7 @@
 	desc = "Омерзительная масса из разорванной плоти и органов."
 
 /obj/effect/decal/cleanable/blood/innards/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кровавое месиво",
 		GENITIVE = "кровавого месива",
 		DATIVE = "кровавому месиву",
@@ -111,7 +111,7 @@
 							чтобы найти случайного живого еретика.</b>"
 
 /mob/living/simple_animal/demon/slaughter/cult/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вестник резни",
 		GENITIVE = "вестника резни",
 		DATIVE = "вестнику резни",
@@ -183,7 +183,7 @@
 		new_objective.explanation_text = "Устройте Резню неверующим!"
 		S.mind.objectives += new_objective
 		var/list/messages = list(S.mind.prepare_announce_objectives(FALSE))
-		to_chat(S, chat_box_red(messages.Join("<br>")))
+		to_chat(S, custom_boxed_message("red_box center", messages.Join("<br>")))
 		log_game("[S.key] has become Slaughter demon.")
 
 /**
@@ -256,7 +256,7 @@
 						<font color='#FF69B4'><b>Помните: смех — это ваше оружие, а объятия — ваш стиль. ДЕЛАЙТЕ МИР ЯРЧЕ И СМЕШНЕЕ!</b></font>"
 
 /mob/living/simple_animal/demon/slaughter/laughter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "демон смеха",
 		GENITIVE = "демона смеха",
 		DATIVE = "демону смеха",

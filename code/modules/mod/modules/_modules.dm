@@ -66,7 +66,7 @@
 	)
 
 /obj/item/mod/module/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль МЭК",
 		GENITIVE = "модуля МЭК",
 		DATIVE = "модулю МЭК",

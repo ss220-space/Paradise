@@ -73,7 +73,7 @@
 	comfort = 0.1
 
 /obj/structure/chair/sofa/bench/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "скамья",
 		GENITIVE = "скамьи",
 		DATIVE = "скамье",

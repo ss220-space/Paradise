@@ -78,6 +78,7 @@
 	for(var/z_idx = 1 to num_z_levels)
 		var/turf/bottom_left = reservation.bottom_left_turfs[z_idx]
 		var/turf/top_right = reservation.top_right_turfs[z_idx]
+		set_zlevel_freeze(bottom_left.z, TRUE)
 		GLOB.maploader.load_map(
 			file(load_path),
 			bottom_left.x,
@@ -95,8 +96,10 @@
 				else if(istype(thing, /obj/machinery/atmospherics))
 					loaded_atmospherics += thing
 				loaded_atom_movables |= thing
+		set_zlevel_freeze(bottom_left.z, FALSE)
 
 	SSatoms.InitializeAtoms(loaded_areas + loaded_atom_movables + loaded_turfs, FALSE)
+	SSlighting.setup_static_lighting_if_needed(loaded_turfs)
 	SSmachines.setup_template_powernets(loaded_cables)
 	SSair.setup_template_machinery(loaded_atmospherics)
 	SEND_SIGNAL(src, COMSIG_LAZY_TEMPLATE_LOADED, loaded_atom_movables, loaded_turfs, loaded_areas)

@@ -33,7 +33,8 @@
 
 /obj/item/reagent_containers/Initialize(mapload)
 	. = ..()
-	create_reagents(volume, temperature_min, temperature_max)
+	if(!reagents) // Some subtypes create their own reagents
+		create_reagents(volume, temperature_min, temperature_max)
 	if(spawned_disease)
 		var/datum/disease/F = new spawned_disease
 		var/list/data = list("diseases" = list(F), "blood_color" = BLOOD_COLOR_RED)
@@ -153,17 +154,6 @@
 	if(user.a_intent != INTENT_HARM)
 		return ATTACK_CHAIN_PROCEED
 	return ..()
-
-/obj/item/reagent_containers/wash(mob/user, atom/source)
-	if(is_open_container())
-		if(reagents.total_volume >= volume)
-			balloon_alert(user, "нет места!")
-			return
-		else
-			reagents.add_reagent("water", min(volume - reagents.total_volume, amount_per_transfer_from_this))
-			to_chat(user, span_notice("Вы наполняете [declent_ru(ACCUSATIVE)] из [source.declent_ru(GENITIVE)]."))
-			return
-	..()
 
 /obj/item/reagent_containers/proc/get_sound_for_reagent_containers()
 	switch(amount_per_transfer_from_this)

@@ -48,6 +48,8 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 	var/show_in_orbit = TRUE
 	/// Role name in antag menu
 	var/antag_menu_name
+	/// Is this antag datum gives skill bonus
+	var/has_skill_bonus = TRUE
 
 /datum/antagonist/New()
 	GLOB.antagonists += src
@@ -154,7 +156,7 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 	messages.Add(finalize_antag())
 	if(wiki_page_name)
 		messages.Add(span_motd("С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/[wiki_page_name]\">[russian_wiki_name]"))
-	to_chat(owner.current, chat_box_red(messages.Join("<br>")))
+	to_chat(owner.current, custom_boxed_message("red_box center", messages.Join("<br>")))
 
 	if(is_banned(owner.current) && replace_banned)
 		INVOKE_ASYNC(src, PROC_REF(replace_banned_player))

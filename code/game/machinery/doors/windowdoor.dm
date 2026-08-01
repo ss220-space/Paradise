@@ -322,7 +322,8 @@
 			span_warning("[user] removes the electronics from the [name]."), \
 			"You start to remove electronics from the [name]..."
 		)
-		if(I.use_tool(src, user, 40, volume = I.tool_volume))
+		CALCULATE_SKILL_MOD(user, BUILDING_SPEED_MOD, building_mod)
+		if(I.use_tool(src, user, 4 SECONDS * building_mod, volume = I.tool_volume))
 			if(panel_open && !density && !operating && loc)
 				var/obj/structure/windoor_assembly/WA = new /obj/structure/windoor_assembly(loc)
 				switch(base_state)
@@ -385,6 +386,14 @@
 	reinf = 1
 	explosion_block = 1
 	var/id = null
+
+/obj/machinery/door/window/brigdoor/normal
+	name = ".custom placement"
+
+/obj/machinery/door/window/brigdoor/reversed
+	name = ".custom placement"
+	icon_state = "rightsecure"
+	base_state = "rightsecure"
 
 /obj/machinery/door/window/brigdoor/security/cell
 	name = "cell door"

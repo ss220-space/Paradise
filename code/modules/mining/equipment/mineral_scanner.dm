@@ -19,7 +19,7 @@
 	origin_tech = "engineering=1;magnets=1"
 
 /obj/item/mining_scanner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ручной шахтёрский сканер",
 		GENITIVE = "ручного шахтёрского сканера",
 		DATIVE = "ручному шахтёрскому сканеру",
@@ -69,7 +69,7 @@
 	origin_tech = "engineering=3;magnets=3"
 
 /obj/item/t_scanner/adv_mining_scanner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "продвинутый автоматический шахтёрский сканер",
 		GENITIVE = "продвинутого автоматического шахтёрского сканера",
 		DATIVE = "продвинутому автоматическому шахтёрскому сканеру",
@@ -97,7 +97,7 @@
 	cooldown = 50
 
 /obj/item/t_scanner/adv_mining_scanner/lesser/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "автоматический шахтёрский сканер",
 		GENITIVE = "автоматического шахтёрского сканера",
 		DATIVE = "автоматическому шахтёрскому сканеру",
@@ -134,8 +134,9 @@
 		return
 
 	for(var/turf/simulated/mineral/mineral as anything in minerals)
-		mineral.add_overlay(image('icons/effects/ore_overlays.dmi', mineral.scan_state))
-		mineral.addtimer(CALLBACK(mineral, TYPE_PROC_REF(/atom, cut_overlays)), 3.5 SECONDS)
+		var/image/mineral_overlay = image('icons/effects/ore_overlays.dmi', icon_state = mineral.scan_state)
+		mineral.add_overlay(mineral_overlay)
+		mineral.addtimer(CALLBACK(mineral, TYPE_PROC_REF(/atom, cut_overlay), mineral_overlay), 3.5 SECONDS)
 
 /obj/effect/temp_visual/mining_overlay
 	plane = FULLSCREEN_PLANE
@@ -149,6 +150,11 @@
 /obj/effect/temp_visual/mining_overlay/Initialize(mapload)
 	. = ..()
 	animate(src, alpha = 0, time = duration, easing = EASE_IN)
+
+/obj/effect/temp_visual/mining_overlay/Destroy(force)
+	for(var/turf/location in vis_locs)
+		location.vis_contents -= src // safety
+	return ..()
 
 /obj/item/t_scanner/adv_mining_scanner/bleary_eye
 	name = "bleary eye"
@@ -166,7 +172,7 @@
 	cooldown = 3 SECONDS
 
 /obj/item/t_scanner/adv_mining_scanner/bleary_eye/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "затуманенный глаз",
 		GENITIVE = "затуманенного глаза",
 		DATIVE = "затуманенному глазу",

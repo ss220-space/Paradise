@@ -16,7 +16,7 @@
 	var/saved_appearance = null
 
 /obj/item/chameleon/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "\"Хамелеон\"-проектор",
 		GENITIVE = "\"Хамелеон\"-проектора",
 		DATIVE = "\"Хамелеон\"-проектору",
@@ -65,6 +65,7 @@
 		temp.layer = initial(target.layer)
 		SET_PLANE_EXPLICIT(temp, initial(plane), src)
 		saved_appearance = temp.appearance
+		qdel(temp)
 
 /obj/item/chameleon/proc/check_sprite(atom/target)
 	if(icon_exists(target.icon, target.icon_state))

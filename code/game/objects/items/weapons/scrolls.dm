@@ -61,7 +61,7 @@
 	if(!((user == loc || (in_range(src, user) && isturf(src.loc)))))
 		return
 
-	if(thearea.tele_proof && !istype(thearea, /area/wizard_station))
+	if(thearea.tele_proof && !istype(thearea, /area/centcom/wizard_station))
 		to_chat(user, span_warning("A mysterious force disrupts your arcane spell matrix, and you remain where you are."))
 		return
 

@@ -23,7 +23,7 @@
 	var/dirty_items = FALSE // Used to refresh the static/redundant data in case the machine gets VV'd
 
 /obj/machinery/mineral/equipment_vendor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "раздатчик шахтёрского снаряжения",
 		GENITIVE = "раздатчика шахтёрского снаряжения",
 		DATIVE = "раздатчику шахтёрского снаряжения",
@@ -268,7 +268,7 @@
 	categories = list("Gear", "Consumables", "Kinetic Accelerator", "Digging Tools", "Minebot", "Miscellaneous", "Extra")
 
 /obj/machinery/mineral/equipment_vendor/golem/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "раздатчик снаряжения големов",
 		GENITIVE = "раздатчика снаряжения големов",
 		DATIVE = "раздатчику снаряжения големов",
@@ -299,7 +299,7 @@
 	categories = list("Scum")
 
 /obj/machinery/mineral/equipment_vendor/labor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "раздатчик снаряжения каторги",
 		GENITIVE = "раздатчика снаряжения каторги",
 		DATIVE = "раздатчику снаряжения каторги",
@@ -339,7 +339,7 @@
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/mining_voucher/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шахтёрский ваучер",
 		GENITIVE = "шахтёрского ваучера",
 		DATIVE = "шахтёрскому ваучеру",
@@ -357,7 +357,7 @@
 	var/points = 500
 
 /obj/item/card/mining_point_card/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "карта шахтёрских очков",
 		GENITIVE = "карты шахтёрских очков",
 		DATIVE = "карте шахтёрских очков",
@@ -398,7 +398,7 @@
 	icon_state = "box_implants"
 
 /obj/item/storage/box/jumpbootimplant/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коробка с имплантами прыжковых ботинок",
 		GENITIVE = "коробки с имплантами прыжковых ботинок",
 		DATIVE = "коробке с имплантами прыжковых ботинок",
@@ -418,7 +418,7 @@
 	icon_state = "data"
 
 /obj/item/card/mining_access_card/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "карта доступа шахтёра",
 		GENITIVE = "карты доступа шахтёра",
 		DATIVE = "карте доступа шахтёра",

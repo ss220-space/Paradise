@@ -1,4 +1,5 @@
 /obj/item/gun
+	abstract_type = /obj/item/gun
 	name = "gun"
 	desc = "It's a gun. It's pretty terrible, though."
 	icon = 'icons/obj/weapons/projectile.dmi'
@@ -85,6 +86,9 @@
 	var/damage_mod = 1
 	/// Stamina modifier for projectile
 	var/stamina_mod = 1
+
+	///Can we hold up our target with this? Default to yes
+	var/can_hold_up = TRUE
 
 /*
  * Gun modules
@@ -373,6 +377,9 @@
 	if(user.in_throw_mode)
 		return
 
+	if(!user.loc?.allow_click())
+		return
+
 	if(HAS_TRAIT(src, TRAIT_GIVE_READY))
 		return
 
@@ -406,13 +413,8 @@
 	set_target(get_turf_on_clickcatcher(object, user, params))
 	src.modifiers = modifiers
 	if(gun_firemode == GUN_FIREMODE_SEMIAUTO)
-		var/fire_return // todo fix: code expecting return values from async
-		ASYNC
-			fire_return = process_fire()
-		if(!fire_return)
-			return
-		reset_fire()
-		return
+		INVOKE_ASYNC(src, PROC_REF(do_semiauto_fire))
+		return TRUE
 	SEND_SIGNAL(src, COMSIG_GUN_FIRE)
 	update_mouse_pointer()
 	sound_loop?.start(user)
@@ -483,6 +485,11 @@
 		gun.stop_fire()
 	sound_loop?.stop()
 	SEND_SIGNAL(src, COMSIG_GUN_STOP_FIRE)
+
+/// Single-shot fire path, runs process_fire and resets state on success.
+/obj/item/gun/proc/do_semiauto_fire()
+	if(process_fire())
+		reset_fire()
 
 ///Clean all references
 /obj/item/gun/proc/reset_fire()
@@ -639,12 +646,15 @@
 /obj/item/gun/proc/fast_fire(atom/target, mob/user, zone_override)
 	var/old_target = src.target
 	var/old_user = gun_user
+	var/list/old_modifiers = modifiers
 	src.target = target
 	gun_user = user
+	modifiers = null
 	setup_bullet_accuracy()
 	. = process_fire(zone_override)
 	src.target = old_target
 	gun_user = old_user
+	modifiers = old_modifiers
 	setup_bullet_accuracy()
 
 /obj/item/gun/proc/process_fire(zone_override)
@@ -682,6 +692,7 @@
 			if(chambered.harmful) // Is the bullet chambered harmful?
 				to_chat(user, span_warning("В [declent_ru(ACCUSATIVE)] заряжены смертельные патроны! Лучше не рисковать..."))
 				return
+		on_pre_process_fire(user, target)
 		sprd = accuracy.randomize_spread(user, bonus_spread, shots_counter)
 		if(!chambered.fire(target = target, user = user, modifiers = modifiers, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src, damage_mod = damage_mod, stamina_mod = stamina_mod))
 			shoot_with_empty_chamber(user)
@@ -706,26 +717,52 @@
 	SEND_SIGNAL(src, COMSIG_GUN_AFTER_PROCESS_FIRE, target, user)
 	return AUTOFIRE_CONTINUE
 
+/obj/item/gun/proc/on_pre_process_fire(mob/living/user, atom/target)
+	return
+
+/obj/item/gun/interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
+	if(user.a_intent != INTENT_HARM || user == interacting_with || !isliving(interacting_with) || !can_hold_up)
+		return ..()
+
+	if(SEND_SIGNAL(user, COMSIG_LIVING_GUNPOINT_START, user) & COMPONENT_LIVING_ALREADY_HELD_UP)
+		balloon_alert(user, "уже кто-то на мушке!")
+		return ITEM_INTERACT_BLOCKING
+
+	if(SEND_SIGNAL(interacting_with, COMSIG_LIVING_GUNPOINT_START, user) & COMPONENT_LIVING_ALREADY_HELD_UP)
+		balloon_alert(user, "уже на мушке!")
+		return ITEM_INTERACT_BLOCKING
+
+	if(do_after(user, 0.5 SECONDS, interacting_with))
+		if(!user.is_in_hands(src))
+			return ITEM_INTERACT_BLOCKING
+
+		user.AddComponent(/datum/component/gunpoint, interacting_with, src)
+
+	return ITEM_INTERACT_SUCCESS
+
 /obj/item/gun/ranged_interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
+	if(isliving(interacting_with) && IN_GIVEN_RANGE(user, interacting_with, GUNPOINT_SHOOTER_STRAY_RANGE))
+		return interact_with_atom_secondary(interacting_with, user, modifiers)
+
 	if(azoom)
 		zoom(user)
 		return ITEM_INTERACT_SUCCESS
 	return ..()
 
-/obj/item/gun/attackby(obj/item/I, mob/user, list/modifiers)
-	if(is_pen(I))
+/obj/item/gun/attackby(obj/item/item, mob/living/user, list/modifiers)
+	if(is_pen(item))
 		if(!unique_rename)
 			add_fingerprint(user)
 			to_chat(user, span_warning("Вы не можете переименовать [declent_ru(ACCUSATIVE)]!"))
 			return ATTACK_CHAIN_BLOCKED_ALL
-		var/new_name = rename_interactive(user, I, use_prefix = FALSE)
+		var/new_name = rename_interactive(user, item, use_prefix = FALSE)
 		if(!isnull(new_name))
 			to_chat(user, span_notice("Вы переименовываете \"[name]\". Познакомьтесь со своим новым другом."))
 		return ATTACK_CHAIN_BLOCKED
 
-	if(istype(I, /obj/item/gun_module))
+	if(istype(item, /obj/item/gun_module))
 		add_fingerprint(user)
-		var/obj/item/gun_module/module = I
+		var/obj/item/gun_module/module = item
 		if(module.try_attach(src, user))
 			return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -736,18 +773,21 @@
 	if(.)
 		return
 
-	if(user.zone_selected != BODY_ZONE_PRECISE_MOUTH || user != interacting_with)
+	if(user.zone_selected != BODY_ZONE_PRECISE_MOUTH || !isliving(interacting_with))
 		return
 
 	if(interacting_with == user && HAS_TRAIT(user, TRAIT_BADASS))
 		user.visible_message(span_danger("[user] сдул[GEND_A_O_I(user)] дым с дула [declent_ru(GENITIVE)]. Как же [GEND_HE_SHE(user)] хорош[GEND_A_O_I(user)]!"))
-	else
-		handle_suicide(user, interacting_with, modifiers)
+		return ITEM_INTERACT_BLOCKING
+
+	handle_suicide(user, interacting_with, modifiers)
 	return ITEM_INTERACT_SUCCESS
 
 /obj/item/gun/proc/start_attack_chain_check(mob/user, atom/target)
-	if(user == target && user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
+	if(isliving(target) && user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
 		return TRUE
+	if(isturf(target)) // let the gun fire toward them even in harm intent
+		return FALSE
 	if(user.a_intent == INTENT_HARM)
 		return TRUE
 	if(isitem(target) || iscloset(target) || istable(target) || is_screen_atom(target) || isdisposalunit(target) || istype(target, /obj/machinery/recharger))
@@ -913,7 +953,7 @@
 	if(chambered?.BB)
 		chambered.BB.damage *= 15
 
-	var/fired = fast_fire(user, user, BODY_ZONE_HEAD)
+	var/fired = fast_fire(target, user, BODY_ZONE_HEAD)
 	if(!fired && chambered?.BB)
 		chambered.BB.damage /= 15
 
@@ -982,6 +1022,7 @@
 
 		for(var/mob/dead/observer/observe in user.inventory_observers)
 			if(!observe.client)
+				observe.handle_when_autoobserve_move()
 				LAZYREMOVE(user.inventory_observers, observe)
 				continue
 			observe.client.pixel_x = ICON_SIZE_X*_x
@@ -992,6 +1033,7 @@
 
 		for(var/mob/dead/observer/observe in user.inventory_observers)
 			if(!observe.client)
+				observe.handle_when_autoobserve_move()
 				LAZYREMOVE(user.inventory_observers, observe)
 				continue
 			observe.client.pixel_x = 0

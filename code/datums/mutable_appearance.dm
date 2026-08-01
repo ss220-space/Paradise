@@ -11,28 +11,27 @@
 	if(!to_copy)
 		plane = FLOAT_PLANE
 
-/** Helper similar to image()
+/**
+ * Helper similar to image()
  *
- * icon - Our appearance's icon
- * icon_state - Our appearance's icon state
- * layer - Our appearance's layer
- * atom/offset_spokesman - An atom to use as reference for the z position of this appearance. Only required if a plane is passed in. If this is not passed in we accept offset_const as a substitute
- * plane - The plane to use for the appearance. If this is not FLOAT_PLANE we require context for the offset to use
- * alpha - Our appearance's alpha
- * appearance_flags - Our appearance's appearance_flags
- * color - ??? idk, some EM legacy shit?
- * offset_const - A constant to offset our plane by, so it renders on the right "z layer"
+ * Arguments:
+ * * icon - Our appearance's icon.
+ * * icon_state - Our appearance's icon state.
+ * * layer - Our appearance's layer.
+ * * atom/offset_spokesman - An atom to use as reference for the z position of this appearance.
+ * * 	Only required if a plane is passed in. If this is not passed in we accept offset_const as a substitute.
+ * * plane - The plane to use for the appearance. If this is not FLOAT_PLANE we require context for the offset to use.
+ * * alpha - Our appearance's alpha.
+ * * appearance_flags - Our appearance's appearance_flags.
+ * * offset_const - A constant to offset our plane by, so it renders on the right "z layer".
 **/
-/proc/mutable_appearance(icon, icon_state = "", layer = FLOAT_LAYER, atom/offset_spokesman, plane = FLOAT_PLANE, alpha = 255, appearance_flags = NONE, color, offset_const)
+/proc/mutable_appearance(icon, icon_state = "", layer = FLOAT_LAYER, atom/offset_spokesman, plane = FLOAT_PLANE, alpha = 255, appearance_flags = NONE, offset_const)
 	var/mutable_appearance/appearance = new()
 	appearance.icon = icon
 	appearance.icon_state = icon_state
 	appearance.layer = layer
 	appearance.alpha = alpha
 	appearance.appearance_flags |= appearance_flags
-	if(color)
-		appearance.color = color
-
 	if(plane != FLOAT_PLANE)
 		// You need to pass in some non null object to reference
 		if(isatom(offset_spokesman))
@@ -50,16 +49,15 @@
 
 	return appearance
 
+/// Takes an input mutable appearance, returns a copy of it with the hidden flag flipped to avoid inheriting dir from what it's drawn on
+/// This inheriting thing is handled by a hidden flag on the /image (MAs are subtypes of /image)
+/proc/make_mutable_appearance_directional(mutable_appearance/to_process, dir = NORTH)
+	// We use the image() proc in combo with a manually set dir to flip this flag
+	// We can then copy the image's appearance to retain the flag, even on MAs and such
+	var/image/holder = image(to_process, dir = dir)
+	return new /mutable_appearance(holder)
+
 /mutable_appearance/clean/New()
 	. = ..()
 	alpha = 255
 	transform = null
-
-/mutable_appearance/emissive_blocker
-
-/mutable_appearance/emissive_blocker/New()
-	. = ..()
-	// Need to do this here because it's overriden by the parent call
-	color = EM_BLOCK_COLOR
-	appearance_flags = EMISSIVE_APPEARANCE_FLAGS
-

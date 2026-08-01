@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - bugfix: "Спрайт самодельного колчана теперь не исчезает. (PR #9601)"
