@@ -133,7 +133,7 @@
 
 	myArea = get_area(src)
 	if(myArea)
-		RegisterSignal(src, COMSIG_ATOM_EXITED_AREA, PROC_REF(onAreaExited))
+		RegisterSignal(src, COMSIG_MOVABLE_EXITED_AREA, PROC_REF(onAreaExited))
 		LAZYADD(myArea.machinery_cache, src)
 
 	if(processing_flags & START_PROCESSING_ON_INIT)
@@ -145,7 +145,7 @@
 	if(myArea)
 		LAZYREMOVE(myArea.machinery_cache, src)
 		myArea = null
-		UnregisterSignal(src, COMSIG_ATOM_EXITED_AREA)
+		UnregisterSignal(src, COMSIG_MOVABLE_EXITED_AREA)
 	SSmachines.unregister_machine(src)
 	end_processing()
 	clear_components()
@@ -180,11 +180,11 @@
 /obj/machinery/proc/flicker()
 	return FALSE
 
-/obj/machinery/proc/onAreaExited()
+/obj/machinery/proc/onAreaExited(atom/movable/machinery, area/exited_area, direction)
 	SIGNAL_HANDLER
-	if(myArea == get_area(src))
+	if(exited_area == get_area(src))
 		return
-	LAZYREMOVE(myArea.machinery_cache, src)
+	LAZYREMOVE(exited_area.machinery_cache, src)
 	myArea = get_area(src)
 	if(!myArea)
 		return
