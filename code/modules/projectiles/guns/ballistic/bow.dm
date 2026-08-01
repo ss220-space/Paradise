@@ -1,4 +1,4 @@
-// MARK: Generic
+// MARK: Generic wooden bow
 /obj/item/gun/projectile/bow
 	name = "bow"
 	desc = "Прочный лук, сделанный из дерева."
@@ -115,7 +115,7 @@
 	update_state()
 
 // MARK: Bone
-/obj/item/gun/projectile/bow/ashen //better than wooden
+/obj/item/gun/projectile/bow/ashen
 	name = "bone bow"
 	desc = "Примитивный лук с тетивой, сделанной из жилы. Обычно используется племенными охотниками и воинами."
 	icon_state = "ashenbow"
@@ -143,6 +143,7 @@
 		PREPOSITIONAL = "костяном луке",
 	)
 
+// MARK: Compound
 /obj/item/gun/projectile/bow/compound
 	name = "compound bow"
 	desc = "Композитный лук, предназначенный для любительской охоты и соревнований."
@@ -168,9 +169,10 @@
 		PREPOSITIONAL = "композитном луке",
 	)
 
+// MARK: Tactical
 /obj/item/gun/projectile/bow/tactical
 	name = "tactical bow"
-	desc = "Тактический лук Синдиката, предназначенный для особых операций, для которых не подходит любое другое оружие. Для удобства прицеливания установлен прицел малой кратности."
+	desc = "Тактический лук \"Синдиката\", предназначенный для особых операций, для которых не подходит любое другое оружие. Для удобства прицеливания установлен прицел малой кратности."
 	icon_state = "assaultbow"
 	base_icon_state = "assaultbow"
 	item_state = "assaultbow"
@@ -195,6 +197,7 @@
 		PREPOSITIONAL = "тактическом луке",
 	)
 
+// MARK: Handmade
 /obj/item/gun/projectile/bow/handmade
 	name = "handmade bow"
 	desc = "Самодельный лук, сделанный из того, что нашлось под рукой."
