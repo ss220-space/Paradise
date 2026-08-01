@@ -173,6 +173,7 @@
 
 /mob/living/silicon/pai/Destroy()
 	QDEL_LIST_ASSOC_VAL(installed_software)
+	QDEL_NULL(active_software)
 	QDEL_NULL(pda)
 	QDEL_NULL(sradio)
 	QDEL_NULL(integrated_console)
