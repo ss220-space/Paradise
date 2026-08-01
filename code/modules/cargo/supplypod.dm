@@ -268,7 +268,8 @@
 /obj/structure/closet/supplypod/swarmer
 	style = /datum/pod_style/swarmer
 	bluespace = TRUE
-	delays = list(POD_TRANSIT = 0 SECONDS, POD_FALLING = 6 SECONDS, POD_OPENING = 3 SECONDS, POD_LEAVING = 0 SECONDS)
+	explosionSize = list(0, 0, 0, 0)
+	delays = list(POD_TRANSIT = 0 SECONDS, POD_FALLING = 10 SECONDS, POD_OPENING = 3 SECONDS, POD_LEAVING = 0 SECONDS)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	specialised = TRUE
 

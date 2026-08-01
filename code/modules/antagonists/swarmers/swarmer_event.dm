@@ -7,9 +7,7 @@
 	/// Type of swarmers being spawned
 	var/spawn_type = /mob/living/simple_animal/hostile/swarmer/basic
 	/// The pod sent to the station
-	var/obj/structure/closet/supplypod/swarmer/pod = null
-	/// Candidates for swarmers, saved for pod handling
-	var/list/candidates
+	var/pod_type = /obj/structure/closet/supplypod/swarmer
 	/// Radius of shields spawned
 	var/shields_radius = 2
 	/// How long the shields last for
@@ -35,21 +33,28 @@
 
 /**
  * Gets all candidates for swarmer role, afterwards
- * sends a pod, which will spawn swarmers and the core on landing.
+ * initializes the pod and puts all swarmers in it.
  */
 /datum/event/swarmers/proc/create_swarmers()
 	var/mob/living/simple_animal/hostile/swarmer/swarmer_type = spawn_type // for source variable
-	candidates = SSghost_spawns.poll_candidates("Вы хотите занять роль Свармеров?", ROLE_SWARMER, TRUE, 30 SECONDS, source = swarmer_type)
+	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите занять роль Свармеров?", ROLE_SWARMER, TRUE, 30 SECONDS, source = swarmer_type)
 	if(length(candidates) < SWARMERS_SPAWN_AMOUNT)
 		message_admins("Warning: not enough players volunteered to be swarmers. Only [length(candidates)] out of [SWARMERS_SPAWN_AMOUNT]!")
 		return FALSE
 
-	initialize_pod()
+	var/obj/structure/closet/supplypod/pod = initialize_pod()
+	for(var/i in 1 to SWARMERS_SPAWN_AMOUNT)
+		var/mob/dead/observer/candidate = pick_n_take(candidates)
+		var/mob/living/simple_animal/hostile/swarmer/swarmer = new spawn_type(pod)
+		swarmer.possess_by_player(candidate.key)
+		swarmer.add_datum_if_not_exist()
+		log_game("[swarmer.key] has become [swarmer].")
+
 	return TRUE
 
 /// Creates a pod, registers needed signals and sends it to the station.
 /datum/event/swarmers/proc/initialize_pod()
-	pod = new
+	var/obj/structure/closet/supplypod/pod = new pod_type()
 	RegisterSignal(pod, COMSIG_SUPPLYPOD_LANDED, PROC_REF(on_pod_landing))
 	RegisterSignal(pod, COMSIG_SUPPLYPOD_OPENED, PROC_REF(on_pod_open))
 	RegisterSignal(pod, COMSIG_QDELETING, PROC_REF(on_pod_qdel))
@@ -62,37 +67,28 @@
 		source = pod,
 	)
 
+	return pod
+
 /// Changes safe to change walls and removes dense objects nearby
-/datum/event/swarmers/proc/on_pod_landing()
+/datum/event/swarmers/proc/on_pod_landing(obj/structure/closet/supplypod/pod)
 	SIGNAL_HANDLER
-	var/turf/pod_turf = get_turf(pod)
-	clean_stuff_around(pod_turf)
+	clean_stuff_around(pod)
 
 /// Spawns the core and event swarmers nearby.
-/datum/event/swarmers/proc/on_pod_open()
+/datum/event/swarmers/proc/on_pod_open(obj/structure/closet/supplypod/pod)
 	SIGNAL_HANDLER
 	var/turf/pod_turf = get_turf(pod)
 	new /obj/structure/swarmer/core(pod_turf)
-
-	for(var/i in 1 to SWARMERS_SPAWN_AMOUNT)
-		var/turf/swarmer_turf = get_step(pod_turf, pick(GLOB.alldirs))
-		var/mob/dead/observer/candidate = pick_n_take(candidates)
-		var/mob/living/simple_animal/hostile/swarmer/swarmer = new spawn_type(swarmer_turf)
-		swarmer.possess_by_player(candidate.key)
-		swarmer.add_datum_if_not_exist()
-		log_game("[swarmer.key] has become [swarmer].")
-
-	candidates = null
 	swarmer_shield_around_turf(pod_turf, shields_radius, shields_duration)
 
 /// Cleans up signals and stuff
-/datum/event/swarmers/proc/on_pod_qdel()
+/datum/event/swarmers/proc/on_pod_qdel(obj/structure/closet/supplypod/pod)
 	SIGNAL_HANDLER
 	UnregisterSignal(pod, list(COMSIG_SUPPLYPOD_LANDED, COMSIG_SUPPLYPOD_OPENED, COMSIG_QDELETING))
-	pod = null
 
 /// Changes safe to change walls and removes dense objects nearby
-/datum/event/swarmers/proc/clean_stuff_around(turf/target_turf)
+/datum/event/swarmers/proc/clean_stuff_around(obj/structure/closet/supplypod/pod)
+	var/turf/target_turf = get_turf(pod)
 	for(var/turf/simulated/wall/wall_turf in range(shields_radius - 1, target_turf))
 		if(check_safe_to_remove(wall_turf))
 			wall_turf.ChangeTurf(/turf/simulated/floor/plating)
@@ -128,13 +124,12 @@
 		if(isspaceturf(turf))
 			return FALSE
 
-/// Creates an unbreakable shield around a turf, with set duration
+/// Creates an unbreakable swarmer shield around a turf, with set duration
 /proc/swarmer_shield_around_turf(turf/target_turf, shield_radius, shield_duration)
 	var/list/shield_turfs = RANGE_EDGE_TURFS(shield_radius, target_turf)
 	var/list/corner_turfs = list(shield_turfs[1], shield_turfs[1 + 2 * shield_radius], shield_turfs[2 + 2 * shield_radius], shield_turfs[2 + 4 * shield_radius])
 	var/list/non_corner_turfs = shield_turfs - corner_turfs
 
-	// Based on order of turfs from RANGE_EDGE_TURFS
 	var/static/alist/quotient_to_edge_dir = alist(0 = EAST, 1 = WEST, 2 = NORTH, 3 = SOUTH)
 	var/static/alist/index_to_corner_dir = alist(1 = NORTHEAST, 2 = SOUTHEAST, 3 = NORTHWEST, 4 = SOUTHWEST)
 
