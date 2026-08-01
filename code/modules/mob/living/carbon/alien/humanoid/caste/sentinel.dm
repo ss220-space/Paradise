@@ -54,8 +54,7 @@
 	real_name = name
 	action_sprite = new
 	action_sprite.Grant(src)
-	var/datum/action/cooldown/spell/pointed/break_vent = new
-	break_vent.Grant(src)
+	AddSpell(new /datum/action/cooldown/spell/pointed/break_vent)
 	praetorian_count++
 
 /mob/living/carbon/alien/humanoid/praetorian/Destroy()

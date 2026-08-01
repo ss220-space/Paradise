@@ -10,7 +10,15 @@
 	button_icon_state = "alien_neurotoxin_0"
 	background_icon_state = "bg_alien"
 	sound = 'sound/creatures/terrorspiders/spit2.ogg'
+	unset_after_click = FALSE
 	var/plasma_cost = 50
+
+/datum/action/cooldown/spell/pointed/projectile/neurotoxin_spit/after_cast(atom/cast_on)
+	. = ..()
+	var/mob/living/carbon/user = owner
+	if(user.get_plasma() < plasma_cost)
+		unset_click_ability(user, FALSE)
+
 
 /datum/action/cooldown/spell/pointed/projectile/neurotoxin_spit/create_new_handler()
 	var/datum/spell_handler/alien/H = new

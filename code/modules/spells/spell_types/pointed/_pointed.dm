@@ -144,7 +144,7 @@
 
 	fire_projectile(cast_on)
 	owner.newtonian_move(get_angle(caster_front_turf, caster_turf))
-	if(current_amount <= 0)
+	if(current_amount <= 0 && unset_after_click)
 		unset_click_ability(owner, refund_cooldown = FALSE)
 
 	return TRUE

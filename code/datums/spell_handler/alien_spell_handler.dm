@@ -8,7 +8,7 @@ This was also the case with the verb implementation, it's just much more obvious
 	/// Amount of plasma required to use this ability
 	var/plasma_cost = 0
 
-/datum/spell_handler/alien/can_cast(mob/living/carbon/user, charge_check, show_message, datum/action/cooldown/spell/spell)
+/datum/spell_handler/alien/can_cast(mob/living/carbon/user, show_message, datum/action/cooldown/spell/spell)
 	var/obj/item/organ/internal/xenos/plasmavessel/vessel = user.get_int_organ(/obj/item/organ/internal/xenos/plasmavessel)
 	if(!vessel)
 		return FALSE
