@@ -154,9 +154,11 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	default_language = GLOB.all_languages[LANGUAGE_HIVE_TERRORSPIDER]
 
 	if(web_type)
-		AddSpell(new /datum/action/innate/terrorspider/web)
+		var/datum/action/innate/terrorspider/web/web_act = new
+		web_act.Grant(src)
 	if(can_wrap)
-		AddSpell(new /datum/action/innate/terrorspider/wrap)
+		var/datum/action/innate/terrorspider/wrap/wrap_act = new
+		wrap_act.Grant(src)
 	name += " ([rand(1, 1000)])"
 	real_name = name
 	msg_terrorspiders("[DECLENT_RU_CAP(src, NOMINATIVE)] вырастает в локации \"[get_area(src)]\".")
