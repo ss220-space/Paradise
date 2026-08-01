@@ -115,7 +115,7 @@
 			var/list/tlv_list = GLOB.human_tlv
 			for(var/gas_id, meta_list in GLOB.gas_meta)
 				var/list/gas_meta_list = meta_list
-				tlv = tlv_list[gas_id]
+				tlv = tlv_list[gas_id] || tlv_list[TLV_OTHER]
 				var/gas_value = gas_data[gas_id]
 				var/gas_level = gas_value / total_moles
 				results += list(list("entry" = gas_meta_list[META_GAS_NAME], "units" = "%", "val" = "[round(gas_level * 100, 0.1)]", "danger" = tlv.get_danger_level(gas_value)))
