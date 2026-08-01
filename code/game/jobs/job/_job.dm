@@ -149,7 +149,7 @@
 	if(outfit)
 		H.equipOutfit(outfit, visualsOnly)
 
-	apply_skills(H)
+	H.mind?.recalculate_skills(ref_job = title)
 	H.dna.species.after_equip_job(src, H, visualsOnly)
 
 	if(!visualsOnly && announce)

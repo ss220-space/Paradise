@@ -275,6 +275,57 @@
 	build_path = /obj/item/gun_module/rail/scope/x8
 	category = list(PROTOLATHE_CATEGORY_WEAPON)
 
+/datum/design/pyroclaw
+	id = "pyro_gloves"
+	req_tech = list(RESEARCH_TREE_COMBAT = 7, RESEARCH_TREE_MATERIALS = 7, RESEARCH_TREE_ENGINEERING = 7, RESEARCH_TREE_PLASMA = 7)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 5000, MAT_SILVER = 4000, MAT_TITANIUM = 4000, MAT_PLASMA = 8000)
+	build_path = /obj/item/clothing/gloves/color/black/pyro_claws
+	category = list(PROTOLATHE_CATEGORY_WEAPON)
+
+/datum/design/real_plasma_pistol
+	id = "real_plasma_pistol"
+	req_tech = null
+	build_type = PROTOLATHE
+	materials = list(MAT_SILVER = 6000, MAT_TITANIUM = 4000, MAT_PLASMA = 4000)
+	build_path = /obj/item/gun/energy/plasma_pistol
+	locked = TRUE
+	category = list(PROTOLATHE_CATEGORY_WEAPON)
+
+/datum/design/v1_arm
+	id = "v1_arm"
+	req_tech = list(RESEARCH_TREE_COMBAT = 7, RESEARCH_TREE_MAGNETS = 6, RESEARCH_TREE_ENGINEERING = 6, RESEARCH_TREE_BIOTECH = 7)
+	build_type = PROTOLATHE
+	materials = list(MAT_GOLD = 5000, MAT_URANIUM = 4000, MAT_METAL = 10000, MAT_TITANIUM = 2000, MAT_BLUESPACE = 2000)
+	reagents_list = list("blood" = 50)
+	build_path = /obj/item/v1_arm_shell
+	category = list(PROTOLATHE_CATEGORY_WEAPON)
+
+/datum/design/compound_bow
+	id = "compound_bow"
+	req_tech = list(RESEARCH_TREE_COMBAT = 5, RESEARCH_TREE_ENGINEERING = 5, RESEARCH_TREE_MATERIALS = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 10000, MAT_TITANIUM = 2000, MAT_DIAMOND = 2000)
+	build_path = /obj/item/gun/projectile/bow/compound
+	category = list(PROTOLATHE_CATEGORY_WEAPON)
+
+/datum/design/modern_arrow
+	id = "modern_arrow"
+	req_tech = list(RESEARCH_TREE_COMBAT = 5, RESEARCH_TREE_ENGINEERING = 5, RESEARCH_TREE_MATERIALS = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 500, MAT_METAL = 500)
+	build_path = /obj/item/ammo_casing/caseless/arrow/modern
+	category = list(PROTOLATHE_CATEGORY_WEAPON)
+
+/datum/design/modern_quiver
+	id = "modern_quiver"
+	req_tech = list(RESEARCH_TREE_COMBAT = 5, RESEARCH_TREE_ENGINEERING = 5, RESEARCH_TREE_MATERIALS = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_DIAMOND = 500, MAT_TITANIUM = 500, MAT_BLUESPACE = 500)
+	build_path = /obj/item/storage/backpack/quiver/modern
+	category = list(PROTOLATHE_CATEGORY_WEAPON)
+
+
 /////////////////////////////////////////
 ////////////////ILLEGAL//////////////////
 /////////////////////////////////////////
@@ -484,29 +535,3 @@
 	build_path = /obj/item/paicard_upgrade/protolate
 	locked = TRUE
 	category = list(PROTOLATHE_CATEGORY_ILLEGAL)
-
-/datum/design/pyroclaw
-	id = "pyro_gloves"
-	req_tech = list(RESEARCH_TREE_COMBAT = 7, RESEARCH_TREE_MATERIALS = 7, RESEARCH_TREE_ENGINEERING = 7, RESEARCH_TREE_PLASMA = 7)
-	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 10000, MAT_GLASS = 5000, MAT_SILVER = 4000, MAT_TITANIUM = 4000, MAT_PLASMA = 8000)
-	build_path = /obj/item/clothing/gloves/color/black/pyro_claws
-	category = list(PROTOLATHE_CATEGORY_WEAPON)
-
-/datum/design/real_plasma_pistol
-	id = "real_plasma_pistol"
-	req_tech = null
-	build_type = PROTOLATHE
-	materials = list(MAT_SILVER = 6000, MAT_TITANIUM = 4000, MAT_PLASMA = 4000)
-	build_path = /obj/item/gun/energy/plasma_pistol
-	locked = TRUE
-	category = list(PROTOLATHE_CATEGORY_WEAPON)
-
-/datum/design/v1_arm
-	id = "v1_arm"
-	req_tech = list(RESEARCH_TREE_COMBAT = 7, RESEARCH_TREE_MAGNETS = 6, RESEARCH_TREE_ENGINEERING = 6, RESEARCH_TREE_BIOTECH = 7)
-	build_type = PROTOLATHE
-	materials = list(MAT_GOLD = 5000, MAT_URANIUM = 4000, MAT_METAL = 10000, MAT_TITANIUM = 2000, MAT_BLUESPACE = 2000)
-	reagents_list = list("blood" = 50)
-	build_path = /obj/item/v1_arm_shell
-	category = list(PROTOLATHE_CATEGORY_WEAPON)

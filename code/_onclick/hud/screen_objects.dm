@@ -491,6 +491,22 @@
 		return
 	M.check_languages()
 
+/atom/movable/screen/area_creator
+	name = "create new area"
+	icon = 'icons/mob/screen_midnight.dmi'
+	icon_state = "area_edit"
+	screen_loc = ui_area_creator
+	mouse_over_pointer = MOUSE_HAND_POINTER
+
+/atom/movable/screen/area_creator/Click()
+	if(usr.incapacitated() || (isobserver(usr) && !usr.can_admin_interact()))
+		return TRUE
+	var/area/our_area = get_area(usr)
+	if(!our_area.outdoors)
+		to_chat(usr, span_warning("Здесь уже есть обозначенная зона."))
+		return TRUE
+	create_area(usr)
+
 /atom/movable/screen/inventory
 	/// The identifier for the slot. It has nothing to do with ID cards.
 	var/slot_id

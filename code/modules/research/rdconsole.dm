@@ -445,6 +445,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		to_chat(usr, span_danger("Выбран неизвестный шаблон печати!"))
 		return
 
+	CALCULATE_SKILL_MOD(usr, PROTOLATHE_RAND_BUILD_PROB, skill_rand_prob)
+	skill_rand_prob *= 100
+	if(prob(skill_rand_prob))
+		being_built = pick(matching_designs)
+
 	for(var/obj/machinery/r_n_d/server/rnd_server as anything in connected_servers)
 		if(!rnd_server || QDELETED(rnd_server))
 			continue

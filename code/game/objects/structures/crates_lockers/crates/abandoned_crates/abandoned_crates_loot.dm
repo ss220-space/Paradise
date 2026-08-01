@@ -105,7 +105,7 @@
 /obj/effect/spawner/abandoned_crate/toy_weapons
 	name = "toy weapons loot spawner"
 	loot = list(
-		/obj/item/toy/syndicateballoon = 1,
+		/obj/item/toy/balloon/syndicate = 1,
 		/obj/item/toy/katana = 1,
 		/obj/item/gun/projectile/shotgun/toy/crossbow = 1,
 	)

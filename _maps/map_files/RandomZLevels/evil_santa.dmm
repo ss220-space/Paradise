@@ -1465,7 +1465,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
 "mb" = (
-/obj/item/toy/carpplushie/ice,
+/obj/item/toy/plushie/carp/ice,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
 	slowdown = 0
 	},
@@ -2661,7 +2661,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/hut_n)
 "wi" = (
-/obj/item/toy/carpplushie/pink,
+/obj/item/toy/plushie/carp/pink,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
 	slowdown = 0
 	},
@@ -3186,7 +3186,7 @@
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "Ba" = (
-/obj/item/toy/carpplushie/ice,
+/obj/item/toy/plushie/carp/ice,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
 	slowdown = 0
 	},
@@ -4940,7 +4940,7 @@
 /turf/simulated/floor/vault,
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "QC" = (
-/obj/item/toy/carpplushie/candy,
+/obj/item/toy/plushie/carp/candy,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
 	slowdown = 0
 	},

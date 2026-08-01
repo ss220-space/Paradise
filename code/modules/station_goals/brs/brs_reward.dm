@@ -108,7 +108,7 @@
 		/obj/vehicle/ridden/car,
 
 		//Toys
-		/obj/item/toy/syndicateballoon = 5,
+		/obj/item/toy/balloon/syndicate = 5,
 		/obj/item/gun/projectile/automatic/smg/c20r/toy,
 		/obj/item/gun/projectile/automatic/l6_saw/toy,
 		/obj/item/gun/projectile/automatic/toy/pistol,
@@ -126,11 +126,9 @@
 		/obj/random/figure,
 		/obj/random/mech,
 		/obj/random/plushie,
-		/obj/random/therapy,
 		/obj/random/carp_plushie,
 		/obj/item/toy/balloon,
 		/obj/item/toy/spinningtoy,
-		/obj/item/toy/blink,
 		/obj/item/storage/box/dice,
 		/obj/item/storage/box/snappops,
 		/obj/item/deck/cards,

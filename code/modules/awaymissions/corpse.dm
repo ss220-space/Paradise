@@ -428,15 +428,10 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 		W.update_label()
 
 /obj/effect/mob_spawn/human/after_possess(mob/living/carbon/human/H)
-	if(skills_ref_job)
-		if(!use_antag_skills)
-			var/datum/job/current_job = SSjobs.GetJob(skills_ref_job)
-			current_job.apply_skills(H)
-		else
-			H.mind.recalculate_skills(ref_job = skills_ref_job, force_antag = TRUE)
-
-	for(var/skill, level in skills)
-		H.mind.set_skill_level(skill, level)
+	H.mind.job_alt_skills = skills
+	if(use_antag_skills)
+		ADD_TRAIT(H.mind, TRAIT_HAS_ANTAG_SKILLS, UNIQUE_TRAIT_SOURCE(src))
+	H.mind.refresh_skills(ref_job = skills_ref_job)
 
 /obj/effect/mob_spawn/human/special(mob/living/carbon/human/H)
 	if(!HAS_TRAIT(H, TRAIT_NO_DNA))

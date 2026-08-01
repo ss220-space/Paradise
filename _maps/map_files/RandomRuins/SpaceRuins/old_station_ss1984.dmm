@@ -7148,7 +7148,7 @@
 /area/ruin/space/ancientstation/beta_north)
 "zz" = (
 /obj/structure/chair/sofa,
-/obj/item/toy/plushie/black_cat,
+/obj/item/toy/plushie/cat,
 /turf/simulated/floor/wood,
 /area/ruin/space/ancientstation/charlie_dininghall)
 "zA" = (
