@@ -105,6 +105,8 @@
 		summon_mecha = new mecha_type(src)
 
 /obj/item/mecha_drop/Destroy(force)
+	if(summon_mecha?.loc == src)
+		qdel(summon_mecha)
 	summon_mecha = null
 	return ..()
 
