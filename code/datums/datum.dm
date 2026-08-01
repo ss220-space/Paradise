@@ -195,7 +195,7 @@
 
 /datum/proc/txt_changed_vars()
 	var/list/l = check_changed_vars()
-	var/t = "[src]([REF(src)]) changed vars:"
+	var/t = "[src]([src.UID()]) changed vars:"
 	for(var/i in l)
 		t += "\"[i]\" \[[l[i][1]]\] --> \[[l[i][2]]\] "
 	t += "."
