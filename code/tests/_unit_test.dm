@@ -237,6 +237,8 @@ GLOBAL_LIST_EMPTY(unit_test_tguis)
 		/mob/living/simple_animal/possessed_object,
 		// Doesn't exist on its own
 		/obj/effect/countdown/clockworkgate,
+		// Mapping only object
+		/obj/structure/toilet/cancollectmapitems,
 	)
 
 	// Everything that follows is a typesof() check.
