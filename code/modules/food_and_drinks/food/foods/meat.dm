@@ -893,6 +893,10 @@
 		SSmobs.cubemonkeys += creature
 		qdel(src)
 
+/obj/item/reagent_containers/food/snacks/monkeycube/wash_tg(clean_types)
+	. = ..()
+	return COMPONENT_CLEANED
+
 /obj/item/reagent_containers/food/snacks/monkeycube/syndicate
 	faction = list("neutral", "syndicate")
 

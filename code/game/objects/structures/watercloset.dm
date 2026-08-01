@@ -930,7 +930,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sink, (SHIFTING_SINK), (SHIFTING_SINK
 				to_chat(user, span_notice("You fill [container] from [src]."))
 				return ATTACK_CHAIN_PROCEED_SUCCESS
 			to_chat(user, span_notice("\The [container] is full."))
-		return ATTACK_CHAIN_PROCEED
+			return ATTACK_CHAIN_PROCEED
 
 	if(istype(I, /obj/item/mop) || astype(I, /obj/item/rag)?.blood_level == 0)
 		if(!reagents.total_volume)

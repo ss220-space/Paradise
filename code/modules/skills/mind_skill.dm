@@ -1,10 +1,6 @@
 /datum/mind/proc/init_skills(mob/user)
 	if(skills_initialized)
 		return
-	var/list/cached_selected_skills_levels = selected_skills_levels
-	for(var/skill_name, skill_datum in GLOB.skills)
-		var/datum/skill/skill = skill_datum
-		cached_selected_skills_levels[skill.type] = SKILL_LEVEL_BEGINNER
 	refresh_skills()
 	skills_initialized = WEAKREF(user)
 
@@ -23,7 +19,7 @@
 	if(skills_initialized && skills_initialized != WEAKREF(user))
 		unregister_skill_signals_for_user(skills_initialized.resolve())
 	if(user != skills_initialized)
-		if(!length(skills))
+		if(!length(selected_skills_levels))
 			init_skills(user)
 		else
 			skills_initialized = WEAKREF(user)
@@ -69,7 +65,7 @@
 	if(ref_job)
 		current_job = SSjobs.GetJob(ref_job)
 	var/is_antag = HAS_TRAIT(src, TRAIT_HAS_ANTAG_SKILLS)
-	var/basic_skill = is_antag? SKILL_LEVEL_BASIC : SKILL_LEVEL_NONE
+	var/basic_skill = is_antag || !current_job? SKILL_LEVEL_BASIC : SKILL_LEVEL_NONE
 	var/list/cached_manual_bonuses = active_skill_bonuses
 	var/list/cached_neurotrainer_bonuses = active_neurotrainer_bonuses
 	var/list/cached_manual_skill_bonuses = manual_skill_bonuses
@@ -83,6 +79,8 @@
 		var/job_skill = basic_skill
 		if(current_job)
 			job_skill = current_job.get_skill_level(skill_type, role_alt_title)
+			if(!(skill_type in job_alt_skills))
+				LAZYSET(job_alt_skills, skill_type, job_skill)
 		if(job_alt_skills && (skill_type in job_alt_skills))
 			job_skill = job_alt_skills[skill_type]
 		var/level = max(job_skill, antag_skill_level)
@@ -98,14 +96,14 @@
 			skill.remove_from_mob(current)
 		set_skill_level(skill_type, level)
 
-/datum/mind/proc/get_skills_for_skills_select(ref_job = current.job)
+/datum/mind/proc/get_skills_for_skills_select()
 	var/skills = list()
 	var/list/antag_skills = GLOB.antag_skills
 	var/datum/job/current_job
-	if(ref_job)
-		current_job = SSjobs.GetJob(ref_job)
+	if(current.job)
+		current_job = SSjobs.GetJob(current.job)
 	var/is_antag = HAS_TRAIT(src, TRAIT_HAS_ANTAG_SKILLS)
-	var/basic_skill = is_antag? SKILL_LEVEL_BASIC : SKILL_LEVEL_NONE
+	var/basic_skill = is_antag || !current_job? SKILL_LEVEL_BASIC : SKILL_LEVEL_NONE
 	var/list/cached_neurotrainer_bonuses = active_neurotrainer_bonuses
 	var/list/cached_selected_skills_levels = selected_skills_levels
 	for(var/skill_name, skill_datum in GLOB.skills)

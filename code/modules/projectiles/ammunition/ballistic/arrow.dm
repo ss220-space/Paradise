@@ -65,7 +65,7 @@
 	ammo_marking = "\"композитная стрела\""
 	icon_state = "arrow_modern"
 	item_state = "arrow_modern"
-	force = 30
+	force = 16
 	projectile_type = /obj/projectile/bullet/reusable/arrow/modern
 
 /obj/item/ammo_casing/caseless/arrow/modern/get_ru_names()
