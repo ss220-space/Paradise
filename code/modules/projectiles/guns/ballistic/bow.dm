@@ -17,11 +17,12 @@
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 	accuracy = GUN_ACCURACY_BOW
 	recoil = null
-	accuracy = GUN_ACCURACY_DEFAULT
-	recoil = null
 	var/draw_sound = 'sound/weapons/bows/bow_pull.ogg'
 	var/ready_to_fire = FALSE
 	var/slowdown_when_ready = 2
+	var/speed_modifier = 1.5
+	var/range_modifier = 0.8
+	var/ready_to_fire_time = 1.5 SECONDS
 
 /obj/item/gun/projectile/bow/get_ru_names()
 	return alist(
