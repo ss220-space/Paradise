@@ -322,4 +322,6 @@ GLOBAL_LIST_EMPTY(unit_test_tguis)
 	returnable_list += typesof(/obj/item/extinguisher/mini/nozzle)
 	// Can't exist without a suit
 	returnable_list += typesof(/obj/item/clothing/head/hooded)
+	// Instantiated only once per spell type and then cached in a static list for this type to reuse, are not meant to be deleted
+	returnable_list += typesof(/datum/spell_handler)
 	return returnable_list

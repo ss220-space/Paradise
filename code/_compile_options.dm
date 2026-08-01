@@ -78,7 +78,7 @@
 #endif //ifdef TESTING
 
 /// If this is uncommented, we set up the ref tracker to be used in a live environment
-/// And to log events to [log_dir]/harddels.log
+/// And to log events to [log_dir]/gc_debug.log
 //#define REFERENCE_DOING_IT_LIVE
 #ifdef REFERENCE_DOING_IT_LIVE
 // compile the backend
@@ -90,7 +90,7 @@
 #endif // REFERENCE_DOING_IT_LIVE
 
 /// Sets up the reftracker to be used locally, to hunt for hard deletions
-/// Errors are logged to [log_dir]/harddels.log
+/// Errors are logged to [log_dir]/gc_debug.log
 //#define REFERENCE_TRACKING_STANDARD
 #ifdef REFERENCE_TRACKING_STANDARD
 // compile the backend
