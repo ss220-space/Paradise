@@ -45,19 +45,23 @@
 	team = GLOB.antagonist_teams[/datum/team/swarmer_team]
 	if(!team)
 		team = new // Create team if there isn't one
+
 	if(team.swarmer_core) // This would only happen on shitspawn
-		qdel(team.swarmer_core) // Will cause a chain reaction and delete src as well
-		return
+		return INITIALIZE_HINT_QDEL
+
 	SEND_SIGNAL(team, COMSIG_SWARMER_CORE_INITIALIZED, src)
-	for(var/ddir in GLOB.alldirs)
-		new /obj/structure/swarmer/blockade(get_step(src, ddir))
 	if(!selection_classes)
 		generate_class_selection()
+
 	spark_system = new
 	spark_system.set_up(3, 0, src)
 	spark_system.attach(src)
+
 	START_PROCESSING(SSfastprocess, src)
 	COOLDOWN_START(src, shock_cooldown, SHOCK_COOLDOWN)
+
+	for(var/ddir in GLOB.alldirs)
+		new /obj/structure/swarmer/blockade(get_step(src, ddir))
 
 /obj/structure/swarmer/core/ComponentInitialize()
 	AddComponent( \
@@ -79,11 +83,12 @@
 /obj/structure/swarmer/core/attack_hand(mob/living/user)
 	. = ..()
 	if(!.)
-		return .
+		return
 
 	user.apply_damages(burn = burn_damage, stamina = stamina_damage)
 	if(!COOLDOWN_FINISHED(src, shock_cooldown))
-		return .
+		return
+
 	COOLDOWN_START(src, shock_cooldown, SHOCK_COOLDOWN)
 	if(user.electrocute_act(rand(5, 20), src))
 		spark_system.start()
@@ -91,12 +96,13 @@
 /obj/structure/swarmer/core/attackby(obj/item/I, mob/user, params)
 	. = ..()
 	if(!. || !isliving(user))
-		return .
+		return
 
 	var/mob/living/target = user
 	target.apply_damages(burn = burn_damage, stamina = stamina_damage)
 	if(!COOLDOWN_FINISHED(src, shock_cooldown))
-		return .
+		return
+
 	COOLDOWN_START(src, shock_cooldown, SHOCK_COOLDOWN)
 	if(target.electrocute_act(rand(5, 20), src))
 		spark_system.start()
@@ -104,14 +110,17 @@
 /obj/structure/swarmer/core/attack_generic(mob/user, damage_amount = 0, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, armor_penetration = 0)
 	. = ..()
 	if(!. || !isliving(user))
-		return .
+		return
+
 	var/mob/living/target = user
 	target.apply_damage(burn_damage, BURN)
 	if(!COOLDOWN_FINISHED(src, shock_cooldown))
-		return .
+		return
+
 	COOLDOWN_START(src, shock_cooldown, SHOCK_COOLDOWN)
 	if(target.electrocute_act(rand(5, 20), src))
 		spark_system.start()
+
 // End react damage procs //
 
 /// Spawns swarmers based on organic materials value.
@@ -134,6 +143,7 @@
 	if(!length(candidates)) // Makes a spawner if no-one wanted to
 		new /obj/effect/mob_spawn/swarmer(get_step(loc, pick(GLOB.alldirs)))
 		return
+
 	var/turf/spawn_loc = get_turf(src)
 	if(isnull(spawn_loc))
 		return
@@ -150,9 +160,10 @@
 /obj/structure/swarmer/core/proc/spawn_mega_swarmer_from_ghost()
 	var/image/poll_source = image('icons/mob/swarmer.dmi', "swarmer_mega")
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Хотите сыграть за Мега-Свармера?", ROLE_SWARMER, TRUE, poll_time = 30 SECONDS, source = poll_source)
-	if(!length(candidates)) // Someone must pick that anyway
+	if(!length(candidates)) // They better take it
 		INVOKE_ASYNC(src, PROC_REF(spawn_mega_swarmer_from_ghost))
 		return
+
 	var/turf/spawn_loc = get_turf(src)
 	if(isnull(spawn_loc))
 		return

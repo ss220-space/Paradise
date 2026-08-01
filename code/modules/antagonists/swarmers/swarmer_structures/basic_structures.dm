@@ -131,7 +131,7 @@
 		dir = new_dir
 	if(duration)
 		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), duration)
-	if(iswallturf(loc))
+	if(iswallturf(loc)) // just for pretty
 		SET_PLANE(src, FLOOR_PLANE, loc)
 
 /obj/structure/swarmer/swarmer_core_field/Destroy(force)
@@ -150,3 +150,24 @@
 
 /obj/structure/swarmer/swarmer_core_field/swarmer_harm_act(mob/living/simple_animal/hostile/swarmer/swarmer)
 	swarmer.balloon_alert(swarmer, "это нельзя уничтожить!")
+
+/// Creates an unbreakable swarmer shield around a turf, with set duration
+/proc/swarmer_shield_around_turf(turf/target_turf, shield_radius, shield_duration)
+	var/list/shield_turfs = RANGE_EDGE_TURFS(shield_radius, target_turf)
+	var/list/corner_turfs = list(shield_turfs[1], shield_turfs[1 + 2 * shield_radius], shield_turfs[2 + 2 * shield_radius], shield_turfs[2 + 4 * shield_radius])
+	var/list/non_corner_turfs = shield_turfs - corner_turfs
+
+	var/static/alist/quotient_to_edge_dir = alist(0 = EAST, 1 = WEST, 2 = NORTH, 3 = SOUTH)
+	var/static/alist/index_to_corner_dir = alist(1 = NORTHEAST, 2 = SOUTHEAST, 3 = NORTHWEST, 4 = SOUTHWEST)
+
+	// Amount of shields per side without corners
+	var/shields_per_side = length(non_corner_turfs) / 4
+	for(var/i in 1 to length(non_corner_turfs))
+		var/turf/field_turf = non_corner_turfs[i]
+		var/dir = quotient_to_edge_dir[floor((i - 1) / shields_per_side)]
+		new /obj/structure/swarmer/swarmer_core_field(field_turf, shield_duration, dir)
+
+	for(var/i in 1 to length(corner_turfs))
+		var/turf/field_turf = corner_turfs[i]
+		var/dir = index_to_corner_dir[i]
+		new /obj/structure/swarmer/swarmer_core_field(field_turf, shield_duration, dir)
