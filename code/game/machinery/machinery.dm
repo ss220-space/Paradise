@@ -131,9 +131,9 @@
 	. = ..()
 	SSmachines.register_machine(src)
 
+	RegisterSignal(src, COMSIG_MOVABLE_EXITED_AREA, PROC_REF(onAreaExited))
 	myArea = get_area(src)
 	if(myArea)
-		RegisterSignal(src, COMSIG_MOVABLE_EXITED_AREA, PROC_REF(onAreaExited))
 		LAZYADD(myArea.machinery_cache, src)
 
 	if(processing_flags & START_PROCESSING_ON_INIT)
@@ -145,7 +145,7 @@
 	if(myArea)
 		LAZYREMOVE(myArea.machinery_cache, src)
 		myArea = null
-		UnregisterSignal(src, COMSIG_MOVABLE_EXITED_AREA)
+	UnregisterSignal(src, COMSIG_MOVABLE_EXITED_AREA)
 	SSmachines.unregister_machine(src)
 	end_processing()
 	clear_components()
