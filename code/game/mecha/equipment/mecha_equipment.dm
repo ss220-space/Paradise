@@ -40,6 +40,7 @@
 		chassis.occupant_message(span_danger("The [src] is destroyed!"))
 		SEND_SOUND(chassis.occupant, sound(get_destroy_sound(), volume = 50))
 		detach(chassis)
+		chassis = null
 	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/proc/get_destroy_sound()
