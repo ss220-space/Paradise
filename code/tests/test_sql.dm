@@ -1,5 +1,5 @@
 // Game test to check SQL version has been updated properly.,
-/datum/game_test/sql_version/Run()
+/datum/unit_test/sql_version/Run()
 	// Check if the SQL version set in the code is equal to the CI DB config
 	if(CONFIG_GET(flag/sql_enabled) && CONFIG_GET(number/db_version) != SQL_VERSION)
 		TEST_FAIL("SQL version error: Game is running V[SQL_VERSION] but config is V[CONFIG_GET(number/db_version)]. You may need to update tools/ci/dbconfig.txt")

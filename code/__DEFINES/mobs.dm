@@ -369,10 +369,8 @@ GLOBAL_LIST_INIT(ru_species, list(
 
 #define IS_HORIZONTAL(x) (x.body_position == LYING_DOWN)
 
-///How much a mob's sprite should be moved when they're lying down
-#define PIXEL_Y_OFFSET_LYING -3
-///How much a mob's sprite should be moved when they're lying up (on the ceiling)
-#define PIXEL_Y_OFFSET_LYING_REVERSED 3
+/// How much a mob's sprite should be moved when they're lying down
+#define PIXEL_Y_OFFSET_LYING -8
 
 // Slip flags, also known as lube flags
 /// The mob will not slip if they're walking intent
@@ -605,3 +603,9 @@ GLOBAL_LIST_INIT(ru_species, list(
 
 // Megafauna
 #define MINER_DASH_RANGE 4
+
+// Used in living mob offset list for determining pixel offsets
+#define PIXEL_W_OFFSET "w"
+#define PIXEL_X_OFFSET "x"
+#define PIXEL_Y_OFFSET "y"
+#define PIXEL_Z_OFFSET "z"

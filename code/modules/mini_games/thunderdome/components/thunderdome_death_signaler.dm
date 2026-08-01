@@ -10,7 +10,7 @@
  */
 /datum/component/thunderdome_death_signaler/Initialize(datum/mini_game/thunderdome_battle/thunderdome)
 	src.thunderdome = thunderdome
-	RegisterSignal(parent, list(COMSIG_MOB_DEATH), PROC_REF(signal_death))
+	RegisterSignals(parent, list(COMSIG_MOB_DEATH), PROC_REF(signal_death))
 
 /**
  * Sends signal to thunderdome datum for handling death situation of participant.

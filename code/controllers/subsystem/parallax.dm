@@ -4,12 +4,13 @@
 SUBSYSTEM_DEF(parallax)
 	name = "Parallax"
 	wait = 2
-	flags = SS_POST_FIRE_TIMING | SS_BACKGROUND | SS_NO_INIT
+	ss_flags = SS_POST_FIRE_TIMING | SS_BACKGROUND | SS_NO_INIT
 	priority = FIRE_PRIORITY_PARALLAX
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
-	offline_implications = "Space parallax will no longer move around. No immediate action is needed."
-	cpu_display = SS_CPUDISPLAY_HIGH
-	ss_id = "parallax"
+	dependencies = list(
+		/datum/controller/subsystem/atoms,
+	)
+
 	var/list/currentrun
 	var/planet_x_offset = 128
 	var/planet_y_offset = 128
@@ -29,7 +30,7 @@ SUBSYSTEM_DEF(parallax)
 	planet_y_offset = rand(100, 160)
 	planet_x_offset = rand(100, 160)
 
-/datum/controller/subsystem/parallax/fire(resumed = 0)
+/datum/controller/subsystem/parallax/fire(resumed = FALSE)
 	if(!resumed)
 		src.currentrun = GLOB.clients.Copy()
 
@@ -37,31 +38,32 @@ SUBSYSTEM_DEF(parallax)
 	var/list/currentrun = src.currentrun
 
 	while(length(currentrun))
-		var/client/C = currentrun[length(currentrun)]
+		var/client/processing_client = currentrun[length(currentrun)]
 		currentrun.len--
-		if(QDELETED(C) || !C.eye)
+		if(QDELETED(processing_client) || !processing_client.eye)
 			if(MC_TICK_CHECK)
 				return
 			continue
-		var/atom/movable/A = C.eye
-		if(!istype(A))
+
+		var/atom/movable/movable_eye = processing_client.eye
+		if(!istype(movable_eye))
 			continue
 
-		while(isloc(A.loc) && !isturf(A.loc))
-			A = A.loc
-		//get the last movable holding the mobs eye
+		while(isloc(movable_eye.loc) && !isturf(movable_eye.loc))
+			movable_eye = movable_eye.loc
 
-		if(A == C.movingmob)
+		//get the last movable holding the mobs eye
+		if(movable_eye == processing_client.movingmob)
 			if(MC_TICK_CHECK)
 				return
 			continue
 
 		//eye and the last recorded eye are different, and the last recorded eye isnt just the clients mob
-		if(!isnull(C.movingmob))
-			LAZYREMOVE(C.movingmob.client_mobs_in_contents, C.mob)
-		LAZYADD(A.client_mobs_in_contents, C.mob)
+		if(!isnull(processing_client.movingmob))
+			LAZYREMOVE(processing_client.movingmob.client_mobs_in_contents, processing_client.mob)
+		LAZYADD(movable_eye.client_mobs_in_contents, processing_client.mob)
 
-		C.movingmob = A
+		processing_client.movingmob = movable_eye
 		if(MC_TICK_CHECK)
 			return
 	currentrun = null

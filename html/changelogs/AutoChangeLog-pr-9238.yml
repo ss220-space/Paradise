@@ -1,0 +1,4 @@
+author: "Bess3"
+delete-after: True
+changes:
+  - bugfix: "Моль-жука вновь можно взять в руку (PR #9238)"

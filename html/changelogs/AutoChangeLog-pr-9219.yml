@@ -1,0 +1,4 @@
+author: "DraumLord"
+delete-after: True
+changes:
+  - balance: "Изменена цена строительства укреплённых стен на смещённой решётке до четырёх (PR #9219)"

@@ -676,12 +676,12 @@
 	for(var/atom/movable/recipient as anything in arrived.important_recursive_contents[RECURSIVE_CONTENTS_AREA_SENSITIVE])
 		SEND_SIGNAL(recipient, COMSIG_ENTER_AREA, src)
 
-/area/Exited(atom/movable/departed, area/new_area)
-	SEND_SIGNAL(src, COMSIG_AREA_EXITED, departed, new_area)
-	SEND_SIGNAL(departed, COMSIG_ATOM_EXITED_AREA, src, new_area)
-	if(!LAZYACCESS(departed.important_recursive_contents, RECURSIVE_CONTENTS_AREA_SENSITIVE))
+/area/Exited(atom/movable/gone, direction)
+	SEND_SIGNAL(src, COMSIG_AREA_EXITED, gone, direction)
+	SEND_SIGNAL(gone, COMSIG_MOVABLE_EXITED_AREA, src, direction)
+	if(!LAZYACCESS(gone.important_recursive_contents, RECURSIVE_CONTENTS_AREA_SENSITIVE))
 		return
-	for(var/atom/movable/recipient as anything in departed.important_recursive_contents[RECURSIVE_CONTENTS_AREA_SENSITIVE])
+	for(var/atom/movable/recipient as anything in gone.important_recursive_contents[RECURSIVE_CONTENTS_AREA_SENSITIVE])
 		SEND_SIGNAL(recipient, COMSIG_EXIT_AREA, src)
 
 /area/proc/gravitychange()

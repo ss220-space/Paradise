@@ -6,7 +6,7 @@
 /obj/effect/proc_holder/singularity_act()
 	return
 
-/obj/effect/proc_holder/singularity_pull()
+/obj/effect/proc_holder/singularity_pull(atom/singularity, current_size)
 	return
 
 GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
@@ -76,6 +76,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	update_icon()
 
 /obj/effect/proc_holder/spell
+	abstract_type = /obj/effect/proc_holder/spell
 	name = "Spell"
 	desc = "A wizard spell"
 	/// What panel the proc holder needs to go on.

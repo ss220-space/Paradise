@@ -1,0 +1,4 @@
+author: "littleboobs"
+delete-after: True
+changes:
+  - bugfix: "Стоимость тесла пушки и технологии. (PR #9237)"

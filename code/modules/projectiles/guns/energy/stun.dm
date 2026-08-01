@@ -108,6 +108,7 @@
 	gun_firemode = GUN_FIREMODE_AUTOMATIC
 	gun_firemode_list = list(GUN_FIREMODE_AUTOMATIC)
 	sound_loop = /datum/looping_sound/tesla_cannon
+	materials = list(MAT_METAL = SHEET_MATERIAL_AMOUNT * 5, MAT_GLASS = SHEET_MATERIAL_AMOUNT * 5, MAT_SILVER = SHEET_MATERIAL_AMOUNT * 5)
 	var/ready_to_fire = FALSE
 
 /obj/item/gun/energy/tesla_cannon/can_trigger_gun(mob/living/user, akimbo_usage)
