@@ -20,21 +20,21 @@ GLOBAL_ALIST_EMPTY(reftracker_skip_typecache_b)
 		/matrix,
 		/regex,
 		/atom/movable/lighting_object, // only contains turf and MA refs
-		/atom/movable/mirage_holder,
+	//	/atom/movable/mirage_holder,
 		/atom/movable/render_step/emissive_blocker,
 		/datum/armor,
 		/datum/asset_cache_item,
-		/datum/book_info,
-		/datum/card,
+	//	/datum/book_info,
+	//	/datum/card,
 		/datum/chat_payload,
-		/datum/comm_log_entry,
+	//	/datum/comm_log_entry,
 		/datum/gas_mixture,
 		/datum/greyscale_layer,
 		/datum/icon_transformer,
 		/datum/instrument_key,
 		/datum/movespeed_modifier,
 		/datum/painting,
-		/datum/paper_input,
+	//	/datum/paper_input,
 		/datum/physiology,
 		/datum/plant_gene/reagent,
 		/datum/qdel_item,
@@ -45,15 +45,15 @@ GLOBAL_ALIST_EMPTY(reftracker_skip_typecache_b)
 		/datum/z_pillar,
 		/obj/effect/abstract/z_holder,
 		// stuff below isn't 100% guaranteed to be ref-free, but they're prolly not an issue
-		/turf/closed/mineral,
-		/turf/open/lava,
-		/turf/open/misc/asteroid,
-		/turf/open/openspace,
-		/turf/open/space,
+		/turf/simulated/wall/mineral,
+		/turf/simulated/floor/lava,
+		/turf/simulated/floor/plating/asteroid,
+		/turf/space/openspace,
+		/turf/space,
 		/obj/structure/flora, // icebox and such has a LOT of these
 		/datum/chatmessage,
 		/datum/lighting_corner,
-		/datum/log_entry, // hopefully nobody's silly enough to accidentally pass a reference to these... right???
+	//	/datum/log_entry, // hopefully nobody's silly enough to accidentally pass a reference to these... right???
 		/datum/reagent/consumable/nutriment,
 	))
 		for(var/type in typesof(base_type))
