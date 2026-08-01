@@ -89,8 +89,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 
 /obj/structure/clockwork/functional/heart/Initialize(mapload)
 	if(GLOB.heart)
-		qdel(src, TRUE)
-		return
+		return INITIALIZE_HINT_QDEL
 	GLOB.poi_list += src
 	GLOB.heart = src
 	enchants = GLOB.gun_and_heart_spells
@@ -158,7 +157,6 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 		for(var/turf/tile in orange(1, src))
 			new /obj/effect/gibspawner/clock(tile)
 		playsound(src, 'sound/effects/forge_destroy.ogg', 50, TRUE)
-		GLOB.heart = null
 	if(SSticker.mode.clocker_objs.clock_status != RATVAR_NEEDS_SUMMONING && SSticker.mode.clocker_objs.clock_status != RATVAR_HAS_RISEN)
 		for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
 			if(clock_mind?.current)
@@ -168,9 +166,10 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	for(var/part in spawned_parts)
 		LAZYREMOVE(GLOB.poi_list, part)
 		qdel(part)
-	if(gateway)
-		QDEL_NULL(gateway)
+	QDEL_NULL(gateway)
 	spawned_parts = null
+	GLOB.heart = null
+	GLOB.poi_list -= src
 	GLOB.total_curses = 3
 	return ..()
 
@@ -432,6 +431,10 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	. = ..()
 	GLOB.poi_list += src
 	addtimer(CALLBACK(src, PROC_REF(pulse)), 10 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
+
+/obj/item/part_upper/Destroy(force)
+	GLOB.poi_list -= src
+	return ..()
 
 /obj/item/part_upper/proc/destroy_curse(mob/living/user)
 	if(!GLOB.heart?.curse_upper)
