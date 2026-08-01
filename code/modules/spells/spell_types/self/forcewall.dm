@@ -54,7 +54,7 @@
 	cast_on.visible_message("<b>[caster]</b> выглядит так, как будто бы перед н[GEND_IM_EI_IM_IMI(caster)] находится стена.")
 
 /datum/action/cooldown/spell/forcewall/mime
-	name = "Невидимая стена""
+	name = "Невидимая стена"
 	desc = "Мимическая постановка становится осязаемой."
 	school = SCHOOL_MIME
 	wall_type = /obj/effect/forcefield/mime
