@@ -1,7 +1,6 @@
-// TODO: Merge it with bolt_action_rifles.dm
-
 // MARK: Base Sniper Rifle
 /obj/item/gun/projectile/automatic/sniper_rifle
+	abstract_type = /obj/item/gun/projectile/automatic/sniper_rifle
 	name = "sniper rifle"
 	desc = "Крупнокалиберная снайперская винтовка."
 	gender = FEMALE
@@ -40,21 +39,21 @@
 	. += mutable_appearance(icon, "[base_icon_state]_mag", layer = FLOAT_LAYER - 0.01)
 
 
-// MARK: SGM-HSR-15
+// MARK: SGM-HSR15
 /obj/item/gun/projectile/automatic/sniper_rifle/syndicate
-	name = "SGM-HSR-15 sniper rifle"
+	name = "SGM-HSR15 sniper rifle"
 	desc = "Тяжёлая снайперская винтовка калибра .50 производства \"Shellguard Munitions\". Высокая точность, низкая скорострельность \
 			и огромная убойная сила. Предназначена для поражения целей на больших дистанциях. Совместима с широким спектром боеприпасов."
 	origin_tech = "combat=7;syndicate=6"
 
 /obj/item/gun/projectile/automatic/sniper_rifle/syndicate/get_ru_names()
 	return alist(
-		NOMINATIVE = "снайперская винтовка SGM-HSR-15",
-		GENITIVE = "снайперской винтовки SGM-HSR-15",
-		DATIVE = "снайперской винтовке SGM-HSR-15",
-		ACCUSATIVE = "снайперскую винтовку SGM-HSR-15",
-		INSTRUMENTAL = "снайперской винтовкой SGM-HSR-15",
-		PREPOSITIONAL = "снайперской винтовке SGM-HSR-15",
+		NOMINATIVE = "снайперская винтовка SGM-HSR15",
+		GENITIVE = "снайперской винтовки SGM-HSR15",
+		DATIVE = "снайперской винтовке SGM-HSR15",
+		ACCUSATIVE = "снайперскую винтовку SGM-HSR15",
+		INSTRUMENTAL = "снайперской винтовкой SGM-HSR15",
+		PREPOSITIONAL = "снайперской винтовке SGM-HSR15",
 	)
 
 /obj/item/gun/projectile/automatic/sniper_rifle/syndicate/add_deep_lore()
@@ -65,7 +64,7 @@
 		Камера, спроектированная с увеличенным допуском, позволяет использовать \
 		широкий спектр патронов .50: от классических бронебойных и взрывных до узкоспециализированных усыпляющих и кровопускающих.<br>\
 		<br>\
-		SGM-HSR-15 поставляется ограниченными партиями для ряда ЧВК, силовых структур и индивидуальных заказчиков. По сообщениям некоторых источников, \
+		SGM-HSR15 поставляется ограниченными партиями для ряда ЧВК, силовых структур и индивидуальных заказчиков. По сообщениям некоторых источников, \
 		элитные оперативники \"Синдиката\" располагают большим количеством винтовок данной модели, \
 		однако \"Shellguard Munitions\" отвергает любые возможные связи с данной организацией."\
 	)
@@ -80,10 +79,10 @@
 	QDEL_NULL(magazine)
 	magazine = new /obj/item/ammo_box/magazine/sniper_rounds/compact/penetrator(src)
 
-// MARK: SGM-HSR-15-С Hornisse
+// MARK: "Hornisse"
 /obj/item/gun/projectile/automatic/sniper_rifle/compact
-	name = "SGM-HSR-15-С \"Hornisse\" sniper rifle"
-	desc = "Буллпап-конфигурация снайперской винтовки SGM-HSR-15. Использует патроны калибра .50L. Автоматика, \
+	name = "\"Hornisse\" sniper rifle"
+	desc = "Буллпап-конфигурация снайперской винтовки SGM-HSR15. Использует патроны калибра .50L. Автоматика, \
 			оптимизированная под патрон уменьшенной мощности и перенос магазина за пистолетную рукоять делают \
 			эту винтовку пригодной для боя на коротких дистанциях."
 	icon_state = "snipercompact"
@@ -100,17 +99,17 @@
 
 /obj/item/gun/projectile/automatic/sniper_rifle/compact/get_ru_names()
 	return alist(
-		NOMINATIVE = "снайперская винтовка SGM-HSR-15-С \"Шершень\"",
-		GENITIVE = "снайперской винтовки SGM-HSR-15-С \"Шершень\"",
-		DATIVE = "снайперской винтовке SGM-HSR-15-С \"Шершень\"",
-		ACCUSATIVE = "снайперскую винтовку SGM-HSR-15-С \"Шершень\"",
-		INSTRUMENTAL = "снайперской винтовкой SGM-HSR-15-С \"Шершень\"",
-		PREPOSITIONAL = "снайперской винтовке SGM-HSR-15-С \"Шершень\"",
+		NOMINATIVE = "снайперская винтовка \"Шершень\"",
+		GENITIVE = "снайперской винтовки \"Шершень\"",
+		DATIVE = "снайперской винтовке \"Шершень\"",
+		ACCUSATIVE = "снайперскую винтовку \"Шершень\"",
+		INSTRUMENTAL = "снайперской винтовкой \"Шершень\"",
+		PREPOSITIONAL = "снайперской винтовке \"Шершень\"",
 	)
 
 /obj/item/gun/projectile/automatic/sniper_rifle/compact/add_deep_lore()
 	AddElement(/datum/element/examine_lore, \
-		lore = "SGM-HSR-15C представляет собой глубокую переработку снайперской платформы SGM-HSR-15 производства \"Shellguard Munitions\", \
+		lore = "\"Шершень\" представляет собой глубокую переработку снайперской платформы SGM-HSR15 производства \"Shellguard Munitions\", \
 		выполненную инженерами \"Синдиката\" для нужд оперативных групп. Цель — сохранить поражающую способность базовой модели при радикальном сокращении габаритов.<br>\
 		<br>\
 		Решением стала конвертация компоновки в буллпап: магазин и затворная группа перенесены за пистолетную рукоять, \
@@ -125,7 +124,7 @@
 
 // MARK: AXMC
 /obj/item/gun/projectile/automatic/sniper_rifle/axmc
-	name = "axmc sniper rifle"
+	name = "AXMC sniper rifle"
 	desc = "Тяжёлая снайперская винтовка калибра .338."
 	icon_state = "axmc"
 	item_state = "AXMC"

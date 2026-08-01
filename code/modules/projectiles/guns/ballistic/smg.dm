@@ -101,11 +101,11 @@
 /obj/item/gun/projectile/automatic/smg/c20r/get_ru_names()
 	return alist(
 		NOMINATIVE = "пистолет-пулемёт DCA S45",
-		GENITIVE = "пистолет-пулемёта DCA S45",
-		DATIVE = "пистолет-пулемёту DCA S45",
+		GENITIVE = "пистолета-пулемёта DCA S45",
+		DATIVE = "пистолету-пулемёту DCA S45",
 		ACCUSATIVE = "пистолет-пулемёт DCA S45",
-		INSTRUMENTAL = "пистолет-пулемётом DCA S45",
-		PREPOSITIONAL = "пистолет-пулемёте DCA S45",
+		INSTRUMENTAL = "пистолетом-пулемётом DCA S45",
+		PREPOSITIONAL = "пистолете-пулемёте DCA S45",
 	)
 
 /obj/item/gun/projectile/automatic/smg/c20r/add_deep_lore()
@@ -133,9 +133,9 @@
 /obj/item/gun/projectile/automatic/smg/c20r/update_icon_state()
 	icon_state = "c20r[magazine ? "-[ceil(get_ammo(FALSE)/4)*4]" : ""][chambered ? "" : "-e"]"
 
-// MARK: DCA S45M Reaper
+// MARK: "Reaper"
 /obj/item/gun/projectile/automatic/smg/c20r/auto
-	name = "DCA S45M \"Reaper\" submachine gun"
+	name = "\"Reaper\" submachine gun"
 	desc = "Модифицированный вариант пистолета-пулемёта DCA S45 под патрон .45. Перенастроенная автоматика обеспечивает значительно более высокий темп \
 			огня за счёт снижения точности. Предназначен для ближнего боя, где плотность огня превалирует над точностью. Официально на рынке не представлен."
 	accuracy = GUN_ACCURACY_PISTOL
@@ -144,12 +144,12 @@
 
 /obj/item/gun/projectile/automatic/smg/c20r/auto/get_ru_names()
 	return alist(
-		NOMINATIVE = "пистолет-пулемёт DCA S45M \"Жнец\"",
-		GENITIVE = "пистолет-пулемёта DCA S45M \"Жнец\"",
-		DATIVE = "пистолет-пулемёту DCA S45M \"Жнец\"",
-		ACCUSATIVE = "пистолет-пулемёт DCA S45M \"Жнец\"",
-		INSTRUMENTAL = "пистолет-пулемётом DCA S45M \"Жнец\"",
-		PREPOSITIONAL = "пистолет-пулемёте DCA S45M \"Жнец\"",
+		NOMINATIVE = "пистолет-пулемёт \"Жнец\"",
+		GENITIVE = "пистолета-пулемёта \"Жнец\"",
+		DATIVE = "пистолету-пулемёту \"Жнец\"",
+		ACCUSATIVE = "пистолет-пулемёт \"Жнец\"",
+		INSTRUMENTAL = "пистолетом-пулемётом \"Жнец\"",
+		PREPOSITIONAL = "пистолете-пулемёте \"Жнец\"",
 	)
 
 /obj/item/gun/projectile/automatic/smg/c20r/rusted
@@ -162,7 +162,7 @@
 
 // MARK: WT550
 /obj/item/gun/projectile/automatic/smg/wt550
-	name = "WT-550 PDW"
+	name = "WT-550 submachine gun"
 	desc = "Компактный пистолет-пулемёт калибра 4,6x30 мм, выпускаемый по лицензии \"Aegis Ordinance\". Поддерживает три режима огня: \
 			одиночный, очередь по 2 патрона и автоматический. Имеет три слота под тактические модули. \
 			Состоит на вооружении многих корпоративных охранных структур, в том числе \"Нанотрейзен\"."
@@ -188,11 +188,11 @@
 /obj/item/gun/projectile/automatic/smg/wt550/get_ru_names()
 	return alist(
 		NOMINATIVE = "пистолет-пулемёт WT-550",
-		GENITIVE = "пистолет-пулемёта WT-550",
-		DATIVE = "пистолет-пулемёту WT-550",
+		GENITIVE = "пистолета-пулемёта WT-550",
+		DATIVE = "пистолету-пулемёту WT-550",
 		ACCUSATIVE = "пистолет-пулемёт WT-550",
-		INSTRUMENTAL = "пистолет-пулемётом WT-550",
-		PREPOSITIONAL = "пистолет-пулемёте WT-550",
+		INSTRUMENTAL = "пистолетом-пулемётом WT-550",
+		PREPOSITIONAL = "пистолете-пулемёте WT-550",
 	)
 
 /obj/item/gun/projectile/automatic/smg/wt550/add_deep_lore()
@@ -210,9 +210,9 @@
 		где стоимость логистики делает использование более дорогого вооружения нецелесообразным."\
 	)
 
-// MARK: DCA-S91 Peacekeeper
+// MARK: DCA S91 Peacekeeper
 /obj/item/gun/projectile/automatic/smg/sp91rc
-	name = "DCA-S91 \"Peacekeeper\" submachine gun"
+	name = "DCA S91 \"Peacekeeper\" submachine gun"
 	desc = "Пистолет-пулемёт калибра .45 N&R производства \"Donk Co. Arms\". Поддерживает три режима огня: \
 			одиночный, очередь по 2 патрона и автоматический. Предназначен для нелетального подавления беспорядков."
 	icon_state = "sp91"
@@ -235,17 +235,17 @@
 
 /obj/item/gun/projectile/automatic/smg/sp91rc/get_ru_names()
 	return alist(
-		NOMINATIVE = "пистолет-пулемёт DCA-S91 \"Миротворец\"",
-		GENITIVE = "пистолет-пулемёта DCA-S91 \"Миротворец\"",
-		DATIVE = "пистолет-пулемёту DCA-S91 \"Миротворец\"",
-		ACCUSATIVE = "пистолет-пулемёт DCA-S91 \"Миротворец\"",
-		INSTRUMENTAL = "пистолет-пулемётом DCA-S91 \"Миротворец\"",
-		PREPOSITIONAL = "пистолет-пулемёте DCA-S91 \"Миротворец\"",
+		NOMINATIVE = "пистолет-пулемёт DCA S91 \"Миротворец\"",
+		GENITIVE = "пистолета-пулемёта DCA S91 \"Миротворец\"",
+		DATIVE = "пистолету-пулемёту DCA S91 \"Миротворец\"",
+		ACCUSATIVE = "пистолет-пулемёт DCA S91 \"Миротворец\"",
+		INSTRUMENTAL = "пистолетом-пулемётом DCA S91 \"Миротворец\"",
+		PREPOSITIONAL = "пистолете-пулемёте DCA S91 \"Миротворец\"",
 	)
 
 // MARK: A-12 "Sparkle"
 /obj/item/gun/projectile/automatic/smg/sparkle_a12
-	name = "A-12 \"Sparkle\""
+	name = "A-12 \"Sparkle\" submachine gun"
 	desc = "Пистолет-пулемёт под калибр 9x19 мм, произведённый \"Aegis Ordinance\". \
 			Штатно используется силовыми структурами \"Нанотрейзен\". Отличается надёжностью, высокой точностью и малыми габаритами. \
 			Предназначен для ближнего боя в условиях ограниченного пространства."
@@ -272,11 +272,11 @@
 /obj/item/gun/projectile/automatic/smg/sparkle_a12/get_ru_names()
 	return alist(
 		NOMINATIVE = "пистолет-пулемёт A-12 \"Искра\"",
-		GENITIVE = "пистолет-пулемёта A-12 \"Искра\"",
-		DATIVE = "пистолет-пулемёту A-12 \"Искра\"",
+		GENITIVE = "пистолета-пулемёта A-12 \"Искра\"",
+		DATIVE = "пистолету-пулемёту A-12 \"Искра\"",
 		ACCUSATIVE = "пистолет-пулемёт A-12 \"Искра\"",
-		INSTRUMENTAL = "пистолет-пулемётом A-12 \"Искра\"",
-		PREPOSITIONAL = "пистолет-пулемёте A-12 \"Искра\"",
+		INSTRUMENTAL = "пистолетом-пулемётом A-12 \"Искра\"",
+		PREPOSITIONAL = "пистолете-пулемёте A-12 \"Искра\"",
 	)
 
 // MARK: Type-U3 Uzi
@@ -299,11 +299,11 @@
 /obj/item/gun/projectile/automatic/smg/mini_uzi/get_ru_names()
 	return alist(
 		NOMINATIVE = "пистолет-пулемёт Type 3 UZI",
-		GENITIVE = "пистолет-пулемёта Type 3 UZI",
-		DATIVE = "пистолет-пулемёту Type 3 UZI",
+		GENITIVE = "пистолета-пулемёта Type 3 UZI",
+		DATIVE = "пистолету-пулемёту Type 3 UZI",
 		ACCUSATIVE = "пистолет-пулемёт Type 3 UZI",
-		INSTRUMENTAL = "пистолет-пулемётом Type 3 UZI",
-		PREPOSITIONAL = "пистолет-пулемёте Type 3 UZI",
+		INSTRUMENTAL = "пистолетом-пулемётом Type 3 UZI",
+		PREPOSITIONAL = "пистолете-пулемёте Type 3 UZI",
 	)
 
 // MARK: Tommy Gun
@@ -324,11 +324,11 @@
 /obj/item/gun/projectile/automatic/tommygun/get_ru_names()
 	return alist(
 		NOMINATIVE = "пистолет-пулемёт Томсона",
-		GENITIVE = "пистолет-пулемёта Томсона",
-		DATIVE = "пистолет-пулемёту Томсона",
+		GENITIVE = "пистолета-пулемёта Томсона",
+		DATIVE = "пистолету-пулемёту Томсона",
 		ACCUSATIVE = "пистолет-пулемёт Томсона",
-		INSTRUMENTAL = "пистолет-пулемётом Томсона",
-		PREPOSITIONAL = "пистолет-пулемёте Томсона",
+		INSTRUMENTAL = "пистолетом-пулемётом Томсона",
+		PREPOSITIONAL = "пистолете-пулемёте Томсона",
 	)
 
 // MARK: SFG-5
@@ -350,11 +350,11 @@
 /obj/item/gun/projectile/automatic/smg/sfg/get_ru_names()
 	return alist(
 		NOMINATIVE = "пистолет-пулемёт SFG-5",
-		GENITIVE = "пистолет-пулемёта SFG-5",
-		DATIVE = "пистолет-пулемёту SFG-5",
+		GENITIVE = "пистолета-пулемёта SFG-5",
+		DATIVE = "пистолету-пулемёту SFG-5",
 		ACCUSATIVE = "пистолет-пулемёт SFG-5",
-		INSTRUMENTAL = "пистолет-пулемётом SFG-5",
-		PREPOSITIONAL = "пистолет-пулемёте SFG-5",
+		INSTRUMENTAL = "пистолетом-пулемётом SFG-5",
+		PREPOSITIONAL = "пистолете-пулемёте SFG-5",
 	)
 
 // MARK: PPSh
@@ -381,11 +381,11 @@
 /obj/item/gun/projectile/automatic/smg/ppsh/get_ru_names()
 	return alist(
 		NOMINATIVE = "пистолет-пулемёт ППШ",
-		GENITIVE = "пистолет-пулемёта ППШ",
-		DATIVE = "пистолет-пулемёту ППШ",
+		GENITIVE = "пистолета-пулемёта ППШ",
+		DATIVE = "пистолету-пулемёту ППШ",
 		ACCUSATIVE = "пистолет-пулемёт ППШ",
-		INSTRUMENTAL = "пистолет-пулемётом ППШ",
-		PREPOSITIONAL = "пистолет-пулемёте ППШ",
+		INSTRUMENTAL = "пистолетом-пулемётом ППШ",
+		PREPOSITIONAL = "пистолете-пулемёте ППШ",
 	)
 
 /obj/item/gun/projectile/automatic/smg/ppsh/rusted
@@ -424,7 +424,7 @@
 /obj/item/gun/projectile/automatic/smg/kedr/get_ru_names()
 	return alist(
 		NOMINATIVE = "пистолет-пулемет K-45",
-		GENITIVE = "пистолета-пулемета K-45",
+		GENITIVE = "пистолета-пулемёта K-45",
 		DATIVE = "пистолету-пулемету K-45",
 		ACCUSATIVE = "пистолет-пулемет K-45",
 		INSTRUMENTAL = "пистолетом-пулеметом K-45",

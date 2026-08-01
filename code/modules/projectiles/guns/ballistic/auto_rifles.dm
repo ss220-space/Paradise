@@ -1,46 +1,35 @@
-// MARK: SGM-BR-52
-/obj/item/gun/projectile/automatic/m52
-	name = "SGM-BR-52 battle rifle"
-	desc = "Боевая винтовка калибра 7,62x51 мм производства \"Shellguard Munitions\". \
-			Высокая точность и впечатляющая огневая мощь делают её эффективной против живой силы в тяжёлом снаряжении. \
-			Состоит на вооружении подразделений быстрого реагирования \"Нанотрейзен\"."
+// MARK: AR-30 "Regula"
+/obj/item/gun/projectile/automatic/arg
+	name = "AR-30 \"Regula\" assault rifle"
+	desc = "Штурмовая винтовка калибра 5,56x45 мм производства \"Mars Special\" — штатное вооружение вооружённых сил Транс-солнечной Федерации. \
+			Высокая точность и управляемая отдача."
 	gender = FEMALE
-	icon_state = "M52"
+	icon_state = "arg"
 	item_state = "arg"
-	fire_sound = 'sound/weapons/gunshots/aussec.ogg'
-	mag_type = /obj/item/ammo_box/magazine/m52mag
+	slot_flags = 0
+	origin_tech = "combat=6;engineering=4"
+	mag_type = /obj/item/ammo_box/magazine/m556
+	fire_sound = 'sound/weapons/gunshots/1m90.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
+	fire_delay = 0.2 SECONDS
 	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 20, ATTACHMENT_OFFSET_Y = 2),
-		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 2, ATTACHMENT_OFFSET_Y = 9),
-		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 9, ATTACHMENT_OFFSET_Y = -7),
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 21, ATTACHMENT_OFFSET_Y = 2),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 3, ATTACHMENT_OFFSET_Y = 6),
+		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 8, ATTACHMENT_OFFSET_Y = -5),
 	)
 	recoil = GUN_RECOIL_MEDIUM
 
-/obj/item/gun/projectile/automatic/m52/get_ru_names()
+/obj/item/gun/projectile/automatic/arg/get_ru_names()
 	return alist(
-		NOMINATIVE = "боевая винтовка SGM-BR-52",
-		GENITIVE = "боевой винтовки SGM-BR-52",
-		DATIVE = "боевой винтовке SGM-BR-52",
-		ACCUSATIVE = "боевую винтовку SGM-BR-52",
-		INSTRUMENTAL = "боевой винтовкой SGM-BR-52",
-		PREPOSITIONAL = "боевой винтовке SGM-BR-52",
-	)
-
-/obj/item/gun/projectile/automatic/m52/add_deep_lore()
-	AddElement(/datum/element/examine_lore, \
-		lore = "SGM-BR-52 — тяжёлая штурмовая винтовка под патрон 7,62x51 мм, разработанная \"Shellguard Munitions\" \
-		для рынка корпоративных и частных силовых структур, которым недостаточно стандартных армейских платформ. \
-		Создавалась как инструмент поражения живой силы в тяжёлом снаряжении и за лёгкими укрытиями.<br>\
-		<br>\
-		Массивная затворная группа и удлинённый ствол под мощный патрон 7,62x51 мм обеспечивают высокую точность и убойность \
-		на дистанции, недоступной стандартным штурмовым винтовкам. Управляемая для своего класса отдача достигается за счёт \
-		значительной массы оружия.<br>\
-		<br>\
-		Среди корпоративных заказчиков SGM-BR-52 не снискала широкой популярности — высокая масса и избыточная для большинства \
-		сценариев мощность ограничивают круг применения. Тем не менее, \"Нанотрейзен\" закупила партию данных винтовок для оснащения \
-		подразделений быстрого реагирования."\
+		NOMINATIVE = "штурмовая винтовка AR-30 \"Регула\"",
+		GENITIVE = "штурмовой винтовки AR-30 \"Регула\"",
+		DATIVE = "штурмовой винтовке AR-30 \"Регула\"",
+		ACCUSATIVE = "штурмовую винтовку AR-30 \"Регула\"",
+		INSTRUMENTAL = "штурмовой винтовкой AR-30 \"Регула\"",
+		PREPOSITIONAL = "штурмовой винтовке AR-30 \"Регула\"",
 	)
 
 // MARK: M-90GL Carbine
@@ -100,40 +89,6 @@
 	. = ..()
 	AddElement(/datum/element/rusted_weapon, face_shot_max_chance = 10, destroy_max_chance = 3, malf_low_bound = 50, malf_high_bound = 100)
 	AddElement(/datum/element/misfire_weapon, misfire_max_chance = 5, misfire_low_bound = 50, misfire_high_bound = 100)
-
-// MARK: AR-30
-/obj/item/gun/projectile/automatic/arg
-	name = "AR-30 assault rifle"
-	desc = "Штурмовая винтовка калибра 5,56x45 мм производства \"Mars Special\" — штатное вооружение вооружённых сил Транс-солнечной Федерации. \
-			Высокая точность и управляемая отдача."
-	gender = FEMALE
-	icon_state = "arg"
-	item_state = "arg"
-	slot_flags = 0
-	origin_tech = "combat=6;engineering=4"
-	mag_type = /obj/item/ammo_box/magazine/m556
-	fire_sound = 'sound/weapons/gunshots/1m90.ogg'
-	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
-	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
-	fire_delay = 0.2 SECONDS
-	accuracy = GUN_ACCURACY_RIFLE
-	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
-	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 21, ATTACHMENT_OFFSET_Y = 2),
-		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 3, ATTACHMENT_OFFSET_Y = 6),
-		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 8, ATTACHMENT_OFFSET_Y = -5),
-	)
-	recoil = GUN_RECOIL_MEDIUM
-
-/obj/item/gun/projectile/automatic/arg/get_ru_names()
-	return alist(
-		NOMINATIVE = "штурмовая винтовка AR-30 \"Регула\"",
-		GENITIVE = "штурмовой винтовки AR-30 \"Регула\"",
-		DATIVE = "штурмовой винтовке AR-30 \"Регула\"",
-		ACCUSATIVE = "штурмовую винтовку AR-30 \"Регула\"",
-		INSTRUMENTAL = "штурмовой винтовкой AR-30 \"Регула\"",
-		PREPOSITIONAL = "штурмовой винтовке AR-30 \"Регула\"",
-	)
 
 // MARK: AG-814
 /obj/item/gun/projectile/automatic/ak814
@@ -215,6 +170,51 @@
 	. = ..()
 	AddElement(/datum/element/rusted_weapon, face_shot_max_chance = 25, destroy_max_chance = 5, malf_low_bound = 10, malf_high_bound = 30)
 	AddElement(/datum/element/misfire_weapon, misfire_max_chance = 15, misfire_low_bound = 10, misfire_high_bound = 30)
+
+// MARK: SGM-BR52
+/obj/item/gun/projectile/automatic/m52
+	name = "SGM-BR52 battle rifle"
+	desc = "Боевая винтовка калибра 7,62x51 мм производства \"Shellguard Munitions\". \
+			Высокая точность и впечатляющая огневая мощь делают её эффективной против живой силы в тяжёлом снаряжении. \
+			Состоит на вооружении подразделений быстрого реагирования \"Нанотрейзен\"."
+	gender = FEMALE
+	icon_state = "M52"
+	item_state = "arg"
+	fire_sound = 'sound/weapons/gunshots/aussec.ogg'
+	mag_type = /obj/item/ammo_box/magazine/m52mag
+	accuracy = GUN_ACCURACY_RIFLE
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 20, ATTACHMENT_OFFSET_Y = 2),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 2, ATTACHMENT_OFFSET_Y = 9),
+		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 9, ATTACHMENT_OFFSET_Y = -7),
+	)
+	recoil = GUN_RECOIL_MEDIUM
+
+/obj/item/gun/projectile/automatic/m52/get_ru_names()
+	return alist(
+		NOMINATIVE = "боевая винтовка SGM-BR52",
+		GENITIVE = "боевой винтовки SGM-BR52",
+		DATIVE = "боевой винтовке SGM-BR52",
+		ACCUSATIVE = "боевую винтовку SGM-BR52",
+		INSTRUMENTAL = "боевой винтовкой SGM-BR52",
+		PREPOSITIONAL = "боевой винтовке SGM-BR52",
+	)
+
+/obj/item/gun/projectile/automatic/m52/add_deep_lore()
+	AddElement(/datum/element/examine_lore, \
+		lore = "SGM-BR52 — боевая винтовка под винтовочный патрон 7,62x51 мм, разработанная \"Shellguard Munitions\" \
+		для рынка корпоративных и частных силовых структур, которым недостаточно стандартных армейских платформ. \
+		Создавалась как инструмент поражения живой силы в тяжёлом снаряжении и за лёгкими укрытиями.<br>\
+		<br>\
+		Массивная затворная группа и удлинённый ствол под мощный патрон 7,62x51 мм обеспечивают высокую точность и убойность \
+		на дистанции, недоступной стандартным штурмовым винтовкам. Управляемая для своего класса отдача достигается за счёт \
+		значительной массы оружия.<br>\
+		<br>\
+		Среди корпоративных заказчиков SGM-BR52 не снискала широкой популярности — высокая масса и избыточная для большинства \
+		сценариев мощность ограничивают круг применения. Тем не менее, \"Нанотрейзен\" закупила партию данных винтовок для оснащения \
+		подразделений быстрого реагирования."\
+	)
 
 // MARK: IK-60
 /obj/item/gun/projectile/automatic/ik60

@@ -30,12 +30,11 @@
 		return
 	. += mutable_appearance(initial(icon), magazine_icon, layer = FLOAT_LAYER - 0.01)
 
-
 // MARK: DCA-P9 Enforcer
 /obj/item/gun/projectile/automatic/pistol/enforcer
 	name = "DCA-P9 \"Enforcer\" pistol"
-	desc = "Сбалансированный пистолет калибра 9x19 мм. Хорошая эргономика, низкая отдача, высокая точность. \
-			Произведён \"Donk Co. Arms\", используется службой безопасности \"Нанотрейзен\"."
+	desc = "Сбалансированный пистолет калибра 9x19 мм производства \"Donk Co. Arms\". Хорошая эргономика, низкая отдача, высокая точность. \
+			Используется службой безопасности \"Нанотрейзен\"."
 	icon_state = "enforcer_grey"
 	force = 10
 	mag_type = /obj/item/ammo_box/magazine/enforcer
@@ -81,9 +80,9 @@
 /obj/item/gun/projectile/automatic/pistol/enforcer/lethal
 	mag_type = /obj/item/ammo_box/magazine/enforcer/lethal
 
-// MARK: P40-E Acer
+// MARK: P-40 Acer
 /obj/item/gun/projectile/automatic/pistol/sp8
-	name = "P40-E \"Acer\" pistol"
+	name = "P-40 \"Acer\" pistol"
 	desc = "Штурмовой пистолет под патрон .40 N&R производства \"Mars Special\". Высокая точность, низкая отдача и усиленный ствол \
 			для стрельбы боеприпасами повышенной мощности. Используется элитными подразделениями сил защиты активов \"Нанотрейзен\"."
 	greyscale_config = /datum/greyscale_config/sp8
@@ -105,12 +104,12 @@
 
 /obj/item/gun/projectile/automatic/pistol/sp8/get_ru_names()
 	return alist(
-		NOMINATIVE = "пистолет P40-E \"Эйсер\"",
-		GENITIVE = "пистолета P40-E \"Эйсер\"",
-		DATIVE = "пистолету P40-E \"Эйсер\"",
-		ACCUSATIVE = "пистолет P40-E \"Эйсер\"",
-		INSTRUMENTAL = "пистолетом P40-E \"Эйсер\"",
-		PREPOSITIONAL = "пистолете P40-E \"Эйсер\"",
+		NOMINATIVE = "пистолет P-40 \"Эйсер\"",
+		GENITIVE = "пистолета P-40 \"Эйсер\"",
+		DATIVE = "пистолету P-40 \"Эйсер\"",
+		ACCUSATIVE = "пистолет P-40 \"Эйсер\"",
+		INSTRUMENTAL = "пистолетом P-40 \"Эйсер\"",
+		PREPOSITIONAL = "пистолете P-40 \"Эйсер\"",
 	)
 
 /obj/item/gun/projectile/automatic/pistol/sp8/ComponentInitialize()
@@ -140,9 +139,9 @@
 		PREPOSITIONAL = "пистолете \"Стечкин\"",
 	)
 
-// MARK: SGM-P Colossus
+// MARK: SGM-P50 "Colossus"
 /obj/item/gun/projectile/automatic/pistol/deagle
-	name = "SGM-P \"Colossus\""
+	name = "SGM-P50 \"Colossus\""
 	desc = "Тяжёлый пистолет калибра .50 AE производства \"Shellguard Munitions\". Патроны имеют огромную останавливающую силу, \
 			ценой которой служит значительная отдача и малый магазин. Один из самых мощных пистолетов в классе."
 	icon_state = "deagle"
@@ -162,12 +161,12 @@
 
 /obj/item/gun/projectile/automatic/pistol/deagle/get_ru_names()
 	return alist(
-		NOMINATIVE = "пистолет SGM-P \"Колосс\"",
-		GENITIVE = "пистолета SGM-P \"Колосс\"",
-		DATIVE = "пистолету SGM-P \"Колосс\"",
-		ACCUSATIVE = "пистолет SGM-P \"Колосс\"",
-		INSTRUMENTAL = "пистолетом SGM-P \"Колосс\"",
-		PREPOSITIONAL = "пистолете SGM-P \"Колосс\"",
+		NOMINATIVE = "пистолет SGM-P50 \"Колосс\"",
+		GENITIVE = "пистолета SGM-P50 \"Колосс\"",
+		DATIVE = "пистолету SGM-P50 \"Колосс\"",
+		ACCUSATIVE = "пистолет SGM-P50 \"Колосс\"",
+		INSTRUMENTAL = "пистолетом SGM-P50 \"Колосс\"",
+		PREPOSITIONAL = "пистолете SGM-P50 \"Колосс\"",
 	)
 
 /obj/item/gun/projectile/automatic/pistol/deagle/ComponentInitialize()
@@ -176,7 +175,7 @@
 
 // MARK: APS Pistol
 /obj/item/gun/projectile/automatic/pistol/aps
-	name = "stechkin APS pistol"
+	name = "APS pistol"
 	desc = "Старинный пистолет калибра 9x19 мм. Стреляет очередями."
 	icon_state = "aps"
 	mag_type = /obj/item/ammo_box/magazine/pistolm9mm
@@ -201,11 +200,12 @@
 		PREPOSITIONAL = "пистолете АПС",
 	)
 
+// MARK: Scarecrow
 /obj/item/gun/projectile/automatic/pistol/aps/scarecrow
 	name = "\"Scarecrow\" pistol"
 	desc = "Автоматический пистолет калибра 10x25 мм. Прозван \"Пугалом\" за способность разгонять толпу громкой стрельбой и высокой скорострельностью. \
 			На деле — дешёвая поделка из низкокачественных компонентов: кучность падает с каждым выстрелом, а убойность оставляет желать лучшего. \
-			Используется самыми отчаянными."
+			Для питания использует магазины для пистолета \"Стечкин\"."
 	icon_state = "scarecrow"
 	fire_sound = 'sound/weapons/gunshots/1scarecrow.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/scarecrowmagin.ogg'
