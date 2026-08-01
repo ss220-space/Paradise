@@ -78,6 +78,8 @@ Difficulty: Medium
 	AddComponent(/datum/component/boss_music, 'sound/music/boss/bdm_boss.ogg', COMSIG_HOSTILE_FOUND_TARGET)
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/Destroy()
+	if(miner_saw.loc == src)
+		qdel(miner_saw)
 	miner_saw = null
 	return ..()
 
