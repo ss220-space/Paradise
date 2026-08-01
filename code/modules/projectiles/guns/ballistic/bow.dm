@@ -19,6 +19,7 @@
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 	accuracy = GUN_ACCURACY_BOW
 	recoil = null
+	can_holster = FALSE
 	var/draw_sound = 'sound/weapons/bows/bow_pull.ogg'
 	var/ready_to_fire = FALSE
 	var/slowdown_when_ready = 2

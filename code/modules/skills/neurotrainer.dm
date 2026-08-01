@@ -152,6 +152,7 @@
 		/datum/skill/service/drink_mixing,
 		/datum/skill/service/botany,
 		/datum/skill/service/cleaning,
+		/datum/skill/service/mining,
 	)
 
 /obj/item/neurotrainer/service/drink_mixing
@@ -165,6 +166,10 @@
 /obj/item/neurotrainer/service/cleaning
 	manual_title = "Клининг"
 	skill_types = /datum/skill/service/cleaning
+
+/obj/item/neurotrainer/service/mining
+	manual_title = "Горное дело"
+	skill_types = /datum/skill/service/mining
 
 // MARK: Combat
 /obj/item/neurotrainer/combat
