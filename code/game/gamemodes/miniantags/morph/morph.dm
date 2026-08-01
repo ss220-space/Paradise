@@ -112,6 +112,7 @@
 	pass_airlock_spell = null
 	RemoveSpell(reproduce_spell)
 	reproduce_spell = null
+	GLOB.morphs_alive_list -= src
 	return ..()
 
 /mob/living/simple_animal/hostile/morph/ComponentInitialize()
