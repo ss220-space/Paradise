@@ -148,6 +148,11 @@ GLOBAL_LIST_EMPTY(swarmers)
 	..()
 	adjustHealth(SWARMER_EMP_DAMAGE, forced = TRUE)
 
+/mob/living/simple_animal/hostile/swarmer/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
+	if(!(flags & SHOCK_TESLA))
+		return FALSE
+	return ..()
+
 /// Swarmer projectiles pass through swarmers
 /mob/living/simple_animal/hostile/swarmer/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
@@ -201,15 +206,16 @@ GLOBAL_LIST_EMPTY(swarmers)
  */
 /mob/living/simple_animal/hostile/swarmer/proc/handle_impossible_swarmer_act(atom/movable/atom, swarmer_act_result, proximity_flag, list/modifiers)
 	. = COMPONENT_CANCEL_ATTACK_CHAIN
-	if(swarmer_act_result == SWARMER_ACT_IMPOSSIBLE)
+	if(swarmer_act_result & SWARMER_ACT_IMPOSSIBLE_REASON_DEFAULT)
+		return FALSE
+
+	changeNext_move(CLICK_CD_MELEE)
+	if(swarmer_act_result == SWARMER_ACT_IMPOSSIBLE) // no reason specified
 		balloon_alert(src, "нельзя!")
 		return
 
 	if(swarmer_act_result & SWARMER_ACT_IMPOSSIBLE_REASON_OVERRIDE)
 		return
-
-	if(swarmer_act_result & SWARMER_ACT_IMPOSSIBLE_REASON_DEFAULT)
-		return FALSE
 
 	if(swarmer_act_result & SWARMER_ACT_IMPOSSIBLE_REASON_ENERGY)
 		balloon_alert(src, "повредит электроэнергию!")
@@ -230,6 +236,7 @@ GLOBAL_LIST_EMPTY(swarmers)
 	if(swarmer_act_result == SWARMER_ACT_POSSIBLE)
 		CRASH("Swarmer act returned only SWARMER_ACT_POSSIBLE flag, which should not happen. Atom: [atom.type].")
 
+	changeNext_move(CLICK_CD_MELEE)
 	if(atom.resistance_flags & INDESTRUCTIBLE)
 		balloon_alert(src, "невозможно сломать!")
 		return
@@ -247,19 +254,7 @@ GLOBAL_LIST_EMPTY(swarmers)
 	if(!action_cb)
 		CRASH("Swarmer act returned SWARMER_ACT_POSSIBLE flag with none of the correct flag combinations. Atom: [atom.type], flag: [swarmer_act_result]")
 
-	changeNext_move(CLICK_CD_MELEE)
-	do_attack_animation(atom, no_effect = TRUE) // other animations for each action
-
 	if(isitem(atom)) // we can skip all checks if this is an item
-		action_cb.Invoke()
-		return
-
-	if(istype(atom, /obj/structure/lattice/catwalk)) // edge case for catwalks
-		var/turf/atom_turf = atom.loc
-		if(locate(/obj/structure/cable) in atom_turf)
-			balloon_alert(src, "нельзя, кабель!")
-			return
-
 		action_cb.Invoke()
 		return
 
@@ -287,7 +282,7 @@ GLOBAL_LIST_EMPTY(swarmers)
 	if(delay > 0)
 		balloon_alert(src, "отправка...")
 		var/atom/delay_target = item ? item : src // The item can be null intentionally
-		if(!do_after(src, delay, delay_target))
+		if(!do_after(src, delay, delay_target, max_interact_count = 1))
 			balloon_alert(src, "сбито!")
 			return
 
@@ -373,6 +368,7 @@ GLOBAL_LIST_EMPTY(swarmers)
 		return FALSE
 
 	. = TRUE
+	do_attack_animation(target, no_effect = TRUE)
 	var/obj/effect/temp_visual/swarmer/integrate/integrate_effect = new(get_turf(target))
 	integrate_effect.adjust_size(target)
 	if(!isstack(target))
@@ -387,22 +383,21 @@ GLOBAL_LIST_EMPTY(swarmers)
 
 /// Proc called in swarmer_act to damage target.
 /mob/living/simple_animal/hostile/swarmer/proc/damage_object(atom/movable/target)
+	do_attack_animation(target, no_effect = TRUE)
 	var/obj/effect/temp_visual/swarmer/disintegration/disintegrate_effect = new(get_turf(target))
 	disintegrate_effect.adjust_size(target)
 	target.ex_act(EXPLODE_LIGHT) // This is what actually damages structures on swarmer_act
 
 /// Proc called in swarmer_act to destroy the target.
 /mob/living/simple_animal/hostile/swarmer/proc/destroy_object(atom/movable/target)
-	damage_object(target)
+	do_attack_animation(target, no_effect = TRUE)
+	var/obj/effect/temp_visual/swarmer/disintegration/disintegrate_effect = new(get_turf(target))
+	disintegrate_effect.adjust_size(target)
 	qdel(target)
-
-/mob/living/simple_animal/hostile/swarmer/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
-	if(!(flags & SHOCK_TESLA))
-		return FALSE
-	return ..()
 
 /// Proc called in swarmer_act to dismantle machinery.
 /mob/living/simple_animal/hostile/swarmer/proc/dismantle_machine(obj/machinery/target)
+	do_attack_animation(target, no_effect = TRUE)
 	balloon_alert(src, "разбор...")
 	var/obj/effect/temp_visual/swarmer/dismantle/dismantle_effect = new(get_turf(target))
 	dismantle_effect.adjust_size(target)
@@ -427,6 +422,20 @@ GLOBAL_LIST_EMPTY(swarmers)
 	message = span_swarmeritalic("<b>[name]:</b> [message]")
 	relay_to_list_and_observers(message, GLOB.swarmers, src, MESSAGE_TYPE_RADIO)
 	add_say_logs(src, message, language = "SWARMER")
+
+/// Constructs a swarmer catwalk on given turf
+/mob/living/simple_animal/hostile/swarmer/proc/construct_catwalk(turf/target_turf)
+	balloon_alert(src, "постройка...")
+	if(!do_after(src, 3 SECONDS, max_interact_count = 1))
+		balloon_alert(src, "провал!")
+		return
+
+	if(!adjust_swarmer_metallic_resources(-2))
+		balloon_alert(src, "недостаточно ресурсов!")
+		return
+
+	balloon_alert(src, "успех!")
+	new /obj/structure/lattice/catwalk/fireproof/swarmer_catwalk(target_turf)
 
 /// Tries to send a mob to the processer, or teleport them randomly if none exist
 /mob/living/attack_swarmer_secondary(mob/living/simple_animal/hostile/swarmer/user, list/modifiers)

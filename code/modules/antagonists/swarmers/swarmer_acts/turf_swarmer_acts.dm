@@ -12,12 +12,24 @@
 /turf/simulated/floor/swarmer_act(mob/living/simple_animal/hostile/swarmer/user)
 	return SWARMER_ACT_IMPOSSIBLE | SWARMER_ACT_IMPOSSIBLE_REASON_DEFAULT
 
+/turf/space/swarmer_act(mob/living/simple_animal/hostile/swarmer/user)
+	user.construct_catwalk(src)
+	return SWARMER_ACT_IMPOSSIBLE | SWARMER_ACT_IMPOSSIBLE_REASON_OVERRIDE
+
+/turf/simulated/openspace/swarmer_act(mob/living/simple_animal/hostile/swarmer/user)
+	user.construct_catwalk(src)
+	return SWARMER_ACT_IMPOSSIBLE | SWARMER_ACT_IMPOSSIBLE_REASON_OVERRIDE
+
 /turf/simulated/floor/lava/swarmer_act(mob/living/simple_animal/hostile/swarmer/user)
-	if(!is_safe())
-		new /obj/structure/lattice/catwalk/swarmer_catwalk(src)
+	if(is_safe())
+		return SWARMER_ACT_IMPOSSIBLE
+
+	user.construct_catwalk(src)
 	return SWARMER_ACT_IMPOSSIBLE | SWARMER_ACT_IMPOSSIBLE_REASON_OVERRIDE
 
 /turf/simulated/floor/chasm/swarmer_act(mob/living/simple_animal/hostile/swarmer/user)
-	if(!is_safe())
-		new /obj/structure/lattice/catwalk/swarmer_catwalk(src)
+	if(is_safe())
+		return SWARMER_ACT_IMPOSSIBLE
+
+	user.construct_catwalk(src)
 	return SWARMER_ACT_IMPOSSIBLE | SWARMER_ACT_IMPOSSIBLE_REASON_OVERRIDE

@@ -7,4 +7,4 @@
 	return SWARMER_ACT_POSSIBLE | SWARMER_ACT_POSSIBLE_ACTION_CONSUME
 
 /obj/effect/mob_spawn/swarmer/integrate_amount()
-	return SWARMER_SPAWN_VALUE
+	return 100
