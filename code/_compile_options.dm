@@ -150,6 +150,6 @@
 /// so mappers can test important facets of their map (working powernet, atmos, good light coverage) without these interfering.
 // #define MAP_TEST
 
-#ifdef MAP_TEST
+#if defined(MAP_TEST) && !defined(CIBUILDING)
 #warn Compiling in MAP_TEST mode. Certain game mechanics will be disabled.
 #endif
