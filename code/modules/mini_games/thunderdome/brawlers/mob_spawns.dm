@@ -6,7 +6,7 @@
 	death = FALSE
 	allow_tts_pick = FALSE
 	banType = ROLE_THUNDERDOME
-	skills_ref_job = JOB_TITLE_SYNDICATE_AGENT
+	skills_ref_job = JOB_TITLE_OFFICER
 	use_antag_skills = TRUE
 	var/datum/mini_game/thunderdome_battle/thunderdome
 
