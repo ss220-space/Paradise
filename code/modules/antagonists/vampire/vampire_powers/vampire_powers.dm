@@ -284,6 +284,9 @@
 	return ..()
 
 /datum/action/cooldown/spell/aoe/glare/before_cast(atom/cast_on)
+	var/list/targets = get_things_to_cast_on(owner)
+	if(targets.len == 0)
+		return SPELL_CANCEL_CAST
 	. = ..()
 	var/mob/living/caster = owner
 	caster.mob_light(LIGHT_COLOR_BLOOD_MAGIC, range = 3, duration = 0.2 SECONDS)
