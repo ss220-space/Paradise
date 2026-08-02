@@ -182,6 +182,7 @@
 	. = FALSE
 	if(!local_designs.known_designs[D.id] || !(D.build_type & allowed_design_types))
 		return
+
 	if(being_built)
 		atom_say("Ошибка: уже в процессе печати!", FALSE)
 		return
@@ -413,7 +414,7 @@
 
 	return data
 
-/obj/machinery/mecha_part_fabricator/ui_act(action, params)
+/obj/machinery/mecha_part_fabricator/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 
@@ -436,6 +437,10 @@
 			if(!(id in local_designs.known_designs))
 				return
 			var/datum/design/D = local_designs.known_designs[id]
+			CALCULATE_SKILL_MOD(ui.user, MECH_CONSTRUCT_RAND_BUILD_PROB, skill_rand_prob)
+			skill_rand_prob *= 100
+			if(prob(skill_rand_prob))
+				D = pick(local_designs.known_designs)
 			if(!(D.build_type & allowed_design_types) || length(D.reagents_list))
 				return
 			LAZYADD(build_queue, D)

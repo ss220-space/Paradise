@@ -195,6 +195,9 @@ GLOBAL_LIST_INIT(mystery_box_extended, list(
 /obj/structure/mystery_box/tdome
 	desc = "Мистическая коробка, позволяющая пользователю получить оружие для убийства других. Чего вы ждёте?"
 
+/obj/structure/mystery_box/tdome/lavaland
+	icon_state = "necrocrate"
+
 /obj/structure/mystery_box/tdome/generate_valid_types()
 	valid_types = GLOB.mystery_box_guns + GLOB.mystery_box_extended
 

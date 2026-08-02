@@ -56,6 +56,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
 	add_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS|SEE_SELF)
 	set_invis_see(SEE_INVISIBLE_OBSERVER_AI_EYE)
+	ADD_TRAIT(src, TRAIT_CULT_VEIL_SIGHT, INNATE_TRAIT)
 	add_verb(src, list(
 		/mob/dead/observer/proc/dead_tele,
 		/mob/dead/observer/proc/open_spawners_menu,
@@ -894,7 +895,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	return TRUE
 
-/mob/dead/observer/proc/incarnate_ghost(use_old_mind=FALSE)
+/mob/dead/observer/proc/incarnate_ghost(use_old_mind = FALSE)
 	if(!client)
 		return
 

@@ -11,6 +11,7 @@
 	head_position = TRUE
 	insurance_type = INSURANCE_TYPE_DELUXE
 	paycheck = PAYCHECK_COMMAND
+	law_level = LAW_LEVEL_HEAD
 
 /datum/job/captain
 	title = JOB_TITLE_CAPTAIN
@@ -44,6 +45,7 @@
 		/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
 	)
+	base_free_skill_point = ADVANCED_SKILL_POINTS_COUNT
 
 /datum/job/captain/get_access()
 	return get_all_accesses()

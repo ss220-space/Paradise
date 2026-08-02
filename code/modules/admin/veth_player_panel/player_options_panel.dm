@@ -325,7 +325,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(vuap_personal, R_ADMIN|R_MOD, "Open TGUI PP", mob/t
 			usr.client.holder.Topic(null, list("cma_self" = selected_player.UID()))
 			return
 		if("editskills")
-			GLOB.skills_select_window.show(usr, selected_player, admin_interact = TRUE)
+			usr.client.skills_select_window.show(usr, selected_player, admin_interact = TRUE)
 			return
 		// Misc Section
 		if("forcesay")

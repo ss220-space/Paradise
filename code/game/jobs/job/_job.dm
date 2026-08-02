@@ -112,6 +112,7 @@
 	var/list/skill_levels = list()
 	/// Skill levels by alt titles jobs
 	var/alist/alt_skill_levels = null
+	var/base_free_skill_point = BASIC_SKILL_POINTS_COUNT
 
 #define MAX_START_MONEY_MULTIPLIER 3
 
@@ -148,7 +149,7 @@
 	if(outfit)
 		H.equipOutfit(outfit, visualsOnly)
 
-	apply_skills(H)
+	H.mind?.recalculate_skills(ref_job = title)
 	H.dna.species.after_equip_job(src, H, visualsOnly)
 
 	if(!visualsOnly && announce)

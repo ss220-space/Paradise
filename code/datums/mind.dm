@@ -126,15 +126,21 @@
 	var/list/job_objectives = list()
 
 	/// Flag for skills initialization
-	var/skills_initialized = FALSE
+	var/datum/weakref/skills_initialized
 	/// List of skill levels (associative map of type to level (number))
 	var/list/skills = list()
 	/// Available free skill points
 	var/free_skill_points = BASIC_SKILL_POINTS_COUNT
 	/// Temp variable for skill leveling (for skill_select_win works)
 	var/list/selected_skills = null
-	/// Active skill bonuses from skill manuals
+	var/list/selected_skills_levels = list()
+	/// Active temporaly skill bonuses from skill manuals
 	var/list/active_skill_bonuses = list()
+	/// Active skill bonuses from skill manuals
+	var/list/manual_skill_bonuses = list()
+	/// Active skill bonuses from neurotrainer
+	var/list/active_neurotrainer_bonuses = list()
+	var/list/job_alt_skills
 	/// Active skill bonuses from skill manuals
 	var/list/read_manuals = list()
 
@@ -205,6 +211,7 @@
 
 	current = new_character // link ourself to our new body
 	new_character.mind = src // and link our new body to ourself
+
 
 	transfer_antag_huds(hud_to_transfer) // inherit the antag HUD
 	transfer_actions(new_character, old_current)
@@ -2645,8 +2652,10 @@
 
 	ASSERT(antag.owner && antag.owner.current)
 	antag.on_gain()
+	if(antag.has_skill_bonus)
+		ADD_TRAIT(src, TRAIT_HAS_ANTAG_SKILLS, UNIQUE_TRAIT_SOURCE(antag))
 
-	apply_antag_skills()
+	recalculate_skills()
 
 	return antag
 
@@ -2662,7 +2671,10 @@
 	if(!antag)
 		return
 
+	REMOVE_TRAIT(src, TRAIT_HAS_ANTAG_SKILLS, UNIQUE_TRAIT_SOURCE(antag))
+
 	qdel(antag)
+	recalculate_skills()
 
 /**
  * Removes all antag datums from the src mind.

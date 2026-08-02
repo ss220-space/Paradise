@@ -80,7 +80,8 @@
 	if(current_skill_level + applyed_bonus_points > SKILL_LEVEL_LEGEND)
 		applyed_bonus_points = SKILL_LEVEL_LEGEND - current_skill_level
 	if(applyed_bonus_points > 0)
-		target.mind.skills[skill_types] = current_skill_level + applyed_bonus_points
+		target.mind.active_neurotrainer_bonuses[skill_types] += applyed_bonus_points
+		target.mind.refresh_skills()
 		. = TRUE
 		used = TRUE
 
@@ -151,6 +152,7 @@
 		/datum/skill/service/drink_mixing,
 		/datum/skill/service/botany,
 		/datum/skill/service/cleaning,
+		/datum/skill/service/mining,
 	)
 
 /obj/item/neurotrainer/service/drink_mixing
@@ -165,6 +167,10 @@
 	manual_title = "Клининг"
 	skill_types = /datum/skill/service/cleaning
 
+/obj/item/neurotrainer/service/mining
+	manual_title = "Горное дело"
+	skill_types = /datum/skill/service/mining
+
 // MARK: Combat
 /obj/item/neurotrainer/combat
 	manual_title = "Боевые"
@@ -173,6 +179,7 @@
 		/datum/skill/combat/guns,
 		/datum/skill/combat/melee,
 		/datum/skill/combat/fists,
+		/datum/skill/combat/bows,
 	)
 
 /obj/item/neurotrainer/combat/accuracy
@@ -190,6 +197,10 @@
 /obj/item/neurotrainer/combat/fists
 	manual_title = "Рукопашный бой"
 	skill_types = /datum/skill/combat/fists
+
+/obj/item/neurotrainer/combat/bows
+	manual_title = "Стрельба из лука"
+	skill_types = /datum/skill/combat/bows
 
 // MARK: Engineering
 /obj/item/neurotrainer/engineering
@@ -254,7 +265,7 @@
 	skill_types = list(
 		/datum/skill/research/research,
 		/datum/skill/research/protolathe,
-		/datum/skill/research/mech_construct,
+		/datum/skill/research/robotics,
 		/datum/skill/research/xenobiology,
 	)
 
@@ -269,7 +280,7 @@
 
 /obj/item/neurotrainer/research/mech_construct
 	manual_title = "Конструирование мехов"
-	skill_types = /datum/skill/research/mech_construct
+	skill_types = /datum/skill/research/robotics
 
 /obj/item/neurotrainer/research/xenobiology
 	manual_title = "Ксенобиология"
