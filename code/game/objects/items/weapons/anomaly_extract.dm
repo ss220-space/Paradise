@@ -205,12 +205,12 @@
 
 /obj/item/organ/internal/heart/slime/anomaly/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
-	M.AddSpell(new /datum/action/cooldown/spell/slime_degradation)
-	M.AddSpell(new /datum/action/cooldown/spell/slime_selfheat)
+	M.mind.AddSpell(new /datum/action/cooldown/spell/slime_degradation)
+	M.mind.AddSpell(new /datum/action/cooldown/spell/slime_selfheat)
 
 /obj/item/organ/internal/heart/slime/anomaly/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
-	M.RemoveSpell(/datum/action/cooldown/spell/slime_degradation)
-	M.RemoveSpell(/datum/action/cooldown/spell/slime_selfheat)
+	M.mind.RemoveSpell(/datum/action/cooldown/spell/slime_degradation)
+	M.mind.RemoveSpell(/datum/action/cooldown/spell/slime_selfheat)
 	. = ..()
 
 #undef COOLDOWN_TO_SLIMEPERSON
