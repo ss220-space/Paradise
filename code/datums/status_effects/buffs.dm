@@ -492,14 +492,14 @@
 	owner.setStaminaLoss(0)
 	owner.set_resting(FALSE, instant = TRUE)
 	owner.get_up(instant = TRUE)
-	owner.add_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
+	owner.add_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN, CONFUSED))
 	owner.ignore_slowdown(TRAIT_STATUS_EFFECT(id))
 	var/mob/living/carbon/human/human_owner = owner
 	human_owner.add_fracture_ignore_trait(src)
 	return TRUE
 
 /datum/status_effect/epinephrine/on_remove()
-	owner.remove_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
+	owner.remove_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN, CONFUSED))
 	owner.unignore_slowdown(TRAIT_STATUS_EFFECT(id))
 	var/mob/living/carbon/human/human_owner = owner
 	human_owner.remove_fracture_ignore_trait(src)
