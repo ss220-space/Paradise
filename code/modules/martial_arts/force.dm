@@ -82,7 +82,7 @@
 		return null
 	switch(grab_state)
 		if(GRAB_AGGRESSIVE)
-			if(!isnull(grab_resist_chances[MARTIAL_GRAB_AGGRESSIVE]))	// can be 0 its a vaild number
+			if(!isnull(grab_resist_chances[MARTIAL_GRAB_AGGRESSIVE]))
 				return grab_resist_chances[MARTIAL_GRAB_AGGRESSIVE]
 		if(GRAB_NECK)
 			if(!isnull(grab_resist_chances[MARTIAL_GRAB_NECK]))
@@ -127,6 +127,9 @@
 	var/mob/living/carbon/human/user = owner
 	var/datum/martial_art/force/force_art = target
 	if(!user || !force_art)
+		return
+
+	if(HAS_TRAIT(user, TRAIT_MARTIAL_ARTS_SUPPRESSED))
 		return
 
 	var/obj/item/held = user.get_active_hand()
@@ -217,7 +220,7 @@
 /datum/martial_art/force/proc/on_ranged_secondary_attack(mob/living/source, atom/target, list/modifiers)
 	SIGNAL_HANDLER
 	var/mob/living/carbon/human/user = source
-	if(!user || user.mind?.martial_art != src || !target || !isliving(target) || target == user || user.z != target.z)
+	if(!user || user.mind?.martial_art != src || !target || !isliving(target) || target == user || user.z != target.z || HAS_TRAIT(user, TRAIT_MARTIAL_ARTS_SUPPRESSED))
 		return
 
 	/*//////////////////////
