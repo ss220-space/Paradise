@@ -51,7 +51,6 @@
 /obj/projectile/bullet/weakbullet2/invisible/fake
 	weaken = 0
 	stamina = 0
-	nodamage = TRUE
 	log_override = TRUE
 
 // MARK: .36
