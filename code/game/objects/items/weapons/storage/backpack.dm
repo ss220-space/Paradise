@@ -658,7 +658,6 @@
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/clothing/suit/hooded/explorer(src)
 	new /obj/item/storage/bag/gem(src)
-	new /obj/item/wormhole_jaunter(src)
 
 /obj/item/storage/backpack/duffel/minebot_kit
 	name = "minebot Kit"
