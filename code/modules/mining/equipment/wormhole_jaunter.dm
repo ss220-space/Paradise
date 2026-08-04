@@ -32,10 +32,7 @@
 	if(!device_turf || !is_teleport_allowed(device_turf.z))
 		return "Ошибка! Телепортация невозможна."
 
-	if(istype(get_area(device_turf), /area/ruin/space/bubblegum_arena))
-		return "Ошибка! Требуется натуральная гравитация для размещения якоря."
-
-	if(!is_mining_level(device_turf.z) && !(emagged && is_station_level(device_turf.z)))
+	if(istype(get_area(device_turf), /area/ruin/space/bubblegum_arena) || !is_mining_level(device_turf.z) && !(emagged && is_station_level(device_turf.z)))
 		return "Ошибка! Требуется натуральная гравитация для размещения якоря."
 
 	return TRUE
@@ -64,7 +61,7 @@
 
 	var/chosen_beacon = pick(destinations)
 
-	var/tunnel_lifespan = emagged ? 50 : 100
+	var/tunnel_lifespan = emagged ? 5 SECONDS : 10 SECONDS
 	var/obj/effect/portal/jaunt_tunnel/tunnel = new(get_turf(src), get_turf(chosen_beacon), src, tunnel_lifespan, user)
 	tunnel.emagged = emagged
 	if(teleport)
@@ -236,5 +233,4 @@
 		new /obj/effect/portal/jaunt_tunnel(drunken_opening, drunk_dial, src, 10 SECONDS, thrower)
 		new /obj/effect/temp_visual/thunderbolt(drunken_opening)
 	qdel(src)
-
 
