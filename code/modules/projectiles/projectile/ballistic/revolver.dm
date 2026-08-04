@@ -36,6 +36,7 @@
 	stamina = 45
 	icon_state = null
 	hitsound_wall = null
+	nodamage = TRUE
 
 /obj/projectile/bullet/weakbullet2/invisible/get_ru_names()
 	return alist(
