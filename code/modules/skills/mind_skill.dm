@@ -87,9 +87,9 @@
 		if(skill_type in cached_selected_skills_levels)
 			level += cached_selected_skills_levels[skill_type]
 		if(skill_type in cached_manual_bonuses)
-			level = min(level + cached_manual_bonuses[skill_type], SKILL_LEVEL_PROFESSIONAL)
+			level = max(min(level + cached_manual_bonuses[skill_type], SKILL_LEVEL_PROFESSIONAL), level)
 		if(skill_type in cached_manual_skill_bonuses)
-			level = min(level + cached_manual_skill_bonuses[skill_type], SKILL_LEVEL_PROFESSIONAL)
+			level = max(min(level + cached_manual_skill_bonuses[skill_type], SKILL_LEVEL_PROFESSIONAL), level)
 		if(skill_type in cached_neurotrainer_bonuses)
 			level = min(level + cached_neurotrainer_bonuses[skill_type], SKILL_LEVEL_LEGEND)
 		if(level == SKILL_LEVEL_UNAVAILABLE)
