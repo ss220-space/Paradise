@@ -27,6 +27,7 @@
 /obj/item/ammo_casing/c38/invisible
 	projectile_type = /obj/projectile/bullet/weakbullet2/invisible
 	muzzle_flash_effect = null // invisible eh
+	harmful = FALSE
 
 /obj/item/ammo_casing/c38/invisible/fake
 	projectile_type = /obj/projectile/bullet/weakbullet2/invisible/fake

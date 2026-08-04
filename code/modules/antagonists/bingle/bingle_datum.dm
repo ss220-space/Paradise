@@ -9,6 +9,7 @@
 	show_in_roundend = FALSE
 	show_in_orbit = FALSE
 	antag_menu_name = "Бингл"
+	has_skill_bonus = FALSE
 
 /datum/antagonist/bingle/on_gain()
 	if(!isbingle(owner.current))

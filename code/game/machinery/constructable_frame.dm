@@ -1355,6 +1355,18 @@ to destroy them and players will be able to make replacements.
 		/obj/item/stack/cable_coil = 5,
 	)
 
+/obj/item/circuitboard/portagrav
+	board_name = "Портативный гравигенератор"
+	build_path = /obj/machinery/power/portagrav
+	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
+	origin_tech = "programming=3;engineering=4;magnets=3"
+	req_components = list(
+		/obj/item/stock_parts/capacitor = 2,
+		/obj/item/stock_parts/micro_laser = 2,
+		/obj/item/stack/cable_coil = 5,
+	)
+
 /obj/item/circuitboard/coffeemaker/standard
 	board_name = "Кофемашина \"Моделло 3\""
 	build_path = /obj/machinery/coffeemaker/standard
