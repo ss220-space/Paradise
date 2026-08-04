@@ -417,6 +417,7 @@
 	deactive_msg = span_notice_alt("You swallow your spit...for now.")
 	projectile_type = /obj/projectile/energy/hulkspit
 	cooldown_time = 25 SECONDS
+	spell_requirements = NONE
 
 /datum/action/cooldown/spell/pointed/projectile/hulk_spit/can_cast_spell(feedback)
 	if(owner.incapacitated())
@@ -434,3 +435,4 @@
 	projectile_type = /obj/projectile/beam
 	cooldown_time = 7 SECONDS
 	sound = 'sound/weapons/laser.ogg'
+	spell_requirements = NONE
