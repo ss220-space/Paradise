@@ -435,4 +435,3 @@
 	projectile_type = /obj/projectile/beam
 	cooldown_time = 7 SECONDS
 	sound = 'sound/weapons/laser.ogg'
-	spell_requirements = NONE
