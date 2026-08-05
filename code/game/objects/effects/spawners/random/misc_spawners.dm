@@ -52,4 +52,25 @@
 	loot = decals_list
 	return ..()
 
+/obj/effect/spawner/random/deck
+	name = "deck spawner"
+	icon_state = "deck"
+	loot = list(
+		/obj/item/deck/cards/black,
+		/obj/item/deck/cards,
+		/obj/item/deck/tarot,
+		/obj/item/deck/unum,
+	)
 
+/obj/effect/spawner/random/gambling
+	name = "gambling valuables spawner"
+	icon_state = "loot"
+	loot = list(
+		/obj/item/toy/russian_revolver,
+		/obj/item/clothing/head/ushanka,
+		/obj/item/coin/gold,
+		/obj/item/stack/spacecash/c100,
+		/obj/item/dice/d6,
+		/obj/item/storage/box/syndie_kit/throwing_weapons,
+		/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
+	)
