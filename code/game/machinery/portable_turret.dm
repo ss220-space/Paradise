@@ -89,6 +89,9 @@
 	/// What non-lethal mode projectile with the turret start with?
 	var/initial_projectile = null
 
+	var/obj/item/salvage_sensor = /obj/item/assembly/prox_sensor
+	var/sprite_prefix = ""
+
 /obj/machinery/porta_turret/Initialize(mapload)
 	. = ..()
 
@@ -190,19 +193,19 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	underlays += GLOB.turret_icons["open"]
 
 	if(stat & BROKEN)
-		icon_state = "destroyed_target_prism"
+		icon_state = "[sprite_prefix]destroyed_target_prism"
 	else if(raised || raising)
 		if(powered() && enabled)
 			if(iconholder)
 				//lasers have a orange icon
-				icon_state = "orange_target_prism"
+				icon_state = "[sprite_prefix]orange_target_prism"
 			else
 				//almost everything has a blue icon
-				icon_state = "target_prism"
+				icon_state = "[sprite_prefix]target_prism"
 		else
-			icon_state = "grey_target_prism"
+			icon_state = "[sprite_prefix]grey_target_prism"
 	else
-		icon_state = "turretCover"
+		icon_state = "[sprite_prefix]turretCover"
 
 /obj/machinery/porta_turret/proc/HasController()
 	var/area/A = get_area(src)
@@ -354,7 +357,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		if(prob(50))
 			new /obj/item/stack/sheet/metal(loc, rand(1,4))
 		if(prob(50))
-			new /obj/item/assembly/prox_sensor(loc)
+			new salvage_sensor(loc)
 	else
 		to_chat(user, span_notice("You remove the turret but did not manage to salvage anything."))
 	qdel(src)
@@ -653,6 +656,13 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		if(target(M))
 			return TRUE
 
+/obj/machinery/porta_turret/proc/play_cover_animation(animation)
+	var/atom/flick_holder = new /atom/movable/porta_turret_cover(loc)
+	flick_holder.layer = layer + 0.1
+	flick(animation, flick_holder)
+	sleep(10)
+	qdel(flick_holder)
+
 /obj/machinery/porta_turret/proc/popUp()	//pops the turret up
 	if(disabled)
 		return
@@ -664,11 +674,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	playsound(get_turf(src), 'sound/effects/turret/open.wav', 60, TRUE)
 	update_icon(UPDATE_ICON_STATE)
 
-	var/atom/flick_holder = new /atom/movable/porta_turret_cover(loc)
-	flick_holder.layer = layer + 0.1
-	flick("popup", flick_holder)
-	sleep(10)
-	qdel(flick_holder)
+	play_cover_animation("[sprite_prefix]popup")
 
 	set_raised_raising(TRUE, FALSE)
 	update_icon(UPDATE_ICON_STATE)
@@ -685,11 +691,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	playsound(get_turf(src), 'sound/effects/turret/open.wav', 60, TRUE)
 	update_icon(UPDATE_ICON_STATE)
 
-	var/atom/flick_holder = new /atom/movable/porta_turret_cover(loc)
-	flick_holder.layer = layer + 0.1
-	flick("popdown", flick_holder)
-	sleep(10)
-	qdel(flick_holder)
+	play_cover_animation("[sprite_prefix]popdown")
 
 	set_raised_raising(FALSE, FALSE)
 	update_icon(UPDATE_ICON_STATE)
@@ -824,6 +826,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	var/gun_charge = 0			//the gun charge of the gun type installed
 	/// List of some inserted gun data. Used to setup new gun.
 	var/list/old_gun_data = list()
+	var/integrated = FALSE
 
 /obj/machinery/porta_turret_construct/update_icon_state()
 	icon_state = "turret_frame[build_step >= TURRET_BUILD_ARMORED ? "2" : ""]"
@@ -934,13 +937,15 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				return ATTACK_CHAIN_BLOCKED_ALL
 
 		if(TURRET_BUILD_GUN)
-			if(isprox(I))
+			var/is_module = istype(I, /obj/item/turret_integration_module)
+			if(isprox(I) || is_module)
 				add_fingerprint(user)
 				if(!user.drop_transfer_item_to_loc(I, src))
 					return ..()
+				integrated = is_module
 				build_step = TURRET_BUILD_PROX
 				qdel(I)
-				to_chat(user, span_notice("You add the prox sensor to the turret."))
+				to_chat(user, span_notice("You add the [integrated ? "integration module" : "prox sensor"] to the turret."))
 				return ATTACK_CHAIN_BLOCKED_ALL
 
 		if(TURRET_BUILD_HATCH_CLOSED)
@@ -982,7 +987,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				return .
 			to_chat(user, span_notice("You weld the turret's armor down."))
 			//The final step: create a full turret
-			var/obj/machinery/porta_turret/turret = new target_type(loc)
+			var/turret_type = integrated ? /obj/machinery/porta_turret/integrated : target_type
+			var/obj/machinery/porta_turret/turret = new turret_type(loc)
 			turret.name = finish_name
 			turret.installation = installation
 			turret.old_gun_data = old_gun_data
@@ -1011,8 +1017,9 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 		if(TURRET_BUILD_PROX)
 			add_fingerprint(user)
-			to_chat(user, span_notice("You remove the prox sensor from the turret frame."))
-			var/obj/item/assembly/prox_sensor/sensor = new(loc)
+			to_chat(user, span_notice("You remove the [integrated ? "integration module" : "prox sensor"] from the turret frame."))
+			var/obj/item/sensor = integrated ? new /obj/item/turret_integration_module(loc) : new /obj/item/assembly/prox_sensor(loc)
+			integrated = FALSE
 			build_step = TURRET_BUILD_GUN
 			user.put_in_hands(sensor, ignore_anim = FALSE)
 
