@@ -224,7 +224,6 @@
 	button_icon_state = "genetic_poly"
 	background_icon_state = "bg_vampire_old"
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
-	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_PHASED
 	cooldown_time = 3 MINUTES
 	school = SCHOOL_SANGUINE
 	var/required_blood = 50
@@ -257,7 +256,6 @@
 	button_icon_state = "vampire_screech"
 	background_icon_state = "bg_vampire_old"
 	cooldown_time = 3 MINUTES
-	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_PHASED
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	aoe_radius = 4
 	school = SCHOOL_SANGUINE
@@ -462,7 +460,6 @@
 	var/required_blood = 50
 	summon_amount = 2
 	summon_radius = 1
-	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_PHASED
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	school = SCHOOL_SANGUINE
 	summon_type = /mob/living/simple_animal/hostile/scarybat
@@ -510,7 +507,6 @@
 	cooldown_time = 2 SECONDS
 	inner_tele_radius = 0
 	outer_tele_radius = 6
-	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_PHASED
 	var/required_blood = 20
 	// Maximum lighting_lumcount.
 	var/max_lum = 1

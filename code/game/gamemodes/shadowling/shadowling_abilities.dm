@@ -29,7 +29,6 @@
 	desc = "Оглушает и заглушает цель на приличную продолжительность. Продолжительность зависит от близости к цели."
 	cooldown_time = 30 SECONDS
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
-	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_PHASED
 	school = SCHOOL_FORBIDDEN
 	button_icon_state = "glare"
 	background_icon_state = "bg_shadowling"
@@ -77,7 +76,6 @@
 	desc = "Гасит большинство близлежащих источников света."
 	cooldown_time = 15 SECONDS //Short cooldown because people can just turn the lights back on
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
-	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_PHASED
 	school = SCHOOL_FORBIDDEN
 	var/blacklisted_lights = list(/obj/item/flashlight/flare, /obj/item/flashlight/slime, /obj/structure/glowshroom/shadowshroom)
 	button_icon_state = "veil"
@@ -113,7 +111,6 @@
 	name = "Shadow Walk"
 	desc = "На короткое время переносит вас в пространство между мирами, позволяя проходить сквозь стены и делая невидимым."
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
-	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_PHASED
 	button_icon_state = "shadow_walk"
 	background_icon_state = "bg_shadowling"
 	school = SCHOOL_FORBIDDEN
@@ -159,7 +156,6 @@
 	desc = "Окутывает твой силует тенями, делая тебя менее заметным."
 	cooldown_time = 120 SECONDS
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
-	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_PHASED
 	school = SCHOOL_FORBIDDEN
 	button_icon_state = "shadow_walk"
 	background_icon_state = "bg_shadowling"
@@ -190,7 +186,6 @@
 	name = "Shadowling Darksight"
 	desc = "Дарует вам ночное зрение."
 	spell_requirements = SPELL_REQUIRES_HUMAN
-	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_PHASED
 	button_icon_state = "darksight"
 	background_icon_state = "bg_shadowling"
 	shadowling_spell = TRUE
@@ -221,7 +216,6 @@
 	desc = "Моментально замораживает кровь ближайших существ, оглушает их и наносит термические повреждения."
 	cooldown_time = 25 SECONDS
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
-	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_PHASED
 	button_icon_state = "icy_veins"
 	background_icon_state = "bg_shadowling"
 	aoe_radius = 5
@@ -260,7 +254,6 @@
 	desc = "Порабощает сознание гуманойдов вашей воле, они должны быть живыми и активными. Это занимает некоторое время."
 	cooldown_time = 3 SECONDS
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
-	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_PHASED
 	school = SCHOOL_SANGUINE
 	button_icon_state = "enthrall"
 	background_icon_state = "bg_shadowling"
@@ -470,7 +463,6 @@
 	desc = "Выпускает облако чёрного дыма, которое лечит рабов."
 	cooldown_time = 30 SECONDS
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
-	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_PHASED
 	school = SCHOOL_FORBIDDEN
 	button_icon_state = "black_smoke"
 	background_icon_state = "bg_shadowling"
@@ -517,7 +509,6 @@
 	desc = "Оглушает и сбивает с толку находящихся рядом гуманойдов, а также разбивает окна."
 	cooldown_time = 30 SECONDS
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
-	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_PHASED
 	school = SCHOOL_FORBIDDEN
 	button_icon_state = "screech"
 	background_icon_state = "bg_shadowling"
@@ -625,7 +616,6 @@
 	desc = "Оживляет или усиливает раба."
 	cooldown_time = 1 MINUTES
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
-	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_PHASED
 	school = SCHOOL_FORBIDDEN
 	button_icon_state = "revive_thrall"
 	background_icon_state = "bg_shadowling"
@@ -810,7 +800,6 @@
 	name = "Annihilate"
 	desc = "Моментально разрывает на куски."
 	spell_requirements = NONE
-	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_PHASED
 	school = SCHOOL_FORBIDDEN
 	button_icon_state = "annihilate"
 	background_icon_state = "bg_shadowling"
@@ -853,7 +842,6 @@
 	name = "Hypnosis"
 	desc = "Моментально подчиняет гуманойда."
 	spell_requirements = NONE
-	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_PHASED
 	button_icon_state = "enthrall"
 	background_icon_state = "bg_shadowling"
 	active_msg = span_notice_alt("Вы готовите свой разум к тому, чтобы промыть чужое сознание. <b>ЛКМ по цели, чтобы применить!</b>")
@@ -883,7 +871,6 @@
 	desc = "Перемещает тебя в пространство между мирами по твоему желанию, позволяя тебе проходить сквозь стены и становиться невидимым."
 	cooldown_time = 1.5 SECONDS
 	spell_requirements = NONE
-	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_PHASED
 	school = SCHOOL_FORBIDDEN
 	button_icon_state = "shadow_walk"
 	background_icon_state = "bg_shadowling"
@@ -912,7 +899,6 @@
 	name = "Lightning Storm"
 	desc = "Оглушает окружающих."
 	spell_requirements = NONE
-	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_PHASED
 	school = SCHOOL_FORBIDDEN
 	button_icon_state = "lightning_storm"
 	background_icon_state = "bg_shadowling"
@@ -946,7 +932,6 @@
 	desc = "Посылает сообщение всем вокруг."
 	cooldown_time = 20 SECONDS
 	spell_requirements = NONE
-	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_PHASED
 	button_icon_state = "transmit"
 	background_icon_state = "bg_shadowling"
 	shadowling_spell = TRUE

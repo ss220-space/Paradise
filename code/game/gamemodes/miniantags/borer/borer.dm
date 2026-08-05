@@ -137,9 +137,6 @@
 	var/datum/action/innate/borer/sneak_mode/sneak_mode_action = new
 	var/datum/action/innate/borer/focus_menu/focus_menu_action = new
 
-	var/datum/action/cooldown/spell/pointed/borer_infest/infest_spell = new
-	var/datum/action/cooldown/spell/pointed/borer_dominate/dominate_spell = new
-
 /mob/living/simple_animal/borer/get_ru_names()
 	return alist(
 		NOMINATIVE = "мозговой червь",
@@ -799,12 +796,12 @@
 	toggle_hide_action.Remove(src)
 
 /mob/living/simple_animal/borer/proc/GrantBorerSpells()
-	AddSpell(infest_spell)
-	AddSpell(dominate_spell)
+	AddSpell(new /datum/action/cooldown/spell/pointed/borer_infest)
+	AddSpell(new /datum/action/cooldown/spell/pointed/borer_dominate)
 
 /mob/living/simple_animal/borer/proc/RemoveBorerSpells()
-	RemoveSpell(infest_spell)
-	RemoveSpell(dominate_spell)
+	RemoveSpell(/datum/action/cooldown/spell/pointed/borer_infest)
+	RemoveSpell(/datum/action/cooldown/spell/pointed/borer_dominate)
 
 /mob/living/simple_animal/borer/proc/GrantInfestActions()
 	var/datum/action/cooldown/spell/borer_force_say/say_spell = new

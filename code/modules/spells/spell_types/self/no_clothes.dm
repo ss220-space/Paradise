@@ -2,6 +2,7 @@
 	name = "No Clothes"
 	desc = "This always-on spell allows you to cast magic without your garments."
 	button_icon_state = "no_clothes"
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
 /datum/action/cooldown/spell/no_clothes/is_valid_target(atom/cast_on)
 	return isliving(cast_on)

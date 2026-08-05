@@ -17,7 +17,7 @@
 /datum/action/cooldown/spell/pointed/summon_contract/is_valid_target(atom/cast_on)
 	if(!iscarbon(cast_on))
 		return FALSE
-	var/mob/living/carbon/cast_mob
+	var/mob/living/carbon/cast_mob = cast_on
 	return cast_mob.mind && cast_mob.mind.hasSoul && (cast_mob.mind.soulOwner == cast_mob.mind) && !HAS_TRAIT(cast_mob.mind, TRAIT_BAD_SOUL) && ..()
 
 /datum/action/cooldown/spell/pointed/summon_contract/cast(atom/cast_on)

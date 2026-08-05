@@ -97,6 +97,7 @@
 	desc = "Force your host to say something."
 	cooldown_time = 15
 	spell_requirements = NONE
+	check_flags = NONE
 	button_icon = 'icons/mob/actions/actions_animal.dmi'
 	background_icon_state = "bg_alien"
 	button_icon_state = "god_transmit"

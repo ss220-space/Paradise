@@ -160,7 +160,7 @@
 	background_icon_state = "bg_terror"
 	cooldown_time = 8 SECONDS
 	sound = 'sound/creatures/terrorspiders/attack2.ogg'
-	smoke_type = SMOKE_HARMLESS
+	smoke_type = /datum/effect_system/fluid_spread/smoke/bad
 	smoke_amt = 15
 
 /datum/action/cooldown/spell/smoke/terror/can_cast_spell(feedback)

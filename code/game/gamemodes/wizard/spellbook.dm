@@ -66,7 +66,7 @@
 			user.mind.RemoveSpell(aspell)
 			if(spell) //If we created a temporary spell above, delete it now.
 				QDEL_NULL(spell)
-			return cost * (spell_levels + 1)
+			return cost * (spell_levels)
 	return -1
 
 /datum/spellbook_entry/proc/GetInfo()
