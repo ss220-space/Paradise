@@ -3724,12 +3724,6 @@
 	},
 /area/station/service/chapel)
 "aOP" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -3738,6 +3732,26 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/hydroponics)
+"aOS" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "asteroid"
@@ -11329,16 +11343,16 @@
 /area/space)
 "cup" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
+	dir = 4
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "asteroid"
 	},
@@ -17305,9 +17319,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/library)
 "dLM" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
 /obj/machinery/hologram/holopad,
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -17317,6 +17328,13 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "asteroid"
 	},
@@ -27511,17 +27529,17 @@
 	},
 /area/station/service/library)
 "fOr" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "asteroid"
 	},
@@ -37588,12 +37606,6 @@
 	},
 /area/station/command/office/cmo)
 "hCl" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
@@ -37602,6 +37614,12 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "asteroid"
@@ -39129,12 +39147,6 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/station/commons/vacant_office)
 "hTb" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -39145,6 +39157,10 @@
 	dir = 1
 	},
 /obj/effect/landmark/start/botanist,
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "asteroid"
 	},
@@ -41989,12 +42005,6 @@
 	},
 /area/station/medical/secondary)
 "itk" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
@@ -42004,6 +42014,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/plasteel{
 	icon_state = "asteroid"
 	},
@@ -87476,6 +87490,22 @@
 	icon_state = "neutralfull"
 	},
 /area/station/commons/fitness)
+"qOL" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "asteroid"
+	},
+/area/hydroponics)
 "qOQ" = (
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
@@ -158442,7 +158472,7 @@ qtc
 qfd
 gnG
 cup
-cup
+aOS
 dLM
 cCV
 qZp
@@ -158958,7 +158988,7 @@ baF
 ehF
 bWQ
 hCl
-cup
+qOL
 pta
 wBs
 oCr

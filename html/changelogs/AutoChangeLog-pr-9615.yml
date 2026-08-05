@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - tweak: "Джаунтер теперь не сжигает джампсьют при телепорте. (PR #9615)"
