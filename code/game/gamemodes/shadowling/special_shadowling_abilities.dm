@@ -10,6 +10,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 	button_icon_state = "hatch"
 	background_icon_state = "bg_shadowling"
 	var/cycles_unused = 0
+	var/hatching = FALSE
 	var/list/datum/action/cooldown/spell/shadowling_spells = list(
 		/datum/action/cooldown/spell/pointed/shadowling_enthrall,
 		/datum/action/cooldown/spell/aoe/shadowling_glare,
@@ -18,6 +19,9 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 		/datum/action/cooldown/spell/aoe/shadowling_icy_veins,
 		/datum/action/cooldown/spell/shadowling_regen_armor,
 	)
+
+/datum/action/cooldown/spell/shadowling_hatch/can_cast_spell(feedback)
+	return ..() && !hatching
 
 /datum/action/cooldown/spell/shadowling_hatch/cast(atom/cast_on)
 	. = ..()
@@ -29,9 +33,10 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 		reset_spell_cooldown()
 		to_chat(user, span_warning("Вы должны стоять на полу, чтобы раскрыться!"))
 		return
-
+	hatching = TRUE
 	if(tgui_alert(user, "Вы уверены, что хотите раскрыться? Вы не сможете прервать это!", "Hatch", list("Yes", "No")) != "Yes")
 		to_chat(user, span_warning("Вы решили не раскрываться сейчас."))
+		hatching = FALSE
 		reset_spell_cooldown()
 		return
 
