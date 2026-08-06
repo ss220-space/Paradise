@@ -257,9 +257,7 @@
 
 /datum/species/unathi/ashwalker/shaman/on_species_gain(mob/living/carbon/human/owner)
 	. = ..()
-	var/datum/action/cooldown/spell/touch/healtouch/shaman/healtouch = locate() in owner.mob_spell_list
-	if(!healtouch)
-		owner.AddSpell(new healtouch)
+	owner.AddSpell(new /datum/action/cooldown/spell/touch/healtouch/shaman)
 	var/datum/action/innate/shaman_gps/finder = locate() in owner.actions
 	if(!finder)
 		finder = new
