@@ -5,8 +5,7 @@
 	light_color = "#555555"
 	circuit = /obj/item/circuitboard/pod
 	var/initial_set = FALSE
-	var/sync_range = 4
-	var/list/id_tags = list()
+	var/list/id_tags
 	var/list/door_only_tags
 	var/list/synced
 	var/list/timings
@@ -58,7 +57,9 @@
 				break
 
 /obj/machinery/computer/pod/proc/solo_sync(ident_tag)
-	for(var/obj/machinery/mass_driver/driver in range(sync_range, src))
+	for(var/obj/machinery/mass_driver/driver in SSmachines.get_by_type(/obj/machinery/mass_driver))
+		if(driver.z != src.z)
+			continue
 		if((driver.id_tag == ident_tag) && !(ident_tag in synced))
 			synced += ident_tag
 			timings += ident_tag
@@ -71,15 +72,15 @@
 			powers[ident_tag] = 1.0
 			loopings += ident_tag
 			loopings[ident_tag] = 0
-			return TRUE
+			break
 
 	if(!(ident_tag in synced))
-		for(var/obj/machinery/door/poddoor/poddoor in range(sync_range, src))
-			if((poddoor.id_tag == ident_tag) && !(ident_tag in door_only_tags))
+		for(var/obj/machinery/door/poddoor/poddoor in GLOB.airlocks)
+			if(poddoor.z != src.z)
+				continue
+			if((poddoor.id_tag == ident_tag) && !(ident_tag in synced) && !(ident_tag in door_only_tags))
 				door_only_tags += ident_tag
-				return TRUE
-
-	return FALSE
+				break
 
 /obj/machinery/computer/pod/proc/launch_sequence(ident_tag)
 	if(stat & (NOPOWER|BROKEN))
@@ -197,11 +198,9 @@
 			return
 		if(href_list["add"])
 			var/new_id_tag = tgui_input_text(usr, "Enter a new id_tag", "Mass Driver Controls", "id_tag")
-			if(new_id_tag && !(new_id_tag in id_tags))
-				if(solo_sync(new_id_tag))
-					id_tags += new_id_tag
-				else
-					to_chat(usr, span_warning("Оборудование с идентификатором \"[new_id_tag]\" в зоне действия консоли не обнаружено."))
+			if(!(new_id_tag in id_tags))
+				id_tags += new_id_tag
+				solo_sync(new_id_tag)
 		if(href_list["remove"])
 			if(ident_tag in synced)
 				synced -= ident_tag
