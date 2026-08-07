@@ -5,7 +5,8 @@
 	light_color = "#555555"
 	circuit = /obj/item/circuitboard/pod
 	var/initial_set = FALSE
-	var/list/id_tags
+	var/sync_range = 4
+	var/list/id_tags = list()
 	var/list/door_only_tags
 	var/list/synced
 	var/list/timings
@@ -57,9 +58,7 @@
 				break
 
 /obj/machinery/computer/pod/proc/solo_sync(ident_tag)
-	for(var/obj/machinery/mass_driver/driver in SSmachines.get_by_type(/obj/machinery/mass_driver))
-		if(driver.z != src.z)
-			continue
+	for(var/obj/machinery/mass_driver/driver in range(sync_range, src))
 		if((driver.id_tag == ident_tag) && !(ident_tag in synced))
 			synced += ident_tag
 			timings += ident_tag
@@ -72,15 +71,15 @@
 			powers[ident_tag] = 1.0
 			loopings += ident_tag
 			loopings[ident_tag] = 0
-			break
+			return TRUE
 
 	if(!(ident_tag in synced))
-		for(var/obj/machinery/door/poddoor/poddoor in GLOB.airlocks)
-			if(poddoor.z != src.z)
-				continue
-			if((poddoor.id_tag == ident_tag) && !(ident_tag in synced) && !(ident_tag in door_only_tags))
+		for(var/obj/machinery/door/poddoor/poddoor in range(sync_range, src))
+			if((poddoor.id_tag == ident_tag) && !(ident_tag in door_only_tags))
 				door_only_tags += ident_tag
-				break
+				return TRUE
+
+	return FALSE
 
 /obj/machinery/computer/pod/proc/launch_sequence(ident_tag)
 	if(stat & (NOPOWER|BROKEN))
@@ -193,13 +192,17 @@
 		return 1
 	else
 		usr.set_machine(src)
+		var/ident_tag = href_list["driver"]
+		if(ident_tag && !(ident_tag in id_tags))
+			return
 		if(href_list["add"])
 			var/new_id_tag = tgui_input_text(usr, "Enter a new id_tag", "Mass Driver Controls", "id_tag")
-			if(!(new_id_tag in id_tags))
-				id_tags += new_id_tag
-				solo_sync(new_id_tag)
+			if(new_id_tag && !(new_id_tag in id_tags))
+				if(solo_sync(new_id_tag))
+					id_tags += new_id_tag
+				else
+					to_chat(usr, span_warning("Оборудование с идентификатором \"[new_id_tag]\" в зоне действия консоли не обнаружено."))
 		if(href_list["remove"])
-			var/ident_tag = href_list["driver"]
 			if(ident_tag in synced)
 				synced -= ident_tag
 			if(ident_tag in door_only_tags)
@@ -219,33 +222,30 @@
 			D.teleporter_dest = input
 
 		if(href_list["massfire"])
-			for(var/ident_tag in synced)
-				INVOKE_ASYNC(src, PROC_REF(launch_sequence), ident_tag)
+			for(var/synced_tag in synced)
+				INVOKE_ASYNC(src, PROC_REF(launch_sequence), synced_tag)
 		if(href_list["power"])
-			var/ident_tag = href_list["driver"]
 			var/t = text2num(href_list["power"])
 			t = min(max(0.25, t), 16)
 			for(var/obj/machinery/mass_driver/M in SSmachines.get_by_type(/obj/machinery/mass_driver))
+				if(M.z != src.z)
+					continue
 				if(M.id_tag == ident_tag)
 					M.power = t
 			powers[ident_tag] = t
 		if(href_list["launch"])
-			launch_sequence(href_list["driver"])
+			launch_sequence(ident_tag)
 		if(href_list["time"])
-			var/ident_tag = href_list["driver"]
 			timings[ident_tag] = text2num(href_list["time"])
 		if(href_list["loop"])
-			var/ident_tag = href_list["driver"]
 			loopings[ident_tag] = text2num(href_list["loop"])
 		if(href_list["sync"])
 			driver_sync()
 		if(href_list["tp"])
-			var/ident_tag = href_list["driver"]
 			var/tp = text2num(href_list["tp"])
 			maxtimes[ident_tag] += tp
 			maxtimes[ident_tag] = min(max(round(maxtimes[ident_tag]), 0), 120)
 		if(href_list["door"])
-			var/ident_tag = href_list["driver"]
 			for(var/obj/machinery/door/poddoor/poddoor in GLOB.airlocks)
 				if(poddoor.z != src.z)
 					continue

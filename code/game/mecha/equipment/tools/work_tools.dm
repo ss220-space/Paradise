@@ -339,7 +339,10 @@
 
 /obj/item/mecha_parts/mecha_equipment/multimodule/handle_ui_act(action, list/params)
 	if(action == "switch_module")
-		targeted_module = locateUID(params["module"])
+		var/obj/item/mecha_parts/mecha_equipment/new_module = locateUID(params["module"])
+		if(!istype(new_module) || modules[new_module.type] != new_module)
+			return FALSE
+		targeted_module = new_module
 		occupant_message("Switched to [targeted_module]")
 		return TRUE
 
@@ -699,7 +702,10 @@
 
 /obj/item/mecha_parts/mecha_equipment/eng_toolset/handle_ui_act(action, list/params)
 	if(action == "change_tool")
-		selected_item = locateUID(params["selected_item"])
+		var/obj/item/new_item = locateUID(params["selected_item"])
+		if(!(new_item in items_list))
+			return FALSE
+		selected_item = new_item
 		occupant_message("Switched to [selected_item]")
 		return TRUE
 
