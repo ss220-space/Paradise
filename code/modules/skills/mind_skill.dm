@@ -24,7 +24,7 @@
 	if(skills_initialized) // skills initialized for mind but not on user
 		unregister_skill_signals_for_user(skills_initialized.resolve())
 
-	if(!length(skills))
+	if(!length(selected_skills_levels))
 		init_skills(user)
 	else
 		skills_initialized = user_weakref
