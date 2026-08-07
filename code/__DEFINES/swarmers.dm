@@ -90,7 +90,7 @@
 /// How long does it take to process one organic item in organic processer
 #define SWARMER_ORGANIC_ITEM_PROCESS_DELAY 10 SECONDS
 /// How many organic resources we gain on item processing
-#define SWARMER_ORGANIC_ITEM_PROCESS_GAIN (rand(5, 10))
+#define SWARMER_ORGANIC_ITEM_PROCESS_GAIN (rand(1, 5))
 
 // === ORGANIC ANALYZER ===
 /// How long does it take for a swarmer to send anything to an analyzer
@@ -100,15 +100,15 @@
 #define SWARMER_ANALYZE_DELAY(target) (iscarbon(target) ? 45 SECONDS : 15 SECONDS)
 
 /// How many organic resources we get on teleporting if we failed the analyze
-#define SWARMER_ANALYZE_TELEPORT_GAIN (rand(10, 20))
+#define SWARMER_ANALYZE_TELEPORT_GAIN (rand(5, 15))
 /// How many organic resources we get on analyzing a carbon mob
 #define SWARMER_ANALYZE_CARBON_GAIN (rand(60, 80))
 /// How many organic resources we get on analyzing a hostile mob (/mob/living/simple_animal/hostile)
-#define SWARMER_ANALYZE_HOSTILE_GAIN (rand(20, 40))
+#define SWARMER_ANALYZE_HOSTILE_GAIN (rand(15, 30))
 /// How many organic resources we get on analyzing a living mob (/mob/living)
 #define SWARMER_ANALYZE_LIVING_GAIN (rand(10, 20))
 /// How many metallic resources we get on analyzing a carbon machine
-#define SWARMER_ANALYZE_MACHINE_GAIN (rand(30, 50))
+#define SWARMER_ANALYZE_MACHINE_GAIN (rand(50, 75))
 /// How many metallic resources we get on removing a robotic organ on analyzing
 #define SWARMER_ANALYZE_ROBOTIC_ORGAN_GAIN 10
 
