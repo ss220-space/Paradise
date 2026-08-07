@@ -372,6 +372,7 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 // Locations
 #define is_ventcrawling(A) (istype(A.loc, /obj/machinery/atmospherics))
+#define is_mecha_occupant(A) (istype(A.loc, /obj/mecha))
 
 //Human sub-species
 #define isshadowling(A) (is_species(A, /datum/species/shadow/ling))

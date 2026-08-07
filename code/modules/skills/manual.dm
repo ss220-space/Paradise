@@ -187,6 +187,11 @@
 	desc = "Руководство по эффективной уборке помещений."
 	skill_type = /datum/skill/service/cleaning
 
+/obj/item/book/skill_manual/service/mining
+	manual_title = "Горное дело"
+	desc = "Руководство по эффективной добыче полезных ископаемых."
+	skill_type = /datum/skill/service/mining
+
 // MARK: Combat
 /obj/item/book/skill_manual/combat
 	icon_state = "bookSpaceLaw"
@@ -213,6 +218,11 @@
 	manual_title = "Оружие ближнего боя"
 	desc = "Руководство по обращению с различным оружием ближнего боя."
 	skill_type = /datum/skill/combat/melee
+
+/obj/item/book/skill_manual/combat/bows
+	manual_title = "Стрельба из лука"
+	desc = "Руководство по стрельбе из лука и обращению с ним."
+	skill_type = /datum/skill/combat/bows
 
 /obj/item/book/skill_manual/combat/fists
 	manual_title = "Рукопашный бой"

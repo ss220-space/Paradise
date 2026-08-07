@@ -25,6 +25,7 @@
 #define INVESTIGATE_GRAVITY "gravity"
 #define INVESTIGATE_HALLUCINATIONS "hallucinations"
 #define INVESTIGATE_HYPERTORUS "hypertorus"
+#define INVESTIGATE_REACTOR "reactor"
 #define INVESTIGATE_PRESENTS "presents"
 #define INVESTIGATE_RADIATION "radiation"
 #define INVESTIGATE_RECORDS "records"

@@ -144,9 +144,6 @@
 	var/obj/item/backpack = our_human.back
 	if(backpack && !(backpack.item_flags & ABSTRACT))
 		possible_clothings += backpack
-	var/obj/item/under = our_human.w_uniform
-	if(under && !(under.item_flags & ABSTRACT))
-		possible_clothings += under
 
 	// The "we really need held_items() proc" code block
 	var/obj/item/hand_item = our_human.l_hand

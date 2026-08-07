@@ -9,6 +9,16 @@
 	var/nemesis_factions = MINING_FACTIONS
 	var/nemesis_faction = FALSE
 
+/obj/projectile/bullet/reusable/arrow/get_ru_names()
+	return alist(
+		NOMINATIVE = "стрела",
+		GENITIVE = "стрелы",
+		DATIVE = "стреле",
+		ACCUSATIVE = "стрелу",
+		INSTRUMENTAL = "стрелой",
+		PREPOSITIONAL = "стреле",
+	)
+
 /obj/projectile/bullet/reusable/arrow/prehit(atom/target)
 	var/mob/living/H = target
 

@@ -1101,6 +1101,31 @@ What are the archived variables for?
 
 	return removed
 
+/datum/gas_mixture/proc/clear()
+	private_oxygen = 0
+	private_nitrogen = 0
+	private_carbon_dioxide = 0
+	private_toxins = 0
+	private_sleeping_agent = 0
+	private_agent_b = 0
+	private_hydrogen = 0
+	private_water_vapor = 0
+	private_hypernoblium = 0
+	private_nitrium = 0
+	private_tritium = 0
+	private_bz = 0
+	private_pluoxium = 0
+	private_miasma = 0
+	private_freon = 0
+	private_healium = 0
+	private_proto_nitrate = 0
+	private_zauker = 0
+	private_halon = 0
+	private_helium = 0
+	private_antinoblium = 0
+
+	set_dirty()
+
 /datum/gas_mixture/proc/copy_from(datum/gas_mixture/sample)
 	private_oxygen = sample.private_oxygen
 	private_carbon_dioxide = sample.private_carbon_dioxide

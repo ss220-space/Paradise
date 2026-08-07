@@ -7,6 +7,9 @@
 	name = "Engineering"
 	icon_state = "engine_smes"
 
+/area/station/engineering/engine/reactor
+	name = "Fission Reactor"
+
 /area/station/engineering/monitor
 	name = "Engineering Monitoring Room"
 	icon_state = "engine_control"
