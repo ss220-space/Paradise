@@ -82,7 +82,6 @@
 	UnregisterSignal(src, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON)
 	return ..()
 
-
 /turf/simulated/floor/water/jungle
 
 /turf/simulated/floor/water/no_planet_atmos

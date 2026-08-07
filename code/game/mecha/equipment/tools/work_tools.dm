@@ -19,6 +19,34 @@
 		var/obj/O = target
 		if(ismecha(O) || isspacepod(O)) //no fun allowed
 			return FALSE
+
+		if(istype(target, /obj/machinery/atmospherics/reactor_chamber))
+			var/obj/machinery/atmospherics/reactor_chamber/chamber = target
+			if(chamber.chamber_state != CHAMBER_OPEN) // we need to handle this a bit special
+				chamber.attack_hand(chassis.occupant)
+				return FALSE
+			if(chamber.held_rod)
+				if(length(chassis.cargo) >= chassis.cargo_capacity)
+					occupant_message(span_warning("Not enough room in the cargo compartment!"))
+					return FALSE
+				chamber.held_rod.add_hiddenprint(chassis.occupant)
+				chassis.visible_message(span_notice("[chassis] lifts [target] and starts to load it into the cargo compartment."))
+				LAZYADD(chassis.cargo,  chamber.held_rod)
+				chamber.held_rod.forceMove(chassis)
+				chamber.held_rod = null
+				playsound(chamber.loc, 'sound/machines/podopen.ogg', 50, 1)
+				chamber.update_icon(UPDATE_OVERLAYS)
+				return FALSE
+
+			for(var/obj/item/nuclear_rod/rod in chassis.cargo)
+				rod.add_hiddenprint(chassis.occupant)
+				chamber.held_rod = rod
+				rod.forceMove(chamber)
+				LAZYREMOVE(chassis.cargo, rod)
+				playsound(chamber.loc, 'sound/machines/podclose.ogg', 50, 1)
+				chamber.update_icon(UPDATE_OVERLAYS)
+				return FALSE
+
 		if(!O.anchored)
 			if(length(chassis.cargo) < chassis.cargo_capacity)
 				chassis.visible_message("[chassis] lifts [target] and starts to load it into cargo compartment.")
