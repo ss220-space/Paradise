@@ -12767,14 +12767,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
-	},
 /obj/structure/sign/radiation/rad_area{
 	pixel_x = -32
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/item/radio/intercom/directional/south,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/engine/reactor)
 "cID" = (
@@ -14826,10 +14823,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
-/obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
-	},
+/obj/item/radio/intercom/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine/reactor)
 "dhf" = (
@@ -68059,14 +68053,11 @@
 "naB" = (
 /obj/structure/railing/corner/pool_corner,
 /obj/structure/closet/emcloset,
-/obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
-	},
 /obj/effect/turf_decal/delivery/hollow,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/item/radio/intercom/directional/south,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "nbd" = (
@@ -71715,14 +71706,11 @@
 /area/station/science/chem_lab)
 "nIu" = (
 /obj/structure/closet/secure_closet/engineering_personal,
-/obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
-	},
 /obj/effect/turf_decal/delivery/hollow,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "nIw" = (
@@ -85810,9 +85798,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/simulated/floor/plating,
 /area/station/service/theatre)
 "qlE" = (
@@ -97004,9 +96989,6 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/door/airlock/maintenance,
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -98107,13 +98089,10 @@
 	},
 /area/station/medical/virology/lab)
 "sqj" = (
-/obj/structure/extinguisher_cabinet{
-	name = "north bump";
-	pixel_y = 30
-	},
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 1
 	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "sqm" = (
@@ -99889,9 +99868,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/science/xenobiology)
 "sFk" = (
-/obj/machinery/atmospherics/trinary/filter/flipped{
-	dir = 4;
-	filter_type = 2
+/obj/machinery/atmospherics/trinary/filter/flipped/n2{
+	dir = 4
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
@@ -107002,10 +106980,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 4
 	},
-/obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
-	},
+/obj/item/radio/intercom/directional/west,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "tUY" = (
@@ -113957,7 +113932,7 @@
 /turf/simulated/wall/r_wall,
 /area/station/engineering/gravity_generator)
 "viD" = (
-/obj/machinery/power/reactor_power{
+/obj/machinery/power/energy_accumulator/reactor_power{
 	dir = 1
 	},
 /obj/structure/cable/yellow{
@@ -124040,13 +124015,10 @@
 /obj/structure/table/reinforced,
 /obj/item/geiger_counter,
 /obj/item/clothing/glasses/meson,
-/obj/structure/extinguisher_cabinet{
-	name = "north bump";
-	pixel_y = 30
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "wYL" = (
