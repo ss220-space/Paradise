@@ -3043,8 +3043,8 @@
 	transfer_mindbound_actions(new_character)
 
 /datum/mind/proc/transfer_mindbound_actions(mob/living/new_character)
-	for(var/datum/action/cooldown/spell/spell as anything in spell_list)
-		spell.Grant(new_character)
+	for(var/datum/action/cooldown/spell/spell as anything in new_character.mind.spell_list)
+		new_character.mind.AddSpell(spell)
 
 /datum/mind/proc/disrupt_spells(delay, list/exceptions)
 	for(var/datum/action/cooldown/spell/spell as anything in spell_list)

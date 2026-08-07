@@ -167,7 +167,8 @@
 	if(source_spell.owner == caster_mob)
 		// Assuming the spell is owned by the caster, give it over to the shapeshifted mob
 		// so they can actually transform back to their original form
-		owner.AddSpell(source_spell)
+		if(source_spell in caster_mob.mob_spell_list)
+			owner.AddSpell(source_spell)
 
 		if(source_spell.convert_damage)
 			var/damage_to_apply = owner.maxHealth * (caster_mob.get_total_damage() / caster_mob.maxHealth)
@@ -188,8 +189,8 @@
 	var/datum/action/cooldown/spell/shapeshift/source_spell = source_weakref.resolve()
 	// The owner = owner check here is specifically for edge cases in which the owner of the spell
 	// is no longer in control of the shapeshifted mob, such as mindswapping out of a shapeshift
-	if(!QDELETED(source_spell) && source_spell.owner == owner)
-		owner.mind.AddSpell(source_spell)
+	if(!QDELETED(source_spell) && source_spell.owner == owner && (source_spell in owner.mob_spell_list))
+		caster_mob.AddSpell(source_spell)
 	if(owner?.contents)
 		// Prevent round removal and consuming stuff when losing shapeshift
 		for(var/atom/movable/thing as anything in owner.contents)

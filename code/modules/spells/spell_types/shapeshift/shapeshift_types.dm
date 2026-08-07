@@ -4,7 +4,6 @@
 	desc = "Take on the shape a lesser ash drake after a short delay."
 	invocation = "*scream"
 	invocation_type = INVOCATION_SHOUT
-	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_PHASED | AB_TRANSFER_MIND
 	possible_shapes = list(/mob/living/simple_animal/hostile/megafauna/dragon/lesser)
 
 /datum/action/cooldown/spell/shapeshift/dragon/do_shapeshift(mob/living/caster)
@@ -16,6 +15,12 @@
 		to_chat(caster, span_warning("You lose concentration of the spell!"))
 		return
 	return ..()
+
+/datum/action/cooldown/spell/shapeshift/dragon/do_unshapeshift(mob/living/caster)
+	var/mob/living/simple_animal/hostile/megafauna/dragon/lesser/dragon = caster
+	if(dragon.swooping)
+		return
+	. = ..()
 
 /datum/action/cooldown/spell/shapeshift/bats
 	name = "Bat Form"
