@@ -30,6 +30,7 @@ type EventHandlers = {
   onKeyDown: KeyboardEventHandler<HTMLDivElement>;
   onKeyUp: KeyboardEventHandler<HTMLDivElement>;
   onMouseDown: MouseEventHandler<HTMLDivElement>;
+  onMouseEnter: MouseEventHandler<HTMLDivElement>;
   onMouseLeave: MouseEventHandler<HTMLDivElement>;
   onMouseMove: MouseEventHandler<HTMLDivElement>;
   onMouseOver: MouseEventHandler<HTMLDivElement>;

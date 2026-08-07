@@ -38,6 +38,7 @@
 	var/negative_mutation_chance = 90
 	/// Chance we mutate
 	var/mutate_chance = 40
+	var/radiation_treshhold = RAD_MEDIUM_INSULATION
 
 /datum/weather/rad_storm/endless
 	weather_duration_upper = 10 HOURS
@@ -69,6 +70,8 @@
 
 	if(SSradiation.wearing_rad_protected_clothing(human))
 		return
+
+	radiation_pulse(get_turf(human), 1, radiation_treshhold, chance = 30)
 
 	randmuti(human)
 
