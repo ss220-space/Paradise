@@ -43029,11 +43029,6 @@
 	icon_state = "darkblue"
 	},
 /area/station/maintenance/detectives_office)
-"iFg" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plating,
-/area/station/maintenance/engineering)
 "iFk" = (
 /obj/item/flag/species,
 /obj/effect/turf_decal/delivery/red,
@@ -47634,9 +47629,13 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -158992,7 +158991,7 @@ wyc
 fqW
 prt
 oMI
-iFg
+hxP
 jAL
 fhD
 bZF
