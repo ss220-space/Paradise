@@ -7,8 +7,6 @@
 	plane = FLOOR_PLANE
 	layer = WIRE_TERMINAL_LAYER // A bit above wires
 	resistance_flags = INDESTRUCTIBLE
-	density = FALSE
-	anchored = TRUE
 	var/obj/machinery/atmospherics/fission_reactor/linked_reactor
 
 /obj/machinery/power/reactor_power/Initialize(mapload)

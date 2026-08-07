@@ -7,10 +7,10 @@
 #define REACTOR_MELTDOWN 6		// Integrity < 5%
 
 // The states of nuclear reactor chambers.
-#define CHAMBER_DOWN	 		1
-#define CHAMBER_UP		 		2
-#define CHAMBER_OPEN			3
-#define CHAMBER_OVERLOAD_IDLE	4
-#define CHAMBER_OVERLOAD_ACTIVE	5
+#define CHAMBER_DOWN 1
+#define CHAMBER_UP 2
+#define CHAMBER_OPEN 3
+#define CHAMBER_OVERLOAD_IDLE 4
+#define CHAMBER_OVERLOAD_ACTIVE 5
 
 #define HEAT_MODIFIER 450 //! A flat multiplier for all reactor heat. Higher = more heat production.

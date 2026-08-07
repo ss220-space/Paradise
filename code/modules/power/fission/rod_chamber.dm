@@ -682,7 +682,7 @@
 	if(isnull(location)) // We have a null turf...something is wrong, stop processing this entity.
 		return PROCESS_KILL
 
-	if(!istype(chamber.loc, /turf)) // How in the FUCK did we manage this
+	if(!isturf(chamber.loc)) // How in the FUCK did we manage this
 		return  // Yeah just stop.
 
 	if(location.density)

@@ -1964,7 +1964,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/nuclear_rod/coolant/steam_hammerjet,
 		/obj/item/nuclear_rod/coolant/steam_hammerjet,
 		/obj/item/nuclear_rod/moderator/plasma_agitator,
-		/obj/item/nuclear_rod/moderator/plasma_agitator
+		/obj/item/nuclear_rod/moderator/plasma_agitator,
 	)
 	cost = 150
 	containertype = /obj/structure/closet/crate/secure/engineering
@@ -1976,7 +1976,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/nuclear_rod/moderator/plasma_agitator,
 		/obj/item/nuclear_rod/moderator/plasma_agitator,
 		/obj/item/nuclear_rod/moderator/aluminum_reflector,
-		/obj/item/nuclear_rod/moderator/aluminum_reflector
+		/obj/item/nuclear_rod/moderator/aluminum_reflector,
 	)
 	cost = 90
 	containertype = /obj/structure/closet/crate/secure/engineering
@@ -1988,7 +1988,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/nuclear_rod/coolant/steam_hammerjet,
 		/obj/item/nuclear_rod/coolant/steam_hammerjet,
 		/obj/item/nuclear_rod/coolant/molten_salt,
-		/obj/item/nuclear_rod/coolant/molten_salt
+		/obj/item/nuclear_rod/coolant/molten_salt,
 	)
 	cost = 100
 	containertype = /obj/structure/closet/crate/secure/engineering

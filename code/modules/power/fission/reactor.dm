@@ -1,11 +1,11 @@
 // The steps for repairing the reactor
-#define REACTOR_NEEDS_DIGGING 		1
-#define REACTOR_NEEDS_CROWBAR 		2
-#define REACTOR_NEEDS_PLASTITANIUM	3
-#define REACTOR_NEEDS_WRENCH		4
-#define REACTOR_NEEDS_WELDING		5
-#define REACTOR_NEEDS_PLASTEEL		6
-#define REACTOR_NEEDS_SCREWDRIVER	7
+#define REACTOR_NEEDS_DIGGING 1
+#define REACTOR_NEEDS_CROWBAR 2
+#define REACTOR_NEEDS_PLASTITANIUM 3
+#define REACTOR_NEEDS_WRENCH 4
+#define REACTOR_NEEDS_WELDING 5
+#define REACTOR_NEEDS_PLASTEEL 6
+#define REACTOR_NEEDS_SCREWDRIVER 7
 
 #define REACTOR_LIGHT_COLOR "#569fff"
 
@@ -150,8 +150,6 @@
 	/// Pressure damage per tick
 	var/pressure_damage_rate = 2
 	var/active_meltdown = FALSE
-
-
 
 /obj/machinery/atmospherics/fission_reactor/roundstart
 	primary_engine = TRUE
@@ -366,7 +364,7 @@
 			return ITEM_INTERACT_SUCCESS
 
 		var/obj/item/item = creature.get_inactive_hand()
-		if(!istype(item, /obj/item/weldingtool))
+		if(!iswelder(item))
 			to_chat(creature, span_warning("A functional welder is required to adhere the plastitanium."))
 			return ITEM_INTERACT_SUCCESS
 
@@ -1329,11 +1327,11 @@
 	weather_overlay = "light_ash"
 	weather_sound = 'sound/weather/falloutwind.ogg'
 	protected_areas = list(
-		/area/station/maintenance/,
+		/area/station/maintenance,
 		/area/station/ai/upload/chamber,
 		/area/station/ai/satellite/chamber,
 		/area/station/hallway/primary/starboard,
-		/area/shuttle
+		/area/shuttle,
 	)
 	end_message = span_notice_alt("The ash stops falling.")
 	radiation_treshhold = RAD_HEAVY_INSULATION

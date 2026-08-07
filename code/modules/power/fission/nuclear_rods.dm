@@ -123,7 +123,7 @@
 
 /obj/item/nuclear_rod/fuel/Initialize(mapload)
 	. = ..()
-	if(!istype(loc, /obj/structure/closet/crate))
+	if(!is_crate(loc))
 		check_rad_shield()
 
 /obj/item/nuclear_rod/fuel/proc/enrich(power_mod, heat_mod)
@@ -184,7 +184,6 @@
 	heat_amp_mod = 1.6
 	power_amp_mod = 1.1
 	max_durability = 3500
-	radiation_range = 1
 	radiation_treshhold = RAD_VERY_LIGHT_INSULATION
 	radiation_chance = 50
 	heat_enrich_threshold = 14
@@ -264,7 +263,6 @@
 	heat_amp_mod = 8
 	power_amp_mod = 0.1
 	max_durability = INFINITY
-	radiation_range = 1
 	radiation_treshhold = RAD_MEDIUM_INSULATION
 	radiation_chance = 50
 	adjacent_requirements = list(
@@ -282,7 +280,6 @@
 	heat_amp_mod = 6
 	power_amp_mod = 3
 	max_durability = 4000
-	radiation_range = 1
 	radiation_treshhold = RAD_MEDIUM_INSULATION
 	radiation_chance = 50
 	adjacent_requirements = list(
@@ -294,7 +291,6 @@
 	name = "bananium fuel rod"
 	desc = "The funniest of all fuel rods with no solidified properties. Who knows what you might get out of it!"
 	icon_state = "fuel_clown"
-	radiation_range = 1
 	radiation_treshhold = RAD_MEDIUM_INSULATION
 	radiation_chance = 50
 	craftable = TRUE
