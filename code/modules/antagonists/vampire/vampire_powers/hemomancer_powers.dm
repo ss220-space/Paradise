@@ -397,6 +397,7 @@
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	button_icon_state = "predator_sense"
 	background_icon_state = "bg_vampire"
+	used_in_radius = FALSE
 
 /datum/action/cooldown/spell/list_target/predator_senses/create_new_handler()
 	var/datum/spell_handler/vampire/H = new
