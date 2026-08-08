@@ -74583,11 +74583,6 @@
 /turf/simulated/floor/plating,
 /area/station/service/theatre)
 "ole" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/grille_13,
 /turf/simulated/floor/plating,
