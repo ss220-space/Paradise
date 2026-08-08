@@ -21,7 +21,6 @@
 /obj/machinery/power/reactor_power/process()
 	if(linked_reactor && linked_reactor.can_create_power)
 		add_avail(max(linked_reactor.final_power, 0))
-	return ..()
 
 // MARK: Monitor
 
