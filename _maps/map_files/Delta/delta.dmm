@@ -63827,11 +63827,13 @@
 	pixel_y = -32
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/camera{
-	c_tag = "NFR Fabrication";
-	dir = 10;
-	network = list("SS13","Engineering")
+/obj/structure/table/reinforced,
+/obj/item/stack/sheet/glass{
+	amount = 10;
+	pixel_x = 3;
+	pixel_y = 6
 	},
+/obj/item/stack/sheet/metal/fifty,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/engine/reactor)
 "mmy" = (
@@ -102965,12 +102967,10 @@
 /area/space)
 "tiK" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/sheet/glass{
-	amount = 10;
-	pixel_x = 3;
-	pixel_y = 6
+/obj/machinery/camera{
+	c_tag = "NFR Fabrication";
+	network = list("SS13","Engineering")
 	},
-/obj/item/stack/sheet/metal/fifty,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/engine/reactor)
 "tjb" = (
