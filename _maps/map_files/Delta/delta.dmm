@@ -766,7 +766,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "aik" = (
 /turf/simulated/floor/plasteel{
@@ -20652,12 +20652,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/commons/vacant_office)
-"esZ" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/wall/r_wall/coated,
-/area/station/engineering/engine/reactor)
 "etm" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -67870,9 +67864,6 @@
 /area/station/command/vip)
 "naB" = (
 /obj/structure/railing/corner/pool_corner,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
 /turf/simulated/wall/r_wall/coated,
 /area/station/engineering/engine/reactor)
 "nbd" = (
@@ -115235,10 +115226,6 @@
 	icon_state = "tranquillite"
 	},
 /area/station/maintenance/kitchen)
-"vxe" = (
-/obj/structure/lattice/catwalk,
-/turf/simulated/wall/r_wall/coated,
-/area/station/engineering/engine/reactor)
 "vxl" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -146785,7 +146772,7 @@ jTi
 pNZ
 pNZ
 uAB
-vxe
+pOj
 acF
 acF
 hrq
@@ -147556,7 +147543,7 @@ nDo
 ktq
 nZk
 rRT
-esZ
+pOj
 naB
 pOj
 pOj
