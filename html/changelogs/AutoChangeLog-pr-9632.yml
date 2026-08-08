@@ -1,0 +1,4 @@
+author: "NuSanya"
+delete-after: True
+changes:
+  - bugfix: "больше не рантаймит register_skill_signals_for_user (PR #9632)"

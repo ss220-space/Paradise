@@ -1,0 +1,4 @@
+author: "SCPfollower"
+delete-after: True
+changes:
+  - tweak: "Четвертые боевые навыки для тандера и ДМа. (PR #9576)"

@@ -65,5 +65,14 @@
 #define QDEL_LIST_ASSOC(L) if(L) { for(var/I in L) { qdel(L[I]); qdel(I); } L.Cut(); }
 #define QDEL_LIST_ASSOC_VAL(L) if(L) { for(var/I in L) qdel(L[I]); L.Cut(); }
 
+#define QDEL_LIST_CONTENTS(L) do { \
+	if(L) { \
+		for(var/I in L) \
+			qdel(I); \
+		if(L) \
+			L.Cut(); \
+	} \
+} while(FALSE)
+
 ///Sleep check QDEL. Like sleep check death, but checks deleting. Good for non mobs.
 #define SLEEP_CHECK_QDEL(X) sleep(X); if(QDELETED(src)) return;
