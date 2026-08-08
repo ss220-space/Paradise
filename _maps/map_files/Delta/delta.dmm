@@ -682,15 +682,6 @@
 "ahq" = (
 /turf/simulated/floor/wood,
 /area/station/maintenance/asmaint4)
-"ahs" = (
-/obj/structure/table/reinforced,
-/obj/item/rpd,
-/obj/item/tank/internals/emergency_oxygen/engi,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/simulated/floor/engine,
-/area/station/engineering/engine/reactor)
 "ahC" = (
 /turf/simulated/floor/shuttle,
 /area/shuttle/arrival/station)
@@ -34922,6 +34913,12 @@
 /obj/effect/spawner/new_year/garland/south,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/station/service/bar/atrium)
+"gYk" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating,
+/area/station/maintenance/tourist)
 "gYm" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -46056,12 +46053,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/electrical)
-"jbw" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/turf/simulated/floor/engine,
-/area/station/engineering/engine/reactor)
 "jbF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -58055,6 +58046,18 @@
 "ljy" = (
 /turf/simulated/wall/r_wall,
 /area/station/command/office/captain/bedroom)
+"ljB" = (
+/obj/structure/table/reinforced,
+/obj/item/rpd,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/simulated/floor/engine,
+/area/station/engineering/engine/reactor)
 "ljF" = (
 /turf/simulated/wall,
 /area/station/commons/vacant_office)
@@ -65703,12 +65706,6 @@
 	icon_state = "brown"
 	},
 /area/station/cargo/miningdock)
-"mBV" = (
-/obj/machinery/computer/security/telescreen/nfr{
-	pixel_x = 32
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/asmaint3)
 "mBY" = (
 /obj/structure/sign/securearea,
 /turf/simulated/wall/r_wall,
@@ -74170,16 +74167,6 @@
 /obj/machinery/status_display/supply_display,
 /turf/simulated/wall,
 /area/station/cargo/storage)
-"ogL" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plating,
-/area/station/maintenance/asmaint3)
 "ogT" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -99790,7 +99777,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/ai)
 "sEO" = (
-/obj/machinery/door/airlock/engineering/glass{
+/obj/machinery/door/airlock/vault{
 	name = "Reactor Exterior Access";
 	req_access = list(10)
 	},
@@ -107249,15 +107236,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/electrical)
 "tYe" = (
-/obj/structure/table/reinforced,
-/obj/item/rpd,
-/obj/machinery/camera{
-	c_tag = "NFR North East";
-	dir = 6;
-	network = list("SS13","Engineering", "NFR")
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
@@ -127127,6 +127107,21 @@
 /obj/machinery/disposal,
 /turf/simulated/floor/wood/fancy/light,
 /area/station/command/office/captain)
+"xEl" = (
+/obj/structure/table/reinforced,
+/obj/item/rpd,
+/obj/machinery/camera{
+	c_tag = "NFR North East";
+	network = list("SS13","Engineering", "NFR")
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/simulated/floor/engine,
+/area/station/engineering/engine/reactor)
 "xEu" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plasteel{
@@ -146489,9 +146484,9 @@ hDA
 hDA
 hDA
 bjZ
-wXH
-jmC
-pvY
+hDA
+hDA
+hDA
 hDA
 rjF
 hDA
@@ -146746,8 +146741,8 @@ hrq
 hrq
 hrq
 rRT
-pvY
-pvY
+wXH
+jmC
 pvY
 hRE
 bXN
@@ -147003,8 +146998,8 @@ acF
 acF
 acF
 hrq
-hRE
-aIY
+pvY
+pvY
 pvY
 pvY
 aOG
@@ -147239,8 +147234,8 @@ coE
 aaq
 coE
 aaq
-coE
-aaq
+sHR
+sHR
 sHR
 dBD
 dBD
@@ -147260,9 +147255,9 @@ acF
 dtc
 acF
 hrq
-qEH
-dVh
-slY
+hRE
+aIY
+pvY
 hut
 vnm
 fhx
@@ -147497,9 +147492,9 @@ lnn
 lnn
 lnn
 chq
-sHR
-sHR
-ahs
+ljB
+wQt
+mzY
 mzY
 ewb
 pwe
@@ -147517,9 +147512,9 @@ jNY
 bxu
 jNY
 hrq
-aPB
-wyR
-pvY
+qEH
+dVh
+slY
 hDA
 kZz
 uMb
@@ -147754,9 +147749,9 @@ chq
 chq
 chq
 chq
-sHR
-sHR
 wYy
+mzY
+mzY
 mzY
 dtY
 mzY
@@ -147773,9 +147768,9 @@ vAX
 pOj
 txn
 sHR
-pvY
-pvY
-pvY
+gYk
+aPB
+wyR
 pvY
 bcy
 hDl
@@ -148011,9 +148006,9 @@ sER
 gEs
 sER
 chq
-sHR
+xEl
 tYe
-jbw
+mzY
 mzY
 mVs
 pxM
@@ -151634,7 +151629,7 @@ pWI
 sHR
 txO
 gxJ
-ogL
+gFU
 wPS
 tAB
 hUN
@@ -152900,7 +152895,7 @@ sLU
 pCG
 tOr
 mts
-mBV
+cCe
 dyQ
 rax
 mts
