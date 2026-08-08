@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - map: "Исправлены мелкие недочеты после добавления реакторной комнаты. (PR #9637)"
