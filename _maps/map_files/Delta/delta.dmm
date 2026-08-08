@@ -762,6 +762,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating,
 /area/station/engineering/engine/reactor)
 "aik" = (
@@ -1546,9 +1549,6 @@
 	dir = 8
 	},
 /obj/effect/landmark/start/hangover,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine/reactor)
 "aqS" = (
@@ -3483,12 +3483,6 @@
 /obj/structure/computerframe,
 /turf/simulated/floor/shuttle,
 /area/shuttle/arrival/station)
-"aLe" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/engineering/engine/reactor)
 "aLg" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door_control{
@@ -3972,6 +3966,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine)
 "aQE" = (
@@ -4214,9 +4211,6 @@
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Reactor Exterior Access";
 	req_access = list(10)
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine/reactor)
@@ -12766,9 +12760,6 @@
 	},
 /area/station/medical/medbay)
 "cIB" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/structure/sign/radiation/rad_area{
 	pixel_x = -32
 	},
@@ -13404,9 +13395,6 @@
 "cQm" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine/reactor)
@@ -14220,9 +14208,6 @@
 "cZK" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
@@ -21212,9 +21197,6 @@
 /area/station/engineering/atmos/mixing_atmos)
 "eyf" = (
 /obj/machinery/light/small/directional/south,
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/engine/reactor)
 "eyh" = (
@@ -35698,9 +35680,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine/reactor)
 "hfK" = (
@@ -36517,6 +36496,9 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine)
 "hmA" = (
@@ -37220,7 +37202,7 @@
 	dir = 8
 	},
 /obj/structure/cable/yellow{
-	icon_state = "2-4"
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
@@ -42426,9 +42408,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -44691,9 +44670,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -59532,6 +59508,9 @@
 /area/station/command/office/qm)
 "lyg" = (
 /obj/machinery/shower/directional/north,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/noslip,
 /area/station/engineering/engine/reactor)
 "lyi" = (
@@ -64590,9 +64569,6 @@
 /area/station/maintenance/turbine)
 "mrY" = (
 /obj/effect/landmark/start/hangover,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/engine/reactor)
 "msb" = (
@@ -70146,6 +70122,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/engine/reactor)
@@ -80689,9 +80668,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine)
 "pqh" = (
@@ -82294,9 +82270,6 @@
 	name = "Reactor Interior Access";
 	req_access = list(10)
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -83560,9 +83533,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -92193,9 +92163,6 @@
 	},
 /area/station/security/checkpoint)
 "rri" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
@@ -97697,9 +97664,6 @@
 	dir = 8
 	},
 /obj/machinery/light/directional/south,
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/engine/reactor)
 "smT" = (
@@ -98803,9 +98767,6 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/engine/reactor)
 "swA" = (
@@ -99103,17 +99064,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/security/processing)
-"syO" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/engineering/engine)
 "syP" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -99141,6 +99091,9 @@
 /obj/machinery/shower/directional/north,
 /obj/structure/sign/radiation/rad_area{
 	pixel_x = -32
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/noslip,
 /area/station/engineering/engine/reactor)
@@ -99802,6 +99755,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/engine/reactor)
@@ -100513,6 +100469,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
@@ -102725,6 +102684,12 @@
 	icon_state = "redyellowfull"
 	},
 /area/station/engineering/break_room)
+"tdW" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/simulated/wall/r_wall,
+/area/station/engineering/engine/reactor)
 "tec" = (
 /obj/structure/table/wood,
 /obj/item/newspaper,
@@ -103252,9 +103217,6 @@
 /turf/simulated/floor/plating/airless,
 /area/space)
 "tiK" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/engine/reactor)
@@ -106328,6 +106290,18 @@
 /obj/item/radio/intercom/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/mixing_atmos)
+"tNS" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/engine,
+/area/station/engineering/engine/reactor)
 "tNT" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -110314,6 +110288,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
 "uAq" = (
@@ -112419,17 +112396,6 @@
 	},
 /turf/simulated/floor/engine/plasma,
 /area/station/engineering/atmos/mixing_atmos)
-"uUV" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "yellowfull"
-	},
-/area/station/engineering/engine)
 "uUZ" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/electrical,
@@ -116657,9 +116623,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -116968,9 +116931,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/structure/disposalpipe/junction/reversed{
 	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/engine/reactor)
@@ -117400,13 +117360,6 @@
 	icon_state = "brown"
 	},
 /area/station/cargo/delivery)
-"vQb" = (
-/obj/effect/spawner/window/reinforced/plasma,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating,
-/area/station/engineering/engine/reactor)
 "vQc" = (
 /turf/simulated/wall/r_wall,
 /area/station/telecomms/chamber)
@@ -123289,6 +123242,13 @@
 "wRG" = (
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics/chargebay)
+"wRT" = (
+/obj/machinery/shower/directional/north,
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/noslip,
+/area/station/engineering/engine/reactor)
 "wSa" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/blood_5,
@@ -150842,12 +150802,12 @@ tgK
 uyj
 sHR
 nIM
-gxU
-mzY
+tNS
+okM
 uAg
 uAg
-mzY
-mzY
+okM
+okM
 hui
 iWz
 wZo
@@ -151105,7 +151065,7 @@ sHR
 sHR
 dBD
 dBD
-vQb
+dBD
 sHR
 pxd
 vph
@@ -152125,8 +152085,8 @@ chq
 chq
 aQD
 hmx
-sHR
-lyg
+tdW
+wRT
 iNg
 sHR
 hVQ
@@ -152898,7 +152858,7 @@ wHs
 cHw
 chq
 xPD
-aLe
+sLU
 pCG
 tOr
 mts
@@ -153155,7 +153115,7 @@ iot
 eSw
 chq
 gTz
-aLe
+sLU
 ewI
 ewI
 ewI
@@ -153412,7 +153372,7 @@ cZK
 waq
 chq
 gTz
-aLe
+sLU
 ewI
 get
 get
@@ -153665,11 +153625,11 @@ paH
 xlH
 fZY
 jbW
-syO
+rDx
 dJX
 chq
 viS
-aLe
+sLU
 ewI
 fBP
 jxP
@@ -153922,7 +153882,7 @@ eiM
 eiM
 rAB
 jbW
-uUV
+llX
 emy
 chq
 viS
