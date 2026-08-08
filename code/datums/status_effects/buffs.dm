@@ -480,7 +480,7 @@
 	id = "epinephrine"
 	status_type = STATUS_EFFECT_REFRESH
 	alert_type = /atom/movable/screen/alert/status_effect/epinephrine
-	duration = 10 SECONDS
+	duration = 5 SECONDS
 
 /datum/status_effect/epinephrine/on_apply()
 	owner.balloon_alert(owner, "адреналин наполняет силой!")
