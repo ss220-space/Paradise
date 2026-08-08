@@ -9,6 +9,7 @@
 
 /area/station/engineering/engine/reactor
 	name = "Fission Reactor"
+	icon_state = "engine_nuke"
 
 /area/station/engineering/monitor
 	name = "Engineering Monitoring Room"
