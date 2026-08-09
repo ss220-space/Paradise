@@ -150,7 +150,11 @@
 		/obj/item/borg/upgrade/thrusters,
 		/obj/item/borg/upgrade/mounted_seat,
 	)
-	for(var/upgrade_path in ert_upgrades)
+	install_upgrades(ert_upgrades, robot)
+
+/// Installs all upgrades in 'upgade_list'
+/obj/item/robot_module/proc/install_upgrades(list/upgrade_list, mob/living/silicon/robot/robot)
+	for(var/upgrade_path in upgrade_list)
 		if(locate(upgrade_path) in robot.upgrades)
 			continue
 		var/obj/item/borg/upgrade/upgrade = new upgrade_path(robot)
@@ -343,18 +347,11 @@
 /obj/item/robot_module/medical/ert/on_apply(mob/living/silicon/robot/robot)
 
 	install_ert_upgrades(robot)
-	if(!locate(/obj/item/borg/upgrade/storageincreaser) in robot.upgrades)
-		var/obj/item/borg/upgrade/storageincreaser/storageincreaser = new(robot)
-		if(!robot.install_upgrade(storageincreaser))
-			qdel(storageincreaser)
-	if(!locate(/obj/item/borg/upgrade/hypospray) in robot.upgrades)
-		var/obj/item/borg/upgrade/hypospray/hypospray = new(robot)
-		if(!robot.install_upgrade(hypospray))
-			qdel(hypospray)
-	if(!locate(/obj/item/borg/upgrade/hypospray_pierce) in robot.upgrades)
-		var/obj/item/borg/upgrade/hypospray_pierce/hypospray_pierce = new(robot)
-		if(!robot.install_upgrade(hypospray_pierce))
-			qdel(hypospray_pierce)
+	install_upgrades(list(
+		/obj/item/borg/upgrade/storageincreaser,
+		/obj/item/borg/upgrade/hypospray,
+		/obj/item/borg/upgrade/hypospray_pierce,
+	), robot)
 
 	robot.status_flags &= ~CANPUSH
 	robot.see_reagents = TRUE
@@ -402,8 +399,7 @@
 /obj/item/robot_module/engineering/on_apply(mob/living/silicon/robot/robot)
 	if(robot.camera && ("Robots" in robot.camera.network))
 		LAZYADD(robot.camera.network, "Engineering")
-	var/obj/item/borg/upgrade/magboots/upgrade = new(robot)
-	robot.install_upgrade(upgrade)
+	install_upgrades(list(/obj/item/borg/upgrade/magboots), robot)
 
 	return TRUE
 
@@ -455,10 +451,7 @@
 /obj/item/robot_module/engineering/ert/on_apply(mob/living/silicon/robot/robot)
 
 	install_ert_upgrades(robot)
-	if(!locate(/obj/item/borg/upgrade/storageincreaser) in robot.upgrades)
-		var/obj/item/borg/upgrade/storageincreaser/storageincreaser = new(robot)
-		if(!robot.install_upgrade(storageincreaser))
-			qdel(storageincreaser)
+	install_upgrades(list(/obj/item/borg/upgrade/storageincreaser), robot)
 
 	return TRUE
 
@@ -542,10 +535,7 @@
 
 	robot.weapons_unlock = TRUE
 	install_ert_upgrades(robot)
-	if(!locate(/obj/item/borg/upgrade/disablercooler) in robot.upgrades)
-		var/obj/item/borg/upgrade/disablercooler/disablercooler = new(robot)
-		if(!robot.install_upgrade(disablercooler))
-			qdel(disablercooler)
+	install_upgrades(list(/obj/item/borg/upgrade/disablercooler), robot)
 
 	return TRUE
 

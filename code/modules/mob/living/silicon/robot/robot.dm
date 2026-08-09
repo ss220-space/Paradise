@@ -1116,8 +1116,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 
-	var/datum/robot_component/C = components[remove]
-	var/obj/item/robot_parts/robot_component/thing = C.wrapped
+	var/datum/robot_component/choosed_component = components[remove]
+	var/obj/item/robot_parts/robot_component/thing = choosed_component.wrapped
 	balloon_alert(user, "компонент изъят")
 
 	if(istype(thing))
@@ -1976,13 +1976,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	req_access = list(ACCESS_CENT_SPECOPS)
 	ionpulse = TRUE
 	pdahide = TRUE
-	eye_protection = FLASH_PROTECTION_WELDER // Immunity to flashes and the visual part of flashbangs
-	ear_protection = HEARING_PROTECTION_MINOR // Immunity to the audio part of flashbangs
-	emp_protection = TRUE // Immunity to EMP, due to heavy shielding
-	damage_protection = 10 // Reduce all incoming damage by this number
-	brute_mod = 0.5 // Bullets are dealing 50%+5 less damage. Full line of shotgun slugs now won't kill the cyborg(but cyborg will lose 2 modules and armor planting)
-	burn_mod = 0.5 // Interesting. Deathsquad cyborg can reflect laser projectiles, however still reduces samage from explosives, and grants ability to tanl more than one SRM8 rocket.
-	emp_protection = TRUE // Interesting. Deathsquad cyborg can reflect laser projectiles, however still reduces samage from explosives, and grants ability to tanl more than one SRM8 rocket.
+	eye_protection = FLASH_PROTECTION_WELDER
+	ear_protection = HEARING_PROTECTION_MINOR
+	emp_protection = TRUE
+	damage_protection = 10
+	brute_mod = 0.5
+	burn_mod = 0.5
+	emp_protection = TRUE
 	reflectable = TRUE
 	faction = list("nanotrasen")
 	is_emaggable = FALSE
