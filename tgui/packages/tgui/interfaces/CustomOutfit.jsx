@@ -9,6 +9,11 @@ export const CustomOutfit = (props) => {
   const backpackItems = data.backpack_items || [];
   const augmentations = data.augmentations || [];
   const hasMindshield = data.mindshield;
+  const hasDental = data.has_dental_implant;
+  const dentalList = data.dental_reagents || [];
+  const dentalTooltip = hasDental
+    ? dentalList.map(r => `${r.name}: ${r.amount}u`).join('\n')
+    : 'Добавить реагенты в зубной имплант';
 
   return (
     <Window title="Custom Outfit" width={900} height={625} theme="admin" fill>
@@ -137,10 +142,11 @@ export const CustomOutfit = (props) => {
                       <Stack.Item grow>
                         <Button
                           fluid
-                          icon="flask"
-                          content="Chem implant"
-                          tooltip="Скоро"
-                          onClick={() => act('chem_implant')}
+                          icon="pills"
+                          iconColor={hasDental ? 'good' : 'gray'}
+                          content="Зубной имплант"
+                          tooltip={dentalTooltip}
+                          onClick={() => act('dental_implant')}
                         />
                       </Stack.Item>
                     </Stack>

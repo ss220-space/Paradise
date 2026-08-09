@@ -2,6 +2,7 @@
 	var/mob/target_mob
 	var/datum/outfit/drip
 	var/list/augmentations = list()
+	var/list/chem_reagents = list()
 	var/mindshielded = FALSE
 
 /datum/custom_outfit/New(mob/target)
@@ -76,6 +77,12 @@
 	data["implants"] = serialize_implants()
 	data["augmentations"] = serialize_augmentations()
 	data["mindshield"] = mindshielded
+	var/list/dental_reagents = list()
+	for(var/reagent_type in chem_reagents)
+		var/datum/reagent/ref = reagent_type
+		dental_reagents += list(list("name" = initial(ref.name), "amount" = chem_reagents[reagent_type]))
+	data["dental_reagents"] = dental_reagents
+	data["has_dental_implant"] = length(chem_reagents) > 0
 	return data
 
 /datum/custom_outfit/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -118,8 +125,11 @@
 				augmentations -= zone
 		if("toggle_mindshield")
 			mindshielded = !mindshielded
-		if("chem_implant")
-			// ?
+		if("dental_implant")
+			if(length(chem_reagents))
+				chem_reagents = list()
+			else
+				build_dental_pill()
 		if("click")
 			choose_item(params["slot"])
 		if("clear")
@@ -217,6 +227,26 @@
 		return
 	augmentations[zone] = GLOB.all_robolimbs[company].company
 
+/datum/custom_outfit/proc/build_dental_pill()
+	var/list/reagent_options = list()
+	for(var/datum/reagent/reagent_type as anything in subtypesof(/datum/reagent))
+		if(!reagent_type::name)
+			continue
+		reagent_options[reagent_type::name] = reagent_type
+
+	while(TRUE)
+		var/choice = tgui_input_list(usr, "Выберите реагент", "Зубной имплант", reagent_options)
+		if(!choice)
+			break
+		var/reagent_type = reagent_options[choice]
+		var/amount = tgui_input_number(usr, "Введите количество реагента (макс. 100)", "Количество", 5, 100, 1)
+		if(!amount)
+			continue
+		chem_reagents[reagent_type] = amount
+		var/again = tgui_alert(usr, "Добавить ещё реагент?", "Зубной имплант", list("Добавить ещё", "Закончить"))
+		if(again != "Добавить ещё")
+			break
+
 /datum/custom_outfit/proc/apply_outfit()
 	if(!ishuman(target_mob))
 		return
@@ -250,6 +280,17 @@
 		for(var/obj/item/implant/mindshield/I in H.contents)
 			if(I.implanted)
 				qdel(I)
+
+	for(var/obj/item/reagent_containers/food/pill/old_pill in H.contents)
+		qdel(old_pill)
+	if(length(chem_reagents))
+		var/obj/item/reagent_containers/food/pill/P = new /obj/item/reagent_containers/food/pill(H)
+		for(var/reagent_type in chem_reagents)
+			P.reagents.add_reagent(reagent_type, chem_reagents[reagent_type])
+		var/datum/action/item_action/hands_free/activate_pill/A = new(P, P.icon, P.icon_state)
+		A.name = "Раскусить [P.declent_ru(ACCUSATIVE)]"
+		A.Grant(H)
+
 	H.regenerate_icons()
 	log_and_message_admins("changed the equipment of [key_name_admin(H)] via Custom Outfit.")
 
