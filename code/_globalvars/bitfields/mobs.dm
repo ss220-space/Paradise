@@ -31,6 +31,7 @@ DEFINE_BITFIELD(bodyflags, list(
 	"HAS_BODYACC_COLOR" = HAS_BODYACC_COLOR,
 	"BALD" = BALD,
 	"ALL_RPARTS" = ALL_RPARTS,
+	"HAS_HAIR" = HAS_HAIR,
 ))
 
 DEFINE_BITFIELD(mobility_flags, list(

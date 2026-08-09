@@ -29,6 +29,28 @@
 	hidden_from_job_prefs = TRUE
 	admin_only = TRUE
 
+// MARK: Навыки
+// Общесерверная система навыков режиму не нужна: разница между бойцами здесь задаётся
+// ролью в отряде, а не очками, вложенными в персонажа до раунда.
+//
+// Но промолчать нельзя. Пустая таблица навыков у должности означает не «навыки не
+// важны», а SKILL_LEVEL_NONE по всем строкам: полуторное время на любое действие,
+// двойной разброс, меньшая меткость и шанс осечки. Бойцы вышли бы в поле криворукими.
+//
+// Базовый уровень — ровно то поведение, что было до перехода: все множители равны
+// единице. Стволы, медицина и постройки работают как раньше, без правок в предметах.
+/datum/job/civilian/mw_marine/get_skill_level(skill_type, alt_job_title)
+	return SKILL_LEVEL_BASIC
+
+/datum/job/civilian/mw_insurgent/get_skill_level(skill_type, alt_job_title)
+	return SKILL_LEVEL_BASIC
+
+// Штатная выдача снаряжения предлагает распределить навыки. В режиме это окно всплывало
+// бы на каждой высадке и каждом респавне, а распределённое всё равно тут же затирается
+// выравниванием в deploy_member. Молча пропускаем.
+/datum/outfit/job/mountain_wars/skill_select_offer(mob/living/carbon/human/user)
+	return
+
 /datum/outfit/job/mountain_wars
 	allow_loadout = FALSE
 	allow_backbag_choice = FALSE

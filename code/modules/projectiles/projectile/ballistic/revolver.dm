@@ -36,6 +36,7 @@
 	stamina = 45
 	icon_state = null
 	hitsound_wall = null
+	nodamage = TRUE
 
 /obj/projectile/bullet/weakbullet2/invisible/get_ru_names()
 	return alist(
@@ -50,7 +51,6 @@
 /obj/projectile/bullet/weakbullet2/invisible/fake
 	weaken = 0
 	stamina = 0
-	nodamage = TRUE
 	log_override = TRUE
 
 // MARK: .36

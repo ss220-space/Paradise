@@ -1,5 +1,3 @@
-#define LIVING_PLAYERS_COUNT_FOR_1_PRAETORIAN 25
-
 /obj/effect/proc_holder/spell/alien_spell/evolve
 	name = "Evolve"
 	desc = "Evolve into reporting this issue."
@@ -106,7 +104,7 @@
 		if(player.client && player.stat != DEAD)
 			living_players_count++
 
-	if(spell_owner.praetorian_count < (living_players_count/LIVING_PLAYERS_COUNT_FOR_1_PRAETORIAN))
+	if(spell_owner.praetorian_count < (living_players_count / XENO_PLAYERS_FOR_PRAETORIAN))
 		..()
 	else
 		to_chat(user, span_warning("We have too many praetorians."))
@@ -131,4 +129,4 @@
 	..()
 	user.queen_count++
 
-#undef LIVING_PLAYERS_COUNT_FOR_1_PRAETORIAN
+#undef XENO_PLAYERS_FOR_PRAETORIAN

@@ -412,6 +412,8 @@
 
 	loot_panel = new(src)
 
+	skills_select_window = new()
+
 	Master.UpdateTickRate()
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/client, nag_516))
 
@@ -531,6 +533,7 @@
 	QDEL_NULL(tooltips)
 	QDEL_NULL(loot_panel)
 	QDEL_NULL(parallax_rock)
+	QDEL_NULL(skills_select_window)
 	seen_messages = null
 	sound_tokens = null
 	Master.UpdateTickRate()

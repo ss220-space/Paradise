@@ -85,6 +85,15 @@
 		JOB_MIN_AGE_COMMAND = 22,
 	)
 
+	max_select_skills = list(
+		/datum/skill/general/carrying = 3,
+		/datum/skill/combat/melee = 1,
+		/datum/skill/combat/fists = 1,
+		/datum/skill/engineering/building = 3,
+		/datum/skill/engineering/construction = 3,
+		/datum/skill/engineering/atmos = 1,
+	)
+
 /datum/species/wryn/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
 	var/datum/action/innate/wryn/wryn_sting/wryn_sting = locate() in H.actions

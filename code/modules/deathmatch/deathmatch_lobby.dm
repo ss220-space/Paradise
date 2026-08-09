@@ -160,15 +160,19 @@
 	for(var/datum/deathmatch_modifier/modifier as anything in modifiers)
 		our_target[modifier].apply(new_player, src)
 
+	ADD_TRAIT(new_player.mind, TRAIT_HAS_ANTAG_SKILLS, UNIQUE_TRAIT_SOURCE(src))
+	new_player.mind.recalculate_skills()
+
 	// register death handling.
 	register_player_signals(new_player)
 
 /datum/deathmatch_lobby/proc/register_player_signals(new_player)
 	RegisterSignals(new_player, list(COMSIG_LIVING_DEATH, COMSIG_QDELETING, COMSIG_MOB_GHOSTIZE), PROC_REF(player_died))
 	RegisterSignal(new_player, COMSIG_LIVING_ON_WABBAJACKED, PROC_REF(player_wabbajacked))
+	RegisterSignal(new_player, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(prevent_escaping))
 
 /datum/deathmatch_lobby/proc/unregister_player_signals(new_player)
-	UnregisterSignal(new_player, list(COMSIG_LIVING_DEATH, COMSIG_QDELETING, COMSIG_MOB_GHOSTIZE, COMSIG_LIVING_ON_WABBAJACKED))
+	UnregisterSignal(new_player, list(COMSIG_LIVING_DEATH, COMSIG_QDELETING, COMSIG_MOB_GHOSTIZE, COMSIG_LIVING_ON_WABBAJACKED, COMSIG_MOVABLE_Z_CHANGED))
 
 /datum/deathmatch_lobby/proc/game_took_too_long()
 	if(!location || QDELING(src))
@@ -243,6 +247,10 @@
 			player.dust(TRUE, TRUE, TRUE)
 	if(players.len <= 1)
 		end_game()
+
+/datum/deathmatch_lobby/proc/prevent_escaping(mob/living/player)
+	SIGNAL_HANDLER
+	qdel(player)
 
 /datum/deathmatch_lobby/proc/add_observer(mob/mob, host = FALSE)
 	if(players[mob.ckey])
@@ -505,6 +513,8 @@
 						add_player(umob, loadouts[1], host == uckey)
 					return TRUE
 				if("change_map")
+					if(playing == DEATHMATCH_PRE_PLAYING)
+						return FALSE
 					if(!(params["map"] in GLOB.deathmatch_game.maps))
 						return FALSE
 					change_map(params["map"])
@@ -577,6 +587,7 @@
 			"name" = mod.name,
 			"desc" = mod.description,
 			"modpath" = "[modpath]",
+			"loadout_mod" = mod.loadout_mod,
 			"selected" = (modpath in modifiers),
 			"selectable" = is_host && mod.selectable(src),
 		))

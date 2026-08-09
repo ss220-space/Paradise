@@ -131,32 +131,42 @@ GLOBAL_LIST(ui_logins)
 	if(state.logged_in)
 		return
 
-	if(state.id && login_type == LOGIN_TYPE_NORMAL)
-		if(check_access(state.id))
+	switch(login_type)
+		if(LOGIN_TYPE_NORMAL)
+			if(!state.id)
+				return
+			if(!check_access(state.id))
+				to_chat(usr, span_warning("Отказано в доступе."))
+				return
 			state.name = state.id.registered_name
 			state.rank = state.id.assignment
 			state.access = state.id.access
 			state.law_level = state.id.law_level
+		if(LOGIN_TYPE_AI)
+			if(!isAI(usr) && !ispAI(usr))
+				return
+			state.name = usr.name
+			state.rank = JOB_TITLE_AI
+			state.law_level = LAW_LEVEL_BASE
+		if(LOGIN_TYPE_ROBOT)
+			if(!isrobot(usr))
+				return
+			if(iscogscarab(usr))
+				to_chat(usr, span_warning("Отказано в доступе."))
+				return
+			var/mob/living/silicon/robot/robot = usr
+			state.name = usr.name
+			state.rank = "[robot.modtype?.name] [robot.braintype]"
+			state.law_level = LAW_LEVEL_BASE
+		if(LOGIN_TYPE_ADMIN)
+			if(!usr.can_admin_interact())
+				return
+			state.name = "*ЗАСЕКРЕЧЕНО*"
+			state.rank = "Защищённый канал ЦентКома"
+			state.law_level = LAW_LEVEL_CENTCOMM
+			state.access = get_all_accesses() + get_all_centcom_access()
 		else
-			to_chat(usr, span_warning("Отказано в доступе."))
 			return
-	else if(login_type == LOGIN_TYPE_AI && (isAI(usr) || ispAI(usr)))
-		state.name = usr.name
-		state.rank = JOB_TITLE_AI
-		state.law_level = LAW_LEVEL_BASE
-	else if(iscogscarab(usr))
-		to_chat(usr,  span_warning("Отказано в доступе."))
-		return
-	else if(login_type == LOGIN_TYPE_ROBOT && isrobot(usr))
-		var/mob/living/silicon/robot/R = usr
-		state.name = usr.name
-		state.rank = "[R.modtype?.name] [R.braintype]"
-		state.law_level = LAW_LEVEL_BASE
-	else if(login_type == LOGIN_TYPE_ADMIN && usr.can_admin_interact())
-		state.name = "*ЗАСЕКРЕЧЕНО*"
-		state.rank = "Защищённый канал ЦентКома"
-		state.law_level = LAW_LEVEL_CENTCOMM
-		state.access = get_all_accesses() + get_all_centcom_access()
 
 	state.logged_in = TRUE
 	ui_login_on_login(state = state)

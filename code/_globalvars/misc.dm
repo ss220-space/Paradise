@@ -98,3 +98,5 @@ GLOBAL_VAR_INIT(all_robot_skins_permited, FALSE)
 GLOBAL_LIST_INIT(mod_themes, setup_mod_themes())
 
 GLOBAL_DATUM(lone_operative_meta, /datum/event_meta/lone_operative)
+
+GLOBAL_DATUM(main_fission_reactor, /obj/machinery/atmospherics/fission_reactor)

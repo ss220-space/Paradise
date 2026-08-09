@@ -26,6 +26,8 @@
 	var/check_direction = FALSE
 	/// Resulting atom is a cult structure
 	var/cult_structure = FALSE
+	/// Modifier signal, use this signal (if not null) for calculate modifiers
+	var/modifier_name = null
 
 /datum/stack_recipe/New(
 		title,
@@ -39,7 +41,8 @@
 		is_fulltile = FALSE,
 		on_lattice = FALSE,
 		check_direction = FALSE,
-		cult_structure = FALSE
+		cult_structure = FALSE,
+		modifier_name = null
 	)
 	src.title = title
 	src.result_type = result_type
@@ -53,6 +56,7 @@
 	src.on_lattice = on_lattice
 	src.check_direction = check_direction || is_fulltile
 	src.cult_structure = cult_structure
+	src.modifier_name = modifier_name
 
 	// We create base64 image only if item have color. Otherwise use icon_ref for TGUI
 	var/obj/item/result = result_type
@@ -130,15 +134,23 @@
 			to_chat(usr, span_warning("You're too small to build this machinery."))
 			return FALSE
 
+	if(locate(/obj/machinery/atmospherics/reactor_chamber) in get_turf(material))
+		to_chat(user, span_warning("Building something here would get in the way of the reactor!"))
+		return FALSE
+
 	return TRUE
 
 /// Creates the atom defined by the recipe. Should always return the object it creates or FALSE. This proc assumes that the construction is already possible; for checking whether a recipe *can* be built before construction, use try_build()
 /datum/stack_recipe/proc/do_build(mob/user, obj/item/stack/material, multiplier, atom/result)
 	if(time)
 		to_chat(user, span_notice("Building [title]..."))
-		// mw_build_delay: сапёр Mountain Wars собирает вдвое быстрее. Вне режима трейта
-		// ни у кого нет и задержка возвращается как есть.
-		if(!do_after(user, mw_build_delay(user, time), target = material.loc))
+		var/calculated_time = time
+		if(modifier_name)
+			CALCULATE_SKILL_MOD(user, modifier_name, mod)
+			calculated_time = calculated_time * mod
+		// mw_build_delay поверх навыка: сапёр Mountain Wars собирает вдвое быстрее.
+		// Вне режима трейта ни у кого нет и задержка возвращается как есть.
+		if(!do_after(user, mw_build_delay(user, calculated_time), target = material.loc))
 			return FALSE
 
 	if(cult_structure && locate(/obj/structure/cult) in get_turf(src)) //Check again after do_after to prevent queuing construction exploit.
