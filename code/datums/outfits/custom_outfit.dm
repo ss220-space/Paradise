@@ -1,6 +1,7 @@
 /datum/custom_outfit
 	var/mob/target_mob
 	var/datum/outfit/drip
+	var/list/augmentations = list()
 
 /datum/custom_outfit/New(mob/target)
 	target_mob = target
@@ -8,29 +9,51 @@
 	drip.name = "New Outfit"
 	if(ishuman(target_mob))
 		var/mob/living/carbon/human/H = target_mob
-		if(H.w_uniform) drip.uniform = H.w_uniform.type
-		if(H.wear_suit) drip.suit = H.wear_suit.type
-		if(H.back) drip.back = H.back.type
-		if(H.belt) drip.belt = H.belt.type
-		if(H.gloves) drip.gloves = H.gloves.type
-		if(H.shoes) drip.shoes = H.shoes.type
-		if(H.head) drip.head = H.head.type
-		if(H.wear_mask) drip.mask = H.wear_mask.type
-		if(H.neck) drip.neck = H.neck.type
-		if(H.l_ear) drip.l_ear = H.l_ear.type
-		if(H.r_ear) drip.r_ear = H.r_ear.type
-		if(H.glasses) drip.glasses = H.glasses.type
-		if(H.wear_id) drip.id = H.wear_id.type
-		if(H.wear_pda) drip.pda = H.wear_pda.type
-		if(H.l_store) drip.l_pocket = H.l_store.type
-		if(H.r_store) drip.r_pocket = H.r_store.type
-		if(H.s_store) drip.suit_store = H.s_store.type
-		if(H.l_hand) drip.l_hand = H.l_hand.type
-		if(H.r_hand) drip.r_hand = H.r_hand.type
+		var/list/outfit_slot_map = list(
+			"uniform" = "w_uniform",
+			"suit" = "wear_suit",
+			"back" = "back",
+			"belt" = "belt",
+			"gloves" = "gloves",
+			"shoes" = "shoes",
+			"head" = "head",
+			"mask" = "wear_mask",
+			"neck" = "neck",
+			"l_ear" = "l_ear",
+			"r_ear" = "r_ear",
+			"glasses" = "glasses",
+			"id" = "wear_id",
+			"pda" = "wear_pda",
+			"l_pocket" = "l_store",
+			"r_pocket" = "r_store",
+			"suit_store" = "s_store",
+			"l_hand" = "l_hand",
+			"r_hand" = "r_hand",
+		)
+		for(var/outfit_var in outfit_slot_map)
+			var/human_var = outfit_slot_map[outfit_var]
+			var/obj/item/I = H.vars[human_var]
+			if(I)
+				drip.vars[outfit_var] = I.type
 
 		if(isstorage(H.back))
 			for(var/obj/item/I in H.back.contents)
 				drip.backpack_contents[I.type] = (drip.backpack_contents[I.type] || 0) + 1
+
+		for(var/obj/item/implant/I in H.contents)
+			drip.implants += I.type
+		for(var/obj/item/organ/internal/cyberimp/I in H.internal_organs)
+			drip.cybernetic_implants += I.type
+
+		for(var/zone in list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT))
+			var/obj/item/organ/external/O = H.get_organ(zone)
+			if(O && O.is_robotic())
+				augmentations[zone] = O.model
+		for(var/obj/item/organ/internal/I in H.internal_organs)
+			if(istype(I, /obj/item/organ/internal/cyberimp))
+				continue
+			if(I.is_robotic())
+				augmentations[I.type] = ""
 
 /datum/custom_outfit/ui_state(mob/user)
 	return ADMIN_STATE(R_EVENT)
@@ -46,6 +69,8 @@
 	var/list/data = list()
 	data["outfit"] = serialize_outfit()
 	data["backpack_items"] = serialize_backpack()
+	data["implants"] = serialize_implants()
+	data["augmentations"] = serialize_augmentations()
 	return data
 
 /datum/custom_outfit/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -63,7 +88,12 @@
 		if("apply")
 			apply_outfit()
 		if("add_implant")
-			world.log << "Добавление импланта"
+			choose_implant()
+		if("remove_implant")
+			var/path = text2path(params["ref"])
+			if(path)
+				drip.implants -= path
+				drip.cybernetic_implants -= path
 		if("add_backpack_item")
 			choose_backpack_item()
 		if("remove_item")
@@ -72,12 +102,23 @@
 				drip.backpack_contents[path]--
 				if(drip.backpack_contents[path] <= 0)
 					drip.backpack_contents -= path
+		if("add_augmentation")
+			choose_augmentation()
+		if("remove_augmentation")
+			var/zone = params["zone"]
+			var/path_zone = text2path(zone)
+			if(path_zone)
+				augmentations -= path_zone
+			else
+				augmentations -= zone
 		if("click")
 			choose_item(params["slot"])
 		if("clear")
 			var/slot = params["slot"]
 			if(drip.vars.Find(slot))
 				drip.vars[slot] = null
+
+	SStgui.try_update_ui(usr, src, ui)
 
 /datum/custom_outfit/proc/entry(data)
 	if(ispath(data, /obj/item))
@@ -97,8 +138,6 @@
 	for(var/key in outfit_slots)
 		var/val = outfit_slots[key]
 		var/slot_key = key
-		if(slot_key == "l_ear")
-			slot_key = "ears"
 		. += list("[slot_key]" = entry(val))
 
 /datum/custom_outfit/proc/serialize_backpack()
@@ -107,6 +146,32 @@
 		var/count = drip.backpack_contents[path]
 		for(var/i in 1 to count)
 			. += list(entry(path))
+
+/datum/custom_outfit/proc/serialize_implants()
+	. = list()
+	for(var/path in drip.implants)
+		. += list(entry(path))
+	for(var/path in drip.cybernetic_implants)
+		. += list(entry(path))
+
+/datum/custom_outfit/proc/serialize_augmentations()
+	. = list()
+	for(var/zone in augmentations)
+		var/model = augmentations[zone]
+		var/datum/robolimb/R = GLOB.all_robolimbs[model]
+		var/company = R ? R.company : "Кибернетическое"
+		var/zone_name
+		if(ispath(zone))
+			var/obj/item/organ/internal/ref = zone
+			zone_name = initial(ref.name)
+		else
+			zone_name = parse_zone(zone)
+		. += list(list(
+			"zone" = zone,
+			"zone_name" = zone_name,
+			"model" = model,
+			"company" = company,
+		))
 
 /datum/custom_outfit/proc/choose_backpack_item()
 	var/obj/item/choice = pick_closest_path(FALSE)
@@ -117,12 +182,55 @@
 	else
 		drip.backpack_contents[choice] = 1
 
+/datum/custom_outfit/proc/choose_implant()
+	var/list/options = typesof(/obj/item/organ/internal/cyberimp)
+	if(!length(options))
+		return
+	var/path = tgui_input_list(usr, "Choose an implant", "Custom Outfit", options)
+	if(isnull(path))
+		return
+	drip.cybernetic_implants += path
+
+/datum/custom_outfit/proc/choose_augmentation()
+	var/list/zones = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
+	var/zone = tgui_input_list(usr, "Выберите часть тела", "Аугментация", zones)
+	if(!zone)
+		return
+	var/list/companies = list()
+	for(var/limb_type in typesof(/datum/robolimb))
+		var/datum/robolimb/R = new limb_type()
+		if((zone in R.parts) && R.has_subtypes)
+			companies[R.company] = R
+	if(!length(companies))
+		return
+	var/company = tgui_input_list(usr, "Выберите фирму-изготовителя", "Аугментация", companies)
+	if(!company)
+		return
+	augmentations[zone] = GLOB.all_robolimbs[company].company
+
 /datum/custom_outfit/proc/apply_outfit()
 	if(!ishuman(target_mob))
 		return
 	var/mob/living/carbon/human/H = target_mob
 	for(var/obj/item/I in H.get_all_slots())
 		qdel(I)
+	for(var/obj/item/organ/internal/cyberimp/I in H.internal_organs.Copy())
+		I.remove(H, ORGAN_MANIPULATION_NOEFFECT)
+		qdel(I)
+	for(var/obj/item/implant/I in H.contents.Copy())
+		I.removed(H)
+		qdel(I)
+	H.dna.species.create_organs(H)
+	for(var/zone in augmentations)
+		var/model = augmentations[zone]
+		if(ispath(zone))
+			var/obj/item/organ/internal/I = locate(zone) in H.internal_organs.Copy()
+			if(I && !I.is_robotic())
+				I.robotize()
+		else
+			var/obj/item/organ/external/O = H.get_organ(zone)
+			if(O && !O.is_robotic())
+				O.robotize(company = model, convert_all = FALSE)
 	H.equipOutfit(drip)
 	H.regenerate_icons()
 	log_and_message_admins("changed the equipment of [key_name_admin(H)] via Custom Outfit.")

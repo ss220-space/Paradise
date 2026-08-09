@@ -4,16 +4,15 @@ import { Window } from '../layouts';
 
 export const CustomOutfit = (props) => {
   const { act, data } = useBackend();
-  // Заглушки: пока данных с бэкенда нет
   const hasBack = !!data.outfit?.back?.path;
   const implants = data.implants || [];
   const backpackItems = data.backpack_items || [];
+  const augmentations = data.augmentations || [];
 
   return (
     <Window title="Custom Outfit" width={900} height={625} theme="admin" fill>
       <Window.Content>
         <Stack>
-          {/* ЛЕВАЯ ЧАСТЬ — сетка слотов */}
           <Stack.Item grow>
             <Section fill title="Слоты" width={30}>
               <Stack vertical>
@@ -76,7 +75,6 @@ export const CustomOutfit = (props) => {
             </Section>
           </Stack.Item>
 
-          {/* СЕРЕДИНА — итоговый результат */}
           <Stack.Item width={30}>
             <Section
               fill
@@ -126,17 +124,38 @@ export const CustomOutfit = (props) => {
             </Section>
           </Stack.Item>
 
-          {/* ПРАВАЯ ЧАСТЬ — импланты и рюкзак */}
           <Stack.Item width={20}>
             <Stack fill vertical>
               <Stack.Item grow>
-                <Section fill title="Импланты">
+                <Section title="Импланты">
                   <ItemGrid
                     items={implants}
                     onAdd={() => act('add_implant')}
                     onRemove={(item) => act('remove_implant', { ref: item.path })}
                     addTooltip="Добавить имплант"
                   />
+                </Section>
+                <Section title="Аугментации">
+                  <Stack vertical>
+                    {augmentations?.map((item) => (
+                      <Button
+                        key={item.zone}
+                        fluid
+                        color="transparent"
+                        icon="robot"
+                        content={`${item.zone_name} — ${item.company}`}
+                        tooltip="Удалить аугментацию"
+                        tooltipPosition="bottom-start"
+                        onClick={() => act('remove_augmentation', { zone: item.zone })}
+                      />
+                    ))}
+                    <Button
+                      fluid
+                      icon="plus"
+                      content="Добавить аугментацию"
+                      onClick={() => act('add_augmentation')}
+                    />
+                  </Stack>
                 </Section>
               </Stack.Item>
               <Stack.Item grow>
@@ -165,14 +184,12 @@ const OutfitSlot = ({ name, icon, iconRot, slot }) => {
   return (
     <Stack.Item grow basis={0}>
       <Stack vertical>
-        {/* Заголовок слота */}
         <Stack.Item>
           <Box textAlign="center" fontSize={0.8} color="label" opacity={0.8}>
             <Icon name={icon} rotation={iconRot} mr={0.5} />
             {name}
           </Box>
         </Stack.Item>
-        {/* Спрайт предмета / заглушка */}
         <Stack.Item>
           <Box
             width="100%"
@@ -200,7 +217,6 @@ const OutfitSlot = ({ name, icon, iconRot, slot }) => {
             )}
           </Box>
         </Stack.Item>
-        {/* Название предмета */}
         <Stack.Item>
           <Box
             textAlign="center"
