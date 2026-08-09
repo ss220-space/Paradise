@@ -5656,6 +5656,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"js-yaml@npm:^4.3.1":
+  version: 4.3.1
+  resolution: "js-yaml@npm:4.3.1"
+  dependencies:
+    argparse: "npm:^2.0.1"
+  bin:
+    js-yaml: bin/js-yaml.js
+  checksum: 10/2ce71b5d632abbd77da80447bf860e8a0264e54bffe94840984887d58b023761495b523727547904517a6107a1ef189854b361e0fc44995ee13a84f222d7bd42
+  languageName: node
+  linkType: hard
+
 "jsbn@npm:1.1.0":
   version: 1.1.0
   resolution: "jsbn@npm:1.1.0"
@@ -8022,7 +8033,7 @@ __metadata:
     highlight.js: "npm:^11.10.0"
     jest: "npm:^29.7.0"
     jotai: "npm:^2.16.0"
-    js-yaml: "npm:^4.1.0"
+    js-yaml: "npm:^4.3.1"
     marked: "npm:^15.0.11"
     marked-base-url: "npm:^1.1.6"
     marked-smartypants: "npm:^1.1.9"
