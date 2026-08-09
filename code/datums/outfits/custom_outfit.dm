@@ -2,8 +2,8 @@
 	var/mob/target_mob
 	var/datum/outfit/drip
 	var/list/augmentations = list()
-	var/list/chem_reagents = list()
 	var/mindshielded = FALSE
+	var/list/chem_reagents = list()
 
 /datum/custom_outfit/New(mob/target)
 	target_mob = target
@@ -211,21 +211,50 @@
 	drip.cybernetic_implants += path
 
 /datum/custom_outfit/proc/choose_augmentation()
-	var/list/zones = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
-	var/zone = tgui_input_list(usr, "Выберите часть тела", "Аугментация", zones)
-	if(!zone)
+	var/type_choice = tgui_input_list(usr, "Выберите тип аугментации", "Аугментация", list("Внешняя часть", "Внутренний орган"))
+	if(!type_choice)
 		return
-	var/list/companies = list()
-	for(var/limb_type in typesof(/datum/robolimb))
-		var/datum/robolimb/R = new limb_type()
-		if((zone in R.parts) && R.has_subtypes)
-			companies[R.company] = R
-	if(!length(companies))
+	if(type_choice == "Внешняя часть")
+		var/list/zones = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
+		var/zone = tgui_input_list(usr, "Выберите часть тела", "Аугментация", zones)
+		if(!zone)
+			return
+		var/list/companies = list()
+		for(var/limb_type in typesof(/datum/robolimb))
+			var/datum/robolimb/R = new limb_type()
+			if((zone in R.parts) && R.has_subtypes)
+				companies[R.company] = R
+		if(!length(companies))
+			return
+		var/company = tgui_input_list(usr, "Выберите фирму-изготовителя", "Аугментация", companies)
+		if(!company)
+			return
+		augmentations[zone] = GLOB.all_robolimbs[company].company
 		return
-	var/company = tgui_input_list(usr, "Выберите фирму-изготовителя", "Аугментация", companies)
-	if(!company)
+
+	var/list/organ_options = list(
+		"Глаза" = /obj/item/organ/internal/eyes/cybernetic,
+		"Уши" = /obj/item/organ/internal/ears/cybernetic,
+		"Сердце" = /obj/item/organ/internal/heart/cybernetic,
+		"Лёгкие" = /obj/item/organ/internal/lungs/cybernetic,
+		"Печень" = /obj/item/organ/internal/liver/cybernetic,
+		"Почки" = /obj/item/organ/internal/kidneys/cybernetic,
+	)
+	var/organ_name = tgui_input_list(usr, "Выберите орган", "Аугментация", organ_options)
+	if(!organ_name)
 		return
-	augmentations[zone] = GLOB.all_robolimbs[company].company
+	var/base_path = organ_options[organ_name]
+	var/list/cyber_options = list()
+	for(var/path in typesof(base_path))
+		if(findtext("[path]", "cybernetic"))
+			var/obj/item/organ/internal/ref = path
+			cyber_options[initial(ref.name)] = path
+	if(!length(cyber_options))
+		return
+	var/cyber_name = tgui_input_list(usr, "Выберите вариант", "Аугментация", cyber_options)
+	if(!cyber_name)
+		return
+	augmentations[cyber_options[cyber_name]] = ""
 
 /datum/custom_outfit/proc/build_dental_pill()
 	var/list/reagent_options = list()
@@ -263,9 +292,12 @@
 	for(var/zone in augmentations)
 		var/model = augmentations[zone]
 		if(ispath(zone))
-			var/obj/item/organ/internal/I = locate(zone) in H.internal_organs.Copy()
-			if(I && !I.is_robotic())
-				I.robotize()
+			if(ispath(zone, /obj/item/organ/internal))
+				new zone(H)
+			else
+				var/obj/item/organ/internal/I = locate(zone) in H.internal_organs.Copy()
+				if(I && !I.is_robotic())
+					I.robotize()
 		else
 			var/obj/item/organ/external/O = H.get_organ(zone)
 			if(O && !O.is_robotic())
