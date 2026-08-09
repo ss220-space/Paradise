@@ -28,7 +28,7 @@ lav25_cannon.ogg
 
 {
 heli_rotor.ogg
-} helicopterraw_30sec by lorenzosu -- https://freesound.org/s/49483/ -- License: см. страницу трека, проверить перед публикацией
+} helicopterRaw_30sec by lorenzosu -- https://freesound.org/s/49483/ -- License: Attribution NonCommercial 4.0 -- https://creativecommons.org/licenses/by-nc/4.0/
 
 {
 distant_fire_1.ogg
