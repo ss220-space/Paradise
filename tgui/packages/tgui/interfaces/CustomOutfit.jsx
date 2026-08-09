@@ -8,6 +8,7 @@ export const CustomOutfit = (props) => {
   const implants = data.implants || [];
   const backpackItems = data.backpack_items || [];
   const augmentations = data.augmentations || [];
+  const hasMindshield = data.mindshield;
 
   return (
     <Window title="Custom Outfit" width={900} height={625} theme="admin" fill>
@@ -119,7 +120,35 @@ export const CustomOutfit = (props) => {
                   justifyContent: 'center',
                 }}
               >
-                Здесь будет персонаж
+                <Stack fill vertical>
+                  <Stack.Item>
+                    <Stack fill>
+                      <Stack.Item grow>
+                        <Button
+                          fluid
+                          icon="shield"
+                          iconColor={hasMindshield ? 'good' : 'gray'}
+                          color={hasMindshield ? 'transparent' : 'transparent'}
+                          content="Mindshield"
+                          tooltip={hasMindshield ? 'Удалить имплант защиты разума' : 'Добавить имплант защиты разума'}
+                          onClick={() => act('toggle_mindshield')}
+                        />
+                      </Stack.Item>
+                      <Stack.Item grow>
+                        <Button
+                          fluid
+                          icon="flask"
+                          content="Chem implant"
+                          tooltip="Скоро"
+                          onClick={() => act('chem_implant')}
+                        />
+                      </Stack.Item>
+                    </Stack>
+                  </Stack.Item>
+                  <Stack.Item grow>
+                    <Box>Здесь будет персонаж</Box>
+                  </Stack.Item>
+                </Stack>
               </Box>
             </Section>
           </Stack.Item>

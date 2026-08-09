@@ -2,6 +2,7 @@
 	var/mob/target_mob
 	var/datum/outfit/drip
 	var/list/augmentations = list()
+	var/mindshielded = FALSE
 
 /datum/custom_outfit/New(mob/target)
 	target_mob = target
@@ -40,7 +41,10 @@
 			for(var/obj/item/I in H.back.contents)
 				drip.backpack_contents[I.type] = (drip.backpack_contents[I.type] || 0) + 1
 
+		mindshielded = ismindshielded(H)
 		for(var/obj/item/implant/I in H.contents)
+			if(istype(I, /obj/item/implant/mindshield))
+				continue
 			drip.implants += I.type
 		for(var/obj/item/organ/internal/cyberimp/I in H.internal_organs)
 			drip.cybernetic_implants += I.type
@@ -71,6 +75,7 @@
 	data["backpack_items"] = serialize_backpack()
 	data["implants"] = serialize_implants()
 	data["augmentations"] = serialize_augmentations()
+	data["mindshield"] = mindshielded
 	return data
 
 /datum/custom_outfit/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -111,6 +116,10 @@
 				augmentations -= path_zone
 			else
 				augmentations -= zone
+		if("toggle_mindshield")
+			mindshielded = !mindshielded
+		if("chem_implant")
+			// ?
 		if("click")
 			choose_item(params["slot"])
 		if("clear")
@@ -232,6 +241,15 @@
 			if(O && !O.is_robotic())
 				O.robotize(company = model, convert_all = FALSE)
 	H.equipOutfit(drip)
+
+	if(mindshielded)
+		if(!ismindshielded(H))
+			var/obj/item/implant/mindshield/L = new /obj/item/implant/mindshield(H)
+			L.implant(H)
+	else
+		for(var/obj/item/implant/mindshield/I in H.contents)
+			if(I.implanted)
+				qdel(I)
 	H.regenerate_icons()
 	log_and_message_admins("changed the equipment of [key_name_admin(H)] via Custom Outfit.")
 
