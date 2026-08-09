@@ -4,6 +4,7 @@
 	var/list/augmentations = list()
 	var/mindshielded = FALSE
 	var/list/chem_reagents = list()
+	var/backpack_changed = FALSE
 
 /datum/custom_outfit/New(mob/target)
 	target_mob = target
@@ -108,12 +109,14 @@
 				drip.cybernetic_implants -= path
 		if("add_backpack_item")
 			choose_backpack_item()
+			backpack_changed = TRUE
 		if("remove_item")
 			var/path = text2path(params["ref"])
 			if(path && drip.backpack_contents[path])
 				drip.backpack_contents[path]--
 				if(drip.backpack_contents[path] <= 0)
 					drip.backpack_contents -= path
+				backpack_changed = TRUE
 		if("add_augmentation")
 			choose_augmentation()
 		if("remove_augmentation")
@@ -280,8 +283,74 @@
 	if(!ishuman(target_mob))
 		return
 	var/mob/living/carbon/human/H = target_mob
-	for(var/obj/item/I in H.get_all_slots())
-		qdel(I)
+
+	var/datum/outfit/final_outfit = new /datum/outfit
+	final_outfit.name = drip.name
+	final_outfit.uniform = drip.uniform
+	final_outfit.suit = drip.suit
+	final_outfit.back = drip.back
+	final_outfit.belt = drip.belt
+	final_outfit.gloves = drip.gloves
+	final_outfit.shoes = drip.shoes
+	final_outfit.head = drip.head
+	final_outfit.mask = drip.mask
+	final_outfit.neck = drip.neck
+	final_outfit.l_ear = drip.l_ear
+	final_outfit.r_ear = drip.r_ear
+	final_outfit.glasses = drip.glasses
+	final_outfit.id = drip.id
+	final_outfit.l_pocket = drip.l_pocket
+	final_outfit.r_pocket = drip.r_pocket
+	final_outfit.suit_store = drip.suit_store
+	final_outfit.l_hand = drip.l_hand
+	final_outfit.r_hand = drip.r_hand
+	final_outfit.toggle_helmet = drip.toggle_helmet
+	final_outfit.pda = drip.pda
+	final_outfit.internals_slot = drip.internals_slot
+	final_outfit.box = drip.box
+	final_outfit.backpack_contents = drip.backpack_contents.Copy()
+	final_outfit.implants = drip.implants.Copy()
+	final_outfit.cybernetic_implants = drip.cybernetic_implants.Copy()
+	final_outfit.accessories = drip.accessories.Copy()
+
+	var/list/outfit_slot_map = list(
+		"uniform" = "w_uniform",
+		"suit" = "wear_suit",
+		"back" = "back",
+		"belt" = "belt",
+		"gloves" = "gloves",
+		"shoes" = "shoes",
+		"head" = "head",
+		"mask" = "wear_mask",
+		"neck" = "neck",
+		"l_ear" = "l_ear",
+		"r_ear" = "r_ear",
+		"glasses" = "glasses",
+		"id" = "wear_id",
+		"pda" = "wear_pda",
+		"l_pocket" = "l_store",
+		"r_pocket" = "r_store",
+		"suit_store" = "s_store",
+		"l_hand" = "l_hand",
+		"r_hand" = "r_hand",
+	)
+
+	for(var/drip_var in outfit_slot_map)
+		var/human_var = outfit_slot_map[drip_var]
+		var/obj/item/current_item = H.vars[human_var]
+		var/drip_type = final_outfit.vars[drip_var]
+
+		if(current_item && drip_type && current_item.type == drip_type)
+			final_outfit.vars[drip_var] = null
+			if(drip_var == "back")
+				final_outfit.box = null
+				if(backpack_changed)
+					QDEL_LIST(H.back.contents)
+				else
+					final_outfit.backpack_contents = list()
+		else if(current_item)
+			qdel(current_item)
+
 	for(var/obj/item/organ/internal/cyberimp/I in H.internal_organs.Copy())
 		I.remove(H, ORGAN_MANIPULATION_NOEFFECT)
 		qdel(I)
@@ -302,7 +371,7 @@
 			var/obj/item/organ/external/O = H.get_organ(zone)
 			if(O && !O.is_robotic())
 				O.robotize(company = model, convert_all = FALSE)
-	H.equipOutfit(drip)
+	H.equipOutfit(final_outfit)
 
 	if(mindshielded)
 		if(!ismindshielded(H))
