@@ -912,6 +912,7 @@ GLOBAL_LIST_EMPTY(mw_vehicles)
 // Башни нет — только 12,7-мм Browning в люке, поэтому вращающийся оверлей не нужен.
 /obj/vehicle/mw/m113
 	name = "M113"
+	interior_key = LAZY_TEMPLATE_KEY_MW_APC_INTERIOR
 	desc = "Старый гусеничный бронетранспортёр. Башни нет, только крупнокалиберный пулемёт в люке командира. Возит восемь человек и держит пулю."
 	icon_state = "apc"
 	hull_radius = 1
@@ -976,6 +977,7 @@ GLOBAL_LIST_EMPTY(mw_vehicles)
 // M113 остаётся автобусом, ЛАВ — огневой поддержкой, которой нельзя стоять.
 /obj/vehicle/mw/lav25
 	name = "LAV-25"
+	interior_key = LAZY_TEMPLATE_KEY_MW_APC_INTERIOR
 	desc = "Колёсный бронетранспортёр разведбата. Башня с 25-мм автоматической пушкой. Быстрее гусеничной техники, но борт держит только пулю."
 	icon = 'icons/mountain_wars/vehicle_lav25.dmi'
 	icon_state = "lav25"
@@ -1169,7 +1171,7 @@ GLOBAL_LIST_EMPTY(mw_vehicles)
 
 /datum/click_intercept/mw_turret/proc/on_mouse_down(mob/source, atom/object, location, control, params)
 	SIGNAL_HANDLER
-	if(!isatom(object) || istype(object, /atom/movable/screen))
+	if(!isatom(object) || is_screen_atom(object))
 		return
 	held_target = object
 	held_params = params
@@ -1179,7 +1181,7 @@ GLOBAL_LIST_EMPTY(mw_vehicles)
 /// Курсор поехал по экрану — очередь идёт следом.
 /datum/click_intercept/mw_turret/proc/on_mouse_drag(mob/source, src_object, atom/over_object, src_location, over_location, src_control, over_control, params)
 	SIGNAL_HANDLER
-	if(!held_target || !isatom(over_object) || istype(over_object, /atom/movable/screen))
+	if(!held_target || !isatom(over_object) || is_screen_atom(over_object))
 		return
 	held_target = over_object
 	held_params = params

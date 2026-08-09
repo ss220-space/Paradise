@@ -15,10 +15,6 @@
 /obj/machinery/computer/shuttle/mw_heli/one,
 /turf/simulated/floor/indestructible/asteroid,
 /area/mountain_wars/marine_base)
-"cb" = (
-/obj/machinery/computer/shuttle/mw_heli/one,
-/turf/simulated/floor/indestructible/mw_heli_deck,
-/area/shuttle/mw_heli/one)
 "cA" = (
 /obj/structure/table/reinforced,
 /obj/item/gun/projectile/revolver/rocketlauncher/mw_law,
@@ -152,9 +148,20 @@
 /turf/simulated/floor/indestructible/wooden_floor,
 /area/mountain_wars/marine_base)
 "BN" = (
-/obj/machinery/computer/shuttle/mw_heli/three,
-/turf/simulated/floor/indestructible/mw_heli_deck,
-/area/shuttle/mw_heli/three)
+/obj/structure/table/reinforced,
+/obj/item/mw_mine,
+/obj/item/mw_mine,
+/obj/item/mw_mine,
+/obj/item/mw_mine,
+/obj/item/mw_mine,
+/obj/item/mw_mine,
+/obj/item/mw_mine,
+/obj/item/mw_mine,
+/obj/item/mw_mine,
+/obj/item/mw_mine,
+/obj/item/mw_mine,
+/turf/simulated/floor/indestructible/asteroid,
+/area/mountain_wars/marine_base)
 "BT" = (
 /obj/vehicle/mw/technical,
 /turf/simulated/floor/indestructible/asteroid,
@@ -215,10 +222,6 @@
 "OK" = (
 /turf/simulated/floor/indestructible/snow,
 /area/mountain_wars/marine_base)
-"OP" = (
-/obj/machinery/computer/shuttle/mw_heli/two,
-/turf/simulated/floor/indestructible/mw_heli_deck,
-/area/shuttle/mw_heli/two)
 "Rb" = (
 /turf/simulated/floor/indestructible/asteroid,
 /area/mountain_wars/marine_base)
@@ -3187,7 +3190,7 @@ rD
 rD
 rD
 rD
-rD
+BN
 hG
 cA
 cA
@@ -3862,7 +3865,7 @@ Wr
 Wr
 Wr
 Wr
-cb
+Wr
 Wr
 Ok
 Ok
@@ -5698,7 +5701,7 @@ ZV
 ZV
 ZV
 ZV
-OP
+ZV
 ZV
 kH
 kH
@@ -7534,7 +7537,7 @@ Jl
 Jl
 Jl
 Jl
-BN
+Jl
 Jl
 qx
 qx

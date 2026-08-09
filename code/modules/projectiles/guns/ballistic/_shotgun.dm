@@ -57,6 +57,11 @@
 
 /obj/item/gun/projectile/shotgun/proc/pump_unload(mob/M)
 	if(chambered)//We have a shell in the chamber
+		// Помповые и продольно-скользящие выбрасывают гильзу здесь, мимо handle_chamber,
+		// поэтому флаг приходится проверять и тут.
+		if(delete_casings)
+			QDEL_NULL(chambered)
+			return
 		chambered.loc = get_turf(src)//Eject casing
 		chambered.SpinAnimation(5, 1)
 		playsound(src, chambered.casing_drop_sound, 60, TRUE)

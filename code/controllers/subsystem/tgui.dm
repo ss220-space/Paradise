@@ -348,11 +348,6 @@ SUBSYSTEM_DEF(tgui)
 	return TRUE
 
 /datum/controller/subsystem/tgui/OnConfigLoad()
-	// Читаем заново, а не правим то, что осталось от PreInit: порядок «конфиг против
-	// PreInit» не гарантирован, и подстановка могла лечь в ещё пустой basehtml, после
-	// чего PreInit затирал её исходным файлом.
-	basehtml = file2text('tgui/public/tgui.html')
-
 	var/storage_iframe = CONFIG_GET(string/storage_cdn_iframe)
 
 	if(storage_iframe && storage_iframe != /datum/config_entry/string/storage_cdn_iframe::default)
@@ -366,18 +361,10 @@ SUBSYSTEM_DEF(tgui)
 		basehtml = replacetext(basehtml, "\[tgui:storagecdn\]", webroot.get_asset_url("iframe.html", item))
 		return
 
-	// Внешнего хранилища нет — раздаём iframe.html своим же кэшем ассетов, тем же
-	// путём, что и бандл. Он лежит в /datum/asset/simple/tgui с keep_local_name, то
-	// есть приезжает клиенту под своим именем и открывается с того же источника, что
-	// и страница окна.
-	//
-	// Пустым это поле оставлять нельзя. При пустом Byond.storageCdn клиент уходит в
-	// запасную ветку common/storage.ts: winset(null, "browser-options", "+byondstorage").
-	// Окно там не указано, значит BYOND пересоздаёт браузерные контролы всего клиента —
-	// чат и все окна TGUI разом. Каждое пересозданное окно выполняет тот же код заново,
-	// а сервер успевает объявить их зомби через TGUI_PING_TIMEOUT. Получается карусель
-	// перезагрузок, в которой окна не открываются, а машина стоит колом.
-	basehtml = replacetext(basehtml, "\[tgui:storagecdn\]", "iframe.html")
+	if(!storage_iframe)
+		return
+
+	basehtml = replacetext(basehtml, "\[tgui:storagecdn\]", storage_iframe)
 
 /**
  * public

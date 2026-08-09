@@ -78,9 +78,13 @@ GLOBAL_LIST_EMPTY(mw_mine_watchers)
 
 /obj/effect/mine/mw/Initialize(mapload)
 	. = ..()
-	marker = image(icon, src, icon_state, layer)
+	// Картинка вешается на клетку, а не на саму мину. Мина прозрачна (alpha = 0), и
+	// привязанная к ней метка не показывалась никому — включая тех, кто мину ставил.
+	// Клетка видна всегда, а мина не ходит, так что привязка к ней ничего не теряет.
+	marker = image(icon, loc, icon_state, layer)
 	// Метка детектора, а не сама мина: в пыли её надо замечать издалека.
 	marker.color = "#ff6a4a"
+	marker.appearance_flags |= RESET_COLOR | RESET_ALPHA
 	GLOB.mw_mines += src
 	for(var/watcher_key in GLOB.mw_mine_watchers)
 		var/client/watcher = get_client_by_ckey(watcher_key)
@@ -134,34 +138,50 @@ GLOBAL_LIST_EMPTY(mw_mine_watchers)
 	visible_message(span_boldwarning("[victim] задевает мину!"))
 	if(isliving(victim))
 		add_attack_logs(victim, src, "Наступил на мину, поставленную [planter_key || "неизвестно кем"]")
+	detonate()
+
+/obj/effect/mine/mw/proc/detonate()
+	if(QDELETED(src))
+		return
 	explosion(loc, heavy_impact_range = range_heavy, light_impact_range = range_light, flash_range = range_flash, cause = "Мина ([planter_key])")
 	qdel(src)
 
 // Чужой взрыв мину детонирует, а не просто стирает: артудар и граната — тоже способ
-// разминировать проход, просто грубый. Повторного захода не будет, triggered держит.
+// разминировать проход, просто грубый.
+//
+// Через таймер, а не сразу. explosion() зовёт ex_act у всего в радиусе, и прямой вызов
+// уложил бы цепное поле стеком вложенных взрывов: каждая мина подрывает соседок, не
+// досчитав собственный радиус. Отложенный вызов раскладывает цепочку в очередь. Флаг
+// стоит до таймера — второй раз ни одна мина сюда не зайдёт.
 /obj/effect/mine/mw/ex_act(severity, target)
-	triggermine(src)
+	if(triggered)
+		return
+	triggered = TRUE
+	addtimer(CALLBACK(src, PROC_REF(detonate)), 1)
 
+// Возврат — битфлаги цепочки атаки, не TRUE/FALSE: BLOCKED_ALL означает «удар разобран
+// здесь, afterattack не нужен». На неснятой мине afterattack ещё и выдал бы её тому, кто
+// её не видит: инструмент отзывается на цель, которой для игрока нет.
 /obj/effect/mine/mw/attackby(obj/item/tool, mob/user, params)
 	// Не видит — нечего и трогать: для него это пустая клетка, и щёлкать по ней
 	// инструментом в поисках мин смысла нет.
 	if(!spotted_by(user))
-		return TRUE
+		return ATTACK_CHAIN_BLOCKED_ALL
 	if(!iswirecutter(tool) && !ismultitool(tool))
 		return ..()
 	var/own = owner_faction && mountain_wars_faction(user) == owner_faction
 	balloon_alert(user, own ? "снимаем..." : "обезвреживаем...")
 	if(!do_after(user, own ? MW_MINE_OWN_DEFUSE_TIME : MW_MINE_DEFUSE_TIME, src))
 		balloon_alert(user, "не дали закончить")
-		return TRUE
+		return ATTACK_CHAIN_BLOCKED_ALL
 	if(QDELETED(src))
-		return TRUE
+		return ATTACK_CHAIN_BLOCKED_ALL
 	// Мина уходит в руки целой: её можно унести и переставить уже под бывшего хозяина.
 	var/obj/item/mw_mine/spoils = new(get_turf(user))
 	user.put_in_hands(spoils)
 	visible_message(span_notice("[user] обезвреживает [name]."))
 	qdel(src)
-	return TRUE
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 // MARK: Кто видит поле
 /// Включить или выключить игроку метки мин.

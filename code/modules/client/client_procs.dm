@@ -365,14 +365,6 @@
 		inline_css = file2text('html/statbrowser.css'),
 	)
 	addtimer(CALLBACK(src, PROC_REF(check_panel_loaded)), 30 SECONDS)
-	// Первое окно TGUI поднимается около двадцати секунд: контрол браузера впервые
-	// тянет и разбирает бандл на два с лишним мегабайта. Все следующие — за десятые
-	// доли, ресурс уже в кэше клиента. Поэтому платим эту цену заранее и вхолостую,
-	// пока игрок сидит в лобби, а не в тот момент, когда он кликнул по пульту.
-	//
-	// Окно остаётся невидимым: страница показывает себя только получив backend/update,
-	// а мы ничего не шлём. Ровно так же живут окна, отложенные в пул после закрытия.
-	addtimer(CALLBACK(src, PROC_REF(prewarm_tgui)), 10 SECONDS)
 
 	// Initialize tgui say
 	tgui_say.initialize()
@@ -1622,19 +1614,6 @@
 		panel_tabs |= verb_to_init.category
 		verblist[++verblist.len] = list(verb_to_init.category, verb_to_init.name)
 	src.stat_panel.send_message("init_verbs", list(panel_tabs = panel_tabs, verblist = verblist))
-
-/// Прогревает одно окно из пула, чтобы первый же настоящий интерфейс открылся сразу.
-/client/proc/prewarm_tgui()
-	if(!mob)
-		return
-	var/datum/tgui_window/window = SStgui.request_pooled_window(mob)
-	if(!window || window.status == TGUI_WINDOW_READY)
-		return
-	window.initialize(
-		strict_mode = TRUE,
-		assets = list(
-			get_asset_datum(/datum/asset/simple/tgui),
-		))
 
 /client/proc/check_panel_loaded()
 	if(stat_panel.is_ready())

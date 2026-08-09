@@ -13,6 +13,12 @@
 	var/can_air_shoot = FALSE
 	/// Magazine reload duration
 	var/reload_duration = 1.2 SECONDS
+	/// Стреляная гильза удаляется вместо падения на пол. Для оружия, из которого стреляют
+	/// много и одновременно: каждая гильза иначе остаётся живым объектом с крутящейся
+	/// анимацией и звуком падения, а очередь на сотню стволов их сыплет тысячами.
+	var/delete_casings = FALSE
+	/// Оружие не даёт осечек, каким бы ни был навык стрелка.
+	var/never_misfires = FALSE
 
 /obj/item/gun/projectile/Initialize(mapload)
 	. = ..()
@@ -81,7 +87,13 @@
 	if(!istype(hold_casing))
 		chamber_round()
 		return
-	if(eject_casing && !QDELETED(hold_casing))
+	if(eject_casing && !QDELETED(hold_casing) && delete_casings)
+		// Патронник зануляем сами: следом идёт chamber_round(), а он грузит новый
+		// патрон только в пустой ствол.
+		if(chambered == hold_casing)
+			chambered = null
+		qdel(hold_casing)
+	else if(eject_casing && !QDELETED(hold_casing))
 		hold_casing.forceMove(drop_location())	//Eject casing onto ground.
 		hold_casing.pixel_x = rand(-10, 10)
 		hold_casing.pixel_y = rand(-10, 10)
@@ -115,7 +127,9 @@
 /obj/item/gun/projectile/proc/reload(obj/item/ammo_box/magazine/new_magazine, mob/user)
 	playsound(loc, magin_sound, 50, TRUE)
 	CALCULATE_SKILL_MOD(user, MAGAZINE_RELOAD_MOD, skill_modifier)
-	if(!do_after(user, reload_duration * skill_modifier, src, DA_IGNORE_USER_LOC_CHANGE, max_interact_count = 1))
+	// Нулевая длительность — значит перезарядка мгновенная, и прогрессбар на ноль
+	// секунд заводить незачем.
+	if(reload_duration > 0 && !do_after(user, reload_duration * skill_modifier, src, DA_IGNORE_USER_LOC_CHANGE, max_interact_count = 1))
 		return FALSE
 
 	if(user && !user.drop_transfer_item_to_loc(new_magazine, src, silent = TRUE))
@@ -165,7 +179,7 @@
 
 	add_fingerprint(user)
 	CALCULATE_SKILL_MOD(user, MAGAZINE_RELOAD_MOD, skill_modifier)
-	if(!do_after(user, reload_duration * skill_modifier, src, DA_IGNORE_USER_LOC_CHANGE, max_interact_count = 1))
+	if(reload_duration > 0 && !do_after(user, reload_duration * skill_modifier, src, DA_IGNORE_USER_LOC_CHANGE, max_interact_count = 1))
 		return FALSE
 
 	var/num_loaded = magazine.reload(item, user)
@@ -272,6 +286,8 @@
 			. = TRUE
 
 /obj/item/gun/projectile/on_pre_process_fire(mob/living/user, atom/target)
+	if(never_misfires)
+		return
 	CALCULATE_SKILL_MOD(user, MISFIRE_CHANCE, missfire_chance)
 	if(missfire_chance <= 0  || !chambered || !chambered.BB)
 		return

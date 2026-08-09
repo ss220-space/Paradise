@@ -37,29 +37,8 @@ const testHubStorage = testGeneric(
 );
 
 const STORAGE_CDN_TIMEOUT = 5000;
-// Сколько ждём, пока BYOND поднимет byondstorage после смены browser-options.
-// Ждать без предела нельзя: событие может не прийти вовсе, а backendPromise тогда не
-// разрешается никогда, и всё, что дёргает storage, висит вместе с ним.
-const BYOND_STORAGE_TIMEOUT = 2000;
 const persistedStorageKeys = ['panel-settings', 'chat-state', 'chat-messages'];
 const legacyHubMigrationKeys = ['panel-settings'];
-
-/**
- * Ждёт события о готовности byondstorage, но не дольше BYOND_STORAGE_TIMEOUT.
- */
-const waitForByondStorage = (): Promise<void> =>
-  new Promise((resolve) => {
-    const done = () => {
-      clearTimeout(timeout);
-      document.removeEventListener('byondstorageupdated', listener);
-      // Событие приходит *до* того, как byondstorage создан, поэтому ждём тик.
-      setTimeout(resolve, 1);
-    };
-    const listener = () => done();
-    const timeout = setTimeout(done, BYOND_STORAGE_TIMEOUT);
-
-    document.addEventListener('byondstorageupdated', listener, { once: true });
-  });
 
 class HubStorageBackend implements StorageBackend {
   public impl: StorageImplementation;
@@ -103,38 +82,6 @@ class HubStorageBackend implements StorageBackend {
       return undefined;
     }
   }
-  async iframe_check(): Promise<boolean> {
-    return false;
-  }
-}
-
-/**
- * Заглушка на случай, когда не поднялось ни хранилище в iframe, ни byondstorage.
- * Настройки в таком раунде не переживут перезапуск — но окна открываются, а это важнее.
- */
-class NullStorageBackend implements StorageBackend {
-  public impl: StorageImplementation;
-
-  constructor() {
-    this.impl = IMPL_HUB_STORAGE;
-  }
-
-  async get(): Promise<any> {
-    return undefined;
-  }
-
-  async set(): Promise<void> {}
-
-  async remove(): Promise<void> {}
-
-  async clear(): Promise<void> {}
-
-  async processChatMessages(): Promise<void> {}
-
-  async getChatMessages(): Promise<any> {
-    return undefined;
-  }
-
   async iframe_check(): Promise<boolean> {
     return false;
   }
@@ -291,7 +238,18 @@ class StorageProxy implements StorageBackend {
             const hubStorageWasEnabled = testHubStorage();
             if (!hubStorageWasEnabled) {
               Byond.winset(null, 'browser-options', '+byondstorage');
-              await waitForByondStorage();
+
+              await new Promise<void>((resolve) => {
+                document.addEventListener(
+                  'byondstorageupdated',
+                  () => {
+                    // This event is emitted *before* byondstorage is actually
+                    // created, so we have to wait a little bit before using it.
+                    setTimeout(resolve, 1);
+                  },
+                  { once: true }
+                );
+              });
             }
 
             const hub = new HubStorageBackend();
@@ -332,15 +290,18 @@ class StorageProxy implements StorageBackend {
 
       // IFrame hasn't worked out for us, we'll need to enable byondstorage
       Byond.winset(null, 'browser-options', '+byondstorage');
-      await waitForByondStorage();
 
-      // Раньше здесь ждали события без таймаута и без проверки результата. Если
-      // byondstorage так и не появлялся, промис не разрешался никогда и любой вызов
-      // storage вис вместе с ним. Теперь ждём ограниченно и в худшем случае отдаём
-      // заглушку — окно откроется без сохранённых настроек, а не не откроется вовсе.
-      return testHubStorage()
-        ? new HubStorageBackend()
-        : new NullStorageBackend();
+      return new Promise((resolve) => {
+        const listener = () => {
+          document.removeEventListener('byondstorageupdated', listener);
+
+          // This event is emitted *before* byondstorage is actually created
+          // so we have to wait a little bit before we can use it
+          setTimeout(() => resolve(new HubStorageBackend()), 1);
+        };
+
+        document.addEventListener('byondstorageupdated', listener);
+      });
     })();
   }
 

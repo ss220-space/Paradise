@@ -95,8 +95,6 @@
 	if(scrolling)
 		return
 	scrolling = TRUE
-	// ponytail: строка на время отладки. Снять, когда лента поедет.
-	log_debug("mw_flight: пущена прокрутка ленты на [MW_FLIGHT_CYCLE] за [MW_FLIGHT_TIME]")
 	animate(src, transform = matrix(1, 0, 0, 0, 1, -MW_FLIGHT_CYCLE), time = MW_FLIGHT_TIME, loop = -1)
 
 // Крутящаяся земля: борт сбит, машину несёт, пейзаж уходит из-под винта каруселью.

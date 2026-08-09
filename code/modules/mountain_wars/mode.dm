@@ -20,6 +20,12 @@
 	name = "mountain_wars"
 	config_tag = "mountain_wars"
 	required_players = 2
+	// Режим запускается только загрузкой своей карты, которая его и выставляет через
+	// forced_mode. probability наследуется нулевым, так что в секрет он не выпадет, но
+	// votable у /datum/game_mode по умолчанию TRUE — без этой строки режим попадает в
+	// список голосования обычного раунда. Строка в config/game_modes.txt этого не
+	// закрывает: LoadModes() набирает votable_modes до чтения вероятностей.
+	votable = FALSE
 	var/list/players
 	var/list/teams = list()
 	/// Билеты морпехов: каждая смерть морпеха снимает один.

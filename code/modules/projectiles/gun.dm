@@ -141,6 +141,8 @@
 	/// Point blank shot cooldown
 	var/pb_cooldown_duration = 3 SECONDS
 	COOLDOWN_DECLARE(pb_cooldown)
+	/// Mountain Wars: откат дальнего эха выстрела — см. mountain_wars/ambience.dm.
+	COOLDOWN_DECLARE(mw_distant_cooldown)
 	/// Shots counter
 	var/shots_counter = 0
 	///Crosshair icon of the gun

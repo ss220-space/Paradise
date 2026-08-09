@@ -27,11 +27,6 @@
 
 	var/list/oversized_payloads = list()
 
-	/// Когда окну отдали browse(). По этой метке считаем, сколько страница поднималась.
-	var/browsed_at
-	/// Когда в последний раз пересобирали окно по cacheReloaded. Держит выдержку.
-	var/last_cache_reload = 0
-
 /**
  * public
  *
@@ -119,21 +114,7 @@
 	if(inline_css)
 		inline_css = "<style>\n[isfile(inline_css) ? file2text(inline_css) : inline_css]\n</style>"
 		html = replacetextEx(html, "<!-- tgui:inline-css -->", inline_css)
-	// Дожидаемся, пока ассеты реально доедут, и только потом открываем страницу.
-	//
-	// asset.send() выше не отправляет, а ставит в очередь browse_rsc. Без этой строки
-	// страница открывалась сразу и тут же просила tgui.bundle.js, которого у клиента
-	// ещё нет. Загрузчик в tgui.html получал 404 и уходил в лестницу повторов по
-	// 500, 1000, 1500, 2000 и 2500 мс — пять попыток, потом сдаётся с ошибкой.
-	//
-	// Мелкие бандлы успевали доехать между повторами: tgui_say на 187 КБ — 0 секунд,
-	// чат на 639 КБ — 1.45. А основной на 2.68 МБ не укладывался в лестницу целиком,
-	// и окно поднималось 18.45 секунды. Отсюда и нелинейность: не передача медленная,
-	// а повторы вхолостую.
-	if(length(assets))
-		client.browse_queue_flush()
 	// Open the window
-	browsed_at = world.time
 	client << browse(html, "window=[id];[options]")
 	// Detect whether the control is a browser
 	is_browser = winexists(client, id) == "BROWSER"
@@ -367,12 +348,6 @@
 		fatally_errored = TRUE
 	// Mark window as ready since we received this message from somewhere
 	if(status != TGUI_WINDOW_READY)
-		// Первое слово от страницы. Разница с browsed_at и есть время подъёма окна:
-		// скачать и разобрать бандл. Пишем всем окнам, включая чат и tgui_say, —
-		// они открываются сами при входе, значит цифра есть без единого клика.
-		if(browsed_at)
-			log_tgui(client, "[id]/booted in [(world.time - browsed_at) / 10]s (first message: [type])")
-			browsed_at = null
 		status = TGUI_WINDOW_READY
 		flush_message_queue()
 	// Pass message to UI that requested the lock
@@ -401,19 +376,11 @@
 		if("openLink")
 			client << link(href_list["url"])
 		if("cacheReloaded")
-			// Страница сообщает, что кэш ресурсов клиента перезагрузился, и просит
-			// собрать себя заново. Беда в том, что пересборка сама шлёт ассеты, а
-			// отправка ассетов снова перетряхивает кэш — и страница снова шлёт
-			// cacheReloaded. В логе такой круг накрутил под две сотни перезагрузок
-			// statbrowser за минуту, и всё это время клиент только и делал, что
-			// переоткрывал страницы.
-			//
-			// Разрываем круг выдержкой: один ответ на пачку сообщений.
-			if(world.time < last_cache_reload + TGUI_CACHE_RELOAD_COOLDOWN)
-				return
-			last_cache_reload = world.time
-			// Ассеты пересылает сама reinitialize, второй раз не надо.
+			// Reinitialize
 			reinitialize()
+			// Resend the assets
+			for(var/asset in sent_assets)
+				send_asset(asset)
 		if("chat/resend")
 			SSchat.handle_resend(client, payload)
 		if("oversizedPayloadRequest")

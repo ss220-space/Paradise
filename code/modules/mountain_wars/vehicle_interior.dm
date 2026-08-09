@@ -10,8 +10,6 @@
 // VEHICLE_CONTROL_DRIVE и вид с корпуса, встал — потерял. Движение уходит в
 // машину само, через штатную ветку buckled.relaymove() в mob_movement.dm.
 
-#define LAZY_TEMPLATE_KEY_MW_APC_INTERIOR "LT_MW_APC_INTERIOR"
-
 /datum/lazy_template/mw_apc_interior
 	key = LAZY_TEMPLATE_KEY_MW_APC_INTERIOR
 	map_name = "mw_apc_interior"
@@ -208,10 +206,4 @@
 
 // Отсек есть у обеих бронемашин: техничка — открытый пикап, десант сидит в кузове
 // на виду. Планировка одна на двоих, у ЛАВ она просто заполнена не до конца.
-/obj/vehicle/mw/m113
-	interior_key = LAZY_TEMPLATE_KEY_MW_APC_INTERIOR
-
-/obj/vehicle/mw/lav25
-	interior_key = LAZY_TEMPLATE_KEY_MW_APC_INTERIOR
-
-#undef LAZY_TEMPLATE_KEY_MW_APC_INTERIOR
+// Сам interior_key выставлен там же, где объявлены машины, — см. vehicles.dm.

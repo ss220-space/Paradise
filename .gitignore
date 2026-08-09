@@ -118,3 +118,6 @@ dmdoc/
 # Ignore custom music and title screens (amend as appropriate)
 /config/jukebox_music/sounds/*
 !/config/jukebox_music/sounds/exclude
+
+# Sprite sources (Aseprite, references, packing scripts) — not part of the build.
+/_lav_src/

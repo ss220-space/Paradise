@@ -43,9 +43,6 @@ GLOBAL_LIST_INIT(mw_distant_turret, list(
 	'sound/mountain_wars/distant_turret_3.ogg',
 ))
 
-/obj/item/gun
-	COOLDOWN_DECLARE(mw_distant_cooldown)
-
 /**
  * Эхо ручного оружия. Зовётся из /obj/item/gun/shoot_live_shot() — единственная
  * правка вне модуля. В обычном раунде выходит первой строкой.

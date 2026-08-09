@@ -178,3 +178,5 @@ GLOBAL_DATUM_INIT(mw_chart_state, /datum/ui_state/mw_chart, new)
 	if(!mw_chart)
 		mw_chart = new(src)
 	mw_chart.ui_interact(user)
+
+#undef MW_CHART_ZONES

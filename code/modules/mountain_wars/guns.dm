@@ -56,7 +56,20 @@
 // MARK: M16A4 (Морпехи) — 5,56x45, точная, отсечка по три
 // Автоматического огня у неё нет: на M16A4 стоит именно отсечка, и морпеху она
 // подходит больше, чем шквал — плотность огня в отряде даёт пулемётчик.
+// Два флага стоят на всём оружии режима, оба объявлены на /obj/item/gun/projectile и по
+// умолчанию выключены — станционные стволы ведут себя как вели.
+//
+// delete_casings: гильза удаляется, а не падает на пол. Каждая упавшая — живой объект с
+// крутящейся анимацией и звуком падения; при сотне стволов на поле очередь засыпает
+// сервер тысячами таких объектов, и разгребать их некому — карта боевая, уборщиков нет.
+//
+// never_misfires: осечек в режиме нет и не было. Новая система навыков даёт процент
+// осечки даже на базовом уровне, а бой здесь строится на плотности огня, и потерянный
+// выстрел из пулемёта в упор — не характер оружия, а отобранная у игрока очередь.
 /obj/item/gun/projectile/automatic/arg/mw_m16a4
+	never_misfires = TRUE
+	reload_duration = 0
+	delete_casings = TRUE
 	name = "M16A4"
 	desc = "Штурмовая винтовка Корпуса морской пехоты. Точная, с мягкой отдачей. Одиночными или отсечкой по три."
 	icon = 'icons/mountain_wars/guns_rifles.dmi'
@@ -127,6 +140,8 @@
 	ammo_type = /obj/item/ammo_casing/a40mm/mw_he
 
 /obj/item/gun/projectile/revolver/grenadelauncher/mw_m203
+	never_misfires = TRUE
+	reload_duration = 0
 	name = "M203"
 	mag_type = /obj/item/ammo_box/magazine/internal/grenadelauncher/mw
 
@@ -290,6 +305,9 @@
 
 // MARK: АКМ (Повстанцы) — 7,62x39, большой урон, высокая отдача
 /obj/item/gun/projectile/automatic/ak814/mw_akm
+	never_misfires = TRUE
+	reload_duration = 0
+	delete_casings = TRUE
 	name = "АКМ"
 	desc = "Старый добрый автомат Калашникова. Бьёт больно, но брыкается."
 	mag_type = /obj/item/ammo_box/magazine/mw_akm
@@ -327,6 +345,9 @@
 // отдача низкая и диск не кончается. Дальше десятка клеток из него можно только
 // шуметь — этим занимается кучность пистолетного датума, она у ППШ уже стоит.
 /obj/item/gun/projectile/automatic/smg/ppsh/mw_ppsh
+	never_misfires = TRUE
+	reload_duration = 0
+	delete_casings = TRUE
 	name = "ППШ"
 	desc = "Пистолет-пулемёт Шпагина. Диск на 71 патрон и никакой меткости — оружие ближнего боя и тесноты."
 	damage_mod = 2 // 9 -> 18
@@ -349,6 +370,9 @@
 #define MW_BIPOD_FIRERATE 0.7
 
 /obj/item/gun/projectile/automatic/l6_saw/mw_m249
+	never_misfires = TRUE
+	reload_duration = 0
+	delete_casings = TRUE
 	name = "M249 SAW"
 	desc = "Ручной пулемёт огневой поддержки. Тяжёлый — с ним не побегаешь. Складные сошки: разложить и не двигаться, тогда бьёт кучно и часто."
 	mag_type = /obj/item/ammo_box/magazine/l6saw/mw_m249
@@ -471,6 +495,9 @@
 #define MW_MOSIN_ALERT "mw_mosin_steady"
 
 /obj/item/gun/projectile/shotgun/boltaction/mw_mosin
+	never_misfires = TRUE
+	reload_duration = 0
+	delete_casings = TRUE
 	name = "винтовка Мосина"
 	desc = "Трёхлинейка с прицелом ПУ. Одно попадание — и конечность можно списывать."
 	damage_mod = 1.5 // 50 -> 75
@@ -658,6 +685,8 @@
 // Инхенды родные: "спрайты в руках" у TGMC для тяжёлого оружия — это
 // маркеры дула, а не held-спрайты, они рендерятся другой системой.
 /obj/item/gun/projectile/revolver/rocketlauncher/mw_rpg7
+	never_misfires = TRUE
+	reload_duration = 0
 	name = "РПГ-7"
 	desc = "Многоразовый ручной противотанковый гранатомёт. Заряжается ракетами HE (пехота) и HEDP (техника)."
 	icon = 'icons/mountain_wars/guns_special.dmi'
@@ -684,6 +713,8 @@
 // В спрайтшите TGMC под это лежат все четыре состояния: t72, t72_e и то же
 // с _extended.
 /obj/item/gun/projectile/revolver/rocketlauncher/mw_law
+	never_misfires = TRUE
+	reload_duration = 0
 	name = "M72 LAW"
 	desc = "Одноразовый противотанковый гранатомёт. Сложенный тубус влезает в рюкзак, но перед выстрелом его надо разложить — и обратно он уже не сложится."
 	icon = 'icons/mountain_wars/guns_special.dmi'

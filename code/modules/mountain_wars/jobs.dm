@@ -29,6 +29,13 @@
 	hidden_from_job_prefs = TRUE
 	admin_only = TRUE
 
+// Полный стак мешков одним предметом. Через backpack_contents так не выдать: там счётчик
+// означает число предметов, а не размер стака, и «50» обернулось бы полусотней объектов
+// на каждого бойца при заходе. Стак сливается с обычными мешками — can_merge сверяет
+// merge_type через istype, а он у подтипа родительский.
+/obj/item/stack/sheet/mineral/sandbags/mw_full
+	amount = 50
+
 // MARK: Навыки
 // Общесерверная система навыков режиму не нужна: разница между бойцами здесь задаётся
 // ролью в отряде, а не очками, вложенными в персонажа до раунда.
@@ -101,7 +108,7 @@
 	r_hand = /obj/item/gun/projectile/automatic/arg/mw_m16a4
 	backpack_contents = list(
 		/obj/item/ammo_box/magazine/m556/mw_m16a4 = 4,
-		/obj/item/stack/sheet/mineral/sandbags = 1,
+		/obj/item/stack/sheet/mineral/sandbags/mw_full = 1,
 		/obj/item/storage/firstaid/mw_marine = 1,
 	)
 
@@ -126,7 +133,7 @@
 	backpack_contents = list(
 		/obj/item/ammo_casing/a40mm/mw_he = 4,
 		/obj/item/ammo_box/magazine/m556/mw_m16a4 = 3,
-		/obj/item/stack/sheet/mineral/sandbags = 1,
+		/obj/item/stack/sheet/mineral/sandbags/mw_full = 1,
 		/obj/item/storage/firstaid/mw_marine = 1,
 		/obj/item/radio/off = 1,
 		/obj/item/mw_fob_kit/marine = 1,
@@ -138,11 +145,17 @@
 	suit = /obj/item/clothing/suit/armor/vest/mw_marine/medic
 	head = /obj/item/clothing/head/helmet/mw_marine/medic
 	glasses = /obj/item/clothing/glasses/hud/health
-	belt = /obj/item/storage/belt/medical
+	// Хирургический пояс вместо медицинского: инструмент лежит прямо на поясе, а не в
+	// рюкзаке, и оперировать можно не разгружаясь. Заодно уходит пустой пояс — базовый
+	// /medical, как и /utility у сапёров, едет без содержимого.
+	belt = /obj/item/storage/belt/medical/surgery/loaded
 	backpack_contents = list(
 		/obj/item/ammo_box/magazine/m556/mw_m16a4 = 3,
 		/obj/item/storage/firstaid/mw_marine = 3,
 		/obj/item/defibrillator/compact/loaded = 1,
+		// Каталка едет в стойке, а не россыпью: сама сложенная каталка объёмная и в
+		// рюкзак не лезет, а стойка с ней внутри — обычный предмет.
+		/obj/item/roller_holder = 1,
 	)
 
 /datum/outfit/job/mountain_wars/marine/engineer
@@ -158,7 +171,7 @@
 	belt = /obj/item/storage/belt/utility/full/multitool
 	backpack_contents = list(
 		/obj/item/ammo_box/magazine/m556/mw_m16a4 = 3,
-		/obj/item/stack/sheet/mineral/sandbags = 10,
+		/obj/item/stack/sheet/mineral/sandbags/mw_full = 1,
 		/obj/item/storage/firstaid/mw_marine = 1,
 		/obj/item/weldingtool/largetank = 1,
 		/obj/item/storage/toolbox/emergency = 1,
@@ -189,7 +202,7 @@
 	r_hand = /obj/item/gun/projectile/automatic/ak814/mw_akm
 	backpack_contents = list(
 		/obj/item/ammo_box/magazine/mw_akm = 4,
-		/obj/item/stack/sheet/mineral/sandbags = 1,
+		/obj/item/stack/sheet/mineral/sandbags/mw_full = 1,
 		/obj/item/storage/firstaid/mw_insurgent = 1,
 	)
 
@@ -200,7 +213,7 @@
 	head = /obj/item/clothing/head/helmet/mw_insurgent/leader
 	backpack_contents = list(
 		/obj/item/ammo_box/magazine/mw_akm = 3,
-		/obj/item/stack/sheet/mineral/sandbags = 1,
+		/obj/item/stack/sheet/mineral/sandbags/mw_full = 1,
 		/obj/item/storage/firstaid/mw_insurgent = 1,
 		/obj/item/radio/off = 1,
 		/obj/item/mw_fob_kit/insurgent = 1,
@@ -213,7 +226,7 @@
 	r_hand = /obj/item/gun/projectile/shotgun/boltaction/mw_mosin
 	backpack_contents = list(
 		/obj/item/ammo_box/a762x54 = 3,
-		/obj/item/stack/sheet/mineral/sandbags = 1,
+		/obj/item/stack/sheet/mineral/sandbags/mw_full = 1,
 		/obj/item/storage/firstaid/mw_insurgent = 1,
 	)
 
@@ -223,11 +236,15 @@
 	name = "Повстанец (Санитар)"
 	field_medic = TRUE
 	suit = /obj/item/clothing/suit/armor/mw_insurgent/medic
-	belt = /obj/item/storage/belt/medical
+	// Инструмент и каталка те же, что у морпеха: расходники у сторон разные — жгут
+	// Эсмарха против C-A-T, тряпьё против гемостатика, — а режут и зашивают одним и
+	// тем же. Пояс заодно перестаёт быть пустым, базовый /medical едет без содержимого.
+	belt = /obj/item/storage/belt/medical/surgery/loaded
 	r_hand = /obj/item/gun/projectile/automatic/smg/ppsh/mw_ppsh
 	backpack_contents = list(
 		/obj/item/ammo_box/magazine/ppsh = 2,
 		/obj/item/storage/firstaid/mw_insurgent = 3,
+		/obj/item/roller_holder = 1,
 	)
 
 /datum/outfit/job/mountain_wars/insurgent/engineer
@@ -238,7 +255,7 @@
 	r_hand = /obj/item/gun/projectile/automatic/smg/ppsh/mw_ppsh
 	backpack_contents = list(
 		/obj/item/ammo_box/magazine/ppsh = 2,
-		/obj/item/stack/sheet/mineral/sandbags = 10,
+		/obj/item/stack/sheet/mineral/sandbags/mw_full = 1,
 		/obj/item/storage/firstaid/mw_insurgent = 1,
 		/obj/item/weldingtool/largetank = 1,
 		/obj/item/storage/toolbox/emergency = 1,
