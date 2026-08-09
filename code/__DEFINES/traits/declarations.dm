@@ -84,6 +84,10 @@
 #define TRAIT_QUICKER_CARRY "quicker-carry"
 /// Make some build actions quicker
 #define TRAIT_QUICK_BUILD "quick-build"
+/// Полевой медик Mountain Wars: перевязывает и накладывает жгуты вдвое быстрее.
+#define TRAIT_MW_MEDIC "mw_medic"
+/// Сапёр Mountain Wars: собирает постройки из стопок вдвое быстрее.
+#define TRAIT_MW_ENGINEER "mw_engineer"
 /// Prevents mob from riding mobs when buckled onto something
 #define TRAIT_CANT_RIDE "cant_ride"
 #define TRAIT_CHUNKYFINGERS "chunkyfingers"	//means that you can't use weapons with normal trigger guards.
@@ -175,6 +179,8 @@
 #define TRAIT_UNDENSE "undense"
 /// Holocigar trait to make a mob BADASS
 #define TRAIT_BADASS "trait_badass"
+/// Mountain Wars: под приказом «Сосредоточить огонь» — стреляет кучнее.
+#define TRAIT_MW_FOCUSED "trait_mw_focused"
 /// Mantis blades trait for lunging
 #define TRAIT_CANT_LUNGE "cant_lunge"
 /// Trait for Mindshield HUD in sec HUDs

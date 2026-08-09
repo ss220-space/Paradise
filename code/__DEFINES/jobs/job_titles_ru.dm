@@ -123,6 +123,10 @@ GLOBAL_LIST_EMPTY(job_titles_ru_to_en)
 #define JOB_TITLE_RU_TEAM2 "Команда 2"
 #define JOB_TITLE_RU_TEAM3 "Команда 3"
 
+// Mountain Wars event
+#define JOB_TITLE_RU_MW_MARINE "Морпех США"
+#define JOB_TITLE_RU_MW_INSURGENT "Повстанец"
+
 // Taipan
 #define JOB_TITLE_RU_TAIPAN_SCIENTIST "Учёный \"Синдиката\""
 #define JOB_TITLE_RU_TAIPAN_MEDIC "Медик \"Синдиката\""
@@ -238,6 +242,10 @@ GLOBAL_LIST_INIT(job_titles_ru, list(
 	JOB_TITLE_TEAM1 = JOB_TITLE_RU_TEAM1,
 	JOB_TITLE_TEAM2 = JOB_TITLE_RU_TEAM2,
 	JOB_TITLE_TEAM3 = JOB_TITLE_RU_TEAM3,
+
+// Mountain Wars event
+	JOB_TITLE_MW_MARINE = JOB_TITLE_RU_MW_MARINE,
+	JOB_TITLE_MW_INSURGENT = JOB_TITLE_RU_MW_INSURGENT,
 
 // Taipan
 	JOB_TITLE_TAIPAN_SCIENTIST = JOB_TITLE_RU_TAIPAN_SCIENTIST,

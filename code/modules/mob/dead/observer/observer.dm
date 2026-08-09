@@ -100,7 +100,12 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	appearance_flags |= KEEP_TOGETHER
 	GLOB.ghost_images |= ghostimage
 	updateallghostimages()
-	if(!location)
+	// Запасная точка — только если она вообще есть. На карте может не быть лендмарков
+	// позднего захода, и тогда pick() по пустому списку роняет Initialize на середине:
+	// ..() ниже не вызывается, моб остаётся недоинициализированным и, в частности,
+	// никуда не ходит. Пусть уж гост появится в nullspace — вызывающий код ставит его
+	// на место сам (см. observe в new_player.dm).
+	if(!location && length(GLOB.latejoin))
 		location = pick(GLOB.latejoin)			//Safety in case we cannot find the body's position
 
 	if(!name)							//To prevent nameless ghosts

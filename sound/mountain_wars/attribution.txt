@@ -1,0 +1,49 @@
+Звук режима Mountain Wars.
+
+Правки везде одни и те же: обрезка, сведение петли с заворотом, приведение
+громкости. Исходники не переписывались.
+
+{
+tank_eng_idle_1.ogg
+tank_eng_idle_2.ogg
+tank_eng_idle_3.ogg
+tank_eng_idle_4.ogg
+tank_eng_start.ogg
+tank_eng_stop.ogg
+tank_eng_interior_idle_1.ogg
+tank_eng_interior_idle_2.ogg
+tank_eng_interior_loop_1.ogg
+tank_eng_interior_loop_2.ogg
+tank_eng_interior_loop_3.ogg
+tank_eng_interior_start.ogg
+tank_eng_interior_stop.ogg
+engine_rev_1.ogg
+engine_rev_2.ogg
+carrev.ogg
+} TerraGov Marine Corps (sound/vehicles/looping) -- https://github.com/tgstation/TerraGov-Marine-Corps -- License: Attribution-NonCommercial-ShareAlike 3.0
+
+{
+lav25_cannon.ogg
+} 25mm cannon by qubodup -- https://freesound.org/s/854186/ -- License: Attribution 4.0
+
+{
+heli_rotor.ogg
+} helicopterraw_30sec by lorenzosu -- https://freesound.org/s/49483/ -- License: см. страницу трека, проверить перед публикацией
+
+{
+distant_fire_1.ogg
+distant_fire_2.ogg
+distant_fire_3.ogg
+distant_fire_4.ogg
+distant_turret_1.ogg
+distant_turret_2.ogg
+distant_turret_3.ogg
+} freesound 855244 (qubodup), 417690 (superphat), 101962 (cgeffex) -- https://freesound.org/ -- License: Attribution
+
+{
+victory_insurgent.ogg
+} Ibn Al-Noor by Kevin MacLeod -- https://incompetech.com/music/royalty-free/ -- License: Attribution 3.0 -- https://creativecommons.org/licenses/by/3.0/
+
+{
+victory_marine.ogg
+} Strength of the Titans by Kevin MacLeod -- https://incompetech.com/music/royalty-free/ -- License: Attribution 3.0 -- https://creativecommons.org/licenses/by/3.0/

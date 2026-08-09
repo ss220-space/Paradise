@@ -597,6 +597,9 @@
 			playsound(user, suppressed_fire_sound, 30, TRUE, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
 		else
 			playsound(user, fire_sound, 50, TRUE)
+			// Mountain Wars: за границей слышимости выстрела уходит эхо боя.
+			// Вне этого режима проц выходит первой строкой — см. mountain_wars/ambience.dm.
+			mw_distant_shot(src, user)
 	if(pointblank)
 		do_pointblank_shot(user, target)
 
@@ -676,6 +679,10 @@
 	bonus_spread += user.get_fracture_spread_bonus(is_left_hand)
 	if(user.buckled)
 		bonus_spread += 45
+	// Mountain Wars: приказ «Сосредоточить огонь» собирает бойцу кучность. Ниже нуля
+	// не уводим — разброс там уже не уменьшается, а начинает считаться от знака.
+	if(HAS_TRAIT(user, TRAIT_MW_FOCUSED))
+		bonus_spread = max(0, bonus_spread - 20)
 
 	SEND_SIGNAL(src, COMSIG_GUN_FIRED, user, target)
 	last_fired = world.time
@@ -1080,6 +1087,15 @@
 	on_rack = TRUE
 	var/matrix/M = matrix()
 	M.Turn(-90)
+	// Кадр шире клетки рисуется от её левого края, значит центр картинки уезжает вправо
+	// на половину лишней ширины — а поворот идёт как раз вокруг центра. У обычных 32x32
+	// поправка нулевая и ничего не меняется; широкому кадру (стволы Mountain Wars — это
+	// 64x32) без неё ствол встаёт мимо стойки и налезает на соседнюю.
+	var/list/dimensions = get_icon_dimensions(icon)
+	var/overhang_x = (dimensions["width"] - ICON_SIZE_X) * 0.5
+	var/overhang_y = (dimensions["height"] - ICON_SIZE_Y) * 0.5
+	if(overhang_x || overhang_y)
+		M.Translate(-overhang_x, -overhang_y)
 	transform = M
 	barrel_dir = NORTH
 

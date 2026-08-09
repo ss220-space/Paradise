@@ -93,6 +93,8 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 #define CALIBER_5_DOT_56X45MM "5,56x45 мм"
 /// Used in AK-74 type rifles (USSP)
 #define CALIBER_5_DOT_45X39MM "5,45x39 мм"
+/// Used in AK-47/AKM type rifles
+#define CALIBER_7_DOT_62X39MM "7,62x39 мм"
 /// Used in PDWs like WT-550
 #define CALIBER_4_DOT_6X30MM "4,6x30 мм"
 

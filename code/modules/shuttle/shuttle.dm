@@ -910,7 +910,13 @@
 		for(var/obj/docking_port/stationary/S in SSshuttle.stationary)
 			if(!options.Find(S.id))
 				continue
-			if(!mobile_docking_port.check_dock(S))
+			// canDock, а не check_dock: второй на каждый непригодный причал шлёт
+			// message_admins и stack_trace, а это построение списка, оно повторяется
+			// на каждом тике SStgui. Три шаттла на девять причалов — и админский чат
+			// с логом рантаймов забиваются сотнями строк в секунду, после чего окна
+			// TGUI не успевают подняться и гибнут зомби. Ругаться должен тот, кто
+			// правда стыкуется, а не тот, кто рисует меню.
+			if(mobile_docking_port.canDock(S) != SHUTTLE_CAN_DOCK)
 				continue
 			docking_ports[++docking_ports.len] = list("name" = S.name, "id" = S.id)
 		if(length(data["locations"]) > 1)

@@ -59,7 +59,9 @@
 			)
 			target.balloon_alert(user, "применение на [GLOB.body_zone[affecting.limb_zone][PREPOSITIONAL]]...")
 
-			if(!do_after(human_target, self_delay, human_target, use_flags, max_interact_count = 1))
+			// mw_medic_delay: санитар Mountain Wars перевязывает вдвое быстрее. Вне
+			// режима трейта ни у кого нет и задержка возвращается как есть.
+			if(!do_after(human_target, mw_medic_delay(user, self_delay), human_target, use_flags, max_interact_count = 1))
 				return .
 
 			var/obj/item/organ/external/affecting_rechecked = human_target.get_organ(selected_zone)
@@ -81,7 +83,7 @@
 			)
 			target.balloon_alert(user, "применение на [GLOB.body_zone[affecting.limb_zone][PREPOSITIONAL]] цели...")
 
-			if(use_duration && !do_after(user, use_duration, human_target))
+			if(use_duration && !do_after(user, mw_medic_delay(user, use_duration), human_target))
 				return .
 		return .|ATTACK_CHAIN_SUCCESS
 
@@ -1028,7 +1030,7 @@
 	)
 	balloon_alert(user, "наложение на [GLOB.body_zone[affecting.limb_zone][ACCUSATIVE]]...")
 
-	if(!do_after(user, self_duration, user, DA_IGNORE_USER_LOC_CHANGE | DA_IGNORE_LYING) || applied_bodypart)
+	if(!do_after(user, mw_medic_delay(user, self_duration), user, DA_IGNORE_USER_LOC_CHANGE | DA_IGNORE_LYING) || applied_bodypart)
 		return
 
 	var/obj/item/organ/external/affecting_rechecked = user.get_organ(selected_zone)
@@ -1056,7 +1058,7 @@
 	)
 	human_target.balloon_alert(user, "наложение на [GLOB.body_zone[affecting.limb_zone][ACCUSATIVE]]...")
 
-	if(!do_after(user, other_duration, human_target) || applied_bodypart)
+	if(!do_after(user, mw_medic_delay(user, other_duration), human_target) || applied_bodypart)
 		return
 
 	var/obj/item/organ/external/affecting_rechecked = human_target.get_organ(selected_zone)
@@ -1100,7 +1102,7 @@
 		return FALSE
 
 	applied_bodypart.owner.balloon_alert(user, "снятие турникета...")
-	if(!do_after(user, remove_duration, applied_bodypart.owner) || !applied_bodypart)
+	if(!do_after(user, mw_medic_delay(user, remove_duration), applied_bodypart.owner) || !applied_bodypart)
 		return FALSE
 
 	var/drop_loc = applied_bodypart.drop_location()

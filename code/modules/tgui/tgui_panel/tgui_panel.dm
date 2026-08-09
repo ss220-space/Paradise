@@ -59,7 +59,9 @@
 	window.send_asset(get_asset_datum(/datum/asset/simple/namespaced/fontawesome))
 	// window.send_asset(get_asset_datum(/datum/asset/spritesheet/emoji))
 	request_telemetry()
-	addtimer(CALLBACK(src, PROC_REF(on_initialize_timed_out)), 5 SECONDS)
+	// Столько же, сколько сервер ждёт обычное окно TGUI. Пять секунд панели не хватало:
+	// она поднималась дольше и получала «Failed to load fancy chat» на живом чате.
+	addtimer(CALLBACK(src, PROC_REF(on_initialize_timed_out)), TGUI_PING_TIMEOUT)
 	window.send_message("testTelemetryCommand")
 
 /**
@@ -68,6 +70,10 @@
  * Called when initialization has timed out.
  */
 /datum/tgui_panel/proc/on_initialize_timed_out()
+	// Панель успела подняться — ругаться не на что. Раньше проверки не было, и красная
+	// простыня про сломанный чат вылезала каждый раз, даже когда чат работал.
+	if(is_ready())
+		return
 	// Currently does nothing but sending a message to old chat.
 	// Users often miss this text, thinking it is wiki-page, so this text should be BIG
 	SEND_TEXT(client, span_userdanger("<h1>Failed to load fancy chat, click <a href='byond://?src=[UID()];reload_tguipanel=1'>HERE</a> to attempt to reload it.<br>\

@@ -101,6 +101,10 @@
 #define JOB_TITLE_TEAM2 "Team 2"
 #define JOB_TITLE_TEAM3 "Team 3"
 
+// Mountain Wars event
+#define JOB_TITLE_MW_MARINE "USMC Marine"
+#define JOB_TITLE_MW_INSURGENT "Insurgent"
+
 // Taipan
 #define JOB_TITLE_TAIPAN_SCIENTIST "Space Base Syndicate Scientist"
 #define JOB_TITLE_TAIPAN_MEDIC "Space Base Syndicate Medic"

@@ -44,6 +44,10 @@
 	return FALSE
 
 /mob/living/bullet_act(obj/projectile/proj, def_zone)
+	// Кто попал — отмечаем до урона: счётчик статистики Mountain Wars читает метку из
+	// обработчика apply_damage, а туда стрелявший не доходит. Вне режима доски нет и
+	// строка ничего не делает.
+	GLOB.mw_scoreboard?.mark_hit(proj.firer, src)
 	//Armor
 	var/armor = run_armor_check(def_zone, proj.flag, armour_penetration = proj.armour_penetration)
 	if(!proj.nodamage)

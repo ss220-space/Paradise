@@ -22,9 +22,20 @@
 #define TGUI_WINDOW_HARD_LIMIT 9
 
 /// Maximum ping timeout allowed to detect zombie windows
-#define TGUI_PING_TIMEOUT (4 SECONDS)
+///
+/// Было 4 секунды. Замер показал, что первое окно поднимается 18.45 секунды: свежий
+/// контрол браузера тянет и разбирает tgui.bundle.js на два мегабайта и tgui.bundle.css
+/// ещё на семьсот килобайт. Второе и дальше — 0.1 секунды, ресурс уже в кэше клиента.
+///
+/// Сервер объявлял окно зомби прямо посреди первой загрузки и закрывал его, а закрытие
+/// сносит контрол браузера. Следующее открытие начинало всё заново. Смерть окна должна
+/// означать «страница мертва», а не «страница не успела».
+#define TGUI_PING_TIMEOUT (30 SECONDS)
 /// Used for rate-limiting to prevent DoS by excessively refreshing a TGUI window
 #define TGUI_REFRESH_FULL_UPDATE_COOLDOWN (1 SECONDS)
+/// Не чаще этого пересобираем окно по cacheReloaded: пересборка шлёт ассеты, ассеты
+/// перетряхивают кэш, кэш шлёт cacheReloaded. Без выдержки круг не размыкается.
+#define TGUI_CACHE_RELOAD_COOLDOWN (10 SECONDS)
 
 /// Window does not exist
 #define TGUI_WINDOW_CLOSED 0

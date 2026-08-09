@@ -333,7 +333,11 @@ SUBSYSTEM_DEF(mapping)
 	// load in extra levels of space ruins
 	var/load_zlevels_timer = start_watch()
 	log_startup_progress("Creating random space levels...")
-	var/num_extra_space = map_datum?.space_ruins_levels ? map_datum.space_ruins_levels : SPACE_RUINS_NUMBER
+	// Проверка на null, а не на истинность: space_ruins_levels = 0 — это "руины не
+	// нужны совсем", ровно тот случай, ради которого переменную и заводили. На нуле
+	// прежнее условие проваливалось в SPACE_RUINS_NUMBER и всё равно клало 4-8 лишних
+	// z-уровней. Карты, которые переменную не трогают, ведут себя как раньше.
+	var/num_extra_space = isnull(map_datum?.space_ruins_levels) ? SPACE_RUINS_NUMBER : map_datum.space_ruins_levels
 	for(var/i in 1 to num_extra_space)
 		GLOB.space_manager.add_new_zlevel("Ruin Area #[i]", linkage = CROSSLINKED, traits = list(REACHABLE, SPAWN_RUINS))
 	log_startup_progress("Loaded random space levels in [stop_watch(load_zlevels_timer)]s.")
@@ -404,6 +408,19 @@ SUBSYSTEM_DEF(mapping)
 		var/s_traits = map_datum.traits ? map_datum.traits : DEFAULT_STATION_TRATS
 		map_z_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION, linkage = map_datum.linkage, traits = s_traits)
 	GLOB.maploader.load_map(WRAP_FILE(map_datum.map_path), z_offset = map_z_level)
+
+	// Уровни, лежащие отдельными файлами. Держать их в одном .dmm со станцией
+	// необязательно: уровень создаётся тем же способом, что и станционный, и файл
+	// заливается в него следом. Карте от этого только легче — четырёхуровневый .dmm
+	// весит под мегабайт и тяжело открывается в редакторе. У всех карт, которые
+	// extra_levels не заполняют, список пуст и цикл не делает ничего.
+	for(var/path in map_datum.extra_levels)
+		var/list/level = map_datum.extra_levels[path]
+		if(!fexists(path))
+			log_startup_progress("ERROR: extra level [path] not found, skipped.")
+			continue
+		var/extra_z = GLOB.space_manager.add_new_zlevel(level["name"], linkage = map_datum.linkage, traits = level["traits"])
+		GLOB.maploader.load_map(WRAP_FILE(path), z_offset = extra_z)
 
 	if(map_datum?.forced_mode)
 		GLOB.master_mode = map_datum.forced_mode.name

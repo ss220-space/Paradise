@@ -473,6 +473,9 @@
 
 	. = list(msg)
 	SEND_SIGNAL(src, COMSIG_ATOM_EXAMINE, user, .)
+	// Mountain Wars: осмотр вплотную открывает карту состояния — см. med_chart.dm.
+	// Вне этого режима проц выходит первой же строкой.
+	mw_examine_chart(user, .)
 
 /**
  * Shows any and all examine text related to any status effects the user has.

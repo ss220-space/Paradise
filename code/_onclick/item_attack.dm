@@ -294,7 +294,14 @@
 		user.do_attack_animation(target)
 
 	add_fingerprint(user)
+	// Статистика Mountain Wars. Метка «кто ударил» — для счёта урона, разница по ранам
+	// до и после — для счёта лечения: бинты и аптечки отрабатывают внутри этого вызова,
+	// вместе со всеми своими do_after. Вне режима доски нет и обе строки пустые.
+	var/datum/mw_scoreboard/scoreboard = GLOB.mw_scoreboard
+	var/hurt_before = scoreboard?.hurt(target)
+	scoreboard?.mark_hit(user, target)
 	. |= target.proceed_attack_results(src, user, modifiers, def_zone)
+	scoreboard?.settle_heal(user, target, hurt_before)
 
 /// The equivalent of [/obj/item/proc/attack] but for alternate attacks, AKA right clicking
 /obj/item/proc/attack_secondary(mob/living/victim, mob/living/user, list/modifiers, list/attack_modifiers)

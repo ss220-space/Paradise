@@ -172,8 +172,17 @@
 			observer.started_as_observer = 1
 			close_spawn_windows()
 			var/obj/O = locate(/obj/effect/landmark/observer_start)
+			var/turf/start = get_turf(O)
+			// Карта может обойтись без лендмарка. Без запасной точки гост уезжает в
+			// nullspace: вокруг чернота, и ни шагу не сделать — client/Move выходит на
+			// первой же проверке loc. Лучше высадить его хоть куда-то: летает он всё
+			// равно сквозь стены.
+			if(!start && length(GLOB.newplayer_start))
+				start = get_turf(pick(GLOB.newplayer_start))
+			if(!start)
+				start = locate(round(world.maxx / 2), round(world.maxy / 2), level_name_to_num(MAIN_STATION))
 			to_chat(src, span_notice("Телепортация."))
-			observer.abstract_move(get_turf(O))
+			observer.abstract_move(start)
 			client.prefs.update_preview_icon(1)
 			observer.icon = client.prefs.preview_icon
 			observer.alpha = 127

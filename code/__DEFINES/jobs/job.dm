@@ -85,6 +85,8 @@
 #define JOB_FLAG_TEAM1 (1<<0)
 #define JOB_FLAG_TEAM2 (1<<1)
 #define JOB_FLAG_TEAM3 (1<<2)
+#define JOB_FLAG_MW_MARINE (1<<3)
+#define JOB_FLAG_MW_INSURGENT (1<<4)
 
 /// MARK: Taipan huds
 #define TAIPAN_HUD_SCIENTIST 1

@@ -136,7 +136,9 @@
 /datum/stack_recipe/proc/do_build(mob/user, obj/item/stack/material, multiplier, atom/result)
 	if(time)
 		to_chat(user, span_notice("Building [title]..."))
-		if(!do_after(user, time, target = material.loc))
+		// mw_build_delay: сапёр Mountain Wars собирает вдвое быстрее. Вне режима трейта
+		// ни у кого нет и задержка возвращается как есть.
+		if(!do_after(user, mw_build_delay(user, time), target = material.loc))
 			return FALSE
 
 	if(cult_structure && locate(/obj/structure/cult) in get_turf(src)) //Check again after do_after to prevent queuing construction exploit.

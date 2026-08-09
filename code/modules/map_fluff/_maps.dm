@@ -16,6 +16,16 @@
 	var/linkage = CROSSLINKED
 	/// null for default number of ruins. Use it to override. Can be used to neglect lagging from multi-z station.
 	var/space_ruins_levels = null
+	/**
+	 * Уровни, лежащие отдельными файлами, а не внутри map_path. Грузятся сразу после
+	 * станции, каждый в свой новый z. Ключ — путь к .dmm, значение — список
+	 * list("name" = имя уровня, "traits" = список трейтов).
+	 *
+	 * Нужно, когда уровни удобнее держать врозь: один .dmm на четыре яруса весит под
+	 * мегабайт и тяжело открывается в редакторе. На производительность способ
+	 * загрузки не влияет — уровней в памяти столько же.
+	 */
+	var/list/extra_levels = null
 
 	/// Ingame Station name in Russian.
 	var/station_name = "BAD Station"
