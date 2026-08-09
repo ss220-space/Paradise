@@ -8,12 +8,7 @@
 		list(MAIN_STATION, STATION_LEVEL = "First Floor", STATION_CONTACT, REACHABLE, AI_OK, ZTRAIT_UP),
 		list(STATION_LEVEL = "Second Floor", STATION_CONTACT, REACHABLE, AI_OK, ZTRAIT_DOWN, ZTRAIT_BASETURF = /turf/simulated/openspace),
 	)
-	// space_ruins_levels здесь стоял нулём, но никогда не срабатывал: проверка в
-	// SSmapping была на истинность, а ноль в DM ложен, и карта всё равно получала
-	// штатные 4-8 уровней руин. Проверку починили (см. mapping.dm), и ноль наконец
-	// начал бы действовать — то есть Нова молча лишилась бы руин заодно с правкой
-	// про другой режим. Строку убрали, чтобы карта ехала ровно как ехала. Автору
-	// решать, возвращать ли её отдельно и осознанно.
+	space_ruins_levels = 0
 	station_name = "ИСН Нова"
 	english_station_name = "NSS Nova"
 	station_short = "Нова"

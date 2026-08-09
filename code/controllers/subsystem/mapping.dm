@@ -333,11 +333,7 @@ SUBSYSTEM_DEF(mapping)
 	// load in extra levels of space ruins
 	var/load_zlevels_timer = start_watch()
 	log_startup_progress("Creating random space levels...")
-	// Проверка на null, а не на истинность: space_ruins_levels = 0 — это "руины не
-	// нужны совсем", ровно тот случай, ради которого переменную и заводили. На нуле
-	// прежнее условие проваливалось в SPACE_RUINS_NUMBER и всё равно клало 4-8 лишних
-	// z-уровней. Карты, которые переменную не трогают, ведут себя как раньше.
-	var/num_extra_space = isnull(map_datum?.space_ruins_levels) ? SPACE_RUINS_NUMBER : map_datum.space_ruins_levels
+	var/num_extra_space = map_datum?.space_ruins_levels ? map_datum.space_ruins_levels : SPACE_RUINS_NUMBER
 	for(var/i in 1 to num_extra_space)
 		GLOB.space_manager.add_new_zlevel("Ruin Area #[i]", linkage = CROSSLINKED, traits = list(REACHABLE, SPAWN_RUINS))
 	log_startup_progress("Loaded random space levels in [stop_watch(load_zlevels_timer)]s.")
