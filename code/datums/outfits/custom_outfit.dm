@@ -35,6 +35,7 @@
 	var/cached_preview_icon
 	var/cached_preview_key
 	var/preview_dirty = TRUE
+	var/preview_pending = FALSE
 
 	var/static/list/slot_to_human_var = list(
 		"uniform" = "w_uniform",
@@ -209,25 +210,21 @@
 	data["augmentations"] = serialize_augmentations()
 	data["dental_reagents"] = serialize_reagents()
 	data["has_dental_implant"] = length(reagent_volumes) > 0
-
 	if(!QDELETED(target_mob) && ishuman(target_mob))
 		var/mob/living/carbon/human/human_target = target_mob
 		data["target_name"] = human_target.name
 		data["target_valid"] = TRUE
 		data["backpack_is_storage"] = isstorage(human_target.back)
-
 		var/appearance_key = build_appearance_key(human_target)
-		if(preview_dirty || appearance_key != cached_preview_key)
-			cached_preview_icon = generate_preview_icon()
-			cached_preview_key = appearance_key
-			preview_dirty = FALSE
+		if(!preview_pending && (preview_dirty || appearance_key != cached_preview_key))
+			preview_pending = TRUE
+			addtimer(CALLBACK(src, PROC_REF(regenerate_preview_icon)), 1)
 		if(cached_preview_icon)
 			data["preview_icon"] = cached_preview_icon
 	else
 		data["target_name"] = null
 		data["target_valid"] = FALSE
 		data["backpack_is_storage"] = FALSE
-
 	return data
 
 /datum/custom_outfit/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -304,6 +301,16 @@
 		preview_dirty = TRUE
 		SStgui.try_update_ui(user, src, ui)
 	return .
+
+/datum/custom_outfit/proc/regenerate_preview_icon()
+	preview_pending = FALSE
+	if(QDELETED(src) || QDELETED(target_mob) || !ishuman(target_mob))
+		return
+	var/mob/living/carbon/human/human_target = target_mob
+	cached_preview_key = build_appearance_key(human_target)
+	preview_dirty = FALSE
+	cached_preview_icon = generate_preview_icon()
+	SStgui.update_uis(src)
 
 /datum/custom_outfit/proc/get_path_param(list/params)
 	var/path_text = params["path"]
