@@ -27,8 +27,11 @@ GLOBAL_LIST_EMPTY(mw_vehicles)
 /obj/vehicle/mw
 	abstract_type = /obj/vehicle/mw
 	icon = 'icons/mountain_wars/vehicle_lav.dmi'
-	density = TRUE
-	anchored = FALSE
+	// Кадр задаёт каждая машина, здесь его нет и быть не может: тип абстрактный, а лист
+	// у машин разный. Пустой, а не унаследованный: от /obj/vehicle достаётся "error",
+	// которого в нашем листе нет, и юнит-тест missing_icons считает это потерянным
+	// спрайтом. На null он такие типы пропускает — так же объявлен и вертолёт.
+	icon_state = null
 	layer = ABOVE_MOB_LAYER
 	// Технику не сдвинуть руками — только водитель.
 	move_resist = INFINITY
@@ -37,7 +40,6 @@ GLOBAL_LIST_EMPTY(mw_vehicles)
 	// Отключаем её и считаем дистанцию сами, от габарита.
 	interaction_flags_atom = INTERACT_ATOM_MOUSEDROP_IGNORE_ADJACENT
 	max_occupants = 8
-	max_drivers = 1
 	movedelay = 3
 	/// Радиус корпуса поперёк движения, в тайлах от центральной клетки.
 	/// 1 — корпус шириной три тайла.
@@ -430,7 +432,7 @@ GLOBAL_LIST_EMPTY(mw_vehicles)
 	var/mob/living/victim = bumped
 	if(is_occupant(victim))
 		return
-	victim.visible_message(span_userdanger("[src] сбива[pluralize_ru(gender, "ет", "ют")] [victim.declent_ru(ACCUSATIVE)]!"))
+	victim.visible_message(span_userdanger("[src] сбива[PLUR_ET_YUT(src)] [victim.declent_ru(ACCUSATIVE)]!"))
 	victim.apply_damage(ram_damage, BRUTE)
 	victim.Weaken(3 SECONDS)
 	playsound(src, 'sound/effects/bang.ogg', 70, TRUE)
@@ -973,7 +975,6 @@ GLOBAL_LIST_EMPTY(mw_vehicles)
 	interior_key = LAZY_TEMPLATE_KEY_MW_APC_INTERIOR
 	desc = "Старый гусеничный бронетранспортёр. Башни нет, только крупнокалиберный пулемёт в люке командира. Возит восемь человек и держит пулю."
 	icon_state = "apc"
-	hull_radius = 1
 	// Спрайт из TGMC нарисован в кадре 126x126 под смещения — берём их как есть.
 	pixel_x = -48
 	pixel_y = -40
@@ -984,8 +985,6 @@ GLOBAL_LIST_EMPTY(mw_vehicles)
 	// вычитается только разница. 114 против пробития 90 у автопушки оставляет те же
 	// 25 процентов среза, что раньше давал темп стрельбы — см. блок боеприпасов.
 	armor = list(MELEE = 70, BULLET = 114, LASER = 80, ENERGY = 70, BOMB = 20, BIO = 100, FIRE = 60, ACID = 60)
-	max_occupants = 8
-	movedelay = 3
 	ram_damage = 40
 	ticket_cost = 5
 	faction = JOB_TITLE_MW_MARINE
@@ -1009,7 +1008,6 @@ GLOBAL_LIST_EMPTY(mw_vehicles)
 	// направлений. Кадр 128x128 на клетке 32x32 центрируется сдвигом (128 - 32) / 2.
 	pixel_x = -48
 	pixel_y = -48
-	hull_radius = 1
 	// 265, а не 200: у технички брони нет, гасить возросший урон калибров нечем, и
 	// поправка ушла в запас прочности. Иначе пришлось бы дать пикапу пулестойкость
 	// уровня БТРа — то есть ровно то, чего у него по определению нет.
@@ -1023,7 +1021,6 @@ GLOBAL_LIST_EMPTY(mw_vehicles)
 	armor = list(MELEE = 20, BULLET = 82, LASER = 10, ENERGY = 10, BOMB = 0, BIO = 100, FIRE = 20, ACID = 20)
 	max_occupants = 4
 	movedelay = 1.5
-	ram_damage = 25
 	// Билетов у повстанцев нет, снимать нечего: техничка стоит только времени на замену.
 	faction = JOB_TITLE_MW_INSURGENT
 	turret_projectile = /obj/projectile/bullet/mw_kpvt
@@ -1059,7 +1056,6 @@ GLOBAL_LIST_EMPTY(mw_vehicles)
 	)
 	// Три тайла поперёк, четыре вдоль: ЛАВ длиннее гусеничных, и в его нос при
 	// квадратном габарите заходили пешком.
-	hull_radius = 1
 	hull_nose = 1
 	// 450, а не 400: тяжёлый взрыв снимает треть запаса, и сверх него кумулятивная
 	// ракета кладёт ещё и свои 70 прямым попаданием. На четырёх сотнях второе попадание

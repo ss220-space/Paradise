@@ -54,7 +54,6 @@
 	icon = 'icons/mountain_wars/helicopter.dmi'
 	icon_state = null
 	anchored = TRUE
-	density = FALSE
 	invisibility = INVISIBILITY_ABSTRACT
 	resistance_flags = INDESTRUCTIBLE
 	/// Ставить борта под собой. Выключается, когда они уже расставлены на карте.
@@ -225,7 +224,6 @@
 	mid_length = 6 SECONDS
 	volume = 40
 	extra_range = 6
-	ignore_walls = TRUE
 	use_sound_tokens = TRUE
 	reserve_random_channel = TRUE
 
@@ -349,7 +347,6 @@
 /obj/effect/mw_heli_piece
 	name = "вертолёт"
 	icon = 'icons/mountain_wars/helicopter.dmi'
-	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	layer = ABOVE_NORMAL_TURF_LAYER
 	/// До какой прозрачности кусок гаснет для того, кто внутри.

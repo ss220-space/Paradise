@@ -46,9 +46,12 @@ GLOBAL_DATUM_INIT(mw_chart_state, /datum/ui_state/mw_chart, new)
 	return UI_INTERACTIVE
 
 // MARK: Карта
-/// Карта висит на самом пациенте и одна на всех: у койки может стоять двое медиков,
-/// и данные им нужны одни и те же. Живёт до смерти моба вместе с ним.
-/mob/living/carbon/human/var/datum/mw_bodychart/mw_chart
+// Карта висит на самом пациенте и одна на всех: у койки может стоять двое медиков,
+// и данные им нужны одни и те же. Живёт до смерти моба вместе с ним.
+//
+// Сам вар — /mob/living/carbon/human/var/mw_chart — объявлен в human_defines.dm рядом с
+// остальными варами типа: в этой кодбазе вар обязан стоять в блоке своего типа, а
+// объявлять тип второй раз здесь нельзя.
 
 /datum/mw_bodychart
 	var/mob/living/carbon/human/patient

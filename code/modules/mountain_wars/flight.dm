@@ -151,8 +151,6 @@
 	// Направление прокрутки штатного параллакса. Пустыню крутим своей лентой, но
 	// пусть совпадают, если параллакс где-то всё же проглянет.
 	parallax_movedir = NORTH
-	requires_power = FALSE
-	has_gravity = STANDARD_GRAVITY
 	static_lighting = FALSE
 	base_lighting_alpha = 255
 	/// Борт в транзите. По этому же флагу картинку получает тот, кто вошёл уже в полёте.
@@ -229,7 +227,6 @@
 /obj/docking_port/mobile/mw_heli
 	id = "mw_heli"
 	name = "вертолёт"
-	dir = NORTH
 	width = 5
 	height = 14
 	callTime = 1 MINUTES
@@ -246,7 +243,6 @@
 	//
 	// С югом сумма даёт 360, то есть север. Причал совпадает с бортом, поворота нет.
 	preferred_direction = SOUTH
-	port_direction = NORTH
 	rechargeTime = 30 SECONDS
 	/// Этому борту не долететь. Ставится при вылете в сектор, если жребий выпал ему.
 	var/doomed = FALSE
@@ -367,7 +363,6 @@ GLOBAL_VAR(mw_doomed_heli)
 // поворот рассыпает мозаику корпуса по клеткам, см. preferred_direction выше.
 /obj/docking_port/stationary/mw_heli
 	name = "площадка вертолёта"
-	dir = NORTH
 	width = 5
 	height = 14
 	// Чем причал заливает клетки, когда борт с него улетел. Должно совпадать с тем,

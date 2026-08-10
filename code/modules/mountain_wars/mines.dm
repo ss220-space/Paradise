@@ -29,11 +29,9 @@ GLOBAL_LIST_EMPTY(mw_mine_watchers)
 /obj/item/mw_mine
 	name = "противопехотная мина"
 	desc = "Нажимная мина в пластиковом корпусе. Ставится на грунт, снимается кусачками или мультитулом."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "uglymine"
 	item_state = "electronic"
 	w_class = WEIGHT_CLASS_SMALL
-	throwforce = 0
 
 /obj/item/mw_mine/attack_self(mob/user)
 	var/turf/ground = get_turf(user)
@@ -59,8 +57,6 @@ GLOBAL_LIST_EMPTY(mw_mine_watchers)
 /obj/effect/mine/mw
 	name = "мина"
 	desc = "Из грунта торчит только крышка взрывателя."
-	icon = 'icons/obj/items.dmi'
-	icon_state = "uglyminearmed"
 	layer = LOW_OBJ_LAYER
 	// Сам объект прозрачен: картинку зрителям выдаёт marker. Клик по клетке при этом
 	// проходит — иначе обезвредить мину было бы нечем, курсор её просто не находил бы.
@@ -114,9 +110,11 @@ GLOBAL_LIST_EMPTY(mw_mine_watchers)
 // Родительский взрыватель смотрит на список faction у моба. Нам фракция безразлична:
 // мина нажимная и своих не узнаёт, повстанцев спасает только то, что они её видят.
 // А кроме пехоты на мину заезжает техника, и та вообще не моб.
+//
+// SIGNAL_HANDLER здесь не повторяем, хотя проц им и остаётся: макрос разворачивается в
+// set SpacemanDMM_should_not_sleep, а такие настройки движок берёт только с первого
+// объявления проца — оно у родителя. В переопределении dreamchecker считает это ошибкой.
 /obj/effect/mine/mw/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
-	SIGNAL_HANDLER
-
 	// По земле едет не сама машина, а её невидимый габарит.
 	if(istype(arrived, /obj/vehicle/mw) || istype(arrived, /obj/mw_hitbox))
 		INVOKE_ASYNC(src, PROC_REF(triggermine), arrived)

@@ -122,3 +122,7 @@
 	var/cached_body_min_x_offset = 0
 	/// Rightmost offset of our overlays
 	var/cached_body_min_y_offset = 0
+
+	/// Mountain Wars: карта состояния пациента, одна на всех осматривающих. Живёт вместе
+	/// с мобом. Вне этого режима не создаётся — см. mountain_wars/med_chart.dm.
+	var/datum/mw_bodychart/mw_chart

@@ -82,7 +82,6 @@
 	recoil = GUN_RECOIL_LOW
 	accuracy = GUN_ACCURACY_RIFLE_UPLINK
 	gun_firemode_list = list(GUN_FIREMODE_SEMIAUTO, GUN_FIREMODE_BURSTFIRE)
-	burst_amount = 3
 	// Из всех модулей винтовке разрешён только подствол — под него есть и планка,
 	// и спрайт. Рельса и дуло закрыты: оверлеев под них в спрайтшите TGMC нет.
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_UNDER

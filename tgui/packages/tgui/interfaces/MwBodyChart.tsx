@@ -6,7 +6,14 @@
  * лечением занимается сервер, здесь только выбор.
  */
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, ProgressBar, Section, Stack } from '../components';
+import {
+  Box,
+  Button,
+  LabeledList,
+  ProgressBar,
+  Section,
+  Stack,
+} from '../components';
 import { Window } from '../layouts';
 
 type Limb = {
@@ -50,7 +57,10 @@ type ChartData = {
  * как на панели прицела в игре (см. get_zone_at() в screen_objects.dm: там правая рука
  * тоже в левой половине иконки). Иначе окно и панель показывают разные стороны.
  */
-const SHAPES: Record<string, { x: number; y: number; w: number; h: number; r: number }> = {
+const SHAPES: Record<
+  string,
+  { x: number; y: number; w: number; h: number; r: number }
+> = {
   head: { x: 38, y: 4, w: 24, h: 26, r: 11 },
   chest: { x: 32, y: 33, w: 36, h: 48, r: 8 },
   groin: { x: 35, y: 82, w: 30, h: 22, r: 7 },
@@ -76,7 +86,9 @@ const limbColor = (limb: Limb): string => {
   const hurt = Math.min(1, ((limb.brute || 0) + (limb.burn || 0)) / max);
   const from = [214, 176, 74];
   const to = [198, 42, 34];
-  const mix = from.map((channel, i) => Math.round(channel + (to[i] - channel) * hurt));
+  const mix = from.map((channel, i) =>
+    Math.round(channel + (to[i] - channel) * hurt)
+  );
   return `rgb(${mix[0]}, ${mix[1]}, ${mix[2]})`;
 };
 
@@ -121,7 +133,11 @@ const BodyDoll = (props: unknown) => {
         }
         const chosen = limb.zone === selected;
         return (
-          <g key={limb.zone} onClick={() => act('select', { zone: limb.zone })} style={{ cursor: 'pointer' }}>
+          <g
+            key={limb.zone}
+            onClick={() => act('select', { zone: limb.zone })}
+            style={{ cursor: 'pointer' }}
+          >
             <rect
               x={shape.x}
               y={shape.y}
@@ -135,7 +151,12 @@ const BodyDoll = (props: unknown) => {
               strokeDasharray={limb.missing ? '3 2' : undefined}
             />
             {!!limb.arterial && (
-              <circle cx={shape.x + shape.w / 2} cy={shape.y + shape.h / 2} r={3} fill="#ff2b2b" />
+              <circle
+                cx={shape.x + shape.w / 2}
+                cy={shape.y + shape.h / 2}
+                r={3}
+                fill="#ff2b2b"
+              />
             )}
           </g>
         );
@@ -146,7 +167,16 @@ const BodyDoll = (props: unknown) => {
 
 const Vitals = (props: unknown) => {
   const { data } = useBackend<ChartData>();
-  const { dead, unconscious, health, max_health, pulse, blood_percent, oxy, tox } = data;
+  const {
+    dead,
+    unconscious,
+    health,
+    max_health,
+    pulse,
+    blood_percent,
+    oxy,
+    tox,
+  } = data;
   return (
     <LabeledList>
       <LabeledList.Item label="Состояние">
@@ -163,7 +193,11 @@ const Vitals = (props: unknown) => {
           value={health}
           minValue={-100}
           maxValue={max_health}
-          ranges={{ good: [max_health * 0.5, max_health], average: [0, max_health * 0.5], bad: [-100, 0] }}
+          ranges={{
+            good: [max_health * 0.5, max_health],
+            average: [0, max_health * 0.5],
+            bad: [-100, 0],
+          }}
         >
           {health}
         </ProgressBar>
@@ -203,7 +237,9 @@ const LimbDetails = (props: unknown) => {
           <LabeledList.Item label="Ушибы">{limb.brute}</LabeledList.Item>
           <LabeledList.Item label="Ожоги">{limb.burn}</LabeledList.Item>
           <LabeledList.Item label="Кровотечение">
-            {limb.bleeding ? `${Math.round((limb.bleeding || 0) * 100)}%` : 'нет'}
+            {limb.bleeding
+              ? `${Math.round((limb.bleeding || 0) * 100)}%`
+              : 'нет'}
           </LabeledList.Item>
         </LabeledList>
       </Stack.Item>
@@ -227,7 +263,9 @@ const LimbDetails = (props: unknown) => {
       </Stack.Item>
       {!helping && !!held_item && (
         <Stack.Item>
-          <Box color="average">Намерение не на помощь — так выйдет не лечение.</Box>
+          <Box color="average">
+            Намерение не на помощь — так выйдет не лечение.
+          </Box>
         </Stack.Item>
       )}
     </Stack>

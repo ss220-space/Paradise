@@ -12,8 +12,9 @@
 /// Строка таймера.
 #define MW_RESPAWN_MAPTEXT(text, color) {"<span style='font-family: \"TinyUnicode\"; font-size: 24pt; line-height: 0.8; text-align: center; -dm-text-outline: 1px black; color: [color]'>[text]</span>"}
 
-/// Гост уже получил «можно возрождаться» и второй раз его дёргать не надо.
-/mob/dead/observer/var/mw_respawn_ready = FALSE
+// Флаг «уже позвали» живёт на самом госте: /mob/dead/observer/var/mw_respawn_ready,
+// объявлен в observer.dm рядом с остальными варами типа — в этой кодбазе вар обязан
+// стоять в блоке своего типа, а объявлять тип второй раз здесь нельзя.
 
 /atom/movable/screen/fullscreen/mw_respawn
 	icon = null
@@ -21,7 +22,6 @@
 	// Верх экрана: снизу лезут титры высадки и карточки приказов, а строка висит долго.
 	screen_loc = "CENTER-7,CENTER+6"
 	maptext_width = 480
-	maptext_height = 32
 	needs_offsetting = FALSE
 	// Без этого штатная проверка спрячет экран от мёртвого, а мёртвым он и нужен.
 	show_when_dead = TRUE

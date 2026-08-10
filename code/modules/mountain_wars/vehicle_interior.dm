@@ -20,8 +20,6 @@
 	// Отсек всегда освещён: иначе внутрь пришлось бы тянуть питание и лампы.
 	// Одного static_lighting мало — он лишь отключает статический слой, а свет в
 	// зоне даёт base_lighting_alpha, без него отсек чёрный.
-	static_lighting = FALSE
-	base_lighting_alpha = 255
 
 /// Куда высаживается десант при посадке в машину. Не /obj/effect/landmark: тот
 /// вешает на себя уникальный tag, а копий отсека столько же, сколько машин.
@@ -30,7 +28,6 @@
 	icon = 'icons/misc/landmarks.dmi'
 	icon_state = "standart"
 	invisibility = INVISIBILITY_ABSTRACT
-	anchored = TRUE
 
 // MARK: Кресла
 // Видимые, в отличие от лавок вертолёта: на планировке отсека сидений не нарисовано, и
@@ -46,10 +43,7 @@
 	parent_type = /obj/structure/chair/mw
 	name = "сиденье"
 	desc = "Складное сиденье, приваренное к полу отсека."
-	icon = 'icons/obj/chairs.dmi'
 	icon_state = "shuttle_chair_dark"
-	alpha = 255
-	mouse_opacity = MOUSE_OPACITY_ICON
 	/// Машина, которой принадлежит отсек. Проставляется при загрузке интерьера.
 	var/obj/vehicle/mw/vehicle
 	/// Что даёт это место. 0 — обычная лавка для десанта.

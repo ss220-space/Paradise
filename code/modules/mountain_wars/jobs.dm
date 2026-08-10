@@ -119,7 +119,6 @@
 	head = /obj/item/clothing/head/helmet/mw_marine
 	shoes = /obj/item/clothing/shoes/jackboots
 	l_ear = /obj/item/radio/headset/blue
-	back = /obj/item/storage/backpack
 	r_hand = /obj/item/gun/projectile/automatic/arg/mw_m16a4
 	backpack_contents = list(
 		/obj/item/ammo_box/magazine/m556/mw_m16a4 = 4,
@@ -217,7 +216,6 @@
 	head = /obj/item/clothing/head/helmet/mw_insurgent
 	shoes = /obj/item/clothing/shoes/laceup
 	l_ear = /obj/item/radio/headset/red
-	back = /obj/item/storage/backpack
 	r_hand = /obj/item/gun/projectile/automatic/ak814/mw_akm
 	backpack_contents = list(
 		/obj/item/ammo_box/magazine/mw_akm = 4,

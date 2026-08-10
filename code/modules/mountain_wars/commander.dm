@@ -8,7 +8,6 @@
 /obj/effect/proc_holder/spell/mw
 	abstract_type = /obj/effect/proc_holder/spell/mw
 	clothes_req = FALSE
-	create_attack_logs = TRUE
 	action_background_icon_state = "bg_default"
 	/// Радиус, в котором не должно быть своих точек спавна — чтобы не бомбили базы.
 	var/spawn_safe_range = 15

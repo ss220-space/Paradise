@@ -1,34 +1,149 @@
-"aa" = (/turf/simulated/floor/indestructible/mw_apc/hull/p1,/area/mountain_wars/vehicle_interior)
-"ab" = (/turf/simulated/floor/indestructible/mw_apc/hull/p2,/area/mountain_wars/vehicle_interior)
-"ac" = (/turf/simulated/floor/indestructible/mw_apc/hull/p3,/area/mountain_wars/vehicle_interior)
-"ad" = (/turf/simulated/floor/indestructible/mw_apc/hull/p4,/area/mountain_wars/vehicle_interior)
-"ae" = (/turf/simulated/floor/indestructible/mw_apc/hull/p5,/area/mountain_wars/vehicle_interior)
-"af" = (/turf/simulated/floor/indestructible/mw_apc/hull/p6,/area/mountain_wars/vehicle_interior)
-"ag" = (/turf/simulated/floor/indestructible/mw_apc/hull/p13,/area/mountain_wars/vehicle_interior)
-"ah" = (/obj/structure/chair/mw_vehicle/bench,/turf/simulated/floor/indestructible/mw_apc/p8,/area/mountain_wars/vehicle_interior)
-"ai" = (/obj/structure/chair/mw_vehicle/bench,/turf/simulated/floor/indestructible/mw_apc/p9,/area/mountain_wars/vehicle_interior)
-"aj" = (/obj/structure/chair/mw_vehicle/gunner,/turf/simulated/floor/indestructible/mw_apc/p9,/area/mountain_wars/vehicle_interior)
-"ak" = (/turf/simulated/floor/indestructible/mw_apc/p10,/area/mountain_wars/vehicle_interior)
-"al" = (/obj/structure/chair/mw_vehicle/driver,/turf/simulated/floor/indestructible/mw_apc/p11,/area/mountain_wars/vehicle_interior)
-"am" = (/turf/simulated/floor/indestructible/mw_apc/hull/p12,/area/mountain_wars/vehicle_interior)
-"an" = (/turf/simulated/floor/indestructible/mw_apc/hull/hatch,/area/mountain_wars/vehicle_interior)
-"ao" = (/obj/effect/mw_interior_entry,/turf/simulated/floor/indestructible/mw_apc/p14,/area/mountain_wars/vehicle_interior)
-"ap" = (/turf/simulated/floor/indestructible/mw_apc/p15,/area/mountain_wars/vehicle_interior)
-"aq" = (/turf/simulated/floor/indestructible/mw_apc/p16,/area/mountain_wars/vehicle_interior)
-"ar" = (/turf/simulated/floor/indestructible/mw_apc/hull/p17,/area/mountain_wars/vehicle_interior)
-"as" = (/turf/simulated/floor/indestructible/mw_apc/hull/p24,/area/mountain_wars/vehicle_interior)
-"at" = (/obj/structure/chair/mw_vehicle/bench,/turf/simulated/floor/indestructible/mw_apc/p29,/area/mountain_wars/vehicle_interior)
-"au" = (/turf/simulated/floor/indestructible/mw_apc/p22,/area/mountain_wars/vehicle_interior)
-"av" = (/turf/simulated/floor/indestructible/mw_apc/hull/p23,/area/mountain_wars/vehicle_interior)
-"aw" = (/turf/simulated/floor/indestructible/mw_apc/hull/p19,/area/mountain_wars/vehicle_interior)
-"ax" = (/turf/simulated/floor/indestructible/mw_apc/hull/p27,/area/mountain_wars/vehicle_interior)
-"ay" = (/turf/simulated/floor/indestructible/mw_apc/hull/p20,/area/mountain_wars/vehicle_interior)
-"az" = (/turf/simulated/floor/indestructible/mw_apc/hull/p28,/area/mountain_wars/vehicle_interior)
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aa" = (
+/turf/simulated/floor/indestructible/mw_apc/hull/p1,
+/area/mountain_wars/vehicle_interior)
+"ab" = (
+/turf/simulated/floor/indestructible/mw_apc/hull/p2,
+/area/mountain_wars/vehicle_interior)
+"ac" = (
+/turf/simulated/floor/indestructible/mw_apc/hull/p3,
+/area/mountain_wars/vehicle_interior)
+"ad" = (
+/turf/simulated/floor/indestructible/mw_apc/hull/p4,
+/area/mountain_wars/vehicle_interior)
+"ae" = (
+/turf/simulated/floor/indestructible/mw_apc/hull/p5,
+/area/mountain_wars/vehicle_interior)
+"af" = (
+/turf/simulated/floor/indestructible/mw_apc/hull/p6,
+/area/mountain_wars/vehicle_interior)
+"ag" = (
+/turf/simulated/floor/indestructible/mw_apc/hull/p13,
+/area/mountain_wars/vehicle_interior)
+"ah" = (
+/obj/structure/chair/mw_vehicle/bench,
+/turf/simulated/floor/indestructible/mw_apc/p8,
+/area/mountain_wars/vehicle_interior)
+"ai" = (
+/obj/structure/chair/mw_vehicle/bench,
+/turf/simulated/floor/indestructible/mw_apc/p9,
+/area/mountain_wars/vehicle_interior)
+"aj" = (
+/obj/structure/chair/mw_vehicle/gunner,
+/turf/simulated/floor/indestructible/mw_apc/p9,
+/area/mountain_wars/vehicle_interior)
+"ak" = (
+/turf/simulated/floor/indestructible/mw_apc/p10,
+/area/mountain_wars/vehicle_interior)
+"al" = (
+/obj/structure/chair/mw_vehicle/driver,
+/turf/simulated/floor/indestructible/mw_apc/p11,
+/area/mountain_wars/vehicle_interior)
+"am" = (
+/turf/simulated/floor/indestructible/mw_apc/hull/p12,
+/area/mountain_wars/vehicle_interior)
+"an" = (
+/turf/simulated/floor/indestructible/mw_apc/hull/hatch,
+/area/mountain_wars/vehicle_interior)
+"ao" = (
+/obj/effect/mw_interior_entry,
+/turf/simulated/floor/indestructible/mw_apc/p14,
+/area/mountain_wars/vehicle_interior)
+"ap" = (
+/turf/simulated/floor/indestructible/mw_apc/p15,
+/area/mountain_wars/vehicle_interior)
+"aq" = (
+/turf/simulated/floor/indestructible/mw_apc/p16,
+/area/mountain_wars/vehicle_interior)
+"ar" = (
+/turf/simulated/floor/indestructible/mw_apc/hull/p17,
+/area/mountain_wars/vehicle_interior)
+"as" = (
+/turf/simulated/floor/indestructible/mw_apc/hull/p24,
+/area/mountain_wars/vehicle_interior)
+"at" = (
+/obj/structure/chair/mw_vehicle/bench,
+/turf/simulated/floor/indestructible/mw_apc/p29,
+/area/mountain_wars/vehicle_interior)
+"au" = (
+/turf/simulated/floor/indestructible/mw_apc/p22,
+/area/mountain_wars/vehicle_interior)
+"av" = (
+/turf/simulated/floor/indestructible/mw_apc/hull/p23,
+/area/mountain_wars/vehicle_interior)
+"aw" = (
+/turf/simulated/floor/indestructible/mw_apc/hull/p19,
+/area/mountain_wars/vehicle_interior)
+"ax" = (
+/turf/simulated/floor/indestructible/mw_apc/hull/p27,
+/area/mountain_wars/vehicle_interior)
+"ay" = (
+/turf/simulated/floor/indestructible/mw_apc/hull/p20,
+/area/mountain_wars/vehicle_interior)
+"az" = (
+/turf/simulated/floor/indestructible/mw_apc/hull/p28,
+/area/mountain_wars/vehicle_interior)
 
 (1,1,1) = {"
-aaabababacadabaeaf
-agahaiaiaiajakalam
-anaoapapapapaqaras
-agatatatatatauavas
-awaxaxaxaxaxaxayaz
+aa
+ag
+an
+ag
+aw
+"}
+(2,1,1) = {"
+ab
+ah
+ao
+at
+ax
+"}
+(3,1,1) = {"
+ab
+ai
+ap
+at
+ax
+"}
+(4,1,1) = {"
+ab
+ai
+ap
+at
+ax
+"}
+(5,1,1) = {"
+ac
+ai
+ap
+at
+ax
+"}
+(6,1,1) = {"
+ad
+aj
+ap
+at
+ax
+"}
+(7,1,1) = {"
+ab
+ak
+aq
+au
+ax
+"}
+(8,1,1) = {"
+ae
+al
+ar
+av
+ay
+"}
+(9,1,1) = {"
+af
+am
+as
+as
+az
 "}

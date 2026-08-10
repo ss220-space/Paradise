@@ -50,6 +50,9 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	var/plant_analyzer = FALSE
 	var/datum/orbit_menu/orbit_menu
 	var/mob/living/do_observe_target = null
+	/// Mountain Wars: гост уже получил «можно возрождаться», второй раз его не дёргаем.
+	/// Вне этого режима не используется вовсе — см. mountain_wars/respawn.dm.
+	var/mw_respawn_ready = FALSE
 
 /mob/dead/observer/Initialize(mapload, flags = 1)
 	set_invisibility(GLOB.observer_default_invisibility)

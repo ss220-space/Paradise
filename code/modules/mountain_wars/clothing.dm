@@ -246,7 +246,7 @@
 	var/turf/epicenter = get_turf(wearer) || get_turf(src)
 	if(!epicenter)
 		return
-	wearer.investigate_log("подорвал[genderize_ru(wearer.gender, "", "а", "о", "и")] пояс смертника[warcry ? " с кличем «[warcry]»" : ""]", INVESTIGATE_BOMB)
+	wearer.investigate_log("подорвал[GEND_A_O_I(wearer)] пояс смертника[warcry ? " с кличем «[warcry]»" : ""]", INVESTIGATE_BOMB)
 	message_admins("[key_name_admin(wearer)] подорвал пояс смертника в [ADMIN_VERBOSEJMP(epicenter)][warcry ? " с кличем «[warcry]»" : ""].")
 	explosion(
 		epicenter,

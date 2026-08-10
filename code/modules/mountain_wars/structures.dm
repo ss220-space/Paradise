@@ -1,45 +1,3 @@
-// MARK: Пояс шахида (Повстанцы)
-// Детонация: вручную (активация в руке/на себе) либо автоматически при смерти носителя.
-/obj/item/clothing/suit/mw_shahid
-	name = "пояс шахида"
-	desc = "Самодельный жилет со взрывчаткой и кнопкой. Сработает и после смерти носителя."
-	icon_state = "armor" // ponytail: плейсхолдер, заменить портом из CM
-	item_state = "armor"
-	slot_flags = ITEM_SLOT_CLOTH_OUTER
-
-/obj/item/clothing/suit/mw_shahid/equipped(mob/user, slot, initial = FALSE)
-	. = ..()
-	if(slot == ITEM_SLOT_CLOTH_OUTER)
-		RegisterSignal(user, COMSIG_MOB_DEATH, PROC_REF(on_wearer_death), TRUE)
-	else
-		UnregisterSignal(user, COMSIG_MOB_DEATH)
-
-/obj/item/clothing/suit/mw_shahid/dropped(mob/user, slot, silent = FALSE)
-	. = ..()
-	UnregisterSignal(user, COMSIG_MOB_DEATH)
-
-/obj/item/clothing/suit/mw_shahid/proc/on_wearer_death(mob/source, gibbed)
-	SIGNAL_HANDLER
-	INVOKE_ASYNC(src, PROC_REF(detonate))
-
-/obj/item/clothing/suit/mw_shahid/attack_self(mob/user)
-	if(tgui_alert(user, "Подорвать пояс?", name, list("Да", "Нет")) != "Да")
-		return
-	if(QDELETED(src))
-		return
-	visible_message(span_boldwarning("[user] жмёт кнопку на поясе!"))
-	detonate()
-
-/obj/item/clothing/suit/mw_shahid/proc/detonate()
-	var/turf/epicenter = get_turf(src)
-	qdel(src)
-	// Радиус тяжёлой волны большой не ради пехоты, а ради брони. Взрыв бьёт по объекту
-	// на его центральной клетке, а у ЛАВ корпус длиной в пять клеток: подорвавшись у
-	// носа, шахид оказывался от центра дальше двух клеток и машине не делал ничего.
-	// С четырьмя клетками пояс снимает треть корпуса из любой точки вплотную — ровно
-	// столько же, сколько ракета из РПГ, см. ex_act в vehicles.dm.
-	explosion(epicenter, devastation_range = 1, heavy_impact_range = 4, light_impact_range = 7, flash_range = 8, cause = "Пояс шахида")
-
 // MARK: FOB-рация
 // Точка респавна фракции: пока стоит — фракция спавнится и на ней.
 /obj/structure/mw_fob
@@ -77,16 +35,15 @@
 
 // Свёрнутая рация — разворачивается на месте за 5 секунд.
 //
-// Габарит NORMAL, а не BULKY. Рация выдаётся через backpack_contents, у рюкзака
-// max_w_class как раз NORMAL, и объёмный свёрток в него не лез: equip_or_collect на
-// отказ кладёт вещь под ноги, то есть комплект оставался лежать на точке высадки, а
-// командир уходил в бой без него и об этом не знал.
+// Габарит оставлен родительским, то есть NORMAL. Объёмным его делать нельзя: рация
+// выдаётся через backpack_contents, у рюкзака max_w_class как раз NORMAL, и BULKY в
+// него не лез. equip_or_collect на отказ кладёт вещь под ноги, то есть комплект
+// оставался лежать на точке высадки, а командир уходил в бой без него и не знал об этом.
 /obj/item/mw_fob_kit
 	name = "свёрнутая полевая рация"
 	desc = "Полевая радиостанция в походном виде. Активируйте, чтобы развернуть."
 	icon = 'icons/obj/radio.dmi'
 	icon_state = "radio"
-	w_class = WEIGHT_CLASS_NORMAL
 	/// Тип разворачиваемой структуры.
 	var/fob_type
 
