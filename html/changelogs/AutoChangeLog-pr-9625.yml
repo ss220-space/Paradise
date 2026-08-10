@@ -1,4 +1,0 @@
-author: "dageavtobusnick"
-delete-after: True
-changes:
-  - bugfix: "Исправлена ошибка, из-за которой бонусы мануалов снижали уровень навыка до 5. (PR #9625)"
