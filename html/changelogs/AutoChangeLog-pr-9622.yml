@@ -1,4 +1,0 @@
-author: "FlitchTime"
-delete-after: True
-changes:
-  - bugfix: "Аир алярмы больше не улетают в другую сторону из-за разных состояний. (PR #9622)"
