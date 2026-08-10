@@ -110,7 +110,6 @@
 		"Почки" = /obj/item/organ/internal/kidneys/cybernetic,
 	)
 
-	var/static/list/type_option_cache = list()
 	var/static/list/reagent_option_cache = list()
 
 /datum/custom_outfit/New(mob/target_mob)
@@ -532,13 +531,6 @@
 		cyberimp_organ.remove(human_target, ORGAN_MANIPULATION_NOEFFECT)
 		qdel(cyberimp_organ)
 
-/datum/custom_outfit/proc/apply_augmentations(mob/living/carbon/human/human_target)
-	if(!augmentations_dirty)
-		return
-
-	apply_external_augmentations(human_target)
-	apply_internal_augmentations(human_target)
-
 /datum/custom_outfit/proc/apply_external_augmentations(mob/living/carbon/human/human_target)
 	for(var/body_zone in external_augmentations)
 		var/model = external_augmentations[body_zone]
@@ -643,26 +635,19 @@
 	return TRUE
 
 /datum/custom_outfit/proc/choose_implant(mob/user)
-	var/list/options = get_type_options(/obj/item/organ/internal/cyberimp)
-	if(!length(options))
-		to_chat(user, span_warning("No implants found."))
-		return FALSE
-
-	var/choice = tgui_input_list(user, "Choose an implant", "Custom Outfit", options)
+	var/obj/item/chosen_path = pick_closest_path(FALSE)
 	if(QDELETED(src) || QDELETED(user))
 		return FALSE
 
-	if(isnull(choice))
+	if(!ispath(chosen_path, /obj/item/organ/internal/cyberimp))
+		to_chat(user, span_warning("Selected path is not a cybernetic implant."))
 		return FALSE
 
-	var/implant_path = options[choice]
-	if(!ispath(implant_path, /obj/item/organ/internal/cyberimp))
+	if(chosen_path in edited_outfit.cybernetic_implants)
 		return FALSE
 
-	if(implant_path in edited_outfit.cybernetic_implants)
-		return FALSE
-
-	edited_outfit.cybernetic_implants += implant_path
+	edited_outfit.cybernetic_implants += chosen_path
+	implants_dirty = TRUE
 	return TRUE
 
 /datum/custom_outfit/proc/choose_augmentation(mob/user)
@@ -871,26 +856,11 @@
 	if(!(slot in slot_to_human_var))
 		return FALSE
 
-	if(slot in slot_any_item)
-		return choose_any_item(user, slot)
-
-	var/base_type = slot_base_type[slot]
-	if(!base_type)
-		return choose_any_item(user, slot)
-
-	var/list/options = get_type_options(base_type)
-	if(!length(options))
-		return choose_any_item(user, slot)
-
-	var/choice = tgui_input_list(user, "Choose an item", "Custom Outfit", options)
+	var/obj/item/chosen_path = pick_closest_path(FALSE)
 	if(QDELETED(src) || QDELETED(user))
 		return FALSE
 
-	if(isnull(choice))
-		return FALSE
-
-	var/item_path = options[choice]
-	return set_item(user, slot, item_path)
+	return set_item(user, slot, chosen_path)
 
 /datum/custom_outfit/proc/choose_any_item(mob/user, slot)
 	var/obj/item/chosen_path = pick_closest_path(FALSE)
@@ -944,27 +914,6 @@
 		edited_outfit.backpack_contents.Cut()
 
 	return TRUE
-
-/datum/custom_outfit/proc/get_type_options(base_type)
-	if(!base_type)
-		return list()
-
-	if(base_type in type_option_cache)
-		return type_option_cache[base_type]
-
-	var/list/options = list()
-
-	for(var/thing_path in subtypesof(base_type))
-		var/obj/item/item_ref = thing_path
-		var/thing_name = initial(item_ref.name)
-
-		if(!thing_name)
-			continue
-
-		options["[thing_name] ([thing_path])"] = thing_path
-
-	type_option_cache[base_type] = options
-	return options
 
 #undef CUSTOM_OUTFIT_ACTION_LOAD
 #undef CUSTOM_OUTFIT_ACTION_COPY
