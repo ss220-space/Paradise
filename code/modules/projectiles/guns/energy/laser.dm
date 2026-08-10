@@ -41,8 +41,8 @@
 	icon = 'icons/obj/weapons/guns_48x32.dmi'
 	icon_state = "laserrifle"
 	ammo_type = list(
-		/obj/item/ammo_casing/energy/lasergun/hitscan/laser_rifle,
-		/obj/item/ammo_casing/energy/lasergun/hitscan/laser_rifle/armorpierce,
+		/obj/item/ammo_casing/energy/laser/hitscan/laser_rifle,
+		/obj/item/ammo_casing/energy/laser/hitscan/laser_rifle/armorpierce,
 	)
 	slot_flags = ITEM_SLOT_SUITSTORE | ITEM_SLOT_BACK
 	accuracy = GUN_ACCURACY_SNIPER
@@ -68,8 +68,8 @@
 	desc = "Экспериментальный лазерный дробовик с возможностью настройки фокусировки линз. В зависимости от настройки, дробовик способен бить как рассеяным, так и сфокусированным лучом."
 	icon_state = "lasershotgun"
 	ammo_type = list(
-		/obj/item/ammo_casing/energy/lasergun/hitscan/laser_shotgun,
-		/obj/item/ammo_casing/energy/lasergun/hitscan/laser_shotgun/wide,
+		/obj/item/ammo_casing/energy/laser/hitscan/laser_shotgun,
+		/obj/item/ammo_casing/energy/laser/hitscan/laser_shotgun/wide,
 	)
 	slot_flags = ITEM_SLOT_SUITSTORE
 	accuracy = GUN_ACCURACY_RIFLE
@@ -95,8 +95,8 @@
 	desc = "Лазерный карабин, используемый службой безопасности. Экспериментальный генератор частиц способен запускать снаряды, рикошетящие от стен."
 	icon_state = "lasermg"
 	ammo_type = list(
-		/obj/item/ammo_casing/energy/lasergun/hitscan/laser_mg,
-		/obj/item/ammo_casing/energy/lasergun/hitscan/laser_mg/ricochet,
+		/obj/item/ammo_casing/energy/laser/hitscan/laser_mg,
+		/obj/item/ammo_casing/energy/laser/hitscan/laser_mg/ricochet,
 	)
 	slot_flags = ITEM_SLOT_SUITSTORE
 	accuracy = GUN_ACCURACY_RIFLE
@@ -125,8 +125,8 @@
 	desc = "Тактический лазерный пистолет, используемый службой безопасности. Способен вести огонь как в обычном, так и в ускоренном режиме."
 	icon_state = "laserpistol"
 	ammo_type = list(
-		/obj/item/ammo_casing/energy/lasergun/hitscan/laserpistol,
-		/obj/item/ammo_casing/energy/lasergun/hitscan/laserpistol/light,
+		/obj/item/ammo_casing/energy/laser/hitscan/laser_pistol,
+		/obj/item/ammo_casing/energy/laser/hitscan/laser_pistol/light,
 	)
 	slot_flags = ITEM_SLOT_SUITSTORE | ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_NORMAL
