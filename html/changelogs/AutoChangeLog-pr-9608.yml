@@ -1,4 +1,0 @@
-author: "NuSanya"
-delete-after: True
-changes:
-  - bugfix: "усиленные кэтволки больше не тонут в лаве (PR #9608)"
