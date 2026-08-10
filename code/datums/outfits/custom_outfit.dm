@@ -1173,7 +1173,7 @@
 
 	var/obj/item/organ/internal/eyes/source_eyes = source.get_int_organ(/obj/item/organ/internal/eyes)
 	var/obj/item/organ/internal/eyes/dummy_eyes = dummy.get_int_organ(/obj/item/organ/internal/eyes)
-	if(source_eyes && dummy_eyes && "eye_colour" in source_eyes.vars)
+	if(source_eyes && dummy_eyes && ("eye_colour" in source_eyes.vars))
 		dummy_eyes.vars["eye_colour"] = source_eyes.vars["eye_colour"]
 
 	if(dummy.dna && dummy_eyes)
