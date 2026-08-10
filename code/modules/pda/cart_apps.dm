@@ -100,6 +100,43 @@
 	// Observe
 	pm.ui_act(action, params, ui, state)
 
+/datum/data/pda/app/supermatter_monitor
+	name = "Монитор суперматерии"
+	icon = "radiation"
+	template = "pda_supermatter"
+	category = "Engineering"
+	update = PDA_APP_UPDATE_SLOW
+
+	var/datum/ui_module/supermatter_monitor/pda/monitor
+
+/datum/data/pda/app/supermatter_monitor/Destroy()
+	QDEL_NULL(monitor)
+	return ..()
+
+/datum/data/pda/app/supermatter_monitor/start()
+	. = ..()
+	if(!monitor)
+		monitor = new(src)
+	monitor.refresh()
+
+/datum/data/pda/app/supermatter_monitor/update_ui(mob/user as mob, list/data)
+	var/static/list/gas_metadata
+	if(!gas_metadata)
+		gas_metadata = sm_gas_data()
+
+	data.Add(monitor.ui_data(user))
+	data["gas_metadata"] = gas_metadata
+
+/datum/data/pda/app/supermatter_monitor/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	if(..())
+		return
+
+	if(!pda.silent)
+		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
+
+	. = TRUE
+	monitor.ui_act(action, params, ui, state)
+
 /datum/data/pda/app/crew_records
 	var/datum/data/record/general_records = null
 

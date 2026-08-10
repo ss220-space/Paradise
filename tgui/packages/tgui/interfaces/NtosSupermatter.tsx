@@ -7,68 +7,76 @@ import { SupermatterContent, type SupermatterData } from './Supermatter';
 
 type NtosSupermatterData = SupermatterData & { focus_uid?: number };
 
-export const NtosSupermatter = (_props: unknown) => {
+export const NtosSupermatterContent = (props: { vertical?: boolean }) => {
+  const { vertical } = props;
   const { act, data } = useBackend<NtosSupermatterData>();
   const { sm_data, gas_metadata, focus_uid } = data;
   const [activeUID, setActiveUID] = useState(0);
   const activeSM = sm_data.find((sm) => sm.uid === activeUID);
 
+  if (activeSM) {
+    return (
+      <SupermatterContent
+        {...activeSM}
+        gas_metadata={gas_metadata}
+        vertical={vertical}
+        sectionButton={
+          <Button icon="arrow-left" onClick={() => setActiveUID(0)}>
+            Назад
+          </Button>
+        }
+      />
+    );
+  }
+
+  return (
+    <Section
+      title="Обнаруженные суперматерии"
+      buttons={
+        <Button icon="sync" onClick={() => act('PRG_refresh')}>
+          Обновить
+        </Button>
+      }
+    >
+      <Table>
+        {sm_data.map((sm) => (
+          <Table.Row key={sm.uid}>
+            <Table.Cell>{`${sm.area_name}`}</Table.Cell>
+            <Table.Cell collapsing color="label">
+              Целостность:
+            </Table.Cell>
+            <Table.Cell collapsing width="120px">
+              <ProgressBar
+                value={sm.integrity / 100}
+                ranges={{
+                  good: [0.9, Infinity],
+                  average: [0.5, 0.9],
+                  bad: [-Infinity, 0.5],
+                }}
+              />
+            </Table.Cell>
+            <Table.Cell collapsing>
+              <Button
+                icon="bell"
+                color={focus_uid === sm.uid && 'yellow'}
+                onClick={() => act('PRG_focus', { focus_uid: sm.uid })}
+              />
+            </Table.Cell>
+            <Table.Cell collapsing>
+              <Button onClick={() => setActiveUID(sm.uid)}>Подробнее</Button>
+            </Table.Cell>
+          </Table.Row>
+        ))}
+      </Table>
+    </Section>
+  );
+};
+
+export const NtosSupermatter = (_props: unknown) => {
   return (
     <Window height={400} width={700}>
       <Window.Content>
-        {activeSM ? (
-          <SupermatterContent
-            {...activeSM}
-            gas_metadata={gas_metadata}
-            sectionButton={
-              <Button icon="arrow-left" onClick={() => setActiveUID(0)}>
-                Назад
-              </Button>
-            }
-          />
-        ) : (
-          <Section
-            title="Обнаруженные суперматерии"
-            buttons={
-              <Button icon="sync" onClick={() => act('PRG_refresh')}>
-                Обновить
-              </Button>
-            }
-          >
-            <Table>
-              {sm_data.map((sm) => (
-                <Table.Row key={sm.uid}>
-                  <Table.Cell>{`${sm.area_name}`}</Table.Cell>
-                  <Table.Cell collapsing color="label">
-                    Целостность:
-                  </Table.Cell>
-                  <Table.Cell collapsing width="120px">
-                    <ProgressBar
-                      value={sm.integrity / 100}
-                      ranges={{
-                        good: [0.9, Infinity],
-                        average: [0.5, 0.9],
-                        bad: [-Infinity, 0.5],
-                      }}
-                    />
-                  </Table.Cell>
-                  <Table.Cell collapsing>
-                    <Button
-                      icon="bell"
-                      color={focus_uid === sm.uid && 'yellow'}
-                      onClick={() => act('PRG_focus', { focus_uid: sm.uid })}
-                    />
-                  </Table.Cell>
-                  <Table.Cell collapsing>
-                    <Button onClick={() => setActiveUID(sm.uid)}>
-                      Подробнее
-                    </Button>
-                  </Table.Cell>
-                </Table.Row>
-              ))}
-            </Table>
-          </Section>
-        )}
+        <NtosSupermatterContent />
       </Window.Content>
     </Window>
   );
