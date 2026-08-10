@@ -1,5 +1,13 @@
 import { useBackend } from '../backend';
-import { Box, Button, Icon, Image, ImageButton, Section, Stack } from '../components';
+import {
+  Box,
+  Button,
+  Icon,
+  Image,
+  ImageButton,
+  Section,
+  Stack,
+} from '../components';
 import { Window } from '../layouts';
 
 const SLOT_ROWS = [
@@ -29,8 +37,18 @@ const SLOT_ROWS = [
   ],
   [
     { name: 'Shoes', icon: 'socks', slot: 'shoes' },
-    { name: 'Left Pocket', icon: 'envelope-open-o', iconRot: 180, slot: 'l_pocket' },
-    { name: 'Right Pocket', icon: 'envelope-open-o', iconRot: 180, slot: 'r_pocket' },
+    {
+      name: 'Left Pocket',
+      icon: 'envelope-open-o',
+      iconRot: 180,
+      slot: 'l_pocket',
+    },
+    {
+      name: 'Right Pocket',
+      icon: 'envelope-open-o',
+      iconRot: 180,
+      slot: 'r_pocket',
+    },
   ],
 ];
 
@@ -44,7 +62,9 @@ export const CustomOutfit = (props) => {
   const hasDental = data.has_dental_implant;
   const dentalList = data.dental_reagents || [];
   const dentalTooltip = hasDental
-    ? dentalList.map((reagent) => `${reagent.name}: ${reagent.amount}u`).join('\n')
+    ? dentalList
+        .map((reagent) => `${reagent.name}: ${reagent.amount}u`)
+        .join('\n')
     : 'Добавить реагенты в зубной имплант';
 
   return (
@@ -124,7 +144,9 @@ export const CustomOutfit = (props) => {
                   <ItemGrid
                     items={implants}
                     onAdd={() => act('add_implant')}
-                    onRemove={(item) => act('remove_implant', { ref: item.path })}
+                    onRemove={(item) =>
+                      act('remove_implant', { ref: item.path })
+                    }
                     addTooltip="Добавить имплант"
                   />
                 </Section>
@@ -140,7 +162,9 @@ export const CustomOutfit = (props) => {
                           content={`${item.zone_name} — ${item.status_name}${item.company ? ` (${item.company})` : ''}`}
                           tooltip="Удалить аугментацию"
                           tooltipPosition="bottom-start"
-                          onClick={() => act('remove_augmentation', { zone: item.zone })}
+                          onClick={() =>
+                            act('remove_augmentation', { zone: item.zone })
+                          }
                         />
                       </Stack.Item>
                     ))}
@@ -234,7 +258,12 @@ const OutfitSlot = ({ name, icon, iconRot, slot }) => {
                     onClick={() => act('clear', { slot })}
                   />
                 ) : (
-                  <Icon name={icon} rotation={iconRot} size={1.5} color="gray" />
+                  <Icon
+                    name={icon}
+                    rotation={iconRot}
+                    size={1.5}
+                    color="gray"
+                  />
                 )}
               </Stack.Item>
             </Stack>

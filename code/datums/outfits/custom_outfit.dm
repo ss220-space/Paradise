@@ -949,6 +949,10 @@
 /datum/custom_outfit/proc/set_item(mob/user, slot, obj/item/choice)
 	if(!(slot in slot_to_human_var))
 		return FALSE
+	if(!ispath(choice, /obj/item))
+		if(choice)
+			tgui_alert(user, "Invalid item", "Custom Outfit", list("OK"))
+		return FALSE
 	var/base_type = slot_base_type[slot]
 	if(base_type && !(slot in slot_any_item) && !ispath(choice, base_type))
 		var/confirm_choice = tgui_alert(user, "This item may not fit the selected slot.", "Custom Outfit", list("Use anyway", "Cancel"))
