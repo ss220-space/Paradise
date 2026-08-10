@@ -76,7 +76,6 @@
 /turf/simulated/floor/indestructible/asteroid,
 /area/mountain_wars/marine_base)
 "kH" = (
-/turf/simulated/floor/indestructible/light,
 /turf/simulated/floor/indestructible/yellow_light,
 /area/mountain_wars/marine_base)
 "lr" = (
@@ -92,11 +91,6 @@
 "rn" = (
 /obj/structure/mw_ledge/tier3,
 /turf/simulated/wall/indestructible/metal,
-/area/mountain_wars/marine_base)
-"rz" = (
-/turf/simulated/floor/indestructible/light,
-/turf/simulated/floor/indestructible/yellow_light,
-/turf/simulated/floor/indestructible/yellow_light,
 /area/mountain_wars/marine_base)
 "rD" = (
 /obj/structure/table/reinforced,
@@ -6009,7 +6003,7 @@ ZV
 ZV
 ZV
 ZV
-rz
+kH
 kH
 kH
 Rb
