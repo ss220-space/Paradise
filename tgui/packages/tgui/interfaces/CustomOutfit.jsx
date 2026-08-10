@@ -107,21 +107,6 @@ export const CustomOutfit = (props) => {
                     <Stack.Item grow basis={0}>
                       <Button
                         fluid
-                        icon="shield"
-                        iconColor={hasMindshield ? 'good' : 'gray'}
-                        color="transparent"
-                        content="Mindshield"
-                        tooltip={
-                          hasMindshield
-                            ? 'Удалить имплант защиты разума'
-                            : 'Добавить имплант защиты разума'
-                        }
-                        onClick={() => act('toggle_mindshield')}
-                      />
-                    </Stack.Item>
-                    <Stack.Item grow basis={0}>
-                      <Button
-                        fluid
                         icon="pills"
                         iconColor={hasDental ? 'good' : 'gray'}
                         content="Зубной имплант"

@@ -11,7 +11,6 @@
 #define CUSTOM_OUTFIT_ACTION_REMOVE_ITEM "remove_item"
 #define CUSTOM_OUTFIT_ACTION_ADD_AUGMENTATION "add_augmentation"
 #define CUSTOM_OUTFIT_ACTION_REMOVE_AUGMENTATION "remove_augmentation"
-#define CUSTOM_OUTFIT_ACTION_TOGGLE_MINDSHIELD "toggle_mindshield"
 #define CUSTOM_OUTFIT_ACTION_DENTAL_IMPLANT "dental_implant"
 #define CUSTOM_OUTFIT_ACTION_CLICK "click"
 #define CUSTOM_OUTFIT_ACTION_CLEAR "clear"
@@ -28,7 +27,6 @@
 	var/list/external_augmentations = list()
 	var/list/internal_augmentations = list()
 	var/list/reagent_volumes = list()
-	var/has_mindshield = FALSE
 	var/body_dirty = FALSE
 	var/backpack_dirty = FALSE
 	var/dental_dirty = FALSE
@@ -177,7 +175,6 @@
 	data["backpack_items"] = serialize_backpack()
 	data["implants"] = serialize_implants()
 	data["augmentations"] = serialize_augmentations()
-	data["mindshield"] = has_mindshield
 	data["dental_reagents"] = serialize_reagents()
 	data["has_dental_implant"] = length(reagent_volumes) > 0
 
@@ -265,10 +262,6 @@
 				body_dirty = TRUE
 			. = TRUE
 
-		if(CUSTOM_OUTFIT_ACTION_TOGGLE_MINDSHIELD)
-			has_mindshield = !has_mindshield
-			. = TRUE
-
 		if(CUSTOM_OUTFIT_ACTION_DENTAL_IMPLANT)
 			if(length(reagent_volumes))
 				reagent_volumes = list()
@@ -300,7 +293,6 @@
 	capture_backpack(human_target)
 	capture_implants(human_target)
 	capture_augmentations(human_target)
-	has_mindshield = ismindshielded(human_target)
 
 /datum/custom_outfit/proc/capture_backpack(mob/living/carbon/human/human_target)
 	if(!isstorage(human_target.back))
@@ -310,8 +302,6 @@
 
 /datum/custom_outfit/proc/capture_implants(mob/living/carbon/human/human_target)
 	for(var/obj/item/implant/implant in human_target.contents)
-		if(istype(implant, /obj/item/implant/mindshield))
-			continue
 		if(!(implant.type in edited_outfit.implants))
 			edited_outfit.implants += implant.type
 	for(var/obj/item/organ/internal/cyberimp/cyberimp_organ in human_target.internal_organs)
@@ -409,8 +399,6 @@
 	if(!preserve_implants)
 		final_outfit.implants.Cut()
 		final_outfit.cybernetic_implants.Cut()
-	else
-		final_outfit.implants -= /obj/item/implant/mindshield
 	return final_outfit
 
 /datum/custom_outfit/proc/apply_outfit(mob/user)
@@ -441,8 +429,6 @@
 
 	if(kept_existing_back && backpack_dirty)
 		sync_existing_backpack(human_target, new_backpack_contents)
-
-	apply_mindshield(human_target)
 
 	if(dental_dirty)
 		apply_reagent_pill(human_target)
@@ -567,15 +553,6 @@
 			continue
 		new organ_path(human_target)
 
-/datum/custom_outfit/proc/apply_mindshield(mob/living/carbon/human/human_target)
-	if(has_mindshield)
-		if(!ismindshielded(human_target))
-			var/obj/item/implant/mindshield/mindshield_implant = new /obj/item/implant/mindshield(human_target)
-			mindshield_implant.implant(human_target)
-		return
-	for(var/obj/item/implant/mindshield/mindshield_implant in human_target.contents)
-		qdel(mindshield_implant)
-
 /datum/custom_outfit/proc/apply_reagent_pill(mob/living/carbon/human/human_target)
 	for(var/obj/item/reagent_containers/food/pill/old_pill in human_target.contents)
 		qdel(old_pill)
@@ -662,6 +639,20 @@
 	return TRUE
 
 /datum/custom_outfit/proc/choose_implant(mob/user)
+	var/list/type_options = list(
+		"Кибер-имплант",
+		"Био-имплант",
+	)
+	var/type_choice = tgui_input_list(user, "Выберите тип импланта", "Имплант", type_options)
+	if(QDELETED(src) || QDELETED(user))
+		return FALSE
+	if(!type_choice)
+		return FALSE
+	if(type_choice == "Кибер-имплант")
+		return choose_cyber_implant(user)
+	return choose_bio_implant(user)
+
+/datum/custom_outfit/proc/choose_cyber_implant(mob/user)
 	var/list/options = list()
 	for(var/implant_path in subtypesof(/obj/item/organ/internal/cyberimp))
 		var/obj/item/organ/internal/cyberimp/implant_ref = implant_path
@@ -670,9 +661,9 @@
 			continue
 		options["[implant_name] ([implant_path])"] = implant_path
 	if(!length(options))
-		to_chat(user, span_warning("No implants found."))
+		to_chat(user, span_warning("No cybernetic implants found."))
 		return FALSE
-	var/choice = tgui_input_list(user, "Choose an implant", "Custom Outfit", options)
+	var/choice = tgui_input_list(user, "Choose a cybernetic implant", "Custom Outfit", options)
 	if(QDELETED(src) || QDELETED(user))
 		return FALSE
 	if(isnull(choice))
@@ -681,8 +672,34 @@
 	if(!ispath(implant_path, /obj/item/organ/internal/cyberimp))
 		return FALSE
 	if(implant_path in edited_outfit.cybernetic_implants)
+		to_chat(user, span_warning("This cybernetic implant is already installed."))
 		return FALSE
 	edited_outfit.cybernetic_implants += implant_path
+	return TRUE
+
+/datum/custom_outfit/proc/choose_bio_implant(mob/user)
+	var/list/options = list()
+	for(var/implant_path in subtypesof(/obj/item/implant))
+		var/obj/item/implant/implant_ref = implant_path
+		var/implant_name = initial(implant_ref.name)
+		if(!implant_name)
+			continue
+		options["[implant_name] ([implant_path])"] = implant_path
+	if(!length(options))
+		to_chat(user, span_warning("No bio-implants found."))
+		return FALSE
+	var/choice = tgui_input_list(user, "Choose a bio-implant", "Custom Outfit", options)
+	if(QDELETED(src) || QDELETED(user))
+		return FALSE
+	if(isnull(choice))
+		return FALSE
+	var/implant_path = options[choice]
+	if(!ispath(implant_path, /obj/item/implant))
+		return FALSE
+	if(implant_path in edited_outfit.implants)
+		to_chat(user, span_warning("This bio-implant is already installed."))
+		return FALSE
+	edited_outfit.implants += implant_path
 	return TRUE
 
 /datum/custom_outfit/proc/choose_augmentation(mob/user)
@@ -910,7 +927,6 @@
 	for(var/reagent_path in reagent_volumes)
 		reagents["[reagent_path]"] = reagent_volumes[reagent_path]
 	.["reagent_volumes"] = reagents
-	.["has_mindshield"] = has_mindshield
 
 /datum/custom_outfit/proc/save_to_file(mob/user)
 	if(!user.client)
@@ -1005,14 +1021,11 @@
 			continue
 		new_reagents[reagent_path] = min(amount, CUSTOM_OUTFIT_MAX_REAGENT_AMOUNT)
 
-	var/new_mindshield = save_data["has_mindshield"] ? TRUE : FALSE
-
 	qdel(edited_outfit)
 	edited_outfit = loaded_outfit
 	external_augmentations = new_external
 	internal_augmentations = new_internal
 	reagent_volumes = new_reagents
-	has_mindshield = new_mindshield
 
 	body_dirty = TRUE
 	backpack_dirty = TRUE
@@ -1144,7 +1157,6 @@
 #undef CUSTOM_OUTFIT_ACTION_REMOVE_ITEM
 #undef CUSTOM_OUTFIT_ACTION_ADD_AUGMENTATION
 #undef CUSTOM_OUTFIT_ACTION_REMOVE_AUGMENTATION
-#undef CUSTOM_OUTFIT_ACTION_TOGGLE_MINDSHIELD
 #undef CUSTOM_OUTFIT_ACTION_DENTAL_IMPLANT
 #undef CUSTOM_OUTFIT_ACTION_CLICK
 #undef CUSTOM_OUTFIT_ACTION_CLEAR
