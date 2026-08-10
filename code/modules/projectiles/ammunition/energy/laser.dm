@@ -36,6 +36,11 @@
 	select_name = "anti-vehicle"
 	fire_sound = 'sound/weapons/gunshots/1pulse2.ogg'
 
+/obj/item/ammo_casing/energy/laser/energy_carbine
+	projectile_type = /obj/projectile/beam/laser/slowed
+	overlay_color = COLOR_FIRE_LIGHT_RED
+	e_cost = 62 //16 shots
+
 /obj/item/ammo_casing/energy/laser/pulse
 	projectile_type = /obj/projectile/beam/pulse
 	muzzle_flash_color = LIGHT_COLOR_DARK_BLUE

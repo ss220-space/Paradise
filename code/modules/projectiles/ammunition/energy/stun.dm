@@ -31,6 +31,13 @@
 	harmful = FALSE
 	overlay_color = COLOR_HEALING_CYAN
 
+// quick remind: accumulator guns have 1000 energy
+/obj/item/ammo_casing/energy/disabler/energy_carbine
+	projectile_type = /obj/projectile/beam/disabler/slowed
+	fire_sound = 'sound/weapons/gunshots/1laser5.ogg'
+	e_cost = 40 //25 shots
+	overlay_color = COLOR_DARK_CYAN
+
 /obj/item/ammo_casing/energy/disabler/hos
 	e_cost = 40
 

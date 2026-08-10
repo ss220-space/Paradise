@@ -288,6 +288,7 @@
 /obj/item/gun/energy/accumulator/update_icon_state()
 	if(!magazine)
 		icon_state = "[initial(icon_state)]-e"
+		item_state = "[initial(icon_state)]-e"
 	else
 		. = ..()
 
@@ -296,7 +297,7 @@
 		return ..()
 	add_fingerprint(user)
 	if(!user.drop_transfer_item_to_loc(item, src))
-		balloon_alert(user, "не выходит!")
+		user.balloon_alert(user, "не выходит!")
 		return ATTACK_CHAIN_PROCEED
 	if(magazine)
 		magazine.update_icon(UPDATE_OVERLAYS)
@@ -304,7 +305,7 @@
 	cell = item.get_cell()
 	cell_type = cell.type
 	magazine = item
-	balloon_alert(user, "аккумулятор заменен")
+	user.balloon_alert(user, "аккумулятор заменен")
 	update_icon()
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	if(magazine.is_available_shot(shot.e_cost))
@@ -319,3 +320,24 @@
 	cell = null
 	magazine = null
 	update_icon()
+
+// MARK: Energy carbine
+/obj/item/gun/energy/accumulator/energy_carbine
+	name = "energy carbine"
+	desc = "Обновленная энергетическая винтовка, работающая на съёмных аккумуляторах универсального образца. Укреплённый приклад позволяет стрелку вступить в ближний бой в случае исчерпания боезапаса."
+	icon_state = "energycarbine"
+	force = 15
+	origin_tech = "combat=4;materials=2"
+	ammo_type = list(
+		/obj/item/ammo_casing/energy/disabler/energy_carbine,
+		/obj/item/ammo_casing/energy/laser/energy_carbine,
+	)
+	materials = list(MAT_METAL = 50000)
+	weapon_weight = WEAPON_LIGHT
+	slot_flags = ITEM_SLOT_SUITSTORE | ITEM_SLOT_BELT
+	accuracy = GUN_ACCURACY_RIFLE_LASER
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 6, "y" = 5),
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -6),
+	)

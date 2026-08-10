@@ -171,6 +171,9 @@
 		PREPOSITIONAL = "дизейблере",
 	)
 
+/obj/projectile/beam/disabler/slowed
+	speed = 2
+
 /obj/projectile/beam/specter/laser
 	name = "specter laser beam"
 
@@ -808,6 +811,9 @@
 	hitsound = 'sound/weapons/parry.ogg'
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_particles
 	light_color = LIGHT_COLOR_GREEN
+
+/obj/projectile/beam/laser/slowed
+	speed = 2
 
 /obj/projectile/beam/laser/hitscan
 	hitscan = TRUE
