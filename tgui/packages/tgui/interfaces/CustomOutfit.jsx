@@ -1,6 +1,38 @@
 import { useBackend } from '../backend';
-import { Box, Button, ImageButton, Icon, Section, Stack } from '../components';
+import { Box, Button, Icon, Image, ImageButton, Section, Stack } from '../components';
 import { Window } from '../layouts';
+
+const SLOT_ROWS = [
+  [
+    { name: 'Headgear', icon: 'hard-hat', slot: 'head' },
+    { name: 'Glasses', icon: 'glasses', slot: 'glasses' },
+    { name: 'Ears', icon: 'headphones-alt', slot: 'l_ear' },
+  ],
+  [
+    { name: 'Neck', icon: 'stethoscope', slot: 'neck' },
+    { name: 'Mask', icon: 'theater-masks', slot: 'mask' },
+  ],
+  [
+    { name: 'Uniform', icon: 'tshirt', slot: 'uniform' },
+    { name: 'Suit', icon: 'user-tie', slot: 'suit' },
+    { name: 'Gloves', icon: 'mitten', slot: 'gloves' },
+  ],
+  [
+    { name: 'Suit Storage', icon: 'briefcase-medical', slot: 'suit_store' },
+    { name: 'Back', icon: 'shopping-bag', slot: 'back' },
+    { name: 'ID', icon: 'id-card-o', slot: 'id' },
+  ],
+  [
+    { name: 'Belt', icon: 'band-aid', slot: 'belt' },
+    { name: 'Left Hand', icon: 'hand-paper', slot: 'l_hand' },
+    { name: 'Right Hand', icon: 'hand-paper', slot: 'r_hand' },
+  ],
+  [
+    { name: 'Shoes', icon: 'socks', slot: 'shoes' },
+    { name: 'Left Pocket', icon: 'envelope-open-o', iconRot: 180, slot: 'l_pocket' },
+    { name: 'Right Pocket', icon: 'envelope-open-o', iconRot: 180, slot: 'r_pocket' },
+  ],
+];
 
 export const CustomOutfit = (props) => {
   const { act, data } = useBackend();
@@ -12,76 +44,30 @@ export const CustomOutfit = (props) => {
   const hasDental = data.has_dental_implant;
   const dentalList = data.dental_reagents || [];
   const dentalTooltip = hasDental
-    ? dentalList.map(r => `${r.name}: ${r.amount}u`).join('\n')
+    ? dentalList.map((reagent) => `${reagent.name}: ${reagent.amount}u`).join('\n')
     : 'Добавить реагенты в зубной имплант';
 
   return (
     <Window title="Custom Outfit" width={900} height={625} theme="admin" fill>
       <Window.Content>
-        <Stack>
-          <Stack.Item grow>
-            <Section fill title="Слоты" width={30}>
+        <Stack fill>
+          <Stack.Item grow={5} basis={0}>
+            <Section fill scrollable title="Слоты">
               <Stack vertical>
-                <Stack.Item>
-                  <Stack>
-                    <OutfitSlot name="Headgear" icon="hard-hat" slot="head" />
-                    <OutfitSlot name="Glasses" icon="glasses" slot="glasses" />
-                    <OutfitSlot name="Ears" icon="headphones-alt" slot="l_ear" />
-                  </Stack>
-                </Stack.Item>
-                <Stack.Item>
-                  <Stack>
-                    <OutfitSlot name="Neck" icon="stethoscope" slot="neck" />
-                    <OutfitSlot name="Mask" icon="theater-masks" slot="mask" />
-                  </Stack>
-                </Stack.Item>
-                <Stack.Item>
-                  <Stack>
-                    <OutfitSlot name="Uniform" icon="tshirt" slot="uniform" />
-                    <OutfitSlot name="Suit" icon="user-tie" slot="suit" />
-                    <OutfitSlot name="Gloves" icon="mitten" slot="gloves" />
-                  </Stack>
-                </Stack.Item>
-                <Stack.Item>
-                  <Stack>
-                    <OutfitSlot
-                      name="Suit Storage"
-                      icon="briefcase-medical"
-                      slot="suit_store"
-                    />
-                    <OutfitSlot name="Back" icon="shopping-bag" slot="back" />
-                    <OutfitSlot name="ID" icon="id-card-o" slot="id" />
-                  </Stack>
-                </Stack.Item>
-                <Stack.Item>
-                  <Stack>
-                    <OutfitSlot name="Belt" icon="band-aid" slot="belt" />
-                    <OutfitSlot name="Left Hand" icon="hand-paper" slot="l_hand" />
-                    <OutfitSlot name="Right Hand" icon="hand-paper" slot="r_hand" />
-                  </Stack>
-                </Stack.Item>
-                <Stack.Item>
-                  <Stack>
-                    <OutfitSlot name="Shoes" icon="socks" slot="shoes" />
-                    <OutfitSlot
-                      name="Left Pocket"
-                      icon="envelope-open-o"
-                      iconRot={180}
-                      slot="l_pocket"
-                    />
-                    <OutfitSlot
-                      name="Right Pocket"
-                      icon="envelope-open-o"
-                      iconRot={180}
-                      slot="r_pocket"
-                    />
-                  </Stack>
-                </Stack.Item>
+                {SLOT_ROWS.map((row, row_index) => (
+                  <Stack.Item key={row_index}>
+                    <Stack>
+                      {row.map((slot) => (
+                        <OutfitSlot key={slot.slot} {...slot} />
+                      ))}
+                    </Stack>
+                  </Stack.Item>
+                ))}
               </Stack>
             </Section>
           </Stack.Item>
 
-          <Stack.Item width={30}>
+          <Stack.Item grow={4} basis={0}>
             <Section
               fill
               title="Результат"
@@ -115,53 +101,46 @@ export const CustomOutfit = (props) => {
                 </>
               }
             >
-              <Box
-                fill
-                textAlign="center"
-                color="label"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <Stack fill vertical>
-                  <Stack.Item>
-                    <Stack fill>
-                      <Stack.Item grow>
-                        <Button
-                          fluid
-                          icon="shield"
-                          iconColor={hasMindshield ? 'good' : 'gray'}
-                          color={hasMindshield ? 'transparent' : 'transparent'}
-                          content="Mindshield"
-                          tooltip={hasMindshield ? 'Удалить имплант защиты разума' : 'Добавить имплант защиты разума'}
-                          onClick={() => act('toggle_mindshield')}
-                        />
-                      </Stack.Item>
-                      <Stack.Item grow>
-                        <Button
-                          fluid
-                          icon="pills"
-                          iconColor={hasDental ? 'good' : 'gray'}
-                          content="Зубной имплант"
-                          tooltip={dentalTooltip}
-                          onClick={() => act('dental_implant')}
-                        />
-                      </Stack.Item>
-                    </Stack>
-                  </Stack.Item>
-                  <Stack.Item grow>
-                    <Box>Здесь будет персонаж</Box>
-                  </Stack.Item>
-                </Stack>
-              </Box>
+              <Stack fill vertical>
+                <Stack.Item>
+                  <Stack>
+                    <Stack.Item grow basis={0}>
+                      <Button
+                        fluid
+                        icon="shield"
+                        iconColor={hasMindshield ? 'good' : 'gray'}
+                        color="transparent"
+                        content="Mindshield"
+                        tooltip={
+                          hasMindshield
+                            ? 'Удалить имплант защиты разума'
+                            : 'Добавить имплант защиты разума'
+                        }
+                        onClick={() => act('toggle_mindshield')}
+                      />
+                    </Stack.Item>
+                    <Stack.Item grow basis={0}>
+                      <Button
+                        fluid
+                        icon="pills"
+                        iconColor={hasDental ? 'good' : 'gray'}
+                        content="Зубной имплант"
+                        tooltip={dentalTooltip}
+                        onClick={() => act('dental_implant')}
+                      />
+                    </Stack.Item>
+                  </Stack>
+                </Stack.Item>
+                <Stack.Item grow basis={0}>
+                  <PreviewImage base64={data.preview_icon} />
+                </Stack.Item>
+              </Stack>
             </Section>
           </Stack.Item>
 
-          <Stack.Item width={20}>
+          <Stack.Item grow={3} basis={0}>
             <Stack fill vertical>
-              <Stack.Item grow>
+              <Stack.Item>
                 <Section title="Импланты">
                   <ItemGrid
                     items={implants}
@@ -173,28 +152,31 @@ export const CustomOutfit = (props) => {
                 <Section title="Аугментации">
                   <Stack vertical>
                     {augmentations?.map((item) => (
-                      <Button
-                        key={item.zone}
-                        fluid
-                        color="transparent"
-                        icon="robot"
-                        content={`${item.zone_name} — ${item.company}`}
-                        tooltip="Удалить аугментацию"
-                        tooltipPosition="bottom-start"
-                        onClick={() => act('remove_augmentation', { zone: item.zone })}
-                      />
+                      <Stack.Item key={item.zone}>
+                        <Button
+                          fluid
+                          color="transparent"
+                          icon="robot"
+                          content={`${item.zone_name} — ${item.company}`}
+                          tooltip="Удалить аугментацию"
+                          tooltipPosition="bottom-start"
+                          onClick={() => act('remove_augmentation', { zone: item.zone })}
+                        />
+                      </Stack.Item>
                     ))}
-                    <Button
-                      fluid
-                      icon="plus"
-                      content="Добавить аугментацию"
-                      onClick={() => act('add_augmentation')}
-                    />
+                    <Stack.Item>
+                      <Button
+                        fluid
+                        icon="plus"
+                        content="Добавить аугментацию"
+                        onClick={() => act('add_augmentation')}
+                      />
+                    </Stack.Item>
                   </Stack>
                 </Section>
               </Stack.Item>
-              <Stack.Item grow>
-                <Section fill title="Рюкзак">
+              <Stack.Item grow basis={0}>
+                <Section fill scrollable title="Рюкзак">
                   <ItemGrid
                     items={backpackItems}
                     onAdd={() => act('add_backpack_item')}
@@ -213,9 +195,38 @@ export const CustomOutfit = (props) => {
   );
 };
 
+const PreviewImage = ({ base64 }) => {
+  if (!base64) {
+    return (
+      <Stack fill align="center" justify="center">
+        <Stack.Item>
+          <Box color="label">Нет данных</Box>
+        </Stack.Item>
+      </Stack>
+    );
+  }
+
+  return (
+    <Stack fill align="center" justify="center">
+      <Stack.Item grow basis={0}>
+        <Image
+          width="100%"
+          height="100%"
+          src={`data:image/png;base64,${base64}`}
+          style={{
+            objectFit: 'contain',
+            imageRendering: 'pixelated',
+          }}
+        />
+      </Stack.Item>
+    </Stack>
+  );
+};
+
 const OutfitSlot = ({ name, icon, iconRot, slot }) => {
   const { act, data } = useBackend();
   const currItem = data.outfit?.[slot];
+
   return (
     <Stack.Item grow basis={0}>
       <Stack vertical>
@@ -227,29 +238,26 @@ const OutfitSlot = ({ name, icon, iconRot, slot }) => {
         </Stack.Item>
         <Stack.Item>
           <Box
-            width="100%"
             height="48px"
-            textAlign="center"
-            style={{
-              backgroundColor: 'rgba(0,0,0,0.3)',
-              borderRadius: '4px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-            onClick={(e) => act('click', { slot })}
+            backgroundColor="rgba(0,0,0,0.3)"
+            borderRadius="4px"
+            onClick={() => act('click', { slot })}
           >
-            {currItem?.icon ? (
-              <ImageButton
-                imageSize={48}
-                dmIcon={currItem.icon}
-                dmIconState={currItem.icon_state}
-                title={currItem.desc}
-                onClick={() => act('clear', { slot })}
-              />
-            ) : (
-              <Icon name={icon} rotation={iconRot} size={1.5} color="gray" />
-            )}
+            <Stack fill align="center" justify="center">
+              <Stack.Item>
+                {currItem?.icon ? (
+                  <ImageButton
+                    imageSize={48}
+                    dmIcon={currItem.icon}
+                    dmIconState={currItem.icon_state}
+                    title={currItem.desc}
+                    onClick={() => act('clear', { slot })}
+                  />
+                ) : (
+                  <Icon name={icon} rotation={iconRot} size={1.5} color="gray" />
+                )}
+              </Stack.Item>
+            </Stack>
           </Box>
         </Stack.Item>
         <Stack.Item>
@@ -257,12 +265,7 @@ const OutfitSlot = ({ name, icon, iconRot, slot }) => {
             textAlign="center"
             fontSize={0.75}
             color={currItem ? 'label' : 'gray'}
-            style={{
-              overflow: 'hidden',
-              whiteSpace: 'nowrap',
-              textOverflow: 'ellipsis',
-            }}
-            title={currItem?.path}
+            title={currItem?.name}
           >
             {currItem?.name || '—'}
           </Box>
@@ -280,43 +283,49 @@ const ItemGrid = ({
   addDisabled,
   addDisabledTooltip,
 }) => {
-  const { act } = useBackend();
   return (
     <Stack wrap>
       {items?.map((item) => (
         <Stack.Item key={item.path} m={0.5}>
-          <ImageButton
+          <Box
             width="48px"
             height="48px"
-            imageSize={48}
-            dmIcon={item.icon}
-            dmIconState={item.icon_state}
-            tooltip={item.name}
-            style={{
-              backgroundColor: 'rgba(0,0,0,0.3)',
-              borderRadius: '4px',
-            }}
-            onClick={() => onRemove(item)}
-          />
+            backgroundColor="rgba(0,0,0,0.3)"
+            borderRadius="4px"
+          >
+            <Stack fill align="center" justify="center">
+              <Stack.Item>
+                <ImageButton
+                  imageSize={48}
+                  dmIcon={item.icon}
+                  dmIconState={item.icon_state}
+                  tooltip={item.name}
+                  onClick={() => onRemove(item)}
+                />
+              </Stack.Item>
+            </Stack>
+          </Box>
         </Stack.Item>
       ))}
       <Stack.Item m={0.5}>
-        <Button
+        <Box
           width="48px"
           height="48px"
-          icon="plus"
-          tooltip={addDisabled ? addDisabledTooltip : addTooltip}
-          tooltipPosition="bottom-start"
-          disabled={addDisabled}
-          style={{
-            backgroundColor: 'rgba(0,0,0,0.3)',
-            borderRadius: '4px',
-            display: 'grid',
-            placeItems: 'center',
-            lineHeight: '48px',
-          }}
-          onClick={onAdd}
-        />
+          backgroundColor="rgba(0,0,0,0.3)"
+          borderRadius="4px"
+        >
+          <Stack fill align="center" justify="center">
+            <Stack.Item>
+              <Button
+                icon="plus"
+                tooltip={addDisabled ? addDisabledTooltip : addTooltip}
+                tooltipPosition="bottom-start"
+                disabled={addDisabled}
+                onClick={onAdd}
+              />
+            </Stack.Item>
+          </Stack>
+        </Box>
       </Stack.Item>
     </Stack>
   );
