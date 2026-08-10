@@ -269,6 +269,13 @@
 			"kinetic" = "кинетический выстрел",
 			"accelerator" = "ускоренный выстрел",
 			"hitscan" = "лазер",
+			"precise hitscan" = "точный выстрел",
+			"scatter hitscan" = "рассеяный выстрел",
+			"anti-vehicle hitscan" = "усиленный выстрел",
+			"pierce hitscan" = "пробивной выстрел",
+			"energy hitscan" = "стандартная настройка",
+			"ricochet hitscan" = "стрельба рикошетом",
+			"fast hitscan" = "быстрая стрельба",
 		)
 
 		balloon_alert(user, "[gun_modes_ru[shot.fluff_select_name ? shot.fluff_select_name : shot.select_name]]")

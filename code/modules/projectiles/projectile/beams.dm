@@ -6,7 +6,7 @@
 	damage_type = BURN
 	hitsound = 'sound/weapons/sear.ogg'
 	hitsound_wall = 'sound/weapons/effects/searwall.ogg'
-	flag = LASER
+		flag = LASER
 	eyeblur = 4 SECONDS
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
 	reflectability = REFLECTABILITY_ENERGY
@@ -812,3 +812,54 @@
 /obj/projectile/beam/laser/hitscan
 	hitscan = TRUE
 	damage = 20
+
+/obj/projectile/beam/laser/hitscan/laser_rifle
+	tracer_type = /obj/effect/projectile/tracer/laser/heavy
+	muzzle_type = /obj/effect/projectile/muzzle/laser/heavy
+	impact_type = /obj/effect/projectile/impact/laser/heavy
+	damage = 40
+
+/obj/projectile/beam/laser/hitscan/laser_rifle/armorpierce
+	tracer_type = /obj/effect/projectile/tracer/laser/armorpierce
+	muzzle_type = /obj/effect/projectile/muzzle/laser/armorpierce
+	impact_type = /obj/effect/projectile/impact/laser/armorpierce
+	armour_penetration = 50
+	damage = 25
+	forcedodge = 3
+
+/obj/projectile/beam/laser/hitscan/laser_shotgun
+	tracer_type = /obj/effect/projectile/tracer/laser/heavy
+	muzzle_type = /obj/effect/projectile/muzzle/laser/heavy
+	impact_type = /obj/effect/projectile/impact/laser/heavy
+	damage = 25
+	armour_penetration = 25
+
+/obj/projectile/beam/laser/hitscan/laser_shotgun/pellet
+	tracer_type = /obj/effect/projectile/tracer/laser/light
+	muzzle_type = /obj/effect/projectile/muzzle/laser/light
+	impact_type = /obj/effect/projectile/impact/laser/light
+	damage = 7
+	armour_penetration = 0
+
+/obj/projectile/beam/laser/hitscan/laser_mg
+	tracer_type = /obj/effect/projectile/tracer/laser/light
+	muzzle_type = /obj/effect/projectile/muzzle/laser/light
+	impact_type = /obj/effect/projectile/impact/laser/light
+	damage = 5
+
+/obj/projectile/beam/laser/hitscan/laser_mg/ricochet
+	icon_state = "lasershot"
+	damage = 5
+	range = 40
+	hitscan = FALSE
+	ricochet_chance = 100
+	ricochets_max = 10
+	speed = 2
+
+/obj/projectile/beam/laser/hitscan/laser_pistol
+
+/obj/projectile/beam/laser/hitscan/laser_pistol/light
+	tracer_type = /obj/effect/projectile/tracer/laser/light
+	muzzle_type = /obj/effect/projectile/muzzle/laser/light
+	impact_type = /obj/effect/projectile/impact/laser/light
+	damage = 10

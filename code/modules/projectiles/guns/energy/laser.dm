@@ -16,29 +16,159 @@
 		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 9, ATTACHMENT_OFFSET_Y = -5),
 	)
 
+// MARK: Hitscan
 /obj/item/gun/energy/laser/hitscan
-	name = "Mk.5 laser gun"
-	desc = "Пятое поколение стандартной лазерной винтовки службы безопасности. Важнейшим отличием от ранних моделей является лазерная система ведения огня."
+	name = "Mk.3 laser gun"
+	desc = "Третье поколение стандартной лазерной винтовки службы безопасности. Важнейшим отличием от ранних моделей является импульсная система ведения огня."
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/hitscan)
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_SUITSTORE | ITEM_SLOT_BELT
 
 /obj/item/gun/energy/laser/hitscan/get_ru_names()
 	return alist(
-		NOMINATIVE = "лазерная винтовка Mk.5",
-		GENITIVE = "лазерной винтовки Mk.5",
-		DATIVE = "лазерной винтовке Mk.5",
-		ACCUSATIVE = "лазернуб винтовку Mk.5",
-		INSTRUMENTAL = "лазерной винтовкой Mk.5",
-		PREPOSITIONAL = "лазерной винтовке Mk.5",
+		NOMINATIVE = "лазерная винтовка «Страж»",
+		GENITIVE = "лазерной винтовки «Страж»",
+		DATIVE = "лазерной винтовке «Страж»",
+		ACCUSATIVE = "лазерную винтовку «Страж»",
+		INSTRUMENTAL = "лазерной винтовкой «Страж»",
+		PREPOSITIONAL = "лазерной винтовке «Страж»",
 	)
 
+// MARK: Hitscan sniper rifle
+/obj/item/gun/energy/laser/hitscan/laser_rifle
+	name = "laser sniper rifle"
+	desc = "Высококачественная лазерная снайперская винтовка, применяемая службой безопасности. Имеет два режима стрельбы: тяжёлый выстрел широкого диапазона и бронебойный выстрел, способный поражать цели за препятствием."
+	icon = 'icons/obj/weapons/guns_48x32.dmi'
+	icon_state = "laserrifle"
+	ammo_type = list(
+		/obj/item/ammo_casing/energy/lasergun/hitscan/laser_rifle,
+		/obj/item/ammo_casing/energy/lasergun/hitscan/laser_rifle/armorpierce,
+	)
+	slot_flags = ITEM_SLOT_SUITSTORE | ITEM_SLOT_BACK
+	accuracy = GUN_ACCURACY_SNIPER
+	weapon_weight = WEAPON_HEAVY
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 4),
+		ATTACHMENT_SLOT_UNDER = list("x" = 21, "y" = -9),
+	)
 
+/obj/item/gun/energy/laser/hitscan/laser_rifle/get_ru_names()
+	return alist(
+		NOMINATIVE = "лазерная снайперская винтовка «Игла»",
+		GENITIVE = "лазерной снайперской винтовки «Игла»",
+		DATIVE = "лазерной снайперской винтовке «Игла»",
+		ACCUSATIVE = "лазерную снайперскую винтовку «Игла»",
+		INSTRUMENTAL = "лазерной снайперской винтовкой «Игла»",
+		PREPOSITIONAL = "лазерной снайперской винтовке «Игла»",
+	)
+
+// MARK: Hitscan shotgun
+/obj/item/gun/energy/laser/hitscan/laser_shotgun
+	name = "laser shotgun"
+	desc = "Экспериментальный лазерный дробовик с возможностью настройки фокусировки линз. В зависимости от настройки, дробовик способен бить как рассеяным, так и сфокусированным лучом."
+	icon_state = "lasershotgun"
+	ammo_type = list(
+		/obj/item/ammo_casing/energy/lasergun/hitscan/laser_shotgun,
+		/obj/item/ammo_casing/energy/lasergun/hitscan/laser_shotgun/wide,
+	)
+	slot_flags = ITEM_SLOT_SUITSTORE
+	accuracy = GUN_ACCURACY_RIFLE
+	weapon_weight = WEAPON_HEAVY
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 2, "y" = 6),
+		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -6),
+	)
+
+/obj/item/gun/energy/laser/hitscan/laser_shotgun/get_ru_names()
+	return alist(
+		NOMINATIVE = "лазерный дробовик «Фокус»",
+		GENITIVE = "лазерного дробовика «Фокус»",
+		DATIVE = "лазерному дробовику «Фокус»",
+		ACCUSATIVE = "лазерный дробовик «Фокус»",
+		INSTRUMENTAL = "лазерным дробовиком «Фокус»",
+		PREPOSITIONAL = "лазерном дробовике «Фокус»",
+	)
+
+// MARK: Hitscan MG
+/obj/item/gun/energy/laser/hitscan/laser_mg
+	name = "laser machine gun"
+	desc = "Лазерный карабин, используемый службой безопасности. Экспериментальный генератор частиц способен запускать снаряды, рикошетящие от стен."
+	icon_state = "lasermg"
+	ammo_type = list(
+		/obj/item/ammo_casing/energy/lasergun/hitscan/laser_mg,
+		/obj/item/ammo_casing/energy/lasergun/hitscan/laser_mg/ricochet,
+	)
+	slot_flags = ITEM_SLOT_SUITSTORE
+	accuracy = GUN_ACCURACY_RIFLE
+	weapon_weight = WEAPON_HEAVY
+	burst_amount = 3
+	fire_delay = 0.2 SECONDS
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 2, "y" = 6),
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -6),
+	)
+	gun_firemode_list = list(GUN_FIREMODE_SEMIAUTO, GUN_FIREMODE_BURSTFIRE, GUN_FIREMODE_AUTOMATIC)
+
+/obj/item/gun/energy/laser/hitscan/laser_mg/get_ru_names()
+	return alist(
+		NOMINATIVE = "лазерный карабин «Зенит»",
+		GENITIVE = "лазерного карабина «Зенит»",
+		DATIVE = "лазерному карабину «Зенит»",
+		ACCUSATIVE = "лазерный карабин «Зенит»",
+		INSTRUMENTAL = "лазерным карабином «Зенит»",
+		PREPOSITIONAL = "лазерном карабине «Зенит»",
+	)
+
+// MARK: Hitscan pistol
+/obj/item/gun/energy/laser/hitscan/laser_pistol
+	name = "laser pistol"
+	desc = "Тактический лазерный пистолет, используемый службой безопасности. Способен вести огонь как в обычном, так и в ускоренном режиме."
+	icon_state = "laserpistol"
+	ammo_type = list(
+		/obj/item/ammo_casing/energy/lasergun/hitscan/laserpistol,
+		/obj/item/ammo_casing/energy/lasergun/hitscan/laserpistol/light,
+	)
+	slot_flags = ITEM_SLOT_SUITSTORE | ITEM_SLOT_BELT
+	w_class = WEIGHT_CLASS_NORMAL
+	accuracy = GUN_ACCURACY_PISTOL
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 5, "y" = 6),
+		ATTACHMENT_SLOT_UNDER = list("x" = 4, "y" = -5),
+	)
+
+/obj/item/gun/energy/laser/hitscan/laser_pistol/get_ru_names()
+	return alist(
+		NOMINATIVE = "лазерный пистолет «Шершень»",
+		GENITIVE = "лазерного пистолета «Шершень»",
+		DATIVE = "лазерному пистолету «Шершень»",
+		ACCUSATIVE = "лазерный пистолет «Шершень»",
+		INSTRUMENTAL = "лазерным пистолетом «Шершень»",
+		PREPOSITIONAL = "лазерном пистолете «Шершень»",
+	)
+
+// MARK: Sibyl variants
 /obj/item/gun/energy/laser/sibyl/Initialize(mapload)
 	. = ..()
 	install_sibyl()
 
 /obj/item/gun/energy/laser/hitscan/sibyl/Initialize(mapload)
+	. = ..()
+	install_sibyl()
+
+/obj/item/gun/energy/laser/hitscan/laser_rifle/sibyl/Initialize(mapload)
+	. = ..()
+	install_sibyl()
+
+/obj/item/gun/energy/laser/hitscan/laser_shotgun/sibyl/Initialize(mapload)
+	. = ..()
+	install_sibyl()
+
+/obj/item/gun/energy/laser/hitscan/laser_mg/sibyl/Initialize(mapload)
+	. = ..()
+	install_sibyl()
+
+/obj/item/gun/energy/laser/hitscan/laser_pistol/sibyl/Initialize(mapload)
 	. = ..()
 	install_sibyl()
 
