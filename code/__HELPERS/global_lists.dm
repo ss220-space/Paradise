@@ -371,7 +371,7 @@
 		EQUIPMENT("Industrial Mining Charge", /obj/item/grenade/plastic/miningcharge, 500),
 		EQUIPMENT("Whetstone", /obj/item/whetstone, 500),
 		EQUIPMENT("Fulton Pack", /obj/item/extraction_pack, 1500),
-		EQUIPMENT("Jaunter", /obj/item/wormhole_jaunter, 900),
+		EQUIPMENT("Jaunter", /obj/item/wormhole_jaunter, 2000),
 		EQUIPMENT("Chasm Jaunter Recovery Grenade", /obj/item/grenade/jaunter_grenade, 3000), // fishing rod supremacy
 		EQUIPMENT("Lazarus Injector", /obj/item/lazarus_injector, 600),
 		EQUIPMENT("Point Transfer Card (500)", /obj/item/card/mining_point_card, 500),

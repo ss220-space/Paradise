@@ -78,8 +78,8 @@
 		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
 		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
-		/datum/skill/medical/surgery = SKILL_LEVEL_BEGINNER,
-		/datum/skill/medical/heal = SKILL_LEVEL_ADVANCED,
+		/datum/skill/medical/surgery = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
 		/datum/skill/medical/chemistry = SKILL_LEVEL_BASIC,
 		/datum/skill/medical/genetic = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/virusology = SKILL_LEVEL_BEGINNER,
@@ -87,9 +87,21 @@
 	alt_skill_levels = alist(
 		ALT_JOB_TITLE_RU_SURGEON = list(
 			/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+			/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
+			/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
 			/datum/skill/medical/surgery = SKILL_LEVEL_ADVANCED,
 			/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
 			/datum/skill/medical/chemistry = SKILL_LEVEL_BEGINNER,
+			/datum/skill/medical/genetic = SKILL_LEVEL_BEGINNER,
+			/datum/skill/medical/virusology = SKILL_LEVEL_BEGINNER,
+		),
+		ALT_JOB_TITLE_RU_RESUSCITATOR = list(
+			/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+			/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
+			/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+			/datum/skill/medical/surgery = SKILL_LEVEL_BEGINNER,
+			/datum/skill/medical/heal = SKILL_LEVEL_ADVANCED,
+			/datum/skill/medical/chemistry = SKILL_LEVEL_BASIC,
 			/datum/skill/medical/genetic = SKILL_LEVEL_BEGINNER,
 			/datum/skill/medical/virusology = SKILL_LEVEL_BEGINNER,
 		)
