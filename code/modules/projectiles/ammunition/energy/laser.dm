@@ -31,6 +31,10 @@
 	variance = 25
 	select_name = "scatter"
 
+/obj/item/ammo_casing/energy/laser/scatter/energy_shotgun
+	projectile_type = /obj/projectile/beam/scatter/energy_shotgun
+	e_cost = 120 //10 shots
+
 /obj/item/ammo_casing/energy/laser/heavy
 	projectile_type = /obj/projectile/beam/laser/heavylaser
 	select_name = "anti-vehicle"
@@ -40,6 +44,18 @@
 	projectile_type = /obj/projectile/beam/laser/slowed
 	overlay_color = COLOR_FIRE_LIGHT_RED
 	e_cost = 75 //16 shots
+
+/obj/item/ammo_casing/energy/laser/energy_carbine/weak
+	projectile_type = /obj/projectile/beam/laser/slowed/weak
+	e_cost = 40 //30 shots
+	delay = 0
+	overlay_color = COLOR_VIVID_RED
+
+obj/item/ammo_casing/energy/laser/energy_carbine/heavy
+	e_cost = 200 //6 shots
+	fire_sound = 'sound/weapons/gunshots/laserrifle.ogg'
+	projectile_type = /obj/projectile/beam/laser/slowed/heavy
+	overlay_color = COLOR_MOSTLY_PURE_RED
 
 /obj/item/ammo_casing/energy/laser/pulse
 	projectile_type = /obj/projectile/beam/pulse

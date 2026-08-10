@@ -160,22 +160,6 @@
 	. = ..()
 	install_sibyl()
 
-/obj/item/gun/energy/laser/hitscan/laser_rifle/sibyl/Initialize(mapload)
-	. = ..()
-	install_sibyl()
-
-/obj/item/gun/energy/laser/hitscan/laser_shotgun/sibyl/Initialize(mapload)
-	. = ..()
-	install_sibyl()
-
-/obj/item/gun/energy/laser/hitscan/laser_mg/sibyl/Initialize(mapload)
-	. = ..()
-	install_sibyl()
-
-/obj/item/gun/energy/laser/hitscan/laser_pistol/sibyl/Initialize(mapload)
-	. = ..()
-	install_sibyl()
-
 // MARK: Practice
 /obj/item/gun/energy/laser/practice
 	name = "practice laser gun"

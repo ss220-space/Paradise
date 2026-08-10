@@ -485,6 +485,9 @@
 /obj/item/stock_parts/cell/laser/gatling
 	maxcharge = 9000
 
+/obj/item/stock_parts/cell/laser/hmg
+	maxcharge = 3000
+
 /obj/item/stock_parts/cell/laser/tesla_cannon
 	maxcharge = STANDARD_CELL_CHARGE * 0.5
 

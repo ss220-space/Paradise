@@ -112,6 +112,10 @@
 	icon_state = "scatterlaser"
 	damage = 5
 
+/obj/projectile/beam/scatter/energy_shotgun
+	speed = 2
+	damage = 6 //30 per shot
+
 /obj/projectile/beam/scatter/get_ru_names()
 	return alist(
 		NOMINATIVE = "лазерная гранула",
@@ -173,6 +177,22 @@
 
 /obj/projectile/beam/disabler/slowed
 	speed = 2
+
+/obj/projectile/beam/disabler/slowed/weak
+	damage = 12
+	icon_state = "disabler_weakbeam"
+
+/obj/projectile/beam/disabler/slowed/heavy
+	damage = 60
+
+/obj/projectile/beam/disabler/scatter
+	name = "disabler pellet"
+	icon_state = "scatter_disabler"
+	damage = 5
+
+/obj/projectile/beam/disabler/scatter/energy_shotgun
+	speed = 2
+	damage = 10 //50 per shot
 
 /obj/projectile/beam/specter/laser
 	name = "specter laser beam"
@@ -814,6 +834,13 @@
 
 /obj/projectile/beam/laser/slowed
 	speed = 2
+
+/obj/projectile/beam/laser/slowed/weak
+	damage = 12
+	icon_state = "laser_weakbeam"
+
+/obj/projectile/beam/laser/slowed/heavy
+	damage = 50
 
 /obj/projectile/beam/laser/hitscan
 	hitscan = TRUE

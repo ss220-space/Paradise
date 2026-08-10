@@ -38,6 +38,29 @@
 	e_cost = 50 //25 shots
 	overlay_color = COLOR_DARK_CYAN
 
+/obj/item/ammo_casing/energy/disabler/energy_carbine/weak
+	projectile_type = /obj/projectile/beam/disabler/slowed/weak
+	e_cost = 25 //50 shots
+	delay = 0
+	overlay_color = COLOR_FRENCH_BLUE
+
+/obj/item/ammo_casing/energy/disabler/energy_carbine/heavy
+	projectile_type = /obj/projectile/beam/disabler/slowed/heavy
+	fire_sound = 'sound/weapons/gunshots/laserrifle2.ogg'
+	e_cost = 150 //12 shots
+	overlay_color = COLOR_HEALING_CYAN
+
+/obj/item/ammo_casing/energy/disabler/scatter
+	projectile_type = /obj/projectile/beam/disabler/scatter
+	pellets = 5
+	variance = 25
+	select_name = "scatter"
+
+/obj/item/ammo_casing/energy/disabler/scatter/energy_shotgun
+	projectile_type = /obj/projectile/beam/disabler/scatter/energy_shotgun
+	e_cost = 120 //10 shots
+	overlay_color = COLOR_COMMAND_BLUE
+
 /obj/item/ammo_casing/energy/disabler/hos
 	e_cost = 40
 

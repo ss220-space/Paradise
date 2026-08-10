@@ -341,3 +341,125 @@
 		ATTACHMENT_SLOT_RAIL = list("x" = 6, "y" = 5),
 		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -6),
 	)
+
+/obj/item/gun/energy/accumulator/energy_carbine/get_ru_names()
+	return alist(
+		NOMINATIVE = "энерго-винтовка «Скорпион»",
+		GENITIVE = "энерго-винтовки «Скорпион»",
+		DATIVE = "энерго-винтовке «Скорпион»",
+		ACCUSATIVE = "энерго-винтовку «Скорпион»",
+		INSTRUMENTAL = "энерго-винтовкой «Скорпион»",
+		PREPOSITIONAL = "энерго-винтовке «Скорпион»",
+	)
+
+// MARK: Energy pistol
+/obj/item/gun/energy/accumulator/energy_pistol
+	name = "energy pistol"
+	desc = "Ручной бластер, работающий на съёмных аккумуляторах универсального образца. Популярен среди силовых структур из-за своей компактности."
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
+	accuracy = GUN_ACCURACY_PISTOL
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 7),
+		ATTACHMENT_SLOT_UNDER = list("x" = 5, "y" = -5),
+	)
+
+/obj/item/gun/energy/accumulator/energy_pistol/get_ru_names()
+	return alist(
+		NOMINATIVE = "энерго-пистолет «Оса»",
+		GENITIVE = "энерго-пистолета «Оса»",
+		DATIVE = "энерго-пистолету «Оса»",
+		ACCUSATIVE = "энерго-пистолет «Оса»",
+		INSTRUMENTAL = "энерго-пистолетом «Оса»",
+		PREPOSITIONAL = "энерго-пистолете «Оса»",
+	)
+
+// MARK: Energy rifle
+/obj/item/gun/energy/accumulator/automatic
+	name = "energy automatic rifle"
+	desc = "Энергетическая автоматическая винтовка, работающая на съёмных аккумуляторах универсального образца. Популярна среди силовых структур по всей галактике как мощное оружие для проведения штурмовых операций."
+	icon_state = "energy_rifle"
+	ammo_type = list(
+		/obj/item/ammo_casing/energy/disabler/energy_carbine/weak,
+		/obj/item/ammo_casing/energy/laser/energy_carbine/weak,
+	)
+	fire_delay = 0.4 SECONDS
+	gun_firemode_list = list(GUN_FIREMODE_SEMIAUTO, GUN_FIREMODE_AUTOMATIC)
+	weapon_weight = WEAPON_HEAVY
+	w_class = WEIGHT_CLASS_BULKY
+	accuracy = GUN_ACCURACY_RIFLE
+	slot_flags = ITEM_SLOT_SUITSTORE
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 5),
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -7),
+	)
+
+/obj/item/gun/energy/accumulator/automatic/get_ru_names()
+	return alist(
+		NOMINATIVE = "энерго-автомат «Медуза»",
+		GENITIVE = "энерго-автомата «Медуза»",
+		DATIVE = "энерго-автомату «Медуза»",
+		ACCUSATIVE = "энерго-автомат «Медуза»",
+		INSTRUMENTAL = "энерго-автоматом «Медуза»",
+		PREPOSITIONAL = "энерго-автомате «Медуза»",
+	)
+
+// MARK: Energy shotgun
+/obj/item/gun/energy/accumulator/shotgun
+	name = "energy shotgun"
+	desc = "Энергетический дробовик, работающий на съёмных аккумуляторах универсального образца. Используется силовыми службами в тесных помещениях. Массивный вес дробовика позволяет использовать приклад в ближнем бою."
+	icon_state = "energy_shotgun"
+	force = 20
+	ammo_type = list(
+		/obj/item/ammo_casing/energy/disabler/scatter,
+		/obj/item/ammo_casing/energy/laser/scatter,
+	)
+	weapon_weight = WEAPON_HEAVY
+	w_class = WEIGHT_CLASS_BULKY
+	accuracy = GUN_ACCURACY_RIFLE
+	slot_flags = ITEM_SLOT_SUITSTORE
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 7),
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -8),
+	)
+
+/obj/item/gun/energy/accumulator/shotgun/get_ru_names()
+	return alist(
+		NOMINATIVE = "энерго-дробовик «Скарабей»",
+		GENITIVE = "энерго-дробовика «Скарабей»",
+		DATIVE = "энерго-дробовику «Скарабей»",
+		ACCUSATIVE = "энерго-дробовик «Скарабей»",
+		INSTRUMENTAL = "энерго-дробовиком «Скарабей»",
+		PREPOSITIONAL = "энерго-дробовике «Скарабей»",
+	)
+
+// MARK: Energy sniper rifle
+/obj/item/gun/energy/accumulator/sniper_rifle
+	name = "energy sniper rifle"
+	desc = "Энергетическая снайперская винтовка, работающая на съёмных аккумуляторах универсального образца. Используется частными силовыми структурами для боев на дальних дистанциях."
+	icon = 'icons/obj/weapons/guns_48x32.dmi'
+	icon_state = "energy_sniper_rifle"
+	ammo_type = list(
+		/obj/item/ammo_casing/energy/disabler/energy_carbine/heavy,
+		/obj/item/ammo_casing/energy/laser/energy_carbine/heavy,
+	)
+	weapon_weight = WEAPON_HEAVY
+	w_class = WEIGHT_CLASS_BULKY
+	accuracy = GUN_ACCURACY_SNIPER
+	slot_flags = ITEM_SLOT_SUITSTORE | ITEM_SLOT_BACK
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 6),
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -7),
+	)
+
+/obj/item/gun/energy/accumulator/sniper_rifle/get_ru_names()
+	return alist(
+		NOMINATIVE = "энерго-снайперская винтовка «Богомол»",
+		GENITIVE = "энерго-снайперской винтовки «Богомол»",
+		DATIVE = "энерго-снайперской винтовке «Богомол»",
+		ACCUSATIVE = "энерго-снайперскую винтовку «Богомол»",
+		INSTRUMENTAL = "энерго-снайперской винтовкой «Богомол»",
+		PREPOSITIONAL = "энерго-снайперской винтовке «Богомол»",
+	)
