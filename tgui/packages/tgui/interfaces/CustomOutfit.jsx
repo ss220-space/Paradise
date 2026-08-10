@@ -80,12 +80,6 @@ export const CustomOutfit = (props) => {
                     onClick={() => act('load')}
                   />
                   <Button
-                    icon="copy"
-                    tooltip="Скопировать из списка"
-                    tooltipPosition="left"
-                    onClick={() => act('copy')}
-                  />
-                  <Button
                     icon="plus"
                     tooltip="Сохранить в файл"
                     tooltipPosition="left"
@@ -139,10 +133,11 @@ export const CustomOutfit = (props) => {
                     {augmentations?.map((item) => (
                       <Stack.Item key={item.zone}>
                         <Button
+                          key={item.zone}
                           fluid
                           color="transparent"
                           icon="robot"
-                          content={`${item.zone_name} — ${item.company}`}
+                          content={`${item.zone_name} — ${item.status_name}${item.company ? ` (${item.company})` : ''}`}
                           tooltip="Удалить аугментацию"
                           tooltipPosition="bottom-start"
                           onClick={() => act('remove_augmentation', { zone: item.zone })}

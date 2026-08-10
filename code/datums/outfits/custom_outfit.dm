@@ -2,7 +2,6 @@
 #define CUSTOM_OUTFIT_SAVE_VERSION 1
 
 #define CUSTOM_OUTFIT_ACTION_LOAD "load"
-#define CUSTOM_OUTFIT_ACTION_COPY "copy"
 #define CUSTOM_OUTFIT_ACTION_SAVE "save"
 #define CUSTOM_OUTFIT_ACTION_APPLY "apply"
 #define CUSTOM_OUTFIT_ACTION_ADD_IMPLANT "add_implant"
@@ -17,6 +16,9 @@
 
 #define CUSTOM_OUTFIT_DEFAULT_NAME "Custom Outfit"
 #define CUSTOM_OUTFIT_DEFAULT_COMPANY "Cybernetic"
+#define CUSTOM_OUTFIT_LIMB_STATUS_AMPUTATED "amputated"
+#define CUSTOM_OUTFIT_LIMB_STATUS_PROSTHETIC "prosthetic"
+#define CUSTOM_OUTFIT_LIMB_STATUS_AUGMENTED "augmented"
 #define CUSTOM_OUTFIT_DEFAULT_REAGENT_AMOUNT 5
 #define CUSTOM_OUTFIT_MIN_REAGENT_AMOUNT 1
 #define CUSTOM_OUTFIT_MAX_REAGENT_AMOUNT 100
@@ -104,6 +106,25 @@
 		BODY_ZONE_PRECISE_R_FOOT,
 	)
 
+	var/static/list/limb_status_options = list(
+		"Ампутировано" = CUSTOM_OUTFIT_LIMB_STATUS_AMPUTATED,
+		"Протез" = CUSTOM_OUTFIT_LIMB_STATUS_PROSTHETIC,
+		"Аугментация" = CUSTOM_OUTFIT_LIMB_STATUS_AUGMENTED,
+	)
+
+	var/static/list/no_amputate_zones = list(
+		BODY_ZONE_HEAD,
+		BODY_ZONE_CHEST,
+		BODY_ZONE_PRECISE_GROIN,
+	)
+
+	var/static/list/limb_amputation_dependents = list(
+		BODY_ZONE_L_ARM = BODY_ZONE_PRECISE_L_HAND,
+		BODY_ZONE_R_ARM = BODY_ZONE_PRECISE_R_HAND,
+		BODY_ZONE_L_LEG = BODY_ZONE_PRECISE_L_FOOT,
+		BODY_ZONE_R_LEG = BODY_ZONE_PRECISE_R_FOOT,
+	)
+
 	var/static/list/slot_base_type = list(
 		"head" = /obj/item/clothing/head,
 		"glasses" = /obj/item/clothing/glasses,
@@ -138,7 +159,18 @@
 		"Почки" = /obj/item/organ/internal/kidneys/cybernetic,
 	)
 
+	var/static/list/head_appearance_vars = list(
+		"h_style",
+		"f_style",
+		"hair_colour",
+		"facial_colour",
+		"h_grad_style",
+		"h_grad_colour",
+		"sec_hair_colour",
+	)
+
 	var/static/list/reagent_option_cache = list()
+	var/static/list/slot_option_cache = list()
 
 /datum/custom_outfit/New(mob/target_mob)
 	src.target_mob = target_mob
@@ -211,10 +243,6 @@
 			load_from_file(user)
 			. = TRUE
 
-		if(CUSTOM_OUTFIT_ACTION_COPY)
-			to_chat(user, span_warning("Copy is not implemented yet."))
-			. = TRUE
-
 		if(CUSTOM_OUTFIT_ACTION_SAVE)
 			save_to_file(user)
 			. = TRUE
@@ -228,27 +256,21 @@
 				body_dirty = TRUE
 			. = TRUE
 
+		if(CUSTOM_OUTFIT_ACTION_ADD_BACKPACK_ITEM)
+			if(choose_backpack_item(user))
+				backpack_dirty = TRUE
+			. = TRUE
+
 		if(CUSTOM_OUTFIT_ACTION_REMOVE_IMPLANT)
-			var/path_text = params["path"]
-			if(!path_text)
-				path_text = params["ref"]
-			var/implant_path = text2path(path_text)
+			var/implant_path = get_path_param(params)
 			if(implant_path && ((implant_path in edited_outfit.implants) || (implant_path in edited_outfit.cybernetic_implants)))
 				edited_outfit.implants -= implant_path
 				edited_outfit.cybernetic_implants -= implant_path
 				body_dirty = TRUE
 			. = TRUE
 
-		if(CUSTOM_OUTFIT_ACTION_ADD_BACKPACK_ITEM)
-			if(choose_backpack_item(user))
-				backpack_dirty = TRUE
-			. = TRUE
-
 		if(CUSTOM_OUTFIT_ACTION_REMOVE_ITEM)
-			var/path_text = params["path"]
-			if(!path_text)
-				path_text = params["ref"]
-			if(remove_backpack_item(text2path(path_text)))
+			if(remove_backpack_item(get_path_param(params)))
 				backpack_dirty = TRUE
 			. = TRUE
 
@@ -283,6 +305,28 @@
 		SStgui.try_update_ui(user, src, ui)
 	return .
 
+/datum/custom_outfit/proc/get_path_param(list/params)
+	var/path_text = params["path"]
+	if(!path_text)
+		path_text = params["ref"]
+	return text2path(path_text)
+
+/datum/custom_outfit/proc/is_valid_item_entry(item_path, count)
+	return ispath(item_path, /obj/item) && isnum(count) && count > 0
+
+/datum/custom_outfit/proc/get_slot_options(base_type)
+	. = slot_option_cache[base_type]
+	if(.)
+		return
+	. = list()
+	for(var/item_path in subtypesof(base_type))
+		var/obj/item/item_ref = item_path
+		var/item_name = initial(item_ref.name)
+		if(!item_name)
+			continue
+		.["[item_name] ([item_path])"] = item_path
+	slot_option_cache[base_type] = .
+
 /datum/custom_outfit/proc/capture_current_outfit(mob/living/carbon/human/human_target)
 	for(var/outfit_slot in slot_to_human_var)
 		var/human_slot = slot_to_human_var[outfit_slot]
@@ -311,8 +355,17 @@
 /datum/custom_outfit/proc/capture_augmentations(mob/living/carbon/human/human_target)
 	for(var/body_zone in external_body_zones)
 		var/obj/item/organ/external/limb = human_target.get_organ(body_zone)
-		if(limb && limb.is_robotic())
-			external_augmentations[body_zone] = limb.model
+		if(!limb)
+			external_augmentations[body_zone] = list(
+				"status" = CUSTOM_OUTFIT_LIMB_STATUS_AMPUTATED,
+				"company" = null,
+			)
+			continue
+		if(limb.is_robotic())
+			external_augmentations[body_zone] = list(
+				"status" = CUSTOM_OUTFIT_LIMB_STATUS_PROSTHETIC,
+				"company" = limb.model,
+			)
 	for(var/obj/item/organ/internal/organ in human_target.internal_organs)
 		if(istype(organ, /obj/item/organ/internal/cyberimp))
 			continue
@@ -347,13 +400,22 @@
 /datum/custom_outfit/proc/serialize_augmentations()
 	. = list()
 	for(var/body_zone in external_augmentations)
-		var/model = external_augmentations[body_zone]
-		var/datum/robolimb/robolimb = GLOB.all_robolimbs[model]
-		var/company = robolimb ? robolimb.company : CUSTOM_OUTFIT_DEFAULT_COMPANY
+		var/list/limb_data = external_augmentations[body_zone]
+		var/status = limb_data["status"]
+		var/company = limb_data["company"]
+		var/status_name
+		switch(status)
+			if(CUSTOM_OUTFIT_LIMB_STATUS_AMPUTATED)
+				status_name = "Ампутировано"
+			if(CUSTOM_OUTFIT_LIMB_STATUS_PROSTHETIC)
+				status_name = "Протез"
+			if(CUSTOM_OUTFIT_LIMB_STATUS_AUGMENTED)
+				status_name = "Аугментация"
 		. += list(list(
 			"zone" = body_zone,
 			"zone_name" = parse_zone(body_zone),
-			"model" = model,
+			"status" = status,
+			"status_name" = status_name,
 			"company" = company,
 			"kind" = "external",
 		))
@@ -540,12 +602,23 @@
 
 /datum/custom_outfit/proc/apply_external_augmentations(mob/living/carbon/human/human_target)
 	for(var/body_zone in external_augmentations)
-		var/model = external_augmentations[body_zone]
+		var/list/limb_data = external_augmentations[body_zone]
+		var/status = limb_data["status"]
+		var/company = limb_data["company"]
 		var/obj/item/organ/external/limb = human_target.get_organ(body_zone)
-		if(!limb)
-			continue
-		if(!limb.is_robotic() || limb.model != model)
-			limb.robotize(company = model, convert_all = FALSE)
+
+		switch(status)
+			if(CUSTOM_OUTFIT_LIMB_STATUS_AMPUTATED)
+				if(limb)
+					qdel(limb.remove(human_target))
+
+			if(CUSTOM_OUTFIT_LIMB_STATUS_PROSTHETIC)
+				if(limb && (!limb.is_robotic() || limb.model != company))
+					limb.robotize(company = company, convert_all = FALSE)
+
+			if(CUSTOM_OUTFIT_LIMB_STATUS_AUGMENTED)
+				if(limb)
+					limb.robotize(make_tough = TRUE, company = company, convert_all = FALSE)
 
 /datum/custom_outfit/proc/apply_internal_augmentations(mob/living/carbon/human/human_target)
 	for(var/organ_path in internal_augmentations)
@@ -558,22 +631,21 @@
 		qdel(old_pill)
 	if(!length(reagent_volumes))
 		return
-	var/obj/item/reagent_containers/food/pill/pill = new /obj/item/reagent_containers/food/pill(human_target)
+	var/list/validated_reagents = list()
 	var/total_volume = 0
 	for(var/reagent_path in reagent_volumes)
 		var/amount = reagent_volumes[reagent_path]
 		if(!ispath(reagent_path, /datum/reagent) || !isnum(amount) || amount <= 0)
 			continue
+		validated_reagents[reagent_path] = amount
 		total_volume += amount
-	if(total_volume <= 0)
+	if(!total_volume)
 		return
+	var/obj/item/reagent_containers/food/pill/pill = new /obj/item/reagent_containers/food/pill(human_target)
 	if(total_volume > pill.reagents.maximum_volume)
 		pill.reagents.maximum_volume = total_volume
-	for(var/reagent_path in reagent_volumes)
-		var/amount = reagent_volumes[reagent_path]
-		if(!ispath(reagent_path, /datum/reagent) || !isnum(amount) || amount <= 0)
-			continue
-		pill.reagents.add_reagent(reagent_path, amount)
+	for(var/reagent_path in validated_reagents)
+		pill.reagents.add_reagent(reagent_path, validated_reagents[reagent_path])
 	var/datum/action/item_action/hands_free/activate_pill/pill_action = new(pill, pill.icon, pill.icon_state)
 	pill_action.name = "Раскусить [pill.declent_ru(ACCUSATIVE)]"
 	pill_action.Grant(human_target)
@@ -639,67 +711,43 @@
 	return TRUE
 
 /datum/custom_outfit/proc/choose_implant(mob/user)
-	var/list/type_options = list(
-		"Кибер-имплант",
-		"Био-имплант",
+	var/list/implant_types = list(
+		"Кибер-имплант" = /obj/item/organ/internal/cyberimp,
+		"Био-имплант" = /obj/item/implant,
 	)
-	var/type_choice = tgui_input_list(user, "Выберите тип импланта", "Имплант", type_options)
+	var/type_choice = tgui_input_list(user, "Выберите тип импланта", "Имплант", implant_types)
 	if(QDELETED(src) || QDELETED(user))
 		return FALSE
 	if(!type_choice)
 		return FALSE
-	if(type_choice == "Кибер-имплант")
-		return choose_cyber_implant(user)
-	return choose_bio_implant(user)
+	return add_implant_of_type(user, implant_types[type_choice])
 
-/datum/custom_outfit/proc/choose_cyber_implant(mob/user)
-	var/list/options = list()
-	for(var/implant_path in subtypesof(/obj/item/organ/internal/cyberimp))
-		var/obj/item/organ/internal/cyberimp/implant_ref = implant_path
-		var/implant_name = initial(implant_ref.name)
-		if(!implant_name)
+/datum/custom_outfit/proc/build_named_type_list(list/type_paths)
+	. = list()
+	for(var/type_path in type_paths)
+		var/atom/typed_ref = type_path
+		var/type_name = initial(typed_ref.name)
+		if(!type_name)
 			continue
-		options["[implant_name] ([implant_path])"] = implant_path
+		.["[type_name] ([type_path])"] = type_path
+
+/datum/custom_outfit/proc/add_implant_of_type(mob/user, base_path)
+	var/list/options = build_named_type_list(subtypesof(base_path))
 	if(!length(options))
-		to_chat(user, span_warning("No cybernetic implants found."))
+		to_chat(user, span_warning("No implants found."))
 		return FALSE
-	var/choice = tgui_input_list(user, "Choose a cybernetic implant", "Custom Outfit", options)
+	var/choice = tgui_input_list(user, "Choose an implant", "Custom Outfit", options)
 	if(QDELETED(src) || QDELETED(user))
 		return FALSE
 	if(isnull(choice))
 		return FALSE
 	var/implant_path = options[choice]
-	if(!ispath(implant_path, /obj/item/organ/internal/cyberimp))
+	if(!ispath(implant_path, base_path))
 		return FALSE
-	if(implant_path in edited_outfit.cybernetic_implants)
-		to_chat(user, span_warning("This cybernetic implant is already installed."))
+	var/list/destination = (base_path == /obj/item/organ/internal/cyberimp) ? edited_outfit.cybernetic_implants : edited_outfit.implants
+	if(implant_path in destination)
 		return FALSE
-	edited_outfit.cybernetic_implants += implant_path
-	return TRUE
-
-/datum/custom_outfit/proc/choose_bio_implant(mob/user)
-	var/list/options = list()
-	for(var/implant_path in subtypesof(/obj/item/implant))
-		var/obj/item/implant/implant_ref = implant_path
-		var/implant_name = initial(implant_ref.name)
-		if(!implant_name)
-			continue
-		options["[implant_name] ([implant_path])"] = implant_path
-	if(!length(options))
-		to_chat(user, span_warning("No bio-implants found."))
-		return FALSE
-	var/choice = tgui_input_list(user, "Choose a bio-implant", "Custom Outfit", options)
-	if(QDELETED(src) || QDELETED(user))
-		return FALSE
-	if(isnull(choice))
-		return FALSE
-	var/implant_path = options[choice]
-	if(!ispath(implant_path, /obj/item/implant))
-		return FALSE
-	if(implant_path in edited_outfit.implants)
-		to_chat(user, span_warning("This bio-implant is already installed."))
-		return FALSE
-	edited_outfit.implants += implant_path
+	destination += implant_path
 	return TRUE
 
 /datum/custom_outfit/proc/choose_augmentation(mob/user)
@@ -730,26 +778,52 @@
 	var/body_zone = zone_options[zone_choice]
 	if(!body_zone)
 		return FALSE
-	var/list/companies = list()
-	for(var/company in GLOB.all_robolimbs)
-		var/datum/robolimb/robolimb = GLOB.all_robolimbs[company]
-		if(!robolimb.has_subtypes)
-			continue
-		if(!(body_zone in robolimb.parts))
-			continue
-		companies[company] = robolimb
-	if(!length(companies))
-		to_chat(user, span_warning("No augmentations available for this body part."))
-		return FALSE
-	var/company_choice = tgui_input_list(user, "Выберите фирму-изготовителя", "Аугментация", companies)
+
+	var/list/status_options = limb_status_options.Copy()
+	if(body_zone in no_amputate_zones)
+		status_options -= "Ампутировано"
+	var/status_choice = tgui_input_list(user, "Выберите состояние части тела", "Аугментация", status_options)
 	if(QDELETED(src) || QDELETED(user))
 		return FALSE
-	if(!company_choice)
+	if(!status_choice)
 		return FALSE
-	var/datum/robolimb/selected_limb = companies[company_choice]
-	if(!selected_limb)
-		return FALSE
-	external_augmentations[body_zone] = selected_limb.company
+	var/status = status_options[status_choice]
+
+	var/company = null
+	if(status != CUSTOM_OUTFIT_LIMB_STATUS_AMPUTATED)
+		var/list/companies = list()
+		for(var/company_name in GLOB.all_robolimbs)
+			var/datum/robolimb/robolimb = GLOB.all_robolimbs[company_name]
+			if(!robolimb.has_subtypes)
+				continue
+			if(!(body_zone in robolimb.parts))
+				continue
+			companies[company_name] = robolimb
+		if(!length(companies))
+			to_chat(user, span_warning("No augmentations available for this body part."))
+			return FALSE
+		var/company_choice = tgui_input_list(user, "Выберите фирму-изготовителя", "Аугментация", companies)
+		if(QDELETED(src) || QDELETED(user))
+			return FALSE
+		if(!company_choice)
+			return FALSE
+		var/datum/robolimb/selected_limb = companies[company_choice]
+		if(!selected_limb)
+			return FALSE
+		company = selected_limb.company
+
+	external_augmentations[body_zone] = list(
+		"status" = status,
+		"company" = company,
+	)
+
+	if(status == CUSTOM_OUTFIT_LIMB_STATUS_AMPUTATED)
+		var/dependent_zone = limb_amputation_dependents[body_zone]
+		if(dependent_zone)
+			external_augmentations[dependent_zone] = list(
+				"status" = CUSTOM_OUTFIT_LIMB_STATUS_AMPUTATED,
+				"company" = null,
+			)
 	return TRUE
 
 /datum/custom_outfit/proc/choose_internal_augmentation(mob/user)
@@ -855,13 +929,7 @@
 	var/base_type = slot_base_type[slot]
 	if(!base_type)
 		return choose_any_item(user, slot)
-	var/list/options = list()
-	for(var/item_path in subtypesof(base_type))
-		var/obj/item/item_ref = item_path
-		var/item_name = initial(item_ref.name)
-		if(!item_name)
-			continue
-		options["[item_name] ([item_path])"] = item_path
+	var/list/options = get_slot_options(base_type)
 	if(!length(options))
 		to_chat(user, span_warning("No valid items found for this slot."))
 		return FALSE
@@ -972,7 +1040,7 @@
 		return FALSE
 	if(data["format"] != CUSTOM_OUTFIT_SAVE_FORMAT)
 		return FALSE
-	if(!isnum(data["version"]) || data["version"] > CUSTOM_OUTFIT_SAVE_VERSION)
+	if(!isnum(data["version"]) || data["version"] != CUSTOM_OUTFIT_SAVE_VERSION)
 		return FALSE
 	if(!islist(data["outfit"]))
 		return FALSE
@@ -1000,10 +1068,19 @@
 	var/list/new_external = list()
 	var/list/external = save_data["external_augmentations"]
 	for(var/zone in external)
-		var/model = external[zone]
-		if(!(zone in external_body_zones) || !istext(model))
+		var/list/limb_data = external[zone]
+		if(!(zone in external_body_zones) || !islist(limb_data))
 			continue
-		new_external[zone] = model
+		var/status = limb_data["status"]
+		if(!(status in list(CUSTOM_OUTFIT_LIMB_STATUS_AMPUTATED, CUSTOM_OUTFIT_LIMB_STATUS_PROSTHETIC, CUSTOM_OUTFIT_LIMB_STATUS_AUGMENTED)))
+			continue
+		var/company = limb_data["company"]
+		if(status != CUSTOM_OUTFIT_LIMB_STATUS_AMPUTATED && !istext(company))
+			continue
+		new_external[zone] = list(
+			"status" = status,
+			"company" = company,
+		)
 
 	var/list/new_internal = list()
 	for(var/organ_text in save_data["internal_augmentations"])
@@ -1032,6 +1109,12 @@
 	dental_dirty = TRUE
 	return TRUE
 
+/datum/custom_outfit/proc/filter_path_list(list/source, type_path)
+	. = list()
+	for(var/entry_path in source)
+		if(ispath(entry_path, type_path))
+			. += entry_path
+
 /datum/custom_outfit/proc/sanitize_loaded_outfit(datum/outfit/loaded_outfit)
 	for(var/outfit_slot in slot_to_human_var)
 		var/loaded_path = loaded_outfit.vars[outfit_slot]
@@ -1040,27 +1123,15 @@
 	var/list/sanitized_backpack = list()
 	for(var/item_path in loaded_outfit.backpack_contents)
 		var/count = loaded_outfit.backpack_contents[item_path]
-		if(!ispath(item_path, /obj/item) || !isnum(count) || count <= 0)
+		if(!is_valid_item_entry(item_path, count))
 			continue
 		sanitized_backpack[item_path] = count
 	loaded_outfit.backpack_contents = sanitized_backpack
 	if(loaded_outfit.box && !ispath(loaded_outfit.box, /obj/item))
 		loaded_outfit.box = null
-	var/list/sanitized_implants = list()
-	for(var/implant_path in loaded_outfit.implants)
-		if(ispath(implant_path, /obj/item/implant))
-			sanitized_implants += implant_path
-	loaded_outfit.implants = sanitized_implants
-	var/list/sanitized_cyberimplants = list()
-	for(var/cyberimp_path in loaded_outfit.cybernetic_implants)
-		if(ispath(cyberimp_path, /obj/item/organ/internal/cyberimp))
-			sanitized_cyberimplants += cyberimp_path
-	loaded_outfit.cybernetic_implants = sanitized_cyberimplants
-	var/list/sanitized_accessories = list()
-	for(var/accessory_path in loaded_outfit.accessories)
-		if(ispath(accessory_path, /obj/item/clothing/accessory))
-			sanitized_accessories += accessory_path
-	loaded_outfit.accessories = sanitized_accessories
+	loaded_outfit.implants = filter_path_list(loaded_outfit.implants, /obj/item/implant)
+	loaded_outfit.cybernetic_implants = filter_path_list(loaded_outfit.cybernetic_implants, /obj/item/organ/internal/cyberimp)
+	loaded_outfit.accessories = filter_path_list(loaded_outfit.accessories, /obj/item/clothing/accessory)
 
 /datum/custom_outfit/proc/copy_appearance(mob/living/carbon/human/source, mob/living/carbon/human/dummy)
 	if(source.dna.species.type != dummy.dna.species.type)
@@ -1092,19 +1163,9 @@
 	var/obj/item/organ/external/head/source_head = source.get_organ(BODY_ZONE_HEAD)
 	var/obj/item/organ/external/head/dummy_head = dummy.get_organ(BODY_ZONE_HEAD)
 	if(source_head && dummy_head)
-		dummy_head.h_style = source_head.h_style
-		if("f_style" in source_head.vars)
-			dummy_head.vars["f_style"] = source_head.vars["f_style"]
-		if("hair_colour" in source_head.vars)
-			dummy_head.vars["hair_colour"] = source_head.vars["hair_colour"]
-		if("facial_colour" in source_head.vars)
-			dummy_head.vars["facial_colour"] = source_head.vars["facial_colour"]
-		if("h_grad_style" in source_head.vars)
-			dummy_head.vars["h_grad_style"] = source_head.vars["h_grad_style"]
-		if("h_grad_colour" in source_head.vars)
-			dummy_head.vars["h_grad_colour"] = source_head.vars["h_grad_colour"]
-		if("sec_hair_colour" in source_head.vars)
-			dummy_head.vars["sec_hair_colour"] = source_head.vars["sec_hair_colour"]
+		for(var/head_var in head_appearance_vars)
+			if(head_var in source_head.vars)
+				dummy_head.vars[head_var] = source_head.vars[head_var]
 
 	var/obj/item/organ/internal/eyes/source_eyes = source.get_int_organ(/obj/item/organ/internal/eyes)
 	var/obj/item/organ/internal/eyes/dummy_eyes = dummy.get_int_organ(/obj/item/organ/internal/eyes)
@@ -1122,33 +1183,24 @@
 /datum/custom_outfit/proc/build_appearance_key(mob/living/carbon/human/human_target)
 	var/obj/item/organ/external/head/head_organ = human_target.get_organ(BODY_ZONE_HEAD)
 	var/obj/item/organ/internal/eyes/eyes_organ = human_target.get_int_organ(/obj/item/organ/internal/eyes)
-
-	var/list/dna_ui = human_target.dna ? human_target.dna.UI : null
-
 	var/list/key_parts = list(
 		human_target.type,
-		human_target.dna.species.name,
+		human_target.dna?.species?.name,
 		human_target.gender,
 		human_target.vars["s_tone"],
-		head_organ ? head_organ.h_style : null,
-		head_organ ? head_organ.vars["f_style"] : null,
-		head_organ ? head_organ.vars["hair_colour"] : null,
-		head_organ ? head_organ.vars["facial_colour"] : null,
-		head_organ ? head_organ.vars["h_grad_style"] : null,
-		head_organ ? head_organ.vars["h_grad_colour"] : null,
-		head_organ ? head_organ.vars["sec_hair_colour"] : null,
 		eyes_organ ? eyes_organ.vars["eye_colour"] : null,
-		json_encode(dna_ui),
+		json_encode(human_target.dna?.UI),
 		json_encode(human_target.vars["m_styles"]),
 		json_encode(human_target.vars["m_colours"]),
 	)
+	for(var/head_var in head_appearance_vars)
+		key_parts += head_organ ? head_organ.vars[head_var] : null
 	return key_parts.Join("|")
 
 #undef CUSTOM_OUTFIT_SAVE_FORMAT
 #undef CUSTOM_OUTFIT_SAVE_VERSION
 
 #undef CUSTOM_OUTFIT_ACTION_LOAD
-#undef CUSTOM_OUTFIT_ACTION_COPY
 #undef CUSTOM_OUTFIT_ACTION_SAVE
 #undef CUSTOM_OUTFIT_ACTION_APPLY
 #undef CUSTOM_OUTFIT_ACTION_ADD_IMPLANT
@@ -1163,6 +1215,9 @@
 
 #undef CUSTOM_OUTFIT_DEFAULT_NAME
 #undef CUSTOM_OUTFIT_DEFAULT_COMPANY
+#undef CUSTOM_OUTFIT_LIMB_STATUS_AMPUTATED
+#undef CUSTOM_OUTFIT_LIMB_STATUS_PROSTHETIC
+#undef CUSTOM_OUTFIT_LIMB_STATUS_AUGMENTED
 #undef CUSTOM_OUTFIT_DEFAULT_REAGENT_AMOUNT
 #undef CUSTOM_OUTFIT_MIN_REAGENT_AMOUNT
 #undef CUSTOM_OUTFIT_MAX_REAGENT_AMOUNT
