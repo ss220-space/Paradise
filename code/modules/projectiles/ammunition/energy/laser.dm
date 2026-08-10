@@ -39,7 +39,7 @@
 /obj/item/ammo_casing/energy/laser/energy_carbine
 	projectile_type = /obj/projectile/beam/laser/slowed
 	overlay_color = COLOR_FIRE_LIGHT_RED
-	e_cost = 62 //16 shots
+	e_cost = 75 //16 shots
 
 /obj/item/ammo_casing/energy/laser/pulse
 	projectile_type = /obj/projectile/beam/pulse

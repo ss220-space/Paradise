@@ -722,6 +722,7 @@
 /obj/item/stock_parts/cell/energy_gun
 	name = "energy weapon cell"
 	desc = "Универсальный аккумулятор, применяемый во всей линейке аккумуляторного энергооружия. Высокая стоимость производства компенсируется возможностью перезарядки."
+	maxcharge = 1200
 
 /obj/item/weapon_cell/energy_gun
 	name = "energy weapon cell"
