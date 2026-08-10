@@ -243,3 +243,79 @@
 		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 9, ATTACHMENT_OFFSET_Y = 8),
 		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 7, ATTACHMENT_OFFSET_Y = -4),
 	)
+
+// MARK: cell-magazine weapons
+/obj/item/gun/energy/accumulator
+	name = "аккумуляторная пушка"
+	desc = "Оружие, работающее на аккумуляторах. Как спектр, только вариант до реворка с некоторыми изменениями. Если вы это читаете, пишите баг-репорт."
+	icon_state = "energypistol"
+	item_state = null
+	ammo_x_offset = 1
+	shaded_charge = TRUE
+	ammo_type = list(
+		/obj/item/ammo_casing/energy/disabler,
+		/obj/item/ammo_casing/energy/laser,
+	)
+	colour_denendent = TRUE
+	/// Our magazine, initialized in mapload
+	var/obj/item/weapon_cell/magazine
+	/// accumulator, that used by our gun
+	var/accumulator_type = /obj/item/weapon_cell/energy_gun
+
+/obj/item/gun/energy/accumulator/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/ammo_alarm, 'sound/weapons/smg_empty_alarm.ogg')
+	if(!accumulator_type)
+		return
+	magazine = new accumulator_type(src)
+	if(magazine && magazine.get_cell())
+		cell = magazine.get_cell()
+	update_icon()
+
+/obj/item/gun/energy/accumulator/examine(mob/user)
+	. = ..()
+	if(magazine)
+		. += span_notice("Заряд аккумулятора: [round(cell.percent())]%")
+		. += span_notice("Используйте <b>Alt+ЛКМ</b>, чтобы вытащить аккумулятор.")
+	else
+		. += span_notice("Аккумулятор отсутствует.")
+
+/obj/item/gun/energy/accumulator/can_shoot(mob/living/user, silent)
+	if(!magazine)
+		return FALSE
+	return ..()
+
+/obj/item/gun/energy/accumulator/update_icon_state()
+	if(!magazine)
+		icon_state = "[initial(icon_state)]-e"
+	else
+		. = ..()
+
+/obj/item/gun/energy/accumulator/attackby(obj/item/item, mob/user, params)
+	if(!is_energy_gun_cell(item))
+		return ..()
+	add_fingerprint(user)
+	if(!user.drop_transfer_item_to_loc(item, src))
+		balloon_alert(user, "не выходит!")
+		return ATTACK_CHAIN_PROCEED
+	if(magazine)
+		magazine.update_icon(UPDATE_OVERLAYS)
+		user.put_in_hands(magazine)
+	cell = item.get_cell()
+	cell_type = cell.type
+	magazine = item
+	balloon_alert(user, "аккумулятор заменен")
+	update_icon()
+	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	if(magazine.is_available_shot(shot.e_cost))
+		playsound(loc, 'sound/weapons/gun_interactions/spec_magin.ogg', 50, TRUE)
+	return ATTACK_CHAIN_PROCEED
+
+/obj/item/gun/energy/accumulator/click_alt(mob/user)
+	if(!magazine)
+		return ..()
+	magazine.update_icon(UPDATE_OVERLAYS)
+	user.put_in_hands(magazine)
+	cell = null
+	magazine = null
+	update_icon()

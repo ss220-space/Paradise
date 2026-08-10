@@ -34,6 +34,8 @@
 	var/can_add_sibyl_system = TRUE
 	var/obj/item/gun_module/sibyl/sibyl_mod = null
 	var/isclockwork = FALSE
+	/// If our charge overlay is dependent for shot colour
+	var/colour_denendent = FALSE
 
 /obj/item/gun/energy/examine(mob/user)
 	. = ..()
@@ -326,7 +328,10 @@
 			for(var/i = ratio, i >= 1, i--)
 				. += image(icon = icon, icon_state = new_icon_state, pixel_w = ammo_x_offset * (i - 1))
 		else
-			. += image(icon = icon, icon_state = "[overlay_name]_[modifystate ? "[shot.select_name]_" : ""]charge[ratio]")
+			var/image/overlay_image = image(icon = icon, icon_state = "[overlay_name]_[modifystate ? "[shot.select_name]_" : ""]charge[ratio]")
+			if(colour_denendent)
+				overlay_image.color = shot.overlay_color
+			. += overlay_image
 
 /obj/item/gun/energy/suicide_act(mob/user)
 	if(can_trigger_gun(user))

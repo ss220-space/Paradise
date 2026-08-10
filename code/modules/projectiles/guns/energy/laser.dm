@@ -23,6 +23,10 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/hitscan)
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_SUITSTORE | ITEM_SLOT_BELT
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 6),
+		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -5),
+	)
 
 /obj/item/gun/energy/laser/hitscan/get_ru_names()
 	return alist(

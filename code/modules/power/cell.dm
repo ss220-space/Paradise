@@ -719,6 +719,44 @@
 		else
 			. += "Specter_overlay_empty"
 
+/obj/item/stock_parts/cell/energy_gun
+	name = "energy weapon cell"
+	desc = "Универсальный аккумулятор, применяемый во всей линейке аккумуляторного энергооружия. Высокая стоимость производства компенсируется возможностью перезарядки."
+
+/obj/item/weapon_cell/energy_gun
+	name = "energy weapon cell"
+	desc = "Универсальный аккумулятор, применяемый во всей линейке новейшего аккумуляторного энергооружия. Высокая стоимость производства компенсируется возможностью перезарядки. Несмотря на название, он не подходит к спектру."
+	icon_state = "egun_accumulator"
+	internal_cell = new /obj/item/stock_parts/cell/energy_gun()
+	materials = list(MAT_METAL = 60000)
+	w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/weapon_cell/energy_gun/get_ru_names()
+	return alist(
+		NOMINATIVE = "универсальный аккумулятор",
+		GENITIVE = "универсального аккумулятора",
+		DATIVE = "универсальному аккумулятору",
+		ACCUSATIVE = "универсальный аккумулятор",
+		INSTRUMENTAL = "универсальным аккумулятором",
+		PREPOSITIONAL = "универсальном аккумуляторе",
+	)
+
+/obj/item/weapon_cell/energy_gun/update_overlays()
+	. = list()
+	var/charge_percent = internal_cell.percent()
+
+	switch(charge_percent)
+		if(1 to 25)
+			. += "egun_overlay_low"
+		if(26 to 40)
+			. += "egun_overlay_half2"
+		if(41 to 65)
+			. += "egun_overlay_half"
+		if(66 to 100)
+			. += "egun_overlay_full"
+		else
+			. += "egun_overlay_empty"
+
 /obj/item/stock_parts/cell/crystal_cell
 	name = "crystal power cell"
 	desc = "A very high power cell made from crystallized plasma"

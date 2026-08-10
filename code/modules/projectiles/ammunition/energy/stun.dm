@@ -29,6 +29,7 @@
 	e_cost = 50
 	fire_sound = 'sound/weapons/plasma_cutter.ogg'
 	harmful = FALSE
+	overlay_color = COLOR_HEALING_CYAN
 
 /obj/item/ammo_casing/energy/disabler/hos
 	e_cost = 40
