@@ -83,6 +83,7 @@
 	projectile_type = /obj/projectile/beam/laser/hitscan
 	select_name = "hitscan"
 	delay = 7
+	fire_sound = 'sound/weapons/gunshots/lasergun.ogg'
 
 // MARK: X-ray
 /obj/item/ammo_casing/energy/xray
