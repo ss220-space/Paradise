@@ -324,7 +324,7 @@
 /obj/structure/closet/secure_closet/guncabinet/lasergun/populate_contents()
 	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
 	for(var/i in 1 to gun_count)
-		new /obj/item/gun/energy/laser(src)
+		new /obj/item/gun/energy/laser/hitscan(src)
 
 /obj/structure/closet/secure_closet/guncabinet/energygun
 	name = "security energy gun cabinet"

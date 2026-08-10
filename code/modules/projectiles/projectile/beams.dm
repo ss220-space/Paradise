@@ -808,3 +808,7 @@
 	hitsound = 'sound/weapons/parry.ogg'
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_particles
 	light_color = LIGHT_COLOR_GREEN
+
+/obj/projectile/beam/laser/hitscan
+	hitscan = TRUE
+	damage = 20

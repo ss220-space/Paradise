@@ -78,6 +78,12 @@
 /obj/item/ammo_casing/energy/laser/old
 	e_cost = 200
 
+/obj/item/ammo_casing/energy/laser/hitscan
+	name = "hitscan laser lens"
+	projectile_type = /obj/projectile/beam/laser/hitscan
+	select_name = "hitscan"
+	delay = 7
+
 // MARK: X-ray
 /obj/item/ammo_casing/energy/xray
 	projectile_type = /obj/projectile/beam/xray

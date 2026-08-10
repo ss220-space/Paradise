@@ -16,7 +16,29 @@
 		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 9, ATTACHMENT_OFFSET_Y = -5),
 	)
 
+/obj/item/gun/energy/laser/hitscan
+	name = "Mk.5 laser gun"
+	desc = "Пятое поколение стандартной лазерной винтовки службы безопасности. Важнейшим отличием от ранних моделей является лазерная система ведения огня."
+	ammo_type = list(/obj/item/ammo_casing/energy/laser/hitscan)
+	w_class = WEIGHT_CLASS_BULKY
+	slot_flags = ITEM_SLOT_SUITSTORE | ITEM_SLOT_BELT
+
+/obj/item/gun/energy/laser/hitscan/get_ru_names()
+	return alist(
+		NOMINATIVE = "лазерная винтовка Mk.5",
+		GENITIVE = "лазерной винтовки Mk.5",
+		DATIVE = "лазерной винтовке Mk.5",
+		ACCUSATIVE = "лазернуб винтовку Mk.5",
+		INSTRUMENTAL = "лазерной винтовкой Mk.5",
+		PREPOSITIONAL = "лазерной винтовке Mk.5",
+	)
+
+
 /obj/item/gun/energy/laser/sibyl/Initialize(mapload)
+	. = ..()
+	install_sibyl()
+
+/obj/item/gun/energy/laser/hitscan/sibyl/Initialize(mapload)
 	. = ..()
 	install_sibyl()
 

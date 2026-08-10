@@ -714,21 +714,21 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 
 /datum/supply_packs/security/laser
-	name = "Лазерные карабины"
+	name = "Лазерные карабины Mk.5"
 	contains = list(
-		/obj/item/gun/energy/laser,
-		/obj/item/gun/energy/laser,
-		/obj/item/gun/energy/laser,
+		/obj/item/gun/energy/laser/hitscan,
+		/obj/item/gun/energy/laser/hitscan,
+		/obj/item/gun/energy/laser/hitscan,
 	)
 	cost = 20
-	containername = "ящик лазерных карабинов"
+	containername = "ящик лазерных карабинов Mk.5"
 	container_ru_names = alist(
-		NOMINATIVE = "ящик лазерных карабинов",
-		GENITIVE = "ящика лазерных карабинов",
-		DATIVE = "ящику лазерных карабинов",
-		ACCUSATIVE = "ящик лазерных карабинов",
-		INSTRUMENTAL = "ящиком лазерных карабинов",
-		PREPOSITIONAL = "ящике лазерных карабинов",
+		NOMINATIVE = "ящик лазерных карабинов Mk.5",
+		GENITIVE = "ящика лазерных карабинов Mk.5",
+		DATIVE = "ящику лазерных карабинов Mk.5",
+		ACCUSATIVE = "ящик лазерных карабинов Mk.5",
+		INSTRUMENTAL = "ящиком лазерных карабинов Mk.5",
+		PREPOSITIONAL = "ящике лазерных карабинов Mk.5",
 	)
 
 /datum/supply_packs/security/taser
