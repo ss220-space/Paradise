@@ -465,11 +465,11 @@
 
 /datum/custom_outfit/proc/apply_outfit(mob/user)
 	if(QDELETED(target_mob) || !ishuman(target_mob))
-		to_chat(user, span_warning("Target is no longer valid."))
+		tgui_alert(user, "Target is no longer valid.")
 		return
 	var/mob/living/carbon/human/human_target = target_mob
 	if(!human_target.dna || !human_target.dna.species)
-		to_chat(user, span_warning("Target has no valid DNA or species."))
+		tgui_alert(user, "Target has no valid DNA or species.")
 		return
 
 	var/datum/outfit/final_outfit = make_final_outfit(preserve_implants = body_dirty)
@@ -680,11 +680,11 @@
 
 /datum/custom_outfit/proc/choose_backpack_item(mob/user)
 	if(QDELETED(target_mob) || !ishuman(target_mob))
-		to_chat(user, span_warning("Target is no longer valid."))
+		tgui_alert(user, "Target is no longer valid.")
 		return FALSE
 	var/mob/living/carbon/human/human_target = target_mob
 	if(!isstorage(human_target.back))
-		to_chat(user, span_warning("Target does not have a storage back item."))
+		tgui_alert(user, "Target does not have a storage back item.")
 		return FALSE
 	var/obj/item/chosen_path = pick_closest_path(FALSE)
 	if(QDELETED(src) || QDELETED(user) || QDELETED(target_mob) || !ishuman(target_mob))
@@ -736,7 +736,7 @@
 	if(!length(options))
 		to_chat(user, span_warning("No implants found."))
 		return FALSE
-	var/choice = tgui_input_list(user, "Choose an implant", "Custom Outfit", options)
+	var/choice = tgui_input_list(user, "Выберит имплант", "Custom Outfit", options)
 	if(QDELETED(src) || QDELETED(user))
 		return FALSE
 	if(isnull(choice))
@@ -800,7 +800,7 @@
 				continue
 			companies[company_name] = robolimb
 		if(!length(companies))
-			to_chat(user, span_warning("No augmentations available for this body part."))
+			tgui_alert(user, "No augmentations available for this body part.")
 			return FALSE
 		var/company_choice = tgui_input_list(user, "Выберите фирму-изготовителя", "Аугментация", companies)
 		if(QDELETED(src) || QDELETED(user))
@@ -847,7 +847,7 @@
 			continue
 		organ_paths["[organ_name] ([organ_path])"] = organ_path
 	if(!length(organ_paths))
-		to_chat(user, span_warning("No cybernetic variants found for this organ."))
+		tgui_alert(user, "No cybernetic variants found for this organ.")
 		return FALSE
 	var/variant_choice = tgui_input_list(user, "Выберите вариант", "Аугментация", organ_paths)
 	if(QDELETED(src) || QDELETED(user))
@@ -875,7 +875,7 @@
 /datum/custom_outfit/proc/build_dental_pill(mob/user)
 	var/list/reagent_options = get_reagent_options()
 	if(!length(reagent_options))
-		to_chat(user, span_warning("No reagents found."))
+		tgui_alert(user, "No reagents found.")
 		return FALSE
 	var/changed = FALSE
 	while(TRUE)
@@ -931,9 +931,9 @@
 		return choose_any_item(user, slot)
 	var/list/options = get_slot_options(base_type)
 	if(!length(options))
-		to_chat(user, span_warning("No valid items found for this slot."))
+		tgui_alert(user, "No matching items found for this slot.")
 		return FALSE
-	var/choice = tgui_input_list(user, "Choose an item", "Custom Outfit", options)
+	var/choice = tgui_input_list(user, "Выберите предмет", "Custom Outfit", options)
 	if(QDELETED(src) || QDELETED(user))
 		return FALSE
 	if(isnull(choice))
