@@ -30,6 +30,13 @@
 	addtimer(CALLBACK(src, PROC_REF(respawn_hud_tick)), MW_RESPAWN_TICK, TIMER_LOOP)
 
 /datum/game_mode/mountain_wars/proc/respawn_hud_tick()
+	// Список возрождаемых переворачиваем в ключи один раз на тик. Иначе `гост in список`
+	// — это линейный поиск по нему на каждого госта, то есть под сотню проходов по сотне
+	// записей ежесекундно. С ключами обход стоит один, а проверка каждого — обращение
+	// по хэшу.
+	var/list/can_respawn = list()
+	for(var/mob/ready as anything in GLOB.respawnable_list)
+		can_respawn[ready] = TRUE
 	for(var/mob/player as anything in GLOB.player_list)
 		if(!isobserver(player) || !player.client)
 			continue
@@ -41,7 +48,7 @@
 			mw_mine_vision(ghost.ckey, TRUE)
 		// Строку показываем только своим: админский призрак и зашедший наблюдателем
 		// в бой не собираются, и мигающий таймер им ни к чему.
-		if(!faction_by_ckey[ghost.ckey] || !(ghost in GLOB.respawnable_list))
+		if(!faction_by_ckey[ghost.ckey] || !can_respawn[ghost])
 			ghost.clear_fullscreen("mw_respawn", FALSE)
 			continue
 		update_respawn_hud(ghost)

@@ -73,6 +73,11 @@
 	/// Гул винтов. Заведён на весь раунд, играет только на ходу.
 	var/datum/looping_sound/mw_heli_rotor/rotor_sound
 	/// Клетки корпуса: вошёл на любую — крыша гаснет.
+	///
+	/// Список ассоциативный, турф -> TRUE, и это не украшение. Проверка «клетка наша»
+	/// стоит на каждом шаге каждого, кто ходит по корпусу: без ключей `in` перебирал бы
+	/// семьдесят клеток линейно, а с ключами это одно обращение по хэшу. Перебор самих
+	/// клеток от ассоциативности не страдает — for по такому списку идёт по ключам.
 	var/list/turf/inside
 	/// mob = список подменных картинок, выданных его клиенту.
 	var/list/blinded
@@ -243,8 +248,9 @@
 	var/turf/origin = get_turf(src)
 	if(!origin)
 		return
-	inside = block(origin.x, origin.y, origin.z, origin.x + MW_HELI_HULL_WIDE - 1, origin.y + MW_HELI_HULL_TALL - 1, origin.z)
-	for(var/turf/spot as anything in inside)
+	inside = list()
+	for(var/turf/spot as anything in block(origin.x, origin.y, origin.z, origin.x + MW_HELI_HULL_WIDE - 1, origin.y + MW_HELI_HULL_TALL - 1, origin.z))
+		inside[spot] = TRUE
 		RegisterSignal(spot, COMSIG_ATOM_ENTERED, PROC_REF(on_entered))
 		RegisterSignal(spot, COMSIG_ATOM_EXITED, PROC_REF(on_exited))
 
@@ -262,7 +268,8 @@
 	// Пассажиры переехали вместе с бортом: выход с клетки им засчитался, вход на
 	// новую — нет. Раздаём и отбираем гашение заново по факту, кто где стоит.
 	for(var/mob/watcher as anything in blinded?.Copy())
-		if(!(get_turf(watcher) in inside))
+		var/turf/stands = get_turf(watcher)
+		if(!stands || !inside[stands])
 			reveal_roof(watcher)
 	for(var/turf/spot as anything in inside)
 		for(var/mob/passenger in spot)
@@ -286,14 +293,16 @@
 	if(!ismob(gone))
 		return
 	// Шаг с клетки на клетку внутри того же корпуса — не выход.
-	if(get_turf(gone) in inside)
+	var/turf/stands = get_turf(gone)
+	if(stands && inside[stands])
 		return
 	reveal_roof(gone)
 
 /obj/structure/mw_helicopter/proc/on_login(mob/walker)
 	SIGNAL_HANDLER
 	UnregisterSignal(walker, COMSIG_MOB_LOGIN)
-	if(get_turf(walker) in inside)
+	var/turf/stands = get_turf(walker)
+	if(stands && inside[stands])
 		hide_roof(walker)
 
 /// Подменяет каждому куску крыши внешность на полупрозрачную — но только для этого

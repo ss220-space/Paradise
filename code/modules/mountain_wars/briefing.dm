@@ -40,6 +40,8 @@
 	var/list/lines
 	/// Сколько букв уже напечатано, сквозной счёт по всем строкам.
 	var/shown = 0
+	/// Сколько их всего. Считается один раз на титры, см. type_out().
+	var/chars_total = 0
 	var/timer_id
 
 /atom/movable/screen/fullscreen/mw_briefing/Destroy()
@@ -57,20 +59,22 @@
 	lines = text_lines
 	shown = 0
 	maptext = ""
+	// Длину строк считаем один раз на титры. Дальше они не меняются, а спрашивать её
+	// заново на каждом шаге печати — это лишний проход по всем строкам на каждую букву,
+	// и так у каждого, кто сошёл с борта.
+	chars_total = 0
+	for(var/line in lines)
+		chars_total += length_char(line)
 	tick()
 
 /// Сколько букв во всех строках вместе. По ним и считается прогресс печати.
 /atom/movable/screen/fullscreen/mw_briefing/proc/total_chars()
-	var/sum = 0
-	for(var/line in lines)
-		sum += length_char(line)
-	return sum
+	return chars_total
 
 /atom/movable/screen/fullscreen/mw_briefing/proc/tick()
-	var/total = total_chars()
-	shown = min(shown + MW_BRIEF_CHARS, total)
+	shown = min(shown + MW_BRIEF_CHARS, chars_total)
 	redraw()
-	if(shown >= total)
+	if(shown >= chars_total)
 		timer_id = null
 		return
 	timer_id = addtimer(CALLBACK(src, PROC_REF(tick)), MW_BRIEF_STEP, TIMER_STOPPABLE)
@@ -82,10 +86,11 @@
 		if(left <= 0)
 			break
 		var/line = lines[i]
+		var/line_chars = length_char(line)
 		// copytext_char, а не copytext: имена и задачи кириллические, а байтовый срез
 		// разрубил бы букву пополам и выдал мусор.
-		var/visible = copytext_char(line, 1, min(length_char(line), left) + 1)
-		left -= length_char(line)
+		var/visible = copytext_char(line, 1, min(line_chars, left) + 1)
+		left -= line_chars
 		out += MW_BRIEF_LINE(html_encode(visible), line_size(i))
 	maptext = out.Join("<br>")
 

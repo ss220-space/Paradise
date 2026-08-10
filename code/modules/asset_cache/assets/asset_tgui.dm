@@ -1,8 +1,13 @@
+// iframe.html — хранилище настроек и истории чата на IndexedDB. Ездит вместе с бандлом
+// на случай, когда своего адреса у сервера нет: тогда SStgui подставляет его локальное
+// имя, см. /datum/controller/subsystem/tgui/OnConfigLoad. Расширение не .js и не .css,
+// поэтому tgui_window/initialize его не подключает тегом — только отдаёт клиенту.
 /datum/asset/simple/tgui
 	keep_local_name = TRUE
 	assets = list(
 		"tgui.bundle.js" = 'tgui/public/tgui.bundle.js',
 		"tgui.bundle.css" = 'tgui/public/tgui.bundle.css',
+		"iframe.html" = 'tgui/public/iframe.html',
 	)
 
 /datum/asset/simple/tgui_panel
@@ -10,6 +15,7 @@
 	assets = list(
 		"tgui-panel.bundle.js" = 'tgui/public/tgui-panel.bundle.js',
 		"tgui-panel.bundle.css" = 'tgui/public/tgui-panel.bundle.css',
+		"iframe.html" = 'tgui/public/iframe.html',
 	)
 
 /datum/asset/simple/namespaced/fontawesome

@@ -678,6 +678,60 @@
 		PREPOSITIONAL = "прицеле ПУ",
 	)
 
+// MARK: Ракеты режима
+// Штатные 84мм ракеты рассчитаны на станцию, где гранатомёт — редкая находка. Здесь их
+// носит каждая вторая роль, и прямое попадание разбирало пехотинца на части: у HE стоит
+// devastation_range 1, то есть гарантированный гиб всему в радиусе клетки, а у HEDP —
+// dismemberment 100 и шрапнель поверх восьмидесяти урона.
+//
+// Свои ракеты бьют пехоту ровно на 80 и ничего не отрывают. По технике урон прежний, и
+// держится это на том, что корпус считает попадания не по урону снаряда, а по классу
+// взрыва: /obj/vehicle/mw/ex_act снимает треть запаса на EXPLODE_HEAVY независимо от
+// того, чем ударили. Поэтому тяжёлый взрыв оставлен ровно для попаданий в технику, а по
+// всему остальному ракета кладёт лёгкий. Три ракеты на корпус, как и было.
+#define MW_ROCKET_DAMAGE 80
+
+/obj/projectile/bullet/mw_rocket
+	name = "ракета"
+	icon = 'icons/obj/weapons/ammo.dmi'
+	icon_state = "84mm-he"
+	damage = MW_ROCKET_DAMAGE
+	armour_penetration = 100
+	// Медленнее пули: ракету должно быть видно в полёте и от неё должно быть можно уйти.
+	speed = 0.8
+	ricochets_max = 0
+
+/obj/projectile/bullet/mw_rocket/on_hit(atom/target, blocked = 0)
+	. = ..()
+	var/armour = istype(target, /obj/vehicle/mw) || istype(target, /obj/mw_hitbox)
+	explosion(
+		target,
+		devastation_range = -1,
+		heavy_impact_range = armour ? 1 : 0,
+		light_impact_range = armour ? 3 : 2,
+		flash_range = 2,
+		cause = "[type] fired by [key_name(firer)]",
+	)
+
+/obj/projectile/bullet/mw_rocket/hedp
+	icon_state = "84mm-hedp"
+
+#undef MW_ROCKET_DAMAGE
+
+// Гильзы под них. Калибр и габарит наследуются, значит заряжаются в те же трубы и лежат
+// в тех же ящиках, что и штатные.
+/obj/item/ammo_casing/caseless/rocket/mw
+	projectile_type = /obj/projectile/bullet/mw_rocket
+
+/obj/item/ammo_casing/caseless/rocket/mw/hedp
+	ammo_marking = "84 мм HEDP"
+	desc = "Кумулятивно-осколочная ракета двойного назначения. Предназначена для поражения бронированной техники."
+	icon_state = "84mm-hedp"
+	projectile_type = /obj/projectile/bullet/mw_rocket/hedp
+
+/obj/item/ammo_box/magazine/internal/rocketlauncher/mw
+	ammo_type = /obj/item/ammo_casing/caseless/rocket/mw
+
 // MARK: РПГ-7 (Повстанцы) — многоразовый, 84мм HE/HEDP
 // Магента в спрайте "rpg" — это плейсхолдер: TGMC рисует боевую часть отдельным
 // оверлеем поверх пустой трубы. Поэтому база — чистый "rpg_e", а ракета
@@ -691,6 +745,7 @@
 	desc = "Многоразовый ручной противотанковый гранатомёт. Заряжается ракетами HE (пехота) и HEDP (техника)."
 	icon = 'icons/mountain_wars/guns_special.dmi'
 	icon_state = "rpg_e"
+	mag_type = /obj/item/ammo_box/magazine/internal/rocketlauncher/mw
 	starting_attachment_types = list(/obj/item/gun_module/rail/scope/mw/iron)
 
 // Родительский проц клеит оверлей "[icon_state]_empty", которого в спрайтшите
@@ -727,7 +782,7 @@
 	var/extended = FALSE
 
 /obj/item/ammo_box/magazine/internal/rocketlauncher/mw_law
-	ammo_type = /obj/item/ammo_casing/caseless/rocket/hedp
+	ammo_type = /obj/item/ammo_casing/caseless/rocket/mw/hedp
 
 /obj/item/gun/projectile/revolver/rocketlauncher/mw_law/update_icon_state()
 	icon_state = "t72[extended ? "_extended" : ""][(chambered || magazine?.ammo_count()) ? "" : "_e"]"

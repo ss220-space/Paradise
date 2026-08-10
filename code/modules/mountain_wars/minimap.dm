@@ -162,12 +162,17 @@ GLOBAL_LIST_EMPTY(mw_tacmap_next_push)
 	var/last_point_time = 0
 	/// Когда командиру можно перерисовать своё окно.
 	var/next_self_push = 0
+	/// Картинки меток. Переиспользуются от тика к тику, см. blip_at().
+	var/list/image/blip_pool = list()
+	/// Сколько картинок из пула разобрано в текущем проходе.
+	var/blips_used = 0
 
 /datum/action/innate/mw_minimap/Destroy()
 	Deactivate()
 	QDEL_NULL(window)
 	holomap = null
 	anchor = null
+	blip_pool = null
 	return ..()
 
 /datum/action/innate/mw_minimap/Activate()
@@ -328,9 +333,16 @@ GLOBAL_LIST_EMPTY(mw_tacmap_next_push)
 	to_chat(owner, span_notice("Вы стираете разметку с тактической карты."))
 
 /datum/action/innate/mw_minimap/proc/draw_markers()
+	// Пул отдаём с начала: всё, что было роздано в прошлый тик, уже перерисовано.
+	blips_used = 0
+	var/list/blips = holomap.create_overlays(markers())
 	window.cut_overlays()
-	for(var/image/marker as anything in holomap.create_overlays(markers()))
-		window.add_overlay(marker)
+	// Одним вызовом на весь список, а не по метке за раз. add_overlay на каждую картинку
+	// заново собирает список внешностей, проверяет лимит оверлеев и обходит
+	// alternate_appearances — на полусотне своих это полсотни таких проходов в секунду
+	// у каждого игрока. Список проц принимает сам.
+	if(length(blips))
+		window.add_overlay(blips)
 	// Пересоединившийся игрок получает чистый client.screen и новый объект клиента:
 	// окно выпадает из экрана, подписка на мышь умирает вместе со старым клиентом.
 	// Вместо ловли логина просто восстанавливаем то и другое каждый тик — обе операции
@@ -399,7 +411,19 @@ GLOBAL_LIST_EMPTY(mw_tacmap_next_push)
 	// картинки и тянет за собой границу отрисовки.
 	if(offset_x < 1 || offset_y < 1 || offset_x > crop_size - MW_BLIP_SIZE || offset_y > crop_size - MW_BLIP_SIZE)
 		return null
-	var/image/blip = image(mw_blip_icon(tint))
+	// Картинку берём из пула, а не создаём заново. Меток на экране столько же, сколько
+	// своих в округе, и раздаются они каждую секунду: на сотне игроков это тысячи новых
+	// объектов в секунду на выброс. Переиспользовать их можно, потому что add_overlay
+	// кладёт в оверлеи копию внешности — переставленная на следующем тике картинка уже
+	// нарисованное не трогает.
+	blips_used++
+	var/image/blip
+	if(blips_used <= length(blip_pool))
+		blip = blip_pool[blips_used]
+		blip.icon = mw_blip_icon(tint)
+	else
+		blip = image(mw_blip_icon(tint))
+		blip_pool += blip
 	// Метка 3x3, поэтому сдвигаем на пиксель — иначе точка стоит не на объекте,
 	// а справа сверху от него.
 	blip.pixel_w = offset_x - 1

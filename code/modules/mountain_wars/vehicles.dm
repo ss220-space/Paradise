@@ -78,6 +78,8 @@ GLOBAL_LIST_EMPTY(mw_vehicles)
 	var/turret_rotate_delay = 2 DECISECONDS
 	/// Привод крутится прямо сейчас — второй таймер поверх первого не заводим.
 	var/turret_rotating = FALSE
+	/// Кадр башни, который сейчас стоит в собранном icon. См. build_turret_icon().
+	var/turret_art_dir
 	/// Сдвиг погона от центра кадра, своя пара x,y на каждое направление корпуса.
 	/// Ключ — dir числом в тексте: list("[NORTH]" = list(0, 9), ...). Пусто — погон
 	/// нарисован ровно в центре и доводить нечего. См. align_turret().
@@ -250,7 +252,7 @@ GLOBAL_LIST_EMPTY(mw_vehicles)
 	var/list/turf/occupied = hull_turfs(center)
 	var/list/turf/candidates = list()
 	for(var/turf/nearby as anything in RANGE_TURFS(hull_radius + hull_nose + 1, center))
-		if(nearby in occupied)
+		if(occupied[nearby])
 			continue
 		if(nearby.density || nearby.is_blocked_turf(exclude_mobs = TRUE))
 			continue
@@ -415,7 +417,7 @@ GLOBAL_LIST_EMPTY(mw_vehicles)
 	// Направление уже выставлено setDir'ом до шага, так что новый след считаем по нему.
 	var/list/turf/occupied = hull_turfs(get_turf(src))
 	for(var/turf/ahead as anything in hull_turfs(destination))
-		if(ahead in occupied)
+		if(occupied[ahead])
 			continue
 		if(ahead.is_blocked_turf(exclude_mobs = TRUE, ignore_atoms = list(src, hitbox)))
 			return FALSE
@@ -528,15 +530,20 @@ GLOBAL_LIST_EMPTY(mw_vehicles)
 	var/shift_x = 0
 	var/shift_y = 0
 	if(looking)
-		// По битам, а не switch по четырём сторонам: корпус ходит и по диагоналям,
-		// и на них штатный проц оружия даёт ноль.
-		if(dir & NORTH)
+		// Смотрим туда, куда наведена башня, а не куда стоит корпус. Зум — это оптика
+		// наводчика (сам действие выдаётся только при gunner_periscope), и обзор должен
+		// ехать за прицелом: иначе башня развёрнута вбок, а экипаж видит перед носом.
+		// У машины без башни turret_dir остаётся на своём SOUTH, поэтому берём корпус.
+		var/looking_dir = turret_icon_state ? turret_dir : dir
+		// По битам, а не switch по четырём сторонам: и корпус, и башня ходят по
+		// диагоналям, а на них штатный проц оружия даёт ноль.
+		if(looking_dir & NORTH)
 			shift_y = MW_VEHICLE_ZOOM
-		else if(dir & SOUTH)
+		else if(looking_dir & SOUTH)
 			shift_y = -MW_VEHICLE_ZOOM
-		if(dir & EAST)
+		if(looking_dir & EAST)
 			shift_x = MW_VEHICLE_ZOOM
-		else if(dir & WEST)
+		else if(looking_dir & WEST)
 			shift_x = -MW_VEHICLE_ZOOM
 	view.pixel_x = ICON_SIZE_X * shift_x
 	view.pixel_y = ICON_SIZE_Y * shift_y
@@ -685,6 +692,8 @@ GLOBAL_LIST_EMPTY(mw_vehicles)
 	var/delta = (dir2angle(turret_goal) - dir2angle(turret_dir) + 720) % 360
 	turret_dir = angle2dir(dir2angle(turret_dir) + (delta > 180 ? -45 : 45))
 	build_turret_icon()
+	// Обзор едет за башней тем же шагом, что и сама башня.
+	refresh_crew_zoom()
 	if(turret_dir == turret_goal)
 		turret_rotating = FALSE
 		return
@@ -692,6 +701,11 @@ GLOBAL_LIST_EMPTY(mw_vehicles)
 
 /// Клетки, которые займёт корпус, если его центр встанет на where и он будет смотреть
 /// в facing. Считаем по осям машины, а не кругом: длина и ширина у неё разные.
+///
+/// Список ассоциативный, турф -> TRUE. Половина вызывающих спрашивает не «перечисли
+/// клетки», а «эта клетка наша?» — у ЛАВ след в двадцать одну клетку, и на каждом шаге
+/// такой вопрос задаётся по разу на клетку нового следа. По ключам это обращение по
+/// хэшу вместо перебора. Перечислению ключи не мешают: for по такому списку идёт по ним.
 /obj/vehicle/mw/proc/hull_turfs(turf/where, facing = dir)
 	. = list()
 	if(!where || !hull_radius)
@@ -718,7 +732,7 @@ GLOBAL_LIST_EMPTY(mw_vehicles)
 				where.z,
 			)
 			if(covered)
-				. += covered
+				.[covered] = TRUE
 
 /// Собирает кадр «корпус плюс башня» и ставит его машине как icon.
 ///
@@ -746,6 +760,12 @@ GLOBAL_LIST_EMPTY(mw_vehicles)
 	// ближайший кардинальный кадр, как это делает и сам движок для четырёхкадровых
 	// стейтов.
 	var/art_dir = angle2dir_cardinal(dir2angle(turret_dir))
+	// Привод идёт по 45 градусов, а кадров у башни четыре: на диагональном шаге кадр
+	// остаётся прежним. Выходим до записи в icon — присвоение внешности рассылается
+	// всем, кто машину видит, и делать это ради того же самого кадра незачем.
+	if(art_dir == turret_art_dir)
+		return
+	turret_art_dir = art_dir
 	var/key = "[type]-[art_dir]"
 	var/icon/composed = cache[key]
 	if(!composed)
@@ -868,6 +888,44 @@ GLOBAL_LIST_EMPTY(mw_vehicles)
 			take_damage(share, BRUTE, sound_effect = FALSE)
 		if(EXPLODE_LIGHT)
 			take_damage(share * 0.2, BRUTE, sound_effect = FALSE)
+
+// MARK: Ремонт сваркой
+// Подбитую машину чинят в поле, но это работа, а не нажатие кнопки: за один проход
+// заваривается двадцатая часть корпуса, и стоит проход шести секунд и двух единиц
+// топлива. Полное восстановление с нуля — двадцать проходов, две минуты под огнём и
+// ровно один полный бак промышленного аппарата. Долю берём от запаса прочности, а не
+// фиксированным числом: иначе БТР на тысяче чинился бы вчетверо дольше технички.
+//
+// Штатный default_welder_repair не годится — он чинит корпус целиком за один заход
+// длиной в пять секунд и не тратит ничего.
+#define MW_VEHICLE_REPAIR_SHARE 0.05
+#define MW_VEHICLE_REPAIR_TIME (6 SECONDS)
+#define MW_VEHICLE_REPAIR_FUEL 2
+
+/obj/vehicle/mw/attackby(obj/item/tool, mob/user, params)
+	if(tool.tool_behaviour != TOOL_WELDER)
+		return ..()
+	if(obj_integrity >= max_integrity)
+		balloon_alert(user, "корпус цел")
+		return ATTACK_CHAIN_BLOCKED_ALL
+	// Цикл, а не один проход: держать нажатой мышь двадцать раз подряд — не игра.
+	// Каждый виток проверяет топливо и целость заново, так что прерывание, пустой бак
+	// и добитая по дороге машина выводят из него сами.
+	while(obj_integrity < max_integrity)
+		if(!tool.tool_use_check(user, MW_VEHICLE_REPAIR_FUEL))
+			return ATTACK_CHAIN_BLOCKED_ALL
+		balloon_alert(user, "завариваем...")
+		if(!tool.use_tool(src, user, MW_VEHICLE_REPAIR_TIME, MW_VEHICLE_REPAIR_FUEL, tool.tool_volume))
+			return ATTACK_CHAIN_BLOCKED_ALL
+		if(QDELETED(src))
+			return ATTACK_CHAIN_BLOCKED_ALL
+		update_integrity(min(obj_integrity + max_integrity * MW_VEHICLE_REPAIR_SHARE, max_integrity))
+	balloon_alert(user, "корпус восстановлен")
+	return ATTACK_CHAIN_BLOCKED_ALL
+
+#undef MW_VEHICLE_REPAIR_SHARE
+#undef MW_VEHICLE_REPAIR_TIME
+#undef MW_VEHICLE_REPAIR_FUEL
 
 // MARK: Уничтожение
 /obj/vehicle/mw/obj_destruction(damage_flag)

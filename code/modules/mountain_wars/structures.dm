@@ -76,12 +76,17 @@
 	faction = JOB_TITLE_MW_INSURGENT
 
 // Свёрнутая рация — разворачивается на месте за 5 секунд.
+//
+// Габарит NORMAL, а не BULKY. Рация выдаётся через backpack_contents, у рюкзака
+// max_w_class как раз NORMAL, и объёмный свёрток в него не лез: equip_or_collect на
+// отказ кладёт вещь под ноги, то есть комплект оставался лежать на точке высадки, а
+// командир уходил в бой без него и об этом не знал.
 /obj/item/mw_fob_kit
 	name = "свёрнутая полевая рация"
 	desc = "Полевая радиостанция в походном виде. Активируйте, чтобы развернуть."
 	icon = 'icons/obj/radio.dmi'
 	icon_state = "radio"
-	w_class = WEIGHT_CLASS_BULKY
+	w_class = WEIGHT_CLASS_NORMAL
 	/// Тип разворачиваемой структуры.
 	var/fob_type
 
@@ -136,6 +141,19 @@
 	QDEL_NULL(wind_effect)
 	wind_tick = null
 	return FALSE
+
+// Палуба не бьётся и не обгорает.
+//
+// Неразрушимый пол гасит ex_act, но break_tile и burn_tile родитель не трогает, а они
+// заходят другой дверью: пламя взрыва греет клетку, temperature_expose зовёт burn_tile,
+// и та кладёт поверх настила состояние копоти. Турф при этом цел — портится только
+// картинка, и по всему отсеку идут разномастные обгорелые квадраты вперемешку с целыми.
+// На мозаике вертолёта это читается как разломанный корпус.
+/turf/simulated/floor/indestructible/mw_heli_deck/break_tile()
+	return
+
+/turf/simulated/floor/indestructible/mw_heli_deck/burn_tile()
+	return
 
 // MARK: Песчаная скала
 // Неразрушимый камень карты, перекрашенный в песчаник. Отдельный подтип, а не правка

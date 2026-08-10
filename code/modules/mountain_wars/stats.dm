@@ -130,6 +130,19 @@ GLOBAL_DATUM(mw_scoreboard, /datum/mw_scoreboard)
 		return b.kills - a.kills
 	return b.healed - a.healed
 
+/// Раскрывает доску всем на сервере. Раньше итоги существовали только под админской
+/// вербой, и раунд заканчивался тем, что игроки не видели ни своих цифр, ни чужих.
+/// Рендер один на всех: таблица общая, а окно у каждого своё.
+/proc/mw_show_scoreboard()
+	var/datum/mw_scoreboard/board = GLOB.mw_scoreboard
+	if(!board)
+		return
+	var/html = board.render()
+	for(var/mob/viewer as anything in GLOB.player_list)
+		if(!viewer.client)
+			continue
+		viewer << browse(html, "window=mw_stats;size=700x500")
+
 ADMIN_VERB(mw_stats, R_ADMIN, "MW: Статистика боя", "Кто сколько убил, нанёс урона и вылечил.", ADMIN_CATEGORY_GAME)
 	var/datum/mw_scoreboard/board = GLOB.mw_scoreboard
 	if(!board)

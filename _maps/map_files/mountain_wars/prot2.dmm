@@ -41,29 +41,29 @@
 /area/mountain_wars/tunnels)
 "ai" = (
 /obj/structure/table/wood,
-/obj/item/ammo_casing/caseless/rocket,
-/obj/item/ammo_casing/caseless/rocket,
-/obj/item/ammo_casing/caseless/rocket,
-/obj/item/ammo_casing/caseless/rocket,
-/obj/item/ammo_casing/caseless/rocket,
-/obj/item/ammo_casing/caseless/rocket,
-/obj/item/ammo_casing/caseless/rocket,
-/obj/item/ammo_casing/caseless/rocket,
-/obj/item/ammo_casing/caseless/rocket,
-/obj/item/ammo_casing/caseless/rocket,
-/obj/item/ammo_casing/caseless/rocket,
-/obj/item/ammo_casing/caseless/rocket,
-/obj/item/ammo_casing/caseless/rocket,
-/obj/item/ammo_casing/caseless/rocket,
-/obj/item/ammo_casing/caseless/rocket,
-/obj/item/ammo_casing/caseless/rocket,
-/obj/item/ammo_casing/caseless/rocket,
-/obj/item/ammo_casing/caseless/rocket,
-/obj/item/ammo_casing/caseless/rocket,
-/obj/item/ammo_casing/caseless/rocket,
-/obj/item/ammo_casing/caseless/rocket,
-/obj/item/ammo_casing/caseless/rocket,
-/obj/item/ammo_casing/caseless/rocket,
+/obj/item/ammo_casing/caseless/rocket/mw,
+/obj/item/ammo_casing/caseless/rocket/mw,
+/obj/item/ammo_casing/caseless/rocket/mw,
+/obj/item/ammo_casing/caseless/rocket/mw,
+/obj/item/ammo_casing/caseless/rocket/mw,
+/obj/item/ammo_casing/caseless/rocket/mw,
+/obj/item/ammo_casing/caseless/rocket/mw,
+/obj/item/ammo_casing/caseless/rocket/mw,
+/obj/item/ammo_casing/caseless/rocket/mw,
+/obj/item/ammo_casing/caseless/rocket/mw,
+/obj/item/ammo_casing/caseless/rocket/mw,
+/obj/item/ammo_casing/caseless/rocket/mw,
+/obj/item/ammo_casing/caseless/rocket/mw,
+/obj/item/ammo_casing/caseless/rocket/mw,
+/obj/item/ammo_casing/caseless/rocket/mw,
+/obj/item/ammo_casing/caseless/rocket/mw,
+/obj/item/ammo_casing/caseless/rocket/mw,
+/obj/item/ammo_casing/caseless/rocket/mw,
+/obj/item/ammo_casing/caseless/rocket/mw,
+/obj/item/ammo_casing/caseless/rocket/mw,
+/obj/item/ammo_casing/caseless/rocket/mw,
+/obj/item/ammo_casing/caseless/rocket/mw,
+/obj/item/ammo_casing/caseless/rocket/mw,
 /turf/simulated/floor/indestructible/plating,
 /area/mountain_wars/tunnels)
 "aj" = (
@@ -76,33 +76,33 @@
 /area/mountain_wars/tunnels)
 "ak" = (
 /obj/structure/table/wood,
-/obj/item/ammo_casing/caseless/rocket/hedp,
-/obj/item/ammo_casing/caseless/rocket/hedp,
-/obj/item/ammo_casing/caseless/rocket/hedp,
-/obj/item/ammo_casing/caseless/rocket/hedp,
-/obj/item/ammo_casing/caseless/rocket/hedp,
-/obj/item/ammo_casing/caseless/rocket/hedp,
-/obj/item/ammo_casing/caseless/rocket/hedp,
-/obj/item/ammo_casing/caseless/rocket/hedp,
-/obj/item/ammo_casing/caseless/rocket/hedp,
-/obj/item/ammo_casing/caseless/rocket/hedp,
-/obj/item/ammo_casing/caseless/rocket/hedp,
-/obj/item/ammo_casing/caseless/rocket/hedp,
-/obj/item/ammo_casing/caseless/rocket/hedp,
-/obj/item/ammo_casing/caseless/rocket/hedp,
-/obj/item/ammo_casing/caseless/rocket/hedp,
-/obj/item/ammo_casing/caseless/rocket/hedp,
-/obj/item/ammo_casing/caseless/rocket/hedp,
-/obj/item/ammo_casing/caseless/rocket/hedp,
-/obj/item/ammo_casing/caseless/rocket/hedp,
-/obj/item/ammo_casing/caseless/rocket/hedp,
-/obj/item/ammo_casing/caseless/rocket/hedp,
-/obj/item/ammo_casing/caseless/rocket/hedp,
-/obj/item/ammo_casing/caseless/rocket/hedp,
-/obj/item/ammo_casing/caseless/rocket/hedp,
-/obj/item/ammo_casing/caseless/rocket/hedp,
-/obj/item/ammo_casing/caseless/rocket/hedp,
-/obj/item/ammo_casing/caseless/rocket/hedp,
+/obj/item/ammo_casing/caseless/rocket/mw/hedp,
+/obj/item/ammo_casing/caseless/rocket/mw/hedp,
+/obj/item/ammo_casing/caseless/rocket/mw/hedp,
+/obj/item/ammo_casing/caseless/rocket/mw/hedp,
+/obj/item/ammo_casing/caseless/rocket/mw/hedp,
+/obj/item/ammo_casing/caseless/rocket/mw/hedp,
+/obj/item/ammo_casing/caseless/rocket/mw/hedp,
+/obj/item/ammo_casing/caseless/rocket/mw/hedp,
+/obj/item/ammo_casing/caseless/rocket/mw/hedp,
+/obj/item/ammo_casing/caseless/rocket/mw/hedp,
+/obj/item/ammo_casing/caseless/rocket/mw/hedp,
+/obj/item/ammo_casing/caseless/rocket/mw/hedp,
+/obj/item/ammo_casing/caseless/rocket/mw/hedp,
+/obj/item/ammo_casing/caseless/rocket/mw/hedp,
+/obj/item/ammo_casing/caseless/rocket/mw/hedp,
+/obj/item/ammo_casing/caseless/rocket/mw/hedp,
+/obj/item/ammo_casing/caseless/rocket/mw/hedp,
+/obj/item/ammo_casing/caseless/rocket/mw/hedp,
+/obj/item/ammo_casing/caseless/rocket/mw/hedp,
+/obj/item/ammo_casing/caseless/rocket/mw/hedp,
+/obj/item/ammo_casing/caseless/rocket/mw/hedp,
+/obj/item/ammo_casing/caseless/rocket/mw/hedp,
+/obj/item/ammo_casing/caseless/rocket/mw/hedp,
+/obj/item/ammo_casing/caseless/rocket/mw/hedp,
+/obj/item/ammo_casing/caseless/rocket/mw/hedp,
+/obj/item/ammo_casing/caseless/rocket/mw/hedp,
+/obj/item/ammo_casing/caseless/rocket/mw/hedp,
 /turf/simulated/floor/indestructible/plating,
 /area/mountain_wars/tunnels)
 "al" = (
@@ -386,16 +386,16 @@
 /area/mountain_wars/fob_insurgent)
 "bi" = (
 /obj/structure/table/wood,
-/obj/item/ammo_casing/caseless/rocket,
-/obj/item/ammo_casing/caseless/rocket,
-/obj/item/ammo_casing/caseless/rocket,
-/obj/item/ammo_casing/caseless/rocket,
-/obj/item/ammo_casing/caseless/rocket,
-/obj/item/ammo_casing/caseless/rocket,
-/obj/item/ammo_casing/caseless/rocket,
-/obj/item/ammo_casing/caseless/rocket,
-/obj/item/ammo_casing/caseless/rocket,
-/obj/item/ammo_casing/caseless/rocket,
+/obj/item/ammo_casing/caseless/rocket/mw,
+/obj/item/ammo_casing/caseless/rocket/mw,
+/obj/item/ammo_casing/caseless/rocket/mw,
+/obj/item/ammo_casing/caseless/rocket/mw,
+/obj/item/ammo_casing/caseless/rocket/mw,
+/obj/item/ammo_casing/caseless/rocket/mw,
+/obj/item/ammo_casing/caseless/rocket/mw,
+/obj/item/ammo_casing/caseless/rocket/mw,
+/obj/item/ammo_casing/caseless/rocket/mw,
+/obj/item/ammo_casing/caseless/rocket/mw,
 /turf/simulated/floor/wood/fancy,
 /area/mountain_wars/fob_insurgent)
 "bj" = (
@@ -1117,6 +1117,10 @@
 /obj/machinery/light/directional/north,
 /turf/simulated/floor/indestructible/wooden_floor,
 /area/mountain_wars/tunnels)
+"iR" = (
+/obj/item/ammo_box/magazine/l6saw/mw_m249,
+/turf/simulated/floor/indestructible/asteroid,
+/area/mountain_wars/crash_site)
 "iW" = (
 /obj/structure/mw_rockfall/lz,
 /turf/simulated/floor/plating/ironsand,
@@ -1276,6 +1280,11 @@
 /obj/item/clothing/suit/armor/mw_insurgent/boomvest,
 /turf/simulated/floor/indestructible/plating,
 /area/mountain_wars/tunnels)
+"HA" = (
+/obj/item/ammo_box/magazine/l6saw/mw_m249,
+/obj/item/ammo_box/magazine/l6saw/mw_m249,
+/turf/simulated/floor/indestructible/asteroid,
+/area/mountain_wars/crash_site)
 "IM" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/under/mw_marine,
@@ -1307,6 +1316,15 @@
 /area/mountain_wars/fob_marine)
 "Lo" = (
 /obj/item/gun/projectile/automatic/l6_saw/mw_m249,
+/turf/simulated/floor/indestructible/asteroid,
+/area/mountain_wars/crash_site)
+"Mk" = (
+/obj/item/ammo_box/magazine/l6saw/mw_m249,
+/obj/item/ammo_box/magazine/l6saw/mw_m249,
+/obj/item/ammo_box/magazine/l6saw/mw_m249,
+/obj/item/ammo_box/magazine/l6saw/mw_m249,
+/obj/item/ammo_box/magazine/l6saw/mw_m249,
+/obj/item/ammo_box/magazine/l6saw/mw_m249,
 /turf/simulated/floor/indestructible/asteroid,
 /area/mountain_wars/crash_site)
 "Mr" = (
@@ -1346,6 +1364,20 @@
 /obj/structure/mw_rockfall/lz,
 /turf/simulated/floor/indestructible/asteroid,
 /area/mountain_wars/wasteland)
+"Tl" = (
+/obj/item/ammo_box/magazine/l6saw/mw_m249,
+/obj/item/ammo_box/magazine/l6saw/mw_m249,
+/obj/item/ammo_box/magazine/l6saw/mw_m249,
+/obj/item/ammo_box/magazine/l6saw/mw_m249,
+/obj/item/ammo_box/magazine/l6saw/mw_m249,
+/turf/simulated/floor/indestructible/asteroid,
+/area/mountain_wars/crash_site)
+"Ts" = (
+/obj/item/ammo_box/magazine/l6saw/mw_m249,
+/obj/item/ammo_box/magazine/l6saw/mw_m249,
+/obj/item/ammo_box/magazine/l6saw/mw_m249,
+/turf/simulated/floor/indestructible/asteroid,
+/area/mountain_wars/crash_site)
 "UR" = (
 /obj/item/mw_mine,
 /obj/item/mw_mine,
@@ -1395,6 +1427,17 @@
 /obj/item/stack/sheet/mineral/sandbags,
 /turf/simulated/floor/wood/fancy,
 /area/mountain_wars/fob_insurgent)
+"YL" = (
+/obj/item/ammo_box/magazine/l6saw/mw_m249,
+/obj/item/ammo_box/magazine/l6saw/mw_m249,
+/obj/item/ammo_box/magazine/l6saw/mw_m249,
+/obj/item/ammo_box/magazine/l6saw/mw_m249,
+/obj/item/ammo_box/magazine/l6saw/mw_m249,
+/obj/item/ammo_box/magazine/l6saw/mw_m249,
+/obj/item/ammo_box/magazine/l6saw/mw_m249,
+/obj/item/ammo_box/magazine/l6saw/mw_m249,
+/turf/simulated/floor/indestructible/asteroid,
+/area/mountain_wars/crash_site)
 "Zm" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/head/helmet/mw_marine/medic,
@@ -94420,8 +94463,8 @@ ch
 ch
 ch
 ch
-ch
-ch
+Tl
+Tl
 ch
 ch
 ch
@@ -94677,9 +94720,9 @@ ch
 ch
 ch
 ch
-ch
-ch
-ch
+Mk
+YL
+iR
 ch
 ch
 ch
@@ -98021,9 +98064,9 @@ ch
 PC
 ch
 ch
-ch
-ch
-ch
+HA
+YL
+Ts
 Wi
 ch
 ch
@@ -98278,9 +98321,9 @@ ch
 ch
 ch
 ch
-ch
-ch
-ch
+HA
+Mk
+Tl
 Lo
 ch
 ch
@@ -98537,7 +98580,7 @@ ch
 ch
 ch
 ch
-ch
+Ts
 ch
 ch
 ch

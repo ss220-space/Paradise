@@ -109,6 +109,15 @@
 	name = "пол отсека"
 	icon = 'icons/mountain_wars/interior_apc.dmi'
 
+// Отсек не бьётся и не обгорает — по той же причине, что и палуба вертолёта, см.
+// structures.dm. Пол здесь тоже нарезанная иллюстрация, и копоть поверх одной клетки
+// рвёт рисунок ровно посередине.
+/turf/simulated/floor/indestructible/mw_apc/break_tile()
+	return
+
+/turf/simulated/floor/indestructible/mw_apc/burn_tile()
+	return
+
 /turf/simulated/floor/indestructible/mw_apc/hull
 	name = "обшивка"
 	desc = "Броневой лист изнутри. Ни выхода, ни обзора."

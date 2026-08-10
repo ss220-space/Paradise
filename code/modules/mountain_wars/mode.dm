@@ -36,8 +36,6 @@
 	var/next_wave_time = 0
 	/// ckey -> фракция. Нужно для подсчёта и как значение по умолчанию при респавне.
 	var/list/faction_by_ckey = list()
-	/// "фракция|роль" -> сколько уже разобрано. Считаем только спецроли.
-	var/list/role_taken = list()
 	/// Кто победил. Пусто — бой ещё идёт.
 	var/winner
 	/// Когда истекает время на отход. Ноль — завод цел.
@@ -79,7 +77,7 @@
 			faction_by_ckey[mind.current.ckey] = faction
 		// Опрос роли асинхронный: синхронный повесил бы старт раунда на всех,
 		// пока каждый выбирает.
-		INVOKE_ASYNC(src, PROC_REF(join_roundstart), mind, faction, index, role_limit(faction_size[faction]))
+		INVOKE_ASYNC(src, PROC_REF(join_roundstart), mind, faction, index, faction_size[faction])
 
 	GLOB.mw_scoreboard = new
 	start_respawn_hud()
@@ -90,43 +88,100 @@
 	addtimer(CALLBACK(src, PROC_REF(open_wave)), MW_WAVE_INTERVAL)
 	return ..()
 
+// Целей смены здесь нет и быть не может. Базовый post_setup раздаёт их любому режиму, и
+// в горный сектор приезжало то, для чего в нём нет ни станции, ни отделов: сканирование
+// блюспейс разлома ставило сам разлом посреди карты. Отчёт по целям при пустом списке
+// тоже не уходит — send_station_goals_message зовётся только если что-то выпало.
+//
+// Случайные события гасятся отдельно, в post_setup: SSevents.can_fire = FALSE.
+/datum/game_mode/mountain_wars/generate_station_goals()
+	return
+
+// MARK: Потолок ролей
+// Специальностей во фракции ограниченное число, и держится оно на двух пределах разом.
+// Берётся меньший из них:
+//
+//   по разнарядке — одно место на отделение, MW_SQUAD_SIZE бойцов. В раунде на
+//     десятерых трёх командиров не бывает: командовать некем;
+//   по самой роли — role_cap у аутфита, он же число отделений. Сколько бы народу ни
+//     набралось, командиров всё равно Альфа, Браво и Чарли, четвёртому взяться неоткуда.
+//
+// Занятость считается по живым (см. role_holders), а не по счётчику выданных мест.
+// Счётчик выглядел проще, но освобождать его было нечем: убитый командир держал бы
+// место до конца раунда, и к середине боя отряды остались бы без командиров совсем.
+
+/// Сколько бойцов фракции могут держать эту роль разом. Без потолка — INFINITY.
+/datum/game_mode/mountain_wars/proc/role_limit(outfit_type, faction_size)
+	var/datum/outfit/job/mountain_wars/outfit = outfit_type
+	var/cap = initial(outfit.role_cap)
+	if(!cap)
+		return INFINITY
+	return min(cap, max(1, CEILING(faction_size / MW_SQUAD_SIZE, 1)))
+
+/// Сколько мест под ролью свободно. Ниже нуля не опускаем: админ вправе посадить
+/// сверх потолка, но рисовать игроку «мест: -1» в окне выбора незачем.
+/datum/game_mode/mountain_wars/proc/role_places_left(faction, outfit_type, faction_size)
+	var/datum/team/mountain_wars/team = teams[faction]
+	if(!istype(team))
+		return 0
+	return max(role_limit(outfit_type, faction_size) - team.role_holders(outfit_type), 0)
+
+/// Есть ли ещё место под эту роль.
+/datum/game_mode/mountain_wars/proc/role_open(faction, outfit_type, faction_size)
+	return role_places_left(faction, outfit_type, faction_size) > 0
+
+/**
+ * Список ролей для окна выбора: «название — мест: N» -> название.
+ *
+ * Занятые под потолок роли в список не попадают вовсе. Рядовой стоит в списке
+ * последним, мест не считает и не отсеивается никогда — в него берут всех.
+ */
+/datum/game_mode/mountain_wars/proc/role_options(faction, faction_size)
+	. = list()
+	var/list/roles = GLOB.mountain_wars_roles[faction]
+	var/rank_and_file = roles[length(roles)]
+	for(var/role in roles)
+		if(role == rank_and_file)
+			.[role] = role
+			continue
+		var/left = role_places_left(faction, roles[role], faction_size)
+		if(left > 0)
+			.["[role] — мест: [left]"] = role
+
 /// Роль по порядковому номеру бойца в отряде: первые места — спецроли, дальше рядовые.
-/datum/game_mode/mountain_wars/proc/roundstart_outfit(faction, index)
+/// Занятое место в разнарядку не идёт: при полном строе в неё попадает и четвёртое
+/// отделение, а четвёртого командира взять неоткуда.
+/datum/game_mode/mountain_wars/proc/roundstart_outfit(faction, index, faction_size)
 	var/list/roles = GLOB.mountain_wars_roles[faction]
 	var/slot = index % MW_SQUAD_SIZE
 	if(slot < MW_SQUAD_SPECIALISTS)
-		return roles[roles[slot + 1]]
+		var/outfit_type = roles[roles[slot + 1]]
+		if(role_open(faction, outfit_type, faction_size))
+			return outfit_type
 	return roles[roles[length(roles)]]
 
-/// Сколько мест под каждую спецроль во фракции — по одному на отряд, как в разнарядке.
-/datum/game_mode/mountain_wars/proc/role_limit(faction_size)
-	return max(1, CEILING(faction_size / MW_SQUAD_SIZE, 1))
-
 /// Спрашивает роль и заводит бойца в бой. Не ответил — идёт по разнарядке.
-/datum/game_mode/mountain_wars/proc/join_roundstart(datum/mind/mind, faction, index, limit)
+/datum/game_mode/mountain_wars/proc/join_roundstart(datum/mind/mind, faction, index, faction_size)
 	var/datum/team/mountain_wars/team = teams[faction]
-	team.add_member(mind, TRUE, pick_roundstart_role(mind, faction, index, limit))
+	team.add_member(mind, TRUE, pick_roundstart_role(mind, faction, index, faction_size))
 
-/datum/game_mode/mountain_wars/proc/pick_roundstart_role(datum/mind/mind, faction, index, limit)
+/datum/game_mode/mountain_wars/proc/pick_roundstart_role(datum/mind/mind, faction, index, faction_size)
 	var/list/roles = GLOB.mountain_wars_roles[faction]
-	// Рядовой стоит в списке последним и мест не считает — в него берут всех.
+	var/datum/team/mountain_wars/team = teams[faction]
 	var/rank_and_file = roles[length(roles)]
-	var/list/options = list()
-	for(var/role in roles)
-		if(role == rank_and_file)
-			options[role] = role
-			continue
-		var/left = limit - role_taken["[faction]|[role]"]
-		if(left > 0)
-			options["[role] — мест: [left]"] = role
+	var/list/options = role_options(faction, faction_size)
 
 	var/choice = tgui_input_list(mind.current, "Кем идёте в бой?", "Mountain Wars", options, timeout = MW_ROLE_PICK_TIME)
 	var/role = options[choice]
 	// Пока игрок думал, место могли занять — считаем ещё раз, уже по факту.
-	if(!role || (role != rank_and_file && role_taken["[faction]|[role]"] >= limit))
-		return roundstart_outfit(faction, index)
-	role_taken["[faction]|[role]"] += 1
-	return roles[role]
+	var/outfit_type = role && (role == rank_and_file || role_open(faction, roles[role], faction_size)) \
+		? roles[role] \
+		: roundstart_outfit(faction, index, faction_size)
+	// Занимаем место здесь, а не в deploy_member: выбирают все одновременно, и место
+	// должно закрыться в тот же миг, когда его взяли. Сам deploy_member запишет то же
+	// самое ещё раз — это на поздний заход и админское переназначение.
+	team.claim_role(mind, outfit_type)
+	return outfit_type
 
 /**
  * Ставит бойца во фракцию и роль. Одна дверь для всех входов: старт раунда, поздний
@@ -177,7 +232,10 @@
 		return
 	marine_tickets -= amount
 	if(marine_tickets <= 0)
-		message_faction(JOB_TITLE_MW_MARINE, span_boldwarning("Билеты подкреплений исчерпаны! Подкреплений больше не будет."))
+		// Всему серверу, а не одной фракции: это перелом боя, и повстанцам важно знать,
+		// что добить осталось тех, кто уже на земле. Заодно снимает недоумение «билеты
+		// кончились, а ничего не произошло» — не произошло потому, что бой не окончен.
+		to_chat(world, span_userdanger("<br>Билеты подкреплений Корпуса исчерпаны. Подкреплений больше не будет — в секторе остались только те, кто ещё держится.<br>"))
 	else if(marine_tickets <= 10)
 		message_faction(JOB_TITLE_MW_MARINE, span_boldwarning("Осталось билетов подкреплений: [marine_tickets]!"))
 
@@ -235,11 +293,24 @@
 			return TRUE
 
 	var/list/roles = GLOB.mountain_wars_roles[faction]
-	var/role_choice = tgui_input_list(player, "Выберите роль", "Mountain Wars", roles)
+	var/rank_and_file = roles[length(roles)]
+	// Размер фракции — по числу зачисленных, а не живых. Иначе потолок плясал бы от
+	// того, сколько человек лежит убитыми в эту секунду: отряд полёг — мест стало
+	// меньше, встал — снова больше.
+	var/datum/team/mountain_wars/team = teams[faction]
+	var/faction_size = length(team.members)
+	var/list/options = role_options(faction, faction_size)
+	var/role_choice = tgui_input_list(player, "Выберите роль", "Mountain Wars", options)
 	if(!role_choice)
 		return TRUE
+	var/role = options[role_choice]
 
 	if(QDELETED(player) || !player.client)
+		return TRUE
+
+	// Окно висело, пока игрок думал: место могли занять, как и место во фракции.
+	if(role != rank_and_file && !role_open(faction, roles[role], faction_size))
+		to_chat(player, span_warning("Пока вы выбирали, эту роль разобрали. Попробуйте ещё раз."))
 		return TRUE
 
 	// Выбор роли — ещё одно окно и ещё одна пауза. За неё в бой могли зайти другие.
@@ -248,7 +319,7 @@
 		return TRUE
 
 	SStitle.hide_title_screen_from(player.client)
-	assign_player(player.mind, faction, roles[role_choice])
+	assign_player(player.mind, faction, roles[role])
 	qdel(player)
 	return TRUE
 
@@ -272,18 +343,30 @@
 	to_chat(world, span_boldwarning("Реактор пошёл вразнос, хранилище прекурсоров вскрыто. Сектор непригоден для нахождения и будет накрыт."))
 	to_chat(world, span_boldwarning("Всем силам Корпуса — отход к вертолётам. Расчётное время до накрытия: [MW_EVAC_TIME / 600] мин.<br>"))
 
-	// Задача меняется и в титрах: тот, кто прилетит следующим бортом, увидит уже её.
-	var/datum/team/mountain_wars/marines = teams[JOB_TITLE_MW_MARINE]
-	if(istype(marines))
-		marines.briefing_task = "отойти к вертолётам"
-	for(var/datum/mind/mate as anything in marines?.members)
-		var/mob/living/body = mate.current
-		if(QDELETED(body) || body.stat == DEAD)
-			continue
-		mw_briefing(body, "отойти к вертолётам")
+	// Задача меняется у обеих сторон разом. Взрыв — перелом боя: у морпехов дальше
+	// только дорога к бортам, а у повстанцев — единственные пять минут, когда противник
+	// не удерживает сектор, а бежит из него. Держать их на старой задаче нельзя, иначе
+	// про отход они узнают только из строки в чате посреди перестрелки.
+	retask_faction(JOB_TITLE_MW_MARINE, "отойти к вертолётам")
+	retask_faction(JOB_TITLE_MW_INSURGENT, "не дать им уйти")
 
 	addtimer(CALLBACK(src, PROC_REF(evac_warning)), MW_EVAC_TIME - MW_EVAC_WARNING)
 	addtimer(CALLBACK(src, PROC_REF(evac_over)), MW_EVAC_TIME)
+
+/// Меняет задачу фракции и показывает её титрами всем, кто ещё в строю.
+///
+/// Задача пишется и в саму команду: титры собираются из неё, так что зашедший
+/// следующей волной увидит уже новую, а не ту, с которой раунд начинался.
+/datum/game_mode/mountain_wars/proc/retask_faction(faction, task)
+	var/datum/team/mountain_wars/team = teams[faction]
+	if(!istype(team))
+		return
+	team.briefing_task = task
+	for(var/datum/mind/mate as anything in team.members)
+		var/mob/living/body = mate.current
+		if(QDELETED(body) || body.stat == DEAD)
+			continue
+		mw_briefing(body, task)
 
 /datum/game_mode/mountain_wars/proc/evac_warning()
 	to_chat(world, span_userdanger("До накрытия сектора — [MW_EVAC_WARNING / 600] мин."))
@@ -306,21 +389,39 @@
 	winner = faction
 	var/datum/team/mountain_wars/team = teams[faction]
 	to_chat(world, span_userdanger("<br>Бой за горный сектор окончен. Победа фракции «[team?.name || faction]».<br>"))
+	// Ролик уводим из вызывающего потока, и это не украшение.
+	//
+	// Сюда приходят из check_finished, а его тикер зовёт прямо в своём fire(). Показ
+	// кадра спрашивает у каждого клиента размер окна карты через winget, то есть ждёт
+	// ответа — спит. Уснувший fire() подсистемы MC считает зависшим и подсистему
+	// перезапускает, обрывая показ на середине: ролика нет, а причины в логах не видно.
+	INVOKE_ASYNC(src, PROC_REF(run_victory_cinematic), faction)
+
+/// Сам показ: ролик и следом итоги. Вынесен отдельно только ради асинхронного вызова.
+/datum/game_mode/mountain_wars/proc/run_victory_cinematic(faction)
 	play_cinematic(faction == JOB_TITLE_MW_MARINE ? /datum/cinematic/mw_victory/marine : /datum/cinematic/mw_victory/insurgent, world)
+	mw_show_scoreboard()
 
 // Ролик здесь не играем: он уже отработал в момент победы, а сюда мы попадаем позже и
-// по другому поводу — когда раунд сворачивает админ.
+// по другому поводу — когда раунд сворачивает админ. Итоги показываем ещё раз: раунд
+// могли свернуть и без объявленной победы, и тогда это единственный показ.
 /datum/game_mode/mountain_wars/declare_completion()
+	mw_show_scoreboard()
 	return ..()
 
 // Победа раунд не заканчивает — см. declare_victory. Проверку держим здесь только
 // потому, что тикер и так зовёт check_finished каждый тик: свой цикл ради этого заводить
 // незачем. Возвращаем то же, что и родитель, то есть в норме «нет».
+//
+// Исчерпанных билетов мало: они лишь закрывают подкрепления, а те морпехи, что остались
+// на земле, продолжают бой. Сектор переходит повстанцам, когда падает последний.
 /datum/game_mode/mountain_wars/check_finished()
 	if(!winner && marine_tickets <= 0)
 		var/datum/team/marines = teams[JOB_TITLE_MW_MARINE]
-		// Билеты вышли, живых морпехов нет — сектор остался за повстанцами.
-		if(!marines.alife_members_count())
+		// istype, а не прямой вызов: до post_setup команд ещё нет, а check_finished
+		// тикер зовёт каждый тик. На пустой ссылке проц падал бы здесь, не доходя до
+		// ..(), и раунд не заканчивался бы вообще ничем.
+		if(istype(marines) && !marines.alife_members_count())
 			declare_victory(JOB_TITLE_MW_INSURGENT)
 	return ..()
 

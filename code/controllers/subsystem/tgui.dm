@@ -348,6 +348,11 @@ SUBSYSTEM_DEF(tgui)
 	return TRUE
 
 /datum/controller/subsystem/tgui/OnConfigLoad()
+	// Читаем заново, а не правим то, что осталось от PreInit: порядок «конфиг против
+	// PreInit» не гарантирован, и подстановка могла лечь в ещё пустой basehtml, после
+	// чего PreInit затирал её исходным файлом.
+	basehtml = file2text('tgui/public/tgui.html')
+
 	var/storage_iframe = CONFIG_GET(string/storage_cdn_iframe)
 
 	if(storage_iframe && storage_iframe != /datum/config_entry/string/storage_cdn_iframe::default)
@@ -361,7 +366,19 @@ SUBSYSTEM_DEF(tgui)
 		basehtml = replacetext(basehtml, "\[tgui:storagecdn\]", webroot.get_asset_url("iframe.html", item))
 		return
 
+	// Ни своего адреса, ни раздачи через webroot — отдаём iframe.html собственным кэшем
+	// ассетов, тем же путём, что и бандл. Он лежит в /datum/asset/simple/tgui с
+	// keep_local_name, то есть приезжает клиенту под своим именем и открывается с того
+	// же источника, что и страница окна.
+	//
+	// Оставить подстановку несделанной нельзя. Тогда в HTML остаётся сам текст
+	// "\[tgui:storagecdn\]", клиент принимает его за адрес, iframe не поднимается, и
+	// storage.ts уходит в запасную ветку: winset(null, "browser-options", "+byondstorage").
+	// Окно там не указано, значит BYOND пересоздаёт браузерные контролы всего клиента —
+	// чат и все окна TGUI разом, — а ждёт ответа этот код без таймаута. Ни чат, ни ООС,
+	// ни лог не открываются вовсе.
 	if(!storage_iframe)
+		basehtml = replacetext(basehtml, "\[tgui:storagecdn\]", "iframe.html")
 		return
 
 	basehtml = replacetext(basehtml, "\[tgui:storagecdn\]", storage_iframe)

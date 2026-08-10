@@ -55,6 +55,34 @@ ADMIN_VERB_AND_CONTEXT_MENU(mw_assign, R_EVENT, "MW: Фракция и роль"
 	BLACKBOX_LOG_ADMIN_VERB("MW Assign Role")
 	log_and_message_admins("поставил [key_name_log(target)] в [faction] на роль «[role_choice]».")
 
+// Объявить победу руками. Штатное условие — исчерпанные билеты и ни одного живого
+// морпеха — сходится не всегда: последний морпех может засесть в углу карты, а ивент
+// пора сворачивать. Заодно это единственный способ проверить сам ролик, не доигрывая
+// раунд до конца.
+ADMIN_VERB(mw_declare_victory, R_EVENT, "MW: Объявить победу", "Играет ролик победы выбранной фракции и раскрывает итоги боя.", ADMIN_CATEGORY_EVENTS)
+	var/datum/game_mode/mountain_wars/mode = SSticker?.mode
+	if(!istype(mode))
+		to_chat(user, span_warning("Раунд не Mountain Wars."))
+		return
+
+	var/list/factions = list()
+	for(var/faction in mode.teams)
+		var/datum/team/mountain_wars/team = mode.teams[faction]
+		factions[team.name] = faction
+	var/faction_choice = tgui_input_list(user, "Чья победа", "Mountain Wars", factions)
+	if(!faction_choice)
+		return
+
+	// Победа объявляется один раз за раунд, и защита стоит в самом declare_victory.
+	// Предупреждаем здесь, иначе кнопка молча не сработает.
+	if(mode.winner)
+		to_chat(user, span_warning("Победа уже объявлена — ролик второй раз не пойдёт."))
+		return
+
+	mode.declare_victory(factions[faction_choice])
+	BLACKBOX_LOG_ADMIN_VERB("MW Declare Victory")
+	log_and_message_admins("объявил победу фракции «[faction_choice]» в Mountain Wars.")
+
 // Собрать весь раунд в одну кучу: брифинг, разбор полётов, финальная бойня. Точка —
 // клетка под самим админом, отдельного выбора координат не заводим: долететь туда
 // призраком и нажать кнопку короче, чем набирать три числа.

@@ -71,6 +71,9 @@
 	var/field_medic = FALSE
 	/// Сапёр: строит вдвое быстрее.
 	var/combat_engineer = FALSE
+	/// Сколько бойцов фракции могут держать эту роль разом. Ноль — сколько угодно.
+	/// Считаются только живые: место выбитого специалиста освобождается, см. teams.dm.
+	var/role_cap = 0
 
 // MARK: Классовые бонусы
 // Специальность даёт не только сумку, но и скорость: без этого санитар отличается от
@@ -92,6 +95,18 @@
 	return HAS_TRAIT(user, TRAIT_MW_ENGINEER) ? delay * MW_CLASS_SPEEDUP : delay
 
 #undef MW_CLASS_SPEEDUP
+
+// MARK: Потолок специальностей
+// Сколько специалистов одного вида фракция держит разом. Три — потому что отделений
+// три: Альфа, Браво и Чарли (GLOB.mw_squads). Четвёртому командиру взяться неоткуда,
+// сколько бы народу ни набралось, а с ним и четвёртому медику с пулемётчиком.
+//
+// У повстанцев отделений нет, но потолок тот же: иначе половина фракции уходит в
+// подрывники, и стороны перестают быть сравнимыми.
+//
+// Меняется число отделений — меняется и это. Держать его вычисленным из mw_squads
+// нельзя: значение идёт в initial() у аутфита, а туда попадают только константы.
+#define MW_ROLE_CAP 3
 
 // MARK: Морпехи
 // Базовый аутфит = Пехотинец. Спрайты — плейсхолдеры до порта из CM-SS13.
@@ -124,6 +139,7 @@
 /datum/outfit/job/mountain_wars/marine/leader
 	name = "Морпех США (Командир отряда)"
 	squad_leader = TRUE
+	role_cap = MW_ROLE_CAP
 	suit = /obj/item/clothing/suit/armor/vest/mw_marine/leader
 	head = /obj/item/clothing/head/helmet/mw_marine/leader
 	glasses = /obj/item/clothing/glasses/hud/security/night
@@ -141,6 +157,7 @@
 
 /datum/outfit/job/mountain_wars/marine/medic
 	name = "Морпех США (Медик)"
+	role_cap = MW_ROLE_CAP
 	field_medic = TRUE
 	suit = /obj/item/clothing/suit/armor/vest/mw_marine/medic
 	head = /obj/item/clothing/head/helmet/mw_marine/medic
@@ -160,6 +177,7 @@
 
 /datum/outfit/job/mountain_wars/marine/engineer
 	name = "Морпех США (Инженер)"
+	role_cap = MW_ROLE_CAP
 	combat_engineer = TRUE
 	suit = /obj/item/clothing/suit/armor/vest/mw_marine/engineer
 	head = /obj/item/clothing/head/helmet/mw_marine/engineer
@@ -179,6 +197,7 @@
 
 /datum/outfit/job/mountain_wars/marine/mg
 	name = "Морпех США (Пулемётчик)"
+	role_cap = MW_ROLE_CAP
 	suit = /obj/item/clothing/suit/armor/vest/mw_marine/heavy
 	head = /obj/item/clothing/head/helmet/mw_marine/heavy
 	r_hand = /obj/item/gun/projectile/automatic/l6_saw/mw_m249
@@ -206,8 +225,13 @@
 		/obj/item/storage/firstaid/mw_insurgent = 1,
 	)
 
+// Полевой рации у повстанцев нет. Подкрепления они и так поднимают из лазов по всему
+// сектору, а переносная точка сбора сверх этого — уже перебор. Тип рации повстанцев
+// (/obj/structure/mw_fob/insurgent) оставлен: админ ставит её вручную, когда ивент того
+// требует.
 /datum/outfit/job/mountain_wars/insurgent/leader
 	name = "Повстанец (Полевой командир)"
+	role_cap = MW_ROLE_CAP
 	squad_leader = TRUE
 	suit = /obj/item/clothing/suit/armor/mw_insurgent/leader
 	head = /obj/item/clothing/head/helmet/mw_insurgent/leader
@@ -216,11 +240,11 @@
 		/obj/item/stack/sheet/mineral/sandbags/mw_full = 1,
 		/obj/item/storage/firstaid/mw_insurgent = 1,
 		/obj/item/radio/off = 1,
-		/obj/item/mw_fob_kit/insurgent = 1,
 	)
 
 /datum/outfit/job/mountain_wars/insurgent/marksman
 	name = "Повстанец (Стрелок)"
+	role_cap = MW_ROLE_CAP
 	suit = /obj/item/clothing/suit/armor/mw_insurgent/marksman
 	head = /obj/item/clothing/head/helmet/mw_insurgent/marksman
 	r_hand = /obj/item/gun/projectile/shotgun/boltaction/mw_mosin
@@ -234,6 +258,7 @@
 // стрелковый бой на дистанции держат боевики.
 /datum/outfit/job/mountain_wars/insurgent/medic
 	name = "Повстанец (Санитар)"
+	role_cap = MW_ROLE_CAP
 	field_medic = TRUE
 	suit = /obj/item/clothing/suit/armor/mw_insurgent/medic
 	// Инструмент и каталка те же, что у морпеха: расходники у сторон разные — жгут
@@ -249,6 +274,7 @@
 
 /datum/outfit/job/mountain_wars/insurgent/engineer
 	name = "Повстанец (Подрывник)"
+	role_cap = MW_ROLE_CAP
 	combat_engineer = TRUE
 	suit = /obj/item/clothing/suit/armor/mw_insurgent/boomvest
 	belt = /obj/item/storage/belt/utility/full/multitool
@@ -262,3 +288,5 @@
 		/obj/item/grenade/plastic/c4 = 2,
 		/obj/item/mw_mine = 4,
 	)
+
+#undef MW_ROLE_CAP

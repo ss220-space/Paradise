@@ -141,17 +141,6 @@
 	transform = matrix(MW_FLIGHT_SPIN_ZOOM, 0, 0, 0, MW_FLIGHT_SPIN_ZOOM, 0)
 	SpinAnimation(MW_FLIGHT_SPIN_TIME, loops = -1, segments = MW_FLIGHT_SPIN_STEPS, parallel = FALSE)
 
-/// Небо неподвижно: летим над землёй, а не под облаками. Лежит поверх ленты и внизу
-/// тает в дымку, поэтому горизонт не выглядит отрезанным по линейке.
-/atom/movable/screen/fullscreen/mw_flight/sky
-	icon = 'icons/mountain_wars/flight_sky.dmi'
-	icon_state = "sky"
-	layer = MASSIVE_OBJ_LAYER + 0.1
-
-/atom/movable/screen/fullscreen/mw_flight/sky/Initialize(mapload, datum/hud/hud_owner)
-	. = ..()
-	flank(icon_state)
-
 // MARK: Область борта
 // Своя область обязательна: шаттл возит ровно свою область, и по ней же subsystem
 // понимает, что именно двигать. Подтипом /area/mountain_wars её сделать нельзя —
@@ -206,16 +195,11 @@
 		var/atom/movable/screen/fullscreen/mw_flight/ground/land = passenger.overlay_fullscreen("mw_flight_ground", /atom/movable/screen/fullscreen/mw_flight/ground)
 		land?.start_scroll()
 		if(spinning)
-			// Небо снимаем: горизонт в падении ни при чём, да и лежит он выше ленты.
-			// Сама лента остаётся под каруселью подстраховкой на широкое окно.
-			passenger.clear_fullscreen("mw_flight_sky")
+			// Лента остаётся под каруселью подстраховкой на широкое окно.
 			var/atom/movable/screen/fullscreen/mw_flight/spin/whirl = passenger.overlay_fullscreen("mw_flight_spin", /atom/movable/screen/fullscreen/mw_flight/spin)
 			whirl?.start_spin()
-			return
-		passenger.overlay_fullscreen("mw_flight_sky", /atom/movable/screen/fullscreen/mw_flight/sky)
 		return
 	passenger.clear_fullscreen("mw_flight_ground")
-	passenger.clear_fullscreen("mw_flight_sky")
 	passenger.clear_fullscreen("mw_flight_spin")
 
 /// Пустить карусель всем, кто на борту.
@@ -235,7 +219,6 @@
 	var/mob/passenger = gone
 	if(ismob(passenger))
 		passenger.clear_fullscreen("mw_flight_ground")
-		passenger.clear_fullscreen("mw_flight_sky")
 		passenger.clear_fullscreen("mw_flight_spin")
 
 // MARK: Борт как шаттл

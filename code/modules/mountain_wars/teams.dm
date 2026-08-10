@@ -3,6 +3,8 @@
 	var/team_color
 	/// Строка задачи в титрах высадки, см. briefing.dm.
 	var/briefing_task
+	/// mind -> тип аутфита, который он занимает. По нему считается потолок ролей.
+	var/list/role_by_mind = list()
 
 // Заходит сюда дважды на одного бойца, и это не наша ошибка: базовый add_member()
 // зовёт get_antag_datum_from_member(), тот создаёт антаг-датум через add_antag_datum(),
@@ -23,6 +25,40 @@
  * Вынесено из add_member отдельно, потому что админ переназначает роль тому, кто в
  * команде уже числится, — а туда второй раз не пускает защита от рекурсии выше.
  */
+/**
+ * Записывает за бойцом роль, которую он занял.
+ *
+ * Отдельно от deploy_member, потому что на старте раунда роль выбирают заранее и
+ * параллельно: полтора десятка человек сидят в окне выбора одновременно, и место
+ * должно считаться занятым в тот момент, когда его выбрали, а не когда боец уже
+ * оделся. Иначе все они разберут одно и то же.
+ */
+/datum/team/mountain_wars/proc/claim_role(datum/mind/member, outfit_type)
+	if(member && outfit_type)
+		role_by_mind[member] = outfit_type
+
+/**
+ * Сколько бойцов фракции держат эту роль прямо сейчас.
+ *
+ * Считаются живые, а не все, кто её когда-либо брал. Место выбитого командира обязано
+ * освобождаться: иначе к середине боя все три записи заняты покойниками, а отряды
+ * остаются без командиров до конца раунда.
+ */
+/datum/team/mountain_wars/proc/role_holders(outfit_type)
+	. = 0
+	for(var/datum/mind/mate as anything in role_by_mind)
+		if(role_by_mind[mate] != outfit_type)
+			continue
+		var/mob/body = mate.current
+		if(QDELETED(body))
+			continue
+		// Заявку со старта засчитываем ещё до тела: пока боец не вышел из лобби, его
+		// current — /mob/new_player, а у того stat принудительно DEAD. Без этой ветки
+		// выбранное на старте место не считалось бы занятым вовсе.
+		if(!isnewplayer(body) && body.stat == DEAD)
+			continue
+		.++
+
 /datum/team/mountain_wars/proc/deploy_member(datum/mind/new_member, outfit_type)
 	var/mob/living/character
 	if(isnewplayer(new_member.current))
@@ -38,6 +74,9 @@
 	if(!outfit_type)
 		var/datum/job/job = SSjobs.GetJob(team_role)
 		outfit_type = job.outfit
+	// Роль записываем по факту выдачи, а не только по выбору: сюда приходят и поздний
+	// заход, и админское переназначение, а переназначенный обязан отпустить прежнее место.
+	claim_role(new_member, outfit_type)
 	// Старое снаряжение сносим: outfit.equip кладёт вещи в слоты, а занятый слот
 	// новую вещь просто удаляет. Без этого переназначенный админом боец остался бы
 	// в прежней форме и с прежним стволом.
@@ -166,6 +205,7 @@
 		UnregisterSignal(member.current, COMSIG_MOB_DEATH)
 	member.remove_antag_datum(antag_datum_type)
 	members -= member
+	role_by_mind -= member
 
 // ponytail: один билет на жизнь — после первой смерти сигнал снимается,
 // оживление дефибом не возвращает билет; пересмотреть в фазе медицины.
