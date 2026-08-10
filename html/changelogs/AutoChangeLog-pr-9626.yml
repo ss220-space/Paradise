@@ -1,4 +1,0 @@
-author: "broodjeh-lang"
-delete-after: True
-changes:
-  - tweak: "Увеличена цена джаунтера в автомате выдачи оборудования шахтеров до 2000 очков\n/cl: (PR #9626)"
