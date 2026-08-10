@@ -41,14 +41,13 @@
 /obj/item/ammo_casing/energy/disabler/energy_carbine/weak
 	projectile_type = /obj/projectile/beam/disabler/slowed/weak
 	e_cost = 25 //50 shots
-	delay = 0
-	overlay_color = COLOR_FRENCH_BLUE
+	delay = 0.4 SECONDS
 
 /obj/item/ammo_casing/energy/disabler/energy_carbine/heavy
 	projectile_type = /obj/projectile/beam/disabler/slowed/heavy
 	fire_sound = 'sound/weapons/gunshots/laserrifle2.ogg'
 	e_cost = 150 //12 shots
-	overlay_color = COLOR_HEALING_CYAN
+	delay = 2 SECONDS
 
 /obj/item/ammo_casing/energy/disabler/scatter
 	projectile_type = /obj/projectile/beam/disabler/scatter

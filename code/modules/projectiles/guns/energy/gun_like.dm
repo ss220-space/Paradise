@@ -411,8 +411,8 @@
 	icon_state = "energy_shotgun"
 	force = 20
 	ammo_type = list(
-		/obj/item/ammo_casing/energy/disabler/scatter,
-		/obj/item/ammo_casing/energy/laser/scatter,
+		/obj/item/ammo_casing/energy/disabler/scatter/energy_shotgun,
+		/obj/item/ammo_casing/energy/laser/scatter/energy_shotgun,
 	)
 	weapon_weight = WEAPON_HEAVY
 	w_class = WEIGHT_CLASS_BULKY
