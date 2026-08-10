@@ -824,8 +824,9 @@
 	muzzle_type = /obj/effect/projectile/muzzle/laser/armorpierce
 	impact_type = /obj/effect/projectile/impact/laser/armorpierce
 	armour_penetration = 50
-	damage = 25
-	forcedodge = 3
+	damage = 20
+	forcedodge = 2
+	ricochet_chance = 0
 
 /obj/projectile/beam/laser/hitscan/laser_shotgun
 	tracer_type = /obj/effect/projectile/tracer/laser/heavy
@@ -852,9 +853,11 @@
 	damage = 5
 	range = 40
 	hitscan = FALSE
+	can_ricochet_from_everything = TRUE
 	ricochet_chance = 100
 	ricochets_max = 10
 	speed = 2
+	reflectability = REFLECTABILITY_PHYSICAL
 
 /obj/projectile/beam/laser/hitscan/laser_pistol
 

@@ -60,6 +60,8 @@
 #define RICOCHET_HARD (1<<1)
 /// If the thing can reflect ballistic bullets with low chance
 #define RICOCHET_BALLISTIC (1<<2)
+/// If the thing can reflect special weapons type
+#define RICOCHET_SPECIAL (1<<3)
 
 //Reagent flags
 #define REAGENT_NOREACT 1

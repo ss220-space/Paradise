@@ -111,6 +111,8 @@
 	var/ricochets = 0
 	var/ricochets_max = 2
 	var/ricochet_chance = 30
+	/// If our projectile can ricochet from any walls
+	var/can_ricochet_from_everything = FALSE
 
 	/// For when you want your projectile to have a chain coming out of the gun
 	var/chain = null
@@ -560,6 +562,9 @@
 		return TRUE
 
 	if(flag == BULLET && (A.flags_ricochet & RICOCHET_BALLISTIC))
+		return TRUE
+
+	if((can_ricochet_from_everything) && (A.flags_ricochet & RICOCHET_SPECIAL))
 		return TRUE
 
 	return FALSE
