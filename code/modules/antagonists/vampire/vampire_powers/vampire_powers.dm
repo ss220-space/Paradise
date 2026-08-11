@@ -68,6 +68,9 @@
 	charge_restore_time = 10 SECONDS
 	cooldown_between_charges = 5 SECONDS
 
+/datum/action/cooldown/spell/vamp_rejuvenate/can_cast_spell(feedback)
+	return ..() && owner.stat == CONSCIOUS
+
 /datum/action/cooldown/spell/vamp_rejuvenate/create_new_handler()
 	var/datum/spell_handler/vampire/handler = new
 	return handler
@@ -243,6 +246,9 @@
 	max_charges = 2
 	charge_restore_time = 30 SECONDS
 	cooldown_between_charges = 3 SECONDS
+
+/datum/action/cooldown/spell/aoe/glare/can_cast_spell(feedback)
+	return ..() && owner.stat == CONSCIOUS
 
 /datum/action/cooldown/spell/aoe/glare/Grant(mob/granted_to)
 	. = ..()

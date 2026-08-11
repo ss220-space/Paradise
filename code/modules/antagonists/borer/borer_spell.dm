@@ -104,7 +104,7 @@
 
 /datum/action/cooldown/spell/borer_force_say/can_cast_spell(feedback)
 	var/mob/living/simple_animal/borer/user = owner
-	if(istype(user) || user.stat || user.host?.stat)
+	if(!istype(user) || user.stat || user.host?.stat)
 		return FALSE
 	return ..()
 
@@ -121,3 +121,6 @@
 
 	user.host.say(force_say_content)
 	add_attack_logs(user, user.host, "Forcesaid: [force_say_content]")
+
+/datum/action/cooldown/spell/borer_force_say/get_caster_from_target(atom/target)
+	return target

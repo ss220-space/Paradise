@@ -11,6 +11,9 @@
 	var/effect_timer
 	var/counter = 0
 
+/datum/action/cooldown/spell/goon_vamp_rejuvenate/can_cast_spell(feedback)
+	return ..() && owner.stat == CONSCIOUS
+
 /datum/action/cooldown/spell/goon_vamp_rejuvenate/create_new_handler()
 	var/datum/spell_handler/vampire/H = new
 	return H
@@ -163,6 +166,9 @@
 	check_flags = AB_CHECK_PHASED
 	aoe_radius = 1
 	school = SCHOOL_SANGUINE
+
+/datum/action/cooldown/spell/aoe/goon_vamp_glare/can_cast_spell(feedback)
+	return ..() && owner.stat == CONSCIOUS
 
 /datum/action/cooldown/spell/aoe/goon_vamp_glare/create_new_handler()
 	var/datum/spell_handler/vampire/goon/handler = new
