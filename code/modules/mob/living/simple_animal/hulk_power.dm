@@ -48,22 +48,30 @@
 	background_icon_state = "bg_hulk"
 	cooldown_time = 13 SECONDS
 	spell_requirements = NONE
+	var/casted = FALSE
+
+/datum/action/cooldown/spell/hulk_dash/can_cast_spell(feedback)
+	return ..() && !casted
 
 /datum/action/cooldown/spell/hulk_dash/cast(atom/cast_on)
 	. = ..()
+	casted = TRUE
 	var/mob/living/simple_animal/hulk/user = cast_on
 	var/turf/T = get_turf(get_step(user,user.dir))
 	for(var/mob/living/M in T.contents)
 		to_chat(user, span_warning("Something right in front of you!"))
+		casted = FALSE
 		return
 	T = get_turf(get_step(T,user.dir))
 	for(var/mob/living/M in T.contents)
 		to_chat(user, span_warning("Something right in front of you!"))
+		casted = FALSE
 		return
 
 	var/failure = 0
 	if(ismob(user.loc) || user.incapacitated() || user.buckled)
 		to_chat(user, span_warning("You can't dash right now!"))
+		casted = FALSE
 		return
 
 	if(isturf(user.loc) && !(isspaceturf(user.loc)))
@@ -80,7 +88,8 @@
 				span_warning("You attempt to dash but suddenly interrupted!"),
 				span_notice("You hear the flexing of powerful muscles and suddenly a crash as a body hits the floor.")
 			)
-			return 0
+			casted = FALSE
+			return
 
 		user.say(pick("RAAAAAAAARGH!", "HNNNNNNNNNGGGGGGH!", "GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", "AAAAAAARRRGH!" ))
 		var/prevLayer = user.layer
@@ -182,6 +191,7 @@
 		user.layer = prevLayer
 	else
 		to_chat(user, span_warning("You need a ground to do this!"))
+		casted = FALSE
 		return
 
 	if(isobj(user.loc))
@@ -199,7 +209,7 @@
 			sleep(1)
 		container.pixel_x = 0
 		container.pixel_y = 0
-
+	casted = FALSE
 	return
 
 //Jump
@@ -210,9 +220,14 @@
 	background_icon_state = "bg_hulk"
 	cooldown_time = 13 SECONDS
 	spell_requirements = NONE
+	var/casted = FALSE
+
+/datum/action/cooldown/spell/hulk_jump/can_cast_spell(feedback)
+	return ..() && !casted
 
 /datum/action/cooldown/spell/hulk_jump/cast(atom/cast_on)
 	. = ..()
+	casted = TRUE
 	var/mob/living/simple_animal/hulk/user = cast_on
 	var/failure = 0
 	if(!user)
@@ -220,10 +235,12 @@
 
 	if(ismob(user.loc) || user.incapacitated() || user.buckled)
 		to_chat(user, span_warning("You can't jump right now!"))
+		casted = FALSE
 		return
 	var/turf/turf_to_check = get_turf(user)
 	if(user.can_z_move(DOWN, turf_to_check))
 		to_chat(user, span_warning("You need a ground to jump from!"))
+		casted = FALSE
 		return
 
 	if(isturf(user.loc) && !(isspaceturf(user.loc)))
@@ -241,7 +258,8 @@
 				span_warning("=You attempt to leap away but are suddenly slammed back down to the ground!"),
 				span_notice("=You hear the flexing of powerful muscles and suddenly a crash as a body hits the floor.")
 			)
-			return 0
+			casted = FALSE
+			return
 
 		user.say(pick("RAAAAAAAARGH!", "HNNNNNNNNNGGGGGGH!", "GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", "AAAAAAARRRGH!" ))
 		var/prevLayer = user.layer
@@ -295,6 +313,7 @@
 		user.layer = prevLayer
 	else
 		to_chat(user, span_warning("You need a ground to do this!"))
+		casted = FALSE
 		return
 
 	if(isobj(user.loc))
@@ -316,7 +335,7 @@
 	if(!(user.movement_type & MOVETYPES_NOT_TOUCHING_GROUND) && !user.currently_z_moving) // in case he could fly after
 		var/turf/pitfall = get_turf(user)
 		pitfall?.zFall(user)
-
+	casted = FALSE
 //Clown-Hulk
 
 //Hulk Honk
