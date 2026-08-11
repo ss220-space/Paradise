@@ -903,7 +903,6 @@
 
 /obj/projectile/beam/laser/hitscan/laser_mg/ricochet
 	icon_state = "lasershot"
-	damage = 5
 	range = 40
 	hitscan = FALSE
 	can_ricochet_from_everything = TRUE

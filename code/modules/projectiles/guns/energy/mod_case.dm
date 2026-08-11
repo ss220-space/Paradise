@@ -4,7 +4,6 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "modcase"
 	item_state = "modcase"
-	w_class = WEIGHT_CLASS_NORMAL
 
 	/// Not actually used, all upgrades used in attackby of those weapons
 	var/static/list/upgradable_weapons = list(

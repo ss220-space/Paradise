@@ -45,7 +45,6 @@
 
 /obj/item/ammo_casing/energy/laser/weaker
 	delay = 0.7 SECONDS
-	e_cost = 100 //15 shots
 
 /obj/item/ammo_casing/energy/laser/heavy
 	projectile_type = /obj/projectile/beam/laser/heavylaser
@@ -64,7 +63,6 @@
 /obj/item/ammo_casing/energy/laser/energy_carbine/weak
 	projectile_type = /obj/projectile/beam/laser/slowed/weak
 	e_cost = 40 //30 shots
-	delay = 0.4 SECONDS
 
 /obj/item/ammo_casing/energy/laser/energy_carbine/heavy
 	e_cost = 200 //6 shots
@@ -76,7 +74,6 @@
 /obj/item/ammo_casing/energy/laser/automatic
 	e_cost = 60 //25 shots
 	fire_sound = 'sound/weapons/gunshots/lasergatling.ogg'
-	delay = 0.4 SECONDS
 	randomspread = TRUE
 	projectile_type = /obj/projectile/beam/laser/automatic
 
@@ -202,7 +199,6 @@
 	delay = 1.5 SECONDS
 	e_cost = 150
 	projectile_type = /obj/projectile/beam/laser/hitscan/laser_shotgun
-	pellets = 1
 	fire_sound = 'sound/weapons/gunshots/lasershotgun.ogg'
 	select_name = "precise hitscan"
 

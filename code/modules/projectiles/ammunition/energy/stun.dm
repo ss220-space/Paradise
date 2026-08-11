@@ -35,13 +35,11 @@
 /obj/item/ammo_casing/energy/disabler/energy_carbine
 	projectile_type = /obj/projectile/beam/disabler/slowed
 	fire_sound = 'sound/weapons/gunshots/1laser5.ogg'
-	e_cost = 50 //25 shots
 	overlay_color = COLOR_DARK_CYAN
 
 /obj/item/ammo_casing/energy/disabler/energy_carbine/weak
 	projectile_type = /obj/projectile/beam/disabler/slowed/weak
 	e_cost = 25 //50 shots
-	delay = 0.4 SECONDS
 
 /obj/item/ammo_casing/energy/disabler/energy_carbine/heavy
 	projectile_type = /obj/projectile/beam/disabler/slowed/heavy
@@ -52,7 +50,6 @@
 
 /obj/item/ammo_casing/energy/disabler/automatic
 	fire_sound = 'sound/weapons/gunshots/1laser.ogg'
-	e_cost = 50 //30 shots
 	delay = 0.3 SECONDS
 	projectile_type = /obj/projectile/beam/disabler/automatic
 
