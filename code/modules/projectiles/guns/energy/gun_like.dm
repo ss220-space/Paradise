@@ -396,7 +396,6 @@
 		/obj/item/ammo_casing/energy/disabler/energy_carbine,
 		/obj/item/ammo_casing/energy/laser/energy_carbine,
 	)
-	weapon_weight = WEAPON_LIGHT
 	slot_flags = ITEM_SLOT_SUITSTORE | ITEM_SLOT_BELT
 	accuracy = GUN_ACCURACY_RIFLE_LASER
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER | GUN_MODULE_CLASS_ENERGY_WEAPON

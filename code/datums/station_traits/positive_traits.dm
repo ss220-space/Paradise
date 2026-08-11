@@ -415,5 +415,5 @@
 	blacklist = list(
 		/datum/station_trait/upgraded_armory,
 		/datum/station_trait/hitscan_armory,
-		/datum/station_trait/automatic_laser_armory
+		/datum/station_trait/automatic_laser_armory,
 	)
