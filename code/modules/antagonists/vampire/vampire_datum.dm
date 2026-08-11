@@ -520,6 +520,9 @@
 /datum/antagonist/vampire/proc/check_full_power_upgrade()
 	if(subclass.full_power_override || (length(drained_humans) >= FULLPOWER_DRAINED_REQUIREMENT && bloodtotal >= FULLPOWER_BLOODTOTAL_REQUIREMENT))
 		subclass.add_full_power_abilities(src)
+		if(subclass?.skill_type && subclass?.full_power_skill_level && skill_bonuses[subclass.skill_type] != subclass.full_power_skill_level)
+			skill_bonuses[subclass.skill_type] = subclass.full_power_skill_level
+			owner.refresh_skills()
 
 /datum/antagonist/vampire/proc/announce_new_power(list/old_powers)
 	for(var/p in powers)

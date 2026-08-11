@@ -239,7 +239,10 @@
 	subclass = new_subclass
 	if(subclass_to_add == SUBCLASS_BESTIA)
 		suck_rate = BESTIA_SUCK_RATE
+	if(subclass?.skill_type)
+		skill_bonuses[subclass.skill_type] = subclass.skill_level
 	check_vampire_upgrade(announce)
+	owner.refresh_skills()
 	if(log_choice)
 		SSblackbox.record_feedback("nested tally", "vampire_subclasses", 1, list("[new_subclass.name]"))
 

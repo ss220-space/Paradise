@@ -50,11 +50,14 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 	var/antag_menu_name
 	/// Is this antag datum gives skill bonus
 	var/has_skill_bonus = TRUE
+	/// List of skill bonuses (skill_type -> level) that the owner of this datum receives
+	var/list/skill_bonuses
 
 /datum/antagonist/New()
 	GLOB.antagonists += src
 	objectives = list()
 	assigned_targets = list()
+	skill_bonuses = list()
 
 /datum/antagonist/Destroy(force)
 	for(var/datum/objective/objective as anything in objectives)

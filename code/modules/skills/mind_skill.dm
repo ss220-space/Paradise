@@ -89,6 +89,10 @@
 		if(job_alt_skills && (skill_type in job_alt_skills))
 			job_skill = job_alt_skills[skill_type]
 		var/level = max(job_skill, antag_skill_level)
+		for(var/datum/antagonist/antag as anything in antag_datums)
+			for(var/bonus_skill_type in antag.skill_bonuses)
+				if(bonus_skill_type == skill_type)
+					level = max(level, antag.skill_bonuses[bonus_skill_type])
 		if(skill_type in cached_selected_skills_levels)
 			level = clamp(level + cached_selected_skills_levels[skill_type], level, SKILL_LEVEL_LEGEND)
 		if(skill_type in cached_manual_bonuses)
@@ -123,6 +127,10 @@
 		if(job_alt_skills && (skill_type in job_alt_skills))
 			job_skill = job_alt_skills[skill_type]
 		var/level = max(job_skill, antag_skill_level)
+		for(var/datum/antagonist/antag as anything in antag_datums)
+			for(var/bonus_skill_type in antag.skill_bonuses)
+				if(bonus_skill_type == skill_type)
+					level = max(level, antag.skill_bonuses[bonus_skill_type])
 		if(skill_type in cached_selected_skills_levels)
 			level += cached_selected_skills_levels[skill_type]
 		if(skill_type in cached_neurotrainer_bonuses)
