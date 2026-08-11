@@ -51,8 +51,8 @@
 
 /obj/item/ammo_casing/energy/disabler/automatic
 	fire_sound = 'sound/weapons/gunshots/1laser.ogg'
-	e_cost = 25 //40 shots
-	delay = 0.2 SECONDS
+	e_cost = 50 //30 shots
+	delay = 0.3 SECONDS
 	projectile_type = /obj/projectile/beam/disabler/automatic
 
 /obj/item/ammo_casing/energy/disabler/scatter
@@ -64,7 +64,24 @@
 /obj/item/ammo_casing/energy/disabler/scatter/energy_shotgun
 	projectile_type = /obj/projectile/beam/disabler/scatter/energy_shotgun
 	e_cost = 120 //10 shots
-	overlay_color = COLOR_COMMAND_BLUE
+
+/obj/item/ammo_casing/energy/disabler/scatter/automatic_shotgun
+	projectile_type = /obj/projectile/beam/disabler/scatter/automatic_shotgun
+	pellets = 4
+	variance = 15
+	delay = 0.6 SECONDS
+	select_name = "scatter"
+	e_cost = 100 //15 shots
+
+/obj/item/ammo_casing/energy/disabler/heavy
+	projectile_type = /obj/projectile/beam/disabler/heavy
+	fire_sound = 'sound/weapons/gunshots/laserrifle2.ogg'
+	e_cost = 200 //6 shots
+	delay = 4 SECONDS
+
+/obj/item/ammo_casing/energy/disabler/weaker
+	delay = 0.7 SECONDS
+	e_cost = 60 //25 shots
 
 /obj/item/ammo_casing/energy/disabler/hos
 	e_cost = 40

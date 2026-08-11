@@ -35,10 +35,25 @@
 	projectile_type = /obj/projectile/beam/scatter/energy_shotgun
 	e_cost = 120 //10 shots
 
+/obj/item/ammo_casing/energy/laser/scatter/automatic_shotgun
+	projectile_type = /obj/projectile/beam/scatter/automatic_shotgun
+	pellets = 4
+	variance = 15
+	e_cost = 125 //12 shots
+
+/obj/item/ammo_casing/energy/laser/weaker
+	delay = 0.7 SECONDS
+	e_cost = 100 //15 shots
+
 /obj/item/ammo_casing/energy/laser/heavy
 	projectile_type = /obj/projectile/beam/laser/heavylaser
 	select_name = "anti-vehicle"
 	fire_sound = 'sound/weapons/gunshots/1pulse2.ogg'
+
+/obj/item/ammo_casing/energy/laser/heavy/heavy_sniper
+	delay = 5 SECONDS
+	fire_sound = 'sound/weapons/gunshots/laserrifle2.ogg'
+	e_cost = 250 //6 shots
 
 /obj/item/ammo_casing/energy/laser/energy_carbine
 	projectile_type = /obj/projectile/beam/laser/slowed
@@ -56,10 +71,17 @@
 	delay = 2 SECONDS
 
 /obj/item/ammo_casing/energy/laser/automatic
-	e_cost = 40 //25 shots
+	e_cost = 60 //25 shots
 	fire_sound = 'sound/weapons/gunshots/lasergatling.ogg'
-	delay = 0.2 SECONDS
+	delay = 0.4 SECONDS
+	randomspread = TRUE
 	projectile_type = /obj/projectile/beam/laser/automatic
+
+/obj/item/ammo_casing/energy/laser/automatic/machine_gun
+	e_cost = 30 //50 shots
+	delay = 0.1 SECONDS
+	projectile_type = /obj/projectile/beam/laser/automatic/machine_gun
+	overlay_color = COLOR_MAGENTA
 
 /obj/item/ammo_casing/energy/laser/pulse
 	projectile_type = /obj/projectile/beam/pulse
@@ -187,8 +209,8 @@
 	projectile_type = /obj/projectile/beam/laser/hitscan/laser_shotgun/pellet
 
 /obj/item/ammo_casing/energy/laser/hitscan/laser_rifle
-	delay = 3 SECONDS
-	e_cost = 150
+	delay = 4 SECONDS
+	e_cost = 250
 	projectile_type = /obj/projectile/beam/laser/hitscan/laser_rifle
 	fire_sound = 'sound/weapons/gunshots/laserrifle.ogg'
 	select_name = "anti-vehicle hitscan"

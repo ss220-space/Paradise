@@ -261,6 +261,9 @@
 	var/obj/item/weapon_cell/magazine
 	/// accumulator, that used by our gun
 	var/accumulator_type = /obj/item/weapon_cell/energy_gun
+	// all weapons are too good, so our little nerf here
+	damage_mod = 0.7
+	stamina_mod = 0.7
 
 /obj/item/gun/energy/accumulator/Initialize(mapload)
 	. = ..()

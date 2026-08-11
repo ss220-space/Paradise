@@ -379,6 +379,10 @@
 	accuracy = GUN_ACCURACY_MINIMAL
 	gun_firemode = GUN_FIREMODE_AUTOMATIC
 	gun_firemode_list = list(GUN_FIREMODE_AUTOMATIC)
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 6),
+		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -5),
+	)
 
 /obj/item/gun/energy/laser/automatic/get_ru_names()
 	return alist(
@@ -390,3 +394,106 @@
 		PREPOSITIONAL = "автоматической лазерной винтовке «Гроза»",
 	)
 
+// MARK: automatic laser pistol
+/obj/item/gun/energy/laser/automatic/pistol
+	name = "automatic laser pistol"
+	desc = "Полностью автоматический лазерный пистолет нового поколения. Малый заряд внутренней батареи с лихвой компенсируется небольшими размерами оружия."
+	icon_state = "automatic_laser_pistol"
+	w_class = WEIGHT_CLASS_NORMAL
+	weapon_weight = WEAPON_LIGHT
+	accuracy = GUN_ACCURACY_RIFLE_LASER
+	ammo_type = list(
+		/obj/item/ammo_casing/energy/disabler/weaker,
+		/obj/item/ammo_casing/energy/laser/weaker,
+	)
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 6),
+		ATTACHMENT_SLOT_UNDER = list("x" = 4, "y" = -5),
+	)
+
+/obj/item/gun/energy/laser/automatic/pistol/get_ru_names()
+	return alist(
+		NOMINATIVE = "автоматический лазерная пистолет «Буря»",
+		GENITIVE = "автоматического лазерного пистолета «Буря»",
+		DATIVE = "автоматическому лазерному пистолету «Буря»",
+		ACCUSATIVE = "автоматический лазерный пистолет «Буря»",
+		INSTRUMENTAL = "автоматическим лазерным пистолетом «Буря»",
+		PREPOSITIONAL = "автоматическом лазерном пистолете «Буря»",
+	)
+
+// MARK: automatic laser mg
+/obj/item/gun/energy/laser/automatic/assault_mg
+	name = "assault laser machine gun"
+	desc = "Массивная штурмовая винтовка нового поколения. В отличие от других экземпляров данной линейки, не предполагает нелетального режима стрельбы. Может переключаться между точной стрельбой и \"ливнем\" из снарядов."
+	icon_state = "automatic_laser_rifle"
+	slot_flags = ITEM_SLOT_SUITSTORE
+	accuracy = GUN_ACCURACY_MINIMAL
+	ammo_type = list(
+		/obj/item/ammo_casing/energy/laser/automatic,
+		/obj/item/ammo_casing/energy/laser/automatic/machine_gun,
+	)
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 2, "y" = 7),
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -9),
+	)
+
+/obj/item/gun/energy/laser/automatic/assault_mg/get_ru_names()
+	return alist(
+		NOMINATIVE = "штурмовая лазерная винтовка «Ливень»",
+		GENITIVE = "штурмовой лазерной винтовки «Ливень»",
+		DATIVE = "штурмовой лазерной винтовке «Ливень»",
+		ACCUSATIVE = "штурмовую лазерную винтовку «Ливень»",
+		INSTRUMENTAL = "штурмовой лазерной винтовкой «Ливень»",
+		PREPOSITIONAL = "штурмовой лазерной винтовке «Ливень»",
+	)
+
+// MARK: automatic laser shotgun
+/obj/item/gun/energy/laser/automatic/shotgun
+	name = "automatic laser shotgun"
+	desc = "Полностью автоматический лазерный дробовик нового поколения. Стреляет \"картечью\" из энергетических снарядов."
+	icon_state = "automatic_laser_shotgun"
+	ammo_type = list(
+		/obj/item/ammo_casing/energy/disabler/scatter/automatic_shotgun,
+		/obj/item/ammo_casing/energy/laser/scatter/automatic_shotgun,
+	)
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 2, "y" = 6),
+		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -6),
+	)
+
+/obj/item/gun/energy/laser/automatic/shotgun/get_ru_names()
+	return alist(
+		NOMINATIVE = "автоматический лазерный дробовик «Шторм»",
+		GENITIVE = "автоматического лазерного дробовика «Шторм»",
+		DATIVE = "автоматическому лазерному дробовику «Шторм»",
+		ACCUSATIVE = "автоматический лазерний дробовик «Шторм»",
+		INSTRUMENTAL = "автоматическим лазерным дробовиком «Шторм»",
+		PREPOSITIONAL = "автоматическом лазерном дробовике «Шторм»",
+	)
+
+// MARK: automatic laser sniper
+/obj/item/gun/energy/laser/automatic/sniper_rifle
+	name = "automatic sniper rifle"
+	desc = "Полностью автоматическая лазерная снайперская винтовка нового поколения. Стреляет сконцентрированными сгустками энергии, однако очень долго остужается после стрельбы."
+	icon = 'icons/obj/weapons/guns_48x32.dmi'
+	icon_state = "automatic_sniper_rifle"
+	accuracy = GUN_ACCURACY_RIFLE_LASER
+	slot_flags = ITEM_SLOT_SUITSTORE
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 8, "y" = 7),
+		ATTACHMENT_SLOT_UNDER = list("x" = 21, "y" = -9),
+	)
+	ammo_type = list(
+		/obj/item/ammo_casing/energy/disabler/heavy,
+		/obj/item/ammo_casing/energy/laser/heavy/heavy_sniper,
+	)
+
+/obj/item/gun/energy/laser/automatic/sniper_rifle/get_ru_names()
+	return alist(
+		NOMINATIVE = "автоматическая снайперская винтовка «Град»",
+		GENITIVE = "автоматической снайперской винтовки «Град»",
+		DATIVE = "автоматической снайперской винтовке «Град»",
+		ACCUSATIVE = "автоматическую снайперскую винтовку «Град»",
+		INSTRUMENTAL = "автоматической снайперской винтовкой «Град»",
+		PREPOSITIONAL = "автоматической снайперской винтовке «Град»",
+	)
