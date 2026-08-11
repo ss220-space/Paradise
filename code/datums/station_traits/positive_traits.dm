@@ -355,6 +355,11 @@
 	weight = 2
 	trait_type = STATION_TRAIT_POSITIVE
 	trait_to_give = STATION_TRAIT_UPGRADED_ARMORY
+	blacklist = list(
+		/datum/station_trait/hitscan_armory,
+		/datum/station_trait/automatic_laser_armory,
+		/datum/station_trait/accumulator_laser_armory,
+	)
 
 /datum/station_trait/upgraded_armory/on_round_start()
 	. = ..()
@@ -373,3 +378,42 @@
 				for(var/obj/current_thing as anything in current_turf.contents)
 					current_thing.change_from_station_trait(trait_to_give)
 				CHECK_TICK
+
+/datum/station_trait/hitscan_armory
+	name = "Обновление арсенала: импульсные лазерные системы"
+	report_message = "Арсенал Службы Безопасности был укомплектован экспериментальными образцами вооружения. Арсенал полностью состоит из импульсного модельного ряда. Баллистическое оружие было утилизировано."
+	show_in_report = TRUE
+	weight = 1
+	trait_type = STATION_TRAIT_POSITIVE
+	trait_to_give = STATION_TRAIT_HITSCAN_ARMORY
+	blacklist = list(
+		/datum/station_trait/upgraded_armory,
+		/datum/station_trait/automatic_laser_armory,
+		/datum/station_trait/accumulator_laser_armory,
+	)
+
+/datum/station_trait/automatic_laser_armory
+	name = "Обновление арсенала: автоматические лазерные системы"
+	report_message = "Арсенал Службы Безопасности был укомплектован экспериментальными образцами вооружения. Арсенал полностью состоит из автоматического лазерного вооружения. Баллистическое оружие было утилизировано."
+	show_in_report = TRUE
+	weight = 1
+	trait_type = STATION_TRAIT_POSITIVE
+	trait_to_give = STATION_TRAIT_AUTOMATIC_LASER_ARMORY
+	blacklist = list(
+		/datum/station_trait/upgraded_armory,
+		/datum/station_trait/hitscan_armory,
+		/datum/station_trait/accumulator_laser_armory,
+	)
+
+/datum/station_trait/accumulator_laser_armory
+	name = "Обновление арсенала: аккумуляторные лазерные системы"
+	report_message = "Арсенал Службы Безопасности был укомплектован экспериментальными образцами вооружения. Арсенал полностью состоит из экспериментальных аккумуляторных лазерных винтовок. Баллистическое оружие было утилизировано."
+	show_in_report = TRUE
+	weight = 1
+	trait_type = STATION_TRAIT_POSITIVE
+	trait_to_give = STATION_TRAIT_ACCUMULATOR_RIFLE_ARMORY
+	blacklist = list(
+		/datum/station_trait/upgraded_armory,
+		/datum/station_trait/hitscan_armory,
+		/datum/station_trait/automatic_laser_armory
+	)

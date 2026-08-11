@@ -34,12 +34,14 @@
 /obj/item/ammo_casing/energy/laser/scatter/energy_shotgun
 	projectile_type = /obj/projectile/beam/scatter/energy_shotgun
 	e_cost = 120 //10 shots
+	select_name = "scatter-lethal"
 
 /obj/item/ammo_casing/energy/laser/scatter/automatic_shotgun
 	projectile_type = /obj/projectile/beam/scatter/automatic_shotgun
 	pellets = 4
 	variance = 15
 	e_cost = 125 //12 shots
+	select_name = "scatter-lethal"
 
 /obj/item/ammo_casing/energy/laser/weaker
 	delay = 0.7 SECONDS
@@ -69,6 +71,7 @@
 	fire_sound = 'sound/weapons/gunshots/laserrifle.ogg'
 	projectile_type = /obj/projectile/beam/laser/slowed/heavy
 	delay = 2 SECONDS
+	select_name = "anti-vehicle"
 
 /obj/item/ammo_casing/energy/laser/automatic
 	e_cost = 60 //25 shots
@@ -82,6 +85,7 @@
 	delay = 0.1 SECONDS
 	projectile_type = /obj/projectile/beam/laser/automatic/machine_gun
 	overlay_color = COLOR_MAGENTA
+	select_name = "fast_shooting"
 
 /obj/item/ammo_casing/energy/laser/pulse
 	projectile_type = /obj/projectile/beam/pulse

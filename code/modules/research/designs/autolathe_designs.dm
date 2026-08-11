@@ -1014,3 +1014,10 @@
 	materials = list(MAT_METAL = 3000)
 	build_path = /obj/item/ammo_box/magazine/ik60mag/empty
 	category = list(AUTOLATHE_CATEGORY_IMPORTED)
+
+/datum/design/energy_accumulator
+	id = "weapon_energy_cell"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 80000) //40 metal
+	build_path = /obj/item/weapon_cell/energy_gun
+	category = list(PRINTER_CATEGORY_HACKED, AUTOLATHE_CATEGORY_SECURITY)

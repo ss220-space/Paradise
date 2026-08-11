@@ -475,6 +475,21 @@
 			/obj/structure/closet/secure_closet/guncabinet/lasercarbine = 50,
 			/obj/structure/closet/secure_closet/guncabinet/plasma_pistols = 50,
 		)
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_HITSCAN_ARMORY))
+		result = list(
+			/obj/structure/closet/secure_closet/guncabinet/lasergun = 50,
+			/obj/structure/closet/secure_closet/guncabinet/lasergun/pistols = 50,
+		)
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_ACCUMULATOR_RIFLE_ARMORY))
+		result = list(
+			/obj/structure/closet/secure_closet/guncabinet/accumulator_gun = 50,
+			/obj/structure/closet/secure_closet/guncabinet/accumulator_gun/pistols = 50,
+		)
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_AUTOMATIC_LASER_ARMORY))
+		result = list(
+			/obj/structure/closet/secure_closet/guncabinet/automatic_carbine = 50,
+			/obj/structure/closet/secure_closet/guncabinet/automatic_carbine/pistols = 50,
+		)
 	return ..()
 
 /obj/effect/spawner/random_spawners/security_ballistics
@@ -493,6 +508,18 @@
 			/obj/structure/closet/secure_closet/guncabinet/saber = 33,
 			/obj/structure/closet/secure_closet/guncabinet/ak814 = 34,
 		)
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_HITSCAN_ARMORY))
+		result = list(
+			/obj/structure/closet/secure_closet/guncabinet/lasergun/smg = 50,
+		)
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_ACCUMULATOR_RIFLE_ARMORY))
+		result = list(
+			/obj/structure/closet/secure_closet/guncabinet/accumulator_gun/smg = 50,
+		)
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_AUTOMATIC_LASER_ARMORY))
+		result = list(
+			/obj/structure/closet/secure_closet/guncabinet/automatic_carbine/smg = 50,
+		)
 	return ..()
 
 
@@ -503,3 +530,18 @@
 		/obj/structure/closet/secure_closet/guncabinet/riot_shotgun = 50,
 		/obj/structure/closet/secure_closet/guncabinet/winchester = 50,
 	)
+
+/obj/effect/spawner/random_spawners/security_shotguns/Initialize(mapload)
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_HITSCAN_ARMORY))
+		result = list(
+			/obj/structure/closet/secure_closet/guncabinet/lasergun/shotguns = 50,
+		)
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_ACCUMULATOR_RIFLE_ARMORY))
+		result = list(
+			/obj/structure/closet/secure_closet/guncabinet/accumulator_gun/shotguns = 50,
+		)
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_AUTOMATIC_LASER_ARMORY))
+		result = list(
+			/obj/structure/closet/secure_closet/guncabinet/automatic_carbine/shotguns = 50,
+		)
+	return ..()

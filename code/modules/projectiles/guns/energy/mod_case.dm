@@ -1,6 +1,6 @@
 /obj/item/laser_modification_case
 	name = "laser weapons modification case"
-	desc = "Одноразовый набор, используемый для серьёзной модификации лазерного и энергетического оружия."
+	desc = "Одноразовый набор, используемый для серьёзной модификации лазерного и энергетического оружия. В комплект входят зарядные устройства и запасные аккумуляторы."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "modcase"
 	item_state = "modcase"

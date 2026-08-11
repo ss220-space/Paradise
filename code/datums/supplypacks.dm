@@ -731,6 +731,45 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике лазерных карабинов класса «Страж»",
 	)
 
+/datum/supply_packs/security/energy_accum_laser
+	name = "Аккумуляторные карабины класса «Скорпион»"
+	contains = list(
+		/obj/item/gun/energy/accumulator/energy_carbine,
+		/obj/item/gun/energy/accumulator/energy_carbine,
+		/obj/item/gun/energy/accumulator/energy_carbine,
+		/obj/item/weapon_cell/energy_gun,
+		/obj/item/weapon_cell/energy_gun,
+		/obj/item/weapon_cell/energy_gun,
+	)
+	cost = 40
+	containername = "ящик аккумуляторных карабинов класса «Скорпион»"
+	container_ru_names = alist(
+		NOMINATIVE = "ящик аккумуляторных карабинов класса «Скорпион»",
+		GENITIVE = "ящика аккумуляторных карабинов класса «Скорпион»",
+		DATIVE = "ящику аккумуляторных карабинов класса «Скорпион»",
+		ACCUSATIVE = "ящик аккумуляторных карабинов класса «Скорпион»",
+		INSTRUMENTAL = "ящиком аккумуляторных карабинов класса «Скорпион»",
+		PREPOSITIONAL = "ящике аккумуляторных карабинов класса «Скорпион»",
+	)
+
+/datum/supply_packs/security/automatic_laser
+	name = "Автоматические лазерные карабины класса «Гроза»"
+	contains = list(
+		/obj/item/gun/energy/laser/automatic,
+		/obj/item/gun/energy/laser/automatic,
+		/obj/item/gun/energy/laser/automatic,
+	)
+	cost = 30
+	containername = "ящик автоматических лазерных карабинов класса «Гроза»"
+	container_ru_names = alist(
+		NOMINATIVE = "ящик автоматических лазерных карабинов класса «Гроза»",
+		GENITIVE = "ящика автоматических лазерных карабинов класса «Гроза»",
+		DATIVE = "ящику автоматических лазерных карабинов класса «Гроза»",
+		ACCUSATIVE = "ящик автоматических лазерных карабинов класса «Гроза»",
+		INSTRUMENTAL = "ящиком автоматических лазерных карабинов класса «Гроза»",
+		PREPOSITIONAL = "ящике автоматических лазерных карабинов класса «Гроза»",
+	)
+
 /datum/supply_packs/security/taser
 	name = "Нелетальное энергетическое оружие"
 	contains = list(

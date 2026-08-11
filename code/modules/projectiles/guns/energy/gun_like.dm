@@ -324,41 +324,24 @@
 	magazine = null
 	update_icon()
 
-// MARK: Energy carbine
-/obj/item/gun/energy/accumulator/energy_carbine
-	name = "energy carbine"
-	desc = "Обновленная энергетическая винтовка, работающая на съёмных аккумуляторах универсального образца. Укреплённый приклад позволяет стрелку вступить в ближний бой в случае исчерпания боезапаса."
-	icon_state = "energycarbine"
-	force = 15
-	origin_tech = "combat=4;materials=2"
-	ammo_type = list(
-		/obj/item/ammo_casing/energy/disabler/energy_carbine,
-		/obj/item/ammo_casing/energy/laser/energy_carbine,
-	)
-	weapon_weight = WEAPON_LIGHT
-	slot_flags = ITEM_SLOT_SUITSTORE | ITEM_SLOT_BELT
-	accuracy = GUN_ACCURACY_RIFLE_LASER
-	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER | GUN_MODULE_CLASS_ENERGY_WEAPON
-	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 6, "y" = 5),
-		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -6),
-	)
-
-/obj/item/gun/energy/accumulator/energy_carbine/attackby(obj/item/item, mob/user, params)
+/obj/item/gun/energy/accumulator/attackby(obj/item/item, mob/user, params)
 	if(!is_laser_modification_case(item))
 		return ..()
 	var/choosen_weapon
 	var/list/upgradable_variants = list(
+		"карабин «Скорпион»" = image(icon = 'icons/obj/weapons/energy.dmi', icon_state = "energycarbine"),
 		"пистолет «Оса»" = image(icon = 'icons/obj/weapons/energy.dmi', icon_state = "energypistol"),
 		"автомат «Медуза»" = image(icon = 'icons/obj/weapons/energy.dmi', icon_state = "energy_rifle"),
 		"дробовик «Скарабей»" = image(icon = 'icons/obj/weapons/energy.dmi', icon_state = "energy_shotgun"),
 		"снайперская винтовка «Богомол»" = image(icon = 'icons/obj/weapons/guns_48x32.dmi', icon_state = "energy_sniper_rifle"),
 	)
-	var/choosen_type = show_radial_menu(user, item, upgradable_variants, src, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE)
+	var/choosen_type = show_radial_menu(user, item, upgradable_variants, src, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
 	if(!choosen_type || !check_menu(user) || item.loc != user)
 		return ATTACK_CHAIN_PROCEED
 
 	switch(choosen_type)
+		if("карабин «Скорпион»")
+			choosen_weapon = /obj/item/gun/energy/accumulator/energy_carbine
 		if("пистолет «Оса»")
 			choosen_weapon = /obj/item/gun/energy/accumulator/energy_pistol
 		if("автомат «Медуза»")
@@ -369,6 +352,10 @@
 			choosen_weapon = /obj/item/gun/energy/accumulator/sniper_rifle
 
 	if(!choosen_weapon)
+		return ATTACK_CHAIN_PROCEED
+
+	if(choosen_weapon == src.type)
+		user.balloon_alert(user, "уже модифицировано в это!")
 		return ATTACK_CHAIN_PROCEED
 
 
@@ -391,12 +378,32 @@
 
 	return ATTACK_CHAIN_PROCEED_SUCCESS|ATTACK_CHAIN_NO_AFTERATTACK
 
-/obj/item/gun/energy/accumulator/energy_carbine/proc/check_menu(mob/living/user)
+/obj/item/gun/energy/accumulator/proc/check_menu(mob/living/user)
 	if(!istype(user))
 		return FALSE
 	if(user.incapacitated() || !user.Adjacent(src))
 		return FALSE
 	return TRUE
+
+// MARK: Energy carbine
+/obj/item/gun/energy/accumulator/energy_carbine
+	name = "energy carbine"
+	desc = "Обновленная энергетическая винтовка, работающая на съёмных аккумуляторах универсального образца. Укреплённый приклад позволяет стрелку вступить в ближний бой в случае исчерпания боезапаса."
+	icon_state = "energycarbine"
+	force = 15
+	origin_tech = "combat=4;materials=2"
+	ammo_type = list(
+		/obj/item/ammo_casing/energy/disabler/energy_carbine,
+		/obj/item/ammo_casing/energy/laser/energy_carbine,
+	)
+	weapon_weight = WEAPON_LIGHT
+	slot_flags = ITEM_SLOT_SUITSTORE | ITEM_SLOT_BELT
+	accuracy = GUN_ACCURACY_RIFLE_LASER
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER | GUN_MODULE_CLASS_ENERGY_WEAPON
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 6, "y" = 5),
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -6),
+	)
 
 /obj/item/gun/energy/accumulator/energy_carbine/get_ru_names()
 	return alist(

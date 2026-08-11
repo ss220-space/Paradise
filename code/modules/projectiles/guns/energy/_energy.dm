@@ -278,6 +278,10 @@
 			"energy hitscan" = "стандартная настройка",
 			"ricochet hitscan" = "стрельба рикошетом",
 			"fast hitscan" = "быстрая стрельба",
+			"fast_shooting" = "режим \"ливня\"",
+			"scatter-disabler" = "рассеяный нейтрализатор",
+			"scatter-lethal" = "рассеянный лазер",
+			"heavy-disabler" = "тяжелый нейтрализатор",
 		)
 
 		balloon_alert(user, "[gun_modes_ru[shot.fluff_select_name ? shot.fluff_select_name : shot.select_name]]")

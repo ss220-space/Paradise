@@ -38,6 +38,68 @@
 		PREPOSITIONAL = "лазерной винтовке «Страж»",
 	)
 
+/obj/item/gun/energy/laser/hitscan/attackby(obj/item/item, mob/user, params)
+	if(!is_laser_modification_case(item))
+		return ..()
+
+	var/choosen_weapon
+	var/list/upgradable_variants = list(
+		"карабин «Страж»" = image(icon = 'icons/obj/weapons/energy.dmi', icon_state = "lasergun"),
+		"пистолет «Шершень»" = image(icon = 'icons/obj/weapons/energy.dmi', icon_state = "laserpistol"),
+		"автомат «Зенит»" = image(icon = 'icons/obj/weapons/energy.dmi', icon_state = "lasermg"),
+		"дробовик «Фокус»" = image(icon = 'icons/obj/weapons/energy.dmi', icon_state = "lasershotgun"),
+		"снайперская винтовка «Игла»" = image(icon = 'icons/obj/weapons/guns_48x32.dmi', icon_state = "laserrifle"),
+	)
+	var/choosen_type = show_radial_menu(user, item, upgradable_variants, src, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
+	if(!choosen_type || !check_menu(user) || item.loc != user)
+		return ATTACK_CHAIN_PROCEED
+
+	switch(choosen_type)
+		if("карабин «Страж»")
+			choosen_weapon = /obj/item/gun/energy/laser/hitscan
+		if("пистолет «Шершень»")
+			choosen_weapon = /obj/item/gun/energy/laser/hitscan/laser_pistol
+		if("автомат «Зенит»")
+			choosen_weapon = /obj/item/gun/energy/laser/hitscan/laser_mg
+		if("дробовик «Фокус»")
+			choosen_weapon = /obj/item/gun/energy/laser/hitscan/laser_shotgun
+		if("снайперская винтовка «Игла»")
+			choosen_weapon = /obj/item/gun/energy/laser/hitscan/laser_rifle
+
+	if(!choosen_weapon)
+		return ATTACK_CHAIN_PROCEED
+
+	if(choosen_weapon == src.type)
+		user.balloon_alert(user, "уже модифицировано в это!")
+		return ATTACK_CHAIN_PROCEED
+
+	user.balloon_alert(user, "модификация оружия...")
+	if(!do_after(user, 10 SECONDS))
+		return ATTACK_CHAIN_PROCEED
+
+	var/turf/spawn_turf = get_turf(user)
+	var/obj/item/new_gun = new choosen_weapon(spawn_turf)
+
+	user.temporarily_remove_item_from_inventory(item)
+	qdel(item)
+
+	user.put_in_hands(new_gun)
+	playsound(user, 'sound/machines/ding.ogg', 50, TRUE)
+	do_sparks(3, TRUE, spawn_turf)
+
+	user.temporarily_remove_item_from_inventory(src)
+	qdel(src)
+
+
+	return ATTACK_CHAIN_PROCEED_SUCCESS|ATTACK_CHAIN_NO_AFTERATTACK
+
+/obj/item/gun/energy/laser/hitscan/proc/check_menu(mob/living/user)
+	if(!istype(user))
+		return FALSE
+	if(user.incapacitated() || !user.Adjacent(src))
+		return FALSE
+	return TRUE
+
 // MARK: Hitscan sniper rifle
 /obj/item/gun/energy/laser/hitscan/laser_rifle
 	name = "laser sniper rifle"
@@ -96,7 +158,7 @@
 // MARK: Hitscan MG
 /obj/item/gun/energy/laser/hitscan/laser_mg
 	name = "laser machine gun"
-	desc = "Лазерный карабин, используемый службой безопасности. Экспериментальный генератор частиц способен запускать снаряды, рикошетящие от стен."
+	desc = "Лазерная винтовка, используемый службой безопасности. Экспериментальный генератор частиц способен запускать снаряды, рикошетящие от стен."
 	icon_state = "lasermg"
 	ammo_type = list(
 		/obj/item/ammo_casing/energy/laser/hitscan/laser_mg,
@@ -115,12 +177,12 @@
 
 /obj/item/gun/energy/laser/hitscan/laser_mg/get_ru_names()
 	return alist(
-		NOMINATIVE = "лазерный карабин «Зенит»",
-		GENITIVE = "лазерного карабина «Зенит»",
-		DATIVE = "лазерному карабину «Зенит»",
-		ACCUSATIVE = "лазерный карабин «Зенит»",
-		INSTRUMENTAL = "лазерным карабином «Зенит»",
-		PREPOSITIONAL = "лазерном карабине «Зенит»",
+		NOMINATIVE = "лазерная винтовка «Зенит»",
+		GENITIVE = "лазерной винтовки «Зенит»",
+		DATIVE = "лазерной винтовке «Зенит»",
+		ACCUSATIVE = "лазерную винтовку «Зенит»",
+		INSTRUMENTAL = "лазерной винтовкой «Зенит»",
+		PREPOSITIONAL = "лазерной винтовке «Зенит»",
 	)
 
 // MARK: Hitscan pistol
@@ -393,6 +455,68 @@
 		INSTRUMENTAL = "автоматической лазерной винтовкой «Гроза»",
 		PREPOSITIONAL = "автоматической лазерной винтовке «Гроза»",
 	)
+
+/obj/item/gun/energy/laser/automatic/attackby(obj/item/item, mob/user, params)
+	if(!is_laser_modification_case(item))
+		return ..()
+
+	var/choosen_weapon
+	var/list/upgradable_variants = list(
+		"карабин «Гроза»" = image(icon = 'icons/obj/weapons/energy.dmi', icon_state = "automatic_laser"),
+		"пистолет «Буря»" = image(icon = 'icons/obj/weapons/energy.dmi', icon_state = "automatic_laser_pistol"),
+		"автомат «Ливень»" = image(icon = 'icons/obj/weapons/energy.dmi', icon_state = "automatic_laser_rifle"),
+		"дробовик «Шторм»" = image(icon = 'icons/obj/weapons/energy.dmi', icon_state = "automatic_laser_shotgun"),
+		"снайперская винтовка «Град»" = image(icon = 'icons/obj/weapons/guns_48x32.dmi', icon_state = "automatic_sniper_rifle"),
+	)
+	var/choosen_type = show_radial_menu(user, item, upgradable_variants, src, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
+	if(!choosen_type || !check_menu(user) || item.loc != user)
+		return ATTACK_CHAIN_PROCEED
+
+	switch(choosen_type)
+		if("карабин «Гроза»")
+			choosen_weapon = /obj/item/gun/energy/laser/automatic
+		if("пистолет «Буря»")
+			choosen_weapon = /obj/item/gun/energy/laser/automatic/pistol
+		if("автомат «Ливень»")
+			choosen_weapon = /obj/item/gun/energy/laser/automatic/assault_mg
+		if("дробовик «Шторм»")
+			choosen_weapon = /obj/item/gun/energy/laser/automatic/shotgun
+		if("снайперская винтовка «Град»")
+			choosen_weapon = /obj/item/gun/energy/laser/automatic/sniper_rifle
+
+	if(!choosen_weapon)
+		return ATTACK_CHAIN_PROCEED
+
+	if(choosen_weapon == src.type)
+		user.balloon_alert(user, "уже модифицировано в это!")
+		return ATTACK_CHAIN_PROCEED
+
+	user.balloon_alert(user, "модификация оружия...")
+	if(!do_after(user, 10 SECONDS))
+		return ATTACK_CHAIN_PROCEED
+
+	var/turf/spawn_turf = get_turf(user)
+	var/obj/item/new_gun = new choosen_weapon(spawn_turf)
+
+	user.temporarily_remove_item_from_inventory(item)
+	qdel(item)
+
+	user.put_in_hands(new_gun)
+	playsound(user, 'sound/machines/ding.ogg', 50, TRUE)
+	do_sparks(3, TRUE, spawn_turf)
+
+	user.temporarily_remove_item_from_inventory(src)
+	qdel(src)
+
+
+	return ATTACK_CHAIN_PROCEED_SUCCESS|ATTACK_CHAIN_NO_AFTERATTACK
+
+/obj/item/gun/energy/laser/automatic/proc/check_menu(mob/living/user)
+	if(!istype(user))
+		return FALSE
+	if(user.incapacitated() || !user.Adjacent(src))
+		return FALSE
+	return TRUE
 
 // MARK: automatic laser pistol
 /obj/item/gun/energy/laser/automatic/pistol
