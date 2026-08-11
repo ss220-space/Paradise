@@ -3928,6 +3928,7 @@
 #include "code\modules\projectiles\guns\energy\gun_like.dm"
 #include "code\modules\projectiles\guns\energy\kinetic_accelerator.dm"
 #include "code\modules\projectiles\guns\energy\laser.dm"
+#include "code\modules\projectiles\guns\energy\mod_case.dm"
 #include "code\modules\projectiles\guns\energy\plasma_cutter.dm"
 #include "code\modules\projectiles\guns\energy\pulse.dm"
 #include "code\modules\projectiles\guns\energy\ratvar.dm"

@@ -190,6 +190,8 @@ GLOBAL_VAR_INIT(refid_filter, TYPEID(filter(type="angular_blur")))
 
 #define is_syndi_camera_bug(A) (istype(A, /obj/item/camera_bug/syndicate))
 
+#define is_laser_modification_case(A) (istype(A, /obj/item/laser_modification_case))
+
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,
 	/obj/item/screwdriver,

@@ -335,7 +335,6 @@
 		/obj/item/ammo_casing/energy/disabler/energy_carbine,
 		/obj/item/ammo_casing/energy/laser/energy_carbine,
 	)
-	materials = list(MAT_METAL = 50000)
 	weapon_weight = WEAPON_LIGHT
 	slot_flags = ITEM_SLOT_SUITSTORE | ITEM_SLOT_BELT
 	accuracy = GUN_ACCURACY_RIFLE_LASER
@@ -344,6 +343,60 @@
 		ATTACHMENT_SLOT_RAIL = list("x" = 6, "y" = 5),
 		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -6),
 	)
+
+/obj/item/gun/energy/accumulator/energy_carbine/attackby(obj/item/item, mob/user, params)
+	if(!is_laser_modification_case(item))
+		return ..()
+	var/choosen_weapon
+	var/list/upgradable_variants = list(
+		"пистолет «Оса»" = image(icon = 'icons/obj/weapons/energy.dmi', icon_state = "energypistol"),
+		"автомат «Медуза»" = image(icon = 'icons/obj/weapons/energy.dmi', icon_state = "energy_rifle"),
+		"дробовик «Скарабей»" = image(icon = 'icons/obj/weapons/energy.dmi', icon_state = "energy_shotgun"),
+		"снайперская винтовка «Богомол»" = image(icon = 'icons/obj/weapons/guns_48x32.dmi', icon_state = "energy_sniper_rifle"),
+	)
+	var/choosen_type = show_radial_menu(user, item, upgradable_variants, src, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE)
+	if(!choosen_type || !check_menu(user) || item.loc != user)
+		return ATTACK_CHAIN_PROCEED
+
+	switch(choosen_type)
+		if("пистолет «Оса»")
+			choosen_weapon = /obj/item/gun/energy/accumulator/energy_pistol
+		if("автомат «Медуза»")
+			choosen_weapon = /obj/item/gun/energy/accumulator/automatic
+		if("дробовик «Скарабей»")
+			choosen_weapon = /obj/item/gun/energy/accumulator/shotgun
+		if("снайперская винтовка «Богомол»")
+			choosen_weapon = /obj/item/gun/energy/accumulator/sniper_rifle
+
+	if(!choosen_weapon)
+		return ATTACK_CHAIN_PROCEED
+
+
+	user.balloon_alert(user, "модификация оружия...")
+	if(!do_after(user, 10 SECONDS))
+		return ATTACK_CHAIN_PROCEED
+
+	var/turf/spawn_turf = get_turf(user)
+	var/obj/item/new_gun = new choosen_weapon(spawn_turf)
+
+	user.put_in_hands(new_gun)
+	playsound(user, 'sound/machines/ding.ogg', 50, TRUE)
+	do_sparks(3, TRUE, spawn_turf)
+
+	user.temporarily_remove_item_from_inventory(src)
+	qdel(src)
+
+	user.temporarily_remove_item_from_inventory(item)
+	qdel(item)
+
+	return ATTACK_CHAIN_PROCEED_SUCCESS|ATTACK_CHAIN_NO_AFTERATTACK
+
+/obj/item/gun/energy/accumulator/energy_carbine/proc/check_menu(mob/living/user)
+	if(!istype(user))
+		return FALSE
+	if(user.incapacitated() || !user.Adjacent(src))
+		return FALSE
+	return TRUE
 
 /obj/item/gun/energy/accumulator/energy_carbine/get_ru_names()
 	return alist(

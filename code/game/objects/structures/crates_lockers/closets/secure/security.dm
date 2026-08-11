@@ -346,6 +346,46 @@
 	for(var/i in 1 to gun_count)
 		new /obj/item/gun/energy/gun(src)
 
+/obj/structure/closet/secure_closet/guncabinet/automatic_carbine
+	name = "security automatic laser gun cabinet"
+	desc = "Защищённый шкаф для хранения автоматических лазерных винтовок. Шкаф прикручен к полу."
+	req_access = list(ACCESS_ARMORY)
+
+/obj/structure/closet/secure_closet/guncabinet/automatic_carbine/get_ru_names()
+	return alist(
+		NOMINATIVE = "шкаф автоматических энерго-винтовок",
+		GENITIVE = "шкафа автоматических энерго-винтовок",
+		DATIVE = "шкафу автоматических энерго-винтовок",
+		ACCUSATIVE = "шкаф автоматических энерго-винтовок",
+		INSTRUMENTAL = "шкафом автоматических энерго-винтовок",
+		PREPOSITIONAL = "шкафе автоматических энерго-винтовок",
+	)
+
+/obj/structure/closet/secure_closet/guncabinet/automatic_carbine/populate_contents()
+	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
+	for(var/i in 1 to gun_count)
+		new /obj/item/gun/energy/laser/automatic(src)
+
+/obj/structure/closet/secure_closet/guncabinet/accumulator_gun
+	name = "security accumulator-energy gun cabinet"
+	desc = "Защищённый шкаф для хранения лазерных винтовок, работающих на аккумуляторах. Шкаф прикручен к полу."
+	req_access = list(ACCESS_ARMORY)
+
+/obj/structure/closet/secure_closet/guncabinet/accumulator_gun/get_ru_names()
+	return alist(
+		NOMINATIVE = "шкаф аккумуляторных энерго-винтовок",
+		GENITIVE = "шкафа аккумуляторных энерго-винтовок",
+		DATIVE = "шкафу аккумуляторных энерго-винтовок",
+		ACCUSATIVE = "шкаф аккумуляторных энерго-винтовок",
+		INSTRUMENTAL = "шкафом аккумуляторных энерго-винтовок",
+		PREPOSITIONAL = "шкафе аккумуляторных энерго-винтовок",
+	)
+
+/obj/structure/closet/secure_closet/guncabinet/accumulator_gun/populate_contents()
+	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
+	for(var/i in 1 to gun_count)
+		new /obj/item/gun/energy/accumulator/energy_carbine(src)
+
 /obj/structure/closet/secure_closet/guncabinet/lr30
 	name = "security LR-30 gun cabinet"
 	desc = "Защищённый шкаф для хранения лазерных винтовок LR-30. Шкаф прикручен к полу."
