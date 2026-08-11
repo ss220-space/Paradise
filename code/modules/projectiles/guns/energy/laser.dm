@@ -135,7 +135,7 @@
 	slot_flags = ITEM_SLOT_SUITSTORE | ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_NORMAL
 	accuracy = GUN_ACCURACY_PISTOL
-	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER | GUN_MODULE_CLASS_ENERGY_WEAPON
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 5, "y" = 6),
 		ATTACHMENT_SLOT_UNDER = list("x" = 4, "y" = -5),
@@ -360,3 +360,33 @@
 	selfcharge = TRUE
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 	attachable_allowed = null
+
+// MARK: automatic laser carbine
+/obj/item/gun/energy/laser/automatic
+	name = "automatic laser carbine"
+	desc = "Полностью автоматический лазерный карабин нового поколения. Низкий урон и малая надёжность с лихвой компенсируются повышенной скоростью стрельбы."
+	icon_state = "automatic_laser"
+	ammo_x_offset = 1
+	shaded_charge = TRUE
+	colour_denendent = TRUE
+	w_class = WEIGHT_CLASS_BULKY
+	slot_flags = ITEM_SLOT_SUITSTORE | ITEM_SLOT_BELT
+	ammo_type = list(
+		/obj/item/ammo_casing/energy/disabler/automatic,
+		/obj/item/ammo_casing/energy/laser/automatic,
+	)
+	weapon_weight = WEAPON_HEAVY
+	accuracy = GUN_ACCURACY_MINIMAL
+	gun_firemode = GUN_FIREMODE_AUTOMATIC
+	gun_firemode_list = list(GUN_FIREMODE_AUTOMATIC)
+
+/obj/item/gun/energy/laser/automatic/get_ru_names()
+	return alist(
+		NOMINATIVE = "автоматическая лазерная винтовка «Гроза»",
+		GENITIVE = "автоматической лазерной винтовки «Гроза»",
+		DATIVE = "автоматической лазерной винтовке «Гроза»",
+		ACCUSATIVE = "автоматическую лазерную винтовку «Гроза»",
+		INSTRUMENTAL = "автоматической лазерной винтовкой «Гроза»",
+		PREPOSITIONAL = "автоматической лазерной винтовке «Гроза»",
+	)
+

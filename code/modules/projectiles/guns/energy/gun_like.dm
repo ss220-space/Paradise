@@ -336,7 +336,7 @@
 	weapon_weight = WEAPON_LIGHT
 	slot_flags = ITEM_SLOT_SUITSTORE | ITEM_SLOT_BELT
 	accuracy = GUN_ACCURACY_RIFLE_LASER
-	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER | GUN_MODULE_CLASS_ENERGY_WEAPON
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 6, "y" = 5),
 		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -6),
@@ -356,7 +356,7 @@
 /obj/item/gun/energy/accumulator/energy_pistol
 	name = "energy pistol"
 	desc = "Ручной бластер, работающий на съёмных аккумуляторах универсального образца. Популярен среди силовых структур из-за своей компактности."
-	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER | GUN_MODULE_CLASS_ENERGY_WEAPON
 	accuracy = GUN_ACCURACY_PISTOL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 7),
@@ -388,7 +388,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	accuracy = GUN_ACCURACY_RIFLE
 	slot_flags = ITEM_SLOT_SUITSTORE
-	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER | GUN_MODULE_CLASS_ENERGY_WEAPON
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 5),
 		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -7),
@@ -418,7 +418,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	accuracy = GUN_ACCURACY_RIFLE
 	slot_flags = ITEM_SLOT_SUITSTORE
-	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER | GUN_MODULE_CLASS_ENERGY_WEAPON
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 7),
 		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -8),
@@ -448,7 +448,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	accuracy = GUN_ACCURACY_SNIPER
 	slot_flags = ITEM_SLOT_SUITSTORE | ITEM_SLOT_BACK
-	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER | GUN_MODULE_CLASS_ENERGY_WEAPON
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 6),
 		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -7),

@@ -194,6 +194,10 @@
 	speed = 2
 	damage = 10 //50 per shot
 
+/obj/projectile/beam/disabler/automatic
+	damage = 6
+	icon_state = "disabler_weakbeam"
+
 /obj/projectile/beam/specter/laser
 	name = "specter laser beam"
 
@@ -841,6 +845,9 @@
 
 /obj/projectile/beam/laser/slowed/heavy
 	damage = 50
+
+/obj/projectile/beam/laser/automatic
+	damage = 12
 
 /obj/projectile/beam/laser/hitscan
 	hitscan = TRUE

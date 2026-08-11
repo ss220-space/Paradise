@@ -49,6 +49,12 @@
 	e_cost = 150 //12 shots
 	delay = 2 SECONDS
 
+/obj/item/ammo_casing/energy/disabler/automatic
+	fire_sound = 'sound/weapons/gunshots/1laser.ogg'
+	e_cost = 25 //40 shots
+	delay = 0.2 SECONDS
+	projectile_type = /obj/projectile/beam/disabler/automatic
+
 /obj/item/ammo_casing/energy/disabler/scatter
 	projectile_type = /obj/projectile/beam/disabler/scatter
 	pellets = 5

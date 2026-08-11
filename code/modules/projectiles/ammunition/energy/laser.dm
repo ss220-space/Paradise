@@ -49,11 +49,17 @@
 	e_cost = 40 //30 shots
 	delay = 0.4 SECONDS
 
-obj/item/ammo_casing/energy/laser/energy_carbine/heavy
+/obj/item/ammo_casing/energy/laser/energy_carbine/heavy
 	e_cost = 200 //6 shots
 	fire_sound = 'sound/weapons/gunshots/laserrifle.ogg'
 	projectile_type = /obj/projectile/beam/laser/slowed/heavy
 	delay = 2 SECONDS
+
+/obj/item/ammo_casing/energy/laser/automatic
+	e_cost = 40 //25 shots
+	fire_sound = 'sound/weapons/gunshots/lasergatling.ogg'
+	delay = 0.2 SECONDS
+	projectile_type = /obj/projectile/beam/laser/automatic
 
 /obj/item/ammo_casing/energy/laser/pulse
 	projectile_type = /obj/projectile/beam/pulse
