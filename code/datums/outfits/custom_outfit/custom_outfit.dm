@@ -1061,7 +1061,6 @@
 
 /obj/item/reagent_containers/food/pill/custom_outfit_editor
 	name = "dental implant"
-	icon_state = "pill"
 	var/datum/custom_outfit/custom_outfit_ref
 
 /obj/item/reagent_containers/food/pill/custom_outfit_editor/ui_close(mob/user)
