@@ -158,15 +158,15 @@ GLOBAL_LIST_EMPTY(teleportlocs)
  * The returned list of turfs is sorted by name
  */
 /proc/process_teleport_locs()
-	for(var/area/AR as anything in get_sorted_areas())
-		if(is_area_shuttle(AR) || AR.tele_proof)
+	for(var/area/teleport_area as anything in get_sorted_areas())
+		if(is_area_shuttle(teleport_area) || teleport_area.tele_proof)
 			continue
-		if(GLOB.teleportlocs[AR.name])
+		if(GLOB.teleportlocs[teleport_area.name])
 			continue
-		if(!AR.has_contained_turfs())
+		if(!teleport_area.has_contained_turfs())
 			continue
-		if(is_station_level(AR.z))
-			GLOB.teleportlocs[AR.name] = AR
+		if(is_station_level(teleport_area.z))
+			GLOB.teleportlocs[teleport_area.name] = teleport_area
 
 /**
  * Called when an area loads

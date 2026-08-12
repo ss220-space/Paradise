@@ -45,8 +45,6 @@
 		S.sharerDies(FALSE)
 		S.removeSoulsharer(src) //If a sharer is destroy()'d, they are simply removed
 	sharedSoullinks = null
-	if(ranged_ability)
-		ranged_ability.remove_ranged_ability(src)
 	remove_from_all_data_huds()
 	now_pushing = null
 	if(LAZYLEN(status_effects))
@@ -92,11 +90,7 @@
 	med_hud_set_status()
 
 /mob/living/ghostize(can_reenter_corpse = 1)
-	var/prev_client = client
 	. = ..()
-	if(.)
-		if(ranged_ability && prev_client)
-			ranged_ability.remove_mousepointer(prev_client)
 	SEND_SIGNAL(src, COMSIG_LIVING_GHOSTIZED)
 
 /mob/living/proc/OpenCraftingMenu()

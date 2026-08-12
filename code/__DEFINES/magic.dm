@@ -110,3 +110,5 @@ DEFINE_BITFIELD(antimagic_flags, list(
  * as it encompasses more states in which a mob may be "incorporeal from magic"
  */
 #define is_jaunting(atom) (istype(atom.loc, /obj/effect/dummy/phased_mob))
+
+GLOBAL_LIST_INIT(spells, typesof(/datum/action/cooldown/spell))

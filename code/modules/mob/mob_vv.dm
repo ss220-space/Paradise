@@ -152,9 +152,6 @@
 	if(href_list[VV_HK_GIVE_SPELL])
 		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/give_spell, src)
 
-	if(href_list[VV_HK_GIVE_SPELL_A])
-		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/give_spell, src)
-
 	if(href_list[VV_HK_MOB_PLAYER_PANEL])
 		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/vuap_personal, src)
 
