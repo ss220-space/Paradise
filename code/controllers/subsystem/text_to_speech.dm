@@ -372,7 +372,10 @@ SUBSYSTEM_DEF(tts)
 	if(!voice)
 		return
 
-	if(!provider.writes_to_file)
+	if(provider.writes_to_file)
+		fcopy("[filename].ogg[TTS_PARTIAL_SUFFIX]", "[filename].ogg")
+		fdel("[filename].ogg[TTS_PARTIAL_SUFFIX]")
+	else
 		rustg_file_write(voice, "[filename].ogg", "true")
 
 	if(!CONFIG_GET(flag/tts_cache))
@@ -478,6 +481,7 @@ SUBSYSTEM_DEF(tts)
 
 /datum/controller/subsystem/tts/proc/cleanup_tts_file(filename)
 	fdel(filename)
+	fdel("[filename][TTS_PARTIAL_SUFFIX]")
 
 /datum/controller/subsystem/tts/proc/get_available_seeds(owner)
 	var/list/_tts_seeds_names = list()

@@ -119,6 +119,8 @@
 #define SOUND_EFFECT_MASKFILTER 6
 #define SOUND_EFFECT_RADIO_MASKFILTER 7
 
+#define TTS_PARTIAL_SUFFIX ".part"
+
 /**
  * Calculates the volume of a sound based on distance
  *
