@@ -51,6 +51,7 @@
 #define TTS_CATEGORY_DUNGEONS3 "Dungeons 3"
 #define TTS_CATEGORY_MISIDE "MiSide"
 #define TTS_CATEGORY_KINGPIN "Kingpin"
+#define TTS_CATEGORY_PUNISHER "The Punisher"
 
 #define TTS_GENDER_ANY "Любой"
 #define TTS_GENDER_MALE "Мужской"

@@ -63,9 +63,9 @@ SUBSYSTEM_DEF(http)
 					log_data += "\tResponse headers: [json_encode(res.headers)]"
 				log_data += "END ASYNC RESPONSE (ID: [req.id])"
 				var/log_text = log_data.Join("\n[GLOB.log_end]")
-				for(var/token in list(CONFIG_GET(string/tts_token_silero), CONFIG_GET(string/tts_token_ntts)))
-					if(token)
-						log_text = replacetext_char(log_text, token, "TOKEN")
+				var/tts_token = CONFIG_GET(string/tts_token_ntts)
+				if(tts_token)
+					log_text = replacetext_char(log_text, tts_token, "TOKEN")
 				WRITE_LOG(GLOB.http_log, log_text)
 		index++
 		if(MC_TICK_CHECK)
@@ -97,7 +97,6 @@ SUBSYSTEM_DEF(http)
 	//	log_data += "\tRequest body: [req.body]"
 	//	log_data += "\tRequest headers: [req.headers]"
 	//	log_data += "END ASYNC REQUEST (ID: [req.id])"
-	//	log_data = replacetext_char(log_data, CONFIG_GET(string/tts_token_silero), "TOKEN")
 	//	// Write the log data
 	//	WRITE_LOG(GLOB.http_log, log_data.Join("\n[GLOB.log_end]"))
 

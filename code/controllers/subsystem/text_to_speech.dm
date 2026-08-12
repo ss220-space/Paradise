@@ -184,11 +184,6 @@ SUBSYSTEM_DEF(tts)
 	msg += "R:[tts_reused] "
 	msg += "Q:[LAZYLEN(tts_requests_queue)]/[tts_requests_queue_limit] |"
 
-	var/datum/tts_provider/silero/_silero = tts_providers["Silero"]
-	msg += "Shared: "
-	msg += "RPS:[_silero.tts_shared_rps] "
-	msg += "Q:[_silero.tts_shared_requests_in_queue] "
-
 	return msg.Join("")
 
 /datum/controller/subsystem/tts/PreInit()
@@ -290,9 +285,13 @@ SUBSYSTEM_DEF(tts)
 		return
 	if(isnull(listener) || !listener.client)
 		return
-	if(isnull(seed_name) || !(seed_name in tts_seeds))
+	if(isnull(seed_name))
 		return
 	var/datum/tts_seed/seed = tts_seeds[seed_name]
+	if(!seed)
+		seed = tts_seeds["Рассказчик"]
+	if(!seed)
+		return
 
 	tts_wanted++
 	tts_trps_counter++
