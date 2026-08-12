@@ -12255,8 +12255,6 @@
 /area/centcom/central_command_areas/evacuation)
 "fTC" = (
 /obj/structure/closet/syndicate/sst,
-/obj/item/ammo_box/magazine/l6saw/bleeding,
-/obj/item/ammo_box/magazine/l6saw,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -21099,8 +21097,6 @@
 /area/shuttle/administration)
 "kcz" = (
 /obj/structure/closet/syndicate/sst,
-/obj/item/ammo_box/magazine/l6saw/bleeding,
-/obj/item/ammo_box/magazine/l6saw,
 /obj/effect/turf_decal/delivery/white/hollow,
 /turf/simulated/floor/mineral/plastitanium,
 /area/centcom/syndicate_base/elite_squad)
@@ -44620,12 +44616,12 @@
 	},
 /area/centcom/central_command_areas/zone/three)
 "unV" = (
-/obj/item/gun/projectile/automatic/smg/c20r{
+/obj/item/gun/projectile/automatic/smg/c20r/auto{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/gun/projectile/automatic/smg/c20r,
-/obj/item/gun/projectile/automatic/smg/c20r{
+/obj/item/gun/projectile/automatic/smg/c20r/auto,
+/obj/item/gun/projectile/automatic/smg/c20r/auto{
 	pixel_x = 3;
 	pixel_y = -3
 	},
@@ -44688,8 +44684,6 @@
 /area/shuttle/syndicate_sit)
 "upE" = (
 /obj/structure/closet/syndicate/sst,
-/obj/item/ammo_box/magazine/l6saw/bleeding,
-/obj/item/ammo_box/magazine/l6saw,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -44712,26 +44706,11 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/item/ammo_box/magazine/m556,
-/obj/item/ammo_box/magazine/m556,
-/obj/item/ammo_box/magazine/m556,
-/obj/item/ammo_box/magazine/m556,
-/obj/item/ammo_box/magazine/m556,
-/obj/item/ammo_box/magazine/m556,
-/obj/item/ammo_box/magazine/m556,
-/obj/item/ammo_box/magazine/m556,
-/obj/item/ammo_box/magazine/m556,
-/obj/item/ammo_box/magazine/m556,
-/obj/item/ammo_box/magazine/m556,
-/obj/item/ammo_box/magazine/m556,
-/obj/item/ammo_box/magazine/m556,
-/obj/item/ammo_box/magazine/m556,
-/obj/item/ammo_box/magazine/m556,
-/obj/item/ammo_box/magazine/m556,
-/obj/item/ammo_box/magazine/m556,
-/obj/item/ammo_box/magazine/m556,
 /obj/effect/turf_decal/delivery/white/hollow,
 /obj/structure/rack/gunrack,
+/obj/item/storage/backpack/duffel/syndie/ammo/carbine,
+/obj/item/storage/backpack/duffel/syndie/ammo/carbine,
+/obj/item/storage/backpack/duffel/syndie/ammo/carbine,
 /turf/simulated/floor/mineral/plastitanium,
 /area/centcom/syndicate_base/elite_squad)
 "uqY" = (
