@@ -1,0 +1,4 @@
+author: "FlitchTime"
+delete-after: True
+changes:
+  - map: "Замена с20 на нюкеровскую версию в оружейке сст. (PR #9651)"

@@ -83,6 +83,9 @@
 /// Rapid burn/brute/oxy/blood healing from the changeling ability
 #define STATUS_EFFECT_FLESHMEND /datum/status_effect/fleshmend
 
+/// Handles changeling epinephrine overdose ability effects.
+#define STATUS_EFFECT_EPINEPHRINE /datum/status_effect/epinephrine
+
 /// Handles changeling speed boost and chemical cost.
 #define STATUS_EFFECT_SPEEDLEGS /datum/status_effect/speedlegs
 

@@ -90,7 +90,6 @@
 	slot_flags = null
 	w_class = WEIGHT_CLASS_HUGE
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser/pulse/hitscan)
-	weapon_weight = WEAPON_MEDIUM
 	trigger_guard = TRIGGER_GUARD_NONE
 	accuracy = GUN_ACCURACY_SNIPER
 	attachable_allowed = GUN_MODULE_CLASS_NONE

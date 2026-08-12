@@ -62,7 +62,6 @@
 	name = "compact sniper rifle"
 	desc = "A compact, unscoped version of the standard issue syndicate sniper rifle. Still capable of sending people crying."
 	icon_state = "snipercompact"
-	weapon_weight = WEAPON_LIGHT
 	fire_delay = 2 SECONDS
 	mag_type = /obj/item/ammo_box/magazine/sniper_rounds/compact
 	accuracy = GUN_ACCURACY_SNIPER
