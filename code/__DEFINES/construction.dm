@@ -81,3 +81,6 @@
 #define SMALL_MATERIAL_AMOUNT (HALF_SHEET_MATERIAL_AMOUNT / 5)
 /// The amount of material that goes into a coin, which determines the value of the coin.
 #define COIN_MATERIAL_AMOUNT (HALF_SHEET_MATERIAL_AMOUNT * 0.4)
+
+/// A define for the center of the coordinate map of big machinery
+#define MACH_CENTER 2

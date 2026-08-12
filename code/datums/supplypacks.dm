@@ -1946,6 +1946,54 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	access = ACCESS_CE
 	required_tech = list(RESEARCH_TREE_POWERSTORAGE = 4, RESEARCH_TREE_MAGNETS = 4, RESEARCH_TREE_MATERIALS = 3)
 
+/datum/supply_packs/engineering/nuclear_supermatter_rod
+	name = "Nuclear Supermatter Rod Crate"
+	contains = list(
+		/obj/item/nuclear_rod/fuel/supermatter,
+		/obj/item/nuclear_rod/fuel/supermatter,
+	)
+	cost = 80
+	containertype = /obj/structure/closet/crate/secure/engineering
+	containername = "nuclear supermatter rod crate"
+
+/datum/supply_packs/engineering/nuclear_supermatter_kit
+	name = "Nuclear Supermatter Rods Starter Crate"
+	contains = list(
+		/obj/item/nuclear_rod/fuel/supermatter,
+		/obj/item/nuclear_rod/fuel/supermatter,
+		/obj/item/nuclear_rod/coolant/steam_hammerjet,
+		/obj/item/nuclear_rod/coolant/steam_hammerjet,
+		/obj/item/nuclear_rod/moderator/plasma_agitator,
+		/obj/item/nuclear_rod/moderator/plasma_agitator,
+	)
+	cost = 150
+	containertype = /obj/structure/closet/crate/secure/engineering
+	containername = "nuclear supermatter starter crate"
+
+/datum/supply_packs/engineering/nuclear_moderator_rods
+	name = "Forged Nuclear Moderator crate"
+	contains = list(
+		/obj/item/nuclear_rod/moderator/plasma_agitator,
+		/obj/item/nuclear_rod/moderator/plasma_agitator,
+		/obj/item/nuclear_rod/moderator/aluminum_reflector,
+		/obj/item/nuclear_rod/moderator/aluminum_reflector,
+	)
+	cost = 90
+	containertype = /obj/structure/closet/crate/secure/engineering
+	containername = "Forged Nuclear Moderator crate"
+
+/datum/supply_packs/engineering/nuclear_coolant_rods
+	name = "Forged Nuclear Coolant crate"
+	contains = list(
+		/obj/item/nuclear_rod/coolant/steam_hammerjet,
+		/obj/item/nuclear_rod/coolant/steam_hammerjet,
+		/obj/item/nuclear_rod/coolant/molten_salt,
+		/obj/item/nuclear_rod/coolant/molten_salt,
+	)
+	cost = 100
+	containertype = /obj/structure/closet/crate/secure/engineering
+	containername = "Forged Nuclear Coolant crate"
+
 /datum/supply_packs/engineering/inflatable
 	name = "Надувные заграждения"
 	contains = list(

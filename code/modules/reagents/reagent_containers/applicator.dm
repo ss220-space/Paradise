@@ -106,7 +106,7 @@
 
 	var/protection = 0
 	if(!ignore_flags)
-		if(!target.can_inject(user, FALSE))
+		if(!target.can_inject(user, TRUE))
 			return .
 
 		if(ishuman(target))

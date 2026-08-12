@@ -104,11 +104,9 @@
 
 /mob/living/silicon/robot/syndicate/saboteur/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
 	..()
+
 	QDEL_NULL(module)
 	module = new /obj/item/robot_module/syndicate_saboteur(src)
-
-	var/obj/item/borg/upgrade/selfrepair/SR = new /obj/item/borg/upgrade/selfrepair(src)
-	SR.action(src)
 
 	var/datum/action/thermals = new /datum/action/innate/robot_sight/thermal()
 	thermals.Grant(src)
