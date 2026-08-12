@@ -8,7 +8,7 @@
 	sound = 'sound/weapons/zapbang.ogg'
 
 	school = SCHOOL_TRANSLOCATION
-
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_NO_CENTCOM
 	/// What channel the teleport is done under.
 //	var/teleport_channel = TELEPORT_CHANNEL_MAGIC
 	/// Whether we force the teleport to happen (ie, it cannot be blocked by noteleport areas or blessings or whatever)

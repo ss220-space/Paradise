@@ -11,3 +11,4 @@
 	smoke_type = /datum/effect_system/fluid_spread/smoke
 	smoke_amt = 2
 	post_teleport_sound = 'sound/magic/teleport_app.ogg'
+

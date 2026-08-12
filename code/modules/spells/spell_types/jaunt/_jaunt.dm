@@ -13,7 +13,7 @@
  */
 /datum/action/cooldown/spell/jaunt
 	school = SCHOOL_TRANSMUTATION
-
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_NO_CENTCOM
 	/// What dummy mob type do we put jaunters in on jaunt?
 	var/jaunt_type = /obj/effect/dummy/phased_mob
 

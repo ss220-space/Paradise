@@ -9,7 +9,6 @@
 	background_icon_state = "bg_demon"
 	button_icon_state = "bloodcrawl"
 	background_icon_state_active = "bg_demon"
-	spell_requirements = NONE
 
 	jaunt_type = /obj/effect/dummy/phased_mob/blood
 

@@ -6,7 +6,6 @@
 	jaunt_type = /obj/effect/dummy/phased_mob/blood
 	button_icon_state = "jaunt"
 	background_icon_state = "bg_demon"
-	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
 /datum/action/cooldown/spell/jaunt/infernal_jaunt/can_cast_spell(feedback)
 	if(!..())

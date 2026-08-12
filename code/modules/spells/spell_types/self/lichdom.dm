@@ -4,7 +4,7 @@
 	school = SCHOOL_NECROMANCY
 	cooldown_time = 1 SECONDS
 	check_flags = NONE
-	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_STATION | SPELL_REQUIRES_HUMAN
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_NO_CENTCOM | SPELL_REQUIRES_HUMAN
 	invocation = "NECREM IMORTIUM!"
 	invocation_type = INVOCATION_SHOUT
 	spell_max_level = 0 //cannot be improved

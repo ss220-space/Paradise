@@ -117,7 +117,7 @@
 		return
 
 	// Register some signals so our button's icon stays up to date
-	if(spell_requirements & SPELL_REQUIRES_STATION)
+	if(spell_requirements & SPELL_REQUIRES_NO_CENTCOM)
 		RegisterSignal(owner, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(update_status_on_signal))
 	if(spell_requirements & (SPELL_REQUIRES_NO_ANTIMAGIC|SPELL_REQUIRES_WIZARD_GARB))
 		RegisterSignals(owner, list(COMSIG_MOB_EQUIPPED_ITEM, COMSIG_MOB_UNEQUIPPED_ITEM), PROC_REF(update_status_on_signal))
@@ -177,7 +177,7 @@
 	// Certain spells are not allowed on the centcom zlevel
 	var/turf/caster_turf = get_turf(owner)
 	// Spells which require being on the station
-	if((spell_requirements & SPELL_REQUIRES_STATION) && !is_station_level(caster_turf.z))
+	if((spell_requirements & SPELL_REQUIRES_NO_CENTCOM) && is_admin_level(caster_turf.z))
 		if(feedback)
 			to_chat(owner, span_warning("You can't cast [src] here!"))
 		return FALSE
