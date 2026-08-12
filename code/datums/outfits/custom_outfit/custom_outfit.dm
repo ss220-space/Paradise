@@ -925,16 +925,9 @@
 	var/base_type = slot_base_type[slot]
 	if(!base_type)
 		return choose_any_item(user, slot)
-	var/list/options = get_slot_options(base_type)
-	if(!length(options))
-		tgui_alert(user, "No matching items found for this slot.")
-		return FALSE
-	var/choice = tgui_input_list(user, "Выберите предмет", "Custom Outfit", options)
-	if(QDELETED(src) || QDELETED(user))
-		return FALSE
-	if(isnull(choice))
-		return FALSE
-	return set_item(user, slot, options[choice])
+	var/datum/custom_outfit_item_picker/picker = new(src, slot)
+	picker.ui_interact(user)
+	return TRUE
 
 /datum/custom_outfit/proc/choose_any_item(mob/user, slot)
 	var/obj/item/chosen_path = pick_closest_path(FALSE)
@@ -1093,6 +1086,82 @@
 	. = ..()
 	if(linked_outfit)
 		linked_outfit.on_dental_editor_closed()
+
+/datum/custom_outfit_item_picker
+	var/datum/custom_outfit/owner_outfit
+	var/picked_slot
+	var/list/skin_to_path = list()
+
+/datum/custom_outfit_item_picker/New(datum/custom_outfit/owner, slot)
+	owner_outfit = owner
+	picked_slot = slot
+	var/base_type = owner.slot_base_type[slot]
+	for(var/item_path in valid_subtypesof(base_type))
+		var/obj/item/item_ref = item_path
+		var/item_name = initial(item_ref.name)
+		if(!item_name)
+			continue
+		var/icon_state_text = initial(item_ref.icon_state) || ""
+		skin_to_path["[item_name]_[icon_state_text]"] = item_path
+
+/datum/custom_outfit_item_picker/Destroy()
+	owner_outfit = null
+	skin_to_path.Cut()
+	return ..()
+
+/datum/custom_outfit_item_picker/ui_state(mob/user)
+	return ADMIN_STATE(R_EVENT)
+
+/datum/custom_outfit_item_picker/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "Chameleon", "Выбор предмета")
+		ui.open()
+		ui.set_autoupdate(FALSE)
+
+/datum/custom_outfit_item_picker/ui_close(mob/user)
+	qdel(src)
+
+/datum/custom_outfit_item_picker/ui_static_data(mob/user, datum/tgui/ui = null)
+	var/list/data = list()
+	var/list/chameleon_skins = list()
+	for(var/skin_key in skin_to_path)
+		var/item_path = skin_to_path[skin_key]
+		var/obj/item/item_ref = item_path
+		chameleon_skins.Add(list(list(
+			"icon" = initial(item_ref.icon),
+			"icon_state" = initial(item_ref.icon_state) || "",
+			"name" = initial(item_ref.name),
+		)))
+	data["chameleon_skins"] = chameleon_skins
+	return data
+
+/datum/custom_outfit_item_picker/ui_data(mob/user)
+	var/list/data = list()
+	var/current_path = owner_outfit ? owner_outfit.edited_outfit.vars[picked_slot] : null
+	if(ispath(current_path, /obj/item))
+		var/obj/item/item_ref = current_path
+		var/icon_state_text = initial(item_ref.icon_state) || ""
+		data["selected_appearance"] = "[initial(item_ref.name)]_[icon_state_text]"
+	else
+		data["selected_appearance"] = null
+	return data
+
+/datum/custom_outfit_item_picker/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	if(..())
+		return
+	if(QDELETED(owner_outfit))
+		return FALSE
+	switch(action)
+		if("change_appearance")
+			var/item_path = skin_to_path[params["new_appearance"]]
+			if(!item_path)
+				return FALSE
+			. = owner_outfit.set_item(ui.user, picked_slot, item_path)
+			if(.)
+				owner_outfit.preview_dirty = TRUE
+				SStgui.update_uis(owner_outfit)
+				ui.close()
 
 #undef CUSTOM_OUTFIT_ACTION_LOAD
 #undef CUSTOM_OUTFIT_ACTION_SAVE
