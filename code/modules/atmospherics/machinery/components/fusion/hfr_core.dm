@@ -196,6 +196,8 @@
 	linked_input = null
 	linked_output = null
 	linked_moderator = null
+	if(linked_interface && linked_interface.connected_core == src)
+		linked_interface.connected_core = null
 	linked_interface = null
 	return ..()
 
