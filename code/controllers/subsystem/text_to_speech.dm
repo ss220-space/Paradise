@@ -248,8 +248,9 @@ SUBSYSTEM_DEF(tts)
 		var/text = request[1]
 		var/datum/tts_seed/seed = request[2]
 		var/datum/callback/proc_callback = request[3]
+		var/output_file = request[4]
 		var/datum/tts_provider/provider = seed.provider
-		provider.request(text, seed, proc_callback)
+		provider.request(text, seed, proc_callback, output_file)
 		tts_rps_counter++
 	tts_requests_queue.Cut(1, clamp(LAZYLEN(tts_requests_queue), 0, free_rps) + 1)
 
@@ -267,7 +268,7 @@ SUBSYSTEM_DEF(tts)
 	tts_request_succeeded = SStts.tts_request_succeeded
 	tts_reused = SStts.tts_reused
 
-/datum/controller/subsystem/tts/proc/queue_request(text, datum/tts_seed/seed, datum/callback/proc_callback)
+/datum/controller/subsystem/tts/proc/queue_request(text, datum/tts_seed/seed, datum/callback/proc_callback, output_file)
 	if(LAZYLEN(tts_requests_queue) > tts_requests_queue_limit)
 		is_enabled = FALSE
 		to_chat(world, span_announce("SERVER: очередь запросов превысила лимит, подсистема SStts принудительно отключена!"))
@@ -275,11 +276,11 @@ SUBSYSTEM_DEF(tts)
 
 	if(tts_rps_counter < tts_rps_limit)
 		var/datum/tts_provider/provider = seed.provider
-		provider.request(text, seed, proc_callback)
+		provider.request(text, seed, proc_callback, output_file)
 		tts_rps_counter++
 		return TRUE
 
-	tts_requests_queue += list(list(text, seed, proc_callback))
+	tts_requests_queue += list(list(text, seed, proc_callback, output_file))
 	return TRUE
 
 /datum/controller/subsystem/tts/proc/get_tts(atom/speaker, mob/listener, message, seed_name, is_local = TRUE, effect = SOUND_EFFECT_NONE, traits = TTS_TRAIT_RATE_FASTER, preSFX = null, postSFX = null)
@@ -337,7 +338,7 @@ SUBSYSTEM_DEF(tts)
 		return
 
 	var/datum/callback/cb = CALLBACK(src, PROC_REF(get_tts_callback), speaker, listener, filename, seed, is_local, effect, preSFX, postSFX)
-	queue_request(text, seed, cb)
+	queue_request(text, seed, cb, "[filename].ogg")
 	LAZYADD(tts_queue[filename], play_tts_cb)
 
 /datum/controller/subsystem/tts/proc/get_tts_callback(atom/speaker, mob/listener, filename, datum/tts_seed/seed, is_local, effect, preSFX, postSFX, datum/http_response/response)
@@ -372,7 +373,8 @@ SUBSYSTEM_DEF(tts)
 	if(!voice)
 		return
 
-	rustg_file_write(voice, "[filename].ogg", "true")
+	if(!provider.writes_to_file)
+		rustg_file_write(voice, "[filename].ogg", "true")
 
 	if(!CONFIG_GET(flag/tts_cache))
 		addtimer(CALLBACK(src, PROC_REF(cleanup_tts_file), "[filename].ogg"), 30 SECONDS)

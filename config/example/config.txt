@@ -429,6 +429,9 @@ TOPIC_FILTERING_WHITELIST 127.0.0.1
 ## Silero Text-to-speech
 #TTS_TOKEN_SILERO mytoken
 #TTS_URL_SILERO https://example.com
+## nTTS Text-to-speech
+#TTS_TOKEN_NTTS mytoken
+#TTS_URL_NTTS https://ntts.fdev.team/api/v1/tts
 #TTS_ENABLED
 #TTS_CACHE
 

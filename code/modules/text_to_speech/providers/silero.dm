@@ -5,7 +5,7 @@
 	var/tts_shared_rps = "?"
 	var/tts_shared_requests_in_queue = "?"
 
-/datum/tts_provider/silero/request(text, datum/tts_seed/silero/seed, datum/callback/proc_callback)
+/datum/tts_provider/silero/request(text, datum/tts_seed/silero/seed, datum/callback/proc_callback, output_file)
 	if(throttle_check())
 		return FALSE
 

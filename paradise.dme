@@ -4273,6 +4273,7 @@
 #include "code\modules\telesci\telesci_computer.dm"
 #include "code\modules\text_to_speech\_provider.dm"
 #include "code\modules\text_to_speech\_seed.dm"
+#include "code\modules\text_to_speech\providers\ntts.dm"
 #include "code\modules\text_to_speech\providers\silero.dm"
 #include "code\modules\text_to_speech\seeds\silero.dm"
 #include "code\modules\tgs\includes.dm"
