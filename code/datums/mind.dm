@@ -147,6 +147,13 @@
 	///Owned cyborg skin permissions
 	var/list/cyborg_skin_permissions = list()
 
+	/// game_mode antags
+	var/list/role_skill_bonuses
+	/// Skill points gained from absorbing DNA as a changeling
+	var/skill_points_from_dna = 0
+	/// Whether this mind has absorbed another changeling
+	var/has_absorbed_other_changeling = FALSE
+
 /datum/mind/New(new_key)
 	key = new_key
 	soulOwner = src

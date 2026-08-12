@@ -398,11 +398,14 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
  * * mob/living/carbon/user - the mob to absorb DNA from
  */
 /datum/antagonist/changeling/proc/absorb_dna(mob/living/carbon/user)
-	user.dna.real_name = user.real_name // Set this again, just to be sure that it's properly set.
+	user.dna.real_name = user.real_name
 	store_dna(user.dna.Clone())
 	add_new_languages(user.languages)
 	absorbed_count++
-
+	owner.skill_points_from_dna++
+	to_chat(owner.current, span_changeling("Мы поглотили ДНК. Наш разум расширился, мы можем улучшить наши навыки."))
+	if(user.mind?.has_antag_datum(/datum/antagonist/changeling))
+		owner.has_absorbed_other_changeling = TRUE
 /**
  * Store the target DNA. If the DNA belongs to one of the changeling's "escape with identity" objectives, make the DNA protected.
  *

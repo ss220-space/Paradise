@@ -75,6 +75,7 @@
 	var/list/cached_neurotrainer_bonuses = active_neurotrainer_bonuses
 	var/list/cached_manual_skill_bonuses = manual_skill_bonuses
 	var/list/cached_selected_skills_levels = selected_skills_levels
+	var/list/cached_role_skill_bonuses = role_skill_bonuses
 	for(var/skill_name, skill_datum in GLOB.skills)
 		var/datum/skill/skill = skill_datum
 		var/datum/skill/skill_type = skill.type
@@ -89,6 +90,8 @@
 		if(job_alt_skills && (skill_type in job_alt_skills))
 			job_skill = job_alt_skills[skill_type]
 		var/level = max(job_skill, antag_skill_level)
+		if(cached_role_skill_bonuses && (skill_type in cached_role_skill_bonuses))
+			level = max(level, cached_role_skill_bonuses[skill_type])
 		for(var/datum/antagonist/antag as anything in antag_datums)
 			for(var/bonus_skill_type in antag.skill_bonuses)
 				if(bonus_skill_type == skill_type)

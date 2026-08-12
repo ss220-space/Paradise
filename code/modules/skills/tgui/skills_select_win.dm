@@ -38,7 +38,7 @@
 	data["job"] = target_user.job
 	data["admin"] = admin_interact
 	var/used_points = collect_used_skill_points(target_user)
-	var/total_points = target_user.mind.free_skill_points + target_user.dna.species.bonus_skill_free_points
+	var/total_points = target_user.mind.free_skill_points + target_user.dna.species.bonus_skill_free_points + target_user.mind.skill_points_from_dna
 	var/free_points = total_points - used_points
 	data["total_point"] = total_points
 	data["free_points"] = free_points
@@ -73,6 +73,9 @@
 			var/max_skill_delta = DEFAULT_FREE_POINTS_USE_LIMIT
 			if(skill.type in target_user.dna.species.max_select_skills)
 				max_skill_delta = target_user.dna.species.max_select_skills[skill.type]
+			max_skill_delta += target_user.mind.skill_points_from_dna
+			if(target_user.mind.has_absorbed_other_changeling)
+				max_skill_delta = SKILL_LEVEL_LEGEND
 			var/actual_skill_level = skill_level + skill_used_points
 			var/skill_level_name = GLOB.skill_level_names[actual_skill_level]
 			skill_data["value"] = "[skill_level_name] ([actual_skill_level])"
@@ -83,7 +86,7 @@
 				skill_data["can_increase"] = actual_skill_level < SKILL_LEVEL_LEGEND
 				skill_data["can_decrease"] = actual_skill_level > 0
 			else
-				skill_data["can_increase"] = skill_used_points < max_skill_delta && actual_skill_level < SKILL_LEVEL_EXPERT && skill_level != SKILL_LEVEL_UNAVAILABLE && free_points > 0
+				skill_data["can_increase"] = skill_used_points < max_skill_delta && actual_skill_level < (target_user.mind.has_absorbed_other_changeling ? SKILL_LEVEL_LEGEND : SKILL_LEVEL_EXPERT) && skill_level != SKILL_LEVEL_UNAVAILABLE && free_points > 0
 				skill_data["can_decrease"] = skill_used_points > 0
 			skills.Add(list(skill_data))
 
@@ -138,6 +141,9 @@
 		max_skill_delta = DEFAULT_FREE_POINTS_USE_LIMIT
 		if(skill in user.dna.species.max_select_skills)
 			max_skill_delta = user.dna.species.max_select_skills[skill]
+		max_skill_delta += user.mind.skill_points_from_dna
+		if(user.mind.has_absorbed_other_changeling)
+			max_skill_delta = SKILL_LEVEL_LEGEND
 	GET_SKILL_LEVEL(target_user, skill, skill_level)
 	if(skill_level + used_points > SKILL_LEVEL_LEGEND)
 		user.mind.selected_skills[skill] = SKILL_LEVEL_LEGEND - skill_level
@@ -159,6 +165,7 @@
 	// cleanup
 	user_mind.selected_skills = null
 	user_mind.free_skill_points = 0
+	user_mind.skill_points_from_dna = 0
 
 /datum/ui_module/skills_select_win/proc/reset_skill_points(mob/user)
 	for(var/skill in user.mind.selected_skills)
