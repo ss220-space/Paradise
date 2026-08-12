@@ -382,12 +382,12 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(select_equipment, R_EVENT, "Select Equipment", mob/
 	log_and_message_admins(span_notice("changed the equipment of [key_name_admin(M)] to [dresscode]."))
 	BLACKBOX_LOG_ADMIN_VERB("Select Equipment")
 
-ADMIN_VERB_ONLY_CONTEXT_MENU(custom_equipment, R_EVENT, "Custom Equipment", mob/living/carbon/human/M in GLOB.mob_list)
-	if(!ishuman(M) && !isobserver(M))
+ADMIN_VERB_ONLY_CONTEXT_MENU(custom_equipment, R_EVENT, "Custom Equipment", mob/living/carbon/human/human_target in GLOB.mob_list)
+	if(!ishuman(human_target) && !isobserver(human_target))
 		tgui_alert(user, "Неподходящее существо")
 		return
 
-	var/datum/custom_outfit/tgui = new(M)
+	var/datum/custom_outfit/tgui = new(human_target)
 	tgui.ui_interact(user.mob)
 
 /client/proc/robust_dress_shop()

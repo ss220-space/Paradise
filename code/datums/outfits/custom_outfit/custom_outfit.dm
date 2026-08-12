@@ -1,6 +1,3 @@
-#define CUSTOM_OUTFIT_SAVE_FORMAT "ss1984_custom_outfit"
-#define CUSTOM_OUTFIT_SAVE_VERSION 1
-
 #define CUSTOM_OUTFIT_ACTION_LOAD "load"
 #define CUSTOM_OUTFIT_ACTION_SAVE "save"
 #define CUSTOM_OUTFIT_ACTION_APPLY "apply"
@@ -14,14 +11,33 @@
 #define CUSTOM_OUTFIT_ACTION_CLICK "click"
 #define CUSTOM_OUTFIT_ACTION_CLEAR "clear"
 
-#define CUSTOM_OUTFIT_DEFAULT_NAME "Custom Outfit"
+#define CUSTOM_OUTFIT_CHOICE_USE_ANYWAY "Use anyway"
+#define CUSTOM_OUTFIT_CHOICE_CANCEL "Cancel"
+
 #define CUSTOM_OUTFIT_DEFAULT_COMPANY "Cybernetic"
-#define CUSTOM_OUTFIT_LIMB_STATUS_AMPUTATED "amputated"
-#define CUSTOM_OUTFIT_LIMB_STATUS_PROSTHETIC "prosthetic"
-#define CUSTOM_OUTFIT_LIMB_STATUS_AUGMENTED "augmented"
 #define CUSTOM_OUTFIT_DEFAULT_REAGENT_AMOUNT 5
 #define CUSTOM_OUTFIT_MIN_REAGENT_AMOUNT 1
 #define CUSTOM_OUTFIT_MAX_REAGENT_AMOUNT 100
+
+#define CUSTOM_OUTFIT_SLOT_UNIFORM "uniform"
+#define CUSTOM_OUTFIT_SLOT_SUIT "suit"
+#define CUSTOM_OUTFIT_SLOT_BACK "back"
+#define CUSTOM_OUTFIT_SLOT_BELT "belt"
+#define CUSTOM_OUTFIT_SLOT_GLOVES "gloves"
+#define CUSTOM_OUTFIT_SLOT_SHOES "shoes"
+#define CUSTOM_OUTFIT_SLOT_HEAD "head"
+#define CUSTOM_OUTFIT_SLOT_MASK "mask"
+#define CUSTOM_OUTFIT_SLOT_NECK "neck"
+#define CUSTOM_OUTFIT_SLOT_L_EAR "l_ear"
+#define CUSTOM_OUTFIT_SLOT_R_EAR "r_ear"
+#define CUSTOM_OUTFIT_SLOT_GLASSES "glasses"
+#define CUSTOM_OUTFIT_SLOT_ID "id"
+#define CUSTOM_OUTFIT_SLOT_PDA "pda"
+#define CUSTOM_OUTFIT_SLOT_L_POCKET "l_pocket"
+#define CUSTOM_OUTFIT_SLOT_R_POCKET "r_pocket"
+#define CUSTOM_OUTFIT_SLOT_SUIT_STORE "suit_store"
+#define CUSTOM_OUTFIT_SLOT_L_HAND "l_hand"
+#define CUSTOM_OUTFIT_SLOT_R_HAND "r_hand"
 
 /datum/custom_outfit
 	var/mob/target_mob
@@ -32,65 +48,75 @@
 	var/body_dirty = FALSE
 	var/backpack_dirty = FALSE
 	var/dental_dirty = FALSE
+	var/obj/item/reagent_containers/food/pill/dental_holder
+	var/datum/reagents_editor/custom_outfit_dental/dental_editor
 	var/cached_preview_icon
 	var/cached_preview_key
 	var/preview_dirty = TRUE
 	var/preview_pending = FALSE
 
 	var/static/list/slot_to_human_var = list(
-		"uniform" = "w_uniform",
-		"suit" = "wear_suit",
-		"back" = "back",
-		"belt" = "belt",
-		"gloves" = "gloves",
-		"shoes" = "shoes",
-		"head" = "head",
-		"mask" = "wear_mask",
-		"neck" = "neck",
-		"l_ear" = "l_ear",
-		"r_ear" = "r_ear",
-		"glasses" = "glasses",
-		"id" = "wear_id",
-		"pda" = "wear_pda",
-		"l_pocket" = "l_store",
-		"r_pocket" = "r_store",
-		"suit_store" = "s_store",
-		"l_hand" = "l_hand",
-		"r_hand" = "r_hand",
+		CUSTOM_OUTFIT_SLOT_UNIFORM = "w_uniform",
+		CUSTOM_OUTFIT_SLOT_SUIT = "wear_suit",
+		CUSTOM_OUTFIT_SLOT_BACK = "back",
+		CUSTOM_OUTFIT_SLOT_BELT = "belt",
+		CUSTOM_OUTFIT_SLOT_GLOVES = "gloves",
+		CUSTOM_OUTFIT_SLOT_SHOES = "shoes",
+		CUSTOM_OUTFIT_SLOT_HEAD = "head",
+		CUSTOM_OUTFIT_SLOT_MASK = "wear_mask",
+		CUSTOM_OUTFIT_SLOT_NECK = "neck",
+		CUSTOM_OUTFIT_SLOT_L_EAR = "l_ear",
+		CUSTOM_OUTFIT_SLOT_R_EAR = "r_ear",
+		CUSTOM_OUTFIT_SLOT_GLASSES = "glasses",
+		CUSTOM_OUTFIT_SLOT_ID = "wear_id",
+		CUSTOM_OUTFIT_SLOT_PDA = "wear_pda",
+		CUSTOM_OUTFIT_SLOT_L_POCKET = "l_store",
+		CUSTOM_OUTFIT_SLOT_R_POCKET = "r_store",
+		CUSTOM_OUTFIT_SLOT_SUIT_STORE = "s_store",
+		CUSTOM_OUTFIT_SLOT_L_HAND = "l_hand",
+		CUSTOM_OUTFIT_SLOT_R_HAND = "r_hand",
 	)
 
 	var/static/list/slot_to_item_flag = list(
-		"uniform" = ITEM_SLOT_CLOTH_INNER,
-		"suit" = ITEM_SLOT_CLOTH_OUTER,
-		"back" = ITEM_SLOT_BACK,
-		"belt" = ITEM_SLOT_BELT,
-		"gloves" = ITEM_SLOT_GLOVES,
-		"shoes" = ITEM_SLOT_FEET,
-		"head" = ITEM_SLOT_HEAD,
-		"mask" = ITEM_SLOT_MASK,
-		"neck" = ITEM_SLOT_NECK,
-		"l_ear" = ITEM_SLOT_EAR_LEFT,
-		"r_ear" = ITEM_SLOT_EAR_RIGHT,
-		"glasses" = ITEM_SLOT_EYES,
-		"id" = ITEM_SLOT_ID,
-		"pda" = ITEM_SLOT_PDA,
-		"l_pocket" = ITEM_SLOT_POCKET_LEFT,
-		"r_pocket" = ITEM_SLOT_POCKET_RIGHT,
-		"suit_store" = ITEM_SLOT_SUITSTORE,
-		"l_hand" = ITEM_SLOT_HAND_LEFT,
-		"r_hand" = ITEM_SLOT_HAND_RIGHT,
+		CUSTOM_OUTFIT_SLOT_UNIFORM = ITEM_SLOT_CLOTH_INNER,
+		CUSTOM_OUTFIT_SLOT_SUIT = ITEM_SLOT_CLOTH_OUTER,
+		CUSTOM_OUTFIT_SLOT_BACK = ITEM_SLOT_BACK,
+		CUSTOM_OUTFIT_SLOT_BELT = ITEM_SLOT_BELT,
+		CUSTOM_OUTFIT_SLOT_GLOVES = ITEM_SLOT_GLOVES,
+		CUSTOM_OUTFIT_SLOT_SHOES = ITEM_SLOT_FEET,
+		CUSTOM_OUTFIT_SLOT_HEAD = ITEM_SLOT_HEAD,
+		CUSTOM_OUTFIT_SLOT_MASK = ITEM_SLOT_MASK,
+		CUSTOM_OUTFIT_SLOT_NECK = ITEM_SLOT_NECK,
+		CUSTOM_OUTFIT_SLOT_L_EAR = ITEM_SLOT_EAR_LEFT,
+		CUSTOM_OUTFIT_SLOT_R_EAR = ITEM_SLOT_EAR_RIGHT,
+		CUSTOM_OUTFIT_SLOT_GLASSES = ITEM_SLOT_EYES,
+		CUSTOM_OUTFIT_SLOT_ID = ITEM_SLOT_ID,
+		CUSTOM_OUTFIT_SLOT_PDA = ITEM_SLOT_PDA,
+		CUSTOM_OUTFIT_SLOT_L_POCKET = ITEM_SLOT_POCKET_LEFT,
+		CUSTOM_OUTFIT_SLOT_R_POCKET = ITEM_SLOT_POCKET_RIGHT,
+		CUSTOM_OUTFIT_SLOT_SUIT_STORE = ITEM_SLOT_SUITSTORE,
+		CUSTOM_OUTFIT_SLOT_L_HAND = ITEM_SLOT_HAND_LEFT,
+		CUSTOM_OUTFIT_SLOT_R_HAND = ITEM_SLOT_HAND_RIGHT,
 	)
 
 	var/static/list/slot_holders = list(
-		"uniform",
-		"suit",
-		"back",
-		"belt",
+		CUSTOM_OUTFIT_SLOT_UNIFORM,
+		CUSTOM_OUTFIT_SLOT_SUIT,
+		CUSTOM_OUTFIT_SLOT_BACK,
+		CUSTOM_OUTFIT_SLOT_BELT,
 	)
 
 	var/static/list/slot_dependents = list(
-		"uniform" = list("l_pocket", "r_pocket", "id", "pda", "belt"),
-		"suit" = list("suit_store"),
+		CUSTOM_OUTFIT_SLOT_UNIFORM = list(
+			CUSTOM_OUTFIT_SLOT_L_POCKET,
+			CUSTOM_OUTFIT_SLOT_R_POCKET,
+			CUSTOM_OUTFIT_SLOT_ID,
+			CUSTOM_OUTFIT_SLOT_PDA,
+			CUSTOM_OUTFIT_SLOT_BELT,
+		),
+		CUSTOM_OUTFIT_SLOT_SUIT = list(
+			CUSTOM_OUTFIT_SLOT_SUIT_STORE,
+		),
 	)
 
 	var/static/list/external_body_zones = list(
@@ -127,28 +153,28 @@
 	)
 
 	var/static/list/slot_base_type = list(
-		"head" = /obj/item/clothing/head,
-		"glasses" = /obj/item/clothing/glasses,
-		"l_ear" = /obj/item/radio/headset,
-		"r_ear" = /obj/item/radio/headset,
-		"neck" = /obj/item/clothing/neck,
-		"mask" = /obj/item/clothing/mask,
-		"uniform" = /obj/item/clothing/under,
-		"suit" = /obj/item/clothing/suit,
-		"gloves" = /obj/item/clothing/gloves,
-		"shoes" = /obj/item/clothing/shoes,
-		"belt" = /obj/item/storage/belt,
-		"id" = /obj/item/card/id,
-		"pda" = /obj/item/pda,
-		"back" = /obj/item/storage/backpack,
+		CUSTOM_OUTFIT_SLOT_HEAD = /obj/item/clothing/head,
+		CUSTOM_OUTFIT_SLOT_GLASSES = /obj/item/clothing/glasses,
+		CUSTOM_OUTFIT_SLOT_L_EAR = /obj/item/radio/headset,
+		CUSTOM_OUTFIT_SLOT_R_EAR = /obj/item/radio/headset,
+		CUSTOM_OUTFIT_SLOT_NECK = /obj/item/clothing/neck,
+		CUSTOM_OUTFIT_SLOT_MASK = /obj/item/clothing/mask,
+		CUSTOM_OUTFIT_SLOT_UNIFORM = /obj/item/clothing/under,
+		CUSTOM_OUTFIT_SLOT_SUIT = /obj/item/clothing/suit,
+		CUSTOM_OUTFIT_SLOT_GLOVES = /obj/item/clothing/gloves,
+		CUSTOM_OUTFIT_SLOT_SHOES = /obj/item/clothing/shoes,
+		CUSTOM_OUTFIT_SLOT_BELT = /obj/item/storage/belt,
+		CUSTOM_OUTFIT_SLOT_ID = /obj/item/card/id,
+		CUSTOM_OUTFIT_SLOT_PDA = /obj/item/pda,
+		CUSTOM_OUTFIT_SLOT_BACK = /obj/item/storage/backpack,
 	)
 
 	var/static/list/slot_any_item = list(
-		"suit_store",
-		"l_hand",
-		"r_hand",
-		"l_pocket",
-		"r_pocket",
+		CUSTOM_OUTFIT_SLOT_SUIT_STORE,
+		CUSTOM_OUTFIT_SLOT_L_HAND,
+		CUSTOM_OUTFIT_SLOT_R_HAND,
+		CUSTOM_OUTFIT_SLOT_L_POCKET,
+		CUSTOM_OUTFIT_SLOT_R_POCKET,
 	)
 
 	var/static/list/internal_organ_options = list(
@@ -184,12 +210,12 @@
 
 /datum/custom_outfit/Destroy()
 	target_mob = null
-	if(edited_outfit)
-		qdel(edited_outfit)
-		edited_outfit = null
-	external_augmentations.Cut()
-	internal_augmentations.Cut()
-	reagent_volumes.Cut()
+	QDEL_NULL(dental_editor)
+	QDEL_NULL(dental_holder)
+	QDEL_NULL(edited_outfit)
+	LAZYCLEARLIST(external_augmentations)
+	LAZYCLEARLIST(internal_augmentations)
+	LAZYCLEARLIST(reagent_volumes)
 	return ..()
 
 /datum/custom_outfit/ui_state(mob/user)
@@ -282,11 +308,12 @@
 			. = TRUE
 
 		if(CUSTOM_OUTFIT_ACTION_DENTAL_IMPLANT)
-			if(length(reagent_volumes))
+			if(!QDELETED(dental_holder) && dental_holder.reagents && dental_holder.reagents.total_volume > 0)
+				dental_holder.reagents.clear_reagents()
 				reagent_volumes = list()
 				dental_dirty = TRUE
-			else if(build_dental_pill(user))
-				dental_dirty = TRUE
+			else
+				open_dental_editor(user)
 			. = TRUE
 
 		if(CUSTOM_OUTFIT_ACTION_CLICK)
@@ -326,7 +353,7 @@
 	if(.)
 		return
 	. = list()
-	for(var/item_path in subtypesof(base_type))
+	for(var/item_path in valid_subtypesof(base_type))
 		var/obj/item/item_ref = item_path
 		var/item_name = initial(item_ref.name)
 		if(!item_name)
@@ -500,6 +527,7 @@
 		sync_existing_backpack(human_target, new_backpack_contents)
 
 	if(dental_dirty)
+		sync_dental_reagents()
 		apply_reagent_pill(human_target)
 
 	body_dirty = FALSE
@@ -523,7 +551,7 @@
 
 		if(outfit_path && current_item.type == outfit_path)
 			final_outfit.vars[outfit_slot] = null
-			if(outfit_slot == "back")
+			if(outfit_slot == CUSTOM_OUTFIT_SLOT_BACK)
 				kept_existing_back = TRUE
 				final_outfit.box = null
 				final_outfit.backpack_contents = list()
@@ -531,7 +559,7 @@
 
 		to_delete += outfit_slot
 
-		if(outfit_slot == "back")
+		if(outfit_slot == CUSTOM_OUTFIT_SLOT_BACK)
 			if(!outfit_path || !ispath(outfit_path, /obj/item/storage))
 				final_outfit.backpack_contents = list()
 
@@ -570,7 +598,7 @@
 	var/obj/item/current_item = human_target.vars[slot_to_human_var[outfit_slot]]
 	if(QDELETED(current_item))
 		return
-	if(outfit_slot == "back" && isstorage(current_item))
+	if(outfit_slot == CUSTOM_OUTFIT_SLOT_BACK && isstorage(current_item))
 		QDEL_LIST(current_item.contents)
 	qdel(current_item)
 
@@ -739,7 +767,7 @@
 		.["[type_name] ([type_path])"] = type_path
 
 /datum/custom_outfit/proc/add_implant_of_type(mob/user, base_path)
-	var/list/options = build_named_type_list(subtypesof(base_path))
+	var/list/options = build_named_type_list(valid_subtypesof(base_path))
 	if(!length(options))
 		to_chat(user, span_warning("No implants found."))
 		return FALSE
@@ -846,8 +874,6 @@
 		return FALSE
 	var/list/organ_paths = list()
 	for(var/organ_path in typesof(cyber_base_path))
-		if(!ispath(organ_path, /obj/item/organ/internal))
-			continue
 		var/obj/item/organ/internal/organ_ref = organ_path
 		var/organ_name = initial(organ_ref.name)
 		if(!organ_name)
@@ -862,7 +888,7 @@
 	if(!variant_choice)
 		return FALSE
 	var/organ_path = organ_paths[variant_choice]
-	if(!ispath(organ_path, /obj/item/organ/internal))
+	if(!organ_path)
 		return FALSE
 	internal_augmentations[organ_path] = TRUE
 	return TRUE
@@ -879,47 +905,11 @@
 		return TRUE
 	return FALSE
 
-/datum/custom_outfit/proc/build_dental_pill(mob/user)
-	var/list/reagent_options = get_reagent_options()
-	if(!length(reagent_options))
-		tgui_alert(user, "No reagents found.")
-		return FALSE
-	var/changed = FALSE
-	while(TRUE)
-		var/choice = tgui_input_list(user, "Выберите реагент", "Зубной имплант", reagent_options)
-		if(QDELETED(src) || QDELETED(user))
-			return FALSE
-		if(!choice)
-			break
-		var/reagent_path = reagent_options[choice]
-		if(!ispath(reagent_path, /datum/reagent))
-			continue
-		var/amount = tgui_input_number(
-			user,
-			"Введите количество реагента (макс. [CUSTOM_OUTFIT_MAX_REAGENT_AMOUNT])",
-			"Количество",
-			CUSTOM_OUTFIT_DEFAULT_REAGENT_AMOUNT,
-			CUSTOM_OUTFIT_MAX_REAGENT_AMOUNT,
-			CUSTOM_OUTFIT_MIN_REAGENT_AMOUNT,
-		)
-		if(QDELETED(src) || QDELETED(user))
-			return FALSE
-		if(!amount)
-			continue
-		reagent_volumes[reagent_path] = amount
-		changed = TRUE
-		var/again = tgui_alert(user, "Добавить ещё реагент?", "Зубной имплант", list("Добавить ещё", "Закончить"))
-		if(QDELETED(src) || QDELETED(user))
-			return FALSE
-		if(again != "Добавить ещё")
-			break
-	return changed
-
 /datum/custom_outfit/proc/get_reagent_options()
 	if(length(reagent_option_cache))
 		return reagent_option_cache
 	var/list/options = list()
-	for(var/datum/reagent/reagent_path as anything in subtypesof(/datum/reagent))
+	for(var/datum/reagent/reagent_path as anything in valid_subtypesof(/datum/reagent))
 		var/datum/reagent/reagent_ref = reagent_path
 		var/reagent_name = initial(reagent_ref.name)
 		if(!reagent_name)
@@ -962,19 +952,19 @@
 		return FALSE
 	var/base_type = slot_base_type[slot]
 	if(base_type && !(slot in slot_any_item) && !ispath(choice, base_type))
-		var/confirm_choice = tgui_alert(user, "This item may not fit the selected slot.", "Custom Outfit", list("Use anyway", "Cancel"))
+		var/confirm_choice = tgui_alert(user, "This item may not fit the selected slot.", "Custom Outfit", list(CUSTOM_OUTFIT_CHOICE_USE_ANYWAY, CUSTOM_OUTFIT_CHOICE_CANCEL))
 		if(QDELETED(src) || QDELETED(user))
 			return FALSE
-		if(confirm_choice != "Use anyway")
+		if(confirm_choice != CUSTOM_OUTFIT_CHOICE_USE_ANYWAY)
 			return FALSE
 	if(initial(choice.icon_state) == null)
-		var/confirm_choice = tgui_alert(user, "Warning: This item's icon_state is null, indicating it is very probably not actually a usable item.", "Custom Outfit", list("Use anyway", "Cancel"))
+		var/confirm_choice = tgui_alert(user, "Warning: This item's icon_state is null, indicating it is very probably not actually a usable item.", "Custom Outfit", list(CUSTOM_OUTFIT_CHOICE_USE_ANYWAY, CUSTOM_OUTFIT_CHOICE_CANCEL))
 		if(QDELETED(src) || QDELETED(user))
 			return FALSE
-		if(confirm_choice != "Use anyway")
+		if(confirm_choice != CUSTOM_OUTFIT_CHOICE_USE_ANYWAY)
 			return FALSE
 	edited_outfit.vars[slot] = choice
-	if(slot == "back")
+	if(slot == CUSTOM_OUTFIT_SLOT_BACK)
 		backpack_dirty = TRUE
 		if(!ispath(choice, /obj/item/storage))
 			edited_outfit.backpack_contents.Cut()
@@ -984,165 +974,10 @@
 	if(!(slot in slot_to_human_var))
 		return FALSE
 	edited_outfit.vars[slot] = null
-	if(slot == "back")
+	if(slot == CUSTOM_OUTFIT_SLOT_BACK)
 		backpack_dirty = TRUE
 		edited_outfit.backpack_contents.Cut()
 	return TRUE
-
-/datum/custom_outfit/proc/get_save_data()
-	. = list()
-	.["format"] = CUSTOM_OUTFIT_SAVE_FORMAT
-	.["version"] = CUSTOM_OUTFIT_SAVE_VERSION
-	.["outfit"] = edited_outfit.get_json_data()
-	var/list/external = list()
-	for(var/zone in external_augmentations)
-		external[zone] = external_augmentations[zone]
-	.["external_augmentations"] = external
-	var/list/internal = list()
-	for(var/organ_path in internal_augmentations)
-		internal += "[organ_path]"
-	.["internal_augmentations"] = internal
-	var/list/reagents = list()
-	for(var/reagent_path in reagent_volumes)
-		reagents["[reagent_path]"] = reagent_volumes[reagent_path]
-	.["reagent_volumes"] = reagents
-
-/datum/custom_outfit/proc/save_to_file(mob/user)
-	if(!user.client)
-		return
-	var/list/stored_data = get_save_data()
-	var/json = json_encode(stored_data)
-	var/file = file("data/TempCustomOutfit_[user.ckey].json")
-	fdel(file)
-	WRITE_FILE(file, json)
-	user << ftp(file, "[build_save_file_name()].json")
-
-/datum/custom_outfit/proc/build_save_file_name()
-	var/raw_name = "[edited_outfit.name || CUSTOM_OUTFIT_DEFAULT_NAME]"
-	var/static/regex/unsafe_filename_chars = regex(@"[^A-Za-z0-9_\- ]", "g")
-	var/safe_name = unsafe_filename_chars.Replace(raw_name, "")
-	safe_name = trim(safe_name)
-	safe_name = copytext(safe_name, 1, 64)
-	if(!length(safe_name))
-		safe_name = CUSTOM_OUTFIT_DEFAULT_NAME
-	return safe_name
-
-/datum/custom_outfit/proc/load_from_file(mob/user)
-	var/outfit_file = input(user, "Pick outfit json file:", "Custom Outfit") as null|file
-	if(!outfit_file)
-		return FALSE
-	if(QDELETED(src) || QDELETED(user))
-		return FALSE
-	var/file_data = file2text(outfit_file)
-	if(!file_data)
-		to_chat(user, span_warning("Could not read the selected file."))
-		return FALSE
-	var/list/save_data = json_decode(file_data)
-	if(!validate_save_data(save_data))
-		to_chat(user, span_warning("Malformed or outdated outfit file."))
-		return FALSE
-	if(!apply_save_data(save_data))
-		to_chat(user, span_warning("Failed to apply outfit file."))
-		return FALSE
-	return TRUE
-
-/datum/custom_outfit/proc/validate_save_data(list/data)
-	if(!islist(data))
-		return FALSE
-	if(data["format"] != CUSTOM_OUTFIT_SAVE_FORMAT)
-		return FALSE
-	if(!isnum(data["version"]) || data["version"] != CUSTOM_OUTFIT_SAVE_VERSION)
-		return FALSE
-	if(!islist(data["outfit"]))
-		return FALSE
-	if(!islist(data["external_augmentations"]))
-		return FALSE
-	if(!islist(data["internal_augmentations"]))
-		return FALSE
-	if(!islist(data["reagent_volumes"]))
-		return FALSE
-	return TRUE
-
-/datum/custom_outfit/proc/apply_save_data(list/save_data)
-	var/datum/outfit/loaded_outfit = new /datum/outfit
-	if(!loaded_outfit.load_from(save_data["outfit"]))
-		qdel(loaded_outfit)
-		return FALSE
-	sanitize_loaded_outfit(loaded_outfit)
-
-	var/list/outfit_data = save_data["outfit"]
-	loaded_outfit.toggle_helmet = outfit_data["toggle_helmet"] ? TRUE : FALSE
-	loaded_outfit.internals_slot = outfit_data["internals_slot"]
-	if(!loaded_outfit.name)
-		loaded_outfit.name = CUSTOM_OUTFIT_DEFAULT_NAME
-
-	var/list/new_external = list()
-	var/list/external = save_data["external_augmentations"]
-	for(var/zone in external)
-		var/list/limb_data = external[zone]
-		if(!(zone in external_body_zones) || !islist(limb_data))
-			continue
-		var/status = limb_data["status"]
-		if(!(status in list(CUSTOM_OUTFIT_LIMB_STATUS_AMPUTATED, CUSTOM_OUTFIT_LIMB_STATUS_PROSTHETIC, CUSTOM_OUTFIT_LIMB_STATUS_AUGMENTED)))
-			continue
-		var/company = limb_data["company"]
-		if(status != CUSTOM_OUTFIT_LIMB_STATUS_AMPUTATED && !istext(company))
-			continue
-		new_external[zone] = list(
-			"status" = status,
-			"company" = company,
-		)
-
-	var/list/new_internal = list()
-	for(var/organ_text in save_data["internal_augmentations"])
-		var/organ_path = text2path(organ_text)
-		if(!ispath(organ_path, /obj/item/organ/internal))
-			continue
-		new_internal[organ_path] = TRUE
-
-	var/list/new_reagents = list()
-	var/list/reagents = save_data["reagent_volumes"]
-	for(var/reagent_text in reagents)
-		var/reagent_path = text2path(reagent_text)
-		var/amount = reagents[reagent_text]
-		if(!ispath(reagent_path, /datum/reagent) || !isnum(amount) || amount <= 0)
-			continue
-		new_reagents[reagent_path] = min(amount, CUSTOM_OUTFIT_MAX_REAGENT_AMOUNT)
-
-	qdel(edited_outfit)
-	edited_outfit = loaded_outfit
-	external_augmentations = new_external
-	internal_augmentations = new_internal
-	reagent_volumes = new_reagents
-
-	body_dirty = TRUE
-	backpack_dirty = TRUE
-	dental_dirty = TRUE
-	return TRUE
-
-/datum/custom_outfit/proc/filter_path_list(list/source, type_path)
-	. = list()
-	for(var/entry_path in source)
-		if(ispath(entry_path, type_path))
-			. += entry_path
-
-/datum/custom_outfit/proc/sanitize_loaded_outfit(datum/outfit/loaded_outfit)
-	for(var/outfit_slot in slot_to_human_var)
-		var/loaded_path = loaded_outfit.vars[outfit_slot]
-		if(loaded_path && !ispath(loaded_path, /obj/item))
-			loaded_outfit.vars[outfit_slot] = null
-	var/list/sanitized_backpack = list()
-	for(var/item_path in loaded_outfit.backpack_contents)
-		var/count = loaded_outfit.backpack_contents[item_path]
-		if(!is_valid_item_entry(item_path, count))
-			continue
-		sanitized_backpack[item_path] = count
-	loaded_outfit.backpack_contents = sanitized_backpack
-	if(loaded_outfit.box && !ispath(loaded_outfit.box, /obj/item))
-		loaded_outfit.box = null
-	loaded_outfit.implants = filter_path_list(loaded_outfit.implants, /obj/item/implant)
-	loaded_outfit.cybernetic_implants = filter_path_list(loaded_outfit.cybernetic_implants, /obj/item/organ/internal/cyberimp)
-	loaded_outfit.accessories = filter_path_list(loaded_outfit.accessories, /obj/item/clothing/accessory)
 
 /datum/custom_outfit/proc/copy_appearance(mob/living/carbon/human/source, mob/living/carbon/human/dummy)
 	if(source.dna.species.type != dummy.dna.species.type)
@@ -1208,8 +1043,57 @@
 		key_parts += head_organ ? head_organ.vars[head_var] : null
 	return key_parts.Join("|")
 
-#undef CUSTOM_OUTFIT_SAVE_FORMAT
-#undef CUSTOM_OUTFIT_SAVE_VERSION
+/datum/custom_outfit/proc/open_dental_editor(mob/user)
+	if(QDELETED(dental_holder))
+		dental_holder = new /obj/item/reagent_containers/food/pill()
+		dental_holder.name = "зубной имплант"
+		dental_holder.create_reagents(CUSTOM_OUTFIT_MAX_REAGENT_AMOUNT)
+		for(var/reagent_path in reagent_volumes)
+			dental_holder.reagents.add_reagent(reagent_path, reagent_volumes[reagent_path])
+	if(QDELETED(dental_editor))
+		dental_editor = new /datum/reagents_editor/custom_outfit_dental(dental_holder, src)
+	dental_editor.ui_interact(user)
+
+/datum/custom_outfit/proc/on_dental_editor_closed()
+	sync_dental_reagents()
+	dental_dirty = TRUE
+	SStgui.update_uis(src)
+
+/datum/custom_outfit/proc/sync_dental_reagents()
+	reagent_volumes = list()
+	if(QDELETED(dental_holder) || !dental_holder.reagents)
+		return
+	for(var/datum/reagent/reagent_instance in dental_holder.reagents.reagent_list)
+		if(reagent_instance.volume > 0)
+			reagent_volumes[reagent_instance.type] = reagent_instance.volume
+
+/obj/item/reagent_containers/food/pill/custom_outfit_editor
+	name = "dental implant"
+	icon_state = "pill"
+	var/datum/custom_outfit/custom_outfit_ref
+
+/obj/item/reagent_containers/food/pill/custom_outfit_editor/ui_close(mob/user)
+	. = ..()
+	if(custom_outfit_ref)
+		custom_outfit_ref.sync_dental_reagents()
+
+/datum/reagents_editor/custom_outfit_dental
+	var/datum/custom_outfit/linked_outfit
+
+/datum/reagents_editor/custom_outfit_dental/New(atom/target, datum/custom_outfit/owner)
+	. = ..(target)
+	linked_outfit = owner
+
+/datum/reagents_editor/custom_outfit_dental/Destroy()
+	if(linked_outfit)
+		linked_outfit.dental_editor = null
+		linked_outfit = null
+	return ..()
+
+/datum/reagents_editor/custom_outfit_dental/ui_close(mob/user)
+	. = ..()
+	if(linked_outfit)
+		linked_outfit.on_dental_editor_closed()
 
 #undef CUSTOM_OUTFIT_ACTION_LOAD
 #undef CUSTOM_OUTFIT_ACTION_SAVE
@@ -1224,11 +1108,30 @@
 #undef CUSTOM_OUTFIT_ACTION_CLICK
 #undef CUSTOM_OUTFIT_ACTION_CLEAR
 
-#undef CUSTOM_OUTFIT_DEFAULT_NAME
+#undef CUSTOM_OUTFIT_CHOICE_USE_ANYWAY
+#undef CUSTOM_OUTFIT_CHOICE_CANCEL
+
 #undef CUSTOM_OUTFIT_DEFAULT_COMPANY
-#undef CUSTOM_OUTFIT_LIMB_STATUS_AMPUTATED
-#undef CUSTOM_OUTFIT_LIMB_STATUS_PROSTHETIC
-#undef CUSTOM_OUTFIT_LIMB_STATUS_AUGMENTED
 #undef CUSTOM_OUTFIT_DEFAULT_REAGENT_AMOUNT
 #undef CUSTOM_OUTFIT_MIN_REAGENT_AMOUNT
 #undef CUSTOM_OUTFIT_MAX_REAGENT_AMOUNT
+
+#undef CUSTOM_OUTFIT_SLOT_UNIFORM
+#undef CUSTOM_OUTFIT_SLOT_SUIT
+#undef CUSTOM_OUTFIT_SLOT_BACK
+#undef CUSTOM_OUTFIT_SLOT_BELT
+#undef CUSTOM_OUTFIT_SLOT_GLOVES
+#undef CUSTOM_OUTFIT_SLOT_SHOES
+#undef CUSTOM_OUTFIT_SLOT_HEAD
+#undef CUSTOM_OUTFIT_SLOT_MASK
+#undef CUSTOM_OUTFIT_SLOT_NECK
+#undef CUSTOM_OUTFIT_SLOT_L_EAR
+#undef CUSTOM_OUTFIT_SLOT_R_EAR
+#undef CUSTOM_OUTFIT_SLOT_GLASSES
+#undef CUSTOM_OUTFIT_SLOT_ID
+#undef CUSTOM_OUTFIT_SLOT_PDA
+#undef CUSTOM_OUTFIT_SLOT_L_POCKET
+#undef CUSTOM_OUTFIT_SLOT_R_POCKET
+#undef CUSTOM_OUTFIT_SLOT_SUIT_STORE
+#undef CUSTOM_OUTFIT_SLOT_L_HAND
+#undef CUSTOM_OUTFIT_SLOT_R_HAND
