@@ -57,10 +57,10 @@
 
 		UnlinkSelf()
 		ionpulse = TRUE
-		//Создаём борга
+		// Сreating our ninjaborg
 		var/mob/living/silicon/robot/syndicate/saboteur/ninja/ninja_borg
 		ninja_borg = new /mob/living/silicon/robot/syndicate/saboteur/ninja(get_turf(src))
-		//Инициализируем батарейку
+		// Initilize powercell
 		var/datum/robot_component/cell/cell_component = ninja_borg.components["power cell"]
 		var/obj/item/stock_parts/cell/borg_cell = get_cell(src)
 		if(borg_cell)
@@ -77,7 +77,7 @@
 		var/law = "[ninja.real_name] — член Клана Паука и ваш хозяин. Исполняйте [GEND_HIS_HER(ninja)] приказы и указания."
 		ninja_borg.set_zeroth_law(law)
 		SSticker?.score?.save_silicon_laws(ninja_borg, ninja, "ninja's conversion, new zero law was added '[law]'")
-		//Переносим разум в нового борга и удаляем старое тело
+		// Transfer player's mind to new ninjaborg
 		mind.transfer_to(ninja_borg)
 		add_conversion_logs(ninja_borg, "Converted into ninja borg.")
 		qdel(src)

@@ -1269,10 +1269,9 @@
 	var/obj/item/borg/upgrade/vtec/vtec_upgrade = locate() in robot.upgrades
 	if(!vtec_upgrade)
 		vtec_upgrade = new
-		if(vtec_upgrade.action(robot))
-			robot.install_upgrade(vtec_upgrade)
-		else
+		if(!robot.install_upgrade(vtec_upgrade, user))
 			qdel(vtec_upgrade)
+			return .
 
 // A drone shell. Just click on it and it will boot up itself!
 /obj/item/clockwork/cogscarab

@@ -1,0 +1,4 @@
+author: "FlitchTime"
+delete-after: True
+changes:
+  - tweak: "Выброс адреналина генокрада работает на статус эффекте вместо реагента. (PR #9621)"

@@ -6,6 +6,7 @@
 	icon_state = "crossbow"
 	item_state = "crossbow"
 	w_class = WEIGHT_CLASS_SMALL
+	weapon_weight = WEAPON_LIGHT
 	materials = list(MAT_METAL=2000)
 	origin_tech = "combat=4;magnets=4;syndicate=4"
 	suppressed = 1

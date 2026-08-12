@@ -160,6 +160,9 @@
 	for(var/datum/deathmatch_modifier/modifier as anything in modifiers)
 		our_target[modifier].apply(new_player, src)
 
+	ADD_TRAIT(new_player.mind, TRAIT_HAS_ANTAG_SKILLS, UNIQUE_TRAIT_SOURCE(src))
+	new_player.mind.recalculate_skills()
+
 	// register death handling.
 	register_player_signals(new_player)
 
