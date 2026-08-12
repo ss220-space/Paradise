@@ -1132,6 +1132,7 @@
 			"icon_state" = initial(item_ref.icon_state) || "",
 			"name" = initial(item_ref.name),
 		)))
+	data["ui_theme"] = "admin"
 	data["chameleon_skins"] = chameleon_skins
 	return data
 
