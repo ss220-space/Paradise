@@ -122,7 +122,7 @@
 	data["NGCR_power"] = power_kilowatts
 	data["NGCR_ambienttemp"] = air.temperature()
 	data["NGCR_ambientpressure"] = air.return_pressure()
-	data["NGCR_coefficient"] = active.reactivity_multiplier
+	data["NGCR_coefficient"] = active.reactivity_multiplier || 0
 	if(active.control_lockout)
 		data["NGCR_throttle"] = 0
 	else
