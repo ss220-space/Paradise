@@ -143,6 +143,16 @@ Made by Xhuis
 		if(jobban_isbanned(new_thrall_mind.current, ROLE_SHADOWLING) || jobban_isbanned(new_thrall_mind.current, ROLE_SYNDICATE))
 			replace_jobbanned_player(new_thrall_mind.current, ROLE_SHADOWLING)
 
+		var/datum/skill/best_skill = new_thrall_mind.get_highest_skill()
+		if(best_skill)
+			var/best_skill_name = best_skill::name
+			for(var/datum/mind/shadow_mind in shadows)
+				if(!shadow_mind.thrall_skill_bonuses)
+					shadow_mind.thrall_skill_bonuses = list()
+				shadow_mind.thrall_skill_bonuses[best_skill] = (shadow_mind.thrall_skill_bonuses[best_skill] || 0) + 1
+				shadow_mind.refresh_skills()
+				to_chat(shadow_mind.current, span_shadowling("Вы чувствуете, как знания вашего нового раба текут в вас. Вы стали лучше в навыке: [best_skill_name]."))
+
 		var/thralls = get_thralls()
 		var/victory_threshold = SSticker.mode.required_thralls
 
@@ -150,7 +160,6 @@ Made by Xhuis
 			for(var/mob/shadowling in GLOB.alive_mob_list)
 				if(!is_shadow(shadowling))
 					continue
-
 				to_chat(shadowling, span_shadowling("Ты чувствуешь нового раба под твоей волей. Тебе нужно [victory_threshold] рабов, но у тебя есть только [thralls] живых рабов."))
 
 		else if(thralls >= victory_threshold)
@@ -231,12 +240,13 @@ Made by Xhuis
 	shadows.Remove(ling_mind)
 	add_conversion_logs(ling_mind.current, "Deshadowlinged")
 	ling_mind.special_role = null
+	ling_mind.thrall_skill_bonuses = list()
 	for(var/obj/effect/proc_holder/spell/spell as anything in ling_mind.spell_list)
 		ling_mind.RemoveSpell(spell)
 	var/mob/living/M = ling_mind.current
 	if(issilicon(M))
 		M.audible_message(span_notice("[M] lets out a short blip."))
-		to_chat(M, span_userdanger("Тебя превратили в робота! Ты больше не теньлинг! Как бы ты ни старался, ты не можешь вспомнить ничего о том времени, когда ты был им..."))
+		to_chat(M, span_userdanger("Тебя превратили в робота! Ты больше не тенелинг! Как бы ты ни старался, ты не можешь вспомнить ничего о том времени, когда ты был им..."))
 	else
 		M.visible_message(
 			span_big("[M] кричит и корчится!"), \

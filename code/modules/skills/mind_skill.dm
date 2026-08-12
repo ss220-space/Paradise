@@ -76,6 +76,7 @@
 	var/list/cached_manual_skill_bonuses = manual_skill_bonuses
 	var/list/cached_selected_skills_levels = selected_skills_levels
 	var/list/cached_role_skill_bonuses = role_skill_bonuses
+	var/list/cached_thrall_skill_bonuses = thrall_skill_bonuses
 	for(var/skill_name, skill_datum in GLOB.skills)
 		var/datum/skill/skill = skill_datum
 		var/datum/skill/skill_type = skill.type
@@ -96,6 +97,9 @@
 			for(var/bonus_skill_type in antag.skill_bonuses)
 				if(bonus_skill_type == skill_type)
 					level = max(level, antag.skill_bonuses[bonus_skill_type])
+		if(cached_thrall_skill_bonuses && (skill_type in cached_thrall_skill_bonuses))
+			level += cached_thrall_skill_bonuses[skill_type]
+			level = min(level, SKILL_LEVEL_LEGEND)
 		if(skill_type in cached_selected_skills_levels)
 			level = clamp(level + cached_selected_skills_levels[skill_type], level, SKILL_LEVEL_LEGEND)
 		if(skill_type in cached_manual_bonuses)
@@ -153,3 +157,20 @@
 	var/job_free_skill_points = current_job?.base_free_skill_point || BASIC_SKILL_POINTS_COUNT
 	free_skill_points = job_free_skill_points + (is_antag? BASIC_ANTAG_SKILL_POINTS_BONUS : 0)
 
+/**
+ * Returns the typepath of the highest-level skill on this mind.
+ * Ties are resolved randomly. Returns null if the mind has no skills.
+ */
+/datum/mind/proc/get_highest_skill()
+	var/highest_level = 0
+	var/list/highest_skills = list()
+	for(var/skill_type in skills)
+		var/level = skills[skill_type]
+		if(level > highest_level)
+			highest_level = level
+			highest_skills = list(skill_type)
+		else if(level == highest_level && level > 0)
+			highest_skills += skill_type
+	if(!length(highest_skills))
+		return null
+	return pick(highest_skills)
