@@ -32,6 +32,8 @@ Made by Xhuis
 
 */
 
+#define THRALL_COMBAT_SKILL_BONUS 2
+
 /proc/is_thrall(mob/living/M)
 	return istype(M) && M.mind && SSticker?.mode && (M.mind in SSticker.mode.shadowling_thralls)
 
@@ -176,7 +178,29 @@ Made by Xhuis
 				new_sound = SSstation.announcer.get_rand_report_sound(),
 			)
 			log_game("Shadowling reveal. Powergame and validhunt allowed.")
+			for(var/datum/mind/thrall_mind in shadowling_thralls)
+				grant_thrall_combat_bonus(thrall_mind)
+		else if(victory_warning_announced)
+			grant_thrall_combat_bonus(new_thrall_mind)
 		return 1
+
+/**
+ * Grants the passed thrall a bonus to every combat skill.
+ * Called for all thralls when the shadowling victory warning is announced.
+ */
+/datum/game_mode/proc/grant_thrall_combat_bonus(datum/mind/thrall_mind)
+	var/static/list/combat_skills = list(
+		/datum/skill/combat/accuracy,
+		/datum/skill/combat/bows,
+		/datum/skill/combat/fists,
+		/datum/skill/combat/guns,
+		/datum/skill/combat/melee,
+	)
+	for(var/datum/skill/combat_skill_type as anything in combat_skills)
+		LAZYSET(thrall_mind.thrall_skill_bonuses, combat_skill_type, (thrall_mind.thrall_skill_bonuses[combat_skill_type] || 0) + THRALL_COMBAT_SKILL_BONUS)
+	thrall_mind.refresh_skills()
+	if(thrall_mind.current)
+		to_chat(thrall_mind.current, span_shadowling("Ты чувствуешь, как воля хозяев наполняет тебя силой. Твои боевые навыки возросли!"))
 
 /datum/game_mode/proc/remove_thrall(datum/mind/thrall_mind, kill = 0)
 	if(!istype(thrall_mind) || !(thrall_mind in shadowling_thralls) || !isliving(thrall_mind.current))
@@ -341,3 +365,5 @@ Made by Xhuis
 	required_thralls = clamp(thrall_scaling, 15, 25)
 	thrall_ratio = required_thralls / 15
 	warning_threshold = round(0.66 * required_thralls)
+
+#undef THRALL_COMBAT_SKILL_BONUS
