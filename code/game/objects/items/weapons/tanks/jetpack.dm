@@ -295,9 +295,10 @@
 	if(!user)
 		return FALSE
 
-	if(!skip_trails && user.alpha_get(ALPHA_SOURCE_NINJA) == standartize_alpha(NINJA_ALPHA_INVISIBILITY))
+	var/is_cloaked = HAS_TRAIT(user, TRAIT_NINJA_INVISIBILITY)
+	if(!skip_trails && is_cloaked)
 		configure_jetpack(skip_trails = TRUE)
-	else if(skip_trails && user.alpha_get(ALPHA_SOURCE_NINJA) != standartize_alpha(NINJA_ALPHA_INVISIBILITY))
+	else if(skip_trails && !is_cloaked)
 		configure_jetpack(skip_trails = FALSE)
 
 	return ..()

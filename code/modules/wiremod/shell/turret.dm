@@ -52,12 +52,8 @@
 
 /obj/machinery/porta_turret/integrated/update_icon_state()
 	. = ..()
-	if(lethal && icon_state == "[sprite_prefix]turretCover")
+	if(lethal && !raised && !raising && !(stat & BROKEN))
 		icon_state = "[sprite_prefix]turretCover_lethal"
-
-/obj/machinery/porta_turret/integrated/play_cover_animation(animation)
-	flick(animation, src)
-	sleep(10)
 
 /obj/machinery/porta_turret/integrated/ui_act(action, params)
 	. = ..()
@@ -69,7 +65,7 @@
 /obj/machinery/porta_turret/integrated/HasProximity(atom/movable/entity)
 	if(!enabled || (stat & (NOPOWER|BROKEN)))
 		return
-	if(entity.invisibility > SEE_INVISIBLE_LIVING || entity.alpha == NINJA_ALPHA_INVISIBILITY)
+	if(entity.invisibility > SEE_INVISIBLE_LIVING || HAS_TRAIT(entity, TRAIT_NINJA_INVISIBILITY))
 		return
 	SEND_SIGNAL(src, COMSIG_TURRET_DETECTED_TARGET, entity)
 
@@ -86,8 +82,9 @@
 
 /obj/machinery/porta_turret/integrated/shootAt(mob/living/target)
 	. = ..()
-	if(.)
-		SEND_SIGNAL(src, COMSIG_TURRET_SHOT_AT, target)
+	if(!.)
+		return
+	SEND_SIGNAL(src, COMSIG_TURRET_SHOT_AT, target)
 
 /datum/component/shell/turret/on_examine(atom/movable/source, mob/user, list/examine_text)
 	. = ..()

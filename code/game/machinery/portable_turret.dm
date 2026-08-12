@@ -11,6 +11,8 @@
 #define TURRET_BUILD_HATCH_CLOSED 6
 #define TURRET_BUILD_COATED 7
 
+#define TURRET_COVER_ANIMATION_TIME (1 SECONDS)
+
 /obj/machinery/porta_turret
 	name = "turret"
 	icon = 'icons/obj/machines/turrets.dmi'
@@ -109,7 +111,7 @@
 /obj/machinery/porta_turret/proc/handleInterloper(atom/movable/entity)
 	//message_admins("[entity] is in target range of [src]")
 
-	if(entity.invisibility > SEE_INVISIBLE_LIVING || entity.alpha == NINJA_ALPHA_INVISIBILITY) //Let's not do typechecks and stuff on invisible things
+	if(entity.invisibility > SEE_INVISIBLE_LIVING || HAS_TRAIT(entity, TRAIT_NINJA_INVISIBILITY)) //Let's not do typechecks and stuff on invisible things
 		return
 
 	var/static/valid_targets = typecacheof(list(/obj/mecha, /obj/spacepod, /obj/vehicle, /mob/living))
@@ -657,11 +659,11 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			return TRUE
 
 /obj/machinery/porta_turret/proc/play_cover_animation(animation)
-	var/atom/flick_holder = new /atom/movable/porta_turret_cover(loc)
-	flick_holder.layer = layer + 0.1
-	flick(animation, flick_holder)
-	sleep(10)
-	qdel(flick_holder)
+	flick_overlay_view(mutable_appearance(icon, animation), TURRET_COVER_ANIMATION_TIME)
+
+/obj/machinery/porta_turret/proc/finish_cover_animation(is_raised)
+	set_raised_raising(is_raised, FALSE)
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/porta_turret/proc/popUp()	//pops the turret up
 	if(disabled)
@@ -675,9 +677,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	update_icon(UPDATE_ICON_STATE)
 
 	play_cover_animation("[sprite_prefix]popup")
-
-	set_raised_raising(TRUE, FALSE)
-	update_icon(UPDATE_ICON_STATE)
+	addtimer(CALLBACK(src, PROC_REF(finish_cover_animation), TRUE), TURRET_COVER_ANIMATION_TIME)
 
 /obj/machinery/porta_turret/proc/popDown()	//pops the turret down
 	last_target = null
@@ -692,9 +692,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	update_icon(UPDATE_ICON_STATE)
 
 	play_cover_animation("[sprite_prefix]popdown")
-
-	set_raised_raising(FALSE, FALSE)
-	update_icon(UPDATE_ICON_STATE)
+	addtimer(CALLBACK(src, PROC_REF(finish_cover_animation), FALSE), TURRET_COVER_ANIMATION_TIME)
 
 /obj/machinery/porta_turret/on_assess_perp(mob/living/carbon/human/perp)
 	if((check_access || attacked) && !allowed(perp))
@@ -1029,10 +1027,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 /obj/machinery/porta_turret_construct/attack_ai()
 	return
 
-/atom/movable/porta_turret_cover
-	icon = 'icons/obj/machines/turrets.dmi'
-	anchored = TRUE
-
 // Syndicate turrets
 /obj/machinery/porta_turret/syndicate
 	projectile = /obj/projectile/bullet
@@ -1144,4 +1138,5 @@ GLOBAL_LIST_EMPTY(turret_icons)
 #undef TURRET_BUILD_PROX
 #undef TURRET_BUILD_HATCH_CLOSED
 #undef TURRET_BUILD_COATED
+#undef TURRET_COVER_ANIMATION_TIME
 
