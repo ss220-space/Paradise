@@ -33,6 +33,12 @@
 	var/obj/item/melee/energy_katana/my_katana
 	var/obj/item/stock_parts/cell/cell
 
+/datum/antagonist/ninja/New()
+	. = ..()
+	skill_bonuses = list(
+		/datum/skill/combat/melee = SKILL_LEVEL_EXPERT,
+	)
+
 /datum/antagonist/ninja/on_gain()
 	if(!owner?.current)
 		return FALSE
