@@ -122,7 +122,7 @@
 	data["NGCR_power"] = power_kilowatts
 	data["NGCR_ambienttemp"] = air.temperature()
 	data["NGCR_ambientpressure"] = air.return_pressure()
-	data["NGCR_coefficient"] = active.reactivity_multiplier || 0
+	data["NGCR_coefficient"] = active.reactivity_multiplier
 	if(active.control_lockout)
 		data["NGCR_throttle"] = 0
 	else
@@ -147,7 +147,7 @@
 		gas_info["name"] = gas
 		gas_info["amount"] = amount
 		gas_info["portion"] = round(100 * amount / max_moles, 0.01)
-		gas_info["desc"] = gas_data[gas].desc
+		gas_info["desc"] = gas_data[gas]?.desc
 		gasdata.Add(list(gas_info))
 	data["moderator_gasses"] = gasdata
 	data["controlling"] = controller
