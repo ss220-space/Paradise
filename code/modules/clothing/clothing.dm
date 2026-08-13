@@ -1107,8 +1107,7 @@
 	if(slot == ITEM_SLOT_CLOTH_OUTER)
 		if(isnull(original_slowdown))
 			original_slowdown = slowdown
-		CALCULATE_SKILL_MOD(user, SPACESUIT_SLOWDOWN_MOD, skill_factor)
-		slowdown = original_slowdown * skill_factor
+		slowdown = original_slowdown
 		if(jetpack)
 			for(var/datum/action/action as anything in jetpack.actions)
 				action.Grant(user)

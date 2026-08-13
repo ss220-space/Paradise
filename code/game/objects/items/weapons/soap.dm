@@ -209,8 +209,7 @@
 		user.balloon_alert(user, "снимите это с себя!")
 	else
 		user.visible_message(span_warning("[user] начина[PLUR_ET_YUT(user)] возить [declent_ru(INSTRUMENTAL)] по [target.declent_ru(DATIVE)]."))
-		CALCULATE_SKILL_MOD(user, CLEANING_SPEED_MOD, cleaning_skill_mod)
-		if(do_after(user, cleanspeed * cleaning_skill_mod, target))
+		if(do_after(user, cleanspeed, target))
 			to_chat(user, span_notice("Вы \"моете\" [target.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]."))
 			if(issimulatedturf(target))
 				new /obj/effect/decal/cleanable/blood/gibs/cleangibs(target)

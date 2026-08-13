@@ -1493,8 +1493,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(!HAS_TRAIT(attacker, TRAIT_MELEE_WEAPON))
 		return final_force
 
-	CALCULATE_SKILL_MOD(attacker, MELEE_DAMAGE_MOD, skill_mod)
-	return final_force * skill_mod
+	return final_force
 
 /// Returns the icon used for overlaying the object on a belt
 /obj/item/proc/get_belt_overlay()

@@ -93,8 +93,7 @@
 				span_notice("[user] начина[PLUR_ET_YUT(user)] чистить [declent_ru(ACCUSATIVE)]."),
 				span_notice("Вы начинаете чистить [declent_ru(ACCUSATIVE)]..."),
 			)
-			CALCULATE_SKILL_MOD(user, COOKING_SPEED_MOD, cooking_skill_mod)
-			if(!do_after(user, 2 SECONDS * I.toolspeed * cooking_skill_mod, src, category = DA_CAT_TOOL))
+			if(!do_after(user, 2 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL))
 				return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 			dirty = NO_DIRT // It's clean!
 			update_icon(UPDATE_ICON_STATE)
@@ -348,10 +347,9 @@
 /obj/machinery/kitchen_machine/proc/cook(mob/user)
 	if(use_power != NO_POWER_USE && stat & (NOPOWER|BROKEN))
 		return
-	CALCULATE_SKILL_MOD(user, COOKING_SPEED_MOD, cooking_skill_mod)
 	start()
 	if(reagents.total_volume==0 && !(locate(/obj) in contents)) //dry run
-		if(!wzhzhzh(10 * cooking_skill_mod))
+		if(!wzhzhzh(10))
 			abort()
 			return
 		stop()
@@ -364,36 +362,35 @@
 		//If there are multiple sources, this bit gets skipped.
 		if(can_be_dirty)
 			dirty += 1
-		CALCULATE_SKILL_MOD(user, COOKING_BROKE_MOD, broke_skill_mod)
-		var/broke_chance = max(10, dirty * 5) * broke_skill_mod //chance to get so dirty we require cleaning before next use
+		var/broke_chance = max(10, dirty * 5) //chance to get so dirty we require cleaning before next use
 		if(prob(broke_chance))
-			if(!wzhzhzh(4 * cooking_skill_mod))
+			if(!wzhzhzh(4))
 				abort()
 				return
 			muck_start()
-			wzhzhzh(4 * cooking_skill_mod)
+			wzhzhzh(4)
 			muck_finish()
 			fail()
 			return
 		else if(has_extra_item())	//if extra items present, break down and require repair before next use
-			if(!wzhzhzh(4 * cooking_skill_mod))
+			if(!wzhzhzh(4))
 				abort()
 				return
 			broke()
 			fail()
 			return
 		else	//otherwise just stop without requiring cleaning/repair
-			if(!wzhzhzh(10 * cooking_skill_mod))
+			if(!wzhzhzh(10))
 				abort()
 				return
 			stop()
 			fail()
 			return
 	else
-		if(!wzhzhzh(5 * cooking_skill_mod))
+		if(!wzhzhzh(5))
 			abort()
 			return
-		if(!wzhzhzh(5 * cooking_skill_mod))
+		if(!wzhzhzh(5))
 			abort()
 			fail()
 			return
@@ -441,9 +438,6 @@
 			source.reagents.clear_reagents()
 
 			var/actual_efficiency = efficiency
-			CALCULATE_SKILL_MOD(user, COOKING_EXTRA_COUNT_CHANCE, skill_addition_efficiency_chance)
-			if(prob(skill_addition_efficiency_chance))
-				actual_efficiency += 1
 
 			for(var/e in 1 to actual_efficiency)		//upgraded machine? make additional servings and split the ingredient reagents among each serving equally.
 				var/obj/cooked = new recipe.result()

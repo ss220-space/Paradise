@@ -89,10 +89,6 @@
 		JOB_MIN_AGE_COMMAND = 15,
 	)
 
-	max_select_skills = list(
-		/datum/skill/service/cleaning = 3,
-		/datum/skill/combat/accuracy = 1,
-	)
 
 /datum/species/moth/on_species_gain(mob/living/carbon/human/H)
 	. = ..()

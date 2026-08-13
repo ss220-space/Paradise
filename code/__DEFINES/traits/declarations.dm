@@ -635,4 +635,3 @@
 /// Trait given to objects with the wallmounted component
 #define TRAIT_WALLMOUNTED "wallmounted"
 
-#define TRAIT_HAS_ANTAG_SKILLS "has_antag_skills"

@@ -10,7 +10,6 @@
 GLOBAL_LIST_INIT(traits_by_type, list(
 	/datum/mind = list(
 		"TRAIT_BAD_SOUL" = TRAIT_BAD_SOUL,
-		"TRAIT_HAS_ANTAG_SKILLS" = TRAIT_HAS_ANTAG_SKILLS,
 		"TRAIT_HIJACK" = TRAIT_HIJACK,
 	),
 

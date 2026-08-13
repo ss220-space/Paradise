@@ -9053,12 +9053,6 @@
 /obj/effect/spawner/random_spawners/wall_rusted_30,
 /turf/simulated/wall/rust,
 /area/station/maintenance/engineering)
-"bVD" = (
-/obj/machinery/computer/skill_manuals,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/station/service/library)
 "bVG" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -159851,7 +159845,7 @@ sxo
 paL
 rux
 psQ
-bVD
+lxJ
 oWw
 rVJ
 xZy

@@ -271,8 +271,6 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 
 	var/list/del_types = list(/obj/item/pda, /obj/item/radio/headset)
 	var/use_antag_skills = FALSE
-	var/skills_ref_job
-	var/alist/skills
 
 /obj/effect/mob_spawn/human/Initialize(mapload)
 	if(ispath(outfit))
@@ -426,12 +424,6 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 			W.assignment = id_job
 		W.registered_name = H.real_name
 		W.update_label()
-
-/obj/effect/mob_spawn/human/after_possess(mob/living/carbon/human/H)
-	H.mind.job_alt_skills = skills?.Copy()
-	if(use_antag_skills)
-		ADD_TRAIT(H.mind, TRAIT_HAS_ANTAG_SKILLS, UNIQUE_TRAIT_SOURCE(src))
-	H.mind.refresh_skills(ref_job = skills_ref_job)
 
 /obj/effect/mob_spawn/human/special(mob/living/carbon/human/H)
 	if(!HAS_TRAIT(H, TRAIT_NO_DNA))

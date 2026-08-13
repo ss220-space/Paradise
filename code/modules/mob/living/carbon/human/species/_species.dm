@@ -279,33 +279,6 @@
 
 	var/max_radiation = CARBON_MAX_RADIATION //! Maximum radiation species can hold
 
-	/// How many free skill points can be select for specific skill
-	var/list/max_select_skills = list(
-		/datum/skill/general/carrying = 2,
-		/datum/skill/general/mech_drive = 2,
-		/datum/skill/general/mod_use = 2,
-		/datum/skill/general/cooking = 2,
-		/datum/skill/service/drink_mixing = 2,
-		/datum/skill/service/botany = 2,
-		/datum/skill/service/cleaning = 2,
-		/datum/skill/combat/accuracy = 2,
-		/datum/skill/combat/guns = 2,
-		/datum/skill/combat/melee = 2,
-		/datum/skill/combat/fists = 2,
-		/datum/skill/engineering/building = 2,
-		/datum/skill/engineering/construction = 2,
-		/datum/skill/engineering/electrician = 2,
-		/datum/skill/engineering/atmos = 2,
-		/datum/skill/medical/surgery = 2,
-		/datum/skill/medical/heal = 2,
-		/datum/skill/medical/chemistry = 2,
-		/datum/skill/medical/genetic = 2,
-		/datum/skill/medical/virusology = 2,
-		/datum/skill/research/research = 2,
-		/datum/skill/research/protolathe = 2,
-		/datum/skill/research/robotics = 2,
-		/datum/skill/research/xenobiology = 2,
-	)
 	var/bonus_skill_free_points = 0
 
 /datum/species/New()
@@ -648,8 +621,6 @@
 			delta += addition
 
 		var/damage = rand(user.dna.species.punchdamagelow + user.physiology.punch_damage_low, user.dna.species.punchdamagehigh + user.physiology.punch_damage_high) + delta
-		CALCULATE_SKILL_MOD(user, FISTS_DAMAGE_MOD, skill_mod)
-		damage *= skill_mod
 		damage += attack.damage
 		if(!damage)
 			playsound(target.loc, attack.miss_sound, 25, TRUE, -1)
@@ -729,8 +700,7 @@
 			var/obj/item/clothing/gloves/gloves = user.gloves
 			extra_knock_chance = gloves.extra_knock_chance
 	var/knockdown_chance = 5 + extra_knock_chance
-	CALCULATE_SKILL_MOD(user, FISTS_DISARM_MOD, disarm_skill_mod)
-	if(randn <= knockdown_chance * disarm_skill_mod)
+	if(randn <= knockdown_chance)
 		target.apply_effect(4 SECONDS, KNOCKDOWN, target.run_armor_check(affecting, MELEE))
 		playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 		target.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] толка[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)]!"))
@@ -787,13 +757,13 @@
 				return TRUE
 
 	var/moved = TRUE
-	var/shove_move_chance = 25 * disarm_skill_mod
+	var/shove_move_chance = 25
 	if(target.a_intent == INTENT_HELP || prob(shove_move_chance)) // Chance to move with shove
 		moved = target.Move(shove_to, shove_dir)
 
 	SEND_SIGNAL(target, COMSIG_HUMAN_DISARM_HIT, user, target)
 	if(!moved) //they got pushed into a dense object
-		var/wall_hit_disarm_chance = 75 * disarm_skill_mod
+		var/wall_hit_disarm_chance = 75
 		if(prob(wall_hit_disarm_chance)) // Chance to knockdown on wall hit
 			add_attack_logs(user, target, "Disarmed into a dense object", ATKLOG_ALL)
 			target.visible_message(
@@ -808,7 +778,7 @@
 				target.Stun(0.5 SECONDS)
 	else
 		var/obj/item/I = target.get_active_hand()
-		var/disarm_chance = 40 * disarm_skill_mod
+		var/disarm_chance = 40
 		if(I && prob(disarm_chance)) // Chance to disarm target item
 			target.drop_from_active_hand()
 			add_attack_logs(user, target, "Disarmed object out of hand", ATKLOG_ALL)
