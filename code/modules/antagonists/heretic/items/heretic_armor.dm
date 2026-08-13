@@ -218,7 +218,6 @@
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF | LAVA_PROOF | FREEZE_PROOF
 	heat_protection = FULL_BODY
 	max_heat_protection_temperature = 50000
-	cold_protection = FULL_BODY
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	actions_types = list(/datum/action/item_action/toggle, /datum/action/item_action/toggle_flames)
 	/// If our robes are actively generating flames on the wearer.

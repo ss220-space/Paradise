@@ -199,11 +199,11 @@ export class Changelog extends Component<Props, State> {
         <h1>Dark Paradise</h1>
         <p>
           <b>Thanks to: </b>
-          Paradise Station, Baystation 12, /tg/station, /vg/station, NTstation, CDK Station devs,
-          FacepunchStation, GoonStation devs, the original SpaceStation
-          developers and Radithor for the title image. Also a thanks to anybody
-          who has contributed who is not listed here :( Ask to be added here on
-          irc.
+          Paradise Station, Baystation 12, /tg/station, /vg/station, NTstation,
+          CDK Station devs, FacepunchStation, GoonStation devs, the original
+          SpaceStation developers and Radithor for the title image. Also a
+          thanks to anybody who has contributed who is not listed here :( Ask to
+          be added here on irc.
         </p>
         <p>
           {'Recent GitHub contributors can be found '}
