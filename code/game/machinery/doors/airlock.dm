@@ -108,7 +108,6 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
 	// This code allows for airlocks to be controlled externally by setting an id_tag and comm frequency (disables ID access)
 	var/id_tag
-	var/shockedby = list()
 	///the command the door is currently attempting to complete
 	var/cur_command = null
 	var/heat_resistance = 1500

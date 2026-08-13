@@ -18,6 +18,10 @@ SUBSYSTEM_DEF(http)
 	. = ..()
 	rustg_create_async_http_client() // Open the door
 
+/datum/controller/subsystem/http/Shutdown()
+	. = ..()
+	rustg_close_async_http_client() // Close the HTTP client. If you dont do this, youll get phantom threads which can crash DD from memory access violations
+
 /datum/controller/subsystem/http/get_stat_details()
 	return "P: [length(active_async_requests)] | T: [total_requests]"
 
