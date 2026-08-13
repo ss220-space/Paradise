@@ -320,7 +320,7 @@ SUBSYSTEM_DEF(tts)
 		whisper = TRUE
 
 	var/hash = rustg_hash_string(RUSTG_HASH_MD5, lowertext(text))
-	var/filename = "data/tts_cache/[seed.name]/[hash]"
+	var/filename = "data/tts_cache/[seed.value]/[hash]"
 
 	if(fexists("[filename].ogg"))
 		tts_reused++
