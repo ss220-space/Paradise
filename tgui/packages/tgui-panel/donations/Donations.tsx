@@ -70,11 +70,13 @@ export const Donations = (props: unknown) => {
             <Stack.Item style={{ textAlign: 'center' }}>
               <Section fitted noTopPadding fill title="Поддержать сервер">
                 <Stack fill style={{ justifyContent: 'center' }}>
-                  <Stack.Item>
-                    <a href={kofiRef}>
-                      <Box className="Donation_Image Kofi__Image" />
-                    </a>
-                  </Stack.Item>
+                  {!!kofiRef && (
+                    <Stack.Item>
+                      <a href={kofiRef}>
+                        <Box className="Donation_Image Kofi__Image" />
+                      </a>
+                    </Stack.Item>
+                  )}
                   <Stack.Item>
                     <a href={boostyRef}>
                       <Box className="Donation_Image Boosty__Image" />

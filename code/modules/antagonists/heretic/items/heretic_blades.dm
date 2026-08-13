@@ -563,10 +563,6 @@
 	)
 
 
-/obj/item/melee/sickly_blade/cursed/add_parry_component()
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
-
-
 /obj/item/melee/sickly_blade/cursed/Initialize(mapload)
 	. = ..()
 
@@ -629,10 +625,6 @@
 		INSTRUMENTAL = "латунным клинком",
 		PREPOSITIONAL = "латунном клинке",
 	)
-
-
-/obj/item/melee/sickly_blade/brass/add_parry_component()
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 
 /obj/item/melee/sickly_blade/brass/click_alt(mob/user)

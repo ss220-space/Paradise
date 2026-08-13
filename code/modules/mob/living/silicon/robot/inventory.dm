@@ -39,7 +39,7 @@
 			A.Remove(src)
 
 	if(module_active == O)
-		if(istype(module_active, /obj/item/borg/destroyer/mobility))
+		if(iscyborgmobilitymodule(module_active))
 			remove_movespeed_modifier(/datum/movespeed_modifier/destroyer_mobility)
 		module_active = null
 	if(module_state_1 == O)
@@ -221,7 +221,8 @@
 				inv3.icon_state = "inv3 +a"
 				module_active = module_state_3
 
-	if(istype(module_active, /obj/item/borg/destroyer/mobility))
+	if(iscyborgmobilitymodule(module_active))
+		eject_riders_harmfull()
 		add_movespeed_modifier(/datum/movespeed_modifier/destroyer_mobility)
 	update_icons()
 
@@ -230,7 +231,7 @@
 	if(module < 1 || module > 3)
 		return
 
-	if(istype(module_active, /obj/item/borg/destroyer/mobility))
+	if(iscyborgmobilitymodule(module_active))
 		remove_movespeed_modifier(/datum/movespeed_modifier/destroyer_mobility)
 
 	switch(module)

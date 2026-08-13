@@ -36,6 +36,9 @@
 	/// Whether we can pick this shell by clicking on it with the ammo box
 	var/can_be_box_inserted = TRUE
 
+	var/speed_modifier = 1
+	var/range_modifier = 1
+
 	/// What type of muzzle flash effect will be shown. If null then no effect and flash of light will be shown
 	var/muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash
 	/// What color the flash has. If null then the flash won't cause lighting

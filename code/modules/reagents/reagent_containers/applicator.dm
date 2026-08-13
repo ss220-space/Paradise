@@ -106,7 +106,7 @@
 
 	var/protection = 0
 	if(!ignore_flags)
-		if(!target.can_inject(user, FALSE))
+		if(!target.can_inject(user, TRUE))
 			return .
 
 		if(ishuman(target))
@@ -140,8 +140,7 @@
 	var/cycle_count = 0
 
 	var/measured_health = 0
-	CALCULATE_SKILL_MOD(user, HEAL_DURATION_MOD, skill_duration_mod)
-	var/cycle_delay = (2 - reacting_to_applied_ratio) * (1 SECONDS) * skill_duration_mod
+	var/cycle_delay = (2 - reacting_to_applied_ratio) * (1 SECONDS)
 	while(do_after(user, cycle_delay, target))
 		measured_health = target.health
 		apply_to(target, user, 1, FALSE, def_zone)

@@ -131,6 +131,8 @@
 #define TRAIT_HEALS_FROM_HOLY_PYLONS "heals_from_holy_pylons"
 /// This mob heals from bingle holes.
 #define TRAIT_HEALS_FROM_BINGLE_HOLES "heals_from_bingle_holes"
+#define TRAIT_CULT_VEIL_SIGHT "cult_veil_sight"
+#define TRAIT_CULT_CONCEALED "cult_concealed"
 
 #define TRAIT_LASEREYES "laser_eyes"	//traits that should be properly converted to genetic mutations one day
 /// Forces the user to stay unconscious.
@@ -679,5 +681,3 @@
 /// Trait given to objects with the wallmounted component
 #define TRAIT_WALLMOUNTED "wallmounted"
 
-/// Makes an item active, this is generally used by energy based weapons or toggle based items.
-#define TRAIT_ITEM_ACTIVE "item_active"

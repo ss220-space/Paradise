@@ -464,8 +464,7 @@ GLOBAL_LIST_EMPTY(closets)
 			to_chat(user, span_warning("Вам не под силу разрезать [declent_ru(ACCUSATIVE)]!"))
 			return
 		WELDER_ATTEMPT_SLICING_MESSAGE
-		CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
-		if(used.use_tool(src, user, 4 SECONDS * construction_mod, volume = used.tool_volume))
+		if(used.use_tool(src, user, 4 SECONDS, volume = used.tool_volume))
 			WELDER_SLICING_SUCCESS_MESSAGE
 			deconstruct(TRUE)
 			return
@@ -478,8 +477,7 @@ GLOBAL_LIST_EMPTY(closets)
 			span_notice("You begin welding [src] [adjective]..."),
 			span_warning("You hear welding.")
 		)
-		CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
-		if(used.use_tool(src, user, 1.5 SECONDS * construction_mod, volume = used.tool_volume))
+		if(used.use_tool(src, user, 1.5 SECONDS, volume = used.tool_volume))
 			if(opened)
 				to_chat(user, span_notice("Keep [src] shut while doing that!"))
 				return

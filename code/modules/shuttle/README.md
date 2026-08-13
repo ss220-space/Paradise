@@ -22,9 +22,9 @@ This folder belongs to the "shuttle" system. The shuttle system is used to contr
 "Shuttles" on the map, which are, at their core, a rectangular area of turfs that "move".
 
 The shuttle system is comprised of two primary files.
-[`shuttle.dm`](http://github.com/ParadiseSS13/Paradise/blob/master/code/modules/shuttle/shuttle.dm),
+[`shuttle.dm`](https://github.com/KINGDICE666/DarkParadise/blob/master220/code/modules/shuttle/shuttle.dm),
 which contains the primary code, and
-[`shuttles.dm`](http://github.com/ParadiseSS13/Paradise/blob/master/code/controllers/Process/shuttles.dm)
+[`shuttles.dm`](https://github.com/KINGDICE666/DarkParadise/blob/master220/code/controllers/Process/shuttles.dm)
 which contains the back-end controller system.
 There are a few other files, but it isn't worth noting on.
 

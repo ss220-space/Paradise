@@ -110,7 +110,6 @@
 	description = "Проводите медицинские опыты сомнительного содержания. Вылечивайте своих коллег, которые опять поссорились с генералом Синди, или оживляйте неудачливых космических путников, для допросов или киборгизации. Даже \"Синдикату\" нужны врачи!"
 	outfit = /datum/outfit/space_base_syndicate/medic
 	assignedrole = JOB_TITLE_TAIPAN_MEDIC
-	skills_ref_job = JOB_TITLE_DOCTOR
 
 /datum/outfit/space_base_syndicate/medic
 	name = "Space Base Syndicate Medic"
@@ -133,7 +132,6 @@
 	description = "Выращивайте сомнительные растения. Помогите повару накормить экипаж, а учёным — создать опаснейшие растения! Наслаждайтесь силой природы в руках \"Синдиката\"!"
 	outfit = /datum/outfit/space_base_syndicate/botanist
 	assignedrole = JOB_TITLE_TAIPAN_BOTANIST
-	skills_ref_job = JOB_TITLE_BOTANIST
 
 /datum/outfit/space_base_syndicate/botanist
 	name = "Space Base Syndicate Botanist"
@@ -151,7 +149,6 @@
 	flavour_text = "Вы — грузчик \"Синдиката\", работающий на сверхсекретной научно-наблюдательной станции Тайпан, занимающейся созданием биооружия и взаимодействием с чёрным рынком. К несчастью, ваш самый главный враг, компания \"Нанотрейзен\", имеет собственную массивную научную базу в вашем секторе. Работайте с грузами, заказывайте всё, что может потребоваться станции или вам и зарабатывайте реальные деньги, а не виртуальные очки!"
 	outfit = /datum/outfit/space_base_syndicate/cargotech
 	assignedrole = JOB_TITLE_TAIPAN_CARGO
-	skills_ref_job = JOB_TITLE_CARGOTECH
 
 /datum/outfit/space_base_syndicate/cargotech
 	name = "Space Base Syndicate Cargo Technician"
@@ -169,7 +166,6 @@
 	flavour_text = "Вы — повар \"Синдиката\", работающий на сверхсекретной научно-наблюдательной станции Тайпан, занимающейся созданием биооружия и взаимодействием с чёрным рынком. К несчастью, ваш самый главный враг, компания \"Нанотрейзен\", имеет собственную массивную научную базу в вашем секторе. Готовьте еду и напитки экипажу и постарайтесь не высовываться!"
 	outfit = /datum/outfit/space_base_syndicate/chef
 	assignedrole = JOB_TITLE_TAIPAN_CHEF
-	skills_ref_job = JOB_TITLE_CHEF
 
 /obj/effect/mob_spawn/human/space_base_syndicate/chef/special(mob/living/carbon/human/H)
 	. = ..()
@@ -193,7 +189,6 @@
 	outfit = /datum/outfit/space_base_syndicate/engineer
 	assignedrole = JOB_TITLE_TAIPAN_ENGINEER
 	exp_type = EXP_TYPE_ENGINEERING
-	skills_ref_job = JOB_TITLE_ATMOSTECH
 
 /datum/outfit/space_base_syndicate/engineer
 	name = "Space Base Syndicate Engineer"
@@ -217,7 +212,6 @@
 	assignedrole = JOB_TITLE_TAIPAN_COMMS
 	min_hours = 50
 	exp_type = EXP_TYPE_COMMAND
-	skills_ref_job = JOB_TITLE_CAPTAIN
 
 /datum/outfit/space_base_syndicate/comms
 	name = "Space Base Syndicate Comms Officer"
@@ -244,7 +238,6 @@
 	assignedrole = JOB_TITLE_TAIPAN_RD
 	min_hours = 50
 	exp_type = EXP_TYPE_SCIENCE
-	skills_ref_job = JOB_TITLE_RD
 
 /datum/outfit/space_base_syndicate/rd
 	name = "Space Base Syndicate Research Director"

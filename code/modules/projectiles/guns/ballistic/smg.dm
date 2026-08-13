@@ -4,7 +4,6 @@
 	base_pixel_x = -8
 	accuracy = GUN_ACCURACY_RIFLE_EXTEND_SPREAD
 	recoil = GUN_RECOIL_MEDIUM
-	weapon_weight = WEAPON_HEAVY
 	gun_firemode_list = list(GUN_FIREMODE_SEMIAUTO, GUN_FIREMODE_BURSTFIRE, GUN_FIREMODE_AUTOMATIC)
 
 	/// Exists chambered light indicator in gun
@@ -93,7 +92,7 @@
 	desc = "Новейшая модификация автоматического пистолет-пулемёта \"C-20r\" под .45 калибр. Отличается высоким темпом стрельбы в автоматическом режиме."
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_LOW
-	fire_delay = 0.25 SECONDS
+	fire_delay = 0.2 SECONDS
 
 /obj/item/gun/projectile/automatic/smg/c20r/auto/get_ru_names()
 	return alist(
@@ -109,6 +108,7 @@
 	name = "C-20r SMG (Rusted)"
 	desc = "A .45 SMG, designated 'C-20r'. Has a 'Scarborough Arms - Per falcis, per pravitas' buttstamp. Looks rusty."
 	damage_mod = 0.85
+	fire_delay = 0.3 SECONDS
 
 /obj/item/gun/projectile/automatic/smg/c20r/rusted/get_ru_names()
 	return alist(
@@ -131,6 +131,7 @@
 	desc = "An outdated personal defense weapon utilized by law enforcement. Chambered in 4.6x30mm."
 	icon_state = "wt550"
 	item_state = "arg"
+	fire_delay = 0.25 SECONDS
 	accuracy = GUN_ACCURACY_RIFLE_EXTEND_SPREAD
 	mag_type = /obj/item/ammo_box/magazine/wt550m9
 	fire_sound = 'sound/weapons/gunshots/1wt.ogg'
@@ -191,7 +192,6 @@
 	)
 	starting_attachment_types = list(/obj/item/gun_module/stock, /obj/item/gun_module/muzzle/suppressor/integrated)
 	gun_firemode_list = list(GUN_FIREMODE_SEMIAUTO, GUN_FIREMODE_BURSTFIRE)
-	fire_delay = 0.2 SECONDS
 	damage_mod = 0.7
 	chambered_light_exists = TRUE
 	mag_ammo_counter_exists = TRUE
@@ -220,9 +220,10 @@
 		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 18, ATTACHMENT_OFFSET_Y = 7),
 		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 12),
 	)
-	weapon_weight = WEAPON_LIGHT
+	fire_delay = 0.2 SECONDS
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_LOW
+	weapon_weight = WEAPON_LIGHT
 
 // MARK: Tommy Gun
 /obj/item/gun/projectile/automatic/tommygun
@@ -246,6 +247,7 @@
 	icon_state = "sfg-5"
 	item_state = "arg"
 	mag_type = /obj/item/ammo_box/magazine/sfg9mm
+	fire_delay = 0.25 SECONDS
 	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
@@ -299,6 +301,7 @@
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	weapon_weight = WEAPON_LIGHT
+	fire_delay = 0.25 SECONDS
 	accuracy = GUN_ACCURACY_RIFLE
 	recoil = GUN_RECOIL_MEDIUM
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_SMG_STOCK

@@ -908,8 +908,7 @@ GLOBAL_LIST_INIT(human_tlv, list(
 	if(!I.tool_start_check(src, user, 0))
 		return
 	CROWBAR_ATTEMPT_PRY_CIRCUIT_MESSAGE
-	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
-	if(!I.use_tool(src, user, 2 SECONDS * construction_mod, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
 		return
 	if(buildstage != AIR_ALARM_BUILD_CIRCUIT)
 		return

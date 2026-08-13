@@ -1946,6 +1946,54 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	access = ACCESS_CE
 	required_tech = list(RESEARCH_TREE_POWERSTORAGE = 4, RESEARCH_TREE_MAGNETS = 4, RESEARCH_TREE_MATERIALS = 3)
 
+/datum/supply_packs/engineering/nuclear_supermatter_rod
+	name = "Nuclear Supermatter Rod Crate"
+	contains = list(
+		/obj/item/nuclear_rod/fuel/supermatter,
+		/obj/item/nuclear_rod/fuel/supermatter,
+	)
+	cost = 80
+	containertype = /obj/structure/closet/crate/secure/engineering
+	containername = "nuclear supermatter rod crate"
+
+/datum/supply_packs/engineering/nuclear_supermatter_kit
+	name = "Nuclear Supermatter Rods Starter Crate"
+	contains = list(
+		/obj/item/nuclear_rod/fuel/supermatter,
+		/obj/item/nuclear_rod/fuel/supermatter,
+		/obj/item/nuclear_rod/coolant/steam_hammerjet,
+		/obj/item/nuclear_rod/coolant/steam_hammerjet,
+		/obj/item/nuclear_rod/moderator/plasma_agitator,
+		/obj/item/nuclear_rod/moderator/plasma_agitator,
+	)
+	cost = 150
+	containertype = /obj/structure/closet/crate/secure/engineering
+	containername = "nuclear supermatter starter crate"
+
+/datum/supply_packs/engineering/nuclear_moderator_rods
+	name = "Forged Nuclear Moderator crate"
+	contains = list(
+		/obj/item/nuclear_rod/moderator/plasma_agitator,
+		/obj/item/nuclear_rod/moderator/plasma_agitator,
+		/obj/item/nuclear_rod/moderator/aluminum_reflector,
+		/obj/item/nuclear_rod/moderator/aluminum_reflector,
+	)
+	cost = 90
+	containertype = /obj/structure/closet/crate/secure/engineering
+	containername = "Forged Nuclear Moderator crate"
+
+/datum/supply_packs/engineering/nuclear_coolant_rods
+	name = "Forged Nuclear Coolant crate"
+	contains = list(
+		/obj/item/nuclear_rod/coolant/steam_hammerjet,
+		/obj/item/nuclear_rod/coolant/steam_hammerjet,
+		/obj/item/nuclear_rod/coolant/molten_salt,
+		/obj/item/nuclear_rod/coolant/molten_salt,
+	)
+	cost = 100
+	containertype = /obj/structure/closet/crate/secure/engineering
+	containername = "Forged Nuclear Coolant crate"
+
 /datum/supply_packs/engineering/inflatable
 	name = "Надувные заграждения"
 	contains = list(
@@ -4147,7 +4195,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/crate/critter/cat
 	contains = list(
 		/obj/item/clothing/accessory/petcollar,
-		/obj/item/toy/cattoy,
+		/obj/item/toy/plushie/cattoy,
 	)
 	containername = "ящик с кошкой"
 	container_ru_names = alist(
@@ -5728,7 +5776,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 15
 	contains = list(
 		/obj/item/circuitboard/machine/crematorium,
-		/obj/item/toy/plushie/orange_fox,
+		/obj/item/toy/plushie/fox/orange,
 	)
 	containername = "ящик деталей крематория"
 	container_ru_names = alist(
@@ -6178,26 +6226,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		ACCUSATIVE = "ящик наборов пополнения Кастоматов",
 		INSTRUMENTAL = "ящиком наборов пополнения Кастоматов",
 		PREPOSITIONAL = "ящике наборов пополнения Кастоматов",
-	)
-
-/datum/supply_packs/vending/manuals
-	name = "Набор различных руководств"
-	contains = list(
-		/obj/item/book/skill_manual/general/random,
-		/obj/item/book/skill_manual/general/random,
-		/obj/item/book/skill_manual/general/random,
-		/obj/item/book/skill_manual/general/random,
-		/obj/item/book/skill_manual/general/random,
-	)
-	credits_cost = 5000
-	containername = "ящик различных руководств"
-	container_ru_names = alist(
-		NOMINATIVE = "ящик различных руководств",
-		GENITIVE = "ящика различных руководств",
-		DATIVE = "ящику различных руководств",
-		ACCUSATIVE = "ящик различных руководств",
-		INSTRUMENTAL = "ящиком различных руководств",
-		PREPOSITIONAL = "ящике различных руководств",
 	)
 
 //////////////////////////////////////////////////////////////////////////////
@@ -6744,24 +6772,4 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		ACCUSATIVE = "ящик с пистолетом пулеметом \"Узи\"",
 		INSTRUMENTAL = "ящиком с пистолетом пулеметом \"Узи\"",
 		PREPOSITIONAL = "ящике с пистолетом пулеметом \"Узи\"",
-	)
-
-/datum/supply_packs/contraband/neurotrainers
-	name = "Случайные нейротренеры навыков"
-	contains = list(
-		/obj/item/neurotrainer/random,
-		/obj/item/neurotrainer/random,
-		/obj/item/neurotrainer/random,
-	)
-	credits_cost = 50000
-	containertype = /obj/structure/closet/crate/syndicate
-	required_tech = list(RESEARCH_TREE_ILLEGAL = 3, RESEARCH_TREE_BIOTECH = 7, RESEARCH_TREE_MAGNETS = 5)
-	containername = "ящик со случайными нейротренерами навыков"
-	container_ru_names = alist(
-		NOMINATIVE = "ящик со случайными нейротренерами навыков",
-		GENITIVE = "ящика со случайными нейротренерами навыков",
-		DATIVE = "ящику со случайными нейротренерами навыков",
-		ACCUSATIVE = "ящик со случайными нейротренерами навыков",
-		INSTRUMENTAL = "ящиком со случайными нейротренерами навыков",
-		PREPOSITIONAL = "ящике со случайными нейротренерами навыков",
 	)

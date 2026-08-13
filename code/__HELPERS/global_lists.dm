@@ -220,36 +220,6 @@
 
 	init_dice_rolls()
 
-	// Init list for skills
-	init_datum_subtypes(/datum/skill, GLOB.skills, null, "name")
-
-	var/list/banned_skill_books = list(
-		/obj/item/book/skill_manual/random,
-		/obj/item/book/skill_manual/general,
-		/obj/item/book/skill_manual/general/random,
-		/obj/item/book/skill_manual/service,
-		/obj/item/book/skill_manual/service/random,
-		/obj/item/book/skill_manual/combat,
-		/obj/item/book/skill_manual/combat/random,
-		/obj/item/book/skill_manual/engineering,
-		/obj/item/book/skill_manual/engineering/random,
-		/obj/item/book/skill_manual/medical,
-		/obj/item/book/skill_manual/medical/random,
-		/obj/item/book/skill_manual/research,
-		/obj/item/book/skill_manual/research/random,
-	)
-	GLOB.skill_manual_types = subtypesof(/obj/item/book/skill_manual) - banned_skill_books
-
-	GLOB.skill_neurotrainers = subtypesof(/obj/item/neurotrainer) - GLOB.skill_neurotrainer_blacklist
-
-	var/list/banned_skill_types = list(
-		/datum/skill/general,
-		/datum/skill/service,
-		/datum/skill/combat,
-		/datum/skill/medical,
-		/datum/skill/research,
-	)
-	GLOB.skill_types = subtypesof(/datum/skill) - banned_skill_types
 
 /**
  * Creates every subtype of a given prototype (excluding the prototype itself) and adds them to a list
@@ -371,7 +341,7 @@
 		EQUIPMENT("Industrial Mining Charge", /obj/item/grenade/plastic/miningcharge, 500),
 		EQUIPMENT("Whetstone", /obj/item/whetstone, 500),
 		EQUIPMENT("Fulton Pack", /obj/item/extraction_pack, 1500),
-		EQUIPMENT("Jaunter", /obj/item/wormhole_jaunter, 900),
+		EQUIPMENT("Jaunter", /obj/item/wormhole_jaunter, 2000),
 		EQUIPMENT("Chasm Jaunter Recovery Grenade", /obj/item/grenade/jaunter_grenade, 3000), // fishing rod supremacy
 		EQUIPMENT("Lazarus Injector", /obj/item/lazarus_injector, 600),
 		EQUIPMENT("Point Transfer Card (500)", /obj/item/card/mining_point_card, 500),

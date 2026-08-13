@@ -1,0 +1,3 @@
+version: 1
+security:
+  trusted: true

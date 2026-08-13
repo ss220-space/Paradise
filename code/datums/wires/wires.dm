@@ -23,7 +23,6 @@
 	var/window_x = 300
 	/// The height of the wire TGUI window. Will get longer as needed, based on the `wire_count`.
 	var/window_y = 100
-	var/datum/skill/skill_type = /datum/skill/engineering/electrician
 
 /datum/wires/New(atom/_holder)
 	..()
@@ -125,7 +124,6 @@
 /datum/wires/ui_data(mob/user)
 	var/list/data = list()
 	var/list/replace_colors
-	GET_SKILL_LEVEL(user, skill_type, skill_level)
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -155,16 +153,10 @@
 			"attached" = is_attached(color) // Whether or not a signaler is attached to this wire.
 		))
 	data["wires"] = wires_list
-	if(skill_level < SKILL_LEVEL_BEGINNER)
-		shuffle(wires_list)
 
 	// Get the information shown at the bottom of wire TGUI window, such as "The red light is blinking", etc.
 	// If the user is colorblind, we need to replace these colors as well.
-	var/list/status
-	if(skill_level < SKILL_LEVEL_BASIC)
-		status = list()
-	else
-		status = get_status()
+	var/list/status = get_status()
 
 	if(replace_colors)
 		var/i
@@ -267,10 +259,6 @@
 /datum/wires/proc/can_see_wire_info(mob/user)
 	if(user.can_admin_interact())
 		return TRUE
-	GET_SKILL_LEVEL(user, skill_type, skill_level)
-	if(skill_level >= SKILL_LEVEL_PROFESSIONAL)
-		return TRUE
-
 	if(ismultitool(user.get_active_hand()))
 		var/obj/item/multitool/M = user.get_active_hand()
 		if(M.shows_wire_information)

@@ -25,11 +25,6 @@
 /obj/machinery/light/floor,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
-"fC" = (
-/obj/structure/table,
-/obj/item/storage/box/syringes,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "gL" = (
 /obj/structure/stairs{
 	dir = 8
@@ -121,19 +116,6 @@
 /obj/spacepod/sec,
 /turf/space,
 /area/space)
-"wV" = (
-/obj/machinery/computer/pandemic,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
-"xk" = (
-/obj/structure/table,
-/obj/item/reagent_containers/glass/beaker,
-/obj/item/reagent_containers/glass/beaker,
-/obj/item/reagent_containers/glass/beaker,
-/obj/item/reagent_containers/glass/beaker,
-/obj/item/reagent_containers/glass/beaker,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "xL" = (
 /obj/effect/turf_decal/arrows/black{
 	dir = 8
@@ -155,11 +137,6 @@
 "An" = (
 /turf/simulated/openspace,
 /area/fastload/purple)
-"AM" = (
-/obj/structure/table,
-/obj/item/reagent_containers/dropper,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "AX" = (
 /obj/effect/turf_decal/arrows/black{
 	dir = 4
@@ -237,15 +214,14 @@
 /obj/structure/ladder,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
-"Tz" = (
-/obj/item/radio/intercom/directional/north,
-/obj/machinery/smartfridge/secure/chemistry/virology/preloaded,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "Uj" = (
 /obj/effect/turf_decal/arrows/black{
 	dir = 8
 	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"VP" = (
+/obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
 "Xa" = (
@@ -2550,7 +2526,7 @@ ay
 ay
 ay
 jk
-Tz
+VP
 HE
 HE
 HE
@@ -2682,7 +2658,7 @@ ay
 ay
 ay
 jk
-wV
+HE
 HE
 HE
 HE
@@ -2748,7 +2724,7 @@ ay
 ay
 ay
 jk
-wV
+HE
 HE
 HE
 HE
@@ -2815,9 +2791,9 @@ ay
 ay
 jk
 HE
-xk
-AM
-fC
+HE
+HE
+HE
 HE
 HE
 HE

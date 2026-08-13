@@ -157,9 +157,10 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 	if(istype(item, /obj/item/melee/energy/sword/saber))
 		add_fingerprint(user)
-		if(!HAS_TRAIT(item, TRAIT_ITEM_ACTIVE))
+		var/obj/item/melee/energy/sword/saber/saber = item
+		if(!saber.active)
 			return ..()
-		light(span_warning("[user] дела[PLUR_ET_YUT(user)] резкое движение [item.declent_ru(INSTRUMENTAL)], проводя [GEND_IM_EI_IM_IMI(item)] в считанных сантиметрах перед своим лицом и поджигая [declent_ru(ACCUSATIVE)] в процессе."))
+		light(span_warning("[user] дела[PLUR_ET_YUT(user)] резкое движение [saber.declent_ru(INSTRUMENTAL)], проводя [GEND_IM_EI_IM_IMI(saber)] в считанных сантиметрах перед своим лицом и поджигая [declent_ru(ACCUSATIVE)] в процессе."))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(isigniter(item))
@@ -775,11 +776,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 	. = ..()
 	if(enabled)
 		enabled = FALSE
-		user.balloon_alert(user, "включено")
+		user.balloon_alert(user, "выключено")
 		STOP_PROCESSING(SSobj, src)
 	else
 		enabled = TRUE
-		user.balloon_alert(user, "выключено")
+		user.balloon_alert(user, "включено")
 		START_PROCESSING(SSobj, src)
 
 	update_appearance(UPDATE_ICON_STATE)

@@ -119,12 +119,6 @@
 	)
 	autohiss_exempt = list("Вокс-пиджин")
 
-	max_select_skills = list(
-		/datum/skill/general/carrying = 1,
-		/datum/skill/combat/fists = 1,
-		/datum/skill/engineering/electrician = 3,
-		/datum/skill/engineering/atmos = 3,
-	)
 
 /datum/species/vox/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()

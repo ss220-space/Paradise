@@ -1,6 +1,6 @@
 /*
 
-	ParadiseSS13 Telecommunications System
+	SS13 Telecommunications System
 
 	Rewritten from the ground up because I was totally unhappy with how laggy and complicated the current implementation was
 	The system is made up of two objects. A main core and relays.
