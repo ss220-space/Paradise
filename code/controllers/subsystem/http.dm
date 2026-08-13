@@ -62,7 +62,11 @@ SUBSYSTEM_DEF(http)
 					log_data += "\tResponse body: [res.body]"
 					log_data += "\tResponse headers: [json_encode(res.headers)]"
 				log_data += "END ASYNC RESPONSE (ID: [req.id])"
-				WRITE_LOG(GLOB.http_log, replacetext_char(log_data.Join("\n[GLOB.log_end]"), CONFIG_GET(string/tts_token_silero), "TOKEN"))
+				var/log_text = log_data.Join("\n[GLOB.log_end]")
+				var/tts_token = CONFIG_GET(string/tts_token_ntts)
+				if(tts_token)
+					log_text = replacetext_char(log_text, tts_token, "TOKEN")
+				WRITE_LOG(GLOB.http_log, log_text)
 		index++
 		if(MC_TICK_CHECK)
 			current_index = index
@@ -74,9 +78,9 @@ SUBSYSTEM_DEF(http)
  * Generates an async request, and adds it to the subsystem's processing list
  * These should be used as they do not lock the entire DD process up as they execute inside their own thread pool inside RUSTG
  */
-/datum/controller/subsystem/http/proc/create_async_request(method, url, body = "", list/headers, datum/callback/proc_callback)
+/datum/controller/subsystem/http/proc/create_async_request(method, url, body = "", list/headers, datum/callback/proc_callback, output_file)
 	var/datum/http_request/req = new()
-	req.prepare(method, url, body, headers)
+	req.prepare(method, url, body, headers, output_file)
 	if(proc_callback)
 		req.cb = proc_callback
 
@@ -93,7 +97,6 @@ SUBSYSTEM_DEF(http)
 	//	log_data += "\tRequest body: [req.body]"
 	//	log_data += "\tRequest headers: [req.headers]"
 	//	log_data += "END ASYNC REQUEST (ID: [req.id])"
-	//	log_data = replacetext_char(log_data, CONFIG_GET(string/tts_token_silero), "TOKEN")
 	//	// Write the log data
 	//	WRITE_LOG(GLOB.http_log, log_data.Join("\n[GLOB.log_end]"))
 

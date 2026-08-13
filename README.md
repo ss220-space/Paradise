@@ -1,5 +1,5 @@
-<a align="center" href="#"><img src=".github/images/ss1984.gif" alt="Dark Paradise"></a>
-# <p align="center"> Добро пожаловать в репозиторий проекта Dark Paradise!</p>
+<a align="center" href="#"><img src=".github/images/ss1984.gif" alt="Буквально SS1984"></a>
+# <p align="center"> Добро пожаловать в репозиторий проекта SS13!</p>
 
 <p align="center">
 	<a href="https://github.com/KINGDICE666/DarkParadise/actions?query=workflow%3ACI"><img src="https://github.com/KINGDICE666/DarkParadise/workflows/CI/badge.svg" alt="CI"></a>
