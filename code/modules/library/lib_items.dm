@@ -189,7 +189,6 @@
 	. = ..()
 	new /obj/item/book/manual/medical_cloning(src)
 	for(var/i = 0; i <= 3; i++)
-		new /obj/item/book/skill_manual/medical/random(src)
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/bookcase/manuals/engineering
@@ -205,7 +204,6 @@
 	new /obj/item/book/manual/engineering_singularity_safety(src)
 	new /obj/item/book/manual/robotics_cyborgs(src)
 	for(var/i in 0 to 3)
-		new /obj/item/book/skill_manual/engineering/random(src)
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/bookcase/manuals/research_and_development
@@ -216,7 +214,6 @@
 	. = ..()
 	new /obj/item/book/manual/research_and_development(src)
 	for(var/i in 0 to 3)
-		new /obj/item/book/skill_manual/research/random(src)
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/bookcase/manuals/skills
@@ -226,7 +223,6 @@
 /obj/structure/bookcase/manuals/skills/Initialize(mapload)
 	. = ..()
 	for(var/i = 0; i <= 5; i++)
-		new /obj/item/book/skill_manual/random(src)
 	update_icon(UPDATE_ICON_STATE)
 
 /*

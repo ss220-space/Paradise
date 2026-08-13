@@ -63,8 +63,6 @@
 		return
 	reagents.reaction(cleaned_turf, REAGENT_TOUCH, 10) //Needed for proper floor wetting.
 	var/val2remove = 1
-	CALCULATE_SKILL_MOD(cleaner, CLEANING_SPEED_MOD, cleaning_skill_mod)
-	val2remove = round(cleaning_skill_mod, 0.1)
 	reagents.remove_all(val2remove) //reaction() doesn't use up the reagents
 
 /obj/item/mop/advanced

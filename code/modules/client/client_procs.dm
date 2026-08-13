@@ -399,8 +399,6 @@
 
 	loot_panel = new(src)
 
-	skills_select_window = new()
-
 	Master.UpdateTickRate()
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/client, nag_516))
 
@@ -520,7 +518,6 @@
 	QDEL_NULL(tooltips)
 	QDEL_NULL(loot_panel)
 	QDEL_NULL(parallax_rock)
-	QDEL_NULL(skills_select_window)
 	seen_messages = null
 	sound_tokens = null
 	Master.UpdateTickRate()
@@ -1700,7 +1697,7 @@
 	if(byond_version >= 516)
 		return
 
-	var/choice = alert(src, "Внимание — Ваша версия BYOND: [byond_version].[byond_build]. Скоро минимальная требуемая версия для SS1984 Paradise будет 516, и 515 и ниже больше не будут работать.\
+	var/choice = alert(src, "Внимание — Ваша версия BYOND: [byond_version].[byond_build]. Скоро минимальная требуемая версия для SS13 будет 516, и 515 и ниже больше не будут работать.\
 	ТГУИ уже не поддерживает Internet Explorer, а следовательно на 515 и ниже будет работать некорректно. \
 	Обновитесь, чтобы избежать проблем в будущем.", " Предупреждение о версии BYOND", "Обновиться сейчас", "Игнорировать")
 	if(choice != "Обновиться сейчас")

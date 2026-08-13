@@ -69,21 +69,3 @@
 /obj/item/slapper/get_clamped_volume() //Without this, you would hear the slap twice if it has force.
 	return 0
 
-/*
-/obj/item/slapper/parry
-	desc = "This is how real men win fights."
-	force = 5
-	table_smacks_left = 10 //Much more smackitude
-
-/obj/item/slapper/parry/Initialize(mapload)
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS, _parry_cooldown = (1 / 3) SECONDS) //75% uptime
-	return ..()
-
-/obj/item/slapper/parry/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	if(isliving(target))
-		SEND_SOUND(creature, sound('sound/weapons/flash_ring.ogg'))
-		creature.Confused(10 SECONDS) //SMACK CAM
-		creature.EyeBlind(2 SECONDS) //OH GOD MY EARS ARE RINGING
-		creature.Deaf(4 SECONDS) //OH MY HEAD
-	return ..()
-*/

@@ -395,8 +395,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 /obj/machinery/r_n_d/circuit_imprinter/proc/print_module(list/design)
 	flick("[base_icon_state]_ani", src)
-	CALCULATE_SKILL_MOD(usr, PROTOLATHE_DURATION_MOD, skill_duration_mod)
-	addtimer(CALLBACK(src, PROC_REF(finish_module_print), design), 1.6 SECONDS * skill_duration_mod)
+	addtimer(CALLBACK(src, PROC_REF(finish_module_print), design), 1.6 SECONDS)
 
 /obj/machinery/r_n_d/circuit_imprinter/proc/finish_module_print(list/design)
 	var/atom/movable/created_atom
@@ -430,8 +429,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	return new design.build_path(drop_location())
 
 /obj/machinery/r_n_d/circuit_imprinter/proc/try_use_materials(list/design_materials)
-	CALCULATE_SKILL_MOD(usr, PROTOLATHE_RESOURCE_MOD, skill_mod)
-	return materials.use_amount(design_materials, efficiency_coeff * skill_mod)
+	return materials.use_amount(design_materials, efficiency_coeff)
 
 /// Maximum number of characters in the name of the circuit
 #define MAX_CHAR_IN_NAME 30

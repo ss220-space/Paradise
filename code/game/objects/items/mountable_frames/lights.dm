@@ -13,8 +13,7 @@
 	playsound(get_turf(src), 'sound/machines/click.ogg', 75, TRUE)
 	var/constrdir = user.dir
 	var/constrloc = get_turf(user)
-	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
-	if(!do_after(user, 3 SECONDS * construction_mod, on_wall))
+	if(!do_after(user, 3 SECONDS, on_wall))
 		return
 	var/obj/machinery/light_construct/newlight
 	switch(fixture_type)

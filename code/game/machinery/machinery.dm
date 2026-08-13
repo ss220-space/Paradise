@@ -364,8 +364,7 @@
 	add_fingerprint(user)
 	if(I.tool_behaviour != TOOL_CROWBAR)
 		return FALSE
-	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
-	if(!I.use_tool(src, user, 1 SECONDS * construction_mod, volume = 0))
+	if(!I.use_tool(src, user, 1 SECONDS, volume = 0))
 		return FALSE
 	if((panel_open || ignore_panel) && !(obj_flags & NODECONSTRUCT))
 		deconstruct(TRUE)
@@ -378,8 +377,7 @@
 	add_fingerprint(user)
 	if(I.tool_behaviour != TOOL_SCREWDRIVER)
 		return FALSE
-	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
-	if(!I.use_tool(src, user, 1 SECONDS * construction_mod, volume = 0))
+	if(!I.use_tool(src, user, 1 SECONDS, volume = 0))
 		return FALSE
 	if(!(obj_flags & NODECONSTRUCT))
 		var/prev_icon_state = icon_state
@@ -438,8 +436,7 @@
 			return ATTACK_CHAIN_PROCEED
 		to_chat(user, span_notice("You start applying [nanopaste] to [src]."))
 		being_repaired = TRUE
-		CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
-		var/result = do_after(user, 3 SECONDS * construction_mod, src, category = DA_CAT_TOOL)
+		var/result = do_after(user, 3 SECONDS, src, category = DA_CAT_TOOL)
 		being_repaired = FALSE
 		if(!result || QDELETED(nanopaste))
 			return ATTACK_CHAIN_PROCEED
@@ -588,8 +585,7 @@
 /obj/machinery/proc/shock(mob/living/user, prb)
 	if(!istype(user) || inoperable())
 		return FALSE
-	CALCULATE_SKILL_MOD(user, ELECTRICITY_NEGATIVE_CHANCE_MOD, prob_mod)
-	if(!prob(prb * prob_mod))
+	if(!prob(prb))
 		return FALSE
 	do_sparks(5, TRUE, src)
 	if(electrocute_mob(user, get_area(src), src, siemens_strength, TRUE))

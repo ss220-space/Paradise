@@ -51,8 +51,7 @@
 		icon_state = base_icon_state
 
 /obj/item/gun/projectile/bow/proc/update_slowdown()
-	CALCULATE_SKILL_MOD(gun_user, BOW_SLOWDOWN_MOD, skill_mod)
-	slowdown = ready_to_fire ? slowdown_when_ready * skill_mod : initial(slowdown)
+	slowdown = ready_to_fire ? slowdown_when_ready : initial(slowdown)
 
 /obj/item/gun/projectile/bow/dropped(mob/user, slot, silent = FALSE)
 	if(chambered)
@@ -63,24 +62,10 @@
 	return ..()
 
 /obj/item/gun/projectile/bow/attack_self(mob/living/user)
-	GET_SKILL_LEVEL(user, /datum/skill/combat/bows, skill_level)
-	if(!chambered && skill_level >= SKILL_LEVEL_ADVANCED && !user.get_inactive_hand())
-		var/list/possible_quivers = list(user.get_item_by_slot(ITEM_SLOT_BACK), user.get_item_by_slot(ITEM_SLOT_BELT))
-		for(var/obj/item/storage/backpack/quiver/quiver in possible_quivers)
-			if(!length(quiver.contents))
-				continue
-			var/loaded = magazine.reload(pick(quiver.contents), user, silent = TRUE, count_chambered = TRUE)
-			if(!loaded)
-				return
-			balloon_alert(user, "стрела помещена")
-			chamber_round()
-			update_state()
-			return
 	return ..()
 
 /obj/item/gun/projectile/bow/unload_act(mob/user)
-	CALCULATE_SKILL_MOD(user, BOW_READY_TO_FIRE_MOD, skill_mod)
-	if(chambered && !ready_to_fire && do_after(user, ready_to_fire_time * skill_mod, src, timed_action_flags = DA_IGNORE_USER_LOC_CHANGE, max_interact_count = 1))
+	if(chambered && !ready_to_fire && do_after(user, ready_to_fire_time, src, timed_action_flags = DA_IGNORE_USER_LOC_CHANGE, max_interact_count = 1))
 		ready_to_fire = TRUE
 		playsound(user, draw_sound, 100, TRUE)
 	else

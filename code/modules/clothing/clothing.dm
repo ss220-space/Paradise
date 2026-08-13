@@ -1107,8 +1107,7 @@
 	if(slot == ITEM_SLOT_CLOTH_OUTER)
 		if(isnull(original_slowdown))
 			original_slowdown = slowdown
-		CALCULATE_SKILL_MOD(user, SPACESUIT_SLOWDOWN_MOD, skill_factor)
-		slowdown = original_slowdown * skill_factor
+		slowdown = original_slowdown
 		if(jetpack)
 			for(var/datum/action/action as anything in jetpack.actions)
 				action.Grant(user)
@@ -1446,9 +1445,9 @@
 			turfs += pick(/turf in orange(3, H))
 		var/turf/picked = pick(turfs)
 		if(!isturf(picked))
-			return HIT_RESULT_FAILED
+			return
 		H.forceMove(picked)
-		return HIT_RESULT_SUCCESS
+		return 1
 	return ..()
 
 /**

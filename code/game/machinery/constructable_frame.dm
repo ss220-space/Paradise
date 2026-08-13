@@ -92,8 +92,7 @@
 /obj/machinery/constructable_frame/machine_frame/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	add_fingerprint(user)
-	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
-	if(!I.use_tool(src, user, 3 SECONDS * construction_mod, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
 		return .
 
 	if(state == STATE_EMPTY)
@@ -119,8 +118,7 @@
 	if(state != STATE_WIRED)
 		return .
 
-	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
-	if(!I.use_tool(src, user, 3 SECONDS * construction_mod, volume = I.tool_volume) || state != STATE_WIRED)
+	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume) || state != STATE_WIRED)
 		return .
 
 	state = STATE_EMPTY
@@ -134,8 +132,7 @@
 	if(state != STATE_COMPONENTS)
 		return .
 
-	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
-	if(!I.use_tool(src, user, 3 SECONDS * construction_mod, volume = I.tool_volume) || state != STATE_COMPONENTS)
+	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume) || state != STATE_COMPONENTS)
 		return .
 
 	state = STATE_WIRED
@@ -171,8 +168,7 @@
 		to_chat(user, span_warning("Machine frame requires more components!"))
 		return .
 
-	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
-	if(!I.use_tool(src, user, 5 SECONDS * construction_mod, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 5 SECONDS, volume = I.tool_volume))
 		return .
 
 	to_chat(user, span_notice("You finish the construction."))
@@ -208,8 +204,7 @@
 
 			playsound(loc, coil.usesound, 50, TRUE)
 			to_chat(user, span_notice("You start to add cables to the frame..."))
-			CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
-			if(!do_after(user, 2 SECONDS * coil.toolspeed * construction_mod, src, category = DA_CAT_TOOL) || state != STATE_EMPTY || QDELETED(coil))
+			if(!do_after(user, 2 SECONDS * coil.toolspeed, src, category = DA_CAT_TOOL) || state != STATE_EMPTY || QDELETED(coil))
 				return .
 
 			if(!coil.use(5))
@@ -315,10 +310,6 @@
 		req_components[path]--
 		components += part
 		to_chat(user, span_notice("[part.declent_ru(NOMINATIVE)] вставлен[GEND_A_O_Y(part)]."))
-		GET_SKILL_LEVEL(user, /datum/skill/engineering/construction, construction_level)
-		// automatic next part only if skill great than basic (professional, expert, legend)
-		if(construction_level > SKILL_LEVEL_BASIC)
-			return apply_parts_from_construction_bag(bag, user, count + 1)
 		break
 	balloon_alert(user, "вставлен[declension_ru(count, "а", "о", "о")] [count] детал[declension_ru(count, "ь", "и", "ей")]")
 	return TRUE

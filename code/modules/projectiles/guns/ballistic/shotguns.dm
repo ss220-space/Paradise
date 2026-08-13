@@ -32,7 +32,8 @@
 
 	if(istype(I, /obj/item/melee/energy))
 		add_fingerprint(user)
-		if(HAS_TRAIT(I, TRAIT_ITEM_ACTIVE) && sawoff(user))
+		var/obj/item/melee/energy/sword = I
+		if(sword.active && sawoff(user))
 			return ATTACK_CHAIN_PROCEED_SUCCESS
 		return ATTACK_CHAIN_PROCEED
 
@@ -470,7 +471,8 @@
 
 	if(istype(I, /obj/item/melee/energy))
 		add_fingerprint(user)
-		if(HAS_TRAIT(I, TRAIT_ITEM_ACTIVE) && sawoff(user))
+		var/obj/item/melee/energy/sword = I
+		if(sword.active && sawoff(user))
 			return ATTACK_CHAIN_PROCEED_SUCCESS
 		return ATTACK_CHAIN_PROCEED
 

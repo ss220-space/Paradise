@@ -20821,7 +20821,6 @@
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/cabin2)
 "hNJ" = (
-/obj/machinery/computer/skill_manuals,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},

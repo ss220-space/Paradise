@@ -259,10 +259,9 @@ Pipelines + Other Objects -> Pipe network
 		pressures = int_air.return_pressure() - env_air.return_pressure()
 
 	var/fuck_you_dir = get_dir(src, user)
-	CALCULATE_SKILL_MOD(user, UNSAFE_PRESSURE_MOD, skill_mod)
 	var/turf/general_direction = get_edge_target_turf(user, fuck_you_dir)
 	user.visible_message(span_danger("[user] is sent flying by pressure!"),span_userdanger("The pressure sends you flying!"))
-	var/final_pressures = pressures * skill_mod
+	var/final_pressures = pressures
 	//Values based on 2*ONE_ATMOS (the unsafe pressure), resulting in 20 range and 4 speed
 	user.throw_at(general_direction, final_pressures / 10, final_pressures / 50)
 

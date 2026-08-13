@@ -7,20 +7,20 @@
 
 # MAINTAINERS
 
-### azizonkg
+### KINGDICE666
 # CI + Tooling
-/.github/workflows/ @Bizzonium
-/code/tests/ @Bizzonium
-/tools/ci/ @Bizzonium
-_build_dependencies.sh @Bizzonium
+/.github/workflows/ @KINGDICE666
+/code/tests/ @KINGDICE666
+/tools/ci/ @KINGDICE666
+_build_dependencies.sh @KINGDICE666
 
 # Server Stuff
-/SQL/ @Bizzonium
-/config/ @Bizzonium
+/SQL/ @KINGDICE666
+/config/ @KINGDICE666
 
 # Executables that need to be security-cleared
-dreamchecker.exe @Bizzonium
-rust_g.dll @Bizzonium
+dreamchecker.exe @KINGDICE666
+rust_g.dll @KINGDICE666
 
 # MULTIPLE OWNERS
-/_maps/ @ss220-space/map-reviewers
+/_maps/ @KINGDICE666

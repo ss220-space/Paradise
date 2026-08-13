@@ -104,8 +104,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 	flick("[base_icon_state]_insert", src)
 	loaded_item = I
 	balloon_alert(user, "помещено в камеру разбора")
-	CALCULATE_SKILL_MOD(user, RESEARCH_DURATION_MOD, skill_duration_mod)
-	addtimer(CALLBACK(src, PROC_REF(reset_processing)), 1 SECONDS * skill_duration_mod)
+	addtimer(CALLBACK(src, PROC_REF(reset_processing)), 1 SECONDS)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
 /obj/machinery/r_n_d/destructive_analyzer/screwdriver_act_secondary(mob/living/user, obj/item/tool)

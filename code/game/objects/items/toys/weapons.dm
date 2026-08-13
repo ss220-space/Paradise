@@ -111,7 +111,7 @@
 	)
 
 /obj/item/twohanded/dualsaber/toy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
-	return HIT_RESULT_FAILED
+	return FALSE
 
 /obj/item/toy/katana
 	name = "replica katana"
