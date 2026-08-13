@@ -8,5 +8,6 @@
 	if(taser_proof)
 		var/blocked = taser_proof.hit_reaction(owner, hitby, attack_text, final_block_chance, damage, attack_type)
 		if(blocked)
-			return HIT_RESULT_SUCCESS
-	return ..()
+			return TRUE
+	. = ..()
+
