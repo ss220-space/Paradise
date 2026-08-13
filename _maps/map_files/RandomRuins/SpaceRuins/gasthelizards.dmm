@@ -58,6 +58,7 @@
 /obj/machinery/atmospherics/unary/tank/nitrous_oxide{
 	dir = 4
 	},
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -296,6 +297,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -32
 	},
+/obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -307,7 +309,7 @@
 /area/ruin/space/gasthelizards/viewzone)
 "kO" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sink/directional/north,
+/obj/structure/sink/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -367,7 +369,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -740,7 +741,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/light_switch/directional/north,
 /obj/machinery/door_control{
 	id = "gtl_vitrine";
 	name = "Vitrine Shutters";

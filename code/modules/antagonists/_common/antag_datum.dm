@@ -48,6 +48,8 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 	var/show_in_orbit = TRUE
 	/// Role name in antag menu
 	var/antag_menu_name
+	/// Is this antag datum gives skill bonus
+	var/has_skill_bonus = TRUE
 
 /datum/antagonist/New()
 	GLOB.antagonists += src

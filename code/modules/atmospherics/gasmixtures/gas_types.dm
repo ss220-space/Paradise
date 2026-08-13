@@ -2,7 +2,7 @@ GLOBAL_LIST_INIT(gas_meta, meta_gas_list())
 /proc/meta_gas_list()
 	. = list()
 	for(var/gas_path in subtypesof(/datum/gas))
-		var/list/gas_info = new(7)
+		var/list/gas_info = new(8)
 		var/datum/gas/gas = gas_path
 
 		gas_info[META_GAS_ID] = gas.id
@@ -12,6 +12,7 @@ GLOBAL_LIST_INIT(gas_meta, meta_gas_list())
 		gas_info[META_GAS_SCRUB_FLAG] = gas.scrub_flag
 		gas_info[META_GAS_SENSOR_FLAG] = gas.sensor_flag
 		gas_info[META_BASE_VALUE] = gas.base_value
+		gas_info[META_GAS_FUSION_POWER] = gas.fusion_power
 		.[gas.id] = gas_info
 
 
@@ -33,6 +34,8 @@ GLOBAL_LIST_INIT(gas_meta, meta_gas_list())
 	var/scrub_flag
 	var/sensor_flag
 	var/base_value = 0
+	///How much the gas accelerates a fusion reaction
+	var/fusion_power = 0
 
 /datum/gas/oxygen
 	id = TLV_O2
@@ -78,6 +81,7 @@ GLOBAL_LIST_INIT(gas_meta, meta_gas_list())
 	scrub_flag = SCRUB_H2O
 	sensor_flag = SENSOR_COMPOSITION_H2O
 	base_value = 0.5
+	fusion_power = 8
 
 /datum/gas/hypernoblium
 	id = TLV_HYPERNOBLIUM
@@ -87,6 +91,7 @@ GLOBAL_LIST_INIT(gas_meta, meta_gas_list())
 	scrub_flag = SCRUB_HYPERNOBLIUM
 	sensor_flag = SENSOR_COMPOSITION_HYPERNOBLIUM
 	base_value = 2.5
+	fusion_power = 10
 
 /datum/gas/nitrous_oxide
 	id = TLV_N2O
@@ -96,6 +101,7 @@ GLOBAL_LIST_INIT(gas_meta, meta_gas_list())
 	scrub_flag = SCRUB_N2O
 	sensor_flag = SENSOR_COMPOSITION_N2O
 	base_value = 1.5
+	fusion_power = 10
 
 /datum/gas/nitrium
 	id = TLV_NITRIUM
@@ -105,6 +111,7 @@ GLOBAL_LIST_INIT(gas_meta, meta_gas_list())
 	scrub_flag = SCRUB_NITRIUM
 	sensor_flag = SENSOR_COMPOSITION_NITRIUM
 	base_value = 6
+	fusion_power = 7
 
 /datum/gas/tritium
 	id = TLV_TRITIUM
@@ -114,6 +121,7 @@ GLOBAL_LIST_INIT(gas_meta, meta_gas_list())
 	scrub_flag = SCRUB_TRITIUM
 	sensor_flag = SENSOR_COMPOSITION_TRITIUM
 	base_value = 2.5
+	fusion_power = 5
 
 /datum/gas/bz
 	id = TLV_BZ
@@ -123,6 +131,7 @@ GLOBAL_LIST_INIT(gas_meta, meta_gas_list())
 	scrub_flag = SCRUB_BZ
 	sensor_flag = SENSOR_COMPOSITION_BZ
 	base_value = 1.5
+	fusion_power = 8
 
 /datum/gas/pluoxium
 	id = TLV_PLUOXIUM
@@ -132,6 +141,7 @@ GLOBAL_LIST_INIT(gas_meta, meta_gas_list())
 	scrub_flag = SCRUB_PLUOXIUM
 	sensor_flag = SENSOR_COMPOSITION_PLUOXIUM
 	base_value = 2.5
+	fusion_power = -10
 
 /datum/gas/miasma
 	id = TLV_MIASMA
@@ -150,6 +160,7 @@ GLOBAL_LIST_INIT(gas_meta, meta_gas_list())
 	scrub_flag = SCRUB_FREON
 	sensor_flag = SENSOR_COMPOSITION_FREON
 	base_value = 5
+	fusion_power = -5
 
 /datum/gas/hydrogen
 	id = TLV_H2
@@ -159,6 +170,7 @@ GLOBAL_LIST_INIT(gas_meta, meta_gas_list())
 	scrub_flag = SCRUB_H2
 	sensor_flag = SENSOR_COMPOSITION_H2
 	base_value = 1
+	fusion_power = 2
 
 /datum/gas/healium
 	id = TLV_HEALIUM
@@ -204,6 +216,7 @@ GLOBAL_LIST_INIT(gas_meta, meta_gas_list())
 	scrub_flag = SCRUB_HELIUM
 	sensor_flag = SENSOR_COMPOSITION_HELIUM
 	base_value = 3.5
+	fusion_power = 7
 
 /datum/gas/antinoblium
 	id = TLV_ANTINOBLIUM
@@ -213,6 +226,7 @@ GLOBAL_LIST_INIT(gas_meta, meta_gas_list())
 	scrub_flag = SCRUB_ANTINOBLIUM
 	sensor_flag = SENSOR_COMPOSITION_ANTINOBLIUM
 	base_value = 10
+	fusion_power = 20
 
 /datum/gas/agent_b
 	id = TLV_AGENT_B

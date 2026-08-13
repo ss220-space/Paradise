@@ -78,9 +78,9 @@
 /area/space/nearstation)
 "au" = (
 /obj/machinery/porta_turret{
+	attacked = 1;
 	lethal = 1;
-	name = "ship defense turret";
-	attacked = 1
+	name = "ship defense turret"
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/TurretsNorth)
@@ -313,9 +313,9 @@
 /obj/structure/table/wood/fancy/royalblack,
 /obj/item/reagent_containers/food/drinks/bottle/patron,
 /obj/item/flashlight/lamp/green{
+	on = 0;
 	pixel_x = -5;
-	pixel_y = 12;
-	on = 0
+	pixel_y = 12
 	},
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken5"
@@ -398,8 +398,8 @@
 /obj/structure/bed,
 /obj/item/bedsheet/cult,
 /obj/effect/decal/cleanable/blood/drip{
-	pixel_y = 24;
-	pixel_x = 8
+	pixel_x = 8;
+	pixel_y = 24
 	},
 /obj/machinery/light_construct{
 	dir = 4
@@ -465,8 +465,8 @@
 /area/awaymission/BMPship/Fore)
 "bH" = (
 /obj/effect/decal/cleanable/blood/drip{
-	pixel_y = 10;
-	pixel_x = -13
+	pixel_x = -13;
+	pixel_y = 10
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
@@ -512,8 +512,8 @@
 /obj/structure/table/wood,
 /obj/item/paper{
 	info = "DEAR DAIRY: So we was doing our typpical route when the captain says we've been picking up weird signals on some backwatter planet. Madsen wanted to stay on course but he ain't the captain, so we went out of the way to check it out. There was lots of rocks on the way, but we got to the planet fine. Found a big fancy camp with nobody around and this big metal donut thing with NT stamps all over it right in the middle. Case of beer too. Captain reckons we can pass it off to some buyer in the Syndicate. Ingram says it's bad luck and that someone is going to come look for it but it sounds like better money than selling bad meat to jerky companies.";
-	name = "Old Diary";
-	layer = 2.9
+	layer = 2.9;
+	name = "Old Diary"
 	},
 /obj/item/pen/red{
 	pixel_x = -3;
@@ -553,8 +553,8 @@
 /obj/structure/table/wood/fancy/royalblack,
 /obj/item/pen/multi/gold,
 /obj/item/paper/crumpled/bloody{
-	layer = 2.9;
-	desc = "Badly crumpled paper, heavily stained with blood. The full text cannot be understood, however, from fragments of words it becomes clear that this is a death note."
+	desc = "Badly crumpled paper, heavily stained with blood. The full text cannot be understood, however, from fragments of words it becomes clear that this is a death note.";
+	layer = 2.9
 	},
 /obj/item/gun/energy/gun/mini{
 	layer = 2.8
@@ -658,8 +658,8 @@
 	locked = 1
 	},
 /obj/machinery/door/poddoor{
-	layer = 2.8;
-	id_tag = "packerCaptain"
+	id_tag = "packerCaptain";
+	layer = 2.8
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -1206,11 +1206,11 @@
 	pixel_y = 1
 	},
 /obj/machinery/power/apc/noalarm/directional/west{
+	environment_channel = 0;
+	equipment_channel = 0;
 	lighting_channel = 2;
 	locked = 0;
 	req_access = list();
-	environment_channel = 0;
-	equipment_channel = 0;
 	start_charge = 0
 	},
 /turf/simulated/floor/plasteel{
@@ -1245,9 +1245,9 @@
 /area/awaymission/BMPship/Gate)
 "dJ" = (
 /obj/item/flashlight/lamp/bananalamp{
+	on = 0;
 	pixel_x = -6;
-	pixel_y = 10;
-	on = 0
+	pixel_y = 10
 	},
 /obj/structure/alien/weeds,
 /obj/item/paperplane{
@@ -1284,8 +1284,8 @@
 	pixel_y = 8
 	},
 /obj/item/reagent_containers/food/drinks/bottle/whiskey{
-	pixel_y = 10;
-	layer = 2.9
+	layer = 2.9;
+	pixel_y = 10
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Dormitories)
@@ -1546,9 +1546,9 @@
 /obj/item/kitchen/knife/butcher,
 /obj/item/reagent_containers/food/snacks/monstermeat/lizardmeat,
 /obj/item/trash/plate{
+	layer = 2.9;
 	pixel_x = -5;
-	pixel_y = -1;
-	layer = 2.9
+	pixel_y = -1
 	},
 /obj/machinery/firealarm/triggered_nosignals/directional/west,
 /turf/simulated/floor/plating,
@@ -1634,9 +1634,9 @@
 "eO" = (
 /obj/structure/table,
 /obj/item/trash/plate{
+	layer = 2.9;
 	pixel_x = -5;
-	pixel_y = -1;
-	layer = 2.9
+	pixel_y = -1
 	},
 /obj/item/kitchen/utensil/fork,
 /obj/item/reagent_containers/food/drinks/britcup{
@@ -1880,7 +1880,7 @@
 	},
 /area/awaymission/BMPship/CommonArea)
 "ft" = (
-/obj/structure/sink/directional/west,
+/obj/structure/sink/directional/east,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -1908,12 +1908,12 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/noalarm/directional/north{
-	lighting_channel = 0;
-	locked = 0;
-	req_access = list();
 	environment_channel = 0;
 	equipment_channel = 0;
+	lighting_channel = 0;
+	locked = 0;
 	operating = 0;
+	req_access = list();
 	start_charge = 0
 	},
 /obj/structure/spider/stickyweb,
@@ -1933,9 +1933,9 @@
 /obj/structure/table,
 /obj/item/storage/box/donkpockets,
 /obj/item/reagent_containers/food/snacks/fried_vox{
+	layer = 2.9;
 	pixel_x = 4;
-	pixel_y = 12;
-	layer = 2.9
+	pixel_y = 12
 	},
 /obj/machinery/light_construct{
 	dir = 1
@@ -1955,8 +1955,8 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/poddoor{
-	layer = 2.71;
-	id_tag = "packerCargo"
+	id_tag = "packerCargo";
+	layer = 2.71
 	},
 /obj/machinery/door/airlock/silver{
 	locked = 1
@@ -1998,8 +1998,8 @@
 /area/awaymission/BMPship/Fore)
 "fG" = (
 /obj/effect/decal/cleanable/blood/drip{
-	pixel_y = 16;
-	pixel_x = 4
+	pixel_x = 4;
+	pixel_y = 16
 	},
 /obj/item/ammo_casing/shotgun{
 	pixel_x = 6
@@ -2585,8 +2585,8 @@
 "hx" = (
 /obj/structure/table/wood,
 /obj/item/lighter/zippo/engraved{
-	pixel_y = 12;
-	pixel_x = -9
+	pixel_x = -9;
+	pixel_y = 12
 	},
 /obj/item/storage/fancy/cigarettes/cigpack_syndicate,
 /turf/simulated/floor/carpet,
@@ -2931,9 +2931,9 @@
 /area/awaymission/BMPship/Bath)
 "iF" = (
 /obj/machinery/porta_turret{
+	attacked = 1;
 	lethal = 1;
-	name = "ship defense turret";
-	attacked = 1
+	name = "ship defense turret"
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/awaymission/BMPship/TurretsSouth)
@@ -2963,11 +2963,11 @@
 	},
 /obj/structure/spider/stickyweb,
 /obj/machinery/power/apc/noalarm/directional/north{
+	environment_channel = 0;
+	equipment_channel = 0;
 	lighting_channel = 2;
 	locked = 0;
 	req_access = list();
-	environment_channel = 0;
-	equipment_channel = 0;
 	start_charge = 0
 	},
 /turf/simulated/floor/plating,
@@ -2995,12 +2995,12 @@
 /area/awaymission/BMPship/ChemLab)
 "iO" = (
 /obj/item/ammo_casing{
-	pixel_y = 3;
-	pixel_x = 9
+	pixel_x = 9;
+	pixel_y = 3
 	},
 /obj/effect/decal/cleanable/blood/drip{
-	pixel_y = 24;
-	pixel_x = 8
+	pixel_x = 8;
+	pixel_y = 24
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/ChemLab)
@@ -3032,8 +3032,8 @@
 /area/awaymission/BMPship/ChemLab)
 "iV" = (
 /obj/item/ammo_casing{
-	pixel_y = 3;
-	pixel_x = 9
+	pixel_x = 9;
+	pixel_y = 3
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/ChemLab)
@@ -3210,14 +3210,14 @@
 	pixel_y = 8
 	},
 /obj/item/trash/plate{
+	layer = 2.9;
 	pixel_x = 6;
-	pixel_y = 5;
-	layer = 2.9
+	pixel_y = 5
 	},
 /obj/item/trash/plate{
+	layer = 2.9;
 	pixel_x = -5;
-	pixel_y = -1;
-	layer = 2.9
+	pixel_y = -1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -3286,8 +3286,8 @@
 /area/awaymission/BMPship/Containment)
 "kr" = (
 /obj/machinery/light/small{
-	dir = 8;
-	brightness_range = 2
+	brightness_range = 2;
+	dir = 8
 	},
 /obj/structure/alien/weeds,
 /obj/structure/spider/stickyweb,
@@ -3323,9 +3323,9 @@
 /obj/structure/table/survival_pod,
 /obj/item/reagent_containers/glass/beaker/drugs/meth,
 /obj/item/reagent_containers/food/drinks/bottle/rum{
+	layer = 2.9;
 	pixel_x = -3;
-	pixel_y = 4;
-	layer = 2.9
+	pixel_y = 4
 	},
 /turf/simulated/floor/pod,
 /area/awaymission/BMPship/Shelter)
@@ -3404,8 +3404,8 @@
 /obj/structure/dresser,
 /obj/item/paper{
 	info = "DEAR DAIRY: So we was doing our typpical route when the captain says we've been picking up weird signals on some backwatter planet. Madsen wanted to stay on course but he ain't the captain, so we went out of the way to check it out. There was lots of rocks on the way, but we got to the planet fine. Found a big fancy camp with nobody around and this big metal donut thing with NT stamps all over it right in the middle. Case of beer too. Captain reckons we can pass it off to some buyer in the Syndicate. Ingram says it's bad luck and that someone is going to come look for it but it sounds like better money than selling bad meat to jerky companies.";
-	name = "Old Diary p2";
-	layer = 3.1
+	layer = 3.1;
+	name = "Old Diary p2"
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Dormitories)
@@ -3525,12 +3525,12 @@
 "mc" = (
 /obj/machinery/door_control{
 	id = "packerToilet";
-	pixel_x = -24;
-	name = "remote door-control packerToilet"
+	name = "remote door-control packerToilet";
+	pixel_x = -24
 	},
 /obj/machinery/light/small,
 /obj/structure/toilet/golden_toilet{
-	dir = 1
+	dir = 2
 	},
 /obj/structure/sign/poster/secret/lady{
 	pixel_x = 32
@@ -3641,8 +3641,8 @@
 /area/awaymission/BMPship/Gate)
 "nn" = (
 /obj/item/ammo_casing{
-	pixel_y = 3;
-	pixel_x = 9
+	pixel_x = 9;
+	pixel_y = 3
 	},
 /turf/space,
 /area/space)
@@ -3665,9 +3665,9 @@
 	icon_state = "4-8"
 	},
 /obj/structure/spawner/giantspider{
-	light_range = 2;
 	light_color = "#99994d";
-	light_power = 0.5
+	light_power = 0.5;
+	light_range = 2
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Armory)
@@ -3722,12 +3722,12 @@
 /area/awaymission/BMPship/Dormitories)
 "nT" = (
 /obj/effect/decal/cleanable/blood/drip{
-	pixel_y = 10;
-	pixel_x = -13
+	pixel_x = -13;
+	pixel_y = 10
 	},
 /obj/item/ammo_casing{
-	pixel_y = 3;
-	pixel_x = 9
+	pixel_x = 9;
+	pixel_y = 3
 	},
 /obj/item/ammo_casing{
 	pixel_x = -6;
@@ -3936,11 +3936,11 @@
 	},
 /obj/structure/spider/stickyweb,
 /obj/machinery/power/apc/noalarm/directional/east{
+	environment_channel = 2;
+	equipment_channel = 2;
 	lighting_channel = 2;
 	locked = 0;
 	req_access = list();
-	environment_channel = 2;
-	equipment_channel = 2;
 	start_charge = 100
 	},
 /obj/structure/spider/stickyweb,
@@ -3975,15 +3975,15 @@
 	pixel_y = 2
 	},
 /obj/item/reagent_containers/food/drinks/drinkingglass{
+	layer = 2.9;
 	pixel_x = -3;
-	pixel_y = 5;
-	layer = 2.9
+	pixel_y = 5
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/newspaper{
-	pixel_y = 3;
+	layer = 2.9;
 	pixel_x = 3;
-	layer = 2.9
+	pixel_y = 3
 	},
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
@@ -4277,12 +4277,12 @@
 /area/awaymission/BMPship/Bath)
 "so" = (
 /obj/structure/sign/poster/secret/lady{
-	pixel_y = 32;
-	layer = 2.9
+	layer = 2.9;
+	pixel_y = 32
 	},
 /obj/effect/decal/cleanable/blood/drip{
-	pixel_y = 10;
-	pixel_x = -13
+	pixel_x = -13;
+	pixel_y = 10
 	},
 /obj/item/wrench,
 /turf/simulated/floor/wood{
@@ -4349,8 +4349,8 @@
 	icon_state = "1-8"
 	},
 /obj/effect/decal/cleanable/blood/drip{
-	pixel_y = 24;
-	pixel_x = 8
+	pixel_x = 8;
+	pixel_y = 24
 	},
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/dirt,
@@ -4429,9 +4429,9 @@
 /area/awaymission/BMPship/Fore)
 "tF" = (
 /mob/living/simple_animal/hostile/carp{
+	health = 50;
 	maxHealth = 50;
-	name = "Annoyed space carp";
-	health = 50
+	name = "Annoyed space carp"
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission)
@@ -4607,9 +4607,9 @@
 /area/awaymission/BMPship/MedBay)
 "vi" = (
 /obj/machinery/door/airlock/vault{
-	req_access = list(111);
 	hackProof = 1;
-	locked = 1
+	locked = 1;
+	req_access = list(111)
 	},
 /obj/effect/mine/stun{
 	faction = list("alien");
@@ -4708,8 +4708,8 @@
 /obj/structure/alien/weeds,
 /obj/structure/filingcabinet/chestdrawer,
 /obj/machinery/door_control{
-	pixel_y = 24;
-	id = "packerCaptain"
+	id = "packerCaptain";
+	pixel_y = 24
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
@@ -4761,9 +4761,9 @@
 /area/awaymission/BMPship/Containment)
 "wA" = (
 /mob/living/simple_animal/hostile/carp{
+	health = 50;
 	maxHealth = 50;
-	name = "Annoyed space carp";
-	health = 50
+	name = "Annoyed space carp"
 	},
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/awaymission/BMPship/TraderShuttle)
@@ -4776,9 +4776,9 @@
 /obj/item/reagent_containers/food/snacks/monstermeat/spiderleg,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/spawner/giantspider{
-	light_range = 2;
 	light_color = "#99994d";
-	light_power = 0.5
+	light_power = 0.5;
+	light_range = 2
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
@@ -4792,8 +4792,8 @@
 /area/awaymission/BMPship/Dormitories)
 "wI" = (
 /obj/effect/decal/cleanable/blood/drip{
-	pixel_y = 24;
-	pixel_x = 8
+	pixel_x = 8;
+	pixel_y = 24
 	},
 /obj/item/mounted/frame/apc_frame,
 /turf/simulated/floor/plating/airless,
@@ -4837,16 +4837,16 @@
 	dir = 1
 	},
 /obj/machinery/power/apc/noalarm/directional/north{
+	environment_channel = 1;
+	equipment_channel = 0;
 	lighting_channel = 2;
 	locked = 0;
 	req_access = list();
-	environment_channel = 1;
-	equipment_channel = 0;
 	start_charge = 100
 	},
 /obj/structure/sign/securearea{
-	pixel_x = 32;
-	name = "DANGEROUS CARGO!"
+	name = "DANGEROUS CARGO!";
+	pixel_x = 32
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
@@ -4894,11 +4894,11 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/noalarm/directional/north{
+	environment_channel = 0;
+	equipment_channel = 0;
 	lighting_channel = 2;
 	locked = 0;
 	req_access = list();
-	environment_channel = 0;
-	equipment_channel = 0;
 	start_charge = 0
 	},
 /turf/simulated/floor/plasteel{
@@ -4959,9 +4959,9 @@
 /obj/effect/decal/cleanable/ash,
 /obj/effect/mapping_helpers/turfs/damage,
 /mob/living/simple_animal/hostile/carp{
+	health = 50;
 	maxHealth = 50;
-	name = "Annoyed space carp";
-	health = 50
+	name = "Annoyed space carp"
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/TraderShuttle)
@@ -5297,9 +5297,9 @@
 /area/awaymission/BMPship/Mining)
 "BG" = (
 /mob/living/simple_animal/hostile/carp{
+	health = 50;
 	maxHealth = 50;
-	name = "Annoyed space carp";
-	health = 50
+	name = "Annoyed space carp"
 	},
 /turf/space,
 /area/space)
@@ -5457,8 +5457,8 @@
 /obj/item/lighter/zippo/engraved,
 /obj/item/clothing/mask/cigarette/medical_marijuana,
 /obj/item/clothing/mask/cigarette/medical_marijuana{
-	pixel_y = 2;
-	pixel_x = 2
+	pixel_x = 2;
+	pixel_y = 2
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Dormitories)
@@ -5500,7 +5500,7 @@
 	},
 /area/awaymission/BMPship/Kitchen)
 "Dx" = (
-/obj/structure/sink/directional/west,
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = 32
 	},
@@ -5679,9 +5679,9 @@
 /area/awaymission/BMPship/TurretsNorth)
 "EY" = (
 /obj/machinery/door/airlock/vault{
-	req_access = list(111);
 	hackProof = 1;
-	locked = 1
+	locked = 1;
+	req_access = list(111)
 	},
 /obj/effect/mine/stun{
 	faction = list("alien");
@@ -6005,8 +6005,8 @@
 /area/awaymission/BMPship/Armory)
 "HA" = (
 /obj/effect/decal/cleanable/blood/drip{
-	pixel_y = 16;
-	pixel_x = 4
+	pixel_x = 4;
+	pixel_y = 16
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/MedBay)
@@ -6025,8 +6025,8 @@
 	locked = 1
 	},
 /obj/machinery/holosign/surgery{
-	id = "surgery1";
-	icon_state = "sign_on"
+	icon_state = "sign_on";
+	id = "surgery1"
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/MedBay)
@@ -6188,9 +6188,9 @@
 	pixel_y = -3
 	},
 /mob/living/simple_animal/pet/cat/kitten{
-	faction = list("alien","neutral");
 	death_sound = 'sound/voice/gasp_female4.ogg';
-	desc = "Он выглядит так, будто повидал многое за свою короткую жизнь"
+	desc = "Он выглядит так, будто повидал многое за свою короткую жизнь";
+	faction = list("alien","neutral")
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/BMPship/Fore)
@@ -6222,8 +6222,8 @@
 /area/awaymission/BMPship/Engines)
 "JL" = (
 /obj/machinery/light/small{
-	dir = 4;
-	brightness_range = 2
+	brightness_range = 2;
+	dir = 4
 	},
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Buffer)
@@ -6257,8 +6257,8 @@
 /area/awaymission/BMPship/TraderShuttle)
 "KF" = (
 /obj/effect/decal/cleanable/blood/drip{
-	pixel_y = 16;
-	pixel_x = 4
+	pixel_x = 4;
+	pixel_y = 16
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission)
@@ -6281,8 +6281,8 @@
 /area/awaymission/BMPship/TurretsSouth)
 "KN" = (
 /obj/effect/decal/cleanable/blood/drip{
-	pixel_y = 24;
-	pixel_x = 8
+	pixel_x = 8;
+	pixel_y = 24
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission)
@@ -6306,8 +6306,8 @@
 /area/awaymission/BMPship/TraderShuttle)
 "Le" = (
 /obj/effect/decal/cleanable/blood/drip{
-	pixel_y = 16;
-	pixel_x = 4
+	pixel_x = 4;
+	pixel_y = 16
 	},
 /obj/structure/alien/weeds,
 /mob/living/simple_animal/hostile/alien/sentinel{
@@ -6387,8 +6387,8 @@
 "Md" = (
 /obj/structure/alien/weeds,
 /obj/item/reagent_containers/food/drinks/mug/novelty{
-	pixel_y = 10;
-	pixel_x = 10
+	pixel_x = 10;
+	pixel_y = 10
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
@@ -6481,11 +6481,11 @@
 "Nq" = (
 /obj/structure/cable,
 /obj/machinery/power/apc/noalarm/directional/south{
+	environment_channel = 0;
+	equipment_channel = 0;
 	lighting_channel = 2;
 	locked = 0;
 	req_access = list();
-	environment_channel = 0;
-	equipment_channel = 0;
 	start_charge = 0
 	},
 /turf/simulated/floor/engine/vacuum,
@@ -6561,11 +6561,11 @@
 	pixel_y = 1
 	},
 /obj/machinery/power/apc/noalarm/directional/west{
+	environment_channel = 0;
+	equipment_channel = 0;
 	lighting_channel = 2;
 	locked = 0;
 	req_access = list();
-	environment_channel = 0;
-	equipment_channel = 0;
 	start_charge = 0
 	},
 /turf/simulated/floor/engine,
@@ -6708,8 +6708,8 @@
 /area/awaymission/BMPship/Bath)
 "Qc" = (
 /obj/effect/decal/cleanable/blood/drip{
-	pixel_y = 16;
-	pixel_x = 4
+	pixel_x = 4;
+	pixel_y = 16
 	},
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/mob_spawn/carp,
@@ -6744,8 +6744,8 @@
 "Qo" = (
 /obj/item/analyzer,
 /obj/effect/decal/cleanable/blood/drip{
-	pixel_y = 24;
-	pixel_x = 8
+	pixel_x = 8;
+	pixel_y = 24
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
@@ -6857,8 +6857,8 @@
 /area/awaymission/BMPship/TurretsNorth)
 "Rm" = (
 /obj/machinery/door_control{
-	pixel_y = -24;
-	id = "packerCaptain"
+	id = "packerCaptain";
+	pixel_y = -24
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/BMPship/Fore)
@@ -6913,8 +6913,8 @@
 /area/awaymission/BMPship/Gate)
 "Sg" = (
 /obj/effect/decal/cleanable/blood/drip{
-	pixel_y = 10;
-	pixel_x = -13
+	pixel_x = -13;
+	pixel_y = 10
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -7234,11 +7234,11 @@
 	},
 /obj/structure/alien/resin,
 /obj/machinery/power/apc/noalarm/directional/north{
-	lighting_channel = 0;
-	req_access = list(111);
 	environment_channel = 0;
 	equipment_channel = 0;
+	lighting_channel = 0;
 	operating = 0;
+	req_access = list(111);
 	start_charge = 0
 	},
 /turf/simulated/floor/plating/airless,
@@ -7272,15 +7272,15 @@
 "VX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/spawner/giantspider{
-	light_range = 2;
 	light_color = "#99994d";
-	light_power = 0.5
+	light_power = 0.5;
+	light_range = 2
 	},
 /obj/effect/decal/cleanable/greenglow,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "Wc" = (
-/obj/structure/sink/directional/west,
+/obj/structure/sink/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 4
@@ -7402,11 +7402,11 @@
 /obj/item/trash/tastybread,
 /obj/structure/cable,
 /obj/machinery/power/apc/noalarm/directional/west{
+	environment_channel = 0;
+	equipment_channel = 0;
 	lighting_channel = 2;
 	locked = 0;
 	req_access = list();
-	environment_channel = 0;
-	equipment_channel = 0;
 	start_charge = 0
 	},
 /turf/simulated/floor/plasteel{
@@ -7455,8 +7455,8 @@
 	icon_state = "1-2"
 	},
 /obj/item/ammo_casing{
-	pixel_y = 3;
-	pixel_x = 9
+	pixel_x = 9;
+	pixel_y = 3
 	},
 /obj/structure/spider/stickyweb,
 /obj/effect/decal/cleanable/dirt,
@@ -20045,7 +20045,7 @@ Hr
 ll
 fq
 UF
-eJ
+vy
 js
 LR
 rL
@@ -20305,7 +20305,7 @@ dp
 cQ
 ec
 Ri
-vy
+eJ
 cm
 LR
 PY

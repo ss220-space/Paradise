@@ -132,7 +132,7 @@
 		return FALSE
 	mod.wearer.adjustOxyLoss(20)
 	playsound(src, 'sound/items/modsuit/inflate_bloon.ogg', 50, TRUE)
-	var/obj/item/toy/balloon/balloon = new(get_turf(src))
+	var/obj/item/toy/balloon/long/balloon = new(get_turf(src))
 	mod.wearer.put_in_hands(balloon)
 	drain_power(use_energy_cost)
 
@@ -193,7 +193,7 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/stamp/mod/update_icon_state()
-	icon_state = "stamp_" + stamp_mode
+	icon_state = "stamp-" + stamp_mode
 
 #undef STAMP_MODE_OK
 #undef STAMP_MODE_DENY

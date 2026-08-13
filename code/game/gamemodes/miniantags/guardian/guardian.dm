@@ -82,11 +82,10 @@ GLOBAL_LIST_EMPTY(parasites)
 
 /mob/living/simple_animal/hostile/guardian/med_hud_set_status()
 	if(summoner)
-		var/pixel_y = get_cached_height() - ICON_SIZE_Y
 		if(summoner.stat == DEAD)
-			set_hud_image_state(STATUS_HUD, STATUS_HUD_DEAD, y_offset = pixel_y)
+			set_hud_image_state(STATUS_HUD, STATUS_HUD_DEAD)
 		else
-			set_hud_image_state(STATUS_HUD, STATUS_HUD_HEALTHY, y_offset = pixel_y)
+			set_hud_image_state(STATUS_HUD, STATUS_HUD_HEALTHY)
 
 /mob/living/simple_animal/hostile/guardian/Life(seconds, times_fired)
 	..()

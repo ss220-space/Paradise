@@ -3,7 +3,7 @@ GLOBAL_LIST_INIT(changeling_mutations, list(
 	/obj/item/melee/changeling/arm_blade,
 	/obj/item/melee/changeling/fleshy_maul,
 	/obj/item/gun/magic/tentacle,
-	/obj/item/shield/changeling,
+	/obj/item/shield/riot/changeling,
 	/obj/item/clothing/suit/space/changeling,
 	/obj/item/clothing/head/helmet/space/changeling,
 	/obj/item/clothing/suit/armor/changeling,

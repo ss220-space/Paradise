@@ -30,7 +30,7 @@
 		TRAIT_WATER_HATER,
 	)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR | TAIL_WAGGING
+	bodyflags = HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR | TAIL_WAGGING | HAS_HAIR
 	taste_sensitivity = TASTE_SENSITIVITY_SHARP
 	reagent_tag = ORGANIC
 
@@ -93,6 +93,11 @@
 		"р" = list("рр", "ррр", "рррр"),
 	)
 	autohiss_exempt = list("Сик'таир")
+
+	max_select_skills = list(
+		/datum/skill/general/cooking = 1,
+		/datum/skill/medical/surgery = 1,
+	)
 
 /datum/species/tajaran/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()

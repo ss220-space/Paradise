@@ -489,7 +489,6 @@
 	icon_state = "cursed_katana"
 	force = 15
 	armour_penetration = 15
-	block_chance = 50
 	block_type = MELEE_ATTACKS
 	sharp = TRUE
 	w_class = WEIGHT_CLASS_HUGE
@@ -504,7 +503,7 @@
 		ATTACK_CUT = list(COMBO_STEPS = list(DISARM_SLASH, DISARM_SLASH, HARM_SLASH), COMBO_PROC = PROC_REF(cut)),
 		ATTACK_HEAL = list(COMBO_STEPS = list(HARM_SLASH, DISARM_SLASH, HARM_SLASH, DISARM_SLASH), COMBO_PROC = PROC_REF(heal)),
 		ATTACK_SHATTER = list(COMBO_STEPS = list(DISARM_SLASH, HARM_SLASH, DISARM_SLASH, HARM_SLASH), COMBO_PROC = PROC_REF(shatter)),
-		)
+	)
 
 /obj/item/cursed_katana/get_ru_names()
 	return alist(
@@ -515,6 +514,9 @@
 		INSTRUMENTAL = "проклятой катаной",
 		PREPOSITIONAL = "проклятой катане",
 	)
+
+/obj/item/cursed_katana/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
 
 /obj/item/cursed_katana/ComponentInitialize()
 	. = ..()

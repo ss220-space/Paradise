@@ -95,6 +95,8 @@
 	desc = "It's a spoon. You can see your own upside-down face in it."
 	icon_state = "spoon"
 	attack_verb = list("атаковал", "ткнул")
+	tool_behaviour = TOOL_MINING
+	toolspeed = 25 // Literally 25 times worse than the base pickaxe
 
 /obj/item/kitchen/utensil/pspoon
 	name = "plastic spoon"
@@ -146,6 +148,7 @@
 	. = ..()
 	default_force = force
 	default_throwforce = throwforce
+	ADD_TRAIT(src, TRAIT_MELEE_WEAPON, ROUNDSTART_TRAIT)
 
 /obj/item/kitchen/knife/sharpen_act(obj/item/whetstone/whetstone, mob/user)
 	. = ..()
@@ -479,7 +482,6 @@
 	icon_state = "ghostface_knife"
 	force = 34
 	armour_penetration = 70
-	block_chance = 30
 	throwforce = 34
 	attack_verb = list("полоснул", "уколол", "поранил", "порезал", "рубанул")
 
@@ -492,6 +494,9 @@
 		INSTRUMENTAL = "старым ножом",
 		PREPOSITIONAL = "старом ноже",
 	)
+
+/obj/item/kitchen/knife/ghostface_knife/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (7 / 3) SECONDS) // 2.3333 seconds of cooldown for 30% uptime
 
 /obj/item/kitchen/knife/ghostface_knife/ComponentInitialize()
 	. = ..()

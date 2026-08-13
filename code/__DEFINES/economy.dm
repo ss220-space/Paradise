@@ -9,3 +9,6 @@
 #define PAYCHECK_COMMAND 400
 /// Paygrade for Captain and some high-tier VIPs.
 #define PAYCHECK_MAX 750
+
+/// The name for the default type of money used in the code.
+#define MONEY_NAME "credits"

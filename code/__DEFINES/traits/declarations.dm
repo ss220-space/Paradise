@@ -130,6 +130,8 @@
 #define TRAIT_HEALS_FROM_HOLY_PYLONS "heals_from_holy_pylons"
 /// This mob heals from bingle holes.
 #define TRAIT_HEALS_FROM_BINGLE_HOLES "heals_from_bingle_holes"
+#define TRAIT_CULT_VEIL_SIGHT "cult_veil_sight"
+#define TRAIT_CULT_CONCEALED "cult_concealed"
 
 #define TRAIT_LASEREYES "laser_eyes"	//traits that should be properly converted to genetic mutations one day
 /// Forces the user to stay unconscious.
@@ -243,6 +245,8 @@
 #define TRAIT_COMBAT_EXOFRAME_EMP_SHIELD "combat_exoframe_emp_shield"
 /// Item still allows you to examine items while blind and actively held.
 #define TRAIT_BLIND_TOOL "blind_tool"
+/// A melee weapon, for this items work combat/melee skill damage mod
+#define TRAIT_MELEE_WEAPON "melee_weapon"
 
 #define TRAIT_SHRAPNEL "shrapnel"
 /// Trait for items that can be attached to tripwire. Dont forget about on_tripwire_trigger(obj/item/tripwire/base, mob/user) proc for each item
@@ -446,6 +450,9 @@
 /// Mob with this trait will not suffer from radiation effects
 #define TRAIT_NO_RADIATION_EFFECTS "no_radiation_effects"
 
+/// Mob with this trait heals from radiation
+#define TRAIT_RAD_HEAL "rad_heal"
+
 #define TRAIT_TWOHANDED_BLOCKED "twohandec_blocked"
 
 #define TRAIT_CLEAVE_BLOCKED "cleave_blocked"
@@ -592,6 +599,15 @@
 /// Used for managing KEEP_TOGETHER in [/atom/var/appearance_flags]
 #define TRAIT_KEEP_TOGETHER "keep-together"
 
+///Trait given to a mob with a ckey currently in a temporary body, allowing people to know someone will re-enter the round later.
+#define TRAIT_MIND_TEMPORARILY_GONE "temporarily_gone"
+
+/// Similar trait given to temporary bodies inhabited by players
+#define TRAIT_TEMPORARY_BODY "temporary_body"
+
+///Deathmatch traits
+#define TRAIT_DEATHMATCH_EXPLOSIVE_IMPLANTS "deathmath_explosive_implants"
+
 /// Marks an atom when the cleaning of it is first started, so that the cleaning overlay doesn't get removed prematurely
 #define TRAIT_CURRENTLY_CLEANING "currently_cleaning"
 
@@ -618,3 +634,8 @@
 
 /// Trait given to objects with the wallmounted component
 #define TRAIT_WALLMOUNTED "wallmounted"
+
+/// Makes an item active, this is generally used by energy based weapons or toggle based items.
+#define TRAIT_ITEM_ACTIVE "item_active"
+
+#define TRAIT_HAS_ANTAG_SKILLS "has_antag_skills"

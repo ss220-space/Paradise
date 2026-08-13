@@ -147,7 +147,7 @@
 "ay" = (
 /obj/item/bikehorn/rubberducky,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/shower/directional/west,
+/obj/machinery/shower/directional/east,
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel/white,
 /area/mine/laborcamp)
@@ -1669,7 +1669,7 @@
 /obj/structure/mirror{
 	pixel_y = -30
 	},
-/obj/structure/sink/directional/north,
+/obj/structure/sink/directional/south,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
@@ -1688,7 +1688,7 @@
 /area/mine/living_quarters)
 "gi" = (
 /obj/structure/curtain/open/shower,
-/obj/machinery/shower/directional/south,
+/obj/machinery/shower/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -2172,7 +2172,7 @@
 /obj/structure/mirror{
 	pixel_y = -30
 	},
-/obj/structure/sink/directional/north,
+/obj/structure/sink/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -4876,7 +4876,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "yG" = (
-/obj/machinery/shower/directional/west,
+/obj/machinery/shower/directional/east,
 /obj/structure/extinguisher_cabinet/directional/north,
 /obj/effect/turf_decal/delivery/partial{
 	dir = 1
@@ -5246,9 +5246,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "Bm" = (
-/obj/structure/toilet{
-	dir = 4
-	},
+/obj/structure/toilet/directional/west,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -5311,9 +5309,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "BD" = (
-/obj/structure/toilet{
-	dir = 4
-	},
+/obj/structure/toilet/directional/west,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -5509,7 +5505,7 @@
 	},
 /area/mine/living_quarters)
 "Dd" = (
-/obj/structure/toilet,
+/obj/structure/toilet/directional/north,
 /obj/effect/decal/cleanable/vomit,
 /obj/effect/decal/cleanable/cobweb2,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -7093,7 +7089,7 @@
 	network = list("Mining Outpost")
 	},
 /obj/machinery/optable,
-/obj/machinery/shower/directional/south,
+/obj/machinery/shower/directional/north,
 /obj/item/tank/internals/anesthetic,
 /obj/item/clothing/mask/breath/medical,
 /turf/simulated/floor/plasteel{
@@ -7104,7 +7100,7 @@
 "NG" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/vomit,
-/obj/structure/sink/directional/east,
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = -28
 	},
@@ -7147,7 +7143,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "NZ" = (
-/obj/structure/toilet,
+/obj/structure/toilet/directional/north,
 /obj/effect/decal/cleanable/cobweb,
 /obj/item/clothing/mask/balaclava,
 /turf/simulated/floor/plasteel/white,
@@ -7347,8 +7343,8 @@
 	dir = 1
 	},
 /obj/item/gps/ruin{
-	pixel_y = 32;
-	gpstag = "OUTPOST"
+	gpstag = "OUTPOST";
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;

@@ -7,6 +7,10 @@
 	name = "Engineering"
 	icon_state = "engine_smes"
 
+/area/station/engineering/engine/reactor
+	name = "Fission Reactor"
+	icon_state = "engine_nuke"
+
 /area/station/engineering/monitor
 	name = "Engineering Monitoring Room"
 	icon_state = "engine_control"
@@ -58,6 +62,10 @@
 
 /area/station/engineering/atmos/distribution
 	name = "Atmospherics Distribution Loop"
+
+/area/station/engineering/atmos/mixing_atmos
+	name = "Atmospherics Mixing Room"
+	icon_state = "atmos_mixing"
 
 /area/station/engineering/storage/tech
 	name = "Technical Storage"

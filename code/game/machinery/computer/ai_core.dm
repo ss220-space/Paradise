@@ -9,6 +9,10 @@
 	var/obj/item/circuitboard/aicore/circuit = null
 	var/obj/item/mmi/brain = null
 
+/obj/structure/AIcore/Initialize(mapload)
+	. = ..()
+	update_appearance(UPDATE_ICON_STATE)
+
 /obj/structure/AIcore/Destroy(force)
 	QDEL_NULL(laws)
 	QDEL_NULL(circuit)
@@ -41,7 +45,8 @@
 					return ATTACK_CHAIN_PROCEED
 				playsound(loc, coil.usesound, 50, TRUE)
 				to_chat(user, span_notice("You start to add cables to the frame."))
-				if(!do_after(user, 2 SECONDS * coil.toolspeed, src, category = DA_CAT_TOOL) || state != SCREWED_CORE || QDELETED(coil))
+				CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
+				if(!do_after(user, 2 SECONDS * coil.toolspeed * construction_mod, src, category = DA_CAT_TOOL) || state != SCREWED_CORE || QDELETED(coil))
 					return ATTACK_CHAIN_PROCEED
 				if(!coil.use(5))
 					to_chat(user, span_warning("At some point during construction you lost some cable. Make sure you have five lengths before trying again."))
@@ -58,7 +63,8 @@
 				if(rglass.get_amount() < 2)
 					to_chat(user, span_warning("You need two sheets of [rglass.name] to insert them into the AI core!"))
 					return ATTACK_CHAIN_PROCEED
-				if(!do_after(user, 2 SECONDS * rglass.toolspeed, src, category = DA_CAT_TOOL) || state != CABLED_CORE || QDELETED(rglass))
+				CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
+				if(!do_after(user, 2 SECONDS * rglass.toolspeed * construction_mod, src, category = DA_CAT_TOOL) || state != CABLED_CORE || QDELETED(rglass))
 					return ATTACK_CHAIN_PROCEED
 				if(!rglass.use(2))
 					to_chat(user, span_warning("At some point during construction you lost some [rglass.name]. Make sure you have two sheets of [rglass.name] before trying again."))
@@ -223,7 +229,7 @@
 /obj/structure/AIcore/update_icon_state()
 	cut_overlays()
 
-	if(state != GLASS_CORE)
+	if(state != AI_READY_CORE)
 		icon_state = "[state]"
 		if(state == CABLED_CORE && brain)
 			icon_state += "b"
@@ -262,7 +268,8 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	WELDER_ATTEMPT_WELD_MESSAGE
-	if(I.use_tool(src, user, 20, volume = I.tool_volume))
+	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
+	if(I.use_tool(src, user, 2 SECONDS * construction_mod, volume = I.tool_volume))
 		to_chat(user, span_notice("You deconstruct the frame."))
 		new /obj/item/stack/sheet/plasteel(drop_location(), 4)
 		qdel(src)

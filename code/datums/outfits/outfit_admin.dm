@@ -1280,7 +1280,7 @@
 	H.mind.AddSpell(new /obj/effect/proc_holder/spell/shapeshift/bats)
 	H.mind.AddSpell(new /obj/effect/proc_holder/spell/shapeshift/hellhound)
 	H.force_gene_block(GLOB.jumpblock, TRUE)
-	H.gene_stability = 100
+	H.set_gene_stability(100)
 
 /datum/outfit/admin/wizard
 	name = "Blue Wizard"

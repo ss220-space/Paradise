@@ -115,6 +115,12 @@
 	)
 	autohiss_exempt = list("Синт'Унати")
 
+	max_select_skills = list(
+		/datum/skill/combat/fists = 3,
+		/datum/skill/medical/heal = 1,
+		/datum/skill/medical/genetic = 1,
+	)
+
 /datum/species/unathi/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
 

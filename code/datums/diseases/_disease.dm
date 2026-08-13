@@ -86,6 +86,9 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 		cure_text = russian_list(reagents, "Неизлечимо", needs_all_cures ? " и " : " или ")
 
 /datum/disease/Destroy()
+	unregister_disease_signals()
+	if(affected_mob)
+		LAZYREMOVE(affected_mob.diseases, src)
 	affected_mob = null
 	GLOB.active_diseases.Remove(src)
 	return ..()
@@ -99,9 +102,6 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
  */
 /datum/disease/proc/stage_act()
 	if(!affected_mob)
-		return FALSE
-
-	if(affected_mob?.stat == DEAD && !can_progress_in_dead)
 		return FALSE
 
 	var/cure = has_cure()
@@ -152,6 +152,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 		affected_mob.med_hud_set_status()
 		if(cured_message)
 			to_chat(affected_mob, span_notice(cured_message))
+	unregister_disease_signals()
 	qdel(src)
 
 /**
@@ -201,7 +202,29 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	GLOB.active_diseases += D
 	D.carrier = is_carrier
 	D.affected_mob.med_hud_set_status()
+	D.register_disease_signals()
 	return D
+
+/// Register any relevant signals for the disease
+/datum/disease/proc/register_disease_signals()
+	if(isnull(affected_mob))
+		return
+	RegisterSignal(affected_mob, COMSIG_LIVING_LIFE, PROC_REF(on_life))
+
+/// Unregister any relevant signals for the disease
+/datum/disease/proc/unregister_disease_signals()
+	if(isnull(affected_mob))
+		return
+	UnregisterSignal(affected_mob, list(COMSIG_LIVING_LIFE))
+
+/datum/disease/proc/on_life(datum/source, seconds_per_tick)
+	SIGNAL_HANDLER
+	PRIVATE_PROC(TRUE)
+
+	if(HAS_TRAIT(affected_mob, TRAIT_STASIS) || QDELETED(src) || (affected_mob.stat == DEAD && !can_progress_in_dead))
+		return
+
+	stage_act(seconds_per_tick)
 
 /datum/disease/proc/IsSame(datum/disease/D)
 	if(src.type == D.type)

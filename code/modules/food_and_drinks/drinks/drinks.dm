@@ -108,7 +108,7 @@
 	)
 
 	chugging = TRUE
-	while(do_after(chugger, 4 SECONDS, chugger, progress = FALSE, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("You stop chugging [src].")))
+	while(do_after(chugger, 4 SECONDS, chugger, show_progress = FALSE, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("You stop chugging [src].")))
 		chugger.eat(src, chugger, 25)
 		if(!reagents.total_volume)
 			chugger.emote("gasp")

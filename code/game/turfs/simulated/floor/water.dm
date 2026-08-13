@@ -82,7 +82,6 @@
 	UnregisterSignal(src, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON)
 	return ..()
 
-
 /turf/simulated/floor/water/jungle
 
 /turf/simulated/floor/water/no_planet_atmos
@@ -184,6 +183,9 @@
 			else if(group & shale_group[key])
 				shale_junction &= ~junction
 			*/
+
+/turf/simulated/floor/water/lavaland_atmos/basalt/smooth_icon()
+	. = ..()
 	update_appearance()
 
 /turf/simulated/floor/water/lavaland_atmos/basalt/update_overlays()

@@ -28,7 +28,7 @@
 	/// A list which holds all categories and items the biogenator has available. Used with the UI to save having to rebuild this every time someone opens it.
 	var/list/product_list = list()
 	/// The [/datum/design]'s categories which can be produced by this machine and can be uploaded via a disk.
-	var/static/list/categories = list("Food", "Botany Chemicals", "Organic Materials", "Leather and Cloth")
+	var/static/list/categories = list(BIOGEN_CHEMICALS, BIOGEN_ORGANIC, BIOGEN_LEATHER_CLOTH, BIOGEN_CUBES, BIOGEN_FOOD)
 
 /obj/machinery/biogenerator/Initialize(mapload)
 	. = ..()

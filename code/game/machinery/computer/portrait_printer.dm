@@ -30,7 +30,7 @@
 
 /obj/machinery/computer/portrait_printer/attack_hand(mob/user)
 	. = ..()
-	if(!.)
+	if(.)
 		return
 	ui_interact(user)
 
@@ -78,9 +78,12 @@
 		get_asset_datum(/datum/asset/simple/portraits)
 	)
 
-
 /obj/machinery/computer/portrait_printer/ui_act(action, params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
+
+	if(!isliving(ui.user))
+		return
+
 	switch(action)
 		if("search")
 			if(search_string != params["to_search"])

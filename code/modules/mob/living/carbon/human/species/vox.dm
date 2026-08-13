@@ -31,7 +31,7 @@
 		TRAIT_TOXIC_FUEL_PROTECTED,
 	)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS //Species-fitted 'em all.
-	bodyflags = HAS_ICON_SKIN_TONE | HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_BODY_MARKINGS | HAS_TAIL_MARKINGS | HAS_SKIN_COLOR
+	bodyflags = HAS_ICON_SKIN_TONE | HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_BODY_MARKINGS | HAS_TAIL_MARKINGS | HAS_SKIN_COLOR | HAS_HAIR
 
 	silent_steps = TRUE
 
@@ -118,6 +118,13 @@
 		"к" = list("к", "кк", "кик"),
 	)
 	autohiss_exempt = list("Вокс-пиджин")
+
+	max_select_skills = list(
+		/datum/skill/general/carrying = 1,
+		/datum/skill/combat/fists = 1,
+		/datum/skill/engineering/electrician = 3,
+		/datum/skill/engineering/atmos = 3,
+	)
 
 /datum/species/vox/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()

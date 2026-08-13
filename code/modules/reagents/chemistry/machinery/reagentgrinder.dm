@@ -33,6 +33,7 @@
 			/obj/item/grown/nettle/death = list(/datum/reagent/acid/facid = 0, /datum/reagent/acid = 0),
 			/obj/item/grown/novaflower = list(/datum/reagent/consumable/capsaicin = 0, /datum/reagent/consumable/condensedcapsaicin = 0),
 			/obj/item/stack/sheet/cheese = list(/datum/reagent/consumable/drink/milk = 20),
+			/obj/item/stack/ammonia_crystals = list(/datum/reagent/ammonia = 10),
 
 			//Blender Stuff
 			/obj/item/reagent_containers/food/snacks/grown/tomato = list(/datum/reagent/consumable/ketchup = 0),

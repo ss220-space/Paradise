@@ -399,6 +399,8 @@
 
 	loot_panel = new(src)
 
+	skills_select_window = new()
+
 	Master.UpdateTickRate()
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/client, nag_516))
 
@@ -474,6 +476,13 @@
 
 /client/Del()
 	if(!gc_destroyed)
+		gc_destroyed = world.time
+		if(!QDELING(src))
+			stack_trace("Client does not purport to be QDELING, this is going to cause bugs in other places!")
+
+		// Yes this is the same as what's found in qdel(). Yes it does need to be here
+		// Get off my back
+		SEND_SIGNAL(src, COMSIG_QDELETING, TRUE)
 		Destroy() //Clean up signals and timers.
 	return ..()
 
@@ -511,6 +520,7 @@
 	QDEL_NULL(tooltips)
 	QDEL_NULL(loot_panel)
 	QDEL_NULL(parallax_rock)
+	QDEL_NULL(skills_select_window)
 	seen_messages = null
 	sound_tokens = null
 	Master.UpdateTickRate()

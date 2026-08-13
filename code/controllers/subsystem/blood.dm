@@ -21,18 +21,16 @@
 /// Bleeding per embedded item (units per 2 sec)
 #define EMBEDDED_ITEM_BLEEDING 0.2
 /// Open bodypart bleeding (units per 2 sec)
-#define OPEN_BODYPART_BLEEDING 0.75
+#define OPEN_BODYPART_BLEEDING 0.2
 /// Internal bleeding size (units per 2 sec)
 #define BODYPART_INTERNAL_BLEEDING 0.75
 /// Open fracture bleeding amount (units per 2 sec)
 #define BODYPART_OPEN_FRACTURE_BLEEDING 0.5
 /// Decrease bleeding size if no wounds (units per 2 sec)
-#define BLEEDING_DECREASE 0.005
+#define BLEEDING_DECREASE 0.05
 /// Multiplyer for bleeding calculate from bodypart value
-#define BLEEDING_MODIFIER 0.55
-/// Suppressed bleeding modifier
-#define BRUISE_PACK_SUPPRESS_BLEEDING_MOD 0.80
-/// Oxy damage if use tourniquet on head
+#define BLEEDING_MODIFIER 0.5
+/// Amount bleeding decreases when pressing wound hand
 #define MAX_SUPPRESS_BLEEDING_BY_HAND 15
 
 // MARK: Sybsystem
@@ -274,7 +272,6 @@ SUBSYSTEM_DEF(blood)
 #undef OPEN_BODYPART_BLEEDING
 #undef BLEEDING_DECREASE
 #undef BLEEDING_MODIFIER
-#undef BRUISE_PACK_SUPPRESS_BLEEDING_MOD
 #undef BODYPART_INTERNAL_BLEEDING
 #undef BODYPART_OPEN_FRACTURE_BLEEDING
 #undef MAX_SUPPRESS_BLEEDING_BY_HAND

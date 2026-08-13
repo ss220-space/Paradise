@@ -458,6 +458,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 #define META_GAS_SCRUB_FLAG 5
 #define META_GAS_SENSOR_FLAG 6
 #define META_BASE_VALUE 7
+#define META_GAS_FUSION_POWER 8
 
 #define MOLES_GAS_VISIBLE 0.25
 
@@ -736,3 +737,9 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 #define SPECIFIC_HEAT_ANTINOBLIUM 1
 
 #define MAX_GAS_CREDITS 15000
+
+//Fusion
+///Maximum instability before the reaction goes endothermic
+#define FUSION_INSTABILITY_ENDOTHERMALITY 4
+///Maximum reachable fusion temperature
+#define FUSION_MAXIMUM_TEMPERATURE 1e8

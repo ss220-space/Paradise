@@ -313,11 +313,6 @@
 	// not if he's not CANPUSH of course
 	if(!(bumped_mob.status_flags & CANPUSH) || HAS_TRAIT(bumped_mob, TRAIT_PUSHIMMUNE))
 		return TRUE
-	//anti-riot equipment is also anti-push
-	if(bumped_mob.r_hand && !isclothing(bumped_mob.r_hand) && prob(bumped_mob.r_hand.block_chance * 2))
-		return TRUE
-	if(bumped_mob.l_hand && !isclothing(bumped_mob.l_hand) && prob(bumped_mob.l_hand.block_chance * 2))
-		return TRUE
 
 //Called when we bump into an obj
 /mob/living/proc/ObjBump(obj/object)
@@ -1454,7 +1449,9 @@
 	. = TRUE
 	to_chat(user, span_notice("Вы начинаете разделывать [declent_ru(ACCUSATIVE)]..."))
 	playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
-	if(!do_after(user, I.has_speed_harvest ? 1 SECONDS : (4 SECONDS * mob_size), src, NONE, max_interact_count = 1, cancel_on_max = TRUE) || !Adjacent(user))
+	CALCULATE_SKILL_MOD(user, BUTCHERING_SPEED_MOD, butchering_skill_mod)
+	var/butchering_duration = I.has_speed_harvest ? 1 SECONDS : (4 SECONDS * mob_size)
+	if(!do_after(user, butchering_duration * butchering_skill_mod, src, NONE, max_interact_count = 1, cancel_on_max = TRUE) || !Adjacent(user))
 		return .
 	harvest(user)
 
@@ -2396,4 +2393,29 @@
  * A wrapper for [mob/living/carbon/human/proc/update_lips] that sets the lip style and color to null.
  **/
 /mob/living/proc/clean_lips()
+	return
+
+/mob/living/proc/set_gene_stability(value)
+	if(gene_stability == value)
+		return
+
+	gene_stability = value
+
+	if(ignore_gene_stability)
+		return
+
+	if(value < GENETIC_DAMAGE_STAGE_3)
+		apply_status_effect(/datum/status_effect/gene_instability/major/critical)
+		return
+
+	if(value < GENETIC_DAMAGE_STAGE_2)
+		apply_status_effect(/datum/status_effect/gene_instability/major)
+		return
+
+	if(value < GENETIC_DAMAGE_STAGE_1)
+		apply_status_effect(/datum/status_effect/gene_instability/minor)
+		return
+	remove_status_effect(/datum/status_effect/gene_instability)
+
+/mob/living/proc/embed_item_inside(obj/item/thing, embedded_zone, silent = FALSE)
 	return

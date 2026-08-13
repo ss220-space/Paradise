@@ -1504,3 +1504,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	. += lights_overlay
 
 	. += emissive_appearance(icon, lights_state, src)
+
+/mob/living/silicon/ai/get_lootpanel_cache_key()
+	return "[display_icon_override] [portrait_appearance?.icon] [portrait_appearance?.icon_state]"

@@ -603,7 +603,7 @@
 	desc = "Несущая опора, выполняющая роль \"скелета\" в конструкции гуманоидных роботов. Облегченная модель из пластитанового сплава с повышенной прочностью конструкции."
 	id = "EXO_COMBAT"
 	icon_state = "exoframe_combat"
-	origin_tech = "materials=4;engineering=4;illegal=3;combat=4"
+	origin_tech = "materials=4;engineering=4;syndicate=3;combat=4"
 	given_health = 40
 	repair_time = 4 SECONDS
 	traits_added = list(TRAIT_IGNOREDAMAGESLOWDOWN)

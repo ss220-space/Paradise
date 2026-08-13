@@ -10,6 +10,10 @@
 	var/obj/item/tank/holding
 	var/volume = 0
 	var/maximum_pressure = 90 * ONE_ATMOSPHERE
+	/// Should reactions inside the object be suppressed
+	var/suppress_reactions = FALSE
+	/// Is there a hypernoblium crystal inserted into this
+	var/nob_crystal_inserted = FALSE
 
 /obj/machinery/portable_atmospherics/ComponentInitialize()
 	. = ..()
@@ -35,13 +39,18 @@
 	air_contents.volume = volume
 	air_contents.set_temperature(T20C)
 
+/obj/machinery/portable_atmospherics/on_deconstruction(disassembled)
+	if(nob_crystal_inserted)
+		new /obj/item/hypernoblium_crystal(src)
+	return ..()
+
 /obj/machinery/portable_atmospherics/proc/check_for_port()
 	var/obj/machinery/atmospherics/unary/portables_connector/port = locate() in loc
 	if(port)
 		connect(port)
 
 /obj/machinery/portable_atmospherics/process_atmos()
-	if(!connected_port) //only react when pipe_network will ont it do it for you
+	if(!connected_port && !suppress_reactions) //only react when pipe_network will ont it do it for you
 		//Allow for reactions
 		air_contents.react()
 		return
@@ -106,6 +115,10 @@
 	. = ..()
 	if(holding)
 		. += span_notice("\The [src] contains [holding]. Alt-click [src] to remove it.")
+	if(nob_crystal_inserted)
+		. += "There is a hypernoblium crystal inside it that allows for reactions inside to be suppressed."
+	if(suppress_reactions)
+		. += "The hypernoblium crystal inside is glowing with a faint blue colour, indicating reactions inside are currently being suppressed."
 
 /obj/machinery/portable_atmospherics/return_analyzable_air()
 	return air_contents
@@ -173,4 +186,8 @@
 		return ATTACK_CHAIN_BLOCKED
 
 	return ..()
+
+/// Insert Hypernob crystal into the machine
+/obj/machinery/portable_atmospherics/proc/insert_nob_crystal()
+	nob_crystal_inserted = TRUE
 

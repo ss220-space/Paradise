@@ -9,6 +9,7 @@ SUBSYSTEM_DEF(asset_loading)
 	var/assets_generating = 0
 	var/list/datum/asset/generate_queue = list()
 	var/last_queue_len = 0
+	var/iconforge_uni_icon_generated = FALSE
 
 /datum/controller/subsystem/asset_loading/PreInit()
 	. = ..()
@@ -29,8 +30,9 @@ SUBSYSTEM_DEF(asset_loading)
 			return
 
 	// We just emptied the queue
-	if(last_queue_len && !length(generate_queue) && !assets_generating)
+	if((last_queue_len || iconforge_uni_icon_generated) && !length(generate_queue) && !assets_generating)
 		// Clean up cached icons, freeing memory.
+		iconforge_uni_icon_generated = FALSE
 		rustlib_iconforge_cleanup()
 
 /datum/controller/subsystem/asset_loading/Shutdown()

@@ -396,6 +396,10 @@
 		to_chat(user, span_userdanger("Для стрельбы из [declent_ru(GENITIVE)] нужны две свободные руки!"))
 		return
 
+	if(!HAS_TRAIT(user, TRAIT_BADASS) && weapon_weight == WEAPON_MEDIUM && isgun(user.get_inactive_hand()))
+		to_chat(user, span_userdanger("Стрелять с двух рук используя [declent_ru(ACCUSATIVE)] не получится!"))
+		return
+
 	if(gun_on_cooldown(user))
 		return
 
@@ -414,7 +418,7 @@
 	src.modifiers = modifiers
 	if(gun_firemode == GUN_FIREMODE_SEMIAUTO)
 		INVOKE_ASYNC(src, PROC_REF(do_semiauto_fire))
-		return
+		return TRUE
 	SEND_SIGNAL(src, COMSIG_GUN_FIRE)
 	update_mouse_pointer()
 	sound_loop?.start(user)
@@ -508,8 +512,8 @@
 	if(dual_wield && !(gun_user && HAS_TRAIT(gun_user, TRAIT_BADASS)))
 		bonus_spread += accuracy.dual_wield_spread * weapon_weight
 	//CLOWN CHECK
-	if(gun_user && HAS_TRAIT(gun_user, TRAIT_CLUMSY) && prob(50))
-		bonus_spread += 45
+	if(gun_user && HAS_TRAIT(gun_user, TRAIT_CLUMSY))
+		bonus_spread += 75
 
 /obj/item/gun/proc/set_fire_delay(value, mob/user)
 	fire_delay = value
@@ -692,6 +696,7 @@
 			if(chambered.harmful) // Is the bullet chambered harmful?
 				to_chat(user, span_warning("В [declent_ru(ACCUSATIVE)] заряжены смертельные патроны! Лучше не рисковать..."))
 				return
+		on_pre_process_fire(user, target)
 		sprd = accuracy.randomize_spread(user, bonus_spread, shots_counter)
 		if(!chambered.fire(target = target, user = user, modifiers = modifiers, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src, damage_mod = damage_mod, stamina_mod = stamina_mod))
 			shoot_with_empty_chamber(user)
@@ -715,6 +720,9 @@
 	shots_counter++
 	SEND_SIGNAL(src, COMSIG_GUN_AFTER_PROCESS_FIRE, target, user)
 	return AUTOFIRE_CONTINUE
+
+/obj/item/gun/proc/on_pre_process_fire(mob/living/user, atom/target)
+	return
 
 /obj/item/gun/interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
 	if(user.a_intent != INTENT_HARM || user == interacting_with || !isliving(interacting_with) || !can_hold_up)

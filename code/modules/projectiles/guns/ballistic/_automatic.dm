@@ -4,7 +4,9 @@
 	can_holster = FALSE
 	burst_amount = 3
 	fire_delay = 0.3 SECONDS
+	extra_delay = 0.1 SECONDS
 	gun_firemode_list = list(GUN_FIREMODE_SEMIAUTO, GUN_FIREMODE_BURSTFIRE)
+	weapon_weight = WEAPON_MEDIUM
 
 /obj/item/gun/projectile/automatic/update_icon_state()
 	icon_state = "[initial(icon_state)][magazine ? "-[magazine.max_ammo]" : ""][chambered ? "" : "-e"]"

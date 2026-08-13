@@ -35,6 +35,7 @@
 
 #define CMAGGED "clown_emag"
 
+#define NO_HITSCAN_TURRET_TRAIT "no-hitscan-in-turret"
 #define ABSTRACT_ITEM_TRAIT "abstract-item"
 #define ABDUCTOR_VEST_TRAIT "abductor-vest"
 #define CYBORG_ITEM_TRAIT "cyborg-item"
@@ -207,6 +208,9 @@
 
 /// Trait acquired from being painted a certain color
 #define ATOM_COLOR_TRAIT "atom_color"
+
+/// Trait associated with deathmatch
+#define DEATHMATCH_TRAIT "deathmatch"
 
 /// From the item_scaling element
 #define ITEM_SCALING_TRAIT "item_scaling"

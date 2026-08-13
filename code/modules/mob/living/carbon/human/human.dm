@@ -582,7 +582,7 @@
 				return
 			bodypart.owner.custom_pain("Ваш[GEND_A_E_I(bodypart)] [bodypart.declent_ru(NOMINATIVE)] горит огнем!")
 			bodypart.external_receive_damage(brute = bodypart.fracture.reattach_fail_damage)
-			bodypart.bleeding_amount = max(bodypart.bleeding_amount, min(bodypart.bleeding_amount + 10, bodypart.max_bleeding_amount))
+			bodypart.bleeding_amount = min(bodypart.bleeding_amount, bodypart.max_bleeding_amount)
 			return
 
 	if(href_list["criminal"])
@@ -2193,3 +2193,16 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 	if(wear_mask && !(covered_slots & HIDEMASK) && wear_mask.wash_tg(clean_types))
 		. = TRUE
+
+
+/mob/living/carbon/human/get_lootpanel_cache_key()
+	return "[generate_icon_render_key()] \
+			[w_uniform?.icon] [w_uniform?.icon_state] \
+			[wear_suit?.icon] [wear_suit?.icon_state] \
+			[head?.icon] [head?.icon_state] \
+			[shoes?.icon] [shoes?.icon_state] \
+			[gloves?.icon] [gloves?.icon_state] \
+			[glasses?.icon] [glasses?.icon_state] \
+			[wear_mask?.icon] [wear_mask?.icon_state] \
+			[back?.icon] [back?.icon_state] \
+			[belt?.icon] [belt?.icon_state]"

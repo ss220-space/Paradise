@@ -313,6 +313,7 @@ GLOBAL_LIST_INIT(job_titles_ru, list(
 #define ALT_JOB_TITLE_RU_CRIMINOLOGIST "Криминалист"
 // Security officer
 #define ALT_JOB_TITLE_RU_PATROL_OFFICER "Патрульный СБ"
+#define ALT_JOB_TITLE_RU_SECURITY_CADET "Кадет СБ"
 // Brig medic
 #define ALT_JOB_TITLE_RU_SECURITY_MEDIC "Врач СБ"
 #define ALT_JOB_TITLE_RU_TACTICAL_MEDIC "Тактический медик"

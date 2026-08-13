@@ -140,7 +140,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light_switch, 26, 26)
 		span_notice("You are unwrenching [src] from the wall..."),
 		span_warning("You hear ratcheting.")
 	)
-	if(!tool.use_tool(src, user, 30, volume = tool.tool_volume))
+	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
+	if(!tool.use_tool(src, user, 3 SECONDS * construction_mod, volume = tool.tool_volume))
 		return
 	WRENCH_UNANCHOR_WALL_MESSAGE
 	new/obj/item/mounted/frame/light_switch(get_turf(src))

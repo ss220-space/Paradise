@@ -14,7 +14,6 @@
 	stamina_damage = 75
 	force = 5
 	extend_force = 20
-	block_chance = 30
 	force_say_chance = 80 //very high force say chance because it's funny
 	on_stun_sound = 'sound/weapons/contractorbatonhit.ogg'
 	extend_sound = 'sound/weapons/contractorbatonextend.ogg'
@@ -33,6 +32,9 @@
 		INSTRUMENTAL = "дубинкой контрактника",
 		PREPOSITIONAL = "дубинке контрактника",
 	)
+
+/obj/item/melee/baton/telescopic/contractor/add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (7 / 3) SECONDS, _requires_activation = TRUE) // 2.3333 seconds of cooldown for 30% uptime
 
 /obj/item/melee/baton/telescopic/contractor/examine(mob/user)
 	. = ..()
@@ -138,6 +140,11 @@
 
 /obj/item/melee/baton/telescopic/contractor/on_transform(obj/item/source, mob/user, active)
 	. = ..()
+	if(active)
+		ADD_TRAIT(src, TRAIT_ITEM_ACTIVE, GENERIC_TRAIT)
+	else
+		REMOVE_TRAIT(src, TRAIT_ITEM_ACTIVE, GENERIC_TRAIT)
+
 	if(!has_upgrade(UPGRADE_ANTIDROP))
 		return .
 

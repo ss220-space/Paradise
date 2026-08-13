@@ -41,12 +41,14 @@
 			outfit.uniform = /obj/item/clothing/under/assistantformal
 			outfit.shoes = /obj/item/clothing/shoes/color/black
 			outfit.back = /obj/item/storage/backpack
+			skills_ref_job = JOB_TITLE_OFFICER
 		if(2)
 			flavour_text += "Вы — изгнанник из Кооператива \"Тигр\". Их технологический фанатизм заставил вас усомниться в силе и убеждениях Экзолитиков, и они сочли вас еретиком, подвергнув часам ужасных пыток. \
 			Вы были в нескольких часах от казни, когда ваш высокопоставленный друг в Кооперативе смог обеспечить вам капсулу, скрыл координаты назначения и запустил её. Вы очнулись от стазиса после посадки и с тех пор едва выживаете."
 			outfit.uniform = /obj/item/clothing/under/color/orange/prison
 			outfit.shoes = /obj/item/clothing/shoes/color/orange/prison
 			outfit.back = /obj/item/storage/backpack
+			skills_ref_job = JOB_TITLE_SCIENTIST
 		if(3)
 			flavour_text += "Вы были врачом на одной из космических станций \"Нанотрейзен\", но вы оставили позади тиранию этой проклятой корпорации и всё, что она представляет. Из метафорического ада в буквальный, \
 			вы всё же скучаете по переработанному воздуху и тёплым полам того, что оставили позади... но вы всё равно предпочли бы быть здесь, чем там."
@@ -54,6 +56,7 @@
 			outfit.suit = /obj/item/clothing/suit/storage/labcoat
 			outfit.back = /obj/item/storage/backpack/medic
 			outfit.shoes = /obj/item/clothing/shoes/color/black
+			skills_ref_job = JOB_TITLE_DOCTOR
 		if(4)
 			flavour_text += "Ваши друзья всегда шутили, что вы \"не дружите с головой\". Кажется, они были правы, когда вы, находясь на экскурсии в одном из передовых исследовательских центров \"Нанотрейзен\", \
 			оказались в спасательной капсуле в одиночестве. Ваш взгляд упал на красную кнопку — она была такой большой и блестящей, что вы не смогли устоять. Вы нажали её, и после нескольких дней ужасающего путешествия \
@@ -61,6 +64,7 @@
 			outfit.uniform = /obj/item/clothing/under/color/grey/glorf
 			outfit.shoes = /obj/item/clothing/shoes/color/black
 			outfit.back = /obj/item/storage/backpack
+			skills_ref_job = JOB_TITLE_CLOWN
 	l_pocket = /obj/item/kitchen/knife/combat
 
 /obj/effect/mob_spawn/human/hermit/Destroy()

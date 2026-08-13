@@ -24,7 +24,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	AI_delay_max = 0.5 SECONDS
 	mob_size = MOB_SIZE_SMALL
-	pass_flags = PASSTABLE | PASSMOB | PASSFENCE | PASSVEHICLE
+	pass_flags = PASSTABLE | PASSMOB | PASSFENCE | PASSVEHICLE | PASSDOOR
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	pull_force = MOVE_FORCE_EXTREMELY_WEAK

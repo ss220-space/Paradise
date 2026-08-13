@@ -8,6 +8,7 @@
 	show_in_roundend = FALSE
 	show_in_orbit = FALSE
 	antag_menu_name = "Паук Ужаса"
+	has_skill_bonus = FALSE
 	var/datum/team/terror_spiders/terror_team
 	var/spider_category = TERROR_OTHER
 	var/spider_intro_text = "Если ты это видишь, это баг."
