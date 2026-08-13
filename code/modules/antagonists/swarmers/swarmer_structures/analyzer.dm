@@ -9,8 +9,14 @@
 	swarmer_examine = "Анализирует живых существ. Не делает этого в открученном состоянии. Загрузка в эту машину происходит через Right Click по существу свармером."
 	icon_state = "bio_analyzer"
 	max_integrity = 150
+	contents_pressure_protection = 1
+	contents_thermal_insulation = 1
 	/// Current mob in src
 	var/mob/living/occupant
+	/// The list of weathers we protect the occupant from.
+	var/list/weather_protection = list(TRAIT_ASHSTORM_IMMUNE, TRAIT_RADSTORM_IMMUNE, TRAIT_SNOWSTORM_IMMUNE) // Does not protect against lava or the The Floor Is Lava spell.
+	/// The contents of the gas to be distributed to an occupant. Set in Initialize()
+	var/datum/gas_mixture/air_contents = null
 	/// Spark system (since we use them a lot)
 	var/datum/effect_system/spark_spread/spark_system
 	/// Active processing sound loop
@@ -23,6 +29,8 @@
 /obj/structure/swarmer/organic_analyzer/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_SWARMER_ANALYZE_MOB_CHECK, PROC_REF(try_load_mob))
+	add_traits(weather_protection, INNATE_TRAIT)
+	refresh_air()
 	sound_loop = new(src, FALSE)
 	spark_system = new
 	spark_system.set_up(5, 0, src)
@@ -30,6 +38,7 @@
 
 /obj/structure/swarmer/organic_analyzer/Destroy(force)
 	UnregisterSignal(src, COMSIG_SWARMER_ANALYZE_MOB_CHECK)
+	QDEL_NULL(air_contents)
 	QDEL_NULL(spark_system)
 	QDEL_NULL(sound_loop)
 	if(occupant)
@@ -103,6 +112,7 @@
 		return
 
 	balloon_alert_to_viewers("обработано!")
+	refresh_air()
 	sound_loop.stop()
 	animate(src, transform=matrix())
 	take_random_organs()
@@ -206,6 +216,22 @@
 	playsound(src, 'sound/effects/sparks4.ogg', 50, TRUE)
 	occupant.SetSleeping(5 SECONDS)
 	do_teleport(occupant, safe_turf)
+
+/obj/structure/swarmer/organic_analyzer/return_obj_air()
+	return air_contents
+
+/obj/structure/swarmer/organic_analyzer/return_analyzable_air()
+	return air_contents
+
+/// Refreshes air_contents variable after each occupant
+/obj/structure/swarmer/organic_analyzer/proc/refresh_air()
+	air_contents = null
+	air_contents = new
+	air_contents.set_temperature(T20C)
+	air_contents.volume = 50
+
+	air_contents.set_oxygen(O2STANDARD * ONE_ATMOSPHERE * 50 / (R_IDEAL_GAS_EQUATION * T20C))
+	air_contents.set_nitrogen(N2STANDARD * ONE_ATMOSPHERE * 50 / (R_IDEAL_GAS_EQUATION * T20C))
 
 /obj/structure/swarmer/organic_analyzer/get_ru_names()
 	return alist(
