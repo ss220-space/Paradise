@@ -51,7 +51,7 @@
 		return ..()
 
 	add_fingerprint(user)
-	if(isglassreagentcontainer(I) || istype(I, /obj/item/reagent_containers/food/drinks/drinkingglass))
+	if(isglassreagentcontainer(I) || istype(I, /obj/item/reagent_containers/cup/glass/drinkingglass))
 		if(beaker)
 			balloon_alert(user, "внутри уже есть ёмкость!")
 			return ATTACK_CHAIN_PROCEED

@@ -838,9 +838,9 @@
 /area/ruin/powered/space_bar)
 "Zx" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/cup/glass/cans/beer,
 /obj/item/book/manual/barman_recipes,
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/cup/glass/shaker,
 /obj/machinery/light/small{
 	dir = 8
 	},

@@ -47,7 +47,7 @@
 	id = "cream_carton"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 50)
-	build_path = /obj/item/reagent_containers/food/drinks/bottle/cream
+	build_path = /obj/item/reagent_containers/cup/glass/bottle/cream
 	category = list(PRINTER_CATEGORY_INITIAL, BIOGEN_FOOD)
 
 /datum/design/salt_shaker

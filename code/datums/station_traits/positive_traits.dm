@@ -55,7 +55,7 @@
 	new pizza_type_to_spawn(pod)
 
 	for(var/i in 1 to 2)
-		new /obj/item/reagent_containers/food/drinks/cans/beer(pod)
+		new /obj/item/reagent_containers/cup/glass/cans/beer(pod)
 
 	new /obj/effect/pod_landingzone(choosen_turf, pod)
 

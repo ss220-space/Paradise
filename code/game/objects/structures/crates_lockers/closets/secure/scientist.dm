@@ -58,7 +58,7 @@
 	new /obj/item/flash(src)
 	new /obj/item/laser_pointer(src)
 	new /obj/item/door_remote/research_director(src)
-	new /obj/item/reagent_containers/food/drinks/mug/rd(src)
+	new /obj/item/reagent_containers/cup/glass/mug/rd(src)
 	new /obj/item/autoimplanter/oneuse/diagnostic_hud(src)
 	new /obj/item/clothing/accessory/medal/science(src)
 	new /obj/item/megaphone(src)	//added here deleted on maps

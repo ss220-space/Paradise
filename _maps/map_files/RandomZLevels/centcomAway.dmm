@@ -273,7 +273,7 @@
 /area/awaymission/centcom_away/cafe)
 "aN" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/cup/glass/shaker,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -4223,7 +4223,7 @@
 	dir = 9
 	},
 /obj/item/clothing/mask/cigarette/cigar/havana,
-/obj/item/reagent_containers/food/drinks/sillycup,
+/obj/item/reagent_containers/cup/glass/sillycup,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -4832,7 +4832,7 @@
 /area/awaymission/centcom_away/general)
 "nR" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/trophy/gold_cup,
+/obj/item/reagent_containers/cup/glass/trophy/gold_cup,
 /turf/simulated/floor/carpet,
 /area/awaymission/centcom_away/general)
 "nS" = (
@@ -5168,7 +5168,7 @@
 /obj/structure/table,
 /obj/item/reagent_containers/condiment/sugar,
 /obj/item/reagent_containers/condiment/milk,
-/obj/item/reagent_containers/food/drinks/ice,
+/obj/item/reagent_containers/cup/glass/ice,
 /turf/simulated/floor/plasteel/low_cap{
 	dir = 8;
 	icon_state = "barber"

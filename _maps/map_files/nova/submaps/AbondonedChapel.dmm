@@ -278,7 +278,7 @@
 	},
 /area/station/maintenance/server)
 "jp" = (
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/cup/glass/shaker,
 /obj/item/reagent_containers/dropper,
 /obj/structure/table/wood/fancy,
 /obj/effect/decal/cleanable/dust,
@@ -493,7 +493,7 @@
 	},
 /area/station/maintenance/server)
 "oJ" = (
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = 9;
 	pixel_y = 3
 	},
@@ -600,15 +600,15 @@
 	},
 /area/station/maintenance/club)
 "sO" = (
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass{
 	pixel_x = -10;
 	pixel_y = 13
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass{
 	pixel_x = -15;
 	pixel_y = 7
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass{
 	pixel_x = -5;
 	pixel_y = 2
 	},
@@ -662,7 +662,7 @@
 /obj/structure/table,
 /obj/item/folder/yellow,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurple"
 	},
@@ -1295,7 +1295,7 @@
 	},
 /area/station/maintenance/server)
 "Sn" = (
-/obj/item/reagent_containers/food/drinks/bottle/tequila,
+/obj/item/reagent_containers/cup/glass/bottle/tequila,
 /obj/structure/table/wood/fancy,
 /obj/item/clothing/mask/cigarette/cigar,
 /obj/effect/decal/cleanable/dirt,

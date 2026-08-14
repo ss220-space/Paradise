@@ -3083,7 +3083,7 @@
 /obj/item/reagent_containers/spray/pepper,
 /obj/item/grenade/flashbang,
 /obj/item/storage/belt/security,
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/glass/cans/beer{
 	pixel_x = -3;
 	pixel_y = -2
 	},
@@ -4891,7 +4891,7 @@
 /obj/item/book/manual/barman_recipes{
 	pixel_y = 5
 	},
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/cup/glass/shaker,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -6017,15 +6017,15 @@
 /area/moonoutpost19/mo19arrivals)
 "mF" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/bottle/whiskey{
+/obj/item/reagent_containers/cup/glass/bottle/whiskey{
 	pixel_x = -6;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass{
 	pixel_x = 6;
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass{
 	pixel_x = 3
 	},
 /turf/simulated/floor/plasteel{

@@ -599,7 +599,7 @@
 /area/mine/living_quarters)
 "ej" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/cup/glass/cans/beer,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -2100,7 +2100,7 @@
 /area/lavaland/surface/outdoors/necropolis)
 "mn" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/glass/cans/beer{
 	pixel_x = 5;
 	pixel_y = -2
 	},
@@ -4934,13 +4934,13 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/bottle/whiskey{
+/obj/item/reagent_containers/cup/glass/bottle/whiskey{
 	pixel_y = 17
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = -6
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -5362,7 +5362,7 @@
 	dir = 9
 	},
 /obj/item/storage/box/donkpockets,
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/cup/glass/shaker,
 /turf/simulated/floor/wood,
 /area/mine/cafeteria)
 "FM" = (
@@ -7087,7 +7087,7 @@
 /area/lavaland/surface/outdoors/necropolis)
 "Px" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/cup/glass/cans/beer,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;

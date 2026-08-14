@@ -910,7 +910,7 @@
 /obj/item/trash/cheesie,
 /obj/item/reagent_containers/syringe/antiviral,
 /obj/item/bodybag,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/obj/item/reagent_containers/cup/glass/bottle/vodka,
 /turf/simulated/floor/grass/lavaland_air,
 /area/lavaland/surface/outdoors)
 "GL" = (

@@ -28,12 +28,12 @@
 
 	products = list(
 		/obj/item/reagent_containers/food/snacks/tofu = 24,
-		/obj/item/reagent_containers/food/drinks/ice = 12,
+		/obj/item/reagent_containers/cup/glass/ice = 12,
 		/obj/item/reagent_containers/food/snacks/candy/candy_corn = 6,
 	)
 	contraband = list(
 		/obj/item/kitchen/knife = 6,
-		/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee = 12,
+		/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee = 12,
 		/obj/item/tank/internals/emergency_oxygen = 6,
 		/obj/item/clothing/mask/breath = 6,
 	)
@@ -52,7 +52,7 @@
 	desc = "Какого чёрта этот автомат тут оказался?!"
 	products = list(
 		/obj/item/reagent_containers/food/snacks/tofu = 12,
-		/obj/item/reagent_containers/food/drinks/ice = 6,
+		/obj/item/reagent_containers/cup/glass/ice = 6,
 		/obj/item/reagent_containers/food/snacks/candy/candy_corn = 6,
 	)
 	contraband = list(

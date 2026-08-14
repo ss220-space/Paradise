@@ -863,7 +863,7 @@
 	. = ..()
 	accepted_items_typecache = typecacheof(list(
 		/obj/item/reagent_containers/cup,
-		/obj/item/reagent_containers/food/drinks,
+		/obj/item/reagent_containers/cup/glass,
 		/obj/item/reagent_containers/condiment,
 	))
 

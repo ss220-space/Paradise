@@ -265,7 +265,7 @@
 /area/awaymission/UO45/central_hall)
 "aW" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/cans/cola,
+/obj/item/reagent_containers/cup/glass/cans/cola,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -3204,7 +3204,7 @@
 "ip" = (
 /obj/structure/table,
 /obj/item/book/manual/barman_recipes,
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/cup/glass/shaker,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -3372,7 +3372,7 @@
 /area/awaymission/UO45/crew_quarters)
 "iH" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/drinkingglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -3766,7 +3766,7 @@
 /area/awaymission/UO45/crew_quarters)
 "jz" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/cup/glass/cans/beer,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},

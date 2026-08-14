@@ -692,7 +692,7 @@
 	modules += new /obj/item/reagent_containers/dropper/cyborg(src)
 	modules += new /obj/item/lighter/zippo(src)
 	modules += new /obj/item/storage/bag/tray(src)
-	modules += new /obj/item/reagent_containers/food/drinks/shaker(src)
+	modules += new /obj/item/reagent_containers/cup/glass/shaker(src)
 	modules += new /obj/item/extinguisher/cyborg(src)
 	modules += new /obj/item/crowbar/cyborg(src)
 	emag = new /obj/item/kitchen/knife/butcher/meatcleaver(src)

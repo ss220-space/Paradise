@@ -3317,7 +3317,7 @@
 /turf/space,
 /area/space)
 "kh" = (
-/obj/item/reagent_containers/food/drinks/bottle/cognac,
+/obj/item/reagent_containers/cup/glass/bottle/cognac,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway13)
 "ki" = (
@@ -3808,7 +3808,7 @@
 /area/awaymission/spacebattle/server)
 "lK" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/bottle/rum,
+/obj/item/reagent_containers/cup/glass/bottle/rum,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -4308,7 +4308,7 @@
 	icon_opened = "cardboard_open_engineering";
 	icon_state = "cardboard_engineering"
 	},
-/obj/item/reagent_containers/food/drinks/bottle/whiskey,
+/obj/item/reagent_containers/cup/glass/bottle/whiskey,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellow"
@@ -5862,13 +5862,13 @@
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/turret2)
 "rW" = (
-/obj/item/reagent_containers/food/drinks/bottle/patron{
+/obj/item/reagent_containers/cup/glass/bottle/patron{
 	pixel_y = 7
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = 8
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = -5
 	},
 /obj/structure/table,
@@ -10576,7 +10576,7 @@
 	dir = 4
 	},
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/oilcan,
+/obj/item/reagent_containers/cup/glass/oilcan,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor12"
 	},
@@ -12694,7 +12694,7 @@
 /area/awaymission/spacebattle/prhallway3)
 "Ms" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/oilcan,
+/obj/item/reagent_containers/cup/glass/oilcan,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutral"
@@ -17022,7 +17022,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/spacebattle)
 "Ze" = (
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway13)
 "Zf" = (

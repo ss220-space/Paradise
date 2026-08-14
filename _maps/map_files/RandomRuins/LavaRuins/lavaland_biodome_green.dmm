@@ -333,11 +333,11 @@
 /area/ruin/powered/green_bio)
 "yO" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = 9;
 	pixel_y = 12
 	},
-/obj/item/reagent_containers/food/drinks/bottle/wine,
+/obj/item/reagent_containers/cup/glass/bottle/wine,
 /turf/simulated/floor/carpet,
 /area/ruin/powered/green_bio)
 "zf" = (
@@ -477,7 +477,7 @@
 /area/ruin/powered/green_bio)
 "Gw" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = -3
 	},
 /turf/simulated/floor/carpet,

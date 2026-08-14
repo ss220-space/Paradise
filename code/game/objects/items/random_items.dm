@@ -75,11 +75,11 @@
 	pixel_x = rand(-10, 10)
 	pixel_y = rand(-10, 10)
 
-/obj/item/reagent_containers/food/drinks/bottle/random_drink
+/obj/item/reagent_containers/cup/glass/bottle/random_drink
 	name = "unlabelled drink"
 	var/list/special_drinks = list(/datum/reagent/pancuronium, /datum/reagent/lsd,/datum/reagent/medicine/omnizine, /datum/reagent/blood)
 
-/obj/item/reagent_containers/food/drinks/bottle/random_drink/Initialize(mapload)
+/obj/item/reagent_containers/cup/glass/bottle/random_drink/Initialize(mapload)
 	. = ..()
 	var/datum/reagent/reagent
 	if(prob(50 * length(special_drinks) / (length(special_drinks) + length(GLOB.drinks))))
@@ -95,10 +95,10 @@
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
 
-/obj/item/reagent_containers/food/drinks/bottle/random_reagent // Same as the chembottle code except the container
+/obj/item/reagent_containers/cup/glass/bottle/random_reagent // Same as the chembottle code except the container
 	name = "unlabelled drink?"
 
-/obj/item/reagent_containers/food/drinks/bottle/random_reagent/Initialize(mapload)
+/obj/item/reagent_containers/cup/glass/bottle/random_reagent/Initialize(mapload)
 	. = ..()
 	var/R = get_random_reagent_id()
 	if(GLOB.rare_chemicals.Find(R))
@@ -186,9 +186,9 @@
 
 /obj/structure/closet/secure_closet/cabinet/bar/random_drinks/populate_contents()
 	for(var/i in 1 to 5)
-		new/obj/item/reagent_containers/food/drinks/bottle/random_drink(src)
+		new/obj/item/reagent_containers/cup/glass/bottle/random_drink(src)
 	while(prob(25))
-		new/obj/item/reagent_containers/food/drinks/bottle/random_reagent(src)
+		new/obj/item/reagent_containers/cup/glass/bottle/random_reagent(src)
 
 // -------------------------------------
 //          Do not order this.

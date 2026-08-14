@@ -2188,7 +2188,7 @@
 "gp" = (
 /obj/structure/table,
 /obj/item/book/manual/barman_recipes,
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/cup/glass/shaker,
 /turf/simulated/floor/plasteel,
 /area/awaymission/midblock)
 "gq" = (
@@ -2350,7 +2350,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/midblock)
 "gN" = (
-/obj/item/reagent_containers/food/drinks/bottle/holywater,
+/obj/item/reagent_containers/cup/glass/bottle/holywater,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

@@ -804,7 +804,7 @@
 	if(user == src)
 		if(time_to_eat > 0 && !do_after(user, time_to_eat, max_interact_count = 1))
 			return FALSE
-		if(istype(toEat, /obj/item/reagent_containers/food/drinks))
+		if(istype(toEat, /obj/item/reagent_containers/cup/glass))
 			if(!selfDrink(toEat))
 				return FALSE
 		else
@@ -842,7 +842,7 @@
 			return FALSE
 	return TRUE
 
-/mob/living/carbon/proc/selfDrink(obj/item/reagent_containers/food/drinks/toDrink, mob/user)
+/mob/living/carbon/proc/selfDrink(obj/item/reagent_containers/cup/glass/toDrink, mob/user)
 	return TRUE
 
 /mob/living/carbon/proc/forceFed(obj/item/reagent_containers/food/toEat, mob/user, fullness)

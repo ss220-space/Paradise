@@ -881,9 +881,9 @@
 /area/derelict/security)
 "cr" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka{
+/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka{
 	pixel_x = 5;
 	pixel_y = 10
 	},
@@ -970,7 +970,7 @@
 "cC" = (
 /obj/structure/rack,
 /obj/effect/decal/cleanable/dust,
-/obj/item/reagent_containers/food/drinks/oilcan/full,
+/obj/item/reagent_containers/cup/glass/oilcan/full,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkredcorners"
@@ -1106,7 +1106,7 @@
 /area/derelict/bridge)
 "cV" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/obj/item/reagent_containers/cup/glass/bottle/vodka,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
@@ -2832,7 +2832,7 @@
 /area/derelict/crew_quarters)
 "hn" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -9361,11 +9361,11 @@
 /obj/structure/closet/secure_closet/cabinet/bar{
 	req_access = null
 	},
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
-/obj/item/reagent_containers/food/drinks/bottle/rum,
-/obj/item/reagent_containers/food/drinks/bottle/kahlua,
+/obj/item/reagent_containers/cup/glass/bottle/vodka,
+/obj/item/reagent_containers/cup/glass/bottle/vodka,
+/obj/item/reagent_containers/cup/glass/bottle/vodka,
+/obj/item/reagent_containers/cup/glass/bottle/rum,
+/obj/item/reagent_containers/cup/glass/bottle/kahlua,
 /obj/item/storage/box/drinkingglasses,
 /obj/item/storage/box/drinkingglasses,
 /turf/simulated/floor/plasteel{

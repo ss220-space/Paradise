@@ -3297,7 +3297,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	name = "Бак масла"
 	contains = list(
 		/obj/structure/reagent_dispensers/oil,
-		/obj/item/reagent_containers/food/drinks/oilcan,
+		/obj/item/reagent_containers/cup/glass/oilcan,
 	)
 	cost = 10
 	containertype = /obj/structure/closet/crate/large
@@ -3872,15 +3872,15 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	name = "Набор для вечеринки"
 	contains = list(
 		/obj/item/storage/box/drinkingglasses,
-		/obj/item/reagent_containers/food/drinks/shaker,
-		/obj/item/reagent_containers/food/drinks/bottle/patron,
-		/obj/item/reagent_containers/food/drinks/bottle/goldschlager,
-		/obj/item/reagent_containers/food/drinks/cans/ale,
-		/obj/item/reagent_containers/food/drinks/cans/ale,
-		/obj/item/reagent_containers/food/drinks/cans/beer,
-		/obj/item/reagent_containers/food/drinks/cans/beer,
-		/obj/item/reagent_containers/food/drinks/cans/beer,
-		/obj/item/reagent_containers/food/drinks/cans/beer,
+		/obj/item/reagent_containers/cup/glass/shaker,
+		/obj/item/reagent_containers/cup/glass/bottle/patron,
+		/obj/item/reagent_containers/cup/glass/bottle/goldschlager,
+		/obj/item/reagent_containers/cup/glass/cans/ale,
+		/obj/item/reagent_containers/cup/glass/cans/ale,
+		/obj/item/reagent_containers/cup/glass/cans/beer,
+		/obj/item/reagent_containers/cup/glass/cans/beer,
+		/obj/item/reagent_containers/cup/glass/cans/beer,
+		/obj/item/reagent_containers/cup/glass/cans/beer,
 		/obj/item/grenade/confetti,
 		/obj/item/grenade/confetti,
 	)
@@ -5059,8 +5059,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/misc/religious_supplies
 	name = "Религиозное снабжение"
 	contains = list(
-		/obj/item/reagent_containers/food/drinks/bottle/holywater,
-		/obj/item/reagent_containers/food/drinks/bottle/holywater,
+		/obj/item/reagent_containers/cup/glass/bottle/holywater,
+		/obj/item/reagent_containers/cup/glass/bottle/holywater,
 		/obj/item/storage/bible/booze,
 		/obj/item/storage/bible/booze,
 		/obj/item/clothing/suit/hooded/chaplain_hoodie,
@@ -5432,8 +5432,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/clothing/mask/gas/mime,
 		/obj/item/clothing/head/beret,
 		/obj/item/clothing/suit/suspenders,
-		/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing,
-		/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana,
+		/obj/item/reagent_containers/cup/glass/bottle/bottleofnothing,
+		/obj/item/reagent_containers/cup/glass/bottle/bottleofbanana,
 	)
 	cost = 10
 	containertype = /obj/structure/closet/crate/secure

@@ -52,28 +52,28 @@
 /area/ruin/unpowered)
 "cP" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/beer,
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/glass/cans/beer,
+/obj/item/reagent_containers/cup/glass/cans/beer{
 	pixel_x = 5;
 	pixel_y = 7
 	},
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/glass/cans/beer{
 	pixel_x = -7;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/glass/cans/beer{
 	pixel_x = 8
 	},
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/glass/cans/beer{
 	pixel_x = 6
 	},
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/glass/cans/beer{
 	pixel_x = -4
 	},
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/glass/cans/beer{
 	pixel_x = 4
 	},
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/glass/cans/beer{
 	pixel_x = -8;
 	pixel_y = 12
 	},
@@ -142,10 +142,10 @@
 /area/ruin/unpowered)
 "gK" = (
 /obj/structure/table/wood/fancy/purple,
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/glass/cans/beer{
 	pixel_x = 6
 	},
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/glass/cans/beer{
 	pixel_x = -8;
 	pixel_y = 12
 	},
@@ -159,7 +159,7 @@
 "gU" = (
 /obj/structure/table/wood,
 /obj/item/trash/plate,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_y = 10
 	},
 /turf/simulated/floor/carpet,
@@ -455,7 +455,7 @@
 /area/ruin/unpowered)
 "tz" = (
 /obj/structure/table/wood/fancy/purple,
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/cup/glass/shaker,
 /turf/simulated/floor/carpet/purple,
 /area/ruin/unpowered)
 "tB" = (
@@ -466,7 +466,7 @@
 /area/ruin/unpowered)
 "tH" = (
 /obj/structure/table/wood/fancy/purple,
-/obj/item/reagent_containers/food/drinks/tea,
+/obj/item/reagent_containers/cup/glass/tea,
 /turf/simulated/floor/carpet/purple,
 /area/ruin/unpowered)
 "ua" = (
@@ -640,7 +640,7 @@
 /area/ruin/unpowered)
 "DE" = (
 /obj/structure/table/wood/fancy/purple,
-/obj/item/reagent_containers/food/drinks/mugwort,
+/obj/item/reagent_containers/cup/glass/mugwort,
 /turf/simulated/floor/carpet/purple,
 /area/ruin/unpowered)
 "Ej" = (
@@ -1120,8 +1120,8 @@
 /area/ruin/unpowered)
 "ZS" = (
 /obj/structure/table/wood/fancy/purple,
-/obj/item/reagent_containers/food/drinks/cans/beer,
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/glass/cans/beer,
+/obj/item/reagent_containers/cup/glass/cans/beer{
 	pixel_x = 5;
 	pixel_y = 7
 	},

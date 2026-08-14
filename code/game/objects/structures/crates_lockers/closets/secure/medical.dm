@@ -155,7 +155,7 @@
 	new /obj/item/organ/internal/cyberimp/eyes/hud/medical(src)
 	new /obj/item/autoimplanter/oneuse/med_hud(src)
 	new /obj/item/door_remote/chief_medical_officer(src)
-	new /obj/item/reagent_containers/food/drinks/mug/cmo(src)
+	new /obj/item/reagent_containers/cup/glass/mug/cmo(src)
 	new /obj/item/clothing/accessory/medal/medical(src)
 	new /obj/item/megaphone(src)	//added here deleted on maps
 	new /obj/item/storage/garmentbag/CMO(src)

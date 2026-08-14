@@ -29,14 +29,14 @@
 	pixel_x = 6;
 	pixel_y = 7
 	},
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka{
+/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka{
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = -8;
 	pixel_y = -6
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = 9;
 	pixel_y = 3
 	},
@@ -1639,7 +1639,7 @@
 /obj/item/reagent_containers/food/snacks/grown/potato{
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = -8;
 	pixel_y = -6
 	},
@@ -2007,7 +2007,7 @@
 /obj/item/reagent_containers/food/snacks/boiledpelmeni{
 	pixel_y = 10
 	},
-/obj/item/reagent_containers/food/drinks/bottle/vodka{
+/obj/item/reagent_containers/cup/glass/bottle/vodka{
 	desc = "For the Cargonia!";
 	name = "Molotov cocktail"
 	},
@@ -2067,10 +2067,10 @@
 	pixel_x = 3;
 	pixel_y = 9
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = 8
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = 11;
 	pixel_y = 13
 	},
@@ -2753,11 +2753,11 @@
 	pixel_x = 5;
 	pixel_y = -1
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = 5;
 	pixel_y = 13
 	},
-/obj/item/reagent_containers/food/drinks/bottle/vodka{
+/obj/item/reagent_containers/cup/glass/bottle/vodka{
 	desc = "For the Cargonia!";
 	name = "Molotov cocktail"
 	},
@@ -2810,7 +2810,7 @@
 /area/ruin/unpowered)
 "TS" = (
 /obj/structure/safe/floor,
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
+/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka,
 /obj/item/stack/spacecash/ussp/c1000,
 /obj/item/stack/spacecash/ussp/c1000,
 /obj/item/stack/spacecash/ussp/c1000,
@@ -2983,7 +2983,7 @@
 	pixel_x = -7;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = 9;
 	pixel_y = 3
 	},

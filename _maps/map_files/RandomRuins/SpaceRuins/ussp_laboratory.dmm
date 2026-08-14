@@ -757,7 +757,7 @@
 /obj/item/kitchen/utensil/spoon{
 	pixel_x = -4
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = 5;
 	pixel_y = 13
 	},
@@ -1254,7 +1254,7 @@
 /area/ruin/ussp_xeno/entrance)
 "tE" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/glass/cans/beer{
 	pixel_x = -8
 	},
 /obj/item/paper_bin{
@@ -1406,7 +1406,7 @@
 	pixel_x = -1;
 	pixel_y = 14
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = 9;
 	pixel_y = 14
 	},
@@ -1463,15 +1463,15 @@
 	dir = 5
 	},
 /obj/structure/rack,
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/glass/cans/beer{
 	pixel_x = -7;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/glass/cans/beer{
 	pixel_x = 1;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/glass/cans/beer{
 	pixel_x = 10;
 	pixel_y = -7
 	},
@@ -1627,7 +1627,7 @@
 /area/ruin/ussp_xeno/gym_ussp)
 "xp" = (
 /obj/structure/rack,
-/obj/item/reagent_containers/food/drinks/bottle/vodka{
+/obj/item/reagent_containers/cup/glass/bottle/vodka{
 	desc = "Кто это тут к нам колёса катит?";
 	name = "Старая бутылка водки";
 	pixel_x = -5
@@ -1679,7 +1679,7 @@
 	pixel_x = 7;
 	pixel_y = -2
 	},
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/glass/cans/beer{
 	pixel_x = -12;
 	pixel_y = -11
 	},
@@ -1991,7 +1991,7 @@
 	dir = 8
 	},
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/glass/cans/beer{
 	pixel_x = 7
 	},
 /obj/item/folder/red{
@@ -2843,7 +2843,7 @@
 /area/ruin/ussp_xeno/medbay)
 "NO" = (
 /obj/structure/dresser,
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/glass/cans/beer{
 	pixel_x = -8;
 	pixel_y = 13
 	},

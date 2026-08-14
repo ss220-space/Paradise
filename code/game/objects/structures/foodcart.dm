@@ -15,12 +15,12 @@
 	//var/obj/item/reagent_containers/food/snacks/food6 = null
 	//Drink slots
 	var/list/drink_slots[6]
-	//var/obj/item/reagent_containers/food/drinks/drink1 = null
-	//var/obj/item/reagent_containers/food/drinks/drink2 = null
-	//var/obj/item/reagent_containers/food/drinks/drink3 = null
-	//var/obj/item/reagent_containers/food/drinks/drink4 = null
-	//var/obj/item/reagent_containers/food/drinks/drink5 = null
-	//var/obj/item/reagent_containers/food/drinks/drink6 = null
+	//var/obj/item/reagent_containers/cup/glass/drink1 = null
+	//var/obj/item/reagent_containers/cup/glass/drink2 = null
+	//var/obj/item/reagent_containers/cup/glass/drink3 = null
+	//var/obj/item/reagent_containers/cup/glass/drink4 = null
+	//var/obj/item/reagent_containers/cup/glass/drink5 = null
+	//var/obj/item/reagent_containers/cup/glass/drink6 = null
 
 /obj/structure/foodcart/proc/put_in_cart(obj/item/I, mob/user)
 	. = user.drop_transfer_item_to_loc(I, src)
@@ -44,7 +44,7 @@
 		to_chat(user, span_warning("The [name]'s snacks compartment is full!"))
 		return ATTACK_CHAIN_PROCEED
 
-	if(istype(I, /obj/item/reagent_containers/food/drinks))
+	if(istype(I, /obj/item/reagent_containers/cup/glass))
 		add_fingerprint(user)
 		for(var/slot = 1 to length(drink_slots))
 			if(drink_slots[slot])

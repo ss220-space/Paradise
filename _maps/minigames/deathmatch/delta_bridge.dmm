@@ -637,7 +637,7 @@
 /area/deathmatch)
 "uP" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/flask/gold,
+/obj/item/reagent_containers/cup/glass/flask/gold,
 /obj/item/razor,
 /obj/machinery/light,
 /turf/simulated/floor/carpet/royalblue,
@@ -925,7 +925,7 @@
 /area/deathmatch)
 "Fr" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/whiskey,
+/obj/item/reagent_containers/cup/glass/bottle/whiskey,
 /turf/simulated/floor/carpet,
 /area/deathmatch)
 "FC" = (

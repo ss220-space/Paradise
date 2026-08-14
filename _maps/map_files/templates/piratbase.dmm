@@ -23,7 +23,7 @@
 /area/ruin/space/pirate_base/arrivals)
 "ad" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/drinks/cans/energy,
+/obj/item/reagent_containers/cup/glass/cans/energy,
 /obj/item/reagent_containers/food/snacks/meat,
 /obj/item/reagent_containers/food/snacks/bun,
 /turf/simulated/floor/plasteel{
@@ -1754,18 +1754,18 @@
 "fi" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/cabinet,
-/obj/item/reagent_containers/food/drinks/cans/badminbrew{
+/obj/item/reagent_containers/cup/glass/cans/badminbrew{
 	desc = "Probably shouldn't drink this one at all.";
 	name = "expired beer"
 	},
-/obj/item/reagent_containers/food/drinks/cans/badminbrew{
+/obj/item/reagent_containers/cup/glass/cans/badminbrew{
 	desc = "Probably shouldn't drink this one at all.";
 	name = "expired beer"
 	},
-/obj/item/reagent_containers/food/drinks/bottle/vermouth,
-/obj/item/reagent_containers/food/drinks/bottle/cognac,
-/obj/item/reagent_containers/food/drinks/bottle/kahlua,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/obj/item/reagent_containers/cup/glass/bottle/vermouth,
+/obj/item/reagent_containers/cup/glass/bottle/cognac,
+/obj/item/reagent_containers/cup/glass/bottle/kahlua,
+/obj/item/reagent_containers/cup/glass/bottle/vodka,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/entertainment)
 "fj" = (
@@ -3825,7 +3825,7 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/pirate_base/kitchen)
 "lQ" = (
-/obj/item/reagent_containers/food/drinks/bottle/vodka{
+/obj/item/reagent_containers/cup/glass/bottle/vodka{
 	pixel_x = 5;
 	pixel_y = 15
 	},
@@ -6694,7 +6694,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/item/reagent_containers/food/drinks/bottle/orangejuice,
+/obj/item/reagent_containers/cup/glass/bottle/orangejuice,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -10545,10 +10545,10 @@
 	},
 /area/ruin/space/pirate_base/arrivals)
 "GK" = (
-/obj/item/reagent_containers/food/drinks/bottle/whiskey,
+/obj/item/reagent_containers/cup/glass/bottle/whiskey,
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -13244,7 +13244,7 @@
 	layer = 4.2
 	},
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/rum,
+/obj/item/reagent_containers/cup/glass/bottle/rum,
 /obj/item/storage/box/drinkingglasses,
 /turf/simulated/floor/wood,
 /area/ruin/space/pirate_base/security_atrium)
@@ -13581,8 +13581,8 @@
 /obj/item/stack/tickets{
 	amount = 12
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/entertainment)
 "PK" = (
@@ -13668,10 +13668,10 @@
 /obj/structure/closet/crate/secure/weapon{
 	req_access = list(160)
 	},
-/obj/item/reagent_containers/food/drinks/bottle/rum,
-/obj/item/reagent_containers/food/drinks/bottle/rum,
-/obj/item/reagent_containers/food/drinks/bottle/rum,
-/obj/item/reagent_containers/food/drinks/bottle/rum,
+/obj/item/reagent_containers/cup/glass/bottle/rum,
+/obj/item/reagent_containers/cup/glass/bottle/rum,
+/obj/item/reagent_containers/cup/glass/bottle/rum,
+/obj/item/reagent_containers/cup/glass/bottle/rum,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/security_maint)
@@ -14387,12 +14387,12 @@
 "Ss" = (
 /obj/effect/decal/cleanable/cobweb2,
 /obj/structure/closet/crate/plastic,
-/obj/item/reagent_containers/food/drinks/cans/beer,
-/obj/item/reagent_containers/food/drinks/cans/beer,
-/obj/item/reagent_containers/food/drinks/cans/beer,
-/obj/item/reagent_containers/food/drinks/cans/energy/milk,
-/obj/item/reagent_containers/food/drinks/cans/ale,
-/obj/item/reagent_containers/food/drinks/chicken_soup,
+/obj/item/reagent_containers/cup/glass/cans/beer,
+/obj/item/reagent_containers/cup/glass/cans/beer,
+/obj/item/reagent_containers/cup/glass/cans/beer,
+/obj/item/reagent_containers/cup/glass/cans/energy/milk,
+/obj/item/reagent_containers/cup/glass/cans/ale,
+/obj/item/reagent_containers/cup/glass/chicken_soup,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/telecomms)
 "St" = (
@@ -16435,8 +16435,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/telecomms)
 "YS" = (
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
 /obj/structure/table/wood/fancy,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood,

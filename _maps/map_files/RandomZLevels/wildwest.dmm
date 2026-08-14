@@ -1103,22 +1103,22 @@
 /turf/simulated/floor/wood,
 /area/awaymission/wwgov)
 "dQ" = (
-/obj/item/reagent_containers/food/drinks/bottle/wine,
+/obj/item/reagent_containers/cup/glass/bottle/wine,
 /turf/simulated/floor/plasteel{
 	icon_state = "stage_bleft"
 	},
 /area/awaymission/wwgov)
 "dR" = (
-/obj/item/reagent_containers/food/drinks/bottle/patron,
+/obj/item/reagent_containers/cup/glass/bottle/patron,
 /turf/simulated/floor/plasteel{
 	icon_state = "stage_bleft"
 	},
 /area/awaymission/wwgov)
 "dS" = (
-/obj/item/reagent_containers/food/drinks/drinkingglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass,
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	icon_state = "stage_bleft"
@@ -2209,7 +2209,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/wwrefine)
 "ne" = (
-/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee,
 /turf/simulated/floor/carpet,
 /area/awaymission/wwmines)
 "DI" = (
@@ -2224,7 +2224,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "RT" = (
-/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee,
 /obj/item/reagent_containers/food/snacks/donut/jelly/slimejelly,
 /turf/simulated/floor/carpet,
 /area/awaymission/wwmines)

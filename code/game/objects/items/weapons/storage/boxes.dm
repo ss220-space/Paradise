@@ -263,7 +263,7 @@
 
 /obj/item/storage/box/drinkingglasses/populate_contents()
 	for(var/I in 1 to 6)
-		new /obj/item/reagent_containers/food/drinks/drinkingglass(src)
+		new /obj/item/reagent_containers/cup/glass/drinkingglass(src)
 
 /obj/item/storage/box/cdeathalarm_kit
 	name = "Death Alarm Kit"
@@ -291,7 +291,7 @@
 
 /obj/item/storage/box/cups/populate_contents()
 	for(var/I in 1 to 7)
-		new /obj/item/reagent_containers/food/drinks/sillycup(src)
+		new /obj/item/reagent_containers/cup/glass/sillycup(src)
 
 /obj/item/storage/box/donkpockets
 	name = "box of donk-pockets"
@@ -1321,7 +1321,7 @@
 	can_hold = list(
 		/obj/item/reagent_containers/food/snacks/crayfish_cooked/mr_chang,
 		/obj/item/reagent_containers/food/snacks/crayfish_cooked_small/mr_chang,
-		/obj/item/reagent_containers/food/drinks/cans/beer,
+		/obj/item/reagent_containers/cup/glass/cans/beer,
 	)
 
 /obj/item/storage/box/crayfish_bucket/populate_contents()
@@ -1331,7 +1331,7 @@
 		new /obj/item/reagent_containers/food/snacks/crayfish_cooked/mr_chang(src)
 	for(var/i in 1 to small_ones)
 		new /obj/item/reagent_containers/food/snacks/crayfish_cooked_small/mr_chang(src)
-	new /obj/item/reagent_containers/food/drinks/cans/beer(src)
+	new /obj/item/reagent_containers/cup/glass/cans/beer(src)
 
 /obj/item/storage/box/mr_cheng
 	name = "Mr. Cheng ad agent kit"

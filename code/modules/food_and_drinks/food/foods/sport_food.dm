@@ -67,7 +67,7 @@
 		PREPOSITIONAL = "протеиновом батончике \"Наследие Бурёнки\"",
 	)
 
-/obj/item/reagent_containers/food/drinks/protein
+/obj/item/reagent_containers/cup/glass/protein
 	name = "банка протеина"
 	desc = "Банка наполненная протеиновым порошком. Этот вид протеина был снят с производства. \
 			Если вы встретили его, обратитесь к техподдержке."
@@ -77,7 +77,7 @@
 	foodtype = GROSS
 	list_reagents = list("protein" = 80)
 
-/obj/item/reagent_containers/food/drinks/protein/get_ru_names()
+/obj/item/reagent_containers/cup/glass/protein/get_ru_names()
 	return alist(
 		NOMINATIVE = "банка протеина",
 		GENITIVE = "банки протеина",
@@ -87,13 +87,13 @@
 		PREPOSITIONAL = "банке протеина",
 	)
 
-/obj/item/reagent_containers/food/drinks/protein/zaza
+/obj/item/reagent_containers/cup/glass/protein/zaza
 	name = "банка протеина (Заза)"
 	desc = "Банка наполненная протеиновым порошком. \
 			На самом деле не отличается от банки протеина со вкусом вишни ничем кроме изображения на этикетке."
 	list_reagents = list("protein" = 70, "zaza" = 10)
 
-/obj/item/reagent_containers/food/drinks/protein/zaza/get_ru_names()
+/obj/item/reagent_containers/cup/glass/protein/zaza/get_ru_names()
 	return alist(
 		NOMINATIVE = "банка протеина (Заза)",
 		GENITIVE = "банки протеина (Заза)",
@@ -103,7 +103,7 @@
 		PREPOSITIONAL = "банке протеина (Заза)",
 	)
 
-/obj/item/reagent_containers/food/drinks/protein/cherry
+/obj/item/reagent_containers/cup/glass/protein/cherry
 	name = "банка протеина (Вишня)"
 	desc = "Банка наполненная протеиновым порошком со вкусом вишни. \
 			На самом деле не отличается от банки протеина со вкусом Зазы ничем кроме изображения на этикетке."
@@ -111,7 +111,7 @@
 	item_state = "protein_cherry"
 	list_reagents = list("protein" = 70, "cherryshake" = 10)
 
-/obj/item/reagent_containers/food/drinks/protein/cherry/get_ru_names()
+/obj/item/reagent_containers/cup/glass/protein/cherry/get_ru_names()
 	return alist(
 		NOMINATIVE = "банка протеина (Вишня)",
 		GENITIVE = "банки протеина (Вишня)",
@@ -121,7 +121,7 @@
 		PREPOSITIONAL = "банке протеина (Вишня)",
 	)
 
-/obj/item/reagent_containers/food/drinks/protein/chocolate
+/obj/item/reagent_containers/cup/glass/protein/chocolate
 	name = "банка протеина (Шоколад)"
 	desc = "Банка наполненная протеиновым порошком со вкусом шоколада. \
 			Единственный вкус протеинового порошка не вызывающий отвращения при потреблении в неразбавленном виде."
@@ -130,7 +130,7 @@
 	list_reagents = list("protein" = 70, "chocolate" = 10)
 	foodtype = SUGAR
 
-/obj/item/reagent_containers/food/drinks/protein/chocolate/get_ru_names()
+/obj/item/reagent_containers/cup/glass/protein/chocolate/get_ru_names()
 	return alist(
 		NOMINATIVE = "банка протеина (Шоколад)",
 		GENITIVE = "банки протеина (Шоколад)",
@@ -140,7 +140,7 @@
 		PREPOSITIONAL = "банке протеина (Шоколад)",
 	)
 
-/obj/item/reagent_containers/food/drinks/protein/bananastrawberry
+/obj/item/reagent_containers/cup/glass/protein/bananastrawberry
 	name = "банка протеина (Банан и клубника)"
 	desc = "Банка наполненная протеиновым порошком со вкусом банана и клубники. \
 			До ребрендинга вместо банана и клубники была просто клубника."
@@ -148,7 +148,7 @@
 	item_state = "protein_bananastrawberry"
 	list_reagents = list("protein" = 70, "banana" = 5, "strawwberry" = 5)
 
-/obj/item/reagent_containers/food/drinks/protein/bananastrawberry/get_ru_names()
+/obj/item/reagent_containers/cup/glass/protein/bananastrawberry/get_ru_names()
 	return alist(
 		NOMINATIVE = "банка протеина (Банан и клубника)",
 		GENITIVE = "банки протеина (Банан и клубника)",
@@ -158,7 +158,7 @@
 		PREPOSITIONAL = "банке протеина (Банан и клубника)",
 	)
 
-/obj/item/reagent_containers/food/drinks/guarana
+/obj/item/reagent_containers/cup/glass/guarana
 	name = "ампула экстракта гуараны"
 	desc = "Ампула содержащая экстракт гуараны — вещество стимулирующее мышечную активность. \
 			На этикетке нарисована малина, не смотря на то, что в составе нет ничего связанного с ней."
@@ -166,7 +166,7 @@
 	item_state = "guarana_raspberry"
 	list_reagents = list("guarana" = 10)
 
-/obj/item/reagent_containers/food/drinks/guarana/get_ru_names()
+/obj/item/reagent_containers/cup/glass/guarana/get_ru_names()
 	return alist(
 		NOMINATIVE = "ампула экстракта гуараны",
 		GENITIVE = "ампулы экстракта гуараны",
@@ -176,7 +176,7 @@
 		PREPOSITIONAL = "ампуле экстракта гуараны",
 	)
 
-/obj/item/reagent_containers/food/drinks/creatine
+/obj/item/reagent_containers/cup/glass/creatine
 	name = "бутылочка креатина"
 	desc = "Бутылочка содержащая креатин — вещество повышающее скорость развития мышц. \
 			На этикетке нарисована малина, не смотря на то, что в составе нет ничего связанного с ней."
@@ -184,7 +184,7 @@
 	item_state = "creatine"
 	list_reagents = list("creatine" = 10)
 
-/obj/item/reagent_containers/food/drinks/creatine/get_ru_names()
+/obj/item/reagent_containers/cup/glass/creatine/get_ru_names()
 	return alist(
 		NOMINATIVE = "бутылочка креатина",
 		GENITIVE = "бутылочкы креатина",

@@ -98,7 +98,7 @@
 "r" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/book/manual/barman_recipes,
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/cup/glass/shaker,
 /obj/item/rag,
 /turf/simulated/floor/pod,
 /area/survivalpod)

@@ -1110,7 +1110,7 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/cup/glass/cans/beer,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -3588,7 +3588,7 @@
 	pixel_y = 32;
 	req_access = list(158)
 	},
-/obj/item/reagent_containers/food/drinks/bottle/absinthe,
+/obj/item/reagent_containers/cup/glass/bottle/absinthe,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5431,7 +5431,7 @@
 	dir = 1
 	},
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/cup/glass/shaker,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -5441,7 +5441,7 @@
 /area/syndicate/unpowered/syndicate_space_base/kitchen)
 "fyi" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/chocolate,
+/obj/item/reagent_containers/cup/glass/chocolate,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -14623,7 +14623,7 @@
 /obj/item/storage/fancy/donut_box{
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/food/drinks/bottle/whiskey{
+/obj/item/reagent_containers/cup/glass/bottle/whiskey{
 	pixel_x = -8;
 	pixel_y = 5
 	},
@@ -22922,7 +22922,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/item/reagent_containers/food/drinks/mug/comms,
+/obj/item/reagent_containers/cup/glass/mug/comms,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -23481,7 +23481,7 @@
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "vhF" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/bottle/vodka{
+/obj/item/reagent_containers/cup/glass/bottle/vodka{
 	pixel_x = -8;
 	pixel_y = 4
 	},
@@ -27230,28 +27230,28 @@
 "xVM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/safe/floor,
-/obj/item/reagent_containers/food/drinks/bottle/absinthe/premium,
-/obj/item/reagent_containers/food/drinks/bottle/absinthe/premium,
-/obj/item/reagent_containers/food/drinks/bottle/absinthe/premium,
-/obj/item/reagent_containers/food/drinks/bottle/absinthe/premium,
-/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing,
-/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing,
-/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing,
-/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing,
-/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana,
-/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana,
-/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana,
-/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana,
-/obj/item/reagent_containers/food/drinks/bottle/patron{
+/obj/item/reagent_containers/cup/glass/bottle/absinthe/premium,
+/obj/item/reagent_containers/cup/glass/bottle/absinthe/premium,
+/obj/item/reagent_containers/cup/glass/bottle/absinthe/premium,
+/obj/item/reagent_containers/cup/glass/bottle/absinthe/premium,
+/obj/item/reagent_containers/cup/glass/bottle/bottleofnothing,
+/obj/item/reagent_containers/cup/glass/bottle/bottleofnothing,
+/obj/item/reagent_containers/cup/glass/bottle/bottleofnothing,
+/obj/item/reagent_containers/cup/glass/bottle/bottleofnothing,
+/obj/item/reagent_containers/cup/glass/bottle/bottleofbanana,
+/obj/item/reagent_containers/cup/glass/bottle/bottleofbanana,
+/obj/item/reagent_containers/cup/glass/bottle/bottleofbanana,
+/obj/item/reagent_containers/cup/glass/bottle/bottleofbanana,
+/obj/item/reagent_containers/cup/glass/bottle/patron{
 	pixel_y = 7
 	},
-/obj/item/reagent_containers/food/drinks/bottle/patron{
+/obj/item/reagent_containers/cup/glass/bottle/patron{
 	pixel_y = 7
 	},
-/obj/item/reagent_containers/food/drinks/bottle/goldschlager,
-/obj/item/reagent_containers/food/drinks/bottle/goldschlager,
-/obj/item/reagent_containers/food/drinks/bottle/absinthe,
-/obj/item/reagent_containers/food/drinks/bottle/absinthe,
+/obj/item/reagent_containers/cup/glass/bottle/goldschlager,
+/obj/item/reagent_containers/cup/glass/bottle/goldschlager,
+/obj/item/reagent_containers/cup/glass/bottle/absinthe,
+/obj/item/reagent_containers/cup/glass/bottle/absinthe,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken3"
 	},

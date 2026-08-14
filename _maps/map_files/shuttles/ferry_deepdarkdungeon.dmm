@@ -62,7 +62,7 @@
 /turf/simulated/floor/shuttle/syndicate,
 /area/shuttle/transport)
 "s" = (
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka{
+/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka{
 	pixel_x = 8;
 	pixel_y = 7
 	},

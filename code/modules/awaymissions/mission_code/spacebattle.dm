@@ -506,7 +506,7 @@
 		/obj/item/reagent_containers/food/snacks/donut,
 		/obj/item/reagent_containers/food/snacks/candy/candybar,
 		/obj/item/reagent_containers/food/snacks/tastybread,
-		/obj/item/reagent_containers/food/drinks/cans/dr_gibb,
+		/obj/item/reagent_containers/cup/glass/cans/dr_gibb,
 		/obj/item/pen,
 		/obj/item/screwdriver,
 		/obj/item/stack/tape_roll,

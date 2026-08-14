@@ -651,7 +651,7 @@
 	can_hold = list(
 		/obj/item/grenade,
 		/obj/item/lighter,
-		/obj/item/reagent_containers/food/drinks/bottle/molotov,
+		/obj/item/reagent_containers/cup/glass/bottle/molotov,
 	)
 
 /obj/item/storage/belt/grenade/full/populate_contents()
@@ -1233,7 +1233,7 @@
 		/obj/item/stack/sheet/bone,
 		/obj/item/lighter,
 		/obj/item/storage/fancy/cigarettes,
-		/obj/item/reagent_containers/food/drinks/bottle,
+		/obj/item/reagent_containers/cup/glass/bottle,
 		/obj/item/stack/medical,
 		/obj/item/kitchen/knife,
 		/obj/item/reagent_containers/hypospray,
@@ -1244,7 +1244,7 @@
 		/obj/item/reagent_containers/food/pill,
 		/obj/item/storage/pill_bottle,
 		/obj/item/stack/ore,
-		/obj/item/reagent_containers/food/drinks,
+		/obj/item/reagent_containers/cup/glass,
 		/obj/item/organ/internal/regenerative_core,
 		/obj/item/wormhole_jaunter,
 		/obj/item/storage/bag/plants,
@@ -1339,11 +1339,11 @@
 		/obj/item/kitchen/cutter,
 		/obj/item/assembly/mousetrap,
 		/obj/item/reagent_containers/spray/pestspray,
-		/obj/item/reagent_containers/food/drinks/flask,
-		/obj/item/reagent_containers/food/drinks/drinkingglass,
-		/obj/item/reagent_containers/food/drinks/bottle,
-		/obj/item/reagent_containers/food/drinks/cans,
-		/obj/item/reagent_containers/food/drinks/shaker,
+		/obj/item/reagent_containers/cup/glass/flask,
+		/obj/item/reagent_containers/cup/glass/drinkingglass,
+		/obj/item/reagent_containers/cup/glass/bottle,
+		/obj/item/reagent_containers/cup/glass/cans,
+		/obj/item/reagent_containers/cup/glass/shaker,
 		/obj/item/reagent_containers/food/snacks,
 		/obj/item/reagent_containers/condiment,
 		/obj/item/reagent_containers/cup/beaker,

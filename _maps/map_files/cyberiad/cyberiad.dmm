@@ -1045,7 +1045,7 @@
 "agt" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/bible,
-/obj/item/reagent_containers/food/drinks/bottle/holywater,
+/obj/item/reagent_containers/cup/glass/bottle/holywater,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -2108,7 +2108,7 @@
 /area/station/medical/sleeper)
 "alh" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/glass/cans/beer{
 	pixel_x = -8;
 	pixel_y = 12
 	},
@@ -2375,7 +2375,7 @@
 /area/station/command/office/hos)
 "amp" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/mug/hos{
+/obj/item/reagent_containers/cup/glass/mug/hos{
 	pixel_x = -6;
 	pixel_y = 16
 	},
@@ -3570,7 +3570,7 @@
 	pixel_x = 1;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka{
+/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka{
 	pixel_x = 5;
 	pixel_y = -3
 	},
@@ -8060,7 +8060,7 @@
 /obj/item/reagent_containers/cup/beaker/waterbottle{
 	pixel_x = 5
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass{
 	pixel_x = -5
 	},
 /obj/structure/window/reinforced,
@@ -9429,7 +9429,7 @@
 /obj/item/reagent_containers/cup/beaker/waterbottle{
 	pixel_x = 5
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass{
 	pixel_x = -5
 	},
 /obj/structure/window/reinforced{
@@ -10040,7 +10040,7 @@
 /area/station/commons/dorms)
 "aQe" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass{
 	pixel_x = -5
 	},
 /obj/item/reagent_containers/cup/beaker/waterbottle{
@@ -12961,7 +12961,7 @@
 /obj/item/radio{
 	pixel_x = 5
 	},
-/obj/item/reagent_containers/food/drinks/mug/sec,
+/obj/item/reagent_containers/cup/glass/mug/sec,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "bdE" = (
@@ -26237,7 +26237,7 @@
 /obj/structure/table,
 /obj/machinery/recharger,
 /obj/item/screwdriver,
-/obj/item/reagent_containers/food/drinks/britcup,
+/obj/item/reagent_containers/cup/glass/britcup,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -27739,9 +27739,9 @@
 	pixel_y = -24;
 	req_access = list(67)
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass,
-/obj/item/reagent_containers/food/drinks/bottle/whiskey,
+/obj/item/reagent_containers/cup/glass/drinkingglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass,
+/obj/item/reagent_containers/cup/glass/bottle/whiskey,
 /obj/structure/closet/cabinet,
 /turf/simulated/floor/plasteel{
 	icon_state = "bcarpet05"
@@ -39591,7 +39591,7 @@
 /area/station/service/chapel)
 "dnN" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/flask/barflask{
+/obj/item/reagent_containers/cup/glass/flask/barflask{
 	pixel_x = 5;
 	pixel_y = 6
 	},
@@ -41582,7 +41582,7 @@
 /area/station/maintenance/apmaint)
 "dPW" = (
 /obj/structure/table_frame/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -44634,7 +44634,7 @@
 "fdm" = (
 /obj/structure/table/reinforced,
 /obj/machinery/keycard_auth,
-/obj/item/reagent_containers/food/drinks/mug/serv{
+/obj/item/reagent_containers/cup/glass/mug/serv{
 	pixel_x = 10;
 	pixel_y = 16
 	},
@@ -46963,7 +46963,7 @@
 	dir = 4
 	},
 /obj/machinery/light,
-/obj/item/reagent_containers/food/drinks/mug/sec,
+/obj/item/reagent_containers/cup/glass/mug/sec,
 /obj/structure/table,
 /obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
@@ -47587,7 +47587,7 @@
 "gnb" = (
 /obj/machinery/newscaster/directional/south,
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/mug,
+/obj/item/reagent_containers/cup/glass/mug,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
@@ -51822,7 +51822,7 @@
 /area/station/solars/port/aft)
 "ibC" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = -8;
 	pixel_y = -6
 	},
@@ -52794,7 +52794,7 @@
 /area/station/maintenance/asmaint2)
 "ivR" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/patron,
+/obj/item/reagent_containers/cup/glass/bottle/patron,
 /obj/item/storage/fancy/cigarettes/cigpack_shadyjims,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint2)
@@ -53742,7 +53742,7 @@
 "iNl" = (
 /obj/structure/table,
 /obj/item/deck/cards,
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/glass/cans/beer{
 	pixel_x = -4
 	},
 /turf/simulated/floor/plasteel,
@@ -55586,7 +55586,7 @@
 /area/station/maintenance/trading)
 "jDp" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/bottle/cream{
+/obj/item/reagent_containers/cup/glass/bottle/cream{
 	pixel_y = 8
 	},
 /obj/item/kitchen/knife{
@@ -58469,7 +58469,7 @@
 /area/station/maintenance/cafeteria)
 "kIX" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
@@ -58494,7 +58494,7 @@
 /obj/structure/table/wood,
 /obj/item/radio/intercom/directional/south,
 /obj/item/storage/box/matches,
-/obj/item/reagent_containers/food/drinks/flask/gold,
+/obj/item/reagent_containers/cup/glass/flask/gold,
 /obj/item/clothing/mask/cigarette/cigar,
 /obj/item/razor{
 	pixel_x = -4;
@@ -59632,7 +59632,7 @@
 /area/station/hallway/secondary/entry)
 "lgc" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee,
 /obj/item/reagent_containers/cup/bottle/morphine{
 	pixel_y = 5
 	},
@@ -64437,7 +64437,7 @@
 	},
 /obj/item/storage/fancy/cigarettes/dromedaryco,
 /obj/item/radio/intercom/department/security/directional/east,
-/obj/item/reagent_containers/food/drinks/flask/detflask,
+/obj/item/reagent_containers/cup/glass/flask/detflask,
 /obj/item/lighter/zippo/detective,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -66836,7 +66836,7 @@
 "omn" = (
 /obj/structure/table/wood,
 /obj/item/pen,
-/obj/item/reagent_containers/food/drinks/bottle/holywater,
+/obj/item/reagent_containers/cup/glass/bottle/holywater,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -67422,7 +67422,7 @@
 "oAi" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/cup/glass/shaker,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/trading)
@@ -72344,7 +72344,7 @@
 	known_by = list("captain")
 	},
 /obj/item/gun/projectile/revolver/russian,
-/obj/item/reagent_containers/food/drinks/bottle/absinthe/premium,
+/obj/item/reagent_containers/cup/glass/bottle/absinthe/premium,
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold,
 /obj/item/toy/figure/captain,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -83077,7 +83077,7 @@
 /obj/item/reagent_containers/food/pill/lsd,
 /obj/item/reagent_containers/food/pill/fakedeath,
 /obj/item/reagent_containers/food/pill/salicylic,
-/obj/item/reagent_containers/food/drinks/cans/ale,
+/obj/item/reagent_containers/cup/glass/cans/ale,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
@@ -86210,7 +86210,7 @@
 "wcv" = (
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = -4
 	},
 /obj/machinery/door/firedoor,
@@ -87313,7 +87313,7 @@
 /area/station/maintenance/asmaint2)
 "wyP" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/britcup,
+/obj/item/reagent_containers/cup/glass/britcup,
 /obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
@@ -89298,7 +89298,7 @@
 "xnb" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/britcup,
+/obj/item/reagent_containers/cup/glass/britcup,
 /obj/item/rag,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -90757,7 +90757,7 @@
 /area/station/maintenance/fsmaint2)
 "xTt" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/drinkingglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass,
 /obj/item/radio/intercom/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -91459,9 +91459,9 @@
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold,
 /obj/item/lighter/zippo/nt_rep,
 /obj/item/folder/documents,
-/obj/item/reagent_containers/food/drinks/trophy/gold_cup,
+/obj/item/reagent_containers/cup/glass/trophy/gold_cup,
 /obj/item/clothing/head/bearpelt,
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
+/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "vault"

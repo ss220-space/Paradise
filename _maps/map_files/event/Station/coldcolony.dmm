@@ -3178,7 +3178,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -8119,7 +8119,7 @@
 /area/coldcolony/malta/resid_serv/library/game_zone)
 "cTP" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/mug/cmo,
+/obj/item/reagent_containers/cup/glass/mug/cmo,
 /obj/item/clothing/glasses/hud/health/sunglasses,
 /turf/simulated/floor/carpet/cyan,
 /area/coldcolony/malta/bridge/vip)
@@ -8396,7 +8396,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/research/robotics)
 "cZd" = (
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/cup/glass/shaker,
 /obj/structure/closet/crate,
 /obj/effect/decal/cleanable/cobweb2,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -9847,7 +9847,7 @@
 /area/coldcolony/malta/quartermaster/miningeva)
 "dEc" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whiteblue"
@@ -12192,10 +12192,10 @@
 "exR" = (
 /obj/item/clothing/head/bearpelt,
 /obj/item/folder/documents,
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
+/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka,
 /obj/item/lighter/zippo/nt_rep,
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold,
-/obj/item/reagent_containers/food/drinks/trophy/gold_cup,
+/obj/item/reagent_containers/cup/glass/trophy/gold_cup,
 /obj/item/stack/spacecash/c1000{
 	amount = 100000
 	},
@@ -12905,9 +12905,9 @@
 /area/coldcolony/malta/security/permabrig)
 "eMt" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/whiskey,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
-/obj/item/reagent_containers/food/drinks/flask/detflask,
+/obj/item/reagent_containers/cup/glass/bottle/whiskey,
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
+/obj/item/reagent_containers/cup/glass/flask/detflask,
 /obj/item/lighter/zippo/detective,
 /obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/wood,
@@ -16815,14 +16815,14 @@
 /area/coldcolony/ruin/sm_lab)
 "goc" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = 8
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = -3;
 	pixel_y = 1
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = 3;
 	pixel_y = 3
 	},
@@ -18085,11 +18085,11 @@
 /area/coldcolony/malta/resid_serv/crew_quarters/sleep)
 "gMw" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/vodka{
+/obj/item/reagent_containers/cup/glass/bottle/vodka{
 	pixel_x = 5;
 	pixel_y = 15
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = -4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -19362,7 +19362,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/cargo)
 "hkf" = (
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = -8
 	},
 /obj/effect/landmark/spawner/blob,
@@ -20081,7 +20081,7 @@
 	},
 /obj/item/clothing/suit/hooded/wintercoat/engineering/ce,
 /obj/item/flash,
-/obj/item/reagent_containers/food/drinks/mug/ce,
+/obj/item/reagent_containers/cup/glass/mug/ce,
 /obj/item/radio/headset/heads/ce,
 /obj/item/storage/garmentbag/engineering_chief,
 /obj/item/storage/backpack/satchel_eng,
@@ -22240,7 +22240,7 @@
 /area/coldcolony/malta/quartermaster/sorting)
 "irt" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/bottle/cream,
+/obj/item/reagent_containers/cup/glass/bottle/cream,
 /obj/machinery/firealarm/directional/west,
 /obj/machinery/camera{
 	c_tag = "Kitchen";
@@ -23072,7 +23072,7 @@
 	pixel_y = -23
 	},
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -24175,7 +24175,7 @@
 /area/coldcolony/malta/security/permabrig)
 "jbp" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = -4
 	},
 /turf/simulated/floor/wood{
@@ -27594,8 +27594,8 @@
 /area/coldcolony/malta/resid_serv/crew_quarters/theatre)
 "kkV" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
-/obj/item/reagent_containers/food/drinks/drinkingglass,
+/obj/item/reagent_containers/cup/glass/bottle/vodka,
+/obj/item/reagent_containers/cup/glass/drinkingglass,
 /obj/structure/sign/poster/official/random{
 	pixel_x = -32
 	},
@@ -29396,7 +29396,7 @@
 /area/coldcolony/malta/medical/virology)
 "kRG" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/food/drinks/cans/non_alcoholic_beer,
+/obj/item/reagent_containers/cup/glass/cans/non_alcoholic_beer,
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -30614,7 +30614,7 @@
 /area/coldcolony/malta/security/checkpoint)
 "lrX" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/patron{
+/obj/item/reagent_containers/cup/glass/bottle/patron{
 	pixel_y = 7
 	},
 /turf/simulated/floor/carpet/green,
@@ -31610,7 +31610,7 @@
 /obj/structure/table/wood{
 	color = "brown"
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -33888,7 +33888,7 @@
 /area/coldcolony/malta/security/hos)
 "mHp" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/cans/ale,
+/obj/item/reagent_containers/cup/glass/cans/ale,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -33998,7 +33998,7 @@
 /obj/structure/table/wood{
 	color = "brown"
 	},
-/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/cup/glass/cans/beer,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -34175,7 +34175,7 @@
 /area/coldcolony/ruin/abandoned_house)
 "mMA" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = 11;
 	pixel_y = 13
 	},
@@ -34315,16 +34315,16 @@
 /area/coldcolony/malta/resid_serv/bar)
 "mPV" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/drinks/cans/beer,
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/glass/cans/beer,
+/obj/item/reagent_containers/cup/glass/cans/beer{
 	pixel_x = -5;
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/glass/cans/beer{
 	pixel_x = 3;
 	pixel_y = 5
 	},
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/glass/cans/beer{
 	pixel_x = -10;
 	pixel_y = -2
 	},
@@ -34631,7 +34631,7 @@
 /area/coldcolony/ruin/abandoned_garage)
 "mTN" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/whiskey{
+/obj/item/reagent_containers/cup/glass/bottle/whiskey{
 	pixel_y = 18
 	},
 /obj/structure/cable{
@@ -34806,7 +34806,7 @@
 /area/coldcolony/malta/research/test_chamber)
 "mXp" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/holywater,
+/obj/item/reagent_containers/cup/glass/bottle/holywater,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -37208,7 +37208,7 @@
 "nVR" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/bible,
-/obj/item/reagent_containers/food/drinks/bottle/holywater,
+/obj/item/reagent_containers/cup/glass/bottle/holywater,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -37351,9 +37351,9 @@
 /area/ruin/unpowered/coldcolony_outside)
 "nXO" = (
 /obj/structure/closet/cabinet,
-/obj/item/reagent_containers/food/drinks/bottle/whiskey,
-/obj/item/reagent_containers/food/drinks/drinkingglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass,
+/obj/item/reagent_containers/cup/glass/bottle/whiskey,
+/obj/item/reagent_containers/cup/glass/drinkingglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass,
 /turf/simulated/floor/plasteel{
 	icon_state = "bcarpet05"
 	},
@@ -41445,9 +41445,9 @@
 /area/coldcolony/malta/security/checkpoint)
 "puX" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/cognac,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/cup/glass/bottle/cognac,
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
 /turf/simulated/floor/carpet/orange,
 /area/coldcolony/malta/bridge/hop)
 "pvf" = (
@@ -42302,11 +42302,11 @@
 /area/coldcolony/malta/maintenance/medbay)
 "pMp" = (
 /obj/structure/closet/secure_closet/cabinet,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/cup/glass/bottle/vodka,
+/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka,
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
 /turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_house)
 "pMB" = (
@@ -43045,7 +43045,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/research)
 "qcw" = (
-/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee,
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -43796,7 +43796,7 @@
 /area/coldcolony/malta/quartermaster/storage)
 "qqM" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/flask/gold,
+/obj/item/reagent_containers/cup/glass/flask/gold,
 /obj/item/razor,
 /turf/simulated/floor/carpet/royalblue,
 /area/coldcolony/malta/bridge/captain/bedroom)
@@ -45830,7 +45830,7 @@
 /area/coldcolony/malta/maintenance/cargo)
 "rdj" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/cup/glass/shaker,
 /turf/simulated/floor/wood/fancy/light,
 /area/coldcolony/malta/resid_serv/bar)
 "rdl" = (
@@ -47321,7 +47321,7 @@
 /area/shuttle/pirate_corvette)
 "rFv" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/mug/rd,
+/obj/item/reagent_containers/cup/glass/mug/rd,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkpurple"
@@ -48438,7 +48438,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/item/reagent_containers/food/drinks/bottle/vodka{
+/obj/item/reagent_containers/cup/glass/bottle/vodka{
 	desc = "For the Cargonia!";
 	name = "Molotov cocktail"
 	},
@@ -50670,7 +50670,7 @@
 /area/coldcolony/malta/chapel/office)
 "sWG" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = -5
 	},
 /turf/simulated/floor/carpet/cold,
@@ -56930,7 +56930,7 @@
 	amount = 3
 	},
 /obj/structure/closet/crate/trashcart,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = -8
 	},
 /obj/item/light/tube{
@@ -57828,7 +57828,7 @@
 /area/coldcolony/malta/hallway/cargo_escape/port/west)
 "vGy" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/mug/hos,
+/obj/item/reagent_containers/cup/glass/mug/hos,
 /obj/effect/spawner/lootdrop/officetoys,
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -63884,7 +63884,7 @@
 /area/ruin/unpowered/coldcolony_outside)
 "xVd" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/cup/glass/shaker,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -63954,7 +63954,7 @@
 /area/coldcolony/malta/hallway/bridge)
 "xWk" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/whiskey,
+/obj/item/reagent_containers/cup/glass/bottle/whiskey,
 /turf/simulated/floor/wood/fancy/birch{
 	icon_state = "fancy-wood-birch-broken6"
 	},
@@ -64257,7 +64257,7 @@
 /area/coldcolony/malta/security/securearmory)
 "ycN" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/britcup,
+/obj/item/reagent_containers/cup/glass/britcup,
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/medbay)

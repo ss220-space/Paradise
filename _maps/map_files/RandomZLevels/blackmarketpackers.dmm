@@ -311,7 +311,7 @@
 /area/awaymission/BMPship/Fore)
 "bl" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/reagent_containers/food/drinks/bottle/patron,
+/obj/item/reagent_containers/cup/glass/bottle/patron,
 /obj/item/flashlight/lamp/green{
 	on = 0;
 	pixel_x = -5;
@@ -602,7 +602,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 2
 	},
-/obj/item/reagent_containers/food/drinks/sillycup,
+/obj/item/reagent_containers/cup/glass/sillycup,
 /obj/item/reagent_containers/food/pill/methamphetamine,
 /turf/simulated/floor/wood/fancy,
 /area/awaymission/BMPship/CommonArea)
@@ -1263,7 +1263,7 @@
 /obj/item/kitchen/utensil/fork{
 	pixel_x = 7
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass{
 	pixel_y = 15
 	},
 /turf/simulated/floor/plasteel{
@@ -1279,11 +1279,11 @@
 /obj/item/clothing/glasses/sunglasses/noir{
 	pixel_y = -3
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = 10;
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/food/drinks/bottle/whiskey{
+/obj/item/reagent_containers/cup/glass/bottle/whiskey{
 	layer = 2.9;
 	pixel_y = 10
 	},
@@ -1338,7 +1338,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "dU" = (
-/obj/item/reagent_containers/food/drinks/sillycup,
+/obj/item/reagent_containers/cup/glass/sillycup,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken5"
 	},
@@ -1639,7 +1639,7 @@
 	pixel_y = -1
 	},
 /obj/item/kitchen/utensil/fork,
-/obj/item/reagent_containers/food/drinks/britcup{
+/obj/item/reagent_containers/cup/glass/britcup{
 	pixel_x = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -2182,7 +2182,7 @@
 /area/awaymission/BMPship/Fore)
 "gg" = (
 /obj/structure/alien/weeds,
-/obj/item/reagent_containers/food/drinks/mug/comms{
+/obj/item/reagent_containers/cup/glass/mug/comms{
 	pixel_y = 10
 	},
 /turf/simulated/floor/plating/airless,
@@ -2982,7 +2982,7 @@
 /area/awaymission/BMPship/ChemLab)
 "iL" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/cup/glass/cans/beer,
 /obj/item/grenade/chem_grenade/drugs,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/ChemLab)
@@ -3322,7 +3322,7 @@
 "kx" = (
 /obj/structure/table/survival_pod,
 /obj/item/reagent_containers/cup/beaker/drugs/meth,
-/obj/item/reagent_containers/food/drinks/bottle/rum{
+/obj/item/reagent_containers/cup/glass/bottle/rum{
 	layer = 2.9;
 	pixel_x = -3;
 	pixel_y = 4
@@ -3828,7 +3828,7 @@
 	icon_state = "small"
 	},
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = 11;
 	pixel_y = 13
 	},
@@ -3967,14 +3967,14 @@
 /area/awaymission/BMPship/Dormitories)
 "pG" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass{
 	pixel_x = 3;
 	pixel_y = 5
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass{
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass{
 	layer = 2.9;
 	pixel_x = -3;
 	pixel_y = 5
@@ -5254,7 +5254,7 @@
 /obj/structure/table,
 /obj/item/kitchen/utensil/fork,
 /obj/item/trash/snack_bowl,
-/obj/item/reagent_containers/food/drinks/mug/cap{
+/obj/item/reagent_containers/cup/glass/mug/cap{
 	pixel_x = 5;
 	pixel_y = 6
 	},
@@ -5413,7 +5413,7 @@
 /area/awaymission/BMPship/Buffer)
 "CI" = (
 /obj/structure/alien/weeds,
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/glass/cans/beer{
 	pixel_x = 8;
 	pixel_y = 2
 	},
@@ -6386,7 +6386,7 @@
 /area/awaymission/BMPship/Gate)
 "Md" = (
 /obj/structure/alien/weeds,
-/obj/item/reagent_containers/food/drinks/mug/novelty{
+/obj/item/reagent_containers/cup/glass/mug/novelty{
 	pixel_x = 10;
 	pixel_y = 10
 	},
@@ -6795,7 +6795,7 @@
 /area/awaymission/BMPship/Containment)
 "QT" = (
 /obj/structure/rack,
-/obj/item/reagent_containers/food/drinks/trophy/gold_cup,
+/obj/item/reagent_containers/cup/glass/trophy/gold_cup,
 /obj/item/storage/box/flashbangs,
 /obj/item/fluff/dogwhistle,
 /obj/structure/alien/weeds,
@@ -7121,7 +7121,7 @@
 /area/awaymission/BMPship/Engines)
 "UI" = (
 /obj/structure/alien/weeds,
-/obj/item/reagent_containers/food/drinks/mug{
+/obj/item/reagent_containers/cup/glass/mug{
 	pixel_x = -8
 	},
 /turf/simulated/floor/plating/airless,

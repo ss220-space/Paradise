@@ -1532,7 +1532,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	name = "Oil Tank Crate"
 	contains = list(
 		/obj/structure/reagent_dispensers/oil,
-		/obj/item/reagent_containers/food/drinks/oilcan,
+		/obj/item/reagent_containers/cup/glass/oilcan,
 	)
 	cost = 100
 	containertype = /obj/structure/closet/crate/large
@@ -1626,15 +1626,15 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	name = "Party Equipment Crate"
 	contains = list(
 		/obj/item/storage/box/drinkingglasses,
-		/obj/item/reagent_containers/food/drinks/shaker,
-		/obj/item/reagent_containers/food/drinks/bottle/patron,
-		/obj/item/reagent_containers/food/drinks/bottle/goldschlager,
-		/obj/item/reagent_containers/food/drinks/cans/ale,
-		/obj/item/reagent_containers/food/drinks/cans/ale,
-		/obj/item/reagent_containers/food/drinks/cans/beer,
-		/obj/item/reagent_containers/food/drinks/cans/beer,
-		/obj/item/reagent_containers/food/drinks/cans/beer,
-		/obj/item/reagent_containers/food/drinks/cans/beer,
+		/obj/item/reagent_containers/cup/glass/shaker,
+		/obj/item/reagent_containers/cup/glass/bottle/patron,
+		/obj/item/reagent_containers/cup/glass/bottle/goldschlager,
+		/obj/item/reagent_containers/cup/glass/cans/ale,
+		/obj/item/reagent_containers/cup/glass/cans/ale,
+		/obj/item/reagent_containers/cup/glass/cans/beer,
+		/obj/item/reagent_containers/cup/glass/cans/beer,
+		/obj/item/reagent_containers/cup/glass/cans/beer,
+		/obj/item/reagent_containers/cup/glass/cans/beer,
 		/obj/item/grenade/confetti,
 		/obj/item/grenade/confetti,
 	)
@@ -2197,8 +2197,8 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 /datum/syndie_supply_packs/misc/religious_supplies
 	name = "Religious Supplies Crate"
 	contains = list(
-		/obj/item/reagent_containers/food/drinks/bottle/holywater,
-		/obj/item/reagent_containers/food/drinks/bottle/holywater,
+		/obj/item/reagent_containers/cup/glass/bottle/holywater,
+		/obj/item/reagent_containers/cup/glass/bottle/holywater,
 		/obj/item/storage/bible/booze,
 		/obj/item/storage/bible/booze,
 		/obj/item/clothing/suit/hooded/chaplain_hoodie,
@@ -2394,8 +2394,8 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/item/clothing/mask/gas/mime,
 		/obj/item/clothing/head/beret,
 		/obj/item/clothing/suit/suspenders,
-		/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing,
-		/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana,
+		/obj/item/reagent_containers/cup/glass/bottle/bottleofnothing,
+		/obj/item/reagent_containers/cup/glass/bottle/bottleofbanana,
 	)
 	cost = 100
 	containertype = /obj/structure/closet/crate/secure
@@ -2836,7 +2836,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/item/card/id/syndicate,
 		/obj/item/clothing/suit/storage/lawyer/blackjacket/armored,
 		/obj/item/encryptionkey/syndicate,
-		/obj/item/reagent_containers/food/drinks/drinkingglass/alliescocktail,
+		/obj/item/reagent_containers/cup/glass/drinkingglass/alliescocktail,
 		/obj/item/storage/box/syndie_kit/emp,
 		/obj/item/CQC_manual,
 	)

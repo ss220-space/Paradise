@@ -3925,7 +3925,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/rnd)
 "mp" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/obj/item/reagent_containers/cup/glass/bottle/vodka,
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 8;
 	on = 1
@@ -5982,7 +5982,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/angar)
 "sF" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/cup/glass/cans/beer,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "sG" = (
@@ -10766,9 +10766,9 @@
 	},
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "GA" = (
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
+/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka,
 /obj/item/storage/fancy/cigcase,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
 /obj/item/clothing/under/sovietofficer,
 /obj/item/lighter/zippo/gonzofist,
 /obj/structure/closet/secure_closet{
@@ -11885,7 +11885,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/angar)
 "JW" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/food/drinks/oilcan,
+/obj/item/reagent_containers/cup/glass/oilcan,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -15456,7 +15456,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/check2)
 "Vh" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/food/drinks/mug/sec,
+/obj/item/reagent_containers/cup/glass/mug/sec,
 /obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;

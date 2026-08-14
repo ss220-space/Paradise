@@ -26,12 +26,12 @@
 		/obj/item/reagent_containers/food/snacks/proteinbar_banana = 10,
 		/obj/item/reagent_containers/food/snacks/proteinbar_cherry = 10,
 		/obj/item/reagent_containers/food/snacks/proteinbar_beef = 10,
-		/obj/item/reagent_containers/food/drinks/protein/zaza = 1,
-		/obj/item/reagent_containers/food/drinks/protein/cherry = 1,
-		/obj/item/reagent_containers/food/drinks/protein/chocolate = 1,
-		/obj/item/reagent_containers/food/drinks/protein/bananastrawberry = 1,
-		/obj/item/reagent_containers/food/drinks/creatine = 4,
-		/obj/item/reagent_containers/food/drinks/guarana = 12,
+		/obj/item/reagent_containers/cup/glass/protein/zaza = 1,
+		/obj/item/reagent_containers/cup/glass/protein/cherry = 1,
+		/obj/item/reagent_containers/cup/glass/protein/chocolate = 1,
+		/obj/item/reagent_containers/cup/glass/protein/bananastrawberry = 1,
+		/obj/item/reagent_containers/cup/glass/creatine = 4,
+		/obj/item/reagent_containers/cup/glass/guarana = 12,
 	)
 	contraband = list(
 		/obj/item/reagent_containers/syringe/steroids = 5,

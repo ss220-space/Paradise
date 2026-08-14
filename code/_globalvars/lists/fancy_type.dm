@@ -73,7 +73,7 @@ GLOBAL_LIST_INIT(fancy_type_replacements, list(
 	/obj/item/radio/headset = "HEADSET",
 	/obj/item/reagent_containers = "REAGENT_CONTAINERS",
 	/obj/item/reagent_containers/food = "FOOD",
-	/obj/item/reagent_containers/food/drinks = "DRINK",
+	/obj/item/reagent_containers/cup/glass = "DRINK",
 	/obj/item/reagent_containers/food/pill = "PILL",
 	/obj/item/reagent_containers/food/pill/patch = "PATCH",
 	/obj/item/reagent_containers/cup/beaker = "BEAKER",

@@ -12,7 +12,7 @@
 "c" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/bottle/absinthe/premium{
+/obj/item/reagent_containers/cup/glass/bottle/absinthe/premium{
 	pixel_y = 7
 	},
 /turf/simulated/floor/pod/dark/lavaland_air,

@@ -17,8 +17,8 @@
 	loot = list(
 		/obj/item/reagent_containers/food/snacks/grown/ambrosia/deus,
 		/obj/item/lighter,
-		/obj/item/reagent_containers/food/drinks/bottle/rum,
-		/obj/item/reagent_containers/food/drinks/bottle/whiskey,
+		/obj/item/reagent_containers/cup/glass/bottle/rum,
+		/obj/item/reagent_containers/cup/glass/bottle/whiskey,
 	)
 
 /obj/effect/spawner/random/loot/bank_robber

@@ -3832,8 +3832,8 @@
 /area/ruin/space/ancientstation/charlie_restroom)
 "nN" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/mug/serv,
-/obj/item/reagent_containers/food/drinks/mug,
+/obj/item/reagent_containers/cup/glass/mug/serv,
+/obj/item/reagent_containers/cup/glass/mug,
 /turf/simulated/floor/wood,
 /area/ruin/space/ancientstation/charlie_dininghall)
 "nQ" = (

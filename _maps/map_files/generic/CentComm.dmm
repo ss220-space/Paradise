@@ -268,11 +268,11 @@
 /obj/structure/safe{
 	known_by = list("NNC")
 	},
-/obj/item/reagent_containers/food/drinks/bottle/goldschlager,
+/obj/item/reagent_containers/cup/glass/bottle/goldschlager,
 /obj/item/coin/gold,
 /obj/item/toy/plushie/corgi,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -619,11 +619,11 @@
 	},
 /obj/effect/turf_decal/tile/neutral,
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/reagent_containers/food/drinks/bottle/wine{
+/obj/item/reagent_containers/cup/glass/bottle/wine{
 	pixel_x = -12;
 	pixel_y = 10
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "dark"
@@ -1309,7 +1309,7 @@
 /area/centcom/central_command_areas/zone/two)
 "aGD" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass{
 	pixel_x = -5
 	},
 /obj/structure/window/reinforced{
@@ -1905,7 +1905,7 @@
 	name = "table"
 	},
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/food/drinks/cans/cola=10,""=70);
+	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/cup/glass/cans/cola=10,""=70);
 	name = "Food CC Spawner #1"
 	},
 /turf/simulated/floor/fakespace,
@@ -2521,7 +2521,7 @@
 	dir = 8
 	},
 /obj/item/reagent_containers/cup/beaker/waterbottle,
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass{
 	pixel_x = -5
 	},
 /turf/simulated/floor/carpet,
@@ -2596,7 +2596,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/centcom/trader_station/sol)
 "bsK" = (
-/obj/item/reagent_containers/food/drinks/bottle/vodka{
+/obj/item/reagent_containers/cup/glass/bottle/vodka{
 	pixel_x = -8;
 	pixel_y = 4
 	},
@@ -2834,7 +2834,7 @@
 /obj/item/pizzabox/vegetable,
 /obj/item/pizzabox/vegetable,
 /obj/item/book/manual/barman_recipes,
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/cup/glass/shaker,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -6033,7 +6033,7 @@
 	desc = "Любимая игрушка-антистресс одной из представительниц вида таяран, когда-то работавшей главой персонала. Она была настолько занята выполнением своих обязанностей, что умерла голодной смертью прямо на своем рабочем месте. Не будьте как эта таяра. Кушайте регулярно.";
 	name = "Любимая игрушка бюрократов"
 	},
-/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee,
 /turf/simulated/floor/carpet/black,
 /area/centcom/central_command_areas/zone/two)
 "dbM" = (
@@ -7008,11 +7008,11 @@
 /obj/item/clothing/glasses/hud/security/sunglasses/aviators,
 /obj/item/clothing/accessory/holster,
 /obj/item/storage/backpack/satcheldeluxe,
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka{
+/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka{
 	pixel_x = -4;
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = 10;
 	pixel_y = 12
 	},
@@ -8628,7 +8628,7 @@
 "elc" = (
 /obj/structure/table,
 /obj/item/clothing/head/soft/solgov,
-/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -11429,7 +11429,7 @@
 	color = "#22aab7";
 	dir = 1
 	},
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/cup/glass/shaker,
 /turf/simulated/floor/carpet/black,
 /area/shuttle/administration)
 "fBW" = (
@@ -11494,7 +11494,7 @@
 /area/centcom/vox_station)
 "fCP" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass/devilskiss{
+/obj/item/reagent_containers/cup/glass/drinkingglass/devilskiss{
 	pixel_x = -6
 	},
 /turf/simulated/floor/wood{
@@ -11685,7 +11685,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 30
 	},
-/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/cup/glass/cans/beer,
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
 	},
@@ -15123,7 +15123,7 @@
 /area/centcom/central_command_areas/evacuation)
 "hqp" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass/devilskiss{
+/obj/item/reagent_containers/cup/glass/drinkingglass/devilskiss{
 	pixel_x = -6;
 	pixel_y = 7
 	},
@@ -16886,23 +16886,23 @@
 /turf/simulated/floor/indestructible/grass,
 /area/centcom/syndicate_base/control)
 "ioz" = (
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/glass/cans/beer{
 	pixel_x = -6;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/glass/cans/beer{
 	pixel_x = 2;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/glass/cans/beer{
 	pixel_x = 10;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/drinks/cans/beer,
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/glass/cans/beer,
+/obj/item/reagent_containers/cup/glass/cans/beer{
 	pixel_x = -8
 	},
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/glass/cans/beer{
 	pixel_x = 8
 	},
 /turf/simulated/floor/plating/asteroid/ancient/airless,
@@ -17119,7 +17119,7 @@
 "iuv" = (
 /obj/structure/table/glass,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/drinks/flask/detflask=10,/obj/item/reagent_containers/food/drinks/cans/tonic=10,/obj/item/reagent_containers/food/drinks/cans/thirteenloko=10,/obj/item/reagent_containers/food/drinks/cans/synthanol=10,/obj/item/reagent_containers/food/drinks/cans/space_mountain_wind=10,/obj/item/reagent_containers/food/drinks/cans/lemon_lime=10,""=70);
+	loot = list(/obj/item/reagent_containers/cup/glass/flask/detflask=10,/obj/item/reagent_containers/cup/glass/cans/tonic=10,/obj/item/reagent_containers/cup/glass/cans/thirteenloko=10,/obj/item/reagent_containers/cup/glass/cans/synthanol=10,/obj/item/reagent_containers/cup/glass/cans/space_mountain_wind=10,/obj/item/reagent_containers/cup/glass/cans/lemon_lime=10,""=70);
 	name = "Food CC Spawner #3"
 	},
 /turf/simulated/floor/plasteel{
@@ -18398,7 +18398,7 @@
 "iXz" = (
 /obj/structure/table/glass,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/food/drinks/cans/cola=10,""=70);
+	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/cup/glass/cans/cola=10,""=70);
 	name = "Food CC Spawner #1"
 	},
 /obj/structure/window/reinforced/survival_pod{
@@ -20985,7 +20985,7 @@
 /area/shuttle/syndicate)
 "kag" = (
 /obj/structure/table/wood/fancy/green,
-/obj/item/reagent_containers/food/drinks/tea{
+/obj/item/reagent_containers/cup/glass/tea{
 	desc = "Don't drink it with sugar!";
 	name = "Green tea";
 	pixel_y = 7
@@ -22445,7 +22445,7 @@
 /area/centcom/wizard_station)
 "kDU" = (
 /obj/structure/table/wood/fancy/black,
-/obj/item/reagent_containers/food/drinks/mugwort,
+/obj/item/reagent_containers/cup/glass/mugwort,
 /turf/simulated/floor/carpet,
 /area/centcom/wizard_station)
 "kEk" = (
@@ -22852,7 +22852,7 @@
 /obj/structure/table/wood{
 	color = "#996633"
 	},
-/obj/item/reagent_containers/food/drinks/shaker{
+/obj/item/reagent_containers/cup/glass/shaker{
 	pixel_x = -7
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -24159,8 +24159,8 @@
 /area/centcom/syndicate_base/control)
 "lsO" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/food/drinks/cans/beer,
-/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/cup/glass/cans/beer,
+/obj/item/reagent_containers/cup/glass/cans/beer,
 /turf/simulated/floor/carpet,
 /area/centcom/central_command_areas/evacuation)
 "ltd" = (
@@ -24225,11 +24225,11 @@
 /area/centcom/central_command_areas/zone/three)
 "lul" = (
 /obj/structure/table/wood/fancy/red,
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka{
+/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka{
 	pixel_x = 8;
 	pixel_y = 7
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = -5
 	},
 /turf/simulated/floor/carpet/red,
@@ -24841,13 +24841,13 @@
 /area/centcom/central_command_areas/special_operations)
 "lHT" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
-/obj/item/reagent_containers/food/drinks/cans/beer,
-/obj/item/reagent_containers/food/drinks/cans/beer,
-/obj/item/reagent_containers/food/drinks/cans/beer,
-/obj/item/reagent_containers/food/drinks/cans/beer,
-/obj/item/reagent_containers/food/drinks/cans/beer,
-/obj/item/reagent_containers/food/drinks/cans/beer,
-/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/cup/glass/cans/beer,
+/obj/item/reagent_containers/cup/glass/cans/beer,
+/obj/item/reagent_containers/cup/glass/cans/beer,
+/obj/item/reagent_containers/cup/glass/cans/beer,
+/obj/item/reagent_containers/cup/glass/cans/beer,
+/obj/item/reagent_containers/cup/glass/cans/beer,
+/obj/item/reagent_containers/cup/glass/cans/beer,
 /turf/simulated/floor/carpet/red,
 /area/centcom/central_command_areas/zone/three)
 "lIb" = (
@@ -27062,7 +27062,7 @@
 /area/centcom/central_command_areas/special_operations)
 "mFG" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/bottle/vermouth,
+/obj/item/reagent_containers/cup/glass/bottle/vermouth,
 /turf/simulated/floor/carpet/black,
 /area/centcom/syndicate_base/elite_squad)
 "mFU" = (
@@ -27110,7 +27110,7 @@
 	},
 /area/centcom/ninja/outpost)
 "mGA" = (
-/obj/item/reagent_containers/food/drinks/bottle/goldschlager,
+/obj/item/reagent_containers/cup/glass/bottle/goldschlager,
 /obj/structure/table/wood/fancy/black,
 /obj/effect/turf_decal/tile/neutral{
 	alpha = 100;
@@ -27287,7 +27287,7 @@
 "mKB" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/packageWrap,
-/obj/item/reagent_containers/food/drinks/bottle/cream,
+/obj/item/reagent_containers/cup/glass/bottle/cream,
 /obj/item/reagent_containers/food/snacks/mint,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
@@ -27586,8 +27586,8 @@
 /area/centcom/syndicate_base)
 "mRJ" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/cans/beer{
 	pixel_x = 6
 	},
 /turf/simulated/floor/shuttle,
@@ -29411,7 +29411,7 @@
 	pixel_x = 3;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/drinks/bottle/vodka{
+/obj/item/reagent_containers/cup/glass/bottle/vodka{
 	pixel_x = -5;
 	pixel_y = 9
 	},
@@ -29713,8 +29713,8 @@
 /area/centcom/central_command_areas/supply)
 "nJH" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/holywater,
-/obj/item/reagent_containers/food/drinks/bottle/holywater,
+/obj/item/reagent_containers/cup/glass/bottle/holywater,
+/obj/item/reagent_containers/cup/glass/bottle/holywater,
 /turf/simulated/floor/carpet,
 /area/centcom/central_command_areas/evacuation)
 "nJT" = (
@@ -29844,11 +29844,11 @@
 /obj/structure/table/wood{
 	color = "#996633"
 	},
-/obj/item/reagent_containers/food/drinks/bottle/wine,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/bottle/wine,
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = 8
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = -5
 	},
 /turf/simulated/floor/plating{
@@ -33024,18 +33024,18 @@
 /area/centcom/ninja/outside)
 "plV" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = -5
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = -8;
 	pixel_y = -6
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = 11;
 	pixel_y = 13
 	},
-/obj/item/reagent_containers/food/drinks/bottle/vodka{
+/obj/item/reagent_containers/cup/glass/bottle/vodka{
 	pixel_x = 4;
 	pixel_y = 7
 	},
@@ -33359,7 +33359,7 @@
 /area/centcom/syndicate_base/prison)
 "ptO" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka{
+/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka{
 	pixel_x = 8;
 	pixel_y = 7
 	},
@@ -34812,7 +34812,7 @@
 	pixel_y = 14
 	},
 /obj/item/stack/packageWrap,
-/obj/item/reagent_containers/food/drinks/bottle/cream,
+/obj/item/reagent_containers/cup/glass/bottle/cream,
 /obj/item/reagent_containers/food/snacks/mint,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
@@ -36341,7 +36341,7 @@
 	pixel_x = -6;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/drinks/bottle/rum{
+/obj/item/reagent_containers/cup/glass/bottle/rum{
 	pixel_x = 6;
 	pixel_y = 2
 	},
@@ -37299,7 +37299,7 @@
 /area/centcom/vox_station)
 "rdj" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/holywater,
+/obj/item/reagent_containers/cup/glass/bottle/holywater,
 /turf/simulated/floor/carpet,
 /area/centcom/central_command_areas/evacuation)
 "rdz" = (
@@ -37457,7 +37457,7 @@
 	},
 /obj/structure/window/reinforced,
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee,
 /turf/simulated/floor/carpet/black,
 /area/centcom/central_command_areas/zone/two)
 "rhn" = (
@@ -37478,7 +37478,7 @@
 "rhx" = (
 /obj/structure/table/wood/fancy,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/food/drinks/cans/cola=10,""=70);
+	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/cup/glass/cans/cola=10,""=70);
 	name = "Food CC Spawner #1"
 	},
 /turf/simulated/floor/wood,
@@ -37955,7 +37955,7 @@
 "rqr" = (
 /obj/structure/table/wood/fancy/royalblack,
 /obj/item/candle/eternal,
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass{
 	pixel_x = 6;
 	pixel_y = 9
 	},
@@ -39899,7 +39899,7 @@
 	dir = 8
 	},
 /obj/structure/table/wood/fancy/black,
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/cup/glass/shaker,
 /turf/simulated/floor/carpet/black,
 /area/centcom/central_command_areas/zone/three)
 "siZ" = (
@@ -40550,10 +40550,10 @@
 /area/centcom/syndicate_base)
 "sAC" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/shaker{
+/obj/item/reagent_containers/cup/glass/shaker{
 	pixel_x = 7
 	},
-/obj/item/reagent_containers/food/drinks/bottle/whiskey{
+/obj/item/reagent_containers/cup/glass/bottle/whiskey{
 	pixel_x = -7;
 	pixel_y = 7
 	},
@@ -41685,7 +41685,7 @@
 /area/space)
 "taf" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/wine{
+/obj/item/reagent_containers/cup/glass/bottle/wine{
 	pixel_x = -5;
 	pixel_y = 6
 	},
@@ -43946,7 +43946,7 @@
 	color = "#996633"
 	},
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/drinks/flask/detflask=10,/obj/item/reagent_containers/food/drinks/cans/tonic=10,/obj/item/reagent_containers/food/drinks/cans/thirteenloko=10,/obj/item/reagent_containers/food/drinks/cans/synthanol=10,/obj/item/reagent_containers/food/drinks/cans/space_mountain_wind=10,/obj/item/reagent_containers/food/drinks/cans/lemon_lime=10,""=70);
+	loot = list(/obj/item/reagent_containers/cup/glass/flask/detflask=10,/obj/item/reagent_containers/cup/glass/cans/tonic=10,/obj/item/reagent_containers/cup/glass/cans/thirteenloko=10,/obj/item/reagent_containers/cup/glass/cans/synthanol=10,/obj/item/reagent_containers/cup/glass/cans/space_mountain_wind=10,/obj/item/reagent_containers/cup/glass/cans/lemon_lime=10,""=70);
 	name = "Food CC Spawner #3"
 	},
 /turf/simulated/floor/wood,
@@ -44266,7 +44266,7 @@
 /area/centcom/central_command_areas/zone/one)
 "ufP" = (
 /obj/structure/table/wood/fancy/black,
-/obj/item/reagent_containers/food/drinks/trophy/gold_cup,
+/obj/item/reagent_containers/cup/glass/trophy/gold_cup,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
@@ -45752,7 +45752,7 @@
 	color = "#996633"
 	},
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/food/drinks/cans/cola=10,""=70);
+	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/cup/glass/cans/cola=10,""=70);
 	name = "Food CC Spawner #1"
 	},
 /obj/machinery/light/small{
@@ -48431,7 +48431,7 @@
 	dir = 8
 	},
 /obj/item/reagent_containers/cup/beaker/waterbottle,
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass{
 	pixel_x = -5
 	},
 /turf/simulated/floor/carpet,
@@ -48538,7 +48538,7 @@
 "wbe" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/cup/beaker/waterbottle,
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass{
 	pixel_x = -5
 	},
 /obj/structure/window/reinforced{
@@ -52237,7 +52237,7 @@
 /area/shuttle/administration)
 "xRz" = (
 /obj/structure/table/wood/fancy/black,
-/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/cup/glass/cans/beer,
 /turf/simulated/floor/carpet/red,
 /area/centcom/central_command_areas/zone/three)
 "xRD" = (

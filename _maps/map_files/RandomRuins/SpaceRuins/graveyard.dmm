@@ -189,7 +189,7 @@
 /area/ruin/space/graveyard/church)
 "dB" = (
 /obj/structure/rack,
-/obj/item/reagent_containers/food/drinks/oilcan,
+/obj/item/reagent_containers/cup/glass/oilcan,
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
@@ -1023,16 +1023,16 @@
 "wB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet,
-/obj/item/reagent_containers/food/drinks/bottle/wine,
-/obj/item/reagent_containers/food/drinks/bottle/wine,
-/obj/item/reagent_containers/food/drinks/bottle/wine,
+/obj/item/reagent_containers/cup/glass/bottle/wine,
+/obj/item/reagent_containers/cup/glass/bottle/wine,
+/obj/item/reagent_containers/cup/glass/bottle/wine,
 /obj/item/reagent_containers/food/snacks/sliceable/bread,
 /obj/item/reagent_containers/food/snacks/sliceable/bread,
 /obj/item/reagent_containers/food/snacks/sliceable/bread,
-/obj/item/reagent_containers/food/drinks/drinkingglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass,
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
 "wH" = (
@@ -1399,7 +1399,7 @@
 "Ej" = (
 /obj/effect/decal/cleanable/dust,
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass,
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
 	},
@@ -1413,7 +1413,7 @@
 /area/ruin/space/graveyard/graves)
 "Ew" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/wine,
+/obj/item/reagent_containers/cup/glass/bottle/wine,
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
 	},
@@ -1536,7 +1536,7 @@
 /area/ruin/space/graveyard/church)
 "Hm" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/holywater,
+/obj/item/reagent_containers/cup/glass/bottle/holywater,
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
@@ -1617,12 +1617,12 @@
 	dir = 1
 	},
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee,
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
 "Jm" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass,
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
 	},
@@ -1696,7 +1696,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
-/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee,
 /obj/item/flashlight/lamp/green,
 /turf/simulated/floor/carpet/red,
 /area/ruin/space/graveyard/church)
@@ -2018,7 +2018,7 @@
 /area/ruin/space/graveyard/graves)
 "SY" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/trophy/bronze_cup{
+/obj/item/reagent_containers/cup/glass/trophy/bronze_cup{
 	pixel_y = 15
 	},
 /turf/simulated/floor/carpet,

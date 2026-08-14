@@ -188,7 +188,7 @@
 /turf/simulated/floor/beach/sand,
 /area/ruin/powered/beach)
 "bP" = (
-/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/cup/glass/cans/beer,
 /turf/simulated/floor/beach/sand,
 /area/ruin/powered/beach)
 "bQ" = (
@@ -249,7 +249,7 @@
 /area/ruin/powered/beach)
 "dR" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/cup/glass/shaker,
 /obj/item/rag,
 /obj/machinery/light{
 	dir = 1
@@ -446,19 +446,19 @@
 /area/ruin/powered/beach)
 "wf" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/zaza{
+/obj/item/reagent_containers/cup/glass/zaza{
 	pixel_x = 8;
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/food/drinks/zaza{
+/obj/item/reagent_containers/cup/glass/zaza{
 	pixel_x = 2;
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/food/drinks/zaza{
+/obj/item/reagent_containers/cup/glass/zaza{
 	pixel_x = -4;
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/food/drinks/zaza{
+/obj/item/reagent_containers/cup/glass/zaza{
 	pixel_x = -10;
 	pixel_y = 8
 	},

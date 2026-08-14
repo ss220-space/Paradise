@@ -3222,7 +3222,7 @@
 /area/ruin/space/USSP_gorky17/check1)
 "mp" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/obj/item/reagent_containers/cup/glass/bottle/vodka,
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 8;
 	on = 1
@@ -5009,7 +5009,7 @@
 /area/ruin/space/USSP_gorky17/angar)
 "sF" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/cup/glass/cans/beer,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowfull"
 	},
@@ -6330,12 +6330,12 @@
 /area/ruin/space/USSP_gorky17/vault)
 "xJ" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = 11;
 	pixel_y = 13
 	},
 /obj/item/storage/fancy/cigcase,
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
+/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
 	},
@@ -8935,9 +8935,9 @@
 	},
 /area/ruin/space/USSP_gorky17/engineering)
 "GA" = (
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
+/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka,
 /obj/item/storage/fancy/cigcase,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
 /obj/item/clothing/under/sovietofficer,
 /obj/item/clothing/suit/sovietcoat/officer,
 /obj/item/lighter/zippo/gonzofist,
@@ -9762,7 +9762,7 @@
 /area/ruin/space/USSP_gorky17/common)
 "JF" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/cup/glass/cans/beer,
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4
 	},
@@ -12142,7 +12142,7 @@
 /area/ruin/space/USSP_gorky17/check1)
 "Sb" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/food/drinks/mug/sec,
+/obj/item/reagent_containers/cup/glass/mug/sec,
 /obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;

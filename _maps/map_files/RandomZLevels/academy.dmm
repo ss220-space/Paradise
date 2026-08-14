@@ -126,7 +126,7 @@
 /area/awaymission/academy/headmaster)
 "aJ" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/mugwort{
+/obj/item/reagent_containers/cup/glass/mugwort{
 	pixel_y = 2
 	},
 /obj/machinery/door_control,
@@ -817,7 +817,7 @@
 /area/awaymission/academy/classrooms)
 "dH" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/bottle/cream,
+/obj/item/reagent_containers/cup/glass/bottle/cream,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -1026,16 +1026,16 @@
 /area/awaymission/academy/classrooms)
 "eF" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/drinkingglass/soda,
-/obj/item/reagent_containers/food/drinks/drinkingglass/soda{
+/obj/item/reagent_containers/cup/glass/drinkingglass/soda,
+/obj/item/reagent_containers/cup/glass/drinkingglass/soda{
 	pixel_x = 7;
 	pixel_y = 7
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/soda{
+/obj/item/reagent_containers/cup/glass/drinkingglass/soda{
 	pixel_x = 4;
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/soda{
+/obj/item/reagent_containers/cup/glass/drinkingglass/soda{
 	pixel_x = -6;
 	pixel_y = 5
 	},
@@ -1277,7 +1277,7 @@
 /area/awaymission/academy/headmaster)
 "fy" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/vermouth{
+/obj/item/reagent_containers/cup/glass/bottle/vermouth{
 	pixel_x = -6;
 	pixel_y = 7
 	},
@@ -1510,8 +1510,8 @@
 /area/awaymission/academy/classrooms)
 "gB" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass{
 	pixel_x = 4;
 	pixel_y = -10
 	},
@@ -1552,7 +1552,7 @@
 "gF" = (
 /obj/structure/window/reinforced,
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/trophy/gold_cup,
+/obj/item/reagent_containers/cup/glass/trophy/gold_cup,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -1669,7 +1669,7 @@
 "hm" = (
 /obj/structure/table,
 /obj/item/trash/plate,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_y = 10
 	},
 /turf/simulated/floor/plasteel{
@@ -2252,7 +2252,7 @@
 "jx" = (
 /obj/structure/table,
 /obj/structure/window/reinforced,
-/obj/item/reagent_containers/food/drinks/trophy/silver_cup,
+/obj/item/reagent_containers/cup/glass/trophy/silver_cup,
 /turf/simulated/floor/plasteel{
 	dir = 0;
 	icon_state = "red"
@@ -2404,7 +2404,7 @@
 /area/awaymission/academy/headmaster)
 "kj" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/bottle/vodka{
+/obj/item/reagent_containers/cup/glass/bottle/vodka{
 	pixel_x = -1;
 	pixel_y = 3
 	},
@@ -2630,7 +2630,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "lp" = (
-/obj/item/reagent_containers/food/drinks/bottle/wine,
+/obj/item/reagent_containers/cup/glass/bottle/wine,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -2666,7 +2666,7 @@
 /area/awaymission/academy/classrooms)
 "lB" = (
 /obj/structure/toilet/directional/east,
-/obj/item/reagent_containers/food/drinks/cans/cola,
+/obj/item/reagent_containers/cup/glass/cans/cola,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -2786,16 +2786,16 @@
 /area/awaymission/academy/academyaft)
 "mz" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/cans/beer,
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/glass/cans/beer,
+/obj/item/reagent_containers/cup/glass/cans/beer{
 	pixel_x = 5;
 	pixel_y = 7
 	},
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/glass/cans/beer{
 	pixel_x = -7;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/glass/cans/beer{
 	pixel_x = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -3269,10 +3269,10 @@
 /area/awaymission/academy/headmaster)
 "rA" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/rum{
+/obj/item/reagent_containers/cup/glass/bottle/rum{
 	pixel_x = -17
 	},
-/obj/item/reagent_containers/food/drinks/bottle/cognac,
+/obj/item/reagent_containers/cup/glass/bottle/cognac,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -3574,7 +3574,7 @@
 /area/awaymission/academy/academyaft)
 "uQ" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/obj/item/reagent_containers/cup/glass/bottle/vodka,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -4287,7 +4287,7 @@
 /area/awaymission/academy/academyaft)
 "Ci" = (
 /obj/structure/table/wood/fancy/black,
-/obj/item/reagent_containers/food/drinks/mugwort,
+/obj/item/reagent_containers/cup/glass/mugwort,
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "Cn" = (
@@ -4706,7 +4706,7 @@
 	name = "borsch";
 	pixel_y = 12
 	},
-/obj/item/reagent_containers/food/drinks/britcup{
+/obj/item/reagent_containers/cup/glass/britcup{
 	pixel_x = -3;
 	pixel_y = -2
 	},
@@ -4861,8 +4861,8 @@
 /area/awaymission/academy/academyaft)
 "IJ" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass{
 	pixel_x = 10;
 	pixel_y = 8
 	},
@@ -4976,7 +4976,7 @@
 /area/awaymission/academy/academyaft)
 "JW" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/tea,
+/obj/item/reagent_containers/cup/glass/tea,
 /turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/classrooms)
 "JY" = (
@@ -5098,7 +5098,7 @@
 /area/awaymission/academy/academyaft)
 "KJ" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/bottle/whiskey{
+/obj/item/reagent_containers/cup/glass/bottle/whiskey{
 	pixel_x = 1;
 	pixel_y = 4
 	},
@@ -5343,7 +5343,7 @@
 /area/awaymission/academy/classrooms)
 "Nm" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/mug,
+/obj/item/reagent_containers/cup/glass/mug,
 /obj/machinery/door_control,
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
@@ -5560,7 +5560,7 @@
 /area/awaymission/academy/academygate)
 "PW" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/whiskey{
+/obj/item/reagent_containers/cup/glass/bottle/whiskey{
 	pixel_x = 8;
 	pixel_y = 2
 	},
@@ -5823,7 +5823,7 @@
 /area/awaymission/academy/academygate)
 "Sz" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka{
+/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka{
 	pixel_y = 7
 	},
 /turf/simulated/floor/plasteel{

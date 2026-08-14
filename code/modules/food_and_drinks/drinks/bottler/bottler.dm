@@ -28,7 +28,7 @@
 		acceptable_items = list()
 		//These are going to be acceptable even if they aren't in a recipe
 		acceptable_items |= /obj/item/reagent_containers/food/snacks
-		acceptable_items |= /obj/item/reagent_containers/food/drinks/cans
+		acceptable_items |= /obj/item/reagent_containers/cup/glass/cans
 		//the rest is based on what is used in recipes so we don't have people destroying the nuke disc
 		for(var/type in subtypesof(/datum/bottler_recipe))
 			var/datum/bottler_recipe/recipe = new type
@@ -56,8 +56,8 @@
 			insert_item(snack, user)
 			return ATTACK_CHAIN_BLOCKED_ALL
 
-		if(istype(I, /obj/item/reagent_containers/food/drinks/cans))
-			var/obj/item/reagent_containers/food/drinks/cans/can = I
+		if(istype(I, /obj/item/reagent_containers/cup/glass/cans))
+			var/obj/item/reagent_containers/cup/glass/cans/can = I
 			if(!can.reagents)
 				to_chat(user, span_warning("The [can.name] is incompatible."))
 				return ATTACK_CHAIN_PROCEED
@@ -163,8 +163,8 @@
 		else
 			con_type = "metal can"
 			max_define = MAX_METAL
-	else if(istype(O, /obj/item/reagent_containers/food/drinks/cans))
-		var/obj/item/reagent_containers/food/drinks/cans/C = O
+	else if(istype(O, /obj/item/reagent_containers/cup/glass/cans))
+		var/obj/item/reagent_containers/cup/glass/cans/C = O
 		if(C.is_glass)
 			con_type = "glass bottle"
 			max_define = MAX_GLASS
@@ -237,17 +237,17 @@
 
 /obj/machinery/bottler/proc/dispense_empty_container(container)
 	var/con_type
-	var/obj/item/reagent_containers/food/drinks/cans/bottler/drink_container
+	var/obj/item/reagent_containers/cup/glass/cans/bottler/drink_container
 	switch(container)
 		if(1)	//glass bottle
 			con_type = "glass bottle"
-			drink_container = /obj/item/reagent_containers/food/drinks/cans/bottler/glass_bottle
+			drink_container = /obj/item/reagent_containers/cup/glass/cans/bottler/glass_bottle
 		if(2)	//plastic bottle
 			con_type = "plastic bottle"
-			drink_container = /obj/item/reagent_containers/food/drinks/cans/bottler/plastic_bottle
+			drink_container = /obj/item/reagent_containers/cup/glass/cans/bottler/plastic_bottle
 		if(3)	//metal can
 			con_type = "metal can"
-			drink_container = /obj/item/reagent_containers/food/drinks/cans/bottler/metal_can
+			drink_container = /obj/item/reagent_containers/cup/glass/cans/bottler/metal_can
 	if(containers[con_type])
 		//empties aren't sealed, so let's open it quietly
 		drink_container = new drink_container()
@@ -262,18 +262,18 @@
 		visible_message(span_warning("There are no ingredients to process! Please insert some first."))
 		return
 	//prep a container
-	var/obj/item/reagent_containers/food/drinks/cans/bottler/drink_container
+	var/obj/item/reagent_containers/cup/glass/cans/bottler/drink_container
 	var/con_type
 	switch(container)
 		if(1)	//glass bottle
 			con_type = "glass bottle"
-			drink_container = /obj/item/reagent_containers/food/drinks/cans/bottler/glass_bottle
+			drink_container = /obj/item/reagent_containers/cup/glass/cans/bottler/glass_bottle
 		if(2)	//plastic bottle
 			con_type = "plastic bottle"
-			drink_container = /obj/item/reagent_containers/food/drinks/cans/bottler/plastic_bottle
+			drink_container = /obj/item/reagent_containers/cup/glass/cans/bottler/plastic_bottle
 		if(3)	//metal can
 			con_type = "metal can"
-			drink_container = /obj/item/reagent_containers/food/drinks/cans/bottler/metal_can
+			drink_container = /obj/item/reagent_containers/cup/glass/cans/bottler/metal_can
 
 	if(!con_type)
 		visible_message(span_warning("Error 404: Drink Container Not Found."))

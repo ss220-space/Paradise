@@ -196,16 +196,16 @@
 
 /datum/gear/mug
 	index_name = "random coffee mug"
-	path = /obj/item/reagent_containers/food/drinks/mug
+	path = /obj/item/reagent_containers/cup/glass/mug
 
 /datum/gear/novelty_mug
 	index_name = "novelty coffee mug"
-	path = /obj/item/reagent_containers/food/drinks/mug/novelty
+	path = /obj/item/reagent_containers/cup/glass/mug/novelty
 	cost = 2
 
 /datum/gear/mug/flask
 	index_name = "flask"
-	path = /obj/item/reagent_containers/food/drinks/flask/barflask
+	path = /obj/item/reagent_containers/cup/glass/flask/barflask
 
 /datum/gear/mug/department
 	subtype_path = /datum/gear/mug/department
@@ -214,23 +214,23 @@
 /datum/gear/mug/department/eng
 	index_name = "engineer coffee mug"
 	allowed_roles = list(JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_SPACEPOD_TECHNICIAN, JOB_TITLE_ATMOSTECH)
-	path = /obj/item/reagent_containers/food/drinks/mug/eng
+	path = /obj/item/reagent_containers/cup/glass/mug/eng
 
 /datum/gear/mug/department/med
 	index_name = "doctor coffee mug"
 	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_MEDICAL_INTERN, JOB_TITLE_CHEMIST, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_VIROLOGIST, JOB_TITLE_CORONER)
-	path = /obj/item/reagent_containers/food/drinks/mug/med
+	path = /obj/item/reagent_containers/cup/glass/mug/med
 
 /datum/gear/mug/department/sci
 	index_name = "scientist coffee mug"
 	allowed_roles = list(JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENCE_STUDENT, JOB_TITLE_ROBOTICIST)
-	path = /obj/item/reagent_containers/food/drinks/mug/sci
+	path = /obj/item/reagent_containers/cup/glass/mug/sci
 
 /datum/gear/mug/department/sec
 	index_name = "officer coffee mug"
 	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_OFFICER, JOB_TITLE_BRIGDOC, JOB_TITLE_PILOT, JOB_TITLE_LAWYER)
-	path = /obj/item/reagent_containers/food/drinks/mug/sec
+	path = /obj/item/reagent_containers/cup/glass/mug/sec
 
 /datum/gear/mug/department/serv
 	index_name = "crewmember coffee mug"
-	path = /obj/item/reagent_containers/food/drinks/mug/serv
+	path = /obj/item/reagent_containers/cup/glass/mug/serv

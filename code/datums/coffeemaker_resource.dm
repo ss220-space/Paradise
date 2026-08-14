@@ -96,7 +96,7 @@
 	current_amount = 15
 	max_amount = 15
 	icon_state = "cup"
-	item_type = /obj/item/reagent_containers/food/drinks/cups/coffee_cup/small
+	item_type = /obj/item/reagent_containers/cup/glass/cups/coffee_cup/small
 	radial_name = "Взять стакан"
 	resource_name = "стакан"
 	section_name = "стаканов"
@@ -116,7 +116,7 @@
 	current_amount = 15
 	max_amount = 15
 	icon_state = "cup"
-	item_type = /obj/item/reagent_containers/food/drinks/cups/coffee_cup/normal
+	item_type = /obj/item/reagent_containers/cup/glass/cups/coffee_cup/normal
 	radial_name = "Взять стаканчик"
 	resource_name = "стаканчик"
 	section_name = "стаканчиков"

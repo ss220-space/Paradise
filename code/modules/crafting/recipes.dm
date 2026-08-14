@@ -36,10 +36,10 @@
 		/datum/reagent/fuel = 50,
 		/obj/item/stack/cable_coil = 1,
 		/obj/item/assembly/igniter = 1,
-		/obj/item/reagent_containers/food/drinks/cans = 1,
+		/obj/item/reagent_containers/cup/glass/cans = 1,
 	)
 	parts = list(
-		/obj/item/reagent_containers/food/drinks/cans = 1,
+		/obj/item/reagent_containers/cup/glass/cans = 1,
 	)
 	time = 15
 	category = CAT_WEAPONRY
@@ -73,13 +73,13 @@
 
 /datum/crafting_recipe/molotov
 	name = "Molotov"
-	result = /obj/item/reagent_containers/food/drinks/bottle/molotov
+	result = /obj/item/reagent_containers/cup/glass/bottle/molotov
 	reqs = list(
 		/obj/item/rag = 1,
-		/obj/item/reagent_containers/food/drinks/bottle = 1,
+		/obj/item/reagent_containers/cup/glass/bottle = 1,
 	)
-	blacklist = list(/obj/item/reagent_containers/food/drinks/bottle/molotov)
-	parts = list(/obj/item/reagent_containers/food/drinks/bottle = 1)
+	blacklist = list(/obj/item/reagent_containers/cup/glass/bottle/molotov)
+	parts = list(/obj/item/reagent_containers/cup/glass/bottle = 1)
 	time = 40
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
@@ -497,7 +497,7 @@
 	reqs = list(
 		/obj/item/stack/tape_roll = 2,
 		/obj/item/stack/sheet/metal = 1,
-		/obj/item/reagent_containers/food/drinks/cans = 1,
+		/obj/item/reagent_containers/cup/glass/cans = 1,
 	)
 	time = 5 SECONDS
 	category = CAT_WEAPONRY
