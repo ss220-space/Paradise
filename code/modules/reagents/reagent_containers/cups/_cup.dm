@@ -131,6 +131,7 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
 
+// MARK: Beaker
 /obj/item/reagent_containers/cup/beaker
 	name = "beaker"
 	desc = "Простой стеклянный стакан. На его стенках обозначены деления для измерения объёма содержимого."
@@ -280,6 +281,7 @@
 		PREPOSITIONAL = "большом мерном стакане",
 	)
 
+// MARK: Vial
 /obj/item/reagent_containers/cup/beaker/vial
 	name = "vial"
 	desc = "Небольшая стеклянная колбочка, часто используемая вирусологами в работе."
@@ -394,6 +396,52 @@
 /obj/item/reagent_containers/cup/beaker/laughter
 	list_reagents = list("laughter" = 50)
 
+// MARK: Water bottle
+/obj/item/reagent_containers/cup/beaker/waterbottle
+	name = "bottle of water"
+	desc = "Бутылка воды, наполненная на старом земном заводе по разливу воды."
+	gender = FEMALE
+	icon = 'icons/obj/drinks.dmi'
+	icon_state = "smallbottle"
+	item_state = "bottle"
+	list_reagents = list("water" = 49.5, "fluorine" = 0.5) //see desc, don't think about it too hard
+	materials = list(MAT_GLASS = 0)
+
+/obj/item/reagent_containers/cup/beaker/waterbottle/get_ru_names()
+	return alist(
+		NOMINATIVE = "бутылка воды",
+		GENITIVE = "бутылки воды",
+		DATIVE = "бутылке воды",
+		ACCUSATIVE = "бутылку воды",
+		INSTRUMENTAL = "бутылкой воды",
+		PREPOSITIONAL = "бутылке воды",
+	)
+
+/obj/item/reagent_containers/cup/beaker/waterbottle/empty
+	list_reagents = list()
+
+/obj/item/reagent_containers/cup/beaker/waterbottle/large
+	desc = "Свежая бутылка воды коммерческого размера."
+	icon_state = "largebottle"
+	materials = list(MAT_GLASS = 0)
+	list_reagents = list("water" = 100)
+	volume = 100
+	amount_per_transfer_from_this = 20
+
+/obj/item/reagent_containers/cup/beaker/waterbottle/large/get_ru_names()
+	return alist(
+		NOMINATIVE = "большая бутылка воды",
+		GENITIVE = "большой бутылки воды",
+		DATIVE = "большой бутылке воды",
+		ACCUSATIVE = "большую бутылку воды",
+		INSTRUMENTAL = "большой бутылкой воды",
+		PREPOSITIONAL = "большой бутылке воды",
+	)
+
+/obj/item/reagent_containers/cup/beaker/waterbottle/large/empty
+	list_reagents = list()
+
+// MARK: Bucket
 /obj/item/reagent_containers/cup/bucket
 	name = "bucket"
 	desc = "Металлическое ведро. Можете налить туда что-то или надеть себе на голову, никто не запрещает."
@@ -510,50 +558,21 @@
 /obj/item/reagent_containers/cup/bucket/wooden/update_overlays()
 	. = list()
 
-/obj/item/reagent_containers/cup/beaker/waterbottle
-	name = "bottle of water"
-	desc = "Бутылка воды, наполненная на старом земном заводе по разливу воды."
-	gender = FEMALE
-	icon = 'icons/obj/drinks.dmi'
-	icon_state = "smallbottle"
-	item_state = "bottle"
-	list_reagents = list("water" = 49.5, "fluorine" = 0.5) //see desc, don't think about it too hard
-	materials = list(MAT_GLASS = 0)
+/obj/item/reagent_containers/cup/bucket/wooden/shit
+	name = "shit bucket"
+	desc = "Омерзительно. Им кто-то недавно пользовался?!"
 
-/obj/item/reagent_containers/cup/beaker/waterbottle/get_ru_names()
+/obj/item/reagent_containers/cup/bucket/wooden/shit/get_ru_names()
 	return alist(
-		NOMINATIVE = "бутылка воды",
-		GENITIVE = "бутылки воды",
-		DATIVE = "бутылке воды",
-		ACCUSATIVE = "бутылку воды",
-		INSTRUMENTAL = "бутылкой воды",
-		PREPOSITIONAL = "бутылке воды",
+		NOMINATIVE = "сральное ведро",
+		GENITIVE = "срального ведра",
+		DATIVE = "сральному ведру",
+		ACCUSATIVE = "сральное ведро",
+		INSTRUMENTAL = "сральным ведром",
+		PREPOSITIONAL = "сральном ведре",
 	)
 
-/obj/item/reagent_containers/cup/beaker/waterbottle/empty
-	list_reagents = list()
-
-/obj/item/reagent_containers/cup/beaker/waterbottle/large
-	desc = "Свежая бутылка воды коммерческого размера."
-	icon_state = "largebottle"
-	materials = list(MAT_GLASS = 0)
-	list_reagents = list("water" = 100)
-	volume = 100
-	amount_per_transfer_from_this = 20
-
-/obj/item/reagent_containers/cup/beaker/waterbottle/large/get_ru_names()
-	return alist(
-		NOMINATIVE = "большая бутылка воды",
-		GENITIVE = "большой бутылки воды",
-		DATIVE = "большой бутылке воды",
-		ACCUSATIVE = "большую бутылку воды",
-		INSTRUMENTAL = "большой бутылкой воды",
-		PREPOSITIONAL = "большой бутылке воды",
-	)
-
-/obj/item/reagent_containers/cup/beaker/waterbottle/large/empty
-	list_reagents = list()
-
+// MARK: Pet bowl
 /obj/item/reagent_containers/cup/pet_bowl
 	name = "pet bowl"
 	desc = "Миска под еду для любимых домашних животных!"
@@ -634,6 +653,7 @@
 		reagents.remove_any(1)
 		playsound(pet.loc, 'sound/items/drink.ogg', rand(10, 30), TRUE)
 
+// MARK: Coffeepot
 //Coffeepot: for reference, a standard cup is 30u, to allow 20u for sugar/sweetener/milk/creamer
 /obj/item/reagent_containers/cup/coffeepot
 	name = "coffeepot"
@@ -679,17 +699,3 @@
 
 	filling.color = get_color_matrix_from_reagents(reagents.reagent_list)
 	. += filling
-
-/obj/item/reagent_containers/cup/bucket/wooden/shit
-	name = "shit bucket"
-	desc = "Омерзительно. Им кто-то недавно пользовался?!"
-
-/obj/item/reagent_containers/cup/bucket/wooden/shit/get_ru_names()
-	return alist(
-		NOMINATIVE = "сральное ведро",
-		GENITIVE = "срального ведра",
-		DATIVE = "сральному ведру",
-		ACCUSATIVE = "сральное ведро",
-		INSTRUMENTAL = "сральным ведром",
-		PREPOSITIONAL = "сральном ведре",
-	)

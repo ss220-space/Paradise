@@ -1,9 +1,4 @@
-
-
-///////////////////////////////////////////////Alchohol bottles! -Agouri //////////////////////////
-//Functionally identical to regular drinks. The only difference is that the default bottle size is 100. - Darem
-//Bottles now weaken and break when smashed on people's heads. - Giacom
-
+//Alchohol bottles
 /obj/item/reagent_containers/cup/glass/bottle
 	amount_per_transfer_from_this = 10
 	volume = 100
