@@ -323,7 +323,7 @@
 	var/mob/living/simple_animal/revenant/user = owner
 	if(!attempt_cast(user))
 		return
-	. = ..()
+	return ..()
 
 //A note to future coders: do not replace this with an EMP because it will wreck malf AIs and gang dominators and everyone will hate you.
 /datum/action/cooldown/spell/aoe/revenant/malfunction/cast_on_thing_in_aoe(atom/victim, atom/caster)
