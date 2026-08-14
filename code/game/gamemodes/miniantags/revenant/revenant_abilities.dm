@@ -245,7 +245,7 @@
 	var/mob/living/simple_animal/revenant/user = owner
 	if(!attempt_cast(user))
 		return
-	. = ..()
+	return ..()
 
 /datum/action/cooldown/spell/aoe/revenant/overload/cast_on_thing_in_aoe(atom/victim, atom/caster)
 	INVOKE_ASYNC(src, PROC_REF(shock_lights), victim, caster)
