@@ -29,7 +29,7 @@
 		owner.balloon_alert(owner, "отменено")
 		reset_spell_cooldown()
 		return
-	. =  ..()
+	return  ..()
 
 /datum/action/cooldown/spell/aoe/open_vent/cast_on_thing_in_aoe(atom/victim, atom/caster)
 	var/obj/machinery/atmospherics/unary/unary = victim
