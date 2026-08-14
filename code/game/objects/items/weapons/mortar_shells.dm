@@ -116,7 +116,7 @@
 	locked = FALSE
 
 	var/obj/item/warhead/mortar/warhead
-	var/obj/item/reagent_containers/glass/beaker/fuel
+	var/obj/item/reagent_containers/cup/beaker/fuel
 	var/fuel_requirement = 60
 	var/fuel_type = "hydrogen"
 

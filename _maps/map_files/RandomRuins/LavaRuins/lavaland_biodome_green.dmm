@@ -228,7 +228,7 @@
 /turf/simulated/floor/pod,
 /area/ruin/powered/green_bio)
 "qn" = (
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /turf/simulated/floor/indestructible/grass,
 /area/ruin/powered/green_bio)
 "ra" = (

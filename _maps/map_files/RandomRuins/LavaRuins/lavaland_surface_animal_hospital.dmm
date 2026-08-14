@@ -362,7 +362,7 @@
 /area/ruin/powered/animal_hospital)
 "ba" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/glass/beaker,
+/obj/item/reagent_containers/cup/beaker,
 /obj/item/storage/backpack/duffel/medical,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)

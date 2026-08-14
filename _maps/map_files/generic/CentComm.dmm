@@ -1536,7 +1536,7 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom/central_command_areas/bridge)
 "aNe" = (
-/obj/item/reagent_containers/glass/beaker/waterbottle{
+/obj/item/reagent_containers/cup/beaker/waterbottle{
 	pixel_x = -10;
 	pixel_y = -3
 	},
@@ -1733,13 +1733,13 @@
 "aQX" = (
 /obj/structure/table,
 /obj/structure/window/reinforced,
-/obj/item/reagent_containers/glass/beaker/bluespace,
-/obj/item/reagent_containers/glass/beaker/bluespace,
-/obj/item/reagent_containers/glass/beaker/bluespace,
-/obj/item/reagent_containers/glass/beaker/bluespace,
-/obj/item/reagent_containers/glass/beaker/bluespace,
-/obj/item/reagent_containers/glass/beaker/bluespace,
-/obj/item/reagent_containers/glass/beaker/bluespace,
+/obj/item/reagent_containers/cup/beaker/bluespace,
+/obj/item/reagent_containers/cup/beaker/bluespace,
+/obj/item/reagent_containers/cup/beaker/bluespace,
+/obj/item/reagent_containers/cup/beaker/bluespace,
+/obj/item/reagent_containers/cup/beaker/bluespace,
+/obj/item/reagent_containers/cup/beaker/bluespace,
+/obj/item/reagent_containers/cup/beaker/bluespace,
 /turf/simulated/floor/wood,
 /area/centcom/central_command_areas/evacuation)
 "aRd" = (
@@ -2520,7 +2520,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/reagent_containers/glass/beaker/waterbottle,
+/obj/item/reagent_containers/cup/beaker/waterbottle,
 /obj/item/reagent_containers/food/drinks/drinkingglass{
 	pixel_x = -5
 	},
@@ -9911,7 +9911,7 @@
 "ePH" = (
 /obj/structure/table,
 /obj/item/mop,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -10341,7 +10341,7 @@
 /area/centcom/central_command_areas/supplypod/loading/three)
 "eZx" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/glass/beaker/waterbottle/large{
+/obj/item/reagent_containers/cup/beaker/waterbottle/large{
 	pixel_x = -7;
 	pixel_y = 9
 	},
@@ -10625,7 +10625,7 @@
 /turf/simulated/floor/indestructible/snow,
 /area/centcom/ninja/outside)
 "fhS" = (
-/obj/item/reagent_containers/glass/bucket/wooden/shit{
+/obj/item/reagent_containers/cup/bucket/wooden/shit{
 	pixel_x = 9;
 	pixel_y = -2
 	},
@@ -10637,10 +10637,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/vox_station)
 "fhT" = (
-/obj/item/reagent_containers/glass/bottle/nutrient/ez,
+/obj/item/reagent_containers/cup/bottle/nutrient/ez,
 /obj/item/reagent_containers/spray/pestspray,
-/obj/item/reagent_containers/glass/bottle/nutrient/ez,
-/obj/item/reagent_containers/glass/bottle/nutrient/ez,
+/obj/item/reagent_containers/cup/bottle/nutrient/ez,
+/obj/item/reagent_containers/cup/bottle/nutrient/ez,
 /obj/item/reagent_containers/spray/pestspray,
 /obj/item/clothing/gloves/botanic_leather,
 /obj/structure/table/reinforced,
@@ -12441,15 +12441,15 @@
 /area/centcom/central_command_areas/evacuation)
 "fXf" = (
 /obj/structure/table,
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
+/obj/item/reagent_containers/cup/beaker/cryoxadone{
 	pixel_x = 8;
 	pixel_y = 9
 	},
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
+/obj/item/reagent_containers/cup/beaker/cryoxadone{
 	pixel_x = 1;
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
+/obj/item/reagent_containers/cup/beaker/cryoxadone{
 	pixel_x = -6;
 	pixel_y = 9
 	},
@@ -13059,9 +13059,9 @@
 "gmq" = (
 /obj/structure/rack,
 /obj/item/cultivator,
-/obj/item/reagent_containers/glass/bucket,
-/obj/item/reagent_containers/glass/bucket,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
+/obj/item/reagent_containers/cup/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/item/shovel/spade,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -13387,7 +13387,7 @@
 /area/centcom/ninja/outpost)
 "gvQ" = (
 /obj/structure/closet/crate/medical,
-/obj/item/reagent_containers/glass/bottle/morphine,
+/obj/item/reagent_containers/cup/bottle/morphine,
 /obj/item/storage/box/beakers,
 /obj/item/robot_parts/l_arm,
 /obj/item/robot_parts/r_arm,
@@ -16248,7 +16248,7 @@
 "hXu" = (
 /obj/structure/window/reinforced,
 /obj/structure/table,
-/obj/item/reagent_containers/glass/beaker/waterbottle,
+/obj/item/reagent_containers/cup/beaker/waterbottle,
 /turf/simulated/floor/carpet/black,
 /area/centcom/central_command_areas/zone/two)
 "hXv" = (
@@ -24431,7 +24431,7 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom/syndicate_base/prison)
 "lyw" = (
-/obj/item/reagent_containers/glass/bucket/wooden/shit{
+/obj/item/reagent_containers/cup/bucket/wooden/shit{
 	pixel_x = 9;
 	pixel_y = -2
 	},
@@ -28496,13 +28496,13 @@
 /obj/structure/table/reinforced,
 /obj/item/kitchen/knife,
 /obj/item/kitchen/rollingpin,
-/obj/item/reagent_containers/glass/beaker/large{
+/obj/item/reagent_containers/cup/beaker/large{
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/glass/beaker/large{
+/obj/item/reagent_containers/cup/beaker/large{
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/glass/beaker/large{
+/obj/item/reagent_containers/cup/beaker/large{
 	pixel_y = 8
 	},
 /obj/item/storage/box/donkpockets{
@@ -29930,7 +29930,7 @@
 	dir = 8
 	},
 /obj/structure/table,
-/obj/item/reagent_containers/glass/beaker/waterbottle,
+/obj/item/reagent_containers/cup/beaker/waterbottle,
 /turf/simulated/floor/carpet/black,
 /area/centcom/central_command_areas/zone/two)
 "nOh" = (
@@ -30829,7 +30829,7 @@
 /obj/machinery/vending/hydronutrients{
 	contraband = list();
 	emagged = 1;
-	products = list(/obj/item/reagent_containers/glass/bottle/nutrient/ez=20,/obj/item/reagent_containers/glass/bottle/nutrient/l4z=13,/obj/item/reagent_containers/glass/bottle/nutrient/rh=6,/obj/item/reagent_containers/spray/pestspray=20,/obj/item/reagent_containers/syringe=5,/obj/item/storage/bag/plants=5,/obj/item/cultivator=3,/obj/item/shovel/spade=3,/obj/item/plant_analyzer=4,/obj/item/reagent_containers/glass/bottle/ammonia=10,/obj/item/reagent_containers/glass/bottle/diethylamine=5)
+	products = list(/obj/item/reagent_containers/cup/bottle/nutrient/ez=20,/obj/item/reagent_containers/cup/bottle/nutrient/l4z=13,/obj/item/reagent_containers/cup/bottle/nutrient/rh=6,/obj/item/reagent_containers/spray/pestspray=20,/obj/item/reagent_containers/syringe=5,/obj/item/storage/bag/plants=5,/obj/item/cultivator=3,/obj/item/shovel/spade=3,/obj/item/plant_analyzer=4,/obj/item/reagent_containers/cup/bottle/ammonia=10,/obj/item/reagent_containers/cup/bottle/diethylamine=5)
 	},
 /turf/simulated/floor/wood,
 /area/centcom/central_command_areas/evacuation)
@@ -30869,7 +30869,7 @@
 /area/centcom/central_command_areas/special_operations)
 "omh" = (
 /obj/structure/table,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/item/caution/proximity_sign,
 /obj/item/caution/proximity_sign,
 /obj/item/caution/proximity_sign,
@@ -31212,13 +31212,13 @@
 /obj/structure/table/reinforced,
 /obj/item/kitchen/knife,
 /obj/item/kitchen/rollingpin,
-/obj/item/reagent_containers/glass/beaker/large{
+/obj/item/reagent_containers/cup/beaker/large{
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/glass/beaker/large{
+/obj/item/reagent_containers/cup/beaker/large{
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/glass/beaker/large{
+/obj/item/reagent_containers/cup/beaker/large{
 	pixel_y = 8
 	},
 /obj/item/storage/box/donkpockets{
@@ -33386,7 +33386,7 @@
 	pixel_x = -5;
 	pixel_y = 12
 	},
-/obj/item/reagent_containers/glass/bottle/mutagen{
+/obj/item/reagent_containers/cup/bottle/mutagen{
 	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel{
@@ -34753,7 +34753,7 @@
 	pixel_x = -6;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/glass/beaker/waterbottle/large{
+/obj/item/reagent_containers/cup/beaker/waterbottle/large{
 	pixel_x = 13;
 	pixel_y = 9
 	},
@@ -38703,7 +38703,7 @@
 /area/centcom/syndicate_base/infiltrators)
 "rHK" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
+/obj/item/reagent_containers/cup/beaker/cryoxadone{
 	pixel_y = -2
 	},
 /obj/machinery/light,
@@ -43499,11 +43499,11 @@
 /obj/structure/light_fake/small{
 	dir = 8
 	},
-/obj/item/reagent_containers/glass/bucket/wooden/shit{
+/obj/item/reagent_containers/cup/bucket/wooden/shit{
 	pixel_x = -8;
 	pixel_y = -11
 	},
-/obj/item/reagent_containers/glass/beaker/waterbottle{
+/obj/item/reagent_containers/cup/beaker/waterbottle{
 	pixel_x = 8;
 	pixel_y = -3
 	},
@@ -45032,7 +45032,7 @@
 /obj/structure/light_fake/small{
 	dir = 4
 	},
-/obj/item/reagent_containers/glass/bucket{
+/obj/item/reagent_containers/cup/bucket{
 	pixel_x = -11;
 	pixel_y = 4
 	},
@@ -45285,7 +45285,7 @@
 /obj/item/storage/firstaid/regular,
 /obj/item/storage/firstaid/adv,
 /obj/item/reagent_containers/syringe/charcoal,
-/obj/item/reagent_containers/glass/bottle/epinephrine,
+/obj/item/reagent_containers/cup/bottle/epinephrine,
 /obj/item/storage/box/gloves,
 /obj/item/storage/box/masks{
 	pixel_x = 6;
@@ -45553,7 +45553,7 @@
 /area/centcom/central_command_areas/special_operations)
 "uKV" = (
 /obj/structure/closet/crate/medical,
-/obj/item/reagent_containers/glass/bottle/morphine,
+/obj/item/reagent_containers/cup/bottle/morphine,
 /obj/item/storage/box/beakers,
 /obj/item/robot_parts/l_arm,
 /obj/item/robot_parts/r_arm,
@@ -48013,7 +48013,7 @@
 /area/centcom/syndicate_base/outside)
 "vPg" = (
 /obj/structure/bed/mattress/dirty,
-/obj/item/reagent_containers/glass/beaker/waterbottle{
+/obj/item/reagent_containers/cup/beaker/waterbottle{
 	pixel_x = -10;
 	pixel_y = -3
 	},
@@ -48430,7 +48430,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/reagent_containers/glass/beaker/waterbottle,
+/obj/item/reagent_containers/cup/beaker/waterbottle,
 /obj/item/reagent_containers/food/drinks/drinkingglass{
 	pixel_x = -5
 	},
@@ -48537,7 +48537,7 @@
 /area/centcom/central_command_areas/special_operations)
 "wbe" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/glass/beaker/waterbottle,
+/obj/item/reagent_containers/cup/beaker/waterbottle,
 /obj/item/reagent_containers/food/drinks/drinkingglass{
 	pixel_x = -5
 	},
@@ -49508,8 +49508,8 @@
 /obj/item/storage/firstaid/regular,
 /obj/item/storage/firstaid/adv,
 /obj/item/storage/firstaid/brute,
-/obj/item/reagent_containers/glass/beaker/cryoxadone,
-/obj/item/reagent_containers/glass/beaker/cryoxadone,
+/obj/item/reagent_containers/cup/beaker/cryoxadone,
+/obj/item/reagent_containers/cup/beaker/cryoxadone,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -52161,9 +52161,9 @@
 /obj/item/clothing/gloves/botanic_leather,
 /obj/item/clothing/gloves/botanic_leather,
 /obj/item/watertank,
-/obj/item/reagent_containers/glass/bucket,
-/obj/item/reagent_containers/glass/bucket,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
+/obj/item/reagent_containers/cup/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/structure/window/reinforced,
 /turf/simulated/floor/wood,
 /area/centcom/central_command_areas/evacuation)

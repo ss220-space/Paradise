@@ -41,7 +41,7 @@
 
 /obj/machinery/juicer/Initialize(mapload)
 	. = ..()
-	beaker = new /obj/item/reagent_containers/glass/beaker/large(src)
+	beaker = new /obj/item/reagent_containers/cup/beaker/large(src)
 
 /obj/machinery/juicer/update_icon_state()
 	icon_state = "juicer"+num2text(!isnull(beaker))

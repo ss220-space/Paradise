@@ -66,7 +66,7 @@
 	interaction_flags_mouse_drop = NEED_DEXTERITY
 	var/locked = FALSE
 	var/mob/living/carbon/occupant = null
-	var/obj/item/reagent_containers/glass/beaker = null
+	var/obj/item/reagent_containers/cup/beaker = null
 	var/opened = 0
 	var/damage_coeff
 	var/scan_level
@@ -670,7 +670,7 @@
 						connected.occupant.UpdateAppearance()
 		if("ejectBeaker")
 			if(connected.beaker)
-				var/obj/item/reagent_containers/glass/B = connected.beaker
+				var/obj/item/reagent_containers/cup/B = connected.beaker
 				B.forceMove(connected.loc)
 				connected.beaker = null
 				if(Adjacent(usr) && !issilicon(usr))

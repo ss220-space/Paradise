@@ -207,7 +207,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 	return ..()
 
-/obj/item/clothing/mask/cigarette/afterattack(obj/item/reagent_containers/glass/target, mob/user, proximity_flag, list/modifiers, status)
+/obj/item/clothing/mask/cigarette/afterattack(obj/item/reagent_containers/cup/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 	if(!proximity_flag)
 		return

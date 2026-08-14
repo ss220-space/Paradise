@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// (Mixing)Glass.
 ////////////////////////////////////////////////////////////////////////////////
-/obj/item/reagent_containers/glass
+/obj/item/reagent_containers/cup
 	name = " "
 	var/base_name = " "
 	desc = " "
@@ -15,18 +15,18 @@
 	resistance_flags = ACID_PROOF
 	var/label_text = ""
 
-/obj/item/reagent_containers/glass/Initialize(mapload)
+/obj/item/reagent_containers/cup/Initialize(mapload)
 	. = ..()
 	base_name = name
 
-/obj/item/reagent_containers/glass/examine(mob/user)
+/obj/item/reagent_containers/cup/examine(mob/user)
 	. = ..()
 	if(get_dist(user, src) <= 2 && !is_open_container())
 		. += span_boldnotice("Крышка надета.")
 
 	. += span_notice("Вмещает до <b>[reagents.maximum_volume]</b> единиц[declension_ru(reagents.maximum_volume, "ы", "", "")] вещества.")
 
-/obj/item/reagent_containers/glass/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/reagent_containers/cup/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!is_open_container())
 		return ..()
 
@@ -83,7 +83,7 @@
 	addtimer(CALLBACK(reagents, TYPE_PROC_REF(/datum/reagents, trans_to), target, 5), 5)
 	playsound(target.loc,'sound/items/drink.ogg', rand(10,50), TRUE)
 
-/obj/item/reagent_containers/glass/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+/obj/item/reagent_containers/cup/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if((!proximity_flag) ||  !check_allowed_items(target,target_self = TRUE))
 		return
 
@@ -123,7 +123,7 @@
 			)
 			make_splashes(target)
 
-/obj/item/reagent_containers/glass/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/cup/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I) || istype(I, /obj/item/flashlight/pen))
 		var/rename = rename_interactive(user, I)
 		if(!isnull(rename))
@@ -131,7 +131,7 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
 
-/obj/item/reagent_containers/glass/beaker
+/obj/item/reagent_containers/cup/beaker
 	name = "beaker"
 	desc = "Простой стеклянный стакан. На его стенках обозначены деления для измерения объёма содержимого."
 	icon_state = "beaker"
@@ -142,7 +142,7 @@
 	var/obj/item/assembly_holder/assembly = null
 	var/can_assembly = TRUE
 
-/obj/item/reagent_containers/glass/beaker/get_ru_names()
+/obj/item/reagent_containers/cup/beaker/get_ru_names()
 	return alist(
 		NOMINATIVE = "мерный стакан",
 		GENITIVE = "мерного стакана",
@@ -152,22 +152,22 @@
 		PREPOSITIONAL = "мерном стакане",
 	)
 
-/obj/item/reagent_containers/glass/beaker/Initialize(mapload)
+/obj/item/reagent_containers/cup/beaker/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/item/reagent_containers/glass/beaker/examine(mob/user)
+/obj/item/reagent_containers/cup/beaker/examine(mob/user)
 	. = ..()
 	if(assembly)
 		. += span_notice("К нему прикреплен[GEND_A_O_Y(assembly)] [assembly]. Открутите [GEND_HIS_HER(assembly)] чем-нибудь, чтобы отсоединить.")
 
-/obj/item/reagent_containers/glass/beaker/on_reagent_change()
+/obj/item/reagent_containers/cup/beaker/on_reagent_change()
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/reagent_containers/glass/beaker/update_overlays()
+/obj/item/reagent_containers/cup/beaker/update_overlays()
 	. = ..()
 	if(reagents.total_volume)
 		var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "[icon_state]10")
@@ -200,7 +200,7 @@
 	if(assembly)
 		. += "assembly"
 
-/obj/item/reagent_containers/glass/beaker/verb/remove_assembly()
+/obj/item/reagent_containers/cup/beaker/verb/remove_assembly()
 	set name = "Отсоединить"
 	set category = VERB_CATEGORY_OBJECT
 	set src in usr
@@ -215,11 +215,11 @@
 	else
 		balloon_alert(usr, "нечего отсоединять!")
 
-/obj/item/reagent_containers/glass/beaker/proc/heat_beaker()
+/obj/item/reagent_containers/cup/beaker/proc/heat_beaker()
 	if(reagents)
 		reagents.temperature_reagents(4000)
 
-/obj/item/reagent_containers/glass/beaker/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/cup/beaker/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/assembly_holder))
 		add_fingerprint(user)
 		if(!can_assembly)
@@ -237,30 +237,30 @@
 
 	return ..()
 
-/obj/item/reagent_containers/glass/beaker/HasProximity(atom/movable/AM)
+/obj/item/reagent_containers/cup/beaker/HasProximity(atom/movable/AM)
 	if(assembly)
 		assembly.HasProximity(AM)
 
-/obj/item/reagent_containers/glass/beaker/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+/obj/item/reagent_containers/cup/beaker/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
 	if(assembly)
 		assembly.assembly_crossed(arrived, old_loc)
 
-/obj/item/reagent_containers/glass/beaker/on_found(mob/finder) //for mousetraps
+/obj/item/reagent_containers/cup/beaker/on_found(mob/finder) //for mousetraps
 	if(assembly)
 		assembly.on_found(finder)
 
-/obj/item/reagent_containers/glass/beaker/hear_talk(mob/living/M, list/message_pieces)
+/obj/item/reagent_containers/cup/beaker/hear_talk(mob/living/M, list/message_pieces)
 	. = ..()
 	if(assembly)
 		assembly.hear_talk(M, message_pieces)
 
-/obj/item/reagent_containers/glass/beaker/hear_message(mob/living/M, msg)
+/obj/item/reagent_containers/cup/beaker/hear_message(mob/living/M, msg)
 	if(assembly)
 		assembly.hear_message(M, msg)
 
-/obj/item/reagent_containers/glass/beaker/large
+/obj/item/reagent_containers/cup/beaker/large
 	name = "large beaker"
 	desc = "Как обычный мерный стакан, только в два раза больше объёмом."
 	icon_state = "beakerlarge"
@@ -270,7 +270,7 @@
 	volume = 100
 	possible_transfer_amounts = list(5, 10, 15, 25, 30, 50, 100)
 
-/obj/item/reagent_containers/glass/beaker/large/get_ru_names()
+/obj/item/reagent_containers/cup/beaker/large/get_ru_names()
 	return alist(
 		NOMINATIVE = "большой мерный стакан",
 		GENITIVE = "большого мерного стакана",
@@ -280,7 +280,7 @@
 		PREPOSITIONAL = "большом мерном стакане",
 	)
 
-/obj/item/reagent_containers/glass/beaker/vial
+/obj/item/reagent_containers/cup/beaker/vial
 	name = "vial"
 	desc = "Небольшая стеклянная колбочка, часто используемая вирусологами в работе."
 	icon_state = "vial"
@@ -290,7 +290,7 @@
 	possible_transfer_amounts = list(5, 10, 15, 25)
 	can_assembly = 0
 
-/obj/item/reagent_containers/glass/beaker/vial/get_ru_names()
+/obj/item/reagent_containers/cup/beaker/vial/get_ru_names()
 	return alist(
 		NOMINATIVE = "пробирка",
 		GENITIVE = "пробирки",
@@ -300,7 +300,7 @@
 		PREPOSITIONAL = "пробирке",
 	)
 
-/obj/item/reagent_containers/glass/beaker/drugs
+/obj/item/reagent_containers/cup/beaker/drugs
 	name = "baggie"
 	desc = "Небольшой пластиковый пакет, часто используемый фармацевтическими \"предпринимателями\"."
 	icon_state = "baggie"
@@ -309,7 +309,7 @@
 	volume = 10
 	can_assembly = 0
 
-/obj/item/reagent_containers/glass/beaker/drugs/get_ru_names()
+/obj/item/reagent_containers/cup/beaker/drugs/get_ru_names()
 	return alist(
 		NOMINATIVE = "пластиковый пакетик",
 		GENITIVE = "пластикового пакетика",
@@ -319,7 +319,7 @@
 		PREPOSITIONAL = "пластиковом пакетике",
 	)
 
-/obj/item/reagent_containers/glass/beaker/thermite
+/obj/item/reagent_containers/cup/beaker/thermite
 	name = "Thermite load"
 	desc = "Пластиковый пакетик, надпись на этикетке – \"Термит\"."
 	icon_state = "baggie"
@@ -329,7 +329,7 @@
 	can_assembly = 0
 	list_reagents = list("thermite" = 25)
 
-/obj/item/reagent_containers/glass/beaker/thermite/get_ru_names()
+/obj/item/reagent_containers/cup/beaker/thermite/get_ru_names()
 	return alist(
 		NOMINATIVE = "пластиковый пакетик (Термит)",
 		GENITIVE = "пластикового пакетика (Термит)",
@@ -339,14 +339,14 @@
 		PREPOSITIONAL = "пластиковом пакетике (Термит)",
 	)
 
-/obj/item/reagent_containers/glass/beaker/noreact
+/obj/item/reagent_containers/cup/beaker/noreact
 	name = "cryostasis beaker"
 	desc = "Криостазисная мензурка, позволяющий хранить химические вещества в таком состоянии, при котором они не вступают в реакцию друг с другом."
 	icon_state = "beakernoreact"
 	materials = list(MAT_METAL=3000)
 	origin_tech = "materials=2;engineering=3;plasmatech=3"
 
-/obj/item/reagent_containers/glass/beaker/noreact/get_ru_names()
+/obj/item/reagent_containers/cup/beaker/noreact/get_ru_names()
 	return alist(
 		NOMINATIVE = "криостазиный мерный стакан",
 		GENITIVE = "криостазиного мерного стакана",
@@ -356,11 +356,11 @@
 		PREPOSITIONAL = "криостазином мерном стакане",
 	)
 
-/obj/item/reagent_containers/glass/beaker/noreact/Initialize(mapload)
+/obj/item/reagent_containers/cup/beaker/noreact/Initialize(mapload)
 	. = ..()
 	reagents.set_reacting(FALSE)
 
-/obj/item/reagent_containers/glass/beaker/bluespace
+/obj/item/reagent_containers/cup/beaker/bluespace
 	name = "bluespace beaker"
 	desc = "Мензурка, работающая на экспериментальной блюспейс технологии и элементе \"Кубаний\" в сочетании с соединением \"Питий\"."
 	icon_state = "beakerbluespace"
@@ -369,7 +369,7 @@
 	possible_transfer_amounts = list(5, 10, 15, 25, 30, 50, 100, 300)
 	origin_tech = "bluespace=5;materials=4;plasmatech=4"
 
-/obj/item/reagent_containers/glass/beaker/bluespace/get_ru_names()
+/obj/item/reagent_containers/cup/beaker/bluespace/get_ru_names()
 	return alist(
 		NOMINATIVE = "блюспейс мерный стакан",
 		GENITIVE = "блюспейс мерного стакана",
@@ -379,22 +379,22 @@
 		PREPOSITIONAL = "блюспейс мерном стакане",
 	)
 
-/obj/item/reagent_containers/glass/beaker/cryoxadone
+/obj/item/reagent_containers/cup/beaker/cryoxadone
 	list_reagents = list("cryoxadone" = 30)
 
-/obj/item/reagent_containers/glass/beaker/sacid
+/obj/item/reagent_containers/cup/beaker/sacid
 	list_reagents = list("sacid" = 50)
 
-/obj/item/reagent_containers/glass/beaker/slimejelly
+/obj/item/reagent_containers/cup/beaker/slimejelly
 	list_reagents = list("slimejelly" = 50)
 
-/obj/item/reagent_containers/glass/beaker/drugs/meth
+/obj/item/reagent_containers/cup/beaker/drugs/meth
 	list_reagents = list("methamphetamine" = 10)
 
-/obj/item/reagent_containers/glass/beaker/laughter
+/obj/item/reagent_containers/cup/beaker/laughter
 	list_reagents = list("laughter" = 50)
 
-/obj/item/reagent_containers/glass/bucket
+/obj/item/reagent_containers/cup/bucket
 	name = "bucket"
 	desc = "Металлическое ведро. Можете налить туда что-то или надеть себе на голову, никто не запрещает."
 	icon = 'icons/obj/janitor.dmi'
@@ -410,7 +410,7 @@
 	resistance_flags = NONE
 	var/paintable = TRUE
 
-/obj/item/reagent_containers/glass/bucket/get_ru_names()
+/obj/item/reagent_containers/cup/bucket/get_ru_names()
 	return alist(
 		NOMINATIVE = "металлическое ведро",
 		GENITIVE = "металлического ведра",
@@ -420,13 +420,13 @@
 		PREPOSITIONAL = "металлическом ведре",
 	)
 
-/obj/item/reagent_containers/glass/bucket/Initialize(mapload)
+/obj/item/reagent_containers/cup/bucket/Initialize(mapload)
 	. = ..()
 	if(!color && paintable)
 		color = "#0085E5"
 	update_icon(UPDATE_OVERLAYS) //in case bucket's color has been changed in editor or by some deriving buckets
 
-/obj/item/reagent_containers/glass/bucket/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/cup/bucket/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/toy/crayon/spraycan))
 		add_fingerprint(user)
 		var/obj/item/toy/crayon/spraycan/can = I
@@ -470,7 +470,7 @@
 
 	return ..()
 
-/obj/item/reagent_containers/glass/bucket/update_overlays()
+/obj/item/reagent_containers/cup/bucket/update_overlays()
 	. = ..()
 	if(color)
 		var/mutable_appearance/bucket_mask = mutable_appearance(icon='icons/obj/janitor.dmi', icon_state = "bucket_mask")
@@ -479,7 +479,7 @@
 		var/mutable_appearance/bucket_hand = mutable_appearance(icon='icons/obj/janitor.dmi', icon_state = "bucket_hand", appearance_flags = RESET_COLOR)
 		. += bucket_hand
 
-/obj/item/reagent_containers/glass/bucket/equipped(mob/user, slot, initial)
+/obj/item/reagent_containers/cup/bucket/equipped(mob/user, slot, initial)
 	. = ..()
 
 	if(slot == ITEM_SLOT_HEAD && reagents.total_volume)
@@ -487,7 +487,7 @@
 		reagents.reaction(user, REAGENT_TOUCH)
 		reagents.clear_reagents()
 
-/obj/item/reagent_containers/glass/bucket/wooden
+/obj/item/reagent_containers/cup/bucket/wooden
 	name = "wooden bucket"
 	desc = "Деревянное ведро. Можете налить туда что-то или надеть себе на голову, никто не запрещает."
 	icon_state = "woodbucket"
@@ -497,7 +497,7 @@
 	resistance_flags = FLAMMABLE
 	paintable = FALSE
 
-/obj/item/reagent_containers/glass/bucket/wooden/get_ru_names()
+/obj/item/reagent_containers/cup/bucket/wooden/get_ru_names()
 	return alist(
 		NOMINATIVE = "деревянное ведро",
 		GENITIVE = "деревянного ведра",
@@ -507,10 +507,10 @@
 		PREPOSITIONAL = "деревянном ведре",
 	)
 
-/obj/item/reagent_containers/glass/bucket/wooden/update_overlays()
+/obj/item/reagent_containers/cup/bucket/wooden/update_overlays()
 	. = list()
 
-/obj/item/reagent_containers/glass/beaker/waterbottle
+/obj/item/reagent_containers/cup/beaker/waterbottle
 	name = "bottle of water"
 	desc = "Бутылка воды, наполненная на старом земном заводе по разливу воды."
 	gender = FEMALE
@@ -520,7 +520,7 @@
 	list_reagents = list("water" = 49.5, "fluorine" = 0.5) //see desc, don't think about it too hard
 	materials = list(MAT_GLASS = 0)
 
-/obj/item/reagent_containers/glass/beaker/waterbottle/get_ru_names()
+/obj/item/reagent_containers/cup/beaker/waterbottle/get_ru_names()
 	return alist(
 		NOMINATIVE = "бутылка воды",
 		GENITIVE = "бутылки воды",
@@ -530,10 +530,10 @@
 		PREPOSITIONAL = "бутылке воды",
 	)
 
-/obj/item/reagent_containers/glass/beaker/waterbottle/empty
+/obj/item/reagent_containers/cup/beaker/waterbottle/empty
 	list_reagents = list()
 
-/obj/item/reagent_containers/glass/beaker/waterbottle/large
+/obj/item/reagent_containers/cup/beaker/waterbottle/large
 	desc = "Свежая бутылка воды коммерческого размера."
 	icon_state = "largebottle"
 	materials = list(MAT_GLASS = 0)
@@ -541,7 +541,7 @@
 	volume = 100
 	amount_per_transfer_from_this = 20
 
-/obj/item/reagent_containers/glass/beaker/waterbottle/large/get_ru_names()
+/obj/item/reagent_containers/cup/beaker/waterbottle/large/get_ru_names()
 	return alist(
 		NOMINATIVE = "большая бутылка воды",
 		GENITIVE = "большой бутылки воды",
@@ -551,10 +551,10 @@
 		PREPOSITIONAL = "большой бутылке воды",
 	)
 
-/obj/item/reagent_containers/glass/beaker/waterbottle/large/empty
+/obj/item/reagent_containers/cup/beaker/waterbottle/large/empty
 	list_reagents = list()
 
-/obj/item/reagent_containers/glass/pet_bowl
+/obj/item/reagent_containers/cup/pet_bowl
 	name = "pet bowl"
 	desc = "Миска под еду для любимых домашних животных!"
 	gender = FEMALE
@@ -569,7 +569,7 @@
 	resistance_flags = FLAMMABLE
 	color = "#0085E5"
 
-/obj/item/reagent_containers/glass/pet_bowl/get_ru_names()
+/obj/item/reagent_containers/cup/pet_bowl/get_ru_names()
 	return alist(
 		NOMINATIVE = "миска для животных",
 		GENITIVE = "миски для животных",
@@ -579,11 +579,11 @@
 		PREPOSITIONAL = "миске для животных",
 	)
 
-/obj/item/reagent_containers/glass/pet_bowl/Initialize(mapload)
+/obj/item/reagent_containers/cup/pet_bowl/Initialize(mapload)
 	. = ..()
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/reagent_containers/glass/pet_bowl/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/cup/pet_bowl/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/toy/crayon/spraycan))
 		add_fingerprint(user)
 		var/obj/item/toy/crayon/spraycan/can = I
@@ -598,10 +598,10 @@
 
 	return ..()
 
-/obj/item/reagent_containers/glass/pet_bowl/on_reagent_change()
+/obj/item/reagent_containers/cup/pet_bowl/on_reagent_change()
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/reagent_containers/glass/pet_bowl/update_overlays()
+/obj/item/reagent_containers/cup/pet_bowl/update_overlays()
 	. = ..()
 	var/mutable_appearance/bowl_mask = mutable_appearance(icon = 'icons/obj/pet_bowl.dmi', icon_state = "colorable_overlay")
 	. += bowl_mask
@@ -623,7 +623,7 @@
 			liquid_overlay.color = mix_color_from_reagents(reagents.reagent_list)
 			. += liquid_overlay
 
-/obj/item/reagent_containers/glass/pet_bowl/attack_animal(mob/living/simple_animal/pet)
+/obj/item/reagent_containers/cup/pet_bowl/attack_animal(mob/living/simple_animal/pet)
 	if(!pet.client || !pet.safe_respawn(pet, check_station_level = FALSE) || !reagents.total_volume)
 		return ..()
 	if(reagents.has_reagent("afeed", 1))
@@ -635,7 +635,7 @@
 		playsound(pet.loc, 'sound/items/drink.ogg', rand(10, 30), TRUE)
 
 //Coffeepot: for reference, a standard cup is 30u, to allow 20u for sugar/sweetener/milk/creamer
-/obj/item/reagent_containers/glass/coffeepot
+/obj/item/reagent_containers/cup/coffeepot
 	name = "coffeepot"
 	desc = "Термостойкий контейнер, предназначенный для приготовления и разлива кофе. \
 			Такие поставляются в комплекте с кофемашинами. Достаточно хрупкий."
@@ -649,7 +649,7 @@
 	icon_state = "coffeepot"
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 3500)
 
-/obj/item/reagent_containers/glass/coffeepot/get_ru_names()
+/obj/item/reagent_containers/cup/coffeepot/get_ru_names()
 	return alist(
 		NOMINATIVE = "кофейник",
 		GENITIVE = "кофейника",
@@ -659,10 +659,10 @@
 		PREPOSITIONAL = "кофейнике"
 	)
 
-/obj/item/reagent_containers/glass/coffeepot/on_reagent_change()
+/obj/item/reagent_containers/cup/coffeepot/on_reagent_change()
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/reagent_containers/glass/coffeepot/update_overlays()
+/obj/item/reagent_containers/cup/coffeepot/update_overlays()
 	. = ..()
 	if(!reagents.total_volume)
 		return
@@ -680,11 +680,11 @@
 	filling.color = get_color_matrix_from_reagents(reagents.reagent_list)
 	. += filling
 
-/obj/item/reagent_containers/glass/bucket/wooden/shit
+/obj/item/reagent_containers/cup/bucket/wooden/shit
 	name = "shit bucket"
 	desc = "Омерзительно. Им кто-то недавно пользовался?!"
 
-/obj/item/reagent_containers/glass/bucket/wooden/shit/get_ru_names()
+/obj/item/reagent_containers/cup/bucket/wooden/shit/get_ru_names()
 	return alist(
 		NOMINATIVE = "сральное ведро",
 		GENITIVE = "срального ведра",

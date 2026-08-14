@@ -1778,7 +1778,7 @@
 /area/awaymission/spacehotel/kitchen)
 "gS" = (
 /obj/structure/table,
-/obj/item/reagent_containers/glass/beaker{
+/obj/item/reagent_containers/cup/beaker{
 	pixel_x = 5
 	},
 /turf/simulated/floor/indestructible{

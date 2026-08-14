@@ -713,7 +713,7 @@
 	required_other = 1
 
 /datum/chemical_reaction/slime/slimepaint/spawn_loot(datum/reagents/holder, turf/spawn_point)
-	var/list/paints = subtypesof(/obj/item/reagent_containers/glass/paint)
+	var/list/paints = subtypesof(/obj/item/reagent_containers/cup/paint)
 	var/chosen = pick(paints)
 	var/obj/P = new chosen
 	if(P)

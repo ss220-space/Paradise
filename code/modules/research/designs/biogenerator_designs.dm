@@ -112,7 +112,7 @@
 	id = "ez_nut"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 10)
-	build_path = /obj/item/reagent_containers/glass/bottle/nutrient/ez
+	build_path = /obj/item/reagent_containers/cup/bottle/nutrient/ez
 	category = list(PRINTER_CATEGORY_INITIAL, BIOGEN_CHEMICALS)
 
 /datum/design/l4z_nut
@@ -120,7 +120,7 @@
 	id = "l4z_nut"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 20)
-	build_path = /obj/item/reagent_containers/glass/bottle/nutrient/l4z
+	build_path = /obj/item/reagent_containers/cup/bottle/nutrient/l4z
 	category = list(PRINTER_CATEGORY_INITIAL, BIOGEN_CHEMICALS)
 
 /datum/design/rh_nut
@@ -128,7 +128,7 @@
 	id = "rh_nut"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 25)
-	build_path = /obj/item/reagent_containers/glass/bottle/nutrient/rh
+	build_path = /obj/item/reagent_containers/cup/bottle/nutrient/rh
 	category = list(PRINTER_CATEGORY_INITIAL, BIOGEN_CHEMICALS)
 
 /datum/design/weed_killer
@@ -136,7 +136,7 @@
 	id = "weed_killer"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 50)
-	build_path = /obj/item/reagent_containers/glass/bottle/nutrient/killer/weedkiller
+	build_path = /obj/item/reagent_containers/cup/bottle/nutrient/killer/weedkiller
 	category = list(PRINTER_CATEGORY_INITIAL, BIOGEN_CHEMICALS)
 
 /datum/design/pest_spray
@@ -144,7 +144,7 @@
 	id = "pest_spray"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 50)
-	build_path = /obj/item/reagent_containers/glass/bottle/nutrient/killer/pestkiller
+	build_path = /obj/item/reagent_containers/cup/bottle/nutrient/killer/pestkiller
 	category = list(PRINTER_CATEGORY_INITIAL, BIOGEN_CHEMICALS)
 
 /datum/design/botany_bottle
@@ -152,7 +152,7 @@
 	id = "botany_jug"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 5)
-	build_path = /obj/item/reagent_containers/glass/bottle/nutrient/empty
+	build_path = /obj/item/reagent_containers/cup/bottle/nutrient/empty
 	category = list(PRINTER_CATEGORY_INITIAL, BIOGEN_CHEMICALS)
 
 /datum/design/cloth

@@ -230,7 +230,7 @@
 /area/shuttle/escape)
 "aZ" = (
 /obj/structure/table,
-/obj/item/reagent_containers/glass/beaker/cryoxadone,
+/obj/item/reagent_containers/cup/beaker/cryoxadone,
 /obj/item/roller/holo,
 /obj/item/roller/holo,
 /obj/item/storage/toolbox/surgery/advanced,

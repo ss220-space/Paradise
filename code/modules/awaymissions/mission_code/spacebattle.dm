@@ -646,8 +646,8 @@
 	backpack_contents = list(
 		/obj/item/storage/firstaid/regular = 1,
 		/obj/item/storage/pill_bottle/random_drug_bottle = 1,
-		/obj/item/reagent_containers/glass/bottle/random_reagent = 1,
-		/obj/item/reagent_containers/glass/bottle/random_chem = 1,
+		/obj/item/reagent_containers/cup/bottle/random_reagent = 1,
+		/obj/item/reagent_containers/cup/bottle/random_chem = 1,
 	)
 	return ..()
 

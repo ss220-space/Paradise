@@ -125,7 +125,7 @@
 	},
 /obj/item/storage/bag/trash,
 /obj/item/mop,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/ancientstation/charlie_recycler)
 "aw" = (
@@ -3002,7 +3002,7 @@
 	pixel_x = 3;
 	pixel_y = 11
 	},
-/obj/item/reagent_containers/glass/beaker/large{
+/obj/item/reagent_containers/cup/beaker/large{
 	pixel_x = 7;
 	pixel_y = 2
 	},
@@ -8022,7 +8022,7 @@
 	dir = 2
 	},
 /obj/item/paper/ruins/oldstation/slimesexperiments,
-/obj/item/reagent_containers/glass/bottle/water,
+/obj/item/reagent_containers/cup/bottle/water,
 /obj/item/slime_extract/grey{
 	pixel_x = 7
 	},
@@ -9058,32 +9058,32 @@
 /area/ruin/space/ancientstation/theta_docks)
 "Gy" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/glass/bottle/bromine,
-/obj/item/reagent_containers/glass/bottle/sugar,
-/obj/item/reagent_containers/glass/bottle/sulfur,
-/obj/item/reagent_containers/glass/bottle/aluminum,
-/obj/item/reagent_containers/glass/bottle/silver,
-/obj/item/reagent_containers/glass/bottle/sodium,
-/obj/item/reagent_containers/glass/bottle/chlorine,
-/obj/item/reagent_containers/glass/bottle/carbon,
-/obj/item/reagent_containers/glass/bottle/sacid,
-/obj/item/reagent_containers/glass/bottle/silicon,
-/obj/item/reagent_containers/glass/bottle/ethanol,
-/obj/item/reagent_containers/glass/bottle/copper,
-/obj/item/reagent_containers/glass/bottle/fluorine,
-/obj/item/reagent_containers/glass/bottle/radium,
-/obj/item/reagent_containers/glass/bottle/hydrogen,
-/obj/item/reagent_containers/glass/bottle/potassium,
-/obj/item/reagent_containers/glass/bottle/lithium,
-/obj/item/reagent_containers/glass/bottle/iron,
-/obj/item/reagent_containers/glass/bottle/iodine,
-/obj/item/reagent_containers/glass/bottle/welding_fuel,
-/obj/item/reagent_containers/glass/bottle/phosphorus,
-/obj/item/reagent_containers/glass/bottle/oxygen,
-/obj/item/reagent_containers/glass/bottle/nitrogen,
-/obj/item/reagent_containers/glass/bottle/water,
-/obj/item/reagent_containers/glass/bottle/water,
-/obj/item/reagent_containers/glass/bottle/mercury,
+/obj/item/reagent_containers/cup/bottle/bromine,
+/obj/item/reagent_containers/cup/bottle/sugar,
+/obj/item/reagent_containers/cup/bottle/sulfur,
+/obj/item/reagent_containers/cup/bottle/aluminum,
+/obj/item/reagent_containers/cup/bottle/silver,
+/obj/item/reagent_containers/cup/bottle/sodium,
+/obj/item/reagent_containers/cup/bottle/chlorine,
+/obj/item/reagent_containers/cup/bottle/carbon,
+/obj/item/reagent_containers/cup/bottle/sacid,
+/obj/item/reagent_containers/cup/bottle/silicon,
+/obj/item/reagent_containers/cup/bottle/ethanol,
+/obj/item/reagent_containers/cup/bottle/copper,
+/obj/item/reagent_containers/cup/bottle/fluorine,
+/obj/item/reagent_containers/cup/bottle/radium,
+/obj/item/reagent_containers/cup/bottle/hydrogen,
+/obj/item/reagent_containers/cup/bottle/potassium,
+/obj/item/reagent_containers/cup/bottle/lithium,
+/obj/item/reagent_containers/cup/bottle/iron,
+/obj/item/reagent_containers/cup/bottle/iodine,
+/obj/item/reagent_containers/cup/bottle/welding_fuel,
+/obj/item/reagent_containers/cup/bottle/phosphorus,
+/obj/item/reagent_containers/cup/bottle/oxygen,
+/obj/item/reagent_containers/cup/bottle/nitrogen,
+/obj/item/reagent_containers/cup/bottle/water,
+/obj/item/reagent_containers/cup/bottle/water,
+/obj/item/reagent_containers/cup/bottle/mercury,
 /obj/machinery/smartfridge/secure/chemistry{
 	req_access = null
 	},
@@ -13136,14 +13136,14 @@
 /area/ruin/space/ancientstation/charlie_comm)
 "VP" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/glass/beaker/waterbottle/large{
+/obj/item/reagent_containers/cup/beaker/waterbottle/large{
 	pixel_x = 12;
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/glass/beaker/waterbottle/large{
+/obj/item/reagent_containers/cup/beaker/waterbottle/large{
 	pixel_x = 12
 	},
-/obj/item/reagent_containers/glass/beaker/waterbottle/large{
+/obj/item/reagent_containers/cup/beaker/waterbottle/large{
 	pixel_x = 12;
 	pixel_y = -2
 	},

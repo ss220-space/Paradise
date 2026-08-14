@@ -1294,7 +1294,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "green"
@@ -1803,7 +1803,7 @@
 /area/awaymission/UO45/central_hall)
 "eT" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/central_hall)
 "eU" = (
@@ -2034,7 +2034,7 @@
 /obj/item/shovel/spade,
 /obj/item/wrench,
 /obj/item/screwdriver,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2478,7 +2478,7 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/glass/beaker{
+/obj/item/reagent_containers/cup/beaker{
 	pixel_x = 5
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2663,11 +2663,11 @@
 	dir = 4
 	},
 /obj/structure/table/glass,
-/obj/item/reagent_containers/glass/beaker/large{
+/obj/item/reagent_containers/cup/beaker/large{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/glass/beaker{
+/obj/item/reagent_containers/cup/beaker{
 	pixel_x = 8;
 	pixel_y = 2
 	},

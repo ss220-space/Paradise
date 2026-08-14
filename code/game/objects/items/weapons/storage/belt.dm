@@ -190,8 +190,8 @@
 		/obj/item/healthanalyzer,
 		/obj/item/dnainjector,
 		/obj/item/reagent_containers/dropper,
-		/obj/item/reagent_containers/glass/beaker,
-		/obj/item/reagent_containers/glass/bottle,
+		/obj/item/reagent_containers/cup/beaker,
+		/obj/item/reagent_containers/cup/bottle,
 		/obj/item/reagent_containers/food/pill,
 		/obj/item/reagent_containers/syringe,
 		/obj/item/lighter/zippo,
@@ -350,7 +350,7 @@
 		/obj/item/plant_analyzer,
 		/obj/item/cultivator,
 		/obj/item/hatchet,
-		/obj/item/reagent_containers/glass/bottle,
+		/obj/item/reagent_containers/cup/bottle,
 		/obj/item/lighter/zippo,
 		/obj/item/storage/fancy/cigarettes,
 		/obj/item/shovel/spade,
@@ -1346,7 +1346,7 @@
 		/obj/item/reagent_containers/food/drinks/shaker,
 		/obj/item/reagent_containers/food/snacks,
 		/obj/item/reagent_containers/food/condiment,
-		/obj/item/reagent_containers/glass/beaker,
+		/obj/item/reagent_containers/cup/beaker,
 		/obj/item/radio,
 	)
 	custom_price = PAYCHECK_LOWER

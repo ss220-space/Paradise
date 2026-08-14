@@ -4540,9 +4540,9 @@
 /area/mine/laborcamp)
 "wM" = (
 /obj/structure/reagent_dispensers/watertank,
-/obj/item/reagent_containers/glass/bucket,
-/obj/item/reagent_containers/glass/bucket,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
+/obj/item/reagent_containers/cup/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -5164,9 +5164,9 @@
 /obj/structure/table,
 /obj/item/shovel/spade/wooden,
 /obj/item/cultivator/wooden,
-/obj/item/reagent_containers/glass/bottle/nutrient/ez,
-/obj/item/reagent_containers/glass/bottle/nutrient/ez,
-/obj/item/reagent_containers/glass/bottle/nutrient/ez,
+/obj/item/reagent_containers/cup/bottle/nutrient/ez,
+/obj/item/reagent_containers/cup/bottle/nutrient/ez,
+/obj/item/reagent_containers/cup/bottle/nutrient/ez,
 /obj/item/plant_analyzer,
 /obj/item/seeds/lavaland/fireblossom,
 /obj/machinery/camera/labor_camp{
@@ -6178,7 +6178,7 @@
 /area/mine/production)
 "Hs" = (
 /obj/machinery/biogenerator,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/storage/bag/plants,
 /turf/simulated/floor/plasteel{

@@ -95,7 +95,7 @@
 
 /obj/item/storage/box/beakers/populate_contents()
 	for(var/I in 1 to 7)
-		new /obj/item/reagent_containers/glass/beaker(src)
+		new /obj/item/reagent_containers/cup/beaker(src)
 
 /obj/item/storage/box/beakers/bluespace
 	name = "box of bluespace beakers"
@@ -103,7 +103,7 @@
 /obj/item/storage/box/beakers/bluespace/populate_contents()
 	..()
 	for(var/i in 1 to 7)
-		new /obj/item/reagent_containers/glass/beaker/bluespace(src)
+		new /obj/item/reagent_containers/cup/beaker/bluespace(src)
 
 /obj/item/storage/box/iv_bags
 	name = "IV Bags"
@@ -668,7 +668,7 @@
 /obj/item/storage/box/bartender_rare_ingredients_kit/populate_contents()
 	var/list/reagent_list = list("sacid", "radium", "ether", "methamphetamine", "plasma", "gold", "silver", "capsaicin", "psilocybin")
 	for(var/reag in reagent_list)
-		var/obj/item/reagent_containers/glass/bottle/B = new(src)
+		var/obj/item/reagent_containers/cup/bottle/B = new(src)
 		B.reagents.add_reagent(reag, 30)
 		B.name = "[reag] bottle"
 
@@ -685,7 +685,7 @@
 	new /obj/item/kitchen/knife/butcher(src)
 	var/list/reagent_list = list("msg", "triple_citrus", "salglu_solution", "nutriment", "gravy", "honey", "vitfro")
 	for(var/reag in reagent_list)
-		var/obj/item/reagent_containers/glass/bottle/B = new(src)
+		var/obj/item/reagent_containers/cup/bottle/B = new(src)
 		B.reagents.add_reagent(reag, 30)
 		B.name = "[reag] bottle"
 
@@ -860,9 +860,9 @@
 /obj/item/storage/box/barber/populate_contents()
 	new /obj/item/scissors/barber(src)
 	new /obj/item/hair_dye_bottle(src)
-	new /obj/item/reagent_containers/glass/bottle/reagent/hairgrownium(src)
-	new /obj/item/reagent_containers/glass/bottle/reagent/hair_dye(src)
-	new /obj/item/reagent_containers/glass/bottle/reagent(src)
+	new /obj/item/reagent_containers/cup/bottle/reagent/hairgrownium(src)
+	new /obj/item/reagent_containers/cup/bottle/reagent/hair_dye(src)
+	new /obj/item/reagent_containers/cup/bottle/reagent(src)
 	new /obj/item/reagent_containers/dropper(src)
 	new /obj/item/clothing/mask/fakemoustache(src) //totally necessary for successful barbering -Fox
 

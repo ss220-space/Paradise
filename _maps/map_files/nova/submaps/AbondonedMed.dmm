@@ -3869,7 +3869,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
 "Md" = (
-/obj/item/reagent_containers/glass/beaker/large{
+/obj/item/reagent_containers/cup/beaker/large{
 	pixel_x = -5;
 	pixel_y = 1
 	},

@@ -393,7 +393,7 @@
 	},
 /obj/structure/closet/crate,
 /obj/item/reagent_containers/spray/spraytan,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /turf/simulated/floor/plating,
 /area/ruin/powered/beach)
 "rC" = (

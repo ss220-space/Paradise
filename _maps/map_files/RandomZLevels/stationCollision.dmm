@@ -3950,7 +3950,7 @@
 /area/awaymission/arrivalblock)
 "lu" = (
 /obj/structure/table,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /turf/simulated/floor/plasteel,
 /area/awaymission/arrivalblock)
 "lv" = (

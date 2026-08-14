@@ -287,7 +287,7 @@
 			var/name = tgui_input_text(usr, "Название:", "Введите название культуры", disease.name, MAX_NAME_LEN)
 			if(name == null || wait)
 				return
-			var/obj/item/reagent_containers/glass/bottle/bottle = new(loc)
+			var/obj/item/reagent_containers/cup/bottle/bottle = new(loc)
 			bottle.icon_state = "round_bottle"
 			bottle.pixel_x = rand(-3, 3)
 			bottle.pixel_y = rand(-3, 3)
@@ -316,7 +316,7 @@
 		if("createVaccine")
 			if(wait)
 				return
-			var/obj/item/reagent_containers/glass/bottle/bottle = new/obj/item/reagent_containers/glass/bottle(loc)
+			var/obj/item/reagent_containers/cup/bottle/bottle = new/obj/item/reagent_containers/cup/bottle(loc)
 			if(!bottle)
 				return
 			bottle.pixel_x = rand(-3, 3)

@@ -472,7 +472,7 @@
 	pixel_x = -2;
 	pixel_y = -14
 	},
-/obj/item/reagent_containers/glass/bottle{
+/obj/item/reagent_containers/cup/bottle{
 	pixel_y = 7
 	},
 /obj/effect/spawner/lootdrop/maintenance,
@@ -530,7 +530,7 @@
 	},
 /obj/effect/decal/remains/mouse,
 /obj/item/trash/tapetrash,
-/obj/item/reagent_containers/glass/beaker/waterbottle/large/empty{
+/obj/item/reagent_containers/cup/beaker/waterbottle/large/empty{
 	pixel_x = -6;
 	pixel_y = -15
 	},

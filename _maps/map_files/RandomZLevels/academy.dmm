@@ -264,7 +264,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/headmaster)
 "bs" = (
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/effect/decal/cleanable/greenglow,
 /turf/simulated/floor/plasteel{
 	dir = 0;
@@ -662,7 +662,7 @@
 /area/awaymission/academy/classrooms)
 "dk" = (
 /obj/structure/sink/kitchen/directional/north,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "green"
@@ -1911,7 +1911,7 @@
 /area/awaymission/academy/academyaft)
 "io" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/item/storage/fancy/cigarettes/cigpack_robust{
 	pixel_x = -4;
 	pixel_y = 6
@@ -3095,7 +3095,7 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/glass/beaker{
+/obj/item/reagent_containers/cup/beaker{
 	pixel_x = 5
 	},
 /turf/simulated/floor/plasteel{
@@ -3173,7 +3173,7 @@
 	},
 /area/awaymission/academy/classrooms)
 "qQ" = (
-/obj/item/reagent_containers/glass/bottle,
+/obj/item/reagent_containers/cup/bottle,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},

@@ -115,7 +115,7 @@
 /area/awaymission/centcom_away/cafe)
 "ar" = (
 /obj/structure/table,
-/obj/item/reagent_containers/glass/beaker,
+/obj/item/reagent_containers/cup/beaker,
 /obj/item/reagent_containers/food/condiment/enzyme,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -154,7 +154,7 @@
 	},
 /area/awaymission/centcom_away/cafe)
 "av" = (
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1846,7 +1846,7 @@
 /area/awaymission/centcom_away/general)
 "fE" = (
 /obj/structure/table,
-/obj/item/reagent_containers/glass/beaker,
+/obj/item/reagent_containers/cup/beaker,
 /obj/item/reagent_containers/food/condiment/enzyme,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
@@ -3373,7 +3373,7 @@
 "jR" = (
 /obj/structure/closet/crate/trashcart,
 /obj/item/reagent_containers/spray/cleaner,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

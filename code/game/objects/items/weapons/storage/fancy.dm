@@ -590,24 +590,24 @@
 	icon_type = "vial"
 	use_sound = 'sound/items/handling/cardboard_box_rustle_light.ogg'
 	storage_slots = 6
-	can_hold = list(/obj/item/reagent_containers/glass/beaker/vial)
+	can_hold = list(/obj/item/reagent_containers/cup/beaker/vial)
 
 /obj/item/storage/fancy/vials/populate_contents()
 	for(var/I = 1 to storage_slots)
-		new /obj/item/reagent_containers/glass/beaker/vial(src)
+		new /obj/item/reagent_containers/cup/beaker/vial(src)
 
 /obj/item/storage/lockbox/vials
 	name = "secure vial storage box"
 	desc = "A locked box for keeping things away from children."
 	icon = 'icons/obj/vialbox.dmi'
 	icon_state = "vialbox0"
-	can_hold = list(/obj/item/reagent_containers/glass/beaker/vial)
+	can_hold = list(/obj/item/reagent_containers/cup/beaker/vial)
 	storage_slots = 6
 	req_access = list(ACCESS_VIROLOGY)
 
 /obj/item/storage/lockbox/vials/populate_contents()
 	for(var/I = 1 to storage_slots)
-		new /obj/item/reagent_containers/glass/beaker/vial(src)
+		new /obj/item/reagent_containers/cup/beaker/vial(src)
 	update_icon()
 
 /obj/item/storage/lockbox/vials/update_icon_state()

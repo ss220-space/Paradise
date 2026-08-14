@@ -43,7 +43,7 @@
 "au" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/aquatic_kit/full,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/item/fish_eggs/salmon,
 /obj/item/fish_eggs/salmon,
 /obj/item/fish_eggs/shrimp,
@@ -154,7 +154,7 @@
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "bs" = (
 /obj/structure/closet/crate/hydroponics/prespawned,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /turf/simulated/floor/wood/fancy,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "bB" = (
@@ -651,7 +651,7 @@
 /turf/simulated/floor/carpet/red,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "fO" = (
-/obj/item/reagent_containers/glass/bucket/wooden,
+/obj/item/reagent_containers/cup/bucket/wooden,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/oak,
@@ -2342,13 +2342,13 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/glass/beaker/large{
+/obj/item/reagent_containers/cup/beaker/large{
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/glass/beaker/large{
+/obj/item/reagent_containers/cup/beaker/large{
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/glass/beaker/large{
+/obj/item/reagent_containers/cup/beaker/large{
 	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -2454,7 +2454,7 @@
 /obj/structure/table/reinforced,
 /obj/item/kitchen/knife,
 /obj/item/kitchen/rollingpin,
-/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/cup/beaker/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -4685,7 +4685,7 @@
 /turf/simulated/floor/carpet/red,
 /area/vision_change_area/awaymission/evil_santa/end/santa)
 "Os" = (
-/obj/item/reagent_containers/glass/bucket/wooden,
+/obj/item/reagent_containers/cup/bucket/wooden,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
@@ -5463,7 +5463,7 @@
 /turf/simulated/floor/plating/ice,
 /area/vision_change_area/awaymission/evil_santa/mine)
 "US" = (
-/obj/item/reagent_containers/glass/bucket/wooden,
+/obj/item/reagent_containers/cup/bucket/wooden,
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "UT" = (

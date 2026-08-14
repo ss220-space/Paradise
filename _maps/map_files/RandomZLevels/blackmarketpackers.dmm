@@ -489,7 +489,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "bL" = (
-/obj/item/reagent_containers/glass/beaker/waterbottle/large,
+/obj/item/reagent_containers/cup/beaker/waterbottle/large,
 /turf/simulated/floor/wood/fancy,
 /area/awaymission/BMPship/CommonArea)
 "bM" = (
@@ -882,7 +882,7 @@
 	dir = 4
 	},
 /obj/machinery/chem_master/condimaster,
-/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/cup/beaker/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -1719,7 +1719,7 @@
 /area/awaymission/BMPship/Fore)
 "eY" = (
 /obj/structure/alien/weeds,
-/obj/item/reagent_containers/glass/beaker/drugs/meth{
+/obj/item/reagent_containers/cup/beaker/drugs/meth{
 	layer = 2.9
 	},
 /obj/structure/table,
@@ -2122,7 +2122,7 @@
 /obj/structure/closet/medical_wall{
 	pixel_x = 28
 	},
-/obj/item/reagent_containers/glass/bottle/ether,
+/obj/item/reagent_containers/cup/bottle/ether,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "fZ" = (
@@ -3049,9 +3049,9 @@
 /area/awaymission/BMPship/Engines)
 "iX" = (
 /obj/structure/table,
-/obj/item/reagent_containers/glass/beaker/drugs/meth,
-/obj/item/reagent_containers/glass/beaker/drugs/meth,
-/obj/item/reagent_containers/glass/beaker/drugs/meth,
+/obj/item/reagent_containers/cup/beaker/drugs/meth,
+/obj/item/reagent_containers/cup/beaker/drugs/meth,
+/obj/item/reagent_containers/cup/beaker/drugs/meth,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/ChemLab)
 "iY" = (
@@ -3321,7 +3321,7 @@
 /area/awaymission/BMPship/TraderShuttle)
 "kx" = (
 /obj/structure/table/survival_pod,
-/obj/item/reagent_containers/glass/beaker/drugs/meth,
+/obj/item/reagent_containers/cup/beaker/drugs/meth,
 /obj/item/reagent_containers/food/drinks/bottle/rum{
 	layer = 2.9;
 	pixel_x = -3;
@@ -5210,7 +5210,7 @@
 /obj/structure/window/reinforced{
 	color = "yellow"
 	},
-/obj/item/reagent_containers/glass/bucket/wooden,
+/obj/item/reagent_containers/cup/bucket/wooden,
 /turf/simulated/floor/grass,
 /area/awaymission/BMPship/Kitchen)
 "AL" = (
@@ -5912,7 +5912,7 @@
 /turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
 /area/awaymission/BMPship/Bath)
 "GN" = (
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/window/reinforced{
 	color = "green"
@@ -6615,7 +6615,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "Pi" = (
-/obj/item/reagent_containers/glass/beaker/drugs/meth,
+/obj/item/reagent_containers/cup/beaker/drugs/meth,
 /mob/living/simple_animal/hostile/syndicate/ranged/space{
 	health = 300;
 	maxHealth = 300
@@ -7571,7 +7571,7 @@
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Containment)
 "Zj" = (
-/obj/item/reagent_containers/glass/bucket/wooden,
+/obj/item/reagent_containers/cup/bucket/wooden,
 /turf/simulated/floor/grass,
 /area/awaymission)
 "Zm" = (

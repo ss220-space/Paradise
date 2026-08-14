@@ -1791,7 +1791,7 @@
 	},
 /area/station/commons/trading)
 "vC" = (
-/obj/item/reagent_containers/glass/beaker/waterbottle,
+/obj/item/reagent_containers/cup/beaker/waterbottle,
 /obj/structure/holosign/barrier,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"

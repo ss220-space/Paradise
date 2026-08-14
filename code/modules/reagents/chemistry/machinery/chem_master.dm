@@ -70,8 +70,8 @@
 	component_parts += new /obj/item/circuitboard/chem_master(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
-	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
+	component_parts += new /obj/item/reagent_containers/cup/beaker(null)
+	component_parts += new /obj/item/reagent_containers/cup/beaker(null)
 	RefreshParts()
 	update_icon()
 	if(condi)
@@ -98,7 +98,7 @@
 
 /obj/machinery/chem_master/RefreshParts()
 	reagents.maximum_volume = 0
-	for(var/obj/item/reagent_containers/glass/beaker/B in component_parts)
+	for(var/obj/item/reagent_containers/cup/beaker/B in component_parts)
 		reagents.maximum_volume += B.reagents.maximum_volume
 
 /obj/machinery/chem_master/examine(mob/user)
@@ -555,8 +555,8 @@
 	component_parts += new /obj/item/circuitboard/chem_master/condi_master(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
-	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
-	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
+	component_parts += new /obj/item/reagent_containers/cup/beaker(null)
+	component_parts += new /obj/item/reagent_containers/cup/beaker(null)
 	RefreshParts()
 
 /datum/chemical_production_mode
@@ -677,7 +677,7 @@
 	mode_id = "chem_bottles"
 	production_name = "Бутылки"
 	production_icon = "wine-bottle"
-	item_type = /obj/item/reagent_containers/glass/bottle/reagent
+	item_type = /obj/item/reagent_containers/cup/bottle/reagent
 	sprites = list("bottle", "wide_bottle", "round_bottle", "reagent_bottle")
 
 	max_items_amount = 5

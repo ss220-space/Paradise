@@ -369,7 +369,7 @@
 /area/awaymission/example)
 "bf" = (
 /obj/structure/table,
-/obj/item/reagent_containers/glass/beaker,
+/obj/item/reagent_containers/cup/beaker,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},

@@ -1108,7 +1108,7 @@
 "iX" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/aquatic_kit/full,
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/item/fish_eggs/salmon,
 /obj/item/fish_eggs/shrimp,
 /obj/item/fish_eggs/salmon,
@@ -1582,7 +1582,7 @@
 "mh" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/bag/tray,
-/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/cup/beaker/large,
 /obj/item/kitchen/knife,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"

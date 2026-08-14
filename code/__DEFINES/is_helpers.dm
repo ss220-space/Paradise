@@ -154,7 +154,7 @@ GLOBAL_VAR_INIT(refid_filter, TYPEID(filter(type="angular_blur")))
 
 #define issyringe(A) (istype(A, /obj/item/reagent_containers/syringe))
 
-#define isglassreagentcontainer(A) (istype(A, /obj/item/reagent_containers/glass))
+#define isglassreagentcontainer(A) (istype(A, /obj/item/reagent_containers/cup))
 
 #define is_spectercell(A) (istype(A, /obj/item/weapon_cell/specter))
 

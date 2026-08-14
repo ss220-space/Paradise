@@ -1177,7 +1177,7 @@
 "GG" = (
 /obj/structure/table,
 /obj/item/storage/box/cups,
-/obj/item/reagent_containers/glass/beaker/waterbottle/empty,
+/obj/item/reagent_containers/cup/beaker/waterbottle/empty,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"

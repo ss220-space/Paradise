@@ -11524,11 +11524,11 @@
 	},
 /area/awaymission/spacebattle/hallway13)
 "IL" = (
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
+/obj/item/reagent_containers/cup/beaker/cryoxadone{
 	pixel_x = 8;
 	pixel_y = 9
 	},
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
+/obj/item/reagent_containers/cup/beaker/cryoxadone{
 	pixel_x = -6;
 	pixel_y = 9
 	},
@@ -16720,7 +16720,7 @@
 /obj/structure/closet/crate/secure/bin{
 	opened = 1
 	},
-/obj/item/reagent_containers/glass/bottle/morphine,
+/obj/item/reagent_containers/cup/bottle/morphine,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "blue"

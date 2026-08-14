@@ -708,10 +708,10 @@
 "hl" = (
 /obj/structure/table,
 /obj/item/storage/box/beakers,
-/obj/item/reagent_containers/glass/beaker/bluespace,
-/obj/item/reagent_containers/glass/beaker/bluespace,
-/obj/item/reagent_containers/glass/beaker/bluespace,
-/obj/item/reagent_containers/glass/beaker/bluespace,
+/obj/item/reagent_containers/cup/beaker/bluespace,
+/obj/item/reagent_containers/cup/beaker/bluespace,
+/obj/item/reagent_containers/cup/beaker/bluespace,
+/obj/item/reagent_containers/cup/beaker/bluespace,
 /obj/item/storage/box/autoinjectors,
 /turf/simulated/floor/wood,
 /area/centcom/admin_room)
@@ -2624,10 +2624,10 @@
 "Em" = (
 /obj/structure/table,
 /obj/item/storage/box/beakers,
-/obj/item/reagent_containers/glass/beaker/bluespace,
-/obj/item/reagent_containers/glass/beaker/bluespace,
-/obj/item/reagent_containers/glass/beaker/bluespace,
-/obj/item/reagent_containers/glass/beaker/bluespace,
+/obj/item/reagent_containers/cup/beaker/bluespace,
+/obj/item/reagent_containers/cup/beaker/bluespace,
+/obj/item/reagent_containers/cup/beaker/bluespace,
+/obj/item/reagent_containers/cup/beaker/bluespace,
 /turf/simulated/floor/wood,
 /area/centcom/admin_room)
 "Ep" = (
@@ -3476,7 +3476,7 @@
 "Pa" = (
 /obj/structure/table,
 /obj/item/storage/pill_bottle/random_drug_bottle,
-/obj/item/reagent_containers/glass/bottle/adminordrazine,
+/obj/item/reagent_containers/cup/bottle/adminordrazine,
 /turf/simulated/floor/wood,
 /area/centcom/admin_room)
 "Pn" = (

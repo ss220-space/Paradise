@@ -52,8 +52,8 @@
 /obj/effect/spawner/abandoned_crate/science_equipment
 	name = "science equipment loot spawner"
 	loot = list(
-		/obj/item/reagent_containers/glass/beaker/bluespace = 1,
-		/obj/item/reagent_containers/glass/beaker/noreact = 3,
+		/obj/item/reagent_containers/cup/beaker/bluespace = 1,
+		/obj/item/reagent_containers/cup/beaker/noreact = 3,
 	)
 
 /obj/effect/spawner/abandoned_crate/diamonds

@@ -608,7 +608,7 @@
 /turf/simulated/floor/carpet/green,
 /area/ruin/powered/space_bar)
 "JK" = (
-/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/cup/bucket,
 /obj/item/mop,
 /turf/simulated/floor/indestructible/plating,
 /area/ruin/powered/space_bar)

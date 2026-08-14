@@ -192,7 +192,7 @@
 	name = "Cleanbot"
 	result = /mob/living/simple_animal/bot/cleanbot
 	reqs = list(
-		/obj/item/reagent_containers/glass/bucket = 1,
+		/obj/item/reagent_containers/cup/bucket = 1,
 		/obj/item/assembly/prox_sensor = 1,
 		/obj/item/robot_parts/r_arm = 1,
 	)
@@ -1251,7 +1251,7 @@
 	reqs = list(
 		/obj/item/stack/sheet/wood = 3,
 	)
-	result = /obj/item/reagent_containers/glass/bucket/wooden
+	result = /obj/item/reagent_containers/cup/bucket/wooden
 	category = CAT_PRIMAL
 	subcategory = CAT_MISC2
 

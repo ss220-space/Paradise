@@ -735,7 +735,7 @@
 	new /obj/item/bodyanalyzer/advanced(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium(src)
 	new /obj/item/stack/medical/splint(src)
-	new /obj/item/reagent_containers/glass/bottle/atropine(src)
+	new /obj/item/reagent_containers/cup/bottle/atropine(src)
 
 /obj/item/storage/backpack/duffel/syndie/c4/populate_contents()
 	for(var/i in 1 to 10)
@@ -761,7 +761,7 @@
 	new /obj/item/bonegel(src)
 	new /obj/item/bonesetter(src)
 	new /obj/item/FixOVein(src)
-	new /obj/item/reagent_containers/glass/bottle/morphine(src)
+	new /obj/item/reagent_containers/cup/bottle/morphine(src)
 	new /obj/item/reagent_containers/syringe/antiviral(src)
 	new /obj/item/clothing/suit/straight_jacket(src)
 	new /obj/item/clothing/mask/muzzle(src)
