@@ -890,7 +890,7 @@
 	caster.remove_traits(list(TRAIT_NO_TRANSFORM, TRAIT_GODMODE), UNIQUE_TRAIT_SOURCE(src))
 	vampire_animal.remove_traits(list(TRAIT_NO_TRANSFORM, TRAIT_GODMODE), UNIQUE_TRAIT_SOURCE(src))
 	build_all_button_icons()
-	if(free_transform_back == TRUE)
+	if(free_transform_back)
 		var/datum/spell_handler/vampire/handler = custom_handler
 		transform_blood = handler.required_blood
 		handler.required_blood = 0
