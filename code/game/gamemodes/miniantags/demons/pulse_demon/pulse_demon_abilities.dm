@@ -520,7 +520,7 @@
 	if(trigger_flags & TRIGGER_SECONDARY_ACTION)
 		get_upgrades()
 		return CLICK_ACTION_SUCCESS
-	. = ..()
+	return ..()
 
 /datum/action/cooldown/spell/pulse_demon_menu/proc/get_upgrades(mob/living/simple_animal/demon/pulse_demon/user)
 	var/upgrades = list()
