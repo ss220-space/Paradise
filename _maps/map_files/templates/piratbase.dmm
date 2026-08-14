@@ -1781,16 +1781,16 @@
 	dir = 1
 	},
 /obj/item/storage/fancy/egg_box,
-/obj/item/reagent_containers/food/condiment/milk,
-/obj/item/reagent_containers/food/condiment/milk,
-/obj/item/reagent_containers/food/condiment/soymilk,
-/obj/item/reagent_containers/food/condiment/soymilk,
-/obj/item/reagent_containers/food/condiment/flour,
+/obj/item/reagent_containers/condiment/milk,
+/obj/item/reagent_containers/condiment/milk,
+/obj/item/reagent_containers/condiment/soymilk,
+/obj/item/reagent_containers/condiment/soymilk,
+/obj/item/reagent_containers/condiment/flour,
 /obj/structure/closet/secure_closet{
 	name = "kitchen cabinet"
 	},
-/obj/item/reagent_containers/food/condiment/flour,
-/obj/item/reagent_containers/food/condiment/rice,
+/obj/item/reagent_containers/condiment/flour,
+/obj/item/reagent_containers/condiment/rice,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -5576,7 +5576,7 @@
 /obj/structure/chair{
 	dir = 1
 	},
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 3;
 	pixel_y = 11
 	},
@@ -11390,7 +11390,7 @@
 /obj/structure/table,
 /obj/effect/turf_decal/siding/blue,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -3
 	},
 /turf/simulated/floor/plasteel{
@@ -11648,8 +11648,8 @@
 /obj/structure/closet/secure_closet/freezer{
 	icon_state = "fridge"
 	},
-/obj/item/reagent_containers/food/condiment/milk,
-/obj/item/reagent_containers/food/condiment/milk,
+/obj/item/reagent_containers/condiment/milk,
+/obj/item/reagent_containers/condiment/milk,
 /obj/item/reagent_containers/food/snacks/chocolatebar,
 /obj/item/storage/box/donkpockets,
 /obj/item/reagent_containers/food/snacks/cheesiehonkers,
@@ -12250,7 +12250,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 3;
 	pixel_y = 11
 	},
@@ -13049,7 +13049,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/food/condiment/rice,
+/obj/item/reagent_containers/condiment/rice,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -13355,7 +13355,7 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -3;
 	pixel_y = 11
 	},
@@ -14811,7 +14811,7 @@
 "TN" = (
 /obj/structure/table/reinforced,
 /obj/item/kitchen/knife,
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = 7;
 	pixel_y = 11
 	},

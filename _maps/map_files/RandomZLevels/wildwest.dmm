@@ -934,11 +934,11 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/wwmines)
 "dq" = (
-/obj/item/reagent_containers/food/condiment/peppermill,
+/obj/item/reagent_containers/condiment/peppermill,
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "dr" = (
-/obj/item/reagent_containers/food/condiment/saltshaker,
+/obj/item/reagent_containers/condiment/saltshaker,
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "ds" = (

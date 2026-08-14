@@ -384,7 +384,7 @@
 	bomb_state = "largebomb"
 	allowed_containers = list(
 		/obj/item/reagent_containers/cup,
-		/obj/item/reagent_containers/food/condiment,
+		/obj/item/reagent_containers/condiment,
 		/obj/item/reagent_containers/food/drinks,
 		/obj/item/slime_extract,
 	)

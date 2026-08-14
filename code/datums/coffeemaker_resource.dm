@@ -136,7 +136,7 @@
 	current_amount = 10
 	max_amount = 10
 	icon_state = "sugar"
-	item_type = /obj/item/reagent_containers/food/condiment/pack/sugar
+	item_type = /obj/item/reagent_containers/condiment/pack/sugar
 	radial_name = "Взять сахар"
 	resource_name = "пакетик сахара"
 	section_name = "сахара"
@@ -147,7 +147,7 @@
 	current_amount = 10
 	max_amount = 10
 	icon_state = "aspartame"
-	item_type = /obj/item/reagent_containers/food/condiment/pack/aspartame
+	item_type = /obj/item/reagent_containers/condiment/pack/aspartame
 	radial_name = "Взять аспартам"
 	resource_name = "пакетик аспартама"
 	section_name = "аспартама"
@@ -158,7 +158,7 @@
 	current_amount = 10
 	max_amount = 10
 	icon_state = "creamer"
-	item_type = /obj/item/reagent_containers/food/condiment/pack/creamer
+	item_type = /obj/item/reagent_containers/condiment/pack/creamer
 	radial_name = "Взять сливки"
 	resource_name = "пакетик сливок"
 	section_name = "сливок"

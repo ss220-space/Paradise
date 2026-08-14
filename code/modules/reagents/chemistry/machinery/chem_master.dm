@@ -691,7 +691,7 @@
 	mode_id = "condi_bottles"
 	production_name = "Бутылки"
 	production_icon = "wine-bottle"
-	item_type = /obj/item/reagent_containers/food/condiment
+	item_type = /obj/item/reagent_containers/condiment
 	max_items_amount = 5
 	max_units_per_item = 50
 
@@ -701,7 +701,7 @@
 	mode_id = "condi_packets"
 	production_name = "Упаковки для специй"
 	production_icon = "bacon"
-	item_type = /obj/item/reagent_containers/food/condiment/pack
+	item_type = /obj/item/reagent_containers/condiment/pack
 	max_items_amount = 10
 	max_units_per_item = 10
 	name_suffix = "Упаковка - "

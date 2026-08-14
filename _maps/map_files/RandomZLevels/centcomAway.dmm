@@ -87,8 +87,8 @@
 /area/awaymission/centcom_away/cafe)
 "ao" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/condiment/peppermill,
-/obj/item/reagent_containers/food/condiment/saltshaker,
+/obj/item/reagent_containers/condiment/peppermill,
+/obj/item/reagent_containers/condiment/saltshaker,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "greenfull"
@@ -116,7 +116,7 @@
 "ar" = (
 /obj/structure/table,
 /obj/item/reagent_containers/cup/beaker,
-/obj/item/reagent_containers/food/condiment/enzyme,
+/obj/item/reagent_containers/condiment/enzyme,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "greenfull"
@@ -1782,8 +1782,8 @@
 /area/awaymission/centcom_away/cafe)
 "fv" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/condiment/peppermill,
-/obj/item/reagent_containers/food/condiment/saltshaker,
+/obj/item/reagent_containers/condiment/peppermill,
+/obj/item/reagent_containers/condiment/saltshaker,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -1847,7 +1847,7 @@
 "fE" = (
 /obj/structure/table,
 /obj/item/reagent_containers/cup/beaker,
-/obj/item/reagent_containers/food/condiment/enzyme,
+/obj/item/reagent_containers/condiment/enzyme,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -5166,8 +5166,8 @@
 /area/awaymission/centcom_away/thunderdome)
 "oM" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/condiment/sugar,
-/obj/item/reagent_containers/food/condiment/milk,
+/obj/item/reagent_containers/condiment/sugar,
+/obj/item/reagent_containers/condiment/milk,
 /obj/item/reagent_containers/food/drinks/ice,
 /turf/simulated/floor/plasteel/low_cap{
 	dir = 8;

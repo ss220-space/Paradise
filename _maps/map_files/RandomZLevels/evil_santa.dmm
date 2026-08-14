@@ -545,7 +545,7 @@
 /area/vision_change_area/awaymission/evil_santa/end/santa)
 "fb" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/condiment/enzyme{
+/obj/item/reagent_containers/condiment/enzyme{
 	layer = 5;
 	pixel_y = 14
 	},
@@ -2206,11 +2206,11 @@
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "rW" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 3;
 	pixel_y = 11
 	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -3;
 	pixel_y = 11
 	},
@@ -2219,11 +2219,11 @@
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "sa" = (
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -3;
 	pixel_y = 11
 	},
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 3;
 	pixel_y = 11
 	},
@@ -2803,7 +2803,7 @@
 /area/vision_change_area/awaymission/evil_santa/hut_w)
 "xv" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -3;
 	pixel_y = 11
 	},
@@ -5061,7 +5061,7 @@
 /area/vision_change_area/awaymission/evil_santa/spawn_ne)
 "RE" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/condiment/sugar{
+/obj/item/reagent_containers/condiment/sugar{
 	pixel_y = 10
 	},
 /turf/simulated/floor/wood,
@@ -5246,7 +5246,7 @@
 /area/vision_change_area/awaymission/evil_santa/mine/terror_spider)
 "Tj" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/condiment/milk,
+/obj/item/reagent_containers/condiment/milk,
 /turf/simulated/floor/wood,
 /area/vision_change_area/awaymission/evil_santa/hut_w)
 "Tn" = (

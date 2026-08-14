@@ -282,7 +282,7 @@
 
 /obj/item/storage/box/condimentbottles/populate_contents()
 	for(var/I in 1 to 6)
-		new /obj/item/reagent_containers/food/condiment(src)
+		new /obj/item/reagent_containers/condiment(src)
 
 /obj/item/storage/box/cups
 	name = "box of paper cups"
@@ -679,9 +679,9 @@
 	item_state = "syndie"
 
 /obj/item/storage/box/chef_rare_ingredients_kit/populate_contents()
-	new /obj/item/reagent_containers/food/condiment/soysauce(src)
-	new /obj/item/reagent_containers/food/condiment/enzyme(src)
-	new /obj/item/reagent_containers/food/condiment/pack/hotsauce(src)
+	new /obj/item/reagent_containers/condiment/soysauce(src)
+	new /obj/item/reagent_containers/condiment/enzyme(src)
+	new /obj/item/reagent_containers/condiment/pack/hotsauce(src)
 	new /obj/item/kitchen/knife/butcher(src)
 	var/list/reagent_list = list("msg", "triple_citrus", "salglu_solution", "nutriment", "gravy", "honey", "vitfro")
 	for(var/reag in reagent_list)

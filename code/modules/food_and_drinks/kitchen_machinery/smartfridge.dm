@@ -864,7 +864,7 @@
 	accepted_items_typecache = typecacheof(list(
 		/obj/item/reagent_containers/cup,
 		/obj/item/reagent_containers/food/drinks,
-		/obj/item/reagent_containers/food/condiment,
+		/obj/item/reagent_containers/condiment,
 	))
 
 /**
@@ -889,7 +889,7 @@
 /obj/machinery/smartfridge/dish/Initialize(mapload)
 	. = ..()
 	accepted_items_typecache = typecacheof(list(
-		/obj/item/reagent_containers/food/condiment,
+		/obj/item/reagent_containers/condiment,
 		/obj/item/kitchen,
 		/obj/item/reagent_containers/cup,
 		/obj/item/reagent_containers/food,

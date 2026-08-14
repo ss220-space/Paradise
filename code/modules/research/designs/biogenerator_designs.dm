@@ -39,7 +39,7 @@
 	id = "milk_carton"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 50)
-	build_path = /obj/item/reagent_containers/food/condiment/milk
+	build_path = /obj/item/reagent_containers/condiment/milk
 	category = list(PRINTER_CATEGORY_INITIAL, BIOGEN_FOOD)
 
 /datum/design/cream_carton
@@ -55,7 +55,7 @@
 	id = "salt_shaker"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 50)
-	build_path = /obj/item/reagent_containers/food/condiment/saltshaker
+	build_path = /obj/item/reagent_containers/condiment/saltshaker
 	make_reagents = list()
 	category = list(PRINTER_CATEGORY_INITIAL, BIOGEN_FOOD)
 
@@ -64,7 +64,7 @@
 	id = "pepper_mill"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 50)
-	build_path = /obj/item/reagent_containers/food/condiment/peppermill
+	build_path = /obj/item/reagent_containers/condiment/peppermill
 	make_reagents = list()
 	category = list(PRINTER_CATEGORY_INITIAL, BIOGEN_FOOD)
 /datum/design/monkey_cube

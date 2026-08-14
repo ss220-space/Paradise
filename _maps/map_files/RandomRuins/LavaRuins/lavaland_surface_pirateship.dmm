@@ -2407,7 +2407,7 @@
 /turf/simulated/floor/pod/dark/lavaland_air,
 /area/ruin/powered/pirateship)
 "Xk" = (
-/obj/item/reagent_containers/food/condiment/rice,
+/obj/item/reagent_containers/condiment/rice,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/dark/lavaland_air,
 /area/ruin/powered/pirateship)

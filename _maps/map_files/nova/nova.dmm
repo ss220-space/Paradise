@@ -19923,11 +19923,11 @@
 /area/station/maintenance/casino)
 "diR" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -3;
 	pixel_y = 11
 	},
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 3;
 	pixel_y = 11
 	},
@@ -22257,12 +22257,12 @@
 /area/station/maintenance/engineering)
 "dEe" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 2;
 	pixel_y = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -4;
 	pixel_y = 11
 	},
@@ -28708,7 +28708,7 @@
 	id_tag = "kitchen_abandoned";
 	name = "Abandoned Kitchen Shutters"
 	},
-/obj/item/reagent_containers/food/condiment/peppermill,
+/obj/item/reagent_containers/condiment/peppermill,
 /obj/machinery/door/window{
 	dir = 1;
 	name = "Kitchen";
@@ -32307,11 +32307,11 @@
 /obj/structure/table,
 /obj/item/kitchen/utensil/spoon,
 /obj/item/kitchen/utensil/fork,
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -3;
 	pixel_y = 11
 	},
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 3;
 	pixel_y = 11
 	},
@@ -41589,7 +41589,7 @@
 	},
 /area/station/engineering/mechanic_workshop/hangar)
 "gBV" = (
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -6;
 	pixel_y = 5
 	},
@@ -51726,11 +51726,11 @@
 /area/station/security/hallway/armory)
 "icK" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 8;
 	pixel_y = 13
 	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = 8;
 	pixel_y = 3
 	},
@@ -60818,7 +60818,7 @@
 /area/station/engineering/supermatter/room)
 "jxr" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = 8;
 	pixel_y = 11
 	},
@@ -64416,11 +64416,11 @@
 /area/station/cargo/office)
 "kaN" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -3;
 	pixel_y = 11
 	},
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 3;
 	pixel_y = 11
 	},
@@ -90380,8 +90380,8 @@
 	},
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/condiment/tomatosauce,
-/obj/item/reagent_containers/food/condiment/herbs,
+/obj/item/reagent_containers/condiment/tomatosauce,
+/obj/item/reagent_containers/condiment/herbs,
 /obj/item/reagent_containers/food/snacks/grown/tomato,
 /obj/item/reagent_containers/food/snacks/grown/tomato,
 /obj/item/reagent_containers/food/snacks/grown/tomato,
@@ -91839,7 +91839,7 @@
 /area/station/security/hallway/perma)
 "ofl" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 2;
 	pixel_y = 6
 	},
@@ -97078,7 +97078,7 @@
 	id_tag = "kitchen_abandoned";
 	name = "Abandoned Kitchen Shutters"
 	},
-/obj/item/reagent_containers/food/condiment/saltshaker,
+/obj/item/reagent_containers/condiment/saltshaker,
 /obj/machinery/door/window{
 	dir = 1;
 	name = "Kitchen";
@@ -98683,11 +98683,11 @@
 /area/station/commons/toilet/four)
 "plx" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = -8;
 	pixel_y = 1
 	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -8;
 	pixel_y = 11
 	},
@@ -106010,7 +106010,7 @@
 "qsk" = (
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/food/condiment/enzyme,
+/obj/item/reagent_containers/condiment/enzyme,
 /obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -106018,7 +106018,7 @@
 /area/station/maintenance/cafeteria)
 "qso" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/condiment/enzyme{
+/obj/item/reagent_containers/condiment/enzyme{
 	layer = 5;
 	pixel_y = 14
 	},
@@ -107042,12 +107042,12 @@
 "qzR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/safe/floor,
-/obj/item/reagent_containers/food/condiment/cheesesauce,
-/obj/item/reagent_containers/food/condiment/garlicsauce,
-/obj/item/reagent_containers/food/condiment/diablosauce,
-/obj/item/reagent_containers/food/condiment/mushroomsauce,
-/obj/item/reagent_containers/food/condiment/herbs,
-/obj/item/reagent_containers/food/condiment/soysauce,
+/obj/item/reagent_containers/condiment/cheesesauce,
+/obj/item/reagent_containers/condiment/garlicsauce,
+/obj/item/reagent_containers/condiment/diablosauce,
+/obj/item/reagent_containers/condiment/mushroomsauce,
+/obj/item/reagent_containers/condiment/herbs,
+/obj/item/reagent_containers/condiment/soysauce,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -134648,7 +134648,7 @@
 "uGs" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/packageWrap,
-/obj/item/reagent_containers/food/condiment/enzyme{
+/obj/item/reagent_containers/condiment/enzyme{
 	layer = 5;
 	pixel_y = 14
 	},
@@ -135761,11 +135761,11 @@
 /area/space)
 "uPJ" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -3;
 	pixel_y = 11
 	},
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 3;
 	pixel_y = 11
 	},
@@ -136275,11 +136275,11 @@
 "uTy" = (
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -3;
 	pixel_y = 11
 	},
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 3;
 	pixel_y = 11
 	},
@@ -145121,7 +145121,7 @@
 /area/station/commons/serviceyard)
 "wiJ" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 2;
 	pixel_y = 6
 	},
@@ -148082,7 +148082,7 @@
 /obj/item/reagent_containers/food/snacks/icecreamsandwich,
 /obj/item/reagent_containers/food/snacks/icecreamsandwich,
 /obj/item/reagent_containers/food/snacks/icecreamsandwich,
-/obj/item/reagent_containers/food/condiment/sugar,
+/obj/item/reagent_containers/condiment/sugar,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 8
@@ -158181,7 +158181,7 @@
 /area/station/science/xenobiology)
 "ydA" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 8;
 	pixel_y = 1
 	},

@@ -29,11 +29,11 @@
 /area/ruin/space/USSP_gorky17/gate)
 "ag" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -3;
 	pixel_y = 11
 	},
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 2;
 	pixel_y = 6
 	},
@@ -2836,11 +2836,11 @@
 /area/ruin/space/USSP_gorky17/check2)
 "kP" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 3;
 	pixel_y = 11
 	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -3;
 	pixel_y = 11
 	},
@@ -6670,10 +6670,10 @@
 /obj/item/reagent_containers/food/snacks/grown/potato,
 /obj/item/reagent_containers/food/snacks/grown/rice,
 /obj/item/reagent_containers/food/snacks/grown/rice,
-/obj/item/reagent_containers/food/condiment/milk,
-/obj/item/reagent_containers/food/condiment/milk,
-/obj/item/reagent_containers/food/condiment/soymilk,
-/obj/item/reagent_containers/food/condiment/soymilk,
+/obj/item/reagent_containers/condiment/milk,
+/obj/item/reagent_containers/condiment/milk,
+/obj/item/reagent_containers/condiment/soymilk,
+/obj/item/reagent_containers/condiment/soymilk,
 /obj/structure/closet/secure_closet/freezer/fridge{
 	name = "Gorky17 refrigerator";
 	req_access = list(121,122,123,124,125,126)
@@ -7663,7 +7663,7 @@
 /area/ruin/space/USSP_gorky17/medbay)
 "Cq" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/condiment/pack/ketchup,
+/obj/item/reagent_containers/condiment/pack/ketchup,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood,
 /area/ruin/space/USSP_gorky17/dinning)
@@ -7918,8 +7918,8 @@
 	name = "Gorky17 security camera";
 	network = list("USSP_gorky17")
 	},
-/obj/item/reagent_containers/food/condiment/saltshaker,
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/saltshaker,
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = -5
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -10447,7 +10447,7 @@
 "Mf" = (
 /obj/structure/table/reinforced,
 /obj/machinery/reagentgrinder,
-/obj/item/reagent_containers/food/condiment/enzyme,
+/obj/item/reagent_containers/condiment/enzyme,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -10898,7 +10898,7 @@
 	name = "Gorky17 security camera";
 	network = list("USSP_gorky17")
 	},
-/obj/item/reagent_containers/food/condiment/pack/hotsauce,
+/obj/item/reagent_containers/condiment/pack/hotsauce,
 /turf/simulated/floor/wood,
 /area/ruin/space/USSP_gorky17/dinning)
 "NC" = (

@@ -330,7 +330,7 @@
 	name = "Элитарный соус шефа"
 	desc = "Фирменный соус, приготовленный из мухоморов. Токсический эффект будет зависеть от того, как долго он остаётся в организме, \
 			чем больше доза, тем больше времени потребуется для её усвоения."
-	item = /obj/item/reagent_containers/food/condiment/syndisauce
+	item = /obj/item/reagent_containers/condiment/syndisauce
 	cost = 1
 	job = list(JOB_TITLE_CHEF)
 

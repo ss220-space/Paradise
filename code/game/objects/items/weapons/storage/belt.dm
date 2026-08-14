@@ -1345,7 +1345,7 @@
 		/obj/item/reagent_containers/food/drinks/cans,
 		/obj/item/reagent_containers/food/drinks/shaker,
 		/obj/item/reagent_containers/food/snacks,
-		/obj/item/reagent_containers/food/condiment,
+		/obj/item/reagent_containers/condiment,
 		/obj/item/reagent_containers/cup/beaker,
 		/obj/item/radio,
 	)
