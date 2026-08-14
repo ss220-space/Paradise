@@ -436,7 +436,7 @@
 	if(trigger_flags & TRIGGER_SECONDARY_ACTION)
 		exit_camera()
 		return CLICK_ACTION_SUCCESS
-	. = ..()
+	return ..()
 
 /datum/action/cooldown/spell/pulse_demon_cycle_camera/cast(atom/cast_on)
 	. = ..()
