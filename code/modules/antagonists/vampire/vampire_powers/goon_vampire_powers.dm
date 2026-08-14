@@ -12,7 +12,7 @@
 	var/counter = 0
 
 /datum/action/cooldown/spell/goon_vamp_rejuvenate/can_cast_spell(feedback)
-	return ..() && owner.stat == CONSCIOUS
+	return ..() && owner.stat != DEAD
 
 /datum/action/cooldown/spell/goon_vamp_rejuvenate/create_new_handler()
 	var/datum/spell_handler/vampire/H = new

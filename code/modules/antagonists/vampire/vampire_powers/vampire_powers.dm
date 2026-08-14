@@ -69,7 +69,7 @@
 	cooldown_between_charges = 5 SECONDS
 
 /datum/action/cooldown/spell/vamp_rejuvenate/can_cast_spell(feedback)
-	return ..() && owner.stat == CONSCIOUS
+	return ..() && owner.stat != DEAD
 
 /datum/action/cooldown/spell/vamp_rejuvenate/create_new_handler()
 	var/datum/spell_handler/vampire/handler = new
