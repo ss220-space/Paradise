@@ -13,6 +13,7 @@
 	cell_type = /obj/item/stock_parts/cell/high
 	resistance_flags = FIRE_PROOF
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
+	weapon_weight = WEAPON_LIGHT
 	var/cur_ammo_type = /obj/item/ammo_casing/energy/anomaly/stabilizer
 	/// Cores inserted into this anomaly stabilizer.
 	var/list/obj/item/assembly/signaler/core/cores = list()
