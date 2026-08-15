@@ -139,9 +139,9 @@
 		qdel(paper)
 		stored_paper++
 		bin.amount--
-	while(bin.amount != 0 && stored_paper < max_paper)
-		stored_paper++
-		bin.amount--
+	var/transfer_amount = min(bin.amount, max_paper - stored_paper)
+	stored_paper += transfer_amount
+	bin.amount -= transfer_amount
 	bin.update_appearance(UPDATE_ICON)
 	playsound(src, 'sound/machines/computer/paper_insert.ogg', 40, vary = TRUE)
 
