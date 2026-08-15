@@ -116,9 +116,6 @@
 	speed = 2
 	damage = 6 //30 per shot
 
-/obj/projectile/beam/scatter/automatic_shotgun
-	damage = 6 //24 per shot
-
 /obj/projectile/beam/scatter/get_ru_names()
 	return alist(
 		NOMINATIVE = "лазерная гранула",
@@ -197,15 +194,8 @@
 	speed = 2
 	damage = 10 //50 per shot
 
-/obj/projectile/beam/disabler/scatter/automatic_shotgun
-	damage = 6 //24 per shot
-
 /obj/projectile/beam/disabler/heavy
 	damage = 70
-
-/obj/projectile/beam/disabler/automatic
-	damage = 12
-	icon_state = "disabler_weakbeam"
 
 /obj/projectile/beam/specter/laser
 	name = "specter laser beam"
@@ -854,13 +844,6 @@
 
 /obj/projectile/beam/laser/slowed/heavy
 	damage = 50
-
-/obj/projectile/beam/laser/automatic
-	damage = 12
-
-/obj/projectile/beam/laser/automatic/machine_gun
-	icon_state = "laser_weakbeam"
-	damage = 5
 
 /obj/projectile/beam/laser/hitscan
 	hitscan = TRUE

@@ -48,11 +48,6 @@
 	delay = 2 SECONDS
 	select_name = "heavy-disabler"
 
-/obj/item/ammo_casing/energy/disabler/automatic
-	fire_sound = 'sound/weapons/gunshots/1laser.ogg'
-	delay = 0.3 SECONDS
-	projectile_type = /obj/projectile/beam/disabler/automatic
-
 /obj/item/ammo_casing/energy/disabler/scatter
 	projectile_type = /obj/projectile/beam/disabler/scatter
 	pellets = 5
@@ -63,25 +58,6 @@
 	projectile_type = /obj/projectile/beam/disabler/scatter/energy_shotgun
 	e_cost = 120 //10 shots
 	select_name = "scatter-disabler"
-
-/obj/item/ammo_casing/energy/disabler/scatter/automatic_shotgun
-	projectile_type = /obj/projectile/beam/disabler/scatter/automatic_shotgun
-	pellets = 4
-	variance = 15
-	delay = 0.6 SECONDS
-	select_name = "scatter-disabler"
-	e_cost = 100 //15 shots
-
-/obj/item/ammo_casing/energy/disabler/heavy
-	projectile_type = /obj/projectile/beam/disabler/heavy
-	fire_sound = 'sound/weapons/gunshots/laserrifle2.ogg'
-	e_cost = 200 //6 shots
-	delay = 4 SECONDS
-	select_name = "heavy-disabler"
-
-/obj/item/ammo_casing/energy/disabler/weaker
-	delay = 0.7 SECONDS
-	e_cost = 60 //25 shots
 
 /obj/item/ammo_casing/energy/disabler/hos
 	e_cost = 40
