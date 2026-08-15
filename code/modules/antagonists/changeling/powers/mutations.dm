@@ -5,28 +5,31 @@
 	desc = "Напишите баг-репорт, если вы увидели это"
 	helptext = "Это точно был Зюзя!"
 	req_human = TRUE
-	var/silent = FALSE
-	var/weapon_type
+	var/weapon_type = /obj/item
 	var/weapon_check_type
-	var/weapon_name_simple
+	var/weapon_name_simple = ""
 	var/recharge_slowdown = 0
 
-/datum/action/changeling/weapon/try_to_sting(mob/user, mob/target)
+/datum/action/changeling/weapon/try_to_sting(mob/living/carbon/human/user, mob/target)
 	if(istype(user.get_active_hand(), weapon_check_type) || istype(user.get_inactive_hand(), weapon_check_type))
 		retract(user, any_hand = TRUE)
-		return
-	..(user, target)
+		return FALSE
 
-/datum/action/changeling/weapon/sting_action(mob/user)
-	SEND_SIGNAL(user, COMSIG_MOB_WEAPON_APPEARS)
-	if(!user.can_unEquip(user.get_active_hand(), silent = TRUE))
+	if(!user.can_unEquip(user.get_active_hand()))
 		user.balloon_alert(user, "[weapon_name_simple] не трансформировать")
 		return FALSE
 
-	var/obj/item/weapon = new weapon_type(user, silent, src)
+	..(user, target)
+
+/datum/action/changeling/weapon/sting_action(mob/living/carbon/human/user)
+	SEND_SIGNAL(user, COMSIG_MOB_WEAPON_APPEARS)
+
+	var/obj/item/weapon = new weapon_type(user)
 	user.put_in_hands(weapon)
+	ADD_TRAIT(weapon, TRAIT_NODROP, CHANGELING_TRAIT)
 	cling.chem_recharge_slowdown += recharge_slowdown
 
+	playsound(owner.loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
 	user.visible_message(
 		span_warning("[user] с ужасным хрустом превращает руку в [weapon_name_simple]!"),
 		span_notice("Мы трансформируем руку в [weapon_name_simple]."),
@@ -35,9 +38,7 @@
 
 	RegisterSignal(user, COMSIG_MOB_KEY_DROP_ITEM_DOWN, PROC_REF(retract), override = TRUE)
 	RegisterSignal(user, COMSIG_MOB_WEAPON_APPEARS, PROC_REF(retract), override = TRUE)
-	playsound(owner.loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
-
-	return weapon
+	return TRUE
 
 /datum/action/changeling/weapon/proc/retract(mob/user, any_hand = FALSE)
 	SIGNAL_HANDLER
@@ -60,15 +61,18 @@
 	if(done)
 		. = COMPONENT_CANCEL_DROP
 		cling.chem_recharge_slowdown -= recharge_slowdown
-		if(!silent)
-			playsound(owner.loc, 'sound/effects/bone_break_2.ogg', 100, TRUE)
-			user.visible_message(
-				span_warning("[user] с ужасным хрустом превращает [weapon_name_simple] в обычную руку!"),
-				span_notice("Мы трансформируем [weapon_name_simple] в руку."),
-				span_warning("Вы слышите ужасный хруст и хлюпание органики!"),
-			)
+		UnregisterSignal(owner, list(COMSIG_MOB_KEY_DROP_ITEM_DOWN, COMSIG_MOB_WEAPON_APPEARS))
+		playsound(owner.loc, 'sound/effects/bone_break_2.ogg', 100, TRUE)
+		user.visible_message(
+			span_warning("[user] с ужасным хрустом превращает [weapon_name_simple] в обычную руку!"),
+			span_notice("Мы трансформируем [weapon_name_simple] в руку."),
+			span_warning("Вы слышите ужасный хруст и хлюпание органики!"),
+		)
 
+/************************************************************
 //Parent to space suits and armor.
+************************************************************/
+
 /datum/action/changeling/suit
 	name = "Organic Suit"
 	desc = "Напишите баг-репорт, если вы увидели это"
@@ -76,21 +80,20 @@
 	req_human = TRUE
 	var/helmet_type = /obj/item
 	var/suit_type = /obj/item
-	var/suit_name_simple = "    "
-	var/helmet_name_simple = "     "
+	var/suit_name_simple = ""
+	var/helmet_name_simple = ""
 	var/recharge_slowdown = 0
+	var/list/suit_trait
 
-/datum/action/changeling/suit/try_to_sting(mob/living/carbon/human/user, mob/target)
-	if(!istype(user))
-		return FALSE
-
+/datum/action/changeling/suit/sting_action(mob/living/carbon/human/user)
+	playsound(owner.loc, 'sound/effects/bone_break_2.ogg', 100, TRUE)
 	if(istype(user.wear_suit, suit_type) || istype(user.head, helmet_type))
 		user.visible_message(
-			span_warning("[user] трансформирует [suit_name_simple] в кожу!"),
-			span_warning("Мы трансформируем [suit_name_simple]."),
+			span_warning("[user] превращает [suit_name_simple] в кожу!"),
+			span_notice("Мы трансформируем [suit_name_simple] в кожу."),
 			span_warning("Вы слышите ужасный хруст и хлюпание органики!"),
 		)
-		playsound(owner.loc, 'sound/effects/bone_break_2.ogg', 100, TRUE)
+
 		qdel(user.wear_suit)
 		qdel(user.head)
 		user.update_worn_oversuit()
@@ -98,11 +101,17 @@
 		user.update_hair()
 		user.update_fhair()
 
+		if(length(suit_trait))
+			user.remove_traits(suit_trait, CHANGELING_TRAIT)
 		cling.chem_recharge_slowdown -= recharge_slowdown
-		return FALSE
-	..(user, target)
+		return TRUE
 
-/datum/action/changeling/suit/sting_action(mob/living/carbon/human/user)
+	user.visible_message(
+		span_warning("Кожа [user] превращается в [suit_name_simple]!"),
+		span_notice("Мы трансформируем кожу в [suit_name_simple]."),
+		span_warning("Вы слышите ужасный хруст и хлюпание органики!"),
+	)
+
 	if(!user.can_unEquip(user.wear_suit))
 		user.balloon_alert(user, "[suit_name_simple] не трансформировать")
 		return FALSE
@@ -114,8 +123,17 @@
 	user.drop_item_ground(user.head)
 	user.drop_item_ground(user.wear_suit)
 
-	user.equip_to_slot_or_del(new suit_type(user), ITEM_SLOT_CLOTH_OUTER)
-	user.equip_to_slot_or_del(new helmet_type(user), ITEM_SLOT_HEAD)
+	var/obj/item/suit = new suit_type(user)
+	var/obj/item/helmet = new helmet_type(user)
+
+	user.equip_to_slot_or_del(suit, ITEM_SLOT_CLOTH_OUTER)
+	user.equip_to_slot_or_del(helmet, ITEM_SLOT_HEAD)
+
+	ADD_TRAIT(suit, TRAIT_NODROP, CHANGELING_TRAIT)
+	ADD_TRAIT(helmet, TRAIT_NODROP, CHANGELING_TRAIT)
+
+	if(length(suit_trait))
+		user.add_traits(suit_trait, CHANGELING_TRAIT)
 
 	cling.chem_recharge_slowdown += recharge_slowdown
 	return TRUE
@@ -151,7 +169,6 @@
 	throw_range = 0
 	throw_speed = 0
 	gender = FEMALE
-	var/datum/action/changeling/weapon/parent_action
 
 /obj/item/melee/changeling/arm_blade/get_ru_names()
 	return alist(
@@ -166,10 +183,6 @@
 /obj/item/melee/changeling/arm_blade/add_parry_component()
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.25, _parryable_attack_types = NON_PROJECTILE_ATTACKS, _parry_cooldown = (1 / 3) SECONDS)
 
-/obj/item/melee/changeling/arm_blade/Initialize(mapload, silent, new_parent_action)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
-	parent_action = new_parent_action
 
 /obj/item/melee/changeling/arm_blade/ComponentInitialize()
 	. = ..()
@@ -178,21 +191,8 @@
 		swing_sound = SFX_BLADE_SWING_LIGHT \
 	)
 
-/obj/item/melee/changeling/arm_blade/Destroy()
-	. = ..()
-
-	if(!parent_action)
-		return
-
-	parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_KEY_DROP_ITEM_DOWN)
-	parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WEAPON_APPEARS)
-	parent_action = null
-
 /obj/item/melee/changeling/arm_blade/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
-
-	if(!proximity_flag)
-		return
 
 	if(is_airlock(target))
 		var/obj/machinery/door/airlock/airlock = target
@@ -210,7 +210,7 @@
 			if(!do_after(user, 3 SECONDS, airlock))
 				return
 
-		airlock.open(2)
+		airlock.open(TRUE)
 
 	if(ishuman(target))
 		var/mob/living/carbon/human/human = target
@@ -247,7 +247,6 @@
 	throw_range = 0
 	throw_speed = 0
 	gender = MALE
-	var/datum/action/changeling/weapon/parent_action
 
 /obj/item/melee/changeling/fleshy_maul/get_ru_names()
 	return alist(
@@ -259,11 +258,6 @@
 		PREPOSITIONAL = "молоте из плоти",
 	)
 
-/obj/item/melee/changeling/fleshy_maul/Initialize(mapload, silent, new_parent_action)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
-	parent_action = new_parent_action
-
 /obj/item/melee/changeling/fleshy_maul/ComponentInitialize()
 	. = ..()
 	AddComponent( \
@@ -274,16 +268,6 @@
 		no_multi_hit = TRUE, \
 		swing_sound = SFX_BLUNT_SWING_HEAVY, \
 	)
-
-/obj/item/melee/changeling/fleshy_maul/Destroy()
-	. = ..()
-
-	if(!parent_action)
-		return
-
-	parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_KEY_DROP_ITEM_DOWN)
-	parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WEAPON_APPEARS)
-	parent_action = null
 
 /obj/item/melee/changeling/fleshy_maul/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
@@ -310,7 +294,6 @@
 		if(isliving(target))
 			human.Knockdown(4 SECONDS)
 
-
 /***************************************\
 |***********COMBAT TENTACLES*************|
 \***************************************/
@@ -326,7 +309,6 @@
 	weapon_type = /obj/item/gun/magic/tentacle
 	weapon_check_type = /obj/item/gun/magic/tentacle
 	weapon_name_simple = "мясное щупальце"
-	silent = TRUE
 
 /obj/item/gun/magic/tentacle
 	name = "tentacle"
@@ -342,33 +324,10 @@
 	fire_sound = 'sound/effects/splat.ogg'
 	force = 0
 	max_charges = 1
+	recharge_rate = 1
 	throwforce = 0
 	throw_range = 0
 	throw_speed = 0
-	var/datum/action/changeling/weapon/parent_action
-
-/obj/item/gun/magic/tentacle/Initialize(mapload, silent, new_parent_action)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
-	parent_action = new_parent_action
-	if(ismob(loc))
-		if(!silent)
-			loc.visible_message(
-				span_warning("[loc.name] с ужасным хрустом превращает руку в мясное щупальце!"),
-				span_notice("Мы трансформируем руку в мясное щупальце."),
-				span_warning("Вы слышите ужасный хруст и хлюпание органики!"),
-			)
-			playsound(loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
-		else
-			to_chat(loc, span_notice("Мы готовы вытянуть щупальце."))
-
-/obj/item/gun/magic/tentacle/Destroy()
-	if(parent_action)
-		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_KEY_DROP_ITEM_DOWN)
-		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WEAPON_APPEARS)
-		parent_action = null
-		playsound(loc, 'sound/effects/bone_break_2.ogg', 100, TRUE)
-	return ..()
 
 /obj/item/gun/magic/tentacle/shoot_with_empty_chamber(mob/living/user as mob|obj)
 	balloon_alert(user, "щупальце не готово")
@@ -389,26 +348,19 @@
 	power_type = CHANGELING_PURCHASABLE_POWER
 	dna_cost = 1
 	recharge_slowdown = 0.25
-	weapon_type = /obj/item/shield/changeling
-	weapon_check_type = /obj/item/shield/changeling
+	weapon_type = /obj/item/shield/riot/changeling
+	weapon_check_type = /obj/item/shield/riot/changeling
 	weapon_name_simple = "костяной щит"
 
-/obj/item/shield/changeling
+/obj/item/shield/riot/changeling
 	name = "shield-like mass"
 	desc = "Щит из плотной костяной ткани. На нём можно разглядеть скрюченные в безумном узоре пальцы."
-	item_flags = DROPDEL
+	w_class = WEIGHT_CLASS_HUGE
+	item_flags = ABSTRACT|DROPDEL
 	icon_state = "ling_shield"
-
-/obj/item/shield/changeling/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
-	if(ismob(loc))
-		loc.visible_message(
-			span_warning("[loc.name] с ужасным хрустом превращает руку в костянной щит!"),
-			span_notice("Мы трансформируем руку в костянной щит."),
-			span_warning("Вы слышите ужасный хруст и хлюпание органики!"),
-		)
-		playsound(loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
+	materials = null
+	throw_range = 0
+	throw_speed = 0
 
 /***************************************\
 |*********SPACE SUIT + HELMET***********|
@@ -422,6 +374,7 @@
 	power_type = CHANGELING_PURCHASABLE_POWER
 	dna_cost = 1
 	recharge_slowdown = 0.25
+	suit_trait = list(TRAIT_NO_BREATH)
 	suit_type = /obj/item/clothing/suit/space/changeling
 	helmet_type = /obj/item/clothing/head/helmet/space/changeling
 	suit_name_simple = "органический скафандр"
@@ -445,22 +398,6 @@
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
 	)
 
-/obj/item/clothing/suit/space/changeling/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
-	if(ismob(loc))
-		loc.visible_message(
-			span_warning("Плоть [loc.name] быстро раздувается и образует органический скафандр!"),
-			span_notice("Мы раздуваем плоть, чтобы создать органический скафандр."),
-			span_warning("Вы слышите ужасный хруст и хлюпание органики!"),
-		)
-	START_PROCESSING(SSobj, src)
-
-/obj/item/clothing/suit/space/changeling/process()
-	if(ishuman(loc))
-		var/mob/living/carbon/human/user = loc
-		user.reagents.add_reagent("perfluorodecalin", REAGENTS_METABOLISM)
-
 /obj/item/clothing/head/helmet/space/changeling
 	name = "flesh mass"
 	desc = "Масса плоти, предоставляющая сносную защиту от давления и температуры, с стекловидным хитиновым покрытием спереди."
@@ -478,10 +415,6 @@
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi',
 	)
 
-/obj/item/clothing/head/helmet/space/changeling/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
-
 /***************************************\
 |*****************ARMOR*****************|
 \***************************************/
@@ -496,7 +429,7 @@
 	power_type = CHANGELING_PURCHASABLE_POWER
 	suit_type = /obj/item/clothing/suit/armor/changeling
 	helmet_type = /obj/item/clothing/head/helmet/changeling
-	suit_name_simple = "хитиновоя броня"
+	suit_name_simple = "хитиновую броня"
 	helmet_name_simple = "хитиновый шлем"
 
 /obj/item/clothing/suit/armor/changeling
@@ -520,17 +453,6 @@
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
 	)
 
-/obj/item/clothing/suit/armor/changeling/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
-	if(ismob(loc))
-		loc.visible_message(
-			span_warning("Плоть [loc.name] быстро темнеет и образует хитиновое покрытие!"),
-			span_notice("Мы трансформируем плоть, чтобы создать хитиновую броню."),
-			span_warning("Вы слышите ужасный хруст и хлюпание органики!"),
-		)
-		playsound(loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
-
 /obj/item/clothing/head/helmet/changeling
 	name = "chitinous mass"
 	desc = "Твёрдое  покрытие из чёрного хитина с прозрачной оболочкой спереди."
@@ -541,8 +463,4 @@
 	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 20, BOMB = 10, BIO = 4, FIRE = 90, ACID = 90)
 	species_restricted = null
 	faction_restricted = null
-
-/obj/item/clothing/head/helmet/changeling/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
 

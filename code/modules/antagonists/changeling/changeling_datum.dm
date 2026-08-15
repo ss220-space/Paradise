@@ -306,7 +306,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
  */
 /datum/antagonist/changeling/proc/remove_changeling_powers(keep_innate_powers = FALSE)
 	for(var/datum/action/changeling/power in acquired_powers)
-		if(keep_innate_powers && (power.power_type == CHANGELING_INNATE_POWER))
+		if(keep_innate_powers && (power.power_type == CHANGELING_INNATE_POWER || power.power_type == CHANGELING_UNOBTAINABLE_POWER))
 			continue
 		acquired_powers -= power
 		qdel(power)

@@ -29,6 +29,7 @@
 		/datum/skill/combat/accuracy = SKILL_LEVEL_PROFESSIONAL,
 		/datum/skill/combat/guns = SKILL_LEVEL_PROFESSIONAL,
 		/datum/skill/combat/melee = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/combat/bows = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/fists = SKILL_LEVEL_ADVANCED,
 		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
 	)
@@ -103,6 +104,7 @@
 		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/accuracy = SKILL_LEVEL_ADVANCED,
 		/datum/skill/combat/guns = SKILL_LEVEL_ADVANCED,
+		/datum/skill/combat/bows = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/melee = SKILL_LEVEL_ADVANCED,
 		/datum/skill/combat/fists = SKILL_LEVEL_ADVANCED,
 		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
@@ -225,6 +227,7 @@
 		/datum/skill/combat/accuracy = SKILL_LEVEL_BASIC,
 		/datum/skill/combat/guns = SKILL_LEVEL_BASIC,
 		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
+		/datum/skill/combat/bows = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/fists = SKILL_LEVEL_BASIC,
 		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
 	)

@@ -229,6 +229,8 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define iscoret3(O) (istype(O, /obj/item/assembly/signaler/core) && O.tier == 3)
 #define iscell(O) (istype(O, /obj/item/stock_parts/cell)) // Not assembly, but neaely.
 
+#define iscyborgmobilitymodule(O) (istype(O, /obj/item/borg/destroyer/mobility))
+
 //Turfs
 #define issimulatedturf(A) (istype(A, /turf/simulated))
 
@@ -372,6 +374,7 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 // Locations
 #define is_ventcrawling(A) (istype(A.loc, /obj/machinery/atmospherics))
+#define is_mecha_occupant(A) (istype(A.loc, /obj/mecha))
 
 //Human sub-species
 #define isshadowling(A) (is_species(A, /datum/species/shadow/ling))

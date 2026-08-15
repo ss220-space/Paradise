@@ -26,12 +26,13 @@
 	activate(user, TRUE)
 
 /obj/item/wormhole_jaunter/proc/turf_check()
+
 	var/turf/device_turf = get_turf(src)
 
 	if(!device_turf || !is_teleport_allowed(device_turf.z))
 		return "Ошибка! Телепортация невозможна."
 
-	if(!is_mining_level(device_turf.z) || istype(get_area(device_turf), /area/ruin/space/bubblegum_arena))
+	if(istype(get_area(device_turf), /area/ruin/space/bubblegum_arena) || !is_mining_level(device_turf.z) && !(emagged && is_station_level(device_turf.z)))
 		return "Ошибка! Требуется натуральная гравитация для размещения якоря."
 
 	return TRUE
@@ -60,7 +61,8 @@
 
 	var/chosen_beacon = pick(destinations)
 
-	var/obj/effect/portal/jaunt_tunnel/tunnel = new(get_turf(src), get_turf(chosen_beacon), src, 100, user)
+	var/tunnel_lifespan = emagged ? 5 SECONDS : 10 SECONDS
+	var/obj/effect/portal/jaunt_tunnel/tunnel = new(get_turf(src), get_turf(chosen_beacon), src, tunnel_lifespan, user)
 	tunnel.emagged = emagged
 	if(teleport)
 		tunnel.teleport(user)
@@ -123,7 +125,7 @@
 		return
 
 	var/mob/living/carbon/living_target = movable
-	if(ishuman(living_target)) //we need to check this first, because after weaken all held items will be dropped
+	if(emagged && ishuman(living_target)) //we need to check this first, because after weaken all held items will be dropped
 		handle_clothing_destruction(living_target)
 	living_target.Weaken(12 SECONDS)
 
@@ -144,9 +146,6 @@
 	var/obj/item/backpack = our_human.back
 	if(backpack && !(backpack.item_flags & ABSTRACT))
 		possible_clothings += backpack
-	var/obj/item/under = our_human.w_uniform
-	if(under && !(under.item_flags & ABSTRACT))
-		possible_clothings += under
 
 	// The "we really need held_items() proc" code block
 	var/obj/item/hand_item = our_human.l_hand

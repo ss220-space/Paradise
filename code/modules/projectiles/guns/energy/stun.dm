@@ -8,6 +8,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode)
 	ammo_x_offset = 3
 	accuracy = GUN_ACCURACY_SNIPER
+	weapon_weight = WEAPON_LIGHT
 
 /obj/item/gun/energy/gun/advtaser
 	name = "hybrid taser"
@@ -17,6 +18,7 @@
 	origin_tech = "combat=4"
 	ammo_x_offset = 2
 	accuracy = GUN_ACCURACY_RIFLE_LASER
+	weapon_weight = WEAPON_LIGHT
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_UNDER | GUN_MODULE_CLASS_ENERGY_WEAPON
 	attachable_offset = list(
 		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 7, ATTACHMENT_OFFSET_Y = -6),
@@ -53,6 +55,7 @@
 	icon_state = "disabler"
 	item_state = null
 	origin_tech = "combat=3"
+	weapon_weight = WEAPON_LIGHT
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler)
 	ammo_x_offset = 3
 	accuracy = GUN_ACCURACY_PISTOL
@@ -104,12 +107,15 @@
 	cell_type = /obj/item/stock_parts/cell/laser/tesla_cannon
 	can_add_sibyl_system = FALSE
 	attachable_allowed = GUN_MODULE_CLASS_NONE
-	fire_delay = 100 MILLISECONDS
 	gun_firemode = GUN_FIREMODE_AUTOMATIC
 	gun_firemode_list = list(GUN_FIREMODE_AUTOMATIC)
 	sound_loop = /datum/looping_sound/tesla_cannon
 	materials = list(MAT_METAL = SHEET_MATERIAL_AMOUNT * 5, MAT_GLASS = SHEET_MATERIAL_AMOUNT * 5, MAT_SILVER = SHEET_MATERIAL_AMOUNT * 5)
 	var/ready_to_fire = FALSE
+
+/obj/item/gun/energy/tesla_cannon/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NOT_TURRET_GUN, NO_HITSCAN_TURRET_TRAIT)
 
 /obj/item/gun/energy/tesla_cannon/can_trigger_gun(mob/living/user, akimbo_usage)
 	if(ready_to_fire)

@@ -152,6 +152,7 @@
 		/datum/skill/service/drink_mixing,
 		/datum/skill/service/botany,
 		/datum/skill/service/cleaning,
+		/datum/skill/service/mining,
 	)
 
 /obj/item/neurotrainer/service/drink_mixing
@@ -166,6 +167,10 @@
 	manual_title = "Клининг"
 	skill_types = /datum/skill/service/cleaning
 
+/obj/item/neurotrainer/service/mining
+	manual_title = "Горное дело"
+	skill_types = /datum/skill/service/mining
+
 // MARK: Combat
 /obj/item/neurotrainer/combat
 	manual_title = "Боевые"
@@ -174,6 +179,7 @@
 		/datum/skill/combat/guns,
 		/datum/skill/combat/melee,
 		/datum/skill/combat/fists,
+		/datum/skill/combat/bows,
 	)
 
 /obj/item/neurotrainer/combat/accuracy
@@ -191,6 +197,10 @@
 /obj/item/neurotrainer/combat/fists
 	manual_title = "Рукопашный бой"
 	skill_types = /datum/skill/combat/fists
+
+/obj/item/neurotrainer/combat/bows
+	manual_title = "Стрельба из лука"
+	skill_types = /datum/skill/combat/bows
 
 // MARK: Engineering
 /obj/item/neurotrainer/engineering
