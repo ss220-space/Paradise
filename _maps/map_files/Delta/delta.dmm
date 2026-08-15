@@ -110895,9 +110895,7 @@
 	},
 /area/station/ai/satellite/chamber)
 "uJY" = (
-/obj/item/flashlight/lantern{
-	on = 1
-	},
+/obj/item/flashlight/lantern/on,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint4)
 "uKc" = (
@@ -128193,7 +128191,7 @@
 	name = "Restoraunt"
 	},
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/station/service/bar/atrium)
 "xUp" = (
 /obj/effect/turf_decal/stripes/white/line{

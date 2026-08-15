@@ -273,6 +273,8 @@
 		to_chat(user, span_warning("You need a tank in your suit storage!"))
 		return FALSE
 	tank = user.s_store
+	RegisterSignal(tank, COMSIG_MOVABLE_MOVED, PROC_REF(jetpack_check_distance))
+	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(jetpack_check_distance))
 	air_contents = tank.air_contents
 	START_PROCESSING(SSobj, src)
 	return ..()
@@ -282,6 +284,14 @@
 	air_contents = temp_air_contents
 	STOP_PROCESSING(SSobj, src)
 	return ..()
+
+/obj/item/tank/jetpack/suit/proc/jetpack_check_distance(atom/source, old_loc, movement_dir, forced, old_locs, momentum_change)
+	SIGNAL_HANDLER
+	var/mob/living/carbon/human/human_user = get_owner()
+	var/turf/user_turf = get_turf(human_user)
+	var/turf/tank_turf = get_turf(tank)
+	if(user_turf && tank_turf && user_turf != tank_turf)
+		turn_off(human_user)
 
 /obj/item/tank/jetpack/suit/ninja
 	name = "ninja jetpack upgrade"
