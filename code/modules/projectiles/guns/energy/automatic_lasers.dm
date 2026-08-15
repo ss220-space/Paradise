@@ -94,14 +94,14 @@
 // MARK: automatic laser pistol
 /obj/item/gun/energy/laser/automatic/pistol
 	name = "automatic laser pistol"
-	desc = "Полностью автоматический лазерный пистолет нового поколения. Малый заряд внутренней батареи с лихвой компенсируется небольшими размерами оружия."
+	desc = "Полностью автоматический лазерный пистолет нового поколения. Малый заряд внутренней батареи и медленная скорострельность с лихвой компенсируется системой \"умных пуль\", помогающих при стрельбе."
 	icon_state = "automatic_laser_pistol"
 	w_class = WEIGHT_CLASS_NORMAL
 	weapon_weight = WEAPON_LIGHT
 	accuracy = GUN_ACCURACY_RIFLE_LASER
 	ammo_type = list(
-		/obj/item/ammo_casing/energy/disabler/automatic,
-		/obj/item/ammo_casing/energy/laser/automatic,
+		/obj/item/ammo_casing/energy/disabler/weaker_automatic,
+		/obj/item/ammo_casing/energy/laser/weaker_automatic,
 	)
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 6),

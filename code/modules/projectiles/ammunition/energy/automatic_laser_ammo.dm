@@ -1,10 +1,13 @@
 // MARK: automatic laser pistol
-/obj/item/ammo_casing/energy/disabler/automatic
-	delay = 0.7 SECONDS
-	e_cost = 60 //25 shots
+/obj/item/ammo_casing/energy/disabler/weaker_automatic
+	delay = 1.2 SECONDS
+	e_cost = 60 //20 shots
+	smart_bullet = TRUE
 
-/obj/item/ammo_casing/energy/laser/automatic
-	delay = 0.7 SECONDS
+/obj/item/ammo_casing/energy/laser/weaker_automatic
+	delay = 1.2 SECONDS
+	e_cost = 120 //10 shots
+	smart_bullet = TRUE
 
 // MARK: automatic laser rifle
 /obj/item/ammo_casing/energy/disabler/automatic

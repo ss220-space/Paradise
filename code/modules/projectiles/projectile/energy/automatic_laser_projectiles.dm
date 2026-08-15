@@ -1,10 +1,10 @@
 
 /obj/projectile/beam/disabler/automatic
-	damage = 12
+	damage = 15
 	icon_state = "disabler_weakbeam"
 
 /obj/projectile/beam/laser/automatic
-	damage = 12
+	damage = 15
 
 //automatic laser mg
 /obj/projectile/beam/laser/automatic/machine_gun
