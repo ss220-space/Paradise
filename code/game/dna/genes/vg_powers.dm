@@ -210,11 +210,11 @@
 	var/list/valid_targets = list()
 	var/list/mobs_in_view = owner.get_visible_mobs()
 
-	for(var/mob/living/M in mobs_in_view)
-		if(M?.mind)
-			if(M == owner)
+	for(var/mob/living/mob in mobs_in_view)
+		if(mob?.mind)
+			if(mob == owner)
 				continue
-			valid_targets += M
+			valid_targets += mob
 	return valid_targets
 
 /datum/action/cooldown/spell/list_target/remotetalk/cast(atom/cast_on)

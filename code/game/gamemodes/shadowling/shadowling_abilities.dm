@@ -224,10 +224,12 @@
 	to_chat(target, span_userdanger("Вас накрывает волна невероятно холодного воздуха!"))
 	target.Stun(2 SECONDS)
 	target.apply_damage(10, BURN)
-	if(iscarbon(target))
-		target.adjust_bodytemperature(-200) //Extreme amount of initial cold
-		if(target.reagents)
-			target.reagents.add_reagent("frostoil", 15) //Half of a cryosting
+	if(!iscarbon(target))
+		return
+	target.adjust_bodytemperature(-200) //Extreme amount of initial cold
+	if(!target.reagents)
+		return
+	target.reagents.add_reagent("frostoil", 15) //Half of a cryosting
 
 /datum/action/cooldown/spell/pointed/shadowling_enthrall //Turns a target into the shadowling's slave. This overrides all previous loyalties
 	name = "Enthrall"

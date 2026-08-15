@@ -86,19 +86,20 @@
 		return
 
 	if(locked)
-		if(user.charge >= unlock_cost)
-			user.adjust_charge(-unlock_cost)
-			locked = FALSE
-			to_chat(user, span_notice("You have unlocked [initial(name)]!"))
-
-			if(cast_cost > 0)
-				to_chat(user, span_notice("It costs [format_si_suffix(cast_cost)]W to use once."))
-			if(spell_max_level > 0 && spell_level < spell_max_level)
-				to_chat(user, span_notice("It will cost [format_si_suffix(upgrade_cost)]W to upgrade."))
-
-			update_info()
-		else
+		if(user.charge < unlock_cost)
 			to_chat(user, span_warning("You cannot afford this ability! It costs [format_si_suffix(unlock_cost)]W to unlock."))
+			return
+		user.adjust_charge(-unlock_cost)
+		locked = FALSE
+		to_chat(user, span_notice("You have unlocked [initial(name)]!"))
+
+		if(cast_cost > 0)
+			to_chat(user, span_notice("It costs [format_si_suffix(cast_cost)]W to use once."))
+		if(spell_max_level > 0 && spell_level < spell_max_level)
+			to_chat(user, span_notice("It will cost [format_si_suffix(upgrade_cost)]W to upgrade."))
+
+		update_info()
+
 	else
 		if(spell_level >= spell_max_level)
 			to_chat(user, span_warning("You have already fully upgraded this ability!"))
@@ -328,19 +329,20 @@
 		return
 
 	if(locked)
-		if(user.charge >= unlock_cost)
-			user.adjust_charge(-unlock_cost)
-			locked = FALSE
-			to_chat(user, span_notice("You have unlocked [initial(name)]!"))
-
-			if(cast_cost > 0)
-				to_chat(user, span_notice("It costs [format_si_suffix(cast_cost)]W to use once."))
-			if(spell_max_level > 0 && spell_level < spell_max_level)
-				to_chat(user, span_notice("It will cost [format_si_suffix(upgrade_cost)]W to upgrade."))
-
-			update_info()
-		else
+		if(user.charge < unlock_cost)
 			to_chat(user, span_warning("You cannot afford this ability! It costs [format_si_suffix(unlock_cost)]W to unlock."))
+			return
+		user.adjust_charge(-unlock_cost)
+		locked = FALSE
+		to_chat(user, span_notice("You have unlocked [initial(name)]!"))
+
+		if(cast_cost > 0)
+			to_chat(user, span_notice("It costs [format_si_suffix(cast_cost)]W to use once."))
+		if(spell_max_level > 0 && spell_level < spell_max_level)
+			to_chat(user, span_notice("It will cost [format_si_suffix(upgrade_cost)]W to upgrade."))
+
+		update_info()
+
 	else
 		if(spell_level >= spell_max_level)
 			to_chat(user, span_warning("You have already fully upgraded this ability!"))
@@ -381,7 +383,7 @@
 		if(!istype(user))
 			return NONE
 
-		var/amount = text2num(input(user, "Input a value between 1 and [user.max_drain_rate]. 0 will reset it to the maximum.", "Drain Speed Setting"))
+		var/amount = tgui_input_number(user, "Input a value between 1 and [user.max_drain_rate]. 0 will reset it to the maximum.", "Drain Speed Setting")
 		if(amount == null || amount < 0)
 			to_chat(user, span_warning("Invalid input. Drain speed has not been modified."))
 			return CLICK_ACTION_BLOCKING

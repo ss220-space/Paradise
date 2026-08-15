@@ -82,7 +82,8 @@
 		var/random_hallucination = pick(stunning_hallucinations)
 		M.AdjustHallucinate(50 SECONDS)
 		M.hallucinate_living(random_hallucination)
-	else if(issilicon(victim))
+		return
+	if(issilicon(victim))
 		var/mob/living/silicon/silicon = victim
 		to_chat(silicon, span_warning("<b>ОШИБКА #!^: ПЕРЕГРУЗКА СЕНСОРОВ\[$(!@#</b>"))
 		SEND_SOUND(silicon, sound('sound/misc/interference.ogg'))

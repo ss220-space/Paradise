@@ -203,19 +203,19 @@
 /datum/action/cooldown/spell/list_target/eat/get_list_targets(atom/center, target_radius)
 	var/list/possible_targets = list()
 
-	for(var/atom/movable/O in range(target_radius, center))
-		if((O in owner) && is_type_in_list(O, own_blacklist))
+	for(var/atom/movable/atom in range(target_radius, center))
+		if((atom in owner) && is_type_in_list(atom, own_blacklist))
 			continue
-		if(is_type_in_list(O, types_allowed))
-			if(isitem(O))
-				var/obj/item/I = O
-				if(I.item_flags & ABSTRACT)
+		if(is_type_in_list(atom, types_allowed))
+			if(isitem(atom))
+				var/obj/item/item = atom
+				if(item.item_flags & ABSTRACT)
 					continue
-			if(isanimal(O))
-				var/mob/living/simple_animal/SA = O
-				if(!SA.gold_core_spawnable)
+			if(isanimal(atom))
+				var/mob/living/simple_animal/animal = atom
+				if(!animal.gold_core_spawnable)
 					continue
-			possible_targets += O
+			possible_targets += atom
 
 	return possible_targets
 
