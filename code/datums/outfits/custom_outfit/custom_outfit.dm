@@ -361,8 +361,7 @@
 	slot_option_cache[base_type] = .
 
 /datum/custom_outfit/proc/capture_current_outfit(mob/living/carbon/human/human_target)
-	for(var/outfit_slot in slot_to_human_var)
-		var/human_slot = slot_to_human_var[outfit_slot]
+	for(var/outfit_slot, human_slot in slot_to_human_var)
 		var/obj/item/equipped_item = human_target.vars[human_slot]
 		if(!equipped_item)
 			continue
@@ -408,13 +407,12 @@
 /datum/custom_outfit/proc/serialize_outfit()
 	var/list/outfit_data = edited_outfit.get_json_data()
 	. = list()
-	for(var/slot in outfit_data)
-		.[slot] = entry(outfit_data[slot])
+	for(var/slot, slot_path in outfit_data)
+		.[slot] = entry(slot_path)
 
 /datum/custom_outfit/proc/serialize_backpack()
 	. = list()
-	for(var/item_path in edited_outfit.backpack_contents)
-		var/count = edited_outfit.backpack_contents[item_path]
+	for(var/item_path, count in edited_outfit.backpack_contents)
 		if(!ispath(item_path, /obj/item) || !isnum(count) || count <= 0)
 			continue
 		var/list/item_data = entry(item_path)
@@ -432,8 +430,7 @@
 
 /datum/custom_outfit/proc/serialize_augmentations()
 	. = list()
-	for(var/body_zone in external_augmentations)
-		var/list/limb_data = external_augmentations[body_zone]
+	for(var/body_zone, limb_data in external_augmentations)
 		var/status = limb_data["status"]
 		var/company = limb_data["company"]
 		var/status_name
@@ -466,8 +463,7 @@
 
 /datum/custom_outfit/proc/serialize_reagents()
 	. = list()
-	for(var/reagent_path in reagent_volumes)
-		var/amount = reagent_volumes[reagent_path]
+	for(var/reagent_path, amount in reagent_volumes)
 		if(!ispath(reagent_path, /datum/reagent) || !isnum(amount) || amount <= 0)
 			continue
 		var/datum/reagent/reagent_ref = reagent_path
@@ -540,8 +536,7 @@
 	var/kept_existing_back = FALSE
 	var/list/replaced_holders = list()
 
-	for(var/outfit_slot in slot_to_human_var)
-		var/human_slot = slot_to_human_var[outfit_slot]
+	for(var/outfit_slot, human_slot in slot_to_human_var)
 		var/obj/item/current_item = human_target.vars[human_slot]
 		if(!current_item)
 			continue
@@ -602,11 +597,10 @@
 	qdel(current_item)
 
 /datum/custom_outfit/proc/restore_stashed_items(mob/living/carbon/human/human_target, list/stashed_items)
-	for(var/outfit_slot in slot_to_human_var)
+	for(var/outfit_slot, human_slot in slot_to_human_var)
 		var/obj/item/stashed_item = stashed_items[outfit_slot]
 		if(QDELETED(stashed_item))
 			continue
-		var/human_slot = slot_to_human_var[outfit_slot]
 		if(human_target.vars[human_slot])
 			continue
 		human_target.equip_to_slot(stashed_item, slot_to_item_flag[outfit_slot], TRUE)
@@ -617,8 +611,7 @@
 	if(!isstorage(human_target.back))
 		return
 	QDEL_LIST(human_target.back.contents)
-	for(var/item_path in new_backpack_contents)
-		var/count = new_backpack_contents[item_path]
+	for(var/item_path, count in new_backpack_contents)
 		if(!ispath(item_path, /obj/item) || !isnum(count) || count <= 0)
 			continue
 		for(var/iteration in 1 to count)
@@ -635,8 +628,7 @@
 		qdel(cyberimp_organ)
 
 /datum/custom_outfit/proc/apply_external_augmentations(mob/living/carbon/human/human_target)
-	for(var/body_zone in external_augmentations)
-		var/list/limb_data = external_augmentations[body_zone]
+	for(var/body_zone, limb_data in external_augmentations)
 		var/status = limb_data["status"]
 		var/company = limb_data["company"]
 		var/obj/item/organ/external/limb = human_target.get_organ(body_zone)
@@ -667,8 +659,7 @@
 		return
 	var/list/validated_reagents = list()
 	var/total_volume = 0
-	for(var/reagent_path in reagent_volumes)
-		var/amount = reagent_volumes[reagent_path]
+	for(var/reagent_path, amount in reagent_volumes)
 		if(!ispath(reagent_path, /datum/reagent) || !isnum(amount) || amount <= 0)
 			continue
 		validated_reagents[reagent_path] = amount
@@ -678,8 +669,8 @@
 	var/obj/item/reagent_containers/food/pill/pill = new /obj/item/reagent_containers/food/pill(human_target)
 	if(total_volume > pill.reagents.maximum_volume)
 		pill.reagents.maximum_volume = total_volume
-	for(var/reagent_path in validated_reagents)
-		pill.reagents.add_reagent(reagent_path, validated_reagents[reagent_path])
+	for(var/reagent_path, amount in validated_reagents)
+		pill.reagents.add_reagent(reagent_path, amount)
 	var/datum/action/item_action/hands_free/activate_pill/pill_action = new(pill, pill.icon, pill.icon_state)
 	pill_action.name = "Раскусить [pill.declent_ru(ACCUSATIVE)]"
 	pill_action.Grant(human_target)
@@ -1040,8 +1031,8 @@
 		dental_holder = new /obj/item/reagent_containers/food/pill()
 		dental_holder.name = "зубной имплант"
 		dental_holder.create_reagents(CUSTOM_OUTFIT_MAX_REAGENT_AMOUNT)
-		for(var/reagent_path in reagent_volumes)
-			dental_holder.reagents.add_reagent(reagent_path, reagent_volumes[reagent_path])
+		for(var/reagent_path, volume in reagent_volumes)
+			dental_holder.reagents.add_reagent(reagent_path, volume)
 	if(QDELETED(dental_editor))
 		dental_editor = new /datum/reagents_editor/custom_outfit_dental(dental_holder, src)
 	dental_editor.ui_interact(user)
@@ -1124,8 +1115,7 @@
 /datum/custom_outfit_item_picker/ui_static_data(mob/user, datum/tgui/ui = null)
 	var/list/data = list()
 	var/list/chameleon_skins = list()
-	for(var/skin_key in skin_to_path)
-		var/item_path = skin_to_path[skin_key]
+	for(var/skin_key, item_path in skin_to_path)
 		var/obj/item/item_ref = item_path
 		chameleon_skins.Add(list(list(
 			"icon" = initial(item_ref.icon),

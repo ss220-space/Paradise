@@ -7,16 +7,16 @@
 	.["version"] = CUSTOM_OUTFIT_SAVE_VERSION
 	.["outfit"] = edited_outfit.get_json_data()
 	var/list/external = list()
-	for(var/zone in external_augmentations)
-		external[zone] = external_augmentations[zone]
+	for(var/zone, zone_data in external_augmentations)
+		external[zone] = zone_data
 	.["external_augmentations"] = external
 	var/list/internal = list()
 	for(var/organ_path in internal_augmentations)
 		internal += "[organ_path]"
 	.["internal_augmentations"] = internal
 	var/list/reagents = list()
-	for(var/reagent_path in reagent_volumes)
-		reagents["[reagent_path]"] = reagent_volumes[reagent_path]
+	for(var/reagent_path, volume in reagent_volumes)
+		reagents["[reagent_path]"] = volume
 	.["reagent_volumes"] = reagents
 
 /datum/custom_outfit/proc/save_to_file(mob/user)
@@ -90,8 +90,7 @@
 
 	var/list/new_external = list()
 	var/list/external = save_data["external_augmentations"]
-	for(var/zone in external)
-		var/list/limb_data = external[zone]
+	for(var/zone, limb_data in external)
 		if(!(zone in external_body_zones) || !islist(limb_data))
 			continue
 		var/status = limb_data["status"]
@@ -114,9 +113,8 @@
 
 	var/list/new_reagents = list()
 	var/list/reagents = save_data["reagent_volumes"]
-	for(var/reagent_text in reagents)
+	for(var/reagent_text, amount in reagents)
 		var/reagent_path = text2path(reagent_text)
-		var/amount = reagents[reagent_text]
 		if(!ispath(reagent_path, /datum/reagent) || !isnum(amount) || amount <= 0)
 			continue
 		new_reagents[reagent_path] = min(amount, CUSTOM_OUTFIT_MAX_REAGENT_AMOUNT)
@@ -144,8 +142,7 @@
 		if(loaded_path && !ispath(loaded_path, /obj/item))
 			loaded_outfit.vars[outfit_slot] = null
 	var/list/sanitized_backpack = list()
-	for(var/item_path in loaded_outfit.backpack_contents)
-		var/count = loaded_outfit.backpack_contents[item_path]
+	for(var/item_path, count in loaded_outfit.backpack_contents)
 		if(!is_valid_item_entry(item_path, count))
 			continue
 		sanitized_backpack[item_path] = count
