@@ -775,11 +775,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 	. = ..()
 	if(enabled)
 		enabled = FALSE
-		user.balloon_alert(user, "включено")
+		user.balloon_alert(user, "выключено")
 		STOP_PROCESSING(SSobj, src)
 	else
 		enabled = TRUE
-		user.balloon_alert(user, "выключено")
+		user.balloon_alert(user, "включено")
 		START_PROCESSING(SSobj, src)
 
 	update_appearance(UPDATE_ICON_STATE)

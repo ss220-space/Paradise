@@ -492,7 +492,6 @@
 	item_state = ""
 	ninja_weapon = TRUE
 	w_class = WEIGHT_CLASS_BULKY
-	weapon_weight = WEAPON_MEDIUM
 	slot_flags = NONE
 	item_flags = DROPDEL|ABSTRACT|NOBLUDGEON
 	ammo_type = list(/obj/item/ammo_casing/energy/shuriken)

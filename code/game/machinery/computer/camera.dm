@@ -359,6 +359,12 @@
 	network = list("Singularity")
 	circuit = /obj/item/circuitboard/camera/telescreen/singularity
 
+/obj/machinery/computer/security/telescreen/nfr
+	name = "NFR Engine Telescreen"
+	desc = "Используется для наблюдения за активной зоной ядерного реактора."
+	network = list("NFR")
+	circuit = /obj/item/circuitboard/camera/telescreen/nfr
+
 /obj/machinery/computer/security/telescreen/toxin_chamber
 	name = "Toxins Telescreen"
 	desc = "Используется для наблюдения за полигоном."
