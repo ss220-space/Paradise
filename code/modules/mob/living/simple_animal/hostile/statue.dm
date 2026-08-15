@@ -169,12 +169,7 @@
 	cooldown_time = 30 SECONDS
 	spell_requirements = NONE
 	aoe_radius = 14
-
-/datum/action/cooldown/spell/aoe/flicker_lights/get_things_to_cast_on(atom/center)
-	var/list/targets = list()
-	for(var/obj/machinery/light/target in range(aoe_radius, center))
-		targets += target
-	return targets
+	targeting_type = /datum/aoe_targeting/light
 
 /datum/action/cooldown/spell/aoe/flicker_lights/cast_on_thing_in_aoe(atom/victim, atom/caster)
 	var/obj/machinery/light/L = victim

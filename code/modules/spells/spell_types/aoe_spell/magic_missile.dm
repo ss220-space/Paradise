@@ -8,18 +8,9 @@
 	cooldown_reduction_per_rank = 3.5 SECONDS
 	invocation = "FORTI GY AMA!"
 	invocation_type = INVOCATION_SHOUT
+	targeting_type = /datum/aoe_targeting/living
 	/// The projectile type fired at all people around us
 	var/obj/projectile/projectile_type = /obj/projectile/magic/aoe/magic_missile
-
-/datum/action/cooldown/spell/aoe/magic_missile/get_things_to_cast_on(atom/center)
-	var/list/things = list()
-	for(var/mob/living/nearby_mob in view(aoe_radius, center))
-		if(nearby_mob == owner || nearby_mob == center)
-			continue
-
-		things += nearby_mob
-
-	return things
 
 /datum/action/cooldown/spell/aoe/magic_missile/cast_on_thing_in_aoe(mob/living/victim, atom/caster)
 	fire_projectile(victim, caster)

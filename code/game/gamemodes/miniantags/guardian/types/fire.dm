@@ -68,20 +68,15 @@
 	var/mob/living/summoner = null
 	var/list/stunning_hallucinations = list("singulo", "koolaid", "fake")
 	aoe_radius = 10
+	targeting_type = /datum/aoe_targeting/living
 
 /datum/action/cooldown/spell/aoe/guardian_hallucination/Remove(mob/living/remove_from)
 	. = ..()
 	summoner = null
 
-/datum/action/cooldown/spell/aoe/guardian_hallucination/get_things_to_cast_on(atom/center)
-	var/list/targets = list()
-	for(var/mob/living/target in range(aoe_radius, center))
-		if(target == owner || target == summoner)
-			continue
-		targets += target
-	return targets
-
 /datum/action/cooldown/spell/aoe/guardian_hallucination/cast_on_thing_in_aoe(atom/victim, atom/caster)
+	if(victim == summoner)
+		return
 	if(iscarbon(victim))
 		var/mob/living/carbon/M = victim
 		var/random_hallucination = pick(stunning_hallucinations)

@@ -7,12 +7,7 @@
 	invocation_type = INVOCATION_SHOUT
 	button_icon_state = "sacredflame"
 	sound = 'sound/magic/fireball.ogg'
-
-/datum/action/cooldown/spell/aoe/sacred_flame/get_things_to_cast_on(atom/center)
-	var/list/mobs = list()
-	for(var/mob/living/target in range(center, aoe_radius))
-		mobs += target
-	return mobs
+	targeting_type = /datum/aoe_targeting/living
 
 /datum/action/cooldown/spell/aoe/sacred_flame/cast_on_thing_in_aoe(mob/living/victim, atom/caster)
 	victim.adjust_fire_stacks(20)

@@ -435,6 +435,7 @@
 	button_icon_state = "blood_spikes"
 	background_icon_state = "bg_vampire"
 	aoe_radius = 4
+	targeting_type = /datum/aoe_targeting/blood_eruption
 	var/required_blood = 25
 
 /datum/action/cooldown/spell/aoe/blood_eruption/create_new_handler()
@@ -443,14 +444,6 @@
 	name = "[initial(name)] ([required_blood])"
 	build_all_button_icons()
 	return H
-
-/datum/action/cooldown/spell/aoe/blood_eruption/get_things_to_cast_on(atom/center)
-	var/list/targets = list()
-	for(var/mob/living/target in range(aoe_radius, center))
-		if(!locate(/obj/effect/decal/cleanable/blood) in get_turf(target) || target == owner)
-			continue
-		targets += target
-	return targets
 
 /datum/action/cooldown/spell/aoe/blood_eruption/cast_on_thing_in_aoe(atom/victim, atom/caster)
 	var/mob/living/victim_mob = victim

@@ -305,16 +305,11 @@
 	background_icon_state = "bg_vampire"
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	school = SCHOOL_SANGUINE
+	targeting_type = /datum/aoe_targeting/turfs
 
 /datum/action/cooldown/spell/aoe/vamp_extinguish/create_new_handler()
 	var/datum/spell_handler/vampire/handler = new
 	return handler
-
-/datum/action/cooldown/spell/aoe/vamp_extinguish/get_things_to_cast_on(atom/center)
-	var/turfs = list()
-	for(var/turf/turf in range(aoe_radius))
-		turfs += turf
-	return turfs
 
 /datum/action/cooldown/spell/aoe/vamp_extinguish/cast_on_thing_in_aoe(atom/victim, atom/caster)
 	var/turf/victim_turf = victim

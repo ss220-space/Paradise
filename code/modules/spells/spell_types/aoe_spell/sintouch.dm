@@ -13,24 +13,12 @@
 	invocation_type = INVOCATION_SHOUT
 	aoe_radius = 2
 	max_targets = 3
+	targeting_type = /datum/aoe_targeting/human
 
 /datum/action/cooldown/spell/aoe/sintouch/ascended
 	name = "Великое прикосновение греха"
 	cooldown_time = 10 SECONDS
 	max_targets = 10
-
-/datum/action/cooldown/spell/aoe/sintouch/get_things_to_cast_on(atom/center)
-	var/list/all_targets = list()
-	var/list/chosen = list()
-	for(var/mob/living/carbon/human/human in range(aoe_radius, center))
-		if(human == owner)
-			continue
-		all_targets += human
-	if(isnull(all_targets))
-		return
-	for(var/chosen_amt = 0, chosen_amt<max_targets, chosen_amt++)
-		chosen += pick(all_targets)
-	return chosen
 
 /datum/action/cooldown/spell/aoe/sintouch/cast_on_thing_in_aoe(atom/victim, atom/caster)
 	var/mob/living/carbon/human/human = victim

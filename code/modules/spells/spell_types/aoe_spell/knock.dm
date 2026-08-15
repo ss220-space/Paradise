@@ -11,19 +11,7 @@
 	button_icon_state = "knock"
 	sound = 'sound/magic/knock.ogg'
 	aoe_radius = 3
-
-/datum/action/cooldown/spell/aoe/knock/get_things_to_cast_on(atom/center)
-	var/list/things = list()
-
-	for(var/obj/machinery/door/door in range(aoe_radius, center))
-		if(istype(door, /obj/machinery/door/airlock/hatch/gamma))
-			continue
-		things += door
-
-	for(var/obj/structure/closet/closet in range(aoe_radius, center))
-		things += closet
-
-	return things
+	targeting_type = /datum/aoe_targeting/doors_and_closets
 
 /datum/action/cooldown/spell/aoe/knock/cast_on_thing_in_aoe(atom/victim, atom/caster)
 	if(is_door(victim))

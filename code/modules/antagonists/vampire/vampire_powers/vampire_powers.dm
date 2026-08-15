@@ -246,6 +246,7 @@
 	max_charges = 2
 	charge_restore_time = 30 SECONDS
 	cooldown_between_charges = 3 SECONDS
+	targeting_type = /datum/aoe_targeting/vamp_glare
 
 /datum/action/cooldown/spell/aoe/glare/can_cast_spell(feedback)
 	return ..() && owner.stat == CONSCIOUS
@@ -263,14 +264,6 @@
 /datum/action/cooldown/spell/aoe/glare/proc/on_diablerie_level_remove(datum/source, datum/diablerie_level/level)
 	SIGNAL_HANDLER
 	level.downgrade_glare_charges(src)
-
-/datum/action/cooldown/spell/aoe/glare/get_things_to_cast_on(atom/center)
-	var/list/targets = list()
-	for(var/mob/living/target in range(aoe_radius, center))
-		if(target == owner || isnull(target.mind) || target.stat == DEAD || !target.affects_vampire(owner))
-			continue
-		targets += target
-	return targets
 
 /// No deviation at all. Flashed from the front or front-left/front-right. Alternatively, flashed in direct view.
 #define DEVIATION_NONE 3
@@ -439,6 +432,7 @@
 	sound = 'sound/magic/wandodeath.ogg'
 	aoe_radius = 3
 	gain_desc = "Вы получили способность «Возвышение вампиров». Эта чрезвычайно мощная АОЕ-способность действует на всех людей рядом с вами. Вампиры/стражи исцеляются. Трупы воскрешаются как вампиры. Другие люди оглушаются, получают повреждения мозга, а затем погибают."
+	targeting_type = /datum/aoe_targeting/human
 
 /datum/action/cooldown/spell/aoe/raise_vampires/create_new_handler()
 	. = ..()
@@ -449,14 +443,6 @@
 	. = ..()
 	new /obj/effect/temp_visual/cult/sparks(owner.loc)
 	to_chat(owner, span_warning("Вы взываете к блюспейсу, призывая на помощь ещё больше вампирических духов!"))
-
-/datum/action/cooldown/spell/aoe/raise_vampires/get_things_to_cast_on(atom/center)
-	var/list/targets = list()
-	for(var/mob/living/carbon/human/human in range(aoe_radius, center))
-		if(!human.mind || human == owner)
-			continue
-		targets += human
-	return targets
 
 /datum/action/cooldown/spell/aoe/raise_vampires/cast_on_thing_in_aoe(atom/victim, atom/caster)
 	caster.Beam(victim, "sendbeam", 'icons/effects/effects.dmi', time = 30, maxdistance = 7, beam_type = /obj/effect/ebeam)

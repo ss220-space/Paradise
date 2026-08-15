@@ -9,7 +9,7 @@
 	invocation_type = INVOCATION_SHOUT
 
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
-
+	targeting_type = /datum/aoe_targeting/living_and_turf
 	var/fire_prob = 50
 	var/slow_time = 5 SECONDS
 
@@ -22,16 +22,6 @@
 							span_warning("Вы испепеляете сковывающую вас [jacket.declent_ru(ACCUSATIVE)]!"))
 		qdel(jacket)
 	. = ..()
-
-/datum/action/cooldown/spell/aoe/devil_fire/get_things_to_cast_on(atom/center)
-	var/things = list()
-	for(var/mob/living/living in range(aoe_radius, center))
-		if(living == owner)
-			continue
-		things += living
-	for(var/turf/turf in orange(aoe_radius, center))
-		things += turf
-	return things
 
 /datum/action/cooldown/spell/aoe/devil_fire/cast_on_thing_in_aoe(atom/victim, atom/caster)
 	if(isliving(victim))

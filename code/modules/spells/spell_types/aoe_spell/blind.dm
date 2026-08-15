@@ -10,16 +10,7 @@
 	cooldown_reduction_per_rank = 1.2 SECONDS
 	max_targets = 10
 	aoe_radius = 10
-
-/datum/action/cooldown/spell/aoe/blind/get_things_to_cast_on(atom/center)
-	var/list/things = list()
-	for(var/mob/living/nearby_mob in range(aoe_radius, center))
-		if(nearby_mob == owner || nearby_mob == center)
-			continue
-
-		things += nearby_mob
-
-	return things
+	targeting_type = /datum/aoe_targeting/living
 
 /datum/action/cooldown/spell/aoe/blind/cast_on_thing_in_aoe(mob/living/victim, atom/caster)
 	victim.AdjustEyeBlind(8 SECONDS)

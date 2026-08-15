@@ -8,14 +8,7 @@
 	button_icon_state = "lungpunch"
 	aoe_radius = 10
 	max_targets = INFINITY
-
-/datum/action/cooldown/spell/aoe/rathens_secret/get_things_to_cast_on(atom/center)
-	var/list/targets = list()
-	for(var/mob/living/carbon/human/target in range(aoe_radius, center))
-		if(target == owner)
-			continue
-		targets += target
-	return targets
+	targeting_type = /datum/aoe_targeting/human
 
 /datum/action/cooldown/spell/aoe/rathens_secret/cast(atom/cast_on)
 	. = ..()

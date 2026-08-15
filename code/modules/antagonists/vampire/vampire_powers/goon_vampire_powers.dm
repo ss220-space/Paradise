@@ -166,6 +166,7 @@
 	check_flags = AB_CHECK_PHASED
 	aoe_radius = 1
 	school = SCHOOL_SANGUINE
+	targeting_type = /datum/aoe_targeting/goon_glare
 
 /datum/action/cooldown/spell/aoe/goon_vamp_glare/can_cast_spell(feedback)
 	return ..() && owner.stat == CONSCIOUS
@@ -187,15 +188,6 @@
 /datum/action/cooldown/spell/aoe/goon_vamp_glare/proc/on_diablerie_level_remove(datum/source, datum/diablerie_level/level)
 	SIGNAL_HANDLER
 	level.downgrade_glare_charges(src)
-
-/datum/action/cooldown/spell/aoe/goon_vamp_glare/get_things_to_cast_on(atom/center)
-	var/list/targets = list()
-	var/datum/spell_handler/vampire/handler = custom_handler
-	for(var/mob/living/carbon/target in range(aoe_radius, center))
-		if(target == owner || !handler.affects(target, owner))
-			continue
-		targets += target
-	return targets
 
 /datum/action/cooldown/spell/aoe/goon_vamp_glare/before_cast(atom/cast_on)
 	var/mob/living/carbon/human/caster = owner
@@ -265,6 +257,7 @@
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	aoe_radius = 4
 	school = SCHOOL_SANGUINE
+	targeting_type = /datum/aoe_targeting/goon_screech
 	var/required_blood = 30
 
 /datum/action/cooldown/spell/aoe/goon_vamp_screech/create_new_handler()
@@ -273,21 +266,6 @@
 	name = "[initial(name)] ([required_blood])"
 	build_all_button_icons()
 	return H
-
-/datum/action/cooldown/spell/aoe/goon_vamp_screech/get_things_to_cast_on(atom/center)
-	var/list/targets = list()
-	var/datum/spell_handler/vampire/handler = custom_handler
-	for(var/mob/living/carbon/target in hearers(aoe_radius, center))
-		if(target == owner || !handler.affects(target, owner))
-			continue
-		if(!ishuman(target))
-			targets += target
-			continue
-		var/mob/living/carbon/human/h_target = target
-		if(h_target.check_ear_prot() >= HEARING_PROTECTION_TOTAL)
-			continue
-		targets += h_target
-	return targets
 
 /datum/action/cooldown/spell/aoe/goon_vamp_screech/cast(atom/cast_on)
 	. = ..()

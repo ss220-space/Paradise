@@ -5,7 +5,7 @@
 	cooldown_reduction_per_rank = 6.25 SECONDS
 	invocation = "GITTAH WEIGH"
 	invocation_type = INVOCATION_SHOUT
-
+	targeting_type = /datum/aoe_targeting/atoms
 	sound = 'sound/magic/repulse.ogg'
 	var/maxthrow = 5
 	var/sparkle_path = /obj/effect/temp_visual/gravpush
@@ -15,12 +15,6 @@
 	var/throwtarget
 	var/distfromcaster
 
-/datum/action/cooldown/spell/aoe/repulse/get_things_to_cast_on(atom/center)
-	var/list/thrownatoms = list()
-	for(var/turf/T in range(center, aoe_radius))
-		for(var/atom/movable/AM in T)
-			thrownatoms += AM
-	return thrownatoms
 
 /datum/action/cooldown/spell/aoe/repulse/cast_on_thing_in_aoe(atom/movable/victim, atom/caster)
 	if(victim == caster || victim.anchored || victim.move_resist == INFINITY)

@@ -986,6 +986,7 @@
 	school = SCHOOL_SANGUINE
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	cooldown_time = 20 SECONDS
+	targeting_type = /datum/aoe_targeting/bestia_bat_screech
 	var/required_blood = 40
 	var/t_hearts = 0
 	var/t_ears = 0
@@ -993,7 +994,6 @@
 	var/confusion_amt = 0
 	var/weaken_amt = 0
 	var/brain_dmg = 0
-	var/effect_aoe = 0
 
 /datum/action/cooldown/spell/aoe/bat_screech/create_new_handler()
 	var/datum/spell_handler/vampire/handler = new
@@ -1011,24 +1011,7 @@
 	confusion_amt = (t_kidneys) SECONDS	// 10s. MAX
 	weaken_amt = (t_hearts / 3) SECONDS	// 2s. MAX
 	brain_dmg = t_ears * 3				// 30 MAX
-	effect_aoe = 2 + round(t_ears / 3)	// 5 MAX
-
-/datum/action/cooldown/spell/aoe/bat_screech/get_things_to_cast_on(atom/center)
-	var/list/targets = list()
-	for(var/mob/living/victim in hearers(effect_aoe, owner))
-		if(!victim.affects_vampire(owner))
-			continue
-		if(victim.stat == DEAD)
-			continue
-
-		if(ishuman(victim))
-			var/mob/living/carbon/human/h_victim = victim
-			if(h_victim.check_ear_prot() >= HEARING_PROTECTION_TOTAL)
-				continue
-		if(victim == owner)
-			continue
-		targets += victim
-		return targets
+	aoe_radius = 2 + round(t_ears / 3)	// 5 MAX
 
 /datum/action/cooldown/spell/aoe/bat_screech/cast_on_thing_in_aoe(atom/victim, atom/caster)
 	var/mob/living/target = victim
@@ -1052,7 +1035,7 @@
 						span_notice("Вы громко кричите."), \
 						span_italics("Вы слышите мучительно громкий визг!"))
 	calculate_trophies()
-	for(var/object in view(effect_aoe, cast_on))
+	for(var/object in view(aoe_radius, cast_on))
 		if(istype(object, /obj/machinery/light))
 			var/obj/machinery/light/lamp = object
 			lamp.on = TRUE

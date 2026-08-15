@@ -234,12 +234,7 @@
 	var/shock_damage = 20
 	button_icon_state = "r_overload_lights"
 	aoe_radius = 5
-
-/datum/action/cooldown/spell/aoe/revenant/overload/get_things_to_cast_on(atom/center)
-	var/list/targets = list()
-	for(var/obj/machinery/light/target in range(aoe_radius, center))
-		targets += target
-	return targets
+	targeting_type = /datum/aoe_targeting/light
 
 /datum/action/cooldown/spell/aoe/revenant/overload/cast(atom/cast_on)
 	var/mob/living/simple_animal/revenant/user = owner
@@ -283,12 +278,7 @@
 	cast_amount = 30
 	button_icon_state = "r_defile"
 	aoe_radius = 4
-
-/datum/action/cooldown/spell/aoe/revenant/defile/get_things_to_cast_on(atom/center)
-	var/list/turfs = list()
-	for(var/turf/turf in range(aoe_radius, center))
-		turfs += turf
-	return turfs
+	targeting_type = /datum/aoe_targeting/turfs
 
 /datum/action/cooldown/spell/aoe/revenant/defile/cast(atom/cast_on)
 	var/mob/living/simple_animal/revenant/user = owner
@@ -312,12 +302,7 @@
 	unlock_amount = 150
 	button_icon_state = "r_malfunction"
 	aoe_radius = 2
-
-/datum/action/cooldown/spell/aoe/revenant/malfunction/get_things_to_cast_on(atom/center)
-	var/list/turfs = list()
-	for(var/turf/turf in range(aoe_radius, center))
-		turfs += turf
-	return turfs
+	targeting_type = /datum/aoe_targeting/turfs
 
 /datum/action/cooldown/spell/aoe/revenant/malfunction/cast(atom/cast_on)
 	var/mob/living/simple_animal/revenant/user = owner
@@ -352,27 +337,7 @@
 	var/haunt_time = 20 SECONDS
 	/// A list of all attack timers started by this spell being cast
 	var/list/attack_timers = list()
-
-/datum/action/cooldown/spell/aoe/revenant/haunt_object/get_things_to_cast_on(atom/center)
-	var/list/targets = list()
-	for(var/obj/item/nearby_item in range(aoe_radius, center))
-		// Don't throw around anchored things or dense things
-		// (Or things not on a turf but I am not sure if range can catch that)
-		if(nearby_item.anchored || nearby_item.density || nearby_item.move_resist == INFINITY || !isturf(nearby_item.loc))
-			continue
-		// Don't throw abstract things
-		if(nearby_item.item_flags & ABSTRACT)
-			continue
-		// Don't throw things we can't see
-		if(nearby_item.invisibility > owner.see_invisible)
-			continue
-
-		var/distance_from_user = max(get_dist(get_turf(nearby_item), get_turf(owner)), 1) // get_dist() for same tile dists return -1, we do not want that
-		var/chance_of_haunting = 150 / distance_from_user // The further away things are, the less likely they are to be picked
-		if(!prob(chance_of_haunting))
-			continue
-		targets += nearby_item
-	return targets
+	targeting_type = /datum/aoe_targeting/rev_haunt
 
 /datum/action/cooldown/spell/aoe/revenant/haunt_object/cast(atom/cast_on)
 	. = ..()
@@ -448,12 +413,7 @@
 	cast_amount = 25
 	stun = 1 SECONDS
 	reveal = 3 SECONDS
-
-/datum/action/cooldown/spell/aoe/revenant/hallucinations/get_things_to_cast_on(atom/center)
-	var/list/targets = list()
-	for(var/mob/living/carbon/human/target in range(aoe_radius, center))
-		targets += target
-	return targets
+	targeting_type = /datum/aoe_targeting/living
 
 /datum/action/cooldown/spell/aoe/revenant/hallucinations/cast(atom/cast_on)
 	var/mob/living/simple_animal/revenant/user = owner
@@ -479,20 +439,7 @@
 	stun = 3 SECONDS
 	reveal = 7 SECONDS
 	aoe_radius = 4
-
-/datum/action/cooldown/spell/aoe/revenant/blight/get_things_to_cast_on(atom/center)
-	var/list/targets = list()
-	for(var/mob/living/carbon/human/target in range(aoe_radius, center))
-		if(!target.mind)
-			continue
-
-		if(target.mind in SSticker.mode.sintouched)
-			continue
-
-		if(locate(/datum/disease/ectoplasmic) in target.diseases)
-			continue
-		targets += target
-	return targets
+	targeting_type = /datum/aoe_targeting/rev_blight
 
 /datum/action/cooldown/spell/aoe/revenant/blight/cast(atom/cast_on)
 	var/mob/living/simple_animal/revenant/user = owner

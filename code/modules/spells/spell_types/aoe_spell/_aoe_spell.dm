@@ -11,9 +11,15 @@
 	var/shuffle_targets_list = FALSE
 	/// The radius of the aoe.
 	var/aoe_radius = 7
+	var/targeting_type = /datum/aoe_targeting
+	var/datum/aoe_targeting/targeting
 
 /datum/action/cooldown/spell/aoe/is_valid_target(atom/cast_on)
 	return isturf(cast_on.loc)
+
+/datum/action/cooldown/spell/aoe/New(Target, original)
+	. = ..()
+	targeting = new targeting_type(owner, src)
 
 // At this point, cast_on == owner. Either works.
 // Don't extend this for your spell! Look at cast_on_thing_in_aoe.
@@ -48,17 +54,7 @@
  * Returns a list of atoms.
  */
 /datum/action/cooldown/spell/aoe/proc/get_things_to_cast_on(atom/center)
-	RETURN_TYPE(/list)
-
-	var/list/things = list()
-	// Default behavior is to get all atoms in range, center and owner not included.
-	for(var/atom/nearby_thing in range(aoe_radius, center))
-		if(nearby_thing == owner || nearby_thing == center)
-			continue
-
-		things += nearby_thing
-
-	return things
+	return targeting.get_targets(center, aoe_radius)
 
 /**
  * Actually cause effects on the thing in our aoe.

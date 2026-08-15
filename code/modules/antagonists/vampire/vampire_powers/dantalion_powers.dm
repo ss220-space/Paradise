@@ -310,6 +310,7 @@
 	school = SCHOOL_SANGUINE
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	cooldown_time = 30 SECONDS
+	aoe_radius = /datum/aoe_targeting/vamp_thralls
 	var/required_blood = 25
 
 /datum/action/cooldown/spell/aoe/rally_thralls/create_new_handler()
@@ -318,14 +319,6 @@
 	name = "[initial(name)] ([required_blood])"
 	build_all_button_icons()
 	return handler
-
-/datum/action/cooldown/spell/aoe/rally_thralls/get_things_to_cast_on(atom/center)
-	var/list/thralls = list()
-	for(var/mob/living/carbon/human/thrall in range(aoe_radius, center))
-		if(!isvampirethrall(thrall))
-			continue
-		thralls += thrall
-	return thralls
 
 /datum/action/cooldown/spell/aoe/rally_thralls/cast_on_thing_in_aoe(atom/victim, atom/caster)
 	var/mob/living/carbon/human/H = victim
@@ -371,15 +364,8 @@
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	aoe_radius = 8
 	cooldown_time = 60 SECONDS
+	targeting_type = /datum/aoe_targeting/human_affects_vamp
 	var/required_blood = 25
-
-/datum/action/cooldown/spell/aoe/hysteria/get_things_to_cast_on(atom/center)
-	var/list/targets = list()
-	for(var/mob/living/carbon/human/target in range(aoe_radius, center))
-		if(!target.affects_vampire(owner) || target == owner)
-			continue
-		targets += target
-	return targets
 
 /datum/action/cooldown/spell/aoe/hysteria/cast_on_thing_in_aoe(atom/victim, atom/caster)
 	var/mob/living/carbon/human/target = victim

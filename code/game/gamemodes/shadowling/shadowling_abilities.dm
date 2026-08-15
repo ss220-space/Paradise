@@ -35,14 +35,7 @@
 	max_targets = 1
 	aoe_radius = 10
 	shadowling_spell = TRUE
-
-/datum/action/cooldown/spell/aoe/shadowling_glare/get_things_to_cast_on(atom/center)
-	var/list/targets = list()
-	for(var/mob/living/target in view(aoe_radius, center))
-		if(target == owner || target.stat || is_shadow_or_thrall(target))
-			continue
-		targets += target
-	return targets
+	targeting_type = /datum/aoe_targeting/shadowling_living
 
 /datum/action/cooldown/spell/aoe/shadowling_glare/can_cast_spell(feedback)
 	var/mob/living/caster = owner
@@ -82,18 +75,13 @@
 	background_icon_state = "bg_shadowling"
 	aoe_radius = 5
 	shadowling_spell = TRUE
+	targeting_type = /datum/aoe_targeting/turfs
 
 /datum/action/cooldown/spell/aoe/shadowling_veil/can_cast_spell(feedback)
 	var/mob/living/user = owner
 	if(user.incorporeal_move == INCORPOREAL_NORMAL)
 		return FALSE
 	return ..() && shadowling_check(user)
-
-/datum/action/cooldown/spell/aoe/shadowling_veil/get_things_to_cast_on(atom/center)
-	var/list/turfs = list()
-	for(var/turf/turf in range(aoe_radius, center))
-		turfs += turf
-	return turfs
 
 /datum/action/cooldown/spell/aoe/shadowling_veil/cast(atom/cast_on)
 	. = ..()
@@ -220,15 +208,7 @@
 	background_icon_state = "bg_shadowling"
 	aoe_radius = 5
 	shadowling_spell = TRUE
-
-/datum/action/cooldown/spell/aoe/shadowling_icy_veins/get_things_to_cast_on(atom/center)
-	var/list/targets = list()
-	for(var/mob/living/target in range(aoe_radius, center))
-		if(is_shadow_or_thrall(target))
-			to_chat(target, span_danger("Вы чувствуете, как порыв холодного воздуха обволакивает вас и проносится мимо, но вас это не затрагивает!"))
-			continue
-		targets += target
-	return targets
+	targeting_type = /datum/aoe_targeting/shadowling_living
 
 /datum/action/cooldown/spell/aoe/shadowling_icy_veins/cast(atom/cast_on)
 	. = ..()
@@ -513,12 +493,7 @@
 	button_icon_state = "screech"
 	background_icon_state = "bg_shadowling"
 	shadowling_spell = TRUE
-
-/datum/action/cooldown/spell/aoe/shadowling_screech/get_things_to_cast_on(atom/center)
-	var/list/turfs = list()
-	for(var/turf/turf in range(aoe_radius, center))
-		turfs += turf
-	return turfs
+	targeting_type = /datum/aoe_targeting/turfs
 
 /datum/action/cooldown/spell/aoe/shadowling_screech/cast(atom/cast_on)
 	. = ..()
@@ -904,14 +879,7 @@
 	background_icon_state = "bg_shadowling"
 	aoe_radius = 6
 	shadowling_spell = TRUE
-
-/datum/action/cooldown/spell/aoe/ascendant_storm/get_things_to_cast_on(atom/center)
-	var/list/targets = list()
-	for(var/mob/living/carbon/human/target in range(aoe_radius, center))
-		if(is_shadow_or_thrall(target))
-			continue
-		targets += target
-	return targets
+	targeting_type = /datum/aoe_targeting/shadowling_carbon
 
 /datum/action/cooldown/spell/aoe/ascendant_storm/cast(atom/cast_on)
 	. = ..()

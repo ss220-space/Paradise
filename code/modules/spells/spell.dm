@@ -92,6 +92,7 @@
 	var/static/list/spell_handlers = list()
 	var/gain_desc
 	var/shadowling_spell = FALSE // it's shit(and so is shadowling's code), maybe do a global list later
+	var/should_go_on_cooldown = TRUE
 
 /datum/action/cooldown/spell/New(Target, original)
 	. = ..()
@@ -478,6 +479,9 @@
 /// Resets the cooldown of the spell, sending COMSIG_SPELL_CAST_RESET
 /// and allowing it to be used immediately (+ updating button icon accordingly)
 /datum/action/cooldown/spell/proc/reset_spell_cooldown()
+	if(next_use_time <= world.time)
+		//If we use it in cast()
+		should_go_on_cooldown = FALSE
 	SEND_SIGNAL(src, COMSIG_SPELL_CAST_RESET)
 	next_use_time -= cooldown_time // Basically, ensures that the ability can be used now
 	custom_handler?.revert_cast(owner, src)
@@ -540,3 +544,9 @@
 			return "Ludicrous "
 
 	return ""
+
+/datum/action/cooldown/spell/StartCooldown(override_cooldown_time, override_melee_cooldown_time)
+	if(!should_go_on_cooldown)
+		should_go_on_cooldown = TRUE
+		return
+	. = ..()

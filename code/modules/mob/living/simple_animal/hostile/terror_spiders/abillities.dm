@@ -41,14 +41,9 @@
 	spell_requirements = NONE
 	aoe_radius = 6
 	sound = 'sound/creatures/terrorspiders/heal.ogg'
+	targeting_type = /datum/aoe_targeting/terror_spiders
 	var/heal_amount = 20
 	var/apply_heal_buff = FALSE
-
-/datum/action/cooldown/spell/aoe/terror_healing/get_things_to_cast_on(atom/center)
-	var/list/targets = list()
-	for(var/mob/living/simple_animal/hostile/poison/terror_spider/target in range(aoe_radius, center))
-		targets += target
-	return targets
 
 /datum/action/cooldown/spell/aoe/terror_healing/cast(atom/cast_on)
 	. = ..()
@@ -201,14 +196,7 @@
 	cooldown_time = 60 SECONDS
 	spell_requirements = NONE
 	sound = 'sound/creatures/terrorspiders/white_shriek.ogg'
-
-/datum/action/cooldown/spell/aoe/terror_shriek/get_things_to_cast_on(atom/center)
-	var/list/targets = list()
-	for(var/mob/living/target in range(aoe_radius, center))
-		if(isterrorspider(target))
-			continue
-		targets += target
-	return targets
+	targeting_type = /datum/aoe_targeting/living_non_terrors
 
 /datum/action/cooldown/spell/aoe/terror_shriek/cast_on_thing_in_aoe(atom/victim, atom/caster)
 	. = ..()
@@ -241,14 +229,7 @@
 	spell_requirements = NONE
 	aoe_radius = 6
 	sound = 'sound/creatures/terrorspiders/princess_shriek.ogg'
-
-/datum/action/cooldown/spell/aoe/terror_shriek_princess/get_things_to_cast_on(atom/center)
-	var/list/targets = list()
-	for(var/mob/living/target in range(aoe_radius, center))
-		if(isterrorspider(target))
-			continue
-		targets += target
-	return targets
+	targeting_type = /datum/aoe_targeting/living_non_terrors
 
 /datum/action/cooldown/spell/aoe/terror_shriek_princess/cast_on_thing_in_aoe(atom/victim, atom/caster)
 	. = ..()
@@ -279,12 +260,7 @@
 	spell_requirements = NONE
 	aoe_radius = 2
 	sound = 'sound/creatures/terrorspiders/prince_attack.ogg'
-
-/datum/action/cooldown/spell/aoe/terror_slam/get_things_to_cast_on(atom/center)
-	var/list/turfs = list()
-	for(var/turf/turf in range(aoe_radius, center))
-		turfs += turf
-	return turfs
+	targeting_type = /datum/aoe_targeting/turfs
 
 /datum/action/cooldown/spell/aoe/terror_slam/cast_on_thing_in_aoe(atom/victim, atom/caster)
 	var/turf/target_turf = victim
@@ -333,12 +309,7 @@
 	cooldown_time = 45 SECONDS
 	spell_requirements = NONE
 	sound = 'sound/creatures/terrorspiders/queen_shriek.ogg'
-
-/datum/action/cooldown/spell/aoe/terror_shriek_queen/get_things_to_cast_on(atom/center)
-	var/list/targets = list()
-	for(var/turf/turf in range(aoe_radius, center))
-		targets += turf
-	return targets
+	targeting_type = /datum/aoe_targeting/living_non_terrors
 
 /datum/action/cooldown/spell/aoe/terror_shriek_queen/cast_on_thing_in_aoe(atom/victim, atom/caster)
 	. = ..()
