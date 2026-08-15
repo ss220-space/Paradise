@@ -2,6 +2,9 @@
 // When the signal is called: (signal arguments)
 // All signals send the source datum of the signal as the first argument
 
+/// Source: /datum/reagents/proc/add_reagent (datum/reagents, reagent_id, amount, data, reagtemp, no_react, chem_temp)
+#define COMSIG_EARLY_REAGENT_ADDED "reagent_early_added"
+	#define COMPONENT_PREVENT_ADD_REAGENT (1<<0)
 ///from base of atom/expose_reagents(): (/list, /datum/reagents, methods, volume_modifier, show_message)
 #define COMSIG_ATOM_EXPOSE_REAGENTS "atom_expose_reagents"
 	/// Prevents the atom from being exposed to reagents if returned on [COMSIG_ATOM_EXPOSE_REAGENTS]

@@ -52,28 +52,28 @@
 /area/ruin/unpowered)
 "cP" = (
 /obj/structure/table,
-/obj/item/reagent_containers/cup/glass/cans/beer,
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = 5;
 	pixel_y = 7
 	},
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = -7;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = 8
 	},
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = 6
 	},
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = -4
 	},
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = 4
 	},
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = -8;
 	pixel_y = 12
 	},
@@ -142,10 +142,10 @@
 /area/ruin/unpowered)
 "gK" = (
 /obj/structure/table/wood/fancy/purple,
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = 6
 	},
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = -8;
 	pixel_y = 12
 	},
@@ -1120,8 +1120,8 @@
 /area/ruin/unpowered)
 "ZS" = (
 /obj/structure/table/wood/fancy/purple,
-/obj/item/reagent_containers/cup/glass/cans/beer,
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = 5;
 	pixel_y = 7
 	},

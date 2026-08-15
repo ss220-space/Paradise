@@ -5009,7 +5009,7 @@
 /area/ruin/space/USSP_gorky17/angar)
 "sF" = (
 /obj/structure/table,
-/obj/item/reagent_containers/cup/glass/cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowfull"
 	},
@@ -9762,7 +9762,7 @@
 /area/ruin/space/USSP_gorky17/common)
 "JF" = (
 /obj/structure/table,
-/obj/item/reagent_containers/cup/glass/cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4
 	},

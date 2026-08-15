@@ -4536,7 +4536,7 @@
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "kG" = (
 /obj/structure/table,
-/obj/item/reagent_containers/cup/glass/cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -4827,7 +4827,7 @@
 	pixel_x = -4;
 	pixel_y = 9
 	},
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = 5;
 	pixel_y = -2
 	},

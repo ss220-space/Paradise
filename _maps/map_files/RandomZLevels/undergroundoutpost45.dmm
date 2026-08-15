@@ -265,7 +265,7 @@
 /area/awaymission/UO45/central_hall)
 "aW" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/cans/cola,
+/obj/item/reagent_containers/cup/soda_cans/cola,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -3766,7 +3766,7 @@
 /area/awaymission/UO45/crew_quarters)
 "jz" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/cup/glass/cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},

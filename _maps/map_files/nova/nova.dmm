@@ -24551,7 +24551,7 @@
 /obj/structure/table/wood,
 /obj/item/radio/intercom/directional/south,
 /obj/item/reagent_containers/food/snacks/cookie,
-/obj/item/reagent_containers/cup/glass/bottle/milk,
+/obj/item/reagent_containers/cup/glass/bottle/juice/milk,
 /obj/machinery/camera{
 	c_tag = "Blueshield's Office";
 	dir = 1
@@ -56282,10 +56282,10 @@
 /area/station/maintenance/perma)
 "iMz" = (
 /obj/structure/table,
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = -4
 	},
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -58429,7 +58429,7 @@
 /area/station/command/office/captain)
 "jdO" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/cup/glass/cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
 /obj/structure/sign/poster/secret/lizard{
 	pixel_x = 32
 	},
@@ -84921,7 +84921,7 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/library)
 "ncA" = (
-/obj/item/reagent_containers/cup/glass/cans/ale,
+/obj/item/reagent_containers/cup/soda_cans/ale,
 /obj/structure/table/wood,
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
@@ -116198,10 +116198,10 @@
 	dir = 8
 	},
 /obj/structure/table,
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = -3
 	},
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = 5;
 	pixel_y = 10
 	},
@@ -119692,7 +119692,7 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/cup/glass/cans/cola{
+/obj/item/reagent_containers/cup/soda_cans/cola{
 	pixel_x = -5;
 	pixel_y = 13
 	},
@@ -149092,7 +149092,7 @@
 /area/station/hallway/primary/central)
 "wLQ" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/cup/glass/cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
 /turf/simulated/floor/light{
 	icon_state = "light_on-p";
 	state = 7
@@ -152100,7 +152100,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/table,
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = 5;
 	pixel_y = 10
 	},
@@ -152918,10 +152918,10 @@
 /obj/item/pizzabox/meat{
 	pixel_y = 15
 	},
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = 5
 	},
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = -8
 	},
 /turf/simulated/floor/plasteel{

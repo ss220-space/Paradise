@@ -599,7 +599,7 @@
 /area/mine/living_quarters)
 "ej" = (
 /obj/structure/table,
-/obj/item/reagent_containers/cup/glass/cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -2100,7 +2100,7 @@
 /area/lavaland/surface/outdoors/necropolis)
 "mn" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = 5;
 	pixel_y = -2
 	},
@@ -7087,7 +7087,7 @@
 /area/lavaland/surface/outdoors/necropolis)
 "Px" = (
 /obj/structure/table,
-/obj/item/reagent_containers/cup/glass/cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;

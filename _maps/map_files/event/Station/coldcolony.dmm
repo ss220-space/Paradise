@@ -29396,7 +29396,7 @@
 /area/coldcolony/malta/medical/virology)
 "kRG" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/cup/glass/cans/non_alcoholic_beer,
+/obj/item/reagent_containers/cup/soda_cans/non_alcoholic_beer,
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -33888,7 +33888,7 @@
 /area/coldcolony/malta/security/hos)
 "mHp" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/cans/ale,
+/obj/item/reagent_containers/cup/soda_cans/ale,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -33998,7 +33998,7 @@
 /obj/structure/table/wood{
 	color = "brown"
 	},
-/obj/item/reagent_containers/cup/glass/cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -34315,16 +34315,16 @@
 /area/coldcolony/malta/resid_serv/bar)
 "mPV" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/cup/glass/cans/beer,
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = -5;
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = 3;
 	pixel_y = 5
 	},
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = -10;
 	pixel_y = -2
 	},

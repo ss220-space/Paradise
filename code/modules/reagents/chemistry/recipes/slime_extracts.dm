@@ -213,12 +213,12 @@
 
 /datum/chemical_reaction/slime/slimebork2/spawn_loot(datum/reagents/holder, turf/spawn_point)
 	var/list/borks = subtypesof(/obj/item/reagent_containers/cup/glass)
-	var/list/blocked = list(/obj/item/reagent_containers/cup/glass/cans/adminbooze,
-							/obj/item/reagent_containers/cup/glass/cans/madminmalt,
+	var/list/blocked = list(/obj/item/reagent_containers/cup/soda_cans/adminbooze,
+							/obj/item/reagent_containers/cup/soda_cans/madminmalt,
 							/obj/item/reagent_containers/cup/glass/shaker,
 							/obj/item/reagent_containers/cup/glass/britcup,
 							/obj/item/reagent_containers/cup/glass/sillycup,
-							/obj/item/reagent_containers/cup/glass/cans,
+							/obj/item/reagent_containers/cup/soda_cans,
 							/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
 							/obj/item/reagent_containers/cup/glass/drinkingglass,
 							/obj/item/reagent_containers/cup/glass/bottle,
@@ -226,7 +226,7 @@
 							)
 	blocked += typesof(/obj/item/reagent_containers/cup/glass/flask)
 	blocked += typesof(/obj/item/reagent_containers/cup/glass/trophy)
-	blocked += typesof(/obj/item/reagent_containers/cup/glass/cans/bottler)
+	blocked += typesof(/obj/item/reagent_containers/cup/soda_cans/bottler)
 	borks -= blocked
 	// BORK BORK BORK
 

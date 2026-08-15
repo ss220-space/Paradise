@@ -14255,10 +14255,10 @@
 "daz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = 4
 	},
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = -4
 	},
 /turf/simulated/floor/plating,
@@ -30766,10 +30766,10 @@
 /area/station/service/bar/atrium)
 "gnt" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = -4
 	},
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = 4
 	},
 /turf/simulated/floor/plating,
@@ -57661,7 +57661,7 @@
 /obj/item/toy/figure/wizard{
 	pixel_x = 7
 	},
-/obj/item/reagent_containers/cup/glass/cans/cola{
+/obj/item/reagent_containers/cup/soda_cans/cola{
 	pixel_x = -12;
 	pixel_y = 13
 	},
@@ -72906,8 +72906,8 @@
 /area/station/cargo/office)
 "nXl" = (
 /obj/structure/table,
-/obj/item/reagent_containers/cup/glass/cans/beer,
-/obj/item/reagent_containers/cup/glass/cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
@@ -100581,10 +100581,10 @@
 /area/station/security/prison/perma)
 "sNW" = (
 /obj/structure/table,
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = -4
 	},
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,

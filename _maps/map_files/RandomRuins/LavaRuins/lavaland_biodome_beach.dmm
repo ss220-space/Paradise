@@ -188,7 +188,7 @@
 /turf/simulated/floor/beach/sand,
 /area/ruin/powered/beach)
 "bP" = (
-/obj/item/reagent_containers/cup/glass/cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
 /turf/simulated/floor/beach/sand,
 /area/ruin/powered/beach)
 "bQ" = (

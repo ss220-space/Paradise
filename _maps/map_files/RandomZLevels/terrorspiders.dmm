@@ -153,7 +153,7 @@
 /area/awaymission/UO71/plaza)
 "az" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/cans/cola,
+/obj/item/reagent_containers/cup/soda_cans/cola,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -3493,7 +3493,7 @@
 /area/awaymission/UO71/centralhall)
 "jy" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/cup/glass/cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -10888,7 +10888,7 @@
 /area/awaymission/UO71/queen)
 "zU" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -10950,7 +10950,7 @@
 /area/awaymission/UO71/queen)
 "Af" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
 /turf/simulated/floor/wood,
 /area/awaymission/UO71/queen)
 "Ag" = (

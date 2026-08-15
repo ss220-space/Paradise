@@ -322,11 +322,11 @@
 /area/ruin/unpowered)
 "aG" = (
 /obj/structure/closet/cardboard,
-/obj/item/reagent_containers/cup/glass/cans/cola,
-/obj/item/reagent_containers/cup/glass/cans/cola,
-/obj/item/reagent_containers/cup/glass/cans/cola,
-/obj/item/reagent_containers/cup/glass/cans/cola,
-/obj/item/reagent_containers/cup/glass/cans/cola,
+/obj/item/reagent_containers/cup/soda_cans/cola,
+/obj/item/reagent_containers/cup/soda_cans/cola,
+/obj/item/reagent_containers/cup/soda_cans/cola,
+/obj/item/reagent_containers/cup/soda_cans/cola,
+/obj/item/reagent_containers/cup/soda_cans/cola,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "aH" = (
@@ -385,11 +385,11 @@
 /area/ruin/unpowered)
 "aP" = (
 /obj/structure/closet/cardboard,
-/obj/item/reagent_containers/cup/glass/cans/cola,
-/obj/item/reagent_containers/cup/glass/cans/cola,
-/obj/item/reagent_containers/cup/glass/cans/cola,
-/obj/item/reagent_containers/cup/glass/cans/cola,
-/obj/item/reagent_containers/cup/glass/cans/cola,
+/obj/item/reagent_containers/cup/soda_cans/cola,
+/obj/item/reagent_containers/cup/soda_cans/cola,
+/obj/item/reagent_containers/cup/soda_cans/cola,
+/obj/item/reagent_containers/cup/soda_cans/cola,
+/obj/item/reagent_containers/cup/soda_cans/cola,
 /obj/machinery/light{
 	dir = 4
 	},

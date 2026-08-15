@@ -2124,15 +2124,15 @@
 /area/mine/living_quarters)
 "ga" = (
 /obj/structure/table,
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = 7;
 	pixel_y = 5
 	},
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = -1;
 	pixel_y = 9
 	},
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = -8
 	},
 /turf/simulated/floor/plasteel{

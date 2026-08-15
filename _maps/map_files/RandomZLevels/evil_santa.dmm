@@ -1143,10 +1143,10 @@
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "jn" = (
 /obj/structure/closet/cabinet,
-/obj/item/reagent_containers/cup/glass/cans/beer,
-/obj/item/reagent_containers/cup/glass/cans/beer,
-/obj/item/reagent_containers/cup/glass/cans/beer,
-/obj/item/reagent_containers/cup/glass/cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
 /obj/item/reagent_containers/cup/glass/bottle/vodka,
 /obj/item/reagent_containers/cup/glass/bottle/vodka,
 /turf/simulated/floor/wood,
@@ -1436,7 +1436,7 @@
 "lP" = (
 /obj/structure/table/wood/fancy/green,
 /obj/item/storage/bag/tray,
-/obj/item/reagent_containers/cup/glass/bottle/milk{
+/obj/item/reagent_containers/cup/glass/bottle/juice/milk{
 	pixel_x = -8;
 	pixel_y = 10
 	},
@@ -2056,7 +2056,7 @@
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "qK" = (
 /obj/structure/table/wood/fancy/green,
-/obj/item/reagent_containers/cup/glass/bottle/milk{
+/obj/item/reagent_containers/cup/glass/bottle/juice/milk{
 	pixel_x = -5;
 	pixel_y = 10
 	},
@@ -3070,12 +3070,12 @@
 /obj/item/reagent_containers/cup/glass/shaker,
 /obj/item/grenade/confetti,
 /obj/structure/closet/cabinet,
-/obj/item/reagent_containers/cup/glass/cans/non_alcoholic_beer,
-/obj/item/reagent_containers/cup/glass/cans/non_alcoholic_beer,
-/obj/item/reagent_containers/cup/glass/cans/non_alcoholic_beer,
-/obj/item/reagent_containers/cup/glass/cans/non_alcoholic_beer,
-/obj/item/reagent_containers/cup/glass/cans/non_alcoholic_beer,
-/obj/item/reagent_containers/cup/glass/cans/non_alcoholic_beer,
+/obj/item/reagent_containers/cup/soda_cans/non_alcoholic_beer,
+/obj/item/reagent_containers/cup/soda_cans/non_alcoholic_beer,
+/obj/item/reagent_containers/cup/soda_cans/non_alcoholic_beer,
+/obj/item/reagent_containers/cup/soda_cans/non_alcoholic_beer,
+/obj/item/reagent_containers/cup/soda_cans/non_alcoholic_beer,
+/obj/item/reagent_containers/cup/soda_cans/non_alcoholic_beer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

@@ -578,7 +578,7 @@
 /area/awaymission/example)
 "bH" = (
 /obj/structure/table,
-/obj/item/reagent_containers/cup/glass/cans/sodawater,
+/obj/item/reagent_containers/cup/soda_cans/sodawater,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},

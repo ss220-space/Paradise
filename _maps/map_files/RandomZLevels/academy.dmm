@@ -2666,7 +2666,7 @@
 /area/awaymission/academy/classrooms)
 "lB" = (
 /obj/structure/toilet/directional/east,
-/obj/item/reagent_containers/cup/glass/cans/cola,
+/obj/item/reagent_containers/cup/soda_cans/cola,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -2786,16 +2786,16 @@
 /area/awaymission/academy/academyaft)
 "mz" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/cup/glass/cans/beer,
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = 5;
 	pixel_y = 7
 	},
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = -7;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = 8
 	},
 /turf/simulated/floor/plasteel{

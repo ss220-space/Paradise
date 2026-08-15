@@ -1905,7 +1905,7 @@
 	name = "table"
 	},
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/cup/glass/cans/cola=10,""=70);
+	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/cup/soda_cans/cola=10,""=70);
 	name = "Food CC Spawner #1"
 	},
 /turf/simulated/floor/fakespace,
@@ -11685,7 +11685,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 30
 	},
-/obj/item/reagent_containers/cup/glass/cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
 	},
@@ -16886,23 +16886,23 @@
 /turf/simulated/floor/indestructible/grass,
 /area/centcom/syndicate_base/control)
 "ioz" = (
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = -6;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = 2;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = 10;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/cup/glass/cans/beer,
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = -8
 	},
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = 8
 	},
 /turf/simulated/floor/plating/asteroid/ancient/airless,
@@ -17119,7 +17119,7 @@
 "iuv" = (
 /obj/structure/table/glass,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/cup/glass/flask/detflask=10,/obj/item/reagent_containers/cup/glass/cans/tonic=10,/obj/item/reagent_containers/cup/glass/cans/thirteenloko=10,/obj/item/reagent_containers/cup/glass/cans/synthanol=10,/obj/item/reagent_containers/cup/glass/cans/space_mountain_wind=10,/obj/item/reagent_containers/cup/glass/cans/lemon_lime=10,""=70);
+	loot = list(/obj/item/reagent_containers/cup/glass/flask/detflask=10,/obj/item/reagent_containers/cup/soda_cans/tonic=10,/obj/item/reagent_containers/cup/soda_cans/thirteenloko=10,/obj/item/reagent_containers/cup/soda_cans/synthanol=10,/obj/item/reagent_containers/cup/soda_cans/space_mountain_wind=10,/obj/item/reagent_containers/cup/soda_cans/lemon_lime=10,""=70);
 	name = "Food CC Spawner #3"
 	},
 /turf/simulated/floor/plasteel{
@@ -18398,7 +18398,7 @@
 "iXz" = (
 /obj/structure/table/glass,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/cup/glass/cans/cola=10,""=70);
+	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/cup/soda_cans/cola=10,""=70);
 	name = "Food CC Spawner #1"
 	},
 /obj/structure/window/reinforced/survival_pod{
@@ -24159,8 +24159,8 @@
 /area/centcom/syndicate_base/control)
 "lsO" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/cup/glass/cans/beer,
-/obj/item/reagent_containers/cup/glass/cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
 /turf/simulated/floor/carpet,
 /area/centcom/central_command_areas/evacuation)
 "ltd" = (
@@ -24841,13 +24841,13 @@
 /area/centcom/central_command_areas/special_operations)
 "lHT" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
-/obj/item/reagent_containers/cup/glass/cans/beer,
-/obj/item/reagent_containers/cup/glass/cans/beer,
-/obj/item/reagent_containers/cup/glass/cans/beer,
-/obj/item/reagent_containers/cup/glass/cans/beer,
-/obj/item/reagent_containers/cup/glass/cans/beer,
-/obj/item/reagent_containers/cup/glass/cans/beer,
-/obj/item/reagent_containers/cup/glass/cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
 /turf/simulated/floor/carpet/red,
 /area/centcom/central_command_areas/zone/three)
 "lIb" = (
@@ -27587,7 +27587,7 @@
 "mRJ" = (
 /obj/structure/table,
 /obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee,
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = 6
 	},
 /turf/simulated/floor/shuttle,
@@ -37478,7 +37478,7 @@
 "rhx" = (
 /obj/structure/table/wood/fancy,
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/cup/glass/cans/cola=10,""=70);
+	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/cup/soda_cans/cola=10,""=70);
 	name = "Food CC Spawner #1"
 	},
 /turf/simulated/floor/wood,
@@ -43946,7 +43946,7 @@
 	color = "#996633"
 	},
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/cup/glass/flask/detflask=10,/obj/item/reagent_containers/cup/glass/cans/tonic=10,/obj/item/reagent_containers/cup/glass/cans/thirteenloko=10,/obj/item/reagent_containers/cup/glass/cans/synthanol=10,/obj/item/reagent_containers/cup/glass/cans/space_mountain_wind=10,/obj/item/reagent_containers/cup/glass/cans/lemon_lime=10,""=70);
+	loot = list(/obj/item/reagent_containers/cup/glass/flask/detflask=10,/obj/item/reagent_containers/cup/soda_cans/tonic=10,/obj/item/reagent_containers/cup/soda_cans/thirteenloko=10,/obj/item/reagent_containers/cup/soda_cans/synthanol=10,/obj/item/reagent_containers/cup/soda_cans/space_mountain_wind=10,/obj/item/reagent_containers/cup/soda_cans/lemon_lime=10,""=70);
 	name = "Food CC Spawner #3"
 	},
 /turf/simulated/floor/wood,
@@ -45752,7 +45752,7 @@
 	color = "#996633"
 	},
 /obj/effect/spawner/lootdrop{
-	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/cup/glass/cans/cola=10,""=70);
+	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/cup/soda_cans/cola=10,""=70);
 	name = "Food CC Spawner #1"
 	},
 /obj/machinery/light/small{
@@ -52237,7 +52237,7 @@
 /area/shuttle/administration)
 "xRz" = (
 /obj/structure/table/wood/fancy/black,
-/obj/item/reagent_containers/cup/glass/cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
 /turf/simulated/floor/carpet/red,
 /area/centcom/central_command_areas/zone/three)
 "xRD" = (

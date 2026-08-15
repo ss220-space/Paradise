@@ -61,7 +61,7 @@ There is no excuse to do this wrong now that there is an example for you. --Fals
 	name = "Blackeye Brew"
 	description = "Creamy, smooth flavor, just like the bald heads of the masses. Supposedly aged for 30 years."
 	ingredients = list(
-		/obj/item/reagent_containers/cup/glass/cans/cola,
+		/obj/item/reagent_containers/cup/soda_cans/cola,
 		/obj/item/reagent_containers/food/snacks/grown/sugarcane,
 		/obj/item/reagent_containers/food/snacks/icecream,
 	)
@@ -71,7 +71,7 @@ There is no excuse to do this wrong now that there is an example for you. --Fals
 	name = "Grape Granade"
 	description = "Exploding with grape flavor and a favorite among ERT members system-wide."
 	ingredients = list(
-		/obj/item/reagent_containers/cup/glass/cans/grape_juice,
+		/obj/item/reagent_containers/cup/soda_cans/grape_juice,
 		/obj/item/reagent_containers/food/snacks/grown/grapes,
 		/obj/item/flash,
 	)

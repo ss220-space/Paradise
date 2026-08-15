@@ -1254,7 +1254,7 @@
 /area/ruin/ussp_xeno/entrance)
 "tE" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = -8
 	},
 /obj/item/paper_bin{
@@ -1463,15 +1463,15 @@
 	dir = 5
 	},
 /obj/structure/rack,
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = -7;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = 1;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = 10;
 	pixel_y = -7
 	},
@@ -1679,7 +1679,7 @@
 	pixel_x = 7;
 	pixel_y = -2
 	},
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = -12;
 	pixel_y = -11
 	},
@@ -1991,7 +1991,7 @@
 	dir = 8
 	},
 /obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = 7
 	},
 /obj/item/folder/red{
@@ -2843,7 +2843,7 @@
 /area/ruin/ussp_xeno/medbay)
 "NO" = (
 /obj/structure/dresser,
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = -8;
 	pixel_y = 13
 	},

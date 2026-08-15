@@ -31,7 +31,7 @@
 /area/ruin/space/pirate_base/arrivals)
 "ad" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/cup/glass/cans/energy,
+/obj/item/reagent_containers/cup/soda_cans/energy,
 /obj/item/reagent_containers/food/snacks/meat,
 /obj/item/reagent_containers/food/snacks/bun,
 /turf/simulated/floor/plasteel{
@@ -14574,11 +14574,11 @@
 "Ss" = (
 /obj/effect/decal/cleanable/cobweb2,
 /obj/structure/closet/crate/plastic,
-/obj/item/reagent_containers/cup/glass/cans/beer,
-/obj/item/reagent_containers/cup/glass/cans/beer,
-/obj/item/reagent_containers/cup/glass/cans/beer,
-/obj/item/reagent_containers/cup/glass/cans/energy/milk,
-/obj/item/reagent_containers/cup/glass/cans/ale,
+/obj/item/reagent_containers/cup/soda_cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/energy/milk,
+/obj/item/reagent_containers/cup/soda_cans/ale,
 /obj/item/reagent_containers/cup/glass/chicken_soup,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/telecomms)
@@ -14710,11 +14710,11 @@
 "SN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/cabinet,
-/obj/item/reagent_containers/cup/glass/cans/badminbrew{
+/obj/item/reagent_containers/cup/soda_cans/badminbrew{
 	desc = "Probably shouldn't drink this one at all.";
 	name = "expired beer"
 	},
-/obj/item/reagent_containers/cup/glass/cans/badminbrew{
+/obj/item/reagent_containers/cup/soda_cans/badminbrew{
 	desc = "Probably shouldn't drink this one at all.";
 	name = "expired beer"
 	},

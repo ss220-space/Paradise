@@ -445,7 +445,7 @@
 	prize_list["Scum"] = list(
 		EQUIPMENT("Trauma Kit", /obj/item/stack/medical/bruise_pack/advanced, 150),
 		EQUIPMENT("Whisky", /obj/item/reagent_containers/cup/glass/bottle/whiskey, 100),
-		EQUIPMENT("Beer", /obj/item/reagent_containers/cup/glass/cans/beer, 50),
+		EQUIPMENT("Beer", /obj/item/reagent_containers/cup/soda_cans/beer, 50),
 		EQUIPMENT("Absinthe", /obj/item/reagent_containers/cup/glass/bottle/absinthe/premium, 250),
 		EQUIPMENT("Cigarettes", /obj/item/storage/fancy/cigarettes, 100),
 		EQUIPMENT("Medical Marijuana", /obj/item/storage/fancy/cigarettes/cigpack_med, 250),

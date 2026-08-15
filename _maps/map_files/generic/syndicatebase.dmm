@@ -1110,7 +1110,7 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/item/reagent_containers/cup/glass/cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},

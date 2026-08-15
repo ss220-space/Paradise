@@ -2108,7 +2108,7 @@
 /area/station/medical/sleeper)
 "alh" = (
 /obj/structure/table,
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = -8;
 	pixel_y = 12
 	},
@@ -53742,7 +53742,7 @@
 "iNl" = (
 /obj/structure/table,
 /obj/item/deck/cards,
-/obj/item/reagent_containers/cup/glass/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = -4
 	},
 /turf/simulated/floor/plasteel,
@@ -83075,7 +83075,7 @@
 /obj/item/reagent_containers/food/pill/lsd,
 /obj/item/reagent_containers/food/pill/fakedeath,
 /obj/item/reagent_containers/food/pill/salicylic,
-/obj/item/reagent_containers/cup/glass/cans/ale,
+/obj/item/reagent_containers/cup/soda_cans/ale,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},

@@ -5982,7 +5982,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/angar)
 "sF" = (
 /obj/structure/table,
-/obj/item/reagent_containers/cup/glass/cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "sG" = (

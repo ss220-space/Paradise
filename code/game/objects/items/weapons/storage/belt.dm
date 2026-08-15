@@ -1342,7 +1342,7 @@
 		/obj/item/reagent_containers/cup/glass/flask,
 		/obj/item/reagent_containers/cup/glass/drinkingglass,
 		/obj/item/reagent_containers/cup/glass/bottle,
-		/obj/item/reagent_containers/cup/glass/cans,
+		/obj/item/reagent_containers/cup/soda_cans,
 		/obj/item/reagent_containers/cup/glass/shaker,
 		/obj/item/reagent_containers/food/snacks,
 		/obj/item/reagent_containers/condiment,

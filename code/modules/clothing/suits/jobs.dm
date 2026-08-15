@@ -754,7 +754,7 @@
 	desc = "Well made expensive chief suit"
 	icon_state = "bluza"
 	item_state = "bluza"
-	allowed = list(/obj/item/kitchen/utensil,/obj/item/kitchen/knife,/obj/item/kitchen/rollingpin,/obj/item/kitchen/mould,/obj/item/kitchen/sushimat,/obj/item/kitchen/cutter,/obj/item/assembly/mousetrap,/obj/item/reagent_containers/spray/pestspray,/obj/item/reagent_containers/cup/glass/flask,/obj/item/reagent_containers/cup/glass/drinkingglass,/obj/item/reagent_containers/cup/glass/bottle,/obj/item/reagent_containers/cup/glass/cans,/obj/item/reagent_containers/cup/glass/shaker,/obj/item/reagent_containers/food/snacks,/obj/item/reagent_containers/condiment,/obj/item/reagent_containers/cup/beaker,/obj/item/radio)
+	allowed = list(/obj/item/kitchen/utensil,/obj/item/kitchen/knife,/obj/item/kitchen/rollingpin,/obj/item/kitchen/mould,/obj/item/kitchen/sushimat,/obj/item/kitchen/cutter,/obj/item/assembly/mousetrap,/obj/item/reagent_containers/spray/pestspray,/obj/item/reagent_containers/cup/glass/flask,/obj/item/reagent_containers/cup/glass/drinkingglass,/obj/item/reagent_containers/cup/glass/bottle,/obj/item/reagent_containers/cup/soda_cans,/obj/item/reagent_containers/cup/glass/shaker,/obj/item/reagent_containers/food/snacks,/obj/item/reagent_containers/condiment,/obj/item/reagent_containers/cup/beaker,/obj/item/radio)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	armor = list(melee = 5, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, fire = 10, acid = 10)
 
