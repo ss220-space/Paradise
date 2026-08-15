@@ -19,5 +19,10 @@
 	damage = 6 //24 per shot
 
 //automatic laser sniper
-/obj/projectile/beam/disabler/heavy
-	damage = 70
+/obj/projectile/beam/disabler/automatic_sniper
+	damage = 60
+	speed = 3
+
+/obj/projectile/beam/laser/heavylaser/automatic_sniper
+	damage = 45
+	speed = 3

@@ -171,7 +171,7 @@
 // MARK: automatic laser sniper
 /obj/item/gun/energy/laser/automatic/sniper_rifle
 	name = "automatic sniper rifle"
-	desc = "Полностью автоматическая лазерная снайперская винтовка нового поколения. Стреляет сконцентрированными сгустками энергии, однако очень долго остужается после стрельбы."
+	desc = "Полностью автоматическая лазерная снайперская винтовка нового поколения. Стреляет сконцентрированными сгустками энергии, которые способны менять направление в сторону цели."
 	icon = 'icons/obj/weapons/guns_48x32.dmi'
 	icon_state = "automatic_sniper_rifle"
 	accuracy = GUN_ACCURACY_RIFLE_LASER

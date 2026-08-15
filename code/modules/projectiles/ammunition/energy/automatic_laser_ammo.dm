@@ -1,4 +1,4 @@
-//automatic laser pistol
+// MARK: automatic laser pistol
 /obj/item/ammo_casing/energy/disabler/automatic
 	delay = 0.7 SECONDS
 	e_cost = 60 //25 shots
@@ -6,7 +6,7 @@
 /obj/item/ammo_casing/energy/laser/automatic
 	delay = 0.7 SECONDS
 
-//automatic laser rifle
+// MARK: automatic laser rifle
 /obj/item/ammo_casing/energy/disabler/automatic
 	fire_sound = 'sound/weapons/gunshots/1laser.ogg'
 	delay = 0.3 SECONDS
@@ -18,7 +18,7 @@
 	randomspread = TRUE
 	projectile_type = /obj/projectile/beam/laser/automatic
 
-//automatic laser mg
+// MARK: automatic laser mg
 /obj/item/ammo_casing/energy/laser/automatic/machine_gun
 	e_cost = 30 //50 shots
 	delay = 0.1 SECONDS
@@ -26,7 +26,7 @@
 	overlay_color = COLOR_MAGENTA
 	select_name = "fast_shooting"
 
-//automatic laser shotgun
+// MARK: automatic laser shotgun
 /obj/item/ammo_casing/energy/disabler/scatter/automatic_shotgun
 	projectile_type = /obj/projectile/beam/disabler/scatter/automatic_shotgun
 	pellets = 4
@@ -42,17 +42,19 @@
 	e_cost = 125 //12 shots
 	select_name = "scatter-lethal"
 
-//automatic laser sniper
+// MARK: automatic laser sniper
 /obj/item/ammo_casing/energy/disabler/automatic_sniper
-	projectile_type = /obj/projectile/beam/disabler/heavy
+	projectile_type = /obj/projectile/beam/disabler/automatic_sniper
 	fire_sound = 'sound/weapons/gunshots/laserrifle2.ogg'
 	e_cost = 200 //6 shots
 	delay = 4 SECONDS
 	select_name = "heavy-disabler"
+	smart_bullet = TRUE
 
 /obj/item/ammo_casing/energy/laser/automatic_sniper
-	projectile_type = /obj/projectile/beam/laser/heavylaser
+	projectile_type = /obj/projectile/beam/laser/heavylaser/automatic_sniper
 	delay = 5 SECONDS
 	select_name = "anti-vehicle"
 	fire_sound = 'sound/weapons/gunshots/laserrifle2.ogg'
 	e_cost = 250 //6 shots
+	smart_bullet = TRUE

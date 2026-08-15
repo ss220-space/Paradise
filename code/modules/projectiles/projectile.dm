@@ -171,6 +171,21 @@
 	var/impact_light_color_override
 	var/hitscan_duration = 0.3 SECONDS
 
+	// Homing
+	/// If the projectile is currently homing. Warning - this changes projectile's processing logic, reverting it to segmented processing instead of new raymarching logic
+	/// This does not actually set up the projectile to home in on a target - you need to set that up with set_homing_target() on the projectile!
+	VAR_FINAL/homing = FALSE
+	/// Target the projectile is homing on
+	var/atom/homing_target
+	/// Angles per move segment, distance is based on SSprojectiles.pixels_per_decisecond
+	/// With pixels_per_decisecond set to 16 and homing_turn_speed, the projectile can turn up to 20 pixels per turf passed
+	var/homing_turn_speed = 10
+	// Allowed leeway in pixels
+	var/homing_inaccuracy_min = 0
+	var/homing_inaccuracy_max = 0
+	var/homing_offset_x = 0
+	var/homing_offset_y = 0
+
 /obj/projectile/Initialize(mapload)
 	. = ..()
 	maximum_range = range
@@ -340,6 +355,28 @@
 	beam_index = point_cache
 	beam_segments[beam_index] = null
 
+/// Makes projectile home onto the passed target with minor inaccuracy
+/obj/projectile/proc/set_homing_target(atom/target)
+	if(!target || (!isturf(target) && !isturf(target.loc)))
+		return FALSE
+	homing = TRUE
+	homing_target = target
+	homing_offset_x = rand(homing_inaccuracy_min, homing_inaccuracy_max)
+	homing_offset_y = rand(homing_inaccuracy_min, homing_inaccuracy_max)
+	if(prob(50))
+		homing_offset_x = -homing_offset_x
+	if(prob(50))
+		homing_offset_y = -homing_offset_y
+
+/obj/projectile/proc/process_homing()
+	if(!homing_target)
+		return
+	var/datum/point/new_point = RETURN_PRECISE_POINT(homing_target)
+	new_point.x += homing_offset_x
+	new_point.y += homing_offset_y
+	var/new_angle = closer_angle_difference(Angle, angle_between_points(RETURN_PRECISE_POINT(src), new_point))
+	set_angle(Angle + clamp(new_angle, -homing_turn_speed, homing_turn_speed))
+
 /obj/projectile/Bump(atom/bumped_atom)
 	. = ..()
 
@@ -433,6 +470,8 @@
 		return
 	last_projectile_move = world.time
 	// Keep on course
+	if(homing)
+		process_homing()
 	if(!hitscanning)
 		var/matrix/matrix = new
 		matrix.Turn(Angle)
