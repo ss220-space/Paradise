@@ -714,10 +714,7 @@
 	pixel_x = 5;
 	pixel_y = 17
 	},
-/obj/item/reagent_containers/cup/glass/bottle/cream{
-	pixel_x = -7;
-	pixel_y = 8
-	},
+/obj/item/reagent_containers/cup/glass/bottle/juice/cream,
 /obj/item/reagent_containers/cup/bottle/sugar{
 	pixel_x = -5;
 	pixel_y = -4
@@ -85054,7 +85051,7 @@
 "qgS" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/snacks/mint,
-/obj/item/reagent_containers/cup/glass/bottle/cream,
+/obj/item/reagent_containers/cup/glass/bottle/juice/cream,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"

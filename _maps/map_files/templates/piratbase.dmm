@@ -6694,7 +6694,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/item/reagent_containers/cup/glass/bottle/orangejuice,
+/obj/item/reagent_containers/cup/glass/bottle/juice/orangejuice,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},

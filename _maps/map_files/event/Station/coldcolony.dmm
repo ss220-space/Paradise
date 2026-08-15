@@ -22240,7 +22240,7 @@
 /area/coldcolony/malta/quartermaster/sorting)
 "irt" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/cup/glass/bottle/cream,
+/obj/item/reagent_containers/cup/glass/bottle/juice/cream,
 /obj/machinery/firealarm/directional/west,
 /obj/machinery/camera{
 	c_tag = "Kitchen";

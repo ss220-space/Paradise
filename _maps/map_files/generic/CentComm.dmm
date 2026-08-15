@@ -27287,7 +27287,7 @@
 "mKB" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/packageWrap,
-/obj/item/reagent_containers/cup/glass/bottle/cream,
+/obj/item/reagent_containers/cup/glass/bottle/juice/cream,
 /obj/item/reagent_containers/food/snacks/mint,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
@@ -34812,7 +34812,7 @@
 	pixel_y = 14
 	},
 /obj/item/stack/packageWrap,
-/obj/item/reagent_containers/cup/glass/bottle/cream,
+/obj/item/reagent_containers/cup/glass/bottle/juice/cream,
 /obj/item/reagent_containers/food/snacks/mint,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"

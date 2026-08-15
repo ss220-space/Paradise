@@ -55586,9 +55586,7 @@
 /area/station/maintenance/trading)
 "jDp" = (
 /obj/structure/table,
-/obj/item/reagent_containers/cup/glass/bottle/cream{
-	pixel_y = 8
-	},
+/obj/item/reagent_containers/cup/glass/bottle/juice/cream,
 /obj/item/kitchen/knife{
 	pixel_x = -8
 	},
