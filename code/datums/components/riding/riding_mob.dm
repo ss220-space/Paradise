@@ -292,8 +292,8 @@
 	ADD_TRAIT(rider, TRAIT_FORCED_STANDING, UNIQUE_TRAIT_SOURCE(src))
 
 /datum/component/riding/creature/cyborg/handle_unbuckle(mob/living/rider)
-	. = ..()
 	REMOVE_TRAIT(rider, TRAIT_FORCED_STANDING, UNIQUE_TRAIT_SOURCE(src))
+	..()
 	// For some reason, after unbuckling, game is substracting atom's 'pixel_y' var by 9.
 	rider.pixel_y += 9
 
