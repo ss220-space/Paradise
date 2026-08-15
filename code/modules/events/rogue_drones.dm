@@ -10,13 +10,13 @@
 	var/num = rand(2, 12)
 	for(var/i in 1 to num)
 		var/mob/living/simple_animal/hostile/malf_drone/drone = new(get_turf(pick(possible_spawns)))
-		RegisterSignal(drone, COMSIG_QDELETING, PROC_REF(remove_drone))
+		RegisterSignal(drone, COMSIG_PARENT_QDELETING, PROC_REF(remove_drone))
 		drones_list.Add(drone)
 
 /datum/event/rogue_drone/proc/remove_drone(mob/living/simple_animal/hostile/malf_drone/drone)
 	SIGNAL_HANDLER
 	drones_list -= drone
-	UnregisterSignal(drone, COMSIG_QDELETING)
+	UnregisterSignal(drone, COMSIG_PARENT_QDELETING)
 
 /datum/event/rogue_drone/announce()
 	var/msg

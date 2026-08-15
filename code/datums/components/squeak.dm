@@ -135,7 +135,7 @@
 
 	holder = equipper
 	RegisterSignal(holder, COMSIG_MOVABLE_DISPOSING, PROC_REF(disposing_react), override = TRUE)
-	RegisterSignal(holder, COMSIG_QDELETING, PROC_REF(holder_deleted), override = TRUE)
+	RegisterSignal(holder, COMSIG_PARENT_QDELETING, PROC_REF(holder_deleted), override = TRUE)
 	//override for the preqdeleted is necessary because putting parent in hands sends the signal that this proc is registered towards,
 	//so putting an object in hands and then equipping the item on a clothing slot (without dropping it first)
 	//will always runtime without override = TRUE
@@ -144,7 +144,7 @@
 	SIGNAL_HANDLER
 
 	UnregisterSignal(user, COMSIG_MOVABLE_DISPOSING)
-	UnregisterSignal(user, COMSIG_QDELETING)
+	UnregisterSignal(user, COMSIG_PARENT_QDELETING)
 	holder = null
 
 ///just gets rid of the reference to holder in the case that theyre qdeleted

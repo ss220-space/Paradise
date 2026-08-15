@@ -567,7 +567,7 @@
 	icon_state = machinery.icon_state
 	maxHealth = machinery.max_integrity
 	health = maxHealth
-	RegisterSignal(machinery, COMSIG_QDELETING, PROC_REF(death))
+	RegisterSignal(machinery, COMSIG_PARENT_QDELETING, PROC_REF(death))
 
 // MARK: Head hit
 /datum/smite/headhit

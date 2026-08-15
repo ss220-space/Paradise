@@ -66,13 +66,13 @@
 		// We dont need to set user_client back on every `for` iteration
 		user_client = user.client
 
-	RegisterSignal(user, COMSIG_QDELETING, PROC_REF(on_user_delete))
+	RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(on_user_delete))
 	RegisterSignal(user, COMSIG_MOB_LOGOUT, PROC_REF(clean_user_client))
 	RegisterSignal(user, COMSIG_MOB_LOGIN, PROC_REF(on_user_login))
 
 /datum/progressbar/Destroy()
 	if(user)
-		UnregisterSignal(user, list(COMSIG_QDELETING, COMSIG_MOB_LOGOUT, COMSIG_MOB_LOGIN))
+		UnregisterSignal(user, list(COMSIG_PARENT_QDELETING, COMSIG_MOB_LOGOUT, COMSIG_MOB_LOGIN))
 		for(var/pb in user.progressbars[bar_loc])
 			var/datum/progressbar/progress_bar = pb
 			if(progress_bar == src || progress_bar.listindex <= listindex)
@@ -132,12 +132,12 @@
 
 /client/proc/add_progressbar(datum/progressbar/bar)
 	images += bar.bar
-	RegisterSignal(bar, COMSIG_QDELETING, PROC_REF(remove_progressbar))
+	RegisterSignal(bar, COMSIG_PARENT_QDELETING, PROC_REF(remove_progressbar))
 
 /client/proc/remove_progressbar(datum/progressbar/bar)
 	SIGNAL_HANDLER
 	images -= bar.bar
-	UnregisterSignal(bar, COMSIG_QDELETING)
+	UnregisterSignal(bar, COMSIG_PARENT_QDELETING)
 
 ///Updates the progress bar image visually.
 /datum/progressbar/proc/update(progress)

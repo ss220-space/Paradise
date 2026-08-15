@@ -327,7 +327,7 @@
 			set_gripper_item(I)
 			I.update_icon(UPDATE_OVERLAYS) //Some items change their appearance upon being pulled (IV drip as an example)
 			update_icon(UPDATE_OVERLAYS)
-			RegisterSignals(I, list(COMSIG_MOVABLE_MOVED, COMSIG_QDELETING), PROC_REF(handle_item_moving))
+			RegisterSignals(I, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING), PROC_REF(handle_item_moving))
 			RegisterSignals(I, list(COMSIG_ATOM_UPDATED_ICON), PROC_REF(handle_item_icon_update))
 		else
 			balloon_alert(user, "невозможно взять!")
@@ -338,7 +338,7 @@
 
 /obj/item/gripper/proc/handle_item_moving()
 	SIGNAL_HANDLER
-	UnregisterSignal(gripped_item, list(COMSIG_MOVABLE_MOVED, COMSIG_QDELETING, COMSIG_ATOM_UPDATED_ICON))
+	UnregisterSignal(gripped_item, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING, COMSIG_ATOM_UPDATED_ICON))
 	gripped_item.update_icon(UPDATE_OVERLAYS)
 	set_gripper_item(null)
 	update_icon(UPDATE_OVERLAYS)

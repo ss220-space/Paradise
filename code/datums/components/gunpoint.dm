@@ -82,11 +82,11 @@
 		COMSIG_LIVING_START_PULL,
 		COMSIG_MOB_ITEM_ATTACK), PROC_REF(trigger_reaction))
 	RegisterSignal(target, COMSIG_ATOM_EXAMINE, PROC_REF(examine_target))
-	RegisterSignals(target, list(COMSIG_QDELETING, COMSIG_LIVING_GUNPOINT_CANCEL), PROC_REF(cancel))
+	RegisterSignals(target, list(COMSIG_PARENT_QDELETING, COMSIG_LIVING_GUNPOINT_CANCEL), PROC_REF(cancel))
 	RegisterSignal(target, COMSIG_LIVING_GUNPOINT_START, PROC_REF(block_duplicate_gunpoint))
 	RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(check_special_conditions_before_trigger))
 
-	RegisterSignals(weapon, list(COMSIG_ITEM_DROPPED, COMSIG_ITEM_EQUIPPED, COMSIG_QDELETING), PROC_REF(cancel))
+	RegisterSignals(weapon, list(COMSIG_ITEM_DROPPED, COMSIG_ITEM_EQUIPPED, COMSIG_PARENT_QDELETING), PROC_REF(cancel))
 
 /datum/component/gunpoint/UnregisterFromParent()
 	UnregisterSignal(parent, list(
@@ -109,7 +109,7 @@
 			COMSIG_LIVING_START_PULL,
 			COMSIG_MOB_ITEM_ATTACK,
 			COMSIG_ATOM_EXAMINE,
-			COMSIG_QDELETING,
+			COMSIG_PARENT_QDELETING,
 			COMSIG_LIVING_GUNPOINT_START,
 			COMSIG_LIVING_GUNPOINT_CANCEL,
 		))
@@ -118,7 +118,7 @@
 		UnregisterSignal(weapon, list(
 			COMSIG_ITEM_DROPPED,
 			COMSIG_ITEM_EQUIPPED,
-			COMSIG_QDELETING,
+			COMSIG_PARENT_QDELETING,
 		))
 
 ///If the shooter bumps the target, cancel the holdup to avoid cheesing and forcing the charged shot

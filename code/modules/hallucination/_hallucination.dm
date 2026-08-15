@@ -40,7 +40,7 @@
 	who_sees_us = list()
 	for(var/mob/seer as anything in mobs_which_see_us)
 		RegisterSignal(seer, COMSIG_MOB_LOGIN, PROC_REF(show_image_to))
-		RegisterSignal(seer, COMSIG_QDELETING, PROC_REF(remove_seer))
+		RegisterSignal(seer, COMSIG_PARENT_QDELETING, PROC_REF(remove_seer))
 		who_sees_us += seer
 		show_image_to(seer)
 
@@ -63,7 +63,7 @@
 /obj/effect/client_image_holder/proc/remove_seer(mob/source)
 	SIGNAL_HANDLER
 
-	UnregisterSignal(source, list(COMSIG_MOB_LOGIN, COMSIG_QDELETING))
+	UnregisterSignal(source, list(COMSIG_MOB_LOGIN, COMSIG_PARENT_QDELETING))
 	hide_image_from(source)
 	who_sees_us -= source
 

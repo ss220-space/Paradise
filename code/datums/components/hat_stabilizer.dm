@@ -35,7 +35,7 @@
 	RegisterSignal(parent, COMSIG_MODULE_GENERATE_WORN_OVERLAY, PROC_REF(get_worn_overlays))
 	RegisterSignal(parent, COMSIG_ITEM_GET_SEPARATE_WORN_OVERLAYS, PROC_REF(get_separate_worn_overlays))
 
-	RegisterSignal(parent, COMSIG_QDELETING, PROC_REF(on_qdel))
+	RegisterSignal(parent, COMSIG_PARENT_QDELETING, PROC_REF(on_qdel))
 
 // Inherit the new values passed to the component
 /datum/component/hat_stabilizer/InheritComponent(datum/component/hat_stabilizer/new_comp, original, use_worn_icon, pixel_z_offset, loose_hat)
@@ -54,7 +54,7 @@
 		remove_hat()
 	UnregisterSignal(parent, list(COMSIG_ATOM_EXAMINE, COMSIG_ATOM_ATTACKBY,
 	COMSIG_CLICK_ALT, COMSIG_MODULE_GENERATE_WORN_OVERLAY,
-	COMSIG_ITEM_GET_SEPARATE_WORN_OVERLAYS, COMSIG_ATOM_UPDATE_OVERLAYS, COMSIG_QDELETING,
+	COMSIG_ITEM_GET_SEPARATE_WORN_OVERLAYS, COMSIG_ATOM_UPDATE_OVERLAYS, COMSIG_PARENT_QDELETING,
 	COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED))
 
 /datum/component/hat_stabilizer/proc/on_equip(datum/source, mob/equipper, slot)

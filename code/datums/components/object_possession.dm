@@ -75,7 +75,7 @@
 	target.AddElement(/datum/element/weather_listener, /datum/weather/ash_storm, ZTRAIT_ASHSTORM, GLOB.ash_storm_sounds)
 	target.AddElement(/datum/element/weather_listener, /datum/weather/snow_storm, ZTRAIT_SNOWSTORM, GLOB.snowstorm_sounds)
 
-	RegisterSignal(target, COMSIG_QDELETING, PROC_REF(end_possession))
+	RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(end_possession))
 	SEND_SIGNAL(target, COMSIG_OBJ_POSSESSED, parent)
 
 	return TRUE
@@ -90,7 +90,7 @@
 	possessed.RemoveElement(/datum/element/weather_listener, /datum/weather/snow_storm, ZTRAIT_SNOWSTORM, GLOB.snowstorm_sounds)
 
 
-	UnregisterSignal(possessed, COMSIG_QDELETING)
+	UnregisterSignal(possessed, COMSIG_PARENT_QDELETING)
 
 	if(!isnull(stashed_name))
 		poltergeist.real_name = stashed_name

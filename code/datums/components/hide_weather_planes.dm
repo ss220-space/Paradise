@@ -14,7 +14,7 @@
 		return COMPONENT_INCOMPATIBLE
 	var/datum/plane_master_group/home = parent
 	plane_masters += care_about
-	RegisterSignal(care_about, COMSIG_QDELETING, PROC_REF(plane_master_deleted))
+	RegisterSignal(care_about, COMSIG_PARENT_QDELETING, PROC_REF(plane_master_deleted))
 
 	var/list/starting_signals = list()
 	var/list/ending_signals = list()
@@ -44,7 +44,7 @@
 	var/mob/our_lad = home.our_hud?.mymob
 	var/our_offset = GET_TURF_PLANE_OFFSET(our_lad)
 	plane_masters += care_about
-	RegisterSignal(care_about, COMSIG_QDELETING, PROC_REF(plane_master_deleted))
+	RegisterSignal(care_about, COMSIG_PARENT_QDELETING, PROC_REF(plane_master_deleted))
 	if(!length(active_weather))
 		care_about.hide_plane(our_lad)
 		return

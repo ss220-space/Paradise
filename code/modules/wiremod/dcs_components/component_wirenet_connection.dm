@@ -89,7 +89,7 @@
 
 	tracked_movable = new_tracked_movable
 	RegisterSignal(new_tracked_movable, COMSIG_MOVABLE_SET_ANCHORED, PROC_REF(on_tracked_movable_set_anchored))
-	RegisterSignal(new_tracked_movable, COMSIG_QDELETING, PROC_REF(unset_tracked_movable))
+	RegisterSignal(new_tracked_movable, COMSIG_PARENT_QDELETING, PROC_REF(unset_tracked_movable))
 	if(!tracked_movable.anchored)
 		return
 
@@ -102,7 +102,7 @@
 	if(!tracked_movable)
 		return
 
-	UnregisterSignal(tracked_movable, list(COMSIG_MOVABLE_SET_ANCHORED, COMSIG_QDELETING))
+	UnregisterSignal(tracked_movable, list(COMSIG_MOVABLE_SET_ANCHORED, COMSIG_PARENT_QDELETING))
 	tracked_movable = null
 
 /datum/component/circuit_component_wirenet_connection/proc/on_tracked_movable_set_anchored(atom/movable/source, now_anchored)
@@ -131,7 +131,7 @@
 	RegisterSignal(tracked_movable, COMSIG_MOVABLE_MOVED, PROC_REF(unset_tracked_node)) //Because of wack cases of something pushing an anchored object
 	RegisterSignal(node, COMSIG_CABLE_ADDED_TO_POWERNET, PROC_REF(set_tracked_powernet))
 	RegisterSignal(node, COMSIG_CABLE_REMOVED_FROM_POWERNET, PROC_REF(unset_tracked_powernet))
-	RegisterSignal(node, COMSIG_QDELETING, PROC_REF(unset_tracked_node))
+	RegisterSignal(node, COMSIG_PARENT_QDELETING, PROC_REF(unset_tracked_node))
 	if(!node.powernet)
 		return
 
@@ -145,7 +145,7 @@
 		return
 
 	UnregisterSignal(tracked_movable, COMSIG_MOVABLE_MOVED)
-	UnregisterSignal(tracked_node, list(COMSIG_CABLE_ADDED_TO_POWERNET, COMSIG_CABLE_REMOVED_FROM_POWERNET, COMSIG_QDELETING))
+	UnregisterSignal(tracked_node, list(COMSIG_CABLE_ADDED_TO_POWERNET, COMSIG_CABLE_REMOVED_FROM_POWERNET, COMSIG_PARENT_QDELETING))
 	tracked_node = null
 
 /datum/component/circuit_component_wirenet_connection/proc/set_tracked_powernet(datum/powernet/source)

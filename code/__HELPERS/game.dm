@@ -169,14 +169,14 @@
 		return
 	var/atom/movable/lies_to_children = src
 	lies_to_children.vis_contents -= source
-	UnregisterSignal(source, COMSIG_QDELETING)
+	UnregisterSignal(source, COMSIG_PARENT_QDELETING)
 
 /atom/proc/register_flick_visual(atom/movable/flick_visual/visual)
 	if(!istype(visual))
 		return
 	var/atom/movable/lies_to_children = src
 	lies_to_children.vis_contents += visual
-	RegisterSignal(visual, COMSIG_QDELETING, PROC_REF(on_flick_qdeleted))
+	RegisterSignal(visual, COMSIG_PARENT_QDELETING, PROC_REF(on_flick_qdeleted))
 
 /// Takes the passed in MA/icon_state, mirrors it onto ourselves, and displays that in world for duration seconds
 /// Returns the displayed object, you can animate it and all, but you don't own it, we'll delete it after the duration

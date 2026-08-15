@@ -121,7 +121,7 @@
 	SIGNAL_HANDLER
 
 	if(wearer)
-		UnregisterSignal(wearer, list(COMSIG_HUMAN_REGENERATE_ICONS, COMSIG_QDELETING))
+		UnregisterSignal(wearer, list(COMSIG_HUMAN_REGENERATE_ICONS, COMSIG_PARENT_QDELETING))
 		wearer.cut_overlay(shield)
 		wearer.regenerate_icons()
 		wearer = null
@@ -131,7 +131,7 @@
 		return
 	wearer = user
 	RegisterSignal(wearer, COMSIG_HUMAN_REGENERATE_ICONS, PROC_REF(apply_shield_overlay))
-	RegisterSignal(wearer, COMSIG_QDELETING, PROC_REF(lost_wearer))
+	RegisterSignal(wearer, COMSIG_PARENT_QDELETING, PROC_REF(lost_wearer))
 	if(current_charges)
 		apply_shield_overlay()
 

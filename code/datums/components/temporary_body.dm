@@ -23,13 +23,13 @@
 	src.delete_on_death = delete_on_death
 
 /datum/component/temporary_body/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_QDELETING, PROC_REF(on_parent_destroy))
+	RegisterSignal(parent, COMSIG_PARENT_QDELETING, PROC_REF(on_parent_destroy))
 
 	if(delete_on_death)
 		RegisterSignal(parent, COMSIG_LIVING_DEATH, PROC_REF(on_parent_destroy))
 
 /datum/component/temporary_body/UnregisterFromParent()
-	UnregisterSignal(parent, COMSIG_QDELETING)
+	UnregisterSignal(parent, COMSIG_PARENT_QDELETING)
 
 /**
  * Sends the mind of the temporary body back into their previous host

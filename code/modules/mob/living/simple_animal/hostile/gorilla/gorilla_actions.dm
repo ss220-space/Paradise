@@ -303,7 +303,7 @@
 	target_turf = path[path_length]
 	var/datum/move_loop/new_loop = Goto(target_turf, move_to_delay, timeout = 4 SECONDS)
 	RegisterSignal(new_loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(move_postprocess))
-	RegisterSignal(new_loop, COMSIG_QDELETING, PROC_REF(move_end))
+	RegisterSignal(new_loop, COMSIG_PARENT_QDELETING, PROC_REF(move_end))
 
 /mob/living/simple_animal/hostile/gorilla/proc/move_postprocess(datum/source)
 	SIGNAL_HANDLER

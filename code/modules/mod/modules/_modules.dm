@@ -91,14 +91,14 @@
 	device.materials = null
 
 	ADD_TRAIT(device, TRAIT_NODROP, MODSUIT_TRAIT)
-	RegisterSignal(device, COMSIG_QDELETING, PROC_REF(on_device_deletion))
+	RegisterSignal(device, COMSIG_PARENT_QDELETING, PROC_REF(on_device_deletion))
 	RegisterSignal(src, COMSIG_ATOM_EXITED, PROC_REF(on_exit))
 
 /obj/item/mod/module/Destroy()
 	mod?.uninstall(src)
 	mod = null
 	if(device)
-		UnregisterSignal(device, COMSIG_QDELETING)
+		UnregisterSignal(device, COMSIG_PARENT_QDELETING)
 		QDEL_NULL(device)
 
 	return ..()

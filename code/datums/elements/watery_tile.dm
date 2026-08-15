@@ -38,7 +38,7 @@
 		return
 
 	RegisterSignal(entered, SIGNAL_ADDTRAIT(TRAIT_IMMERSED), PROC_REF(dip_in))
-	RegisterSignal(entered, COMSIG_QDELETING, PROC_REF(on_content_del))
+	RegisterSignal(entered, COMSIG_PARENT_QDELETING, PROC_REF(on_content_del))
 	if(isliving(entered))
 		RegisterSignal(entered, SIGNAL_REMOVETRAIT(TRAIT_IMMERSED), PROC_REF(dip_out))
 	wet_dogs |= entered
@@ -61,7 +61,7 @@
 
 /datum/element/watery_tile/proc/on_content_del(atom/movable/source)
 	SIGNAL_HANDLER
-	UnregisterSignal(source, list(SIGNAL_ADDTRAIT(TRAIT_IMMERSED), SIGNAL_REMOVETRAIT(TRAIT_IMMERSED), COMSIG_QDELETING))
+	UnregisterSignal(source, list(SIGNAL_ADDTRAIT(TRAIT_IMMERSED), SIGNAL_REMOVETRAIT(TRAIT_IMMERSED), COMSIG_PARENT_QDELETING))
 	wet_dogs -= source
 
 /datum/element/watery_tile/proc/dip_out(mob/living/source)

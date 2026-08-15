@@ -75,12 +75,12 @@
 ///setter used to set our new hud
 /atom/movable/screen/proc/set_new_hud(datum/hud/hud_owner)
 	if(hud)
-		UnregisterSignal(hud, COMSIG_QDELETING)
+		UnregisterSignal(hud, COMSIG_PARENT_QDELETING)
 	if(isnull(hud_owner))
 		hud = null
 		return
 	hud = hud_owner
-	RegisterSignal(hud, COMSIG_QDELETING, PROC_REF(on_hud_delete))
+	RegisterSignal(hud, COMSIG_PARENT_QDELETING, PROC_REF(on_hud_delete))
 
 /atom/movable/screen/proc/on_hud_delete(datum/source)
 	SIGNAL_HANDLER

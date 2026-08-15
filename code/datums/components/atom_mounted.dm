@@ -13,7 +13,7 @@
 	if(isturf(hanging_support_atom))
 		RegisterSignal(hanging_support_atom, COMSIG_TURF_CHANGE, PROC_REF(on_turf_changing))
 	else
-		RegisterSignal(hanging_support_atom, COMSIG_QDELETING, PROC_REF(on_structure_delete))
+		RegisterSignal(hanging_support_atom, COMSIG_PARENT_QDELETING, PROC_REF(on_structure_delete))
 
 /datum/component/atom_mounted/RegisterWithParent()
 	ADD_TRAIT(parent, TRAIT_WALLMOUNTED, INNATE_TRAIT)

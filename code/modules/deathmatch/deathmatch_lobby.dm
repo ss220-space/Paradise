@@ -167,12 +167,12 @@
 	register_player_signals(new_player)
 
 /datum/deathmatch_lobby/proc/register_player_signals(new_player)
-	RegisterSignals(new_player, list(COMSIG_LIVING_DEATH, COMSIG_QDELETING, COMSIG_MOB_GHOSTIZE), PROC_REF(player_died))
+	RegisterSignals(new_player, list(COMSIG_LIVING_DEATH, COMSIG_PARENT_QDELETING, COMSIG_MOB_GHOSTIZE), PROC_REF(player_died))
 	RegisterSignal(new_player, COMSIG_LIVING_ON_WABBAJACKED, PROC_REF(player_wabbajacked))
 	RegisterSignal(new_player, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(prevent_escaping))
 
 /datum/deathmatch_lobby/proc/unregister_player_signals(new_player)
-	UnregisterSignal(new_player, list(COMSIG_LIVING_DEATH, COMSIG_QDELETING, COMSIG_MOB_GHOSTIZE, COMSIG_LIVING_ON_WABBAJACKED, COMSIG_MOVABLE_Z_CHANGED))
+	UnregisterSignal(new_player, list(COMSIG_LIVING_DEATH, COMSIG_PARENT_QDELETING, COMSIG_MOB_GHOSTIZE, COMSIG_LIVING_ON_WABBAJACKED, COMSIG_MOVABLE_Z_CHANGED))
 
 /datum/deathmatch_lobby/proc/game_took_too_long()
 	if(!location || QDELING(src))

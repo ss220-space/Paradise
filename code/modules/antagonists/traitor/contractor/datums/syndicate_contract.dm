@@ -334,7 +334,7 @@
 	RegisterSignal(pod, COMSIG_SUPPLYPOD_ENTERED, PROC_REF(enter_check))
 	RegisterSignal(pod, COMSIG_SUPPLYPOD_PRE_RETURN, PROC_REF(on_sypplypod_pre_return))
 	RegisterSignal(pod, COMSIG_SUPPLYPOD_CLIMB_CHECK, PROC_REF(on_climb))
-	RegisterSignal(pod, COMSIG_QDELETING, PROC_REF(on_qdel))
+	RegisterSignal(pod, COMSIG_PARENT_QDELETING, PROC_REF(on_qdel))
 
 	pod.stay_after_drop = TRUE
 	pod.reversing = TRUE
@@ -344,7 +344,7 @@
 
 /datum/syndicate_contract/proc/on_qdel(atom/source)
 	SIGNAL_HANDLER
-	UnregisterSignal(pod, list(COMSIG_SUPPLYPOD_ENTERED, COMSIG_SUPPLYPOD_PRE_RETURN, COMSIG_SUPPLYPOD_CLIMB_CHECK, COMSIG_QDELETING))
+	UnregisterSignal(pod, list(COMSIG_SUPPLYPOD_ENTERED, COMSIG_SUPPLYPOD_PRE_RETURN, COMSIG_SUPPLYPOD_CLIMB_CHECK, COMSIG_PARENT_QDELETING))
 	pod = null
 
 /datum/syndicate_contract/proc/on_sypplypod_pre_return(obj/structure/closet/supplypod/pod)

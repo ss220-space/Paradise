@@ -65,11 +65,11 @@
 		if(recharging_mecha.loc == recharging_turf)
 			return
 
-		UnregisterSignal(recharging_mecha, COMSIG_QDELETING)
+		UnregisterSignal(recharging_mecha, COMSIG_PARENT_QDELETING)
 		recharging_mecha = null
 	recharging_mecha = locate(/obj/mecha) in recharging_turf
 	if(recharging_mecha)
-		RegisterSignal(recharging_mecha, COMSIG_QDELETING, PROC_REF(on_mecha_qdel))
+		RegisterSignal(recharging_mecha, COMSIG_PARENT_QDELETING, PROC_REF(on_mecha_qdel))
 
 /obj/machinery/mech_bay_recharge_port/proc/on_mecha_qdel()
 	SIGNAL_HANDLER

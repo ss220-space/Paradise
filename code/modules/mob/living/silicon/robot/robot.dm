@@ -1465,7 +1465,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return FALSE
 
 	if(!upgrade.instant_use)
-		RegisterSignal(upgrade, COMSIG_QDELETING, PROC_REF(on_upgrade_deleted))
+		RegisterSignal(upgrade, COMSIG_PARENT_QDELETING, PROC_REF(on_upgrade_deleted))
 		upgrades += upgrade
 
 		if(upgrade.loc != src)
@@ -1483,7 +1483,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		old_upgrade.deactivate(src)
 
 	upgrades -= old_upgrade
-	UnregisterSignal(old_upgrade, COMSIG_QDELETING)
+	UnregisterSignal(old_upgrade, COMSIG_PARENT_QDELETING)
 
 /mob/living/silicon/robot/Topic(href, href_list)
 	. = ..()

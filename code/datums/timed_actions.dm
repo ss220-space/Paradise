@@ -86,7 +86,7 @@
 	return ..()
 
 /datum/timed_action/proc/register_signals()
-	RegisterSignal(user, COMSIG_QDELETING, PROC_REF(on_user_deleted))
+	RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(on_user_deleted))
 	if(cancel_on_max && interaction_key)
 		RegisterSignal(user, COMSIG_DO_AFTER_PRE_BEGAN, PROC_REF(on_do_after_pre_began))
 
@@ -121,7 +121,7 @@
 	for(var/atom/target as anything in targets)
 		if(target == user)
 			continue
-		RegisterSignal(target, COMSIG_QDELETING, PROC_REF(on_target_deleted))
+		RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(on_target_deleted))
 		if(!(timed_action_flags & DA_IGNORE_TARGET_LOC_CHANGE))
 			RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(on_target_moved))
 

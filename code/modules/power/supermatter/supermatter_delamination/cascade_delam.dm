@@ -86,7 +86,7 @@
 
 /datum/sm_delam/cascade/proc/delaminate_step3()
 	delam_rift = effect_evac_rift_start()
-	RegisterSignal(delam_rift, COMSIG_QDELETING, PROC_REF(end_round_holder))
+	RegisterSignal(delam_rift, COMSIG_PARENT_QDELETING, PROC_REF(end_round_holder))
 	SSsupermatter_cascade.can_fire = TRUE
 	SSsupermatter_cascade.cascade_initiated = TRUE
 	effect_crystal_mass(delam_sm, delam_rift)

@@ -109,7 +109,7 @@
 	helmet.update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 	RegisterSignal(helmet, COMSIG_ITEM_DROPPED, PROC_REF(on_helmet_dropped))
 	RegisterSignal(helmet, COMSIG_ITEM_EQUIPPED, PROC_REF(on_helmet_equipped))
-	RegisterSignal(helmet, COMSIG_QDELETING, PROC_REF(on_helmet_destroyed))
+	RegisterSignal(helmet, COMSIG_PARENT_QDELETING, PROC_REF(on_helmet_destroyed))
 
 /obj/item/clothing/suit/space/hardsuit/proc/on_helmet_dropped()
 	SIGNAL_HANDLER

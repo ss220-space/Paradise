@@ -32,7 +32,7 @@
 	atom_parent.update_icon()
 
 /datum/component/persistent_overlay/UnregisterFromParent()
-	UnregisterSignal(parent, COMSIG_QDELETING, COMSIG_ATOM_UPDATE_OVERLAYS)
+	UnregisterSignal(parent, COMSIG_PARENT_QDELETING, COMSIG_ATOM_UPDATE_OVERLAYS)
 	var/atom/atom_parent = parent
 	atom_parent.update_icon()
 

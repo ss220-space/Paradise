@@ -73,7 +73,7 @@
 /// Associates this mob with a specific blob factory node
 /mob/living/simple_animal/hostile/blob_minion/proc/link_to_factory(obj/structure/blob/special/factory/factory)
 	factory_linked = TRUE
-	RegisterSignal(factory, COMSIG_QDELETING, PROC_REF(on_factory_destroyed))
+	RegisterSignal(factory, COMSIG_PARENT_QDELETING, PROC_REF(on_factory_destroyed))
 
 /mob/living/simple_animal/hostile/blob_minion/attack_animal(mob/living/simple_animal/M)
 	if(ROLE_BLOB in M.faction)

@@ -53,7 +53,7 @@
 
 	if(value != new_value || force)
 		if(isdatum(value))
-			UnregisterSignal(value, COMSIG_QDELETING)
+			UnregisterSignal(value, COMSIG_PARENT_QDELETING)
 
 		if(datatype_handler.is_extensive)
 			value = datatype_handler.convert_value_extensive(src, new_value, force)
@@ -61,7 +61,7 @@
 			value = datatype_handler.convert_value(src, new_value, force)
 
 		if(isdatum(value))
-			RegisterSignal(value, COMSIG_QDELETING, PROC_REF(null_value))
+			RegisterSignal(value, COMSIG_PARENT_QDELETING, PROC_REF(null_value))
 
 	SEND_SIGNAL(src, COMSIG_PORT_SET_VALUE, value)
 
@@ -161,7 +161,7 @@
 	if(value == source)
 		value = null
 	else
-		stack_trace("Impossible? [src] should only receive COMSIG_QDELETING from an atom currently in the port, not [source].")
+		stack_trace("Impossible? [src] should only receive COMSIG_PARENT_QDELETING from an atom currently in the port, not [source].")
 
 /**
  * # Input Port

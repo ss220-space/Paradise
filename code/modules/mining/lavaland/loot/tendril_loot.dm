@@ -293,8 +293,8 @@
 	return_wisp(user)
 
 /obj/item/wisp_lantern/proc/free_wisp(mob/user)
-	RegisterSignal(src, COMSIG_QDELETING, PROC_REF(on_drop), user)
-	RegisterSignal(user, COMSIG_QDELETING, PROC_REF(return_wisp))
+	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(on_drop), user)
+	RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(return_wisp))
 	RegisterSignal(user, COMSIG_MOB_UPDATE_SIGHT, PROC_REF(update_user_sight))
 
 	balloon_alert(user, "дух выпущен")
@@ -307,8 +307,8 @@
 	SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Freed") // freed
 
 /obj/item/wisp_lantern/proc/return_wisp(mob/user)
-	UnregisterSignal(src, COMSIG_QDELETING)
-	UnregisterSignal(user, COMSIG_QDELETING)
+	UnregisterSignal(src, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(user, COMSIG_PARENT_QDELETING)
 	UnregisterSignal(user, COMSIG_MOB_UPDATE_SIGHT)
 
 	balloon_alert(user, "дух возвращён")

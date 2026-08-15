@@ -232,7 +232,7 @@
 	user.s_active = src
 	LAZYOR(mobs_viewing, user)
 
-	RegisterSignal(user, COMSIG_QDELETING, PROC_REF(on_mob_qdeleting), TRUE)
+	RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(on_mob_qdeleting), TRUE)
 
 	if(from_inv_observers)
 		return
@@ -260,7 +260,7 @@
 	if(user.s_active == src)
 		user.s_active = null
 
-	UnregisterSignal(user, COMSIG_QDELETING)
+	UnregisterSignal(user, COMSIG_PARENT_QDELETING)
 
 	if(from_inv_observers)
 		return
