@@ -20,7 +20,6 @@
 	)
 	gun_flags = GUN_AMMO_COUNTER
 	ammo_count_overlay = "counter_automatic"
-	ammo_count_colour = COLOR_RED
 
 /obj/item/gun/energy/laser/automatic/get_ru_names()
 	return alist(
