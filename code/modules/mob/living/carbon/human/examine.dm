@@ -383,7 +383,7 @@
 				if(!key)
 					msg += span_deadsay("[GEND_HE_SHE_CAP(src)] в полной кататонии. Должно быть, тяготы жизни в глубоком космосе оказались непосильны для н[GEND_HIS_HER(src)]. Шансы на восстановление ничтожны.\n")
 				else if(!client)
-					msg += span_deadsay("[GEND_HE_SHE_CAP(src)] внезапно заснул[GEND_A_O_I(src)]. [GEND_HE_SHE_CAP(src)] может скоро проснуться.\n")
+					msg += span_deadsay("[GEND_HE_SHE_CAP(src)] страдает от космического расстройства сна. [GEND_HE_SHE_CAP(src)] может скоро проснуться.\n")
 
 		if(HAS_TRAIT_FROM(src, TRAIT_AI_UNTRACKABLE, CHANGELING_TRAIT))
 			msg += span_italics("[GEND_HE_SHE_CAP(src)] двигает своё тело неестественно и откровенно нечеловеческим образом.\n")

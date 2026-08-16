@@ -1,4 +1,0 @@
-author: "FlitchTime"
-delete-after: True
-changes:
-  - bugfix: "Разметка в саду кухни снова смотрят в свою стороны. (PR #9624)"

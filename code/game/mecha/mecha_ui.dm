@@ -203,7 +203,9 @@
 			dna_lock = null
 		if("equip_act")
 			var/obj/item/mecha_parts/mecha_equipment/gear = locateUID(params["ref"])
-			return gear?.ui_act(params["gear_action"], params, ui, state)
+			if(!istype(gear) || gear.chassis != src)
+				return FALSE
+			return gear.ui_act(params["gear_action"], params, ui, state)
 		if("repair_int_damage")
 			try_repair_int_damage(usr, params["flag"])
 			return FALSE
