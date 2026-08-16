@@ -1,30 +1,80 @@
-////////////////////////////////////////////////////////////////////////////////
-/// (Mixing)Glass.
-////////////////////////////////////////////////////////////////////////////////
+// MARK: Base Cup
 /obj/item/reagent_containers/cup
 	name = " "
-	var/base_name = " "
-	desc = " "
-	icon_state = null
-	item_state = null
+	abstract_type = /obj/item/reagent_containers/cup
 	amount_per_transfer_from_this = 10
-	possible_transfer_amounts = list(5, 10, 15, 25, 30, 50)
+	possible_transfer_amounts = list(5, 10, 15, 20, 25, 30, 50)
 	volume = 50
 	container_type = OPENCONTAINER
-	has_lid = TRUE
 	resistance_flags = ACID_PROOF
-	var/label_text = ""
 
-/obj/item/reagent_containers/cup/Initialize(mapload)
+	/// Like Edible's food type, what kind of drink is this?
+	var/drink_type = NONE
+	/// The last time we have checked for taste.
+	var/last_check_time
+	/// How much we drink at once, shot glasses drink more.
+	var/gulp_size = 5
+	/// Whether the 'bottle' is made of glass or not so that milk cartons dont shatter when someone gets hit by it.
+	var/isGlass = FALSE
+	var/heatable = TRUE
+	/// Can we put a lid on this container?
+	var/can_lid = FALSE
+	/// Does this container have a lid on right now?
+	var/has_lid = FALSE
+
+/obj/item/reagent_containers/cup/Initialize(mapload, vol)
 	. = ..()
-	base_name = name
+	if(heatable)
+		AddElement(/datum/element/reagents_item_heatable)
+	register_context()
+
+/obj/item/reagent_containers/cup/add_context(atom/source, list/context, obj/item/held_item, mob/user)
+	. = ..()
+
+	if(isnull(held_item) || held_item == src)
+		if(can_lid)
+			context[SCREENTIP_CONTEXT_ALT_LMB] = "[has_lid ? "Снять" : "Надеть"] крышку"
+		context[SCREENTIP_CONTEXT_LMB] = "Перемещать больше"
+		context[SCREENTIP_CONTEXT_RMB] = "Перемещать меньше"
+		return CONTEXTUAL_SCREENTIP_SET
 
 /obj/item/reagent_containers/cup/examine(mob/user)
 	. = ..()
-	if(get_dist(user, src) <= 2 && !is_open_container())
-		. += span_boldnotice("Крышка надета.")
+	if(can_lid)
+		if(has_lid)
+			. += span_notice("Закрыто крышкой. Используйте [EXAMINE_HINT("ALT+ЛКМ")], чтобы снять её.")
+		else
+			. += span_notice("Может быть закрыто крышкой. Используйте [EXAMINE_HINT("ALT+ЛКМ")], чтобы надеть её.")
 
-	. += span_notice("Вмещает до <b>[reagents.maximum_volume]</b> единиц[declension_ru(reagents.maximum_volume, "ы", "", "")] вещества.")
+/obj/item/reagent_containers/cup/proc/checkLiked(fraction, mob/M)
+	if(last_check_time + 50 > world.time)
+		return FALSE
+	if(!ishuman(M))
+		return FALSE
+	var/mob/living/carbon/human/H = M
+
+	var/food_taste_reaction
+
+	if(!food_taste_reaction)
+		if(drink_type & H.dna.species.toxic_food)
+			food_taste_reaction = FOOD_TOXIC
+		else if(drink_type & H.dna.species.disliked_food)
+			food_taste_reaction = FOOD_DISLIKED
+		else if(drink_type & H.dna.species.liked_food)
+			food_taste_reaction = FOOD_LIKED
+
+	switch(food_taste_reaction)
+		if(FOOD_TOXIC)
+			to_chat(H, span_danger("Это было отвратительно! Мерзость!"))
+			H.AdjustDisgust((25 + 30 * fraction) STATUS_EFFECT_CONSTANT)
+		if(FOOD_DISLIKED)
+			to_chat(H, span_warning("Это было очень невкусно. Фу."))
+			H.AdjustDisgust((15 + 16 * fraction) STATUS_EFFECT_CONSTANT)
+		if(FOOD_LIKED)
+			to_chat(H, span_notice("Какой замечательный вкус!"))
+			H.AdjustDisgust((-12 + -8 * fraction) STATUS_EFFECT_CONSTANT)
+
+	last_check_time = world.time
 
 /obj/item/reagent_containers/cup/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!is_open_container())
@@ -32,34 +82,22 @@
 
 	. = ATTACK_CHAIN_PROCEED
 
-	if(!reagents || !reagents.total_volume)
-		balloon_alert(user, "пусто!")
-		return .
-
-	var/list/transferred = list()
-	for(var/datum/reagent/reagent as anything in reagents.reagent_list)
-		transferred += reagent.name
-
-	var/contained = russian_list(transferred)
-
-	if(user.a_intent == INTENT_HARM)
-		target.visible_message(
-			span_danger("[user] вылива[PLUR_ET_YUT(user)] содержимое [declent_ru(GENITIVE)] на [target]!"),
-			span_userdanger("[user] вылива[PLUR_ET_YUT(user)] содержимое [declent_ru(GENITIVE)] на вас!")
-		)
-		add_attack_logs(user, target, "Splashed with [name] containing [contained]")
-		make_splashes(target)
-		return .|ATTACK_CHAIN_SUCCESS
-
-	if(!iscarbon(target)) // Non-carbons can't process reagents
-		balloon_alert(user, "невозможно!")
-		return .
-
 	if(!get_location_accessible(target, BODY_ZONE_PRECISE_MOUTH))
 		if(target == user)
 			balloon_alert(user, "ваш рот закрыт!")
 		else
 			balloon_alert(user, "рот цели закрыт!")
+		return .
+
+	if(!reagents || !reagents.total_volume)
+		balloon_alert(user, "пусто!")
+		return .
+
+	if(has_lid)
+		balloon_alert(user, "снимите крышку!")
+		return .
+
+	if(!istype(target))
 		return .
 
 	if(target != user)
@@ -73,18 +111,21 @@
 			span_danger("[user] напоил[GEND_A_O_I(user)] [target] содержимым [declent_ru(GENITIVE)]!"),
 			span_userdanger("[user] напоил[GEND_A_O_I(user)] вас содержимым [declent_ru(GENITIVE)]!"),
 		)
-		add_attack_logs(user, target, "Fed with [name] containing [contained]")
+		add_attack_logs(user, target, "Fed with [name] containing [reagents.log_list()]")
 	else
 		to_chat(user, span_notice("Вы делаете глоток из [declent_ru(GENITIVE)]."))
 
 	. |= ATTACK_CHAIN_SUCCESS
-	var/fraction = min(5 / reagents.total_volume, 1)
-	reagents.reaction(target, REAGENT_INGEST, fraction)
-	addtimer(CALLBACK(reagents, TYPE_PROC_REF(/datum/reagents, trans_to), target, 5), 5)
+
+	SEND_SIGNAL(src, COMSIG_GLASS_DRANK, target, user)
+	var/fraction = min(gulp_size/reagents.total_volume, 1)
+	reagents.trans_to(target, gulp_size)
+	checkLiked(fraction, target)
 	playsound(target.loc,'sound/items/drink.ogg', rand(10,50), TRUE)
 
 /obj/item/reagent_containers/cup/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
-	if((!proximity_flag) ||  !check_allowed_items(target,target_self = TRUE))
+	. = ..()
+	if((!proximity_flag) || !check_allowed_items(target,target_self=1))
 		return
 
 	if(!is_open_container())
@@ -115,21 +156,35 @@
 		var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this)
 		to_chat(user, "Вы наполняете [declent_ru(ACCUSATIVE)] <b>[trans]</b> единиц[declension_ru(trans, "ей", "ами", "ами")] вещества из содержимого [target.declent_ru(ACCUSATIVE)].")
 
-	else if(reagents.total_volume)
-		if(user.a_intent == INTENT_HARM)
-			user.visible_message(
-				span_danger("[user] облива[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)] содержимым [declent_ru(GENITIVE)]!"), \
-				span_danger("Вы обливаете [target.declent_ru(ACCUSATIVE)] содержимым [declent_ru(GENITIVE)]!")
-			)
-			make_splashes(target)
+	target.update_appearance()
 
-/obj/item/reagent_containers/cup/attackby(obj/item/I, mob/user, params)
-	if(is_pen(I) || istype(I, /obj/item/flashlight/pen))
-		var/rename = rename_interactive(user, I)
-		if(!isnull(rename))
-			label_text = rename
-		return ATTACK_CHAIN_PROCEED_SUCCESS
-	return ..()
+/obj/item/reagent_containers/cup/update_overlays()
+	. = ..()
+	if(has_lid)
+		. += mutable_appearance(icon, "[icon_state]_lid")
+
+// For player convinience, assume that the lids are rubber and can be pierced with a syringe
+/obj/item/reagent_containers/cup/is_refillable()
+	return ..() && !has_lid
+
+/obj/item/reagent_containers/cup/is_drainable()
+	return ..() && !has_lid
+
+/obj/item/reagent_containers/cup/is_dunkable()
+	return ..() && !has_lid
+
+/obj/item/reagent_containers/cup/click_alt(mob/user)
+	if(!can_lid)
+		return NONE
+
+	has_lid = !has_lid
+	update_appearance()
+	balloon_alert(user, "крышка [has_lid ? "надета" : "снята"]")
+	if(has_lid)
+		container_type &= ~OPENCONTAINER
+	else
+		container_type |= OPENCONTAINER
+	return CLICK_ACTION_SUCCESS
 
 // MARK: Beaker
 /obj/item/reagent_containers/cup/beaker
@@ -140,6 +195,8 @@
 	belt_icon = "beaker"
 	materials = list(MAT_GLASS=500)
 	custom_price = PAYCHECK_MIN / 5
+	can_lid = TRUE
+	fill_icon_thresholds = list(1, 10, 25, 50, 75, 80, 100)
 	var/obj/item/assembly_holder/assembly = null
 	var/can_assembly = TRUE
 
@@ -165,38 +222,8 @@
 	if(assembly)
 		. += span_notice("К нему прикреплен[GEND_A_O_Y(assembly)] [assembly]. Открутите [GEND_HIS_HER(assembly)] чем-нибудь, чтобы отсоединить.")
 
-/obj/item/reagent_containers/cup/beaker/on_reagent_change()
-	update_icon(UPDATE_OVERLAYS)
-
 /obj/item/reagent_containers/cup/beaker/update_overlays()
 	. = ..()
-	if(reagents.total_volume)
-		var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "[icon_state]10")
-
-		var/percent = round((reagents.total_volume / volume) * 100)
-		switch(percent)
-			if(0 to 9)
-				filling.icon_state = "[icon_state]-10"
-			if(10 to 24)
-				filling.icon_state = "[icon_state]10"
-			if(25 to 49)
-				filling.icon_state = "[icon_state]25"
-			if(50 to 74)
-				filling.icon_state = "[icon_state]50"
-			if(75 to 79)
-				filling.icon_state = "[icon_state]75"
-			if(80 to 90)
-				filling.icon_state = "[icon_state]80"
-			if(91 to INFINITY)
-				filling.icon_state = "[icon_state]100"
-
-		filling.color = get_color_matrix_from_reagents(reagents.reagent_list)
-		. += filling
-
-	if(!is_open_container())
-		. += "lid_[initial(icon_state)]"
-		if(blocks_emissive == EMISSIVE_BLOCK_NONE)
-			. += emissive_blocker(icon, "lid_[initial(icon_state)]", src)
 
 	if(assembly)
 		. += "assembly"
@@ -302,16 +329,19 @@
 		PREPOSITIONAL = "пробирке",
 	)
 
-/obj/item/reagent_containers/cup/beaker/drugs
+/obj/item/reagent_containers/cup/beaker/plastic_baggie
+	icon_state = "baggie"
+	can_assembly = 0
+	can_lid = FALSE
+	volume = 25
+
+/obj/item/reagent_containers/cup/beaker/plastic_baggie/drugs
 	name = "baggie"
 	desc = "Небольшой пластиковый пакет, часто используемый фармацевтическими \"предпринимателями\"."
-	icon_state = "baggie"
 	amount_per_transfer_from_this = 2
 	possible_transfer_amounts = null
-	volume = 10
-	can_assembly = 0
 
-/obj/item/reagent_containers/cup/beaker/drugs/get_ru_names()
+/obj/item/reagent_containers/cup/beaker/plastic_baggie/drugs/get_ru_names()
 	return alist(
 		NOMINATIVE = "пластиковый пакетик",
 		GENITIVE = "пластикового пакетика",
@@ -321,17 +351,14 @@
 		PREPOSITIONAL = "пластиковом пакетике",
 	)
 
-/obj/item/reagent_containers/cup/beaker/thermite
+/obj/item/reagent_containers/cup/beaker/plastic_baggie/thermite
 	name = "Thermite load"
 	desc = "Пластиковый пакетик, надпись на этикетке – \"Термит\"."
-	icon_state = "baggie"
 	amount_per_transfer_from_this = 25
 	possible_transfer_amounts = null
-	volume = 25
-	can_assembly = 0
 	list_reagents = list("thermite" = 25)
 
-/obj/item/reagent_containers/cup/beaker/thermite/get_ru_names()
+/obj/item/reagent_containers/cup/beaker/plastic_baggie/thermite/get_ru_names()
 	return alist(
 		NOMINATIVE = "пластиковый пакетик (Термит)",
 		GENITIVE = "пластикового пакетика (Термит)",
@@ -347,6 +374,7 @@
 	icon_state = "beakernoreact"
 	materials = list(MAT_METAL=3000)
 	origin_tech = "materials=2;engineering=3;plasmatech=3"
+	can_lid = FALSE
 
 /obj/item/reagent_containers/cup/beaker/noreact/get_ru_names()
 	return alist(
@@ -370,6 +398,7 @@
 	volume = 300
 	possible_transfer_amounts = list(5, 10, 15, 25, 30, 50, 100, 300)
 	origin_tech = "bluespace=5;materials=4;plasmatech=4"
+	can_lid = FALSE
 
 /obj/item/reagent_containers/cup/beaker/bluespace/get_ru_names()
 	return alist(
@@ -390,7 +419,7 @@
 /obj/item/reagent_containers/cup/beaker/slimejelly
 	list_reagents = list("slimejelly" = 50)
 
-/obj/item/reagent_containers/cup/beaker/drugs/meth
+/obj/item/reagent_containers/cup/beaker/plastic_baggie/drugs/meth
 	list_reagents = list("methamphetamine" = 10)
 
 /obj/item/reagent_containers/cup/beaker/laughter
@@ -598,10 +627,6 @@
 		PREPOSITIONAL = "миске для животных",
 	)
 
-/obj/item/reagent_containers/cup/pet_bowl/Initialize(mapload)
-	. = ..()
-	update_icon(UPDATE_OVERLAYS)
-
 /obj/item/reagent_containers/cup/pet_bowl/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/toy/crayon/spraycan))
 		add_fingerprint(user)
@@ -616,9 +641,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS|ATTACK_CHAIN_NO_AFTERATTACK
 
 	return ..()
-
-/obj/item/reagent_containers/cup/pet_bowl/on_reagent_change()
-	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/cup/pet_bowl/update_overlays()
 	. = ..()
@@ -661,13 +683,12 @@
 			Такие поставляются в комплекте с кофемашинами. Достаточно хрупкий."
 	gender = MALE
 	w_class = WEIGHT_CLASS_NORMAL
-	amount_per_transfer_from_this = 15
-	possible_transfer_amounts = list(10, 15, 30, 50, 100)
-	volume = 150
-	has_lid = FALSE
+	volume = 120
 	icon = 'icons/obj/drinks.dmi'
 	icon_state = "coffeepot"
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 3500)
+	isGlass = TRUE
+	fill_icon_thresholds = list(30, 60, 100)
 
 /obj/item/reagent_containers/cup/coffeepot/get_ru_names()
 	return alist(
@@ -678,24 +699,3 @@
 		INSTRUMENTAL = "кофейником",
 		PREPOSITIONAL = "кофейнике"
 	)
-
-/obj/item/reagent_containers/cup/coffeepot/on_reagent_change()
-	update_icon(UPDATE_OVERLAYS)
-
-/obj/item/reagent_containers/cup/coffeepot/update_overlays()
-	. = ..()
-	if(!reagents.total_volume)
-		return
-
-	var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "[icon_state]30")
-	var/percent = round((reagents.total_volume / volume) * 100)
-	switch(percent)
-		if(0 to 30)
-			filling.icon_state = "[icon_state]30"
-		if(30 to 60)
-			filling.icon_state = "[icon_state]60"
-		if(60 to INFINITY)
-			filling.icon_state = "[icon_state]100"
-
-	filling.color = get_color_matrix_from_reagents(reagents.reagent_list)
-	. += filling

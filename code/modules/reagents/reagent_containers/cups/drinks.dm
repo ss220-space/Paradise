@@ -1,186 +1,35 @@
-////////////////////////////////////////////////////////////////////////////////
-/// Drinks.
-////////////////////////////////////////////////////////////////////////////////
+// MARK: Base Glass
 /obj/item/reagent_containers/cup/glass
 	name = "drink"
-	desc = "Вкусняшка."
-	gender = MALE
 	icon = 'icons/obj/drinks.dmi'
 	icon_state = null
-	container_type = OPENCONTAINER
-	consume_sound = 'sound/items/drink.ogg'
-	possible_transfer_amounts = list(5, 10, 15, 20, 25, 30, 50)
-	visible_transfer_rate = TRUE
+	possible_transfer_amounts = list(5,10,15,20,25,30,50)
 	resistance_flags = NONE
-	antable = FALSE
-	foodtype = ALCOHOL
-	interaction_flags_mouse_drop = NEED_HANDS
-	var/chugging = FALSE
+	isGlass = TRUE
 
-/obj/item/reagent_containers/cup/glass/Initialize(mapload)
+/obj/item/reagent_containers/cup/glass/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum, do_splash = TRUE)
 	. = ..()
-	pixel_x = base_pixel_x + rand(-5, 5)
-	pixel_y = base_pixel_y + rand(-5, 5)
-	bitesize = amount_per_transfer_from_this
-	if(bitesize < 5)
-		bitesize = 5
+	if(!.) //if the bottle wasn't caught
+		smash(hit_atom, throwingdatum?.get_thrower(), throwingdatum)
 
-/obj/item/reagent_containers/cup/glass/attack_self(mob/user)
+/obj/item/reagent_containers/cup/glass/proc/smash(atom/target, atom/thrower, datum/thrownthing/throwingdatum, break_top = FALSE)
+	if(!isGlass)
+		return FALSE
+	if(QDELING(src) || !target) //Invalid loc
+		return FALSE
+	var/splash_target = QDELETED(target) ? target.drop_location() : target
+	var/splash_thrower = ismob(thrower) ? thrower : null
+	splash_reagents(splash_target, splash_thrower, allow_closed_splash = TRUE)
+	var/obj/item/broken_bottle/broken = new (loc)
+	broken.mimic_broken(src, target, break_top)
+	post_smash(target, thrower, throwingdatum, broken)
+	qdel(src)
+	return TRUE
+
+/obj/item/reagent_containers/cup/glass/proc/post_smash(atom/target, atom/thrower, datum/thrownthing/throwingdatum, obj/item/broken_bottle/broken)
 	return
 
-/obj/item/reagent_containers/cup/glass/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	if(!iscarbon(target))
-		return ..()
-
-	. = ATTACK_CHAIN_PROCEED
-
-	if(!reagents || !reagents.total_volume)
-		balloon_alert(user, "пусто!")
-		return .
-
-	if(!is_drainable())
-		balloon_alert(user, "сначала откройте!")
-		return .
-
-	if(!get_location_accessible(target, BODY_ZONE_PRECISE_MOUTH))
-		if(target == user)
-			balloon_alert(user, "ваш рот закрыт!")
-		else
-			balloon_alert(user, "рот цели закрыт!")
-		return .
-
-	if(!target.eat(src, user))
-		return .
-
-	. |= ATTACK_CHAIN_SUCCESS
-
-	var/list/transfer_data = reagents.get_transferred_reagents(target, amount_per_transfer_from_this)
-	//Cyborg modules that include drinks automatically refill themselves, but drain the borg's cell
-	if(isrobot(user) && length(transfer_data))
-		SynthesizeDrinkFromTransfer(user, transfer_data)
-
-/obj/item/reagent_containers/cup/glass/proc/SynthesizeDrinkFromTransfer(mob/user, list/transfer_data)
-
-	var/list/ids_data = list()
-	var/trans = 0
-
-	transfer_data &= GLOB.drinks
-
-	for(var/thing in transfer_data)
-		var/datum/reagent/R = thing
-		ids_data[initial(R.id)] = transfer_data[R]
-		trans += transfer_data[R]
-
-	if(length(ids_data))
-		if(isrobot(user)) //Cyborg modules that include drinks automatically refill themselves, but drain the borg's cell
-			var/mob/living/silicon/robot/bro = user
-			var/chargeAmount = max(30,4*trans)
-			bro.cell.use(chargeAmount)
-			to_chat(user, span_notice("Синтез <b>[trans]</b> единиц[declension_ru(trans, "ы", "", "")] вещества..."))
-			addtimer(CALLBACK(reagents, TYPE_PROC_REF(/datum/reagents, add_reagent_list), ids_data), 30 SECONDS)
-			addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, user, span_notice("Ваш[GEND_A_E_I(src)] [declent_ru(NOMINATIVE)] снова полн[GEND_YI_AYA_OE_YE(src)].")), 30 SECONDS)
-		else
-			reagents.add_reagent_list(ids_data)
-	else
-		return
-
-/obj/item/reagent_containers/cup/glass/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	if(!iscarbon(over_object))
-		return
-
-	var/mob/living/carbon/chugger = over_object
-
-	if(!(container_type & DRAINABLE))
-		balloon_alert(chugger, "сначала откройте!")
-		return
-
-	if(!get_location_accessible(chugger, BODY_ZONE_PRECISE_MOUTH))
-		balloon_alert(chugger, "ваш рот чем-то закрыт!")
-		return
-
-	if(!reagents.total_volume || loc != chugger || src != chugger.get_active_hand())
-		return
-
-	chugger.visible_message(
-		span_notice("[chugger] поднос[PLUR_IT_YAT(chugger)] [declent_ru(ACCUSATIVE)] к своему рту и начина[PLUR_ET_YUT(chugger)] [pick("цедить", "прихлёбывать", "медленно пить", "пить", "попивать", "хлебать", "потягивать")] содержимое."),
-		span_notice("Вы подносите [declent_ru(ACCUSATIVE)] к своему рту и начинаете [pick("цедить", "прихлёбывать", "медленно пить", "пить", "попивать", "хлебать", "потягивать")] содержимое."),
-		span_notice("Вы слышите звуки, походящие на питьё чего-то.")
-	)
-
-	chugging = TRUE
-	while(do_after(chugger, 4 SECONDS, chugger, show_progress = FALSE, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("You stop chugging [src].")))
-		chugger.eat(src, chugger, 25)
-		if(!reagents.total_volume)
-			chugger.emote("gasp")
-			chugger.visible_message(
-				span_notice("[chugger] [pick("залпом", "за раз", "в один присест", "не отрываясь от горла", "полностью", "досуха")] выпива[PLUR_ET_YUT(chugger)] содержимое [declent_ru(GENITIVE)]."),
-				span_notice("Вы [pick("залпом", "за раз", "в один присест", "не отрываясь от горла", "полностью", "досуха")] выпиваете содержимое [declent_ru(GENITIVE)]."),
-				span_notice("Вы слышите громкие глотки и последующий громкий выдох.")
-			)
-			break
-	chugging = FALSE
-
-/obj/item/reagent_containers/cup/glass/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
-	if(!proximity_flag)
-		return
-
-	if(chugging)
-		return
-
-	if(target.is_refillable() && is_drainable()) //Something like a glass. Player probably wants to transfer TO it.
-		if(!reagents.total_volume)
-			balloon_alert(user, "пусто!")
-			return FALSE
-
-		if(target.reagents.holder_full())
-			balloon_alert(user, "нет места!")
-			return FALSE
-
-		var/list/transfer_data = reagents.get_transferred_reagents(target, amount_per_transfer_from_this)
-		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
-
-		if(isrobot(user))
-			SynthesizeDrinkFromTransfer(user, transfer_data)
-
-		after_transfer(target)
-		to_chat(user, span_notice("Вы переливаете <b>[trans]</b> единиц[DECL_SEC_MIN(trans)] вещества в [target.declent_ru(ACCUSATIVE)]."))
-
-	else if(target.is_drainable()) //A dispenser. Transfer FROM it TO us.
-		if(!is_refillable())
-			balloon_alert(user, "закрыто!")
-			return FALSE
-		if(!target.reagents.total_volume)
-			balloon_alert(user, "пусто!")
-			return FALSE
-
-		if(reagents.holder_full())
-			balloon_alert(user, "нет места!")
-			return FALSE
-
-		var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this)
-		to_chat(user, span_notice("Вы наполняете [declent_ru(ACCUSATIVE)] <b>[trans]</b> единиц[declension_ru(trans, "ей", "ами", "ами")] вещества из содержимого [target.declent_ru(ACCUSATIVE)]."))
-
-	return FALSE
-
-/obj/item/reagent_containers/cup/glass/examine(mob/user)
-	. = ..()
-	if(in_range(user, src))
-		if(!reagents || reagents.total_volume == 0)
-			. += span_notice("Пусто.")
-		else if(reagents.total_volume <= volume/4)
-			. += span_notice("Почти пусто.")
-		else if(reagents.total_volume <= volume*0.66)
-			. += span_notice("Наполовину заполнено.")// We're all optimistic, right?!
-
-		else if(reagents.total_volume <= volume*0.90)
-			. += span_notice("Почти заполнено.")
-		else
-			. += span_notice("Заполнено.")
-
-////////////////////////////////////////////////////////////////////////////////
-/// Drinks. END
-////////////////////////////////////////////////////////////////////////////////
-
+// MARK: Trophy
 /obj/item/reagent_containers/cup/glass/trophy
 	name = "pewter cup"
 	desc = "Everyone gets a trophy."
@@ -192,6 +41,7 @@
 	volume = 5
 	flags = CONDUCT
 	resistance_flags = FIRE_PROOF
+	isGlass = FALSE
 
 /obj/item/reagent_containers/cup/glass/trophy/gold_cup
 	name = "gold cup"
@@ -226,16 +76,13 @@
 	materials = list(MAT_METAL=400)
 	volume = 25
 
-///////////////////////////////////////////////Drinks
-//Notes by Darem: Drinks are simply containers that start preloaded. Unlike condiments, the contents can be ingested directly
-//	rather then having to add it to something else first. They should only contain liquids. They have a default container size of 50.
-//	Formatting is the same as food.
-
+// MARK: Ice Cup
 /obj/item/reagent_containers/cup/glass/ice
 	name = "ice cup"
 	desc = "Стаканчик льда. Не жуйте, а то горло болеть будет."
 	icon_state = "icecup"
 	list_reagents = list("ice" = 30)
+	isGlass = FALSE
 
 /obj/item/reagent_containers/cup/glass/ice/get_ru_names()
 	return alist(
@@ -247,6 +94,7 @@
 		PREPOSITIONAL = "стаканчике льда",
 	)
 
+// MARK: Hot Drinks
 /obj/item/reagent_containers/cup/glass/tea
 	name = "Duke Purple tea"
 	desc = "An insult to Duke Purple is an insult to the Space Queen! Any proper gentleman will fight you, if you sully this tea."
@@ -282,19 +130,23 @@
 	list_reagents = list("hot_coco" = 15, "chocolate" = 6, "water" = 9)
 	resistance_flags = FREEZE_PROOF
 
+// MARK: Weight-loss Shake
 /obj/item/reagent_containers/cup/glass/weightloss
 	name = "weight-loss shake"
 	desc = "A shake designed to cause weight loss.  The package proudly proclaims that it is 'tapeworm free.'"
 	icon_state = "weightshake"
 	list_reagents = list("lipolicide" = 30, "chocolate" = 5)
-	foodtype = GROSS
+	drink_type = GROSS
+	isGlass = FALSE
 
+// MARK: Liguid Food
 /obj/item/reagent_containers/cup/glass/dry_ramen
 	name = "cup ramen"
 	desc = "Just add 10ml of water, self heats! A taste that reminds you of your school years."
 	icon_state = "ramen"
 	item_state = "ramen"
 	list_reagents = list("dry_ramen" = 30)
+	isGlass = FALSE
 
 /obj/item/reagent_containers/cup/glass/dry_ramen/Initialize(mapload)
 	. = ..()
@@ -307,7 +159,8 @@
 	icon_state = "soupcan"
 	item_state = "soupcan"
 	list_reagents = list("chicken_soup" = 30)
-	foodtype = JUNKFOOD
+	drink_type = JUNKFOOD
+	isGlass = FALSE
 
 /obj/item/reagent_containers/cup/glass/sillycup
 	name = "paper cup"
@@ -316,18 +169,12 @@
 	item_state = "coffee"
 	possible_transfer_amounts = null
 	volume = 10
+	isGlass = FALSE
 
 /obj/item/reagent_containers/cup/glass/sillycup/update_icon_state()
 	icon_state = "water_cup[reagents.total_volume ? "" : "_e"]"
 
-/obj/item/reagent_containers/cup/glass/sillycup/on_reagent_change()
-	update_icon(UPDATE_ICON_STATE)
-
-//////////////////////////drinkingglass and shaker//
-//Note by Darem: This code handles the mixing of drinks. New drinks go in three places: In Chemistry-Reagents.dm (for the drink
-//	itself), in Chemistry-Recipes.dm (for the reaction that changes the components into the drink), and here (for the drinking glass
-//	icon states.
-
+// MARK: Shaker
 /obj/item/reagent_containers/cup/glass/shaker
 	name = "shaker"
 	desc = "A metal shaker to mix drinks in."
@@ -337,13 +184,16 @@
 	amount_per_transfer_from_this = 10
 	materials = list(MAT_METAL=1500)
 	volume = 100
+	isGlass = FALSE
 
+// MARK: Flasks
 /obj/item/reagent_containers/cup/glass/flask
 	name = "flask"
 	desc = "Every good spaceman knows it's a good idea to bring along a couple of pints of whiskey wherever they go."
 	icon_state = "flask"
 	materials = list(MAT_METAL=250)
 	volume = 60
+	isGlass = FALSE
 
 /obj/item/reagent_containers/cup/glass/flask/barflask
 	desc = "For those who can't be bothered to hang out at the bar to drink."
@@ -387,6 +237,7 @@
 	icon_state = "lithiumflask"
 	volume = 50
 
+// MARK: Misc
 /obj/item/reagent_containers/cup/glass/britcup
 	name = "cup"
 	desc = "A cup with the british flag emblazoned on it."
@@ -409,43 +260,140 @@
 	icon_state = "zaza_can"
 	item_state = "zaza_can"
 	volume = 80
-	foodtype = SUGAR
+	drink_type = SUGAR
 	container_type = NONE
 	list_reagents = list("zaza" = 80)
+	can_lid = TRUE
+	fill_icon_thresholds = list(50, 60, 65, 70, 75, 80)
+	isGlass = FALSE
 
-/obj/item/reagent_containers/cup/glass/zaza/on_reagent_change()
-	update_icon(UPDATE_OVERLAYS)
+// MARK: Sport Food
+/obj/item/reagent_containers/cup/glass/protein
+	name = "банка протеина"
+	desc = "Банка наполненная протеиновым порошком. Этот вид протеина был снят с производства. \
+			Если вы встретили его, обратитесь к техподдержке."
+	icon_state = "protein_zaza"
+	item_state = "protein_zaza"
+	volume = 80
+	drink_type = GROSS
+	list_reagents = list("protein" = 80)
+	isGlass = FALSE
 
-/obj/item/reagent_containers/cup/glass/zaza/update_overlays()
-	. = ..()
+/obj/item/reagent_containers/cup/glass/protein/get_ru_names()
+	return alist(
+		NOMINATIVE = "банка протеина",
+		GENITIVE = "банки протеина",
+		DATIVE = "банке протеина",
+		ACCUSATIVE = "банку протеина",
+		INSTRUMENTAL = "банкой протеина",
+		PREPOSITIONAL = "банке протеина",
+	)
 
-	if(reagents.total_volume)
-		var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "[icon_state]50")
+/obj/item/reagent_containers/cup/glass/protein/zaza
+	name = "банка протеина (Заза)"
+	desc = "Банка наполненная протеиновым порошком. \
+			На самом деле не отличается от банки протеина со вкусом вишни ничем кроме изображения на этикетке."
+	list_reagents = list("protein" = 70, "zaza" = 10)
 
-		switch(round(reagents.total_volume))
-			if(1 to 50)
-				filling.icon_state = "[icon_state]50"
-			if(51 to 60)
-				filling.icon_state = "[icon_state]60"
-			if(61 to 65)
-				filling.icon_state = "[icon_state]65"
-			if(66 to 70)
-				filling.icon_state = "[icon_state]70"
-			if(71 to 75)
-				filling.icon_state = "[icon_state]75"
-			if(76 to INFINITY)
-				filling.icon_state = "[icon_state]80"
-		filling.color = get_color_matrix_from_reagents(reagents.reagent_list)
-		. += filling
+/obj/item/reagent_containers/cup/glass/protein/zaza/get_ru_names()
+	return alist(
+		NOMINATIVE = "банка протеина (Заза)",
+		GENITIVE = "банки протеина (Заза)",
+		DATIVE = "банке протеина (Заза)",
+		ACCUSATIVE = "банку протеина (Заза)",
+		INSTRUMENTAL = "банкой протеина (Заза)",
+		PREPOSITIONAL = "банке протеина (Заза)",
+	)
 
-	if(!is_open_container())
-		. += "zaza_lid"
+/obj/item/reagent_containers/cup/glass/protein/cherry
+	name = "банка протеина (Вишня)"
+	desc = "Банка наполненная протеиновым порошком со вкусом вишни. \
+			На самом деле не отличается от банки протеина со вкусом Зазы ничем кроме изображения на этикетке."
+	icon_state = "protein_cherry"
+	item_state = "protein_cherry"
+	list_reagents = list("protein" = 70, "cherryshake" = 10)
 
-/obj/item/reagent_containers/cup/glass/zaza/attack_self(mob/user)
-	if(!is_open_container())
-		container_type |= OPENCONTAINER
-		to_chat(user, span_notice("Вы сняли крышку с [src]."))
-	else
-		to_chat(user, span_notice("Вы надели крышку на [src]."))
-		container_type &= ~OPENCONTAINER
-	update_icon(UPDATE_OVERLAYS)
+/obj/item/reagent_containers/cup/glass/protein/cherry/get_ru_names()
+	return alist(
+		NOMINATIVE = "банка протеина (Вишня)",
+		GENITIVE = "банки протеина (Вишня)",
+		DATIVE = "банке протеина (Вишня)",
+		ACCUSATIVE = "банку протеина (Вишня)",
+		INSTRUMENTAL = "банкой протеина (Вишня)",
+		PREPOSITIONAL = "банке протеина (Вишня)",
+	)
+
+/obj/item/reagent_containers/cup/glass/protein/chocolate
+	name = "банка протеина (Шоколад)"
+	desc = "Банка наполненная протеиновым порошком со вкусом шоколада. \
+			Единственный вкус протеинового порошка не вызывающий отвращения при потреблении в неразбавленном виде."
+	icon_state = "protein_chocolate"
+	item_state = "protein_chocolate"
+	list_reagents = list("protein" = 70, "chocolate" = 10)
+	drink_type = SUGAR
+
+/obj/item/reagent_containers/cup/glass/protein/chocolate/get_ru_names()
+	return alist(
+		NOMINATIVE = "банка протеина (Шоколад)",
+		GENITIVE = "банки протеина (Шоколад)",
+		DATIVE = "банке протеина (Шоколад)",
+		ACCUSATIVE = "банку протеина (Шоколад)",
+		INSTRUMENTAL = "банкой протеина (Шоколад)",
+		PREPOSITIONAL = "банке протеина (Шоколад)",
+	)
+
+/obj/item/reagent_containers/cup/glass/protein/bananastrawberry
+	name = "банка протеина (Банан и клубника)"
+	desc = "Банка наполненная протеиновым порошком со вкусом банана и клубники. \
+			До ребрендинга вместо банана и клубники была просто клубника."
+	icon_state = "protein_bananastrawberry"
+	item_state = "protein_bananastrawberry"
+	list_reagents = list("protein" = 70, "banana" = 5, "strawwberry" = 5)
+
+/obj/item/reagent_containers/cup/glass/protein/bananastrawberry/get_ru_names()
+	return alist(
+		NOMINATIVE = "банка протеина (Банан и клубника)",
+		GENITIVE = "банки протеина (Банан и клубника)",
+		DATIVE = "банке протеина (Банан и клубника)",
+		ACCUSATIVE = "банку протеина (Банан и клубника)",
+		INSTRUMENTAL = "банкой протеина (Банан и клубника)",
+		PREPOSITIONAL = "банке протеина (Банан и клубника)",
+	)
+
+/obj/item/reagent_containers/cup/glass/guarana
+	name = "ампула экстракта гуараны"
+	desc = "Ампула содержащая экстракт гуараны — вещество стимулирующее мышечную активность. \
+			На этикетке нарисована малина, не смотря на то, что в составе нет ничего связанного с ней."
+	icon_state = "guarana_raspberry"
+	item_state = "guarana_raspberry"
+	list_reagents = list("guarana" = 10)
+	isGlass = FALSE
+
+/obj/item/reagent_containers/cup/glass/guarana/get_ru_names()
+	return alist(
+		NOMINATIVE = "ампула экстракта гуараны",
+		GENITIVE = "ампулы экстракта гуараны",
+		DATIVE = "ампуле экстракта гуараны",
+		ACCUSATIVE = "ампулу экстракта гуараны",
+		INSTRUMENTAL = "ампулой экстракта гуараны",
+		PREPOSITIONAL = "ампуле экстракта гуараны",
+	)
+
+/obj/item/reagent_containers/cup/glass/creatine
+	name = "бутылочка креатина"
+	desc = "Бутылочка содержащая креатин — вещество повышающее скорость развития мышц. \
+			На этикетке нарисована малина, не смотря на то, что в составе нет ничего связанного с ней."
+	icon_state = "creatine"
+	item_state = "creatine"
+	list_reagents = list("creatine" = 10)
+	isGlass = FALSE
+
+/obj/item/reagent_containers/cup/glass/creatine/get_ru_names()
+	return alist(
+		NOMINATIVE = "бутылочка креатина",
+		GENITIVE = "бутылочкы креатина",
+		DATIVE = "бутылочке креатина",
+		ACCUSATIVE = "бутылочку креатина",
+		INSTRUMENTAL = "бутылочкой креатина",
+		PREPOSITIONAL = "бутылочке креатина",
+	)

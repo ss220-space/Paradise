@@ -723,7 +723,7 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 GLOBAL_LIST_INIT(plastic_recipes, list(
 	new /datum/stack_recipe_list("storage", list(
 		new /datum/stack_recipe("plastic bag", /obj/item/storage/bag/plasticbag, 3, on_floor = TRUE),
-		new /datum/stack_recipe("baggie", /obj/item/reagent_containers/cup/beaker/drugs, 1, on_floor = TRUE),
+		new /datum/stack_recipe("baggie", /obj/item/reagent_containers/cup/beaker/plastic_baggie/drugs, 1, on_floor = TRUE),
 		new /datum/stack_recipe("plastic crate", /obj/structure/closet/crate/plastic, 10, one_per_turf = TRUE, on_floor = TRUE),
 	)),
 	new /datum/stack_recipe_list("fluid containers", list(

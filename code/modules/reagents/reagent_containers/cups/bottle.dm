@@ -8,8 +8,11 @@
 	item_state = "bottle"
 	possible_transfer_amounts = list(5, 10, 15, 30)
 	volume = 30
+	can_lid = TRUE
 	materials = list(MAT_GLASS = 1000)
 	custom_price = PAYCHECK_MIN * 0.6
+	fill_icon_thresholds = list(1, 10, 25, 50, 75, 80, 100)
+	isGlass = TRUE
 
 /obj/item/reagent_containers/cup/bottle/get_ru_names()
 	return alist(
@@ -21,37 +24,11 @@
 		PREPOSITIONAL = "бутылке",
 	)
 
-/obj/item/reagent_containers/cup/bottle/on_reagent_change()
-	update_icon(UPDATE_OVERLAYS)
-
-/obj/item/reagent_containers/cup/bottle/update_overlays()
+/obj/item/reagent_containers/cup/bottle/Initialize(mapload)
 	. = ..()
-	underlays.Cut()
-	if(reagents.total_volume)
-		var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "[icon_state]10")
-
-		var/percent = round((reagents.total_volume / volume) * 100)
-		switch(percent)
-			if(0 to 9)
-				filling.icon_state = "[icon_state]-10"
-			if(10 to 24)
-				filling.icon_state = "[icon_state]10"
-			if(25 to 49)
-				filling.icon_state = "[icon_state]25"
-			if(50 to 74)
-				filling.icon_state = "[icon_state]50"
-			if(75 to 79)
-				filling.icon_state = "[icon_state]75"
-			if(80 to 90)
-				filling.icon_state = "[icon_state]80"
-			if(91 to INFINITY)
-				filling.icon_state = "[icon_state]100"
-
-		filling.color = get_color_matrix_from_reagents(reagents.reagent_list)
-		. += filling
-
-	if(!is_open_container())
-		. += "lid_[icon_state]"
+	if(!icon_state)
+		icon_state = "bottle"
+	update_appearance()
 
 /obj/item/reagent_containers/cup/bottle/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!reagents.total_volume)
@@ -1344,7 +1321,8 @@
 	amount_per_transfer_from_this = 5
 	container_type = NONE
 	materials = list(MAT_GLASS = 500)
-	var/cap_on = TRUE
+	can_lid = FALSE
+	fill_icon_thresholds = list(20, 40, 60, 80, 100)
 
 /obj/item/reagent_containers/cup/bottle/syrup_bottle/get_ru_names()
 	return alist(
@@ -1356,47 +1334,26 @@
 		PREPOSITIONAL = "бутылке для сиропа"
 	)
 
-/obj/item/reagent_containers/cup/bottle/syrup_bottle/update_overlays()
-	. = ..()
-	underlays.Cut()
-	if(!reagents.total_volume)
-		return
-
-	var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "[base_icon_state]20")
-	var/percent = round((reagents.total_volume / volume) * 100)
-	switch(percent)
-		if(0 to 20)
-			filling.icon_state = "[base_icon_state]20"
-		if(20 to 40)
-			filling.icon_state = "[base_icon_state]40"
-		if(40 to 60)
-			filling.icon_state = "[base_icon_state]60"
-		if(60 to 80)
-			filling.icon_state = "[base_icon_state]80"
-		if(80 to INFINITY)
-			filling.icon_state = "[base_icon_state]100"
-
-	filling.color = get_color_matrix_from_reagents(reagents.reagent_list)
-	. += filling
-
-
 /obj/item/reagent_containers/cup/bottle/syrup_bottle/examine(mob/user)
 	. = ..()
 	. += span_notice("Используйте контейнер на [declent_ru(PREPOSITIONAL)], чтобы переместить в него содержимое бутылки.")
 	return
 
+/obj/item/reagent_containers/cup/bottle/syrup_bottle/update_icon_state()
+	. = ..()
+	if(is_open_container())
+		icon_state = "syrup_open"
+	else
+		icon_state = "syrup"
 
 /obj/item/reagent_containers/cup/bottle/syrup_bottle/attack_self(mob/user)
-	cap_on = !cap_on
-	if(cap_on)
-		icon_state = "syrup"
+	if(is_open_container())
 		container_type &= ~OPENCONTAINER
 		user.balloon_alert(user, "крышка-дозатор надета")
 	else
-		icon_state = "syrup_open"
 		container_type |= OPENCONTAINER
 		user.balloon_alert(user, "крышка-дозатор снята")
-	update_icon()
+	update_appearance()
 
 //when you attack the syrup bottle with a container it refills it
 /obj/item/reagent_containers/cup/bottle/syrup_bottle/attackby(obj/item/attacking_item, mob/user, params)

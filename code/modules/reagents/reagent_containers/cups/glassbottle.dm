@@ -1,42 +1,16 @@
-//Alchohol bottles
+#define BOTTLE_KNOCKDOWN_DEFAULT_DURATION (1.3 SECONDS)
+
+// MARK: Base Bottle
 /obj/item/reagent_containers/cup/glass/bottle
-	amount_per_transfer_from_this = 10
 	volume = 100
+	amount_per_transfer_from_this = 10
+	force = 15 //Smashing bottles over someone's head hurts.
 	throwforce = 15
-	item_state = "broken_beer" //Generic held-item sprite until unique ones are made.
+	item_state = "broken_beer"
 	custom_price = PAYCHECK_LOWER
-	var/const/duration = 13 //Directly relates to the 'weaken' duration. Lowered by armor (i.e. helmets)
-	var/isGlass = 1 //Whether the 'bottle' is made of glass or not so that milk cartons dont shatter when someone gets hit by it
-
-/obj/item/reagent_containers/cup/glass/bottle/proc/smash(mob/living/target, mob/living/user, ranged = 0)
-
-	//Creates a shattering noise and replaces the bottle with a broken_bottle
-	var/new_location = get_turf(loc)
-	var/obj/item/broken_bottle/B = new /obj/item/broken_bottle(new_location)
-	if(ranged)
-		B.loc = new_location
-	else
-		user.drop_from_active_hand(TRUE, TRUE)
-		user.put_in_active_hand(B, silent = TRUE)
-	B.icon_state = icon_state
-
-	var/icon/I = new('icons/obj/drinks.dmi', icon_state)
-	I.Blend(B.broken_outline, ICON_OVERLAY, rand(5), 1)
-	I.SwapColor(rgb(255, 0, 220, 255), rgb(0, 0, 0, 0))
-	B.icon = I
-
-	if(isGlass)
-		if(prob(33))
-			new/obj/item/shard(new_location)
-		playsound(src, SFX_SHATTER, 70, TRUE)
-	else
-		B.name = "broken carton"
-		B.force = 0
-		B.throwforce = 0
-		B.desc = "Картонная упаковка с разорванным дном. Можно порезаться."
-	transfer_fingerprints_to(B)
-
-	qdel(src)
+	var/broken_inhand_icon_state = "broken_beer"
+	/// Directly relates to the `knockdown` duration. Lowered by armor (i.e. helmets).
+	var/bottle_knockdown_duration = BOTTLE_KNOCKDOWN_DEFAULT_DURATION
 
 /obj/item/reagent_containers/cup/glass/bottle/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(user.a_intent != INTENT_HARM || !isGlass)
@@ -47,8 +21,6 @@
 		return ATTACK_CHAIN_PROCEED
 
 	. = ATTACK_CHAIN_BLOCKED_ALL
-
-	force = 15 //Smashing bottles over someoen's head hurts.
 
 	var/obj/item/organ/external/affecting = user.zone_selected //Find what the player is aiming at
 
@@ -75,13 +47,13 @@
 			headarmor = 0
 
 		//Calculate the weakening duration for the target.
-		armor_duration = (duration - headarmor) + force
+		armor_duration = (bottle_knockdown_duration - headarmor) + force
 
 	else
 		//Only humans can have armor, right?
 		armor_block = target.run_armor_check(affecting, MELEE)
 		if(affecting == BODY_ZONE_HEAD)
-			armor_duration = duration + force
+			armor_duration = bottle_knockdown_duration + force
 	armor_duration /= 10
 
 	//Apply the damage!
@@ -112,17 +84,13 @@
 	//Attack logs
 	add_attack_logs(user, target, "Hit with [src]")
 
-	//The reagents in the bottle splash all over the target, thanks for the idea Nodrak
-	SplashReagents(target)
-
 	//Finally, smash the bottle. This kills (qdel) the bottle.
 	smash(target, user)
 
-/obj/item/reagent_containers/cup/glass/bottle/proc/SplashReagents(mob/M)
-	if(reagents?.total_volume)
-		M.visible_message(span_danger("Содержимое [declent_ru(GENITIVE)] разбрызгивается по [M.declent_ru(PREPOSITIONAL)]!"))
-		reagents.reaction(M, REAGENT_TOUCH)
-		reagents.clear_reagents()
+/obj/item/reagent_containers/cup/glass/bottle/post_smash(atom/target, atom/thrower, datum/thrownthing/throwingdatum, obj/item/broken_bottle/broken)
+	if(!throwingdatum && ismob(thrower))
+		astype(thrower, /mob).put_in_hands(broken)
+	broken.item_state = broken_inhand_icon_state
 
 /obj/item/reagent_containers/cup/glass/bottle/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!reagents.total_volume)
@@ -131,7 +99,7 @@
 		return TRUE
 	return ..()
 
-//Keeping this here for now, I'll ask if I should keep it here.
+// MARK: Broken Bottle
 /obj/item/broken_bottle
 	name = "broken bottle"
 	desc = "Бутылка с острым побитым дном."
@@ -165,6 +133,30 @@
 	qdel(src)
 	return TRUE
 
+/// Mimics the appearance and properties of the passed in bottle.
+/// Takes the broken bottle to mimic, and the thing the bottle was broken agaisnt as args
+/obj/item/broken_bottle/proc/mimic_broken(obj/item/reagent_containers/cup/glass/to_mimic, atom/target)
+	icon_state = to_mimic.icon_state
+	var/icon/drink_icon = new('icons/obj/drinks.dmi', icon_state)
+	drink_icon.Blend(broken_outline, ICON_OVERLAY, rand(5), 1)
+	drink_icon.SwapColor(rgb(255, 0, 220, 255), rgb(0, 0, 0, 0))
+	icon = drink_icon
+
+	if(istype(to_mimic, /obj/item/reagent_containers/cup/glass/bottle/juice))
+		force = 0
+		throwforce = 0
+		set_ru_names_suffix(" (разорван[GEND_A_O_Y(to_mimic)])")
+		desc = "Картонная упаковка с разорванным дном. Можно порезаться."
+	else
+		if(prob(33))
+			var/obj/item/shard/stab_with = new(to_mimic.drop_location())
+			target.Bumped(stab_with)
+		playsound(src, SFX_SHATTER, 70, TRUE)
+	name = "broken [to_mimic.name]"
+	set_ru_names_suffix(" (разбит[GEND_A_O_Y(to_mimic)])")
+	to_mimic.transfer_fingerprints_to(src)
+
+// MARK: Alcohole Bottles
 /obj/item/reagent_containers/cup/glass/bottle/gin
 	name = "Griffeater Gin"
 	desc = "Бутылка высококачественного джина, произведённого в Новом Лондоне."
@@ -617,18 +609,24 @@
 		PREPOSITIONAL = "вине \"Высокомерная Зелёная Крыса\"",
 	)
 
-//////////////////////////JUICES AND STUFF ///////////////////////
+// MARK: Juice Packs
 
-/obj/item/reagent_containers/cup/glass/bottle/orangejuice
+/**
+ * Subtype of glass that don't break, and share a common carton hand state.
+ * Meant to be a subtype for use in Molotovs.
+ */
+/obj/item/reagent_containers/cup/glass/bottle/juice
+	item_state = "carton"
+	throwforce = 0
+	isGlass = FALSE
+
+/obj/item/reagent_containers/cup/glass/bottle/juice/orangejuice
 	name = "orange juice"
 	desc = "Полон витаминов и вкусностей!"
 	icon_state = "orangejuice"
-	item_state = "carton"
-	throwforce = 0
-	isGlass = 0
 	list_reagents = list("orangejuice" = 100)
 
-/obj/item/reagent_containers/cup/glass/bottle/orangejuice/get_ru_names()
+/obj/item/reagent_containers/cup/glass/bottle/juice/orangejuice/get_ru_names()
 	return alist(
 		NOMINATIVE = "пачка апельсинового сока",
 		GENITIVE = "пачки апельсинового сока",
@@ -638,16 +636,13 @@
 		PREPOSITIONAL = "пачке апельсинового сока",
 	)
 
-/obj/item/reagent_containers/cup/glass/bottle/cream
+/obj/item/reagent_containers/cup/glass/bottle/juice/cream
 	name = "milk cream"
 	desc = "Это сливки. Сделаны из молока. А что ещё вы думали там найти?"
 	icon_state = "cream"
-	item_state = "carton"
-	throwforce = 0
-	isGlass = 0
 	list_reagents = list("cream" = 100)
 
-/obj/item/reagent_containers/cup/glass/bottle/cream/get_ru_names()
+/obj/item/reagent_containers/cup/glass/bottle/juice/cream/get_ru_names()
 	return alist(
 		NOMINATIVE = "пачка сливок",
 		GENITIVE = "пачки сливок",
@@ -657,16 +652,13 @@
 		PREPOSITIONAL = "пачке сливок",
 	)
 
-/obj/item/reagent_containers/cup/glass/bottle/tomatojuice
+/obj/item/reagent_containers/cup/glass/bottle/juice/tomatojuice
 	name = "tomato juice"
 	desc = "Ну, по крайней мере, это выглядит как томатный сок. Слишком красное, чтобы сказать точно."
 	icon_state = "tomatojuice"
-	item_state = "carton"
-	throwforce = 0
-	isGlass = 0
 	list_reagents = list("tomatojuice" = 100)
 
-/obj/item/reagent_containers/cup/glass/bottle/tomatojuice/get_ru_names()
+/obj/item/reagent_containers/cup/glass/bottle/juice/tomatojuice/get_ru_names()
 	return alist(
 		NOMINATIVE = "пачка томатного сока",
 		GENITIVE = "пачки томатного сока",
@@ -676,16 +668,13 @@
 		PREPOSITIONAL = "пачке томатного сока",
 	)
 
-/obj/item/reagent_containers/cup/glass/bottle/limejuice
+/obj/item/reagent_containers/cup/glass/bottle/juice/limejuice
 	name = "lime juice"
 	desc = "Кисло-сладкая вкуснятина."
 	icon_state = "limejuice"
-	item_state = "carton"
-	throwforce = 0
-	isGlass = 0
 	list_reagents = list("limejuice" = 100)
 
-/obj/item/reagent_containers/cup/glass/bottle/limejuice/get_ru_names()
+/obj/item/reagent_containers/cup/glass/bottle/juice/limejuice/get_ru_names()
 	return alist(
 		NOMINATIVE = "пачка лаймового сока",
 		GENITIVE = "пачки лаймового сока",
@@ -695,16 +684,13 @@
 		PREPOSITIONAL = "пачке лаймового сока",
 	)
 
-/obj/item/reagent_containers/cup/glass/bottle/milk
+/obj/item/reagent_containers/cup/glass/bottle/juice/milk
 	name = "milk"
 	desc = "Мягкое, вкусно и полезное молоко."
 	icon_state = "milk"
-	item_state = "carton"
-	throwforce = 0
-	isGlass = 0
 	list_reagents = list("milk" = 100)
 
-/obj/item/reagent_containers/cup/glass/bottle/milk/get_ru_names()
+/obj/item/reagent_containers/cup/glass/bottle/juice/milk/get_ru_names()
 	return alist(
 		NOMINATIVE = "пачка молока",
 		GENITIVE = "пачки молока",
@@ -714,22 +700,22 @@
 		PREPOSITIONAL = "пачке молока",
 	)
 
-////////////////////////// MOLOTOV ///////////////////////
+// MARK: Molotov
 /obj/item/reagent_containers/cup/glass/bottle/molotov
 	name = "molotov cocktail"
 	desc = "Бутылка с зажигательной смесью. Обязательный элемент экипировки любого бунтаря или революционера. Поджигайте и бросайте."
 	icon_state = "vodkabottle"
 	list_reagents = list()
 	var/static/list/accelerants = list(
-										/datum/reagent/consumable/ethanol,
-										/datum/reagent/fuel,
-										/datum/reagent/clf3,
-										/datum/reagent/phlogiston,
-										/datum/reagent/napalm,
-										/datum/reagent/hellwater,
-										/datum/reagent/plasma,
-										/datum/reagent/plasma_dust
-									)
+		/datum/reagent/consumable/ethanol,
+		/datum/reagent/fuel,
+		/datum/reagent/clf3,
+		/datum/reagent/phlogiston,
+		/datum/reagent/napalm,
+		/datum/reagent/hellwater,
+		/datum/reagent/plasma,
+		/datum/reagent/plasma_dust
+	)
 	var/active = FALSE
 
 /obj/item/reagent_containers/cup/glass/bottle/molotov/get_ru_names()
@@ -767,20 +753,21 @@
 			isGlass = FALSE
 		update_appearance(UPDATE_DESC|UPDATE_ICON)
 
-/obj/item/reagent_containers/cup/glass/bottle/molotov/throw_impact(atom/target, datum/thrownthing/throwingdatum)
-	var/firestarter = 0
-	for(var/datum/reagent/R in reagents.reagent_list)
-		for(var/A in accelerants)
-			if(istype(R, A))
-				firestarter = 1
+/obj/item/reagent_containers/cup/glass/bottle/molotov/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum, do_splash = FALSE)
+	..(hit_atom, throwingdatum, do_splash = FALSE)
+
+/obj/item/reagent_containers/cup/glass/bottle/molotov/smash(atom/target, mob/thrower, datum/thrownthing/throwingdatum, break_top)
+	var/firestarter = FALSE
+	for(var/datum/reagent/contained_reagent in reagents.reagent_list)
+		for(var/accelerant_type in accelerants)
+			if(istype(contained_reagent, accelerant_type))
+				firestarter = TRUE
 				break
-	SplashReagents(target)
-	if(firestarter && active)
-		target.fire_act()
-		var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(target)
-		hotspot.temperature = 1000
-		hotspot.recolor()
 	..()
+	if(firestarter && active)
+		if(!QDELETED(target))
+			target.fire_act()
+		new /obj/effect/hotspot(get_turf(target))
 
 /obj/item/reagent_containers/cup/glass/bottle/molotov/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -803,19 +790,17 @@
 	)
 	add_overlay(GLOB.fire_overlay)
 	if(!isGlass)
-		addtimer(CALLBACK(src, PROC_REF(splash_reagents), 5 SECONDS))
+		addtimer(CALLBACK(src, PROC_REF(explode), 5 SECONDS))
 
-/obj/item/reagent_containers/cup/glass/bottle/molotov/proc/splash_reagents()
+/obj/item/reagent_containers/cup/glass/bottle/molotov/proc/explode()
 	if(!active)
 		return
-	var/counter
-	var/atom/target = loc
-	for(counter = 0, counter < 2, counter++)
-		if(isstorage(target))
-			var/obj/item/storage/storage = target
-			target = storage.loc
-	if(isatom(target))
-		SplashReagents(target)
+	if(get_turf(src))
+		var/atom/target = loc
+		for(var/i in 1 to 2)
+			if(istype(target, /obj/item/storage))
+				target = target.loc
+		splash_reagents(target, allow_closed_splash = TRUE)
 		target.fire_act()
 	qdel(src)
 
@@ -827,3 +812,5 @@
 		to_chat(user, span_notice("Вы гасите пламя у [declent_ru(GENITIVE)]."))
 		active = FALSE
 		update_icon(UPDATE_OVERLAYS)
+
+#undef BOTTLE_KNOCKDOWN_DEFAULT_DURATION
