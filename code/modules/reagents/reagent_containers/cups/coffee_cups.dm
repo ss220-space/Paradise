@@ -22,7 +22,6 @@
 	desc = "Удобный бумажный стакан со снимающейся крышкой. Предназначен для питья кофе."
 	icon_state = "coffeecup"
 	base_icon_state = "coffeecup"
-	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(10,25,50)
 	can_lid = TRUE
 	fill_icon_thresholds = list(55, 70, 85, 100)

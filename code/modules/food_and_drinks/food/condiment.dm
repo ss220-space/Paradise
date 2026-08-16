@@ -10,11 +10,8 @@
 	desc = "Just your average condiment container."
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "emptycondiment"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	container_type = OPENCONTAINER
 	possible_transfer_amounts = list(1, 5)
-	visible_transfer_rate = TRUE
 	//Possible_states has the reagent id as key and a list of, in order, the icon_state, the name and the desc as values. Used in the on_reagent_change() to change names, descs and sprites.
 	var/list/possible_states = list(
 		"ketchup" = list("ketchup", "ketchup bottle", "You feel more American already."),

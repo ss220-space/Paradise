@@ -3,7 +3,6 @@
 // MARK: Base Bottle
 /obj/item/reagent_containers/cup/glass/bottle
 	volume = 100
-	amount_per_transfer_from_this = 10
 	force = 15 //Smashing bottles over someone's head hurts.
 	throwforce = 15
 	item_state = "broken_beer"
@@ -798,7 +797,7 @@
 	if(get_turf(src))
 		var/atom/target = loc
 		for(var/i in 1 to 2)
-			if(istype(target, /obj/item/storage))
+			if(isstorage(target))
 				target = target.loc
 		splash_reagents(target, allow_closed_splash = TRUE)
 		target.fire_act()

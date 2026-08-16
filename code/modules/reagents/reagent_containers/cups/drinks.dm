@@ -72,7 +72,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	force = 5
 	throwforce = 4
-	amount_per_transfer_from_this = 10
 	materials = list(MAT_METAL=400)
 	volume = 25
 
@@ -179,9 +178,6 @@
 	name = "shaker"
 	desc = "A metal shaker to mix drinks in."
 	icon_state = "shaker"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
-	amount_per_transfer_from_this = 10
 	materials = list(MAT_METAL=1500)
 	volume = 100
 	isGlass = FALSE
