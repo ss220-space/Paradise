@@ -1072,7 +1072,26 @@
 	max_combined_w_class = 21 // = 14 * 1.5, not 14 * 2.  This is deliberate
 	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
 	can_hold = list()
-	w_class_override = ALLOWED_TOOL_BELT_ITEMS
+	w_class_override = list(
+		/obj/item/screwdriver,
+		/obj/item/wirecutters,
+		/obj/item/wrench,
+		/obj/item/weldingtool,
+		/obj/item/crowbar,
+		/obj/item/multitool,
+		/obj/item/stack/cable_coil,
+		/obj/item/clothing/gloves,
+		/obj/item/t_scanner,
+		/obj/item/extinguisher/mini,
+		/obj/item/holosign_creator,
+		/obj/item/analyzer,
+		/obj/item/robotanalyzer,
+		/obj/item/rcd,
+		/obj/item/rpd,
+		/obj/item/flashlight,
+		/obj/item/radio,
+		/obj/item/handheld_defibrillator,
+	)
 
 /obj/item/storage/belt/bluespace/owlman
 	name = "Owlman's utility belt"
