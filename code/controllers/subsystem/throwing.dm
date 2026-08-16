@@ -49,8 +49,8 @@ SUBSYSTEM_DEF(throwing)
 /datum/thrownthing
 	///Defines the atom that has been thrown (Objects and Mobs, mostly.)
 	var/atom/movable/thrownthing
-	///Original intended target of the throw.
-	var/atom/initial_target
+	///Weakref to the original intended target of the throw, to prevent hardDels.
+	var/datum/weakref/initial_target
 	///The turf that the target was on, if it's not a turf itself.
 	var/turf/target_turf
 	///The turf that we were thrown from.
@@ -110,7 +110,7 @@ SUBSYSTEM_DEF(throwing)
 	src.maxrange = maxrange
 	src.speed = speed
 	if(thrower)
-		src.thrower = thrower
+		src.thrower = WEAKREF(thrower)
 	src.diagonals_first = diagonals_first
 	src.force = force
 	src.callback = callback
@@ -152,8 +152,20 @@ SUBSYSTEM_DEF(throwing)
 		delayed_time += world.time - last_move
 		return
 
-	if(dist_travelled && hitcheck()) //to catch sneaky things moving on our tile while we slept
-		return
+	var/atom/movable/actual_target = initial_target?.resolve()
+	var/atom/thrower = get_thrower()
+
+	if(dist_travelled) //to catch sneaky things moving on our tile while we slept
+		for(var/atom/movable/obstacle as anything in get_turf(thrownthing))
+			if(obstacle == thrownthing || (obstacle == thrower && !ismob(thrownthing)))
+				continue
+			if(ismob(obstacle) && thrownthing.pass_flags & PASSMOB && (obstacle != actual_target))
+				continue
+			if(obstacle.pass_flags_self & LETPASSTHROW)
+				continue
+			if(obstacle == actual_target || (obstacle.density && !(obstacle.flags & ON_BORDER) && !(obstacle in AM.buckled_mobs) && !(AM in obstacle.buckled_mobs)))
+				finalize(TRUE, obstacle)
+				return
 
 	var/atom/step
 
@@ -162,9 +174,8 @@ SUBSYSTEM_DEF(throwing)
 	//calculate how many tiles to move, making up for any missed ticks.
 	var/tilestomove = CEILING(min(((((world.time + world.tick_lag) - start_time + delayed_time) * speed) - (dist_travelled ? dist_travelled : -1)), speed * MAX_TICKS_TO_MAKE_UP) * (world.tick_lag * SSthrowing.wait), 1)
 	while(tilestomove-- > 0)
-		if((dist_travelled >= maxrange || AM.loc == target_turf) && !AM.no_gravity(AM.loc))
-			if(!hitcheck())
-				finalize()
+		if((dist_travelled >= maxrange || AM.loc == target_turf) && AM.has_gravity(AM.loc))
+			finalize()
 			return
 
 		if(dist_travelled <= max(dist_x, dist_y)) //if we haven't reached the target yet we home in on it, otherwise we use the initial direction
@@ -232,18 +243,6 @@ SUBSYSTEM_DEF(throwing)
 	thrownthing.newtonian_move(init_dir)
 
 	qdel(src)
-
-/datum/thrownthing/proc/hitcheck()
-	for(var/atom/movable/obstacle as anything in get_turf(thrownthing))
-		if(obstacle == thrownthing || obstacle == thrower)
-			continue
-		if(ismob(obstacle) && (thrownthing.pass_flags & PASSMOB))
-			continue
-		if(obstacle.pass_flags_self & LETPASSTHROW)
-			continue
-		if(obstacle == initial_target || (((obstacle.density && !(obstacle.flags & ON_BORDER)) || (isliving(obstacle) && !dodgeable)) && !(obstacle in thrownthing.buckled_mobs)))
-			finalize(obstacle)
-			return TRUE
 
 #undef MAX_THROWING_DIST
 #undef MAX_TICKS_TO_MAKE_UP
