@@ -59,19 +59,13 @@
 	var/side = parent_organ_zone == BODY_ZONE_R_ARM ? BODY_ZONE_R_ARM : BODY_ZONE_L_ARM
 	hand = owner.bodyparts_by_name[side]
 	if(hand)
-		RegisterSignal(hand, COMSIG_ITEM_ATTACK_SELF, PROC_REF(on_item_attack_self)) //If the limb gets an attack-self, open the menu. Only happens when hand is empty
 		RegisterSignal(arm_owner, COMSIG_MOB_KEY_DROP_ITEM_DOWN, PROC_REF(dropkey)) //We're nodrop, but we'll watch for the drop hotkey anyway and then stow if possible.
 
 /obj/item/organ/internal/cyberimp/arm/remove(mob/living/carbon/arm_owner, special = ORGAN_MANIPULATION_DEFAULT)
 	Retract()
 	if(hand)
-		UnregisterSignal(hand, COMSIG_ITEM_ATTACK_SELF)
 		UnregisterSignal(arm_owner, COMSIG_MOB_KEY_DROP_ITEM_DOWN)
 	. = ..()
-
-/obj/item/organ/internal/cyberimp/arm/proc/on_item_attack_self()
-	SIGNAL_HANDLER
-	INVOKE_ASYNC(src, PROC_REF(ui_action_click))
 
 /obj/item/organ/internal/cyberimp/arm/emag_act()
 	return 0
