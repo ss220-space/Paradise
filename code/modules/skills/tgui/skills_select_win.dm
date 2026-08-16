@@ -38,7 +38,8 @@
 	data["job"] = target_user.job
 	data["admin"] = admin_interact
 	var/used_points = collect_used_skill_points(target_user)
-	var/total_points = target_user.mind.free_skill_points + target_user.dna.species.bonus_skill_free_points + target_user.mind.skill_points_from_dna
+	var/total_dna_points = target_user.mind.get_total_skill_points_from_dna()
+	var/total_points = target_user.mind.free_skill_points + target_user.dna.species.bonus_skill_free_points + total_dna_points
 	var/free_points = total_points - used_points
 	data["total_point"] = total_points
 	data["free_points"] = free_points
@@ -73,9 +74,6 @@
 			var/max_skill_delta = DEFAULT_FREE_POINTS_USE_LIMIT
 			if(skill.type in target_user.dna.species.max_select_skills)
 				max_skill_delta = target_user.dna.species.max_select_skills[skill.type]
-			max_skill_delta += target_user.mind.skill_points_from_dna
-			if(target_user.mind.has_absorbed_other_changeling)
-				max_skill_delta = SKILL_LEVEL_LEGEND
 			var/actual_skill_level = skill_level + skill_used_points
 			var/skill_level_name = GLOB.skill_level_names[actual_skill_level]
 			skill_data["value"] = "[skill_level_name] ([actual_skill_level])"
@@ -86,7 +84,11 @@
 				skill_data["can_increase"] = actual_skill_level < SKILL_LEVEL_LEGEND
 				skill_data["can_decrease"] = actual_skill_level > 0
 			else
-				skill_data["can_increase"] = skill_used_points < max_skill_delta && actual_skill_level < (target_user.mind.has_absorbed_other_changeling ? SKILL_LEVEL_LEGEND : SKILL_LEVEL_EXPERT) && skill_level != SKILL_LEVEL_UNAVAILABLE && free_points > 0
+				var/has_absorbed_changeling = HAS_TRAIT(target_user.mind, TRAIT_HAS_ABSORBED_OTHER_CHANGELING)
+				max_skill_delta += total_dna_points
+				if(has_absorbed_changeling)
+					max_skill_delta = SKILL_LEVEL_LEGEND
+				skill_data["can_increase"] = skill_used_points < max_skill_delta && actual_skill_level < (has_absorbed_changeling ? SKILL_LEVEL_LEGEND : SKILL_LEVEL_EXPERT) && skill_level != SKILL_LEVEL_UNAVAILABLE && free_points > 0
 				skill_data["can_decrease"] = skill_used_points > 0
 			skills.Add(list(skill_data))
 
@@ -97,7 +99,6 @@
 
 	data["can_save"] = admin_interact || free_points == 0
 	return data
-
 
 /datum/ui_module/skills_select_win/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = TRUE
@@ -136,13 +137,15 @@
 	if(used_points < 0)
 		user.mind.selected_skills[skill] = 0
 		return
+	var/total_dna_points = user.mind.get_total_skill_points_from_dna()
+	var/has_absorbed_changeling = HAS_TRAIT(user.mind, TRAIT_HAS_ABSORBED_OTHER_CHANGELING)
 	var/max_skill_delta = SKILL_LEVEL_LEGEND
 	if(!admin_interact)
 		max_skill_delta = DEFAULT_FREE_POINTS_USE_LIMIT
 		if(skill in user.dna.species.max_select_skills)
 			max_skill_delta = user.dna.species.max_select_skills[skill]
-		max_skill_delta += user.mind.skill_points_from_dna
-		if(user.mind.has_absorbed_other_changeling)
+		max_skill_delta += total_dna_points
+		if(has_absorbed_changeling)
 			max_skill_delta = SKILL_LEVEL_LEGEND
 	GET_SKILL_LEVEL(target_user, skill, skill_level)
 	if(skill_level + used_points > SKILL_LEVEL_LEGEND)
@@ -153,7 +156,8 @@
 /datum/ui_module/skills_select_win/proc/save_skills(mob/user)
 	var/total_used_points = collect_used_skill_points(user)
 	var/datum/mind/user_mind = user.mind
-	if(!admin_interact && total_used_points != user_mind.free_skill_points + user.dna.species.bonus_skill_free_points)
+	var/total_dna_points = user_mind.get_total_skill_points_from_dna()
+	if(!admin_interact && total_used_points != user_mind.free_skill_points + user.dna.species.bonus_skill_free_points + total_dna_points)
 		to_chat(user, span_notice("Распределите все очки!"))
 		return //TODO использовать tgui окно с вопросом, в случае отказа рандомно распределить свободные очки
 	for(var/skill, used_points in user_mind.selected_skills)
@@ -164,8 +168,9 @@
 	user_mind.refresh_skills()
 	// cleanup
 	user_mind.selected_skills = null
+	for(var/datum/antagonist/antag as anything in user_mind.antag_datums)
+		antag.reset_skill_points_from_dna()
 	user_mind.free_skill_points = 0
-	user_mind.skill_points_from_dna = 0
 
 /datum/ui_module/skills_select_win/proc/reset_skill_points(mob/user)
 	for(var/skill in user.mind.selected_skills)

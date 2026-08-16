@@ -148,10 +148,8 @@ Made by Xhuis
 		var/datum/skill/best_skill = new_thrall_mind.get_highest_skill()
 		if(best_skill)
 			var/best_skill_name = best_skill::name
+			LAZYSET(thrall_skill_bonuses, best_skill, (thrall_skill_bonuses[best_skill] || 0) + 1)
 			for(var/datum/mind/shadow_mind in shadows)
-				if(!shadow_mind.thrall_skill_bonuses)
-					shadow_mind.thrall_skill_bonuses = list()
-				shadow_mind.thrall_skill_bonuses[best_skill] = (shadow_mind.thrall_skill_bonuses[best_skill] || 0) + 1
 				shadow_mind.refresh_skills()
 				to_chat(shadow_mind.current, span_shadowling("Вы чувствуете, как знания вашего нового раба текут в вас. Вы стали лучше в навыке: [best_skill_name]."))
 
@@ -197,7 +195,7 @@ Made by Xhuis
 		/datum/skill/combat/melee,
 	)
 	for(var/datum/skill/combat_skill_type as anything in combat_skills)
-		LAZYSET(thrall_mind.thrall_skill_bonuses, combat_skill_type, (thrall_mind.thrall_skill_bonuses[combat_skill_type] || 0) + THRALL_COMBAT_SKILL_BONUS)
+		LAZYSET(thrall_skill_bonuses, combat_skill_type, (thrall_skill_bonuses[combat_skill_type] || 0) + THRALL_COMBAT_SKILL_BONUS)
 	thrall_mind.refresh_skills()
 	if(thrall_mind.current)
 		to_chat(thrall_mind.current, span_shadowling("Ты чувствуешь, как воля хозяев наполняет тебя силой. Твои боевые навыки возросли!"))
@@ -264,7 +262,6 @@ Made by Xhuis
 	shadows.Remove(ling_mind)
 	add_conversion_logs(ling_mind.current, "Deshadowlinged")
 	ling_mind.special_role = null
-	ling_mind.thrall_skill_bonuses = list()
 	for(var/obj/effect/proc_holder/spell/spell as anything in ling_mind.spell_list)
 		ling_mind.RemoveSpell(spell)
 	var/mob/living/M = ling_mind.current

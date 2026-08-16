@@ -158,10 +158,10 @@
 	to_chat(abductor.current, custom_boxed_message("red_box center", messages.Join("<br>")))
 	log_game("[abductor] has become an abductor agent.")
 
-	if(!abductor.role_skill_bonuses)
-		abductor.role_skill_bonuses = list()
-	abductor.role_skill_bonuses[/datum/skill/medical/heal] = SKILL_LEVEL_LEGEND
-	abductor.role_skill_bonuses[/datum/skill/medical/surgery] = SKILL_LEVEL_LEGEND
+	mode_skill_bonuses[abductor] = list(
+		/datum/skill/medical/heal = SKILL_LEVEL_LEGEND,
+		/datum/skill/medical/surgery = SKILL_LEVEL_LEGEND,
+	)
 	abductor.refresh_skills()
 
 /datum/game_mode/abduction/proc/greet_scientist(datum/mind/abductor,team_number)
@@ -180,10 +180,10 @@
 	abductor.current.create_log(MISC_LOG, "[abductor.current] was made into an abductor scientist")
 	log_game("[abductor] has become an abductor scientist.")
 
-	if(!abductor.role_skill_bonuses)
-		abductor.role_skill_bonuses = list()
-	abductor.role_skill_bonuses[/datum/skill/medical/heal] = SKILL_LEVEL_LEGEND
-	abductor.role_skill_bonuses[/datum/skill/medical/surgery] = SKILL_LEVEL_LEGEND
+	mode_skill_bonuses[abductor] = list(
+		/datum/skill/medical/heal = SKILL_LEVEL_LEGEND,
+		/datum/skill/medical/surgery = SKILL_LEVEL_LEGEND,
+	)
 	abductor.refresh_skills()
 
 /datum/game_mode/abduction/proc/get_team_console(team_number)

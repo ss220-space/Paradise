@@ -207,6 +207,11 @@
 	var/list/datum/mind/raiders = list() //Antags.
 	var/list/raid_objectives = list() //Raid objectives
 
+	/// Skill bonuses gained from enthralled victims for shadowlings (skill_type -> bonus level)
+	var/list/thrall_skill_bonuses = list()
+	/// Personal skill bonuses granted by the game mode to specific minds (mind -> (skill_type -> level))
+	var/list/mode_skill_bonuses = list()
+
 /datum/game_mode/proc/announce() //to be calles when round starts
 	to_chat(world, "<b>Notice</b>: [src] did not define announce()")
 
@@ -976,6 +981,14 @@
 	else
 		message_text += "<hr><b>Аномальных особенностей текущей смены не обнаружено.</b><br>"
 	print_command_report(message_text, "Информация о состоянии станции", FALSE)
+
+/datum/game_mode/proc/get_thrall_skill_bonuses_for(datum/mind/target_mind)
+	if(!(target_mind in shadows))
+		return null
+	return thrall_skill_bonuses
+
+/datum/game_mode/proc/get_mode_skill_bonuses_for(datum/mind/target_mind)
+	return mode_skill_bonuses[target_mind]
 
 #undef ROUNDSTART_LOGOUT_REPORT_TIME
 #undef STATION_GOAL_BUDGET

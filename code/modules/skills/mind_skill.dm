@@ -75,8 +75,11 @@
 	var/list/cached_neurotrainer_bonuses = active_neurotrainer_bonuses
 	var/list/cached_manual_skill_bonuses = manual_skill_bonuses
 	var/list/cached_selected_skills_levels = selected_skills_levels
-	var/list/cached_role_skill_bonuses = role_skill_bonuses
-	var/list/cached_thrall_skill_bonuses = thrall_skill_bonuses
+	var/list/cached_mode_bonuses = null
+	var/list/cached_thrall_bonuses = null
+	if(SSticker?.mode)
+		cached_mode_bonuses = SSticker.mode.get_mode_skill_bonuses_for(src)
+		cached_thrall_bonuses = SSticker.mode.get_thrall_skill_bonuses_for(src)
 	for(var/skill_name, skill_datum in GLOB.skills)
 		var/datum/skill/skill = skill_datum
 		var/datum/skill/skill_type = skill.type
@@ -91,15 +94,14 @@
 		if(job_alt_skills && (skill_type in job_alt_skills))
 			job_skill = job_alt_skills[skill_type]
 		var/level = max(job_skill, antag_skill_level)
-		if(cached_role_skill_bonuses && (skill_type in cached_role_skill_bonuses))
-			level = max(level, cached_role_skill_bonuses[skill_type])
+		if(cached_mode_bonuses && (skill_type in cached_mode_bonuses))
+			level = max(level, cached_mode_bonuses[skill_type])
 		for(var/datum/antagonist/antag as anything in antag_datums)
 			for(var/bonus_skill_type in antag.skill_bonuses)
 				if(bonus_skill_type == skill_type)
 					level = max(level, antag.skill_bonuses[bonus_skill_type])
-		if(cached_thrall_skill_bonuses && (skill_type in cached_thrall_skill_bonuses))
-			level += cached_thrall_skill_bonuses[skill_type]
-			level = min(level, SKILL_LEVEL_LEGEND)
+		if(cached_thrall_bonuses && (skill_type in cached_thrall_bonuses))
+			level = min(level + cached_thrall_bonuses[skill_type], SKILL_LEVEL_LEGEND)
 		if(skill_type in cached_selected_skills_levels)
 			level = clamp(level + cached_selected_skills_levels[skill_type], level, SKILL_LEVEL_LEGEND)
 		if(skill_type in cached_manual_bonuses)
@@ -111,6 +113,12 @@
 		if(level == SKILL_LEVEL_UNAVAILABLE)
 			skill.remove_from_mob(current)
 		set_skill_level(skill_type, level)
+
+/datum/mind/proc/get_total_skill_points_from_dna()
+	var/total_points = 0
+	for(var/datum/antagonist/antag as anything in antag_datums)
+		total_points += antag.get_skill_points_from_dna()
+	return total_points
 
 /datum/mind/proc/get_skills_for_skills_select()
 	var/skills = list()

@@ -73,7 +73,7 @@ GLOBAL_LIST_EMPTY(skill_manual_types)
 	if(!mind)
 		to_chat(src, "Произошла неизвестная ошибка, поэтому мы не можем показать вам ваши навыки.")
 		return
-	if((mind.free_skill_points > 0 || mind.skill_points_from_dna > 0) && iscarbon(usr))
+	if((mind.free_skill_points > 0 || mind.get_total_skill_points_from_dna() > 0) && iscarbon(usr))
 		var/datum/ui_module/skills_select_win/tgui = new(usr)
 		tgui.show(usr, src)
 		return

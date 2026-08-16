@@ -497,3 +497,9 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 
 /datum/antagonist/proc/get_steal_objective_type()
 	return /datum/objective/steal
+
+/datum/antagonist/proc/get_skill_points_from_dna()
+	return 0
+
+/datum/antagonist/proc/reset_skill_points_from_dna()
+	return
