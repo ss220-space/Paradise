@@ -662,7 +662,7 @@
 /obj/structure/table,
 /obj/item/folder/yellow,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurple"
 	},

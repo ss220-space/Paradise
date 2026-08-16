@@ -44222,7 +44222,7 @@
 /area/station/maintenance/maintcentral)
 "gUK" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
 /turf/simulated/floor/glass/reinforced,
 /area/station/hallway/secondary/exit)
 "gUL" = (
@@ -59567,7 +59567,7 @@
 /obj/structure/table/glass,
 /obj/item/clipboard,
 /obj/item/toy/figure/virologist,
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -94800,7 +94800,7 @@
 /area/station/science/toxins/mixing)
 "oDg" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -123866,8 +123866,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee,
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
 /area/station/maintenance/brig)
@@ -158252,8 +158252,8 @@
 /area/station/maintenance/asmaint)
 "yer" = (
 /obj/structure/table,
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee,
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
 /obj/effect/spawner/lootdrop/maintenance{
 	pixel_x = -5;
 	pixel_y = -1

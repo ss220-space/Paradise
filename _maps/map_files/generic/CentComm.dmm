@@ -6033,7 +6033,7 @@
 	desc = "Любимая игрушка-антистресс одной из представительниц вида таяран, когда-то работавшей главой персонала. Она была настолько занята выполнением своих обязанностей, что умерла голодной смертью прямо на своем рабочем месте. Не будьте как эта таяра. Кушайте регулярно.";
 	name = "Любимая игрушка бюрократов"
 	},
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
 /turf/simulated/floor/carpet/black,
 /area/centcom/central_command_areas/zone/two)
 "dbM" = (
@@ -8628,7 +8628,7 @@
 "elc" = (
 /obj/structure/table,
 /obj/item/clothing/head/soft/solgov,
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -27586,7 +27586,7 @@
 /area/centcom/syndicate_base)
 "mRJ" = (
 /obj/structure/table,
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
 /obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = 6
 	},
@@ -37457,7 +37457,7 @@
 	},
 /obj/structure/window/reinforced,
 /obj/structure/table,
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
 /turf/simulated/floor/carpet/black,
 /area/centcom/central_command_areas/zone/two)
 "rhn" = (

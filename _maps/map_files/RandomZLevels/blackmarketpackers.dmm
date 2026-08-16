@@ -1719,7 +1719,7 @@
 /area/awaymission/BMPship/Fore)
 "eY" = (
 /obj/structure/alien/weeds,
-/obj/item/reagent_containers/cup/beaker/drugs/meth{
+/obj/item/reagent_containers/cup/beaker/plastic_baggie/drugs/meth{
 	layer = 2.9
 	},
 /obj/structure/table,
@@ -3049,9 +3049,9 @@
 /area/awaymission/BMPship/Engines)
 "iX" = (
 /obj/structure/table,
-/obj/item/reagent_containers/cup/beaker/drugs/meth,
-/obj/item/reagent_containers/cup/beaker/drugs/meth,
-/obj/item/reagent_containers/cup/beaker/drugs/meth,
+/obj/item/reagent_containers/cup/beaker/plastic_baggie/drugs/meth,
+/obj/item/reagent_containers/cup/beaker/plastic_baggie/drugs/meth,
+/obj/item/reagent_containers/cup/beaker/plastic_baggie/drugs/meth,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/ChemLab)
 "iY" = (
@@ -3321,7 +3321,7 @@
 /area/awaymission/BMPship/TraderShuttle)
 "kx" = (
 /obj/structure/table/survival_pod,
-/obj/item/reagent_containers/cup/beaker/drugs/meth,
+/obj/item/reagent_containers/cup/beaker/plastic_baggie/drugs/meth,
 /obj/item/reagent_containers/cup/glass/bottle/rum{
 	layer = 2.9;
 	pixel_x = -3;
@@ -6615,7 +6615,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "Pi" = (
-/obj/item/reagent_containers/cup/beaker/drugs/meth,
+/obj/item/reagent_containers/cup/beaker/plastic_baggie/drugs/meth,
 /mob/living/simple_animal/hostile/syndicate/ranged/space{
 	health = 300;
 	maxHealth = 300

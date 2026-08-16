@@ -30,7 +30,7 @@
 
 	item_slot = TRUE
 	products = list(
-		/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee = 25,
+		/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee = 25,
 		/obj/item/reagent_containers/cup/glass/tea = 25,
 		/obj/item/reagent_containers/cup/glass/h_chocolate = 25,
 		/obj/item/reagent_containers/cup/glass/chocolate = 10,

@@ -59630,7 +59630,7 @@
 /area/station/hallway/secondary/entry)
 "lgc" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
 /obj/item/reagent_containers/cup/bottle/morphine{
 	pixel_y = 5
 	},

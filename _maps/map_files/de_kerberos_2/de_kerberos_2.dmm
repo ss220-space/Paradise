@@ -29622,8 +29622,8 @@
 /area/station/engineering/storage/tech)
 "gdE" = (
 /obj/structure/table,
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee,
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
 /turf/simulated/floor/carpet/purple,
 /area/station/hallway/secondary/exit)
 "gdJ" = (
@@ -78134,7 +78134,7 @@
 	dir = 4
 	},
 /obj/structure/table/glass,
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -80156,7 +80156,7 @@
 "psI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "psL" = (
@@ -83835,7 +83835,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "pXS" = (
@@ -86007,7 +86007,7 @@
 /area/station/command/bridge)
 "qtF" = (
 /obj/structure/table,
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -87836,7 +87836,7 @@
 /obj/machinery/recharger{
 	pixel_x = 1
 	},
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-cherry"
 	},
@@ -99046,7 +99046,7 @@
 /obj/machinery/door/window/westright{
 	dir = 1
 	},
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "sNd" = (
@@ -102467,7 +102467,7 @@
 /area/station/ai/satellite/exterior)
 "tty" = (
 /obj/structure/table,
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -115392,7 +115392,7 @@
 "vMo" = (
 /obj/structure/table,
 /obj/item/clothing/mask/cigarette/menthol,
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
 /obj/item/reagent_containers/syringe/steroids,
 /obj/item/reagent_containers/food/snacks/proteinbar_banana,
 /turf/simulated/floor/plating,

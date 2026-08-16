@@ -13484,7 +13484,7 @@
 "cRV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "cSm" = (
@@ -15254,7 +15254,7 @@
 /obj/machinery/door/window/westright{
 	dir = 1
 	},
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "dnN" = (
@@ -59358,7 +59358,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee{
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee{
 	list_reagents = list("honey" = 15);
 	pixel_x = 9;
 	pixel_y = 5
@@ -109871,7 +109871,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "uyY" = (
@@ -118047,7 +118047,7 @@
 "vZM" = (
 /obj/structure/table,
 /obj/item/clothing/mask/cigarette/menthol,
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
 /obj/item/reagent_containers/syringe/steroids,
 /obj/item/reagent_containers/food/snacks/proteinbar_banana,
 /turf/simulated/floor/plating,

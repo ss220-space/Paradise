@@ -1,33 +1,32 @@
 // MARK: Coffee cups
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup
+/obj/item/reagent_containers/cup/glass/coffee_cup
 	name = ""
 	desc = ""
 	max_integrity = 20
-	var/has_cup = FALSE
-	var/cap_on = FALSE
+	isGlass = FALSE
 
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/examine(mob/user)
+/obj/item/reagent_containers/cup/glass/coffee_cup/examine(mob/user)
 	. = ..()
 	. += span_notice("Вмещает до <b>[volume]</b> единиц[declension_ru(volume, "ы", "", "")] вещества.")
 
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/on_reagent_change()
+/obj/item/reagent_containers/cup/glass/coffee_cup/on_reagent_change()
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/ComponentInitialize()
+/obj/item/reagent_containers/cup/glass/coffee_cup/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/coffeemaker_item_loader, "cups")
 
 // MARK: Coffee cup
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/normal
+/obj/item/reagent_containers/cup/glass/coffee_cup/normal
 	name = "coffee cup"
 	desc = "Удобный бумажный стакан со снимающейся крышкой. Предназначен для питья кофе."
 	icon_state = "coffeecup"
 	base_icon_state = "coffeecup"
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(10,25,50)
-	has_cup = TRUE
+	can_lid = TRUE
 
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/normal/get_ru_names()
+/obj/item/reagent_containers/cup/glass/coffee_cup/normal/get_ru_names()
 	return alist(
 		NOMINATIVE = "стакан кофе",
 		GENITIVE = "стакана кофе",
@@ -37,23 +36,7 @@
 		PREPOSITIONAL = "стакане кофе"
 	)
 
-#define COFFEE_CUP_EXAMINE_RANGE 2
-
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/normal/examine(mob/user)
-	. = ..()
-	if(get_dist(user, src) <= COFFEE_CUP_EXAMINE_RANGE && cap_on)
-		. += span_boldnotice("Крышка надета.")
-
-#undef COFFEE_CUP_EXAMINE_RANGE
-
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/normal/update_icon_state()
-	. = ..()
-	if(cap_on)
-		icon_state = "[base_icon_state]_lid"
-	else
-		icon_state = "[base_icon_state]"
-
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/normal/update_overlays()
+/obj/item/reagent_containers/cup/glass/coffee_cup/normal/update_overlays()
 	. = ..()
 	underlays.Cut()
 	if(icon_state == "[base_icon_state]_lid")
@@ -74,16 +57,8 @@
 		filling.color = get_color_matrix_from_reagents(reagents.reagent_list)
 		. += filling
 
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/normal/attack_self(mob/user)
-	if(!has_cup)
-		return
-
-	cap_on = !cap_on
-	user.balloon_alert(user, "крышка [cap_on ? "надета" : "снята"]")
-	update_icon()
-
 // MARK: Small coffee cup
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small
+/obj/item/reagent_containers/cup/glass/coffee_cup/small
 	name = "small coffee cup"
 	desc = "Небольшой бумажный стакан. Обычно в таких подают кофе. Далеко не самый удобный."
 	icon_state = "coffeecup_small"
@@ -91,7 +66,7 @@
 	possible_transfer_amounts = list(10,30)
 	volume = 30
 
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/get_ru_names()
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/get_ru_names()
 	return alist(
 		NOMINATIVE = "стаканчик кофе",
 		GENITIVE = "стаканчика кофе",
@@ -101,7 +76,7 @@
 		PREPOSITIONAL = "стаканчике кофе"
 	)
 
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/update_overlays()
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/update_overlays()
 	. = ..()
 	underlays.Cut()
 	if(!reagents.total_volume)
@@ -122,15 +97,15 @@
 	filling.color = get_color_matrix_from_reagents(reagents.reagent_list)
 	. += filling
 
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee
 	list_reagents = list("coffee" = 30)
 
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee/experimentor
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee/experimentor
 	name = "cup of suspicious liquid"
 	desc = "На боковой стороне крупными, едва заметными, чернилами напечатан символ химической опасности."
 	var/selected_reagent
 
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee/experimentor/small/get_ru_names()
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee/experimentor/small/get_ru_names()
 	return alist(
 		NOMINATIVE = "стаканчик подозрительной жидкости",
 		GENITIVE = "стаканчика подозрительной жидкости",
@@ -140,27 +115,27 @@
 		PREPOSITIONAL = "стаканчике подозрительной жидкости"
 	)
 
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee/experimentor/Initialize(mapload)
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee/experimentor/Initialize(mapload)
 	. = ..()
 	spawn_reagent()
 
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee/experimentor/proc/spawn_reagent()
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee/experimentor/proc/spawn_reagent()
 	var/chosenchem = pick_reagent()
 	selected_reagent = chosenchem
 	reagents.remove_all(25)
 	reagents.add_reagent(chosenchem, 50)
 
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee/experimentor/proc/pick_reagent()
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee/experimentor/proc/pick_reagent()
 	return /datum/reagent/consumable/drink/coffee
 
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee/experimentor/heat/pick_reagent()
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee/experimentor/heat/pick_reagent()
 	return pick(
 		/datum/reagent/plasma,
 		/datum/reagent/consumable/capsaicin,
 		/datum/reagent/consumable/ethanol,
 	)
 
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee/experimentor/cold/pick_reagent()
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee/experimentor/cold/pick_reagent()
 	return pick(
 		/datum/reagent/uranium,
 		/datum/reagent/consumable/frostoil,

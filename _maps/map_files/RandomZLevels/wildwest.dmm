@@ -2209,7 +2209,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/wwrefine)
 "ne" = (
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
 /turf/simulated/floor/carpet,
 /area/awaymission/wwmines)
 "DI" = (
@@ -2224,7 +2224,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "RT" = (
-/obj/item/reagent_containers/cup/glass/cups/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
 /obj/item/reagent_containers/food/snacks/donut/jelly/slimejelly,
 /turf/simulated/floor/carpet,
 /area/awaymission/wwmines)
