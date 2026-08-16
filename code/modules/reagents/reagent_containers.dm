@@ -68,7 +68,7 @@
 /obj/item/reagent_containers/examine()
 	. = ..()
 	if(possible_transfer_amounts.len)
-		. += span_notice("Используйте [EXAMINE_HINT("ЛКМ")] или [EXAMINE_HINT("ПКМ")], чтобы изменить объём перемещения содержимого.")
+		. += span_notice("Объём перемещения содержимого — [amount_per_transfer_from_this] единиц[declension_ru(amount_per_transfer_from_this, "а", "ы", "")]. Используйте [EXAMINE_HINT("ЛКМ")] или [EXAMINE_HINT("ПКМ")] для изменения.")
 
 /obj/item/reagent_containers/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(user.a_intent != INTENT_HARM)
@@ -101,20 +101,19 @@
 		else
 			CRASH("change_transfer_amount() called with invalid direction value")
 	amount_per_transfer_from_this = possible_transfer_amounts[index]
-	balloon_alert(user, "объём перемещения — [amount_per_transfer_from_this] ед.")
+	balloon_alert(user, "объём перемещения — [amount_per_transfer_from_this] единиц[declension_ru(amount_per_transfer_from_this, "а", "ы", "")]")
 	mode_change_message(user)
 
-/obj/item/reagent_containers/pre_attack_secondary(atom/target, mob/living/user, params)
+/obj/item/reagent_containers/interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
 	if(user.intent != INTENT_HARM)
-		return ..()
-	if(try_splash(user, target))
-		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
-
-	return ..()
+		return NONE // non-combat-mode-rmb allows for stuff like opening containers or attacking (bottle breaking)
+	if(try_splash(user, interacting_with))
+		return ITEM_INTERACT_SUCCESS
+	return NONE
 
 /// Tries to splash the target. Used on both right-click and normal click when in combat mode.
 /obj/item/reagent_containers/proc/try_splash(mob/user, atom/target)
-	if (!is_open_container())
+	if(!is_open_container())
 		return FALSE
 
 	if(!reagents?.total_volume)
@@ -122,31 +121,30 @@
 
 	var/punctuation = ismob(target) ? "!" : "."
 
-	var/reagent_text
 	user.visible_message(
-		span_danger("[user] splashes the contents of [src] onto [target][punctuation]"),
-		span_danger("You splash the contents of [src] onto [target][punctuation]"),
+		span_danger("[user] облива[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)] содержимым [declent_ru(GENITIVE)][punctuation]"),
+		span_danger("Вы обливаете [target.declent_ru(ACCUSATIVE)] содержимым [declent_ru(GENITIVE)][punctuation]"),
 		ignored_mobs = target,
 	)
 
 	if(ismob(target))
 		var/mob/target_mob = target
 		target_mob.show_message(
-			span_userdanger("[user] splash the contents of [src] onto you!"),
+			span_userdanger("[user] облива[PLUR_ET_YUT(user)] вас содержимым [declent_ru(GENITIVE)]!"),
 			EMOTE_VISIBLE,
-			span_userdanger("You feel drenched!"),
+			span_userdanger("Вас чем-то облили!"),
 		)
 
-	for(var/datum/reagent/reagent as anything in reagents.reagent_list)
-		reagent_text += "[reagent] ([num2text(reagent.volume)]),"
+	playsound(target, 'sound/effects/slosh.ogg', 25, TRUE)
 
-	var/mob/splasher = thrownby?.resolve()
-	if(isturf(target) && reagents.reagent_list.len && splasher)
-		add_attack_logs(splasher, target, "splashed (thrown) [english_list(reagents.reagent_list)]")
-		message_admins("[ADMIN_LOOKUPFLW(splasher)] splashed (thrown) [english_list(reagents.reagent_list)] on [target] at [ADMIN_VERBOSEJMP(target)].")
+	var/mutable_appearance/splash_animation = mutable_appearance('icons/effects/effects.dmi', "splash")
+	if(isturf(target))
+		splash_animation.icon_state = "splash_floor"
+	splash_animation.color = mix_color_from_reagents(reagents.reagent_list)
+	target.flick_overlay_view(splash_animation, 1 SECONDS)
 
 	reagents.reaction(target, REAGENT_TOUCH)
-	add_attack_logs(user, target, "splashed [reagent_text]")
+	add_attack_logs(user, target, "splashed [reagents.log_list()]")
 	reagents.clear_reagents()
 
 	return TRUE
@@ -219,8 +217,8 @@
 		var/turf_splash_multiplier = 1 - splash_multiplier
 		var/turf/target_turf = get_turf(target)
 		target.visible_message(
-			span_danger("[target] облит[GEND_A_O_Y(target)] содержимым [declent_ru(GENITIVE)]!"),
-			span_userdanger("[target] облит[GEND_A_O_Y(target)] содержимым [declent_ru(GENITIVE)]!")
+			span_danger("[DECLENT_RU_CAP(target, NOMINATIVE)] облит[GEND_A_O_Y(target)] содержимым [declent_ru(GENITIVE)]!"),
+			span_userdanger("[DECLENT_RU_CAP(target, NOMINATIVE)] облит[GEND_A_O_Y(target)] содержимым [declent_ru(GENITIVE)]!")
 		)
 		if(splasher)
 			add_attack_logs(splasher, target, "splashed")
@@ -235,6 +233,14 @@
 		reagents.reaction(target, REAGENT_TOUCH)
 		if(QDELETED(src))
 			return
+
+	playsound(target, 'sound/effects/slosh.ogg', 25, TRUE)
+
+	var/mutable_appearance/splash_animation = mutable_appearance('icons/effects/effects.dmi', "splash")
+	if(isturf(target))
+		splash_animation.icon_state = "splash_floor"
+	splash_animation.color = mix_color_from_reagents(reagents.reagent_list)
+	target.flick_overlay_view(splash_animation, 1.0 SECONDS)
 
 	reagents.clear_reagents()
 
