@@ -1106,7 +1106,13 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	if(ishuman(owner))
 		var/mob/living/carbon/human/human_owner = owner
-		human_owner.apply_status_effect(STATUS_EFFECT_RADIAL_BLUR)
+		human_owner.apply_status_effect(
+			STATUS_EFFECT_RADIAL_BLUR,
+			0.005,
+			0.02,
+			0.05 SECONDS,
+			1 SECONDS
+		)
 
 	return TRUE
 
