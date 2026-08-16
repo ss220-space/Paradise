@@ -105,22 +105,8 @@
 	/// Return to stop the cast and prevent the soul imbue
 	#define COMPONENT_BLOCK_IMBUE (1 << 0)
 
-/// Sent from /datum/action/cooldown/spell/aoe/knock/cast(), to every nearby turf (for connect loc): (datum/action/cooldown/spell/aoe/knock/spell, mob/living/caster)
-#define COMSIG_ATOM_MAGICALLY_UNLOCKED "atom_magic_unlock"
-
 // Instant Summons
 /// Sent from /datum/action/cooldown/spell/summonitem/cast(), to the item being marked for recall: (datum/action/cooldown/spell/spell, mob/user)
 #define COMSIG_ITEM_MARK_RETRIEVAL "item_mark_retrieval"
 	/// Return to stop the cast and prevent the item from being marked
 	#define COMPONENT_BLOCK_MARK_RETRIEVAL (1 << 0)
-///When an object is retrieved by a magic recall spell. This will apply to all containers, mobs, etc. that are pulled by the spell.
-#define COMSIG_MAGIC_RECALL "magic_recall"
-
-
-// Charge
-/// Sent from /datum/action/cooldown/spell/charge/cast(), to the item in hand being charged: (datum/action/cooldown/spell/spell, mob/user)
-#define COMSIG_ITEM_MAGICALLY_CHARGED "item_magic_charged"
-	/// Return if an item was successful recharged
-	#define COMPONENT_ITEM_CHARGED (1 << 0)
-	/// Return if the item had a negative side effect occur while recharging
-	#define COMPONENT_ITEM_BURNT_OUT (1 << 1)

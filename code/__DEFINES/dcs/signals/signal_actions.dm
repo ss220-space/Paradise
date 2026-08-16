@@ -30,37 +30,3 @@
 
 /// From base of /datum/action/cooldown/proc/set_statpanel_format(): (list/stat_panel_data)
 #define COMSIG_ACTION_SET_STATPANEL "ability_set_statpanel"
-
-// Specific cooldown action signals
-
-/// From base of /datum/action/cooldown/mob_cooldown/blood_warp/proc/blood_warp(): ()
-#define COMSIG_BLOOD_WARP "mob_ability_blood_warp"
-/// From base of /datum/action/cooldown/mob_cooldown/charge/proc/do_charge(): ()
-#define COMSIG_STARTED_CHARGE "mob_ability_charge_started"
-/// From base of /datum/action/cooldown/mob_cooldown/charge/proc/do_charge(): ()
-#define COMSIG_FINISHED_CHARGE "mob_ability_charge_finished"
-/// From base of /datum/action/cooldown/mob_cooldown/lava_swoop/proc/swoop_attack(): ()
-#define COMSIG_SWOOP_INVULNERABILITY_STARTED "mob_swoop_invulnerability_started"
-/// From base of /datum/action/cooldown/mob_cooldown/lava_swoop/proc/swoop_attack(): ()
-#define COMSIG_LAVA_ARENA_FAILED "mob_lava_arena_failed"
-
-/// From /datum/action/vehicle/sealed/mecha/mech_toggle_safeties/proc/update_action_icon(): ()
-#define COMSIG_MECH_SAFETIES_TOGGLE "mech_safeties_toggle"
-
-/// From /datum/action/vehicle/sealed/mecha//mob_exit(): ()
-#define COMSIG_MECHA_MOB_EXIT "mecha_mob_exit"
-
-/// From /datum/action/cooldown/mob_cooldown/assume_form/proc/assume_appearances(), sent to the action owner: (atom/movable/target)
-#define COMSIG_ACTION_DISGUISED_APPEARANCE "mob_ability_disguise_appearance"
-
-/// From /datum/action/cooldown/manual_heart/Activate(): ()
-#define COMSIG_HEART_MANUAL_PULSE "heart_manual_pulse"
-
-/// From /datum/action/cooldown/mob_cooldown/capture_photo/Activate():
-#define COMSIG_ACTION_PHOTO_CAPTURED "action_photo_captured"
-
-/// From /datum/action/vehicle/ridden/wheelchair/bell/Trigger():
-#define COMSIG_WHEELCHAIR_BELL_RANG "wheelchair_bell_rang"
-
-/// From /datum/action/cooldown/spell/touch/lay_on_hands/proc/determine_if_this_hurts_instead(), sent to the /mob/living/carbon/hurtguy: (/mob/living/carbon/mendicant)
-#define COMSIG_ON_LAY_ON_HANDS "mob_ability_lay_on_hands"
