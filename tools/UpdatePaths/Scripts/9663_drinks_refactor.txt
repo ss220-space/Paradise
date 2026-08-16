@@ -17,9 +17,8 @@
 /obj/item/reagent_containers/food/drinks/glass/bottle/pineapplejuice : /obj/item/reagent_containers/cup/glass/bottle/juice/pineapplejuice {@OLD}
 /obj/item/reagent_containers/food/drinks/glass/bottle/menthol : /obj/item/reagent_containers/cup/glass/bottle/juice/menthol {@OLD}
 
-/obj/item/reagent_containers/cup/glass/bottle/tomatojuice : /obj/item/reagent_containers/cup/glass/bottle/juice/tomatojuice {@OLD}
-/obj/item/reagent_containers/cup/glass/bottle/orangejuice : /obj/item/reagent_containers/cup/glass/bottle/juice/orangejuice {@OLD}
-/obj/item/reagent_containers/cup/glass/bottle/cream : /obj/item/reagent_containers/cup/glass/bottle/juice/cream {@OLD}
-/obj/item/reagent_containers/cup/glass/bottle/limejuice : /obj/item/reagent_containers/cup/glass/bottle/juice/limejuice {@OLD}
+/obj/item/reagent_containers/cup/glass/bottle/juice/tomatojuice : /obj/item/reagent_containers/cup/glass/bottle/juice/tomatojuice {@OLD}
+/obj/item/reagent_containers/cup/glass/bottle/juice/orangejuice : /obj/item/reagent_containers/cup/glass/bottle/juice/orangejuice {@OLD}
+/obj/item/reagent_containers/cup/glass/bottle/juice/cream : /obj/item/reagent_containers/cup/glass/bottle/juice/cream {@OLD}
+/obj/item/reagent_containers/cup/glass/bottle/juice/limejuice : /obj/item/reagent_containers/cup/glass/bottle/juice/limejuice {@OLD}
 /obj/item/reagent_containers/cup/glass/bottle/pineapplejuice : /obj/item/reagent_containers/cup/glass/bottle/juice/pineapplejuice {@OLD}
-/obj/item/reagent_containers/cup/glass/bottle/menthol : /obj/item/reagent_containers/cup/glass/bottle/juice/menthol {@OLD}
