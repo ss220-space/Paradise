@@ -19,6 +19,8 @@
 	pickup_sound = 'sound/items/handling/pickup/gun_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/gun_drop.ogg'
 
+	var/gun_flags = NONE
+
 	var/fire_sound = SFX_GUNSHOT
 	var/suppressed_fire_sound = 'sound/weapons/gunshots/1suppres.ogg'
 	var/magin_sound = 'sound/weapons/gun_interactions/smg_magin.ogg'
@@ -89,6 +91,11 @@
 
 	///Can we hold up our target with this? Default to yes
 	var/can_hold_up = TRUE
+
+	/// Overlay for ammo count hud, that we using
+	var/ammo_count_overlay = "ammo_red"
+	/// Color of all ammo count hud numbers
+	var/ammo_count_colour = COLOR_RED
 
 /*
  * Gun modules
@@ -334,6 +341,7 @@
 		))
 		update_mouse_pointer(TRUE)
 		SEND_SIGNAL(gun_user, COMSIG_GUN_USER_UNSET, src)
+		gun_user.hud_used?.remove_ammo_hud(src)
 		gun_user = null
 
 	if(!user)
@@ -342,6 +350,8 @@
 	gun_user = user
 	setup_bullet_accuracy()
 	SEND_SIGNAL(gun_user, COMSIG_GUN_USER_SET, src)
+	if(gun_flags & GUN_AMMO_COUNTER)
+		gun_user.hud_used?.add_ammo_hud(src, get_display_ammo_count(), ammo_count_overlay, ammo_count_colour)
 	RegisterSignal(gun_user, COMSIG_MOB_MOUSEDOWN, PROC_REF(start_fire))
 	RegisterSignal(gun_user, COMSIG_MOB_MOUSEDRAG, PROC_REF(change_target))
 	RegisterSignal(gun_user, COMSIG_QDELETING, PROC_REF(clean_gun_user))
@@ -351,6 +361,10 @@
 /obj/item/gun/proc/clean_gun_user()
 	SIGNAL_HANDLER
 	set_gun_user(null)
+
+///returns ammo count to display in the ammo counter of the HUD
+/obj/item/gun/proc/get_display_ammo_count()
+	return
 
 ///Check if the gun can fire and add it to bucket auto_fire system if needed, or just fire the gun if not
 /obj/item/gun/proc/start_fire(datum/source, atom/object, turf/location, control, params, bypass_checks = FALSE)
@@ -416,6 +430,7 @@
 		INVOKE_ASYNC(src, PROC_REF(do_semiauto_fire))
 		return TRUE
 	SEND_SIGNAL(src, COMSIG_GUN_FIRE)
+	gun_user?.hud_used?.update_ammo_hud(src, get_display_ammo_count())
 	update_mouse_pointer()
 	sound_loop?.start(user)
 	return TRUE
@@ -678,6 +693,7 @@
 		bonus_spread += 45
 
 	SEND_SIGNAL(src, COMSIG_GUN_FIRED, user, target)
+	gun_user?.hud_used?.update_ammo_hud(src, get_display_ammo_count())
 	last_fired = world.time
 	SEND_SIGNAL(src, COMSIG_MOB_GUN_FIRED, target, src)
 	if(gun_user)

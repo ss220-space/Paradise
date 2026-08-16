@@ -183,6 +183,9 @@
 
 	unload_act(user)
 
+/obj/item/gun/projectile/get_display_ammo_count()
+	return get_ammo()
+
 /obj/item/gun/projectile/proc/unload_act(mob/user)
 	var/obj/item/ammo_casing/AC = chambered //Find chambered round
 	if(magazine)

@@ -34,6 +34,8 @@
 	var/atom/movable/screen/module_store_icon
 	var/atom/movable/screen/combo/combo_display
 
+	var/list/atom/movable/screen/ammo_hud_list = list()
+
 	var/atom/movable/screen/devil/soul_counter/devilsouldisplay
 
 	var/list/static_inventory = list()		//the screen objects which are static
@@ -128,6 +130,7 @@
 	QDEL_NULL(module_store_icon)
 
 	QDEL_LIST(static_inventory)
+	QDEL_LIST(ammo_hud_list)
 
 	LAZYCLEARLIST(inv_slots)
 	action_intent = null
@@ -548,6 +551,40 @@
 			action.ShowTo(mymob)
 		else
 			position_action(button, button.location)
+
+///Add an ammo hud to the user informing of the ammo count of ammo_owner
+/datum/hud/proc/add_ammo_hud(datum/ammo_owner, ammo_count, ammo_overlay, ammo_colour)
+	if(length(ammo_hud_list) >= 4)
+		return
+
+	if(ammo_hud_list[ammo_owner])
+		return
+
+	var/atom/movable/screen/ammo/ammo_hud = new
+	ammo_hud.set_hud(ammo_overlay, ammo_colour)
+	ammo_hud_list[ammo_owner] = ammo_hud
+	ammo_hud.screen_loc = ammo_hud.ammo_screen_loc_list[length(ammo_hud_list)]
+	ammo_hud.add_hud(mymob, ammo_owner)
+	ammo_hud.update_hud(mymob, ammo_count)
+
+///Remove the ammo hud related to the gun from the user
+/datum/hud/proc/remove_ammo_hud(datum/ammo_owner)
+	var/atom/movable/screen/ammo/ammo_hud = ammo_hud_list[ammo_owner]
+	if(isnull(ammo_hud))
+		return
+	ammo_hud.remove_hud(mymob, ammo_owner)
+	qdel(ammo_hud)
+	ammo_hud_list -= ammo_owner
+	var/i = 1
+	for(var/key in ammo_hud_list)
+		ammo_hud = ammo_hud_list[key]
+		ammo_hud.screen_loc = ammo_hud.ammo_screen_loc_list[i]
+		i++
+
+///Update the ammo hud related to the gun
+/datum/hud/proc/update_ammo_hud(datum/ammo_owner, ammo_count)
+	var/atom/movable/screen/ammo/ammo_hud = ammo_hud_list[ammo_owner]
+	ammo_hud?.update_hud(mymob, ammo_count)
 
 /datum/action_group
 	/// The hud we're owned by

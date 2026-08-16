@@ -321,3 +321,6 @@ GLOBAL_LIST_INIT(more_bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024
 		REMOVE_TRAIT(x, TRAIT_KEEP_TOGETHER, KEEP_TOGETHER_ORIGINAL);\
 	else if(!HAS_TRAIT(x, TRAIT_KEEP_TOGETHER))\
 		x.appearance_flags &= ~KEEP_TOGETHER
+
+//gun flags
+#define GUN_AMMO_COUNTER (1<<0)

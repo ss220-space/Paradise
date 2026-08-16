@@ -84,6 +84,10 @@
 
 	return readout.Join("\n") // Sending over the singular string, rather than the whole list
 
+/obj/item/gun/energy/get_display_ammo_count()
+	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	return round(cell.charge / shot.e_cost)
+
 /obj/item/gun/energy/attackby(obj/item/item, mob/living/user, list/modifiers)
 	if(istype(item, /obj/item/gun_module/sibyl))
 		add_fingerprint(user)
@@ -291,6 +295,7 @@
 			chambered.BB = null
 		chambered = null
 	newshot()
+	gun_user.hud_used?.update_ammo_hud(src, get_display_ammo_count())
 	update_icon()
 
 /obj/item/gun/energy/update_icon(updates = ALL)
