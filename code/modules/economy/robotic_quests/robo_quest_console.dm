@@ -76,6 +76,9 @@
 		return ..()
 
 	if(is_id_card(I))
+		if(istype(I, /obj/item/card/id/guest))
+			to_chat(user, span_warning("Временные пропуска не принимаются в этой консоли."))
+			return ATTACK_CHAIN_BLOCKED_ALL
 		add_fingerprint(user)
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
@@ -211,6 +214,7 @@
 	data["style"] = style
 	data["cooldown"] = currentID?.bounty_penalty ? time2text((currentID.bounty_penalty-world.time), "mm:ss") : FALSE
 	data["instant_teleport"] = can_instant_teleport()
+	data["hasAccess"] = currentID ? (ACCESS_ROBOTICS in currentID.access) : FALSE
 	return data
 
 /obj/machinery/computer/roboquest/ui_static_data(mob/user)
@@ -229,6 +233,9 @@
 			currentID = null
 			SStgui.update_uis(src)
 		if("GetTask")
+			if(!currentID || !(ACCESS_ROBOTICS in currentID.access))
+				to_chat(usr, span_warning("Access denied. Требуется доступ робототехники."))
+				return
 			var/list/mecha_types = list("Working Mech" = WORKING_CLASS, "Medical Mech" = MEDICAL_CLASS, "Combat Mech" = COMBAT_CLASS, "Random Mech" = RANDOM_CLASS)
 			var/mecha_type = tgui_input_list(usr, "Select event type.", "Select", mecha_types)
 			if(!mecha_type || !currentID || currentID.robo_bounty)
@@ -236,8 +243,8 @@
 			pick_mecha(mecha_types[mecha_type])
 		if("RemoveTask")
 			currentID.robo_bounty = null
-			addtimer(CALLBACK(src, PROC_REF(cooldown_end), currentID), 5 MINUTES)
-			currentID.bounty_penalty = world.time + 5 MINUTES
+			addtimer(CALLBACK(src, PROC_REF(cooldown_end), currentID), 30 SECONDS)
+			currentID.bounty_penalty = world.time + 30 SECONDS
 		if("Check")
 			if(!pad)
 				checkMessage = "Привязанный пад не обнаружен."
