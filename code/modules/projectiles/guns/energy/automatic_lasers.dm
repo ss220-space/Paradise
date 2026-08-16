@@ -18,7 +18,6 @@
 		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 6),
 		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -5),
 	)
-	gun_flags = GUN_AMMO_COUNTER
 
 /obj/item/gun/energy/laser/automatic/get_ru_names()
 	return alist(
@@ -135,9 +134,6 @@
 		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -9),
 	)
 
-	ammo_count_overlay = "microfusion_counter_normal"
-	ammo_count_colour = COLOR_CYAN
-
 /obj/item/gun/energy/laser/automatic/assault_mg/get_ru_names()
 	return alist(
 		NOMINATIVE = "штурмовая лазерная винтовка «Ливень»",
@@ -161,9 +157,6 @@
 		ATTACHMENT_SLOT_RAIL = list("x" = 2, "y" = 6),
 		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -6),
 	)
-
-	ammo_count_overlay = "eammo_counter"
-	ammo_count_colour = COLOR_AMETHYST
 
 /obj/item/gun/energy/laser/automatic/shotgun/get_ru_names()
 	return alist(
@@ -191,8 +184,6 @@
 		/obj/item/ammo_casing/energy/disabler/automatic_sniper,
 		/obj/item/ammo_casing/energy/laser/automatic_sniper,
 	)
-	ammo_count_overlay = "backing"
-	ammo_count_colour = COLOR_LIGHT_ORANGE
 
 /obj/item/gun/energy/laser/automatic/sniper_rifle/get_ru_names()
 	return alist(
