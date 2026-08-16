@@ -147,7 +147,7 @@
 		gas_info["name"] = gas
 		gas_info["amount"] = amount
 		gas_info["portion"] = round(100 * amount / max_moles, 0.01)
-		gas_info["desc"] = gas_data[gas].desc
+		gas_info["desc"] = gas_data[gas]?.desc
 		gasdata.Add(list(gas_info))
 	data["moderator_gasses"] = gasdata
 	data["controlling"] = controller

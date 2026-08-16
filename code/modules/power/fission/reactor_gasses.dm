@@ -78,6 +78,7 @@ GLOBAL_LIST_INIT(reactor_moderator_effects, build_reactor_gas_effects(/datum/rea
 	var/heat_per_mole = 0
 	/// Power multiplier (catalyst)
 	var/power_mod = 0
+	var/integrity_restore = 0
 
 /datum/reactor_gas_effect/moderator/apply(obj/machinery/atmospherics/fission_reactor/reactor, mole_fraction, mole_multiplier, moles_count)
 	reactor.gas_control_mod += control_mod * mole_fraction
@@ -93,6 +94,8 @@ GLOBAL_LIST_INIT(reactor_moderator_effects, build_reactor_gas_effects(/datum/rea
 
 	if(power_mod * mole_fraction > reactor.gas_power_mod)
 		reactor.gas_power_mod = power_mod * mole_fraction
+
+	reactor.adjust_damage(-integrity_restore * mole_fraction)
 
 /datum/reactor_gas_effect/moderator/nitrogen
 	gas_id = TLV_N2
@@ -130,6 +133,11 @@ GLOBAL_LIST_INIT(reactor_moderator_effects, build_reactor_gas_effects(/datum/rea
 	gas_id = TLV_N2O
 	depletion_mod = 0.67
 	desc = "Ускоряет износ топливных стержней."
+
+/datum/reactor_gas_effect/moderator/healium
+	gas_id = TLV_HEALIUM
+	integrity_restore = 1
+	desc = "Восстанавливает целостность реактора."
 
 /datum/reactor_gas_effect/moderator/nitryl/extra_effects(obj/machinery/atmospherics/fission_reactor/reactor, datum/gas_mixture/gas_mix, mole_fraction)
 	if(prob(5))

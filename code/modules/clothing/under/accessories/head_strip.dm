@@ -331,3 +331,43 @@
 
 /obj/item/clothing/accessory/head_strip/devilstrip/get_bubble_override()
 	return "devil"
+
+/obj/item/clothing/accessory/head_strip/labratstrip
+	name = "lab rat strip"
+	desc = "Плотно сшитая нашивка из белоснежного бархата в форме головы лабораторной крысы, по центру прошиты розовые ушки и красные глаза. Выглядит как будто повидала в жизни немало."
+	icon_state = "labratstrip"
+	item_state = "labratstrip"
+	strip_ru_name = "Лабораторная Крыска"
+
+/obj/item/clothing/accessory/head_strip/labratstrip/get_bubble_override()
+	return "labrat"
+
+/obj/item/clothing/accessory/head_strip/krampusstrip
+	name = "krampus"
+	desc = "Плотно сшитая нашивка из льдисто-голубого бархата в форме головы крампуса, сверху красуются ветвистые рога, а по центру прошиты фиолетовые глаза. Идеально для тех, кто плохо вёл себя в этом году."
+	icon_state = "krampusstrip"
+	item_state = "krampusstrip"
+	strip_ru_name = "Крампус"
+
+/obj/item/clothing/accessory/head_strip/krampusstrip/get_bubble_override()
+	return "krampus"
+
+/obj/item/clothing/accessory/head_strip/pursuitstrip
+	name = "pursuit"
+	desc = "Плотно сшитая нашивка из чёрного бархата в форме колеса, по центру белыми нитками прошита буква \"P\", а по бокам — синий и красный маячки. Слегка пахнет жжёной резиной."
+	icon_state = "pursuitstrip"
+	item_state = "pursuitstrip"
+	strip_ru_name = "Преследователь"
+
+/obj/item/clothing/accessory/head_strip/pursuitstrip/get_bubble_override()
+	return "pursuit"
+
+/obj/item/clothing/accessory/head_strip/tvstrip
+	name = "tvstrip"
+	desc = "Плотно сшитая нашивка из коричневого бархата в форме старого телевизора, на экране прошита цветная тест-полоса, а сверху красуются две антенны. Не пытайтесь настроить цвета — и так сойдёт."
+	icon_state = "tvstrip"
+	item_state = "tvstrip"
+	strip_ru_name = "Телевизор"
+
+/obj/item/clothing/accessory/head_strip/tvstrip/get_bubble_override()
+	return "tv"

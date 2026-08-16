@@ -48,6 +48,7 @@
 	cell_type = /obj/item/stock_parts/cell/dominator
 	modifystate = TRUE
 	shaded_charge = TRUE
+	weapon_weight = WEAPON_LIGHT
 	charge_sections = 3
 	ammo_type = list(
 		/obj/item/ammo_casing/energy/dominator/stun,
@@ -108,6 +109,7 @@
 	icon_state = "specter"
 	item_state = "specter"
 	force = 10
+	weapon_weight = WEAPON_LIGHT
 	origin_tech = "combat=4;materials=2"
 	cell_type = /obj/item/stock_parts/cell/specter
 	var/obj/item/weapon_cell/magazine = new /obj/item/weapon_cell/specter()
@@ -218,6 +220,7 @@
 	fire_sound = 'sound/weapons/ionrifle.ogg'
 	origin_tech = "combat=4;magnets=4"
 	w_class = WEIGHT_CLASS_HUGE
+	weapon_weight = WEAPON_HEAVY
 	can_holster = FALSE
 	slot_flags = ITEM_SLOT_BACK
 	zoomable = TRUE
@@ -234,6 +237,7 @@
 	desc = "The MK.II Prototype Ion Projector is a lightweight carbine version of the larger ion rifle, built to be ergonomic and efficient."
 	icon_state = "ioncarbine"
 	w_class = WEIGHT_CLASS_NORMAL
+	weapon_weight = WEAPON_MEDIUM
 	slot_flags = ITEM_SLOT_BELT
 	zoomable = FALSE
 	ammo_x_offset = 2
