@@ -312,6 +312,26 @@
 	path = /obj/item/clothing/accessory/head_strip/ratstrip
 	donator_tier = 3
 
+/datum/gear/donor/strip/labrat
+	index_name = "strip, Lab rat"
+	path = /obj/item/clothing/accessory/head_strip/labratstrip
+	donator_tier = 3
+
+/datum/gear/donor/strip/krampus
+	index_name = "strip, Krampus"
+	path = /obj/item/clothing/accessory/head_strip/krampusstrip
+	donator_tier = 3
+
+/datum/gear/donor/strip/pursuit
+	index_name = "strip, Pursuit"
+	path = /obj/item/clothing/accessory/head_strip/pursuitstrip
+	donator_tier = 4
+
+/datum/gear/donor/strip/tv
+	index_name = "strip, TV"
+	path = /obj/item/clothing/accessory/head_strip/tvstrip
+	donator_tier = 3
+
 /datum/gear/donor/strip/devil
 	index_name = "strip, Devil"
 	path = /obj/item/clothing/accessory/head_strip/devilstrip
@@ -588,6 +608,16 @@
 	path = /obj/item/pda_case/beer
 	donator_tier = 1
 
+/datum/gear/donor/pda_rat
+	index_name = "PDA case \"RAT\""
+	path = /obj/item/pda_case/rat
+	donator_tier = 1
+
+/datum/gear/donor/pda_swaga
+	index_name = "PDA case \"SWAGA\""
+	path = /obj/item/pda_case/swaga
+	donator_tier = 1
+
 /datum/gear/donor/maid
 	index_name = "Short maid costume"
 	path = /obj/item/clothing/under/maid/short
@@ -606,6 +636,11 @@
 	donator_tier = 3
 	index_name = "CMO doll"
 	path = /obj/item/toy/plushie/cmoplushie
+
+/datum/gear/donor/hopplushie
+	donator_tier = 3
+	index_name = "HoPussy doll"
+	path = /obj/item/toy/plushie/hopplushie
 
 /datum/gear/donor/glorp
 	donator_tier = 3
