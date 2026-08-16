@@ -173,7 +173,10 @@
 		ATTACHMENT_SLOT_RAIL = list("x" = 2, "y" = 6),
 		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -6),
 	)
-	gun_firemode_list = list(GUN_FIREMODE_SEMIAUTO, GUN_FIREMODE_BURSTFIRE, GUN_FIREMODE_AUTOMATIC)
+	gun_firemode_list = list(GUN_FIREMODE_AUTOMATIC, GUN_FIREMODE_SEMIAUTO, GUN_FIREMODE_BURSTFIRE)
+	gun_flags = GUN_AMMO_COUNTER
+	ammo_count_overlay = "counter_laser"
+	ammo_count_colour = COLOR_CYAN
 
 /obj/item/gun/energy/laser/hitscan/laser_mg/get_ru_names()
 	return alist(

@@ -19,8 +19,8 @@
 		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -5),
 	)
 	gun_flags = GUN_AMMO_COUNTER
-	ammo_count_overlay = "counter_energy"
-	ammo_count_colour = COLOR_ORANGE
+	ammo_count_overlay = "counter_automatic"
+	ammo_count_colour = COLOR_RED
 
 /obj/item/gun/energy/laser/automatic/get_ru_names()
 	return alist(
@@ -111,9 +111,6 @@
 		ATTACHMENT_SLOT_UNDER = list("x" = 4, "y" = -5),
 	)
 
-	ammo_count_overlay = "counter_laser"
-	ammo_count_colour = COLOR_STRONG_MAGENTA
-
 /obj/item/gun/energy/laser/automatic/pistol/get_ru_names()
 	return alist(
 		NOMINATIVE = "автоматический лазерная пистолет «Буря»",
@@ -139,9 +136,6 @@
 		ATTACHMENT_SLOT_RAIL = list("x" = 2, "y" = 7),
 		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -9),
 	)
-	ammo_count_overlay = "counter_energy_double"
-	ammo_count_colour = COLOR_YELLOW
-
 
 /obj/item/gun/energy/laser/automatic/assault_mg/get_ru_names()
 	return alist(
@@ -166,9 +160,6 @@
 		ATTACHMENT_SLOT_RAIL = list("x" = 2, "y" = 6),
 		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -6),
 	)
-	ammo_count_overlay = "counter_automatic"
-	ammo_count_colour = COLOR_SERVICE_LIME
-
 
 /obj/item/gun/energy/laser/automatic/shotgun/get_ru_names()
 	return alist(
@@ -196,9 +187,6 @@
 		/obj/item/ammo_casing/energy/disabler/automatic_sniper,
 		/obj/item/ammo_casing/energy/laser/automatic_sniper,
 	)
-	ammo_count_overlay = "backing"
-	ammo_count_colour = COLOR_CYAN
-
 
 /obj/item/gun/energy/laser/automatic/sniper_rifle/get_ru_names()
 	return alist(

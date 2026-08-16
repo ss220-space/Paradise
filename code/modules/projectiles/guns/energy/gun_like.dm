@@ -445,7 +445,7 @@
 		/obj/item/ammo_casing/energy/laser/energy_carbine/weak,
 	)
 	fire_delay = 0.4 SECONDS
-	gun_firemode_list = list(GUN_FIREMODE_SEMIAUTO, GUN_FIREMODE_AUTOMATIC)
+	gun_firemode_list = list(GUN_FIREMODE_AUTOMATIC, GUN_FIREMODE_SEMIAUTO)
 	weapon_weight = WEAPON_HEAVY
 	w_class = WEIGHT_CLASS_BULKY
 	accuracy = GUN_ACCURACY_RIFLE
@@ -455,6 +455,9 @@
 		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 5),
 		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -7),
 	)
+	gun_flags = GUN_AMMO_COUNTER
+	ammo_count_overlay = "counter_energy"
+	ammo_count_colour = COLOR_IRISH_ORANGE
 
 /obj/item/gun/energy/accumulator/automatic/get_ru_names()
 	return alist(

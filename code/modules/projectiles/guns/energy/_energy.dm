@@ -86,7 +86,8 @@
 
 /obj/item/gun/energy/get_display_ammo_count()
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
-	return round(cell.charge / shot.e_cost)
+	var/current_fires = floor(cell.charge / shot.e_cost)
+	return current_fires
 
 /obj/item/gun/energy/attackby(obj/item/item, mob/living/user, list/modifiers)
 	if(istype(item, /obj/item/gun_module/sibyl))
@@ -219,6 +220,7 @@
 /obj/item/gun/energy/process_fire(zone_override, secondary_fire = FALSE)
 	if(!chambered && can_shoot(gun_user))
 		process_chamber()
+	gun_user?.hud_used?.update_ammo_hud(src, get_display_ammo_count())
 	return ..()
 
 /obj/item/gun/energy/proc/select_fire(mob/living/user)
