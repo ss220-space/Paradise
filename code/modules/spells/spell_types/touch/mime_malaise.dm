@@ -20,15 +20,13 @@
 /datum/action/cooldown/spell/touch/mime_malaise/is_valid_target(atom/cast_on)
 	return ishuman(cast_on)
 
-
 /datum/action/cooldown/spell/touch/mime_malaise/cast_on_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
-	. = ..()
 	var/datum/effect_system/fluid_spread/smoke/s = new
-	s.set_up(amount = 5, location = target)
+	s.set_up(amount = 5, location = victim)
 	s.start()
-	var/mob/living/carbon/human/H = target
+	var/mob/living/carbon/human/H = victim
 	H.mimetouched()
-	..()
+	return TRUE
 
 /mob/living/carbon/human/proc/mimetouched()
 	Weaken(14 SECONDS)

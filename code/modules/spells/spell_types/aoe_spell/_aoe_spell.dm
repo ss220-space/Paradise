@@ -21,6 +21,10 @@
 	. = ..()
 	targeting = new targeting_type(owner, src)
 
+/datum/action/cooldown/spell/aoe/Grant(mob/grant_to)
+	. = ..()
+	targeting.owner = grant_to
+
 // At this point, cast_on == owner. Either works.
 // Don't extend this for your spell! Look at cast_on_thing_in_aoe.
 /datum/action/cooldown/spell/aoe/cast(atom/cast_on)
