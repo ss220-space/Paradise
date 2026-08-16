@@ -492,7 +492,7 @@
 	data["beakerLabel"] = null
 	data["beakerVolume"] = 0
 	if(connected.beaker)
-		data["beakerLabel"] = connected.beaker.label_text ? connected.beaker.label_text : null
+		data["beakerLabel"] = DECLENT_RU_CAP(connected.beaker, NOMINATIVE)
 		if(connected.beaker.reagents && length(connected.beaker.reagents.reagent_list))
 			for(var/datum/reagent/R in connected.beaker.reagents.reagent_list)
 				data["beakerVolume"] += R.volume
