@@ -29,7 +29,7 @@
 	eyes.insert(user)
 	return TRUE
 
-/datum/action/changeling/augmented_eyesight/remove(mob/remove_from)
+/datum/action/changeling/augmented_eyesight/Remove(mob/remove_from)
 	eyes.remove(remove_from)
 	. = ..()
 
