@@ -71,7 +71,7 @@
 /obj/item/reagent_containers/condiment/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!proximity_flag)
 		return
-	if(istype(target, /obj/structure/reagent_dispensers)) //A dispenser. Transfer FROM it TO us.
+	if(target.is_drainable()) //A dispenser. Transfer FROM it TO us.
 
 		if(!target.reagents.total_volume)
 			to_chat(user, span_warning("[target] is empty!"))
@@ -85,7 +85,7 @@
 		to_chat(user, span_notice("You fill [src] with [trans] units of the contents of [target]."))
 
 	//Something like a glass or a food item. Player probably wants to transfer TO it.
-	else if(target.is_drainable() || istype(target, /obj/item/reagent_containers/food/snacks))
+	else if(target.is_refillable() || istype(target, /obj/item/reagent_containers/food))
 		if(!reagents.total_volume)
 			to_chat(user, span_warning("[src] is empty!"))
 			return
@@ -302,7 +302,7 @@
 		return
 
 	//You can tear the bag open above food to put the condiments on it, obviously.
-	if(istype(target, /obj/item/reagent_containers/food))
+	if(target.is_refillable() || istype(target, /obj/item/reagent_containers/food))
 		if(!reagents.total_volume)
 			to_chat(user, span_warning("You tear open [src], but there's nothing in it."))
 			qdel(src)

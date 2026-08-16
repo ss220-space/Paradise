@@ -2,6 +2,7 @@
 
 // MARK: Base Can
 /obj/item/reagent_containers/cup/soda_cans
+	icon = 'icons/obj/drinks.dmi'
 	var/canopened = FALSE
 	container_type = NONE
 	var/is_glass = 0
