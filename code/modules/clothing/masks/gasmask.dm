@@ -416,7 +416,6 @@
 	if(!user?.mind || slot != ITEM_SLOT_MASK)
 		return
 
-	ADD_TRAIT(user.mind, TRAIT_MIMING, UNIQUE_TRAIT_SOURCE(src))
 
 	/*//var/obj/effect/proc_holder/spell/mime/speak/mask/mask_spell = null
 	for(var/obj/effect/proc_holder/spell/mime/speak/spell in user.mind.spell_list)
@@ -438,7 +437,6 @@
 	if(!user?.mind || slot != ITEM_SLOT_MASK)
 		return
 
-	REMOVE_TRAIT(user.mind, TRAIT_MIMING, UNIQUE_TRAIT_SOURCE(src))
 
 	/*var/obj/effect/proc_holder/spell/mime/speak/mask/spell = locate() in user.mind.spell_list
 	if(!spell)
