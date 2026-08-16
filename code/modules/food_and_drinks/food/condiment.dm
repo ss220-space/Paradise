@@ -281,7 +281,7 @@
 	icon_state = "condi_empty"
 	volume = 10
 	amount_per_transfer_from_this = 10
-	possible_transfer_amounts = null
+	possible_transfer_amounts = list(10)
 	possible_states = list(
 		"ketchup" = list("condi_ketchup", "Ketchup", "You feel more American already."),
 		"capsaicin" = list("condi_hotsauce", "Hotsauce", "You can almost TASTE the stomach ulcers now!"),
