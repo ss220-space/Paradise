@@ -266,6 +266,7 @@
 	mob_throw_hit_sound = 'sound/weapons/jug_empty_impact.ogg'
 	force = 0.2
 	throwforce = 0.2
+	fill_icon_thresholds = list(1, 25, 40, 55, 70, 85, 100)
 
 /obj/item/reagent_containers/cup/bottle/nutrient/get_ru_names()
 	return alist(
@@ -279,7 +280,6 @@
 
 /obj/item/reagent_containers/cup/bottle/nutrient/Initialize(mapload)
 	. = ..()
-	add_lid()
 	pixel_x = base_pixel_x + rand(-5, 5)
 	pixel_y = base_pixel_y + rand(-5, 5)
 
@@ -292,34 +292,6 @@
 	else
 		hitsound = 'sound/weapons/jug_empty_impact.ogg'
 		mob_throw_hit_sound = 'sound/weapons/jug_empty_impact.ogg'
-
-/obj/item/reagent_containers/cup/bottle/nutrient/update_overlays()
-	. = ..()
-	if(reagents.total_volume)
-		var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "plastic_jug10")
-
-		var/percent = round((reagents.total_volume / volume) * 100)
-		switch(percent)
-			if(0 to 10)
-				filling.icon_state = "plastic_jug-10"
-			if(11 to 29)
-				filling.icon_state = "plastic_jug25"
-			if(30 to 45)
-				filling.icon_state = "plastic_jug40"
-			if(46 to 61)
-				filling.icon_state = "plastic_jug55"
-			if(62 to 77)
-				filling.icon_state = "plastic_jug70"
-			if(78 to 92)
-				filling.icon_state = "plastic_jug85"
-			if(93 to INFINITY)
-				filling.icon_state = "plastic_jug100"
-
-		filling.color = get_color_matrix_from_reagents(reagents.reagent_list)
-		. += filling
-
-	if(!is_open_container())
-		. += "lid_jug"
 
 /obj/item/reagent_containers/cup/bottle/nutrient/ez
 	name = "jug of E-Z-Nutrient"

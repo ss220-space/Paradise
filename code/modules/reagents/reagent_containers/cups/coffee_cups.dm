@@ -25,6 +25,7 @@
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(10,25,50)
 	can_lid = TRUE
+	fill_icon_thresholds = list(55, 70, 85, 100)
 
 /obj/item/reagent_containers/cup/glass/coffee_cup/normal/get_ru_names()
 	return alist(
@@ -36,27 +37,6 @@
 		PREPOSITIONAL = "стакане кофе"
 	)
 
-/obj/item/reagent_containers/cup/glass/coffee_cup/normal/update_overlays()
-	. = ..()
-	underlays.Cut()
-	if(icon_state == "[base_icon_state]_lid")
-		return
-	if(reagents.total_volume)
-		var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "[base_icon_state]")
-		var/percent = round((reagents.total_volume / volume) * 100)
-		switch(percent)
-			if(40 to 55)
-				filling.icon_state = "[base_icon_state]55"
-			if(55 to 70)
-				filling.icon_state = "[base_icon_state]70"
-			if(70 to 85)
-				filling.icon_state = "[base_icon_state]85"
-			if(85 to INFINITY)
-				filling.icon_state = "[base_icon_state]100"
-
-		filling.color = get_color_matrix_from_reagents(reagents.reagent_list)
-		. += filling
-
 // MARK: Small coffee cup
 /obj/item/reagent_containers/cup/glass/coffee_cup/small
 	name = "small coffee cup"
@@ -65,6 +45,7 @@
 	base_icon_state = "coffeecup_small"
 	possible_transfer_amounts = list(10,30)
 	volume = 30
+	fill_icon_thresholds = list(40, 60, 80, 100)
 
 /obj/item/reagent_containers/cup/glass/coffee_cup/small/get_ru_names()
 	return alist(
@@ -75,27 +56,6 @@
 		INSTRUMENTAL = "стаканчиком кофе",
 		PREPOSITIONAL = "стаканчике кофе"
 	)
-
-/obj/item/reagent_containers/cup/glass/coffee_cup/small/update_overlays()
-	. = ..()
-	underlays.Cut()
-	if(!reagents.total_volume)
-		return
-
-	var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "[base_icon_state]")
-	var/percent = round((reagents.total_volume / volume) * 100)
-	switch(percent)
-		if(20 to 40)
-			filling.icon_state = "[base_icon_state]40"
-		if(40 to 60)
-			filling.icon_state = "[base_icon_state]60"
-		if(60 to 80)
-			filling.icon_state = "[base_icon_state]80"
-		if(80 to INFINITY)
-			filling.icon_state = "[base_icon_state]100"
-
-	filling.color = get_color_matrix_from_reagents(reagents.reagent_list)
-	. += filling
 
 /obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee
 	list_reagents = list("coffee" = 30)

@@ -10,6 +10,7 @@
 	light_color = LIGHT_COLOR_BLUE
 	resistance_flags = FLAMMABLE
 	custom_price = PAYCHECK_MIN * 0.1
+	fill_icon_thresholds = list(1, 5, 12)
 	var/light_intensity = 2
 
 /obj/item/reagent_containers/cup/glass/drinkingglass/shotglass/get_ru_names()
@@ -51,22 +52,6 @@
 			INSTRUMENTAL = "рюмкой",
 			PREPOSITIONAL = "рюмке",
 		)
-
-/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass/update_overlays()
-	. = ..()
-	if(reagents.total_volume)
-		var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "[icon_state]1")
-
-		var/percent = round((reagents.total_volume / volume) * 100)
-		switch(percent)
-			if(0 to 25)
-				filling.icon_state = "[icon_state]1"
-			if(26 to 79)
-				filling.icon_state = "[icon_state]5"
-			if(80 to INFINITY)
-				filling.icon_state = "[icon_state]12"
-		filling.color = get_color_matrix_from_reagents(reagents.reagent_list)
-		. += filling
 
 /obj/item/reagent_containers/cup/glass/drinkingglass/shotglass/proc/clumsilyDrink(mob/living/carbon/human/user) //Clowns beware
 	if(!(resistance_flags & ON_FIRE))

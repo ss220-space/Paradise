@@ -1,3 +1,6 @@
+// TODO: отрефакторить портом с TG
+
+// MARK: Base Can
 /obj/item/reagent_containers/cup/soda_cans
 	var/canopened = FALSE
 	container_type = NONE
@@ -7,7 +10,7 @@
 	var/can_shake = TRUE
 	var/can_burst = FALSE
 	var/burst_chance = 0
-	foodtype = SUGAR
+	drink_type = SUGAR
 	gender = FEMALE
 
 /obj/item/reagent_containers/cup/soda_cans/get_short_name() // Override if `list_reagents` has more than 1 element.
@@ -181,6 +184,7 @@
 		addtimer(CALLBACK(src, PROC_REF(reset_shaken)), (70 - (times_shaken * 10)) SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT)
 
 
+// MARK: Can Types
 /obj/item/reagent_containers/cup/soda_cans/cola
 	name = "space cola"
 	desc = "Это кола. Нестареющая классика."
@@ -545,10 +549,12 @@
 		PREPOSITIONAL = "банке синтанола \"Биб Классический\"",
 	)
 
+// MARK: Bottler Stuff
 /obj/item/reagent_containers/cup/soda_cans/bottler
 	name = "generic beverage container"
 	desc = "Это даже не должно быть заспавненным. Позор тебе, педаль."
 	icon_state = "glass_bottle"
+	fill_icon_thresholds = list(1, 10, 20, 30, 40, 50)
 
 /obj/item/reagent_containers/cup/soda_cans/bottler/get_ru_names()
 	return alist(
@@ -559,31 +565,6 @@
 		INSTRUMENTAL = "ёмкостью для стандартного напитка",
 		PREPOSITIONAL = "ёмкости для стандартного напитка",
 	)
-
-/obj/item/reagent_containers/cup/soda_cans/bottler/on_reagent_change()
-	update_icon(UPDATE_OVERLAYS)
-
-/obj/item/reagent_containers/cup/soda_cans/bottler/update_overlays()
-	. = ..()
-	if(reagents.total_volume)
-		var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "[icon_state]10")
-
-		switch(round(reagents.total_volume))
-			if(0 to 9)
-				filling.icon_state = "[icon_state]-10"
-			if(10 to 19)
-				filling.icon_state = "[icon_state]10"
-			if(20 to 29)
-				filling.icon_state = "[icon_state]20"
-			if(30 to 39)
-				filling.icon_state = "[icon_state]30"
-			if(40 to 49)
-				filling.icon_state = "[icon_state]40"
-			if(50 to INFINITY)
-				filling.icon_state = "[icon_state]50"
-
-		filling.color = get_color_matrix_from_reagents(reagents.reagent_list)
-		. += filling
 
 /obj/item/reagent_containers/cup/soda_cans/bottler/glass_bottle
 	name = "glass bottle"
