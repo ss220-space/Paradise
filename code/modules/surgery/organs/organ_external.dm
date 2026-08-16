@@ -1103,6 +1103,11 @@ Note that amputating the affected organ does in fact remove the infection from t
 		release_restraints(silent = silent)
 
 	SEND_SIGNAL(owner, COMSIG_CARBON_RECEIVE_FRACTURE, fracture)
+
+	if(ishuman(owner))
+		var/mob/living/carbon/human/human_owner = owner
+		human_owner.apply_status_effect(STATUS_EFFECT_RADIAL_BLUR)
+
 	return TRUE
 
 /obj/item/organ/external/proc/has_fracture()
@@ -1118,6 +1123,11 @@ Note that amputating the affected organ does in fact remove the infection from t
 	fracture = null
 	perma_injury = 0
 	remove_splint()
+
+	if(ishuman(owner))
+		var/mob/living/carbon/human/human_owner = owner
+		if(!length(human_owner.check_fractures()))
+			human_owner.remove_status_effect(STATUS_EFFECT_RADIAL_BLUR)
 
 	return TRUE
 

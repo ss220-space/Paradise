@@ -186,6 +186,7 @@
 #define STATUS_EFFECT_LOSE_BREATH /datum/status_effect/transient/lose_breath
 #define STATUS_EFFECT_HALLUCINATION /datum/status_effect/transient/hallucination
 #define STATUS_EFFECT_BLURRY_EYES /datum/status_effect/transient/eye_blurry
+#define STATUS_EFFECT_RADIAL_BLUR /datum/status_effect/radial_blur
 #define STATUS_EFFECT_BLINDED /datum/status_effect/transient/blindness
 #define STATUS_EFFECT_DRUGGED /datum/status_effect/transient/drugged
 #define STATUS_EFFECT_DISGUST /datum/status_effect/transient/disgust
