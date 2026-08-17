@@ -267,7 +267,7 @@
 			balloon_alert(user, "гостевой пропуск уже истёк!")
 			return ATTACK_CHAIN_PROCEED
 		if(guest_id.registered_name != registered_name && guest_id.registered_name != DATA_NOT_SPECIFIED)
-			balloon_alert(user, "несовместимая ID-карта!")
+			balloon_alert(user, "другое имя на карте!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(guest_id, src))
 			return ..()
