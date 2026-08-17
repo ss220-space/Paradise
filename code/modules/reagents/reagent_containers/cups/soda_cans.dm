@@ -38,10 +38,13 @@
 	if(times_shaken)
 		fizzy_open(user)
 		return ..()
-	playsound(loc, 'sound/effects/canopen.ogg', rand(10, 50), TRUE)
-	canopened = TRUE
-	container_type |= OPENCONTAINER
-	to_chat(user, span_notice("Вы открываете [declent_ru(ACCUSATIVE)] с громким хлопком!"))
+	if(!canopened)
+		canopened = TRUE
+		container_type |= OPENCONTAINER
+		playsound(loc, 'sound/effects/canopen.ogg', rand(10, 50), TRUE)
+		to_chat(user, span_notice("Вы открываете [declent_ru(ACCUSATIVE)] с громким хлопком!"))
+		return
+
 	return ..()
 
 /obj/item/reagent_containers/cup/soda_cans/proc/crush(mob/user)

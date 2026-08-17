@@ -20,13 +20,14 @@
 	// Time we last checked for ants
 	var/last_ant_time = 0
 	var/foodtype = NONE
-	var/last_check_time
 	resistance_flags = FLAMMABLE
 	container_type = INJECTABLE
 	var/log_eating = FALSE // do we log if someone eats us?
 	light_system = OVERLAY_LIGHT
 	light_on = FALSE
 	var/randomize_position = TRUE
+	/// The last time we have checked for taste.
+	COOLDOWN_DECLARE(last_check_time)
 
 /obj/item/reagent_containers/food/get_short_name()
 	return declent_ru(NOMINATIVE)
@@ -75,35 +76,34 @@
 
 	last_ant_time = world.time
 
-/obj/item/reagent_containers/food/proc/check_liked(fraction, mob/M)
-	if(last_check_time + 50 > world.time)
+/obj/item/reagent_containers/food/proc/check_liked(fraction, mob/eater)
+	if(!COOLDOWN_FINISHED(src, last_check_time))
 		return FALSE
-	if(!ishuman(M))
+	if(!ishuman(eater))
 		return FALSE
-	var/mob/living/carbon/human/H = M
+	var/mob/living/carbon/human/gourmand = eater
 
 	var/food_taste_reaction
 
-	if(!food_taste_reaction)
-		if(foodtype & H.dna.species.toxic_food)
-			food_taste_reaction = FOOD_TOXIC
-		else if(foodtype & H.dna.species.disliked_food)
-			food_taste_reaction = FOOD_DISLIKED
-		else if(foodtype & H.dna.species.liked_food)
-			food_taste_reaction = FOOD_LIKED
+	if(foodtype & gourmand.dna.species.toxic_food)
+		food_taste_reaction = FOOD_TOXIC
+	else if(foodtype & gourmand.dna.species.disliked_food)
+		food_taste_reaction = FOOD_DISLIKED
+	else if(foodtype & gourmand.dna.species.liked_food)
+		food_taste_reaction = FOOD_LIKED
 
 	switch(food_taste_reaction)
 		if(FOOD_TOXIC)
-			to_chat(H, span_danger("Это было отвратительно! Мерзость!"))
-			H.AdjustDisgust((25 + 30 * fraction) STATUS_EFFECT_CONSTANT)
+			to_chat(gourmand, span_danger("Это было отвратительно! Мерзость!"))
+			gourmand.AdjustDisgust((25 + 30 * fraction) STATUS_EFFECT_CONSTANT)
 		if(FOOD_DISLIKED)
-			to_chat(H, span_warning("Это было очень невкусно. Фу."))
-			H.AdjustDisgust((15 + 16 * fraction) STATUS_EFFECT_CONSTANT)
+			to_chat(gourmand, span_warning("Это было очень невкусно. Фу."))
+			gourmand.AdjustDisgust((15 + 16 * fraction) STATUS_EFFECT_CONSTANT)
 		if(FOOD_LIKED)
-			to_chat(H, span_notice("Какой замечательный вкус!"))
-			H.AdjustDisgust((-12 + -8 * fraction) STATUS_EFFECT_CONSTANT)
+			to_chat(gourmand, span_notice("Какой замечательный вкус!"))
+			gourmand.AdjustDisgust((-12 + -8 * fraction) STATUS_EFFECT_CONSTANT)
 
-	last_check_time = world.time
+	COOLDOWN_START(src, last_check_time, 5 SECONDS)
 
 /obj/item/reagent_containers/food/proc/format_message(type, list/messages, datum/species/species)
 	var/plural = cmptext(type[length(type)], "s") ? "are" : "is"
