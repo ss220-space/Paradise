@@ -1,35 +1,16 @@
 // MARK: automatic laser carbine
 /obj/item/gun/energy/laser/automatic
-	name = "automatic laser carbine"
-	desc = "Полностью автоматический лазерный карабин нового поколения. Низкий урон и малая надёжность с лихвой компенсируются повышенной скоростью стрельбы."
-	icon_state = "automatic_laser"
+	name = "автоматический лазер"
+	desc = "Родитель всех автоматических лазеров. Основной гиммик - показ патронов и полный автоматический огонь у всего оружия. Если вы это читаете, делайте баг-репорт."
 	colour_denendent = TRUE
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_SUITSTORE | ITEM_SLOT_BELT
-	ammo_type = list(
-		/obj/item/ammo_casing/energy/disabler/automatic,
-		/obj/item/ammo_casing/energy/laser/automatic,
-	)
 	weapon_weight = WEAPON_HEAVY
 	accuracy = GUN_ACCURACY_MINIMAL
 	gun_firemode = GUN_FIREMODE_AUTOMATIC
 	gun_firemode_list = list(GUN_FIREMODE_AUTOMATIC)
-	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 6),
-		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -5),
-	)
 	gun_flags = GUN_AMMO_COUNTER
 	ammo_count_overlay = "counter_automatic"
-
-/obj/item/gun/energy/laser/automatic/get_ru_names()
-	return alist(
-		NOMINATIVE = "автоматическая лазерная винтовка «Гроза»",
-		GENITIVE = "автоматической лазерной винтовки «Гроза»",
-		DATIVE = "автоматической лазерной винтовке «Гроза»",
-		ACCUSATIVE = "автоматическую лазерную винтовку «Гроза»",
-		INSTRUMENTAL = "автоматической лазерной винтовкой «Гроза»",
-		PREPOSITIONAL = "автоматической лазерной винтовке «Гроза»",
-	)
 
 /obj/item/gun/energy/laser/automatic/attackby(obj/item/item, mob/user, params)
 	if(!is_laser_modification_case(item))
@@ -49,7 +30,7 @@
 
 	switch(choosen_type)
 		if("карабин «Гроза»")
-			choosen_weapon = /obj/item/gun/energy/laser/automatic
+			choosen_weapon = /obj/item/gun/energy/laser/automatic/carbine
 		if("пистолет «Буря»")
 			choosen_weapon = /obj/item/gun/energy/laser/automatic/pistol
 		if("автомат «Ливень»")
@@ -92,6 +73,29 @@
 	if(user.incapacitated() || !user.Adjacent(src))
 		return FALSE
 	return TRUE
+
+/obj/item/gun/energy/laser/automatic/carbine
+	name = "automatic laser carbine"
+	desc = "Полностью автоматический лазерный карабин нового поколения. Низкий урон и малая надёжность с лихвой компенсируются повышенной скоростью стрельбы."
+	icon_state = "automatic_laser"
+	ammo_type = list(
+		/obj/item/ammo_casing/energy/disabler/automatic,
+		/obj/item/ammo_casing/energy/laser/automatic,
+	)
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 6),
+		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -5),
+	)
+
+/obj/item/gun/energy/laser/automatic/carbine/get_ru_names()
+	return alist(
+		NOMINATIVE = "автоматическая лазерная винтовка «Гроза»",
+		GENITIVE = "автоматической лазерной винтовки «Гроза»",
+		DATIVE = "автоматической лазерной винтовке «Гроза»",
+		ACCUSATIVE = "автоматическую лазерную винтовку «Гроза»",
+		INSTRUMENTAL = "автоматической лазерной винтовкой «Гроза»",
+		PREPOSITIONAL = "автоматической лазерной винтовке «Гроза»",
+	)
 
 // MARK: automatic laser pistol
 /obj/item/gun/energy/laser/automatic/pistol

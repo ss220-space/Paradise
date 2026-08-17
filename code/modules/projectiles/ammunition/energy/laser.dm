@@ -31,30 +31,10 @@
 	variance = 25
 	select_name = "scatter"
 
-/obj/item/ammo_casing/energy/laser/scatter/energy_shotgun
-	projectile_type = /obj/projectile/beam/scatter/energy_shotgun
-	e_cost = 120 //10 shots
-	select_name = "scatter-lethal"
-
 /obj/item/ammo_casing/energy/laser/heavy
 	projectile_type = /obj/projectile/beam/laser/heavylaser
 	select_name = "anti-vehicle"
 	fire_sound = 'sound/weapons/gunshots/1pulse2.ogg'
-
-/obj/item/ammo_casing/energy/laser/energy_carbine
-	projectile_type = /obj/projectile/beam/laser/slowed
-	e_cost = 75 //16 shots
-
-/obj/item/ammo_casing/energy/laser/energy_carbine/weak
-	projectile_type = /obj/projectile/beam/laser/slowed/weak
-	e_cost = 40 //30 shots
-
-/obj/item/ammo_casing/energy/laser/energy_carbine/heavy
-	e_cost = 200 //6 shots
-	fire_sound = 'sound/weapons/gunshots/laserrifle.ogg'
-	projectile_type = /obj/projectile/beam/laser/slowed/heavy
-	delay = 2 SECONDS
-	select_name = "anti-vehicle"
 
 /obj/item/ammo_casing/energy/laser/pulse
 	projectile_type = /obj/projectile/beam/pulse
@@ -159,59 +139,3 @@
 	e_cost = 150
 	select_name = "kill"
 	sibyl_tier = SIBYL_TIER_LETHAL
-
-/obj/item/ammo_casing/energy/laser/hitscan
-	name = "hitscan laser lens"
-	projectile_type = /obj/projectile/beam/laser/hitscan
-	select_name = "hitscan"
-	delay = 0.7 SECONDS
-	fire_sound = 'sound/weapons/gunshots/lasergun.ogg'
-
-/obj/item/ammo_casing/energy/laser/hitscan/laser_shotgun
-	delay = 1.5 SECONDS
-	e_cost = 150
-	projectile_type = /obj/projectile/beam/laser/hitscan/laser_shotgun
-	fire_sound = 'sound/weapons/gunshots/lasershotgun.ogg'
-	select_name = "precise hitscan"
-
-/obj/item/ammo_casing/energy/laser/hitscan/laser_shotgun/wide
-	pellets = 5
-	variance = 20
-	select_name = "scatter hitscan"
-	projectile_type = /obj/projectile/beam/laser/hitscan/laser_shotgun/pellet
-
-/obj/item/ammo_casing/energy/laser/hitscan/laser_rifle
-	delay = 4 SECONDS
-	e_cost = 250
-	projectile_type = /obj/projectile/beam/laser/hitscan/laser_rifle
-	fire_sound = 'sound/weapons/gunshots/laserrifle.ogg'
-	select_name = "anti-vehicle hitscan"
-
-/obj/item/ammo_casing/energy/laser/hitscan/laser_rifle/armorpierce
-	fire_sound = 'sound/weapons/gunshots/laserrifle2.ogg'
-	projectile_type = /obj/projectile/beam/laser/hitscan/laser_rifle/armorpierce
-	select_name = "pierce hitscan"
-
-/obj/item/ammo_casing/energy/laser/hitscan/laser_mg
-	e_cost = 20
-	delay = 0.3 SECONDS
-	projectile_type = /obj/projectile/beam/laser/hitscan/laser_mg
-	fire_sound = 'sound/weapons/gunshots/lasermg.ogg'
-	select_name = "energy hitscan"
-
-/obj/item/ammo_casing/energy/laser/hitscan/laser_mg/ricochet
-	select_name = "ricochet hitscan"
-	projectile_type = /obj/projectile/beam/laser/hitscan/laser_mg/ricochet
-	delay = 1
-
-/obj/item/ammo_casing/energy/laser/hitscan/laser_pistol
-	delay = 1 SECONDS
-	projectile_type = /obj/projectile/beam/laser/hitscan/laser_pistol
-	fire_sound = 'sound/weapons/gunshots/laserpistol.ogg'
-	select_name = "energy hitscan"
-
-/obj/item/ammo_casing/energy/laser/hitscan/laser_pistol/light
-	projectile_type = /obj/projectile/beam/laser/hitscan/laser_pistol/light
-	delay = 0.2 SECONDS
-	e_cost = 50
-	select_name = "fast hitscan"

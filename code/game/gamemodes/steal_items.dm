@@ -795,7 +795,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 
 /datum/theft_objective/collect/number/laser
 	id = "collect_num_laser"
-	typepath = /obj/item/gun/energy/laser/hitscan
+	typepath = /obj/item/gun/energy/laser/hitscan/carbine
 	name = "лазерное оружие"
 	min=3
 	max=8

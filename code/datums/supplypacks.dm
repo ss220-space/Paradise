@@ -716,9 +716,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/security/laser
 	name = "Лазерные карабины класса «Страж»"
 	contains = list(
-		/obj/item/gun/energy/laser/hitscan,
-		/obj/item/gun/energy/laser/hitscan,
-		/obj/item/gun/energy/laser/hitscan,
+		/obj/item/gun/energy/laser/hitscan/carbine,
+		/obj/item/gun/energy/laser/hitscan/carbine,
+		/obj/item/gun/energy/laser/hitscan/carbine,
 	)
 	cost = 20
 	containername = "ящик лазерных карабинов класса «Страж»"
@@ -755,9 +755,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/security/automatic_laser
 	name = "Автоматические лазерные карабины класса «Гроза»"
 	contains = list(
-		/obj/item/gun/energy/laser/automatic,
-		/obj/item/gun/energy/laser/automatic,
-		/obj/item/gun/energy/laser/automatic,
+		/obj/item/gun/energy/laser/automatic/carbine,
+		/obj/item/gun/energy/laser/automatic/carbine,
+		/obj/item/gun/energy/laser/automatic/carbine,
 	)
 	cost = 30
 	containername = "ящик автоматических лазерных карабинов класса «Гроза»"

@@ -8,8 +8,8 @@
 	/// Not actually used, all upgrades used in attackby of those weapons
 	var/static/list/upgradable_weapons = list(
 		/obj/item/gun/energy/accumulator/energy_carbine,
-		/obj/item/gun/energy/laser/automatic,
-		/obj/item/gun/energy/laser/hitscan,
+		/obj/item/gun/energy/laser/automatic/carbine,
+		/obj/item/gun/energy/laser/hitscan/carbine,
 	)
 	var/static/list/weapons_names = list(
 		"аккумуляторные энерго-винтовки «Скорпион»",

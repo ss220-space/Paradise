@@ -22,7 +22,7 @@
 		/obj/item/gun/energy/specter = 200,
 		/obj/item/gun/energy/anomaly_stabilizer = 100,
 		/obj/item/gun/energy/plasmacutter/adv = 300,
-		/obj/item/gun/energy/laser/hitscan = 200,
+		/obj/item/gun/energy/laser/hitscan/carbine = 200,
 		/obj/item/gun/energy/kinetic_accelerator/crossbow = 500,
 
 		/obj/item/gun/magic/staff = 10000,

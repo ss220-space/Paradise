@@ -112,10 +112,6 @@
 	icon_state = "scatterlaser"
 	damage = 5
 
-/obj/projectile/beam/scatter/energy_shotgun
-	speed = 2
-	damage = 6 //30 per shot
-
 /obj/projectile/beam/scatter/get_ru_names()
 	return alist(
 		NOMINATIVE = "лазерная гранула",
@@ -175,24 +171,10 @@
 		PREPOSITIONAL = "дизейблере",
 	)
 
-/obj/projectile/beam/disabler/slowed
-	speed = 2
-
-/obj/projectile/beam/disabler/slowed/weak
-	damage = 12
-	icon_state = "disabler_weakbeam"
-
-/obj/projectile/beam/disabler/slowed/heavy
-	damage = 60
-
 /obj/projectile/beam/disabler/scatter
 	name = "disabler pellet"
 	icon_state = "scatter_disabler"
 	damage = 5
-
-/obj/projectile/beam/disabler/scatter/energy_shotgun
-	speed = 2
-	damage = 10 //50 per shot
 
 /obj/projectile/beam/disabler/heavy
 	damage = 70
@@ -834,70 +816,3 @@
 	hitsound = 'sound/weapons/parry.ogg'
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_particles
 	light_color = LIGHT_COLOR_GREEN
-
-/obj/projectile/beam/laser/slowed
-	speed = 2
-
-/obj/projectile/beam/laser/slowed/weak
-	damage = 12
-	icon_state = "laser_weakbeam"
-
-/obj/projectile/beam/laser/slowed/heavy
-	damage = 50
-
-/obj/projectile/beam/laser/hitscan
-	hitscan = TRUE
-	damage = 20
-
-/obj/projectile/beam/laser/hitscan/laser_rifle
-	tracer_type = /obj/effect/projectile/tracer/laser/heavy
-	muzzle_type = /obj/effect/projectile/muzzle/laser/heavy
-	impact_type = /obj/effect/projectile/impact/laser/heavy
-	damage = 40
-
-/obj/projectile/beam/laser/hitscan/laser_rifle/armorpierce
-	tracer_type = /obj/effect/projectile/tracer/laser/armorpierce
-	muzzle_type = /obj/effect/projectile/muzzle/laser/armorpierce
-	impact_type = /obj/effect/projectile/impact/laser/armorpierce
-	armour_penetration = 50
-	damage = 20
-	forcedodge = 2
-	ricochet_chance = 0
-
-/obj/projectile/beam/laser/hitscan/laser_shotgun
-	tracer_type = /obj/effect/projectile/tracer/laser/heavy
-	muzzle_type = /obj/effect/projectile/muzzle/laser/heavy
-	impact_type = /obj/effect/projectile/impact/laser/heavy
-	damage = 25
-	armour_penetration = 25
-
-/obj/projectile/beam/laser/hitscan/laser_shotgun/pellet
-	tracer_type = /obj/effect/projectile/tracer/laser/light
-	muzzle_type = /obj/effect/projectile/muzzle/laser/light
-	impact_type = /obj/effect/projectile/impact/laser/light
-	damage = 7
-	armour_penetration = 0
-
-/obj/projectile/beam/laser/hitscan/laser_mg
-	tracer_type = /obj/effect/projectile/tracer/laser/light
-	muzzle_type = /obj/effect/projectile/muzzle/laser/light
-	impact_type = /obj/effect/projectile/impact/laser/light
-	damage = 5
-
-/obj/projectile/beam/laser/hitscan/laser_mg/ricochet
-	icon_state = "lasershot"
-	range = 40
-	hitscan = FALSE
-	can_ricochet_from_everything = TRUE
-	ricochet_chance = 100
-	ricochets_max = 10
-	speed = 2
-	reflectability = REFLECTABILITY_PHYSICAL
-
-/obj/projectile/beam/laser/hitscan/laser_pistol
-
-/obj/projectile/beam/laser/hitscan/laser_pistol/light
-	tracer_type = /obj/effect/projectile/tracer/laser/light
-	muzzle_type = /obj/effect/projectile/muzzle/laser/light
-	impact_type = /obj/effect/projectile/impact/laser/light
-	damage = 10

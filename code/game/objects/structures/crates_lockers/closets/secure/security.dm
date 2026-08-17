@@ -324,22 +324,22 @@
 /obj/structure/closet/secure_closet/guncabinet/lasergun/populate_contents()
 	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
 	for(var/i in 1 to gun_count)
-		new /obj/item/gun/energy/laser/hitscan(src)
+		new /obj/item/gun/energy/laser/hitscan/carbine(src)
 
 /obj/structure/closet/secure_closet/guncabinet/lasergun/pistols/populate_contents()
 	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
 	for(var/i in 1 to gun_count)
-		new /obj/item/gun/energy/laser/hitscan/laser_pistol(src)
+		new /obj/item/gun/energy/laser/hitscan/pistol(src)
 
 /obj/structure/closet/secure_closet/guncabinet/lasergun/smg/populate_contents()
 	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
 	for(var/i in 1 to gun_count)
-		new /obj/item/gun/energy/laser/hitscan/laser_mg(src)
+		new /obj/item/gun/energy/laser/hitscan/assault_mg(src)
 
 /obj/structure/closet/secure_closet/guncabinet/lasergun/shotguns/populate_contents()
 	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
 	for(var/i in 1 to gun_count)
-		new /obj/item/gun/energy/laser/hitscan/laser_shotgun(src)
+		new /obj/item/gun/energy/laser/hitscan/shotgun(src)
 
 /obj/structure/closet/secure_closet/guncabinet/energygun
 	name = "security energy gun cabinet"
@@ -379,7 +379,7 @@
 /obj/structure/closet/secure_closet/guncabinet/automatic_carbine/populate_contents()
 	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
 	for(var/i in 1 to gun_count)
-		new /obj/item/gun/energy/laser/automatic(src)
+		new /obj/item/gun/energy/laser/automatic/carbine(src)
 
 /obj/structure/closet/secure_closet/guncabinet/automatic_carbine/pistols/populate_contents()
 	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4

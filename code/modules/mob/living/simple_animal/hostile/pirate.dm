@@ -45,5 +45,5 @@
 	projectiletype = /obj/projectile/beam
 	loot = list(
 		/obj/effect/mob_spawn/human/corpse/pirate/ranged,
-		/obj/item/gun/energy/laser/hitscan,
+		/obj/item/gun/energy/laser/hitscan/carbine,
 	)
