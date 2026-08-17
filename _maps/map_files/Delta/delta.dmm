@@ -76564,7 +76564,7 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/station/commons/serviceyard)
 "oGr" = (
-/obj/structure/toilet/captain_toilet/directional/west,
+/obj/structure/toilet/captain_toilet/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
