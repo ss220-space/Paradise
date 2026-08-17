@@ -330,7 +330,7 @@
 			COMSIG_MOB_MOUSEDOWN,
 			COMSIG_MOB_MOUSEUP,
 			COMSIG_MOB_MOUSEDRAG,
-			COMSIG_PARENT_QDELETING,
+			COMSIG_QDELETING,
 		))
 		update_mouse_pointer(TRUE)
 		SEND_SIGNAL(gun_user, COMSIG_GUN_USER_UNSET, src)
@@ -344,7 +344,7 @@
 	SEND_SIGNAL(gun_user, COMSIG_GUN_USER_SET, src)
 	RegisterSignal(gun_user, COMSIG_MOB_MOUSEDOWN, PROC_REF(start_fire))
 	RegisterSignal(gun_user, COMSIG_MOB_MOUSEDRAG, PROC_REF(change_target))
-	RegisterSignal(gun_user, COMSIG_PARENT_QDELETING, PROC_REF(clean_gun_user))
+	RegisterSignal(gun_user, COMSIG_QDELETING, PROC_REF(clean_gun_user))
 	RegisterSignal(gun_user, COMSIG_MOB_MOUSEUP, PROC_REF(stop_fire))
 
 ///Null out gun user to prevent hard del
@@ -459,10 +459,10 @@
 	if(object == target || (gun_user && object == gun_user))
 		return
 	if(target)
-		UnregisterSignal(target, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(target, COMSIG_QDELETING)
 	target = object
 	if(target)
-		RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(clean_target))
+		RegisterSignal(target, COMSIG_QDELETING, PROC_REF(clean_target))
 
 ///Set the target to it's turf, so we keep shooting even when it was qdeled
 /obj/item/gun/proc/clean_target()

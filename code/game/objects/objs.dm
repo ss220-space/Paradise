@@ -194,7 +194,7 @@
 
 /mob/proc/unset_machine()
 	if(machine)
-		UnregisterSignal(machine, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(machine, COMSIG_QDELETING)
 		machine.on_unset_machine(src)
 		machine = null
 
@@ -208,7 +208,7 @@
 	src.machine = O
 	if(istype(O))
 		O.in_use = TRUE
-		RegisterSignal(O, COMSIG_PARENT_QDELETING, PROC_REF(unset_machine))
+		RegisterSignal(O, COMSIG_QDELETING, PROC_REF(unset_machine))
 
 /obj/item/proc/updateSelfDialog()
 	var/mob/M = src.loc

@@ -144,8 +144,8 @@
 	giving_item = giver.get_active_hand()
 	to_chat(giver, span_notice("ЛКМ по игроку — предложить предмет в руке."))
 	ADD_TRAIT(giving_item, TRAIT_GIVE_READY, GIVE_TRAIT)
-	RegisterSignals(giving_item, list(COMSIG_PARENT_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), PROC_REF(signal_qdel))
-	RegisterSignals(giver, list(COMSIG_PARENT_QDELETING, COMSIG_MOB_SWAP_HANDS, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED)), PROC_REF(signal_qdel))
+	RegisterSignals(giving_item, list(COMSIG_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), PROC_REF(signal_qdel))
+	RegisterSignals(giver, list(COMSIG_QDELETING, COMSIG_MOB_SWAP_HANDS, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED)), PROC_REF(signal_qdel))
 
 /datum/click_intercept/give/Destroy(force = FALSE)
 	if(holder.mouse_override_icon == 'icons/misc/mouse_icons/give_item.dmi')
@@ -154,11 +154,11 @@
 	if(!item_offered)
 		to_chat(giver, span_notice("Вы прекратили попытку передачи предмета."))
 	if(giving_item)
-		UnregisterSignal(giving_item, list(COMSIG_PARENT_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED))
+		UnregisterSignal(giving_item, list(COMSIG_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED))
 		REMOVE_TRAIT(giving_item, TRAIT_GIVE_READY, GIVE_TRAIT)
 		giving_item = null
 	if(giver)
-		UnregisterSignal(giver, list(COMSIG_PARENT_QDELETING, COMSIG_MOB_SWAP_HANDS, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED)))
+		UnregisterSignal(giver, list(COMSIG_QDELETING, COMSIG_MOB_SWAP_HANDS, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED)))
 		giver = null
 	return ..()
 
@@ -212,10 +212,10 @@
 	add_overlay(icon(item.icon, item.icon_state, SOUTH))
 	add_overlay("alert_flash")
 	// If either of these atoms are deleted, we need to cancel everything. Also saves having to do null checks before interacting with these atoms.
-	// So there is no more COMSIG_PARENT_QDELETING for giver, because it overrides the same registration
+	// So there is no more COMSIG_QDELETING for giver, because it overrides the same registration
 	// in /atom/movable/screen/proc/set_new_hud, which is probably worse then not having it here, because alert will be cleared
 	// anyway in alert_timeout()
-	RegisterSignals(item, list(COMSIG_PARENT_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), PROC_REF(cancel_give))
+	RegisterSignals(item, list(COMSIG_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), PROC_REF(cancel_give))
 	RegisterSignals(giver, list(COMSIG_MOB_SWAP_HANDS, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED)), PROC_REF(cancel_give))
 
 /atom/movable/screen/alert/take_item/Destroy()
@@ -225,7 +225,7 @@
 		giver.remove_status_effect(STATUS_EFFECT_OFFERING_ITEM)
 		UnregisterSignal(giver, list(COMSIG_MOB_SWAP_HANDS, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED)))
 	if(giving_item)
-		UnregisterSignal(giving_item, list(COMSIG_PARENT_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED))
+		UnregisterSignal(giving_item, list(COMSIG_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED))
 
 	return ..()
 
@@ -246,7 +246,7 @@
 
 	var/mob/living/receiver = owner
 	var/mob/living/giver = locateUID(giver_UID)
-	// hopefully this will do instead of COMSIG_PARENT_QDELETING
+	// hopefully this will do instead of COMSIG_QDELETING
 	if(!giver)
 		to_chat(receiver, span_warning("Что-то пошло не так при передаче предмета, сообщите об этом в баг-репорты!"))
 		return FALSE

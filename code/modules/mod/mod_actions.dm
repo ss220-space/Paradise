@@ -127,7 +127,7 @@
 	if(user == mod.ai_assistant)
 		ai_action = TRUE
 	pinner = user
-	RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(pinner_deleted))
+	RegisterSignal(user, COMSIG_QDELETING, PROC_REF(pinner_deleted))
 
 /datum/action/item_action/mod/pinnable/Grant(mob/user)
 	if(pinner != user)

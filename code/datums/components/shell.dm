@@ -364,7 +364,7 @@
 	if(shell_flags & SHELL_FLAG_REQUIRE_ANCHOR)
 		RegisterSignal(circuitboard, COMSIG_CIRCUIT_PRE_POWER_USAGE, PROC_REF(override_power_usage))
 
-	RegisterSignal(circuitboard, COMSIG_PARENT_QDELETING, PROC_REF(on_circuit_delete))
+	RegisterSignal(circuitboard, COMSIG_QDELETING, PROC_REF(on_circuit_delete))
 	for(var/obj/item/circuit_component/to_add as anything in unremovable_circuit_components)
 		to_add.forceMove(attached_circuit)
 		attached_circuit.add_component(to_add)
@@ -394,7 +394,7 @@
 	attached_circuit.remove_current_shell()
 	UnregisterSignal(attached_circuit, list(
 		COMSIG_MOVABLE_MOVED,
-		COMSIG_PARENT_QDELETING,
+		COMSIG_QDELETING,
 		COMSIG_CIRCUIT_ADD_COMPONENT_MANUALLY,
 		COMSIG_CIRCUIT_PRE_POWER_USAGE,
 	))

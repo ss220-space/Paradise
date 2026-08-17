@@ -20,14 +20,14 @@
 			continue
 
 		possible_consoles |= console
-		RegisterSignal(console, COMSIG_PARENT_QDELETING, PROC_REF(on_rc_destroyed))
+		RegisterSignal(console, COMSIG_QDELETING, PROC_REF(on_rc_destroyed))
 		RegisterSignal(console, COMSIG_REQUEST_CONSOLE_MESSAGE, PROC_REF(on_rc_message_received))
 		department_list -= console.department
 
 /datum/data/pda/app/request_console/Destroy()
 	selected_console = null
 	for(var/obj/machinery/requests_console/console as anything in possible_consoles)
-		UnregisterSignal(console, list(COMSIG_PARENT_QDELETING, COMSIG_REQUEST_CONSOLE_MESSAGE))
+		UnregisterSignal(console, list(COMSIG_QDELETING, COMSIG_REQUEST_CONSOLE_MESSAGE))
 	possible_consoles = null
 	consoles_mute = null
 	return ..()
@@ -35,7 +35,7 @@
 /datum/data/pda/app/request_console/proc/on_rc_destroyed(datum/source)
 	SIGNAL_HANDLER
 
-	UnregisterSignal(source, list(COMSIG_PARENT_QDELETING, COMSIG_REQUEST_CONSOLE_MESSAGE))
+	UnregisterSignal(source, list(COMSIG_QDELETING, COMSIG_REQUEST_CONSOLE_MESSAGE))
 	possible_consoles -= source
 	SStgui.update_uis(pda)
 

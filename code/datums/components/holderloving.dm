@@ -23,12 +23,12 @@
 	return ..()
 
 /datum/component/holderloving/RegisterWithParent()
-	RegisterSignal(holder, COMSIG_PARENT_QDELETING, PROC_REF(holder_deleting))
+	RegisterSignal(holder, COMSIG_QDELETING, PROC_REF(holder_deleting))
 	RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(check_my_loc))
 	RegisterSignal(parent, COMSIG_ITEM_PRE_UNEQUIP, PROC_REF(can_be_moved))
 
 /datum/component/holderloving/UnregisterFromParent()
-	UnregisterSignal(holder, list(COMSIG_PARENT_QDELETING))
+	UnregisterSignal(holder, list(COMSIG_QDELETING))
 	UnregisterSignal(parent, list(COMSIG_ITEM_DROPPED, COMSIG_ITEM_PRE_UNEQUIP))
 
 /datum/component/holderloving/proc/holder_deleting(datum/source, force)

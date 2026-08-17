@@ -21,7 +21,7 @@
 	if(implant in implants)
 		return
 	RegisterSignal(implant, COMSIG_IMPLANT_ACTIVATED, PROC_REF(on_user_statchange))
-	RegisterSignal(implant, COMSIG_PARENT_QDELETING, PROC_REF(on_implant_destruction))
+	RegisterSignal(implant, COMSIG_QDELETING, PROC_REF(on_implant_destruction))
 
 	implants += implant
 

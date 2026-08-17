@@ -27,14 +27,14 @@
 
 		// If we had something previously selected, handle its signal and overlay
 		if(selected_atom)
-			UnregisterSignal(selected_atom, COMSIG_PARENT_QDELETING)
+			UnregisterSignal(selected_atom, COMSIG_QDELETING)
 
 		if(selected_overlay)
 			remove_selected_overlay(user)
 
 		// We ensure it properly gets GC'd
 		selected_atom = A
-		RegisterSignal(selected_atom, COMSIG_PARENT_QDELETING, PROC_REF(on_selected_atom_deleted))
+		RegisterSignal(selected_atom, COMSIG_QDELETING, PROC_REF(on_selected_atom_deleted))
 
 		// Green overlay for selection
 		selected_overlay = image(icon = selected_atom.icon, loc = A, icon_state = selected_atom.icon_state)
@@ -64,7 +64,7 @@
 	to_chat(user, span_notice("\"[DECLENT_RU_CAP(selected_atom, NOMINATIVE)]\" перемещен[GEND_A_O_Y(selected_atom)] \"[destination.declent_ru(ACCUSATIVE)]\"."))
 	log_admin("Build Mode: [key_name(user)] forcemoved [selected_atom] to [destination] at ([destination.x],[destination.y],[destination.z]).")
 
-	UnregisterSignal(selected_atom, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(selected_atom, COMSIG_QDELETING)
 	selected_atom = null
 	remove_selected_overlay(user)
 
@@ -76,5 +76,5 @@
 // If it gets deleted mid-movement, remove the overlay and its attachment to the forcemove tool
 /datum/buildmode_mode/forcemove/proc/on_selected_atom_deleted()
 	SIGNAL_HANDLER
-	UnregisterSignal(selected_atom, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(selected_atom, COMSIG_QDELETING)
 	selected_atom = null

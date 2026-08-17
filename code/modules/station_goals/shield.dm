@@ -302,7 +302,7 @@
 	proximity_monitor = new(src, parent.kill_range)
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_parent_moved))
 	RegisterSignal(parent, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(on_parent_z_changed))
-	RegisterSignal(parent, COMSIG_PARENT_QDELETING, PROC_REF(on_parent_deleted))
+	RegisterSignal(parent, COMSIG_QDELETING, PROC_REF(on_parent_deleted))
 
 /obj/effect/abstract/meteor_shield_proxy/Destroy(force)
 	QDEL_NULL(proximity_monitor)

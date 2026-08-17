@@ -409,7 +409,7 @@
 			Friends[user]++
 		else
 			Friends[user] = 1
-			RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(clear_friend))
+			RegisterSignal(user, COMSIG_QDELETING, PROC_REF(clear_friend))
 		user.visible_message(
 			span_notice("[user] hand-feeds plasma to [src]. It chirps happily."),
 			span_notice("You hand-feed plasma to [src]. It chirps happily."),
@@ -439,7 +439,7 @@
 		discipline_slime(user)
 
 /mob/living/simple_animal/slime/proc/clear_friend(mob/living/friend)
-	UnregisterSignal(friend, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(friend, COMSIG_QDELETING)
 	Friends -= friend
 
 /mob/living/simple_animal/slime/water_act(volume, temperature, source, method = REAGENT_TOUCH)

@@ -76,7 +76,7 @@
 	read_colors_from_string(starting_colors || atom_target?.greyscale_colors)
 
 	if(target)
-		RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(ui_close))
+		RegisterSignal(target, COMSIG_QDELETING, PROC_REF(ui_close))
 
 	refresh_preview()
 

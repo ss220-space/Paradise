@@ -401,7 +401,7 @@
 	var/datum/move_loop/loop = GLOB.move_manager.move_towards(src, target_turf, splatter_speed, timeout = splatter_speed * range, priority = MOVEMENT_ABOVE_SPACE_PRIORITY, flags = MOVEMENT_LOOP_START_FAST)
 	RegisterSignal(loop, COMSIG_MOVELOOP_PREPROCESS_CHECK, PROC_REF(pre_move))
 	RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(post_move))
-	RegisterSignal(loop, COMSIG_PARENT_QDELETING, PROC_REF(loop_done))
+	RegisterSignal(loop, COMSIG_QDELETING, PROC_REF(loop_done))
 
 /obj/effect/decal/cleanable/blood/hitsplatter/proc/pre_move(datum/move_loop/source)
 	SIGNAL_HANDLER

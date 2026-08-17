@@ -59,13 +59,13 @@
 		return
 
 	RegisterSignal(swimmer, SIGNAL_ADDTRAIT(TRAIT_IMMERSED), PROC_REF(dip_in))
-	RegisterSignal(swimmer, COMSIG_PARENT_QDELETING, PROC_REF(on_swimmer_del))
+	RegisterSignal(swimmer, COMSIG_QDELETING, PROC_REF(on_swimmer_del))
 	swimmers |= swimmer
 
 /// When something exits the water it probably shouldn't drowning
 /datum/element/swimming_tile/proc/out_of_water(atom/source, mob/living/landlubber)
 	SIGNAL_HANDLER
-	UnregisterSignal(landlubber, list(SIGNAL_ADDTRAIT(TRAIT_IMMERSED), COMSIG_PARENT_QDELETING))
+	UnregisterSignal(landlubber, list(SIGNAL_ADDTRAIT(TRAIT_IMMERSED), COMSIG_QDELETING))
 	swimmers -= landlubber
 
 /datum/element/swimming_tile/proc/on_swimmer_del(atom/source)

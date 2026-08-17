@@ -340,7 +340,7 @@
 	fullUpdateWeedOverlays()
 
 	addtimer(CALLBACK(src, PROC_REF(Life)), rand(15 SECONDS, 20 SECONDS))
-	RegisterSignal(linked_node, COMSIG_PARENT_QDELETING, PROC_REF(clear_linked_node))
+	RegisterSignal(linked_node, COMSIG_QDELETING, PROC_REF(clear_linked_node))
 
 /obj/structure/alien/weeds/Destroy()
 	var/turf/T = loc
@@ -351,7 +351,7 @@
 
 /obj/structure/alien/weeds/proc/clear_linked_node()
 	SIGNAL_HANDLER
-	UnregisterSignal(linked_node, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(linked_node, COMSIG_QDELETING)
 	linked_node = null
 
 /obj/structure/alien/weeds/proc/Life()

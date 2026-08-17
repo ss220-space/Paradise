@@ -117,7 +117,7 @@
 				spread = round((i / num_pellets - 0.5) * distro)
 
 		RegisterSignal(shell.BB, COMSIG_PROJECTILE_SELF_ON_HIT, PROC_REF(pellet_hit))
-		RegisterSignals(shell.BB, list(COMSIG_PROJECTILE_RANGE_OUT, COMSIG_PARENT_QDELETING), PROC_REF(pellet_range))
+		RegisterSignals(shell.BB, list(COMSIG_PROJECTILE_RANGE_OUT, COMSIG_QDELETING), PROC_REF(pellet_range))
 		shell.BB.damage = original_damage
 		pellets += shell.BB
 		var/turf/current_loc = get_turf(fired_from)
@@ -205,7 +205,7 @@
 
 		if(martyr.stat != DEAD && martyr.client)
 			LAZYADD(purple_hearts, martyr)
-			RegisterSignal(martyr, COMSIG_PARENT_QDELETING, PROC_REF(on_target_qdel), override=TRUE)
+			RegisterSignal(martyr, COMSIG_QDELETING, PROC_REF(on_target_qdel), override=TRUE)
 
 		for(var/i in 1 to round(pellets_absorbed * 0.5))
 			pew(martyr)
@@ -230,8 +230,8 @@
 	LAZYADDASSOC(targets_hit[target], "hits", 1)
 	LAZYSET(targets_hit[target], "damage", damage)
 	if(targets_hit[target]["hits"] == 1)
-		RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(on_target_qdel), override=TRUE)
-	UnregisterSignal(P, list(COMSIG_PARENT_QDELETING, COMSIG_PROJECTILE_RANGE_OUT, COMSIG_PROJECTILE_SELF_ON_HIT))
+		RegisterSignal(target, COMSIG_QDELETING, PROC_REF(on_target_qdel), override=TRUE)
+	UnregisterSignal(P, list(COMSIG_QDELETING, COMSIG_PROJECTILE_RANGE_OUT, COMSIG_PROJECTILE_SELF_ON_HIT))
 	if(terminated == num_pellets)
 		finalize()
 
@@ -240,7 +240,7 @@
 	SIGNAL_HANDLER
 	pellets -= P
 	terminated++
-	UnregisterSignal(P, list(COMSIG_PARENT_QDELETING, COMSIG_PROJECTILE_RANGE_OUT, COMSIG_PROJECTILE_SELF_ON_HIT))
+	UnregisterSignal(P, list(COMSIG_QDELETING, COMSIG_PROJECTILE_RANGE_OUT, COMSIG_PROJECTILE_SELF_ON_HIT))
 	if(terminated == num_pellets)
 		finalize()
 
@@ -257,7 +257,7 @@
 	P.suppressed = TRUE// set the projectiles to make no message so we can do our own aggregate message
 	P.preparePixelProjectile(target, parent)
 	RegisterSignal(P, COMSIG_PROJECTILE_SELF_ON_HIT, PROC_REF(pellet_hit))
-	RegisterSignals(P, list(COMSIG_PROJECTILE_RANGE_OUT, COMSIG_PARENT_QDELETING), PROC_REF(pellet_range))
+	RegisterSignals(P, list(COMSIG_PROJECTILE_RANGE_OUT, COMSIG_QDELETING), PROC_REF(pellet_range))
 	pellets += P
 	P.fire()
 
@@ -298,7 +298,7 @@
 
 	LAZYCLEARLIST(bodies)
 	for(var/mob/living/L in get_turf(parent))
-		RegisterSignal(L, COMSIG_PARENT_QDELETING, PROC_REF(on_target_qdel), override=TRUE)
+		RegisterSignal(L, COMSIG_QDELETING, PROC_REF(on_target_qdel), override=TRUE)
 		bodies += L
 
 /// Someone who was originally "under" the grenade has moved off the tile and is now eligible for being a martyr and "covering" it
@@ -320,7 +320,7 @@
 /datum/component/pellet_cloud/proc/on_target_qdel(atom/target)
 	SIGNAL_HANDLER
 
-	UnregisterSignal(target, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(target, COMSIG_QDELETING)
 	targets_hit -= target
 	LAZYREMOVE(bodies, target)
 	LAZYREMOVE(purple_hearts, target)

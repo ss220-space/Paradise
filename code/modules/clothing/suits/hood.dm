@@ -25,7 +25,7 @@
 	hood = new hoodtype(src, src)
 	RegisterSignal(hood, COMSIG_ITEM_DROPPED, PROC_REF(on_hood_dropped))
 	RegisterSignal(hood, COMSIG_ITEM_EQUIPPED, PROC_REF(on_hood_equipped))
-	RegisterSignal(hood, COMSIG_PARENT_QDELETING, PROC_REF(on_hood_destroyed))
+	RegisterSignal(hood, COMSIG_QDELETING, PROC_REF(on_hood_destroyed))
 
 /obj/item/clothing/suit/hooded/proc/on_hood_dropped()
 	SIGNAL_HANDLER

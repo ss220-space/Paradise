@@ -19,14 +19,14 @@ INITIALIZE_IMMEDIATE(/atom/movable/render_plane_relay)
 /client/proc/on_render_plane_relay_qdeleted(atom/movable/render_plane_relay/source)
 	SIGNAL_HANDLER
 	screen.RemoveAll(source)
-	UnregisterSignal(source, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(source, COMSIG_QDELETING)
 
 /client/proc/register_render_plane_relay(atom/movable/render_plane_relay/relay)
 	var/exist_check = (relay in screen)
 	screen += relay
 	if(exist_check)
 		return
-	RegisterSignal(relay, COMSIG_PARENT_QDELETING, PROC_REF(on_render_plane_relay_qdeleted), override = TRUE)
+	RegisterSignal(relay, COMSIG_QDELETING, PROC_REF(on_render_plane_relay_qdeleted), override = TRUE)
 
 /**
  * ## Rendering plate

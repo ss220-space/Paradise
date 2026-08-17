@@ -55,7 +55,7 @@
 	frequency,
 )
 	src.source = source
-	RegisterSignal(source, COMSIG_PARENT_QDELETING, PROC_REF(source_deleted))
+	RegisterSignal(source, COMSIG_QDELETING, PROC_REF(source_deleted))
 	RegisterSignal(source, COMSIG_MOVABLE_MOVED, PROC_REF(source_moved))
 	RegisterSignal(source, COMSIG_ENTER_AREA, PROC_REF(on_enter_area))
 
@@ -131,9 +131,9 @@
 
 	listeners[listener_mob] = NONE
 	listener_mob.client.sound_tokens += src
-	// The source already holds source_deleted on COMSIG_PARENT_QDELETING (which qdels the whole token), so don't clobber it when the source hears its own sound.
+	// The source already holds source_deleted on COMSIG_QDELETING (which qdels the whole token), so don't clobber it when the source hears its own sound.
 	if(listener_mob != source)
-		RegisterSignal(listener_mob, COMSIG_PARENT_QDELETING, PROC_REF(listener_deleted))
+		RegisterSignal(listener_mob, COMSIG_QDELETING, PROC_REF(listener_deleted))
 	RegisterSignals(listener_mob, list(SIGNAL_ADDTRAIT(TRAIT_DEAF), SIGNAL_REMOVETRAIT(TRAIT_DEAF)), PROC_REF(listener_deafness_update))
 	update_listener(listener_mob, FALSE)
 	return TRUE
@@ -147,10 +147,10 @@
 	if(listener_mob.client)
 		listener_mob.client.sound_tokens -= src
 
-	// Don't strip COMSIG_PARENT_QDELETING from the source, or we'd wipe its source_deleted handler.
+	// Don't strip COMSIG_QDELETING from the source, or we'd wipe its source_deleted handler.
 	var/list/signals_to_remove = list(SIGNAL_ADDTRAIT(TRAIT_DEAF), SIGNAL_REMOVETRAIT(TRAIT_DEAF))
 	if(listener_mob != source)
-		signals_to_remove += COMSIG_PARENT_QDELETING
+		signals_to_remove += COMSIG_QDELETING
 	UnregisterSignal(listener_mob, signals_to_remove)
 	SEND_SOUND(listener_mob, null_sound)
 

@@ -63,7 +63,7 @@
 		if(!sm.include_in_cims || !isturf(sm.loc) || !(is_station_level(sm.z) || is_mining_level(sm.z) || sm.z == user_turf.z))
 			continue
 		cached_supermatters += sm
-		RegisterSignal(sm, COMSIG_PARENT_QDELETING, PROC_REF(clear_supermatter))
+		RegisterSignal(sm, COMSIG_QDELETING, PROC_REF(clear_supermatter))
 
 /obj/machinery/computer/sm_monitor/ui_static_data(mob/user)
 	var/list/data = list()
@@ -109,7 +109,7 @@
 	supermatters -= sm
 	if(focused_supermatter == sm)
 		unfocus_supermatter()
-	UnregisterSignal(sm, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(sm, COMSIG_QDELETING)
 
 /obj/machinery/computer/sm_monitor/proc/focus_supermatter(obj/machinery/power/supermatter_crystal/sm)
 	if(sm == focused_supermatter)

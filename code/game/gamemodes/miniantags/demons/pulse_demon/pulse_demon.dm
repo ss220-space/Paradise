@@ -672,7 +672,7 @@
 	client.images += apc_image
 
 	hijacked_apcs += A
-	RegisterSignal(A, COMSIG_PARENT_QDELETING, PROC_REF(apc_deleted_handler))
+	RegisterSignal(A, COMSIG_QDELETING, PROC_REF(apc_deleted_handler))
 	if(!remote)
 		update_controlling_area()
 	maxcharge = calc_maxcharge(length(hijacked_apcs)) + (maxcharge - calc_maxcharge(length(hijacked_apcs) - 1))

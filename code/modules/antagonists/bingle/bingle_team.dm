@@ -30,7 +30,7 @@
 	UnregisterSignal(src, COMSIG_BINGLE_HOLE_INITIALIZED)
 	UnregisterSignal(src, COMSIG_MASS_BINGLE_EVOLVE)
 	for(var/obj/structure/bingle_hole/hole as anything in bingle_holes)
-		UnregisterSignal(hole, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(hole, COMSIG_QDELETING)
 		UnregisterSignal(hole, COMSIG_BINGLE_HOLE_GROW)
 	QDEL_NULL(main_objective)
 	bingle_holes = null
@@ -50,7 +50,7 @@
 /datum/team/bingles/proc/on_hole_init(datum/source, obj/structure/bingle_hole/hole)
 	SIGNAL_HANDLER
 	bingle_holes += hole
-	RegisterSignal(hole, COMSIG_PARENT_QDELETING, PROC_REF(on_hole_destroy))
+	RegisterSignal(hole, COMSIG_QDELETING, PROC_REF(on_hole_destroy))
 	RegisterSignal(hole, COMSIG_BINGLE_HOLE_GROW, PROC_REF(on_hole_grow))
 
 /**
@@ -62,7 +62,7 @@
 /datum/team/bingles/proc/on_hole_destroy(obj/structure/bingle_hole/source)
 	SIGNAL_HANDLER
 	bingle_holes -= source
-	UnregisterSignal(source, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(source, COMSIG_QDELETING)
 	UnregisterSignal(source, COMSIG_BINGLE_HOLE_GROW)
 	gib_related_bingles(source)
 	INVOKE_ASYNC(src, PROC_REF(handle_roundend_destroy), source)

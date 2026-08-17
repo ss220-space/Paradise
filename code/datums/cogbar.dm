@@ -39,7 +39,7 @@
 
 	add_cog_to_user()
 
-	RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(on_user_delete))
+	RegisterSignal(user, COMSIG_QDELETING, PROC_REF(on_user_delete))
 
 
 /datum/cogbar/Destroy()

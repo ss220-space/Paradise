@@ -43,7 +43,7 @@
 		RegisterSignals(item, list(
 			COMSIG_ITEM_PICKUP,
 			COMSIG_MOVABLE_MOVED,
-			COMSIG_PARENT_QDELETING,
+			COMSIG_QDELETING,
 			), PROC_REF(on_item_moved))
 
 	if(looting_icon_mode)
