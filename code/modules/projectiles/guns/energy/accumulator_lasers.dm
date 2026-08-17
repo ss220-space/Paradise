@@ -1,7 +1,7 @@
 // MARK: cell-magazine weapons
 /obj/item/gun/energy/accumulator
 	name = "аккумуляторная пушка"
-	desc = "Оружие, работающее на аккумуляторах. Как спектр, только вариант до реворка с некоторыми изменениями. Если вы это читаете, пишите баг-репорт."
+	desc = "Оружие, работающее на аккумуляторах. Как спектр, только вариант до реворка с некоторыми изменениями. Если вы это читаете, пишите баг репорт."
 	icon_state = "energypistol"
 	item_state = null
 	ammo_x_offset = 1
@@ -176,7 +176,6 @@
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER | GUN_MODULE_CLASS_ENERGY_WEAPON
 	accuracy = GUN_ACCURACY_PISTOL
 	weapon_weight = WEAPON_LIGHT
-	w_class = WEIGHT_CLASS_NORMAL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 7),
 		ATTACHMENT_SLOT_UNDER = list("x" = 5, "y" = -5),

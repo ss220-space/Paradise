@@ -176,9 +176,6 @@
 	icon_state = "scatter_disabler"
 	damage = 5
 
-/obj/projectile/beam/disabler/heavy
-	damage = 70
-
 /obj/projectile/beam/specter/laser
 	name = "specter laser beam"
 

@@ -16,7 +16,6 @@
 		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 9, ATTACHMENT_OFFSET_Y = -5),
 	)
 
-// MARK: Sibyl variants
 /obj/item/gun/energy/laser/sibyl/Initialize(mapload)
 	. = ..()
 	install_sibyl()

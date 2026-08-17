@@ -485,9 +485,6 @@
 /obj/item/stock_parts/cell/laser/gatling
 	maxcharge = 9000
 
-/obj/item/stock_parts/cell/laser/hmg
-	maxcharge = 3000
-
 /obj/item/stock_parts/cell/laser/tesla_cannon
 	maxcharge = STANDARD_CELL_CHARGE * 0.5
 
@@ -732,7 +729,7 @@
 	desc = "Универсальный аккумулятор, применяемый во всей линейке новейшего аккумуляторного энергооружия. Высокая стоимость производства компенсируется возможностью перезарядки. Несмотря на название, он не подходит к спектру."
 	icon_state = "egun_accumulator"
 	internal_cell = new /obj/item/stock_parts/cell/energy_gun()
-	materials = list(MAT_METAL = 60000)
+	materials = list(MAT_METAL = 40000) //20 sheets
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/weapon_cell/energy_gun/get_ru_names()

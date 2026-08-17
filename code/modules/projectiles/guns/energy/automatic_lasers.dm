@@ -1,7 +1,7 @@
 // MARK: automatic laser carbine
 /obj/item/gun/energy/laser/automatic
 	name = "автоматический лазер"
-	desc = "Родитель всех автоматических лазеров. Основной гиммик - показ патронов и полный автоматический огонь у всего оружия. Если вы это читаете, делайте баг-репорт."
+	desc = "Родитель всех автоматических лазеров. Основной гиммик - показ патронов и полный автоматический огонь у всего оружия. Если вы это читаете, делайте баг репорт."
 	colour_denendent = TRUE
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_SUITSTORE | ITEM_SLOT_BELT

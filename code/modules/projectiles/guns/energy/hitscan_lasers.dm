@@ -1,11 +1,10 @@
 // MARK: Hitscan
 /obj/item/gun/energy/laser/hitscan
 	name = "хитскан пушка"
-	desc = "Родитель всего хитскан оружия. Гиммик этой серии - собственно хитскан."
+	desc = "Родитель всего хитскан оружия. Гиммик этой серии - собственно хитскан. Если вы это видите, пишите баг репорт."
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/hitscan)
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_SUITSTORE | ITEM_SLOT_BELT
-	weapon_weight = WEAPON_MEDIUM
 
 /obj/item/gun/energy/laser/hitscan/attackby(obj/item/item, mob/user, params)
 	if(!is_laser_modification_case(item))

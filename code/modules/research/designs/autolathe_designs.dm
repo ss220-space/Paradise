@@ -1018,6 +1018,6 @@
 /datum/design/energy_accumulator
 	id = "weapon_energy_cell"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 80000) //40 metal
+	materials = list(MAT_METAL = 40000) //20 metal
 	build_path = /obj/item/weapon_cell/energy_gun
 	category = list(PRINTER_CATEGORY_HACKED, AUTOLATHE_CATEGORY_SECURITY)

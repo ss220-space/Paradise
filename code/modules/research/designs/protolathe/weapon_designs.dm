@@ -540,6 +540,6 @@
 	id = "laser_mod_upgrade"
 	req_tech = list(RESEARCH_TREE_COMBAT = 6, RESEARCH_TREE_MAGNETS = 5, RESEARCH_TREE_POWERSTORAGE = 5, RESEARCH_TREE_ENGINEERING = 4,RESEARCH_TREE_PROGRAMMING = 5)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 80000, MAT_GLASS = 8000, MAT_GOLD = 6000, MAT_DIAMOND = 5000, MAT_PLASMA = 20000)
+	materials = list(MAT_METAL = 30000, MAT_GLASS = 8000, MAT_GOLD = 6000, MAT_DIAMOND = 5000)
 	build_path = /obj/item/laser_modification_case
 	category = list(PROTOLATHE_CATEGORY_WEAPON)
