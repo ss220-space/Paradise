@@ -16,6 +16,7 @@
 	"third" = list("working_medical_security") \
 )
 
+#define ROBOQUEST_REMOVE_COOLDOWN 30 SECONDS
 ///////////////////////
 // roboquest console //
 ///////////////////////
@@ -71,21 +72,21 @@
 	currentID = null
 	. = ..()
 
-/obj/machinery/computer/roboquest/attackby(obj/item/I, mob/user, params)
+/obj/machinery/computer/roboquest/attackby(obj/item/inserted_card, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(is_id_card(I))
-		if(istype(I, /obj/item/card/id/guest))
-			to_chat(user, span_warning("Временные пропуска не принимаются в этой консоли."))
+	if(is_id_card(inserted_card))
+		if(istype(inserted_card, /obj/item/card/id/guest))
+			balloon_alert(user, "неверный тип карты!")
 			return ATTACK_CHAIN_BLOCKED_ALL
 		add_fingerprint(user)
-		if(!user.drop_transfer_item_to_loc(I, src))
+		if(!user.drop_transfer_item_to_loc(inserted_card, src))
 			return ..()
 		if(currentID)
 			currentID.forceMove(drop_location())
 			user.put_in_hands(currentID, ignore_anim = FALSE)
-		currentID = I
+		currentID = inserted_card
 		SStgui.try_update_ui(user, src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -243,8 +244,8 @@
 			pick_mecha(mecha_types[mecha_type])
 		if("RemoveTask")
 			currentID.robo_bounty = null
-			addtimer(CALLBACK(src, PROC_REF(cooldown_end), currentID), 30 SECONDS)
-			currentID.bounty_penalty = world.time + 30 SECONDS
+			addtimer(CALLBACK(src, PROC_REF(cooldown_end), currentID), ROBOQUEST_REMOVE_COOLDOWN)
+			currentID.bounty_penalty = world.time + ROBOQUEST_REMOVE_COOLDOWN
 		if("Check")
 			if(!pad)
 				checkMessage = "Привязанный пад не обнаружен."
