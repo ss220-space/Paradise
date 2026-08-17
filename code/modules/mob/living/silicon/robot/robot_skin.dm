@@ -1108,6 +1108,9 @@
 	icon_base_prefix = "drakesyn"
 	eye_prefix = "drakesyn"
 
+/datum/robot_skin/kerfus
+	name = "Kerfus"
+
 /datum/robot_skin/kerfus/nt
 	icon_base_prefix = "kerfusNT"
 	eye_prefix = "kerfusNT"
