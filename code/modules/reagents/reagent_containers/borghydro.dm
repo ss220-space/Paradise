@@ -69,7 +69,7 @@
 		"pen_acid" = list('icons/mob/screen_corgi.dmi', "tox1"), \
 		"hydrocodone" = list('icons/mob/actions/actions.dmi', "magicm"), \
 		"perfluorodecalin" = list('icons/obj/surgery.dmi', "lungs"), \
-		"calomel" = list('icons/obj/items.dmi', "soap"), \
+		"calomel" = list('icons/obj/janitor.dmi', "soap"), \
 		"oculine" = list('icons/obj/surgery.dmi', "eyes"))
 	upgrade_path = null //no upgrades
 
