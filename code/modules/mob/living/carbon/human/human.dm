@@ -30,6 +30,7 @@
 	UpdateAppearance()
 	GLOB.human_list += src
 	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_FACE_ACT, PROC_REF(clean_face))
+	RegisterSignal(src, COMSIG_MOUSEDROP_ONTO, PROC_REF(interaction_check))
 
 /mob/living/carbon/human/Destroy()
 	bleeding_bodyparts.Cut()
@@ -38,6 +39,7 @@
 	SSmobs.cubemonkeys -= src
 	GLOB.human_list -= src
 	SEND_SIGNAL(src, COMSIG_HUMAN_DESTROYED)
+	UnregisterSignal(src, COMSIG_MOUSEDROP_ONTO)
 	return ..()
 
 /// This proc is for holding effects applied when a mob is missing certain organs
