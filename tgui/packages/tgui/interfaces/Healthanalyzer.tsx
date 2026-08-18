@@ -383,7 +383,7 @@ export const Healthanalyzer = (props: unknown) => {
                   </Section>
                 )}
 
-                {!!data['localize'] &&
+                {!!data.localize &&
                 (!!scan_data.damageLocalization ||
                   !!scan_data.fractureList[0] ||
                   scan_data.infectedList[0] ||
@@ -452,7 +452,7 @@ export const Healthanalyzer = (props: unknown) => {
                     )}
                   </Section>
                 ) : (
-                  !data['localize'] &&
+                  !data.localize &&
                   (!!scan_data.fractureList[0] ||
                     scan_data.infectedList[0] ||
                     !!scan_data.extraFacture ||

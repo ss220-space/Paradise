@@ -60,9 +60,9 @@ export const KitchenMachine = (props) => {
             <Stack vertical align="center" textAlign="center">
               <Icon name="broom" size={3} color="yellow" />
               <Box bold mt={1} fontSize={1.2}>
-                {data['name']} требует очистки!
+                {data.name} требует очистки!
               </Box>
-              <Box mt={1}>Загрязнение: {data['dirty']}%</Box>
+              <Box mt={1}>Загрязнение: {data.dirty}%</Box>
               <Box mt={2} italic>
                 Пожалуйста, очистите перед использованием.
               </Box>
@@ -101,7 +101,7 @@ export const KitchenMachine = (props) => {
               </Stack.Item>
               <Stack.Item grow>{name}</Stack.Item>
               <Stack.Item>
-                {data['dirty'] > 0 && (
+                {data.dirty > 0 && (
                   <Box
                     color={dirty > 70 ? 'bad' : dirty > 30 ? 'average' : 'good'}
                   >
@@ -180,12 +180,10 @@ export const KitchenMachine = (props) => {
                 icon="power-off"
                 textAlign="center"
                 disabled={
-                  data['ingredients'].length === 0 &&
-                  data['reagents'].length === 0
+                  data.ingredients.length === 0 && data.reagents.length === 0
                 }
                 tooltip={
-                  data['ingredients'].length === 0 &&
-                  data['reagents'].length === 0
+                  data.ingredients.length === 0 && data.reagents.length === 0
                     ? 'Сначала добавьте ингредиенты'
                     : undefined
                 }
@@ -200,12 +198,10 @@ export const KitchenMachine = (props) => {
                 icon="eject"
                 textAlign="center"
                 disabled={
-                  data['ingredients'].length === 0 &&
-                  data['reagents'].length === 0
+                  data.ingredients.length === 0 && data.reagents.length === 0
                 }
                 tooltip={
-                  data['ingredients'].length === 0 &&
-                  data['reagents'].length === 0
+                  data.ingredients.length === 0 && data.reagents.length === 0
                     ? 'Нет ингредиентов'
                     : undefined
                 }

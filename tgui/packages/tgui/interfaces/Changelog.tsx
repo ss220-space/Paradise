@@ -52,7 +52,11 @@ type Data = {
 
 type Props = {};
 
-type State = { data: string; selectedDate: string; selectedIndex: number };
+type State = {
+  data: Record<string, Record<string, string[]>> | string;
+  selectedDate: string;
+  selectedIndex: number;
+};
 
 export class Changelog extends Component<Props, State> {
   dateChoices: string[];
@@ -272,12 +276,13 @@ export class Changelog extends Component<Props, State> {
                   <h4>{name} changed:</h4>
                   <Box ml={3}>
                     <Table>
-                      {changes.map((c) => {
+                      {changes.map((c, index) => {
                         const changeTypes = Object.keys(c)[0];
                         const change = c[changeTypes];
                         const prMatch = change.match(prNumberMatcher);
                         const icon = (
                           <Table.Cell
+                            key={index}
                             className={classes([
                               'Changelog__Cell',
                               'Changelog__Cell--Icon',
@@ -289,12 +294,12 @@ export class Changelog extends Component<Props, State> {
                                 color={
                                   icons[changeType]
                                     ? icons[changeType].color
-                                    : icons['unknown'].color
+                                    : icons.unknown.color
                                 }
                                 name={
                                   icons[changeType]
                                     ? icons[changeType].icon
-                                    : icons['unknown'].icon
+                                    : icons.unknown.icon
                                 }
                               />
                             ))}

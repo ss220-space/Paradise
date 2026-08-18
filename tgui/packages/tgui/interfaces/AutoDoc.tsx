@@ -25,7 +25,7 @@ export const AutoDoc = (props: unknown) => {
             <Image
               height="256px"
               width="256px"
-              src={`data:image/jpeg;base64,${TguiIcons['human']}`}
+              src={`data:image/jpeg;base64,${TguiIcons.human}`}
               fixBlur
               style={{
                 position: 'absolute',

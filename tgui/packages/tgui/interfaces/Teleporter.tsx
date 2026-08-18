@@ -71,9 +71,9 @@ export const Teleporter = (_props: unknown) => {
                         color={target !== 'None' ? 'default' : 'bad'}
                         onSelected={(val) =>
                           act('settarget', {
-                            x: targetsTeleport[val]['x'],
-                            y: targetsTeleport[val]['y'],
-                            z: targetsTeleport[val]['z'],
+                            x: targetsTeleport[val].x,
+                            y: targetsTeleport[val].y,
+                            z: targetsTeleport[val].z,
                           })
                         }
                       />
@@ -87,9 +87,9 @@ export const Teleporter = (_props: unknown) => {
                         color={target !== 'None' ? 'default' : 'bad'}
                         onSelected={(val) =>
                           act('settarget', {
-                            x: targetsTeleport[val]['x'],
-                            y: targetsTeleport[val]['y'],
-                            z: targetsTeleport[val]['z'],
+                            x: targetsTeleport[val].x,
+                            y: targetsTeleport[val].y,
+                            z: targetsTeleport[val].z,
                           })
                         }
                       />

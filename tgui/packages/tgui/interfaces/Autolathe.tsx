@@ -23,10 +23,10 @@ const canBeMade = (
   if (recipe.requirements === null) {
     return true;
   }
-  if (recipe.requirements['metal'] * multi > mavail) {
+  if (recipe.requirements.metal * multi > mavail) {
     return false;
   }
-  if (recipe.requirements['glass'] * multi > gavail) {
+  if (recipe.requirements.glass * multi > gavail) {
     return false;
   }
   return true;

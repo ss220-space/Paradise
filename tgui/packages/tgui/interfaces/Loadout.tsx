@@ -124,9 +124,7 @@ const LoadoutGears = (props) => {
   if (searchText.length > 2) {
     contents = Object.entries(data.gears)
       .reduce((a, [key, gears]) => {
-        return a.concat(
-          Object.entries(gears).map(([key, gear]) => ({ key, gear }))
-        );
+        return Object.entries(gears).map(([key, gear]) => ({ key, gear }));
       }, [])
       .filter(({ gear }) => {
         return testSearch(gear);
@@ -242,7 +240,7 @@ const LoadoutGears = (props) => {
                     tooltip={tweak.tooltip}
                     tooltipPosition="top"
                   />
-                ))
+                )),
             )}
             <Button
               width="22px"
@@ -306,13 +304,13 @@ const LoadoutEquipped = (props) => {
     (a, [categoryKey, categoryItems]) => {
       const selectedInCategory = Object.entries(categoryItems)
         .filter(([gearKey]) =>
-          Object.keys(data.selected_gears).includes(gearKey)
+          Object.keys(data.selected_gears).includes(gearKey),
         )
         .map(([gearKey, gear]) => ({ key: gearKey, ...gear }));
 
-      return a.concat(selectedInCategory);
+      return selectedInCategory;
     },
-    []
+    [],
   );
   return (
     <Stack fill vertical>
@@ -337,14 +335,10 @@ const LoadoutEquipped = (props) => {
                 key={gear.key}
                 fluid
                 imageSize={48}
-                base64={gear_data['icon']}
-                dmIcon={
-                  gear_data['icon_file'] ? gear_data['icon_file'] : gear.icon
-                }
+                base64={gear_data.icon}
+                dmIcon={gear_data.icon_file ? gear_data.icon_file : gear.icon}
                 dmIconState={
-                  gear_data['icon_state']
-                    ? gear_data['icon_state']
-                    : gear.icon_state
+                  gear_data.icon_state ? gear_data.icon_state : gear.icon_state
                 }
                 buttons={
                   <>
@@ -369,7 +363,7 @@ const LoadoutEquipped = (props) => {
                   </>
                 }
               >
-                {gear_data['name'] ? gear_data['name'] : gear.name}
+                {gear_data.name ? gear_data.name : gear.name}
               </ImageButton>
             );
           })}
@@ -453,7 +447,7 @@ const GearTweak = (props) => {
                       />
                     </LabeledList.Item>
                   );
-                })
+                }),
             )}
           </LabeledList>
         </Section>
