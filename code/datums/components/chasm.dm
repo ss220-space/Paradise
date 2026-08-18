@@ -11,6 +11,7 @@
 		/mob/living/simple_animal/hostile/asteroid/elite,
 		/mob/living/simple_animal/hostile/megafauna,
 		/obj/bfl_crack,
+		/obj/machinery/bfl_lens,
 		/obj/docking_port,
 		/obj/effect/abstract,
 		/obj/effect/collapse,
