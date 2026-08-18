@@ -1,15 +1,15 @@
-import { formatPower } from 'tgui-core/format';
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
   Flex,
-  Grid,
   LabeledList,
   NumberInput,
   ProgressBar,
   Section,
-} from '../components';
+} from 'tgui-core/components';
+import { formatPower } from 'tgui-core/format';
+import { useBackend } from '../backend';
+import { Grid } from '../components';
 import { Window } from '../layouts';
 
 type PacmanData = {

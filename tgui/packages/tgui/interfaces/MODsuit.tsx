@@ -1,7 +1,5 @@
 import type { BooleanLike } from 'common/react';
 import { useState } from 'react';
-import { formatSiUnit } from 'tgui-core/format';
-import { useBackend } from '../backend';
 import {
   AnimatedNumber,
   Box,
@@ -18,7 +16,9 @@ import {
   Section,
   Stack,
   Table,
-} from '../components';
+} from 'tgui-core/components';
+import { formatSiUnit } from 'tgui-core/format';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type MODsuitData = {

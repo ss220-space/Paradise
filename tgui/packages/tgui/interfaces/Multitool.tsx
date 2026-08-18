@@ -1,6 +1,5 @@
 import { toFixed } from 'common/math';
 import type { ReactNode } from 'react';
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -9,9 +8,9 @@ import {
   Icon,
   NumberInput,
   Section,
-} from '../components';
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import type { BoxProps } from '../components/Box';
-import type { ButtonProps, ConfirmProps } from '../components/Button';
 import type { FlexProps } from '../components/Flex';
 import { Window } from '../layouts';
 
@@ -267,7 +266,7 @@ const TextOrDefault = (props: TextOrDefaultProps) => {
 
 type ConfirmOrNormalButtonProps = {
   noConfirm?: boolean;
-} & (ButtonProps | ConfirmProps);
+} & any;
 
 const ConfirmOrNormalButton = (props: ConfirmOrNormalButtonProps) => {
   const { noConfirm = false, ...rest } = props;

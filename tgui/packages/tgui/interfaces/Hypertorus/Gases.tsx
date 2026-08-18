@@ -1,7 +1,7 @@
-import { toFixed } from 'common/math';
 import { sortBy } from 'es-toolkit';
 import { filter } from 'es-toolkit/compat';
 import { useBackend } from 'tgui/backend';
+import { getGasColor, getGasLabel } from 'tgui/constants';
 import {
   Box,
   Button,
@@ -9,8 +9,8 @@ import {
   NumberInput,
   ProgressBar,
   Section,
-} from 'tgui/components';
-import { getGasColor, getGasLabel } from 'tgui/constants';
+} from 'tgui-core/components';
+import { toFixed } from 'tgui-core/math';
 
 import type { HypertorusFuel, HypertorusGas } from '.';
 import { HelpDummy, HoverHelp } from './helpers';

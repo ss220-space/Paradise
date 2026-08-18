@@ -1,7 +1,4 @@
-import { toFixed } from 'common/math';
 import { useState } from 'react';
-import { formatPower } from 'tgui-core/format';
-import { useBackend } from '../../backend';
 import {
   Box,
   Button,
@@ -15,7 +12,10 @@ import {
   Stack,
   Table,
   Tabs,
-} from '../../components';
+} from 'tgui-core/components';
+import { formatPower } from 'tgui-core/format';
+import { toFixed } from 'tgui-core/math';
+import { useBackend } from '../../backend';
 import type { MainData, MechModule } from './data';
 import { useHonk } from './honk';
 

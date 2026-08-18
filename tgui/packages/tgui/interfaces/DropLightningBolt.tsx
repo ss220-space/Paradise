@@ -1,5 +1,4 @@
 import type { BooleanLike } from 'common/react';
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -9,7 +8,8 @@ import {
   Section,
   Stack,
   Tooltip,
-} from '../components';
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type LightningBoltData = {

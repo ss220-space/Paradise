@@ -1,5 +1,3 @@
-import { clamp01 } from 'common/math';
-import type { BooleanLike } from 'common/react';
 import { type ReactNode, useCallback, useRef, useState } from 'react';
 import transparency_checkerboard from 'tgui/assets/transparency_checkerboard.svg';
 import {
@@ -9,7 +7,9 @@ import {
   NumberInput,
   Section,
   Stack,
-} from 'tgui/components';
+} from 'tgui-core/components';
+import { clamp01 } from 'tgui-core/math';
+import type { BooleanLike } from 'tgui-core/react';
 import {
   type BooleanStyleMap,
   computeBoxProps,

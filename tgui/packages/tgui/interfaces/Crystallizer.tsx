@@ -7,7 +7,7 @@ import {
   NumberInput,
   ProgressBar,
   Section,
-} from 'tgui/components';
+} from 'tgui-core/components';
 
 import { useBackend } from '../backend';
 import { getGasColor } from '../constants';

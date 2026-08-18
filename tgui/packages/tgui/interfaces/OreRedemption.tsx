@@ -1,6 +1,5 @@
 import { classes } from 'common/react';
 import { useState } from 'react';
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -10,7 +9,8 @@ import {
   Section,
   Stack,
   Tabs,
-} from '../components';
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import type { SectionProps } from '../components/Section';
 import { Window } from '../layouts';
 

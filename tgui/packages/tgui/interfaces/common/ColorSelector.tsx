@@ -24,7 +24,7 @@ import {
   Pointer,
   Stack,
   Tooltip,
-} from '../../components';
+} from 'tgui-core/components';
 import type { Interaction } from '../../components/Interactive';
 
 export const ColorSelector = ({

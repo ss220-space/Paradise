@@ -1,6 +1,5 @@
-import type { Placement } from '@popperjs/core';
+import type { Placement } from '@floating-ui/react';
 import { useState } from 'react';
-import { useBackend } from '../../backend';
 import {
   BlockQuote,
   Box,
@@ -18,7 +17,8 @@ import {
   Slider,
   Tabs,
   Tooltip,
-} from '../../components';
+} from 'tgui-core/components';
+import { useBackend } from '../../backend';
 import { DraggableControl } from '../../components/DraggableControl';
 import { Window } from '../../layouts';
 

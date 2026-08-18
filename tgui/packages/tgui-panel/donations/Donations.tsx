@@ -13,6 +13,7 @@ import { hideDonations } from './handlers';
 
 export const Donations = (props: unknown) => {
   const donation = useAtomValue(metaAtom);
+  if (!donation) return null;
   const currentValue = donation.monthDonations;
   const middleValue = donation.targetDonation;
   const maxValue = donation.ttsTargetDonation;

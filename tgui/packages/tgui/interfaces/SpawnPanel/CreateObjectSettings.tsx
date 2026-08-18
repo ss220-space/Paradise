@@ -9,7 +9,7 @@ import {
   Slider,
   Stack,
   Table,
-} from 'tgui/components';
+} from 'tgui-core/components';
 
 import { useBackend } from '../../backend';
 import {

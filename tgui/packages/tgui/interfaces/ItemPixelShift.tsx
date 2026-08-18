@@ -1,5 +1,11 @@
+import { Grid } from 'tgui/components';
+import {
+  Button,
+  LabeledList,
+  NumberInput,
+  Section,
+} from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Button, Grid, LabeledList, NumberInput, Section } from '../components';
 import { Window } from '../layouts';
 
 type PixelShiftData = {

@@ -1,5 +1,4 @@
 import type { Key } from 'react';
-import { useBackend, useSharedState } from '../backend';
 import {
   Box,
   Button,
@@ -9,7 +8,8 @@ import {
   ProgressBar,
   Section,
   Stack,
-} from '../components';
+} from 'tgui-core/components';
+import { useBackend, useSharedState } from '../backend';
 import { Operating } from '../interfaces/common/Operating';
 import { Window } from '../layouts';
 

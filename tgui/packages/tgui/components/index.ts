@@ -21,7 +21,6 @@ export { Divider } from './Divider';
 export { DmIcon } from './DmIcon';
 export { DraggableControl } from './DraggableControl';
 export { Dropdown } from './Dropdown';
-export { FitText } from './FitText';
 export { Flex } from './Flex';
 export { Floating } from './Floating';
 export { Grid } from './Grid';

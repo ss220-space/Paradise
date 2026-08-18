@@ -1,6 +1,7 @@
 import { capitalizeFirst } from 'common/string';
 import { useState } from 'react';
-import { Button, Dropdown, NumberInput, Section, Stack } from 'tgui/components';
+import { Dropdown } from 'tgui/components';
+import { Button, NumberInput, Section, Stack } from 'tgui-core/components';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 

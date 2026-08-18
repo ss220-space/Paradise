@@ -1,5 +1,10 @@
 import type { BooleanLike } from 'common/react';
-import { Button, LabeledList, NumberInput, Section } from 'tgui/components';
+import {
+  Button,
+  LabeledList,
+  NumberInput,
+  Section,
+} from 'tgui-core/components';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 

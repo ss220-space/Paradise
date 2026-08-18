@@ -158,7 +158,7 @@ export const TguiSay = () => {
     setButtonContent(iterator.current());
     setCurrentPrefix(null);
     messages.current.channelIncrementMsg(iterator.isVisible());
-    innerRef.current.focus();
+    innerRef?.current?.focus();
   };
 
   const handleInput = (event: React.FormEvent<HTMLTextAreaElement>): void => {
@@ -188,6 +188,7 @@ export const TguiSay = () => {
 
   const UpdatePrefix = (prefix: keyof typeof RADIO_PREFIXES | null) => {
     const iterator = channelIterator.current;
+    if (!prefix) return;
     setButtonContent(RADIO_PREFIXES[prefix]);
     setCurrentPrefix(prefix);
     iterator.set('Сказать');
@@ -197,6 +198,7 @@ export const TguiSay = () => {
   };
 
   const UpdateTyping = (prefix: keyof typeof RADIO_PREFIXES | null) => {
+    if (!prefix) return;
     if (channelIterator.current.isVisible() && !(prefix in BINARY_PREFIXES)) {
       messages.current.typingMsg();
     }
@@ -213,8 +215,8 @@ export const TguiSay = () => {
       setButtonContent(channel);
     }
 
-    UpdateTyping(prefix);
-    setValue(value);
+    if (prefix) UpdateTyping(prefix);
+    if (value) setValue(value);
   };
 
   const handleKeyDown = (
