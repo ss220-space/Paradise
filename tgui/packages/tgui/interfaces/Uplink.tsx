@@ -176,7 +176,7 @@ export const Uplink = (_props: unknown) => {
                 <Tabs.Tab
                   key="BecomeContractor"
                   color={
-                    !!data.contractor.available && !data.contractor.accepted
+                    data.contractor.available && !data.contractor.accepted
                       ? 'yellow'
                       : 'transparent'
                   }
@@ -256,7 +256,7 @@ const ItemsPage = (properties: SearchTextProps & ShowDescProps) => {
       return setUplinkItems(cats[0].items);
     }
     setUplinkItems(
-      SelectEquipment(cats.map((category) => category.items).flat(), value),
+      SelectEquipment(cats.flatMap((category) => category.items), value),
     );
   };
 

@@ -18,10 +18,13 @@ import { VariableMenu } from './VariableMenu';
 import { ComponentMenu } from './ComponentMenu';
 import type { IntegratedCircuitState, IntegratedCircuitData } from './types';
 
-export class IntegratedCircuit extends Component<{}, IntegratedCircuitState> {
+export class IntegratedCircuit extends Component<
+  unknown,
+  IntegratedCircuitState
+> {
   timeUntilPortReleaseTimesOut: number = 0;
 
-  constructor(props) {
+  constructor(props: unknown) {
     super(props);
     this.state = {
       locations: {},

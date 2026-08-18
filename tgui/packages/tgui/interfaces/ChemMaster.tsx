@@ -1,4 +1,4 @@
-import type { ReactNode, } from 'react';
+import type { ReactNode } from 'react';
 import { useBackend } from '../backend';
 import {
   Box,
@@ -161,7 +161,7 @@ export const ChemMaster = (props: unknown) => {
   );
 };
 
-const ChemMasterBeaker = (props: {}) => {
+const ChemMasterBeaker = (_props: unknown) => {
   const { act, data } = useBackend<ChemMasterData>();
   const { beaker, beaker_reagents, buffer_reagents } = data;
   const bufferNonEmpty = buffer_reagents.length > 0;
@@ -250,7 +250,7 @@ const ChemMasterBeaker = (props: {}) => {
   );
 };
 
-const ChemMasterBuffer = (props: {}) => {
+const ChemMasterBuffer = (_props: unknown) => {
   const { act, data } = useBackend<ChemMasterData>();
   const { mode, buffer_reagents } = data;
   return (
@@ -335,7 +335,7 @@ const ChemMasterBuffer = (props: {}) => {
   );
 };
 
-const ChemMasterProduction = (props: {}) => {
+const ChemMasterProduction = (_props: unknown) => {
   const { data } = useBackend<ChemMasterData>();
   const { buffer_reagents } = data;
   if (buffer_reagents.length === 0) {
@@ -363,7 +363,7 @@ const ChemMasterProduction = (props: {}) => {
   );
 };
 
-const ChemMasterProductionTabs = (props: {}) => {
+const ChemMasterProductionTabs = (_props: unknown) => {
   const { act, data } = useBackend<ChemMasterData>();
   const { production_mode, production_data, static_production_data } = data;
   const decideTab = (mode: ChemMasterData['production_mode']) => {
@@ -544,7 +544,7 @@ const ChemMasterProductionGeneric = (props: {
   );
 };
 
-const ChemMasterCustomization = (props: {}) => {
+const ChemMasterCustomization = (_props: unknown) => {
   const { act, data } = useBackend<ChemMasterData>();
   const { loaded_pill_bottle_style, containerstyles, loaded_pill_bottle } =
     data;

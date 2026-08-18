@@ -50,17 +50,15 @@ type Data = {
   dates: string[];
 };
 
-type Props = {};
-
 type State = {
   data: Record<string, Record<string, string[]>> | string;
   selectedDate: string;
   selectedIndex: number;
 };
 
-export class Changelog extends Component<Props, State> {
+export class Changelog extends Component<unknown, State> {
   dateChoices: string[];
-  constructor(props: Props) {
+  constructor(props: unknown) {
     super(props);
     this.state = {
       data: 'Loading changelog data...',
