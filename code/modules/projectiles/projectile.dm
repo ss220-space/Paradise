@@ -248,7 +248,7 @@
 	var/mob/living/carbon/human/H
 	var/organ_hit_text = ""
 	if(blocked < 100) // not completely blocked
-		if(!nodamage && damage && L.blood_volume && damage_type == BRUTE)
+		if(!nodamage && damage && L.blood_volume && damage_type == BRUTE && damage > 10)
 			var/splatter_dir = Angle
 			if(starting)
 				splatter_dir = !isnull(Angle) ? Angle : round(get_angle(starting, target_loca), 1)

@@ -373,6 +373,8 @@
 	var/leave_blood = TRUE
 	/// The cached info about the blood
 	var/list/blood_dna_info
+	/// The final damage dealt to the mob (after armor), used to determine blood effects
+	var/damage_dealt = 0
 
 /obj/effect/decal/cleanable/blood/hitsplatter/Initialize(mapload, splatter_strength)
 	. = ..()
@@ -389,8 +391,9 @@
 
 /obj/effect/decal/cleanable/blood/hitsplatter/proc/expire()
 	if(isturf(loc) && !skip)
-		playsound(src, 'sound/effects/splatter.ogg', 60, TRUE, -1)
-		if(blood_dna_info)
+		if(damage_dealt > 20)
+			playsound(src, 'sound/effects/splatter.ogg', 60, TRUE, -1)
+		if(blood_dna_info && damage_dealt > 5)
 			loc.add_blood(blood_dna_info, basecolor)
 	if(!QDELETED(src))
 		qdel(src)
