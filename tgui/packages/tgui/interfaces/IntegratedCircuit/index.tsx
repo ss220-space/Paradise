@@ -196,10 +196,10 @@ export class IntegratedCircuit extends Component<{}, IntegratedCircuitState> {
     this.setState((state) => ({
       mouseX:
         (event.clientX - (state.backgroundX || screen_x)) *
-        Math.pow(state.zoom, -1),
+        state.zoom ** -1,
       mouseY:
         (event.clientY - (state.backgroundY || screen_y)) *
-        Math.pow(state.zoom, -1),
+        state.zoom ** -1,
     }));
   }
 
@@ -355,7 +355,7 @@ export class IntegratedCircuit extends Component<{}, IntegratedCircuitState> {
       variable: draggingVariable,
       is_setter: variableIsSetter,
       rel_x: xPos,
-      rel_y: yPos + ABSOLUTE_Y_OFFSET * Math.pow(this.state.zoom, -1),
+      rel_y: yPos + ABSOLUTE_Y_OFFSET * this.state.zoom ** -1,
     });
   }
 
@@ -391,7 +391,7 @@ export class IntegratedCircuit extends Component<{}, IntegratedCircuitState> {
     act('print_component', {
       component_to_print: draggingComponent.type,
       rel_x: xPos,
-      rel_y: yPos + ABSOLUTE_Y_OFFSET * Math.pow(this.state.zoom, -1),
+      rel_y: yPos + ABSOLUTE_Y_OFFSET * this.state.zoom ** -1,
     });
   }
 
@@ -448,7 +448,7 @@ export class IntegratedCircuit extends Component<{}, IntegratedCircuitState> {
       const portLocation = locations[selectedPort.ref];
       const mouseCoords = {
         x: mouseX,
-        y: mouseY + ABSOLUTE_Y_OFFSET * Math.pow(this.state.zoom, -1),
+        y: mouseY + ABSOLUTE_Y_OFFSET * this.state.zoom ** -1,
       };
       connections.push({
         color: (portLocation?.color) || 'blue',

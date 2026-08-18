@@ -30,7 +30,7 @@ const distanceToPoint = (from: number[], to: number[], upgr: boolean) => {
 
   const angle = Math.atan2(to[1] - from[1], to[0] - from[0]);
   const dist = Math.sqrt(
-    Math.pow(to[1] - from[1], 2) + Math.pow(to[0] - from[0], 2)
+    (to[1] - from[1]) ** 2 + (to[0] - from[0]) ** 2
   );
   return { angle: rad2deg(angle), distance: dist };
 };

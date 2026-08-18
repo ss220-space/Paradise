@@ -67,8 +67,8 @@ export class ObjectComponent extends Component<
       if (lastMousePos) {
         this.setState({
           dragPos: {
-            x: dragPos.x - (lastMousePos.x - xPos) * Math.pow(zoom, -1),
-            y: dragPos.y - (lastMousePos.y - yPos) * Math.pow(zoom, -1),
+            x: dragPos.x - (lastMousePos.x - xPos) * zoom ** -1,
+            y: dragPos.y - (lastMousePos.y - yPos) * zoom ** -1,
           },
         });
       }
