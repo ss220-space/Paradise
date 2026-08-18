@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { type ReactNode, } from 'react';
+import type { ReactNode, } from 'react';
 import { Box, Section, Button, Flex } from '../components';
 import { Window } from '../layouts';
 import { PhotoThumbnail, type StoryData } from './Newscaster';

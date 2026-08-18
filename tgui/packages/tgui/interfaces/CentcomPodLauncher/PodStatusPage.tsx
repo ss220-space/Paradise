@@ -4,7 +4,7 @@ import { useBackend } from '../../backend';
 import { Box, Button, Section, Stack } from '../../components';
 import { EFFECTS_ALL, POD_GREY } from './constants';
 import { useCompact } from './hooks';
-import { type PodLauncherData } from './types';
+import type { PodLauncherData } from './types';
 
 export const PodStatusPage = (props: unknown) => {
   const [compact] = useCompact();

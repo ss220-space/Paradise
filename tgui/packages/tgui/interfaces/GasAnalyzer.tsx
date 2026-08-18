@@ -1,4 +1,4 @@
-import { type CSSProperties, } from 'react';
+import type { CSSProperties, } from 'react';
 import { useBackend } from '../backend';
 import { Button, LabeledList, Section, Box, Stack } from '../components';
 import { Window } from '../layouts';
