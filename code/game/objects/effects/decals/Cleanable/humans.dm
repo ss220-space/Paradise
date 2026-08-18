@@ -1,6 +1,6 @@
 #define DRYING_TIME 5 * 60 * 10 //for 1 unit of depth in puddle (amount var)
-#define DAMAGE_TO_PLAY_SOUND = 20
-#define DAMAGE_TO_ADD_BLOOD = 5
+#define DAMAGE_TO_PLAY_SOUND 20
+#define DAMAGE_TO_ADD_BLOOD 5
 
 /obj/effect/decal/cleanable/blood
 	name = "blood"
