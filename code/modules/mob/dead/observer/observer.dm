@@ -607,6 +607,18 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(src, span_notice("Сканирование газов включено. Кликните на тайл для анализа."))
 		gas_scan = TRUE
 
+/mob/dead/observer/verb/toggle_plant_anaylzer()
+	set name = "Анализ растений"
+	set desc = "Toggles wether you can anaylze plants and seeds on click"
+	set category = VERB_CATEGORY_GHOST
+
+	if(plant_analyzer)
+		to_chat(src, span_notice("Анализатор растений отключён."))
+		plant_analyzer = FALSE
+	else
+		to_chat(src, span_notice("Анализатор растений включён. Кликните на растение или семя для анализа."))
+		plant_analyzer = TRUE
+
 /mob/dead/observer/verb/view_manifest()
 	set name = "Манифест экипажа"
 	set category = VERB_CATEGORY_GHOST
