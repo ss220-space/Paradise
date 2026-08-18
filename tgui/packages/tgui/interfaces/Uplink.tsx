@@ -1,4 +1,4 @@
-import { filter, sortBy } from 'common/collections';
+import { sortBy } from 'es-toolkit';
 import { flow } from 'common/fp';
 
 import { createSearch, decodeHtmlEntities } from 'common/string';
@@ -240,12 +240,12 @@ const ItemsPage = (properties: SearchTextProps & ShowDescProps) => {
 
   const SelectEquipment = (cat: Item[], searchText = '') => {
     const EquipmentSearch = createSearch<Item>(searchText, (item) => {
-      let is_hijack = item.hijack_only ? '|' + 'hijack' : '';
+      const is_hijack = item.hijack_only ? '|' + 'hijack' : '';
       return item.name + '|' + item.desc + '|' + item.cost + 'tc' + is_hijack;
     });
     return flow([
-      (cat: Item[]) => filter(cat, (item) => !!item?.name), // Make sure it has a name
-      (cat: Item[]) => (searchText ? filter(cat, EquipmentSearch) : cat), // Search for anything
+      (cat: Item[]) => cat.filter((item) => !!item?.name), // Make sure it has a name
+      (cat: Item[]) => (searchText ? cat.filter(EquipmentSearch) : cat), // Search for anything
       (cat: Item[]) => sortBy(cat, (item) => item?.name), // Sort by name
     ])(cat);
   };
@@ -255,7 +255,7 @@ const ItemsPage = (properties: SearchTextProps & ShowDescProps) => {
       return setUplinkItems(cats[0].items);
     }
     setUplinkItems(
-      SelectEquipment(cats.map((category) => category.items).flat(), value)
+      SelectEquipment(cats.map((category) => category.items).flat(), value),
     );
   };
 
@@ -582,15 +582,15 @@ const ExploitableInfoPage = (_properties) => {
   const SelectMembers = (people: ExploitableRecord[], searchText = '') => {
     const MemberSearch = createSearch<ExploitableRecord>(
       searchText,
-      (member: ExploitableRecord) => member?.name
+      (member: ExploitableRecord) => member?.name,
     );
     return flow([
       (people: ExploitableRecord[]) =>
         // Null member filter
-        filter(people, (member) => !!member?.name),
+        people.filter((member) => !!member?.name),
       // Optional search term
       (people: ExploitableRecord[]) =>
-        searchText ? filter(people, MemberSearch) : people,
+        searchText ? people.filter(MemberSearch) : people,
       // Slightly expensive, but way better than sorting in BYOND
       (people: ExploitableRecord[]) => sortBy(people, (member) => member?.name),
     ])(people);

@@ -1,5 +1,5 @@
 import { flow } from 'common/fp';
-import { filter, sortBy } from 'common/collections';
+import { sortBy } from 'es-toolkit';
 import { useBackend, useSharedState } from '../backend';
 import {
   Box,
@@ -18,7 +18,7 @@ const canBeMade = (
   recipe: Recipe,
   mavail: number,
   gavail: number,
-  multi: number
+  multi: number,
 ) => {
   if (recipe.requirements === null) {
     return true;
@@ -77,13 +77,13 @@ export const Autolathe = (props: unknown) => {
   if (category === '') {
     category = 'Инструменты';
   }
-  let metalReadable = metal_amount
+  const metalReadable = metal_amount
     .toString()
     .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'); // add thousands seperator
-  let glassReadable = glass_amount
+  const glassReadable = glass_amount
     .toString()
     .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-  let totalReadable = total_amount
+  const totalReadable = total_amount
     .toString()
     .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 
@@ -116,14 +116,12 @@ export const Autolathe = (props: unknown) => {
 
   const recipesToShow: Recipe[] = flow([
     (recipes: Recipe[]) =>
-      filter<Recipe>(
-        recipes,
-        (recipe) =>
+      recipes.filter(
+        (recipe: Recipe) =>
           (recipe.category.indexOf(category) > -1 || searchText) &&
-          (data.showhacked || !recipe.hacked)
+          (data.showhacked || !recipe.hacked),
       ),
-    (recipes: Recipe[]) =>
-      searchText ? filter<Recipe>(recipes, testSearch) : recipes,
+    (recipes: Recipe[]) => (searchText ? recipes.filter(testSearch) : recipes),
     (recipes: Recipe[]) =>
       sortBy(recipes, (recipe) => recipe.name.toLowerCase()),
   ])(recipes);
@@ -182,7 +180,7 @@ export const Autolathe = (props: unknown) => {
                         recipe,
                         data.metal_amount,
                         data.glass_amount,
-                        1
+                        1,
                       )
                     }
                     tooltip={recipe.desc}
@@ -207,7 +205,7 @@ export const Autolathe = (props: unknown) => {
                           recipe,
                           data.metal_amount,
                           data.glass_amount,
-                          10
+                          10,
                         )
                       }
                       onClick={() =>
@@ -232,7 +230,7 @@ export const Autolathe = (props: unknown) => {
                           recipe,
                           data.metal_amount,
                           data.glass_amount,
-                          25
+                          25,
                         )
                       }
                       onClick={() =>
@@ -258,7 +256,7 @@ export const Autolathe = (props: unknown) => {
                           recipe,
                           data.metal_amount,
                           data.glass_amount,
-                          recipe.max_multiplier
+                          recipe.max_multiplier,
                         )
                       }
                       onClick={() =>
@@ -275,7 +273,7 @@ export const Autolathe = (props: unknown) => {
                     Object.keys(recipe.requirements)
                       .map(
                         (mat) =>
-                          toTitleCase(mat) + ': ' + recipe.requirements[mat]
+                          toTitleCase(mat) + ': ' + recipe.requirements[mat],
                       )
                       .join(', ')) || <Box>Материалы не требуются.</Box>}
                 </Stack.Item>

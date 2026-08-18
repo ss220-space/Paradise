@@ -22,12 +22,6 @@ type ByondProps = {
   lightMode: BooleanLike;
   scale: BooleanLike;
 };
-const ROWS: Record<keyof typeof WindowSize, number> = {
-  Small: 1,
-  Medium: 2,
-  Large: 3,
-  Width: 1, // not used
-} as const;
 
 export const TguiSay = () => {
   const innerRef = useRef<HTMLTextAreaElement>(null);
@@ -93,7 +87,7 @@ export const TguiSay = () => {
   };
 
   const handleButtonClick = (
-    event: React.MouseEvent<HTMLButtonElement>
+    event: React.MouseEvent<HTMLButtonElement>,
   ): void => {
     isDragging.current = true;
 
@@ -179,7 +173,7 @@ export const TguiSay = () => {
       return;
     }
 
-    let newPrefix = getPrefix(newValue) || currentPrefix;
+    const newPrefix = getPrefix(newValue) || currentPrefix;
 
     // Handles switching prefixes
     if (newPrefix && newPrefix !== currentPrefix) {
@@ -223,7 +217,7 @@ export const TguiSay = () => {
   };
 
   const handleKeyDown = (
-    event: React.KeyboardEvent<HTMLTextAreaElement>
+    event: React.KeyboardEvent<HTMLTextAreaElement>,
   ): void => {
     if (event.getModifierState('AltGraph')) return;
 
@@ -293,8 +287,8 @@ export const TguiSay = () => {
       newSize = WindowSize.Small;
     }
     if (size !== newSize) {
-      setSize(newSize);
       windowSet(newSize, scale.current);
+      setSize(newSize);
     }
   }, [value]);
   const theme =
@@ -328,13 +322,16 @@ export const TguiSay = () => {
         </button>
         <textarea
           autoCorrect="off"
-          className={`textarea textarea-${theme}`}
+          className={classes([
+            'textarea',
+            `textarea-${theme}`,
+            value.length > LineLength.Large && 'textarea-large',
+          ])}
           maxLength={maxLength}
           onInput={handleInput}
           onKeyDown={handleKeyDown}
           ref={innerRef}
           spellCheck={false}
-          rows={ROWS[size] || 1}
           value={value}
         />
       </div>

@@ -1,24 +1,19 @@
-import { GasmixParser } from 'tgui/interfaces/common/GasmixParser';
 import {
   Box,
   Button,
-  Collapsible,
   DmIcon,
   Tabs,
   Table,
   Icon,
   LabeledList,
-  NoticeBox,
   NumberInput,
   ProgressBar,
   Section,
   Stack,
-  Divider,
   Dropdown,
 } from '../../components';
-import { formatPower } from '../../format';
+import { formatPower } from 'tgui-core/format';
 import { toFixed } from 'common/math';
-import { classes } from 'common/react';
 import { useState } from 'react';
 
 import { useBackend } from '../../backend';
@@ -127,7 +122,7 @@ export const ModulesPane = (_props: unknown) => {
                       </Stack.Item>
                     </Stack>
                   </Button>
-                )
+                ),
               )}
             </Stack.Item>
             <Stack.Item grow pl={1}>

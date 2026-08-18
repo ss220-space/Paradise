@@ -53,7 +53,7 @@ const damageRange: Record<string, [number, number]> = {
 };
 
 const mapTwoByTwo = <T, R>(a: T[][], c: (s: T[], c2: T[], i: number) => R) => {
-  let result: R[] = [];
+  const result: R[] = [];
   for (let i = 0; i < a.length; i += 2) {
     result.push(c(a[i], a[i + 1], i));
   }

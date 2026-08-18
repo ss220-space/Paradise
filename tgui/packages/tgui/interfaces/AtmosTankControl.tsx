@@ -27,7 +27,7 @@ type Sensor = {
 export const AtmosTankControl = (props) => {
   const { data } = useBackend<AtmosTankControlData>();
 
-  let sensors_list = data.sensors || [];
+  const sensors_list = data.sensors || [];
 
   const isValidNumber = (value: unknown): value is number => {
     return typeof value === 'number' && !isNaN(value);

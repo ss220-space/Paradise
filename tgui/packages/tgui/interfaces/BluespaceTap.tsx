@@ -10,7 +10,7 @@ import {
   Box,
 } from '../components';
 import { Window } from '../layouts';
-import { formatPower } from '../format';
+import { formatPower } from 'tgui-core/format';
 
 type BluespaceTapData = {
   desiredLevel: number;

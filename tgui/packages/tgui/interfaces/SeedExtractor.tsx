@@ -39,10 +39,10 @@ const ge = (actual: number, test: number) => actual >= test;
 const le = (actual: number, test: number) => actual <= test;
 
 const seedFilter = (searchText: string) => {
-  let terms = searchText.split(' ');
-  let filters = [];
-  for (let term of terms) {
-    let parts = term.split(':');
+  const terms = searchText.split(' ');
+  const filters = [];
+  for (const term of terms) {
+    const parts = term.split(':');
     if (parts.length === 0) {
       continue;
     }
@@ -114,7 +114,7 @@ const seedFilter = (searchText: string) => {
     }
   }
   return (seed: Seed) => {
-    for (let filter of filters) {
+    for (const filter of filters) {
       if (!filter(seed)) {
         return false;
       }

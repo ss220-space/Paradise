@@ -1,5 +1,5 @@
 import { flow } from 'common/fp';
-import { filter, sortBy } from 'common/collections';
+import { sortBy } from 'es-toolkit';
 import { useBackend, useSharedState } from '../backend';
 import { useState } from 'react';
 import {
@@ -159,7 +159,7 @@ const CataloguePane = (properties: CataloguePaneProps) => {
 
   const [category, setCategory] = useSharedState(
     'category',
-    'Чрезвычайные ситуации'
+    'Чрезвычайные ситуации',
   );
 
   const [searchText, setSearchText] = useSharedState('search_text', '');
@@ -168,23 +168,23 @@ const CataloguePane = (properties: CataloguePaneProps) => {
 
   const packSearch = createSearch<SupplyPack>(
     searchText,
-    (crate) => crate.name
+    (crate) => crate.name,
   );
 
   const targetCategory = !searchText
-    ? filter(categories, (c) => c.name === category)[0]?.category || category
+    ? categories.filter((c) => c.name === category)[0]?.category || category
     : null;
 
   const cratesToShow = flow([
     (supply_packs) =>
-      filter<SupplyPack>(supply_packs, (pack) => {
+      supply_packs.filter((pack: SupplyPack) => {
         if (searchText) {
           return true;
         }
         return pack.cat === targetCategory;
       }),
     (supply_packs) =>
-      searchText ? filter<SupplyPack>(supply_packs, packSearch) : supply_packs,
+      searchText ? supply_packs.filter(packSearch) : supply_packs,
     (supply_packs) =>
       sortBy<SupplyPack>(supply_packs, (pack) => pack.name.toLowerCase()),
   ])(supply_packs);

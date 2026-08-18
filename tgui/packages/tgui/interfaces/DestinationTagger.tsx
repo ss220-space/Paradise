@@ -61,7 +61,7 @@ export const DestinationTaggerStation = (_props: unknown) => {
 
   const { destinations, selected_destination_id } = data;
 
-  let selected_destination = destinations[selected_destination_id - 1];
+  const selected_destination = destinations[selected_destination_id - 1];
 
   return (
     <Section title="TagMaster 4.0" textAlign="center">
@@ -97,7 +97,7 @@ export const DestinationTaggerCC = (props) => {
 
   const { selected_centcom_id } = data;
 
-  let far_destinations = props.iscorp
+  const far_destinations = props.iscorp
     ? data.corporation_destinations
     : data.centcom_destinations;
 

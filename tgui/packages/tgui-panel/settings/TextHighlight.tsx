@@ -1,31 +1,27 @@
-import { useDispatch, useSelector } from 'tgui/backend';
+import { useAtomValue } from 'jotai';
+import { useMemo, useRef } from 'react';
 import {
   Box,
   Button,
   ColorBox,
   Divider,
+  Floating,
   Icon,
   Input,
   Section,
   Stack,
   TextArea,
-} from 'tgui/components';
-
-import { rebuildChat } from '../chat/actions';
-import {
-  addHighlightSetting,
-  removeHighlightSetting,
-  updateHighlightSetting,
-} from './actions';
+} from 'tgui-core/components';
+import { chatRenderer } from '../chat/renderer';
+import { characterProfilesAtom, currentCharacterAtom } from '../game/atoms';
 import { WARN_AFTER_HIGHLIGHT_AMT } from './constants';
-import {
-  selectHighlightSettingById,
-  selectHighlightSettings,
-} from './selectors';
+import { useHighlights } from './use-highlights';
 
-export const TextHighlightSettings = (props: unknown) => {
-  const highlightSettings = useSelector(selectHighlightSettings);
-  const dispatch = useDispatch();
+export function TextHighlightSettings(props) {
+  const {
+    highlights: { highlightSettings },
+    addHighlight,
+  } = useHighlights();
 
   return (
     <Section fill scrollable height="250px">
@@ -42,9 +38,7 @@ export const TextHighlightSettings = (props: unknown) => {
             <Button
               color="transparent"
               icon="plus"
-              onClick={() => {
-                dispatch(addHighlightSetting());
-              }}
+              onClick={() => addHighlight()}
             >
               Добавить выделение текста
             </Button>
@@ -60,7 +54,7 @@ export const TextHighlightSettings = (props: unknown) => {
       </Stack>
       <Divider />
       <Box>
-        <Button icon="check" onClick={() => dispatch(rebuildChat())}>
+        <Button icon="check" onClick={() => chatRenderer.rebuildChat()}>
           Применить
         </Button>
         <Box inline fontSize="0.9em" ml={1} color="label">
@@ -69,49 +63,107 @@ export const TextHighlightSettings = (props: unknown) => {
       </Box>
     </Section>
   );
-};
+}
 
-const TextHighlightSetting = (props) => {
+const oneCharacterRegex = /^(\[.*\]|\\.|.)$/;
+
+function extractRegex(highlight: string): string | null {
+  if (
+    highlight.charAt(0) !== '/' ||
+    highlight.charAt(highlight.length - 1) !== '/'
+  ) {
+    return null;
+  }
+  const expr = highlight.substring(1, highlight.length - 1);
+  if (oneCharacterRegex.test(expr)) {
+    return null;
+  }
+  return expr;
+}
+
+function TextHighlightSetting(props) {
   const { id, ...rest } = props;
-  const highlightSettingById = useSelector(selectHighlightSettingById);
-  const dispatch = useDispatch();
   const {
+    highlights: { highlightSettingById },
+    updateHighlight,
+    removeHighlight,
+  } = useHighlights();
+  const {
+    enabled,
     highlightColor,
     highlightText,
     highlightWholeMessage,
     matchWord,
     matchCase,
+    jobFilter,
+    characterFilter,
   } = highlightSettingById[id];
+  const currentCharacter = useAtomValue(currentCharacterAtom);
+  const characterProfiles = useAtomValue(characterProfilesAtom);
+  const jobsPopover = useRef<{ close: () => void }>(null);
+  const jobCount = jobFilter.split(',').filter((str) => str.trim()).length;
+
+  // Known characters plus any selected names no longer in the save slots,
+  // so stale selections stay visible and can be unchecked
+  const selectableCharacters = useMemo(() => {
+    const known = new Set([...characterProfiles, ...characterFilter]);
+    if (currentCharacter) {
+      known.add(currentCharacter);
+    }
+    return [...known];
+  }, [characterProfiles, characterFilter, currentCharacter]);
+
+  function toggleCharacter(name: string): void {
+    const draft = characterFilter.includes(name)
+      ? characterFilter.filter((entry) => entry !== name)
+      : [...characterFilter, name];
+    updateHighlight({
+      id,
+      characterFilter: draft,
+    });
+  }
+
+  const highlightRegex = useMemo(
+    () => extractRegex(highlightText),
+    [highlightText],
+  );
+
+  const isRegexValid = useMemo(() => {
+    if (!highlightRegex) return true;
+    try {
+      new RegExp(highlightRegex, 'g');
+      return true;
+    } catch {
+      return false;
+    }
+  }, [highlightRegex]);
 
   return (
     <Stack.Item {...rest}>
       <Stack mb={1} color="label" align="baseline">
         <Stack.Item grow>
-          <Button
-            color="transparent"
-            icon="times"
+          <Button.Checkbox
+            checked={!!enabled}
+            mr="5px"
             onClick={() =>
-              dispatch(
-                removeHighlightSetting({
-                  id: id,
-                })
-              )
+              updateHighlight({
+                id,
+                enabled: !enabled,
+              })
             }
           >
-            Удалить
-          </Button>
+            Enabled
+          </Button.Checkbox>
         </Stack.Item>
         <Stack.Item>
           <Button.Checkbox
             checked={highlightWholeMessage}
             tooltip="Если эта опция включена, всё сообщение будет отмечено жёлтым."
             onClick={() =>
-              dispatch(
-                updateHighlightSetting({
-                  id: id,
-                  highlightWholeMessage: !highlightWholeMessage,
-                })
-              )
+              updateHighlight({
+                id,
+                highlightWholeMessage: !highlightWholeMessage,
+              })
             }
           >
             Целое сообщение
@@ -122,13 +174,12 @@ const TextHighlightSetting = (props) => {
             checked={matchWord}
             tooltipPosition="bottom-start"
             tooltip="Если эта опция включена, только строгие совпадения (без символов до и после) будут отмечены. Несовместимо с пунктуацией. Перегружается при использовании регулярных выражений."
+            disabled={!!highlightRegex}
             onClick={() =>
-              dispatch(
-                updateHighlightSetting({
-                  id: id,
-                  matchWord: !matchWord,
-                })
-              )
+              updateHighlight({
+                id,
+                matchWord: !matchWord,
+              })
             }
           >
             Строго
@@ -139,12 +190,10 @@ const TextHighlightSetting = (props) => {
             tooltip="Если эта опция включена, выделение будет чувствительно к регистру."
             checked={matchCase}
             onClick={() =>
-              dispatch(
-                updateHighlightSetting({
-                  id: id,
-                  matchCase: !matchCase,
-                })
-              )
+              updateHighlight({
+                id,
+                matchCase: !matchCase,
+              })
             }
           >
             Регистр
@@ -157,30 +206,108 @@ const TextHighlightSetting = (props) => {
             monospace
             placeholder="#ffffff"
             value={highlightColor}
-            onChange={(value) =>
-              dispatch(
-                updateHighlightSetting({
-                  id: id,
-                  highlightColor: value,
-                })
-              )
+            onBlur={(value) =>
+              updateHighlight({
+                id,
+                highlightColor: value,
+              })
             }
           />
         </Stack.Item>
       </Stack>
+      <Stack mb={1} color="label" align="baseline">
+        <Stack.Item grow>
+          <Floating
+            placement="bottom-start"
+            contentClasses="Dropdown__menu--wrapper"
+            content={
+              <div className="Dropdown__menu">
+                {selectableCharacters.map((name) => (
+                  <div key={name}>
+                    <Button.Checkbox
+                      checked={characterFilter.includes(name)}
+                      onClick={() => toggleCharacter(name)}
+                    >
+                      {name}
+                    </Button.Checkbox>
+                  </div>
+                ))}
+                {selectableCharacters.length === 0 && (
+                  <Box p={0.5} fontSize="0.9em" color="label">
+                    No known characters yet.
+                    <br />
+                    Join the game once to fill this list.
+                  </Box>
+                )}
+              </div>
+            }
+          >
+            <Box inline>
+              <Button color="transparent" icon="user">
+                {characterFilter.length
+                  ? `Characters: ${characterFilter.length}`
+                  : 'Characters: all'}
+              </Button>
+            </Box>
+          </Floating>
+          <Floating
+            ref={jobsPopover}
+            placement="bottom-start"
+            contentClasses="Dropdown__menu--wrapper"
+            contentStyles={{ width: '20em' }}
+            content={
+              <div className="Dropdown__menu">
+                <Input
+                  fluid
+                  placeholder="Job titles, e.g. (Captain, Assistant)"
+                  value={jobFilter}
+                  onBlur={(value) =>
+                    updateHighlight({
+                      id,
+                      jobFilter: value,
+                    })
+                  }
+                  onEnter={(value) => {
+                    updateHighlight({
+                      id,
+                      jobFilter: value,
+                    });
+                    jobsPopover.current?.close();
+                  }}
+                />
+              </div>
+            }
+          >
+            <Box inline>
+              <Button color="transparent" icon="user-tag">
+                {jobCount ? `Jobs: ${jobCount}` : 'Jobs: all'}
+              </Button>
+            </Box>
+          </Floating>
+        </Stack.Item>
+        <Stack.Item>
+          <Button
+            color="transparent"
+            icon="times"
+            onClick={() => removeHighlight(id)}
+          >
+            Delete
+          </Button>
+        </Stack.Item>
+      </Stack>
       <TextArea
+        fluid
         height="3em"
         value={highlightText}
         placeholder="Напишите сюда слова для выделения. Разделяйте их запятыми, например (слово1, слово2, слово3)."
-        onChange={(value) =>
-          dispatch(
-            updateHighlightSetting({
-              id: id,
-              highlightText: value,
-            })
-          )
+        style={{ border: isRegexValid ? '' : '1px solid red' }}
+        onBlur={(value) =>
+          updateHighlight({
+            id: id,
+            highlightText: value,
+          })
         }
       />
     </Stack.Item>
   );
-};
+}

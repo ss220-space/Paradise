@@ -36,7 +36,7 @@ const MindScanMenu = (_props: unknown) => {
   const { act, data } = useBackend<MindScanData>();
   const { occupantIcon, occupant_name, occupant_health, scanned_occupants } =
     data;
-  let block_buttons = occupant_name === 'none' ? 1 : 0;
+  const block_buttons = occupant_name === 'none' ? 1 : 0;
 
   return (
     <Flex direction="column" shrink={1} alignContent="left">

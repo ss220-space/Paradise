@@ -336,7 +336,7 @@ export const SpiderOS = (_properties) => {
   const { act, data } = useBackend<SpiderOSData>();
   let body: ReactNode;
   if (data.suit_tgui_state === 0) {
-    let actionsCheck = !!data.blocked_TGUI_rows.filter((value) => !value)
+    const actionsCheck = !!data.blocked_TGUI_rows.filter((value) => !value)
       .length;
     body = (
       <Flex direction="row" spacing={1}>
@@ -671,7 +671,7 @@ const ActionBuyPanel = (properties: ActionBuyPanelProps) => {
   const { act, data } = useBackend<SpiderOSData>();
   const { actionsIcon, blocked_TGUI_rows } = data;
 
-  let rowStyles = [
+  const rowStyles = [
     {
       blue: 'Button_blue',
       green: 'Button_green',

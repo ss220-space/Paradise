@@ -37,57 +37,45 @@ import './styles/themes/nologo.scss';
 import './styles/themes/spider_clan.scss';
 import './styles/themes/ntOS95.scss';
 
-import { perf } from 'common/perf';
-import { setupGlobalEvents } from 'common/events';
-import { setupHotKeys } from 'common/hotkeys';
-import { setupHotReloading } from 'tgui-dev-server/link/client';
-
-import { App } from './App';
-import { setGlobalStore } from './backend';
+import { setupGlobalEvents } from 'tgui-core/events';
+import { setupHotKeys } from 'tgui-core/hotkeys';
 import { captureExternalLinks } from 'tgui-core/links';
+import { setupHotReloading } from 'tgui-dev-server/link/client';
+import { App } from './App';
+import { setDebugHotKeys } from './debug/use-debug';
+import { bus } from './events/listeners';
 import { render } from './renderer';
-import { configureStore } from './store';
+import { createStackAugmentor } from './stack';
 
-perf.mark('inception', window.performance?.timeOrigin);
-perf.mark('init');
-
-const store = configureStore();
-
-const setupApp = () => {
+function setupApp() {
   // Delay setup
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', setupApp);
     return;
   }
-
-  setGlobalStore(store);
+  window.__augmentStack__ = createStackAugmentor();
 
   setupGlobalEvents();
   setupHotKeys({
     keyUpVerb: 'KeyUp',
     keyDownVerb: 'KeyDown',
-    verbParamsFn: (verb, key) => `${verb} "${key}"`,
     // In the future you could send a winget here to get mousepos/size from the map here if it's necessary
-    // TODO return with KeyDown and KeyUp Upgrade
-    // verbParamsFn: (verb, key) => `${verb} "${key}" 0 0 0 0`,
+    verbParamsFn: (verb, key) => `${verb} "${key}" 0 0 0 0`,
   });
   captureExternalLinks();
 
-  store.subscribe(() => render(<App />));
+  Byond.subscribe((type, payload) => bus.dispatch({ type, payload }));
 
-  // Dispatch incoming messages as store actions
-  Byond.subscribe((type, payload) => store.dispatch({ type, payload }));
+  render(<App />);
 
   // Enable hot module reloading
   if (import.meta.webpackHot) {
+    setDebugHotKeys();
     setupHotReloading();
-    import.meta.webpackHot.accept(
-      ['./debug', './layouts', './routes', './App'],
-      () => {
-        render(<App />);
-      },
+    import.meta.webpackHot.accept(['./layouts', './routes', './App'], () =>
+      render(<App />),
     );
   }
-};
+}
 
 setupApp();

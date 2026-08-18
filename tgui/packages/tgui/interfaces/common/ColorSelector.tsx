@@ -572,7 +572,7 @@ const RGBSlider = ({
 
   const nodeClassName = classes([`react-colorful__${target}`, className]);
 
-  let selected =
+  const selected =
     target === 'r'
       ? `rgb(${Math.round(rgb.r)},0,0)`
       : target === 'g'

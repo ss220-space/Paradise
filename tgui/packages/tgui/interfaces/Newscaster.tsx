@@ -812,7 +812,7 @@ const createStoryModalBodyOverride = (
   // Additional data
   const isAdmin = !!modal.args.is_admin;
   const scannedUser = modal.args.scanned_user;
-  let availableChannels = channels
+  const availableChannels = channels
     .slice()
     .sort((a, b) => {
       if (channel_idx < 0) {

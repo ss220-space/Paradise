@@ -4,7 +4,7 @@ import { Window } from '../layouts';
 import { capitalize } from 'common/string';
 
 const getDamageColor = (damage: number, maxDamage: number) => {
-  let damageRatio = damage / maxDamage;
+  const damageRatio = damage / maxDamage;
   if (damageRatio <= 0.2) {
     return 'good';
   } else if (damageRatio <= 0.5) {

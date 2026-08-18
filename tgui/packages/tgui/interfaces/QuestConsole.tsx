@@ -34,7 +34,7 @@ const getRewardColor = (reward: number, isCorp: boolean) => {
 };
 
 const mapTwoByTwo = <T1, T2>(a: T1[], c: (b: T1, c: T1, i: number) => T2) => {
-  let result = [];
+  const result = [];
   for (let i = 0; i < a.length; i += 2) {
     result.push(c(a[i], a[i + 1], i));
   }

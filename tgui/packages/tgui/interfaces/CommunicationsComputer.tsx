@@ -440,7 +440,7 @@ const StatusScreens = (props: unknown) => {
 
   const { stat_display, authhead } = data;
 
-  let presetButtons = stat_display.presets.map((pb) => {
+  const presetButtons = stat_display.presets.map((pb) => {
     return (
       <Button
         key={pb.name}
@@ -452,7 +452,7 @@ const StatusScreens = (props: unknown) => {
       </Button>
     );
   });
-  let iconButtons = stat_display.alerts.map((ib) => {
+  const iconButtons = stat_display.alerts.map((ib) => {
     return (
       <Button
         key={ib.alert}
@@ -529,7 +529,7 @@ const MessageView = (props: unknown) => {
       </Stack.Item>
     );
   } else {
-    let messageRows = messages.map((m) => {
+    const messageRows = messages.map((m) => {
       return (
         <LabeledList.Item key={m.id} label={m.title}>
           <Button

@@ -69,7 +69,7 @@ export const ControlBSAPanel = (props: unknown) => {
   if (!data.calibrate_ready) {
     calibratingModal = <BSACalibratePanel duration={data.calibrate_duration} />;
   }
-  let status = getStatus(data);
+  const status = getStatus(data);
   return (
     <Window width={600} height={800}>
       <Window.Content>

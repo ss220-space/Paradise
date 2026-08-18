@@ -1,4 +1,4 @@
-import { sortBy } from 'common/collections';
+import { sortBy } from 'es-toolkit';
 import { useBackend } from '../backend';
 import { useState } from 'react';
 import { Box, Button, Section, Table, TextArea, Grid } from '../components';

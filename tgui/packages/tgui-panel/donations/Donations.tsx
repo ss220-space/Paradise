@@ -1,4 +1,5 @@
-import { useDispatch, useSelector } from 'tgui/backend';
+import { useAtomValue } from 'jotai';
+import { metaAtom } from './atoms';
 import {
   Box,
   Button,
@@ -8,13 +9,11 @@ import {
   Stack,
 } from 'tgui/components';
 
-import { selectDonations } from './selectors';
-import { donationsHide } from './actions';
 import { decodeHTML } from 'common/string';
+import { hideDonations } from './handlers';
 
 export const Donations = (props: unknown) => {
-  const donation = useSelector(selectDonations);
-  const dispatch = useDispatch();
+  const donation = useAtomValue(metaAtom);
   const currentValue = donation.monthDonations;
   const middleValue = donation.targetDonation;
   const maxValue = donation.ttsTargetDonation;
@@ -35,7 +34,7 @@ export const Donations = (props: unknown) => {
             icon="close"
             backgroundColor="red"
             onClick={() => {
-              dispatch(donationsHide());
+              hideDonations();
             }}
           />
         }

@@ -12,7 +12,7 @@ import {
 
 import { type ModalProps } from '../../components/Modal';
 
-let bodyOverrides = {};
+const bodyOverrides = {};
 
 /**
  * Sends a call to BYOND to open a modal
@@ -106,7 +106,7 @@ export const ComplexModal = (props: ModalProps) => {
   const { id, text, type } = data.modal;
 
   let modalOnEnter: (e: KeyboardEvent<HTMLInputElement>) => void;
-  let modalHeader = (
+  const modalHeader = (
     <Button
       className="Button--modal"
       icon="arrow-left"

@@ -8,7 +8,7 @@ import {
   Section,
   Slider,
 } from '../components';
-import { formatPower } from '../format';
+import { formatPower } from 'tgui-core/format';
 import { Window } from '../layouts';
 
 // Common power multiplier

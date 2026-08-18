@@ -1,4 +1,4 @@
-import { sortBy } from 'common/collections';
+import { sortBy } from 'es-toolkit';
 import { createSearch } from 'common/string';
 import { useBackend } from '../backend';
 import { useState } from 'react';
@@ -204,7 +204,7 @@ const CrewMonitorTable = ({ crewData }: CrewMonitorTableProps) => {
                       highlighted
                         ? 'remove_highlighted_name'
                         : 'add_highlighted_name',
-                      { name: cm.name }
+                      { name: cm.name },
                     )
                   }
                 />
@@ -372,7 +372,7 @@ const CrewMonitorMapView = (_properties) => {
                 highlighted
                   ? 'remove_highlighted_name'
                   : 'add_highlighted_name',
-                { name: cm.name }
+                { name: cm.name },
               );
             const tooltip = cm.name + ' (' + cm.assignment + ')';
             if (highlighted) {

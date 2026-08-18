@@ -372,7 +372,7 @@ const DNAModifierMainRadiationEmitter = (props: unknown) => {
 const DNAModifierMainBuffers = (props: unknown) => {
   const { data } = useBackend<DNAModifierData>();
   const { buffers } = data;
-  let bufferElements = buffers.map((buffer, i) => (
+  const bufferElements = buffers.map((buffer, i) => (
     <DNAModifierMainBuffersElement
       key={i}
       id={i + 1}
@@ -758,10 +758,10 @@ const DNAModifierBlocks = (props: DNAModifierBlocksProps) => {
     props;
 
   const characters = dnaString.split('');
-  let dnaBlocks = [];
+  const dnaBlocks = [];
   for (let block = 0; block < characters.length; block += blockSize) {
     const realBlock = block / blockSize + 1;
-    let subBlocks = [];
+    const subBlocks = [];
     for (let subblock = 0; subblock < blockSize; subblock++) {
       const realSubblock = subblock + 1;
       subBlocks.push(

@@ -7,7 +7,7 @@ import {
   Section,
   Stack,
 } from '../../components';
-import { formatSiUnit } from '../../format';
+import { formatSiUnit } from 'tgui-core/format';
 
 import { AccessList } from '../common/AccessList';
 
@@ -178,8 +178,8 @@ const PowerBar = (props) => {
               : `${formatSiUnit(power_level, 0, 'J')} из ${formatSiUnit(
                   power_max,
                   0,
-                  'J'
-                )}`
+                  'J',
+                )}`,
         )}
       </ProgressBar>
     </LabeledList.Item>

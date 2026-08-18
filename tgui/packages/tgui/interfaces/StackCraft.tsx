@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { filter, sortBy, map, reduce } from 'common/collections';
+import { sortBy } from 'es-toolkit';
 import { flow } from 'common/fp';
 import { createSearch } from 'common/string';
 import { Window } from '../layouts';
@@ -46,7 +46,7 @@ const Recipes = (_props: unknown) => {
 
   const filteredRecipes = filterRecipeList(
     recipes,
-    createSearch<Recipe | string>(searchText)
+    createSearch<Recipe | string>(searchText),
   );
   const [searchActive, setSearchActive] = useState(false);
 
@@ -94,11 +94,11 @@ const Recipes = (_props: unknown) => {
  */
 const filterRecipeList = (
   recipeList: Recipe[] | Recipe,
-  titleFilter: (r: Recipe | string) => boolean
+  titleFilter: (r: Recipe | string) => boolean,
 ) => {
   const filteredList = flow([
     (recipeList: [string, Recipe][]) =>
-      map(recipeList, (entry) => {
+      recipeList.map((entry) => {
         const [title, recipe] = entry;
 
         if (isRecipeList(recipe)) {
@@ -114,20 +114,16 @@ const filterRecipeList = (
         return titleFilter(title) ? entry : [title, undefined];
       }),
     (recipeList: [string, Recipe][]) =>
-      filter(recipeList, ([title, recipe]) => recipe !== undefined),
+      recipeList.filter(([title, recipe]) => recipe !== undefined),
     (recipeList: [string, Recipe][]) =>
       sortBy(recipeList, ([title, recipe]) => title),
     (recipeList: [string, Recipe][]) =>
       sortBy(recipeList, ([title, recipe]) => !isRecipeList(recipe)),
     (recipeList: [string, Recipe][]) =>
-      reduce(
-        recipeList,
-        (obj, [title, recipe]) => {
-          obj[title] = recipe;
-          return obj;
-        },
-        {}
-      ),
+      recipeList.reduce((obj, [title, recipe]) => {
+        obj[title] = recipe;
+        return obj;
+      }, {}),
   ])(Object.entries(recipeList));
 
   return Object.keys(filteredList).length ? filteredList : undefined;
@@ -168,7 +164,7 @@ const Multipliers = (props: MultipliersProps) => {
 
   const max_available_multiplier = Math.min(
     max_possible_multiplier,
-    Math.floor(recipe.max_result_amount / recipe.result_amount)
+    Math.floor(recipe.max_result_amount / recipe.result_amount),
   );
 
   const multipliers = [5, 10, 25];
@@ -191,7 +187,7 @@ const Multipliers = (props: MultipliersProps) => {
           }
         >
           {multiplier * recipe.result_amount + 'x'}
-        </Button>
+        </Button>,
       );
     }
   }
@@ -211,7 +207,7 @@ const Multipliers = (props: MultipliersProps) => {
         }
       >
         {max_available_multiplier * recipe.result_amount + 'x'}
-      </Button>
+      </Button>,
     );
   }
 

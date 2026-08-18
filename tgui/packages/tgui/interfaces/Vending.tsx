@@ -387,7 +387,7 @@ const ProductColorSelect = (props: ProductColorSelectProps) => {
 const ProductPrice = (props) => {
   const { product, free } = props;
 
-  let standardPrice = free ? '0' : product.price;
+  const standardPrice = free ? '0' : product.price;
 
   return (
     <Stack.Item color={free ? 'green' : 'gold'}>

@@ -38,7 +38,7 @@ const CustomatRow = (props: CustomatRowProps) => {
     buttonText = product.price.toString();
     rowIcon = 'shopping-cart';
   }
-  let buttonDisabled =
+  const buttonDisabled =
     !vend_ready || product.stock === 0 || (!free && product.price > userMoney);
   return (
     <Table.Row>

@@ -170,7 +170,7 @@ type DepRecord = {
 export const CardComputer = (props: unknown) => {
   const { act, data } = useBackend<CardComputerData>();
 
-  let menuBlock = (
+  const menuBlock = (
     <Tabs>
       <Tabs.Tab
         icon="id-card"
@@ -212,7 +212,7 @@ export const CardComputer = (props: unknown) => {
     </Tabs>
   );
 
-  let authBlock = (
+  const authBlock = (
     <Section title="Авторизация">
       <LabeledList>
         <LabeledList.Item label="Карта для авторизации">

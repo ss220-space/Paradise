@@ -1,4 +1,3 @@
-import { map } from 'common/collections';
 import { toFixed } from 'common/math';
 import { useBackend } from '../backend';
 import { Box, Button, LabeledList, NumberInput, Section } from '../components';
@@ -30,21 +29,21 @@ export const Radio = (_props: unknown) => {
     has_loudspeaker,
   } = data;
   const tunedChannel = RADIO_CHANNELS.find(
-    (channel) => channel.freq === frequency
+    (channel) => channel.freq === frequency,
   );
-  let matchedChannel = tunedChannel && tunedChannel.name ? true : false;
-  let colorMap = [];
+  const matchedChannel = tunedChannel && tunedChannel.name ? true : false;
+  const colorMap = [];
   let rc: Channel;
   let i = 0;
   for (i = 0; i < RADIO_CHANNELS.length; i++) {
     rc = RADIO_CHANNELS[i];
     colorMap[rc.name] = rc.color;
   }
-  const schannels = map(data.schannels, (value, key) => ({
+  const schannels = data.schannels.map((value, key) => ({
     name: key.toString(),
     status: !!value,
   }));
-  const ichannels = map(data.ichannels, (value, key) => ({
+  const ichannels = data.ichannels.map((value, key) => ({
     name: key.toString(),
     freq: value,
   }));

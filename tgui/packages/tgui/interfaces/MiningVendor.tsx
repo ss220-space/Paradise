@@ -128,7 +128,7 @@ const MiningVendorItems = (properties: MiningVendorItemsProps) => {
   });
 
   let has_contents = false;
-  let contents = Object.entries(items).map((kv, _i) => {
+  const contents = Object.entries(items).map((kv, _i) => {
     let items_in_cat = Object.entries(kv[1] as Record<string, Item>)
       .filter(searcher)
       .map((kv2) => {

@@ -131,7 +131,7 @@ const AirStatus = (_props: unknown) => {
     areaStatus = 'DANGER: Internals Required';
   }
 
-  let permanentGases = ['oxygen', 'nitrogen', 'carbon_dioxide', 'plasma'];
+  const permanentGases = ['oxygen', 'nitrogen', 'carbon_dioxide', 'plasma'];
 
   return (
     <Section title="Air Status">
@@ -315,7 +315,7 @@ const AirAlarmModesView = (props: unknown) => {
           }}
         >
           {Object.keys(modes).map((key) => {
-            let m = modes[key];
+            const m = modes[key];
             if (!m.emagonly || !!emagged) {
               return (
                 <Table.Row key={m.name}>

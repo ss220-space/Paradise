@@ -1,4 +1,3 @@
-import { map } from 'common/collections';
 import { useState } from 'react';
 import {
   Box,
@@ -155,7 +154,7 @@ const FilterFlagsEntry = (props) => {
 
   const filterInfo = data.filter_info;
   const flags = filterInfo[filterType].flags;
-  return map(flags, (bitField, flagName) => (
+  return flags.map((bitField, flagName) => (
     <Button.Checkbox
       checked={value & bitField}
       onClick={() =>
@@ -313,7 +312,7 @@ const FilterMatrixEntry = (props) => {
                 new_data: {
                   [name]: resize_matrix(
                     matrix,
-                    parseInt(option.split(' '), 10)
+                    parseInt(option.split(' '), 10),
                   ),
                 },
               })
@@ -398,7 +397,8 @@ const FilterDataEntry = (props) => {
   return (
     <LabeledList.Item label={name}>
       <Box inline>
-        {filterEntryTypes[filterInputType] || 'Not Found (This is an error)'}{' '}
+        {filterEntryTypes[filterInputType] ||
+          'Not Found (This is an error)'}{' '}
       </Box>
       {!hasValue && (
         <Box inline color="average">
@@ -534,7 +534,7 @@ export const Filterrific = (props) => {
           {!hasFilters ? (
             <Box>No filters</Box>
           ) : (
-            map(filters, (entry, key) => (
+            filters.map((entry, key) => (
               <FilterEntry
                 filterDataEntry={entry}
                 name={entry.name}

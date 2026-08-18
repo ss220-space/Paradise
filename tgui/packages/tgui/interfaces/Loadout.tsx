@@ -331,7 +331,7 @@ const LoadoutEquipped = (props) => {
           }
         >
           {selectedGears.map((gear) => {
-            let gear_data = data.selected_gears[gear.key];
+            const gear_data = data.selected_gears[gear.key];
             return (
               <ImageButton
                 key={gear.key}

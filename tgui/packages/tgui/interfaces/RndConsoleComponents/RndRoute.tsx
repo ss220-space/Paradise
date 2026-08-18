@@ -23,7 +23,7 @@ export const RndRoute = (properties: RndRouteProps) => {
     return comparator === item; // strings or ints?
   };
 
-  let match =
+  const match =
     compare(properties.menu, menu as number) &&
     compare(properties.submenu, submenu as number);
 

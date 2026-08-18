@@ -1,4 +1,4 @@
-import { range } from 'common/collections';
+import { range } from 'es-toolkit';
 import { BooleanLike } from 'common/react';
 import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';

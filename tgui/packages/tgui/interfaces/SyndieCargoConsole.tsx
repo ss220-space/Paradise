@@ -1,6 +1,6 @@
 import { flow } from 'common/fp';
 
-import { filter, sortBy } from 'common/collections';
+import { sortBy } from 'es-toolkit';
 import { useBackend, useSharedState } from '../backend';
 import { useState } from 'react';
 import {
@@ -181,20 +181,19 @@ const CataloguePane = (properties: CataloguePaneProps) => {
 
   const packSearch = createSearch<SupplyPack>(
     searchText,
-    (crate) => crate.name
+    (crate) => crate.name,
   );
 
   const cratesToShow = flow([
     (supply_packs: SupplyPack[]) =>
-      filter(
-        supply_packs,
+      supply_packs.filter(
         (pack) =>
           pack.cat ===
           (categories.filter((c) => c.name === category)[0].category ||
-            searchText)
+            searchText),
       ),
     (supply_packs: SupplyPack[]) =>
-      searchText ? filter(supply_packs, packSearch) : supply_packs,
+      searchText ? supply_packs.filter(packSearch) : supply_packs,
     (supply_packs: SupplyPack[]) =>
       sortBy(supply_packs, (pack) => pack.name.toLowerCase()),
   ])(supply_packs);

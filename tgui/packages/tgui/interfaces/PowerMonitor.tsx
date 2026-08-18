@@ -1,4 +1,4 @@
-import { map, sortBy } from 'common/collections';
+import { sortBy } from 'es-toolkit';
 import { flow } from 'common/fp';
 import { toFixed } from 'common/math';
 import { decodeHtmlEntities } from 'common/string';
@@ -122,7 +122,7 @@ const DataView = (_props: unknown) => {
     // Process area data
     const parsedApcs: APC[] = flow([
       (apcs: APC[]) =>
-        map(apcs, (apc: APC, i) => ({
+        apcs.map((apc: APC, i) => ({
           ...apc,
           id: apc.Name + i,
         })),

@@ -126,7 +126,7 @@ export const ERTOverview = (props: unknown) => {
 
 const SendERT = (props: unknown) => {
   const { act, data } = useBackend<ERTData>();
-  let slotOptions = [0, 1, 2, 3, 4, 5];
+  const slotOptions = [0, 1, 2, 3, 4, 5];
 
   const [silentERT, setSilentERT] = useState(false);
 

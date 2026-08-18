@@ -43,7 +43,7 @@ const BloodScanMenu = (props: unknown) => {
     blockButtons,
     scanStates,
   } = data;
-  let rowStyles = {
+  const rowStyles = {
     blue: 'Button_blue',
     green: 'Button_green',
     red: 'Button_red',

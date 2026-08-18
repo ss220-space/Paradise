@@ -172,8 +172,8 @@ export const PermissionsEdit = (_props: unknown) => {
                 if (typeof a[sortId] === 'number') {
                   return (a[sortId] - b[sortId]) * i;
                 }
-                let firstValue = a[sortId];
-                let secondValue = b[sortId];
+                const firstValue = a[sortId];
+                const secondValue = b[sortId];
                 return firstValue.localeCompare(secondValue) * i;
               })
               .map((admin, index) => {

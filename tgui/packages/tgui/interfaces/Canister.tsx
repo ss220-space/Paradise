@@ -12,7 +12,7 @@ import {
   Stack,
   Tooltip,
 } from '../components';
-import { formatSiUnit } from '../format';
+import { formatSiUnit } from 'tgui-core/format';
 import { Window } from '../layouts';
 import { BooleanLike } from 'common/react';
 

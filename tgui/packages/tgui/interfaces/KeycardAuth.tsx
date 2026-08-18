@@ -14,7 +14,7 @@ type KeycardAuthData = {
 };
 export const KeycardAuth = (props: unknown) => {
   const { act, data } = useBackend<KeycardAuthData>();
-  let infoBox = (
+  const infoBox = (
     <Section title="Keycard Authentication Device">
       <Box>
         This device is used to trigger certain high security events. It requires

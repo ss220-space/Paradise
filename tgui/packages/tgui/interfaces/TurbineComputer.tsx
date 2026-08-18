@@ -8,7 +8,7 @@ import {
   Knob,
   Stack,
 } from '../components';
-import { formatPower } from '../format';
+import { formatPower } from 'tgui-core/format';
 import { Window } from '../layouts';
 import { toFixed } from 'common/math';
 
@@ -30,7 +30,7 @@ export const TurbineComputer = (_props) => {
     bearingDamage,
   } = data;
   const operational = Boolean(
-    compressor && !compressor_broken && turbine && !turbine_broken
+    compressor && !compressor_broken && turbine && !turbine_broken,
   );
   return (
     <Window width={400} height={415}>

@@ -59,7 +59,7 @@ export const Newspaper = (_props: unknown) => {
     'ноября',
     'декабря',
   ];
-  let date = new Date();
+  const date = new Date();
 
   return (
     <Window width={800} height={600} theme="paper" title="Газета Грифон">

@@ -48,7 +48,7 @@ export const PrisonerImplantManager = (_props: unknown) => {
     );
   }
 
-  let injectionAmount = [1, 5, 10]; // used for auto generating chemical implant inject buttons
+  const injectionAmount = [1, 5, 10]; // used for auto generating chemical implant inject buttons
 
   return (
     <Window theme="security" width={500} height={850}>

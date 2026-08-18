@@ -1,4 +1,4 @@
-import { sortBy } from 'common/collections';
+import { sortBy } from 'es-toolkit';
 import { ReactNode, useState } from 'react';
 import {
   Box,
@@ -61,20 +61,20 @@ export const AccessList = (props: AccessListProps) => {
     denyDep,
   } = props;
   const [selectedAccessName, setSelectedAccessName] = useState(
-    accesses[0]?.name
+    accesses[0]?.name,
   );
   const selectedAccess = accesses.find(
-    (access) => access.name === selectedAccessName
+    (access) => access.name === selectedAccessName,
   );
   const selectedAccessEntries = sortBy<Access>(
     selectedAccess?.accesses || [],
-    (entry) => entry.desc
+    (entry) => entry.desc,
   );
 
   const checkAccessIcon = (accesses: Access[]) => {
     let oneAccess = false;
     let oneInaccess = false;
-    for (let element of accesses) {
+    for (const element of accesses) {
       if (selectedList?.includes(element.ref)) {
         oneAccess = true;
       } else {

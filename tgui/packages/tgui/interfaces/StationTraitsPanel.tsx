@@ -1,4 +1,3 @@
-import { filter, map } from 'common/collections';
 import { useState } from 'react';
 import { Box, Button, Divider, Dropdown, Stack, Tabs } from 'tgui/components';
 import { exhaustiveCheck } from 'common/exhaustive';
@@ -39,7 +38,7 @@ const FutureStationTraitsPage = (props) => {
   const traitsByName = Object.fromEntries(
     data.valid_station_traits.map((trait) => {
       return [trait.name, trait.path];
-    })
+    }),
   );
 
   const traitNames = Object.keys(traitsByName);
@@ -72,7 +71,7 @@ const FutureStationTraitsPage = (props) => {
               let newStationTraits = [selectedPath];
               if (future_station_traits) {
                 const selectedTraitPaths = future_station_traits.map(
-                  (trait) => trait.path
+                  (trait) => trait.path,
                 );
 
                 if (selectedTraitPaths.indexOf(selectedPath) !== -1) {
@@ -80,7 +79,7 @@ const FutureStationTraitsPage = (props) => {
                 }
 
                 newStationTraits = newStationTraits.concat(
-                  ...selectedTraitPaths
+                  ...selectedTraitPaths,
                 );
               }
 
@@ -110,10 +109,9 @@ const FutureStationTraitsPage = (props) => {
                       icon="times"
                       onClick={() => {
                         act('setup_future_traits', {
-                          station_traits: filter(
-                            map(future_station_traits, (t) => t.path),
-                            (p) => p !== trait.path
-                          ),
+                          station_traits: future_station_traits
+                            .map((t) => t.path)
+                            .filter((p) => p !== trait.path),
                         });
                       }}
                     >

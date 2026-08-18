@@ -2,7 +2,7 @@ import { useBackend } from '../../backend';
 import { ReactNode, useState } from 'react';
 import { createSearch } from 'common/string';
 import { flow } from 'common/fp';
-import { filter, sortBy } from 'common/collections';
+import { sortBy } from 'es-toolkit';
 import { Box, Input, Button, Section, LabeledList } from '../../components';
 
 export type RecordsProps = {
@@ -89,15 +89,15 @@ const SelectionView = (props: SelectionViewProps) => {
   const SelectMembers = (people, searchText = '') => {
     const MemberSearch = createSearch<Record>(
       searchText,
-      (member) => member.Name
+      (member) => member.Name,
     );
     return flow([
       (recordsList: Record[]) =>
         // Null member filter
-        filter(recordsList, (member) => !!member?.Name),
+        recordsList.filter((member) => !!member?.Name),
       // Optional search term
       (recordsList: Record[]) =>
-        searchText ? filter(recordsList, MemberSearch) : recordsList,
+        searchText ? recordsList.filter(MemberSearch) : recordsList,
       // Slightly expensive, but way better than sorting in BYOND
       (recordsList: Record[]) => sortBy(recordsList, (member) => member.Name),
     ])(recordsList);

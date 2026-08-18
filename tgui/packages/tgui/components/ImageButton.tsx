@@ -116,7 +116,7 @@ export const ImageButton = (props: Props) => {
     ...rest
   } = props;
 
-  let buttonContent = (
+  const buttonContent = (
     <div
       className={classes([
         'container',

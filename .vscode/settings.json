@@ -1,9 +1,6 @@
 {
-	"editor.codeActionsOnSave": {
-		"source.fixAll.biome": "explicit"
-	},
 	"search.exclude": {
-		"**/node_modules": true
+		"**/node_modules": true,
 		"**/.pnp.*": true,
 		"tgui/public/**/*": true
 	},
@@ -28,5 +25,5 @@
 	],
 	"workbench.editorAssociations": {
 		"*.dmi": "dmiEditor.dmiEditor"
-	},
+	}
 }

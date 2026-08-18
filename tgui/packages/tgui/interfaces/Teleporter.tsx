@@ -22,7 +22,7 @@ type Cords = {
 
 export const Teleporter = (_props: unknown) => {
   const { act, data } = useBackend<TeleporterData>();
-  let targetsTeleport = data.targetsTeleport ? data.targetsTeleport : {};
+  const targetsTeleport = data.targetsTeleport ? data.targetsTeleport : {};
   const REGIME_TELEPORT = 0;
   const REGIME_GATE = 1;
   const REGIME_GPS = 2;

@@ -55,10 +55,10 @@ const DnaEntriesBlock = (props: DnaEntriesBlockProps) => {
   const { act } = useBackend<DnaNotepadData>();
   const { dna_data } = props;
 
-  let dnaBlocks = [];
+  const dnaBlocks = [];
   for (let i = 0; i < dna_data.length; i++) {
-    let dnaBlock = dna_data[i];
-    let stackItem = (
+    const dnaBlock = dna_data[i];
+    const stackItem = (
       <Stack.Item mb="1rem" mr="1rem" width="30%">
         <Box inline mr="0.5rem">
           <span style={{ color: '#FFFFFF' }}>{dnaBlock.num}</span>

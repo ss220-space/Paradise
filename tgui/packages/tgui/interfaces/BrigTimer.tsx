@@ -36,7 +36,7 @@ export const BrigTimer = (props: unknown) => {
       nameIcon = 'exclamation-triangle';
     }
   }
-  let nameOptions = [];
+  const nameOptions = [];
   let i = 0;
   for (i = 0; i < data.spns.length; i++) {
     nameOptions.push(data.spns[i]);

@@ -33,7 +33,7 @@ const testGeneric = (testFn: () => boolean) => (): boolean => {
 };
 
 const testHubStorage = testGeneric(
-  () => window.hubStorage && !!window.hubStorage.getItem
+  () => window.hubStorage && !!window.hubStorage.getItem,
 );
 
 const STORAGE_CDN_TIMEOUT = 5000;
@@ -48,7 +48,7 @@ class HubStorageBackend implements StorageBackend {
   }
 
   async get(key: string): Promise<any> {
-    const value = await window.hubStorage.getItem('paradise-' + key);
+    const value = await window.hubStorage.getItem(`paradise-${key}`);
     if (typeof value === 'string') {
       return JSON.parse(value);
     }
@@ -56,11 +56,11 @@ class HubStorageBackend implements StorageBackend {
   }
 
   async set(key: string, value: any): Promise<void> {
-    window.hubStorage.setItem('paradise-' + key, JSON.stringify(value));
+    window.hubStorage.setItem(`paradise-${key}`, JSON.stringify(value));
   }
 
   async remove(key: string): Promise<void> {
-    window.hubStorage.removeItem('paradise-' + key);
+    window.hubStorage.removeItem(`paradise-${key}`);
   }
 
   async clear(): Promise<void> {
@@ -70,7 +70,7 @@ class HubStorageBackend implements StorageBackend {
   async processChatMessages(messages): Promise<void> {
     window.hubStorage.setItem(
       'paradise-chat-messages',
-      JSON.stringify(messages)
+      JSON.stringify(messages),
     );
   }
 
@@ -118,7 +118,7 @@ export class IFrameIndexedDbBackend implements StorageBackend {
       };
       const timeout = setTimeout(
         () => resolveReady(false),
-        STORAGE_CDN_TIMEOUT
+        STORAGE_CDN_TIMEOUT,
       );
 
       fetch(Byond.storageCdn, { method: 'HEAD' })
@@ -188,7 +188,7 @@ export class IFrameIndexedDbBackend implements StorageBackend {
   async processChatMessages(messages) {
     this.iframeWindow.postMessage(
       { type: 'processChatMessages', messages: messages },
-      '*'
+      '*',
     );
   }
 
@@ -230,7 +230,7 @@ class StorageProxy implements StorageBackend {
 
           const iframeHasPersistedStorage = (
             await Promise.all(
-              persistedStorageKeys.map((setting) => iframe.get(setting))
+              persistedStorageKeys.map((setting) => iframe.get(setting)),
             )
           ).some((settings) => settings !== undefined);
 
@@ -247,7 +247,7 @@ class StorageProxy implements StorageBackend {
                     // created, so we have to wait a little bit before using it.
                     setTimeout(resolve, 1);
                   },
-                  { once: true }
+                  { once: true },
                 );
               });
             }
@@ -268,7 +268,7 @@ class StorageProxy implements StorageBackend {
                   // Ignore unreadable legacy storage entries. A bad old cache
                   // key should not keep the client on byondstorage.
                 }
-              })
+              }),
             );
 
             if (!hubStorageWasEnabled) {

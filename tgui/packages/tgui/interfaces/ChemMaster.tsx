@@ -367,8 +367,8 @@ const ChemMasterProductionTabs = (props: {}) => {
   const { act, data } = useBackend<ChemMasterData>();
   const { production_mode, production_data, static_production_data } = data;
   const decideTab = (mode: ChemMasterData['production_mode']) => {
-    let static_data = static_production_data[mode];
-    let nonstatic_data = production_data[mode];
+    const static_data = static_production_data[mode];
+    const nonstatic_data = production_data[mode];
     if (static_data !== undefined && nonstatic_data !== undefined) {
       const productionData = {
         ...static_data,
@@ -551,7 +551,7 @@ const ChemMasterCustomization = (props: {}) => {
 
   const style_button_size = { width: '20px', height: '20px' };
   const style_buttons = containerstyles.map(({ color, name }) => {
-    let selected = loaded_pill_bottle_style === color;
+    const selected = loaded_pill_bottle_style === color;
     return (
       <Button
         key={color}

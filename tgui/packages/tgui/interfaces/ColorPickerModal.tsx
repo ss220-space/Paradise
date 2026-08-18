@@ -33,7 +33,7 @@ export const ColorPickerModal = (_) => {
     autofocus,
     default_color = '#000000',
   } = data;
-  let [selectedColor, setSelectedColor] = useState<HsvaColor>(
+  const [selectedColor, setSelectedColor] = useState<HsvaColor>(
     hexToHsva(default_color)
   );
 

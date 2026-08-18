@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'tgui/backend';
 import {
   Button,
   Collapsible,
@@ -9,36 +8,20 @@ import {
   Section,
   Slider,
   Stack,
-} from 'tgui/components';
-import { toFixed } from 'common/math';
-import { capitalize } from 'common/string';
-
-import { clearChat, saveChatToDisk } from '../chat/actions';
-import { THEMES } from '../themes';
-import { exportSettings, updateSettings } from './actions';
-import { FONTS } from './constants';
+} from 'tgui-core/components';
+import { toFixed } from 'tgui-core/math';
+import { capitalize } from 'tgui-core/string';
+import { chatRenderer } from '../chat/renderer';
+import { FONTS, THEMES } from './constants';
 import { resetPaneSplitters, setEditPaneSplitters } from './scaling';
-import { selectSettings } from './selectors';
-import { importChatSettings } from './settingsImExport';
-import { storage } from 'common/storage';
+import { exportChatSettings, importChatSettings } from './settingsImExport';
+import { useSettings } from './use-settings';
 
-export const SettingsGeneral = (_props: unknown) => {
-  const { theme, fontFamily, fontSize, lineHeight, chatSaving } =
-    useSelector(selectSettings);
-  const dispatch = useDispatch();
+export function SettingsGeneral(props) {
+  const { settings, updateSettings } = useSettings();
   const [freeFont, setFreeFont] = useState(false);
 
   const [editingPanes, setEditingPanes] = useState(false);
-
-  const updateChatSaving = (value) => {
-    const boolValue = value === true;
-    dispatch(
-      updateSettings({
-        chatSaving: boolValue,
-      })
-    );
-    storage.set('chat-saving-enabled', boolValue);
-  };
 
   return (
     <Section>
@@ -47,14 +30,12 @@ export const SettingsGeneral = (_props: unknown) => {
           {THEMES.map((THEME) => (
             <Button
               key={THEME}
-              selected={theme === THEME}
+              selected={settings.theme === THEME}
               color="transparent"
               onClick={() =>
-                dispatch(
-                  updateSettings({
-                    theme: THEME,
-                  })
-                )
+                updateSettings({
+                  theme: THEME,
+                })
               }
             >
               {capitalize(THEME)}
@@ -88,8 +69,8 @@ export const SettingsGeneral = (_props: unknown) => {
           <Stack.Item>
             {!freeFont ? (
               <Collapsible
-                title={fontFamily}
-                width={'100%'}
+                title={settings.fontFamily}
+                width="100%"
                 buttons={
                   <Button
                     icon={freeFont ? 'lock-open' : 'lock'}
@@ -106,14 +87,12 @@ export const SettingsGeneral = (_props: unknown) => {
                   <Button
                     key={FONT}
                     fontFamily={FONT}
-                    selected={fontFamily === FONT}
+                    selected={settings.fontFamily === FONT}
                     color="transparent"
                     onClick={() =>
-                      dispatch(
-                        updateSettings({
-                          fontFamily: FONT,
-                        })
-                      )
+                      updateSettings({
+                        fontFamily: FONT,
+                      })
                     }
                   >
                     {FONT}
@@ -123,14 +102,12 @@ export const SettingsGeneral = (_props: unknown) => {
             ) : (
               <Stack>
                 <Input
-                  width={'100%'}
-                  value={fontFamily}
-                  onChange={(value) =>
-                    dispatch(
-                      updateSettings({
-                        fontFamily: value,
-                      })
-                    )
+                  fluid
+                  value={settings.fontFamily}
+                  onBlur={(value) =>
+                    updateSettings({
+                      fontFamily: value,
+                    })
                   }
                 />
                 <Button
@@ -156,12 +133,10 @@ export const SettingsGeneral = (_props: unknown) => {
                 stepPixelSize={20}
                 minValue={8}
                 maxValue={32}
-                value={fontSize}
+                value={settings.fontSize}
                 unit="px"
                 format={(value) => toFixed(value)}
-                onChange={(e, value) =>
-                  dispatch(updateSettings({ fontSize: value }))
-                }
+                onChange={(e, value) => updateSettings({ fontSize: value })}
               />
             </Stack.Item>
           </Stack>
@@ -172,15 +147,12 @@ export const SettingsGeneral = (_props: unknown) => {
             step={0.01}
             minValue={0.8}
             maxValue={5}
-            tickWhileDragging
-            value={lineHeight}
+            value={settings.lineHeight}
             format={(value) => toFixed(value, 2)}
             onChange={(e, value) =>
-              dispatch(
-                updateSettings({
-                  lineHeight: value,
-                })
-              )
+              updateSettings({
+                lineHeight: value,
+              })
             }
           />
         </LabeledList.Item>
@@ -191,7 +163,7 @@ export const SettingsGeneral = (_props: unknown) => {
           <Button
             icon="compact-disc"
             tooltip="Экспорт настроек чата"
-            onClick={() => dispatch(exportSettings())}
+            onClick={exportChatSettings}
           >
             Экспорт
           </Button>
@@ -201,16 +173,20 @@ export const SettingsGeneral = (_props: unknown) => {
             accept=".json"
             tooltip="Импорт настроек чата"
             icon="arrow-up-from-bracket"
-            onSelectFiles={(files) => importChatSettings(files)}
+            onSelectFiles={importChatSettings}
           >
             Импорт
           </Button.File>
         </Stack.Item>
         <Stack.Item mt={0.15}>
           <Button.Checkbox
-            checked={!!chatSaving}
+            checked={!!settings.chatSaving}
             tooltip="Включить сохранение чата между игровыми сессиями"
-            onClick={() => updateChatSaving(!chatSaving)}
+            onClick={() =>
+              updateSettings({
+                chatSaving: !settings.chatSaving,
+              })
+            }
           >
             Постоянность чата
           </Button.Checkbox>
@@ -219,7 +195,7 @@ export const SettingsGeneral = (_props: unknown) => {
           <Button
             icon="save"
             tooltip="Экспорт истории чата в HTML файл"
-            onClick={() => dispatch(saveChatToDisk())}
+            onClick={() => chatRenderer.saveToDisk()}
           >
             Сохранить чат
           </Button>
@@ -228,7 +204,7 @@ export const SettingsGeneral = (_props: unknown) => {
           <Button.Confirm
             icon="trash"
             tooltip="Очистить текущую историю чата"
-            onClick={() => dispatch(clearChat())}
+            onClick={() => chatRenderer.clearChat()}
           >
             Очистить чат
           </Button.Confirm>
@@ -236,4 +212,4 @@ export const SettingsGeneral = (_props: unknown) => {
       </Stack>
     </Section>
   );
-};
+}

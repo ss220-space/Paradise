@@ -5,7 +5,7 @@
  */
 
 import { type CSSProperties, useEffect, useRef, useState } from 'react';
-import { zip } from 'common/collections';
+import { zip } from 'es-toolkit';
 import { Box, type BoxProps } from './Box';
 
 type Props = {
@@ -27,7 +27,7 @@ const normalizeData = (
   data: Point[],
   scale: number[],
   rangeX?: Range,
-  rangeY?: Range
+  rangeY?: Range,
 ) => {
   if (data.length === 0) {
     return [];
@@ -50,8 +50,8 @@ const normalizeData = (
 
   const normalized = data.map((point) =>
     zip(point, min, max, scale).map(
-      ([value, min, max, scale]) => ((value - min) / (max - min)) * scale
-    )
+      ([value, min, max, scale]) => ((value - min) / (max - min)) * scale,
+    ),
   );
 
   return normalized;

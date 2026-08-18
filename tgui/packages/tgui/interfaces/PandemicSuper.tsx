@@ -40,7 +40,7 @@ export const PandemicSuper = (props: unknown) => {
   const { error_message, beaker_exists, blood_data, diseases, antibodies } =
     data;
 
-  let blocks = [];
+  const blocks = [];
   if (error_message !== null) {
     blocks.push(
       <p>

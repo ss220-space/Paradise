@@ -119,29 +119,29 @@ export const TTSSeedsExplorerContent = (_props: unknown) => {
   const [selectedPhrase, setSelectedPhrase] = useState(phrases[0]);
   const [searchtext, setSearchtext] = useState('');
 
-  let providerCheckboxes = getCheckboxGroup(
+  const providerCheckboxes = getCheckboxGroup(
     providers,
     selectedProviders,
     setSelectedProviders,
     'name'
   );
-  let genderesCheckboxes = getCheckboxGroup(
+  const genderesCheckboxes = getCheckboxGroup(
     genders,
     selectedGenders,
     setSelectedGenders
   );
-  let categoriesCheckboxes = getCheckboxGroup(
+  const categoriesCheckboxes = getCheckboxGroup(
     categories,
     selectedCategories,
     setSelectedCategories
   );
-  let donatorLevelsCheckboxes = getCheckboxGroup(
+  const donatorLevelsCheckboxes = getCheckboxGroup(
     donatorLevels,
     selectedDonatorLevels,
     setSelectedDonatorLevels
   );
 
-  let phrasesSelect = (
+  const phrasesSelect = (
     <Dropdown
       options={phrases}
       selected={selectedPhrase.replace(/(.{25})..+/, '$1...')}
@@ -150,7 +150,7 @@ export const TTSSeedsExplorerContent = (_props: unknown) => {
     />
   );
 
-  let searchBar = (
+  const searchBar = (
     <Input placeholder="Название..." fluid expensive onChange={setSearchtext} />
   );
 
@@ -175,7 +175,7 @@ export const TTSSeedsExplorerContent = (_props: unknown) => {
         seed.name.toLowerCase().includes(searchtext.toLowerCase())
     );
 
-  let seedsRow = availableSeeds.map((seed) => {
+  const seedsRow = availableSeeds.map((seed) => {
     return (
       <Table.Row
         key={seed.name}

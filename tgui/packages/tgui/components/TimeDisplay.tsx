@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { formatTime } from '../format';
+import { formatTime } from 'tgui-core/format';
 import { isSafeNumber } from 'common/math';
 
 type TimeDisplayProps = {
@@ -19,10 +19,10 @@ export const TimeDisplay = (props: TimeDisplayProps) => {
     format = undefined,
   } = props;
   const [currentValue, setCurrentValue] = useState<number>(() =>
-    isSafeNumber(initialValue) ? initialValue : 0
+    isSafeNumber(initialValue) ? initialValue : 0,
   );
   const [lastSeenValue, setLastSeenValue] = useState<number | undefined>(
-    isSafeNumber(initialValue) ? initialValue : undefined
+    isSafeNumber(initialValue) ? initialValue : undefined,
   );
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 

@@ -9,7 +9,7 @@ import {
   ProgressBar,
 } from '../components';
 import { Window } from '../layouts';
-import { filter, sortBy } from 'common/collections';
+import { sortBy } from 'es-toolkit';
 import { flow } from 'common/fp';
 import { createSearch } from 'common/string';
 import { BooleanLike } from 'common/react';
@@ -21,8 +21,8 @@ const trimLongStr = (str: string, length: number) => {
 const selectForms = (forms: Form[], searchText = ''): Form[] => {
   const testSearch = createSearch(searchText, (form: Form) => form.altername);
   return flow([
-    (forms: Form[]) => filter(forms, (form) => !!form?.altername),
-    (forms: Form[]) => (searchText ? filter(forms, testSearch) : forms),
+    (forms: Form[]) => forms.filter((form) => !!form?.altername),
+    (forms: Form[]) => (searchText ? forms.filter(testSearch) : forms),
     (forms: Form[]) => sortBy(forms, (form) => form.id),
   ])(forms);
 };
@@ -60,10 +60,10 @@ export const Photocopier = (_props: unknown) => {
 
   const forms = selectForms(
     sortBy(data.forms || [], (form) => form.category),
-    searchText
+    searchText,
   );
   const categories = [];
-  for (let form of forms) {
+  for (const form of forms) {
     if (!categories.includes(form.category)) {
       categories.push(form.category);
     }

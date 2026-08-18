@@ -4,9 +4,8 @@
  * @license MIT
  */
 
-import { Box } from 'tgui/components';
-import { classes } from 'common/react';
-
+import { Box } from 'tgui-core/components';
+import { classes } from 'tgui-core/react';
 import { useBackend } from '../backend';
 import { Layout } from './Layout';
 
@@ -18,7 +17,7 @@ type Props = Partial<{
 }> &
   BoxProps;
 
-export const Pane = (props: Props) => {
+export function Pane(props: Props) {
   const { theme, canSuspend, children, className, ...rest } = props;
   const { suspended } = useBackend();
 
@@ -29,7 +28,7 @@ export const Pane = (props: Props) => {
       <Box fillPositionedParent>{!isSuspended && children}</Box>
     </Layout>
   );
-};
+}
 
 type ContentProps = Partial<{
   fitted: boolean;
@@ -37,7 +36,7 @@ type ContentProps = Partial<{
 }> &
   BoxProps;
 
-const PaneContent = (props: ContentProps) => {
+function PaneContent(props: ContentProps) {
   const { className, fitted, children, ...rest } = props;
 
   return (
@@ -52,6 +51,6 @@ const PaneContent = (props: ContentProps) => {
       )}
     </Layout.Content>
   );
-};
+}
 
 Pane.Content = PaneContent;
