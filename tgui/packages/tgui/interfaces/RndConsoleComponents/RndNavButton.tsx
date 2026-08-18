@@ -1,7 +1,7 @@
 import { computeBoxProps } from 'tgui-core/ui';
 import { useBackend } from '../../backend';
 import { Button } from '../../components';
-import { ButtonProps } from '../../components/Button';
+import type { ButtonProps } from '../../components/Button';
 
 type RndNavButtonProps = RndRouteData & ButtonProps;
 

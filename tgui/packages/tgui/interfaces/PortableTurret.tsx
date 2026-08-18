@@ -1,7 +1,7 @@
 import { useBackend } from '../backend';
 import { Button, LabeledList, NoticeBox, Section } from '../components';
 import { Window } from '../layouts';
-import { Access, AccessList } from './common/AccessList';
+import { type Access, AccessList } from './common/AccessList';
 
 type PortableTurretData = {
   locked: boolean;

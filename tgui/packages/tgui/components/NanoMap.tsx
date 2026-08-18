@@ -2,10 +2,10 @@ import {
   useState,
   useRef,
   useCallback,
-  ReactNode,
-  MouseEventHandler,
+  type ReactNode,
+  type MouseEventHandler,
   useEffect,
-  CSSProperties,
+  type CSSProperties,
 } from 'react';
 import {
   Box,
@@ -21,7 +21,7 @@ import { useBackend } from '../backend';
 import { LabeledList } from './LabeledList';
 import { Slider } from './Slider';
 import { resolveAsset } from '../assets';
-import { Placement } from '@floating-ui/react';
+import type { Placement } from '@floating-ui/react';
 
 const MAP_SIZE = 510;
 const HALF_SIZE = MAP_SIZE / 2;

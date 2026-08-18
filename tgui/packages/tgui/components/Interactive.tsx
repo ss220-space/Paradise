@@ -15,12 +15,12 @@
 import { clamp } from 'common/math';
 import {
   Component,
-  ReactNode,
+  type ReactNode,
   createRef,
-  RefObject,
-  CSSProperties,
-  MouseEvent,
-  KeyboardEvent,
+  type RefObject,
+  type CSSProperties,
+  type MouseEvent,
+  type KeyboardEvent,
 } from 'react';
 
 export interface Interaction {

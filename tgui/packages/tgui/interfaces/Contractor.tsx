@@ -1,5 +1,5 @@
 import { rad2deg } from 'common/math';
-import { Component, Fragment, ReactNode } from 'react';
+import { Component, Fragment, type ReactNode } from 'react';
 import { useBackend } from '../backend';
 import { useState } from 'react';
 import {
@@ -15,9 +15,9 @@ import {
 } from '../components';
 import { Countdown } from '../components/Countdown';
 import { Window } from '../layouts';
-import { SectionProps } from '../components/Section';
-import { BoxProps } from '../components/Box';
-import { TabsProps } from '../components/Tabs';
+import type { SectionProps } from '../components/Section';
+import type { BoxProps } from '../components/Box';
+import type { TabsProps } from '../components/Tabs';
 
 const contractStatuses = {
   1: ['АКТИВЕН', 'good'],

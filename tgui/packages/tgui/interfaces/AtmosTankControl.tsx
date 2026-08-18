@@ -10,7 +10,7 @@ import { toFixed } from 'common/math';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { GASES } from '../constants';
-import { AtmosMachine, AtmosMachineView } from './common/AtmosMachine';
+import { type AtmosMachine, AtmosMachineView } from './common/AtmosMachine';
 
 type AtmosTankControlData = {
   sensors: Sensor[];

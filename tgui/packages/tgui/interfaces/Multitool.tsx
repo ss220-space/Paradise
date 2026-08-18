@@ -10,10 +10,10 @@ import {
   Divider,
 } from '../components';
 import { Window } from '../layouts';
-import { FlexProps } from '../components/Flex';
-import { ReactNode } from 'react';
-import { ButtonProps, ConfirmProps } from '../components/Button';
-import { BoxProps } from '../components/Box';
+import type { FlexProps } from '../components/Flex';
+import type { ReactNode } from 'react';
+import type { ButtonProps, ConfirmProps } from '../components/Button';
+import type { BoxProps } from '../components/Box';
 
 type MultitoolData = {
   multitoolMenuId: string;

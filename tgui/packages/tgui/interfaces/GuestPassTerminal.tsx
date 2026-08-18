@@ -12,7 +12,7 @@ import {
   TextArea,
 } from '../components';
 import { Window } from '../layouts';
-import { AccessList, Access } from './common/AccessList';
+import { AccessList, type Access } from './common/AccessList';
 
 interface GuestPassData {
   mode: number;

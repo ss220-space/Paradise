@@ -11,7 +11,7 @@ import {
 } from '../components';
 import { ComplexModal } from '../interfaces/common/ComplexModal';
 import { Window } from '../layouts';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 type GeneModderData = {
   has_seed: boolean;

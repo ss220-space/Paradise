@@ -1,6 +1,6 @@
 import { createSearch } from 'common/string';
 import { useBackend } from '../backend';
-import { Key, ReactNode, useState } from 'react';
+import { type Key, type ReactNode, useState } from 'react';
 import {
   Button,
   Icon,

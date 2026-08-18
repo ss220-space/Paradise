@@ -10,7 +10,7 @@ import {
   Stack,
 } from '../components';
 import { Window } from '../layouts';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 const stats = [
   ['good', 'Норма'],

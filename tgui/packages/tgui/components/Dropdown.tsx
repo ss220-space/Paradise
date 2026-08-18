@@ -1,6 +1,6 @@
 import { type ReactNode, useEffect, useRef, useState } from 'react';
 import { classes } from 'common/react';
-import { type BoxProps } from './Box';
+import type { BoxProps } from './Box';
 import { unit } from 'tgui-core/ui';
 import { Button } from './Button';
 import { Icon } from './Icon';

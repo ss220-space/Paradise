@@ -10,7 +10,7 @@ import {
   type MouseEventHandler,
   type ReactNode,
   type UIEventHandler,
-  WheelEventHandler,
+  type WheelEventHandler,
   createElement,
 } from 'react';
 import type { BooleanLike } from 'common/react';

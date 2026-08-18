@@ -2,7 +2,7 @@ import { useBackend } from '../backend';
 import { useState } from 'react';
 import { Button, Section, Table, Stack, Grid } from '../components';
 import { Window } from '../layouts';
-import { ButtonProps } from '../components/Button';
+import type { ButtonProps } from '../components/Button';
 
 interface MuteStates {
   ic: boolean;

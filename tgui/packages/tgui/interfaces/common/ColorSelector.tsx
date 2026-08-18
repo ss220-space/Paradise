@@ -1,6 +1,6 @@
 import {
   hexToHsva,
-  HsvaColor,
+  type HsvaColor,
   hsvaToHex,
   hsvaToHslString,
   hsvaToRgba,
@@ -16,10 +16,10 @@ import {
   Stack,
   Tooltip,
 } from '../../components';
-import { Interaction } from '../../components/Interactive';
+import type { Interaction } from '../../components/Interactive';
 import { clamp } from 'common/math';
 import { classes } from 'common/react';
-import { Component, FocusEvent, FormEvent, ReactNode } from 'react';
+import { Component, type FocusEvent, type FormEvent, type ReactNode } from 'react';
 import { logger } from 'common/logging';
 
 export const ColorSelector = ({

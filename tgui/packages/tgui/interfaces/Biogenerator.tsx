@@ -11,7 +11,7 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 import { Operating } from '../interfaces/common/Operating';
-import { Key } from 'react';
+import type { Key } from 'react';
 
 type BiogeneratorProps = {
   processing: boolean;

@@ -2,7 +2,7 @@ import { createSearch } from 'common/string';
 
 import { Flex } from '../../components';
 import { LootBox } from './LootBox';
-import { SearchItem } from './types';
+import type { SearchItem } from './types';
 
 type Props = {
   contents: SearchItem[];

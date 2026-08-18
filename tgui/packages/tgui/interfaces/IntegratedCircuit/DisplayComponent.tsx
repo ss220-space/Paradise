@@ -1,10 +1,10 @@
-import { Component, createRef, CSSProperties, RefObject } from 'react';
+import { Component, createRef, CSSProperties, type RefObject } from 'react';
 import { Button, Stack, Box } from '../../components';
 import { classes } from 'common/react';
 
 import { noop } from './constants';
 import { Port } from './Port';
-import { DisplayComponentProps } from './types';
+import type { DisplayComponentProps } from './types';
 
 export class DisplayComponent extends Component<DisplayComponentProps> {
   ref: RefObject<HTMLDivElement>;

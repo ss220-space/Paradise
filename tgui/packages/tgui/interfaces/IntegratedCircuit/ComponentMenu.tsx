@@ -12,7 +12,7 @@ import { fetchRetry } from 'common/https';
 import { resolveAsset } from '../../assets';
 import { DisplayComponent } from './DisplayComponent';
 import { DEFAULT_COMPONENT_MENU_LIMIT } from './constants';
-import { ComponentMenuProps, ComponentMenuState } from './types';
+import type { ComponentMenuProps, ComponentMenuState } from './types';
 
 // Cache response so it's only sent once
 let fetchServerData;

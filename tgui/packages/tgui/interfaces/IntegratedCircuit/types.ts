@@ -1,4 +1,4 @@
-import { CSSProperties, HTMLAttributes, MouseEvent } from 'react';
+import type { CSSProperties, HTMLAttributes, MouseEvent } from 'react';
 
 export interface LocationMap {
   [key: string]: { x: number; y: number; color?: string };

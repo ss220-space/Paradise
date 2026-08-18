@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { declension_ru } from 'common/string';
 import { Stack } from '../../components';
 

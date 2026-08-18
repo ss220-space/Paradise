@@ -4,7 +4,7 @@ import { Button, Section, Stack } from '../components';
 import { useBackend } from '../backend';
 import { useState, KeyboardEvent } from 'react';
 import { Window } from '../layouts';
-import { BooleanLike } from 'common/react';
+import type { BooleanLike } from 'common/react';
 
 type ListInputData = {
   init_value: string;

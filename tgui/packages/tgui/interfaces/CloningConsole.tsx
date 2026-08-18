@@ -17,11 +17,11 @@ import { COLORS } from '../constants';
 import {
   ComplexModal,
   modalRegisterBodyOverride,
-  ModalType,
+  type ModalType,
 } from '../interfaces/common/ComplexModal';
 import { Window } from '../layouts';
 import { resolveAsset } from '../assets';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 type CloningConsoleData = {
   disk: boolean;

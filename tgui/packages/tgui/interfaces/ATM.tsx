@@ -11,7 +11,7 @@ import {
   Section,
 } from '../components';
 import { Window } from '../layouts';
-import { Transaction } from './AccountsUplinkTerminal';
+import type { Transaction } from './AccountsUplinkTerminal';
 
 /*
 #define NO_SCREEN 0

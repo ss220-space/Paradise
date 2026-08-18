@@ -1,6 +1,6 @@
 import { useBackend } from '../../backend';
 import { Box, Button, Flex, Icon, Section } from '../../components';
-import { LoginState } from './LoginInfo';
+import type { LoginState } from './LoginInfo';
 
 type LoginData = {
   loginState: LoginState;

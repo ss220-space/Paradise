@@ -1,9 +1,9 @@
 // code\game\machinery\doors\airlock_electronics.dm
-import { BooleanLike } from 'common/react';
+import type { BooleanLike } from 'common/react';
 import { useBackend } from '../backend';
 import { Button, Section, Stack } from '../components';
 import { Window } from '../layouts';
-import { Access, AccessList } from './common/AccessList';
+import { type Access, AccessList } from './common/AccessList';
 
 const NORTH = 1;
 const SOUTH = 2;

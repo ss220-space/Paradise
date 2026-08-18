@@ -1,4 +1,4 @@
-import { Key } from 'react';
+import type { Key } from 'react';
 import { useBackend } from '../../backend';
 import { LabeledList, Section, Box } from '../../components';
 

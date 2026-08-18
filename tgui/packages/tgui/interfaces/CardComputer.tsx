@@ -11,9 +11,9 @@ import {
   Dropdown,
 } from '../components';
 import { Window } from '../layouts';
-import { Access, AccessList } from './common/AccessList';
+import { type Access, AccessList } from './common/AccessList';
 import { COLORS, JOBS_RU } from '../constants';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 const deptCols = COLORS.department;
 

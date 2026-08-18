@@ -9,7 +9,7 @@ import {
   Icon,
 } from '../components';
 import { Window } from '../layouts';
-import { AiData } from './AICard';
+import type { AiData } from './AICard';
 
 type AIFixerData = { occupant: string; stat: number; active: boolean } & AiData;
 

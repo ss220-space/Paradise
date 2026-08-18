@@ -9,7 +9,7 @@ import { useBackend } from '../backend';
 import { useState } from 'react';
 import { Autofocus, Box, Section, Stack } from '../components';
 import { Window } from '../layouts';
-import { hexToHsva, HsvaColor, hsvaToHex } from 'common/color';
+import { hexToHsva, type HsvaColor, hsvaToHex } from 'common/color';
 import { InputButtons } from './common/InputButtons';
 import { ColorSelector } from './common/ColorSelector';
 

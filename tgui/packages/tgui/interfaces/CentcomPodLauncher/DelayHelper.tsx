@@ -2,7 +2,7 @@ import { toFixed } from 'common/math';
 
 import { useBackend } from '../../backend';
 import { Knob, LabeledControls } from '../../components';
-import { PodDelay, PodLauncherData } from './types';
+import type { PodDelay, PodLauncherData } from './types';
 
 type Props = {
   delay_list: PodDelay[];

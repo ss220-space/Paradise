@@ -1,6 +1,6 @@
 import { createSearch, decodeHtmlEntities } from 'common/string';
 import { useBackend } from '../backend';
-import { ReactNode, useState } from 'react';
+import { type ReactNode, useState } from 'react';
 import {
   Box,
   Button,
@@ -17,13 +17,13 @@ import {
   ComplexModal,
   modalOpen,
   modalRegisterBodyOverride,
-  ModalType,
+  type ModalType,
 } from '../interfaces/common/ComplexModal';
 import { Window } from '../layouts';
 import { LoginInfo } from './common/LoginInfo';
 import { LoginScreen } from './common/LoginScreen';
 import { TemporaryNotice } from './common/TemporaryNotice';
-import { GeneralRecord } from './common/SimpleRecords';
+import type { GeneralRecord } from './common/SimpleRecords';
 
 const severities = {
   'Minor': 'lightgray',

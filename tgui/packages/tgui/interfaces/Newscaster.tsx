@@ -1,6 +1,7 @@
-import { BooleanLike, classes } from 'common/react';
+import { type BooleanLike, classes } from 'common/react';
 import { useBackend } from '../backend';
-import React, { CSSProperties, ReactNode, useState } from 'react';
+import type React from 'react';
+import { type CSSProperties, type ReactNode, useState } from 'react'
 import {
   Box,
   Button,
@@ -23,10 +24,10 @@ import {
   modalClose,
   modalOpen,
   modalRegisterBodyOverride,
-  ModalType,
+  type ModalType,
 } from './common/ComplexModal';
 import { TemporaryNotice } from './common/TemporaryNotice';
-import { BoxProps } from '../components/Box';
+import type { BoxProps } from '../components/Box';
 
 const HEADLINE_MAX_LENGTH = 128;
 

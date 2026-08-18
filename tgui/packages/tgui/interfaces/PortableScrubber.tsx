@@ -9,7 +9,7 @@ import {
   Flex,
 } from '../components';
 import { Window } from '../layouts';
-import { PortableBaseData } from './PortablePump';
+import type { PortableBaseData } from './PortablePump';
 
 type PortableScrubberData = {
   rate: number;

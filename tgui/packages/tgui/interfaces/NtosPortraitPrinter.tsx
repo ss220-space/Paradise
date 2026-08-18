@@ -11,7 +11,7 @@ import {
 import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { BooleanLike } from 'common/react';
+import type { BooleanLike } from 'common/react';
 
 type NtosPortraitPrinterData = {
   paintings: Painting[];

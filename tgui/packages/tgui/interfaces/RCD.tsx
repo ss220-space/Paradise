@@ -10,7 +10,7 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 import { ComplexModal, modalOpen } from './common/ComplexModal';
-import { Access, AccessList } from './common/AccessList';
+import { type Access, AccessList } from './common/AccessList';
 
 export const RCD = (_props: unknown) => {
   return (

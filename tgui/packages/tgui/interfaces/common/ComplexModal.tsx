@@ -1,4 +1,4 @@
-import { ReactNode, KeyboardEvent } from 'react';
+import type { ReactNode, KeyboardEvent } from 'react';
 import { useBackend } from '../../backend';
 import {
   Box,
@@ -10,7 +10,7 @@ import {
   Image,
 } from '../../components';
 
-import { type ModalProps } from '../../components/Modal';
+import type { ModalProps } from '../../components/Modal';
 
 const bodyOverrides = {};
 

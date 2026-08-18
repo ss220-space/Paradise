@@ -2,7 +2,7 @@ import { classes } from 'common/react';
 
 import { useBackend } from '../../backend';
 import { Box, Button, Section } from '../../components';
-import { PodLauncherData } from './types';
+import type { PodLauncherData } from './types';
 
 export const StylePage = (props: unknown) => {
   const { act, data } = useBackend<PodLauncherData>();

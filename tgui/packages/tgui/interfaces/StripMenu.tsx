@@ -1,10 +1,10 @@
 import { range } from 'es-toolkit';
-import { BooleanLike } from 'common/react';
+import type { BooleanLike } from 'common/react';
 import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
 import { Box, Button, DmIcon, Icon, Stack, Image } from '../components';
 import { Window } from '../layouts';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 const ROWS = 5;
 

@@ -1,7 +1,7 @@
 import { useBackend } from '../backend';
 import { Button, Section, NumberInput, LabeledList, Flex } from '../components';
 import { Window } from '../layouts';
-import { AtmosBase } from './AtmosFilter';
+import type { AtmosBase } from './AtmosFilter';
 
 type AtmosMixerData = {
   node1_concentration: number;

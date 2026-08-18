@@ -13,7 +13,7 @@ import {
   Table,
 } from '../components';
 import { Window } from '../layouts';
-import { SectionProps } from '../components/Section';
+import type { SectionProps } from '../components/Section';
 
 const vectorText = (vector: number[]) =>
   vector ? '(' + vector.join(', ') + ')' : 'ERROR';

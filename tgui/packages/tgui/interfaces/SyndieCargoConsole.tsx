@@ -15,7 +15,7 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 import { createSearch } from 'common/string';
-import { CataloguePaneProps, ContentsModalProps } from './CargoConsole';
+import type { CataloguePaneProps, ContentsModalProps } from './CargoConsole';
 
 export const SyndieCargoConsole = (_props: unknown) => {
   const [contentsModal, setContentsModal] = useState<string[]>(null);

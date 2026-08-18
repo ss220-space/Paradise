@@ -20,7 +20,7 @@ import {
 } from '../../components';
 import { DraggableControl } from '../../components/DraggableControl';
 import { Window } from '../../layouts';
-import { Placement } from '@popperjs/core';
+import type { Placement } from '@popperjs/core';
 
 const COLORS_ARBITRARY = [
   'red',

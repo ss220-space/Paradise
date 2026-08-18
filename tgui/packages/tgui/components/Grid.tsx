@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-import { CellProps, Table, TableProps } from './Table';
+import { type CellProps, Table, type TableProps } from './Table';
 
 /** @deprecated */
 export const Grid = (props: TableProps) => {

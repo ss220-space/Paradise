@@ -12,7 +12,7 @@ import {
   Tabs,
 } from '../components';
 import { Window } from '../layouts';
-import { SectionProps } from '../components/Section';
+import type { SectionProps } from '../components/Section';
 import { useState } from 'react';
 
 const formatPoints = (amt: number) => amt.toLocaleString('en-US') + ' ед.';

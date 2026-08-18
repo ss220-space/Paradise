@@ -1,5 +1,5 @@
 import { sortBy } from 'es-toolkit';
-import { ReactNode, useState } from 'react';
+import { type ReactNode, useState } from 'react';
 import {
   Box,
   Button,

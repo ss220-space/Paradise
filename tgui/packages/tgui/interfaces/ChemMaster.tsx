@@ -1,4 +1,4 @@
-import { Component, ReactNode, MouseEvent } from 'react';
+import { Component, type ReactNode, MouseEvent } from 'react';
 import { useBackend } from '../backend';
 import {
   Box,
@@ -18,10 +18,10 @@ import {
   ComplexModal,
   modalOpen,
   modalRegisterBodyOverride,
-  ModalType,
+  type ModalType,
 } from './common/ComplexModal';
-import { BooleanLike, classes } from 'common/react';
-import { BoxProps } from '../components/Box';
+import { type BooleanLike, classes } from 'common/react';
+import type { BoxProps } from '../components/Box';
 import { computeBoxProps } from 'tgui-core/ui';
 
 const transferAmounts = [1, 5, 10];

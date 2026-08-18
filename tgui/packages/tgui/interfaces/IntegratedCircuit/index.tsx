@@ -16,7 +16,7 @@ import { ObjectComponent } from './ObjectComponent';
 import { DisplayComponent } from './DisplayComponent';
 import { VariableMenu } from './VariableMenu';
 import { ComponentMenu } from './ComponentMenu';
-import { IntegratedCircuitState, IntegratedCircuitData } from './types';
+import type { IntegratedCircuitState, IntegratedCircuitData } from './types';
 
 export class IntegratedCircuit extends Component<{}, IntegratedCircuitState> {
   timeUntilPortReleaseTimesOut: number = 0;

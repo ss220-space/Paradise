@@ -1,6 +1,6 @@
 import { createSearch, decodeHtmlEntities } from 'common/string';
 import { useBackend } from '../backend';
-import { ReactNode, useState } from 'react';
+import { type ReactNode, useState } from 'react';
 import {
   Box,
   Button,
@@ -19,10 +19,10 @@ import { LoginInfo } from './common/LoginInfo';
 import { LoginScreen } from './common/LoginScreen';
 import { TemporaryNotice } from './common/TemporaryNotice';
 import {
-  BaseRecord,
-  Comment,
-  Field,
-  Record,
+  type BaseRecord,
+  type Comment,
+  type Field,
+  type Record,
   SortButton,
 } from './MedicalRecords';
 

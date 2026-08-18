@@ -1,7 +1,7 @@
 import { useBackend } from '../../backend';
 import { Button, Section } from '../../components';
 import { BAYS } from './constants';
-import { PodLauncherData } from './types';
+import type { PodLauncherData } from './types';
 
 export const PodBays = (props: unknown) => {
   const { act, data } = useBackend<PodLauncherData>();

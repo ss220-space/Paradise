@@ -4,7 +4,7 @@ import { Box, Button, Input, Section, Stack } from '../../components';
 import { Window } from '../../layouts';
 import { GroupedContents } from './GroupedContents';
 import { RawContents } from './RawContents';
-import { SearchItem } from './types';
+import type { SearchItem } from './types';
 import { clamp } from 'common/math';
 import { isEscape } from 'common/keys';
 

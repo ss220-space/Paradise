@@ -1,4 +1,4 @@
-import { atom, WritableAtom } from 'jotai';
+import { atom, type WritableAtom } from 'jotai';
 import { sendAct as act } from 'tgui/backend';
 import { colorToHexString } from './colorSpaces';
 import type { Tool } from './Types/Tool';

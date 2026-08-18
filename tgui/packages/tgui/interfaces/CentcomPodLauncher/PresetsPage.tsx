@@ -1,7 +1,7 @@
 import { storage } from 'common/storage';
 import { createUuid } from 'common/uuid';
 import { useBackend } from '../../backend';
-import { CSSProperties, useEffect, useState } from 'react';
+import { type CSSProperties, useEffect, useState } from 'react';
 import {
   Button,
   Divider,
@@ -11,7 +11,7 @@ import {
   Stack,
 } from '../../components';
 import { POD_GREY } from './constants';
-import { PodLauncherData } from './types';
+import type { PodLauncherData } from './types';
 type Preset = {
   hue: number;
   id: number;

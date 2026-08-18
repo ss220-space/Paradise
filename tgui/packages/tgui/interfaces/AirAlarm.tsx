@@ -13,7 +13,7 @@ import {
 import { useState } from 'react';
 import { Window } from '../layouts';
 import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';
-import { AtmosMachine, AtmosMachineView } from './common/AtmosMachine';
+import { type AtmosMachine, AtmosMachineView } from './common/AtmosMachine';
 import { GASES } from '../constants';
 import { Danger2Colour } from './common/AtmosScan';
 

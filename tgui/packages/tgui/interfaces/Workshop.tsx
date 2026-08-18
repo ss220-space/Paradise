@@ -14,7 +14,7 @@ import {
 } from '../components';
 import { Countdown } from '../components/Countdown';
 import { Window } from '../layouts';
-import { CollapsibleProps } from '../components/Collapsible';
+import type { CollapsibleProps } from '../components/Collapsible';
 
 const canBeMade = (design: Item, brsail: number, pwrail: number) => {
   if (design.requirements === null) {

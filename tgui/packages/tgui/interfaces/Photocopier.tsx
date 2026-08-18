@@ -12,7 +12,7 @@ import { Window } from '../layouts';
 import { sortBy } from 'es-toolkit';
 import { flow } from 'common/fp';
 import { createSearch } from 'common/string';
-import { BooleanLike } from 'common/react';
+import type { BooleanLike } from 'common/react';
 
 const trimLongStr = (str: string, length: number) => {
   return str.length > length ? str.substring(0, length) + '...' : str;

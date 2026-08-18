@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { useBackend } from '../backend';
 import { Button, LabeledList, Dropdown, Box, Section } from '../components';
 import { Window } from '../layouts';

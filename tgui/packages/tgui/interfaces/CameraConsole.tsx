@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react';
+import { type ReactNode, useState } from 'react';
 import {
   Button,
   ByondUi,
@@ -11,7 +11,7 @@ import {
   Tabs,
   Icon,
 } from 'tgui/components';
-import { BooleanLike, classes } from 'common/react';
+import { type BooleanLike, classes } from 'common/react';
 import { createSearch } from 'common/string';
 
 import { useBackend } from '../backend';

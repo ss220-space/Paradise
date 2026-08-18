@@ -10,7 +10,7 @@ import {
   Table,
 } from '../components';
 import { Window } from '../layouts';
-import { BooleanLike } from 'common/react';
+import type { BooleanLike } from 'common/react';
 import { SortButton } from './common/SortButtons';
 import { createSearch } from 'common/string';
 

@@ -1,4 +1,4 @@
-import { MouseEvent } from 'react';
+import type { MouseEvent } from 'react';
 import { useBackend } from '../backend';
 import { useState } from 'react';
 import { Box, Button, Stack, Section } from '../components';

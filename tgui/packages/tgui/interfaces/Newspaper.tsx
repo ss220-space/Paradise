@@ -1,8 +1,8 @@
 import { useBackend } from '../backend';
-import { ReactNode, useState } from 'react';
+import { type ReactNode, useState } from 'react';
 import { Box, Section, Image, Button, Flex } from '../components';
 import { Window } from '../layouts';
-import { PhotoThumbnail, StoryData } from './Newscaster';
+import { PhotoThumbnail, type StoryData } from './Newscaster';
 
 type NewspaperData = {
   wanted: StoryData;

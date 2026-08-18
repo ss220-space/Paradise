@@ -1,9 +1,9 @@
-import { BooleanLike } from 'common/react';
+import type { BooleanLike } from 'common/react';
 
 import { useBackend } from '../backend';
 import { Button, LabeledList } from '../components';
 import { Window } from '../layouts';
-import { Access, AccessList } from './common/AccessList';
+import { type Access, AccessList } from './common/AccessList';
 
 type Data = {
   oneAccess: BooleanLike;

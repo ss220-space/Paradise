@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { computeBoxProps } from 'tgui-core/ui';
 import type { BoxProps } from './Box';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { Tooltip } from './Tooltip';
 
 type Props = Partial<{

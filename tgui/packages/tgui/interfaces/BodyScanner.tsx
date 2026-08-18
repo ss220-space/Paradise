@@ -14,8 +14,8 @@ import {
   Tooltip,
 } from '../components';
 import { Window } from '../layouts';
-import { Fragment, ReactNode } from 'react';
-import { ProgressBarProps } from '../components/ProgressBar';
+import { Fragment, type ReactNode } from 'react';
+import type { ProgressBarProps } from '../components/ProgressBar';
 
 const stats = [
   ['good', 'Норма'],

@@ -1,7 +1,7 @@
-import { BooleanLike } from 'common/react';
+import type { BooleanLike } from 'common/react';
 import { useBackend } from '../../backend';
 import { IconDisplay } from './IconDisplay';
-import { SearchGroup, SearchItem } from './types';
+import type { SearchGroup, SearchItem } from './types';
 import { Button, Stack } from '../../components';
 
 type Data = {

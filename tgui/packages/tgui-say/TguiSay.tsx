@@ -3,9 +3,9 @@ import './styles/main.scss';
 import { useEffect, useRef, useState } from 'react';
 import { dragStartHandler } from 'tgui/drag';
 import { isEscape, KEY } from 'common/keys';
-import { BooleanLike, classes } from 'common/react';
-import { Channel, ChannelIterator } from './ChannelIterator';
-import { ChatHistory, HistoryRecord } from './ChatHistory';
+import { type BooleanLike, classes } from 'common/react';
+import { type Channel, ChannelIterator } from './ChannelIterator';
+import { ChatHistory, type HistoryRecord } from './ChatHistory';
 import {
   LineLength,
   RADIO_PREFIXES,

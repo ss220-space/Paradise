@@ -3,7 +3,7 @@ import { Box, Stack, Button } from '../../components';
 import { classes, shallowDiffers } from 'common/react';
 import { ABSOLUTE_Y_OFFSET, noop } from './constants';
 import { Port } from './Port';
-import {
+import type {
   ComponentType,
   ObjectComponentProps,
   ObjectComponentState,

@@ -14,7 +14,7 @@ import {
   VARIABLE_LIST,
   VARIABLE_NOT_A_LIST,
 } from './constants';
-import { VariableMenuState, VariableMenuProps } from './types';
+import type { VariableMenuState, VariableMenuProps } from './types';
 
 export class VariableMenu extends Component<
   VariableMenuProps,

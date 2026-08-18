@@ -12,7 +12,7 @@ import {
   Tabs,
   ProgressBar,
 } from '../components';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 const stats = [
   ['good', 'В сознании'],

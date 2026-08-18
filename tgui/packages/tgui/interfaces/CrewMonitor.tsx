@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { Box, Button, Icon, Input, NanoMap, Table, Tabs } from '../components';
 import { COLORS } from '../constants';
 import { Window } from '../layouts';
-import { NanoMakerProps } from '../components/NanoMap';
+import type { NanoMakerProps } from '../components/NanoMap';
 
 const getStatText = (cm: CrewMember, critThreshold: number) => {
   if (cm.dead) {

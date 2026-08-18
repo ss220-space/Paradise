@@ -14,7 +14,7 @@ import {
 } from '../components';
 import { formatSiUnit } from 'tgui-core/format';
 import { Window } from '../layouts';
-import { BooleanLike } from 'common/react';
+import type { BooleanLike } from 'common/react';
 
 type CanisterData = {
   portConnected: boolean;

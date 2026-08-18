@@ -1,6 +1,6 @@
 import { useBackend } from '../backend';
 import { Button, Flex, LabeledList, Section, Box, Icon } from '../components';
-import { ButtonProps } from '../components/Button';
+import type { ButtonProps } from '../components/Button';
 import { Window } from '../layouts';
 
 const TEMPS = {

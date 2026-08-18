@@ -6,7 +6,7 @@
 
 import type { Placement } from '@popperjs/core';
 import {
-  CSSProperties,
+  type CSSProperties,
   type ChangeEvent,
   type MouseEvent,
   type ReactNode,

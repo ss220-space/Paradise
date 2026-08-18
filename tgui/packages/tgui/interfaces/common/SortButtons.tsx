@@ -1,6 +1,6 @@
 import { computeBoxProps } from 'tgui-core/ui';
 import { Button, Icon, Table } from '../../components';
-import { ButtonProps } from '../../components/Button';
+import type { ButtonProps } from '../../components/Button';
 
 type SortButtonProps = ButtonProps & SordIdProps & SortOrderProps;
 

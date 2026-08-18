@@ -1,7 +1,7 @@
 import { toFixed } from 'common/math';
 import { useBackend } from '../backend';
 import { Box, Button, LabeledList, NumberInput, Section } from '../components';
-import { Channel, RADIO_CHANNELS } from '../constants';
+import { type Channel, RADIO_CHANNELS } from '../constants';
 import { Window } from '../layouts';
 
 type RadioData = {

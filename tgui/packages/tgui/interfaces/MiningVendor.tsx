@@ -1,6 +1,7 @@
 import { createSearch } from 'common/string';
 import { useBackend } from '../backend';
-import React, { useState } from 'react';
+import type React from 'react';
+import { useState } from 'react';
 import {
   Box,
   Button,
@@ -13,7 +14,7 @@ import {
   Section,
 } from '../components';
 import { Window } from '../layouts';
-import { CollapsibleProps } from '../components/Collapsible';
+import type { CollapsibleProps } from '../components/Collapsible';
 
 const sortTypes = {
   'Alphabetical': (a: number, b: number) => a - b,

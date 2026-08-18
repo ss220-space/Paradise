@@ -1,4 +1,4 @@
-import { Component, Fragment, ReactNode } from 'react';
+import { Component, Fragment, type ReactNode } from 'react';
 import { useBackend } from '../backend';
 import {
   Box,
@@ -14,7 +14,7 @@ import {
   Stack,
 } from '../components';
 import { Window } from '../layouts';
-import { Placement } from '@popperjs/core';
+import type { Placement } from '@popperjs/core';
 
 const helpButtonsData = [
   {

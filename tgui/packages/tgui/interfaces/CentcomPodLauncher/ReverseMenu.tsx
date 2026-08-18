@@ -2,7 +2,7 @@ import { useBackend } from '../../backend';
 import { Button, Section, Stack } from '../../components';
 import { REVERSE_OPTIONS } from './constants';
 import { useTab } from './hooks';
-import { PodLauncherData } from './types';
+import type { PodLauncherData } from './types';
 
 export const ReverseMenu = (props: unknown) => {
   const { act, data } = useBackend<PodLauncherData>();
