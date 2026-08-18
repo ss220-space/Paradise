@@ -16,7 +16,7 @@ import {
   Stack,
   TextArea,
 } from '../components';
-import { timeAgo, DEPARTMENTS_RU } from '../constants';
+import { timeAgo, } from '../constants';
 import { Window } from '../layouts';
 import {
   ComplexModal,

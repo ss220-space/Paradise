@@ -1,6 +1,6 @@
 import { useBackend } from '../../backend';
 import { useState } from 'react';
-import { Box, Button } from '../../components';
+import { Button } from '../../components';
 import type { PodLauncherData } from './types';
 
 export const TabPod = (props: unknown) => {

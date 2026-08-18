@@ -1,4 +1,4 @@
-import { Box, Button, Dimmer, Icon, Section, Stack } from '../../components';
+import { Box, Button, Icon, Section, Stack } from '../../components';
 
 import { useBackend } from '../../backend';
 import type { MainData } from './data';

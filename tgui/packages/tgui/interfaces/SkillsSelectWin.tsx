@@ -1,8 +1,6 @@
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, Section, Table, Stack } from '../components';
-import { Layout, Window } from '../layouts';
-import { decodeHtmlEntities } from 'common/string';
-import { COLORS } from '../constants';
+import { Box, Button, Section, Table, } from '../components';
+import { Window } from '../layouts';
 
 type SkillSelectData = {
   id: string;

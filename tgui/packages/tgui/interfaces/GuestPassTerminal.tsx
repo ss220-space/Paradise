@@ -3,12 +3,9 @@ import {
   Button,
   Section,
   Stack,
-  Input,
   NumberInput,
   Box,
   Tabs,
-  Icon,
-  LabeledList,
   TextArea,
 } from '../components';
 import { Window } from '../layouts';

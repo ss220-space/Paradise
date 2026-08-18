@@ -4,7 +4,6 @@ import { useState } from 'react';
 import {
   Box,
   Button,
-  Icon,
   Input,
   ProgressBar,
   Section,
@@ -13,8 +12,6 @@ import {
   Tabs,
 } from '../components';
 import { Window } from '../layouts';
-import { computeBoxProps } from 'tgui-core/ui';
-import { ButtonProps } from '../components/Button';
 import { SortButton } from './common/SortButtons';
 
 const Titles = {

@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Box, Section, Button, LabeledList, Flex, Stack } from '../components';
+import { Box, Section, Button, Flex, Stack } from '../components';
 import { Window } from '../layouts';
 import { ComplexModal } from './common/ComplexModal';
 

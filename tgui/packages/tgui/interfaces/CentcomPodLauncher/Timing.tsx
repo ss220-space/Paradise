@@ -1,5 +1,5 @@
 import { useBackend } from '../../backend';
-import { Button, Divider, Section } from '../../components';
+import { Button, Section } from '../../components';
 import { DELAYS, REV_DELAYS } from './constants';
 import { DelayHelper } from './DelayHelper';
 import type { PodLauncherData } from './types';

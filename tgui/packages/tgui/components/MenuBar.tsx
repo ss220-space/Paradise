@@ -1,4 +1,4 @@
-import { type ReactNode, type RefObject, useRef } from 'react';
+import { type ReactNode, useRef } from 'react';
 import { classes } from 'common/react';
 import { Box, type BoxProps } from './Box';
 import { Icon } from './Icon';

@@ -2,7 +2,7 @@ import { Loader } from './common/Loader';
 import { InputButtons } from './common/InputButtons';
 import { Button, Section, Stack } from '../components';
 import { useBackend } from '../backend';
-import { useState, KeyboardEvent } from 'react';
+import { useState, } from 'react';
 import { Window } from '../layouts';
 import type { BooleanLike } from 'common/react';
 

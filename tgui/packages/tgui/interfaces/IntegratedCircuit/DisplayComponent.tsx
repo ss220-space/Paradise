@@ -1,4 +1,4 @@
-import { Component, createRef, CSSProperties, type RefObject } from 'react';
+import { Component, createRef, type RefObject } from 'react';
 import { Button, Stack, Box } from '../../components';
 import { classes } from 'common/react';
 

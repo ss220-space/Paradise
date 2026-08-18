@@ -1,4 +1,4 @@
-import { Component, type ReactNode, MouseEvent } from 'react';
+import { type ReactNode, } from 'react';
 import { useBackend } from '../backend';
 import {
   Box,

@@ -2,7 +2,6 @@ import { useBackend } from '../../backend';
 import { Box, Flex, LabeledList, Section, Button } from '../../components';
 import { RndNavButton } from './index';
 import { MENU, SUBMENU } from '../RndConsole';
-import { left } from '@popperjs/core';
 
 export const MainMenu = (properties) => {
   const { data } = useBackend<RndData>();

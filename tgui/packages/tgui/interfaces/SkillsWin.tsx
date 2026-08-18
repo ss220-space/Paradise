@@ -1,8 +1,6 @@
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, Section, Table } from '../components';
+import { Box, Section, Table } from '../components';
 import { Window } from '../layouts';
-import { decodeHtmlEntities } from 'common/string';
-import { COLORS } from '../constants';
 
 type Skill = {
   name: string;

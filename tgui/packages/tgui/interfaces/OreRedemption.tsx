@@ -5,7 +5,6 @@ import {
   Button,
   Divider,
   Stack,
-  Icon,
   LabeledList,
   NumberInput,
   Section,

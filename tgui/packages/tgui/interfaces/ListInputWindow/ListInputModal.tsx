@@ -1,4 +1,4 @@
-import { SyntheticEvent, useState } from 'react';
+import { useState } from 'react';
 import { Autofocus, Button, Input, Section, Stack } from 'tgui/components';
 import {
   KEY_A,

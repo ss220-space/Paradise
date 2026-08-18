@@ -8,7 +8,6 @@ import {
   Stack,
   ImageButton,
   Table,
-  Tooltip,
 } from '../components';
 import { capitalize } from 'common/string';
 import { Window } from '../layouts';

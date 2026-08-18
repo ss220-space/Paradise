@@ -1,4 +1,4 @@
-import { type KeyboardEvent, useEffect, useState } from 'react';
+import { type KeyboardEvent, useState } from 'react';
 import { Autofocus, Box, Button, Section, Stack } from 'tgui/components';
 import { isEscape, KEY } from 'common/keys';
 import type { BooleanLike } from 'common/react';

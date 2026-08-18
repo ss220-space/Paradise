@@ -1,8 +1,6 @@
 import { useBackend } from '../backend';
 import {
-  Button,
   LabeledList,
-  NumberInput,
   RestrictedInput,
   Section,
 } from '../components';

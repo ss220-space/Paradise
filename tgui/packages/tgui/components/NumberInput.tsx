@@ -9,7 +9,6 @@ import {
   Component,
   type FocusEventHandler,
   type KeyboardEventHandler,
-  type MouseEventHandler,
   type RefObject,
   createRef,
 } from 'react';

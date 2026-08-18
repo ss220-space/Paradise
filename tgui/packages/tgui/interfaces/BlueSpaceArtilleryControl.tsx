@@ -10,11 +10,9 @@ import {
   Dimmer,
   Icon,
   Box,
-  Modal,
   ByondUi,
   Dropdown,
 } from '../components';
-import { classes } from 'common/react';
 import { Window } from '../layouts';
 import { ComplexModal } from './common/ComplexModal';
 

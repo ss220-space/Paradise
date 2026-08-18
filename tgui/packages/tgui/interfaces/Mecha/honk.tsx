@@ -1,4 +1,4 @@
-import { number } from 'prop-types';
+
 import { useMemo } from 'react';
 
 const MECHA_REPLACEMENTS: Record<string, string> = {
