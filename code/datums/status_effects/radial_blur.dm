@@ -8,9 +8,7 @@
 /datum/status_effect/radial_blur
 	id = "radial_blur"
 	alert_type = null
-	duration = STATUS_EFFECT_PERMANENT
 	tick_interval = STATUS_EFFECT_NO_TICK
-	status_type = STATUS_EFFECT_UNIQUE
 	var/blur_min_size = RADIAL_BLUR_MIN_SIZE
 	var/blur_max_size = RADIAL_BLUR_MAX_SIZE
 	var/blur_rise_time = RADIAL_BLUR_RISE_TIME
