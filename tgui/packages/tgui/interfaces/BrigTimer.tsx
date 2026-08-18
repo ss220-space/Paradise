@@ -61,36 +61,34 @@ export const BrigTimer = (props: unknown) => {
               {data.time_left}
             </LabeledList.Item>
             <LabeledList.Item label="Actions">
-              <>
-                <Button
-                  icon="lightbulb-o"
-                  disabled={!data.isAllowed}
-                  onClick={() => act('flash')}
-                >
-                  Flash
-                </Button>
-                <Button
-                  icon="angle-up"
-                  disabled={!data.timing || !data.isAllowed}
-                  onClick={() => act('add_timer')}
-                >
-                  Add Timer
-                </Button>
-                <Button
-                  icon="sync"
-                  disabled={!data.timing || !data.isAllowed}
-                  onClick={() => act('restart_timer')}
-                >
-                  Reset Timer
-                </Button>
-                <Button
-                  icon="eject"
-                  disabled={!data.timing || !data.isAllowed}
-                  onClick={() => act('stop')}
-                >
-                  Release Prisoner
-                </Button>
-              </>
+              <Button
+                icon="lightbulb-o"
+                disabled={!data.isAllowed}
+                onClick={() => act('flash')}
+              >
+                Flash
+              </Button>
+              <Button
+                icon="angle-up"
+                disabled={!data.timing || !data.isAllowed}
+                onClick={() => act('add_timer')}
+              >
+                Add Timer
+              </Button>
+              <Button
+                icon="sync"
+                disabled={!data.timing || !data.isAllowed}
+                onClick={() => act('restart_timer')}
+              >
+                Reset Timer
+              </Button>
+              <Button
+                icon="eject"
+                disabled={!data.timing || !data.isAllowed}
+                onClick={() => act('stop')}
+              >
+                Release Prisoner
+              </Button>
             </LabeledList.Item>
           </LabeledList>
         </Section>

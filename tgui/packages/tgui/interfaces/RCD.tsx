@@ -126,7 +126,7 @@ const AirlockSettings = (_props: unknown) => {
               icon="pen-alt"
               onClick={() => modalOpen('renameAirlock')}
             >
-              <>Переименовать: {<b>{door_name}</b>}</>
+              Переименовать: {<b>{door_name}</b>}
             </Button>
           </Stack.Item>
           <Stack.Item>
