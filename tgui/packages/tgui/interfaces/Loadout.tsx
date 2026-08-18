@@ -197,8 +197,8 @@ const LoadoutGears = (props) => {
         const selected = Object.keys(data.selected_gears).includes(key);
         const costText =
           gear.cost === 1
-            ? `${gear.cost} Очк` + declension_ru(gear.cost, 'о', 'а', 'ов')
-            : `${gear.cost} Очк` + declension_ru(gear.cost, 'о', 'а', 'ов');
+            ? `${gear.cost} Очк${declension_ru(gear.cost, 'о', 'а', 'ов')}`
+            : `${gear.cost} Очк${declension_ru(gear.cost, 'о', 'а', 'ов')}`;
         const tooltipText = (
           <Box>
             {gear.name.length > maxTextLength && <Box>{gear.name}</Box>}

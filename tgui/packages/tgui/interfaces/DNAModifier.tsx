@@ -376,7 +376,7 @@ const DNAModifierMainBuffers = (props: unknown) => {
     <DNAModifierMainBuffersElement
       key={i}
       id={i + 1}
-      name={'Ячейка буфера №' + (i + 1)}
+      name={`Ячейка буфера №${i + 1}`}
       buffer={buffer}
     />
   ));
@@ -414,7 +414,7 @@ const DNAModifierMainBuffersElement = (
   const { act, data } = useBackend<DNAModifierData>();
   const { id, name, buffer } = props;
   const isInjectorReady = data.isInjectorReady;
-  const realName = name + (buffer.data ? ' - ' + buffer.label : '');
+  const realName = name + (buffer.data ? ` - ${buffer.label}` : '');
   return (
     <Box backgroundColor="rgba(0, 0, 0, 0.33)" mb="0.5rem">
       <Section

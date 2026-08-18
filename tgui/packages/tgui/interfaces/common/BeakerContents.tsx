@@ -20,7 +20,7 @@ type BeakerContentsProps = {
 };
 
 const formatUnits = (a: number): string =>
-  a + ' единиц' + declension_ru(a, 'а', 'ы', '');
+  `${a} единиц${declension_ru(a, 'а', 'ы', '')}`;
 
 export const BeakerContents = ({
   beakerLoaded,

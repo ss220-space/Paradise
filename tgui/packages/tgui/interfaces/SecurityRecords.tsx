@@ -227,7 +227,7 @@ const SecurityRecordsPageList = (_properties) => {
                   key={record.id}
                   mb={1}
                   className={
-                    'SecurityRecords__listRow--' + statusStyles[record.status]
+                    `SecurityRecords__listRow--${statusStyles[record.status]}`
                   }
                   onClick={() =>
                     act('view', {
@@ -459,7 +459,7 @@ const SecurityRecordsViewGeneral = (_properties) => {
         <LabeledList>
           {general.fields.map((field, i) => (
             <LabeledList.Item key={i} label={field.field}>
-              {decodeHtmlEntities('' + field.value)}
+              {decodeHtmlEntities(`${field.value}`)}
               {!!field.edit && (
                 <Button
                   icon="pen"

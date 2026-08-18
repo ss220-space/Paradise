@@ -662,7 +662,7 @@ const DiseasesList = (props: unknown) => {
     <Box>
       {diseases.map((disease, index) => (
         <Section
-          title={'Внимание: ' + disease.form}
+          title={`Внимание: ${disease.form}`}
           mt={2}
           mb={2}
           color="red"

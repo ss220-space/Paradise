@@ -147,7 +147,7 @@ export const Uplink = (_props: unknown) => {
                 }}
                 icon="shopping-cart"
               >
-                Корзина {cart?.length ? '(' + cart.length + ')' : ''}
+                Корзина {cart?.length ? `(${cart.length})` : ''}
               </Tabs.Tab>
               <Tabs.Tab
                 key="ExploitableInfo"
@@ -201,7 +201,7 @@ export const Uplink = (_props: unknown) => {
                   ) : (
                     <Countdown
                       timeLeft={data.contractor.time_left}
-                      format={(v, f) => ' (' + f + ')'}
+                      format={(v, f) => ` (${f})`}
                     />
                   )}
                 </Tabs.Tab>
@@ -241,7 +241,7 @@ const ItemsPage = (properties: SearchTextProps & ShowDescProps) => {
   const SelectEquipment = (cat: Item[], searchText = '') => {
     const EquipmentSearch = createSearch<Item>(searchText, (item) => {
       const is_hijack = item.hijack_only ? '|' + 'hijack' : '';
-      return item.name + '|' + item.desc + '|' + item.cost + 'tc' + is_hijack;
+      return `${item.name}|${item.desc}|${item.cost}tc${is_hijack}`;
     });
     return flow([
       (cat: Item[]) => cat.filter((item) => !!item?.name), // Make sure it has a name
@@ -264,7 +264,7 @@ const ItemsPage = (properties: SearchTextProps & ShowDescProps) => {
       <Stack vertical>
         <Stack.Item>
           <Section
-            title={'Текущий баланс: ' + crystals + ' ' + 'ТК'}
+            title={`Текущий баланс: ${crystals} ТК`}
             buttons={
               <>
                 <Button.Checkbox
@@ -350,7 +350,7 @@ const CartPage = (properties: ShowDescProps) => {
         <Section
           fill
           scrollable
-          title={'Текущий баланс: ' + crystals + ' ' + 'ТК'}
+          title={`Текущий баланс: ${crystals} ТК`}
           buttons={
             <>
               <Button.Checkbox
@@ -371,7 +371,7 @@ const CartPage = (properties: ShowDescProps) => {
                 onClick={() => act('purchase_cart')}
                 disabled={!cart || cart_price > crystals}
               >
-                {'Купить корзину (' + cart_price + 'TC)'}
+                {`Купить корзину (${cart_price}TC)`}
               </Button>
             </>
           }
@@ -525,7 +525,7 @@ const CartButtons = (props: CartButtonsProps) => {
           })
         }
       >
-        {'(' + i.cost * i.amount + ' ' + 'ТК)'}
+        {`(${i.cost * i.amount} ТК)`}
       </Button>
       <Button
         icon="minus"
@@ -722,7 +722,7 @@ modalRegisterBodyOverride('become_contractor', (modal) => {
             <Countdown
               key="countdown"
               timeLeft={time_left}
-              format={(_, f) => ' (' + f + ')'}
+              format={(_, f) => ` (${f})`}
             />,
           ]
         ) : !isAffordable ? (

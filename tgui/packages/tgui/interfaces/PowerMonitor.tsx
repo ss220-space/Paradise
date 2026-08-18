@@ -149,7 +149,7 @@ const DataView = (_props: unknown) => {
                     maxValue={maxValue}
                     color="green"
                   >
-                    {toFixed(supply / 1000) + ' kW'}
+                    {`${toFixed(supply / 1000)} kW`}
                   </ProgressBar>
                 </LabeledList.Item>
                 <LabeledList.Item label="Draw">
@@ -159,7 +159,7 @@ const DataView = (_props: unknown) => {
                     maxValue={maxValue}
                     color="red"
                   >
-                    {toFixed(demand / 1000) + ' kW'}
+                    {`${toFixed(demand / 1000)} kW`}
                   </ProgressBar>
                 </LabeledList.Item>
               </LabeledList>
@@ -293,7 +293,7 @@ const AreaCharge = (props: AreaChargeProp) => {
         }
       />
       <Box inline width="36px" textAlign="right">
-        {toFixed(charge) + '%'}
+        {`${toFixed(charge)}%`}
       </Box>
     </>
   );

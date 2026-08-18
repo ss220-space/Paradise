@@ -15,7 +15,7 @@ import { createSearch } from 'common/string';
 import type { BooleanLike } from 'common/react';
 
 const trimLongStr = (str: string, length: number) => {
-  return str.length > length ? str.substring(0, length) + '...' : str;
+  return str.length > length ? `${str.substring(0, length)}...` : str;
 };
 
 const selectForms = (forms: Form[], searchText = ''): Form[] => {
@@ -147,7 +147,7 @@ export const Photocopier = (_props: unknown) => {
                       {data.copyitem
                         ? data.copyitem
                         : data.mob
-                          ? 'Жопа ' + data.mob + '!'
+                          ? `Жопа ${data.mob}!`
                           : 'Слот для документа'}
                     </Button>
                   </Stack.Item>

@@ -970,18 +970,18 @@ const FakeLoadBar = (_properties) => {
         maxValue={100}
       >
         <center>
-          <NoticeBox className={'NoticeBox_' + color_choice} mt={1}>
+          <NoticeBox className={`NoticeBox_${color_choice}`} mt={1}>
             <DmIcon
               height="64px"
               width="64px"
               icon={actionsIcon}
-              icon_state={'spider_' + color_choice}
+              icon_state={`spider_${color_choice}`}
               style={{
                 marginLeft: '-6px',
               }}
             />
             <br />
-            Loading {randomPercent + '%'}
+            Loading {`${randomPercent}%`}
           </NoticeBox>
         </center>
       </ProgressBar>

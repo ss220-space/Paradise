@@ -53,8 +53,8 @@ export const useHonk = (honkChance: number = 0.4) => {
         const replaceStart = Math.random() > 0.5;
 
         words[i] = replaceStart
-          ? 'хонк' + cleanWord.substring(replaceLength)
-          : cleanWord.substring(0, cleanWord.length - replaceLength) + 'хонк';
+          ? `хонк${cleanWord.substring(replaceLength)}`
+          : `${cleanWord.substring(0, cleanWord.length - replaceLength)}хонк`;
       }
 
       return words.join(' ');

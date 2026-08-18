@@ -221,7 +221,7 @@ export const Newscaster = (properties) => {
                     <MenuButton
                       security
                       icon={censorMode ? 'minus-square' : 'minus-square-o'}
-                      title={'Режим Цензуры: ' + (censorMode ? 'Вкл' : 'Выкл')}
+                      title={`Режим Цензуры: ${censorMode ? 'Вкл' : 'Выкл'}`}
                       mb="0.5rem"
                       onClick={() => setCensorMode(!censorMode)}
                     />
@@ -248,7 +248,7 @@ export const Newscaster = (properties) => {
                 />
                 <MenuButton
                   icon={is_silent ? 'volume-mute' : 'volume-up'}
-                  title={'Заглушить: ' + (is_silent ? 'Вкл' : 'Выкл')}
+                  title={`Заглушить: ${is_silent ? 'Вкл' : 'Выкл'}`}
                   onClick={() => act('toggle_mute')}
                 />
               </Stack.Item>
@@ -350,7 +350,7 @@ const NewscasterFeed = (properties: CensorModeProps & FullStoriesProps) => {
                 ? {
                     ...story,
                     body_short:
-                      story.body.substring(0, HEADLINE_MAX_LENGTH - 4) + '...',
+                      `${story.body.substring(0, HEADLINE_MAX_LENGTH - 4)}...`,
                   }
                 : story
             )
@@ -485,7 +485,7 @@ const NewscasterJobs = (properties: FullStoriesProps & CensorModeProps) => {
                 key={cat.id}
                 className={classes([
                   'Newscaster__jobCategory',
-                  'Newscaster__jobCategory--' + cat.id,
+                  `Newscaster__jobCategory--${cat.id}`,
                 ])}
                 title={cat.title}
                 buttons={
@@ -562,7 +562,7 @@ const Story = (properties: StoryProps) => {
           {wanted && <Icon name="exclamation-circle" mr="0.5rem" />}
           {(story.censor_flags & 2 && '[ОТРЕДАКТИРОВАНО]') ||
             story.title ||
-            'News from ' + story.author}
+            `News from ${story.author}`}
         </>
       }
       buttons={
@@ -606,7 +606,7 @@ const Story = (properties: StoryProps) => {
           <>
             {!!story.has_photo && (
               <PhotoThumbnail
-                name={'story_photo_' + story.uid + '.png'}
+                name={`story_photo_${story.uid}.png`}
                 style={{ float: 'right', marginLeft: '0.5rem' }}
               />
             )}
@@ -700,7 +700,7 @@ const manageChannelModalBodyOverride = (
     <Section
       m="-1rem"
       pb="1.5rem"
-      title={isEditing ? 'Управление: ' + channel.name : 'Создать новый канал'}
+      title={isEditing ? `Управление: ${channel.name}` : 'Создать новый канал'}
     >
       <Stack vertical mx="0.5rem">
         <Stack.Item>
@@ -901,7 +901,7 @@ const createStoryModalBodyOverride = (
               }
               onClick={() => act(photo ? 'eject_photo' : 'attach_photo')}
             >
-              {photo ? 'Достать: ' + photo.name : 'Вставить фото'}
+              {photo ? `Достать: ${photo.name}` : 'Вставить фото'}
             </Button>
           </LabeledList.Item>
         </Stack.Item>
@@ -922,7 +922,7 @@ const createStoryModalBodyOverride = (
                 <Box mt="0.5rem">
                   {!!photo && (
                     <PhotoThumbnail
-                      name={'inserted_photo_' + photo.uid + '.png'}
+                      name={`inserted_photo_${photo.uid}.png`}
                       style={{ float: 'right' }}
                     />
                   )}
@@ -1040,14 +1040,14 @@ const wantedNoticeModalBodyOverride = (
               tooltipPosition="top"
               onClick={() => act(photo ? 'eject_photo' : 'attach_photo')}
             >
-              {photo ? 'Достать: ' + photo.name : 'Вставить фото'}
+              {photo ? `Достать: ${photo.name}` : 'Вставить фото'}
             </Button>
           </LabeledList.Item>
         </Stack.Item>
         <Stack.Item>
           {!!photo && (
             <PhotoThumbnail
-              name={'inserted_photo_' + photo.uid + '.png'}
+              name={`inserted_photo_${photo.uid}.png`}
               style={{ float: 'right' }}
             />
           )}

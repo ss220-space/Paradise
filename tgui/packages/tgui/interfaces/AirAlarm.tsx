@@ -181,7 +181,7 @@ const AirStatus = (_props: unknown) => {
                 icon="thermometer-full"
                 onClick={() => act('temperature')}
               >
-                {target_temp + ' C'}
+                {`${target_temp} C`}
               </Button>
               <Button
                 selected={air.thermostat_state}

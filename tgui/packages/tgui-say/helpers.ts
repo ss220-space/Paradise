@@ -59,10 +59,10 @@ export const getPrefix = (
     return;
   }
 
-  const adjusted = (value
+  const adjusted = (`${value
     .split(' ')[0]
     ?.toLowerCase()
-    ?.replace(/[:#.,]/, ':') + ' ') as keyof typeof RADIO_PREFIXES;
+    ?.replace(/[:#.,]/, ':')} `) as keyof typeof RADIO_PREFIXES;
 
   if (!RADIO_PREFIXES[adjusted]) {
     return;

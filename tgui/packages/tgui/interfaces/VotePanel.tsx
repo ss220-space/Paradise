@@ -36,7 +36,7 @@ export const VotePanel = (_props: unknown) => {
                 mb={0.5}
               >
                 {choice +
-                  (show_counts ? ' (' + (counts[choice] || 0) + ')' : '')}
+                  (show_counts ? ` (${counts[choice] || 0})` : '')}
               </Button>
             </Box>
           ))}

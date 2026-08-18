@@ -57,7 +57,7 @@ export const pai_main_menu = (props: unknown) => {
                 disabled={s.cost > available_ram}
                 onClick={() => act('purchaseSoftware', { key: s.key })}
               >
-                {s.name + ' (' + s.cost + ')'}
+                {`${s.name} (${s.cost})`}
               </Button>
             ))}
           {available_software.filter((s) => !installedSoftwareKeys[s.key])

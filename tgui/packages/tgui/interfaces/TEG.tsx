@@ -45,7 +45,7 @@ export const TEG = (_props) => {
   return (
     <Window width={500} height={400}>
       <Window.Content>
-        <Section title={'Cold Loop (' + data.cold_dir + ')'}>
+        <Section title={`Cold Loop (${data.cold_dir})`}>
           <LabeledList>
             <LabeledList.Item label="Cold Inlet">
               {addcommas(data.cold_inlet_temp)} K,{' '}
@@ -57,7 +57,7 @@ export const TEG = (_props) => {
             </LabeledList.Item>
           </LabeledList>
         </Section>
-        <Section title={'Hot Loop (' + data.hot_dir + ')'}>
+        <Section title={`Hot Loop (${data.hot_dir})`}>
           <LabeledList>
             <LabeledList.Item label="Hot Inlet">
               {addcommas(data.hot_inlet_temp)} K,{' '}

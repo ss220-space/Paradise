@@ -137,11 +137,11 @@ export const AutoDoc = (props: unknown) => {
                       {organ.dead ? 'dead' : ''}
                       {!!organ.dead && <br />}
                       {organ.germ_level
-                        ? 'Germ level is ' + organ.germ_level
+                        ? `Germ level is ${organ.germ_level}`
                         : ''}
                       {!!organ.germ_level && <br />}
                       {organ.totalLoss
-                        ? 'Total damage is ' + organ.totalLoss
+                        ? `Total damage is ${organ.totalLoss}`
                         : ''}
                       <br />
                     </Fragment>
@@ -165,10 +165,10 @@ export const AutoDoc = (props: unknown) => {
                       {organ.dead ? 'dead' : ''}
                       {!!organ.dead && <br />}
                       {organ.germ_level
-                        ? 'Germ level is ' + organ.germ_level
+                        ? `Germ level is ${organ.germ_level}`
                         : ''}
                       {!!organ.germ_level && <br />}
-                      {organ.totalLoss ? 'Total damage is ' + organ.damage : ''}
+                      {organ.totalLoss ? `Total damage is ${organ.damage}` : ''}
                       {!!organ.totalLoss && (
                         <>
                           <Button

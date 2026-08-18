@@ -122,7 +122,7 @@ const SleeperOccupant = (_props: unknown) => {
             icon={auto_eject_dead ? 'toggle-on' : 'toggle-off'}
             selected={auto_eject_dead}
             onClick={() =>
-              act('auto_eject_dead_' + (auto_eject_dead ? 'off' : 'on'))
+              act(`auto_eject_dead_${auto_eject_dead ? 'off' : 'on'}`)
             }
           >
             {auto_eject_dead ? 'Да' : 'Нет'}
@@ -323,7 +323,7 @@ const SleeperChemicals = (_props: unknown) => {
                     }
                     icon="syringe"
                     tooltip={
-                      'Ввести ' + a + 'u вещества ' + chem.title + ' в пациента'
+                      `Ввести ${a}u вещества ${chem.title} в пациента`
                     }
                     mb="0"
                     height="19px"
@@ -334,7 +334,7 @@ const SleeperChemicals = (_props: unknown) => {
                       })
                     }
                   >
-                    {'Ввести ' + a + 'u'}
+                    {`Ввести ${a}u`}
                   </Button>
                 ))}
               </Stack>

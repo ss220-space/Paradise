@@ -68,7 +68,7 @@ export const BluespaceRiftServer = (props: unknown) => {
     const probesLeft =
       pointsPerProbe > 0 ? Math.floor(probePoints / pointsPerProbe) : 0;
     const pointsPerProbeMessage = emagged
-      ? '@?%%!№@' + pointsPerProbe
+      ? `@?%%!№@${pointsPerProbe}`
       : pointsPerProbe;
     const enoughProbePoints = probePoints >= pointsPerProbe;
     const displayed_cooldown =
@@ -115,8 +115,8 @@ export const BluespaceRiftServer = (props: unknown) => {
             mx={2}
           >
             {cooldown > 0
-              ? 'Подготовка ' + displayed_cooldown + ' секунд'
-              : 'Зондировать (' + probesLeft + ')'}
+              ? `Подготовка ${displayed_cooldown} секунд`
+              : `Зондировать (${probesLeft})`}
           </Button>
           <br />
           <Button

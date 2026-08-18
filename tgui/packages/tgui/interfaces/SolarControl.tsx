@@ -79,7 +79,7 @@ export const SolarControl = (_props: unknown) => {
                     maxValue={1}
                     value={generated_ratio}
                   >
-                    {generated + ' W'}
+                    {`${generated} W`}
                   </ProgressBar>
                 </LabeledList.Item>
                 <LabeledList.Item label="Panel orientation">

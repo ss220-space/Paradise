@@ -61,8 +61,8 @@ const ContentsModal = (properties: ContentsModalProps) => {
     return (
       <Modal
         maxWidth="75%"
-        width={window.innerWidth + 'px'}
-        maxHeight={window.innerHeight * 0.75 + 'px'}
+        width={`${window.innerWidth}px`}
+        maxHeight={`${window.innerHeight * 0.75}px`}
         mx="auto"
       >
         <Box width="100%" bold>
@@ -121,9 +121,9 @@ const StatusPane = (_properties) => {
     dynamicTooltip = 'Pads are cooling off...';
     block = 1;
     if (wait_time !== 1) {
-      statusText = '' + telepads_status + ' (ETA: ' + wait_time + ' seconds)';
+      statusText = `${telepads_status} (ETA: ${wait_time} seconds)`;
     } else {
-      statusText = '' + telepads_status + ' (ETA: ' + wait_time + ' second)';
+      statusText = `${telepads_status} (ETA: ${wait_time} second)`;
     }
   }
 
@@ -200,9 +200,9 @@ const CataloguePane = (properties: CataloguePaneProps) => {
 
   let titleText = 'Crate Catalogue';
   if (searchText) {
-    titleText = "Results for '" + searchText + "':";
+    titleText = `Results for '${searchText}':`;
   } else if (category) {
-    titleText = 'Browsing ' + category;
+    titleText = `Browsing ${category}`;
   }
   return (
     <Section

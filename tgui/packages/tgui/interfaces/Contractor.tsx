@@ -40,7 +40,7 @@ const terminalMessages = [
   'Получен ответ, код подтверждения ' +
     Math.round(Math.random() * 25500) +
     '...',
-  'АККАУНТ ПОДТВЕРЖДЁН ' + Math.round(Math.random() * 20000),
+  `АККАУНТ ПОДТВЕРЖДЁН ${Math.round(Math.random() * 20000)}`,
   'Создание личной учётной записи...',
   'СОЗДАНА УЧЕТНАЯ ЗАПИСЬ КОНТРАКТНИКА',
   'Поиск доступных контрактов...',
@@ -280,7 +280,7 @@ const Contracts = (properties: SectionProps) => {
             extractionCooldown && (
               <Countdown
                 timeLeft={activeContract.time_left}
-                format={(v, f) => ' (' + f.substring(3) + ')'}
+                format={(v, f) => ` (${f.substring(3)})`}
               />
             ),
           ]}
@@ -314,7 +314,7 @@ const Contracts = (properties: SectionProps) => {
                       mb="-0.5rem"
                       ml="0.5rem"
                       onClick={() =>
-                        setViewingPhoto('target_photo_' + contract.uid + '.png')
+                        setViewingPhoto(`target_photo_${contract.uid}.png`)
                       }
                     />
                   )}
@@ -389,14 +389,14 @@ const Contracts = (properties: SectionProps) => {
                       })
                     }
                   >
-                    {difficulty.name + ' (' + difficulty.reward + ' ТК)'}
+                    {`${difficulty.name} (${difficulty.reward} ТК)`}
                   </Button.Confirm>
                 ))}
                 {!!contract.objective && (
                   <Box color="white" bold>
                     {contract.objective.extraction_name}
-                    <br />({(contract.objective.rewards.tc || 0) + ' ТК'},&nbsp;
-                    {(contract.objective.rewards.credits || 0) + ' Кредитов'})
+                    <br />({`${contract.objective.rewards.tc || 0} ТК`},&nbsp;
+                    {`${contract.objective.rewards.credits || 0} Кредитов`})
                   </Box>
                 )}
               </Flex.Item>
@@ -457,7 +457,7 @@ const Hub = (properties: SectionProps) => {
                   })
                 }
               >
-                {'Возврат (' + buyable.cost + ' репутации)'}
+                {`Возврат (${buyable.cost} репутации)`}
               </Button.Confirm>
             )
           }
@@ -474,7 +474,7 @@ const Hub = (properties: SectionProps) => {
               })
             }
           >
-            {'Купить (' + buyable.cost + ' репутации)'}
+            {`Купить (${buyable.cost} репутации)`}
           </Button.Confirm>
           {buyable.stock > -1 && (
             <Box as="span" color={!buyable.stock ? 'bad' : 'good'} ml="0.5rem">

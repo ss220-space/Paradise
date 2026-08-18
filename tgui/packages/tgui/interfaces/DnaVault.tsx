@@ -52,7 +52,7 @@ const DnaVaultDataBase = (props: unknown) => {
                 bad: [-Infinity, bad_progress],
               }}
             >
-              {dna + ' / ' + dna_max + ' Samples'}
+              {`${dna} / ${dna_max} Samples`}
             </ProgressBar>
           </LabeledList.Item>
           <LabeledList.Item label="Plant DNA">
@@ -64,7 +64,7 @@ const DnaVaultDataBase = (props: unknown) => {
                 bad: [-Infinity, bad_progress],
               }}
             >
-              {plants + ' / ' + plants_max + ' Samples'}
+              {`${plants} / ${plants_max} Samples`}
             </ProgressBar>
           </LabeledList.Item>
           <LabeledList.Item label="Animal DNA">
@@ -76,7 +76,7 @@ const DnaVaultDataBase = (props: unknown) => {
                 bad: [-Infinity, bad_progress],
               }}
             >
-              {animals + ' / ' + animals_max + ' Samples'}
+              {`${animals} / ${animals_max} Samples`}
             </ProgressBar>
           </LabeledList.Item>
         </LabeledList>

@@ -99,7 +99,7 @@ export const BorgPanel = (props: unknown) => {
             <LabeledList.Item label="Charge">
               {!cell.missing ? (
                 <ProgressBar value={cellPercent}>
-                  {cell.charge + ' / ' + cell.maxcharge}
+                  {`${cell.charge} / ${cell.maxcharge}`}
                 </ProgressBar>
               ) : (
                 <span className="color-bad">No cell installed</span>
@@ -151,7 +151,7 @@ export const BorgPanel = (props: unknown) => {
                     })
                   }
                 >
-                  {module.name + ' module'}
+                  {`${module.name} module`}
                 </Button>
               ))}
             </LabeledList.Item>

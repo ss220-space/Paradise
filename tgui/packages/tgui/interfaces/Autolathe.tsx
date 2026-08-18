@@ -128,9 +128,9 @@ export const Autolathe = (props: unknown) => {
 
   let rText = '';
   if (searchText) {
-    rText = 'Результаты поиска: "' + searchText + '":';
+    rText = `Результаты поиска: "${searchText}":`;
   } else if (category) {
-    rText = 'Категория "' + category + '"';
+    rText = `Категория "${category}"`;
   }
   return (
     <Window width={750} height={525}>
@@ -273,7 +273,7 @@ export const Autolathe = (props: unknown) => {
                     Object.keys(recipe.requirements)
                       .map(
                         (mat) =>
-                          toTitleCase(mat) + ': ' + recipe.requirements[mat],
+                          `${toTitleCase(mat)}: ${recipe.requirements[mat]}`,
                       )
                       .join(', ')) || <Box>Материалы не требуются.</Box>}
                 </Stack.Item>

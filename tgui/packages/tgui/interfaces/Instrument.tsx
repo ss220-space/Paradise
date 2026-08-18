@@ -66,7 +66,7 @@ const InstrumentHelp = (properties) => {
   return (
     <Modal
       maxWidth="75%"
-      height={window.innerHeight * 0.75 + 'px'}
+      height={`${window.innerHeight * 0.75}px`}
       mx="auto"
       py="0"
       px="0.5rem"
@@ -493,7 +493,7 @@ const InstrumentStatusAdvanced = (properties) => {
         value={sustainLinearDuration}
         step={0.5}
         stepPixelSize={85}
-        format={(v) => round(v * 100, 0) / 100 + ' seconds'}
+        format={(v) => `${round(v * 100, 0) / 100} seconds`}
         onChange={(_e, v) =>
           act('setlinearfalloff', {
             new: v / 10,
@@ -509,7 +509,7 @@ const InstrumentStatusAdvanced = (properties) => {
         maxValue={10}
         value={sustainExponentialDropoff}
         step={0.01}
-        format={(v) => round(v * 1000, 0) / 1000 + '% per decisecond'}
+        format={(v) => `${round(v * 1000, 0) / 1000}% per decisecond`}
         onChange={(_e, v) =>
           act('setexpfalloff', {
             new: v,

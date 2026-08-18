@@ -148,7 +148,7 @@ const FakeLoadBar = (properties) => {
       >
         <center>
           <NoticeBox className={'NoticeBox_green'} mt={1}>
-            {progressBar ? `Загрузка ${progressBar + '%'}` : `Режим ожидания`}
+            {progressBar ? `Загрузка ${`${progressBar}%`}` : `Режим ожидания`}
           </NoticeBox>
         </center>
       </ProgressBar>

@@ -16,7 +16,7 @@ import { Window } from '../layouts';
 import type { SectionProps } from '../components/Section';
 
 const vectorText = (vector: number[]) =>
-  vector ? '(' + vector.join(', ') + ')' : 'ERROR';
+  vector ? `(${vector.join(', ')})` : 'ERROR';
 
 const distanceToPoint = (from: number[], to: number[], upgr: boolean) => {
   if (!from || !to) {
@@ -237,7 +237,7 @@ const Signals = (properties: SectionProps) => {
                       rotation={-signal.angle}
                     />
                     &nbsp;
-                    {Math.floor(signal.distance) + 'm'}
+                    {`${Math.floor(signal.distance)}m`}
                   </Box>
                 )}
               </Table.Cell>

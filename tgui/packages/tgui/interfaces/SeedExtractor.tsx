@@ -49,7 +49,7 @@ const seedFilter = (searchText: string) => {
     }
     if (parts.length === 1) {
       filters.push((seed: Seed) =>
-        (seed.name + ' (' + seed.variant + ')')
+        (`${seed.name} (${seed.variant})`)
           .toLocaleLowerCase()
           .includes(parts[0].toLocaleLowerCase())
       );

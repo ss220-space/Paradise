@@ -17,7 +17,7 @@ export const PodSounds = (props: unknown) => {
           selected={soundVolume !== defaultSoundVolume}
           tooltip={
             `
-            Громкость Зука:` + soundVolume
+            Громкость Зука:${soundVolume}`
           }
         />
       }

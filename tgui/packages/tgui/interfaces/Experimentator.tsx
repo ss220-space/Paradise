@@ -192,7 +192,7 @@ const NodePreview = (props: NodePreviewProps) => {
               color={node.added_tech ? 'good' : 'bad'}
             >
               {node.current_tech +
-                (node.added_tech ? ' + ' + node.added_tech : '')}
+                (node.added_tech ? ` + ${node.added_tech}` : '')}
             </LabeledList.Item>
           ))}
         </LabeledList>

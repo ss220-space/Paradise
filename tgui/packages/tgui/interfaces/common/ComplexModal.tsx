@@ -212,8 +212,8 @@ export const ComplexModal = (props: ModalProps) => {
 
   return (
     <Modal
-      maxWidth={props.maxWidth || window.innerWidth / 2 + 'px'}
-      maxHeight={props.maxHeight || window.innerHeight / 2 + 'px'}
+      maxWidth={props.maxWidth || `${window.innerWidth / 2}px`}
+      maxHeight={props.maxHeight || `${window.innerHeight / 2}px`}
       onEnter={modalOnEnter}
       mx="auto"
       overflowY={overflowY}

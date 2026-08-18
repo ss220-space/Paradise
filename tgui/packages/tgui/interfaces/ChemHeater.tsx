@@ -94,7 +94,7 @@ const ChemHeaterSettings = (_properties) => {
             {(isBeakerLoaded && (
               <AnimatedNumber
                 value={currentTemp}
-                format={(value) => toFixed(value) + ' K'}
+                format={(value) => `${toFixed(value)} K`}
               />
             )) ||
               '—'}

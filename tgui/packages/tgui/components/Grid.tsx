@@ -26,7 +26,7 @@ const GridColumn = (props: GridColumnProps) => {
   return (
     <Table.Cell
       style={{
-        width: size + '%',
+        width: `${size}%`,
         ...style,
       }}
       {...rest}

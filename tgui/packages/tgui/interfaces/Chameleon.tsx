@@ -61,7 +61,7 @@ export const ChameleonAppearances = (_props) => {
         <Section fill scrollable title={'Item Appearance'}>
           {chameleon_skins.map((chameleon_skin) => {
             const skin_name =
-              chameleon_skin.name + '_' + chameleon_skin.icon_state;
+              `${chameleon_skin.name}_${chameleon_skin.icon_state}`;
             return (
               <ImageButton
                 dmIcon={chameleon_skin.icon}

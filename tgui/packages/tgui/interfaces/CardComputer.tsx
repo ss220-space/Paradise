@@ -221,7 +221,7 @@ export const CardComputer = (props: unknown) => {
             selected={!!data.scan_name}
             onClick={() => act('scan')}
           >
-            {data.scan_name ? 'Извлечь и выйти: ' + data.scan_name : '-----'}
+            {data.scan_name ? `Извлечь и выйти: ${data.scan_name}` : '-----'}
           </Button>
         </LabeledList.Item>
         <LabeledList.Item label="Карта для модификации">
@@ -230,7 +230,7 @@ export const CardComputer = (props: unknown) => {
             selected={!!data.modify_name}
             onClick={() => act('modify')}
           >
-            {data.modify_name ? 'Извлечь: ' + data.modify_name : '-----'}
+            {data.modify_name ? `Извлечь: ${data.modify_name}` : '-----'}
           </Button>
         </LabeledList.Item>
       </LabeledList>

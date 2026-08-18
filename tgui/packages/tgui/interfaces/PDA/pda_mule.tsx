@@ -99,12 +99,12 @@ const BotStatus = (props: unknown) => {
         <LabeledList.Item label="Home">{home}</LabeledList.Item>
         <LabeledList.Item label="Destination">
           <Button onClick={() => act('SetDest')}>
-            {dest ? dest + ' (Set)' : 'None (Set)'}
+            {dest ? `${dest} (Set)` : 'None (Set)'}
           </Button>
         </LabeledList.Item>
         <LabeledList.Item label="Current Load">
           <Button disabled={!load} onClick={() => act('Unload')}>
-            {load ? load + ' (Unload)' : 'None'}
+            {load ? `${load} (Unload)` : 'None'}
           </Button>
         </LabeledList.Item>
         <LabeledList.Item label="Auto Pickup">

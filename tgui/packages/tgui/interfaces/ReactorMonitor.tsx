@@ -131,7 +131,7 @@ export const ReactorMonitor = (props) => {
                       bad: [logScale(1000), Infinity],
                     }}
                   >
-                    {toFixed(NGCR_ambienttemp) + ' K'}
+                    {`${toFixed(NGCR_ambienttemp)} K`}
                   </ProgressBar>
                 </LabeledList.Item>
                 <LabeledList.Item label="Pressure">
@@ -145,7 +145,7 @@ export const ReactorMonitor = (props) => {
                       bad: [logScale(3000), Infinity],
                     }}
                   >
-                    {toFixed(NGCR_ambientpressure) + ' kPa'}
+                    {`${toFixed(NGCR_ambientpressure)} kPa`}
                   </ProgressBar>
                 </LabeledList.Item>
                 <LabeledList.Item label="Control Rod Limiter">
@@ -160,7 +160,7 @@ export const ReactorMonitor = (props) => {
                       bad: [-Infinity, 30],
                     }}
                   >
-                    {toFixed(NGCR_operatingpower) + ' %'}
+                    {`${toFixed(NGCR_operatingpower)} %`}
                   </ProgressBar>
                 </LabeledList.Item>
               </LabeledList>
@@ -219,7 +219,7 @@ export const ReactorMonitor = (props) => {
                           minValue={0}
                           maxValue={gasMaxAmount}
                         >
-                          {toFixed(gas.amount) + ' mol (' + gas.portion + '%)'}
+                          {`${toFixed(gas.amount)} mol (${gas.portion}%)`}
                         </ProgressBar>
                       </LabeledList.Item>
                     ))}
@@ -249,7 +249,7 @@ export const ReactorMonitor = (props) => {
                           minValue={0}
                           maxValue={moderatorGasMaxAmount}
                         >
-                          {toFixed(gas.amount) + ' mol (' + gas.portion + '%)'}
+                          {`${toFixed(gas.amount)} mol (${gas.portion}%)`}
                         </ProgressBar>
                       </LabeledList.Item>
                     ))}

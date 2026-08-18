@@ -258,7 +258,7 @@ const LawsetsView = (_props: unknown) => {
       {law_sets.map((l) => (
         <Section
           key={l.name}
-          title={l.name + ' - ' + l.header}
+          title={`${l.name} - ${l.header}`}
           buttons={
             <Button
               icon="download"
@@ -315,7 +315,7 @@ const LawTable = (props: LawTableProps) => {
   const { act, data } = useBackend<LawManagerData>();
   const { isMalf } = data;
   return (
-    <Section title={props.title + ' Laws'}>
+    <Section title={`${props.title} Laws`}>
       <Table>
         <Table.Row header>
           <Table.Cell width="10%">Index</Table.Cell>

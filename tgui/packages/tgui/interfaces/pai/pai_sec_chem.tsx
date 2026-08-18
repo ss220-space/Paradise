@@ -58,7 +58,7 @@ export const pai_sec_chem = (props: unknown) => {
               disabled={s.cost > current_chemicals}
               onClick={() => act('secreteChemicals', { key: s.key })}
             >
-              {s.name + ' (' + s.cost + ')'}
+              {`${s.name} (${s.cost})`}
             </Button>
           ))}
           {available_chemicals.length === 0 && 'No chemicals available!'}

@@ -393,7 +393,7 @@ const QuestItemTask = (properties: QuestItemTaskProps) => {
     <Stack align="center" position="relative">
       <Stack.Item width={'42px'} mr={1}>
         <Box position="relative">
-          <Tooltip position="right" content={'Send ' + task?.quest_type_name} />
+          <Tooltip position="right" content={`Send ${task?.quest_type_name}`} />
           <Image
             className={classes(['cargo_quest42x42', task?.image])}
             style={{

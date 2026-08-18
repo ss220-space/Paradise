@@ -88,7 +88,7 @@ export const Canister = (_props: unknown) => {
                 value={tankPressure}
                 format={(value) => {
                   if (value < 10000) {
-                    return toFixed(value) + ' kPa';
+                    return `${toFixed(value)} kPa`;
                   }
                   return formatSiUnit(value * 1000, 1, 'Pa');
                 }}

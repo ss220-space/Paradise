@@ -179,7 +179,7 @@ const TurbineWorking = (_props) => {
             bad: [90, Infinity],
           }}
         >
-          {toFixed(bearingDamage) + '%'}
+          {`${toFixed(bearingDamage)}%`}
         </ProgressBar>
       </LabeledList.Item>
     </LabeledList>

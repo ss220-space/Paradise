@@ -61,8 +61,8 @@ const ContentsModal = (properties: ContentsModalProps) => {
     return (
       <Modal
         maxWidth="75%"
-        width={window.innerWidth + 'px'}
-        maxHeight={window.innerHeight * 0.75 + 'px'}
+        width={`${window.innerWidth}px`}
+        maxHeight={`${window.innerHeight * 0.75}px`}
         mx="auto"
       >
         <Box width="100%" bold>
@@ -191,9 +191,9 @@ const CataloguePane = (properties: CataloguePaneProps) => {
 
   let titleText = 'Перечень грузов для заказа';
   if (searchText) {
-    titleText = 'Результаты поиска "' + searchText + '":';
+    titleText = `Результаты поиска "${searchText}":`;
   } else if (category) {
-    titleText = 'Просмотр категории "' + category + '"';
+    titleText = `Просмотр категории "${category}"`;
   }
   return (
     <Stack.Item>
@@ -231,7 +231,7 @@ const CataloguePane = (properties: CataloguePaneProps) => {
                   >
                     {c.name} (
                     {c.cost
-                      ? c.cost + ' очк' + declension_ru(c.cost, 'о', 'а', 'ов')
+                      ? `${c.cost} очк${declension_ru(c.cost, 'о', 'а', 'ов')}`
                       : ''}
                     {c.creditsCost && c.cost ? ' ' : ''}
                     {c.creditsCost

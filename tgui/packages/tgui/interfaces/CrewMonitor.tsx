@@ -162,7 +162,7 @@ const CrewMonitorTable = ({ crewData }: CrewMonitorTableProps) => {
   const crew = sortBy(crewData, (cm) => cm.name);
   const [search, setSearch] = useState('');
   const searcher = createSearch<CrewMember>(search, (cm) => {
-    return cm.name + '|' + cm.assignment + '|' + cm.area;
+    return `${cm.name}|${cm.assignment}|${cm.area}`;
   });
   return (
     <Box>
@@ -251,10 +251,10 @@ const CrewMonitorTable = ({ crewData }: CrewMonitorTableProps) => {
                         })
                       }
                     >
-                      {cm.area + ' (' + cm.x + ', ' + cm.y + ')'}
+                      {`${cm.area} (${cm.x}, ${cm.y})`}
                     </Button>
                   ) : (
-                    cm.area + ' (' + cm.x + ', ' + cm.y + ')'
+                    `${cm.area} (${cm.x}, ${cm.y})`
                   )
                 ) : (
                   <Box inline color="grey">
@@ -374,7 +374,7 @@ const CrewMonitorMapView = (_properties) => {
                   : 'add_highlighted_name',
                 { name: cm.name },
               );
-            const tooltip = cm.name + ' (' + cm.assignment + ')';
+            const tooltip = `${cm.name} (${cm.assignment})`;
             if (highlighted) {
               return (
                 <HighlightedMarker

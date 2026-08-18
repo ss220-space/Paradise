@@ -18,7 +18,7 @@ type Preset = {
   title: string;
 };
 const saveDataToPreset = async (id: string, data: any) => {
-  await storage.set('podlauncher_preset_' + id, data);
+  await storage.set(`podlauncher_preset_${id}`, data);
 };
 
 type PresetButtonsProps = {
@@ -107,7 +107,7 @@ export const PresetsPage = (props: unknown) => {
   };
   const loadPreset = async (id) => {
     act('loadDataFromPreset', {
-      payload: await storage.get('podlauncher_preset_' + id),
+      payload: await storage.get(`podlauncher_preset_${id}`),
     });
   };
   const newPreset = async (presetName: string, hue: number, data: any) => {

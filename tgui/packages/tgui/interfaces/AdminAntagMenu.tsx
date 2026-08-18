@@ -231,7 +231,7 @@ const AntagList = (properties: SearchTextProps) => {
       {antagArray
         .filter(
           createSearch(searchText, ({ name, status, antag_names }) => {
-            return name + '|' + status + '|' + antag_names.join(', ');
+            return `${name}|${status}|${antag_names.join(', ')}`;
           }),
         )
         .sort((a, b) => {
@@ -448,11 +448,11 @@ const Objectives = (properties: SearchTextProps) => {
                       >
                         {objective.target_name}{' '}
                         {objective.track.length > 1
-                          ? '(' + (index + 1) + ')'
+                          ? `(${index + 1})`
                           : ''}
                       </Button>
                     ))
-                  : objective.target_name + ' (не найдено)'}
+                  : `${objective.target_name} (не найдено)`}
             </Table.Cell>
             <Table.Cell>
               <Box color={objective.status ? 'green' : 'grey'}>
@@ -728,7 +728,7 @@ const HighValueItems = (properties: SearchTextProps) => {
       {high_value_items
         .filter(
           createSearch(searchText, (item) => {
-            return item.name + '|' + item.loc;
+            return `${item.name}|${item.loc}`;
           }),
         )
         .sort((a, b) => {

@@ -16,7 +16,7 @@ export const pai_directives = (props: unknown) => {
     <Box>
       <LabeledList>
         <LabeledList.Item label="Master">
-          {master ? master + ' (' + dna + ')' : 'None'}
+          {master ? `${master} (${dna})` : 'None'}
         </LabeledList.Item>
         {master && (
           <LabeledList.Item label="Request DNA">

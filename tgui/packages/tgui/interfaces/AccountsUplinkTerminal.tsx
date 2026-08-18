@@ -149,7 +149,7 @@ const AccountsRecordList = (_properties) => {
                 <Table.Row
                   key={account.account_number}
                   className={
-                    'AccountsUplinkTerminal__listRow--' + account.suspended
+                    `AccountsUplinkTerminal__listRow--${account.suspended}`
                   }
                   onClick={() =>
                     act('view_account_detail', {
@@ -244,7 +244,7 @@ const DetailedAccountInfo = (_properties) => {
     <Stack fill vertical>
       <Stack.Item>
         <Section
-          title={'#' + account_number + ' / ' + owner_name}
+          title={`#${account_number} / ${owner_name}`}
           buttons={
             <Button icon="arrow-left" onClick={() => act('back')}>
               Back

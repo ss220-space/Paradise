@@ -77,7 +77,7 @@ export const ComponentPrinter = (props) => {
               <Box style={{ display: 'inline' }}>
                 {(design.cost &&
                   Object.keys(design.cost)
-                    .map((mat) => toTitleCase(mat) + ': ' + design.cost[mat])
+                    .map((mat) => `${toTitleCase(mat)}: ${design.cost[mat]}`)
                     .join(', ')) || <Box>Ресурсы для печати не требуются.</Box>}
               </Box>
               <Box

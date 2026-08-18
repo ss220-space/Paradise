@@ -64,7 +64,7 @@ export const VoxShop = (_props: never) => {
                 }}
                 icon="shopping-cart"
               >
-                Корзина {cart?.length ? '(' + cart.length + ')' : ''}
+                Корзина {cart?.length ? `(${cart.length})` : ''}
               </Tabs.Tab>
             </Tabs>
           </Stack.Item>
@@ -88,7 +88,7 @@ const ItemsPage = () => {
       <Stack vertical>
         <Stack.Item>
           <Section
-            title={'Средства: ' + cash + 'к'}
+            title={`Средства: ${cash}к`}
             buttons={
               <Button.Checkbox
                 checked={showDesc}
@@ -154,7 +154,7 @@ const CartPage = () => {
         <Section
           fill
           scrollable
-          title={'Средства: ' + cash + 'к'}
+          title={`Средства: ${cash}к`}
           buttons={
             <>
               <Button.Checkbox
@@ -175,7 +175,7 @@ const CartPage = () => {
                 onClick={() => act('purchase_cart')}
                 disabled={!cart || cart_price > cash}
               >
-                {'Оплатить (' + cart_price + 'к)'}
+                {`Оплатить (${cart_price}к)`}
               </Button>
             </>
           }
@@ -241,7 +241,7 @@ const ShopItemButtons = (props) => {
         i.is_time_available === false
       }
     >
-      {'Добавить в корзину (' + i.cost + ' Кикиридитов)'}
+      {`Добавить в корзину (${i.cost} Кикиридитов)`}
     </Button>
   );
 };
@@ -262,7 +262,7 @@ const CartButtons = (props) => {
           })
         }
       >
-        {'(' + i.cost * i.amount + 'к)'}
+        {`(${i.cost * i.amount}к)`}
       </Button>
       <Button
         icon="minus"

@@ -158,7 +158,7 @@ export const PermissionsEdit = (_props: unknown) => {
             {admins
               .filter(
                 createSearch(searchText, ({ ckey, rank }) => {
-                  return ckey + '|' + rank;
+                  return `${ckey}|${rank}`;
                 })
               )
               .sort((a, b) => {

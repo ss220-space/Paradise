@@ -213,8 +213,8 @@ export const AgentCardSLSlots = (props: unknown) => {
             key={save_slot.id}
             label={
               save_slot.registered_name
-                ? save_slot.registered_name + ', ' + save_slot.assignment
-                : 'Slot ' + save_slot.id
+                ? `${save_slot.registered_name}, ${save_slot.assignment}`
+                : `Slot ${save_slot.id}`
             }
             buttons={
               <>

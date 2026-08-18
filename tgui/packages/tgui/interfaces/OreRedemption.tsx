@@ -15,7 +15,7 @@ import { Window } from '../layouts';
 import type { SectionProps } from '../components/Section';
 import { useState } from 'react';
 
-const formatPoints = (amt: number) => amt.toLocaleString('en-US') + ' ед.';
+const formatPoints = (amt: number) => `${amt.toLocaleString('en-US')} ед.`;
 
 export const OreRedemption = (properties) => {
   const [tabIndex, setTabIndex] = useState(0);

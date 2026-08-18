@@ -66,7 +66,7 @@ const ShuttleControlSection = (props: unknown) => {
                 bad: [-Infinity, bad_progress],
               }}
             >
-              {id_points + ' / ' + id_goal + ' ' + completionStatus}
+              {`${id_points} / ${id_goal} ${completionStatus}`}
             </ProgressBar>
           )) ||
             (!!emagged && 'ERR0R COMPLETED?!@') ||
@@ -87,7 +87,7 @@ const ShuttleControlSection = (props: unknown) => {
             disabled={!id_inserted || !unclaimed_points}
             onClick={() => act('claim_points')}
           >
-            {'Claim points (' + unclaimed_points + ')'}
+            {`Claim points (${unclaimed_points})`}
           </Button>
         </LabeledList.Item>
         <LabeledList.Item label="Inserted ID">

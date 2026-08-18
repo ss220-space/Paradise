@@ -331,7 +331,7 @@ const CloningConsoleMain = (props: unknown) => {
                   }}
                   mt="0.5rem"
                 >
-                  <Box textAlign="center">{round(pod.progress, 0) + '%'}</Box>
+                  <Box textAlign="center">{`${round(pod.progress, 0)}%`}</Box>
                 </ProgressBar>
               );
             } else if (pod.status === 'mess') {
@@ -359,7 +359,7 @@ const CloningConsoleMain = (props: unknown) => {
             return (
               <Box key={i} width="64px" textAlign="center" inline mr="0.5rem">
                 <Image
-                  src={resolveAsset('pod_' + pod.status + '.gif')}
+                  src={resolveAsset(`pod_${pod.status}.gif`)}
                   style={{
                     width: '100%',
                   }}

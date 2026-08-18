@@ -265,7 +265,7 @@ const DefaultScreen = (props: unknown) => {
   return (
     <>
       <Section
-        title={'Welcome, ' + owner_name}
+        title={`Welcome, ${owner_name}`}
         buttons={
           <Button icon="sign-out-alt" onClick={() => act('logout')}>
             Logout

@@ -132,7 +132,7 @@ export const NanoMap = (props: Props) => {
   const index = props.zLevels?.indexOf(Number(zCurrent)) ?? 0;
   console.log(typeof zCurrent); // Должно быть "number"
   console.log(props.zLevels?.map((item) => typeof item)); // Должно быть ["number", "number", "number"]
-  const mapUrl = config.map + '_nanomap_z' + (index + 1) + '.png';
+  const mapUrl = `${config.map}_nanomap_z${index + 1}.png`;
 
   const newStyle = {
     width: `${MAP_SIZE * zoom}px`,
@@ -216,12 +216,12 @@ const NanoMapMarker = (props: NanoMakerProps) => {
   const ry = (y - 1) * pixelsPerTurfAtZoom;
   return (
     <Tooltip content={tooltip} position={tooltipPosition}>
-      <div style={{ position: 'absolute', bottom: ry + 'px', left: rx + 'px' }}>
+      <div style={{ position: 'absolute', bottom: `${ry}px`, left: `${rx}px` }}>
         <Box
           className={bordered ? 'NanoMap__marker__bordered' : 'NanoMap__marker'}
           lineHeight="0"
-          width={pixelsPerTurfAtZoom + 'px'}
-          height={pixelsPerTurfAtZoom + 'px'}
+          width={`${pixelsPerTurfAtZoom}px`}
+          height={`${pixelsPerTurfAtZoom}px`}
           onClick={onClick}
           onDoubleClick={onDblClick}
         >
@@ -327,7 +327,7 @@ const NanoMapZoomer = (props: ZoomerProps) => {
               stepPixelSize={20}
               width={15.5}
               tickWhileDragging
-              format={(v) => v + 'x'}
+              format={(v) => `${v}x`}
               value={props.zoom}
               onChange={(e, v) => props.onZoom(e, v)}
             />

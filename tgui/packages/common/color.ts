@@ -322,13 +322,13 @@ export const rgbStringToHsva = rgbaStringToHsva;
 
 const format = (number: number) => {
   const hex = number.toString(16);
-  return hex.length < 2 ? '0' + hex : hex;
+  return hex.length < 2 ? `0${hex}` : hex;
 };
 
 export const rgbaToHex = ({ r, g, b, a }: RgbaColor): string => {
   const alphaHex = a < 1 ? format(round(a * 255)) : '';
   return (
-    '#' + format(round(r)) + format(round(g)) + format(round(b)) + alphaHex
+    `#${format(round(r))}${format(round(g))}${format(round(b))}${alphaHex}`
   );
 };
 

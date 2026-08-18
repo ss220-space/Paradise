@@ -50,7 +50,7 @@ const getStatus = (data: BSAData) => {
     return { color: 'red', text: 'Нет питания' };
   }
   if (!data.reload_ready) {
-    return { color: 'orange', text: 'Зарядка ' + data.reloadtime_text };
+    return { color: 'orange', text: `Зарядка ${data.reloadtime_text}` };
   }
   if (!data.calibrated) {
     return { color: 'red', text: 'Требуется наводка' };

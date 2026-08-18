@@ -94,7 +94,7 @@ export const pda_status_display = (props: unknown) => {
             icon="pen"
             onClick={() => act('Status', { statdisp: 'setmsg1' })}
           >
-            {records.message1 + ' (set)'}
+            {`${records.message1} (set)`}
           </Button>
         </LabeledList.Item>
         <LabeledList.Item label="Message line 2">
@@ -102,7 +102,7 @@ export const pda_status_display = (props: unknown) => {
             icon="pen"
             onClick={() => act('Status', { statdisp: 'setmsg2' })}
           >
-            {records.message2 + ' (set)'}
+            {`${records.message2} (set)`}
           </Button>
         </LabeledList.Item>
       </LabeledList>

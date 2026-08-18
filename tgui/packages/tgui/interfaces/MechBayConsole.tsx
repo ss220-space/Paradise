@@ -39,7 +39,7 @@ export const MechBayConsole = (props: unknown) => {
     <Window width={400} height={150}>
       <Window.Content>
         <Section
-          title={!name ? 'Mech status' : 'Mech status: ' + name}
+          title={!name ? 'Mech status' : `Mech status: ${name}`}
           textAlign="center"
           buttons={
             <Button icon="sync" onClick={() => act('reconnect')}>
@@ -78,7 +78,7 @@ export const MechBayConsole = (props: unknown) => {
                     }}
                   >
                     <AnimatedNumber value={cell.charge} />
-                    {' / ' + cell.maxcharge}
+                    {` / ${cell.maxcharge}`}
                   </ProgressBar>
                 )}
             </LabeledList.Item>

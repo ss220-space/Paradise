@@ -256,7 +256,7 @@ const WorkshopItemsCategory = (properties: WorkshopItemsCategoryProps) => {
           >
             {(item.requirements &&
               Object.keys(item.requirements)
-                .map((mat) => toTitleCase(mat) + ': ' + item.requirements[mat])
+                .map((mat) => `${toTitleCase(mat)}: ${item.requirements[mat]}`)
                 .join(', ')) || <Box>No resources required.</Box>}
           </Box>
           <Box

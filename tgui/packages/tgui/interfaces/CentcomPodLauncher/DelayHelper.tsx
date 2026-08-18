@@ -47,7 +47,7 @@ export const DelayHelper = (props) => {
             onChange={(e, value) => {
               act('editTiming', {
                 reverse: reverse,
-                timer: '' + (i + 1),
+                timer: `${i + 1}`,
                 value: Math.max(value, 0),
               });
             }}

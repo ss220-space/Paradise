@@ -244,7 +244,7 @@ interface HexColorInputProps
 }
 
 /** Adds "#" symbol to the beginning of the string */
-const prefix = (value: string) => '#' + value;
+const prefix = (value: string) => `#${value}`;
 
 export const HexColorInput = (props: HexColorInputProps): ReactNode => {
   const { prefixed, alpha, color, fluid, onChange, ...rest } = props;

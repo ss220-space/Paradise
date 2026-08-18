@@ -133,7 +133,7 @@ const Abilities = (props: unknown) => {
           </Flex>
           {!!view_mode && (
             <Flex color="#8a8a8a" my={1} ml={1.5} width="95%">
-              {ability.description + ' ' + ability.helptext}
+              {`${ability.description} ${ability.helptext}`}
             </Flex>
           )}
         </Box>

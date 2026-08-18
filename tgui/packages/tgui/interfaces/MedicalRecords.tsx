@@ -270,7 +270,7 @@ const MedicalRecordsList = (_properties) => {
                   key={record.id}
                   mb={1}
                   className={
-                    'MedicalRecords__listRow--' + medStatusStyles[record.p_stat]
+                    `MedicalRecords__listRow--${medStatusStyles[record.p_stat]}`
                   }
                   onClick={() =>
                     act('view_record', { view_record: record.ref })
@@ -609,7 +609,7 @@ const MedicalRecordsViruses = (_properties) => {
               {virus
                 .filter(
                   createSearch(searchText, (vir) => {
-                    return vir.name + '|' + vir.max_stages + '|' + vir.severity;
+                    return `${vir.name}|${vir.max_stages}|${vir.severity}`;
                   })
                 )
                 .sort((a, b) => {
@@ -620,7 +620,7 @@ const MedicalRecordsViruses = (_properties) => {
                   <Table.Row
                     key={vir.id}
                     mb={1}
-                    className={'MedicalRecords__listVirus--' + vir.severity}
+                    className={`MedicalRecords__listVirus--${vir.severity}`}
                     onClick={() => act('vir', { vir: vir.D })}
                   >
                     <Table.Cell>
@@ -700,7 +700,7 @@ const MedicalRecordsMedbots = (_properties) => {
             <Table.Row
               key={medbot.id}
               mb={1}
-              className={'MedicalRecords__listMedbot--' + medbot.on}
+              className={`MedicalRecords__listMedbot--${medbot.on}`}
             >
               <Table.Cell>
                 <Icon name="medical" /> {medbot.name}

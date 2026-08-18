@@ -60,7 +60,7 @@ export const ConveyorSwitch = (props: unknown) => {
                     maxValue={maxSpeed}
                     step={0.1}
                     stepPixelSize={2}
-                    format={(value) => value + 's.'}
+                    format={(value) => `${value}s.`}
                     onChange={(e, value) => act('slowFactor', { value: value })}
                   />
                 </Flex.Item>

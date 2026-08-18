@@ -127,7 +127,7 @@ export const ActiveConversation = (props: Conversation) => {
       <Section
         fill
         scrollable
-        title={'Conversation with ' + convo_device + ' '}
+        title={`Conversation with ${convo_device} `}
         buttons={
           <>
             <Button

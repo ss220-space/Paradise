@@ -54,7 +54,7 @@ const Recipes = (_props: unknown) => {
     <Section
       fill
       scrollable
-      title={'Amount: ' + amount}
+      title={`Amount: ${amount}`}
       buttons={
         <>
           {searchActive && (
@@ -186,7 +186,7 @@ const Multipliers = (props: MultipliersProps) => {
             })
           }
         >
-          {multiplier * recipe.result_amount + 'x'}
+          {`${multiplier * recipe.result_amount}x`}
         </Button>,
       );
     }
@@ -206,7 +206,7 @@ const Multipliers = (props: MultipliersProps) => {
           })
         }
       >
-        {max_available_multiplier * recipe.result_amount + 'x'}
+        {`${max_available_multiplier * recipe.result_amount}x`}
       </Button>,
     );
   }

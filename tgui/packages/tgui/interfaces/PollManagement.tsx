@@ -342,7 +342,7 @@ const PollMenu = (_props: unknown) => {
       <Stack.Item>
         <LabeledList>
           {options.map((option) => (
-            <LabeledList.Item key="option" label={'Option ' + option.num}>
+            <LabeledList.Item key="option" label={`Option ${option.num}`}>
               {option.text}
               {poll_type === 'Rating' ? (
                 <Box>

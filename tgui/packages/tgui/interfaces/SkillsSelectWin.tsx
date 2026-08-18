@@ -50,7 +50,7 @@ const SkillCategoryTable = (category: SkillsSelectCategory) => {
               <Box inline>
                 Уровень:
                 <Box inline bold textColor={skill.level_color}>
-                  {skill.value + ' '}
+                  {`${skill.value} `}
                   {skill.can_decrease ? (
                     <Button
                       onClick={() =>

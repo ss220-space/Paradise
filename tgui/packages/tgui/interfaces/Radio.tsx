@@ -58,7 +58,7 @@ export const Radio = (_props: unknown) => {
             <LabeledList.Item label="Частота">
               {(freqlock && (
                 <Box inline color="light-gray">
-                  {toFixed(frequency / 10, 1) + ' кГц'}
+                  {`${toFixed(frequency / 10, 1)} кГц`}
                 </Box>
               )) || (
                 <>
@@ -161,7 +161,7 @@ export const Radio = (_props: unknown) => {
               <LabeledList.Item label="Стандартные частоты">
                 {ichannels.map((channel) => (
                   <Button
-                    key={'i_' + channel.name}
+                    key={`i_${channel.name}`}
                     icon="arrow-right"
                     selected={
                       matchedChannel && tunedChannel.name === channel.name

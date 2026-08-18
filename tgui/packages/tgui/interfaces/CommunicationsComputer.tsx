@@ -154,7 +154,7 @@ const AuthBlock = (props: unknown) => {
                   disabled={noauthbutton}
                   onClick={() => act('auth')}
                 >
-                  {authenticated ? 'Выйти (' + authReadable + ')' : 'Войти'}
+                  {authenticated ? `Выйти (${authReadable})` : 'Войти'}
                 </Button>
               </LabeledList.Item>
             )}
@@ -330,14 +330,14 @@ const PlayerPage = (props: unknown) => {
 
   let announceText = 'Сделать приоритетное оповещение';
   if (msg_cooldown > 0) {
-    announceText += ' (' + msg_cooldown + 's)';
+    announceText += ` (${msg_cooldown}s)`;
   }
 
   let ccMessageText = emagged ? 'Сообщение [НЕИЗВЕСТНО]' : 'Сообщение ЦК';
   let nukeRequestText = 'Запросить коды аутентификации';
   if (cc_cooldown > 0) {
-    ccMessageText += ' (' + cc_cooldown + 's)';
-    nukeRequestText += ' (' + cc_cooldown + 's)';
+    ccMessageText += ` (${cc_cooldown}s)`;
+    nukeRequestText += ` (${cc_cooldown}s)`;
   }
 
   return (
@@ -425,7 +425,7 @@ const PlayerPage = (props: unknown) => {
                 disabled={!authhead}
                 onClick={() => act('messagelist')}
               >
-                {'Просмотреть (' + messages.length + ')'}
+                {`Просмотреть (${messages.length})`}
               </Button>
             </LabeledList.Item>
           </LabeledList>

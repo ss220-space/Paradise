@@ -63,7 +63,7 @@ export const AtmosTankControl = (props) => {
                       minValue={0}
                       maxValue={100}
                     >
-                      {toFixed(s[g.tlv], 2) + '%'}
+                      {`${toFixed(s[g.tlv], 2)}%`}
                     </ProgressBar>
                   </LabeledList.Item>
                 ) : (
