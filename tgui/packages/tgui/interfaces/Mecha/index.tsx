@@ -123,7 +123,7 @@ export const Content = (props) => {
         </Stack>
       </Stack.Item>
       <Stack.Item grow={2}>
-        {edit_access && !!regions ? (
+        {edit_access && regions ? (
           <AccessList
             accesses={regions}
             selectedList={accesses}

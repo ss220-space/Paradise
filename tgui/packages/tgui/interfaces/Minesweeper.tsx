@@ -3,9 +3,10 @@ import { useBackend } from '../backend';
 import { useState } from 'react';
 import { Box, Button, Stack, Section } from '../components';
 import { Window } from '../layouts';
+import { type BooleanLike } from 'tgui-core/react';
 
 type MinesweeperData = {
-  matrix: boolean[][][];
+  matrix: BooleanLike[][][];
   showMessage: string;
   tokens: number;
   uiWidth: number;
@@ -115,7 +116,7 @@ export const Minesweeper = (props: unknown) => {
                     }
                     onMouseDown={(e) => handleClick(e, row, cell)}
                   >
-                    {!!matrix[row][cell].open &&
+                    {matrix[row][cell].open &&
                     !matrix[row][cell].bomb &&
                     matrix[row][cell].around
                       ? matrix[row][cell].around

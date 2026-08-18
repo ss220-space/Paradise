@@ -16,20 +16,21 @@ import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';
 import { type AtmosMachine, AtmosMachineView } from './common/AtmosMachine';
 import { GASES } from '../constants';
 import { Danger2Colour } from './common/AtmosScan';
+import { type BooleanLike } from 'tgui-core/react';
 
 type AirAlarmData = {
   air: Air;
   mode: number;
-  atmos_alarm: boolean;
-  locked: boolean;
-  alarmActivated: boolean;
+  atmos_alarm: BooleanLike;
+  locked: BooleanLike;
+  alarmActivated: BooleanLike;
   rcon: number;
   target_temp: number;
   vents: AtmosMachine[];
   scrubbers: AtmosMachine[];
   modes: Mode[];
   presets: Preset[];
-  emagged: boolean;
+  emagged: BooleanLike;
   preset: number;
   thresholds: Threshold[];
 };
@@ -38,7 +39,7 @@ type Air = {
   danger: Danger;
   contents: AirContent;
   pressure: number;
-  thermostat_state: boolean;
+  thermostat_state: BooleanLike;
   temperature: number;
   temperature_c: number;
 };
@@ -72,7 +73,7 @@ type Mode = {
   id: number;
   name: string;
   desc: string;
-  emagonly: boolean;
+  emagonly: BooleanLike;
 };
 
 type Preset = {
@@ -316,7 +317,7 @@ const AirAlarmModesView = (props: unknown) => {
         >
           {Object.keys(modes).map((key) => {
             const m = modes[key];
-            if (!m.emagonly || !!emagged) {
+            if (!m.emagonly || emagged) {
               return (
                 <Table.Row key={m.name}>
                   <Table.Cell textAlign="right" width={1}>
@@ -331,6 +332,8 @@ const AirAlarmModesView = (props: unknown) => {
                   <Table.Cell>{m.desc}</Table.Cell>
                 </Table.Row>
               );
+            } else {
+              return '';
             }
           })}
         </Table>

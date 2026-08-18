@@ -23,6 +23,7 @@ import {
   modalAnswer,
   modalRegisterBodyOverride,
 } from './common/ComplexModal';
+import { type BooleanLike } from 'tgui-core/react';
 
 type PickTabProps = ShowDescProps & SearchTextProps;
 
@@ -58,10 +59,10 @@ type UplinkData = {
 };
 
 type Contractor = {
-  available: boolean;
-  accepted: boolean;
-  affordable: boolean;
-  is_admin_forced: boolean;
+  available: BooleanLike;
+  accepted: BooleanLike;
+  affordable: BooleanLike;
+  is_admin_forced: BooleanLike;
   available_offers: number;
   time_left: number;
 };
@@ -76,9 +77,9 @@ type Item = {
   name: string;
   desc: string;
   cost: number;
-  hijack_only: boolean;
+  hijack_only: BooleanLike;
   obj_path: string;
-  refundable: boolean;
+  refundable: BooleanLike;
 };
 
 type Cart = {
@@ -592,7 +593,10 @@ const ExploitableInfoPage = (_properties) => {
       (people: ExploitableRecord[]) =>
         searchText ? people.filter(MemberSearch) : people,
       // Slightly expensive, but way better than sorting in BYOND
-      (people: ExploitableRecord[]) => sortBy(people, (member) => member?.name),
+      (people: ExploitableRecord[]) =>
+        sortBy<ExploitableRecord>(people, [
+          (member: ExploitableRecord) => member?.name,
+        ]),
     ])(people);
   };
 

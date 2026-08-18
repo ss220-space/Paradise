@@ -154,7 +154,7 @@ const LabeledListItem = (props: LabeledListItemProps) => {
         color={color}
         textAlign={textAlign}
         className="LabeledList__cell"
-        // @ts-ignore
+        // @ts-expect-error
         colSpan={buttons ? undefined : 2}
         verticalAlign={verticalAlign}
       >
