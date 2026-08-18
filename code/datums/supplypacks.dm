@@ -3812,7 +3812,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/organic/monkey/farwa
 	name = "Кубы фарв"
-	contains = list(/obj/item/storage/box/monkeycubes/farwacubes,
+	contains = list(
+		/obj/item/storage/box/monkeycubes/farwacubes,
 	)
 	containername = "ящик фарв"
 	container_ru_names = alist(
