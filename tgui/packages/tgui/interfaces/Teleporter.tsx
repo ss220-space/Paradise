@@ -130,7 +130,7 @@ export const Teleporter = (_props: unknown) => {
                       tooltip="Teleport to a location stored in a GPS device."
                       tooltipPosition="top-end"
                       color={regime === REGIME_GPS ? 'good' : null}
-                      disabled={locked ? false : true}
+                      disabled={!locked}
                       onClick={() => act('setregime', { regime: REGIME_GPS })}
                     />
                   </Stack.Item>
@@ -156,7 +156,7 @@ export const Teleporter = (_props: unknown) => {
                             tooltip="Calibrates the hub. Accidents may occur \
                             when the  calibration is not optimal."
                             tooltipPosition="bottom-end"
-                            disabled={calibrated || calibrating ? true : false}
+                            disabled={!!(calibrated || calibrating )}
                             onClick={() => act('calibrate')}
                           />
                         </Stack.Item>

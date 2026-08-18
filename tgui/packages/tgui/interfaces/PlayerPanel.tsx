@@ -203,7 +203,7 @@ const PunishSection = (_props: unknown) => {
   };
 
   const hasCkey = (): boolean => {
-    return data.ckey !== 'NO CKEY' ? true : false;
+    return data.ckey !== 'NO CKEY';
   };
 
   return (

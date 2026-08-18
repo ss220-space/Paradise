@@ -31,7 +31,7 @@ export const Radio = (_props: unknown) => {
   const tunedChannel = RADIO_CHANNELS.find(
     (channel) => channel.freq === frequency,
   );
-  const matchedChannel = tunedChannel?.name ? true : false;
+  const matchedChannel = !!tunedChannel?.name;
   const colorMap = [];
   let rc: Channel;
   let i = 0;

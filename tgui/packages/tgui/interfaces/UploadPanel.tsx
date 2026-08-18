@@ -21,7 +21,7 @@ export const UploadPanel = (_props: unknown) => {
             <LabeledList.Item label="Selected Target">
               <Button
                 disabled={transmitting}
-                selected={selected_target ? true : false}
+                selected={!!selected_target}
                 onClick={() => act('choose_silicon')}
               >
                 {selected_target ? selected_target : 'No target selected'}
@@ -30,7 +30,7 @@ export const UploadPanel = (_props: unknown) => {
             <LabeledList.Item label="Selected Law">
               <Button
                 disabled={transmitting}
-                selected={new_law ? true : false}
+                selected={!!new_law}
                 onClick={() => act('insert_module')}
               >
                 {new_law ? new_law : 'No module installed'}
@@ -38,7 +38,7 @@ export const UploadPanel = (_props: unknown) => {
             </LabeledList.Item>
             <LabeledList.Item label="Authorization">
               <Button
-                selected={id ? true : false}
+                selected={!!id}
                 onClick={() => act('authorization')}
               >
                 {id ? id : hacked ? '$@!ERR0R!@#' : 'No ID card inserted'}
@@ -49,7 +49,7 @@ export const UploadPanel = (_props: unknown) => {
                 disabled={
                   !selected_target || !new_law || (hacked ? false : !id)
                 }
-                selected={transmitting ? true : false}
+                selected={!!transmitting}
                 onClick={() => act('change_laws')}
               >
                 {transmitting ? 'STOP UPLOAD' : 'START UPLOAD'}
