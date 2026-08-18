@@ -412,12 +412,12 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 // Antag
 #define IS_CHANGELING(A) (A?.mind?.has_antag_datum(/datum/antagonist/changeling))
 
+#define is_esword(A) (istype(A, /obj/item/melee/energy/sword))
+#define is_dualsaber(A) (istype(A, /obj/item/twohanded/dualsaber))
+
 #define is_clown_job(job_type) (istype(job_type, /datum/job/service/clown))
 
 #define iswelder(A) (istype(A, /obj/item/weldingtool))
-
-#define is_esword(A) (istype(A, /obj/item/melee/energy/sword))
-#define is_dualsaber(A) (istype(A, /obj/item/twohanded/dualsaber))
 
 #define iswirecutter(A) (istype(A, /obj/item/wirecutters))
 
