@@ -1,5 +1,11 @@
 {
-  "private": true,
-  "name": "common",
-  "version": "5.0.0"
+	"name": "common",
+	"version": "4.3.1",
+	"dependencies": {
+		"react": "^19.1.0",
+		"es-toolkit": "^1.43.0",
+		"@nozbe/microfuzz": "^1.0.0",
+		"zod": "^4.2.0"
+	},
+	"private": true
 }

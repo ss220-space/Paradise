@@ -1,4 +1,4 @@
-import { computeBoxProps } from 'common/ui';
+import { computeBoxProps } from 'tgui-core/ui';
 import { useBackend } from '../../backend';
 import { Button } from '../../components';
 import { ButtonProps } from '../../components/Button';

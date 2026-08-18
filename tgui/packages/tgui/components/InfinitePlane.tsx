@@ -1,4 +1,4 @@
-import { computeBoxProps } from 'common/ui';
+import { computeBoxProps } from 'tgui-core/ui';
 import { type PropsWithChildren, useEffect, useRef, useState } from 'react';
 import type { BoxProps } from './Box';
 import { Button } from './Button';
@@ -103,14 +103,14 @@ export const InfinitePlane = (props: Props) => {
     handleZoom(
       event.deltaY < 0 ? ZoomDirection.Increase : ZoomDirection.Decrease,
       event.clientX,
-      event.clientY
+      event.clientY,
     );
   };
 
   const handleZoom = (
     direction: ZoomDirection,
     zoomX: number,
-    zoomY: number
+    zoomY: number,
   ): void => {
     if (direction === ZoomDirection.Increase && zoom >= maximumZoom) return;
     if (direction === ZoomDirection.Decrease && zoom <= minimumZoom) return;

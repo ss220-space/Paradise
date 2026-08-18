@@ -17,9 +17,9 @@ import {
 } from 'react';
 import { KEY, isEscape } from 'common/keys';
 import { type BooleanLike, classes } from 'common/react';
-import { computeBoxClassName, computeBoxProps } from 'common/ui';
+import { computeBoxClassName, computeBoxProps } from 'tgui-core/ui';
 import { Box, type BoxProps } from './Box';
-import { Icon } from './Icon';
+import { Icon } from 'tgui-core/components';
 import { Tooltip } from './Tooltip';
 
 /**
@@ -174,7 +174,7 @@ export const Button = (props: Props) => {
       >
         {icon && iconPosition !== 'right' && (
           <Icon
-            mr={toDisplay && 0.5}
+            mr={toDisplay ? 0.5 : null}
             name={icon}
             color={iconColor}
             rotation={iconRotation}
@@ -190,7 +190,7 @@ export const Button = (props: Props) => {
         )}
         {icon && iconPosition === 'right' && (
           <Icon
-            ml={toDisplay && 0.5}
+            mr={toDisplay ? 0.5 : null}
             name={icon}
             color={iconColor}
             rotation={iconRotation}

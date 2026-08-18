@@ -56,7 +56,7 @@ export const Jukebox = () => {
   const need_payment = !payment && need_coin && !advanced_admin;
   const songs_sorted: Song[] = sortBy(songs, (song: Song) => song.name);
   const song_selected: Song | undefined = songs.find(
-    (song) => song.name === track_selected
+    (song) => song.name === track_selected,
   );
   const totalTracks = songs_sorted.length;
   const selectedTrackNumber = song_selected
@@ -93,12 +93,7 @@ export const Jukebox = () => {
               <Section fill title="Проигрыватель">
                 <Stack fill vertical>
                   <Stack.Item bold maxWidth="240px">
-                    {song_selected &&
-                    song_selected.name.length > MAX_NAME_LENGTH ? (
-                      <marquee>{song_selected.name}</marquee>
-                    ) : (
-                      song_selected?.name
-                    )}
+                    {song_selected?.name}
                   </Stack.Item>
                   <Stack fill mt={1.5}>
                     <Stack.Item grow basis="0">

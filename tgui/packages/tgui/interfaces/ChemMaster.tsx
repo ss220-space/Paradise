@@ -22,7 +22,7 @@ import {
 } from './common/ComplexModal';
 import { BooleanLike, classes } from 'common/react';
 import { BoxProps } from '../components/Box';
-import { computeBoxProps } from 'common/ui';
+import { computeBoxProps } from 'tgui-core/ui';
 
 const transferAmounts = [1, 5, 10];
 
@@ -40,7 +40,7 @@ type Analysis = {
 };
 
 const analyzeModalBodyOverride = (
-  modal: ModalType<ChemicalModalData>
+  modal: ModalType<ChemicalModalData>,
 ): ReactNode => {
   const { act, data } = useBackend<ChemMasterData>();
   const result = modal.args.analysis;
@@ -506,7 +506,7 @@ const ChemMasterProductionCommon = (props: {
 };
 
 const SpriteStyleButton = (
-  props: { icon: string; selected: boolean } & BoxProps
+  props: { icon: string; selected: boolean } & BoxProps,
 ) => {
   const { icon, ...restProps } = props;
   return (

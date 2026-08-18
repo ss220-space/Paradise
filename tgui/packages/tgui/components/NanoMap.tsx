@@ -7,12 +7,21 @@ import {
   useEffect,
   CSSProperties,
 } from 'react';
-import { Box, Icon, Tooltip, Button, Flex, Dropdown, Image, Stack } from '.';
+import {
+  Box,
+  Icon,
+  Tooltip,
+  Button,
+  Flex,
+  Dropdown,
+  Image,
+  Stack,
+} from 'tgui-core/components';
 import { useBackend } from '../backend';
 import { LabeledList } from './LabeledList';
 import { Slider } from './Slider';
 import { resolveAsset } from '../assets';
-import { Placement } from '@popperjs/core';
+import { Placement } from '@floating-ui/react';
 
 const MAP_SIZE = 510;
 const HALF_SIZE = MAP_SIZE / 2;
@@ -53,7 +62,7 @@ export const NanoMap = (props: Props) => {
     x: props.offsetX ?? 0,
     y: props.offsetY ?? 0,
   });
-  const [zCurrent, setZCurrent] = useState<number>(props.zCurrent);
+  const [zCurrent, setZCurrent] = useState<number>(props.zCurrent ?? 0);
   const [zoom, setZoom] = useState(props.zoom ?? 1);
   const [dragging, setDragging] = useState(false);
   const dragStartPos = useRef({ x: HALF_SIZE, y: HALF_SIZE });
@@ -69,7 +78,7 @@ export const NanoMap = (props: Props) => {
 
       pauseEvent(e);
     },
-    [position]
+    [position],
   );
 
   const handleMouseMove = useCallback(
@@ -83,7 +92,7 @@ export const NanoMap = (props: Props) => {
       props.onOffsetChange?.(e, position);
       pauseEvent(e);
     },
-    [dragging]
+    [dragging],
   );
 
   const handleMouseUp = useCallback((e: MouseEvent) => {
@@ -120,9 +129,9 @@ export const NanoMap = (props: Props) => {
     handleZoom(e, 1);
   };
 
-  const index = props.zLevels.indexOf(Number(zCurrent));
+  const index = props.zLevels?.indexOf(Number(zCurrent)) ?? 0;
   console.log(typeof zCurrent); // Должно быть "number"
-  console.log(props.zLevels.map((item) => typeof item)); // Должно быть ["number", "number", "number"]
+  console.log(props.zLevels?.map((item) => typeof item)); // Должно быть ["number", "number", "number"]
   const mapUrl = config.map + '_nanomap_z' + (index + 1) + '.png';
 
   const newStyle = {
@@ -255,7 +264,7 @@ const NanoMapMarkerIcon = (props: NanoMapMarkerIconProps) => {
 NanoMap.MarkerIcon = NanoMapMarkerIcon;
 
 const NanoMapMarkerCircle = (
-  props: NanoMakerProps & { radius: number; color: string }
+  props: NanoMakerProps & { radius: number; color: string },
 ) => {
   const {
     x,

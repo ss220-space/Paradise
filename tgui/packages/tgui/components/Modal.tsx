@@ -7,7 +7,7 @@
 import type { KeyboardEvent } from 'react';
 import { KEY, isEscape } from 'common/keys';
 import { classes } from 'common/react';
-import { computeBoxClassName, computeBoxProps } from 'common/ui';
+import { computeBoxClassName, computeBoxProps } from 'tgui-core/ui';
 import type { BoxProps } from './Box';
 import { Dimmer } from './Dimmer';
 export type ModalProps = BoxProps &

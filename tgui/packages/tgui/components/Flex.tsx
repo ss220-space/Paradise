@@ -5,7 +5,7 @@
  */
 
 import { classes } from 'common/react';
-import { computeBoxClassName, computeBoxProps, unit } from 'common/ui';
+import { computeBoxClassName, computeBoxProps, unit } from 'tgui-core/ui';
 import type { BoxProps } from './Box';
 
 export type FlexProps = Partial<{

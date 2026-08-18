@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { debounce } from 'common/timer';
-import { computeBoxProps } from 'common/ui';
+import { computeBoxProps } from 'tgui-core/ui';
 import type { BoxProps } from './Box';
 
 type ByondUiElement = {
@@ -38,7 +38,7 @@ type Props = Partial<{
 const byondUiStack: Array<string | null> = [];
 
 const createByondUiElement = (
-  elementId: string | undefined
+  elementId: string | undefined,
 ): ByondUiElement => {
   // Reserve an index in the stack
   const index = byondUiStack.length;

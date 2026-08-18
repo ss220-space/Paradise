@@ -22,13 +22,13 @@ import {
 } from './constants';
 import type { IconSettings } from './index';
 
-export interface SpawnPanelData {
+export type SpawnPanelData = {
   icon: string;
   iconState: string;
   iconStates: string[];
   selected_object?: string;
   precise_mode: string;
-}
+};
 
 interface CreateObjectSettingsProps {
   onCreateObject?: (obj: Record<string, unknown>) => void;
@@ -106,7 +106,7 @@ export const CreateObjectSettings = (props: CreateObjectSettingsProps) => {
   };
 
   const sendUpdatedSettings = (
-    changedSettings: Partial<Record<string, unknown>> = {}
+    changedSettings: Partial<Record<string, unknown>> = {},
   ) => {
     const parseOffset = (offsetStr: string): number[] => {
       if (!offsetStr.trim()) return [0, 0, 0];
@@ -172,7 +172,7 @@ export const CreateObjectSettings = (props: CreateObjectSettingsProps) => {
     const loadStoredValues = async () => {
       const storedCordsType = await storage.get('spawnpanel-offset_type');
       const storedSpawnLocation = await storage.get(
-        'spawnpanel-where_target_type'
+        'spawnpanel-where_target_type',
       );
       const storedDirection = await storage.get('spawnpanel-direction');
       const storedObjectName = await storage.get('spawnpanel-atom_name');

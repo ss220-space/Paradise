@@ -1,5 +1,6 @@
 import { classes } from 'common/react';
 import { useBackend } from '../backend';
+import { sendAct as act } from '../events/act';
 import { Component, Fragment } from 'react';
 import {
   Box,
@@ -78,13 +79,12 @@ export class Changelog extends Component<Props, State> {
   }
 
   getData = (date: string, attemptNumber = 1) => {
-    const { act } = useBackend();
     const self = this;
     const maxAttempts = 6;
 
     if (attemptNumber > maxAttempts) {
       return this.setData(
-        'Failed to load data after ' + maxAttempts + ' attempts'
+        'Failed to load data after ' + maxAttempts + ' attempts',
       );
     }
 
@@ -113,9 +113,9 @@ export class Changelog extends Component<Props, State> {
     } = useBackend<Data>();
 
     if (dates) {
-      dates.forEach((date) =>
-        this.dateChoices.push(dateformat(date, 'mmmm yyyy', true))
-      );
+      dates.forEach((date) => {
+        this.dateChoices.push(dateformat(date, 'mmmm yyyy', true));
+      });
       this.setSelectedDate(this.dateChoices[0]);
       this.getData(dates[0]);
     }
@@ -144,7 +144,7 @@ export class Changelog extends Component<Props, State> {
               window.scrollTo(
                 0,
                 document.body.scrollHeight ||
-                  document.documentElement.scrollHeight
+                  document.documentElement.scrollHeight,
               );
               return this.getData(dates[index]);
             }}
@@ -163,7 +163,7 @@ export class Changelog extends Component<Props, State> {
               window.scrollTo(
                 0,
                 document.body.scrollHeight ||
-                  document.documentElement.scrollHeight
+                  document.documentElement.scrollHeight,
               );
               return this.getData(dates[index]);
             }}
@@ -185,7 +185,7 @@ export class Changelog extends Component<Props, State> {
               window.scrollTo(
                 0,
                 document.body.scrollHeight ||
-                  document.documentElement.scrollHeight
+                  document.documentElement.scrollHeight,
               );
               return this.getData(dates[index]);
             }}

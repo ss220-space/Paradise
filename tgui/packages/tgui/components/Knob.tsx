@@ -6,7 +6,7 @@
 
 import { keyOfMatchingRange, scale } from 'common/math';
 import { type BooleanLike, classes } from 'common/react';
-import { computeBoxClassName, computeBoxProps } from 'common/ui';
+import { computeBoxClassName, computeBoxProps } from 'tgui-core/ui';
 import type { BoxProps } from './Box';
 import { DraggableControl } from './DraggableControl';
 
@@ -124,7 +124,7 @@ export const Knob = (props: Props) => {
         const scaledFillValue = scale(
           fillValue ?? displayValue,
           minValue,
-          maxValue
+          maxValue,
         );
         const scaledDisplayValue = scale(displayValue, minValue, maxValue);
         const effectiveColor =
@@ -181,7 +181,7 @@ export const Knob = (props: Props) => {
                     ((bipolar ? 2.75 : 2.0) - scaledFillValue * 1.5) *
                       Math.PI *
                       50,
-                    0
+                    0,
                   ),
                 }}
                 cx="50"

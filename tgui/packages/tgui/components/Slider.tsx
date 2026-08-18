@@ -6,7 +6,7 @@
 import type { PropsWithChildren } from 'react';
 import { clamp01, keyOfMatchingRange, scale } from 'common/math';
 import { classes } from 'common/react';
-import { computeBoxClassName, computeBoxProps } from 'common/ui';
+import { computeBoxClassName, computeBoxProps } from 'tgui-core/ui';
 import type { BoxProps } from './Box';
 import { DraggableControl } from './DraggableControl';
 
@@ -126,7 +126,7 @@ export const Slider = (props: Props) => {
         const scaledFillValue = scale(
           fillValue ?? displayValue,
           minValue,
-          maxValue
+          maxValue,
         );
         const scaledDisplayValue = scale(displayValue, minValue, maxValue);
 

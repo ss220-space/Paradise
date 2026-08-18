@@ -6,7 +6,7 @@
 
 import type { CSSProperties, PropsWithChildren, ReactNode } from 'react';
 import { type BooleanLike, classes } from 'common/react';
-import { unit } from 'common/ui';
+import { unit } from 'tgui-core/ui';
 import { Box } from './Box';
 import { Divider } from './Divider';
 import { Tooltip } from './Tooltip';

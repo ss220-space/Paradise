@@ -13,7 +13,7 @@
  */
 export const filter = <T>(
   collection: T[],
-  iterateeFn: (input: T, index: number, collection: T[]) => boolean
+  iterateeFn: (input: T, index: number, collection: T[]) => boolean,
 ): T[] => {
   if (collection === null || collection === undefined) {
     return collection;
@@ -34,12 +34,12 @@ export const filter = <T>(
 type MapFunction = {
   <T, U>(
     collection: T[],
-    iterateeFn: (value: T, index: number, collection: T[]) => U
+    iterateeFn: (value: T, index: number, collection: T[]) => U,
   ): U[];
 
   <T, U, K extends string | number>(
     collection: Record<K, T>,
-    iterateeFn: (value: T, index: K, collection: Record<K, T>) => U
+    iterateeFn: (value: T, index: K, collection: Record<K, T>) => U,
   ): U[];
 };
 
@@ -146,9 +146,9 @@ type ReduceFunction = {
       accumulator: U,
       currentValue: T,
       currentIndex: number,
-      array: T[]
+      array: T[],
     ) => U,
-    initialValue: U
+    initialValue: U,
   ): U;
   <T>(
     array: T[],
@@ -156,8 +156,8 @@ type ReduceFunction = {
       accumulator: T,
       currentValue: T,
       currentIndex: number,
-      array: T[]
-    ) => T
+      array: T[],
+    ) => T,
   ): T;
 };
 
@@ -180,52 +180,6 @@ export const reduce: ReduceFunction = (array, reducerFn, initialValue?) => {
   }
   return result;
 };
-/**
- * Creates a duplicate-free version of an array, using SameValueZero for
- * equality comparisons, in which only the first occurrence of each element
- * is kept. The order of result values is determined by the order they occur
- * in the array.
- *
- * It accepts iteratee which is invoked for each element in array to generate
- * the criterion by which uniqueness is computed. The order of result values
- * is determined by the order they occur in the array. The iteratee is
- * invoked with one argument: value.
- */
-export const uniqBy = <T extends unknown>(
-  array: T[],
-  iterateeFn?: (value: T) => unknown
-): T[] => {
-  const { length } = array;
-  const result: T[] = [];
-  const seen: unknown[] = iterateeFn ? [] : result;
-  let index = -1;
-  // prettier-ignore
-  outer:
-    while (++index < length) {
-      let value: T | 0 = array[index];
-      const computed = iterateeFn ? iterateeFn(value) : value;
-      if (computed === computed) {
-        let seenIndex = seen.length;
-        while (seenIndex--) {
-          if (seen[seenIndex] === computed) {
-            continue outer;
-          }
-        }
-        if (iterateeFn) {
-          seen.push(computed);
-        }
-        result.push(value);
-      } else if (!seen.includes(computed)) {
-        if (seen !== result) {
-          seen.push(computed);
-        }
-        result.push(value);
-      }
-    }
-  return result;
-};
-
-export const uniq = <T>(array: T[]): T[] => uniqBy(array);
 
 type Zip<T extends unknown[][]> = {
   [I in keyof T]: T[I] extends (infer U)[] ? U : never;
@@ -256,7 +210,7 @@ export const zip = <T extends unknown[][]>(...arrays: T): Zip<T> => {
 const binarySearch = <T, U = unknown>(
   getKey: (value: T) => U,
   collection: readonly T[],
-  inserting: T
+  inserting: T,
 ): number => {
   if (collection.length === 0) {
     return 0;
@@ -284,7 +238,7 @@ const binarySearch = <T, U = unknown>(
 export const binaryInsertWith = <T, U = unknown>(
   collection: readonly T[],
   value: T,
-  getKey: (value: T) => U
+  getKey: (value: T) => U,
 ): T[] => {
   const copy = [...collection];
   copy.splice(binarySearch(getKey, collection, value), 0, value);

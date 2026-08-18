@@ -12,7 +12,7 @@ import {
   ImageButton,
 } from '../components';
 import { Window } from '../layouts';
-import { getLayoutState, LAYOUT, LayoutToggle } from 'common/LayoutToggle';
+import { getLayoutState, LAYOUT, LayoutToggle } from './common/LayoutToggle';
 
 type VendingData = {
   all_products_free: boolean;
@@ -74,13 +74,13 @@ export const Vending = (_props: unknown) => {
   } = data;
 
   const [selectedCategory, setSelectedCategory] = useState(
-    Object.keys(categories)[0]
+    Object.keys(categories)[0],
   );
 
   const [stockSearch, setStockSearch] = useState('');
   const stockSearchFn = createSearch(
     stockSearch,
-    (item: ProductRecord) => item.name
+    (item: ProductRecord) => item.name,
   );
 
   let inventory: ProductRecord[];
@@ -106,7 +106,7 @@ export const Vending = (_props: unknown) => {
           return false;
         }
       });
-    })
+    }),
   );
 
   return (
@@ -206,7 +206,7 @@ const ProductDisplay = (props: ProductDisplayProps) => {
   const { inventory, stockSearch, setStockSearch, selectedCategory } = props;
   const { stock, user, all_products_free } = data;
   const [toggleLayout, setToggleLayout] = useState(() =>
-    getLayoutState(LAYOUT.Grid)
+    getLayoutState(LAYOUT.Grid),
   );
 
   return (
@@ -285,7 +285,7 @@ const Product = (props) => {
     remaining: remaining,
     onClick: () => {
       act('vend', {
-        'ref': product.ref,
+        ref: product.ref,
       });
     },
   };

@@ -6,7 +6,7 @@
 
 import type { ReactNode } from 'react';
 import { canRender, classes } from 'common/react';
-import { computeBoxClassName, computeBoxProps } from 'common/ui';
+import { computeBoxClassName, computeBoxProps } from 'tgui-core/ui';
 import type { BoxProps } from './Box';
 import { Icon } from './Icon';
 

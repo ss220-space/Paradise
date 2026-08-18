@@ -1,7 +1,7 @@
 import { isEscape, KEY } from 'common/keys';
 import { classes } from 'common/react';
 import { debounce } from 'common/timer';
-import { computeBoxClassName, computeBoxProps } from 'common/ui';
+import { computeBoxClassName, computeBoxProps } from 'tgui-core/ui';
 import { useEffect, useRef, useState } from 'react';
 import type { BaseInputProps } from './Input';
 
@@ -118,7 +118,7 @@ export const RestrictedInput = (props: Props) => {
   };
 
   const onChangeHandler = (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ): void => {
     const newValue = Number(event.target.value);
     setInnerValue(newValue);
@@ -126,7 +126,7 @@ export const RestrictedInput = (props: Props) => {
   };
 
   const onKeyDownHandler = (
-    event: React.KeyboardEvent<HTMLInputElement>
+    event: React.KeyboardEvent<HTMLInputElement>,
   ): void => {
     onKeyDown?.(event);
 

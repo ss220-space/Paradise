@@ -6,7 +6,6 @@
 
 import {
   type CSSProperties,
-  DragEventHandler,
   type KeyboardEventHandler,
   type MouseEventHandler,
   type ReactNode,
@@ -21,7 +20,7 @@ import {
   computeBoxClassName,
   computeBoxProps,
   computeTwClass,
-} from 'common/ui';
+} from 'tgui-core/ui';
 
 type EventHandlers = {
   onClick: MouseEventHandler<HTMLDivElement>;
@@ -150,6 +149,6 @@ export const Box = (props: BoxProps & DangerDoNotUse) => {
       ...computedProps,
       className: computedClassName,
     },
-    children
+    children,
   );
 };

@@ -6,7 +6,7 @@
 import type { CSSProperties } from 'react';
 import { clamp01, keyOfMatchingRange, scale } from 'common/math';
 import { classes } from 'common/react';
-import { computeBoxClassName, computeBoxProps } from 'common/ui';
+import { computeBoxClassName, computeBoxProps } from 'tgui-core/ui';
 import { AnimatedNumber } from './AnimatedNumber';
 import { Box, type BoxProps } from './Box';
 type Props = {
@@ -150,7 +150,7 @@ export const RoundGauge = (props: Props) => {
                   style={{
                     strokeDashoffset: Math.max(
                       (2.0 - (col_ranges[1] - col_ranges[0])) * Math.PI * 50,
-                      0
+                      0,
                     ),
                   }}
                   transform={`rotate(${180 + 180 * col_ranges[0]} 50 50)`}

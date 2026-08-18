@@ -13,7 +13,7 @@ import {
   Tabs,
 } from '../components';
 import { Window } from '../layouts';
-import { computeBoxProps } from 'common/ui';
+import { computeBoxProps } from 'tgui-core/ui';
 import { ButtonProps } from '../components/Button';
 import { SortButton } from './common/SortButtons';
 
@@ -232,7 +232,7 @@ const AntagList = (properties: SearchTextProps) => {
         .filter(
           createSearch(searchText, ({ name, status, antag_names }) => {
             return name + '|' + status + '|' + antag_names.join(', ');
-          })
+          }),
         )
         .sort((a, b) => {
           const i = sortOrder ? 1 : -1;
@@ -264,7 +264,7 @@ const AntagList = (properties: SearchTextProps) => {
               status,
               antag_names,
             },
-            index
+            index,
           ) => (
             <Table.Row key={index}>
               <Table.Cell collapsing>
@@ -329,7 +329,7 @@ const AntagList = (properties: SearchTextProps) => {
                 </Box>
               </Table.Cell>
             </Table.Row>
-          )
+          ),
         )}
     </Table>
   );
@@ -396,7 +396,7 @@ const Objectives = (properties: SearchTextProps) => {
               '|' +
               objective.owner_name
             );
-          })
+          }),
         )
         .sort((a, b) => {
           const i = sortOrder ? 1 : -1;
@@ -578,7 +578,7 @@ const SecurityList = (properties: SearchTextProps) => {
               '|' +
               officer.antag
             );
-          })
+          }),
         )
         .sort((a, b) => {
           const i = sortOrder ? 1 : -1;
@@ -729,7 +729,7 @@ const HighValueItems = (properties: SearchTextProps) => {
         .filter(
           createSearch(searchText, (item) => {
             return item.name + '|' + item.loc;
-          })
+          }),
         )
         .sort((a, b) => {
           const i = sortOrder ? 1 : -1;

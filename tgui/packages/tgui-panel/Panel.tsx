@@ -31,7 +31,7 @@ export const Panel = (props: unknown) => {
   }
 
   return (
-    <Pane theme={settings.theme}>
+    <Pane theme={settings.theme} canSuspend={false}>
       <Stack fill vertical>
         <Stack.Item>
           <Section fitted>

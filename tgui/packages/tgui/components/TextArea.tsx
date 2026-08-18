@@ -1,6 +1,6 @@
 import { isEscape, KEY } from 'common/keys';
 import { classes } from 'common/react';
-import { computeBoxClassName, computeBoxProps } from 'common/ui';
+import { computeBoxClassName, computeBoxProps } from 'tgui-core/ui';
 import { debounce } from 'common/timer';
 import type { RefObject } from 'react';
 import { useEffect, useRef, useState } from 'react';
@@ -24,7 +24,7 @@ const getMarkupString = (
   inputText: string,
   markupType: string,
   startPosition: number,
-  endPosition: number
+  endPosition: number,
 ): string => {
   return `${inputText.substring(0, startPosition)}${markupType}${inputText.substring(startPosition, endPosition)}${markupType}${inputText.substring(endPosition)}`;
 };
@@ -111,7 +111,7 @@ export const TextArea = (props: Props) => {
       event.preventDefault();
       const { value, selectionStart, selectionEnd } = event.currentTarget;
       setInnerValue(
-        `${value.substring(0, selectionStart)}\t${value.substring(selectionEnd)}`
+        `${value.substring(0, selectionStart)}\t${value.substring(selectionEnd)}`,
       );
       event.currentTarget.selectionEnd = selectionStart + 1;
       onChange?.(event.currentTarget.value);
@@ -129,7 +129,7 @@ export const TextArea = (props: Props) => {
       const { selectionStart, selectionEnd, value } = event.currentTarget;
       const markupString = userMarkup[event.key];
       setInnerValue(
-        getMarkupString(value, markupString, selectionStart, selectionEnd)
+        getMarkupString(value, markupString, selectionStart, selectionEnd),
       );
       event.currentTarget.selectionEnd = selectionEnd + markupString.length * 2;
       onChange?.(event.currentTarget.value);

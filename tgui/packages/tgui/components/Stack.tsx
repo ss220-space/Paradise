@@ -6,7 +6,7 @@
 
 import type { RefObject } from 'react';
 import { classes } from 'common/react';
-import { computeBoxClassName } from 'common/ui';
+import { computeBoxClassName } from 'tgui-core/ui';
 import {
   type FlexItemProps,
   type FlexProps,

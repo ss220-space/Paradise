@@ -1,7 +1,7 @@
 import { type ReactNode, useEffect, useRef, useState } from 'react';
 import { classes } from 'common/react';
 import { type BoxProps } from './Box';
-import { unit } from 'common/ui';
+import { unit } from 'tgui-core/ui';
 import { Button } from './Button';
 import { Icon } from './Icon';
 import { Popper } from './Popper';
@@ -106,7 +106,7 @@ export const Dropdown = (props: Props) => {
 
   const selectedIndex =
     filteredOptions.findIndex(
-      (option) => getOptionValue(option) === selected
+      (option) => getOptionValue(option) === selected,
     ) || 0;
 
   const scrollToElement = (position: number) => {

@@ -20,13 +20,13 @@ import type {
   SpawnPanelPreferences,
 } from './types';
 
-interface SpawnPanelData {
+type SpawnPanelData = {
   icon: string;
   iconState: string;
   selected_object?: string;
   copied_type?: string;
   preferences?: SpawnPanelPreferences;
-}
+};
 
 interface SpawnPreferences {
   hide_icons: boolean;
@@ -61,7 +61,7 @@ export const CreateObject = (props: CreateObjectProps) => {
       if (!item) return key;
       return searchBy ? key : `${key} ${item.name || ''}`;
     },
-    [searchBy, allObjects]
+    [searchBy, allObjects],
   );
 
   const { query, setQuery, results } = useFuzzySearch({
@@ -167,7 +167,7 @@ export const CreateObject = (props: CreateObjectProps) => {
   }, [data.iconState]);
 
   const sendUpdatedSettings = (
-    changedSettings: Partial<Record<string, unknown>> = {}
+    changedSettings: Partial<Record<string, unknown>> = {},
   ) => {
     act('update-settings', changedSettings);
   };
@@ -335,7 +335,7 @@ export const CreateObject = (props: CreateObjectProps) => {
                   {
                     listNames[
                       Object.keys(listTypes).find(
-                        (key) => listTypes[key] === sortBy
+                        (key) => listTypes[key] === sortBy,
                       ) || 'Objects'
                     ]
                   }

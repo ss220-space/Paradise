@@ -1,7 +1,7 @@
 import { isEscape, KEY } from 'common/keys';
 import { classes } from 'common/react';
 import { debounce } from 'common/timer';
-import { computeBoxClassName, computeBoxProps } from 'common/ui';
+import { computeBoxClassName, computeBoxProps } from 'tgui-core/ui';
 import { type RefObject, useEffect, useRef, useState } from 'react';
 import type { BoxProps } from './Box';
 
@@ -144,7 +144,7 @@ export const Input = (props: Props) => {
   };
 
   const handleKeyDown = (
-    event: React.KeyboardEvent<HTMLInputElement>
+    event: React.KeyboardEvent<HTMLInputElement>,
   ): void => {
     onKeyDown?.(event);
 

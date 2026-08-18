@@ -40,11 +40,11 @@ import './styles/themes/ntOS95.scss';
 import { perf } from 'common/perf';
 import { setupGlobalEvents } from 'common/events';
 import { setupHotKeys } from 'common/hotkeys';
-import { setupHotReloading } from 'tgui-dev-server/link/client.mjs';
+import { setupHotReloading } from 'tgui-dev-server/link/client';
 
 import { App } from './App';
 import { setGlobalStore } from './backend';
-import { captureExternalLinks } from './links';
+import { captureExternalLinks } from 'tgui-core/links';
 import { render } from './renderer';
 import { configureStore } from './store';
 
@@ -85,7 +85,7 @@ const setupApp = () => {
       ['./debug', './layouts', './routes', './App'],
       () => {
         render(<App />);
-      }
+      },
     );
   }
 };
