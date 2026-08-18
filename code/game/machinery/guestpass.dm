@@ -235,7 +235,7 @@
 				pass.temp_access = accesses.Copy()
 				pass.registered_name = (safe_giv_name == "неизвестного") ? "Гость" : safe_giv_name
 				pass.expiration_time = expire_timestamp
-				pass.reason = (safe_reason == "не указана") ? "None" : safe_reason
+				pass.reason = (safe_reason == "не указана") ? "Не указана" : safe_reason
 				pass.name = "временный пропуск #[number]"
 
 			playsound(loc, 'sound/machines/twobeep.ogg', 50, TRUE)
