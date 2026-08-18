@@ -1,7 +1,7 @@
 import { type BooleanLike, classes } from 'common/react';
 import { useBackend } from '../backend';
 import type React from 'react';
-import { type CSSProperties, type ReactNode, useState } from 'react'
+import { type CSSProperties, type ReactNode, useState } from 'react';
 import {
   Box,
   Button,
@@ -16,7 +16,7 @@ import {
   Stack,
   TextArea,
 } from '../components';
-import { timeAgo, } from '../constants';
+import { timeAgo } from '../constants';
 import { Window } from '../layouts';
 import {
   ComplexModal,
@@ -349,10 +349,9 @@ const NewscasterFeed = (properties: CensorModeProps & FullStoriesProps) => {
               story.body.length + 3 > HEADLINE_MAX_LENGTH
                 ? {
                     ...story,
-                    body_short:
-                      `${story.body.substring(0, HEADLINE_MAX_LENGTH - 4)}...`,
+                    body_short: `${story.body.substring(0, HEADLINE_MAX_LENGTH - 4)}...`,
                   }
-                : story
+                : story,
             )
             .map((story, index) => (
               <Story
@@ -442,7 +441,7 @@ const NewscasterJobs = (properties: FullStoriesProps & CensorModeProps) => {
   const { jobs, wanted } = data;
   const numOpenings = Object.entries(jobs).reduce(
     (a, [k, v]) => a + v.length,
-    0
+    0,
   );
   const { censorMode, fullStories, setFullStories } = properties;
   return (
@@ -477,7 +476,7 @@ const NewscasterJobs = (properties: FullStoriesProps & CensorModeProps) => {
               Object.assign({}, jobOpeningCategories[catId], {
                 id: catId,
                 jobs: jobs[catId],
-              })
+              }),
             )
             .filter((cat) => !!cat && cat.jobs.length > 0)
             .map((cat) => (
@@ -671,7 +670,7 @@ type ManageChannelModalArgs = {
 };
 // This handles both creation and editing
 const manageChannelModalBodyOverride = (
-  modal: ModalType<ManageChannelModalArgs>
+  modal: ModalType<ManageChannelModalArgs>,
 ) => {
   const { data } = useBackend<NewscasterData>();
   // Additional data
@@ -687,13 +686,13 @@ const manageChannelModalBodyOverride = (
   const scannedUser = modal.args.scanned_user;
   // Temp data
   const [author, setAuthor] = useState(
-    channel?.author || scannedUser || 'Неавторизованный'
+    channel?.author || scannedUser || 'Неавторизованный',
   );
   const [name, setName] = useState(channel?.name || '');
   const [description, setDescription] = useState(channel?.description || '');
   const [icon, setIcon] = useState(channel?.icon || 'newspaper');
   const [isPublic, setIsPublic] = useState(
-    isEditing ? !!channel?.public : false
+    isEditing ? !!channel?.public : false,
   );
   const [adminLocked, setAdminLocked] = useState(channel?.admin || false);
   return (
@@ -806,7 +805,7 @@ const manageChannelModalBodyOverride = (
 };
 
 const createStoryModalBodyOverride = (
-  modal: ModalType<ManageChannelModalArgs>
+  modal: ModalType<ManageChannelModalArgs>,
 ) => {
   const { act, data } = useBackend<NewscasterData>();
   const { photo, channels, channel_idx = -1 } = data;
@@ -824,15 +823,15 @@ const createStoryModalBodyOverride = (
         return -1;
       } else if (selected.uid === b.uid) {
         return 1;
-      }
+      } else return 0;
     })
     .filter(
-      (c) => isAdmin || (!c.frozen && (c.author === scannedUser || !!c.public))
+      (c) => isAdmin || (!c.frozen && (c.author === scannedUser || !!c.public)),
     );
   // Temp data
   const [author, setAuthor] = useState(scannedUser || 'Unknown');
   const [channel, setChannel] = useState(
-    availableChannels.length > 0 ? availableChannels[0].name : ''
+    availableChannels.length > 0 ? availableChannels[0].name : '',
   );
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
@@ -982,7 +981,7 @@ const createStoryModalBodyOverride = (
 };
 
 const wantedNoticeModalBodyOverride = (
-  modal: ModalType<ManageChannelModalArgs>
+  modal: ModalType<ManageChannelModalArgs>,
 ) => {
   const { act, data } = useBackend<NewscasterData>();
   const { photo, wanted } = data;
@@ -991,7 +990,7 @@ const wantedNoticeModalBodyOverride = (
   const scannedUser = modal.args.scanned_user;
   // Temp data
   const [author, setAuthor] = useState(
-    wanted?.author || scannedUser || 'Неавторизованный'
+    wanted?.author || scannedUser || 'Неавторизованный',
   );
   const [name, setName] = useState(wanted?.title.substring(8) || '');
   const [description, setDescription] = useState(wanted?.body || '');

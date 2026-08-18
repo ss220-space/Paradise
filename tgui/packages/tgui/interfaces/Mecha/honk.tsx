@@ -43,7 +43,7 @@ export const useHonk = (honkChance: number = 0.4) => {
         if (Math.random() >= honkChance || words[i].length <= 3) continue;
 
         const cleanWord = words[i].replace(
-          new RegExp(`^[^a-zA-Zа-яёА-Я]+|[^a-zA-Zа-яёА-Я]+$`, 'g'),
+          /^[^a-zA-Zа-яёА-Я]+|[^a-zA-Zа-яёА-Я]+$/g,
           ''
         );
 

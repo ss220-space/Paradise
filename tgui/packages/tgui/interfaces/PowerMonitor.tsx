@@ -62,7 +62,7 @@ export const PowerMonitorMainContent = (_props: unknown) => {
   return (
     <Box m={0}>
       {!powermonitor && can_select_monitor && <SelectionView />}
-      {powermonitor && <DataView />}
+      {powermonitor && <DataViewComponent />}
     </Box>
   );
 };
@@ -93,7 +93,7 @@ const SelectionView = (_props: unknown) => {
   );
 };
 
-const DataView = (_props: unknown) => {
+const DataViewComponent = (_props: unknown) => {
   const { act, data } = useBackend<PowerMonitorData>();
   const {
     powermonitor,

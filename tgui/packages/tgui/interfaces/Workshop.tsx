@@ -184,12 +184,12 @@ const WorkshopItems = (properties: WorkshopState) => {
         kv2[1].affordable = canBeMade(
           kv2[1],
           data.brass_amount,
-          data.power_amount
+          data.power_amount,
         );
         return kv2[1];
       });
     if (items_in_cat.length === 0) {
-      return;
+      return '';
     }
     if (descending) {
       items_in_cat = items_in_cat.reverse();

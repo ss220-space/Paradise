@@ -48,8 +48,8 @@ const damages = [
 ];
 
 const damageRange: Record<string, [number, number]> = {
-  'average': [0.25, 0.5],
-  'bad': [0.5, Infinity],
+  average: [0.25, 0.5],
+  bad: [0.5, Infinity],
 };
 
 const mapTwoByTwo = <T, R>(a: T[][], c: (s: T[], c2: T[], i: number) => R) => {
@@ -69,7 +69,7 @@ const reduceOrganStatus = (A: ReactNode[]) => {
             <Box key={s.toString()}>{s}</Box>
           </>
         ),
-        null
+        null,
       )
     : null;
 };
@@ -275,7 +275,7 @@ const BodyScannerMainAbnormalities = (props: BodyScannerProps) => {
               {a[2]}
             </Box>
           );
-        }
+        } else return '';
       })}
     </Section>
   );
@@ -435,7 +435,7 @@ const BodyScannerMainOrgansExternal = (props: Organs<ExternalOrgan>) => {
                   ),
                 ])}
                 {reduceOrganStatus(
-                  o.shrapnel.map((s) => (s.known ? s.name : 'Инородное тело'))
+                  o.shrapnel.map((s) => (s.known ? s.name : 'Инородное тело')),
                 )}
               </Box>
             </Table.Cell>

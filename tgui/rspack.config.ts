@@ -29,7 +29,7 @@ export default defineConfig({
     tgui: './packages/tgui',
     'tgui-panel': './packages/tgui-panel',
     'tgui-say': './packages/tgui-say',
-    'tgui-chat-dark': './packages/tgui-chat-dark',
+    //'tgui-chat-dark': './packages/tgui-chat-dark',
     'tgui-escape-menu': './packages/tgui-escape-menu',
   },
   mode: 'production',

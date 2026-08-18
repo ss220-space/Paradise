@@ -1,6 +1,6 @@
 import { classes } from 'common/react';
 import { useBackend } from '../backend';
-import { sendAct as act } from '../events/act';
+import { sendAct as act } from 'tgui/events/act';
 import { Component, Fragment } from 'react';
 import {
   Box,

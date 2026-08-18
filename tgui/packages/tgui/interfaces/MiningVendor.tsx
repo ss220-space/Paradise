@@ -17,10 +17,10 @@ import { Window } from '../layouts';
 import type { CollapsibleProps } from '../components/Collapsible';
 
 const sortTypes = {
-  'Alphabetical': (a: number, b: number) => a - b,
-  'Availability': (a: Item, b: Item) =>
+  Alphabetical: (a: number, b: number) => a - b,
+  Availability: (a: Item, b: Item) =>
     -((a.affordable as any) - (b.affordable as any)),
-  'Price': (a: Item, b: Item) => a.price - b.price,
+  Price: (a: Item, b: Item) => a.price - b.price,
 };
 
 export const MiningVendor = (_properties) => {
@@ -138,7 +138,7 @@ const MiningVendorItems = (properties: MiningVendorItemsProps) => {
       })
       .sort(sortTypes[sortType]);
     if (items_in_cat.length === 0) {
-      return;
+      return '';
     }
     if (sortOrder) {
       items_in_cat = items_in_cat.reverse();
@@ -277,7 +277,7 @@ const MiningVendorItemsCategory = (properties: MiningVendorProps) => {
           >
             <Box textAlign={'left'}>{item.name}</Box>
           </ImageButton>
-        )
+        ),
       )}
     </Collapsible>
   );

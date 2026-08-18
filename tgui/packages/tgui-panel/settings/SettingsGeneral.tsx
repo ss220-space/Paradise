@@ -12,7 +12,8 @@ import {
 import { toFixed } from 'tgui-core/math';
 import { capitalize } from 'tgui-core/string';
 import { chatRenderer } from '../chat/renderer';
-import { FONTS, THEMES } from './constants';
+import { FONTS } from './constants';
+import { THEMES } from './themes';
 import { resetPaneSplitters, setEditPaneSplitters } from './scaling';
 import { exportChatSettings, importChatSettings } from './settingsImExport';
 import { useSettings } from './use-settings';

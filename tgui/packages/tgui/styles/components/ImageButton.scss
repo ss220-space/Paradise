@@ -24,7 +24,7 @@ $bg-map: colors.$bg-map !default;
   $transition-duration: 0.2s
 ) {
   $luminance: luminance($color);
-  $text-color: if($luminance > 0.3, rgba(0, 0, 0, 1), rgba(255, 255, 255, 1));
+  $text-color: if(sass($luminance > 0.3): rgba(0, 0, 0, 1); else: rgba(255, 255, 255, 1));
 
   background-color: rgba($color, $opacity);
   color: $text-color;

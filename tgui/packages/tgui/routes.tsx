@@ -21,7 +21,7 @@ type RoutingErrorProps = {
   name: string;
 };
 
-function RoutingErrorWindow(props: RoutingErrorProps) {
+export function RoutingErrorWindow(props: RoutingErrorProps) {
   const { type, name } = props;
 
   return (

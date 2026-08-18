@@ -3,7 +3,7 @@ import { Button, Box, Section, Icon } from '../components';
 import { Window } from '../layouts';
 
 /* This is all basically stolen from routes.js. */
-import { routingError } from '../routes';
+import { RoutingErrorWindow } from 'tgui/routes';
 
 const RequirePAIInterface = require.context('./pai', false, /\.tsx$/);
 
@@ -13,13 +13,13 @@ const GetApp = (name: string) => {
     appModule = RequirePAIInterface(`./${name}.tsx`);
   } catch (err) {
     if (err.code === 'MODULE_NOT_FOUND') {
-      return routingError('notFound', name);
+      return RoutingErrorWindow('notFound', name);
     }
     throw err;
   }
   const Component = appModule[name];
   if (!Component) {
-    return routingError('missingExport', name);
+    return RoutingErrorWindow('missingExport', name);
   }
   return Component;
 };

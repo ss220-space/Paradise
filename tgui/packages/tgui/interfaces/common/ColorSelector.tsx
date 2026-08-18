@@ -19,7 +19,12 @@ import {
 import type { Interaction } from '../../components/Interactive';
 import { clamp } from 'common/math';
 import { classes } from 'common/react';
-import { Component, type FocusEvent, type FormEvent, type ReactNode } from 'react';
+import {
+  Component,
+  type FocusEvent,
+  type FormEvent,
+  type ReactNode,
+} from 'react';
 import { logger } from 'common/logging';
 
 export const ColorSelector = ({
@@ -250,7 +255,7 @@ export const HexColorInput = (props: HexColorInputProps): ReactNode => {
   const { prefixed, alpha, color, fluid, onChange, ...rest } = props;
 
   /** Escapes all non-hexadecimal characters including "#" */
-  const escape = (value: string) =>
+  const escapeValue = (value: string) =>
     value.replace(/([^0-9A-F]+)/gi, '').substring(0, alpha ? 8 : 6);
 
   /** Validates hexadecimal strings */
@@ -262,7 +267,7 @@ export const HexColorInput = (props: HexColorInputProps): ReactNode => {
       fluid={fluid}
       color={color}
       onChange={onChange}
-      escape={escape}
+      escape={escapeValue}
       format={prefixed ? prefix : undefined}
       validate={validate}
     />
@@ -305,7 +310,7 @@ export class ColorInput extends Component<
         this.props.onChange(
           this.props.escape
             ? this.props.escape(e.currentTarget.value)
-            : e.currentTarget.value
+            : e.currentTarget.value,
         );
       }
     }
