@@ -16,7 +16,7 @@
 	/// accumulator, that used by our gun
 	var/accumulator_type = /obj/item/weapon_cell/energy_gun
 	// all weapons are too good, so our little nerf here
-
+	force = 20
 	damage_mod = 0.7
 	stamina_mod = 0.7
 
@@ -145,7 +145,6 @@
 	name = "energy carbine"
 	desc = "Обновленная энергетическая винтовка, работающая на съёмных аккумуляторах универсального образца. Укреплённый приклад позволяет стрелку вступить в ближний бой в случае исчерпания боезапаса."
 	icon_state = "energycarbine"
-	force = 15
 	origin_tech = "combat=4;materials=2"
 	ammo_type = list(
 		/obj/item/ammo_casing/energy/disabler/energy_carbine,
@@ -172,14 +171,21 @@
 // MARK: Energy pistol
 /obj/item/gun/energy/accumulator/energy_pistol
 	name = "energy pistol"
-	desc = "Ручной бластер, работающий на съёмных аккумуляторах универсального образца. Популярен среди силовых структур из-за своей компактности."
+	desc = "Ручной бластер, работающий на съёмных аккумуляторах универсального образца. Способен производить усиленные выстрелы, разбивающие щиты."
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER | GUN_MODULE_CLASS_ENERGY_WEAPON
 	accuracy = GUN_ACCURACY_PISTOL
 	weapon_weight = WEAPON_LIGHT
+	force = 10
+	ammo_type = list(
+		/obj/item/ammo_casing/energy/disabler/energy_pistol,
+		/obj/item/ammo_casing/energy/laser/energy_pistol,
+	)
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 7),
 		ATTACHMENT_SLOT_UNDER = list("x" = 5, "y" = -5),
 	)
+	windup_delay = 1 SECONDS
+	windup_sound = 'sound/weapons/laser_charge_up.ogg'
 
 /obj/item/gun/energy/accumulator/energy_pistol/get_ru_names()
 	return alist(
@@ -230,7 +236,6 @@
 	name = "energy shotgun"
 	desc = "Энергетический дробовик, работающий на съёмных аккумуляторах универсального образца. Используется силовыми службами в тесных помещениях. Массивный вес дробовика позволяет использовать приклад в ближнем бою."
 	icon_state = "energy_shotgun"
-	force = 20
 	ammo_type = list(
 		/obj/item/ammo_casing/energy/disabler/scatter/energy_shotgun,
 		/obj/item/ammo_casing/energy/laser/scatter/energy_shotgun,

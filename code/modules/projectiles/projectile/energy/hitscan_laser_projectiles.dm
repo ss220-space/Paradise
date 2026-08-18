@@ -38,7 +38,7 @@
 	tracer_type = /obj/effect/projectile/tracer/laser/light
 	muzzle_type = /obj/effect/projectile/muzzle/laser/light
 	impact_type = /obj/effect/projectile/impact/laser/light
-	damage = 5
+	damage = 10
 
 /obj/projectile/beam/laser/hitscan/laser_mg/ricochet
 	icon_state = "lasershot"

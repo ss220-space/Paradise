@@ -12,7 +12,7 @@
 	reflectability = REFLECTABILITY_ENERGY
 	light_system = OVERLAY_LIGHT
 	light_range = 2
-	light_color = COLOR_SOFT_RED
+	light_color = COLOR_RED_LIGHT
 	ricochets_max = 50	//Honk!
 	ricochet_chance = 80
 

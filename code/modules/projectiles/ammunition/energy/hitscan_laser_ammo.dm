@@ -35,7 +35,7 @@
 
 // MARK: Hitscan MG
 /obj/item/ammo_casing/energy/laser/hitscan/laser_mg
-	e_cost = 20
+	e_cost = 40
 	delay = 0.3 SECONDS
 	projectile_type = /obj/projectile/beam/laser/hitscan/laser_mg
 	fire_sound = 'sound/weapons/gunshots/lasermg.ogg'
