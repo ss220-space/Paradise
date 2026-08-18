@@ -58,7 +58,7 @@
 
 	add_fingerprint(user)
 
-	if(istype(id, /obj/item/card/id/guest))
+	if(is_guestpass_id(id))
 		to_chat(user, span_warning("Невозможно открыть временным пропуском."))
 		return ATTACK_CHAIN_PROCEED
 	if(broken)

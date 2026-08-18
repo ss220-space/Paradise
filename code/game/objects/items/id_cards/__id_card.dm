@@ -254,9 +254,9 @@
 		playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(istype(I, /obj/item/card/id/guest))
+	if(is_guestpass_id(I))
 		add_fingerprint(user)
-		if(istype(src, /obj/item/card/id/guest))
+		if(is_guestpass_id(src))
 			balloon_alert(user, "это бессмысленно!")
 			return ATTACK_CHAIN_PROCEED
 		if(guest_pass)
