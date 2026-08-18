@@ -164,6 +164,11 @@
 	set category = VERB_CATEGORY_EMOTIONS
 	emote("twirl", intentional = TRUE)
 
+/mob/living/carbon/human/verb/emote_jump()
+	set name = "○ Прыгать "
+	set category = VERB_CATEGORY_EMOTIONS
+	emote("jump", intentional = TRUE)
+
 /**
  * Generic emotes
  */
@@ -271,11 +276,6 @@
 	set name = "◦ Приподнять бровь "
 	set category = VERB_CATEGORY_EMOTIONS
 	emote("eyebrow", intentional = TRUE)
-
-/mob/living/carbon/human/verb/emote_jump()
-	set name = "◦ Прыгать "
-	set category = VERB_CATEGORY_EMOTIONS
-	emote("jump", intentional = TRUE)
 
 /mob/living/carbon/human/verb/emote_point()
 	set name = "◦ Показать пальцем "

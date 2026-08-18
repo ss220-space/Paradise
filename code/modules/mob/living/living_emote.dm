@@ -85,6 +85,19 @@
 	key = "jump"
 	key_third_person = "jumps"
 	message = "прыга%(ет,ют)%!"
+	audio_cooldown = EMOTE_COOLDOWN
+
+/datum/emote/living/jump/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
+	jump_animation(user)
+
+/datum/emote/living/jump/proc/jump_animation(mob/user)
+	var/original_transform = user.transform
+	animate(user, transform = user.transform.Translate(0, 4), time = 0.1 SECONDS, flags = ANIMATION_PARALLEL)
+	animate(transform = original_transform, time = 0.1 SECONDS)
+
+/datum/emote/living/jump/get_sound(mob/user)
+	return 'sound/weapons/thudswoosh.ogg'
 
 /datum/emote/living/deathgasp
 	key = "deathgasp"
