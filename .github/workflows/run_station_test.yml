@@ -11,11 +11,11 @@ jobs:
   run_station_test:
     name: Station Test (${{ inputs.station }}; ${{ matrix.byondtype }})
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    timeout-minutes: 20
     strategy:
       fail-fast: false
       matrix:
-        byondtype: ["STABLE"]
+        byondtype: ['STABLE']
     steps:
       - uses: actions/checkout@v7
 

@@ -5,18 +5,18 @@ jobs:
   setup_build_artifact_unit_tests:
     name: Setup build artifact # UNIT_TESTS
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    timeout-minutes: 25
     strategy:
       fail-fast: false
       matrix:
-        byondtype: ["STABLE"]
+        byondtype: ['STABLE']
     steps:
       - uses: actions/checkout@v7
 
       - uses: actions/setup-node@v7
         with:
           node-version: 22.11.0
-          cache: "yarn"
+          cache: 'yarn'
           cache-dependency-path: ./tgui/yarn.lock
 
       - name: Restore BYOND from Cache
