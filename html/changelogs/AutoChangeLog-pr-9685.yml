@@ -1,0 +1,4 @@
+author: "Ksaikok46"
+delete-after: True
+changes:
+  - server: "Попытка починить линтер (PR #9685)"
