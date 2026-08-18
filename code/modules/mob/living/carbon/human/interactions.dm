@@ -2,12 +2,10 @@
 *******Interactions code by HONKERTRON feat TestUnit********
 ***********************************/
 
-/mob/living/carbon/human/proc/interaction_check(datum/source, atom/over, mob/user)
-	SIGNAL_HANDLER
-
+/mob/living/carbon/human/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	if(src != user)
 		return
-	interact(over)
+	interact(over_object)
 
 //Distant interactions
 /mob/living/carbon/human/verb/interact(mob/M as mob)
