@@ -30,7 +30,7 @@
 		if(container_type & TRANSPARENT)
 			. += span_notice("Содержимое:")
 			if(length(reagents.reagent_list))
-				if(user.can_see_reagents() || isobserver(user)) //Show each individual reagent
+				if(user.can_see_reagents()) //Show each individual reagent
 					for(var/current in reagents.reagent_list)
 						var/datum/reagent/reagent = current
 						. += span_notice("<b>[reagent.name]</b> - <b>[reagent.volume]</b> единиц[declension_ru(reagent.volume, "а", "ы", "")].")

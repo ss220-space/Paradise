@@ -962,6 +962,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(client && check_rights_for(client, R_DEBUG))
 		client.toggle_tag_datum(src)
 
+/mob/dead/observer/can_see_reagents()
+	return TRUE
+
 #undef GHOST_ORBIT_CIRCLE
 #undef GHOST_ORBIT_TRIANGLE
 #undef GHOST_ORBIT_HEXAGON
