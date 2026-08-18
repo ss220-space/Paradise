@@ -1,0 +1,4 @@
+author: "Den109G"
+delete-after: True
+changes:
+  - spellcheck: "Поменял фразу гостевого пропуска, чтобы было ясней что оно имеет ввиду. (PR #9664)"

@@ -12,6 +12,13 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
+      - uses: actions/setup-python@v7
+        id: setup-python
+        with:
+          python-version: '3.13'
+          cache: 'pip'
+          cache-dependency-path: tools/requirements.txt
+
       - name: Restore SpacemanDMM cache
         uses: actions/cache@v6
         with:
@@ -24,19 +31,14 @@ jobs:
         uses: actions/cache@v6
         with:
           path: tools/bootstrap/.cache
-          key: ${{ runner.os }}-bootstrap-${{ hashFiles('tools/requirements.txt') }}
+          key: ${{ runner.os }}-bootstrap-py${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('tools/requirements.txt') }}
           restore-keys: |
-            ${{ runner.os }}-bootstrap-
-
-      - uses: actions/setup-python@v7
-        with:
-          python-version: "3.13"
-          cache: "pip"
+            ${{ runner.os }}-bootstrap-py${{ steps.setup-python.outputs.python-version }}-
 
       - uses: actions/setup-node@v7
         with:
           node-version: 22.11.0
-          cache: "yarn"
+          cache: 'yarn'
           cache-dependency-path: ./tgui/yarn.lock
 
       - name: Install Python packages
@@ -56,14 +58,14 @@ jobs:
       - name: Install OpenDream
         uses: robinraju/release-downloader@v1.13
         with:
-          repository: "OpenDreamProject/OpenDream"
-          tag: "latest"
-          fileName: "DMCompiler_linux-x64.tar.gz"
+          repository: 'OpenDreamProject/OpenDream'
+          tag: 'latest'
+          fileName: 'DMCompiler_linux-x64.tar.gz'
           extract: true
 
       - name: Give Linters A Go
         id: linter-setup
-        run: ":"
+        run: ':'
 
       - name: Run Grep Checks
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
