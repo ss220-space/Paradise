@@ -1117,6 +1117,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике ружейных пуль",
 	)
 
+/*
 /datum/supply_packs/security/armory/expenergy
 	name = "Энергетические карабины"
 	contains = list(
@@ -1135,6 +1136,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		INSTRUMENTAL = "ящиком энергетических карабинов",
 		PREPOSITIONAL = "ящике энергетических карабинов",
 	)
+*/
 
 /datum/supply_packs/security/armory/epistol // costs 3/5ths of the normal e-guns for 3/4ths the total ammo, making it cheaper to arm more people, but less convient for any one person
 	name = "Энергетические пистолеты"

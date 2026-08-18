@@ -463,8 +463,8 @@
 	icon_state = "guncabinet_laser"
 	result = list(
 		/obj/structure/closet/secure_closet/guncabinet/lasergun = 50,
-		/obj/structure/closet/secure_closet/guncabinet/lr30 = 50,
-		/obj/structure/closet/secure_closet/guncabinet/energygun = 50,
+		//obj/structure/closet/secure_closet/guncabinet/lr30 = 50,
+		//obj/structure/closet/secure_closet/guncabinet/energygun = 50,
 		/obj/structure/closet/secure_closet/guncabinet/automatic_carbine = 50,
 		/obj/structure/closet/secure_closet/guncabinet/accumulator_gun = 50,
 	)
