@@ -16,7 +16,7 @@ import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';
 import { type AtmosMachine, AtmosMachineView } from './common/AtmosMachine';
 import { GASES } from '../constants';
 import { Danger2Colour } from './common/AtmosScan';
-import { type BooleanLike } from 'tgui-core/react';
+import type { BooleanLike } from 'tgui-core/react';
 
 type AirAlarmData = {
   air: Air;

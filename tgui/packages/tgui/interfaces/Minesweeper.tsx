@@ -3,7 +3,7 @@ import { useBackend } from '../backend';
 import { useState } from 'react';
 import { Box, Button, Stack, Section } from '../components';
 import { Window } from '../layouts';
-import { type BooleanLike } from 'tgui-core/react';
+import type { BooleanLike } from 'tgui-core/react';
 
 type MinesweeperData = {
   matrix: BooleanLike[][][];

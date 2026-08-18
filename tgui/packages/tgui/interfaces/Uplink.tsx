@@ -23,7 +23,7 @@ import {
   modalAnswer,
   modalRegisterBodyOverride,
 } from './common/ComplexModal';
-import { type BooleanLike } from 'tgui-core/react';
+import type { BooleanLike } from 'tgui-core/react';
 
 type PickTabProps = ShowDescProps & SearchTextProps;
 

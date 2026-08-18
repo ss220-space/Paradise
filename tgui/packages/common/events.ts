@@ -52,7 +52,7 @@ export const globalEvents = new EventEmitter();
 let ignoreWindowFocus = false;
 
 export const setupGlobalEvents = (
-  options: { ignoreWindowFocus?: boolean } = {}
+  options: { ignoreWindowFocus?: boolean } = {},
 ): void => {
   ignoreWindowFocus = !!options.ignoreWindowFocus;
 };
@@ -140,7 +140,6 @@ const focusNearestTrackedParent = (node: HTMLElement | null) => {
       node.focus();
       return;
     }
-    // biome-ignore lint/style/noParameterAssign: This is fine
     node = node.parentElement;
   }
 };
