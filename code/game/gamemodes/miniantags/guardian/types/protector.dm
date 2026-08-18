@@ -18,7 +18,7 @@
 
 /mob/living/simple_animal/hostile/guardian/protector/Initialize(mapload)
 	. = ..()
-	AddSpell(new /datum/action/cooldown/spell/forcewall/guardian)
+	AddSpell(new /datum/action/cooldown/spell/forcewall/greater/guardian)
 
 /mob/living/simple_animal/hostile/guardian/protector/ToggleMode()
 	if(cooldown > world.time)
@@ -88,10 +88,11 @@
 		to_chat(summoner, span_danger("Ваше тело не выдерживает нагрузки от поддержания [src] в таком состоянии, оно начинает разрушаться!"))
 		summoner.adjustCloneLoss(amount / 2)
 
-/datum/action/cooldown/spell/forcewall/guardian
+/datum/action/cooldown/spell/forcewall/greater/guardian
 	name = "Голографическая силовая стена"
 	desc = "Создает перед вами непробиваемый барьер, через который могут проходить вы и ваш хозяин."
 	invocation = "YOU SHALL NOT PASS!"
+	wall_type = /obj/effect/forcefield/wizard/guardian
 
 /obj/effect/forcefield/wizard/guardian
 	desc = "Непробиваемый барьер неизвестной сущности."
