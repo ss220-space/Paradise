@@ -14,8 +14,6 @@
 	var/teleport_sound = 'sound/magic/lightning_chargeup.ogg'
 	var/teleport_sound_cooldown = FALSE
 
-MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet/bluespace, SHIFTING_TOILET, -SHIFTING_TOILET, 0, 0)
-
 /obj/structure/toilet/bluespace/update_icon_state()
 	. = ..()
 	icon_state = "bluespace_toilet[open][cistern]"
@@ -240,5 +238,3 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet/bluespace, SHIFTING_TOI
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
 	do_sparks(2, FALSE, loc)
 	return ..()
-
-#undef SHIFTING_TOILET

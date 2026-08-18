@@ -36,6 +36,8 @@
 
 MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet, SHIFTING_TOILET, -SHIFTING_TOILET, 0, 0)
 
+MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet/bluespace, SHIFTING_TOILET, -SHIFTING_TOILET, 0, 0)
+
 /obj/structure/toilet/Initialize(mapload)
 	. = ..()
 	open = round(rand(0, 1))
@@ -1190,3 +1192,4 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sink/kitchen, (SHIFTING_SINK_KITCHEN)
 #undef SHIFTING_SINK
 #undef SHIFTING_SINK_KITCHEN
 #undef SHIFTING_SHOWER
+#undef SHIFTING_TOILET
