@@ -266,7 +266,7 @@
 		if(world.time > guest_id.expiration_time)
 			balloon_alert(user, "гостевой пропуск уже истёк!")
 			return ATTACK_CHAIN_PROCEED
-		if(guest_id.registered_name != registered_name && guest_id.registered_name != DATA_NOT_SPECIFIED)
+		if(guest_id.registered_name != registered_name)
 			balloon_alert(user, "несовместимая ID-карта!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(guest_id, src))
@@ -286,7 +286,7 @@
 
 	if(guest_pass)
 		balloon_alert(usr, "гостевой пропуск снят")
-		guest_pass.forceMove(get_turf(src))
+		usr.put_in_hands(guest_pass)
 		guest_pass = null
 	else
 		balloon_alert(usr, "гостевой пропуск отсутствует!")

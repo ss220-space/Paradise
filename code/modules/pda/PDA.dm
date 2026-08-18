@@ -465,8 +465,8 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	if(is_id_card(I))
 		add_fingerprint(user)
 		var/obj/item/card/id/id_card = I
-		if(!id_card.registered_name)
-			to_chat(user, span_warning("The PDA rejects empty ID card."))
+		if(!id_card.registered_name || is_guestpass_id(I))
+			to_chat(user, span_warning("КПК не принимает пустые карты и временные пропуски."))
 			if(!silent)
 				playsound(src, 'sound/machines/terminal_error.ogg', 50, TRUE)
 			return ATTACK_CHAIN_PROCEED
