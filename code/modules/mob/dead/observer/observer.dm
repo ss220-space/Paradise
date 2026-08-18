@@ -462,7 +462,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/proc/dead_tele()
 	set category = VERB_CATEGORY_GHOST
-	set name = "Телепортация"
+	set name = "Телепорт к зоне"
 	set desc= "Teleport to a location"
 
 	if(!isobserver(usr))
@@ -559,7 +559,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/verb/jumptomob() //Moves the ghost instead of just changing the ghosts's eye -Nodrak
 	set category = VERB_CATEGORY_GHOST
-	set name = "К существу"
+	set name = "Телепорт к существу"
 	set desc = "Teleport to a mob"
 
 	if(!isobserver(usr)) //Make sure they're an observer!
@@ -606,18 +606,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	else
 		to_chat(src, span_notice("Сканирование газов включено. Кликните на тайл для анализа."))
 		gas_scan = TRUE
-
-/mob/dead/observer/verb/toggle_plant_anaylzer()
-	set name = "Анализ растений"
-	set desc = "Toggles wether you can anaylze plants and seeds on click"
-	set category = VERB_CATEGORY_GHOST
-
-	if(plant_analyzer)
-		to_chat(src, span_notice("Анализатор растений отключён."))
-		plant_analyzer = FALSE
-	else
-		to_chat(src, span_notice("Анализатор растений включён. Кликните на растение или семя для анализа."))
-		plant_analyzer = TRUE
 
 /mob/dead/observer/verb/view_manifest()
 	set name = "Манифест экипажа"
