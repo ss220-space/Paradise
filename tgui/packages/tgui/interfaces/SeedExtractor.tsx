@@ -1,7 +1,7 @@
 import { classes } from '../../common/react';
 import { useBackend } from '../backend';
 import type React from 'react';
-import { type ReactNode, useState } from 'react'
+import { type ReactNode, useState } from 'react';
 import {
   Button,
   Icon,
@@ -49,9 +49,9 @@ const seedFilter = (searchText: string) => {
     }
     if (parts.length === 1) {
       filters.push((seed: Seed) =>
-        (`${seed.name} (${seed.variant})`)
+        `${seed.name} (${seed.variant})`
           .toLocaleLowerCase()
-          .includes(parts[0].toLocaleLowerCase())
+          .includes(parts[0].toLocaleLowerCase()),
       );
       continue;
     }
@@ -69,7 +69,7 @@ const seedFilter = (searchText: string) => {
     } else {
       searchVal = Number(parts[1]);
     }
-    if (isNaN(searchVal)) {
+    if (Number.isNaN(searchVal)) {
       return (_) => false;
     }
     switch (parts[0].toLocaleLowerCase()) {
@@ -314,7 +314,7 @@ type VendAmountProps = {
 };
 
 const SeedExtractorActions = (
-  properties: VendAmountProps & SearchTextProps
+  properties: VendAmountProps & SearchTextProps,
 ) => {
   const { setSearchText, setVendAmount } = properties;
   return (

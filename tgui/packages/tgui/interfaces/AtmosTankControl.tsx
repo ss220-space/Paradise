@@ -1,10 +1,4 @@
-import {
-  Button,
-  LabeledList,
-  NumberInput,
-  ProgressBar,
-  Section,
-} from 'tgui/components';
+import { LabeledList, ProgressBar, Section } from 'tgui/components';
 import { toFixed } from 'common/math';
 
 import { useBackend } from '../backend';
@@ -30,7 +24,7 @@ export const AtmosTankControl = (props) => {
   const sensors_list = data.sensors || [];
 
   const isValidNumber = (value: unknown): value is number => {
-    return typeof value === 'number' && !isNaN(value);
+    return typeof value === 'number' && !Number.isNaN(value);
   };
 
   return (
@@ -68,7 +62,7 @@ export const AtmosTankControl = (props) => {
                   </LabeledList.Item>
                 ) : (
                   ''
-                )
+                ),
               )}
             </LabeledList>
           </Section>

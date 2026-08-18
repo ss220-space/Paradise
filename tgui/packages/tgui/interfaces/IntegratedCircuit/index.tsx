@@ -96,8 +96,8 @@ export class IntegratedCircuit extends Component<{}, IntegratedCircuitState> {
     position.color = port.color;
 
     if (
-      isNaN(position.x) ||
-      isNaN(position.y) ||
+      Number.isNaN(position.x) ||
+      Number.isNaN(position.y) ||
       (lastPosition &&
         lastPosition.x === position.x &&
         lastPosition.y === position.y)
@@ -195,11 +195,9 @@ export class IntegratedCircuit extends Component<{}, IntegratedCircuitState> {
     const { screen_x, screen_y } = data;
     this.setState((state) => ({
       mouseX:
-        (event.clientX - (state.backgroundX || screen_x)) *
-        state.zoom ** -1,
+        (event.clientX - (state.backgroundX || screen_x)) * state.zoom ** -1,
       mouseY:
-        (event.clientY - (state.backgroundY || screen_y)) *
-        state.zoom ** -1,
+        (event.clientY - (state.backgroundY || screen_y)) * state.zoom ** -1,
     }));
   }
 
@@ -435,7 +433,7 @@ export class IntegratedCircuit extends Component<{}, IntegratedCircuitState> {
         for (const output of input.connected_to) {
           const output_port = locations[output];
           connections.push({
-            color: (output_port?.color) || 'blue',
+            color: output_port?.color || 'blue',
             from: output_port,
             to: locations[input.ref],
           });
@@ -451,7 +449,7 @@ export class IntegratedCircuit extends Component<{}, IntegratedCircuitState> {
         y: mouseY + ABSOLUTE_Y_OFFSET * this.state.zoom ** -1,
       };
       connections.push({
-        color: (portLocation?.color) || 'blue',
+        color: portLocation?.color || 'blue',
         from: isOutput ? portLocation : mouseCoords,
         to: isOutput ? mouseCoords : portLocation,
       });
@@ -552,7 +550,7 @@ export class IntegratedCircuit extends Component<{}, IntegratedCircuitState> {
                     act={act}
                     gridMode={grid_mode}
                   />
-                )
+                ),
             )}
             {!!draggingComponent && (
               <DisplayComponent
