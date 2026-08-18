@@ -419,7 +419,7 @@ const CloningConsoleRecords = (props: unknown) => {
 const CloningConsoleTemp = (props: unknown) => {
   const { act, data } = useBackend<CloningConsoleData>();
   const { temp } = data;
-  if (!temp || !temp.text || temp.text.length <= 0) {
+  if (!temp?.text || temp.text.length <= 0) {
     return;
   }
 

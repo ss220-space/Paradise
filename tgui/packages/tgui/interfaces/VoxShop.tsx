@@ -64,7 +64,7 @@ export const VoxShop = (_props: never) => {
                 }}
                 icon="shopping-cart"
               >
-                Корзина {cart && cart.length ? '(' + cart.length + ')' : ''}
+                Корзина {cart?.length ? '(' + cart.length + ')' : ''}
               </Tabs.Tab>
             </Tabs>
           </Stack.Item>

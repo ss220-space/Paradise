@@ -72,7 +72,7 @@ const Genes = (props: unknown) => {
       scrollable
       buttons={
         <Button
-          disabled={!disk || !disk.can_insert || disk.is_core}
+          disabled={!disk?.can_insert || disk.is_core}
           icon="arrow-circle-down"
           onClick={() => act('insert')}
         >

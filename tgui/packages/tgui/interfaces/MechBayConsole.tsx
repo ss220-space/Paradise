@@ -32,9 +32,9 @@ type Cell = {
 export const MechBayConsole = (props: unknown) => {
   const { act, data } = useBackend<MechBayConsoleData>();
   const { recharge_port } = data;
-  const mech = recharge_port && recharge_port.mech;
-  const cell = mech && mech.cell;
-  const name = mech && mech.name;
+  const mech = recharge_port?.mech;
+  const cell = mech?.cell;
+  const name = mech?.name;
   return (
     <Window width={400} height={150}>
       <Window.Content>

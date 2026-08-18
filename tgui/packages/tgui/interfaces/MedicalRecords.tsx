@@ -361,7 +361,7 @@ const MedicalRecordsView = (_properties) => {
           <MedicalRecordsViewGeneral />
         </Section>
       </Stack.Item>
-      {!medical || !medical.fields ? (
+      {!medical?.fields ? (
         <Stack.Item grow color="bad">
           <Section
             fill
@@ -421,7 +421,7 @@ const MedicalRecordsView = (_properties) => {
 const MedicalRecordsViewGeneral = (_properties) => {
   const { data } = useBackend<MedicalRecordsData>();
   const { general } = data;
-  if (!general || !general.fields) {
+  if (!general?.fields) {
     return (
       <Stack fill vertical>
         <Stack.Item grow color="bad">
@@ -468,7 +468,7 @@ const MedicalRecordsViewGeneral = (_properties) => {
 const MedicalRecordsViewMedical = (_properties) => {
   const { data } = useBackend<MedicalRecordsData>();
   const { medical } = data;
-  if (!medical || !medical.fields) {
+  if (!medical?.fields) {
     return (
       <Stack fill vertical>
         <Stack.Item grow color="bad">

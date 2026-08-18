@@ -147,7 +147,7 @@ export const Uplink = (_props: unknown) => {
                 }}
                 icon="shopping-cart"
               >
-                Корзина {cart && cart.length ? '(' + cart.length + ')' : ''}
+                Корзина {cart?.length ? '(' + cart.length + ')' : ''}
               </Tabs.Tab>
               <Tabs.Tab
                 key="ExploitableInfo"

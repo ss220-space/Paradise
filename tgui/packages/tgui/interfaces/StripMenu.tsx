@@ -452,7 +452,7 @@ export const StripMenu = (_props: unknown) => {
   };
 
   const disable_background_hover = (item) => {
-    if (item && item.cantstrip) {
+    if (item?.cantstrip) {
       return 'transparent';
     }
     return 'none';
@@ -605,8 +605,7 @@ export const StripMenu = (_props: unknown) => {
                           {slot.additionalComponent}
                         </Button>
                         <Stack direction="row-reverse">
-                          {alternateActions !== undefined &&
-                            alternateActions.map((actionKey, index) => {
+                          {alternateActions?.map((actionKey, index) => {
                               const buttonOffset = index * 1.8;
                               return (
                                 <Stack.Item key={index} width="100%">

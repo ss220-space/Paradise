@@ -296,7 +296,7 @@ const ReadERTRequests = (props: unknown) => {
 
   return (
     <Section>
-      {ert_request_messages && ert_request_messages.length ? (
+      {ert_request_messages?.length ? (
         ert_request_messages.map((request) => (
           <Section
             key={decodeHtmlEntities(request.time)}

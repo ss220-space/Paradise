@@ -330,7 +330,7 @@ const SecurityRecordsPageMaintenance = (_properties) => {
 const SecurityRecordsPageView = (_properties) => {
   const { act, data } = useBackend<SecurityRecordsData>();
   const { isPrinting, general, security } = data;
-  if (!general || !general.fields) {
+  if (!general?.fields) {
     return <Box color="bad">General records lost!</Box>;
   }
   return (
@@ -368,7 +368,7 @@ const SecurityRecordsPageView = (_properties) => {
           <SecurityRecordsViewGeneral />
         </Section>
       </Stack.Item>
-      {!security || !security.fields ? (
+      {!security?.fields ? (
         <Stack.Item grow color="bad">
           <Section
             fill
@@ -444,7 +444,7 @@ const SecurityRecordsPageView = (_properties) => {
 const SecurityRecordsViewGeneral = (_properties) => {
   const { data } = useBackend<SecurityRecordsData>();
   const { general } = data;
-  if (!general || !general.fields) {
+  if (!general?.fields) {
     return (
       <Stack fill vertical>
         <Stack.Item grow color="bad">

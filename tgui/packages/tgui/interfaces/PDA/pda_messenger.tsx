@@ -315,7 +315,7 @@ const PDAList = (props: PDAProps) => {
 
   const { pdas, title, msgAct, searchTerm, charges, plugins } = props;
 
-  if (!pdas || !pdas.length) {
+  if (!pdas?.length) {
     return <Section title={title}>No PDAs found.</Section>;
   }
 

@@ -67,8 +67,7 @@ export const ThiefKit = (_props: unknown) => {
           }
         >
           <LabeledList>
-            {kits &&
-              kits.map((i) => (
+            {kits?.map((i) => (
                 <LabeledList.Item
                   key={i.type}
                   label={i.name}
@@ -105,8 +104,7 @@ export const ThiefKit = (_props: unknown) => {
 
         <Section title="Выбранные наборы:">
           <LabeledList>
-            {choosen_kits &&
-              choosen_kits.map((i) => (
+            {choosen_kits?.map((i) => (
                 <LabeledList.Item
                   key={i.type}
                   label={i.name}

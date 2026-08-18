@@ -221,16 +221,15 @@ export const BluespaceRiftServer = (props: unknown) => {
   return (
     <Window width={570} height={400}>
       <Window.Content scrollable>
-        {goals && goals.map((goalData: Goal) => goal(goalData))}
+        {goals?.map((goalData: Goal) => goal(goalData))}
         <Section title="Сканеры в сети">
           <LabeledList>
-            {scanners &&
-              scanners.map((scannerData: Scanner) => scanner(scannerData))}
+            {scanners?.map((scannerData: Scanner) => scanner(scannerData))}
           </LabeledList>
         </Section>
         <Section title="Серверы в сети">
           <LabeledList>
-            {servers && servers.map((serverData: Server) => server(serverData))}
+            {servers?.map((serverData: Server) => server(serverData))}
           </LabeledList>
         </Section>
       </Window.Content>

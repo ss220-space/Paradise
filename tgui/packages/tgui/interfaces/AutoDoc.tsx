@@ -72,7 +72,7 @@ export const AutoDoc = (props: unknown) => {
               }
             >
               <Box>
-                {!!(occupant[ChoosenPart] && occupant[ChoosenPart].extOrgan) &&
+                {!!(occupant[ChoosenPart]?.extOrgan) &&
                   occupant[ChoosenPart].extOrgan.map((organ) => (
                     <Fragment key={organ.name}>
                       <b>{organ.name}</b>
@@ -146,7 +146,7 @@ export const AutoDoc = (props: unknown) => {
                       <br />
                     </Fragment>
                   ))}
-                {!!(occupant[ChoosenPart] && occupant[ChoosenPart].intOrgan) &&
+                {!!(occupant[ChoosenPart]?.intOrgan) &&
                   occupant[ChoosenPart].intOrgan.map((organ) => (
                     <Fragment key={organ.name}>
                       <b>{organ.name}</b>

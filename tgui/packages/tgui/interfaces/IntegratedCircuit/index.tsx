@@ -435,7 +435,7 @@ export class IntegratedCircuit extends Component<{}, IntegratedCircuitState> {
         for (const output of input.connected_to) {
           const output_port = locations[output];
           connections.push({
-            color: (output_port && output_port.color) || 'blue',
+            color: (output_port?.color) || 'blue',
             from: output_port,
             to: locations[input.ref],
           });
@@ -451,7 +451,7 @@ export class IntegratedCircuit extends Component<{}, IntegratedCircuitState> {
         y: mouseY + ABSOLUTE_Y_OFFSET * Math.pow(this.state.zoom, -1),
       };
       connections.push({
-        color: (portLocation && portLocation.color) || 'blue',
+        color: (portLocation?.color) || 'blue',
         from: isOutput ? portLocation : mouseCoords,
         to: isOutput ? mouseCoords : portLocation,
       });
