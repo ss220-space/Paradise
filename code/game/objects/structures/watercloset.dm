@@ -11,7 +11,6 @@
 #define SHIFTING_SHOWER 16
 #define SHIFTING_TOILET 8
 
-
 /obj/structure/toilet
 	name = "toilet"
 	desc = "Унитаз марки НТ-451. Предназначен для смыва мелких отходов. Выглядит необычайно чистым."
