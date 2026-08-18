@@ -1,6 +1,6 @@
-import { useBackend } from '../../backend';
 import { toFixed } from 'common/math';
-import { LabeledList, NumberInput, Button } from '../../components';
+import { useBackend } from '../../backend';
+import { Button, LabeledList, NumberInput } from '../../components';
 
 export const pai_radio = (props: unknown) => {
   const { act, data } = useBackend<PaiData<Radio>>();

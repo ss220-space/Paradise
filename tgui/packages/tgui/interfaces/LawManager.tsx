@@ -3,8 +3,8 @@ import {
   Box,
   Button,
   LabeledList,
-  Section,
   NoticeBox,
+  Section,
   Table,
   Tabs,
 } from '../components';

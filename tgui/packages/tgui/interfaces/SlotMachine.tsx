@@ -1,9 +1,9 @@
 import { useBackend } from '../backend';
 import {
+  AnimatedNumber,
+  Box,
   Button,
   LabeledList,
-  Box,
-  AnimatedNumber,
   Section,
 } from '../components';
 import { Window } from '../layouts';

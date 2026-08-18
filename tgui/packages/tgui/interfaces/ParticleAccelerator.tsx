@@ -1,15 +1,15 @@
+import { capitalize } from 'common/string';
 import { useBackend } from '../backend';
 import {
   Box,
   Button,
   Grid,
+  ImageButton,
   LabeledList,
   Section,
   Stack,
-  ImageButton,
   Table,
 } from '../components';
-import { capitalize } from 'common/string';
 import { Window } from '../layouts';
 
 const dir2text = (dir: number) => {
@@ -168,7 +168,7 @@ const LayoutHorizontal = (_props: unknown) => {
                 }}
               />
             </Table.Cell>
-          )
+          ),
         )}
       </Table.Row>
       <Table.Row width="40px">
@@ -200,7 +200,7 @@ const LayoutHorizontal = (_props: unknown) => {
                 }}
               />
             </Table.Cell>
-          )
+          ),
         )}
       </Table.Row>
       <Table.Row width="40px">
@@ -232,7 +232,7 @@ const LayoutHorizontal = (_props: unknown) => {
                 }}
               />
             </Table.Cell>
-          )
+          ),
         )}
       </Table.Row>
     </Table>
@@ -273,7 +273,7 @@ const LayoutVertical = (_props: unknown) => {
                 }}
               />
             </Stack.Item>
-          )
+          ),
         )}
       </Grid.Column>
       <Grid.Column>
@@ -305,7 +305,7 @@ const LayoutVertical = (_props: unknown) => {
                 }}
               />
             </Stack.Item>
-          )
+          ),
         )}
       </Grid.Column>
       <Grid.Column width="40px">
@@ -337,7 +337,7 @@ const LayoutVertical = (_props: unknown) => {
                 }}
               />
             </Stack.Item>
-          )
+          ),
         )}
       </Grid.Column>
     </Grid>

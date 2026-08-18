@@ -12,6 +12,8 @@ import { NowPlayingWidget } from './audio/NowPlayingWidget';
 import { ChatPanel } from './chat/ChatPanel';
 import { ChatTabs } from './chat/ChatTabs';
 import { useChatPersistence } from './chat/use-chat-persistence';
+import { donationVisibleAtom } from './donations/atoms';
+import { Donations } from './donations/Donations';
 import { gameAtom } from './game/atoms';
 import { useKeepAlive } from './game/use-keep-alive';
 import { Notifications } from './Notifications';
@@ -20,8 +22,6 @@ import { ReconnectButton } from './reconnect';
 import { settingsVisibleAtom } from './settings/atoms';
 import { SettingsPanel } from './settings/SettingsPanel';
 import { useSettings } from './settings/use-settings';
-import { donationVisibleAtom } from './donations/atoms';
-import { Donations } from './donations/Donations';
 //import { CommandBar } from './verbs/CommandBar';
 
 export function Panel(props) {

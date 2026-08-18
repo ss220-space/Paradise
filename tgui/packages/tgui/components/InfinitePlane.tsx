@@ -1,5 +1,5 @@
-import { computeBoxProps } from 'tgui-core/ui';
 import { type PropsWithChildren, useEffect, useRef, useState } from 'react';
+import { computeBoxProps } from 'tgui-core/ui';
 import type { BoxProps } from './Box';
 import { Button } from './Button';
 import { ProgressBar } from './ProgressBar';

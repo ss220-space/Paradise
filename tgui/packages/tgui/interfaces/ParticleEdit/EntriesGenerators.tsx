@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { useBackend } from '../../backend';
 import {
   Button,
   ColorBox,
@@ -7,8 +8,6 @@ import {
   NumberInput,
   Stack,
 } from '../../components';
-
-import { useBackend } from '../../backend';
 import { ParticleContext } from '.';
 import {
   type EntryGeneratorNumbersListProps,
@@ -130,7 +129,7 @@ export const FloatGeneratorColor = (props: FloatGeneratorColorProps) => {
 };
 
 export const EntryGeneratorNumbersList = (
-  props: EntryGeneratorNumbersListProps
+  props: EntryGeneratorNumbersListProps,
 ) => {
   const { act } = useBackend<ParticleUIData>();
   const { setDesc } = useContext(ParticleContext);

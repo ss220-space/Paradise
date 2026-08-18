@@ -16,6 +16,7 @@
 
 	"editor.formatOnSave": true,
 	"editor.codeActionsOnSave": {
+		"source.organizeImports.biome": "explicit",
 		"source.fixAll.eslint": "explicit"
 	},
 	"files.insertFinalNewline": true,

@@ -1,3 +1,5 @@
+import type { BooleanLike } from 'common/react';
+import { createSearch } from 'common/string';
 import { useState } from 'react';
 import { useBackend } from '../backend';
 import {
@@ -10,9 +12,7 @@ import {
   Table,
 } from '../components';
 import { Window } from '../layouts';
-import type { BooleanLike } from 'common/react';
 import { SortButton } from './common/SortButtons';
-import { createSearch } from 'common/string';
 
 const noneSelect = '*none*';
 
@@ -159,7 +159,7 @@ export const PermissionsEdit = (_props: unknown) => {
               .filter(
                 createSearch(searchText, ({ ckey, rank }) => {
                   return `${ckey}|${rank}`;
-                })
+                }),
               )
               .sort((a, b) => {
                 const i = sortOrder ? 1 : -1;

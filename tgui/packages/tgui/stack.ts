@@ -1,5 +1,5 @@
-import { configAtom, store } from './events/store';
 import { logger } from 'common/logging';
+import { configAtom, store } from './events/store';
 
 /**
  * Creates a function, which can be assigned to window.__augmentStack__

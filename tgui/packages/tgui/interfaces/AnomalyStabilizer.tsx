@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Box, Button, Section, NumberInput } from '../components';
+import { Box, Button, NumberInput, Section } from '../components';
 import { Window } from '../layouts';
 
 type AnomalyStabilizerData = {

@@ -1,3 +1,4 @@
+import type { BooleanLike } from 'common/react';
 import { useState } from 'react';
 import {
   Button,
@@ -7,11 +8,9 @@ import {
   Section,
   Stack,
 } from 'tgui/components';
-
 import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import type { BooleanLike } from 'common/react';
 
 type NtosPortraitPrinterData = {
   paintings: Painting[];

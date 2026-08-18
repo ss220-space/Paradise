@@ -1,15 +1,15 @@
+import { decodeHtmlEntities } from 'common/string';
+import { useMemo, useState } from 'react';
+import { useBackend } from '../backend';
 import {
   Box,
   Button,
+  Dropdown,
   LabeledList,
   NoticeBox,
   Section,
-  Dropdown,
 } from '../components';
-import { decodeHtmlEntities } from 'common/string';
-import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { useState, useMemo } from 'react';
 
 interface RobotData {
   ref: string;

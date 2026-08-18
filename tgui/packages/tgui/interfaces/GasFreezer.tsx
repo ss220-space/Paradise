@@ -1,12 +1,12 @@
 import { useBackend } from '../backend';
 import {
   Box,
-  Section,
-  ProgressBar,
   Button,
+  Flex,
   LabeledList,
   NumberInput,
-  Flex,
+  ProgressBar,
+  Section,
 } from '../components';
 import { Window } from '../layouts';
 

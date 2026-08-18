@@ -1,3 +1,5 @@
+import { isEscape, KEY } from 'common/keys';
+import { clamp } from 'common/math';
 import {
   type MouseEventHandler,
   type ReactNode,
@@ -5,8 +7,6 @@ import {
   useRef,
   useState,
 } from 'react';
-import { KEY, isEscape } from 'common/keys';
-import { clamp } from 'common/math';
 import { AnimatedNumber } from './AnimatedNumber';
 import type { BoxProps } from './Box';
 
@@ -174,13 +174,13 @@ export const DraggableControl = (props: Props) => {
     internalValue.current = clamp(
       internalValue.current + (offset * step) / stepPixelSize,
       minValue - step,
-      maxValue + step
+      maxValue + step,
     );
 
     const clamped = clamp(
       internalValue.current - (internalValue.current % step) + stepOffset,
       minValue,
-      maxValue
+      maxValue,
     );
 
     finalValue.current = clamped;

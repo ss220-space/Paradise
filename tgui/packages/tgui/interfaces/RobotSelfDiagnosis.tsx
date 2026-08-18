@@ -1,7 +1,7 @@
-import { useBackend } from '../backend';
-import { NoticeBox, Flex, LabeledList, Section } from '../components';
-import { Window } from '../layouts';
 import { capitalize } from 'common/string';
+import { useBackend } from '../backend';
+import { Flex, LabeledList, NoticeBox, Section } from '../components';
+import { Window } from '../layouts';
 
 const getDamageColor = (damage: number, maxDamage: number) => {
   const damageRatio = damage / maxDamage;
@@ -64,7 +64,7 @@ export const RobotSelfDiagnosis = (_props: unknown) => {
                       label="Brute Damage"
                       color={getDamageColor(
                         entry.brute_damage,
-                        entry.max_damage
+                        entry.max_damage,
                       )}
                     >
                       {entry.brute_damage}
@@ -73,7 +73,7 @@ export const RobotSelfDiagnosis = (_props: unknown) => {
                       label="Burn Damage"
                       color={getDamageColor(
                         entry.electronic_damage,
-                        entry.max_damage
+                        entry.max_damage,
                       )}
                     >
                       {entry.electronic_damage}

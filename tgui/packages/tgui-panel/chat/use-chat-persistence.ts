@@ -1,4 +1,4 @@
-import { storage, type StorageDiagnostic } from 'common/storage';
+import { type StorageDiagnostic, storage } from 'common/storage';
 import DOMPurify from 'dompurify';
 import { useAtom, useAtomValue } from 'jotai';
 import { useEffect } from 'react';

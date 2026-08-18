@@ -1,7 +1,7 @@
 import { useBackend } from '../../backend';
-import { Box, Flex, LabeledList, Section, Button } from '../../components';
-import { RndNavButton } from './index';
+import { Box, Button, Flex, LabeledList, Section } from '../../components';
 import { MENU, SUBMENU } from '../RndConsole';
+import { RndNavButton } from './index';
 
 export const MainMenu = (properties) => {
   const { data } = useBackend<RndData>();

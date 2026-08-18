@@ -1,8 +1,8 @@
+import { createSearch } from 'common/string';
 import { Component } from 'react';
 import { useBackend } from '../backend';
 import { Button, Input, Section, Stack, Table } from '../components';
 import { Window } from '../layouts';
-import { createSearch } from 'common/string';
 
 type StaticReagentInformation = {
   name: string;

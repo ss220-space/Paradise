@@ -1,7 +1,7 @@
-import { useBackend } from '../backend';
-import { Box, Button, Section, Stack, Tabs, Image } from '../components';
-import { Window } from '../layouts';
 import { useState } from 'react';
+import { useBackend } from '../backend';
+import { Box, Button, Image, Section, Stack, Tabs } from '../components';
+import { Window } from '../layouts';
 
 const PickTab = (index: number) => {
   switch (index) {

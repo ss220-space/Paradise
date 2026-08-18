@@ -1,5 +1,6 @@
-import { useBackend } from '../../backend';
+import type { Placement } from '@popperjs/core';
 import { useState } from 'react';
+import { useBackend } from '../../backend';
 import {
   BlockQuote,
   Box,
@@ -20,7 +21,6 @@ import {
 } from '../../components';
 import { DraggableControl } from '../../components/DraggableControl';
 import { Window } from '../../layouts';
-import type { Placement } from '@popperjs/core';
 
 const COLORS_ARBITRARY = [
   'red',

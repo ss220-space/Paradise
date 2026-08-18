@@ -1,6 +1,6 @@
 import type { Key } from 'react';
 import { useBackend } from '../../backend';
-import { LabeledList, Box } from '../../components';
+import { Box, LabeledList } from '../../components';
 
 type JanitorInfo = {
   user_loc: Location;

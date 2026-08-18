@@ -1,6 +1,6 @@
 import type { Key } from 'react';
 import { useBackend } from '../../backend';
-import { LabeledList, Section, Box } from '../../components';
+import { Box, LabeledList, Section } from '../../components';
 
 type SupplyRecordsData = {
   supply: SupplyRecord;

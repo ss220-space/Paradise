@@ -1,3 +1,4 @@
+import { useBackend } from '../../backend';
 import {
   Box,
   Button,
@@ -6,8 +7,6 @@ import {
   Slider,
   Tooltip,
 } from '../../components';
-
-import { useBackend } from '../../backend';
 import type { Plane } from './types';
 import { usePlaneDebugContext } from './usePlaneDebug';
 

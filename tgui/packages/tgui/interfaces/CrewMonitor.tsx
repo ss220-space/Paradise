@@ -1,11 +1,11 @@
-import { sortBy } from 'es-toolkit';
 import { createSearch } from 'common/string';
-import { useBackend } from '../backend';
+import { sortBy } from 'es-toolkit';
 import { useState } from 'react';
+import { useBackend } from '../backend';
 import { Box, Button, Icon, Input, NanoMap, Table, Tabs } from '../components';
+import type { NanoMakerProps } from '../components/NanoMap';
 import { COLORS } from '../constants';
 import { Window } from '../layouts';
-import type { NanoMakerProps } from '../components/NanoMap';
 
 const getStatText = (cm: CrewMember, critThreshold: number) => {
   if (cm.dead) {

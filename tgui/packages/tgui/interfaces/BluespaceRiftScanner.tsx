@@ -2,10 +2,10 @@ import { useBackend } from '../backend';
 import {
   Box,
   Button,
-  Section,
-  Icon,
   Dimmer,
+  Icon,
   ProgressBar,
+  Section,
   Stack,
 } from '../components';
 import { Window } from '../layouts';
@@ -68,7 +68,7 @@ export const BluespaceRiftScanner = (props: unknown) => {
   const failurePercentage =
     time_for_failure && time_till_failure
       ? Math.floor(
-          ((time_for_failure - time_till_failure) / time_for_failure) * 100
+          ((time_for_failure - time_till_failure) / time_for_failure) * 100,
         )
       : 0;
 

@@ -1,8 +1,7 @@
+import type { BooleanLike } from 'common/react';
 import { Box, Button, LabeledList, Section } from 'tgui/components';
-
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import type { BooleanLike } from 'common/react';
 
 const addcommas = (x) => {
   return x.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');

@@ -1,5 +1,5 @@
 import { useBackend } from '../../backend';
-import { LabeledList, Box, Button, ProgressBar } from '../../components';
+import { Box, Button, LabeledList, ProgressBar } from '../../components';
 
 type PaiChems = {
   current_chemicals: number;

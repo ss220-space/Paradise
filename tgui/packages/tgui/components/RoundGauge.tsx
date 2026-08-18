@@ -3,12 +3,14 @@
  * @copyright 2020 bobbahbrown (https://github.com/bobbahbrown)
  * @license MIT
  */
-import type { CSSProperties } from 'react';
+
 import { clamp01, keyOfMatchingRange, scale } from 'common/math';
 import { classes } from 'common/react';
+import type { CSSProperties } from 'react';
 import { computeBoxClassName, computeBoxProps } from 'tgui-core/ui';
 import { AnimatedNumber } from './AnimatedNumber';
 import { Box, type BoxProps } from './Box';
+
 type Props = {
   /** The current value of the metric. */
   value: number;

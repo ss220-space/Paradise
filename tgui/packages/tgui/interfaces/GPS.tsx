@@ -1,7 +1,6 @@
 import { rad2deg } from 'common/math';
-
-import { useBackend } from '../backend';
 import { useState } from 'react';
+import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -12,8 +11,8 @@ import {
   Section,
   Table,
 } from '../components';
-import { Window } from '../layouts';
 import type { SectionProps } from '../components/Section';
+import { Window } from '../layouts';
 
 const vectorText = (vector: number[]) =>
   vector ? `(${vector.join(', ')})` : 'ERROR';
@@ -29,9 +28,7 @@ const distanceToPoint = (from: number[], to: number[], upgr: boolean) => {
   }
 
   const angle = Math.atan2(to[1] - from[1], to[0] - from[0]);
-  const dist = Math.sqrt(
-    (to[1] - from[1]) ** 2 + (to[0] - from[0]) ** 2
-  );
+  const dist = Math.sqrt((to[1] - from[1]) ** 2 + (to[0] - from[0]) ** 2);
   return { angle: rad2deg(angle), distance: dist };
 };
 
@@ -229,7 +226,7 @@ const Signals = (properties: SectionProps) => {
                   <Box
                     opacity={Math.max(
                       1 - Math.min(signal.distance, 100) / 100,
-                      0.5
+                      0.5,
                     )}
                   >
                     <Icon

@@ -1,17 +1,17 @@
-import { useBackend } from '../backend';
+import type { ReactNode } from 'react';
 import { classes } from '../../common/react';
+import { useBackend } from '../backend';
 import {
   Button,
-  Section,
-  Stack,
+  Collapsible,
   Icon,
   Image,
-  Collapsible,
   LabeledList,
+  Section,
+  Stack,
 } from '../components';
 import { ComplexModal } from '../interfaces/common/ComplexModal';
 import { Window } from '../layouts';
-import type { ReactNode } from 'react';
 
 type GeneModderData = {
   has_seed: boolean;

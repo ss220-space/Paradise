@@ -1,3 +1,5 @@
+import { toFixed } from 'common/math';
+import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -6,9 +8,6 @@ import {
   Section,
   Stack,
 } from '../components';
-import { toFixed } from 'common/math';
-
-import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type Data = {

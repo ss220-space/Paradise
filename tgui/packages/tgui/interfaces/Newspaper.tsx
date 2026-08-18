@@ -1,6 +1,6 @@
+import type { ReactNode } from 'react';
 import { useBackend } from '../backend';
-import type { ReactNode, } from 'react';
-import { Box, Section, Button, Flex } from '../components';
+import { Box, Button, Flex, Section } from '../components';
 import { Window } from '../layouts';
 import { PhotoThumbnail, type StoryData } from './Newscaster';
 

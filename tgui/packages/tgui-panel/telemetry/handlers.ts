@@ -4,8 +4,8 @@
  * @license MIT
  */
 
-import { storage } from 'common/storage';
 import { createLogger } from 'common/logging';
+import { storage } from 'common/storage';
 import { MAX_CONNECTIONS_STORED } from './constants';
 import { type ConnectionRecord, connectionsMatch } from './helpers';
 

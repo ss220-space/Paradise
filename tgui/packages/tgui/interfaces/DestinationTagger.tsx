@@ -1,6 +1,6 @@
-import { useBackend } from '../backend';
 import { useState } from 'react';
-import { Button, Section, Box, Flex, NoticeBox, Tabs } from '../components';
+import { useBackend } from '../backend';
+import { Box, Button, Flex, NoticeBox, Section, Tabs } from '../components';
 import { Window } from '../layouts';
 
 export const DestinationTagger = (_props: unknown) => {

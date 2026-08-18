@@ -1,8 +1,8 @@
 import { isEscape, KEY } from 'common/keys';
 import { classes } from 'common/react';
 import { debounce } from 'common/timer';
-import { computeBoxClassName, computeBoxProps } from 'tgui-core/ui';
 import { type RefObject, useEffect, useRef, useState } from 'react';
+import { computeBoxClassName, computeBoxProps } from 'tgui-core/ui';
 import type { BoxProps } from './Box';
 
 export type BaseInputProps = Partial<{

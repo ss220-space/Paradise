@@ -2,11 +2,11 @@ import { useBackend } from '../backend';
 import {
   Box,
   Button,
+  DmIcon,
+  Icon,
   Section,
   Stack,
   Table,
-  DmIcon,
-  Icon,
 } from '../components';
 import { Window } from '../layouts';
 
@@ -68,7 +68,7 @@ const CustomatRow = (props: CustomatRowProps) => {
           textAlign="left"
           onClick={() =>
             act('vend', {
-              'Key': product.Key,
+              Key: product.Key,
             })
           }
         >

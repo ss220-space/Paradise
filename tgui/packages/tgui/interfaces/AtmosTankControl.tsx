@@ -1,9 +1,9 @@
-import { LabeledList, ProgressBar, Section } from 'tgui/components';
 import { toFixed } from 'common/math';
+import { LabeledList, ProgressBar, Section } from 'tgui/components';
 
 import { useBackend } from '../backend';
-import { Window } from '../layouts';
 import { GASES } from '../constants';
+import { Window } from '../layouts';
 import { type AtmosMachine, AtmosMachineView } from './common/AtmosMachine';
 
 type AtmosTankControlData = {

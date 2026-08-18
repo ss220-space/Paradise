@@ -1,20 +1,19 @@
 import { flow } from 'common/fp';
-
+import { createSearch } from 'common/string';
 import { sortBy } from 'es-toolkit';
-import { useBackend, useSharedState } from '../backend';
 import { useState } from 'react';
+import { useBackend, useSharedState } from '../backend';
 import {
-  Button,
-  LabeledList,
   Box,
-  Section,
+  Button,
   Dropdown,
   Input,
-  Table,
+  LabeledList,
   Modal,
+  Section,
+  Table,
 } from '../components';
 import { Window } from '../layouts';
-import { createSearch } from 'common/string';
 import type { CataloguePaneProps, ContentsModalProps } from './CargoConsole';
 
 export const SyndieCargoConsole = (_props: unknown) => {

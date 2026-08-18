@@ -1,11 +1,7 @@
 import { useBackend } from '../backend';
-import {
-  LabeledList,
-  RestrictedInput,
-  Section,
-} from '../components';
-import { Window } from '../layouts';
+import { LabeledList, RestrictedInput, Section } from '../components';
 import { GASES } from '../constants';
+import { Window } from '../layouts';
 
 type Data = {
   pressure?: number;

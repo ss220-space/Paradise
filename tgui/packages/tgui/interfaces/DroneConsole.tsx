@@ -1,3 +1,5 @@
+import { toTitleCase } from 'common/string';
+import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -10,8 +12,6 @@ import {
   Section,
   Stack,
 } from '../components';
-import { toTitleCase } from 'common/string';
-import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 interface ConsoleData {

@@ -1,11 +1,11 @@
 import { useBackend } from '../backend';
 import {
-  LabeledList,
-  Section,
-  ProgressBar,
-  Button,
   Box,
+  Button,
   Icon,
+  LabeledList,
+  ProgressBar,
+  Section,
 } from '../components';
 import { Window } from '../layouts';
 
@@ -63,7 +63,7 @@ export const BluespaceRiftServer = (props: unknown) => {
       rewardGiven,
     } = goalData;
     const percentage = Math.floor(
-      (researchPoints / targetResearchPoints) * 100
+      (researchPoints / targetResearchPoints) * 100,
     );
     const probesLeft =
       pointsPerProbe > 0 ? Math.floor(probePoints / pointsPerProbe) : 0;

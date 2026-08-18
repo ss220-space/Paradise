@@ -1,20 +1,20 @@
 import { flow } from 'common/fp';
+import { createSearch, declension_ru } from 'common/string';
 import { sortBy } from 'es-toolkit';
-import { useBackend, useSharedState } from '../backend';
 import { useState } from 'react';
+import { useBackend, useSharedState } from '../backend';
 import {
-  Button,
-  LabeledList,
   Box,
-  Section,
+  Button,
   Dropdown,
   Input,
-  Table,
+  LabeledList,
   Modal,
+  Section,
   Stack,
+  Table,
 } from '../components';
 import { Window } from '../layouts';
-import { createSearch, declension_ru } from 'common/string';
 
 export const CargoConsole = (_props: unknown) => {
   const [contentsModal, setContentsModal] = useState<string[]>(null);

@@ -1,6 +1,6 @@
-import { useBackend } from '../backend';
 import { useState } from 'react';
-import { Button, LabeledList, Box, Section, Tabs } from '../components';
+import { useBackend } from '../backend';
+import { Box, Button, LabeledList, Section, Tabs } from '../components';
 import { Window } from '../layouts';
 
 type ShuttleManipulatorData = {

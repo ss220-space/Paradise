@@ -1,16 +1,16 @@
+import { formatPower } from 'tgui-core/format';
 import { useBackend } from '../backend';
 import {
-  Button,
   Box,
-  Section,
-  ProgressBar,
-  LabeledList,
-  NumberInput,
+  Button,
   Flex,
   Grid,
+  LabeledList,
+  NumberInput,
+  ProgressBar,
+  Section,
 } from '../components';
 import { Window } from '../layouts';
-import { formatPower } from 'tgui-core/format';
 
 type PacmanData = {
   broken: boolean;

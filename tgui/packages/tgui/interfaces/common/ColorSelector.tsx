@@ -1,12 +1,21 @@
 import {
-  hexToHsva,
   type HsvaColor,
+  hexToHsva,
   hsvaToHex,
   hsvaToHslString,
   hsvaToRgba,
   rgbaToHsva,
   validHex,
 } from 'common/color';
+import { logger } from 'common/logging';
+import { clamp } from 'common/math';
+import { classes } from 'common/react';
+import {
+  Component,
+  type FocusEvent,
+  type FormEvent,
+  type ReactNode,
+} from 'react';
 import {
   Box,
   Flex,
@@ -17,15 +26,6 @@ import {
   Tooltip,
 } from '../../components';
 import type { Interaction } from '../../components/Interactive';
-import { clamp } from 'common/math';
-import { classes } from 'common/react';
-import {
-  Component,
-  type FocusEvent,
-  type FormEvent,
-  type ReactNode,
-} from 'react';
-import { logger } from 'common/logging';
 
 export const ColorSelector = ({
   color,

@@ -4,12 +4,12 @@
  * @license MIT
  */
 
-import type { CSSProperties, PropsWithChildren } from 'react';
-import { Component } from 'react';
-import { CSS_COLORS } from '../constants';
 import { clamp01, keyOfMatchingRange, scale, toFixed } from 'common/math';
 import { classes } from 'common/react';
+import type { CSSProperties, PropsWithChildren } from 'react';
+import { Component } from 'react';
 import { computeBoxClassName, computeBoxProps } from 'tgui-core/ui';
+import { CSS_COLORS } from '../constants';
 import type { BoxProps } from './Box';
 
 type Props = {

@@ -1,17 +1,17 @@
 import { createSearch, decodeHtmlEntities } from 'common/string';
-import { useBackend } from '../backend';
 import { type ReactNode, useState } from 'react';
+import { useBackend } from '../backend';
 import {
   Box,
   Button,
   Icon,
+  Image,
   Input,
   LabeledList,
   Section,
   Stack,
-  Tabs,
   Table,
-  Image,
+  Tabs,
 } from '../components';
 import { Window } from '../layouts';
 import { ComplexModal, modalOpen } from './common/ComplexModal';
@@ -29,12 +29,12 @@ import {
 const statusStyles = {
   '*Execute*': 'execute',
   '*Arrest*': 'arrest',
-  'Incarcerated': 'incarcerated',
-  'Parolled': 'parolled',
-  'Released': 'released',
-  'Demote': 'demote',
-  'Search': 'search',
-  'Monitor': 'monitor',
+  Incarcerated: 'incarcerated',
+  Parolled: 'parolled',
+  Released: 'released',
+  Demote: 'demote',
+  Search: 'search',
+  Monitor: 'monitor',
 };
 
 const doEdit = (field: Field) => {
@@ -216,7 +216,7 @@ const SecurityRecordsPageList = (_properties) => {
                     '|' +
                     record.status
                   );
-                })
+                }),
               )
               .sort((a, b) => {
                 const i = sortOrder ? 1 : -1;
@@ -226,9 +226,7 @@ const SecurityRecordsPageList = (_properties) => {
                 <Table.Row
                   key={record.id}
                   mb={1}
-                  className={
-                    `SecurityRecords__listRow--${statusStyles[record.status]}`
-                  }
+                  className={`SecurityRecords__listRow--${statusStyles[record.status]}`}
                   onClick={() =>
                     act('view', {
                       uid_gen: record.uid_gen,

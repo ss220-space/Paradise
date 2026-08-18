@@ -1,5 +1,5 @@
+import { decodeHTML } from 'common/string';
 import { useAtomValue } from 'jotai';
-import { metaAtom } from './atoms';
 import {
   Box,
   Button,
@@ -8,8 +8,7 @@ import {
   Section,
   Stack,
 } from 'tgui/components';
-
-import { decodeHTML } from 'common/string';
+import { metaAtom } from './atoms';
 import { hideDonations } from './handlers';
 
 export const Donations = (props: unknown) => {

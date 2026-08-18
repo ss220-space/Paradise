@@ -1,18 +1,18 @@
-import { type ReactNode, useState } from 'react';
-import {
-  Button,
-  ByondUi,
-  Input,
-  NoticeBox,
-  NanoMap,
-  Section,
-  Stack,
-  Box,
-  Tabs,
-  Icon,
-} from 'tgui/components';
 import { type BooleanLike, classes } from 'common/react';
 import { createSearch } from 'common/string';
+import { type ReactNode, useState } from 'react';
+import {
+  Box,
+  Button,
+  ByondUi,
+  Icon,
+  Input,
+  NanoMap,
+  NoticeBox,
+  Section,
+  Stack,
+  Tabs,
+} from 'tgui/components';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';

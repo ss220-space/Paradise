@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, Box, Table, Section, Stack, DmIcon } from '../components';
+import { Box, Button, DmIcon, Section, Stack, Table } from '../components';
 import { Window } from '../layouts';
 
 const roundTenths = (input: number) => {

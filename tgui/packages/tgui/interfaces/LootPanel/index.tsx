@@ -1,12 +1,12 @@
-import { useBackend } from '../../backend';
+import { isEscape } from 'common/keys';
+import { clamp } from 'common/math';
 import { useCallback, useMemo, useState } from 'react';
-import { Box, Button, Input, Section, } from '../../components';
+import { useBackend } from '../../backend';
+import { Box, Button, Input, Section } from '../../components';
 import { Window } from '../../layouts';
 import { GroupedContents } from './GroupedContents';
 import { RawContents } from './RawContents';
 import type { SearchItem } from './types';
-import { clamp } from 'common/math';
-import { isEscape } from 'common/keys';
 
 type Data = {
   contents: SearchItem[];
@@ -69,7 +69,7 @@ export const LootPanel = (props: unknown) => {
             selectedNames.push(
               value.items.length > 1
                 ? `${firstItem.name} x${value.items.length}`
-                : firstItem.name
+                : firstItem.name,
             );
           }
         }
@@ -112,7 +112,7 @@ export const LootPanel = (props: unknown) => {
       (!grouping ? contents.length : Object.keys(contentsByPathName).length) *
         itemHeight,
     minHeight,
-    maxHeight
+    maxHeight,
   );
 
   return (

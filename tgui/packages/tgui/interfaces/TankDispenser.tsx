@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, Box } from '../components';
+import { Box, Button } from '../components';
 import { Window } from '../layouts';
 
 type TankDispenserData = {

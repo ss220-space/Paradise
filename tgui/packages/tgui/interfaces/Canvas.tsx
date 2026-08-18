@@ -1,8 +1,8 @@
-import { type PropsWithChildren, type ReactNode, useState } from 'react';
-import { Box, Button, Stack } from 'tgui/components';
 import { clamp } from 'common/math';
 import type { BooleanLike } from 'common/react';
 import { decodeHtmlEntities } from 'common/string';
+import { type PropsWithChildren, type ReactNode, useState } from 'react';
+import { Box, Button, Stack } from 'tgui/components';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
@@ -125,7 +125,7 @@ const EditableCanvas = (props: EditableCanvasProps) => {
           hslWidth="40%"
           style={{ aspectRatio: 2 }}
         />
-      </Stack.Item>
+      </Stack.Item>,
     );
   }
   if (usingImplement && maxServerColors! > 1) {
@@ -139,7 +139,7 @@ const EditableCanvas = (props: EditableCanvasProps) => {
           maxHeight="100%"
           overflowY="auto"
         />
-      </Stack.Item>
+      </Stack.Item>,
     );
   }
   const shouldRenderSidebar = sidebarItems.length > 0;

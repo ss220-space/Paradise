@@ -1,8 +1,8 @@
-import { useBackend } from '../backend';
 import { useState } from 'react';
-import { Button, Section, Table, Stack, Grid } from '../components';
-import { Window } from '../layouts';
+import { useBackend } from '../backend';
+import { Button, Grid, Section, Stack, Table } from '../components';
 import type { ButtonProps } from '../components/Button';
+import { Window } from '../layouts';
 
 interface MuteStates {
   ic: boolean;
@@ -45,7 +45,7 @@ const isMobType = (currentType: string, checkType: string): boolean => {
   };
   return (
     types[checkType]?.some((type: string) =>
-      currentType.toLowerCase().includes(type)
+      currentType.toLowerCase().includes(type),
     ) || false
   );
 };

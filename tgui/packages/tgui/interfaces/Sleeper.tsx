@@ -1,4 +1,5 @@
 import { round } from 'common/math';
+import type { ReactNode } from 'react';
 import { useBackend } from '../backend';
 import {
   Box,
@@ -10,7 +11,6 @@ import {
   Stack,
 } from '../components';
 import { Window } from '../layouts';
-import type { ReactNode } from 'react';
 
 const stats = [
   ['good', 'Норма'],
@@ -322,9 +322,7 @@ const SleeperChemicals = (_props: unknown) => {
                       occupant.stat === 2
                     }
                     icon="syringe"
-                    tooltip={
-                      `Ввести ${a}u вещества ${chem.title} в пациента`
-                    }
+                    tooltip={`Ввести ${a}u вещества ${chem.title} в пациента`}
                     mb="0"
                     height="19px"
                     onClick={() =>

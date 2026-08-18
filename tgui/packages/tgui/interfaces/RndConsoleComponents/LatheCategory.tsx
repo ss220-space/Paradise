@@ -1,5 +1,5 @@
 import { useBackend } from '../../backend';
-import { Button, Section, Table, DmIcon } from '../../components';
+import { Button, DmIcon, Section, Table } from '../../components';
 import { LatheMaterials } from './index';
 
 type LatheCategoryData = {
@@ -82,7 +82,7 @@ export const LatheCategory = (properties) => {
                 </Table.Cell>
               </Table.Row>
             );
-          }
+          },
         )}
       </Table>
     </Section>

@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Slider, Button, Section, LabeledList, Flex } from '../components';
+import { Button, Flex, LabeledList, Section, Slider } from '../components';
 import { Window } from '../layouts';
 
 type ConveyorSwitchData = {

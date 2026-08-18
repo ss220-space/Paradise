@@ -1,27 +1,27 @@
+import type { Placement } from '@floating-ui/react';
 import {
-  useState,
-  useRef,
-  useCallback,
-  type ReactNode,
-  type MouseEventHandler,
-  useEffect,
   type CSSProperties,
+  type MouseEventHandler,
+  type ReactNode,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
 } from 'react';
 import {
   Box,
-  Icon,
-  Tooltip,
   Button,
-  Flex,
   Dropdown,
+  Flex,
+  Icon,
   Image,
   Stack,
+  Tooltip,
 } from 'tgui-core/components';
+import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
 import { LabeledList } from './LabeledList';
 import { Slider } from './Slider';
-import { resolveAsset } from '../assets';
-import type { Placement } from '@floating-ui/react';
 
 const MAP_SIZE = 510;
 const HALF_SIZE = MAP_SIZE / 2;

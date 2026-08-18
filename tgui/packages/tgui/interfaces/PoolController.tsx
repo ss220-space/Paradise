@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, Flex, LabeledList, Section, Box, Icon } from '../components';
+import { Box, Button, Flex, Icon, LabeledList, Section } from '../components';
 import type { ButtonProps } from '../components/Button';
 import { Window } from '../layouts';
 

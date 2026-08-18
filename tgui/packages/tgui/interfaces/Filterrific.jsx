@@ -1,4 +1,6 @@
+import { numberOfDecimalDigits, toFixed } from 'common/math';
 import { useState } from 'react';
+import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -12,9 +14,6 @@ import {
   Section,
   Stack,
 } from '../components';
-import { numberOfDecimalDigits, toFixed } from 'common/math';
-
-import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 const FilterIntegerEntry = (props) => {

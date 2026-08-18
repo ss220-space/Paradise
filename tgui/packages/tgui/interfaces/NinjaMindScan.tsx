@@ -3,11 +3,11 @@ import {
   Box,
   Button,
   Flex,
+  Image,
   LabeledList,
+  NoticeBox,
   Section,
   Table,
-  NoticeBox,
-  Image,
 } from '../components';
 import { Window } from '../layouts';
 

@@ -1,13 +1,13 @@
 import { useBackend } from '../backend';
 import {
-  Tabs,
-  Button,
   Box,
+  Button,
   Grid,
-  Section,
-  Stack,
   Icon,
   ImageButton,
+  Section,
+  Stack,
+  Tabs,
 } from '../components';
 import { Direction } from '../components/DmIcon';
 import { Window } from '../layouts';
@@ -165,7 +165,7 @@ const AtmosPipeContent = (_props: unknown) => {
                       (p) =>
                         p.pipe_type === 1 &&
                         p.pipe_id === whatpipe &&
-                        p.orientations !== 1
+                        p.orientations !== 1,
                     )
                     .map((p) => (
                       <Box key={p.pipe_id}>
@@ -373,7 +373,7 @@ const DisposalPipeContent = (_props: unknown) => {
                     (p) =>
                       p.pipe_type === 2 &&
                       p.pipe_id === whatdpipe &&
-                      p.orientations !== 1
+                      p.orientations !== 1,
                   )
                   .map((p) => (
                     <Stack.Item key={p.pipe_id}>

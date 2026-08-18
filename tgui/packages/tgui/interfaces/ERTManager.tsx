@@ -1,15 +1,15 @@
-import { useBackend } from '../backend';
+import { declension_ru, decodeHtmlEntities } from 'common/string';
 import { useState } from 'react';
+import { useBackend } from '../backend';
 import {
+  Box,
   Button,
   LabeledList,
-  Box,
   Section,
   Tabs,
   TextArea,
 } from '../components';
 import { Window } from '../layouts';
-import { declension_ru, decodeHtmlEntities } from 'common/string';
 
 const TabList = {
   0: () => <SendERT />,

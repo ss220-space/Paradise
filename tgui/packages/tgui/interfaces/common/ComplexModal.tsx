@@ -1,13 +1,13 @@
-import type { ReactNode, KeyboardEvent } from 'react';
+import type { KeyboardEvent, ReactNode } from 'react';
 import { useBackend } from '../../backend';
 import {
   Box,
   Button,
   Dropdown,
-  Stack,
+  Image,
   Input,
   Modal,
-  Image,
+  Stack,
 } from '../../components';
 
 import type { ModalProps } from '../../components/Modal';
@@ -37,7 +37,7 @@ export const modalOpen = (id: string, args?: object) => {
  */
 export const modalRegisterBodyOverride = (
   id: string,
-  bodyOverride: (modal: ModalType<any>) => ReactNode
+  bodyOverride: (modal: ModalType<any>) => ReactNode,
 ) => {
   bodyOverrides[id] = bodyOverride;
 };
@@ -45,7 +45,7 @@ export const modalRegisterBodyOverride = (
 export const modalAnswer = (
   id: string,
   answer: string | number,
-  args?: object
+  args?: object,
 ) => {
   const { act, data } = useBackend<ModalData>();
   if (!data.modal) {

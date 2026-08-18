@@ -1,19 +1,19 @@
+import type { ReactNode } from 'react';
 import { useBackend } from '../backend';
 import {
-  Button,
-  LabeledList,
   Box,
+  Button,
+  Dropdown,
+  Icon,
+  LabeledList,
   Section,
+  Stack,
   Table,
   Tabs,
-  Stack,
-  Icon,
-  Dropdown,
 } from '../components';
+import { COLORS, JOBS_RU } from '../constants';
 import { Window } from '../layouts';
 import { type Access, AccessList } from './common/AccessList';
-import { COLORS, JOBS_RU } from '../constants';
-import type { ReactNode } from 'react';
 
 const deptCols = COLORS.department;
 
@@ -668,7 +668,7 @@ export const CardComputer = (props: unknown) => {
                 }
                 selected={Object.keys(data.law_levels).find(
                   (value, index, obj) =>
-                    data.law_levels[value] === data.law_level
+                    data.law_levels[value] === data.law_level,
                 )}
               />
             </Section>

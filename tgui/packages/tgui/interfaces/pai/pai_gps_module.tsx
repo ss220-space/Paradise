@@ -1,5 +1,5 @@
 import { useBackend } from '../../backend';
-import { LabeledList, Button } from '../../components';
+import { Button, LabeledList } from '../../components';
 
 export const pai_gps_module = (props: unknown) => {
   const { act } = useBackend();

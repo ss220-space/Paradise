@@ -1,12 +1,12 @@
 import { useBackend } from '../backend';
 import {
-  Button,
-  Section,
-  LabeledList,
-  Slider,
   Box,
-  ProgressBar,
+  Button,
   Flex,
+  LabeledList,
+  ProgressBar,
+  Section,
+  Slider,
 } from '../components';
 import { Window } from '../layouts';
 import type { PortableBaseData } from './PortablePump';

@@ -1,9 +1,9 @@
-import { createSearch } from 'common/string';
 import { flow } from 'common/fp';
-import { useBackend } from '../backend';
-import { Section, Stack, Input, ImageButton } from '../components';
-import { Window } from '../layouts';
+import { createSearch } from 'common/string';
 import { useState } from 'react';
+import { useBackend } from '../backend';
+import { ImageButton, Input, Section, Stack } from '../components';
+import { Window } from '../layouts';
 
 type Data = {
   chameleon_skins: ChameleonSkin[];
@@ -60,8 +60,7 @@ export const ChameleonAppearances = (_props) => {
       <Stack.Item grow>
         <Section fill scrollable title={'Item Appearance'}>
           {chameleon_skins.map((chameleon_skin) => {
-            const skin_name =
-              `${chameleon_skin.name}_${chameleon_skin.icon_state}`;
+            const skin_name = `${chameleon_skin.name}_${chameleon_skin.icon_state}`;
             return (
               <ImageButton
                 dmIcon={chameleon_skin.icon}

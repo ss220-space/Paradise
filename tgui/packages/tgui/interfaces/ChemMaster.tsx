@@ -1,28 +1,28 @@
+import { type BooleanLike, classes } from 'common/react';
 import type { ReactNode } from 'react';
+import { computeBoxProps } from 'tgui-core/ui';
 import { useBackend } from '../backend';
 import {
   Box,
   Button,
   Icon,
+  Image,
   Input,
   LabeledList,
   Section,
-  Stack,
   Slider,
+  Stack,
   Tabs,
-  Image,
 } from '../components';
+import type { BoxProps } from '../components/Box';
 import { Window } from '../layouts';
 import { BeakerContents } from './common/BeakerContents';
 import {
   ComplexModal,
+  type ModalType,
   modalOpen,
   modalRegisterBodyOverride,
-  type ModalType,
 } from './common/ComplexModal';
-import { type BooleanLike, classes } from 'common/react';
-import type { BoxProps } from '../components/Box';
-import { computeBoxProps } from 'tgui-core/ui';
 
 const transferAmounts = [1, 5, 10];
 

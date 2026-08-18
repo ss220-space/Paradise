@@ -1,18 +1,18 @@
 import { flow } from 'common/fp';
+import { createSearch, toTitleCase } from 'common/string';
 import { sortBy } from 'es-toolkit';
 import { useBackend, useSharedState } from '../backend';
 import {
   Box,
   Button,
+  DmIcon,
+  Dropdown,
   Input,
   LabeledList,
   Section,
   Stack,
-  Dropdown,
-  DmIcon,
 } from '../components';
 import { Window } from '../layouts';
-import { createSearch, toTitleCase } from 'common/string';
 
 const canBeMade = (
   recipe: Recipe,

@@ -1,15 +1,15 @@
 import { useBackend } from '../backend';
 import {
+  Box,
   Button,
+  NumberInput,
   Section,
   Stack,
-  NumberInput,
-  Box,
   Tabs,
   TextArea,
 } from '../components';
 import { Window } from '../layouts';
-import { AccessList, type Access } from './common/AccessList';
+import { type Access, AccessList } from './common/AccessList';
 
 interface GuestPassData {
   mode: number;

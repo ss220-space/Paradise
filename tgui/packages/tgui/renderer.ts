@@ -1,7 +1,7 @@
+import { createLogger } from 'common/logging';
 import { perf } from 'common/perf';
 import type { ReactNode } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
-import { createLogger } from 'common/logging';
 
 const logger = createLogger('renderer');
 

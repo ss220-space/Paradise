@@ -1,7 +1,7 @@
-import { useBackend } from '../backend';
-import { Window } from '../layouts';
-import { Box, Section, DmIcon, Button, Stack, NoticeBox } from '../components';
 import { toTitleCase } from 'common/string';
+import { useBackend } from '../backend';
+import { Box, Button, DmIcon, NoticeBox, Section, Stack } from '../components';
+import { Window } from '../layouts';
 
 type Design = {
   name: string;

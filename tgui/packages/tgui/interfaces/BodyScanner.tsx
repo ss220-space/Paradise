@@ -1,5 +1,6 @@
 import { round } from 'common/math';
 import { capitalize } from 'common/string';
+import { Fragment, type ReactNode } from 'react';
 import { useBackend } from '../backend';
 import {
   AnimatedNumber,
@@ -13,9 +14,8 @@ import {
   Table,
   Tooltip,
 } from '../components';
-import { Window } from '../layouts';
-import { Fragment, type ReactNode } from 'react';
 import type { ProgressBarProps } from '../components/ProgressBar';
+import { Window } from '../layouts';
 
 const stats = [
   ['good', 'Норма'],

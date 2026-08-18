@@ -1,17 +1,17 @@
+import { fetchRetry } from 'common/https';
+import { shallowDiffers } from 'common/react';
+import { Component } from 'react';
+import { resolveAsset } from '../../assets';
 import {
-  Section,
   Button,
   Dropdown,
-  Stack,
   Input,
   NoticeBox,
+  Section,
+  Stack,
 } from '../../components';
-import { Component } from 'react';
-import { shallowDiffers } from 'common/react';
-import { fetchRetry } from 'common/https';
-import { resolveAsset } from '../../assets';
-import { DisplayComponent } from './DisplayComponent';
 import { DEFAULT_COMPONENT_MENU_LIMIT } from './constants';
+import { DisplayComponent } from './DisplayComponent';
 import type { ComponentMenuProps, ComponentMenuState } from './types';
 
 // Cache response so it's only sent once
@@ -37,7 +37,7 @@ export class ComponentMenu extends Component<
   async populateServerData() {
     if (!fetchServerData) {
       fetchServerData = fetchRetry(
-        resolveAsset('circuit_components.json')
+        resolveAsset('circuit_components.json'),
       ).then((response) => response.json());
     }
 
@@ -45,7 +45,7 @@ export class ComponentMenu extends Component<
 
     this.setState({
       componentData: circuitData.sort(
-        (a, b) => a.name.toLowerCase() < b.name.toLowerCase()
+        (a, b) => a.name.toLowerCase() < b.name.toLowerCase(),
       ),
     });
   }

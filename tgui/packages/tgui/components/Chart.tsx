@@ -4,8 +4,8 @@
  * @license MIT
  */
 
-import { type CSSProperties, useEffect, useRef, useState } from 'react';
 import { zip } from 'es-toolkit';
+import { type CSSProperties, useEffect, useRef, useState } from 'react';
 import { Box, type BoxProps } from './Box';
 
 type Props = {

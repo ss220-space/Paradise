@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { LabeledList, Button } from '../components';
+import { Button, LabeledList } from '../components';
 import { Window } from '../layouts';
 
 type AppearanceData = {
@@ -391,7 +391,7 @@ const ColorContent = (props: unknown) => {
             <Button key={c.key} onClick={() => act(c.action)}>
               {c.text}
             </Button>
-          )
+          ),
       )}
     </LabeledList.Item>
   );

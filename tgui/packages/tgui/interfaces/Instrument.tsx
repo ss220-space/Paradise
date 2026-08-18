@@ -1,4 +1,5 @@
 import { round } from 'common/math';
+import type { ReactNode } from 'react';
 import { useBackend } from '../backend';
 import {
   Box,
@@ -12,7 +13,6 @@ import {
   Stack,
 } from '../components';
 import { Window } from '../layouts';
-import type { ReactNode } from 'react';
 export const Instrument = (properties) => {
   return (
     <Window width={600} height={505}>

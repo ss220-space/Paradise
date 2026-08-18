@@ -1,3 +1,4 @@
+import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -6,8 +7,6 @@ import {
   ProgressBar,
   Section,
 } from '../components';
-
-import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type GravityGeneratorData = {

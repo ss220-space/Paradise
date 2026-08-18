@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, LabeledList, NoticeBox, Section, Box } from '../components';
+import { Box, Button, LabeledList, NoticeBox, Section } from '../components';
 import { Window } from '../layouts';
 
 type CleanBotData = {

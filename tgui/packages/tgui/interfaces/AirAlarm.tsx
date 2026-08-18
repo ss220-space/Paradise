@@ -1,22 +1,22 @@
+import { useState } from 'react';
+import type { BooleanLike } from 'tgui-core/react';
 import { useBackend } from '../backend';
 import {
-  Button,
-  LabeledList,
-  Box,
   AnimatedNumber,
-  Section,
-  ProgressBar,
+  Box,
+  Button,
   Icon,
-  Tabs,
+  LabeledList,
+  ProgressBar,
+  Section,
   Table,
+  Tabs,
 } from '../components';
-import { useState } from 'react';
-import { Window } from '../layouts';
-import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';
-import { type AtmosMachine, AtmosMachineView } from './common/AtmosMachine';
 import { GASES } from '../constants';
+import { Window } from '../layouts';
+import { type AtmosMachine, AtmosMachineView } from './common/AtmosMachine';
 import { Danger2Colour } from './common/AtmosScan';
-import type { BooleanLike } from 'tgui-core/react';
+import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';
 
 type AirAlarmData = {
   air: Air;

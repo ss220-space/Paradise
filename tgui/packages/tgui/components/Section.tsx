@@ -4,15 +4,15 @@
  * @license MIT
  */
 
+import { addScrollableNode, removeScrollableNode } from 'common/events';
+import { canRender, classes } from 'common/react';
 import {
+  forwardRef,
   type ReactNode,
   type RefObject,
-  forwardRef,
   useEffect,
   useRef,
 } from 'react';
-import { addScrollableNode, removeScrollableNode } from 'common/events';
-import { canRender, classes } from 'common/react';
 import { computeBoxClassName, computeBoxProps } from 'tgui-core/ui';
 import type { BoxProps } from './Box';
 

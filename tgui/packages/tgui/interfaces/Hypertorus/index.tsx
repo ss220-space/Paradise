@@ -1,7 +1,7 @@
-import { useBackend } from 'tgui/backend';
-import { Window } from 'tgui/layouts';
-import { Button, Collapsible, Flex, Section, Stack } from 'tgui/components';
 import type { BooleanLike } from 'common/react';
+import { useBackend } from 'tgui/backend';
+import { Button, Collapsible, Flex, Section, Stack } from 'tgui/components';
+import { Window } from 'tgui/layouts';
 
 import { HypertorusSecondaryControls, HypertorusWasteRemove } from './Controls';
 import { HypertorusGases } from './Gases';

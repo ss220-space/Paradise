@@ -1,7 +1,7 @@
+import { useState } from 'react';
 import { classes } from '../../common/react';
 import { createSearch, declension_ru } from '../../common/string';
 import { useBackend } from '../backend';
-import { useState } from 'react';
 import {
   Box,
   Button,
@@ -224,7 +224,7 @@ const Queue = (properties) => {
   const { act, data } = useBackend<ExosuitFabricatorData>();
   const { queue, processingQueue } = data;
   const queueDeficit = Object.entries(data.queueDeficit).filter(
-    (a) => a[1] < 0
+    (a) => a[1] < 0,
   );
   const queueTime = queue.reduce((a, b) => a + b.time, 0);
   return (
@@ -359,7 +359,7 @@ const MaterialCount = (properties) => {
                 Math.round((curAmount / MINERAL_MATERIAL_AMOUNT) * 10) / 10,
                 '',
                 'а',
-                'ов'
+                'ов',
               )}
               )
             </Box>

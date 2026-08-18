@@ -1,9 +1,9 @@
-import { useBackend } from '../../backend';
-import { type ReactNode, useState } from 'react';
-import { createSearch } from 'common/string';
 import { flow } from 'common/fp';
+import { createSearch } from 'common/string';
 import { sortBy } from 'es-toolkit';
-import { Box, Input, Button, Section, LabeledList } from '../../components';
+import { type ReactNode, useState } from 'react';
+import { useBackend } from '../../backend';
+import { Box, Button, Input, LabeledList, Section } from '../../components';
 
 export type RecordsProps = {
   records: Records;

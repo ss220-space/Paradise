@@ -1,12 +1,6 @@
 import type { ReactNode } from 'react';
 import { useBackend } from '../backend';
-import {
-  Button,
-  LabeledList,
-  Section,
-  Stack,
-  Box,
-} from '../components';
+import { Box, Button, LabeledList, Section, Stack } from '../components';
 import { Window } from '../layouts';
 import { ComplexModal } from './common/ComplexModal';
 

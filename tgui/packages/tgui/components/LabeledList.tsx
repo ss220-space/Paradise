@@ -4,8 +4,8 @@
  * @license MIT
  */
 
-import type { CSSProperties, PropsWithChildren, ReactNode } from 'react';
 import { type BooleanLike, classes } from 'common/react';
+import type { CSSProperties, PropsWithChildren, ReactNode } from 'react';
 import { unit } from 'tgui-core/ui';
 import { Box } from './Box';
 import { Divider } from './Divider';

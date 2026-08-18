@@ -1,22 +1,21 @@
+import { toFixed } from 'common/math';
+import { useState } from 'react';
+import { formatPower } from 'tgui-core/format';
+import { useBackend } from '../../backend';
 import {
   Box,
   Button,
   DmIcon,
-  Tabs,
-  Table,
+  Dropdown,
   Icon,
   LabeledList,
   NumberInput,
   ProgressBar,
   Section,
   Stack,
-  Dropdown,
+  Table,
+  Tabs,
 } from '../../components';
-import { formatPower } from 'tgui-core/format';
-import { toFixed } from 'common/math';
-import { useState } from 'react';
-
-import { useBackend } from '../../backend';
 import type { MainData, MechModule } from './data';
 import { useHonk } from './honk';
 

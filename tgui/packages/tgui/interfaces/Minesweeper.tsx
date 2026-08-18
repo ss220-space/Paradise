@@ -1,9 +1,9 @@
 import type { MouseEvent } from 'react';
-import { useBackend } from '../backend';
 import { useState } from 'react';
-import { Box, Button, Stack, Section } from '../components';
-import { Window } from '../layouts';
 import type { BooleanLike } from 'tgui-core/react';
+import { useBackend } from '../backend';
+import { Box, Button, Section, Stack } from '../components';
+import { Window } from '../layouts';
 
 type MinesweeperData = {
   matrix: BooleanLike[][][];

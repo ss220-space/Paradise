@@ -1,17 +1,17 @@
+import { declension_ru } from 'common/string';
 import type { ReactNode } from 'react';
 import { useBackend } from '../backend';
-import { declension_ru } from 'common/string';
 import {
+  Box,
   Button,
+  ByondUi,
+  Dimmer,
+  Dropdown,
+  Icon,
   LabeledList,
+  NumberInput,
   Section,
   Stack,
-  NumberInput,
-  Dimmer,
-  Icon,
-  Box,
-  ByondUi,
-  Dropdown,
 } from '../components';
 import { Window } from '../layouts';
 import { ComplexModal } from './common/ComplexModal';

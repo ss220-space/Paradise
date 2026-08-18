@@ -1,14 +1,14 @@
 import { useBackend } from '../backend';
 import {
+  Box,
   Button,
   DmIcon,
-  LabeledList,
-  Section,
-  Table,
   Dropdown,
   Flex,
   Icon,
-  Box,
+  LabeledList,
+  Section,
+  Table,
 } from '../components';
 import { Window } from '../layouts';
 
@@ -133,7 +133,7 @@ export const FloorPainter = (props: unknown) => {
                             />
                           )}
                         </Table.Cell>
-                      )
+                      ),
                     )}
                   </Table.Row>
                 ))}

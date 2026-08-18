@@ -13,9 +13,9 @@ import { toFixed } from 'tgui-core/math';
 import { capitalize } from 'tgui-core/string';
 import { chatRenderer } from '../chat/renderer';
 import { FONTS } from './constants';
-import { THEMES } from './themes';
 import { resetPaneSplitters, setEditPaneSplitters } from './scaling';
 import { exportChatSettings, importChatSettings } from './settingsImExport';
+import { THEMES } from './themes';
 import { useSettings } from './use-settings';
 
 export function SettingsGeneral(props) {

@@ -3,9 +3,10 @@
  * @copyright 2020 Aleksej Komarov
  * @license MIT
  */
-import type { PropsWithChildren } from 'react';
+
 import { clamp01, keyOfMatchingRange, scale } from 'common/math';
 import { classes } from 'common/react';
+import type { PropsWithChildren } from 'react';
 import { computeBoxClassName, computeBoxProps } from 'tgui-core/ui';
 import type { BoxProps } from './Box';
 import { DraggableControl } from './DraggableControl';

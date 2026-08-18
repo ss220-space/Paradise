@@ -1,16 +1,16 @@
+import { toFixed } from 'common/math';
 import type { BooleanLike } from 'common/react';
+import { formatPower } from 'tgui-core/format';
 import { useBackend } from '../backend';
 import {
   Button,
-  LabeledList,
-  Section,
-  ProgressBar,
   Knob,
+  LabeledList,
+  ProgressBar,
+  Section,
   Stack,
 } from '../components';
-import { formatPower } from 'tgui-core/format';
 import { Window } from '../layouts';
-import { toFixed } from 'common/math';
 
 type TurbineComputerData = {
   online: BooleanLike;

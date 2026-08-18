@@ -193,7 +193,7 @@ const SatelliteControlMapView = (props: unknown) => {
                   color="rgba(0, 150, 255, 0.5)"
                   tooltip="Защищённая территория"
                 />
-              ) : null
+              ) : null,
             )}
 
           {has_goal &&

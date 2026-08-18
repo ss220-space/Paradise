@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { useBackend } from '../../backend';
 import {
   Box,
   Button,
@@ -9,8 +10,6 @@ import {
   NumberInput,
   Stack,
 } from '../../components';
-
-import { useBackend } from '../../backend';
 import { ParticleContext } from '.';
 import {
   type EntryCoordProps,
@@ -131,7 +130,7 @@ export const EntryGradient = (props: EntryGradientProps) => {
 
   if (gradientSpace) {
     const match = Object.keys(SpaceToNum).find(
-      (space) => SpaceToNum[space] === gradientSpace.space
+      (space) => SpaceToNum[space] === gradientSpace.space,
     );
     if (match) {
       space_type = match;
@@ -193,7 +192,7 @@ export const EntryGradient = (props: EntryGradientProps) => {
                     act('edit', {
                       var: var_name,
                       new_value: gradient!.map((x, i) =>
-                        i === index ? value : x
+                        i === index ? value : x,
                       ),
                     })
                   }
@@ -209,7 +208,7 @@ export const EntryGradient = (props: EntryGradientProps) => {
                   }
                 />
               </>
-            )
+            ),
           )}
         </Stack.Item>
         <Stack.Item>
@@ -272,7 +271,7 @@ export const EntryTransform = (props: EntryTransformProps) => {
                 act('edit', {
                   var: var_name,
                   new_value: transform!.map((x, i) =>
-                    i === index ? value : x
+                    i === index ? value : x,
                   ),
                 })
               }
@@ -421,8 +420,8 @@ export const EntryIconState = (props: EntryIconStateProps) => {
                       var: var_name,
                       new_value: Object.fromEntries(
                         Object.entries(icon_state).filter(
-                          ([key]) => key !== iconstate
-                        )
+                          ([key]) => key !== iconstate,
+                        ),
                       ),
                     })
                   }

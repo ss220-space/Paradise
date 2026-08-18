@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useBackend } from '../backend';
-import { Box, Button, Stack, Dropdown } from '../components';
+import { Box, Button, Dropdown, Stack } from '../components';
 import { Window } from '../layouts';
 
 type RitualMenuData = {

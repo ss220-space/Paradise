@@ -1,6 +1,6 @@
 import { useBackend } from 'tgui/backend';
-import { getGasColor, getGasLabel } from 'tgui/constants';
 import { Box, Button, Icon, Table, Tooltip } from 'tgui/components';
+import { getGasColor, getGasLabel } from 'tgui/constants';
 
 import type { HypertorusData } from '.';
 
@@ -217,13 +217,13 @@ export const HypertorusRecipes = (props: RecipeProps) => {
                             name={effect_to_icon(
                               value,
                               scale,
-                              override_base || 1
+                              override_base || 1,
                             )}
                           />
                         </Tooltip>
                       </Table.Cell>
                     );
-                  }
+                  },
                 )}
               </MemoRow>
             );

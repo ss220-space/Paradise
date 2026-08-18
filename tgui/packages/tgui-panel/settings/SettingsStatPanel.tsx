@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   Button,
   Collapsible,
@@ -22,6 +23,7 @@ function LinkedToChat() {
 export function SettingsStatPanel(props) {
   const { settings, updateSettings } = useSettings();
   const { statLinked, statFontSize, statTabsStyle } = settings;
+  const [freeStatFont, setFreeStatFont] = useState(false);
 
   return (
     <Section fill>
@@ -45,18 +47,16 @@ export function SettingsStatPanel(props) {
                 <LinkedToChat />
               ) : (
                 <Stack.Item>
-                  {!settings.freeStatFont ? (
+                  {!freeStatFont ? (
                     <Collapsible
                       title={settings.statFontFamily}
                       width={'100%'}
                       buttons={
                         <Button
-                          icon={settings.freeStatFont ? 'lock-open' : 'lock'}
-                          color={settings.freeStatFont ? 'good' : 'bad'}
+                          icon={freeStatFont ? 'lock-open' : 'lock'}
+                          color={freeStatFont ? 'good' : 'bad'}
                           onClick={() => {
-                            updateSettings({
-                              freeStatFont: !settings.statFontFamily,
-                            });
+                            setFreeStatFont(!freeStatFont);
                           }}
                         >
                           Пользовательский шрифт
@@ -92,12 +92,10 @@ export function SettingsStatPanel(props) {
                       />
                       <Button
                         ml={0.5}
-                        icon={settings.freeStatFont ? 'lock-open' : 'lock'}
-                        color={settings.freeStatFont ? 'good' : 'bad'}
+                        icon={freeStatFont ? 'lock-open' : 'lock'}
+                        color={freeStatFont ? 'good' : 'bad'}
                         onClick={() => {
-                          updateSettings({
-                            freeStatFont: !settings.freeStatFont,
-                          });
+                          setFreeStatFont(!freeStatFont);
                         }}
                       >
                         Пользовательский шрифт

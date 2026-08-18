@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { useBackend } from '../backend';
-import { Box, Button, Icon, Section, Stack, Slider } from '../components';
+import { Box, Button, Icon, Section, Slider, Stack } from '../components';
 import { Window } from '../layouts';
 
 type VolumeMixerData = {

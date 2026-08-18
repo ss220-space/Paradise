@@ -1,18 +1,18 @@
 import { classes } from 'common/react';
+import { useState } from 'react';
 import { useBackend } from '../backend';
 import {
   Box,
   Button,
   Divider,
-  Stack,
   LabeledList,
   NumberInput,
   Section,
+  Stack,
   Tabs,
 } from '../components';
-import { Window } from '../layouts';
 import type { SectionProps } from '../components/Section';
-import { useState } from 'react';
+import { Window } from '../layouts';
 
 const formatPoints = (amt: number) => `${amt.toLocaleString('en-US')} ед.`;
 
@@ -298,8 +298,8 @@ const SheetLine = (properties: SheetLineProps) => {
             stepPixelSize={6}
             onChange={(value) =>
               act(ore.value ? 'sheet' : 'alloy', {
-                'id': ore.id,
-                'amount': value,
+                id: ore.id,
+                amount: value,
               })
             }
           />
@@ -361,8 +361,8 @@ const AlloyLine = (properties: AlloyLineProps) => {
             stepPixelSize={6}
             onChange={(value) =>
               act(ore.value ? 'sheet' : 'alloy', {
-                'id': ore.id,
-                'amount': value,
+                id: ore.id,
+                amount: value,
               })
             }
           />

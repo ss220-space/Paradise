@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react';
 import {
   Button,
   Dropdown,
+  Icon,
   Input,
   NumberInput,
-  Icon,
   Slider,
   Stack,
   Table,
@@ -15,10 +15,10 @@ import { useBackend } from '../../backend';
 import {
   directionNames,
   directionRotation,
-  spawnLocationIcons,
-  spawnLocationOptions,
   OffsetType,
   PreciseMode,
+  spawnLocationIcons,
+  spawnLocationOptions,
 } from './constants';
 import type { IconSettings } from './index';
 

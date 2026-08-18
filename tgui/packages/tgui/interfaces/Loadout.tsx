@@ -1,22 +1,21 @@
-import { createSearch } from 'common/string';
-import { declension_ru } from 'common/string';
-import { useBackend } from '../backend';
+import { createSearch, declension_ru } from 'common/string';
 import { useState } from 'react';
+import { useBackend } from '../backend';
 import {
   Box,
+  Button,
   Dimmer,
   Dropdown,
   ImageButton,
-  Button,
   Input,
-  Section,
-  Tabs,
-  ProgressBar,
-  Stack,
   LabeledList,
+  ProgressBar,
+  Section,
+  Stack,
+  Tabs,
 } from '../components';
-import { Window } from '../layouts';
 import { JOBS_RU } from '../constants';
+import { Window } from '../layouts';
 
 type Data = {
   user_tier: number;

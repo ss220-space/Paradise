@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react';
 import { createSearch } from 'common/string';
+import { useMemo, useState } from 'react';
 import { useBackend } from '../backend';
 import { Box, Icon, Input, LabeledList, Section, Table } from '../components';
 import { Window } from '../layouts';
@@ -221,11 +221,11 @@ const FullListView = ({ clients }: { clients: GeoIPRow[] }) => {
   const [search, setSearch] = useState('');
   const sorted = useMemo(
     () => [...clients].sort((a, b) => a.ckey.localeCompare(b.ckey)),
-    [clients]
+    [clients],
   );
   const visible = useMemo(
     () => sorted.filter(createSearch(search, searchHaystack)),
-    [sorted, search]
+    [sorted, search],
   );
 
   return (

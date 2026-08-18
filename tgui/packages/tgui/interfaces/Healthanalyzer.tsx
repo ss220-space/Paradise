@@ -1,6 +1,6 @@
 import type { BooleanLike } from 'tgui-core/react';
 import { useBackend } from '../backend';
-import { Box, Section, Button, LabeledList } from '../components';
+import { Box, Button, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
 const DAMAGE_LOCALIZATION_MAP = new Map([

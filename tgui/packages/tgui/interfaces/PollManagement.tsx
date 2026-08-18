@@ -1,13 +1,13 @@
-import { useBackend } from '../backend';
 import { useState } from 'react';
+import { useBackend } from '../backend';
 import {
   Box,
   Button,
   Divider,
   Dropdown,
-  NumberInput,
   Input,
   LabeledList,
+  NumberInput,
   Section,
   Stack,
   TextArea,
@@ -73,7 +73,7 @@ export const PollManagement = (_props: unknown) => {
   const [end_datetime, set_end_datetime] = useState(poll.end_datetime);
   const [subtitle, set_subtitle] = useState(poll.subtitle);
   const [minimum_playtime, set_minimum_playtime] = useState(
-    poll.minimum_playtime
+    poll.minimum_playtime,
   );
 
   const [run_duration, set_run_duration] = useState(poll.run_duration);

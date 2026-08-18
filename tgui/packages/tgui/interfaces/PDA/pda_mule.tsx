@@ -1,7 +1,7 @@
 import { useBackend } from '../../backend';
 import { Box, Button, LabeledList, Section } from '../../components';
 
-export const pda_mule = (props: unknown) => {
+export const pda_mule = (_props: unknown) => {
   const { data } = useBackend<MuleBotsData>();
   const { mulebot } = data;
   const { active } = mulebot;

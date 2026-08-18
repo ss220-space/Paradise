@@ -4,14 +4,14 @@
  * @license MIT
  */
 
-import { Loader } from './common/Loader';
-import { useBackend } from '../backend';
+import { type HsvaColor, hexToHsva, hsvaToHex } from 'common/color';
 import { useState } from 'react';
+import { useBackend } from '../backend';
 import { Autofocus, Box, Section, Stack } from '../components';
 import { Window } from '../layouts';
-import { hexToHsva, type HsvaColor, hsvaToHex } from 'common/color';
-import { InputButtons } from './common/InputButtons';
 import { ColorSelector } from './common/ColorSelector';
+import { InputButtons } from './common/InputButtons';
+import { Loader } from './common/Loader';
 
 type ColorPickerData = {
   autofocus: boolean;
@@ -34,7 +34,7 @@ export const ColorPickerModal = (_) => {
     default_color = '#000000',
   } = data;
   const [selectedColor, setSelectedColor] = useState<HsvaColor>(
-    hexToHsva(default_color)
+    hexToHsva(default_color),
   );
 
   return (

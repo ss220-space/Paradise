@@ -1,6 +1,6 @@
 import { createSearch } from 'common/string';
-import { useBackend } from '../backend';
 import { type Key, type ReactNode, useState } from 'react';
+import { useBackend } from '../backend';
 import {
   Button,
   Icon,
@@ -139,7 +139,7 @@ const AccountsRecordList = (_properties) => {
                     '|' +
                     account.money
                   );
-                })
+                }),
               )
               .sort((a, b) => {
                 const i = sortOrder ? 1 : -1;
@@ -148,9 +148,7 @@ const AccountsRecordList = (_properties) => {
               .map((account) => (
                 <Table.Row
                   key={account.account_number}
-                  className={
-                    `AccountsUplinkTerminal__listRow--${account.suspended}`
-                  }
+                  className={`AccountsUplinkTerminal__listRow--${account.suspended}`}
                   onClick={() =>
                     act('view_account_detail', {
                       index: account.account_index,

@@ -1,27 +1,26 @@
 import { round } from 'common/math';
-
+import type { ReactNode } from 'react';
+import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
 import {
   Box,
   Button,
   Flex,
   Icon,
+  Image,
   LabeledList,
   NoticeBox,
   ProgressBar,
   Section,
-  Image,
   Tabs,
 } from '../components';
 import { COLORS } from '../constants';
 import {
   ComplexModal,
-  modalRegisterBodyOverride,
   type ModalType,
+  modalRegisterBodyOverride,
 } from '../interfaces/common/ComplexModal';
 import { Window } from '../layouts';
-import { resolveAsset } from '../assets';
-import type { ReactNode } from 'react';
 
 type CloningConsoleData = {
   disk: boolean;

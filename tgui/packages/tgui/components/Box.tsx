@@ -4,22 +4,22 @@
  * @license MIT
  */
 
+import type { BooleanLike } from 'common/react';
 import {
   type CSSProperties,
+  createElement,
   type KeyboardEventHandler,
   type MouseEventHandler,
   type ReactNode,
   type UIEventHandler,
   type WheelEventHandler,
-  createElement,
 } from 'react';
-import type { BooleanLike } from 'common/react';
 import {
   type BooleanStyleMap,
-  type StringStyleMap,
   computeBoxClassName,
   computeBoxProps,
   computeTwClass,
+  type StringStyleMap,
 } from 'tgui-core/ui';
 
 type EventHandlers = {

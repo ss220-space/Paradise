@@ -1,13 +1,13 @@
+import { toTitleCase } from 'common/string';
 import { useBackend } from '../backend';
 import {
   Button,
-  Section,
-  NoticeBox,
-  LabeledList,
   Collapsible,
+  LabeledList,
+  NoticeBox,
+  Section,
 } from '../components';
 import { Window } from '../layouts';
-import { toTitleCase } from 'common/string';
 
 type CryopodConsoleData = {
   account_name: string;

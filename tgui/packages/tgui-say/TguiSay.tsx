@@ -1,19 +1,20 @@
 import './styles/main.scss';
 
-import { useEffect, useRef, useState } from 'react';
-import { dragStartHandler } from 'tgui/drag';
 import { isEscape, KEY } from 'common/keys';
 import { type BooleanLike, classes } from 'common/react';
+import { useEffect, useRef, useState } from 'react';
+import { dragStartHandler } from 'tgui/drag';
 import { type Channel, ChannelIterator } from './ChannelIterator';
 import { ChatHistory, type HistoryRecord } from './ChatHistory';
 import {
+  BINARY_PREFIXES,
   LineLength,
   RADIO_PREFIXES,
-  BINARY_PREFIXES,
   WindowSize,
 } from './constants';
 import { getPrefix, windowClose, windowOpen, windowSet } from './helpers';
 import { byondMessages } from './timers';
+
 type ByondOpen = {
   channel: Channel;
 };

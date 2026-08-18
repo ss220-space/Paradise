@@ -1,17 +1,16 @@
+import type { BooleanLike } from 'common/react';
 import { sortBy } from 'es-toolkit';
+import { useBackend } from '../backend';
 import {
   Box,
   Button,
+  Dimmer,
+  Icon,
   Knob,
   ProgressBar,
   Section,
   Stack,
-  Dimmer,
-  Icon,
 } from '../components';
-import type { BooleanLike } from 'common/react';
-
-import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type Song = {

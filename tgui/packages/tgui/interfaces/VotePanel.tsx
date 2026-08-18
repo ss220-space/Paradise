@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, Box, Section } from '../components';
+import { Box, Button, Section } from '../components';
 import { Window } from '../layouts';
 
 type VotePanelData = {
@@ -31,12 +31,11 @@ export const VotePanel = (_props: unknown) => {
           {choices.map((choice) => (
             <Box key={choice}>
               <Button
-                onClick={() => act('vote', { 'target': choice })}
+                onClick={() => act('vote', { target: choice })}
                 selected={choice === user_vote}
                 mb={0.5}
               >
-                {choice +
-                  (show_counts ? ` (${counts[choice] || 0})` : '')}
+                {choice + (show_counts ? ` (${counts[choice] || 0})` : '')}
               </Button>
             </Box>
           ))}

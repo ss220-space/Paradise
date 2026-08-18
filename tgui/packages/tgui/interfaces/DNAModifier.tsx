@@ -1,17 +1,17 @@
+import { declension_ru } from 'common/string';
 import type { ReactNode } from 'react';
 import { useBackend } from '../backend';
-import { declension_ru } from 'common/string';
 import {
   Box,
   Button,
   Dimmer,
   Flex,
-  Stack,
   Icon,
   Knob,
   LabeledList,
   ProgressBar,
   Section,
+  Stack,
   Tabs,
 } from '../components';
 import { Window } from '../layouts';
@@ -409,7 +409,7 @@ type Buffer = {
 };
 
 const DNAModifierMainBuffersElement = (
-  props: DNAModifierBuffersElementProps
+  props: DNAModifierBuffersElementProps,
 ) => {
   const { act, data } = useBackend<DNAModifierData>();
   const { id, name, buffer } = props;
@@ -778,7 +778,7 @@ const DNAModifierBlocks = (props: DNAModifierBlocksProps) => {
           }
         >
           {characters[block + subblock]}
-        </Button>
+        </Button>,
       );
     }
     dnaBlocks.push(
@@ -787,7 +787,7 @@ const DNAModifierBlocks = (props: DNAModifierBlocksProps) => {
           {realBlock}
         </Box>
         {subBlocks}
-      </Stack.Item>
+      </Stack.Item>,
     );
   }
   return <Flex wrap="wrap">{dnaBlocks}</Flex>;

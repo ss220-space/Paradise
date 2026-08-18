@@ -1,7 +1,7 @@
-import { type KeyboardEvent, useState } from 'react';
-import { Autofocus, Box, Button, Section, Stack } from 'tgui/components';
 import { isEscape, KEY } from 'common/keys';
 import type { BooleanLike } from 'common/react';
+import { type KeyboardEvent, useState } from 'react';
+import { Autofocus, Box, Button, Section, Stack } from 'tgui/components';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
@@ -54,7 +54,7 @@ export const AlertModal = (props: unknown) => {
   const isVerbose = buttons.some(
     (button) =>
       textWidth(button, 'Verdana, Geneva', large_buttons ? 14 : 12) > // 14 is the larger font size for large buttons
-      windowWidth / buttons.length - paddingMagicNumber
+      windowWidth / buttons.length - paddingMagicNumber,
   );
   const largeSpacing = isVerbose && large_buttons ? 20 : 15;
 

@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, Section, NumberInput, LabeledList, Grid } from '../components';
+import { Button, Grid, LabeledList, NumberInput, Section } from '../components';
 import { Window } from '../layouts';
 
 type PixelShiftData = {

@@ -1,6 +1,6 @@
 import { useBackend } from '../backend';
-import { Window } from '../layouts';
 import { Box, Button, Section, Stack } from '../components';
+import { Window } from '../layouts';
 
 type School = {
   id: string;

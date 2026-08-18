@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useBackend } from '../backend';
-import { Window } from '../layouts';
 import { Box, Button, Section, Stack, Tabs } from '../components';
+import { Window } from '../layouts';
 
 type Spell = {
   index: number;

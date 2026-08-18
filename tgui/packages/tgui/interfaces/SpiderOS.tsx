@@ -1,20 +1,20 @@
+import type { Placement } from '@popperjs/core';
 import { Component, Fragment, type ReactNode } from 'react';
 import { useBackend } from '../backend';
 import {
   Box,
   Button,
-  Flex,
-  LabeledList,
-  Section,
-  ProgressBar,
-  Dropdown,
-  NoticeBox,
   DmIcon,
+  Dropdown,
+  Flex,
   ImageButton,
+  LabeledList,
+  NoticeBox,
+  ProgressBar,
+  Section,
   Stack,
 } from '../components';
 import { Window } from '../layouts';
-import type { Placement } from '@popperjs/core';
 
 const helpButtonsData = [
   {
@@ -655,7 +655,7 @@ const Helpers = (_properties) => {
               >
                 {tooltipTitle}
               </ImageButton>
-            )
+            ),
           )}
         </Flex.Item>
       </Flex>
@@ -734,7 +734,7 @@ const ActionBuyPanel = (properties: ActionBuyPanelProps) => {
                 {abilityButtons.ghost.map(
                   (
                     { style, row, iconState, title, content, tooltipPosition },
-                    i
+                    i,
                   ) =>
                     !blocked_TGUI_rows[i] && (
                       <ImageButton
@@ -757,7 +757,7 @@ const ActionBuyPanel = (properties: ActionBuyPanelProps) => {
                       >
                         {title}
                       </ImageButton>
-                    )
+                    ),
                 )}
               </NoticeBox>
             </Section>
@@ -788,7 +788,7 @@ const ActionBuyPanel = (properties: ActionBuyPanelProps) => {
                 {abilityButtons.snake.map(
                   (
                     { style, row, icon_state, title, content, tooltipPosition },
-                    index
+                    index,
                   ) =>
                     !blocked_TGUI_rows[index] && (
                       <ImageButton
@@ -811,7 +811,7 @@ const ActionBuyPanel = (properties: ActionBuyPanelProps) => {
                       >
                         {title}
                       </ImageButton>
-                    )
+                    ),
                 )}
               </NoticeBox>
             </Section>
@@ -847,7 +847,7 @@ const ActionBuyPanel = (properties: ActionBuyPanelProps) => {
                 {abilityButtons.steel.map(
                   (
                     { style, row, icon_state, title, content, tooltipPosition },
-                    index
+                    index,
                   ) =>
                     !blocked_TGUI_rows[index] && (
                       <ImageButton
@@ -870,7 +870,7 @@ const ActionBuyPanel = (properties: ActionBuyPanelProps) => {
                       >
                         {title}
                       </ImageButton>
-                    )
+                    ),
                 )}
               </NoticeBox>
             </Section>

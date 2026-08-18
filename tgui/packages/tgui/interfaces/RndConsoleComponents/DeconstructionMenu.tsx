@@ -1,5 +1,5 @@
 import { useBackend } from '../../backend';
-import { Box, Button, LabeledList, Section, DmIcon } from '../../components';
+import { Box, Button, DmIcon, LabeledList, Section } from '../../components';
 
 type DeconstructionData = {
   loaded_item: DeconstructedItem;

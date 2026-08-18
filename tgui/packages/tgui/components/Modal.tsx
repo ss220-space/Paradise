@@ -4,9 +4,9 @@
  * @license MIT
  */
 
-import type { KeyboardEvent } from 'react';
-import { KEY, isEscape } from 'common/keys';
+import { isEscape, KEY } from 'common/keys';
 import { classes } from 'common/react';
+import type { KeyboardEvent } from 'react';
 import { computeBoxClassName, computeBoxProps } from 'tgui-core/ui';
 import type { BoxProps } from './Box';
 import { Dimmer } from './Dimmer';

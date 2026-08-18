@@ -1,3 +1,4 @@
+import { useFuzzySearch } from 'common/fuzzysearch';
 import { storage } from 'common/storage';
 import { useCallback, useEffect, useState } from 'react';
 import {
@@ -9,7 +10,6 @@ import {
   Stack,
   VirtualList,
 } from 'tgui/components';
-import { useFuzzySearch } from 'common/fuzzysearch';
 
 import { useBackend } from '../../backend';
 import { CreateObjectSettings } from './CreateObjectSettings';

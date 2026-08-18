@@ -1,5 +1,5 @@
 import { useBackend } from '../../backend';
-import { Box, LabeledList, Button } from '../../components';
+import { Box, Button, LabeledList } from '../../components';
 
 type Directives = {
   master: string;

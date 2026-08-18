@@ -7,6 +7,12 @@ import { storedSettingsAtom } from './atoms';
 import { startSettingsMigration } from './migration';
 import type { ExportedSettings } from './types';
 
+type SaveFilePickerOptions = {
+  id: string;
+  suggestedName: string;
+  types: any[];
+};
+
 export function exportChatSettings(): void {
   const chatPages = store.get(chatPagesRecordAtom);
   const settings = store.get(storedSettingsAtom);

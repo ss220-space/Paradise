@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, Section, Divider } from '../components';
+import { Box, Button, Divider, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
 type PollListPanelData = {

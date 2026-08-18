@@ -1,33 +1,33 @@
 import { type BooleanLike, classes } from 'common/react';
-import { useBackend } from '../backend';
 import type React from 'react';
 import { type CSSProperties, type ReactNode, useState } from 'react';
+import { useBackend } from '../backend';
 import {
   Box,
   Button,
   Divider,
   Dropdown,
   Icon,
-  Input,
   Image,
+  Input,
   LabeledList,
   Modal,
   Section,
   Stack,
   TextArea,
 } from '../components';
+import type { BoxProps } from '../components/Box';
 import { timeAgo } from '../constants';
 import { Window } from '../layouts';
 import {
   ComplexModal,
+  type ModalType,
   modalAnswer,
   modalClose,
   modalOpen,
   modalRegisterBodyOverride,
-  type ModalType,
 } from './common/ComplexModal';
 import { TemporaryNotice } from './common/TemporaryNotice';
-import type { BoxProps } from '../components/Box';
 
 const HEADLINE_MAX_LENGTH = 128;
 

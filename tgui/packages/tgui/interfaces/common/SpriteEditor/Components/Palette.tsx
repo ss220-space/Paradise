@@ -1,6 +1,6 @@
+import { KEY_DELETE } from 'common/keycodes';
 import transparency_checkerboard from 'tgui/assets/transparency_checkerboard.svg';
 import { Button, Section, Stack } from 'tgui/components';
-import { KEY_DELETE } from 'common/keycodes';
 import type { BooleanStyleMap, StringStyleMap } from 'tgui-core/ui';
 
 import { colorsAreEqual, colorToCssString } from '../colorSpaces';

@@ -4,15 +4,15 @@
  * @license MIT
  */
 
-import type { RefObject } from 'react';
 import { classes } from 'common/react';
+import type { RefObject } from 'react';
 import { computeBoxClassName } from 'tgui-core/ui';
 import {
-  type FlexItemProps,
-  type FlexProps,
   computeFlexClassName,
   computeFlexItemProps,
   computeFlexProps,
+  type FlexItemProps,
+  type FlexProps,
 } from './Flex';
 
 type Props = Partial<{

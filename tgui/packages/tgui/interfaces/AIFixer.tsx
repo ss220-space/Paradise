@@ -1,12 +1,12 @@
 import { useBackend } from '../backend';
 import {
-  Button,
-  ProgressBar,
   Box,
+  Button,
+  Icon,
   LabeledList,
+  ProgressBar,
   Section,
   Stack,
-  Icon,
 } from '../components';
 import { Window } from '../layouts';
 import type { AiData } from './AICard';

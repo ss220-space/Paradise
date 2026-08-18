@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { useBackend } from '../../backend';
-import { LabeledList, Button, Box } from '../../components';
+import { Box, Button, LabeledList } from '../../components';
 
 type DoorjackInfo = {
   cable: boolean;

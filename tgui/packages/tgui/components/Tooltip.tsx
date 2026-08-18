@@ -1,15 +1,15 @@
 // TODO: Rewrite as an FC, remove this lint disable
 import {
+  createPopper,
   type Placement,
   type VirtualElement,
-  createPopper,
 } from '@popperjs/core';
 import {
   Component,
-  type ReactNode,
+  cloneElement,
   createRef,
   isValidElement,
-  cloneElement,
+  type ReactNode,
 } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 
@@ -145,7 +145,7 @@ export class Tooltip extends Component<Props, State> {
           {
             ...DEFAULT_OPTIONS,
             placement: this.props.position || 'auto',
-          }
+          },
         );
 
         Tooltip.singletonPopper = singletonPopper;

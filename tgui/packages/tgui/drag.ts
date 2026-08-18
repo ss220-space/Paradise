@@ -4,10 +4,10 @@
  * @license MIT
  */
 
+import { createLogger } from 'common/logging';
 import { storage } from 'common/storage';
 import type { BooleanLike } from 'tgui-core/react';
 import { vecAdd, vecMultiply, vecScale, vecSubtract } from 'tgui-core/vector';
-import { createLogger } from 'common/logging';
 
 type Point = [number, number];
 type GeometryPayload = Partial<{

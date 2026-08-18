@@ -1,8 +1,8 @@
 import type { BooleanLike } from 'common/react';
 import { useBackend } from '../../backend';
+import { Button, Stack } from '../../components';
 import { IconDisplay } from './IconDisplay';
 import type { SearchGroup, SearchItem } from './types';
-import { Button, Stack } from '../../components';
 
 type Data = {
   is_blind: BooleanLike;

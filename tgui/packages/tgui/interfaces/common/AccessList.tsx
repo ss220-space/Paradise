@@ -3,11 +3,11 @@ import { type ReactNode, useState } from 'react';
 import {
   Box,
   Button,
-  Stack,
+  Divider,
   LabeledList,
   Section,
+  Stack,
   Tabs,
-  Divider,
 } from '../../components';
 
 const diffMap = {

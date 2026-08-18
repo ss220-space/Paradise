@@ -1,4 +1,6 @@
 import { toFixed } from 'common/math';
+import type { BooleanLike } from 'common/react';
+import { formatSiUnit } from 'tgui-core/format';
 import { useBackend } from '../backend';
 import {
   AnimatedNumber,
@@ -12,9 +14,7 @@ import {
   Stack,
   Tooltip,
 } from '../components';
-import { formatSiUnit } from 'tgui-core/format';
 import { Window } from '../layouts';
-import type { BooleanLike } from 'common/react';
 
 type CanisterData = {
   portConnected: boolean;

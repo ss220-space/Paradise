@@ -5,8 +5,8 @@
  */
 
 import type { Placement } from '@popperjs/core';
-import type { ReactNode } from 'react';
 import { type BooleanLike, classes } from 'common/react';
+import type { ReactNode } from 'react';
 import { computeBoxProps } from 'tgui-core/ui';
 import type { BoxProps } from './Box';
 import { type Direction, DmIcon } from './DmIcon';

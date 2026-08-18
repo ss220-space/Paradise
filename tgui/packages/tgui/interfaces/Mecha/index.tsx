@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { formatSiUnit } from 'tgui-core/format';
+import { useBackend } from '../../backend';
 import {
   Button,
   ByondUi,
@@ -7,16 +9,12 @@ import {
   Section,
   Stack,
 } from '../../components';
-import { formatSiUnit } from 'tgui-core/format';
-
-import { AccessList } from '../common/AccessList';
-
-import { useBackend } from '../../backend';
 import { Window } from '../../layouts';
+import { AccessList } from '../common/AccessList';
 import { AlertPane } from './AlertPane';
 import type { MainData } from './data';
-import { ModulesPane } from './ModulesPane';
 import { useHonk } from './honk';
+import { ModulesPane } from './ModulesPane';
 
 export const Mecha = (props) => {
   const { data } = useBackend<MainData>();

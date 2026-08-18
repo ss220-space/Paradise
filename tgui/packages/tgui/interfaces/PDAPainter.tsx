@@ -1,14 +1,14 @@
 import { useBackend } from '../backend';
-import { Window } from '../layouts';
 import {
-  Button,
-  LabeledList,
-  Flex,
   Box,
+  Button,
+  DmIcon,
+  Flex,
+  LabeledList,
   Section,
   Table,
-  DmIcon,
 } from '../components';
+import { Window } from '../layouts';
 
 type PDAPainterData = {
   statusLabel: string;

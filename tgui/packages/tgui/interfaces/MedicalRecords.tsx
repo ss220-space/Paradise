@@ -1,6 +1,6 @@
 import { createSearch, decodeHtmlEntities } from 'common/string';
-import { useBackend } from '../backend';
 import { type ReactNode, useState } from 'react';
+import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -22,13 +22,13 @@ import {
 import { Window } from '../layouts';
 import { LoginInfo } from './common/LoginInfo';
 import { LoginScreen } from './common/LoginScreen';
-import { TemporaryNotice } from './common/TemporaryNotice';
 import type { GeneralRecord } from './common/SimpleRecords';
+import { TemporaryNotice } from './common/TemporaryNotice';
 
 const severities = {
-  'Minor': 'lightgray',
-  'Medium': 'good',
-  'Harmful': 'average',
+  Minor: 'lightgray',
+  Medium: 'good',
+  Harmful: 'average',
   'Dangerous!': 'bad',
   'BIOHAZARD THREAT!': 'darkred',
 };
@@ -37,7 +37,7 @@ const medStatusStyles = {
   '*Deceased*': 'deceased',
   '*SSD*': 'ssd',
   'Physically Unfit': 'physically_unfit',
-  'Disabled': 'disabled',
+  Disabled: 'disabled',
 };
 
 const doEdit = (field: Field) => {
@@ -259,7 +259,7 @@ const MedicalRecordsList = (_properties) => {
                     '|' +
                     record.m_stat
                   );
-                })
+                }),
               )
               .sort((a, b) => {
                 const i = sortOrder ? 1 : -1;
@@ -269,9 +269,7 @@ const MedicalRecordsList = (_properties) => {
                 <Table.Row
                   key={record.id}
                   mb={1}
-                  className={
-                    `MedicalRecords__listRow--${medStatusStyles[record.p_stat]}`
-                  }
+                  className={`MedicalRecords__listRow--${medStatusStyles[record.p_stat]}`}
                   onClick={() =>
                     act('view_record', { view_record: record.ref })
                   }
@@ -610,7 +608,7 @@ const MedicalRecordsViruses = (_properties) => {
                 .filter(
                   createSearch(searchText, (vir) => {
                     return `${vir.name}|${vir.max_stages}|${vir.severity}`;
-                  })
+                  }),
                 )
                 .sort((a, b) => {
                   const i = sortOrder ? 1 : -1;

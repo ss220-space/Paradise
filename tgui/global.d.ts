@@ -202,4 +202,5 @@ interface Window {
   serverStorage: Storage;
 
   __chatRenderer__: any;
+  showSaveFilePicker: (path: any) => Promise<FileSystemFileHandle>;
 }

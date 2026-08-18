@@ -2,10 +2,10 @@ import { useBackend } from '../backend';
 import {
   Button,
   Flex,
-  Table,
+  LabeledList,
   NoticeBox,
   Section,
-  LabeledList,
+  Table,
 } from '../components';
 import { Window } from '../layouts';
 
@@ -96,7 +96,7 @@ export const TachyonArrayContent = (_props: unknown) => {
                     color="bad"
                     onClick={() =>
                       act('delete_record', {
-                        'index': a.index,
+                        index: a.index,
                       })
                     }
                   >

@@ -1,18 +1,18 @@
 import { round } from 'common/math';
+import type { ReactNode } from 'react';
 import { useBackend } from '../backend';
-import { Window } from '../layouts';
 import {
   Box,
   Button,
-  Stack,
   Icon,
   Knob,
   LabeledList,
-  Section,
-  Tabs,
   ProgressBar,
+  Section,
+  Stack,
+  Tabs,
 } from '../components';
-import type { ReactNode } from 'react';
+import { Window } from '../layouts';
 
 const stats = [
   ['good', 'В сознании'],
@@ -207,7 +207,7 @@ const OperatingComputerPatient = (_props: unknown) => {
                     </LabeledList.Item>
                   </LabeledList>
                 </Section>
-              )
+              ),
             )
           ) : (
             <Box color="label">Операции в данный момент не проводятся.</Box>

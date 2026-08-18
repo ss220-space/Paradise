@@ -4,8 +4,8 @@
  * @license MIT
  */
 
-import { Component, createRef } from 'react';
 import { clamp, isSafeNumber, toFixed } from 'common/math';
+import { Component, createRef } from 'react';
 
 type Props = {
   /**

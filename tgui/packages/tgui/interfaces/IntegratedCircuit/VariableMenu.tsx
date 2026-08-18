@@ -1,20 +1,20 @@
+import { shallowDiffers } from 'common/react';
+import { Component } from 'react';
 import {
   Box,
-  Stack,
-  Section,
   Button,
-  Input,
   Dropdown,
   Icon,
+  Input,
+  Section,
+  Stack,
 } from '../../components';
-import { Component } from 'react';
-import { shallowDiffers } from 'common/react';
 import {
   VARIABLE_ASSOC_LIST,
   VARIABLE_LIST,
   VARIABLE_NOT_A_LIST,
 } from './constants';
-import type { VariableMenuState, VariableMenuProps } from './types';
+import type { VariableMenuProps, VariableMenuState } from './types';
 
 export class VariableMenu extends Component<
   VariableMenuProps,
@@ -178,7 +178,7 @@ export class VariableMenu extends Component<
                             variable_name,
                             variable_type,
                             VARIABLE_NOT_A_LIST,
-                            e
+                            e,
                           )
                         }
                         fluid
@@ -195,7 +195,7 @@ export class VariableMenu extends Component<
                             variable_name,
                             variable_type,
                             VARIABLE_LIST,
-                            e
+                            e,
                           )
                         }
                         fluid
@@ -212,7 +212,7 @@ export class VariableMenu extends Component<
                             variable_name,
                             variable_type,
                             VARIABLE_ASSOC_LIST,
-                            e
+                            e,
                           )
                         }
                         fluid

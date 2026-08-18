@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, LabeledList, Box, Section, Dimmer, Icon } from '../components';
+import { Box, Button, Dimmer, Icon, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
 type PersonalCraftingData = {

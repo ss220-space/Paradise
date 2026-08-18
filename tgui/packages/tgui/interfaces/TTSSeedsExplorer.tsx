@@ -1,16 +1,16 @@
-import { useBackend } from '../backend';
 import { useState } from 'react';
+import { useBackend } from '../backend';
 import {
-  Button,
-  LabeledList,
-  Table,
-  Section,
-  Dropdown,
-  Input,
   BlockQuote,
   Box,
+  Button,
+  Dropdown,
   Icon,
+  Input,
+  LabeledList,
+  Section,
   Stack,
+  Table,
 } from '../components';
 import { Window } from '../layouts';
 
@@ -23,15 +23,15 @@ const donatorTiers = {
 };
 
 const gendersIcons = {
-  'Мужской': {
+  Мужской: {
     icon: 'mars',
     color: 'blue',
   },
-  'Женский': {
+  Женский: {
     icon: 'venus',
     color: 'purple',
   },
-  'Любой': {
+  Любой: {
     icon: 'venus-mars',
     color: 'white',
   },
@@ -41,7 +41,7 @@ const getCheckboxGroup = (
   itemsList: (Provider | string)[],
   selectedList: (Provider | string)[],
   setSelected: React.Dispatch<React.SetStateAction<(Provider | string)[]>>,
-  contentKey: string = null
+  contentKey: string = null,
 ) => {
   return itemsList.map((item: Provider | string) => {
     const title = item[contentKey] ?? item;
@@ -52,7 +52,7 @@ const getCheckboxGroup = (
         onClick={() => {
           if (selectedList.includes(item)) {
             setSelected(
-              selectedList.filter((i) => (i[contentKey] ?? i) !== item)
+              selectedList.filter((i) => (i[contentKey] ?? i) !== item),
             );
           } else {
             setSelected([item, ...selectedList]);
@@ -123,22 +123,22 @@ export const TTSSeedsExplorerContent = (_props: unknown) => {
     providers,
     selectedProviders,
     setSelectedProviders,
-    'name'
+    'name',
   );
   const genderesCheckboxes = getCheckboxGroup(
     genders,
     selectedGenders,
-    setSelectedGenders
+    setSelectedGenders,
   );
   const categoriesCheckboxes = getCheckboxGroup(
     categories,
     selectedCategories,
-    setSelectedCategories
+    setSelectedCategories,
   );
   const donatorLevelsCheckboxes = getCheckboxGroup(
     donatorLevels,
     selectedDonatorLevels,
-    setSelectedDonatorLevels
+    setSelectedDonatorLevels,
   );
 
   const phrasesSelect = (
@@ -172,7 +172,7 @@ export const TTSSeedsExplorerContent = (_props: unknown) => {
         selectedGenders.includes(seed.gender) &&
         selectedCategories.includes(seed.category) &&
         selectedDonatorLevels.includes(donatorTiers[seed.donator_level]) &&
-        seed.name.toLowerCase().includes(searchtext.toLowerCase())
+        seed.name.toLowerCase().includes(searchtext.toLowerCase()),
     );
 
   const seedsRow = availableSeeds.map((seed) => {

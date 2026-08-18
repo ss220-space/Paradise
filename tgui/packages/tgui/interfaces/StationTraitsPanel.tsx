@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { Box, Button, Divider, Dropdown, Stack, Tabs } from 'tgui/components';
 import { exhaustiveCheck } from 'common/exhaustive';
 import type { BooleanLike } from 'common/react';
+import { useState } from 'react';
+import { Box, Button, Divider, Dropdown, Stack, Tabs } from 'tgui/components';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';

@@ -1,4 +1,3 @@
-import { type BooleanLike, classes } from 'common/react';
 import {
   autoUpdate,
   FloatingPortal,
@@ -15,6 +14,7 @@ import {
   useInteractions,
   useTransitionStatus,
 } from '@floating-ui/react';
+import { type BooleanLike, classes } from 'common/react';
 import {
   type CSSProperties,
   cloneElement,

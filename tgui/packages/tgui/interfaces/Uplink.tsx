@@ -1,29 +1,28 @@
-import { sortBy } from 'es-toolkit';
 import { flow } from 'common/fp';
-
 import { createSearch, decodeHtmlEntities } from 'common/string';
-import { Countdown } from '../components/Countdown';
-import { useBackend } from '../backend';
+import { sortBy } from 'es-toolkit';
 import { useState } from 'react';
+import type { BooleanLike } from 'tgui-core/react';
+import { useBackend } from '../backend';
 import {
   Box,
   Button,
+  Divider,
+  Icon,
   Input,
+  LabeledList,
   Section,
   Stack,
-  Divider,
   Tabs,
-  LabeledList,
-  Icon,
 } from '../components';
+import { Countdown } from '../components/Countdown';
 import { Window } from '../layouts';
 import {
   ComplexModal,
-  modalOpen,
   modalAnswer,
+  modalOpen,
   modalRegisterBodyOverride,
 } from './common/ComplexModal';
-import type { BooleanLike } from 'tgui-core/react';
 
 type PickTabProps = ShowDescProps & SearchTextProps;
 
@@ -256,7 +255,10 @@ const ItemsPage = (properties: SearchTextProps & ShowDescProps) => {
       return setUplinkItems(cats[0].items);
     }
     setUplinkItems(
-      SelectEquipment(cats.flatMap((category) => category.items), value),
+      SelectEquipment(
+        cats.flatMap((category) => category.items),
+        value,
+      ),
     );
   };
 

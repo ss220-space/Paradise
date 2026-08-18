@@ -1,18 +1,18 @@
-import { useBackend } from '../backend';
+import { flow } from 'common/fp';
+import type { BooleanLike } from 'common/react';
+import { createSearch } from 'common/string';
+import { sortBy } from 'es-toolkit';
 import { useState } from 'react';
+import { useBackend } from '../backend';
 import {
   Button,
-  Section,
-  Stack,
   Input,
-  Slider,
   ProgressBar,
+  Section,
+  Slider,
+  Stack,
 } from '../components';
 import { Window } from '../layouts';
-import { sortBy } from 'es-toolkit';
-import { flow } from 'common/fp';
-import { createSearch } from 'common/string';
-import type { BooleanLike } from 'common/react';
 
 const trimLongStr = (str: string, length: number) => {
   return str.length > length ? `${str.substring(0, length)}...` : str;

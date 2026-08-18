@@ -1,9 +1,9 @@
-import { sortBy } from 'es-toolkit';
-import { useBackend } from '../backend';
-import { useState } from 'react';
-import { Box, Button, Section, Table, TextArea, Grid } from '../components';
-import { Window } from '../layouts';
 import { createSearch } from 'common/string';
+import { sortBy } from 'es-toolkit';
+import { useState } from 'react';
+import { useBackend } from '../backend';
+import { Box, Button, Grid, Section, Table, TextArea } from '../components';
+import { Window } from '../layouts';
 
 type VethPlayerPanelData = {
   Data: Player[];

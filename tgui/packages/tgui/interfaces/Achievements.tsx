@@ -1,3 +1,4 @@
+import type { BooleanLike } from 'common/react';
 import { useState } from 'react';
 import {
   Box,
@@ -9,7 +10,6 @@ import {
   Tabs,
   Tooltip,
 } from 'tgui/components';
-import type { BooleanLike } from 'common/react';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
@@ -101,7 +101,7 @@ const AchievementTable = (props) => {
   const { achievements } = data;
   const { category } = props;
   const filtered_achievements = achievements.filter(
-    (x) => x.category === category
+    (x) => x.category === category,
   );
   return (
     <Table>

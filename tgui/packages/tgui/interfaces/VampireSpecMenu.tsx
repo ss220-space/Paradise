@@ -1,6 +1,6 @@
-import { useBackend } from '../backend';
 import { useState } from 'react';
-import { Button, Section, Divider, Box, DmIcon } from '../components';
+import { useBackend } from '../backend';
+import { Box, Button, Divider, DmIcon, Section } from '../components';
 import { Window } from '../layouts';
 
 type VampireSpecMenuData = {

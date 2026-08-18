@@ -1,5 +1,3 @@
-import { useState } from 'react';
-import { Autofocus, Button, Input, Section, Stack } from 'tgui/components';
 import {
   KEY_A,
   KEY_DOWN,
@@ -8,8 +6,9 @@ import {
   KEY_UP,
   KEY_Z,
 } from 'common/keycodes';
-
+import { useState } from 'react';
 import { useBackend } from 'tgui/backend';
+import { Autofocus, Button, Input, Section, Stack } from 'tgui/components';
 import { InputButtons } from '../common/InputButtons';
 
 type ListInputModalProps = {
@@ -92,7 +91,7 @@ export const ListInputModal = (props: ListInputModalProps) => {
     setSearchQuery('');
   };
   const filteredItems = items.filter((item) =>
-    item?.toLowerCase().includes(searchQuery.toLowerCase())
+    item?.toLowerCase().includes(searchQuery.toLowerCase()),
   );
   // Grabs the cursor when no search bar is visible.
   if (!searchBarVisible) {

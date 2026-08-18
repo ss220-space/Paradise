@@ -1,9 +1,11 @@
-import { useBackend } from '../../backend';
-import { Input, InfinitePlane, Stack, Box, Button } from '../../components';
 import { Component } from 'react';
-import { Window } from '../../layouts';
 import { resolveAsset } from '../../assets';
+import { useBackend } from '../../backend';
+import { Box, Button, InfinitePlane, Input, Stack } from '../../components';
+import { Window } from '../../layouts';
+import { Connections } from '../common/Connections';
 import { CircuitInfo } from './CircuitInfo';
+import { ComponentMenu } from './ComponentMenu';
 import {
   ABSOLUTE_Y_OFFSET,
   MOUSE_BUTTON_LEFT,
@@ -11,12 +13,10 @@ import {
   VARIABLE_ASSOC_LIST,
   VARIABLE_LIST,
 } from './constants';
-import { Connections } from '../common/Connections';
-import { ObjectComponent } from './ObjectComponent';
 import { DisplayComponent } from './DisplayComponent';
+import { ObjectComponent } from './ObjectComponent';
+import type { IntegratedCircuitData, IntegratedCircuitState } from './types';
 import { VariableMenu } from './VariableMenu';
-import { ComponentMenu } from './ComponentMenu';
-import type { IntegratedCircuitState, IntegratedCircuitData } from './types';
 
 export class IntegratedCircuit extends Component<
   unknown,

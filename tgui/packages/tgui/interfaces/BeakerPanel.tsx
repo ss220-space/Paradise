@@ -1,6 +1,6 @@
+import { capitalizeFirst } from 'common/string';
 import { useState } from 'react';
 import { Button, Dropdown, NumberInput, Section, Stack } from 'tgui/components';
-import { capitalizeFirst } from 'common/string';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
@@ -37,7 +37,7 @@ const makeContainerState = (default_type: ContainerType) => {
 const removeContainerReagent = (
   container: Container,
   setContainer: (container: Container) => void,
-  reagent: typePath
+  reagent: typePath,
 ) => {
   const newReagents = { ...container.reagents };
   delete newReagents[reagent];
@@ -48,7 +48,7 @@ const setContainerReagentVolume = (
   container: Container,
   setContainer: (container: Container) => void,
   reagent: typePath,
-  volume: number = 10
+  volume: number = 10,
 ) => {
   const newReagents = { ...container.reagents };
   newReagents[reagent] = volume;
@@ -87,7 +87,7 @@ const ContainerSection = (props: ContainerProps) => {
   const { act } = useBackend<Data>();
 
   const [setAddingReagent, setSetAddingReagent] = useState<string>(
-    reagents[0].id
+    reagents[0].id,
   );
   const [setAddingReagentVolume, setSetAddingReagentVolume] =
     useState<number>(50);
@@ -119,7 +119,7 @@ const ContainerSection = (props: ContainerProps) => {
             placeholder="Select Container Type"
             selected={container.type}
             displayText={readableContainerType(
-              containers.find((c) => c.id === container.type)!
+              containers.find((c) => c.id === container.type)!,
             )}
             onSelected={(value) => {
               updateContainer({ ...container, type: value });
@@ -147,7 +147,7 @@ const ContainerSection = (props: ContainerProps) => {
                       container,
                       updateContainer,
                       reagent,
-                      value
+                      value,
                     );
                   }}
                 />
@@ -177,7 +177,7 @@ const ContainerSection = (props: ContainerProps) => {
                 placeholder="Add Reagent"
                 selected={setAddingReagent}
                 displayText={readableReagentType(
-                  reagents.find((r) => r.id === setAddingReagent)!
+                  reagents.find((r) => r.id === setAddingReagent)!,
                 )}
                 onSelected={(value) => {
                   setSetAddingReagent(value);
@@ -206,7 +206,7 @@ const ContainerSection = (props: ContainerProps) => {
                     container,
                     updateContainer,
                     setAddingReagent,
-                    setAddingReagentVolume
+                    setAddingReagentVolume,
                   );
                 }}
               />
@@ -228,7 +228,7 @@ export const BeakerPanel = () => {
 
   const reagentsSorted = reagents.sort((a, b) => (a.text < b.text ? -1 : 1));
   const containersSorted = containers.sort((a, b) =>
-    readableContainerType(a) < readableContainerType(b) ? -1 : 1
+    readableContainerType(a) < readableContainerType(b) ? -1 : 1,
   );
 
   return (

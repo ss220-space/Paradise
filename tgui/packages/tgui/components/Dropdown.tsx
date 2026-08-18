@@ -1,12 +1,12 @@
-import { type ReactNode, useEffect, useRef, useState } from 'react';
 import { classes } from 'common/react';
-import type { BoxProps } from './Box';
+import { createSearch } from 'common/string';
+import { type ReactNode, useEffect, useRef, useState } from 'react';
 import { unit } from 'tgui-core/ui';
+import type { BoxProps } from './Box';
 import { Button } from './Button';
 import { Icon } from './Icon';
-import { Popper } from './Popper';
-import { createSearch } from 'common/string';
 import { Input } from './Input';
+import { Popper } from './Popper';
 
 export type DropdownEntry = {
   displayText: ReactNode;

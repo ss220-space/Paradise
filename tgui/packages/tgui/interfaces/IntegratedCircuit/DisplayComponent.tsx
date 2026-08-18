@@ -1,6 +1,6 @@
-import { Component, createRef, type RefObject } from 'react';
-import { Button, Stack, Box } from '../../components';
 import { classes } from 'common/react';
+import { Component, createRef, type RefObject } from 'react';
+import { Box, Button, Stack } from '../../components';
 
 import { noop } from './constants';
 import { Port } from './Port';

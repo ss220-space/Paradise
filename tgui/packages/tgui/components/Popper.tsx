@@ -39,7 +39,7 @@ export const Popper = (props: PropsWithChildren<Props>) => {
   const [referenceElement, setReferenceElement] =
     useState<HTMLDivElement | null>(null);
   const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(
-    null
+    null,
   );
 
   // One would imagine we could just use useref here, but it's against react-popper documentation and causes a positioning bug

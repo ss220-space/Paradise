@@ -1,6 +1,6 @@
 import { createSearch, toTitleCase } from 'common/string';
-import { useBackend } from '../backend';
 import { useState } from 'react';
+import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -12,9 +12,9 @@ import {
   Section,
   Stack,
 } from '../components';
+import type { CollapsibleProps } from '../components/Collapsible';
 import { Countdown } from '../components/Countdown';
 import { Window } from '../layouts';
-import type { CollapsibleProps } from '../components/Collapsible';
 
 const canBeMade = (design: Item, brsail: number, pwrail: number) => {
   if (design.requirements === null) {

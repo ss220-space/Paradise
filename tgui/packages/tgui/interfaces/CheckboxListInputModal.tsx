@@ -1,10 +1,10 @@
-import { Loader } from './common/Loader';
-import { InputButtons } from './common/InputButtons';
-import { Button, Section, Stack } from '../components';
-import { useBackend } from '../backend';
-import { useState, } from 'react';
-import { Window } from '../layouts';
 import type { BooleanLike } from 'common/react';
+import { useState } from 'react';
+import { useBackend } from '../backend';
+import { Button, Section, Stack } from '../components';
+import { Window } from '../layouts';
+import { InputButtons } from './common/InputButtons';
+import { Loader } from './common/Loader';
 
 type ListInputData = {
   init_value: string;
@@ -28,7 +28,9 @@ export const CheckboxListInputModal = (props: unknown) => {
   const onClick = (new_item: CheckboxData | null = null) => {
     let updatedItems = [...edittedItems];
     updatedItems = updatedItems.map((item) =>
-      item.key === new_item.key ? { ...item, checked: !new_item.checked } : item
+      item.key === new_item.key
+        ? { ...item, checked: !new_item.checked }
+        : item,
     );
     setEdittedItems(updatedItems);
   };

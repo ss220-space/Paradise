@@ -1,8 +1,8 @@
-import type { CSSProperties, } from 'react';
+import type { CSSProperties } from 'react';
 import { useBackend } from '../backend';
-import { Button, LabeledList, Section, Box, Stack } from '../components';
-import { Window } from '../layouts';
+import { Box, Button, LabeledList, Section, Stack } from '../components';
 import { GASES } from '../constants';
+import { Window } from '../layouts';
 
 type GasMix = {
   name: string;

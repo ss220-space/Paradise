@@ -15,12 +15,12 @@
 import { clamp } from 'common/math';
 import {
   Component,
-  type ReactNode,
-  createRef,
-  type RefObject,
   type CSSProperties,
-  type MouseEvent,
+  createRef,
   type KeyboardEvent,
+  type MouseEvent,
+  type ReactNode,
+  type RefObject,
 } from 'react';
 
 export interface Interaction {
@@ -30,13 +30,13 @@ export interface Interaction {
 
 // Finds the proper window object to fix iframe embedding issues
 const getParentWindow = (node?: HTMLDivElement | null): Window => {
-  return (node?.ownerDocument.defaultView) || self;
+  return node?.ownerDocument.defaultView || self;
 };
 
 // Returns a relative position of the pointer inside the node's bounding box
 const getRelativePosition = (
   node: HTMLDivElement,
-  event: MouseEvent
+  event: MouseEvent,
 ): Interaction => {
   const rect = node.getBoundingClientRect();
   const pointer = event as MouseEvent;
@@ -45,13 +45,13 @@ const getRelativePosition = (
       (pointer.pageX - (rect.left + getParentWindow(node).pageXOffset)) /
         rect.width,
       0,
-      1
+      1,
     ),
     top: clamp(
       (pointer.pageY - (rect.top + getParentWindow(node).pageYOffset)) /
         rect.height,
       0,
-      1
+      1,
     ),
   };
 };

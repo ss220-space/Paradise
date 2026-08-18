@@ -2,10 +2,10 @@ import { useBackend } from '../backend';
 import {
   Box,
   Button,
-  Stack,
   LabeledList,
   ProgressBar,
   Section,
+  Stack,
 } from '../components';
 import { BeakerContents } from '../interfaces/common/BeakerContents';
 import { Window } from '../layouts';
@@ -106,7 +106,7 @@ const ChemDispenserChemicals = (properties) => {
       >
         {chemicals
           .sort((first, second) =>
-            first.title.localeCompare(second.title, 'ru')
+            first.title.localeCompare(second.title, 'ru'),
           )
           .map((chemical, i) => (
             <Button

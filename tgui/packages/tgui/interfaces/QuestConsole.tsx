@@ -1,20 +1,20 @@
-import { useBackend } from '../backend';
-import { useState } from 'react';
-import {
-  Button,
-  Tabs,
-  Box,
-  Stack,
-  Section,
-  Tooltip,
-  Icon,
-  LabeledList,
-  Table,
-  Image,
-} from '../components';
 import { classes } from 'common/react';
+import { declension_ru, decodeHtmlEntities } from 'common/string';
+import { useState } from 'react';
+import { useBackend } from '../backend';
+import {
+  Box,
+  Button,
+  Icon,
+  Image,
+  LabeledList,
+  Section,
+  Stack,
+  Table,
+  Tabs,
+  Tooltip,
+} from '../components';
 import { Window } from '../layouts';
-import { decodeHtmlEntities, declension_ru } from 'common/string';
 
 const getRewardColor = (reward: number, isCorp: boolean) => {
   if (isCorp) {
@@ -218,7 +218,7 @@ const QuestPane = (properties: QuestPaneProps) => {
               {quest2 ? <QuestItem quest={quest2} /> : <Box />}
             </Table.Cell>
           </Table.Row>
-        )
+        ),
       )}
     </Table>
   );

@@ -1,7 +1,6 @@
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import { useBackend } from '../backend';
-import { useState } from 'react';
-import { Box, Section, Button, Flex, Image } from '../components';
+import { Box, Button, Flex, Image, Section } from '../components';
 import { Window } from '../layouts';
 
 type AutoDocData = {
@@ -56,7 +55,7 @@ export const AutoDoc = (props: unknown) => {
                         >
                           {part}
                         </Button>
-                      )
+                      ),
                   )}
 
                   <Button
@@ -72,7 +71,7 @@ export const AutoDoc = (props: unknown) => {
               }
             >
               <Box>
-                {!!(occupant[ChoosenPart]?.extOrgan) &&
+                {!!occupant[ChoosenPart]?.extOrgan &&
                   occupant[ChoosenPart].extOrgan.map((organ) => (
                     <Fragment key={organ.name}>
                       <b>{organ.name}</b>
@@ -146,7 +145,7 @@ export const AutoDoc = (props: unknown) => {
                       <br />
                     </Fragment>
                   ))}
-                {!!(occupant[ChoosenPart]?.intOrgan) &&
+                {!!occupant[ChoosenPart]?.intOrgan &&
                   occupant[ChoosenPart].intOrgan.map((organ) => (
                     <Fragment key={organ.name}>
                       <b>{organ.name}</b>

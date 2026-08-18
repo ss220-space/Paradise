@@ -3,7 +3,7 @@ import { Box, Button, LabeledList, ProgressBar, Section } from '../components';
 import { Window } from '../layouts';
 import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';
 
-export const APC = (props: unknown) => {
+export const APC = (_props: unknown) => {
   return (
     <Window width={510} height={435}>
       <Window.Content>

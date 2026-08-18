@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { resolveAsset } from '../../assets';
 import {
   Box,
   Button,
@@ -8,8 +9,6 @@ import {
   Section,
   Stack,
 } from '../../components';
-
-import { resolveAsset } from '../../assets';
 import { ParticleContext } from '.';
 
 export const ShowDesc = (props) => {

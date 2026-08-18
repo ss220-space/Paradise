@@ -1,5 +1,5 @@
-import { type ReactNode, useRef } from 'react';
 import { classes } from 'common/react';
+import { type ReactNode, useRef } from 'react';
 import { Box, type BoxProps } from './Box';
 import { Icon } from './Icon';
 import { Popper } from './Popper';

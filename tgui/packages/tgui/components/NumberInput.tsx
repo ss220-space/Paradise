@@ -4,17 +4,17 @@
  * @license MIT
  */
 
+import { isEscape, KEY } from 'common/keys';
+import { clamp, round } from 'common/math';
+import { type BooleanLike, classes } from 'common/react';
 import {
-  type CSSProperties,
   Component,
+  type CSSProperties,
+  createRef,
   type FocusEventHandler,
   type KeyboardEventHandler,
   type RefObject,
-  createRef,
 } from 'react';
-import { KEY, isEscape } from 'common/keys';
-import { clamp, round } from 'common/math';
-import { type BooleanLike, classes } from 'common/react';
 import { AnimatedNumber } from './AnimatedNumber';
 import { Box, type BoxProps } from './Box';
 
@@ -154,13 +154,13 @@ export class NumberInput extends Component<Props, State> {
         const internalValue = clamp(
           state.currentValue + (offset * step) / stepSize,
           minValue - step,
-          maxValue + step
+          maxValue + step,
         );
         if (Math.abs(internalValue - state.currentValue) >= step) {
           state.currentValue = clamp(
             round(internalValue / step, 0) * step,
             minValue,
-            maxValue
+            maxValue,
           );
           // Set the new origin
           state.origin = event.screenY;
@@ -217,7 +217,7 @@ export class NumberInput extends Component<Props, State> {
     const targetValue = clamp(
       Number.parseFloat(event.target.value),
       minValue,
-      maxValue
+      maxValue,
     );
     if (Number.isNaN(targetValue)) {
       this.setState({
@@ -247,7 +247,7 @@ export class NumberInput extends Component<Props, State> {
       const targetValue = clamp(
         Number.parseFloat(event.currentTarget.value),
         minValue,
-        maxValue
+        maxValue,
       );
       if (Number.isNaN(targetValue)) {
         this.setState({
@@ -328,7 +328,7 @@ export class NumberInput extends Component<Props, State> {
               height: `${clamp(
                 ((displayValue - minValue) / (maxValue - minValue)) * 100,
                 0,
-                100
+                100,
               )}%`,
             }}
           />

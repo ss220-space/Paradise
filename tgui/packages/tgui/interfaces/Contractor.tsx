@@ -1,7 +1,6 @@
 import { rad2deg } from 'common/math';
-import { Component, Fragment, type ReactNode } from 'react';
+import { Component, Fragment, type ReactNode, useState } from 'react';
 import { useBackend } from '../backend';
-import { useState } from 'react';
 import {
   Box,
   Button,
@@ -13,11 +12,11 @@ import {
   Section,
   Tabs,
 } from '../components';
-import { Countdown } from '../components/Countdown';
-import { Window } from '../layouts';
-import type { SectionProps } from '../components/Section';
 import type { BoxProps } from '../components/Box';
+import { Countdown } from '../components/Countdown';
+import type { SectionProps } from '../components/Section';
 import type { TabsProps } from '../components/Tabs';
+import { Window } from '../layouts';
 
 const contractStatuses = {
   1: ['АКТИВЕН', 'good'],
@@ -427,8 +426,8 @@ const areaArrow = (contract: Contract) => {
               : -rad2deg(
                   Math.atan2(
                     t_coords[1] - c_coords[1],
-                    t_coords[0] - c_coords[0]
-                  )
+                    t_coords[0] - c_coords[0],
+                  ),
                 )
           }
           lineHeight={same_area ? null : '0.85'} // Needed because it jumps upwards otherwise

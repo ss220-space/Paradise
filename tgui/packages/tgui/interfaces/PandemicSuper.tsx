@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Box, Section, Button, LabeledList, Stack } from '../components';
+import { Box, Button, LabeledList, Section, Stack } from '../components';
 import { Window } from '../layouts';
 import { ComplexModal } from './common/ComplexModal';
 
@@ -45,7 +45,7 @@ export const PandemicSuper = (props: unknown) => {
     blocks.push(
       <p>
         <b style={{ fontSize: 'big' }}> {error_message}</b>
-      </p>
+      </p>,
     );
   }
   if (beaker_exists) {
@@ -61,7 +61,7 @@ export const PandemicSuper = (props: unknown) => {
         >
           Очистить и извлечь ёмкость
         </Button>
-      </Box>
+      </Box>,
     );
   }
   if (error_message === null) {
@@ -271,7 +271,7 @@ export const PandemicSuper = (props: unknown) => {
             </Section>
           </Stack.Item>
         </Stack>
-      </Stack.Item>
+      </Stack.Item>,
     );
   }
   return (

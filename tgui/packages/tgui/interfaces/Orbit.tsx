@@ -1,8 +1,8 @@
 import { createSearch } from 'common/string';
+import { useState } from 'react';
 import { useBackend } from '../backend';
 import { Button, Divider, Flex, Icon, Input, Section } from '../components';
 import { Window } from '../layouts';
-import { useState } from 'react';
 
 const PATTERN_NUMBER = / \(([0-9]+)\)$/;
 

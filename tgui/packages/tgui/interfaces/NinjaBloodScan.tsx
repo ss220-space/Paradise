@@ -2,11 +2,11 @@ import { useBackend } from '../backend';
 import {
   Button,
   Flex,
+  Image,
+  NoticeBox,
+  ProgressBar,
   Section,
   Tooltip,
-  ProgressBar,
-  NoticeBox,
-  Image,
 } from '../components';
 import { Window } from '../layouts';
 

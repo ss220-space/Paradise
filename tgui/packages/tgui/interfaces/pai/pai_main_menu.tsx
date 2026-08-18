@@ -1,5 +1,5 @@
 import { useBackend } from '../../backend';
-import { LabeledList, Box, Button } from '../../components';
+import { Box, Button, LabeledList } from '../../components';
 
 type Software = {
   cost: number;

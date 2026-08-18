@@ -1,15 +1,15 @@
+import { createSearch, declension_ru } from 'common/string';
 import { useState } from 'react';
 import { useBackend } from '../backend';
-import { createSearch, declension_ru } from 'common/string';
 import {
   Box,
   Button,
-  Section,
-  Stack,
   Icon,
+  ImageButton,
   Input,
   NoticeBox,
-  ImageButton,
+  Section,
+  Stack,
 } from '../components';
 import { Window } from '../layouts';
 import { getLayoutState, LAYOUT, LayoutToggle } from './common/LayoutToggle';
@@ -218,7 +218,7 @@ const ProductDisplay = (props: ProductDisplayProps) => {
         <Stack>
           {!all_products_free && user && (
             <Stack.Item fontSize="16px" color="green">
-              <b>{(user?.cash) || 0}</b> кредит
+              <b>{user?.cash || 0}</b> кредит
               {declension_ru(user.cash, '', 'а', 'ов')}
             </Stack.Item>
           )}
@@ -268,7 +268,7 @@ const Product = (props) => {
     !vend_ready ||
     remaining === 0 ||
     (!all_products_free && !user) ||
-    (!free && product.price > (user?.cash));
+    (!free && product.price > user?.cash);
 
   const baseProps = {
     base64: product.image,

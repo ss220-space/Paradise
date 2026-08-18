@@ -1,3 +1,4 @@
+import { toFixed } from 'common/math';
 import {
   Button,
   Knob,
@@ -6,7 +7,6 @@ import {
   Section,
   Stack,
 } from 'tgui/components';
-import { toFixed } from 'common/math';
 
 import { useBackend } from '../backend';
 import { getGasColor, getGasLabel } from '../constants';
@@ -64,7 +64,7 @@ export const ReactorMonitor = (props) => {
     .sort((a, b) => b.amount - a.amount);
   const moderatorGasMaxAmount = Math.max(
     1,
-    ...filteredModeratorGases.map((gas) => gas.portion)
+    ...filteredModeratorGases.map((gas) => gas.portion),
   );
   return (
     <Window width={550} height={500}>
@@ -101,7 +101,7 @@ export const ReactorMonitor = (props) => {
                     }
                   >
                     {toFixed(
-                      NGCR_power < 10000 ? NGCR_power : NGCR_power / 1000
+                      NGCR_power < 10000 ? NGCR_power : NGCR_power / 1000,
                     ) + (NGCR_power < 10000 ? ' KW' : ' MW')}
                   </ProgressBar>
                 </LabeledList.Item>

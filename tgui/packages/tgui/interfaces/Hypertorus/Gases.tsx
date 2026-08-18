@@ -1,7 +1,7 @@
+import { toFixed } from 'common/math';
 import { sortBy } from 'es-toolkit';
 import { filter } from 'es-toolkit/compat';
 import { useBackend } from 'tgui/backend';
-import { getGasColor, getGasLabel } from 'tgui/constants';
 import {
   Box,
   Button,
@@ -10,7 +10,7 @@ import {
   ProgressBar,
   Section,
 } from 'tgui/components';
-import { toFixed } from 'common/math';
+import { getGasColor, getGasLabel } from 'tgui/constants';
 
 import type { HypertorusFuel, HypertorusGas } from '.';
 import { HelpDummy, HoverHelp } from './helpers';
@@ -92,7 +92,7 @@ const GasList = (props: GasListProps) => {
 
   const gases: HypertorusGas[] = sortBy(
     filter(raw_gases, (gas) => gas.amount >= 0.01),
-    [(gas) => -gas.amount]
+    [(gas) => -gas.amount],
   );
 
   if (stickyGases) {

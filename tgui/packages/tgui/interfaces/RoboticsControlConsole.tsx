@@ -3,8 +3,8 @@ import {
   Box,
   Button,
   LabeledList,
-  ProgressBar,
   NoticeBox,
+  ProgressBar,
   Section,
 } from '../components';
 import { Window } from '../layouts';

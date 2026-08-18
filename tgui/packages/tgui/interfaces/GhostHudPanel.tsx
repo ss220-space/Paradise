@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, Section, Flex, Divider } from '../components';
+import { Button, Divider, Flex, Section } from '../components';
 import { Window } from '../layouts';
 
 type GhostHudPanelData = {

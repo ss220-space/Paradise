@@ -1,17 +1,17 @@
+import type { Key } from 'react';
 import { useBackend, useSharedState } from '../backend';
 import {
-  Button,
-  Section,
   Box,
-  Stack,
-  Icon,
+  Button,
   Collapsible,
+  Icon,
   NumberInput,
   ProgressBar,
+  Section,
+  Stack,
 } from '../components';
-import { Window } from '../layouts';
 import { Operating } from '../interfaces/common/Operating';
-import type { Key } from 'react';
+import { Window } from '../layouts';
 
 type BiogeneratorProps = {
   processing: boolean;

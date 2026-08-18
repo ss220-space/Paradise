@@ -1,5 +1,8 @@
+import { toFixed } from 'common/math';
+import type { BooleanLike } from 'common/react';
 import { sortBy } from 'es-toolkit';
 import { type ReactNode, useState } from 'react';
+import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -8,10 +11,6 @@ import {
   Section,
   Stack,
 } from '../components';
-import { toFixed } from 'common/math';
-import type { BooleanLike } from 'common/react';
-
-import { useBackend } from '../backend';
 import { getGasColor, getGasLabel } from '../constants';
 import { Window } from '../layouts';
 

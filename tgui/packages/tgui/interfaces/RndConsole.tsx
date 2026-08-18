@@ -1,15 +1,15 @@
 import { useBackend } from '../backend';
-import { Window } from '../layouts';
 import { Box, NoticeBox } from '../components';
+import { Window } from '../layouts';
 import {
-  SettingsMenu,
-  RndRoute,
-  DeconstructionMenu,
-  MainMenu,
-  RndNavbar,
   CurrentLevels,
   DataDiskMenu,
+  DeconstructionMenu,
   LatheMenu,
+  MainMenu,
+  RndNavbar,
+  RndRoute,
+  SettingsMenu,
 } from './RndConsoleComponents';
 
 export const MENU = {

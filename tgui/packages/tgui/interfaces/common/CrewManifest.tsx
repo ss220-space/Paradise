@@ -1,6 +1,6 @@
+import { decodeHtmlEntities } from 'common/string';
 import { useBackend } from '../../backend';
 import { Box, Icon, Section, Table, Tooltip } from '../../components';
-import { decodeHtmlEntities } from 'common/string';
 import { COLORS } from '../../constants';
 
 const deptCols = COLORS.department;

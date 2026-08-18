@@ -1,4 +1,5 @@
 import type { Dispatch } from 'react';
+import { useBackend } from '../../backend';
 import {
   Button,
   Icon,
@@ -7,8 +8,6 @@ import {
   Table,
   Tooltip,
 } from '../../components';
-
-import { useBackend } from '../../backend';
 import { SORTING_TYPES } from './contants';
 import { SortType, type SubsystemData } from './types';
 

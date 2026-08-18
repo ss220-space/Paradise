@@ -5,21 +5,21 @@
  */
 
 import type { Placement } from '@popperjs/core';
+import { isEscape, KEY } from 'common/keys';
+import { type BooleanLike, classes } from 'common/react';
 import {
-  type CSSProperties,
   type ChangeEvent,
+  type CSSProperties,
+  createRef,
   type MouseEvent,
   type ReactNode,
-  createRef,
   useEffect,
   useRef,
   useState,
 } from 'react';
-import { KEY, isEscape } from 'common/keys';
-import { type BooleanLike, classes } from 'common/react';
+import { Icon } from 'tgui-core/components';
 import { computeBoxClassName, computeBoxProps } from 'tgui-core/ui';
 import { Box, type BoxProps } from './Box';
-import { Icon } from 'tgui-core/components';
 import { Tooltip } from './Tooltip';
 
 /**

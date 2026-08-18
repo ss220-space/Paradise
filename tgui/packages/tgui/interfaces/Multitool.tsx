@@ -1,19 +1,19 @@
 import { toFixed } from 'common/math';
+import type { ReactNode } from 'react';
 import { useBackend } from '../backend';
 import {
   Box,
   Button,
+  Divider,
   Flex,
+  Icon,
   NumberInput,
   Section,
-  Icon,
-  Divider,
 } from '../components';
-import { Window } from '../layouts';
-import type { FlexProps } from '../components/Flex';
-import type { ReactNode } from 'react';
-import type { ButtonProps, ConfirmProps } from '../components/Button';
 import type { BoxProps } from '../components/Box';
+import type { ButtonProps, ConfirmProps } from '../components/Button';
+import type { FlexProps } from '../components/Flex';
+import { Window } from '../layouts';
 
 type MultitoolData = {
   multitoolMenuId: string;

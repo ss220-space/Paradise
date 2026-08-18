@@ -1,5 +1,5 @@
-import { useEffect, useRef } from 'react';
 import { debounce } from 'common/timer';
+import { useEffect, useRef } from 'react';
 import { computeBoxProps } from 'tgui-core/ui';
 import type { BoxProps } from './Box';
 

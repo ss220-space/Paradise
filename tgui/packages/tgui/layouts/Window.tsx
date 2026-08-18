@@ -4,6 +4,7 @@
  * @license MIT
  */
 
+import { createLogger } from 'common/logging';
 import {
   type ComponentProps,
   type PropsWithChildren,
@@ -28,7 +29,6 @@ import {
   storeWindowGeometry,
 } from '../drag';
 import { suspendStart } from '../events/handlers/suspense';
-import { createLogger } from 'common/logging';
 import { Layout } from './Layout';
 import { TitleBar } from './TitleBar';
 

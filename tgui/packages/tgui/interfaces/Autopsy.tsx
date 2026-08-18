@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Section, Button, LabeledList } from '../components';
+import { Button, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
 type AutopsyData = {

@@ -1,6 +1,6 @@
 import { createSearch } from 'common/string';
-import { useBackend } from '../backend';
 import { useState } from 'react';
+import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -444,9 +444,7 @@ const Objectives = (properties: SearchTextProps) => {
                         }
                       >
                         {objective.target_name}{' '}
-                        {objective.track.length > 1
-                          ? `(${index + 1})`
-                          : ''}
+                        {objective.track.length > 1 ? `(${index + 1})` : ''}
                       </Button>
                     ))
                   : `${objective.target_name} (не найдено)`}

@@ -1,9 +1,9 @@
-import { sortBy } from 'es-toolkit';
 import { flow } from 'common/fp';
 import { toFixed } from 'common/math';
 import { decodeHtmlEntities } from 'common/string';
-import { useBackend } from '../backend';
+import { sortBy } from 'es-toolkit';
 import { type ReactNode, useState } from 'react';
+import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -17,6 +17,7 @@ import {
   Table,
 } from '../components';
 import { Window } from '../layouts';
+
 const PEAK_DRAW = 600000;
 
 type PowerMonitorData = {

@@ -1,10 +1,10 @@
-import { range } from 'es-toolkit';
 import type { BooleanLike } from 'common/react';
+import { range } from 'es-toolkit';
+import type { ReactNode } from 'react';
 import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
-import { Box, Button, DmIcon, Icon, Stack, Image } from '../components';
+import { Box, Button, DmIcon, Icon, Image, Stack } from '../components';
 import { Window } from '../layouts';
-import type { ReactNode } from 'react';
 
 const ROWS = 5;
 
@@ -606,33 +606,33 @@ export const StripMenu = (_props: unknown) => {
                         </Button>
                         <Stack direction="row-reverse">
                           {alternateActions?.map((actionKey, index) => {
-                              const buttonOffset = index * 1.8;
-                              return (
-                                <Stack.Item key={index} width="100%">
-                                  <Button
-                                    onClick={() => {
-                                      act('alt', {
-                                        key: keyAtSpot,
-                                        action_key: actionKey,
-                                      });
-                                    }}
-                                    tooltip={ALTERNATE_ACTIONS[actionKey].text}
-                                    width="1.8em"
-                                    style={{
-                                      background: 'rgba(0, 0, 0, 0.6)',
-                                      position: 'absolute',
-                                      bottom: 0,
-                                      right: `${buttonOffset}em`,
-                                      zIndex: 2 + index,
-                                    }}
-                                  >
-                                    <Icon
-                                      name={ALTERNATE_ACTIONS[actionKey].icon}
-                                    />
-                                  </Button>
-                                </Stack.Item>
-                              );
-                            })}
+                            const buttonOffset = index * 1.8;
+                            return (
+                              <Stack.Item key={index} width="100%">
+                                <Button
+                                  onClick={() => {
+                                    act('alt', {
+                                      key: keyAtSpot,
+                                      action_key: actionKey,
+                                    });
+                                  }}
+                                  tooltip={ALTERNATE_ACTIONS[actionKey].text}
+                                  width="1.8em"
+                                  style={{
+                                    background: 'rgba(0, 0, 0, 0.6)',
+                                    position: 'absolute',
+                                    bottom: 0,
+                                    right: `${buttonOffset}em`,
+                                    zIndex: 2 + index,
+                                  }}
+                                >
+                                  <Icon
+                                    name={ALTERNATE_ACTIONS[actionKey].icon}
+                                  />
+                                </Button>
+                              </Stack.Item>
+                            );
+                          })}
                         </Stack>
                       </Box>
                     </Stack.Item>
