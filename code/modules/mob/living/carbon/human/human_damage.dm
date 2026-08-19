@@ -523,6 +523,8 @@ This function restores all organs.
 	silent = FALSE,
 	updating_health = TRUE,
 	update_damage_icon = TRUE,
+	damage_class = null,
+	armor_penetrated = TRUE,
 )
 	// Spread damage should always have def zone be null
 	if(spread_damage)

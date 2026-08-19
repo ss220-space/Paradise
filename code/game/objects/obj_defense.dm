@@ -14,13 +14,29 @@
 
 /// Returns the damage value of the attack after processing the obj's various armor protections
 /obj/proc/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armour_penetration = 0)
-	if(damage_flag == MELEE && damage_amount < damage_deflection)
-		return 0
 	if(damage_type != BRUTE && damage_type != BURN)
 		return 0
-	var/armor_protection = 0
+	if((IS_KINETIC_ARMOR_FLAG(damage_flag) || damage_flag == MELEE) && damage_amount < damage_deflection)
+		return 0
 	if(!armor)
-		return
+		return damage_amount
+	if(IS_KINETIC_ARMOR_FLAG(damage_flag))
+		var/armor_rating = armor.getRating(normalize_damage_class(damage_flag))
+		var/absorption = armor.getRating(ABSORPTION)
+		var/datum/armor_hit_result/result = resolve_kinetic_hit(
+			armor_rating,
+			absorption,
+			damage_amount,
+			armour_penetration,
+			damage_amount,
+			0,
+			FALSE,
+			FALSE,
+			normalize_damage_class(damage_flag),
+			TRUE,
+		)
+		return round(result.brute_damage, DAMAGE_PRECISION)
+	var/armor_protection = 0
 	if(damage_flag)
 		armor_protection = armor.getRating(damage_flag)
 	if(armor_protection)		//Only apply weak-against-armor/hollowpoint effects if there actually IS armor.
@@ -82,7 +98,11 @@
 
 /obj/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	..()
-	take_damage(AM.throwforce, BRUTE, MELEE, 1, get_dir(src, AM))
+	var/damage_flag = MELEE
+	if(isitem(AM))
+		var/obj/item/thrown_item = AM
+		damage_flag = thrown_item.get_damage_class()
+	take_damage(AM.throwforce, BRUTE, damage_flag, 1, get_dir(src, AM))
 
 /obj/ex_act(severity, target)
 	if(resistance_flags & (INDESTRUCTIBLE))

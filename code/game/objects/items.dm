@@ -428,6 +428,14 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /obj/item/proc/add_weapon_description()
 	AddElement(/datum/element/weapon_description)
 
+/// Skill required to see the combat stats link. Return null to skip the skill check.
+/obj/item/proc/weapon_description_skill_type()
+	return /datum/skill/combat/melee
+
+/// Whether this item should offer the combat stats examine link to the user.
+/obj/item/proc/can_show_weapon_description(mob/user)
+	return force >= 5 || throwforce >= 5 || override_notes || offensive_notes
+
 /**
  * Checks if an item is allowed to be used on an atom/target
  * Returns TRUE if allowed.
@@ -1506,10 +1514,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(colored_belt_appearance)
 		return mutable_appearance(colored_belt_appearance, icon_state_to_use)
 	return mutable_appearance('icons/obj/clothing/belt_overlays.dmi', icon_state_to_use)
-
-/// Returns the sharpness of src. If you want to get the sharpness of an item use this.
-/obj/item/proc/get_sharpness()
-	return sharp//ness
 
 /// If an object can successfully be used as a fire starter it will return a message
 /obj/item/proc/ignition_effect(atom/target, mob/user)

@@ -9,8 +9,12 @@
 #define BRAIN "brain"
 
 //damage flags
-#define MELEE "melee"
-#define BULLET "bullet"
+#define MELEE "melee" // Legacy alias of BLUNT for old armor lists and getRating() calls
+#define BULLET "bullet" // Legacy alias of PIERCING for old armor lists and getRating() calls
+#define PIERCING "piercing"
+#define SLASHING "slashing"
+#define BLUNT "blunt"
+#define ABSORPTION "absorption"
 #define LASER "laser"
 #define ENERGY "energy"
 #define BOMB "bomb"
@@ -20,13 +24,33 @@
 #define MAGIC "magic"
 
 /// Armor values that are used for damage
-#define ARMOR_LIST_DAMAGE list(BOMB, BULLET, ENERGY, LASER, MELEE)
+#define ARMOR_LIST_DAMAGE list(ABSORPTION, BLUNT, BOMB, ENERGY, LASER, PIERCING, SLASHING)
 
 /// Armor values that are used for durability
 #define ARMOR_LIST_DURABILITY list(ACID, BIO, FIRE, MAGIC)
 
 /// All armors, preferable in the order as seen above
-#define ARMOR_LIST_ALL(...) list(ACID, BIO, BOMB, BULLET, ENERGY, FIRE, LASER, MAGIC, MELEE)
+#define ARMOR_LIST_ALL(...) list(ABSORPTION, ACID, BIO, BLUNT, BOMB, ENERGY, FIRE, LASER, MAGIC, PIERCING, SLASHING)
+
+/// Kinetic attack flags that use the penetration / absorption system instead of flat percent reduction
+#define ARMOR_LIST_KINETIC list(BLUNT, BULLET, MELEE, PIERCING, SLASHING)
+
+#define IS_KINETIC_ARMOR_FLAG(flag) ((flag) == PIERCING || (flag) == SLASHING || (flag) == BLUNT || (flag) == MELEE || (flag) == BULLET)
+#define IS_SHARP_DAMAGE_CLASS(class) ((class) == PIERCING || (class) == SLASHING)
+/// Off-type injury chance vs the matching damage class.
+#define DAMAGE_CLASS_OFFTYPE_INJURY_MULT 0.4
+
+/// Logistic curve steepness for armor penetration chance. pen_chance = 100 / (1 + e^(-k * (AP - Armor + bias)))
+#define ARMOR_PENETRATION_CHANCE_STEEPNESS 0.24
+/// Shifts the 50% point on the penetration curve
+#define ARMOR_PENETRATION_CHANCE_BIAS 5.8
+#define ARMOR_PENETRATION_EXPONENT_CLAMP 50
+/// Divisor applied to kinetic blunt transfer when armor is not penetrated
+#define KINETIC_BLUNT_DAMAGE_DIVISOR 20
+/// Surface bleed amount vs slashing on a penetrated hit.
+#define PIERCING_SURFACE_BLEED_MULT 0.5
+/// Armor rating above this is treated as "wearing armor" for penetration chat
+#define ARMOR_NOTICE_THRESHOLD 15
 
 #define STUN "stun"
 #define WEAKEN "weaken"

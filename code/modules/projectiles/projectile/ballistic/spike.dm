@@ -2,6 +2,7 @@
 	name = "alloy spike"
 	desc = "It's about a foot of weird silvery metal with a wicked point."
 	damage = 25
+	kinetic_force = 200
 	stun = 2 SECONDS
 	armour_penetration = 30
 	icon_state = "magspear"

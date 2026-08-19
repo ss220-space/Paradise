@@ -115,8 +115,22 @@
 		if(!result || !QDELETED(src))
 			return
 
-		armor = armor.setRating(armorlist[MELEE], armorlist[BULLET], armorlist[LASER], armorlist[ENERGY], armorlist[BOMB], armorlist[FIRE], armorlist[ACID], armorlist[MAGIC])
+		armor = armor.setRating(
+			null,
+			null,
+			armorlist[LASER],
+			armorlist[ENERGY],
+			armorlist[BOMB],
+			armorlist[BIO],
+			armorlist[FIRE],
+			armorlist[ACID],
+			armorlist[MAGIC],
+			armorlist[PIERCING],
+			armorlist[SLASHING],
+			armorlist[BLUNT],
+			armorlist[ABSORPTION],
+		)
 
-		log_admin("[key_name(usr)] modified the armor on [src] to: melee = [armorlist[MELEE]], bullet = [armorlist[BULLET]], laser = [armorlist[LASER]], energy = [armorlist[ENERGY]], bomb = [armorlist[BOMB]], fire = [armorlist[FIRE]], acid = [armorlist[ACID]], magic = [armorlist[MAGIC]]")
-		message_admins(span_adminnotice("[key_name(usr)] modified the armor on [src] to: melee = [armorlist[MELEE]], bullet = [armorlist[BULLET]], laser = [armorlist[LASER]], energy = [armorlist[ENERGY]], bomb = [armorlist[BOMB]], fire = [armorlist[FIRE]], acid = [armorlist[ACID]], magic = [armorlist[MAGIC]]"))
+		log_admin("[key_name(usr)] modified the armor on [src] to: piercing = [armorlist[PIERCING]], slashing = [armorlist[SLASHING]], blunt = [armorlist[BLUNT]], absorption = [armorlist[ABSORPTION]], laser = [armorlist[LASER]], energy = [armorlist[ENERGY]], bomb = [armorlist[BOMB]], fire = [armorlist[FIRE]], acid = [armorlist[ACID]], magic = [armorlist[MAGIC]]")
+		message_admins(span_adminnotice("[key_name(usr)] modified the armor on [src] to: piercing = [armorlist[PIERCING]], slashing = [armorlist[SLASHING]], blunt = [armorlist[BLUNT]], absorption = [armorlist[ABSORPTION]], laser = [armorlist[LASER]], energy = [armorlist[ENERGY]], bomb = [armorlist[BOMB]], fire = [armorlist[FIRE]], acid = [armorlist[ACID]], magic = [armorlist[MAGIC]]"))
 

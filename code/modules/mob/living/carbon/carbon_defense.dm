@@ -101,6 +101,25 @@
 	apply_damage(damage, BRUTE, affecting)
 
 /mob/living/carbon/bullet_act(obj/projectile/proj, def_zone)
+	if(!proj.nodamage && proj.uses_kinetic_armor())
+		var/datum/armor_hit_result/result = apply_kinetic_attack(
+			proj.damage,
+			def_zone,
+			proj.get_damage_class(),
+			proj.armour_penetration,
+			proj.get_kinetic_force(),
+			proj.get_softness(),
+			proj,
+			proj.damage_type,
+			skip_penetration = (proj.damage_type == STAMINA),
+			is_projectile = TRUE,
+		)
+		if(!QDELETED(src) && result?.brute_damage > 0 && (!result.penetrated || prob(30) || result.brute_damage >= 25))
+			spray_blood(get_dir(proj.starting, src), min(rand(1, max(1, floor(result.brute_damage / 10))), 5))
+		if(result?.penetrated && proj.dismemberment)
+			check_projectile_dismemberment(proj, def_zone)
+		return proj.on_hit(src, result?.penetrated ? 0 : 100, def_zone)
+
 	//Armor
 	var/armor = run_armor_check(def_zone, proj.flag, armour_penetration = proj.armour_penetration)
 	if(!proj.nodamage && !QDELETED(src))

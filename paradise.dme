@@ -635,6 +635,8 @@
 #include "code\datums\ai_laws.dm"
 #include "code\datums\alarm_manager.dm"
 #include "code\datums\armor.dm"
+#include "code\datums\armor_combat.dm"
+#include "code\datums\combat_examine.dm"
 #include "code\datums\beam.dm"
 #include "code\datums\browser.dm"
 #include "code\datums\callback.dm"

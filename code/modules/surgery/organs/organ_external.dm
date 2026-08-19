@@ -31,6 +31,8 @@
 	var/limb_zone
 	/// Used to calculate protection from armor
 	var/limb_body_flag = NONE
+	/// Innate kinetic/other armor of this limb. Stacks with covering clothing the same way as other layers.
+	armor = list(PIERCING = 0, SLASHING = 0, BLUNT = 0, ABSORPTION = 0)
 	/// Bodypart parent
 	var/obj/item/organ/external/parent
 	/// Lazy list of bodypart children
@@ -293,6 +295,8 @@
  * * forced - "Force" exactly the damage dealt. This means it skips any damage modifiers. Also will not apply fractures or internal bleedings.
  * * updating_health - If TRUE calls update health on success.
  * * silent - If TRUE will not spam red messages in chat.
+ * * damage_class - Kinetic damage class (PIERCING/SLASHING/BLUNT). Controls fracture/bleed/dismember odds.
+ * * armor_penetrated - FALSE skips dismember, arterial, internal bleed, and sharp surface bleeds. Fractures still apply.
  *
  * Returns `TRUE` if bodypart damage state was changed, `FALSE` otherwise
  */
@@ -306,9 +310,19 @@
 	forced = FALSE,
 	updating_health = TRUE,
 	silent = FALSE,
+	damage_class = null,
+	armor_penetrated = TRUE,
 )
 	if(owner && HAS_TRAIT(owner, TRAIT_GODMODE))
 		return FALSE
+
+	if(damage_class)
+		damage_class = normalize_damage_class(damage_class)
+		sharp = IS_SHARP_DAMAGE_CLASS(damage_class)
+	else if(sharp)
+		damage_class = SLASHING
+	else
+		damage_class = BLUNT
 
 	var/basic_brute = brute
 	var/brute_was = brute_dam
@@ -331,8 +345,9 @@
 			burn *= owner.get_incoming_damage_modifier(burn, BURN, limb_zone, sharp, used_weapon)
 
 		// High brute damage or sharp objects may damage internal organs; distributed damage doesn't inflict it
+		var/internal_damage_threshold = (damage_class == PIERCING) ? LIMB_SHARP_THRESH_INT_DMG : (damage_class == SLASHING ? LIMB_SHARP_THRESH_INT_DMG : LIMB_THRESH_INT_DMG)
 		var/pass_internal_organ_damage = brute_dam >= max_damage
-		pass_internal_organ_damage = pass_internal_organ_damage || (prob(LIMB_DMG_PROB) && ((sharp && brute >= LIMB_SHARP_THRESH_INT_DMG) || brute >= LIMB_THRESH_INT_DMG))
+		pass_internal_organ_damage = pass_internal_organ_damage || (prob(LIMB_DMG_PROB) && brute >= internal_damage_threshold)
 		pass_internal_organ_damage = pass_internal_organ_damage || (has_fracture() && fracture.pass_internal_organ_damage)
 		pass_internal_organ_damage = pass_internal_organ_damage && LAZYLEN(internal_organs)
 		if(pass_internal_organ_damage)
@@ -365,10 +380,7 @@
 		add_autopsy_data(null, brute + burn)
 
 	if(!forced && owner)
-		// See if internal bleeding/fracture has place; distributed damage doesn't inflict it
-		try_internal_bleeding(brute, silent)
-		try_arterial_bleeding(brute, sharp, silent)
-		try_fracture(brute, silent)
+		apply_damage_class_injuries(brute, damage_class, silent, armor_penetrated)
 
 	// Need to update health, but need a reference in case the below checks cuts off a limb.
 	var/mob/living/carbon/organ_owner = owner
@@ -431,7 +443,7 @@
 				// And pass the pain around
 				var/obj/item/organ/external/picked_part = pick(possible_points)
 				// If the damage was reduced before, don't reduce it again
-				picked_part.external_receive_damage(brute, burn, blocked, sharp, used_weapon, forbidden_limbs, TRUE, FALSE, silent)
+				picked_part.external_receive_damage(brute, burn, blocked, sharp, used_weapon, forbidden_limbs, TRUE, FALSE, silent, damage_class, armor_penetrated)
 
 			// We've ensured all damage to the mob is retained, now let's drop it, if necessary
 			var/limb_dropped = FALSE
@@ -441,7 +453,7 @@
 				limb_dropped = TRUE
 
 			// If limb took enough damage, try to cut or tear it off.
-			if(!limb_dropped && sharp && owner && loc == owner && !cannot_amputate)
+			if(!limb_dropped && armor_penetrated && damage_class == SLASHING && owner && loc == owner && !cannot_amputate
 				if(original_brute && prob(original_brute / 2))
 					droplimb(clean = FALSE, disintegrate = DROPLIMB_SHARP, silent = silent)
 					limb_dropped = TRUE
@@ -452,14 +464,44 @@
 			var/bleeding_heal = min(bleeding_amount, burn * BURN_DAMAGE_STOP_BLEEDING_MOD)
 			bleeding_amount = round(bleeding_amount - bleeding_heal, BLEEDING_PRECISION)
 
-	calculate_take_bleeding(brute, burn, basic_brute, sharp, remaining_health)
+	calculate_take_bleeding(brute, burn, basic_brute, sharp, remaining_health, damage_class, armor_penetrated)
 
 	if(updating_health && (QDELETED(src) || loc != organ_owner || brute_dam != brute_was || burn_dam != burn_was))
 		organ_owner?.updatehealth("limb receive damage")
 
 	return update_state()
 
-/obj/item/organ/external/proc/calculate_take_bleeding(brute, burn, basic_brute, sharp, remaining_health)
+/// Applies secondary injuries once per hit. Matching damage class uses full chance; other classes use [DAMAGE_CLASS_OFFTYPE_INJURY_MULT].
+/obj/item/organ/external/proc/apply_damage_class_injuries(brute, damage_class = BLUNT, silent = FALSE, armor_penetrated = TRUE)
+	damage_class = normalize_damage_class(damage_class)
+	if(armor_penetrated)
+		try_internal_bleeding(brute, silent, damage_class)
+		try_arterial_bleeding(brute, damage_class, silent)
+	try_fracture(brute, silent, damage_class)
+
+/// Chance multiplier vs the preferred class for this injury (1 = matching type, offtype = 40%).
+/obj/item/organ/external/proc/get_offtype_injury_mult(damage_class, preferred_class)
+	if(normalize_damage_class(damage_class) == preferred_class)
+		return 1
+	return DAMAGE_CLASS_OFFTYPE_INJURY_MULT
+
+/obj/item/organ/external/proc/get_damage_class_bleed_multiplier(damage_class = BLUNT)
+	switch(normalize_damage_class(damage_class))
+		if(SLASHING)
+			return 2
+		if(PIERCING)
+			return PIERCING_SURFACE_BLEED_MULT
+	return 1
+
+/obj/item/organ/external/proc/get_damage_class_fracture_power(inflicted_damage, damage_class = BLUNT)
+	if(normalize_damage_class(damage_class) == BLUNT)
+		return brute_dam + inflicted_damage
+	return inflicted_damage
+
+/obj/item/organ/external/proc/get_damage_class_arterial_chance_mod(damage_class = BLUNT)
+	return LIMB_ARTERIAL_BLEEDING_CHANCE_MOD * 2 * get_offtype_injury_mult(damage_class, SLASHING)
+
+/obj/item/organ/external/proc/calculate_take_bleeding(brute, burn, basic_brute, sharp, remaining_health, damage_class = BLUNT, armor_penetrated = TRUE)
 	//no allowed bleeding for robotic bodyparts
 	if(is_robotic())
 		return
@@ -470,16 +512,20 @@
 	if(has_arterial_bleeding())
 		return //has arterial bleeding, no more bleedings
 
-	if(basic_brute >= MIN_BRUTE_DAMAGE_FOR_BLEEDING || sharp || brute_dam > BRUTE_DAMAGE_FOR_GARANT_BLEEDING)
+	damage_class = normalize_damage_class(damage_class)
+	var/is_slashing = (damage_class == SLASHING)
+	var/is_piercing = (damage_class == PIERCING)
+	var/guaranteed_sharp_bleed = armor_penetrated && (is_slashing || is_piercing)
+	if(guaranteed_sharp_bleed || basic_brute >= MIN_BRUTE_DAMAGE_FOR_BLEEDING || brute_dam > BRUTE_DAMAGE_FOR_GARANT_BLEEDING)
 		var/basic_chance = 25 + basic_brute * 2.5
 		var/already_bleeding_chance = bleeding_amount > 0 ? 25 : 0
 		var/total_brute_chance = brute_dam >= remaining_health ? 25 : 0
 		var/bleeding_probe = min(100, basic_chance + already_bleeding_chance + total_brute_chance)
+		if(!guaranteed_sharp_bleed)
+			bleeding_probe *= DAMAGE_CLASS_OFFTYPE_INJURY_MULT
 
-		if(sharp || prob(bleeding_probe))
-			var/bleeding = brute * BRUTE_DAMAGE_TO_BLEEDING_MOD
-			if(sharp)
-				bleeding = bleeding * 2
+		if(guaranteed_sharp_bleed || prob(bleeding_probe))
+			var/bleeding = brute * BRUTE_DAMAGE_TO_BLEEDING_MOD * get_damage_class_bleed_multiplier(damage_class)
 
 			bleeding_amount += round(bleeding, BLEEDING_PRECISION)
 			bleeding_amount = min(bleeding_amount, max_bleeding_amount)
@@ -689,14 +735,16 @@ Note that amputating the affected organ does in fact remove the infection from t
 		owner.adjustToxLoss(1)
 
 
-/obj/item/organ/external/proc/try_fracture(inflicted_damage, silent = FALSE)
+/obj/item/organ/external/proc/try_fracture(inflicted_damage, silent = FALSE, damage_class = BLUNT)
 	if(inflicted_damage < LIMB_BONE_CRACK_MIN_DMG)
 		return FALSE //too low damage - no fracture
 
-	if(brute_dam + burn_dam + inflicted_damage <= min_broken_damage)
+	if(brute_dam + burn_dam + inflicted_damage <= min_broken_damage * LIMB_FRACTURE_HEALTH_THRESHOLD_MULT)
 		return FALSE //bodypart is not damaged enough - no fracture
 
-	if(!prob(inflicted_damage * owner.dna.species.bonefragility * owner.physiology.bone_fragility))
+	var/fracture_power = get_damage_class_fracture_power(inflicted_damage, damage_class) * get_offtype_injury_mult(damage_class, BLUNT)
+
+	if(!prob(fracture_power * owner.dna.species.bonefragility * owner.physiology.bone_fragility))
 		return FALSE // bad luck - no fracture
 
 	var/fracture
@@ -712,26 +760,30 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return TRUE
 	return FALSE
 
-/obj/item/organ/external/proc/try_internal_bleeding(inflicted_damage, silent = FALSE)
+/obj/item/organ/external/proc/try_internal_bleeding(inflicted_damage, silent = FALSE, damage_class = BLUNT)
 	if(inflicted_damage <= LIMB_INT_BLEEDING_MIN_DMG)
 		return FALSE
 	if(brute_dam + burn_dam + inflicted_damage <= min_internal_bleeding_damage)
 		return FALSE
-	if(!prob(inflicted_damage))
+	if(!prob(inflicted_damage * get_offtype_injury_mult(damage_class, PIERCING)))
 		return FALSE
 	if(internal_bleeding(silent))
 		add_attack_logs(owner, null, "Suffered internal bleeding to [src](Damage: [inflicted_damage], Organ HP: [max_damage - (brute_dam + burn_dam) ])")
 		return TRUE
 	return FALSE
 
-/obj/item/organ/external/proc/try_arterial_bleeding(inflicted_damage, sharp = FALSE, silent = FALSE)
+/obj/item/organ/external/proc/try_arterial_bleeding(inflicted_damage, damage_class = BLUNT, silent = FALSE)
+	var/chance_mod = get_damage_class_arterial_chance_mod(damage_class)
+	if(chance_mod <= 0)
+		return FALSE
+
 	if(inflicted_damage <= LIMB_ARTERIAL_BLEEDING_MIN_DMG)
 		return FALSE
 
 	if(brute_dam + burn_dam + inflicted_damage <= min_arterial_bleeding_damage)
 		return FALSE
 
-	if(!prob(inflicted_damage * LIMB_ARTERIAL_BLEEDING_CHANCE_MOD))
+	if(!prob(inflicted_damage * chance_mod))
 		return FALSE
 
 	if(arterial_bleeding(silent))
@@ -1395,3 +1447,4 @@ Note that amputating the affected organ does in fact remove the infection from t
 #undef LIMB_BONE_CRACK_MIN_DMG
 #undef LIMB_CLOSED_FRACTURE_MIN_DMG
 #undef LIMB_OPEN_FRACTURE_MIN_DMG
+#undef LIMB_FRACTURE_HEALTH_THRESHOLD_MULT

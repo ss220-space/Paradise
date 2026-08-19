@@ -24,8 +24,8 @@
 	damage = damage / 2
 	stamina = stamina / 2
 
-/obj/projectile/bullet/on_hit(atom/target, blocked = 0)
-	. = ..()
+/obj/projectile/bullet/on_hit(atom/target, blocked = 0, hit_zone)
+	. = ..(target, blocked, hit_zone)
 	if(!.)
 		return
 	if(!ismob(target))

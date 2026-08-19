@@ -1,10 +1,14 @@
 // MARK: 5.56x45mm
 /obj/projectile/bullet/heavybullet
 	damage = 36
+	kinetic_force = 744
+	armour_penetration = 66
 
 // MARK: 4.6x30mm
 /obj/projectile/bullet/weakbullet3/foursix
 	damage = 15
+	kinetic_force = 190
+	armour_penetration = 10
 
 /obj/projectile/bullet/weakbullet3/foursix/ap
 	damage = 10
@@ -24,7 +28,8 @@
 /obj/projectile/bullet/f545
 	name = "Fusty FMJ 5.45 bullet"
 	damage = 20
-	stamina = 6
+	kinetic_force = 520
+	softness = 20
 
 /obj/projectile/bullet/f545/get_ru_names()
 	return alist(

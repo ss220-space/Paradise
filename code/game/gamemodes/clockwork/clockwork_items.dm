@@ -678,7 +678,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	hoodtype = /obj/item/clothing/head/hooded/clockhood
 	allowed = list(/obj/item/clockwork, /obj/item/twohanded/ratvarian_spear, /obj/item/twohanded/clock_hammer, /obj/item/melee/clock_sword)
-	armor = list(MELEE = 40, BULLET = 30, LASER = 40, ENERGY = 20, BOMB = 25, BIO = 10, FIRE = 10, ACID = 10)
+	armor = list(SLASHING = 40, PIERCING = 30, BLUNT = 40, ABSORPTION = 50, LASER = 40, ENERGY = 20, BOMB = 25, BIO = 10, FIRE = 10, ACID = 10)
 	flags_inv = HIDEJUMPSUIT
 	flags_inv_transparent = HIDEJUMPSUIT
 	magical = TRUE
@@ -699,7 +699,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	hoodtype = /obj/item/clothing/head/hooded/clockhood_fake
 	allowed = ALLOWED_MINING_SUIT_ITEMS// necropolis loot for miners
-	armor = list(MELEE = 40, BULLET = 30, LASER = 40, ENERGY = 20, BOMB = 25, BIO = 10, FIRE = 10, ACID = 10)
+	armor = list(SLASHING = 40, PIERCING = 30, BLUNT = 40, ABSORPTION = 25, LASER = 40, ENERGY = 20, BOMB = 25, BIO = 10, FIRE = 10, ACID = 10)
 	flags_inv = HIDEJUMPSUIT
 	flags_inv_transparent = HIDEJUMPSUIT
 	magical = TRUE
@@ -767,7 +767,7 @@
 	desc = "A hood worn by the followers of ratvar."
 	flags_inv = HIDENAME|HIDEHAIR
 	flags_cover = HEADCOVERSEYES
-	armor = list(melee = 30, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, fire = 10, acid = 10)
+	armor = list(SLASHING = 30, PIERCING = 20, BLUNT = 30, ABSORPTION = 50, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 0, FIRE = 10, ACID = 10)
 	magical = TRUE
 
 /obj/item/clothing/head/hooded/clockhood_fake
@@ -778,7 +778,7 @@
 	desc = "A hood worn by the followers of ratvar. but now its just a simple hood."
 	flags_inv = HIDENAME|HIDEHAIR
 	flags_cover = HEADCOVERSEYES
-	armor = list(melee = 30, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, fire = 10, acid = 10)
+	armor = list(SLASHING = 30, PIERCING = 20, BLUNT = 30, ABSORPTION = 25, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 0, FIRE = 10, ACID = 10)
 	magical = TRUE
 
 /obj/item/clothing/suit/hooded/clockrobe/equipped(mob/living/user, slot, initial)
@@ -811,7 +811,7 @@
 	item_state = "clockwork_cuirass"
 	w_class = WEIGHT_CLASS_BULKY
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	armor = list(MELEE = 45, BULLET = 35, LASER = 45, ENERGY = 30, BOMB = 50, BIO = 30, FIRE = 100, ACID = 100)
+	armor = list(SLASHING = 45, PIERCING = 35, BLUNT = 45, ABSORPTION = 50, LASER = 45, ENERGY = 30, BOMB = 50, BIO = 30, FIRE = 100, ACID = 100)
 	flags_inv = HIDEJUMPSUIT
 	flags_inv_transparent = HIDEGLOVES|HIDESHOES
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
@@ -826,7 +826,7 @@
 	)
 	var/reflect_uses = 7
 	var/normal_armor
-	var/harden_armor = list(MELEE = 80, BULLET = 70, LASER = 80, ENERGY = 60, BOMB = 100, BIO = 100, FIRE = 100, ACID = 100)
+	var/harden_armor = list(SLASHING = 70, PIERCING = 60, BLUNT = 70, ABSORPTION = 75, LASER = 80, ENERGY = 60, BOMB = 100, BIO = 100, FIRE = 100, ACID = 100)
 
 /obj/item/clothing/suit/armor/clockwork_fake
 	name = "clockwork cuirass"
@@ -942,7 +942,7 @@
 	item_state = "clockwork_gauntlets"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	siemens_coefficient = 0
-	armor = list(MELEE = 35, BULLET = 45, LASER = 25, ENERGY = 30, BOMB = 40, BIO = 30, FIRE = 100, ACID = 100)
+	armor = list(SLASHING = 20, PIERCING = 30, BLUNT = 20, ABSORPTION = 20, LASER = 25, ENERGY = 30, BOMB = 40, BIO = 30, FIRE = 100, ACID = 100)
 	var/north_star = FALSE
 	var/fire_casting = FALSE
 
@@ -953,7 +953,7 @@
 	icon_state = "clockwork_gauntlets"
 	item_state = "clockwork_gauntlets"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 30, BOMB = 40, BIO = 30, FIRE = 100, ACID = 100)
+	armor = list(SLASHING = 20, PIERCING = 30, BLUNT = 20, ABSORPTION = 15, LASER = 30, ENERGY = 30, BOMB = 40, BIO = 30, FIRE = 100, ACID = 100)
 
 /obj/item/clothing/gloves/clockwork/Initialize(mapload)
 	. = ..()
@@ -1065,7 +1065,7 @@
 	item_state = "clockwork_treads"
 	strip_delay = 60
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	armor = list(MELEE = 35, BULLET = 45, LASER = 25, ENERGY = 30, BOMB = 40, BIO = 30, FIRE = 100, ACID = 100)
+	armor = list(SLASHING = 35, PIERCING = 45, BLUNT = 35, ABSORPTION = 20, LASER = 25, ENERGY = 30, BOMB = 40, BIO = 30, FIRE = 100, ACID = 100)
 
 /obj/item/clothing/shoes/clockwork_fake
 	name = "clockwork treads"
@@ -1075,7 +1075,7 @@
 	item_state = "clockwork_treads"
 	strip_delay = 60
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 30, BOMB = 40, BIO = 30, FIRE = 100, ACID = 100)
+	armor = list(SLASHING = 40, PIERCING = 50, BLUNT = 40, ABSORPTION = 15, LASER = 30, ENERGY = 30, BOMB = 40, BIO = 30, FIRE = 100, ACID = 100)
 
 /obj/item/clothing/shoes/clockwork/equipped(mob/living/user, slot, initial)
 	. = ..()
@@ -1106,7 +1106,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDENAME
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
-	armor = list(melee = 40, bullet = 60, laser = 20, energy = 0, bomb = 60, bio = 0, fire = 100, acid = 100)
+	armor = list(SLASHING = 40, PIERCING = 60, BLUNT = 40, ABSORPTION = 25, LASER = 20, ENERGY = 0, BOMB = 60, BIO = 0, FIRE = 100, ACID = 100)
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 	)
@@ -1120,7 +1120,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDENAME
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
-	armor = list(melee = 45, bullet = 65, laser = 10, energy = 0, bomb = 60, bio = 0, fire = 100, acid = 100)
+	armor = list(SLASHING = 45, PIERCING = 65, BLUNT = 45, ABSORPTION = 20, LASER = 10, ENERGY = 0, BOMB = 60, BIO = 0, FIRE = 100, ACID = 100)
 
 /obj/item/clothing/head/helmet/clockwork/equipped(mob/living/user, slot, initial)
 	. = ..()

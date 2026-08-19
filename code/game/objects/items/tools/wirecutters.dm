@@ -15,6 +15,8 @@
 	throwforce = 5
 	throw_speed = 3
 	w_class = WEIGHT_CLASS_SMALL
+	damage_class = PIERCING
+	kinetic_force = 48
 	materials = list(MAT_METAL=80)
 	origin_tech = "materials=1;engineering=1"
 	attack_verb = list("ущипнул", "тяпнул")

@@ -185,6 +185,8 @@
 	light_on = FALSE
 	light_system = OVERLAY_LIGHT
 	armour_penetration = 20
+	damage_class = PIERCING
+	kinetic_force = 0
 	var/on = FALSE
 	var/backstab_sound = 'sound/items/unsheath.ogg'
 	var/backstab_damage = 12
@@ -229,6 +231,7 @@
 		hitsound = 'sound/weapons/blade1.ogg'
 		embed_chance = 100 //rule of cool
 		throwforce = 35
+		kinetic_force = 108
 		playsound(user, 'sound/weapons/saberon.ogg', 3, TRUE)
 		to_chat(user, span_warning("[src] is now active."))
 	else
@@ -239,10 +242,15 @@
 		hitsound = initial(hitsound)
 		embed_chance = initial(embed_chance)
 		throwforce = initial(throwforce)
+		kinetic_force = 0
 		playsound(user, 'sound/weapons/saberoff.ogg', 3, TRUE)
 		to_chat(user, span_warning("[src] can now be concealed."))
 	set_light_on(on)
 	set_sharpness(on)
+	if(on)
+		set_damage_class(SLASHING)
+	else
+		set_damage_class(PIERCING)
 	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
 
 /obj/item/pen/edagger/update_name(updates = ALL)

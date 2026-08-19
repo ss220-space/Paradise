@@ -276,7 +276,7 @@
 		parent_item.force += sharpened_increase
 		parent_item.throwforce += sharpened_increase
 	if(sharp_when_wielded)
-		parent_item.set_sharpness(TRUE)
+		parent_item.set_damage_class(SLASHING)
 
 	var/original_name = parent_item.declent_ru(ACCUSATIVE)
 	parent_item.name = "[original_name] (Wielded)"
@@ -342,7 +342,10 @@
 	else if(force_unwielded)
 		parent_item.force = force_unwielded
 	if(sharp_when_wielded)
-		parent_item.set_sharpness(FALSE)
+		if(initial(parent_item.sharp))
+			parent_item.set_sharpness(TRUE)
+		else
+			parent_item.set_damage_class(initial(parent_item.damage_class))
 
 	// update the items name to remove the wielded status
 	var/sf = findtext(parent_item.name, " (Wielded)", -10) // 10 == length(" (Wielded)")

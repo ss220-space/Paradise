@@ -97,6 +97,12 @@
 /obj/item/ammo_casing/add_weapon_description()
 	AddElement(/datum/element/weapon_description, attached_proc = PROC_REF(add_notes_ammo))
 
+/obj/item/ammo_casing/weapon_description_skill_type()
+	return /datum/skill/combat/guns
+
+/obj/item/ammo_casing/can_show_weapon_description(mob/user)
+	return BB || projectile_type
+
 /**
  *
  * Outputs type-specific weapon stats for ammunition based on the projectile loaded inside the casing.
@@ -137,9 +143,8 @@
 		return span_boldnotice("- Боеприпасы [span_warning(get_ammo_marking())] не наносят значимого ущерба при попадании.")
 
 	// No dividing by 0
-	if(initial_damage)
-		var/lethal_hits_to_crit_str = span_warning("[HITS_TO_CRIT((initial(exam_proj.damage) * proj_damage_mult) * pellets)] попадан[declension_ru(HITS_TO_CRIT((initial(exam_proj.damage) * proj_damage_mult) * pellets), "ие", "ия", "ий")]")
-		readout += "- Для нанесения <b>[span_red("летальных ранений")]</b> противнику боеприпасами [span_warning(get_ammo_marking())] потребуется примерно [lethal_hits_to_crit_str]."
+	if(ispath(exam_proj))
+		readout += build_projectile_combat_examine_stats(exam_proj, proj_damage_mult, pellets)
 	if(initial_stamina)
 		var/non_lethal_hits_to_crit_str = span_warning("[HITS_TO_CRIT((initial(exam_proj.stamina) * proj_stamine_mult) * pellets)] попадан[declension_ru(HITS_TO_CRIT((initial(exam_proj.stamina) * proj_stamine_mult) * pellets), "ие", "ия", "ий")]")
 		readout += "- Для <b>[span_blue("нелетального")]</b> обезвреживания противника боеприпасами [span_warning(get_ammo_marking())] потребуется примерно [non_lethal_hits_to_crit_str]."

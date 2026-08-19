@@ -5,8 +5,14 @@
 	/// Used by R&D to determine what research bonuses it grants.
 	var/origin_tech = null
 	var/crit_fail = FALSE
-	/// Can this object cut?
+	/// Can this object cut? Init-only flag: converted into damage_class on Initialize. Use get_sharpness() / set_damage_class() at runtime.
 	var/sharp = FALSE
+	/// Kinetic damage class used against armor: PIERCING, SLASHING or BLUNT.
+	var/damage_class = BLUNT
+	/// Kinetic energy in joules at this type's initial force. Scales with current force (wielded/toggled weapons). If null, uses force.
+	var/kinetic_force = null
+	/// Softness of the hit, 0-100. Converts failed-pen damage into stamina; on projectile pen adds bonus brute.
+	var/softness = 0
 	/// If we have a user using us, this will become `TRUE`. We will check if the user has stopped using us, and thus stop updating and LAGGING EVERYTHING!
 	var/in_use = FALSE
 	/// What type of damage does this object deal?
@@ -72,8 +78,11 @@
 		armor = getArmor()
 	else if(!istype(armor, /datum/armor))
 		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
-	if(sharp)
+	if(sharp && damage_class == BLUNT)
+		damage_class = SLASHING
+	if(can_initiate_organic_surgery())
 		AddElement(/datum/element/surgery_initiator)
+	sharp = IS_SHARP_DAMAGE_CLASS(damage_class)
 
 	if(on_blueprints && isturf(loc))
 		var/turf/T = loc
@@ -311,14 +320,69 @@
 	//just override it to return TRUE in your object if you want to use it through spawn menu
 	return
 
-/// Set whether the item should be sharp or not
+/// Set whether the item should be sharp or not. Sharpness is derived from damage_class.
 /obj/proc/set_sharpness(new_sharp_val)
-	if(sharp == new_sharp_val)
+	if(new_sharp_val)
+		if(!IS_SHARP_DAMAGE_CLASS(get_damage_class()))
+			set_damage_class(SLASHING)
 		return
-	sharp = new_sharp_val
+	if(IS_SHARP_DAMAGE_CLASS(get_damage_class()))
+		set_damage_class(BLUNT)
+
+/obj/proc/set_damage_class(new_class)
+	var/old_class = get_damage_class()
+	damage_class = normalize_damage_class(new_class)
+	sharp = IS_SHARP_DAMAGE_CLASS(damage_class)
+	if(old_class == damage_class)
+		return
 	SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_SHARPNESS)
-	if(!sharp && new_sharp_val)
+	if(can_initiate_organic_surgery())
 		AddElement(/datum/element/surgery_initiator)
+	else
+		RemoveElement(/datum/element/surgery_initiator)
+
+/obj/proc/get_damage_class()
+	if(damage_class)
+		return normalize_damage_class(damage_class)
+	return BLUNT
+
+/// Precise stabbing tools and dedicated surgical blades can start organic surgery. Wide slashing weapons cannot.
+/obj/proc/can_initiate_organic_surgery()
+	var/class = get_damage_class()
+	if(class == PIERCING)
+		return TRUE
+	return HAS_TRAIT(src, TRAIT_SURGICAL) && IS_SHARP_DAMAGE_CLASS(class)
+
+/obj/proc/get_sharpness()
+	return IS_SHARP_DAMAGE_CLASS(get_damage_class())
+
+/obj/proc/scale_listed_kinetic(listed_kinetic, compared_force)
+	if(isnull(listed_kinetic))
+		return compared_force
+	var/base_force = initial(force)
+	if(base_force <= 0)
+		return listed_kinetic
+	return listed_kinetic * compared_force / base_force
+
+/obj/proc/get_kinetic_force()
+	if(isnull(kinetic_force))
+		return force
+	return scale_listed_kinetic(kinetic_force, force)
+
+/obj/proc/get_thrown_kinetic_force()
+	if(isnull(kinetic_force))
+		return throwforce
+	return scale_listed_kinetic(kinetic_force, throwforce)
+
+/obj/proc/get_softness()
+	return softness
+
+/obj/proc/uses_kinetic_armor(damtype_override)
+	var/check_type = isnull(damtype_override) ? damtype : damtype_override
+	return check_type == BRUTE || check_type == STAMINA
+
+/obj/proc/on_armor_penetrated(mob/living/target, def_zone, brute_damage)
+	return
 
 /obj/proc/force_eject_occupant(mob/target)
 	// This proc handles safely removing occupant mobs from the object if they must be teleported out (due to being SSD/AFK, by admin teleport, etc) or transformed.

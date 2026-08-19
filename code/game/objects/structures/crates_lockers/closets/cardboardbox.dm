@@ -216,7 +216,7 @@
 
 /obj/structure/closet/cardboard/take_damage(damage_amount, damage_type = BRUTE, damage_flag = "", sound_effect = TRUE, attack_dir, armour_penetration = 0)
 	. = ..()
-	if(damage_flag == MELEE)
+	if(damage_flag == MELEE || damage_flag == BLUNT || damage_flag == SLASHING)
 		return
 	var/list/humans = list()
 	for(var/mob/living/carbon/human/human in contents)
@@ -225,6 +225,9 @@
 	if(length(humans) <= 0)
 		return
 	var/mob/living/carbon/human/target = pick(humans)
+	if(damage_type == BRUTE || damage_type == STAMINA)
+		target.apply_kinetic_attack(damage_amount, BODY_ZONE_CHEST, normalize_damage_class(damage_flag), armour_penetration, damage_amount, 0, src, damage_type, is_projectile = TRUE)
+		return
 	var/armor = target.run_armor_check(BODY_ZONE_CHEST, damage_flag, armour_penetration)
 	target.apply_damage(damage_amount, damage_type, BODY_ZONE_CHEST, armor)
 

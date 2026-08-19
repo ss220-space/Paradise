@@ -15,6 +15,8 @@
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
+	damage_class = PIERCING
+	kinetic_force = 40
 	drop_sound = 'sound/items/handling/drop/screwdriver_drop.ogg'
 	pickup_sound = 'sound/items/handling/pickup/screwdriver_pickup.ogg'
 	materials = list(MAT_METAL=75)

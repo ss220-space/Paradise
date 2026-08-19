@@ -554,8 +554,7 @@
 				M.attempt_drill(K.firer)
 	if(modifier)
 		for(var/mob/living/L in range(1, target_turf) - K.firer - target)
-			var/armor = L.run_armor_check(K.def_zone, K.flag, "", "", K.armour_penetration)
-			L.apply_damage(K.damage * modifier, K.damage_type, K.def_zone, armor)
+			L.apply_kinetic_attack(K.damage * modifier, K.def_zone, K.get_damage_class(), K.armour_penetration, K.get_kinetic_force(), K.get_softness(), K, K.damage_type, is_projectile = TRUE)
 			to_chat(L, span_userdanger("Вас поражает [K.declent_ru(NOMINATIVE)]!"))
 
 /obj/item/borg/upgrade/modkit/aoe/turfs
@@ -888,8 +887,7 @@
 			var/kill_modifier = 1
 			if(K.pressure_decrease_active)
 				kill_modifier *= K.pressure_decrease
-			var/armor = L.run_armor_check(K.def_zone, K.flag, "", "", K.armour_penetration)
-			L.apply_damage(target_bounty * kill_modifier, K.damage_type, K.def_zone, armor)
+			L.apply_kinetic_attack(target_bounty * kill_modifier, K.def_zone, K.get_damage_class(), K.armour_penetration, target_bounty * kill_modifier, K.get_softness(), K, K.damage_type, is_projectile = TRUE)
 
 /obj/item/borg/upgrade/modkit/bounty/proc/get_kill(mob/living/L)
 	var/bonus_mod = 1

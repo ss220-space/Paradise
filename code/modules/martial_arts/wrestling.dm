@@ -27,18 +27,16 @@
 	D.visible_message(span_danger("[A] suplexes [D]!"), \
 								span_userdanger("[A] suplexes [D]!"))
 	D.forceMove(A.loc)
-	var/armor_block = D.run_armor_check(null, MELEE)
-	D.apply_damage(30, BRUTE, null, armor_block)
+	var/datum/armor_hit_result/suplex_hit = D.apply_kinetic_attack(30, null, BLUNT, 0, 30, 0, A, BRUTE)
 	objective_damage(A, D, 30, BRUTE)
-	D.apply_effect(12 SECONDS, KNOCKDOWN, armor_block)
+	D.apply_effect(12 SECONDS, KNOCKDOWN, suplex_hit?.penetrated ? 0 : (suplex_hit?.absorption || 0))
 	add_attack_logs(A, D, "Melee attacked with [src] (SUPLEX)")
 
 	A.SpinAnimation(10,1)
 
 	D.SpinAnimation(10,1)
 	spawn(3)
-		armor_block = A.run_armor_check(null, MELEE)
-		A.apply_effect(8 SECONDS, KNOCKDOWN, armor_block)
+		A.apply_effect(8 SECONDS, KNOCKDOWN, A.getarmor(null, BLUNT))
 	return
 
 /datum/martial_art/wrestling/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
@@ -53,8 +51,7 @@
 	D.visible_message(span_danger("[A] holds [D] down!"), \
 								span_userdanger("[A] holds [D] down!"))
 	var/obj/item/organ/external/affecting = D.get_organ(ran_zone(A.zone_selected))
-	var/armor_block = D.run_armor_check(affecting, MELEE)
-	D.apply_damage(10, STAMINA, affecting, armor_block)
+	D.apply_kinetic_attack(10, affecting, BLUNT, 0, 10, 0, A, STAMINA)
 	return TRUE
 
 /datum/martial_art/wrestling/give_explaination(user = usr)

@@ -388,7 +388,7 @@
 	flags_inv = HIDETAIL
 	item_flags = DROPDEL
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals)
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 90, ACID = 90) //No armor at all
+	armor = list(PIERCING = 0, SLASHING = 0, BLUNT = 0, ABSORPTION = 8, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 90, ACID = 90) //No armor at all
 	species_restricted = null
 	faction_restricted = null
 	sprite_sheets = list(
@@ -405,7 +405,7 @@
 	clothing_flags = STOPSPRESSUREDAMAGE
 	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDEHAIR
 	item_flags = DROPDEL
-	armor = list(MELEE = 20, BULLET = 10, LASER = 0, ENERGY = 30, BOMB = 0, BIO = 100, FIRE = 90, ACID = 90)
+	armor = list(PIERCING = 10, SLASHING = 20, BLUNT = 20, ABSORPTION = 14, LASER = 0, ENERGY = 30, BOMB = 0, BIO = 100, FIRE = 90, ACID = 90)
 	species_restricted = null
 	faction_restricted = null
 	sprite_sheets = list(
@@ -438,7 +438,7 @@
 	icon_state = "lingarmor"
 	item_flags = DROPDEL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	armor = list(MELEE = 40, BULLET = 40, LASER = 20, ENERGY = 30, BOMB = 30, BIO = 0, FIRE = 90, ACID = 90)
+	armor = list(PIERCING = 40, SLASHING = 40, BLUNT = 40, ABSORPTION = 16, LASER = 20, ENERGY = 30, BOMB = 30, BIO = 0, FIRE = 90, ACID = 90)
 	flags_inv = HIDEJUMPSUIT
 	cold_protection = 0
 	heat_protection = 0
@@ -460,7 +460,7 @@
 	flags_inv = HIDEHEADSETS|HIDEHAIR
 	item_flags = DROPDEL
 	flags_cover = MASKCOVERSEYES|MASKCOVERSMOUTH
-	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 20, BOMB = 10, BIO = 4, FIRE = 90, ACID = 90)
+	armor = list(PIERCING = 40, SLASHING = 40, BLUNT = 40, ABSORPTION = 16, LASER = 40, ENERGY = 20, BOMB = 10, BIO = 4, FIRE = 90, ACID = 90)
 	species_restricted = null
 	faction_restricted = null
 

@@ -131,7 +131,7 @@
 	icon_state = "secsoft"
 	item_color = "sec"
 	item_state = "secsoft"
-	armor = list(MELEE = 35, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 0, BIO = 0, FIRE = 20, ACID = 50)
+	armor = list(PIERCING = 30, SLASHING = 35, BLUNT = 35, ABSORPTION = 37, LASER = 30, ENERGY = 10, BOMB = 0, BIO = 0, FIRE = 20, ACID = 50)
 	strip_delay = 60
 	dog_fashion = null
 
@@ -153,14 +153,14 @@
 /obj/item/clothing/head/soft/solgov/elite
 	name = "Trans-Solar Federation Specops marine cap"
 	desc = "A cap worn by marines of the Trans-Solar Federation Specops division."
-	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 10, FIRE = 50, ACID = 60)
+	armor = list(PIERCING = 30, SLASHING = 40, BLUNT = 40, ABSORPTION = 40, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 10, FIRE = 50, ACID = 60)
 	icon_state = "solgovelitesoft_flipped"
 	item_color = "solgovelite"
 
 /obj/item/clothing/head/soft/solgov/command
 	name = "Trans-Solar Federation Lieutenant's cap"
 	desc = "A soft cap worn by marines of the Sol Federation. The insignia signifies the wearer bears the rank of a Lieutenant."
-	armor= list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 10, FIRE = 50, ACID = 60)
+	armor= list(PIERCING = 30, SLASHING = 40, BLUNT = 40, ABSORPTION = 40, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 10, FIRE = 50, ACID = 60)
 	icon_state = "solgovcsoft"
 	item_color = "solgovc"
 	dog_fashion = null

@@ -657,9 +657,6 @@
 			return FALSE
 
 		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
-		var/armor_block = target.run_armor_check(affecting, MELEE)
-
-		// Contract diseases
 
 		//user beats target, check target's defense in selected zone
 		for(var/datum/disease/virus/V in user.diseases)
@@ -688,13 +685,23 @@
 				if(target.mind == objective.target)
 					objective.take_damage(damage, damage_type)
 
-		target.apply_damage(damage, damage_type, affecting, armor_block, sharp = attack?.sharp) //moving this back here means Armalis are going to knock you down  70% of the time, but they're pure adminbus anyway.
+		var/datum/armor_hit_result/punch_result = target.apply_kinetic_attack(
+			damage,
+			affecting,
+			attack.get_damage_class(),
+			0,
+			damage,
+			0,
+			user,
+			damage_type,
+		)
+		var/knockdown_resist = punch_result?.penetrated ? 0 : (punch_result?.absorption || 0)
 		if((target.stat != DEAD) && damage >= (user.dna.species.punchstunthreshold + user.physiology.punch_stun_threshold))
 			target.visible_message(
 				span_danger("[user.declent_ru(NOMINATIVE)] ослабля[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)]!"), \
 				span_userdanger("[user.declent_ru(NOMINATIVE)] ослабля[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)]!")
 			)
-			target.apply_effect(4 SECONDS, KNOCKDOWN, armor_block)
+			target.apply_effect(4 SECONDS, KNOCKDOWN, knockdown_resist)
 			target.forcesay(GLOB.hit_appends)
 		else if(target.body_position == LYING_DOWN)
 			target.forcesay(GLOB.hit_appends)
@@ -875,9 +882,15 @@
 	var/attack_sound = SFX_PUNCH
 	var/miss_sound = 'sound/weapons/punchmiss.ogg'
 	var/sharp = FALSE
+	var/damage_class = BLUNT
 	var/animation_type = ATTACK_EFFECT_PUNCH
 	var/harmless = FALSE //if set to true, attacks won't be admin logged and punches will "hit" for no damage
 	var/is_bite = FALSE
+
+/datum/unarmed_attack/proc/get_damage_class()
+	if(damage_class && damage_class != BLUNT)
+		return normalize_damage_class(damage_class)
+	return sharp ? SLASHING : BLUNT
 
 /datum/unarmed_attack/diona
 	attack_verb = list("охлестал", "тяжело стукнул", "лозой хлестанул", "ветвью щелкнул")
@@ -887,12 +900,14 @@
 	attack_sound = 'sound/weapons/slice.ogg'
 	miss_sound = 'sound/weapons/slashmiss.ogg'
 	sharp = TRUE
+	damage_class = SLASHING
 	animation_type = ATTACK_EFFECT_CLAW
 
 /datum/unarmed_attack/bite
 	attack_verb = list("укусил")
 	attack_sound = 'sound/weapons/bite.ogg'
 	sharp = TRUE
+	damage_class = PIERCING
 	animation_type = ATTACK_EFFECT_BITE
 	is_bite = TRUE
 

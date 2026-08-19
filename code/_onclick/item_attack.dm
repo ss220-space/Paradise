@@ -225,7 +225,7 @@
 		return .
 	if(attempt_harvest(item, user))
 		return .|ATTACK_CHAIN_BLOCKED_ALL
-	if(item.sharp && item.damtype == BRUTE && !(HAS_TRAIT(item, TRAIT_SURGICAL) && body_position == LYING_DOWN && user.a_intent == INTENT_HELP) && !issyringe(item) && !isbot(src) && !(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt))
+	if(item.get_sharpness() && item.damtype == BRUTE && !(HAS_TRAIT(item, TRAIT_SURGICAL) && body_position == LYING_DOWN && user.a_intent == INTENT_HELP) && !issyringe(item) && !isbot(src) && !(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt))
 		var/splatter_color = get_blood_color()
 		if(splatter_color)
 			new /obj/effect/temp_visual/dir_setting/bloodsplatter(loc, get_angle(user, src), splatter_color)
@@ -355,7 +355,7 @@
 		span_danger("[user] ударил[GEND_A_O_I(user)] [declent_ru(ACCUSATIVE)] [item.declent_ru(INSTRUMENTAL)]!"),
 		span_danger("Вы ударили [declent_ru(ACCUSATIVE)] [item.declent_ru(INSTRUMENTAL)]!"),
 	)
-	take_damage(item.get_final_force(user), item.damtype, MELEE, TRUE, get_dir(user, src), item.armour_penetration)
+	take_damage(item.get_final_force(user), item.damtype, item.get_damage_class(), TRUE, get_dir(user, src), item.armour_penetration)
 	if(QDELETED(src)) // thats a pretty common behavior with objects, when they take damage
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -366,13 +366,30 @@
 	if(!item.force)
 		return .
 
-	var/apply_damage_result = apply_damage(item.get_final_force(user), item.damtype, def_zone, sharp = item.sharp, used_weapon = item)
-	// if we are hitting source with real weapon and any brute damage was done, we apply victim's blood everywhere
-	if(apply_damage_result && item.damtype == BRUTE && prob(33))
-		item.add_mob_blood(src)
-		add_splatter_floor()
-		if(get_dist(user, src) <= 1) //people with TK won't get smeared with blood
-			user.add_mob_blood(src)
+	if(item.uses_kinetic_armor(item.damtype))
+		var/datum/armor_hit_result/result = apply_kinetic_attack(
+			item.get_final_force(user),
+			def_zone,
+			item.get_damage_class(),
+			item.armour_penetration,
+			item.get_kinetic_force(),
+			item.get_softness(),
+			item,
+			item.damtype,
+			skip_penetration = (item.damtype == STAMINA),
+		)
+		if(result?.brute_damage && item.damtype == BRUTE && prob(33))
+			item.add_mob_blood(src)
+			add_splatter_floor()
+			if(get_dist(user, src) <= 1)
+				user.add_mob_blood(src)
+	else
+		var/apply_damage_result = apply_damage(item.get_final_force(user), item.damtype, def_zone, sharp = item.get_sharpness(), used_weapon = item)
+		if(apply_damage_result && item.damtype == BRUTE && prob(33))
+			item.add_mob_blood(src)
+			add_splatter_floor()
+			if(get_dist(user, src) <= 1)
+				user.add_mob_blood(src)
 
 	if(QDELETED(src)) // rare, but better be safe
 		return ATTACK_CHAIN_BLOCKED_ALL

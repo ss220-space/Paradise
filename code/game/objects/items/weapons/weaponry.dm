@@ -9,6 +9,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 7
 	throw_range = 15
+	damage_class = BLUNT
 	attack_verb = list("banned")
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
@@ -49,6 +50,8 @@
 	force = 2
 	throwforce = 1
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	damage_class = SLASHING
+	kinetic_force = 12
 	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 
 /obj/item/sord/suicide_act(mob/user)
@@ -66,6 +69,8 @@
 	force = 40
 	throwforce = 10
 	sharp = 1
+	damage_class = SLASHING
+	kinetic_force = 640
 	embed_chance = 20
 	pickup_sound = 'sound/items/handling/pickup/knife_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/knife_drop.ogg'
@@ -107,6 +112,8 @@
 	force = 40
 	throwforce = 10
 	sharp = 1
+	damage_class = SLASHING
+	kinetic_force = 240
 	embed_chance = 20
 	embedded_ignore_throwspeed_threshold = TRUE
 	pickup_sound = 'sound/items/handling/pickup/knife_pickup.ogg'
@@ -176,6 +183,8 @@
 	item_state = "harpoon"
 	force = 20
 	throwforce = 15
+	damage_class = PIERCING
+	kinetic_force = 240
 	attack_verb = list("уколол", "тыкнул")
 
 /obj/item/wirerod
@@ -187,6 +196,8 @@
 	force = 9
 	throwforce = 10
 	materials = list(MAT_METAL=1150, MAT_GLASS=75)
+	damage_class = BLUNT
+	kinetic_force = 144
 	attack_verb = list("ударил", "огрел")
 
 /obj/item/wirerod/attackby(obj/item/I, mob/user, params)
@@ -237,6 +248,8 @@
 	embed_chance = 100
 	embedded_fall_chance = 0 //Hahaha!
 	sharp = 1
+	damage_class = PIERCING
+	kinetic_force = 16
 	materials = list(MAT_METAL=500, MAT_GLASS=500)
 	resistance_flags = FIRE_PROOF
 
@@ -249,6 +262,8 @@
 	var/lastdeflect
 	force = 10
 	throwforce = 12
+	damage_class = BLUNT
+	kinetic_force = 200
 	attack_verb = list("beat", "шлёпнул")
 	w_class = WEIGHT_CLASS_HUGE
 	pickup_sound = 'sound/items/handling/pickup/wooden_pickup.ogg'
@@ -508,6 +523,8 @@
 	slot_flags = ITEM_SLOT_BELT
 	force = 3
 	throwforce = 3
+	damage_class = BLUNT
+	kinetic_force = 48
 	var/stamina_damage = 22
 
 /obj/item/melee/nutcracker/get_ru_names()

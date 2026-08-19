@@ -1,15 +1,19 @@
 // MARK: 7.62x51mm - 'L6 SAW'
 /obj/projectile/bullet/saw
 	damage = 45
-	armour_penetration = 5
+	kinetic_force = 940
+	armour_penetration = 35
 
 /obj/projectile/bullet/saw/weak
 	damage = 30
+	kinetic_force = 670
+	armour_penetration = 25
 	ricochet_chance = 10
 
 /obj/projectile/bullet/saw/bleeding
 	damage = 20
-	armour_penetration = 0
+	kinetic_force = 280
+	armour_penetration = 10
 
 /obj/projectile/bullet/saw/bleeding/on_hit(atom/target, blocked = 0, hit_zone)
 	. = ..()
@@ -18,17 +22,21 @@
 		C.bleed(35)
 
 /obj/projectile/bullet/saw/hollow
-	damage = 60
-	armour_penetration = -10
+	damage = 45
+	softness = 40
+	kinetic_force = 820
+	armour_penetration = 10
 	ricochets_max = 0
 
 /obj/projectile/bullet/saw/ap
 	damage = 40
-	armour_penetration = 75
+	kinetic_force = 670
+	armour_penetration = 80
 
 /obj/projectile/bullet/saw/incen
 	damage = 7
-	armour_penetration = 0
+	kinetic_force = 120
+	armour_penetration = 30
 	immolate = 3
 
 /obj/projectile/bullet/saw/incen/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
@@ -46,7 +54,8 @@
 	//range = 100
 	damage = 100
 	weaken = 4 SECONDS
-	armour_penetration = 50
+	kinetic_force = 2520
+	armour_penetration = 60
 	forced_accuracy = TRUE
 	var/breakthings = TRUE
 
@@ -56,7 +65,8 @@
 	return ..()
 
 /obj/projectile/bullet/sniper/soporific
-	armour_penetration = 0
+	armour_penetration = 10
+	kinetic_force = 220
 	nodamage = TRUE
 	weaken = 0
 	breakthings = FALSE
@@ -82,8 +92,9 @@
 	return ..()
 
 /obj/projectile/bullet/sniper/haemorrhage
-	armour_penetration = 15
+	armour_penetration = 25
 	damage = 15
+	kinetic_force = 500
 	weaken = 0
 	breakthings = FALSE
 	var/bleeding = 100
@@ -99,6 +110,7 @@
 	icon_state = "gauss"
 	name = "penetrator round"
 	damage = 60
+	kinetic_force = 1600
 	forcedodge = -1
 	weaken = 0
 	breakthings = FALSE
@@ -111,6 +123,7 @@
 // MARK: .50L - Compact Syndicate SR
 /obj/projectile/bullet/sniper/compact //Can't dismember, and can't break things; just deals massive damage.
 	damage = 70
+	kinetic_force = 2010
 	knockdown = 4 SECONDS
 	weaken = 0
 	breakthings = FALSE

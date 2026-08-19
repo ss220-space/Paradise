@@ -77,6 +77,12 @@
 /obj/item/ammo_box/add_weapon_description()
 	AddElement(/datum/element/weapon_description, attached_proc = PROC_REF(add_notes_box))
 
+/obj/item/ammo_box/weapon_description_skill_type()
+	return /datum/skill/combat/guns
+
+/obj/item/ammo_box/can_show_weapon_description(mob/user)
+	return length(stored_ammo) > 0
+
 /obj/item/ammo_box/proc/add_notes_box()
 	var/list/readout = list()
 	var/obj/item/ammo_casing/mag_ammo = get_round(TRUE)

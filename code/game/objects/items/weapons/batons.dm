@@ -9,6 +9,8 @@
 	item_state = "classic_baton"
 	slot_flags = ITEM_SLOT_BELT
 	force = 12
+	damage_class = BLUNT
+	kinetic_force = 192
 	/// Whether this baton is active or not.
 	var/active = TRUE
 	/// Default wait time until can stun again.

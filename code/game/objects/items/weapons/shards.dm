@@ -9,6 +9,8 @@
 	force = 5
 	throwforce = 10
 	item_state = "shard-glass"
+	damage_class = PIERCING
+	kinetic_force = 40
 	materials = list(MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
 	attack_verb = list("уколол", "полоснул", "порезал")
 	hitsound = 'sound/weapons/bladeslice.ogg'

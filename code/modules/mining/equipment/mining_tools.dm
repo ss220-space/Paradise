@@ -10,6 +10,8 @@
 	throwforce = 10
 	item_state = "pickaxe"
 	w_class = WEIGHT_CLASS_BULKY
+	damage_class = PIERCING
+	kinetic_force = 180
 	materials = list(MAT_METAL=2000) //one sheet, but where can you make them?
 	origin_tech = "materials=2;engineering=3"
 	attack_verb = list("ударил", "уколол", "атаковал")
@@ -254,6 +256,8 @@
 	force = 8
 	throwforce = 4
 	item_state = "shovel"
+	damage_class = BLUNT
+	kinetic_force = 128
 	materials = list(MAT_METAL=50)
 	origin_tech = "materials=2;engineering=2"
 	attack_verb = list("ударил", "огрел")

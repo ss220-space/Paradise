@@ -24,7 +24,7 @@
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	heat_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	armor = list(MELEE = 75, BULLET = 50, LASER = 30, ENERGY = 20, BOMB = 25, FIRE = 80, ACID = 200)
+	armor = list(PIERCING = 50, SLASHING = 75, BLUNT = 75, ABSORPTION = 68, LASER = 30, ENERGY = 20, BOMB = 25, FIRE = 80, ACID = 200)
 	put_on_delay = 6 SECONDS
 	slowdown = 0
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/vox
@@ -45,7 +45,7 @@
 	)
 	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	armor = list(MELEE = 75, BULLET = 50, LASER = 30, ENERGY = 20, BOMB = 25, FIRE = 80, ACID = 200)
+	armor = list(PIERCING = 50, SLASHING = 75, BLUNT = 75, ABSORPTION = 68, LASER = 30, ENERGY = 20, BOMB = 25, FIRE = 80, ACID = 200)
 
 /obj/item/clothing/head/helmet/space/hardsuit/vox/ComponentInitialize()
 	. = ..()
@@ -60,7 +60,7 @@
 			\nКостюм космического штурмовика рейдеров с защитой от огнестрела и колюще-режущего."
 	icon_state = "vox-raider-trooper"
 	item_color = "vox-raider-trooper"
-	armor = list(MELEE = 75, BULLET = 50, LASER = 30, ENERGY = 20, BOMB = 25, FIRE = 80, ACID = 200)
+	armor = list(PIERCING = 50, SLASHING = 75, BLUNT = 75, ABSORPTION = 68, LASER = 30, ENERGY = 20, BOMB = 25, FIRE = 80, ACID = 200)
 	strip_delay = 12 SECONDS
 	put_on_delay = 8 SECONDS
 	slowdown = 1
@@ -70,7 +70,7 @@
 	name = "vox raider trooper helmet"
 	icon_state = "vox-raider-trooper"
 	item_color = "vox-raider-trooper"
-	armor = list(MELEE = 75, BULLET = 50, LASER = 30, ENERGY = 20, BOMB = 25, FIRE = 80, ACID = 200)
+	armor = list(PIERCING = 50, SLASHING = 75, BLUNT = 75, ABSORPTION = 68, LASER = 30, ENERGY = 20, BOMB = 25, FIRE = 80, ACID = 200)
 
 /obj/item/clothing/suit/space/hardsuit/vox/scout
 	name = "vox raider scout hardsuit"
@@ -78,7 +78,7 @@
 			\nКостюм разведчика не сковывает движение и помогает владельцу удобней двигаться в условиях невесомости."
 	icon_state = "vox-raider-scout"
 	item_color = "vox-raider-scout"
-	armor = list(MELEE = 10, BULLET = 20, LASER = 30, ENERGY = 30, BOMB = 15, FIRE = 80, ACID = 200)
+	armor = list(PIERCING = 20, SLASHING = 10, BLUNT = 10, ABSORPTION = 35, LASER = 30, ENERGY = 30, BOMB = 15, FIRE = 80, ACID = 200)
 	strip_delay = 6 SECONDS
 	put_on_delay = 4 SECONDS
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/vox/scout
@@ -88,7 +88,7 @@
 	name = "vox raider scout helmet"
 	icon_state = "vox-raider-scout"
 	item_color = "vox-raider-scout"
-	armor = list(MELEE = 10, BULLET = 20, LASER = 30, ENERGY = 30, BOMB = 15, FIRE = 80, ACID = 200)
+	armor = list(PIERCING = 20, SLASHING = 10, BLUNT = 10, ABSORPTION = 35, LASER = 30, ENERGY = 30, BOMB = 15, FIRE = 80, ACID = 200)
 
 /obj/item/clothing/suit/space/hardsuit/vox/medic
 	name = "vox raider medic hardsuit"
@@ -96,7 +96,7 @@
 			\nКостюм для работы в условиях отдаленности от опасностей. Более подвижен и обладает приемлимыми свойствами защиты от воздействий различного рода снарядов, но из-за своей структуры способен нанести вред носителю при взрывных воздействиях или колющих атак. Костюм отлично выдерживает радиационный фон и кислотное воздействие и биологическими угрозами. Имеет хранилище для ношения аптечек контейнеров с химикатами."
 	icon_state = "vox-raider-medic"
 	item_color = "vox-raider-medic"
-	armor = list(MELEE = -30, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = -30, FIRE = 120, ACID = INFINITY)
+	armor = list(PIERCING = 50, SLASHING = -30, BLUNT = -30, ABSORPTION = 15, LASER = 50, ENERGY = 50, BOMB = -30, FIRE = 120, ACID = INFINITY)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/vox/medic
 	allowed = list(
 		/obj/item/flashlight,
@@ -130,7 +130,7 @@
 	name = "vox raider medic helmet"
 	icon_state = "vox-raider-medic"
 	item_color = "vox-raider-medic"
-	armor = list(MELEE = -30, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = -30, FIRE = 120, ACID = INFINITY)
+	armor = list(PIERCING = 50, SLASHING = -30, BLUNT = -30, ABSORPTION = 15, LASER = 50, ENERGY = 50, BOMB = -30, FIRE = 120, ACID = INFINITY)
 
 /obj/item/clothing/suit/space/hardsuit/vox/mechanic
 	name = "vox raider mechanic hardsuit"
@@ -139,7 +139,7 @@
 	icon_state = "vox-raider-mechanic"
 	item_color = "vox-raider-mechanic"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	armor = list(MELEE = 20, BULLET = 20, LASER = 75, ENERGY = 50, BOMB = 150, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(PIERCING = 20, SLASHING = 20, BLUNT = 20, ABSORPTION = 42, LASER = 75, ENERGY = 50, BOMB = 150, FIRE = INFINITY, ACID = INFINITY)
 	slowdown = 2
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/vox/mechanic
 	allowed = list(
@@ -163,7 +163,7 @@
 	icon_state = "vox-raider-mechanic"
 	item_color = "vox-raider-mechanic"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	armor = list(MELEE = 20, BULLET = 20, LASER = 75, ENERGY = 50, BOMB = 150, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(PIERCING = 20, SLASHING = 20, BLUNT = 20, ABSORPTION = 42, LASER = 75, ENERGY = 50, BOMB = 150, FIRE = INFINITY, ACID = INFINITY)
 
 /obj/item/clothing/suit/space/hardsuit/vox/heavy
 	name = "vox raider heavy hardsuit"
@@ -172,7 +172,7 @@
 	icon_state = "vox-raider-heavy"
 	item_color = "vox-raider-heavy"
 	w_class = WEIGHT_CLASS_HUGE
-	armor = list(MELEE = 115, BULLET = 80, LASER = 150, ENERGY = 80, BOMB = 200, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(PIERCING = 80, SLASHING = 115, BLUNT = 115, ABSORPTION = 82, LASER = 150, ENERGY = 80, BOMB = 200, FIRE = INFINITY, ACID = INFINITY)
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	slowdown = 3	// Даже черепаха быстрее чем это ведро.
 	strip_delay = 20 SECONDS
@@ -183,5 +183,5 @@
 	name = "vox raider heavy helmet"
 	icon_state = "vox-raider-heavy"
 	item_color = "vox-raider-heavy"
-	armor = list(MELEE = 115, BULLET = 80, LASER = 115, ENERGY = 80, BOMB = 200, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(PIERCING = 80, SLASHING = 115, BLUNT = 115, ABSORPTION = 82, LASER = 115, ENERGY = 80, BOMB = 200, FIRE = INFINITY, ACID = INFINITY)
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT

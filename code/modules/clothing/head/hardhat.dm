@@ -9,7 +9,7 @@
 	light_range = 4
 	light_system = OVERLAY_LIGHT_DIRECTIONAL
 	item_color = "yellow" //Determines used sprites: hardhat[on]_[color] and hardhat[on]_[color]2 (lying down sprite)
-	armor = list(MELEE = 15, BULLET = 5, LASER = 20, ENERGY = 10, BOMB = 20, BIO = 10, FIRE = 100, ACID = 50)
+	armor = list(PIERCING = 5, SLASHING = 15, BLUNT = 15, ABSORPTION = 12, LASER = 20, ENERGY = 10, BOMB = 20, BIO = 10, FIRE = 100, ACID = 50)
 	clothing_flags = parent_type::clothing_flags|STACKABLE_HELMET_EXEMPT
 	resistance_flags = FIRE_PROOF
 	dog_fashion = /datum/dog_fashion/head/hardhat

@@ -57,7 +57,6 @@
 
 	var/obj/item/organ/external/affecting = user.zone_selected //Find what the player is aiming at
 
-	var/armor_block = 0 //Get the target's armor values for normal attack damage.
 	var/armor_duration = 0 //The more force the bottle has, the longer the duration.
 
 	//Calculating duration and calculating damage.
@@ -65,13 +64,13 @@
 
 		var/mob/living/carbon/human/human_target = target
 		var/headarmor = 0 // Target's head armor
-		armor_block = human_target.run_armor_check(affecting, MELEE,"","",armour_penetration) // For normal attack damage
+		human_target.apply_kinetic_attack(force, affecting, get_damage_class(), armour_penetration, get_kinetic_force(), get_softness(), src, BRUTE)
 
 		//If they have a hat/helmet and the user is targeting their head.
 		if(affecting == BODY_ZONE_HEAD && istype(human_target.head, /obj/item/clothing/head))
 
 			// If their head has an armor value, assign headarmor to it, else give it 0.
-			var/armor_get = human_target.head.armor.getRating(MELEE)
+			var/armor_get = human_target.head.armor.getRating(BLUNT)
 			if(armor_get)
 				headarmor = armor_get
 			else
@@ -83,15 +82,10 @@
 		armor_duration = (duration - headarmor) + force
 
 	else
-		//Only humans can have armor, right?
-		armor_block = target.run_armor_check(affecting, MELEE)
+		target.apply_kinetic_attack(force, affecting, get_damage_class(), armour_penetration, get_kinetic_force(), get_softness(), src, BRUTE)
 		if(affecting == BODY_ZONE_HEAD)
 			armor_duration = duration + force
 	armor_duration /= 10
-
-	//Apply the damage!
-	armor_block = min(90, armor_block)
-	target.apply_damage(force, BRUTE, affecting, armor_block)
 
 	// You are going to knock someone out for longer if they are not wearing a helmet.
 	var/head_attack_message = ""

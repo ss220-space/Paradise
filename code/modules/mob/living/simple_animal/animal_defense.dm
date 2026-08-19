@@ -121,7 +121,12 @@
 			damage = rand(20 + M.age_state.damage, 35 + M.age_state.damage)
 		return attack_threshold_check(damage)
 
-/mob/living/simple_animal/proc/attack_threshold_check(damage, damagetype = BRUTE, armorcheck = MELEE)
+/mob/living/simple_animal/get_melee_damage_class()
+	if(damage_class)
+		return normalize_damage_class(damage_class)
+	return BLUNT
+
+/mob/living/simple_animal/proc/attack_threshold_check(damage, damagetype = BRUTE, armorcheck = BLUNT)
 	var/temp_damage = damage
 	if(!damage_coeff[damagetype])
 		temp_damage = 0
@@ -132,12 +137,40 @@
 		visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] выглядит невредимым."))
 		return FALSE
 	else
-		apply_damage(damage, damagetype, null, getarmor(attack_flag = armorcheck))
+		if(damagetype == BRUTE || damagetype == STAMINA)
+			apply_kinetic_attack(
+				damage,
+				null,
+				get_melee_damage_class(),
+				armour_penetration,
+				damage,
+				0,
+				src,
+				damagetype,
+				skip_penetration = (damagetype == STAMINA),
+			)
+		else
+			apply_damage(damage, damagetype, null, getarmor(attack_flag = armorcheck))
 		return TRUE
 
 /mob/living/simple_animal/bullet_act(obj/projectile/Proj)
 	if(!Proj)
 		return
+	if(Proj.uses_kinetic_armor())
+		var/datum/armor_hit_result/result = apply_kinetic_attack(
+			Proj.damage,
+			null,
+			Proj.get_damage_class(),
+			Proj.armour_penetration,
+			Proj.get_kinetic_force(),
+			Proj.get_softness(),
+			Proj,
+			Proj.damage_type,
+			skip_penetration = (Proj.damage_type == STAMINA),
+			is_projectile = TRUE,
+		)
+		Proj.on_hit(src, result?.penetrated ? 0 : 100)
+		return FALSE
 	apply_damage(Proj.damage, Proj.damage_type)
 	Proj.on_hit(src, 0)
 	return FALSE

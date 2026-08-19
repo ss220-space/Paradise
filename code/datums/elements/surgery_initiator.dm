@@ -55,7 +55,7 @@
 /datum/element/surgery_initiator/proc/on_parent_sharpness_change(datum/source)
 	SIGNAL_HANDLER  // COMSIG_ATOM_UPDATE_SHARPNESS
 	var/obj/item/tool = source
-	if(!tool.sharp)
+	if(!tool.can_initiate_organic_surgery())
 		tool.RemoveElement(/datum/element/surgery_initiator)
 
 /// Does the surgery initiation.

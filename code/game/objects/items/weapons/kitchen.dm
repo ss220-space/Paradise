@@ -26,6 +26,8 @@
 	throw_speed = 3
 	throw_range = 5
 	flags = CONDUCT
+	damage_class = PIERCING
+	kinetic_force = 40
 	attack_verb = list("атаковал", "уколол", "ткнул")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 30)
@@ -94,6 +96,8 @@
 	name = "spoon"
 	desc = "It's a spoon. You can see your own upside-down face in it."
 	icon_state = "spoon"
+	damage_class = BLUNT
+	kinetic_force = 70
 	attack_verb = list("атаковал", "ткнул")
 	tool_behaviour = TOOL_MINING
 	toolspeed = 25 // Literally 25 times worse than the base pickaxe
@@ -102,6 +106,8 @@
 	name = "plastic spoon"
 	desc = "It's a plastic spoon. How dull."
 	icon_state = "pspoon"
+	damage_class = BLUNT
+	kinetic_force = 70
 	attack_verb = list("атаковал", "ткнул")
 
 /obj/item/kitchen/utensil/spork
@@ -127,6 +133,8 @@
 	force = 10
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 10
+	damage_class = PIERCING
+	kinetic_force = 100
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	pickup_sound = 'sound/items/handling/pickup/knife_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/knife_drop.ogg'
@@ -276,6 +284,8 @@
 	throwforce = 8
 	attack_verb = list("полоснул", "уколол", "поранил", "порезал")
 	w_class = WEIGHT_CLASS_NORMAL
+	damage_class = SLASHING
+	kinetic_force = 150
 
 /obj/item/kitchen/knife/butcher/get_ru_names()
 	return alist(
@@ -332,6 +342,7 @@
 	force = 20
 	throwforce = 20
 	origin_tech = "materials=3;combat=4"
+	kinetic_force = 240
 	attack_verb = list("полоснул", "уколол", "поранил", "порезал")
 	bayonet_suitable = TRUE
 	embed_chance = 90
@@ -534,6 +545,8 @@
 	force = 8.0
 	throwforce = 10.0
 	throw_speed = 3
+	damage_class = BLUNT
+	kinetic_force = 128
 	attack_verb = list("ударил", "огрел")
 
 /* Trays moved to /obj/item/storage/bag */

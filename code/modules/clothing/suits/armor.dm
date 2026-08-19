@@ -21,7 +21,7 @@
 	put_on_delay = 40
 	max_integrity = 250
 	resistance_flags = NONE
-	armor = list(MELEE = 30, BULLET = 30, LASER = 30, ENERGY = 20, BOMB = 25, BIO = 0, FIRE = 50, ACID = 50)
+	armor = list(PIERCING = 30, SLASHING = 30, BLUNT = 30, ABSORPTION = 45, LASER = 30, ENERGY = 20, BOMB = 25, BIO = 0, FIRE = 50, ACID = 50)
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
@@ -136,7 +136,7 @@
 	icon_state = "secjacket_open"
 	item_state = "secjacket"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-	armor = list(melee = 25, bullet = 15, laser = 25, energy = 10, bomb = 25, bio = 0, fire = 50, acid = 50)
+	armor = list(PIERCING = 15, SLASHING = 25, BLUNT = 25, ABSORPTION = 40, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 0, FIRE = 50, ACID = 50)
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	ignore_suitadjust = FALSE
@@ -152,7 +152,7 @@
 	icon_state = "hos"
 	item_state = "hos"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
-	armor = list(MELEE = 30, BULLET = 30, LASER = 30, ENERGY = 25, BOMB = 25, BIO = 0, FIRE = 70, ACID = 90)
+	armor = list(PIERCING = 30, SLASHING = 30, BLUNT = 30, ABSORPTION = 55, LASER = 30, ENERGY = 25, BOMB = 25, BIO = 0, FIRE = 70, ACID = 90)
 	flags_inv = HIDEJUMPSUIT
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
@@ -199,7 +199,7 @@
 	name = "security belt-shoulder system"
 	desc = "A belt-shoulder system for officers that are more inclined towards style than safety."
 	icon_state = "sec_rps"
-	armor=  list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 5, BIO = 0, FIRE = 0, ACID = 0)
+	armor=  list(PIERCING = 0, SLASHING = 0, BLUNT = 0, ABSORPTION = 8, LASER = 0, ENERGY = 0, BOMB = 5, BIO = 0, FIRE = 0, ACID = 0)
 	undyeable = TRUE
 	allowed = list(/obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/kitchen/knife/combat)
 	pockets_count = 4
@@ -209,7 +209,7 @@
 	name = "captain's carapace"
 	desc = "An armored vest reinforced with ceramic plates and pauldrons to provide additional protection whilst still offering maximum mobility and flexibility. Issued only to the station's finest, although it does chafe your nipples."
 	icon_state = "capcarapace"
-	armor = list(MELEE = 50, BULLET = 40, LASER = 50, ENERGY = 20, BOMB = 25, BIO = 0, FIRE = 100, ACID = 90)
+	armor = list(PIERCING = 40, SLASHING = 50, BLUNT = 50, ABSORPTION = 65, LASER = 50, ENERGY = 20, BOMB = 25, BIO = 0, FIRE = 100, ACID = 90)
 	dog_fashion = null
 	resistance_flags = FIRE_PROOF
 
@@ -227,7 +227,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	armor = list(MELEE = 50, BULLET = 10, LASER = 10, ENERGY = 20, BOMB = 0, BIO = 0, FIRE = 80, ACID = 80)
+	armor = list(PIERCING = 10, SLASHING = 50, BLUNT = 50, ABSORPTION = 32, LASER = 10, ENERGY = 20, BOMB = 0, BIO = 0, FIRE = 80, ACID = 80)
 	flags_inv = HIDEJUMPSUIT
 	flags_inv_transparent = HIDEJUMPSUIT
 	strip_delay = 80
@@ -289,7 +289,7 @@
 	icon_state = "knight_templar"
 	item_state = "knight_templar"
 	allowed = list(/obj/item/nullrod/claymore, /obj/item/storage/belt/claymore)
-	armor = list(melee = 25, bullet = 5, laser = 5, energy = 5, bomb = 0, bio = 0, fire = 80, acid = 80)
+	armor = list(PIERCING = 5, SLASHING = 25, BLUNT = 25, ABSORPTION = 32, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 0, FIRE = 80, ACID = 80)
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
@@ -302,7 +302,7 @@
 	item_state = "durathread"
 	max_integrity = 200
 	resistance_flags = FLAMMABLE
-	armor = list(MELEE = 20, BULLET = 10, LASER = 30, ENERGY = 15, BOMB = 15, BIO = 0, FIRE = 40, ACID = 50)
+	armor = list(PIERCING = 10, SLASHING = 20, BLUNT = 20, ABSORPTION = 22, LASER = 30, ENERGY = 15, BOMB = 15, BIO = 0, FIRE = 40, ACID = 50)
 
 /obj/item/clothing/suit/armor/bulletproof
 	name = "Bulletproof Vest"
@@ -311,7 +311,7 @@
 	item_state = "armor"
 	blood_overlay_type = "armor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	armor = list(MELEE = 15, BULLET = 45, LASER = 10, ENERGY = 20, BOMB = 40, BIO = 0, FIRE = 50, ACID = 50)
+	armor = list(PIERCING = 60, SLASHING = 15, BLUNT = 20, ABSORPTION = 55, LASER = 10, ENERGY = 20, BOMB = 40, BIO = 0, FIRE = 50, ACID = 50)
 	strip_delay = 70
 	put_on_delay = 50
 	sprite_sheets = list(
@@ -334,7 +334,7 @@
 	icon_state = "armor_reflec"
 	item_state = "armor_reflec"
 	blood_overlay_type = "armor"
-	armor = list(MELEE = 10, BULLET = 10, LASER = 60, ENERGY = 50, BOMB = 0, BIO = 0, FIRE = 100, ACID = 100)
+	armor = list(PIERCING = 10, SLASHING = 10, BLUNT = 10, ABSORPTION = 20, LASER = 60, ENERGY = 50, BOMB = 0, BIO = 0, FIRE = 100, ACID = 100)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/hit_reflect_chance = 50
 
@@ -355,7 +355,7 @@
 	item_state = "reflector"
 	blood_overlay_type = "armor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	armor = list(MELEE = 10, BULLET = 10, LASER = 60, ENERGY = 60, BOMB = 0, BIO = 0, FIRE = 100, ACID = 100)
+	armor = list(PIERCING = 10, SLASHING = 10, BLUNT = 10, ABSORPTION = 20, LASER = 60, ENERGY = 60, BOMB = 0, BIO = 0, FIRE = 100, ACID = 100)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	sprite_sheets = list(
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
@@ -417,7 +417,7 @@
 	icon_state = "reactiveoff"
 	item_state = "reactiveoff"
 	blood_overlay_type = "armor"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 100, ACID = 100)
+	armor = list(PIERCING = 0, SLASHING = 0, BLUNT = 0, ABSORPTION = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 100, ACID = 100)
 	actions_types = list(/datum/action/item_action/toggle)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	hit_reaction_chance = 50
@@ -566,14 +566,14 @@
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	sprite_sheets = null
-	armor = list(MELEE = 80, BULLET = 80, LASER = 50, ENERGY = 50, BOMB = 100, BIO = 100, FIRE = 90, ACID = 90)
+	armor = list(PIERCING = 80, SLASHING = 80, BLUNT = 80, ABSORPTION = 88, LASER = 50, ENERGY = 50, BOMB = 100, BIO = 100, FIRE = 90, ACID = 90)
 
 /obj/item/clothing/suit/armor/heavy
 	name = "heavy armor"
 	desc = "A heavily armored suit that protects against moderate damage."
 	icon_state = "heavy"
 	item_state = "swat_suit"
-	armor = list(MELEE = 80, BULLET = 80, LASER = 50, ENERGY = 50, BOMB = 100, BIO = 100, FIRE = 90, ACID = 90)
+	armor = list(PIERCING = 80, SLASHING = 80, BLUNT = 80, ABSORPTION = 88, LASER = 50, ENERGY = 50, BOMB = 100, BIO = 100, FIRE = 90, ACID = 90)
 	w_class = WEIGHT_CLASS_BULKY
 	gas_transfer_coefficient = 0.90
 	clothing_flags = THICKMATERIAL
@@ -587,7 +587,7 @@
 	)
 
 /obj/item/clothing/suit/armor/tdome
-	armor = list(MELEE = 80, BULLET = 80, LASER = 50, ENERGY = 50, BOMB = 100, BIO = 100, FIRE = 90, ACID = 90)
+	armor = list(PIERCING = 80, SLASHING = 80, BLUNT = 80, ABSORPTION = 88, LASER = 50, ENERGY = 50, BOMB = 100, BIO = 100, FIRE = 90, ACID = 90)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	clothing_flags = THICKMATERIAL
@@ -620,7 +620,7 @@
 	name = "emergency response team armor"
 	desc = "A set of armor worn by members of the Nanotrasen Emergency Response Team."
 	icon_state = "ertarmor_cmd"
-	armor = list(melee = 30, bullet = 30, laser = 30, energy = 30, bomb = 20, bio = 0, fire = 50, acid = 50)
+	armor = list(PIERCING = 30, SLASHING = 30, BLUNT = 30, ABSORPTION = 55, LASER = 30, ENERGY = 30, BOMB = 20, BIO = 0, FIRE = 50, ACID = 50)
 
 //Commander
 /obj/item/clothing/suit/armor/vest/ert/command
@@ -672,7 +672,7 @@
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
 	heat_protection = UPPER_TORSO|LOWER_TORSO
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
-	armor = list(melee = 25, bullet = 15, laser = 25, energy = 10, bomb = 25, bio = 0, fire = 40, acid = 40)
+	armor = list(PIERCING = 15, SLASHING = 25, BLUNT = 25, ABSORPTION = 40, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 0, FIRE = 40, ACID = 40)
 
 //LAVALAND!
 
@@ -682,7 +682,7 @@
 	item_state = "dragon"
 	desc = "Доспехи, созданные из останков пепельного дракона."
 	allowed = ALLOWED_MINING_SUIT_ITEMS
-	armor = list(MELEE = 70, BULLET = 30, LASER = 50, ENERGY = 40, BOMB = 70, BIO = 60, FIRE = 100, ACID = 100)
+	armor = list(PIERCING = 30, SLASHING = 70, BLUNT = 70, ABSORPTION = 18, LASER = 50, ENERGY = 40, BOMB = 70, BIO = 60, FIRE = 100, ACID = 100)
 	hoodtype = /obj/item/clothing/head/hooded/drake
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
@@ -711,16 +711,16 @@
 /obj/item/clothing/suit/hooded/drake/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
 	. = ..()
 	if(!is_mining_level(new_turf.z))
-		armor = getArmor(melee = 35, bullet = 15, laser = 25, energy = 20, bomb = 35, bio = 30, fire = 50, acid = 50)
+		armor = getArmor(piercing = 15, slashing = 35, blunt = 35, absorption = 12, laser = 25, energy = 20, bomb = 35, bio = 30, fire = 50, acid = 50)
 		return
-	armor = getArmor(melee = 70, bullet = 30, laser = 50, energy = 40, bomb = 70, bio = 60, fire = 100, acid = 100)
+	armor = getArmor(piercing = 30, slashing = 70, blunt = 70, absorption = 18, laser = 50, energy = 40, bomb = 70, bio = 60, fire = 100, acid = 100)
 
 /obj/item/clothing/head/hooded/drake
 	name = "drake helmet"
 	icon_state = "dragon"
 	item_state = "dragon"
 	desc = "Череп дрейка."
-	armor = list(MELEE = 70, BULLET = 30, LASER = 50, ENERGY = 40, BOMB = 70, BIO = 60, FIRE = 100, ACID = 100)
+	armor = list(PIERCING = 30, SLASHING = 70, BLUNT = 70, ABSORPTION = 18, LASER = 50, ENERGY = 40, BOMB = 70, BIO = 60, FIRE = 100, ACID = 100)
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF|ACID_PROOF
@@ -739,9 +739,9 @@
 /obj/item/clothing/head/hooded/drake/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
 	. = ..()
 	if(!is_mining_level(new_turf.z))
-		armor = getArmor(melee = 35, bullet = 15, laser = 25, energy = 20, bomb = 35, bio = 30, fire = 50, acid = 50)
+		armor = getArmor(piercing = 15, slashing = 35, blunt = 35, absorption = 12, laser = 25, energy = 20, bomb = 35, bio = 30, fire = 50, acid = 50)
 		return
-	armor = getArmor(melee = 70, bullet = 30, laser = 50, energy = 40, bomb = 70, bio = 60, fire = 100, acid = 100)
+	armor = getArmor(piercing = 30, slashing = 70, blunt = 70, absorption = 18, laser = 50, energy = 40, bomb = 70, bio = 60, fire = 100, acid = 100)
 
 /obj/item/clothing/suit/hooded/goliath
 	name = "goliath cloak"
@@ -749,7 +749,7 @@
 	item_state = "goliath_cloak"
 	desc = "Прочный и практичный плащ, созданный из различных материалов, добытых из монстров. Он пользуется большим спросом у тех, кто ведёт жизнь отшельника или изгнанника."
 	allowed = ALLOWED_MINING_SUIT_ITEMS
-	armor = list(MELEE = 35, BULLET = 10, LASER = 25, ENERGY = 15, BOMB = 35, BIO = 0, FIRE = 50, ACID = 50) //a fair alternative to bone armor, requiring alternative materials and gaining a suit slot
+	armor = list(PIERCING = 10, SLASHING = 35, BLUNT = 35, ABSORPTION = 12, LASER = 25, ENERGY = 15, BOMB = 35, BIO = 0, FIRE = 50, ACID = 50) //a fair alternative to bone armor, requiring alternative materials and gaining a suit slot
 	hoodtype = /obj/item/clothing/head/hooded/goliath
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
@@ -768,7 +768,7 @@
 	icon_state = "golhood"
 	item_state = "golhood"
 	desc = "Защитный и скрывающий капюшон."
-	armor = list(MELEE = 35, BULLET = 10, LASER = 25, ENERGY = 15, BOMB = 35, BIO = 0, FIRE = 50, ACID = 50)
+	armor = list(PIERCING = 10, SLASHING = 35, BLUNT = 35, ABSORPTION = 12, LASER = 25, ENERGY = 15, BOMB = 35, BIO = 0, FIRE = 50, ACID = 50)
 	flags_cover = HEADCOVERSEYES
 
 /obj/item/clothing/head/hooded/goliath/get_ru_names()
@@ -782,7 +782,7 @@
 	)
 
 /obj/item/clothing/suit/hooded/goliath/wizard
-	armor = list(MELEE = 60, BULLET = 10, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 0, FIRE = 80, ACID = 60)
+	armor = list(PIERCING = 10, SLASHING = 60, BLUNT = 60, ABSORPTION = 12, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 0, FIRE = 80, ACID = 60)
 	hoodtype = /obj/item/clothing/head/hooded/goliath/wizard
 	magical = TRUE
 
@@ -791,7 +791,7 @@
 	icon_state = "shamskull"
 	item_state = "shamskull"
 	desc = "К передней части переделанного шлема прикрутили череп какого-то дохлого зверя."
-	armor = list(MELEE = 60, BULLET = 10, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 0, FIRE = 80, ACID = 60)
+	armor = list(PIERCING = 10, SLASHING = 60, BLUNT = 60, ABSORPTION = 12, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 0, FIRE = 80, ACID = 60)
 	magical = TRUE
 
 /obj/item/clothing/head/hooded/goliath/wizard/get_ru_names()
@@ -821,7 +821,7 @@
 	icon_state = "bonearmor"
 	item_state = "bonearmor"
 	blood_overlay_type = "armor"
-	armor = list(MELEE = 45, BULLET = 30, LASER = 30, ENERGY = 20, BOMB = 40, BIO = 0, FIRE = 50, ACID = 50)
+	armor = list(PIERCING = 30, SLASHING = 45, BLUNT = 45, ABSORPTION = 13, LASER = 30, ENERGY = 20, BOMB = 40, BIO = 0, FIRE = 50, ACID = 50)
 	allowed = ALLOWED_MINING_SUIT_ITEMS
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS
 	sprite_sheets = list(
@@ -850,7 +850,7 @@
 	icon_state = "makeshift_armor"
 	item_state = "makeshift_armor"
 	resistance_flags = FIRE_PROOF
-	armor = list(MELEE = 8, BULLET = 5, LASER = 5, ENERGY = 30, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
+	armor = list(PIERCING = 5, SLASHING = 8, BLUNT = 8, ABSORPTION = 8, LASER = 5, ENERGY = 30, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
 
 //Dredd
 
@@ -871,7 +871,7 @@
 	item_state = "cartilage_set"
 	blood_overlay_type = "armor"
 	allowed = ALLOWED_MINING_SUIT_ITEMS
-	armor = list(MELEE = 50, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 0, FIRE = 60, ACID = 60)
+	armor = list(PIERCING = 10, SLASHING = 50, BLUNT = 50, ABSORPTION = 40, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 0, FIRE = 60, ACID = 60)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	sprite_sheets = list(
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',

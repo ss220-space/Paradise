@@ -1679,7 +1679,7 @@
 			var/damage = 5
 			if(attacker.head)
 				damage += attacker.head.force * 3
-			victim.apply_damage(damage*rand(90, 110)/100, BRUTE, BODY_ZONE_HEAD, victim.run_armor_check(head, MELEE))
+			victim.apply_kinetic_attack(damage*rand(90, 110)/100, BODY_ZONE_HEAD, BLUNT, 0, damage, 0, attacker, BRUTE)
 			if(prob(40))
 				victim.Knockdown(2 SECONDS)
 			playsound(victim.loc, SFX_DESECRATION, 35, TRUE, -1)

@@ -37,7 +37,7 @@
 	desc = "Combat-edition magboots issued by Nanotrasen Security for extravehicular missions."
 	icon_state = "cmagboots0"
 	base_icon_state = "cmagboots"
-	armor = list(MELEE = 30, BULLET = 20, LASER = 25, ENERGY = 25, BOMB = 60, BIO = 30, FIRE = 90, ACID = 50)
+	armor = list(PIERCING = 20, SLASHING = 30, BLUNT = 30, ABSORPTION = 11, LASER = 25, ENERGY = 25, BOMB = 60, BIO = 30, FIRE = 90, ACID = 50)
 	slowdown_active = 1
 
 /obj/item/clothing/shoes/magboots/security/captain
@@ -102,7 +102,7 @@
 	name = "blood-red magboots"
 	icon_state = "syndiemag0"
 	base_icon_state = "syndiemag"
-	armor = list(MELEE = 40, BULLET = 30, LASER = 25, ENERGY = 25, BOMB = 50, BIO = 30, FIRE = 90, ACID = 50)
+	armor = list(PIERCING = 30, SLASHING = 40, BLUNT = 40, ABSORPTION = 50, LASER = 25, ENERGY = 25, BOMB = 50, BIO = 30, FIRE = 90, ACID = 50)
 	origin_tech = "magnets=4;syndicate=2"
 
 /obj/item/clothing/shoes/magboots/syndie/advance //For the Syndicate Strike Team and Nuclear operative

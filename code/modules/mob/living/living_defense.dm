@@ -11,9 +11,14 @@
 	2 - fullblock
 */
 /mob/living/proc/run_armor_check(def_zone, attack_flag = MELEE, absorb_text, soften_text, armour_penetration, penetrated_text)
-	var/armor = getarmor(def_zone, attack_flag)
+	if(IS_KINETIC_ARMOR_FLAG(attack_flag))
+		var/kinetic_armor = getarmor(def_zone, normalize_damage_class(attack_flag))
+		if(armour_penetration)
+			kinetic_armor = max(0, kinetic_armor - armour_penetration)
+		return kinetic_armor
 
 	//the if "armor" check is because this is used for everything on /living, including humans
+	var/armor = getarmor(def_zone, attack_flag)
 	if(armor && armor < 100 && armour_penetration) // Armor with 100+ protection can not be penetrated for admin items
 		armor = max(0, armor - armour_penetration)
 		if(penetrated_text)
@@ -44,6 +49,23 @@
 	return FALSE
 
 /mob/living/bullet_act(obj/projectile/proj, def_zone)
+	if(!proj.nodamage && proj.uses_kinetic_armor())
+		var/datum/armor_hit_result/result = apply_kinetic_attack(
+			proj.damage,
+			def_zone,
+			proj.get_damage_class(),
+			proj.armour_penetration,
+			proj.get_kinetic_force(),
+			proj.get_softness(),
+			proj,
+			proj.damage_type,
+			skip_penetration = (proj.damage_type == STAMINA),
+			is_projectile = TRUE,
+		)
+		if(result?.penetrated && proj.dismemberment)
+			check_projectile_dismemberment(proj, def_zone)
+		return proj.on_hit(src, result?.penetrated ? 0 : 100, def_zone)
+
 	//Armor
 	var/armor = run_armor_check(def_zone, proj.flag, armour_penetration = proj.armour_penetration)
 	if(!proj.nodamage)
@@ -117,6 +139,7 @@
  * This proc handles being hit by a thrown atom.
  */
 /mob/living/hitby(atom/movable/AM, skipcatch, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
+	last_kinetic_hit = null
 	if(!isitem(AM))
 		playsound(loc, 'sound/weapons/genhit.ogg', 50, TRUE, -1) //Item sounds are handled in the item itself
 		return ..()
@@ -141,10 +164,23 @@
 					span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] получа[PLUR_ET_YUT(src)] удар [thrown_item.declent_ru(INSTRUMENTAL)]."))
 
 	if(!thrown_item.throwforce)
+		last_kinetic_hit = null
 		return
 
-	var/armor = run_armor_check(zone, MELEE, "Броня защитила [GLOB.body_zone[zone][ACCUSATIVE]].", "Ваша броня смягчила удар по [GLOB.body_zone[zone][DATIVE]].", thrown_item.armour_penetration)
-	apply_damage(thrown_item.throwforce, thrown_item.damtype, zone, armor, thrown_item.sharp, thrown_item)
+	if(thrown_item.uses_kinetic_armor())
+		apply_kinetic_attack(
+			thrown_item.throwforce,
+			zone,
+			thrown_item.get_damage_class(),
+			thrown_item.armour_penetration,
+			thrown_item.get_thrown_kinetic_force(),
+			thrown_item.get_softness(),
+			thrown_item,
+			thrown_item.damtype,
+		)
+	else
+		var/armor = run_armor_check(zone, thrown_item.get_damage_class(), "Броня защитила [GLOB.body_zone[zone][ACCUSATIVE]].", "Ваша броня смягчила удар по [GLOB.body_zone[zone][DATIVE]].", thrown_item.armour_penetration)
+		apply_damage(thrown_item.throwforce, thrown_item.damtype, zone, armor, thrown_item.get_sharpness(), thrown_item)
 
 	if(QDELETED(src)) //Damage can delete the mob.
 		return

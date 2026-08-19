@@ -20,6 +20,8 @@
 	force = 40
 	throwforce = 20
 	armour_penetration = 50
+	damage_class = SLASHING
+	kinetic_force = 240
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("атаковал", "порезал", "уколол", "полоснул", "рубанул", "пронзил")
 	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_BACK

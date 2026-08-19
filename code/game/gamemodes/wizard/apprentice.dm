@@ -250,7 +250,7 @@
 	name = "Роба межпространства"
 	desc = "Магическая роба прислужника школы пространства, оберегающий владельца от перемещений в агрессивных средах."
 	permeability_coefficient = 0.01
-	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 30, BOMB = 20, BIO = 20, FIRE = 100, ACID = 100)
+	armor = list(PIERCING = 20, SLASHING = 30, BLUNT = 30, ABSORPTION = 22, LASER = 20, ENERGY = 30, BOMB = 20, BIO = 20, FIRE = 100, ACID = 100)
 	strip_delay = 5 SECONDS
 	put_on_delay = 5 SECONDS
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -261,7 +261,7 @@
 	name = "Капюшон Межпространства"
 	desc = "Магический головной убор робы прислужника школы пространства, оберегающий от перемещений в агрессивных средах."
 	gas_transfer_coefficient = 0.01
-	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 30, BOMB = 20, BIO = 20, FIRE = 100, ACID = 100)
+	armor = list(PIERCING = 20, SLASHING = 30, BLUNT = 30, ABSORPTION = 22, LASER = 20, ENERGY = 30, BOMB = 20, BIO = 20, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 // --- SCHOOL OF SABOTAGE ---
@@ -283,7 +283,7 @@
 	desc = "Магическая роба-саботёра. Стильная и приталенная!"
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
-	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 30, BOMB = 20, BIO = 20, FIRE = 100, ACID = 100)
+	armor = list(PIERCING = 20, SLASHING = 30, BLUNT = 30, ABSORPTION = 22, LASER = 20, ENERGY = 30, BOMB = 20, BIO = 20, FIRE = 100, ACID = 100)
 	strip_delay = 5 SECONDS
 	put_on_delay = 5 SECONDS
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -294,7 +294,7 @@
 	desc = "Магическая федора-саботёра. Стильная и уважаемая!"
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
-	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 30, BOMB = 20, BIO = 20, FIRE = 100, ACID = 100)
+	armor = list(PIERCING = 20, SLASHING = 30, BLUNT = 30, ABSORPTION = 22, LASER = 20, ENERGY = 30, BOMB = 20, BIO = 20, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	strip_delay = 5 SECONDS
 	put_on_delay = 5 SECONDS
@@ -330,7 +330,7 @@
 	desc = "Магическая роба последователей школы огня."
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
-	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 30, BOMB = 20, BIO = 20, FIRE = 100, ACID = 100)
+	armor = list(PIERCING = 20, SLASHING = 30, BLUNT = 30, ABSORPTION = 22, LASER = 20, ENERGY = 30, BOMB = 20, BIO = 20, FIRE = 100, ACID = 100)
 	strip_delay = 5 SECONDS
 	put_on_delay = 5 SECONDS
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -395,7 +395,7 @@
 	desc = "Магическая роба последователей школы крови."
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
-	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 30, BOMB = 20, BIO = 20, FIRE = 100, ACID = 100)
+	armor = list(PIERCING = 20, SLASHING = 30, BLUNT = 30, ABSORPTION = 22, LASER = 20, ENERGY = 30, BOMB = 20, BIO = 20, FIRE = 100, ACID = 100)
 	strip_delay = 5 SECONDS
 	put_on_delay = 5 SECONDS
 	resistance_flags = FIRE_PROOF | ACID_PROOF

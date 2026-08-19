@@ -13,6 +13,7 @@
 	var/can_air_shoot = FALSE
 	/// Magazine reload duration
 	var/reload_duration = 1.2 SECONDS
+	override_notes = TRUE
 
 /obj/item/gun/projectile/Initialize(mapload)
 	. = ..()
@@ -36,6 +37,9 @@
 	UnregisterSignal(src, COMSIG_ITEM_ATTACK_SELF)
 	return ..()
 
+/obj/item/gun/weapon_description_skill_type()
+	return /datum/skill/combat/guns
+
 /obj/item/gun/projectile/add_weapon_description()
 	AddElement(/datum/element/weapon_description, attached_proc = PROC_REF(add_notes_ballistic))
 
@@ -46,12 +50,11 @@
  *
  */
 /obj/item/gun/projectile/proc/add_notes_ballistic()
-	if(magazine) // Make sure you have a magazine, to get the notes from
+	if(magazine)
 		return "[magazine.add_notes_box()]"
-	else if(chambered) // if you don't have a magazine, is there something chambered?
+	if(chambered)
 		return "[chambered.add_notes_ammo()]"
-	else // we have a very expensive mechanical paperweight.
-		return "<b><u>СТРЕЛЬБА</u></b>\n- Оружие не заряжено, баллистические показатели неизвестны."
+	return "<b><u>СТРЕЛЬБА</u></b>\n- Оружие не заряжено, баллистические показатели неизвестны."
 
 /obj/item/gun/projectile/update_name(updates = ALL)
 	. = ..()

@@ -4,7 +4,7 @@
 	icon_state = "security_envirosuit"
 	item_state = "security_envirosuit"
 	item_color = "security_envirosuit"
-	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, FIRE = 95, ACID = 95)
+	armor = list(PIERCING = 0, SLASHING = 10, BLUNT = 10, ABSORPTION = 10, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, FIRE = 95, ACID = 95)
 
 /obj/item/clothing/under/plasmaman/security/get_ru_names()
 	return alist(

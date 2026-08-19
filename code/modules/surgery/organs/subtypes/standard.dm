@@ -622,6 +622,8 @@
 	forced = FALSE,
 	updating_health = TRUE,
 	silent = FALSE,
+	damage_class = null,
+	armor_penetrated = TRUE,
 )
 	. = ..()
 	if(brute_dam + burn_dam > 50)

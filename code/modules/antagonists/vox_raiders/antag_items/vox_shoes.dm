@@ -14,7 +14,7 @@
 		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/feet.dmi',
 	)
 	w_class = WEIGHT_CLASS_NORMAL
-	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 50, FIRE = 115, ACID = 50)
+	armor = list(PIERCING = 15, SLASHING = 15, BLUNT = 15, ABSORPTION = 18, LASER = 15, ENERGY = 15, BOMB = 50, FIRE = 115, ACID = 50)
 	resistance_flags = NONE
 	slowdown_active = 1
 
@@ -51,7 +51,7 @@
 	item_state = "boots-vox-combat"
 	icon_state = "boots-vox-combat"
 	permeability_coefficient = 0.01
-	armor = list(MELEE = 50, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 80, FIRE = 450, ACID = 50)
+	armor = list(PIERCING = 30, SLASHING = 50, BLUNT = 50, ABSORPTION = 40, LASER = 30, ENERGY = 30, BOMB = 80, FIRE = 450, ACID = 50)
 	strip_delay = 10 SECONDS
 	slowdown_active = SHOES_SLOWDOWN + 0.5
 
@@ -62,7 +62,7 @@
 	icon_state = "boots-vox-heavy"
 	body_parts_covered = FEET|LEGS
 	permeability_coefficient = 0.01
-	armor = list(MELEE = 115, BULLET = 50, LASER = 75, ENERGY = 50, BOMB = 200, FIRE = 450, ACID = 200)
+	armor = list(PIERCING = 50, SLASHING = 115, BLUNT = 115, ABSORPTION = 55, LASER = 75, ENERGY = 50, BOMB = 200, FIRE = 450, ACID = 200)
 	strip_delay = 14 SECONDS
 	slowdown_passive = SHOES_SLOWDOWN + 1
 	slowdown_active = SHOES_SLOWDOWN + 3

@@ -5,6 +5,8 @@
 	item_state = "scissor"
 	force = 5
 	sharp = 1
+	damage_class = PIERCING
+	kinetic_force = 40
 	embed_chance = 10
 	embedded_ignore_throwspeed_threshold = TRUE
 	w_class = WEIGHT_CLASS_SMALL

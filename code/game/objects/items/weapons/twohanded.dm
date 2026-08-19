@@ -113,6 +113,8 @@
 	slot_flags = ITEM_SLOT_BACK
 	force_unwielded = 5
 	force_wielded = 24
+	damage_class = SLASHING
+	kinetic_force = 80
 	toolspeed = 0.25
 	attack_verb = list("атаковал", "рубанул", "поранил", "порезал")
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -272,6 +274,8 @@
 	icon_state = "dualsaber0"
 	name = "double-bladed energy sword"
 	desc = "Handle with care."
+	damage_class = SLASHING
+	kinetic_force = 18
 	force = 3
 	throwforce = 5
 	throw_speed = 1
@@ -424,6 +428,8 @@
 	slot_flags = ITEM_SLOT_BACK
 	force_unwielded = 10
 	force_wielded = 18
+	damage_class = PIERCING
+	kinetic_force = 120
 	throwforce = 20
 	throw_speed = 4
 	armour_penetration = 10
@@ -664,6 +670,8 @@
 	force = 13
 	force_unwielded = 13
 	force_wielded = 24
+	damage_class = SLASHING
+	kinetic_force = 208
 	throwforce = 13
 	throw_range = 4
 	materials = list(MAT_METAL = 13000)
@@ -739,6 +747,8 @@
 	w_class = WEIGHT_CLASS_BULKY // can't fit in backpacks
 	force_unwielded = 15 //still pretty robust
 	force_wielded = 40  //you'll gouge their eye out! Or a limb...maybe even their entire body!
+	damage_class = SLASHING
+	kinetic_force = 240
 	armour_penetration = 35
 	origin_tech = "materials=6;syndicate=4"
 	attack_verb = list("пропилил", "порезал", "покромсал", "рубанул")
@@ -832,6 +842,8 @@
 	force = 5
 	force_unwielded = 5
 	force_wielded = 20
+	damage_class = BLUNT
+	kinetic_force = 120
 	throwforce = 15
 	throw_range = 1
 	w_class = WEIGHT_CLASS_HUGE
@@ -917,6 +929,8 @@
 	force = 5
 	force_unwielded = 5
 	force_wielded = 25
+	damage_class = BLUNT
+	kinetic_force = 120
 	throwforce = 30
 	w_class = WEIGHT_CLASS_HUGE
 	//var/charged = 5
@@ -970,6 +984,8 @@
 	force = 5
 	force_unwielded = 5
 	force_wielded = 30
+	damage_class = BLUNT
+	kinetic_force = 120
 	throwforce = 15
 	throw_range = 1
 	w_class = WEIGHT_CLASS_HUGE
@@ -1050,6 +1066,8 @@
 	w_class = WEIGHT_CLASS_BULKY
 	force_unwielded = 7
 	force_wielded = 15
+	damage_class = PIERCING
+	kinetic_force = 84
 	attack_verb = list("атаковал", "пронзил", "проколол")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 100, ACID = 30)

@@ -1,12 +1,15 @@
 // MARK: Slugs
 /obj/projectile/bullet/slug
 	armour_penetration = 10
+	kinetic_force = 1110
 	damage = 36
 
 /obj/projectile/bullet/weakbullet //beanbag, heavy stamina damage
 	name = "beanbag slug"
 	damage = 5
-	stamina = 55
+	kinetic_force = 1210
+	armour_penetration = -100
+	softness = 90
 	ricochet_chance = 20 //rubber bullets - high ricochet chance
 
 /obj/projectile/bullet/weakbullet/get_ru_names()
@@ -66,6 +69,7 @@
 /obj/projectile/bullet/incendiary/shell
 	name = "incendiary slug"
 	damage = 20
+	kinetic_force = 400
 
 /obj/projectile/bullet/incendiary/shell/get_ru_names()
 	return alist(
@@ -91,6 +95,7 @@
 /obj/projectile/bullet/incendiary/shell/dragonsbreath
 	name = "dragonsbreath round"
 	damage = 15
+	kinetic_force = 315
 	damage_type = BURN
 	range = 10
 
@@ -127,6 +132,7 @@
 /obj/projectile/bullet/frag12
 	name = "explosive slug"
 	damage = 20
+	kinetic_force = 410
 	knockdown = 5 SECONDS
 	ricochets_max = 0
 
@@ -151,6 +157,7 @@
 	icon = 'icons/obj/meteor.dmi'
 	icon_state = "dust"
 	damage = 30
+	kinetic_force = 690
 	weaken = 4 SECONDS
 	hitsound = 'sound/effects/meteorimpact.ogg'
 	ricochets_max = 0
@@ -179,6 +186,7 @@
 
 /obj/projectile/bullet/meteorshot/weak
 	damage = 50
+	kinetic_force = 990
 	weaken = 6 SECONDS
 	stun = 6 SECONDS
 
@@ -188,7 +196,7 @@
 	damage = 14
 	tile_dropoff = 0.75
 	tile_dropoff_s = 1.25
-	armour_penetration = -20
+	kinetic_force = 110
 	ricochets_max = 0
 
 /obj/projectile/bullet/pellet/get_ru_names()
@@ -203,10 +211,12 @@
 
 /obj/projectile/bullet/pellet/magnum
 	damage = 15.5
+	kinetic_force = 180
 	tile_dropoff = 0.4
 
 /obj/projectile/bullet/pellet/bioterror
 	damage = 9
+	armour_penetration = 30
 	tile_dropoff = 0
 
 /obj/projectile/bullet/pellet/bioterror/on_hit(atom/target, blocked = 0, hit_zone)
@@ -219,7 +229,8 @@
 	name = "flechette"
 	damage = 16.5
 	tile_dropoff = 0
-	armour_penetration = 20
+	kinetic_force = 260
+	armour_penetration = 34
 
 /obj/projectile/bullet/pellet/flechette/get_ru_names()
 	return alist(
@@ -234,7 +245,9 @@
 /obj/projectile/bullet/pellet/rubber
 	name = "rubber pellet"
 	damage = 3
-	stamina = 15
+	kinetic_force = 360
+	softness = 90
+	armour_penetration = -100
 	icon_state = "bullet-r"
 	ricochets_max = 1
 	ricochet_chance = 20

@@ -226,7 +226,7 @@
 	gas_transfer_coefficient = 0.90
 	permeability_coefficient = 0.01
 	can_toggle = TRUE
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 25, FIRE = 0, ACID = 0)
+	armor = list(PIERCING = 0, SLASHING = 0, BLUNT = 0, ABSORPTION = 5, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 25, FIRE = 0, ACID = 0)
 
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/mask.dmi',
@@ -704,7 +704,7 @@
 	can_toggle = TRUE
 	strip_delay = 20
 	put_on_delay = 20
-	armor = list(MELEE = 5, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, FIRE = 0, ACID = 0)
+	armor = list(PIERCING = 0, SLASHING = 5, BLUNT = 5, ABSORPTION = 5, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 10, FIRE = 0, ACID = 0)
 	gas_transfer_coefficient = 0.90
 	permeability_coefficient = 0.90
 

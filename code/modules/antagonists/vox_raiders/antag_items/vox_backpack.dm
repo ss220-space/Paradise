@@ -8,7 +8,7 @@
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/back.dmi',
 	)
-	armor = list(MELEE = 5, BULLET = 5, LASER = 15, ENERGY = 10, BOMB = 10, FIRE = 60, ACID = 50)
+	armor = list(PIERCING = 5, SLASHING = 5, BLUNT = 5, ABSORPTION = 8, LASER = 15, ENERGY = 10, BOMB = 10, FIRE = 60, ACID = 50)
 	resistance_flags = FIRE_PROOF
 	origin_tech = "syndicate=1"
 	max_combined_w_class = 35

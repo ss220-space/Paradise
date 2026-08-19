@@ -11,7 +11,7 @@
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	hoodtype = /obj/item/clothing/head/hooded/explorer
-	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 100, FIRE = 50, ACID = 50)
+	armor = list(PIERCING = 20, SLASHING = 30, BLUNT = 30, ABSORPTION = 29, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 100, FIRE = 50, ACID = 50)
 	allowed = ALLOWED_MINING_SUIT_ITEMS
 	resistance_flags = FIRE_PROOF
 	hide_tail_by_species = list(SPECIES_VOX , SPECIES_VULPKANIN , SPECIES_UNATHI, SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_DRACONOID, SPECIES_TAJARAN)
@@ -50,7 +50,7 @@
 	flags_cover = HEADCOVERSEYES
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
-	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 100, FIRE = 50, ACID = 50)
+	armor = list(PIERCING = 20, SLASHING = 30, BLUNT = 30, ABSORPTION = 29, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 100, FIRE = 50, ACID = 50)
 	resistance_flags = FIRE_PROOF
 
 	sprite_sheets = list(
@@ -89,7 +89,7 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | LAVA_PROOF | ACID_PROOF
 	slowdown = 0
-	armor = list(MELEE = 70, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, BIO = 100, FIRE = 100, ACID = 100)
+	armor = list(PIERCING = 50, SLASHING = 70, BLUNT = 70, ABSORPTION = 70, LASER = 50, ENERGY = 50, BOMB = 50, BIO = 100, FIRE = 100, ACID = 100)
 	allowed = ALLOWED_MINING_SUIT_ITEMS
 	jetpack = /obj/item/tank/jetpack/suit
 	jetpack_upgradable = TRUE
@@ -136,9 +136,9 @@
 /obj/item/clothing/suit/space/hostile_environment/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
 	. = ..()
 	if(!is_mining_level(new_turf.z))
-		armor = getArmor(melee = 35, bullet = 25, laser = 25, energy = 25, bomb = 25, bio = 50, fire = 50, acid = 50)
+		armor = getArmor(piercing = 25, slashing = 35, blunt = 35, absorption = 40, laser = 25, energy = 25, bomb = 25, bio = 50, fire = 50, acid = 50)
 		return
-	armor = getArmor(melee = 70, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, fire = 100, acid = 100)
+	armor = getArmor(piercing = 50, slashing = 70, blunt = 70, absorption = 70, laser = 50, energy = 50, bomb = 50, bio = 100, fire = 100, acid = 100)
 
 /obj/item/clothing/head/helmet/space/hostile_environment
 	name = "H.E.C.K. helmet"
@@ -146,7 +146,7 @@
 	icon_state = "hostile_env"
 	item_state = "hostile_env"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	armor = list(MELEE = 70, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, BIO = 100, FIRE = 100, ACID = 100)
+	armor = list(PIERCING = 50, SLASHING = 70, BLUNT = 70, ABSORPTION = 70, LASER = 50, ENERGY = 50, BOMB = 50, BIO = 100, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | LAVA_PROOF | ACID_PROOF
 
 	sprite_sheets = list(
@@ -182,9 +182,9 @@
 /obj/item/clothing/head/helmet/space/hostile_environment/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
 	. = ..()
 	if(!is_mining_level(new_turf.z))
-		armor = getArmor(melee = 35, bullet = 25, laser = 25, energy = 25, bomb = 25, bio = 50, fire = 50, acid = 50)
+		armor = getArmor(piercing = 25, slashing = 35, blunt = 35, absorption = 40, laser = 25, energy = 25, bomb = 25, bio = 50, fire = 50, acid = 50)
 		return
-	armor = getArmor(melee = 70, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, fire = 100, acid = 100)
+	armor = getArmor(piercing = 50, slashing = 70, blunt = 70, absorption = 70, laser = 50, energy = 50, bomb = 50, bio = 100, fire = 100, acid = 100)
 
 /obj/item/clothing/head/helmet/space/hardsuit/champion
 	name = "champion's helmet"
@@ -192,7 +192,7 @@
 	icon_state = "hardsuit0-berserker"
 	item_color = "berserker"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, fire = 80, acid = 80)
+	armor = list(PIERCING = 50, SLASHING = 65, BLUNT = 65, ABSORPTION = 72, LASER = 50, ENERGY = 50, BOMB = 50, BIO = 100, FIRE = 80, ACID = 80)
 	sprite_sheets = list(
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
 		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/helmet.dmi',
@@ -223,7 +223,7 @@
 	clothing_flags = FIXED_SLOWDOWN // no heretic magic
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/champion
 	allowed = ALLOWED_MINING_SUIT_ITEMS
-	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, fire = 80, acid = 80)
+	armor = list(PIERCING = 50, SLASHING = 65, BLUNT = 65, ABSORPTION = 72, LASER = 50, ENERGY = 50, BOMB = 50, BIO = 100, FIRE = 80, ACID = 80)
 	sprite_sheets = list(
 		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/suit.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
@@ -344,7 +344,7 @@
 	allowed = ALLOWED_MINING_SUIT_ITEMS
 	icon_state = "pathcloak"
 	item_state = "pathcloak"
-	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 40, BOMB = 60, BIO = 100, FIRE = 50, ACID = 50)
+	armor = list(PIERCING = 40, SLASHING = 40, BLUNT = 40, ABSORPTION = 46, LASER = 40, ENERGY = 40, BOMB = 60, BIO = 100, FIRE = 50, ACID = 50)
 	resistance_flags = FIRE_PROOF
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
@@ -381,7 +381,7 @@
 	icon_state = "pathhead"
 	item_state = "pathhead"
 	flags_cover = HEADCOVERSEYES
-	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 40, BOMB = 60, BIO = 100, FIRE = 50, ACID = 50)
+	armor = list(PIERCING = 40, SLASHING = 40, BLUNT = 40, ABSORPTION = 46, LASER = 40, ENERGY = 40, BOMB = 60, BIO = 100, FIRE = 50, ACID = 50)
 	resistance_flags = FIRE_PROOF
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT

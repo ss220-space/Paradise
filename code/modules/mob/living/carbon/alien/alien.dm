@@ -60,6 +60,9 @@
 	var/static/queen_count = 0
 	var/static/queen_maximum = 0
 
+/mob/living/carbon/alien/get_melee_damage_class()
+	return SLASHING
+
 /mob/living/carbon/alien/Initialize(mapload)
 	. = ..()
 	create_reagents(1000)

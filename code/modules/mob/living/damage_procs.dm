@@ -14,6 +14,8 @@
  * * silent - If TRUE will not spam red messages in chat.
  * * updating_health - If TRUE calls update health in associative damage proc.
  * * update_damage_icon - If TRUE updates mob's damage icon. Mostly used in tandem with [apply_damages][/mob/living/proc/apply_damages].
+ * * damage_class - Kinetic damage class (PIERCING/SLASHING/BLUNT). Used for fracture/bleed/dismember modifiers.
+ * * armor_penetrated - FALSE skips dismember/arterial/internal/sharp surface bleeds. Fractures still apply. Default TRUE for non-kinetic damage.
  *
  * Returns STATUS_UPDATE_HEALTH if any changes were made, STATUS_UPDATE_NONE otherwise
  */
@@ -29,12 +31,20 @@
 	silent = FALSE,
 	updating_health = TRUE,
 	update_damage_icon = TRUE,
+	damage_class = null,
+	armor_penetrated = TRUE,
 )
 	SHOULD_CALL_PARENT(TRUE)
 
 	. = STATUS_UPDATE_NONE
 	if(damage <= 0)
 		return .
+	if(damage_class)
+		sharp = IS_SHARP_DAMAGE_CLASS(damage_class)
+	else if(sharp)
+		damage_class = SLASHING
+	else
+		damage_class = BLUNT
 	SEND_SIGNAL(src, COMSIG_MOB_APPLY_DAMAGE, damage, damagetype, def_zone, blocked, sharp, used_weapon, spread_damage, forced)
 
 	switch(damagetype)
@@ -42,7 +52,7 @@
 			if(isexternalorgan(def_zone))
 				var/obj/item/organ/external/bodypart = def_zone
 				var/brute_was = bodypart.brute_dam
-				if(bodypart.external_receive_damage(damage, 0, blocked, sharp, used_weapon, forced = forced, updating_health = FALSE, silent = silent) && update_damage_icon)
+				if(bodypart.external_receive_damage(damage, 0, blocked, sharp, used_weapon, forced = forced, updating_health = FALSE, silent = silent, damage_class = damage_class, armor_penetrated = armor_penetrated) && update_damage_icon)
 					UpdateDamageIcon()
 				if(QDELETED(bodypart) || bodypart.loc != src || bodypart.brute_dam != brute_was)
 					. |= STATUS_UPDATE_HEALTH
@@ -54,7 +64,7 @@
 			if(isexternalorgan(def_zone))
 				var/obj/item/organ/external/bodypart = def_zone
 				var/burn_was = bodypart.burn_dam
-				if(bodypart.external_receive_damage(0, damage, blocked, sharp, used_weapon, forced = forced, updating_health = FALSE, silent = silent) && update_damage_icon)
+				if(bodypart.external_receive_damage(0, damage, blocked, sharp, used_weapon, forced = forced, updating_health = FALSE, silent = silent, damage_class = damage_class, armor_penetrated = armor_penetrated) && update_damage_icon)
 					UpdateDamageIcon()
 				if(QDELETED(bodypart) || bodypart.loc != src || bodypart.burn_dam != burn_was)
 					. |= STATUS_UPDATE_HEALTH

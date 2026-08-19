@@ -120,6 +120,8 @@
 	force = 12
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 15
+	damage_class = SLASHING
+	kinetic_force = 120
 	throw_speed = 3
 	throw_range = 4
 	materials = list(MAT_METAL = 15000)
@@ -171,6 +173,8 @@
 	throwforce = 5
 	throw_range = 3
 	w_class = WEIGHT_CLASS_BULKY
+	damage_class = SLASHING
+	kinetic_force = 130
 	flags = CONDUCT
 	armour_penetration = 20
 	slot_flags = ITEM_SLOT_BACK

@@ -203,7 +203,12 @@ GLOBAL_LIST_INIT(can_embed_types, typecacheof(list(
 	/obj/item/pipe,
 )))
 
-#define can_embed(item) (item?.sharp || is_pointed(item) || is_type_in_typecache(item, GLOB.can_embed_types))
+/// Thrown piercing items may embed after a successful armor penetration.
+/proc/can_embed_item(atom/movable/item)
+	if(!isitem(item) || isprojectile(item))
+		return FALSE
+	var/obj/item/thrown_item = item
+	return thrown_item.get_damage_class() == PIERCING
 
 GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 	/obj/item/stack/sheet/glass,

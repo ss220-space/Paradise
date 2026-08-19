@@ -38,7 +38,14 @@
 /datum/element/weapon_description/proc/warning_label(obj/item/item, mob/user, list/examine_texts)
 	SIGNAL_HANDLER
 
-	if(item.force >= 5 || item.throwforce >= 5 || item.override_notes || item.offensive_notes || attached_proc) /// Only show this tag for items that could feasibly be weapons, shields, or those that have special notes
+	if(!user_meets_weapon_description_skill(user, item.weapon_description_skill_type()))
+		return
+
+	var/show_link = item.can_show_weapon_description(user)
+	if(!show_link && attached_proc)
+		show_link = isnull(item.weapon_description_skill_type()) || item.override_notes || item.offensive_notes
+
+	if(show_link)
 		examine_texts += span_notice("<a href='byond://?src=[item.UID()];examine=1'>Боевые показатели.</a>")
 
 /**
@@ -56,7 +63,11 @@
 	SIGNAL_HANDLER
 
 	if(href_list["examine"])
-		to_chat(user, boxed_message("[build_label_text(source)]"))
+		var/obj/item/item = source
+		if(!user_meets_weapon_description_skill(user, item.weapon_description_skill_type()))
+			to_chat(user, span_warning("Вы недостаточно разбираетесь, чтобы оценить боевые показатели."))
+			return
+		to_chat(user, boxed_message("[build_label_text(item, user)]"))
 
 /**
  *
@@ -67,14 +78,14 @@
  * Arguments:
  *  * source - The object whose stats are being examined
  */
-/datum/element/weapon_description/proc/build_label_text(obj/item/source)
+/datum/element/weapon_description/proc/build_label_text(obj/item/source, mob/user)
 	var/list/readout = list() // Readout is used to store the text block output to the user so it all can be sent in one message
 
 	// Doesn't show the base notes for items that have the override notes variable set to true
 	if(!source.override_notes)
 		readout += "<b><u>БЛИЖНИЙ БОЙ</u></b>"
-		if(source.get_sharpness())
-			readout += "- Имеет заострённое лезвие."
+		if(source.get_sharpness() || source.get_damage_class() != BLUNT)
+			readout += "- Наносит [span_warning("[damage_class_to_combat_name(source.get_damage_class())]")] урон."
 
 		var/melee_hits_str
 		var/throws_str
@@ -95,8 +106,11 @@
 		else
 			readout += "- Не наносит значимого ущерба в ближнем бою."
 
-		if(source.armour_penetration > 0)
-			readout += "- Имеет [span_warning("[weapon_tag_convert(source.armour_penetration)]")] способность к пробитию брони."
+		if(source.uses_kinetic_armor(source.damtype))
+			var/kinetic = source.get_kinetic_force()
+			readout += "- Сила удара: [span_warning(format_examine_kinetic_energy(kinetic))]."
+			readout += "- Бронепробитие: [span_warning(format_examine_armor_penetration(source.armour_penetration))]."
+			readout += "- Тип урона: [span_warning(damage_class_to_combat_name(source.get_damage_class()))]."
 
 	// Custom manual notes
 	if(source.offensive_notes)

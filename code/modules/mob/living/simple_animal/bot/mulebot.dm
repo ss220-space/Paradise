@@ -765,12 +765,12 @@
 	playsound(loc, 'sound/effects/splat.ogg', 50, TRUE)
 
 	var/damage = rand(5, 15)
-	H.apply_damage(2*damage, BRUTE, BODY_ZONE_HEAD, run_armor_check(BODY_ZONE_HEAD, MELEE))
-	H.apply_damage(2*damage, BRUTE, BODY_ZONE_CHEST, run_armor_check(BODY_ZONE_CHEST, MELEE))
-	H.apply_damage(0.5*damage, BRUTE, BODY_ZONE_L_LEG, run_armor_check(BODY_ZONE_L_LEG, MELEE))
-	H.apply_damage(0.5*damage, BRUTE, BODY_ZONE_R_LEG, run_armor_check(BODY_ZONE_R_LEG, MELEE))
-	H.apply_damage(0.5*damage, BRUTE, BODY_ZONE_L_ARM, run_armor_check(BODY_ZONE_L_ARM, MELEE))
-	H.apply_damage(0.5*damage, BRUTE, BODY_ZONE_R_ARM, run_armor_check(BODY_ZONE_R_ARM, MELEE))
+	H.apply_kinetic_attack(2 * damage, BODY_ZONE_HEAD, BLUNT, 0, 2 * damage, 0, src, BRUTE, silent = TRUE)
+	H.apply_kinetic_attack(2 * damage, BODY_ZONE_CHEST, BLUNT, 0, 2 * damage, 0, src, BRUTE, silent = TRUE)
+	H.apply_kinetic_attack(0.5 * damage, BODY_ZONE_L_LEG, BLUNT, 0, 0.5 * damage, 0, src, BRUTE, silent = TRUE)
+	H.apply_kinetic_attack(0.5 * damage, BODY_ZONE_R_LEG, BLUNT, 0, 0.5 * damage, 0, src, BRUTE, silent = TRUE)
+	H.apply_kinetic_attack(0.5 * damage, BODY_ZONE_L_ARM, BLUNT, 0, 0.5 * damage, 0, src, BRUTE, silent = TRUE)
+	H.apply_kinetic_attack(0.5 * damage, BODY_ZONE_R_ARM, BLUNT, 0, 0.5 * damage, 0, src, BRUTE, silent = TRUE)
 
 	if(HAS_TRAIT(H, TRAIT_NO_BLOOD))//Does the run over mob have blood?
 		return//If it doesn't it shouldn't bleed (Though a check should be made eventually for things with liquid in them, like slime people.)

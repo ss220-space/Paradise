@@ -12,6 +12,8 @@
 	low_fuel_changes_icon = FALSE
 	item_flags = NOSHARPENING
 	sharp = 1
+	damage_class = SLASHING
+	kinetic_force = 18
 	tool_behaviour = NONE
 	maximum_fuel = 50
 	origin_tech = "combat=3;magnets=4;plasmatech=5;"

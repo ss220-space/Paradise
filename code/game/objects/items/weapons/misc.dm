@@ -29,6 +29,8 @@
 	flags = CONDUCT
 	force = 5.0
 	throwforce = 7.0
+	damage_class = BLUNT
+	kinetic_force = 70
 	materials = list(MAT_METAL=50)
 	attack_verb = list("огрел", "проучил")
 

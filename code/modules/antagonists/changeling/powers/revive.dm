@@ -30,7 +30,7 @@
 	if(user.pulledby)
 		var/mob/living/carbon/grab_owner = user.pulledby
 		user.visible_message(span_warning("[user] неожиданно бъёт [grab_owner] в лицо и вырывается из захвата!"))
-		grab_owner.apply_damage(5, BRUTE, BODY_ZONE_HEAD, grab_owner.run_armor_check(BODY_ZONE_HEAD, MELEE))
+		grab_owner.apply_kinetic_attack(5, BODY_ZONE_HEAD, BLUNT, 0, 5, 0, src, BRUTE)
 		playsound(user.loc, 'sound/weapons/punch1.ogg', 25, TRUE, -1)
 		grab_owner.stop_pulling()
 

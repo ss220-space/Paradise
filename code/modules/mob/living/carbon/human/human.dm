@@ -363,7 +363,7 @@
 		BODY_ZONE_PRECISE_R_FOOT,
 	)
 	var/obj/item/organ/external/affecting = get_organ(ran_zone(dam_zone))
-	apply_damage(5, BRUTE, affecting, run_armor_check(affecting, MELEE))
+	apply_kinetic_attack(5, affecting, BLUNT, 0, 5, 0, B, BRUTE)
 
 /// Get rank from ID from hands, wear_id, pda, and then from uniform
 /mob/living/carbon/human/proc/get_authentification_rank(if_no_id = "Без ID", if_no_job = "Без должности")

@@ -8,6 +8,9 @@ emp_act
 
 */
 
+/mob/living/carbon/human/get_melee_damage_class()
+	return dna?.species?.unarmed?.get_damage_class() || BLUNT
+
 /mob/living/carbon/human/bullet_act(obj/projectile/P, def_zone)
 	if(!dna.species.bullet_act(P, src))
 		add_attack_logs(P.firer, src, "hit by [P.type] but got deflected by species '[dna.species]'")
@@ -199,6 +202,8 @@ emp_act
 	for(var/obj/item/clothing/cloth in clothing_items)
 		if((cloth.body_parts_covered & def_zone.limb_body_flag) && cloth.armor)
 			protection *= (100 - min(cloth.armor.getRating(attack_flag), 100)) * 0.01
+	if(def_zone.armor)
+		protection *= (100 - min(def_zone.armor.getRating(attack_flag), 100)) * 0.01
 	protection *= (100 - min(physiology.armor.getRating(attack_flag), 100)) * 0.01
 	return 100 - protection
 
@@ -505,16 +510,24 @@ emp_act
 
 	var/hit_area = affecting.limb_zone
 
-	var/armor = run_armor_check(affecting, MELEE, span_warning("Ваша броня защитила [GLOB.body_zone[hit_area][ACCUSATIVE]], полностью поглотив удар."), span_warning("Ваша броня защитила [GLOB.body_zone[hit_area][ACCUSATIVE]], смягчив удар."), armour_penetration = item.armour_penetration)
-	if(armor >= 100)
-		return .
-
-	var/weapon_sharp = item.sharp
-	if(weapon_sharp && prob(getarmor(user.zone_selected, MELEE)))
-		weapon_sharp = FALSE
-
-	// this can destroy some species (damn nucleo-bombers), so from now on we cannot count on its existance
-	var/apply_damage_result = apply_damage(item.get_final_force(user), item.damtype, affecting, armor, weapon_sharp, item)
+	var/datum/armor_hit_result/kinetic_result
+	var/apply_damage_result = FALSE
+	if(item.uses_kinetic_armor(item.damtype))
+		kinetic_result = apply_kinetic_attack(
+			item.get_final_force(user),
+			affecting,
+			item.get_damage_class(),
+			item.armour_penetration,
+			item.get_kinetic_force(),
+			item.get_softness(),
+			item,
+			item.damtype,
+			skip_penetration = (item.damtype == STAMINA),
+		)
+		apply_damage_result = kinetic_result?.did_damage()
+	else
+		apply_damage_result = apply_damage(item.get_final_force(user), item.damtype, affecting, 0, item.get_sharpness(), item)
+	var/knockdown_resist = kinetic_result ? (kinetic_result.penetrated ? 0 : kinetic_result.absorption) : 0
 	var/IM_ALIVE = !QDELETED(src)
 
 	var/list/all_objectives = user.mind?.get_all_objectives()
@@ -537,13 +550,13 @@ emp_act
 
 	switch(hit_area)
 		if(BODY_ZONE_HEAD)//Harder to score a stun but if you do it lasts a bit longer
-			if(apply_damage_result && stat == CONSCIOUS && armor < 50)
+			if(apply_damage_result && stat == CONSCIOUS && knockdown_resist < 50)
 				if(prob(item.force))
 					visible_message(
 						span_combatdanger("[src] был[GEND_A_O_I(src)] сбит[GEND_A_O_Y(src)] с ног ударом по голове!"),
 						span_combatuserdanger("Вы сбили [src] с ног ударом по голове!"),
 					)
-					apply_effect(4 SECONDS, KNOCKDOWN, armor)
+					apply_effect(4 SECONDS, KNOCKDOWN, knockdown_resist)
 					AdjustConfused(30 SECONDS)
 				if(mind?.special_role == SPECIAL_ROLE_REV && prob(item.force + ((100 - health)/2)) && src != user && item.damtype == BRUTE)
 					SSticker.mode.remove_revolutionary(mind)
@@ -565,7 +578,7 @@ emp_act
 					span_combatdanger("[src] был[GEND_A_O_I(src)] сбит[GEND_A_O_Y(src)] с ног ударом в грудь!"),
 					span_combatuserdanger("Вы сбили [src] с ног ударом в грудь!"),
 				)
-				apply_effect(2 SECONDS, KNOCKDOWN, armor)
+				apply_effect(2 SECONDS, KNOCKDOWN, knockdown_resist)
 
 			if(bloody)
 				if(wear_suit)
@@ -639,12 +652,12 @@ emp_act
 		skipcatch = TRUE
 		blocked = TRUE
 
-	else if(item && (((throwingdatum ? throwingdatum.speed : item.throw_speed) >= EMBED_THROWSPEED_THRESHOLD) || item.embedded_ignore_throwspeed_threshold) && can_embed(item) && !HAS_TRAIT(src, TRAIT_EMBEDIMMUNE) && prob(item.embed_chance))
-		embed_item_inside(item)
-		hitpush = FALSE
-		skipcatch = TRUE //can't catch the now embedded item
+	. = ..(AM, skipcatch, hitpush, blocked, throwingdatum)
 
-	return ..(AM, skipcatch, hitpush, blocked, throwingdatum)
+	if(!blocked && item && last_kinetic_hit?.penetrated && (((throwingdatum ? throwingdatum.speed : item.throw_speed) >= EMBED_THROWSPEED_THRESHOLD) || item.embedded_ignore_throwspeed_threshold) && can_embed_item(item) && !HAS_TRAIT(src, TRAIT_EMBEDIMMUNE) && prob(item.embed_chance))
+		embed_item_inside(item)
+
+	return .
 
 /mob/living/carbon/human/proc/bloody_hands(mob/living/source, amount = 2)
 	if(gloves)
@@ -684,8 +697,16 @@ emp_act
 		if(stat != DEAD)
 			L.evolution_points = min(L.evolution_points + L.attack_damage, L.max_evolution_points)
 			var/obj/item/organ/external/affecting = get_organ(ran_zone(L.zone_selected))
-			var/armor_block = run_armor_check(affecting, MELEE)
-			apply_damage(L.attack_damage, BRUTE, affecting, armor_block)
+			apply_kinetic_attack(
+				L.attack_damage,
+				affecting,
+				L.get_melee_damage_class(),
+				L.armour_penetration,
+				L.attack_damage,
+				0,
+				L,
+				BRUTE,
+			)
 
 /mob/living/carbon/human/attack_alien(mob/living/carbon/alien/humanoid/M)
 	if(check_shields(M, 0, M.name))
@@ -702,22 +723,27 @@ emp_act
 				visible_message(span_danger("[M] бросил[GEND_SYA_AS_OS_IS(M)] на [src]!"))
 				return 0
 			var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_selected))
-			var/armor_block = run_armor_check(affecting, MELEE, armour_penetration = M.armour_penetration)
+			apply_kinetic_attack(
+				damage,
+				affecting,
+				M.get_melee_damage_class(),
+				M.armour_penetration,
+				damage,
+				0,
+				M,
+				BRUTE,
+			)
 
 			playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
 			visible_message(span_danger("[M] ударил[GEND_A_O_I(M)] [src]!"), \
 				span_userdanger("[M] ударил[GEND_A_O_I(M)] [src]!"))
 
-			apply_damage(damage, BRUTE, affecting, armor_block, TRUE)
 			add_attack_logs(M, src, "Alien attacked")
 			var/all_objectives = M?.mind?.get_all_objectives()
 			if(mind && all_objectives)
 				for(var/datum/objective/pain_hunter/objective in all_objectives)
 					if(mind == objective.target)
-						armor_block = (100 - armor_block) / 100
-						if(armor_block <= 0)
-							armor_block= 0
-						objective.take_damage(damage * armor_block, BRUTE)
+						objective.take_damage(damage, BRUTE)
 
 		if(M.a_intent == INTENT_DISARM) //Always drop item in hand, if no item, get stun instead.
 			var/obj/item/item = get_active_hand()
@@ -765,16 +791,21 @@ emp_act
 		if(!affecting)
 			affecting = get_organ(BODY_ZONE_CHEST)
 		affecting.add_autopsy_data(M.name, damage) // Add the mob's name to the autopsy data
-		var/armor = run_armor_check(affecting, MELEE, armour_penetration = M.armour_penetration)
-		apply_damage(damage, M.melee_damage_type, affecting, armor)
+		apply_kinetic_attack(
+			damage,
+			affecting,
+			M.get_melee_damage_class(),
+			M.armour_penetration,
+			damage,
+			0,
+			M,
+			M.melee_damage_type,
+		)
 		var/all_objectives = M?.mind?.get_all_objectives()
 		if(mind && all_objectives)
 			for(var/datum/objective/pain_hunter/objective in all_objectives)
 				if(mind == objective.target)
-					armor = (100 - armor) / 100
-					if(armor <= 0)
-						armor = 0
-					objective.take_damage(damage * armor, BRUTE)
+					objective.take_damage(damage, BRUTE)
 
 /mob/living/carbon/human/attack_slime(mob/living/simple_animal/slime/M)
 	if(..()) //successful slime attack
@@ -802,16 +833,21 @@ emp_act
 		var/obj/item/organ/external/affecting = get_organ(ran_zone(dam_zone))
 		if(!affecting)
 			affecting = get_organ(BODY_ZONE_CHEST)
-		var/armor_block = run_armor_check(affecting, MELEE)
-		apply_damage(damage, BRUTE, affecting, armor_block)
+		apply_kinetic_attack(
+			damage,
+			affecting,
+			M.get_melee_damage_class(),
+			M.armour_penetration,
+			damage,
+			0,
+			M,
+			BRUTE,
+		)
 		var/all_objectives = M?.mind?.get_all_objectives()
 		if(mind && all_objectives)
 			for(var/datum/objective/pain_hunter/objective in all_objectives)
 				if(mind == objective.target)
-					armor_block = (100 - armor_block) / 100
-					if(armor_block <= 0)
-						armor_block = 0
-					objective.take_damage(damage * armor_block, BRUTE)
+					objective.take_damage(damage, BRUTE)
 
 /mob/living/carbon/human/mech_melee_attack(obj/mecha/mech, obj/item/mecha_parts/mecha_equipment/selected_module = null)
 	if(mech.occupant.a_intent == INTENT_HARM)
@@ -874,9 +910,17 @@ emp_act
 		return
 	if(check_shields(user, user.melee_damage, "the [user.name]", MELEE_ATTACKS, user.armour_penetration))
 		return FALSE
-	var/obj/item/organ/external/affecting = user.get_organ(BODY_ZONE_CHEST)
-	var/armor = run_armor_check(affecting, MELEE, armour_penetration = user.armour_penetration)
-	apply_damage(user.melee_damage, user.melee_damage_type, affecting, armor)
+	var/obj/item/organ/external/affecting = get_organ(BODY_ZONE_CHEST)
+	apply_kinetic_attack(
+		user.melee_damage,
+		affecting,
+		user.get_melee_damage_class(),
+		user.armour_penetration,
+		user.melee_damage,
+		0,
+		user,
+		user.melee_damage_type,
+	)
 
 /mob/living/carbon/human/handle_flamer_fire_crossed(obj/flamer_fire/fire)
 	. = ..()

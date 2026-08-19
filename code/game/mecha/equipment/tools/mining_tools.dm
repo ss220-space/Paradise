@@ -106,7 +106,7 @@
 		if(ishuman(target))
 			var/mob/living/carbon/human/target_human = target
 			var/obj/item/organ/external/target_part = target_human.get_organ(ran_zone(BODY_ZONE_CHEST))
-			target_human.apply_damage(10, BRUTE, BODY_ZONE_CHEST, target_human.run_armor_check(target_part, MELEE))
+			target_human.apply_kinetic_attack(10, BODY_ZONE_CHEST, BLUNT, 0, 10, 0, chassis, BRUTE)
 
 			//blood splatters
 			var/splatter_color = target_human.get_blood_color()

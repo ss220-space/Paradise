@@ -352,7 +352,8 @@ Difficulty: Hard
 			to_chat(L, span_userdanger("[declent_ru(NOMINATIVE)] разрывает вас!"))
 			playsound(T, attack_sound, 100, TRUE, -1)
 			var/limb_to_hit = L.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG, BODY_ZONE_TAIL, BODY_ZONE_WING))
-			L.apply_damage(second_life ? 20 : 10, BRUTE, limb_to_hit, L.run_armor_check(limb_to_hit, MELEE, null, null, armour_penetration))
+			var/dmg = second_life ? 20 : 10
+			L.apply_kinetic_attack(dmg, limb_to_hit, get_melee_damage_class(), armour_penetration, dmg, 0, src, BRUTE)
 	SLEEP_CHECK_DEATH(src, 3)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/bloodgrab(turf/T, handedness)

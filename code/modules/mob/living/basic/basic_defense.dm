@@ -123,7 +123,14 @@
 		var/damage = 20
 		return attack_threshold_check(damage)
 
-/mob/living/basic/proc/attack_threshold_check(damage, damagetype = BRUTE, armorcheck = MELEE, actuallydamage = TRUE)
+/mob/living/basic/get_melee_damage_class()
+	if(damage_class)
+		return normalize_damage_class(damage_class)
+	if(sharpness)
+		return SLASHING
+	return BLUNT
+
+/mob/living/basic/proc/attack_threshold_check(damage, damagetype = BRUTE, armorcheck = BLUNT, actuallydamage = TRUE)
 	var/temp_damage = damage
 	if(!damage_coeff[damagetype])
 		temp_damage = 0
@@ -134,10 +141,38 @@
 		visible_message(span_danger("[src] игнорирует удар."))
 		return FALSE
 	else
-		apply_damage(damage, damagetype, null, getarmor(null, armorcheck))
+		if(damagetype == BRUTE || damagetype == STAMINA)
+			apply_kinetic_attack(
+				damage,
+				null,
+				get_melee_damage_class(),
+				armour_penetration,
+				damage,
+				0,
+				src,
+				damagetype,
+				skip_penetration = (damagetype == STAMINA),
+			)
+		else
+			apply_damage(damage, damagetype, null, getarmor(null, armorcheck))
 		return TRUE
 
 /mob/living/basic/bullet_act(obj/projectile/Proj, def_zone, piercing_hit = FALSE)
+	if(Proj.uses_kinetic_armor())
+		var/datum/armor_hit_result/result = apply_kinetic_attack(
+			Proj.damage,
+			def_zone,
+			Proj.get_damage_class(),
+			Proj.armour_penetration,
+			Proj.get_kinetic_force(),
+			Proj.get_softness(),
+			Proj,
+			Proj.damage_type,
+			skip_penetration = (Proj.damage_type == STAMINA),
+			is_projectile = TRUE,
+		)
+		Proj.on_hit(src, result?.penetrated ? 0 : 100, piercing_hit)
+		return
 	apply_damage(Proj.damage, Proj.damage_type)
 	Proj.on_hit(src, 0, piercing_hit)
 	return

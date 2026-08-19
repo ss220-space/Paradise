@@ -199,6 +199,8 @@
 	flags = CONDUCT
 	force = 15
 	sharp = 1
+	damage_class = PIERCING
+	kinetic_force = 120
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("продырявил")
 	tool_behaviour = TOOL_DRILL
@@ -274,6 +276,8 @@
 	flags = CONDUCT
 	force = 10.0
 	sharp = 1
+	damage_class = PIERCING
+	kinetic_force = 80
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 5.0
 	throw_speed = 3
@@ -398,6 +402,8 @@
 	flags = CONDUCT
 	force = 15
 	sharp = 1
+	damage_class = SLASHING
+	kinetic_force = 150
 	throwforce = 9
 	throw_speed = 3
 	throw_range = 5
@@ -421,6 +427,8 @@
 /obj/item/circular_saw/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
+	if(!HAS_TRAIT(src, TRAIT_SURGERY_INITIATOR))
+		AddElement(/datum/element/surgery_initiator)
 
 /obj/item/circular_saw/ComponentInitialize()
 	. = ..()

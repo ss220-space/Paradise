@@ -173,11 +173,11 @@
 /datum/component/transforming/proc/set_active(obj/item/source)
 	ADD_TRAIT(source, TRAIT_TRANSFORM_ACTIVE, UNIQUE_TRAIT_SOURCE(src))
 	if(sharp_on)
-		source.set_sharpness(TRUE)
+		source.set_damage_class(SLASHING)
 	if(force_on)
-		source.force = force_on + (source.sharp ? sharpened_bonus : 0)
+		source.force = force_on + (source.get_sharpness() ? sharpened_bonus : 0)
 	if(throwforce_on)
-		source.throwforce = throwforce_on + (source.sharp ? sharpened_bonus : 0)
+		source.throwforce = throwforce_on + (source.get_sharpness() ? sharpened_bonus : 0)
 	if(throw_speed_on)
 		source.throw_speed = throw_speed_on
 
@@ -198,11 +198,14 @@
 /datum/component/transforming/proc/set_inactive(obj/item/source)
 	REMOVE_TRAIT(source, TRAIT_TRANSFORM_ACTIVE, UNIQUE_TRAIT_SOURCE(src))
 	if(sharp_on)
-		source.set_sharpness(FALSE)
+		if(initial(source.sharp))
+			source.set_sharpness(TRUE)
+		else
+			source.set_damage_class(initial(source.damage_class))
 	if(force_on)
-		source.force = initial(source.force) + (source.sharp ? sharpened_bonus : 0)
+		source.force = initial(source.force) + (source.get_sharpness() ? sharpened_bonus : 0)
 	if(throwforce_on)
-		source.throwforce = initial(source.throwforce) + (source.sharp ? sharpened_bonus : 0)
+		source.throwforce = initial(source.throwforce) + (source.get_sharpness() ? sharpened_bonus : 0)
 	if(throw_speed_on)
 		source.throw_speed = initial(source.throw_speed)
 
@@ -293,8 +296,8 @@
 	if(active)
 		var/obj/item/item_parent = parent
 		if(force_on)
-			item_parent.force = initial(item_parent.force) + (item_parent.sharp ? sharpened_bonus : 0)
+			item_parent.force = initial(item_parent.force) + (item_parent.get_sharpness() ? sharpened_bonus : 0)
 		if(throwforce_on)
-			item_parent.throwforce = initial(item_parent.throwforce) + (item_parent.sharp ? sharpened_bonus : 0)
+			item_parent.throwforce = initial(item_parent.throwforce) + (item_parent.get_sharpness() ? sharpened_bonus : 0)
 	return COMPONENT_BLOCK_SHARPEN_APPLIED
 

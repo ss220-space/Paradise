@@ -25,6 +25,8 @@
 	force = 10
 	throwforce = 7
 	origin_tech = "combat=5"
+	damage_class = BLUNT
+	kinetic_force = 140
 	attack_verb = list("выпорол", "хлестнул", "стегнул", "проучил")
 	hitsound = 'sound/weapons/slash.ogg' //pls replace
 
@@ -53,6 +55,8 @@
 	block_type = MELEE_ATTACKS
 	armour_penetration = 75
 	sharp = TRUE
+	damage_class = PIERCING
+	kinetic_force = 120
 	origin_tech = "combat=5"
 	attack_verb = list("полоснул", "уколол")
 	pickup_sound = 'sound/items/handling/pickup/knife_pickup.ogg'
@@ -139,6 +143,8 @@
 	throwforce = 20
 	armour_penetration = 40
 	sharp = TRUE
+	damage_class = SLASHING
+	kinetic_force = 150
 	item_flags = NOSHARPENING
 	origin_tech = "combat=5"
 	attack_verb = list("полоснул", "уколол", "рубанул")
@@ -247,6 +253,8 @@
 	force = 15
 	throwforce = 10
 	w_class = WEIGHT_CLASS_SMALL
+	damage_class = PIERCING
+	kinetic_force = 120
 	attack_verb = list("порезал", "уколол", "обледенил")
 
 /obj/item/melee/candy_sword
@@ -256,6 +264,8 @@
 	item_state = "candy_sword"
 	force = 10
 	throwforce = 7
+	damage_class = PIERCING
+	kinetic_force = 80
 	attack_verb = list("полоснул", "уколол", "ударил")
 
 /obj/item/melee/flyswatter
@@ -265,6 +275,8 @@
 	item_state = "flyswatter"
 	force = 1
 	throwforce = 1
+	damage_class = BLUNT
+	kinetic_force = 14
 	attack_verb = list("прихлопнул", "шлёпнул")
 	hitsound = 'sound/effects/snap.ogg'
 	w_class = WEIGHT_CLASS_SMALL
@@ -306,6 +318,8 @@
 	desc = "It is a very old rusty and racist iron. Used to beat the living shit out of these filthy xenos."
 	force = 8
 	throwforce = 8
+	damage_class = BLUNT
+	kinetic_force = 160
 	var/bonus_damage = 10
 	icon_state = "big_iron"
 	item_state = "big_iron"

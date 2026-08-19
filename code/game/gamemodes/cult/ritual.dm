@@ -7,6 +7,8 @@
 	force = 15
 	throwforce = 25
 	armour_penetration = 35
+	damage_class = PIERCING
+	kinetic_force = 150
 	sprite_sheets_inhand = null // Override parent
 	var/drawing_rune = FALSE
 	var/scribe_multiplier = 1 // Lower is faster

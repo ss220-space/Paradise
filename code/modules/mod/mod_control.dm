@@ -15,7 +15,7 @@
 	interaction_flags_click = NEED_HANDS
 	interaction_flags_mouse_drop = NEED_DEXTERITY | NEED_HANDS | ALLOW_RESTING
 	strip_delay = 10 SECONDS
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, FIRE = 0, ACID = 0)
+	armor = list(PIERCING = 0, SLASHING = 0, BLUNT = 0, ABSORPTION = 5, LASER = 0, ENERGY = 0, BOMB = 0, FIRE = 0, ACID = 0)
 	actions_types = list(
 		/datum/action/item_action/mod/deploy,
 		/datum/action/item_action/mod/activate,

@@ -70,10 +70,11 @@
 	var/damage_type = BRUTE
 	/// Determines if the projectile will skip any damage inflictions.
 	var/nodamage = FALSE
-	/// Defines what armor to use when it hits things.  Must be set to bullet, laser, energy,or bomb	//Cael - bio and rad are also valid
-	var/flag = BULLET
+	/// Defines what armor to use when it hits things. Kinetic projectiles use PIERCING; lasers keep LASER.
+	var/flag = PIERCING
 	///How much armor this projectile pierces.
 	var/armour_penetration = 0
+	damage_class = PIERCING
 	var/projectile_type = "/obj/projectile"
 	/// This will de-increment every step. When 0, it will delete the projectile.
 	var/range = 50
@@ -212,6 +213,24 @@
 /obj/projectile/proc/on_range()
 	qdel(src)
 
+/obj/projectile/get_kinetic_force()
+	if(!isnull(kinetic_force))
+		return kinetic_force
+	return damage
+
+/obj/projectile/uses_kinetic_armor(damtype_override)
+	var/check_type = isnull(damtype_override) ? damage_type : damtype_override
+	if(check_type != BRUTE && check_type != STAMINA)
+		return FALSE
+	return IS_KINETIC_ARMOR_FLAG(flag)
+
+/obj/projectile/get_damage_class()
+	if(damage_class)
+		return normalize_damage_class(damage_class)
+	if(flag == BULLET)
+		return PIERCING
+	return normalize_damage_class(flag)
+
 /obj/projectile/proc/prehit(atom/target)
 	return TRUE
 
@@ -247,7 +266,7 @@
 	var/mob/living/L = target
 	var/mob/living/carbon/human/H
 	var/organ_hit_text = ""
-	if(blocked < 100) // not completely blocked
+	if(blocked < 100) // penetrated, or legacy armor did not fully block
 		if(!nodamage && damage && L.blood_volume && damage_type == BRUTE)
 			var/splatter_dir = Angle
 			if(starting)
@@ -305,7 +324,9 @@
 				if(L.mind == objective.target)
 					objective.take_damage(damage, damage_type)
 
-	var/were_affects_applied = apply_effect_on_hit(L, blocked, def_zone)
+	var/were_affects_applied = FALSE
+	if(blocked < 100)
+		were_affects_applied = apply_effect_on_hit(L, blocked, def_zone)
 
 	if(!log_override && firer && original)
 		add_attack_logs(firer, L, "Shot [organ_hit_text][blocked ? " blocking [blocked]%" : null]. [fire_log_text]")

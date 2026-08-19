@@ -26,14 +26,20 @@
 		return 0
 
 	var/obj/item/organ/external/affecting = D.get_organ(ran_zone(A.zone_selected))
-	var/armor_block = D.run_armor_check(affecting, MELEE)
-
 	playsound(D.loc, SFX_BOXING, 50, TRUE, -1)
-
 	D.visible_message(span_danger("[A] has hit [D] with a [atk_verb]!"), \
 								span_userdanger("[A] has hit [D] with a [atk_verb]!"))
-
-	D.apply_damage(damage, STAMINA, affecting, armor_block)
+	var/datum/armor_hit_result/hit_result = D.apply_kinetic_attack(
+		damage,
+		affecting,
+		BLUNT,
+		0,
+		damage,
+		0,
+		A,
+		STAMINA,
+	)
+	var/armor_block = hit_result?.penetrated ? 0 : (hit_result?.absorption || 0)
 	add_attack_logs(A, D, "Melee attacked with [src]", ATKLOG_ALL)
 	if(D.getStaminaLoss() > 50)
 		var/knockout_prob = D.getStaminaLoss() + rand(-15,15)
@@ -85,24 +91,19 @@
 		return 1 //returns 1 so that they actually miss and don't switch to attackhand damage
 
 	var/obj/item/organ/external/affecting = D.get_organ(ran_zone(A.zone_selected))
-	var/armor_block = D.run_armor_check(affecting, MELEE)
-
 	playsound(D.loc, 'sound/weapons/punch1.ogg', 25, TRUE, -1)
-
 	D.visible_message(span_danger("[A] has hit [D] with a [atk_verb]!"), \
 								span_userdanger("[A] has hit [D] with a [atk_verb]!"))
-
-	D.apply_damage(damage, BRUTE, null, armor_block)
+	D.apply_kinetic_attack(damage, affecting, BLUNT, 0, damage, 0, A, BRUTE)
 	objective_damage(A, D, damage, BRUTE)
-
-	D.apply_damage(damage, STAMINA, armor_block)
+	D.apply_kinetic_attack(damage, affecting, BLUNT, 0, damage, 0, A, STAMINA)
 	if(D.getStaminaLoss() > 50)
 		var/knockout_prob = D.getStaminaLoss() + rand(-15,15)
 		if((D.stat != DEAD) && prob(knockout_prob))
 			D.visible_message(span_danger("[A] has knocked [D] out with a haymaker!"), \
 								span_userdanger("[A] has knocked [D] out with a haymaker!"))
 			D.Paralyse(10 SECONDS)
-			D.apply_effect(20 SECONDS, WEAKEN, armor_block)
+			D.apply_effect(20 SECONDS, WEAKEN, D.last_kinetic_hit?.absorption || 0)
 			D.forcesay(GLOB.hit_appends)
 		else if(D.body_position == LYING_DOWN)
 			D.forcesay(GLOB.hit_appends)

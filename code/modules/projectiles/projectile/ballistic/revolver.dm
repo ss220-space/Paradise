@@ -2,7 +2,9 @@
 /obj/projectile/bullet/weakbullet2
 	name = "rubber bullet"
 	damage = 5
-	stamina = 35
+	softness = 90
+	kinetic_force = 710
+	armour_penetration = -100
 	icon_state = "bullet-r"
 	ricochet_chance = 20
 
@@ -17,16 +19,18 @@
 	)
 
 /obj/projectile/bullet/hp38
-	damage = 35
-	armour_penetration = -50
+	damage = 28
+	kinetic_force = 710
+	softness = 30
+	armour_penetration = 10
 	ricochets_max = 0 //no ricochets for HP
-	sharp = TRUE //for dismember bodypart and double bleeding
 
 /obj/projectile/bullet/hp38/on_hit(atom/target, blocked, hit_zone)
-	if(..(target, blocked))
-		var/mob/living/carbon/carbon_target = target
-		if(istype(carbon_target))
-			carbon_target.Slowed(2 SECONDS, 2)
+	. = ..(target, blocked, hit_zone)
+	if(blocked >= 100 || !iscarbon(target))
+		return
+	var/mob/living/carbon/carbon_target = target
+	carbon_target.Slowed(2 SECONDS, 2)
 
 // MARK: .38 Finger gun
 /obj/projectile/bullet/weakbullet2/invisible
@@ -56,6 +60,8 @@
 // MARK: .36
 /obj/projectile/bullet/midbullet2
 	damage = 25
+	kinetic_force = 370
+	armour_penetration = 10
 	ricochet_chance = 10
 
 // MARK: .257 Improvised

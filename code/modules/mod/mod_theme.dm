@@ -193,6 +193,10 @@
 /datum/armor/mod_theme
 	melee = 25
 	bullet = 15
+	piercing = 15
+	slashing = 25
+	blunt = 25
+	absorption = 48
 	laser = 15
 	energy = 15
 	bomb = 0
@@ -283,6 +287,10 @@
 /datum/armor/mod_theme_civilian
 	melee = 25
 	bullet = 15
+	piercing = 15
+	slashing = 25
+	blunt = 25
+	absorption = 48
 	laser = 15
 	energy = 15
 	bomb = 0
@@ -346,6 +354,10 @@
 /datum/armor/mod_theme_engineering
 	melee = 30
 	bullet = 15
+	piercing = 15
+	slashing = 30
+	blunt = 30
+	absorption = 48
 	laser = 15
 	energy = 15
 	bomb = 40
@@ -415,6 +427,10 @@
 /datum/armor/mod_theme_atmospheric
 	melee = 30
 	bullet = 15
+	piercing = 15
+	slashing = 30
+	blunt = 30
+	absorption = 48
 	laser = 15
 	energy = 15
 	bomb = 15
@@ -492,6 +508,10 @@
 /datum/armor/mod_theme_advanced
 	melee = 45
 	bullet = 20
+	piercing = 20
+	slashing = 45
+	blunt = 45
+	absorption = 48
 	laser = 20
 	energy = 20
 	bomb = 60
@@ -593,6 +613,10 @@
 /datum/armor/mod_theme_mining
 	melee = 40
 	bullet = 15
+	piercing = 15
+	slashing = 40
+	blunt = 40
+	absorption = 48
 	laser = 15
 	energy = 15
 	bomb = 50
@@ -670,6 +694,10 @@
 /datum/armor/mod_theme_loader
 	melee = 30
 	bullet = 15
+	piercing = 15
+	slashing = 30
+	blunt = 30
+	absorption = 48
 	laser = 15
 	energy = 15
 	bomb = 10
@@ -775,6 +803,10 @@
 /datum/armor/mod_theme_medical
 	melee = 20
 	bullet = 15
+	piercing = 15
+	slashing = 20
+	blunt = 20
+	absorption = 48
 	laser = 15
 	energy = 15
 	bomb = 10
@@ -852,6 +884,10 @@
 /datum/armor/mod_theme_rescue
 	melee = 30
 	bullet = 30
+	piercing = 30
+	slashing = 30
+	blunt = 30
+	absorption = 48
 	laser = 15
 	energy = 15
 	bomb = 10
@@ -927,6 +963,10 @@
 /datum/armor/mod_theme_research
 	melee = 40
 	bullet = 40
+	piercing = 40
+	slashing = 40
+	blunt = 40
+	absorption = 55
 	laser = 15
 	energy = 15
 	bomb = 100
@@ -997,6 +1037,10 @@
 /datum/armor/mod_theme_security
 	melee = 35
 	bullet = 30
+	piercing = 30
+	slashing = 35
+	blunt = 35
+	absorption = 48
 	laser = 35
 	energy = 15
 	bomb = 25
@@ -1072,6 +1116,10 @@
 /datum/armor/mod_theme_brig_pilot
 	melee = 25
 	bullet = 20
+	piercing = 20
+	slashing = 25
+	blunt = 25
+	absorption = 48
 	laser = 25
 	energy = 15
 	bomb = 25
@@ -1143,6 +1191,10 @@
 /datum/armor/mod_theme_safeguard_one
 	melee = 35
 	bullet = 35
+	piercing = 35
+	slashing = 35
+	blunt = 35
+	absorption = 52
 	laser = 40
 	energy = 25
 	bomb = 30
@@ -1217,6 +1269,10 @@
 /datum/armor/mod_theme_safeguard_two
 	melee = 45
 	bullet = 40
+	piercing = 40
+	slashing = 45
+	blunt = 45
+	absorption = 70
 	laser = 45
 	energy = 30
 	bomb = 70
@@ -1295,6 +1351,10 @@
 /datum/armor/mod_theme_secmed
 	melee = 20
 	bullet = 20
+	piercing = 20
+	slashing = 20
+	blunt = 20
+	absorption = 48
 	laser = 20
 	energy = 20
 	bomb = 30
@@ -1368,6 +1428,10 @@
 /datum/armor/mod_theme_magnate
 	melee = 40
 	bullet = 30
+	piercing = 30
+	slashing = 40
+	blunt = 40
+	absorption = 62
 	laser = 30
 	energy = 30
 	bomb = 30
@@ -1443,6 +1507,10 @@
 /datum/armor/praetorian
 	melee = 45
 	bullet = 45
+	piercing = 45
+	slashing = 45
+	blunt = 45
+	absorption = 70
 	laser = 35
 	energy = 25
 	bomb = 45
@@ -1508,6 +1576,10 @@
 /datum/armor/mod_theme_cosmohonk
 	melee = 5
 	bullet = 5
+	piercing = 5
+	slashing = 5
+	blunt = 5
+	absorption = 40
 	laser = 5
 	energy = 5
 	bomb = 5
@@ -1615,6 +1687,10 @@
 /datum/armor/mod_theme_syndicate
 	melee = 45
 	bullet = 50
+	piercing = 50
+	slashing = 45
+	blunt = 45
+	absorption = 75
 	laser = 40
 	energy = 30
 	bomb = 50
@@ -1689,6 +1765,10 @@
 /datum/armor/mod_theme_elite
 	melee = 70
 	bullet = 70
+	piercing = 70
+	slashing = 70
+	blunt = 70
+	absorption = 88
 	laser = 50
 	energy = 35
 	bomb = 75
@@ -1765,6 +1845,10 @@
 /datum/armor/mod_theme_contractor
 	melee = 45
 	bullet = 50
+	piercing = 50
+	slashing = 45
+	blunt = 45
+	absorption = 70
 	laser = 40
 	energy = 30
 	bomb = 50
@@ -1838,6 +1922,10 @@
 /datum/armor/mod_theme_prototype
 	melee = 20
 	bullet = 5
+	piercing = 5
+	slashing = 20
+	blunt = 20
+	absorption = 40
 	laser = 10
 	energy = 10
 	bomb = 50
@@ -1908,6 +1996,10 @@
 /datum/armor/mod_theme_responsory
 	melee = 40
 	bullet = 25
+	piercing = 25
+	slashing = 40
+	blunt = 40
+	absorption = 70
 	laser = 30
 	energy = 20
 	bomb = 25
@@ -1982,6 +2074,10 @@
 /datum/armor/mod_theme_gamma_responsory
 	melee = 60
 	bullet = 60
+	piercing = 60
+	slashing = 60
+	blunt = 60
+	absorption = 75
 	laser = 50
 	energy = 40
 	bomb = 55
@@ -2056,6 +2152,10 @@
 /datum/armor/mod_theme_apocryphal
 	melee = 90
 	bullet = 90
+	piercing = 90
+	slashing = 90
+	blunt = 90
+	absorption = 95
 	laser = 90
 	energy = 90
 	bomb = 100
@@ -2132,6 +2232,10 @@
 /datum/armor/mod_theme_corporate
 	melee = 200
 	bullet = 200
+	piercing = 200
+	slashing = 200
+	blunt = 200
+	absorption = 100
 	laser = 90
 	energy = 90
 	bomb = 100
@@ -2196,6 +2300,10 @@
 /datum/armor/mod_theme_debug
 	melee = 200
 	bullet = 200
+	piercing = 200
+	slashing = 200
+	blunt = 200
+	absorption = 100
 	laser = 50
 	energy = 50
 	bomb = 100
@@ -2255,6 +2363,10 @@
 /datum/armor/mod_theme_administrative
 	melee = 200
 	bullet = 200
+	piercing = 200
+	slashing = 200
+	blunt = 200
+	absorption = 100
 	laser = 50
 	energy = 50
 	bomb = 100

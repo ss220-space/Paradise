@@ -24,7 +24,7 @@
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	heat_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	armor = list(MELEE = 35, BULLET = 50, LASER = 20, ENERGY = 20, BOMB = 25, FIRE = 50, ACID = 50)
+	armor = list(PIERCING = 50, SLASHING = 35, BLUNT = 35, ABSORPTION = 50, LASER = 20, ENERGY = 20, BOMB = 25, FIRE = 50, ACID = 50)
 	strip_delay = 8 SECONDS
 	put_on_delay = 6 SECONDS
 
@@ -43,7 +43,7 @@
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
 	)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	armor = list(MELEE = 35, BULLET = 50, LASER = 20, ENERGY = 20, BOMB = 25, FIRE = 50, ACID = 50)
+	armor = list(PIERCING = 50, SLASHING = 35, BLUNT = 35, ABSORPTION = 50, LASER = 20, ENERGY = 20, BOMB = 25, FIRE = 50, ACID = 50)
 	flags_inv = HIDEMASK | HIDEHEADSETS | HIDEHEADHAIR
 	dog_fashion = null
 
@@ -60,7 +60,7 @@
 	icon_state = "vox-merc-stormtrooper"
 	item_color = "vox-merc-stormtrooper"
 	w_class = WEIGHT_CLASS_BULKY
-	armor = list(MELEE = 115, BULLET = 115, LASER = 50, ENERGY = 30, BOMB = 15, FIRE = 50, ACID = 50)
+	armor = list(PIERCING = 115, SLASHING = 115, BLUNT = 115, ABSORPTION = 78, LASER = 50, ENERGY = 30, BOMB = 15, FIRE = 50, ACID = 50)
 	strip_delay = 12 SECONDS
 	put_on_delay = 8 SECONDS
 	slowdown = 1
@@ -68,7 +68,7 @@
 /obj/item/clothing/head/helmet/vox_merc/stormtrooper
 	icon_state = "vox-merc-stormtrooper"
 	item_color = "vox-merc-stormtrooper"
-	armor = list(MELEE = 115, BULLET = 115, LASER = 50, ENERGY = 30, BOMB = 15, FIRE = 50, ACID = 50)
+	armor = list(PIERCING = 115, SLASHING = 115, BLUNT = 115, ABSORPTION = 78, LASER = 50, ENERGY = 30, BOMB = 15, FIRE = 50, ACID = 50)
 
 // Field Medic
 
@@ -78,7 +78,7 @@
 			\nМедицинский полевой костюм предназначен для защиты владельца от биологических угроз, радиации и кислотной атмосферы. Дает слабую защиту от внешне поступаемых энергетических снарядов, равномерно рассеивая остаточную энергию. Костюм абсолютно не предназначен для защиты в ближнем бою или от взрывчатых веществ за счет свое внутреннего строения, повреждающий носителя от осколков костюма при нарушении целостности. Имеет хранилище для ношения аптечек и контейнеров с химикатами."
 	icon_state = "vox-merc-fieldmedic"
 	item_color = "vox-merc-fieldmedic"
-	armor = list(MELEE = -15, BULLET = 20, LASER = 50, ENERGY = 40, BOMB = -15, FIRE = 80, ACID = INFINITY)
+	armor = list(PIERCING = 20, SLASHING = -15, BLUNT = -15, ABSORPTION = 12, LASER = 50, ENERGY = 40, BOMB = -15, FIRE = 80, ACID = INFINITY)
 	strip_delay = 6 SECONDS
 	put_on_delay = 4 SECONDS
 	allowed = list(
@@ -113,7 +113,7 @@
 	name = "vox mercenary field medic helmet"
 	icon_state = "vox-merc-fieldmedic"
 	item_color = "vox-merc-fieldmedic"
-	armor = list(MELEE = -15, BULLET = 20, LASER = 50, ENERGY = 40, BOMB = -15, FIRE = 80, ACID = INFINITY)
+	armor = list(PIERCING = 20, SLASHING = -15, BLUNT = -15, ABSORPTION = 12, LASER = 50, ENERGY = 40, BOMB = -15, FIRE = 80, ACID = INFINITY)
 	flags_inv = HIDEMASK
 
 // Bomber
@@ -124,7 +124,7 @@
 			\nОсобый разработанный штурмовой тяжелый костюм для действий в условиях крайне взрывоопасной атмосферы. Абсолютная жаростойкость, повышенная стойкость к кислотным жидкостям и лазерному воздействию делают эту броню основной для воксов действующих внутри активно разрушающихся комплексов и кораблей."
 	icon_state = "vox-merc-bomber"
 	item_color = "vox-merc-bomber"
-	armor = list(MELEE = 80, BULLET = 20, LASER = 115, ENERGY = 75, BOMB = 200, FIRE = INFINITY, ACID = 150)
+	armor = list(PIERCING = 20, SLASHING = 80, BLUNT = 80, ABSORPTION = 55, LASER = 115, ENERGY = 75, BOMB = 200, FIRE = INFINITY, ACID = 150)
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	strip_delay = 12 SECONDS
 	put_on_delay = 8 SECONDS
@@ -134,7 +134,7 @@
 	name = "vox mercenary bomber helmet"
 	icon_state = "vox-merc-bomber"
 	item_color = "vox-merc-bomber"
-	armor = list(MELEE = 80, BULLET = 20, LASER = 115, ENERGY = 75, BOMB = 200, FIRE = INFINITY, ACID = 150)
+	armor = list(PIERCING = 20, SLASHING = 80, BLUNT = 80, ABSORPTION = 55, LASER = 115, ENERGY = 75, BOMB = 200, FIRE = INFINITY, ACID = 150)
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 
 // Laminar
@@ -149,7 +149,7 @@
 	body_parts_covered = UPPER_TORSO | LOWER_TORSO | LEGS | FEET	// Руки уязвимые зоны.
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET
 	heat_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET
-	armor = list(MELEE = 20, BULLET = 20, LASER = 40, ENERGY = 40, BOMB = 15, FIRE = 20, ACID = 20)
+	armor = list(PIERCING = 20, SLASHING = 20, BLUNT = 20, ABSORPTION = 28, LASER = 40, ENERGY = 40, BOMB = 15, FIRE = 20, ACID = 20)
 	strip_delay = 2 SECONDS
 	put_on_delay = 1 SECONDS
 
@@ -158,13 +158,13 @@
 	icon_state = "vox-merc-laminar"
 	item_color = "vox-merc-laminar"
 	w_class = WEIGHT_CLASS_SMALL
-	armor = list(MELEE = 20, BULLET = 20, LASER = 40, ENERGY = 40, BOMB = 15, FIRE = 20, ACID = 20)
+	armor = list(PIERCING = 20, SLASHING = 20, BLUNT = 20, ABSORPTION = 28, LASER = 40, ENERGY = 40, BOMB = 15, FIRE = 20, ACID = 20)
 	flags_inv = HIDEHEADSETS|HIDEGLASSES
 
 /obj/item/clothing/suit/armor/vox_merc/laminar/scout
 	name = "vox mercenary laminar scout vest"
 	desc = "Компактный и мобильный костюм сформированный из лёгких пластин и за счет их особого размещения, увеличивает погашение импульсов перенаправляя их в ускорение носителя, но взамен теряя значимые защитные свойства. "
-	armor = list(MELEE = 20, BULLET = 20, LASER = 10, ENERGY = 40, BOMB = 40, FIRE = 20, ACID = 20)
+	armor = list(PIERCING = 20, SLASHING = 20, BLUNT = 20, ABSORPTION = 22, LASER = 10, ENERGY = 40, BOMB = 40, FIRE = 20, ACID = 20)
 	slowdown = -0.35
 
 // Stealth
@@ -177,7 +177,7 @@
 	icon_state = "vox-merc-stealth"
 	item_color = "vox-merc-stealth"
 	blood_overlay_type = "suit"
-	armor = list(MELEE = 20, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 15, FIRE = INFINITY, ACID = 80)
+	armor = list(PIERCING = 20, SLASHING = 20, BLUNT = 20, ABSORPTION = 32, LASER = 20, ENERGY = 20, BOMB = 15, FIRE = INFINITY, ACID = 80)
 	strip_delay = 6 SECONDS
 	put_on_delay = 4 SECONDS
 	actions_types = list(/datum/action/cooldown/disguise_self/vox)
@@ -224,7 +224,7 @@
 	desc = "Специализированный шлем воксов-наемников со встроенной системой дымогенератора."
 	icon_state = "vox-merc-stealth"
 	item_color = "vox-merc-stealth"
-	armor = list(MELEE = 20, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 15, FIRE = INFINITY, ACID = 80)
+	armor = list(PIERCING = 20, SLASHING = 20, BLUNT = 20, ABSORPTION = 32, LASER = 20, ENERGY = 20, BOMB = 15, FIRE = INFINITY, ACID = 80)
 	flags_inv =  HIDEMASK|HIDEHEADSETS|HIDEGLASSES
 	actions_types = list(/datum/action/cooldown/smoke)
 
@@ -244,7 +244,7 @@
 /obj/item/clothing/suit/space/vox
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/melee/energy/sword/saber, /obj/item/restraints/handcuffs,/obj/item/tank/internals)
-	armor = list(melee = 40, bullet = 40, laser = 30, energy = 15, bomb = 30, bio = 30, fire = 80, acid = 85)
+	armor = list(PIERCING = 40, SLASHING = 40, BLUNT = 40, ABSORPTION = 55, LASER = 30, ENERGY = 15, BOMB = 30, BIO = 30, FIRE = 80, ACID = 85)
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	icon = 'icons/obj/clothing/species/vox/suits.dmi'
 	icon_state = null
@@ -255,7 +255,7 @@
 	)
 
 /obj/item/clothing/head/helmet/space/vox
-	armor = list(melee = 40, bullet = 40, laser = 30, energy = 15, bomb = 30, bio = 30, fire = 80, acid = 85)
+	armor = list(PIERCING = 40, SLASHING = 40, BLUNT = 40, ABSORPTION = 55, LASER = 30, ENERGY = 15, BOMB = 30, BIO = 30, FIRE = 80, ACID = 85)
 	clothing_flags = STOPSPRESSUREDAMAGE
 	flags_cover = HEADCOVERSEYES
 	icon = 'icons/obj/clothing/species/vox/hats.dmi'

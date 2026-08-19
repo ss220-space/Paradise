@@ -10,6 +10,8 @@
 	throw_range = 4
 	throwforce = 10
 	w_class = WEIGHT_CLASS_TINY
+	damage_class = BLUNT
+	kinetic_force = 240
 	/// Null rod variant names, used for the radial menu
 	var/static/list/variant_names = list()
 	/// Null rod variant icons, used for the radial menu
@@ -164,6 +166,7 @@
 	desc = "It has a mysterious, protective aura."
 	w_class = WEIGHT_CLASS_HUGE
 	force = 5
+	kinetic_force = 70
 	slot_flags = ITEM_SLOT_BACK
 
 /obj/item/nullrod/staff/add_parry_component()
@@ -193,6 +196,8 @@
 	block_type = MELEE_ATTACKS
 	sharp = TRUE
 	embed_chance = 20
+	damage_class = SLASHING
+	kinetic_force = 240
 	embedded_ignore_throwspeed_threshold = TRUE
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
@@ -243,6 +248,7 @@
 	desc = "Capable of cutting clean through a holy claymore."
 	icon_state = "katana"
 	item_state = "katana"
+	kinetic_force = 90
 
 /obj/item/nullrod/claymore/multiverse
 	name = "extradimensional blade"
@@ -258,6 +264,7 @@
 	item_state = "swordblue"
 	desc = "If you strike me down, I shall become more robust than you can possibly imagine."
 	slot_flags = ITEM_SLOT_BELT
+	kinetic_force = 90
 
 /obj/item/nullrod/claymore/saber/red
 	name = "dark energy blade"
@@ -279,6 +286,8 @@
 	slot_flags = ITEM_SLOT_BELT
 	force = 4.13
 	throwforce = 1
+	damage_class = SLASHING
+	kinetic_force = 25
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 
@@ -292,6 +301,8 @@
 	slot_flags = ITEM_SLOT_BACK
 	sharp = TRUE
 	embed_chance = 20
+	damage_class = SLASHING
+	kinetic_force = 150
 	embedded_ignore_throwspeed_threshold = TRUE
 	attack_verb = list("рубанул", "порезал", "скосил")
 	hitsound = 'sound/weapons/rapierhit.ogg'
@@ -373,6 +384,8 @@
 	desc = "This war hammer cost the chaplain fourty thousand space dollars."
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_HUGE
+	damage_class = BLUNT
+	kinetic_force = 360
 	attack_verb = list("сокрушил", "ударил", "забил", "раздавил")
 
 /obj/item/nullrod/hammmer/ComponentInitialize()
@@ -392,6 +405,8 @@
 	w_class = WEIGHT_CLASS_HUGE
 	item_flags = ABSTRACT
 	sharp = TRUE
+	damage_class = SLASHING
+	kinetic_force = 240
 	attack_verb = list("пропилил", "поранил", "порезал", "рубанул")
 	hitsound = 'sound/weapons/chainsaw.ogg'
 
@@ -415,6 +430,8 @@
 	desc = "Used for absolutely hilarious sacrifices."
 	hitsound = 'sound/items/bikehorn.ogg'
 	sharp = TRUE
+	damage_class = PIERCING
+	kinetic_force = 150
 	embedded_ignore_throwspeed_threshold = TRUE
 	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал", "хонкнул")
 
@@ -424,6 +441,8 @@
 	icon_state = "chain"
 	item_state = "chain"
 	slot_flags = ITEM_SLOT_BELT
+	damage_class = BLUNT
+	kinetic_force = 210
 	attack_verb = list("хлестнул", "стегнул")
 	hitsound = 'sound/weapons/slash.ogg'
 
@@ -462,6 +481,8 @@
 	item_flags = ABSTRACT
 	w_class = WEIGHT_CLASS_HUGE
 	sharp = TRUE
+	damage_class = SLASHING
+	kinetic_force = 150
 
 /obj/item/nullrod/armblade/Initialize(mapload)
 	. = ..()
@@ -498,6 +519,8 @@
 	force = 13
 	slot_flags = ITEM_SLOT_BACK
 	sharp = FALSE
+	damage_class = BLUNT
+	kinetic_force = 208
 	hitsound = SFX_SWING_HIT
 	attack_verb = list("сокрушил", "ударил", "огрел")
 	icon_state = "bostaff0"
@@ -513,6 +536,8 @@
 	w_class = WEIGHT_CLASS_HUGE
 	desc = "They say fear is the true mind killer, but stabbing them in the head works too. Honour compels you to not sheathe it once drawn."
 	sharp = TRUE
+	damage_class = PIERCING
+	kinetic_force = 150
 	embedded_ignore_throwspeed_threshold = TRUE
 	item_flags = SLOWS_WHILE_IN_HAND
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -562,6 +587,8 @@
 	attack_verb = list("ткнул", "пронзил", "проколол", "уколол")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharp = TRUE
+	damage_class = PIERCING
+	kinetic_force = 180
 
 /obj/item/nullrod/rosary
 	name = "prayer beads"

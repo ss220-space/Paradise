@@ -29,6 +29,8 @@
 	force = 30
 	throwforce = 10
 	sharp = TRUE
+	damage_class = SLASHING
+	kinetic_force = 300
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 	sprite_sheets_inhand = list(SPECIES_SKRELL = 'icons/mob/clothing/species/skrell/held.dmi') // To stop skrell stabbing themselves in the head
@@ -111,7 +113,7 @@
 	desc = "A hood worn by the followers of a cult."
 	flags_inv = HIDENAME|HIDEHAIR
 	flags_cover = HEADCOVERSEYES
-	armor = list(melee = 30, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, fire = 10, acid = 10)
+	armor = list(PIERCING = 10, SLASHING = 30, BLUNT = 30, ABSORPTION = 18, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 0, FIRE = 10, ACID = 10)
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	magical = TRUE
@@ -128,7 +130,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	hoodtype = /obj/item/clothing/head/hooded/culthood
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
-	armor = list(MELEE = 40, BULLET = 30, LASER = 40, ENERGY = 20, BOMB = 25, BIO = 10, FIRE = 10, ACID = 10)
+	armor = list(PIERCING = 30, SLASHING = 40, BLUNT = 40, ABSORPTION = 20, LASER = 40, ENERGY = 20, BOMB = 25, BIO = 10, FIRE = 10, ACID = 10)
 	flags_inv = HIDEJUMPSUIT
 	magical = TRUE
 	sprite_sheets = list(
@@ -148,7 +150,7 @@
 	desc = "A space worthy helmet used by the followers of a cult."
 	icon_state = "cult_helmet"
 	item_state = "cult_helmet"
-	armor = list(MELEE = 70, BULLET = 50, LASER = 30,ENERGY = 15, BOMB = 30, BIO = 30, FIRE = 40, ACID = 75)
+	armor = list(PIERCING = 50, SLASHING = 70, BLUNT = 70, ABSORPTION = 50, LASER = 30, ENERGY = 15, BOMB = 30, BIO = 30, FIRE = 40, ACID = 75)
 	magical = TRUE
 	species_restricted = null
 	sprite_sheets = list(
@@ -162,7 +164,7 @@
 	desc = "A bulky suit of armor, bristling with spikes. It looks space proof."
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade, /obj/item/tank/internals)
-	armor = list(MELEE = 70, BULLET = 50, LASER = 30,ENERGY = 15, BOMB = 30, BIO = 30, FIRE = 40, ACID = 75)
+	armor = list(PIERCING = 50, SLASHING = 70, BLUNT = 70, ABSORPTION = 50, LASER = 30, ENERGY = 15, BOMB = 30, BIO = 30, FIRE = 40, ACID = 75)
 	flags_inv = HIDEGLOVES|HIDEJUMPSUIT|HIDETAIL
 	flags_inv_transparent = HIDEJUMPSUIT
 	magical = TRUE
@@ -177,7 +179,7 @@
 	icon_state = "cult_armour"
 	item_state = "cult_armour"
 	w_class = WEIGHT_CLASS_BULKY
-	armor = list(MELEE = 50, BULLET = 40, LASER = 50, ENERGY = 30, BOMB = 50, BIO = 30, FIRE = 50, ACID = 60)
+	armor = list(PIERCING = 40, SLASHING = 50, BLUNT = 50, ABSORPTION = 25, LASER = 50, ENERGY = 30, BOMB = 50, BIO = 30, FIRE = 50, ACID = 60)
 	flags_inv_transparent = HIDEGLOVES
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie
@@ -190,7 +192,7 @@
 	name = "empowered cultist hood"
 	desc = "An empowered garb which creates a powerful shield around the user."
 	icon_state = "cult_hoodalt"
-	armor = list(MELEE = 40, BULLET = 30, LASER = 40,ENERGY = 20, BOMB = 25, BIO = 10, FIRE = 10, ACID = 10)
+	armor = list(PIERCING = 30, SLASHING = 40, BLUNT = 40, ABSORPTION = 20, LASER = 40, ENERGY = 20, BOMB = 25, BIO = 10, FIRE = 10, ACID = 10)
 	flags_inv = HIDENAME|HIDEHAIR
 	flags_cover = HEADCOVERSEYES
 	magical = TRUE
@@ -221,7 +223,7 @@
 	icon_state = "flagellantrobe"
 	item_state = "flagellantrobe"
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
-	armor = list(MELEE = -50, BULLET = -50, LASER = -50,ENERGY = -50, BOMB = -50, BIO = -50, FIRE = 0, ACID = 0)
+	armor = list(PIERCING = -50, SLASHING = -50, BLUNT = -50, ABSORPTION = 0, LASER = -50, ENERGY = -50, BOMB = -50, BIO = -50, FIRE = 0, ACID = 0)
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
@@ -256,7 +258,7 @@
 	item_state = "flagellanthood"
 	flags_inv = HIDENAME|HIDEHAIR
 	flags_cover = HEADCOVERSEYES
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
+	armor = list(PIERCING = 0, SLASHING = 0, BLUNT = 0, ABSORPTION = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
@@ -527,7 +529,7 @@
 	name = "ghostly cult robes"
 	desc = "A set of ethereal armored robes worn by the undead followers of a cult."
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
-	armor = list(melee = 50, bullet = 30, laser = 50, energy = 20, bomb = 25, bio = 10, fire = 10, acid = 10)
+	armor = list(PIERCING = 30, SLASHING = 50, BLUNT = 50, ABSORPTION = 18, LASER = 50, ENERGY = 20, BOMB = 25, BIO = 10, FIRE = 10, ACID = 10)
 	item_flags = DROPDEL
 	hoodtype = /obj/item/clothing/head/hooded/culthood/alt/ghost
 

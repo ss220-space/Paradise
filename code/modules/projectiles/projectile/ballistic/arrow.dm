@@ -4,6 +4,8 @@
 	ammo_type = /obj/item/ammo_casing/caseless/arrow
 	range = 10
 	damage = 25
+	kinetic_force = 120
+	armour_penetration = 10
 	miss_sound = SFX_ARROW_MISS
 	var/faction_bonus_damage = 13
 	var/nemesis_factions = MINING_FACTIONS
@@ -46,7 +48,8 @@
 	ammo_type = /obj/item/ammo_casing/caseless/arrow/bone_tipped
 	range = 12
 	damage = 45
-	armour_penetration = -10
+	kinetic_force = 310
+	armour_penetration = 10
 	faction_bonus_damage = 23
 
 /obj/projectile/bullet/reusable/arrow/jagged //alternative arrow, made from fishing
@@ -55,7 +58,7 @@
 	ammo_type = /obj/item/ammo_casing/caseless/arrow/jagged
 	range = 12
 	damage = 50
-	armour_penetration = -30
+	armour_penetration = -10
 	faction_bonus_damage = 60
 
 /obj/projectile/bullet/reusable/arrow/modern
@@ -64,7 +67,8 @@
 	ammo_type = /obj/item/ammo_casing/caseless/arrow/modern
 	range = 15
 	damage = 30
-	armour_penetration = 10
+	kinetic_force = 300
+	armour_penetration = 20
 
 /obj/projectile/bullet/reusable/arrow/homemade
 	name = "homemade arrow"
