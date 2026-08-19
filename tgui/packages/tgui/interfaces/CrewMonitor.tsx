@@ -1,8 +1,9 @@
-import { createSearch } from 'common/string';
 import { sortBy } from 'es-toolkit';
 import { useState } from 'react';
+import { NanoMap } from 'tgui/components';
+import { Box, Button, Icon, Input, Table, Tabs } from 'tgui-core/components';
+import { createSearch } from 'tgui-core/string';
 import { useBackend } from '../backend';
-import { Box, Button, Icon, Input, NanoMap, Table, Tabs } from '../components';
 import type { NanoMakerProps } from '../components/NanoMap';
 import { COLORS } from '../constants';
 import { Window } from '../layouts';
@@ -159,7 +160,7 @@ type CrewMonitorTableProps = {
 
 const CrewMonitorTable = ({ crewData }: CrewMonitorTableProps) => {
   const { act, data } = useBackend<CrewMonitorData>();
-  const crew = sortBy(crewData, (cm) => cm.name);
+  const crew = sortBy(crewData, [(cm) => cm.name]);
   const [search, setSearch] = useState('');
   const searcher = createSearch<CrewMember>(search, (cm) => {
     return `${cm.name}|${cm.assignment}|${cm.area}`;

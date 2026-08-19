@@ -1,6 +1,6 @@
 import { type Dispatch, useEffect, useState } from 'react';
+import { Button, Section, Stack, Table } from 'tgui-core/components';
 import { useBackend } from '../../backend';
-import { Button, Section, Stack, Table } from '../../components';
 import { SORTING_TYPES } from './contants';
 import type { FilterState } from './filters';
 import { SubsystemRow } from './SubsystemRow';

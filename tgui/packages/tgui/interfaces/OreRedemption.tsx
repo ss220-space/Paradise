@@ -1,5 +1,4 @@
-import { classes } from 'common/react';
-import { useState } from 'react';
+import { type ComponentProps, useState } from 'react';
 import {
   Box,
   Button,
@@ -10,13 +9,13 @@ import {
   Stack,
   Tabs,
 } from 'tgui-core/components';
+import { classes } from 'tgui-core/react';
 import { useBackend } from '../backend';
-import type { SectionProps } from '../components/Section';
 import { Window } from '../layouts';
 
 const formatPoints = (amt: number) => `${amt.toLocaleString('en-US')} ед.`;
 
-export const OreRedemption = (properties) => {
+export const OreRedemption = (_properties: unknown) => {
   const [tabIndex, setTabIndex] = useState(0);
   return (
     <Window width={490} height={700}>
@@ -68,6 +67,8 @@ type Ore = {
   amount: number;
   description: string;
 };
+
+type SectionProps = ComponentProps<typeof Section>;
 
 const IdDisk = (properties: SectionProps) => {
   const { act, data } = useBackend<OreRedemptionData>();

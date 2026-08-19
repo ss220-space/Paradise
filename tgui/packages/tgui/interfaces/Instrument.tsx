@@ -1,6 +1,4 @@
-import { round } from 'common/math';
 import type { ReactNode } from 'react';
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -11,9 +9,11 @@ import {
   Section,
   Slider,
   Stack,
-} from '../components';
+} from 'tgui-core/components';
+import { round } from 'tgui-core/math';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
-export const Instrument = (properties) => {
+export const Instrument = (_properties: unknown) => {
   return (
     <Window width={600} height={505}>
       <InstrumentHelp />

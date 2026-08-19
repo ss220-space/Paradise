@@ -1,7 +1,4 @@
-import type { BooleanLike } from 'common/react';
-import { createSearch } from 'common/string';
 import { useState } from 'react';
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -10,7 +7,10 @@ import {
   Section,
   Stack,
   Table,
-} from '../components';
+} from 'tgui-core/components';
+import type { BooleanLike } from 'tgui-core/react';
+import { createSearch } from 'tgui-core/string';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { SortButton } from './common/SortButtons';
 
@@ -81,7 +81,7 @@ export const PermissionsEdit = (_props: unknown) => {
   const [sortId, setSortId] = useState('target_name');
   const [sortOrder, setSortOrder] = useState(true);
 
-  const [newAdminCkey, setNewAdminCkey] = useState<string>(null);
+  const [newAdminCkey, setNewAdminCkey] = useState<string>('');
   const [newAdminRank, setNewAdminRank] = useState(noneSelect);
   const [newAdminPreset, setNewAdminPreset] = useState(noneSelect);
 

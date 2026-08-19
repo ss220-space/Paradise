@@ -1,5 +1,5 @@
+import { Box, Button, Flex, LabeledList, Section } from 'tgui-core/components';
 import { useBackend } from '../../backend';
-import { Box, Button, Flex, LabeledList, Section } from '../../components';
 import { MENU, SUBMENU } from '../RndConsole';
 import { RndNavButton, RndRoute } from './index';
 

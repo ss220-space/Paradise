@@ -4,10 +4,11 @@
  * @license MIT
  */
 
-import { type CellProps, Table, type TableProps } from './Table';
+import type { ComponentProps } from 'react';
+import { Table } from 'tgui-core/components';
 
 /** @deprecated */
-export const Grid = (props: TableProps) => {
+export const Grid = (props: ComponentProps<typeof Table>) => {
   const { children, ...rest } = props;
   return (
     <Table {...rest}>
@@ -18,7 +19,7 @@ export const Grid = (props: TableProps) => {
 
 type GridColumnProps = {
   size?: number;
-} & CellProps;
+} & ComponentProps<typeof Table.Cell>;
 
 /** @deprecated */
 const GridColumn = (props: GridColumnProps) => {

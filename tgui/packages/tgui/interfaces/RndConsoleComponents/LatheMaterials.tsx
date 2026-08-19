@@ -1,5 +1,5 @@
+import { Box, Table } from 'tgui-core/components';
 import { useBackend } from '../../backend';
-import { Box, Table } from '../../components';
 
 type LatheStorage = {
   total_materials: number;

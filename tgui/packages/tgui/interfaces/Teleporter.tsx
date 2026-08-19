@@ -1,5 +1,5 @@
+import { Box, Button, Dropdown, Section, Stack } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Box, Button, Dropdown, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
 type TeleporterData = {
@@ -156,7 +156,7 @@ export const Teleporter = (_props: unknown) => {
                             tooltip="Calibrates the hub. Accidents may occur \
                             when the  calibration is not optimal."
                             tooltipPosition="bottom-end"
-                            disabled={!!(calibrated || calibrating )}
+                            disabled={!!(calibrated || calibrating)}
                             onClick={() => act('calibrate')}
                           />
                         </Stack.Item>

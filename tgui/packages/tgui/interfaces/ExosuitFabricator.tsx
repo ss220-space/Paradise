@@ -142,35 +142,40 @@ const Designs = (properties) => {
       scrollable
       className="Exofab__designs"
       title={
-        <Dropdown
-          className="Exofab__dropdown"
-          selected={curCategory}
-          options={categories}
-          onSelected={(cat) =>
-            act('category', {
-              cat: cat,
-            })
-          }
-        />
-      }
-      buttons={
-        <Box mt={-3.5}>
-          <Button
-            icon="plus"
-            tooltip={'Добавлеие всех шаблонов из категории в очередь печати.'}
-            onClick={() => act('queueall')}
-          >
-            Добавить всё
-          </Button>
-          <Button
-            disabled={syncing}
-            iconSpin={syncing}
-            icon="sync-alt"
-            onClick={() => act('sync')}
-          >
-            {syncing ? 'Синхронизация...' : 'Синхронизация с сетью НИО'}
-          </Button>
-        </Box>
+        <Stack fill fontSize={1} align="center">
+          <Stack.Item>
+            <Dropdown
+              width={19}
+              selected={curCategory}
+              options={categories}
+              onSelected={(cat) =>
+                act('category', {
+                  cat: cat,
+                })
+              }
+            />
+          </Stack.Item>
+          <Stack.Item grow />
+          <Stack.Item>
+            <Button
+              icon="plus"
+              tooltip={'Добавлеие всех шаблонов из категории в очередь печати.'}
+              onClick={() => act('queueall')}
+            >
+              Добавить всё
+            </Button>
+          </Stack.Item>
+          <Stack.Item>
+            <Button
+              disabled={syncing}
+              iconSpin={syncing}
+              icon="sync-alt"
+              onClick={() => act('sync')}
+            >
+              {syncing ? 'Синхронизация...' : 'Синхронизация с сетью НИО'}
+            </Button>
+          </Stack.Item>
+        </Stack>
       }
     >
       <Input

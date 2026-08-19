@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useBackend } from '../backend';
 import {
   BlockQuote,
   Box,
@@ -11,7 +10,8 @@ import {
   Section,
   Stack,
   Table,
-} from '../components';
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 const donatorTiers = {
@@ -41,7 +41,7 @@ const getCheckboxGroup = (
   itemsList: (Provider | string)[],
   selectedList: (Provider | string)[],
   setSelected: React.Dispatch<React.SetStateAction<(Provider | string)[]>>,
-  contentKey: string = null,
+  contentKey: string = '',
 ) => {
   return itemsList.map((item: Provider | string) => {
     const title = item[contentKey] ?? item;

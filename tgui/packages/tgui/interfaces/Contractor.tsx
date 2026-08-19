@@ -1,6 +1,10 @@
-import { rad2deg } from 'common/math';
-import { Component, Fragment, type ReactNode, useState } from 'react';
-import { useBackend } from '../backend';
+import {
+  Component,
+  type ComponentProps,
+  Fragment,
+  type ReactNode,
+  useState,
+} from 'react';
 import {
   Box,
   Button,
@@ -11,11 +15,10 @@ import {
   Modal,
   Section,
   Tabs,
-} from '../components';
-import type { BoxProps } from '../components/Box';
-import { Countdown } from '../components/Countdown';
-import type { SectionProps } from '../components/Section';
-import type { TabsProps } from '../components/Tabs';
+} from 'tgui-core/components';
+import { rad2deg } from 'tgui-core/math';
+import { useBackend } from '../backend';
+import { Countdown } from '../components';
 import { Window } from '../layouts';
 
 const contractStatuses = {
@@ -167,7 +170,7 @@ export const Contractor = (properties) => {
   );
 };
 
-const Summary = (properties: SectionProps) => {
+const Summary = (properties: ComponentProps<typeof Section>) => {
   const { act, data } = useBackend<ContractorData>();
   const { tc_available, tc_paid_out, completed_contracts, rep } = data;
   return (
@@ -225,7 +228,7 @@ const Summary = (properties: SectionProps) => {
   );
 };
 
-const Navigation = (properties: TabsProps) => {
+const Navigation = (properties: ComponentProps<typeof Tabs>) => {
   const { act, data } = useBackend<ContractorData>();
   const { page } = data;
   return (
@@ -257,7 +260,7 @@ const Navigation = (properties: TabsProps) => {
   );
 };
 
-const Contracts = (properties: SectionProps) => {
+const Contracts = (properties: ComponentProps<typeof Section>) => {
   const { act, data } = useBackend<ContractorData>();
   const { contracts, contract_active, can_extract } = data;
   const activeContract =
@@ -278,7 +281,7 @@ const Contracts = (properties: SectionProps) => {
             'Начать эвакуацию',
             extractionCooldown && (
               <Countdown
-                timeLeft={activeContract.time_left}
+                timeEnd={activeContract.time_left}
                 format={(v, f) => ` (${f.substring(3)})`}
               />
             ),
@@ -422,7 +425,7 @@ const areaArrow = (contract: Contract) => {
           color={same_area ? 'green' : 'yellow'}
           rotation={
             same_area
-              ? null
+              ? undefined
               : -rad2deg(
                   Math.atan2(
                     t_coords[1] - c_coords[1],
@@ -438,7 +441,7 @@ const areaArrow = (contract: Contract) => {
   }
 };
 
-const Hub = (properties: SectionProps) => {
+const Hub = (properties: ComponentProps<typeof Section>) => {
   const { act, data } = useBackend<ContractorData>();
   const { rep, buyables } = data;
   return (
@@ -491,7 +494,7 @@ type FakeTerminalProps = {
   linesPerSecond?: number;
   finishedTimeout: number;
   onFinished: () => void;
-} & BoxProps;
+} & ComponentProps<typeof Box>;
 
 type FakeTerminalState = {
   currentIndex: number;
@@ -500,10 +503,10 @@ type FakeTerminalState = {
 
 // Lifted from /tg/station
 class FakeTerminal extends Component<FakeTerminalProps, FakeTerminalState> {
-  timer: NodeJS.Timeout;
+  timer: NodeJS.Timeout | undefined;
   constructor(props: FakeTerminalProps) {
     super(props);
-    this.timer = null;
+    this.timer = undefined;
     this.state = {
       currentIndex: 0,
       currentDisplay: [],

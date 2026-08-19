@@ -1,5 +1,5 @@
+import { Box, Button, Flex, Section, Stack } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Box, Button, Flex, Section, Stack } from '../components';
 import { Window } from '../layouts';
 import { ComplexModal } from './common/ComplexModal';
 
@@ -55,7 +55,7 @@ const DnaEntriesBlock = (props: DnaEntriesBlockProps) => {
   const { act } = useBackend<DnaNotepadData>();
   const { dna_data } = props;
 
-  const dnaBlocks = [];
+  const dnaBlocks: React.JSX.Element[] = [];
   for (let i = 0; i < dna_data.length; i++) {
     const dnaBlock = dna_data[i];
     const stackItem = (

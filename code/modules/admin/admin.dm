@@ -429,10 +429,7 @@ ADMIN_VERB(announce, R_ADMIN, "Announce", "Announce your desires to the world.",
 	message = replacetext(message, "\n", "<br>") // required since we're putting it in a <p> tag
 	to_chat(world, fieldset_block(span_notice("<b>[user.holder.fakekey ? "Администрация" : user.key] объявляет:</b>"), span_notice("<p>[message]</p>"), "boxed_message blue_box"))
 	log_admin("Announce: [key_name(user)] : [message]")
-	for(var/client/clients_to_alert in GLOB.clients)
-		window_flash(clients_to_alert)
-		if(clients_to_alert.prefs?.sound & SOUND_ADMINHELP)
-			SEND_SOUND(clients_to_alert, sound('sound/effects/adminhelp.ogg'))
+	send_ooc_announcement(message, user.holder.fakekey ? "Администрация" : user.key, play_sound = 'sound/effects/adminhelp.ogg')
 	BLACKBOX_LOG_ADMIN_VERB("Announce")
 
 ADMIN_VERB(toggle_ooc, R_ADMIN, "Toggle OOC", "Toggle the OOC channel on or off.", ADMIN_CATEGORY_TOGGLES)

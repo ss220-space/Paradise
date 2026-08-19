@@ -1,8 +1,8 @@
 import type { MouseEvent } from 'react';
 import { useState } from 'react';
+import { Box, Button, Section, Stack } from 'tgui-core/components';
 import type { BooleanLike } from 'tgui-core/react';
 import { useBackend } from '../backend';
-import { Box, Button, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
 type MinesweeperData = {

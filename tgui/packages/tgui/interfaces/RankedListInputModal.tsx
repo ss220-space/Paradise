@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
+import { Button, Section, Stack, Table } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Button, Section, Stack, Table } from '../components';
 import { Window } from '../layouts';
 import { InputButtons } from './common/InputButtons';
 import { Loader } from './common/Loader';

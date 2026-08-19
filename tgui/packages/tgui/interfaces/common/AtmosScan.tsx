@@ -1,4 +1,4 @@
-import { Box, LabeledList } from '../../components';
+import { Box, LabeledList } from 'tgui-core/components';
 
 export const Danger2Colour = (danger: number) => {
   if (danger === 0) {

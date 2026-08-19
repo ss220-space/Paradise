@@ -1,7 +1,7 @@
 import { Component } from 'react';
+import { Box, Button, InfinitePlane, Input, Stack } from 'tgui-core/components';
 import { resolveAsset } from '../../assets';
 import { useBackend } from '../../backend';
-import { Box, Button, InfinitePlane, Input, Stack } from '../../components';
 import { Window } from '../../layouts';
 import { Connections } from '../common/Connections';
 import { CircuitInfo } from './CircuitInfo';
@@ -29,8 +29,8 @@ export class IntegratedCircuit extends Component<
     this.state = {
       locations: {},
       selectedPort: null,
-      mouseX: null,
-      mouseY: null,
+      mouseX: undefined,
+      mouseY: undefined,
       zoom: 1,
       backgroundX: 0,
       backgroundY: 0,
@@ -190,7 +190,7 @@ export class IntegratedCircuit extends Component<
     if (!input_port || input_port.type !== output_port.type) {
       return;
     }
-    input_port.connected_to.push(isOutput ? port.ref : selectedPort.ref);
+    input_port.connected_to?.push(isOutput ? port.ref : selectedPort.ref);
   }
 
   handleDragging(event) {
@@ -287,7 +287,7 @@ export class IntegratedCircuit extends Component<
   }
 
   handleVarClicked(event, variable, is_setter) {
-    const component = {
+    const component: any = {
       name: is_setter ? 'Сеттер' : 'Геттер',
       description: 'Это компонент',
       color: 'blue',
@@ -326,13 +326,12 @@ export class IntegratedCircuit extends Component<
   }
 
   handleVarDropped(event) {
-    const { data, act } = useBackend();
+    const { act } = useBackend();
     const {
       draggingVariable,
       variableIsSetter,
-      mouseX,
-      mouseY,
-      zoom,
+      mouseX = 0,
+      mouseY = 0,
       draggingComponentPos,
     } = this.state;
 
@@ -349,8 +348,8 @@ export class IntegratedCircuit extends Component<
       return;
     }
 
-    const xPos = mouseX - (mouseX - draggingComponentPos.x);
-    const yPos = mouseY - (mouseY - draggingComponentPos.y);
+    const xPos = mouseX - (mouseX - (draggingComponentPos?.x || 0));
+    const yPos = mouseY - (mouseY - (draggingComponentPos?.y || 0));
 
     act('add_setter_or_getter', {
       variable: draggingVariable,
@@ -373,8 +372,12 @@ export class IntegratedCircuit extends Component<
 
   handleComponentDropped(event) {
     const { act } = useBackend();
-    const { draggingComponent, draggingComponentPos, mouseX, mouseY } =
-      this.state;
+    const {
+      draggingComponent,
+      draggingComponentPos,
+      mouseX = 0,
+      mouseY = 0,
+    } = this.state;
 
     this.setState({
       draggingComponent: null,
@@ -386,8 +389,8 @@ export class IntegratedCircuit extends Component<
     if (event.defaultPrevented) {
       return;
     }
-    const xPos = mouseX - (mouseX - draggingComponentPos.x);
-    const yPos = mouseY - (mouseY - draggingComponentPos.y);
+    const xPos = mouseX - (mouseX - (draggingComponentPos?.x || 0));
+    const yPos = mouseY - (mouseY - (draggingComponentPos?.y || 0));
 
     act('print_component', {
       component_to_print: draggingComponent.type,
@@ -415,17 +418,17 @@ export class IntegratedCircuit extends Component<
       stored_designs,
     } = data;
     const {
-      mouseX,
-      mouseY,
+      mouseX = 0,
+      mouseY = 0,
       locations,
       selectedPort,
       variableMenuOpen,
       componentMenuOpen,
       draggingComponent,
-      draggingOffsetX,
-      draggingOffsetY,
+      draggingOffsetX = 0,
+      draggingOffsetY = 0,
     } = this.state;
-    const connections = [];
+    const connections: any[] = [];
 
     for (const comp of components) {
       if (comp === null) {
@@ -433,7 +436,7 @@ export class IntegratedCircuit extends Component<
       }
 
       for (const input of comp.input_ports) {
-        for (const output of input.connected_to) {
+        for (const output of input.connected_to || []) {
           const output_port = locations[output];
           connections.push({
             color: output_port?.color || 'blue',

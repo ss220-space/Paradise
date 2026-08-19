@@ -8,7 +8,7 @@ import {
   Section,
   Stack,
   Tabs,
-} from '../../components';
+} from 'tgui-core/components';
 
 const diffMap = {
   0: {
@@ -66,10 +66,9 @@ export const AccessList = (props: AccessListProps) => {
   const selectedAccess = accesses.find(
     (access) => access.name === selectedAccessName,
   );
-  const selectedAccessEntries = sortBy<Access>(
-    selectedAccess?.accesses || [],
+  const selectedAccessEntries = sortBy<Access>(selectedAccess?.accesses || [], [
     (entry) => entry.desc,
-  );
+  ]);
 
   const checkAccessIcon = (accesses: Access[]) => {
     let oneAccess = false;
@@ -97,10 +96,10 @@ export const AccessList = (props: AccessListProps) => {
       title="Access"
       buttons={
         <>
-          <Button icon="check-double" color="good" onClick={() => grantAll()}>
+          <Button icon="check-double" color="good" onClick={() => grantAll?.()}>
             Выбрать всё
           </Button>
-          <Button icon="undo" color="bad" onClick={() => denyAll()}>
+          <Button icon="undo" color="bad" onClick={() => denyAll?.()}>
             Убрать всё
           </Button>
           {sectionButtons}
@@ -134,28 +133,30 @@ export const AccessList = (props: AccessListProps) => {
           <Divider vertical />
         </Stack.Item>
         <Stack.Item grow basis="80%">
-          <Stack mb={1}>
-            <Stack.Item grow>
-              <Button
-                fluid
-                icon="check"
-                color="good"
-                onClick={() => grantDep(selectedAccess.regid)}
-              >
-                Выбрать всё в отделе
-              </Button>
-            </Stack.Item>
-            <Stack.Item grow>
-              <Button
-                fluid
-                icon="times"
-                color="bad"
-                onClick={() => denyDep(selectedAccess.regid)}
-              >
-                Убрать всё в отделе
-              </Button>
-            </Stack.Item>
-          </Stack>
+          {!!selectedAccess && (
+            <Stack mb={1}>
+              <Stack.Item grow>
+                <Button
+                  fluid
+                  icon="check"
+                  color="good"
+                  onClick={() => grantDep?.(selectedAccess.regid)}
+                >
+                  Выбрать всё в отделе
+                </Button>
+              </Stack.Item>
+              <Stack.Item grow>
+                <Button
+                  fluid
+                  icon="times"
+                  color="bad"
+                  onClick={() => denyDep?.(selectedAccess.regid)}
+                >
+                  Убрать всё в отделе
+                </Button>
+              </Stack.Item>
+            </Stack>
+          )}
           {!!usedByRcd && (
             <Box my={1.5}>
               <LabeledList>
@@ -175,7 +176,7 @@ export const AccessList = (props: AccessListProps) => {
                 !selectedList?.includes(entry.ref)
               }
               checked={selectedList?.includes(entry.ref)}
-              onClick={() => accessMod(entry.ref)}
+              onClick={() => accessMod?.(entry.ref)}
             >
               {entry.desc}
             </Button.Checkbox>

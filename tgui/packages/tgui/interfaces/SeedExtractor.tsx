@@ -1,7 +1,5 @@
 import type React from 'react';
 import { type ReactNode, useState } from 'react';
-import { classes } from '../../common/react';
-import { useBackend } from '../backend';
 import {
   Button,
   Icon,
@@ -10,7 +8,9 @@ import {
   Section,
   Stack,
   Table,
-} from '../components';
+} from 'tgui-core/components';
+import { classes } from 'tgui-core/react';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { ComplexModal } from './common/ComplexModal';
 
@@ -41,7 +41,7 @@ const le = (actual: number, test: number) => actual <= test;
 
 const seedFilter = (searchText: string) => {
   const terms = searchText.split(' ');
-  const filters = [];
+  const filters: ((s: Seed) => boolean)[] = [];
   for (const term of terms) {
     const parts = term.split(':');
     if (parts.length === 0) {
@@ -230,7 +230,7 @@ const SeedList = (properties: VendAmountProps & SearchTextProps) => {
           {!seeds
             ? 'No seeds present.'
             : seeds
-                .filter(seedFilter(searchText))
+                .filter(seedFilter(searchText || ''))
                 .sort((a, b) => {
                   const i = sortOrder ? 1 : -1;
                   if (typeof a[sortId] === 'number') {
@@ -292,10 +292,10 @@ const SortButton = (properties: SortButtonProps) => {
         fluid
         onClick={() => {
           if (sortId === id) {
-            setSortOrder(!sortOrder);
+            setSortOrder?.(!sortOrder);
           } else {
-            setSortId(id);
-            setSortOrder(true);
+            setSortId?.(id);
+            setSortOrder?.(true);
           }
         }}
       >
@@ -332,7 +332,7 @@ const SeedExtractorActions = (
         <Input
           placeholder="1"
           onChange={(value) =>
-            setVendAmount(Number(value) >= 1 ? Number(value) : 1)
+            setVendAmount?.(Number(value) >= 1 ? Number(value) : 1)
           }
         />
       </Stack.Item>

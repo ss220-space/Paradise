@@ -1,5 +1,12 @@
+import {
+  Box,
+  Button,
+  Dimmer,
+  Icon,
+  LabeledList,
+  Section,
+} from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Box, Button, Dimmer, Icon, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
 type PersonalCraftingData = {

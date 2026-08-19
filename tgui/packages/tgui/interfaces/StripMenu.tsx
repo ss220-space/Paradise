@@ -1,9 +1,9 @@
-import type { BooleanLike } from 'common/react';
 import { range } from 'es-toolkit';
 import type { ReactNode } from 'react';
+import { Box, Button, DmIcon, Icon, Image, Stack } from 'tgui-core/components';
+import type { BooleanLike } from 'tgui-core/react';
 import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
-import { Box, Button, DmIcon, Icon, Image, Stack } from '../components';
 import { Window } from '../layouts';
 
 const ROWS = 5;

@@ -1,5 +1,4 @@
 import { useMemo, useState } from 'react';
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -9,7 +8,8 @@ import {
   Section,
   Stack,
   Tabs,
-} from '../components';
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type SmiteMenuData = {

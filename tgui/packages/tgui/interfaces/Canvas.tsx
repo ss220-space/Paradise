@@ -1,8 +1,8 @@
-import { clamp } from 'common/math';
-import type { BooleanLike } from 'common/react';
-import { decodeHtmlEntities } from 'common/string';
 import { type PropsWithChildren, type ReactNode, useState } from 'react';
-import { Box, Button, Stack } from 'tgui/components';
+import { Box, Button, Stack } from 'tgui-core/components';
+import { clamp } from 'tgui-core/math';
+import type { BooleanLike } from 'tgui-core/react';
+import { decodeHtmlEntities } from 'tgui-core/string';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';

@@ -1,4 +1,4 @@
-import { Dimmer, Flex, Icon } from '../../components';
+import { Dimmer, Flex, Icon } from 'tgui-core/components';
 
 type OperatingProps = {
   /**

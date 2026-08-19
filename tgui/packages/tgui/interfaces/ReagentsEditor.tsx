@@ -1,7 +1,7 @@
-import { createSearch } from 'common/string';
 import { Component } from 'react';
+import { Button, Input, Section, Stack, Table } from 'tgui-core/components';
+import { createSearch } from 'tgui-core/string';
 import { useBackend } from '../backend';
-import { Button, Input, Section, Stack, Table } from '../components';
 import { Window } from '../layouts';
 
 type StaticReagentInformation = {

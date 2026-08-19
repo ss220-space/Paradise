@@ -1,6 +1,6 @@
-import { decodeHtmlEntities } from 'common/string';
 import { useState } from 'react';
-import { Box, Button, Section, Stack, Tabs } from 'tgui/components';
+import { Box, Button, Section, Stack, Tabs } from 'tgui-core/components';
+import { decodeHtmlEntities } from 'tgui-core/string';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
@@ -278,16 +278,15 @@ const CartButtons = (props) => {
       <Button.Input
         width="45px"
         tooltipPosition="bottom-end"
-        onCommit={(e, value) =>
+        onCommit={(value) =>
           act('set_cart_item_quantity', {
             item: i.obj_path,
-            quantity: value,
+            quantity: Number(value),
           })
         }
+        value={i.amount.to}
         disabled={i.limit !== -1 && i.amount >= i.limit && i.amount <= 0}
-      >
-        {i.amount}
-      </Button.Input>
+      />
       <Button
         mb={0.3}
         icon="plus"

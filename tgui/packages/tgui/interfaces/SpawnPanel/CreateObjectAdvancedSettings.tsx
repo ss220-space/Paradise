@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Button, Dropdown, Slider, Table } from 'tgui/components';
+import { Button, Dropdown, Slider, Table } from 'tgui-core/components';
 
 import { useBackend } from '../../backend';
 import type { IconSettings } from './index';

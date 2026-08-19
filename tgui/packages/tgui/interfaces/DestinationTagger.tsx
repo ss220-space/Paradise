@@ -1,6 +1,13 @@
 import { useState } from 'react';
+import {
+  Box,
+  Button,
+  Flex,
+  NoticeBox,
+  Section,
+  Tabs,
+} from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Box, Button, Flex, NoticeBox, Section, Tabs } from '../components';
 import { Window } from '../layouts';
 
 export const DestinationTagger = (_props: unknown) => {

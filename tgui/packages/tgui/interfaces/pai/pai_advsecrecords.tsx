@@ -1,7 +1,7 @@
+import { Button, LabeledList } from 'tgui-core/components';
 import { useBackend } from '../../backend';
-import { Button, LabeledList } from '../../components';
 
-export const pai_advsecrecords = (props: unknown) => {
+export const pai_advsecrecords = (_props: unknown) => {
   const { act } = useBackend();
 
   return (

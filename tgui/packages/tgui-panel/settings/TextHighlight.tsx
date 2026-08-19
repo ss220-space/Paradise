@@ -141,20 +141,6 @@ function TextHighlightSetting(props) {
   return (
     <Stack.Item {...rest}>
       <Stack mb={1} color="label" align="baseline">
-        <Stack.Item grow>
-          <Button.Checkbox
-            checked={!!enabled}
-            mr="5px"
-            onClick={() =>
-              updateHighlight({
-                id,
-                enabled: !enabled,
-              })
-            }
-          >
-            Enabled
-          </Button.Checkbox>
-        </Stack.Item>
         <Stack.Item>
           <Button.Checkbox
             checked={highlightWholeMessage}
@@ -197,6 +183,22 @@ function TextHighlightSetting(props) {
             }
           >
             Регистр
+          </Button.Checkbox>
+        </Stack.Item>
+      </Stack>
+      <Stack mb={1} color="label" align="baseline">
+        <Stack.Item grow>
+          <Button.Checkbox
+            checked={!!enabled}
+            mr="5px"
+            onClick={() =>
+              updateHighlight({
+                id,
+                enabled: !enabled,
+              })
+            }
+          >
+            Enabled
           </Button.Checkbox>
         </Stack.Item>
         <Stack.Item>

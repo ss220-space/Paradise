@@ -1,4 +1,4 @@
-import { classes } from '../../../common/react';
+import { classes } from 'tgui-core/react';
 import { CSS_COLORS } from '../../constants';
 
 const SVG_CURVE_INTENSITY = 64;

@@ -1,23 +1,23 @@
-import { createSearch, decodeHtmlEntities } from 'common/string';
 import { type ReactNode, useState } from 'react';
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
   Icon,
+  Image,
   Input,
   LabeledList,
   Section,
   Stack,
-  Tabs,
   Table,
-  Image,
-} from '../components';
+  Tabs,
+} from 'tgui-core/components';
+import { createSearch, decodeHtmlEntities } from 'tgui-core/string';
+import { useBackend } from '../backend';
 import {
   ComplexModal,
+  type ModalType,
   modalOpen,
   modalRegisterBodyOverride,
-  type ModalType,
 } from '../interfaces/common/ComplexModal';
 import { Window } from '../layouts';
 import { LoginInfo } from './common/LoginInfo';
@@ -379,7 +379,7 @@ const MedicalRecordsView = (_properties) => {
                 align="center"
                 color="label"
               >
-                <Icon.Stack style={{ transform: 'translate(-50px, -100px)' }}>
+                <Icon.Stack>
                   <Icon name="scroll" size={5} color="gray" />
                   <Icon name="slash" size={5} color="red" />
                 </Icon.Stack>
@@ -666,7 +666,7 @@ const MedicalRecordsMedbots = (_properties) => {
               align="center"
               color="label"
             >
-              <Icon.Stack style={{ transform: 'translate(-50px, -100px)' }}>
+              <Icon.Stack>
                 <Icon name="robot" size={5} color="gray" />
                 <Icon name="slash" size={5} color="red" />
               </Icon.Stack>
@@ -739,10 +739,10 @@ export const SortButton = (properties: SortButtonProps) => {
         color={sortId !== id && 'transparent'}
         onClick={() => {
           if (sortId === id) {
-            setSortOrder(!sortOrder);
+            setSortOrder?.(!sortOrder);
           } else {
-            setSortId(id);
-            setSortOrder(true);
+            setSortId?.(id);
+            setSortOrder?.(true);
           }
         }}
       >

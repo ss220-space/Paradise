@@ -1,5 +1,5 @@
+import { Box, Button, Section, Stack, Table } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Box, Button, Section, Stack, Table } from '../components';
 import { Window } from '../layouts';
 import { ComplexModal } from './common/ComplexModal';
 

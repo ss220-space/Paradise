@@ -1,4 +1,3 @@
-import type { BooleanLike } from 'common/react';
 import type { ReactNode } from 'react';
 import {
   Button,
@@ -6,6 +5,7 @@ import {
   NumberInput,
   Section,
 } from 'tgui-core/components';
+import type { BooleanLike } from 'tgui-core/react';
 import { useBackend } from '../../backend';
 import { GASES } from '../../constants';
 

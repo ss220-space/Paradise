@@ -25,27 +25,27 @@ export function SettingsGeneral(props) {
   const [editingPanes, setEditingPanes] = useState(false);
 
   return (
-    <Section>
-      <LabeledList>
-        <LabeledList.Item label="Тема">
-          {THEMES.map((THEME) => (
-            <Button
-              key={THEME}
-              selected={settings.theme === THEME}
-              color="transparent"
-              onClick={() =>
-                updateSettings({
-                  theme: THEME,
-                })
-              }
-            >
-              {capitalize(THEME)}
-            </Button>
-          ))}
-        </LabeledList.Item>
-        <LabeledList.Item label="Масштаб UI">
-          <Stack>
-            <Stack.Item>
+    <Section fill>
+      <Stack fill vertical>
+        <Stack.Item>
+          <LabeledList>
+            <LabeledList.Item label="Тема">
+              {THEMES.map((THEME) => (
+                <Button
+                  key={THEME}
+                  selected={settings.theme === THEME}
+                  color="transparent"
+                  onClick={() =>
+                    updateSettings({
+                      theme: THEME,
+                    })
+                  }
+                >
+                  {capitalize(THEME)}
+                </Button>
+              ))}
+            </LabeledList.Item>
+            <LabeledList.Item label="Масштаб UI">
               <Button
                 onClick={() =>
                   setEditingPanes((val) => {
@@ -56,159 +56,152 @@ export function SettingsGeneral(props) {
                 color={editingPanes ? 'red' : undefined}
                 icon={editingPanes ? 'save' : undefined}
               >
-                {editingPanes ? 'Сохранить' : 'Подгонка размеров UI'}
+                {editingPanes ? 'Сохранить' : 'Границы UI'}
               </Button>
-            </Stack.Item>
-            <Stack.Item>
               <Button onClick={resetPaneSplitters} icon="refresh" color="red">
                 Сброс
               </Button>
-            </Stack.Item>
-          </Stack>
-        </LabeledList.Item>
-        <LabeledList.Item label="Шрифт">
-          <Stack.Item>
-            {!freeFont ? (
-              <Collapsible
-                title={settings.fontFamily}
-                width="100%"
-                buttons={
-                  <Button
-                    icon={freeFont ? 'lock-open' : 'lock'}
-                    color={freeFont ? 'good' : 'bad'}
-                    onClick={() => {
-                      setFreeFont(!freeFont);
-                    }}
-                  >
-                    Пользовательский шрифт
-                  </Button>
-                }
-              >
-                {FONTS.map((FONT) => (
-                  <Button
-                    key={FONT}
-                    fontFamily={FONT}
-                    selected={settings.fontFamily === FONT}
-                    color="transparent"
-                    onClick={() =>
-                      updateSettings({
-                        fontFamily: FONT,
-                      })
+            </LabeledList.Item>
+            <LabeledList.Item label="Шрифт">
+              <Stack.Item>
+                {!freeFont ? (
+                  <Collapsible
+                    title={settings.fontFamily}
+                    buttons={
+                      <Button
+                        icon={freeFont ? 'lock-open' : 'lock'}
+                        color={freeFont ? 'good' : 'bad'}
+                        onClick={() => {
+                          setFreeFont(!freeFont);
+                        }}
+                      >
+                        Другой шрифт
+                      </Button>
                     }
                   >
-                    {FONT}
-                  </Button>
-                ))}
-              </Collapsible>
-            ) : (
-              <Stack>
-                <Input
-                  fluid
-                  value={settings.fontFamily}
-                  onBlur={(value) =>
-                    updateSettings({
-                      fontFamily: value,
-                    })
-                  }
-                />
-                <Button
-                  ml={0.5}
-                  icon={freeFont ? 'lock-open' : 'lock'}
-                  color={freeFont ? 'good' : 'bad'}
-                  onClick={() => {
-                    setFreeFont(!freeFont);
-                  }}
-                >
-                  Custom font
-                </Button>
+                    {FONTS.map((FONT) => (
+                      <Button
+                        key={FONT}
+                        fontFamily={FONT}
+                        selected={settings.fontFamily === FONT}
+                        color="transparent"
+                        onClick={() =>
+                          updateSettings({
+                            fontFamily: FONT,
+                          })
+                        }
+                      >
+                        {FONT}
+                      </Button>
+                    ))}
+                  </Collapsible>
+                ) : (
+                  <Stack>
+                    <Input
+                      fluid
+                      value={settings.fontFamily}
+                      onBlur={(value) =>
+                        updateSettings({
+                          fontFamily: value,
+                        })
+                      }
+                    />
+                    <Button
+                      ml={0.5}
+                      icon={freeFont ? 'lock-open' : 'lock'}
+                      color={freeFont ? 'good' : 'bad'}
+                      onClick={() => {
+                        setFreeFont(!freeFont);
+                      }}
+                    >
+                      Custom font
+                    </Button>
+                  </Stack>
+                )}
+              </Stack.Item>
+            </LabeledList.Item>
+            <LabeledList.Item label="Размер шрифта" verticalAlign="middle">
+              <Stack textAlign="center">
+                <Stack.Item grow>
+                  <Slider
+                    width="100%"
+                    step={1}
+                    stepPixelSize={20}
+                    minValue={8}
+                    maxValue={32}
+                    value={settings.fontSize}
+                    unit="px"
+                    format={(value) => toFixed(value)}
+                    onChange={(e, value) => updateSettings({ fontSize: value })}
+                  />
+                </Stack.Item>
               </Stack>
-            )}
-          </Stack.Item>
-        </LabeledList.Item>
-        <LabeledList.Item label="Размер шрифта" verticalAlign="middle">
-          <Stack textAlign="center">
-            <Stack.Item grow>
+            </LabeledList.Item>
+            <LabeledList.Item label="Высота строки">
               <Slider
                 width="100%"
-                step={1}
-                stepPixelSize={20}
-                minValue={8}
-                maxValue={32}
-                value={settings.fontSize}
-                unit="px"
-                format={(value) => toFixed(value)}
-                onChange={(e, value) => updateSettings({ fontSize: value })}
+                step={0.01}
+                minValue={0.8}
+                maxValue={5}
+                value={settings.lineHeight}
+                format={(value) => toFixed(value, 2)}
+                onChange={(e, value) =>
+                  updateSettings({
+                    lineHeight: value,
+                  })
+                }
+              />
+            </LabeledList.Item>
+          </LabeledList>
+          <Divider />
+          <Stack fill>
+            <Stack.Item mt={0.15}>
+              <Button
+                icon="compact-disc"
+                tooltip="Экспорт настроек чата"
+                onClick={exportChatSettings}
+              >
+                Экспорт
+              </Button>
+            </Stack.Item>
+            <Stack.Item mt={0.15}>
+              <Button.File
+                accept=".json"
+                tooltip="Импорт настроек чата"
+                icon="arrow-up-from-bracket"
+                onSelectFiles={importChatSettings}
+              >
+                Импорт
+              </Button.File>
+            </Stack.Item>
+            <Stack.Item mt={0.15}>
+              <Button.Checkbox
+                checked={!!settings.chatSaving}
+                tooltip="Включить сохранение чата между игровыми сессиями"
+                onClick={() =>
+                  updateSettings({
+                    chatSaving: !settings.chatSaving,
+                  })
+                }
+              >
+                Сохранение чата
+              </Button.Checkbox>
+            </Stack.Item>
+            <Stack.Item mt={0.15}>
+              <Button
+                icon="save"
+                tooltip="Экспорт истории чата в HTML файл"
+                onClick={() => chatRenderer.saveToDisk()}
+              />
+            </Stack.Item>
+            <Stack.Item mt={0.15}>
+              <Button.Confirm
+                icon="trash"
+                tooltip="Очистить текущую историю чата"
+                onClick={() => chatRenderer.clearChat()}
               />
             </Stack.Item>
           </Stack>
-        </LabeledList.Item>
-        <LabeledList.Item label="Высота строки">
-          <Slider
-            width="100%"
-            step={0.01}
-            minValue={0.8}
-            maxValue={5}
-            value={settings.lineHeight}
-            format={(value) => toFixed(value, 2)}
-            onChange={(e, value) =>
-              updateSettings({
-                lineHeight: value,
-              })
-            }
-          />
-        </LabeledList.Item>
-      </LabeledList>
-      <Divider />
-      <Stack fill>
-        <Stack.Item mt={0.15}>
-          <Button
-            icon="compact-disc"
-            tooltip="Экспорт настроек чата"
-            onClick={exportChatSettings}
-          >
-            Экспорт
-          </Button>
-        </Stack.Item>
-        <Stack.Item mt={0.15}>
-          <Button.File
-            accept=".json"
-            tooltip="Импорт настроек чата"
-            icon="arrow-up-from-bracket"
-            onSelectFiles={importChatSettings}
-          >
-            Импорт
-          </Button.File>
-        </Stack.Item>
-        <Stack.Item mt={0.15}>
-          <Button.Checkbox
-            checked={!!settings.chatSaving}
-            tooltip="Включить сохранение чата между игровыми сессиями"
-            onClick={() =>
-              updateSettings({
-                chatSaving: !settings.chatSaving,
-              })
-            }
-          >
-            Постоянность чата
-          </Button.Checkbox>
-        </Stack.Item>
-        <Stack.Item grow mt={0.15}>
-          <Button
-            icon="save"
-            tooltip="Экспорт истории чата в HTML файл"
-            onClick={() => chatRenderer.saveToDisk()}
-          >
-            Сохранить чат
-          </Button>
-        </Stack.Item>
-        <Stack.Item mt={0.15}>
-          <Button.Confirm
-            icon="trash"
-            tooltip="Очистить текущую историю чата"
-            onClick={() => chatRenderer.clearChat()}
-          >
-            Очистить чат
-          </Button.Confirm>
         </Stack.Item>
       </Stack>
     </Section>

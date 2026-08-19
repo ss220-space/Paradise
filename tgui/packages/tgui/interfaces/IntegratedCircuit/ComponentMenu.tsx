@@ -1,7 +1,4 @@
-import { fetchRetry } from 'common/https';
-import { shallowDiffers } from 'common/react';
 import { Component } from 'react';
-import { resolveAsset } from '../../assets';
 import {
   Button,
   Dropdown,
@@ -9,7 +6,10 @@ import {
   NoticeBox,
   Section,
   Stack,
-} from '../../components';
+} from 'tgui-core/components';
+import { fetchRetry } from 'tgui-core/http';
+import { shallowDiffers } from 'tgui-core/react';
+import { resolveAsset } from '../../assets';
 import { DEFAULT_COMPONENT_MENU_LIMIT } from './constants';
 import { DisplayComponent } from './DisplayComponent';
 import type { ComponentMenuProps, ComponentMenuState } from './types';
@@ -54,7 +54,7 @@ export class ComponentMenu extends Component<
     if (shallowDiffers(this.state, nextState)) {
       return true;
     }
-    if (shallowDiffers(this.props.components, nextProps.components)) {
+    if (shallowDiffers(this.props.components || [], nextProps.components)) {
       return true;
     }
     return false;

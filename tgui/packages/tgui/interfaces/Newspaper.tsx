@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
+import { Box, Button, Flex, Section } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Box, Button, Flex, Section } from '../components';
 import { Window } from '../layouts';
 import { PhotoThumbnail, type StoryData } from './Newscaster';
 

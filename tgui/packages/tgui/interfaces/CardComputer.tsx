@@ -1,5 +1,4 @@
 import type { ReactNode } from 'react';
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -10,7 +9,8 @@ import {
   Stack,
   Table,
   Tabs,
-} from '../components';
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { COLORS, JOBS_RU } from '../constants';
 import { Window } from '../layouts';
 import { type Access, AccessList } from './common/AccessList';
@@ -28,14 +28,9 @@ export const CardComputerLoginWarning = () => (
         align="center"
         color="label"
       >
-        <Icon.Stack style={{ transform: 'translate(-50px, -100px)' }}>
+        <Icon.Stack>
           <Icon name="user" size={5} color="gray" />
-          <Icon
-            name="slash"
-            size={5}
-            color="red"
-            style={{ transform: 'translate(-15px, 0)' }}
-          />
+          <Icon name="slash" size={5} color="red" />
         </Icon.Stack>
         <br />
         Пользователь не авторизован
@@ -55,14 +50,9 @@ export const CardComputerNoCard = () => (
         align="center"
         color="label"
       >
-        <Icon.Stack style={{ transform: 'translate(-50px, -100px)' }}>
+        <Icon.Stack>
           <Icon name="id-card" size={5} color="gray" />
-          <Icon
-            name="slash"
-            size={5}
-            color="red"
-            style={{ transform: 'translate(-5px, 0)' }}
-          />
+          <Icon name="slash" size={5} color="red" />
         </Icon.Stack>
         <br />
         ID-карта для модификации отсутствует

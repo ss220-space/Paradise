@@ -6,6 +6,7 @@ import {
   Button,
   ByondUi,
   Collapsible,
+  DraggableControl,
   Flex,
   Icon,
   Input,
@@ -19,7 +20,6 @@ import {
   Tooltip,
 } from 'tgui-core/components';
 import { useBackend } from '../../backend';
-import { DraggableControl } from '../../components/DraggableControl';
 import { Window } from '../../layouts';
 
 const COLORS_ARBITRARY = [

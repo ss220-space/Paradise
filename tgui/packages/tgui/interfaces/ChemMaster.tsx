@@ -1,7 +1,4 @@
-import { type BooleanLike, classes } from 'common/react';
-import type { ReactNode } from 'react';
-import { computeBoxProps } from 'tgui-core/ui';
-import { useBackend } from '../backend';
+import type { ComponentProps, ReactNode } from 'react';
 import {
   Box,
   Button,
@@ -13,8 +10,10 @@ import {
   Slider,
   Stack,
   Tabs,
-} from '../components';
-import type { BoxProps } from '../components/Box';
+} from 'tgui-core/components';
+import { type BooleanLike, classes } from 'tgui-core/react';
+import { computeBoxProps } from 'tgui-core/ui';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { BeakerContents } from './common/BeakerContents';
 import {
@@ -409,7 +408,7 @@ type ChemMasterNameInputProps = {
   value: string;
   onMouseUp?: (e: React.MouseEvent<HTMLInputElement>) => void;
   onChange?: (value: string) => void;
-} & BoxProps;
+} & ComponentProps<typeof Box>;
 
 const ChemMasterNameInput = (props: ChemMasterNameInputProps) => {
   const { data } = useBackend<ChemMasterData>();
@@ -481,7 +480,7 @@ const ChemMasterProductionCommon = (props: {
           <ChemMasterNameInput
             fluid
             value={set_name}
-            placeholder={placeholder_name}
+            placeholder={placeholder_name || ''}
             onChange={(value) =>
               act(`set_items_name`, {
                 production_mode: id,
@@ -506,7 +505,7 @@ const ChemMasterProductionCommon = (props: {
 };
 
 const SpriteStyleButton = (
-  props: { icon: string; selected: boolean } & BoxProps,
+  props: { icon: string; selected: boolean } & ComponentProps<typeof Box>,
 ) => {
   const { icon, ...restProps } = props;
   return (
@@ -562,10 +561,6 @@ const ChemMasterCustomization = (_props: unknown) => {
         }}
         onClick={() => act('set_container_style', { style: color })}
         icon={selected && 'check'}
-        iconStyle={{
-          position: 'relative',
-          zIndex: '1',
-        }}
         tooltip={name}
         tooltipPosition="top"
       >

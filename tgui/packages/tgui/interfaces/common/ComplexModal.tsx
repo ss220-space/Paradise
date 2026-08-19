@@ -1,5 +1,4 @@
-import type { KeyboardEvent, ReactNode } from 'react';
-import { useBackend } from '../../backend';
+import type { ComponentProps, KeyboardEvent, ReactNode } from 'react';
 import {
   Box,
   Button,
@@ -8,9 +7,8 @@ import {
   Input,
   Modal,
   Stack,
-} from '../../components';
-
-import type { ModalProps } from '../../components/Modal';
+} from 'tgui-core/components';
+import { useBackend } from '../../backend';
 
 const bodyOverrides = {};
 
@@ -97,7 +95,7 @@ export type ModalType<T> = {
  * Defaults to `message` if not found
  * @param {ModalProps} props
  */
-export const ComplexModal = (props: ModalProps) => {
+export const ComplexModal = (props: ComponentProps<typeof Modal>) => {
   const { data } = useBackend<ModalData>();
   if (!data.modal) {
     return;
@@ -105,12 +103,15 @@ export const ComplexModal = (props: ModalProps) => {
 
   const { id, text, type } = data.modal;
 
-  let modalOnEnter: (e: KeyboardEvent<HTMLInputElement>) => void;
+  let modalOnEnter: (e: KeyboardEvent<HTMLInputElement>) => void = () => {};
   const modalHeader = (
     <Button
-      className="Button--modal"
+      mr={-1.5}
+      mt={-2.5}
+      mb={1.2}
       icon="arrow-left"
-      onClick={() => modalClose(id)}
+      style={{ float: 'right', zIndex: 1 }}
+      onClick={() => modalClose()}
     >
       Закрыть
     </Button>
@@ -161,7 +162,7 @@ export const ComplexModal = (props: ModalProps) => {
         : data.modal.choices;
     modalBody = (
       <Dropdown
-        options={realChoices}
+        options={realChoices || []}
         selected={data.modal.value as string}
         width="100%"
         my="0.5rem"
@@ -219,10 +220,12 @@ export const ComplexModal = (props: ModalProps) => {
       overflowY={overflowY}
       padding-bottom="5px"
     >
-      {text && <Box inline>{text}</Box>}
-      {bodyOverrides[id] && modalHeader}
-      {modalBody}
-      {modalFooter}
+      <Stack fill vertical>
+        <Stack.Item>{text && <Box inline>{text}</Box>}</Stack.Item>
+        <Stack.Item>{bodyOverrides[id] && modalHeader}</Stack.Item>
+        <Stack.Item>{modalBody}</Stack.Item>
+        <Stack.Item>{modalFooter}</Stack.Item>
+      </Stack>
     </Modal>
   );
 };

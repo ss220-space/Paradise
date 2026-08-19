@@ -1,5 +1,5 @@
+import { Box } from 'tgui-core/components';
 import { useBackend } from '../../backend';
-import { Box } from '../../components';
 import { SUBMENU } from '../RndConsole';
 import {
   LatheCategory,

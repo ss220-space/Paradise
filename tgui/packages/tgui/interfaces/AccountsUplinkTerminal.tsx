@@ -1,6 +1,4 @@
-import { createSearch } from 'common/string';
 import { type Key, type ReactNode, useState } from 'react';
-import { useBackend } from '../backend';
 import {
   Button,
   Icon,
@@ -9,7 +7,9 @@ import {
   Section,
   Stack,
   Table,
-} from '../components';
+} from 'tgui-core/components';
+import { createSearch } from 'tgui-core/string';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { LoginInfo } from './common/LoginInfo';
 import { LoginScreen } from './common/LoginScreen';
@@ -186,10 +186,10 @@ const SortButton = (properties: SortButtonProps) => {
         width="100%"
         onClick={() => {
           if (sortId === id) {
-            setSortOrder(!sortOrder);
+            setSortOrder?.(!sortOrder);
           } else {
-            setSortId(id);
-            setSortOrder(true);
+            setSortId?.(id);
+            setSortOrder?.(true);
           }
         }}
       >

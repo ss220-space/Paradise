@@ -1,6 +1,6 @@
 import { Fragment, useState } from 'react';
+import { Box, Button, Flex, Image, Section } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Box, Button, Flex, Image, Section } from '../components';
 import { Window } from '../layouts';
 
 type AutoDocData = {

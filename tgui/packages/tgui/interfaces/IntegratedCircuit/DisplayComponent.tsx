@@ -1,13 +1,13 @@
-import { classes } from 'common/react';
 import { Component, createRef, type RefObject } from 'react';
-import { Box, Button, Stack } from '../../components';
+import { Box, Button, Stack } from 'tgui-core/components';
+import { classes } from 'tgui-core/react';
 
 import { noop } from './constants';
 import { Port } from './Port';
 import type { DisplayComponentProps } from './types';
 
 export class DisplayComponent extends Component<DisplayComponentProps> {
-  ref: RefObject<HTMLDivElement>;
+  ref: RefObject<HTMLDivElement | null>;
   constructor(props) {
     super(props);
     this.ref = createRef();

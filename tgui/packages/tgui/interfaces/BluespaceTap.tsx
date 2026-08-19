@@ -1,5 +1,3 @@
-import { formatPower } from 'tgui-core/format';
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -9,7 +7,9 @@ import {
   Section,
   Slider,
   Stack,
-} from '../components';
+} from 'tgui-core/components';
+import { formatPower } from 'tgui-core/format';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type BluespaceTapData = {

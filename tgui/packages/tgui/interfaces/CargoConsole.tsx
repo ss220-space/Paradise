@@ -1,8 +1,6 @@
-import { flow } from 'common/fp';
-import { createSearch, declension_ru } from 'common/string';
+import { declension_ru } from 'common/string';
 import { sortBy } from 'es-toolkit';
 import { useState } from 'react';
-import { useBackend, useSharedState } from '../backend';
 import {
   Box,
   Button,
@@ -13,12 +11,15 @@ import {
   Section,
   Stack,
   Table,
-} from '../components';
+} from 'tgui-core/components';
+import { flow } from 'tgui-core/fp';
+import { createSearch } from 'tgui-core/string';
+import { useBackend, useSharedState } from '../backend';
 import { Window } from '../layouts';
 
 export const CargoConsole = (_props: unknown) => {
-  const [contentsModal, setContentsModal] = useState<string[]>(null);
-  const [contentsModalTitle, setContentsModalTitle] = useState<string>(null);
+  const [contentsModal, setContentsModal] = useState<string[]>([]);
+  const [contentsModalTitle, setContentsModalTitle] = useState<string>('');
 
   return (
     <Window width={1000} height={800} theme="cargo">
@@ -57,7 +58,7 @@ const ContentsModal = (properties: ContentsModalProps) => {
     setContentsModalTitle,
   } = properties;
 
-  if (contentsModal !== null && contentsModalTitle !== null) {
+  if (contentsModal.length && contentsModalTitle !== '') {
     return (
       <Modal
         maxWidth="75%"
@@ -77,8 +78,8 @@ const ContentsModal = (properties: ContentsModalProps) => {
         <Box m={2}>
           <Button
             onClick={() => {
-              setContentsModal(null);
-              setContentsModalTitle(null);
+              setContentsModal([]);
+              setContentsModalTitle('');
             }}
           >
             Close
@@ -105,8 +106,8 @@ const StatusPane = (_properties) => {
   const { is_public, points, credits, timeleft, moving, at_station } = data;
 
   // Shuttle status text
-  let statusText: string;
-  let shuttleButtonText: string;
+  let statusText: string = '';
+  let shuttleButtonText: string = '';
   if (!moving && !at_station) {
     statusText = 'Не на объекте';
     shuttleButtonText = 'Вызвать шаттл';
@@ -186,7 +187,7 @@ const CataloguePane = (properties: CataloguePaneProps) => {
     (supply_packs) =>
       searchText ? supply_packs.filter(packSearch) : supply_packs,
     (supply_packs) =>
-      sortBy<SupplyPack>(supply_packs, (pack) => pack.name.toLowerCase()),
+      sortBy<SupplyPack>(supply_packs, [(pack) => pack.name.toLowerCase()]),
   ])(supply_packs);
 
   let titleText = 'Перечень грузов для заказа';

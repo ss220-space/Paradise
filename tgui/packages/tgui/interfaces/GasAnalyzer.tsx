@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react';
+import { Box, Button, LabeledList, Section, Stack } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, Section, Stack } from '../components';
 import { GASES } from '../constants';
 import { Window } from '../layouts';
 

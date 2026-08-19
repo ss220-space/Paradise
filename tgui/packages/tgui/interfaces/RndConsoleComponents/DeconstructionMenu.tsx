@@ -1,5 +1,11 @@
+import {
+  Box,
+  Button,
+  DmIcon,
+  LabeledList,
+  Section,
+} from 'tgui-core/components';
 import { useBackend } from '../../backend';
-import { Box, Button, DmIcon, LabeledList, Section } from '../../components';
 
 type DeconstructionData = {
   loaded_item: DeconstructedItem;

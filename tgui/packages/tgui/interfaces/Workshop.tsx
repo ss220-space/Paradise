@@ -1,6 +1,5 @@
 import { isNumber } from 'es-toolkit';
-import { useState } from 'react';
-import type { CollapsibleProps } from 'tgui/components/Collapsible';
+import { type ComponentProps, useState } from 'react';
 import {
   Box,
   Button,
@@ -13,7 +12,7 @@ import {
 } from 'tgui-core/components';
 import { createSearch, toTitleCase } from 'tgui-core/string';
 import { useBackend } from '../backend';
-import { Countdown } from '../components/Countdown';
+import { Countdown } from '../components';
 import { Window } from '../layouts';
 
 const canBeMade = (design: Item, brsail: number, pwrail: number) => {
@@ -211,7 +210,7 @@ const WorkshopItems = (properties: WorkshopState) => {
 
 type WorkshopItemsCategoryProps = {
   items: Item[];
-} & CollapsibleProps;
+} & ComponentProps<typeof Collapsible>;
 
 const WorkshopItemsCategory = (properties: WorkshopItemsCategoryProps) => {
   const { act, data } = useBackend<WorkshopData>();

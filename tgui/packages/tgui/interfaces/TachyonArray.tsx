@@ -1,4 +1,3 @@
-import { useBackend } from '../backend';
 import {
   Button,
   Flex,
@@ -6,7 +5,8 @@ import {
   NoticeBox,
   Section,
   Table,
-} from '../components';
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type TachyonArrayData = {

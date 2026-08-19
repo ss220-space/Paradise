@@ -1,6 +1,6 @@
 import { useState } from 'react';
+import { Box, Button, Section, Stack, Tabs } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Box, Button, Section, Stack, Tabs } from '../components';
 import { Window } from '../layouts';
 
 type Spell = {
@@ -22,7 +22,7 @@ type SpellbookData = {
   entries: Spell[];
 };
 
-export const Spellbook = (props) => {
+export const Spellbook = (_props: unknown) => {
   const { act, data } = useBackend<SpellbookData>();
   const { points, entries = [] } = data;
   const [mainTab, setMainTab] = useState('Spells');
@@ -30,7 +30,7 @@ export const Spellbook = (props) => {
   const visibleSpells = entries.filter((s) => s.category === subTab);
 
   return (
-    <Window title="Spellbook" width={800} height={600} theme="admin">
+    <Window title="Spellbook" width={800} height={600} theme="wizard">
       <Window.Content scrollable>
         <Stack fill vertical>
           <Stack.Item>

@@ -1,4 +1,3 @@
-import { decodeHTML } from 'common/string';
 import { useAtomValue } from 'jotai';
 import {
   Box,
@@ -7,7 +6,8 @@ import {
   RoundGauge,
   Section,
   Stack,
-} from 'tgui/components';
+} from 'tgui-core/components';
+import { decodeHtmlEntities } from 'tgui-core/string';
 import { metaAtom } from './atoms';
 import { hideDonations } from './handlers';
 
@@ -23,7 +23,7 @@ export const Donations = (props: unknown) => {
   const discordRef = donation.discordUrl;
 
   const createMarkup = (html) => {
-    return { __html: decodeHTML(html) };
+    return { __html: decodeHtmlEntities(html) };
   };
 
   return (

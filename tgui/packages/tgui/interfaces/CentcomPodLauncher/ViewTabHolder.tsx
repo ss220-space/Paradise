@@ -1,5 +1,5 @@
+import { Button, ByondUi, Section, Stack } from 'tgui-core/components';
 import { useBackend } from '../../backend';
-import { Button, ByondUi, Section, Stack } from '../../components';
 import { POD_GREY, TABPAGES } from './constants';
 import { useTab } from './hooks';
 import type { PodLauncherData } from './types';

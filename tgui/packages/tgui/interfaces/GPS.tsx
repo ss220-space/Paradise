@@ -1,6 +1,4 @@
-import { rad2deg } from 'common/math';
-import { useState } from 'react';
-import { useBackend } from '../backend';
+import { type ComponentProps, useState } from 'react';
 import {
   Box,
   Button,
@@ -10,8 +8,9 @@ import {
   LabeledList,
   Section,
   Table,
-} from '../components';
-import type { SectionProps } from '../components/Section';
+} from 'tgui-core/components';
+import { rad2deg } from 'tgui-core/math';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 const vectorText = (vector: number[]) =>
@@ -193,6 +192,8 @@ type Signal = {
   position: number[];
 };
 
+type SectionProps = ComponentProps<typeof Section>;
+
 const Signals = (properties: SectionProps) => {
   const { data } = useBackend<SignalsData>();
   const { position, signals, upgraded } = data;
@@ -231,7 +232,7 @@ const Signals = (properties: SectionProps) => {
                   >
                     <Icon
                       name={signal.distance > 0 ? 'arrow-right' : 'circle'}
-                      rotation={-signal.angle}
+                      rotation={-(signal.angle || 0)}
                     />
                     &nbsp;
                     {`${Math.floor(signal.distance)}m`}

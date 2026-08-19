@@ -1,8 +1,10 @@
+import type { ComponentProps } from 'react';
+import { Button, Icon, Table } from 'tgui-core/components';
 import { computeBoxProps } from 'tgui-core/ui';
-import { Button, Icon, Table } from '../../components';
-import type { ButtonProps } from '../../components/Button';
 
-type SortButtonProps = ButtonProps & SordIdProps & SortOrderProps;
+type SortButtonProps = ComponentProps<typeof Button> &
+  SordIdProps &
+  SortOrderProps;
 
 export const SortButton = (properties: SortButtonProps) => {
   const { id, children } = properties;
@@ -14,10 +16,10 @@ export const SortButton = (properties: SortButtonProps) => {
         width="100%"
         onClick={() => {
           if (sortId === id) {
-            setSortOrder(!sortOrder);
+            setSortOrder?.(!sortOrder);
           } else {
-            setSortId(id);
-            setSortOrder(true);
+            setSortId?.(id || '');
+            setSortOrder?.(true);
           }
         }}
         {...computeBoxProps(properties)}

@@ -1,6 +1,6 @@
-import type { BooleanLike } from 'common/react';
 import type { Dispatch, SetStateAction } from 'react';
-import type { Box } from 'tgui/components';
+import type { Box } from 'tgui-core/components';
+import type { BooleanLike } from 'tgui-core/react';
 
 export type RGB = {
   r: number;

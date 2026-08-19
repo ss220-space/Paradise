@@ -1,4 +1,10 @@
-import { type ReactNode, useEffect, useRef, useState } from 'react';
+import {
+  type ComponentProps,
+  type ReactNode,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { Box, ProgressBar, Stack } from 'tgui-core/components';
 
 type Props = {
@@ -10,7 +16,7 @@ type Props = {
   loop: boolean;
   format: (value, formatted) => string;
 }> &
-  any;
+  ComponentProps<typeof Box>;
 
 export function Countdown(props: Props) {
   const { children, progressBar, timeStart, timeEnd, format, loop, ...rest } =

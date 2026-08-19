@@ -1,6 +1,6 @@
 import { useState } from 'react';
+import { Box, Button, Input, Section, Table } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Box, Button, Input, Section, Table } from '../components';
 import { Window } from '../layouts';
 
 export type Options = {

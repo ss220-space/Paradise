@@ -1,7 +1,4 @@
-import { flow } from 'common/fp';
-import { createSearch, toTitleCase } from 'common/string';
 import { sortBy } from 'es-toolkit';
-import { useBackend, useSharedState } from '../backend';
 import {
   Box,
   Button,
@@ -11,7 +8,10 @@ import {
   LabeledList,
   Section,
   Stack,
-} from '../components';
+} from 'tgui-core/components';
+import { flow } from 'tgui-core/fp';
+import { createSearch, toTitleCase } from 'tgui-core/string';
+import { useBackend, useSharedState } from '../backend';
 import { Window } from '../layouts';
 
 const canBeMade = (
@@ -123,7 +123,7 @@ export const Autolathe = (props: unknown) => {
       ),
     (recipes: Recipe[]) => (searchText ? recipes.filter(testSearch) : recipes),
     (recipes: Recipe[]) =>
-      sortBy(recipes, (recipe) => recipe.name.toLowerCase()),
+      sortBy(recipes, [(recipe) => recipe.name.toLowerCase()]),
   ])(recipes);
 
   let rText = '';

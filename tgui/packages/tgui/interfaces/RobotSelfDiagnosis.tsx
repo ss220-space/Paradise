@@ -1,6 +1,6 @@
-import { capitalize } from 'common/string';
+import { Flex, LabeledList, NoticeBox, Section } from 'tgui-core/components';
+import { capitalize } from 'tgui-core/string';
 import { useBackend } from '../backend';
-import { Flex, LabeledList, NoticeBox, Section } from '../components';
 import { Window } from '../layouts';
 
 const getDamageColor = (damage: number, maxDamage: number) => {

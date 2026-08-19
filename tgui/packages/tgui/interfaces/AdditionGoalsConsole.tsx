@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
+import { Box, Button, LabeledList, Section, Stack } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, Section, Stack } from '../components';
 import { Window } from '../layouts';
 import { ComplexModal } from './common/ComplexModal';
 

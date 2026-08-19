@@ -1,7 +1,14 @@
-import { createSearch } from 'common/string';
 import { useMemo, useState } from 'react';
+import {
+  Box,
+  Icon,
+  Input,
+  LabeledList,
+  Section,
+  Table,
+} from 'tgui-core/components';
+import { createSearch } from 'tgui-core/string';
 import { useBackend } from '../backend';
-import { Box, Icon, Input, LabeledList, Section, Table } from '../components';
 import { Window } from '../layouts';
 
 type GeoIPRow = {

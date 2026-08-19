@@ -1,5 +1,5 @@
+import { Box, Button, Section, Table } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Box, Button, Section, Table, } from '../components';
 import { Window } from '../layouts';
 
 type SkillSelectData = {
@@ -53,7 +53,7 @@ const SkillCategoryTable = (category: SkillsSelectCategory) => {
                     <Button
                       onClick={() =>
                         act('decrease', {
-                          'skill': skill.id,
+                          skill: skill.id,
                         })
                       }
                     >
@@ -66,7 +66,7 @@ const SkillCategoryTable = (category: SkillsSelectCategory) => {
                     <Button
                       onClick={() =>
                         act('increase', {
-                          'skill': skill.id,
+                          skill: skill.id,
                         })
                       }
                     >

@@ -1,7 +1,7 @@
-import { fetchRetry } from 'common/https';
 import { logger } from 'common/logging';
 import { useEffect, useState } from 'react';
-import { Button, Modal, Section, Stack } from 'tgui/components';
+import { Button, Modal, Section, Stack } from 'tgui-core/components';
+import { fetchRetry } from 'tgui-core/http';
 import { resolveAsset } from '../../assets';
 import { Window } from '../../layouts';
 import { CreateObject } from './CreateObject';

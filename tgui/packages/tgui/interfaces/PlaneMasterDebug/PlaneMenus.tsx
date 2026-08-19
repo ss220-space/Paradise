@@ -1,6 +1,6 @@
 import { useState } from 'react';
+import { Button, Dropdown, Modal, Section, Stack } from 'tgui-core/components';
 import { useBackend } from '../../backend';
-import { Button, Dropdown, Modal, Section, Stack } from '../../components';
 import { BlendModes, type Plane } from './types';
 import { usePlaneDebugContext } from './usePlaneDebug';
 

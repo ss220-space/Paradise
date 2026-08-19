@@ -15,13 +15,13 @@ import {
   Flex,
   Icon,
   Image,
+  LabeledList,
   Slider,
   Stack,
   Tooltip,
 } from 'tgui-core/components';
 import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
-import { LabeledList } from './LabeledList';
 
 const MAP_SIZE = 510;
 const HALF_SIZE = MAP_SIZE / 2;
@@ -317,7 +317,7 @@ const NanoMapZoomer = (props: ZoomerProps) => {
   return (
     <Box className="NanoMap__zoomer">
       <LabeledList>
-        <LabeledList.Item label="Zoom" labelStyle={{ verticalAlign: 'middle' }}>
+        <LabeledList.Item label="Zoom" verticalAlign="middle">
           <Flex direction="row">
             <Slider
               minValue={1}

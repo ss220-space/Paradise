@@ -1,8 +1,8 @@
-import { classes } from 'common/react';
 import { useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { Box, InfinitePlane, Stack } from 'tgui-core/components';
+import { classes } from 'tgui-core/react';
 import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
-import { Box, InfinitePlane, Stack } from '../components';
 import { Window } from '../layouts';
 import {
   type Connection,

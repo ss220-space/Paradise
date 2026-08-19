@@ -1,5 +1,5 @@
+import { Box, Button, LabeledList } from 'tgui-core/components';
 import { useBackend } from '../../backend';
-import { Box, Button, LabeledList } from '../../components';
 
 type Directives = {
   master: string;
@@ -8,7 +8,7 @@ type Directives = {
   supplemental: string;
 };
 
-export const pai_directives = (props: unknown) => {
+export const pai_directives = (_props: unknown) => {
   const { act, data } = useBackend<PaiData<Directives>>();
   const { master, dna, prime, supplemental } = data.app_data;
 

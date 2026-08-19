@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { type ComponentProps, useState } from 'react';
+import { Grid } from 'tgui/components';
+import { Button, Section, Stack, Table } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Button, Grid, Section, Stack, Table } from '../components';
-import type { ButtonProps } from '../components/Button';
 import { Window } from '../layouts';
 
 interface MuteStates {
@@ -214,7 +214,7 @@ const PunishSection = (_props: unknown) => {
             fluid
             icon="times"
             color="red"
-            tooltip={hasCkey ? null : 'NO CKEY'}
+            tooltip={hasCkey() ? null : 'NO CKEY'}
             disabled={!hasCkey()}
             onClick={() => handleAction('kick')}
           >
@@ -224,7 +224,7 @@ const PunishSection = (_props: unknown) => {
             fluid
             icon="ban"
             color="red"
-            tooltip={hasCkey ? null : 'NO CKEY'}
+            tooltip={hasCkey() ? null : 'NO CKEY'}
             disabled={!isButtonAllowed('ban') || !hasCkey()}
             onClick={() => handleAction('jobban')}
           >
@@ -235,7 +235,7 @@ const PunishSection = (_props: unknown) => {
               fluid
               icon="bullseye"
               color="red"
-              tooltip={hasCkey ? null : 'NO CKEY'}
+              tooltip={hasCkey() ? null : 'NO CKEY'}
               disabled={!hasCkey()}
               onClick={() => handleAction('watchlist')}
             >
@@ -248,7 +248,7 @@ const PunishSection = (_props: unknown) => {
             fluid
             icon="ban"
             color="red"
-            tooltip={hasCkey ? null : 'NO CKEY'}
+            tooltip={hasCkey() ? null : 'NO CKEY'}
             disabled={!isButtonAllowed('ban') || !hasCkey()}
             onClick={() => handleAction('ban')}
           >
@@ -258,7 +258,7 @@ const PunishSection = (_props: unknown) => {
             fluid
             icon="ban"
             color="red"
-            tooltip={hasCkey ? null : 'NO CKEY'}
+            tooltip={hasCkey() ? null : 'NO CKEY'}
             disabled={!isButtonAllowed('ban') || !hasCkey()}
             onClick={() => handleAction('appban')}
           >
@@ -918,7 +918,7 @@ const MuteSection = (_props: unknown) => {
 
 type ButtonMuteProps = {
   checked: boolean;
-} & ButtonProps;
+} & ComponentProps<typeof Button>;
 
 const ButtonMute = (props: ButtonMuteProps) => {
   const { checked, ...rest } = props;

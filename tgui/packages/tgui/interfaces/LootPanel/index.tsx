@@ -1,8 +1,8 @@
-import { isEscape } from 'common/keys';
-import { clamp } from 'common/math';
 import { useCallback, useMemo, useState } from 'react';
+import { Box, Button, Input, Section } from 'tgui-core/components';
+import { isEscape } from 'tgui-core/keys';
+import { clamp } from 'tgui-core/math';
 import { useBackend } from '../../backend';
-import { Box, Button, Input, Section } from '../../components';
 import { Window } from '../../layouts';
 import { GroupedContents } from './GroupedContents';
 import { RawContents } from './RawContents';

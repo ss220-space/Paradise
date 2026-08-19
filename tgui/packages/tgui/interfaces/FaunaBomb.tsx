@@ -1,6 +1,6 @@
 import { useState } from 'react';
+import { Box, Button, Image, Section, Stack, Tabs } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Box, Button, Image, Section, Stack, Tabs } from '../components';
 import { Window } from '../layouts';
 
 const PickTab = (index: number) => {

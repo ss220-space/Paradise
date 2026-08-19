@@ -1,8 +1,9 @@
-import { createSearch } from 'common/string';
 import { sortBy } from 'es-toolkit';
 import { useState } from 'react';
+import { Grid } from 'tgui/components';
+import { Box, Button, Section, Table, TextArea } from 'tgui-core/components';
+import { createSearch } from 'tgui-core/string';
 import { useBackend } from '../backend';
-import { Box, Button, Grid, Section, Table, TextArea } from '../components';
 import { Window } from '../layouts';
 
 type VethPlayerPanelData = {
@@ -20,7 +21,7 @@ type Player = {
 export const VethPlayerPanel = (_props: unknown) => {
   const { act, data } = useBackend<VethPlayerPanelData>();
 
-  const players = sortBy(data.Data || [], (player) => player.name);
+  const players = sortBy(data.Data || [], [(player) => player.name]);
   const [searchText, setSearchText] = useState('');
   const [selectedPlayerCkey, setSelectedPlayerCkey] = useState('');
 

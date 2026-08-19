@@ -1,4 +1,14 @@
-import { fetchRetry } from 'common/https';
+import { logger } from 'common/logging';
+import { useEffect, useState } from 'react';
+import {
+  Autofocus,
+  Button,
+  Input,
+  Section,
+  Stack,
+  VirtualList,
+} from 'tgui-core/components';
+import { fetchRetry } from 'tgui-core/http';
 import {
   KEY_A,
   KEY_DOWN,
@@ -9,19 +19,9 @@ import {
   KEY_R,
   KEY_UP,
   KEY_Z,
-} from 'common/keycodes';
-import { logger } from 'common/logging';
-import { useEffect, useState } from 'react';
+} from 'tgui-core/keycodes';
 import { resolveAsset } from '../assets';
 import { useBackend } from './../backend';
-import {
-  Autofocus,
-  Button,
-  Input,
-  Section,
-  Stack,
-  VirtualList,
-} from '../components';
 import { Window } from './../layouts';
 
 type SpawnSearchData = {

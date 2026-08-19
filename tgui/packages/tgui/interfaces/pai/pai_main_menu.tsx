@@ -1,5 +1,5 @@
+import { Box, Button, LabeledList } from 'tgui-core/components';
 import { useBackend } from '../../backend';
-import { Box, Button, LabeledList } from '../../components';
 
 type Software = {
   cost: number;
@@ -25,7 +25,7 @@ type MainMenuData = {
   current_emotion: string;
 };
 
-export const pai_main_menu = (props: unknown) => {
+export const pai_main_menu = (_props: unknown) => {
   const { act, data } = useBackend<PaiData<MainMenuData>>();
   const {
     available_software,

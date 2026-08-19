@@ -1,6 +1,6 @@
 import { useState } from 'react';
+import { Box, Button, LabeledList, Section, Tabs } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, Section, Tabs } from '../components';
 import { Window } from '../layouts';
 
 type ShuttleManipulatorData = {

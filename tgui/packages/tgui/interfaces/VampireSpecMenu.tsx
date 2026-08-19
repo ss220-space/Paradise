@@ -1,6 +1,6 @@
 import { useState } from 'react';
+import { Box, Button, Divider, DmIcon, Section } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Box, Button, Divider, DmIcon, Section } from '../components';
 import { Window } from '../layouts';
 
 type VampireSpecMenuData = {

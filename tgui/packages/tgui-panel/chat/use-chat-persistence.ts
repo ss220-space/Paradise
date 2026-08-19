@@ -52,7 +52,7 @@ export function useChatPersistence() {
   async function loadChatFromStorage(): Promise<void> {
     const [state, messages] = await Promise.all([
       storage.get('chat-state'),
-      storage.get('chat-messages'),
+      storage.getChatMessages(),
     ]);
 
     surfaceStorageDiagnostics(storage.diagnostics);

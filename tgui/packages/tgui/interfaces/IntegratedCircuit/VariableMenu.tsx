@@ -1,4 +1,3 @@
-import { shallowDiffers } from 'common/react';
 import { Component } from 'react';
 import {
   Box,
@@ -8,7 +7,8 @@ import {
   Input,
   Section,
   Stack,
-} from '../../components';
+} from 'tgui-core/components';
+import { shallowDiffers } from 'tgui-core/react';
 import {
   VARIABLE_ASSOC_LIST,
   VARIABLE_LIST,
@@ -57,7 +57,7 @@ export class VariableMenu extends Component<
       ...rest
     } = this.props;
     const { variable_name, variable_type } = this.state;
-    let curType: string;
+    const curType: string = '';
 
     return (
       <Section
@@ -174,6 +174,8 @@ export class VariableMenu extends Component<
                         height="100%"
                         color="green"
                         onClick={(e) =>
+                          variable_name &&
+                          variable_type &&
                           onAddVariable(
                             variable_name,
                             variable_type,
@@ -191,6 +193,8 @@ export class VariableMenu extends Component<
                         height="100%"
                         color="green"
                         onClick={(e) =>
+                          variable_name &&
+                          variable_type &&
                           onAddVariable(
                             variable_name,
                             variable_type,
@@ -208,6 +212,8 @@ export class VariableMenu extends Component<
                         height="100%"
                         color="green"
                         onClick={(e) =>
+                          variable_name &&
+                          variable_type &&
                           onAddVariable(
                             variable_name,
                             variable_type,

@@ -1,7 +1,6 @@
-import { classes } from 'common/react';
-
+import { Box, Button, Section } from 'tgui-core/components';
+import { classes } from 'tgui-core/react';
 import { useBackend } from '../../backend';
-import { Box, Button, Section } from '../../components';
 import type { PodLauncherData } from './types';
 
 export const StylePage = (props: unknown) => {

@@ -1,6 +1,11 @@
 import { useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { Dropdown } from 'tgui/components';
-import { Button, InfinitePlane, Stack, Tooltip } from 'tgui-core/components';
+import {
+  Button,
+  Dropdown,
+  InfinitePlane,
+  Stack,
+  Tooltip,
+} from 'tgui-core/components';
 import { resolveAsset } from '../../assets';
 import { useBackend } from '../../backend';
 import { Window } from '../../layouts';
@@ -550,7 +555,7 @@ export const PlaneMasterDebug = () => {
                 options={planes.map((plane) => plane.name).sort()}
                 placeholder="Find Plane"
                 selected={zoomToPlane}
-                search
+                searchInput
                 onSelected={(value) => {
                   setZoomToPlane(value);
                   const locatedPlane = planes.find(

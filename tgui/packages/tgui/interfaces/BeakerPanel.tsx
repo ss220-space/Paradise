@@ -1,7 +1,12 @@
-import { capitalizeFirst } from 'common/string';
 import { useState } from 'react';
-import { Dropdown } from 'tgui/components';
-import { Button, NumberInput, Section, Stack } from 'tgui-core/components';
+import {
+  Button,
+  Dropdown,
+  NumberInput,
+  Section,
+  Stack,
+} from 'tgui-core/components';
+import { capitalizeFirst } from 'tgui-core/string';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
@@ -112,7 +117,7 @@ const ContainerSection = (props: ContainerProps) => {
         <Stack.Item>
           <Dropdown
             fluid
-            search
+            searchInput
             options={containers.map((container) => ({
               displayText: readableContainerType(container),
               value: container.id,
@@ -170,7 +175,7 @@ const ContainerSection = (props: ContainerProps) => {
             <Stack.Item grow>
               <Dropdown
                 fluid
-                search
+                searchInput
                 options={reagents.map((reagent) => ({
                   displayText: readableReagentType(reagent),
                   value: reagent.id,

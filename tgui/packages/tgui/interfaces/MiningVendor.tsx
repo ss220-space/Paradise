@@ -1,5 +1,5 @@
 import type React from 'react';
-import { useState } from 'react';
+import { type ComponentProps, useState } from 'react';
 import {
   Box,
   Button,
@@ -223,7 +223,7 @@ const MiningVendorSearch = (properties: MiningVendorSearchProps) => {
 type MiningVendorProps = {
   items: Item[];
   gridLayout?: boolean;
-} & any;
+} & ComponentProps<typeof Collapsible>;
 
 const MiningVendorItemsCategory = (properties: MiningVendorProps) => {
   const { act, data } = useBackend<MiningVendorData>();

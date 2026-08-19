@@ -1,5 +1,11 @@
+import {
+  Button,
+  Section,
+  Stack,
+  Table,
+  TimeDisplay,
+} from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { TimeDisplay, Button, Section, Stack, Table } from '../components';
 import { Window } from '../layouts';
 
 type Cell = {

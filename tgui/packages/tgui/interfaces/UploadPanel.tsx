@@ -1,5 +1,5 @@
+import { Button, LabeledList, Section } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Button, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
 type UploadPanelData = {
@@ -37,10 +37,7 @@ export const UploadPanel = (_props: unknown) => {
               </Button>
             </LabeledList.Item>
             <LabeledList.Item label="Authorization">
-              <Button
-                selected={!!id}
-                onClick={() => act('authorization')}
-              >
+              <Button selected={!!id} onClick={() => act('authorization')}>
                 {id ? id : hacked ? '$@!ERR0R!@#' : 'No ID card inserted'}
               </Button>
             </LabeledList.Item>

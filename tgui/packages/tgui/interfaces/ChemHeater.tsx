@@ -1,4 +1,3 @@
-import { round, toFixed } from 'common/math';
 import {
   AnimatedNumber,
   Box,
@@ -8,6 +7,7 @@ import {
   Section,
   Stack,
 } from 'tgui-core/components';
+import { round, toFixed } from 'tgui-core/math';
 import { useBackend } from '../backend';
 import { BeakerContents } from '../interfaces/common/BeakerContents';
 import { Window } from '../layouts';

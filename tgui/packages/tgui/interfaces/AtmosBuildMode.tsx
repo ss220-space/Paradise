@@ -1,5 +1,5 @@
+import { LabeledList, RestrictedInput, Section } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { LabeledList, RestrictedInput, Section } from '../components';
 import { GASES } from '../constants';
 import { Window } from '../layouts';
 

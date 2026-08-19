@@ -1,7 +1,10 @@
-import { type BooleanLike, classes } from 'common/react';
 import type React from 'react';
-import { type CSSProperties, type ReactNode, useState } from 'react';
-import { useBackend } from '../backend';
+import {
+  type ComponentProps,
+  type CSSProperties,
+  type ReactNode,
+  useState,
+} from 'react';
 import {
   Box,
   Button,
@@ -15,8 +18,9 @@ import {
   Section,
   Stack,
   TextArea,
-} from '../components';
-import type { BoxProps } from '../components/Box';
+} from 'tgui-core/components';
+import { type BooleanLike, classes } from 'tgui-core/react';
+import { useBackend } from '../backend';
 import { timeAgo } from '../constants';
 import { Window } from '../layouts';
 import {
@@ -111,7 +115,7 @@ type FullStoriesProps = Partial<{
   setFullStories: React.Dispatch<React.SetStateAction<string[]>>;
 }>;
 
-export const Newscaster = (properties) => {
+export const Newscaster = (_properties: unknown) => {
   const { act, data } = useBackend<NewscasterData>();
   const {
     is_security,
@@ -146,7 +150,11 @@ export const Newscaster = (properties) => {
   }
   const totalUnread = channels.reduce((a, c) => a + c.unread, 0);
   return (
-    <Window theme={is_security && 'security'} width={800} height={600}>
+    <Window
+      theme={is_security ? 'security' : undefined}
+      width={800}
+      height={600}
+    >
       {viewingPhoto ? (
         <PhotoZoom />
       ) : (
@@ -273,7 +281,7 @@ type MenuButtonProps = Partial<{
   title: string;
   children: ReactNode;
 }> &
-  BoxProps;
+  ComponentProps<typeof Box>;
 
 const MenuButton = (properties: MenuButtonProps) => {
   const {
@@ -309,7 +317,7 @@ const NewscasterFeed = (properties: CensorModeProps & FullStoriesProps) => {
   const {
     screen,
     is_admin,
-    channel_idx,
+    channel_idx = -1,
     channel_can_manage,
     channels,
     stories,
@@ -345,7 +353,7 @@ const NewscasterFeed = (properties: CensorModeProps & FullStoriesProps) => {
             .slice()
             .reverse()
             .map((story) =>
-              !fullStories.includes(story.uid) &&
+              !fullStories?.includes(story.uid) &&
               story.body.length + 3 > HEADLINE_MAX_LENGTH
                 ? {
                     ...story,
@@ -615,7 +623,9 @@ const Story = (properties: StoryProps) => {
             {story.body_short && (
               <Button
                 mt="0.5rem"
-                onClick={() => setFullStories([...fullStories, story.uid])}
+                onClick={() =>
+                  setFullStories?.([...(fullStories || []), story.uid])
+                }
               >
                 Читать далее..
               </Button>
@@ -674,9 +684,10 @@ const manageChannelModalBodyOverride = (
 ) => {
   const { data } = useBackend<NewscasterData>();
   // Additional data
-  const channel =
-    !!modal.args.uid &&
-    data.channels.filter((c) => c.uid === modal.args.uid).pop();
+  const channel: Chanel =
+    (!!modal.args.uid &&
+      data.channels.filter((c) => c.uid === modal.args.uid).pop()) ||
+    data.channels[0];
   if (modal.id === 'manage_channel' && !channel) {
     modalClose(); // ?
     return;
@@ -685,7 +696,7 @@ const manageChannelModalBodyOverride = (
   const isAdmin = !!modal.args.is_admin;
   const scannedUser = modal.args.scanned_user;
   // Temp data
-  const [author, setAuthor] = useState(
+  const [author, setAuthor] = useState<string>(
     channel?.author || scannedUser || 'Неавторизованный',
   );
   const [name, setName] = useState(channel?.name || '');

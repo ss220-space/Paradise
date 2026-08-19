@@ -5,10 +5,10 @@
  * @license MIT
  */
 
-import { decodeHtmlEntities } from 'common/string';
 import { useState } from 'react';
+import { Button, Input, Section } from 'tgui-core/components';
+import { decodeHtmlEntities } from 'tgui-core/string';
 import { useBackend } from '../backend';
-import { Button, Input, Section } from '../components';
 import { Window } from '../layouts';
 
 type RequestManagerData = {

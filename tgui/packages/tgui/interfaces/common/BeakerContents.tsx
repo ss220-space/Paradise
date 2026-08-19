@@ -1,6 +1,6 @@
 import { declension_ru } from 'common/string';
 import type { ReactNode } from 'react';
-import { Stack } from '../../components';
+import { Stack } from 'tgui-core/components';
 
 type BeakerContentsProps = {
   /**

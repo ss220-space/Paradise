@@ -1,5 +1,5 @@
+import { Box, Button } from 'tgui-core/components';
 import { useBackend } from '../../backend';
-import { Box, Button } from '../../components';
 import { useCompact } from './hooks';
 import type { PodLauncherData } from './types';
 

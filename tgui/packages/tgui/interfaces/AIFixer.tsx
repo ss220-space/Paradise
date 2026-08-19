@@ -28,7 +28,7 @@ export const AIFixer = (props: unknown) => {
                 align="center"
                 color="average"
               >
-                <Icon.Stack style={{ transform: 'translate(-40px, -55px)' }}>
+                <Icon.Stack>
                   <Icon name="robot" size={5} color="silver" />
                   <Icon name="slash" size={5} color="red" />
                 </Icon.Stack>

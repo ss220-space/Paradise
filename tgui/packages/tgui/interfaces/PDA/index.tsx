@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { RoutingErrorWindow } from 'tgui/routes';
+import { Box, Button, Icon, Section } from 'tgui-core/components';
 import { useBackend } from '../../backend';
-import { Box, Button, Icon, Section } from '../../components';
 import { Window } from '../../layouts';
 
 const PDA_UI = {
@@ -41,7 +41,7 @@ const THEME_NAMES: Record<string, string> = {
 
 const GetApp = (name) => {
   if (name === 'index') {
-    return RoutingErrorWindow('notFound', name);
+    return RoutingErrorWindow({ type: 'notFound', name: name });
   }
 
   let appModule;
@@ -49,14 +49,14 @@ const GetApp = (name) => {
     appModule = RequirePDAInterface(`./${name}.tsx`);
   } catch (err) {
     if (err.code === 'MODULE_NOT_FOUND') {
-      return RoutingErrorWindow('notFound', name);
+      return RoutingErrorWindow({ type: 'notFound', name: name });
     }
     throw err;
   }
 
   const Component = appModule[name];
   if (!Component) {
-    return RoutingErrorWindow('missingExport', name);
+    return RoutingErrorWindow({ type: 'missingExport', name: name });
   }
 
   return Component;

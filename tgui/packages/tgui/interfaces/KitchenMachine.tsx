@@ -1,5 +1,12 @@
+import {
+  Box,
+  Button,
+  Icon,
+  LabeledList,
+  Section,
+  Stack,
+} from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Box, Button, Icon, LabeledList, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
 type KitchenMachineData = {

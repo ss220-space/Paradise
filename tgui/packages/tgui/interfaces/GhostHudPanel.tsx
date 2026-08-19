@@ -1,5 +1,5 @@
+import { Button, Divider, Flex, Section } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Button, Divider, Flex, Section } from '../components';
 import { Window } from '../layouts';
 
 type GhostHudPanelData = {

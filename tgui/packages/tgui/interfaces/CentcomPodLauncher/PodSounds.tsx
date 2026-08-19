@@ -1,5 +1,5 @@
+import { Button, Section } from 'tgui-core/components';
 import { useBackend } from '../../backend';
-import { Button, Section } from '../../components';
 import { SOUNDS } from './constants';
 import type { PodLauncherData } from './types';
 
@@ -15,10 +15,8 @@ export const PodSounds = (props: unknown) => {
           icon="volume-up"
           onClick={() => act('soundVolume')}
           selected={soundVolume !== defaultSoundVolume}
-          tooltip={
-            `
-            Громкость Зука:${soundVolume}`
-          }
+          tooltip={`
+            Громкость Зука:${soundVolume}`}
         />
       }
       fill

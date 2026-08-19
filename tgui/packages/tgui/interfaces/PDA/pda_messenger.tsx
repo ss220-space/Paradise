@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useBackend } from '../../backend';
 import {
   Box,
   Button,
@@ -9,7 +8,8 @@ import {
   LabeledList,
   Section,
   Stack,
-} from '../../components';
+} from 'tgui-core/components';
+import { useBackend } from '../../backend';
 
 export const pda_messenger = (props: unknown) => {
   const { data } = useBackend<MessenderData>();
@@ -98,7 +98,7 @@ export const ActiveConversation = (props: Conversation) => {
               bottom="-4px"
               style={{
                 zIndex: '0',
-                transform: im.sent ? 'scale(-1, 1)' : null,
+                transform: im.sent ? 'scale(-1, 1)' : undefined,
               }}
               name="comment"
             />
@@ -323,7 +323,10 @@ const PDAList = (props: PDAProps) => {
     <Section fill scrollable title={title}>
       {pdas
         .filter((pda) => {
-          return pda.Name.toLowerCase().includes(searchTerm.toLowerCase());
+          return (
+            searchTerm &&
+            pda.Name.toLowerCase().includes(searchTerm.toLowerCase())
+          );
         })
         .map((pda) => (
           <Stack key={pda.uid} m={0.5}>
@@ -331,14 +334,14 @@ const PDAList = (props: PDAProps) => {
               <Button
                 fluid
                 icon="arrow-circle-down"
-                onClick={() => act(msgAct, { target: pda.uid })}
+                onClick={() => msgAct && act(msgAct, { target: pda.uid })}
               >
                 {pda.Name}
               </Button>
             </Stack.Item>
             <Stack.Item>
               {!!charges &&
-                plugins.map((plugin) => (
+                plugins?.map((plugin) => (
                   <Button
                     key={plugin.uid}
                     icon={plugin.icon}

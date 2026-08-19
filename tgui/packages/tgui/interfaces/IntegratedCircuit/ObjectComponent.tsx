@@ -1,6 +1,6 @@
-import { classes, shallowDiffers } from 'common/react';
 import { Component } from 'react';
-import { Box, Button, Stack } from '../../components';
+import { Box, Button, Stack } from 'tgui-core/components';
+import { classes, shallowDiffers } from 'tgui-core/react';
 import { ABSOLUTE_Y_OFFSET, noop } from './constants';
 import { Port } from './Port';
 import type {
@@ -58,7 +58,7 @@ export class ObjectComponent extends Component<
 
   handleDrag(e) {
     const { dragPos, isDragging, lastMousePos } = this.state;
-    const { zoom } = this.props;
+    const { zoom = 0 } = this.props;
     if (dragPos && isDragging) {
       e.preventDefault();
       const { screenZoomX, screenZoomY, screenX, screenY } = e;

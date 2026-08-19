@@ -1,6 +1,4 @@
-import { toFixed } from 'common/math';
-import type { ReactNode } from 'react';
-import type { ButtonProps, ConfirmProps } from 'tgui/components/Button';
+import type { ComponentProps, ReactNode } from 'react';
 import {
   Box,
   Button,
@@ -10,9 +8,8 @@ import {
   NumberInput,
   Section,
 } from 'tgui-core/components';
+import { toFixed } from 'tgui-core/math';
 import { useBackend } from '../backend';
-import type { BoxProps } from '../components/Box';
-import type { FlexProps } from '../components/Flex';
 import { Window } from '../layouts';
 
 type MultitoolData = {
@@ -252,7 +249,7 @@ const BoxNoData = (props: BoxNoDataProps) => {
 type TextOrDefaultProps = {
   text: string;
   defaultText: string;
-} & BoxProps;
+} & ComponentProps<typeof Box>;
 
 const TextOrDefault = (props: TextOrDefaultProps) => {
   const { text, defaultText, ...rest } = props;
@@ -267,16 +264,11 @@ const TextOrDefault = (props: TextOrDefaultProps) => {
 
 type ConfirmOrNormalButtonProps = {
   noConfirm?: boolean;
-} & ConfirmProps &
-  ButtonProps;
+} & (ComponentProps<typeof Button.Confirm> | ComponentProps<typeof Button>);
 
 const ConfirmOrNormalButton = (props: ConfirmOrNormalButtonProps) => {
   const { noConfirm = false, ...rest } = props;
-  return noConfirm ? (
-    <Button {...(rest as any)} />
-  ) : (
-    <Button.Confirm {...(rest as any)} />
-  );
+  return noConfirm ? <Button {...rest} /> : <Button.Confirm {...rest} />;
 };
 
 type LabeledListOneItemProps = Partial<{
@@ -285,7 +277,7 @@ type LabeledListOneItemProps = Partial<{
   noWrapContent: ReactNode;
   compactLabel: boolean;
 }> &
-  FlexProps;
+  ComponentProps<typeof Flex>;
 
 const LabeledListOneItem = (props: LabeledListOneItemProps) => {
   const {

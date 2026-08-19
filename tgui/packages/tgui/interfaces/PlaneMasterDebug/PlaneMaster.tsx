@@ -1,6 +1,6 @@
-import { classes } from 'common/react';
 import { getWindowPosition, setWindowPosition } from 'tgui/drag';
-import { Box, Button, Stack } from '../../components';
+import { Box, Button, Stack } from 'tgui-core/components';
+import { classes } from 'tgui-core/react';
 import { Port } from './Port';
 import type { Filter, Plane, PlaneConnectorsMap, Relay } from './types';
 import { usePlaneDebugContext } from './usePlaneDebug';

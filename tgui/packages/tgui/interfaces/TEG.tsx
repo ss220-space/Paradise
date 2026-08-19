@@ -1,5 +1,5 @@
-import type { BooleanLike } from 'common/react';
-import { Box, Button, LabeledList, Section } from 'tgui/components';
+import { Box, Button, LabeledList, Section } from 'tgui-core/components';
+import type { BooleanLike } from 'tgui-core/react';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 

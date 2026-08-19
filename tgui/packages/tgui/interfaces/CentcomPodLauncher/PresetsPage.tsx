@@ -1,5 +1,4 @@
 import { storage } from 'common/storage';
-import { createUuid } from 'common/uuid';
 import { type CSSProperties, useEffect, useState } from 'react';
 import {
   Button,
@@ -9,6 +8,7 @@ import {
   Section,
   Stack,
 } from 'tgui-core/components';
+import { createUuid } from 'tgui-core/uuid';
 import { useBackend } from '../../backend';
 import { POD_GREY } from './constants';
 import type { PodLauncherData } from './types';

@@ -1,4 +1,4 @@
-import type { BooleanLike } from 'common/react';
+import type { BooleanLike } from 'tgui-core/react';
 
 import type { Position } from './../common/Connections';
 

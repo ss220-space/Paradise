@@ -1,5 +1,12 @@
+import {
+  Box,
+  Button,
+  DmIcon,
+  Section,
+  Stack,
+  Table,
+} from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Box, Button, DmIcon, Section, Stack, Table } from '../components';
 import { Window } from '../layouts';
 
 const roundTenths = (input: number) => {

@@ -1,5 +1,5 @@
+import { Box, Button, LabeledList, Section } from 'tgui-core/components';
 import { useBackend } from '../../backend';
-import { Box, Button, LabeledList, Section } from '../../components';
 
 export const pda_mule = (_props: unknown) => {
   const { data } = useBackend<MuleBotsData>();

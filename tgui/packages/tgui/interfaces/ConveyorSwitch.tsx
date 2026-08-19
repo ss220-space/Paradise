@@ -1,5 +1,11 @@
+import {
+  Button,
+  Flex,
+  LabeledList,
+  Section,
+  Slider,
+} from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Button, Flex, LabeledList, Section, Slider } from '../components';
 import { Window } from '../layouts';
 
 type ConveyorSwitchData = {

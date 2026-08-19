@@ -7,7 +7,8 @@
 	--scrollbar-thumb: #a7a7a7;
 }
 
-html, body{
+html,
+body {
 	scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-base);
 }
 
@@ -267,6 +268,7 @@ body.dark {
  * MARK: NTOS
  */
 .ntos:root {
+	--color-base: #121922;
 	--scrollbar-base: #141d26;
 	--scrollbar-thumb: #2a3b4f;
 }
@@ -336,6 +338,7 @@ body.ntos {
  * MARK: Syndicate
  */
 .syndicate:root {
+	--color-base: #2b0101;
 	--scrollbar-base: #3a0202;
 	--scrollbar-thumb: #770303;
 }
@@ -405,6 +408,7 @@ body.syndicate {
  * MARK: Paradise
  */
 .paradise:root {
+	--color-base: #400125;
 	--scrollbar-base: #680b29;
 	--scrollbar-thumb: #cb1551;
 }

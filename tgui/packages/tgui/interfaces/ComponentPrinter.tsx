@@ -1,6 +1,13 @@
-import { toTitleCase } from 'common/string';
+import {
+  Box,
+  Button,
+  DmIcon,
+  NoticeBox,
+  Section,
+  Stack,
+} from 'tgui-core/components';
+import { toTitleCase } from 'tgui-core/string';
 import { useBackend } from '../backend';
-import { Box, Button, DmIcon, NoticeBox, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
 type Design = {

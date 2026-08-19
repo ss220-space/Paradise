@@ -1,6 +1,4 @@
 import type { ReactNode } from 'react';
-import { classes } from '../../common/react';
-import { useBackend } from '../backend';
 import {
   Button,
   Collapsible,
@@ -9,7 +7,9 @@ import {
   LabeledList,
   Section,
   Stack,
-} from '../components';
+} from 'tgui-core/components';
+import { classes } from 'tgui-core/react';
+import { useBackend } from '../backend';
 import { ComplexModal } from '../interfaces/common/ComplexModal';
 import { Window } from '../layouts';
 

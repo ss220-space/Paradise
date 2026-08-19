@@ -1,6 +1,4 @@
-import { createSearch, decodeHtmlEntities } from 'common/string';
 import { type ReactNode, useState } from 'react';
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -12,7 +10,9 @@ import {
   Stack,
   Table,
   Tabs,
-} from '../components';
+} from 'tgui-core/components';
+import { createSearch, decodeHtmlEntities } from 'tgui-core/string';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { ComplexModal, modalOpen } from './common/ComplexModal';
 import { LoginInfo } from './common/LoginInfo';
@@ -386,7 +386,7 @@ const SecurityRecordsPageView = (_properties) => {
                 align="center"
                 color="label"
               >
-                <Icon.Stack style={{ transform: 'translate(-50px, -100px)' }}>
+                <Icon.Stack>
                   <Icon name="scroll" size={5} color="gray" />
                   <Icon name="slash" size={5} color="red" />
                 </Icon.Stack>

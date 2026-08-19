@@ -1,6 +1,12 @@
 import type { ReactNode } from 'react';
+import {
+  Box,
+  Button,
+  Dropdown,
+  LabeledList,
+  Section,
+} from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Box, Button, Dropdown, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
 type BrigTimerData = {
@@ -36,7 +42,7 @@ export const BrigTimer = (props: unknown) => {
       nameIcon = 'exclamation-triangle';
     }
   }
-  const nameOptions = [];
+  const nameOptions: string[] = [];
   let i = 0;
   for (i = 0; i < data.spns.length; i++) {
     nameOptions.push(data.spns[i]);

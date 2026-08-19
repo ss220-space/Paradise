@@ -1,6 +1,5 @@
-import { declension_ru, decodeHtmlEntities } from 'common/string';
+import { declension_ru } from 'common/string';
 import { useState } from 'react';
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -8,7 +7,9 @@ import {
   Section,
   Tabs,
   TextArea,
-} from '../components';
+} from 'tgui-core/components';
+import { decodeHtmlEntities } from 'tgui-core/string';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 const TabList = {

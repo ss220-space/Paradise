@@ -1,4 +1,3 @@
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -7,7 +6,8 @@ import {
   Section,
   Stack,
   Table,
-} from '../components';
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type CustomatRowProps = {
@@ -51,7 +51,7 @@ const CustomatRow = (props: CustomatRowProps) => {
         />
       </Table.Cell>
       <Table.Cell bold>
-        <Button multiLine color="translucent" tooltip={product.desc}>
+        <Button color="translucent" tooltip={product.desc}>
           {product.name}
         </Button>
       </Table.Cell>
