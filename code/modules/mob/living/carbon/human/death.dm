@@ -15,14 +15,6 @@
 	else
 		playsound(src.loc, 'sound/goonstation/effects/robogib.ogg', 50, TRUE)
 
-	var/drop_loc = drop_location()
-	for(var/obj/item/organ/internal/organ as anything in internal_organs)
-		var/atom/movable/thing = organ.remove(src)
-		if(!QDELETED(thing))
-			thing.forceMove(drop_loc)
-			if(isturf(thing.loc))
-				thing.throw_at(get_edge_target_turf(src, pick(GLOB.alldirs)), rand(1,3), 5)
-
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		if(ischest(bodypart))
 			continue
