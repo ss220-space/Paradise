@@ -84,7 +84,6 @@ Difficulty: Medium
 	desc = "Бронированный костюм, созданный для исследования и работы в суровых условиях. Сладкая кровь, ох-х, как она поёт для тебя."
 	armor = list(MELEE = 55, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 75, BIO = 100, FIRE = 100, ACID = 100)
 	hoodtype = /obj/item/clothing/head/hooded/explorer/blood
-	var/datum/action/cooldown/spell/blood_suit/blood_spell
 
 /obj/item/clothing/suit/hooded/explorer/blood/get_ru_names()
 	return alist(
@@ -110,14 +109,6 @@ Difficulty: Medium
 		INSTRUMENTAL = "усиленным капюшоном исследователя",
 		PREPOSITIONAL = "усиленном капюшоне исследователя",
 	)
-
-/obj/item/clothing/suit/hooded/explorer/blood/Initialize(mapload)
-	.=..()
-	blood_spell = new
-
-/obj/item/clothing/suit/hooded/explorer/blood/Destroy()
-	QDEL_NULL(blood_spell)
-	return ..()
 
 /datum/action/cooldown/spell/blood_suit
 	name = "Жажда крови"
@@ -159,15 +150,13 @@ Difficulty: Medium
 	. = ..()
 	if(!ishuman(user) || slot != ITEM_SLOT_CLOTH_OUTER)
 		return .
-	LAZYADD(user.mob_spell_list, blood_spell)
-	user.AddSpell(blood_spell)
+	user.AddSpell(new /datum/action/cooldown/spell/blood_suit)
 
 /obj/item/clothing/suit/hooded/explorer/blood/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
 	. = ..()
 	if(!ishuman(user) || slot != ITEM_SLOT_CLOTH_OUTER)
 		return .
-	LAZYREMOVE(user.mob_spell_list, blood_spell)
-	user.RemoveSpell(blood_spell)
+	user.RemoveSpell(/datum/action/cooldown/spell/blood_suit)
 
 /datum/action/innate/megafauna_attack/dash
 	name = "Рывок к цели"
