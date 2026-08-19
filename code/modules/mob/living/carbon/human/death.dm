@@ -15,6 +15,7 @@
 	else
 		playsound(src.loc, 'sound/goonstation/effects/robogib.ogg', 50, TRUE)
 
+	var/drop_loc = drop_location()
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		if(ischest(bodypart))
 			continue
