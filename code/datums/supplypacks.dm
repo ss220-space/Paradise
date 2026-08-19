@@ -3799,6 +3799,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/storage/box/monkeycubes,
 	)
 	cost = 30
+	required_tech = list(RESEARCH_TREE_BIOTECH = 5)
 	containername = "ящик шимпанзе"
 	container_ru_names = alist(
 		NOMINATIVE = "ящик шимпанзе",
