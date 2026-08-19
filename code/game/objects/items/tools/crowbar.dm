@@ -14,7 +14,6 @@
 	slot_flags = ITEM_SLOT_BELT
 	force = 10
 	throwforce = 10
-	damage_class = BLUNT
 	kinetic_force = 160
 	materials = list(MAT_METAL=50)
 	drop_sound = 'sound/items/handling/drop/crowbar_drop.ogg'

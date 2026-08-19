@@ -152,10 +152,6 @@
 	last_kinetic_hit = result
 	return result
 
-/mob/living
-	/// Last kinetic armor resolution, used by throw-embed and similar follow-up effects.
-	var/datum/armor_hit_result/last_kinetic_hit
-
 /mob/living/proc/announce_kinetic_hit(datum/armor_hit_result/result, def_zone)
 	if(!result?.rolled_penetration)
 		return

@@ -11,7 +11,6 @@
 	slot_flags = ITEM_SLOT_BELT
 	force = 5
 	throwforce = 7
-	damage_class = BLUNT
 	kinetic_force = 70
 	usesound = 'sound/items/ratchet.ogg'
 	drop_sound = 'sound/items/handling/drop/wrench_drop.ogg'

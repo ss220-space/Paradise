@@ -545,7 +545,6 @@
 	force = 8.0
 	throwforce = 10.0
 	throw_speed = 3
-	damage_class = BLUNT
 	kinetic_force = 128
 	attack_verb = list("ударил", "огрел")
 

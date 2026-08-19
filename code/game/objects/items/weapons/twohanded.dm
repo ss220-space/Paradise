@@ -842,7 +842,6 @@
 	force = 5
 	force_unwielded = 5
 	force_wielded = 20
-	damage_class = BLUNT
 	kinetic_force = 120
 	throwforce = 15
 	throw_range = 1
@@ -929,7 +928,6 @@
 	force = 5
 	force_unwielded = 5
 	force_wielded = 25
-	damage_class = BLUNT
 	kinetic_force = 120
 	throwforce = 30
 	w_class = WEIGHT_CLASS_HUGE
@@ -984,7 +982,6 @@
 	force = 5
 	force_unwielded = 5
 	force_wielded = 30
-	damage_class = BLUNT
 	kinetic_force = 120
 	throwforce = 15
 	throw_range = 1

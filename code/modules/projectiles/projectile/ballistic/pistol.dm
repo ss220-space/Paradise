@@ -37,7 +37,6 @@
 	armour_penetration = 30
 
 /obj/projectile/bullet/midbullet3/hp
-	damage = 33
 	armour_penetration = 16
 	ricochets_max = 0
 	softness = 50
@@ -120,7 +119,6 @@
 	kinetic_force = 530
 
 /obj/projectile/bullet/c45colt/hp
-	damage = 26
 	armour_penetration = 10
 	softness = 40
 	kinetic_force = 400
@@ -128,7 +126,6 @@
 /obj/projectile/bullet/c45colt/ap
 	damage = 20
 	armour_penetration = 40
-	kinetic_force = 530
 
 /obj/projectile/bullet/rubber45colt
 	name = "rubber bullet"

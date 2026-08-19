@@ -10,7 +10,6 @@
 	throw_range = 4
 	throwforce = 10
 	w_class = WEIGHT_CLASS_TINY
-	damage_class = BLUNT
 	kinetic_force = 240
 	/// Null rod variant names, used for the radial menu
 	var/static/list/variant_names = list()
@@ -197,7 +196,6 @@
 	sharp = TRUE
 	embed_chance = 20
 	damage_class = SLASHING
-	kinetic_force = 240
 	embedded_ignore_throwspeed_threshold = TRUE
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
@@ -384,7 +382,6 @@
 	desc = "This war hammer cost the chaplain fourty thousand space dollars."
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_HUGE
-	damage_class = BLUNT
 	kinetic_force = 360
 	attack_verb = list("сокрушил", "ударил", "забил", "раздавил")
 
@@ -406,7 +403,6 @@
 	item_flags = ABSTRACT
 	sharp = TRUE
 	damage_class = SLASHING
-	kinetic_force = 240
 	attack_verb = list("пропилил", "поранил", "порезал", "рубанул")
 	hitsound = 'sound/weapons/chainsaw.ogg'
 
@@ -441,7 +437,6 @@
 	icon_state = "chain"
 	item_state = "chain"
 	slot_flags = ITEM_SLOT_BELT
-	damage_class = BLUNT
 	kinetic_force = 210
 	attack_verb = list("хлестнул", "стегнул")
 	hitsound = 'sound/weapons/slash.ogg'

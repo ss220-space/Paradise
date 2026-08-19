@@ -49,7 +49,6 @@
 	range = 12
 	damage = 45
 	kinetic_force = 310
-	armour_penetration = 10
 	faction_bonus_damage = 23
 
 /obj/projectile/bullet/reusable/arrow/jagged //alternative arrow, made from fishing

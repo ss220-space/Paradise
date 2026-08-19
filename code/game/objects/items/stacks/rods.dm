@@ -23,7 +23,6 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	flags = CONDUCT
 	force = 9
 	throwforce = 10
-	damage_class = BLUNT
 	kinetic_force = 144
 	throw_speed = 3
 	materials = list(MAT_METAL=1000)

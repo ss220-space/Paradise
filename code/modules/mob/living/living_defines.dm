@@ -215,3 +215,6 @@
 	/// Modify this via add_offsets and remove_offsets,
 	/// NOT directly (and definitely avoid modifying offsets directly)
 	VAR_PRIVATE/list/offsets
+
+	/// Last kinetic armor resolution, used by throw-embed and similar follow-up effects.
+	var/datum/armor_hit_result/last_kinetic_hit

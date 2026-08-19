@@ -9,7 +9,6 @@
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 7
 	throw_range = 15
-	damage_class = BLUNT
 	attack_verb = list("banned")
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
@@ -196,7 +195,6 @@
 	force = 9
 	throwforce = 10
 	materials = list(MAT_METAL=1150, MAT_GLASS=75)
-	damage_class = BLUNT
 	kinetic_force = 144
 	attack_verb = list("ударил", "огрел")
 
@@ -262,7 +260,6 @@
 	var/lastdeflect
 	force = 10
 	throwforce = 12
-	damage_class = BLUNT
 	kinetic_force = 200
 	attack_verb = list("beat", "шлёпнул")
 	w_class = WEIGHT_CLASS_HUGE
@@ -523,7 +520,6 @@
 	slot_flags = ITEM_SLOT_BELT
 	force = 3
 	throwforce = 3
-	damage_class = BLUNT
 	kinetic_force = 48
 	var/stamina_damage = 22
 

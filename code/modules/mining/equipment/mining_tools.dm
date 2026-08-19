@@ -256,7 +256,6 @@
 	force = 8
 	throwforce = 4
 	item_state = "shovel"
-	damage_class = BLUNT
 	kinetic_force = 128
 	materials = list(MAT_METAL=50)
 	origin_tech = "materials=2;engineering=2"

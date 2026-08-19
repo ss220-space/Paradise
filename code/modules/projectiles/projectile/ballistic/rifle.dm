@@ -22,7 +22,6 @@
 		C.bleed(35)
 
 /obj/projectile/bullet/saw/hollow
-	damage = 45
 	softness = 40
 	kinetic_force = 820
 	armour_penetration = 10

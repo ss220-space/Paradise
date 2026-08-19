@@ -115,7 +115,6 @@
 	flags = CONDUCT
 	armour_penetration = 100
 	origin_tech = "combat=4;magnets=3"
-	damage_class = SLASHING
 	kinetic_force = 640
 	attack_verb = list("атаковал", "рубанул", "поранил", "порезал")
 	attack_verb_on = list()
@@ -189,7 +188,6 @@
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "esaw_0"
 	icon_state_on = "esaw_1"
-	damage_class = SLASHING
 	kinetic_force = 180
 	hitcost = 75 //Costs more than a standard cyborg esword
 	item_color = null

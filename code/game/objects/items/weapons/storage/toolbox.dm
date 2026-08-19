@@ -10,7 +10,6 @@
 	flags = CONDUCT
 	force = 10.0
 	throwforce = 15.0
-	damage_class = BLUNT
 	kinetic_force = 200
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_NORMAL

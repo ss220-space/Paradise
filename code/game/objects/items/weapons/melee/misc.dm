@@ -25,7 +25,6 @@
 	force = 10
 	throwforce = 7
 	origin_tech = "combat=5"
-	damage_class = BLUNT
 	kinetic_force = 140
 	attack_verb = list("выпорол", "хлестнул", "стегнул", "проучил")
 	hitsound = 'sound/weapons/slash.ogg' //pls replace
@@ -275,7 +274,6 @@
 	item_state = "flyswatter"
 	force = 1
 	throwforce = 1
-	damage_class = BLUNT
 	kinetic_force = 14
 	attack_verb = list("прихлопнул", "шлёпнул")
 	hitsound = 'sound/effects/snap.ogg'
@@ -318,7 +316,6 @@
 	desc = "It is a very old rusty and racist iron. Used to beat the living shit out of these filthy xenos."
 	force = 8
 	throwforce = 8
-	damage_class = BLUNT
 	kinetic_force = 160
 	var/bonus_damage = 10
 	icon_state = "big_iron"
