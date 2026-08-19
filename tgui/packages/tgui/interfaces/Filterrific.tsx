@@ -1,6 +1,4 @@
-import { numberOfDecimalDigits, toFixed } from 'common/math';
 import { useState } from 'react';
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -13,7 +11,9 @@ import {
   NumberInput,
   Section,
   Stack,
-} from '../components';
+} from 'tgui-core/components';
+import { numberOfDecimalDigits, toFixed } from 'tgui-core/math';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 const FilterIntegerEntry = (props) => {
@@ -287,10 +287,10 @@ const FilterMatrixEntry = (props) => {
     matrix = resize_matrix(value, 9);
   }
 
-  const processed_matrix = [];
+  const processed_matrix: number[][] = [];
   const row_width = matrix.length > 9 ? 4 : 3;
   for (let i = 0; i < (matrix.length > 9 ? matrix.length / 4 : 3); i++) {
-    const new_row = [];
+    const new_row: number[] = [];
     for (let j = 0; j < row_width; j++) {
       new_row.push(matrix[i * row_width + j]);
     }
@@ -451,7 +451,7 @@ const FilterEntry = (props) => {
         </>
       }
     >
-      <Section level={2}>
+      <Section>
         <LabeledList>
           {targetFilterPossibleKeys.map((entryName) => {
             const defaults = filterDefaults[type].defaults;
@@ -474,7 +474,7 @@ const FilterEntry = (props) => {
   );
 };
 
-export const Filterrific = (props) => {
+export const Filterrific = (_props: unknown) => {
   const { act, data } = useBackend();
   const name = data.target_name || 'Unknown Object';
   const filters = data.target_filter_data || {};
@@ -519,6 +519,7 @@ export const Filterrific = (props) => {
               icon="plus"
               displayText="Add Filter"
               noChevron
+              selected={Object.keys(filterDefaults)?.[0]}
               options={Object.keys(filterDefaults)}
               onSelected={(value) =>
                 act('add_filter', {

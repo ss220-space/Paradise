@@ -1,4 +1,3 @@
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -7,7 +6,8 @@ import {
   ProgressBar,
   Section,
   Stack,
-} from '../components';
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 const status_table = {
@@ -125,9 +125,9 @@ export const BluespaceRiftScanner = (props: unknown) => {
                 {status === 'OFF' ? 'Сканер выключен' : 'Сканирование...'}
               </Box>
               {status !== 'OFF' && (
-                <Box color={statusText[1]}>
+                <Box color={statusText?.[1]}>
                   <Icon name="info" opacity={0.9} ml={1.1} mr={1.4} />
-                  {statusText[0]}
+                  {statusText?.[0]}
                 </Box>
               )}
               {status === 'DANGER' && (

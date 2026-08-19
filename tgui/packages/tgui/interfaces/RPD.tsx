@@ -1,15 +1,14 @@
-import { useBackend } from '../backend';
+import { Grid } from 'tgui/components';
 import {
   Box,
   Button,
-  Grid,
   Icon,
   ImageButton,
   Section,
   Stack,
   Tabs,
-} from '../components';
-import { Direction } from '../components/DmIcon';
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 const decideTab = (index: number) => {

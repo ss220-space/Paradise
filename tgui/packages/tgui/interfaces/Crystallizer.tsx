@@ -1,5 +1,3 @@
-import { toFixed } from 'common/math';
-import type { BooleanLike } from 'common/react';
 import {
   Box,
   Button,
@@ -8,6 +6,8 @@ import {
   ProgressBar,
   Section,
 } from 'tgui-core/components';
+import { toFixed } from 'tgui-core/math';
+import type { BooleanLike } from 'tgui-core/react';
 
 import { useBackend } from '../backend';
 import { getGasColor } from '../constants';

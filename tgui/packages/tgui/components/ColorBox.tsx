@@ -1,9 +1,9 @@
-import type { Placement } from '@popperjs/core';
+import type { Placement } from '@floating-ui/react';
 import { classes } from 'common/react';
 import type { ReactNode } from 'react';
+import { Tooltip } from 'tgui-core/components';
 import { computeBoxClassName, computeBoxProps } from 'tgui-core/ui';
 import type { BoxProps } from './Box';
-import { Tooltip } from './Tooltip';
 
 type Props = {
   content?: ReactNode;

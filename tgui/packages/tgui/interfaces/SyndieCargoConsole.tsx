@@ -1,8 +1,5 @@
-import { flow } from 'common/fp';
-import { createSearch } from 'common/string';
 import { sortBy } from 'es-toolkit';
 import { useState } from 'react';
-import { useBackend, useSharedState } from '../backend';
 import {
   Box,
   Button,
@@ -12,13 +9,16 @@ import {
   Modal,
   Section,
   Table,
-} from '../components';
+} from 'tgui-core/components';
+import { flow } from 'tgui-core/fp';
+import { createSearch } from 'tgui-core/string';
+import { useBackend, useSharedState } from '../backend';
 import { Window } from '../layouts';
 import type { CataloguePaneProps, ContentsModalProps } from './CargoConsole';
 
 export const SyndieCargoConsole = (_props: unknown) => {
-  const [contentsModal, setContentsModal] = useState<string[]>(null);
-  const [contentsModalTitle, setContentsModalTitle] = useState<string>(null);
+  const [contentsModal, setContentsModal] = useState<string[]>([]);
+  const [contentsModalTitle, setContentsModalTitle] = useState<string>('');
 
   return (
     <Window width={900} height={800} theme="syndicate">
@@ -76,8 +76,8 @@ const ContentsModal = (properties: ContentsModalProps) => {
         <Box m={2}>
           <Button
             onClick={() => {
-              setContentsModal(null);
-              setContentsModalTitle(null);
+              setContentsModal([]);
+              setContentsModalTitle('');
             }}
           >
             Close
@@ -194,7 +194,7 @@ const CataloguePane = (properties: CataloguePaneProps) => {
     (supply_packs: SupplyPack[]) =>
       searchText ? supply_packs.filter(packSearch) : supply_packs,
     (supply_packs: SupplyPack[]) =>
-      sortBy(supply_packs, (pack) => pack.name.toLowerCase()),
+      sortBy(supply_packs, [(pack) => pack.name.toLowerCase()]),
   ])(supply_packs);
 
   let titleText = 'Crate Catalogue';

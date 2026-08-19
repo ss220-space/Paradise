@@ -1,5 +1,6 @@
 import { toFixed } from 'common/math';
 import type { ReactNode } from 'react';
+import type { ButtonProps, ConfirmProps } from 'tgui/components/Button';
 import {
   Box,
   Button,
@@ -266,11 +267,16 @@ const TextOrDefault = (props: TextOrDefaultProps) => {
 
 type ConfirmOrNormalButtonProps = {
   noConfirm?: boolean;
-} & any;
+} & ConfirmProps &
+  ButtonProps;
 
 const ConfirmOrNormalButton = (props: ConfirmOrNormalButtonProps) => {
   const { noConfirm = false, ...rest } = props;
-  return noConfirm ? <Button {...rest} /> : <Button.Confirm {...rest} />;
+  return noConfirm ? (
+    <Button {...(rest as any)} />
+  ) : (
+    <Button.Confirm {...(rest as any)} />
+  );
 };
 
 type LabeledListOneItemProps = Partial<{
@@ -717,7 +723,7 @@ const TankControlMtoolMenu = (_props: unknown) => {
               confirmColor="orange"
               content="Link buffer"
               icon="link"
-              selected={inputTag && bufferTag === inputTag}
+              selected={inputTag ? bufferTag === inputTag : false}
               disabled={!bufferFitsInput}
               onClick={() => act('link_input')}
             />
@@ -751,7 +757,7 @@ const TankControlMtoolMenu = (_props: unknown) => {
               confirmColor="orange"
               content="Link buffer"
               icon="link"
-              selected={outputTag && bufferTag === outputTag}
+              selected={outputTag ? bufferTag === outputTag : false}
               disabled={!bufferFitsOutput}
               onClick={() => act('link_output')}
             />

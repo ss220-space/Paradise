@@ -1,6 +1,4 @@
 import { useState } from 'react';
-import { formatSiUnit } from 'tgui-core/format';
-import { useBackend } from '../../backend';
 import {
   Button,
   ByondUi,
@@ -8,7 +6,9 @@ import {
   ProgressBar,
   Section,
   Stack,
-} from '../../components';
+} from 'tgui-core/components';
+import { formatSiUnit } from 'tgui-core/format';
+import { useBackend } from '../../backend';
 import { Window } from '../../layouts';
 import { AccessList } from '../common/AccessList';
 import { AlertPane } from './AlertPane';

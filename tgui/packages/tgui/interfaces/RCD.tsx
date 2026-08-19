@@ -1,4 +1,3 @@
-import { useBackend } from '../backend';
 import {
   Button,
   Icon,
@@ -7,7 +6,8 @@ import {
   Section,
   Stack,
   Tabs,
-} from '../components';
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { type Access, AccessList } from './common/AccessList';
 import { ComplexModal, modalOpen } from './common/ComplexModal';
@@ -40,8 +40,13 @@ type RCDData = {
   one_access: boolean;
   selected_accesses: number[];
   regions: Access[];
-  door_types_ui_list;
+  door_types_ui_list: Door[];
   door_type: string;
+};
+type Door = {
+  name: string;
+  type: string;
+  image: string;
 };
 
 const MatterReadout = (_props: unknown) => {
@@ -283,7 +288,7 @@ const AirlockTypeList = (props: AirlockTypeListProps) => {
   const { door_types_ui_list, door_type } = data;
   const { check_number } = props;
   // Filter either odd or even airlocks in the list, based on what `check_number` is.
-  const doors_filtered = [];
+  const doors_filtered: Door[] = [];
   for (let i = 0; i < door_types_ui_list.length; i++) {
     if (i % 2 === check_number) {
       doors_filtered.push(door_types_ui_list[i]);
@@ -296,7 +301,7 @@ const AirlockTypeList = (props: AirlockTypeListProps) => {
           <Stack.Item grow>
             <Button.Checkbox
               fluid
-              icon={null}
+              icon={false}
               color="translucent"
               checked={door_type === entry.type}
               onClick={() =>

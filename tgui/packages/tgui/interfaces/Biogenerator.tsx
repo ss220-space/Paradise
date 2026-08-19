@@ -1,4 +1,3 @@
-import type { Key } from 'react';
 import {
   Box,
   Button,
@@ -28,7 +27,7 @@ type Product = {
   name: string;
   cost: number;
   needs_container: boolean;
-} & Key;
+};
 
 export const Biogenerator = (props: unknown) => {
   const { data, config } = useBackend<BiogeneratorProps>();
@@ -155,7 +154,7 @@ const Products = (props: unknown) => {
     return (
       <Collapsible key={kv[0]} title={kv[0]} open>
         {category_items.map((item) => (
-          <Stack key={item} py="2px" className="candystripe" align="center">
+          <Stack key={item.id} py="2px" className="candystripe" align="center">
             <Stack.Item width="50%" ml="2px">
               {item.name}
             </Stack.Item>

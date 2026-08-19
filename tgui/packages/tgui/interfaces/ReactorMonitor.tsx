@@ -1,4 +1,3 @@
-import { toFixed } from 'common/math';
 import {
   Button,
   Knob,
@@ -6,7 +5,8 @@ import {
   ProgressBar,
   Section,
   Stack,
-} from 'tgui/components';
+} from 'tgui-core/components';
+import { toFixed } from 'tgui-core/math';
 
 import { useBackend } from '../backend';
 import { getGasColor, getGasLabel } from '../constants';

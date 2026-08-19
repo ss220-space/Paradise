@@ -1,16 +1,16 @@
-import type { BooleanLike } from 'common/react';
 import { sortBy } from 'es-toolkit';
-import { useBackend } from '../backend';
+import { Countdown } from 'tgui/components';
 import {
   Box,
   Button,
   Dimmer,
   Icon,
   Knob,
-  ProgressBar,
   Section,
   Stack,
-} from '../components';
+} from 'tgui-core/components';
+import type { BooleanLike } from 'tgui-core/react';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type Song = {
@@ -53,7 +53,7 @@ export const Jukebox = () => {
 
   const MAX_NAME_LENGTH = 35;
   const need_payment = !payment && need_coin && !advanced_admin;
-  const songs_sorted: Song[] = sortBy(songs, (song: Song) => song.name);
+  const songs_sorted: Song[] = sortBy(songs, [(song: Song) => song.name]);
   const song_selected: Song | undefined = songs.find(
     (song) => song.name === track_selected,
   );
@@ -124,13 +124,14 @@ export const Jukebox = () => {
                     </Stack.Item>
                   </Stack>
                   <Stack.Item>
-                    <ProgressBar.Countdown
-                      start={start_time}
-                      current={!looping ? world_time : end_time}
-                      end={end_time}
+                    <Countdown
+                      timeStart={start_time}
+                      progressBar
+                      loop={!!looping}
+                      timeEnd={end_time}
                     >
                       {trackTimer}
-                    </ProgressBar.Countdown>
+                    </Countdown>
                   </Stack.Item>
                 </Stack>
               </Section>

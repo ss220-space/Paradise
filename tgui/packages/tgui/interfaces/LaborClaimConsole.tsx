@@ -1,5 +1,3 @@
-import { toTitleCase } from 'common/string';
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -7,10 +5,12 @@ import {
   ProgressBar,
   Section,
   Table,
-} from '../components';
+} from 'tgui-core/components';
+import { toTitleCase } from 'tgui-core/string';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
-export const LaborClaimConsole = (props: unknown) => {
+export const LaborClaimConsole = (_props: unknown) => {
   return (
     <Window width={320} height={470}>
       <Window.Content scrollable>

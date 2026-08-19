@@ -1,7 +1,5 @@
+import { declension_ru } from 'common/string';
 import { useState } from 'react';
-import { classes } from '../../common/react';
-import { createSearch, declension_ru } from '../../common/string';
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -9,11 +7,13 @@ import {
   Dropdown,
   Icon,
   Input,
-  ProgressBar,
   Section,
   Stack,
-} from '../components';
-import { Countdown } from '../components/Countdown';
+} from 'tgui-core/components';
+import { classes } from 'tgui-core/react';
+import { createSearch } from 'tgui-core/string';
+import { useBackend } from '../backend';
+import { Countdown } from '../components';
 import { Window } from '../layouts';
 
 // __DEFINES/construction.dm, L73
@@ -195,27 +195,19 @@ const Building = (properties) => {
   const { building, buildStart, buildEnd, worldTime } = data;
   return (
     <Section className="Exofab__building" stretchContents>
-      <ProgressBar.Countdown
-        start={buildStart}
-        current={worldTime}
-        end={buildEnd}
+      <Countdown
+        progressBar
+        timeStart={buildStart}
+        timeEnd={buildEnd}
+        format={(v, f) => f.substr(3)}
       >
-        <Stack>
-          <Stack.Item>
-            <Icon name="cog" spin />
+        <Stack fill>
+          <Stack.Item grow>
+            <Icon spin name="cog" /> Building
           </Stack.Item>
-          <Stack.Item>
-            Печать {building}
-            &nbsp;(
-            <Countdown
-              current={worldTime}
-              timeLeft={buildEnd - worldTime}
-              format={(v, f) => f.substr(3)}
-            />
-            )
-          </Stack.Item>
+          <Stack.Item>{building}</Stack.Item>
         </Stack>
-      </ProgressBar.Countdown>
+      </Countdown>
     </Section>
   );
 };

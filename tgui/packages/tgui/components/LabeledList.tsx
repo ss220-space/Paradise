@@ -6,10 +6,10 @@
 
 import { type BooleanLike, classes } from 'common/react';
 import type { CSSProperties, PropsWithChildren, ReactNode } from 'react';
+import { Tooltip } from 'tgui-core/components';
 import { unit } from 'tgui-core/ui';
 import { Box } from './Box';
 import { Divider } from './Divider';
-import { Tooltip } from './Tooltip';
 
 /**
  * ## LabeledList

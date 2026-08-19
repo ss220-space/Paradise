@@ -1,5 +1,5 @@
+import { Box, Button, LabeledList, ProgressBar } from 'tgui-core/components';
 import { useBackend } from '../../backend';
-import { Box, Button, LabeledList, ProgressBar } from '../../components';
 
 type PaiChems = {
   current_chemicals: number;

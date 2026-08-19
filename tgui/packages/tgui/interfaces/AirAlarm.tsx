@@ -1,6 +1,4 @@
 import { useState } from 'react';
-import type { BooleanLike } from 'tgui-core/react';
-import { useBackend } from '../backend';
 import {
   AnimatedNumber,
   Box,
@@ -11,7 +9,9 @@ import {
   Section,
   Table,
   Tabs,
-} from '../components';
+} from 'tgui-core/components';
+import type { BooleanLike } from 'tgui-core/react';
+import { useBackend } from '../backend';
 import { GASES } from '../constants';
 import { Window } from '../layouts';
 import { type AtmosMachine, AtmosMachineView } from './common/AtmosMachine';
@@ -246,28 +246,28 @@ const AirAlarmTabs = (props: TabIndexProps) => {
       <Tabs.Tab
         key="Vents"
         selected={0 === tabIndex}
-        onClick={() => setTabIndex(0)}
+        onClick={() => setTabIndex?.(0)}
       >
         <Icon name="sign-out-alt" /> Vent Control
       </Tabs.Tab>
       <Tabs.Tab
         key="Scrubbers"
         selected={1 === tabIndex}
-        onClick={() => setTabIndex(1)}
+        onClick={() => setTabIndex?.(1)}
       >
         <Icon name="sign-in-alt" /> Scrubber Control
       </Tabs.Tab>
       <Tabs.Tab
         key="Mode"
         selected={2 === tabIndex}
-        onClick={() => setTabIndex(2)}
+        onClick={() => setTabIndex?.(2)}
       >
         <Icon name="cog" /> Mode
       </Tabs.Tab>
       <Tabs.Tab
         key="Thresholds"
         selected={3 === tabIndex}
-        onClick={() => setTabIndex(3)}
+        onClick={() => setTabIndex?.(3)}
       >
         <Icon name="tachometer-alt" /> Thresholds
       </Tabs.Tab>

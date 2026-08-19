@@ -1,9 +1,5 @@
-import { flow } from 'common/fp';
-import type { BooleanLike } from 'common/react';
-import { createSearch } from 'common/string';
 import { sortBy } from 'es-toolkit';
 import { useState } from 'react';
-import { useBackend } from '../backend';
 import {
   Button,
   Input,
@@ -11,7 +7,11 @@ import {
   Section,
   Slider,
   Stack,
-} from '../components';
+} from 'tgui-core/components';
+import { flow } from 'tgui-core/fp';
+import type { BooleanLike } from 'tgui-core/react';
+import { createSearch } from 'tgui-core/string';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 const trimLongStr = (str: string, length: number) => {
@@ -23,7 +23,7 @@ const selectForms = (forms: Form[], searchText = ''): Form[] => {
   return flow([
     (forms: Form[]) => forms.filter((form) => !!form?.altername),
     (forms: Form[]) => (searchText ? forms.filter(testSearch) : forms),
-    (forms: Form[]) => sortBy(forms, (form) => form.id),
+    (forms: Form[]) => sortBy(forms, [(form) => form.id]),
   ])(forms);
 };
 
@@ -59,10 +59,10 @@ export const Photocopier = (_props: unknown) => {
   const [searchText, setSearchText] = useState('');
 
   const forms = selectForms(
-    sortBy(data.forms || [], (form) => form.category),
+    sortBy(data.forms || [], [(form) => form.category]),
     searchText,
   );
-  const categories = [];
+  const categories: string[] = [];
   for (const form of forms) {
     if (!categories.includes(form.category)) {
       categories.push(form.category);

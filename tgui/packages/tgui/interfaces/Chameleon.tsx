@@ -1,8 +1,8 @@
-import { flow } from 'common/fp';
-import { createSearch } from 'common/string';
 import { useState } from 'react';
+import { ImageButton, Input, Section, Stack } from 'tgui-core/components';
+import { flow } from 'tgui-core/fp';
+import { createSearch } from 'tgui-core/string';
 import { useBackend } from '../backend';
-import { ImageButton, Input, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
 type Data = {

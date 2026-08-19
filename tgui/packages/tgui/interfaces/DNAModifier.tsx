@@ -1,6 +1,6 @@
 import { declension_ru } from 'common/string';
+import type React from 'react';
 import type { ReactNode } from 'react';
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -13,7 +13,8 @@ import {
   Section,
   Stack,
   Tabs,
-} from '../components';
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { ComplexModal } from './common/ComplexModal';
 
@@ -278,7 +279,7 @@ const DNAModifierMainUI = ({ dnaBlockSize }: DNAModifierMainUIProps) => {
         dnaString={occupant.uniqueIdentity}
         selectedBlock={selectedUIBlock}
         selectedSubblock={selectedUISubBlock}
-        blockSize={dnaBlockSize}
+        blockSize={dnaBlockSize || 0}
         action="selectUIBlock"
       />
       <LabeledList>
@@ -318,7 +319,7 @@ const DNAModifierMainSE = ({ dnaBlockSize }: DNAModifierMainSEProps) => {
         dnaString={occupant.structuralEnzymes}
         selectedBlock={selectedSEBlock}
         selectedSubblock={selectedSESubBlock}
-        blockSize={dnaBlockSize}
+        blockSize={dnaBlockSize || 0}
         action="selectSEBlock"
       />
       <Button icon="radiation" onClick={() => act('pulseSERadiation')}>
@@ -758,10 +759,10 @@ const DNAModifierBlocks = (props: DNAModifierBlocksProps) => {
     props;
 
   const characters = dnaString.split('');
-  const dnaBlocks = [];
+  const dnaBlocks: React.JSX.Element[] = [];
   for (let block = 0; block < characters.length; block += blockSize) {
     const realBlock = block / blockSize + 1;
-    const subBlocks = [];
+    const subBlocks: React.JSX.Element[] = [];
     for (let subblock = 0; subblock < blockSize; subblock++) {
       const realSubblock = subblock + 1;
       subBlocks.push(

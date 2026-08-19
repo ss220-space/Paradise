@@ -1,7 +1,5 @@
-import { classes } from 'common/react';
-import { declension_ru, decodeHtmlEntities } from 'common/string';
+import { declension_ru } from 'common/string';
 import { useState } from 'react';
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -13,7 +11,10 @@ import {
   Table,
   Tabs,
   Tooltip,
-} from '../components';
+} from 'tgui-core/components';
+import { classes } from 'tgui-core/react';
+import { decodeHtmlEntities } from 'tgui-core/string';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 const getRewardColor = (reward: number, isCorp: boolean) => {
@@ -34,7 +35,7 @@ const getRewardColor = (reward: number, isCorp: boolean) => {
 };
 
 const mapTwoByTwo = <T1, T2>(a: T1[], c: (b: T1, c: T1, i: number) => T2) => {
-  const result = [];
+  const result: T2[] = [];
   for (let i = 0; i < a.length; i += 2) {
     result.push(c(a[i], a[i + 1], i));
   }

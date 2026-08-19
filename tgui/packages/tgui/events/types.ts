@@ -36,6 +36,7 @@ export type Config = {
   title: string;
   user: User;
   window: TguiWindow;
+  map: string;
 };
 
 export type DebugState = {

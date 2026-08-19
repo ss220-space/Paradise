@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-import type { Placement } from '@popperjs/core';
+import type { Placement } from '@floating-ui/react';
 import { isEscape, KEY } from 'common/keys';
 import { type BooleanLike, classes } from 'common/react';
 import {
@@ -17,10 +17,9 @@ import {
   useRef,
   useState,
 } from 'react';
-import { Icon } from 'tgui-core/components';
+import { Icon, Tooltip } from 'tgui-core/components';
 import { computeBoxClassName, computeBoxProps } from 'tgui-core/ui';
 import { Box, type BoxProps } from './Box';
-import { Tooltip } from './Tooltip';
 
 /**
  * Getting ellipses to work requires that you use:

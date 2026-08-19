@@ -1,12 +1,12 @@
-import { toTitleCase } from 'common/string';
-import { useBackend } from '../backend';
 import {
   Button,
   LabeledList,
   NoticeBox,
   ProgressBar,
   Section,
-} from '../components';
+} from 'tgui-core/components';
+import { toTitleCase } from 'tgui-core/string';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type MechaControlData = {

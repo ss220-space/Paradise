@@ -41,7 +41,7 @@ export const CreateObject = (props: CreateObjectProps) => {
   const { act, data } = useBackend<SpawnPanelData>();
   const { setAdvancedSettings, iconSettings, objList = { atoms: {} } } = props;
 
-  const [tooltipIcon, setTooltipIcon] = useState(false);
+  const [tooltipIcon, _] = useState(false);
   const [selectedObj, setSelectedObj] = useState<string | null>(null);
   const [searchBy, setSearchBy] = useState(false);
   const [sortBy, setSortBy] = useState(listTypes.Objects);

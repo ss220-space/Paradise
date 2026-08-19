@@ -1,8 +1,5 @@
-import { flow } from 'common/fp';
-import { createSearch } from 'common/string';
 import { sortBy } from 'es-toolkit';
 import { useState } from 'react';
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -11,7 +8,10 @@ import {
   Input,
   NoticeBox,
   Section,
-} from '../components';
+} from 'tgui-core/components';
+import { flow } from 'tgui-core/fp';
+import { createSearch } from 'tgui-core/string';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 export const StackCraft = () => {
@@ -116,9 +116,9 @@ const filterRecipeList = (
     (recipeList: [string, Recipe][]) =>
       recipeList.filter(([title, recipe]) => recipe !== undefined),
     (recipeList: [string, Recipe][]) =>
-      sortBy(recipeList, ([title, recipe]) => title),
+      sortBy(recipeList, [([title, recipe]) => title]),
     (recipeList: [string, Recipe][]) =>
-      sortBy(recipeList, ([title, recipe]) => !isRecipeList(recipe)),
+      sortBy(recipeList, [([title, recipe]) => !isRecipeList(recipe)]),
     (recipeList: [string, Recipe][]) =>
       recipeList.reduce((obj, [title, recipe]) => {
         obj[title] = recipe;
@@ -169,7 +169,7 @@ const Multipliers = (props: MultipliersProps) => {
 
   const multipliers = [5, 10, 25];
 
-  const finalResult = [];
+  const finalResult: React.JSX.Element[] = [];
 
   for (const multiplier of multipliers) {
     if (max_available_multiplier >= multiplier) {

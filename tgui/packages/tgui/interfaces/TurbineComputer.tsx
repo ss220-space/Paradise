@@ -1,7 +1,3 @@
-import { toFixed } from 'common/math';
-import type { BooleanLike } from 'common/react';
-import { formatPower } from 'tgui-core/format';
-import { useBackend } from '../backend';
 import {
   Button,
   Knob,
@@ -9,7 +5,11 @@ import {
   ProgressBar,
   Section,
   Stack,
-} from '../components';
+} from 'tgui-core/components';
+import { formatPower } from 'tgui-core/format';
+import { toFixed } from 'tgui-core/math';
+import type { BooleanLike } from 'tgui-core/react';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type TurbineComputerData = {

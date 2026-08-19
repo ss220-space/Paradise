@@ -6,36 +6,20 @@
 
 // Themes
 import './styles/main.scss';
-import './styles/themes/abductor.scss';
-import './styles/themes/admin.scss';
-import './styles/themes/cardtable.scss';
 import './styles/themes/cargo.scss';
 import './styles/themes/changeling.scss';
 import './styles/themes/clockwork.scss';
 import './styles/themes/infernal.scss';
-import './styles/themes/hackerman.scss';
 import './styles/themes/honker.scss';
-import './styles/themes/malfunction.scss';
 import './styles/themes/hydroponics.scss';
-import './styles/themes/ntos.scss';
-import './styles/themes/ntos_cat.scss';
-import './styles/themes/ntos_darkmode.scss';
-import './styles/themes/ntos_lightmode.scss';
-import './styles/themes/ntOS95.scss';
-import './styles/themes/ntos_spooky.scss';
-import './styles/themes/ntos_terminal.scss';
 import './styles/themes/ntos_roboquest.scss';
 import './styles/themes/ntos_roboblue.scss';
-import './styles/themes/paper.scss';
-import './styles/themes/retro.scss';
 import './styles/themes/safe.scss';
 import './styles/themes/securestorage.scss';
 import './styles/themes/security.scss';
 import './styles/themes/spider_clan.scss';
-import './styles/themes/syndicate.scss';
 import './styles/themes/nologo.scss';
 import './styles/themes/spider_clan.scss';
-import './styles/themes/ntOS95.scss';
 
 import { setupGlobalEvents } from 'tgui-core/events';
 import { setupHotKeys } from 'tgui-core/hotkeys';

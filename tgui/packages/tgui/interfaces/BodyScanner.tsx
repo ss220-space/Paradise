@@ -1,7 +1,4 @@
-import { round } from 'common/math';
-import { capitalize } from 'common/string';
 import { Fragment, type ReactNode } from 'react';
-import { useBackend } from '../backend';
 import {
   AnimatedNumber,
   Box,
@@ -13,8 +10,10 @@ import {
   Stack,
   Table,
   Tooltip,
-} from '../components';
-import type { ProgressBarProps } from '../components/ProgressBar';
+} from 'tgui-core/components';
+import { round } from 'tgui-core/math';
+import { capitalize } from 'tgui-core/string';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 const stats = [
@@ -66,7 +65,7 @@ const reduceOrganStatus = (A: ReactNode[]) => {
         (a, s) => (
           <>
             {a}
-            <Box key={s.toString()}>{s}</Box>
+            <Box key={s?.toString()}>{s}</Box>
           </>
         ),
         null,
@@ -313,7 +312,7 @@ const BodyScannerMainDamage = (props: BodyScannerProps) => {
   );
 };
 
-const BodyScannerMainDamageBar = (props: ProgressBarProps) => {
+const BodyScannerMainDamageBar = (props: any) => {
   const { value, mb, ...rest } = props;
   return (
     <ProgressBar

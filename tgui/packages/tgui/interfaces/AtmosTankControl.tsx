@@ -1,5 +1,5 @@
-import { toFixed } from 'common/math';
-import { LabeledList, ProgressBar, Section } from 'tgui/components';
+import { LabeledList, ProgressBar, Section } from 'tgui-core/components';
+import { toFixed } from 'tgui-core/math';
 
 import { useBackend } from '../backend';
 import { GASES } from '../constants';

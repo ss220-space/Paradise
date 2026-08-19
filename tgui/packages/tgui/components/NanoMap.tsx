@@ -15,13 +15,13 @@ import {
   Flex,
   Icon,
   Image,
+  Slider,
   Stack,
   Tooltip,
 } from 'tgui-core/components';
 import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
 import { LabeledList } from './LabeledList';
-import { Slider } from './Slider';
 
 const MAP_SIZE = 510;
 const HALF_SIZE = MAP_SIZE / 2;
@@ -67,7 +67,6 @@ export const NanoMap = (props: Props) => {
   const [dragging, setDragging] = useState(false);
   const dragStartPos = useRef({ x: HALF_SIZE, y: HALF_SIZE });
 
-  // Обработчики событий мыши
   const handleMouseDown = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
       setDragging(true);
@@ -100,7 +99,6 @@ export const NanoMap = (props: Props) => {
     setDragging(false);
   }, []);
 
-  // Подписываемся на события мыши
   useEffect(() => {
     if (dragging) {
       document.addEventListener('mousemove', handleMouseMove);
@@ -119,7 +117,7 @@ export const NanoMap = (props: Props) => {
   };
 
   const handleZChange = (value: number) => {
-    props.setZCurrent(value);
+    props.setZCurrent?.(value);
     setZCurrent(value);
   };
 
@@ -169,8 +167,8 @@ export const NanoMap = (props: Props) => {
         <Stack.Item>
           <NanoMapZLeveler
             zCurrent={zCurrent}
-            zNames={props.zNames}
-            zLevels={props.zLevels}
+            zNames={props.zNames || []}
+            zLevels={props.zLevels || []}
             onZChange={handleZChange}
           />
         </Stack.Item>
@@ -195,9 +193,9 @@ export type NanoMakerProps = Partial<{
 
 const NanoMapMarker = (props: NanoMakerProps) => {
   const {
-    x,
-    y,
-    z,
+    x = 0,
+    y = 0,
+    z = 0,
     z_current,
     zoom = 1,
     tooltip,
@@ -242,12 +240,12 @@ type NanoMapMarkerIconProps = Partial<{
   NanoMakerProps;
 
 const NanoMapMarkerIcon = (props: NanoMapMarkerIconProps) => {
-  const { icon, color, zoom, ...rest } = props;
+  const { icon, color, zoom = 0, ...rest } = props;
   const markerSize = PIXELS_PER_TURF * zoom + 4 / Math.ceil(zoom / 4);
   return (
     <NanoMapMarker zoom={zoom} {...rest}>
       <Icon
-        name={icon}
+        name={icon || ''}
         color={color}
         fontSize={`${markerSize}px`}
         style={{
@@ -267,9 +265,9 @@ const NanoMapMarkerCircle = (
   props: NanoMakerProps & { radius: number; color: string },
 ) => {
   const {
-    x,
-    y,
-    z,
+    x = 0,
+    y = 0,
+    z = 0,
     z_current,
     zoom = 1,
     radius,
@@ -328,8 +326,8 @@ const NanoMapZoomer = (props: ZoomerProps) => {
               width={15.5}
               tickWhileDragging
               format={(v) => `${v}x`}
-              value={props.zoom}
-              onChange={(e, v) => props.onZoom(e, v)}
+              value={props.zoom || 0}
+              onChange={(e, v) => props.onZoom?.(e, v)}
             />
             <Button
               ml="0.5em"

@@ -1,4 +1,3 @@
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -6,10 +5,11 @@ import {
   ProgressBar,
   Section,
   Stack,
-} from '../components';
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
-export const DnaVault = (props: unknown) => {
+export const DnaVault = (_props: unknown) => {
   const { data } = useBackend<DnaVaultData>();
   const { completed } = data;
   return (

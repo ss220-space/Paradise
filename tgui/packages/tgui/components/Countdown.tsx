@@ -6,12 +6,15 @@ type Props = {
 } & Partial<{
   children: ReactNode;
   timeStart: number;
-  progressBar: true;
+  progressBar: boolean;
+  loop: boolean;
   format: (value, formatted) => string;
-}>;
+}> &
+  any;
 
 export function Countdown(props: Props) {
-  const { children, progressBar, timeStart, timeEnd, format, ...rest } = props;
+  const { children, progressBar, timeStart, timeEnd, format, loop, ...rest } =
+    props;
   const countdownMax = Math.max(
     (timeStart ? timeEnd - timeStart : timeEnd) * 100,
     0,
@@ -40,10 +43,12 @@ export function Countdown(props: Props) {
     return () => clearInterval(timer.current as NodeJS.Timeout);
   }, []);
 
-  const formatted = new Date(value).toISOString().slice(11, 19);
+  const formatted = new Date(loop ? timeEnd : value)
+    .toISOString()
+    .slice(11, 19);
   let time = (
     <Box as="span" {...rest}>
-      {format ? format(value, formatted) : formatted}
+      {format ? format(loop ? timeEnd : value, formatted) : formatted}
     </Box>
   );
 

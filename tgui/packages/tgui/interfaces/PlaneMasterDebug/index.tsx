@@ -1,13 +1,8 @@
 import { useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { Dropdown } from 'tgui/components';
+import { Button, InfinitePlane, Stack, Tooltip } from 'tgui-core/components';
 import { resolveAsset } from '../../assets';
 import { useBackend } from '../../backend';
-import {
-  Button,
-  Dropdown,
-  InfinitePlane,
-  Stack,
-  Tooltip,
-} from '../../components';
 import { Window } from '../../layouts';
 import {
   type Connection,

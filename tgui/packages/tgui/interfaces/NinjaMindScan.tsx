@@ -56,7 +56,7 @@ const MindScanMenu = (_props: unknown) => {
       >
         <Flex direction="row" shrink={1} alignContent="left">
           <Flex.Item shrink={1} alignContent="left">
-            <NoticeBox className="NoticeBox_blue" width="90px" align="left">
+            <NoticeBox info width="90px" align="left">
               <Section
                 style={{ background: 'rgba(4, 74, 27, 0.75)' }}
                 align="left"
@@ -72,7 +72,7 @@ const MindScanMenu = (_props: unknown) => {
             </NoticeBox>
           </Flex.Item>
           <Flex.Item grow={1} alignContent="right">
-            <NoticeBox className="NoticeBox_green" align="left" ml={1}>
+            <NoticeBox success align="left" ml={1}>
               <LabeledList>
                 <LabeledList.Item label="Имя">{occupant_name}</LabeledList.Item>
                 <LabeledList.Item label="Здоровье">
@@ -80,7 +80,7 @@ const MindScanMenu = (_props: unknown) => {
                 </LabeledList.Item>
               </LabeledList>
             </NoticeBox>
-            <NoticeBox className="NoticeBox_red" mt={2.5} align="center" ml={1}>
+            <NoticeBox danger mt={2.5} align="center" ml={1}>
               <Button
                 className={block_buttons === 0 ? '' : 'Button_disabled'}
                 width="250px"

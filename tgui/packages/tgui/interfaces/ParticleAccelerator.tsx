@@ -1,15 +1,15 @@
-import { capitalize } from 'common/string';
-import { useBackend } from '../backend';
+import { Grid } from 'tgui/components';
 import {
   Box,
   Button,
-  Grid,
   ImageButton,
   LabeledList,
   Section,
   Stack,
   Table,
-} from '../components';
+} from 'tgui-core/components';
+import { capitalize } from 'tgui-core/string';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 const dir2text = (dir: number) => {

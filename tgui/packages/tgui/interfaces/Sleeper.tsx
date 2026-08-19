@@ -1,6 +1,4 @@
-import { round } from 'common/math';
 import type { ReactNode } from 'react';
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -9,7 +7,9 @@ import {
   ProgressBar,
   Section,
   Stack,
-} from '../components';
+} from 'tgui-core/components';
+import { round } from 'tgui-core/math';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 const stats = [

@@ -1,4 +1,3 @@
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -6,7 +5,8 @@ import {
   LabeledList,
   ProgressBar,
   Section,
-} from '../components';
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 const status_table = {
@@ -210,8 +210,8 @@ export const BluespaceRiftServer = (props: unknown) => {
           />
         )}
         {scanStatusTxt !== 'OFF' && (
-          <Box as="span" color={statusText[1]}>
-            {statusText[0]}
+          <Box as="span" color={statusText?.[1]}>
+            {statusText?.[0]}
           </Box>
         )}
       </LabeledList.Item>

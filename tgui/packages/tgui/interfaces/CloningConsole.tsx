@@ -1,7 +1,4 @@
-import { round } from 'common/math';
 import type { ReactNode } from 'react';
-import { resolveAsset } from '../assets';
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -13,7 +10,10 @@ import {
   ProgressBar,
   Section,
   Tabs,
-} from '../components';
+} from 'tgui-core/components';
+import { round } from 'tgui-core/math';
+import { resolveAsset } from '../assets';
+import { useBackend } from '../backend';
 import { COLORS } from '../constants';
 import {
   ComplexModal,

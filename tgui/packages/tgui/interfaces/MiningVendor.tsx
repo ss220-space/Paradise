@@ -1,7 +1,5 @@
-import { createSearch } from 'common/string';
 import type React from 'react';
 import { useState } from 'react';
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -12,8 +10,9 @@ import {
   NoticeBox,
   Section,
   Stack,
-} from '../components';
-import type { CollapsibleProps } from '../components/Collapsible';
+} from 'tgui-core/components';
+import { createSearch } from 'tgui-core/string';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 const sortTypes = {
@@ -124,7 +123,7 @@ const MiningVendorItems = (properties: MiningVendorItemsProps) => {
   const { gridLayout } = properties;
   // Search thingies
   const { searchText, sortOrder, sortType } = properties;
-  const searcher = createSearch<[string, Item]>(searchText, (item) => {
+  const searcher = createSearch<[string, Item]>(searchText || '', (item) => {
     return item[0];
   });
 
@@ -136,7 +135,7 @@ const MiningVendorItems = (properties: MiningVendorItemsProps) => {
         kv2[1].affordable = has_id && id.points >= kv2[1].price;
         return kv2[1];
       })
-      .sort(sortTypes[sortType]);
+      .sort(sortTypes[sortType || 0]);
     if (items_in_cat.length === 0) {
       return '';
     }
@@ -204,7 +203,7 @@ const MiningVendorSearch = (properties: MiningVendorSearchProps) => {
             selected={sortType}
             options={Object.keys(sortTypes)}
             width="100%"
-            onSelected={(v) => setSortType(v)}
+            onSelected={(v) => setSortType?.(v)}
           />
         </Stack.Item>
         <Stack.Item>
@@ -213,7 +212,7 @@ const MiningVendorSearch = (properties: MiningVendorSearchProps) => {
             height={1.75}
             tooltip={sortOrder ? 'Descending order' : 'Ascending order'}
             tooltipPosition="bottom-start"
-            onClick={() => setSortOrder(!sortOrder)}
+            onClick={() => setSortOrder?.(!sortOrder)}
           />
         </Stack.Item>
       </Stack>
@@ -223,8 +222,8 @@ const MiningVendorSearch = (properties: MiningVendorSearchProps) => {
 
 type MiningVendorProps = {
   items: Item[];
-  gridLayout: boolean;
-} & CollapsibleProps;
+  gridLayout?: boolean;
+} & any;
 
 const MiningVendorItemsCategory = (properties: MiningVendorProps) => {
   const { act, data } = useBackend<MiningVendorData>();

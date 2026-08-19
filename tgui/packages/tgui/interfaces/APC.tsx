@@ -1,5 +1,11 @@
+import {
+  Box,
+  Button,
+  LabeledList,
+  ProgressBar,
+  Section,
+} from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, ProgressBar, Section } from '../components';
 import { Window } from '../layouts';
 import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';
 
@@ -78,9 +84,9 @@ type Channel = {
 };
 
 type TopicParams = {
-  on: object;
-  off: object;
-  auto: object;
+  on: Record<string, Record<string, number>>;
+  off: Record<string, Record<string, number>>;
+  auto: Record<string, Record<string, number>>;
 };
 
 const ApcContent = (props: unknown) => {

@@ -1,6 +1,5 @@
-import type { Placement } from '@popperjs/core';
+import type { Placement } from '@floating-ui/react';
 import { Component, Fragment, type ReactNode } from 'react';
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -13,7 +12,8 @@ import {
   ProgressBar,
   Section,
   Stack,
-} from '../components';
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 const helpButtonsData = [
@@ -725,12 +725,7 @@ const ActionBuyPanel = (properties: ActionBuyPanelProps) => {
                 background: 'rgba(53, 94, 163, 0.8)',
               }}
             >
-              <NoticeBox
-                className="NoticeBox_blue"
-                success
-                danger
-                align="center"
-              >
+              <NoticeBox info align="center">
                 {abilityButtons.ghost.map(
                   (
                     { style, row, iconState, title, content, tooltipPosition },
@@ -838,12 +833,7 @@ const ActionBuyPanel = (properties: ActionBuyPanelProps) => {
                 background: 'rgba(80, 20, 20, 1)',
               }}
             >
-              <NoticeBox
-                className="NoticeBox_red"
-                success
-                danger
-                align="center"
-              >
+              <NoticeBox danger align="center">
                 {abilityButtons.steel.map(
                   (
                     { style, row, icon_state, title, content, tooltipPosition },
@@ -877,7 +867,7 @@ const ActionBuyPanel = (properties: ActionBuyPanelProps) => {
           </Flex.Item>
         </Flex>
       ) : (
-        <NoticeBox className="NoticeBox_red" success danger align="center">
+        <NoticeBox danger align="center">
           Все модули выбраны
         </NoticeBox>
       )}
@@ -970,7 +960,7 @@ const FakeLoadBar = (_properties) => {
         maxValue={100}
       >
         <center>
-          <NoticeBox className={`NoticeBox_${color_choice}`} mt={1}>
+          <NoticeBox className={`NoticeBox--color--${color_choice}`} mt={1}>
             <DmIcon
               height="64px"
               width="64px"
@@ -1003,10 +993,10 @@ type FakeTerminalState = {
 };
 
 class FakeTerminal extends Component<FakeTerminalProps, FakeTerminalState> {
-  timer: NodeJS.Timeout;
+  timer: NodeJS.Timeout | undefined;
   constructor(props: FakeTerminalProps) {
     super(props);
-    this.timer = null;
+    this.timer = undefined;
     this.state = {
       lastText: 'text do be there',
       currentDisplay: [],

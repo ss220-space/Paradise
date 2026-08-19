@@ -1,4 +1,3 @@
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -6,7 +5,8 @@ import {
   ProgressBar,
   Section,
   Stack,
-} from '../components';
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { BeakerContents } from '../interfaces/common/BeakerContents';
 import { Window } from '../layouts';
 
@@ -93,7 +93,7 @@ const ChemDispenserSettings = (properties) => {
 const ChemDispenserChemicals = (properties) => {
   const { act, data } = useBackend<ChemDispenserData>();
   const { chemicals = [] } = data;
-  const flexFillers = [];
+  const flexFillers: boolean[] = [];
   for (let i = 0; i < (chemicals.length + 1) % 3; i++) {
     flexFillers.push(true);
   }

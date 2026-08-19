@@ -1,9 +1,5 @@
-import { flow } from 'common/fp';
-import { toFixed } from 'common/math';
-import { decodeHtmlEntities } from 'common/string';
 import { sortBy } from 'es-toolkit';
 import { type ReactNode, useState } from 'react';
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -15,7 +11,12 @@ import {
   ProgressBar,
   Section,
   Table,
-} from '../components';
+  Tooltip,
+} from 'tgui-core/components';
+import { flow } from 'tgui-core/fp';
+import { toFixed } from 'tgui-core/math';
+import { decodeHtmlEntities } from 'tgui-core/string';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 const PEAK_DRAW = 600000;
@@ -114,7 +115,7 @@ const DataViewComponent = (_props: unknown) => {
       </Box>
     );
   } else {
-    const [sortByField, setSortByField] = useState(null);
+    const [sortByField, setSortByField] = useState<string>('');
     const supply = history.supply[history.supply.length - 1] || 0;
     const demand = history.demand[history.demand.length - 1] || 0;
     const supplyData = history.supply.map((value, i) => [i, value]);
@@ -128,13 +129,13 @@ const DataViewComponent = (_props: unknown) => {
           id: apc.Name + i,
         })),
       (apcs: APC[]) =>
-        sortByField === 'name' ? sortBy(apcs, (apc: APC) => apc.Name) : apcs,
+        sortByField === 'name' ? sortBy(apcs, [(apc: APC) => apc.Name]) : apcs,
       (apcs: APC[]) =>
         sortByField === 'charge'
-          ? sortBy(apcs, (apc: APC) => -apc.CellPct)
+          ? sortBy(apcs, [(apc: APC) => -apc.CellPct])
           : apcs,
       (apcs: APC[]) =>
-        sortByField === 'draw' ? sortBy(apcs, (apc: APC) => -apc.Load) : apcs,
+        sortByField === 'draw' ? sortBy(apcs, [(apc: APC) => -apc.Load]) : apcs,
     ])(apcs);
 
     body = (
@@ -193,19 +194,21 @@ const DataViewComponent = (_props: unknown) => {
           </Box>
           <Button.Checkbox
             checked={sortByField === 'name'}
-            onClick={() => setSortByField(sortByField !== 'name' && 'name')}
+            onClick={() => setSortByField(sortByField !== 'name' ? 'name' : '')}
           >
             Name
           </Button.Checkbox>
           <Button.Checkbox
             checked={sortByField === 'charge'}
-            onClick={() => setSortByField(sortByField !== 'charge' && 'charge')}
+            onClick={() =>
+              setSortByField(sortByField !== 'charge' ? 'charge' : '')
+            }
           >
             Charge
           </Button.Checkbox>
           <Button.Checkbox
             checked={sortByField === 'draw'}
-            onClick={() => setSortByField(sortByField !== 'draw' && 'draw')}
+            onClick={() => setSortByField(sortByField !== 'draw' ? 'draw' : '')}
           >
             Draw
           </Button.Checkbox>
@@ -284,7 +287,8 @@ const AreaCharge = (props: AreaChargeProp) => {
             (charge > 50 ? 'battery-half' : 'battery-quarter')) ||
           (charging === 'C' && 'bolt') ||
           (charging === 'F' && 'battery-full') ||
-          (charging === 'M' && 'slash')
+          (charging === 'M' && 'slash') ||
+          ''
         }
         color={
           (charging === 'N' && (charge > 50 ? 'yellow' : 'red')) ||
@@ -304,8 +308,8 @@ type AreaStatusColorBoxProps = {
   status: string;
 };
 const AreaStatusColorBox = (props: AreaStatusColorBoxProps) => {
-  let auto: boolean;
-  let active: boolean;
+  let auto: boolean = false;
+  let active: boolean = false;
   const { status } = props;
   switch (status) {
     case 'AOn':
@@ -325,13 +329,11 @@ const AreaStatusColorBox = (props: AreaStatusColorBoxProps) => {
       active = false;
       break;
   }
-  const tooltipText = 'база';
+  const tooltipText: string = 'база';
 
   return (
-    <ColorBox
-      color={active ? 'good' : 'bad'}
-      content={auto ? 'A' : 'M'}
-      tooltip={tooltipText}
-    />
+    <ColorBox color={active ? 'good' : 'bad'} content={auto ? 'A' : 'M'}>
+      <Tooltip content={tooltipText} />
+    </ColorBox>
   );
 };

@@ -1,7 +1,3 @@
-import { toFixed } from 'common/math';
-import type { BooleanLike } from 'common/react';
-import { formatSiUnit } from 'tgui-core/format';
-import { useBackend } from '../backend';
 import {
   AnimatedNumber,
   Box,
@@ -13,7 +9,11 @@ import {
   Section,
   Stack,
   Tooltip,
-} from '../components';
+} from 'tgui-core/components';
+import { formatSiUnit } from 'tgui-core/format';
+import { toFixed } from 'tgui-core/math';
+import type { BooleanLike } from 'tgui-core/react';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type CanisterData = {

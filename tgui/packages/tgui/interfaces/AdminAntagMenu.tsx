@@ -1,6 +1,4 @@
-import { createSearch } from 'common/string';
 import { useState } from 'react';
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -10,7 +8,9 @@ import {
   Stack,
   Table,
   Tabs,
-} from '../components';
+} from 'tgui-core/components';
+import { createSearch } from 'tgui-core/string';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { SortButton } from './common/SortButtons';
 
@@ -227,7 +227,7 @@ const AntagList = (properties: SearchTextProps) => {
       </Table.Row>
       {antagArray
         .filter(
-          createSearch(searchText, ({ name, status, antag_names }) => {
+          createSearch(searchText || '', ({ name, status, antag_names }) => {
             return `${name}|${status}|${antag_names.join(', ')}`;
           }),
         )
@@ -383,7 +383,7 @@ const Objectives = (properties: SearchTextProps) => {
       </Table.Row>
       {objectives
         .filter(
-          createSearch(searchText, (objective) => {
+          createSearch(searchText || '', (objective) => {
             return (
               objective.obj_name +
               '|' +
@@ -563,7 +563,7 @@ const SecurityList = (properties: SearchTextProps) => {
       </Table.Row>
       {security
         .filter(
-          createSearch(searchText, (officer) => {
+          createSearch(searchText || '', (officer) => {
             return (
               officer.name +
               '|' +
@@ -722,7 +722,7 @@ const HighValueItems = (properties: SearchTextProps) => {
       </Table.Row>
       {high_value_items
         .filter(
-          createSearch(searchText, (item) => {
+          createSearch(searchText || '', (item) => {
             return `${item.name}|${item.loc}`;
           }),
         )

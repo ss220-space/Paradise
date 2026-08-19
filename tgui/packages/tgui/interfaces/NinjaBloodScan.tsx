@@ -1,4 +1,3 @@
-import { useBackend } from '../backend';
 import {
   Button,
   Flex,
@@ -7,7 +6,8 @@ import {
   ProgressBar,
   Section,
   Tooltip,
-} from '../components';
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 export const NinjaBloodScan = (props: unknown) => {
@@ -49,7 +49,11 @@ const BloodScanMenu = (props: unknown) => {
     red: 'Button_red',
     disabled: 'Button_disabled',
   };
-  const noticeBoxStyles = ['NoticeBox_red', 'NoticeBox', 'NoticeBox_blue'];
+  const noticeBoxStyles = [
+    'NoticeBox--color--red',
+    'NoticeBox--color--green',
+    'NoticeBox--color--blue',
+  ];
   const flexColumns = [1, 2, 3];
   return (
     <Flex direction="column" shrink={1} alignContent="center">
@@ -115,7 +119,7 @@ const BloodScanMenu = (props: unknown) => {
             </Flex.Item>
           ))}
         </Flex>
-        <NoticeBox className="NoticeBox_red" align="center">
+        <NoticeBox danger align="center">
           <Button
             className={!blockButtons ? '' : 'Button_disabled'}
             width="250px"
@@ -147,7 +151,7 @@ const FakeLoadBar = (properties) => {
         maxValue={100}
       >
         <center>
-          <NoticeBox className={'NoticeBox_green'} mt={1}>
+          <NoticeBox success mt={1}>
             {progressBar ? `Загрузка ${`${progressBar}%`}` : `Режим ожидания`}
           </NoticeBox>
         </center>

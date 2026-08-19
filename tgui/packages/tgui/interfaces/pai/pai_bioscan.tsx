@@ -1,5 +1,5 @@
+import { Box, LabeledList, ProgressBar } from 'tgui-core/components';
 import { useBackend } from '../../backend';
-import { Box, LabeledList, ProgressBar } from '../../components';
 
 type Bioscan = {
   brute: number;

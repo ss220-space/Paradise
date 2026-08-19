@@ -1,4 +1,3 @@
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -7,7 +6,8 @@ import {
   ProgressBar,
   Section,
   Stack,
-} from '../components';
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import type { AiData } from './AICard';
 
@@ -46,7 +46,7 @@ export const AIFixer = (props: unknown) => {
       workingAI = false;
     }
 
-    let integrityColor = null; // Handles changing color of the integrity bar
+    let integrityColor: string | null = null; // Handles changing color of the integrity bar
     if (data.integrity >= 75) {
       integrityColor = 'green';
     } else if (data.integrity >= 25) {
