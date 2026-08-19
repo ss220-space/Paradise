@@ -453,7 +453,7 @@
 				limb_dropped = TRUE
 
 			// If limb took enough damage, try to cut or tear it off.
-			if(!limb_dropped && armor_penetrated && damage_class == SLASHING && owner && loc == owner && !cannot_amputate
+			if(!limb_dropped && armor_penetrated && damage_class == SLASHING && owner && loc == owner && !cannot_amputate)
 				if(original_brute && prob(original_brute / 2))
 					droplimb(clean = FALSE, disintegrate = DROPLIMB_SHARP, silent = silent)
 					limb_dropped = TRUE
@@ -739,7 +739,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(inflicted_damage < LIMB_BONE_CRACK_MIN_DMG)
 		return FALSE //too low damage - no fracture
 
-	if(brute_dam + burn_dam + inflicted_damage <= min_broken_damage * LIMB_FRACTURE_HEALTH_THRESHOLD_MULT)
+	if(brute_dam + burn_dam + inflicted_damage <= min_broken_damage)
 		return FALSE //bodypart is not damaged enough - no fracture
 
 	var/fracture_power = get_damage_class_fracture_power(inflicted_damage, damage_class) * get_offtype_injury_mult(damage_class, BLUNT)
@@ -1447,4 +1447,3 @@ Note that amputating the affected organ does in fact remove the infection from t
 #undef LIMB_BONE_CRACK_MIN_DMG
 #undef LIMB_CLOSED_FRACTURE_MIN_DMG
 #undef LIMB_OPEN_FRACTURE_MIN_DMG
-#undef LIMB_FRACTURE_HEALTH_THRESHOLD_MULT
