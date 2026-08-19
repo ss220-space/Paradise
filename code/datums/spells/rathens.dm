@@ -13,35 +13,31 @@
 	return T
 
 /obj/effect/proc_holder/spell/rathens/cast(list/targets, mob/user = usr)
-	for(var/mob/living/carbon/human/H in targets)
-		var/datum/effect_system/fluid_spread/smoke/s = new
-		s.set_up(amount = 5, location = H)
-		s.start()
-		var/obj/item/organ/internal/appendix/A = H.get_int_organ(/obj/item/organ/internal/appendix)
-		if(A)
-			A.remove(H)
-			A.forceMove(get_turf(H))
+	for(var/mob/living/carbon/human/human in targets)
+		var/datum/effect_system/fluid_spread/smoke/smoke = new
+		smoke.set_up(amount = 5, location = human)
+		smoke.start()
+		var/obj/item/organ/internal/appendix/appendix = human.get_int_organ(/obj/item/organ/internal/appendix)
+		if(appendix)
+			appendix.remove(human)
+			appendix.forceMove(get_turf(human))
 			spawn()
-				A.throw_at(get_edge_target_turf(H, pick(GLOB.alldirs)), rand(1, 10), 5)
-			H.visible_message(
-				span_danger("[H]'s [A.name] flies out of their body in a magical explosion!"),\
-				span_danger("Your [A.name] flies out of your body in a magical explosion!")
+				appendix.throw_at(get_edge_target_turf(human, pick(GLOB.alldirs)), rand(1, 10), 5)
+			human.visible_message(
+				span_danger("[human]'s [appendix.name] flies out of their body in a magical explosion!"),\
+				span_danger("Your [appendix.name] flies out of your body in a magical explosion!")
 			)
-			H.Weaken(4 SECONDS)
+			human.Weaken(4 SECONDS)
 		else
-			var/obj/effect/decal/cleanable/blood/gibs/G = new/obj/effect/decal/cleanable/blood/gibs(get_turf(H))
+			var/obj/effect/decal/cleanable/blood/gibs/gibs = new/obj/effect/decal/cleanable/blood/gibs(get_turf(human))
 			spawn()
-				G.throw_at(get_edge_target_turf(H, pick(GLOB.alldirs)), rand(1, 10), 5)
-			H.apply_damage(10, BRUTE, BODY_ZONE_CHEST)
-			to_chat(H, span_userdanger("You have no appendix, but something had to give! Holy shit, what was that?"))
-			H.Weaken(6 SECONDS)
-			for(var/obj/item/organ/external/E as anything in H.bodyparts)
-				if(istype(E, /obj/item/organ/external/head))
-					continue
-				if(ischest(E))
-					continue
-				if(isgroin(E))
+				gibs.throw_at(get_edge_target_turf(human, pick(GLOB.alldirs)), rand(1, 10), 5)
+			human.apply_damage(10, BRUTE, BODY_ZONE_CHEST)
+			to_chat(human, span_userdanger("You have no appendix, but something had to give! Holy shit, what was that?"))
+			human.Weaken(6 SECONDS)
+			for(var/obj/item/organ/external/external as anything in human.bodyparts)
+				if(ishead(external) || ischest(external) || isgroin(external))
 					continue
 				if(prob(7))
-					to_chat(H, span_userdanger("Your [E] was severed by the explosion!"))
-					E.droplimb(1, DROPLIMB_SHARP, 0, 1)
+					to_chat(human, span_userdanger("Your [external] was severed by the explosion!"))
+					external.droplimb(1, DROPLIMB_SHARP, 0, 1)

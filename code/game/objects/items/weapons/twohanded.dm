@@ -585,28 +585,28 @@
 			M.Copy_Parent(user, 100, user.health / 2.5, 12, 30)
 			M.GiveTarget(L)
 
-/obj/item/twohanded/spear/attackby(obj/item/I, mob/living/user, params)
-	if(istype(I, /obj/item/organ/external/head))	//Putting heads on spears
+/obj/item/twohanded/spear/attackby(obj/item/item, mob/living/user, params)
+	if(ishead(item))	//Putting heads on spears
 		add_fingerprint(user)
 		if(loc == user && !user.can_unEquip(src))
 			return ATTACK_CHAIN_PROCEED
-		if(!user.drop_transfer_item_to_loc(I, src))
+		if(!user.drop_transfer_item_to_loc(item, src))
 			return ..()
 		user.visible_message(
-			span_warning("[DECLENT_RU_CAP(user, NOMINATIVE)] насажива[PLUR_ET_YUT(user)] [I.declent_ru(ACCUSATIVE)] на копьё перед собой!"),
-			span_notice("Вы насаживаете [I.declent_ru(ACCUSATIVE)] на копьё и устанавливаете его вертикально.")
+			span_warning("[DECLENT_RU_CAP(user, NOMINATIVE)] насажива[PLUR_ET_YUT(user)] [item.declent_ru(ACCUSATIVE)] на копьё перед собой!"),
+			span_notice("Вы насаживаете [item.declent_ru(ACCUSATIVE)] на копьё и устанавливаете его вертикально.")
 		)
 		var/obj/structure/headspear/trophy = new(get_turf(src))
 		trophy.add_fingerprint(user)
-		I.transform = matrix()
-		var/image/head_olay = image(I.icon, I.icon_state)
-		head_olay.copy_overlays(I)
+		item.transform = matrix()
+		var/image/head_olay = image(item.icon, item.icon_state)
+		head_olay.copy_overlays(item)
 		trophy.add_overlay(head_olay)
-		I.forceMove(trophy)
+		item.forceMove(trophy)
 		if(loc == user)
 			user.temporarily_remove_item_from_inventory(src)
 		forceMove(trophy)
-		trophy.mounted_head = I
+		trophy.mounted_head = item
 		trophy.contained_spear = src
 		return ATTACK_CHAIN_BLOCKED_ALL
 

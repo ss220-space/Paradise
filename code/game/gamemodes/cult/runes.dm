@@ -268,28 +268,28 @@ structure_check() searches for nearby cultist structures required for the invoca
 		return
 
 	var/list/offer_targets = list()
-	var/turf/T = get_turf(src)
-	for(var/mob/living/M in T)
-		if(!iscultist(M) || (M.mind && is_sacrifice_target(M.mind)))
-			offer_targets += M
+	var/turf/turf = get_turf(src)
+	for(var/mob/living/mob in turf)
+		if(!iscultist(mob) || (mob.mind && is_sacrifice_target(mob.mind)))
+			offer_targets += mob
 
 	// Offering a head/brain
-	for(var/obj/item/organ/O in T)
+	for(var/obj/item/organ/organ in turf)
 		var/mob/living/carbon/brain/b_mob
-		if(istype(O, /obj/item/organ/external/head)) // Offering a head
-			var/obj/item/organ/external/head/H = O
-			for(var/obj/item/organ/internal/brain/brain in H.contents)
+		if(ishead(organ)) // Offering a head
+			var/obj/item/organ/external/head/head = organ
+			for(var/obj/item/organ/internal/brain/brain in head.contents)
 				b_mob = brain.brainmob
-				brain.forceMove(T)
-				O = brain // Convoluted way of making the brain disappear
+				brain.forceMove(turf)
+				organ = brain // Convoluted way of making the brain disappear
 
-		else if(is_internal_organ_brain(O)) // Offering a brain
-			var/obj/item/organ/internal/brain/brain = O
+		else if(is_internal_organ_brain(organ)) // Offering a brain
+			var/obj/item/organ/internal/brain/brain = organ
 			b_mob = brain.brainmob
 
 		if(b_mob?.mind && (!iscultist(b_mob) || is_sacrifice_target(b_mob.mind)))
 			offer_targets += b_mob
-			O.invisibility = INVISIBILITY_MAXIMUM // So that it can't be moved around. This gets qdeleted later
+			organ.invisibility = INVISIBILITY_MAXIMUM // So that it can't be moved around. This gets qdeleted later
 
 	if(!length(offer_targets))
 		fail_invoke()
@@ -299,28 +299,28 @@ structure_check() searches for nearby cultist structures required for the invoca
 	rune_in_use = TRUE
 	color = RUNE_COLOR_DARKRED
 
-	var/mob/living/L = pick(offer_targets)
-	if(!CONFIG_GET(number/can_cult_convert) && !is_sacrifice_target(L.mind))
+	var/mob/living/living = pick(offer_targets)
+	if(!CONFIG_GET(number/can_cult_convert) && !is_sacrifice_target(living.mind))
 		fail_invoke()
-		for(var/I in invokers)
-			to_chat(I, span_warning("You can not convert new cultists!"))
+		for(var/invoker in invokers)
+			to_chat(invoker, span_warning("You can not convert new cultists!"))
 		rune_in_use = FALSE
 		return
 
-	if(L.mind in GLOB.sacrificed)
+	if(living.mind in GLOB.sacrificed)
 		fail_invoke()
 		rune_in_use = FALSE
 		return
 
-	if(L.stat != DEAD && is_convertable_to_cult(L.mind))
+	if(living.stat != DEAD && is_convertable_to_cult(living.mind))
 		..()
-		do_convert(L, invokers)
+		do_convert(living, invokers)
 	else
 		invocation = "Barhah hra zar'garis!"
 		..()
-		do_sacrifice(L, invokers)
-		if(isbrain(L))
-			qdel(L.loc) // Don't need this anymore!
+		do_sacrifice(living, invokers)
+		if(isbrain(living))
+			qdel(living.loc) // Don't need this anymore!
 	rune_in_use = FALSE
 
 /obj/effect/rune/convert/proc/do_convert(mob/living/convertee, list/invokers)
@@ -341,38 +341,38 @@ structure_check() searches for nearby cultist structures required for the invoca
 											You serve [SSticker.cultdat.entity_title3] above all else. Bring it back.</b>"))
 
 		if(ishuman(convertee))
-			var/mob/living/carbon/human/H = convertee
+			var/mob/living/carbon/human/human = convertee
 			var/brutedamage = convertee.getBruteLoss()
 			var/burndamage = convertee.getFireLoss()
 			if(brutedamage || burndamage) // If the convertee is injured
 				// Heal 90% of all damage, including robotic limbs
-				H.heal_overall_damage(brutedamage * 0.9, burndamage * 0.9, affect_robotic = TRUE)
-				if(ismachineperson(H))
-					H.visible_message(
+				human.heal_overall_damage(brutedamage * 0.9, burndamage * 0.9, affect_robotic = TRUE)
+				if(ismachineperson(human))
+					human.visible_message(
 						span_warning("A dark force repairs [convertee]!"),
 						span_cultitalic("Your damage has been repaired. Now spread the blood to others.")
 					)
 				else
-					H.visible_message(
+					human.visible_message(
 						span_warning("[convertee]'s wounds heal and close!"),
 						span_cultitalic("Your wounds have been healed. Now spread the blood to others.")
 					)
-					for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
+					for(var/obj/item/organ/external/bodypart as anything in human.bodyparts)
 						bodypart.mend_fracture()
 						bodypart.stop_internal_bleeding()
 						bodypart.stop_arterial_bleeding()
 						bodypart.stop_bleeding()
-					for(var/datum/disease/critical/crit in H.diseases) // cure all crit conditions
+					for(var/datum/disease/critical/crit in human.diseases) // cure all crit conditions
 						crit.cure()
 
-			H.uncuff()
-			H.Silence(6 SECONDS) //Prevent "HALP MAINT CULT" before you realise you're converted
+			human.uncuff()
+			human.Silence(6 SECONDS) //Prevent "HALP MAINT CULT" before you realise you're converted
 
-			var/obj/item/melee/cultblade/dagger/D = new(get_turf(src))
-			if(H.equip_to_slot_if_possible(D, ITEM_SLOT_BACKPACK, disable_warning = TRUE))
-				to_chat(H, span_cultlarge("You have a dagger in your backpack. Use it to do [SSticker.cultdat.entity_title1]'s bidding."))
+			var/obj/item/melee/cultblade/dagger/dagger = new(get_turf(src))
+			if(human.equip_to_slot_if_possible(dagger, ITEM_SLOT_BACKPACK, disable_warning = TRUE))
+				to_chat(human, span_cultlarge("You have a dagger in your backpack. Use it to do [SSticker.cultdat.entity_title1]'s bidding."))
 			else
-				to_chat(H, span_cultlarge("There is a dagger on the floor. Use it to do [SSticker.cultdat.entity_title1]'s bidding."))
+				to_chat(human, span_cultlarge("There is a dagger on the floor. Use it to do [SSticker.cultdat.entity_title1]'s bidding."))
 
 /obj/effect/rune/convert/proc/do_sacrifice(mob/living/offering, list/invokers)
 	var/mob/living/user = invokers[1] //the first invoker is always the user

@@ -157,17 +157,17 @@ emp_act
 
 	REMOVE_TRAIT(H, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(user))
 
-/mob/living/carbon/human/check_projectile_dismemberment(obj/projectile/P, def_zone)
+/mob/living/carbon/human/check_projectile_dismemberment(obj/projectile/projectile, def_zone)
 	var/obj/item/organ/external/affecting = get_organ(check_zone(def_zone))
-	if(affecting && !affecting.cannot_amputate && affecting.get_damage() >= (affecting.max_damage - P.dismemberment))
+	if(affecting && !affecting.cannot_amputate && affecting.get_damage() >= (affecting.max_damage - projectile.dismemberment))
 		var/damtype = DROPLIMB_SHARP
-		if(!P.dismember_limbs)
-			switch(P.damage_type)
+		if(!projectile.dismember_limbs)
+			switch(projectile.damage_type)
 				if(BRUTE)
 					damtype = DROPLIMB_BLUNT
 				if(BURN)
 					damtype = DROPLIMB_BURN
-		if(P.dismember_head && istype(affecting, /obj/item/organ/external/head))
+		if(projectile.dismember_head && ishead(affecting))
 			damtype = DROPLIMB_SHARP
 		affecting.droplimb(FALSE, damtype)
 
@@ -398,7 +398,7 @@ emp_act
 			continue
 		if(affecting.brute_dam != brute_was || affecting.burn_dam != burn_was)
 			should_update_health = TRUE
-		if(!istype(affecting, /obj/item/organ/external/head) || !prob(min(acidpwr * acid_volume / 10, 90)))	//Applies disfigurement
+		if(!ishead(affecting) || !prob(min(acidpwr * acid_volume / 10, 90)))	//Applies disfigurement
 			continue
 		var/obj/item/organ/external/head/head_organ = affecting
 		if(has_pain())

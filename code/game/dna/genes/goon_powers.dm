@@ -237,7 +237,7 @@
 			revert_cast()
 			return FALSE
 
-		if(istype(limb,/obj/item/organ/external/head))
+		if(ishead(limb))
 			// Bullshit, but prevents being unable to clone someone.
 			to_chat(user, span_warning("Вы пытаетесь засунуть голову в свой рот, но у вас ничего не получается!"))
 			revert_cast()

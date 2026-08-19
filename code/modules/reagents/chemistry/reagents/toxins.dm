@@ -439,48 +439,48 @@
 
 	return ..() | update_flags
 
-/datum/reagent/acid/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
-	if(!ishuman(M))
+/datum/reagent/acid/reaction_mob(mob/living/mob, method = REAGENT_TOUCH, volume)
+	if(!ishuman(mob))
 		return
 
-	var/mob/living/carbon/human/H = M
+	var/mob/living/carbon/human/human = mob
 
-	if(acid_proof_species(H))
+	if(acid_proof_species(human))
 		return
 
 	if(method == REAGENT_TOUCH)
-		to_chat(H, span_warning("Зеленоватое кислое вещество жжёт вашу кожу[volume < 1 ? " но оно недостаточно концентрированное, чтобы нанести вам вред" : null]!"))
+		to_chat(human, span_warning("Зеленоватое кислое вещество жжёт вашу кожу[volume < 1 ? " но оно недостаточно концентрированное, чтобы нанести вам вред" : null]!"))
 		if(volume < 1)
 			return
 
 		var/damage_coef = 0
 		var/should_scream = TRUE
 
-		for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
-			if(istype(bodypart, /obj/item/organ/external/head) && !H.wear_mask && !H.head && volume > 25)
+		for(var/obj/item/organ/external/bodypart as anything in human.bodyparts)
+			if(ishead(bodypart) && !human.wear_mask && !human.head && volume > 25)
 				bodypart.disfigure()
-				if(H.has_pain() && should_scream)
-					H.emote("scream")
+				if(human.has_pain() && should_scream)
+					human.emote("scream")
 					should_scream = FALSE
 
-			damage_coef = (100 - clamp(H.getarmor_organ(bodypart, "acid"), 0, 100))/100
+			damage_coef = (100 - clamp(human.getarmor_organ(bodypart, "acid"), 0, 100))/100
 
 			if(damage_coef > 0 && should_scream)
 				should_scream = FALSE
-				if(H.has_pain())
-					H.emote("scream")
+				if(human.has_pain())
+					human.emote("scream")
 
-			H.apply_damage(clamp(volume - 1, 2, 20) * damage_coef / length(H.bodyparts), BURN, def_zone = bodypart)
-			H.apply_damage(clamp((volume - 1)/2, 1, 10) * damage_coef / length(H.bodyparts), BRUTE, def_zone = bodypart)
+			human.apply_damage(clamp(volume - 1, 2, 20) * damage_coef / length(human.bodyparts), BURN, def_zone = bodypart)
+			human.apply_damage(clamp((volume - 1)/2, 1, 10) * damage_coef / length(human.bodyparts), BRUTE, def_zone = bodypart)
 
 		return
 
 	if(method == REAGENT_INGEST)
-		to_chat(H, span_warning("Зеленоватое кислое вещество жжёт вашу кожу[volume < 1 ? ", но оно недостаточно концентрированное, чтобы нанести вам вред" : null]!"))
+		to_chat(human, span_warning("Зеленоватое кислое вещество жжёт вашу кожу[volume < 1 ? ", но оно недостаточно концентрированное, чтобы нанести вам вред" : null]!"))
 		if(volume >= 1)
-			H.adjustFireLoss(clamp((volume - 1) * 2, 0, 30))
-			if(H.has_pain())
-				H.emote("scream")
+			human.adjustFireLoss(clamp((volume - 1) * 2, 0, 30))
+			if(human.has_pain())
+				human.emote("scream")
 
 /datum/reagent/acid/reaction_obj(obj/O, volume)
 	if(ismob(O.loc)) //handled in human acid_act()

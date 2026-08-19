@@ -152,8 +152,8 @@
 /datum/surgery/attach_robotic_limb/self_attach_ipc
 	name = "Самоприсоединение конечности (КПБ)"
 	desc = "Позволяет КПБ самостоятельно установить себе роботизированную конечность."
-	self_operable = TRUE 
-	lying_required = FALSE 
+	self_operable = TRUE
+	lying_required = FALSE
 	steps = list(/datum/surgery_step/limb/attach/robo/ipc_self)
 
 /datum/surgery/attach_robotic_limb/self_attach_ipc/can_start(mob/user, mob/living/carbon/target)
@@ -233,7 +233,7 @@
 /datum/surgery_step/limb/attach/proc/is_correct_limb(obj/item/organ/external/bodypart, mob/living/carbon/human/target)
 	if(bodypart.is_robotic())
 		return FALSE
-	if(target.dna.species.type == /datum/species/kidan && istype(bodypart, /obj/item/organ/external/head) && !istype(bodypart, /obj/item/organ/external/head/kidan))
+	if(target.dna.species.type == /datum/species/kidan && ishead(bodypart) && !istype(bodypart, /obj/item/organ/external/head/kidan))
 		return FALSE
 	return TRUE
 

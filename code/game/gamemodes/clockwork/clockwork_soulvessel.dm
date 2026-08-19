@@ -28,10 +28,8 @@
 			chosen_ghost = pick(candidates)
 		searching = FALSE
 		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
-		
 	if(QDELETED(M) || QDELETED(src))
 		return FALSE
-		
 	if(!chosen_ghost)
 		visible_message(span_notice("[src] buzzes quietly as the cog stops moving. Perhaps you could use it to capture another soul?"))
 		return FALSE
@@ -105,7 +103,7 @@
 		if(is_internal_organ_brain(victim_brain))
 			var/obj/item/organ/internal/brain/o_brain = victim_brain
 			living = o_brain.brainmob
-		if(istype(victim_brain, /obj/item/organ/external/head))
+		if(ishead(victim_brain))
 			var/obj/item/organ/external/head/head = victim_brain
 			var/obj/item/organ/internal/brain/h_brain = locate(/obj/item/organ/internal/brain) in head.contents
 			if(!h_brain)
