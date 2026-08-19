@@ -17,17 +17,14 @@
 
 	var/drop_loc = drop_location()
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
-		if(ischest(bodypart))
+		if(ischest(bodypart) || isgroin(bodypart) || ishead(bodypart))
 			continue
-		// Only make the limb drop if it's not too damaged
-		if(prob(100 - bodypart.get_damage()))
-			// Override the current limb status and don't cause an explosion
-			bodypart.droplimb()
+		bodypart.droplimb()
 
-	for(var/mob/M in src)
-		LAZYREMOVE(stomach_contents, M)
-		M.forceMove(drop_loc)
-		visible_message(span_danger("[M] bursts out of [src]!"))
+	for(var/mob/mob in src)
+		LAZYREMOVE(stomach_contents, mob)
+		mob.forceMove(drop_loc)
+		visible_message(span_danger("[mob] bursts out of [src]!"))
 
 	if(!ismachineperson(src))
 		flick("gibbed-h", animation)

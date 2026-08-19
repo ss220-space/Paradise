@@ -308,8 +308,8 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define is_light(A) (istype(A, /atom/movable/lighting_object))
 
+#define ishead(A) (istype(A, /obj/item/organ/external/head))
 #define ischest(A) (istype(A, /obj/item/organ/external/chest))
-
 #define isgroin(A) (istype(A, /obj/item/organ/external/groin))
 
 /// in some situations we can't rely on dynamic typing and use if(statement)
