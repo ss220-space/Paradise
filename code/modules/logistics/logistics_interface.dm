@@ -256,7 +256,7 @@
 
 	var/list/net_amounts = list()
 	var/list/net_icons = list()
-	var/list/net_types = list()
+	var/list/net_names = list()
 	var/list/node_entries = list()
 	var/list/datum/component/logistics_interface/ordered_interfaces = list()
 
@@ -265,19 +265,20 @@
 		var/list/node_stock = list()
 		if(interface.adapter)
 			for(var/list/entry as anything in interface.adapter.list_stock())
-				var/stock_name = entry["name"]
+				var/stock_id = entry["id"]
 				var/amount = entry["amount"]
 				node_stock += list(list(
-					"name" = stock_name,
+					"id" = stock_id,
+					"name" = entry["name"],
 					"amount" = amount,
 					"icon" = entry["icon"],
 					"icon_state" = entry["icon_state"],
 				))
-				net_amounts[stock_name] += amount
-				if(!net_icons[stock_name])
-					net_icons[stock_name] = list("icon" = entry["icon"], "icon_state" = entry["icon_state"])
-				if(!net_types[stock_name])
-					net_types[stock_name] = interface.adapter.get_stock_type(stock_name)
+				net_amounts[stock_id] += amount
+				if(!net_names[stock_id])
+					net_names[stock_id] = entry["name"]
+				if(!net_icons[stock_id])
+					net_icons[stock_id] = list("icon" = entry["icon"], "icon_state" = entry["icon_state"])
 		ordered_interfaces += interface
 		node_entries += list(list(
 			"uid" = interface.UID(),
@@ -290,12 +291,13 @@
 			"stock" = node_stock,
 		))
 
-	for(var/stock_name in net_amounts)
+	for(var/stock_id in net_amounts)
 		data["net_stock"] += list(list(
-			"name" = stock_name,
-			"amount" = net_amounts[stock_name],
-			"icon" = net_icons[stock_name]["icon"],
-			"icon_state" = net_icons[stock_name]["icon_state"],
+			"id" = stock_id,
+			"name" = net_names[stock_id] || logistics_stock_display_name(stock_id),
+			"amount" = net_amounts[stock_id],
+			"icon" = net_icons[stock_id]["icon"],
+			"icon_state" = net_icons[stock_id]["icon_state"],
 		))
 
 	for(var/i in 1 to length(node_entries))
@@ -303,9 +305,9 @@
 		var/datum/component/logistics_interface/interface = ordered_interfaces[i]
 		var/list/accepted = list()
 		if(interface?.adapter)
-			for(var/stock_name in net_amounts)
-				if(interface.adapter.can_accept_name(stock_name, net_types[stock_name]))
-					accepted += stock_name
+			for(var/stock_id in net_amounts)
+				if(interface.adapter.can_accept_stock(stock_id))
+					accepted += stock_id
 		node_entry["accepted"] = accepted
 		data["nodes"] += list(node_entry)
 
@@ -341,11 +343,13 @@
 			if(!islist(wanted) || !length(wanted))
 				return TRUE
 			var/list/cleaned = list()
-			for(var/stock_name in wanted)
-				var/amount = text2num(wanted[stock_name])
+			for(var/stock_id in wanted)
+				var/amount = text2num(wanted[stock_id])
 				if(!amount || amount < 1)
 					continue
-				cleaned[stock_name] = round(amount)
+				if(!istext(stock_id) || !length(stock_id))
+					continue
+				cleaned[stock_id] = round(amount)
 			if(!length(cleaned))
 				return TRUE
 			var/datum/component/logistics_interface/dest

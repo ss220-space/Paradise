@@ -51,10 +51,7 @@
 	return /obj/structure/logistics_pipe/segment
 
 /obj/structure/logistics_construct/update_icon_state()
-	var/state = initial(pipe_type.icon_state)
-	if(ispath(pipe_type, /obj/structure/logistics_pipe/segment) && ISDIAGONALDIR(dir))
-		state = "logi-c"
-	icon_state = "con[state]"
+	icon_state = "con[initial(pipe_type.icon_state)]"
 	return ..()
 
 /obj/structure/logistics_construct/proc/get_logistics_dir()

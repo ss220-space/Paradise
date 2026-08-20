@@ -111,8 +111,8 @@
 	if(!length(delivered))
 		return "ничего"
 	var/list/parts = list()
-	for(var/stock_name in delivered)
-		parts += "[stock_name] ×[delivered[stock_name]]"
+	for(var/stock_id in delivered)
+		parts += "[logistics_stock_display_name(stock_id)] ×[delivered[stock_id]]"
 	return parts.Join(", ")
 
 /datum/logistics_request/proc/notify_related(message)
@@ -133,12 +133,13 @@
 	var/datum/component/logistics_interface/req_source = get_source()
 	var/datum/component/logistics_interface/req_dest = get_dest()
 	var/list/wanted_ui = list()
-	for(var/stock_name in original_wanted)
-		var/remaining = (wanted[stock_name] || 0) + (reserved[stock_name] || 0)
+	for(var/stock_id in original_wanted)
+		var/remaining = (wanted[stock_id] || 0) + (reserved[stock_id] || 0)
 		wanted_ui += list(list(
-			"name" = stock_name,
+			"id" = stock_id,
+			"name" = logistics_stock_display_name(stock_id),
 			"amount" = remaining,
-			"original" = original_wanted[stock_name] || remaining,
+			"original" = original_wanted[stock_id] || remaining,
 		))
 	return list(
 		"uid" = UID(),

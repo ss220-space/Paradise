@@ -17,6 +17,7 @@ import { Window } from '../layouts';
 import type { DropdownEntry } from '../components/Dropdown';
 
 type Stock = {
+  id: string;
   name: string;
   amount: number;
   icon?: string;
@@ -36,6 +37,7 @@ type Node = {
 };
 
 type BufferItem = {
+  id: string;
   name: string;
   amount: number;
   icon?: string;
@@ -65,7 +67,7 @@ type LogisticsData = {
 const stockMap = (items: Stock[] = []) => {
   const result: Record<string, Stock> = {};
   for (const item of items) {
-    result[item.name] = item;
+    result[item.id] = item;
   }
   return result;
 };
@@ -127,12 +129,13 @@ export const Logistics = (_props: unknown) => {
         ? net_stock
         : selectedSource?.stock || [];
     return baseItems.map((item) => {
-      const localItem = localMap[item.name];
+      const localItem = localMap[item.id];
       const available =
         sourceUid === 'any'
-          ? netMap[item.name]?.amount || 0
-          : sourceMap[item.name]?.amount || 0;
+          ? netMap[item.id]?.amount || 0
+          : sourceMap[item.id]?.amount || 0;
       return {
+        id: item.id,
         name: item.name,
         amount: available,
         available,
@@ -140,13 +143,13 @@ export const Logistics = (_props: unknown) => {
         icon:
           item.icon ||
           localItem?.icon ||
-          sourceMap[item.name]?.icon ||
-          netMap[item.name]?.icon,
+          sourceMap[item.id]?.icon ||
+          netMap[item.id]?.icon,
         icon_state:
           item.icon_state ||
           localItem?.icon_state ||
-          sourceMap[item.name]?.icon_state ||
-          netMap[item.name]?.icon_state,
+          sourceMap[item.id]?.icon_state ||
+          netMap[item.id]?.icon_state,
       };
     });
   }, [
@@ -168,10 +171,10 @@ export const Logistics = (_props: unknown) => {
       return;
     }
     setBuffer((prev) => {
-      const existing = prev.find((entry) => entry.name === item.name);
+      const existing = prev.find((entry) => entry.id === item.id);
       if (existing) {
         return prev.map((entry) =>
-          entry.name === item.name
+          entry.id === item.id
             ? { ...entry, amount: entry.amount + amount }
             : entry
         );
@@ -179,6 +182,7 @@ export const Logistics = (_props: unknown) => {
       return [
         ...prev,
         {
+          id: item.id,
           name: item.name,
           amount,
           icon: item.icon,
@@ -188,20 +192,20 @@ export const Logistics = (_props: unknown) => {
     });
   };
 
-  const setBufferAmount = (itemName: string, amount: number) => {
+  const setBufferAmount = (itemId: string, amount: number) => {
     if (amount <= 0) {
-      setBuffer((prev) => prev.filter((entry) => entry.name !== itemName));
+      setBuffer((prev) => prev.filter((entry) => entry.id !== itemId));
       return;
     }
     setBuffer((prev) =>
       prev.map((entry) =>
-        entry.name === itemName ? { ...entry, amount } : entry
+        entry.id === itemId ? { ...entry, amount } : entry
       )
     );
   };
 
-  const removeFromBuffer = (itemName: string) => {
-    setBuffer((prev) => prev.filter((entry) => entry.name !== itemName));
+  const removeFromBuffer = (itemId: string) => {
+    setBuffer((prev) => prev.filter((entry) => entry.id !== itemId));
   };
 
   const createOrder = () => {
@@ -210,7 +214,7 @@ export const Logistics = (_props: unknown) => {
     }
     const wanted: Record<string, number> = {};
     for (const entry of buffer) {
-      wanted[entry.name] = entry.amount;
+      wanted[entry.id] = entry.amount;
     }
     act('create_request', {
       source: sourceUid,
@@ -343,7 +347,7 @@ export const Logistics = (_props: unknown) => {
               {filteredStock.length ? (
                 filteredStock.map((item) => (
                   <StockLine
-                    key={item.name}
+                    key={item.id}
                     item={item}
                     onAdd={(amount) => addToBuffer(item, amount)}
                   />
@@ -590,8 +594,8 @@ const BufferColumn = (props: {
   destAccepted: Set<string>;
   sourceLabel: string;
   destLabel: string;
-  onChange: (name: string, amount: number) => void;
-  onRemove: (name: string) => void;
+  onChange: (id: string, amount: number) => void;
+  onRemove: (id: string) => void;
   onClear: () => void;
   onSubmit: () => void;
 }) => {
@@ -626,10 +630,10 @@ const BufferColumn = (props: {
           <Box className="Logistics__BufferList">
             {buffer.length ? (
               buffer.map((entry) => {
-                const incompatible = hasDest && !destAccepted.has(entry.name);
+                const incompatible = hasDest && !destAccepted.has(entry.id);
                 return (
                   <Box
-                    key={entry.name}
+                    key={entry.id}
                     className="Logistics__Line"
                     backgroundColor={incompatible ? 'bad' : undefined}
                     mb={0.5}
@@ -657,14 +661,14 @@ const BufferColumn = (props: {
                           maxValue={1000}
                           step={1}
                           value={entry.amount}
-                          onChange={(value) => onChange(entry.name, value)}
+                          onChange={(value) => onChange(entry.id, value)}
                         />
                       </Stack.Item>
                       <Stack.Item>
                         <Button
                           icon="times"
                           color="bad"
-                          onClick={() => onRemove(entry.name)}
+                          onClick={() => onRemove(entry.id)}
                         />
                       </Stack.Item>
                     </Stack>

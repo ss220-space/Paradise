@@ -366,7 +366,7 @@ GLOBAL_VAR_INIT(logistics_net_next_id, 1)
 		available -= claimed[claim_key]
 		if(available <= 0)
 			continue
-		if(!dest.adapter.can_accept_name(stock_name, source.adapter.get_stock_type(stock_name)))
+		if(!dest.adapter.can_accept_stock(stock_name))
 			continue
 		var/send_amount = min(request.wanted[stock_name], available, remaining_capacity)
 		send_amount = min(send_amount, dest.adapter.get_free_sheets() - total_packed)
@@ -413,7 +413,7 @@ GLOBAL_VAR_INIT(logistics_net_next_id, 1)
 	source.play_send_sound()
 	var/list/manifest_parts = list()
 	for(var/stock_name in holder.shipment_manifest)
-		manifest_parts += "[holder.shipment_manifest[stock_name]] x [stock_name]"
+		manifest_parts += "[holder.shipment_manifest[stock_name]] x [logistics_stock_display_name(stock_name)]"
 	var/manifest_text = manifest_parts.Join(", ")
 
 	if(local_transfer)

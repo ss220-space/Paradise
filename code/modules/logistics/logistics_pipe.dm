@@ -188,7 +188,7 @@
 	initialize_dirs = DISP_DIR_FLIP
 
 /obj/structure/logistics_pipe/segment/update_icon_state()
-	icon_state = ISDIAGONALDIR(dir) ? "logi-c" : "logi-s"
+	icon_state = "logi-s"
 	base_icon_state = icon_state
 	return ..()
 
