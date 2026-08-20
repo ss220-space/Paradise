@@ -9,6 +9,7 @@
 		"esbenp.prettier-vscode",
 		"kevinkyang.auto-comment-blocks",
 		"arcanis.vscode-zipfs",
-		"biomejs.biome"
+		"biomejs.biome",
+		"ss13.ss13buildflags"
 	]
 }

@@ -23,7 +23,7 @@
 			"define": "REAGENTS_TESTING",
 			"label": "Reagents testing",
 			"category": "Testineg",
-			"description": "Debug messages for every reaction step (very spammy). Requires TESTING.",
+			"description": "(Not implemented)Debug messages for every reaction step (very spammy). Requires TESTING.",
 			"requires": ["TESTING"]
 		},
 		{
@@ -36,21 +36,14 @@
 			"description": "Overrides the map loaded at round start.",
 			"options": [
 				{ "value": "", "label": "default" },
-				{ "value": "deltastation", "label": "Delta Station" },
-				{ "value": "icebox", "label": "Ice Box Station" },
-				{ "value": "metastation", "label": "MetaStation" },
-				{ "value": "tramstation", "label": "Tramstation" },
-				{ "value": "nebulastation", "label": "NebulaStation" },
-				{ "value": "kilostation", "label": "Kilostation" },
-				{ "value": "catwalkstation", "label": "Catwalk Station" },
-				{ "value": "gateway_test", "label": "Gateway Test (test)" },
-				{ "value": "multiz_debug", "label": "MultiZ Debug (test)" },
-				{ "value": "runtimestation", "label": "Runtime Station (low memory)" },
-				{
-					"value": "runtimestation_minimal",
-					"label": "Minimal Runtime Station. Only works with minimal CentCom.",
-					"requires": ["MINIMAL_CENTCOM", "SKIP_LAVALAND", "SKIP_SPACE_LEVELS"]
-				}
+				{ "value": "/datum/map/cyberiad", "label": "Cyberiad" },
+				{ "value": "/datum/map/de_kerberos_2", "label": "de_kerberos_2" },
+				{ "value": "/datum/map/delta", "label": "Delta" },
+				{ "value": "/datum/map/coldcolony", "label": "Malta" },
+				{ "value": "/datum/map/fast_load_multiz", "label": "fast load multiz" },
+				{ "value": "/datum/map/multiz", "label": "Multiz" },
+				{ "value": "/datum/map/nova", "label": "Nova" },
+				{ "value": "/datum/map/test_tiny", "label": "Test Tiny" }
 			]
 		},
 		{
@@ -66,6 +59,20 @@
 			"label": "No Lavaland",
 			"category": "Map",
 			"description": "Prevents Lavaland from loading in."
+		},
+		{
+			"id": "SKIP_TAIPAN",
+			"define": "SKIP_TAIPAN",
+			"label": "No Taipan",
+			"category": "Map",
+			"description": "Prevents Taipan from loading in."
+		},
+		{
+			"id": "SKIP_AWAY_MISSION",
+			"define": "SKIP_AWAY_MISSION",
+			"label": "No Away Level",
+			"category": "Map",
+			"description": "Prevents Away Level from loading in."
 		},
 		{
 			"id": "SKIP_SPACE_LEVELS",
@@ -122,7 +129,7 @@
 			"define": "MC_TAB_TRACY_INFO",
 			"label": "byond-tracy MC tab info",
 			"category": "Performance",
-			"description": "Displays byond-tracy's status in the MC tab."
+			"description": "(Not implemented)Displays byond-tracy's status in the MC tab."
 		},
 		{
 			"id": "PERFORMANCE_TESTS",
@@ -143,28 +150,28 @@
 			"define": "PROFILE_MAPLOAD_INIT_ATOM",
 			"label": "Profile mapload init atom",
 			"category": "Performance",
-			"description": "Profiles atom initialization during map load."
+			"description": "(Not Implemented)Profiles atom initialization during map load."
 		},
 		{
 			"id": "DISABLE_DREAMLUAU",
 			"define": "DISABLE_DREAMLUAU",
 			"label": "Disable Dreamluau",
 			"category": "Misc",
-			"description": "Fully disables Dreamluau."
+			"description": "(Not Implemented)Fully disables Dreamluau."
 		},
 		{
 			"id": "VERB_STRESS_TEST",
 			"define": "VERB_STRESS_TEST",
 			"label": "Verb stress test",
 			"category": "Performance",
-			"description": "Forces verb processing into just the 2% of a tick we normally reserve for it, for simulating highpop."
+			"description": "(Not Implemented)Forces verb processing into just the 2% of a tick we normally reserve for it, for simulating highpop."
 		},
 		{
 			"id": "FORCE_VERB_OVERTIME",
 			"define": "FORCE_VERB_OVERTIME",
 			"label": "Force verb overtime",
 			"category": "Performance",
-			"description": "Forces all verbs to run into overtime all of the time, negating the reserve 2%.",
+			"description": "(Not Implemented)Forces all verbs to run into overtime all of the time, negating the reserve 2%.",
 			"requires": ["VERB_STRESS_TEST"]
 		},
 		{
@@ -172,7 +179,7 @@
 			"define": "ALL_TEMPLATES",
 			"label": "All templates",
 			"category": "Map",
-			"description": "Includes all map templates in the build (needed for some map/ruin testing)."
+			"description": "(Not Implemented)Includes all map templates in the build (needed for some map/ruin testing)."
 		},
 		{
 			"id": "ALL_MAPS",
@@ -182,11 +189,18 @@
 			"description": "Includes every station map in the compiled build instead of just the ones referenced dynamically."
 		},
 		{
+			"id": "FAST_LOAD",
+			"define": "FAST_LOAD",
+			"label": "Fast load",
+			"category": "Map",
+			"description": "Loads fast load multiz without CentComm and Admin Level."
+		},
+		{
 			"id": "MINIMAL_CENTCOM",
 			"define": "MINIMAL_CENTCOM",
 			"label": "Minimal CentCom",
 			"category": "Map",
-			"description": "Uses a mini centcom. Required for runtimestation minimal and cant be used without it.",
+			"description": "(Not Implemented)Uses a mini centcom. Required for runtimestation minimal and cant be used without it.",
 			"requiresValues": { "force_map": "runtimestation_minimal" }
 		}
 	],
@@ -194,8 +208,13 @@
 		{
 			"id": "LOW_MEMORY",
 			"label": "Low memory mode",
-			"flags": ["SKIP_LAVALAND", "SKIP_SPACE_LEVELS"],
-			"values": { "force_map": "runtimestation" }
+			"flags": [
+				"SKIP_LAVALAND",
+				"SKIP_SPACE_LEVELS",
+				"SKIP_TAIPAN",
+				"SKIP_AWAY_MISSION"
+			],
+			"values": { "force_map": "/datum/map/fast_load_multiz" }
 		},
 		{
 			"id": "ABSOLUTE_MINIMUM",
@@ -203,20 +222,17 @@
 			"flags": [
 				"SKIP_LAVALAND",
 				"SKIP_SPACE_LEVELS",
+				"SKIP_TAIPAN",
+				"SKIP_AWAY_MISSION",
 				"AUTOSTART_GAME",
-				"MINIMAL_CENTCOM"
+				"FAST_LOAD"
 			],
-			"values": { "force_map": "runtimestation_minimal" }
+			"values": { "force_map": "/datum/map/fast_load_multiz" }
 		},
 		{
 			"id": "TESTING",
 			"label": "Testing",
-			"flags": [
-				"TESTING",
-				"REAGENTS_TESTING",
-				"TIMER_DEBUG",
-				"REFERENCE_DOING_IT_LIVE"
-			]
+			"flags": ["TESTING", "TIMER_DEBUG", "REFERENCE_DOING_IT_LIVE"]
 		},
 		{
 			"id": "TESTING_LOW_MEMORY",
@@ -224,12 +240,13 @@
 			"flags": [
 				"SKIP_LAVALAND",
 				"SKIP_SPACE_LEVELS",
+				"SKIP_TAIPAN",
+				"SKIP_AWAY_MISSION",
 				"TESTING",
-				"REAGENTS_TESTING",
 				"TIMER_DEBUG",
 				"REFERENCE_DOING_IT_LIVE"
 			],
-			"values": { "force_map": "runtimestation" }
+			"values": { "force_map": "/datum/map/fast_load_multiz" }
 		},
 		{
 			"id": "MAP_TESTING",

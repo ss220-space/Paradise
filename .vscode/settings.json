@@ -26,5 +26,8 @@
 	],
 	"workbench.editorAssociations": {
 		"*.dmi": "dmiEditor.dmiEditor"
-	}
+	},
+	"ss13BuildFlags.baseTask": "Build All",
+	"ss13BuildFlags.configPath": "tools/build/build_flags.json",
+	"ss13BuildFlags.injectionMode": "cli-args"
 }

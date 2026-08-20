@@ -199,7 +199,7 @@ export const DmTarget = new Juke.Target({
   dependsOn: ({ get }) => [
     get(DefineParameter).includes('ALL_TEMPLATES') && DmMapsIncludeTarget,
     !get(SkipIconCutter) && IconCutterTarget,
-    BehaviorTreeCompilerTarget,
+    //BehaviorTreeCompilerTarget,
   ],
   inputs: [
     '_maps/map_files/generic/**',
