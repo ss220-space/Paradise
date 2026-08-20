@@ -34,8 +34,10 @@
 	shield_buster = TRUE
 	icon_state = "disabler_plasma"
 	armour_penetration = 20
+	speed = 2
 
 /obj/projectile/beam/laser/energy_pistol
 	shield_buster = TRUE
 	icon_state = "laser_plasma"
 	armour_penetration = 20
+	speed = 2
