@@ -590,6 +590,12 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	add_fingerprint(usr)
 
 	switch(action)
+		if("open_logistics")
+			if(menu == MENU_LATHE)
+				linked_lathe?.try_open_logistics(usr)
+			else if(menu == MENU_IMPRINTER)
+				linked_imprinter?.try_open_logistics(usr)
+
 		if("nav") //Switches menu screens. Converts a sent text string into a number. Saves a LOT of code.
 			var/next_menu = text2num(params["menu"])
 			var/next_submenu = text2num(params["submenu"])
@@ -935,6 +941,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	data["linked_destroy"] = linked_destroy ? 1 : 0
 	data["linked_lathe"] = linked_lathe ? 1 : 0
 	data["linked_imprinter"] = linked_imprinter ? 1 : 0
+	data["logistics_enabled"] = FALSE
+	if(menu == MENU_LATHE && linked_lathe)
+		data["logistics_enabled"] = linked_lathe.logistics_board_installed()
+	else if(menu == MENU_IMPRINTER && linked_imprinter)
+		data["logistics_enabled"] = linked_imprinter.logistics_board_installed()
 	data["sync"] = sync
 	data["admin"] = check_rights(R_ADMIN, FALSE, user)
 	data["disk_type"] = d_disk ? "design" : (t_disk ? "tech" : null)

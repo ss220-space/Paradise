@@ -15,6 +15,7 @@ import {
 } from '../components';
 import { Countdown } from '../components/Countdown';
 import { Window } from '../layouts';
+import { LogisticsButton } from './common/LogisticsButton';
 
 // __DEFINES/construction.dm, L73
 const MINERAL_MATERIAL_AMOUNT = 2000;
@@ -33,6 +34,7 @@ type ExosuitFabricatorData = {
   categories: string[];
   designs: DesignData[];
   syncing: boolean;
+  logistics_enabled: boolean;
 };
 
 type DesignData = {
@@ -130,7 +132,7 @@ const Materials = (properties) => {
 
 const Designs = (properties) => {
   const { act, data } = useBackend<ExosuitFabricatorData>();
-  const { curCategory, categories, designs, syncing } = data;
+  const { curCategory, categories, designs, syncing, logistics_enabled } = data;
   const [searchText, setSearchText] = useState('');
   const searcher = createSearch<DesignData>(searchText, (design) => {
     return design.name;
@@ -155,6 +157,7 @@ const Designs = (properties) => {
       }
       buttons={
         <Box mt={-3.5}>
+          <LogisticsButton enabled={!!logistics_enabled} />
           <Button
             icon="plus"
             tooltip={'Добавлеие всех шаблонов из категории в очередь печати.'}

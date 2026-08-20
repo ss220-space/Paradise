@@ -36,6 +36,10 @@
 	var/list/accepted_items_typecache
 	/// Associative list (/obj/item => /number) representing the items the fridge should initially contain.
 	var/list/starting_items
+	/// Default circuit type inserted on mapload Initialize.
+	var/obj/item/circuitboard/fridge_circuit = /obj/item/circuitboard/smartfridge
+	/// How many matter bins to spawn with on mapload Initialize.
+	var/starting_matter_bins = 1
 	/// Overlay used to visualize contents for default smartfringe.
 	var/contents_overlay = "smartfridge"
 	/// Overlay used to visualize broken status.
@@ -69,10 +73,13 @@
 	reagents.set_reacting(FALSE)
 	// Components
 	component_parts = list()
-	var/obj/item/circuitboard/smartfridge/board = new(null)
-	board.set_type(null, type)
+	var/obj/item/circuitboard/board = new fridge_circuit(null)
+	if(istype(board, /obj/item/circuitboard/smartfridge))
+		var/obj/item/circuitboard/smartfridge/fridge_board = board
+		fridge_board.set_type(null, type)
 	component_parts += board
-	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	for(var/i in 1 to starting_matter_bins)
+		component_parts += new /obj/item/stock_parts/matter_bin(null)
 	RefreshParts()
 	// Wires
 	if(is_secure)
@@ -87,6 +94,7 @@
 				var/obj/item/newitem = new typekey(src)
 				item_quants[newitem.declent_ru(NOMINATIVE)] += 1
 	update_icon(UPDATE_OVERLAYS)
+	AddElement(/datum/element/logistics_compatible)
 	// Accepted items
 	accepted_items_typecache = typecacheof(list(
 		/obj/item/reagent_containers/food/snacks/grown,
@@ -99,6 +107,13 @@
 	max_n_of_items = 0
 	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
 		max_n_of_items += 1500 * B.rating
+
+/obj/machinery/smartfridge/proc/get_stored_item_count()
+	. = 0
+	for(var/obj/item/item in contents)
+		if(item in component_parts)
+			continue
+		.++
 
 /obj/machinery/smartfridge/Destroy()
 	SStgui.close_uis(wires)
@@ -306,6 +321,7 @@
 	data["secure"] = is_secure
 	data["can_dry"] = can_dry
 	data["drying"] = drying
+	data["logistics_enabled"] = logistics_board_installed()
 
 	var/list/items = list()
 	for(var/i in 1 to length(item_quants))
@@ -328,6 +344,9 @@
 	var/mob/user = usr
 
 	add_fingerprint(user)
+
+	if(try_logistics_ui_act(action, user))
+		return
 
 	switch(action)
 		if("vend")
@@ -378,7 +397,7 @@
 	if(!accept_check(I))
 		return FALSE
 
-	if(length(contents) >= max_n_of_items)
+	if(get_stored_item_count() >= max_n_of_items)
 		balloon_alert(user, "хранилище переполнено!")
 		return FALSE
 

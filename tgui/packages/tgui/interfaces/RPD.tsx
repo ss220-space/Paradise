@@ -12,18 +12,24 @@ import {
 import { Direction } from '../components/DmIcon';
 import { Window } from '../layouts';
 
-const decideTab = (index: number) => {
-  switch (index) {
+const decideTab = (index: number | string) => {
+  switch (Number(index)) {
     case 1:
       return <AtmosPipeContent />;
     case 2:
-      return <DisposalPipeContent />;
+      return (
+        <PipeCategoryContent pipeType={2} selectedKey="whatdpipe" />
+      );
     case 3:
       return <RotatePipeContent />;
     case 4:
       return <FlipPipeContent />;
     case 5:
       return <BinPipeContent />;
+    case 6:
+      return (
+        <PipeCategoryContent pipeType={3} selectedKey="whatlpipe" />
+      );
     default:
       return "WE SHOULDN'T BE HERE!";
   }
@@ -38,6 +44,7 @@ type RPDData = {
   pipelist: Pipe[];
   whatpipe: string;
   whatdpipe: string;
+  whatlpipe: string;
   iconrotation: number;
 };
 
@@ -68,7 +75,7 @@ export const RPD = (_props: unknown) => {
   const { mainmenu, mode, auto_wrench } = data;
 
   return (
-    <Window width={550} height={415}>
+    <Window width={620} height={415}>
       <Window.Content>
         <Stack fill vertical>
           <Stack.Item>
@@ -331,9 +338,14 @@ const AtmosPipeContent = (_props: unknown) => {
   );
 };
 
-const DisposalPipeContent = (_props: unknown) => {
+const PipeCategoryContent = (props: {
+  pipeType: number;
+  selectedKey: 'whatdpipe' | 'whatlpipe';
+}) => {
+  const { pipeType, selectedKey } = props;
   const { act, data } = useBackend<RPDData>();
-  const { pipelist, whatdpipe, iconrotation } = data;
+  const { pipelist, iconrotation } = data;
+  const selectedId = data[selectedKey];
 
   return (
     <Stack.Item grow>
@@ -343,16 +355,16 @@ const DisposalPipeContent = (_props: unknown) => {
             <Grid>
               <Grid.Column>
                 {pipelist
-                  .filter((p) => p.pipe_type === 2)
+                  .filter((p) => Number(p.pipe_type) === pipeType)
                   .map((p) => (
                     <Box key={p.pipe_name}>
                       <Button
                         fluid
                         color="translucent"
                         icon="cog"
-                        selected={p.pipe_id === whatdpipe}
+                        selected={p.pipe_id === selectedId}
                         onClick={() =>
-                          act('whatdpipe', { whatdpipe: p.pipe_id })
+                          act(selectedKey, { [selectedKey]: p.pipe_id })
                         }
                         style={{ marginBottom: '2px' }}
                       >
@@ -371,8 +383,8 @@ const DisposalPipeContent = (_props: unknown) => {
                 {pipelist
                   .filter(
                     (p) =>
-                      p.pipe_type === 2 &&
-                      p.pipe_id === whatdpipe &&
+                      Number(p.pipe_type) === pipeType &&
+                      p.pipe_id === selectedId &&
                       p.orientations !== 1
                   )
                   .map((p) => (

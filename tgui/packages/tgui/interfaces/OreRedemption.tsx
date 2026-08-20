@@ -12,6 +12,7 @@ import {
   Tabs,
 } from '../components';
 import { Window } from '../layouts';
+import { LogisticsButton } from './common/LogisticsButton';
 import { SectionProps } from '../components/Section';
 import { useState } from 'react';
 
@@ -48,6 +49,7 @@ type OreRedemptionData = {
   disk: Disk;
   sheets: Ore[];
   alloys: Ore[];
+  logistics_enabled: boolean;
 };
 
 type ID = {
@@ -72,10 +74,13 @@ type Ore = {
 
 const IdDisk = (properties: SectionProps) => {
   const { act, data } = useBackend<OreRedemptionData>();
-  const { id, points, disk } = data;
+  const { id, points, disk, logistics_enabled } = data;
   const { ...rest } = properties;
   return (
-    <Section {...rest}>
+    <Section
+      {...rest}
+      buttons={<LogisticsButton enabled={!!logistics_enabled} />}
+    >
       <LabeledList>
         <LabeledList.Item label="ID-карта">
           {id ? (

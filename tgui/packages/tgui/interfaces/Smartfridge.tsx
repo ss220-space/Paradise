@@ -8,12 +8,14 @@ import {
   Icon,
 } from '../components';
 import { Window } from '../layouts';
+import { LogisticsButton } from './common/LogisticsButton';
 
 type SmartfridgeData = {
   secure: boolean; // secure fridge notice
   can_dry: boolean; // dry section
   drying: boolean; // drying rack on/off.
   contents: Item[];
+  logistics_enabled: boolean;
 };
 
 type Item = {
@@ -24,7 +26,7 @@ type Item = {
 
 export const Smartfridge = (_props: unknown) => {
   const { act, data } = useBackend<SmartfridgeData>();
-  const { secure, can_dry, drying, contents } = data;
+  const { secure, can_dry, drying, contents, logistics_enabled } = data;
   return (
     <Window width={500} height={500}>
       <Window.Content>
@@ -39,16 +41,19 @@ export const Smartfridge = (_props: unknown) => {
             scrollable
             title={can_dry ? 'Сушильная стойка' : 'Содержимое'}
             buttons={
-              !!can_dry && (
-                <Button
-                  width={11}
-                  icon={drying ? 'power-off' : 'times'}
-                  selected={drying}
-                  onClick={() => act('drying')}
-                >
-                  {drying ? 'Начать сушку' : 'Закончить сушку'}
-                </Button>
-              )
+              <>
+                <LogisticsButton enabled={!!logistics_enabled} />
+                {!!can_dry && (
+                  <Button
+                    width={11}
+                    icon={drying ? 'power-off' : 'times'}
+                    selected={drying}
+                    onClick={() => act('drying')}
+                  >
+                    {drying ? 'Начать сушку' : 'Закончить сушку'}
+                  </Button>
+                )}
+              </>
             }
           >
             {!contents && (
