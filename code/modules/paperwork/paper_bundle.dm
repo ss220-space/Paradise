@@ -268,10 +268,7 @@
 		attack_self(loc)
 		updateUsrDialog()
 
-/obj/item/paper_bundle/verb/rename()
-	set name = "Переименовать пачку"
-	set category = VERB_CATEGORY_OBJECT
-	set src in usr
+GAME_VERB_SRC(/obj/item/paper_bundle, rename, usr, "Переименовать пачку", null)
 
 	var/n_name = tgui_input_text(usr, "What would you like to label the bundle?", "Bundle Labelling", name)
 	if(!Adjacent(usr) || !n_name || usr.stat)

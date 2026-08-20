@@ -5,10 +5,7 @@
 /mob/proc/say(message, verb = "говор%(ит,ят)%", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
 	return
 
-/mob/verb/whisper_verb(message as text)
-	set name = "Шептать"
-	set category = VERB_CATEGORY_IC
-	set instant = TRUE
+GAME_VERB(/mob, whisper_verb, "Шептать", VERB_CATEGORY_IC, message as text)
 
 	if(!message)
 		return
@@ -18,10 +15,7 @@
 /mob/proc/whisper(message)
 	return
 
-/mob/verb/say_verb(message as text)
-	set name = "Сказать"
-	set category = VERB_CATEGORY_IC
-	set instant = TRUE
+GAME_VERB(/mob, say_verb, "Сказать", VERB_CATEGORY_IC, message as text)
 
 	message = replace_characters(message, ILLEGAL_CHARACTERS_LIST)
 	set_typing_indicator(FALSE)
@@ -31,9 +25,7 @@
 
 	QUEUE_OR_CALL_VERB_FOR(VERB_CALLBACK(src, TYPE_PROC_REF(/mob, say), message), SSspeech_controller)
 
-/mob/verb/me_verb(message as text)
-	set name = "Эмоция"
-	set category = VERB_CATEGORY_IC
+GAME_VERB(/mob, me_verb, "Эмоция", VERB_CATEGORY_IC, message as text)
 
 	message = strip_html_properly(message)
 

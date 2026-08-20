@@ -69,11 +69,7 @@
 /obj/item/gun/projectile/revolver/proc/unload(user)
 	return
 
-/obj/item/gun/projectile/revolver/verb/spin()
-	set name = "Вращать барабан"
-	set category = VERB_CATEGORY_OBJECT
-	set desc = "Click to spin your revolver's chamber."
-	set src in usr
+GAME_VERB_SRC_DESC(/obj/item/gun/projectile/revolver, spin, usr, "Вращать барабан", "Click to spin your revolver's chamber.", null)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return

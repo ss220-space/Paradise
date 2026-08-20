@@ -337,9 +337,7 @@
 /client/proc/check_has_body_select()
 	return mob?.hud_used && mob.hud_used.zone_select && istype(mob.hud_used.zone_select, /atom/movable/screen/zone_sel)
 
-/client/verb/body_toggle_head()
-	set name = "body-toggle-head"
-	set hidden = 1
+GAME_VERB_HIDDEN(/client, body_toggle_head, "body-toggle-head")
 
 	if(!check_has_body_select())
 		return
@@ -356,9 +354,7 @@
 	var/atom/movable/screen/zone_sel/selector = mob.hud_used.zone_select
 	selector.set_selected_zone(next_in_line)
 
-/client/verb/body_r_arm()
-	set name = "body-r-arm"
-	set hidden = 1
+GAME_VERB_HIDDEN(/client, body_r_arm, "body-r-arm")
 
 	if(!check_has_body_select())
 		return
@@ -372,9 +368,7 @@
 	var/atom/movable/screen/zone_sel/selector = mob.hud_used.zone_select
 	selector.set_selected_zone(next_in_line)
 
-/client/verb/body_chest()
-	set name = "body-chest"
-	set hidden = 1
+GAME_VERB_HIDDEN(/client, body_chest, "body-chest")
 
 	if(!check_has_body_select())
 		return
@@ -388,9 +382,7 @@
 	var/atom/movable/screen/zone_sel/selector = mob.hud_used.zone_select
 	selector.set_selected_zone(next_in_line)
 
-/client/verb/body_l_arm()
-	set name = "body-l-arm"
-	set hidden = 1
+GAME_VERB_HIDDEN(/client, body_l_arm, "body-l-arm")
 
 	if(!check_has_body_select())
 		return
@@ -404,9 +396,7 @@
 	var/atom/movable/screen/zone_sel/selector = mob.hud_used.zone_select
 	selector.set_selected_zone(next_in_line)
 
-/client/verb/body_r_leg()
-	set name = "body-r-leg"
-	set hidden = 1
+GAME_VERB_HIDDEN(/client, body_r_leg, "body-r-leg")
 
 	if(!check_has_body_select())
 		return
@@ -420,9 +410,7 @@
 	var/atom/movable/screen/zone_sel/selector = mob.hud_used.zone_select
 	selector.set_selected_zone(next_in_line)
 
-/client/verb/body_groin()
-	set name = "body-groin"
-	set hidden = 1
+GAME_VERB_HIDDEN(/client, body_groin, "body-groin")
 
 	if(!check_has_body_select())
 		return
@@ -436,9 +424,7 @@
 	var/atom/movable/screen/zone_sel/selector = mob.hud_used.zone_select
 	selector.set_selected_zone(next_in_line)
 
-/client/verb/body_tail()
-	set name = "body-tail"
-	set hidden = 1
+GAME_VERB_HIDDEN(/client, body_tail, "body-tail")
 
 	if(!check_has_body_select())
 		return
@@ -446,9 +432,7 @@
 	var/atom/movable/screen/zone_sel/selector = mob.hud_used.zone_select
 	selector.set_selected_zone(BODY_ZONE_TAIL)
 
-/client/verb/body_l_leg()
-	set name = "body-l-leg"
-	set hidden = 1
+GAME_VERB_HIDDEN(/client, body_l_leg, "body-l-leg")
 
 	if(!check_has_body_select())
 		return

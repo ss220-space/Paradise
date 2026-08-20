@@ -147,9 +147,7 @@
 /**
  * Some kind of debug verb that gives atmosphere environment details
  */
-/mob/proc/Cell()
-	set category = ADMIN_CATEGORY_DEBUG
-	set hidden = TRUE
+GAME_VERB_PROC(/mob, Cell, "Cell", ADMIN_CATEGORY_DEBUG)
 
 	var/turf/location = get_turf(src)
 
@@ -426,9 +424,7 @@
 	LAZYREMOVE(client.movingmob.client_mobs_in_contents, src)
 	client.movingmob = null
 
-/mob/verb/examinate(atom/examinify as mob|obj|turf in view())
-	set name = "Осмотреть"
-	set category = VERB_CATEGORY_IC
+GAME_VERB(/mob, examinate, "Осмотреть", null, atom/examinify as mob|obj|turf in view()) //It used to be oview(12), but I can't really say why
 
 	if(!client)
 		return
@@ -700,9 +696,7 @@
 		else
 			return span_notice("[copytext_preserve_html(msg, 1, 57)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a>")
 
-/mob/verb/abandon_mob()
-	set name = "Возродиться"
-	set category = VERB_CATEGORY_OOC
+GAME_VERB(/mob, abandon_mob, "Возродиться", VERB_CATEGORY_OOC)
 
 	if(!GLOB.abandon_allowed)
 		to_chat(usr, span_warning("Respawning is disabled."))
@@ -769,9 +763,8 @@
 /mob/proc/is_dead()
 	return stat == DEAD
 
-/mob/verb/cancel_camera()
-	set name = "Сбросить позицию камеры"
-	set category = VERB_CATEGORY_OOC
+GAME_VERB(/mob, cancel_camera, "Сбросить позицию камеры", VERB_CATEGORY_OOC)
+
 	reset_perspective(null)
 	unset_machine()
 	if(isliving(src))
@@ -1504,10 +1497,15 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
  * Helpful for when a players uplink window gets glitched to above their screen.
  * preventing them from moving the UPLINK window.
  */
-/mob/verb/reset_ui_positions_for_mob()
-	set name = "Reset UI Positions"
-	set category = VERB_CATEGORY_SPECIALVERBS
+GAME_VERB(/mob, reset_ui_positions_for_mob, "Reset UI Positions", VERB_CATEGORY_SPECIALVERBS)
 	SStgui.reset_ui_position(src)
+
+//suppress the .click/dblclick macros so people can't use them to identify the location of items or aimbot
+GAME_VERB_HIDDEN(/mob, DisClick, ".click", argu = null as anything, sec = "" as text, number1 = 0 as num  , number2 = 0 as num)
+	return
+
+GAME_VERB_HIDDEN(/mob, DisDblClick, ".dblclick", argu = null as anything, sec = "" as text, number1 = 0 as num  , number2 = 0 as num)
+	return
 
 /mob/proc/add_to_respawnable_list()
 	GLOB.respawnable_list |= src

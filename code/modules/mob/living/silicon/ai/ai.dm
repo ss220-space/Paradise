@@ -200,7 +200,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	else
 		make_laws()
 
-	add_verb(src, /mob/living/silicon/ai/proc/show_laws_verb)
+	ASSIGN_GAME_VERB(src, /mob/living/silicon/ai, show_laws_verb)
 
 	aiMulti = new(src)
 	aiRadio = new(src)
@@ -439,9 +439,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(powered_ai.anchored)
 		use_power = ACTIVE_POWER_USE
 
-/mob/living/silicon/ai/proc/pick_icon()
-	set category = VERB_CATEGORY_AICOMMANDS
-	set name = "Поменять дисплей"
+GAME_VERB_DESC(/mob/living/silicon/ai, pick_icon, "Поменять дисплей", "Choose what appears on your AI core display", VERB_CATEGORY_AICOMMANDS)
+
 	if(stat || aiRestorePowerRoutine)
 		return
 
@@ -517,9 +516,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/cancel_camera()
 	view_core()
 
-/mob/living/silicon/ai/verb/toggle_anchor()
-	set category = VERB_CATEGORY_AICOMMANDS
-	set name = "Болтирование к полу"
+GAME_VERB(/mob/living/silicon/ai, toggle_anchor, "Болтирование к полу", VERB_CATEGORY_AICOMMANDS)
 
 	if(!isturf(loc)) // if their location isn't a turf
 		return // stop
@@ -704,10 +701,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	// I am so sorry
 	SEND_SIGNAL(src, COMSIG_MOB_RESET_PERSPECTIVE)
 
-/mob/living/silicon/ai/proc/botcall()
-	set category = VERB_CATEGORY_AICOMMANDS
-	set name = "Диспетчер роботов"
-	set desc = "Wirelessly control various automatic robots."
+GAME_VERB_PROC_DESC(/mob/living/silicon/ai, botcall, "Диспетчер роботов", "Wirelessly control various automatic robots.", VERB_CATEGORY_AICOMMANDS)
 
 	if(!robot_control)
 		robot_control = new(src)
@@ -797,9 +791,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 //Replaces /mob/living/silicon/ai/verb/change_network() in ai.dm & camera.dm
 //Adds in /mob/living/silicon/ai/proc/ai_network_change() instead
 //Addition by Mord_Sith to define AI's network change ability
-/mob/living/silicon/ai/proc/ai_network_change()
-	set category = VERB_CATEGORY_AICOMMANDS
-	set name = "Сменить сеть камер"
+GAME_VERB_PROC(/mob/living/silicon/ai, ai_network_change, "Сменить сеть камер", VERB_CATEGORY_AICOMMANDS)
 	unset_machine()
 	var/cameralist[0]
 
@@ -879,10 +871,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 				display.friendc = FALSE
 
 //I am the icon meister. Bow fefore me.	//>fefore
-/mob/living/silicon/ai/proc/ai_hologram_change()
-	set name = "Сменить голограмму"
-	set desc = "Change the default hologram available to AI to something else."
-	set category = VERB_CATEGORY_AICOMMANDS
+GAME_VERB_PROC_DESC(/mob/living/silicon/ai, ai_hologram_change, "Сменить голограмму", "Change the default hologram available to AI to something else.", VERB_CATEGORY_AICOMMANDS)
 
 	if(check_unable())
 		return
@@ -1127,10 +1116,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/welder_act()
 	return
 
-/mob/living/silicon/ai/proc/control_integrated_radio()
-	set name = "Настройки радио"
-	set desc = "Allows you to change settings of your radio."
-	set category = VERB_CATEGORY_AICOMMANDS
+GAME_VERB_PROC_DESC(/mob/living/silicon/ai, control_integrated_radio, "Настройки радио", "Allows you to change settings of your radio.", VERB_CATEGORY_AICOMMANDS)
 
 	if(check_unable(AI_CHECK_RADIO))
 		return
