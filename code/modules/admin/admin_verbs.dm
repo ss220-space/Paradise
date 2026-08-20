@@ -646,3 +646,6 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(download_flaticon, R_ADMIN, "(Special) Download Ico
 		image.Scale(image_width, image_height)
 
 	usr << ftp(image, "[thing.name]_[image_width]x[image_height].png")
+
+ADMIN_VERB(open_event_logger, R_DEBUG, "Open Event Logger", "Open the event logger interface.", ADMIN_CATEGORY_DEBUG)
+	GLOB.event_logger.ui_interact(user.mob)
