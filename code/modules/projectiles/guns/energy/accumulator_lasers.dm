@@ -184,8 +184,6 @@
 		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 7),
 		ATTACHMENT_SLOT_UNDER = list("x" = 5, "y" = -5),
 	)
-	windup_delay = 1 SECONDS
-	windup_sound = 'sound/weapons/laser_charge_up.ogg'
 
 /obj/item/gun/energy/accumulator/energy_pistol/get_ru_names()
 	return alist(
@@ -279,8 +277,6 @@
 		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 6),
 		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -7),
 	)
-	windup_delay = 1 SECONDS
-	windup_sound = 'sound/weapons/laser_charge_up.ogg'
 
 /obj/item/gun/energy/accumulator/sniper_rifle/get_ru_names()
 	return alist(

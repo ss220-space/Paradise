@@ -192,8 +192,6 @@
 		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 4),
 		ATTACHMENT_SLOT_UNDER = list("x" = 21, "y" = -9),
 	)
-	windup_delay = 1 SECONDS
-	windup_sound = 'sound/weapons/laser_charge.ogg'
 
 /obj/item/gun/energy/laser/hitscan/sniper_rifle/get_ru_names()
 	return alist(

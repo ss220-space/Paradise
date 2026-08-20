@@ -97,13 +97,6 @@
 	/// Color of all ammo count hud numbers
 	var/ammo_count_colour = COLOR_RED
 
-	///Delay for the gun winding up before firing.
-	var/windup_delay = 0
-	///Sound played during windup.
-	var/windup_sound
-	///Used if a weapon need windup before firing. *DO NOT USE WITH BURST FIRE*
-	var/windup_checked = WEAPON_WINDUP_NOT_CHECKED
-
 /*
  * Gun modules
  */
@@ -438,8 +431,6 @@
 	set_target(get_turf_on_clickcatcher(object, user, params))
 	src.modifiers = modifiers
 	if(gun_firemode == GUN_FIREMODE_SEMIAUTO)
-		if(windup_checked == WEAPON_WINDUP_CHECKING)
-			return
 		INVOKE_ASYNC(src, PROC_REF(do_semiauto_fire))
 		return TRUE
 	SEND_SIGNAL(src, COMSIG_GUN_FIRE)
@@ -523,7 +514,6 @@
 /obj/item/gun/proc/reset_fire()
 	shots_fired = 0//Let's clean everything
 	set_target(null)
-	windup_checked = WEAPON_WINDUP_NOT_CHECKED
 	update_mouse_pointer(TRUE)
 	if(dual_wield)
 		dual_wield = FALSE
@@ -689,23 +679,9 @@
 /obj/item/gun/proc/process_fire(zone_override)
 	var/atom/target = src.target
 	if(!target)
-		windup_checked = WEAPON_WINDUP_NOT_CHECKED
 		return NONE
 	if(fire_cd)
 		return NONE
-	if(windup_checked == WEAPON_WINDUP_CHECKING)
-		return NONE
-	if(windup_delay && windup_checked == WEAPON_WINDUP_NOT_CHECKED)
-		windup_checked = WEAPON_WINDUP_CHECKING
-		if(windup_sound)
-			playsound(loc, windup_sound, 50, TRUE)
-		if(!gun_user)
-			addtimer(CALLBACK(src, PROC_REF(fire_after_autonomous_windup)), windup_delay)
-			return NONE
-		if(!do_after(gun_user, windup_delay, timed_action_flags = (DA_IGNORE_LYING|DA_IGNORE_USER_LOC_CHANGE), show_progress = FALSE, max_interact_count = 1, cog_iconstate = "busy_danger"))
-			windup_checked = WEAPON_WINDUP_NOT_CHECKED
-			return NONE
-		windup_checked = WEAPON_WINDUP_CHECKED
 	var/bonus_spread = src.bonus_spread
 	var/mob/living/user = gun_user
 	var/is_tk_grab = !isnull(user.tkgrabbed_objects[src])
@@ -740,7 +716,6 @@
 		sprd = accuracy.randomize_spread(user, bonus_spread, shots_counter)
 		if(!chambered.fire(target = target, user = user, modifiers = modifiers, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src, damage_mod = damage_mod, stamina_mod = stamina_mod))
 			shoot_with_empty_chamber(user)
-			windup_checked = WEAPON_WINDUP_NOT_CHECKED
 			return NONE
 		else
 			if(get_dist(user, target) <= 1) //Making sure whether the target is in vicinity for the pointblank shot
@@ -750,7 +725,6 @@
 		if(chambered)
 			chambered.after_fire()
 	else
-		windup_checked = WEAPON_WINDUP_NOT_CHECKED
 		shoot_with_empty_chamber(user)
 		return NONE
 	process_chamber()
@@ -765,11 +739,6 @@
 
 /obj/item/gun/proc/on_pre_process_fire(mob/living/user, atom/target)
 	return
-
-/// Fire after a fake windup
-/obj/item/gun/proc/fire_after_autonomous_windup()
-	windup_checked = WEAPON_WINDUP_CHECKED
-	process_fire()
 
 /obj/item/gun/interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
 	if(user.a_intent != INTENT_HARM || user == interacting_with || !isliving(interacting_with) || !can_hold_up)
