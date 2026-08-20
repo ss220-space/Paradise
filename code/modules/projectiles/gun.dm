@@ -702,7 +702,7 @@
 		if(!gun_user)
 			addtimer(CALLBACK(src, PROC_REF(fire_after_autonomous_windup)), windup_delay)
 			return NONE
-		if(!do_after(gun_user, windup_delay, timed_action_flags = (DA_IGNORE_LYING|DA_IGNORE_USER_LOC_CHANGE), show_progress = FALSE, cog_iconstate = "busy_danger"))
+		if(!do_after(gun_user, windup_delay, timed_action_flags = (DA_IGNORE_LYING|DA_IGNORE_USER_LOC_CHANGE), show_progress = FALSE, max_interact_count = 1, cog_iconstate = "busy_danger"))
 			windup_checked = WEAPON_WINDUP_NOT_CHECKED
 			return NONE
 		windup_checked = WEAPON_WINDUP_CHECKED
