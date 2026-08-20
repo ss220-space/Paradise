@@ -355,6 +355,13 @@ def check_capitalized_declent_ru_usage(idx, line):
     if CAPITALIZED_DECLENT_RU.search(line):
         return [(idx + 1, "Do not use `capitalize(declent_ru)` construction directly. Use the ready-made macros in code/__HELPERS/localization/")]
 
+CHECK_MANUAL_VERB_RE_EXCLUDED_PATHS = ['code/__DEFINES/', 'code/__HELPERS/', 'tools/']
+
+CHECK_MANUAL_VERB_RE = re.compile(r'\tset\s*(name|desc|category|hidden|popup_menu|instant)\s*=\s*(.*)\s')
+def check_manual_verb(idx, line):
+    if CHECK_MANUAL_VERB_RE.search(line):
+        return [(idx + 1, "Manual verb attribute detected. Use GAME_VERB() or ADMIN_VERB() instead.")]
+
 CODE_CHECKS = [
     check_space_indentation,
     check_mixed_indentation,
@@ -500,6 +507,8 @@ def lint_file(code_filepath: str) -> list[Failure]:
             extra_checks.append(check_manual_icon_updates)
         if filename == FAST_LOAD_FILENAME:
             extra_checks.append(check_fast_load_define)
+        if any(excluded in code_filepath for excluded in CHECK_MANUAL_VERB_RE_EXCLUDED_PATHS ):
+            extra_checks.append(check_manual_verb)
         if os.path.dirname(code_filepath) != IGNORE_LOCALIZATION_HELPERS_DIR:
             extra_checks.append(check_localization_macro_usage)
             extra_checks.append(check_capitalized_declent_ru_usage)

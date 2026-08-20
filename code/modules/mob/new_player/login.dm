@@ -42,7 +42,7 @@
 	GLOB.new_player_mobs |= src
 
 	if((ckey in GLOB.de_admins) || (ckey in GLOB.de_mentors) || (ckey in GLOB.de_devs))
-		add_verb(src, /client/proc/readmin)
+		ASSIGN_GAME_VERB(src, /client, readmin)
 	. = TRUE
 
 	SStitle.show_title_screen_to(client)

@@ -1,6 +1,4 @@
-/mob/living/verb/pray(msg as text)
-	set category = VERB_CATEGORY_IC
-	set name = "Молиться"
+GAME_VERB(/mob, pray, "Молиться", VERB_CATEGORY_IC, msg as text)
 
 	msg = sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN))
 	if(!msg)

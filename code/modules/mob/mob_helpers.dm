@@ -414,9 +414,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 				else
 					hud_used.action_intent.icon_state = "help"
 
-/mob/living/verb/mob_sleep()
-	set name = "Спать"
-	set category = VERB_CATEGORY_IC
+GAME_VERB(/mob/living, mob_sleep, "Спать", VERB_CATEGORY_IC)
 
 	if(IsSleeping())
 		to_chat(src, span_notice("Вы уже спите."))

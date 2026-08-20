@@ -1223,9 +1223,7 @@
 	var/mob/dead/observer/observer = mob
 	observer.ManualFollow(target)
 
-/client/verb/toggle_fullscreen()
-	set name = "Полный экран"
-	set category = VERB_CATEGORY_OOC
+GAME_VERB(/client, toggle_fullscreen, "Полный экран", VERB_CATEGORY_OOC)
 
 	fullscreen = !fullscreen
 
@@ -1265,10 +1263,7 @@
 		screen -= object
 
 // Ported from /tg/, full credit to SpaceManiac and Timberpoes.
-/client/verb/fit_viewport()
-	set name = "Подгонка области видимости"
-	set desc = "Fit the size of the map window to match the viewport."
-	set category = VERB_CATEGORY_SPECIALVERBS
+GAME_VERB_DESC(/client, fit_viewport, "Подгонка области видимости", "Fit the size of the map window to match the viewport.", VERB_CATEGORY_SPECIALVERBS)
 
 	// Fetch aspect ratio
 	var/list/view_size = getviewsize(view)
@@ -1325,33 +1320,22 @@
 	pct += delta
 	winset(src, "mainwindow.mainvsplit", "splitter=[pct]")
 
-/client/verb/fix_stat_panel()
-	set name = "Fix Stat Panel"
-	set hidden = TRUE
-
+GAME_VERB_HIDDEN(/client, fix_stat_panel, "Fix Stat Panel")
 	init_verbs()
 
 /**
  * Reloads the titlescreen if it is bugged for someone.
  */
-/client/verb/fix_title_screen()
-	set name = "Починить меню лобби"
-	set desc = "Lobbyscreen broke? Press this."
-	set category = VERB_CATEGORY_SPECIALVERBS
-
+GAME_VERB_DESC(/client, fix_title_screen, "Починить меню лобби", "Lobbyscreen broke? Press this.", VERB_CATEGORY_SPECIALVERBS)
 	if(isnewplayer(mob))
 		SStitle.show_title_screen_to(src)
 	else
 		SStitle.hide_title_screen_from(src)
 
-/client/verb/fitviewport() // wrapper for mainwindow
-	set hidden = 1
+GAME_VERB_HIDDEN(/client, fitviewport, "")// wrapper for mainwindow
 	fit_viewport()
 
-/client/verb/link_discord_account()
-	set name = "Привязка Discord"
-	set category = VERB_CATEGORY_SPECIALVERBS
-	set desc = "Привязать аккаунт Discord для удобного просмотра игровой статистики на нашем Discord-сервере."
+GAME_VERB_DESC(/client, link_discord_account, "Привязка Discord", "Привязать аккаунт Discord для удобного просмотра игровой статистики на нашем Discord-сервере.", VERB_CATEGORY_SPECIALVERBS)
 
 	if(!CONFIG_GET(string/discordurl))
 		return
@@ -1746,3 +1730,8 @@
 
 #undef SUGGESTED_CLIENT_VERSION
 #undef SUGGESTED_CLIENT_BUILD
+
+GAME_VERB_DESC(/client, stop_client_sounds, "Stop Sounds", "Stop Current Sounds", VERB_CATEGORY_OOC)
+	SEND_SOUND(usr, sound(null))
+	tgui_panel?.stop_music()
+	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Stop Self Sounds"))

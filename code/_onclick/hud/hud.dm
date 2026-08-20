@@ -418,17 +418,6 @@
 			continue
 		show_to.client?.screen += reuse
 
-//Triggered when F12 is pressed (Unless someone changed something in the DMF)
-/mob/verb/button_pressed_F12()
-	set name = "F12"
-	set hidden = TRUE
-
-	if(hud_used && client)
-		hud_used.show_hud() //Shows the next hud preset
-		to_chat(usr, span_notice("Изменён режим HUD. Переключение — клавиша F12."))
-	else
-		to_chat(usr, span_warning("У этого типа существ нет HUD."))
-
 /datum/hud/proc/update_locked_slots()
 	return
 

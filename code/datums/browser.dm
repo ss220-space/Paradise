@@ -478,10 +478,7 @@
 // if a valid atom reference is supplied, call the atom's Topic() with "close=1"
 // otherwise, just reset the client mob's machine var.
 //
-/client/verb/windowclose(atomref as text)
-	set hidden = TRUE // hide this verb from the user's panel
-	set name = ".windowclose" // no autocomplete on cmd line
-
+GAME_VERB_HIDDEN(/client, windowclose, ".windowclose", atomref as text)
 	if(atomref != "null") // if passed a real atomref
 		var/hsrc = locateUID(atomref) // find the reffed atom
 		var/href = "close=1"

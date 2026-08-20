@@ -21,7 +21,7 @@
 			stack_trace("Mob [type] has improper ventcrawler_trait value.")
 
 	if(mobility_flags & MOBILITY_REST)
-		add_verb(src, /mob/living/proc/toggle_resting)
+		ASSIGN_GAME_VERB(src, /mob/living, toggle_resting)
 		if(!density)	// we want undense mobs to stay undense when they stop resting
 			ADD_TRAIT(src, TRAIT_UNDENSE, INNATE_TRAIT)
 
@@ -1934,9 +1934,7 @@
 /mob/living/proc/get_transform_translation_size(value)
 	return (value-1) * get_cached_height() * 0.5
 
-/mob/living/proc/toggle_resting()
-	set name = "Лечь"
-	set category = VERB_CATEGORY_IC
+GAME_VERB_PROC(/mob/living, toggle_resting, "Лечь", VERB_CATEGORY_IC)
 
 	set_resting(!resting, silent = FALSE)
 

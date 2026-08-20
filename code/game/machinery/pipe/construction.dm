@@ -194,10 +194,7 @@
 
 	fixdir()
 
-/obj/item/pipe/verb/flip()
-	set category = VERB_CATEGORY_OBJECT
-	set name = "Перевернуть трубу"
-	set src in view(1)
+GAME_VERB_SRC(/obj/item/pipe, flip, view(1), "Перевернуть трубу", null)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return

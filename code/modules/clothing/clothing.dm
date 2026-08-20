@@ -541,10 +541,7 @@
 			if(H.w_uniform == src)
 				H.update_suit_sensors()
 
-/obj/item/clothing/under/verb/toggle()
-	set name = "Датчики костюма"
-	set category = VERB_CATEGORY_OBJECT
-	set src in usr
+GAME_VERB_SRC(/obj/item/clothing/under, toggle, usr, "Датчики костюма", null)
 	set_sensors(usr)
 
 /obj/item/clothing/under/GetID()

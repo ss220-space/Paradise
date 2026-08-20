@@ -63,7 +63,7 @@
 /mob/living/carbon/alien/Initialize(mapload)
 	. = ..()
 	create_reagents(1000)
-	add_verb(src, /mob/living/verb/mob_sleep)
+	ASSIGN_GAME_VERB(src, /mob/living, mob_sleep)
 	thermal_toogle = new
 	thermal_toogle.Grant(src)
 

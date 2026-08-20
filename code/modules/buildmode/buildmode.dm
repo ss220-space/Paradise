@@ -155,9 +155,7 @@
 		return
 	. = ..()
 
-/proc/togglebuildmode(mob/user as mob in  GLOB.player_list)
-	set name = "Toggle Build Mode"
-	set category = ADMIN_CATEGORY_EVENTS
+GAME_VERB_GLOBAL_PROC(togglebuildmode, "Toggle Build Mode", "", ADMIN_CATEGORY_EVENTS, mob/user as mob in  GLOB.player_list)
 
 	if(user.client)
 		if(istype(user.client.click_intercept, /datum/click_intercept/buildmode))

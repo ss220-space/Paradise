@@ -70,7 +70,7 @@ GLOBAL_PROTECT(href_token)
 		owner = C
 		owner.holder = src
 		owner.add_admin_verbs()	//TODO
-		remove_verb(owner, /client/proc/readmin)
+		UNASSIGN_GAME_VERB(owner, /client, readmin)
 		owner.init_verbs() //re-initialize the verb list
 		GLOB.admins |= C
 

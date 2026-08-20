@@ -153,9 +153,7 @@
 	eyeobj.setLoc(loc)
 	eyeobj.name = "[name] (AI Eye)"
 
-/mob/living/silicon/ai/proc/toggle_acceleration()
-	set category = VERB_CATEGORY_AICOMMANDS
-	set name = "Ускорение камеры"
+GAME_VERB_PROC(/mob/living/silicon/ai, toggle_acceleration, "Ускорение камеры", VERB_CATEGORY_AICOMMANDS)
 
 	if(usr.stat == DEAD)
 		return //won't work if dead

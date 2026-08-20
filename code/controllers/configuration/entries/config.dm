@@ -900,3 +900,10 @@
 /// Pop requirement for the server to be removed from the hub
 /datum/config_entry/number/max_hub_pop
 	min_val = 0
+
+/// allow votes to change map
+/datum/config_entry/flag/allow_vote_map
+	default = TRUE
+
+/// allow votes to change game mode
+/datum/config_entry/flag/allow_vote_gamemode

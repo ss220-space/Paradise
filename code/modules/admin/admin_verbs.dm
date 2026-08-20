@@ -10,7 +10,7 @@
 
 ADMIN_VERB(hide_verbs, R_NONE, "Adminverbs - Hide All", "Hide most of your admin verbs.", ADMIN_CATEGORY_MAIN)
 	user.remove_admin_verbs()
-	add_verb(user, /client/proc/show_verbs)
+	ASSIGN_GAME_VERB(user, /client, show_verbs)
 
 	to_chat(user, span_interface("Almost all of your adminverbs have been hidden."), confidential = TRUE)
 	BLACKBOX_LOG_ADMIN_VERB("Hide All Adminverbs")
@@ -401,7 +401,7 @@ ADMIN_VERB(deadmin_self, R_ADMIN|R_MENTOR|R_VIEWRUNTIMES, "De-admin self", "De-a
 		GLOB.de_devs |= user.ckey
 
 	user.deadmin()
-	add_verb(user, /client/proc/readmin)
+	ASSIGN_GAME_VERB(user, /client, readmin)
 	user.update_active_keybindings()
 	update_byond_admin_configs(user.ckey, R_NONE)
 

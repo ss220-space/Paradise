@@ -30,6 +30,11 @@
 	. = ..()
 	if(.)
 		return .
-	user.mob.button_pressed_F12()
+	if(user.mob.hud_used)
+		user.mob.hud_used.show_hud() //Shows the next hud preset
+		to_chat(user, span_notice("Изменён режим HUD. Переключение — клавиша F12."))
+	else
+		to_chat(user, span_warning("У этого типа существ нет HUD."))
+
 	return TRUE
 

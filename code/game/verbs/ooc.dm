@@ -5,9 +5,7 @@ GLOBAL_VAR_INIT(mentor_ooc_colour, "#00B0EB")
 GLOBAL_VAR_INIT(moderator_ooc_colour, "#184880")
 GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 
-/client/verb/ooc(msg = "" as text)
-	set name = "OOC"
-	set category = VERB_CATEGORY_OOC
+GAME_VERB(/client, ooc, "OOC", VERB_CATEGORY_OOC, msg = "" as text)
 
 	if(!mob)
 		return
@@ -116,10 +114,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	if(CONFIG_GET(flag/auto_toggle_ooc_during_round) && CONFIG_GET(flag/ooc_allowed) != on)
 		toggle_ooc()
 
-/client/verb/looc(msg = "" as text)
-	set name = "LOOC"
-	set desc = "Local OOC, seen only by those in view."
-	set category = VERB_CATEGORY_OOC
+GAME_VERB_DESC(/client, looc, "LOOC", "Local OOC, seen only by those in view.", VERB_CATEGORY_OOC, msg = "" as text)
 
 	if(!mob)
 		return

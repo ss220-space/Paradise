@@ -827,10 +827,7 @@
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|ARMS
 
-/obj/item/clothing/suit/fluff/kluys/verb/toggle()
-	set name = "Режим наноткани"
-	set category = VERB_CATEGORY_OBJECT
-	set src in usr
+GAME_VERB_SRC(/obj/item/clothing/suit/fluff/kluys, toggle, usr, "Режим наноткани", null)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return FALSE
