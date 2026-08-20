@@ -369,7 +369,10 @@ GLOBAL_VAR_INIT(logistics_net_next_id, 1)
 		if(!dest.adapter.can_accept_stock(stock_name))
 			continue
 		var/send_amount = min(request.wanted[stock_name], available, remaining_capacity)
-		send_amount = min(send_amount, dest.adapter.get_free_sheets() - total_packed)
+		var/accept_cap = dest.adapter.get_accept_capacity(stock_name)
+		if(dest.adapter.uses_shared_unit_capacity())
+			accept_cap = min(accept_cap, dest.adapter.get_free_sheets() - total_packed)
+		send_amount = min(send_amount, accept_cap)
 		if(send_amount <= 0)
 			continue
 		packed[stock_name] = send_amount

@@ -363,13 +363,24 @@
 				break
 			if(!interface.adapter?.item_matches_stock(item, stock_name))
 				continue
-			var/before_amt = 1
-			if(isstack(item))
+			var/units = logistics_item_units(item)
+			var/take = min(units, need - delivered_now)
+			if(take <= 0)
+				continue
+			if(isstack(item) && take < units)
 				var/obj/item/stack/stack = item
-				before_amt = stack.amount
+				var/obj/item/stack/piece = stack.split(null, take)
+				if(!interface.try_insert_item(piece))
+					if(!QDELETED(piece))
+						piece.forceMove(src)
+						if(!QDELETED(stack))
+							piece.merge(stack)
+					continue
+				delivered_now += take
+				continue
 			if(!interface.try_insert_item(item))
 				continue
-			delivered_now += before_amt
+			delivered_now += take
 		var/failed = max(need - delivered_now, 0)
 		if(failed > 0)
 			undelivered[stock_name] = failed

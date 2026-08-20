@@ -22,6 +22,12 @@
 /datum/logistics_adapter/proc/get_free_sheets()
 	return 0
 
+/datum/logistics_adapter/proc/get_accept_capacity(stock_id)
+	return get_free_sheets()
+
+/datum/logistics_adapter/proc/uses_shared_unit_capacity()
+	return TRUE
+
 /// Returns 0-100 fill percent, or null if capacity is unlimited/unknown.
 /datum/logistics_adapter/proc/get_fill_percent()
 	return null
@@ -40,6 +46,14 @@
 		return FALSE
 	var/path = logistics_stock_path(stock_id)
 	return path && istype(item, path)
+
+/proc/logistics_item_units(obj/item/item)
+	if(!item)
+		return 0
+	if(isstack(item))
+		var/obj/item/stack/stack = item
+		return stack.get_amount()
+	return 1
 
 /// Returns TRUE if the item was fully consumed by storage.
 /datum/logistics_adapter/proc/insert_item(obj/item/item)
@@ -223,7 +237,7 @@
 		var/stock_id = logistics_stock_id_for_item(item)
 		if(!stock_id)
 			continue
-		amounts[stock_id] += 1
+		amounts[stock_id] += logistics_item_units(item)
 		if(!samples[stock_id])
 			samples[stock_id] = item
 	for(var/stock_id in amounts)
@@ -245,7 +259,7 @@
 		if(!is_storage_item(item))
 			continue
 		if(logistics_stock_id_for_item(item) == stock_id)
-			.++
+			. += logistics_item_units(item)
 
 /datum/logistics_adapter/smartfridge/proc/get_stored_count()
 	var/obj/machinery/smartfridge/fridge = get_fridge()
@@ -259,15 +273,52 @@
 		return 0
 	return max(fridge.max_n_of_items - get_stored_count(), 0)
 
+/datum/logistics_adapter/smartfridge/get_accept_capacity(stock_id)
+	var/obj/machinery/smartfridge/fridge = get_fridge()
+	if(!fridge || !stock_id)
+		return 0
+	var/path = logistics_stock_path(stock_id)
+	var/free_slots = get_free_sheets()
+	if(!ispath(path, /obj/item/stack))
+		return free_slots
+	var/obj/item/stack/stack_path = path
+	var/max_amt = initial(stack_path.max_amount)
+	if(max_amt <= 0)
+		max_amt = 1
+	var/merge_room = 0
+	for(var/obj/item/stack/existing in fridge.contents)
+		if(!is_storage_item(existing))
+			continue
+		if(logistics_stock_id_for_item(existing) != stock_id)
+			continue
+		merge_room += max(existing.max_amount - existing.get_amount(), 0)
+	return merge_room + free_slots * max_amt
+
+/datum/logistics_adapter/smartfridge/uses_shared_unit_capacity()
+	return FALSE
+
 /datum/logistics_adapter/smartfridge/get_fill_percent()
 	var/obj/machinery/smartfridge/fridge = get_fridge()
 	if(!fridge || fridge.max_n_of_items <= 0)
 		return null
 	return round(100 * get_stored_count() / fridge.max_n_of_items)
 
+/datum/logistics_adapter/smartfridge/proc/fridge_can_merge_stacks(obj/item/stack/incoming, obj/item/stack/existing)
+	if(QDELETED(incoming) || QDELETED(existing))
+		return FALSE
+	if(!istype(existing, incoming.merge_type))
+		return FALSE
+	if(incoming.get_amount() <= 0 || existing.get_amount() <= 0)
+		return FALSE
+	if(incoming.is_cyborg || existing.is_cyborg)
+		return FALSE
+	return TRUE
+
 /datum/logistics_adapter/smartfridge/can_accept_stock(stock_id)
 	var/obj/machinery/smartfridge/fridge = get_fridge()
-	if(!fridge || get_free_sheets() <= 0 || !stock_id)
+	if(!fridge || !stock_id)
+		return FALSE
+	if(get_accept_capacity(stock_id) <= 0)
 		return FALSE
 	if(get_amount(stock_id) > 0)
 		return TRUE
@@ -280,14 +331,36 @@
 	var/obj/machinery/smartfridge/fridge = get_fridge()
 	if(!fridge || !item)
 		return FALSE
-	if(get_free_sheets() <= 0)
+	if(!fridge.accept_check(item))
 		return FALSE
-	return fridge.accept_check(item)
+	var/stock_id = logistics_stock_id_for_item(item)
+	if(!stock_id)
+		return FALSE
+	return get_accept_capacity(stock_id) >= logistics_item_units(item)
 
 /datum/logistics_adapter/smartfridge/insert_item(obj/item/item)
 	var/obj/machinery/smartfridge/fridge = get_fridge()
 	if(!fridge || !can_insert_item(item))
 		return FALSE
+	if(isstack(item))
+		var/obj/item/stack/incoming = item
+		for(var/obj/item/stack/existing in fridge.contents)
+			if(QDELETED(incoming) || incoming.get_amount() <= 0)
+				break
+			if(!is_storage_item(existing))
+				continue
+			if(!fridge_can_merge_stacks(incoming, existing))
+				continue
+			var/transfer = min(incoming.get_amount(), existing.max_amount - existing.get_amount())
+			if(transfer <= 0)
+				continue
+			existing.add(transfer)
+			incoming.use(transfer)
+		if(QDELETED(incoming) || incoming.get_amount() <= 0)
+			fridge.update_icon(UPDATE_OVERLAYS)
+			return TRUE
+		if(get_free_sheets() <= 0)
+			return FALSE
 	if(!fridge.load(item))
 		return FALSE
 	fridge.update_icon(UPDATE_OVERLAYS)
@@ -305,10 +378,25 @@
 			continue
 		if(logistics_stock_id_for_item(item) != stock_id)
 			continue
-		var/item_name = item.declent_ru(NOMINATIVE)
-		fridge.item_quants[item_name] = max((fridge.item_quants[item_name] || 0) - 1, 0)
-		item.forceMove(target)
-		extracted++
+		if(isstack(item))
+			var/obj/item/stack/stack = item
+			var/take = min(stack.get_amount(), amount - extracted)
+			if(take <= 0)
+				continue
+			if(take >= stack.get_amount())
+				var/item_name = stack.declent_ru(NOMINATIVE)
+				fridge.item_quants[item_name] = max((fridge.item_quants[item_name] || 0) - 1, 0)
+				stack.forceMove(target)
+				extracted += take
+			else
+				var/obj/item/stack/split_out = stack.split(null, take)
+				split_out.forceMove(target)
+				extracted += take
+		else
+			var/item_name = item.declent_ru(NOMINATIVE)
+			fridge.item_quants[item_name] = max((fridge.item_quants[item_name] || 0) - 1, 0)
+			item.forceMove(target)
+			extracted++
 	if(extracted)
 		fridge.update_icon(UPDATE_OVERLAYS)
 	return extracted
