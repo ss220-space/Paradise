@@ -48,7 +48,9 @@
 // MARK: accumulator pistol
 
 /obj/item/ammo_casing/energy/disabler/energy_pistol
+	delay = 1 SECONDS
 	projectile_type = /obj/projectile/beam/disabler/energy_pistol
 
 /obj/item/ammo_casing/energy/laser/energy_pistol
+	delay = 1 SECONDS
 	projectile_type = /obj/projectile/beam/laser/energy_pistol
