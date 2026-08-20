@@ -12,6 +12,8 @@
 	var/datum/tgui_window/window
 	var/broken = FALSE
 	var/initialized_at
+	/// Dummy reference so BYOND includes the chat highlight sounds in the client resource pack, if it isn't included in any `.DM` file.
+	var/static/list/_chat_highlight_sounds = list('sound/misc/highlight_sounds/Beep.ogg')
 
 /datum/tgui_panel/New(client/client, id)
 	if(!id)

@@ -87,7 +87,10 @@ export function useChatPersistence() {
       );
 
     if (batch.length) {
-      chatRenderer.processBatch(batch, { prepend: true });
+      chatRenderer.processBatch(batch, {
+        prepend: true,
+        suppressHighlightSound: true,
+      });
     }
   }
 
@@ -109,6 +112,7 @@ export function useChatPersistence() {
 
     chatRenderer.processBatch(batch, {
       prepend: true,
+      suppressHighlightSound: true,
     });
 
     console.log(`Restored chat with ${messages.length} messages`);

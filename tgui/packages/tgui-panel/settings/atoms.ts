@@ -32,6 +32,9 @@ export const defaultHighlightSetting: HighlightSetting = {
   matchWord: false,
   matchCase: false,
   enabled: true,
+  playSound: false,
+  soundFile: 'sound/misc/highlight_sounds/Beep.ogg',
+  soundVolume: 0.5,
   jobFilter: '',
   characterFilter: [],
 };
