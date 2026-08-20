@@ -243,7 +243,7 @@
 
 /obj/item/flashlight/lantern/on/Initialize(mapload)
 	. = ..()
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 
 /**********************Mining car (Crate like thing, not the rail car)**************************/
 
