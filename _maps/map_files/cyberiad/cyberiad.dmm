@@ -21269,9 +21269,7 @@
 /turf/simulated/wall/r_wall,
 /area/station/command/office/captain/bedroom)
 "bQv" = (
-/obj/structure/toilet/captain_toilet{
-	dir = 4
-	},
+/obj/structure/toilet/captain_toilet/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},

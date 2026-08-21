@@ -1,0 +1,4 @@
+author: "FlitchTime"
+delete-after: True
+changes:
+  - tweak: "Хелп интент уменьшает кнокдаун у карбонов. (PR #9696)"

@@ -28,10 +28,8 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	var/icon_regular_floor_dmi = 'icons/turf/floors.dmi' //used to remember what icon the tile should have by default (fix bug for change dmi)
 	var/floor_regular_dir = SOUTH  //used to remember what dir the tile should have by default
 	var/icon_plating = "plating"
-	thermal_conductivity = 0.040
 	heat_capacity = 10000
 	explosion_vertical_block = 1
-	var/lava = 0
 	var/broken = 0
 	var/burnt = 0
 	var/current_overlay = null

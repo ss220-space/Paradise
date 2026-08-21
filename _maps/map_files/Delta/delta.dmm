@@ -76564,10 +76564,7 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/station/commons/serviceyard)
 "oGr" = (
-/obj/structure/toilet/captain_toilet{
-	dir = 8;
-	pixel_y = 6
-	},
+/obj/structure/toilet/captain_toilet/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -123836,9 +123833,7 @@
 /turf/simulated/floor/plating,
 /area/station/science/sm_chamber)
 "xbC" = (
-/obj/structure/toilet/secret{
-	dir = 2
-	},
+/obj/structure/toilet/secret/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/newscaster/directional/west,
 /turf/simulated/floor/plasteel{
