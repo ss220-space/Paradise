@@ -252,6 +252,8 @@
 
 	var/tmp/list/gear_leftovers = list()
 	var/obj/item/organ/internal/cyberimp/eyes/hud/implant_variant = null
+	var/obj/item/clothing/head/beret/beret_variant = null
+	var/obj/item/clothing/suit/hooded/wintercoat/coat_variant = null
 
 /datum/outfit/job/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(allow_backbag_choice)

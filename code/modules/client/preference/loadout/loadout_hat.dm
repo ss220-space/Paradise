@@ -227,3 +227,12 @@
 /datum/gear/hat/headband/New()
 	..()
 	gear_tweaks += new /datum/gear_tweak/color(parent = src)
+
+/datum/gear/hat/universal_beret
+	index_name = "universal beret"
+	display_name = "берет, универсальный"
+
+/datum/gear/hat/beret/resovle_path()
+	if(!istype(job) || !job.beret_variant)
+		return null
+	return job.beret_variant

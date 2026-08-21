@@ -46,6 +46,8 @@
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical
 	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/medical
+	beret_variant = /obj/item/clothing/head/beret/elo
+	coat_variant = /obj/item/clothing/suit/hooded/wintercoat/medical/cmo
 
 /datum/job/medical
 	abstract_type = /datum/job/medical
@@ -123,6 +125,8 @@
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical
 	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/medical
+	beret_variant = /obj/item/clothing/head/beret/med
+	coat_variant = /obj/item/clothing/suit/hooded/wintercoat/medical
 
 /datum/outfit/job/doctor/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -223,6 +227,8 @@
 		/obj/item/storage/box/bodybags = 1,
 	)
 	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/medical
+	beret_variant = /obj/item/clothing/head/beret/med
+	coat_variant = /obj/item/clothing/suit/hooded/wintercoat/medical
 
 /datum/job/medical/chemist
 	title = JOB_TITLE_CHEMIST
@@ -263,6 +269,8 @@
 	satchel = /obj/item/storage/backpack/satchel_chem
 	dufflebag = /obj/item/storage/backpack/duffel/chemistry
 	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/medical
+	beret_variant = /obj/item/clothing/head/beret/med
+	coat_variant = /obj/item/clothing/suit/hooded/wintercoat/medical
 
 /datum/job/medical/geneticist
 	title = JOB_TITLE_GENETICIST
@@ -307,6 +315,8 @@
 	satchel = /obj/item/storage/backpack/satchel_gen
 	dufflebag = /obj/item/storage/backpack/duffel/genetics
 	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/medical
+	beret_variant = /obj/item/clothing/head/beret/med
+	coat_variant = /obj/item/clothing/suit/hooded/wintercoat/medical
 
 /datum/job/medical/virologist
 	title = JOB_TITLE_VIROLOGIST
@@ -350,6 +360,8 @@
 	satchel = /obj/item/storage/backpack/satchel_vir
 	dufflebag = /obj/item/storage/backpack/duffel/virology
 	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/medical
+	beret_variant = /obj/item/clothing/head/beret/med
+	coat_variant = /obj/item/clothing/suit/hooded/wintercoat/medical
 
 /datum/job/medical/psychiatrist
 	title = JOB_TITLE_PSYCHIATRIST
@@ -386,6 +398,8 @@
 	suit_store = /obj/item/flashlight/pen
 	pda = /obj/item/pda/medical
 	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/medical
+	beret_variant = /obj/item/clothing/head/beret/med
+	coat_variant = /obj/item/clothing/suit/hooded/wintercoat/medical
 
 /datum/outfit/job/psychiatrist/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -441,6 +455,8 @@
 	dufflebag = /obj/item/storage/backpack/duffel/medical
 	box = /obj/item/storage/box/survival/engineer
 	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/medical
+	beret_variant = /obj/item/clothing/head/beret/med
+	coat_variant = /obj/item/clothing/suit/hooded/wintercoat/medical
 
 /datum/outfit/job/paramedic/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
