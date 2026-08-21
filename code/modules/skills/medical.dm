@@ -8,7 +8,7 @@
 	name = "Хирургия"
 	desc = "Влияет на скорось и шанс провала хирургических операций."
 	duration_mod_names = list(SURGERY_DURATION_MOD)
-	exp_per_level  = EXP_TO_UPGRADE_SKILL / 1.5
+	exp_per_level = EXP_TO_UPGRADE_SKILL / 1.5
 	skills_mods = alist(
 		SURGERY_SUCCESS_MOD = alist(
 			SKILL_LEVEL_NONE = 0.5,
@@ -44,7 +44,7 @@
 	id = "medical.chemistry"
 	name = "Химия"
 	desc = "Влияет на работу с химией."
-	exp_per_level  = EXP_TO_UPGRADE_SKILL / 1.5
+	exp_per_level = EXP_TO_UPGRADE_SKILL / 1.5
 	skills_mods = alist(
 		CHEMISTRY_DISPENSE_RAND_SIZE = alist(
 			SKILL_LEVEL_NONE = 0.75,

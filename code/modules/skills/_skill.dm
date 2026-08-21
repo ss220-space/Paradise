@@ -15,7 +15,7 @@ GLOBAL_LIST_EMPTY(skill_manual_types)
 	var/list/quality_mod_names = list()
 	// Training in middle of round
 	var/experience = 0
-	var/exp_per_level  = EXP_TO_UPGRADE_SKILL
+	var/exp_per_level = EXP_TO_UPGRADE_SKILL
 	var/can_train = TRUE
 	// Default modifiers
 	var/speed_modifiers = alist(
@@ -82,7 +82,7 @@ GLOBAL_LIST_EMPTY(skill_manual_types)
 	experience++
 	can_train = FALSE
 	addtimer(VARSET_CALLBACK(src, can_train, TRUE), 5 SECONDS) // need time to think, how to imrpove
-	if(!prob((experience/exp_per_level )*100))
+	if(!prob((experience/exp_per_level)*100))
 		return
 
 	experience = 0

@@ -21,14 +21,14 @@
 	desc = "Влияет на работу с проводами, взлом вещей и безопасность трогать провода (шанс удара током)."
 	duration_mod_names = list(ELECTRICITY_SPEED_MOD, ELECTRICITY_NEGATIVE_CHANCE_MOD, LOCKPICK_SPEED_MOD)
 	quality_mod_names = list(ELECTRICITY_POSITIVE_CHANCE_MOD, LOCKPICK_POSITIVE_CHANCE_MOD)
-	exp_per_level  = EXP_TO_UPGRADE_SKILL * 2
+	exp_per_level = EXP_TO_UPGRADE_SKILL * 2
 
 /datum/skill/engineering/atmos
 	id = "engineering.atmos"
 	name = "Атмостехника"
 	desc = "Влияет на работу с трубами и остальной атмосферной техникой, а так же на силу удара от давления в трубах."
 	duration_mod_names = list(ATMOS_SPEED_MOD)
-	exp_per_level  = EXP_TO_UPGRADE_SKILL / 1.5
+	exp_per_level = EXP_TO_UPGRADE_SKILL / 1.5
 	skills_mods = alist(
 		UNSAFE_PRESSURE_MOD = alist(
 			SKILL_LEVEL_NONE = 1.1,
