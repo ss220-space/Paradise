@@ -14,6 +14,9 @@
 		var/motd_html = replacetext(GLOB.join_motd, "\n", "")
 		to_chat(src, span_infoplain("<div class=\"motd\">[motd_html]</div>"))
 
+	if(GLOB.admin_notice)
+		to_chat(src, span_notice("<b>Admin Notice:</b>\n \t [GLOB.admin_notice]"))
+
 	if(!mind)
 		mind = new /datum/mind(key)
 		mind.active = 1

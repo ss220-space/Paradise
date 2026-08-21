@@ -116,6 +116,9 @@
 	if(config && CONFIG_GET(flag/log_hrefs))
 		log_href("[src] (usr:[usr]\[[COORD(usr)]\]) : [hsrc ? "[hsrc] " : ""][href]")
 
+	if(href_list["commandbar_typing"])
+		handle_commandbar_typing(href_list)
+
 	switch(href_list["_src_"])
 		if("holder")	hsrc = holder
 		if("usr")		hsrc = mob
@@ -232,9 +235,11 @@
 	pm_tracker = new(ckey)
 
 	//kill old tgui panel
-	winset(src, "output_selector.legacy_output_selector", "left=output_legacy")
-	tgui_panel = new(src, "chat_panel")
+	winset(src, OUTPUT_SELECTOR_LEGACY_OUTPUT_SELECTOR, "left=output_legacy")
+	tgui_panel = new(src, "browseroutput")
 	tgui_say = new(src, "tgui_say")
+
+	initialize_commandbar_spy()
 
 	set_right_click_menu_mode(TRUE)
 
@@ -363,6 +368,7 @@
 
 	// Initialize tgui say
 	tgui_say.initialize()
+	initialize_escape_menu()
 
 	donator_check()
 	check_ip_intel()
@@ -1228,18 +1234,18 @@ GAME_VERB(/client, toggle_fullscreen, "Полный экран", VERB_CATEGORY_O
 	fullscreen = !fullscreen
 
 	if(fullscreen)
-		winset(usr, "mainwindow", "on-size=")
-		winset(usr, "mainwindow", "titlebar=false")
-		winset(usr, "mainwindow", "can-resize=false")
-		winset(usr, "mainwindow", "menu=")
-		winset(usr, "mainwindow", "is-maximized=false")
-		winset(usr, "mainwindow", "is-maximized=true")
+		winset(usr, SKIN_MAINWINDOW, "on-size=")
+		winset(usr, SKIN_MAINWINDOW, "titlebar=false")
+		winset(usr, SKIN_MAINWINDOW, "can-resize=false")
+		winset(usr, SKIN_MAINWINDOW, "menu=")
+		winset(usr, SKIN_MAINWINDOW, "is-maximized=false")
+		winset(usr, SKIN_MAINWINDOW, "is-maximized=true")
 	else
-		winset(usr, "mainwindow", "titlebar=true")
-		winset(usr, "mainwindow", "can-resize=true")
-		winset(usr, "mainwindow", "menu=menu")
-		winset(usr, "mainwindow", "is-maximized=false")
-		winset(usr, "mainwindow", "on-size=fitviewport")
+		winset(usr, SKIN_MAINWINDOW, "titlebar=true")
+		winset(usr, SKIN_MAINWINDOW, "can-resize=true")
+		winset(usr, SKIN_MAINWINDOW, "menu=menu")
+		winset(usr, SKIN_MAINWINDOW, "is-maximized=false")
+		winset(usr, SKIN_MAINWINDOW, "on-size=fitviewport")
 
 	fit_viewport()
 
@@ -1270,13 +1276,13 @@ GAME_VERB_DESC(/client, fit_viewport, "Подгонка области види�
 	var/aspect_ratio = view_size[1] / view_size[2]
 
 	// Calculate desired pixel width using window size and aspect ratio
-	var/list/sizes = params2list(winget(src, "mainwindow.mainvsplit;mapwindow", "size"))
+	var/list/sizes = params2list(winget(src, "[SKIN_MAINWINDOW_SPLIT];[SKIN_MAPWINDOW]", "size"))
 
 	// Client closed the window? Some other error? This is unexpected behaviour, let's CRASH with some info.
-	if(!sizes["mapwindow.size"])
-		CRASH("sizes does not contain mapwindow.size key. This means a winget() failed to return what we wanted. --- sizes var: [sizes] --- sizes length: [length(sizes)]")
+	if(!sizes["[SKIN_MAPWINDOW].size"])
+		CRASH("sizes does not contain [SKIN_MAPWINDOW].size key. This means a winget() failed to return what we wanted. --- sizes var: [sizes] --- sizes length: [length(sizes)]")
 
-	var/list/map_size = splittext(sizes["mapwindow.size"], "x")
+	var/list/map_size = splittext(sizes["[SKIN_MAPWINDOW].size"], "x")
 
 	// Looks like we didn't expect mapwindow.size to be "ixj" where i and j are numbers.
 	// If we don't get our expected 2 outputs, let's give some useful error info.
@@ -1289,7 +1295,7 @@ GAME_VERB_DESC(/client, fit_viewport, "Подгонка области види�
 		// Nothing to do.
 		return
 
-	var/list/split_size = splittext(sizes["mainwindow.mainvsplit.size"], "x")
+	var/list/split_size = splittext(sizes["[SKIN_MAINWINDOW_SPLIT].size"], "x")
 	var/split_width = text2num(split_size[1])
 
 	// Avoid auto-resizing the statpanel and chat into nothing.
@@ -1298,12 +1304,12 @@ GAME_VERB_DESC(/client, fit_viewport, "Подгонка области види�
 	// Calculate and apply a best estimate
 	// +4 pixels are for the width of the splitter's handle
 	var/pct = 100 * (desired_width + 4) / split_width
-	winset(src, "mainwindow.mainvsplit", "splitter=[pct]")
+	winset(src, SKIN_MAINWINDOW_SPLIT, "splitter=[pct]")
 
 	// Apply an ever-lowering offset until we finish or fail
 	var/delta
 	for(var/safety in 1 to 10)
-		var/after_size = winget(src, "mapwindow", "size")
+		var/after_size = winget(src, SKIN_MAPWINDOW, "size")
 		map_size = splittext(after_size, "x")
 		var/produced_width = text2num(map_size[1])
 
@@ -1318,7 +1324,7 @@ GAME_VERB_DESC(/client, fit_viewport, "Подгонка области види�
 			delta = -delta / 2
 
 	pct += delta
-	winset(src, "mainwindow.mainvsplit", "splitter=[pct]")
+	winset(src, SKIN_MAINWINDOW_SPLIT, "splitter=[pct]")
 
 GAME_VERB_HIDDEN(/client, fix_stat_panel, "Fix Stat Panel")
 	init_verbs()
@@ -1702,13 +1708,13 @@ GAME_VERB_DESC(/client, link_discord_account, "Привязка Discord", "Пр�
 
 /client/proc/set_right_click_menu_mode(shift_only)
 	if(shift_only)
-		winset(src, "mapwindow.map", "right-click=true")
+		winset(src, SKIN_MAPWINDOW_MAP, "right-click=true")
 		winset(src, "ShiftUp", "is-disabled=false")
 		winset(src, "Shift", "is-disabled=false")
 	else
-		winset(src, "mapwindow.map", "right-click=false")
-		winset(src, "default.Shift", "is-disabled=true")
-		winset(src, "default.ShiftUp", "is-disabled=true")
+		winset(src, SKIN_MAPWINDOW_MAP, "right-click=false")
+		winset(src, SKIN_DEFAULT_SHIFT, "is-disabled=true")
+		winset(src, SKIN_DEFAULT_SHIFTUP, "is-disabled=true")
 
 /client/proc/open_filter_editor(atom/in_atom)
 	if(holder)

@@ -34,7 +34,7 @@ GAME_VERB_HIDDEN_INSTANT(/client, keyDown, "keyDown", _key as text, mousepos_x a
 		return
 
 	if(length(keys_held) >= HELD_KEY_BUFFER_LENGTH && !keys_held[_key])
-		KeyUp(keys_held[1]) //We are going over the number of possible held keys, so let's remove the first one.
+		keyUp(keys_held[1]) //We are going over the number of possible held keys, so let's remove the first one.
 
 	//the time a key was pressed isn't actually used anywhere (as of 2019-9-10) but this allows easier access usage/checking
 	keys_held[_key] = world.time
@@ -75,7 +75,7 @@ GAME_VERB_HIDDEN_INSTANT(/client, keyUp, "keyUp", _key as text, mousepos_x as nu
 	var/key_combo = key_combos_held[_key]
 	if(key_combo)
 		key_combos_held -= _key
-		KeyUp(key_combo)
+		keyUp(key_combo)
 
 	if(!keys_held[_key])
 		return

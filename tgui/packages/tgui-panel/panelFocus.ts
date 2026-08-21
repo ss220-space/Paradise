@@ -7,8 +7,8 @@
  * @license MIT
  */
 
-import { canStealFocus, globalEvents } from 'common/events';
 import { focusMap } from 'tgui/focus';
+import { canStealFocus, globalEvents } from 'tgui-core/events';
 import { vecLength, vecSubtract } from 'tgui-core/vector';
 
 // Empyrically determined number for the smallest possible

@@ -150,7 +150,7 @@
 		SSassets.transport.send_assets(user, scripts)
 	user << browse(get_content(), "window=[window_id];[window_size][window_options]")
 	if(no_focus)
-		winset(user, "mapwindow.map", "focus=true")
+		winset(user, SKIN_MAPWINDOW_MAP, "focus=true")
 	if(use_onclose)
 		setup_onclose()
 
@@ -272,7 +272,7 @@
 				if(focusedwindow)
 					winset(user, focusedwindow, "focus=true")
 				else
-					winset(user, "mapwindow", "focus=true")
+					winset(user, SKIN_MAPWINDOW, "focus=true")
 				break
 	if(timeout)
 		addtimer(CALLBACK(src, PROC_REF(close)), timeout)

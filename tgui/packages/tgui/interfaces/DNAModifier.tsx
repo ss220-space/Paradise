@@ -1,4 +1,4 @@
-import { declension_ru } from 'common/string';
+import { declension_ru } from 'common/l10n';
 import type React from 'react';
 import type { ReactNode } from 'react';
 import {

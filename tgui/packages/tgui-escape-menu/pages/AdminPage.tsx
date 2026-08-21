@@ -3,8 +3,8 @@ import { Tooltip } from 'tgui-core/components';
 type Props = {
   serverState: {
     canAdminHelp: boolean;
-    canSeeNotes: boolean;
-    hasTicketNotification: boolean;
+    //canSeeNotes: boolean;
+    //hasTicketNotification: boolean;
   };
   onNavigate: (page: 'home') => void;
   onAction: (action: string) => void;
@@ -28,8 +28,9 @@ export function AdminPage({
           }}
           disabled={!serverState.canAdminHelp}
         >
-          Create Admin Ticket
+          Создать тикет
         </MenuButton>
+        {/*
         <MenuButton
           onClick={() => onAction('view_ticket')}
           blinking={serverState.hasTicketNotification}
@@ -41,13 +42,14 @@ export function AdminPage({
         >
           View Latest Ticket
         </MenuButton>
+		*/}
         <MenuButton
           onClick={() => {
             onAction('admin_notice');
             onClose();
           }}
         >
-          See Admin Notices
+          Посмотреть админскую заметку
         </MenuButton>
         <MenuButton
           onClick={() => {
@@ -55,8 +57,9 @@ export function AdminPage({
             onClose();
           }}
         >
-          Pray
+          Молитва
         </MenuButton>
+        {/*
         {!!serverState.canSeeNotes && (
           <MenuButton
             onClick={() => {
@@ -66,7 +69,7 @@ export function AdminPage({
           >
             See Notes
           </MenuButton>
-        )}
+        )}*/}
       </div>
     </>
   );
@@ -79,7 +82,7 @@ function BackButton({ onClick }: { onClick: () => void }) {
         <span className="escape-menu-icons40x40 template" />
         <span className="escape-menu-icons40x40 back escape-menu__icon-overlay" />
       </div>
-      <span>Back</span>
+      <span>Назад</span>
     </button>
   );
 }

@@ -1,4 +1,4 @@
-import { declension_ru } from 'common/string';
+import { declension_ru } from 'common/l10n';
 import { sortBy } from 'es-toolkit';
 import { useState } from 'react';
 import {

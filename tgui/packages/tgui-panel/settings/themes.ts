@@ -67,47 +67,42 @@ export const setClientTheme = (name) => {
     return;
   }
 
-  Byond.sendMessage('theme', { 'theme': name });
+  Byond.sendMessage('theme', { theme: name });
 
   return Byond.winset({
     /* Mainwindow */
-    'mainwindow.background-color': themeColor.BG_BASE,
-    'mainwindow.mainvsplit.background-color': themeColor.BG_BASE,
-    'mainwindow.tooltip.background-color': themeColor.BG_BASE,
+    'infobuttons.background-color': themeColor.BG_BASE,
+    'infobuttons.text-color': themeColor.TEXT,
+    'infowindow.background-color': themeColor.BG_BASE,
+    'infowindow.text-color': themeColor.TEXT,
     'info_and_buttons.background-color': themeColor.BG_BASE,
     'info.background-color': themeColor.BG_BASE,
     'info.text-color': themeColor.TEXT,
-    'chat_panel.background-color': themeColor.BG_BASE,
-    'chat_panel.text-color': themeColor.TEXT,
+    'browseroutput.background-color': themeColor.BG_BASE,
+    'browseroutput.text-color': themeColor.TEXT,
     'outputwindow.background-color': themeColor.BG_BASE,
     'outputwindow.text-color': themeColor.TEXT,
-    'mainvsplit.background-color': themeColor.BG_BASE,
+    'mainwindow.background-color': themeColor.BG_BASE,
+    'split.background-color': themeColor.BG_BASE,
     /* Buttons */
-    'infobuttons.textb.background-color': themeColor.BUTTON,
-    'infobuttons.textb.text-color': themeColor.TEXT,
-    'infobuttons.infob.background-color': themeColor.BUTTON,
-    'infobuttons.infob.text-color': themeColor.TEXT,
-    'infobuttons.wikib.background-color': themeColor.BUTTON,
-    'infobuttons.wikib.text-color': themeColor.TEXT,
-    'infobuttons.discordb.background-color': themeColor.BUTTON,
-    'infobuttons.discordb.text-color': themeColor.TEXT,
-    'infobuttons.webmap.background-color': themeColor.BUTTON,
-    'infobuttons.webmap.text-color': themeColor.TEXT,
-    'infobuttons.fullscreenb.background-color': themeColor.BUTTON,
-    'infobuttons.fullscreenb.text-color': themeColor.TEXT,
+    'options.background-color': themeColor.BUTTON,
+    'options.text-color': themeColor.TEXT,
+    'textb.background-color': themeColor.BUTTON,
+    'textb.text-color': themeColor.TEXT,
+    'infob.background-color': themeColor.BUTTON,
+    'infob.text-color': themeColor.TEXT,
+    'fullscreen-toggle.background-color': themeColor.BUTTON,
+    'fullscreen-toggle.text-color': themeColor.TEXT,
+    // Status and verb tabs
     'output.background-color': themeColor.BG_BASE,
     'output.text-color': themeColor.TEXT,
-    /* Rpane */
-    'infobuttons.background-color': themeColor.BG_BASE,
-    'infobuttons.text-color': themeColor.TEXT,
-    /* Infowindow */
-    'infowindow.background-color': themeColor.BG_BASE,
-    'infowindow.text-color': themeColor.TEXT,
     // Say, OOC, me Buttons etc.
     'saybutton.background-color': themeColor.BG_BASE,
     'saybutton.text-color': themeColor.TEXT,
     'oocbutton.background-color': themeColor.BG_BASE,
     'oocbutton.text-color': themeColor.TEXT,
+    'whisperbutton.background-color': themeColor.BG_BASE,
+    'whisperbutton.text-color': themeColor.TEXT,
     'mebutton.background-color': themeColor.BG_BASE,
     'mebutton.text-color': themeColor.TEXT,
     'asset_cache_browser.background-color': themeColor.BG_BASE,

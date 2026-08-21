@@ -15,6 +15,7 @@ describe('ChannelIterator', () => {
     expect(channelIterator.next()).toBe('Эмоция');
     expect(channelIterator.next()).toBe('OOC');
     expect(channelIterator.next()).toBe('LOOC');
+    expect(channelIterator.next()).toBe('Молитва');
     expect(channelIterator.next()).toBe('Сказать'); // Admin, Mentor, and Dsay are blacklisted so should be skipped
   });
 

@@ -18,7 +18,7 @@ export type PlayerInfo = {
   rank?: string;
   feedbackLink?: string;
   ping?: number;
-  ignored: boolean;
+  //ignored: boolean;
   isSelf?: boolean;
 };
 
@@ -33,12 +33,12 @@ export type ServerState = {
   timeDilation: string;
   canLeaveBody: boolean;
   canAdminHelp: boolean;
-  canSeeNotes: boolean;
-  hasTicketNotification: boolean;
+  //canSeeNotes: boolean;
+  //hasTicketNotification: boolean;
   resources: ResourceLink[];
   admins: PlayerInfo[];
   players: PlayerInfo[];
-  ignoredOffline: string[];
+  //ignoredOffline: string[];
   suicideIcon: string | null;
 };
 
@@ -203,20 +203,20 @@ export function EscapeMenu() {
 function Details({ serverState }: { serverState: ServerState }) {
   return (
     <div className="escape-menu__details">
-      <div>Round ID: {serverState.roundId || 'Unset'}</div>
-      <div>Server Time: {serverState.serverTime}</div>
-      <div>Shift Time: {serverState.shiftTime}</div>
+      <div>ID раунда: {serverState.roundId || 'Unset'}</div>
+      <div>Серверное время: {serverState.serverTime}</div>
+      <div>Время раунда: {serverState.shiftTime}</div>
       <div>
-        Map:{' '}
+        Карта:{' '}
         {serverState.mapFeedbackLink ? (
           <span
             className="escape-menu__details-link"
             onClick={() => Byond.command(`.url ${serverState.mapFeedbackLink}`)}
           >
-            {serverState.mapName || 'Loading...'}
+            {serverState.mapName || 'Загрузка...'}
           </span>
         ) : (
-          serverState.mapName || 'Loading...'
+          serverState.mapName || 'Загрузка...'
         )}
         {!!serverState.mapWebmap && (
           <span
@@ -227,7 +227,7 @@ function Details({ serverState }: { serverState: ServerState }) {
           </span>
         )}
       </div>
-      <div>Time Dilation: {serverState.timeDilation}%</div>
+      <div>Задержка времени: {serverState.timeDilation}%</div>
     </div>
   );
 }

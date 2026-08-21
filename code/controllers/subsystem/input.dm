@@ -31,11 +31,11 @@ VERB_MANAGER_SUBSYSTEM_DEF(input)
 // This is for when macro sets are eventually datumized
 /datum/controller/subsystem/verb_manager/input/proc/setup_default_macro_sets()
 	macro_set = list(
-		"Any" = "\"KeyDown \[\[*\]\]\"",
-		"Any+UP" = "\"KeyUp \[\[*\]\]\"",
+		"Any" = "\"KeyDown \[\[*\]\] \[\[map.mouse-pos\]\] \[\[map.size\]\]\"",
+		"Any+UP" = "\"KeyUp \[\[*\]\] \[\[map.mouse-pos\]\] \[\[map.size\]\]\"",
 		"Back" = "\".winset \\\"input.text=\\\"\\\"\\\"\"",
 		"Tab" = "\".winset \\\"input.focus=true?map.focus=true:input.focus=true\\\"\"",
-		"Escape" = "Open-Escape-Menu",
+		"Escape" = "\".winset \\\"[SKIN_ESCAPE_MENU].is-visible=true?[SKIN_ESCAPE_MENU].is-visible=false:[SKIN_ESCAPE_MENU].is-visible=true\\\"\\n.output [SKIN_ESCAPE_MENU]:update [ESCAPE_MENU_TOGGLE_MESSAGE]\\nReset-Held-Keys\"",
 	)
 
 // Badmins just wanna have fun ♪
@@ -47,7 +47,7 @@ VERB_MANAGER_SUBSYSTEM_DEF(input)
 
 /datum/controller/subsystem/verb_manager/input/can_queue_verb(datum/callback/verb_callback/incoming_callback, control)
 	//make sure the incoming verb is actually something we specifically want to handle
-	if(control != "mapwindow.map")
+	if(control != SKIN_MAPWINDOW_MAP)
 		return FALSE
 
 	if(average_click_delay > MAXIMUM_CLICK_LATENCY || !..())

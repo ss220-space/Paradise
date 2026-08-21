@@ -17,15 +17,15 @@ export function PlayersPage({ serverState, onNavigate, onAction }: Props) {
               <PlayerEntry
                 key={admin.ckey}
                 player={admin}
-                onToggleIgnore={() =>
-                  onAction('toggle_ignore', { ckey: admin.ckey })
-                }
+                //onToggleIgnore={() =>
+                //onAction('toggle_ignore', { ckey: admin.ckey })
+                //}
               />
             ))}
           </PlayerSection>
         ) : (
           <div className="escape-menu__player-section-title">
-            No Admins Online!
+            Нет админов онлайн!
           </div>
         )}
         <PlayerSection title="Players">
@@ -39,6 +39,7 @@ export function PlayersPage({ serverState, onNavigate, onAction }: Props) {
             />
           ))}
         </PlayerSection>
+        {/*
         {serverState.ignoredOffline.length > 0 && (
           <PlayerSection title="Ignored (Offline)">
             {serverState.ignoredOffline.map((ckey) => (
@@ -56,6 +57,7 @@ export function PlayersPage({ serverState, onNavigate, onAction }: Props) {
             ))}
           </PlayerSection>
         )}
+		  */}
       </div>
     </>
   );
@@ -68,7 +70,7 @@ function BackButton({ onClick }: { onClick: () => void }) {
         <span className="escape-menu-icons40x40 template" />
         <span className="escape-menu-icons40x40 back escape-menu__icon-overlay" />
       </div>
-      <span>Back</span>
+      <span>Назад</span>
     </button>
   );
 }
@@ -93,13 +95,13 @@ function PlayerEntry({
   onToggleIgnore,
 }: {
   player: PlayerInfo;
-  onToggleIgnore: () => void;
+  onToggleIgnore?: () => void;
 }) {
   return (
     <div
       className={
-        'escape-menu__player-entry' +
-        (player.ignored ? ' escape-menu__player-entry--ignored' : '')
+        'escape-menu__player-entry' /*+
+        (player.ignored ? ' escape-menu__player-entry--ignored' : '')*/
       }
     >
       <span
@@ -114,14 +116,14 @@ function PlayerEntry({
       {player.rank && (
         <span
           className={
-            'escape-menu__player-rank' +
-            (player.feedbackLink ? ' escape-menu__player-rank--link' : '')
+            'escape-menu__player-rank' /* +
+            (player.feedbackLink ? ' escape-menu__player-rank--link' : '')*/
           }
-          onClick={
+          /*onClick={
             player.feedbackLink
               ? () => Byond.command(`.url ${player.feedbackLink}`)
               : undefined
-          }
+          }*/
         >
           {player.rank}
         </span>

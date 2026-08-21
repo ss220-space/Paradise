@@ -98,7 +98,7 @@
 	amount_per_transfer_from_this = amount
 	to_chat(user, span_notice("Теперь [declent_ru(NOMINATIVE)] буд[PLUR_ET_UT(src)] перемещать по <b>[amount]</b> единиц[DECL_SEC_MIN(amount)] вещества за раз."))
 
-GAME_VERB_SRC(/obj/item/reagent_containers/spray, empty, usr, "Вылить содержимое", null)
+GAME_VERB_SRC(/obj/item/reagent_containers, empty, usr, "Вылить содержимое", null)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return

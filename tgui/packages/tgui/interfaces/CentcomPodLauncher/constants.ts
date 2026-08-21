@@ -1,4 +1,4 @@
-import type { Placement } from '@popperjs/core';
+import type { Placement } from '@floating-ui/react';
 
 import { TabBay, TabDrop, TabPod } from './Tabs';
 import type { PodDelay, PodEffect } from './types';

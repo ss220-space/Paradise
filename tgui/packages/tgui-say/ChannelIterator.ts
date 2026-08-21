@@ -8,7 +8,8 @@ export type Channel =
   | 'Mentor'
   | 'Admin'
   | 'Dsay'
-  | 'Dev';
+  | 'Dev'
+  | 'Молитва';
 
 /**
  * ### ChannelIterator
@@ -29,6 +30,7 @@ export class ChannelIterator {
     'Admin',
     'Dsay',
     'Dev',
+    'Молитва',
   ];
   private readonly blacklist: Channel[] = ['Mentor', 'Admin', 'Dsay', 'Dev'];
   private readonly quiet: Channel[] = [
@@ -38,6 +40,7 @@ export class ChannelIterator {
     'Admin',
     'Dsay',
     'Dev',
+    'Молитва',
   ];
 
   public next(): Channel {

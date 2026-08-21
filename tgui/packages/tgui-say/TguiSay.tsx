@@ -1,9 +1,9 @@
 import './styles/main.scss';
 
-import { isEscape, KEY } from 'common/keys';
-import { type BooleanLike, classes } from 'common/react';
 import { useEffect, useRef, useState } from 'react';
 import { dragStartHandler } from 'tgui/drag';
+import { isEscape, KEY } from 'tgui-core/keys';
+import { type BooleanLike, classes } from 'tgui-core/react';
 import { type Channel, ChannelIterator } from './ChannelIterator';
 import { ChatHistory, type HistoryRecord } from './ChatHistory';
 import {

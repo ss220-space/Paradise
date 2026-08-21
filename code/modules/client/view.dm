@@ -24,7 +24,7 @@
 
 /client/proc/UpdateView()
 	if(!ViewModsActive)
-		ViewPreferedIconSize = winget(src, "mapwindow.map", "icon-size")
+		ViewPreferedIconSize = winget(src, SKIN_MAPWINDOW_MAP, "icon-size")
 
 	var/highest_range = 0
 	for(var/mod_id in ViewMods)
@@ -36,9 +36,9 @@
 
 /client/proc/SetView(view_range)
 	if(view_range == world.view)
-		winset(src, "mapwindow.map", "icon-size=[ViewPreferedIconSize]")
+		winset(src, SKIN_MAPWINDOW_MAP, "icon-size=[ViewPreferedIconSize]")
 	else
-		winset(src, "mapwindow.map", "icon-size=0")
+		winset(src, SKIN_MAPWINDOW_MAP, "icon-size=0")
 
 	view = view_range
 

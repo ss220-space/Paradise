@@ -1,4 +1,4 @@
-import { declension_ru } from 'common/string';
+import { declension_ru } from 'common/l10n';
 import { useState } from 'react';
 import {
   Box,

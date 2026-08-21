@@ -439,7 +439,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(powered_ai.anchored)
 		use_power = ACTIVE_POWER_USE
 
-GAME_VERB_DESC(/mob/living/silicon/ai, pick_icon, "Поменять дисплей", "Choose what appears on your AI core display", VERB_CATEGORY_AICOMMANDS)
+GAME_VERB_PROC_DESC(/mob/living/silicon/ai, pick_icon, "Поменять дисплей", "Choose what appears on your AI core display", VERB_CATEGORY_AICOMMANDS)
 
 	if(stat || aiRestorePowerRoutine)
 		return
