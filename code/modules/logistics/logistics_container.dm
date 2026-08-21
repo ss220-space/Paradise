@@ -4,11 +4,6 @@
 /obj/machinery/smartfridge/smart_container
 	name = "Smart Container"
 	desc = "Умный контейнер для хранения любых предметов. Вместимость масштабируется с качеством matter bin."
-	icon = 'icons/obj/machines/vending.dmi'
-	icon_state = "smartfridge"
-	contents_overlay = "smartfridge"
-	broken_overlay = "smartfridge_broken"
-	icon_lightmask = "smartfridge"
 	max_n_of_items = 63
 	fridge_circuit = /obj/item/circuitboard/smart_container
 	starting_matter_bins = 4

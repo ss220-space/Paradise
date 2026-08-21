@@ -1865,6 +1865,14 @@
 	},
 /turf/simulated/floor/carpet/blue,
 /area/station/command/office/cmo)
+"aps" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/computer/logistics_core,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "brown"
+	},
+/area/station/cargo/delivery)
 "apt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -9981,6 +9989,14 @@
 /obj/item/rcs,
 /obj/item/rcs,
 /obj/item/rcs,
+/obj/item/logistics_interface,
+/obj/item/logistics_interface,
+/obj/item/logistics_interface,
+/obj/item/logistics_interface,
+/obj/item/circuitboard/smart_container,
+/obj/item/circuitboard/smart_container,
+/obj/item/circuitboard/smart_container,
+/obj/item/logistics_interface,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -199348,7 +199364,7 @@ jDr
 eEI
 cNy
 tMS
-sRX
+aps
 nto
 djx
 dbL
