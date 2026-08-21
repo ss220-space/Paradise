@@ -10,9 +10,11 @@
 #define CUSTOM_OUTFIT_ACTION_DENTAL_IMPLANT "dental_implant"
 #define CUSTOM_OUTFIT_ACTION_CLICK "click"
 #define CUSTOM_OUTFIT_ACTION_CLEAR "clear"
+#define CUSTOM_OUTFIT_ACTION_EDIT_ID "edit_id"
 
 #define CUSTOM_OUTFIT_CHOICE_USE_ANYWAY "Use anyway"
 #define CUSTOM_OUTFIT_CHOICE_CANCEL "Cancel"
+
 
 #define CUSTOM_OUTFIT_DEFAULT_COMPANY "Cybernetic"
 #define CUSTOM_OUTFIT_DEFAULT_REAGENT_AMOUNT 5
@@ -44,11 +46,14 @@
 	var/list/external_augmentations = list()
 	var/list/internal_augmentations = list()
 	var/list/reagent_volumes = list()
+	var/list/id_card_data = null
 	var/body_dirty = FALSE
 	var/backpack_dirty = FALSE
 	var/dental_dirty = FALSE
 	var/obj/item/reagent_containers/food/pill/dental_holder
 	var/datum/reagents_editor/custom_outfit_dental/dental_editor
+	var/datum/custom_outfit_id_editor/id_card_editor
+
 	var/cached_preview_icon
 	var/cached_preview_key
 	var/preview_dirty = TRUE
@@ -211,6 +216,7 @@
 	target_mob = null
 	QDEL_NULL(dental_editor)
 	QDEL_NULL(dental_holder)
+	QDEL_NULL(id_card_editor)
 	QDEL_NULL(edited_outfit)
 	LAZYCLEARLIST(external_augmentations)
 	LAZYCLEARLIST(internal_augmentations)
@@ -227,9 +233,15 @@
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
+/datum/custom_outfit/ui_static_data(mob/user)
+	. = ..()
+	.["access_regions"] = get_accesslist_static_data(REGION_GENERAL, REGION_COMMAND)
+	.["joblist"] = get_joblist_for_tgui()
+
 /datum/custom_outfit/ui_data(mob/user)
 	var/list/data = list()
 	data["outfit"] = serialize_outfit()
+
 	data["backpack_items"] = serialize_backpack()
 	data["implants"] = serialize_implants()
 	data["augmentations"] = serialize_augmentations()
@@ -323,6 +335,11 @@
 			clear_slot(params["slot"])
 			. = TRUE
 
+		if(CUSTOM_OUTFIT_ACTION_EDIT_ID)
+			ensure_id_card_data()
+			open_id_card_editor(user)
+			. = TRUE
+
 	if(. && !QDELETED(ui))
 		preview_dirty = TRUE
 		SStgui.try_update_ui(user, src, ui)
@@ -343,6 +360,13 @@
 	if(!path_text)
 		path_text = params["ref"]
 	return text2path(path_text)
+
+/datum/custom_outfit/proc/get_joblist_for_tgui()
+	. = list()
+	for(var/job_title in GLOB.joblist)
+		. += job_title
+	. += "Custom"
+	return .
 
 /datum/custom_outfit/proc/is_valid_item_entry(item_path, count)
 	return ispath(item_path, /obj/item) && isnum(count) && count > 0
@@ -366,9 +390,33 @@
 		if(!equipped_item)
 			continue
 		edited_outfit.vars[outfit_slot] = equipped_item.type
+	capture_id_card_data(human_target)
 	capture_backpack(human_target)
 	capture_implants(human_target)
 	capture_augmentations(human_target)
+
+/datum/custom_outfit/proc/capture_id_card_data(mob/living/carbon/human/human_target)
+	var/obj/item/id_slot = human_target.wear_id
+	if(!id_slot)
+		id_card_data = null
+		return
+	var/obj/item/card/id/id_card = id_slot.GetID()
+	if(!is_id_card(id_card))
+		id_card_data = null
+		return
+	id_card_data = list(
+		"name" = id_card.registered_name,
+		"assignment" = id_card.assignment,
+		"access" = id_card.access.Copy(),
+		"sex" = id_card.sex,
+		"age" = id_card.age,
+		"blood_type" = id_card.blood_type,
+		"dna_hash" = id_card.dna_hash,
+		"fingerprint_hash" = id_card.fingerprint_hash,
+		"associated_account_number" = id_card.associated_account_number,
+		"mining_points" = id_card.mining_points,
+		"untrackable" = id_card.untrackable,
+	)
 
 /datum/custom_outfit/proc/capture_backpack(mob/living/carbon/human/human_target)
 	if(!isstorage(human_target.back))
@@ -409,6 +457,10 @@
 	. = list()
 	for(var/slot, slot_path in outfit_data)
 		.[slot] = entry(slot_path)
+	if(edited_outfit.vars[CUSTOM_OUTFIT_SLOT_ID])
+		var/list/id_entry = .[CUSTOM_OUTFIT_SLOT_ID]
+		if(islist(id_entry) && id_card_data)
+			id_entry["id_card"] = serialize_id_card_data()
 
 /datum/custom_outfit/proc/serialize_backpack()
 	. = list()
@@ -484,6 +536,112 @@
 		)
 	return data
 
+/datum/custom_outfit/proc/initialize_id_card_data(id_card_path)
+	if(!ispath(id_card_path, /obj/item/card/id))
+		id_card_data = null
+		return
+	var/obj/item/card/id/id_card_ref = id_card_path
+	var/list/initial_access = initial(id_card_ref.access)
+	id_card_data = list(
+		"name" = initial(id_card_ref.registered_name),
+		"assignment" = initial(id_card_ref.assignment),
+		"access" = islist(initial_access) ? initial_access.Copy() : list(),
+		"sex" = initial(id_card_ref.sex),
+		"age" = initial(id_card_ref.age),
+		"blood_type" = initial(id_card_ref.blood_type),
+		"dna_hash" = initial(id_card_ref.dna_hash),
+		"fingerprint_hash" = initial(id_card_ref.fingerprint_hash),
+		"associated_account_number" = initial(id_card_ref.associated_account_number),
+		"mining_points" = initial(id_card_ref.mining_points),
+		"untrackable" = initial(id_card_ref.untrackable),
+	)
+
+/datum/custom_outfit/proc/ensure_id_card_data()
+	if(!id_card_data)
+		id_card_data = list(
+			"name" = null,
+			"assignment" = null,
+			"access" = list(),
+			"sex" = null,
+			"age" = null,
+			"blood_type" = null,
+			"dna_hash" = null,
+			"fingerprint_hash" = null,
+			"associated_account_number" = null,
+			"mining_points" = null,
+			"untrackable" = FALSE,
+		)
+
+/datum/custom_outfit/proc/serialize_id_card_data()
+	if(!id_card_data)
+		return
+	. = list(
+		"name" = id_card_data["name"],
+		"assignment" = id_card_data["assignment"],
+		"access" = id_card_data["access"],
+		"sex" = id_card_data["sex"],
+		"age" = id_card_data["age"],
+		"blood_type" = id_card_data["blood_type"],
+		"dna_hash" = id_card_data["dna_hash"],
+		"fingerprint_hash" = id_card_data["fingerprint_hash"],
+		"associated_account_number" = id_card_data["associated_account_number"],
+		"mining_points" = id_card_data["mining_points"],
+		"untrackable" = id_card_data["untrackable"],
+	)
+
+/datum/custom_outfit/proc/apply_id_card_data(mob/living/carbon/human/human_target)
+	if(!id_card_data)
+		return
+	var/obj/item/id_slot = human_target.wear_id
+	if(!id_slot)
+		return
+	var/obj/item/card/id/id_card = id_slot.GetID()
+	if(!is_id_card(id_card))
+		return
+	if(id_card_data["name"])
+		id_card.registered_name = id_card_data["name"]
+	if(id_card_data["assignment"])
+		id_card.assignment = id_card_data["assignment"]
+	if(islist(id_card_data["access"]))
+		var/list/access_to_apply = id_card_data["access"]
+		id_card.access = access_to_apply.Copy()
+	if(id_card_data["sex"])
+		id_card.sex = id_card_data["sex"]
+	if(isnum(id_card_data["age"]))
+		id_card.age = id_card_data["age"]
+	if(id_card_data["blood_type"])
+		id_card.blood_type = id_card_data["blood_type"]
+	if(id_card_data["dna_hash"])
+		id_card.dna_hash = id_card_data["dna_hash"]
+	if(id_card_data["fingerprint_hash"])
+		id_card.fingerprint_hash = id_card_data["fingerprint_hash"]
+	if(isnum(id_card_data["associated_account_number"]))
+		id_card.associated_account_number = id_card_data["associated_account_number"]
+	if(isnum(id_card_data["mining_points"]))
+		id_card.mining_points = id_card_data["mining_points"]
+	if(!isnull(id_card_data["untrackable"]))
+		id_card.untrackable = id_card_data["untrackable"]
+	id_card.update_label()
+	id_card.RebuildHTML()
+
+/datum/custom_outfit/proc/grant_access_in_region(region_id)
+	ensure_id_card_data()
+	var/list/region_accesses = get_region_accesses(region_id)
+	if(islist(region_accesses))
+		for(var/access in region_accesses)
+			if(isnum(access) && !(access in id_card_data["access"]))
+				id_card_data["access"] += access
+	return TRUE
+
+/datum/custom_outfit/proc/deny_access_in_region(region_id)
+	ensure_id_card_data()
+	var/list/region_accesses = get_region_accesses(region_id)
+	if(islist(region_accesses))
+		for(var/access in region_accesses)
+			if(isnum(access))
+				id_card_data["access"] -= access
+	return TRUE
+
 /datum/custom_outfit/proc/make_final_outfit(preserve_implants = FALSE)
 	var/datum/outfit/final_outfit = new edited_outfit.type
 	final_outfit.copy_from(edited_outfit)
@@ -517,6 +675,7 @@
 
 	human_target.equipOutfit(final_outfit)
 	restore_stashed_items(human_target, stashed_items)
+	apply_id_card_data(human_target)
 
 	if(kept_existing_back && backpack_dirty)
 		sync_existing_backpack(human_target, new_backpack_contents)
@@ -947,6 +1106,8 @@
 		if(confirm_choice != CUSTOM_OUTFIT_CHOICE_USE_ANYWAY)
 			return FALSE
 	edited_outfit.vars[slot] = choice
+	if(slot == CUSTOM_OUTFIT_SLOT_ID)
+		initialize_id_card_data(choice)
 	if(slot == CUSTOM_OUTFIT_SLOT_BACK)
 		backpack_dirty = TRUE
 		if(!ispath(choice, /obj/item/storage))
@@ -957,6 +1118,8 @@
 	if(!(slot in slot_to_human_var))
 		return FALSE
 	edited_outfit.vars[slot] = null
+	if(slot == CUSTOM_OUTFIT_SLOT_ID)
+		id_card_data = null
 	if(slot == CUSTOM_OUTFIT_SLOT_BACK)
 		backpack_dirty = TRUE
 		edited_outfit.backpack_contents.Cut()
@@ -1037,6 +1200,11 @@
 		dental_editor = new /datum/reagents_editor/custom_outfit_dental(dental_holder, src)
 	dental_editor.ui_interact(user)
 
+/datum/custom_outfit/proc/open_id_card_editor(mob/user)
+	if(QDELETED(id_card_editor))
+		id_card_editor = new /datum/custom_outfit_id_editor(src)
+	id_card_editor.ui_interact(user)
+
 /datum/custom_outfit/proc/on_dental_editor_closed()
 	sync_dental_reagents()
 	dental_dirty = TRUE
@@ -1076,6 +1244,164 @@
 	. = ..()
 	if(linked_outfit)
 		linked_outfit.on_dental_editor_closed()
+
+/datum/custom_outfit_id_editor
+	var/datum/custom_outfit/linked_outfit
+
+/datum/custom_outfit_id_editor/New(datum/custom_outfit/owner)
+	linked_outfit = owner
+
+/datum/custom_outfit_id_editor/Destroy()
+	if(linked_outfit)
+		linked_outfit.id_card_editor = null
+		linked_outfit = null
+	return ..()
+
+/datum/custom_outfit_id_editor/ui_state(mob/user)
+	return ADMIN_STATE(R_EVENT)
+
+/datum/custom_outfit_id_editor/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "CustomOutfitID", "Редактор ID-карты")
+		ui.set_autoupdate(FALSE)
+		ui.open()
+
+/datum/custom_outfit_id_editor/ui_close(mob/user)
+	qdel(src)
+
+/datum/custom_outfit_id_editor/ui_static_data(mob/user)
+	if(QDELETED(linked_outfit))
+		return
+	var/list/data = list()
+	data["access_regions"] = get_accesslist_static_data(REGION_GENERAL, REGION_COMMAND)
+	data["joblist"] = linked_outfit.get_joblist_for_tgui()
+	return data
+
+/datum/custom_outfit_id_editor/ui_data(mob/user)
+	if(QDELETED(linked_outfit))
+		return
+	var/list/data = list()
+	var/list/id_data = linked_outfit.id_card_data
+	if(islist(id_data))
+		data["id_card"] = linked_outfit.serialize_id_card_data()
+	else
+		data["id_card"] = null
+	return data
+
+/datum/custom_outfit_id_editor/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	if(..())
+		return
+	if(QDELETED(linked_outfit))
+		return FALSE
+	. = TRUE
+	var/mob/user = ui.user
+	if(!user)
+		return TRUE
+	linked_outfit.ensure_id_card_data()
+	var/list/id_data = linked_outfit.id_card_data
+
+	switch(action)
+		if("set_id_name")
+			var/new_name = reject_bad_name(params["name"], allow_numbers = TRUE)
+			if(new_name)
+				id_data["name"] = new_name
+			else
+				. = FALSE
+
+		if("set_id_assignment")
+			var/new_assignment = params["assignment"]
+			if(istext(new_assignment))
+				id_data["assignment"] = new_assignment
+			else
+				. = FALSE
+
+		if("set_id_sex")
+			var/new_sex = params["sex"]
+			if(new_sex in list("Мужской", "Женский"))
+				id_data["sex"] = new_sex
+			else
+				. = FALSE
+
+		if("set_id_age")
+			var/new_age = text2num(params["age"])
+			if(isnum(new_age) && new_age >= 17 && new_age <= 120)
+				id_data["age"] = new_age
+			else
+				. = FALSE
+
+		if("set_id_blood_type")
+			var/new_blood_type = params["blood_type"]
+			if(istext(new_blood_type))
+				id_data["blood_type"] = new_blood_type
+			else
+				. = FALSE
+
+		if("set_id_dna_hash")
+			var/new_dna_hash = params["dna_hash"]
+			if(istext(new_dna_hash))
+				id_data["dna_hash"] = new_dna_hash
+			else
+				. = FALSE
+
+		if("set_id_fingerprint_hash")
+			var/new_fingerprint_hash = params["fingerprint_hash"]
+			if(istext(new_fingerprint_hash))
+				id_data["fingerprint_hash"] = new_fingerprint_hash
+			else
+				. = FALSE
+
+		if("set_id_account")
+			var/new_account = text2num(params["account"])
+			if(isnum(new_account) && new_account >= 0)
+				id_data["associated_account_number"] = new_account
+			else
+				. = FALSE
+
+		if("set_id_mining_points")
+			var/new_mining_points = text2num(params["mining_points"])
+			if(isnum(new_mining_points) && new_mining_points >= 0)
+				id_data["mining_points"] = new_mining_points
+			else
+				. = FALSE
+
+		if("set_id_untrackable")
+			id_data["untrackable"] = text2num(params["untrackable"]) ? TRUE : FALSE
+
+		if("toggle_id_access")
+			var/access = text2num(params["access"])
+			if(!isnum(access))
+				. = FALSE
+			else if(access in id_data["access"])
+				id_data["access"] -= access
+			else
+				id_data["access"] += access
+
+		if("grant_id_all_access")
+			id_data["access"] = get_all_accesses()
+
+		if("clear_id_access")
+			id_data["access"] = list()
+
+		if("grant_region_access")
+			var/region_id = text2num(params["region"])
+			if(!isnum(region_id))
+				. = FALSE
+			else
+				linked_outfit.grant_access_in_region(region_id)
+
+		if("clear_region_access")
+			var/region_id = text2num(params["region"])
+			if(!isnum(region_id))
+				. = FALSE
+			else
+				linked_outfit.deny_access_in_region(region_id)
+
+	if(. && !QDELETED(ui))
+		linked_outfit.preview_dirty = TRUE
+		SStgui.try_update_ui(user, src, ui)
+		SStgui.update_uis(linked_outfit)
+	return .
 
 /datum/custom_outfit_item_picker
 	var/datum/custom_outfit/owner_outfit
@@ -1165,6 +1491,7 @@
 #undef CUSTOM_OUTFIT_ACTION_DENTAL_IMPLANT
 #undef CUSTOM_OUTFIT_ACTION_CLICK
 #undef CUSTOM_OUTFIT_ACTION_CLEAR
+#undef CUSTOM_OUTFIT_ACTION_EDIT_ID
 
 #undef CUSTOM_OUTFIT_CHOICE_USE_ANYWAY
 #undef CUSTOM_OUTFIT_CHOICE_CANCEL

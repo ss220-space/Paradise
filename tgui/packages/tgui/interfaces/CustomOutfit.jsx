@@ -54,11 +54,11 @@ const SLOT_ROWS = [
 
 export const CustomOutfit = (props) => {
   const { act, data } = useBackend();
+
   const hasBack = !!data.outfit?.back?.path;
   const implants = data.implants || [];
   const backpackItems = data.backpack_items || [];
   const augmentations = data.augmentations || [];
-  const hasMindshield = data.mindshield;
   const hasDental = data.has_dental_implant;
   const dentalList = data.dental_reagents || [];
   const dentalTooltip = hasDental
@@ -66,6 +66,8 @@ export const CustomOutfit = (props) => {
         .map((reagent) => `${reagent.name}: ${reagent.amount}u`)
         .join('\n')
     : 'Добавить реагенты в зубной имплант';
+
+  const idOutfit = data.outfit?.id;
 
   return (
     <Window title="Custom Outfit" width={900} height={625} theme="admin" fill>
@@ -88,36 +90,36 @@ export const CustomOutfit = (props) => {
           </Stack.Item>
 
           <Stack.Item grow={4} basis={0}>
-            <Section
-              fill
-              title="Результат"
-              buttons={
-                <>
-                  <Button
-                    icon="file-upload"
-                    tooltip="Загрузить из файла"
-                    tooltipPosition="left"
-                    onClick={() => act('load')}
-                  />
-                  <Button
-                    icon="plus"
-                    tooltip="Сохранить в файл"
-                    tooltipPosition="left"
-                    onClick={() => act('save')}
-                  />
-                  <Button
-                    icon="check"
-                    color="good"
-                    tooltip="Применить снаряжение на персонажа"
-                    tooltipPosition="left"
-                    onClick={() => act('apply')}
-                  />
-                </>
-              }
-            >
-              <Stack fill vertical>
-                <Stack.Item>
-                  <Stack>
+            <Stack fill vertical>
+              <Stack.Item>
+                <Section
+                  fill
+                  title="Результат"
+                  buttons={
+                    <>
+                      <Button
+                        icon="file-upload"
+                        tooltip="Загрузить из файла"
+                        tooltipPosition="left"
+                        onClick={() => act('load')}
+                      />
+                      <Button
+                        icon="plus"
+                        tooltip="Сохранить в файл"
+                        tooltipPosition="left"
+                        onClick={() => act('save')}
+                      />
+                      <Button
+                        icon="check"
+                        color="good"
+                        tooltip="Применить снаряжение на персонажа"
+                        tooltipPosition="left"
+                        onClick={() => act('apply')}
+                      />
+                    </>
+                  }
+                >
+                  <Stack fill vertical>
                     <Stack.Item grow basis={0}>
                       <Button
                         fluid
@@ -127,14 +129,23 @@ export const CustomOutfit = (props) => {
                         tooltip={dentalTooltip}
                         onClick={() => act('dental_implant')}
                       />
+                      <Button
+                        fluid
+                        icon="id-card"
+                        content="Редактировать ID-карту"
+                        tooltipPosition="left"
+                        color={idOutfit?.id_card ? 'blue' : 'gray'}
+                        disabled={!idOutfit?.path}
+                        onClick={() => act('edit_id')}
+                      />
+                    </Stack.Item>
+                    <Stack.Item grow basis={0}>
+                      <PreviewImage base64={data.preview_icon} />
                     </Stack.Item>
                   </Stack>
-                </Stack.Item>
-                <Stack.Item grow basis={0}>
-                  <PreviewImage base64={data.preview_icon} />
-                </Stack.Item>
-              </Stack>
-            </Section>
+                </Section>
+              </Stack.Item>
+            </Stack>
           </Stack.Item>
 
           <Stack.Item grow={3} basis={0}>
@@ -180,14 +191,14 @@ export const CustomOutfit = (props) => {
                 </Section>
               </Stack.Item>
               <Stack.Item grow basis={0}>
-                <Section fill scrollable title="Рюкзак">
+                <Section fill scrollable title="Рюкозак">
                   <ItemGrid
                     items={backpackItems}
                     onAdd={() => act('add_backpack_item')}
                     onRemove={(item) => act('remove_item', { ref: item.path })}
                     addTooltip="Добавить предмет"
                     addDisabled={!hasBack}
-                    addDisabledTooltip="Добавьте рюкзак"
+                    addDisabledTooltip="Добавьте рюкозак"
                   />
                 </Section>
               </Stack.Item>

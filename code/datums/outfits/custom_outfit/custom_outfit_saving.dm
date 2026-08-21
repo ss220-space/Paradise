@@ -18,6 +18,7 @@
 	for(var/reagent_path, volume in reagent_volumes)
 		reagents["[reagent_path]"] = volume
 	.["reagent_volumes"] = reagents
+	.["id_card_data"] = id_card_data
 
 /datum/custom_outfit/proc/save_to_file(mob/user)
 	if(!user.client)
@@ -73,6 +74,8 @@
 		return FALSE
 	if(!islist(data["reagent_volumes"]))
 		return FALSE
+	if(data["id_card_data"] != null && !islist(data["id_card_data"]))
+		return FALSE
 	return TRUE
 
 /datum/custom_outfit/proc/apply_save_data(list/save_data)
@@ -119,11 +122,37 @@
 			continue
 		new_reagents[reagent_path] = min(amount, CUSTOM_OUTFIT_MAX_REAGENT_AMOUNT)
 
+	var/list/new_id_card_data = null
+	var/list/id_data = save_data["id_card_data"]
+	if(islist(id_data))
+		new_id_card_data = list(
+			"name" = istext(id_data["name"]) ? id_data["name"] : null,
+			"assignment" = istext(id_data["assignment"]) ? id_data["assignment"] : null,
+			"access" = list(),
+			"sex" = (id_data["sex"] in list("Мужской", "Женский")) ? id_data["sex"] : null,
+			"age" = isnum(id_data["age"]) ? clamp(id_data["age"], 17, 120) : null,
+			"blood_type" = istext(id_data["blood_type"]) ? id_data["blood_type"] : null,
+			"dna_hash" = istext(id_data["dna_hash"]) ? id_data["dna_hash"] : null,
+			"fingerprint_hash" = istext(id_data["fingerprint_hash"]) ? id_data["fingerprint_hash"] : null,
+			"associated_account_number" = isnum(id_data["associated_account_number"]) ? max(id_data["associated_account_number"], 0) : null,
+			"mining_points" = isnum(id_data["mining_points"]) ? max(id_data["mining_points"], 0) : null,
+			"untrackable" = id_data["untrackable"] ? TRUE : FALSE,
+		)
+		if(islist(id_data["access"]))
+			for(var/access_entry in id_data["access"])
+				var/access_num = isnum(access_entry) ? access_entry : text2num("[access_entry]")
+				if(!isnum(access_num))
+					continue
+				if(!(access_num in get_all_accesses()))
+					continue
+				new_id_card_data["access"] += access_num
+
 	qdel(edited_outfit)
 	edited_outfit = loaded_outfit
 	external_augmentations = new_external
 	internal_augmentations = new_internal
 	reagent_volumes = new_reagents
+	id_card_data = new_id_card_data
 
 	body_dirty = TRUE
 	backpack_dirty = TRUE
