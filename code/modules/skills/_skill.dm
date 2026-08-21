@@ -15,7 +15,7 @@ GLOBAL_LIST_EMPTY(skill_manual_types)
 	var/list/quality_mod_names = list()
 	// Training in middle of round
 	var/experience = 0
-	var/epx_per_level = 100 // in worst case - about 8-9 minutes of training
+	var/epx_per_level = EXP_TO_UPGRADE_SKILL
 	var/can_train = TRUE
 	// Default modifiers
 	var/speed_modifiers = alist(
@@ -67,16 +67,16 @@ GLOBAL_LIST_EMPTY(skill_manual_types)
 	else
 		log_debug("not found modifier result for user=[user.name] skill=[src.type] modifiers=[modifiers] level=[level]")
 
-/datum/skill/proc/try_level_up(mob/living/user, alist/results, mod_name)
+/datum/skill/proc/try_level_up(mob/living/user)
 	SIGNAL_HANDLER
-	upgrade(user, mod_name)
+	upgrade(user)
 
-/datum/skill/proc/upgrade(mob/living/user, mod_name)
+/datum/skill/proc/upgrade(mob/living/user)
 	SIGNAL_HANDLER
 	if(!can_train)
 		return
 	GET_SKILL_LEVEL(user, src.type, level) // this is cursed, but will do
-	if(level == null || level == SKILL_LEVEL_PROFESSIONAL) // they do not need more training
+	if(level == null || level >= SKILL_LEVEL_PROFESSIONAL) // they do not need more training
 		return
 
 	experience++

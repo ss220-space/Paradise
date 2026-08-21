@@ -2,6 +2,7 @@
 /datum/skill/service
 	category = "Сервис"
 	category_color = "#6ca729"
+	epx_per_level = EXP_TO_UPGRADE_SKILL / 3
 
 /datum/skill/service/drink_mixing
 	id = "service.drink_mixing"

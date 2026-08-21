@@ -13,6 +13,9 @@
 /// Skill level if not exists skill datum
 #define DEFAULT_SKILL_LEVEL 1
 
+/// Times needed to use skill to upgrade it
+#define EXP_TO_UPGRADE_SKILL 100
+
 /// Countf of free skill points by default
 #define BASIC_SKILL_POINTS_COUNT 5
 /// Countf of free skill points for some roles
