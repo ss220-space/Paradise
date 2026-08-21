@@ -345,7 +345,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(prob(50))
 		die()
 		return
-	source.drop_transfer_item_to_loc(src, get_turf(src))
+	source.drop_item_ground(src, get_turf(src))
 
 /obj/item/clothing/mask/cigarette/proc/die()
 	var/turf/T = get_turf(src)
