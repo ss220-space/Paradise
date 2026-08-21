@@ -13,10 +13,8 @@ GLOBAL_LIST_EMPTY(skill_manual_types)
 	var/desc
 	var/list/duration_mod_names = list()
 	var/list/quality_mod_names = list()
-	// Training in middle of round
-	var/experience = 0
+	// Needed epxerience to gain new level
 	var/exp_per_level = EXP_TO_UPGRADE_SKILL
-	var/can_train = TRUE
 	// Default modifiers
 	var/speed_modifiers = alist(
 		SKILL_LEVEL_NONE = 1.5,
@@ -73,21 +71,24 @@ GLOBAL_LIST_EMPTY(skill_manual_types)
 
 /datum/skill/proc/upgrade(mob/living/user)
 	SIGNAL_HANDLER
-	if(!can_train)
+	var/datum/mind/user_mind = user.mind
+	if(!user_mind.can_train)
 		return
 	GET_SKILL_LEVEL(user, src.type, level) // this is cursed, but will do
 	if(level == null || level >= SKILL_LEVEL_PROFESSIONAL) // they do not need more training
 		return
 
-	experience++
-	can_train = FALSE
-	addtimer(VARSET_CALLBACK(src, can_train, TRUE), 5 SECONDS) // need time to think, how to imrpove
-	if(!prob((experience/exp_per_level)*100))
+	if(!(type in user_mind.experience_skill))
+		user_mind.experience_skill[type] = 0
+	user_mind.experience_skill[type] += 1
+	user_mind.can_train = FALSE
+	addtimer(VARSET_CALLBACK(user_mind, can_train, TRUE), 5 SECONDS) // need time to think, how to imrpove
+	if(!prob((user_mind.experience_skill[type]/exp_per_level)*100))
 		return
 
-	experience = 0
-	user.mind.experience_skill_bonuses[src.type] += 1
-	user.mind.refresh_skills()
+	user_mind.experience_skill[type] = 0
+	user_mind.experience_skill_bonuses[type] += 1
+	user_mind.refresh_skills()
 
 
 /datum/skill/proc/remove_from_mob(mob/owner)

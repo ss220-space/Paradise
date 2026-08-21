@@ -143,8 +143,12 @@
 	/// Active skill bonuses from training
 	var/list/experience_skill_bonuses = list()
 	var/list/job_alt_skills
-	/// Active skill bonuses from skill manuals
+	/// Holds read pages from reading
 	var/list/read_manuals = list()
+	/// Holds experience from doing skills
+	var/list/experience_skill = list()
+	/// Decides if player can get experience in skills
+	var/can_train = TRUE
 
 	///Owned cyborg skin permissions
 	var/list/cyborg_skin_permissions = list()
