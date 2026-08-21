@@ -74,6 +74,7 @@
 	var/list/cached_manual_bonuses = active_skill_bonuses
 	var/list/cached_neurotrainer_bonuses = active_neurotrainer_bonuses
 	var/list/cached_manual_skill_bonuses = manual_skill_bonuses
+	var/list/cached_experience_bonuses = experience_skill_bonuses
 	var/list/cached_selected_skills_levels = selected_skills_levels
 	for(var/skill_name, skill_datum in GLOB.skills)
 		var/datum/skill/skill = skill_datum
@@ -95,6 +96,8 @@
 			level = max(min(level + cached_manual_bonuses[skill_type], SKILL_LEVEL_PROFESSIONAL), level)
 		if(skill_type in cached_manual_skill_bonuses)
 			level = max(min(level + cached_manual_skill_bonuses[skill_type], SKILL_LEVEL_PROFESSIONAL), level)
+		if(skill_type in cached_experience_bonuses)
+			level = max(min(level + cached_experience_bonuses[skill_type], SKILL_LEVEL_PROFESSIONAL), level)
 		if(skill_type in cached_neurotrainer_bonuses)
 			level = min(level + cached_neurotrainer_bonuses[skill_type], SKILL_LEVEL_LEGEND)
 		if(level == SKILL_LEVEL_UNAVAILABLE)

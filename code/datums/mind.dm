@@ -140,6 +140,8 @@
 	var/list/manual_skill_bonuses = list()
 	/// Active skill bonuses from neurotrainer
 	var/list/active_neurotrainer_bonuses = list()
+	/// Active skill bonuses from training
+	var/list/experience_skill_bonuses = list()
 	var/list/job_alt_skills
 	/// Active skill bonuses from skill manuals
 	var/list/read_manuals = list()

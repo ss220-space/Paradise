@@ -13,6 +13,10 @@ GLOBAL_LIST_EMPTY(skill_manual_types)
 	var/desc
 	var/list/duration_mod_names = list()
 	var/list/quality_mod_names = list()
+	// Training in middle of round
+	var/experience = 0
+	var/epx_per_level = 100 // in worst case - about 8-9 minutes of training
+	var/can_train = TRUE
 	// Default modifiers
 	var/speed_modifiers = alist(
 		SKILL_LEVEL_NONE = 1.5,
@@ -47,6 +51,7 @@ GLOBAL_LIST_EMPTY(skill_manual_types)
 /datum/skill/proc/apply_to_mob(mob/owner)
 	for(var/mod_name in skills_mods)
 		RegisterSignal(owner, COMSIG_GET_SKILL_MOD(mod_name), PROC_REF(get_skill_modifier))
+		RegisterSignal(owner, COMSIG_GET_SKILL_MOD(mod_name), PROC_REF(try_level_up))
 
 /datum/skill/proc/get_skill_modifier(mob/living/user, alist/results, mod_name)
 	SIGNAL_HANDLER
@@ -61,6 +66,29 @@ GLOBAL_LIST_EMPTY(skill_manual_types)
 		results[mod_name] = mod
 	else
 		log_debug("not found modifier result for user=[user.name] skill=[src.type] modifiers=[modifiers] level=[level]")
+
+/datum/skill/proc/try_level_up(mob/living/user, alist/results, mod_name)
+	SIGNAL_HANDLER
+	upgrade(user, mod_name)
+
+/datum/skill/proc/upgrade(mob/living/user, mod_name)
+	SIGNAL_HANDLER
+	if(!can_train)
+		return
+	GET_SKILL_LEVEL(user, src.type, level) // this is cursed, but will do
+	if(level == null || level == SKILL_LEVEL_PROFESSIONAL) // they do not need more training
+		return
+
+	experience++
+	can_train = FALSE
+	addtimer(VARSET_CALLBACK(src, can_train, TRUE), 5 SECONDS) // need time to think, how to imrpove
+	if(!prob((experience/epx_per_level)*100))
+		return
+
+	experience = 0
+	user.mind.experience_skill_bonuses[src.type] += 1
+	user.mind.refresh_skills()
+
 
 /datum/skill/proc/remove_from_mob(mob/owner)
 	for(var/mod_name in skills_mods)
