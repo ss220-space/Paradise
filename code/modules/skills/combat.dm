@@ -2,7 +2,7 @@
 /datum/skill/combat
 	category = "Боевые"
 	category_color = "#dd3535"
-	epx_per_level = EXP_TO_UPGRADE_SKILL * 1.5
+	exp_per_level  = EXP_TO_UPGRADE_SKILL * 1.5
 
 
 // MARK: Accuracy

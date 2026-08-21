@@ -8,7 +8,7 @@
 	name = "Переноска"
 	desc = "Влияет на переноски вещей."
 	duration_mod_names = list(PULL_SLOWDOWN_MODIFIERS, GRAB_SPEED_MODIFIERS)
-	epx_per_level = EXP_TO_UPGRADE_SKILL * 1.5
+	exp_per_level  = EXP_TO_UPGRADE_SKILL * 1.5
 
 /datum/skill/general/mech_drive
 	id = "general.mech_drive"
@@ -16,7 +16,7 @@
 	desc = "Влияет на скорость передвижения мехов и подов. Также влияет на скорость разряда батареи."
 	duration_mod_names = list(MECHA_CLIMBING_SPEED_MOD)
 	quality_mod_names = list(MECHA_CELL_USAGE_MOD, SPACEPOD_BATTERY_USAGE_MOD)
-	epx_per_level = EXP_TO_UPGRADE_SKILL * 1.5
+	exp_per_level  = EXP_TO_UPGRADE_SKILL * 1.5
 	skills_mods = alist(
 		MECHA_DRIVING_SPEED_MOD = alist(
 			SKILL_LEVEL_NONE = 1.75,
@@ -35,7 +35,7 @@
 	name = "ВКД"
 	desc = "Влияет на скорость одевания МЭКов и РИГов."
 	duration_mod_names = list(MOD_ACTIVATION_SPEED_MOD, SPACESUIT_SLOWDOWN_MOD)
-	epx_per_level = EXP_TO_UPGRADE_SKILL * 1.5
+	exp_per_level  = EXP_TO_UPGRADE_SKILL * 1.5
 
 /datum/skill/general/cooking
 	id = "general.cooking"
@@ -43,7 +43,7 @@
 	desc = "Влияет на готовку."
 	duration_mod_names = list(COOKING_SPEED_MOD, BUTCHERING_SPEED_MOD)
 	quality_mod_names = list(COOKING_BROKE_MOD)
-	epx_per_level = EXP_TO_UPGRADE_SKILL / 1.5
+	exp_per_level  = EXP_TO_UPGRADE_SKILL / 1.5
 	skills_mods = alist(
 		COOKING_EXTRA_COUNT_CHANCE = alist(
 			SKILL_LEVEL_NONE = 0,
