@@ -31,7 +31,7 @@
 
 /datum/action/changeling/augmented_eyesight/Remove(mob/remove_from)
 	eyes.remove(remove_from)
-	. = ..()
+	return ..()
 
 /obj/item/organ/internal/cyberimp/eyes/shield/ling
 	name = "protective membranes"
