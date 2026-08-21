@@ -10,14 +10,12 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	pathing_pass_method = TURF_PATHING_PASS_PROC
 	underfloor_accessibility = UNDERFLOOR_INTERACTABLE //this means wires go o- you can touch wires, yes
-	var/can_cover_up = TRUE
-	var/can_build_on = TRUE
-
 	// PARACODE
-	thermal_conductivity = 0.040
 	heat_capacity = 10000
 	transparent_floor = TURF_FULLTRANSPARENT // bruh
 	intact = FALSE //this means wires go on top
+	var/can_cover_up = TRUE
+	var/can_build_on = TRUE
 
 /turf/simulated/openspace/airless
 	temperature = TCMB
