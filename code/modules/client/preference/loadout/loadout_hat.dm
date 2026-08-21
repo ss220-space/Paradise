@@ -231,8 +231,9 @@
 /datum/gear/hat/universal_beret
 	index_name = "universal beret"
 	display_name = "берет, универсальный"
+	path = /obj/item/clothing/head/beret
 
-/datum/gear/hat/beret/resovle_path()
+/datum/gear/hat/universal_beret/get_spawn_path(datum/outfit/job/job)
 	if(!istype(job) || !job.beret_variant)
 		return null
 	return job.beret_variant

@@ -93,8 +93,9 @@
 /datum/gear/suit/coat/universal
 	index_name = "universal winter coat"
 	display_name = "универсальная зимняя куртка"
+	path = /obj/item/clothing/suit/hooded/wintercoat
 
-/datum/gear/suit/coat/universal/resovle_path()
+/datum/gear/suit/coat/universal/get_spawn_path(datum/outfit/job/job)
 	if(!istype(job) || !job.coat_variant)
 		return null
 	return job.coat_variant
