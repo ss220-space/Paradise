@@ -166,89 +166,89 @@ const RequestsTab = () => {
         const netRequests = requests.filter((r) => r.net_id === request.net_id);
         const localIndex = netRequests.findIndex((r) => r.uid === request.uid);
         return (
-        <Box
-          key={request.uid}
-          mb={1}
-          p={1}
-          style={{
-            border:
-              request.status === STATUS_ACTIVE
-                ? '2px solid #2ecc71'
-                : '1px solid rgba(255,255,255,0.15)',
-            borderRadius: '4px',
-          }}
-        >
-          <Stack align="center">
-            <Stack.Item>
-              <Stack vertical>
+          <Box
+            key={request.uid}
+            mb={1}
+            p={1}
+            style={{
+              border:
+                request.status === STATUS_ACTIVE
+                  ? '2px solid #2ecc71'
+                  : '1px solid rgba(255,255,255,0.15)',
+              borderRadius: '4px',
+            }}
+          >
+            <Stack align="center">
+              <Stack.Item>
+                <Stack vertical>
+                  <Button
+                    icon="arrow-up"
+                    disabled={localIndex <= 0}
+                    onClick={() =>
+                      act('move_request', { uid: request.uid, dir: -1 })
+                    }
+                  />
+                  <Button
+                    icon="arrow-down"
+                    disabled={localIndex >= netRequests.length - 1}
+                    onClick={() =>
+                      act('move_request', { uid: request.uid, dir: 1 })
+                    }
+                  />
+                </Stack>
+              </Stack.Item>
+              <Stack.Item grow>
+                <Box>
+                  <ColorBox color={request.net_color} mr={1} />
+                  <b>Заказ #{request.num}</b> · {request.net_name} (#
+                  {request.net_id})
+                  {request.creator ? ` · ${request.creator}` : ''}
+                </Box>
+                <Box>
+                  {request.source} → {request.dest}
+                </Box>
+                <Box color="label">
+                  {request.wanted
+                    .map((item) => `${item.name} ×${item.amount}`)
+                    .join(', ')}
+                </Box>
+                <Box color="label" fontSize="0.85em">
+                  {request.status === STATUS_ACTIVE
+                    ? 'Выполняется'
+                    : request.status === STATUS_PAUSED
+                      ? 'Пауза'
+                      : 'Ожидает'}
+                </Box>
+              </Stack.Item>
+              <Stack.Item>
+                {(request.status === STATUS_PENDING ||
+                  request.status === STATUS_PAUSED) && (
+                  <Button
+                    icon="play"
+                    color="good"
+                    onClick={() => act('execute_request', { uid: request.uid })}
+                  >
+                    Выполнить
+                  </Button>
+                )}
+                {request.status === STATUS_ACTIVE && (
+                  <Button
+                    icon="pause"
+                    onClick={() => act('pause_request', { uid: request.uid })}
+                  >
+                    Пауза
+                  </Button>
+                )}
                 <Button
-                  icon="arrow-up"
-                  disabled={localIndex <= 0}
-                  onClick={() =>
-                    act('move_request', { uid: request.uid, dir: -1 })
-                  }
-                />
-                <Button
-                  icon="arrow-down"
-                  disabled={localIndex >= netRequests.length - 1}
-                  onClick={() =>
-                    act('move_request', { uid: request.uid, dir: 1 })
-                  }
-                />
-              </Stack>
-            </Stack.Item>
-            <Stack.Item grow>
-              <Box>
-                <ColorBox color={request.net_color} mr={1} />
-                <b>Заказ #{request.num}</b> · {request.net_name} (#
-                {request.net_id})
-                {request.creator ? ` · ${request.creator}` : ''}
-              </Box>
-              <Box>
-                {request.source} → {request.dest}
-              </Box>
-              <Box color="label">
-                {request.wanted
-                  .map((item) => `${item.name} ×${item.amount}`)
-                  .join(', ')}
-              </Box>
-              <Box color="label" fontSize="0.85em">
-                {request.status === STATUS_ACTIVE
-                  ? 'Выполняется'
-                  : request.status === STATUS_PAUSED
-                    ? 'Пауза'
-                    : 'Ожидает'}
-              </Box>
-            </Stack.Item>
-            <Stack.Item>
-              {(request.status === STATUS_PENDING ||
-                request.status === STATUS_PAUSED) && (
-                <Button
-                  icon="play"
-                  color="good"
-                  onClick={() => act('execute_request', { uid: request.uid })}
+                  icon="times"
+                  color="bad"
+                  onClick={() => act('cancel_request', { uid: request.uid })}
                 >
-                  Выполнить
+                  Отмена
                 </Button>
-              )}
-              {request.status === STATUS_ACTIVE && (
-                <Button
-                  icon="pause"
-                  onClick={() => act('pause_request', { uid: request.uid })}
-                >
-                  Пауза
-                </Button>
-              )}
-              <Button
-                icon="times"
-                color="bad"
-                onClick={() => act('cancel_request', { uid: request.uid })}
-              >
-                Отмена
-              </Button>
-            </Stack.Item>
-          </Stack>
-        </Box>
+              </Stack.Item>
+            </Stack>
+          </Box>
         );
       })}
     </Section>
@@ -257,10 +257,16 @@ const RequestsTab = () => {
 
 const MapTab = (props: { levels: number[] }) => {
   const { act, data } = useBackend<LogisticsCoreData>();
-  const { map_nodes = [], map_pipes = [], stationLevelNum = [], stationLevelName = [] } =
-    data;
+  const {
+    map_nodes = [],
+    map_pipes = [],
+    stationLevelNum = [],
+    stationLevelName = [],
+  } = data;
   const [zoom, setZoom] = useState(1);
-  const [zCurrent, setZCurrent] = useState(props.levels[0] || stationLevelNum[0]);
+  const [zCurrent, setZCurrent] = useState(
+    props.levels[0] || stationLevelNum[0]
+  );
 
   return (
     <Section fill title="Карта логистики">
@@ -402,7 +408,10 @@ const NetworksTab = () => {
             </Stack.Item>
             <Stack.Item grow>
               <Box bold>
-                {net.name} <Box inline color="label">#{net.id}</Box>
+                {net.name}{' '}
+                <Box inline color="label">
+                  #{net.id}
+                </Box>
               </Box>
               <Box color="label">
                 Труб: {net.pipes} · Интерфейсов: {net.interfaces} · Заказов:{' '}
@@ -440,9 +449,7 @@ const NetworksTab = () => {
               <Stack.Item key={color}>
                 <Button
                   selected={net.color === color}
-                  onClick={() =>
-                    act('set_net_color', { uid: net.uid, color })
-                  }
+                  onClick={() => act('set_net_color', { uid: net.uid, color })}
                 >
                   <ColorBox color={color} />
                 </Button>
@@ -492,9 +499,7 @@ const LogsTab = () => {
             />
           }
         >
-          {!filteredLogs.length && (
-            <Box color="average">Записей пока нет.</Box>
-          )}
+          {!filteredLogs.length && <Box color="average">Записей пока нет.</Box>}
           {filteredLogs
             .slice()
             .reverse()
@@ -522,7 +527,9 @@ const LogsTab = () => {
               </Box>
               <Box color="label" fontSize="0.85em">
                 {entry.wanted
-                  ?.map((item) => `${item.name} ×${item.original || item.amount}`)
+                  ?.map(
+                    (item) => `${item.name} ×${item.original || item.amount}`
+                  )
                   .join(', ')}
                 {entry.finished_at ? ` · ${entry.finished_at}` : ''}
               </Box>

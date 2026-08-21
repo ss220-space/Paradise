@@ -17,9 +17,7 @@ const decideTab = (index: number | string) => {
     case 1:
       return <AtmosPipeContent />;
     case 2:
-      return (
-        <PipeCategoryContent pipeType={2} selectedKey="whatdpipe" />
-      );
+      return <PipeCategoryContent pipeType={2} selectedKey="whatdpipe" />;
     case 3:
       return <RotatePipeContent />;
     case 4:
@@ -27,9 +25,7 @@ const decideTab = (index: number | string) => {
     case 5:
       return <BinPipeContent />;
     case 6:
-      return (
-        <PipeCategoryContent pipeType={3} selectedKey="whatlpipe" />
-      );
+      return <PipeCategoryContent pipeType={3} selectedKey="whatlpipe" />;
     default:
       return "WE SHOULDN'T BE HERE!";
   }

@@ -369,6 +369,8 @@
 				continue
 			if(isstack(item) && take < units)
 				var/obj/item/stack/stack = item
+				if(!stack.logistics_count_amount)
+					continue
 				var/obj/item/stack/piece = stack.split(null, take)
 				if(!interface.try_insert_item(piece))
 					if(!QDELETED(piece))

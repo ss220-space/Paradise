@@ -198,9 +198,7 @@ export const Logistics = (_props: unknown) => {
       return;
     }
     setBuffer((prev) =>
-      prev.map((entry) =>
-        entry.id === itemId ? { ...entry, amount } : entry
-      )
+      prev.map((entry) => (entry.id === itemId ? { ...entry, amount } : entry))
     );
   };
 
@@ -483,9 +481,7 @@ const NodeColumn = (props: {
 }) => {
   const { title, nodes, selected, allowAny, selfUid, onSelect } = props;
   const options: DropdownEntry[] = [
-    ...(allowAny
-      ? [{ value: 'any', displayText: 'Любой Источник' }]
-      : []),
+    ...(allowAny ? [{ value: 'any', displayText: 'Любой Источник' }] : []),
     ...nodes.map((node) => ({
       value: node.uid,
       displayText: node.self ? `${node.name} (это устройство)` : node.name,
@@ -528,9 +524,7 @@ const NodeColumn = (props: {
         </Stack.Item>
         <Stack.Item grow>
           <Box>
-            {selected === 'any'
-              ? 'Any'
-              : selectedNode?.name || 'Не выбран'}
+            {selected === 'any' ? 'Any' : selectedNode?.name || 'Не выбран'}
           </Box>
           <Box color="label" fontSize="0.85em">
             {selected === 'any'

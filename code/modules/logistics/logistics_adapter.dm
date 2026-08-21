@@ -52,8 +52,16 @@
 		return 0
 	if(isstack(item))
 		var/obj/item/stack/stack = item
-		return stack.get_amount()
+		if(stack.logistics_count_amount)
+			return stack.get_amount()
 	return 1
+
+/proc/logistics_stock_counts_amount(stock_id)
+	var/path = logistics_stock_path(stock_id)
+	if(!ispath(path, /obj/item/stack))
+		return FALSE
+	var/obj/item/stack/stack_path = path
+	return initial(stack_path.logistics_count_amount)
 
 /// Returns TRUE if the item was fully consumed by storage.
 /datum/logistics_adapter/proc/insert_item(obj/item/item)
@@ -279,7 +287,7 @@
 		return 0
 	var/path = logistics_stock_path(stock_id)
 	var/free_slots = get_free_sheets()
-	if(!ispath(path, /obj/item/stack))
+	if(!logistics_stock_counts_amount(stock_id))
 		return free_slots
 	var/obj/item/stack/stack_path = path
 	var/max_amt = initial(stack_path.max_amount)
@@ -344,23 +352,24 @@
 		return FALSE
 	if(isstack(item))
 		var/obj/item/stack/incoming = item
-		for(var/obj/item/stack/existing in fridge.contents)
+		if(incoming.logistics_count_amount)
+			for(var/obj/item/stack/existing in fridge.contents)
+				if(QDELETED(incoming) || incoming.get_amount() <= 0)
+					break
+				if(!is_storage_item(existing))
+					continue
+				if(!fridge_can_merge_stacks(incoming, existing))
+					continue
+				var/transfer = min(incoming.get_amount(), existing.max_amount - existing.get_amount())
+				if(transfer <= 0)
+					continue
+				existing.add(transfer)
+				incoming.use(transfer)
 			if(QDELETED(incoming) || incoming.get_amount() <= 0)
-				break
-			if(!is_storage_item(existing))
-				continue
-			if(!fridge_can_merge_stacks(incoming, existing))
-				continue
-			var/transfer = min(incoming.get_amount(), existing.max_amount - existing.get_amount())
-			if(transfer <= 0)
-				continue
-			existing.add(transfer)
-			incoming.use(transfer)
-		if(QDELETED(incoming) || incoming.get_amount() <= 0)
-			fridge.update_icon(UPDATE_OVERLAYS)
-			return TRUE
-		if(get_free_sheets() <= 0)
-			return FALSE
+				fridge.update_icon(UPDATE_OVERLAYS)
+				return TRUE
+			if(get_free_sheets() <= 0)
+				return FALSE
 	if(!fridge.load(item))
 		return FALSE
 	fridge.update_icon(UPDATE_OVERLAYS)
@@ -378,25 +387,20 @@
 			continue
 		if(logistics_stock_id_for_item(item) != stock_id)
 			continue
-		if(isstack(item))
+		var/units = logistics_item_units(item)
+		var/take = min(units, amount - extracted)
+		if(take <= 0)
+			continue
+		if(isstack(item) && take < units)
 			var/obj/item/stack/stack = item
-			var/take = min(stack.get_amount(), amount - extracted)
-			if(take <= 0)
-				continue
-			if(take >= stack.get_amount())
-				var/item_name = stack.declent_ru(NOMINATIVE)
-				fridge.item_quants[item_name] = max((fridge.item_quants[item_name] || 0) - 1, 0)
-				stack.forceMove(target)
-				extracted += take
-			else
-				var/obj/item/stack/split_out = stack.split(null, take)
-				split_out.forceMove(target)
-				extracted += take
-		else
-			var/item_name = item.declent_ru(NOMINATIVE)
-			fridge.item_quants[item_name] = max((fridge.item_quants[item_name] || 0) - 1, 0)
-			item.forceMove(target)
-			extracted++
+			var/obj/item/stack/split_out = stack.split(null, take)
+			split_out.forceMove(target)
+			extracted += take
+			continue
+		var/item_name = item.declent_ru(NOMINATIVE)
+		fridge.item_quants[item_name] = max((fridge.item_quants[item_name] || 0) - 1, 0)
+		item.forceMove(target)
+		extracted += take
 	if(extracted)
 		fridge.update_icon(UPDATE_OVERLAYS)
 	return extracted

@@ -12,6 +12,7 @@
 	singular_name = "chip"
 	max_amount = 1000000
 	merge_type = /obj/item/stack/spacechips
+	logistics_count_amount = TRUE
 
 /obj/item/stack/spacechips/update_icon_state()//changes icon depending on the amount of chips
 	name = "[amount == max_amount ? "1000000" : amount] Chip[amount > 1 ? "s" : ""]"

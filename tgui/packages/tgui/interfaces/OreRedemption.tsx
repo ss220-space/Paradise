@@ -79,7 +79,14 @@ const IdDisk = (properties: SectionProps) => {
   return (
     <Section
       {...rest}
-      buttons={<LogisticsButton enabled={!!logistics_enabled} />}
+      title={
+        <Stack align="center" width="100%">
+          <Stack.Item grow>Статус</Stack.Item>
+          <Stack.Item>
+            <LogisticsButton enabled={!!logistics_enabled} />
+          </Stack.Item>
+        </Stack>
+      }
     >
       <LabeledList>
         <LabeledList.Item label="ID-карта">
