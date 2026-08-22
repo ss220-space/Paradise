@@ -852,6 +852,31 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 /mob/living/proc/hallucinate_living(hal_type, specific) // specific is used to specify a particular hallucination
 	investigate_log("was afflicted with a hallucination of type [hal_type] by [last_hallucinator_log ? last_hallucinator_log : "Unknown source"].", INVESTIGATE_HALLUCINATIONS)
 	switch(hal_type)
+		if("message")
+			cause_hallucination(/datum/hallucination/message, "hallucinate_living wrapper")
+			return
+		if("sounds")
+			cause_hallucination(get_random_valid_hallucination_subtype(/datum/hallucination/fake_sound/normal), "hallucinate_living wrapper")
+			return
+		if("hudscrew")
+			cause_hallucination(/datum/hallucination/screwy_hud, "hallucinate_living wrapper")
+			return
+		if("fake_alert")
+			cause_hallucination(/datum/hallucination/fake_alert, "hallucinate_living wrapper")
+			return
+		if("death")
+			cause_hallucination(/datum/hallucination/death, "hallucinate_living wrapper")
+			return
+		if("delusion")
+			cause_hallucination(get_random_valid_hallucination_subtype(/datum/hallucination/delusion/preset), "hallucinate_living wrapper")
+			return
+		if("chat")
+			cause_hallucination(/datum/hallucination/chat, "hallucinate_living wrapper")
+			return
+		if("battle")
+			cause_hallucination(get_random_valid_hallucination_subtype(/datum/hallucination/battle), "hallucinate_living wrapper")
+			return
+	switch(hal_type)
 		if("xeno")
 			new /obj/effect/hallucination/xeno_attack(loc, src)
 		if("borer")

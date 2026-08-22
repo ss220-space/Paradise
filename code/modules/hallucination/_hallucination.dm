@@ -1,4 +1,85 @@
 /**
+ * # Hallucination datum.
+ *
+ * Handles effects of a hallucination on a living mob.
+ * Created and triggered via the [cause hallucination proc][/mob/living/proc/cause_hallucination].
+ *
+ * See also: [the hallucination status effect][/datum/status_effect/transient/hallucination].
+ */
+/datum/hallucination
+	/// What is this hallucination's weight in the random hallucination pool?
+	var/random_hallucination_weight = 0
+	/// What tier of hallucination is this? Rarer ones should be higher
+	var/hallucination_tier = HALLUCINATION_TIER_NEVER
+	/// Who's our next highest abstract parent type?
+	var/abstract_hallucination_parent = /datum/hallucination
+	/// Extra info about the hallucination displayed in the log.
+	var/feedback_details = ""
+	/// The mob we're targeting with the hallucination.
+	var/mob/living/hallucinator
+
+/datum/hallucination/New(mob/living/hallucinator)
+	if(!isliving(hallucinator))
+		stack_trace("[type] was created without a hallucinating mob.")
+		qdel(src)
+		return
+
+	src.hallucinator = hallucinator
+	RegisterSignal(hallucinator, COMSIG_QDELETING, PROC_REF(target_deleting))
+	GLOB.all_ongoing_hallucinations += src
+
+/// Signal proc for [COMSIG_QDELETING], if the mob hallucinating us is deleted, we should delete too.
+/datum/hallucination/proc/target_deleting()
+	SIGNAL_HANDLER
+
+	qdel(src)
+
+/// Starts the hallucination.
+/datum/hallucination/proc/start()
+	SHOULD_CALL_PARENT(FALSE)
+	stack_trace("[type] didn't implement any hallucination effects in start.")
+
+/datum/hallucination/Destroy()
+	if(hallucinator)
+		UnregisterSignal(hallucinator, COMSIG_QDELETING)
+		hallucinator = null
+
+	GLOB.all_ongoing_hallucinations -= src
+	return ..()
+
+/// Returns a random turf in a ring around the hallucinator mob.
+/// Useful for sound hallucinations.
+/datum/hallucination/proc/random_far_turf()
+	var/first_offset = pick(-8, -7, -6, -5, 5, 6, 7, 8)
+	var/second_offset = rand(-8, 8)
+	var/x_offset
+	var/y_offset
+	if(prob(50))
+		x_offset = first_offset
+		y_offset = second_offset
+	else
+		x_offset = second_offset
+	y_offset = first_offset
+
+	return locate(hallucinator.x + x_offset, hallucinator.y + y_offset, hallucinator.z)
+
+/// Gets a random non-security member of the crew that is at least 8 tiles away.
+/// Адаптировано под 1984: используем GLOB.human_list вместо get_crewmember_minds (которого нет в 1984).
+/// НЕТ В 1984: у /datum/job нет is_security, поэтому фильтр по отделу безопасности пропущен.
+/datum/hallucination/proc/random_non_sec_crewmember()
+	var/list/possible_fakes = list()
+	for(var/mob/living/carbon/human/fake_body as anything in GLOB.human_list)
+		// Look for minds on the manifest in control of humans
+		if(fake_body == hallucinator)
+			continue
+		// This also won't make sense in most cases
+		if(get_dist(fake_body, hallucinator) < 8)
+			continue
+		possible_fakes += fake_body
+
+	return length(possible_fakes) ? pick(possible_fakes) : null
+
+/**
  * Simple effect that holds an image
  * to be shown to one or multiple clients only.
  *
@@ -25,6 +106,8 @@
 	var/image_layer = MOB_LAYER
 	/// The plane of the image
 	var/image_plane = GAME_PLANE
+	/// Should this image holder persist if there are no seers for it?
+	var/persist_without_seers = FALSE
 
 /obj/effect/client_image_holder/Initialize(mapload, list/mobs_which_see_us)
 	. = ..()
@@ -39,10 +122,7 @@
 
 	who_sees_us = list()
 	for(var/mob/seer as anything in mobs_which_see_us)
-		RegisterSignal(seer, COMSIG_MOB_LOGIN, PROC_REF(show_image_to))
-		RegisterSignal(seer, COMSIG_QDELETING, PROC_REF(remove_seer))
-		who_sees_us += seer
-		show_image_to(seer)
+		add_seer(seer)
 
 /obj/effect/client_image_holder/Destroy(force)
 	if(shown_image)
@@ -59,6 +139,12 @@
 		return
 	SET_PLANE(shown_image, PLANE_TO_TRUE(shown_image.plane), new_turf)
 
+/obj/effect/client_image_holder/proc/add_seer(mob/new_seer)
+	RegisterSignal(new_seer, COMSIG_MOB_LOGIN, PROC_REF(show_image_to))
+	RegisterSignal(new_seer, COMSIG_QDELETING, PROC_REF(remove_seer))
+	who_sees_us += new_seer
+	show_image_to(new_seer)
+
 /// Signal proc to clean up references if people who see us are deleted.
 /obj/effect/client_image_holder/proc/remove_seer(mob/source)
 	SIGNAL_HANDLER
@@ -68,7 +154,7 @@
 	who_sees_us -= source
 
 	// No reason to exist, anymore
-	if(!QDELETED(src) && !length(who_sees_us))
+	if(!QDELETED(src) && !length(who_sees_us) && !persist_without_seers)
 		qdel(src)
 
 /// Generates the image which we take on.
@@ -120,3 +206,32 @@
 
 /obj/effect/client_image_holder/singularity_act()
 	return
+
+/**
+ * A client-side image effect tied to the existence of a hallucination.
+ */
+/obj/effect/client_image_holder/hallucination
+	invisibility = INVISIBILITY_OBSERVER
+	anchored = TRUE
+	/// The hallucination that created us.
+	var/datum/hallucination/parent
+
+/obj/effect/client_image_holder/hallucination/Initialize(mapload, list/mobs_which_see_us, datum/hallucination/parent)
+	. = ..()
+	if(!parent)
+		stack_trace("[type] was created without a parent hallucination.")
+		return INITIALIZE_HINT_QDEL
+
+	RegisterSignal(parent, COMSIG_QDELETING, PROC_REF(parent_deleting))
+	src.parent = parent
+
+/obj/effect/client_image_holder/hallucination/Destroy(force)
+	UnregisterSignal(parent, COMSIG_QDELETING)
+	parent = null
+	return ..()
+
+/// Signal proc for [COMSIG_QDELETING], if our associated hallucination deletes, we should too
+/obj/effect/client_image_holder/hallucination/proc/parent_deleting(datum/source)
+	SIGNAL_HANDLER
+
+	qdel(src)

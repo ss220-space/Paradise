@@ -995,6 +995,36 @@
 /datum/status_effect/transient/hallucination
 	id = "hallucination"
 	var/next_hallucination = 0
+	/// The lower range of when the next hallucination will trigger after one occurs.
+	var/lower_tick_interval = 20 SECONDS
+	/// The upper range of when the next hallucination will trigger after one occurs.
+	var/upper_tick_interval = 80 SECONDS
+	/// The maximum hallucination tier that can be picked.
+	var/max_hallucination_tier = HALLUCINATION_TIER_COMMON
+	/// If TRUE, we only select hallucinations from the hallucination_tier.
+	/// If FALSE, it will also include anything below the hallucination_tier.
+	var/strict_tier = FALSE
+	/// Tier can be variable, based on the duration of the hallucination.
+	var/variable_tier = TRUE
+	/// The cooldown for when the next hallucination can occur
+	COOLDOWN_DECLARE(hallucination_cooldown)
+
+/datum/status_effect/transient/hallucination/on_apply()
+	if(HAS_TRAIT(owner, TRAIT_HALLUCINATION_IMMUNE))
+		return FALSE
+	RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_HALLUCINATION_IMMUNE), PROC_REF(delete_self))
+
+	return TRUE
+
+/datum/status_effect/transient/hallucination/proc/delete_self()
+	SIGNAL_HANDLER
+	qdel(src)
+
+/datum/status_effect/transient/hallucination/on_remove()
+	UnregisterSignal(owner, list(
+		COMSIG_LIVING_HEALTHSCAN,
+		SIGNAL_ADDTRAIT(TRAIT_HALLUCINATION_IMMUNE),
+	))
 
 /datum/status_effect/transient/hallucination/tick(seconds_between_ticks)
 	. = ..()
@@ -1004,24 +1034,37 @@
 	if(!iscarbon(owner))
 		return
 
-	if(next_hallucination > world.time)
+	if(owner.stat == DEAD)
 		return
 
-	next_hallucination = world.time + rand(HALLUCINATE_COOLDOWN_MIN, HALLUCINATE_COOLDOWN_MAX) / (strength * HALLUCINATE_COOLDOWN_FACTOR)
-	if(!prob(HALLUCINATE_CHANCE))
+	if(!COOLDOWN_FINISHED(src, hallucination_cooldown))
 		return
 
-	// Pick a severity
-	var/list/severity = list()
-	switch(rand(100))
-		if(0 to HALLUCINATE_MINOR_WEIGHT)
-			severity = GLOB.minor_hallutinations.Copy()
-		if((HALLUCINATE_MINOR_WEIGHT + 1) to (HALLUCINATE_MINOR_WEIGHT + HALLUCINATE_MODERATE_WEIGHT))
-			severity = GLOB.medium_hallutinations.Copy()
-		if((HALLUCINATE_MINOR_WEIGHT + HALLUCINATE_MODERATE_WEIGHT + 1) to 100)
-			severity = GLOB.major_hallutinations.Copy()
+	var/lower_cd = lower_tick_interval
+	var/upper_cd = upper_tick_interval
+	if(variable_tier)
+		var/seconds_left = duration / 10
+		switch(seconds_left)
+			if(0 to 20)
+				max_hallucination_tier = HALLUCINATION_TIER_COMMON
+				lower_tick_interval *= 1.2
+				upper_tick_interval *= 1.2
+			if(20 to 60)
+				max_hallucination_tier = prob(10) ? HALLUCINATION_TIER_RARE : HALLUCINATION_TIER_UNCOMMON
+			if(60 to 120)
+				max_hallucination_tier = HALLUCINATION_TIER_RARE
+				lower_cd *= 0.75
+				upper_cd *= 0.75
+			if(120 to INFINITY)
+				max_hallucination_tier = HALLUCINATION_TIER_VERYSPECIAL
+				lower_cd *= 0.5
+				upper_cd *= 0.5
 
-	owner.hallucinate_living(pickweight(severity))
+	var/datum/hallucination/picked_hallucination = get_random_hallucination(max_hallucination_tier, strict_tier)
+	if(!owner.cause_hallucination(picked_hallucination, "[id] status effect"))
+		lower_cd *= 0.25
+		upper_cd *= 0.25
+	COOLDOWN_START(src, hallucination_cooldown, rand(lower_cd, upper_cd))
 
 #undef HALLUCINATE_COOLDOWN_MIN
 #undef HALLUCINATE_COOLDOWN_MAX

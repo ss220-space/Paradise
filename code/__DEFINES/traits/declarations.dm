@@ -58,6 +58,10 @@
 #define TRAIT_MUTE "mute"
 #define TRAIT_DEAF "deaf"
 #define TRAIT_SECDEATH "secdeath"
+/// Immune to hallucinations entirely.
+#define TRAIT_HALLUCINATION_IMMUNE "hallucination_immune"
+/// Immune to madness-based hallucinations (used by hallucination_pulse / visible_hallucination_pulse).
+#define TRAIT_MADNESS_IMMUNE "madness_immune"
 #define TRAIT_AI_UNTRACKABLE "AI_untrackable"
 /// Does nothing on its own, applied via status effect.
 #define TRAIT_STASIS "in_stasis"
