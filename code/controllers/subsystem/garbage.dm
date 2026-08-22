@@ -356,11 +356,11 @@ SUBSYSTEM_DEF(garbage)
 
 #ifdef REFERENCE_TRACKING
 /proc/qdel_and_find_ref_if_fail(datum/thing_to_del, force = FALSE)
-	thing_to_del.qdel_and_find_ref_if_fail(force)
+	thing_to_del.qdel_and_find_ref_if_fail(thing_to_del, force)
 
-/datum/proc/qdel_and_find_ref_if_fail(force = FALSE)
-	SSgarbage.reference_find_on_fail["\ref[src]"] = TRUE
-	qdel(src, force)
+/datum/proc/qdel_and_find_ref_if_fail(datum/thing_to_del, force = FALSE)
+	SSgarbage.reference_find_on_fail["\ref[thing_to_del]"] = TRUE
+	qdel(thing_to_del, force)
 
 #endif
 
