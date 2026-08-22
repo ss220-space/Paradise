@@ -169,10 +169,3 @@
 	set category = VERB_CATEGORY_OBJECT
 	set src in oview(1)
 	go_out(usr)
-
-/obj/machinery/implantchair/verb/move_inside()
-	set name = "Залезть внутрь"
-	set category = VERB_CATEGORY_OBJECT
-	set src in oview(1)
-	put_mob(usr, usr)
-

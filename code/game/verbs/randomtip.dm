@@ -3,14 +3,14 @@
 	set name = "Случайный совет"
 	set desc = "Shows you a random tip"
 
-	var/m
+	var/tip
 
 	var/list/randomtips = world.file2list("strings/tips.txt")
 	var/list/memetips = world.file2list("strings/sillytips.txt")
 	if(length(randomtips) && prob(95))
-		m = pick(randomtips)
+		tip = pick(randomtips)
 	else if(length(memetips))
-		m = pick(memetips)
+		tip = pick(memetips)
 
-	if(m)
-		to_chat(src, custom_boxed_message("purple_box", span_purple("<b>Совет: </b>[html_encode(m)]")))
+	if(tip)
+		to_chat(src, custom_boxed_message("purple_box", span_purple("<b>Совет: </b>[html_encode(tip)]")))

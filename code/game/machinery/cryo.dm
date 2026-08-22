@@ -527,24 +527,6 @@
 	new /obj/effect/decal/cleanable/blood/gibs/clock(get_turf(src))
 	qdel(src)
 
-/obj/machinery/atmospherics/unary/cryo_cell/verb/move_inside()
-	set name = "Залезть внутрь"
-	set category = VERB_CATEGORY_OBJECT
-	set src in oview(1)
-
-	if(usr.has_buckled_mobs()) //mob attached to us
-		to_chat(usr, span_warning("Вы не поместитесь в [declent_ru(ACCUSATIVE)], пока на вас сидит слайм."))
-		return
-
-	if(stat & (NOPOWER|BROKEN))
-		return
-
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.buckled) //are you cuffed, dying, lying, stunned or other
-		return
-
-	put_mob(usr)
-	return
-
 /datum/data/function/proc/reset()
 	return
 

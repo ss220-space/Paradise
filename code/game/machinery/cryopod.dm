@@ -651,48 +651,6 @@
 	go_out()
 	add_fingerprint(usr)
 
-/obj/machinery/cryopod/verb/move_inside()
-	set name = "Залезть внутрь"
-	set category = VERB_CATEGORY_OBJECT
-	set src in oview(1)
-
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !check_occupant_allowed(usr))
-		return
-
-	if(occupant)
-		to_chat(usr, span_boldnotice("\The [src] is in use."))
-		return
-
-	if(usr.has_buckled_mobs()) //mob attached to us
-		to_chat(usr, span_warning("[usr] will not fit into [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head."))
-		return
-
-	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other
-		return
-
-	visible_message("[usr] starts climbing into [src].")
-
-	if(do_after(usr, 2 SECONDS, usr))
-
-		if(!usr || !usr.client)
-			return
-
-		if(occupant)
-			to_chat(usr, span_boldnotice("\The [src] is in use."))
-			return
-
-		usr.forceMove(src)
-		occupant = usr
-		time_till_despawn = initial(time_till_despawn) / willing_time_divisor
-
-		to_chat(usr, span_notice("[on_enter_occupant_message]"))
-		to_chat(usr, span_boldnotice("If you ghost, log out or close your client now, your character will shortly be permanently removed from the round."))
-		occupant = usr
-		time_entered = world.time
-
-		add_fingerprint(usr)
-		name = "[name] ([usr.name])"
-
 /obj/machinery/cryopod/proc/go_out()
 	if(!occupant)
 		return

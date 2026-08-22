@@ -551,7 +551,6 @@
 /obj/machinery/bci_implanter/force_eject_occupant(mob/target)
 	go_out()
 
-
 /obj/machinery/bci_implanter/relaymove(mob/user)
 	var/message
 

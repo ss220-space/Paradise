@@ -14,7 +14,6 @@
 #define VERB_CATEGORY_SUBSYSTEMS "Подсистемы"
 #define VERB_CATEGORY_ROBOTCOMMANDS "Робокоманды"
 #define VERB_CATEGORY_AIIM "ИИ мессенджер"
-#define VERB_CATEGORY_SLIME "Слайм"
 #define VERB_CATEGORY_SPIDER "Паук"
 #define VERB_CATEGORY_BLOB "Блоб"
 #define VERB_CATEGORY_SABOTEUR "Саботажник"

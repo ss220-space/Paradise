@@ -553,24 +553,6 @@
 /obj/machinery/sleeper/AllowDrop()
 	return FALSE
 
-/obj/machinery/sleeper/verb/move_inside()
-	set name = "Залезть внутрь"
-	set category = VERB_CATEGORY_OBJECT
-	set src in oview(1)
-	if(!ishuman(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.buckled)
-		return
-	if(occupant)
-		balloon_alert(usr, "внутри кто-то есть!")
-		return
-	if(panel_open)
-		balloon_alert(usr, "техпанель открыта!")
-		return
-	if(usr.has_buckled_mobs()) //mob attached to us
-		to_chat(usr, span_warning("Вы не поместитесь в [declent_ru(ACCUSATIVE)], пока на вас сидит слайм."))
-		return
-	visible_message("[usr] начина[PLUR_ET_YUT(usr)] залезать в [declent_ru(ACCUSATIVE)].")
-	put_in(usr, usr)
-
 /obj/machinery/sleeper/syndie
 	icon_state = "sleeper_s-open"
 	base_icon = "sleeper_s"

@@ -145,6 +145,7 @@ GAME_VERB_HIDDEN(/client, reset_held_keys_verb, "Reset Held Keys")
 		"shiftTime" = (SSticker.round_start_time == 0) ? "Pre-Game" : round_timestamp(),
 		"timeDilation" = "[round(SStime_track.time_dilation_current, 1)]",
 		"mapName" = SSmapping.map_datum.name || "Loading...",
+		"mapWebmap" = SSmapping.map_datum.webmap_url,
 		"canLeaveBody" = isliving(client?.mob),
 		"canAdminHelp" = (/client/verb/adminhelp in client?.verbs),
 		//"canSeeNotes" = CONFIG_GET(flag/see_own_notes),
