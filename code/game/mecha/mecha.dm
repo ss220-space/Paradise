@@ -1590,8 +1590,7 @@
 		dir = dir_in
 
 	if(L?.client)
-		ASYNC
-			L.client.RemoveViewMod("mecha")
+		INVOKE_ASYNC(L.client.view_size, TYPE_PROC_REF(/datum/view_data, resetToDefault))
 		zoom_mode = FALSE
 
 	if(ishuman(L))

@@ -199,7 +199,7 @@
 	if(total_votes <= 0)
 		return span_bold("Vote Result: Inconclusive - No Votes!")
 
-	if (display_statistics || print_results)
+	if(display_statistics || print_results)
 		returned_text += "\nResults:"
 		for(var/option in choices)
 			returned_text += "\n"

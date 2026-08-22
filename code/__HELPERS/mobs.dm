@@ -449,19 +449,14 @@
 		SEND_SOUND(usr, sound('sound/misc/sadtrombone.ogg'))
 		client.next_mouse_macro_warning = world.time + 600
 
-/mob/verb/ClickSubstitute(params as command_text)
-	set hidden = TRUE
-	set name = ".click"
+//suppress the .click/dblclick/.mouse macros so people can't use them to identify the location of items or aimbot
+GAME_VERB_HIDDEN(/mob, ClickSubstitute, ".click", params as command_text)
 	LogMouseMacro(".click", params)
 
-/mob/verb/DblClickSubstitute(params as command_text)
-	set hidden = TRUE
-	set name = ".dblclick"
+GAME_VERB_HIDDEN(/mob, DblClickSubstitute, ".dblclick", params as command_text)
 	LogMouseMacro(".dblclick", params)
 
-/mob/verb/MouseSubstitute(params as command_text)
-	set hidden = TRUE
-	set name = ".mouse"
+GAME_VERB_HIDDEN(/mob, MouseSubstitute, ".mouse", params as command_text)
 	LogMouseMacro(".mouse", params)
 
 /proc/update_all_mob_security_hud()

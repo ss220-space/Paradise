@@ -55,3 +55,20 @@ GAME_VERB_HIDDEN(/client, reportissue, "Баг репорт")
 		src << link(CONFIG_GET(string/discordbugreporturl))
 	else
 		to_chat(src, span_danger("В конфигурации сервера отсутствует URL-адрес для баг-репортов"))
+
+GAME_VERB_HIDDEN(/client, hotkeys_help, "Hotkeys Help")
+
+	if(!GLOB.hotkeys_tgui)
+		GLOB.hotkeys_tgui = new /datum/hotkeys_help()
+
+	GLOB.hotkeys_tgui.ui_interact(mob)
+
+GAME_VERB_HIDDEN(/client, emote_panel, "Emote Panel")
+
+	if(!isliving(mob))
+		to_chat(mob, span_notice("Эмоции доступны только живым!"))
+		return
+
+	if(!GLOB.emote_panel)
+		GLOB.emote_panel = new /datum/emote_panel()
+	GLOB.emote_panel.ui_interact(mob)

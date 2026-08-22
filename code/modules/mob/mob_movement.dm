@@ -389,7 +389,7 @@ GAME_VERB_HIDDEN(/client, body_l_arm, "body-l-arm")
 
 	var/next_in_line
 	if(mob.zone_selected == BODY_ZONE_L_ARM)
-		next_in_line = BODY_ZONE_PRECISE_L_HAND
+		next_in_line = BODY_ZONE_L_ARM
 	else
 		next_in_line = BODY_ZONE_L_ARM
 

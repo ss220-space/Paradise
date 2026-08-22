@@ -1,4 +1,5 @@
 /mob/new_player/Login()
+	client.view_size?.resetToDefault() // Resets the client.view in case it was changed.
 	client?.persistent_client?.set_mob(src)
 	update_Login_details()	//handles setting lastKnownIP and computer_id for use by the ban systems as well as checking for multikeying
 

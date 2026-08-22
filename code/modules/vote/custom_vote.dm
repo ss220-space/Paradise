@@ -78,7 +78,7 @@
 		return FALSE
 	display_statistics = display_stats == "Yes"
 
-	if (!display_statistics)
+	if(!display_statistics)
 		var/set_print_result = tgui_alert(
 			vote_creator,
 			"Should the vote tally be public after the vote is concluded?",
@@ -86,7 +86,7 @@
 			list("Yes", "No"),
 		)
 
-		if (isnull(set_print_result))
+		if(isnull(set_print_result))
 			return FALSE
 
 		print_results = set_print_result == "Yes"

@@ -724,35 +724,15 @@ ADMIN_VERB_AND_CONTEXT_MENU(cmd_check_contents, R_ADMIN, "Check Contents", ADMIN
 	BLACKBOX_LOG_ADMIN_VERB("Check Contents")
 
 ADMIN_VERB(toggle_view_range, R_ADMIN, "Change View Range", "Switch between 1x and custom views.", ADMIN_CATEGORY_GAME)
-	var/client_view = user.prefs.viewrange
 
-	if(user.view == client_view)
-		var/input = tgui_input_list(user, "Select view range:", "View Range", list(1,2,3,4,5,6,7,8,9,10,11,12,13,14,"MAX"), 7)
+	if(user.view_size.getView() == user.view_size.default)
+		var/input = tgui_input_list(user, "Select view range:", "View Range", list(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, "MAX"), 7)
 		if(!input)
 			return
 
-		var/list/viewscales = getviewsize(client_view)
-		var/aspect_ratio = viewscales[1] / viewscales[2]
-
-		var/view_x
-		var/view_y
-		if(input == "MAX")
-			if(viewscales[1] == viewscales[2])
-				view_x = 71	// 71 is max for X
-				view_y = 67	// 67 is max for Y
-			else
-				view_x = 71
-				view_y = round(71 / aspect_ratio)
-		else
-			view_y = (input * 2) % 2 ? input * 2 : input * 2 + 1
-			var/rounded_x = round(view_y * aspect_ratio)
-			view_x = rounded_x % 2 ? rounded_x : rounded_x + 1
-
-		user.view = "[view_x]x[view_y]"
+		user.view_size.setTo(input)
 	else
-		user.view = client_view
-
-	user.fit_viewport()
+		user.view_size.resetToDefault()
 
 	log_admin("[key_name(user)] changed their view range to [user.view].")
 	BLACKBOX_LOG_ADMIN_VERB("Change View Range")

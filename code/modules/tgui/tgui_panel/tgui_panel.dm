@@ -124,6 +124,19 @@
 	))
 
 /**
+ * public
+ *
+ * Sends the client's current job, character and saved character names,
+ * used for conditional chat highlights.
+ */
+/datum/tgui_panel/proc/send_player_info()
+	window.send_message("player/set", list(
+		"job" = client.mob?.mind?.assigned_role,
+		"character" = client.mob?.real_name,
+		"characters" = /*client.prefs?.create_character_profiles()*/ list(client.mob?.real_name),
+	))
+
+/**
  * private
  *
  * Sent when a client requests metadata - used for websocket stuff.

@@ -9,135 +9,8 @@ macro "default"
 		command = ".winset :map.right-click=true"
 
 menu "menu"
-	elem
-		name = "&Файл"
-		command = ""
-		saved-params = "is-checked"
-	elem
-		name = "&Быстрый скриншот"
-		command = ".screenshot auto"
-		category = "&Файл"
-		saved-params = "is-checked"
-	elem
-		name = "&Сохранить скриншот как..."
-		command = ".screenshot"
-		category = "&Файл"
-		saved-params = "is-checked"
-	elem "reconnectbutton"
-		name = "&Переподключиться"
-		command = ".reconnect"
-		category = "&Файл"
-		saved-params = "is-checked"
-	elem "debugmcbutton"
-		name = "&MC Отладка"
-		command = "SS-Info-Breakdown"
-		category = "&Файл"
-		is-disabled = true
-		saved-params = "is-checked"
-	elem
-		name = "&Выйти"
-		command = ".quit"
-		category = "&Файл"
-		saved-params = "is-checked"
-	elem
-		name = "&Экран"
-		command = ""
-		saved-params = "is-checked"
-	elem
-		name = "&Размер"
-		command = ""
-		category = "&Экран"
-		saved-params = "is-checked"
-	elem "stretch"
-		name = "&Авто-подбор размера"
-		command = ".winset \"mapwindow.map.icon-size=0\""
-		category = "&Размер"
-		is-checked = true
-		can-check = true
-		group = "размер"
-		saved-params = "is-checked"
-	elem "icon128"
-		name = "&128x128 (4x)"
-		command = ".winset \"mapwindow.map.icon-size=128\""
-		category = "&Размер"
-		can-check = true
-		group = "размер"
-		saved-params = "is-checked"
-	elem "icon112"
-		name = "&112x112 (3.5x)"
-		command = ".winset \"mapwindow.map.icon-size=112\""
-		category = "&Размер"
-		can-check = true
-		group = "размер"
-		saved-params = "is-checked"
-	elem "icon96"
-		name = "&96x96 (3x)"
-		command = ".winset \"mapwindow.map.icon-size=96\""
-		category = "&Размер"
-		can-check = true
-		group = "размер"
-		saved-params = "is-checked"
-	elem "icon80"
-		name = "&80x80 (2.5x)"
-		command = ".winset \"mapwindow.map.icon-size=80\""
-		category = "&Размер"
-		can-check = true
-		group = "размер"
-		saved-params = "is-checked"
-	elem "icon64"
-		name = "&64x64 (2x)"
-		command = ".winset \"mapwindow.map.icon-size=64\""
-		category = "&Размер"
-		can-check = true
-		group = "размер"
-		saved-params = "is-checked"
-	elem "icon48"
-		name = "&48x48 (1.5x)"
-		command = ".winset \"mapwindow.map.icon-size=48\""
-		category = "&Размер"
-		can-check = true
-		group = "размер"
-		saved-params = "is-checked"
-	elem "icon32"
-		name = "&32x32"
-		command = ".winset \"mapwindow.map.icon-size=32\""
-		category = "&Размер"
-		can-check = true
-		group = "размер"
-		saved-params = "is-checked"
-	elem
-		name = "&Масштабирование"
-		command = ""
-		category = "&Экран"
-		saved-params = "is-checked;command"
-	elem "NN"
-		name = "&Метод ближайшего соседа"
-		command = ".winset \"mapwindow.map.zoom-mode=distort\""
-		category = "&Масштабирование"
-		is-checked = true
-		can-check = true
-		group = "масштаб"
-		saved-params = "is-checked"
-	elem "PS"
-		name = "&Поточечная выборка"
-		command = ".winset \"mapwindow.map.zoom-mode=normal\""
-		category = "&Масштабирование"
-		can-check = true
-		group = "масштаб"
-		saved-params = "is-checked"
-	elem "BL"
-		name = "&Билейная интерполяция"
-		command = ".winset \"mapwindow.map.zoom-mode=blur\""
-		category = "&Масштабирование"
-		can-check = true
-		group = "масштаб"
-		saved-params = "is-checked"
-	elem "textmode"
-		name = "&Текст"
-		command = ".winset \"menu.textmode.is-checked=true?mapwindow.map.text-mode=true:mapwindow.map.text-mode=false\""
-		category = "&Экран"
-		can-check = true
-		saved-params = "is-checked"
+
+menu "menu"
 	elem
 		name = "&Опции"
 		command = ""
@@ -148,28 +21,33 @@ menu "menu"
 		category = "&Опции"
 		saved-params = "is-checked"
 	elem
-		name = "&Помощь"
+		name = "&Опции"
 		command = ""
 		saved-params = "is-checked"
 	elem
 		name = "&Запрос помощи"
 		command = "Запрос-помощи"
-		category = "&Помощь"
+		category = "&Опции"
+		saved-params = "is-checked"
+	elem
+		name = "&Микшер громкости"
+		command = "Микшер-громкости"
+		category = "&Опции"
 		saved-params = "is-checked"
 	elem
 		name = "&Подгонка области видимости"
 		command = "Подгонка-области-видимости"
-		category = "&Помощь"
+		category = "&Опции"
 		saved-params = "is-checked"
 	elem
 		name = "&Обновить TGUI"
 		command = "Обновить-TGUI"
-		category = "&Помощь"
+		category = "&Опции"
 		saved-params = "is-checked"
 	elem
 		name = "&Починить чат"
 		command = "Починить-чат"
-		category = "&Помощь"
+		category = "&Опции"
 		saved-params = "is-checked"
 
 window "mainwindow"
@@ -310,8 +188,7 @@ window "infobuttons"
 		saved-params = "is-checked"
 		text = "Меню"
 		command = ".winset \"mapwindow.escape_menu.is-visible=true?mapwindow.escape_menu.is-visible=false:mapwindow.escape_menu.is-visible=true\"\n.output mapwindow.escape_menu:update %7B%22type%22%3A%22toggle%22%2C%22payload%22%3Anull%7D"
-
-	elem "textb"
+	elem "hotkeys"
 		type = BUTTON
 		pos = 92,2
 		size = 88x27
@@ -319,12 +196,9 @@ window "infobuttons"
 		anchor2 = 29,100
 		background-color = none
 		saved-params = "is-checked"
-		text = "Свернуть"
-		command = ".winset \"info.left=;\""
-		group = "rpanemode"
-		button-type = pushbox
-
-	elem "infob"
+		text = "Hotkeys"
+		command = "Hotkeys-Help"
+	elem "emotes"
 		type = BUTTON
 		pos = 185,2
 		size = 88x27
@@ -332,12 +206,8 @@ window "infobuttons"
 		anchor2 = 43,100
 		background-color = none
 		saved-params = "is-checked"
-		text = "Развернуть"
-		command = ".winset \"info.left=statwindow\""
-		is-checked = true
-		group = "rpanemode"
-		button-type = pushbox
-
+		text = "Emotes"
+		command = "Emote-Panel"
 	elem "fullscreen-toggle"
 		type = BUTTON
 		pos = 277,2
@@ -348,6 +218,26 @@ window "infobuttons"
 		saved-params = "is-checked"
 		text = "Полный экран"
 		command = "Полный-экран"
+	elem "reconnect"
+		type = BUTTON
+		pos = 369,2
+		size = 88x27
+		anchor1 = 57,0
+		anchor2 = 71,100
+		background-color = none
+		saved-params = "is-checked"
+		text = "Reconnect"
+		command = ".reconnect"
+	elem "chat"
+		type = BUTTON
+		pos = 560,2
+		size = 112x27
+		anchor1 = 85,0
+		anchor2 = 99,100
+		background-color = none
+		saved-params = "is-checked"
+		text = "Toggle Stat Panel"
+		command = "toggle-stat-panel"
 
 window "infowindow"
 	elem "infowindow"

@@ -1500,13 +1500,6 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 GAME_VERB(/mob, reset_ui_positions_for_mob, "Reset UI Positions", VERB_CATEGORY_SPECIALVERBS)
 	SStgui.reset_ui_position(src)
 
-//suppress the .click/dblclick macros so people can't use them to identify the location of items or aimbot
-GAME_VERB_HIDDEN(/mob, DisClick, ".click", argu = null as anything, sec = "" as text, number1 = 0 as num  , number2 = 0 as num)
-	return
-
-GAME_VERB_HIDDEN(/mob, DisDblClick, ".dblclick", argu = null as anything, sec = "" as text, number1 = 0 as num  , number2 = 0 as num)
-	return
-
 /mob/proc/add_to_respawnable_list()
 	GLOB.respawnable_list |= src
 	RegisterSignal(src, COMSIG_QDELETING, PROC_REF(remove_from_respawnable_list))
@@ -1514,3 +1507,7 @@ GAME_VERB_HIDDEN(/mob, DisDblClick, ".dblclick", argu = null as anything, sec = 
 /mob/proc/remove_from_respawnable_list()
 	GLOB.respawnable_list -= src
 	UnregisterSignal(src, COMSIG_QDELETING)
+
+/mob/key_down(key, client/client, full_key)
+	..()
+	SEND_SIGNAL(src, COMSIG_MOB_KEYDOWN, key, client, full_key)

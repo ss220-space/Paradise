@@ -230,9 +230,6 @@
 /// Anonymous player display label
 #define ANON_KEY "(Anon)"
 
-/// This isnt in client_defines due to scoping issues
-#define DEFAULT_CLIENT_VIEWSIZE "17x15"
-
 // Used for alternate_option
 #define GET_RANDOM_JOB 0
 #define BE_ASSISTANT 1

@@ -508,6 +508,14 @@ ADMIN_VERB(start_singulo, R_DEBUG, "Start Singularity", "Sets up the singularity
 		singulo.energy = 800
 		return
 
+ADMIN_VERB(test_pathfinding, R_DEBUG, "Toggle Pathfind Testing", "Enables/Disables pathfinding testing action buttons", ADMIN_CATEGORY_DEBUG)
+	BLACKBOX_LOG_ADMIN_VERB("Toggle Pathfind Testing")
+	log_admin("[key_name(user)] [user.holder.path_debug ? "disabled" : "enabled"] their pathfinding debug tools")
+	if(!user.holder.path_debug)
+		user.holder.path_debug = new(user.holder)
+	else
+		QDEL_NULL(user.holder.path_debug)
+
 ADMIN_VERB(debug_mob_lists, R_DEBUG, "Debug Mob Lists", "For when you just gotta know.", ADMIN_CATEGORY_DEBUG)
 	switch(tgui_input_list(user, "Which list?", items = list("Players", "Admins", "Mobs", "Living Mobs", "Alive Mobs", "Dead Mobs", "Silicons", "Clients", "Respawnable Mobs")))
 		if("Players")
@@ -793,3 +801,4 @@ ADMIN_VERB(count_instances, R_DEBUG, "Count Atoms/Datums", "Count how many atom 
 	. = list()
 	CRASH("count_datums not supported on OpenDream")
 #endif
+

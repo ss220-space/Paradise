@@ -191,6 +191,22 @@
 /client/proc/setDir(newdir)
 	dir = newdir
 
+/client/vv_edit_var(var_name, var_value)
+	switch(var_name)
+		if(NAMEOF(src, holder))
+			return FALSE
+		if(NAMEOF(src, ckey))
+			return FALSE
+		if(NAMEOF(src, key))
+			return FALSE
+		if(NAMEOF(src, view))
+			view_size.setDefault(var_value)
+			return TRUE
+	return ..()
+
+/client/proc/rescale_view(change, min, max)
+	view_size.setTo(clamp(change, min, max), clamp(change, min, max))
+
 /client/proc/handle_spam_prevention(message, mute_type, throttle = 0)
 	if(throttle)
 		if((last_message_time + throttle > world.time) && !check_rights(R_ADMIN, FALSE))
@@ -300,9 +316,6 @@
 	if(SSinput.initialized)
 		set_macros()
 
-	// Setup widescreen
-	view = prefs.viewrange
-
 	prefs.init_keybindings(prefs.keybindings_overrides) //The earliest sane place to do it where prefs are not null, if they are null you can't do crap at lobby
 	prefs.last_ip = address				//these are gonna be used for banning
 	prefs.last_id = computer_id			//these are gonna be used for banning
@@ -376,7 +389,6 @@
 
 	if(GLOB.changelog_hash && prefs.lastchangelog != GLOB.changelog_hash) //bolds the changelog button on the interface so we know there are updates.
 		to_chat(src, span_notice("У вас есть непрочитанные сообщения в журнале обновлений."), confidential = TRUE)
-		//winset(src, "infobuttons.changelog", "font-style=bold")
 
 	if(show_update_prompt)
 		show_update_notice()
@@ -407,8 +419,16 @@
 
 	skills_select_window = new()
 
+	view_size = new(src)
+	view_size.resetFormat()
+	view_size.setZoomMode()
+	view_size.apply()
+
 	Master.UpdateTickRate()
-	INVOKE_ASYNC(src, TYPE_PROC_REF(/client, nag_516))
+
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CLIENT_CONNECT, src)
+	fully_created = TRUE
+	set_fullscreen()
 
 	// Check total playercount
 	var/playercount = 0
@@ -1233,21 +1253,12 @@ GAME_VERB(/client, toggle_fullscreen, "Полный экран", VERB_CATEGORY_O
 
 	fullscreen = !fullscreen
 
-	if(fullscreen)
-		winset(usr, SKIN_MAINWINDOW, "on-size=")
-		winset(usr, SKIN_MAINWINDOW, "titlebar=false")
-		winset(usr, SKIN_MAINWINDOW, "can-resize=false")
-		winset(usr, SKIN_MAINWINDOW, "menu=")
-		winset(usr, SKIN_MAINWINDOW, "is-maximized=false")
-		winset(usr, SKIN_MAINWINDOW, "is-maximized=true")
-	else
-		winset(usr, SKIN_MAINWINDOW, "titlebar=true")
-		winset(usr, SKIN_MAINWINDOW, "can-resize=true")
-		winset(usr, SKIN_MAINWINDOW, "menu=menu")
-		winset(usr, SKIN_MAINWINDOW, "is-maximized=false")
-		winset(usr, SKIN_MAINWINDOW, "on-size=fitviewport")
+	set_fullscreen()
 
-	fit_viewport()
+/client/proc/set_fullscreen()
+	winset(src, SKIN_MAINWINDOW, "is-fullscreen=[fullscreen ? "true" : "false"]")
+	attempt_auto_fit_viewport()
+
 
 /**
  * Manually clears any held keys, in case due to lag or other undefined behavior a key gets stuck.
@@ -1270,33 +1281,47 @@ GAME_VERB(/client, toggle_fullscreen, "Полный экран", VERB_CATEGORY_O
 
 // Ported from /tg/, full credit to SpaceManiac and Timberpoes.
 GAME_VERB_DESC(/client, fit_viewport, "Подгонка области видимости", "Fit the size of the map window to match the viewport.", VERB_CATEGORY_SPECIALVERBS)
-
 	// Fetch aspect ratio
-	var/list/view_size = getviewsize(view)
+	var/view_size = getviewsize(view)
 	var/aspect_ratio = view_size[1] / view_size[2]
 
 	// Calculate desired pixel width using window size and aspect ratio
 	var/list/sizes = params2list(winget(src, "[SKIN_MAINWINDOW_SPLIT];[SKIN_MAPWINDOW]", "size"))
 
-	// Client closed the window? Some other error? This is unexpected behaviour, let's CRASH with some info.
+	// Client closed the window? Some other error? This is unexpected behaviour, let's
+	// CRASH with some info.
 	if(!sizes["[SKIN_MAPWINDOW].size"])
-		CRASH("sizes does not contain [SKIN_MAPWINDOW].size key. This means a winget() failed to return what we wanted. --- sizes var: [sizes] --- sizes length: [length(sizes)]")
+		CRASH("sizes does not contain mapwindow.size key. This means a winget failed to return what we wanted. --- sizes var: [sizes] --- sizes length: [length(sizes)]")
 
 	var/list/map_size = splittext(sizes["[SKIN_MAPWINDOW].size"], "x")
 
-	// Looks like we didn't expect mapwindow.size to be "ixj" where i and j are numbers.
-	// If we don't get our expected 2 outputs, let's give some useful error info.
-	if(length(map_size) != 2)
-		CRASH("map_size of incorrect length --- map_size var: [map_size] --- map_size length: [length(map_size)]")
+	var/split_size = splittext(sizes["[SKIN_MAINWINDOW_SPLIT].size"], "x")
+	var/split_width = text2num(split_size[1])
 
-	var/height = text2num(map_size[2])
-	var/desired_width = round(height * aspect_ratio)
-	if(text2num(map_size[1]) == desired_width)
-		// Nothing to do.
+	// Window is minimized, we can't get proper data so return to avoid division by 0
+	if (!split_width)
 		return
 
-	var/list/split_size = splittext(sizes["[SKIN_MAINWINDOW_SPLIT].size"], "x")
-	var/split_width = text2num(split_size[1])
+	// Gets the type of zoom we're currently using from our view datum
+	// If it's 0 we do our pixel calculations based off the size of the mapwindow
+	// If it's not, we already know how big we want our window to be, since zoom is the exact pixel ratio of the map
+	var/zoom_value = src.view_size?.zoom || 0
+
+	var/desired_width = 0
+	if(zoom_value)
+		desired_width = round(view_size[1] * zoom_value * ICON_SIZE_X)
+	else
+
+		// Looks like we expect mapwindow.size to be "ixj" where i and j are numbers.
+		// If we don't get our expected 2 outputs, let's give some useful error info.
+		if(length(map_size) != 2)
+			CRASH("map_size of incorrect length --- map_size var: [map_size] --- map_size length: [length(map_size)]")
+		var/height = text2num(map_size[2])
+		desired_width = round(height * aspect_ratio)
+
+	if (text2num(map_size[1]) == desired_width)
+		// Nothing to do
+		return
 
 	// Avoid auto-resizing the statpanel and chat into nothing.
 	desired_width = min(desired_width, split_width - 300)
@@ -1311,20 +1336,30 @@ GAME_VERB_DESC(/client, fit_viewport, "Подгонка области види�
 	for(var/safety in 1 to 10)
 		var/after_size = winget(src, SKIN_MAPWINDOW, "size")
 		map_size = splittext(after_size, "x")
-		var/produced_width = text2num(map_size[1])
+		var/got_width = text2num(map_size[1])
 
-		if(produced_width == desired_width)
-			// Success!
+		if (got_width == desired_width)
+			// success
 			return
-		else if(isnull(delta))
-			// Calculate a probably delta based on the difference
-			delta = 100 * (desired_width - produced_width) / split_width
-		else if((delta > 0 && produced_width > desired_width) || (delta < 0 && produced_width < desired_width))
-			// If we overshot, halve the delta and reverse direction
-			delta = -delta / 2
+		else if (isnull(delta))
+			// calculate a probable delta value based on the difference
+			delta = 100 * (desired_width - got_width) / split_width
+		else if ((delta > 0 && got_width > desired_width) || (delta < 0 && got_width < desired_width))
+			// if we overshot, halve the delta and reverse direction
+			delta = -delta/2
 
-	pct += delta
-	winset(src, SKIN_MAINWINDOW_SPLIT, "splitter=[pct]")
+		pct += delta
+		winset(src, SKIN_MAINWINDOW_SPLIT, "splitter=[pct]")
+
+/// Attempt to automatically fit the viewport, assuming the user wants it
+/client/proc/attempt_auto_fit_viewport()
+	/*
+	if (!prefs?.read_preference(/datum/preference/toggle/auto_fit_viewport))
+		return
+	*/
+	// No need to attempt to fit the viewport on non-initialized clients as they'll auto-fit viewport right before finishing init
+	if(fully_created)
+		INVOKE_ASYNC(src, VERB_REF(fit_viewport))
 
 GAME_VERB_HIDDEN(/client, fix_stat_panel, "Fix Stat Panel")
 	init_verbs()

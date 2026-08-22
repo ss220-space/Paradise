@@ -28,7 +28,6 @@
 /mob/Login()
 	if(!client)
 		return FALSE
-
 	canon_client = client
 
 	client.persistent_client.set_mob(src)
@@ -102,11 +101,21 @@
 	update_morgue()
 	client.init_verbs()
 
-	for(var/datum/action/action as anything in persistent_client.player_actions)
-		action.Grant(src)
+	if(client)
 
-	for(var/datum/callback/callback as anything in persistent_client.post_login_callbacks)
-		callback.Invoke()
+		client.view_size?.resetToDefault() // Resets the client.view in case it was changed.
+
+		for(var/datum/action/A as anything in persistent_client.player_actions)
+			A.Grant(src)
+
+		for(var/datum/callback/CB as anything in persistent_client.post_login_callbacks)
+			CB.Invoke()
+
+		//Check if they should have a stat panel, after they deadmined.
+		client.set_stat_panel()
+
+		//Update the chat panel's job/character info for conditional highlights.
+		client.tgui_panel?.send_player_info()
 
 	if(client.click_intercept)
 		client.click_intercept.quit() // Let's not keep any old click_intercepts

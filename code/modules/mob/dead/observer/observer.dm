@@ -356,6 +356,8 @@ GAME_VERB(/mob/dead/observer, reenter_corpse, "Вернуться в тело", 
 		to_chat(usr, span_warning("Другое сознание находится в вашем теле... Оно сопротивляется вам."))
 		return FALSE
 
+	client.view_size.resetToDefault()//Let's reset so people can't become allseeing gods
+
 	mind.current.possess_by_player(key)
 
 	SEND_SIGNAL(mind.current, COMSIG_LIVING_REENTERED_BODY)
@@ -940,3 +942,13 @@ GAME_VERB_PROC_DESC(/mob/dead/observer, open_minigames_menu, "Мини-игры"
 #undef GHOST_ORBIT_SQUARE
 #undef GHOST_ORBIT_PENTAGON
 #undef GHOST_SELF_APPEARANCE
+
+GAME_VERB_HIDDEN(/mob/dead/observer, add_view_range, "Add View Range", input as num)
+	/*
+	if(SSlag_switch.measures[DISABLE_GHOST_ZOOM_TRAY] && !client?.holder)
+		to_chat(usr, span_notice("That verb is currently globally disabled."))
+		return
+	*/
+	var/max_view = client.prefs.unlock_content ? GHOST_MAX_VIEW_RANGE_MEMBER : GHOST_MAX_VIEW_RANGE_DEFAULT
+	if(input)
+		client.rescale_view(input, 0, ((max_view * 2) + 1) - 15)
