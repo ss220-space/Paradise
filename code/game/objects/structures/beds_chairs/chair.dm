@@ -194,7 +194,7 @@
 	return ..()
 
 /obj/structure/chair/comfy/proc/GetArmrest()
-	return mutable_appearance('icons/obj/chairs.dmi', "comfychair_armrest", ABOVE_MOB_LAYER, src, ABOVE_GAME_PLANE)
+	return mutable_appearance('icons/obj/chairs.dmi', "comfychair_armrest", ABOVE_MOB_LAYER)
 
 /obj/structure/chair/comfy/Destroy()
 	QDEL_NULL(armrest)

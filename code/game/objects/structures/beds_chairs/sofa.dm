@@ -13,7 +13,7 @@
 	return ..()
 
 /obj/structure/chair/sofa/proc/GetArmrest()
-	return mutable_appearance('icons/obj/chairs_wide.dmi', "[icon_state]_armrest", ABOVE_MOB_LAYER, src, ABOVE_GAME_PLANE)
+	return mutable_appearance('icons/obj/chairs_wide.dmi', "[icon_state]_armrest", ABOVE_MOB_LAYER)
 
 /obj/structure/chair/sofa/Destroy()
 	QDEL_NULL(armrest)
