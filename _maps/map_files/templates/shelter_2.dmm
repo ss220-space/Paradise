@@ -62,7 +62,7 @@
 /turf/simulated/floor/carpet/black,
 /area/survivalpod)
 "l" = (
-/obj/structure/sink/kitchen/directional/east,
+/obj/structure/sink/kitchen/directional/west,
 /turf/simulated/floor/carpet/black,
 /area/survivalpod)
 "m" = (
@@ -71,7 +71,7 @@
 /area/survivalpod)
 "n" = (
 /obj/structure/curtain/black,
-/obj/machinery/shower/directional/south,
+/obj/machinery/shower/directional/north,
 /turf/simulated/floor/pod,
 /area/survivalpod)
 "o" = (
@@ -140,9 +140,7 @@
 /turf/simulated/wall/mineral/titanium/survival,
 /area/survivalpod)
 "y" = (
-/obj/structure/toilet/secret{
-	pixel_y = 12
-	},
+/obj/structure/toilet/secret/directional/east,
 /turf/simulated/floor/pod,
 /area/survivalpod)
 "z" = (

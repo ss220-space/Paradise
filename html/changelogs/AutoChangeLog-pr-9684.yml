@@ -1,0 +1,4 @@
+author: "Bess3"
+delete-after: True
+changes:
+  - bugfix: "фикс отсутствия рук в джампсьюте (PR #9684)"

@@ -62,6 +62,8 @@
 		reagents.add_reagent("blood", disease_amount, data)
 	if(list_reagents)
 		list_reagents = string_assoc_list(list_reagents)
+	if(possible_transfer_amounts)
+		possible_transfer_amounts = string_list(possible_transfer_amounts)
 	add_initial_reagents()
 	update_icon()
 

@@ -1046,7 +1046,7 @@
 /atom/movable/screen/alert/status_effect/heal
 	name = "Лечение нанитами"
 	desc = "Регенерация увеличена."
-	icon_state = "fleshmend"
+	icon_state = "red_cross"
 
 /datum/status_effect/heal
 	id = "heal"
