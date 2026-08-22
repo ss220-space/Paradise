@@ -53,6 +53,7 @@
 	data["archived"] = list()
 	data["map_nodes"] = list()
 	data["map_pipes"] = list()
+	data["palette"] = LOGISTICS_NET_COLORS
 
 	for(var/datum/logistics_net/net as anything in GLOB.logistics_nets)
 		var/list/net_interfaces = list()
@@ -168,7 +169,7 @@
 			if(!istype(net))
 				return
 			var/new_color = params["color"]
-			if(!istext(new_color) || length(new_color) < 4)
+			if(!(new_color in LOGISTICS_NET_COLORS))
 				return
 			net.net_color = new_color
 		if("toggle_auto_execute")

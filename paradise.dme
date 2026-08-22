@@ -819,6 +819,7 @@
 #include "code\datums\components\laser_sight.dm"
 #include "code\datums\components\leaning.dm"
 #include "code\datums\components\light_eater.dm"
+#include "code\datums\components\logistics_interface.dm"
 #include "code\datums\components\lunge_attack.dm"
 #include "code\datums\components\material_container.dm"
 #include "code\datums\components\multitile.dm"

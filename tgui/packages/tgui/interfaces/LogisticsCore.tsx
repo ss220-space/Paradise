@@ -94,6 +94,7 @@ type LogisticsCoreData = {
   archived: Archived[];
   map_nodes: MapNode[];
   map_pipes: MapPipe[];
+  palette: string[];
   stationLevelNum: number[];
   stationLevelName: string[];
 };
@@ -385,7 +386,7 @@ const InterfaceMarker = (props: {
 
 const NetworksTab = () => {
   const { act, data } = useBackend<LogisticsCoreData>();
-  const { networks = [] } = data;
+  const { networks = [], palette = [] } = data;
 
   return (
     <Section fill scrollable title="Логистические сети">
@@ -434,18 +435,7 @@ const NetworksTab = () => {
             </Stack.Item>
           </Stack>
           <Stack mt={0.5} wrap>
-            {(
-              [
-                '#e74c3c',
-                '#e67e22',
-                '#f1c40f',
-                '#2ecc71',
-                '#1abc9c',
-                '#3498db',
-                '#9b59b6',
-                '#e91e63',
-              ] as const
-            ).map((color) => (
+            {palette.map((color) => (
               <Stack.Item key={color}>
                 <Button
                   selected={net.color === color}
