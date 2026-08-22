@@ -141,12 +141,12 @@
 	/// Active skill bonuses from neurotrainer
 	var/list/active_neurotrainer_bonuses = list()
 	/// Active skill bonuses from training
-	var/list/experience_skill_bonuses = list()
+	var/list/skills_experience_bonuses = list()
 	var/list/job_alt_skills
 	/// Holds read pages from reading
 	var/list/read_manuals = list()
 	/// Holds experience from doing skills
-	var/list/experience_skill = list()
+	var/list/skills_experience = list()
 	/// Decides if player can get experience in skills
 	var/can_train = TRUE
 

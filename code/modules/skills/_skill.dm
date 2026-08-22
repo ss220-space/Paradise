@@ -58,38 +58,33 @@ GLOBAL_LIST_EMPTY(skill_manual_types)
 /datum/skill/proc/get_modifier(mob/living/user, list/results, mod_name)
 	SIGNAL_HANDLER
 	var/alist/modifiers = skills_mods[mod_name]
-	GET_SKILL_LEVEL(user, src.type, level)
+	GET_SKILL_LEVEL(user, type, level)
 	var/mod = modifiers[level]
 	if(mod != null)
 		results[mod_name] = mod
 	else
-		log_debug("not found modifier result for user=[user.name] skill=[src.type] modifiers=[modifiers] level=[level]")
+		log_debug("not found modifier result for user=[user.name] skill=[type] modifiers=[modifiers] level=[level]")
 
 /datum/skill/proc/try_level_up(mob/living/user)
-	SIGNAL_HANDLER
-	upgrade(user)
-
-/datum/skill/proc/upgrade(mob/living/user)
 	SIGNAL_HANDLER
 	var/datum/mind/user_mind = user.mind
 	if(!user_mind.can_train)
 		return
-	GET_SKILL_LEVEL(user, src.type, level) // this is cursed, but will do
-	if(level == null || level >= SKILL_LEVEL_PROFESSIONAL) // they do not need more training
+	GET_SKILL_LEVEL(user, type, level) // this is cursed, but will do
+	if(level == SKILL_LEVEL_UNAVAILABLE || level >= SKILL_LEVEL_PROFESSIONAL) // they do not need more training
 		return
 
-	if(!(type in user_mind.experience_skill))
-		user_mind.experience_skill[type] = 0
-	user_mind.experience_skill[type] += 1
+	if(!(type in user_mind.skills_experience))
+		user_mind.skills_experience[type] = 0
+	user_mind.skills_experience[type] += 1
 	user_mind.can_train = FALSE
 	addtimer(VARSET_CALLBACK(user_mind, can_train, TRUE), 5 SECONDS) // need time to think, how to imrpove
-	if(!prob((user_mind.experience_skill[type]/exp_per_level)*100))
+	if(!prob((user_mind.skills_experience[type] / exp_per_level) * 100))
 		return
 
-	user_mind.experience_skill[type] = 0
-	user_mind.experience_skill_bonuses[type] += 1
+	user_mind.skills_experience[type] = 0
+	user_mind.skills_experience_bonuses[type] += 1
 	user_mind.refresh_skills()
-
 
 /datum/skill/proc/remove_from_mob(mob/owner)
 	for(var/mod_name in skills_mods)

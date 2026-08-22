@@ -74,7 +74,7 @@
 	var/list/cached_manual_bonuses = active_skill_bonuses
 	var/list/cached_neurotrainer_bonuses = active_neurotrainer_bonuses
 	var/list/cached_manual_skill_bonuses = manual_skill_bonuses
-	var/list/cached_experience_bonuses = experience_skill_bonuses
+	var/list/cached_experience_bonuses = skills_experience_bonuses
 	var/list/cached_selected_skills_levels = selected_skills_levels
 	for(var/skill_name, skill_datum in GLOB.skills)
 		var/datum/skill/skill = skill_datum
