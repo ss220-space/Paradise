@@ -11,7 +11,6 @@
 #define VERB_CATEGORY_GHOST "Призрак"
 #define VERB_CATEGORY_PAICOMMANDS "ПИИ команды"
 #define VERB_CATEGORY_DRONE "Дрон"
-#define VERB_CATEGORY_EMOTIONS "Эмоции"
 #define VERB_CATEGORY_SUBSYSTEMS "Подсистемы"
 #define VERB_CATEGORY_ROBOTCOMMANDS "Робокоманды"
 #define VERB_CATEGORY_AIIM "ИИ мессенджер"

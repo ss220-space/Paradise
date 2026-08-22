@@ -8,48 +8,6 @@ macro "default"
 		name = "SHIFT+UP"
 		command = ".winset :map.right-click=true"
 
-menu "menu"
-
-menu "menu"
-	elem
-		name = "&Опции"
-		command = ""
-		saved-params = "is-checked"
-	elem
-		name = "&Микшер громкости"
-		command = "Микшер-громкости"
-		category = "&Опции"
-		saved-params = "is-checked"
-	elem
-		name = "&Опции"
-		command = ""
-		saved-params = "is-checked"
-	elem
-		name = "&Запрос помощи"
-		command = "Запрос-помощи"
-		category = "&Опции"
-		saved-params = "is-checked"
-	elem
-		name = "&Микшер громкости"
-		command = "Микшер-громкости"
-		category = "&Опции"
-		saved-params = "is-checked"
-	elem
-		name = "&Подгонка области видимости"
-		command = "Подгонка-области-видимости"
-		category = "&Опции"
-		saved-params = "is-checked"
-	elem
-		name = "&Обновить TGUI"
-		command = "Обновить-TGUI"
-		category = "&Опции"
-		saved-params = "is-checked"
-	elem
-		name = "&Починить чат"
-		command = "Починить-чат"
-		category = "&Опции"
-		saved-params = "is-checked"
-
 window "mainwindow"
 	elem "mainwindow"
 		type = MAIN
