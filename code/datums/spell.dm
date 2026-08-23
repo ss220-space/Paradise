@@ -555,6 +555,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 			target.vars[type] += amount //I bear no responsibility for the runtimes that'll happen if you try to adjust non-numeric or even non-existant vars
 
 /obj/effect/proc_holder/spell/aoe
+	abstract_type = /obj/effect/proc_holder/spell/aoe
 	create_attack_logs = FALSE
 	create_custom_logs = TRUE
 	/// How far does it effect
