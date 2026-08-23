@@ -363,8 +363,11 @@
 
 /obj/effect/anomaly/energetic/tier4/Initialize(mapload, spawn_strength, spawn_stability)
 	. = ..()
+	var/turf/cur_turf = get_turf(src)
+	for(var/mob/living/mob as anything in GLOB.mob_living_list)
+		if(mob.z != cur_turf.z)
+			continue
 
-	for(var/mob/living/mob as anything in GLOB.player_list)
 		mob.electrocute_act(rand(5, 15), src)
 		if(mob.stat)
 			continue
