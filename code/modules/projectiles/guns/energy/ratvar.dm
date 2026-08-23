@@ -177,6 +177,7 @@
 
 /obj/item/gun/energy/gun/minigun/clockwork/Initialize(mapload)
 	. = ..()
+	autofire = GetComponent(/datum/component/automatedfire/autofire)
 	START_PROCESSING(SSprocessing, src)
 	enchants = GLOB.minigun_spells
 
@@ -199,10 +200,6 @@
 	last_charge = world.time
 	if(COOLDOWN_FINISHED(src, overheated))
 		overheat = FALSE
-
-/obj/item/gun/energy/gun/minigun/clockwork/ComponentInitialize()
-	. = ..()
-	autofire = GetComponent(/datum/component/automatedfire/autofire)
 
 /obj/item/gun/energy/gun/minigun/clockwork/update_overlays()
 	. = ..()
