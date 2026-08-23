@@ -281,8 +281,10 @@
 	return ..()
 
 /obj/item/tank/jetpack/suit/turn_off(mob/living/carbon/human/user)
-	UnregisterSignal(tank, COMSIG_MOVABLE_MOVED)
-	UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
+	if(tank)
+		UnregisterSignal(tank, COMSIG_MOVABLE_MOVED)
+	if(user)
+		UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
 	tank = null
 	air_contents = temp_air_contents
 	STOP_PROCESSING(SSobj, src)
