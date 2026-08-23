@@ -86,6 +86,8 @@
 	key_third_person = "jumps"
 	message = "прыга%(ет,ют)%!"
 	audio_cooldown = EMOTE_COOLDOWN
+	muzzle_ignore = TRUE
+	hands_use_check = TRUE
 
 /datum/emote/living/jump/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
