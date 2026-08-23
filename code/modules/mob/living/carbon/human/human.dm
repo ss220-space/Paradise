@@ -38,7 +38,6 @@
 	SSmobs.cubemonkeys -= src
 	GLOB.human_list -= src
 	SEND_SIGNAL(src, COMSIG_HUMAN_DESTROYED)
-	UnregisterSignal(src, COMSIG_MOVABLE_MOVED)
 	return ..()
 
 /// This proc is for holding effects applied when a mob is missing certain organs
