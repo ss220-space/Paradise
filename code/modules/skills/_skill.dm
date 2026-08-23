@@ -49,11 +49,11 @@ GLOBAL_LIST_EMPTY(skill_manual_types)
 /datum/skill/proc/apply_to_mob(mob/owner)
 	for(var/mod_name in skills_mods)
 		RegisterSignal(owner, COMSIG_GET_SKILL_MOD(mod_name), PROC_REF(get_skill_modifier))
-		RegisterSignal(owner, COMSIG_GET_SKILL_MOD(mod_name), PROC_REF(try_level_up))
 
 /datum/skill/proc/get_skill_modifier(mob/living/user, alist/results, mod_name)
 	SIGNAL_HANDLER
 	get_modifier(user, results, mod_name)
+	try_level_up(user)
 
 /datum/skill/proc/get_modifier(mob/living/user, list/results, mod_name)
 	SIGNAL_HANDLER
