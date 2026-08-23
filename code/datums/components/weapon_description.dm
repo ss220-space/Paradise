@@ -22,8 +22,8 @@
 		src.attached_proc = attached_proc
 
 /datum/element/weapon_description/Detach(datum/target)
-	. = ..()
 	UnregisterSignal(target, list(COMSIG_ATOM_EXAMINE, COMSIG_TOPIC))
+	return ..()
 
 /**
  *
