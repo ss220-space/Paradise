@@ -70,6 +70,10 @@
 	RegisterSignal(src, COMSIG_GUESTPASS_COMPUTER_LOGS, PROC_REF(get_guestpass_logs))
 	. = ..()
 
+/obj/machinery/computer/guestpass/Destroy()
+	UnregisterSignal(src, COMSIG_GUESTPASS_COMPUTER_LOGS)
+	return ..()
+
 /obj/machinery/computer/guestpass/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
