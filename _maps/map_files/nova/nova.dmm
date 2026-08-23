@@ -70244,10 +70244,7 @@
 	layer = 2.9
 	},
 /obj/effect/turf_decal/delivery/red/hollow,
-/obj/item/storage/lockbox/suppression,
-/obj/item/storage/lockbox/mindshield{
-	pixel_y = 4
-	},
+/obj/item/storage/lockbox/mindshield,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

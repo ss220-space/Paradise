@@ -48601,9 +48601,6 @@
 	req_access = list(1)
 	},
 /obj/effect/turf_decal/delivery/red/hollow,
-/obj/item/storage/lockbox/suppression{
-	pixel_y = -4
-	},
 /obj/item/storage/lockbox/mindshield,
 /turf/simulated/floor/plasteel{
 	dir = 4;
