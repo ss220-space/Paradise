@@ -710,6 +710,9 @@
 
 /obj/item/clothing/suit/hooded/drake/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
 	. = ..()
+	// We are in the nullspace
+	if(!new_turf)
+		return
 	if(!is_mining_level(new_turf.z))
 		armor = getArmor(melee = 35, bullet = 15, laser = 25, energy = 20, bomb = 35, bio = 30, fire = 50, acid = 50)
 		return
@@ -738,6 +741,9 @@
 
 /obj/item/clothing/head/hooded/drake/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
 	. = ..()
+	// We are in the nullspace
+	if(!new_turf)
+		return
 	if(!is_mining_level(new_turf.z))
 		armor = getArmor(melee = 35, bullet = 15, laser = 25, energy = 20, bomb = 35, bio = 30, fire = 50, acid = 50)
 		return
