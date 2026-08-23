@@ -112,12 +112,13 @@
 	return
 
 /datum/antagonist/borer/Destroy(force)
-	UnregisterSignal(user, list(
-		COMSIG_BORER_ENTERED_HOST,
-		COMSIG_BORER_EARLY_LEFT_HOST,
-		COMSIG_LIVING_LIFE,
-		COMSIG_BORER_REPRODUCE,
-	))
+	if(user)
+		UnregisterSignal(user, list(
+			COMSIG_BORER_ENTERED_HOST,
+			COMSIG_BORER_EARLY_LEFT_HOST,
+			COMSIG_LIVING_LIFE,
+			COMSIG_BORER_REPRODUCE,
+		))
 
 	pre_remove_movable_effect()
 
