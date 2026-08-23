@@ -30,7 +30,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	var/icon_on = "cigon"  //Note - these are in masks.dmi not in cigarette.dmi
 	var/icon_off = "cigoff"
 	var/type_butt = /obj/item/cigbutt
-	var/lastHolder = null
+	var/datum/weakref/last_cig_smoker
 	var/smoketime = 150
 	var/chem_volume = 60
 	var/list/list_reagents = list("nicotine" = 40)
@@ -76,6 +76,10 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/Destroy()
 	QDEL_NULL(reagents)
 	STOP_PROCESSING(SSobj, src)
+	var/mob/living/last_smoker = last_cig_smoker?.resolve()
+	if(last_smoker)
+		UnregisterSignal(last_smoker, list(COMSIG_LIVING_DEATH, COMSIG_MOB_SLIPPED))
+	last_cig_smoker = null
 	return ..()
 
 /obj/item/clothing/mask/cigarette/pre_attackby(atom/target, mob/living/user, params)
@@ -337,6 +341,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(!(slot & ITEM_SLOT_MASK))
 		UnregisterSignal(user, list(COMSIG_LIVING_DEATH, COMSIG_MOB_SLIPPED))
 		return
+	last_cig_smoker = WEAKREF(user)
 	RegisterSignals(user, list(COMSIG_LIVING_DEATH, COMSIG_MOB_SLIPPED), PROC_REF(drop_cig_from_mouth))
 
 /obj/item/clothing/mask/cigarette/proc/drop_cig_from_mouth(mob/living/source)
@@ -364,6 +369,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		if(COOLDOWN_FINISHED(src, smoking_cooldown))
 			user.emote("smoking")
 			COOLDOWN_START(src, smoking_cooldown, 30)
+	UnregisterSignal(user, list(COMSIG_LIVING_DEATH, COMSIG_MOB_SLIPPED))
 	.=..()
 
 /obj/item/clothing/mask/cigarette/get_temperature()
