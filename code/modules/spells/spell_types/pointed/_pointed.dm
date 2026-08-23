@@ -15,7 +15,7 @@
 	/// Message showing to the spell owner upon deactivating pointed spell.
 	var/deactive_msg
 	/// The casting range of our spell
-	var/cast_range = 7
+	var/cast_range = 9
 	/// If aim asisst is used. Disable to disable
 	var/aim_assist = TRUE
 
