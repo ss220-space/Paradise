@@ -140,13 +140,7 @@
 	req_access = list(ACCESS_SECURITY)
 
 /obj/item/storage/lockbox/suppression/populate_contents()
-	new /obj/item/implantcase/suppression(src)
-	new /obj/item/implanter/suppression(src)
-
-/obj/item/storage/lockbox/suppression/cargo
-
-/obj/item/storage/lockbox/suppression/cargo/populate_contents()
-	for(var/i in 1 to 3)
+	for(var/implant in 1 to 3)
 		new /obj/item/implantcase/suppression(src)
 	new /obj/item/implanter/suppression(src)
 

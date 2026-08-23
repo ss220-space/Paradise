@@ -27194,9 +27194,6 @@
 "fFQ" = (
 /obj/machinery/alarm/directional/south,
 /obj/structure/table/reinforced,
-/obj/item/storage/lockbox/suppression{
-	pixel_y = -5
-	},
 /obj/item/storage/lockbox/mindshield,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
