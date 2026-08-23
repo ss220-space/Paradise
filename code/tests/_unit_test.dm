@@ -245,6 +245,22 @@ GLOBAL_LIST_EMPTY(unit_test_tguis)
 		/obj/structure/fusionreactor,
 		// Requires start and end turfs passed in
 		/obj/effect/immovablerod/smite,
+		// Destroying it causes auto evac call
+		/obj/item/circuitboard/communications,
+		// Should not exist on its own
+		/obj/machinery/gravity_generator/part,
+		// Requires mind
+		/obj/effect/mob_spawn/human/demonic_friend,
+		// Requires owner
+		/obj/effect/portal_sensor,
+		// Admin smite, requires machinery to work
+		/mob/living/machinery_mind,
+		// Should not exist without its parent shield object
+		/obj/effect/abstract/meteor_shield_proxy,
+		// Requires particle path to be passed in
+		/obj/effect/abstract/particle_holder_tgmc,
+		// Requires frame to be passed in
+		/obj/structure/sign/picture_frame,
 	)
 
 	// Everything that follows is a typesof() check.
@@ -343,4 +359,16 @@ GLOBAL_LIST_EMPTY(unit_test_tguis)
 	returnable_list += typesof(/datum/spell_handler)
 	// Destroying these causes the game to call evac shuttle
 	returnable_list += typesof(/obj/machinery/computer/communications)
+	// Spawns circuitboards to grab their ru names, comms circuit as well, destroying which causes evac shuttle call
+	returnable_list += typesof(/obj/machinery/computer/rdconsole)
+	// See above
+	returnable_list += typesof(/obj/machinery/r_n_d/server)
+	// These care about what type of area they are spawned in
+	returnable_list += typesof(/obj/machinery/computer/syndicate_depot)
+	// Pipes try to do some atmos fuckery and merge with each other, causing shit load of runtimes
+	returnable_list += typesof(/obj/machinery/atmospherics)
+	// Some kind of mapping object, runtimes without set on mapping var/codes_txt
+	returnable_list += typesof(/obj/machinery/navbeacon)
+	// These should not exist outside of their holder
+	returnable_list += typesof(/obj/effect/proc_holder)
 	return returnable_list
