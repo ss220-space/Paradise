@@ -307,7 +307,9 @@ Difficulty: Medium
 	if(!.)
 		return
 
+	var/obj/item/melee/energy/cleaving_saw/old_saw = miner_saw
 	miner_saw = new /obj/item/melee/energy/cleaving_saw(src) //Real saw for real men.
+	qdel(old_saw)
 	dash_cooldown_to_use = 0.5 SECONDS //Becomes a teleporting shit.
 	ranged_cooldown_time = 5 //They got some cooldown mods.
 	projectiletype = /obj/projectile/kinetic/miner/enraged
@@ -316,7 +318,9 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/unrage()
 	. = ..()
+	var/obj/item/melee/energy/cleaving_saw/old_saw = miner_saw
 	miner_saw = new /obj/item/melee/energy/cleaving_saw/miner(src)
+	qdel(old_saw)
 	dash_cooldown_to_use = initial(dash_cooldown_to_use)
 	ranged_cooldown_time = initial(ranged_cooldown_time)
 	projectiletype = initial(projectiletype)
