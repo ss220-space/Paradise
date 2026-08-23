@@ -123,7 +123,7 @@
 // I hate it too bestie
 	if(GLOB.running_create_and_destroy)
 		var/turf/T = loc
-		T.RemoveElement(/datum/element/decal, icon, icon_state, dir, null, layer, alpha, color, null, FALSE, null)
+		T.RemoveElement(/datum/element/decal, icon, icon_state, dir, null, layer, alpha, color, FALSE, null)
 #endif
 	// Intentionally used over moveToNullspace(), which calls doMove(), which fires
 	// off an enormous amount of procs, signals, etc, that this temporary effect object
