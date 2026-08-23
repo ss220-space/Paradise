@@ -27,7 +27,7 @@
 	index_name = "dress shoes"
 	path = /obj/item/clothing/shoes/centcom
 
-/datum/gear/donshoesor/noble_boot
+/datum/gear/shoes/noble_boot
 	index_name = "Noble Boots"
 	path = /obj/item/clothing/shoes/fluff/noble_boot
 
