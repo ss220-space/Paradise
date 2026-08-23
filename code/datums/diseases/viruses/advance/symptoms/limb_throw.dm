@@ -20,26 +20,28 @@ Limb Rejection
 
 /datum/symptom/limb_throw/Activate(datum/disease/virus/advance/A)
 	if(!spell_learned && A.stage >= 4)
-		A.affected_mob.AddSpell(new /datum/action/cooldown/spell/pointed/projectile/limb_throw)
+		A.affected_mob.AddSpell(new /datum/action/cooldown/spell/pointed/limb_throw)
+		spell_learned = TRUE
 	return
 
 /datum/symptom/limb_throw/End(datum/disease/virus/advance/A)
-	A.affected_mob.RemoveSpell(/datum/action/cooldown/spell/pointed/projectile/limb_throw)
+	A.affected_mob.RemoveSpell(/datum/action/cooldown/spell/pointed/limb_throw)
 	spell_learned = FALSE
 	return
 
-/datum/action/cooldown/spell/pointed/projectile/limb_throw
+/datum/action/cooldown/spell/pointed/limb_throw
 	name = "Отстреливание конечностей"
 	desc = "Метните выбранную конечность как снаряд."
 	spell_requirements = NONE
 	invocation = ""
 	active_msg = span_notice_alt("Вы готовитесь бросить конечность!! <b>ЛКМ, чтобы бросить в цель!</b>")
 	deactive_msg = span_notice_alt("Вы решили не бросать конечность... пока что.")
-	active_background_icon_state = "bg_changeling"
-	button_icon_state = "limb_throw"
 	background_icon_state = "bg_changeling"
+	button_icon_state = "limb_throw"
+	background_icon_state_active = "bg_changeling"
+	cooldown_time = 5 SECONDS
 
-/datum/action/cooldown/spell/pointed/projectile/limb_throw/cast(atom/cast_on)
+/datum/action/cooldown/spell/pointed/limb_throw/cast(atom/cast_on)
 	. = ..()
 	var/target = cast_on
 	var/turf/T = owner.loc

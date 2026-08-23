@@ -368,8 +368,7 @@
 			if(!is_shadow(shadowling))
 				continue
 
-			user.RemoveSpell(/datum/action/cooldown/spell/shadowling_hatch)
-			user.mind.AddSpell(new /datum/action/cooldown/spell/shadowling_ascend)
+			shadowling.mind.AddSpell(new /datum/action/cooldown/spell/shadowling_ascend)
 
 			if(shadowling == user)
 				to_chat(shadowling, span_shadowling("<i>Ты проецируешь эту силу на остальных тенелингов..</i>"))
@@ -882,6 +881,7 @@
 	aoe_radius = 6
 	shadowling_spell = TRUE
 	targeting_type = /datum/aoe_targeting/shadowling_carbon
+	cooldown_time = 5 SECONDS
 
 /datum/action/cooldown/spell/aoe/ascendant_storm/cast(atom/cast_on)
 	. = ..()

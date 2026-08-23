@@ -9,7 +9,7 @@
 	/// If the blood cost should be handled by this handler. Or if the spell will handle it itself
 	var/deduct_blood_on_cast = TRUE
 
-/datum/spell_handler/vampire/can_cast(mob/user, charge_check, show_message, datum/action/cooldown/spell/spell)
+/datum/spell_handler/vampire/can_cast(mob/user, show_message, datum/action/cooldown/spell/spell)
 	var/datum/antagonist/vampire/vampire = user?.mind?.has_antag_datum(/datum/antagonist/vampire)
 
 	if(!vampire)

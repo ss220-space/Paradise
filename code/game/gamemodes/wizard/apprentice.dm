@@ -188,7 +188,7 @@
 	var/list/datum/action/cooldown/spell/spells = list()
 
 /datum/magick_school/proc/kit()
-	for(var/datum/action/cooldown/spell/spell_to_add in spells)
+	for(var/spell_to_add in spells)
 		owner.mind.AddSpell(new spell_to_add)
 
 // MARK 2: CONTENT & DATA
@@ -229,6 +229,7 @@
 	)
 
 /datum/magick_school/healer/kit()
+	. = ..()
 	owner.equip_or_collect(new /obj/item/gun/magic/staff/healing(owner), ITEM_SLOT_HAND_RIGHT)
 	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/healmage(owner), ITEM_SLOT_CLOTH_OUTER)
 	owner.equip_or_collect(new /obj/item/clothing/head/wizard/healmage(owner), ITEM_SLOT_HEAD)
@@ -245,6 +246,7 @@
 	)
 
 /datum/magick_school/motion/kit()
+	. = ..()
 	owner.equip_or_collect(new /obj/item/clothing/suit/space/suit/psyamp, ITEM_SLOT_CLOTH_OUTER)
 	owner.equip_or_collect(new /obj/item/clothing/head/helmet/space/head/psyamp, ITEM_SLOT_HEAD)
 
@@ -281,6 +283,7 @@
 	)
 
 /datum/magick_school/sabotage/kit()
+	. = ..()
 	owner.equip_or_collect(new /obj/item/gun/magic/staff/animate(owner), ITEM_SLOT_HAND_RIGHT)
 	owner.equip_or_collect(new /obj/item/clothing/suit/storage/blacktrenchcoat/suit/saboteur, ITEM_SLOT_CLOTH_OUTER)
 	owner.equip_or_collect(new /obj/item/clothing/head/fedora/head/saboteur, ITEM_SLOT_HEAD)
@@ -320,6 +323,7 @@
 	)
 
 /datum/magick_school/defense/kit()
+	. = ..()
 	ADD_TRAIT(owner, TRAIT_RESIST_HEAT, MAGIC_TRAIT)
 	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/magusdefender(owner), ITEM_SLOT_CLOTH_OUTER)
 	owner.equip_or_collect(new /obj/item/clothing/head/wizard/magusdefender(owner), ITEM_SLOT_HEAD)
@@ -336,6 +340,7 @@
 	)
 
 /datum/magick_school/fire/kit()
+	. = ..()
 	ADD_TRAIT(owner, TRAIT_RESIST_HEAT, MAGIC_TRAIT)
 	owner.equip_or_collect(new /obj/item/clothing/suit/victcoat/red/suit/fire_robe, ITEM_SLOT_CLOTH_OUTER)
 
@@ -360,6 +365,7 @@
 	)
 
 /datum/magick_school/sculpt/kit()
+	. = ..()
 	owner.equip_or_collect(new /obj/item/gun/magic/staff/animate(owner), ITEM_SLOT_HAND_RIGHT)
 
 	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/artmage(owner), ITEM_SLOT_CLOTH_OUTER)
@@ -375,6 +381,7 @@
 	)
 
 /datum/magick_school/stand/kit()
+	. = ..()
 	owner.equip_or_collect(new /obj/item/guardiancreator(owner), ITEM_SLOT_HAND_RIGHT)
 
 	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/magusdefender(owner), ITEM_SLOT_CLOTH_OUTER)
@@ -391,6 +398,7 @@
 	)
 
 /datum/magick_school/instability/kit()
+	. = ..()
 	owner.equip_or_collect(new /obj/item/gun/magic/staff/slipping(owner), ITEM_SLOT_HAND_RIGHT)
 	owner.equip_or_collect(new /obj/item/bikehorn, ITEM_SLOT_BELT)
 
@@ -404,6 +412,7 @@
 	)
 
 /datum/magick_school/blood/kit()
+	. = ..()
 	owner.equip_or_collect(new /obj/item/storage/belt/soulstone/full(owner), ITEM_SLOT_BELT)
 
 	var/obj/item/melee/chainofcommand/chain = new
@@ -433,6 +442,7 @@
 	)
 
 /datum/magick_school/necromantic/kit()
+	. = ..()
 	owner.equip_or_collect(new /obj/item/necromantic_stone(owner), ITEM_SLOT_POCKET_LEFT)
 	owner.equip_or_collect(new /obj/item/necromantic_stone(owner), ITEM_SLOT_POCKET_RIGHT)
 
@@ -449,6 +459,7 @@
 	)
 
 /datum/magick_school/vision/kit()
+	. = ..()
 	owner.equip_or_collect(new /obj/item/scrying(owner), ITEM_SLOT_HAND_RIGHT)
 	ADD_TRAIT(owner, TRAIT_XRAY_VISION, MAGIC_TRAIT)
 	ADD_TRAIT(owner, TRAIT_NIGHT_VISION, MAGIC_TRAIT)
@@ -469,6 +480,7 @@
 	)
 
 /datum/magick_school/singulo/kit()
+	. = ..()
 	owner.equip_or_collect(new /obj/item/twohanded/singularityhammer(owner), ITEM_SLOT_HAND_RIGHT)
 
 	var/obj/item/clothing/suit/wizrobe/magusred/suit = new
@@ -498,6 +510,7 @@
 	)
 
 /datum/magick_school/replace/kit()
+	. = ..()
 	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/psypurple(owner), ITEM_SLOT_CLOTH_OUTER)
 	owner.equip_or_collect(new /obj/item/clothing/head/wizard/amp(owner), ITEM_SLOT_HEAD)
 
@@ -513,7 +526,7 @@
 	)
 
 /datum/magick_school/destruction/kit()
-
+	. = ..()
 	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/magusred(owner), ITEM_SLOT_CLOTH_OUTER)
 	owner.equip_or_collect(new /obj/item/clothing/head/wizard/magus(owner), ITEM_SLOT_HEAD)
 
@@ -532,7 +545,7 @@
 
 /datum/magick_school/lavaland/kit()
 	owner.faction += "mining"
-
+	. = ..()
 	owner.equip_or_collect(new /obj/item/clothing/under/ash_walker(owner), ITEM_SLOT_CLOTH_INNER)
 	owner.equip_or_collect(new /obj/item/clothing/gloves/color/black/goliath(owner), ITEM_SLOT_GLOVES)
 	owner.equip_or_collect(new /obj/item/clothing/suit/hooded/goliath/wizard(owner), ITEM_SLOT_CLOTH_OUTER)

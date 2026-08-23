@@ -233,25 +233,20 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 	ascendant.name = user.real_name
 	ascendant.languages = user.languages
 	for(var/spell_to_add in ascendant_spells)
-		user.mind.AddSpell(new spell_to_add)
+		ascendant.mind.AddSpell(new spell_to_add)
 
 	if(ascendant.real_name)
 		ascendant.real_name = user.real_name
 
-	user.invisibility = INVISIBILITY_OBSERVER	//This is pretty bad, but is also necessary for the shuttle call to function properly
-	user.forceMove(ascendant)
+	qdel(user)
 
 	sleep(5 SECONDS)
-	if(QDELETED(user))
-		return
 
 	if(!SSticker.mode.shadowling_ascended)
 		sleep(60 SECONDS)
 		SSticker?.mode?.end_game()
 
 	SSticker.mode.shadowling_ascended = TRUE
-	ascendant.mind.RemoveSpell(src)
-	qdel(user)
 
 /**
  * Testing purpose.
