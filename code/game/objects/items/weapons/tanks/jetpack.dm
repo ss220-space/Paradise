@@ -281,11 +281,11 @@
 	return ..()
 
 /obj/item/tank/jetpack/suit/turn_off(mob/living/carbon/human/user)
+	UnregisterSignal(tank, COMSIG_MOVABLE_MOVED)
+	UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
 	tank = null
 	air_contents = temp_air_contents
 	STOP_PROCESSING(SSobj, src)
-	UnregisterSignal(tank, COMSIG_MOVABLE_MOVED)
-	UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
 	return ..()
 
 /obj/item/tank/jetpack/suit/proc/jetpack_check_distance(atom/source, old_loc, movement_dir, forced, old_locs, momentum_change)
