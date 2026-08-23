@@ -15,6 +15,9 @@
 
 /obj/effect/abstract/particle_holder_tgmc/Initialize(mapload, particle_path = null)
 	. = ..()
+	if(!particle_path)
+		stack_trace("particle holder tgmc was created with null particle_path!")
+		return INITIALIZE_HINT_QDEL
 	if(!loc)
 		stack_trace("particle holder tgmc was created with no loc!")
 		return INITIALIZE_HINT_QDEL
