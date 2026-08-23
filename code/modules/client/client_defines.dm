@@ -305,6 +305,8 @@
 	/// If this client has been fully initialized or not
 	var/fully_created = FALSE
 
+	var/datum/admin_verb_panel/admin_verb_panel
+
 /client/vv_edit_var(var_name, var_value)
 	if(var_name == NAMEOF(src, tos_consent))
 		// I know we will never be in a world where admins are editing client vars to let people bypass TOS

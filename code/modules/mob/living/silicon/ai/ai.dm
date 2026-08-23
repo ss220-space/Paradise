@@ -793,7 +793,7 @@ GAME_VERB_PROC_DESC(/mob/living/silicon/ai, botcall, "Диспетчер роб�
 //Addition by Mord_Sith to define AI's network change ability
 GAME_VERB_PROC(/mob/living/silicon/ai, ai_network_change, "Сменить сеть камер", VERB_CATEGORY_AICOMMANDS)
 	unset_machine()
-	var/cameralist[0]
+	var/list/cameralist = list()
 
 	if(check_unable())
 		return

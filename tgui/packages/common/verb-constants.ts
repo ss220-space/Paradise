@@ -54,3 +54,27 @@ export function isListArg(arg: VerbArgBase): boolean {
     arg.options.length > 0
   );
 }
+
+/**Add a comment on  lines R58 to R59Add diff commentMarkdown input:  edit mode selected.WritePreviewAdd a suggestionHeadingBold(control b) control⌃ bBItalic(control i) control⌃ iIQuote(control shift right angle bracket) control⌃ shift⇧ right angle bracket>Code(control e) control⌃ eELink(control k) control⌃ kKUnordered list(control 8) control⌃ 88Numbered list(control shift ampersand) control⌃ shift⇧ ampersand&Task list(control shift l) control⌃ shift⇧ lLMentionReferenceMore itemsSaved repliesAdd FilesPaste, drop, or click to add filesCancelCommentStart a review
+ * Filters typepaths to show direct children matching the query.
+ */
+export function filterTypepaths(
+  allPaths: string[],
+  query: string,
+  limit = 0,
+): string[] {
+  const lower = query.toLowerCase();
+  const parentPrefix = lower.endsWith('/')
+    ? lower
+    : lower.slice(0, lower.lastIndexOf('/') + 1);
+  const results: string[] = [];
+  for (const p of allPaths) {
+    const pl = p.toLowerCase();
+    if (!pl.startsWith(parentPrefix)) continue;
+    if (pl.slice(parentPrefix.length).includes('/')) continue;
+    if (!pl.startsWith(lower)) continue;
+    results.push(p);
+    if (limit > 0 && results.length >= limit) break;
+  }
+  return results;
+}

@@ -1,5 +1,6 @@
 import { loadStyleSheet } from 'common/assets';
 import { EventBus } from 'tgui-core/eventbus';
+import { loadDonations } from 'tgui-panel/donations/handlers';
 import { playMusic, stopMusic } from '../audio/handlers';
 import { chatMessage } from '../chat/handlers';
 import { pingReply, pingSoft } from '../ping/handlers';
@@ -15,13 +16,11 @@ import {
   handleHotkeyMode,
   handleRemoveVerbs,
   handleTargets,
-  handleTypepaths,
   handleVerbsInit,
 } from '../verbs/handlers';
 import { handleLoadAssets } from './handlers/assets';
 import { playerSet } from './handlers/player';
 import { roundrestart } from './handlers/roundrestart';
-import { loadDonations } from 'tgui-panel/donations/handlers';
 
 const listeners = {
   'verbs/add': handleAddVerbs,
@@ -30,7 +29,6 @@ const listeners = {
   'verbs/init': handleVerbsInit,
   'verbs/remove': handleRemoveVerbs,
   'verbs/targets': handleTargets,
-  'verbs/typepaths': handleTypepaths,
   'verbs/hotkey_mode': handleHotkeyMode,
   'asset/stylesheet': loadStyleSheet,
   'asset/mappings': handleLoadAssets,

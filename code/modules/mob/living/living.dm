@@ -2136,8 +2136,9 @@ GAME_VERB_PROC(/mob/living, toggle_resting, "Лечь", VERB_CATEGORY_IC)
 	update_ssd_overlay()	// special SSD overlay handling
 
 GAME_VERB_HIDDEN(/mob/living, succumb, "succumb")
+	VERB_ARG(whispered, VERB_ARG_TYPE_NUM, VERB_ARG_SOURCE_INPUT)
 	// if you use the verb you better mean it
-	do_succumb(FALSE)
+	do_succumb(!whispered)
 
 /mob/living/proc/do_succumb(cancel_on_no_words)
 	if(stat == DEAD)

@@ -141,8 +141,8 @@
 
 	return targets
 
-GAME_VERB_PROC_DESC(/mob/living/silicon/ai, ai_camera_track, "Режим слежения", "Select who you would like to track.", VERB_CATEGORY_AICOMMANDS, target_name in trackable_mobs()) //Don't display it on the verb lists. This verb exists purely so you can type "track Oldman Robustin" and follow his ass
-
+GAME_VERB_PROC_DESC(/mob/living/silicon/ai, ai_camera_track, "Режим слежения", "Select who you would like to track.", VERB_CATEGORY_AICOMMANDS) //Don't display it on the verb lists. This verb exists purely so you can type "track Oldman Robustin" and follow his ass
+	VERB_ARG_LIST(target_name, trackable_mobs())
 	if(src.stat == DEAD)
 		to_chat(src, "You can't track with camera because you are dead!")
 		return
