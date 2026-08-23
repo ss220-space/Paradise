@@ -90,6 +90,7 @@
 	return TRUE
 
 /obj/machinery/computer/fission_monitor/multitool_act(mob/living/user, obj/item/I)
+	. = TRUE
 	if(!I.multitool_check_buffer(user))
 		return
 	var/obj/item/multitool/multitool = I
