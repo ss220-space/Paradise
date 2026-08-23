@@ -180,6 +180,11 @@
 	START_PROCESSING(SSprocessing, src)
 	enchants = GLOB.minigun_spells
 
+/obj/item/gun/energy/gun/minigun/clockwork/Destroy()
+	STOP_PROCESSING(SSprocessing, src)
+	autofire = null
+	return ..()
+
 /obj/item/gun/energy/gun/minigun/clockwork/process()
 	. = ..()
 	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
@@ -196,7 +201,8 @@
 		overheat = FALSE
 
 /obj/item/gun/energy/gun/minigun/clockwork/ComponentInitialize()
-	autofire = src.GetComponent(/datum/component/automatedfire/autofire)
+	. = ..()
+	autofire = GetComponent(/datum/component/automatedfire/autofire)
 
 /obj/item/gun/energy/gun/minigun/clockwork/update_overlays()
 	. = ..()
