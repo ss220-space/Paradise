@@ -922,6 +922,7 @@
 		/obj/item/reagent_containers/glass/beaker,
 		/obj/item/reagent_containers/glass/bottle,
 		/obj/item/reagent_containers/iv_bag,
+		/obj/item/reagent_containers/hypospray/autoinjector,
 	)
 	resistance_flags = FLAMMABLE
 
