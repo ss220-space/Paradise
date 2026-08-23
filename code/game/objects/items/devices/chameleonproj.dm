@@ -30,6 +30,10 @@
 	var/obj/item/cigbutt/butt = /obj/item/cigbutt
 	saved_appearance = initial(butt.appearance)
 
+/obj/item/chameleon/Destroy(force)
+	QDEL_NULL(active_dummy)
+	return ..()
+
 /obj/item/chameleon/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	disrupt()
@@ -89,14 +93,17 @@
 		new /obj/effect/temp_visual/emp/pulse(get_turf(src))
 
 /obj/item/chameleon/proc/disrupt(delete_dummy = 1)
-	if(active_dummy)
-		do_sparks(5, FALSE, src)
-		eject_all()
-		if(delete_dummy)
-			qdel(active_dummy)
-		active_dummy = null
-		can_use = FALSE
-		addtimer(VARSET_CALLBACK(src, can_use, TRUE), 5 SECONDS)
+	if(!active_dummy)
+		return
+	do_sparks(5, FALSE, src)
+	eject_all()
+	if(delete_dummy)
+		qdel(active_dummy)
+	active_dummy = null
+	can_use = FALSE
+	if(QDELETED(active_dummy))
+		return
+	addtimer(VARSET_CALLBACK(src, can_use, TRUE), 5 SECONDS)
 
 /obj/item/chameleon/proc/eject_all()
 	for(var/atom/movable/A in active_dummy)
@@ -109,6 +116,7 @@
 	var/obj/item/chameleon/master = null
 
 /obj/effect/dummy/chameleon/Destroy()
+	master?.disrupt(FALSE)
 	master = null
 	return ..()
 
@@ -188,10 +196,6 @@
 				addtimer(VARSET_CALLBACK(src, can_move, TRUE), 2.5 SECONDS)
 		step(src, direction)
 	return
-
-/obj/effect/dummy/chameleon/Destroy()
-	master.disrupt(0)
-	return ..()
 
 /obj/item/borg_chameleon
 	name = "cyborg chameleon projector"
