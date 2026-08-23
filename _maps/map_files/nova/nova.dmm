@@ -34713,9 +34713,7 @@
 	},
 /area/station/security/hallway/perma)
 "fAx" = (
-/obj/structure/toilet/captain_toilet{
-	pixel_y = 6
-	},
+/obj/structure/toilet/captain_toilet/directional/east,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -129984,9 +129982,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "tUp" = (
-/obj/structure/toilet/secret{
-	dir = 2
-	},
+/obj/structure/toilet/secret/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/casino)

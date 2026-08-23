@@ -65,7 +65,13 @@
 	. = ..()
 
 	can_hold = typecacheof(can_hold)
+	if(can_hold)
+		can_hold = string_assoc_list(can_hold)
 	cant_hold = typecacheof(cant_hold)
+	if(cant_hold)
+		cant_hold = string_assoc_list(cant_hold)
+	if(w_class_override)
+		w_class_override = string_list(w_class_override)
 
 	if(allow_quick_empty)
 		verbs += /obj/item/storage/verb/quick_empty
