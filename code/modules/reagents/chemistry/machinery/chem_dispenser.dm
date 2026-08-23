@@ -250,9 +250,9 @@
 				atom_say("Недостаточно энергии для завершения операции!")
 				return
 			CALCULATE_SKILL_MOD(usr, dispence_skill_name, dispense_rand_size)
-			dispence_random_prob *= 100
 			actual += min(amount * dispense_rand_size * (rand(0, 1) * dispense_rand_size), free) // assistants gets free drinks, but can evaporate energy in seconds
 			var/reagent = params["reagent"]
+			dispense_rand_size *= 100
 			if(prob(dispense_rand_size))
 				reagent = pick(dispensable_reagents)
 			R.add_reagent(reagent, actual)
