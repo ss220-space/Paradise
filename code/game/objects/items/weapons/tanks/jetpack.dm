@@ -238,6 +238,7 @@
 	temp_air_contents = air_contents
 
 /obj/item/tank/jetpack/suit/Destroy()
+	turn_off(get_owner())
 	our_suit = null
 	tank = null
 	temp_air_contents = null
