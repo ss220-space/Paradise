@@ -228,6 +228,7 @@
 	slot_flags = NONE
 	gas_type = null
 	fillable = FALSE
+	var/datum/weakref/last_user
 	var/datum/gas_mixture/temp_air_contents
 	var/obj/item/tank/internals/tank
 	var/obj/item/clothing/suit/space/our_suit
@@ -238,10 +239,15 @@
 	temp_air_contents = air_contents
 
 /obj/item/tank/jetpack/suit/Destroy()
-	turn_off(get_owner())
+	var/mob/living/carbon/human/human_owner = last_user?.resolve()
+	if(human_owner)
+		UnregisterSignal(human_owner, COMSIG_MOVABLE_MOVED)
+	if(tank)
+		UnregisterSignal(tank, COMSIG_MOVABLE_MOVED)
 	our_suit = null
 	tank = null
 	temp_air_contents = null
+	last_user = null
 	return ..()
 
 /obj/item/tank/jetpack/suit/item_action_slot_check(slot, mob/user, datum/action/action)
@@ -274,6 +280,7 @@
 		to_chat(user, span_warning("You need a tank in your suit storage!"))
 		return FALSE
 	tank = user.s_store
+	last_user = WEAKREF(user)
 	RegisterSignal(tank, COMSIG_MOVABLE_MOVED, PROC_REF(jetpack_check_distance))
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(jetpack_check_distance))
 	air_contents = tank.air_contents
@@ -292,6 +299,7 @@
 
 /obj/item/tank/jetpack/suit/proc/jetpack_check_distance(atom/source, old_loc, movement_dir, forced, old_locs, momentum_change)
 	SIGNAL_HANDLER
+
 	var/mob/living/carbon/human/human_user = get_owner()
 	var/turf/user_turf = get_turf(human_user)
 	var/turf/tank_turf = get_turf(tank)
