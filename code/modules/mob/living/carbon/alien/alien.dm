@@ -233,9 +233,7 @@
 /mob/living/carbon/alien/setDNA()
 	return
 
-/mob/living/carbon/alien/verb/nightvisiontoggle()
-	set name = "Toggle Night Vision"
-
+/mob/living/carbon/alien/proc/nightvisiontoggle()
 	if(!nightvision_enabled)
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 		nightvision = 8

@@ -147,6 +147,34 @@ _GAME_VERB_SRC(owner_type, verb_path_name, src_value, verb_name, "", verb_catego
 #define GAME_VERB_SRC_DESC(owner_type, verb_path_name, src_value, verb_name, verb_desc, verb_category) \
 _GAME_VERB_SRC(owner_type, verb_path_name, src_value, verb_name, verb_desc, verb_category, TRUE, FALSE)
 
+#define _GAME_PROC_SRC(owner_type, verb_path_name, src_value, verb_name, verb_desc, verb_category, show_in_context_menu, is_hidden) \
+/datum/verb_metadata##owner_type/##verb_path_name \
+{ \
+	name = ##verb_name; \
+	description = ##verb_desc; \
+	category = ##verb_category; \
+	verb_path = ##owner_type/proc/##verb_path_name; \
+	body_path = ##owner_type/proc/__gvb_##verb_path_name; \
+	src_based = TRUE; \
+}; \
+##owner_type/proc/##verb_path_name() \
+{ \
+	set name = ##verb_name; \
+	set desc = ##verb_desc; \
+	set hidden = ##is_hidden; \
+	set popup_menu = ##show_in_context_menu; \
+	set category = ##verb_category; \
+	set src in src_value; \
+	INVOKE_ASYNC(SSverbs, TYPE_PROC_REF(/datum/controller/subsystem/verbs, invoke_verb), src, ##owner_type/proc/##verb_path_name, args, usr); \
+}; \
+##owner_type/proc/__gvb_##verb_path_name(list/structured_args)
+
+#define GAME_PROC_SRC(owner_type, verb_path_name, src_value, verb_name, verb_category) \
+_GAME_PROC_SRC(owner_type, verb_path_name, src_value, verb_name, "", verb_category, TRUE, FALSE)
+
+#define GAME_PROC_SRC_DESC(owner_type, verb_path_name, src_value, verb_name, verb_desc, verb_category) \
+_GAME_PROC_SRC(owner_type, verb_path_name, src_value, verb_name, verb_desc, verb_category, TRUE, FALSE)
+
 #define _GAME_VERB_GLOBAL_PROC(verb_path_name, verb_name, verb_desc, verb_category, is_hidden) \
 /datum/verb_metadata/##verb_path_name \
 { \
@@ -172,6 +200,11 @@ _GAME_VERB_GLOBAL_PROC(verb_path_name, verb_name, verb_desc, verb_category, FALS
 #define INVOKE_GAME_VERB(target, caller, owner_type, verb_path_name, args...) SSverbs.invoke(target, /datum/verb_metadata##owner_type/##verb_path_name, caller, alist(##args))
 #define ASSIGN_GAME_VERB(target, owner_type, verb_path_name) SSverbs.assign_verb(target, /datum/verb_metadata##owner_type/##verb_path_name)
 #define UNASSIGN_GAME_VERB(target, owner_type, verb_path_name) SSverbs.unassign_verb(target, /datum/verb_metadata##owner_type/##verb_path_name)
+#define ASSIGN_GAME_VERB_DIRECT(target, verb_meta) SSverbs.assign_verb(target, verb_meta)
+#define UNASSIGN_GAME_VERB_DIRECT(target, verb_meta) SSverbs.unassign_verb(target, verb_meta)
+#define VERB_META(type, verb_name) /datum/verb_metadata##type/##verb_name
+
+
 
 /// Self-registers argument metadata at world init and extracts value from structured_args at runtime.
 /// For primitive args: VERB_ARG(count, VERB_ARG_TYPE_NUM, VERB_ARG_SOURCE_INPUT)

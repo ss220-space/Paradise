@@ -114,6 +114,7 @@
 	var/bypass_unintentional_cooldown = FALSE
 	/// How loud is the audio emote?
 	var/volume = 50
+	var/keybind_category = KB_CATEGORY_EMOTE_GENERIC
 
 /datum/emote/New()
 	if(message_param && !param_desc)

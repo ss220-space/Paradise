@@ -293,10 +293,7 @@
 	disable_message = "Будучи призраком, теперь вы не будете видеть все КПК-сообщения."
 	blackbox_message = "Toggle Ghost PDA"
 
-/client/verb/silence_current_midi()
-	set name = "Заглушить MIDI"
-	set category = VERB_CATEGORY_SPECIALVERBS
-	set desc = "Заглушает текущие MIDI-файлы, проигрываемые администрацией."
+GAME_VERB_DESC(/client, silence_current_midi, "Заглушить MIDI", "Заглушает текущие MIDI-файлы, проигрываемые администрацией.", VERB_CATEGORY_SPECIALVERBS)
 	usr.stop_sound_channel(CHANNEL_ADMIN)
 	to_chat(src, "Текущие проигрываемые админ-MIDI были заглушены.")
 

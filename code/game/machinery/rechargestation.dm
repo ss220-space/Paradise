@@ -263,9 +263,7 @@
 			spray.reagents.add_reagent("sacid", 2 * coeff)
 			return
 
-/obj/machinery/recharge_station/verb/move_eject()
-	set category = VERB_CATEGORY_OBJECT
-	set src in oview(1)
+GAME_VERB_SRC(/obj/machinery/recharge_station, move_eject, oview(1), "Вылезти", VERB_CATEGORY_HIDDEN)
 	go_out(usr)
 
 /obj/machinery/recharge_station/proc/move_inside(mob/user)

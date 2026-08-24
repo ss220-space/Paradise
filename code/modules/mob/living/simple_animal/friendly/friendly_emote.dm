@@ -1,6 +1,7 @@
 /datum/emote/living/simple_animal
 	abstract_type = /datum/emote/living/simple_animal
 	mob_type_allowed_typecache = list(/mob/living/simple_animal)
+	keybind_category = KB_CATEGORY_EMOTE_ANIMAL
 
 /datum/emote/living/simple_animal/diona_chirp
 	name = "Чирикать (диона)"

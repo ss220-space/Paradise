@@ -6,6 +6,7 @@
 		/mob/living/carbon/human,	// Humans are allowed for the sake of IPCs
 	)
 	mob_type_blacklist_typecache = null
+	keybind_category = KB_CATEGORY_EMOTE_SILICON
 
 /datum/emote/living/silicon/can_run_emote(mob/living/carbon/human/user, status_check, intentional)
 	. = ..()

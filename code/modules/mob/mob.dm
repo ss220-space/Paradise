@@ -424,8 +424,8 @@ GAME_VERB_PROC(/mob, Cell, "Cell", ADMIN_CATEGORY_DEBUG)
 	LAZYREMOVE(client.movingmob.client_mobs_in_contents, src)
 	client.movingmob = null
 
-GAME_VERB(/mob, examinate, "Осмотреть", null, atom/examinify as mob|obj|turf in view()) //It used to be oview(12), but I can't really say why
-
+GAME_VERB_CONTEXT(/mob, examinate, "Осмотреть", VERB_NO_DESCRIPTION, VERB_CATEGORY_HIDDEN, /atom)
+	VERB_ARG_TYPED(examinify, VERB_ARG_TYPE_MOB | VERB_ARG_TYPE_OBJ | VERB_ARG_TYPE_TURF, VERB_ARG_SOURCE_VIEW, /atom)
 	if(!client)
 		return
 
@@ -590,9 +590,11 @@ GAME_VERB(/mob, examinate, "Осмотреть", null, atom/examinify as mob|obj
 /mob/living/carbon/can_eye_contact()
 	return !(check_obscured_slots() & ITEM_SLOT_EYES)
 
-/mob/verb/mode()
-	set name = "Использовать объект"
-	set src = usr
+/mob/proc/mode()
+	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(execute_mode)))
+
+///proc version to finish /mob/verb/mode() execution. used in case the proc needs to be queued for the tick after its first called
+/mob/proc/execute_mode()
 
 	if(ismecha(loc))
 		var/obj/mecha/mecha = loc
@@ -637,17 +639,15 @@ GAME_VERB(/mob, examinate, "Осмотреть", null, atom/examinify as mob|obj
 	canon_client = null
 	GLOB.left_player_list |= src
 
-/mob/verb/memory()
-	set name = "Заметки"
-	set category = VERB_CATEGORY_IC
+GAME_VERB(/mob, memory, "Заметки", VERB_CATEGORY_IC)
 	if(mind)
 		mind.show_memory(src)
 	else
 		to_chat(src, "The game appears to have misplaced your mind datum, so we can't show you your notes.")
 
-/mob/verb/add_memory(msg as message)
-	set name = "Добавить заметку"
-	set category = VERB_CATEGORY_IC
+
+GAME_VERB(/mob, add_memory, "Добавить заметку", VERB_CATEGORY_IC)
+	VERB_ARG(msg, VERB_ARG_TYPE_MESSAGE, VERB_ARG_SOURCE_INPUT)
 
 	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
 	msg = sanitize_simple(html_encode(msg), list("\n" = "<br>"))
@@ -677,7 +677,7 @@ GAME_VERB(/mob, examinate, "Осмотреть", null, atom/examinify as mob|obj
 		memory()
 
 /mob/proc/update_flavor_text()
-	set src in usr
+
 	if(usr != src)
 		to_chat(usr, "No.")
 	var/msg = tgui_input_text(usr, "Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance. SFW Drawn Art of your character is acceptable.", "Описание внешности", flavor_text, max_length = MAX_PAPER_MESSAGE_LEN, multiline = TRUE)
@@ -867,41 +867,6 @@ GAME_VERB(/mob, cancel_camera, "Сбросить позицию камеры", V
 	SEND_SIGNAL(src, COMSIG_MOB_GET_STATUS_TAB_ITEMS, .)
 	return .
 
-// facing verbs
-/mob/proc/canface()
-	if(stat == DEAD)
-		return FALSE
-	if(anchored)
-		return FALSE
-	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
-		return FALSE
-	if(HAS_TRAIT(src, TRAIT_RESTRAINED))
-		return FALSE
-	return TRUE
-
-/mob/proc/facedir(ndir)
-	if(!canface())
-		return FALSE
-	setDir(ndir)
-	client.move_delay += cached_multiplicative_slowdown
-	return TRUE
-
-/mob/verb/eastface()
-	set hidden = 1
-	return facedir(EAST)
-
-/mob/verb/westface()
-	set hidden = 1
-	return facedir(WEST)
-
-/mob/verb/northface()
-	set hidden = 1
-	return facedir(NORTH)
-
-/mob/verb/southface()
-	set hidden = 1
-	return facedir(SOUTH)
-
 /mob/proc/IsAdvancedToolUser()//This might need a rename but it should replace the can this mob use things check
 	return FALSE
 
@@ -914,9 +879,7 @@ GAME_VERB(/mob, cancel_camera, "Сбросить позицию камеры", V
 /mob/proc/activate_hand(selhand)
 	return
 
-/mob/dead/observer/verb/respawn()
-	set name = "Играть за НИП"
-	set category = VERB_CATEGORY_GHOST
+GAME_VERB(/mob/dead/observer, respawn, "Играть за НИП", VERB_CATEGORY_GHOST)
 
 	if(jobban_isbanned(usr, ROLE_SENTIENT))
 		to_chat(usr, span_warning("Вам запрещено играть за разумных животных."))

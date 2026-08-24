@@ -21,7 +21,7 @@
 	if(!human_mob.w_uniform)
 		return TRUE
 	var/obj/item/clothing/accessory/holster/holster = locate() in human_mob.w_uniform
-	holster?.holster_verb()
+	holster?.attack_self(user.mob)
 	return TRUE
 
 /datum/keybinding/human/quick_equip_belt

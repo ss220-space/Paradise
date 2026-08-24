@@ -494,11 +494,7 @@
 	add_fingerprint(user)
 	return CLICK_ACTION_SUCCESS
 
-/obj/machinery/atmospherics/unary/cryo_cell/verb/move_eject()
-	set name = "Извлечь пациента"
-	set category = VERB_CATEGORY_OBJECT
-	set src in oview(1)
-
+GAME_VERB_SRC(/obj/machinery/atmospherics/unary/cryo_cell, move_eject, oview(1), "Извлечь пациента", VERB_CATEGORY_HIDDEN)
 	if(usr == occupant)//If the user is inside the tube...
 		if(usr.stat == DEAD)
 			return

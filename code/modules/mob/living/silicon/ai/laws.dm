@@ -24,8 +24,3 @@ GAME_VERB_PROC_DESC(/mob/living/silicon/ai, show_laws_verb, "Список зак
 	for(var/mob/living/silicon/robot/R in GLOB.mob_list)
 		if(R.lawupdate && (R.connected_ai == src))
 			R.show_laws()
-
-/mob/living/silicon/ai/proc/ai_checklaws()
-	set category = VERB_CATEGORY_AICOMMANDS
-	set name = "Объявить законы"
-	subsystem_law_manager()

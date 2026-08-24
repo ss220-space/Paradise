@@ -1,5 +1,5 @@
-GAME_VERB(/mob, pray, VERB_PRAY, VERB_CATEGORY_IC, message as text)
-
+GAME_VERB(/mob, pray, VERB_PRAY, VERB_CATEGORY_IC)
+	VERB_ARG(message, VERB_ARG_TYPE_TEXT, VERB_ARG_SOURCE_INPUT)
 	message = sanitize(copytext_char(message, 1, MAX_MESSAGE_LEN))
 	if(!message)
 		return

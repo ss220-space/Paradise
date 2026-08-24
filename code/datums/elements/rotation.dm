@@ -67,7 +67,7 @@
 
 	object_to_rotate.setDir(turn(object_to_rotate.dir, degrees))
 	if(rotation_flags & ROTATION_REQUIRE_WRENCH)
-		playsound(object_to_rotate, 'sound/items/tools/ratchet.ogg', 50, TRUE)
+		playsound(object_to_rotate, 'sound/items/ratchet.ogg', 50, TRUE)
 
 	if(post_rotation_proccall)
 		call(object_to_rotate, post_rotation_proccall)(user, degrees)

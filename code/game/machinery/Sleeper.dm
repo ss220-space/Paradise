@@ -466,10 +466,7 @@
 	else
 		to_chat(user, "[DECLENT_RU_CAP(src, NOMINATIVE)] пуст!")
 
-/obj/machinery/sleeper/verb/eject()
-	set name = "Извлечь пациента"
-	set category = VERB_CATEGORY_OBJECT
-	set src in oview(1)
+GAME_VERB_SRC(/obj/machinery/sleeper, eject, oview(1), "Извлечь пациента", VERB_CATEGORY_HIDDEN)
 
 	if(usr.default_can_use_topic(src) != UI_INTERACTIVE)
 		return
@@ -479,10 +476,7 @@
 	go_out()
 	add_fingerprint(usr)
 
-/obj/machinery/sleeper/verb/remove_beaker()
-	set name = "Достать ёмкость"
-	set category = VERB_CATEGORY_OBJECT
-	set src in oview(1)
+GAME_VERB_SRC(/obj/machinery/sleeper, remove_beaker, oview(1), "Достать ёмкость", VERB_CATEGORY_HIDDEN)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !Adjacent(usr))
 		return

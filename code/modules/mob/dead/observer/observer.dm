@@ -57,11 +57,10 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	add_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS|SEE_SELF)
 	set_invis_see(SEE_INVISIBLE_OBSERVER_AI_EYE)
 	ADD_TRAIT(src, TRAIT_CULT_VEIL_SIGHT, INNATE_TRAIT)
-	add_verb(src, list(
-		/mob/dead/observer/proc/dead_tele,
-		/mob/dead/observer/proc/open_spawners_menu,
-		/mob/dead/observer/proc/open_minigames_menu,
-	))
+
+	ASSIGN_GAME_VERB(src, /mob/dead/observer, dead_tele)
+	ASSIGN_GAME_VERB(src, /mob/dead/observer, open_spawners_menu)
+	ASSIGN_GAME_VERB(src, /mob/dead/observer, open_minigames_menu)
 
 	// Our new boo spell.
 	AddSpell(new /obj/effect/proc_holder/spell/boo(null))
@@ -392,9 +391,7 @@ GAME_VERB(/mob/dead/observer, reenter_corpse, "Вернуться в тело", 
 	data_hud_seen -= hud_index
 	H.hide_from(src)
 
-/mob/dead/observer/verb/open_hud_panel()
-	set category = VERB_CATEGORY_GHOST
-	set name = "HUD призраков"
+GAME_VERB(/mob/dead/observer, open_hud_panel, "HUD призраков", VERB_CATEGORY_GHOST)
 	if(!client)
 		return
 	GLOB.ghost_hud_panel.ui_interact(src)
@@ -421,10 +418,7 @@ GAME_VERB(/mob/dead/observer, reenter_corpse, "Вернуться в тело", 
 	for(var/hud_key, hud_type in GLOB.huds)
 		astype(hud_type, /datum/atom_hud/antag)?.hide_from(src)
 
-/mob/dead/observer/verb/set_dnr()
-	set name = "Запретить реанимацию"
-	set category = VERB_CATEGORY_GHOST
-	set desc = "Предотвращает возрождение вашего персонажа."
+GAME_VERB_DESC(/mob/dead/observer, set_dnr, "Запретить реанимацию", "Предотвращает возрождение вашего персонажа.", VERB_CATEGORY_GHOST)
 
 	if(!isobserver(src)) // Somehow
 		return
@@ -455,10 +449,7 @@ GAME_VERB(/mob/dead/observer, reenter_corpse, "Вернуться в тело", 
 
 	SEND_SIGNAL(mind.current, COMSIG_LIVING_SET_DNR)
 
-/mob/dead/observer/proc/dead_tele()
-	set category = VERB_CATEGORY_GHOST
-	set name = "Телепортация"
-	set desc= "Teleport to a location"
+GAME_VERB_PROC_DESC(/mob/dead/observer, dead_tele, "Телепортация", "Teleport to a location", VERB_CATEGORY_GHOST)
 
 	if(!isobserver(usr))
 		to_chat(usr, "Не сейчас, вы же не мертвы!")
@@ -491,10 +482,7 @@ GAME_VERB_DESC(/mob/dead/observer, follow, "Следовать за", "Follow an
 	orbit_menu.ui_interact(src)
 
 // TODO: Remove this verb when "True-Observing" be merged.
-/mob/dead/observer/verb/toggle_sight_view()
-	set category = VERB_CATEGORY_GHOST
-	set name = "Видимость стен"
-	set desc = "Переключает вашу возможность видеть сквозь стены."
+GAME_VERB_DESC(/mob/dead/observer, toggle_sight_view, "Видимость стен", "Переключает вашу возможность видеть сквозь стены.", VERB_CATEGORY_GHOST)
 
 	sightchanged = !sightchanged
 
@@ -590,10 +578,7 @@ GAME_VERB_DESC(/mob/dead/observer, toggle_gas_scan, "Анализ атмосфе
 		to_chat(src, span_notice("Сканирование газов включено. Кликните на тайл для анализа."))
 		gas_scan = TRUE
 
-/mob/dead/observer/verb/toggle_plant_anaylzer()
-	set name = "Анализ растений"
-	set desc = "Toggles wether you can anaylze plants and seeds on click"
-	set category = VERB_CATEGORY_GHOST
+GAME_VERB_DESC(/mob/dead/observer, toggle_plant_anaylzer, "Анализ растений", "Toggles wether you can anaylze plants and seeds on click", VERB_CATEGORY_GHOST)
 
 	if(plant_analyzer)
 		to_chat(src, span_notice("Анализатор растений отключён."))
@@ -752,10 +737,7 @@ GAME_VERB_DESC(/mob/dead/observer, toggle_ghostsee, "Видимость приз
 	update_sight()
 	to_chat(usr, span_notice("Видимость призраков [(ghostvision?"включена":"отключена")]."))
 
-/mob/dead/observer/verb/toggle_selfsee()
-	set name = "Видимость себя"
-	set desc = "Toggles your ability to see your own ghost. Other ghosts still see you"
-	set category = VERB_CATEGORY_GHOST
+GAME_VERB_DESC(/mob/dead/observer, toggle_selfsee, "Видимость себя", "Toggles your ability to see your own ghost. Other ghosts still see you", VERB_CATEGORY_GHOST)
 
 	selfvision = !selfvision
 	update_selfvision()
@@ -771,10 +753,8 @@ GAME_VERB_DESC(/mob/dead/observer, toggle_ghostsee, "Видимость приз
 	hidden_self.alpha = 0
 	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/one_person, GHOST_SELF_APPEARANCE, hidden_self, AA_TARGET_SEE_APPEARANCE, src)
 
-/mob/dead/observer/verb/pick_darkness()
-	set name = "Освещённость"
-	set desc = "Choose how much darkness you want to see."
-	set category = VERB_CATEGORY_GHOST
+GAME_VERB_DESC(/mob/dead/observer, pick_darkness, "Освещённость", "Choose how much darkness you want to see.", VERB_CATEGORY_GHOST)
+
 	var/list/ghost_darkness_levels = list(
 		"Стандартное освещение" = LIGHTING_PLANE_ALPHA_VISIBLE,
 		"Темнее" = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE,
@@ -941,7 +921,8 @@ GAME_VERB_PROC_DESC(/mob/dead/observer, open_minigames_menu, "Мини-игры"
 #undef GHOST_ORBIT_PENTAGON
 #undef GHOST_SELF_APPEARANCE
 
-GAME_VERB_HIDDEN(/mob/dead/observer, add_view_range, "Add View Range", input as num)
+GAME_VERB_HIDDEN(/mob/dead/observer, add_view_range, "Add View Range")
+	VERB_ARG(input, VERB_ARG_TYPE_NUM, VERB_ARG_SOURCE_INPUT)
 	/*
 	if(SSlag_switch.measures[DISABLE_GHOST_ZOOM_TRAY] && !client?.holder)
 		to_chat(usr, span_notice("That verb is currently globally disabled."))

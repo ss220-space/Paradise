@@ -54,7 +54,7 @@ GAME_VERB(/client, ooc, VERB_OOC, VERB_CATEGORY_OOC)
 				message_admins("[key_name_admin(src)] has attempted to advertise in OOC: [msg]")
 				return
 
-	msg = handleDiscordEmojis(msg)
+	msg = handle_emojis(msg)
 
 	add_ooc_logs(src, msg)
 
@@ -79,16 +79,22 @@ GAME_VERB(/client, ooc, VERB_OOC, VERB_CATEGORY_OOC)
 	for(var/client/C in GLOB.clients)
 		if(C.prefs.toggles & PREFTOGGLE_CHAT_OOC)
 			var/display_name = key
+			var/list/key_tags
+			var/key_prefix = ""
+			var/visible_unlock = prefs.unlock_content && (prefs.toggles & PREFTOGGLE_MEMBER_PUBLIC)
+			if(visible_unlock)
+				LAZYADD(key_tags, "byond_member")
 
-			if(prefs.unlock_content)
-				if(prefs.toggles & PREFTOGGLE_MEMBER_PUBLIC)
-					var/icon/byond = icon('icons/member_content.dmi', "blag")
-					display_name = "[icon2html(byond, C)][display_name]"
+			if(donator_level > 0 && prefs.toggles & PREFTOGGLE_DONATOR_PUBLIC)
+				LAZYADD(key_tags, "donator")
 
-			if(donator_level > 0)
-				if(prefs.toggles & PREFTOGGLE_DONATOR_PUBLIC)
-					var/icon/donator = icon('icons/ooc_tag_16x.png')
-					display_name = "[icon2html(donator, C)][display_name]"
+			if(LAZYLEN(key_tags))
+				var/datum/asset/spritesheet_batched/chat/sheet = get_asset_datum(/datum/asset/spritesheet_batched/chat)
+				for(var/icon_name in key_tags)
+					key_prefix = "[key_prefix][sheet.icon_tag(icon_name)]"
+			key_prefix = "<span style='vertical-align: text-top; padding-right: 0.2em'>[key_prefix]</span>"
+
+			display_name = "[key_prefix][display_name]"
 
 			if(holder)
 				if(holder.fakekey)
@@ -161,7 +167,7 @@ GAME_VERB_DESC(/client, looc, VERB_LOOC, "Local OOC, seen only by those in view.
 				return
 
 	var/msg_runechat = msg
-	msg = handleDiscordEmojis(msg)
+	msg = handle_emojis(msg)
 
 	add_ooc_logs(src, msg, TRUE)
 

@@ -11,6 +11,7 @@
 	name = initial(faketype.key)
 	full_name = capitalize(initial(faketype.name))
 	keybind_signal = COMSIG_KB_EMOTE_KEY(emote_key)
+	category = faketype.keybind_category
 
 /datum/keybinding/emote/down(client/user, turf/target, mousepos_x, mousepos_y)
 	. = ..()

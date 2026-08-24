@@ -88,15 +88,16 @@ function skipTokens(raw: string, count: number): number {
   return pos;
 }
 
-const MODES = ['Command', 'Say', 'Me', 'OOC'] as const;
+const MODES = ['Command', 'Сказать', 'Эмоция', 'Шепот', 'OOC'] as const;
 type Mode = (typeof MODES)[number];
 
 const MODE_COLORS: Record<Mode, string> = {
   Command: '#888',
-  Say: '#a3d977',
+  Сказать: '#a3d977',
 
-  Me: '#d4a44a',
+  Эмоция: '#d4a44a',
   OOC: '#6cb6ff',
+  Шепот: '#a2782a',
 };
 
 type SuggestionState = {

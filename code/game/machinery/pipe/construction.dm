@@ -185,7 +185,7 @@
 
 	fixdir()
 
-GAME_VERB_SRC(/obj/item/pipe, flip, view(1), "Перевернуть трубу", null)
+GAME_VERB_SRC(/obj/item/pipe, flip, view(1), "Перевернуть трубу", VERB_CATEGORY_HIDDEN)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return

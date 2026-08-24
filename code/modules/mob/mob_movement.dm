@@ -446,21 +446,10 @@ GAME_VERB_HIDDEN(/client, body_l_leg, "body-l-leg")
 	var/atom/movable/screen/zone_sel/selector = mob.hud_used.zone_select
 	selector.set_selected_zone(next_in_line)
 
-/client/verb/toggle_throw_mode()
-	set hidden = 1
-	if(iscarbon(mob))
-		var/mob/living/carbon/C = mob
-		C.toggle_throw_mode()
-	else
-		to_chat(usr, span_danger("Это существо не может бросать предметы"))
-
 /mob/proc/toggle_move_intent(new_move_intent)
 	return
 
-/mob/verb/move_up()
-	set name = "Подняться"
-	set category = VERB_CATEGORY_IC
-
+GAME_VERB(/mob, move_up, "Подняться", VERB_CATEGORY_IC)
 	if(remote_control)
 		return remote_control.relaymove(src, UP)
 
@@ -490,9 +479,7 @@ GAME_VERB_HIDDEN(/client, body_l_leg, "body-l-leg")
 	if(zMove(UP, z_move_flags = ZMOVE_FLIGHT_FLAGS|ZMOVE_FEEDBACK|ventcrawling_flag))
 		to_chat(src, span_notice("Вы двигаетесь вверх."))
 
-/mob/verb/move_down()
-	set name = "Опуститься"
-	set category = VERB_CATEGORY_IC
+GAME_VERB(/mob, move_down, "Опуститься", VERB_CATEGORY_IC)
 
 	if(remote_control)
 		return remote_control.relaymove(src, DOWN)

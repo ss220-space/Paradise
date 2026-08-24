@@ -140,8 +140,6 @@ SUBSYSTEM_DEF(admin_verbs)
 	var/old_usr = usr
 	usr = admin.mob
 	verb_singleton.__avd_do_verb(admin, structured_args)
-	// THE MACRO ENSURES THIS EXISTS. IF IT EVER DOESNT EXIST SOMEONE DIDNT USE THE DAMN MACRO!
-	verb_singleton.__avd_do_verb(arglist(verb_args))
 	usr = old_usr
 	SSblackbox.record_feedback("tally", "dynamic_admin_verb_invocation", 1, "[verb_type]")
 

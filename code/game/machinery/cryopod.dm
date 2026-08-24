@@ -628,29 +628,6 @@
 	message_admins("[key_name_admin(E)] entered a stasis pod. [ADMIN_JMP(src)]")
 	add_fingerprint(E)
 
-/obj/machinery/cryopod/verb/eject()
-	set name = "Вылезти"
-	set category = VERB_CATEGORY_OBJECT
-	set src in oview(1)
-
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		return
-
-	if(usr != occupant)
-		to_chat(usr, "The cryopod is in use and locked!")
-		return
-
-	//Eject any items that aren't meant to be in the pod.
-	var/list/items = contents
-	if(occupant)
-		items -= occupant
-
-	for(var/obj/item/I in items)
-		I.forceMove(get_turf(src))
-
-	go_out()
-	add_fingerprint(usr)
-
 /obj/machinery/cryopod/proc/go_out()
 	if(!occupant)
 		return

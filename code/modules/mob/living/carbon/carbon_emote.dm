@@ -2,6 +2,7 @@
 	abstract_type = /datum/emote/living/carbon
 	mob_type_allowed_typecache = list(/mob/living/carbon)
 	mob_type_blacklist_typecache = list(/mob/living/carbon/brain)
+	keybind_category = KB_CATEGORY_EMOTE_CARBON
 
 /datum/emote/living/carbon/blink
 	name = "Моргать"

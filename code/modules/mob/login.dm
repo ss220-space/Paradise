@@ -77,9 +77,6 @@
 	if((ckey in GLOB.de_admins) || (ckey in GLOB.de_mentors) || (ckey in GLOB.de_devs))
 		ASSIGN_GAME_VERB(src, /client, readmin)
 
-	//Clear ability list and update from mob.
-	remove_verb(client, GLOB.ability_verbs)
-
 	client.update_active_keybindings()
 
 	//HUD updates (antag hud, etc)

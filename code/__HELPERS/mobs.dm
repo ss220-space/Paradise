@@ -450,13 +450,13 @@
 		client.next_mouse_macro_warning = world.time + 600
 
 //suppress the .click/dblclick/.mouse macros so people can't use them to identify the location of items or aimbot
-GAME_VERB_NATIVE(/mob, ClickSubstitute, ".click", null, params as command_text)
+GAME_VERB_NATIVE(/mob, ClickSubstitute, ".click", VERB_CATEGORY_HIDDEN, params as command_text)
 	LogMouseMacro(".click", params)
 
-GAME_VERB_NATIVE(/mob, DblClickSubstitute, ".dblclick", null, params as command_text)
+GAME_VERB_NATIVE(/mob, DblClickSubstitute, ".dblclick", VERB_CATEGORY_HIDDEN, params as command_text)
 	LogMouseMacro(".dblclick", params)
 
-GAME_VERB_NATIVE(/mob, MouseSubstitute, ".mouse", null, params as command_text)
+GAME_VERB_NATIVE(/mob, MouseSubstitute, ".mouse", VERB_CATEGORY_HIDDEN, params as command_text)
 	LogMouseMacro(".mouse", params)
 
 /proc/update_all_mob_security_hud()

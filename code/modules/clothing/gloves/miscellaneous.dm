@@ -251,21 +251,13 @@
 	owner = user
 	if(istype(owner) && slot == ITEM_SLOT_GLOVES)
 		owner.dirslash_enabled = TRUE
-		add_verb(owner, /obj/item/clothing/gloves/fingerless/rapid/proc/dirslash_enabling)
-	. = ..()
+		ASSIGN_GAME_VERB(owner, /mob/living/carbon/human, dirslash_enabling)
+	return ..()
 
 /obj/item/clothing/gloves/fingerless/rapid/dropped(mob/user, slot, silent = FALSE)
-	remove_verb(owner, /obj/item/clothing/gloves/fingerless/rapid/proc/dirslash_enabling)
+	UNASSIGN_GAME_VERB(owner, /mob/living/carbon/human, dirslash_enabling)
 	owner.dirslash_enabled = initial(owner.dirslash_enabled)
-	. = ..()
-
-/obj/item/clothing/gloves/fingerless/rapid/proc/dirslash_enabling()
-	set name = "Атака по направлению"
-	set desc = "If direction slash is enabled, you can attack mobs, by clicking behind their backs"
-	set category = VERB_CATEGORY_OBJECT
-	var/mob/living/L = usr
-	L.dirslash_enabled = !L.dirslash_enabled
-	to_chat(src, span_notice("Directrion slash is [L.dirslash_enabled? "enabled" : "disabled"] now."))
+	return ..()
 
 /obj/item/clothing/gloves/fingerless/rapid/Touch(mob/living/target, proximity = TRUE)
 	var/mob/living/M = loc

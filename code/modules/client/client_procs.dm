@@ -1265,9 +1265,7 @@ GAME_VERB(/client, toggle_fullscreen, "Полный экран", VERB_CATEGORY_O
  *
  * Hardcoded to the ESC key.
  */
-/client/verb/reset_held_keys()
-	set name = "Reset Held Keys"
-	set hidden = TRUE
+GAME_VERB_HIDDEN(/client, reset_held_keys, "Reset Held Keys")
 	client_reset_held_keys()
 
 /// Clears the client's screen, aside from ones that opt out

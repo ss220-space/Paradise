@@ -907,3 +907,6 @@
 
 /// allow votes to change game mode
 /datum/config_entry/flag/allow_vote_gamemode
+
+/datum/config_entry/flag/emojis
+	default = TRUE

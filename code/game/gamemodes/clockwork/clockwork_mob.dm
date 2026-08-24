@@ -94,11 +94,9 @@
 	return FALSE
 
 /mob/living/simple_animal/hostile/clockwork/marauder/a_intent_change(input as text)
-	set name = "a-intent"
-	set hidden = 1
 	if(can_change_intents)
 		switch(input)
-			if(INTENT_HELP,INTENT_DISARM,INTENT_HARM)
+			if(INTENT_HELP, INTENT_DISARM, INTENT_HARM)
 				a_intent = input
 			if("right")
 				if(a_intent == INTENT_HELP)

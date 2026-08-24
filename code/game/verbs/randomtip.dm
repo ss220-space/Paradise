@@ -1,7 +1,4 @@
-/client/verb/randomtip()
-	set category = VERB_CATEGORY_OOC
-	set name = "Случайный совет"
-	set desc = "Shows you a random tip"
+GAME_VERB_DESC(/client, randomtip, "Случайный совет", "Shows you a random tip", VERB_CATEGORY_OOC)
 
 	var/tip
 

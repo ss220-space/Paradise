@@ -64,12 +64,12 @@
 	var/obj/effect/proc_holder/spell/mime/fingergun/parent_spell
 	accuracy = GUN_ACCURACY_DEFAULT
 	attachable_allowed = GUN_MODULE_CLASS_NONE
+	can_spin_cylinder = FALSE
 
 /obj/item/gun/projectile/revolver/fingergun/Initialize(mapload, new_parent_spell)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 	parent_spell = new_parent_spell
-	verbs -= /obj/item/gun/projectile/revolver/verb/spin
 
 /obj/item/gun/projectile/revolver/fingergun/fake
 	desc = "Pew pew pew!"
@@ -371,7 +371,8 @@
 			to_chat(user, span_notice("You unscrew [magazine] from [src]."))
 			user.put_in_hands(magazine)
 			magazine = null
-			verbs -= /obj/item/gun/projectile/revolver/verb/spin
+			if(can_spin_cylinder && gun_user)
+				verbs -= /obj/item/gun/projectile/revolver/proc/spin
 	playsound(src, 'sound/items/screwdriver.ogg', 40, TRUE)
 	update_icon(UPDATE_OVERLAYS)
 
@@ -407,7 +408,8 @@
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return .
 		magazine = I
-		verbs |= /obj/item/gun/projectile/revolver/verb/spin
+		if(can_spin_cylinder && gun_user)
+			verbs |= /obj/item/gun/projectile/revolver/proc/spin
 		update_icon(UPDATE_OVERLAYS)
 		playsound(loc, 'sound/items/screwdriver.ogg', 40, TRUE)
 		return ATTACK_CHAIN_BLOCKED_ALL

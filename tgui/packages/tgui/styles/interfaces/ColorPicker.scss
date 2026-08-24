@@ -12,29 +12,17 @@
  * SOFTWARE.
  */
 
-.ColorPicker--Inputs {
-  .LabeledList__cell {
-    padding: var(--space-s) var(--space-m);
-    vertical-align: middle !important;
-
-    &:nth-child(2n):not(:last-child) {
-      padding: 0;
-    }
-
-    &:nth-child(2n):last-child {
-      padding-left: 0;
-    }
-  }
-}
+@use '../colors.scss';
+@use '../base.scss';
 
 .react-colorful {
-  cursor: var(--cursor-default);
-  user-select: none;
   position: relative;
   display: flex;
   flex-direction: column;
   width: 200px;
   height: 200px;
+  user-select: none;
+  cursor: default;
 }
 
 .react-colorful__saturation_value {
@@ -42,7 +30,7 @@
   flex-grow: 1;
   border-color: transparent; /* Fixes https://github.com/omgovich/react-colorful/issues/139 */
   border-bottom: 12px solid #000;
-  border-radius: var(--border-radius-large) var(--border-radius-large) 0 0;
+  border-radius: 8px 8px 0 0;
   background-image:
     linear-gradient(to top, rgba(0, 0, 0, 255), rgba(0, 0, 0, 0)),
     linear-gradient(to right, rgba(255, 255, 255, 255), rgba(255, 255, 255, 0));
@@ -52,7 +40,10 @@
 .react-colorful__alpha-gradient {
   content: '';
   position: absolute;
-  inset: 0;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
   pointer-events: none;
   border-radius: inherit;
 }
@@ -74,42 +65,46 @@
   height: 24px;
 }
 
-.react-colorful {
-  &__hue {
-    background: linear-gradient(
-      to right,
-      hsl(0, 100%, 50%) 0%,
-      hsl(60, 100%, 50%) 17%,
-      hsl(120, 100%, 50%) 33%,
-      hsl(180, 100%, 50%) 50%,
-      hsl(240, 100%, 50%) 67%,
-      hsl(300, 100%, 50%) 83%,
-      hsl(0, 100%, 50%) 100%
-    );
-  }
+.react-colorful__hue {
+  background: linear-gradient(
+    to right,
+    #f00 0%,
+    #ff0 17%,
+    #0f0 33%,
+    #0ff 50%,
+    #00f 67%,
+    #f0f 83%,
+    #f00 100%
+  );
+}
 
-  &__r {
-    background: linear-gradient(to right, hsl(0, 0%, 0%), hsl(0, 100%, 50%));
-  }
+.react-colorful__r {
+  background: linear-gradient(to right, #000, #f00);
+}
 
-  &__g {
-    background: linear-gradient(to right, hsl(0, 0%, 0%), hsl(120, 100%, 50%));
-  }
+.react-colorful__g {
+  background: linear-gradient(to right, #000, #0f0);
+}
 
-  &__b {
-    background: linear-gradient(to right, hsl(0, 0%, 0%), hsl(240, 100%, 50%));
-  }
+.react-colorful__b {
+  background: linear-gradient(to right, #000, #00f);
 }
 
 /* Round bottom corners of the last element: `Hue` for `ColorPicker` or `Alpha` for `AlphaColorPicker` */
 .react-colorful__last-control {
-  border-radius: 0 0 var(--border-radius-large) var(--border-radius-large);
+  border-radius: 0 0 8px 8px;
 }
 
 .react-colorful__interactive {
   position: absolute;
-  inset: 0;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
   outline: none;
+  /* Don't trigger the default scrolling behavior when the event is originating from this element */
+  touch-action: none;
 }
 
 .react-colorful__pointer {
@@ -119,22 +114,22 @@
   width: 28px;
   height: 28px;
   transform: translate(-50%, -50%);
-  background-color: hsl(0, 0%, 80%);
-  border: var(--border-thickness-small) solid hsl(0, 0%, 80%);
-  border-radius: var(--border-radius-circular);
+  background-color: #cfcfcf;
+  border: 2px solid #cfcfcf;
+  border-radius: 50%;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
 }
 
 .react-colorful__interactive:focus .react-colorful__pointer {
   transform: translate(-50%, -50%) scale(1.1);
-  background-color: var(--color-white);
-  border-color: var(--color-white);
+  background-color: #fff;
+  border-color: #fff;
 }
 
 /* Chessboard-like pattern for alpha related elements */
 .react-colorful__alpha,
 .react-colorful__alpha-pointer {
-  background-color: var(--color-white);
+  background-color: #fff;
   background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill-opacity=".05"><rect x="8" width="8" height="8"/><rect y="8" width="8" height="8"/></svg>');
 }
 

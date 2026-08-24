@@ -60,7 +60,7 @@
 		))
 	window.send_asset(get_asset_datum(/datum/asset/simple/namespaced/fontawesome))
 	window.send_asset(get_asset_datum(/datum/asset/simple/namespaced/tgfont))
-	// window.send_asset(get_asset_datum(/datum/asset/spritesheet/emoji))
+	window.send_asset(get_asset_datum(/datum/asset/spritesheet_batched/chat))
 	request_telemetry()
 	addtimer(CALLBACK(src, PROC_REF(on_initialize_timed_out)), 5 SECONDS)
 	window.send_message("testTelemetryCommand")
@@ -146,7 +146,7 @@
 		var/list/target_data = list()
 		var/list/source_atoms = entity_arg.get_targets(client)
 		for(var/atom/target in source_atoms)
-			target_data += list(list("name" = "[target]", "ref" = REF(target)))
+			target_data += list(list("name" = "[target]", "ref" = target.UID()))
 		window.send_message("verbs/targets", list("targets" = target_data))
 		return TRUE
 
@@ -219,7 +219,7 @@
 	if(istype(SSassets.transport, /datum/asset_transport/webroot))
 		if(isnull(webroot_asset_urls))
 			webroot_asset_urls = list()
-			for(var/asset_type in list(/datum/asset/simple/tgui_panel, /datum/asset/simple/namespaced/fontawesome, /datum/asset/simple/namespaced/tgfont/*, /datum/asset/spritesheet_batched/chat*/))
+			for(var/asset_type in list(/datum/asset/simple/tgui_panel, /datum/asset/simple/namespaced/fontawesome, /datum/asset/simple/namespaced/tgfont, /datum/asset/spritesheet_batched/chat))
 				var/datum/asset/asset = get_asset_datum(asset_type)
 				webroot_asset_urls += asset.get_url_mappings()
 		metadata["webroot"] = list(
@@ -239,7 +239,7 @@
 		if(meta.arg_type & VERB_ARG_TYPE_NUM)
 			value = text2num(value)
 		else if(meta.arg_type & VERB_ARG_TYPE_ENTITY && istext(value))
-			var/located = locate(value) || locateUID(value)
+			var/located = locateUID(value)
 			if(!located)
 				continue
 			var/list/valid_targets = meta.get_targets(client)

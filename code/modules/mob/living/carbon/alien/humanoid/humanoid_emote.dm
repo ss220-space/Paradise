@@ -1,6 +1,7 @@
 /datum/emote/living/carbon/alien/humanoid
 	abstract_type = /datum/emote/living/carbon/alien/humanoid
 	mob_type_allowed_typecache = list(/mob/living/carbon/alien/humanoid)
+	keybind_category = KB_CATEGORY_EMOTE_ALIEN
 
 /datum/emote/living/carbon/alien/humanoid/hiss
 	name = "Шипеть"

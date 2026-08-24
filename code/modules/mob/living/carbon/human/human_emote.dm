@@ -1,6 +1,7 @@
 /datum/emote/living/carbon/human
 	abstract_type = /datum/emote/living/carbon/human
 	mob_type_allowed_typecache = list(/mob/living/carbon/human)
+	keybind_category = KB_CATEGORY_EMOTE_HUMAN
 	/// Custom messages that should be applied based on species
 	/// Should be an associative list of species name: message
 	var/species_custom_messages = list()
