@@ -57,7 +57,7 @@
 
 /datum/hallucination/fake_item/c4/make_fake_item(where_to_put_it, equip_flags)
 	if(prob(50))
-		template_item_type = /obj/item/grenade/plastic/c4/x4
+		template_item_type = /obj/item/grenade/plastic/x4
 	return ..()
 
 /datum/hallucination/fake_item/revolver
@@ -74,9 +74,6 @@
 
 	// If we were placed in our mob's hands there's a 40% chance to make it appear active
 	if((equip_flags & ITEM_SLOT_HANDS) && prob(40))
-		var/obj/item/melee/energy/sword/saber/sabre_color = pick(subtypesof(/obj/item/melee/energy/sword/saber))
-		// Yes this can break if someone changes esword icon stuff
-		hallucinated_item.icon_state = "[hallucinated_item.icon_state]_on_[initial(sabre_color.sword_color_icon)]"
 		hallucinator.playsound_local(get_turf(hallucinator), 'sound/weapons/saberon.ogg', 35, TRUE)
 
 	return hallucinated_item
@@ -102,7 +99,7 @@
 
 /datum/hallucination/fake_item/emag/make_fake_item(where_to_put_it, equip_flags)
 	if(prob(50))
-		template_item_type  = /obj/item/card/emag/doorjack
+		template_item_type  = /obj/item/card/cmag
 	return ..()
 
 /datum/hallucination/fake_item/flashbang
@@ -140,8 +137,9 @@
 /obj/item/hallucinated
 	name = "мираж"
 	plane = ABOVE_HUD_PLANE
-	interaction_flags_item = NONE
-	item_flags = ABSTRACT | DROPDEL | HAND_ITEM | NOBLUDGEON // Most of these flags don't matter, but better safe than sorry
+	interaction_flags_click = NONE
+	interaction_flags_atom = NONE
+	item_flags = ABSTRACT | DROPDEL | NOBLUDGEON // Most of these flags don't matter, but better safe than sorry
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	/// The hallucination that created us.
 	var/datum/hallucination/parent

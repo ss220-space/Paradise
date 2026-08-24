@@ -11,7 +11,7 @@
 	/// Whether we apply the floating anim to the body
 	var/body_floats = FALSE
 	/// The layer this body will be drawn on, in case we want to bypass lighting
-	var/body_layer = ABOVE_MOB_LAYER
+	var/body_layer = BELOW_MOB_LAYER
 	/// if TRUE, spawns the body under the hallucinator instead of somewhere in view
 	var/spawn_under_hallucinator = FALSE
 

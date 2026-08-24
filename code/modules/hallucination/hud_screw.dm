@@ -2,24 +2,23 @@
 	abstract_hallucination_parent = /datum/hallucination/screwy_hud
 	random_hallucination_weight = 4
 	hallucination_tier = HALLUCINATION_TIER_COMMON
-
-	var/screwy_hud_type = SCREWYHUD_NONE
+	var/screwy_hud_type = /datum/status_effect/grouped/screwy_hud/fake_dead
 
 /datum/hallucination/screwy_hud/start()
-	hallucinator.hal_screwyhud = screwy_hud_type
+	hallucinator.apply_status_effect(screwy_hud_type, type)
 	QDEL_IN(src, rand(10 SECONDS, 25 SECONDS))
 	return TRUE
 
 /datum/hallucination/screwy_hud/Destroy()
 	if(!QDELETED(hallucinator))
-		hallucinator.hal_screwyhud = SCREWYHUD_NONE
+		hallucinator.remove_status_effect(screwy_hud_type, type)
 	return ..()
 
 /datum/hallucination/screwy_hud/crit
-	screwy_hud_type = SCREWYHUD_CRIT
+	screwy_hud_type = /datum/status_effect/grouped/screwy_hud/fake_crit
 
 /datum/hallucination/screwy_hud/dead
-	screwy_hud_type = SCREWYHUD_DEAD
+	screwy_hud_type = /datum/status_effect/grouped/screwy_hud/fake_dead
 
 /datum/hallucination/screwy_hud/healthy
-	screwy_hud_type = SCREWYHUD_HEALTHY
+	screwy_hud_type = /datum/status_effect/grouped/screwy_hud/fake_healthy

@@ -18,7 +18,7 @@
 	/// Sound of a shot.
 	var/fire_sound = 'sound/weapons/gunshots/1stechkin.ogg'
 	/// Sound of hitting a person.
-	var/hit_person_sound = 'sound/weapons/bullet2.ogg'
+	var/hit_person_sound = SFX_BULLET
 	/// Sound of hitting a wall.
 	var/hit_wall_sound = SFX_RICOCHET
 	/// How many hits are needed to "hit" the target.
@@ -58,8 +58,8 @@
 	shots_to_fire_lower_range = 5
 	shots_to_fire_upper_range = 10
 	fire_sound = 'sound/weapons/plasma_cutter.ogg'
-	hit_person_sound = 'sound/weapons/tap.ogg'
-	hit_wall_sound = 'sound/weapons/tap.ogg'
+	hit_person_sound = 'sound/weapons/sear.ogg'
+	hit_wall_sound = 'sound/weapons/sear.ogg'
 	number_of_hits_to_end = 3
 	chance_to_fall = 70
 
@@ -72,6 +72,12 @@
 	number_of_hits_to_end = 4
 	chance_to_fall = 70
 
+/datum/hallucination/battle/proc/fake_cuff(turf/source)
+	if(QDELETED(src) || QDELETED(hallucinator) || !source)
+		return
+	hallucinator.playsound_local(source, 'sound/weapons/cablecuff.ogg', 15, TRUE)
+	qdel(src)
+
 /datum/hallucination/battle/stun_prod
 
 /datum/hallucination/battle/stun_prod/start()
@@ -83,19 +89,26 @@
 	hallucinator.playsound_local(source, get_sfx(SFX_BODYFALL), 25, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(fake_cuff), source), 2 SECONDS)
 
-/datum/hallucination/battle/stun_prod/proc/fake_cuff(turf/source)
-	if(QDELETED(src) || QDELETED(hallucinator) || !source)
+/datum/hallucination/battle/contractor_baton
+
+/datum/hallucination/battle/contractor_baton/start()
+	. = ..()
+	if(!.)
 		return
-	hallucinator.playsound_local(source, 'sound/weapons/cablecuff.ogg', 15, TRUE)
-	qdel(src)
+	var/turf/source = random_far_turf()
+	hallucinator.playsound_local(source, 'sound/weapons/contractorbatonhit.ogg', 25, TRUE)
+	hallucinator.playsound_local(source, get_sfx(SFX_BODYFALL), 25, TRUE)
+	addtimer(CALLBACK(src, PROC_REF(fake_cuff), source), 2 SECONDS)
 
 /datum/hallucination/battle/harm_baton
 
 /datum/hallucination/battle/harm_baton/start()
+	. = ..()
 	if(!.)
 		return
 	var/turf/source = random_far_turf()
 	hallucinator.playsound_local(source, 'sound/weapons/egloves.ogg', 25, TRUE)
+	hallucinator.playsound_local(source, SFX_SWING_HIT, 25, TRUE)
 	hallucinator.playsound_local(source, get_sfx(SFX_BODYFALL), 25, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(harmbaton_loop), source, rand(5, 12)), 2 SECONDS)
 
@@ -112,6 +125,7 @@
 /datum/hallucination/battle/e_sword
 
 /datum/hallucination/battle/e_sword/start()
+	. = ..()
 	if(!.)
 		return
 	var/turf/source = random_far_turf()
@@ -134,6 +148,7 @@
 /datum/hallucination/battle/chainsaw
 
 /datum/hallucination/battle/chainsaw/start()
+	. = ..()
 	if(!.)
 		return
 	var/turf/source = random_far_turf()
@@ -156,6 +171,7 @@
 /datum/hallucination/battle/bomb
 
 /datum/hallucination/battle/bomb/start()
+	. = ..()
 	if(!.)
 		return
 	addtimer(CALLBACK(src, PROC_REF(fake_tick), random_far_turf(), rand(3, 11)), 1.5 SECONDS)

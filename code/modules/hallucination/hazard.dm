@@ -73,12 +73,33 @@
 
 /obj/effect/client_image_holder/hallucination/danger/chasm/generate_image()
 	var/turf/danger_turf = get_turf(src)
-	image_state = "chasms-[danger_turf.smoothing_junction || 0]"
+	image_state = "smooth"
 	return ..()
 
 /obj/effect/client_image_holder/hallucination/danger/chasm/on_hallucinator_entered(mob/living/afflicted)
+	if(QDELETED(src) || QDELETED(afflicted))
+		return
+
 	to_chat(afflicted, span_userdanger("Вы падаете в разлом!"))
 	afflicted.visible_message(span_warning("[afflicted] внезапно падает на землю!"), ignored_mobs = afflicted)
-	afflicted.AmountParalyzed(4 SECONDS)
+
+	var/image/falling_image = image(afflicted.icon, afflicted, afflicted.icon_state, ABOVE_MOB_LAYER)
+	falling_image.appearance_flags = RESET_COLOR
+	falling_image.pixel_x = afflicted.pixel_x
+	falling_image.pixel_y = afflicted.pixel_y
+	afflicted.client?.images |= falling_image
+
+	animate(falling_image, transform = matrix() - matrix(), alpha = 0, pixel_y = afflicted.pixel_y - 24, time = 1 SECONDS, easing = LINEAR_EASING)
+
+	addtimer(CALLBACK(src, PROC_REF(clear_falling_overlay), afflicted, falling_image), 1.2 SECONDS)
+
+	afflicted.setStaminaLoss(afflicted.get_max_stamina())
+
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), afflicted, span_notice("...Он на удивление мелкий.")), 1.5 SECONDS)
 	QDEL_IN(src, 3 SECONDS)
+
+/obj/effect/client_image_holder/hallucination/danger/chasm/proc/clear_falling_overlay(mob/living/afflicted, image/falling_image)
+	if(QDELETED(afflicted))
+		return
+	afflicted.client?.images -= falling_image
+

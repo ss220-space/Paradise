@@ -50,10 +50,9 @@
 
 /datum/hallucination/delusion/Destroy()
 	if(!QDELETED(hallucinator) && LAZYLEN(delusions))
-		for(var/image/funny_image in delusions)
-			hallucinator.client?.images -= funny_image
+		for(var/mob/affected_mob in delusions)
+			hallucinator.client?.images -= delusions[affected_mob]
 		LAZYNULL(delusions)
-
 	return ..()
 
 /datum/hallucination/delusion/start()
@@ -84,6 +83,9 @@
 
 	for(var/mob/living/carbon/human/found_human as anything in funny_looking_mobs)
 		var/image/funny_image = make_delusion_image(found_human)
+		if(found_human != hallucinator)
+			RegisterSignal(found_human, COMSIG_QDELETING, PROC_REF(on_mob_delete))
+		RegisterSignal(found_human, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(on_z_change))
 		LAZYSET(delusions, found_human, funny_image)
 		hallucinator.client.images |= funny_image
 
@@ -101,6 +103,16 @@
 	funny_image.override = TRUE
 	SET_PLANE_EXPLICIT(funny_image, ABOVE_GAME_PLANE, over_who)
 	return funny_image
+
+/datum/hallucination/delusion/proc/on_mob_delete(mob/living/carbon/human/source)
+	SIGNAL_HANDLER
+	hallucinator.client?.images -= delusions[source]
+	LAZYREMOVE(delusions, source)
+
+/datum/hallucination/delusion/proc/on_z_change(mob/living/carbon/human/source)
+	SIGNAL_HANDLER
+	var/image/funny_image = delusions[source]
+	SET_PLANE_EXPLICIT(funny_image, ABOVE_GAME_PLANE, source)
 
 /datum/hallucination/delusion/preset
 	abstract_hallucination_parent = /datum/hallucination/delusion/preset

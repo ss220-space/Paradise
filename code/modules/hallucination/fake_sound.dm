@@ -55,6 +55,10 @@
 	volume = 70
 	sound_type = 'sound/machines/alarm.ogg'
 
+/datum/hallucination/fake_sound/normal/creepyshriek
+	volume = 40
+	sound_type = 'sound/effects/creepyshriek.ogg'
+
 /datum/hallucination/fake_sound/normal/beepsky
 	volume = 35
 	sound_type = 'sound/voice/bfreeze.ogg'

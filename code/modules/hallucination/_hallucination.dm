@@ -64,13 +64,14 @@
 	return locate(hallucinator.x + x_offset, hallucinator.y + y_offset, hallucinator.z)
 
 /// Gets a random non-security member of the crew that is at least 8 tiles away.
-/// Адаптировано под 1984: используем GLOB.human_list вместо get_crewmember_minds (которого нет в 1984).
-/// НЕТ В 1984: у /datum/job нет is_security, поэтому фильтр по отделу безопасности пропущен.
 /datum/hallucination/proc/random_non_sec_crewmember()
 	var/list/possible_fakes = list()
 	for(var/mob/living/carbon/human/fake_body as anything in GLOB.human_list)
 		// Look for minds on the manifest in control of humans
 		if(fake_body == hallucinator)
+			continue
+		// Sec won't make sense.
+		if(fake_body.mind && (fake_body.mind.assigned_role in GLOB.security_positions))
 			continue
 		// This also won't make sense in most cases
 		if(get_dist(fake_body, hallucinator) < 8)

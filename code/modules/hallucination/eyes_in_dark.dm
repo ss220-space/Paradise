@@ -23,7 +23,6 @@
 		if(nearby.get_lumcount() >= LIGHTING_TILE_IS_DARK)
 			continue
 		valid += nearby
-
 	if(!length(valid))
 		return FALSE
 
@@ -89,3 +88,11 @@
 	STOP_PROCESSING(SSfastprocess, src)
 	animate(src, alpha = 0, time = 0.5 SECONDS)
 	QDEL_IN(src, 0.75 SECONDS)
+
+/proc/turf_is_dark(turf/nearby)
+	var/area/nearby_area = get_area(nearby)
+	if(nearby.get_lumcount() > LIGHTING_TILE_IS_DARK)
+		return FALSE
+	if(!nearby.lighting_object)
+		return FALSE
+	return TRUE

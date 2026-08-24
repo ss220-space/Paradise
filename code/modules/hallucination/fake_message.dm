@@ -29,7 +29,6 @@
 	message_pool[span_notice("Вы слышите, как что-то пробирается по вентиляции...")] = 1
 
 	message_pool[span_warning("Ваша [pick("рука", "нога", "спина", "голова")] чешется.")] = 1
-	message_pool[span_warning("Вы чувствуете себя [pick("дурно", "слабо")].")] = 1
 	message_pool[span_warning("Вам [pick("холодно", "жарко")].")] = 1
 	message_pool[span_warning("Ваш желудок урчит.")] = 1
 	message_pool[span_warning("У вас болит голова.")] = 1
