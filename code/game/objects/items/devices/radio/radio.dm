@@ -203,9 +203,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 
 	if(listening)
 		recalculate_channels()
-		return
 
-	reset_channels()
 
 /**
  * setter for broadcasting that makes us not hearing sensitive if not broadcasting and hearing sensitive if broadcasting
@@ -250,8 +248,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	if(new_frequency)
 		frequency = new_frequency
 
-	if(listening && on)
-		radio_connection = SSradio.add_object(src, frequency, RADIO_CHAT)
+	radio_connection = SSradio.add_object(src, frequency, RADIO_CHAT)
 
 /obj/item/radio/emag_act(mob/user)
 	if(!user.mind.special_role && !is_admin(user) || !hidden_uplink)
