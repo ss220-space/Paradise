@@ -7,10 +7,13 @@
 	invocation = "RAGET'RE BRAN!"
 	invocation_type = INVOCATION_SHOUT
 	button_icon_state = "goliath_dash"
+	var/active = FALSE
 
 /datum/action/cooldown/spell/pointed/goliath_dash/cast(atom/cast_on)
 	. = ..()
-
+	if(active)
+		return
+	active = TRUE
 	owner.stop_pulling()
 	owner.unbuckle_all_mobs(TRUE)
 	owner.buckled?.unbuckle_mob(owner, TRUE)
@@ -45,3 +48,4 @@
 	for(var/d in GLOB.alldirs)
 		var/turf/E = get_step(owner, d)
 		new /obj/effect/temp_visual/goliath_tentacle(E, owner)
+	active = FALSE

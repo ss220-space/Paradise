@@ -5,6 +5,7 @@
 	invocation = "*scream"
 	invocation_type = INVOCATION_SHOUT
 	possible_shapes = list(/mob/living/simple_animal/hostile/megafauna/dragon/lesser)
+	revert_on_death = FALSE
 
 /datum/action/cooldown/spell/shapeshift/dragon/do_shapeshift(mob/living/caster)
 	caster.visible_message(
