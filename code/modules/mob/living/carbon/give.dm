@@ -1,4 +1,4 @@
-GAME_VERB_CONTEXT_RANGE(/mob/living/carbon, give, "Передать", VERB_NO_DESCRIPTION, VERB_CATEGORY_IC, /mob/living/carbon, oview(1))
+GAME_VERB_CONTEXT_RANGE(/mob/living/carbon, give, "Передать", VERB_NO_DESCRIPTION, VERB_CATEGORY_HIDDEN, /mob/living/carbon, oview(1))
 	VERB_ARG_TYPED_RANGE(target, VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_VIEW, /mob/living/carbon, 1)
 
 

@@ -205,7 +205,7 @@ function Details({ serverState }: { serverState: ServerState }) {
     <div className="escape-menu__details">
       <div>ID раунда: {serverState.roundId || 'Unset'}</div>
       <div>Серверное время: {serverState.serverTime}</div>
-      <div>Время раунда: {serverState.shiftTime}</div>
+      <div>Длительность раунда: {serverState.shiftTime}</div>
       <div>
         Карта:{' '}
         {serverState.mapFeedbackLink ? (
