@@ -18,3 +18,7 @@
 /datum/gear/gloves/brown_short_gloves
 	index_name = "short leather gloves"
 	path = /obj/item/clothing/gloves/brown_short_gloves
+
+/datum/gear/gloves/furgloves
+	index_name = "Fur Gloves"
+	path = /obj/item/clothing/gloves/furgloves
