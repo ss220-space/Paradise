@@ -79701,9 +79701,7 @@
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_y = 32
 	},
-/obj/item/flashlight/lantern{
-	on = 1
-	},
+/obj/item/flashlight/lantern/on,
 /turf/simulated/floor/grass,
 /area/station/hallway/primary/central/nw)
 "mpT" = (
@@ -88020,9 +88018,7 @@
 /area/station/security/podbay)
 "nzu" = (
 /obj/structure/table,
-/obj/item/flashlight/lantern{
-	on = 1
-	},
+/obj/item/flashlight/lantern/on,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -144063,9 +144059,7 @@
 /area/station/science/toxins/mixing)
 "waN" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/flashlight/lantern{
-	on = 1
-	},
+/obj/item/flashlight/lantern/on,
 /obj/structure/table/holotable,
 /turf/simulated/floor/plasteel{
 	dir = 9;
