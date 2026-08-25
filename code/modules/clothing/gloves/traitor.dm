@@ -100,13 +100,14 @@
 	owner = user
 	if(istype(owner) && slot == ITEM_SLOT_GLOVES)
 		owner.dirslash_enabled = TRUE
-		add_verb(owner, /obj/item/clothing/gloves/fingerless/rapid/proc/dirslash_enabling)
-	. = ..()
+		ASSIGN_GAME_VERB(owner, /mob/living/carbon/human, dirslash_enabling)
+	return ..()
 
 /obj/item/clothing/gloves/fingerless/rapid/dropped(mob/user, slot, silent = FALSE)
-	remove_verb(owner, /obj/item/clothing/gloves/fingerless/rapid/proc/dirslash_enabling)
+	UNASSIGN_GAME_VERB(owner, /mob/living/carbon/human, dirslash_enabling)
 	owner.dirslash_enabled = initial(owner.dirslash_enabled)
-	. = ..()
+	return ..()
+
 
 /obj/item/clothing/gloves/fingerless/rapid/proc/dirslash_enabling()
 	set name = "Атака по направлению"
