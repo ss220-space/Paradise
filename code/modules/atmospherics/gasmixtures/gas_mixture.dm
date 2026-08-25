@@ -67,32 +67,6 @@ What are the archived variables for?
 
 	var/private_temperature = 0 //in Kelvin
 
-	// Archived versions of the private fields.
-	// Only gas_mixture should use these.
-	var/private_oxygen_archived = 0
-	var/private_carbon_dioxide_archived = 0
-	var/private_nitrogen_archived = 0
-	var/private_toxins_archived = 0
-	var/private_sleeping_agent_archived = 0
-	var/private_agent_b_archived = 0
-	var/private_hydrogen_archived = 0
-	var/private_water_vapor_archived = 0
-	var/private_hypernoblium_archived = 0
-	var/private_nitrium_archived = 0
-	var/private_tritium_archived = 0
-	var/private_bz_archived = 0
-	var/private_pluoxium_archived = 0
-	var/private_miasma_archived = 0
-	var/private_freon_archived = 0
-	var/private_healium_archived = 0
-	var/private_proto_nitrate_archived = 0
-	var/private_zauker_archived = 0
-	var/private_halon_archived = 0
-	var/private_helium_archived = 0
-	var/private_antinoblium_archived = 0
-
-	var/private_temperature_archived = 0
-
 	var/private_hotspot_temperature = 0
 	var/private_hotspot_volume = 0
 	var/private_fuel_burnt = 0
@@ -359,11 +333,6 @@ What are the archived variables for?
 /datum/gas_mixture/proc/heat_capacity()
 	return HEAT_CAPACITY_GASES1(private_oxygen, private_carbon_dioxide, private_nitrogen, private_toxins, private_sleeping_agent, private_agent_b, private_hydrogen, private_water_vapor, private_hypernoblium, private_nitrium, private_tritium) + \
 	HEAT_CAPACITY_GASES2(private_bz, private_pluoxium, private_miasma, private_freon, private_healium, private_proto_nitrate, private_zauker, private_halon, private_helium, private_antinoblium, innate_heat_capacity)
-
-/datum/gas_mixture/proc/heat_capacity_archived()
-	return HEAT_CAPACITY_GASES1(private_oxygen_archived, private_carbon_dioxide_archived, private_nitrogen_archived, private_toxins_archived, private_sleeping_agent_archived, private_agent_b_archived, private_hydrogen_archived, private_water_vapor_archived, private_hypernoblium_archived, private_nitrium_archived, private_tritium_archived) + \
-	HEAT_CAPACITY_GASES2(private_bz_archived, private_pluoxium_archived, private_miasma_archived, private_freon_archived, private_healium_archived, private_proto_nitrate_archived, private_zauker_archived, private_halon_archived, private_helium_archived, private_antinoblium_archived, innate_heat_capacity)
-
 /// Calculate moles
 /datum/gas_mixture/proc/total_moles()
 	return private_oxygen + private_carbon_dioxide + private_nitrogen + private_toxins + private_sleeping_agent + private_agent_b + private_hydrogen + private_water_vapor + private_hypernoblium + private_nitrium + private_tritium + private_bz + private_pluoxium + private_miasma + private_freon + private_healium + private_proto_nitrate + private_zauker + private_halon + private_helium + private_antinoblium
@@ -913,33 +882,6 @@ What are the archived variables for?
 
 		current_reaction.react(air_mixture = src, working_power = working_power, electrolyzer_args = electrolyzer_args)
 	set_dirty()
-
-/datum/gas_mixture/proc/archive()
-	private_oxygen_archived = private_oxygen
-	private_carbon_dioxide_archived = private_carbon_dioxide
-	private_nitrogen_archived =  private_nitrogen
-	private_toxins_archived = private_toxins
-	private_sleeping_agent_archived = private_sleeping_agent
-	private_agent_b_archived = private_agent_b
-	private_hydrogen_archived = private_hydrogen
-	private_water_vapor_archived = private_water_vapor
-	private_hypernoblium_archived = private_hypernoblium
-	private_nitrium_archived = private_nitrium
-	private_tritium_archived = private_tritium
-	private_bz_archived = private_bz
-	private_pluoxium_archived = private_pluoxium
-	private_miasma_archived = private_miasma
-	private_freon_archived = private_freon
-	private_healium_archived = private_healium
-	private_proto_nitrate_archived = private_proto_nitrate
-	private_zauker_archived = private_zauker
-	private_halon_archived = private_halon
-	private_helium_archived = private_helium
-	private_antinoblium_archived = private_antinoblium
-
-	private_temperature_archived = private_temperature
-
-	return TRUE
 
 /datum/gas_mixture/proc/merge(datum/gas_mixture/giver)
 	if(!giver)

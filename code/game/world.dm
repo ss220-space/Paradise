@@ -322,37 +322,27 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	GLOB.changelog_hash = fexists(latest_changelog) ? md5(latest_changelog) : 0 //for telling if the changelog has changed recently
 
 /**
- * This proc kills DreamDaemon (DreamSeeker if locally debugging) instance via shell command.
+ * This proc kills DreamDaemon (DreamSeeker if locally debugging) instance via rust std::process::exit(0).
  * This is not a normal routine and it should be used under certain circumstances (like world can't shutdown itself properly)
  * Please close spawned threads with separate PIDs (if any)
  */
 /world/proc/KillImmediately()
 	PrepareShutdown()
-	log_world("Shutting down current instance via forceful killing from shell...")
+	log_world("Shutting down current instance via forceful killing from rust...")
 
-	log_debug("Kill via shell initiated...")
+	log_debug("Kill via rust initiated...")
 	rustlib_clear_uuid_storage()
 	rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
-
-	var/process_id = UNLINT(world.process) // SpacemanDMM does not know about world.process, which returns PID of the current instance.
-
-	if(world.system_type == UNIX)
-		shell("kill -15 [process_id]")
-
-	if(world.system_type == MS_WINDOWS)
-		shell("taskkill /pid [process_id]")
+	rustlib_exit_byond_process()
 
 /world/Del()
 	PrepareShutdown()
 	return ..()
 
 /world/proc/PrepareShutdown()
-	rustg_close_async_http_client() // Close the HTTP client. If you dont do this, youll get phantom threads which can crash DD from memory access violations
 	var/debug_server = world.GetConfig("env", "AUXTOOLS_DEBUG_DLL")
 	if(debug_server)
 		CALL_EXT(debug_server, "auxtools_shutdown")()
-	if(SSredis.connected)
-		rustg_redis_disconnect() // Disconnects the redis connection. See above.
 	prof_stop()
 
 /world/proc/update_hub_visibility(new_visibility)
@@ -404,4 +394,3 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	maxz++
 	SSmobs.MaxZChanged()
 	SSidlenpcpool.MaxZChanged()
-
