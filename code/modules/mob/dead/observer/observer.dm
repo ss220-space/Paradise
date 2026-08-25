@@ -462,7 +462,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/proc/dead_tele()
 	set category = VERB_CATEGORY_GHOST
-	set name = "Телепортация"
+	set name = "Телепорт к зоне"
 	set desc= "Teleport to a location"
 
 	if(!isobserver(usr))
@@ -559,7 +559,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/verb/jumptomob() //Moves the ghost instead of just changing the ghosts's eye -Nodrak
 	set category = VERB_CATEGORY_GHOST
-	set name = "К существу"
+	set name = "Телепорт к существу"
 	set desc = "Teleport to a mob"
 
 	if(!isobserver(usr)) //Make sure they're an observer!
@@ -961,6 +961,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/AltClickSecondaryOn(atom/target)
 	if(client && check_rights_for(client, R_DEBUG))
 		client.toggle_tag_datum(src)
+
+/mob/dead/observer/can_see_reagents()
+	return TRUE
 
 #undef GHOST_ORBIT_CIRCLE
 #undef GHOST_ORBIT_TRIANGLE

@@ -35,6 +35,7 @@
 /obj/structure/shuttle/engine/platform
 	name = "platform"
 	icon_state = "platform"
+	layer = TABLE_LAYER
 
 /obj/structure/shuttle/engine/propulsion
 	name = "propulsion"

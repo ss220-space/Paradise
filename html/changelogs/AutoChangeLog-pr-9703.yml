@@ -1,0 +1,4 @@
+author: "FlitchTime"
+delete-after: True
+changes:
+  - tweak: "Перенос некоторых донат вещей в бесплатный лодаут. (PR #9703)"

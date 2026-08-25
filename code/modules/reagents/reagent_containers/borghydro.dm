@@ -69,7 +69,7 @@
 		/datum/reagent/medicine/pen_acid = list('icons/mob/screen_corgi.dmi', "tox1"), \
 		/datum/reagent/medicine/hydrocodone = list('icons/mob/actions/actions.dmi', "magicm"), \
 		/datum/reagent/medicine/perfluorodecalin = list('icons/obj/surgery.dmi', "lungs"), \
-		/datum/reagent/medicine/calomel = list('icons/obj/items.dmi', "soap"), \
+		/datum/reagent/medicine/calomel = list('icons/obj/janitor.dmi', "soap"), \
 		/datum/reagent/medicine/oculine = list('icons/obj/surgery.dmi', "eyes"))
 	upgrade_path = null //no upgrades
 
@@ -228,7 +228,7 @@
 		/datum/reagent/medicine/salglu_solution = list('icons/effects/bleed.dmi', "bleed10"), \
 		/datum/reagent/medicine/epinephrine = list('icons/obj/surgery.dmi', "heart-on"), \
 		/datum/reagent/medicine/charcoal = list('icons/mob/screen_corgi.dmi', "tox1"), \
-		/datum/reagent/medicine/sal_acid = list('icons/mob/actions/actions.dmi', "fleshmend"), \
+		/datum/reagent/medicine/sal_acid = list('icons/mob/actions/actions.dmi', "red_cross"), \
 		/datum/reagent/medicine/salbutamol = list('icons/obj/surgery.dmi', "lungs"))
 	upgrade_path = null //no upgrades
 

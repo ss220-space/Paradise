@@ -13,7 +13,7 @@
 	var/wrapped = 0
 	var/dried_type = null
 	var/dry = 0
-	var/cooktype[0]
+	var/cooktype
 	var/cooked_type = null  //for microwave cooking. path of the resulting item after microwaving
 	var/total_w_class = 0 //for the total weight an item of food can carry
 	var/list/tastes  // for example list("crisps" = 2, "salt" = 1)
@@ -299,8 +299,8 @@
 /obj/item/reagent_containers/food/snacks/badrecipe/Initialize(mapload)
 	. = ..()
 	// it's burned! it should start off being classed as any cooktype that burns
-	cooktype["grilled"] = 1
-	cooktype["deep fried"] = 1
+	LAZYSET(cooktype, "grilled", TRUE)
+	LAZYSET(cooktype, "deep fried", TRUE)
 
 // MISC
 
