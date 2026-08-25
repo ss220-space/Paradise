@@ -1,0 +1,4 @@
+author: "FlitchTime"
+delete-after: True
+changes:
+  - map: "Добавил в додзё зарядник борга. (PR #9702)"

@@ -1,0 +1,4 @@
+author: "anon1mka"
+delete-after: True
+changes:
+  - bugfix: "Подлокотники поверх кукол (PR #9697)"
