@@ -54,7 +54,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/goliath/bullet_act(obj/projectile/P)
 	if(prob(reflect_chance) && !istype(P, /obj/projectile/destabilizer))
-		visible_message(span_danger("[DECLENT_RU_CAP(P, NOMINATIVE)] отскакивает от крепкой шкуры [declent_ru(GENITIVE)]!"), span_userdanger("[DECLENT_RU_CAP(P, NOMINATIVE)] отскакивает от крепой шкуры [declent_ru(GENITIVE)]!"), projectile_message = TRUE)
+		visible_message(span_danger("[DECLENT_RU_CAP(P, NOMINATIVE)] отскакивает от крепкой шкуры [declent_ru(GENITIVE)]!"), span_userdanger("[DECLENT_RU_CAP(P, NOMINATIVE)] отскакивает от крепой шкуры [declent_ru(GENITIVE)]!"))
 		P.reflect_back(src, list(0, 0, -1, 1, -2, 2, -2, 2, -2, 2, -3, 3, -3, 3))
 
 		return -1 // complete projectile permutation

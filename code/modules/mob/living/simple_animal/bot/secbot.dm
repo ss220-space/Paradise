@@ -387,11 +387,8 @@
 
 	prev_flashing_lights = flashing_lights
 
-/mob/living/simple_animal/bot/secbot/verb/toggle_flashing_lights()
-	set name = "Вкл/выкл фонарик"
-	set category = VERB_CATEGORY_OBJECT
-	set src = usr
 
+GAME_VERB(/mob/living/simple_animal/bot/secbot, toggle_flashing_lights, "Вкл/выкл фонарик", VERB_CATEGORY_IC)
 	flashing_lights = !flashing_lights
 
 /mob/living/simple_animal/bot/secbot/handle_automated_action()

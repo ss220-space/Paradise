@@ -258,10 +258,7 @@
 		to_chat(src, span_changeling("<i>[truename] [say_string]:</i> [sended_message]"))
 		talk_to_borer_action.Grant(host)
 
-/mob/living/simple_animal/borer/verb/toggle_silence_inside_host()
-	set name = "Говорить носителю"
-	set category = VERB_CATEGORY_BORER
-	set desc = "Toggle whether you will be able to say audible messages while inside your host."
+GAME_VERB_DESC(/mob/living/simple_animal/borer, toggle_silence_inside_host, "Говорить носителю", "Toggle whether you will be able to say audible messages while inside your host.", VERB_CATEGORY_BORER)
 
 	if(talk_inside_host)
 		to_chat(src, span_notice("Теперь вы будете говорить в сознание носителя."))

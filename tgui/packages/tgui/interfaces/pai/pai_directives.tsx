@@ -1,5 +1,5 @@
+import { Box, Button, LabeledList } from 'tgui-core/components';
 import { useBackend } from '../../backend';
-import { Box, LabeledList, Button } from '../../components';
 
 type Directives = {
   master: string;
@@ -8,7 +8,7 @@ type Directives = {
   supplemental: string;
 };
 
-export const pai_directives = (props: unknown) => {
+export const pai_directives = (_props: unknown) => {
   const { act, data } = useBackend<PaiData<Directives>>();
   const { master, dna, prime, supplemental } = data.app_data;
 
@@ -16,7 +16,7 @@ export const pai_directives = (props: unknown) => {
     <Box>
       <LabeledList>
         <LabeledList.Item label="Master">
-          {master ? master + ' (' + dna + ')' : 'None'}
+          {master ? `${master} (${dna})` : 'None'}
         </LabeledList.Item>
         {master && (
           <LabeledList.Item label="Request DNA">

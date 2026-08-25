@@ -1,5 +1,5 @@
+import { Box, Table } from 'tgui-core/components';
 import { useBackend } from '../../backend';
-import { Box, Table } from '../../components';
 
 type LatheStorage = {
   total_materials: number;
@@ -21,14 +21,14 @@ export const LatheMaterials = (properties) => {
           <Table.Cell bold>Объём материала:</Table.Cell>
           <Table.Cell>{total_materials}</Table.Cell>
           {max_materials ? (
-            <Table.Cell>{' / ' + max_materials}</Table.Cell>
+            <Table.Cell>{` / ${max_materials}`}</Table.Cell>
           ) : null}
         </Table.Row>
         <Table.Row>
           <Table.Cell bold>Объём реагентов:</Table.Cell>
           <Table.Cell>{total_chemicals}</Table.Cell>
           {max_chemicals ? (
-            <Table.Cell>{' / ' + max_chemicals}</Table.Cell>
+            <Table.Cell>{` / ${max_chemicals}`}</Table.Cell>
           ) : null}
         </Table.Row>
       </Table>

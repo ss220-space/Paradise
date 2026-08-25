@@ -1,5 +1,5 @@
+import { Button, LabeledList, Section } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Button, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
 type NuclearBombData = {
@@ -87,7 +87,7 @@ export const NuclearBomb = (_props: unknown) => {
                 label="Time Left"
                 color={data.timer ? 'red' : ''}
               >
-                {data.time + 's'}
+                {`${data.time}s`}
               </LabeledList.Item>
             )}
             <LabeledList.Item label="Safety">

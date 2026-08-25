@@ -618,7 +618,7 @@
 
 	mobile_port.loc = new_dock.loc
 	mobile_port.dir =new_dock.dir
-
+	#ifndef SKIP_LAVALAND
 	// Update mining and labor shuttle ash storm audio
 	if((mobile_port.id in list("mining", "laborcamp")) && !CONFIG_GET(flag/disable_lavaland) && !(SSmapping.map_datum.disables & DISABLE_LAVALAND))
 		var/mining_zlevel = level_name_to_num(MINING)
@@ -626,7 +626,7 @@
 		if(W)
 			W.update_eligible_areas()
 			W.update_audio()
-
+	#endif
 	mobile_port.unlockPortDoors(new_dock)
 	areaInstance.parallax_movedir = mobile_port.preferred_direction
 	SEND_SIGNAL(mobile_port, COMSIG_SHUTTLE_DOCK, new_dock)

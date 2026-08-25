@@ -117,10 +117,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 
 #ifdef KARMA_ENABLE
 
-/mob/verb/spend_karma_list()
-	set name = "Award Karma"
-	set desc = "Let the gods know whether someone's been nice. Can only be used once per round."
-	set category = VERB_CATEGORY_SPECIALVERBS
+GAME_VERB_DESC(/mob, spend_karma_list, "Award Karma", "Let the gods know whether someone's been nice. Can only be used once per round.", VERB_CATEGORY_SPECIALVERBS)
 
 	if(!can_give_karma())
 		return
@@ -146,10 +143,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 
 	spend_karma(pickedmob)
 
-/mob/verb/spend_karma(mob/M)
-	set name = "Award Karma to Player"
-	set desc = "Let the gods know whether someone's been nice. Can only be used once per round."
-	set category = VERB_CATEGORY_SPECIALVERBS
+/mob/proc/spend_karma(mob/M)
 
 	if(!M)
 		to_chat(usr, "Please right click a mob to award karma directly, or use the 'Award Karma' verb to select a player from the player listing.")
@@ -179,10 +173,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 
 	sql_report_karma(src, M)
 
-/client/verb/check_karma()
-	set name = "Check Karma"
-	set desc = "Reports how much karma you have accrued."
-	set category = VERB_CATEGORY_SPECIALVERBS
+GAME_VERB_DESC(/mob, check_karma, "Check Karma", "Reports how much karma you have accrued.", VERB_CATEGORY_SPECIALVERBS)
 
 	if(CONFIG_GET(flag/disable_karma))
 		to_chat(src, span_warning("Karma is disabled."))
