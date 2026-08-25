@@ -449,7 +449,7 @@ GAME_VERB_DESC(/mob/dead/observer, set_dnr, "Запретить реанимац
 
 	SEND_SIGNAL(mind.current, COMSIG_LIVING_SET_DNR)
 
-GAME_VERB_PROC_DESC(/mob/dead/observer, dead_tele, "Телепортация", "Teleport to a location", VERB_CATEGORY_GHOST)
+GAME_VERB_PROC_DESC(/mob/dead/observer, dead_tele, "Телепорт к зоне", "Teleport to a location", VERB_CATEGORY_GHOST)
 
 	if(!isobserver(usr))
 		to_chat(usr, "Не сейчас, вы же не мертвы!")
@@ -537,8 +537,7 @@ GAME_VERB_DESC(/mob/dead/observer, toggle_sight_view, "Видимость сте
 	setDir(SOUTH)//reset dir so the right directional sprites show up
 	return ..()
 
-GAME_VERB_DESC(/mob/dead/observer, jumptomob, "К существу", "Teleport to a mob", VERB_CATEGORY_GHOST) //Moves the ghost instead of just changing the ghosts's eye -Nodrak
-
+GAME_VERB_DESC(/mob/dead/observer, jumptomob, "Телепорт к существу", "Teleport to a mob", VERB_CATEGORY_GHOST) //Moves the ghost instead of just changing the ghosts's eye -Nodrak
 	if(!isobserver(usr)) //Make sure they're an observer!
 		return
 
@@ -913,6 +912,9 @@ GAME_VERB_PROC_DESC(/mob/dead/observer, open_minigames_menu, "Мини-игры"
 /mob/dead/observer/AltClickSecondaryOn(atom/target)
 	if(client && check_rights_for(client, R_DEBUG))
 		client.toggle_tag_datum(src)
+
+/mob/dead/observer/can_see_reagents()
+	return TRUE
 
 #undef GHOST_ORBIT_CIRCLE
 #undef GHOST_ORBIT_TRIANGLE

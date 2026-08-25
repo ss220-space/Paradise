@@ -1,0 +1,4 @@
+author: "FlitchTime"
+delete-after: True
+changes:
+  - tweak: "МОД продолжит сворачиваться/разворачиваться даже, если владелец умер. (PR #9670)"

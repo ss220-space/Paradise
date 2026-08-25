@@ -589,6 +589,7 @@
 /datum/config_entry/flag/shutdown_on_reboot
 
 /datum/config_entry/flag/kill_on_shutdown
+	default = TRUE
 
 /datum/config_entry/flag/autoreconnect
 

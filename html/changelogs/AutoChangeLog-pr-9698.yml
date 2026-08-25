@@ -1,0 +1,4 @@
+author: "shahribek"
+delete-after: True
+changes:
+  - bugfix: "мимики ящиков больше не могут быть невидимыми (PR #9698)"

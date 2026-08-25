@@ -202,6 +202,7 @@
 		/datum/robot_skin/heavy/std,
 		/datum/robot_skin/android,
 		/datum/robot_skin/wide/drake/std,
+		/datum/robot_skin/kerfus/nt,
 	)
 	has_transform_animation = TRUE
 
@@ -281,6 +282,7 @@
 		/datum/robot_skin/droid_medical,
 		/datum/robot_skin/basic/needles,
 		/datum/robot_skin/wide/drake/medical,
+		/datum/robot_skin/kerfus/med,
 	)
 	has_transform_animation = TRUE
 
@@ -402,6 +404,7 @@
 		/datum/robot_skin/landmate,
 		/datum/robot_skin/chiefmate,
 		/datum/robot_skin/wide/drake/eng,
+		/datum/robot_skin/kerfus/flushed,
 	)
 	has_transform_animation = TRUE
 
@@ -500,6 +503,7 @@
 		/datum/robot_skin/blackknight,
 		/datum/robot_skin/bloodhound,
 		/datum/robot_skin/wide/drake/sec,
+		/datum/robot_skin/kerfus/noerp,
 	)
 	has_transform_animation = TRUE
 
@@ -665,6 +669,7 @@
 		/datum/robot_skin/toiletbot,
 		/datum/robot_skin/maximillion,
 		/datum/robot_skin/wide/drake/srv,
+		/datum/robot_skin/kerfus/maid,
 	)
 	has_transform_animation = TRUE
 
@@ -779,6 +784,7 @@
 		/datum/robot_skin/treadhead,
 		/datum/robot_skin/lavaland,
 		/datum/robot_skin/wide/drake/mnr,
+		/datum/robot_skin/kerfus/cargo,
 	)
 	has_transform_animation = TRUE
 

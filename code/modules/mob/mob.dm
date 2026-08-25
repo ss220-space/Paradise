@@ -876,8 +876,7 @@ GAME_VERB(/mob, cancel_camera, "Сбросить позицию камеры", V
 /mob/proc/activate_hand(selhand)
 	return
 
-GAME_VERB(/mob/dead/observer, respawn, "Играть за НИП", VERB_CATEGORY_GHOST)
-
+GAME_VERB(/mob/dead/observer, respawn, "Стать животным", VERB_CATEGORY_GHOST)
 	if(jobban_isbanned(usr, ROLE_SENTIENT))
 		to_chat(usr, span_warning("Вам запрещено играть за разумных животных."))
 		return
