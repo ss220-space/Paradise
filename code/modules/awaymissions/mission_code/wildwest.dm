@@ -155,7 +155,7 @@
 
 /////For the Wishgranter///////////
 
-GAME_VERB(/mob/living/carbon, immortality, "Воскрешение", VERB_CATEGORY_IMMORTALITY)
+GAME_VERB_PROC(/mob/living/carbon, immortality, "Воскрешение", VERB_CATEGORY_IMMORTALITY)
 
 	var/mob/living/carbon/C = usr
 	if(C.stat != DEAD)

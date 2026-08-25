@@ -121,8 +121,8 @@
  * Removing it causes interface update lags with appearing/disappearing "Object"
  * tab when walking nearby "Object"-verbed things
  */
-GAME_VERB_CONTEXT_RANGE(/mob, pointed, "Указать на", VERB_NO_DESCRIPTION, VERB_CATEGORY_HIDDEN, /atom, view(client.view, src))
-	VERB_ARG_TYPED_RANGE(target, VERB_ARG_TYPE_ATOM, VERB_ARG_SOURCE_VIEW, /atom, client.view)
+GAME_VERB_CONTEXT(/mob, pointed, "Указать на", VERB_NO_DESCRIPTION, VERB_CATEGORY_HIDDEN, /atom)
+	VERB_ARG_TYPED(target, VERB_ARG_TYPE_MOB | VERB_ARG_TYPE_OBJ | VERB_ARG_TYPE_TURF, VERB_ARG_SOURCE_VIEW, /atom)
 	if(next_move >= world.time || !Master.current_runlevel) //No usage until subsystems initialized properly.
 		return
 

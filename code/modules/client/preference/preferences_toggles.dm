@@ -649,14 +649,14 @@ GAME_VERB_DESC(/client, silence_current_midi, "Заглушить MIDI", "Заг
 	blackbox_message = "Переключение разрешения выводить игрока из раунда"
 
 /datum/preference_toggle/toggle_off_projectile_messages
-	name = "Выключить боевые сообщения выстрелов"
-	description = "Выключает большую часть сообщений, появляющихся при стрельбе."
-	preftoggle_bitflag = PREFTOGGLE_2_OFF_PROJECTILE_MESSAGES
+	name = "Выключить отправку сообщений в легаси чат"
+	description = "Выключает отправку сообщений в легаси чат, появляющийся в случае, если тгуи панель не работает."
+	preftoggle_bitflag = PREFTOGGLE_2_OFF_LEGACY_OUTPUT_MESSAGES
 	preftoggle_toggle = PREFTOGGLE_TOGGLE2
 	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
-	enable_message = "Теперь вы не будете видеть сообщения, появляющиеся при стрельбе."
-	disable_message = "Теперь вы будете видеть сообщения, появляющиеся при стрельбе."
-	blackbox_message = "Переключение комбат логов от выстрелов"
+	enable_message = "Теперь сообщения не будут отправляться в легаси чат."
+	disable_message = "Теперь сообщения будут отправляться в легаси чат."
+	blackbox_message = "Переключение отправки сообщений в легаси чат"
 
 /datum/preference_toggle/toggle_auto_dnr
 	name = "Запрет реанимации при смерти"

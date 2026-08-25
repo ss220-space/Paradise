@@ -12,7 +12,7 @@
 	for(var/datum/language/lang_type as anything in subtypesof(/datum/language))
 		var/icon = initial(lang_type.icon)
 		var/icon_state = initial(lang_type.icon_state)
-		if (icon != default_language_file)
+		if(icon != default_language_file)
 			insert_icon("language-[icon_state]", uni_icon(icon, icon_state))
 
 		var/datum/universal_icon/partial_icon = uni_icon(icon, icon_state)

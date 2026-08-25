@@ -193,7 +193,7 @@ GAME_VERB_PROC(/mob, Cell, "Cell", ADMIN_CATEGORY_DEBUG)
 // message is the message output to anyone who can see e.g. "[src] does something!"
 // self_message (optional) is what the src mob sees  e.g. "You do something!"
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
-/mob/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type, projectile_message = FALSE, vision_distance = DEFAULT_MESSAGE_RANGE, visible_message_flags = NONE)
+/mob/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type, vision_distance = DEFAULT_MESSAGE_RANGE, visible_message_flags = NONE)
 	if(!isturf(loc))
 		vision_distance = floor(vision_distance / 2)
 	. = ..()
@@ -214,7 +214,7 @@ GAME_VERB_PROC(/mob, Cell, "Cell", ADMIN_CATEGORY_DEBUG)
 // Use for objects performing visible actions
 // message is output to anyone who can see, e.g. "The [src] does something!"
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
-/atom/proc/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type, projectile_message = FALSE, vision_distance = DEFAULT_MESSAGE_RANGE, visible_message_flags = NONE)
+/atom/proc/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type, vision_distance = DEFAULT_MESSAGE_RANGE, visible_message_flags = NONE)
 	var/turf/turf = get_turf(src)
 	if(!turf)
 		return
@@ -235,9 +235,6 @@ GAME_VERB_PROC(/mob, Cell, "Cell", ADMIN_CATEGORY_DEBUG)
 
 	for(var/mob/mob in hearers)
 		if(!mob.client)
-			continue
-
-		if(projectile_message && (mob?.client?.prefs.toggles2 & PREFTOGGLE_2_OFF_PROJECTILE_MESSAGES))
 			continue
 
 		//This entire if/else chain could be in two lines but isn't for readibilties sake.

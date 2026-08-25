@@ -237,3 +237,7 @@
 
 /// from base of /datum/view_data/proc/afterViewChange() : (view)
 #define COMSIG_VIEWDATA_UPDATE "viewdata_update"
+
+/// From /atom/movable/screen/zone_sel/proc/set_selected_zone.
+/// Fires when the user has changed their selected body target.
+#define COMSIG_MOB_SELECTED_ZONE_SET "mob_set_selected_zone"

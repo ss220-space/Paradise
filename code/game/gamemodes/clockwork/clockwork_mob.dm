@@ -85,7 +85,7 @@
 		final_deflection_chance = max(10, deflect_chance - P.damage)
 	if(prob(final_deflection_chance))
 		visible_message(span_danger("[src] deflects [P] with their shield!"), \
-		span_danger("You block [P] with your shield!"), projectile_message = TRUE)
+		span_danger("You block [P] with your shield!"))
 		if(energy_projectile)
 			playsound(src, 'sound/weapons/effects/searwall.ogg', 50, TRUE)
 		else

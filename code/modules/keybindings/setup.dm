@@ -15,7 +15,7 @@
 	set waitfor = FALSE
 
 	//Reset the buffer
-	client_reset_held_keys()
+	reset_held_keys()
 
 	erase_all_macros()
 
@@ -38,7 +38,7 @@
 	winset(src, null, erase_output)
 
 /// Manually clears any held keys, in case due to lag or other undefined behavior a key gets stuck.
-/client/proc/client_reset_held_keys()
+/client/proc/reset_held_keys()
 	for(var/key in keys_held)
 		keyUp(key)
 

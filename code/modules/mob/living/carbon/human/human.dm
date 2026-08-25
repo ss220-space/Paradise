@@ -1336,7 +1336,7 @@ GAME_VERB_PROC_DESC(/mob/living/carbon/human, bloody_doodle, "Рисовать �
 		balloon_alert(src, "невозможно в данный момент!")
 		return
 	if(!bloody_hands)
-		UNASSIGN_GAME_VERB(src, /mob/living/carbon/human, /bloody_doodle)
+		UNASSIGN_GAME_VERB(src, /mob/living/carbon/human, bloody_doodle)
 
 	if(gloves)
 		balloon_alert(src, "перчатки мешают!")

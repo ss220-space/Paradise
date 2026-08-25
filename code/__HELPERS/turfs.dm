@@ -440,7 +440,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		var/banner_height = (sizey - effective_height) / 2
 		mousepos_y -= banner_height
 		sizey -= (banner_height*2)
-	else if (size_ratio > screen_ratio) //sizey too high, x has black banners
+	else if(size_ratio > screen_ratio) //sizey too high, x has black banners
 		var/effective_width = sizey * screen_ratio
 		var/banner_width = (sizex - effective_width) / 2
 		mousepos_x -= banner_width

@@ -53,9 +53,9 @@
 	var/obj/structure/clockwork/functional/cogscarab_fabricator/fabr
 
 	silicon_subsystems = list(
-		VERB_META(/mob/living/silicon, subsystem_open_gps)
-		VERB_META(/mob/living/silicon/robot, self_diagnosis)
-		VERB_META(/mob/living/silicon, subsystem_law_manager)
+		VERB_META(/mob/living/silicon, subsystem_open_gps),
+		VERB_META(/mob/living/silicon/robot, self_diagnosis),
+		VERB_META(/mob/living/silicon, subsystem_law_manager),
 	)
 
 	hat_offset_y = -15

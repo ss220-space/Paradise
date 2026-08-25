@@ -293,8 +293,7 @@
 								"поражён[GEND_A_O_Y(L)]",
 								"прошибает")
 			L.visible_message(span_danger("[DECLENT_RU_CAP(L, NOMINATIVE)] [hit_text] [declent_ru(INSTRUMENTAL)] [organ_hit_text]"), \
-								span_userdanger("В вас попали [declent_ru(INSTRUMENTAL)] [organ_hit_text]"),
-								projectile_message = TRUE)	//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
+								span_userdanger("В вас попали [declent_ru(INSTRUMENTAL)] [organ_hit_text]"))	//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
 
 		if(immolate)
 			L.adjust_fire_stacks(immolate)

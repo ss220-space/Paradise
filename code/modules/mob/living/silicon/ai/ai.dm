@@ -122,11 +122,11 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/list/all_eyes = list()
 
 	silicon_subsystems = list(
-		VERB_META(mob/living/silicon, subsystem_open_gps),
-		VERB_META(mob/living/silicon, subsystem_atmos_control),
-		VERB_META(mob/living/silicon, subsystem_crew_monitor),
-		VERB_META(mob/living/silicon, subsystem_law_manager),
-		VERB_META(mob/living/silicon, subsystem_power_monitor),
+		VERB_META(/mob/living/silicon, subsystem_open_gps),
+		VERB_META(/mob/living/silicon, subsystem_atmos_control),
+		VERB_META(/mob/living/silicon, subsystem_crew_monitor),
+		VERB_META(/mob/living/silicon, subsystem_law_manager),
+		VERB_META(/mob/living/silicon, subsystem_power_monitor),
 	)
 
 	hat_offset_y = 3

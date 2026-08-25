@@ -11,7 +11,7 @@ export const RndRoute = (properties: RndRouteProps) => {
   const { menu, submenu } = data;
 
   const compare = (
-    comparator: ((n: number) => boolean) | number,
+    comparator: ((n: number) => boolean) | number |undefined,
     item: number,
   ) => {
     if (comparator === null || comparator === undefined) {
@@ -24,9 +24,7 @@ export const RndRoute = (properties: RndRouteProps) => {
   };
 
   const match =
-    properties.menu &&
-    compare(properties.menu, menu as number) &&
-    properties.submenu &&
+   compare(properties.menu, menu as number) &&
     compare(properties.submenu, submenu as number);
 
   if (!match) {

@@ -615,7 +615,7 @@
 	shots_fired++
 
 /obj/item/gun/proc/do_pointblank_shot(mob/living/user, atom/target)
-	user.visible_message(span_danger("[user] стреля[PLUR_ET_YUT(user)] из [declent_ru(GENITIVE)] в упор в [target]!"), span_danger("Вы стреляете из [declent_ru(GENITIVE)] в упор в [target]!"), span_italics("Вы слышите [fire_sound_text]!"), projectile_message = TRUE)
+	user.visible_message(span_danger("[user] стреля[PLUR_ET_YUT(user)] из [declent_ru(GENITIVE)] в упор в [target]!"), span_danger("Вы стреляете из [declent_ru(GENITIVE)] в упор в [target]!"), span_italics("Вы слышите [fire_sound_text]!"))
 	if(pb_knockback > 0 && isliving(target))
 		do_pb_knockback(user, target)
 

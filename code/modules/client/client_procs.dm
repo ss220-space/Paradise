@@ -1259,15 +1259,6 @@ GAME_VERB(/client, toggle_fullscreen, "Полный экран", VERB_CATEGORY_O
 	winset(src, SKIN_MAINWINDOW, "is-fullscreen=[fullscreen ? "true" : "false"]")
 	attempt_auto_fit_viewport()
 
-
-/**
- * Manually clears any held keys, in case due to lag or other undefined behavior a key gets stuck.
- *
- * Hardcoded to the ESC key.
- */
-GAME_VERB_HIDDEN(/client, reset_held_keys, "Reset Held Keys")
-	client_reset_held_keys()
-
 /// Clears the client's screen, aside from ones that opt out
 /client/proc/clear_screen()
 	for(var/object in screen)

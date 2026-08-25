@@ -6,7 +6,7 @@ SUBSYSTEM_DEF(verbs)
 	var/list/datum/verb_metadata/verbs_by_verb_path = list()
 
 /datum/controller/subsystem/verbs/Initialize()
-	if (!length(verbs_by_type))
+	if(!length(verbs_by_type))
 		initialize_verb_types()
 	initialized = TRUE
 	return SS_INIT_SUCCESS
@@ -62,7 +62,7 @@ SUBSYSTEM_DEF(verbs)
 /datum/controller/subsystem/verbs/proc/assign_verb(target, datum/verb_metadata/verb_type)
 	// When launching via dreamseeker and not dreamdaemon, client is created first before any of the subsystems init
 	// This can only happen in dev environments so its not a big deal
-	if (!initialized)
+	if(!initialized)
 		initialize_verb_types()
 	var/datum/verb_metadata/meta = verbs_by_type[verb_type]
 	if(isnull(meta))
