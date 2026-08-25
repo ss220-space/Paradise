@@ -1751,10 +1751,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/moonoutpost19/khonsu19)
 "dF" = (
-/obj/item/flashlight/lantern{
-	icon_state = "lantern-on";
-	on = 1
-	},
+/obj/item/flashlight/lantern/on,
 /obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/moonoutpost19/khonsu19)
