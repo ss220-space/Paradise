@@ -235,7 +235,7 @@
 			SStgui.update_uis(src)
 		if("GetTask")
 			if(!currentID || !(ACCESS_ROBOTICS in currentID.access))
-				to_chat(usr, span_warning("Access denied. Требуется доступ робототехники."))
+				to_chat(usr, span_warning("Доступ запрещён. Требуется доступ робототехники."))
 				return
 			var/list/mecha_types = list("Working Mech" = WORKING_CLASS, "Medical Mech" = MEDICAL_CLASS, "Combat Mech" = COMBAT_CLASS, "Random Mech" = RANDOM_CLASS)
 			var/mecha_type = tgui_input_list(usr, "Select event type.", "Select", mecha_types)
