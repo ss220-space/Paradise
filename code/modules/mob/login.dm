@@ -109,7 +109,7 @@
 			CB.Invoke()
 
 		//Check if they should have a stat panel, after they deadmined.
-		client.set_stat_panel()
+		//client.set_stat_panel()
 
 		//Update the chat panel's job/character info for conditional highlights.
 		client.tgui_panel?.send_player_info()
