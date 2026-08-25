@@ -17,8 +17,8 @@
 	var/accumulator_type = /obj/item/weapon_cell/energy_gun
 	// all weapons are too good, so our little nerf here
 	force = 20
-	damage_mod = 0.7
-	stamina_mod = 0.7
+	damage_mod = 0.8
+	stamina_mod = 0.8
 
 /obj/item/gun/energy/accumulator/Initialize(mapload)
 	. = ..()
@@ -184,6 +184,8 @@
 		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 7),
 		ATTACHMENT_SLOT_UNDER = list("x" = 5, "y" = -5),
 	)
+	windup_delay = 1 SECONDS
+	windup_sound = 'sound/weapons/laser_charge_up.ogg'
 
 /obj/item/gun/energy/accumulator/energy_pistol/get_ru_names()
 	return alist(
@@ -274,9 +276,12 @@
 	slot_flags = ITEM_SLOT_SUITSTORE | ITEM_SLOT_BACK
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER | GUN_MODULE_CLASS_ENERGY_WEAPON
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 6),
 		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -7),
 	)
+	zoomable = TRUE
+	zoom_amount = 5
+	windup_delay = 1 SECONDS
+	windup_sound = 'sound/weapons/laser_charge_up.ogg'
 
 /obj/item/gun/energy/accumulator/sniper_rifle/get_ru_names()
 	return alist(

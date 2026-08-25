@@ -1,8 +1,8 @@
 /obj/projectile/beam/disabler/slowed
-	speed = 2
+	speed = 1
 
 /obj/projectile/beam/laser/slowed
-	speed = 2
+	speed = 1
 
 // smg
 /obj/projectile/beam/disabler/slowed/weak
@@ -22,11 +22,11 @@
 
 // shotgun
 /obj/projectile/beam/disabler/scatter/energy_shotgun
-	speed = 2
+	speed = 1
 	damage = 10 //50 per shot
 
 /obj/projectile/beam/scatter/energy_shotgun
-	speed = 2
+	speed = 1
 	damage = 6 //30 per shot
 
 //pistol
@@ -34,10 +34,10 @@
 	shield_buster = TRUE
 	icon_state = "disabler_plasma"
 	armour_penetration = 20
-	speed = 2
+	speed = 1
 
 /obj/projectile/beam/laser/energy_pistol
 	shield_buster = TRUE
 	icon_state = "laser_plasma"
 	armour_penetration = 20
-	speed = 2
+	speed = 1

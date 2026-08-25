@@ -23,12 +23,12 @@
 /obj/item/ammo_casing/energy/disabler/energy_carbine/heavy
 	projectile_type = /obj/projectile/beam/disabler/slowed/heavy
 	fire_sound = 'sound/weapons/gunshots/laserrifle2.ogg'
-	e_cost = 150
+	e_cost = 100 //12
 	delay = 2 SECONDS
 	select_name = "heavy-disabler"
 
 /obj/item/ammo_casing/energy/laser/energy_carbine/heavy
-	e_cost = 200
+	e_cost = 120 //10
 	fire_sound = 'sound/weapons/gunshots/laserrifle.ogg'
 	projectile_type = /obj/projectile/beam/laser/slowed/heavy
 	delay = 2 SECONDS
@@ -48,9 +48,9 @@
 // MARK: accumulator pistol
 
 /obj/item/ammo_casing/energy/disabler/energy_pistol
-	delay = 1 SECONDS
+	delay = 1.1 SECONDS
 	projectile_type = /obj/projectile/beam/disabler/energy_pistol
 
 /obj/item/ammo_casing/energy/laser/energy_pistol
-	delay = 1 SECONDS
+	delay = 1.1 SECONDS
 	projectile_type = /obj/projectile/beam/laser/energy_pistol

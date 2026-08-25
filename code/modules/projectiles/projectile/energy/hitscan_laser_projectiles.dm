@@ -14,7 +14,7 @@
 	muzzle_type = /obj/effect/projectile/muzzle/laser/armorpierce
 	impact_type = /obj/effect/projectile/impact/laser/armorpierce
 	armour_penetration = 50
-	damage = 20
+	damage = 30
 	forcedodge = 2
 	ricochet_chance = 0
 

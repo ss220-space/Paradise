@@ -164,6 +164,14 @@
 	var/windup_spindown = 3 SECONDS
 	var/datum/looping_sound/sound_loop
 
+	///windup delay before shots. USE ONLY WITH SEMI_AUTO guns
+	///Delay for the gun winding up before firing.
+	var/windup_delay = 0
+	///Sound played during windup.
+	var/windup_sound
+	///Used if a weapon need windup before firing
+	var/windup_checked = WEAPON_WINDUP_NOT_CHECKED
+
 /obj/item/gun/Initialize(mapload)
 	. = ..()
 	appearance_flags |= KEEP_TOGETHER
@@ -514,6 +522,7 @@
 /obj/item/gun/proc/reset_fire()
 	shots_fired = 0//Let's clean everything
 	set_target(null)
+	windup_checked = WEAPON_WINDUP_NOT_CHECKED
 	update_mouse_pointer(TRUE)
 	if(dual_wield)
 		dual_wield = FALSE
@@ -713,6 +722,8 @@
 				to_chat(user, span_warning("В [declent_ru(ACCUSATIVE)] заряжены смертельные патроны! Лучше не рисковать..."))
 				return
 		on_pre_process_fire(user, target)
+		if(!on_windup_check())
+			return NONE
 		sprd = accuracy.randomize_spread(user, bonus_spread, shots_counter)
 		if(!chambered.fire(target = target, user = user, modifiers = modifiers, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src, damage_mod = damage_mod, stamina_mod = stamina_mod))
 			shoot_with_empty_chamber(user)
@@ -726,6 +737,7 @@
 			chambered.after_fire()
 	else
 		shoot_with_empty_chamber(user)
+		windup_checked = WEAPON_WINDUP_NOT_CHECKED
 		return NONE
 	process_chamber()
 	update_icon()
@@ -883,6 +895,22 @@
 
 	update_icon(UPDATE_OVERLAYS)
 	update_equipped_item(update_speedmods = FALSE)
+
+/obj/item/gun/proc/on_windup_check()
+	if(gun_firemode != GUN_FIREMODE_SEMIAUTO)
+		return TRUE
+	if(windup_delay && windup_checked == WEAPON_WINDUP_NOT_CHECKED)
+		windup_checked = WEAPON_WINDUP_CHECKING
+		if(windup_sound)
+			playsound(loc, windup_sound, 30, TRUE)
+		if(!gun_user)
+			return FALSE
+		if(!do_after(gun_user, windup_delay, timed_action_flags = (DA_IGNORE_LYING|DA_IGNORE_USER_LOC_CHANGE), show_progress = FALSE, max_interact_count = 1, cog_iconstate = "busy_danger"))
+			windup_checked = WEAPON_WINDUP_NOT_CHECKED
+			return FALSE
+		windup_checked = WEAPON_WINDUP_CHECKED
+		return TRUE
+	return TRUE //if no windup delay or whatever
 
 /obj/item/gun/extinguish_light(force = FALSE)
 	if(gun_light?.on)

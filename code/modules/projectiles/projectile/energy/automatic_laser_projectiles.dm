@@ -21,8 +21,8 @@
 //automatic laser sniper
 /obj/projectile/beam/disabler/automatic_sniper
 	damage = 60
-	speed = 3
+	speed = 2
 
 /obj/projectile/beam/laser/heavylaser/automatic_sniper
-	damage = 45
-	speed = 3
+	damage = 50
+	speed = 2

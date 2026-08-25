@@ -63,7 +63,7 @@
 	///Is our bullet have homing capabilities?
 	var/smart_bullet = FALSE
 	/// How many tiles away should we check for smart auto-locking
-	var/auto_lock_range = 2
+	var/auto_lock_range = 1
 
 /obj/item/ammo_casing/Initialize(mapload)
 	. = ..()

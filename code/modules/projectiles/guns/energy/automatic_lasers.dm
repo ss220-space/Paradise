@@ -183,15 +183,18 @@
 	accuracy = GUN_ACCURACY_RIFLE_LASER
 	slot_flags = ITEM_SLOT_SUITSTORE
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 8, "y" = 7),
 		ATTACHMENT_SLOT_UNDER = list("x" = 21, "y" = -9),
 	)
 	ammo_type = list(
 		/obj/item/ammo_casing/energy/disabler/automatic_sniper,
 		/obj/item/ammo_casing/energy/laser/automatic_sniper,
 	)
+	zoomable = TRUE
+	zoom_amount = 5
 	gun_firemode = GUN_FIREMODE_SEMIAUTO
 	gun_firemode_list = list(GUN_FIREMODE_SEMIAUTO)
+	windup_delay = 1 SECONDS
+	windup_sound = 'sound/weapons/laser_charge_up.ogg'
 
 /obj/item/gun/energy/laser/automatic/sniper_rifle/get_ru_names()
 	return alist(

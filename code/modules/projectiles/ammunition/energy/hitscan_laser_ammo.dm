@@ -23,7 +23,7 @@
 // MARK: Hitscan sniper rifle
 /obj/item/ammo_casing/energy/laser/hitscan/laser_rifle
 	delay = 4 SECONDS
-	e_cost = 250
+	e_cost = 200
 	projectile_type = /obj/projectile/beam/laser/hitscan/laser_rifle
 	fire_sound = 'sound/weapons/gunshots/laserrifle.ogg'
 	select_name = "anti-vehicle hitscan"

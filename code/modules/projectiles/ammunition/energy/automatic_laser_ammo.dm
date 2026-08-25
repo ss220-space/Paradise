@@ -49,7 +49,7 @@
 /obj/item/ammo_casing/energy/disabler/automatic_sniper
 	projectile_type = /obj/projectile/beam/disabler/automatic_sniper
 	fire_sound = 'sound/weapons/gunshots/laserrifle2.ogg'
-	e_cost = 200 //6 shots
+	e_cost = 150 //8 shots
 	delay = 4 SECONDS
 	select_name = "heavy-disabler"
 	smart_bullet = TRUE
@@ -59,5 +59,5 @@
 	delay = 5 SECONDS
 	select_name = "anti-vehicle"
 	fire_sound = 'sound/weapons/gunshots/laserrifle2.ogg'
-	e_cost = 250 //6 shots
+	e_cost = 200 // shots
 	smart_bullet = TRUE
