@@ -23,7 +23,7 @@
 /obj/docking_port/mobile/supply
 	name = "supply shuttle"
 	id = "supply"
-	callTime = 1200
+	callTime = 2 MINUTES
 
 	dir = 8
 	width = 12
@@ -540,7 +540,7 @@
 
 	data["moving"] = SSshuttle.supply.mode != SHUTTLE_IDLE
 	data["at_station"] = SSshuttle.supply.getDockedId() == "supply_home"
-	data["timeleft"] = SSshuttle.supply.timeLeft(600)
+	data["timeleft"] = SSshuttle.supply.getTimerStr()
 	data["can_launch"] = !SSshuttle.supply.canMove()
 
 	return data
