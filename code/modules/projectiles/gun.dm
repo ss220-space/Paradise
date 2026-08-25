@@ -171,7 +171,7 @@
 	var/windup_sound
 	///Sound cooldown sanity_check
 	var/sound_cooldown_time = 1 SECONDS
-	COOLDOWN_DECLARE(sound_cooldown)
+	COOLDOWN_DECLARE(gun_sound_cooldown)
 
 /obj/item/gun/Initialize(mapload)
 	. = ..()
@@ -900,8 +900,8 @@
 	if(!windup_delay)
 		return TRUE
 
-	if(windup_sound && COOLDOWN_FINISHED(src, sound_cooldown))
-		COOLDOWN_START(src, sound_cooldown, sound_cooldown_time)
+	if(windup_sound && COOLDOWN_FINISHED(src, gun_sound_cooldown))
+		COOLDOWN_START(src, gun_sound_cooldown, sound_cooldown_time)
 		playsound(loc, windup_sound, 30, TRUE)
 
 	if(!do_after(gun_user, windup_delay, src, timed_action_flags = (DA_IGNORE_LYING|DA_IGNORE_USER_LOC_CHANGE), show_progress = FALSE, max_interact_count = 1, cog_iconstate = "busy_danger"))
