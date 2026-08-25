@@ -28,5 +28,4 @@
 	speed = 2
 
 /obj/projectile/beam/laser/heavylaser/automatic_sniper
-	damage = 50
 	speed = 2

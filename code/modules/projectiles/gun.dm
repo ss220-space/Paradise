@@ -437,8 +437,6 @@
 	if(QDELETED(object))
 		return
 
-	if(!on_windup_check())
-		return
 
 	set_target(get_turf_on_clickcatcher(object, user, params))
 	src.modifiers = modifiers
@@ -725,6 +723,8 @@
 				to_chat(user, span_warning("В [declent_ru(ACCUSATIVE)] заряжены смертельные патроны! Лучше не рисковать..."))
 				return
 		on_pre_process_fire(user, target)
+		if(!on_windup_check())
+			return NONE
 		sprd = accuracy.randomize_spread(user, bonus_spread, shots_counter)
 		if(!chambered.fire(target = target, user = user, modifiers = modifiers, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src, damage_mod = damage_mod, stamina_mod = stamina_mod))
 			shoot_with_empty_chamber(user)
@@ -896,7 +896,11 @@
 	update_icon(UPDATE_OVERLAYS)
 	update_equipped_item(update_speedmods = FALSE)
 
+/// Windup for guns. Working only with semi autos
 /obj/item/gun/proc/on_windup_check()
+	if(gun_firemode != GUN_FIREMODE_SEMIAUTO)
+		return TRUE
+
 	if(!windup_delay)
 		return TRUE
 
