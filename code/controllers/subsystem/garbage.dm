@@ -37,7 +37,6 @@ SUBSYSTEM_DEF(garbage)
 
 	var/list/items = list()			// Holds our qdel_item statistics datums
 
-	#ifndef PASSIVE_GC
 	var/list/collection_timeout = list(GC_FILTER_QUEUE, GC_CHECK_QUEUE, GC_DEL_QUEUE) // deciseconds to wait before moving something up in the queue to the next level
 	//var/list/collection_timeout = list(GC_FILTER_QUEUE, 100, GC_DEL_QUEUE) // deciseconds to wait before moving something up in the queue to the next level
 	var/totalgcs = 0
@@ -52,22 +51,17 @@ SUBSYSTEM_DEF(garbage)
 
 	#ifdef REFERENCE_TRACKING
 	var/list/reference_find_on_fail = list()
-	var/ref_search_stop = FALSE
 	#ifdef REFERENCE_TRACKING_DEBUG
 	//Should we save found refs. Used for game testing
 	var/should_save_refs = FALSE
 	#endif
 	#endif
-	#endif
 
-#ifndef PASSIVE_GC
 /datum/controller/subsystem/garbage/PreInit()
 	InitQueues()
-#endif
 
 /datum/controller/subsystem/garbage/get_stat_details()
 	var/list/msg = list()
-	#ifndef PASSIVE_GC
 	var/list/counts = list()
 	for(var/list/L in queues)
 		counts += length(L)
@@ -85,9 +79,7 @@ SUBSYSTEM_DEF(garbage)
 		msg += "TGCR:[round((totalgcs / (totaldels + totalgcs)) * 100, 0.01)]% |"
 	msg += " Pass:[pass_counts.Join(",")]"
 	msg += " | Fail:[fail_counts.Join(",")]"
-	#else
 	msg += "del's:[delslasttick] | Total del's:[totaldels]"
-	#endif
 	return msg.Join("")
 
 /datum/controller/subsystem/garbage/get_metrics()
@@ -122,15 +114,17 @@ SUBSYSTEM_DEF(garbage)
 		if(I.hard_deletes)
 			dellog += "\tTotal Hard Deletes [I.hard_deletes]"
 			dellog += "\tTime Spent Hard Deleting: [I.hard_delete_time]ms"
+			dellog += "\tHighest Time Spent Hard Deleting: [I.hard_delete_max]ms"
 		if(I.slept_destroy)
 			dellog += "\tSleeps: [I.slept_destroy]"
 		if(I.no_respect_force)
 			dellog += "\tIgnored force: [I.no_respect_force] times"
 		if(I.no_hint)
 			dellog += "\tNo hint: [I.no_hint] times"
+		if(LAZYLEN(I.extra_details))
+			dellog += "\tExtra Info: [I.extra_details]"
 	log_qdel(dellog.Join("\n"))
 
-#ifndef PASSIVE_GC
 /datum/controller/subsystem/garbage/fire()
 	//the fact that this resets its processing each fire (rather then resume where it left off) is intentional.
 	var/queue = GC_QUEUE_FILTER
@@ -276,10 +270,6 @@ SUBSYSTEM_DEF(garbage)
 		count = 0
 
 #undef REFS_WE_EXPECT
-#else
-/datum/controller/subsystem/garbage/fire()
-	delslasttick = 0
-#endif
 
 /datum/controller/subsystem/garbage/proc/Queue(datum/D, level = GC_QUEUE_FILTER)
 	if(isnull(D))
@@ -288,15 +278,12 @@ SUBSYSTEM_DEF(garbage)
 		HardDelete(D)
 		return
 	var/queue_time = world.time
-	D.gc_destroyed = queue_time
 
-#ifndef PASSIVE_GC
 	if(D.gc_destroyed <= 0)
 		D.gc_destroyed = queue_time
 
 	var/list/queue = queues[level]
 	queue[++queue.len] = list(queue_time, D, D.gc_destroyed) // not += for byond reasons
-#endif
 
 //this is mainly to separate things profile wise.
 /datum/controller/subsystem/garbage/proc/HardDelete(datum/D, log_harddel = TRUE)
@@ -343,13 +330,11 @@ SUBSYSTEM_DEF(garbage)
 		if(overrun_limit && type_info.hard_deletes_over_threshold >= overrun_limit)
 			type_info.qdel_flags |= QDEL_ITEM_SUSPENDED_FOR_LAG
 
-#ifndef PASSIVE_GC
 /datum/controller/subsystem/garbage/Recover()
 	InitQueues() //We first need to create the queues before recovering data
 	if(istype(SSgarbage.queues))
 		for(var/i in 1 to length(SSgarbage.queues))
 			queues[i] |= SSgarbage.queues[i]
-#endif
 
 /datum/qdel_item
 	var/name = ""

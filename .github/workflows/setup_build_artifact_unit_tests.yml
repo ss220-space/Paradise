@@ -28,7 +28,7 @@ jobs:
         run: |
           tools/ci/install_byond.sh '${{ matrix.byondtype }}'
           source $HOME/BYOND/byond/bin/byondsetup
-          tools/ci/dm.sh -DUNIT_TESTS -DMULTIINSTANCE -DCIBUILDING paradise.dme
+          tools/ci/dm.sh -DUNIT_TESTS -DMULTIINSTANCE -DCIBUILDING -I"loop_checks" paradise.dme
 
       - name: Setup variable for output path
         run: |

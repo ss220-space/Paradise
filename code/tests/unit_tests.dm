@@ -15,6 +15,7 @@
 #include "test_announcements.dm"
 #include "test_asset_smart_cache.dm"
 #include "test_components.dm"
+#include "test_create_and_destroy.dm"
 #include "test_detect_room.dm"
 #include "test_elements.dm"
 #include "test_emotes.dm"
@@ -45,6 +46,10 @@
 #include "test_washing.dm"
 #endif
 
-#ifdef MAP_TESTS
+#ifdef REFERENCE_TRACKING_DEBUG //Don't try and parse this file if ref tracking isn't turned on. IE: don't parse ref tracking please mr linter
+#include "test_find_reference_sanity.dm"
+#endif
+
+#ifdef MAP_TEST
 #include "test_map_tests.dm"
 #endif

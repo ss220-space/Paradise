@@ -22,7 +22,6 @@
 		temperature_max = temperature_maximum
 
 /datum/reagents/Destroy()
-	. = ..()
 	QDEL_LIST(reagent_list)
 	reagent_list = null
 	QDEL_LIST(addiction_list)
@@ -30,6 +29,7 @@
 	if(my_atom && my_atom.reagents == src)
 		my_atom.reagents = null
 	my_atom = null
+	return ..()
 
 /datum/reagents/proc/remove_any(amount = 1)
 	var/list/cached_reagents = reagent_list

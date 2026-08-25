@@ -170,6 +170,12 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	remove_verb(src, silicon_subsystems)
 
 /mob/living/silicon/ai/Initialize(mapload, datum/ai_laws/L, obj/item/mmi/B, safety = 0)
+	. = ..()
+	if(!safety)//Only used by AIize() to successfully spawn an AI.
+		if(!B)//If there is no player/brain inside.
+			new/obj/structure/AIcore/deactivated(loc)//New empty terminal.
+			return INITIALIZE_HINT_QDEL
+
 	announcer = new(config_type = /datum/announcement_configuration/ai)
 	announcer.author = name
 
@@ -233,15 +239,11 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	add_language(LANGUAGE_CLOWN, 1)
 	add_language(LANGUAGE_MOTH, 1)
 
-	if(!safety)//Only used by AIize() to successfully spawn an AI.
-		if(!B)//If there is no player/brain inside.
-			new/obj/structure/AIcore/deactivated(loc)//New empty terminal.
-			return INITIALIZE_HINT_QDEL
-		else
-			if(B.brainmob.mind)
-				B.brainmob.mind.transfer_to(src)
+	if(!safety)
+		if(B?.brainmob?.mind)
+			B?.brainmob?.mind?.transfer_to(src)
 
-			on_mob_init()
+		on_mob_init()
 
 	spawn(5)
 		new /obj/machinery/ai_powersupply(src, src)
@@ -252,7 +254,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	GLOB.ai_list += src
 	GLOB.shuttle_caller_list += src
-	. = ..()
+
 	AddElement(/datum/element/high_value_item)
 	update_appearance()
 

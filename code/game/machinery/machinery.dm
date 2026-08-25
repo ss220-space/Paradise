@@ -131,9 +131,9 @@
 	. = ..()
 	SSmachines.register_machine(src)
 
+	RegisterSignal(src, COMSIG_MOVABLE_EXITED_AREA, PROC_REF(onAreaExited))
 	myArea = get_area(src)
 	if(myArea)
-		RegisterSignal(src, COMSIG_ATOM_EXITED_AREA, PROC_REF(onAreaExited))
 		LAZYADD(myArea.machinery_cache, src)
 
 	if(processing_flags & START_PROCESSING_ON_INIT)
@@ -145,10 +145,24 @@
 	if(myArea)
 		LAZYREMOVE(myArea.machinery_cache, src)
 		myArea = null
-		UnregisterSignal(src, COMSIG_ATOM_EXITED_AREA)
+	UnregisterSignal(src, COMSIG_MOVABLE_EXITED_AREA)
 	SSmachines.unregister_machine(src)
 	end_processing()
+	clear_components()
 	return ..()
+
+/**
+ * This should be called before mass qdeling components to make space for replacements.
+ * If not done, things will go away as Exited() destroys the machine when it detects
+ * even a single component exiting the atom.
+ */
+/obj/machinery/proc/clear_components()
+	if(!component_parts)
+		return
+	var/list/old_components = component_parts
+	component_parts = null
+	for(var/atom/atom_part in old_components)
+		qdel(atom_part)
 
 /obj/machinery/add_debris_element()
 	generate_debris_handler(null, -40, 8, 0.7)
@@ -166,11 +180,11 @@
 /obj/machinery/proc/flicker()
 	return FALSE
 
-/obj/machinery/proc/onAreaExited()
+/obj/machinery/proc/onAreaExited(atom/movable/machinery, area/exited_area, direction)
 	SIGNAL_HANDLER
-	if(myArea == get_area(src))
+	if(exited_area == get_area(src))
 		return
-	LAZYREMOVE(myArea.machinery_cache, src)
+	LAZYREMOVE(exited_area.machinery_cache, src)
 	myArea = get_area(src)
 	if(!myArea)
 		return

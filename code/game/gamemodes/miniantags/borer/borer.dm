@@ -164,6 +164,7 @@
 /mob/living/simple_animal/borer/Destroy()
 	detach()
 	host = null
+	QDEL_NULL(antag_datum)
 	return ..()
 
 /mob/living/simple_animal/borer/death(gibbed)

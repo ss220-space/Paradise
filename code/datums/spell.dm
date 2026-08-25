@@ -185,7 +185,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	/// Which spell_handler is used in addition to the normal spells behaviour, can be null. Set this in create_new_handler if needed
 	var/datum/spell_handler/custom_handler
 	/// List with the handler datums per spell type. Key = src.type, value = the handler datum created by create_new_handler()
-	var/static/list/spell_handlers = list()
+	var/static/alist/spell_handlers = list()
 	/// Handles a given spells cooldowns. Tracks the time until its off cooldown.
 	var/datum/spell_cooldown/cooldown_handler
 
@@ -283,7 +283,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /obj/effect/proc_holder/spell/Destroy()
 	QDEL_NULL(action)
 	QDEL_NULL(cooldown_handler)
-	QDEL_NULL(custom_handler)
+	custom_handler = null
 	targeting = null
 	return ..()
 

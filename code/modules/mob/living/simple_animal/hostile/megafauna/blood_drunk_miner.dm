@@ -77,6 +77,12 @@ Difficulty: Medium
 	miner_saw = new /obj/item/melee/energy/cleaving_saw/miner(src)
 	AddComponent(/datum/component/boss_music, 'sound/music/boss/bdm_boss.ogg', COMSIG_HOSTILE_FOUND_TARGET)
 
+/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/Destroy()
+	if(miner_saw.loc == src)
+		qdel(miner_saw)
+	miner_saw = null
+	return ..()
+
 /* New costume */
 
 /obj/item/clothing/suit/hooded/explorer/blood
@@ -112,7 +118,7 @@ Difficulty: Medium
 	)
 
 /obj/item/clothing/suit/hooded/explorer/blood/Initialize(mapload)
-	.=..()
+	. = ..()
 	blood_spell = new
 
 /obj/item/clothing/suit/hooded/explorer/blood/Destroy()

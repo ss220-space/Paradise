@@ -53,7 +53,6 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	var/glass_amount = 1
 	var/cancolor = FALSE
 	var/mutable_appearance/crack_overlay
-	var/list/debris = list()
 	var/real_explosion_block	//ignore this, just use explosion_block
 	var/breaksound = SFX_SHATTER
 	var/hitsound = 'sound/effects/glasshit.ogg'
@@ -89,27 +88,12 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	if(!color && cancolor)
 		color = color_windows(src)
 
-	// Precreate our own debris
-
-	var/shards = 1
 	if(fulltile)
 		obj_flags &= ~BLOCKS_CONSTRUCTION_DIR
-		shards++
 		setDir()
 
 	if(decon_speed == null && fulltile)
 		decon_speed = 2 SECONDS
-
-	var/rods = 0
-	if(reinf)
-		rods++
-		if(fulltile)
-			rods++
-
-	for(var/i in 1 to shards)
-		debris += new shardtype(src)
-	if(rods)
-		debris += new /obj/item/stack/rods(src, rods)
 
 	//windows only block while reinforced and fulltile, so we'll use the proc
 	real_explosion_block = explosion_block
@@ -159,8 +143,6 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 
 /obj/structure/window/narsie_act()
 	color = NARSIE_WINDOW_COLOUR
-	for(var/obj/item/shard/shard in debris)
-		shard.color = NARSIE_WINDOW_COLOUR
 
 /obj/structure/window/ratvar_act()
 	if(!fulltile)
@@ -435,12 +417,23 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	if(!disassembled)
 		playsound(src, breaksound, 70, TRUE)
 		if(!(obj_flags & NODECONSTRUCT))
-			for(var/i in debris)
-				var/obj/item/I = i
-				I.forceMove(loc)
-				transfer_fingerprints_to(I)
+			for(var/obj/item/shard/debris in spawn_debris(drop_location()))
+				transfer_fingerprints_to(debris) // transfer fingerprints to shards only
 	qdel(src)
 	update_nearby_icons()
+
+/obj/structure/window/proc/spawn_debris(location)
+	var/list/dropped_debris = list()
+	if(shardtype)
+		dropped_debris += new shardtype(location)
+		if(fulltile)
+			dropped_debris += new shardtype(location)
+	if(reinf)
+		dropped_debris += new /obj/item/stack/rods(location)
+		if(fulltile)
+			dropped_debris += new /obj/item/stack/rods(location)
+
+	return dropped_debris
 
 /obj/structure/window/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
 	. = ..()
@@ -811,7 +804,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	)
 
 /obj/structure/window/abductor/Initialize(mapload, direct)
-	..()
+	. = ..()
 	AddComponent(/datum/component/obj_regenerate)
 
 /obj/structure/window/full
@@ -1028,7 +1021,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	)
 
 /obj/structure/window/full/abductor/Initialize(mapload, direct)
-	..()
+	. = ..()
 	AddComponent(/datum/component/obj_regenerate)
 
 /obj/structure/window/full/shuttle
@@ -1143,6 +1136,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	armor = list(MELEE = 60, BULLET = 25, LASER = 0, ENERGY = 0, BOMB = 25, BIO = 100, FIRE = 80, ACID = 100)
 	explosion_block = 2 //fancy AND hard to destroy. the most useful combination.
 	glass_type = /obj/item/stack/sheet/brass
+	shardtype = /obj/item/stack/sheet/brass
 	reinf = FALSE
 	cancolor = FALSE
 	var/made_glow = FALSE
@@ -1167,6 +1161,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	armor = list(MELEE = 60, BULLET = 25, LASER = 0, ENERGY = 0, BOMB = 25, BIO = 100, FIRE = 80, ACID = 100)
 	explosion_block = 2 //fancy AND hard to destroy. the most useful combination.
 	glass_type = /obj/item/stack/sheet/brass_fake
+	shardtype = /obj/item/stack/sheet/brass_fake
 	reinf = FALSE
 	cancolor = FALSE
 	var/made_glow = FALSE
@@ -1185,23 +1180,13 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	. = ..()
 	if(fulltile)
 		made_glow = TRUE
-	QDEL_LIST(debris)
-	if(fulltile)
 		new /obj/effect/temp_visual/ratvar/window(get_turf(src))
-		debris += new/obj/item/stack/sheet/brass(src, 2)
-	else
-		debris += new/obj/item/stack/sheet/brass(src, 1)
 
 /obj/structure/window/reinforced/clockworkfake/Initialize(mapload, direct)
 	. = ..()
 	if(fulltile)
 		made_glow = TRUE
-	QDEL_LIST(debris)
-	if(fulltile)
 		new /obj/effect/temp_visual/ratvar/window(get_turf(src))
-		debris += new/obj/item/stack/sheet/brass_fake(src, 2)
-	else
-		debris += new/obj/item/stack/sheet/brass_fake(src, 1)
 
 /obj/structure/window/reinforced/clockwork/setDir(newdir)
 	if(!made_glow)

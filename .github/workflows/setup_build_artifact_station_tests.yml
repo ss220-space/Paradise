@@ -3,7 +3,7 @@ on:
 
 jobs:
   setup_build_artifact_station_tests:
-    name: Setup build artifact # MAP_TESTS
+    name: Setup build artifact # MAP_TEST
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     strategy:
@@ -24,11 +24,11 @@ jobs:
         with:
           release: ${{ matrix.byondtype }}
 
-      - name: Compile with MAP_TESTS
+      - name: Compile with MAP_TEST
         run: |
           tools/ci/install_byond.sh '${{ matrix.byondtype }}'
           source $HOME/BYOND/byond/bin/byondsetup
-          tools/ci/dm.sh -DMAP_TESTS -DMULTIINSTANCE -DCIBUILDING paradise.dme
+          tools/ci/dm.sh -DMAP_TEST -DMULTIINSTANCE -DCIBUILDING paradise.dme
 
       - name: Setup variable for output path
         run: |

@@ -135,7 +135,7 @@
 		banned = generateMapList("config/example/spaceRuinBlacklist.txt")
 	banned += generateMapList("config/lavaRuinBlacklist.txt")
 
-	for(var/item in subtypesof(/datum/map_template/ruin))
+	for(var/item in valid_subtypesof(/datum/map_template/ruin))
 		var/datum/map_template/ruin/ruin_type = item
 		// screen out the abstract subtypes
 		if(!initial(ruin_type.id))

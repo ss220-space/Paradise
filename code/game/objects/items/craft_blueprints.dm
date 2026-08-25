@@ -49,7 +49,7 @@
 
 /obj/item/craft_blueprints/Destroy()
 	. = ..()
-	UnregisterSignal(COMSIG_ITEM_PLACED_ON_TABLE)
+	UnregisterSignal(src, COMSIG_ITEM_PLACED_ON_TABLE)
 
 /obj/item/craft_blueprints/update_desc(updates)
 	. = ..()

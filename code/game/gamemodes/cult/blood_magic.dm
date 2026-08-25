@@ -378,6 +378,7 @@
 
 // The "magic hand" items
 /obj/item/melee/blood_magic
+	abstract_type = /obj/item/melee/blood_magic
 	name = "magical aura"
 	desc = "A sinister looking aura that distorts the flow of reality around it."
 	icon_state = "disintegrate"
@@ -414,7 +415,7 @@
 			source.desc = source.base_desc
 			source.desc += "<br><b><u>Has [uses] use\s remaining</u></b>."
 			source.UpdateButtonIcon()
-	..()
+	return ..()
 
 /obj/item/melee/blood_magic/attack_self(mob/living/user)
 	afterattack(user, user, TRUE)

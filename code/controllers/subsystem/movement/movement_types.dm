@@ -629,6 +629,7 @@
 /datum/move_loop/has_target/move_towards/Destroy()
 	if(home && ismovable(target))
 		UnregisterSignal(target, COMSIG_MOVABLE_MOVED)
+	moving_towards = null
 	return ..()
 
 /datum/move_loop/has_target/move_towards/move()

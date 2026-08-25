@@ -307,6 +307,7 @@
 /obj/effect/abstract/meteor_shield_proxy/Destroy(force)
 	QDEL_NULL(proximity_monitor)
 	parent.proxies.RemoveAll(src)
+	UnregisterSignal(parent, list(COMSIG_MOVABLE_MOVED, COMSIG_MOVABLE_Z_CHANGED, COMSIG_QDELETING))
 	parent = null
 	return ..()
 

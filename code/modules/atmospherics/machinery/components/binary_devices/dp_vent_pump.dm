@@ -29,6 +29,8 @@
 	asign_new_area(get_area(src))
 
 /obj/machinery/atmospherics/binary/dp_vent_pump/Destroy()
+	current_area?.air_vents -= src
+	current_area = null
 	return ..()
 
 /obj/machinery/atmospherics/binary/dp_vent_pump/proc/asign_new_area(area/area)

@@ -171,6 +171,17 @@
 
 	reset_software()
 
+/mob/living/silicon/pai/Destroy()
+	QDEL_LIST_ASSOC_VAL(installed_software)
+	QDEL_NULL(active_software)
+	QDEL_NULL(pda)
+	QDEL_NULL(sradio)
+	QDEL_NULL(integrated_console)
+	QDEL_NULL(integrated_records)
+	card = null
+	radio = null
+	return ..()
+
 /mob/living/silicon/pai/proc/reset_software()
 	QDEL_LIST_ASSOC_VAL(installed_software)
 
