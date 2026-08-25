@@ -27,7 +27,7 @@ GLOBAL_LIST_INIT(mystery_box_guns, list(
 	/obj/item/gun/energy/sniperrifle/pod_pilot,
 	/obj/item/gun/projectile/automatic/aks74u,
 	/obj/item/gun/projectile/automatic/shotgun/bulldog,
-	/obj/item/gun/projectile/automatic/smg/c20r,
+	/obj/item/gun/projectile/automatic/smg/c20r/auto,
 	/obj/item/gun/projectile/automatic/smg/wt550,
 	/obj/item/gun/projectile/automatic/smg/sfg,
 	/obj/item/gun/projectile/shotgun/automatic/combat,
