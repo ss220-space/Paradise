@@ -34,6 +34,7 @@
 			n_shoes.silence_steps = TRUE
 			animate(ninja, alpha = NINJA_ALPHA_INVISIBILITY, time = 6)
 			ninja.alpha_set(standartize_alpha(NINJA_ALPHA_INVISIBILITY), ALPHA_SOURCE_NINJA)
+			ADD_TRAIT(ninja, TRAIT_NINJA_INVISIBILITY, NINJA_TRAIT)
 			new /obj/effect/temp_visual/dir_setting/ninja/cloak(get_turf(ninja), ninja.dir)
 			ninja.visible_message(span_warning("[ninja.name] расстворил[GEND_SYA_AS_OS_IS(ninja) ] в воздухе!"), span_notice("Теперь вас практически невозможно увидеть невооружённым глазом. Ровно как и стандартными оптическими приборами. Нагрузка костюма начала увеличиваться..."))
 			ninja.AddComponent(/datum/component/ninja_states_breaker, src)
@@ -66,6 +67,7 @@
 	stealth_alpha = spirited ? NINJA_ALPHA_SPIRIT_FORM : NINJA_ALPHA_NORMAL
 	animate(ninja, alpha = stealth_alpha, time = 6)
 	ninja.alpha_set(standartize_alpha(stealth_alpha), ALPHA_SOURCE_NINJA)
+	REMOVE_TRAIT(ninja, TRAIT_NINJA_INVISIBILITY, NINJA_TRAIT)
 	new /obj/effect/temp_visual/dir_setting/ninja(get_turf(ninja), ninja.dir)
 	ninja.visible_message(span_warning("[ninja.name] появил[GEND_SYA_AS_OS_IS(ninja) ] из воздуха!"), span_notice("Теперь вас снова видно невооружённым глазом."))
 	qdel(ninja.GetComponent(/datum/component/ninja_states_breaker))
