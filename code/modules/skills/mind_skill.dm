@@ -96,10 +96,9 @@
 		var/level = max(job_skill, antag_skill_level)
 		if(cached_mode_bonuses && (skill_type in cached_mode_bonuses))
 			level = max(level, cached_mode_bonuses[skill_type])
-		for(var/datum/antagonist/antag as anything in antag_datums)
-			for(var/bonus_skill_type in antag.skill_bonuses)
-				if(bonus_skill_type == skill_type)
-					level = max(level, antag.skill_bonuses[bonus_skill_type])
+		var/antag_bonus_level = get_antag_skill_bonus(skill_type)
+		if(antag_bonus_level)
+			level = max(level, antag_bonus_level)
 		if(cached_thrall_bonuses && (skill_type in cached_thrall_bonuses))
 			level = min(level + cached_thrall_bonuses[skill_type], SKILL_LEVEL_LEGEND)
 		if(skill_type in cached_selected_skills_levels)
@@ -119,6 +118,12 @@
 	for(var/datum/antagonist/antag as anything in antag_datums)
 		total_points += antag.get_skill_points_from_dna()
 	return total_points
+
+/datum/mind/proc/get_antag_skill_bonus(datum/skill/skill_type)
+	var/bonus_level = 0
+	for(var/datum/antagonist/antag as anything in antag_datums)
+		bonus_level = max(bonus_level, antag.skill_bonuses?[skill_type] || 0)
+	return bonus_level
 
 /datum/mind/proc/get_skills_for_skills_select()
 	var/skills = list()
@@ -142,10 +147,9 @@
 		if(job_alt_skills && (skill_type in job_alt_skills))
 			job_skill = job_alt_skills[skill_type]
 		var/level = max(job_skill, antag_skill_level)
-		for(var/datum/antagonist/antag as anything in antag_datums)
-			for(var/bonus_skill_type in antag.skill_bonuses)
-				if(bonus_skill_type == skill_type)
-					level = max(level, antag.skill_bonuses[bonus_skill_type])
+		var/antag_bonus_level = get_antag_skill_bonus(skill_type)
+		if(antag_bonus_level)
+			level = max(level, antag_bonus_level)
 		if(skill_type in cached_selected_skills_levels)
 			level += cached_selected_skills_levels[skill_type]
 		if(skill_type in cached_neurotrainer_bonuses)

@@ -147,13 +147,10 @@
 	///Owned cyborg skin permissions
 	var/list/cyborg_skin_permissions = list()
 
-	/// Skill bonuses gained from enthralled victims as a shadowling (skill_type -> bonus level)
-	var/list/thrall_skill_bonuses
 
 /datum/mind/New(new_key)
 	key = new_key
 	soulOwner = src
-	thrall_skill_bonuses = list()
 
 /datum/mind/Destroy()
 	SSticker.minds -= src

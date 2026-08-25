@@ -100,6 +100,8 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	chosen_sting = null
 	QDEL_LIST(acquired_powers)
 	STOP_PROCESSING(SSobj, src)
+	if(owner)
+		REMOVE_TRAIT(owner, TRAIT_HAS_ABSORBED_OTHER_CHANGELING, UNIQUE_TRAIT_SOURCE(src))
 	return ..()
 
 /datum/antagonist/changeling/greet()

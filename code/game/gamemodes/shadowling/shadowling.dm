@@ -176,7 +176,7 @@ Made by Xhuis
 				new_sound = SSstation.announcer.get_rand_report_sound(),
 			)
 			log_game("Shadowling reveal. Powergame and validhunt allowed.")
-			for(var/datum/mind/thrall_mind in shadowling_thralls)
+			for(var/datum/mind/thrall_mind as anything in shadowling_thralls)
 				grant_thrall_combat_bonus(thrall_mind)
 		else if(victory_warning_announced)
 			grant_thrall_combat_bonus(new_thrall_mind)
