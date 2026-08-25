@@ -24,6 +24,11 @@ type StorageBackend = {
   iframe_check(): Promise<boolean>;
 };
 
+export type StorageDiagnostic = {
+  level: 'info' | 'warn' | 'error';
+  message: string;
+};
+
 const testGeneric = (testFn: () => boolean) => (): boolean => {
   try {
     return Boolean(testFn());
@@ -33,7 +38,7 @@ const testGeneric = (testFn: () => boolean) => (): boolean => {
 };
 
 const testHubStorage = testGeneric(
-  () => window.hubStorage && !!window.hubStorage.getItem
+  () => window.hubStorage && !!window.hubStorage.getItem,
 );
 
 const STORAGE_CDN_TIMEOUT = 5000;
@@ -48,7 +53,7 @@ class HubStorageBackend implements StorageBackend {
   }
 
   async get(key: string): Promise<any> {
-    const value = await window.hubStorage.getItem('paradise-' + key);
+    const value = await window.hubStorage.getItem(`paradise-${key}`);
     if (typeof value === 'string') {
       return JSON.parse(value);
     }
@@ -56,11 +61,11 @@ class HubStorageBackend implements StorageBackend {
   }
 
   async set(key: string, value: any): Promise<void> {
-    window.hubStorage.setItem('paradise-' + key, JSON.stringify(value));
+    window.hubStorage.setItem(`paradise-${key}`, JSON.stringify(value));
   }
 
   async remove(key: string): Promise<void> {
-    window.hubStorage.removeItem('paradise-' + key);
+    window.hubStorage.removeItem(`paradise-${key}`);
   }
 
   async clear(): Promise<void> {
@@ -70,7 +75,7 @@ class HubStorageBackend implements StorageBackend {
   async processChatMessages(messages): Promise<void> {
     window.hubStorage.setItem(
       'paradise-chat-messages',
-      JSON.stringify(messages)
+      JSON.stringify(messages),
     );
   }
 
@@ -99,6 +104,7 @@ export class IFrameIndexedDbBackend implements StorageBackend {
 
   async ready(): Promise<boolean | null> {
     const iframe = document.createElement('iframe');
+    iframe.allow = 'storage-access';
     iframe.style.display = 'none';
     iframe.src = Byond.storageCdn;
 
@@ -118,7 +124,7 @@ export class IFrameIndexedDbBackend implements StorageBackend {
       };
       const timeout = setTimeout(
         () => resolveReady(false),
-        STORAGE_CDN_TIMEOUT
+        STORAGE_CDN_TIMEOUT,
       );
 
       fetch(Byond.storageCdn, { method: 'HEAD' })
@@ -188,7 +194,7 @@ export class IFrameIndexedDbBackend implements StorageBackend {
   async processChatMessages(messages) {
     this.iframeWindow.postMessage(
       { type: 'processChatMessages', messages: messages },
-      '*'
+      '*',
     );
   }
 
@@ -217,6 +223,12 @@ class StorageProxy implements StorageBackend {
   private backendPromise: Promise<StorageBackend>;
   public impl: StorageImplementation = IMPL_IFRAME_INDEXED_DB;
 
+  public diagnostics: StorageDiagnostic[] = [];
+
+  private log(level: StorageDiagnostic['level'], message: string) {
+    this.diagnostics.push({ level, message });
+  }
+
   constructor() {
     this.backendPromise = (async () => {
       // Prefer the configured iframe storage when available. hubStorage may
@@ -226,15 +238,20 @@ class StorageProxy implements StorageBackend {
         const iframe = new IFrameIndexedDbBackend();
 
         if ((await iframe.ready()) === true) {
+          this.log('info', `Using iframe storage (${Byond.storageCdn})`);
           if (await iframe.get('byondstorage-migrated')) return iframe;
 
           const iframeHasPersistedStorage = (
             await Promise.all(
-              persistedStorageKeys.map((setting) => iframe.get(setting))
+              persistedStorageKeys.map((setting) => iframe.get(setting)),
             )
           ).some((settings) => settings !== undefined);
 
           if (!iframeHasPersistedStorage) {
+            this.log(
+              'info',
+              'No existing iframe data, migrating from byondstorage',
+            );
             const hubStorageWasEnabled = testHubStorage();
             if (!hubStorageWasEnabled) {
               Byond.winset(null, 'browser-options', '+byondstorage');
@@ -247,7 +264,7 @@ class StorageProxy implements StorageBackend {
                     // created, so we have to wait a little bit before using it.
                     setTimeout(resolve, 1);
                   },
-                  { once: true }
+                  { once: true },
                 );
               });
             }
@@ -263,12 +280,15 @@ class StorageProxy implements StorageBackend {
                   const settings = await hub.get(setting);
                   if (settings !== undefined) {
                     await iframe.set(setting, settings);
+                    this.log('info', `Migrated '${setting}' from byondstorage`);
                   }
                 } catch {
-                  // Ignore unreadable legacy storage entries. A bad old cache
-                  // key should not keep the client on byondstorage.
+                  this.log(
+                    'warn',
+                    `Failed to migrate '${setting}' from byondstorage`,
+                  );
                 }
-              })
+              }),
             );
 
             if (!hubStorageWasEnabled) {
@@ -281,14 +301,22 @@ class StorageProxy implements StorageBackend {
           return iframe;
         }
 
+        this.log(
+          'warn',
+          `Iframe storage failed to load from ${Byond.storageCdn}`,
+        );
         iframe.destroy();
+      } else {
+        this.log('info', 'No storage CDN configured');
       }
 
       if (testHubStorage()) {
+        this.log('warn', 'Falling back to hubStorage (byondstorage)');
         return new HubStorageBackend();
       }
 
       // IFrame hasn't worked out for us, we'll need to enable byondstorage
+      this.log('warn', 'Enabling byondstorage as last resort');
       Byond.winset(null, 'browser-options', '+byondstorage');
 
       return new Promise((resolve) => {

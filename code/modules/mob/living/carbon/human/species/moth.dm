@@ -97,9 +97,6 @@
 /datum/species/moth/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
 	H.add_movespeed_mod_immunities(type, /datum/movespeed_modifier/limbless)
-	add_verb(H, /mob/living/carbon/human/proc/emote_flap)
-	add_verb(H, /mob/living/carbon/human/proc/emote_aflap)
-	add_verb(H, /mob/living/carbon/human/proc/emote_flutter)
 	var/datum/action/innate/cocoon/cocoon = locate() in H.actions
 	if(!cocoon)
 		cocoon = new
@@ -116,9 +113,6 @@
 /datum/species/moth/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
 	H.remove_movespeed_mod_immunities(type, /datum/movespeed_modifier/limbless)
-	remove_verb(H, /mob/living/carbon/human/proc/emote_flap)
-	remove_verb(H, /mob/living/carbon/human/proc/emote_aflap)
-	remove_verb(H, /mob/living/carbon/human/proc/emote_flutter)
 	var/datum/action/innate/cocoon/cocoon = locate() in H.actions
 	cocoon?.Remove(H)
 	UnregisterSignal(H, COMSIG_LIVING_FIRE_TICK)

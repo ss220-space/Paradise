@@ -1,6 +1,6 @@
-import { RndRoute, RndNavButton } from './index';
-import { Box } from '../../components';
+import { Box } from 'tgui-core/components';
 import { MENU, SUBMENU } from '../RndConsole';
+import { RndNavButton, RndRoute } from './index';
 
 export const RndNavbar = () => (
   <Box className="RndConsole__RndNavbar">

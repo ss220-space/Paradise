@@ -24,6 +24,9 @@
 		if(OOC_CHANNEL)
 			client.ooc(entry)
 			return TRUE
+		if(PRAY_CHANNEL)
+			client.mob?.pray(entry)
+			return TRUE
 		if(LOOC_CHANNEL)
 			client.looc(entry)
 			return TRUE

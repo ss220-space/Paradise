@@ -1,12 +1,12 @@
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
   LabeledList,
-  ProgressBar,
   NoticeBox,
+  ProgressBar,
   Section,
-} from '../components';
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type RoboticsControlConsoleData = {

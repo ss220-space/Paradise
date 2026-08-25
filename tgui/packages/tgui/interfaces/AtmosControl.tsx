@@ -1,6 +1,7 @@
-import { useBackend } from '../backend';
 import { useState } from 'react';
-import { Box, Button, Icon, NanoMap, Table, Tabs } from '../components';
+import { NanoMap } from 'tgui/components';
+import { Box, Button, Icon, Table, Tabs } from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 const getStatus = (level: number) => {

@@ -1,7 +1,7 @@
+import { Button, Section } from 'tgui-core/components';
 import { useBackend } from '../../backend';
-import { Button, Section } from '../../components';
 import { BAYS } from './constants';
-import { PodLauncherData } from './types';
+import type { PodLauncherData } from './types';
 
 export const PodBays = (props: unknown) => {
   const { act, data } = useBackend<PodLauncherData>();
@@ -40,8 +40,8 @@ export const PodBays = (props: unknown) => {
       {BAYS.map((bay, i) => (
         <Button
           key={i}
-          onClick={() => act('switchBay', { bayNumber: '' + (i + 1) })}
-          selected={bayNumber === '' + (i + 1)}
+          onClick={() => act('switchBay', { bayNumber: `${i + 1}` })}
+          selected={bayNumber === `${i + 1}`}
           tooltipPosition="bottom-end"
         >
           {bay.title}

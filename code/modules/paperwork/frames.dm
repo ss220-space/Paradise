@@ -205,9 +205,6 @@
 
 	if(tilted)
 		transform = tilt_transform
-		verbs |= /obj/structure/sign/picture_frame/proc/untilt
-	else
-		verbs |= /obj/structure/sign/picture_frame/proc/tilt
 
 /obj/structure/sign/picture_frame/Destroy()
 	QDEL_NULL(frame)
@@ -314,27 +311,13 @@
 
 	if(tilted)
 		animate(src, transform = tilt_transform, time = 10, easing = BOUNCE_EASING)
-		verbs -= /obj/structure/sign/picture_frame/proc/tilt
-		verbs |= /obj/structure/sign/picture_frame/proc/untilt
 	else
 		animate(src, transform = matrix(), time = 10, easing = CUBIC_EASING | EASE_IN)
-		verbs -= /obj/structure/sign/picture_frame/proc/untilt
-		verbs |= /obj/structure/sign/picture_frame/proc/tilt
 		explode()
 
-/obj/structure/sign/picture_frame/proc/tilt()
-	set name = "Наклонить картинку"
-	set category = VERB_CATEGORY_OBJECT
-	set src in oview(1)
-
+/obj/structure/sign/picture_frame/click_alt(mob/user)
 	toggle_tilt(usr)
-
-/obj/structure/sign/picture_frame/proc/untilt()
-	set name = "Выпрямить картинку"
-	set category = VERB_CATEGORY_OBJECT
-	set src in oview(1)
-
-	toggle_tilt(usr)
+	return CLICK_ACTION_SUCCESS
 
 /obj/structure/sign/picture_frame/hear_talk(mob/living/M as mob, list/message_pieces)
 	..()

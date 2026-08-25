@@ -108,8 +108,7 @@
 	playsound(src, P.hitsound, 50, TRUE)
 	visible_message(
 		span_danger(pick(list("[DECLENT_RU_CAP(src, NOMINATIVE)] поражен[GEND_A_O_Y(src)] [P.declent_ru(INSTRUMENTAL)]!",
-		"[DECLENT_RU_CAP(P, NOMINATIVE)] попадает в [declent_ru(ACCUSATIVE)]!"))),
-		projectile_message = TRUE,
+		"[DECLENT_RU_CAP(P, NOMINATIVE)] попадает в [declent_ru(ACCUSATIVE)]!")))
 	)
 	if(!QDELETED(src)) //Bullet on_hit effect might have already destroyed this object
 		take_damage(P.damage, P.damage_type, P.flag, 0, turn(P.dir, 180), P.armour_penetration)

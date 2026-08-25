@@ -1,5 +1,5 @@
+import { Box, Button, LabeledList, Section } from 'tgui-core/components';
 import { useBackend } from '../../backend';
-import { Box, Button, LabeledList, Section } from '../../components';
 
 type SecBotsData = {
   beepsky: SecBot;
@@ -48,7 +48,7 @@ const BotStatus = (props: unknown) => {
 
   const { mode, loca } = botstatus;
 
-  let statusText: string;
+  let statusText: string = '';
   switch (mode) {
     case 0:
       statusText = 'Ready';
