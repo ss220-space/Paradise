@@ -136,17 +136,28 @@
 		audible_message(span_notice("The gas node pings as it connects to the reactor."))
 
 /obj/machinery/atmospherics/unary/reactor_gas_node/multitool_act(mob/living/user, obj/item/I)
+	. = TRUE
 	to_chat(user, span_notice("You begin to reverse the gas flow direction..."))
-	if(do_after(user, 1 SECONDS, TRUE, src))
+	if(do_after(user, 1 SECONDS, src))
 		intake_vent = !intake_vent
 		if(intake_vent)
 			name = "Reactor Gas Intake"
 		else
 			name = "Reactor Gas Extractor"
-	return ..()
 
 /obj/machinery/atmospherics/unary/reactor_gas_node/moderator
 	name = "Reactor Gas Moderator"
+
+
+/obj/machinery/atmospherics/unary/reactor_gas_node/moderator/Initialize(mapload)
+	. = ..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/machine/reactor_moderator_gas_node(src)
+	component_parts += new /obj/item/stack/sheet/metal(src, 2)
+	component_parts += new /obj/item/stack/cable_coil(src, 2)
+	initialize_directions = dir
+	RefreshParts()
+	update_icon()
 
 /obj/machinery/atmospherics/unary/reactor_gas_node/moderator/get_reactor_gas()
 	return linked_reactor.moderator_gas

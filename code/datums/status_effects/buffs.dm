@@ -471,6 +471,52 @@
 	if(length(active_instances) <= 0)
 		qdel(src)
 
+/atom/movable/screen/alert/status_effect/epinephrine
+	name = "Выброс адреналина"
+	desc = "Даёт защиту от оглушения."
+	icon_state = "epinephrine"
+
+/datum/status_effect/epinephrine
+	id = "epinephrine"
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = /atom/movable/screen/alert/status_effect/epinephrine
+	duration = 5 SECONDS
+
+/datum/status_effect/epinephrine/on_apply()
+	owner.balloon_alert(owner, "адреналин наполняет силой!")
+	owner.SetSleeping(0)
+	owner.SetParalysis(0)
+	owner.SetStunned(0)
+	owner.SetWeakened(0)
+	owner.SetKnockdown(0)
+	owner.setStaminaLoss(0)
+	owner.set_resting(FALSE, instant = TRUE)
+	owner.get_up(instant = TRUE)
+	owner.add_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
+	owner.ignore_slowdown(TRAIT_STATUS_EFFECT(id))
+	var/mob/living/carbon/human/human_owner = owner
+	human_owner.add_fracture_ignore_trait(src)
+	return TRUE
+
+/datum/status_effect/epinephrine/on_remove()
+	owner.remove_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
+	owner.unignore_slowdown(TRAIT_STATUS_EFFECT(id))
+	var/mob/living/carbon/human/human_owner = owner
+	human_owner.remove_fracture_ignore_trait(src)
+
+/datum/status_effect/epinephrine/refresh(effect, ...)
+	. = ..()
+
+	owner.balloon_alert(owner, "адреналин наполняет силой!")
+	owner.SetSleeping(0)
+	owner.SetParalysis(0)
+	owner.SetStunned(0)
+	owner.SetWeakened(0)
+	owner.SetKnockdown(0)
+	owner.setStaminaLoss(0)
+	owner.set_resting(FALSE, instant = TRUE)
+	owner.get_up(instant = TRUE)
+
 /datum/status_effect/speedlegs
 	id = "gottagofast"
 	alert_type = null
@@ -1000,7 +1046,7 @@
 /atom/movable/screen/alert/status_effect/heal
 	name = "Лечение нанитами"
 	desc = "Регенерация увеличена."
-	icon_state = "fleshmend"
+	icon_state = "red_cross"
 
 /datum/status_effect/heal
 	id = "heal"

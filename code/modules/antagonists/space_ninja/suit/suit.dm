@@ -1,3 +1,10 @@
+#define NINJA_SUITMODE_SPACE 1
+#define NINJA_SUITMODE_COMBAT 2
+#define NINJA_SUITSLOWDOWN_SPACE 1
+#define NINJA_SUITSLOWDOWN_COMBAT 0
+#define NINJA_SUITTRAIT_SPACE STOPSPRESSUREDAMAGE|THICKMATERIAL|STACKABLE_HELMET_EXEMPT
+#define NINJA_SUITTRAIT_COMBAT NONE
+
 /**
  * # Ninja Suit
  *
@@ -22,17 +29,20 @@
 	armor = list(MELEE = 40, BULLET = 30, LASER = 20,ENERGY = 30, BOMB = 30, BIO = 100, FIRE = 100, ACID = 100)
 	strip_delay = 12
 	permeability_coefficient = 1
+	clothing_flags = NONE
 	flags_inv = HIDEGLOVES|HIDEJUMPSUIT|HIDETAIL
 	flags_inv_transparent = HIDEGLOVES|HIDEJUMPSUIT
 	actions = list()
 	action_icon = list()
 	action_icon_state = list()
+	var/suit_mode = NINJA_SUITMODE_COMBAT
 	/// Абилки костюма
 	actions_types = list(
 		/datum/action/item_action/advanced/ninja/SpiderOS,
 		/datum/action/item_action/advanced/ninja/ninja_autodust,
 		/datum/action/item_action/ninjastatus,
 		/datum/action/item_action/advanced/ninja/ninja_sword_recall,
+		/datum/action/item_action/advanced/ninja/suit_mode,
 /*		/datum/action/item_action/advanced/ninja/ninja_stealth, Не используется
 		/datum/action/item_action/advanced/ninja/ninja_chameleon,
 		/datum/action/item_action/advanced/ninja/ninja_spirit_form,
@@ -47,9 +57,6 @@
 		/datum/action/item_action/advanced/ninja/ninjanet,
 		/datum/action/item_action/advanced/ninja/toggle_shuriken_fire_mode
 		/datum/action/item_action/ninjastar, */ )
-
-	/// Мы не хотим чтобы ниндзю замедлял его же костюм!
-	slowdown = 0
 	/// If this is a path, this gets created as an object in Initialize.
 	var/obj/item/stock_parts/cell/cell = /obj/item/stock_parts/cell/high
 	/// The person wearing the suit
@@ -442,6 +449,9 @@
 		if(/datum/action/item_action/advanced/ninja/ninja_sword_recall)
 			ninja_sword_recall()
 			return TRUE
+		if(/datum/action/item_action/advanced/ninja/suit_mode)
+			suit_mode()
+			return TRUE
 		if(/datum/action/item_action/advanced/ninja/ninja_stealth)
 			toggle_stealth()
 			return TRUE
@@ -470,6 +480,32 @@
 			toggle_spirit_form()
 			return TRUE
 	return FALSE
+
+/datum/action/item_action/advanced/ninja/suit_mode
+	name = "Переключить режим костюма"
+	desc = "Доступные режимы: защита от космоса, боевой."
+	button_icon = 'icons/mob/actions/actions_ninja.dmi'
+	background_icon_state = "background_green"
+
+/obj/item/clothing/suit/space/space_ninja/proc/suit_mode()
+	var/mob/living/carbon/human/ninja = usr
+	if(suit_mode == NINJA_SUITMODE_SPACE)
+		suit_mode = NINJA_SUITMODE_COMBAT
+		src.slowdown = NINJA_SUITSLOWDOWN_COMBAT
+		src.clothing_flags = NINJA_SUITTRAIT_COMBAT
+		if(istype(ninja.head, /obj/item/clothing/head/helmet/space/space_ninja))
+			ninja.head.clothing_flags = NINJA_SUITTRAIT_COMBAT
+			ninja.head.update_equipped_item()
+		balloon_alert(ninja, "боевой режим")
+	else
+		suit_mode = NINJA_SUITMODE_SPACE
+		src.slowdown = NINJA_SUITSLOWDOWN_SPACE
+		src.clothing_flags = NINJA_SUITTRAIT_SPACE
+		if(istype(ninja.head, /obj/item/clothing/head/helmet/space/space_ninja))
+			ninja.head.clothing_flags = NINJA_SUITTRAIT_SPACE
+			ninja.head.update_equipped_item()
+		balloon_alert(ninja, "защита от космоса")
+	src.update_equipped_item()
 
 /**
  * Proc for changing the suit's appearance to the selected design.
@@ -746,3 +782,10 @@
 	QDEL_NULL(n_scarf)
 	QDEL_NULL(n_backpack)
 	QDEL_NULL(src)
+
+#undef NINJA_SUITMODE_SPACE
+#undef NINJA_SUITMODE_COMBAT
+#undef NINJA_SUITSLOWDOWN_SPACE
+#undef NINJA_SUITSLOWDOWN_COMBAT
+#undef NINJA_SUITTRAIT_SPACE
+#undef NINJA_SUITTRAIT_COMBAT

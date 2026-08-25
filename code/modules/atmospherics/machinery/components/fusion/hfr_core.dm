@@ -191,6 +191,14 @@
 		to_release.merge(internal_fusion)
 	if(to_release)
 		local_turf.blind_release_air(to_release)
+
+	LAZYCLEARLIST(corners)
+	linked_input = null
+	linked_output = null
+	linked_moderator = null
+	if(linked_interface && linked_interface.connected_core == src)
+		linked_interface.connected_core = null
+	linked_interface = null
 	return ..()
 
 /obj/machinery/atmospherics/unary/hypertorus/core/crowbar_deconstruction_act(mob/living/user, obj/item/tool, internal_pressure = 0)
