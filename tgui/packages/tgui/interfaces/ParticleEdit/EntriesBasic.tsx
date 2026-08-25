@@ -9,6 +9,7 @@ import {
   NumberInput,
   Stack,
 } from 'tgui-core/components';
+
 import { useBackend } from '../../backend';
 import { ParticleContext } from '.';
 import {
@@ -187,7 +188,7 @@ export const EntryGradient = (props: EntryGradientProps) => {
                 <Input
                   key={index}
                   maxWidth={'70px'}
-                  value={entry?.toString() ?? ''}
+                  value={entry.toString()}
                   onBlur={(value) =>
                     act('edit', {
                       var: var_name,
@@ -335,7 +336,7 @@ export const EntryIcon = (props: EntryIconStateProps) => {
           ))
         ) : (
           <>
-            <Stack.Item>{icon_state as string}</Stack.Item>
+            <Stack.Item>{icon_state}</Stack.Item>
             <Stack.Item>
               <Box> = </Box>
             </Stack.Item>
@@ -432,7 +433,7 @@ export const EntryIconState = (props: EntryIconStateProps) => {
         ) : (
           <>
             <Input
-              value={icon_state ? (icon_state as string) : 'None'}
+              value={icon_state ? icon_state : 'None'}
               onBlur={(value) =>
                 act('edit', {
                   var: var_name,

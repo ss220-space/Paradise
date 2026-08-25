@@ -204,8 +204,6 @@ _GAME_VERB_GLOBAL_PROC(verb_path_name, verb_name, verb_desc, verb_category, FALS
 #define UNASSIGN_GAME_VERB_DIRECT(target, verb_meta) SSverbs.unassign_verb(target, verb_meta)
 #define VERB_META(type, verb_name) /datum/verb_metadata##type/##verb_name
 
-
-
 /// Self-registers argument metadata at world init and extracts value from structured_args at runtime.
 /// For primitive args: VERB_ARG(count, VERB_ARG_TYPE_NUM, VERB_ARG_SOURCE_INPUT)
 /// For typed args: VERB_ARG_TYPED(target, VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /mob/living)

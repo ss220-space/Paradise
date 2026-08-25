@@ -8,10 +8,11 @@ import {
   Section,
   Stack,
 } from 'tgui-core/components';
+
 import { resolveAsset } from '../../assets';
 import { ParticleContext } from '.';
 
-export const ShowDesc = (_props: unknown) => {
+export const ShowDesc = (props) => {
   const { desc, setDesc } = useContext(ParticleContext);
   return (
     <Modal

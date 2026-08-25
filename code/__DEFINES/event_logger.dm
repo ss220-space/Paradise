@@ -34,13 +34,11 @@
 	if(GLOB.event_logger.running && (DATUM.datum_flags & DF_EVLOGGING)) \
 		{ GLOB.event_logger.log_event_maptext(DATUM, CATEGORY, INFO, TURF, TEXT) }
 
-
 /// Append a categorized title and entry to a track_info snapshot list.
 #define EVLOG_TRACK_INFO_ENTRY(LIST, CATEGORY, KEY, VALUE) \
 	LIST += list(list("category" = CATEGORY, "title" = KEY, "entry" = VALUE))
 
 #define IS_EVLOGGING GLOB.event_logger.running
-
 
 ///All the types of log entries we have.
 
@@ -50,8 +48,6 @@
 #define EVLOG_TYPE_LINES "lines"
 #define EVLOG_TYPE_PATH "path"
 #define EVLOG_TYPE_MAPTEXT "maptext"
-
-
 
 ///Categories go here. Put sane names in the string since they get displayed.
 #define EVLOG_CATEGORY_MOVELOOPS "Moveloops"

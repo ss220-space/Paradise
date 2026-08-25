@@ -12,7 +12,7 @@ import { Window } from '../../layouts';
 import {
   type Connection,
   Connections,
-  type Position,
+  type Coordinates,
 } from '../common/Connections';
 import { ABSOLUTE_Y_OFFSET } from './../IntegratedCircuit/constants';
 import { PlaneEditor } from './PlaneEditor';
@@ -33,7 +33,7 @@ import type {
 } from './types';
 import { PlaneDebugContext } from './usePlaneDebug';
 
-const getPosition = (el: HTMLElement | null): Position => {
+const getPosition = (el: HTMLElement | null): Coordinates => {
   let xPos = 0;
   let yPos = 0;
 

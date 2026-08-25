@@ -48,7 +48,6 @@
 	)
 
 /datum/asset/simple/chat_dark
-	keep_local_name = FALSE
 	assets = list(
 		"tgui-chat-dark.bundle.css" = file("tgui/public/tgui-chat-dark.bundle.css"),
 	)

@@ -43,7 +43,7 @@ SUBSYSTEM_DEF(verbs)
 		CRASH("invoke_verb called for '[verb_path]' with no metadata registered")
 	var/resolved_caller = invoker || target
 	var/client/user_client
-	if(istype(resolved_caller, /client))
+	if(isclient(resolved_caller))
 		user_client = resolved_caller
 	else if(ismob(resolved_caller))
 		var/mob/mob_target = resolved_caller

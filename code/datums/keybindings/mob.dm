@@ -80,7 +80,6 @@
 /datum/keybinding/mob/swap_hands
 	name = "swap_hands"
 	full_name = "Поменять руки"
-	description = ""
 	hotkey_keys = list("X")
 	keybind_signal = COMSIG_KB_MOB_SWAPHANDS_DOWN
 
@@ -182,7 +181,6 @@
 /datum/keybinding/mob/stop_pulling
 	name = "stop_pulling"
 	full_name = "Перестать тащить"
-	description = ""
 	hotkey_keys = list("C")
 	keybind_signal = COMSIG_KB_MOB_STOPPULLING_DOWN
 

@@ -1288,7 +1288,7 @@ GAME_VERB_DESC(/client, fit_viewport, "Подгонка области види�
 	var/split_width = text2num(split_size[1])
 
 	// Window is minimized, we can't get proper data so return to avoid division by 0
-	if (!split_width)
+	if(!split_width)
 		return
 
 	// Gets the type of zoom we're currently using from our view datum
@@ -1308,7 +1308,7 @@ GAME_VERB_DESC(/client, fit_viewport, "Подгонка области види�
 		var/height = text2num(map_size[2])
 		desired_width = round(height * aspect_ratio)
 
-	if (text2num(map_size[1]) == desired_width)
+	if(text2num(map_size[1]) == desired_width)
 		// Nothing to do
 		return
 
@@ -1327,13 +1327,13 @@ GAME_VERB_DESC(/client, fit_viewport, "Подгонка области види�
 		map_size = splittext(after_size, "x")
 		var/got_width = text2num(map_size[1])
 
-		if (got_width == desired_width)
+		if(got_width == desired_width)
 			// success
 			return
-		else if (isnull(delta))
+		else if(isnull(delta))
 			// calculate a probable delta value based on the difference
 			delta = 100 * (desired_width - got_width) / split_width
-		else if ((delta > 0 && got_width > desired_width) || (delta < 0 && got_width < desired_width))
+		else if((delta > 0 && got_width > desired_width) || (delta < 0 && got_width < desired_width))
 			// if we overshot, halve the delta and reverse direction
 			delta = -delta/2
 
@@ -1343,7 +1343,7 @@ GAME_VERB_DESC(/client, fit_viewport, "Подгонка области види�
 /// Attempt to automatically fit the viewport, assuming the user wants it
 /client/proc/attempt_auto_fit_viewport()
 	/*
-	if (!prefs?.read_preference(/datum/preference/toggle/auto_fit_viewport))
+	if(!prefs?.read_preference(/datum/preference/toggle/auto_fit_viewport))
 		return
 	*/
 	// No need to attempt to fit the viewport on non-initialized clients as they'll auto-fit viewport right before finishing init

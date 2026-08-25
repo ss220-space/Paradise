@@ -50,7 +50,7 @@
 		positional_args -= VERB_ARG_CONTEXT_TARGET_KEY
 
 	if(length(positional_args) && length(arguments))
-		if(istype(positional_args, /alist))
+		if(isalist(positional_args))
 			for(var/datum/verb_arg_metadata/arg in arguments)
 				if(!isnull(positional_args[arg.name]))
 					structured_args[arg.name] = positional_args[arg.name]
@@ -129,7 +129,7 @@
 			filtered += target
 	return filtered
 
-GLOBAL_LIST_INIT(____pending_verb_args, list())
+GLOBAL_LIST_EMPTY(____pending_verb_args)
 
 /proc/____register_verb_arg(owner_type, proc_path, arg_name, arg_type, arg_type_path, arg_source, arg_view_range)
 	var/verb_key

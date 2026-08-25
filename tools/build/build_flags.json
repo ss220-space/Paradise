@@ -47,13 +47,6 @@
 			]
 		},
 		{
-			"id": "MAP_TEST",
-			"define": "MAP_TEST",
-			"label": "Map test mode",
-			"category": "Map",
-			"description": "Disables common annoyances (rat spawns, random light breakage) so mappers can test without shenanigans."
-		},
-		{
 			"id": "SKIP_LAVALAND",
 			"define": "SKIP_LAVALAND",
 			"label": "No Lavaland",
@@ -80,6 +73,13 @@
 			"label": "No space ruins",
 			"category": "Map",
 			"description": "Makes no space levels load in."
+		},
+		{
+			"id": "MAP_TEST",
+			"define": "MAP_TEST",
+			"label": "Map test mode",
+			"category": "Map",
+			"description": "(Not implemented)Disables common annoyances (rat spawns, random light breakage) so mappers can test without shenanigans."
 		},
 		{
 			"id": "TIMER_DEBUG",
@@ -116,6 +116,13 @@
 			"label": "Unit tests",
 			"category": "Testing",
 			"description": "Runs all unit tests, then shuts down."
+		},
+		{
+			"id": "MAP_UNIT_TEST",
+			"define": "MAP_TESTS",
+			"label": "Map test mode",
+			"category": "Testing",
+			"description": "Runs all map unit tests, then shuts down."
 		},
 		{
 			"id": "USE_BYOND_TRACY",

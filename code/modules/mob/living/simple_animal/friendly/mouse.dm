@@ -316,7 +316,6 @@
 	audio_cooldown = 1 MINUTES
 	var/anim_type = SNIFF
 	volume = 1
-	emote_type = EMOTE_VISIBLE
 
 /datum/emote/living/simple_animal/mouse/idle/run_emote(mob/living/simple_animal/mouse/user, params, type_override, intentional)
 	if(user.jetpack)

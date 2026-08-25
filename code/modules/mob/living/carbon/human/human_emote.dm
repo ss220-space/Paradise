@@ -1309,7 +1309,7 @@
 	volume = 80  // the sound effect is a bit quiet
 
 /datum/emote/living/carbon/human/crack/skelly
-	name = "Хрустнуть костяшками"
+	name = "Хрустнуть костями"
 	message = "хруст%(ит,ят)% костями!"
 	species_type_whitelist_typecache = list(/datum/species/skeleton, /datum/species/plasmaman)
 	species_type_blacklist_typecache = null

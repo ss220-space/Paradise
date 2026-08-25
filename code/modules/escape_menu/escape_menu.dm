@@ -17,8 +17,6 @@ GLOBAL_VAR(escape_menu_suicide_icon_base64)
 
 GLOBAL_LIST_EMPTY(escape_menus)
 
-/client/var/datum/escape_menu/escape_menu
-
 /client/proc/initialize_escape_menu()
 	set waitfor = FALSE
 	sleep(3 SECONDS)

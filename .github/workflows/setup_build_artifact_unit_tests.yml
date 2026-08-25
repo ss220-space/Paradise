@@ -25,7 +25,7 @@ jobs:
         run: |
           tools/ci/install_byond.sh '${{ matrix.byondtype }}'
           source $HOME/BYOND/byond/bin/byondsetup
-          tools/build/build.sh --ci dm -DCIBUILDING -DANSICOLORS -Werror -ITG0001 -I"loop_checks"
+          tools/build/build.sh --ci dm -DUNIT_TESTS -DMULTIINSTANCE -DCIBUILDING -DANSICOLORS -Werror -ITG0001 -I"loop_checks"
 
       - name: Setup variable for output path
         run: |

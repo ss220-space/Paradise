@@ -93,7 +93,7 @@
 			return FALSE
 
 	if(!(rotation_flags & ROTATION_IGNORE_ANCHORED) && object_to_rotate.anchored)
-		if(istype(object_to_rotate, /obj/structure/window) && !silent)
+		if(is_window(object_to_rotate) && !silent)
 			object_to_rotate.balloon_alert(user, "need to unscrew!")
 		else if(!silent)
 			object_to_rotate.balloon_alert(user, "need to unwrench!")

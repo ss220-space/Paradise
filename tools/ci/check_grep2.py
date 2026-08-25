@@ -318,6 +318,8 @@ def check_dash_usage(idx, line):
         if 'UNLINT' not in line:
             return [(idx + 1, "Found hyphen or en dash, which should be replaced with em dash (—).")]
 
+CHECK_PLAYSOUND_IMPROPER_CALL_IGNORE = ['code/modules/asset_cache/assets']
+
 PLAYSOUND_IMPROPER_CALL = re.compile(r'playsound\(([^,]*), "(sound\/[^\[]+)"')
 SOUND_IMPROPER_PATH = re.compile(r'"(sound\/[^\[]+)(.ogg)"')
 def check_playsound_improper_call(idx, line):
@@ -392,7 +394,6 @@ CODE_CHECKS = [
     check_duplicate_spans,
     check_html_tags_case,
     check_dash_usage,
-    check_playsound_improper_call,
     check_apostrophe_name,
     check_rand_floating_point,
     check_bitwise_operator_order,
@@ -507,8 +508,10 @@ def lint_file(code_filepath: str) -> list[Failure]:
             extra_checks.append(check_manual_icon_updates)
         if filename == FAST_LOAD_FILENAME:
             extra_checks.append(check_fast_load_define)
-        if any(excluded in code_filepath for excluded in CHECK_MANUAL_VERB_RE_EXCLUDED_PATHS ):
+        if not any(excluded in code_filepath for excluded in CHECK_MANUAL_VERB_RE_EXCLUDED_PATHS):
             extra_checks.append(check_manual_verb)
+        if not any(excluded in code_filepath for excluded in CHECK_PLAYSOUND_IMPROPER_CALL_IGNORE):
+            extra_checks.append(check_playsound_improper_call)
         if os.path.dirname(code_filepath) != IGNORE_LOCALIZATION_HELPERS_DIR:
             extra_checks.append(check_localization_macro_usage)
             extra_checks.append(check_capitalized_declent_ru_usage)

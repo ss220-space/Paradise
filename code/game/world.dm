@@ -82,6 +82,7 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 	#ifdef PERFORMANCE_TESTS
 	queue_performance_tests()
 	#endif
+	return
 
 // This is basically a replacement for hook/startup. Please dont shove random bullshit here
 // If it doesnt need to happen IMMEDIATELY on world load, make a subsystem for it

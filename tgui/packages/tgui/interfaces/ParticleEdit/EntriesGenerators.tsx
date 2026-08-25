@@ -7,6 +7,7 @@ import {
   NumberInput,
   Stack,
 } from 'tgui-core/components';
+
 import { useBackend } from '../../backend';
 import { ParticleContext } from '.';
 import {
