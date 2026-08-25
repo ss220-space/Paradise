@@ -136,7 +136,7 @@ const StatusPane = (_properties) => {
   // Shuttle status text
   let statusText: string;
   if (moving) {
-    statusText = `В пути к объекту (прилетит через: ${timeleft} минут${declension_ru(timeleft, 'у', 'ы', '')})`;
+    statusText = `В пути к объекту (прилетит через: ${timeleft})`;
   } else if (at_station) {
     statusText = 'Пристыкован к объекту';
   } else {

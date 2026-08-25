@@ -167,9 +167,9 @@ ADMIN_VERB(borg_panel_in_list, R_ADMIN, "Show Borg Panel in List", "Open Borg Pa
 				qdel(installedupgrade) // see [mob/living/silicon/robot/on_upgrade_deleted()].
 			else
 				var/obj/item/borg/upgrade/upgrade = new upgradepath(borg)
-				if(!upgrade.action(borg))
+				if(!borg.install_upgrade(upgrade, user))
+					qdel(upgrade)
 					return
-				borg.install_upgrade(upgrade)
 				message_admins("[key_name_admin(user)] added the [upgrade] borg upgrade to [ADMIN_LOOKUPFLW(borg)].")
 				log_admin("[key_name(user)] added the [upgrade] borg upgrade to [key_name(borg)].")
 		if("toggle_radio")
@@ -201,10 +201,11 @@ ADMIN_VERB(borg_panel_in_list, R_ADMIN, "Show Borg Panel in List", "Open Borg Pa
 			log_admin("[key_name(user)] changed the model of [key_name(borg)] to [new_module].")
 		if("reset_module")
 			var/obj/item/borg/upgrade/reset/reset = new(borg)
-			if(reset.action(borg))
-				borg.install_upgrade(reset)
-				message_admins("[key_name_admin(user)] resets module of [ADMIN_LOOKUPFLW(borg)].")
-				log_admin("[key_name(user)] resets module of [key_name(borg)].")
+			if(!borg.install_upgrade(reset, user))
+				qdel(reset)
+				return
+			message_admins("[key_name_admin(user)] resets module of [ADMIN_LOOKUPFLW(borg)].")
+			log_admin("[key_name(user)] resets module of [key_name(borg)].")
 		if("slavetoai")
 			var/mob/living/silicon/ai/newai
 			for(var/mob/living/silicon/ai/ai in GLOB.ai_list)

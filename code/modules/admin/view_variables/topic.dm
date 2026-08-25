@@ -14,6 +14,9 @@
  * * For basic operations, use /client/proc/vv_do_basic().
  */
 /client/proc/view_var_Topic(href, href_list, hsrc)
+	if(!check_rights(R_ADMIN|R_VIEWRUNTIMES))
+		return
+
 	var/target = locate_vv_href(href_list[VV_HK_TARGET])
 	vv_do_basic(target, href_list, href)
 	if(isdatum(target))

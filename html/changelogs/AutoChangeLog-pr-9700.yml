@@ -1,0 +1,4 @@
+author: "broodjeh-lang"
+delete-after: True
+changes:
+  - bugfix: "Руна призыва культиста больше не блокирует движение после телепортации. (PR #9700)"

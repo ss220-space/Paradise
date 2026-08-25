@@ -229,6 +229,8 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define iscoret3(O) (istype(O, /obj/item/assembly/signaler/core) && O.tier == 3)
 #define iscell(O) (istype(O, /obj/item/stock_parts/cell)) // Not assembly, but neaely.
 
+#define iscyborgmobilitymodule(O) (istype(O, /obj/item/borg/destroyer/mobility))
+
 //Turfs
 #define issimulatedturf(A) (istype(A, /turf/simulated))
 

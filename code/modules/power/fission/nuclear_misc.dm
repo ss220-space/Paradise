@@ -21,7 +21,6 @@
 /obj/machinery/power/reactor_power/process()
 	if(linked_reactor && linked_reactor.can_create_power)
 		add_avail(max(linked_reactor.final_power, 0))
-	return ..()
 
 // MARK: Monitor
 
@@ -91,6 +90,7 @@
 	return TRUE
 
 /obj/machinery/computer/fission_monitor/multitool_act(mob/living/user, obj/item/I)
+	. = TRUE
 	if(!I.multitool_check_buffer(user))
 		return
 	var/obj/item/multitool/multitool = I
@@ -148,7 +148,7 @@
 		gas_info["name"] = gas
 		gas_info["amount"] = amount
 		gas_info["portion"] = round(100 * amount / max_moles, 0.01)
-		gas_info["desc"] = gas_data[gas].desc
+		gas_info["desc"] = gas_data[gas]?.desc
 		gasdata.Add(list(gas_info))
 	data["moderator_gasses"] = gasdata
 	data["controlling"] = controller

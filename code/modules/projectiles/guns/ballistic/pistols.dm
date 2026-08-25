@@ -5,6 +5,7 @@
 	icon = 'icons/obj/weapons/pistols.dmi'
 	icon_state = "pistol"
 	w_class = WEIGHT_CLASS_SMALL
+	weapon_weight = WEAPON_LIGHT
 	origin_tech = "combat=3;materials=2;syndicate=3"
 	can_holster = TRUE
 	fire_sound = 'sound/weapons/gunshots/1stechkin.ogg'
