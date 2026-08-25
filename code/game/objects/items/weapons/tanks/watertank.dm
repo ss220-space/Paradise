@@ -154,7 +154,7 @@
 
 /obj/item/watertank/janitor/Initialize(mapload)
 	. = ..()
-	reagents.add_reagent("cleaner", 500)
+	reagents.add_reagent(/datum/reagent/space_cleaner, 500)
 
 /obj/item/reagent_containers/spray/mister/janitor
 	name = "janitor spray nozzle"
@@ -186,7 +186,7 @@
 
 /obj/item/watertank/atmos/Initialize(mapload)
 	. = ..()
-	reagents.add_reagent("water", 200)
+	reagents.add_reagent(/datum/reagent/water, 200)
 
 /obj/item/watertank/atmos/make_noz()
 	return new /obj/item/extinguisher/mini/nozzle(src)

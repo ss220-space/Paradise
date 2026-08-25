@@ -15,8 +15,8 @@
 	dir = WEST
 	interaction_flags_mouse_drop = NEED_DEXTERITY
 	var/mob/living/carbon/human/occupant = null
-	var/possible_chems = list("ephedrine", "salglu_solution", "salbutamol", "charcoal")
-	var/emergency_chems = list("ephedrine") // Desnowflaking
+	var/possible_chems = list(/datum/reagent/medicine/ephedrine, /datum/reagent/medicine/salglu_solution, /datum/reagent/medicine/salbutamol, /datum/reagent/medicine/charcoal)
+	var/emergency_chems = list(/datum/reagent/medicine/ephedrine) // Desnowflaking
 	var/amounts = list(5, 10)
 	/// Beaker loaded into the sleeper. Used for dialysis.
 	var/obj/item/reagent_containers/glass/beaker = null
@@ -246,28 +246,28 @@
 		data["isBeakerLoaded"] = FALSE
 
 	var/chemicals[0]
-	for(var/re in possible_chems)
+	for(var/datum/reagent/re in possible_chems)
 		var/datum/reagent/temp = GLOB.chemical_reagents_list[re]
-		if(temp)
-			var/reagent_amount = 0
-			var/pretty_amount
-			var/injectable = occupant ? 1 : 0
-			var/overdosing = 0
-			var/caution = 0 // To make things clear that you're coming close to an overdose
-			if(crisis && !(temp.id in emergency_chems))
-				injectable = 0
+		var/reagent_amount = 0
+		var/pretty_amount
+		var/injectable = occupant ? 1 : 0
+		var/overdosing = 0
+		var/caution = 0 // To make things clear that you're coming close to an overdose
+		if(crisis && !(re in emergency_chems))
+			injectable = 0
 
-			if(occupant?.reagents)
-				reagent_amount = occupant.reagents.get_reagent_amount(temp.id)
-				// If they're mashing the highest concentration, they get one warning
-				if(temp.overdose_threshold && reagent_amount + 10 > temp.overdose_threshold)
-					caution = 1
-				if(temp.id in occupant.reagents.overdose_list())
-					overdosing = 1
+		if(occupant?.reagents)
+			reagent_amount = occupant.reagents.get_reagent_amount(re)
+			// If they're mashing the highest concentration, they get one warning
+			if(temp.overdose_threshold && reagent_amount + 10 > temp.overdose_threshold)
+				caution = 1
+			if(temp.type in occupant.reagents.overdose_list())
+				overdosing = 1
 
-			pretty_amount = round(reagent_amount, 0.05)
+		pretty_amount = round(reagent_amount, 0.05)
 
-			chemicals.Add(list(list("title" = temp.name, "id" = temp.id, "commands" = list("chemical" = temp.id), "occ_amount" = reagent_amount, "pretty_amount" = pretty_amount, "injectable" = injectable, "overdosing" = overdosing, "od_warning" = caution)))
+		chemicals.Add(list(list("title" = temp.name, "id" = temp.type, "commands" = list("chemical" = temp.id), "occ_amount" = reagent_amount, "pretty_amount" = pretty_amount, "injectable" = injectable, "overdosing" = overdosing, "od_warning" = caution)))
+
 	data["chemicals"] = chemicals
 	return data
 
@@ -574,8 +574,8 @@
 /obj/machinery/sleeper/syndie
 	icon_state = "sleeper_s-open"
 	base_icon = "sleeper_s"
-	possible_chems = list("epinephrine", "ether", "salbutamol", "styptic_powder", "silver_sulfadiazine")
-	emergency_chems = list("epinephrine")
+	possible_chems = list(/datum/reagent/medicine/epinephrine, /datum/reagent/medicine/ether, /datum/reagent/medicine/salbutamol, /datum/reagent/medicine/styptic_powder, /datum/reagent/medicine/silver_sulfadiazine)
+	emergency_chems = list(/datum/reagent/medicine/epinephrine)
 	controls_inside = TRUE
 
 	light_color = COLOR_SOFT_RED

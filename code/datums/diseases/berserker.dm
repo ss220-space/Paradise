@@ -5,7 +5,7 @@
 	cure_text = "Галоперидол"
 	max_stages = 2
 	stage_prob = 5
-	cures = list("haloperidol")
+	cures = list(/datum/reagent/medicine/haloperidol)
 	cure_prob = 10
 	severity = DISEASE_SEVERITY_HARMFUL
 	can_immunity = FALSE
@@ -15,7 +15,7 @@
 	if(!..())
 		return FALSE
 
-	if(affected_mob.reagents.has_reagent("thc"))
+	if(affected_mob.reagents.has_reagent(/datum/reagent/thc))
 		to_chat(affected_mob, span_notice("Вы расслабляетесь."))
 		cure()
 		return

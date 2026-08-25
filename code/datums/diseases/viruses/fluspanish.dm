@@ -5,7 +5,7 @@
 	max_stages = 3
 	spread_flags = AIRBORNE
 	cure_text = "Космоциллин и антитела к обычному гриппу"
-	cures = list("spaceacillin")
+	cures = list(/datum/reagent/medicine/spaceacillin)
 	cure_prob = 10
 	permeability_mod = 0.75
 	severity = DISEASE_SEVERITY_DANGEROUS

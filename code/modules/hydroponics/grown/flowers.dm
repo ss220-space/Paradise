@@ -14,7 +14,7 @@
 	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
 	icon_grow = "poppy-grow"
 	icon_dead = "poppy-dead"
-	reagents_add = list("bicaridine" = 0.2, "plantmatter" = 0.05)
+	reagents_add = list(/datum/reagent/medicine/bicaridine = 0.2, /datum/reagent/consumable/nutriment/plantmatter = 0.05)
 
 /obj/item/reagent_containers/food/snacks/grown/poppy
 	seed = /obj/item/seeds/poppy
@@ -25,7 +25,7 @@
 	filling_color = "#FF6347"
 	bitesize_mod = 3
 	tastes = list("poppy" = 1)
-	distill_reagent = "vermouth"
+	distill_reagent = /datum/reagent/consumable/ethanol/vermouth
 
 // Lily
 /obj/item/seeds/lily
@@ -73,7 +73,7 @@
 	potency = 25
 	product = /obj/item/reagent_containers/food/snacks/grown/geranium
 	mutatelist = list(/obj/item/seeds/geranium/forgetmenot)
-	reagents_add = list("bicaridine" = 0.2, "plantmatter" = 0.05)
+	reagents_add = list(/datum/reagent/medicine/bicaridine = 0.2, /datum/reagent/consumable/nutriment/plantmatter = 0.05)
 
 /obj/item/reagent_containers/food/snacks/grown/geranium
 	seed = /obj/item/seeds/geranium
@@ -95,7 +95,7 @@
 	icon_dead = "forget_me_not-dead"
 	icon_harvest = "forget_me_not-harvest"
 	product = /obj/item/reagent_containers/food/snacks/grown/geranium/forgetmenot
-	reagents_add = list("kelotane" = 0.2, "plantmatter" = 0.05)
+	reagents_add = list(/datum/reagent/medicine/kelotane = 0.2, /datum/reagent/consumable/nutriment/plantmatter = 0.05)
 
 /obj/item/reagent_containers/food/snacks/grown/geranium/forgetmenot
 	name = "forget-me-not"
@@ -119,7 +119,7 @@
 	genes = list(/datum/plant_gene/trait/glow)
 	icon_grow = "moonlight-grow"
 	icon_dead = "moonlight-dead"
-	reagents_add = list("plantmatter" = 0.02, "vitamin" = 0.03, "moonlin" = 0.1)
+	reagents_add = list(/datum/reagent/consumable/nutriment/plantmatter = 0.02, /datum/reagent/consumable/nutriment/vitamin = 0.03, /datum/reagent/moonlin = 0.1)
 
 /obj/item/reagent_containers/food/snacks/grown/moonlight
 	seed = /obj/item/seeds/moonlight
@@ -148,7 +148,7 @@
 	growthstages = 4
 	genes = list(/datum/plant_gene/trait/plant_type/weed_hardy)
 	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
-	reagents_add = list("plantmatter" = 0.04)
+	reagents_add = list(/datum/reagent/consumable/nutriment/plantmatter = 0.04)
 
 /obj/item/reagent_containers/food/snacks/grown/harebell
 	seed = /obj/item/seeds/harebell
@@ -159,7 +159,7 @@
 	filling_color = "#E6E6FA"
 	tastes = list("harebell" = 1)
 	bitesize_mod = 3
-	distill_reagent = "vermouth"
+	distill_reagent = /datum/reagent/consumable/ethanol/vermouth
 
 // Sunflower
 /obj/item/seeds/sunflower
@@ -177,7 +177,7 @@
 	icon_grow = "sunflower-grow"
 	icon_dead = "sunflower-dead"
 	mutatelist = list(/obj/item/seeds/sunflower/moonflower, /obj/item/seeds/sunflower/novaflower)
-	reagents_add = list("cornoil" = 0.08, "plantmatter" = 0.04)
+	reagents_add = list(/datum/reagent/consumable/cornoil = 0.08, /datum/reagent/consumable/nutriment/plantmatter = 0.04)
 
 /obj/item/grown/sunflower // FLOWER POWER!
 	seed = /obj/item/seeds/sunflower
@@ -205,7 +205,7 @@
 	icon_grow = "moonflower-grow"
 	product = /obj/item/reagent_containers/food/snacks/grown/moonflower
 	mutatelist = list()
-	reagents_add = list("moonshine" = 0.2, "vitamin" = 0.02, "plantmatter" = 0.02)
+	reagents_add = list(/datum/reagent/consumable/ethanol/moonshine = 0.2, /datum/reagent/consumable/nutriment/vitamin = 0.02, /datum/reagent/consumable/nutriment/plantmatter = 0.02)
 	rarity = 15
 
 /obj/item/reagent_containers/food/snacks/grown/moonflower
@@ -217,7 +217,7 @@
 	filling_color = "#E6E6FA"
 	bitesize_mod = 2
 	tastes = list("moonflower" = 1)
-	distill_reagent = "absinthe"  //It's made from flowers.
+	distill_reagent = /datum/reagent/consumable/ethanol/absinthe  //It's made from flowers.
 
 // Novaflower
 /obj/item/seeds/sunflower/novaflower
@@ -229,7 +229,7 @@
 	icon_grow = "novaflower-grow"
 	product = /obj/item/grown/novaflower
 	mutatelist = list()
-	reagents_add = list("condensedcapsaicin" = 0.25, "capsaicin" = 0.3, "plantmatter" = 0)
+	reagents_add = list(/datum/reagent/consumable/condensedcapsaicin = 0.25, /datum/reagent/consumable/capsaicin = 0.3, /datum/reagent/consumable/nutriment/plantmatter = 0)
 	rarity = 20
 
 /obj/item/grown/novaflower
@@ -291,7 +291,8 @@
 	icon_grow = "shavel-grow"
 	icon_dead = "shavel-dead"
 	icon_harvest = "shavel-harvest"
-	reagents_add = list("plantmatter" = 0.04, "vitamin" = 0.15)
+	reagents_add = list(/datum/reagent/consumable/nutriment/plantmatter = 0.04, /datum/reagent/consumable/nutriment/vitamin = 0.15)
+
 /obj/item/reagent_containers/food/snacks/grown/shavel
 	seed = /obj/item/seeds/shavel
 	name = "shavel"
@@ -312,7 +313,7 @@
 	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
 	icon_dead = "redflower-dead"
 	icon_harvest = "redflower-harvest"
-	reagents_add = list("plantmatter" = 0.05)
+	reagents_add = list(/datum/reagent/consumable/nutriment/plantmatter = 0.05)
 	endurance = 10
 	maturation = 8
 	yield = 6
@@ -340,7 +341,7 @@
 	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
 	icon_dead = "flowerlamp-dead"
 	icon_harvest = "flowerlamp-harvest"
-	reagents_add = list("plantmatter" = 0.05)
+	reagents_add = list(/datum/reagent/consumable/nutriment/plantmatter = 0.05)
 	endurance = 10
 	maturation = 8
 	yield = 6
@@ -368,7 +369,7 @@
 	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
 	icon_dead = "whitecarnation-dead"
 	icon_harvest = "whitecarnation-harvest"
-	reagents_add = list("plantmatter" = 0.05)
+	reagents_add = list(/datum/reagent/consumable/nutriment/plantmatter = 0.05)
 	endurance = 10
 	maturation = 8
 	yield = 6
@@ -396,7 +397,7 @@
 	product = /obj/item/reagent_containers/food/snacks/grown/redcarnation
 	icon_dead = "redcarnation-dead"
 	icon_harvest = "redcarnation-harvest"
-	reagents_add = list("plantmatter" = 0.05)
+	reagents_add = list(/datum/reagent/consumable/nutriment/plantmatter = 0.05)
 	icon_grow = "redcarnation-grow"
 
 /obj/item/reagent_containers/food/snacks/grown/redcarnation
@@ -419,7 +420,7 @@
 	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
 	icon_dead = "whitetulp-dead"
 	icon_harvest = "whitetulp-harvest"
-	reagents_add = list("plantmatter" = 0.05)
+	reagents_add = list(/datum/reagent/consumable/nutriment/plantmatter = 0.05)
 	endurance = 10
 	maturation = 8
 	yield = 6
@@ -447,7 +448,7 @@
 	product = /obj/item/reagent_containers/food/snacks/grown/yellowtulp
 	icon_dead = "yellowtulp-dead"
 	icon_harvest = "yellowtulp-harvest"
-	reagents_add = list("plantmatter" = 0.05)
+	reagents_add = list(/datum/reagent/consumable/nutriment/plantmatter = 0.05)
 	icon_grow = "yellowtulp-grow"
 
 /obj/item/reagent_containers/food/snacks/grown/yellowtulp
@@ -469,7 +470,7 @@
 	product = /obj/item/reagent_containers/food/snacks/grown/pinktulp
 	icon_dead = "pinktulp-dead"
 	icon_harvest = "pinktulp-harvest"
-	reagents_add = list("plantmatter" = 0.05)
+	reagents_add = list(/datum/reagent/consumable/nutriment/plantmatter = 0.05)
 	icon_grow = "pinktulp-grow"
 
 /obj/item/reagent_containers/food/snacks/grown/pinktulp
@@ -492,7 +493,7 @@
 	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
 	icon_dead = "chamomile-dead"
 	icon_harvest = "chamomile-harvest"
-	reagents_add = list("plantmatter" = 0.05)
+	reagents_add = list(/datum/reagent/consumable/nutriment/plantmatter = 0.05)
 	endurance = 10
 	maturation = 8
 	yield = 6
@@ -520,7 +521,7 @@
 	product = /obj/item/reagent_containers/food/snacks/grown/redchamomile
 	icon_dead = "redchamomile-dead"
 	icon_harvest = "redchamomile-harvest"
-	reagents_add = list("plantmatter" = 0.05)
+	reagents_add = list(/datum/reagent/consumable/nutriment/plantmatter = 0.05)
 	icon_grow = "redchamomile-grow"
 
 /obj/item/reagent_containers/food/snacks/grown/redchamomile
@@ -543,7 +544,7 @@
 	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
 	icon_dead = "whiterose-dead"
 	icon_harvest = "whiterose-harvest"
-	reagents_add = list("plantmatter" = 0.05)
+	reagents_add = list(/datum/reagent/consumable/nutriment/plantmatter = 0.05)
 	endurance = 10
 	maturation = 8
 	yield = 6
@@ -572,7 +573,7 @@
 	product = /obj/item/reagent_containers/food/snacks/grown/redrose
 	icon_dead = "redrose-dead"
 	icon_harvest = "redrose-harvest"
-	reagents_add = list("plantmatter" = 0.05)
+	reagents_add = list(/datum/reagent/consumable/nutriment/plantmatter = 0.05)
 	icon_grow = "redrose-grow"
 	genes = list(/datum/plant_gene/trait/stinging)
 

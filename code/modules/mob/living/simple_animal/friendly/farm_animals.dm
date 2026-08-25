@@ -719,7 +719,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 /obj/item/udder/Initialize(mapload)
 	. = ..()
 	create_reagents(80)
-	reagents.add_reagent("milk", 20)
+	reagents.add_reagent(/datum/reagent/consumable/drink/milk, 20)
 
 /obj/item/udder/proc/generateMilk()
 	var/probability = 5
@@ -727,7 +727,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 		probability = 30
 
 	if(prob(probability))
-		reagents.add_reagent("milk", rand(5, 10))
+		reagents.add_reagent(/datum/reagent/consumable/drink/milk, rand(5, 10))
 
 /obj/item/udder/proc/milkAnimal(obj/item/reagent_containers/glass/container, mob/user)
 	if(!container.reagents)

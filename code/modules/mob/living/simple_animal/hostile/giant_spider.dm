@@ -70,7 +70,7 @@
 
 	AddElement( \
 		/datum/element/reagent_attack, \
-		"spidertoxin", \
+		/datum/reagent/spider_venom, \
 		30, \
 		FALSE, \
 		null, \
@@ -93,7 +93,7 @@
 
 	AddElement(
 		/datum/element/reagent_attack, \
-		"spidertoxin", \
+		/datum/reagent/spider_venom, \
 		10, \
 		FALSE, \
 		null, \

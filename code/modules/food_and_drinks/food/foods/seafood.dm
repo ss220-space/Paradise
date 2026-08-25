@@ -6,7 +6,7 @@
 	icon_state = "fishfillet"
 	filling_color = "#FFDEFE"
 	bitesize = 6
-	list_reagents = list("protein" = 3, "carpotoxin" = 2, "vitamin" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 3, /datum/reagent/carpotoxin = 2, /datum/reagent/consumable/nutriment/vitamin = 2)
 	tastes = list("white fish" = 1)
 	foodtype = MEAT | TOXIC
 	log_eating = TRUE
@@ -18,7 +18,7 @@
 	icon_state = "fishfillet"
 	filling_color = "#FFDEFE"
 	bitesize = 6
-	list_reagents = list("protein" = 3, "vitamin" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 3, /datum/reagent/consumable/nutriment/vitamin = 2)
 	tastes = list("raw salmon" = 1)
 	foodtype = MEAT | RAW
 
@@ -26,13 +26,13 @@
 	name = "snail meat"
 	desc = "Сырая космо-улитка в собственном соку."
 	filling_color = "#6bb4a8"
-	list_reagents = list("protein" = 5, "vitamin" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 5, /datum/reagent/consumable/nutriment/vitamin = 5)
 
 /obj/item/reagent_containers/food/snacks/salmonmeat/turtlemeat
 	name = "snail meat"
 	desc = "Сырая космо-улитка в собственном соку."
 	filling_color = "#2fa24c"
-	list_reagents = list("protein" = 10, "vitamin" = 8)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 10, /datum/reagent/consumable/nutriment/vitamin = 8)
 
 /obj/item/reagent_containers/food/snacks/salmonsteak
 	name = "salmon steak"
@@ -42,7 +42,7 @@
 	trash = /obj/item/trash/plate
 	filling_color = "#7A3D11"
 	bitesize = 3
-	list_reagents = list("nutriment" = 4, "vitamin" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/nutriment/vitamin = 2)
 	tastes = list("cooked salmon" = 1)
 	foodtype = MEAT
 
@@ -53,7 +53,7 @@
 	icon_state = "fishfillet"
 	filling_color = "#FFDEFE"
 	bitesize = 6
-	list_reagents = list("protein" = 3, "vitamin" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 3, /datum/reagent/consumable/nutriment/vitamin = 2)
 	tastes = list("catfish" = 1)
 	foodtype = MEAT | RAW
 
@@ -64,7 +64,7 @@
 	icon_state = "fishfingers"
 	filling_color = "#FFDEFE"
 	bitesize = 1
-	list_reagents = list("nutriment" = 4)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 4)
 	tastes = list("fish" = 1, "bread" = 1)
 	foodtype = MEAT
 
@@ -75,7 +75,7 @@
 	icon_state = "fishburger"
 	filling_color = "#FFDEFE"
 	bitesize = 3
-	list_reagents = list("nutriment" = 6, "vitamin" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 1)
 	tastes = list("bun" = 4, "fish" = 4)
 	foodtype = MEAT | GRAIN
 
@@ -87,7 +87,7 @@
 	trash = /obj/item/trash/plate
 	filling_color = "#E9ADFF"
 	bitesize = 3
-	list_reagents = list("nutriment" = 6, "capsaicin" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/capsaicin = 1)
 	tastes = list("fish" = 4, "batter" = 1, "hot peppers" = 1)
 	foodtype = MEAT | GRAIN
 
@@ -98,7 +98,7 @@
 	icon_state = "fishandchips"
 	filling_color = "#E3D796"
 	bitesize = 3
-	list_reagents = list("nutriment" = 6)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6)
 	tastes = list("fish" = 1, "chips" = 1)
 	foodtype = MEAT | GRAIN | FRIED
 
@@ -108,7 +108,7 @@
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "sashimi"
 	bitesize = 3
-	list_reagents = list("nutriment" = 6, "capsaicin" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/capsaicin = 5)
 	tastes = list("raw carp" = 1, "hot peppers" = 1)
 	foodtype = MEAT
 
@@ -118,7 +118,7 @@
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "shrimp_fried"
 	bitesize = 3
-	list_reagents = list("nutriment" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 2)
 	tastes = list("shrimp" = 1, "bread crumbs" = 1)
 	foodtype = MEAT | FRIED
 
@@ -128,7 +128,7 @@
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "shrimp_cooked"
 	bitesize = 3
-	list_reagents = list("nutriment" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 2)
 	tastes = list("shrimp" = 1)
 	foodtype = MEAT
 
@@ -139,7 +139,7 @@
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "shrimpskewer"
 	bitesize = 3
-	list_reagents = list("nutriment" = 8)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 8)
 	tastes = list("shrimp" = 4)
 	foodtype = MEAT
 
@@ -150,7 +150,7 @@
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "fishskewer"
 	bitesize = 3
-	list_reagents = list("protein" = 6, "vitamin" = 4)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 6, /datum/reagent/consumable/nutriment/vitamin = 4)
 	tastes = list("shrimp" = 1, "batter" = 1)
 	foodtype = MEAT
 
@@ -163,7 +163,7 @@
 	slice_path = /obj/item/reagent_containers/food/snacks/sushi_Ebi
 	slices_num = 4
 	bitesize = 3
-	list_reagents = list("nutriment" = 8)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 8)
 	tastes = list("shrimp" = 1, "rice" = 1, "seaweed" = 1)
 	foodtype = MEAT
 
@@ -173,7 +173,7 @@
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "sushi_Ebi"
 	bitesize = 3
-	list_reagents = list("nutriment" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 2)
 	tastes = list("shrimp" = 1, "rice" = 1, "seaweed" = 1)
 	foodtype = MEAT
 
@@ -186,7 +186,7 @@
 	slice_path = /obj/item/reagent_containers/food/snacks/sushi_Ikura
 	slices_num = 4
 	bitesize = 3
-	list_reagents = list("nutriment" = 8, "protein" = 4)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 8, /datum/reagent/consumable/nutriment/protein = 4)
 	tastes = list("salmon roe" = 1, "rice" = 1, "seaweed" = 1)
 	foodtype = EGG
 
@@ -196,7 +196,7 @@
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "sushi_Ikura"
 	bitesize = 3
-	list_reagents = list("nutriment" = 2, "protein" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/nutriment/protein = 1)
 	tastes = list("salmon roe" = 1, "rice" = 1, "seaweed" = 1)
 	foodtype = EGG
 
@@ -209,7 +209,7 @@
 	slice_path = /obj/item/reagent_containers/food/snacks/sushi_Sake
 	slices_num = 4
 	bitesize = 3
-	list_reagents = list("nutriment" = 8)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 8)
 	tastes = list("raw salmon" = 1, "rice" = 1, "seaweed" = 1)
 	foodtype = MEAT
 
@@ -219,7 +219,7 @@
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "sushi_Sake"
 	bitesize = 3
-	list_reagents = list("nutriment" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 2)
 	tastes = list("raw salmon" = 1, "rice" = 1, "seaweed" = 1)
 	foodtype = MEAT
 
@@ -232,7 +232,7 @@
 	slice_path = /obj/item/reagent_containers/food/snacks/sushi_SmokedSalmon
 	slices_num = 4
 	bitesize = 3
-	list_reagents = list("nutriment" = 8)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 8)
 	tastes = list("smoked salmon" = 1, "rice" = 1, "seaweed" = 1)
 	foodtype = MEAT
 
@@ -242,7 +242,7 @@
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "sushi_SmokedSalmon"
 	bitesize = 3
-	list_reagents = list("nutriment" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 2)
 	tastes = list("smoked salmon" = 1, "rice" = 1, "seaweed" = 1)
 	foodtype = MEAT
 
@@ -255,7 +255,7 @@
 	slice_path = /obj/item/reagent_containers/food/snacks/sushi_Tamago
 	slices_num = 4
 	bitesize = 3
-	list_reagents = list("nutriment" = 8)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 8)
 	tastes = list("egg" = 1, "rice" = 1, "seaweed" = 1)
 	foodtype = MEAT
 
@@ -265,7 +265,7 @@
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "sushi_Tamago"
 	bitesize = 3
-	list_reagents = list("nutriment" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 2)
 	tastes = list("egg" = 1, "rice" = 1, "seaweed" = 1)
 	foodtype = MEAT
 
@@ -278,7 +278,7 @@
 	slice_path = /obj/item/reagent_containers/food/snacks/sushi_Inari
 	slices_num = 4
 	bitesize = 3
-	list_reagents = list("nutriment" = 8)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 8)
 	tastes = list("fried tofu" = 1, "rice" = 1, "seaweed" = 1)
 	foodtype = VEGETABLES
 
@@ -288,7 +288,7 @@
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "sushi_Inari"
 	bitesize = 3
-	list_reagents = list("nutriment" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 2)
 	tastes = list("fried tofu" = 1, "rice" = 1, "seaweed" = 1)
 	foodtype = VEGETABLES
 
@@ -301,7 +301,7 @@
 	slice_path = /obj/item/reagent_containers/food/snacks/sushi_Masago
 	slices_num = 4
 	bitesize = 3
-	list_reagents = list("nutriment" = 8, "protein" = 4)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 8, /datum/reagent/consumable/nutriment/protein = 4)
 	tastes = list("goldfish roe" = 1, "rice" = 1, "seaweed" = 1)
 	foodtype = EGG
 
@@ -311,7 +311,7 @@
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "sushi_Masago"
 	bitesize = 3
-	list_reagents = list("nutriment" = 2, "protein" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/nutriment/protein = 1)
 	tastes = list("goldfish roe" = 1, "rice" = 1, "seaweed" = 1)
 	foodtype = EGG
 
@@ -324,7 +324,7 @@
 	slice_path = /obj/item/reagent_containers/food/snacks/sushi_Tobiko
 	slices_num = 4
 	bitesize = 3
-	list_reagents = list("nutriment" = 8, "protein" = 4)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 8, /datum/reagent/consumable/nutriment/protein = 4)
 	tastes = list("shark roe" = 1, "rice" = 1, "seaweed" = 1)
 	foodtype = EGG
 
@@ -334,7 +334,7 @@
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "sushi_Masago"
 	bitesize = 3
-	list_reagents = list("nutriment" = 2, "protein" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/nutriment/protein = 1)
 	tastes = list("shark roe" = 1, "rice" = 1, "seaweed" = 1)
 	foodtype = EGG
 
@@ -346,7 +346,7 @@
 	slice_path = /obj/item/reagent_containers/food/snacks/sushi_TobikoEgg
 	slices_num = 4
 	bitesize = 3
-	list_reagents = list("nutriment" = 8, "protein" = 4)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 8, /datum/reagent/consumable/nutriment/protein = 4)
 	tastes = list("shark roe" = 1, "rice" = 1, "egg" = 1, "seaweed" = 1)
 	foodtype = EGG
 
@@ -356,7 +356,7 @@
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "sushi_TobikoEgg"
 	bitesize = 3
-	list_reagents = list("nutriment" = 2, "protein" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/nutriment/protein = 1)
 	tastes = list("shark roe" = 1, "rice" = 1, "egg" = 1, "seaweed" = 1)
 	foodtype = EGG
 
@@ -369,7 +369,7 @@
 	slice_path = /obj/item/reagent_containers/food/snacks/sushi_Tai
 	slices_num = 4
 	bitesize = 3
-	list_reagents = list("nutriment" = 8)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 8)
 	tastes = list("catfish" = 1, "rice" = 1, "seaweed" = 1)
 	foodtype = MEAT
 
@@ -379,7 +379,7 @@
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "sushi_Tai"
 	bitesize = 3
-	list_reagents = list("nutriment" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 2)
 	tastes = list("catfish" = 1, "rice" = 1, "seaweed" = 1)
 	foodtype = MEAT
 
@@ -389,7 +389,7 @@
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "sushi_Hokki"
 	bitesize = 3
-	list_reagents = list("nutriment" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 2)
 	tastes = list("grilled eel" = 1, "seaweed" = 1)
 	foodtype = MEAT
 
@@ -401,7 +401,7 @@
 	item_state = "crayfish_raw"
 	filling_color = "#2e2b2eff"
 	bitesize = 0.2	// its pretty hard to peel a crayfish, requires a lot of finess!
-	list_reagents = list("protein" = 1.5, "vitamin" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 1.5, /datum/reagent/consumable/nutriment/vitamin = 1)
 	tastes = list("raw crayfish" = 1)
 	foodtype = MEAT|RAW
 
@@ -413,7 +413,7 @@
 	item_state = "crayfish_raw"
 	filling_color = "#2e2b2eff"
 	bitesize = 0.3
-	list_reagents = list("protein" = 3, "vitamin" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 3, /datum/reagent/consumable/nutriment/vitamin = 2)
 	tastes = list("raw crayfish" = 1)
 	foodtype = MEAT|RAW
 	///Cooldown timestamp for pinching.
@@ -448,14 +448,14 @@
 	item_state = "crayfish_cooked"
 	filling_color = "#751717"
 	bitesize = 0.4	// but cooked one is easier!
-	list_reagents = list("nutriment" = 2, "vitamin" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/nutriment/vitamin = 1)
 	tastes = list("crayfish" = 1)
 	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/crayfish_cooked_small/mr_chang
 	name = "spicy small lobster"
 	desc = "Wait, thats not a lobster! But still tasty dish with a special Mr.Chang's ingredient."
-	list_reagents = list("nutriment" = 1, "msg" = 2, "sugar" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/msg = 2, /datum/reagent/consumable/sugar = 1)
 	foodtype = MEAT|FRIED
 
 /obj/item/reagent_containers/food/snacks/crayfish_cooked
@@ -466,13 +466,13 @@
 	item_state = "crayfish_cooked"
 	filling_color = "#751717"
 	bitesize = 0.5
-	list_reagents = list("nutriment" = 4, "vitamin" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/nutriment/vitamin = 2)
 	tastes = list("crayfish" = 1)
 	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/crayfish_cooked/mr_chang
 	name = "spicy lobster"
 	desc = "Wait, thats not a lobster! But still tasty dish with a special Mr.Chang's ingredient."
-	list_reagents = list("nutriment" = 2, "msg" = 4, "sugar" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/msg = 4, /datum/reagent/consumable/sugar = 2)
 	foodtype = MEAT|FRIED
 

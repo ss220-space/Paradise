@@ -54,14 +54,14 @@
 	L.Slowed(4 SECONDS)
 	if(!poisonable)
 		return TRUE
-	if(L.reagents.has_reagent("frostoil", 100))
+	if(L.reagents.has_reagent(/datum/reagent/consumable/frostoil, 100))
 		return TRUE
 	var/inject_target = pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
 	if(HAS_TRAIT(L, TRAIT_INCAPACITATED) || L.can_inject(null, FALSE, inject_target, FALSE))
-		L.reagents.add_reagent("frostoil", 20)
+		L.reagents.add_reagent(/datum/reagent/consumable/frostoil, 20)
 		visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] вонзает свои длинные клыки глубоко в [inject_target] [target.declent_ru(ACCUSATIVE)]!"))
 	else
-		L.reagents.add_reagent("frostoil", 10)
+		L.reagents.add_reagent(/datum/reagent/consumable/frostoil, 10)
 		visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] вонзает свои длинные клыки глубоко в [inject_target] [target.declent_ru(ACCUSATIVE)]!"))
 	return TRUE
 

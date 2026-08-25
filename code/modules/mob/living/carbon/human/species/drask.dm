@@ -19,7 +19,7 @@
 
 	burn_mod = 1.5
 	oxy_mod = 2
-	exotic_blood = "cryoxadone"
+	exotic_blood = /datum/reagent/medicine/cryoxadone
 	body_temperature = 273
 	toolspeedmod = 0.2 //20% slower
 	surgeryspeedmod = 0.2
@@ -147,15 +147,15 @@
 		head?.undisfigure()
 
 /datum/species/drask/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	switch(R.id)
-		if("iron")
-			H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM * H.metabolism_efficiency * H.digestion_ratio)
+	switch(R.type)
+		if(/datum/reagent/iron)
+			H.reagents.remove_reagent(R.type, REAGENTS_METABOLISM * H.metabolism_efficiency * H.digestion_ratio)
 			return FALSE
-		if("salglu_solution")
+		if(/datum/reagent/medicine/salglu_solution)
 			if(prob(33))
 				H.heal_overall_damage(1, 1, updating_health = FALSE)
 
-			H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM * H.metabolism_efficiency * H.digestion_ratio)
+			H.reagents.remove_reagent(R.type, REAGENTS_METABOLISM * H.metabolism_efficiency * H.digestion_ratio)
 			return FALSE
 
 	return ..()

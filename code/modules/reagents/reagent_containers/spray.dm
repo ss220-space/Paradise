@@ -73,12 +73,12 @@
 	if(reagents.chem_temp > 300 || reagents.chem_temp < 280)	//harmful temperature
 		attack_log_type = ATKLOG_MOST
 
-	if(length(reagents.reagent_list) == 1 && reagents.has_reagent("cleaner")) // Only create space cleaner logs if it's burning people from being too hot or cold
+	if(length(reagents.reagent_list) == 1 && reagents.has_reagent(/datum/reagent/space_cleaner)) // Only create space cleaner logs if it's burning people from being too hot or cold
 		if(attack_log_type == ATKLOG_ALMOSTALL)
 			return
 
 	//commonly used for griefing or just very annoying and dangerous
-	if(reagents.has_reagent("sacid") || reagents.has_reagent("facid") || reagents.has_reagent("lube"))
+	if(reagents.has_reagent(/datum/reagent/acid) || reagents.has_reagent(/datum/reagent/acid/facid) || reagents.has_reagent(/datum/reagent/lube))
 		attack_log_type = ATKLOG_FEW
 
 	add_attack_logs(user, target, "Used a spray bottle. Contents: [contents_log] - Temperature: [reagents.chem_temp]K", attack_log_type)
@@ -114,7 +114,7 @@
 /obj/item/reagent_containers/spray/cleaner
 	name = "space cleaner"
 	desc = "Распылитель, заполненный непенящимся средством для очистки поверхностей. Произведено компанией \"BLAM!\"."
-	list_reagents = list("cleaner" = 250)
+	list_reagents = list(/datum/reagent/space_cleaner = 250)
 	amount_per_transfer_from_this = 10
 
 /obj/item/reagent_containers/spray/cleaner/get_ru_names()
@@ -244,8 +244,8 @@
 /obj/item/reagent_containers/spray/cleaner/safety/on_reagent_change()
 	for(var/filth in reagents.reagent_list)
 		var/datum/reagent/R = filth
-		if(R.id != "cleaner") //all chems other than space cleaner are filthy.
-			reagents.del_reagent(R.id)
+		if(R.type != /datum/reagent/space_cleaner) //all chems other than space cleaner are filthy.
+			reagents.del_reagent(R.type)
 			if(ismob(loc))
 				to_chat(loc, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] определяет и удаляет недопустимое вещество."))
 			else
@@ -256,7 +256,7 @@
 	name = "spray tan"
 	volume = 50
 	desc = "Спрей-автозагар от бренда \"Gyaro\". Не попадите в глаза!"
-	list_reagents = list("spraytan" = 50)
+	list_reagents = list(/datum/reagent/spraytan = 50)
 
 /obj/item/reagent_containers/spray/spraytan/get_ru_names()
 	return alist(
@@ -279,7 +279,7 @@
 	belt_icon = "pepperspray"
 	volume = 40
 	spray_maxrange_mod = 2
-	list_reagents = list("condensedcapsaicin" = 40)
+	list_reagents = list(/datum/reagent/consumable/condensedcapsaicin = 40)
 
 /obj/item/reagent_containers/spray/pepper/get_ru_names()
 	return alist(
@@ -300,7 +300,7 @@
 	item_state = "sunflower"
 	amount_per_transfer_from_this = 1
 	volume = 10
-	list_reagents = list("water" = 10)
+	list_reagents = list(/datum/reagent/water = 10)
 
 /obj/item/reagent_containers/spray/waterflower/get_ru_names()
 	return alist(
@@ -387,7 +387,7 @@
 	icon_state = "plantbgone"
 	item_state = "plantbgone"
 	volume = 100
-	list_reagents = list("glyphosate" = 100)
+	list_reagents = list(/datum/reagent/glyphosate = 100)
 
 /obj/item/reagent_containers/spray/plantbgone/get_ru_names()
 	return alist(

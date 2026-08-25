@@ -42,11 +42,11 @@
 	/// If enabled, the Medibot will not move automatically.
 	var/stationary_mode = FALSE
 	///Setting which reagents to use to treat what by default. By id.
-	var/treatment_brute = "salglu_solution"
-	var/treatment_oxy = "salbutamol"
-	var/treatment_fire = "salglu_solution"
-	var/treatment_tox = "charcoal"
-	var/treatment_virus = "spaceacillin"
+	var/treatment_brute = /datum/reagent/medicine/salglu_solution
+	var/treatment_oxy = /datum/reagent/medicine/salbutamol
+	var/treatment_fire = /datum/reagent/medicine/salglu_solution
+	var/treatment_tox = /datum/reagent/medicine/charcoal
+	var/treatment_virus = /datum/reagent/medicine/spaceacillin
 	/// If on, the bot will attempt to treat viral infections, curing them if possible.
 	var/treat_virus = TRUE
 	/// Self explanatory :)
@@ -93,9 +93,9 @@
 	name = "Mysterious Medibot"
 	desc = "Загадочный медбот. От него веет тайнами..."
 	skin = "bezerk"
-	treatment_oxy = "perfluorodecalin"
-	treatment_brute = "bicaridine"
-	treatment_fire = "kelotane"
+	treatment_oxy = /datum/reagent/medicine/perfluorodecalin
+	treatment_brute = /datum/reagent/medicine/bicaridine
+	treatment_fire = /datum/reagent/medicine/kelotane
 
 /mob/living/simple_animal/bot/medbot/mysterious/get_ru_names()
 	return alist(
@@ -112,9 +112,9 @@
 	desc = "Вам лучше быть застрахованным!"
 	skin = "bezerk"
 	faction = list("syndicate")
-	treatment_oxy = "perfluorodecalin"
-	treatment_brute = "bicaridine"
-	treatment_fire = "kelotane"
+	treatment_oxy = /datum/reagent/medicine/perfluorodecalin
+	treatment_brute = /datum/reagent/medicine/bicaridine
+	treatment_fire = /datum/reagent/medicine/kelotane
 	syndicate_aligned = TRUE
 	bot_core_type = /obj/machinery/bot_core/medbot/syndicate
 	control_freq = BOT_FREQ + 1000 // make it not show up on lists
@@ -168,10 +168,10 @@
 		skin = new_skin
 	update_icon()
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_MEDBOT_MANIA) && is_station_level(z))
-		treatment_brute = "bicaridine"
-		treatment_fire = "kelotane"
-		treatment_oxy = "perfluorodecalin"
-		treatment_tox = "pen_acid"
+		treatment_brute = /datum/reagent/medicine/bicaridine
+		treatment_fire = /datum/reagent/medicine/kelotane
+		treatment_oxy = /datum/reagent/medicine/perfluorodecalin
+		treatment_tox = /datum/reagent/medicine/pen_acid
 
 /mob/living/simple_animal/bot/medbot/bot_reset()
 	..()
@@ -418,8 +418,8 @@
 	//If we have and are using a medicine beaker, return any reagent the patient is missing
 	if(use_beaker && reagent_glass?.reagents.total_volume)
 		for(var/datum/reagent/R in reagent_glass.reagents.reagent_list)
-			if(!C.reagents.has_reagent(R.id))
-				return R.id
+			if(!C.reagents.has_reagent(R.type))
+				return R.type
 
 /mob/living/simple_animal/bot/medbot/proc/assess_viruses(mob/living/carbon/C)
 	. = FALSE
@@ -521,7 +521,7 @@
 	var/beaker_injection //If and what kind of beaker reagent needs to be injected
 
 	if(emagged == 2 || hijacked) //Emagged! Time to poison everybody.
-		reagent_id = "pancuronium"
+		reagent_id = /datum/reagent/pancuronium
 	else
 		beaker_injection = assess_beaker_injection(C)
 		reagent_id = select_medication(C, beaker_injection)

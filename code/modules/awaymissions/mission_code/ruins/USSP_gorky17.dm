@@ -413,7 +413,7 @@
 			<br><hr></font>"
 	desc = "Strange and stinky paper with blood rune."
 	icon_state = "paper_talisman"
-	var/poison_type = "amanitin"
+	var/poison_type = /datum/reagent/amanitin
 	var/poison_dose = 20
 	var/poison_total = 60
 

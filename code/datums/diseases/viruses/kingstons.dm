@@ -4,11 +4,11 @@
 	desc = "Если не лечить, заражённый превратится в кошку. У кошек это вызывает... ДРУГИЕ... эффекты."
 	max_stages = 4
 	spread_flags = AIRBORNE
-	cures = list("milk")
+	cures = list(/datum/reagent/consumable/drink/milk)
 	cure_prob = 50
 	permeability_mod = 0.75
 	severity = DISEASE_SEVERITY_BIOHAZARD
-	mutation_reagents = list("mutagen", "radium")
+	mutation_reagents = list(/datum/reagent/mutagen, /datum/reagent/radium)
 	possible_mutations = list(/datum/disease/virus/kingstons_advanced)
 
 /datum/disease/virus/kingstons/stage_act()
@@ -61,7 +61,7 @@
 	desc = "Если не лечить, заражённый мутирует в другой вид."
 	max_stages = 4
 	spread_flags = AIRBORNE
-	cures = list("plasma")
+	cures = list(/datum/reagent/plasma)
 	cure_prob = 50
 	permeability_mod = 0.75
 	severity = DISEASE_SEVERITY_BIOHAZARD

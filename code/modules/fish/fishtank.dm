@@ -663,12 +663,12 @@
 				to_chat(user, span_warning("The [name] is already full!"))
 				return ATTACK_CHAIN_PROCEED
 			var/water_value = 0
-			water_value += I.reagents.get_reagent_amount("water")				//Water is full value
-			water_value += I.reagents.get_reagent_amount("holywater") * 1.1		//Holywater is (somehow) better. Who said religion had to make sense?
-			water_value += I.reagents.get_reagent_amount("tonic") * 0.25		//Tonic water is 25% value
-			water_value += I.reagents.get_reagent_amount("sodawater") * 0.50	//Sodawater is 50% value
-			water_value += I.reagents.get_reagent_amount("fishwater") * 0.75	//Fishwater is 75% value, to account for the fish poo
-			water_value += I.reagents.get_reagent_amount("ice") * 0.80			//Ice is 80% value
+			water_value += I.reagents.get_reagent_amount(/datum/reagent/water)				//Water is full value
+			water_value += I.reagents.get_reagent_amount(/datum/reagent/holywater) * 1.1		//Holywater is (somehow) better. Who said religion had to make sense?
+			water_value += I.reagents.get_reagent_amount(/datum/reagent/consumable/drink/cold) * 0.25		//Tonic water is 25% value
+			water_value += I.reagents.get_reagent_amount(/datum/reagent/consumable/drink/cold/sodawater) * 0.50	//Sodawater is 50% value
+			water_value += I.reagents.get_reagent_amount(/datum/reagent/fishwater) * 0.75	//Fishwater is 75% value, to account for the fish poo
+			water_value += I.reagents.get_reagent_amount(/datum/reagent/consumable/drink/cold/ice) * 0.80			//Ice is 80% value
 			var/message = ""
 			if(!water_value)													//The container has no water value, clear everything in it
 				message = "The filtration process removes everything, leaving the water level unchanged."
@@ -694,14 +694,14 @@
 				to_chat(user, span_warning("The [name] is empty!"))
 				return ATTACK_CHAIN_PROCEED
 			if(water_level >= I.reagents.maximum_volume) //Enough to fill the container completely
-				I.reagents.add_reagent("fishwater", I.reagents.maximum_volume)
+				I.reagents.add_reagent(/datum/reagent/fishwater, I.reagents.maximum_volume)
 				adjust_water_level(-I.reagents.maximum_volume)
 				user.visible_message(
 					span_notice("[user.name] scoops out some water from [src]."),
 					span_notice("You completely fill [I.name] from [src]."),
 				)
 			else	//Fill the container as much as possible with the water_level
-				I.reagents.add_reagent("fishwater", water_level)
+				I.reagents.add_reagent(/datum/reagent/fishwater, water_level)
 				adjust_water_level(-water_level)
 				user.visible_message(
 					span_notice("[user.name] scoops out some water from [src]."),

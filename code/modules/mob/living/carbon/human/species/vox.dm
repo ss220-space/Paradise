@@ -203,9 +203,9 @@
 		H.update_dna()
 
 /datum/species/vox/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	if(R.id == "oxygen") //Armalis are above such petty things.
+	if(R.type == /datum/reagent/oxygen) //Armalis are above such petty things.
 		H.adjustToxLoss(0.5) //Same as plasma.
-		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
+		H.reagents.remove_reagent(R.type, REAGENTS_METABOLISM)
 		return FALSE //Handling reagent removal on our own.
 
 	return ..()

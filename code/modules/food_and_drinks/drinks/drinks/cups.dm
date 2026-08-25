@@ -123,7 +123,10 @@
 	. += filling
 
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee
-	list_reagents = list("coffee" = 30)
+	list_reagents = list(/datum/reagent/consumable/drink/coffee = 30)
+
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/honey
+	list_reagents = list(/datum/reagent/consumable/honey = 15)
 
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee/experimentor
 	name = "cup of suspicious liquid"

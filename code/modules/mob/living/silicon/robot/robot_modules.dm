@@ -594,7 +594,7 @@
 	modules += new /obj/item/crowbar/cyborg(src)
 	emag = new /obj/item/reagent_containers/spray(src)
 
-	emag.reagents.add_reagent("lube", 250)
+	emag.reagents.add_reagent(/datum/reagent/lube, 250)
 	emag.name = "Lube spray"
 
 	fix_modules()
@@ -706,7 +706,7 @@
 
 /obj/item/robot_module/butler/respawn_consumable(mob/living/silicon/robot/R)
 	var/obj/item/reagent_containers/spray/pestspray/spray = locate() in modules
-	spray?.reagents.add_reagent("pestkiller", 3)
+	spray?.reagents.add_reagent(/datum/reagent/pestkiller, 3)
 
 	return ..()
 
@@ -1111,8 +1111,8 @@
 /obj/item/robot_module/hunter/respawn_consumable(mob/living/silicon/robot/R)
 	if(emag)
 		var/obj/item/reagent_containers/spray/alien/acid/acidSpray = emag
-		acidSpray.reagents.add_reagent("sacid", 3)
-		acidSpray.reagents.add_reagent("facid", 3)
+		acidSpray.reagents.add_reagent(/datum/reagent/acid, 3)
+		acidSpray.reagents.add_reagent(/datum/reagent/acid/facid, 3)
 	return ..()
 
 /obj/item/robot_module/hunter/add_languages(mob/living/silicon/robot/R)

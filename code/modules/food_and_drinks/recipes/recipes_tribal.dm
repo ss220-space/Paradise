@@ -101,7 +101,7 @@
 
 /datum/recipe/tribal_oven/beer_grub_stew
 	reagents = list(
-		"beer" = 15,
+		/datum/reagent/consumable/ethanol/beer = 15,
 	)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/monstermeat/goldgrub,
@@ -114,7 +114,7 @@
 
 /datum/recipe/tribal_oven/thick_red_paste
 	reagents = list(
-		"liquidgibs" = 15,
+		/datum/reagent/liquidgibs = 15,
 	)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/grown/wheat,
@@ -129,8 +129,8 @@
 
 /datum/recipe/tribal_oven/black_blood_sausage
 	reagents = list(
-		"liquidgibs" = 15,
-		"blood" = 10,
+		/datum/reagent/liquidgibs = 15,
+		/datum/reagent/blood = 10,
 	)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_cap,
@@ -180,7 +180,7 @@
 
 /datum/recipe/tribal_oven/eel_katigo
 	reagents = list(
-		"liquidgibs" = 10,
+		/datum/reagent/liquidgibs = 10,
 	)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/lavaland/eel_filet,
@@ -191,7 +191,7 @@
 
 /datum/recipe/tribal_oven/predatory_chowder
 	reagents = list(
-		"water" = 15,
+		/datum/reagent/water = 15,
 	)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/lavaland/predator_meat,
@@ -205,7 +205,7 @@
 
 /datum/recipe/tribal_oven/abu_ghosh
 	reagents = list(
-		"bugmilk" = 30,
+		/datum/reagent/bugmilk = 30,
 	)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/grown/ash_flora/fireblossom,

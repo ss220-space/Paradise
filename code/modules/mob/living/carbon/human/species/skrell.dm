@@ -144,7 +144,7 @@
 			M.updatehealth()
 
 /datum/species/skrell/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	if(R.id == "water")
+	if(R.type == /datum/reagent/water)
 		var/update = NONE
 		if(H.getFireLoss() < 25 && H.getBruteLoss() < 25)
 			update |= H.heal_overall_damage(1, 1, updating_health = FALSE)

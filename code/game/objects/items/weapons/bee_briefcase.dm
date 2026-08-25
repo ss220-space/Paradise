@@ -53,11 +53,11 @@
 			return ATTACK_CHAIN_PROCEED
 		to_chat(user, span_notice("You inject [src] with [syringe]."))
 		for(var/datum/reagent/reagent as anything in syringe.reagents.reagent_list)
-			if(reagent.id == "blood")
+			if(reagent.type == /datum/reagent/blood)
 				if(!(LAZYIN(blood_list, reagent.data["donor"])))
 					LAZYADD(blood_list, reagent.data["donor"])
 				continue
-			if(reagent.id == "strange_reagent")		//RELOAD THE BEES (1 bee per 1 unit, max 15 bees)
+			if(reagent.type == /datum/reagent/medicine/strange_reagent)		//RELOAD THE BEES (1 bee per 1 unit, max 15 bees)
 				if(bees_left < 15)
 					bees_left = min(15, round((bees_left + reagent.volume), 1))	//No partial bees, max 15 bees in case at any given time
 					to_chat(user, span_warning("The buzzing inside the briefcase intensifies as new bees form inside."))

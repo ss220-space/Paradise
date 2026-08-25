@@ -112,19 +112,19 @@
 
 /datum/species/diona/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 
-	switch(R.id)
+	switch(R.type)
 
-		if("glyphosate", "atrazine")
+		if(/datum/reagent/glyphosate, /datum/reagent/glyphosate/atrazine)
 			H.adjustToxLoss(3) //Deal additional damage
 			return TRUE
-		if("iron")
-			H.reagents.remove_reagent(R.id, R.metabolization_rate * H.metabolism_efficiency * H.digestion_ratio)
+		if(/datum/reagent/iron)
+			H.reagents.remove_reagent(R.type, R.metabolization_rate * H.metabolism_efficiency * H.digestion_ratio)
 			return FALSE
-		if("salglu_solution")
+		if(/datum/reagent/medicine/salglu_solution)
 			if(prob(33))
 				H.adjustBruteLoss(-1, FALSE, affect_robotic = FALSE)
 				H.adjustFireLoss(-1, affect_robotic = FALSE)
-			H.reagents.remove_reagent(R.id, R.metabolization_rate * H.metabolism_efficiency * H.digestion_ratio)
+			H.reagents.remove_reagent(R.type, R.metabolization_rate * H.metabolism_efficiency * H.digestion_ratio)
 			return FALSE
 
 	return ..()

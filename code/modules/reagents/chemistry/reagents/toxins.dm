@@ -132,9 +132,9 @@
 
 	if(method == REAGENT_INGEST && iscarbon(M))
 		var/mob/living/carbon/C = M
-		if(C.get_blood_id() == id && !HAS_TRAIT(C, TRAIT_NO_BLOOD_RESTORE))
+		if(C.get_blood_type() == type && !HAS_TRAIT(C, TRAIT_NO_BLOOD_RESTORE))
 			C.setBlood(min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL))
-			C.reagents.del_reagent(id)
+			C.reagents.del_reagent(type)
 
 /datum/reagent/slimejelly/reaction_turf(turf/T, volume, color)
 	if(volume >= 3 && !isspaceturf(T) && !locate(/obj/effect/decal/cleanable/blood/slime) in T)
@@ -701,7 +701,7 @@
 /datum/reagent/histamine/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume) //dumping histamine on someone is VERY mean.
 	if(iscarbon(M))
 		if(method == REAGENT_TOUCH)
-			M.reagents.add_reagent("histamine",10)
+			M.reagents.add_reagent(/datum/reagent/histamine, 10)
 		else
 			to_chat(M, span_danger("Вы чувствуете жжение в горле..."))
 			M.emote("drool")
@@ -780,7 +780,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustToxLoss(0.5, FALSE)
 	if(prob(10))
-		M.reagents.add_reagent("histamine",rand(5,15))
+		M.reagents.add_reagent(/datum/reagent/histamine, rand(5,15))
 	return ..() | update_flags
 
 /datum/reagent/acetaldehyde
@@ -811,7 +811,7 @@
 /datum/reagent/venom/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(25))
-		M.reagents.add_reagent("histamine",rand(5,10))
+		M.reagents.add_reagent(/datum/reagent/histamine, rand(5,10))
 	if(volume < 20)
 		update_flags |= M.adjustToxLoss(1, FALSE)
 		update_flags |= M.adjustBruteLoss(1, FALSE)
@@ -915,7 +915,7 @@
 		to_chat(M, span_danger("Вам щекотно, слишком щекотно!"))
 		update_flags |= M.adjustBruteLoss(2, FALSE)
 	if(prob(6))
-		M.reagents.add_reagent("histamine", rand(1,3))
+		M.reagents.add_reagent(/datum/reagent/histamine, rand(1,3))
 	if(prob(2))
 		to_chat(M, span_danger("ААААААА!!!"))
 		update_flags |= M.adjustBruteLoss(5, FALSE)
@@ -1536,3 +1536,38 @@
 			organ.internal_receive_damage(rand(5, 10))
 
 	return ..()
+
+// Terror Spider, Black, Deadly Venom
+/datum/reagent/terror_black_toxin
+	name = "Яд Вдовы Ужаса"
+	id = "terror_black_toxin"
+	description = "Невероятно токсичный яд, который впрыскивает Вдова Ужаса."
+	can_synth = FALSE
+	color = "#cc00ff"
+	metabolization_rate = 0.25 * REAGENTS_METABOLISM
+
+/datum/reagent/terror_black_toxin/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(volume < 30)
+		// bitten once, die very slowly. Easy to survive a single bite - just go to medbay.
+		// total damage: 1/tick, human health 150 until crit, = 150 ticks, = 300 seconds = 5 minutes to get to medbay.
+		update_flags |= M.adjustToxLoss(1, FALSE)
+		M.EyeBlurry(6 SECONDS)
+	else if(volume < 60)
+		// bitten twice, die slowly. Get to medbay.
+		// total damage: 2/tick, human health 150 until crit, = 75 ticks, = 150 seconds = 2.5 minutes to get some medical treatment.
+		update_flags |= M.adjustToxLoss(2, FALSE)
+		M.EyeBlurry(6 SECONDS)
+	else if(volume < 90)
+		// bitten thrice, die quickly, severe muscle cramps make movement very difficult. Even calling for help probably won't save you.
+		// total damage: 4, human health 150 until crit, = 37.5 ticks, = 75s = 1m15s until death
+		update_flags |= M.adjustToxLoss(4, FALSE)
+		M.EyeBlurry(12 SECONDS)
+		M.Confused(12 SECONDS)
+	else
+		// bitten 4 or more times, whole body goes into shock/death
+		// total damage: 8, human health 150 until crit, = 18.75 ticks, = 37s until death
+		update_flags |= M.adjustToxLoss(8, FALSE)
+		M.EyeBlurry(12 SECONDS)
+		M.Paralyse(10 SECONDS)
+	return ..() | update_flags

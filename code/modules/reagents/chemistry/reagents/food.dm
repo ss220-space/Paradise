@@ -129,7 +129,7 @@
 		M.AdjustStunned(-2 SECONDS)
 		M.AdjustWeakened(-2 SECONDS)
 	if(prob(4))
-		M.reagents.add_reagent("epinephrine", 1.2)
+		M.reagents.add_reagent(/datum/reagent/medicine/epinephrine, 1.2)
 	return ..() | update_flags
 
 /datum/reagent/consumable/sugar/overdose_start(mob/living/carbon/human/affected)
@@ -276,8 +276,8 @@
 			if(is_slime)
 				adjusted_temp += rand(5,20)
 			M.adjust_bodytemperature(adjusted_temp)
-			if(holder.has_reagent("frostoil"))
-				holder.remove_reagent("frostoil", 5)
+			if(holder.has_reagent(/datum/reagent/consumable/frostoil))
+				holder.remove_reagent(/datum/reagent/consumable/frostoil, 5)
 		if(15 to 25)
 			adjusted_temp = 10 * TEMPERATURE_DAMAGE_COEFFICIENT
 			if(is_slime)
@@ -405,8 +405,8 @@
 			if(is_slime)
 				adjusted_temp += rand(5,20)
 			user.adjust_bodytemperature(-adjusted_temp)
-			if(holder.has_reagent("capsaicin"))
-				holder.remove_reagent("capsaicin", 5)
+			if(holder.has_reagent(/datum/reagent/consumable/capsaicin))
+				holder.remove_reagent(/datum/reagent/consumable/capsaicin, 5)
 		if(15 to 25)
 			adjusted_temp = 15 * TEMPERATURE_DAMAGE_COEFFICIENT
 			if(is_slime)
@@ -651,7 +651,7 @@
 
 /datum/reagent/consumable/egg/on_mob_life(mob/living/M)
 	if(prob(3))
-		M.reagents.add_reagent("cholesterol", rand(1,2))
+		M.reagents.add_reagent(/datum/reagent/cholesterol, rand(1,2))
 	return ..()
 
 /datum/reagent/consumable/corn_starch
@@ -671,7 +671,7 @@
 	taste_description = "дешевого сахарозаменителя"
 
 /datum/reagent/consumable/corn_syrup/on_mob_life(mob/living/M)
-	M.reagents.add_reagent("sugar", 1.2)
+	M.reagents.add_reagent(/datum/reagent/consumable/sugar, 1.2)
 	return ..()
 
 /datum/reagent/consumable/vhfcs
@@ -683,7 +683,7 @@
 	taste_description = "диабета"
 
 /datum/reagent/consumable/vhfcs/on_mob_life(mob/living/M)
-	M.reagents.add_reagent("sugar", 2.4)
+	M.reagents.add_reagent(/datum/reagent/consumable/sugar, 2.4)
 	return ..()
 
 /datum/reagent/consumable/honey
@@ -697,7 +697,7 @@
 
 /datum/reagent/consumable/honey/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	M.reagents.add_reagent("sugar", 3)
+	M.reagents.add_reagent(/datum/reagent/consumable/sugar, 3)
 	if(prob(20))
 		update_flags |= M.adjustBruteLoss(-3, FALSE, affect_robotic = FALSE)
 		update_flags |= M.adjustFireLoss(-1, FALSE, affect_robotic = FALSE)
@@ -735,7 +735,7 @@
 	taste_description = "шоколада"
 
 /datum/reagent/consumable/chocolate/on_mob_life(mob/living/M)
-	M.reagents.add_reagent("sugar", 0.2)
+	M.reagents.add_reagent(/datum/reagent/consumable/sugar, 0.2)
 	return ..()
 
 /datum/reagent/consumable/chocolate_sprinkle
@@ -781,10 +781,10 @@
 
 /datum/reagent/consumable/porktonium/overdose_process(mob/living/M, severity)
 	if(prob(15))
-		M.reagents.add_reagent("cholesterol", rand(1,3))
+		M.reagents.add_reagent(/datum/reagent/cholesterol, rand(1,3))
 	if(prob(8))
-		M.reagents.add_reagent("radium", 15)
-		M.reagents.add_reagent("cyanide", 10)
+		M.reagents.add_reagent(/datum/reagent/radium, 15)
+		M.reagents.add_reagent(/datum/reagent/cyanide, 10)
 	return list(0, STATUS_UPDATE_NONE)
 
 /datum/reagent/consumable/chicken_soup
@@ -806,7 +806,7 @@
 
 /datum/reagent/consumable/cheese/on_mob_life(mob/living/M)
 	if(prob(3))
-		M.reagents.add_reagent("cholesterol", rand(1,2))
+		M.reagents.add_reagent(/datum/reagent/cholesterol, rand(1,2))
 	return ..()
 
 /datum/reagent/consumable/cheese/reaction_turf(turf/T, volume)
@@ -839,7 +839,7 @@
 
 /datum/reagent/consumable/weird_cheese/on_mob_life(mob/living/M)
 	if(prob(5))
-		M.reagents.add_reagent("cholesterol", rand(1,3))
+		M.reagents.add_reagent(/datum/reagent/cholesterol, rand(1,3))
 	return ..()
 
 /datum/reagent/consumable/weird_cheese/reaction_turf(turf/T, volume)
@@ -871,9 +871,9 @@
 
 /datum/reagent/consumable/soybeanoil/on_mob_life(mob/living/M)
 	if(prob(10))
-		M.reagents.add_reagent("cholesterol", rand(1,3))
+		M.reagents.add_reagent(/datum/reagent/cholesterol, rand(1,3))
 	if(prob(8))
-		M.reagents.add_reagent("porktonium", 5)
+		M.reagents.add_reagent(/datum/reagent/consumable/porktonium, 5)
 	return ..()
 
 /datum/reagent/consumable/hydrogenated_soybeanoil
@@ -889,9 +889,9 @@
 
 /datum/reagent/consumable/hydrogenated_soybeanoil/on_mob_life(mob/living/M)
 	if(prob(15))
-		M.reagents.add_reagent("cholesterol", rand(1,3))
+		M.reagents.add_reagent(/datum/reagent/cholesterol, rand(1,3))
 	if(prob(8))
-		M.reagents.add_reagent("porktonium", 5)
+		M.reagents.add_reagent(/datum/reagent/consumable/porktonium, 5)
 	if(volume >= 75)
 		metabolization_rate = 1 * REAGENTS_METABOLISM
 	else
@@ -922,7 +922,7 @@
 
 /datum/reagent/consumable/meatslurry/on_mob_life(mob/living/M)
 	if(prob(4))
-		M.reagents.add_reagent("cholesterol", rand(1,3))
+		M.reagents.add_reagent(/datum/reagent/cholesterol, rand(1,3))
 	return ..()
 
 /datum/reagent/consumable/meatslurry/reaction_turf(turf/T, volume)
@@ -1026,7 +1026,7 @@
 		var/ranchance = rand(1,10)
 		if(ranchance == 1)
 			to_chat(M, span_warning("Вы чувствуете себя очень плохо."))
-			M.reagents.add_reagent("toxin", rand(1,5))
+			M.reagents.add_reagent(/datum/reagent/toxin, rand(1,5))
 		else if(ranchance <= 5)
 			to_chat(M, span_warning("Это было невероятно отвратительно!"))
 			var/datum/disease/food_poisoning/D = new

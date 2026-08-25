@@ -182,7 +182,7 @@
 	/// What type of thing the foam should leave behind when it dissipates.
 	var/atom/movable/result_type = null
 
-	var/static/list/banned_reagents = list("smoke_powder", "fluorosurfactant", "stimulants")
+	var/static/list/banned_reagents = list(/datum/reagent/smoke_powder, /datum/reagent/fluorosurfactant, /datum/reagent/medicine/stimulants)
 
 /datum/effect_system/fluid_spread/foam/New()
 	..()

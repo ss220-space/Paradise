@@ -16,12 +16,12 @@
 
 	var/list/datum/reagents/reagent_list = list()
 	var/list/reagent_ids = list( \
-		"salglu_solution" = list('icons/effects/bleed.dmi', "bleed10"), \
-		"mannitol" = list('icons/obj/species_organs/grey.dmi', "brain2"), \
-		"epinephrine" = list('icons/obj/surgery.dmi', "heart-on"), \
-		"spaceacillin" = list('icons/effects/effects.dmi', "greenglow"), \
-		"charcoal" = list('icons/mob/screen_corgi.dmi', "tox1"), \
-		"hydrocodone" = list('icons/mob/actions/actions.dmi', "magicm"))
+		/datum/reagent/medicine/salglu_solution = list('icons/effects/bleed.dmi', "bleed10"), \
+		/datum/reagent/medicine/mannitol = list('icons/obj/species_organs/grey.dmi', "brain2"), \
+		/datum/reagent/medicine/epinephrine = list('icons/obj/surgery.dmi', "heart-on"), \
+		/datum/reagent/medicine/spaceacillin = list('icons/effects/effects.dmi', "greenglow"), \
+		/datum/reagent/medicine/charcoal = list('icons/mob/screen_corgi.dmi', "tox1"), \
+		/datum/reagent/medicine/hydrocodone = list('icons/mob/actions/actions.dmi', "magicm"))
 
 /obj/item/reagent_containers/borghypo/get_ru_names()
 	return alist(
@@ -40,11 +40,11 @@
 	charge_cost = 20
 	recharge_time = 2
 	reagent_ids = list( \
-		"syndicate_nanites" = list('icons/mob/swarmer.dmi', "swarmer_ranged"), \
-		"salglu_solution" = list('icons/effects/bleed.dmi', "bleed10"), \
-		"epinephrine" = list('icons/obj/surgery.dmi', "heart-on"), \
-		"potass_iodide" = list('icons/obj/decals.dmi', "radiation"), \
-		"hydrocodone" = list('icons/mob/actions/actions.dmi', "magicm"))
+		/datum/reagent/medicine/syndicate_nanites = list('icons/mob/swarmer.dmi', "swarmer_ranged"), \
+		/datum/reagent/medicine/salglu_solution = list('icons/effects/bleed.dmi', "bleed10"), \
+		/datum/reagent/medicine/epinephrine = list('icons/obj/surgery.dmi', "heart-on"), \
+		/datum/reagent/medicine/potass_iodide = list('icons/obj/decals.dmi', "radiation"), \
+		/datum/reagent/medicine/hydrocodone = list('icons/mob/actions/actions.dmi', "magicm"))
 	bypass_protection = TRUE
 	upgrade_path = null //no upgrades
 
@@ -62,15 +62,15 @@
 	name = "upgraded cyborg hypospray"
 	desc = "Улучшенная версия робо-гипоспрея. Передовой химический синтезатор, оборудованный системой инъекции, разработанный для тяжёлого медицинского оборудования."
 	reagent_ids = list( \
-		"salglu_solution" = list('icons/effects/bleed.dmi', "bleed10"), \
-		"mannitol" = list('icons/obj/species_organs/grey.dmi', "brain2"), \
-		"epinephrine" = list('icons/obj/surgery.dmi', "heart-on"), \
-		"spaceacillin" = list('icons/effects/effects.dmi', "greenglow"), \
-		"pen_acid" = list('icons/mob/screen_corgi.dmi', "tox1"), \
-		"hydrocodone" = list('icons/mob/actions/actions.dmi', "magicm"), \
-		"perfluorodecalin" = list('icons/obj/surgery.dmi', "lungs"), \
-		"calomel" = list('icons/obj/janitor.dmi', "soap"), \
-		"oculine" = list('icons/obj/surgery.dmi', "eyes"))
+		/datum/reagent/medicine/salglu_solution = list('icons/effects/bleed.dmi', "bleed10"), \
+		/datum/reagent/medicine/mannitol = list('icons/obj/species_organs/grey.dmi', "brain2"), \
+		/datum/reagent/medicine/epinephrine = list('icons/obj/surgery.dmi', "heart-on"), \
+		/datum/reagent/medicine/spaceacillin = list('icons/effects/effects.dmi', "greenglow"), \
+		/datum/reagent/medicine/pen_acid = list('icons/mob/screen_corgi.dmi', "tox1"), \
+		/datum/reagent/medicine/hydrocodone = list('icons/mob/actions/actions.dmi', "magicm"), \
+		/datum/reagent/medicine/perfluorodecalin = list('icons/obj/surgery.dmi', "lungs"), \
+		/datum/reagent/medicine/calomel = list('icons/obj/janitor.dmi', "soap"), \
+		/datum/reagent/medicine/oculine = list('icons/obj/surgery.dmi', "eyes"))
 	upgrade_path = null //no upgrades
 
 /obj/item/reagent_containers/borghypo/upgraded/get_ru_names()
@@ -182,7 +182,7 @@
 	mode = choices.Find(choice)
 
 	var/datum/reagent/R = GLOB.chemical_reagents_list[reagent_ids[mode]]
-	amount_per_transfer_from_this  = (reagent_ids[mode] == "perfluorodecalin") ? 3 : 5
+	amount_per_transfer_from_this  = (reagent_ids[mode] == /datum/reagent/medicine/perfluorodecalin) ? 3 : 5
 	to_chat(user, span_notice("Конфигурация синтезатора обновлена. Активирован синтез вещества \"[R.name]\"."))
 
 /obj/item/reagent_containers/borghypo/examine(mob/user)
@@ -207,8 +207,8 @@
 	name = "Basic Medical Hypospray"
 	desc = "Сильно упрощённая версия медицинского гипоспрея, способная ввести узко-ограниченный набор лекарственных медикаментов для оказания первой помощи."
 	reagent_ids = list( \
-		"salglu_solution" = list('icons/effects/bleed.dmi', "bleed10"), \
-		"epinephrine" = list('icons/obj/surgery.dmi', "heart-on"))
+		/datum/reagent/medicine/salglu_solution = list('icons/effects/bleed.dmi', "bleed10"), \
+		/datum/reagent/medicine/epinephrine = list('icons/obj/surgery.dmi', "heart-on"))
 	upgrade_path = /obj/item/reagent_containers/borghypo/basic/upgraded
 
 /obj/item/reagent_containers/borghypo/basic/get_ru_names()
@@ -225,11 +225,11 @@
 	name = "Upgraded Basic Medical Hypospray"
 	desc = "Упрощённная версия медицинского гипоспрея, способная ввести ограниченный набор медикаментов для лечения пациентов."
 	reagent_ids = list( \
-		"salglu_solution" = list('icons/effects/bleed.dmi', "bleed10"), \
-		"epinephrine" = list('icons/obj/surgery.dmi', "heart-on"), \
-		"charcoal" = list('icons/mob/screen_corgi.dmi', "tox1"), \
-		"sal_acid" = list('icons/mob/actions/actions.dmi', "red_cross"), \
-		"salbutamol" = list('icons/obj/surgery.dmi', "lungs"))
+		/datum/reagent/medicine/salglu_solution = list('icons/effects/bleed.dmi', "bleed10"), \
+		/datum/reagent/medicine/epinephrine = list('icons/obj/surgery.dmi', "heart-on"), \
+		/datum/reagent/medicine/charcoal = list('icons/mob/screen_corgi.dmi', "tox1"), \
+		/datum/reagent/medicine/sal_acid = list('icons/mob/actions/actions.dmi', "red_cross"), \
+		/datum/reagent/medicine/salbutamol = list('icons/obj/surgery.dmi', "lungs"))
 	upgrade_path = null //no upgrades
 
 /obj/item/reagent_containers/borghypo/basic/upgraded/get_ru_names()
@@ -251,9 +251,9 @@
 	emagged = TRUE
 	var/safety_hypo = FALSE
 	reagent_ids = list( \
-		"amanitin" = list('icons/obj/hydroponics/harvest.dmi', "amanita"), \
-		"cyanide" = list('icons/mob/screen_corgi.dmi', "tox1"), \
-		"sodium_thiopental" = list('icons/obj/surgery.dmi', "lungs"))
+		/datum/reagent/amanitin = list('icons/obj/hydroponics/harvest.dmi', "amanita"), \
+		/datum/reagent/cyanide = list('icons/mob/screen_corgi.dmi', "tox1"), \
+		/datum/reagent/sodium_thiopental = list('icons/obj/surgery.dmi', "lungs"))
 	upgrade_path = null //no upgrades
 
 /obj/item/reagent_containers/borghypo/emagged/get_ru_names()

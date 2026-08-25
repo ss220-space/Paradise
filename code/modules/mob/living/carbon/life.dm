@@ -62,7 +62,7 @@
 
 //Second link in a breath chain, calls check_breath()
 /mob/living/carbon/proc/breathe(datum/gas_mixture/environment)
-	if(reagents.has_reagent("lexorin"))
+	if(reagents.has_reagent(/datum/reagent/lexorin))
 		return
 	if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
 		return

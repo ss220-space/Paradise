@@ -69,7 +69,7 @@
 
 /datum/species/skeleton/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	// Crazylemon is still silly
-	if(R.id == "milk")
+	if(R.type == /datum/reagent/consumable/drink/milk)
 		H.heal_overall_damage(1, 1)
 		if(prob(5)) // 5% chance per proc to find a random limb, and mend it
 			var/list/our_organs = H.bodyparts.Copy()

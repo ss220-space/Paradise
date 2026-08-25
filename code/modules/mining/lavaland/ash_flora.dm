@@ -437,7 +437,7 @@
 	potency = 15
 	growthstages = 3
 	rarity = 20
-	reagents_add = list("nutriment" = 0.1)
+	reagents_add = list(/datum/reagent/consumable/nutriment = 0.1)
 	resistance_flags = FIRE_PROOF
 
 /obj/item/seeds/lavaland/cactus
@@ -450,7 +450,7 @@
 	genes = list(/datum/plant_gene/trait/fire_resistance)
 	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
 	growthstages = 2
-	reagents_add = list("vitamin" = 0.04, "nutriment" = 0.04, "vitfro" = 0.08)
+	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.04, /datum/reagent/consumable/vitfro = 0.08)
 
 /obj/item/seeds/lavaland/polypore
 	name = "pack of polypore mycelium"
@@ -461,7 +461,7 @@
 	product = /obj/item/reagent_containers/food/snacks/grown/ash_flora/shavings
 	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism, /datum/plant_gene/trait/fire_resistance)
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
-	reagents_add = list("sugar" = 0.06, "ethanol" = 0.04, "stabilizing_agent" = 0.06, "minttoxin" = 0.02)
+	reagents_add = list(/datum/reagent/consumable/sugar = 0.06, /datum/reagent/consumable/ethanol = 0.04, /datum/reagent/stabilizing_agent = 0.06, /datum/reagent/minttoxin = 0.02)
 
 /obj/item/seeds/lavaland/porcini
 	name = "pack of porcini mycelium"
@@ -472,7 +472,7 @@
 	product = /obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_leaf
 	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism, /datum/plant_gene/trait/fire_resistance)
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
-	reagents_add = list("nutriment" = 0.06, "vitfro" = 0.04, "nicotine" = 0.04)
+	reagents_add = list(/datum/reagent/consumable/nutriment = 0.06, /datum/reagent/consumable/vitfro = 0.04, /datum/reagent/nicotine = 0.04)
 
 /obj/item/seeds/lavaland/inocybe
 	name = "pack of inocybe mycelium"
@@ -483,7 +483,7 @@
 	product = /obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_cap
 	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism, /datum/plant_gene/trait/fire_resistance)
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
-	reagents_add = list("lsd" = 0.04, "entpoly" = 0.08, "psilocybin" = 0.04)
+	reagents_add = list(/datum/reagent/lsd = 0.04, /datum/reagent/consumable/entpoly = 0.08, /datum/reagent/psilocybin = 0.04)
 
 /obj/item/seeds/lavaland/ember
 	name = "pack of embershroom mycelium"
@@ -494,7 +494,7 @@
 	product = /obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_stem
 	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism, /datum/plant_gene/trait/glow, /datum/plant_gene/trait/fire_resistance)
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
-	reagents_add = list("tinlux" = 0.04, "vitamin" = 0.02, "space_drugs" = 0.02)
+	reagents_add = list(/datum/reagent/consumable/tinlux = 0.04, /datum/reagent/consumable/nutriment/vitamin = 0.02, /datum/reagent/space_drugs = 0.02)
 
 /obj/item/seeds/lavaland/fireblossom
 	name = "pack of fire blossom seeds"
@@ -505,7 +505,7 @@
 	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
 	product = /obj/item/reagent_containers/food/snacks/grown/ash_flora/fireblossom
 	genes = list(/datum/plant_gene/trait/fire_resistance, /datum/plant_gene/trait/glow/yellow)
-	reagents_add = list("tinlux" = 0.04, "nutriment" = 0.03, "carbon" = 0.05)
+	reagents_add = list(/datum/reagent/consumable/tinlux = 0.04, /datum/reagent/consumable/nutriment = 0.03, /datum/reagent/carbon = 0.05)
 
 /obj/item/seeds/lavaland/coaltree
 	name = "pack of coaltree seeds"
@@ -516,7 +516,7 @@
 	plantname = "Coaltree"
 	product = /obj/item/reagent_containers/food/snacks/grown/ash_flora/coaltree_log
 	genes = list(/datum/plant_gene/trait/fire_resistance)
-	reagents_add = list("nutriment" = 0.04, "coaltree_extract" = 0.1)
+	reagents_add = list(/datum/reagent/consumable/nutriment = 0.04, /datum/reagent/medicine/coaltree_extract = 0.1)
 
 /obj/item/seeds/lavaland/coaltree/get_ru_names()
 	return alist(

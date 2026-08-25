@@ -813,8 +813,8 @@
 			ethanol += alcohol.alcohol_perc * 300
 		ethanol /= length(R.reagent_list)
 
-		mito_tot = R.get_reagent_amount("mitocholide")
-		spaceacillin = R.get_reagent_amount("spaceacillin")
+		mito_tot = R.get_reagent_amount(/datum/reagent/medicine/mitocholide)
+		spaceacillin = R.get_reagent_amount(/datum/reagent/medicine/spaceacillin)
 
 	for(var/obj/item/organ/internal/organ as anything in get_organ_list(target_zone, target, affected))
 		if(organ.germ_level < INFECTION_LEVEL_ONE / 2 && !(organ.is_dead()))  // not dead, don't need to inject mito either
