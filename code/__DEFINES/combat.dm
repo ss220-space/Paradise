@@ -193,10 +193,6 @@ GLOBAL_LIST_INIT(body_zones, list(
 #define WEAPON_MEDIUM 2
 #define WEAPON_HEAVY 3
 
-#define WEAPON_WINDUP_NOT_CHECKED 0
-#define WEAPON_WINDUP_CHECKED 1
-#define WEAPON_WINDUP_CHECKING 2
-
 /// ex_act() with EXPLODE_DEVASTATE severity will gib mobs with less than this much bomb armor
 #define EXPLODE_GIB_THRESHOLD 50
 
