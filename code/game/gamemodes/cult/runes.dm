@@ -206,7 +206,7 @@ structure_check() searches for nearby cultist structures required for the invoca
  * * target - Location to teleport to
  */
 /obj/effect/rune/proc/teleport_effect(mob/living/user, turf/location, target)
-	var/trait_source = UNIQUE_TRAIT_SOURCE(src) // Перехватываем до возможного qdel, который сотрет руну.
+	var/trait_source = UNIQUE_TRAIT_SOURCE(src)
 	new /obj/effect/temp_visual/dir_setting/cult/phase/out(location, user.dir)
 	new /obj/effect/temp_visual/dir_setting/cult/phase(target, user.dir)
 	// So that the mob only appears after the effect is finished
