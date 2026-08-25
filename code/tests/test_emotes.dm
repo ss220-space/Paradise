@@ -1,11 +1,4 @@
 /datum/unit_test/emote/Run()
-	/// Special cases that shouldn't need keybinds.
-	var/list/ignored_emote_types = list(
-		/datum/emote/living/simple_animal/slime, // The emotes are usable if you are a slime, but I don't think we need to flood the keybind list with them
-		/datum/emote/help,
-		/datum/emote/living/custom, // This one's handled by its own set of keybinds
-	)
-
 	// Be aware that some of these values (like message, message_param) are subject to being set at runtime.
 	for(var/emote_type in subtypesof(/datum/emote))
 		var/datum/emote/cur_emote = new emote_type()
