@@ -1,15 +1,14 @@
 import { type Key, type ReactNode, useState } from 'react';
 import {
-  Button,
   Box,
-  Dropdown,
+  Button,
   Icon,
   Input,
   LabeledList,
   Section,
+  Slider,
   Stack,
   Table,
-  Slider,
 } from 'tgui-core/components';
 import { createSearch } from 'tgui-core/string';
 import { useBackend } from '../backend';
@@ -254,7 +253,7 @@ const DetailedAccountInfo = (_properties) => {
 
   const isModified = salary_modifier !== undefined && salary_modifier !== 0;
   const [selectedValue, setSelectedValue] = useState<number>(
-    salary_modifier || 0
+    salary_modifier || 0,
   );
   const color =
     (salary_modifier || 0) > 0

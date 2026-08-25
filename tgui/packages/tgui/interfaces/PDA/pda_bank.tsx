@@ -1,18 +1,19 @@
 import { useState } from 'react';
-import { useBackend } from '../../backend';
 import {
   Box,
   Button,
+  Dropdown,
   Icon,
   LabeledList,
   NumberInput,
   Section,
   Stack,
   TextArea,
-} from '../../components';
+} from 'tgui-core/components';
+import { useBackend } from '../../backend';
 
 import { Window } from '../../layouts';
-import { SearchableDropdown } from '../../components/SearchableDropdown';
+
 const DEFAULT_PURPOSE = 'Перевод через RIB';
 
 type Transaction = {
@@ -363,7 +364,7 @@ const UUTransferMenuPage = ({ setPage, data }: PageProps) => {
   const { balance, name, targets } = data;
   const { act } = useBackend();
 
-  const [target, setTarget] = useState<string | null>(null);
+  const [target, setTarget] = useState<string>('');
   const [amount, setAmount] = useState<number>(0);
   const [purpose, setPurpose] = useState<string>(DEFAULT_PURPOSE);
 
@@ -412,10 +413,12 @@ const UUTransferMenuPage = ({ setPage, data }: PageProps) => {
             <Icon name="user" mr={0.5} />
             Получатель
           </Box>
-          <SearchableDropdown
+          <Dropdown
             options={targets}
-            value={target}
-            onChange={(t) => setTarget(t)}
+            selected={target}
+            onSelected={setTarget}
+            displayText={target}
+            searchInput
             placeholder="Введите имя аккаунта..."
           />
         </Box>
