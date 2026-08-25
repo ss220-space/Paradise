@@ -105,6 +105,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	weapon_weight = WEAPON_LIGHT
 	accuracy = GUN_ACCURACY_RIFLE_LASER
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER | GUN_MODULE_CLASS_ENERGY_WEAPON
 	ammo_type = list(
 		/obj/item/ammo_casing/energy/disabler/weaker_automatic,
 		/obj/item/ammo_casing/energy/laser/weaker_automatic,
