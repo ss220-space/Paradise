@@ -8,10 +8,10 @@
 # Otherwise, this script requires a system `bun` to be provided.
 set -e
 
-# Load Bun version from dependencies.sh
+# Load Bun version from _build_dependencies.sh
 OldPWD="$PWD"
 cd "$(dirname "$0")/../.."
-. ./dependencies.sh  # sets BUN_VERSION (define this in dependencies.sh)
+. ./_build_dependencies.sh  # sets BUN_VERSION (define this in _build_dependencies.sh)
 cd "$OldPWD"
 BunVersion="$BUN_VERSION"
 BunFullVersion="bun-v$BunVersion"

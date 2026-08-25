@@ -1,7 +1,7 @@
 # This action is a wrapper around `oven-sh/setup-bun` to use the version specified in
-# `dependencies.sh`.
+# `_build_dependencies.sh`.
 name: Setup Bun
-description: Install Bun using the version specified in `dependencies.sh`
+description: Install Bun using the version specified in `_build_dependencies.sh`
 
 runs:
   using: composite

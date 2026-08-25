@@ -29,7 +29,7 @@ const dependencies: Record<string, string> = await Bun.file(
   .then(formatDeps)
   .catch((err) => {
     Juke.logger.error(
-      'Failed to read dependencies.sh, please ensure it exists and is formatted correctly.',
+      'Failed to read _build_dependencies.sh, please ensure it exists and is formatted correctly.',
     );
     Juke.logger.error(err);
     throw new Juke.ExitCode(1);
