@@ -116,7 +116,7 @@ const StatusPane = (_properties) => {
     shuttleButtonText = 'Вернуть шаттл';
   } else if (moving) {
     shuttleButtonText = 'В пути';
-    statusText = 'В пути к объекту (прилетит через: ' + timeleft + ')';
+    statusText = `В пути к объекту (прилетит через: ${timeleft})`;
   }
 
   return (
