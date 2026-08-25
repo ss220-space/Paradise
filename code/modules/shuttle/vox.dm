@@ -17,7 +17,7 @@
 	resistance_flags = INDESTRUCTIBLE
 	obj_flags = NODECONSTRUCT
 
-/obj/docking_port/mobile/fast/scavenger
+/obj/docking_port/mobile/scavenger
 	id = "vox_shuttle"
 	name = "scavenger shuttle"
 	dir = SOUTH

@@ -2884,7 +2884,7 @@
 	turf_type = /turf/simulated/floor/indestructible/plating;
 	width = 11
 	},
-/obj/docking_port/mobile/fast{
+/obj/docking_port/mobile{
 	dir = 4;
 	dwidth = 7;
 	height = 5;
@@ -6460,7 +6460,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/centcom/central_command_areas/zone/three)
 "dlh" = (
-/obj/docking_port/mobile/fast/scavenger{
+/obj/docking_port/mobile/scavenger{
 	pixel_y = -5
 	},
 /obj/docking_port/stationary{
@@ -8291,7 +8291,7 @@
 	turf_type = /turf/simulated/floor/plating/airless;
 	width = 18
 	},
-/obj/docking_port/mobile/fast{
+/obj/docking_port/mobile{
 	dir = 8;
 	dwidth = 8;
 	height = 18;
@@ -17664,7 +17664,7 @@
 	turf_type = /turf/simulated/floor/indestructible/plating;
 	width = 11
 	},
-/obj/docking_port/mobile/fast{
+/obj/docking_port/mobile{
 	dir = 8;
 	dwidth = 3;
 	height = 5;
@@ -33927,7 +33927,7 @@
 	turf_type = /turf/simulated/floor/plating/airless;
 	width = 5
 	},
-/obj/docking_port/mobile/fast{
+/obj/docking_port/mobile{
 	dir = 8;
 	dwidth = 2;
 	height = 12;
@@ -34862,7 +34862,7 @@
 	turf_type = /turf/simulated/floor/plating/airless;
 	width = 5
 	},
-/obj/docking_port/mobile/fast{
+/obj/docking_port/mobile{
 	dir = 2;
 	dwidth = 2;
 	height = 11;
@@ -47219,7 +47219,7 @@
 	turf_type = /turf/simulated/floor/indestructible/snow;
 	width = 21
 	},
-/obj/docking_port/mobile/fast{
+/obj/docking_port/mobile{
 	dheight = 2;
 	dir = 2;
 	dwidth = 4;
@@ -50552,7 +50552,7 @@
 	turf_type = /turf/simulated/floor/indestructible/plating;
 	width = 18
 	},
-/obj/docking_port/mobile/fast{
+/obj/docking_port/mobile{
 	dwidth = 8;
 	height = 22;
 	id = "syndicate";

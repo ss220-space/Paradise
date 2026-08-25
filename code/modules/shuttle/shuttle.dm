@@ -235,7 +235,7 @@
 	var/area/shuttle/areaInstance
 	var/list/shuttle_areas
 
-	var/fly_sound = 'sound/effects/hyperspace_begin.ogg'
+	var/fly_sound = 'sound/effects/hyperspace_mini.ogg'
 
 	var/timer						//used as a timer (if you want time left to complete move, use timeLeft proc)
 	var/last_timer_length
@@ -244,12 +244,12 @@
 	/// force lock shuttle moving
 	var/locked_move = FALSE
 	/// time recharging before ready to launch again
-	var/rechargeTime = 1 MINUTES
+	var/rechargeTime = 5 SECONDS
 	/// time spent in transit (deciseconds)
-	var/callTime = 15 SECONDS
+	var/callTime = 5 SECONDS
 	/// time spent "starting the engines". Also rate limits how often we try to reserve transit space if its ever full of transiting shuttles.
 	/// DO NOT set under 3 seconds. We need to reserve space before we can launch the shuttle. Also it'll break launch sound(not by not playing. it'll be unsynced)
-	var/ignitionTime = 5 SECONDS
+	var/ignitionTime = 3 SECONDS
 	/// id of port to send shuttle to at roundstart
 	var/roundstart_move
 	/// can build new shuttle consoles for this one
@@ -269,10 +269,6 @@
 	var/obj/docking_port/stationary/destination
 	var/obj/docking_port/stationary/previous
 	var/obj/docking_port/stationary/transit/assigned_transit
-
-/obj/docking_port/mobile/fast
-	rechargeTime = 15 SECONDS
-	callTime = 5 SECONDS
 
 /obj/docking_port/mobile/Initialize(mapload)
 	. = ..()

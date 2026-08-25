@@ -349,10 +349,6 @@
 	width = 5
 	height = 6
 
-	rechargeTime = 0
-	callTime = 3 SECONDS
-	ignitionTime = 0
-
 /obj/docking_port/mobile/pod/Initialize(mapload)
 	. = ..()
 	if(id == "pod")
