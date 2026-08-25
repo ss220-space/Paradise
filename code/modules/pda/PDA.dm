@@ -270,7 +270,7 @@ GAME_VERB_SRC(/obj/item/pda, verb_reset_pda, usr, "Сброс КПК", VERB_CATE
 	update_icon(UPDATE_OVERLAYS)
 
 GAME_VERB_SRC(/obj/item/pda, verb_remove_pen, usr, "Извлечь ручку", VERB_CATEGORY_HIDDEN)
-    remove_pen(usr)
+	remove_pen(usr)
 
 /obj/item/pda/proc/remove_pen(mob/user)
 

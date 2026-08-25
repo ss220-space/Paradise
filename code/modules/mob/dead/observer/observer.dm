@@ -552,11 +552,9 @@ GAME_VERB_DESC(/mob/dead/observer, jumptomob, "Телепорт к сущест�
 		to_chat(src, "Это существо не находится в игровом мире.")
 
 /mob/dead/observer/memory()
-	set hidden = TRUE
 	to_chat(src, span_warning("Вы мертвы! У вас нет разума для хранения воспоминаний!"))
 
 /mob/dead/observer/add_memory()
-	set hidden = TRUE
 	to_chat(src, span_warning("Вы мертвы! У вас нет разума для хранения воспоминаний!"))
 
 GAME_VERB_DESC(/mob/dead/observer, toggle_health_scan, "Анализ здоровья", "Toggles whether you health-scan living beings on click", VERB_CATEGORY_GHOST)

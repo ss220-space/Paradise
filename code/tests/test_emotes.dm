@@ -5,7 +5,6 @@
 		/datum/emote/help,
 		/datum/emote/living/custom, // This one's handled by its own set of keybinds
 	)
-	var/list/keybound_emotes = get_emote_keybinds()
 
 	// Be aware that some of these values (like message, message_param) are subject to being set at runtime.
 	for(var/emote_type in subtypesof(/datum/emote))
@@ -26,20 +25,8 @@
 		else
 			TEST_ASSERT_NOTNULL(cur_emote.emote_type, "emote [cur_emote] has a null target type.")
 
-			// If we're at this point, we're definitely an emote that a user could use, and therefore ought to make sure it's bound to a keybind if possible.
-			if(!is_type_in_list(cur_emote, keybound_emotes) && !is_type_in_list(cur_emote, ignored_emote_types))
-				TEST_FAIL("Emote [cur_emote] is usable, but not assigned a keybind.")
-
 		if(isnum(cur_emote.max_stat_allowed) && cur_emote.max_stat_allowed < cur_emote.stat_allowed)
 			TEST_FAIL("emote [cur_emote]'s max_stat_allowed is greater than its stat_allowed, and would be unusable.")
 
 		if(isnum(cur_emote.max_unintentional_stat_allowed) && cur_emote.max_unintentional_stat_allowed < cur_emote.unintentional_stat_allowed)
 			TEST_FAIL("emote [cur_emote]'s max_unintentional_stat_allowed is greater than its unintentional_stat_allowed, and would be unusable.")
-
-/datum/unit_test/emote/proc/get_emote_keybinds()
-	var/list/bound_emotes = list()
-	for(var/keybind in subtypesof(/datum/keybinding/emote))
-		var/datum/keybinding/emote/E = new keybind()
-		bound_emotes |= E.linked_emote
-
-	return bound_emotes

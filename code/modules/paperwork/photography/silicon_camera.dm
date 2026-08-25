@@ -119,16 +119,16 @@ GAME_VERB_SRC_DESC(/obj/item/camera/siliconcam/ai_camera, toggle_camera_flash_ve
 	toggle_camera_flash(src)
 
 GAME_VERB_SRC_DESC(/obj/item/camera/siliconcam/robot_camera, take_image, usr, "Сделать фото", "Takes an image", VERB_CATEGORY_SUBSYSTEMS)
-    toggle_camera_mode()
+	toggle_camera_mode()
 
 GAME_VERB_SRC_DESC(/obj/item/camera/siliconcam/robot_camera, view_images, usr, "Посмотреть фото", "View images", VERB_CATEGORY_SUBSYSTEMS)
-    viewpictures()
+	viewpictures()
 
 GAME_VERB_SRC_DESC(/obj/item/camera/siliconcam/robot_camera, delete_images, usr, "Удалить фото", "Delete a local image", VERB_CATEGORY_SUBSYSTEMS)
-    deletepicture(src)
+	deletepicture(src)
 
 GAME_VERB_SRC_DESC(/obj/item/camera/siliconcam/robot_camera, toggle_camera_flash_verb, usr, "Вспышка камеры", "Toggle camera flash", VERB_CATEGORY_SUBSYSTEMS)
-    toggle_camera_flash(src)
+	toggle_camera_flash(src)
 
 /obj/item/camera/siliconcam/proc/getsource()
 	if(isAI(src.loc))
