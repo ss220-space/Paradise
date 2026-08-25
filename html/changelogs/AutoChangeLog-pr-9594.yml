@@ -1,0 +1,5 @@
+author: "mrWhiteFox364"
+delete-after: True
+changes:
+  - bugfix: "Теперь химия НИО не взрывается вслед за ЭКСПЕРИ-ментором (PR #9594)"
+  - map: "Перестановка в НИО (PR #9594)"
