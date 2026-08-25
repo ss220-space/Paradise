@@ -825,7 +825,10 @@
 	w_class = WEIGHT_CLASS_BULKY
 	max_combined_w_class = 6
 	storage_slots = 6
-	can_hold = list(/obj/item/mobcapsule)
+	can_hold = list(
+		/obj/item/mobcapsule,
+		/obj/item/radio,
+	)
 
 /obj/item/storage/belt/lazarus/get_ru_names()
 	return alist(
@@ -1291,6 +1294,7 @@
 		/obj/item/organ/internal/regenerative_core,
 		/obj/item/hivelordstabilizer,
 		/obj/item/stack/ore,
+		/obj/item/reagent_containers/applicator,
 		/obj/item/reagent_containers/food/snacks/grown,
 		/obj/item/reagent_containers/food/snacks/bait,
 		/obj/item/reagent_containers/food/snacks/charred_krill,
