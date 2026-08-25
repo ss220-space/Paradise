@@ -13,10 +13,14 @@
 
 //automatic laser shotgun
 /obj/projectile/beam/disabler/scatter/automatic_shotgun
-	damage = 6 //24 per shot
+	damage = 12 //48 per shot
+	tile_dropoff = 0.75
+	tile_dropoff_s = 1.25
 
 /obj/projectile/beam/scatter/automatic_shotgun
-	damage = 6 //24 per shot
+	damage = 12 //48 per shot
+	tile_dropoff = 0.75
+	tile_dropoff_s = 1.25
 
 //automatic laser sniper
 /obj/projectile/beam/disabler/automatic_sniper

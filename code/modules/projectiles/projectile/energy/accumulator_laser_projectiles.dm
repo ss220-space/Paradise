@@ -23,11 +23,15 @@
 // shotgun
 /obj/projectile/beam/disabler/scatter/energy_shotgun
 	speed = 1
-	damage = 10 //50 per shot
+	damage = 15 //75 per shot
+	tile_dropoff = 0.75
+	tile_dropoff_s = 1.25
 
 /obj/projectile/beam/scatter/energy_shotgun
 	speed = 1
-	damage = 6 //30 per shot
+	damage = 11 //55 per shot
+	tile_dropoff = 0.75
+	tile_dropoff_s = 1.25
 
 //pistol
 /obj/projectile/beam/disabler/energy_pistol

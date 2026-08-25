@@ -23,14 +23,14 @@
 	tracer_type = /obj/effect/projectile/tracer/laser/heavy
 	muzzle_type = /obj/effect/projectile/muzzle/laser/heavy
 	impact_type = /obj/effect/projectile/impact/laser/heavy
-	damage = 25
+	damage = 35
 	armour_penetration = 25
 
 /obj/projectile/beam/laser/hitscan/laser_shotgun/pellet
 	tracer_type = /obj/effect/projectile/tracer/laser/light
 	muzzle_type = /obj/effect/projectile/muzzle/laser/light
 	impact_type = /obj/effect/projectile/impact/laser/light
-	damage = 7
+	damage = 9
 	armour_penetration = 0
 
 //hitscan smg

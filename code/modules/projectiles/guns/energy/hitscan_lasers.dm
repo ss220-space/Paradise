@@ -194,7 +194,7 @@
 	windup_delay = 1 SECONDS
 	windup_sound = 'sound/weapons/laser_charge.ogg'
 	zoomable = TRUE
-	zoom_amount = 5
+	zoom_amt = 5
 
 /obj/item/gun/energy/laser/hitscan/sniper_rifle/get_ru_names()
 	return alist(
