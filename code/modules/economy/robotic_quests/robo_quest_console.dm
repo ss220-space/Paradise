@@ -16,7 +16,7 @@
 	"third" = list("working_medical_security") \
 )
 
-#define ROBOQUEST_REMOVE_COOLDOWN 30 SECONDS
+#define ROBOQUEST_REMOVE_COOLDOWN (30 SECONDS)
 ///////////////////////
 // roboquest console //
 ///////////////////////
