@@ -6,8 +6,17 @@
 	return isliving(user.mob)
 
 /datum/keybinding/living/intent
+	abstract_type = /datum/keybinding/living/intent
 	/// The intent to switch to.
 	var/intent
+
+/datum/keybinding/living/intent/New()
+	keybind_signal = COMSIG_KB_LIVING_INTENT(intent)
+	name = "intent_switch_[intent]"
+	var/intent_cap = capitalize(intent)
+	full_name = "[intent_cap] Intent (нажать)"
+	description = "Переключает интент на [intent_cap]."
+	..()
 
 /datum/keybinding/living/intent/down(client/user)
 	. = ..()
@@ -16,34 +25,43 @@
 
 	var/mob/living/mob = user.mob
 	mob.a_intent_change(intent)
+
 	return TRUE
 
 /datum/keybinding/living/intent/help
 	name = "Help Intent (нажать)"
 	intent = INTENT_HELP
-	keys = list("1")
+	hotkey_keys = list("1")
 
 /datum/keybinding/living/intent/disarm
 	name = "Disarm Intent (нажать)"
 	intent = INTENT_DISARM
-	keys = list("2")
+	hotkey_keys = list("2")
 
 /datum/keybinding/living/intent/grab
 	name = "Grab Intent (нажать)"
 	intent = INTENT_GRAB
-	keys = list("3")
+	hotkey_keys = list("3")
 
 /datum/keybinding/living/intent/harm
 	name = "Harm Intent (нажать)"
 	intent = INTENT_HARM
-	keys = list("4")
-
+	hotkey_keys = list("4")
 
 /datum/keybinding/living/intent_hold
+	abstract_type = /datum/keybinding/living/intent_hold
 	/// The intent to switch to.
 	var/intent
 	/// The previous intent before holding.
 	var/prev_intent
+
+/datum/keybinding/living/intent_hold/New()
+	keybind_signal = COMSIG_KB_LIVING_INTENT(intent)
+	name = "intent_hold_[intent]"
+	var/intent_cap = capitalize(intent)
+	full_name = "[intent_cap] Intent (зажать)"
+	description = "Удерживает интент [intent_cap]."
+	..()
 
 /datum/keybinding/living/intent_hold/down(client/user)
 	. = ..()

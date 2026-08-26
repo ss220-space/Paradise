@@ -322,9 +322,10 @@ GLOBAL_LIST_INIT(swarmer_actions_by_type, list(
 
 	if(proj.damage_type == BRUTE || proj.damage_type == BURN)
 		adjustHealth(proj.damage * 0.5)
+
 	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] отражает [proj.declent_ru(ACCUSATIVE)]!"),
 		span_userdanger("[capitalize(declent_ru(NOMINATIVE))] отражает [proj.declent_ru(ACCUSATIVE)]!"),
-		projectile_message = TRUE,
+		chat_message_type = MESSAGE_TYPE_COMBAT,
 	)
 	add_attack_logs(proj.firer, src, "hit by [proj.type] but got reflected")
 	proj.reflect_back(src)
