@@ -93,10 +93,7 @@
 /obj/machinery/drone_fabricator/attack_ghost(mob/dead/observer/user)
 	user.become_drone()
 
-/mob/dead/verb/join_as_drone()
-	set category = VERB_CATEGORY_GHOST
-	set name = "Стать дроном"
-	set desc = "If there is a powered, enabled fabricator in the game world with a prepared chassis, join as a maintenance drone."
+GAME_VERB_DESC(/mob/dead, join_as_drone, "Стать дроном", "If there is a powered, enabled fabricator in the game world with a prepared chassis, join as a maintenance drone.", VERB_CATEGORY_GHOST)
 	become_drone(src)
 
 /mob/dead/proc/become_drone(mob/user)

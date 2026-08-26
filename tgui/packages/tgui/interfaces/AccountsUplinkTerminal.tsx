@@ -1,6 +1,4 @@
-import { createSearch } from 'common/string';
-import { useBackend } from '../backend';
-import { Key, ReactNode, useState } from 'react';
+import { type Key, type ReactNode, useState } from 'react';
 import {
   Button,
   Icon,
@@ -9,7 +7,9 @@ import {
   Section,
   Stack,
   Table,
-} from '../components';
+} from 'tgui-core/components';
+import { createSearch } from 'tgui-core/string';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { LoginInfo } from './common/LoginInfo';
 import { LoginScreen } from './common/LoginScreen';
@@ -139,7 +139,7 @@ const AccountsRecordList = (_properties) => {
                     '|' +
                     account.money
                   );
-                })
+                }),
               )
               .sort((a, b) => {
                 const i = sortOrder ? 1 : -1;
@@ -148,9 +148,7 @@ const AccountsRecordList = (_properties) => {
               .map((account) => (
                 <Table.Row
                   key={account.account_number}
-                  className={
-                    'AccountsUplinkTerminal__listRow--' + account.suspended
-                  }
+                  className={`AccountsUplinkTerminal__listRow--${account.suspended}`}
                   onClick={() =>
                     act('view_account_detail', {
                       index: account.account_index,
@@ -188,10 +186,10 @@ const SortButton = (properties: SortButtonProps) => {
         width="100%"
         onClick={() => {
           if (sortId === id) {
-            setSortOrder(!sortOrder);
+            setSortOrder?.(!sortOrder);
           } else {
-            setSortId(id);
-            setSortOrder(true);
+            setSortId?.(id);
+            setSortOrder?.(true);
           }
         }}
       >
@@ -244,7 +242,7 @@ const DetailedAccountInfo = (_properties) => {
     <Stack fill vertical>
       <Stack.Item>
         <Section
-          title={'#' + account_number + ' / ' + owner_name}
+          title={`#${account_number} / ${owner_name}`}
           buttons={
             <Button icon="arrow-left" onClick={() => act('back')}>
               Back

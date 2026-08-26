@@ -124,6 +124,8 @@
 #define span_boldwarning(str) ("<span class='boldwarning'>[str]</span>")
 #define span_boldwarning_alt(str) ("<span class='boldwarning'>" + str + "</span>")
 #define span_announce(str) ("<span class='announce'>[str]</span>")
+#define span_major_announcement_text(str) ("<span class='major_announcement_text'>" + str + "</span>")
+#define span_major_announcement_title(str) ("<span class='major_announcement_title'>" + str + "</span>")
 #define span_warningbig(str) ("<span class='warning big'>[str]</span>")
 #define span_danger(str) ("<span class='danger'>[str]</span>")
 #define span_danger_alt(str) ("<span class='danger'>" + str + "</span>")
@@ -138,10 +140,12 @@
 #define span_boldnotice_alt(str) ("<span class='boldnotice'>" + str + "</span>")
 #define span_smallnotice(str) ("<span class='smallnotice'>" + str + "</span>")
 #define span_smallnoticeital(str) ("<span class='smallnoticeital'>" + str + "</span>")
+#define span_subheader_announcement_text(str) ("<span class='subheader_announcement_text'>" + str + "</span>")
 #define span_hear(str) ("<span class='hear'>[str]</span>")
 #define span_adminnotice(str) ("<span class='adminnotice'>[str]</span>")
 #define span_unconscious(str) ("<span class='unconscious'>[str]</span>")
 #define span_suicide(str) ("<span class='suicide'>[str]</span>")
+#define span_ooc_announcement_text(str) ("<span class='ooc_announcement_text'>" + str + "</span>")
 
 /**
  * MARK: Announcements

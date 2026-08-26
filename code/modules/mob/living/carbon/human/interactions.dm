@@ -8,10 +8,7 @@
 	interact(over_object)
 
 //Distant interactions
-/mob/living/carbon/human/verb/interact(mob/M as mob)
-	set name = "Взаимодействовать"
-	set category = VERB_CATEGORY_IC
-
+/mob/living/carbon/human/proc/interact(mob/M)
 	if(ishuman(M) && usr != M && src != M)
 		partner = M
 		make_interaction(machine)

@@ -296,6 +296,19 @@
 
 	var/datum/ui_module/skills_select_win/skills_select_window
 
+	var/commandbar_thinking = FALSE
+	var/commandbar_typing = FALSE
+
+	/// Whether or not this client has standard hotkeys enabled
+	var/hotkeys = TRUE
+
+	/// If this client has been fully initialized or not
+	var/fully_created = FALSE
+
+	var/datum/admin_verb_panel/admin_verb_panel
+
+	var/datum/escape_menu/escape_menu
+
 /client/vv_edit_var(var_name, var_value)
 	if(var_name == NAMEOF(src, tos_consent))
 		// I know we will never be in a world where admins are editing client vars to let people bypass TOS

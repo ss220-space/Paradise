@@ -169,7 +169,7 @@
 			for(var/datum/mind/mindslave in SSticker.mode.implanted)
 				text += printplayer(mindslave)
 				var/datum/mind/master_mind = SSticker.mode.implanted[mindslave]
-				text += " (slaved by: <b>[master_mind.current]</b>)<br>"
+				text += " (slaved by: <b>[master_mind.name]</b>)<br>"
 
 		if(length(SSticker.mode.support))
 			text += "<br><br><span style='font-size: 2;'><b>The Contractor Support Units were:</b></span><br>"

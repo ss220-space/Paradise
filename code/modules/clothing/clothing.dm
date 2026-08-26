@@ -541,10 +541,7 @@
 			if(H.w_uniform == src)
 				H.update_suit_sensors()
 
-/obj/item/clothing/under/verb/toggle()
-	set name = "Датчики костюма"
-	set category = VERB_CATEGORY_OBJECT
-	set src in usr
+GAME_VERB_SRC(/obj/item/clothing/under, toggle, usr, "Датчики костюма", VERB_CATEGORY_HIDDEN)
 	set_sensors(usr)
 
 /obj/item/clothing/under/GetID()
@@ -1310,12 +1307,6 @@
 		to_chat(user, span_notice("Вы прикрепили [accessory.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]."))
 	return TRUE
 
-/obj/item/clothing/under/verb/removetie()
-	set name = "Убрать аксессуар"
-	set category = VERB_CATEGORY_OBJECT
-	set src in usr
-	handle_accessories_removal(usr)
-
 /obj/item/clothing/under/click_alt(mob/user)
 	if(handle_accessories_removal(user))
 		return CLICK_ACTION_SUCCESS
@@ -1356,10 +1347,7 @@
 	for(var/obj/item/clothing/accessory/accessory as anything in accessories)
 		. += accessory.attached_examine(user, src)
 
-/obj/item/clothing/under/verb/rollsuit()
-	set name = "Сменить стиль униформы"
-	set category = VERB_CATEGORY_OBJECT
-	set src in usr
+GAME_VERB_SRC(/obj/item/clothing/under, rollsuit, usr, "Сменить стиль униформы", VERB_CATEGORY_HIDDEN)
 
 	if(!ishuman(usr))
 		return
