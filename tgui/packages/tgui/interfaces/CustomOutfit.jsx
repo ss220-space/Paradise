@@ -7,7 +7,7 @@ import {
   ImageButton,
   Section,
   Stack,
-} from '../components';
+} from 'tgui-core/components';
 import { Window } from '../layouts';
 
 const SLOT_ROWS = [
