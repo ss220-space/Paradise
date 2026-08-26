@@ -87,7 +87,7 @@ export const Smartfridge = (_props: unknown) => {
                       label={
                         <Stack align="center">
                           <Stack.Item>
-                            {item.icon ? (
+                            {item.icon && item.icon_state ? (
                               <DmIcon
                                 icon={item.icon}
                                 icon_state={item.icon_state}
