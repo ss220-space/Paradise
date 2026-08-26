@@ -1,20 +1,20 @@
-import { Component } from 'react';
 import {
   Box,
+  Stack,
+  Section,
   Button,
+  Input,
   Dropdown,
   Icon,
-  Input,
-  Section,
-  Stack,
-} from 'tgui-core/components';
-import { shallowDiffers } from 'tgui-core/react';
+} from '../../components';
+import { Component } from 'react';
+import { shallowDiffers } from 'common/react';
 import {
   VARIABLE_ASSOC_LIST,
   VARIABLE_LIST,
   VARIABLE_NOT_A_LIST,
 } from './constants';
-import type { VariableMenuProps, VariableMenuState } from './types';
+import { VariableMenuState, VariableMenuProps } from './types';
 
 export class VariableMenu extends Component<
   VariableMenuProps,
@@ -57,7 +57,7 @@ export class VariableMenu extends Component<
       ...rest
     } = this.props;
     const { variable_name, variable_type } = this.state;
-    const curType: string = '';
+    let curType: string;
 
     return (
       <Section
@@ -174,13 +174,11 @@ export class VariableMenu extends Component<
                         height="100%"
                         color="green"
                         onClick={(e) =>
-                          variable_name &&
-                          variable_type &&
                           onAddVariable(
                             variable_name,
                             variable_type,
                             VARIABLE_NOT_A_LIST,
-                            e,
+                            e
                           )
                         }
                         fluid
@@ -193,13 +191,11 @@ export class VariableMenu extends Component<
                         height="100%"
                         color="green"
                         onClick={(e) =>
-                          variable_name &&
-                          variable_type &&
                           onAddVariable(
                             variable_name,
                             variable_type,
                             VARIABLE_LIST,
-                            e,
+                            e
                           )
                         }
                         fluid
@@ -212,13 +208,11 @@ export class VariableMenu extends Component<
                         height="100%"
                         color="green"
                         onClick={(e) =>
-                          variable_name &&
-                          variable_type &&
                           onAddVariable(
                             variable_name,
                             variable_type,
                             VARIABLE_ASSOC_LIST,
-                            e,
+                            e
                           )
                         }
                         fluid

@@ -1,6 +1,6 @@
 /mob/living/proc/Life(seconds, times_fired)
 	set waitfor = FALSE
-	set invisibility = FALSE
+	set invisibility = 0
 
 	var/signal_result = SEND_SIGNAL(src, COMSIG_LIVING_PRE_LIFE, seconds)
 

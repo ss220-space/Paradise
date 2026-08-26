@@ -5,7 +5,7 @@ import {
   LabeledList,
   Modal,
   Stack,
-} from 'tgui-core/components';
+} from '../../components';
 
 import type { SubsystemData } from './types';
 

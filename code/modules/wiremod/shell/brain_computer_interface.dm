@@ -538,7 +538,10 @@
 		occupant = target
 		icon_state = "bci_implanter_occupied"
 
-GAME_VERB_SRC(/obj/machinery/bci_implanter, eject, oview(1), "Извлечь цель изнутри", VERB_CATEGORY_HIDDEN)
+/obj/machinery/bci_implanter/verb/eject()
+	set src in oview(1)
+	set name = "Извлечь цель изнутри"
+
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 	go_out(usr)
@@ -547,6 +550,7 @@ GAME_VERB_SRC(/obj/machinery/bci_implanter, eject, oview(1), "Извлечь ц�
 
 /obj/machinery/bci_implanter/force_eject_occupant(mob/target)
 	go_out()
+
 
 /obj/machinery/bci_implanter/relaymove(mob/user)
 	var/message

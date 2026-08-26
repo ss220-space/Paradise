@@ -1,12 +1,7 @@
-import {
-  Button,
-  LabeledList,
-  NumberInput,
-  Section,
-} from 'tgui-core/components';
 import { useBackend } from '../backend';
+import { Button, Section, NumberInput, LabeledList, Flex } from '../components';
 import { Window } from '../layouts';
-import type { AtmosBase } from './AtmosFilter';
+import { AtmosBase } from './AtmosFilter';
 
 type AtmosMixerData = {
   node1_concentration: number;

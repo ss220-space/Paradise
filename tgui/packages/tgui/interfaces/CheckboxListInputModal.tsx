@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import { Button, Section, Stack } from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
-import { useBackend } from '../backend';
-import { Window } from '../layouts';
-import { InputButtons } from './common/InputButtons';
 import { Loader } from './common/Loader';
+import { InputButtons } from './common/InputButtons';
+import { Button, Section, Stack } from '../components';
+import { useBackend } from '../backend';
+import { useState, KeyboardEvent } from 'react';
+import { Window } from '../layouts';
+import { BooleanLike } from 'common/react';
 
 type ListInputData = {
   init_value: string;
@@ -27,11 +27,8 @@ export const CheckboxListInputModal = (props: unknown) => {
 
   const onClick = (new_item: CheckboxData | null = null) => {
     let updatedItems = [...edittedItems];
-    if (!new_item) return;
     updatedItems = updatedItems.map((item) =>
-      item.key === new_item.key
-        ? { ...item, checked: !new_item.checked }
-        : item,
+      item.key === new_item.key ? { ...item, checked: !new_item.checked } : item
     );
     setEdittedItems(updatedItems);
   };

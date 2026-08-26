@@ -580,7 +580,9 @@ GLOBAL_LIST_EMPTY(closets)
 	add_fingerprint(user)
 	toggle(user)
 
-GAME_VERB_SRC(/obj/structure/closet, verb_toggleopen, view(1), "Toggle Open", VERB_CATEGORY_HIDDEN)
+/obj/structure/closet/verb/verb_toggleopen()
+	set name = "Toggle Open"
+	set src in view(1)
 
 	if(!usr.can_perform_action(src) || !isturf(loc))
 		return

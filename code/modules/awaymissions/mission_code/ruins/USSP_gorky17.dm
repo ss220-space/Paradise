@@ -304,7 +304,10 @@
 		D.registered_name = "[cardrank] [cardholdername]"
 		D.update_label()
 
-GAME_VERB_SRC(/obj/machinery/computer/id_upgrader/ussp, set_name, oview(1), "Ввести название", VERB_CATEGORY_HIDDEN)
+/obj/machinery/computer/id_upgrader/ussp/verb/set_name()
+	set name = "Ввести название"
+	set category = VERB_CATEGORY_OBJECT
+	set src in oview(1)
 	if(!ishuman(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 

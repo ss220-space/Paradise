@@ -1,3 +1,5 @@
+$background-color: rgba(0, 0, 0, 0.33) !default;
+
 .NanoMap__container {
   overflow: hidden;
   width: 100%;
@@ -20,15 +22,10 @@
 
 .NanoMap__options {
   z-index: 20;
-  background-color: var(--color-section);
+  background-color: $background-color;
   position: absolute;
   top: 30px;
   left: 0;
   padding: 0.5rem;
-}
-
-.NanoMap__zoomer {
-  z-index: 20;
-  background-color: var(--color-section);
-  padding: 0.5rem;
+  width: 24rem;
 }

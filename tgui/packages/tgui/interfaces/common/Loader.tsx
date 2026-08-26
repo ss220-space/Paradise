@@ -1,5 +1,6 @@
-import { Box } from 'tgui-core/components';
-import { clamp01 } from 'tgui-core/math';
+import { clamp01 } from 'common/math';
+
+import { Box } from '../../components';
 
 type LoaderProps = {
   value: number;
@@ -11,7 +12,7 @@ export const Loader = (props: LoaderProps) => {
     <div className="AlertModal__Loader">
       <Box
         className="AlertModal__LoaderProgress"
-        style={{ width: `${clamp01(value) * 100}%` }}
+        style={{ width: clamp01(value) * 100 + '%' }}
       />
     </div>
   );

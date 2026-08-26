@@ -1,16 +1,16 @@
+import { useBackend } from '../backend';
 import {
-  Box,
   Button,
   Collapsible,
+  Stack,
   LabeledList,
   NoticeBox,
   Section,
   Slider,
-  Stack,
-} from 'tgui-core/components';
-import { formatPower } from 'tgui-core/format';
-import { useBackend } from '../backend';
+  Box,
+} from '../components';
 import { Window } from '../layouts';
+import { formatPower } from '../format';
 
 type BluespaceTapData = {
   desiredLevel: number;

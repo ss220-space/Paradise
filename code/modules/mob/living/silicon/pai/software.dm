@@ -14,7 +14,9 @@ GLOBAL_LIST_INIT(spec_pai_emotions, list("Syndicate" = 10, "Contractor" = 11, "T
 
 GLOBAL_LIST_EMPTY(pai_software_by_key)
 
-GAME_VERB(/mob/living/silicon/pai, paiInterface, "Диспетчер ПО", VERB_CATEGORY_PAICOMMANDS)
+/mob/living/silicon/pai/verb/paiInterface()
+	set category = VERB_CATEGORY_PAICOMMANDS
+	set name = "Диспетчер ПО"
 
 	ui_interact(src)
 

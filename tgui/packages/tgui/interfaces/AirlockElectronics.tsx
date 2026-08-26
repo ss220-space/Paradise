@@ -1,10 +1,9 @@
 // code\game\machinery\doors\airlock_electronics.dm
-
-import { Button, Section, Stack } from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
+import { BooleanLike } from 'common/react';
 import { useBackend } from '../backend';
+import { Button, Section, Stack } from '../components';
 import { Window } from '../layouts';
-import { type Access, AccessList } from './common/AccessList';
+import { Access, AccessList } from './common/AccessList';
 
 const NORTH = 1;
 const SOUTH = 2;

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'tgui/backend';
 import {
   Button,
   Collapsible,
@@ -8,21 +8,26 @@ import {
   Section,
   Slider,
   Stack,
-} from 'tgui-core/components';
-import { toFixed } from 'tgui-core/math';
-import { capitalize } from 'tgui-core/string';
+} from 'tgui/components';
+import { toFixed } from 'common/math';
+import { capitalize } from 'common/string';
+
 import { FONTS } from './constants';
-import { useSettings } from './use-settings';
 
-const tabViews = ['default', 'classic', 'scrollable'];
+import { useState } from 'react';
+import { updateSettings } from './actions';
+import { selectSettings } from './selectors';
 
-function LinkedToChat() {
-  return <NoticeBox color="red">Отвяжите стат. панель от чата!</NoticeBox>;
-}
+const TabsViews = ['default', 'classic', 'scrollable'];
+const LinkedToChat = () => (
+  <NoticeBox color="red">Отвяжите стат. панель от чата!</NoticeBox>
+);
 
-export function SettingsStatPanel(props) {
-  const { settings, updateSettings } = useSettings();
-  const { statLinked, statFontSize, statTabsStyle } = settings;
+export const SettingsStatPanel = (props: unknown) => {
+  const { statLinked, statFontSize, statFontFamily, statTabsStyle } =
+    useSelector(selectSettings);
+  const dispatch = useDispatch();
+
   const [freeStatFont, setFreeStatFont] = useState(false);
 
   return (
@@ -31,12 +36,14 @@ export function SettingsStatPanel(props) {
         <Stack.Item>
           <LabeledList>
             <LabeledList.Item label="Стиль" verticalAlign="middle">
-              {tabViews.map((view) => (
+              {TabsViews.map((view) => (
                 <Button
                   key={view}
                   color="transparent"
                   selected={statTabsStyle === view}
-                  onClick={() => updateSettings({ statTabsStyle: view })}
+                  onClick={() =>
+                    dispatch(updateSettings({ statTabsStyle: view }))
+                  }
                 >
                   {capitalize(view)}
                 </Button>
@@ -49,7 +56,7 @@ export function SettingsStatPanel(props) {
                 <Stack.Item>
                   {!freeStatFont ? (
                     <Collapsible
-                      title={settings.statFontFamily}
+                      title={statFontFamily}
                       width={'100%'}
                       buttons={
                         <Button
@@ -67,12 +74,14 @@ export function SettingsStatPanel(props) {
                         <Button
                           key={FONT}
                           fontFamily={FONT}
-                          selected={settings.statFontFamily === FONT}
+                          selected={statFontFamily === FONT}
                           color="transparent"
                           onClick={() =>
-                            updateSettings({
-                              statFontFamily: FONT,
-                            })
+                            dispatch(
+                              updateSettings({
+                                statFontFamily: FONT,
+                              })
+                            )
                           }
                         >
                           {FONT}
@@ -83,11 +92,13 @@ export function SettingsStatPanel(props) {
                     <Stack>
                       <Input
                         width={'100%'}
-                        value={settings.statFontFamily}
+                        value={statFontFamily}
                         onChange={(value) =>
-                          updateSettings({
-                            statFontFamily: value,
-                          })
+                          dispatch(
+                            updateSettings({
+                              statFontFamily: value,
+                            })
+                          )
                         }
                       />
                       <Button
@@ -120,7 +131,7 @@ export function SettingsStatPanel(props) {
                     unit="px"
                     format={(value) => toFixed(value)}
                     onChange={(e, value) =>
-                      updateSettings({ statFontSize: value })
+                      dispatch(updateSettings({ statFontSize: value }))
                     }
                   />
                 )}
@@ -134,7 +145,9 @@ export function SettingsStatPanel(props) {
             fluid
             icon={statLinked ? 'unlink' : 'link'}
             color={statLinked ? 'bad' : 'good'}
-            onClick={() => updateSettings({ statLinked: !statLinked })}
+            onClick={() =>
+              dispatch(updateSettings({ statLinked: !statLinked }))
+            }
           >
             {statLinked ? 'Отвязать от чата' : 'Привязать к чату'}
           </Button>
@@ -142,4 +155,4 @@ export function SettingsStatPanel(props) {
       </Stack>
     </Section>
   );
-}
+};

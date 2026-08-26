@@ -1,3 +1,7 @@
+import { BooleanLike } from 'common/react';
+import { toTitleCase } from 'common/string';
+
+import { useBackend } from '../backend';
 import {
   Button,
   Icon,
@@ -6,10 +10,7 @@ import {
   NoticeBox,
   Section,
   Stack,
-} from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
-import { toTitleCase } from 'tgui-core/string';
-import { useBackend } from '../backend';
+} from '../components';
 import { Window } from '../layouts';
 
 type Data = {
@@ -58,7 +59,7 @@ export const Experimentator = (_props: unknown) => {
             <>
               {!!isCloning && (
                 <Stack.Item grow>
-                  <NoticeBox danger>
+                  <NoticeBox warning>
                     Cloning mode activated! Experements blocked until cloning
                     procces end/
                   </NoticeBox>
@@ -191,7 +192,7 @@ const NodePreview = (props: NodePreviewProps) => {
               color={node.added_tech ? 'good' : 'bad'}
             >
               {node.current_tech +
-                (node.added_tech ? ` + ${node.added_tech}` : '')}
+                (node.added_tech ? ' + ' + node.added_tech : '')}
             </LabeledList.Item>
           ))}
         </LabeledList>

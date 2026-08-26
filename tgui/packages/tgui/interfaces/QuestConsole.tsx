@@ -1,21 +1,20 @@
-import { declension_ru } from 'common/l10n';
+import { useBackend } from '../backend';
 import { useState } from 'react';
 import {
-  Box,
   Button,
-  Icon,
-  Image,
-  LabeledList,
-  Section,
-  Stack,
-  Table,
   Tabs,
+  Box,
+  Stack,
+  Section,
   Tooltip,
-} from 'tgui-core/components';
-import { classes } from 'tgui-core/react';
-import { decodeHtmlEntities } from 'tgui-core/string';
-import { useBackend } from '../backend';
+  Icon,
+  LabeledList,
+  Table,
+  Image,
+} from '../components';
+import { classes } from 'common/react';
 import { Window } from '../layouts';
+import { decodeHtmlEntities, declension_ru } from 'common/string';
 
 const getRewardColor = (reward: number, isCorp: boolean) => {
   if (isCorp) {
@@ -35,7 +34,7 @@ const getRewardColor = (reward: number, isCorp: boolean) => {
 };
 
 const mapTwoByTwo = <T1, T2>(a: T1[], c: (b: T1, c: T1, i: number) => T2) => {
-  const result: T2[] = [];
+  let result = [];
   for (let i = 0; i < a.length; i += 2) {
     result.push(c(a[i], a[i + 1], i));
   }
@@ -137,7 +136,7 @@ const StatusPane = (_properties) => {
   // Shuttle status text
   let statusText: string;
   if (moving) {
-    statusText = `В пути к объекту (прилетит через: ${timeleft})`;
+    statusText = `В пути к объекту (прилетит через: ${timeleft} минут${declension_ru(timeleft, 'у', 'ы', '')})`;
   } else if (at_station) {
     statusText = 'Пристыкован к объекту';
   } else {
@@ -219,7 +218,7 @@ const QuestPane = (properties: QuestPaneProps) => {
               {quest2 ? <QuestItem quest={quest2} /> : <Box />}
             </Table.Cell>
           </Table.Row>
-        ),
+        )
       )}
     </Table>
   );
@@ -394,7 +393,7 @@ const QuestItemTask = (properties: QuestItemTaskProps) => {
     <Stack align="center" position="relative">
       <Stack.Item width={'42px'} mr={1}>
         <Box position="relative">
-          <Tooltip position="right" content={`Send ${task?.quest_type_name}`} />
+          <Tooltip position="right" content={'Send ' + task?.quest_type_name} />
           <Image
             className={classes(['cargo_quest42x42', task?.image])}
             style={{

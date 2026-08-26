@@ -1,15 +1,15 @@
-import { useMemo, useState } from 'react';
 import {
   Box,
   Button,
-  Dropdown,
   LabeledList,
   NoticeBox,
   Section,
-} from 'tgui-core/components';
-import { decodeHtmlEntities } from 'tgui-core/string';
+  Dropdown,
+} from '../components';
+import { decodeHtmlEntities } from 'common/string';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
+import { useState, useMemo } from 'react';
 
 interface RobotData {
   ref: string;

@@ -1,15 +1,15 @@
-import {
-  Box,
-  Button,
-  Flex,
-  LabeledList,
-  ProgressBar,
-  Section,
-  Slider,
-} from 'tgui-core/components';
 import { useBackend } from '../backend';
+import {
+  Button,
+  Section,
+  LabeledList,
+  Slider,
+  Box,
+  ProgressBar,
+  Flex,
+} from '../components';
 import { Window } from '../layouts';
-import type { PortableBaseData } from './PortablePump';
+import { PortableBaseData } from './PortablePump';
 
 type PortableScrubberData = {
   rate: number;

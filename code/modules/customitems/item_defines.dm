@@ -827,7 +827,10 @@
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|ARMS
 
-GAME_VERB_SRC(/obj/item/clothing/suit/fluff/kluys, toggle, usr, "Режим наноткани", VERB_CATEGORY_HIDDEN)
+/obj/item/clothing/suit/fluff/kluys/verb/toggle()
+	set name = "Режим наноткани"
+	set category = VERB_CATEGORY_OBJECT
+	set src in usr
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return FALSE
@@ -1096,7 +1099,10 @@ GAME_VERB_SRC(/obj/item/clothing/suit/fluff/kluys, toggle, usr, "Режим на
 	. = ..()
 	verbs -= /obj/item/clothing/under/verb/rollsuit
 
-GAME_VERB_SRC(/obj/item/clothing/under/fluff/jane_sidsuit, toggle_zipper, usr, "Молния костюма", VERB_CATEGORY_HIDDEN)
+/obj/item/clothing/under/fluff/jane_sidsuit/verb/toggle_zipper()
+	set name = "Молния костюма"
+	set category = VERB_CATEGORY_OBJECT
+	set src in usr
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return FALSE

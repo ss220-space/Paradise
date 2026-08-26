@@ -1,10 +1,7 @@
-import {
-  Component,
-  type ComponentProps,
-  Fragment,
-  type ReactNode,
-  useState,
-} from 'react';
+import { rad2deg } from 'common/math';
+import { Component, Fragment, ReactNode } from 'react';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import {
   Box,
   Button,
@@ -15,11 +12,12 @@ import {
   Modal,
   Section,
   Tabs,
-} from 'tgui-core/components';
-import { rad2deg } from 'tgui-core/math';
-import { useBackend } from '../backend';
-import { Countdown } from '../components';
+} from '../components';
+import { Countdown } from '../components/Countdown';
 import { Window } from '../layouts';
+import { SectionProps } from '../components/Section';
+import { BoxProps } from '../components/Box';
+import { TabsProps } from '../components/Tabs';
 
 const contractStatuses = {
   1: ['АКТИВЕН', 'good'],
@@ -42,7 +40,7 @@ const terminalMessages = [
   'Получен ответ, код подтверждения ' +
     Math.round(Math.random() * 25500) +
     '...',
-  `АККАУНТ ПОДТВЕРЖДЁН ${Math.round(Math.random() * 20000)}`,
+  'АККАУНТ ПОДТВЕРЖДЁН ' + Math.round(Math.random() * 20000),
   'Создание личной учётной записи...',
   'СОЗДАНА УЧЕТНАЯ ЗАПИСЬ КОНТРАКТНИКА',
   'Поиск доступных контрактов...',
@@ -170,7 +168,7 @@ export const Contractor = (properties) => {
   );
 };
 
-const Summary = (properties: ComponentProps<typeof Section>) => {
+const Summary = (properties: SectionProps) => {
   const { act, data } = useBackend<ContractorData>();
   const { tc_available, tc_paid_out, completed_contracts, rep } = data;
   return (
@@ -228,7 +226,7 @@ const Summary = (properties: ComponentProps<typeof Section>) => {
   );
 };
 
-const Navigation = (properties: ComponentProps<typeof Tabs>) => {
+const Navigation = (properties: TabsProps) => {
   const { act, data } = useBackend<ContractorData>();
   const { page } = data;
   return (
@@ -260,7 +258,7 @@ const Navigation = (properties: ComponentProps<typeof Tabs>) => {
   );
 };
 
-const Contracts = (properties: ComponentProps<typeof Section>) => {
+const Contracts = (properties: SectionProps) => {
   const { act, data } = useBackend<ContractorData>();
   const { contracts, contract_active, can_extract } = data;
   const activeContract =
@@ -281,8 +279,8 @@ const Contracts = (properties: ComponentProps<typeof Section>) => {
             'Начать эвакуацию',
             extractionCooldown && (
               <Countdown
-                timeEnd={activeContract.time_left}
-                format={(v, f) => ` (${f.substring(3)})`}
+                timeLeft={activeContract.time_left}
+                format={(v, f) => ' (' + f.substring(3) + ')'}
               />
             ),
           ]}
@@ -316,7 +314,7 @@ const Contracts = (properties: ComponentProps<typeof Section>) => {
                       mb="-0.5rem"
                       ml="0.5rem"
                       onClick={() =>
-                        setViewingPhoto(`target_photo_${contract.uid}.png`)
+                        setViewingPhoto('target_photo_' + contract.uid + '.png')
                       }
                     />
                   )}
@@ -391,14 +389,14 @@ const Contracts = (properties: ComponentProps<typeof Section>) => {
                       })
                     }
                   >
-                    {`${difficulty.name} (${difficulty.reward} ТК)`}
+                    {difficulty.name + ' (' + difficulty.reward + ' ТК)'}
                   </Button.Confirm>
                 ))}
                 {!!contract.objective && (
                   <Box color="white" bold>
                     {contract.objective.extraction_name}
-                    <br />({`${contract.objective.rewards.tc || 0} ТК`},&nbsp;
-                    {`${contract.objective.rewards.credits || 0} Кредитов`})
+                    <br />({(contract.objective.rewards.tc || 0) + ' ТК'},&nbsp;
+                    {(contract.objective.rewards.credits || 0) + ' Кредитов'})
                   </Box>
                 )}
               </Flex.Item>
@@ -425,12 +423,12 @@ const areaArrow = (contract: Contract) => {
           color={same_area ? 'green' : 'yellow'}
           rotation={
             same_area
-              ? undefined
+              ? null
               : -rad2deg(
                   Math.atan2(
                     t_coords[1] - c_coords[1],
-                    t_coords[0] - c_coords[0],
-                  ),
+                    t_coords[0] - c_coords[0]
+                  )
                 )
           }
           lineHeight={same_area ? null : '0.85'} // Needed because it jumps upwards otherwise
@@ -441,7 +439,7 @@ const areaArrow = (contract: Contract) => {
   }
 };
 
-const Hub = (properties: ComponentProps<typeof Section>) => {
+const Hub = (properties: SectionProps) => {
   const { act, data } = useBackend<ContractorData>();
   const { rep, buyables } = data;
   return (
@@ -459,7 +457,7 @@ const Hub = (properties: ComponentProps<typeof Section>) => {
                   })
                 }
               >
-                {`Возврат (${buyable.cost} репутации)`}
+                {'Возврат (' + buyable.cost + ' репутации)'}
               </Button.Confirm>
             )
           }
@@ -476,7 +474,7 @@ const Hub = (properties: ComponentProps<typeof Section>) => {
               })
             }
           >
-            {`Купить (${buyable.cost} репутации)`}
+            {'Купить (' + buyable.cost + ' репутации)'}
           </Button.Confirm>
           {buyable.stock > -1 && (
             <Box as="span" color={!buyable.stock ? 'bad' : 'good'} ml="0.5rem">
@@ -494,7 +492,7 @@ type FakeTerminalProps = {
   linesPerSecond?: number;
   finishedTimeout: number;
   onFinished: () => void;
-} & ComponentProps<typeof Box>;
+} & BoxProps;
 
 type FakeTerminalState = {
   currentIndex: number;
@@ -503,10 +501,10 @@ type FakeTerminalState = {
 
 // Lifted from /tg/station
 class FakeTerminal extends Component<FakeTerminalProps, FakeTerminalState> {
-  timer: NodeJS.Timeout | undefined;
+  timer: NodeJS.Timeout;
   constructor(props: FakeTerminalProps) {
     super(props);
-    this.timer = undefined;
+    this.timer = null;
     this.state = {
       currentIndex: 0,
       currentDisplay: [],

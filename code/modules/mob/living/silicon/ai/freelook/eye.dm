@@ -124,7 +124,9 @@
 		user.light_cameras()
 
 // Return to the Core.
-GAME_VERB_PROC(/mob/living/silicon/ai, core, "К ядру ИИ", VERB_CATEGORY_AICOMMANDS)
+/mob/living/silicon/ai/proc/core()
+	set category = VERB_CATEGORY_AICOMMANDS
+	set name = "К ядру ИИ"
 
 	view_core()
 
@@ -151,7 +153,9 @@ GAME_VERB_PROC(/mob/living/silicon/ai, core, "К ядру ИИ", VERB_CATEGORY_A
 	eyeobj.setLoc(loc)
 	eyeobj.name = "[name] (AI Eye)"
 
-GAME_VERB_PROC(/mob/living/silicon/ai, toggle_acceleration, "Ускорение камеры", VERB_CATEGORY_AICOMMANDS)
+/mob/living/silicon/ai/proc/toggle_acceleration()
+	set category = VERB_CATEGORY_AICOMMANDS
+	set name = "Ускорение камеры"
 
 	if(usr.stat == DEAD)
 		return //won't work if dead
@@ -159,10 +163,16 @@ GAME_VERB_PROC(/mob/living/silicon/ai, toggle_acceleration, "Ускорение 
 	to_chat(usr, "Camera acceleration has been toggled [acceleration ? "on" : "off"].")
 
 /mob/living/silicon/ai/move_up()
+	set name = "Подняться"
+	set category = VERB_CATEGORY_IC
+
 	if(eyeobj.zMove(UP, z_move_flags = ZMOVE_FEEDBACK))
 		to_chat(src, span_notice("You move upwards."))
 
 /mob/living/silicon/ai/move_down()
+	set name = "Опуститься"
+	set category = VERB_CATEGORY_IC
+
 	if(eyeobj.zMove(DOWN, z_move_flags = ZMOVE_FEEDBACK))
 		to_chat(src, span_notice("You move down."))
 

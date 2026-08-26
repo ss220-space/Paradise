@@ -1,6 +1,5 @@
-import { Box, Button, LabeledList, Section } from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
 import { useBackend } from '../backend';
+import { Box, Section, Button, LabeledList } from '../components';
 import { Window } from '../layouts';
 
 const DAMAGE_LOCALIZATION_MAP = new Map([
@@ -44,15 +43,15 @@ type HealthanalyzerData = {
   scan_data: ScanData;
   scan_title: string;
   theme: string;
-  advanced: BooleanLike;
-  localize: BooleanLike;
+  advanced: boolean;
+  localize: boolean;
 };
 
 type ScanData = {
   status: string | number;
   damageLevels: DamageLevels;
   health: number;
-  DRN: BooleanLike;
+  DRN: boolean;
   timeofdeath: string;
   bodyTemperatureC: number;
   bodyTemperatureF: number;
@@ -68,16 +67,16 @@ type ScanData = {
   fractureList: string[];
   infectedList: string[];
   bleedingList: string[];
-  extraFacture: BooleanLike;
-  extraBleeding: BooleanLike;
+  extraFacture: boolean;
+  extraBleeding: boolean;
   insuranceType: string;
   reqInsurance: number;
   insurance: number;
   brainDamage: number | string;
-  bleed: BooleanLike;
-  staminaStatus: BooleanLike;
+  bleed: boolean;
+  staminaStatus: boolean;
   cloneStatus: number;
-  brainWorms: BooleanLike;
+  brainWorms: boolean;
   diseases: Disease[];
   reagentList: Reagent[];
   addictionList: Addiction[];
@@ -384,7 +383,7 @@ export const Healthanalyzer = (props: unknown) => {
                   </Section>
                 )}
 
-                {data.localize &&
+                {!!data['localize'] &&
                 (!!scan_data.damageLocalization ||
                   !!scan_data.fractureList[0] ||
                   scan_data.infectedList[0] ||
@@ -453,7 +452,7 @@ export const Healthanalyzer = (props: unknown) => {
                     )}
                   </Section>
                 ) : (
-                  !data.localize &&
+                  !data['localize'] &&
                   (!!scan_data.fractureList[0] ||
                     scan_data.infectedList[0] ||
                     !!scan_data.extraFacture ||
@@ -663,7 +662,7 @@ const DiseasesList = (props: unknown) => {
     <Box>
       {diseases.map((disease, index) => (
         <Section
-          title={`Внимание: ${disease.form}`}
+          title={'Внимание: ' + disease.form}
           mt={2}
           mb={2}
           color="red"

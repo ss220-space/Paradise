@@ -1,13 +1,6 @@
 import { Fragment } from 'react';
-import {
-  Box,
-  Button,
-  Icon,
-  Section,
-  Slider,
-  Stack,
-} from 'tgui-core/components';
 import { useBackend } from '../backend';
+import { Box, Button, Icon, Section, Stack, Slider } from '../components';
 import { Window } from '../layouts';
 
 type VolumeMixerData = {

@@ -1,25 +1,24 @@
-import { declension_ru } from 'common/l10n';
-import { sortBy } from 'es-toolkit';
+import { flow } from 'common/fp';
+import { filter, sortBy } from 'common/collections';
+import { useBackend, useSharedState } from '../backend';
 import { useState } from 'react';
 import {
-  Box,
   Button,
+  LabeledList,
+  Box,
+  Section,
   Dropdown,
   Input,
-  LabeledList,
-  Modal,
-  Section,
-  Stack,
   Table,
-} from 'tgui-core/components';
-import { flow } from 'tgui-core/fp';
-import { createSearch } from 'tgui-core/string';
-import { useBackend, useSharedState } from '../backend';
+  Modal,
+  Stack,
+} from '../components';
 import { Window } from '../layouts';
+import { createSearch, declension_ru } from 'common/string';
 
 export const CargoConsole = (_props: unknown) => {
-  const [contentsModal, setContentsModal] = useState<string[]>([]);
-  const [contentsModalTitle, setContentsModalTitle] = useState<string>('');
+  const [contentsModal, setContentsModal] = useState<string[]>(null);
+  const [contentsModalTitle, setContentsModalTitle] = useState<string>(null);
 
   return (
     <Window width={1000} height={800} theme="cargo">
@@ -58,12 +57,12 @@ const ContentsModal = (properties: ContentsModalProps) => {
     setContentsModalTitle,
   } = properties;
 
-  if (contentsModal.length && contentsModalTitle !== '') {
+  if (contentsModal !== null && contentsModalTitle !== null) {
     return (
       <Modal
         maxWidth="75%"
-        width={`${window.innerWidth}px`}
-        maxHeight={`${window.innerHeight * 0.75}px`}
+        width={window.innerWidth + 'px'}
+        maxHeight={window.innerHeight * 0.75 + 'px'}
         mx="auto"
       >
         <Box width="100%" bold>
@@ -78,8 +77,8 @@ const ContentsModal = (properties: ContentsModalProps) => {
         <Box m={2}>
           <Button
             onClick={() => {
-              setContentsModal([]);
-              setContentsModalTitle('');
+              setContentsModal(null);
+              setContentsModalTitle(null);
             }}
           >
             Close
@@ -106,8 +105,8 @@ const StatusPane = (_properties) => {
   const { is_public, points, credits, timeleft, moving, at_station } = data;
 
   // Shuttle status text
-  let statusText: string = '';
-  let shuttleButtonText: string = '';
+  let statusText: string;
+  let shuttleButtonText: string;
   if (!moving && !at_station) {
     statusText = 'Не на объекте';
     shuttleButtonText = 'Вызвать шаттл';
@@ -116,7 +115,12 @@ const StatusPane = (_properties) => {
     shuttleButtonText = 'Вернуть шаттл';
   } else if (moving) {
     shuttleButtonText = 'В пути';
-    statusText = `В пути к объекту (прилетит через: ${timeleft})`;
+    statusText =
+      'В пути к объекту (прилетит через ' +
+      timeleft +
+      ' минут' +
+      declension_ru(timeleft, 'у', 'ы', '') +
+      ')';
   }
 
   return (
@@ -155,7 +159,7 @@ const CataloguePane = (properties: CataloguePaneProps) => {
 
   const [category, setCategory] = useSharedState(
     'category',
-    'Чрезвычайные ситуации',
+    'Чрезвычайные ситуации'
   );
 
   const [searchText, setSearchText] = useSharedState('search_text', '');
@@ -164,32 +168,32 @@ const CataloguePane = (properties: CataloguePaneProps) => {
 
   const packSearch = createSearch<SupplyPack>(
     searchText,
-    (crate) => crate.name,
+    (crate) => crate.name
   );
 
   const targetCategory = !searchText
-    ? categories.filter((c) => c.name === category)[0]?.category || category
+    ? filter(categories, (c) => c.name === category)[0]?.category || category
     : null;
 
   const cratesToShow = flow([
     (supply_packs) =>
-      supply_packs.filter((pack: SupplyPack) => {
+      filter<SupplyPack>(supply_packs, (pack) => {
         if (searchText) {
           return true;
         }
         return pack.cat === targetCategory;
       }),
     (supply_packs) =>
-      searchText ? supply_packs.filter(packSearch) : supply_packs,
+      searchText ? filter<SupplyPack>(supply_packs, packSearch) : supply_packs,
     (supply_packs) =>
-      sortBy<SupplyPack>(supply_packs, [(pack) => pack.name.toLowerCase()]),
+      sortBy<SupplyPack>(supply_packs, (pack) => pack.name.toLowerCase()),
   ])(supply_packs);
 
   let titleText = 'Перечень грузов для заказа';
   if (searchText) {
-    titleText = `Результаты поиска "${searchText}":`;
+    titleText = 'Результаты поиска "' + searchText + '":';
   } else if (category) {
-    titleText = `Просмотр категории "${category}"`;
+    titleText = 'Просмотр категории "' + category + '"';
   }
   return (
     <Stack.Item>
@@ -227,7 +231,7 @@ const CataloguePane = (properties: CataloguePaneProps) => {
                   >
                     {c.name} (
                     {c.cost
-                      ? `${c.cost} очк${declension_ru(c.cost, 'о', 'а', 'ов')}`
+                      ? c.cost + ' очк' + declension_ru(c.cost, 'о', 'а', 'ов')
                       : ''}
                     {c.creditsCost && c.cost ? ' ' : ''}
                     {c.creditsCost

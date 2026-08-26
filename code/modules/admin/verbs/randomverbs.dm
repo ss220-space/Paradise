@@ -1,5 +1,4 @@
-ADMIN_VERB(drop_everything, R_DEBUG|R_ADMIN, "Drop Everything", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN)
-	VERB_ARG_TYPED(dropee, VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /mob/living)
+ADMIN_VERB(drop_everything, R_DEBUG|R_ADMIN, "Drop Everything", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/dropee as mob in GLOB.mob_list)
 	var/confirm = tgui_alert(user, "Make [dropee] drop everything?", "Message", list("Yes", "No"))
 	if(confirm != "Yes")
 		return
@@ -11,8 +10,7 @@ ADMIN_VERB(drop_everything, R_DEBUG|R_ADMIN, "Drop Everything", ADMIN_VERB_NO_DE
 	message_admins("[key_name_admin(user)] made [ADMIN_LOOKUPFLW(dropee)] drop everything!")
 	BLACKBOX_LOG_ADMIN_VERB("Drop Everything")
 
-ADMIN_VERB(imprison, R_ADMIN, "Prison", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN)
-	VERB_ARG_TYPED(victim, VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /mob/living)
+ADMIN_VERB(imprison, R_ADMIN, "Prison", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/victim as mob in GLOB.mob_list)
 	if(!istype(victim))
 		return
 
@@ -45,9 +43,7 @@ ADMIN_VERB(imprison_in_list, R_ADMIN, "Prison in List", "Send a mob to prison.",
 
 	SSadmin_verbs.dynamic_invoke_verb(user, /datum/admin_verb/imprison, victim)
 
-ADMIN_VERB_ONLY_CONTEXT_MENU(cmd_admin_subtle_message, R_ADMIN, "Subtle Message", /mob)
-	VERB_ARG_TYPED(target, VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /mob)
-
+ADMIN_VERB_AND_CONTEXT_MENU(cmd_admin_subtle_message, R_ADMIN, "Subtle Message", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/target in GLOB.mob_list)
 	if(!ismob(target))
 		return
 
@@ -109,8 +105,7 @@ ADMIN_VERB(cmd_admin_world_narrate, R_SERVER|R_EVENT, "Global Narrate", "Send a 
 	message_admins(span_adminnotice("[key_name_admin(user)] Sent a global narrate"))
 	BLACKBOX_LOG_ADMIN_VERB("Global Narrate")
 
-ADMIN_VERB_ONLY_CONTEXT_MENU(cmd_admin_local_narrate, R_SERVER|R_EVENT, "Local Narrate", /atom)
-	VERB_ARG_TYPED(locale, VERB_ARG_TYPE_ATOM, VERB_ARG_SOURCE_WORLD, /atom)
+ADMIN_VERB_AND_CONTEXT_MENU(cmd_admin_local_narrate, R_SERVER|R_EVENT, "Local Narrate", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, atom/locale in world)
 	var/range = tgui_input_number(user, "Range:", "Narrate to mobs within how many tiles:", 7)
 	if(!range)
 		return
@@ -127,8 +122,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(cmd_admin_local_narrate, R_SERVER|R_EVENT, "Local N
 	message_admins(span_adminnotice("<b> LocalNarrate: [key_name_admin(user)] at [ADMIN_VERBOSEJMP(locale)]:</b> [msg]<br>"))
 	BLACKBOX_LOG_ADMIN_VERB("Local Narrate")
 
-ADMIN_VERB_ONLY_CONTEXT_MENU(cmd_admin_direct_narrate, R_SERVER|R_EVENT, "Direct Narrate", /mob)
-	VERB_ARG_TYPED(target, VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /mob)
+ADMIN_VERB_AND_CONTEXT_MENU(cmd_admin_direct_narrate, R_SERVER|R_EVENT, "Direct Narrate", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/target in GLOB.player_list)
 	if(!target)
 		return
 
@@ -142,8 +136,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(cmd_admin_direct_narrate, R_SERVER|R_EVENT, "Direct
 	message_admins(span_adminnotice("<b> DirectNarrate: [key_name_admin(user)] to ([key_name_admin(target)]):</b> [msg]<br>"))
 	BLACKBOX_LOG_ADMIN_VERB("Direct Narrate")
 
-ADMIN_VERB_ONLY_CONTEXT_MENU(cmd_admin_headset_message, R_EVENT, "Headset Message", /mob)
-	VERB_ARG_TYPED(target, VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /mob)
+ADMIN_VERB_AND_CONTEXT_MENU(cmd_admin_headset_message, R_EVENT, "Headset Message", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/target in GLOB.mob_list)
 	user.admin_headset_message(target)
 
 /client/proc/admin_headset_message(mob/M in GLOB.mob_list, sender = null)
@@ -172,8 +165,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(cmd_admin_headset_message, R_EVENT, "Headset Messag
 
 	SEND_SOUND(H, sound('sound/effects/headset_message.ogg'))
 
-ADMIN_VERB_ONLY_CONTEXT_MENU(cmd_admin_godmode, R_ADMIN, "Godmode", /mob)
-	VERB_ARG_TYPED(target, VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /mob)
+ADMIN_VERB(cmd_admin_godmode, R_ADMIN, "Godmode", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/target as mob in GLOB.mob_list)
 	var/had_trait = HAS_TRAIT_FROM(target, TRAIT_GODMODE, ADMIN_TRAIT)
 	if(had_trait)
 		REMOVE_TRAIT(target, TRAIT_GODMODE, ADMIN_TRAIT)
@@ -389,6 +381,7 @@ ADMIN_VERB(respawn_character, R_SPAWN, "Respawn Character", "Respawn a player th
 
 	if(G_found.mind && !G_found.mind.active)
 		G_found.mind.transfer_to(new_character)	//be careful when doing stuff like this! I've already checked the mind isn't in use
+		new_character.mind.special_verbs = list()
 	else
 		new_character.mind_initialize()
 	if(!new_character.mind.assigned_role)
@@ -560,8 +553,7 @@ ADMIN_VERB(cmd_admin_add_freeform_ai_law, R_EVENT, "Add Custom AI Law", "Add a c
 
 	BLACKBOX_LOG_ADMIN_VERB("Add Custom AI Law")
 
-ADMIN_VERB_ONLY_CONTEXT_MENU(admin_rejuvenate, R_REJUVINATE, "Rejuvenate", /mob/living)
-	VERB_ARG_TYPED(M, VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /mob/living)
+ADMIN_VERB_ONLY_CONTEXT_MENU(admin_rejuvenate, R_REJUVINATE, "Rejuvenate", mob/living/M as mob in GLOB.mob_list)
 	if(!user.mob)
 		return
 	if(!istype(M))
@@ -572,8 +564,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(admin_rejuvenate, R_REJUVINATE, "Rejuvenate", /mob/
 	log_and_message_admins(span_warning("healed / revived [key_name_admin(M)]!"))
 	BLACKBOX_LOG_ADMIN_VERB("Rejuvenate")
 
-ADMIN_VERB_ONLY_CONTEXT_MENU(admin_offer_control, R_ADMIN, "Offer control to ghosts", /mob)
-	VERB_ARG_TYPED(M, VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /mob)
+ADMIN_VERB_ONLY_CONTEXT_MENU(admin_offer_control, R_ADMIN, "Offer control to ghosts", mob/M as mob in GLOB.mob_list)
 	if(!user.mob)
 		return
 	if(!istype(M))
@@ -650,8 +641,7 @@ ADMIN_VERB(list_open_jobs, R_ADMIN, "List free slots", "List available station j
 		to_chat(user, "<b>Currently filled job slots (Excluding unlimited): [currentpositiontally] / [totalpositiontally] ([totalpositiontally - currentpositiontally])</b>", confidential = TRUE)
 	BLACKBOX_LOG_ADMIN_VERB("List Free Slots")
 
-ADMIN_VERB(admin_explosion, R_DEBUG|R_EVENT, "Explosion", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN)
-	VERB_ARG_TYPED(orignator, VERB_ARG_TYPE_OBJ | VERB_ARG_TYPE_TURF | VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /atom)
+ADMIN_VERB(admin_explosion, R_DEBUG|R_EVENT, "Explosion", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, atom/orignator as obj|mob|turf)
 	var/devastation = tgui_input_number(user, "Range of total devastation. -1 to none", "Input")
 	if(devastation == null)
 		return
@@ -681,8 +671,7 @@ ADMIN_VERB(admin_explosion, R_DEBUG|R_EVENT, "Explosion", ADMIN_VERB_NO_DESCRIPT
 		log_and_message_admins("created an explosion ([devastation],[heavy],[light],[flames]) at [AREACOORD(orignator)]")
 		BLACKBOX_LOG_ADMIN_VERB("Explosion")
 
-ADMIN_VERB(admin_emp, R_DEBUG|R_EVENT, "EM Pulse", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN)
-	VERB_ARG_TYPED(orignator, VERB_ARG_TYPE_OBJ | VERB_ARG_TYPE_TURF | VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /atom)
+ADMIN_VERB(admin_emp, R_DEBUG|R_EVENT, "EM Pulse", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, atom/orignator as obj|mob|turf)
 	var/heavy = tgui_input_number(user, "Range of heavy pulse.", "Input")
 	if(heavy == null)
 		return
@@ -697,8 +686,7 @@ ADMIN_VERB(admin_emp, R_DEBUG|R_EVENT, "EM Pulse", ADMIN_VERB_NO_DESCRIPTION, AD
 		message_admins("[key_name_admin(user)] created an EM Pulse ([heavy],[light]) at [AREACOORD(orignator)]")
 		BLACKBOX_LOG_ADMIN_VERB("EM Pulse")
 
-ADMIN_VERB(gib_them, R_ADMIN|R_EVENT, "Gib", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN)
-	VERB_ARG_TYPED(victim, VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /mob)
+ADMIN_VERB(gib_them, R_ADMIN|R_EVENT, "Gib", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/victim as mob in GLOB.mob_list)
 	var/confirm = tgui_alert(user, "You sure?", "Confirm", list("Yes", "No"))
 	if(confirm != "Yes")
 		return
@@ -729,24 +717,42 @@ ADMIN_VERB(gib_self, R_ADMIN|R_EVENT, "Gibself", "Give yourself the same treatme
 	message_admins(span_adminnotice("[key_name_admin(user)] used gibself."))
 	BLACKBOX_LOG_ADMIN_VERB("Gib Self")
 
-ADMIN_VERB_ONLY_CONTEXT_MENU(cmd_check_contents, R_ADMIN, "Check Contents", /mob/living)
-	VERB_ARG_TYPED(target, VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /mob/living)
-
+ADMIN_VERB_AND_CONTEXT_MENU(cmd_check_contents, R_ADMIN, "Check Contents", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/living/target as mob in GLOB.mob_list)
 	var/list/mob_contents = target.get_contents()
 	for(var/atom/content in mob_contents)
 		to_chat(user, "[content] [ADMIN_VV(content, "VV")] [ADMIN_TAG(content)]", confidential = TRUE)
 	BLACKBOX_LOG_ADMIN_VERB("Check Contents")
 
 ADMIN_VERB(toggle_view_range, R_ADMIN, "Change View Range", "Switch between 1x and custom views.", ADMIN_CATEGORY_GAME)
+	var/client_view = user.prefs.viewrange
 
-	if(user.view_size.getView() == user.view_size.default)
-		var/input = tgui_input_list(user, "Select view range:", "View Range", list(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, "MAX"), 7)
+	if(user.view == client_view)
+		var/input = tgui_input_list(user, "Select view range:", "View Range", list(1,2,3,4,5,6,7,8,9,10,11,12,13,14,"MAX"), 7)
 		if(!input)
 			return
 
-		user.view_size.setTo(input)
+		var/list/viewscales = getviewsize(client_view)
+		var/aspect_ratio = viewscales[1] / viewscales[2]
+
+		var/view_x
+		var/view_y
+		if(input == "MAX")
+			if(viewscales[1] == viewscales[2])
+				view_x = 71	// 71 is max for X
+				view_y = 67	// 67 is max for Y
+			else
+				view_x = 71
+				view_y = round(71 / aspect_ratio)
+		else
+			view_y = (input * 2) % 2 ? input * 2 : input * 2 + 1
+			var/rounded_x = round(view_y * aspect_ratio)
+			view_x = rounded_x % 2 ? rounded_x : rounded_x + 1
+
+		user.view = "[view_x]x[view_y]"
 	else
-		user.view_size.resetToDefault()
+		user.view = client_view
+
+	user.fit_viewport()
 
 	log_admin("[key_name(user)] changed their view range to [user.view].")
 	BLACKBOX_LOG_ADMIN_VERB("Change View Range")

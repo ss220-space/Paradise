@@ -1,5 +1,7 @@
 import { storage } from 'common/storage';
-import { type CSSProperties, useEffect, useState } from 'react';
+import { createUuid } from 'common/uuid';
+import { useBackend } from '../../backend';
+import { CSSProperties, useEffect, useState } from 'react';
 import {
   Button,
   Divider,
@@ -7,19 +9,16 @@ import {
   NumberInput,
   Section,
   Stack,
-} from 'tgui-core/components';
-import { createUuid } from 'tgui-core/uuid';
-import { useBackend } from '../../backend';
+} from '../../components';
 import { POD_GREY } from './constants';
-import type { PodLauncherData } from './types';
-
+import { PodLauncherData } from './types';
 type Preset = {
   hue: number;
   id: number;
   title: string;
 };
 const saveDataToPreset = async (id: string, data: any) => {
-  await storage.set(`podlauncher_preset_${id}`, data);
+  await storage.set('podlauncher_preset_' + id, data);
 };
 
 type PresetButtonsProps = {
@@ -108,7 +107,7 @@ export const PresetsPage = (props: unknown) => {
   };
   const loadPreset = async (id) => {
     act('loadDataFromPreset', {
-      payload: await storage.get(`podlauncher_preset_${id}`),
+      payload: await storage.get('podlauncher_preset_' + id),
     });
   };
   const newPreset = async (presetName: string, hue: number, data: any) => {

@@ -1,5 +1,5 @@
-import type { CSSProperties } from 'react';
-import { Icon, Input, Stack } from 'tgui-core/components';
+import { CSSProperties } from 'react';
+import { Icon, Input, Stack } from 'tgui/components';
 
 type RequiredProps = {
   /** The state variable. */

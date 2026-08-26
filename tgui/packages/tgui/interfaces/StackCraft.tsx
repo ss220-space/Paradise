@@ -1,18 +1,18 @@
-import { sortBy } from 'es-toolkit';
-import { useState } from 'react';
+import { useBackend } from '../backend';
+import { filter, sortBy, map, reduce } from 'common/collections';
+import { flow } from 'common/fp';
+import { createSearch } from 'common/string';
+import { Window } from '../layouts';
 import {
   Box,
-  Button,
-  Collapsible,
-  ImageButton,
-  Input,
-  NoticeBox,
   Section,
-} from 'tgui-core/components';
-import { flow } from 'tgui-core/fp';
-import { createSearch } from 'tgui-core/string';
-import { useBackend } from '../backend';
-import { Window } from '../layouts';
+  NoticeBox,
+  Collapsible,
+  Input,
+  ImageButton,
+  Button,
+} from '../components';
+import { useState } from 'react';
 
 export const StackCraft = () => {
   return (
@@ -46,7 +46,7 @@ const Recipes = (_props: unknown) => {
 
   const filteredRecipes = filterRecipeList(
     recipes,
-    createSearch<Recipe | string>(searchText),
+    createSearch<Recipe | string>(searchText)
   );
   const [searchActive, setSearchActive] = useState(false);
 
@@ -54,7 +54,7 @@ const Recipes = (_props: unknown) => {
     <Section
       fill
       scrollable
-      title={`Amount: ${amount}`}
+      title={'Amount: ' + amount}
       buttons={
         <>
           {searchActive && (
@@ -94,11 +94,11 @@ const Recipes = (_props: unknown) => {
  */
 const filterRecipeList = (
   recipeList: Recipe[] | Recipe,
-  titleFilter: (r: Recipe | string) => boolean,
+  titleFilter: (r: Recipe | string) => boolean
 ) => {
   const filteredList = flow([
     (recipeList: [string, Recipe][]) =>
-      recipeList.map((entry) => {
+      map(recipeList, (entry) => {
         const [title, recipe] = entry;
 
         if (isRecipeList(recipe)) {
@@ -114,16 +114,20 @@ const filterRecipeList = (
         return titleFilter(title) ? entry : [title, undefined];
       }),
     (recipeList: [string, Recipe][]) =>
-      recipeList.filter(([title, recipe]) => recipe !== undefined),
+      filter(recipeList, ([title, recipe]) => recipe !== undefined),
     (recipeList: [string, Recipe][]) =>
-      sortBy(recipeList, [([title, recipe]) => title]),
+      sortBy(recipeList, ([title, recipe]) => title),
     (recipeList: [string, Recipe][]) =>
-      sortBy(recipeList, [([title, recipe]) => !isRecipeList(recipe)]),
+      sortBy(recipeList, ([title, recipe]) => !isRecipeList(recipe)),
     (recipeList: [string, Recipe][]) =>
-      recipeList.reduce((obj, [title, recipe]) => {
-        obj[title] = recipe;
-        return obj;
-      }, {}),
+      reduce(
+        recipeList,
+        (obj, [title, recipe]) => {
+          obj[title] = recipe;
+          return obj;
+        },
+        {}
+      ),
   ])(Object.entries(recipeList));
 
   return Object.keys(filteredList).length ? filteredList : undefined;
@@ -164,12 +168,12 @@ const Multipliers = (props: MultipliersProps) => {
 
   const max_available_multiplier = Math.min(
     max_possible_multiplier,
-    Math.floor(recipe.max_result_amount / recipe.result_amount),
+    Math.floor(recipe.max_result_amount / recipe.result_amount)
   );
 
   const multipliers = [5, 10, 25];
 
-  const finalResult: React.JSX.Element[] = [];
+  const finalResult = [];
 
   for (const multiplier of multipliers) {
     if (max_available_multiplier >= multiplier) {
@@ -186,8 +190,8 @@ const Multipliers = (props: MultipliersProps) => {
             })
           }
         >
-          {`${multiplier * recipe.result_amount}x`}
-        </Button>,
+          {multiplier * recipe.result_amount + 'x'}
+        </Button>
       );
     }
   }
@@ -206,8 +210,8 @@ const Multipliers = (props: MultipliersProps) => {
           })
         }
       >
-        {`${max_available_multiplier * recipe.result_amount}x`}
-      </Button>,
+        {max_available_multiplier * recipe.result_amount + 'x'}
+      </Button>
     );
   }
 

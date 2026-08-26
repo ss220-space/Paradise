@@ -1,12 +1,10 @@
 /datum/emote/living/silicon
-	abstract_type = /datum/emote/living/silicon
 	mob_type_allowed_typecache = list(
 		/mob/living/silicon,
 		/mob/living/simple_animal/bot,
 		/mob/living/carbon/human,	// Humans are allowed for the sake of IPCs
 	)
 	mob_type_blacklist_typecache = null
-	keybind_category = KB_CATEGORY_EMOTE_SILICON
 
 /datum/emote/living/silicon/can_run_emote(mob/living/carbon/human/user, status_check, intentional)
 	. = ..()
@@ -19,7 +17,6 @@
 			return FALSE
 
 /datum/emote/living/silicon/scream
-	name = "Кричать"
 	key = "scream"
 	additional_keys = list("крик")
 	key_third_person = "screams"
@@ -36,7 +33,6 @@
 	use_sound_tokens = TRUE
 
 /datum/emote/living/silicon/ping
-	name = "Звенеть"
 	key = "ping"
 	additional_keys = list("пинг")
 	key_third_person = "pings"
@@ -48,7 +44,6 @@
 	sound = 'sound/machines/ping.ogg'
 
 /datum/emote/living/silicon/buzz
-	name = "Жужжать"
 	key = "buzz"
 	additional_keys = list("бзз")
 	key_third_person = "buzzes"
@@ -60,7 +55,6 @@
 	sound = 'sound/machines/buzz-sigh.ogg'
 
 /datum/emote/living/silicon/buzz2
-	name = "Жужжать раздражённо"
 	key = "buzz2"
 	additional_keys = list("бзз2")
 	message = "изда%(ёт,ют)% раздраженный жужжащий звук."
@@ -71,7 +65,6 @@
 	sound = 'sound/machines/buzz-two.ogg'
 
 /datum/emote/living/silicon/beep
-	name = "Бипать"
 	key = "beep"
 	additional_keys = list("бип")
 	key_third_person = "beeps"
@@ -83,7 +76,6 @@
 	sound = 'sound/machines/twobeep.ogg'
 
 /datum/emote/living/silicon/boop
-	name = "Бупать"
 	key = "boop"
 	additional_keys = list("буп")
 	key_third_person = "boops"
@@ -95,7 +87,6 @@
 	sound = 'sound/machines/boop.ogg'
 
 /datum/emote/living/silicon/yes
-	name = "Утвердительно"
 	key = "yes"
 	additional_keys = list("да")
 	message = "изда%(ёт,ют)% утвердительный сигнал."
@@ -106,7 +97,6 @@
 	sound = 'sound/machines/synth_yes.ogg'
 
 /datum/emote/living/silicon/no
-	name = "Отрицательно"
 	key = "no"
 	additional_keys = list("нет")
 	message = "изда%(ёт,ют)% отрицательный сигнал."
@@ -117,7 +107,6 @@
 	sound = 'sound/machines/synth_no.ogg'
 
 /datum/emote/living/silicon/law
-	name = "Указать кто здесь закон"
 	key = "law"
 	additional_keys = list("закон")
 	message = "указыва%(ет,ют)% на штрих-код службы безопасноти."
@@ -137,7 +126,6 @@
 	return TRUE
 
 /datum/emote/living/silicon/halt
-	name = "Приказать немедленно остановиться"
 	key = "halt"
 	additional_keys = list("халт", "стой")
 	message = "ор%(ёт,ут)% \"СТОЯТЬ! СЛУЖБА БЕЗОПАСНОСТИ!\" через динамики!"

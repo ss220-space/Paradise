@@ -1,6 +1,6 @@
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { type Access, AccessList } from './common/AccessList';
+import { Access, AccessList } from './common/AccessList';
 
 export type BotsData = {
   accesses: number[];

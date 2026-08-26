@@ -1,21 +1,20 @@
 // This is the elements from the skin.dmf that we need to adjust the fontsize of
 const ELEMENTS_TO_ADJUST = [
-  'infobuttons.options',
-  'infobuttons.hotkeys',
-  'infobuttons.emotes',
-  'infobuttons.fullscreen-toggle',
-  'infobuttons.reconnect',
-  'infobuttons.chat',
+  'infobuttons.textb',
+  'infobuttons.infob',
+  'infobuttons.wikib',
+  'infobuttons.webmap',
+  'infobuttons.discordb',
+  'infobuttons.fullscreenb',
   'inputwindow.input',
   'inputbuttons.saybutton',
   'inputbuttons.mebutton',
   'inputbuttons.oocbutton',
-  'inputbuttons.whisperbutton',
 ];
 
 const DEFAULT_BUTTON_FONT_SIZE = 4;
 
-export async function setDisplayScaling() {
+export const setDisplayScaling = async () => {
   if (window.devicePixelRatio === 1) {
     return;
   }
@@ -28,15 +27,15 @@ export async function setDisplayScaling() {
   }
 
   Byond.winset(null, newSizes);
-}
+};
 
 const PANE_SPLITTERS = {
   info_button_child: 2,
-  input_buttons_child: 70,
-  info_split: 97.5,
+  input_buttons_child: 80,
+  output_input_child: 96,
 };
 
-export function setEditPaneSplitters(editing: boolean) {
+export const setEditPaneSplitters = (editing: boolean) => {
   const toSet: { [element: string]: any } = {};
 
   for (const pane of Object.keys(PANE_SPLITTERS)) {
@@ -44,9 +43,9 @@ export function setEditPaneSplitters(editing: boolean) {
   }
 
   Byond.winset(null, toSet);
-}
+};
 
-export function resetPaneSplitters() {
+export const resetPaneSplitters = () => {
   const toSet: { [element: string]: any } = {};
 
   for (const default_obj of Object.entries(PANE_SPLITTERS)) {
@@ -54,4 +53,4 @@ export function resetPaneSplitters() {
   }
 
   Byond.winset(null, toSet);
-}
+};

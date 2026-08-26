@@ -1,36 +1,35 @@
-import { useState } from 'react';
-import {
-  AnimatedNumber,
-  Box,
-  Button,
-  Icon,
-  LabeledList,
-  ProgressBar,
-  Section,
-  Table,
-  Tabs,
-} from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
 import { useBackend } from '../backend';
-import { GASES } from '../constants';
+import {
+  Button,
+  LabeledList,
+  Box,
+  AnimatedNumber,
+  Section,
+  ProgressBar,
+  Icon,
+  Tabs,
+  Table,
+} from '../components';
+import { useState } from 'react';
 import { Window } from '../layouts';
-import { type AtmosMachine, AtmosMachineView } from './common/AtmosMachine';
-import { Danger2Colour } from './common/AtmosScan';
 import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';
+import { AtmosMachine, AtmosMachineView } from './common/AtmosMachine';
+import { GASES } from '../constants';
+import { Danger2Colour } from './common/AtmosScan';
 
 type AirAlarmData = {
   air: Air;
   mode: number;
-  atmos_alarm: BooleanLike;
-  locked: BooleanLike;
-  alarmActivated: BooleanLike;
+  atmos_alarm: boolean;
+  locked: boolean;
+  alarmActivated: boolean;
   rcon: number;
   target_temp: number;
   vents: AtmosMachine[];
   scrubbers: AtmosMachine[];
   modes: Mode[];
   presets: Preset[];
-  emagged: BooleanLike;
+  emagged: boolean;
   preset: number;
   thresholds: Threshold[];
 };
@@ -39,7 +38,7 @@ type Air = {
   danger: Danger;
   contents: AirContent;
   pressure: number;
-  thermostat_state: BooleanLike;
+  thermostat_state: boolean;
   temperature: number;
   temperature_c: number;
 };
@@ -73,7 +72,7 @@ type Mode = {
   id: number;
   name: string;
   desc: string;
-  emagonly: BooleanLike;
+  emagonly: boolean;
 };
 
 type Preset = {
@@ -132,7 +131,7 @@ const AirStatus = (_props: unknown) => {
     areaStatus = 'DANGER: Internals Required';
   }
 
-  const permanentGases = ['oxygen', 'nitrogen', 'carbon_dioxide', 'plasma'];
+  let permanentGases = ['oxygen', 'nitrogen', 'carbon_dioxide', 'plasma'];
 
   return (
     <Section title="Air Status">
@@ -182,7 +181,7 @@ const AirStatus = (_props: unknown) => {
                 icon="thermometer-full"
                 onClick={() => act('temperature')}
               >
-                {`${target_temp} C`}
+                {target_temp + ' C'}
               </Button>
               <Button
                 selected={air.thermostat_state}
@@ -246,28 +245,28 @@ const AirAlarmTabs = (props: TabIndexProps) => {
       <Tabs.Tab
         key="Vents"
         selected={0 === tabIndex}
-        onClick={() => setTabIndex?.(0)}
+        onClick={() => setTabIndex(0)}
       >
         <Icon name="sign-out-alt" /> Vent Control
       </Tabs.Tab>
       <Tabs.Tab
         key="Scrubbers"
         selected={1 === tabIndex}
-        onClick={() => setTabIndex?.(1)}
+        onClick={() => setTabIndex(1)}
       >
         <Icon name="sign-in-alt" /> Scrubber Control
       </Tabs.Tab>
       <Tabs.Tab
         key="Mode"
         selected={2 === tabIndex}
-        onClick={() => setTabIndex?.(2)}
+        onClick={() => setTabIndex(2)}
       >
         <Icon name="cog" /> Mode
       </Tabs.Tab>
       <Tabs.Tab
         key="Thresholds"
         selected={3 === tabIndex}
-        onClick={() => setTabIndex?.(3)}
+        onClick={() => setTabIndex(3)}
       >
         <Icon name="tachometer-alt" /> Thresholds
       </Tabs.Tab>
@@ -316,8 +315,8 @@ const AirAlarmModesView = (props: unknown) => {
           }}
         >
           {Object.keys(modes).map((key) => {
-            const m = modes[key];
-            if (!m.emagonly || emagged) {
+            let m = modes[key];
+            if (!m.emagonly || !!emagged) {
               return (
                 <Table.Row key={m.name}>
                   <Table.Cell textAlign="right" width={1}>
@@ -332,8 +331,6 @@ const AirAlarmModesView = (props: unknown) => {
                   <Table.Cell>{m.desc}</Table.Cell>
                 </Table.Row>
               );
-            } else {
-              return '';
             }
           })}
         </Table>

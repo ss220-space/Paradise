@@ -598,8 +598,7 @@
 	to_chat(target, span_userdanger("Вы чувствуете, что в вашей руке появилась долька арбуза. Но что она значит?"))
 
 // MARK: Admin smite proc
-ADMIN_VERB_ONLY_CONTEXT_MENU(admin_smite, R_ADMIN|R_EVENT, "Smite", /mob/living)
-	VERB_ARG_TYPED(target, VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /mob/living)
+ADMIN_VERB_ONLY_CONTEXT_MENU(admin_smite, R_ADMIN|R_EVENT, "Smite", mob/living/target in GLOB.mob_list)
 	if(!istype(target))
 		to_chat(user, span_warning("Покарать можно только существ с типом начинающимся на /mob/living"), confidential = TRUE)
 		return

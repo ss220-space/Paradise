@@ -518,7 +518,10 @@
 	resistance_flags = FIRE_PROOF
 	var/strap_side_straight = FALSE
 
-GAME_VERB_SRC(/obj/item/storage/backpack/satchel, switch_strap, usr, "Перекинуть ремешок", VERB_CATEGORY_HIDDEN)
+/obj/item/storage/backpack/satchel/verb/switch_strap()
+	set name = "Перекинуть ремешок"
+	set category = VERB_CATEGORY_OBJECT
+	set src in usr
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return

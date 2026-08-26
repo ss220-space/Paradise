@@ -119,10 +119,16 @@
 	if(mail_destination)
 		disposal_holder.destinationTag = mail_destination
 
-GAME_VERB_DESC(/mob/living/silicon/robot/syndicate/saboteur, modify_name, "Изменить имя", "Change your systems' registered name to fool Nanotrasen systems. No cost.", VERB_CATEGORY_SABOTEUR)
+/mob/living/silicon/robot/syndicate/saboteur/verb/modify_name()
+	set name = "Изменить имя"
+	set desc = "Change your systems' registered name to fool Nanotrasen systems. No cost."
+	set category = VERB_CATEGORY_SABOTEUR
 	rename_self(braintype, TRUE, TRUE)
 
-GAME_VERB_DESC(/mob/living/silicon/robot/syndicate/saboteur, toggle_chameleon, "Маскировка", "Change your appearance to a Nanotrasen cyborg. Costs power to use and maintain.", VERB_CATEGORY_SABOTEUR)
+/mob/living/silicon/robot/syndicate/saboteur/verb/toggle_chameleon()
+	set name = "Маскировка"
+	set desc = "Change your appearance to a Nanotrasen cyborg. Costs power to use and maintain."
+	set category = VERB_CATEGORY_SABOTEUR
 
 	if(!cham_proj)
 		for(var/obj/item/borg_chameleon/C in contents)
@@ -137,7 +143,10 @@ GAME_VERB_DESC(/mob/living/silicon/robot/syndicate/saboteur, toggle_chameleon, "
 
 	cham_proj.attack_self(src)
 
-GAME_VERB_DESC(/mob/living/silicon/robot/syndicate/saboteur, set_mail_tag, "Почтовый адрес", "Tag yourself for delivery through the disposals system.", VERB_CATEGORY_SABOTEUR)
+/mob/living/silicon/robot/syndicate/saboteur/verb/set_mail_tag()
+	set name = "Почтовый адрес"
+	set desc = "Tag yourself for delivery through the disposals system."
+	set category = VERB_CATEGORY_SABOTEUR
 
 	var/tag = tgui_input_list(usr, "Select the desired destination.", "Set Mail Tag", GLOB.TAGGERLOCATIONS, null)
 

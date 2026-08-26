@@ -1,15 +1,15 @@
-import { Box, NoticeBox } from 'tgui-core/components';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
+import { Box, NoticeBox } from '../components';
 import {
-  CurrentLevels,
-  DataDiskMenu,
+  SettingsMenu,
+  RndRoute,
   DeconstructionMenu,
-  LatheMenu,
   MainMenu,
   RndNavbar,
-  RndRoute,
-  SettingsMenu,
+  CurrentLevels,
+  DataDiskMenu,
+  LatheMenu,
 } from './RndConsoleComponents';
 
 export const MENU = {

@@ -18,18 +18,11 @@
 	can_air_shoot = TRUE
 	/// If TRUE will show empty casing on examine
 	var/show_live_rounds = TRUE
-	var/can_spin_cylinder = TRUE
 
 /obj/item/gun/projectile/revolver/Initialize(mapload)
 	. = ..()
 	if(!istype(magazine, /obj/item/ammo_box/magazine/internal/cylinder))
-		can_spin_cylinder = FALSE
-
-/obj/item/gun/projectile/revolver/set_gun_user(mob/user)
-	verbs -= /obj/item/gun/projectile/revolver/proc/spin
-	. = ..()
-	if(can_spin_cylinder)
-		verbs += /obj/item/gun/projectile/revolver/proc/spin
+		verbs -= /obj/item/gun/projectile/revolver/verb/spin
 
 /obj/item/gun/projectile/revolver/chamber_round(spin = TRUE)
 	if(!magazine)
@@ -76,7 +69,11 @@
 /obj/item/gun/projectile/revolver/proc/unload(user)
 	return
 
-GAME_PROC_SRC(/obj/item/gun/projectile/revolver, spin, usr, "Вращать барабан", VERB_CATEGORY_HIDDEN)
+/obj/item/gun/projectile/revolver/verb/spin()
+	set name = "Вращать барабан"
+	set category = VERB_CATEGORY_OBJECT
+	set desc = "Click to spin your revolver's chamber."
+	set src in usr
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
@@ -87,8 +84,8 @@ GAME_PROC_SRC(/obj/item/gun/projectile/revolver, spin, usr, "Вращать ба
 		chamber_round(FALSE)
 		playsound(loc, 'sound/weapons/revolver_spin.ogg', 50, TRUE)
 		usr.visible_message("[usr] spins [src]'s chamber.",  span_notice("You spin [src]'s chamber."))
-	else if(can_spin_cylinder && gun_user)
-		verbs -= /obj/item/gun/projectile/revolver/proc/spin
+	else
+		verbs -= /obj/item/gun/projectile/revolver/verb/spin
 
 /obj/item/gun/projectile/revolver/can_shoot(mob/user)
 	return get_ammo(FALSE, FALSE)

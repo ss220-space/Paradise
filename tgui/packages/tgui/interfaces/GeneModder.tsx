@@ -1,17 +1,17 @@
-import type { ReactNode } from 'react';
+import { useBackend } from '../backend';
+import { classes } from '../../common/react';
 import {
   Button,
-  Collapsible,
-  Icon,
-  Image,
-  LabeledList,
   Section,
   Stack,
-} from 'tgui-core/components';
-import { classes } from 'tgui-core/react';
-import { useBackend } from '../backend';
+  Icon,
+  Image,
+  Collapsible,
+  LabeledList,
+} from '../components';
 import { ComplexModal } from '../interfaces/common/ComplexModal';
 import { Window } from '../layouts';
+import { ReactNode } from 'react';
 
 type GeneModderData = {
   has_seed: boolean;
@@ -72,7 +72,7 @@ const Genes = (props: unknown) => {
       scrollable
       buttons={
         <Button
-          disabled={!disk?.can_insert || disk.is_core}
+          disabled={!disk || !disk.can_insert || disk.is_core}
           icon="arrow-circle-down"
           onClick={() => act('insert')}
         >

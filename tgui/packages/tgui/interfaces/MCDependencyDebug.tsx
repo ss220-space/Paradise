@@ -1,13 +1,14 @@
 import { useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { Box, InfinitePlane, Stack } from 'tgui-core/components';
-import { classes } from 'tgui-core/react';
+import { Box, InfinitePlane, Stack } from '../components';
+import { classes } from 'common/react';
+
 import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import {
   type Connection,
-  ConnectionStyle,
   Connections,
+  ConnectionStyle,
 } from './common/Connections';
 import { ABSOLUTE_Y_OFFSET } from './IntegratedCircuit/constants';
 
@@ -159,7 +160,7 @@ type SubsystemMap = Record<string, Subsystem>;
 const evaluateSubsystemLayer = (
   subsystem: Subsystem,
   depth: number,
-  data: SubsystemLayer,
+  data: SubsystemLayer
 ) => {
   data[subsystem.name] = Math.max(depth, data[subsystem.name] || 0);
   for (let i = 0; i < subsystem.dependents.length; i++) {
@@ -207,7 +208,7 @@ export const MCDependencyDebug = (props) => {
     for (let i = 0; i < subsystems.length; i++) {
       const subsystem = subsystems[i];
       subsystemsGraph[i].dependents = subsystem.dependents.map(
-        (val) => namesToSubsystem[val],
+        (val) => namesToSubsystem[val]
       );
     }
 

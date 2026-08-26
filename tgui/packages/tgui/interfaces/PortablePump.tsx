@@ -1,14 +1,14 @@
-import {
-  Box,
-  Button,
-  Flex,
-  LabeledList,
-  ProgressBar,
-  Section,
-  Slider,
-} from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
+import { BooleanLike } from 'common/react';
 import { useBackend } from '../backend';
+import {
+  Button,
+  Section,
+  LabeledList,
+  Slider,
+  Box,
+  ProgressBar,
+  Flex,
+} from '../components';
 import { Window } from '../layouts';
 
 type PortablePumpData = {

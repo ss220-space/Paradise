@@ -1,4 +1,4 @@
-import type { BooleanLike } from 'tgui-core/react';
+import type { BooleanLike } from 'common/react';
 
 export interface SpawnPreferences {
   hide_icons: boolean;
@@ -48,6 +48,6 @@ export interface CreateObjectProps {
       icon: string | null;
       iconState: string | null;
       iconSize: number;
-    }>,
+    }>
   ) => void;
 }

@@ -1,14 +1,14 @@
-import { sortBy } from 'es-toolkit';
-import { type ReactNode, useState } from 'react';
+import { sortBy } from 'common/collections';
+import { ReactNode, useState } from 'react';
 import {
   Box,
   Button,
-  Divider,
+  Stack,
   LabeledList,
   Section,
-  Stack,
   Tabs,
-} from 'tgui-core/components';
+  Divider,
+} from '../../components';
 
 const diffMap = {
   0: {
@@ -61,19 +61,20 @@ export const AccessList = (props: AccessListProps) => {
     denyDep,
   } = props;
   const [selectedAccessName, setSelectedAccessName] = useState(
-    accesses[0]?.name,
+    accesses[0]?.name
   );
   const selectedAccess = accesses.find(
-    (access) => access.name === selectedAccessName,
+    (access) => access.name === selectedAccessName
   );
-  const selectedAccessEntries = sortBy<Access>(selectedAccess?.accesses || [], [
-    (entry) => entry.desc,
-  ]);
+  const selectedAccessEntries = sortBy<Access>(
+    selectedAccess?.accesses || [],
+    (entry) => entry.desc
+  );
 
   const checkAccessIcon = (accesses: Access[]) => {
     let oneAccess = false;
     let oneInaccess = false;
-    for (const element of accesses) {
+    for (let element of accesses) {
       if (selectedList?.includes(element.ref)) {
         oneAccess = true;
       } else {
@@ -96,10 +97,10 @@ export const AccessList = (props: AccessListProps) => {
       title="Access"
       buttons={
         <>
-          <Button icon="check-double" color="good" onClick={() => grantAll?.()}>
+          <Button icon="check-double" color="good" onClick={() => grantAll()}>
             Выбрать всё
           </Button>
-          <Button icon="undo" color="bad" onClick={() => denyAll?.()}>
+          <Button icon="undo" color="bad" onClick={() => denyAll()}>
             Убрать всё
           </Button>
           {sectionButtons}
@@ -133,30 +134,28 @@ export const AccessList = (props: AccessListProps) => {
           <Divider vertical />
         </Stack.Item>
         <Stack.Item grow basis="80%">
-          {!!selectedAccess && (
-            <Stack mb={1}>
-              <Stack.Item grow>
-                <Button
-                  fluid
-                  icon="check"
-                  color="good"
-                  onClick={() => grantDep?.(selectedAccess.regid)}
-                >
-                  Выбрать всё в отделе
-                </Button>
-              </Stack.Item>
-              <Stack.Item grow>
-                <Button
-                  fluid
-                  icon="times"
-                  color="bad"
-                  onClick={() => denyDep?.(selectedAccess.regid)}
-                >
-                  Убрать всё в отделе
-                </Button>
-              </Stack.Item>
-            </Stack>
-          )}
+          <Stack mb={1}>
+            <Stack.Item grow>
+              <Button
+                fluid
+                icon="check"
+                color="good"
+                onClick={() => grantDep(selectedAccess.regid)}
+              >
+                Выбрать всё в отделе
+              </Button>
+            </Stack.Item>
+            <Stack.Item grow>
+              <Button
+                fluid
+                icon="times"
+                color="bad"
+                onClick={() => denyDep(selectedAccess.regid)}
+              >
+                Убрать всё в отделе
+              </Button>
+            </Stack.Item>
+          </Stack>
           {!!usedByRcd && (
             <Box my={1.5}>
               <LabeledList>
@@ -176,7 +175,7 @@ export const AccessList = (props: AccessListProps) => {
                 !selectedList?.includes(entry.ref)
               }
               checked={selectedList?.includes(entry.ref)}
-              onClick={() => accessMod?.(entry.ref)}
+              onClick={() => accessMod(entry.ref)}
             >
               {entry.desc}
             </Button.Checkbox>

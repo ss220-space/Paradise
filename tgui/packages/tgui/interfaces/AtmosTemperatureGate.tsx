@@ -1,12 +1,8 @@
-import {
-  Button,
-  LabeledList,
-  NumberInput,
-  Section,
-} from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
+import { Button, LabeledList, NumberInput, Section } from 'tgui/components';
+
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
+import { BooleanLike } from 'common/react';
 
 type AtmosTemperatureGateData = {
   on: BooleanLike;

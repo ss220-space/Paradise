@@ -102,7 +102,7 @@
 			if("Immortality")
 				to_chat(user, "<b>Your wish is granted, but at a terrible cost...</b>")
 				to_chat(user, "The Wish Granter punishes you for your selfishness, claiming your soul and warping your body to match the darkness in your heart.")
-				ASSIGN_GAME_VERB(user, /mob/living/carbon, immortality)
+				add_verb(user, /mob/living/carbon/proc/immortality)
 				if(ishuman(user))
 					var/mob/living/carbon/human/human = user
 					if(!isshadowperson(human))
@@ -155,7 +155,9 @@
 
 /////For the Wishgranter///////////
 
-GAME_VERB_PROC(/mob/living/carbon, immortality, "Воскрешение", VERB_CATEGORY_IMMORTALITY)
+/mob/living/carbon/proc/immortality()
+	set category = "Immortality"
+	set name = "Resurrection"
 
 	var/mob/living/carbon/C = usr
 	if(C.stat != DEAD)
@@ -173,7 +175,7 @@ GAME_VERB_PROC(/mob/living/carbon, immortality, "Воскрешение", VERB_C
 	user.revival_in_progress = FALSE
 	to_chat(user, span_notice("You have regenerated."))
 	user.visible_message(span_warning("[user] appears to wake from the dead, having healed all wounds."))
-	return TRUE
+	return 1
 
 /obj/item/wildwest_communicator
 	name = "Syndicate Comms Device"

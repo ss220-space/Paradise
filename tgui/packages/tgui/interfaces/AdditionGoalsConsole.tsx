@@ -1,6 +1,20 @@
-import type { ReactNode } from 'react';
-import { Box, Button, LabeledList, Section, Stack } from 'tgui-core/components';
+import { ReactNode } from 'react';
 import { useBackend } from '../backend';
+import { declension_ru } from 'common/string';
+import {
+  Button,
+  LabeledList,
+  Section,
+  Stack,
+  NumberInput,
+  Dimmer,
+  Icon,
+  Box,
+  Modal,
+  ByondUi,
+  Dropdown,
+} from '../components';
+import { classes } from 'common/react';
 import { Window } from '../layouts';
 import { ComplexModal } from './common/ComplexModal';
 

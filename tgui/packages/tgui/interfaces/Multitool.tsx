@@ -1,16 +1,19 @@
-import type { ComponentProps, ReactNode } from 'react';
+import { toFixed } from 'common/math';
+import { useBackend } from '../backend';
 import {
   Box,
   Button,
-  Divider,
   Flex,
-  Icon,
   NumberInput,
   Section,
-} from 'tgui-core/components';
-import { toFixed } from 'tgui-core/math';
-import { useBackend } from '../backend';
+  Icon,
+  Divider,
+} from '../components';
 import { Window } from '../layouts';
+import { FlexProps } from '../components/Flex';
+import { ReactNode } from 'react';
+import { ButtonProps, ConfirmProps } from '../components/Button';
+import { BoxProps } from '../components/Box';
 
 type MultitoolData = {
   multitoolMenuId: string;
@@ -249,7 +252,7 @@ const BoxNoData = (props: BoxNoDataProps) => {
 type TextOrDefaultProps = {
   text: string;
   defaultText: string;
-} & ComponentProps<typeof Box>;
+} & BoxProps;
 
 const TextOrDefault = (props: TextOrDefaultProps) => {
   const { text, defaultText, ...rest } = props;
@@ -264,7 +267,7 @@ const TextOrDefault = (props: TextOrDefaultProps) => {
 
 type ConfirmOrNormalButtonProps = {
   noConfirm?: boolean;
-} & (ComponentProps<typeof Button.Confirm> | ComponentProps<typeof Button>);
+} & (ButtonProps | ConfirmProps);
 
 const ConfirmOrNormalButton = (props: ConfirmOrNormalButtonProps) => {
   const { noConfirm = false, ...rest } = props;
@@ -277,7 +280,7 @@ type LabeledListOneItemProps = Partial<{
   noWrapContent: ReactNode;
   compactLabel: boolean;
 }> &
-  ComponentProps<typeof Flex>;
+  FlexProps;
 
 const LabeledListOneItem = (props: LabeledListOneItemProps) => {
   const {
@@ -715,7 +718,7 @@ const TankControlMtoolMenu = (_props: unknown) => {
               confirmColor="orange"
               content="Link buffer"
               icon="link"
-              selected={inputTag ? bufferTag === inputTag : false}
+              selected={inputTag && bufferTag === inputTag}
               disabled={!bufferFitsInput}
               onClick={() => act('link_input')}
             />
@@ -749,7 +752,7 @@ const TankControlMtoolMenu = (_props: unknown) => {
               confirmColor="orange"
               content="Link buffer"
               icon="link"
-              selected={outputTag ? bufferTag === outputTag : false}
+              selected={outputTag && bufferTag === outputTag}
               disabled={!bufferFitsOutput}
               onClick={() => act('link_output')}
             />

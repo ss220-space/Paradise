@@ -70,7 +70,10 @@
 	. = ..()
 	spy_spider_attached?.hear_talk(M, message_pieces)
 
-GAME_PROC_SRC(/obj/item/clothing, remove_spy_spider, range(1, usr), "Снять жучок", VERB_CATEGORY_HIDDEN)
+/obj/item/clothing/proc/remove_spy_spider()
+	set name = "Снять жучок"
+	set category = VERB_CATEGORY_OBJECT
+	set src in range(1, usr)
 
 	if(!ishuman(usr))
 		return

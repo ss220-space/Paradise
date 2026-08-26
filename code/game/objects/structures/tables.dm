@@ -340,7 +340,10 @@
 		return FALSE
 	return check_table.straight_table_check(direction)
 
-GAME_VERB_SRC(/obj/structure/table, do_flip, oview(1), "Flip/Unflip table", VERB_CATEGORY_HIDDEN)
+/obj/structure/table/verb/do_flip()
+	set name = "Flip/Unflip table"
+	set desc = "Flips or unflips a table"
+	set src in oview(1)
 	actual_flip(usr)
 
 /// Used to determine whether the table can be flipped over.

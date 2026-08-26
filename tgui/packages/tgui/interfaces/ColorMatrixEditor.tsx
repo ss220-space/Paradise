@@ -5,8 +5,9 @@ import {
   NumberInput,
   Section,
   Stack,
-} from 'tgui-core/components';
-import { toFixed } from 'tgui-core/math';
+} from '../components';
+import { toFixed } from 'common/math';
+
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 

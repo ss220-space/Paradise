@@ -1,7 +1,7 @@
-import { Box, Divider } from 'tgui-core/components';
 import { useBackend } from '../../backend';
+import { Box, Divider } from '../../components';
 
-export const CurrentLevels = (_properties: unknown) => {
+export const CurrentLevels = (properties) => {
   const { data } = useBackend<RndData>();
 
   const { tech_levels } = data;
@@ -9,7 +9,7 @@ export const CurrentLevels = (_properties: unknown) => {
   return (
     <Box>
       <h3>Текущие уровни технологий:</h3>
-      {tech_levels?.map((techLevel, i) => {
+      {tech_levels.map((techLevel, i) => {
         const { name, level, desc } = techLevel;
         return (
           <Box key={name}>

@@ -1,7 +1,7 @@
 import { useBackend } from '../../backend';
 import {
   ActiveConversation,
-  type MessenderData,
+  MessenderData,
   MessengerList,
 } from '../PDA/pda_messenger';
 

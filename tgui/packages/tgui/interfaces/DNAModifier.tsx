@@ -1,20 +1,19 @@
-import { declension_ru } from 'common/l10n';
-import type React from 'react';
-import type { ReactNode } from 'react';
+import { ReactNode } from 'react';
+import { useBackend } from '../backend';
+import { declension_ru } from 'common/string';
 import {
   Box,
   Button,
   Dimmer,
   Flex,
+  Stack,
   Icon,
   Knob,
   LabeledList,
   ProgressBar,
   Section,
-  Stack,
   Tabs,
-} from 'tgui-core/components';
-import { useBackend } from '../backend';
+} from '../components';
 import { Window } from '../layouts';
 import { ComplexModal } from './common/ComplexModal';
 
@@ -279,7 +278,7 @@ const DNAModifierMainUI = ({ dnaBlockSize }: DNAModifierMainUIProps) => {
         dnaString={occupant.uniqueIdentity}
         selectedBlock={selectedUIBlock}
         selectedSubblock={selectedUISubBlock}
-        blockSize={dnaBlockSize || 0}
+        blockSize={dnaBlockSize}
         action="selectUIBlock"
       />
       <LabeledList>
@@ -319,7 +318,7 @@ const DNAModifierMainSE = ({ dnaBlockSize }: DNAModifierMainSEProps) => {
         dnaString={occupant.structuralEnzymes}
         selectedBlock={selectedSEBlock}
         selectedSubblock={selectedSESubBlock}
-        blockSize={dnaBlockSize || 0}
+        blockSize={dnaBlockSize}
         action="selectSEBlock"
       />
       <Button icon="radiation" onClick={() => act('pulseSERadiation')}>
@@ -373,11 +372,11 @@ const DNAModifierMainRadiationEmitter = (props: unknown) => {
 const DNAModifierMainBuffers = (props: unknown) => {
   const { data } = useBackend<DNAModifierData>();
   const { buffers } = data;
-  const bufferElements = buffers.map((buffer, i) => (
+  let bufferElements = buffers.map((buffer, i) => (
     <DNAModifierMainBuffersElement
       key={i}
       id={i + 1}
-      name={`Ячейка буфера №${i + 1}`}
+      name={'Ячейка буфера №' + (i + 1)}
       buffer={buffer}
     />
   ));
@@ -410,12 +409,12 @@ type Buffer = {
 };
 
 const DNAModifierMainBuffersElement = (
-  props: DNAModifierBuffersElementProps,
+  props: DNAModifierBuffersElementProps
 ) => {
   const { act, data } = useBackend<DNAModifierData>();
   const { id, name, buffer } = props;
   const isInjectorReady = data.isInjectorReady;
-  const realName = name + (buffer.data ? ` - ${buffer.label}` : '');
+  const realName = name + (buffer.data ? ' - ' + buffer.label : '');
   return (
     <Box backgroundColor="rgba(0, 0, 0, 0.33)" mb="0.5rem">
       <Section
@@ -705,9 +704,14 @@ const DNAModifierMainRejuvenators = (props: unknown) => {
       ) : (
         <Stack fill>
           <Stack.Item bold grow textAlign="center" align="center" color="label">
-            <Icon.Stack>
+            <Icon.Stack style={{ transform: 'translate(-30px, -50px)' }}>
               <Icon name="flask" size={5} color="silver" />
-              <Icon name="slash" size={5} color="red" />
+              <Icon
+                name="slash"
+                size={5}
+                color="red"
+                style={{ transform: 'translate(-10px, 0)' }}
+              />
             </Icon.Stack>
             <br />
             <h3>Ёмкость не вставлена.</h3>
@@ -754,10 +758,10 @@ const DNAModifierBlocks = (props: DNAModifierBlocksProps) => {
     props;
 
   const characters = dnaString.split('');
-  const dnaBlocks: React.JSX.Element[] = [];
+  let dnaBlocks = [];
   for (let block = 0; block < characters.length; block += blockSize) {
     const realBlock = block / blockSize + 1;
-    const subBlocks: React.JSX.Element[] = [];
+    let subBlocks = [];
     for (let subblock = 0; subblock < blockSize; subblock++) {
       const realSubblock = subblock + 1;
       subBlocks.push(
@@ -774,7 +778,7 @@ const DNAModifierBlocks = (props: DNAModifierBlocksProps) => {
           }
         >
           {characters[block + subblock]}
-        </Button>,
+        </Button>
       );
     }
     dnaBlocks.push(
@@ -783,7 +787,7 @@ const DNAModifierBlocks = (props: DNAModifierBlocksProps) => {
           {realBlock}
         </Box>
         {subBlocks}
-      </Stack.Item>,
+      </Stack.Item>
     );
   }
   return <Flex wrap="wrap">{dnaBlocks}</Flex>;

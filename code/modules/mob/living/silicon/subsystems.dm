@@ -17,45 +17,59 @@
 /********************
 *	Atmos Control	*
 ********************/
-GAME_VERB_PROC(/mob/living/silicon, subsystem_atmos_control, "Контроль атмосферы", VERB_CATEGORY_SUBSYSTEMS)
+/mob/living/silicon/proc/subsystem_atmos_control()
+	set category = VERB_CATEGORY_SUBSYSTEMS
+	set name = "Контроль атмосферы"
 
 	atmos_control.ui_interact(usr)
 
 /********************
 *	Crew Monitor	*
 ********************/
-GAME_VERB_PROC(/mob/living/silicon, subsystem_crew_monitor, "Монитор экипажа", VERB_CATEGORY_SUBSYSTEMS)
+/mob/living/silicon/proc/subsystem_crew_monitor()
+	set category = VERB_CATEGORY_SUBSYSTEMS
+	set name = "Монитор экипажа"
 	crew_monitor.ui_interact(usr)
 
 /****************
 *	Law Manager	*
 ****************/
-GAME_VERB_PROC(/mob/living/silicon, subsystem_law_manager, "Диспетчер законов", VERB_CATEGORY_SUBSYSTEMS)
+/mob/living/silicon/proc/subsystem_law_manager()
+	set name = "Диспетчер законов"
+	set category = VERB_CATEGORY_SUBSYSTEMS
 
 	law_manager.ui_interact(usr)
 
 /********************
 *	Power Monitor	*
 ********************/
-GAME_VERB_PROC(/mob/living/silicon, subsystem_power_monitor, "Монитор мощности", VERB_CATEGORY_SUBSYSTEMS)
+/mob/living/silicon/proc/subsystem_power_monitor()
+	set category = VERB_CATEGORY_SUBSYSTEMS
+	set name = "Монитор мощности"
 
 	power_monitor.ui_interact(usr)
 
 /********************
 *	GPS	*
 ********************/
-GAME_VERB_PROC(/mob/living/silicon, subsystem_open_gps, "GPS", VERB_CATEGORY_SUBSYSTEMS)
+/mob/living/silicon/proc/subsystem_open_gps()
+	set name = "GPS"
+	set category = VERB_CATEGORY_SUBSYSTEMS
 
 	gps.ui_interact(src)
 
 /********************
 *	Blueprints	*
 ********************/
-GAME_VERB_PROC(/mob/living/silicon, subsystem_blueprints, "Чертежи станции", VERB_CATEGORY_SUBSYSTEMS)
+/mob/living/silicon/proc/subsystem_blueprints()
+	set name = "Чертежи станции"
+	set category = VERB_CATEGORY_SUBSYSTEMS
 
 	blueprints.interact_prints(src)
 
-GAME_VERB_PROC(/mob/living/silicon/robot, self_diagnosis, "Самодиагностика", VERB_CATEGORY_ROBOTCOMMANDS)
+/mob/living/silicon/robot/proc/self_diagnosis()
+	set category = VERB_CATEGORY_ROBOTCOMMANDS
+	set name = "Самодиагностика"
 
 	if(!is_component_functioning("diagnosis unit"))
 		to_chat(src, span_warning("Your self-diagnosis component isn't functioning."))

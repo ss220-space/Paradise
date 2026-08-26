@@ -22,10 +22,6 @@ export const SETTINGS_TABS = [
     id: 'statPanel',
     name: 'Стат. панель',
   },
-  {
-    id: 'websocket',
-    name: 'Websocket',
-  },
 ];
 
 export const FONTS_DISABLED = 'Default';

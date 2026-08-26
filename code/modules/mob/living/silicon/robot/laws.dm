@@ -1,5 +1,6 @@
-
-GAME_VERB(/mob/living/silicon/robot, cmd_show_laws, "Список законов", VERB_CATEGORY_ROBOTCOMMANDS)
+/mob/living/silicon/robot/verb/cmd_show_laws()
+	set category = VERB_CATEGORY_ROBOTCOMMANDS
+	set name = "Список законов"
 	show_laws()
 
 /mob/living/silicon/robot/show_laws(everyone = 0)
@@ -48,3 +49,8 @@ GAME_VERB(/mob/living/silicon/robot, cmd_show_laws, "Список законов
 		master.sync(src)
 	..()
 	return
+
+/mob/living/silicon/robot/proc/robot_checklaws()
+	set category = VERB_CATEGORY_ROBOTCOMMANDS
+	set name = "Объявить законы"
+	subsystem_law_manager()

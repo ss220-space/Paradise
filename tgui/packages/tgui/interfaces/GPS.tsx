@@ -1,4 +1,7 @@
-import { type ComponentProps, useState } from 'react';
+import { rad2deg } from 'common/math';
+
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import {
   Box,
   Button,
@@ -8,13 +11,12 @@ import {
   LabeledList,
   Section,
   Table,
-} from 'tgui-core/components';
-import { rad2deg } from 'tgui-core/math';
-import { useBackend } from '../backend';
+} from '../components';
 import { Window } from '../layouts';
+import { SectionProps } from '../components/Section';
 
 const vectorText = (vector: number[]) =>
-  vector ? `(${vector.join(', ')})` : 'ERROR';
+  vector ? '(' + vector.join(', ') + ')' : 'ERROR';
 
 const distanceToPoint = (from: number[], to: number[], upgr: boolean) => {
   if (!from || !to) {
@@ -27,7 +29,9 @@ const distanceToPoint = (from: number[], to: number[], upgr: boolean) => {
   }
 
   const angle = Math.atan2(to[1] - from[1], to[0] - from[0]);
-  const dist = Math.sqrt((to[1] - from[1]) ** 2 + (to[0] - from[0]) ** 2);
+  const dist = Math.sqrt(
+    Math.pow(to[1] - from[1], 2) + Math.pow(to[0] - from[0], 2)
+  );
   return { angle: rad2deg(angle), distance: dist };
 };
 
@@ -192,8 +196,6 @@ type Signal = {
   position: number[];
 };
 
-type SectionProps = ComponentProps<typeof Section>;
-
 const Signals = (properties: SectionProps) => {
   const { data } = useBackend<SignalsData>();
   const { position, signals, upgraded } = data;
@@ -227,15 +229,15 @@ const Signals = (properties: SectionProps) => {
                   <Box
                     opacity={Math.max(
                       1 - Math.min(signal.distance, 100) / 100,
-                      0.5,
+                      0.5
                     )}
                   >
                     <Icon
                       name={signal.distance > 0 ? 'arrow-right' : 'circle'}
-                      rotation={-(signal.angle || 0)}
+                      rotation={-signal.angle}
                     />
                     &nbsp;
-                    {`${Math.floor(signal.distance)}m`}
+                    {Math.floor(signal.distance) + 'm'}
                   </Box>
                 )}
               </Table.Cell>

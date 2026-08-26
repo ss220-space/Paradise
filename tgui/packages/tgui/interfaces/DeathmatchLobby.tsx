@@ -11,8 +11,9 @@ import {
   Stack,
   Table,
   Tooltip,
-} from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
+} from '../components';
+import type { BooleanLike } from 'common/react';
+
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 

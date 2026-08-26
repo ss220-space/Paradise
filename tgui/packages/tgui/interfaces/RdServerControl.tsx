@@ -1,3 +1,4 @@
+import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -6,8 +7,7 @@ import {
   Stack,
   Table,
   Tabs,
-} from 'tgui-core/components';
-import { useBackend } from '../backend';
+} from '../components';
 import { Window } from '../layouts';
 
 const SCREEN_MAIN = 0;

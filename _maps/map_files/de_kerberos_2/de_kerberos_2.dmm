@@ -109760,7 +109760,9 @@
 /turf/simulated/wall,
 /area/station/maintenance/consarea_virology)
 "uMi" = (
-/obj/item/flashlight/lantern/on,
+/obj/item/flashlight/lantern{
+	on = 1
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint4)
 "uMj" = (

@@ -6,7 +6,7 @@ import {
   LabeledList,
   NumberInput,
   Stack,
-} from 'tgui-core/components';
+} from '../../components';
 
 import { useBackend } from '../../backend';
 import { ParticleContext } from '.';
@@ -130,7 +130,7 @@ export const FloatGeneratorColor = (props: FloatGeneratorColorProps) => {
 };
 
 export const EntryGeneratorNumbersList = (
-  props: EntryGeneratorNumbersListProps,
+  props: EntryGeneratorNumbersListProps
 ) => {
   const { act } = useBackend<ParticleUIData>();
   const { setDesc } = useContext(ParticleContext);

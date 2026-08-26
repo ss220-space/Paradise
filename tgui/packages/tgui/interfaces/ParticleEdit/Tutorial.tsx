@@ -7,7 +7,7 @@ import {
   Modal,
   Section,
   Stack,
-} from 'tgui-core/components';
+} from '../../components';
 
 import { resolveAsset } from '../../assets';
 import { ParticleContext } from '.';

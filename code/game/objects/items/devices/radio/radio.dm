@@ -232,15 +232,16 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 
 ///setter for the on var that sets both broadcasting and listening to off or whatever they were supposed to be
 /obj/item/radio/proc/set_on(new_on)
-	if(!new_on)
-		set_broadcasting(FALSE, actual_setting = FALSE)//fake set them to off
-		set_listening(FALSE, actual_setting = FALSE)
-		on = FALSE
+
+	on = new_on
+
+	if(on)
+		set_broadcasting(should_be_broadcasting)//set them to whatever theyre supposed to be
+		set_listening(should_be_listening)
 		return
 
-	on = TRUE
-	set_broadcasting(should_be_broadcasting)//set them to whatever theyre supposed to be
-	set_listening(should_be_listening)
+	set_broadcasting(FALSE, actual_setting = FALSE)//fake set them to off
+	set_listening(FALSE, actual_setting = FALSE)
 
 /obj/item/radio/proc/set_frequency(new_frequency)
 	SEND_SIGNAL(src, COMSIG_RADIO_NEW_FREQUENCY, args)

@@ -6,7 +6,7 @@
 GLOBAL_LIST_EMPTY(available_ai_shells)
 
 GLOBAL_LIST_INIT(robot_verbs_default, list(
-	VERB_META(/mob/living/silicon/robot, sensor_mode),
+	/mob/living/silicon/robot/proc/sensor_mode,
 ))
 
 /mob/living/silicon/robot
@@ -26,9 +26,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	hud_type = /datum/hud/robot
 
 	silicon_subsystems = list(
-		VERB_META(/mob/living/silicon, subsystem_open_gps),
-		VERB_META(/mob/living/silicon/robot, self_diagnosis),
-		VERB_META(/mob/living/silicon/, subsystem_law_manager),
+		/mob/living/silicon/proc/subsystem_open_gps,
+		/mob/living/silicon/robot/proc/self_diagnosis,
+		/mob/living/silicon/proc/subsystem_law_manager,
 	)
 
 	tts_effect_override = SOUND_EFFECT_ROBOT
@@ -353,7 +353,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		else
 			return "[prefix || modtype.name] [braintype]-[num2text(ident)]"
 
-GAME_VERB(/mob/living/silicon/robot, Namepick, "Сменить имя", VERB_CATEGORY_ROBOTCOMMANDS)
+/mob/living/silicon/robot/verb/Namepick()
+	set category = VERB_CATEGORY_ROBOTCOMMANDS
+	set name = "Сменить имя"
 
 	if(custom_name)
 		return FALSE
@@ -364,7 +366,10 @@ GAME_VERB(/mob/living/silicon/robot, Namepick, "Сменить имя", VERB_CAT
 
 	rename_self(braintype, 1)
 
-GAME_VERB_DESC(/mob/living/silicon/robot, Change_Voice, "Сменить голос", "Express yourself!", VERB_CATEGORY_ROBOTCOMMANDS)
+/mob/living/silicon/robot/verb/Change_Voice()
+	set name = "Сменить голос"
+	set desc = "Express yourself!"
+	set category = VERB_CATEGORY_ROBOTCOMMANDS
 	change_voice()
 
 /mob/living/silicon/robot/proc/sync()
@@ -581,10 +586,16 @@ GAME_VERB_DESC(/mob/living/silicon/robot, Change_Voice, "Сменить голо
 	uneq_active()
 
 // this verb lets cyborgs see the stations manifest
-GAME_VERB(/mob/living/silicon/robot, cmd_station_manifest, "Манифест экипажа", VERB_CATEGORY_ROBOTCOMMANDS)
+/mob/living/silicon/robot/verb/cmd_station_manifest()
+	set category = VERB_CATEGORY_ROBOTCOMMANDS
+	set name = "Манифест экипажа"
 	show_station_manifest()
 
-GAME_VERB_DESC(/mob/living/silicon/robot, toggle_component, "Компоненты", "Toggle a component, conserving power.", VERB_CATEGORY_ROBOTCOMMANDS)
+/mob/living/silicon/robot/verb/toggle_component()
+	set category = VERB_CATEGORY_ROBOTCOMMANDS
+	set name = "Компоненты"
+	set desc = "Toggle a component, conserving power."
+
 	var/list/installed_components = list()
 	for(var/key, value in components)
 		if(key == "power cell")
@@ -601,18 +612,23 @@ GAME_VERB_DESC(/mob/living/silicon/robot, toggle_component, "Компонент�
 	C.toggle()
 	to_chat(src, span_warning("Вы [C.toggled ? "включили" : "отключили"] [C.name]."))
 
-GAME_VERB_PROC_DESC(/mob/living/silicon/robot, sensor_mode, "Сенсоры камеры", "Augment visual feed with internal sensor overlays.", VERB_CATEGORY_ROBOTCOMMANDS)
+/mob/living/silicon/robot/proc/sensor_mode()
+	set name = "Сенсоры камеры"
+	set desc = "Augment visual feed with internal sensor overlays."
+	set category = VERB_CATEGORY_ROBOTCOMMANDS
 	toggle_sensor_mode()
 
 /mob/living/silicon/robot/proc/add_robot_verbs()
-	for(var/verb in (silicon_subsystems + GLOB.robot_verbs_default))
-		ASSIGN_GAME_VERB_DIRECT(src, verb)
+	add_verb(src, GLOB.robot_verbs_default)
+	add_verb(src, silicon_subsystems)
 
 /mob/living/silicon/robot/proc/remove_robot_verbs()
-	for(var/verb in (silicon_subsystems + GLOB.robot_verbs_default))
-		UNASSIGN_GAME_VERB_DIRECT(src, verb)
+	remove_verb(src, GLOB.robot_verbs_default)
+	remove_verb(src, silicon_subsystems)
 
-GAME_VERB(/mob/living/silicon/robot, cmd_robot_alerts, "Список тревог", VERB_CATEGORY_ROBOTCOMMANDS)
+/mob/living/silicon/robot/verb/cmd_robot_alerts()
+	set category = VERB_CATEGORY_ROBOTCOMMANDS
+	set name = "Список тревог"
 
 	if(usr.stat == DEAD)
 		to_chat(src, span_userdanger("КРИТИЧЕСКАЯ ОШИБКА: Система не отвечает."))
@@ -1277,7 +1293,10 @@ GAME_VERB(/mob/living/silicon/robot, cmd_robot_alerts, "Список трево�
 		UnlinkSelf()
 	laws = new /datum/ai_laws/ratvar
 
-GAME_VERB_DESC(/mob/living/silicon/robot, toggle_own_cover, "Блокировка панели", "Toggles the lock on your cover.", VERB_CATEGORY_ROBOTCOMMANDS)
+/mob/living/silicon/robot/verb/toggle_own_cover()
+	set category = VERB_CATEGORY_ROBOTCOMMANDS
+	set name = "Блокировка панели"
+	set desc = "Toggles the lock on your cover."
 
 	if(can_lock_cover)
 		if(tgui_alert(usr, "Вы уверены?", locked ? "Разблокировка" : "Блокировка", list("ДА", "ОТМЕНА")) == "ДА")
@@ -1645,13 +1664,24 @@ GAME_VERB_DESC(/mob/living/silicon/robot, toggle_own_cover, "Блокировк�
 	// I could change the network to null but I don't know what would happen, and it seems too hacky for me.
 
 /mob/living/silicon/robot/proc/ResetSecurityCodes()
+	set category = VERB_CATEGORY_ROBOTCOMMANDS
+	set name = "Сброс кодов идентификации"
+	set desc = "Scrambles your security and identification codes and resets your current buffers. \
+				Unlocks you and but permanently severs you from your AI and the robotics console and will deactivate your camera system."
+
 	var/mob/living/silicon/robot/R = src
 
 	if(R)
 		R.UnlinkSelf()
 		to_chat(R, "Обновление прошивки завершено. Пассивная передача местоположения отключена. Все системы в норме.")
+		remove_verb(src, /mob/living/silicon/robot/proc/ResetSecurityCodes)
 
 /mob/living/silicon/robot/mode()
+	set category = VERB_CATEGORY_IC
+	set name = "Использовать объект"
+	set desc = "Использовать удерживаемый объект."
+	set src = usr
+
 	var/obj/item/W = get_active_hand()
 
 	if(W)
@@ -2143,7 +2173,9 @@ GAME_VERB_DESC(/mob/living/silicon/robot, toggle_own_cover, "Блокировк�
 /mob/living/silicon/robot/can_see_reagents()
 	return see_reagents
 
-GAME_VERB(/mob/living/silicon/robot, powerwarn, "Состояние заряда", VERB_CATEGORY_ROBOTCOMMANDS)
+/mob/living/silicon/robot/verb/powerwarn()
+	set category = VERB_CATEGORY_ROBOTCOMMANDS
+	set name = "Состояние заряда"
 
 	if(!is_component_functioning("power cell") || !cell || !cell.charge)
 		if(!start_audio_emote_cooldown(TRUE, 10 SECONDS))

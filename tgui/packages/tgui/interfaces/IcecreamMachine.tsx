@@ -1,12 +1,13 @@
+import { useBackend } from '../backend';
 import {
   Box,
   Button,
+  Icon,
   LabeledList,
   ProgressBar,
   Section,
   Stack,
-} from 'tgui-core/components';
-import { useBackend } from '../backend';
+} from '../components';
 import { Window } from '../layouts';
 
 type IcecreamData = {

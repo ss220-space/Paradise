@@ -1,12 +1,5 @@
-import {
-  Box,
-  Button,
-  DmIcon,
-  Section,
-  Stack,
-  Table,
-} from 'tgui-core/components';
 import { useBackend } from '../backend';
+import { Button, Box, Table, Section, Stack, DmIcon } from '../components';
 import { Window } from '../layouts';
 
 const roundTenths = (input: number) => {
@@ -1317,8 +1310,8 @@ const SummonBats = (_props: unknown) => {
     eyes,
     ears,
   } = data;
-  const allTrophies = hearts + lungs + livers + kidneys + eyes + ears;
-  const maxBats =
+  let allTrophies = hearts + lungs + livers + kidneys + eyes + ears;
+  let maxBats =
     1 +
     (allTrophies < 40 ? Math.round(allTrophies / 2) : allTrophies < 52 ? 2 : 3);
   return (
@@ -1626,7 +1619,7 @@ const LungeFinale = (_props: unknown) => {
     eyes,
     ears,
   } = data;
-  const allTrophies = hearts + lungs + livers + kidneys + eyes + ears;
+  let allTrophies = hearts + lungs + livers + kidneys + eyes + ears;
   return (
     <Section
       title="Финальный рывок"

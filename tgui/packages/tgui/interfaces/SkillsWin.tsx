@@ -1,6 +1,8 @@
-import { Box, Section, Table } from 'tgui-core/components';
 import { useBackend } from '../backend';
+import { Box, Button, LabeledList, Section, Table } from '../components';
 import { Window } from '../layouts';
+import { decodeHtmlEntities } from 'common/string';
+import { COLORS } from '../constants';
 
 type Skill = {
   name: string;

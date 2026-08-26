@@ -1,5 +1,4 @@
-ADMIN_VERB(dsay, R_ADMIN|R_MOD, "DSay", "Speak to the dead.", ADMIN_CATEGORY_GAME)
-	VERB_ARG(msg, VERB_ARG_TYPE_TEXT, VERB_ARG_SOURCE_INPUT)
+ADMIN_VERB(dsay, R_ADMIN|R_MOD, "DSay", "Speak to the dead.", ADMIN_CATEGORY_GAME, msg as text)
 	if(!user.mob)
 		return
 
@@ -31,7 +30,7 @@ ADMIN_VERB(dsay, R_ADMIN|R_MOD, "DSay", "Speak to the dead.", ADMIN_CATEGORY_GAM
 	if(!msg)
 		return
 
-	msg = handle_emojis(msg)
+	msg = handleDiscordEmojis(msg)
 
 	var/prefix = "[stafftype] ([user.key])"
 	if(user.holder.fakekey)

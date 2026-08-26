@@ -1,4 +1,4 @@
-import type { Placement } from '@floating-ui/react';
+import { useBackend } from '../../backend';
 import { useState } from 'react';
 import {
   BlockQuote,
@@ -6,7 +6,6 @@ import {
   Button,
   ByondUi,
   Collapsible,
-  DraggableControl,
   Flex,
   Icon,
   Input,
@@ -18,9 +17,10 @@ import {
   Slider,
   Tabs,
   Tooltip,
-} from 'tgui-core/components';
-import { useBackend } from '../../backend';
+} from '../../components';
+import { DraggableControl } from '../../components/DraggableControl';
 import { Window } from '../../layouts';
+import { Placement } from '@popperjs/core';
 
 const COLORS_ARBITRARY = [
   'red',

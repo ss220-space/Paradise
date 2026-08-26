@@ -126,6 +126,14 @@
 
 /datum/species/unathi/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
+	add_verb(H, list(
+		/mob/living/carbon/human/proc/emote_wag,
+		/mob/living/carbon/human/proc/emote_swag,
+		/mob/living/carbon/human/proc/emote_hiss_unathi,
+		/mob/living/carbon/human/proc/emote_roar,
+		/mob/living/carbon/human/proc/emote_threat,
+		/mob/living/carbon/human/proc/emote_whip,
+		/mob/living/carbon/human/proc/emote_whip_l))
 	var/datum/action/innate/tail_cut/lash = locate() in H.actions
 	if(!lash)
 		lash = new
@@ -136,6 +144,14 @@
 
 /datum/species/unathi/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
+	remove_verb(H, list(
+		/mob/living/carbon/human/proc/emote_wag,
+		/mob/living/carbon/human/proc/emote_swag,
+		/mob/living/carbon/human/proc/emote_hiss_unathi,
+		/mob/living/carbon/human/proc/emote_roar,
+		/mob/living/carbon/human/proc/emote_threat,
+		/mob/living/carbon/human/proc/emote_whip,
+		/mob/living/carbon/human/proc/emote_whip_l))
 	var/datum/action/innate/tail_cut/lash = locate() in H.actions
 	lash?.Remove(H)
 

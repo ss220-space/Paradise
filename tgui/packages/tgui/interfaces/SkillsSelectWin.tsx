@@ -1,6 +1,8 @@
-import { Box, Button, Section, Table } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Window } from '../layouts';
+import { Box, Button, LabeledList, Section, Table, Stack } from '../components';
+import { Layout, Window } from '../layouts';
+import { decodeHtmlEntities } from 'common/string';
+import { COLORS } from '../constants';
 
 type SkillSelectData = {
   id: string;
@@ -48,12 +50,12 @@ const SkillCategoryTable = (category: SkillsSelectCategory) => {
               <Box inline>
                 Уровень:
                 <Box inline bold textColor={skill.level_color}>
-                  {`${skill.value} `}
+                  {skill.value + ' '}
                   {skill.can_decrease ? (
                     <Button
                       onClick={() =>
                         act('decrease', {
-                          skill: skill.id,
+                          'skill': skill.id,
                         })
                       }
                     >
@@ -66,7 +68,7 @@ const SkillCategoryTable = (category: SkillsSelectCategory) => {
                     <Button
                       onClick={() =>
                         act('increase', {
-                          skill: skill.id,
+                          'skill': skill.id,
                         })
                       }
                     >

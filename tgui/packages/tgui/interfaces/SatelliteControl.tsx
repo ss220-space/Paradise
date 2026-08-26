@@ -1,15 +1,15 @@
 import { useState } from 'react';
-import { NanoMap } from 'tgui/components';
+import { useBackend } from '../backend';
 import {
   Box,
   Button,
   LabeledList,
+  NanoMap,
   ProgressBar,
   Section,
   Stack,
   Tabs,
-} from 'tgui-core/components';
-import { useBackend } from '../backend';
+} from '../components';
 import { Window } from '../layouts';
 
 type SatelliteControlData = {
@@ -193,7 +193,7 @@ const SatelliteControlMapView = (props: unknown) => {
                   color="rgba(0, 150, 255, 0.5)"
                   tooltip="Защищённая территория"
                 />
-              ) : null,
+              ) : null
             )}
 
           {has_goal &&

@@ -1,13 +1,13 @@
+import { useBackend } from '../backend';
 import {
   Box,
   Button,
-  Dimmer,
-  Icon,
-  ProgressBar,
   Section,
+  Icon,
+  Dimmer,
+  ProgressBar,
   Stack,
-} from 'tgui-core/components';
-import { useBackend } from '../backend';
+} from '../components';
 import { Window } from '../layouts';
 
 const status_table = {
@@ -68,7 +68,7 @@ export const BluespaceRiftScanner = (props: unknown) => {
   const failurePercentage =
     time_for_failure && time_till_failure
       ? Math.floor(
-          ((time_for_failure - time_till_failure) / time_for_failure) * 100,
+          ((time_for_failure - time_till_failure) / time_for_failure) * 100
         )
       : 0;
 
@@ -125,9 +125,9 @@ export const BluespaceRiftScanner = (props: unknown) => {
                 {status === 'OFF' ? 'Сканер выключен' : 'Сканирование...'}
               </Box>
               {status !== 'OFF' && (
-                <Box color={statusText?.[1]}>
+                <Box color={statusText[1]}>
                   <Icon name="info" opacity={0.9} ml={1.1} mr={1.4} />
-                  {statusText?.[0]}
+                  {statusText[0]}
                 </Box>
               )}
               {status === 'DANGER' && (

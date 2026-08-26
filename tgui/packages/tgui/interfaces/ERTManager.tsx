@@ -1,16 +1,15 @@
-import { declension_ru } from 'common/l10n';
+import { useBackend } from '../backend';
 import { useState } from 'react';
 import {
-  Box,
   Button,
   LabeledList,
+  Box,
   Section,
   Tabs,
   TextArea,
-} from 'tgui-core/components';
-import { decodeHtmlEntities } from 'tgui-core/string';
-import { useBackend } from '../backend';
+} from '../components';
 import { Window } from '../layouts';
+import { declension_ru, decodeHtmlEntities } from 'common/string';
 
 const TabList = {
   0: () => <SendERT />,
@@ -127,7 +126,7 @@ export const ERTOverview = (props: unknown) => {
 
 const SendERT = (props: unknown) => {
   const { act, data } = useBackend<ERTData>();
-  const slotOptions = [0, 1, 2, 3, 4, 5];
+  let slotOptions = [0, 1, 2, 3, 4, 5];
 
   const [silentERT, setSilentERT] = useState(false);
 
@@ -170,7 +169,7 @@ const SendERT = (props: unknown) => {
         <LabeledList.Item label="Штурмовик">
           {slotOptions.map((a, i) => (
             <Button
-              key={`sec${a}`}
+              key={'sec' + a}
               selected={data.sec === a}
               onClick={() =>
                 act('set_sec', {
@@ -185,7 +184,7 @@ const SendERT = (props: unknown) => {
         <LabeledList.Item label="Медик">
           {slotOptions.map((a, i) => (
             <Button
-              key={`med${a}`}
+              key={'med' + a}
               selected={data.med === a}
               onClick={() =>
                 act('set_med', {
@@ -200,7 +199,7 @@ const SendERT = (props: unknown) => {
         <LabeledList.Item label="Инженер">
           {slotOptions.map((a, i) => (
             <Button
-              key={`eng${a}`}
+              key={'eng' + a}
               selected={data.eng === a}
               onClick={() =>
                 act('set_eng', {
@@ -215,7 +214,7 @@ const SendERT = (props: unknown) => {
         <LabeledList.Item label="Экзорцист">
           {slotOptions.map((a, i) => (
             <Button
-              key={`par${a}`}
+              key={'par' + a}
               selected={data.par === a}
               onClick={() =>
                 act('set_par', {
@@ -230,7 +229,7 @@ const SendERT = (props: unknown) => {
         <LabeledList.Item label="Клининг-специалист">
           {slotOptions.map((a, i) => (
             <Button
-              key={`jan${a}`}
+              key={'jan' + a}
               selected={data.jan === a}
               onClick={() =>
                 act('set_jan', {
@@ -245,7 +244,7 @@ const SendERT = (props: unknown) => {
         <LabeledList.Item label="Робот">
           {slotOptions.map((a, i) => (
             <Button
-              key={`cyb${a}`}
+              key={'cyb' + a}
               selected={data.cyb === a}
               onClick={() =>
                 act('set_cyb', {
@@ -297,7 +296,7 @@ const ReadERTRequests = (props: unknown) => {
 
   return (
     <Section>
-      {ert_request_messages?.length ? (
+      {ert_request_messages && ert_request_messages.length ? (
         ert_request_messages.map((request) => (
           <Section
             key={decodeHtmlEntities(request.time)}

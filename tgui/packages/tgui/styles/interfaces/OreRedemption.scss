@@ -1,23 +1,23 @@
+@use '../colors.scss';
+
 .OreRedemption__Ores {
   .OreLine,
   .OreHeader {
     min-height: 32px;
-    padding: 0 var(--space-m);
+    padding: 0 0.5rem;
   }
-
   .OreHeader {
-    font-weight: bold;
     line-height: 32px;
-    background-color: var(--color-section);
+    background-color: rgba(0, 0, 0, 0.33);
+    font-weight: bold;
   }
-
   .OreLine:last-of-type {
-    margin-bottom: var(--space-m);
+    margin-bottom: 0.5rem;
   }
 
   .Section__content {
-    overflow: auto;
-    height: 100%;
     padding: 0;
+    height: 100%;
+    overflow: auto;
   }
 }

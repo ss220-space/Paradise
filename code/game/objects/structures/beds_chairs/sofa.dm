@@ -10,10 +10,11 @@
 
 /obj/structure/chair/sofa/Initialize(mapload)
 	armrest = GetArmrest()
+	armrest.layer = ABOVE_MOB_LAYER
 	return ..()
 
 /obj/structure/chair/sofa/proc/GetArmrest()
-	return mutable_appearance('icons/obj/chairs_wide.dmi', "[icon_state]_armrest", ABOVE_MOB_LAYER)
+	return mutable_appearance('icons/obj/chairs.dmi', "[icon_state]_armrest")
 
 /obj/structure/chair/sofa/Destroy()
 	QDEL_NULL(armrest)

@@ -1,7 +1,6 @@
-import dateformat from 'dateformat';
-import yaml from 'js-yaml';
+import { classes } from 'common/react';
+import { useBackend } from '../backend';
 import { Component, Fragment } from 'react';
-import { sendAct as act } from 'tgui/events/act';
 import {
   Box,
   Button,
@@ -10,11 +9,11 @@ import {
   Section,
   Stack,
   Table,
-} from 'tgui-core/components';
-import { classes } from 'tgui-core/react';
-import { resolveAsset } from '../assets';
-import { useBackend } from '../backend';
+} from '../components';
 import { Window } from '../layouts';
+import { resolveAsset } from '../assets';
+import dateformat from 'dateformat';
+import yaml from 'js-yaml';
 
 const icons = {
   add: { icon: 'check-circle', color: 'green' },
@@ -50,15 +49,13 @@ type Data = {
   dates: string[];
 };
 
-type State = {
-  data: Record<string, Record<string, string[]>> | string;
-  selectedDate: string;
-  selectedIndex: number;
-};
+type Props = {};
 
-export class Changelog extends Component<unknown, State> {
+type State = { data: string; selectedDate: string; selectedIndex: number };
+
+export class Changelog extends Component<Props, State> {
   dateChoices: string[];
-  constructor(props: unknown) {
+  constructor(props: Props) {
     super(props);
     this.state = {
       data: 'Loading changelog data...',
@@ -81,23 +78,26 @@ export class Changelog extends Component<unknown, State> {
   }
 
   getData = (date: string, attemptNumber = 1) => {
+    const { act } = useBackend();
     const self = this;
     const maxAttempts = 6;
 
     if (attemptNumber > maxAttempts) {
-      return this.setData(`Failed to load data after ${maxAttempts} attempts`);
+      return this.setData(
+        'Failed to load data after ' + maxAttempts + ' attempts'
+      );
     }
 
     act('get_month', { date });
 
-    fetch(resolveAsset(`${date}.yml`)).then(async (changelogData) => {
+    fetch(resolveAsset(date + '.yml')).then(async (changelogData) => {
       const result = await changelogData.text();
       const errorRegex = /^Cannot find/;
 
       if (errorRegex.test(result)) {
         const timeout = 50 + attemptNumber * 50;
 
-        self.setData(`Loading changelog data${'.'.repeat(attemptNumber + 3)}`);
+        self.setData('Loading changelog data' + '.'.repeat(attemptNumber + 3));
         setTimeout(() => {
           self.getData(date, attemptNumber + 1);
         }, timeout);
@@ -113,9 +113,9 @@ export class Changelog extends Component<unknown, State> {
     } = useBackend<Data>();
 
     if (dates) {
-      dates.forEach((date) => {
-        this.dateChoices.push(dateformat(date, 'mmmm yyyy', true));
-      });
+      dates.forEach((date) =>
+        this.dateChoices.push(dateformat(date, 'mmmm yyyy', true))
+      );
       this.setSelectedDate(this.dateChoices[0]);
       this.getData(dates[0]);
     }
@@ -144,7 +144,7 @@ export class Changelog extends Component<unknown, State> {
               window.scrollTo(
                 0,
                 document.body.scrollHeight ||
-                  document.documentElement.scrollHeight,
+                  document.documentElement.scrollHeight
               );
               return this.getData(dates[index]);
             }}
@@ -163,7 +163,7 @@ export class Changelog extends Component<unknown, State> {
               window.scrollTo(
                 0,
                 document.body.scrollHeight ||
-                  document.documentElement.scrollHeight,
+                  document.documentElement.scrollHeight
               );
               return this.getData(dates[index]);
             }}
@@ -185,7 +185,7 @@ export class Changelog extends Component<unknown, State> {
               window.scrollTo(
                 0,
                 document.body.scrollHeight ||
-                  document.documentElement.scrollHeight,
+                  document.documentElement.scrollHeight
               );
               return this.getData(dates[index]);
             }}
@@ -272,13 +272,12 @@ export class Changelog extends Component<unknown, State> {
                   <h4>{name} changed:</h4>
                   <Box ml={3}>
                     <Table>
-                      {changes.map((c, index) => {
+                      {changes.map((c) => {
                         const changeTypes = Object.keys(c)[0];
                         const change = c[changeTypes];
                         const prMatch = change.match(prNumberMatcher);
                         const icon = (
                           <Table.Cell
-                            key={index}
                             className={classes([
                               'Changelog__Cell',
                               'Changelog__Cell--Icon',
@@ -290,12 +289,12 @@ export class Changelog extends Component<unknown, State> {
                                 color={
                                   icons[changeType]
                                     ? icons[changeType].color
-                                    : icons.unknown.color
+                                    : icons['unknown'].color
                                 }
                                 name={
                                   icons[changeType]
                                     ? icons[changeType].icon
-                                    : icons.unknown.icon
+                                    : icons['unknown'].icon
                                 }
                               />
                             ))}

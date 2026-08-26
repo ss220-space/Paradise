@@ -276,7 +276,10 @@
 
 	return ..()
 
-GAME_VERB_SRC(/obj/item/card/id, remove_guest_pass, usr, "Убрать гостевой пропуск", VERB_CATEGORY_HIDDEN)
+/obj/item/card/id/verb/remove_guest_pass()
+	set name = "Убрать гостевой пропуск"
+	set category = VERB_CATEGORY_OBJECT
+	set src in range(0)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return

@@ -274,6 +274,3 @@
 
 /obj/item/lightreplacer/bluespace/emag_act()
 	return  // long range explosions are stupid
-
-/obj/item/lightreplacer/bluespace/update_icon_state()
-	return

@@ -283,7 +283,7 @@
 		return
 
 	if(href_list["focus"])
-		winset(client, SKIN_MAPWINDOW_MAP, "focus=true")
+		winset(client, "mapwindow.map", "focus=true")
 		return
 
 /mob/new_player/proc/IsJobAvailable(rank)

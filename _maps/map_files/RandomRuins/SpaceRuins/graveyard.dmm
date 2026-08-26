@@ -490,7 +490,9 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
 "kr" = (
-/obj/item/flashlight/lantern/on,
+/obj/item/flashlight/lantern{
+	on = 1
+	},
 /turf/simulated/floor/carpet,
 /area/ruin/space/graveyard/church)
 "kv" = (
@@ -1071,7 +1073,8 @@
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/graves)
 "xm" = (
-/obj/item/flashlight/lantern/on{
+/obj/item/flashlight/lantern{
+	on = 1;
 	pixel_x = -17;
 	pixel_y = -10
 	},
@@ -1102,7 +1105,8 @@
 /turf/simulated/floor/plating/burnt,
 /area/ruin/space/graveyard/church)
 "xP" = (
-/obj/item/flashlight/lantern/on{
+/obj/item/flashlight/lantern{
+	on = 1;
 	pixel_x = 15;
 	pixel_y = -10
 	},
@@ -1784,7 +1788,9 @@
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
 "NB" = (
-/obj/item/flashlight/lantern/on,
+/obj/item/flashlight/lantern{
+	on = 1
+	},
 /turf/simulated/floor/grass,
 /area/ruin/space/graveyard/graves)
 "NL" = (

@@ -1,4 +1,4 @@
-import { Section, Stack } from 'tgui-core/components';
+import { Section, Stack } from '../../components';
 import { Window } from '../../layouts';
 import { useCompact } from './hooks';
 import { PodBays } from './PodBays';

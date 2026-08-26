@@ -1,13 +1,7 @@
-import {
-  Button,
-  NoticeBox,
-  ProgressBar,
-  Section,
-  Stack,
-} from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
-import { classes } from 'tgui-core/react';
+import { classes } from '../../common/react';
+import { BooleanLike } from 'common/react';
 import { useBackend } from '../backend';
+import { Button, Section, ProgressBar, Stack, NoticeBox } from '../components';
 import { Window } from '../layouts';
 
 type MintData = {

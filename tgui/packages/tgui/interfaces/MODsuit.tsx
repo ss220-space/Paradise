@@ -15,9 +15,10 @@ import {
   Section,
   Stack,
   Table,
-} from 'tgui-core/components';
-import { formatSiUnit } from 'tgui-core/format';
-import type { BooleanLike } from 'tgui-core/react';
+} from '../components';
+import { formatSiUnit } from '../format';
+import type { BooleanLike } from 'common/react';
+
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
@@ -719,7 +720,7 @@ const ModuleSection = (props) => {
                   <Button
                     onClick={() =>
                       setConfigureState(
-                        configureState === module.ref ? '' : module.ref,
+                        configureState === module.ref ? '' : module.ref
                       )
                     }
                     icon="cog"

@@ -4,6 +4,7 @@
  * @license MIT
  */
 
+import { useDispatch, useSelector } from 'tgui/backend';
 import {
   Button,
   Collapsible,
@@ -11,20 +12,21 @@ import {
   Input,
   Section,
   Stack,
-} from 'tgui-core/components';
+} from 'tgui/components';
+
+import {
+  moveChatPageLeft,
+  moveChatPageRight,
+  removeChatPage,
+  toggleAcceptedType,
+  updateChatPage,
+} from './actions';
 import { MESSAGE_TYPES } from './constants';
-import { useChatPages } from './use-chat-pages';
+import { selectCurrentChatPage } from './selectors';
 
-export function ChatPageSettings(props) {
-  const {
-    page,
-    moveChatLeft,
-    moveChatRight,
-    updateChatPage,
-    removeChatPage,
-    toggleAcceptedType,
-  } = useChatPages();
-
+export const ChatPageSettings = (props: unknown) => {
+  const page = useSelector(selectCurrentChatPage);
+  const dispatch = useDispatch();
   return (
     <Section>
       <Stack align="center">
@@ -34,18 +36,27 @@ export function ChatPageSettings(props) {
               color="blue"
               icon="angles-left"
               tooltip="Переместить вкладку влево"
-              onClick={moveChatLeft}
+              onClick={() =>
+                dispatch(
+                  moveChatPageLeft({
+                    pageId: page.id,
+                  })
+                )
+              }
             />
           </Stack.Item>
         )}
         <Stack.Item grow ml={0.5}>
           <Input
-            fluid
+            width="100%"
             value={page.name}
-            onBlur={(value) =>
-              updateChatPage({
-                name: value,
-              })
+            onChange={(value) =>
+              dispatch(
+                updateChatPage({
+                  pageId: page.id,
+                  name: value,
+                })
+              )
             }
           />
         </Stack.Item>
@@ -55,7 +66,13 @@ export function ChatPageSettings(props) {
               color="blue"
               icon="angles-right"
               tooltip="Переместить вкладку вправо"
-              onClick={moveChatRight}
+              onClick={() =>
+                dispatch(
+                  moveChatPageRight({
+                    pageId: page.id,
+                  })
+                )
+              }
             />
           </Stack.Item>
         )}
@@ -65,9 +82,12 @@ export function ChatPageSettings(props) {
             icon={page.hideUnreadCount ? 'bell-slash' : 'bell'}
             tooltip="Отключить счетчик непрочитанных сообщений"
             onClick={() =>
-              updateChatPage({
-                hideUnreadCount: !page.hideUnreadCount,
-              })
+              dispatch(
+                updateChatPage({
+                  pageId: page.id,
+                  hideUnreadCount: !page.hideUnreadCount,
+                })
+              )
             }
           >
             Заглушить
@@ -75,7 +95,17 @@ export function ChatPageSettings(props) {
         </Stack.Item>
         {!page.isMain && (
           <Stack.Item>
-            <Button color="red" icon="times" onClick={removeChatPage}>
+            <Button
+              color="red"
+              icon="times"
+              onClick={() =>
+                dispatch(
+                  removeChatPage({
+                    pageId: page.id,
+                  })
+                )
+              }
+            >
               Удалить
             </Button>
           </Stack.Item>
@@ -84,24 +114,40 @@ export function ChatPageSettings(props) {
       <Divider />
       <Section title="Сообщения для отображения">
         {MESSAGE_TYPES.filter(
-          (typeDef) => !typeDef.important && !typeDef.admin,
+          (typeDef) => !typeDef.important && !typeDef.admin
         ).map((typeDef) => (
           <Button.Checkbox
             key={typeDef.type}
+            tooltip={typeDef.description}
             checked={page.acceptedTypes[typeDef.type]}
-            onClick={() => toggleAcceptedType(typeDef.type)}
+            onClick={() =>
+              dispatch(
+                toggleAcceptedType({
+                  pageId: page.id,
+                  type: typeDef.type,
+                })
+              )
+            }
           >
             {typeDef.name}
           </Button.Checkbox>
         ))}
         <Collapsible mt={1} color="transparent" title="Админ. вкладки">
           {MESSAGE_TYPES.filter(
-            (typeDef) => !typeDef.important && typeDef.admin,
+            (typeDef) => !typeDef.important && typeDef.admin
           ).map((typeDef) => (
             <Button.Checkbox
               key={typeDef.type}
+              tooltip={typeDef.description}
               checked={page.acceptedTypes[typeDef.type]}
-              onClick={() => toggleAcceptedType(typeDef.type)}
+              onClick={() =>
+                dispatch(
+                  toggleAcceptedType({
+                    pageId: page.id,
+                    type: typeDef.type,
+                  })
+                )
+              }
             >
               {typeDef.name}
             </Button.Checkbox>
@@ -110,4 +156,4 @@ export function ChatPageSettings(props) {
       </Section>
     </Section>
   );
-}
+};

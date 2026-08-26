@@ -5,8 +5,8 @@ import {
   NoticeBox,
   Section,
   Stack,
-} from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
+} from 'tgui/components';
+import { BooleanLike } from 'common/react';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';

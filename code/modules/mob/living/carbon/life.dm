@@ -1,5 +1,5 @@
 /mob/living/carbon/Life(seconds, times_fired)
-	set invisibility = FALSE
+	set invisibility = 0
 
 	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return

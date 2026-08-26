@@ -1,7 +1,13 @@
-import { LabeledList, RestrictedInput, Section } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { GASES } from '../constants';
+import {
+  Button,
+  LabeledList,
+  NumberInput,
+  RestrictedInput,
+  Section,
+} from '../components';
 import { Window } from '../layouts';
+import { GASES } from '../constants';
 
 type Data = {
   pressure?: number;
@@ -44,7 +50,7 @@ export const AtmosBuildMode = (_props: unknown) => {
         <Section title="Состав газовой смеси" mt={1} scrollable>
           <LabeledList>
             {GASES.map((gas) => (
-              <LabeledList.Item key={gas.id} label={`${gas.name}(%)`}>
+              <LabeledList.Item key={gas.id} label={gas.name + '(%)'}>
                 <RestrictedInput
                   value={gas_ratios[gas.tlv] || 0}
                   width="80px"

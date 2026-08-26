@@ -106,28 +106,70 @@
 /obj/item/camera/siliconcam/robot_camera/printpicture(mob/user, datum/picture/P)
 	injectmasteralbum(P)
 
-GAME_VERB_SRC_DESC(/obj/item/camera/siliconcam/ai_camera, take_image, usr, "Сделать фото", "Takes an image", VERB_CATEGORY_SUBSYSTEMS)
+/obj/item/camera/siliconcam/ai_camera/verb/take_image()
+	set category = VERB_CATEGORY_SUBSYSTEMS
+	set name = "Сделать фото"
+	set desc = "Takes an image"
+	set src in usr
+
 	toggle_camera_mode()
 
-GAME_VERB_SRC_DESC(/obj/item/camera/siliconcam/ai_camera, view_images, usr, "Посмотреть фото", "View images", VERB_CATEGORY_SUBSYSTEMS)
+/obj/item/camera/siliconcam/ai_camera/verb/view_images()
+	set category = VERB_CATEGORY_SUBSYSTEMS
+	set name = "Посмотреть фото"
+	set desc = "View images"
+	set src in usr
+
 	viewpictures()
 
-GAME_VERB_SRC_DESC(/obj/item/camera/siliconcam/ai_camera, delete_images, usr, "Удалить фото", "Delete image", VERB_CATEGORY_SUBSYSTEMS)
+/obj/item/camera/siliconcam/ai_camera/verb/delete_images()
+	set category = VERB_CATEGORY_SUBSYSTEMS
+	set name = "Удалить фото"
+	set desc = "Delete image"
+	set src in usr
+
 	deletepicture(src)
 
-GAME_VERB_SRC_DESC(/obj/item/camera/siliconcam/ai_camera, toggle_camera_flash_verb, usr, "Вспышка камеры", "Toggle camera flashing", VERB_CATEGORY_SUBSYSTEMS)
+/obj/item/camera/siliconcam/ai_camera/verb/toggle_camera_flash_verb()
+	set category = VERB_CATEGORY_SUBSYSTEMS
+	set name = "Вспышка камеры"
+	set desc = "Toggle camera flashing"
+	set src in usr
+
 	toggle_camera_flash(src)
 
-GAME_VERB_SRC_DESC(/obj/item/camera/siliconcam/robot_camera, take_image, usr, "Сделать фото", "Takes an image", VERB_CATEGORY_SUBSYSTEMS)
+/obj/item/camera/siliconcam/robot_camera/verb/take_image()
+	set category = VERB_CATEGORY_SUBSYSTEMS
+	set name = "Сделать фото"
+	set desc = "Takes an image"
+	set src in usr
+
 	toggle_camera_mode()
 
-GAME_VERB_SRC_DESC(/obj/item/camera/siliconcam/robot_camera, view_images, usr, "Посмотреть фото", "View images", VERB_CATEGORY_SUBSYSTEMS)
+/obj/item/camera/siliconcam/robot_camera/verb/view_images()
+	set category = VERB_CATEGORY_SUBSYSTEMS
+	set name = "Посмотреть фото"
+	set desc = "View images"
+	set src in usr
+
 	viewpictures()
 
-GAME_VERB_SRC_DESC(/obj/item/camera/siliconcam/robot_camera, delete_images, usr, "Удалить фото", "Delete a local image", VERB_CATEGORY_SUBSYSTEMS)
+/obj/item/camera/siliconcam/robot_camera/verb/delete_images()
+	set category = VERB_CATEGORY_SUBSYSTEMS
+	set name = "Удалить фото"
+	set desc = "Delete a local image"
+	set src in usr
+
+	// Explicitly only allow deletion from the local camera
 	deletepicture(src)
 
-GAME_VERB_SRC_DESC(/obj/item/camera/siliconcam/robot_camera, toggle_camera_flash_verb, usr, "Вспышка камеры", "Toggle camera flash", VERB_CATEGORY_SUBSYSTEMS)
+/obj/item/camera/siliconcam/robot_camera/verb/toggle_camera_flash_verb()
+	set category = VERB_CATEGORY_SUBSYSTEMS
+	set name = "Вспышка камеры"
+	set desc = "Toggle camera flash"
+	set src in usr
+
+	// Explicitly only allow deletion from the local camera
 	toggle_camera_flash(src)
 
 /obj/item/camera/siliconcam/proc/getsource()

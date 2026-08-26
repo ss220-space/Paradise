@@ -9,8 +9,8 @@ import {
   ProgressBar,
   Section,
   Stack,
-} from 'tgui-core/components';
-import { toTitleCase } from 'tgui-core/string';
+} from '../components';
+import { toTitleCase } from 'common/string';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 

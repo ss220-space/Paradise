@@ -1,3 +1,5 @@
+import { round, toFixed } from 'common/math';
+import { useBackend } from '../backend';
 import {
   AnimatedNumber,
   Box,
@@ -6,9 +8,7 @@ import {
   NumberInput,
   Section,
   Stack,
-} from 'tgui-core/components';
-import { round, toFixed } from 'tgui-core/math';
-import { useBackend } from '../backend';
+} from '../components';
 import { BeakerContents } from '../interfaces/common/BeakerContents';
 import { Window } from '../layouts';
 
@@ -94,7 +94,7 @@ const ChemHeaterSettings = (_properties) => {
             {(isBeakerLoaded && (
               <AnimatedNumber
                 value={currentTemp}
-                format={(value) => `${toFixed(value)} K`}
+                format={(value) => toFixed(value) + ' K'}
               />
             )) ||
               '—'}

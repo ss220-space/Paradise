@@ -1,13 +1,16 @@
-GAME_VERB_DESC(/client, randomtip, "Случайный совет", "Shows you a random tip", VERB_CATEGORY_OOC)
+/client/verb/randomtip()
+	set category = VERB_CATEGORY_OOC
+	set name = "Случайный совет"
+	set desc = "Shows you a random tip"
 
-	var/tip
+	var/m
 
 	var/list/randomtips = world.file2list("strings/tips.txt")
 	var/list/memetips = world.file2list("strings/sillytips.txt")
 	if(length(randomtips) && prob(95))
-		tip = pick(randomtips)
+		m = pick(randomtips)
 	else if(length(memetips))
-		tip = pick(memetips)
+		m = pick(memetips)
 
-	if(tip)
-		to_chat(src, custom_boxed_message("purple_box", span_purple("<b>Совет: </b>[html_encode(tip)]")))
+	if(m)
+		to_chat(src, custom_boxed_message("purple_box", span_purple("<b>Совет: </b>[html_encode(m)]")))

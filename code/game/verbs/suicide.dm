@@ -1,4 +1,5 @@
-GAME_VERB_HIDDEN(/mob/living, suicide, "suicide")
+/mob/living/verb/suicide()
+	set hidden = TRUE
 	be_suicidal()
 
 /mob/living/proc/be_suicidal(forced = FALSE)

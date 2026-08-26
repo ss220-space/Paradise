@@ -4,58 +4,70 @@
  * @license MIT
  */
 
-import { useAtom } from 'jotai';
-import { Box, Button, Stack, Tabs } from 'tgui-core/components';
-import { settingsVisibleAtom } from '../settings/atoms';
-import { useChatPages } from './use-chat-pages';
+import { useDispatch, useSelector } from 'tgui/backend';
+import { Box, Button, Flex, Tabs } from 'tgui/components';
 
-type UnreadCountWidgetProps = {
-  value: number;
-};
+import { openChatSettings } from '../settings/actions';
+import { addChatPage, changeChatPage } from './actions';
+import { selectChatPages, selectCurrentChatPage } from './selectors';
+import { Page } from './types';
 
-function UnreadCountWidget(props: UnreadCountWidgetProps) {
-  const { value } = props;
+const UnreadCountWidget = ({ value }) => (
+  <Box
+    style={{
+      fontSize: '0.7em',
+      borderRadius: '0.25em',
+      width: '1.7em',
+      lineHeight: '1.55em',
+      backgroundColor: 'crimson',
+      color: '#fff',
+    }}
+  >
+    {Math.min(value, 99)}
+  </Box>
+);
 
-  return <Box className="UnreadCount">{Math.min(value, 99)}</Box>;
-}
-
-export function ChatTabs(props) {
-  const { addChatPage, changeChatPage, pages, pagesRecord, currentPageId } =
-    useChatPages();
-
-  const [, setSettingsVisible] = useAtom(settingsVisibleAtom);
-
+export const ChatTabs = (props: unknown) => {
+  const pages = useSelector(selectChatPages);
+  const currentPage = useSelector(selectCurrentChatPage);
+  const dispatch = useDispatch();
   return (
-    <Stack align="center">
-      <Stack.Item>
-        <Tabs scrollable textAlign="center">
-          {pages.map((page) => {
-            const actual = pagesRecord[page];
-            return (
-              <Tabs.Tab
-                key={page}
-                selected={page === currentPageId}
-                onClick={() => changeChatPage(actual)}
-              >
-                {actual.name}
-                {!actual.hideUnreadCount && actual.unreadCount > 0 && (
-                  <UnreadCountWidget value={actual.unreadCount} />
-                )}
-              </Tabs.Tab>
-            );
-          })}
+    <Flex align="center">
+      <Flex.Item>
+        <Tabs textAlign="center">
+          {pages.map((page: Page) => (
+            <Tabs.Tab
+              key={page.id}
+              selected={page === currentPage}
+              rightSlot={
+                !page.hideUnreadCount &&
+                page.unreadCount > 0 && (
+                  <UnreadCountWidget value={page.unreadCount} />
+                )
+              }
+              onClick={() =>
+                dispatch(
+                  changeChatPage({
+                    pageId: page.id,
+                  })
+                )
+              }
+            >
+              {page.name}
+            </Tabs.Tab>
+          ))}
         </Tabs>
-      </Stack.Item>
-      <Stack.Item>
+      </Flex.Item>
+      <Flex.Item ml={1}>
         <Button
           color="transparent"
           icon="plus"
           onClick={() => {
-            addChatPage();
-            setSettingsVisible(true);
+            dispatch(addChatPage());
+            dispatch(openChatSettings());
           }}
         />
-      </Stack.Item>
-    </Stack>
+      </Flex.Item>
+    </Flex>
   );
-}
+};

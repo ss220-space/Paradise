@@ -12,6 +12,5 @@
 	else
 		holder.add_tagged_datum(target_datum)
 
-ADMIN_VERB_ONLY_CONTEXT_MENU(tag_datum, R_VIEWRUNTIMES|R_ADMIN, "Tag Datum", /datum)
-	VERB_ARG_TYPED(target_datum, VERB_ARG_TYPE_MOB | VERB_ARG_TYPE_OBJ | VERB_ARG_TYPE_TURF | VERB_ARG_TYPE_AREA, VERB_ARG_SOURCE_VIEW, /datum)
+ADMIN_VERB_ONLY_CONTEXT_MENU(tag_datum, R_VIEWRUNTIMES|R_ADMIN, "Tag Datum", datum/target_datum as mob|obj|turf|area in view())
 	user.tag_datum(target_datum)

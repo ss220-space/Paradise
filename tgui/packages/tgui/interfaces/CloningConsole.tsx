@@ -1,26 +1,27 @@
-import type { ReactNode } from 'react';
+import { round } from 'common/math';
+
+import { useBackend } from '../backend';
 import {
   Box,
   Button,
   Flex,
   Icon,
-  Image,
   LabeledList,
   NoticeBox,
   ProgressBar,
   Section,
+  Image,
   Tabs,
-} from 'tgui-core/components';
-import { round } from 'tgui-core/math';
-import { resolveAsset } from '../assets';
-import { useBackend } from '../backend';
+} from '../components';
 import { COLORS } from '../constants';
 import {
   ComplexModal,
-  type ModalType,
   modalRegisterBodyOverride,
+  ModalType,
 } from '../interfaces/common/ComplexModal';
 import { Window } from '../layouts';
+import { resolveAsset } from '../assets';
+import { ReactNode } from 'react';
 
 type CloningConsoleData = {
   disk: boolean;
@@ -330,7 +331,7 @@ const CloningConsoleMain = (props: unknown) => {
                   }}
                   mt="0.5rem"
                 >
-                  <Box textAlign="center">{`${round(pod.progress, 0)}%`}</Box>
+                  <Box textAlign="center">{round(pod.progress, 0) + '%'}</Box>
                 </ProgressBar>
               );
             } else if (pod.status === 'mess') {
@@ -358,7 +359,7 @@ const CloningConsoleMain = (props: unknown) => {
             return (
               <Box key={i} width="64px" textAlign="center" inline mr="0.5rem">
                 <Image
-                  src={resolveAsset(`pod_${pod.status}.gif`)}
+                  src={resolveAsset('pod_' + pod.status + '.gif')}
                   style={{
                     width: '100%',
                   }}
@@ -418,7 +419,7 @@ const CloningConsoleRecords = (props: unknown) => {
 const CloningConsoleTemp = (props: unknown) => {
   const { act, data } = useBackend<CloningConsoleData>();
   const { temp } = data;
-  if (!temp?.text || temp.text.length <= 0) {
+  if (!temp || !temp.text || temp.text.length <= 0) {
     return;
   }
 

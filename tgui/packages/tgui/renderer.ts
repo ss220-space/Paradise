@@ -1,30 +1,28 @@
-import { createLogger } from 'common/logging';
 import { perf } from 'common/perf';
-import type { ReactNode } from 'react';
-import { createRoot, type Root } from 'react-dom/client';
-
+import { ReactNode } from 'react';
+import { createRoot, Root } from 'react-dom/client';
+import { createLogger } from 'common/logging';
 const logger = createLogger('renderer');
-
 let reactRoot: Root;
 let initialRender: string | boolean = true;
 let suspended = false;
 
 // These functions are used purely for profiling.
-export function resumeRenderer() {
+export const resumeRenderer = () => {
   initialRender = initialRender || 'resumed';
   suspended = false;
-}
+};
 
-export function suspendRenderer() {
+export const suspendRenderer = () => {
   suspended = true;
-}
+};
 
 enum Render {
   Start = 'render/start',
   Finish = 'render/finish',
 }
 
-export function render(component: ReactNode) {
+export const render = (component: ReactNode) => {
   perf.mark(Render.Start);
   // Start rendering
   if (!reactRoot) {
@@ -57,4 +55,4 @@ export function render(component: ReactNode) {
   if (initialRender) {
     initialRender = false;
   }
-}
+};

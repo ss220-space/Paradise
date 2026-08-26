@@ -5,8 +5,10 @@ GLOBAL_VAR_INIT(mentor_ooc_colour, "#00B0EB")
 GLOBAL_VAR_INIT(moderator_ooc_colour, "#184880")
 GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 
-GAME_VERB(/client, ooc, VERB_OOC, VERB_CATEGORY_OOC)
-	VERB_ARG(msg, VERB_ARG_TYPE_TEXT, VERB_ARG_SOURCE_INPUT)
+/client/verb/ooc(msg = "" as text)
+	set name = "OOC"
+	set category = VERB_CATEGORY_OOC
+
 	if(!mob)
 		return
 	if(is_guest_key(key))
@@ -54,7 +56,7 @@ GAME_VERB(/client, ooc, VERB_OOC, VERB_CATEGORY_OOC)
 				message_admins("[key_name_admin(src)] has attempted to advertise in OOC: [msg]")
 				return
 
-	msg = handle_emojis(msg)
+	msg = handleDiscordEmojis(msg)
 
 	add_ooc_logs(src, msg)
 
@@ -79,22 +81,16 @@ GAME_VERB(/client, ooc, VERB_OOC, VERB_CATEGORY_OOC)
 	for(var/client/C in GLOB.clients)
 		if(C.prefs.toggles & PREFTOGGLE_CHAT_OOC)
 			var/display_name = key
-			var/list/key_tags
-			var/key_prefix = ""
-			var/visible_unlock = prefs.unlock_content && (prefs.toggles & PREFTOGGLE_MEMBER_PUBLIC)
-			if(visible_unlock)
-				LAZYADD(key_tags, "byond_member")
 
-			if(donator_level > 0 && prefs.toggles & PREFTOGGLE_DONATOR_PUBLIC)
-				LAZYADD(key_tags, "donator")
+			if(prefs.unlock_content)
+				if(prefs.toggles & PREFTOGGLE_MEMBER_PUBLIC)
+					var/icon/byond = icon('icons/member_content.dmi', "blag")
+					display_name = "[icon2html(byond, C)][display_name]"
 
-			if(LAZYLEN(key_tags))
-				var/datum/asset/spritesheet_batched/chat/sheet = get_asset_datum(/datum/asset/spritesheet_batched/chat)
-				for(var/icon_name in key_tags)
-					key_prefix = "[key_prefix][sheet.icon_tag(icon_name)]"
-			key_prefix = "<span style='vertical-align: text-top; padding-right: 0.2em'>[key_prefix]</span>"
-
-			display_name = "[key_prefix][display_name]"
+			if(donator_level > 0)
+				if(prefs.toggles & PREFTOGGLE_DONATOR_PUBLIC)
+					var/icon/donator = icon('icons/ooc_tag_16x.png')
+					display_name = "[icon2html(donator, C)][display_name]"
 
 			if(holder)
 				if(holder.fakekey)
@@ -120,8 +116,10 @@ GAME_VERB(/client, ooc, VERB_OOC, VERB_CATEGORY_OOC)
 	if(CONFIG_GET(flag/auto_toggle_ooc_during_round) && CONFIG_GET(flag/ooc_allowed) != on)
 		toggle_ooc()
 
-GAME_VERB_DESC(/client, looc, VERB_LOOC, "Local OOC, seen only by those in view.", VERB_CATEGORY_OOC)
-	VERB_ARG(msg, VERB_ARG_TYPE_TEXT, VERB_ARG_SOURCE_INPUT)
+/client/verb/looc(msg = "" as text)
+	set name = "LOOC"
+	set desc = "Local OOC, seen only by those in view."
+	set category = VERB_CATEGORY_OOC
 
 	if(!mob)
 		return
@@ -167,7 +165,7 @@ GAME_VERB_DESC(/client, looc, VERB_LOOC, "Local OOC, seen only by those in view.
 				return
 
 	var/msg_runechat = msg
-	msg = handle_emojis(msg)
+	msg = handleDiscordEmojis(msg)
 
 	add_ooc_logs(src, msg, TRUE)
 
@@ -222,10 +220,3 @@ GAME_VERB_DESC(/client, looc, VERB_LOOC, "Local OOC, seen only by those in view.
 	if(eyeobj)
 		return eyeobj
 	return src
-
-//Checks admin notice
-GAME_VERB_DESC(/client, admin_notice, "Adminnotice", "Check the admin notice if it has been set", VERB_CATEGORY_OOC)
-	if(GLOB.admin_notice)
-		to_chat(src, "[span_boldnotice("Admin Notice:")]\n \t [GLOB.admin_notice]")
-	else
-		to_chat(src, span_notice("There are no admin notices at the moment."))

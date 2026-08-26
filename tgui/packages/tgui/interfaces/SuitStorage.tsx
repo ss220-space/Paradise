@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -6,8 +8,7 @@ import {
   Icon,
   LabeledList,
   Section,
-} from 'tgui-core/components';
-import { useBackend } from '../backend';
+} from '../components';
 import { Window } from '../layouts';
 
 type SuitStorageData = {

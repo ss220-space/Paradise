@@ -9,7 +9,6 @@
 #define ADMIN_CHANNEL "Admin"
 #define DSAY_CHANNEL "Dsay"
 #define DEV_CHANNEL "Dev"
-#define PRAY_CHANNEL "Молитва"
 
 // Some other channels
 #define INTERCOM_MODE "Интерком"

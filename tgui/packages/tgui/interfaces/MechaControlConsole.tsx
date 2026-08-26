@@ -1,13 +1,13 @@
+import { useBackend } from '../backend';
 import {
   Button,
   LabeledList,
-  NoticeBox,
   ProgressBar,
   Section,
-} from 'tgui-core/components';
-import { toTitleCase } from 'tgui-core/string';
-import { useBackend } from '../backend';
+  NoticeBox,
+} from '../components';
 import { Window } from '../layouts';
+import { toTitleCase } from 'common/string';
 
 type MechaControlData = {
   beacons: Beakon[];

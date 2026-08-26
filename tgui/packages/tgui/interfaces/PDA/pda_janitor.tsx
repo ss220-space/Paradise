@@ -1,6 +1,6 @@
-import type { Key } from 'react';
-import { Box, LabeledList } from 'tgui-core/components';
+import { Key } from 'react';
 import { useBackend } from '../../backend';
+import { LabeledList, Box } from '../../components';
 
 type JanitorInfo = {
   user_loc: Location;

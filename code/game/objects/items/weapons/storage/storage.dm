@@ -73,10 +73,15 @@
 	if(w_class_override)
 		w_class_override = string_list(w_class_override)
 
-	if(allow_quick_gather)
-		verbs += /obj/item/storage/proc/toggle_gathering_mode
+	if(allow_quick_empty)
+		verbs += /obj/item/storage/verb/quick_empty
 	else
-		verbs -= /obj/item/storage/proc/toggle_gathering_mode
+		verbs -= /obj/item/storage/verb/quick_empty
+
+	if(allow_quick_gather)
+		verbs += /obj/item/storage/verb/toggle_gathering_mode
+	else
+		verbs -= /obj/item/storage/verb/toggle_gathering_mode
 
 	populate_contents()
 
@@ -889,7 +894,9 @@
 		show_to(user)
 	return ..()
 
-GAME_PROC_SRC(/obj/item/storage, toggle_gathering_mode, usr, "Режим сбора", VERB_CATEGORY_HIDDEN)
+/obj/item/storage/verb/toggle_gathering_mode()
+	set name = "Режим сбора"
+	set category = VERB_CATEGORY_OBJECT
 
 	pickup_all_on_tile = !pickup_all_on_tile
 	switch(pickup_all_on_tile)
@@ -897,6 +904,15 @@ GAME_PROC_SRC(/obj/item/storage, toggle_gathering_mode, usr, "Режим сбо�
 			to_chat(usr, "[DECLENT_RU_CAP(src, NOMINATIVE)] теперь будет собирать все предметы с тайла за раз.")
 		if(FALSE)
 			to_chat(usr, "[DECLENT_RU_CAP(src, NOMINATIVE)] теперь будет собирать один предмет с тайла за раз")
+
+/obj/item/storage/verb/quick_empty()
+	set name = "Выбросить содержимое"
+	set category = VERB_CATEGORY_OBJECT
+
+	if((!ishuman(usr) && (loc != usr)) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return
+
+	drop_inventory(usr)
 
 /obj/item/storage/proc/drop_inventory(user)
 	var/turf/current_turf = get_turf(src)

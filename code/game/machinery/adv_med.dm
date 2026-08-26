@@ -200,7 +200,10 @@
 		return FALSE //maybe they should be able to get out with cuffs, but whatever
 	go_out()
 
-GAME_VERB_SRC(/obj/machinery/bodyscanner, eject, oview(1), "Извлечь пациента", VERB_CATEGORY_HIDDEN)
+/obj/machinery/bodyscanner/verb/eject()
+	set src in oview(1)
+	set category = VERB_CATEGORY_OBJECT
+	set name = "Извлечь пациента"
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return

@@ -1,9 +1,9 @@
+import { Stack, Box } from '../../components';
 import { Component, createRef } from 'react';
-import { Box, Stack } from 'tgui-core/components';
-import { classes } from 'tgui-core/react';
-import { noop } from './constants';
 import { DisplayName } from './DisplayName';
-import type { PortProps } from './types';
+import { classes } from 'common/react';
+import { noop } from './constants';
+import { PortProps } from './types';
 
 export class Port extends Component<PortProps> {
   iconRef: any;
@@ -25,9 +25,7 @@ export class Port extends Component<PortProps> {
       isOutput,
       onPortMouseDown = noop,
     } = this.props;
-    portIndex &&
-      componentId &&
-      onPortMouseDown(portIndex, componentId, port, !!isOutput, e);
+    onPortMouseDown(portIndex, componentId, port, isOutput, e);
   }
 
   handlePortMouseUp(e) {
@@ -38,10 +36,7 @@ export class Port extends Component<PortProps> {
       isOutput,
       onPortMouseUp = noop,
     } = this.props;
-    portIndex &&
-      componentId &&
-      isOutput &&
-      onPortMouseUp(portIndex, componentId, port, isOutput, e);
+    onPortMouseUp(portIndex, componentId, port, isOutput, e);
   }
 
   handlePortRightClick(e) {
@@ -52,10 +47,7 @@ export class Port extends Component<PortProps> {
       isOutput,
       onPortRightClick = noop,
     } = this.props;
-    portIndex &&
-      componentId &&
-      isOutput &&
-      onPortRightClick(portIndex, componentId, port, isOutput, e);
+    onPortRightClick(portIndex, componentId, port, isOutput, e);
   }
 
   componentDidUpdate() {
@@ -91,7 +83,7 @@ export class Port extends Component<PortProps> {
   render() {
     const { port, isOutput, ...rest } = this.props;
 
-    let composite_types: string[] = [];
+    let composite_types = [];
     if (port.datatype_data?.composite_types) {
       composite_types = port.datatype_data.composite_types;
     }

@@ -1,12 +1,12 @@
+import { useBackend } from '../backend';
 import {
   Button,
   Flex,
-  LabeledList,
+  Table,
   NoticeBox,
   Section,
-  Table,
-} from 'tgui-core/components';
-import { useBackend } from '../backend';
+  LabeledList,
+} from '../components';
 import { Window } from '../layouts';
 
 type TachyonArrayData = {
@@ -96,7 +96,7 @@ export const TachyonArrayContent = (_props: unknown) => {
                     color="bad"
                     onClick={() =>
                       act('delete_record', {
-                        index: a.index,
+                        'index': a.index,
                       })
                     }
                   >

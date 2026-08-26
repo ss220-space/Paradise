@@ -1,13 +1,7 @@
 import { useState } from 'react';
-import {
-  Box,
-  Button,
-  RestrictedInput,
-  Section,
-  Stack,
-} from 'tgui-core/components';
-import { isEscape, KEY } from 'tgui-core/keys';
-import type { BooleanLike } from 'tgui-core/react';
+import { Box, Button, RestrictedInput, Section, Stack } from 'tgui/components';
+import { isEscape, KEY } from 'common/keys';
+import { BooleanLike } from 'common/react';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';

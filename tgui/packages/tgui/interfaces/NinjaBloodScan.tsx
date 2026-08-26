@@ -1,13 +1,13 @@
+import { useBackend } from '../backend';
 import {
   Button,
   Flex,
-  Image,
-  NoticeBox,
-  ProgressBar,
   Section,
   Tooltip,
-} from 'tgui-core/components';
-import { useBackend } from '../backend';
+  ProgressBar,
+  NoticeBox,
+  Image,
+} from '../components';
 import { Window } from '../layouts';
 
 export const NinjaBloodScan = (props: unknown) => {
@@ -43,17 +43,13 @@ const BloodScanMenu = (props: unknown) => {
     blockButtons,
     scanStates,
   } = data;
-  const rowStyles = {
+  let rowStyles = {
     blue: 'Button_blue',
     green: 'Button_green',
     red: 'Button_red',
     disabled: 'Button_disabled',
   };
-  const noticeBoxStyles = [
-    'NoticeBox--color--red',
-    'NoticeBox--color--green',
-    'NoticeBox--color--blue',
-  ];
+  const noticeBoxStyles = ['NoticeBox_red', 'NoticeBox', 'NoticeBox_blue'];
   const flexColumns = [1, 2, 3];
   return (
     <Flex direction="column" shrink={1} alignContent="center">
@@ -119,7 +115,7 @@ const BloodScanMenu = (props: unknown) => {
             </Flex.Item>
           ))}
         </Flex>
-        <NoticeBox danger align="center">
+        <NoticeBox className="NoticeBox_red" align="center">
           <Button
             className={!blockButtons ? '' : 'Button_disabled'}
             width="250px"
@@ -151,8 +147,8 @@ const FakeLoadBar = (properties) => {
         maxValue={100}
       >
         <center>
-          <NoticeBox success mt={1}>
-            {progressBar ? `Загрузка ${`${progressBar}%`}` : `Режим ожидания`}
+          <NoticeBox className={'NoticeBox_green'} mt={1}>
+            {progressBar ? `Загрузка ${progressBar + '%'}` : `Режим ожидания`}
           </NoticeBox>
         </center>
       </ProgressBar>

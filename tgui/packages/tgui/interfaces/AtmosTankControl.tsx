@@ -1,10 +1,16 @@
-import { LabeledList, ProgressBar, Section } from 'tgui-core/components';
-import { toFixed } from 'tgui-core/math';
+import {
+  Button,
+  LabeledList,
+  NumberInput,
+  ProgressBar,
+  Section,
+} from 'tgui/components';
+import { toFixed } from 'common/math';
 
 import { useBackend } from '../backend';
-import { GASES } from '../constants';
 import { Window } from '../layouts';
-import { type AtmosMachine, AtmosMachineView } from './common/AtmosMachine';
+import { GASES } from '../constants';
+import { AtmosMachine, AtmosMachineView } from './common/AtmosMachine';
 
 type AtmosTankControlData = {
   sensors: Sensor[];
@@ -21,10 +27,10 @@ type Sensor = {
 export const AtmosTankControl = (props) => {
   const { data } = useBackend<AtmosTankControlData>();
 
-  const sensors_list = data.sensors || [];
+  let sensors_list = data.sensors || [];
 
   const isValidNumber = (value: unknown): value is number => {
-    return typeof value === 'number' && !Number.isNaN(value);
+    return typeof value === 'number' && !isNaN(value);
   };
 
   return (
@@ -57,12 +63,12 @@ export const AtmosTankControl = (props) => {
                       minValue={0}
                       maxValue={100}
                     >
-                      {`${toFixed(s[g.tlv], 2)}%`}
+                      {toFixed(s[g.tlv], 2) + '%'}
                     </ProgressBar>
                   </LabeledList.Item>
                 ) : (
                   ''
-                ),
+                )
               )}
             </LabeledList>
           </Section>

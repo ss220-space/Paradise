@@ -7,10 +7,10 @@ import {
   Stack,
   Table,
   Tooltip,
-} from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
-import { useBackend } from '../backend';
+} from '../components';
+import type { BooleanLike } from 'common/react';
 
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type Lobby = {
@@ -28,7 +28,7 @@ type Data = {
   lobbies: Lobby[];
 };
 
-export const DeathmatchPanel = (_props: unknown) => {
+export const DeathmatchPanel = (props) => {
   const { act, data } = useBackend<Data>();
   const { hosting } = data;
 

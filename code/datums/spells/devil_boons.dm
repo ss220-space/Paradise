@@ -81,10 +81,9 @@
 	if(isnull(new_view) || !user.client)
 		return
 	if(new_view == "default")
-		user.client.view_size.resetToDefault()
-		return
+		new_view = user.client.prefs.viewrange
 	selected_view = new_view
-	user.client.view_size.setTo(new_view)
+	user.client.change_view(new_view)
 
 /obj/effect/proc_holder/spell/view_range/genetic
 	desc = "Позволяет вам выбрать, как далеко вы будете видеть."

@@ -4,38 +4,34 @@
  * @license MIT
  */
 
-import { useAtomValue } from 'jotai';
-import { Button, Collapsible, Flex, Knob, Section } from 'tgui-core/components';
-import { toFixed } from 'tgui-core/math';
-import { useSettings } from '../settings/use-settings';
-import { metaAtom, playingAtom } from './atoms';
-import { player } from './handlers';
+import { useDispatch, useSelector } from 'tgui/backend';
+import { Button, Collapsible, Flex, Knob, Section } from 'tgui/components';
+import { toFixed } from 'common/math';
 
-export function NowPlayingWidget(props) {
-  const { settings, updateSettings } = useSettings();
-  const meta = useAtomValue(metaAtom);
-  const {
-    album = 'Unknown Album',
-    artist = 'Unknown Artist',
-    duration,
-    link,
-    title,
-    upload_date = 'Unknown Data',
-  } = meta || {};
+import { useSettings } from '../settings';
+import { selectAudio } from './selectors';
 
-  const playing = useAtomValue(playingAtom);
-
-  const date = !Number.isNaN(upload_date)
-    ? upload_date?.substring(0, 4) +
-      '-' +
-      upload_date?.substring(4, 6) +
-      '-' +
-      upload_date?.substring(6, 8)
-    : upload_date;
+export const NowPlayingWidget = (props: unknown) => {
+  const audio = useSelector(selectAudio),
+    dispatch = useDispatch(),
+    settings = useSettings(),
+    title = audio.meta?.title,
+    URL = audio.meta?.link,
+    Artist = audio.meta?.artist || 'Unknown Artist',
+    upload_date = audio.meta?.upload_date || 'Unknown Date',
+    album = audio.meta?.album || 'Unknown Album',
+    duration = audio.meta?.duration,
+    date = !isNaN(upload_date)
+      ? upload_date?.substring(0, 4) +
+        '-' +
+        upload_date?.substring(4, 6) +
+        '-' +
+        upload_date?.substring(6, 8)
+      : upload_date;
 
   return (
     <Flex align="center">
-      {playing ? (
+      {(audio.playing && (
         <Flex.Item
           mx={0.5}
           grow={1}
@@ -46,20 +42,20 @@ export function NowPlayingWidget(props) {
           }}
         >
           {
-            <Collapsible title={title || 'Unknown Track'} color="blue">
+            <Collapsible title={title || 'Unknown Track'} color={'blue'}>
               <Section>
-                {link !== 'Ссылка скрыта' && (
+                {URL !== 'Ссылка скрыта' && (
                   <Flex.Item grow={1} color="label">
-                    URL: <a href={link}>{link}</a>
+                    URL: {URL}
                   </Flex.Item>
                 )}
                 <Flex.Item grow={1} color="label">
                   Duration: {duration}
                 </Flex.Item>
-                {artist !== 'Исполнитель скрыт' &&
-                  artist !== 'Unknown Artist' && (
+                {Artist !== 'Исполнитель скрыт' &&
+                  Artist !== 'Unknown Artist' && (
                     <Flex.Item grow={1} color="label">
-                      Artist: {artist}
+                      Artist: {Artist}
                     </Flex.Item>
                   )}
                 {album !== 'Альбом скрыт' && album !== 'Unknown Album' && (
@@ -77,32 +73,40 @@ export function NowPlayingWidget(props) {
             </Collapsible>
           }
         </Flex.Item>
-      ) : (
+      )) || (
         <Flex.Item grow={1} color="label">
           Nothing to play.
         </Flex.Item>
       )}
-      {playing && (
+      {audio.playing && (
         <Flex.Item mx={0.5} fontSize="0.9em">
-          <Button tooltip="Stop" icon="stop" onClick={() => player.stop()} />
+          <Button
+            tooltip="Stop"
+            icon="stop"
+            onClick={() =>
+              dispatch({
+                type: 'audio/stopMusic',
+              })
+            }
+          />
         </Flex.Item>
       )}
       <Flex.Item mx={0.5} fontSize="0.9em">
         <Knob
           minValue={0}
           maxValue={1}
+          tickWhileDragging
           value={settings.adminMusicVolume}
           step={0.0025}
           stepPixelSize={1}
-          format={(value) => `${toFixed(value * 100)}%`}
-          onChange={(e, value) => {
-            updateSettings({
+          format={(value) => toFixed(value * 100) + '%'}
+          onChange={(e, value) =>
+            settings.update({
               adminMusicVolume: value,
-            });
-            player.setVolume(value);
-          }}
+            })
+          }
         />
       </Flex.Item>
     </Flex>
   );
-}
+};

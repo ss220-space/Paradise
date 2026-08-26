@@ -1,16 +1,16 @@
+import { useBackend } from '../backend';
 import {
-  Box,
   Button,
-  Flex,
+  Box,
+  Section,
+  ProgressBar,
   LabeledList,
   NumberInput,
-  ProgressBar,
-  Section,
-} from 'tgui-core/components';
-import { formatPower } from 'tgui-core/format';
-import { useBackend } from '../backend';
-import { Grid } from '../components';
+  Flex,
+  Grid,
+} from '../components';
 import { Window } from '../layouts';
+import { formatPower } from '../format';
 
 type PacmanData = {
   broken: boolean;
@@ -49,12 +49,12 @@ export const Pacman = (_props: unknown) => {
     output_set,
     has_fuel,
   } = data;
-  const fuelRatio = fuel_stored / fuel_cap;
-  const tmpRatio = tmp_current / tmp_max; // temperature ratio
-  const output_watts = output_set * power_gen;
-  const fuel_sec = Math.round(fuel_stored / fuel_usage);
-  const fuel_min = Math.round(fuel_sec / 60);
-  const usage = fuel_sec > 120 ? `${fuel_min} minutes` : `${fuel_sec} seconds`;
+  let fuelRatio = fuel_stored / fuel_cap;
+  let tmpRatio = tmp_current / tmp_max; // temperature ratio
+  let output_watts = output_set * power_gen;
+  let fuel_sec = Math.round(fuel_stored / fuel_usage);
+  let fuel_min = Math.round(fuel_sec / 60);
+  let usage = fuel_sec > 120 ? `${fuel_min} minutes` : `${fuel_sec} seconds`;
   return (
     <Window width={500} height={260}>
       <Window.Content>

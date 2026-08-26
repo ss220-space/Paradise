@@ -1,19 +1,18 @@
-import { declension_ru } from 'common/l10n';
 import { useState } from 'react';
+import { useBackend } from '../backend';
+import { createSearch, declension_ru } from 'common/string';
 import {
   Box,
   Button,
-  Icon,
-  ImageButton,
-  Input,
-  NoticeBox,
   Section,
   Stack,
-} from 'tgui-core/components';
-import { createSearch } from 'tgui-core/string';
-import { useBackend } from '../backend';
+  Icon,
+  Input,
+  NoticeBox,
+  ImageButton,
+} from '../components';
 import { Window } from '../layouts';
-import { getLayoutState, LAYOUT, LayoutToggle } from './common/LayoutToggle';
+import { getLayoutState, LAYOUT, LayoutToggle } from 'common/LayoutToggle';
 
 type VendingData = {
   all_products_free: boolean;
@@ -75,13 +74,13 @@ export const Vending = (_props: unknown) => {
   } = data;
 
   const [selectedCategory, setSelectedCategory] = useState(
-    Object.keys(categories)[0],
+    Object.keys(categories)[0]
   );
 
   const [stockSearch, setStockSearch] = useState('');
   const stockSearchFn = createSearch(
     stockSearch,
-    (item: ProductRecord) => item.name,
+    (item: ProductRecord) => item.name
   );
 
   let inventory: ProductRecord[];
@@ -107,7 +106,7 @@ export const Vending = (_props: unknown) => {
           return false;
         }
       });
-    }),
+    })
   );
 
   return (
@@ -207,7 +206,7 @@ const ProductDisplay = (props: ProductDisplayProps) => {
   const { inventory, stockSearch, setStockSearch, selectedCategory } = props;
   const { stock, user, all_products_free } = data;
   const [toggleLayout, setToggleLayout] = useState(() =>
-    getLayoutState(LAYOUT.Grid),
+    getLayoutState(LAYOUT.Grid)
   );
 
   return (
@@ -219,7 +218,7 @@ const ProductDisplay = (props: ProductDisplayProps) => {
         <Stack>
           {!all_products_free && user && (
             <Stack.Item fontSize="16px" color="green">
-              <b>{user?.cash || 0}</b> кредит
+              <b>{(user && user.cash) || 0}</b> кредит
               {declension_ru(user.cash, '', 'а', 'ов')}
             </Stack.Item>
           )}
@@ -269,7 +268,7 @@ const Product = (props) => {
     !vend_ready ||
     remaining === 0 ||
     (!all_products_free && !user) ||
-    (!free && product.price > user?.cash);
+    (!free && product.price > (user && user.cash));
 
   const baseProps = {
     base64: product.image,
@@ -286,7 +285,7 @@ const Product = (props) => {
     remaining: remaining,
     onClick: () => {
       act('vend', {
-        ref: product.ref,
+        'ref': product.ref,
       });
     },
   };
@@ -388,7 +387,7 @@ const ProductColorSelect = (props: ProductColorSelectProps) => {
 const ProductPrice = (props) => {
   const { product, free } = props;
 
-  const standardPrice = free ? '0' : product.price;
+  let standardPrice = free ? '0' : product.price;
 
   return (
     <Stack.Item color={free ? 'green' : 'gold'}>

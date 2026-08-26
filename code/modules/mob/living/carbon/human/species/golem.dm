@@ -884,7 +884,8 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 		if(P.flag == BULLET || P.flag == BOMB)
 			playsound(H, 'sound/effects/shovel_dig.ogg', 70, TRUE)
 			H.visible_message(span_danger("[P.name] тонет в песчаном теле [H] без видимого вреда здоровью!"), \
-			span_userdanger("[P.name] тонет в песчаном теле [H] без видимого вреда здоровью!"))
+			span_userdanger("[P.name] тонет в песчаном теле [H] без видимого вреда здоровью!"), \
+			projectile_message = TRUE)
 			return FALSE
 	return TRUE
 
@@ -941,7 +942,8 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	if(!(P.original == H && P.firer == H)) // Self-shots don't reflect
 		if(P.is_reflectable(REFLECTABILITY_ENERGY))
 			H.visible_message(span_danger("[P.name] отражается от стеклянной кожи [H]!"), \
-			span_userdanger("[P.name] отражается от стеклянной кожи [H]!"))
+			span_userdanger("[P.name] отражается от стеклянной кожи [H]!"), \
+			projectile_message = TRUE)
 
 			P.reflect_back(H)
 

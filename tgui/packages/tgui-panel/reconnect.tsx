@@ -1,4 +1,4 @@
-import { Button } from 'tgui-core/components';
+import { Button } from 'tgui/components';
 
 let url: string | null = null;
 
@@ -11,7 +11,7 @@ setInterval(() => {
   });
 }, 5000);
 
-export function ReconnectButton() {
+export const ReconnectButton = () => {
   if (!url) {
     return null;
   }
@@ -37,4 +37,4 @@ export function ReconnectButton() {
       />
     </>
   );
-}
+};

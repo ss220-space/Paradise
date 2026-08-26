@@ -1,10 +1,10 @@
-import { Button, Divider, Flex, Section } from 'tgui-core/components';
 import { useBackend } from '../../backend';
+import { Button, Divider, Flex, Section } from '../../components';
 import { LatheMaterials, LatheSearch } from './index';
 
 type MainMenuData = { categories: string[] } & RndData;
 
-export const LatheMainMenu = (_properties: unknown) => {
+export const LatheMainMenu = (properties) => {
   const { data, act } = useBackend<MainMenuData>();
 
   const { menu, categories } = data;

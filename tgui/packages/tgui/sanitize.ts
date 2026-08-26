@@ -60,24 +60,23 @@ const defAttr = ['class', 'style', 'background'];
  * @param forbidAttr - List of forbidden HTML attributes
  * @param advTags - List of advanced HTML tags allowed for trusted sources
  */
-export function sanitizeText(
+export const sanitizeText = (
   input: string,
   advHtml = false,
   tags = defTag,
   forbidAttr = defAttr,
-  advTags = advTag,
-) {
+  advTags = advTag
+) => {
   // This is VERY important to think first if you NEED
-  // the tag you put in here. We are pushing all this
+  // the tag you put in here.  We are pushing all this
   // though dangerouslySetInnerHTML and even though
   // the default DOMPurify kills javascript, it doesn't
   // kill href links or such
   if (advHtml) {
     tags = tags.concat(advTags);
-    forbidAttr = [];
   }
   return DOMPurify.sanitize(input, {
     ALLOWED_TAGS: tags,
     FORBID_ATTR: forbidAttr,
   });
-}
+};

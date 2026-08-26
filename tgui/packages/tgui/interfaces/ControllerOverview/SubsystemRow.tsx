@@ -6,7 +6,8 @@ import {
   Stack,
   Table,
   Tooltip,
-} from 'tgui-core/components';
+} from '../../components';
+
 import { useBackend } from '../../backend';
 import { SORTING_TYPES } from './contants';
 import { SortType, type SubsystemData } from './types';

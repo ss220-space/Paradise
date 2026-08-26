@@ -1,28 +1,28 @@
 GLOBAL_LIST_EMPTY(ai_list)
 GLOBAL_LIST_INIT(ai_verbs_default, list(
-	VERB_META(/mob/living/silicon/ai, announcement),
-	VERB_META(/mob/living/silicon/ai, ai_announcement_text),
-	VERB_META(/mob/living/silicon/ai, ai_call_shuttle),
-	VERB_META(/mob/living/silicon/ai, ai_camera_track),
-	VERB_META(/mob/living/silicon/ai, ai_camera_list),
-	VERB_META(/mob/living/silicon/ai, ai_goto_location),
-	VERB_META(/mob/living/silicon/ai, ai_remove_location),
-	VERB_META(/mob/living/silicon/ai, ai_hologram_change),
-	VERB_META(/mob/living/silicon/ai, ai_network_change),
-	VERB_META(/mob/living/silicon/ai, ai_roster),
-	VERB_META(/mob/living/silicon/ai, ai_statuschange),
-	VERB_META(/mob/living/silicon/ai, ai_store_location),
-	VERB_META(/mob/living/silicon/ai, control_integrated_radio),
-	VERB_META(/mob/living/silicon/ai, core),
-	VERB_META(/mob/living/silicon/ai, pick_icon),
-	VERB_META(/mob/living/silicon/ai, sensor_mode),
-	VERB_META(/mob/living/silicon/ai, show_laws_verb),
-	VERB_META(/mob/living/silicon/ai, toggle_acceleration),
-	VERB_META(/mob/living/silicon/ai, toggle_camera_light),
-	VERB_META(/mob/living/silicon/ai, botcall),
-	VERB_META(/mob/living/silicon/ai, change_arrival_message),
-	VERB_META(/mob/living/silicon/ai, arrivals_announcement),
-	VERB_META(/mob/living/silicon/ai, ai_change_voice),
+	/mob/living/silicon/ai/proc/announcement,
+	/mob/living/silicon/ai/proc/ai_announcement_text,
+	/mob/living/silicon/ai/proc/ai_call_shuttle,
+	/mob/living/silicon/ai/proc/ai_camera_track,
+	/mob/living/silicon/ai/proc/ai_camera_list,
+	/mob/living/silicon/ai/proc/ai_goto_location,
+	/mob/living/silicon/ai/proc/ai_remove_location,
+	/mob/living/silicon/ai/proc/ai_hologram_change,
+	/mob/living/silicon/ai/proc/ai_network_change,
+	/mob/living/silicon/ai/proc/ai_roster,
+	/mob/living/silicon/ai/proc/ai_statuschange,
+	/mob/living/silicon/ai/proc/ai_store_location,
+	/mob/living/silicon/ai/proc/control_integrated_radio,
+	/mob/living/silicon/ai/proc/core,
+	/mob/living/silicon/ai/proc/pick_icon,
+	/mob/living/silicon/ai/proc/sensor_mode,
+	/mob/living/silicon/ai/proc/show_laws_verb,
+	/mob/living/silicon/ai/proc/toggle_acceleration,
+	/mob/living/silicon/ai/proc/toggle_camera_light,
+	/mob/living/silicon/ai/proc/botcall,
+	/mob/living/silicon/ai/proc/change_arrival_message,
+	/mob/living/silicon/ai/proc/arrivals_announcement,
+	/mob/living/silicon/ai/proc/ai_change_voice,
 ))
 
 //Not sure why this is necessary...
@@ -122,11 +122,11 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/list/all_eyes = list()
 
 	silicon_subsystems = list(
-		VERB_META(/mob/living/silicon, subsystem_open_gps),
-		VERB_META(/mob/living/silicon, subsystem_atmos_control),
-		VERB_META(/mob/living/silicon, subsystem_crew_monitor),
-		VERB_META(/mob/living/silicon, subsystem_law_manager),
-		VERB_META(/mob/living/silicon, subsystem_power_monitor),
+		/mob/living/silicon/proc/subsystem_open_gps,
+		/mob/living/silicon/proc/subsystem_atmos_control,
+		/mob/living/silicon/proc/subsystem_crew_monitor,
+		/mob/living/silicon/proc/subsystem_law_manager,
+		/mob/living/silicon/proc/subsystem_power_monitor,
 	)
 
 	hat_offset_y = 3
@@ -159,15 +159,15 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	VAR_FINAL/setting_waypoint = FALSE
 
 /mob/living/silicon/ai/proc/add_ai_verbs()
-	for(var/verb in (silicon_subsystems + GLOB.ai_verbs_default))
-		ASSIGN_GAME_VERB_DIRECT(src, verb)
+	add_verb(src, GLOB.ai_verbs_default)
+	add_verb(src, silicon_subsystems)
 
 /mob/living/silicon/ai/can_strip()
 	return FALSE
 
 /mob/living/silicon/ai/proc/remove_ai_verbs()
-	for(var/verb in (silicon_subsystems + GLOB.ai_verbs_default))
-		UNASSIGN_GAME_VERB_DIRECT(src, verb)
+	remove_verb(src, GLOB.ai_verbs_default)
+	remove_verb(src, silicon_subsystems)
 
 /mob/living/silicon/ai/Initialize(mapload, datum/ai_laws/L, obj/item/mmi/B, safety = 0)
 	announcer = new(config_type = /datum/announcement_configuration/ai)
@@ -200,7 +200,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	else
 		make_laws()
 
-	ASSIGN_GAME_VERB(src, /mob/living/silicon/ai, show_laws_verb)
+	add_verb(src, /mob/living/silicon/ai/proc/show_laws_verb)
 
 	aiMulti = new(src)
 	aiRadio = new(src)
@@ -439,8 +439,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(powered_ai.anchored)
 		use_power = ACTIVE_POWER_USE
 
-GAME_VERB_PROC_DESC(/mob/living/silicon/ai, pick_icon, "Поменять дисплей", "Choose what appears on your AI core display", VERB_CATEGORY_AICOMMANDS)
-
+/mob/living/silicon/ai/proc/pick_icon()
+	set category = VERB_CATEGORY_AICOMMANDS
+	set name = "Поменять дисплей"
 	if(stat || aiRestorePowerRoutine)
 		return
 
@@ -453,12 +454,17 @@ GAME_VERB_PROC_DESC(/mob/living/silicon/ai, pick_icon, "Поменять дис�
 	core_display_picker.ui_interact(src)
 
 // this verb lets the ai see the stations manifest
-GAME_VERB_PROC(/mob/living/silicon/ai, ai_roster, "Манифест экипажа", VERB_CATEGORY_AICOMMANDS)
+/mob/living/silicon/ai/proc/ai_roster()
+	set name = "Манифест экипажа"
+	set category = VERB_CATEGORY_AICOMMANDS
 	show_station_manifest()
 
 #define TEXT_ANNOUNCEMENT_COOLDOWN (1 MINUTES)
 
-GAME_VERB_PROC(/mob/living/silicon/ai, ai_announcement_text, "Станционное объявление", VERB_CATEGORY_AICOMMANDS)
+/mob/living/silicon/ai/proc/ai_announcement_text()
+	set category = VERB_CATEGORY_AICOMMANDS
+	set name = "Станционное объявление"
+
 	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
 		return
 
@@ -475,7 +481,10 @@ GAME_VERB_PROC(/mob/living/silicon/ai, ai_announcement_text, "Станционн
 
 #undef TEXT_ANNOUNCEMENT_COOLDOWN
 
-GAME_VERB_PROC(/mob/living/silicon/ai, ai_call_shuttle, "Вызвать эвакуационный шаттл", VERB_CATEGORY_AICOMMANDS)
+/mob/living/silicon/ai/proc/ai_call_shuttle()
+	set name = "Вызвать эвакуационный шаттл"
+	set category = VERB_CATEGORY_AICOMMANDS
+
 	if(check_unable(AI_CHECK_WIRELESS))
 		return
 
@@ -490,7 +499,10 @@ GAME_VERB_PROC(/mob/living/silicon/ai, ai_call_shuttle, "Вызвать эвак
 
 	return
 
-GAME_VERB_PROC(/mob/living/silicon/ai, ai_cancel_call, "Отозвать эвакуационный шаттл", VERB_CATEGORY_AICOMMANDS)
+/mob/living/silicon/ai/proc/ai_cancel_call()
+	set name = "Отозвать эвакуационный шаттл"
+	set category = VERB_CATEGORY_AICOMMANDS
+
 	if(check_unable(AI_CHECK_WIRELESS))
 		return
 
@@ -505,7 +517,9 @@ GAME_VERB_PROC(/mob/living/silicon/ai, ai_cancel_call, "Отозвать эва�
 /mob/living/silicon/ai/cancel_camera()
 	view_core()
 
-GAME_VERB(/mob/living/silicon/ai, toggle_anchor, "Болтирование к полу", VERB_CATEGORY_AICOMMANDS)
+/mob/living/silicon/ai/verb/toggle_anchor()
+	set category = VERB_CATEGORY_AICOMMANDS
+	set name = "Болтирование к полу"
 
 	if(!isturf(loc)) // if their location isn't a turf
 		return // stop
@@ -517,7 +531,10 @@ GAME_VERB(/mob/living/silicon/ai, toggle_anchor, "Болтирование к п
 
 	to_chat(src, "[anchored ? "<b>You are now anchored.</b>" : "<b>You are now unanchored.</b>"]")
 
-GAME_VERB_PROC_DESC(/mob/living/silicon/ai, announcement, "Звуковое оповещение", "Create a vocal announcement by typing in the available words to create a sentence.", VERB_CATEGORY_AICOMMANDS)
+/mob/living/silicon/ai/proc/announcement()
+	set name = "Звуковое оповещение"
+	set desc = "Create a vocal announcement by typing in the available words to create a sentence."
+	set category = VERB_CATEGORY_AICOMMANDS
 
 	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
 		return
@@ -687,7 +704,10 @@ GAME_VERB_PROC_DESC(/mob/living/silicon/ai, announcement, "Звуковое оп
 	// I am so sorry
 	SEND_SIGNAL(src, COMSIG_MOB_RESET_PERSPECTIVE)
 
-GAME_VERB_PROC_DESC(/mob/living/silicon/ai, botcall, "Диспетчер роботов", "Wirelessly control various automatic robots.", VERB_CATEGORY_AICOMMANDS)
+/mob/living/silicon/ai/proc/botcall()
+	set category = VERB_CATEGORY_AICOMMANDS
+	set name = "Диспетчер роботов"
+	set desc = "Wirelessly control various automatic robots."
 
 	if(!robot_control)
 		robot_control = new(src)
@@ -777,9 +797,11 @@ GAME_VERB_PROC_DESC(/mob/living/silicon/ai, botcall, "Диспетчер роб�
 //Replaces /mob/living/silicon/ai/verb/change_network() in ai.dm & camera.dm
 //Adds in /mob/living/silicon/ai/proc/ai_network_change() instead
 //Addition by Mord_Sith to define AI's network change ability
-GAME_VERB_PROC(/mob/living/silicon/ai, ai_network_change, "Сменить сеть камер", VERB_CATEGORY_AICOMMANDS)
+/mob/living/silicon/ai/proc/ai_network_change()
+	set category = VERB_CATEGORY_AICOMMANDS
+	set name = "Сменить сеть камер"
 	unset_machine()
-	var/list/cameralist = list()
+	var/cameralist[0]
 
 	if(check_unable())
 		return
@@ -820,7 +842,9 @@ GAME_VERB_PROC(/mob/living/silicon/ai, ai_network_change, "Сменить сет
 	to_chat(src, span_notice("Switched to [network] camera network."))
 //End of code by Mord_Sith
 
-GAME_VERB_PROC(/mob/living/silicon/ai, ai_statuschange, "Статус ИИ", VERB_CATEGORY_AICOMMANDS)
+/mob/living/silicon/ai/proc/ai_statuschange()
+	set category = VERB_CATEGORY_AICOMMANDS
+	set name = "Статус ИИ"
 
 	if(usr.stat == 2)
 		to_chat(usr, "You cannot change your emotional status because you are dead!")
@@ -855,7 +879,10 @@ GAME_VERB_PROC(/mob/living/silicon/ai, ai_statuschange, "Статус ИИ", VER
 				display.friendc = FALSE
 
 //I am the icon meister. Bow fefore me.	//>fefore
-GAME_VERB_PROC_DESC(/mob/living/silicon/ai, ai_hologram_change, "Сменить голограмму", "Change the default hologram available to AI to something else.", VERB_CATEGORY_AICOMMANDS)
+/mob/living/silicon/ai/proc/ai_hologram_change()
+	set name = "Сменить голограмму"
+	set desc = "Change the default hologram available to AI to something else."
+	set category = VERB_CATEGORY_AICOMMANDS
 
 	if(check_unable())
 		return
@@ -1000,7 +1027,10 @@ GAME_VERB_PROC_DESC(/mob/living/silicon/ai, ai_hologram_change, "Сменить 
 	return
 
 //Toggles the luminosity and applies it by re-entereing the camera.
-GAME_VERB_PROC_DESC(/mob/living/silicon/ai, toggle_camera_light, "Подсветка камер", "Toggles the lights on the cameras throughout the station.", VERB_CATEGORY_AICOMMANDS)
+/mob/living/silicon/ai/proc/toggle_camera_light()
+	set name = "Подсветка камер"
+	set desc = "Toggles the lights on the cameras throughout the station."
+	set category = VERB_CATEGORY_AICOMMANDS
 
 	if(stat != CONSCIOUS)
 		return
@@ -1024,17 +1054,29 @@ GAME_VERB_PROC_DESC(/mob/living/silicon/ai, toggle_camera_light, "Подсвет
 	if(aiRadio)
 		aiRadio.make_syndie()
 
-GAME_VERB_PROC_DESC(/mob/living/silicon/ai, sensor_mode, "Сенсоры камеры", "Augment visual feed with internal sensor overlays.", VERB_CATEGORY_AICOMMANDS)
+/mob/living/silicon/ai/proc/sensor_mode()
+	set name = "Сенсоры камеры"
+	set desc = "Augment visual feed with internal sensor overlays."
+	set category = VERB_CATEGORY_AICOMMANDS
 	toggle_sensor_mode()
 
-GAME_VERB_PROC_DESC(/mob/living/silicon/ai, ai_change_voice, "Сменить голос", "Express yourself!", VERB_CATEGORY_AICOMMANDS)
+/mob/living/silicon/ai/proc/ai_change_voice()
+	set name = "Сменить голос"
+	set desc = "Express yourself!"
+	set category = VERB_CATEGORY_AICOMMANDS
 	change_voice()
 
-GAME_VERB_PROC_DESC(/mob/living/silicon/ai, arrivals_announcement, "Авто-оповещения о прибытии", "Change whether or not you wish to announce arrivals.", VERB_CATEGORY_AICOMMANDS)
+/mob/living/silicon/ai/proc/arrivals_announcement()
+	set name = "Авто-оповещения о прибытии"
+	set desc = "Change whether or not you wish to announce arrivals."
+	set category = VERB_CATEGORY_AICOMMANDS
 	announce_arrivals = !announce_arrivals
 	to_chat(usr, "Arrivals announcement system [announce_arrivals ? "enabled" : "disabled"]")
 
-GAME_VERB_PROC_DESC(/mob/living/silicon/ai, change_arrival_message, "Сообщение о прибытии", "Change the message that's transmitted when a new crew member arrives on station.", VERB_CATEGORY_AICOMMANDS)
+/mob/living/silicon/ai/proc/change_arrival_message()
+	set name = "Сообщение о прибытии"
+	set desc = "Change the message that's transmitted when a new crew member arrives on station."
+	set category = VERB_CATEGORY_AICOMMANDS
 
 	var/newmsg = tgui_input_text(usr, "What would you like the arrival message to be? List of options: $name, $rank, $species, $gender, $age", "Change Arrival Message", arrivalmsg, encode = FALSE)
 	if(isnull(newmsg) || newmsg == arrivalmsg)
@@ -1085,7 +1127,10 @@ GAME_VERB_PROC_DESC(/mob/living/silicon/ai, change_arrival_message, "Сообщ�
 /mob/living/silicon/ai/welder_act()
 	return
 
-GAME_VERB_PROC_DESC(/mob/living/silicon/ai, control_integrated_radio, "Настройки радио", "Allows you to change settings of your radio.", VERB_CATEGORY_AICOMMANDS)
+/mob/living/silicon/ai/proc/control_integrated_radio()
+	set name = "Настройки радио"
+	set desc = "Allows you to change settings of your radio."
+	set category = VERB_CATEGORY_AICOMMANDS
 
 	if(check_unable(AI_CHECK_RADIO))
 		return

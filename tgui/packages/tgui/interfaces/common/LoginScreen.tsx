@@ -1,6 +1,6 @@
-import { Box, Button, Flex, Icon, Section } from 'tgui-core/components';
 import { useBackend } from '../../backend';
-import type { LoginState } from './LoginInfo';
+import { Box, Button, Flex, Icon, Section } from '../../components';
+import { LoginState } from './LoginInfo';
 
 type LoginData = {
   loginState: LoginState;

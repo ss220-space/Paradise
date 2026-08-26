@@ -1,4 +1,5 @@
-import type { ReactNode } from 'react';
+import { round } from 'common/math';
+import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -7,10 +8,9 @@ import {
   ProgressBar,
   Section,
   Stack,
-} from 'tgui-core/components';
-import { round } from 'tgui-core/math';
-import { useBackend } from '../backend';
+} from '../components';
 import { Window } from '../layouts';
+import { ReactNode } from 'react';
 
 const stats = [
   ['good', 'Норма'],
@@ -122,7 +122,7 @@ const SleeperOccupant = (_props: unknown) => {
             icon={auto_eject_dead ? 'toggle-on' : 'toggle-off'}
             selected={auto_eject_dead}
             onClick={() =>
-              act(`auto_eject_dead_${auto_eject_dead ? 'off' : 'on'}`)
+              act('auto_eject_dead_' + (auto_eject_dead ? 'off' : 'on'))
             }
           >
             {auto_eject_dead ? 'Да' : 'Нет'}
@@ -322,7 +322,9 @@ const SleeperChemicals = (_props: unknown) => {
                       occupant.stat === 2
                     }
                     icon="syringe"
-                    tooltip={`Ввести ${a}u вещества ${chem.title} в пациента`}
+                    tooltip={
+                      'Ввести ' + a + 'u вещества ' + chem.title + ' в пациента'
+                    }
                     mb="0"
                     height="19px"
                     onClick={() =>
@@ -332,7 +334,7 @@ const SleeperChemicals = (_props: unknown) => {
                       })
                     }
                   >
-                    {`Ввести ${a}u`}
+                    {'Ввести ' + a + 'u'}
                   </Button>
                 ))}
               </Stack>

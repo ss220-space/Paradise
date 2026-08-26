@@ -1,13 +1,8 @@
-import {
-  Box,
-  Button,
-  LabeledList,
-  NumberInput,
-  Section,
-} from 'tgui-core/components';
-import { toFixed } from 'tgui-core/math';
+import { map } from 'common/collections';
+import { toFixed } from 'common/math';
 import { useBackend } from '../backend';
-import { type Channel, RADIO_CHANNELS } from '../constants';
+import { Box, Button, LabeledList, NumberInput, Section } from '../components';
+import { Channel, RADIO_CHANNELS } from '../constants';
 import { Window } from '../layouts';
 
 type RadioData = {
@@ -35,21 +30,21 @@ export const Radio = (_props: unknown) => {
     has_loudspeaker,
   } = data;
   const tunedChannel = RADIO_CHANNELS.find(
-    (channel) => channel.freq === frequency,
+    (channel) => channel.freq === frequency
   );
-  const matchedChannel = !!tunedChannel?.name;
-  const colorMap = [];
+  let matchedChannel = tunedChannel && tunedChannel.name ? true : false;
+  let colorMap = [];
   let rc: Channel;
   let i = 0;
   for (i = 0; i < RADIO_CHANNELS.length; i++) {
     rc = RADIO_CHANNELS[i];
     colorMap[rc.name] = rc.color;
   }
-  const schannels = data.schannels.map((value, key) => ({
+  const schannels = map(data.schannels, (value, key) => ({
     name: key.toString(),
     status: !!value,
   }));
-  const ichannels = data.ichannels.map((value, key) => ({
+  const ichannels = map(data.ichannels, (value, key) => ({
     name: key.toString(),
     freq: value,
   }));
@@ -64,7 +59,7 @@ export const Radio = (_props: unknown) => {
             <LabeledList.Item label="Частота">
               {(freqlock && (
                 <Box inline color="light-gray">
-                  {`${toFixed(frequency / 10, 1)} кГц`}
+                  {toFixed(frequency / 10, 1) + ' кГц'}
                 </Box>
               )) || (
                 <>
@@ -167,7 +162,7 @@ export const Radio = (_props: unknown) => {
               <LabeledList.Item label="Стандартные частоты">
                 {ichannels.map((channel) => (
                   <Button
-                    key={`i_${channel.name}`}
+                    key={'i_' + channel.name}
                     icon="arrow-right"
                     selected={
                       matchedChannel && tunedChannel.name === channel.name

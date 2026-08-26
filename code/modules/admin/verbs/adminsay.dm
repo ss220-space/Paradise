@@ -5,9 +5,7 @@ GLOBAL_LIST_INIT(say_status, list(
 	"msay" = SAY_ENABLED,
 ))
 
-ADMIN_VERB(cmd_admin_say, R_ADMIN|R_MOD, "ASay", "Send a message to other admins", ADMIN_CATEGORY_MAIN)
-	VERB_ARG(msg, VERB_ARG_TYPE_TEXT, VERB_ARG_SOURCE_INPUT)
-
+ADMIN_VERB(cmd_admin_say, R_ADMIN|R_MOD, "ASay", "Send a message to other admins", ADMIN_CATEGORY_HIDDEN, msg as text)
 	msg = sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN))
 	if(!msg)
 		return
@@ -20,7 +18,7 @@ ADMIN_VERB(cmd_admin_say, R_ADMIN|R_MOD, "ASay", "Send a message to other admins
 		data["message"] = msg
 		SSredis.publish("byond.asay", json_encode(data))
 
-	msg = handle_emojis(msg)
+	msg = handleDiscordEmojis(msg)
 
 	var/datum/say/asay = new(user.ckey, user.holder.rank, msg, world.timeofday)
 	GLOB.asays += asay
@@ -47,8 +45,7 @@ ADMIN_VERB(cmd_admin_say, R_ADMIN|R_MOD, "ASay", "Send a message to other admins
 		var/msg = tgui_input_text(src, null, "msay \"text\"", encode = FALSE)
 		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_mentor_say, msg)
 
-ADMIN_VERB(cmd_mentor_say, R_ADMIN|R_MOD|R_MENTOR, "MSay", "Send a message to other mentors.", ADMIN_CATEGORY_MAIN)
-	VERB_ARG(msg, VERB_ARG_TYPE_TEXT, VERB_ARG_SOURCE_INPUT)
+ADMIN_VERB(cmd_mentor_say, R_ADMIN|R_MOD|R_MENTOR, "MSay", "Send a message to other mentors.", ADMIN_CATEGORY_HIDDEN, msg as text)
 	msg = sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN))
 	log_mentorsay(msg, user)
 	var/datum/say/msay = new(user.ckey, user.holder.rank, msg, world.timeofday)
@@ -64,7 +61,7 @@ ADMIN_VERB(cmd_mentor_say, R_ADMIN|R_MOD|R_MENTOR, "MSay", "Send a message to ot
 		data["message"] = msg
 		SSredis.publish("byond.msay", json_encode(data))
 
-	msg = handle_emojis(msg)
+	msg = handleDiscordEmojis(msg)
 
 	for(var/client/client in GLOB.admins)
 		if(check_rights(R_ADMIN|R_MOD|R_MENTOR, FALSE, client.mob))
@@ -107,8 +104,7 @@ ADMIN_VERB(toggle_mentor_chat, R_ADMIN, "Toggle Mentor Chat", "Toggle whether me
 	log_and_message_admins("toggled mentor chat [enabling ? "on" : "off"].")
 	BLACKBOX_LOG_ADMIN_VERB("Toggle MSay")
 
-ADMIN_VERB(cmd_dev_say, R_VIEWRUNTIMES|R_ADMIN, "Devsay", "Send a message to other developers.", ADMIN_CATEGORY_MAIN)
-	VERB_ARG(msg, VERB_ARG_TYPE_TEXT, VERB_ARG_SOURCE_INPUT)
+ADMIN_VERB(cmd_dev_say, R_VIEWRUNTIMES|R_ADMIN, "Devsay", "Send a message to other developers.", ADMIN_CATEGORY_HIDDEN, msg as text)
 	// Do this up here before it gets sent to everyone & emoji'd
 	if(SSredis.connected)
 		var/list/data = list()
@@ -117,7 +113,7 @@ ADMIN_VERB(cmd_dev_say, R_VIEWRUNTIMES|R_ADMIN, "Devsay", "Send a message to oth
 		data["message"] = msg
 		SSredis.publish("byond.devsay", json_encode(data))
 
-	msg = handle_emojis(copytext_char(sanitize(msg), 1, MAX_MESSAGE_LEN))
+	msg = handleDiscordEmojis(copytext_char(sanitize(msg), 1, MAX_MESSAGE_LEN))
 
 	if(!msg)
 		return

@@ -1,5 +1,5 @@
-import { Box, Button, LabeledList, Section, Stack } from 'tgui-core/components';
 import { useBackend } from '../backend';
+import { Box, Section, Button, LabeledList, Flex, Stack } from '../components';
 import { Window } from '../layouts';
 import { ComplexModal } from './common/ComplexModal';
 
@@ -35,17 +35,17 @@ type PandemicSuperAntibodyData = {
   name: string;
 };
 
-export const PandemicSuper = (_props: unknown) => {
+export const PandemicSuper = (props: unknown) => {
   const { act, data } = useBackend<PandemicSuperData>();
   const { error_message, beaker_exists, blood_data, diseases, antibodies } =
     data;
 
-  const blocks: React.JSX.Element[] = [];
+  let blocks = [];
   if (error_message !== null) {
     blocks.push(
       <p>
         <b style={{ fontSize: 'big' }}> {error_message}</b>
-      </p>,
+      </p>
     );
   }
   if (beaker_exists) {
@@ -61,7 +61,7 @@ export const PandemicSuper = (_props: unknown) => {
         >
           Очистить и извлечь ёмкость
         </Button>
-      </Box>,
+      </Box>
     );
   }
   if (error_message === null) {
@@ -71,13 +71,22 @@ export const PandemicSuper = (_props: unknown) => {
           <Stack.Item>
             <Section title="Данные образца крови" mb="15px">
               <LabeledList>
-                <LabeledList.Item label="ДНК крови">
+                <LabeledList.Item
+                  label="ДНК крови"
+                  labelStyle={{ fontWeight: 'bold', flex: 0.2 }}
+                >
                   {blood_data.dna}
                 </LabeledList.Item>
-                <LabeledList.Item label="Группа крови">
+                <LabeledList.Item
+                  label="Группа крови"
+                  labelStyle={{ fontWeight: 'bold', flex: 0.2 }}
+                >
                   {blood_data.group}
                 </LabeledList.Item>
-                <LabeledList.Item label="Тип расовой крови">
+                <LabeledList.Item
+                  label="Тип расовой крови"
+                  labelStyle={{ fontWeight: 'bold', flex: 0.2 }}
+                >
                   {blood_data.type}
                 </LabeledList.Item>
               </LabeledList>
@@ -88,7 +97,10 @@ export const PandemicSuper = (_props: unknown) => {
               {diseases !== null && diseases.length > 0 ? (
                 diseases.map((disease) => (
                   <LabeledList key={disease.index}>
-                    <LabeledList.Item label="Общепринятое название">
+                    <LabeledList.Item
+                      label="Общепринятое название"
+                      labelStyle={{ fontWeight: 'bold', maxWidth: 200 }}
+                    >
                       {disease.name}
                       {disease.name === 'Неизвестно' ? (
                         <Button
@@ -114,7 +126,14 @@ export const PandemicSuper = (_props: unknown) => {
                         </Button>
                       )}
                     </LabeledList.Item>
-                    <LabeledList.Item label="Болезнетворный агент">
+                    <LabeledList.Item
+                      label="Болезнетворный агент"
+                      labelStyle={{
+                        fontWeight: 'bold',
+                        maxWidth: 200,
+                        textWrap: 'wrap',
+                      }}
+                    >
                       {disease.agent}{' '}
                       <Button
                         icon="plus-circle"
@@ -127,24 +146,66 @@ export const PandemicSuper = (_props: unknown) => {
                         Создать образец
                       </Button>
                     </LabeledList.Item>
-                    <LabeledList.Item label="Описание">
+                    <LabeledList.Item
+                      label="Описание"
+                      labelStyle={{
+                        fontWeight: 'bold',
+                        maxWidth: 200,
+                        textWrap: 'wrap',
+                      }}
+                    >
                       {disease.description}
                     </LabeledList.Item>
-                    <LabeledList.Item label="Путь передачи">
+                    <LabeledList.Item
+                      label="Путь передачи"
+                      labelStyle={{
+                        fontWeight: 'bold',
+                        maxWidth: 200,
+                        textWrap: 'wrap',
+                      }}
+                    >
                       {disease.route}
                     </LabeledList.Item>
-                    <LabeledList.Item label="Возможное лекарство">
+                    <LabeledList.Item
+                      label="Возможное лекарство"
+                      labelStyle={{
+                        fontWeight: 'bold',
+                        maxWidth: 200,
+                        textWrap: 'wrap',
+                      }}
+                    >
                       {disease.possibleMedicine}
                     </LabeledList.Item>
-                    <LabeledList.Item label="Возможность выработки антител">
+                    <LabeledList.Item
+                      label="Возможность выработки антител"
+                      labelStyle={{
+                        fontWeight: 'bold',
+                        maxWidth: 200,
+                        textWrap: 'wrap',
+                      }}
+                    >
                       {disease.antibodiesPossibility}
                     </LabeledList.Item>
-                    <LabeledList.Item label="Симптомы">
+                    <LabeledList.Item
+                      label="Симптомы"
+                      labelStyle={{
+                        fontWeight: 'bold',
+                        maxWidth: 200,
+                        textWrap: 'wrap',
+                      }}
+                    >
                       {disease.symptoms}
                     </LabeledList.Item>
                     {disease.allow_add_sympthoms ||
                     disease.allow_remove_sympthoms ? (
-                      <LabeledList.Item label="Управление симптомами">
+                      <LabeledList.Item
+                        label="Управление симптомами"
+                        labelStyle={{
+                          fontWeight: 'bold',
+                          maxWidth: 200,
+                          textWrap: 'wrap',
+                        }}
+                      >
                         {disease.allow_add_sympthoms ? (
                           <Button
                             icon="plus-circle"
@@ -210,7 +271,7 @@ export const PandemicSuper = (_props: unknown) => {
             </Section>
           </Stack.Item>
         </Stack>
-      </Stack.Item>,
+      </Stack.Item>
     );
   }
   return (

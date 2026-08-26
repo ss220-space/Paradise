@@ -333,7 +333,9 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	SStgui.update_uis(src)
 	return TRUE
 
-GAME_VERB_SRC(/obj/machinery/photocopier/faxmachine, eject_id, oview(1), "Достать ID-карту", VERB_CATEGORY_HIDDEN)
+/obj/machinery/photocopier/faxmachine/verb/eject_id()
+	set name = "Достать ID-карту"
+	set src in oview(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return

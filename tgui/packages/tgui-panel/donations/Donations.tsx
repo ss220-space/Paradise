@@ -1,4 +1,4 @@
-import { useAtomValue } from 'jotai';
+import { useDispatch, useSelector } from 'tgui/backend';
 import {
   Box,
   Button,
@@ -6,14 +6,15 @@ import {
   RoundGauge,
   Section,
   Stack,
-} from 'tgui-core/components';
-import { decodeHtmlEntities } from 'tgui-core/string';
-import { metaAtom } from './atoms';
-import { hideDonations } from './handlers';
+} from 'tgui/components';
+
+import { selectDonations } from './selectors';
+import { donationsHide } from './actions';
+import { decodeHTML } from 'common/string';
 
 export const Donations = (props: unknown) => {
-  const donation = useAtomValue(metaAtom);
-  if (!donation) return null;
+  const donation = useSelector(selectDonations);
+  const dispatch = useDispatch();
   const currentValue = donation.monthDonations;
   const middleValue = donation.targetDonation;
   const maxValue = donation.ttsTargetDonation;
@@ -23,7 +24,7 @@ export const Donations = (props: unknown) => {
   const discordRef = donation.discordUrl;
 
   const createMarkup = (html) => {
-    return { __html: decodeHtmlEntities(html) };
+    return { __html: decodeHTML(html) };
   };
 
   return (
@@ -34,7 +35,7 @@ export const Donations = (props: unknown) => {
             icon="close"
             backgroundColor="red"
             onClick={() => {
-              hideDonations();
+              dispatch(donationsHide());
             }}
           />
         }

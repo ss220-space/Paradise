@@ -1,9 +1,10 @@
-import { logger } from 'common/logging';
 import { useEffect, useState } from 'react';
-import { Button, Modal, Section, Stack } from 'tgui-core/components';
-import { fetchRetry } from 'tgui-core/http';
+import { Button, Modal, Section, Stack } from 'tgui/components';
+import { fetchRetry } from 'common/https';
+
 import { resolveAsset } from '../../assets';
 import { Window } from '../../layouts';
+import { logger } from 'common/logging';
 import { CreateObject } from './CreateObject';
 import { CreateObjectAdvancedSettings } from './CreateObjectAdvancedSettings';
 import type { CreateObjectData } from './types';
@@ -32,7 +33,7 @@ export const SpawnPanel = () => {
       .catch((error) => {
         logger.log(
           'Failed to fetch spawnpanel_atom_data.json',
-          JSON.stringify(error),
+          JSON.stringify(error)
         );
       });
   }, []);

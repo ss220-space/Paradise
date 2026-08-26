@@ -53,10 +53,10 @@
 	holder_type = /obj/item/holder/drone
 
 	silicon_subsystems = list(
-		VERB_META(/mob/living/silicon, subsystem_open_gps),
-		VERB_META(/mob/living/silicon/robot, self_diagnosis),
-		VERB_META(/mob/living/silicon, subsystem_law_manager),
-		VERB_META(/mob/living/silicon, subsystem_power_monitor),
+		/mob/living/silicon/proc/subsystem_open_gps,
+		/mob/living/silicon/robot/proc/self_diagnosis,
+		/mob/living/silicon/proc/subsystem_law_manager,
+		/mob/living/silicon/proc/subsystem_power_monitor,
 	)
 	hat_offset_y = -15
 	isCentered = TRUE
@@ -106,7 +106,7 @@
 		var/datum/robot_component/C = components[V]
 		C.max_damage = 10
 
-	UNASSIGN_GAME_VERB(src, /mob/living/silicon/robot, Namepick)
+	remove_verb(src, /mob/living/silicon/robot/verb/Namepick)
 	module = new /obj/item/robot_module/drone(src)
 
 	//Allows Drones to hear the Engineering channel.
@@ -417,12 +417,10 @@
 	return FALSE
 
 /mob/living/silicon/robot/drone/add_robot_verbs()
-	for(var/verb in silicon_subsystems)
-		ASSIGN_GAME_VERB_DIRECT(src, verb)
+	add_verb(src, silicon_subsystems)
 
 /mob/living/silicon/robot/drone/remove_robot_verbs()
-	for(var/verb in silicon_subsystems)
-		UNASSIGN_GAME_VERB_DIRECT(src, verb)
+	remove_verb(src, silicon_subsystems)
 
 /mob/living/simple_animal/drone/flash_eyes(intensity = 1, override_blindness_check, affect_silicon, visual, type = /atom/movable/screen/fullscreen/flash/noise)
 	if(affect_silicon)

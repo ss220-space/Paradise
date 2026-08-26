@@ -34,7 +34,9 @@ GLOBAL_VAR_INIT(changelog_hash, "")
 
 	return data
 
-/client/proc/changelog()
+/client/verb/changelog()
+	set name = "Журнал обновлений"
+	set category = VERB_CATEGORY_OOC
 
 	if(!GLOB.changelog_tgui)
 		GLOB.changelog_tgui = new /datum/changelog()
@@ -43,3 +45,4 @@ GLOBAL_VAR_INIT(changelog_hash, "")
 	if(GLOB.changelog_hash && prefs.lastchangelog != GLOB.changelog_hash)
 		prefs.lastchangelog = GLOB.changelog_hash
 		prefs.save_preferences(src)
+		winset(src, "infobuttons.changelog", "font-style=;")

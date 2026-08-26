@@ -1,20 +1,26 @@
-import { useState } from 'react';
+import { GasmixParser } from 'tgui/interfaces/common/GasmixParser';
 import {
   Box,
   Button,
+  Collapsible,
   DmIcon,
-  Dropdown,
+  Tabs,
+  Table,
   Icon,
   LabeledList,
+  NoticeBox,
   NumberInput,
   ProgressBar,
   Section,
   Stack,
-  Table,
-  Tabs,
-} from 'tgui-core/components';
-import { formatPower } from 'tgui-core/format';
-import { toFixed } from 'tgui-core/math';
+  Divider,
+  Dropdown,
+} from '../../components';
+import { formatPower } from '../../format';
+import { toFixed } from 'common/math';
+import { classes } from 'common/react';
+import { useState } from 'react';
+
 import { useBackend } from '../../backend';
 import type { MainData, MechModule } from './data';
 import { useHonk } from './honk';
@@ -121,7 +127,7 @@ export const ModulesPane = (_props: unknown) => {
                       </Stack.Item>
                     </Stack>
                   </Button>
-                ),
+                )
               )}
             </Stack.Item>
             <Stack.Item grow pl={1}>

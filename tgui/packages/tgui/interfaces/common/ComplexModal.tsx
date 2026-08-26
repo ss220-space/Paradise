@@ -1,16 +1,18 @@
-import type { ComponentProps, KeyboardEvent, ReactNode } from 'react';
+import { ReactNode, KeyboardEvent } from 'react';
+import { useBackend } from '../../backend';
 import {
   Box,
   Button,
   Dropdown,
-  Image,
+  Stack,
   Input,
   Modal,
-  Stack,
-} from 'tgui-core/components';
-import { useBackend } from '../../backend';
+  Image,
+} from '../../components';
 
-const bodyOverrides = {};
+import { type ModalProps } from '../../components/Modal';
+
+let bodyOverrides = {};
 
 /**
  * Sends a call to BYOND to open a modal
@@ -35,7 +37,7 @@ export const modalOpen = (id: string, args?: object) => {
  */
 export const modalRegisterBodyOverride = (
   id: string,
-  bodyOverride: (modal: ModalType<any>) => ReactNode,
+  bodyOverride: (modal: ModalType<any>) => ReactNode
 ) => {
   bodyOverrides[id] = bodyOverride;
 };
@@ -43,7 +45,7 @@ export const modalRegisterBodyOverride = (
 export const modalAnswer = (
   id: string,
   answer: string | number,
-  args?: object,
+  args?: object
 ) => {
   const { act, data } = useBackend<ModalData>();
   if (!data.modal) {
@@ -95,7 +97,7 @@ export type ModalType<T> = {
  * Defaults to `message` if not found
  * @param {ModalProps} props
  */
-export const ComplexModal = (props: ComponentProps<typeof Modal>) => {
+export const ComplexModal = (props: ModalProps) => {
   const { data } = useBackend<ModalData>();
   if (!data.modal) {
     return;
@@ -103,15 +105,12 @@ export const ComplexModal = (props: ComponentProps<typeof Modal>) => {
 
   const { id, text, type } = data.modal;
 
-  let modalOnEnter: (e: KeyboardEvent<HTMLInputElement>) => void = () => {};
-  const modalHeader = (
+  let modalOnEnter: (e: KeyboardEvent<HTMLInputElement>) => void;
+  let modalHeader = (
     <Button
-      mr={-1.5}
-      mt={-2.5}
-      mb={1.2}
+      className="Button--modal"
       icon="arrow-left"
-      style={{ float: 'right', zIndex: 1 }}
-      onClick={() => modalClose()}
+      onClick={() => modalClose(id)}
     >
       Закрыть
     </Button>
@@ -162,7 +161,7 @@ export const ComplexModal = (props: ComponentProps<typeof Modal>) => {
         : data.modal.choices;
     modalBody = (
       <Dropdown
-        options={realChoices || []}
+        options={realChoices}
         selected={data.modal.value as string}
         width="100%"
         my="0.5rem"
@@ -213,19 +212,17 @@ export const ComplexModal = (props: ComponentProps<typeof Modal>) => {
 
   return (
     <Modal
-      maxWidth={props.maxWidth || `${window.innerWidth / 2}px`}
-      maxHeight={props.maxHeight || `${window.innerHeight / 2}px`}
+      maxWidth={props.maxWidth || window.innerWidth / 2 + 'px'}
+      maxHeight={props.maxHeight || window.innerHeight / 2 + 'px'}
       onEnter={modalOnEnter}
       mx="auto"
       overflowY={overflowY}
       padding-bottom="5px"
     >
-      <Stack fill vertical>
-        <Stack.Item>{text && <Box inline>{text}</Box>}</Stack.Item>
-        <Stack.Item>{bodyOverrides[id] && modalHeader}</Stack.Item>
-        <Stack.Item>{modalBody}</Stack.Item>
-        <Stack.Item>{modalFooter}</Stack.Item>
-      </Stack>
+      {text && <Box inline>{text}</Box>}
+      {bodyOverrides[id] && modalHeader}
+      {modalBody}
+      {modalFooter}
     </Modal>
   );
 };

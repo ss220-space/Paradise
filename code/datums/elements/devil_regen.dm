@@ -260,5 +260,5 @@
 		return
 	hand.droplimb()
 	human.balloon_alert(human, "рука оторвана")
-	human.emote("scream", intentional = TRUE)
+	human.emote_scream()
 

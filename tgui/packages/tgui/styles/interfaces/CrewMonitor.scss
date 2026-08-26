@@ -8,9 +8,9 @@
 
   border-style: solid;
   border-width: 50%;
-  border-radius: var(--border-radius-circular);
+  border-radius: 50%;
 
-  animation: var(--transition-time-slowest) infinite mark-shrink;
+  animation: 1s infinite mark-shrink;
 }
 
 @keyframes mark-shrink {

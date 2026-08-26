@@ -1,5 +1,21 @@
-import { Box, Button, Section, Stack, Table } from 'tgui-core/components';
+import { ReactNode } from 'react';
 import { useBackend } from '../backend';
+import { declension_ru } from 'common/string';
+import {
+  Button,
+  LabeledList,
+  Section,
+  Stack,
+  NumberInput,
+  Dimmer,
+  Icon,
+  Box,
+  Modal,
+  ByondUi,
+  Dropdown,
+  Table,
+} from '../components';
+import { classes } from 'common/react';
 import { Window } from '../layouts';
 import { ComplexModal } from './common/ComplexModal';
 

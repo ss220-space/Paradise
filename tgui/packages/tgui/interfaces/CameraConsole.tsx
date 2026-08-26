@@ -1,18 +1,19 @@
-import { type ReactNode, useState } from 'react';
-import { NanoMap } from 'tgui/components';
+import { filter, sort } from 'common/collections';
+import { ReactNode, useState } from 'react';
 import {
-  Box,
   Button,
   ByondUi,
-  Icon,
   Input,
   NoticeBox,
+  NanoMap,
   Section,
   Stack,
+  Box,
   Tabs,
-} from 'tgui-core/components';
-import { type BooleanLike, classes } from 'tgui-core/react';
-import { createSearch } from 'tgui-core/string';
+  Icon,
+} from 'tgui/components';
+import { BooleanLike, classes } from 'common/react';
+import { createSearch } from 'common/string';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
@@ -41,7 +42,7 @@ type Camera = {
  */
 const prevNextCamera = (
   cameras: Camera[],
-  activeCamera: Camera & { status: BooleanLike },
+  activeCamera: Camera & { status: BooleanLike }
 ) => {
   if (!activeCamera || cameras.length < 2) {
     return [];
@@ -75,15 +76,15 @@ const prevNextCamera = (
  * Filters cameras, applies search terms and sorts the alphabetically.
  */
 const selectCameras = (cameras: Camera[], searchText = ''): Camera[] => {
-  let queriedCameras = cameras.filter((camera: Camera) => !!camera.name);
+  let queriedCameras = filter(cameras, (camera: Camera) => !!camera.name);
   if (searchText) {
     const testSearch = createSearch(
       searchText,
-      (camera: Camera) => camera.name,
+      (camera: Camera) => camera.name
     );
-    queriedCameras = queriedCameras.filter(testSearch);
+    queriedCameras = filter(queriedCameras, testSearch);
   }
-  queriedCameras = queriedCameras.sort();
+  queriedCameras = sort(queriedCameras);
 
   return queriedCameras;
 };

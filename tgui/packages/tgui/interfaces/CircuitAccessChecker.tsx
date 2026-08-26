@@ -1,8 +1,9 @@
-import { Button, LabeledList } from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
+import { BooleanLike } from 'common/react';
+
 import { useBackend } from '../backend';
+import { Button, LabeledList } from '../components';
 import { Window } from '../layouts';
-import { type Access, AccessList } from './common/AccessList';
+import { Access, AccessList } from './common/AccessList';
 
 type Data = {
   oneAccess: BooleanLike;

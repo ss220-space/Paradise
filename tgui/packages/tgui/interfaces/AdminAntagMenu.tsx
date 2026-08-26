@@ -1,17 +1,20 @@
+import { createSearch } from 'common/string';
+import { useBackend } from '../backend';
 import { useState } from 'react';
 import {
   Box,
   Button,
+  Icon,
   Input,
   ProgressBar,
   Section,
   Stack,
   Table,
   Tabs,
-} from 'tgui-core/components';
-import { createSearch } from 'tgui-core/string';
-import { useBackend } from '../backend';
+} from '../components';
 import { Window } from '../layouts';
+import { computeBoxProps } from 'common/ui';
+import { ButtonProps } from '../components/Button';
 import { SortButton } from './common/SortButtons';
 
 const Titles = {
@@ -227,9 +230,9 @@ const AntagList = (properties: SearchTextProps) => {
       </Table.Row>
       {antagArray
         .filter(
-          createSearch(searchText || '', ({ name, status, antag_names }) => {
-            return `${name}|${status}|${antag_names.join(', ')}`;
-          }),
+          createSearch(searchText, ({ name, status, antag_names }) => {
+            return name + '|' + status + '|' + antag_names.join(', ');
+          })
         )
         .sort((a, b) => {
           const i = sortOrder ? 1 : -1;
@@ -261,7 +264,7 @@ const AntagList = (properties: SearchTextProps) => {
               status,
               antag_names,
             },
-            index,
+            index
           ) => (
             <Table.Row key={index}>
               <Table.Cell collapsing>
@@ -326,7 +329,7 @@ const AntagList = (properties: SearchTextProps) => {
                 </Box>
               </Table.Cell>
             </Table.Row>
-          ),
+          )
         )}
     </Table>
   );
@@ -383,7 +386,7 @@ const Objectives = (properties: SearchTextProps) => {
       </Table.Row>
       {objectives
         .filter(
-          createSearch(searchText || '', (objective) => {
+          createSearch(searchText, (objective) => {
             return (
               objective.obj_name +
               '|' +
@@ -393,7 +396,7 @@ const Objectives = (properties: SearchTextProps) => {
               '|' +
               objective.owner_name
             );
-          }),
+          })
         )
         .sort((a, b) => {
           const i = sortOrder ? 1 : -1;
@@ -444,10 +447,12 @@ const Objectives = (properties: SearchTextProps) => {
                         }
                       >
                         {objective.target_name}{' '}
-                        {objective.track.length > 1 ? `(${index + 1})` : ''}
+                        {objective.track.length > 1
+                          ? '(' + (index + 1) + ')'
+                          : ''}
                       </Button>
                     ))
-                  : `${objective.target_name} (не найдено)`}
+                  : objective.target_name + ' (не найдено)'}
             </Table.Cell>
             <Table.Cell>
               <Box color={objective.status ? 'green' : 'grey'}>
@@ -563,7 +568,7 @@ const SecurityList = (properties: SearchTextProps) => {
       </Table.Row>
       {security
         .filter(
-          createSearch(searchText || '', (officer) => {
+          createSearch(searchText, (officer) => {
             return (
               officer.name +
               '|' +
@@ -573,7 +578,7 @@ const SecurityList = (properties: SearchTextProps) => {
               '|' +
               officer.antag
             );
-          }),
+          })
         )
         .sort((a, b) => {
           const i = sortOrder ? 1 : -1;
@@ -722,9 +727,9 @@ const HighValueItems = (properties: SearchTextProps) => {
       </Table.Row>
       {high_value_items
         .filter(
-          createSearch(searchText || '', (item) => {
-            return `${item.name}|${item.loc}`;
-          }),
+          createSearch(searchText, (item) => {
+            return item.name + '|' + item.loc;
+          })
         )
         .sort((a, b) => {
           const i = sortOrder ? 1 : -1;

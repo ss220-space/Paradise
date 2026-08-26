@@ -6,11 +6,12 @@ import {
   NoticeBox,
   Section,
   Stack,
-} from 'tgui-core/components';
-import type { BooleanLike } from 'tgui-core/react';
+} from 'tgui/components';
+
 import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
+import { BooleanLike } from 'common/react';
 
 type NtosPortraitPrinterData = {
   paintings: Painting[];
@@ -28,7 +29,7 @@ export const NtosPortraitPrinter = (_props) => {
   const current_portrait_author =
     got_paintings && `By ${paintings[listIndex].creator}`;
   const current_portrait_asset_name =
-    (got_paintings && `paintings_${paintings[listIndex].md5}`) || '';
+    got_paintings && `paintings_${paintings[listIndex].md5}`;
   const current_portrait_ratio = got_paintings && paintings[listIndex].ratio;
 
   return (
@@ -80,7 +81,7 @@ export const NtosPortraitPrinter = (_props) => {
                       <Image
                         src={resolveAsset(current_portrait_asset_name)}
                         height="128px"
-                        width={`${Math.round(128 * (current_portrait_ratio || 0))}px`}
+                        width={`${Math.round(128 * current_portrait_ratio)}px`}
                         style={{
                           verticalAlign: 'middle',
                         }}

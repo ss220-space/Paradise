@@ -1,12 +1,12 @@
-import {
-  Box,
-  Button,
-  Icon,
-  LabeledList,
-  ProgressBar,
-  Section,
-} from 'tgui-core/components';
 import { useBackend } from '../backend';
+import {
+  LabeledList,
+  Section,
+  ProgressBar,
+  Button,
+  Box,
+  Icon,
+} from '../components';
 import { Window } from '../layouts';
 
 const status_table = {
@@ -63,12 +63,12 @@ export const BluespaceRiftServer = (props: unknown) => {
       rewardGiven,
     } = goalData;
     const percentage = Math.floor(
-      (researchPoints / targetResearchPoints) * 100,
+      (researchPoints / targetResearchPoints) * 100
     );
     const probesLeft =
       pointsPerProbe > 0 ? Math.floor(probePoints / pointsPerProbe) : 0;
     const pointsPerProbeMessage = emagged
-      ? `@?%%!№@${pointsPerProbe}`
+      ? '@?%%!№@' + pointsPerProbe
       : pointsPerProbe;
     const enoughProbePoints = probePoints >= pointsPerProbe;
     const displayed_cooldown =
@@ -115,8 +115,8 @@ export const BluespaceRiftServer = (props: unknown) => {
             mx={2}
           >
             {cooldown > 0
-              ? `Подготовка ${displayed_cooldown} секунд`
-              : `Зондировать (${probesLeft})`}
+              ? 'Подготовка ' + displayed_cooldown + ' секунд'
+              : 'Зондировать (' + probesLeft + ')'}
           </Button>
           <br />
           <Button
@@ -210,8 +210,8 @@ export const BluespaceRiftServer = (props: unknown) => {
           />
         )}
         {scanStatusTxt !== 'OFF' && (
-          <Box as="span" color={statusText?.[1]}>
-            {statusText?.[0]}
+          <Box as="span" color={statusText[1]}>
+            {statusText[0]}
           </Box>
         )}
       </LabeledList.Item>
@@ -221,15 +221,16 @@ export const BluespaceRiftServer = (props: unknown) => {
   return (
     <Window width={570} height={400}>
       <Window.Content scrollable>
-        {goals?.map((goalData: Goal) => goal(goalData))}
+        {goals && goals.map((goalData: Goal) => goal(goalData))}
         <Section title="Сканеры в сети">
           <LabeledList>
-            {scanners?.map((scannerData: Scanner) => scanner(scannerData))}
+            {scanners &&
+              scanners.map((scannerData: Scanner) => scanner(scannerData))}
           </LabeledList>
         </Section>
         <Section title="Серверы в сети">
           <LabeledList>
-            {servers?.map((serverData: Server) => server(serverData))}
+            {servers && servers.map((serverData: Server) => server(serverData))}
           </LabeledList>
         </Section>
       </Window.Content>

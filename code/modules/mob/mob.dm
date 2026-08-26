@@ -147,7 +147,9 @@
 /**
  * Some kind of debug verb that gives atmosphere environment details
  */
-GAME_VERB_PROC(/mob, Cell, "Cell", ADMIN_CATEGORY_DEBUG)
+/mob/proc/Cell()
+	set category = ADMIN_CATEGORY_DEBUG
+	set hidden = TRUE
 
 	var/turf/location = get_turf(src)
 
@@ -193,7 +195,7 @@ GAME_VERB_PROC(/mob, Cell, "Cell", ADMIN_CATEGORY_DEBUG)
 // message is the message output to anyone who can see e.g. "[src] does something!"
 // self_message (optional) is what the src mob sees  e.g. "You do something!"
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
-/mob/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type, vision_distance = DEFAULT_MESSAGE_RANGE, visible_message_flags = NONE)
+/mob/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type, projectile_message = FALSE, vision_distance = DEFAULT_MESSAGE_RANGE, visible_message_flags = NONE)
 	if(!isturf(loc))
 		vision_distance = floor(vision_distance / 2)
 	. = ..()
@@ -214,7 +216,7 @@ GAME_VERB_PROC(/mob, Cell, "Cell", ADMIN_CATEGORY_DEBUG)
 // Use for objects performing visible actions
 // message is output to anyone who can see, e.g. "The [src] does something!"
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
-/atom/proc/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type, vision_distance = DEFAULT_MESSAGE_RANGE, visible_message_flags = NONE)
+/atom/proc/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type, projectile_message = FALSE, vision_distance = DEFAULT_MESSAGE_RANGE, visible_message_flags = NONE)
 	var/turf/turf = get_turf(src)
 	if(!turf)
 		return
@@ -235,6 +237,9 @@ GAME_VERB_PROC(/mob, Cell, "Cell", ADMIN_CATEGORY_DEBUG)
 
 	for(var/mob/mob in hearers)
 		if(!mob.client)
+			continue
+
+		if(projectile_message && (mob?.client?.prefs.toggles2 & PREFTOGGLE_2_OFF_PROJECTILE_MESSAGES))
 			continue
 
 		//This entire if/else chain could be in two lines but isn't for readibilties sake.
@@ -421,8 +426,10 @@ GAME_VERB_PROC(/mob, Cell, "Cell", ADMIN_CATEGORY_DEBUG)
 	LAZYREMOVE(client.movingmob.client_mobs_in_contents, src)
 	client.movingmob = null
 
-GAME_VERB_CONTEXT(/mob, examinate, "Осмотреть", VERB_NO_DESCRIPTION, VERB_CATEGORY_HIDDEN, /atom)
-	VERB_ARG_TYPED(examinify, VERB_ARG_TYPE_MOB | VERB_ARG_TYPE_OBJ | VERB_ARG_TYPE_TURF, VERB_ARG_SOURCE_VIEW, /atom)
+/mob/verb/examinate(atom/examinify as mob|obj|turf in view())
+	set name = "Осмотреть"
+	set category = VERB_CATEGORY_IC
+
 	if(!client)
 		return
 
@@ -587,11 +594,9 @@ GAME_VERB_CONTEXT(/mob, examinate, "Осмотреть", VERB_NO_DESCRIPTION, VE
 /mob/living/carbon/can_eye_contact()
 	return !(check_obscured_slots() & ITEM_SLOT_EYES)
 
-/mob/proc/mode()
-	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(execute_mode)))
-
-///proc version to finish /mob/verb/mode() execution. used in case the proc needs to be queued for the tick after its first called
-/mob/proc/execute_mode()
+/mob/verb/mode()
+	set name = "Использовать объект"
+	set src = usr
 
 	if(ismecha(loc))
 		var/obj/mecha/mecha = loc
@@ -636,15 +641,17 @@ GAME_VERB_CONTEXT(/mob, examinate, "Осмотреть", VERB_NO_DESCRIPTION, VE
 	canon_client = null
 	GLOB.left_player_list |= src
 
-GAME_VERB(/mob, memory, "Заметки", VERB_CATEGORY_IC)
+/mob/verb/memory()
+	set name = "Заметки"
+	set category = VERB_CATEGORY_IC
 	if(mind)
 		mind.show_memory(src)
 	else
 		to_chat(src, "The game appears to have misplaced your mind datum, so we can't show you your notes.")
 
-
-GAME_VERB(/mob, add_memory, "Добавить заметку", VERB_CATEGORY_IC)
-	VERB_ARG(msg, VERB_ARG_TYPE_MESSAGE, VERB_ARG_SOURCE_INPUT)
+/mob/verb/add_memory(msg as message)
+	set name = "Добавить заметку"
+	set category = VERB_CATEGORY_IC
 
 	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
 	msg = sanitize_simple(html_encode(msg), list("\n" = "<br>"))
@@ -674,7 +681,7 @@ GAME_VERB(/mob, add_memory, "Добавить заметку", VERB_CATEGORY_IC)
 		memory()
 
 /mob/proc/update_flavor_text()
-
+	set src in usr
 	if(usr != src)
 		to_chat(usr, "No.")
 	var/msg = tgui_input_text(usr, "Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance. SFW Drawn Art of your character is acceptable.", "Описание внешности", flavor_text, max_length = MAX_PAPER_MESSAGE_LEN, multiline = TRUE)
@@ -693,7 +700,9 @@ GAME_VERB(/mob, add_memory, "Добавить заметку", VERB_CATEGORY_IC)
 		else
 			return span_notice("[copytext_preserve_html(msg, 1, 57)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a>")
 
-GAME_VERB(/mob, abandon_mob, "Возродиться", VERB_CATEGORY_OOC)
+/mob/verb/abandon_mob()
+	set name = "Возродиться"
+	set category = VERB_CATEGORY_OOC
 
 	if(!GLOB.abandon_allowed)
 		to_chat(usr, span_warning("Respawning is disabled."))
@@ -760,8 +769,9 @@ GAME_VERB(/mob, abandon_mob, "Возродиться", VERB_CATEGORY_OOC)
 /mob/proc/is_dead()
 	return stat == DEAD
 
-GAME_VERB(/mob, cancel_camera, "Сбросить позицию камеры", VERB_CATEGORY_OOC)
-
+/mob/verb/cancel_camera()
+	set name = "Сбросить позицию камеры"
+	set category = VERB_CATEGORY_OOC
 	reset_perspective(null)
 	unset_machine()
 	if(isliving(src))
@@ -864,6 +874,41 @@ GAME_VERB(/mob, cancel_camera, "Сбросить позицию камеры", V
 	SEND_SIGNAL(src, COMSIG_MOB_GET_STATUS_TAB_ITEMS, .)
 	return .
 
+// facing verbs
+/mob/proc/canface()
+	if(stat == DEAD)
+		return FALSE
+	if(anchored)
+		return FALSE
+	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
+		return FALSE
+	if(HAS_TRAIT(src, TRAIT_RESTRAINED))
+		return FALSE
+	return TRUE
+
+/mob/proc/facedir(ndir)
+	if(!canface())
+		return FALSE
+	setDir(ndir)
+	client.move_delay += cached_multiplicative_slowdown
+	return TRUE
+
+/mob/verb/eastface()
+	set hidden = 1
+	return facedir(EAST)
+
+/mob/verb/westface()
+	set hidden = 1
+	return facedir(WEST)
+
+/mob/verb/northface()
+	set hidden = 1
+	return facedir(NORTH)
+
+/mob/verb/southface()
+	set hidden = 1
+	return facedir(SOUTH)
+
 /mob/proc/IsAdvancedToolUser()//This might need a rename but it should replace the can this mob use things check
 	return FALSE
 
@@ -876,7 +921,10 @@ GAME_VERB(/mob, cancel_camera, "Сбросить позицию камеры", V
 /mob/proc/activate_hand(selhand)
 	return
 
-GAME_VERB(/mob/dead/observer, respawn, "Стать животным", VERB_CATEGORY_GHOST)
+/mob/dead/observer/verb/respawn()
+	set name = "Стать животным"
+	set category = VERB_CATEGORY_GHOST
+
 	if(jobban_isbanned(usr, ROLE_SENTIENT))
 		to_chat(usr, span_warning("Вам запрещено играть за разумных животных."))
 		return
@@ -1456,7 +1504,9 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
  * Helpful for when a players uplink window gets glitched to above their screen.
  * preventing them from moving the UPLINK window.
  */
-GAME_VERB(/mob, reset_ui_positions_for_mob, "Reset UI Positions", VERB_CATEGORY_SPECIALVERBS)
+/mob/verb/reset_ui_positions_for_mob()
+	set name = "Reset UI Positions"
+	set category = VERB_CATEGORY_SPECIALVERBS
 	SStgui.reset_ui_position(src)
 
 /mob/proc/add_to_respawnable_list()
@@ -1466,7 +1516,3 @@ GAME_VERB(/mob, reset_ui_positions_for_mob, "Reset UI Positions", VERB_CATEGORY_
 /mob/proc/remove_from_respawnable_list()
 	GLOB.respawnable_list -= src
 	UnregisterSignal(src, COMSIG_QDELETING)
-
-/mob/key_down(key, client/client, full_key)
-	..()
-	SEND_SIGNAL(src, COMSIG_MOB_KEYDOWN, key, client, full_key)

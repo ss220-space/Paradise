@@ -1,18 +1,18 @@
-import { Component } from 'react';
 import {
+  Section,
   Button,
   Dropdown,
+  Stack,
   Input,
   NoticeBox,
-  Section,
-  Stack,
-} from 'tgui-core/components';
-import { fetchRetry } from 'tgui-core/http';
-import { shallowDiffers } from 'tgui-core/react';
+} from '../../components';
+import { Component } from 'react';
+import { shallowDiffers } from 'common/react';
+import { fetchRetry } from 'common/https';
 import { resolveAsset } from '../../assets';
-import { DEFAULT_COMPONENT_MENU_LIMIT } from './constants';
 import { DisplayComponent } from './DisplayComponent';
-import type { ComponentMenuProps, ComponentMenuState } from './types';
+import { DEFAULT_COMPONENT_MENU_LIMIT } from './constants';
+import { ComponentMenuProps, ComponentMenuState } from './types';
 
 // Cache response so it's only sent once
 let fetchServerData;
@@ -37,7 +37,7 @@ export class ComponentMenu extends Component<
   async populateServerData() {
     if (!fetchServerData) {
       fetchServerData = fetchRetry(
-        resolveAsset('circuit_components.json'),
+        resolveAsset('circuit_components.json')
       ).then((response) => response.json());
     }
 
@@ -45,7 +45,7 @@ export class ComponentMenu extends Component<
 
     this.setState({
       componentData: circuitData.sort(
-        (a, b) => a.name.toLowerCase() < b.name.toLowerCase(),
+        (a, b) => a.name.toLowerCase() < b.name.toLowerCase()
       ),
     });
   }
@@ -54,7 +54,7 @@ export class ComponentMenu extends Component<
     if (shallowDiffers(this.state, nextState)) {
       return true;
     }
-    if (shallowDiffers(this.props.components || [], nextProps.components)) {
+    if (shallowDiffers(this.props.components, nextProps.components)) {
       return true;
     }
     return false;
@@ -76,8 +76,8 @@ export class ComponentMenu extends Component<
     } = this.state;
 
     const tabs = ['Всё'];
-    const shownComponents = componentData.filter((val) => {
-      const shouldShow = showAll || components.includes(val.type);
+    let shownComponents = componentData.filter((val) => {
+      let shouldShow = showAll || components.includes(val.type);
       if (shouldShow) {
         if (!tabs.includes(val.category)) {
           tabs.push(val.category);

@@ -1,7 +1,7 @@
 import { useBackend } from '../../backend';
-import { type RecordsProps, SimpleRecords } from '../common/SimpleRecords';
+import { RecordsProps, SimpleRecords } from '../common/SimpleRecords';
 
-export const pda_security = (_props: unknown) => {
+export const pda_security = (props: unknown) => {
   const { data } = useBackend<RecordsProps>();
-  return <SimpleRecords typeOfRecord="SEC" {...data} />;
+  return <SimpleRecords recordType="SEC" {...data} />;
 };

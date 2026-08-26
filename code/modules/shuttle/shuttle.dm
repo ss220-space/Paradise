@@ -15,22 +15,17 @@
 	var/id
 	// this should point -away- from the dockingport door, ie towards the ship
 	dir = NORTH
-	///size of covered area, perpendicular to dir
-	var/width = 0
-	///size of covered area, parallel to dir
-	var/height = 0
-	///position relative to covered area, perpendicular to dir
-	var/dwidth = 0
-	///position relative to covered area, parallel to dir
-	var/dheight = 0
+	var/width = 0	//size of covered area, perpendicular to dir
+	var/height = 0	//size of covered area, parallel to dir
+	var/dwidth = 0	//position relative to covered area, perpendicular to dir
+	var/dheight = 0	//position relative to covered area, parallel to dir
 
 	// A timid shuttle will not register itself with the shuttle subsystem
 	// All shuttle templates are timid
 	var/timid = FALSE
 
 	var/list/ripples = list()
-	///Are we invisible to shuttle navigation computers?
-	var/hidden = FALSE
+	var/hidden = FALSE //are we invisible to shuttle navigation computers?
 
 	//these objects are indestructible
 /obj/docking_port/Destroy(force)
@@ -263,8 +258,7 @@
 	/// Meaning, if port located at: front = NORTH, left side = WEST, right side = EAST, backside = SOUTH.
 	var/port_direction = NORTH
 
-	/// Who called the shuttle the last time
-	var/mob/last_caller
+	var/mob/last_caller				// Who called the shuttle the last time
 
 	var/obj/docking_port/stationary/destination
 	var/obj/docking_port/stationary/previous
@@ -618,7 +612,7 @@
 
 	mobile_port.loc = new_dock.loc
 	mobile_port.dir =new_dock.dir
-	#ifndef SKIP_LAVALAND
+
 	// Update mining and labor shuttle ash storm audio
 	if((mobile_port.id in list("mining", "laborcamp")) && !CONFIG_GET(flag/disable_lavaland) && !(SSmapping.map_datum.disables & DISABLE_LAVALAND))
 		var/mining_zlevel = level_name_to_num(MINING)
@@ -626,7 +620,7 @@
 		if(W)
 			W.update_eligible_areas()
 			W.update_audio()
-	#endif
+
 	mobile_port.unlockPortDoors(new_dock)
 	areaInstance.parallax_movedir = mobile_port.preferred_direction
 	SEND_SIGNAL(mobile_port, COMSIG_SHUTTLE_DOCK, new_dock)
@@ -817,9 +811,9 @@
 			dst = previous
 		else
 			dst = destination
-		. = "В пути к [dst ? dst.name : lowertext(UNKNOWN_STATUS_RUS)]"
+		. += " towards [dst ? dst.name : "unknown location"] ([timeLeft(600)]mins)"
 	else if(mode == SHUTTLE_RECHARGING)
-		return "[dockedAt.name]"
+		return "[dockedAt.name], recharging [getTimerStr()]"
 
 /obj/machinery/computer/shuttle
 	name = "Shuttle Console"
@@ -892,22 +886,22 @@
 	data["docked_location"] = mobile_docking_port ? mobile_docking_port.getStatusText() : lowertext(UNKNOWN_STATUS_RUS)
 	data["timer_str"] = mobile_docking_port ? mobile_docking_port.getTimerStr() : "00:00"
 	if(!mobile_docking_port)
-		data["status"] = "Потерянный"
+		data["status"] = "Missing"
 		return data
 	if(admin_controlled)
-		data["status"] = "Несанкционированный доступ"
+		data["status"] = "Unauthorized Access"
 	else if(lockdown_check)
-		data["status"] = "Заблокирован"
+		data["status"] = "Lockdown"
 	else
 		switch(mobile_docking_port.mode)
 			if(SHUTTLE_IGNITING)
-				data["status"] = "Запуск"
+				data["status"] = "Igniting"
 			if(SHUTTLE_IDLE)
-				data["status"] = "Ожидание"
+				data["status"] = "Idle"
 			if(SHUTTLE_RECHARGING)
-				data["status"] = "Зарядка"
+				data["status"] = "Recharging"
 			else
-				data["status"] = "В пути"
+				data["status"] = "In Transit"
 	if(mobile_docking_port)
 		data["shuttle"] = TRUE	//this should just be boolean, right?
 		var/list/docking_ports = list()
@@ -927,7 +921,7 @@
 				data["destination"] = destination
 		else if(!length(data["locations"]))
 			data["locked"] = TRUE
-			data["status"] = "Заблокирован"
+			data["status"] = "Locked"
 		data["docking_ports_len"] = docking_ports.len
 		data["admin_controlled"] = admin_controlled || lockdown_check
 	return data
@@ -936,7 +930,7 @@
 	if(..())	//we can't actually interact, so no action
 		return TRUE
 	if(!allowed(usr))
-		to_chat(usr, span_danger("Доступ запрещён."))
+		to_chat(usr, span_danger("Access denied."))
 		playsound(src, SFX_BUTTON_DENIED, 20)
 		return	TRUE
 	if(!can_call_shuttle(usr, action))

@@ -6,15 +6,17 @@ import {
   ProgressBar,
   Section,
   Stack,
-} from 'tgui-core/components';
-import { formatSiUnit } from 'tgui-core/format';
+} from '../../components';
+import { formatSiUnit } from '../../format';
+
+import { AccessList } from '../common/AccessList';
+
 import { useBackend } from '../../backend';
 import { Window } from '../../layouts';
-import { AccessList } from '../common/AccessList';
 import { AlertPane } from './AlertPane';
 import type { MainData } from './data';
-import { useHonk } from './honk';
 import { ModulesPane } from './ModulesPane';
+import { useHonk } from './honk';
 
 export const Mecha = (props) => {
   const { data } = useBackend<MainData>();
@@ -121,7 +123,7 @@ export const Content = (props) => {
         </Stack>
       </Stack.Item>
       <Stack.Item grow={2}>
-        {edit_access && regions ? (
+        {edit_access && !!regions ? (
           <AccessList
             accesses={regions}
             selectedList={accesses}
@@ -176,8 +178,8 @@ const PowerBar = (props) => {
               : `${formatSiUnit(power_level, 0, 'J')} из ${formatSiUnit(
                   power_max,
                   0,
-                  'J',
-                )}`,
+                  'J'
+                )}`
         )}
       </ProgressBar>
     </LabeledList.Item>

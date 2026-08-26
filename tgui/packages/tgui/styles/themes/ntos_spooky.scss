@@ -1,0 +1,69 @@
+@use 'sass:color';
+@use 'sass:meta';
+@use 'sass:map';
+
+@use '../colors.scss' with (
+  $primary: hsl(336.4, 93.8%, 12.7%),
+  $good: hsl(0, 79.3%, 52.5%),
+  $bad: hsl(341.8, 88.8%, 31.4%)
+);
+@use '../base.scss' with (
+  $color-bg: hsl(0, 94.6%, 7.3%),
+  $color-bg-grad-spread: 12%
+);
+
+.theme-ntos_spooky {
+  // Atomic classes
+  @include meta.load-css('../atomic/color.scss');
+
+  // Components
+  @include meta.load-css(
+    '../components/Button.scss',
+    $with: (
+      'color-default': hsl(344.9, 95.3%, 25.3%),
+      'color-disabled': hsl(0, 0%, 21.2%),
+      'color-selected': hsl(0, 81.3%, 21%),
+      'color-caution': hsl(239.2, 78.1%, 35.9%),
+      'color-danger': hsl(278, 62%, 31%)
+    )
+  );
+  @include meta.load-css(
+    '../components/Dimmer.scss',
+    $with: ('background-dimness': 0.45)
+  );
+  @include meta.load-css(
+    '../components/Input.scss',
+    $with: ('border-color': hsl(11.2, 12.7%, 24.7%))
+  );
+  @include meta.load-css('../components/Modal.scss');
+  @include meta.load-css(
+    '../components/NoticeBox.scss',
+    $with: ('background-color': hsl(0, 88.6%, 24.1%))
+  );
+  @include meta.load-css('../components/NumberInput.scss');
+  @include meta.load-css('../components/Section.scss');
+  @include meta.load-css('../components/Table.scss');
+  @include meta.load-css(
+    '../components/Tooltip.scss',
+    $with: ('background-color': hsl(0, 0%, 0%))
+  );
+  @include meta.load-css(
+    '../components/ProgressBar.scss',
+    $with: (
+      'color-default-fill': rgba(190, 0, 0, 0.75),
+      'background-color': rgba(34, 1, 1, 0.5)
+    )
+  );
+
+  // Layouts
+  @include meta.load-css('../layouts/Layout.scss');
+  @include meta.load-css('../layouts/Window.scss');
+  @include meta.load-css(
+    '../layouts/TitleBar.scss',
+    $with: ('background-color': hsl(0, 86.1%, 22.5%))
+  );
+
+  .Layout__content {
+    background-image: url('../../assets/bg-spookycomp-compressed.svg');
+  }
+}

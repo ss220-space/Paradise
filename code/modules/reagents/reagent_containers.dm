@@ -18,7 +18,6 @@
 	/// Pass open check in empty verb
 	var/pass_open_check = FALSE
 	var/chem_master_made = FALSE
-	var/can_empty = TRUE
 
 /obj/item/reagent_containers/get_ru_names_cached()
 	if(chem_master_made)
@@ -47,8 +46,6 @@
 	add_initial_reagents()
 	update_icon()
 	register_context()
-	if(can_empty)
-		verbs |= /obj/item/reagent_containers/proc/empty
 
 /obj/item/reagent_containers/add_context(atom/source, list/context, obj/item/held_item, mob/user)
 	. = ..()
@@ -103,7 +100,11 @@
 	amount_per_transfer_from_this = amount
 	to_chat(user, span_notice("Теперь [declent_ru(NOMINATIVE)] буд[PLUR_ET_UT(src)] перемещать по <b>[amount]</b> единиц[DECL_SEC_MIN(amount)] вещества за раз."))
 
-GAME_PROC_SRC(/obj/item/reagent_containers, empty, usr, "Вылить содержимое", VERB_CATEGORY_HIDDEN)
+/obj/item/reagent_containers/verb/empty()
+
+	set name = "Вылить содержимое"
+	set category = VERB_CATEGORY_OBJECT
+	set src in usr
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return

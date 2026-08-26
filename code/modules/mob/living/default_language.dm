@@ -1,5 +1,6 @@
-GAME_VERB(/mob/living, set_default_language, "Выбрать язык по умолчанию", VERB_CATEGORY_IC)
-	var/language = tgui_input_list(src, "Выберете язык по умолчанию", "Язык по умолчанию", get_languages())
+/mob/living/verb/set_default_language(language as null|anything in languages)
+	set name = "Выбрать язык по умолчанию"
+	set category = VERB_CATEGORY_IC
 
 	if(language)
 		to_chat(src, span_notice("Теперь вы будете использовать [language], если не укажете язык при разговоре."))
@@ -7,13 +8,13 @@ GAME_VERB(/mob/living, set_default_language, "Выбрать язык по ум�
 		to_chat(src, span_notice("Теперь вы будете говорить на стандартном языке по умолчанию, если не укажете его при разговоре."))
 	default_language = language
 
-/mob/living/proc/get_languages()
-	return languages
+// Silicons can't neccessarily speak everything in their languages list
+/mob/living/silicon/set_default_language(language as null|anything in speech_synthesizer_langs)
+	..()
 
-/mob/living/silicon/get_languages()
-	return speech_synthesizer_langs
-
-GAME_VERB(/mob/living, check_default_language, "Узнать язык по умолчанию", VERB_CATEGORY_IC)
+/mob/living/verb/check_default_language()
+	set name = "Узнать язык по умолчанию"
+	set category = VERB_CATEGORY_IC
 
 	if(default_language)
 		to_chat(src, span_notice("В данный момент вы используете [default_language] по умолчанию."))

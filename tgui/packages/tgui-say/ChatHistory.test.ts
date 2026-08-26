@@ -1,4 +1,3 @@
-import { beforeEach, describe, expect, it } from 'bun:test';
 import { ChatHistory } from './ChatHistory';
 
 describe('ChatHistory', () => {
@@ -10,17 +9,17 @@ describe('ChatHistory', () => {
 
   it('should add a message to the history', () => {
     chatHistory.add({ value: 'Hello' });
-    expect(chatHistory?.getOlderMessage()?.value).toEqual('Hello');
+    expect(chatHistory.getOlderMessage().value).toEqual('Hello');
   });
 
   it('should retrieve older and newer messages', () => {
     chatHistory.add({ value: 'Hello' });
     chatHistory.add({ value: 'World' });
-    expect(chatHistory?.getOlderMessage()?.value).toEqual('World');
-    expect(chatHistory?.getOlderMessage()?.value).toEqual('Hello');
-    expect(chatHistory?.getNewerMessage()?.value).toEqual('World');
-    expect(chatHistory?.getNewerMessage()).toBeNull();
-    expect(chatHistory?.getOlderMessage()?.value).toEqual('World');
+    expect(chatHistory.getOlderMessage().value).toEqual('World');
+    expect(chatHistory.getOlderMessage().value).toEqual('Hello');
+    expect(chatHistory.getNewerMessage().value).toEqual('World');
+    expect(chatHistory.getNewerMessage()).toBeNull();
+    expect(chatHistory.getOlderMessage().value).toEqual('World');
   });
 
   it('should limit the history to 5 messages', () => {
@@ -28,17 +27,17 @@ describe('ChatHistory', () => {
       chatHistory.add({ value: `Message ${i}` });
     }
 
-    expect(chatHistory?.getOlderMessage()?.value).toEqual('Message 6');
+    expect(chatHistory.getOlderMessage().value).toEqual('Message 6');
     for (let i = 5; i >= 2; i--) {
-      expect(chatHistory?.getOlderMessage()?.value).toEqual(`Message ${i}`);
+      expect(chatHistory.getOlderMessage().value).toEqual(`Message ${i}`);
     }
     expect(chatHistory.getOlderMessage()).toBeNull();
   });
 
   it('should handle temp message correctly', () => {
     chatHistory.saveTemp({ value: 'Temp message' });
-    expect(chatHistory?.getTemp()?.value).toEqual('Temp message');
-    expect(chatHistory?.getTemp()).toBeNull();
+    expect(chatHistory.getTemp().value).toEqual('Temp message');
+    expect(chatHistory.getTemp()).toBeNull();
   });
 
   it('should reset correctly', () => {
@@ -46,6 +45,6 @@ describe('ChatHistory', () => {
     chatHistory.getOlderMessage();
     chatHistory.reset();
     expect(chatHistory.isAtLatest()).toBe(true);
-    expect(chatHistory?.getOlderMessage()?.value).toEqual('Hello');
+    expect(chatHistory.getOlderMessage().value).toEqual('Hello');
   });
 });

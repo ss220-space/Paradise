@@ -1,14 +1,14 @@
+import { useBackend } from '../backend';
 import { useState } from 'react';
 import {
-  Box,
   Button,
-  DmIcon,
-  Icon,
-  Input,
-  LabeledList,
   Section,
-} from 'tgui-core/components';
-import { useBackend } from '../backend';
+  Box,
+  LabeledList,
+  Input,
+  Icon,
+  DmIcon,
+} from '../components';
 import { Window } from '../layouts';
 
 type ImplantPadData = {

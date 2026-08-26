@@ -1,19 +1,19 @@
-import type { ReactNode } from 'react';
+import { useBackend } from '../backend';
 import {
-  Box,
   Button,
-  Dropdown,
-  Icon,
   LabeledList,
+  Box,
   Section,
-  Stack,
   Table,
   Tabs,
-} from 'tgui-core/components';
-import { useBackend } from '../backend';
-import { COLORS, JOBS_RU } from '../constants';
+  Stack,
+  Icon,
+  Dropdown,
+} from '../components';
 import { Window } from '../layouts';
-import { type Access, AccessList } from './common/AccessList';
+import { Access, AccessList } from './common/AccessList';
+import { COLORS, JOBS_RU } from '../constants';
+import { ReactNode } from 'react';
 
 const deptCols = COLORS.department;
 
@@ -28,9 +28,14 @@ export const CardComputerLoginWarning = () => (
         align="center"
         color="label"
       >
-        <Icon.Stack>
+        <Icon.Stack style={{ transform: 'translate(-50px, -100px)' }}>
           <Icon name="user" size={5} color="gray" />
-          <Icon name="slash" size={5} color="red" />
+          <Icon
+            name="slash"
+            size={5}
+            color="red"
+            style={{ transform: 'translate(-15px, 0)' }}
+          />
         </Icon.Stack>
         <br />
         Пользователь не авторизован
@@ -50,9 +55,14 @@ export const CardComputerNoCard = () => (
         align="center"
         color="label"
       >
-        <Icon.Stack>
+        <Icon.Stack style={{ transform: 'translate(-50px, -100px)' }}>
           <Icon name="id-card" size={5} color="gray" />
-          <Icon name="slash" size={5} color="red" />
+          <Icon
+            name="slash"
+            size={5}
+            color="red"
+            style={{ transform: 'translate(-5px, 0)' }}
+          />
         </Icon.Stack>
         <br />
         ID-карта для модификации отсутствует
@@ -160,7 +170,7 @@ type DepRecord = {
 export const CardComputer = (props: unknown) => {
   const { act, data } = useBackend<CardComputerData>();
 
-  const menuBlock = (
+  let menuBlock = (
     <Tabs>
       <Tabs.Tab
         icon="id-card"
@@ -202,7 +212,7 @@ export const CardComputer = (props: unknown) => {
     </Tabs>
   );
 
-  const authBlock = (
+  let authBlock = (
     <Section title="Авторизация">
       <LabeledList>
         <LabeledList.Item label="Карта для авторизации">
@@ -211,7 +221,7 @@ export const CardComputer = (props: unknown) => {
             selected={!!data.scan_name}
             onClick={() => act('scan')}
           >
-            {data.scan_name ? `Извлечь и выйти: ${data.scan_name}` : '-----'}
+            {data.scan_name ? 'Извлечь и выйти: ' + data.scan_name : '-----'}
           </Button>
         </LabeledList.Item>
         <LabeledList.Item label="Карта для модификации">
@@ -220,7 +230,7 @@ export const CardComputer = (props: unknown) => {
             selected={!!data.modify_name}
             onClick={() => act('modify')}
           >
-            {data.modify_name ? `Извлечь: ${data.modify_name}` : '-----'}
+            {data.modify_name ? 'Извлечь: ' + data.modify_name : '-----'}
           </Button>
         </LabeledList.Item>
       </LabeledList>
@@ -658,7 +668,7 @@ export const CardComputer = (props: unknown) => {
                 }
                 selected={Object.keys(data.law_levels).find(
                   (value, index, obj) =>
-                    data.law_levels[value] === data.law_level,
+                    data.law_levels[value] === data.law_level
                 )}
               />
             </Section>

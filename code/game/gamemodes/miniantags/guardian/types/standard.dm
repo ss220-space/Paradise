@@ -12,7 +12,10 @@
 	bio_fluff_string = "Ваш рой скарабеев оживает, готовый разорвать ваших врагов на части."
 	var/battlecry = "ORA"
 
-GAME_VERB_DESC(/mob/living/simple_animal/hostile/guardian/punch, Battlecry, "Боевой клич", "Выбери крик при ударе", VERB_CATEGORY_GUARDIAN)
+/mob/living/simple_animal/hostile/guardian/punch/verb/Battlecry()
+	set name = "Боевой клич"
+	set category = VERB_CATEGORY_GUARDIAN
+	set desc = "Выбери крик при ударе"
 	var/input = tgui_input_text(src, "Какой боевой клич вы бы хотели? Максимальная длина 8 символов.", "Изменить Боевой клич", battlecry, 8)
 	if(input)
 		battlecry = input

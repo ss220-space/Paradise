@@ -14,22 +14,13 @@ type AudioOptions = {
   end?: number;
 };
 
-function isProtectedError(error: ErrorEvent): boolean {
-  return (
-    typeof error === 'object' &&
-    error !== null &&
-    'isTrusted' in error &&
-    error.isTrusted
-  );
-}
-
 export class AudioPlayer {
   element: HTMLAudioElement | null;
   options: AudioOptions;
-  volume: number;
+  volume: number = 0.5;
 
-  onPlaySubscribers: (() => void)[];
-  onStopSubscribers: (() => void)[];
+  onPlaySubscribers: { (): void }[];
+  onStopSubscribers: { (): void }[];
 
   constructor() {
     this.element = null;
@@ -49,13 +40,7 @@ export class AudioPlayer {
 
     this.options = options;
 
-    const audio = new Audio(url);
-    if (!audio) {
-      logger.log('failed to create audio element');
-      return;
-    }
-    this.element = audio;
-
+    const audio = (this.element = new Audio(url));
     audio.volume = this.volume;
     audio.playbackRate = this.options.pitch || 1;
 
@@ -67,11 +52,7 @@ export class AudioPlayer {
     });
 
     audio.addEventListener('error', (error) => {
-      if (isProtectedError(error)) {
-        Byond.sendMessage('audio/protected');
-      }
-      logger.log('playback error:', JSON.stringify(error));
-      this.stop();
+      logger.log('playback error', error);
     });
 
     if (this.options.end) {
@@ -86,14 +67,9 @@ export class AudioPlayer {
       });
     }
 
-    audio.play()?.catch(() => {
-      // no error is passed here, it's sent to the event listener
-      logger.log('playback failed');
-    });
+    audio.play()?.catch((error) => logger.log('playback error', error));
 
-    this.onPlaySubscribers.forEach((subscriber) => {
-      subscriber();
-    });
+    this.onPlaySubscribers.forEach((subscriber) => subscriber());
   }
 
   stop(): void {
@@ -102,11 +78,9 @@ export class AudioPlayer {
     logger.log('stopping');
 
     this.element.pause();
-    this.destroy();
+    this.element = null;
 
-    this.onStopSubscribers.forEach((subscriber) => {
-      subscriber();
-    });
+    this.onStopSubscribers.forEach((subscriber) => subscriber());
   }
 
   setVolume(volume: number): void {

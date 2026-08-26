@@ -1,34 +1,34 @@
-import { type ReactNode, useState } from 'react';
+import { createSearch, decodeHtmlEntities } from 'common/string';
+import { useBackend } from '../backend';
+import { ReactNode, useState } from 'react';
 import {
   Box,
   Button,
   Icon,
-  Image,
   Input,
   LabeledList,
   Section,
   Stack,
-  Table,
   Tabs,
-} from 'tgui-core/components';
-import { createSearch, decodeHtmlEntities } from 'tgui-core/string';
-import { useBackend } from '../backend';
+  Table,
+  Image,
+} from '../components';
 import {
   ComplexModal,
-  type ModalType,
   modalOpen,
   modalRegisterBodyOverride,
+  ModalType,
 } from '../interfaces/common/ComplexModal';
 import { Window } from '../layouts';
 import { LoginInfo } from './common/LoginInfo';
 import { LoginScreen } from './common/LoginScreen';
-import type { GeneralRecord } from './common/SimpleRecords';
 import { TemporaryNotice } from './common/TemporaryNotice';
+import { GeneralRecord } from './common/SimpleRecords';
 
 const severities = {
-  Minor: 'lightgray',
-  Medium: 'good',
-  Harmful: 'average',
+  'Minor': 'lightgray',
+  'Medium': 'good',
+  'Harmful': 'average',
   'Dangerous!': 'bad',
   'BIOHAZARD THREAT!': 'darkred',
 };
@@ -37,7 +37,7 @@ const medStatusStyles = {
   '*Deceased*': 'deceased',
   '*SSD*': 'ssd',
   'Physically Unfit': 'physically_unfit',
-  Disabled: 'disabled',
+  'Disabled': 'disabled',
 };
 
 const doEdit = (field: Field) => {
@@ -259,7 +259,7 @@ const MedicalRecordsList = (_properties) => {
                     '|' +
                     record.m_stat
                   );
-                }),
+                })
               )
               .sort((a, b) => {
                 const i = sortOrder ? 1 : -1;
@@ -269,7 +269,9 @@ const MedicalRecordsList = (_properties) => {
                 <Table.Row
                   key={record.id}
                   mb={1}
-                  className={`MedicalRecords__listRow--${medStatusStyles[record.p_stat]}`}
+                  className={
+                    'MedicalRecords__listRow--' + medStatusStyles[record.p_stat]
+                  }
                   onClick={() =>
                     act('view_record', { view_record: record.ref })
                   }
@@ -359,7 +361,7 @@ const MedicalRecordsView = (_properties) => {
           <MedicalRecordsViewGeneral />
         </Section>
       </Stack.Item>
-      {!medical?.fields ? (
+      {!medical || !medical.fields ? (
         <Stack.Item grow color="bad">
           <Section
             fill
@@ -379,7 +381,7 @@ const MedicalRecordsView = (_properties) => {
                 align="center"
                 color="label"
               >
-                <Icon.Stack>
+                <Icon.Stack style={{ transform: 'translate(-50px, -100px)' }}>
                   <Icon name="scroll" size={5} color="gray" />
                   <Icon name="slash" size={5} color="red" />
                 </Icon.Stack>
@@ -419,7 +421,7 @@ const MedicalRecordsView = (_properties) => {
 const MedicalRecordsViewGeneral = (_properties) => {
   const { data } = useBackend<MedicalRecordsData>();
   const { general } = data;
-  if (!general?.fields) {
+  if (!general || !general.fields) {
     return (
       <Stack fill vertical>
         <Stack.Item grow color="bad">
@@ -466,7 +468,7 @@ const MedicalRecordsViewGeneral = (_properties) => {
 const MedicalRecordsViewMedical = (_properties) => {
   const { data } = useBackend<MedicalRecordsData>();
   const { medical } = data;
-  if (!medical?.fields) {
+  if (!medical || !medical.fields) {
     return (
       <Stack fill vertical>
         <Stack.Item grow color="bad">
@@ -607,8 +609,8 @@ const MedicalRecordsViruses = (_properties) => {
               {virus
                 .filter(
                   createSearch(searchText, (vir) => {
-                    return `${vir.name}|${vir.max_stages}|${vir.severity}`;
-                  }),
+                    return vir.name + '|' + vir.max_stages + '|' + vir.severity;
+                  })
                 )
                 .sort((a, b) => {
                   const i = sortOrder ? 1 : -1;
@@ -618,7 +620,7 @@ const MedicalRecordsViruses = (_properties) => {
                   <Table.Row
                     key={vir.id}
                     mb={1}
-                    className={`MedicalRecords__listVirus--${vir.severity}`}
+                    className={'MedicalRecords__listVirus--' + vir.severity}
                     onClick={() => act('vir', { vir: vir.D })}
                   >
                     <Table.Cell>
@@ -666,7 +668,7 @@ const MedicalRecordsMedbots = (_properties) => {
               align="center"
               color="label"
             >
-              <Icon.Stack>
+              <Icon.Stack style={{ transform: 'translate(-50px, -100px)' }}>
                 <Icon name="robot" size={5} color="gray" />
                 <Icon name="slash" size={5} color="red" />
               </Icon.Stack>
@@ -698,7 +700,7 @@ const MedicalRecordsMedbots = (_properties) => {
             <Table.Row
               key={medbot.id}
               mb={1}
-              className={`MedicalRecords__listMedbot--${medbot.on}`}
+              className={'MedicalRecords__listMedbot--' + medbot.on}
             >
               <Table.Cell>
                 <Icon name="medical" /> {medbot.name}
@@ -739,10 +741,10 @@ export const SortButton = (properties: SortButtonProps) => {
         color={sortId !== id && 'transparent'}
         onClick={() => {
           if (sortId === id) {
-            setSortOrder?.(!sortOrder);
+            setSortOrder(!sortOrder);
           } else {
-            setSortId?.(id);
-            setSortOrder?.(true);
+            setSortId(id);
+            setSortOrder(true);
           }
         }}
       >

@@ -1,13 +1,13 @@
+import { useBackend } from '../backend';
 import {
   Box,
   Button,
-  DmIcon,
-  Icon,
   Section,
   Stack,
   Table,
-} from 'tgui-core/components';
-import { useBackend } from '../backend';
+  DmIcon,
+  Icon,
+} from '../components';
 import { Window } from '../layouts';
 
 type CustomatRowProps = {
@@ -38,7 +38,7 @@ const CustomatRow = (props: CustomatRowProps) => {
     buttonText = product.price.toString();
     rowIcon = 'shopping-cart';
   }
-  const buttonDisabled =
+  let buttonDisabled =
     !vend_ready || product.stock === 0 || (!free && product.price > userMoney);
   return (
     <Table.Row>
@@ -51,7 +51,7 @@ const CustomatRow = (props: CustomatRowProps) => {
         />
       </Table.Cell>
       <Table.Cell bold>
-        <Button color="translucent" tooltip={product.desc}>
+        <Button multiLine color="translucent" tooltip={product.desc}>
           {product.name}
         </Button>
       </Table.Cell>
@@ -68,7 +68,7 @@ const CustomatRow = (props: CustomatRowProps) => {
           textAlign="left"
           onClick={() =>
             act('vend', {
-              Key: product.Key,
+              'Key': product.Key,
             })
           }
         >

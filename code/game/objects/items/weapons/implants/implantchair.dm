@@ -164,5 +164,15 @@
 	update_icon(UPDATE_ICON_STATE)
 	return TRUE
 
-GAME_VERB_SRC(/obj/machinery/implantchair, get_out, oview(1), "Извлечь сидящего", VERB_CATEGORY_HIDDEN)
+/obj/machinery/implantchair/verb/get_out()
+	set name = "Извлечь сидящего"
+	set category = VERB_CATEGORY_OBJECT
+	set src in oview(1)
 	go_out(usr)
+
+/obj/machinery/implantchair/verb/move_inside()
+	set name = "Залезть внутрь"
+	set category = VERB_CATEGORY_OBJECT
+	set src in oview(1)
+	put_mob(usr, usr)
+

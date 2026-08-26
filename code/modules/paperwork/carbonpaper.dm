@@ -20,7 +20,10 @@
 			return
 		icon_state = "paper_stack"
 
-GAME_VERB_SRC(/obj/item/paper/carbon, removecopy, usr, "Удалить копию", VERB_CATEGORY_HIDDEN)
+/obj/item/paper/carbon/verb/removecopy()
+	set name = "Удалить копию"
+	set category = VERB_CATEGORY_OBJECT
+	set src in usr
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return

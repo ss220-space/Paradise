@@ -1,5 +1,5 @@
-import { Button, LabeledList, Section } from 'tgui-core/components';
 import { useBackend } from '../backend';
+import { Button, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
 type UploadPanelData = {
@@ -21,7 +21,7 @@ export const UploadPanel = (_props: unknown) => {
             <LabeledList.Item label="Selected Target">
               <Button
                 disabled={transmitting}
-                selected={!!selected_target}
+                selected={selected_target ? true : false}
                 onClick={() => act('choose_silicon')}
               >
                 {selected_target ? selected_target : 'No target selected'}
@@ -30,14 +30,17 @@ export const UploadPanel = (_props: unknown) => {
             <LabeledList.Item label="Selected Law">
               <Button
                 disabled={transmitting}
-                selected={!!new_law}
+                selected={new_law ? true : false}
                 onClick={() => act('insert_module')}
               >
                 {new_law ? new_law : 'No module installed'}
               </Button>
             </LabeledList.Item>
             <LabeledList.Item label="Authorization">
-              <Button selected={!!id} onClick={() => act('authorization')}>
+              <Button
+                selected={id ? true : false}
+                onClick={() => act('authorization')}
+              >
                 {id ? id : hacked ? '$@!ERR0R!@#' : 'No ID card inserted'}
               </Button>
             </LabeledList.Item>
@@ -46,7 +49,7 @@ export const UploadPanel = (_props: unknown) => {
                 disabled={
                   !selected_target || !new_law || (hacked ? false : !id)
                 }
-                selected={!!transmitting}
+                selected={transmitting ? true : false}
                 onClick={() => act('change_laws')}
               >
                 {transmitting ? 'STOP UPLOAD' : 'START UPLOAD'}

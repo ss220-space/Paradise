@@ -1,26 +1,26 @@
-import { sortBy } from 'es-toolkit';
+import { filter, sortBy } from 'common/collections';
+import { flow } from 'common/fp';
+
+import { createSearch, decodeHtmlEntities } from 'common/string';
+import { Countdown } from '../components/Countdown';
+import { useBackend } from '../backend';
 import { useState } from 'react';
 import {
   Box,
   Button,
-  Divider,
-  Icon,
   Input,
-  LabeledList,
   Section,
   Stack,
+  Divider,
   Tabs,
-} from 'tgui-core/components';
-import { flow } from 'tgui-core/fp';
-import type { BooleanLike } from 'tgui-core/react';
-import { createSearch, decodeHtmlEntities } from 'tgui-core/string';
-import { useBackend } from '../backend';
-import { Countdown } from '../components';
+  LabeledList,
+  Icon,
+} from '../components';
 import { Window } from '../layouts';
 import {
   ComplexModal,
-  modalAnswer,
   modalOpen,
+  modalAnswer,
   modalRegisterBodyOverride,
 } from './common/ComplexModal';
 
@@ -58,10 +58,10 @@ type UplinkData = {
 };
 
 type Contractor = {
-  available: BooleanLike;
-  accepted: BooleanLike;
-  affordable: BooleanLike;
-  is_admin_forced: BooleanLike;
+  available: boolean;
+  accepted: boolean;
+  affordable: boolean;
+  is_admin_forced: boolean;
   available_offers: number;
   time_left: number;
 };
@@ -76,9 +76,9 @@ type Item = {
   name: string;
   desc: string;
   cost: number;
-  hijack_only: BooleanLike;
+  hijack_only: boolean;
   obj_path: string;
-  refundable: BooleanLike;
+  refundable: boolean;
 };
 
 type Cart = {
@@ -147,7 +147,7 @@ export const Uplink = (_props: unknown) => {
                 }}
                 icon="shopping-cart"
               >
-                Корзина {cart?.length ? `(${cart.length})` : ''}
+                Корзина {cart && cart.length ? '(' + cart.length + ')' : ''}
               </Tabs.Tab>
               <Tabs.Tab
                 key="ExploitableInfo"
@@ -175,7 +175,7 @@ export const Uplink = (_props: unknown) => {
                 <Tabs.Tab
                   key="BecomeContractor"
                   color={
-                    data.contractor.available && !data.contractor.accepted
+                    !!data.contractor.available && !data.contractor.accepted
                       ? 'yellow'
                       : 'transparent'
                   }
@@ -200,8 +200,8 @@ export const Uplink = (_props: unknown) => {
                     ''
                   ) : (
                     <Countdown
-                      timeEnd={data.contractor.time_left}
-                      format={(v, f) => ` (${f})`}
+                      timeLeft={data.contractor.time_left}
+                      format={(v, f) => ' (' + f + ')'}
                     />
                   )}
                 </Tabs.Tab>
@@ -240,25 +240,22 @@ const ItemsPage = (properties: SearchTextProps & ShowDescProps) => {
 
   const SelectEquipment = (cat: Item[], searchText = '') => {
     const EquipmentSearch = createSearch<Item>(searchText, (item) => {
-      const is_hijack = item.hijack_only ? '|' + 'hijack' : '';
-      return `${item.name}|${item.desc}|${item.cost}tc${is_hijack}`;
+      let is_hijack = item.hijack_only ? '|' + 'hijack' : '';
+      return item.name + '|' + item.desc + '|' + item.cost + 'tc' + is_hijack;
     });
     return flow([
-      (cat: Item[]) => cat.filter((item) => !!item?.name), // Make sure it has a name
-      (cat: Item[]) => (searchText ? cat.filter(EquipmentSearch) : cat), // Search for anything
-      (cat: Item[]) => sortBy(cat, [(item) => item?.name]), // Sort by name
+      (cat: Item[]) => filter(cat, (item) => !!item?.name), // Make sure it has a name
+      (cat: Item[]) => (searchText ? filter(cat, EquipmentSearch) : cat), // Search for anything
+      (cat: Item[]) => sortBy(cat, (item) => item?.name), // Sort by name
     ])(cat);
   };
   const handleSearch = (value) => {
-    setSearchText?.(value);
+    setSearchText(value);
     if (value === '') {
       return setUplinkItems(cats[0].items);
     }
     setUplinkItems(
-      SelectEquipment(
-        cats.flatMap((category) => category.items),
-        value,
-      ),
+      SelectEquipment(cats.map((category) => category.items).flat(), value)
     );
   };
 
@@ -267,7 +264,7 @@ const ItemsPage = (properties: SearchTextProps & ShowDescProps) => {
       <Stack vertical>
         <Stack.Item>
           <Section
-            title={`Текущий баланс: ${crystals} ТК`}
+            title={'Текущий баланс: ' + crystals + ' ' + 'ТК'}
             buttons={
               <>
                 <Button.Checkbox
@@ -305,7 +302,7 @@ const ItemsPage = (properties: SearchTextProps & ShowDescProps) => {
                   selected={searchText !== '' ? false : c.items === uplinkItems}
                   onClick={() => {
                     setUplinkItems(c.items);
-                    setSearchText?.('');
+                    setSearchText('');
                   }}
                   backgroundColor={'rgba(255, 0, 0, 0.1)'}
                   mb={0.5}
@@ -353,7 +350,7 @@ const CartPage = (properties: ShowDescProps) => {
         <Section
           fill
           scrollable
-          title={`Текущий баланс: ${crystals} ТК`}
+          title={'Текущий баланс: ' + crystals + ' ' + 'ТК'}
           buttons={
             <>
               <Button.Checkbox
@@ -374,7 +371,7 @@ const CartPage = (properties: ShowDescProps) => {
                 onClick={() => act('purchase_cart')}
                 disabled={!cart || cart_price > crystals}
               >
-                {`Купить корзину (${cart_price}TC)`}
+                {'Купить корзину (' + cart_price + 'TC)'}
               </Button>
             </>
           }
@@ -528,7 +525,7 @@ const CartButtons = (props: CartButtonsProps) => {
           })
         }
       >
-        {`(${i.cost * i.amount} ТК)`}
+        {'(' + i.cost * i.amount + ' ' + 'ТК)'}
       </Button>
       <Button
         icon="minus"
@@ -546,15 +543,16 @@ const CartButtons = (props: CartButtonsProps) => {
         width="45px"
         tooltipPosition="bottom-end"
         tooltip={i.limit === 0 && 'Скидка уже активирована!'}
-        onCommit={(value) =>
+        onCommit={(e, value) =>
           act('set_cart_item_quantity', {
             item: i.obj_path,
             quantity: value,
           })
         }
         disabled={i.limit !== -1 && i.amount >= i.limit && i.amount <= 0}
-        value={i.amount.toString()}
-      />
+      >
+        {i.amount}
+      </Button.Input>
       <Button
         mb={0.3}
         icon="plus"
@@ -584,20 +582,17 @@ const ExploitableInfoPage = (_properties) => {
   const SelectMembers = (people: ExploitableRecord[], searchText = '') => {
     const MemberSearch = createSearch<ExploitableRecord>(
       searchText,
-      (member: ExploitableRecord) => member?.name,
+      (member: ExploitableRecord) => member?.name
     );
     return flow([
       (people: ExploitableRecord[]) =>
         // Null member filter
-        people.filter((member) => !!member?.name),
+        filter(people, (member) => !!member?.name),
       // Optional search term
       (people: ExploitableRecord[]) =>
-        searchText ? people.filter(MemberSearch) : people,
+        searchText ? filter(people, MemberSearch) : people,
       // Slightly expensive, but way better than sorting in BYOND
-      (people: ExploitableRecord[]) =>
-        sortBy<ExploitableRecord>(people, [
-          (member: ExploitableRecord) => member?.name,
-        ]),
+      (people: ExploitableRecord[]) => sortBy(people, (member) => member?.name),
     ])(people);
   };
 
@@ -726,8 +721,8 @@ modalRegisterBodyOverride('become_contractor', (modal) => {
             'Принять предложение',
             <Countdown
               key="countdown"
-              timeEnd={time_left}
-              format={(_, f) => ` (${f})`}
+              timeLeft={time_left}
+              format={(_, f) => ' (' + f + ')'}
             />,
           ]
         ) : !isAffordable ? (

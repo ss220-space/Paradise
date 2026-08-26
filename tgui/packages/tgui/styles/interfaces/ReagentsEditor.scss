@@ -1,32 +1,30 @@
+@use '../colors.scss';
+
 .reagents-table {
   border-collapse: separate;
-  border-spacing: 0 var(--space-sm);
+  border-spacing: 0 0.3em;
 }
 
 .volume-cell {
-  width: 5em;
+  min-width: 3em;
   text-align: right;
   vertical-align: middle;
 }
 
-.volume-label {
-  min-width: 5em;
-  max-width: 5em;
-  text-overflow: ellipsis;
-  overflow-x: clip;
-}
-
-.volume-cell:hover .volume-label,
 .volume-cell:not(:hover) .volume-actions-wrapper {
   display: none;
 }
 
+.volume-cell:hover .volume-label {
+  display: none;
+}
+
 .reagent-absent-name-cell {
-  color: var(--color-grey);
+  color: colors.$grey;
 }
 
 .reagent-row > *:last-child {
-  padding-right: var(--space-m);
+  padding-right: 0.5em;
 }
 
 .absent-row:not(:hover) .add-reagent-button {

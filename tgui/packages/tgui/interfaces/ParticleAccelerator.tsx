@@ -1,15 +1,16 @@
-import { Grid } from 'tgui/components';
+import { useBackend } from '../backend';
 import {
   Box,
   Button,
-  ImageButton,
+  Grid,
   LabeledList,
   Section,
   Stack,
+  ImageButton,
   Table,
-} from 'tgui-core/components';
-import { capitalize } from 'tgui-core/string';
-import { useBackend } from '../backend';
+  Tooltip,
+} from '../components';
+import { capitalize } from 'common/string';
 import { Window } from '../layouts';
 
 const dir2text = (dir: number) => {
@@ -168,7 +169,7 @@ const LayoutHorizontal = (_props: unknown) => {
                 }}
               />
             </Table.Cell>
-          ),
+          )
         )}
       </Table.Row>
       <Table.Row width="40px">
@@ -200,7 +201,7 @@ const LayoutHorizontal = (_props: unknown) => {
                 }}
               />
             </Table.Cell>
-          ),
+          )
         )}
       </Table.Row>
       <Table.Row width="40px">
@@ -232,7 +233,7 @@ const LayoutHorizontal = (_props: unknown) => {
                 }}
               />
             </Table.Cell>
-          ),
+          )
         )}
       </Table.Row>
     </Table>
@@ -273,7 +274,7 @@ const LayoutVertical = (_props: unknown) => {
                 }}
               />
             </Stack.Item>
-          ),
+          )
         )}
       </Grid.Column>
       <Grid.Column>
@@ -305,7 +306,7 @@ const LayoutVertical = (_props: unknown) => {
                 }}
               />
             </Stack.Item>
-          ),
+          )
         )}
       </Grid.Column>
       <Grid.Column width="40px">
@@ -337,7 +338,7 @@ const LayoutVertical = (_props: unknown) => {
                 }}
               />
             </Stack.Item>
-          ),
+          )
         )}
       </Grid.Column>
     </Grid>

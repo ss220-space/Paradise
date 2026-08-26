@@ -119,10 +119,12 @@
 
 	parrot_sleep_dur = parrot_sleep_max //In case someone decides to change the max without changing the duration var
 
-	ASSIGN_GAME_VERB(src, /mob/living/simple_animal/parrot, steal_from_ground)
-	ASSIGN_GAME_VERB(src, /mob/living/simple_animal/parrot, steal_from_mob)
-	ASSIGN_GAME_VERB(src, /mob/living/simple_animal/parrot, drop_held_item_player)
-	ASSIGN_GAME_VERB(src, /mob/living/simple_animal/parrot, perch_player)
+	verbs.Add(
+		/mob/living/simple_animal/parrot/proc/steal_from_ground, \
+		/mob/living/simple_animal/parrot/proc/steal_from_mob, \
+		/mob/living/simple_animal/parrot/verb/drop_held_item_player, \
+		/mob/living/simple_animal/parrot/proc/perch_player
+	)
 
 	desired_perches = typecacheof(list( \
 		/obj/structure/computerframe, /obj/structure/displaycase, \
@@ -529,7 +531,10 @@
 /*
  * Verbs - These are actually procs, but can be used as verbs by player-controlled parrots.
  */
-GAME_VERB_PROC_DESC(/mob/living/simple_animal/parrot, steal_from_ground, "Схватить предмет", "Grabs a nearby item.", VERB_CATEGORY_PARROT)
+/mob/living/simple_animal/parrot/proc/steal_from_ground()
+	set name = "Схватить предмет"
+	set category = VERB_CATEGORY_PARROT
+	set desc = "Grabs a nearby item."
 
 	if(stat)
 		return -1
@@ -558,7 +563,10 @@ GAME_VERB_PROC_DESC(/mob/living/simple_animal/parrot, steal_from_ground, "Схв
 	balloon_alert(src, "здесь нечего взять")
 	return 0
 
-GAME_VERB_PROC_DESC(/mob/living/simple_animal/parrot, steal_from_mob, "Украсть из рук", "Steals an item right out of a person's hand!", VERB_CATEGORY_PARROT)
+/mob/living/simple_animal/parrot/proc/steal_from_mob()
+	set name = "Украсть из рук"
+	set category = VERB_CATEGORY_PARROT
+	set desc = "Steals an item right out of a person's hand!"
 
 	if(stat)
 		return -1
@@ -588,7 +596,10 @@ GAME_VERB_PROC_DESC(/mob/living/simple_animal/parrot, steal_from_mob, "Укра�
 	balloon_alert(src, "здесь нечего взять!")
 	return 0
 
-GAME_VERB_PROC_DESC(/mob/living/simple_animal/parrot, drop_held_item_player, "Выбросить предмет", "Drop the item you're holding.", VERB_CATEGORY_PARROT)
+/mob/living/simple_animal/parrot/verb/drop_held_item_player()
+	set name = "Выбросить предмет"
+	set category = VERB_CATEGORY_PARROT
+	set desc = "Drop the item you're holding."
 
 	if(stat)
 		return
@@ -596,6 +607,10 @@ GAME_VERB_PROC_DESC(/mob/living/simple_animal/parrot, drop_held_item_player, "В
 	drop_held_item()
 
 /mob/living/simple_animal/parrot/proc/drop_held_item(drop_gently = TRUE)
+	set name = "Выбросить предмет"
+	set category = VERB_CATEGORY_PARROT
+	set desc = "Drop the item you're holding."
+
 	if(stat)
 		return -1
 
@@ -622,7 +637,10 @@ GAME_VERB_PROC_DESC(/mob/living/simple_animal/parrot, drop_held_item_player, "В
 	update_held_icon()
 	return 1
 
-GAME_VERB_PROC_DESC(/mob/living/simple_animal/parrot, perch_player, "Присесть", "Sit on a nice comfy perch.", VERB_CATEGORY_PARROT)
+/mob/living/simple_animal/parrot/proc/perch_player()
+	set name = "Присесть"
+	set category = VERB_CATEGORY_PARROT
+	set desc = "Sit on a nice comfy perch."
 
 	if(stat || !client)
 		return

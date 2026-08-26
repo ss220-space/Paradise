@@ -9,7 +9,6 @@
 	flags_cover = MASKCOVERSMOUTH
 	gas_transfer_coefficient = 0.10
 	permeability_coefficient = 0.50
-	actions_types = list(/datum/action/item_action/adjust)
 	resistance_flags = NONE
 	can_toggle = TRUE
 	sprite_sheets = list(
@@ -83,7 +82,6 @@
 	item_state = "voxmask"
 	permeability_coefficient = 0.01
 	species_restricted = list(SPECIES_VOX, SPECIES_VOX_ARMALIS) //These should fit the "Mega Vox" just fine.
-	actions_types = null
 
 /obj/item/clothing/mask/breath/vox/get_ru_names()
 	return alist(

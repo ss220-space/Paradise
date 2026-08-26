@@ -169,7 +169,10 @@
 		update_icon(UPDATE_OVERLAYS)
 		feedinTopanim()
 
-GAME_VERB_SRC(/obj/machinery/gibber, eject, oview(1), "Опустошить мясорубку", VERB_CATEGORY_HIDDEN)
+/obj/machinery/gibber/verb/eject()
+	set category = VERB_CATEGORY_OBJECT
+	set name = "Опустошить мясорубку"
+	set src in oview(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return

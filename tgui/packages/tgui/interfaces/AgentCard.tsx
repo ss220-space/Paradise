@@ -1,14 +1,14 @@
-import { useState } from 'react';
+import { useBackend } from '../backend';
+import { Key, useState } from 'react';
 import {
-  Box,
   Button,
-  Icon,
-  ImageButton,
   LabeledList,
   Section,
   Tabs,
-} from 'tgui-core/components';
-import { useBackend } from '../backend';
+  Icon,
+  Box,
+  ImageButton,
+} from '../components';
 import { Window } from '../layouts';
 
 export const AgentCard = (props: unknown) => {
@@ -213,8 +213,8 @@ export const AgentCardSLSlots = (props: unknown) => {
             key={save_slot.id}
             label={
               save_slot.registered_name
-                ? `${save_slot.registered_name}, ${save_slot.assignment}`
-                : `Slot ${save_slot.id}`
+                ? save_slot.registered_name + ', ' + save_slot.assignment
+                : 'Slot ' + save_slot.id
             }
             buttons={
               <>

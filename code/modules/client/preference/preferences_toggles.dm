@@ -293,7 +293,10 @@
 	disable_message = "Будучи призраком, теперь вы не будете видеть все КПК-сообщения."
 	blackbox_message = "Toggle Ghost PDA"
 
-GAME_VERB_DESC(/client, silence_current_midi, "Заглушить MIDI", "Заглушает текущие MIDI-файлы, проигрываемые администрацией.", VERB_CATEGORY_SPECIALVERBS)
+/client/verb/silence_current_midi()
+	set name = "Заглушить MIDI"
+	set category = VERB_CATEGORY_SPECIALVERBS
+	set desc = "Заглушает текущие MIDI-файлы, проигрываемые администрацией."
 	usr.stop_sound_channel(CHANNEL_ADMIN)
 	to_chat(src, "Текущие проигрываемые админ-MIDI были заглушены.")
 
@@ -649,14 +652,14 @@ GAME_VERB_DESC(/client, silence_current_midi, "Заглушить MIDI", "Заг
 	blackbox_message = "Переключение разрешения выводить игрока из раунда"
 
 /datum/preference_toggle/toggle_off_projectile_messages
-	name = "Выключить отправку сообщений в легаси чат"
-	description = "Выключает отправку сообщений в легаси чат, появляющийся в случае, если тгуи панель не работает."
-	preftoggle_bitflag = PREFTOGGLE_2_OFF_LEGACY_OUTPUT_MESSAGES
+	name = "Выключить боевые сообщения выстрелов"
+	description = "Выключает большую часть сообщений, появляющихся при стрельбе."
+	preftoggle_bitflag = PREFTOGGLE_2_OFF_PROJECTILE_MESSAGES
 	preftoggle_toggle = PREFTOGGLE_TOGGLE2
 	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
-	enable_message = "Теперь сообщения не будут отправляться в легаси чат."
-	disable_message = "Теперь сообщения будут отправляться в легаси чат."
-	blackbox_message = "Переключение отправки сообщений в легаси чат"
+	enable_message = "Теперь вы не будете видеть сообщения, появляющиеся при стрельбе."
+	disable_message = "Теперь вы будете видеть сообщения, появляющиеся при стрельбе."
+	blackbox_message = "Переключение комбат логов от выстрелов"
 
 /datum/preference_toggle/toggle_auto_dnr
 	name = "Запрет реанимации при смерти"

@@ -1,5 +1,6 @@
-import { isNumber } from 'es-toolkit';
-import { type ComponentProps, useState } from 'react';
+import { createSearch, toTitleCase } from 'common/string';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import {
   Box,
   Button,
@@ -7,16 +8,16 @@ import {
   DmIcon,
   Input,
   LabeledList,
+  ProgressBar,
   Section,
   Stack,
-} from 'tgui-core/components';
-import { createSearch, toTitleCase } from 'tgui-core/string';
-import { useBackend } from '../backend';
-import { Countdown } from '../components';
+} from '../components';
+import { Countdown } from '../components/Countdown';
 import { Window } from '../layouts';
+import { CollapsibleProps } from '../components/Collapsible';
 
 const canBeMade = (design: Item, brsail: number, pwrail: number) => {
-  if (!isNumber(design.requirements)) {
+  if (design.requirements === null) {
     return true;
   }
   if (design.requirements.brass > brsail) {
@@ -100,18 +101,22 @@ export const Workshop = (_properties) => {
                 </LabeledList.Item>
               </LabeledList>
               {building && (
-                <Countdown
+                <ProgressBar.Countdown
                   mt={2}
-                  progressBar
+                  start={buildStart}
+                  current={worldTime}
+                  end={buildEnd}
                   bold
-                  timeStart={buildStart}
-                  timeEnd={buildEnd}
-                  format={(v, f) => f.substring(3)}
                 >
-                  <Stack fill>
-                    <Stack.Item grow>Building {building}</Stack.Item>
-                  </Stack>
-                </Countdown>
+                  Building {building}
+                  &nbsp;(
+                  <Countdown
+                    current={worldTime}
+                    timeLeft={buildEnd - worldTime}
+                    format={(v, f) => f.substring(3)}
+                  />
+                  )
+                </ProgressBar.Countdown>
               )}
             </Section>
           </Stack.Item>
@@ -153,7 +158,7 @@ const WorkshopSearch = (properties: WorkshopState) => {
             tooltip={descending ? 'Descending order' : 'Ascending order'}
             tooltipPosition="bottom-start"
             ml="0.5rem"
-            onClick={() => setDescending?.(!descending)}
+            onClick={() => setDescending(!descending)}
           />
         </Stack.Item>
       </Stack>
@@ -167,7 +172,7 @@ const WorkshopItems = (properties: WorkshopState) => {
 
   // Search thingies
   const { searchText, descending } = properties;
-  const searcher = createSearch<[string, Item]>(searchText || '', (item) => {
+  const searcher = createSearch<[string, Item]>(searchText, (item) => {
     return item[0];
   });
 
@@ -179,12 +184,12 @@ const WorkshopItems = (properties: WorkshopState) => {
         kv2[1].affordable = canBeMade(
           kv2[1],
           data.brass_amount,
-          data.power_amount,
+          data.power_amount
         );
         return kv2[1];
       });
     if (items_in_cat.length === 0) {
-      return '';
+      return;
     }
     if (descending) {
       items_in_cat = items_in_cat.reverse();
@@ -210,7 +215,7 @@ const WorkshopItems = (properties: WorkshopState) => {
 
 type WorkshopItemsCategoryProps = {
   items: Item[];
-} & ComponentProps<typeof Collapsible>;
+} & CollapsibleProps;
 
 const WorkshopItemsCategory = (properties: WorkshopItemsCategoryProps) => {
   const { act, data } = useBackend<WorkshopData>();
@@ -251,9 +256,7 @@ const WorkshopItemsCategory = (properties: WorkshopItemsCategoryProps) => {
           >
             {(item.requirements &&
               Object.keys(item.requirements)
-                .map(
-                  (mat) => `${toTitleCase(mat)}: ${item.requirements?.[mat]}`,
-                )
+                .map((mat) => toTitleCase(mat) + ': ' + item.requirements[mat])
                 .join(', ')) || <Box>No resources required.</Box>}
           </Box>
           <Box

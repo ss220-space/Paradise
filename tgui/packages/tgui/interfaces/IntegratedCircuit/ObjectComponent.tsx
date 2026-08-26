@@ -1,9 +1,9 @@
 import { Component } from 'react';
-import { Box, Button, Stack } from 'tgui-core/components';
-import { classes, shallowDiffers } from 'tgui-core/react';
+import { Box, Stack, Button } from '../../components';
+import { classes, shallowDiffers } from 'common/react';
 import { ABSOLUTE_Y_OFFSET, noop } from './constants';
 import { Port } from './Port';
-import type {
+import {
   ComponentType,
   ObjectComponentProps,
   ObjectComponentState,
@@ -58,17 +58,17 @@ export class ObjectComponent extends Component<
 
   handleDrag(e) {
     const { dragPos, isDragging, lastMousePos } = this.state;
-    const { zoom = 0 } = this.props;
+    const { zoom } = this.props;
     if (dragPos && isDragging) {
       e.preventDefault();
       const { screenZoomX, screenZoomY, screenX, screenY } = e;
-      const xPos = screenZoomX || screenX;
-      const yPos = screenZoomY || screenY;
+      let xPos = screenZoomX || screenX;
+      let yPos = screenZoomY || screenY;
       if (lastMousePos) {
         this.setState({
           dragPos: {
-            x: dragPos.x - (lastMousePos.x - xPos) * zoom ** -1,
-            y: dragPos.y - (lastMousePos.y - yPos) * zoom ** -1,
+            x: dragPos.x - (lastMousePos.x - xPos) * Math.pow(zoom, -1),
+            y: dragPos.y - (lastMousePos.y - yPos) * Math.pow(zoom, -1),
           },
         });
       }

@@ -116,7 +116,9 @@
 	..()
 	make_babies()
 
-GAME_VERB(/mob/living/simple_animal/pet/cat, sit, "Сесть", VERB_CATEGORY_IC)
+/mob/living/simple_animal/pet/cat/verb/sit()
+	set name = "Сесть"
+	set category = VERB_CATEGORY_IC
 
 	if(resting)
 		set_resting(FALSE)
