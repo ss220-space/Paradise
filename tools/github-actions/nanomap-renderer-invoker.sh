@@ -1,8 +1,8 @@
 #!/bin/bash
 # Generate maps
-~/dmm-tools minimap -w 2040 -h 2040 --disable icon-smoothing "./_maps/map_files/cyberiad/cyberiad.dmm"
-~/dmm-tools minimap -w 2040 -h 2040 --disable icon-smoothing "./_maps/map_files/Delta/delta.dmm"
-~/dmm-tools minimap -w 2040 -h 2040 --disable icon-smoothing "./_maps/map_files/nova/nova.dmm"
+tools/github-actions/dmm-tools-para minimap --enable nanomaps --width 2040 --height 2040 --disable icon-smoothing "./_maps/map_files/cyberiad/cyberiad.dmm"
+tools/github-actions/dmm-tools-para minimap --enable nanomaps --width 2040 --height 2040 --disable icon-smoothing "./_maps/map_files/Delta/delta.dmm"
+tools/github-actions/dmm-tools-para minimap --enable nanomaps --width 2040 --height 2040 --disable icon-smoothing "./_maps/map_files/nova/nova.dmm"
 
 # Move and rename files so the game understands them
 cd "data/nanomaps"
