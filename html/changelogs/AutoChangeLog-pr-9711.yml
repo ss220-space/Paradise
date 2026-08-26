@@ -1,0 +1,4 @@
+author: "NuSanya"
+delete-after: True
+changes:
+  - bugfix: "чинит ошибку линтера (PR #9711)"
