@@ -558,3 +558,9 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 	qdel(clothes_s)
 
 	return preview_icon
+
+/datum/datacore/proc/find_general_record_by_name(name)
+	for(var/datum/data/record/finded_record as anything in general)
+		if(finded_record.fields["name"] == name)
+			return finded_record
+	return null
