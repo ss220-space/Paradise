@@ -107,7 +107,7 @@
 	var/armor = run_armor_check(def_zone, proj.flag, armour_penetration = proj.armour_penetration)
 	if(!proj.nodamage && !QDELETED(src))
 		apply_damage(proj.damage, proj.damage_type, def_zone, armor)
-		var/final_damage = max(0, proj.damage - armor)
+		var/final_damage = proj.damage * ((100 - armor) / 100)
 		if(proj.damage_type == BRUTE && final_damage > DAMAGE_TO_SPRAY_BLOOD)
 			spray_blood(get_dir(proj.starting, src), min(rand(1, max(1, floor(final_damage / 10))), 5), final_damage)
 		if(proj.dismemberment)
