@@ -43,10 +43,54 @@
 	index_name = "Leather Trenchcoat"
 	path = /obj/item/clothing/suit/storage/leather_trenchcoat/runner
 
+/datum/gear/donor/furgloves
+	index_name = "Fur Gloves"
+	path = /obj/item/clothing/gloves/furgloves
+
 /datum/gear/donor/ecig
 	index_name = "ecig"
 	donator_tier = 1
 	path = /obj/item/ecig
+
+/datum/gear/donor/noble_boot
+	index_name = "Noble Boots"
+	path = /obj/item/clothing/shoes/fluff/noble_boot
+
+/datum/gear/donor/kamina
+	index_name = "Spiky Orange-tinted Shades"
+	path = /obj/item/clothing/glasses/fluff/kamina
+
+/datum/gear/donor/green
+	index_name = "Spiky Green-tinted Shades"
+	path = /obj/item/clothing/glasses/fluff/kamina/green
+
+/datum/gear/donor/threedglasses
+	index_name = "Threed Glasses"
+	path = /obj/item/clothing/glasses/threedglasses
+
+/datum/gear/donor/blacksombrero
+	index_name = "Black Sombrero"
+	path = /obj/item/clothing/head/fluff/blacksombrero
+
+/datum/gear/donor/guardhelm
+	index_name = "Plastic Guard helm"
+	path = /obj/item/clothing/head/fluff/guardhelm
+
+/datum/gear/donor/goldtophat
+	index_name = "Gold-trimmed Top Hat"
+	path = /obj/item/clothing/head/fluff/goldtophat
+
+/datum/gear/donor/goldtophat/red
+	index_name = "Red Gold-trimmed Top Hat"
+	path = /obj/item/clothing/head/fluff/goldtophat/red
+
+/datum/gear/donor/goldtophat/blue
+	index_name = "Blue Gold-trimmed Top Hat"
+	path = /obj/item/clothing/head/fluff/goldtophat/blue
+
+/datum/gear/donor/mushhat
+	index_name = "Mushroom Hat"
+	path = /obj/item/clothing/head/fluff/mushhat
 
 /datum/gear/donor/mouse
 	index_name = "Mouse Headband"
@@ -266,26 +310,6 @@
 /datum/gear/donor/strip/rat
 	index_name = "strip, Rat"
 	path = /obj/item/clothing/accessory/head_strip/ratstrip
-	donator_tier = 3
-
-/datum/gear/donor/strip/labrat
-	index_name = "strip, Lab rat"
-	path = /obj/item/clothing/accessory/head_strip/labratstrip
-	donator_tier = 3
-
-/datum/gear/donor/strip/krampus
-	index_name = "strip, Krampus"
-	path = /obj/item/clothing/accessory/head_strip/krampusstrip
-	donator_tier = 3
-
-/datum/gear/donor/strip/pursuit
-	index_name = "strip, Pursuit"
-	path = /obj/item/clothing/accessory/head_strip/pursuitstrip
-	donator_tier = 4
-
-/datum/gear/donor/strip/tv
-	index_name = "strip, TV"
-	path = /obj/item/clothing/accessory/head_strip/tvstrip
 	donator_tier = 3
 
 /datum/gear/donor/strip/devil
@@ -564,16 +588,6 @@
 	path = /obj/item/pda_case/beer
 	donator_tier = 1
 
-/datum/gear/donor/pda_rat
-	index_name = "PDA case \"RAT\""
-	path = /obj/item/pda_case/rat
-	donator_tier = 1
-
-/datum/gear/donor/pda_swaga
-	index_name = "PDA case \"SWAGA\""
-	path = /obj/item/pda_case/swaga
-	donator_tier = 1
-
 /datum/gear/donor/maid
 	index_name = "Short maid costume"
 	path = /obj/item/clothing/under/maid/short
@@ -592,11 +606,6 @@
 	donator_tier = 3
 	index_name = "CMO doll"
 	path = /obj/item/toy/plushie/cmoplushie
-
-/datum/gear/donor/hopplushie
-	donator_tier = 3
-	index_name = "HoPussy doll"
-	path = /obj/item/toy/plushie/hopplushie
 
 /datum/gear/donor/glorp
 	donator_tier = 3

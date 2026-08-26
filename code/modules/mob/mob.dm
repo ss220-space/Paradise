@@ -922,7 +922,7 @@
 	return
 
 /mob/dead/observer/verb/respawn()
-	set name = "Стать животным"
+	set name = "Играть за НИП"
 	set category = VERB_CATEGORY_GHOST
 
 	if(jobban_isbanned(usr, ROLE_SENTIENT))

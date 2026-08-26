@@ -19,7 +19,7 @@
 	/// The reference of the manifest paper attached to the cargo crate.
 	var/datum/weakref/manifest
 	// A list of beacon names that the crate will announce the arrival of, when delivered.
-	var/list/announce_beacons
+	var/list/announce_beacons = list()
 	/// Overlay for lightmask of our crate
 	var/overlay_lightmask
 	/// Can our crate make emissive light?
@@ -189,8 +189,6 @@
 
 /// Called when a crate is delivered by MULE at a location, for notifying purposes
 /obj/structure/closet/crate/proc/notify_recipient(destination)
-	if(!announce_beacons)
-		return
 	var/message = "[capitalize(name)] has arrived at [destination]."
 	if(!(destination in announce_beacons))
 		return

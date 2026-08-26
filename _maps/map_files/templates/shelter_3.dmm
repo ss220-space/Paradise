@@ -117,7 +117,9 @@
 /turf/simulated/wall/mineral/titanium/survival,
 /area/survivalpod)
 "v" = (
-/obj/structure/toilet/secret/directional/east,
+/obj/structure/toilet/secret{
+	dir = 8
+	},
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -165,7 +167,7 @@
 /turf/simulated/floor/pod,
 /area/survivalpod)
 "I" = (
-/obj/structure/sink/directional/east,
+/obj/structure/sink/directional/west,
 /obj/machinery/light/small{
 	dir = 1
 	},

@@ -11,6 +11,7 @@
 #define SHIFTING_SHOWER 16
 #define SHIFTING_TOILET 8
 
+
 /obj/structure/toilet
 	name = "toilet"
 	desc = "Унитаз марки НТ-451. Предназначен для смыва мелких отходов. Выглядит необычайно чистым."
@@ -34,8 +35,6 @@
 	)
 
 MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet, SHIFTING_TOILET, -SHIFTING_TOILET, 0, 0)
-
-MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet/bluespace, SHIFTING_TOILET, -SHIFTING_TOILET, 0, 0)
 
 /obj/structure/toilet/Initialize(mapload)
 	. = ..()
@@ -304,8 +303,6 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet/bluespace, SHIFTING_TOI
 		secret.desc += " It's a secret!"
 		w_items += secret.w_class
 
-MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet/secret, SHIFTING_TOILET, -SHIFTING_TOILET, 0, 0)
-
 // This toilet made specially for map editor, collects objects on same turf at map loading as well as closets do.
 // regular toilet can't do this. has the same restrictions for objects like regular toilet has.
 /obj/structure/toilet/cancollectmapitems/Initialize(mapload)
@@ -333,8 +330,6 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet/secret, SHIFTING_TOILET
 	. = ..()
 	icon_state = "gold_toilet[open][cistern]"
 
-MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet/golden_toilet, SHIFTING_TOILET, -SHIFTING_TOILET, 0, 0)
-
 /obj/structure/toilet/captain_toilet
 	name = "Унитаз Капитана"
 	desc = "Престижное седалище для престижной персоны. Судя по форме, был идеально подготовлен под седальное место Капитана."
@@ -343,8 +338,6 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet/golden_toilet, SHIFTING
 /obj/structure/toilet/captain_toilet/update_icon_state()
 	. = ..()
 	icon_state = "captain_toilet[open][cistern]"
-
-MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet/captain_toilet, SHIFTING_TOILET, -SHIFTING_TOILET, 0, 0)
 
 /obj/structure/urinal
 	name = "urinal"

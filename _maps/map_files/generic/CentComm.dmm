@@ -4557,15 +4557,17 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/administration)
 "cqi" = (
-/obj/structure/rack,
-/obj/item/tank/internals/emergency_oxygen/double/ninja{
-	pixel_x = -3;
-	pixel_y = 3
+/obj/structure/table/abductor{
+	color = "#99ff99";
+	name = "table"
 	},
-/obj/item/tank/internals/emergency_oxygen/double/ninja,
-/obj/item/tank/internals/emergency_oxygen/double/ninja{
-	pixel_x = 3;
-	pixel_y = -3
+/obj/item/storage/box/manacles{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/storage/box/manacles{
+	pixel_x = -3;
+	pixel_y = 2
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "floorgrime"
@@ -6830,24 +6832,27 @@
 	},
 /area/centcom/ninja/holding)
 "duk" = (
-/obj/structure/table/abductor{
-	color = "#99ff99";
-	name = "table"
+/obj/structure/sign/poster/official/air2{
+	pixel_y = -32
 	},
-/obj/item/storage/box/manacles{
-	pixel_x = 1;
-	pixel_y = 5
-	},
-/obj/item/storage/box/manacles{
-	pixel_x = -3;
-	pixel_y = 2
+/obj/machinery/portable_atmospherics/canister/oxygen{
+	maximum_pressure = 50000
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "floorgrime"
 	},
 /area/centcom/ninja/holding)
 "dum" = (
-/obj/machinery/recharge_station/upgraded,
+/obj/structure/rack,
+/obj/item/tank/internals/emergency_oxygen/double/ninja{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/tank/internals/emergency_oxygen/double/ninja,
+/obj/item/tank/internals/emergency_oxygen/double/ninja{
+	pixel_x = 3;
+	pixel_y = -3
+	},
 /turf/simulated/floor/indestructible{
 	icon_state = "floorgrime"
 	},
@@ -45368,17 +45373,6 @@
 	icon_state = "neutralfull"
 	},
 /area/shuttle/escape)
-"uFl" = (
-/obj/structure/sign/poster/official/air2{
-	pixel_y = -32
-	},
-/obj/machinery/portable_atmospherics/canister/oxygen{
-	maximum_pressure = 50000
-	},
-/turf/simulated/floor/indestructible{
-	icon_state = "floorgrime"
-	},
-/area/centcom/ninja/holding)
 "uFn" = (
 /obj/structure/table/abductor{
 	color = "#99ff99";
@@ -88657,7 +88651,7 @@ bhg
 nWf
 bDR
 qDI
-uFl
+dMb
 dMb
 jSw
 dVZ
@@ -89427,7 +89421,7 @@ bRM
 cjy
 nEN
 bGP
-bRM
+bRx
 duk
 dMb
 jSw

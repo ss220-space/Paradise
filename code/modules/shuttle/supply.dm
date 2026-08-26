@@ -422,7 +422,7 @@
 		var/obj/structure/closet/crate/CR = Crate
 		CR.manifest = WEAKREF(slip)
 		CR.update_appearance()
-		CR.announce_beacons = object.announce_beacons
+		CR.announce_beacons = object.announce_beacons.Copy()
 
 	return Crate
 
