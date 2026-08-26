@@ -1,12 +1,15 @@
 /// Your mother shows up to scold you.
-/// - НЕТ В 1984: `/datum/component/leash` — мама просто стоит и ругается, не следует за целью;
-// должно быть. Например в старой версии файла галлюцинации была галлюцинация с мартышкой, которая преследовала игрока и кусала, нанося урон по выносливости. Если это не подоходит - нужно создать этот компонент.
-// Так же мне не нравится реализация talk. Должно казаться, что это пишет другой игрок, то есть нужно использовать не to_chat, а say, чтобы над спрайтом "мамы" появлялось сообщение.
 /datum/hallucination/your_mother
 	random_hallucination_weight = 2
 	hallucination_tier = HALLUCINATION_TIER_VERYSPECIAL
 
 	var/obj/effect/client_image_holder/hallucination/your_mother/mother
+
+/datum/hallucination/your_mother/Destroy()
+	if(!QDELETED(mother))
+		GLOB.move_manager.stop_looping(mother)
+		mother = null
+	return ..()
 
 /datum/hallucination/your_mother/start()
 	if(!hallucinator.client || hallucinator.stat != CONSCIOUS)
@@ -22,17 +25,19 @@
 		return FALSE
 	var/turf/spawn_loc = pick(spawn_locs)
 	mother = new(spawn_loc, hallucinator, src)
+	// legacy
+	GLOB.move_manager.move_to(mother, hallucinator, 1, rand(2, 4))
 	point_at(hallucinator)
 	talk("[capitalize(hallucinator.real_name)]!!!!")
 	var/list/scold_lines = list(
-		pick("Убери в своей комнате!", "Иди помойся!", "Ты снова в компьютере сидишь?!", "Сколько можно говорить — помой посуду!", "Я не для того тебя растила, чтобы ты в космосе играл!", "А ну быстро спать!", "Опять в своих космонавтиков играешь!"),
-		pick("Я так расстроена!", "Мне стыдно за тебя перед соседями!", "Ты хоть понимаешь, сколько я на тебя потратила?"),
-		pick("Вот придёт отец — он тебе задаст!", "Я всё расскажу отцу!", "Будешь знать, как не слушаться!", "Это я ещё мягко с тобой!"),
+		pick("Убери в своей комнате!", "Опять в игрушки играешься?", "Иди помойся!", "Ты снова в компьютере сидишь?!", "Я не для того тебя растила, чтобы ты в космонавтиков играл!", "Опять в своих космонавтиков играешь!", "Ты обещал \"Еще одну смену\" два часа назад!", "Вынеси мусор!", "Ты почему за девочку играешь?", "Кто этот ящер, который с тобой ходил? Опять плохая компания?"),
+		pick("Я так расстроена!", "Мне стыдно за тебя перед соседями!", "Ты хоть понимаешь, сколько я на тебя потратила?", "Соседский сын уже юристом выучился, а ты только КЗ какое-то знаешь!", "Что за \"донат\"? Почему с моей карты списание?!", "Мне уже внуков пора, а ты в космонавтиков играешь!"),
+		pick("Вот придёт отец — он тебе задаст!", "Я всё расскажу отцу!", "Я админу твоему позвоню, он со мной поговорит!"),
 	)
-	var/delay = 2 SECONDS
+	var/delay = 4 SECONDS
 	for(var/line in scold_lines)
 		addtimer(CALLBACK(src, PROC_REF(talk), line), delay)
-		delay += 2 SECONDS
+		delay += 3 SECONDS
 	addtimer(CALLBACK(src, PROC_REF(exit)), delay + 4 SECONDS)
 	return TRUE
 
@@ -42,12 +47,21 @@
 		return
 
 	var/obj/visual = image('icons/mob/screen_gen.dmi', mother.loc, "arrow", FLY_LAYER)
-
-	// INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(flick_overlay_global), visual, list(hallucinator.client), 2.5 SECONDS) ///proc/flick_overlay_global: undefined type path
 	animate(visual, pixel_x = (tile.x - mother.x) * ICON_SIZE_X, pixel_y = (tile.y - mother.y) * ICON_SIZE_Y, time = 1.7, easing = QUAD_EASING|EASE_OUT)
 
+	hallucinator.client?.images |= visual
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(remove_arrow_image), hallucinator, visual), 2.5 SECONDS)
+
+/// Removes the arrow visual from the hallucinator's client after it is done showing.
+/proc/remove_arrow_image(mob/hallucinator, obj/visual)
+	if(QDELETED(hallucinator))
+		return
+	hallucinator.client?.images -= visual
+
 /datum/hallucination/your_mother/proc/talk(text)
-	to_chat(hallucinator, span_mind_control("<b>Ваша мать:</b> [text]"))
+	hallucinator.create_chat_message(mother, text, list("sans-serif"), null)
+	to_chat(hallucinator, span_italics("<b>[mother.name]</b> говорит: \"[text]\""))
+	INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, mother, hallucinator, text, mother.tts_seed, TRUE, SOUND_EFFECT_NONE, TTS_TRAIT_RATE_MEDIUM)
 
 /datum/hallucination/your_mother/proc/exit()
 	qdel(src)
@@ -59,3 +73,4 @@
 	name = "Ваша мать"
 	desc = "Она недовольна."
 	image_layer = MOB_LAYER
+	tts_seed = "Grelod"

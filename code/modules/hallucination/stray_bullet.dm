@@ -34,14 +34,9 @@
 	var/stamina_damage = 0
 
 /obj/effect/client_image_holder/hallucination/fake_projectile/Initialize(mapload, mob/seer, datum/hallucination/parent)
-	src.parent = parent
 	image_icon = hal_icon
 	image_state = hal_icon_state
-	. = ..(mapload, seer)
-
-/obj/effect/client_image_holder/hallucination/fake_projectile/Destroy()
-	parent = null
-	return ..()
+	return ..(mapload, list(seer), parent)
 
 /obj/effect/client_image_holder/hallucination/fake_projectile/proc/fire_at(mob/living/target)
 	if(hal_fire_sound)
@@ -70,27 +65,27 @@
 /obj/effect/client_image_holder/hallucination/fake_projectile/bullet
 	name = "пулей"
 	hal_icon_state = "bullet"
-	hal_fire_sound = "gunshot"
+	hal_fire_sound = "sound/weapons/gunshots/1suppres.ogg"
 	hal_hitsound = 'sound/weapons/bullet2.ogg'
-	stamina_damage = 60
+	stamina_damage = 50
 
 /obj/effect/client_image_holder/hallucination/fake_projectile/laser
 	name = "лазером"
 	hal_icon_state = "laser"
 	hal_fire_sound = 'sound/weapons/gunshots/1laser10.ogg'
 	hal_hitsound = 'sound/weapons/sear.ogg'
-	stamina_damage = 20
+	stamina_damage = 30
 
 /obj/effect/client_image_holder/hallucination/fake_projectile/disabler
 	name = "дизейблером"
 	hal_icon_state = "omnilaser"
 	hal_fire_sound = 'sound/weapons/gunshots/1taser.ogg'
-	hal_hitsound = 'sound/weapons/tap.ogg'
-	stamina_damage = 30
+	hal_hitsound = 'sound/weapons/tase.ogg'
+	stamina_damage = 10
 
 /obj/effect/client_image_holder/hallucination/fake_projectile/ebow
 	name = "болтом"
 	hal_icon_state = "cbbolt"
-	hal_fire_sound = 'sound/weapons/sear.ogg'
+	hal_fire_sound = 'sound/weapons/gunshots/1heavysuppres.ogg'
 	hal_hitsound = null
-	stamina_damage = 75
+	stamina_damage = 100

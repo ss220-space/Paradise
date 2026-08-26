@@ -10,10 +10,9 @@
 	var/haunt_them = FALSE
 	/// if haunt_them is TRUE, they will also be shown one of these lines when the hallucination occurs
 	var/static/list/hallucination_lines = list(
-		"ЧУВАК, ДЕРЖИСЬ!",
-		"ОН ИДЁТ!",
-		"ЖВАЧКА ЛОМИТСЯ СКВОЗЬ СТЕНУ!",
-		"ТЫ СЛЫШИШЬ ЭТОТ ГРОХОТ?",
+		"ОХ ЕБАТЬ!!",
+		"ОТКУДА ОНО ЗДЕСЬ?!",
+		"БУБЛЬГУМ НА СТАНЦИИ!",
 	)
 
 /datum/hallucination/oh_yeah/New(mob/living/hallucinator, source = "an external source", haunt_them = FALSE)

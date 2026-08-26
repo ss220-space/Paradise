@@ -1,6 +1,6 @@
 /// Causes a fake "electric shock" to the hallucinator.
 /datum/hallucination/shock
-	random_hallucination_weight = 1 // очень низкий вес, т.к. есть и отдельная проверка при ударе о шлюз
+	random_hallucination_weight = 1
 	hallucination_tier = HALLUCINATION_TIER_COMMON
 
 	var/electrocution_icon = 'icons/mob/human.dmi'

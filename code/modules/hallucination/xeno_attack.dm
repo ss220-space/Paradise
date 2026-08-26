@@ -33,19 +33,31 @@
 
 	fake_xeno.set_leaping()
 	fake_xeno.throw_at(hallucinator, 7, 1, spin = FALSE, diagonals_first = TRUE)
-	addtimer(CALLBACK(src, PROC_REF(leap_back_to_pump), fake_xeno, attack_source), 1 SECONDS)
 
-/// Leaps from the hallucinator back to the vent.
-/datum/hallucination/xeno_attack/proc/leap_back_to_pump(obj/effect/client_image_holder/hallucination/xeno/fake_xeno, turf/attack_source)
+	addtimer(CALLBACK(src, PROC_REF(knock_down_hallucinator), fake_xeno), 0.5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(run_back_to_pump), fake_xeno, attack_source), 1 SECONDS)
+
+/// Unconditionally knocks down the hallucinator - dodging the pounce doesn't save you from a hallucination.
+/datum/hallucination/xeno_attack/proc/knock_down_hallucinator(obj/effect/client_image_holder/hallucination/xeno/fake_xeno)
+	if(QDELETED(src) || QDELETED(hallucinator) || hallucinator.stat == DEAD)
+		return
+
+	var/xeno_name = QDELETED(fake_xeno) ? "alien hunter" : fake_xeno.name
+	hallucinator.Weaken(10 SECONDS)
+	to_chat(hallucinator, span_userdanger("[xeno_name] набросится на тебя!"))
+
+/// Runs from the hallucinator back to the vent - sneaking, semi-transparent.
+/datum/hallucination/xeno_attack/proc/run_back_to_pump(obj/effect/client_image_holder/hallucination/xeno/fake_xeno, turf/attack_source)
 	if(QDELETED(src))
 		return
 	if(QDELETED(fake_xeno) || !attack_source)
 		qdel(src)
 		return
 
-	fake_xeno.set_leaping()
-	fake_xeno.throw_at(attack_source, 7, 1, spin = FALSE, diagonals_first = TRUE)
-	addtimer(CALLBACK(src, PROC_REF(begin_crawling), fake_xeno), 1 SECONDS)
+	fake_xeno.set_unleaping()
+	fake_xeno.set_sneaking()
+	GLOB.move_manager.move_to(fake_xeno, attack_source, 0, rand(1, 2))
+	addtimer(CALLBACK(src, PROC_REF(begin_crawling), fake_xeno), 3 SECONDS)
 
 /// Mimics ventcrawling into the vent.
 /datum/hallucination/xeno_attack/proc/begin_crawling(obj/effect/client_image_holder/hallucination/xeno/fake_xeno)
@@ -55,7 +67,7 @@
 		qdel(src)
 		return
 
-	to_chat(hallucinator, span_notice("[fake_xeno.name] begins climbing into the ventilation system...")) // перевод
+	to_chat(hallucinator, span_notice("[fake_xeno.name] начинает пробираться в вентиляционную систему..."))
 	addtimer(CALLBACK(src, PROC_REF(disappear), fake_xeno), 3 SECONDS)
 
 /// Disappears into the vent, ending the hallucination.
@@ -63,7 +75,8 @@
 	if(QDELETED(src))
 		return
 	if(!QDELETED(fake_xeno))
-		to_chat(hallucinator, span_notice("[fake_xeno.name] scrambles into the ventilation ducts!")) // перевод
+		GLOB.move_manager.stop_looping(fake_xeno)
+		to_chat(hallucinator, span_notice("[fake_xeno.name] забирается в вентиляционную шахту!"))
 
 	qdel(src)
 
@@ -76,19 +89,17 @@
 	. = ..()
 	name = "alien hunter ([rand(1, 1000)])"
 
-// The hallucination "throws" us at the hallucinator, so whenever we impact, we're actually landing a "leap".
+// The hallucination "throws" us at the hallucinator, so whenever we impact, we reset our leap pose.
+// Валит игрока не столкновение, а гарантированный knock_down_hallucinator - уклониться нельзя.
 /obj/effect/client_image_holder/hallucination/xeno/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	set_unleaping()
-	if(!isliving(hit_atom))
-		return
-	var/mob/living/hit_living = hit_atom
-	if(hit_living != parent.hallucinator || hit_living.stat == DEAD)
-		return
-	hit_living.Weaken(10 SECONDS)
-	hit_living.visible_message(
-		span_warning("[hit_living] flails around wildly."),
-		span_userdanger("[name] pounces on you!"),
-	) // перевод
+
+/// Makes the fake xeno semi-transparent, like a real xeno sneaking through the station.
+/obj/effect/client_image_holder/hallucination/xeno/proc/set_sneaking()
+	var/sneak_alpha = 130
+	alpha = sneak_alpha
+	if(shown_image)
+		animate(shown_image, alpha = sneak_alpha, time = 0.5 SECONDS)
 
 /// Sets our icon to look like we're leaping.
 /obj/effect/client_image_holder/hallucination/xeno/proc/set_leaping()

@@ -33,6 +33,12 @@
 	message_pool[span_warning("Ваш желудок урчит.")] = 1
 	message_pool[span_warning("У вас болит голова.")] = 1
 	message_pool[span_warning("Вы слышите слабый гул в голове.")] = 1
+	message_pool[span_notice("Камера наблюдения в этом коридоре медленно поворачивается вслед за вами.")] = 2
+	message_pool[span_notice("Вы замечаете, что ваша тень движется не синхронно с вами.")] = 1
+	message_pool[span_warning("Вам кажется, что стены коридора слегка сужаются.")] = 1
+	message_pool[span_danger("На мгновение вам кажется, что у вас [pick("три", "четыре")] руки.")] = 1
+	message_pool[span_danger("Вы чувствуете, как что-то шевелится у вас под кожей.")] = 1
+	message_pool[span_notice("Вы на мгновение забываете, как дышать.")] = 1
 
 	if(prob(10))
 		message_pool[span_warning("Позади тебя.")] = 1

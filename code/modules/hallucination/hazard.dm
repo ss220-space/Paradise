@@ -72,7 +72,6 @@
 	image_icon = 'icons/turf/floors/Chasms.dmi'
 
 /obj/effect/client_image_holder/hallucination/danger/chasm/generate_image()
-	var/turf/danger_turf = get_turf(src)
 	image_state = "smooth"
 	return ..()
 

@@ -24,7 +24,7 @@
 /datum/hallucination/station_message/proc/announce_to_hallucinator(message, title, alert_sound)
 	to_chat(hallucinator, "<div class='announcement minor'><h1>[html_encode(title)]</h1><p>[html_encode(message)]</p></div>", MESSAGE_TYPE_WARNING)
 
-	var/sound_file = alert_sound ? (alert_sound in SSstation.announcer.event_sounds ? SSstation.announcer.event_sounds[alert_sound] : alert_sound) : null
+	var/sound_file = alert_sound ? alert_sound : 'sound/misc/notice2.ogg'
 	if(sound_file)
 		hallucinator.playsound_local(null, sound_file, 100)
 
@@ -34,16 +34,16 @@
 	announce_to_hallucinator(
 		"Подтверждена вспышка биологической угрозы 5-го уровня на борту [station_name()]. Всему персоналу надлежит сдержать её распространение любой ценой!",
 		"Биологическая угроза",
-		ANNOUNCER_OUTBREAK5,
+		'sound/misc/notice1.ogg',
 	)
 
 /datum/hallucination/station_message/shuttle_dock
 
 /datum/hallucination/station_message/shuttle_dock/do_fake_alert()
 	announce_to_hallucinator(
-		"[SSshuttle.emergency] пристыковался к станции. У вас есть [DisplayTimeText(SSshuttle.emergency.timeLeft())] чтобы подняться на борт эвакуационного шаттла.",
+		"Эвакуационный шаттл пристыковался к станции. У вас есть 3 минуты чтобы подняться на борт эвакуационного шаттла.",
 		"Прибытие эвакуационного шаттла",
-		ANNOUNCER_SHUTTLEDOCK,
+		null,
 	)
 
 /datum/hallucination/station_message/malf_ai
@@ -54,27 +54,30 @@
 	announce_to_hallucinator(
 		"Во всех системах станции обнаружены вредоносные процессы, пожалуйста, деактивируйте ваш ИИ, чтобы предотвратить возможное повреждение его ядра морали.",
 		"Аномалия",
-		ANNOUNCER_AIMALF,
+		'sound/misc/notice1.ogg',
 	)
 
 /datum/hallucination/station_message/cult_summon
 	require_hearing = TRUE
 
 /datum/hallucination/station_message/cult_summon/do_fake_alert()
-	var/mob/living/carbon/human/totally_real_cult_leader = random_non_sec_crewmember()
-	if(!totally_real_cult_leader)
-		return CANCEL_FAKE_ALERT
-	var/area/hallucinator_area = get_area(hallucinator)
-	var/list/station_areas = list()
-	for(var/area/possible_area as anything in GLOB.areas)
-		if(possible_area == hallucinator_area || !is_station_level(possible_area.z))
+	var/list/manifest_names = list()
+	for(var/datum/data/record/record as anything in GLOB.data_core.general)
+		if(record.fields["name"] == hallucinator.real_name)
 			continue
-		station_areas += possible_area
-	if(!length(station_areas))
+		if(record.fields["rank"] in GLOB.security_positions)
+			continue
+		manifest_names += record.fields["name"]
+
+	if(!length(manifest_names))
 		return CANCEL_FAKE_ALERT
-	var/area/fake_summon_area = pick(station_areas)
+
+	var/turf/fake_summon_turf = get_safe_random_station_turf()
+	if(!fake_summon_turf)
+		return CANCEL_FAKE_ALERT
+
 	announce_to_hallucinator(
-		"Осколки древнего бога призываются [totally_real_cult_leader.real_name] в [fake_summon_area] из неизвестного измерения. Сорвите ритуал любой ценой!",
+		"Осколки древнего бога призываются [pick(manifest_names)] в [get_area(fake_summon_turf)] из неизвестного измерения. Сорвите ритуал любой ценой!",
 		"[command_name()] Дела высших измерений",
 		null,
 	)
@@ -86,7 +89,7 @@
 	announce_to_hallucinator(
 		"Метеоры обнаружены на курсе столкновения со станцией.",
 		"Метеоритная тревога",
-		ANNOUNCER_METEORS,
+		null,
 	)
 
 /datum/hallucination/station_message/cult_summon/clock_cult_ark
@@ -94,9 +97,15 @@
 
 /datum/hallucination/station_message/cult_summon/clock_cult_ark/start()
 	hallucinator.playsound_local(hallucinator, 'sound/magic/clockwork/clockcult_gateway_charging.ogg', 50, FALSE, pressure_affected = FALSE)
+	addtimer(CALLBACK(src, PROC_REF(play_gateway_disrupted_sound)), 15 SECONDS)
+	return TRUE
+
+/datum/hallucination/station_message/cult_summon/clock_cult_ark/proc/play_gateway_disrupted_sound()
+	if(QDELETED(src))
+		return
+
 	hallucinator.playsound_local(hallucinator, 'sound/magic/clockwork/clockcult_gateway_disrupted.ogg', 50, FALSE, pressure_affected = FALSE)
 	addtimer(CALLBACK(src, PROC_REF(play_distant_explosion_sound)), 2.7 SECONDS)
-	return TRUE
 
 /datum/hallucination/station_message/cult_summon/clock_cult_ark/proc/play_distant_explosion_sound()
 	if(QDELETED(src))
@@ -114,7 +123,17 @@
 	announce_to_hallucinator(
 		"[hallucinator.real_name] настоящим приказом был лишён защиты Космического Закона и приговорён к смертной казне. Всему экипажу разрешено и рекомендуется исполнить приговор. Между членами экипажа принявшими участие в процессе казни будет автоматически распределено денежное вознаграждение в размере [bounty] кредит[DECL_CREDIT(bounty)].",
 		ANNOUNCE_CCKILL_RU,
-		SSstation.announcer.get_rand_report_sound(),
+		'sound/announcer/classic/commandreport.ogg',
+	)
+
+/datum/hallucination/station_message/ert
+	random_hallucination_weight = 1
+
+/datum/hallucination/station_message/ert/do_fake_alert()
+	announce_to_hallucinator(
+		"Внимание, [station_name()]. Мы предпринимаем шаги для отправки отряда быстрого реагирования для ликвидации [hallucinator.real_name]. Ожидайте.",
+		ANNOUNCE_ERT_ACTIVATE_RU,
+		null,
 	)
 
 #undef CANCEL_FAKE_ALERT

@@ -1,5 +1,5 @@
 /// Fakes a bunch of airlocks being bolted (locked) around the hallucinator.
-/datum/hallucination/bolts
+/datum/hallucination/bolted_airlocks
 	random_hallucination_weight = 7
 	hallucination_tier = HALLUCINATION_TIER_COMMON
 	/// A list of weakrefs to airlocks we bolt down around us
@@ -11,7 +11,7 @@
 	/// Whether we're currently locking, or unlocking
 	var/locking = TRUE
 
-/datum/hallucination/bolts/start()
+/datum/hallucination/bolted_airlocks/start()
 	var/door_number = rand(0, 4) // if 0, we bolt all visible doors
 	feedback_details += "Door amount: [door_number]"
 
@@ -28,7 +28,7 @@
 	START_PROCESSING(SSfastprocess, src)
 	return TRUE
 
-/datum/hallucination/bolts/process(seconds_per_tick)
+/datum/hallucination/bolted_airlocks/process(seconds_per_tick)
 	if(QDELETED(src))
 		return
 
@@ -60,7 +60,7 @@
 
 	next_action = rand(4, 12)
 
-/datum/hallucination/bolts/Destroy()
+/datum/hallucination/bolted_airlocks/Destroy()
 	// Clean up any locks we happen to have remaining on qdel.
 	// Hypothetically this shouldn't delete anything. But just in case.
 	for(var/datum/weakref/leftover_lock_ref as anything in locks)
