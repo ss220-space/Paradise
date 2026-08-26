@@ -114,9 +114,12 @@
 
 /obj/item/gun/projectile/proc/reload(obj/item/ammo_box/magazine/new_magazine, mob/user)
 	playsound(loc, magin_sound, 50, TRUE)
-	CALCULATE_SKILL_MOD(user, MAGAZINE_RELOAD_MOD, skill_modifier)
-	if(!do_after(user, reload_duration * skill_modifier, src, DA_IGNORE_USER_LOC_CHANGE, max_interact_count = 1))
-		return FALSE
+
+	GET_SKILL_LEVEL(user, /datum/skill/combat/guns, skill_level)
+	if(skill_level < SKILL_LEVEL_BASIC)
+		CALCULATE_SKILL_MOD(user, MAGAZINE_RELOAD_MOD, skill_modifier)
+		if(!do_after(user, reload_duration * skill_modifier, src, DA_IGNORE_USER_LOC_CHANGE, max_interact_count = 1))
+			return FALSE
 
 	if(user && !user.drop_transfer_item_to_loc(new_magazine, src, silent = TRUE))
 		return FALSE
@@ -164,9 +167,12 @@
 		return FALSE
 
 	add_fingerprint(user)
-	CALCULATE_SKILL_MOD(user, MAGAZINE_RELOAD_MOD, skill_modifier)
-	if(!do_after(user, reload_duration * skill_modifier, src, DA_IGNORE_USER_LOC_CHANGE, max_interact_count = 1))
-		return FALSE
+
+	GET_SKILL_LEVEL(user, /datum/skill/combat/guns, skill_level)
+	if(skill_level < SKILL_LEVEL_BASIC)
+		CALCULATE_SKILL_MOD(user, MAGAZINE_RELOAD_MOD, skill_modifier)
+		if(!do_after(user, reload_duration * skill_modifier, src, DA_IGNORE_USER_LOC_CHANGE, max_interact_count = 1))
+			return FALSE
 
 	var/num_loaded = magazine.reload(item, user)
 	if(!num_loaded)
