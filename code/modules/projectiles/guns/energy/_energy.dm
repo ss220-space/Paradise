@@ -7,6 +7,7 @@
 	fire_sound_text = "laser blast"
 	ammo_x_offset = 2
 	attachable_allowed = GUN_MODULE_CLASS_ENERGY_WEAPON
+	weapon_weight = WEAPON_MEDIUM
 
 	/// What type of power cell this uses
 	var/obj/item/stock_parts/cell/cell

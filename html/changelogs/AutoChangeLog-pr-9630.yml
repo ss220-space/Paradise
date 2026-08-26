@@ -1,4 +1,0 @@
-author: "SCPfollower"
-delete-after: True
-changes:
-  - map: "Убраны лишние трубы под библиотекой. (PR #9630)"

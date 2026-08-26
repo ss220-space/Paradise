@@ -13,6 +13,7 @@
 	pickup_sound = 'sound/items/handling/pickup/generic_pickup1.ogg'
 	drop_sound = 'sound/items/handling/drop/generic_drop3.ogg'
 	accuracy = GUN_ACCURACY_RIFLE
+	weapon_weight = WEAPON_LIGHT
 
 // MARK: Pistol
 /obj/item/gun/projectile/automatic/toy/pistol
@@ -63,6 +64,7 @@
 	drop_sound = 'sound/items/handling/drop/generic_drop3.ogg'
 	pb_knockback = 0
 	accuracy = GUN_ACCURACY_SHOTGUN
+	weapon_weight = WEAPON_LIGHT
 	available_reload_animation = FALSE
 
 /obj/item/gun/projectile/shotgun/toy/handle_chamber()
@@ -92,6 +94,7 @@
 	pickup_sound = 'sound/items/handling/pickup/generic_pickup1.ogg'
 	drop_sound = 'sound/items/handling/drop/generic_drop3.ogg'
 	accuracy = GUN_ACCURACY_RIFLE
+	weapon_weight = WEAPON_LIGHT
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL
 
 /obj/item/gun/projectile/automatic/smg/c20r/toy/riot
@@ -112,6 +115,7 @@
 	pickup_sound = 'sound/items/handling/pickup/generic_pickup1.ogg'
 	drop_sound = 'sound/items/handling/drop/generic_drop3.ogg'
 	accuracy = GUN_ACCURACY_RIFLE
+	weapon_weight = WEAPON_LIGHT
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 
 /obj/item/gun/projectile/automatic/l6_saw/toy/update_overlays()
@@ -140,6 +144,7 @@
 	pickup_sound = 'sound/items/handling/pickup/generic_pickup1.ogg'
 	drop_sound = 'sound/items/handling/drop/generic_drop3.ogg'
 	accuracy = GUN_ACCURACY_SNIPER
+	weapon_weight = WEAPON_LIGHT
 	attachable_allowed = GUN_MODULE_CLASS_SNIPER_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 
 /obj/item/gun/projectile/automatic/sniper_rifle/toy/update_overlays()
