@@ -31,6 +31,7 @@
 	var/is_drink = FALSE
 	var/base_skill = /datum/skill/medical/chemistry
 	var/dispence_skill_name = CHEMISTRY_DISPENSE_RAND_SIZE
+	var/dispence_random_prob_name = CHEMISTRY_DISPENSE_RAND_REAGENT_PROB
 
 /obj/machinery/chem_dispenser/get_ru_names()
 	return alist(
@@ -238,43 +239,59 @@
 		//Chem dispenser dispense amount
 		if("amount")
 			amount = clamp(round(text2num(params["amount"]), 1), 0, 100) //Round to nearest 1 and clamp to 0 - 100
+
 		if("dispense")
 			if(!is_operational() || QDELETED(cell))
 				return
+
 			if(!beaker || !dispensable_reagents.Find(params["reagent"]))
 				return
-			var/datum/reagents/R = beaker.reagents
-			var/free = R.maximum_volume - R.total_volume
+
+			var/datum/reagents/reagents = beaker.reagents
+			var/free = reagents.maximum_volume - reagents.total_volume
 			var/actual = min(amount, (cell.charge * powerefficiency) * 10, free)
+
 			if(!cell.use(actual / powerefficiency))
 				atom_say("Недостаточно энергии для завершения операции!")
 				return
+
 			CALCULATE_SKILL_MOD(usr, dispence_skill_name, dispense_rand_size)
 			actual += min(amount * dispense_rand_size * (rand(0, 1) * dispense_rand_size), free) // assistants gets free drinks, but can evaporate energy in seconds
+
 			var/reagent = params["reagent"]
-			dispense_rand_size *= 100
-			if(prob(dispense_rand_size))
+			CALCULATE_SKILL_MOD(usr, dispence_random_prob_name, dispence_random_prob)
+			dispence_random_prob *= 100
+			if(prob(dispence_random_prob ))
 				reagent = pick(dispensable_reagents)
-			R.add_reagent(reagent, actual)
+			reagents.add_reagent(reagent, actual)
 			update_icon(UPDATE_OVERLAYS)
+
 		if("remove")
 			var/amount = text2num(params["amount"])
+
 			if(!beaker || !amount)
 				return
-			var/datum/reagents/R = beaker.reagents
+
+			var/datum/reagents/reagents = beaker.reagents
 			var/id = params["reagent"]
+
 			if(amount > 0)
-				R.remove_reagent(id, amount)
+				reagents.remove_reagent(id, amount)
+
 			else if(amount == -1) //Isolate instead
-				R.isolate_reagent(id)
+				reagents.isolate_reagent(id)
+
 			else if(amount == -2) //Round to lesser number (a.k.a 14.61 -> 14)
-				R.floor_reagent(id)
+				reagents.floor_reagent(id)
+
 		if("ejectBeaker")
 			if(!beaker)
 				return
+
 			beaker.forceMove(loc)
 			if(Adjacent(usr) && !issilicon(usr))
 				usr.put_in_hands(beaker, ignore_anim = FALSE)
+
 			beaker = null
 			update_icon(UPDATE_OVERLAYS)
 		else
@@ -407,6 +424,7 @@
 	is_drink = TRUE
 	base_skill = /datum/skill/service/drink_mixing
 	dispence_skill_name = DRINKS_DISPENSE_RAND_SIZE
+	dispence_random_prob_name = DRINKS_DISPENSE_RAND_REAGENT_PROB
 
 /obj/machinery/chem_dispenser/soda/get_ru_names()
 	return alist(

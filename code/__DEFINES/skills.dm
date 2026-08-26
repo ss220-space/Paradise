@@ -55,6 +55,8 @@
 #define COOKING_EXTRA_COUNT_CHANCE "cooking_extra_count_chance"
 /// Dispense random size modifier for drinks skill
 #define DRINKS_DISPENSE_RAND_SIZE "drinks_dispense_rand_size"
+/// Сhance to dispense a random reagent
+#define DRINKS_DISPENSE_RAND_REAGENT_PROB "drinks_dispense_rand_reagent_prob"
 /// Plant growth rate modifier for botany skill
 #define PLANT_GROWTH_RATE "plant_growth_rate"
 /// Hydroponic cultivation modifier for botany skill
@@ -131,6 +133,8 @@
 #define HEAL_AMOUNT_MOD "heal_amount_mod"
 /// Dispense random size modifier for chemistry skill
 #define CHEMISTRY_DISPENSE_RAND_SIZE "chemistry_dispense_rand_size"
+/// Сhance to dispense a random reagent
+#define CHEMISTRY_DISPENSE_RAND_REAGENT_PROB "chemistry_dispense_rand_reagent_prob"
 /// Irradiation duration modifier for genetic skill
 #define IRRADIATION_DURATION_MOD "irradiation_duration_mod"
 
