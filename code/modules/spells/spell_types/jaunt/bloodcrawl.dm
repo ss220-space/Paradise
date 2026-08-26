@@ -330,6 +330,15 @@
 	consumed_mobs -= victim
 	UnregisterSignal(victim, COMSIG_MOB_STATCHANGE)
 
+/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/exit_blood_effect(mob/living/exited)
+	. = ..()
+	if(prob(25))
+		var/list/voice = list('sound/hallucinations/behind_you1.ogg', 'sound/hallucinations/im_here1.ogg', 'sound/hallucinations/turn_around1.ogg', 'sound/hallucinations/i_see_you1.ogg')
+		playsound(exited, pick(voice), 50, TRUE, -1)
+	exited.add_movespeed_modifier(/datum/movespeed_modifier/slaughter_boost)
+	addtimer(CALLBACK(exited, TYPE_PROC_REF(/mob, remove_movespeed_modifier), /datum/movespeed_modifier/slaughter_boost), 6 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE)
+
+
 /**
  * Laughter demon's blood crawl
  * All mobs consumed are revived after the demon is killed.
