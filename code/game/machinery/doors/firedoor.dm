@@ -126,12 +126,17 @@
 
 	user.changeNext_move(CLICK_CD_MELEE)
 
+	var/open_time = manual_open_time
+	if(ishuman(user))
+		var/datum/strength_level/level = user.get_strength_level()
+		if(level)
+			open_time = manual_open_time / max(0.1, level.door_open_speed_modifier)
+
 	user.visible_message(
 		span_notice("[user] tries to open [src] manually."),
 		span_notice("You operate the manual lever on [src]."))
 
-	CALCULATE_SKILL_MOD(user, LOCKPICK_SPEED_MOD, lockpick_mod)
-	if(do_after(user, manual_open_time * lockpick_mod, src))
+	if(do_after(user, open_time, src))
 		add_fingerprint(user)
 		user.visible_message(
 			span_notice("[user] opens [src]."),
