@@ -21,7 +21,7 @@
 			stack_trace("Mob [type] has improper ventcrawler_trait value.")
 
 	if(mobility_flags & MOBILITY_REST)
-		add_verb(src, /mob/living/proc/toggle_resting)
+		ASSIGN_GAME_VERB(src, /mob/living, toggle_resting)
 		if(!density)	// we want undense mobs to stay undense when they stop resting
 			ADD_TRAIT(src, TRAIT_UNDENSE, INNATE_TRAIT)
 
@@ -104,11 +104,6 @@
 
 /mob/living/IsLying()
 	return body_position == LYING_DOWN
-
-/mob/living/canface()
-	if(!(mobility_flags & MOBILITY_MOVE))
-		return FALSE
-	return ..()
 
 /mob/living/onZImpact(turf/impacted_turf, levels, impact_flags = NONE)
 	if(!isopenspaceturf(impacted_turf))
@@ -585,18 +580,13 @@
 	update_pull_movespeed()
 	pullin?.update_icon(UPDATE_ICON_STATE)
 
-/mob/living/verb/stop_pulling1()
-	set name = "Прекратить тащить"
-	set category = VERB_CATEGORY_IC
-	stop_pulling()
-
 /mob/living/proc/stop_hand_bleedsuppress()
 	left_hand_bleed_suppress_lib = null
 	right_hand_bleed_suppress_lib = null
 	update_hands_HUD()
 
 //same as above
-/mob/living/pointed(atom/A as mob|obj|turf in view())
+/mob/living/pointed(atom/A)
 	if(incapacitated())
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_FAKEDEATH))
@@ -895,10 +885,7 @@
 /mob/living/proc/UpdateDamageIcon()
 	return
 
-/mob/living/proc/Examine_OOC()
-	set name = "Мета-инфа (OOC)"
-	set category = VERB_CATEGORY_OOC
-	set src in view()
+GAME_VERB_SRC(/mob/living, Examine_OOC, view(), "Мета-инфа (OOC)", VERB_CATEGORY_HIDDEN)
 
 	if(CONFIG_GET(flag/allow_metadata))
 		if(client)
@@ -1044,10 +1031,7 @@
 		return FALSE
 	return TRUE
 
-/mob/living/verb/resist()
-	set name = "Сопротивляться"
-	set category = VERB_CATEGORY_IC
-
+GAME_VERB(/mob/living, resist, "Сопротивляться", VERB_CATEGORY_IC)
 	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(execute_resist)))
 
 ///proc extender of [/mob/living/verb/resist] meant to make the process queable if the server is overloaded when the verb is called
@@ -1934,9 +1918,7 @@
 /mob/living/proc/get_transform_translation_size(value)
 	return (value-1) * get_cached_height() * 0.5
 
-/mob/living/proc/toggle_resting()
-	set name = "Лечь"
-	set category = VERB_CATEGORY_IC
+GAME_VERB_PROC(/mob/living, toggle_resting, "Лечь", VERB_CATEGORY_IC)
 
 	set_resting(!resting, silent = FALSE)
 
@@ -2137,10 +2119,10 @@
 
 	update_ssd_overlay()	// special SSD overlay handling
 
-/mob/living/verb/succumb()
-	set hidden = TRUE
+GAME_VERB_HIDDEN(/mob/living, succumb, "succumb")
+	VERB_ARG(whispered, VERB_ARG_TYPE_NUM, VERB_ARG_SOURCE_INPUT)
 	// if you use the verb you better mean it
-	do_succumb(FALSE)
+	do_succumb(!whispered)
 
 /mob/living/proc/do_succumb(cancel_on_no_words)
 	if(stat == DEAD)

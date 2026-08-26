@@ -1,9 +1,9 @@
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { useEffect, useState } from 'react';
 import { useBackend } from 'tgui/backend';
-import { Box, Button, Floating, Stack } from 'tgui/components';
-import type { BooleanLike } from 'common/react';
-import { capitalize } from 'common/string';
+import { Box, Button, Floating, Stack } from 'tgui-core/components';
+import type { BooleanLike } from 'tgui-core/react';
+import { capitalize } from 'tgui-core/string';
 import {
   colorsAtom,
   currentColorAtom,
@@ -147,7 +147,7 @@ type PaletteProps = IncludeOrOmitEntireType<
 >;
 
 const hasServerColorProps = (
-  props: PaletteProps
+  props: PaletteProps,
 ): props is PaletteProps & ServerColorProps => {
   return Object.hasOwn(props, 'serverPalette');
 };
@@ -160,13 +160,13 @@ type CanvasProps = {
 export namespace SpriteEditor {
   export const syncBackend = (
     onSelectServerColor?: string,
-    serverSelectedColor?: string
+    serverSelectedColor?: string,
   ) => {
     const [currentColor, setCurrentColor] = useAtom(currentColorInternalAtom);
     const setOnSelectServerColor = useSetAtom(onSelectServerColorAtom);
     useEffect(
       () => setOnSelectServerColor(onSelectServerColor),
-      [onSelectServerColor]
+      [onSelectServerColor],
     );
     useEffect(() => {
       if (serverSelectedColor) {
@@ -179,7 +179,7 @@ export namespace SpriteEditor {
   };
 
   export const ColorPicker = (
-    props: Omit<BaseColorPickerProps, 'initialColor' | 'onSelectColor'>
+    props: Omit<BaseColorPickerProps, 'initialColor' | 'onSelectColor'>,
   ) => {
     const [currentColor, setCurrentColor] = useAtom(currentColorAtom);
     return (
@@ -208,7 +208,7 @@ export namespace SpriteEditor {
       }
       if (
         !parsedServerColors.find((serverColor) =>
-          colorsAreEqual(serverColor, currentColor)
+          colorsAreEqual(serverColor, currentColor),
         )
       ) {
         setCurrentColor(parsedServerColors[0]);
@@ -264,7 +264,7 @@ export namespace SpriteEditor {
       if (!(toolFlags & (1 << tools.indexOf(currentTool)))) {
         setCurrentTool(
           tools.find((_, i) => toolFlags & (1 << i))!,
-          cancelContext
+          cancelContext,
         );
       }
     }, [toolFlags]);
@@ -282,7 +282,7 @@ export namespace SpriteEditor {
                   {...perButtonProps?.(tool, i)}
                 />
               </Stack.Item>
-            )
+            ),
         )}
       </Stack>
     );
@@ -321,7 +321,7 @@ export namespace SpriteEditor {
           selectedDir,
           selectedLayer,
           previewLayer,
-          previewData
+          previewData,
         )}
         backdropColor={backdrop}
         {...(disabled
@@ -335,7 +335,7 @@ export namespace SpriteEditor {
                     data,
                     x,
                     y,
-                    ev.button === 2
+                    ev.button === 2,
                   )
                 ) {
                   ev.preventDefault();
@@ -363,7 +363,7 @@ export namespace SpriteEditor {
       | 'setSelectedDir'
       | 'selectedLayer'
       | 'setSelectedLayer'
-    >
+    >,
   ) => {
     const [selectedDir, setSelectedDir] = useAtom(dirAtom);
     const [selectedLayer, setSelectedLayer] = useAtom(layerAtom);

@@ -1,9 +1,9 @@
-import { computeBoxProps } from 'common/ui';
+import type { ComponentProps } from 'react';
+import { Button } from 'tgui-core/components';
+import { computeBoxProps } from 'tgui-core/ui';
 import { useBackend } from '../../backend';
-import { Button } from '../../components';
-import { ButtonProps } from '../../components/Button';
 
-type RndNavButtonProps = RndRouteData & ButtonProps;
+type RndNavButtonProps = RndRouteData & ComponentProps<typeof Button>;
 
 export const RndNavButton = (properties: RndNavButtonProps) => {
   const { icon, children, disabled, content } = properties;

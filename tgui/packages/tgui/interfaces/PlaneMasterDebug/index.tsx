@@ -5,14 +5,14 @@ import {
   InfinitePlane,
   Stack,
   Tooltip,
-} from '../../components';
+} from 'tgui-core/components';
 import { resolveAsset } from '../../assets';
 import { useBackend } from '../../backend';
 import { Window } from '../../layouts';
 import {
   type Connection,
   Connections,
-  type Position,
+  type Coordinates,
 } from '../common/Connections';
 import { ABSOLUTE_Y_OFFSET } from './../IntegratedCircuit/constants';
 import { PlaneEditor } from './PlaneEditor';
@@ -33,7 +33,7 @@ import type {
 } from './types';
 import { PlaneDebugContext } from './usePlaneDebug';
 
-const getPosition = (el: HTMLElement | null): Position => {
+const getPosition = (el: HTMLElement | null): Coordinates => {
   let xPos = 0;
   let yPos = 0;
 
@@ -78,7 +78,7 @@ const evaluatePlaneDepth = (plane: Plane, depth: number) => {
         ((checkElem as Plane).outgoing_filters as (Filter | Relay)[])
           .concat(checkElem.outgoing_relays)
           .map((connection: Filter | Relay) => connection.target)
-          .filter(isDefined)
+          .filter(isDefined),
       );
     }
 
@@ -119,7 +119,7 @@ const getPlaneHeight = (plane: Plane) => {
     19 *
       Math.max(
         plane.incoming_filters.length + plane.incoming_relays.length,
-        plane.outgoing_filters.length + plane.outgoing_relays.length + 1
+        plane.outgoing_filters.length + plane.outgoing_relays.length + 1,
       ) +
     15
   );
@@ -128,19 +128,19 @@ const getPlaneHeight = (plane: Plane) => {
 const getDesiredPlanePosition = (
   plane: Plane,
   curStack: number,
-  tallestStack: number
+  tallestStack: number,
 ) => {
   const dependents: Plane[] = (
     curStack > tallestStack
       ? (plane.outgoing_filters as (Filter | Relay)[]).concat(
-          plane.outgoing_relays
+          plane.outgoing_relays,
         )
       : (plane.incoming_filters as (Filter | Relay)[]).concat(
-          plane.incoming_relays
+          plane.incoming_relays,
         )
   )
     .map((connection: Filter | Relay) =>
-      curStack > tallestStack ? connection.target : connection.source
+      curStack > tallestStack ? connection.target : connection.source,
     )
     .filter(isDefined);
 
@@ -252,7 +252,7 @@ const mapPlanes = (planes: PlaneData[]) => {
     const plane = planeGraph[key];
     widthPerDepth[plane.depth] = Math.max(
       widthPerDepth[plane.depth] || 0,
-      textWidth(plane.name, 'Verdana, Geneva', 12) + 30
+      textWidth(plane.name, 'Verdana, Geneva', 12) + 30,
     );
 
     const newHeight =
@@ -351,7 +351,7 @@ const mapPlanes = (planes: PlaneData[]) => {
   }
 
   const stackKeys = Object.keys(planeStacks).sort(
-    (a, b) => Math.abs(+a - tallestStack) - Math.abs(+b - tallestStack)
+    (a, b) => Math.abs(+a - tallestStack) - Math.abs(+b - tallestStack),
   );
 
   for (let k = 0; k < stackKeys.length; k++) {
@@ -383,7 +383,7 @@ const mapPlanes = (planes: PlaneData[]) => {
             const otherPos = getDesiredPlanePosition(
               otherPlane,
               +key,
-              tallestStack
+              tallestStack,
             );
 
             if (Number.isNaN(otherPos)) {
@@ -394,7 +394,7 @@ const mapPlanes = (planes: PlaneData[]) => {
             curBottom += otherHeight;
             pushedPosition = Math.max(
               pushedPosition,
-              curBottom - otherPos - otherHeight / 2
+              curBottom - otherPos - otherHeight / 2,
             );
           }
         }
@@ -546,8 +546,8 @@ export const PlaneMasterDebug = () => {
                       .sort((a, b) => a.length - b.length)
                       .pop() as string,
                     'Verdana, Geneva',
-                    12
-                  )
+                    12,
+                  ),
                 ) + 40
               }px`}
             >
@@ -555,11 +555,11 @@ export const PlaneMasterDebug = () => {
                 options={planes.map((plane) => plane.name).sort()}
                 placeholder="Find Plane"
                 selected={zoomToPlane}
-                search
+                searchInput
                 onSelected={(value) => {
                   setZoomToPlane(value);
                   const locatedPlane = planes.find(
-                    (plane) => plane.name === value
+                    (plane) => plane.name === value,
                   );
                   if (locatedPlane) {
                     const position =

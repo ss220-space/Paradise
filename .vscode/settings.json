@@ -1,28 +1,19 @@
 {
-	"eslint.workingDirectories": ["tgui/"],
-	"eslint.nodePath": "tgui/.yarn/sdks",
-	"prettier.configPath": "tgui/.prettierrc.yml",
-	"prettier.prettierPath": "tgui/.yarn/sdks/prettier/index.cjs",
-	"typescript.tsdk": "tgui/.yarn/sdks/typescript/lib",
-	"typescript.enablePromptUseWorkspaceTsdk": true,
 	"search.exclude": {
-		"**/.yarn": true,
+		"**/node_modules": true,
 		"**/.pnp.*": true,
 		"tgui/public/**/*": true
 	},
-	"eslint.format.enable": true,
-	"eslint.rules.customizations": [
-		// We really want to fail the CI builds on styling errors,
-		// but it's better to show them as yellow squigglies in IDE
-		// and thus differentiate from the red typescript ones which
-		// are actually hard errors.
-		{ "rule": "*", "severity": "warn" }
-	],
 
-	"[javascript][javascriptreact][typescript][typescriptreact][scss][css][html]": {
-		"editor.rulers": [80],
+	"[javascript][typescript][javascriptreact][typescriptreact][css][json][jsonc]": {
+		"editor.defaultFormatter": "biomejs.biome",
+		"editor.formatOnSave": true,
+		"editor.rulers": [80]
+	},
+	"[yaml][markdown][html][scss]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode",
-		"editor.formatOnSave": true
+		"editor.formatOnSave": true,
+		"editor.rulers": [80]
 	},
 	"[toml]": {
 		"editor.formatOnSave": false
@@ -30,6 +21,7 @@
 
 	"editor.formatOnSave": true,
 	"editor.codeActionsOnSave": {
+		"source.organizeImports.biome": "explicit",
 		"source.fixAll.eslint": "explicit"
 	},
 	"files.insertFinalNewline": true,
@@ -40,4 +32,7 @@
 	"workbench.editorAssociations": {
 		"*.dmi": "dmiEditor.dmiEditor"
 	},
+	"ss13BuildFlags.baseTask": "Build All",
+	"ss13BuildFlags.configPath": "tools/build/build_flags.json",
+	"ss13BuildFlags.injectionMode": "cli-args"
 }

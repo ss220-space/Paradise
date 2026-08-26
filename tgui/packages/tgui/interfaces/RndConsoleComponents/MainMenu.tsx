@@ -1,8 +1,7 @@
+import { Box, Button, Flex, LabeledList, Section } from 'tgui-core/components';
 import { useBackend } from '../../backend';
-import { Box, Flex, LabeledList, Section, Button } from '../../components';
-import { RndNavButton } from './index';
 import { MENU, SUBMENU } from '../RndConsole';
-import { left } from '@popperjs/core';
+import { RndNavButton } from './index';
 
 export const MainMenu = (properties) => {
   const { data } = useBackend<RndData>();
@@ -69,7 +68,7 @@ export const MainMenu = (properties) => {
       <Box mt="12px" />
       <h3>Локальные уровни технологий:</h3>
       <LabeledList>
-        {tech_levels.map(({ name, level, desc }) => (
+        {tech_levels?.map(({ name, level, desc }) => (
           <LabeledList.Item
             label={
               <Button color="transparent" tooltip={desc}>

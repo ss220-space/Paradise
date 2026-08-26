@@ -1,0 +1,5 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - bugfix: "Контекстный верб \"Передать\" убран из статпанели. (PR #9714)"
+  - bugfix: "Исправлен нерабочий бинд закрытия всех ui. (PR #9714)"

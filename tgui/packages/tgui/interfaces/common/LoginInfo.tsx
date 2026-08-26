@@ -1,5 +1,5 @@
+import { Button, NoticeBox, Stack } from 'tgui-core/components';
 import { useBackend } from '../../backend';
-import { Button, NoticeBox, Stack } from '../../components';
 
 export type LoginState = { name: string; rank: string; id: boolean };
 type LoginInfoData = {
