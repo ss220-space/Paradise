@@ -7,14 +7,14 @@ import {
   NumberInput,
   Section,
   Stack,
-} from 'tgui/components';
-import { clamp01 } from 'common/math';
-import type { BooleanLike } from 'common/react';
+} from 'tgui-core/components';
+import { clamp01 } from 'tgui-core/math';
+import type { BooleanLike } from 'tgui-core/react';
 import {
   type BooleanStyleMap,
   computeBoxProps,
   type StringStyleMap,
-} from 'common/ui';
+} from 'tgui-core/ui';
 import {
   asBothSpaces,
   hsva2hslString,
@@ -35,7 +35,7 @@ import {
 
 type TouchpadEventHandler = (
   event: MouseEvent,
-  ref: React.RefObject<HTMLDivElement>
+  ref: React.RefObject<HTMLDivElement>,
 ) => void;
 
 type TouchpadProps = {
@@ -54,7 +54,7 @@ const Touchpad = (props: TouchpadProps) => {
     usedRef,
     onMouseDown,
     onMouseMove,
-    onMouseUp
+    onMouseUp,
   );
   return (
     <div ref={fallbackRef} onMouseDown={mouseDownHandler}>
@@ -83,7 +83,7 @@ type SliderProps = SliderMarkerProps & {
 const computeSliderValue = (
   event: MouseEvent,
   ref: React.RefObject<HTMLElement>,
-  vertical: BooleanLike
+  vertical: BooleanLike,
 ) => {
   const current = ref.current;
   if (!current) {
@@ -92,7 +92,7 @@ const computeSliderValue = (
   const { clientX, clientY } = event;
   const { top, left, width, height } = current.getBoundingClientRect();
   return clamp01(
-    vertical ? (clientY - top) / height : (clientX - left) / width
+    vertical ? (clientY - top) / height : (clientX - left) / width,
   );
 };
 
@@ -114,14 +114,14 @@ const Slider = (props: SliderProps) => {
       const value = computeSliderValue(event, ref, vertical);
       onDrag(value);
     },
-    [onDrag]
+    [onDrag],
   );
   const releaseHandler = useCallback<TouchpadEventHandler>(
     (event, ref) => {
       const value = computeSliderValue(event, ref, vertical);
       onRelease(value);
     },
-    [onRelease]
+    [onRelease],
   );
   const dimensions = vertical
     ? {
@@ -184,7 +184,7 @@ type SatValPadProps = {
 
 const computeSatValTouchpadValue = (
   ev: MouseEvent,
-  ref: React.RefObject<HTMLDivElement | null>
+  ref: React.RefObject<HTMLDivElement | null>,
 ): [number, number] => {
   const current = ref.current;
   if (!current) {
@@ -206,14 +206,14 @@ const SatValPad = (props: SatValPadProps) => {
       const [x, y] = computeSatValTouchpadValue(ev, touchpadRef);
       onDrag(x, y);
     },
-    [touchpadRef, onDrag]
+    [touchpadRef, onDrag],
   );
   const releaseHandler = useCallback(
     (ev) => {
       const [x, y] = computeSatValTouchpadValue(ev, touchpadRef);
       onRelease(x, y);
     },
-    [touchpadRef, onRelease]
+    [touchpadRef, onRelease],
   );
   return (
     <div
@@ -310,7 +310,7 @@ const PickerComponentRow = (props: PickerComponentRowProps) => {
           onDrag={useCallback((value) => onDrag(lerp(0, max, value)), [onDrag])}
           onRelease={useCallback(
             (value) => onRelease(lerp(0, max, value)),
-            [onRelease]
+            [onRelease],
           )}
         />
       </Stack.Item>

@@ -7,6 +7,7 @@
 	fire_sound_text = "laser blast"
 	ammo_x_offset = 2
 	attachable_allowed = GUN_MODULE_CLASS_ENERGY_WEAPON
+	weapon_weight = WEAPON_MEDIUM
 
 	/// What type of power cell this uses
 	var/obj/item/stock_parts/cell/cell
@@ -105,10 +106,7 @@
 
 	return ..()
 
-/obj/item/gun/energy/proc/toggle_voice()
-	set name = "Сменить голос Sibyl System"
-	set category = VERB_CATEGORY_OBJECT
-	set desc = "Кликните для переключения голосовой подсистемы."
+GAME_PROC_SRC(/obj/item/gun/energy, toggle_voice, usr, "Сменить голос Sibyl System", VERB_CATEGORY_HIDDEN)
 
 	if(sibyl_mod)
 		sibyl_mod.toggle_voice(usr)

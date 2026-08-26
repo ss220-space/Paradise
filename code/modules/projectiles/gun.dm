@@ -396,6 +396,10 @@
 		to_chat(user, span_userdanger("Для стрельбы из [declent_ru(GENITIVE)] нужны две свободные руки!"))
 		return
 
+	if(!HAS_TRAIT(user, TRAIT_BADASS) && weapon_weight == WEAPON_MEDIUM && isgun(user.get_inactive_hand()))
+		to_chat(user, span_userdanger("Стрелять с двух рук используя [declent_ru(ACCUSATIVE)] не получится!"))
+		return
+
 	if(gun_on_cooldown(user))
 		return
 
@@ -508,8 +512,8 @@
 	if(dual_wield && !(gun_user && HAS_TRAIT(gun_user, TRAIT_BADASS)))
 		bonus_spread += accuracy.dual_wield_spread * weapon_weight
 	//CLOWN CHECK
-	if(gun_user && HAS_TRAIT(gun_user, TRAIT_CLUMSY) && prob(50))
-		bonus_spread += 45
+	if(gun_user && HAS_TRAIT(gun_user, TRAIT_CLUMSY))
+		bonus_spread += 75
 
 /obj/item/gun/proc/set_fire_delay(value, mob/user)
 	fire_delay = value
@@ -611,7 +615,7 @@
 	shots_fired++
 
 /obj/item/gun/proc/do_pointblank_shot(mob/living/user, atom/target)
-	user.visible_message(span_danger("[user] стреля[PLUR_ET_YUT(user)] из [declent_ru(GENITIVE)] в упор в [target]!"), span_danger("Вы стреляете из [declent_ru(GENITIVE)] в упор в [target]!"), span_italics("Вы слышите [fire_sound_text]!"), projectile_message = TRUE)
+	user.visible_message(span_danger("[user] стреля[PLUR_ET_YUT(user)] из [declent_ru(GENITIVE)] в упор в [target]!"), span_danger("Вы стреляете из [declent_ru(GENITIVE)] в упор в [target]!"), span_italics("Вы слышите [fire_sound_text]!"))
 	if(pb_knockback > 0 && isliving(target))
 		do_pb_knockback(user, target)
 
@@ -800,13 +804,6 @@
 		return TRUE
 	return ..()
 
-/obj/item/gun/proc/toggle_gunlight_verb()
-	set name = "Оружейный фонарик"
-	set category = VERB_CATEGORY_OBJECT
-	set desc = "Click to toggle your weapon's attached flashlight."
-
-	toggle_gunlight(usr)
-
 /obj/item/gun/proc/toggle_gunlight(mob/user, silent = FALSE)
 	if(!gun_light)
 		return
@@ -839,7 +836,6 @@
 
 	if(gun_light)
 		gun_light.set_light_flags(gun_light.light_flags | LIGHT_ATTACHED)
-		verbs |= /obj/item/gun/proc/toggle_gunlight_verb
 		if(gun_light.loc != src)
 			gun_light.forceMove(src)
 		var/datum/action/item_action/toggle_gunlight/toggle_gunlight_action = locate() in actions
@@ -847,8 +843,6 @@
 			toggle_gunlight_action = new(src)
 			add_item_action(toggle_gunlight_action)
 	else
-		verbs -= /obj/item/gun/proc/toggle_gunlight_verb
-
 		var/datum/action/item_action/toggle_gunlight/toggle_gunlight_action = locate() in actions
 		if(toggle_gunlight_action)
 			remove_item_action(toggle_gunlight_action)

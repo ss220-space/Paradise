@@ -1,5 +1,5 @@
+import { Box, Button, Dropdown, Section, Stack } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Box, Button, Dropdown, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
 type TeleporterData = {
@@ -22,7 +22,7 @@ type Cords = {
 
 export const Teleporter = (_props: unknown) => {
   const { act, data } = useBackend<TeleporterData>();
-  let targetsTeleport = data.targetsTeleport ? data.targetsTeleport : {};
+  const targetsTeleport = data.targetsTeleport ? data.targetsTeleport : {};
   const REGIME_TELEPORT = 0;
   const REGIME_GATE = 1;
   const REGIME_GPS = 2;
@@ -71,9 +71,9 @@ export const Teleporter = (_props: unknown) => {
                         color={target !== 'None' ? 'default' : 'bad'}
                         onSelected={(val) =>
                           act('settarget', {
-                            x: targetsTeleport[val]['x'],
-                            y: targetsTeleport[val]['y'],
-                            z: targetsTeleport[val]['z'],
+                            x: targetsTeleport[val].x,
+                            y: targetsTeleport[val].y,
+                            z: targetsTeleport[val].z,
                           })
                         }
                       />
@@ -87,9 +87,9 @@ export const Teleporter = (_props: unknown) => {
                         color={target !== 'None' ? 'default' : 'bad'}
                         onSelected={(val) =>
                           act('settarget', {
-                            x: targetsTeleport[val]['x'],
-                            y: targetsTeleport[val]['y'],
-                            z: targetsTeleport[val]['z'],
+                            x: targetsTeleport[val].x,
+                            y: targetsTeleport[val].y,
+                            z: targetsTeleport[val].z,
                           })
                         }
                       />
@@ -130,7 +130,7 @@ export const Teleporter = (_props: unknown) => {
                       tooltip="Teleport to a location stored in a GPS device."
                       tooltipPosition="top-end"
                       color={regime === REGIME_GPS ? 'good' : null}
-                      disabled={locked ? false : true}
+                      disabled={!locked}
                       onClick={() => act('setregime', { regime: REGIME_GPS })}
                     />
                   </Stack.Item>
@@ -156,7 +156,7 @@ export const Teleporter = (_props: unknown) => {
                             tooltip="Calibrates the hub. Accidents may occur \
                             when the  calibration is not optimal."
                             tooltipPosition="bottom-end"
-                            disabled={calibrated || calibrating ? true : false}
+                            disabled={!!(calibrated || calibrating)}
                             onClick={() => act('calibrate')}
                           />
                         </Stack.Item>

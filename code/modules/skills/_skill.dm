@@ -67,10 +67,14 @@ GLOBAL_LIST_EMPTY(skill_manual_types)
 		UnregisterSignal(owner, COMSIG_GET_SKILL_MOD(mod_name))
 
 // Show skills window from verbs
-/mob/verb/view_skills_win()
-	set name = "Навыки персонажа"
-	set category = VERB_CATEGORY_IC
-	if(!mind)
+GAME_VERB(/mob, view_skills_win, "Навыки персонажа", VERB_CATEGORY_IC)
+	if(mind)
+		if(mind.free_skill_points > 0 && iscarbon(usr))
+			var/datum/ui_module/skills_select_win/tgui = new(usr)
+			tgui.show(usr, src)
+		else
+			GLOB.skills_window.ui_interact(usr)
+	else
 		to_chat(src, "Произошла неизвестная ошибка, поэтому мы не можем показать вам ваши навыки.")
 		return
 	if((mind.free_skill_points > 0 || mind.get_total_skill_points_from_dna() > 0) && iscarbon(usr))

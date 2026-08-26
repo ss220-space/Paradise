@@ -1,111 +1,32 @@
-@use 'sass:color';
-@use 'sass:meta';
-
-@use '../colors.scss' with (
-  $primary: hsl(120, 100%, 50%),
-  $fg-map-keys: (),
-  $bg-map-keys: ()
-);
-@use '../base.scss' with (
-  $color-fg: hsl(142.9, 95.7%, 54.9%),
-  $color-bg: hsl(120, 100%, 7.8%),
-  $color-bg-grad-spread: 5%,
-  $border-radius: 2px
-);
-
-.theme-spider_clan {
-  // Atomic classes
-  @include meta.load-css('../atomic/color.scss');
+.theme-spider_clan,
+.theme-spider_clan-green:root,
+.theme-spider_clan-red:root,
+.theme-spider_clan-blue:root {
+  // Base
+  --base-gradient-spread: 5;
+  --border-radius-unit: 0.17;
 
   // Components
-  @include meta.load-css(
-    '../components/Button.scss',
-    $with: (
-      'color-default': hsl(143.1, 83%, 48.4%),
-      'color-disabled': hsl(0, 0%, 22.7%),
-      'color-selected': hsl(111.9, 98.2%, 55.5%),
-      'color-caution': hsl(29.5, 91%, 39%),
-      'color-danger': hsl(61.1, 100%, 30.8%)
-    )
-  );
-
-  @include meta.load-css(
-    '../components/Input.scss',
-    $with: ('border-color': hsl(120, 42%, 66.9%))
-  );
-  @include meta.load-css(
-    '../components/NoticeBox.scss',
-    $with: ('background-color': hsl(139.7, 89.7%, 15.3%))
-  );
-  @include meta.load-css(
-    '../components/NumberInput.scss',
-    $with: ('border-color': hsl(120, 42%, 66.9%))
-  );
-  @include meta.load-css(
-    '../components/ProgressBar.scss',
-    $with: ('background-color': rgba(0, 0, 0, 0.5))
-  );
-  @include meta.load-css(
-    '../components/Section.scss',
-    $with: ('background-color': hsl(120, 100%, 9.4%))
-  );
-  @include meta.load-css(
-    '../components/Tooltip.scss',
-    $with: ('background-color': hsl(120, 100%, 7.8%))
-  );
-
-  @include meta.load-css('../components/Dropdown.scss');
-
-  // Layouts
-  @include meta.load-css('../layouts/Layout.scss');
-  @include meta.load-css('../layouts/Window.scss');
-  @include meta.load-css(
-    '../layouts/TitleBar.scss',
-    $with: ('background-color': hsl(139.7, 89.7%, 15.3%))
-  );
+  --button-background-disabled: hsl(0, 0%, 22.7%);
+  --button-background-caution: hsl(29.5, 91%, 39%);
+  --button-background-danger: hsl(61, 100%, 30.8%);
+  --progress-bar-background: rgba(0, 0, 0, 0.5);
 
   .Tooltip {
     font-family: 'Times New Roman', Times, serif;
-    color: hsl(143.1, 83%, 48.4%);
+    color: var(--color-text);
   }
 
   .Button {
     font-family: 'Times New Roman', Times, serif;
     font-size: 15px;
     border-radius: 20px;
-    color: hsl(153.7, 100%, 11.2%) !important;
-  }
-
-  .Button_red {
-    background-color: rgba(204, 0, 0, 0.1) !important;
-    border-radius: 20px;
-
-    &:hover {
-      background-color: rgba(80, 20, 20, 0.1) !important;
-    }
-  }
-
-  .Button_green {
-    background-color: rgba(21, 226, 100, 0.1) !important;
-    border-radius: 20px;
-
-    &:hover {
-      background-color: rgba(4, 74, 27, 0.1) !important;
-    }
-  }
-
-  .Button_blue {
-    background-color: rgba(0, 174, 208, 0.1) !important;
-    border-radius: 20px;
-
-    &:hover {
-      background-color: rgba(53, 94, 163, 0.1) !important;
-    }
+    color: var(--button-color) !important;
   }
 
   .Button_disabled {
     background-color: rgba(50, 50, 50, 0.5) !important;
-    color: hsl(143.1, 83%, 48.4%) !important;
+    color: var(--color-text) !important;
   }
 
   .NoticeBox {
@@ -114,22 +35,65 @@
     font-size: 16px;
   }
 
-  .NoticeBox_red {
-    background-color: rgba(80, 20, 20, 1) !important;
-  }
-
-  .NoticeBox_blue {
-    background-color: rgba(53, 94, 163, 0.8) !important;
-  }
-
   .Dropdown__control {
     font-family: Arial, Helvetica, sans-serif;
     font-style: normal;
     font-size: 16px;
     line-height: 20px;
+	border-radius: 10px;
   }
 
   .Layout__content {
     background-image: url('../../assets/bg-spider_clan.svg');
   }
+}
+.theme-spider_clan,
+.theme-spider_clan-green:root {
+  // Base
+  --color-base: hsl(120, 100%, 7.8%);
+  --color-primary: hsl(130, 68%, 38%);
+  --color-text: hsl(143, 70%, 35%);
+  --color-secondary: hsl(140, 90%, 15.3%);
+  --color-border-primary: hsl(120, 42%, 66.9%);
+
+  // Components
+  --button-background-default: var(--color-primary);
+  --button-background-selected: hsl(118, 91%, 56%);
+  --button-color: hsl(154, 100%, 11%);
+  --notice-box-background: var(--color-secondary);
+  --section-background: hsl(120, 100%, 9.4%);
+  --tooltip-background: var(--color-base);
+}
+
+.theme-spider_clan-red:root {
+  // Base
+  --color-base: hsl(0, 100%, 7.8%);
+  --color-primary: hsl(0, 71%, 39%);
+  --color-text: hsl(0, 95.7%, 54.9%);
+  --color-secondary: hsl(350, 90%, 15.3%);
+  --color-border-primary: hsl(0, 42%, 66.9%);
+
+  --button-background-default: var(--color-primary);
+  --button-color: hsl(0, 100%, 11%);
+  --button-background-selected: hsl(0, 93%, 49%);
+  --notice-box-background: var(--color-secondary);
+  --section-background: hsl(0, 100%, 9.4%);
+  --tooltip-background: var(--color-base);
+}
+
+.theme-spider_clan-blue:root {
+  // Base
+  --color-base: hsl(210, 100%, 7.8%);
+  --color-primary: hsl(210, 76%, 33%);
+  --color-text: hsl(210, 95.7%, 54.9%);
+  --color-secondary: hsl(220, 90%, 15.3%);
+  --color-border-primary: hsl(210, 42%, 66.9%);
+
+  // Components
+  --button-background-default: var(--color-primary);
+  --button-background-selected: hsl(210, 93%, 56%);
+  --button-color: hsl(210, 100%, 11%);
+  --notice-box-background: var(--color-secondary);
+  --section-background: hsl(210, 100%, 9.4%);
+  --tooltip-background: var(--color-base);
 }

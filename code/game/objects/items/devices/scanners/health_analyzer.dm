@@ -57,18 +57,6 @@
 		return
 	show_results(user)
 
-/obj/item/healthanalyzer/proc/print_report_verb()
-	set name = "Печать отчёта"
-	set category = VERB_CATEGORY_OBJECT
-	set src = usr
-
-	var/mob/user = usr
-	if(!istype(user))
-		return
-	if(user.incapacitated())
-		return
-	print_report(user)
-
 /obj/item/healthanalyzer/proc/print_report(mob/living/user)
 	if(!scan_data)
 		to_chat(user, "Нет данных для печати.")
@@ -788,13 +776,7 @@
 		scan_data += "Текущее количество очков страховки: [acc.insurance]."
 	to_chat(user, custom_boxed_message("blue_box", "[jointext(scan_data, "<br>")]"))
 
-/obj/item/healthanalyzer/verb/toggle_mode()
-	set name = "Вкл/Выкл локализацию"
-	set category = VERB_CATEGORY_OBJECT
-
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		return
-
+/obj/item/healthanalyzer/proc/toggle_mode()
 	mode = !mode
 	switch(mode)
 		if(1)

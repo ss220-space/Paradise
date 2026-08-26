@@ -90,6 +90,7 @@
 	return TRUE
 
 /obj/machinery/computer/fission_monitor/multitool_act(mob/living/user, obj/item/I)
+	. = TRUE
 	if(!I.multitool_check_buffer(user))
 		return
 	var/obj/item/multitool/multitool = I
@@ -147,7 +148,7 @@
 		gas_info["name"] = gas
 		gas_info["amount"] = amount
 		gas_info["portion"] = round(100 * amount / max_moles, 0.01)
-		gas_info["desc"] = gas_data[gas].desc
+		gas_info["desc"] = gas_data[gas]?.desc
 		gasdata.Add(list(gas_info))
 	data["moderator_gasses"] = gasdata
 	data["controlling"] = controller

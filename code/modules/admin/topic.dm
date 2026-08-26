@@ -2219,6 +2219,9 @@
 		output_ai_laws()
 
 	else if(href_list["adminmoreinfo"])
+		if(!check_rights(R_ADMIN))
+			return
+
 		var/mob/subject = locateUID(href_list["adminmoreinfo"])
 		if(!ismob(subject))
 			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential = TRUE)
@@ -2986,7 +2989,7 @@
 						addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(doPortalSpawn), turf, pathToSpawn, prefs["amount"]["value"], storm), i*prefs["delay"]["value"])
 
 			if("tripleAI")
-				usr.client.triple_ai()
+				SSadmin_verbs.dynamic_invoke_verb(usr.client, /datum/admin_verb/triple_ai)
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Triple AI")
 
 			if("mass_mindswap")

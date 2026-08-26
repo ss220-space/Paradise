@@ -4,6 +4,7 @@
 	icon_state = "riotgun"
 	item_state = "riotgun"
 	w_class = WEIGHT_CLASS_BULKY
+	weapon_weight = WEAPON_HEAVY
 	throw_speed = 2
 	throw_range = 10
 	var/list/grenades = new/list()
@@ -41,8 +42,7 @@
 
 /obj/item/gun/grenadelauncher/proc/fire_grenade(atom/target, mob/user)
 	user.visible_message(span_danger("[user] fired a grenade!"), \
-						span_danger("You fire the grenade launcher!"),
-						projectile_message = TRUE)
+						span_danger("You fire the grenade launcher!"))
 	var/obj/item/grenade/chem_grenade/F = grenades[1] //Now with less copypasta!
 	grenades -= F
 	F.loc = user.loc
