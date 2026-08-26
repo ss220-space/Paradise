@@ -127,9 +127,7 @@
 /obj/machinery/dna_scannernew/AllowDrop()
 	return FALSE
 
-/obj/machinery/dna_scannernew/verb/eject()
-	set src in oview(1)
-	set name = "Извлечь субъект"
+GAME_VERB_SRC(/obj/machinery/dna_scannernew, eject, oview(1), "Извлечь субъект", VERB_CATEGORY_HIDDEN)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return

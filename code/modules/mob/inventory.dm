@@ -26,9 +26,7 @@
 /**
  * This proc is called whenever mob's client presses 'equip_held_object' hotkey
  */
-/mob/verb/quick_equip()
-	set name = "quick-equip"
-	set hidden = TRUE
+GAME_VERB_HIDDEN(/mob, quick_equip, "quick-equip")
 
 	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_quick_equip)))
 

@@ -1,10 +1,10 @@
+import { Flex, LabeledList, NoticeBox, Section } from 'tgui-core/components';
+import { capitalize } from 'tgui-core/string';
 import { useBackend } from '../backend';
-import { NoticeBox, Flex, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
-import { capitalize } from 'common/string';
 
 const getDamageColor = (damage: number, maxDamage: number) => {
-  let damageRatio = damage / maxDamage;
+  const damageRatio = damage / maxDamage;
   if (damageRatio <= 0.2) {
     return 'good';
   } else if (damageRatio <= 0.5) {
@@ -64,7 +64,7 @@ export const RobotSelfDiagnosis = (_props: unknown) => {
                       label="Brute Damage"
                       color={getDamageColor(
                         entry.brute_damage,
-                        entry.max_damage
+                        entry.max_damage,
                       )}
                     >
                       {entry.brute_damage}
@@ -73,7 +73,7 @@ export const RobotSelfDiagnosis = (_props: unknown) => {
                       label="Burn Damage"
                       color={getDamageColor(
                         entry.electronic_damage,
-                        entry.max_damage
+                        entry.max_damage,
                       )}
                     >
                       {entry.electronic_damage}

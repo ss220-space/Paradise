@@ -1,94 +1,32 @@
-@use 'sass:color';
-@use 'sass:meta';
+.theme-honker:root {
+  // Base
+  --color-base: #e83a93;
+  --color-primary: #4c10ae;
+  --color-label: #ecebec;
+  --color-good: #ffe940;
+  --color-average: #7c45d6;
+  --color-bad: #b2f63d;
+  --color-secondary: #d2006b;
+  --base-gradient-spread: 6;
+  --candystripe-odd: rgba(0, 0, 0, 0.4);
+  --candystripe-even: rgba(0, 0, 0, 0.25);
 
-@use '../colors.scss' with (
-  $primary: #4c10ae,
-  $label: #ecebec,
-  $good: #ffe940,
-  $average: #7c45d6,
-  $bad: #b2f63d,
-
-  $fg-map-keys: (
-    'label',
-    'good',
-    'bad',
-    'average',
-  ),
-
-  $bg-map-keys: (
-    'good',
-    'bad',
-    'average',
-  )
-);
-
-@use '../base.scss' with (
-  $color-bg: #e83a93,
-  $color-bg-grad-spread: 6%
-);
-
-.theme-honker {
-  // Atomic classes
-  @include meta.load-css('../atomic/color.scss', $with: ());
   // Components
-  @include meta.load-css(
-    '../components/Button.scss',
-    $with: (
-      'color-default': colors.$primary,
-      'color-disabled': #946bd6,
-      'color-selected': #ffe940,
-      'color-caution': #be6209,
-      'color-danger': #9a9d00,
-      'color-transparent-text': rgba(227, 240, 255, 0.75)
-    )
-  );
-  @include meta.load-css(
-    '../components/ImageButton.scss',
-    $with: (
-      'color-default': color.adjust(colors.$primary, $lightness: -20%),
-      'color-disabled': #ff9ef4,
-      'color-selected': #dde128
-    )
-  );
-  @include meta.load-css(
-    '../components/Input.scss',
-    $with: ('border-color': #dde128)
-  );
-  @include meta.load-css(
-    '../components/NoticeBox.scss',
-    $with: ('background-color': #ff9ef4)
-  );
-  @include meta.load-css(
-    '../components/NumberInput.scss',
-    $with: ('border-color': #ffe940)
-  );
-  @include meta.load-css(
-    '../components/ProgressBar.scss',
-    $with: ('background-color': rgba(0, 0, 0, 0.5))
-  );
-  @include meta.load-css('../components/Section.scss');
-  @include meta.load-css(
-    '../components/Tooltip.scss',
-    $with: ('background-color': #ff00aa)
-  );
-
-  // Layouts
-  @include meta.load-css('../layouts/Layout.scss');
-  @include meta.load-css('../layouts/Window.scss');
-  @include meta.load-css(
-    '../layouts/TitleBar.scss',
-    $with: ('background-color': #d2006b)
-  );
+  --button-background-default: var(--color-primary);
+  --button-background-disabled: #946bd6;
+  --button-background-selected: var(--color-good);
+  --button-background-caution: #be6209;
+  --button-background-danger: #9a9d00;
+  --button-color-transparent: rgba(227, 240, 255, 0.75);
+  --image-button-background-default: hsl(from var(--color-primary) h s calc(l - 20));
+  --image-button-background-disabled: #ff9ef4;
+  --image-button-background-selected: #dde128;
+  --border-primary: #dde128;
+  --notice-box-background: #ff9ef4;
+  --progress-bar-background: rgba(0, 0, 0, 0.5);
+  --tooltip-background: #ff00aa;
 
   .Layout__content {
-    // From 'packages/tgui/assets/bg-syndicate.svg', converted to base64 manually to stop webpack exploding
     background-image: url('../../assets/bg-clown.svg');
-  }
-  .candystripe:nth-child(odd) {
-    background-color: rgba(0, 0, 0, 0.4);
-  }
-
-  .candystripe:nth-child(even) {
-    background-color: rgba(0, 0, 0, 0.25);
   }
 }

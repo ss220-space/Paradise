@@ -1,5 +1,5 @@
-import { Channel } from './ChannelIterator';
-import { RADIO_PREFIXES } from './constants';
+import type { Channel } from './ChannelIterator';
+import type { RADIO_PREFIXES } from './constants';
 
 export type HistoryRecord = Partial<{
   prefix: keyof typeof RADIO_PREFIXES | null;

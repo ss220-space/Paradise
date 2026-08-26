@@ -321,7 +321,7 @@ Difficulty: Very Hard
 	if(!body_shield_enabled)
 		return ..()
 	do_sparks(2, TRUE, src)
-	visible_message(span_danger("Щит [declent_ru(ACCUSATIVE)] отражает [P.declent_ru(ACCUSATIVE)] с искрами!"), span_userdanger("Вы отражаете снаряд!"), projectile_message = TRUE)
+	visible_message(span_danger("Щит [declent_ru(ACCUSATIVE)] отражает [P.declent_ru(ACCUSATIVE)] с искрами!"), span_userdanger("Вы отражаете снаряд!"))
 	if(P.damage)
 		disable_shield()
 

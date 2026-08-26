@@ -1,6 +1,6 @@
 import type { Dispatch, SetStateAction } from 'react';
-import type { Box } from 'tgui/components';
-import type { BooleanLike } from 'common/react';
+import type { Box } from 'tgui-core/components';
+import type { BooleanLike } from 'tgui-core/react';
 
 export type RGB = {
   r: number;
@@ -44,7 +44,7 @@ export type WindowEventHandler = (event: MouseEvent) => void;
 
 export type ClickAndDragEventHandler<T> = (
   event: MouseEvent,
-  ref: React.Ref<T>
+  ref: React.Ref<T>,
 ) => void;
 
 export type IncludeOrOmitEntireType<T, V> = V | (T & V);
