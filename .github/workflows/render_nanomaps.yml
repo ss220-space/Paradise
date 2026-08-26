@@ -29,6 +29,9 @@ jobs:
           git branch -f nanomap-render
           git checkout nanomap-render
           git reset --hard origin/master220
+
+      - name: "Install dmm-tools"
+        run: bash tools/ci/install_dmm-tools.sh
       - name: "Generate Maps"
         run: "./tools/github-actions/nanomap-renderer-invoker.sh"
 
