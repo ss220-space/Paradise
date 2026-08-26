@@ -95,6 +95,10 @@
 	/// Current construction stage
 	var/build = MASS_DRIVER_BUILD_LOOSE
 
+/obj/machinery/mass_driver_frame/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/simple_rotation)
+
 /obj/machinery/mass_driver_frame/wrench_act(mob/living/user, obj/item/I)
 	if(build != MASS_DRIVER_BUILD_LOOSE && build != MASS_DRIVER_BUILD_ANCHORED)
 		return FALSE
@@ -218,16 +222,6 @@
 				return .
 			WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
 			build = MASS_DRIVER_BUILD_ANCHORED
-
-/obj/machinery/mass_driver_frame/verb/rotate()
-	set category = VERB_CATEGORY_OBJECT
-	set name = "Повернуть каркас"
-	set src in view(1)
-
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || HAS_TRAIT(usr, TRAIT_FAKEDEATH))
-		return
-
-	setDir(turn(dir, -90))
 
 #undef MASS_DRIVER_BUILD_LOOSE
 #undef MASS_DRIVER_BUILD_ANCHORED

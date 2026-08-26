@@ -168,23 +168,3 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 		msg += "\t[ckey] - [rank]\n"
 	testing(msg)
 	#endif
-
-#ifdef TESTING
-/client/verb/changerank(newrank in GLOB.admin_ranks)
-	if(holder)
-		holder.rank = newrank
-		holder.rights = GLOB.admin_ranks[newrank]
-	else
-		holder = new /datum/admins(newrank,GLOB.admin_ranks[newrank],ckey)
-	hide_verbs()
-	holder.associate(src)
-
-/client/verb/changerights(newrights as num)
-	if(holder)
-		holder.rights = newrights
-	else
-		holder = new /datum/admins("testing",newrights,ckey)
-	hide_verbs()
-	holder.associate(src)
-
-#endif

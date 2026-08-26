@@ -1,11 +1,12 @@
-import { sortBy } from 'common/collections';
-import { createSearch } from 'common/string';
-import { useBackend } from '../backend';
+import { sortBy } from 'es-toolkit';
 import { useState } from 'react';
-import { Box, Button, Icon, Input, NanoMap, Table, Tabs } from '../components';
+import { NanoMap } from 'tgui/components';
+import { Box, Button, Icon, Input, Table, Tabs } from 'tgui-core/components';
+import { createSearch } from 'tgui-core/string';
+import { useBackend } from '../backend';
+import type { NanoMakerProps } from '../components/NanoMap';
 import { COLORS } from '../constants';
 import { Window } from '../layouts';
-import { NanoMakerProps } from '../components/NanoMap';
 
 const getStatText = (cm: CrewMember, critThreshold: number) => {
   if (cm.dead) {
@@ -159,10 +160,10 @@ type CrewMonitorTableProps = {
 
 const CrewMonitorTable = ({ crewData }: CrewMonitorTableProps) => {
   const { act, data } = useBackend<CrewMonitorData>();
-  const crew = sortBy(crewData, (cm) => cm.name);
+  const crew = sortBy(crewData, [(cm) => cm.name]);
   const [search, setSearch] = useState('');
   const searcher = createSearch<CrewMember>(search, (cm) => {
-    return cm.name + '|' + cm.assignment + '|' + cm.area;
+    return `${cm.name}|${cm.assignment}|${cm.area}`;
   });
   return (
     <Box>
@@ -204,7 +205,7 @@ const CrewMonitorTable = ({ crewData }: CrewMonitorTableProps) => {
                       highlighted
                         ? 'remove_highlighted_name'
                         : 'add_highlighted_name',
-                      { name: cm.name }
+                      { name: cm.name },
                     )
                   }
                 />
@@ -251,10 +252,10 @@ const CrewMonitorTable = ({ crewData }: CrewMonitorTableProps) => {
                         })
                       }
                     >
-                      {cm.area + ' (' + cm.x + ', ' + cm.y + ')'}
+                      {`${cm.area} (${cm.x}, ${cm.y})`}
                     </Button>
                   ) : (
-                    cm.area + ' (' + cm.x + ', ' + cm.y + ')'
+                    `${cm.area} (${cm.x}, ${cm.y})`
                   )
                 ) : (
                   <Box inline color="grey">
@@ -372,9 +373,9 @@ const CrewMonitorMapView = (_properties) => {
                 highlighted
                   ? 'remove_highlighted_name'
                   : 'add_highlighted_name',
-                { name: cm.name }
+                { name: cm.name },
               );
-            const tooltip = cm.name + ' (' + cm.assignment + ')';
+            const tooltip = `${cm.name} (${cm.assignment})`;
             if (highlighted) {
               return (
                 <HighlightedMarker

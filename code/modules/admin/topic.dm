@@ -2989,7 +2989,7 @@
 						addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(doPortalSpawn), turf, pathToSpawn, prefs["amount"]["value"], storm), i*prefs["delay"]["value"])
 
 			if("tripleAI")
-				usr.client.triple_ai()
+				SSadmin_verbs.dynamic_invoke_verb(usr.client, /datum/admin_verb/triple_ai)
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Triple AI")
 
 			if("mass_mindswap")

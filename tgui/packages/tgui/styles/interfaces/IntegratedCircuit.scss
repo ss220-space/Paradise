@@ -2,12 +2,12 @@
 @use '../colors.scss';
 @use '../base.scss';
 
-$fg-map: colors.$fg-map !default;
+$map-keys: colors.$color-map !default;
 
 .CircuitInfo__Examined {
-  background-color: rgba(0, 0, 0, 1);
-  padding: 8px;
-  border-radius: 5px;
+  background-color: var(--color-black);
+  padding: var(--space-ml);
+  border-radius: var(--border-radius-large);
 
   user-select: none;
   pointer-events: none;
@@ -18,8 +18,8 @@ $fg-map: colors.$fg-map !default;
 }
 
 .ObjectComponent__Titlebar {
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
+  border-top-left-radius: var(--border-radius-huge);
+  border-top-right-radius: var(--border-radius-huge);
 
   white-space: nowrap;
 
@@ -29,7 +29,7 @@ $fg-map: colors.$fg-map !default;
 
 .ObjectComponent__Content {
   white-space: nowrap;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: hsla(0, 0%, 0%, 0.5);
 
   -ms-user-select: none;
   user-select: none;
@@ -37,7 +37,7 @@ $fg-map: colors.$fg-map !default;
 
 .ObjectComponent__Greyed_Content {
   white-space: nowrap;
-  background-color: rgba(19, 19, 19, 0.5);
+  background-color: hsla(0, 0%, 7.5%, 0.5);
 
   -ms-user-select: none;
   user-select: none;
@@ -55,81 +55,78 @@ $fg-map: colors.$fg-map !default;
 }
 
 .Tooltip__Port {
-  background-color: hsl(0, 0%, 0%);
-  border-radius: base.$border-radius;
-  box-shadow: 0.1em 0.1em 1.25em -0.1em rgba(0, 0, 0, 0.5);
-  color: hsl(0, 0%, 100%);
+  backdrop-filter: var(--tooltip-blur);
+  background-color: var(--tooltip-background);
+  border-radius: var(--tooltip-border-radius);
+  box-shadow: 0.1em 0.1em 1.25em -0.1em hsla(0, 0%, 0%, 0.5);
+  color: var(--tooltip-color);
   max-width: base.em(250px);
-  padding: 0.5em 0.75em;
+  padding: var(--space-m) var(--space-l);
   text-align: left;
 }
 
-@each $color-name, $color-value in $fg-map {
+@each $color-name, $color-value in $map-keys {
   .color-stroke-#{$color-name} {
-    stroke: $color-value !important;
+    stroke: hsl(from $color-value h s calc(l + var(--adjust-color))) !important;
   }
 
   .color-fill-#{$color-name} {
-    fill: $color-value !important;
+    fill: hsl(from $color-value h s calc(l + var(--adjust-color))) !important;
   }
 }
 
-$border-color: #75baff !default;
-$border-radius: base.$border-radius !default;
-
 .IntegratedCircuit__BlueBorder {
-  border: base.em(1px) solid $border-color;
-  border: base.em(1px) solid rgba($border-color, 0.75);
-  border-radius: $border-radius;
+  border: var(--border-thickness-tiny) solid var(--color-border-primary);
+  border-radius: var(--border-radius-small);
 }
 
 $category-colors: (
   'Utility': (
-    bg: #0d6826,
+    bg: hsl(136, 77%, 23%),
     contrast: white,
   ),
   'Entity': (
-    bg: #aa32c8,
+    bg: hsl(288, 60%, 49%),
     contrast: white,
   ),
   'Sensor': (
-    bg: #e26e9b,
+    bg: hsl(337, 67%, 66%),
     contrast: white,
   ),
   'Math': (
-    bg: #3cc62a,
+    bg: hsl(113, 65%, 47%),
     contrast: black,
   ),
   'Unassigned': (
-    bg: #2a7dc6,
+    bg: hsl(208, 65%, 47%),
     contrast: white,
   ),
   'String': (
-    bg: #e16614,
+    bg: hsl(24, 84%, 48%),
     contrast: white,
   ),
   'List': (
-    bg: #ababab,
+    bg: hsl(0, 0%, 67%),
     contrast: black,
   ),
   'Action': (
-    bg: #2fb6b2,
+    bg: hsl(178, 59%, 45%),
     contrast: black,
   ),
   'ID': (
-    bg: #d6be1f,
+    bg: hsl(52, 75%, 48%),
     contrast: black,
   ),
   'NTNet': (
-    bg: #282bb8,
+    bg: hsl(239, 64%, 44%),
     contrast: white,
   ),
   'Abstract': (
-    bg: #2a7dc6,
+    bg: hsl(208, 65%, 47%),
     contrast: white,
   ),
   'Admin': (
-    bg: #db2424,
+    bg: hsl(0, 72%, 50%),
     contrast: white,
   ),
   'BCI': (

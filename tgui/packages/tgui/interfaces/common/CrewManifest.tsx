@@ -1,6 +1,6 @@
+import { Box, Icon, Section, Table, Tooltip } from 'tgui-core/components';
+import { decodeHtmlEntities } from 'tgui-core/string';
 import { useBackend } from '../../backend';
-import { Box, Icon, Section, Table, Tooltip } from '../../components';
-import { decodeHtmlEntities } from 'common/string';
 import { COLORS } from '../../constants';
 
 const deptCols = COLORS.department;
@@ -54,7 +54,8 @@ const getStatusIconClass = (status: string | null) => {
   return `manifest-indicator-${normalized}`;
 };
 
-const ManifestTable = (group: Person[]) => {
+const ManifestTable = (group: Person[] | undefined) => {
+  if (!group) return '';
   return (
     group.length > 0 && (
       <Table p="0">
@@ -159,7 +160,7 @@ export const CrewManifest = (props: ManifestProps) => {
     ? props.manifest
     : useBackend<ManifestData>().data.manifest;
 
-  const { heads, pro, sec, eng, med, sci, ser, sup, misc } = manifest;
+  const { heads, pro, sec, eng, med, sci, ser, sup, misc } = manifest || {};
 
   return (
     <Box className="CrewManifest">

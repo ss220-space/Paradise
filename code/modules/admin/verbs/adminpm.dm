@@ -1,6 +1,7 @@
 /// Allows right clicking mobs to send an admin PM to their client.
 /// Forwards the selected mob's client to cmd_admin_pm.
-ADMIN_VERB_ONLY_CONTEXT_MENU(cmd_admin_pm_context, R_ADMIN|R_MENTOR, "Admin PM Mob", mob/target in GLOB.player_list)
+ADMIN_VERB_ONLY_CONTEXT_MENU(cmd_admin_pm_context, R_ADMIN|R_MENTOR, "Admin PM Mob", /mob)
+	VERB_ARG_TYPED(target, VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /mob)
 	if(!ismob(target) || !target.client)
 		return
 	user.cmd_admin_pm(target.client, null)
@@ -107,7 +108,7 @@ ADMIN_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM b
 		set_typing(C, TRUE)
 		tickets_system.refresh_tickets(tickets)
 		msg = tgui_input_text(src, "Message:", "Private message to [holder ? key_name(C, FALSE) : key_name_hidden(C, FALSE)]", multiline = TRUE, encode = FALSE)
-		msg = handleDiscordEmojis(msg)
+		msg = handle_emojis(msg)
 		set_typing(C, FALSE)
 
 		if(!msg)
@@ -265,9 +266,7 @@ ADMIN_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM b
 		if(check_rights(R_ADMIN, FALSE, X.mob))
 			to_chat(X, span_discordpm("[span_bold("PM: [key_name_admin(src)]-&gt;Discord Admins:")] [span_notice(msg)]"), confidential = TRUE)
 
-/client/verb/open_pms_ui()
-	set name = "ЛС"
-	set category = ADMIN_CATEGORY_TICKETS
+GAME_VERB(/client, open_pms_ui, "ЛС", ADMIN_CATEGORY_TICKETS)
 	pm_tracker.show_ui(usr)
 
 /client/proc/set_typing(client/target, value)

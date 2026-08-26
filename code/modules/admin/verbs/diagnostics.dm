@@ -1,5 +1,6 @@
 ADMIN_VERB_VISIBILITY(debug_air_status, ADMIN_VERB_VISIBLITY_FLAG_MAPPING_DEBUG)
-ADMIN_VERB(debug_air_status, R_DEBUG, "Debug Air Status", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, turf/target as turf)
+ADMIN_VERB(debug_air_status, R_DEBUG, "Debug Air Status", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN)
+	VERB_ARG_TYPED(target, VERB_ARG_TYPE_TURF, VERB_ARG_SOURCE_WORLD, /turf)
 	if(!isturf(target))
 		return
 

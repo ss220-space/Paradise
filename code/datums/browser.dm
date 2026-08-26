@@ -150,7 +150,7 @@
 		SSassets.transport.send_assets(user, scripts)
 	user << browse(get_content(), "window=[window_id];[window_size][window_options]")
 	if(no_focus)
-		winset(user, "mapwindow.map", "focus=true")
+		winset(user, SKIN_MAPWINDOW_MAP, "focus=true")
 	if(use_onclose)
 		setup_onclose()
 
@@ -272,7 +272,7 @@
 				if(focusedwindow)
 					winset(user, focusedwindow, "focus=true")
 				else
-					winset(user, "mapwindow", "focus=true")
+					winset(user, SKIN_MAPWINDOW, "focus=true")
 				break
 	if(timeout)
 		addtimer(CALLBACK(src, PROC_REF(close)), timeout)
@@ -478,10 +478,7 @@
 // if a valid atom reference is supplied, call the atom's Topic() with "close=1"
 // otherwise, just reset the client mob's machine var.
 //
-/client/verb/windowclose(atomref as text)
-	set hidden = TRUE // hide this verb from the user's panel
-	set name = ".windowclose" // no autocomplete on cmd line
-
+GAME_VERB_NATIVE(/client, windowclose, ".windowclose", VERB_CATEGORY_HIDDEN, atomref as text)
 	if(atomref != "null") // if passed a real atomref
 		var/hsrc = locateUID(atomref) // find the reffed atom
 		var/href = "close=1"

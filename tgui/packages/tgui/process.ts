@@ -8,7 +8,7 @@ type ProcessedText = {
   __html: string;
 };
 
-export const processedText = (value: string | null): ProcessedText => {
+export function processedText(value: string | null): ProcessedText {
   if (!value) {
     return { __html: '' };
   }
@@ -19,7 +19,7 @@ export const processedText = (value: string | null): ProcessedText => {
         breaks: true,
       },
       markedSmartypants(),
-      baseUrl('thisshouldbreakhttp')
+      baseUrl('thisshouldbreakhttp'),
     )
     .parse(value, { async: false });
 
@@ -27,4 +27,4 @@ export const processedText = (value: string | null): ProcessedText => {
     __html: sanitizeText(parsed),
   };
   return textHtml;
-};
+}

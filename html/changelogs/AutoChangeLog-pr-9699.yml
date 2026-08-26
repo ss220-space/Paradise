@@ -1,0 +1,4 @@
+author: "NuSanya"
+delete-after: True
+changes:
+  - add: "Новые перчатки со скинами в лоадауте (PR #9699)"

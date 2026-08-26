@@ -49,9 +49,10 @@
 	if(isnull(new_view) || !user.client)
 		return
 	if(new_view == "default")
-		new_view = user.client.prefs.viewrange
+		user.client.view_size.resetToDefault()
+		return
 	selected_view = new_view
-	user.client.change_view(new_view)
+	user.client.view_size.setTo(new_view)
 
 /datum/action/cooldown/spell/view_range/genetic
 	desc = "Позволяет вам выбрать, как далеко вы будете видеть."
