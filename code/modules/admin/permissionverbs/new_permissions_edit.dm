@@ -242,7 +242,7 @@
 	GLOB.de_devs -= ckey
 	update_buttons(client)
 	update_byond_admin_configs(ckey, admin_datum.rights)
-	remove_verb(client, /client/proc/readmin)
+	UNASSIGN_GAME_VERB(client, /client, readmin)
 	BLACKBOX_LOG_ADMIN_VERB("Re-admin")
 
 /datum/ui_module/permissions_edit/proc/clear_admin_datum(ckey)
@@ -278,7 +278,7 @@
 	client.deadmin()
 	update_buttons(client)
 	update_byond_admin_configs(client.ckey, R_NONE)
-	add_verb(client, /client/proc/readmin)
+	ASSIGN_GAME_VERB(client, /client, readmin)
 	to_chat(client, span_interface("You are now a normal player."), confidential = TRUE)
 	log_and_message_admins("force de-admin [ckey].")
 	BLACKBOX_LOG_ADMIN_VERB("De-admin")

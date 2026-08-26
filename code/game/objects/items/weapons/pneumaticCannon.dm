@@ -155,7 +155,7 @@
 			target = pick(possible_targets)
 		discharge = 1
 	if(!discharge)
-		user.visible_message(span_danger("[user] fires [src]!"), span_danger("You fire [src]!"), projectile_message = TRUE)
+		user.visible_message(span_danger("[user] fires [src]!"), span_danger("You fire [src]!"))
 	add_attack_logs(user, target, "Fired [src]")
 	playsound(loc, 'sound/weapons/sonic_jackhammer.ogg', 50, TRUE)
 	for(var/obj/item/ITD in loadedItems) //Item To Discharge

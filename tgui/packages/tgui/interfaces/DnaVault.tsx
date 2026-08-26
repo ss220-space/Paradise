@@ -1,4 +1,3 @@
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -6,10 +5,11 @@ import {
   ProgressBar,
   Section,
   Stack,
-} from '../components';
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
-export const DnaVault = (props: unknown) => {
+export const DnaVault = (_props: unknown) => {
   const { data } = useBackend<DnaVaultData>();
   const { completed } = data;
   return (
@@ -52,7 +52,7 @@ const DnaVaultDataBase = (props: unknown) => {
                 bad: [-Infinity, bad_progress],
               }}
             >
-              {dna + ' / ' + dna_max + ' Samples'}
+              {`${dna} / ${dna_max} Samples`}
             </ProgressBar>
           </LabeledList.Item>
           <LabeledList.Item label="Plant DNA">
@@ -64,7 +64,7 @@ const DnaVaultDataBase = (props: unknown) => {
                 bad: [-Infinity, bad_progress],
               }}
             >
-              {plants + ' / ' + plants_max + ' Samples'}
+              {`${plants} / ${plants_max} Samples`}
             </ProgressBar>
           </LabeledList.Item>
           <LabeledList.Item label="Animal DNA">
@@ -76,7 +76,7 @@ const DnaVaultDataBase = (props: unknown) => {
                 bad: [-Infinity, bad_progress],
               }}
             >
-              {animals + ' / ' + animals_max + ' Samples'}
+              {`${animals} / ${animals_max} Samples`}
             </ProgressBar>
           </LabeledList.Item>
         </LabeledList>

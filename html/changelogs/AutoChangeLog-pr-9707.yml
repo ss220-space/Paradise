@@ -1,0 +1,4 @@
+author: "shahribek"
+delete-after: True
+changes:
+  - bugfix: "Исправлен баг со сломанным отображением спрайта самодельного глушителя. (PR #9707)"

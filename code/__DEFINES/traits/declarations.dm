@@ -59,6 +59,7 @@
 #define TRAIT_DEAF "deaf"
 #define TRAIT_SECDEATH "secdeath"
 #define TRAIT_AI_UNTRACKABLE "AI_untrackable"
+#define TRAIT_NINJA_INVISIBILITY "ninja_invisibility"
 /// Does nothing on its own, applied via status effect.
 #define TRAIT_STASIS "in_stasis"
 /// Makes the owner appear as dead to most forms of medical examination

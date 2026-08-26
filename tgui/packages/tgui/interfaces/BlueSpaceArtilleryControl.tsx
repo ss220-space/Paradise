@@ -1,20 +1,18 @@
-import { ReactNode } from 'react';
-import { useBackend } from '../backend';
-import { declension_ru } from 'common/string';
+import { declension_ru } from 'common/l10n';
+import type { ReactNode } from 'react';
 import {
+  Box,
   Button,
+  ByondUi,
+  Dimmer,
+  Dropdown,
+  Icon,
   LabeledList,
+  NumberInput,
   Section,
   Stack,
-  NumberInput,
-  Dimmer,
-  Icon,
-  Box,
-  Modal,
-  ByondUi,
-  Dropdown,
-} from '../components';
-import { classes } from 'common/react';
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { ComplexModal } from './common/ComplexModal';
 
@@ -50,7 +48,7 @@ const getStatus = (data: BSAData) => {
     return { color: 'red', text: 'Нет питания' };
   }
   if (!data.reload_ready) {
-    return { color: 'orange', text: 'Зарядка ' + data.reloadtime_text };
+    return { color: 'orange', text: `Зарядка ${data.reloadtime_text}` };
   }
   if (!data.calibrated) {
     return { color: 'red', text: 'Требуется наводка' };
@@ -69,7 +67,7 @@ export const ControlBSAPanel = (props: unknown) => {
   if (!data.calibrate_ready) {
     calibratingModal = <BSACalibratePanel duration={data.calibrate_duration} />;
   }
-  let status = getStatus(data);
+  const status = getStatus(data);
   return (
     <Window width={600} height={800}>
       <Window.Content>
