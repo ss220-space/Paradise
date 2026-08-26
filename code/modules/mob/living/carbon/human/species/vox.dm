@@ -131,9 +131,6 @@
 
 /datum/species/vox/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
-	add_verb(H, /mob/living/carbon/human/proc/emote_wag)
-	add_verb(H, /mob/living/carbon/human/proc/emote_swag)
-	add_verb(H, /mob/living/carbon/human/proc/emote_quill)
 	H.faction |= list("Vox")
 
 /datum/species/vox/gain_muscles(mob/living/target, default, max_level, can_become_stronger)
@@ -141,9 +138,6 @@
 
 /datum/species/vox/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
-	remove_verb(H, /mob/living/carbon/human/proc/emote_wag)
-	remove_verb(H, /mob/living/carbon/human/proc/emote_swag)
-	remove_verb(H, /mob/living/carbon/human/proc/emote_quill)
 	H.faction -= "Vox"
 
 /datum/species/vox/after_equip_job(datum/job/J, mob/living/carbon/human/H)
@@ -271,18 +265,6 @@
 
 /datum/species/vox/armalis/handle_reagents() //Skip the Vox oxygen reagent toxicity. Armalis are above such things.
 	return TRUE
-
-/datum/species/vox/armalis/on_species_gain(mob/living/carbon/human/H)
-	. = ..()
-	if(/mob/living/carbon/human/proc/emote_wag in H.verbs)
-		remove_verb(H, /mob/living/carbon/human/proc/emote_wag)
-	if(/mob/living/carbon/human/proc/emote_swag in H.verbs)
-		remove_verb(H, /mob/living/carbon/human/proc/emote_swag)
-
-/datum/species/vox/armalis/on_species_loss(mob/living/carbon/human/H)
-	. = ..()
-	if(/mob/living/carbon/human/proc/emote_quill in H.verbs)
-		remove_verb(H, /mob/living/carbon/human/proc/emote_quill)
 
 /datum/species/vox/compressor_grind(location)
 	new /obj/item/reagent_containers/food/snacks/fried_vox(location)

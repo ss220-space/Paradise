@@ -1,16 +1,16 @@
 import { Fragment } from 'react';
-import { useBackend } from '../backend';
 import {
-  Section,
-  Button,
-  NumberInput,
-  Stack,
-  NoticeBox,
-  Icon,
   Box,
+  Button,
   DmIcon,
+  Icon,
   LabeledList,
-} from '../components';
+  NoticeBox,
+  NumberInput,
+  Section,
+  Stack,
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { LogisticsButton } from './common/LogisticsButton';
 

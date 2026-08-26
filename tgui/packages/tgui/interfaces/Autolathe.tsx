@@ -1,33 +1,33 @@
-import { flow } from 'common/fp';
-import { filter, sortBy } from 'common/collections';
-import { useBackend, useSharedState } from '../backend';
+import { sortBy } from 'es-toolkit';
 import {
   Box,
   Button,
+  DmIcon,
+  Dropdown,
   Input,
   LabeledList,
   Section,
   Stack,
-  Dropdown,
-  DmIcon,
-} from '../components';
+} from 'tgui-core/components';
+import { flow } from 'tgui-core/fp';
+import { createSearch, toTitleCase } from 'tgui-core/string';
+import { useBackend, useSharedState } from '../backend';
 import { Window } from '../layouts';
-import { createSearch, toTitleCase } from 'common/string';
 import { LogisticsButton } from './common/LogisticsButton';
 
 const canBeMade = (
   recipe: Recipe,
   mavail: number,
   gavail: number,
-  multi: number
+  multi: number,
 ) => {
   if (recipe.requirements === null) {
     return true;
   }
-  if (recipe.requirements['metal'] * multi > mavail) {
+  if (recipe.requirements.metal * multi > mavail) {
     return false;
   }
-  if (recipe.requirements['glass'] * multi > gavail) {
+  if (recipe.requirements.glass * multi > gavail) {
     return false;
   }
   return true;
@@ -79,13 +79,13 @@ export const Autolathe = (props: unknown) => {
   if (category === '') {
     category = 'Инструменты';
   }
-  let metalReadable = metal_amount
+  const metalReadable = metal_amount
     .toString()
     .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'); // add thousands seperator
-  let glassReadable = glass_amount
+  const glassReadable = glass_amount
     .toString()
     .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-  let totalReadable = total_amount
+  const totalReadable = total_amount
     .toString()
     .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 
@@ -118,23 +118,21 @@ export const Autolathe = (props: unknown) => {
 
   const recipesToShow: Recipe[] = flow([
     (recipes: Recipe[]) =>
-      filter<Recipe>(
-        recipes,
-        (recipe) =>
+      recipes.filter(
+        (recipe: Recipe) =>
           (recipe.category.indexOf(category) > -1 || searchText) &&
-          (data.showhacked || !recipe.hacked)
+          (data.showhacked || !recipe.hacked),
       ),
+    (recipes: Recipe[]) => (searchText ? recipes.filter(testSearch) : recipes),
     (recipes: Recipe[]) =>
-      searchText ? filter<Recipe>(recipes, testSearch) : recipes,
-    (recipes: Recipe[]) =>
-      sortBy(recipes, (recipe) => recipe.name.toLowerCase()),
+      sortBy(recipes, [(recipe) => recipe.name.toLowerCase()]),
   ])(recipes);
 
   let rText = '';
   if (searchText) {
-    rText = 'Результаты поиска: "' + searchText + '":';
+    rText = `Результаты поиска: "${searchText}":`;
   } else if (category) {
-    rText = 'Категория "' + category + '"';
+    rText = `Категория "${category}"`;
   }
   return (
     <Window width={750} height={525}>
@@ -191,7 +189,7 @@ export const Autolathe = (props: unknown) => {
                         recipe,
                         data.metal_amount,
                         data.glass_amount,
-                        1
+                        1,
                       )
                     }
                     tooltip={recipe.desc}
@@ -216,7 +214,7 @@ export const Autolathe = (props: unknown) => {
                           recipe,
                           data.metal_amount,
                           data.glass_amount,
-                          10
+                          10,
                         )
                       }
                       onClick={() =>
@@ -241,7 +239,7 @@ export const Autolathe = (props: unknown) => {
                           recipe,
                           data.metal_amount,
                           data.glass_amount,
-                          25
+                          25,
                         )
                       }
                       onClick={() =>
@@ -267,7 +265,7 @@ export const Autolathe = (props: unknown) => {
                           recipe,
                           data.metal_amount,
                           data.glass_amount,
-                          recipe.max_multiplier
+                          recipe.max_multiplier,
                         )
                       }
                       onClick={() =>
@@ -284,7 +282,7 @@ export const Autolathe = (props: unknown) => {
                     Object.keys(recipe.requirements)
                       .map(
                         (mat) =>
-                          toTitleCase(mat) + ': ' + recipe.requirements[mat]
+                          `${toTitleCase(mat)}: ${recipe.requirements[mat]}`,
                       )
                       .join(', ')) || <Box>Материалы не требуются.</Box>}
                 </Stack.Item>

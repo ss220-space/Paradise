@@ -1,15 +1,15 @@
 import { useState } from 'react';
-import { useBackend } from '../backend';
+import { NanoMap } from 'tgui/components';
 import {
   Box,
   Button,
   ColorBox,
   Input,
-  NanoMap,
   Section,
   Stack,
   Tabs,
-} from '../components';
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 const STATUS_PENDING = 0;

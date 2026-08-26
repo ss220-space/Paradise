@@ -1,6 +1,4 @@
 import { useMemo, useState } from 'react';
-import { createSearch } from 'common/string';
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -12,9 +10,15 @@ import {
   ProgressBar,
   Section,
   Stack,
-} from '../components';
+} from 'tgui-core/components';
+import { createSearch } from 'tgui-core/string';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import type { DropdownEntry } from '../components/Dropdown';
+
+type DropdownEntry = {
+  value: string;
+  displayText: string;
+};
 
 type Stock = {
   id: string;

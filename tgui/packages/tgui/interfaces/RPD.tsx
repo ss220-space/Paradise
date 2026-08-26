@@ -1,15 +1,14 @@
-import { useBackend } from '../backend';
+import { Grid } from 'tgui/components';
 import {
-  Tabs,
-  Button,
   Box,
-  Grid,
-  Section,
-  Stack,
+  Button,
   Icon,
   ImageButton,
-} from '../components';
-import { Direction } from '../components/DmIcon';
+  Section,
+  Stack,
+  Tabs,
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 const decideTab = (index: number | string) => {
@@ -168,7 +167,7 @@ const AtmosPipeContent = (_props: unknown) => {
                       (p) =>
                         p.pipe_type === 1 &&
                         p.pipe_id === whatpipe &&
-                        p.orientations !== 1
+                        p.orientations !== 1,
                     )
                     .map((p) => (
                       <Box key={p.pipe_id}>
@@ -381,7 +380,7 @@ const PipeCategoryContent = (props: {
                     (p) =>
                       Number(p.pipe_type) === pipeType &&
                       p.pipe_id === selectedId &&
-                      p.orientations !== 1
+                      p.orientations !== 1,
                   )
                   .map((p) => (
                     <Stack.Item key={p.pipe_id}>

@@ -1,8 +1,8 @@
-import { RndRoute, RndNavButton } from './index';
-import { Box } from '../../components';
-import { MENU, SUBMENU } from '../RndConsole';
+import { Box } from 'tgui-core/components';
 import { useBackend } from '../../backend';
+import { MENU, SUBMENU } from '../RndConsole';
 import { LogisticsButton } from '../common/LogisticsButton';
+import { RndNavButton, RndRoute } from './index';
 
 export const RndNavbar = () => {
   const { data } = useBackend<{ logistics_enabled?: boolean }>();

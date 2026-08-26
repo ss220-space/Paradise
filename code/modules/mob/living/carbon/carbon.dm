@@ -257,6 +257,7 @@
 		AdjustParalysis(-6 SECONDS)
 		AdjustStunned(-6 SECONDS)
 		AdjustWeakened(-6 SECONDS)
+		AdjustKnockdown(-6 SECONDS)
 		adjustStaminaLoss(-10)
 
 		if(body_position != STANDING_UP && !resting && !buckled)

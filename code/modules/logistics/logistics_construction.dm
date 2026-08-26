@@ -33,6 +33,7 @@
 				dir = turn(dir, -45)
 		setDir(dir)
 	pipename = initial(pipe_type.name)
+	AddElement(/datum/element/simple_rotation, post_rotation_proccall = PROC_REF(post_rotation))
 	update_appearance(UPDATE_ICON_STATE)
 	AddElement(/datum/element/undertile)
 
@@ -70,20 +71,6 @@
 			result |= REVERSE_DIR(dir)
 	return result
 
-/obj/structure/logistics_construct/examine(mob/user)
-	. = ..()
-	. += span_notice("<b>Alt-Click</b> to rotate it, <b>Alt-Shift-Click</b> to flip it.")
-
-/obj/structure/logistics_construct/verb/rotate_verb()
-	set category = VERB_CATEGORY_OBJECT
-	set name = "Повернуть трубу"
-	set src in view(1)
-	rotate(usr)
-
-/obj/structure/logistics_construct/click_alt(mob/user)
-	rotate(user)
-	return CLICK_ACTION_SUCCESS
-
 /obj/structure/logistics_construct/proc/rotate(mob/user)
 	if(user && (user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
 		to_chat(user, span_warning("You can't do that right now!"))
@@ -97,15 +84,14 @@
 	update_appearance(UPDATE_ICON_STATE)
 	return TRUE
 
-/obj/structure/logistics_construct/verb/flip_verb()
-	set category = VERB_CATEGORY_OBJECT
-	set name = "Перевернуть трубу"
-	set src in view(1)
-	flip(usr)
-
-/obj/structure/logistics_construct/AltShiftClick(mob/user)
-	if(Adjacent(user))
-		flip(user)
+/obj/structure/logistics_construct/proc/post_rotation(mob/user, degrees)
+	if(degrees == ROTATION_FLIP)
+		var/obj/structure/logistics_pipe/temp = pipe_type
+		if(initial(temp.flip_type))
+			if(ISDIAGONALDIR(dir))
+				setDir(turn(dir, 45))
+			pipe_type = initial(temp.flip_type)
+	update_appearance(UPDATE_ICON_STATE)
 
 /obj/structure/logistics_construct/proc/flip(mob/user)
 	if(user && (user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))

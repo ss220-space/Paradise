@@ -589,6 +589,7 @@
 /datum/config_entry/flag/shutdown_on_reboot
 
 /datum/config_entry/flag/kill_on_shutdown
+	default = TRUE
 
 /datum/config_entry/flag/autoreconnect
 
@@ -900,3 +901,13 @@
 /// Pop requirement for the server to be removed from the hub
 /datum/config_entry/number/max_hub_pop
 	min_val = 0
+
+/// allow votes to change map
+/datum/config_entry/flag/allow_vote_map
+	default = TRUE
+
+/// allow votes to change game mode
+/datum/config_entry/flag/allow_vote_gamemode
+
+/datum/config_entry/flag/emojis
+	default = TRUE

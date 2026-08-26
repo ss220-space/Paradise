@@ -196,4 +196,3 @@
 			owner.vars[param_var_name] = var_value
 			target.particles.datum_flags |= DF_VAR_EDITED
 			return TRUE
-

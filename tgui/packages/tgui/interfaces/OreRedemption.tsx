@@ -1,24 +1,22 @@
-import { classes } from 'common/react';
-import { useBackend } from '../backend';
+import { type ComponentProps, useState } from 'react';
 import {
   Box,
   Button,
   Divider,
-  Stack,
-  Icon,
   LabeledList,
   NumberInput,
   Section,
+  Stack,
   Tabs,
-} from '../components';
+} from 'tgui-core/components';
+import { classes } from 'tgui-core/react';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { LogisticsButton } from './common/LogisticsButton';
-import { SectionProps } from '../components/Section';
-import { useState } from 'react';
 
-const formatPoints = (amt: number) => amt.toLocaleString('en-US') + ' ед.';
+const formatPoints = (amt: number) => `${amt.toLocaleString('en-US')} ед.`;
 
-export const OreRedemption = (properties) => {
+export const OreRedemption = (_properties: unknown) => {
   const [tabIndex, setTabIndex] = useState(0);
   return (
     <Window width={490} height={700}>
@@ -71,6 +69,8 @@ type Ore = {
   amount: number;
   description: string;
 };
+
+type SectionProps = ComponentProps<typeof Section>;
 
 const IdDisk = (properties: SectionProps) => {
   const { act, data } = useBackend<OreRedemptionData>();
@@ -311,8 +311,8 @@ const SheetLine = (properties: SheetLineProps) => {
             stepPixelSize={6}
             onChange={(value) =>
               act(ore.value ? 'sheet' : 'alloy', {
-                'id': ore.id,
-                'amount': value,
+                id: ore.id,
+                amount: value,
               })
             }
           />
@@ -374,8 +374,8 @@ const AlloyLine = (properties: AlloyLineProps) => {
             stepPixelSize={6}
             onChange={(value) =>
               act(ore.value ? 'sheet' : 'alloy', {
-                'id': ore.id,
-                'amount': value,
+                id: ore.id,
+                amount: value,
               })
             }
           />

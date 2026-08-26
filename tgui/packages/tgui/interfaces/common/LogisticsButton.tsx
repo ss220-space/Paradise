@@ -1,5 +1,5 @@
+import { Button } from 'tgui-core/components';
 import { useBackend } from '../../backend';
-import { Button } from '../../components';
 
 export const LogisticsButton = (props: { enabled?: boolean }) => {
   const { act } = useBackend();
