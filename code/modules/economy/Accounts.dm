@@ -153,7 +153,6 @@ GLOBAL_DATUM(CC_account, /datum/money_account)
 	var/datum/job/linked_job = /datum/job
 	var/salary_payment_active = FALSE
 	var/photo
-	// for bank app
 	var/list/subscriptions = list()
 	var/list/possible_resubscriptions = list()
 	var/datum/economy_process/payment/payment_process
@@ -226,8 +225,6 @@ GLOBAL_DATUM(CC_account, /datum/money_account)
 		"source_terminal" = source_terminal
 	)
 
-// attempt_account_number - Recipient account
-// datum/money_account/source - Sender account
 /obj/machinery/computer/account_database/proc/charge_to_account(attempt_account_number, datum/money_account/source, purpose, terminal_id, amount)
 	if(!activated)
 		return 0

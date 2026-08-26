@@ -1,26 +1,22 @@
 /datum/data/pda/app/bank
-	name = "Raingor Interstellar Bank" // this is the perfect name for a bank. (do not change)
+	name = "Raingor Interstellar Bank"
 	title = "Raingor Interstellar Bank"
 	icon = "university"
 	template = "pda_bank"
 	update = PDA_APP_UPDATE_SLOW
 
-	/// Snapshot
 	var/last_login_card_id
 	var/last_login_name
 
 /datum/data/pda/app/bank/update_ui(mob/user, list/data)
-	// Login and get access
 	pda.ui_login_data(data, user)
 	var/datum/ui_login/login = pda.ui_login_get()
 	var/obj/item/card/id/current_card = pda.id
 
-	// if new card in pda = new session on bank
 	if(current_card && current_card != last_login_card_id)
 		last_login_card_id = current_card
 		last_login_name = current_card.registered_name
 
-	// no card no session return
 	if(!current_card && !last_login_card_id)
 		login.logged_in = FALSE
 		return
@@ -34,7 +30,6 @@
 	var/account_name = last_login_name
 	var/datum/money_account/owner_bank_account = get_account_with_name(account_name)
 
-	// no acc no login
 	if(!owner_bank_account)
 		login.logged_in = FALSE
 		return
@@ -48,15 +43,11 @@
 
 	data["name"] = owner_bank_account.owner_name
 	data["transactions"] = get_transactions_list(owner_bank_account)
-	// Here are the names of the people/terminals where you can transfer money
 	data["targets"] = get_possible_targets(owner_bank_account)
 
 	var/list/subscriptions_data = get_active_subscriptions(owner_bank_account)
 
-	// Subscriptions that are already registered in the user's name
 	data["subscriptions"] = subscriptions_data
-	// Subscriptions that are NOT registered in the user's name and for them
-	// you will need to create a new one
 	data["availableSubs"] = get_available_subscriptions(subscriptions_data, owner_bank_account)
 	data["balance"] = owner_bank_account.money
 	data["account_suspended"] = owner_bank_account.suspended

@@ -2,7 +2,6 @@
 	interval = SALARY_INTERVAL
 	var/modifier = 1
 	var/datum/money_account/source_account
-	/// This is necessary for dynamic changes and so that the search knows who to look for a subscription from | Whose salary is being modified?
 	var/datum/money_account/target_account
 
 /datum/economy_process/payment/initialize(datum/money_account/source_account, datum/money_account/target_account, modifier = 1)

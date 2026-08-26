@@ -112,7 +112,6 @@
 		to_chat(usr, span_warning("Unable to access source account: account suspended."))
 		return 0
 
-	//transfer the money
 	if(transaction_amount <= money)
 		set_money(money - transaction_amount)
 		makeTransactionLog(transaction_amount, transaction_purpose, terminal_name, dest_name)
@@ -131,7 +130,6 @@
 	if(suspended && !suspensionbypass)
 		return 0
 
-	//transfer the money
 	if(transaction_amount <= money)
 		set_money(money - transaction_amount)
 		if(dest)

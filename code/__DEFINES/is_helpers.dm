@@ -446,7 +446,6 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define iscoreflux(A) (istype(A, /obj/item/assembly/signaler/core/energetic))
 #define iscore(A) (istype(A, /obj/item/assembly/signaler/core))
 
-#define is_subscription(A) (istype(A, /datum/subscription))
 #define is_job(A) (istype(A, /datum/job))
 #define is_money_account(A) (istype(A, /datum/money_account))
 #define isorgan(A) (istype(A, /obj/item/organ))

@@ -1,5 +1,3 @@
-// Accounts core class - needs to be converted into a subsystem
-
 GLOBAL_VAR(current_date_string)
 
 #define AUT_ACCLST 1
