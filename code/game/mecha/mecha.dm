@@ -802,7 +802,7 @@
 		booster_damage_modifier /= facing_modifier
 		booster_deflection_modifier *= facing_modifier
 	if(prob(deflect_chance * booster_deflection_modifier))
-		visible_message(span_danger("[src]'s armour deflects the attack!"), projectile_message = projectile_check)
+		visible_message(span_danger("[src]'s armour deflects the attack!"))
 		return FALSE
 	if(.)
 		. *= booster_damage_modifier
@@ -1590,8 +1590,7 @@
 		dir = dir_in
 
 	if(L?.client)
-		ASYNC
-			L.client.RemoveViewMod("mecha")
+		INVOKE_ASYNC(L.client.view_size, TYPE_PROC_REF(/datum/view_data, resetToDefault))
 		zoom_mode = FALSE
 
 	if(ishuman(L))

@@ -1,0 +1,6 @@
+author: "FlitchTime"
+delete-after: True
+changes:
+  - local: "Перевод тгуй меню шаттлов. (PR #9455)"
+  - map: "На шлюзах шаттлов теперь есть tiny fan. (PR #9455)"
+  - map: "На карго шаттл добавлены конвейеры. (PR #9455)"

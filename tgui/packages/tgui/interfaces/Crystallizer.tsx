@@ -5,9 +5,9 @@ import {
   NumberInput,
   ProgressBar,
   Section,
-} from 'tgui/components';
-import { toFixed } from 'common/math';
-import type { BooleanLike } from 'common/react';
+} from 'tgui-core/components';
+import { toFixed } from 'tgui-core/math';
+import type { BooleanLike } from 'tgui-core/react';
 
 import { useBackend } from '../backend';
 import { getGasColor } from '../constants';
