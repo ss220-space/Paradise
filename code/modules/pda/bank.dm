@@ -54,10 +54,10 @@
 	var/list/subscriptions_data = get_active_subscriptions(owner_bank_account)
 
 	// Subscriptions that are already registered in the user's name
-	data["subscriptions"] = subscriptions_data["subscriptions"]
+	data["subscriptions"] = subscriptions_data
 	// Subscriptions that are NOT registered in the user's name and for them
 	// you will need to create a new one
-	data["availableSubs"] = get_available_subscriptions(subscriptions_data["names"])
+	data["availableSubs"] = get_available_subscriptions(subscriptions_data, owner_bank_account)
 	data["balance"] = owner_bank_account.money
 	data["account_suspended"] = owner_bank_account.suspended
 
@@ -76,34 +76,31 @@
 
 /datum/data/pda/app/bank/proc/get_active_subscriptions(datum/money_account/user_account)
 	var/list/subs_list = list()
-	var/list/active_sub_names = list()
-
-	for(var/datum/subscription/registered_sub as anything in GLOB.all_subscriptions)
-		var/is_player_involved = (registered_sub.subscriber_account == user_account) || (registered_sub.recipient_account == user_account)
-
-		if(!is_player_involved)
+	var/list/subscriptions = user_account.subscriptions
+	for(var/datum/weakref/registered_sub_ref as anything in (subscriptions | user_account.possible_resubscriptions))
+		var/datum/economy_process/subscription/registered_sub = registered_sub_ref?.resolve()
+		if(!registered_sub)
 			continue
+		var/list/subscription_ui_data = registered_sub.get_base_subscription_ui_data()
+		subscription_ui_data["status"] = (registered_sub_ref in subscriptions)
+		subs_list.Add(list(subscription_ui_data))
 
-		active_sub_names.Add(registered_sub.subscription_name)
-		var/counterpart_name = "Неизвестно"
+	return subs_list
 
-		if(registered_sub.subscriber_account == user_account)
-			counterpart_name = registered_sub.recipient_account.owner_name
-		else
-			counterpart_name = registered_sub.subscriber_account.owner_name
-
-		subs_list.Add(list(registered_sub.get_base_subscription_ui_data(counterpart_name,
-			(registered_sub.subscriber_account == user_account) ? "outgoing" : "incoming")))
-
-	return list("names" = active_sub_names, "subscriptions" = subs_list)
-
-/datum/data/pda/app/bank/proc/get_available_subscriptions(list/exclude_names)
+/datum/data/pda/app/bank/proc/get_available_subscriptions(list/exclude_names, datum/money_account/owner_bank_account)
 	var/list/available_sub_list = list()
-
-	for(var/datum/subscription/purchased_subscription as anything in GLOB.available_subscriptions)
-		if(purchased_subscription.subscription_name in exclude_names)
+	var/datum/money_account/account = owner_bank_account
+	var/list/subscriptions = account.subscriptions
+	var/list/possible_resubscriptions = account.possible_resubscriptions
+	for(var/key, value in GLOB.all_subscriptions)
+		var/datum/economy_process/subscription/purchased_subscription = value
+		if(purchased_subscription.recipient_account == account)
 			continue
-
+		var/datum/weakref/weakref = WEAKREF(purchased_subscription)
+		if(weakref in subscriptions)
+			continue
+		if(weakref in possible_resubscriptions)
+			continue
 		if(purchased_subscription.secure)
 			continue
 
@@ -135,10 +132,10 @@
 				return
 
 		if("add_subscription")
-			var/sub_type = params["subscription_type"]
-			sub_type = text2path(sub_type)
-			if(!sub_type)
-				to_chat(usr, span_warning("Ошибка: не указан тип подписки."))
+			var/subscription_uid = params["available_subscription_uid"]
+			var/datum/economy_process/subscription/sub = locateUID(subscription_uid)
+			if(!sub)
+				to_chat(usr, span_warning("Ошибка: подписка не найдена."))
 				return
 
 			var/datum/money_account/sub_acc = get_account_with_name(pda.owner)
@@ -146,36 +143,34 @@
 				to_chat(usr, span_warning("Ошибка аккаунта."))
 				return
 
-			// additional options for your subscriptions
-			var/list/extra_params = list()
-
-			create_subscription(sub_acc, sub_type, extra_params)
+			sub.sub(sub_acc)
 			return
 
 		if("cancel_subscription")
-			var/available_sub_name = params["subscription_name"]
 			var/sub_uid = params["uid"]
-			var/datum/subscription/target = locateUID(sub_uid)
-
+			var/datum/economy_process/subscription/target = locateUID(sub_uid)
+			var/datum/money_account/sub_acc = get_account_with_name(pda.owner)
+			if(!sub_acc)
+				to_chat(usr, span_warning("Ошибка аккаунта."))
+				return
 			if(!target)
-				to_chat(usr, span_warning("Ошибка: подписка '[available_sub_name]' не найдена"))
+				to_chat(usr, span_warning("Ошибка: подписка не найдена"))
 				return
 
-			target.cancel()
+			target.unsub(sub_acc)
 			return
 
 		if("resume_subscription")
-			var/available_subscrip_name = params["subscription_name"]
 			var/sub_uid = params["uid"]
-
-			if(!available_subscrip_name || !sub_uid)
+			var/datum/money_account/sub_acc = get_account_with_name(pda.owner)
+			if(!sub_acc)
+				to_chat(usr, span_warning("Ошибка аккаунта."))
 				return
-
-			var/datum/subscription/added_subscription = locateUID(sub_uid)
+			var/datum/economy_process/subscription/added_subscription = locateUID(sub_uid)
 			if(!added_subscription)
-				to_chat(usr, span_warning("Ошибка: подписка '[available_subscrip_name]' не найдена."))
+				to_chat(usr, span_warning("Ошибка: подписка не найдена."))
 				return
 
-			added_subscription.resub()
+			added_subscription.sub(sub_acc)
 			return
 

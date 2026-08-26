@@ -296,15 +296,15 @@ const DetailedAccountInfo = (_properties) => {
             </LabeledList.Item>
             <LabeledList.Item label="Корректировка зарплаты">
               <Box>
-                Введите значение процента корректировки заработной платы
-                (диапазон: –95% … +95%).
+                Введите значение процента выплаты заработной платы (диапазон: 1%
+                … 200%). 0 означает, что зарплата не будет выплачиваться вовсе.
               </Box>
               <Stack>
                 <Stack.Item grow maxWidth="50%">
                   <Slider
                     value={selectedValue}
-                    minValue={-95}
-                    maxValue={95}
+                    minValue={0}
+                    maxValue={200}
                     step={1}
                     width="100%"
                     onChange={(e, value) => setSelectedValue(value)}
@@ -316,8 +316,7 @@ const DetailedAccountInfo = (_properties) => {
                     color="good"
                     onClick={() =>
                       act('set_salary_modifier', {
-                        modifier: selectedValue,
-                        owner_name: owner_name,
+                        modifier: selectedValue / 100,
                         salary_modifier_uid: salary_modifier_uid,
                       })
                     }

@@ -33,8 +33,6 @@ type Subscription = {
   status: boolean;
   description: string;
   secure: boolean;
-  subscription_type: string;
-  direction: 'outgoing' | 'incoming';
   uid: string;
 };
 
@@ -45,7 +43,6 @@ type AvailableSubscription = {
   interval: number;
   provider: string;
   secure: boolean;
-  subscription_type: string;
   uid: string;
 };
 
@@ -567,9 +564,7 @@ const UUSubscriptionsMenuPage = ({ setPage, data }: PageProps) => {
                   onClick={() => {
                     setLoading(true);
                     act('add_subscription', {
-                      available_subscription_name:
-                        e.available_subscription_name,
-                      subscription_type: e.subscription_type,
+                      available_subscription_uid: e.uid,
                     });
                   }}
                 >
@@ -638,7 +633,7 @@ const UUSubscriptionsMenuPage = ({ setPage, data }: PageProps) => {
 
               <Box className="text-muted" mb={1}>
                 <Box as="span" className="field-label">
-                  {e.direction === 'outgoing' ? 'Получатель: ' : 'Плательщик: '}
+                  {'Плательщик: '}
                 </Box>
                 {e.recipient_name}
               </Box>
@@ -688,7 +683,6 @@ const UUSubscriptionsMenuPage = ({ setPage, data }: PageProps) => {
                     className="btn-bank btn-bank--danger"
                     onClick={() =>
                       act('cancel_subscription', {
-                        subscription_name: e.subscription_name,
                         uid: e.uid,
                       })
                     }
@@ -708,7 +702,6 @@ const UUSubscriptionsMenuPage = ({ setPage, data }: PageProps) => {
                   className="btn-bank"
                   onClick={() =>
                     act('resume_subscription', {
-                      subscription_name: e.subscription_name,
                       uid: e.uid,
                     })
                   }

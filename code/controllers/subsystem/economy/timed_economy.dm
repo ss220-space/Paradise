@@ -1,29 +1,8 @@
-/**
- * SUBSCRIPTIONS SUBSYSTEM
- * This subsystem manages the lifecycle of all active financial subscriptions on the station.
- * It uses the "Bucket Scheduler" pattern to distribute the load over time (like a timer), preventing server latency.
- * Makes subscriptions centarized and pay at the same time.
- *
- * MAIN FEATURES:
- * - Group subscription system: Subscriptions are grouped by time slots (buckets) depending on their interval.
- * - Resumption logic
- * - Cyclic buffer: 12 segments are used to cover a 60-minute interval (with a 5-minute frequency).
- *
- * CONFIGURATION:
- * - BASE_FREQUENCY_SUBSYSTEM: Subsystem response frequency (default: 5 minutes).
- * - BUCKET_COUNT: number of time intervals. Total Coverage = Frequency * Amount (default: 12 buckets).
-*/
-
-/// Global list of subscription templates available for users to purchase via PDA.
-/// Populated in initialize_catalog().
-GLOBAL_LIST_EMPTY(available_subscriptions)
-
 /// Global registry of ALL subscription instances ever created (active or inactive).
-/// Acts as a persistent database for auditing and lookup.
 GLOBAL_LIST_EMPTY(all_subscriptions)
 
-SUBSYSTEM_DEF(subscriptions_subsystem)
-	name = "Subscriptions"
+SUBSYSTEM_DEF(timed_economy)
+	name = "Timed economy"
 	wait = BASE_FREQUENCY_SUBSYSTEM
 	ss_flags = SS_BACKGROUND
 
@@ -41,7 +20,7 @@ SUBSYSTEM_DEF(subscriptions_subsystem)
 	/// Holds the copy of the current bucket to allow safe modification (Cut) without affecting the original until completion.
 	var/list/current_bucket
 
-/datum/controller/subsystem/subscriptions_subsystem/Initialize()
+/datum/controller/subsystem/timed_economy/Initialize()
 	. = ..()
 	init_buckets()
 
@@ -51,7 +30,7 @@ SUBSYSTEM_DEF(subscriptions_subsystem)
  * Main entry point for the subsystem tick.
  * Called every [BASE_FREQUENCY_SUBSYSTEM] by the Master Controller.
  */
-/datum/controller/subsystem/subscriptions_subsystem/fire(resumed)
+/datum/controller/subsystem/timed_economy/fire(resumed)
 	// Ensure the catalog of available subscriptions is initialized once.
 	if(!catalog_initialized)
 		initialize_catalog()
@@ -63,7 +42,7 @@ SUBSYSTEM_DEF(subscriptions_subsystem)
  * Processes the subscriptions in the current bucket.
  * Implements resume logic to prevent server overrun (lag).
  */
-/datum/controller/subsystem/subscriptions_subsystem/proc/fire_buckets(resumed)
+/datum/controller/subsystem/timed_economy/proc/fire_buckets(resumed)
 	if(!resumed)
 		var/list/source_bucket = buckets[current_bucket_index]
 		current_bucket = source_bucket.Copy()
@@ -72,25 +51,9 @@ SUBSYSTEM_DEF(subscriptions_subsystem)
 	var/index_bucket = length(cached_current_bucket)
 
 	while(index_bucket > 0)
-		var/datum/subscription/current_sub = cached_current_bucket[index_bucket]
+		var/datum/economy_process/current_sub = cached_current_bucket[index_bucket]
 
-		if(current_sub.active)
-			current_sub.subscription_process()
-
-		// This check is necessary to verify whether the subscription survived after its processing.
-		if(current_sub.active)
-			add_subscription(current_sub)
-		else
-			// Inactive subscriptions are re-queued to track overdue time without payment.
-			// Protected subscriptions (penalties, salary) are kept while the account recovers.
-			if(current_sub.secure)
-				add_subscription(current_sub)
-			else
-				current_sub.dead_cycles++
-				if(current_sub.dead_cycles >= SUBSCRIPTION_MAX_DEAD_CYCLES)
-					qdel(current_sub)
-				else
-					add_subscription(current_sub)
+		current_sub.alt_process()
 
 		if(MC_TICK_CHECK)
 			cached_current_bucket.Cut(index_bucket)
@@ -108,7 +71,7 @@ SUBSYSTEM_DEF(subscriptions_subsystem)
  * Initializes the bucket array with empty lists.
  * Called once during subsystem initialization.
  */
-/datum/controller/subsystem/subscriptions_subsystem/proc/init_buckets()
+/datum/controller/subsystem/timed_economy/proc/init_buckets()
 	buckets = new/list(BUCKET_COUNT)
 
 	for(var/i in 1 to BUCKET_COUNT)
@@ -122,17 +85,25 @@ SUBSYSTEM_DEF(subscriptions_subsystem)
  * target_bucket = ((current_index - 1 + ticks_to_wait) % BUCKET_COUNT) + 1
  * This formula ensures correct wrap-around behavior within the circular buffer.
  */
-/datum/controller/subsystem/subscriptions_subsystem/proc/add_subscription(datum/subscription/added_subscription)
+/datum/controller/subsystem/timed_economy/proc/add_economy_process(datum/economy_process/added_process)
 	/// "ticks" refers to bucket indices (not regular DM ticks).
 	/// Calculate how many subsystem steps to delay the subscription. Minimum is 1.
-	var/ticks = max(1, floor(added_subscription.interval / BASE_FREQUENCY_SUBSYSTEM))
+	var/ticks = max(1, floor(added_process.interval / BASE_FREQUENCY_SUBSYSTEM))
 
 	/// Calculate the target bucket index.
 	/// The math handles the circular nature of the buffer (wrapping from 12 back to 1).
 	var/target_bucket = ((current_bucket_index - 1 + ticks) % BUCKET_COUNT) + 1
 
 	// Add the subscription to the target future bucket.
-	buckets[target_bucket] += added_subscription
+	buckets[target_bucket] += added_process
+
+/**
+ * This process is one of the basic ones; if you don’t add your subscription
+ * as a test one, it won’t be displayed!
+*/
+/datum/controller/subsystem/timed_economy/proc/initialize_catalog()
+	for(var/type in valid_subtypesof(/datum/economy_process/subscription))
+		new type
 
 #undef BASE_FREQUENCY_SUBSYSTEM
 #undef BUCKET_COUNT

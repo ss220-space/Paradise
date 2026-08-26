@@ -96,7 +96,7 @@ GLOBAL_VAR(current_date_string)
 
 				var/salary_mod = 0
 				var/salary_mod_uid = ""
-				var/datum/subscription/salary_modifier/this_modifier = find_subscription_salary_modifier_spec(detailed_account_view.owner_name, /datum/subscription/salary_modifier)
+				var/datum/economy_process/payment/this_modifier = detailed_account_view.payment_process
 
 				if(this_modifier)
 					salary_mod = this_modifier.modifier;
@@ -262,36 +262,15 @@ GLOBAL_VAR(current_date_string)
 			next_print = world.time + 30 SECONDS
 
 		if("set_salary_modifier")
-			var/sub_type = /datum/subscription/salary_modifier
-			var/owner_name = params["owner_name"]
-			var/salary_modifier = params[SUBSCRIPTION_PARAM_MODIFIER]
+			var/salary_modifier = clamp(params[SUBSCRIPTION_PARAM_MODIFIER], 0, 1.9)
 			var/sub_uid = params["salary_modifier_uid"]
-			var/datum/money_account/sub_acc = get_account_with_name(owner_name)
-			var/datum/subscription/salary_modifier/target
 
-			if(!sub_acc)
-				to_chat(usr, span_danger("Аккаунт не найден."))
-				return
-
-			target = locateUID(sub_uid)
+			var/datum/economy_process/payment/target = locateUID(sub_uid)
 
 			if(!target)
-				target = find_subscription_salary_modifier_spec(owner_name, sub_type)
-
-			if(!target)
-				var/list/extra_params = list(SUBSCRIPTION_PARAM_MODIFIER = salary_modifier)
-				create_subscription(sub_acc, sub_type, extra_params)
 				return
 
-			if(salary_modifier != 0)
-				target.update_modifier(salary_modifier)
-				to_chat(usr, span_notice("Модификатор обновлён: [salary_modifier]%."))
-				return
-
-			target.cancel()
-			target.modifier = 0
-			target.cost = 0
-			to_chat(usr, span_notice("Модификатор сброшен."))
+			target.modifier = salary_modifier
 
 #undef AUT_ACCLST
 #undef AUT_ACCINF

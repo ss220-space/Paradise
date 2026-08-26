@@ -1,9 +1,8 @@
-/datum/subscription/station_donations
+/datum/economy_process/subscription/station_donations
 	subscription_name = "Фонд развития станции"
 	description = " Регулярное перечисление средств на модернизацию систем жизнеобеспечения. Поощряется руководством НТ и отделом кадров."
 	cost = 100
-	interval = SALARY_MODIFIER_INTERVAL
+	interval = 3 MINUTES
 
-/datum/subscription/station_donations/New(subscriber, extra_params=null)
-	set_recipient_account(GLOB.station_account)
-	..(subscriber)
+/datum/economy_process/subscription/station_donations/get_default_account()
+	return GLOB.station_account

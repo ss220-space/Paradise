@@ -10,12 +10,12 @@
 /// Paygrade for Captain and some high-tier VIPs.
 #define PAYCHECK_MAX 750
 
-/// interval at which salaries are paid
-#define FREQUENCY_SALARY (5 MINUTES)
 /// start-up capital
 #define EXTRA_MONEY 10000
 
 
 /// The name for the default type of money used in the code.
 #define MONEY_NAME "credits"
+
+#define SUBSCRIPTION_KEY(name, type) "[type]_[name]"
 

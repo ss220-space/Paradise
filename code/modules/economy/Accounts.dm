@@ -70,7 +70,7 @@ GLOBAL_DATUM(CC_account, /datum/money_account)
 //the current ingame time (hh:mm:ss) can be obtained by calling:
 //station_time_timestamp("hh:mm:ss")
 
-/proc/create_account(new_owner_name = "Default user", starting_funds = 0, obj/machinery/computer/account_database/source_db, datum/job/link_job = /datum/job , salary_active = FALSE)
+/proc/create_account(new_owner_name = "Default user", starting_funds = 0, obj/machinery/computer/account_database/source_db, datum/job/link_job = /datum/job , salary_active = FALSE, salary_source)
 
 	//create a new account
 	var/datum/money_account/M = new()
@@ -79,6 +79,8 @@ GLOBAL_DATUM(CC_account, /datum/money_account)
 	M.money = starting_funds
 	M.linked_job = link_job
 	M.salary_payment_active = salary_active
+	if(salary_active)
+		M.payment_process = new(SScapitalism.payment_account, M)
 
 	//create an entry in the account transaction log for when it was created
 	var/datum/transaction/T = new()
@@ -150,11 +152,37 @@ GLOBAL_DATUM(CC_account, /datum/money_account)
 
 	var/datum/job/linked_job = /datum/job
 	var/salary_payment_active = FALSE
-	var/datum/brg_account/brg_profile
+	var/photo
+	// for bank app
+	var/list/subscriptions = list()
+	var/list/possible_resubscriptions = list()
+	var/datum/economy_process/payment/payment_process
 
 /datum/money_account/New()
-	..()
-	brg_profile = new /datum/brg_account(src)
+	set_photo()
+
+/datum/money_account/Destroy(force)
+	QDEL_NULL(payment_process)
+	return ..()
+
+/datum/money_account/proc/set_photo()
+	if(photo)
+		return
+	var/datum/data/record/general_record = GLOB.data_core.find_general_record_by_name(owner_name)
+	if(general_record)
+		photo = general_record.fields["photo-south"]
+
+/datum/money_account/proc/get_account_info()
+	var/list/member = list()
+
+	// if the account doesnt have a photo, or if the photo is updated, refreshed
+	set_photo()
+
+	member["name"] = owner_name
+	member["account_number"] = account_number
+	member["photo"] = photo
+
+	return member
 
 /datum/money_account/proc/addInsurancePoints(amount)
 	insurance += amount
