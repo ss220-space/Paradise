@@ -25,6 +25,7 @@
 	skill_levels = list(
 		/datum/skill/general/mech_drive = SKILL_LEVEL_ADVANCED,
 		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/accuracy = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/chemistry = SKILL_LEVEL_BASIC,

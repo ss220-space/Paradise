@@ -26,6 +26,7 @@
 	skill_levels = list(
 		/datum/skill/general/mech_drive = SKILL_LEVEL_BASIC,
 		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/accuracy = SKILL_LEVEL_PROFESSIONAL,
 		/datum/skill/combat/guns = SKILL_LEVEL_PROFESSIONAL,
 		/datum/skill/combat/melee = SKILL_LEVEL_PROFESSIONAL,
 		/datum/skill/combat/bows = SKILL_LEVEL_BEGINNER,
@@ -101,6 +102,7 @@
 		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
 		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/accuracy = SKILL_LEVEL_ADVANCED,
 		/datum/skill/combat/guns = SKILL_LEVEL_ADVANCED,
 		/datum/skill/combat/bows = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/melee = SKILL_LEVEL_ADVANCED,
@@ -156,6 +158,7 @@
 		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
 		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/accuracy = SKILL_LEVEL_BASIC,
 		/datum/skill/combat/guns = SKILL_LEVEL_BASIC,
 		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/fists = SKILL_LEVEL_BEGINNER,
@@ -221,6 +224,7 @@
 		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
 		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/accuracy = SKILL_LEVEL_BASIC,
 		/datum/skill/combat/guns = SKILL_LEVEL_BASIC,
 		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
 		/datum/skill/combat/bows = SKILL_LEVEL_BEGINNER,
@@ -230,6 +234,7 @@
 	alt_skill_levels = alist(
 		ALT_JOB_TITLE_RU_SECURITY_CADET = list(
 			/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+			/datum/skill/combat/accuracy = SKILL_LEVEL_BEGINNER,
 			/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
 			/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
 			/datum/skill/combat/fists = SKILL_LEVEL_BEGINNER,
@@ -332,6 +337,7 @@
 		/datum/skill/general/mod_use = SKILL_LEVEL_ADVANCED,
 		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
 		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/accuracy = SKILL_LEVEL_ADVANCED,
 		/datum/skill/combat/guns = SKILL_LEVEL_BASIC,
 		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/fists = SKILL_LEVEL_BEGINNER,

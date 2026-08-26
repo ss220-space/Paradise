@@ -288,6 +288,7 @@
 		/datum/skill/service/drink_mixing = 2,
 		/datum/skill/service/botany = 2,
 		/datum/skill/service/cleaning = 2,
+		/datum/skill/combat/accuracy = 2,
 		/datum/skill/combat/guns = 2,
 		/datum/skill/combat/melee = 2,
 		/datum/skill/combat/fists = 2,

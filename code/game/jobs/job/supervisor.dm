@@ -41,6 +41,7 @@
 	skill_levels = list(
 		/datum/skill/general/mech_drive = SKILL_LEVEL_BEGINNER,
 		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/accuracy = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
 	)
@@ -179,6 +180,7 @@
 		/datum/skill/general/carrying = SKILL_LEVEL_BASIC,
 		/datum/skill/general/mech_drive = SKILL_LEVEL_BEGINNER,
 		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/accuracy = SKILL_LEVEL_ADVANCED,
 		/datum/skill/combat/guns = SKILL_LEVEL_ADVANCED,
 		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
 		/datum/skill/combat/fists = SKILL_LEVEL_ADVANCED,
@@ -241,6 +243,7 @@
 	paycheck = PAYCHECK_MAX
 	skill_levels = list(
 		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/accuracy = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
 	)
