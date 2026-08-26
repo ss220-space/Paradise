@@ -21,7 +21,6 @@
 		/datum/skill/service/drink_mixing = 3,
 		/datum/skill/service/botany = 3,
 		/datum/skill/service/cleaning = 3,
-		/datum/skill/combat/accuracy = 4,
 		/datum/skill/combat/guns = 4,
 		/datum/skill/combat/melee = 4,
 		/datum/skill/combat/fists = 4,

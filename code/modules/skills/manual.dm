@@ -204,11 +204,6 @@
 	new newtype(loc)
 	return INITIALIZE_HINT_QDEL
 
-/obj/item/book/skill_manual/combat/accuracy
-	manual_title = "Точный выстрел"
-	desc = "Наставление по стрелковому делу."
-	skill_type = /datum/skill/combat/accuracy
-
 /obj/item/book/skill_manual/combat/guns
 	manual_title = "Стрелковое оружие"
 	desc = "Руководство по обращению с различным стрелковым оружием."

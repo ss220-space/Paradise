@@ -19,7 +19,6 @@
 		/datum/skill/medical/chemistry = SKILL_LEVEL_PROFESSIONAL,
 		/datum/skill/medical/genetic = SKILL_LEVEL_PROFESSIONAL,
 		/datum/skill/medical/virusology = SKILL_LEVEL_PROFESSIONAL,
-		/datum/skill/combat/accuracy = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
 		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,

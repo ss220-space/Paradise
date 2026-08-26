@@ -212,7 +212,6 @@ GLOBAL_LIST_EMPTY(skill_neurotrainers)
 GLOBAL_LIST_EMPTY(skill_types)
 
 GLOBAL_LIST_INIT(antag_skills, list(
-		/datum/skill/combat/accuracy = SKILL_LEVEL_ADVANCED,
 		/datum/skill/combat/guns = SKILL_LEVEL_ADVANCED,
 		/datum/skill/combat/melee = SKILL_LEVEL_ADVANCED,
 		/datum/skill/combat/fists = SKILL_LEVEL_ADVANCED,

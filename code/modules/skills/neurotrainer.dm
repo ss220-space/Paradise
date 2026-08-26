@@ -105,7 +105,6 @@
 
 /obj/item/neurotrainer/all_without_combat/Initialize(mapload)
 	var/static/combat_skills = list(
-		/datum/skill/combat/accuracy,
 		/datum/skill/combat/guns,
 		/datum/skill/combat/melee,
 		/datum/skill/combat/fists,
@@ -175,16 +174,11 @@
 /obj/item/neurotrainer/combat
 	manual_title = "Боевые"
 	skill_types = list(
-		/datum/skill/combat/accuracy,
 		/datum/skill/combat/guns,
 		/datum/skill/combat/melee,
 		/datum/skill/combat/fists,
 		/datum/skill/combat/bows,
 	)
-
-/obj/item/neurotrainer/combat/accuracy
-	manual_title = "Точный выстрел"
-	skill_types = /datum/skill/combat/accuracy
 
 /obj/item/neurotrainer/combat/guns
 	manual_title = "Стрелковое оружие"
