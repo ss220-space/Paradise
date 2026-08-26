@@ -106,7 +106,6 @@ jobs:
           PRE_TESTMERGE_SHA=$(git rev-parse HEAD)
 
           ./tools/hooks/install.sh
-          ./tgui/bin/tgui --install-git-hooks
 
           MERGED_PRS=()
 
