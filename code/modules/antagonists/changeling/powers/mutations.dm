@@ -456,7 +456,6 @@
 	icon_state = "lingarmorhelmet"
 	clothing_flags = THICKMATERIAL|PEPPERPROOF
 	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME|HIDEHAIR
-	flags_cover = HEADCOVERSEYES
 	item_flags = DROPDEL
 	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 20, BOMB = 10, BIO = 4, FIRE = 90, ACID = 90)
 	species_restricted = null
