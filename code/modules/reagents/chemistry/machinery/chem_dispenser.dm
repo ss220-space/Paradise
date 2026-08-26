@@ -250,6 +250,7 @@
 			var/datum/reagents/reagents = beaker.reagents
 			var/free = reagents.maximum_volume - reagents.total_volume
 			var/actual = min(amount, (cell.charge * powerefficiency) * 10, free)
+			var/reagent = params["reagent"]
 
 			if(!cell.use(actual / powerefficiency))
 				atom_say("Недостаточно энергии для завершения операции!")
@@ -258,14 +259,13 @@
 			CALCULATE_SKILL_MOD(usr, dispence_skill_name, dispense_rand_size)
 			actual += min(amount * dispense_rand_size * (rand(0, 1) * dispense_rand_size), free) // assistants gets free drinks, but can evaporate energy in seconds
 
-			var/reagent = params["reagent"]
 			CALCULATE_SKILL_MOD(usr, dispence_random_prob_name, dispence_random_prob)
 			dispence_random_prob *= 100
-			if(prob(dispence_random_prob ))
+			if(prob(dispence_random_prob))
 				reagent = pick(dispensable_reagents)
 			reagents.add_reagent(reagent, actual)
-			update_icon(UPDATE_OVERLAYS)
 
+			update_icon(UPDATE_OVERLAYS)
 		if("remove")
 			var/amount = text2num(params["amount"])
 
