@@ -21,8 +21,7 @@
 				icon = R.icon
 	else
 		name = "robot [initial(name)]"
-
-	AddElement(/datum/element/surgery_initiator/limb, forced_surgery = /datum/surgery/attach_robotic_limb)
+	AddComponent(/datum/component/surgery_initiator/limb, forced_surgery = /datum/surgery/attach_robotic_limb)
 
 /obj/item/robot_parts/attack_self(mob/user)
 	var/choice = tgui_input_list(user, "Select the company appearance for this limb", "Limb Company Selection", GLOB.selectable_robolimbs)

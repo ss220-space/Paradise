@@ -1,5 +1,4 @@
 import { declensionRu } from 'common/l10n';
-import { useBackend } from '../backend';
 import {
   AnimatedNumber,
   Box,
@@ -9,7 +8,8 @@ import {
   ProgressBar,
   Section,
   Stack,
-} from '../components';
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 const damageTypes = [
@@ -178,7 +178,7 @@ const CryoContent = (props: unknown) => {
                   act(
                     auto_eject_healthy
                       ? 'auto_eject_healthy_off'
-                      : 'auto_eject_healthy_on'
+                      : 'auto_eject_healthy_on',
                   )
                 }
               >
@@ -193,7 +193,7 @@ const CryoContent = (props: unknown) => {
                   act(
                     auto_eject_dead
                       ? 'auto_eject_dead_off'
-                      : 'auto_eject_dead_on'
+                      : 'auto_eject_dead_on',
                   )
                 }
               >
@@ -234,13 +234,13 @@ const CryoBeaker = (props: unknown) => {
                   num,
                   'Осталась',
                   'Остались',
-                  'Осталось'
+                  'Осталось',
                 );
                 const unitText = declensionRu(
                   num,
                   'единица',
                   'единицы',
-                  'единиц'
+                  'единиц',
                 );
                 return `${leftText} ${num} ${unitText}`;
               }}

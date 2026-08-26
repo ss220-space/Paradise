@@ -1,4 +1,4 @@
-import { sendAct as act } from 'tgui/backend';
+import { sendAct as act } from 'tgui/events/act';
 import { colorToHexString } from '../../colorSpaces';
 import { constrainToIconGrid } from '../../helpers';
 import { Tool } from '../Tool';
@@ -13,7 +13,7 @@ export class Bucket extends Tool {
     data: SpriteData,
     x: number,
     y: number,
-    isRightClick?: boolean
+    isRightClick?: boolean,
   ) {
     if (isRightClick) return undefined;
     const { selectedDir, selectedLayer, currentColor } = context;

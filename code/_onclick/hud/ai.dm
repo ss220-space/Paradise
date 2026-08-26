@@ -28,9 +28,7 @@
 /atom/movable/screen/ai/camera_track/Click()
 	if(isAI(usr))
 		var/mob/living/silicon/ai/AI = usr
-		var/target_name = tgui_input_list(AI, "Выберите цель для отслеживания", "Объекты слежения", AI.trackable_mobs())
-		if(target_name)
-			AI.ai_camera_track(target_name)
+		AI.ai_camera_track()
 
 /atom/movable/screen/ai/camera_light
 	name = "Переключить освещение камеры"

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Flex, Input, NoticeBox, Section } from 'tgui/components';
+import { Button, Flex, Input, NoticeBox, Section } from 'tgui-core/components';
 
 import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
@@ -20,7 +20,7 @@ export const PortraitPicker = (_props) => {
   const current_portrait_author =
     got_paintings && `By ${paintings[listIndex].creator}`;
   const current_portrait_asset_name =
-    got_paintings && `paintings_${paintings[listIndex].md5}`;
+    (got_paintings && `paintings_${paintings[listIndex].md5}`) || '';
 
   return (
     <Window theme="ntos" title="Portrait Picker" width={400} height={406}>
