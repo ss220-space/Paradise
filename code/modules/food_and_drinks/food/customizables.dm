@@ -330,7 +330,7 @@
 		origin.ingredients.Cut()
 		origin.name = initial(origin.name) // Reset the name for the examine text
 
-	cooktype[basename] = TRUE
+	LAZYSET(cooktype, basename, TRUE)
 	add_ingredients(added_ingredients)
 	name = newname()
 

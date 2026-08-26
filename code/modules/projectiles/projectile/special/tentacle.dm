@@ -56,7 +56,7 @@
 
 	var/obj/item/offarm_item = user.get_inactive_hand()
 
-	if(!offarm_item)
+	if(!offarm_item || !user.Adjacent(target))
 		return
 
 	offarm_item.attack(target, user)
