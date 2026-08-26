@@ -76,12 +76,6 @@ jobs:
           python-version: '3.13.1'
           cache: 'pip'
 
-      - uses: actions/setup-node@v6
-        with:
-          node-version: 22.11.0
-          cache: 'yarn'
-          cache-dependency-path: ./tgui/yarn.lock
-
       - name: Install python packages
         run: |
           pip3 install -r tools/requirements.txt
