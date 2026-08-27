@@ -214,6 +214,8 @@
 	return TRUE
 
 /mob/living/proc/start_zMove_cooldown()
+	if(throwing)
+		return
 	COOLDOWN_START(src, space_transit_pass_through_cooldown, ZMOVE_COOLDOWN_DURATION)
 	RegisterSignal(src, COMSIG_MOVABLE_PRE_MOVE, PROC_REF(check_cooldown_on_transit_space_turf), override = TRUE)
 	addtimer(CALLBACK(src, PROC_REF(unregister_after_zmove_cooldown)), ZMOVE_COOLDOWN_DURATION)
