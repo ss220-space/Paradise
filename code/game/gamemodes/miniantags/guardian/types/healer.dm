@@ -91,10 +91,7 @@
 	else
 		to_chat(src, span_danger("Нужно быть в хозяине для переключения режимов!"))
 
-/mob/living/simple_animal/hostile/guardian/healer/verb/Beacon()
-	set name = "Установить БС-маяк"
-	set category = VERB_CATEGORY_GUARDIAN
-	set desc = "Пометьте пол как ваш маяк, позволяя телепортировать цели на него. Ваш маяк не будет работать в небезопасных атмосферных условиях."
+GAME_VERB_DESC(/mob/living/simple_animal/hostile/guardian/healer, Beacon, "Установить БС-маяк", "Пометьте пол как ваш маяк, позволяя телепортировать цели на него. Ваш маяк не будет работать в небезопасных атмосферных условиях.", VERB_CATEGORY_GUARDIAN)
 	if(beacon_cooldown < world.time)
 		var/turf/beacon_loc = get_turf(loc)
 		if(isfloorturf(beacon_loc))

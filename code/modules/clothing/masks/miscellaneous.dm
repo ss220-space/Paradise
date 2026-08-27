@@ -227,7 +227,7 @@
 	permeability_coefficient = 0.01
 	can_toggle = TRUE
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 25, FIRE = 0, ACID = 0)
-
+	actions_types = list(/datum/action/item_action/adjust)
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/mask.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/mask.dmi',
@@ -534,6 +534,7 @@
 	adjusted_slot_flags = ITEM_SLOT_HEAD
 	adjusted_flags_inv = HIDENAME|HIDEFACIALHAIR
 	can_toggle = TRUE
+	actions_types = list(/datum/action/item_action/adjust)
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/mask.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/mask.dmi',

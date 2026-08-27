@@ -63,7 +63,7 @@
 /mob/living/carbon/alien/Initialize(mapload)
 	. = ..()
 	create_reagents(1000)
-	add_verb(src, /mob/living/verb/mob_sleep)
+	ASSIGN_GAME_VERB(src, /mob/living, mob_sleep)
 	thermal_toogle = new
 	thermal_toogle.Grant(src)
 
@@ -233,9 +233,7 @@
 /mob/living/carbon/alien/setDNA()
 	return
 
-/mob/living/carbon/alien/verb/nightvisiontoggle()
-	set name = "Toggle Night Vision"
-
+/mob/living/carbon/alien/proc/nightvisiontoggle()
 	if(!nightvision_enabled)
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 		nightvision = 8

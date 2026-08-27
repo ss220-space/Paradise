@@ -165,6 +165,30 @@
 	path = /obj/item/clothing/head/beret/atmos
 	allowed_roles = list(JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ATMOSTECH)
 
+/datum/gear/hat/blacksombrero
+	index_name = "Black Sombrero"
+	path = /obj/item/clothing/head/fluff/blacksombrero
+
+/datum/gear/hat/guardhelm
+	index_name = "Plastic Guard helm"
+	path = /obj/item/clothing/head/fluff/guardhelm
+
+/datum/gear/hat/goldtophat
+	index_name = "Gold-trimmed Top Hat"
+	path = /obj/item/clothing/head/fluff/goldtophat
+
+/datum/gear/hat/goldtophat/red
+	index_name = "Red Gold-trimmed Top Hat"
+	path = /obj/item/clothing/head/fluff/goldtophat/red
+
+/datum/gear/hat/goldtophat/blue
+	index_name = "Blue Gold-trimmed Top Hat"
+	path = /obj/item/clothing/head/fluff/goldtophat/blue
+
+/datum/gear/hat/mushhat
+	index_name = "Mushroom Hat"
+	path = /obj/item/clothing/head/fluff/mushhat
+
 /datum/gear/hat/surgicalcap
 	index_name = "surgical cap, select"
 	display_name = "Хирургическая шапочка"

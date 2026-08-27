@@ -278,8 +278,9 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 	var/list/datum/keybindings = list()
 	/// Keybinding overrides ("name" => ["key"...])
 	var/list/keybindings_overrides = null
+	/// Cached list of keybindings, mapping keys to actions.
 	/// View range preference for this client
-	var/viewrange = DEFAULT_CLIENT_VIEWSIZE
+	var/viewrange = WIDESCREEN_PARTIAL_VIEWPORT_SIZE
 	/// How dark things are if client is a ghost, 0-255
 	var/ghost_darkness_level = LIGHTING_PLANE_ALPHA_VISIBLE
 
@@ -718,7 +719,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 					var/datum/keybinding/KB = kb
 					var/kb_uid = KB.UID() // Cache this to reduce proc jumps
 					var/override_keys = (keybindings_overrides && keybindings_overrides[KB.name])
-					var/list/keys = override_keys || KB.keys
+					var/list/keys = override_keys || KB.classic_keys
 					var/keys_buttons = ""
 					for(var/key in keys)
 						var/disp_key = key
@@ -726,7 +727,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 							disp_key = "<b>[disp_key]</b>"
 						keys_buttons += "<a href='byond://?_src_=prefs;preference=keybindings;set=[kb_uid];old=[url_encode(key)];'>[disp_key]</a>&nbsp;"
 					dat += "<tr>"
-					dat += "<td style='width: 25%'>[KB.name]</td>"
+					dat += "<td style='width: 25%'>[KB.full_name]</td>"
 					dat += "<td style='width: 45%'>[keys_buttons][(length(keys) < 5) ? "<a href='byond://?_src_=prefs;preference=keybindings;set=[kb_uid];'>[span_good("+")]</a></td>" : "</td>"]"
 					dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=keybindings;reset=[kb_uid]'>Сбросить</a> <a href='byond://?_src_=prefs;preference=keybindings;clear=[kb_uid]'>Очистить</a></td>"
 					if(KB.category == KB_CATEGORY_EMOTE_CUSTOM)
@@ -1017,7 +1018,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 	keybindings = list()
 	keybindings_overrides = overrides
 	for(var/datum/keybinding/keybinding as anything in GLOB.keybindings)
-		var/list/keys = keybinding.keys
+		var/list/keys = keybinding.classic_keys
 		if(overrides?[keybinding.name])
 			keys = overrides[keybinding.name]
 		for(var/key in keys)
@@ -2522,9 +2523,9 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 
 				if("setviewrange")
 					var/list/viewrange_options = list(
-						"15x15 (Классический)" = "15x15",
-						"17x15 (Широкий)" = "17x15",
-						"19x15 (Ультраширокий)" = "19x15"
+						"15x15 (Классический)" = SQUARE_VIEWPORT_SIZE,
+						"17x15 (Широкий)" = WIDESCREEN_PARTIAL_VIEWPORT_SIZE,
+						"19x15 (Ультраширокий)" = WIDESCREEN_VIEWPORT_SIZE
 					)
 
 					var/new_range = tgui_input_list(user, "Выберите диапазон обзора", "Диапазон обзора", viewrange_options)
@@ -2535,7 +2536,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 					if(actual_new_range == parent.view)
 						return
 					viewrange = actual_new_range
-					parent.change_view(actual_new_range)
+					parent.view_size.setDefault(VIEWPORT_USE_PREF)
 
 				if("afk_watch")
 					if(!(toggles2 & PREFTOGGLE_2_AFKWATCH))
@@ -2773,7 +2774,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 										full_key = "[alt_mod][ctrl_mod][shift_mod][numpad][new_key]"
 
 								// Update overrides
-								var/list/key_overrides = keybindings_overrides[KB.name] || KB.keys?.Copy() || list()
+								var/list/key_overrides = keybindings_overrides[KB.name] || KB.classic_keys?.Copy() || list()
 								var/index = key_overrides.Find(old_key)
 								var/changed = FALSE
 								if(clear) // Clear
@@ -2794,7 +2795,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 									changed = isnull(keybindings_overrides[KB.name]) // Sets it in the JSON
 
 								if(changed)
-									if(!length(key_overrides) && !length(KB.keys))
+									if(!length(key_overrides) && !length(KB.classic_keys))
 										keybindings_overrides -= KB.name
 									else
 										keybindings_overrides[KB.name] = key_overrides
@@ -2812,7 +2813,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 					else if(href_list["clear"])
 						var/datum/keybinding/KB = locateUID(href_list["clear"])
 						if(KB)
-							if(length(KB.keys))
+							if(length(KB.classic_keys))
 								keybindings_overrides[KB.name] = list()
 							else
 								keybindings_overrides -= KB.name

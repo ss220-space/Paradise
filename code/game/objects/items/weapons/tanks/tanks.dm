@@ -33,7 +33,6 @@
 	QDEL_NULL(air_contents)
 
 	STOP_PROCESSING(SSobj, src)
-
 	return ..()
 
 /obj/item/tank/proc/populate_gas()

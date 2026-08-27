@@ -8,186 +8,29 @@ macro "default"
 		name = "SHIFT+UP"
 		command = ".winset :map.right-click=true"
 
-me
-menu "menu"
-	elem
-		name = "&Файл"
-		command = ""
-		saved-params = "is-checked"
-	elem
-		name = "&Быстрый скриншот"
-		command = ".screenshot auto"
-		category = "&Файл"
-		saved-params = "is-checked"
-	elem
-		name = "&Сохранить скриншот как..."
-		command = ".screenshot"
-		category = "&Файл"
-		saved-params = "is-checked"
-	elem "reconnectbutton"
-		name = "&Переподключиться"
-		command = ".reconnect"
-		category = "&Файл"
-		saved-params = "is-checked"
-	elem "debugmcbutton"
-		name = "&MC Отладка"
-		command = "SS-Info-Breakdown"
-		category = "&Файл"
-		is-disabled = true
-		saved-params = "is-checked"
-	elem
-		name = "&Выйти"
-		command = ".quit"
-		category = "&Файл"
-		saved-params = "is-checked"
-	elem
-		name = "&Экран"
-		command = ""
-		saved-params = "is-checked"
-	elem
-		name = "&Размер"
-		command = ""
-		category = "&Экран"
-		saved-params = "is-checked"
-	elem "stretch"
-		name = "&Авто-подбор размера"
-		command = ".winset \"mapwindow.map.icon-size=0\""
-		category = "&Размер"
-		is-checked = true
-		can-check = true
-		group = "размер"
-		saved-params = "is-checked"
-	elem "icon128"
-		name = "&128x128 (4x)"
-		command = ".winset \"mapwindow.map.icon-size=128\""
-		category = "&Размер"
-		can-check = true
-		group = "размер"
-		saved-params = "is-checked"
-	elem "icon112"
-		name = "&112x112 (3.5x)"
-		command = ".winset \"mapwindow.map.icon-size=112\""
-		category = "&Размер"
-		can-check = true
-		group = "размер"
-		saved-params = "is-checked"
-	elem "icon96"
-		name = "&96x96 (3x)"
-		command = ".winset \"mapwindow.map.icon-size=96\""
-		category = "&Размер"
-		can-check = true
-		group = "размер"
-		saved-params = "is-checked"
-	elem "icon80"
-		name = "&80x80 (2.5x)"
-		command = ".winset \"mapwindow.map.icon-size=80\""
-		category = "&Размер"
-		can-check = true
-		group = "размер"
-		saved-params = "is-checked"
-	elem "icon64"
-		name = "&64x64 (2x)"
-		command = ".winset \"mapwindow.map.icon-size=64\""
-		category = "&Размер"
-		can-check = true
-		group = "размер"
-		saved-params = "is-checked"
-	elem "icon48"
-		name = "&48x48 (1.5x)"
-		command = ".winset \"mapwindow.map.icon-size=48\""
-		category = "&Размер"
-		can-check = true
-		group = "размер"
-		saved-params = "is-checked"
-	elem "icon32"
-		name = "&32x32"
-		command = ".winset \"mapwindow.map.icon-size=32\""
-		category = "&Размер"
-		can-check = true
-		group = "размер"
-		saved-params = "is-checked"
-	elem
-		name = "&Масштабирование"
-		command = ""
-		category = "&Экран"
-		saved-params = "is-checked;command"
-	elem "NN"
-		name = "&Метод ближайшего соседа"
-		command = ".winset \"mapwindow.map.zoom-mode=distort\""
-		category = "&Масштабирование"
-		is-checked = true
-		can-check = true
-		group = "масштаб"
-		saved-params = "is-checked"
-	elem "PS"
-		name = "&Поточечная выборка"
-		command = ".winset \"mapwindow.map.zoom-mode=normal\""
-		category = "&Масштабирование"
-		can-check = true
-		group = "масштаб"
-		saved-params = "is-checked"
-	elem "BL"
-		name = "&Билейная интерполяция"
-		command = ".winset \"mapwindow.map.zoom-mode=blur\""
-		category = "&Масштабирование"
-		can-check = true
-		group = "масштаб"
-		saved-params = "is-checked"
-	elem "textmode"
-		name = "&Текст"
-		command = ".winset \"menu.textmode.is-checked=true?mapwindow.map.text-mode=true:mapwindow.map.text-mode=false\""
-		category = "&Экран"
-		can-check = true
-		saved-params = "is-checked"
-	elem
-		name = "&Опции"
-		command = ""
-		saved-params = "is-checked"
-	elem
-		name = "&Микшер громкости"
-		command = "Микшер-громкости"
-		category = "&Опции"
-		saved-params = "is-checked"
-	elem
-		name = "&Помощь"
-		command = ""
-		saved-params = "is-checked"
-	elem
-		name = "&Запрос помощи"
-		command = "Запрос-помощи"
-		category = "&Помощь"
-		saved-params = "is-checked"
-	elem
-		name = "&Подгонка области видимости"
-		command = "Подгонка-области-видимости"
-		category = "&Помощь"
-		saved-params = "is-checked"
-	elem
-		name = "&Обновить TGUI"
-		command = "Обновить-TGUI"
-		category = "&Помощь"
-		saved-params = "is-checked"
-	elem
-		name = "&Починить чат"
-		command = "Починить-чат"
-		category = "&Помощь"
-		saved-params = "is-checked"
-
-
 window "mainwindow"
 	elem "mainwindow"
 		type = MAIN
-		pos = 0,0
+		pos = 281,0
 		size = 640x440
 		anchor1 = -1,-1
 		anchor2 = -1,-1
 		is-default = true
 		saved-params = "pos;size;is-minimized;is-maximized;"
 		statusbar = false
-		is-maximized = true
 		icon = 'icons\\paradise.png'
 		macro = "default"
 		menu = "menu"
+	elem "split"
+		type = CHILD
+		pos = 0,0
+		size = 640x440
+		anchor1 = 0,0
+		anchor2 = 100,100
+		saved-params = "splitter"
+		left = "mapwindow"
+		right = "info_and_buttons"
+		is-vert = true
 	elem "asset_cache_browser"
 		type = BROWSER
 		pos = 0,0
@@ -196,16 +39,6 @@ window "mainwindow"
 		anchor2 = -1,-1
 		is-visible = false
 		saved-params = ""
-	elem "mainvsplit"
-		type = CHILD
-		pos = 0,0
-		size = 0x0
-		anchor1 = 0,0
-		anchor2 = 100,100
-		saved-params = "splitter"
-		left = "mapwindow"
-		right = "info_and_buttons"
-		is-vert = true
 	elem "tooltip"
 		type = BROWSER
 		pos = 0,0
@@ -214,11 +47,19 @@ window "mainwindow"
 		anchor2 = -1,-1
 		is-visible = false
 		saved-params = ""
+	elem "commandbar_spy"
+		type = BROWSER
+		pos = 0,0
+		size = 200x200
+		anchor1 = -1,-1
+		anchor2 = -1,-1
+		is-visible = false
+		saved-params = ""
 
 window "mapwindow"
 	elem "mapwindow"
 		type = MAIN
-		pos = 0,0
+		pos = 281,0
 		size = 640x480
 		anchor1 = -1,-1
 		anchor2 = -1,-1
@@ -246,6 +87,15 @@ window "mapwindow"
 		is-visible = false
 		is-disabled = true
 		saved-params = ""
+	elem "escape_menu"
+		type = BROWSER
+		pos = 0,0
+		size = 640x480
+		anchor1 = 0,0
+		anchor2 = 100,100
+		background-color = none
+		inner-background-color = transparent
+		is-visible = false
 
 window "info_and_buttons"
 	elem "info_and_buttons"
@@ -273,8 +123,8 @@ window "info_and_buttons"
 window "infobuttons"
 	elem "infobuttons"
 		type = MAIN
-		pos = 384,0
-		size = 640x40
+		pos = 291,0
+		size = 676x30
 		anchor1 = 0,0
 		anchor2 = 100,100
 		background-color = none
@@ -286,63 +136,111 @@ window "infobuttons"
 		inner-pos = 9,38
 		screen-size = 1920x1030
 
-	elem "fullscreenb"
+	elem "options"
 		type = BUTTON
-		pos = 0,5
-		size = 85x35
+		pos = 0,2
+		size = 88x27
 		anchor1 = 0,0
-		anchor2 = 13,100
+		anchor2 = 15,100
+		background-color = none
+		saved-params = "is-checked"
+		text = "Меню"
+		command = ".winset \"mapwindow.escape_menu.is-visible=true?mapwindow.escape_menu.is-visible=false:mapwindow.escape_menu.is-visible=true\"\n.output mapwindow.escape_menu:update %7B%22type%22%3A%22toggle%22%2C%22payload%22%3Anull%7D"
+	elem "hotkeys"
+		type = BUTTON
+		pos = 92,2
+		size = 88x27
+		anchor1 = 15,0
+		anchor2 = 29,100
+		background-color = none
+		saved-params = "is-checked"
+		text = "Hotkeys"
+		command = "Hotkeys-Help"
+	elem "emotes"
+		type = BUTTON
+		pos = 185,2
+		size = 88x27
+		anchor1 = 29,0
+		anchor2 = 43,100
+		background-color = none
+		saved-params = "is-checked"
+		text = "Emotes"
+		command = "Emote-Panel"
+	elem "fullscreen-toggle"
+		type = BUTTON
+		pos = 277,2
+		size = 88x27
+		anchor1 = 43,0
+		anchor2 = 57,100
+		background-color = none
 		saved-params = "is-checked"
 		text = "Полный экран"
 		command = "Полный-экран"
-
-	elem "textb"
+	elem "reconnect"
 		type = BUTTON
-		pos = 90,5
-		size = 85x35
-		anchor1 = 14,0
-		anchor2 = 27,100
+		pos = 369,2
+		size = 88x27
+		anchor1 = 57,0
+		anchor2 = 71,100
 		background-color = none
 		saved-params = "is-checked"
-		text = "Свернуть"
-		command = ".winset \"info.left=;\""
-		group = "rpanemode"
-		button-type = pushbox
-
-	elem "infob"
+		text = "Reconnect"
+		command = ".reconnect"
+	elem "chat"
 		type = BUTTON
-		pos = 180,5
-		size = 85x35
-		anchor1 = 28,0
-		anchor2 = 41,100
+		pos = 560,2
+		size = 112x27
+		anchor1 = 85,0
+		anchor2 = 99,100
 		background-color = none
 		saved-params = "is-checked"
-		text = "Развернуть"
-		command = ".winset \"info.left=statwindow\""
-		is-checked = true
-		group = "rpanemode"
-		button-type = pushbox
-
+		text = "Toggle Stat Panel"
+		command = "toggle-stat-panel"
 
 window "infowindow"
 	elem "infowindow"
 		type = MAIN
-		pos = 281,0
+		pos = 281,5
 		size = 640x475
 		anchor1 = -1,-1
 		anchor2 = -1,-1
 		saved-params = "pos;size;is-minimized;is-maximized"
 		is-pane = true
-	elem "info"
+	elem "info_child"
 		type = CHILD
-		pos = 0,5
+		pos = 0,0
 		size = 640x475
 		anchor1 = 0,0
 		anchor2 = 100,100
 		saved-params = "splitter"
+		splitter = 40
+		background-color = #202020
 		left = "statwindow"
 		right = "outputwindow"
 		is-vert = false
+
+window "input_buttons"
+	elem "input_buttons_main"
+		type = MAIN
+		pos = 0,0
+		size = 640x475
+		anchor1 = 0,0
+		anchor2 = 100,100
+		saved-params = "pos;size;is-minimized;is-maximized"
+		is-pane = true
+	elem "input_buttons_child"
+		type = CHILD
+		pos = 0,0
+		size = 640x475
+		anchor1 = 0,0
+		anchor2 = 100,100
+		background-color = #ffc41f
+		saved-params = "splitter"
+		left = "inputwindow"
+		right = "inputbuttons"
+		is-vert = true
+		splitter = 70
+		show-splitter = false
 
 window "outputwindow"
 	elem "outputwindow"
@@ -353,19 +251,14 @@ window "outputwindow"
 		anchor2 = -1,-1
 		saved-params = "pos;size;is-minimized;is-maximized"
 		is-pane = true
-	elem "output_input_child"
+	elem "output_selector_screen"
 		type = CHILD
-		pos = 0,0
 		size = 640x475
 		anchor1 = 0,0
 		anchor2 = 100,100
-		background-color = #ffc41f
 		saved-params = "splitter"
+		background-color = #ffc41f
 		left = "output_selector"
-		right = "input_and_buttons"
-		is-vert = false
-		splitter = 96
-		show-splitter = false
 
 window "output_selector"
 	elem "output_selector"
@@ -385,27 +278,6 @@ window "output_selector"
 		saved-params = "splitter"
 		left = "output_legacy"
 		is-vert = false
-
-window "input_and_buttons"
-	elem "input_and_buttons"
-		type = MAIN
-		pos = 291,0
-		size = 640x20
-		anchor1 = -1,-1
-		anchor2 = -1,-1
-		saved-params = "pos;size;is-minimized;is-maximized"
-		is-pane = true
-	elem "input_buttons_child"
-		type = CHILD
-		pos = 0,0
-		size = 640x20
-		anchor1 = 0,0
-		anchor2 = 100,100
-		background-color = #ffc41f
-		saved-params = "splitter"
-		left = "inputwindow"
-		right = "inputbuttons"
-		is-vert = true
 		splitter = 80
 		show-splitter = false
 
@@ -413,68 +285,82 @@ window "inputwindow"
 	elem "inputwindow"
 		type = MAIN
 		pos = 575,0
-		size = 520x25
-		anchor1 = -1,-1
-		anchor2 = -1,-1
+		size = 480x25
+		anchor1 = 0,0
+		anchor2 = 70,100
 		background-color = none
 		saved-params = "pos;size;is-minimized;is-maximized"
 		is-pane = true
 	elem "input"
 		type = INPUT
 		pos = 0,0
-		size = 805x20
+		size = 480x25
 		anchor1 = 0,0
 		anchor2 = 100,100
 		is-default = true
 		border = line
 		saved-params = "command"
+		can-scroll = true
 
 window "inputbuttons"
 	elem "inputbuttons"
 		type = MAIN
 		pos = 291,0
-		size = 120x25
-		anchor1 = 0,0
+		size = 160x25
+		anchor1 = 70,0
 		anchor2 = 100,100
 		saved-params = "pos;size;is-minimized;is-maximized"
 		is-pane = true
 	elem "saybutton"
 		type = BUTTON
 		pos = 0,0
-		size = 40x20
+		size = 40x25
 		anchor1 = 0,0
-		anchor2 = 33,100
+		anchor2 = 25,100
 		font-size = 4
 		border = line
 		saved-params = "is-checked"
 		text = "Сказать"
-		command = ".winset \"saybutton.is-checked=true ? input.command=\"!Сказать \\\"\" : input.command=\"\"saybutton.is-checked=true ? mebutton.is-checked=false\"\"saybutton.is-checked=true ? oocbutton.is-checked=false\""
+		command = ".winset \"saybutton.is-checked=true ? input.command=\"!Сказать \\\"\" : input.command=\"\"saybutton.is-checked=true ? mebutton.is-checked=false\"\"saybutton.is-checked=true ? oocbutton.is-checked=false\"\"saybutton.is-checked=true ? whisperbutton.is-checked=false\""
+		is-flat = true
+		button-type = pushbox
+	elem "whisperbutton"
+		type = BUTTON
+		pos = 40,0
+		size = 40x25
+		anchor1 = 25,0
+		anchor2 = 50,100
+		font-size = 4
+		border = line
+		saved-params = "is-checked"
+		text = "Шепот"
+		command = ".winset \"whisperbutton.is-checked=true ? input.command=\"!Шепот \\\"\" : input.command=\"\"whisperbutton.is-checked=false ? saybutton.is-checked=false\"\"whisperbutton.is-checked=true ? mebutton.is-checked=false\"\"whisperbutton.is-checked=true ? oocbutton.is-checked=false\""
 		is-flat = true
 		button-type = pushbox
 	elem "mebutton"
 		type = BUTTON
-		pos = 40,0
-		size = 40x20
-		anchor1 = 33,0
-		anchor2 = 66,100
+		pos = 80,0
+		size = 40x25
+		anchor1 = 50,0
+		anchor2 = 75,100
 		font-size = 4
 		border = line
 		saved-params = "is-checked"
 		text = "Эмоция"
-		command = ".winset \"mebutton.is-checked=true ? input.command=\"!Эмоция \\\"\" : input.command=\"\"mebutton.is-checked=true ? saybutton.is-checked=false\"\"mebutton.is-checked=true ? oocbutton.is-checked=false\""
+		command = ".winset \"mebutton.is-checked=true ? input.command=\"!Эмоция' \\\"\" : input.command=\"\"mebutton.is-checked=true ? saybutton.is-checked=false\"\"mebutton.is-checked=true ? oocbutton.is-checked=false\"\"mebutton.is-checked=true ? whisperbutton.is-checked=false\""
 		is-flat = true
 		button-type = pushbox
 	elem "oocbutton"
 		type = BUTTON
-		pos = 80,0
-		size = 40x20
-		anchor1 = 66,0
+		pos = 120,0
+		size = 40x25
+		anchor1 = 75,0
 		anchor2 = 100,100
 		font-size = 4
 		border = line
 		saved-params = "is-checked"
 		text = "OOC"
-		command = ".winset \"oocbutton.is-checked=true ? input.command=\"!ooc \\\"\" : input.command=\"\"oocbutton.is-checked=true ? mebutton.is-checked=false\"\"oocbutton.is-checked=true ? saybutton.is-checked=false\""
+		command = ".winset \"oocbutton.is-checked=true ? input.command=\"!ooc \\\"\" : input.command=\"\"oocbutton.is-checked=true ? mebutton.is-checked=false\"\"oocbutton.is-checked=true ? saybutton.is-checked=false\"\"oocbutton.is-checked=true ? whisperbutton.is-checked=false\""
 		is-flat = true
 		button-type = pushbox
 
@@ -482,36 +368,68 @@ window "output_legacy"
 	elem "output_legacy"
 		type = MAIN
 		pos = 0,0
-		size = 640x456
+		size = 640x475
 		anchor1 = -1,-1
 		anchor2 = -1,-1
 		saved-params = "pos;size;is-minimized;is-maximized"
 		is-pane = true
+    elem "output_and_input_legacy"
+        type = CHILD
+        pos = 0,0
+        size = 640x475
+        anchor1 = 0,0
+        anchor2 = 100,100
+        saved-params = "splitter"
+        left = "output_legacy_pane"
+        right = "input_buttons"
+        splitter = 97.5
+        show-splitter = false
+
+window "output_legacy_pane"
+    elem "output_legacy_pane"
+        type = MAIN
+        pos = 0,0
+        size = 640x475
+        anchor1 = -1,-1
+        anchor2 = -1,-1
+        is-pane = true
 	elem "output"
 		type = OUTPUT
 		pos = 0,0
-		size = 640x456
+		size = 640x475
 		anchor1 = 0,0
 		anchor2 = 100,100
 		is-default = true
-		saved-params = "max-lines"
+		saved-params = ""
 
 window "output_browser"
 	elem "output_browser"
 		type = MAIN
 		pos = 0,0
-		size = 640x456
+		size = 640x475
 		anchor1 = -1,-1
 		anchor2 = -1,-1
 		saved-params = "pos;size;is-minimized;is-maximized"
 		is-pane = true
-	elem "chat_panel"
+	elem "browseroutput"
 		type = BROWSER
 		pos = 0,0
-		size = 640x456
+		size = 640x475
 		anchor1 = 0,0
 		anchor2 = 100,100
 		saved-params = ""
+
+window "popupwindow"
+	elem "popupwindow"
+		type = MAIN
+		pos = 281,0
+		size = 120x120
+		anchor1 = -1,-1
+		anchor2 = -1,-1
+		is-visible = false
+		saved-params = "pos;size;is-minimized;is-maximized"
+		statusbar = false
+		can-resize = false
 
 window "statwindow"
 	elem "statwindow"
@@ -535,7 +453,7 @@ window "tgui_say"
 	elem "tgui_say"
 		type = MAIN
 		pos = 848,500
-		size = 275x30
+		size = 231x30
 		anchor1 = 50,50
 		anchor2 = 50,50
 		is-visible = false
@@ -545,7 +463,7 @@ window "tgui_say"
 	elem "browser"
 		type = BROWSER
 		pos = 0,0
-		size = 275x30
+		size = 231x30
 		anchor1 = 0,0
 		anchor2 = 0,0
 		saved-params = ""

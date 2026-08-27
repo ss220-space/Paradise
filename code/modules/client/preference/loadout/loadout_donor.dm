@@ -43,54 +43,10 @@
 	index_name = "Leather Trenchcoat"
 	path = /obj/item/clothing/suit/storage/leather_trenchcoat/runner
 
-/datum/gear/donor/furgloves
-	index_name = "Fur Gloves"
-	path = /obj/item/clothing/gloves/furgloves
-
 /datum/gear/donor/ecig
 	index_name = "ecig"
 	donator_tier = 1
 	path = /obj/item/ecig
-
-/datum/gear/donor/noble_boot
-	index_name = "Noble Boots"
-	path = /obj/item/clothing/shoes/fluff/noble_boot
-
-/datum/gear/donor/kamina
-	index_name = "Spiky Orange-tinted Shades"
-	path = /obj/item/clothing/glasses/fluff/kamina
-
-/datum/gear/donor/green
-	index_name = "Spiky Green-tinted Shades"
-	path = /obj/item/clothing/glasses/fluff/kamina/green
-
-/datum/gear/donor/threedglasses
-	index_name = "Threed Glasses"
-	path = /obj/item/clothing/glasses/threedglasses
-
-/datum/gear/donor/blacksombrero
-	index_name = "Black Sombrero"
-	path = /obj/item/clothing/head/fluff/blacksombrero
-
-/datum/gear/donor/guardhelm
-	index_name = "Plastic Guard helm"
-	path = /obj/item/clothing/head/fluff/guardhelm
-
-/datum/gear/donor/goldtophat
-	index_name = "Gold-trimmed Top Hat"
-	path = /obj/item/clothing/head/fluff/goldtophat
-
-/datum/gear/donor/goldtophat/red
-	index_name = "Red Gold-trimmed Top Hat"
-	path = /obj/item/clothing/head/fluff/goldtophat/red
-
-/datum/gear/donor/goldtophat/blue
-	index_name = "Blue Gold-trimmed Top Hat"
-	path = /obj/item/clothing/head/fluff/goldtophat/blue
-
-/datum/gear/donor/mushhat
-	index_name = "Mushroom Hat"
-	path = /obj/item/clothing/head/fluff/mushhat
 
 /datum/gear/donor/mouse
 	index_name = "Mouse Headband"

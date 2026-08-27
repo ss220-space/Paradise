@@ -1,4 +1,4 @@
-import { filter, sortBy } from 'common/collections';
+import { sortBy } from 'es-toolkit';
 import { type ReactNode, useState } from 'react';
 import {
   Box,
@@ -7,10 +7,9 @@ import {
   ProgressBar,
   Section,
   Stack,
-} from '../components';
-import { toFixed } from 'common/math';
-import type { BooleanLike } from 'common/react';
-
+} from 'tgui-core/components';
+import { toFixed } from 'tgui-core/math';
+import type { BooleanLike } from 'tgui-core/react';
 import { useBackend } from '../backend';
 import { getGasColor, getGasLabel } from '../constants';
 import { Window } from '../layouts';
@@ -123,12 +122,11 @@ export const SupermatterContent = (props: SupermatterProps) => {
   const [allGasActive, setAllGasActive] = useState(false);
   let gas_composition = Object.entries(props.gas_composition);
   if (!allGasActive) {
-    gas_composition = filter(
-      gas_composition,
-      ([gas_path, amount]) => amount !== 0
+    gas_composition = gas_composition.filter(
+      ([gas_path, amount]) => amount !== 0,
     );
   }
-  gas_composition = sortBy(gas_composition, ([_, amount]) => -amount);
+  gas_composition = sortBy(gas_composition, [([_, amount]) => -amount]);
 
   return (
     <Stack height="100%">
@@ -387,7 +385,7 @@ export const SupermatterContent = (props: SupermatterProps) => {
                                       ? `+${effect.amount}${effect.unit}`
                                       : effect.amount + effect.unit}
                                   </LabeledList.Item>
-                                )
+                                ),
                             )}
                           </LabeledList>
                         </>

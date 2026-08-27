@@ -1,5 +1,0 @@
-author: "NightDawnFox"
-delete-after: True
-changes:
-  - tweak: "удаление хиджак-стержней из сурплуса. (PR #9680)"
-  - bugfix: "исправление бага с крутящимися сферами. (PR #9680)"

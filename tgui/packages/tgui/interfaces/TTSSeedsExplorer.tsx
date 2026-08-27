@@ -1,17 +1,17 @@
-import { useBackend } from '../backend';
 import { useState } from 'react';
 import {
-  Button,
-  LabeledList,
-  Table,
-  Section,
-  Dropdown,
-  Input,
   BlockQuote,
   Box,
+  Button,
+  Dropdown,
   Icon,
+  Input,
+  LabeledList,
+  Section,
   Stack,
-} from '../components';
+  Table,
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 const donatorTiers = {
@@ -23,15 +23,15 @@ const donatorTiers = {
 };
 
 const gendersIcons = {
-  'Мужской': {
+  Мужской: {
     icon: 'mars',
     color: 'blue',
   },
-  'Женский': {
+  Женский: {
     icon: 'venus',
     color: 'purple',
   },
-  'Любой': {
+  Любой: {
     icon: 'venus-mars',
     color: 'white',
   },
@@ -41,7 +41,7 @@ const getCheckboxGroup = (
   itemsList: (Provider | string)[],
   selectedList: (Provider | string)[],
   setSelected: React.Dispatch<React.SetStateAction<(Provider | string)[]>>,
-  contentKey: string = null
+  contentKey: string = '',
 ) => {
   return itemsList.map((item: Provider | string) => {
     const title = item[contentKey] ?? item;
@@ -52,7 +52,7 @@ const getCheckboxGroup = (
         onClick={() => {
           if (selectedList.includes(item)) {
             setSelected(
-              selectedList.filter((i) => (i[contentKey] ?? i) !== item)
+              selectedList.filter((i) => (i[contentKey] ?? i) !== item),
             );
           } else {
             setSelected([item, ...selectedList]);
@@ -119,29 +119,29 @@ export const TTSSeedsExplorerContent = (_props: unknown) => {
   const [selectedPhrase, setSelectedPhrase] = useState(phrases[0]);
   const [searchtext, setSearchtext] = useState('');
 
-  let providerCheckboxes = getCheckboxGroup(
+  const providerCheckboxes = getCheckboxGroup(
     providers,
     selectedProviders,
     setSelectedProviders,
-    'name'
+    'name',
   );
-  let genderesCheckboxes = getCheckboxGroup(
+  const genderesCheckboxes = getCheckboxGroup(
     genders,
     selectedGenders,
-    setSelectedGenders
+    setSelectedGenders,
   );
-  let categoriesCheckboxes = getCheckboxGroup(
+  const categoriesCheckboxes = getCheckboxGroup(
     categories,
     selectedCategories,
-    setSelectedCategories
+    setSelectedCategories,
   );
-  let donatorLevelsCheckboxes = getCheckboxGroup(
+  const donatorLevelsCheckboxes = getCheckboxGroup(
     donatorLevels,
     selectedDonatorLevels,
-    setSelectedDonatorLevels
+    setSelectedDonatorLevels,
   );
 
-  let phrasesSelect = (
+  const phrasesSelect = (
     <Dropdown
       options={phrases}
       selected={selectedPhrase.replace(/(.{25})..+/, '$1...')}
@@ -150,7 +150,7 @@ export const TTSSeedsExplorerContent = (_props: unknown) => {
     />
   );
 
-  let searchBar = (
+  const searchBar = (
     <Input placeholder="Название..." fluid expensive onChange={setSearchtext} />
   );
 
@@ -172,10 +172,10 @@ export const TTSSeedsExplorerContent = (_props: unknown) => {
         selectedGenders.includes(seed.gender) &&
         selectedCategories.includes(seed.category) &&
         selectedDonatorLevels.includes(donatorTiers[seed.donator_level]) &&
-        seed.name.toLowerCase().includes(searchtext.toLowerCase())
+        seed.name.toLowerCase().includes(searchtext.toLowerCase()),
     );
 
-  let seedsRow = availableSeeds.map((seed) => {
+  const seedsRow = availableSeeds.map((seed) => {
     return (
       <Table.Row
         key={seed.name}

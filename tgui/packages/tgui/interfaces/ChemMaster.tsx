@@ -1,28 +1,27 @@
-import { Component, ReactNode, MouseEvent } from 'react';
-import { useBackend } from '../backend';
+import type { ComponentProps, ReactNode } from 'react';
 import {
   Box,
   Button,
   Icon,
+  Image,
   Input,
   LabeledList,
   Section,
-  Stack,
   Slider,
+  Stack,
   Tabs,
-  Image,
-} from '../components';
+} from 'tgui-core/components';
+import { type BooleanLike, classes } from 'tgui-core/react';
+import { computeBoxProps } from 'tgui-core/ui';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { BeakerContents } from './common/BeakerContents';
 import {
   ComplexModal,
+  type ModalType,
   modalOpen,
   modalRegisterBodyOverride,
-  ModalType,
 } from './common/ComplexModal';
-import { BooleanLike, classes } from 'common/react';
-import { BoxProps } from '../components/Box';
-import { computeBoxProps } from 'common/ui';
 
 const transferAmounts = [1, 5, 10];
 
@@ -40,7 +39,7 @@ type Analysis = {
 };
 
 const analyzeModalBodyOverride = (
-  modal: ModalType<ChemicalModalData>
+  modal: ModalType<ChemicalModalData>,
 ): ReactNode => {
   const { act, data } = useBackend<ChemMasterData>();
   const result = modal.args.analysis;
@@ -161,7 +160,7 @@ export const ChemMaster = (props: unknown) => {
   );
 };
 
-const ChemMasterBeaker = (props: {}) => {
+const ChemMasterBeaker = (_props: unknown) => {
   const { act, data } = useBackend<ChemMasterData>();
   const { beaker, beaker_reagents, buffer_reagents } = data;
   const bufferNonEmpty = buffer_reagents.length > 0;
@@ -250,7 +249,7 @@ const ChemMasterBeaker = (props: {}) => {
   );
 };
 
-const ChemMasterBuffer = (props: {}) => {
+const ChemMasterBuffer = (_props: unknown) => {
   const { act, data } = useBackend<ChemMasterData>();
   const { mode, buffer_reagents } = data;
   return (
@@ -335,7 +334,7 @@ const ChemMasterBuffer = (props: {}) => {
   );
 };
 
-const ChemMasterProduction = (props: {}) => {
+const ChemMasterProduction = (_props: unknown) => {
   const { data } = useBackend<ChemMasterData>();
   const { buffer_reagents } = data;
   if (buffer_reagents.length === 0) {
@@ -363,12 +362,12 @@ const ChemMasterProduction = (props: {}) => {
   );
 };
 
-const ChemMasterProductionTabs = (props: {}) => {
+const ChemMasterProductionTabs = (_props: unknown) => {
   const { act, data } = useBackend<ChemMasterData>();
   const { production_mode, production_data, static_production_data } = data;
   const decideTab = (mode: ChemMasterData['production_mode']) => {
-    let static_data = static_production_data[mode];
-    let nonstatic_data = production_data[mode];
+    const static_data = static_production_data[mode];
+    const nonstatic_data = production_data[mode];
     if (static_data !== undefined && nonstatic_data !== undefined) {
       const productionData = {
         ...static_data,
@@ -409,7 +408,7 @@ type ChemMasterNameInputProps = {
   value: string;
   onMouseUp?: (e: React.MouseEvent<HTMLInputElement>) => void;
   onChange?: (value: string) => void;
-} & BoxProps;
+} & ComponentProps<typeof Box>;
 
 const ChemMasterNameInput = (props: ChemMasterNameInputProps) => {
   const { data } = useBackend<ChemMasterData>();
@@ -481,7 +480,7 @@ const ChemMasterProductionCommon = (props: {
           <ChemMasterNameInput
             fluid
             value={set_name}
-            placeholder={placeholder_name}
+            placeholder={placeholder_name || ''}
             onChange={(value) =>
               act(`set_items_name`, {
                 production_mode: id,
@@ -506,7 +505,7 @@ const ChemMasterProductionCommon = (props: {
 };
 
 const SpriteStyleButton = (
-  props: { icon: string; selected: boolean } & BoxProps
+  props: { icon: string; selected: boolean } & ComponentProps<typeof Box>,
 ) => {
   const { icon, ...restProps } = props;
   return (
@@ -544,14 +543,14 @@ const ChemMasterProductionGeneric = (props: {
   );
 };
 
-const ChemMasterCustomization = (props: {}) => {
+const ChemMasterCustomization = (_props: unknown) => {
   const { act, data } = useBackend<ChemMasterData>();
   const { loaded_pill_bottle_style, containerstyles, loaded_pill_bottle } =
     data;
 
   const style_button_size = { width: '20px', height: '20px' };
   const style_buttons = containerstyles.map(({ color, name }) => {
-    let selected = loaded_pill_bottle_style === color;
+    const selected = loaded_pill_bottle_style === color;
     return (
       <Button
         key={color}
@@ -562,10 +561,6 @@ const ChemMasterCustomization = (props: {}) => {
         }}
         onClick={() => act('set_container_style', { style: color })}
         icon={selected && 'check'}
-        iconStyle={{
-          position: 'relative',
-          zIndex: '1',
-        }}
         tooltip={name}
         tooltipPosition="top"
       >

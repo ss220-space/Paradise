@@ -191,11 +191,10 @@
 
 /obj/structure/chair/comfy/Initialize(mapload)
 	armrest = GetArmrest()
-	armrest.layer = ABOVE_MOB_LAYER
 	return ..()
 
 /obj/structure/chair/comfy/proc/GetArmrest()
-	return mutable_appearance('icons/obj/chairs.dmi', "comfychair_armrest")
+	return mutable_appearance('icons/obj/chairs.dmi', "comfychair_armrest", ABOVE_MOB_LAYER)
 
 /obj/structure/chair/comfy/Destroy()
 	QDEL_NULL(armrest)
@@ -249,13 +248,13 @@
 	anchored = TRUE
 
 /obj/structure/chair/comfy/shuttle/GetArmrest()
-	return mutable_appearance('icons/obj/chairs.dmi', "shuttle_chair_armrest")
+	return mutable_appearance('icons/obj/chairs.dmi', "shuttle_chair_armrest", ABOVE_MOB_LAYER)
 
 /obj/structure/chair/comfy/shuttle/dark
 	icon_state = "shuttle_chair_dark"
 
 /obj/structure/chair/comfy/shuttle/dark/GetArmrest()
-	return mutable_appearance('icons/obj/chairs.dmi', "shuttle_chair_dark_armrest")
+	return mutable_appearance('icons/obj/chairs.dmi', "shuttle_chair_dark_armrest", ABOVE_MOB_LAYER)
 
 /obj/structure/chair/office
 	movable = TRUE
@@ -480,7 +479,7 @@
 	buildstacktype = /obj/item/stack/sheet/mineral/abductor
 
 /obj/structure/chair/comfy/abductor/GetArmrest()
-	return mutable_appearance('icons/obj/chairs.dmi', "alien_chair_armrest")
+	return mutable_appearance('icons/obj/chairs.dmi', "alien_chair_armrest", ABOVE_MOB_LAYER)
 
 /obj/structure/chair/comfy/mouse
 	name = "Кресло Господина Мышкина"

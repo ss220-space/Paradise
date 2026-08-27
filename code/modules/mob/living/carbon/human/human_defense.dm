@@ -25,8 +25,7 @@ emp_act
 
 		if(reflected)
 			visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] отражает [P.declent_ru(ACCUSATIVE)]!"), \
-							span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] отражает [P.declent_ru(ACCUSATIVE)]!"),\
-							projectile_message = TRUE)
+							span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] отражает [P.declent_ru(ACCUSATIVE)]!"))
 			add_attack_logs(P.firer, src, "hit by [P.type] but got reflected")
 			P.reflect_back(src)
 			return -1

@@ -90,10 +90,14 @@
 
 /datum/reagent/consumable/nutriment/protein/on_mob_add(mob/living/user)
 	. = ..()
+	if(user.dna.species.reagent_tag & SYNTHETIC)
+		return
 	user.apply_status_effect(status_effect_type)
 
 /datum/reagent/consumable/nutriment/protein/on_mob_delete(mob/living/user)
 	. = ..()
+	if(user.dna.species.reagent_tag & SYNTHETIC)
+		return
 	user.remove_status_effect(status_effect_type)
 
 /datum/reagent/consumable/nutriment/protein/liquid

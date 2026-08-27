@@ -1,16 +1,16 @@
-import { useBackend } from '../backend';
 import {
   Button,
-  Section,
-  ProgressBar,
-  Stack,
-  Tabs,
   Icon,
   Image,
-} from '../components';
+  ProgressBar,
+  Section,
+  Stack,
+  Tabs,
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
+import { type Access, AccessList } from './common/AccessList';
 import { ComplexModal, modalOpen } from './common/ComplexModal';
-import { Access, AccessList } from './common/AccessList';
 
 export const RCD = (_props: unknown) => {
   return (
@@ -40,8 +40,13 @@ type RCDData = {
   one_access: boolean;
   selected_accesses: number[];
   regions: Access[];
-  door_types_ui_list;
+  door_types_ui_list: Door[];
   door_type: string;
+};
+type Door = {
+  name: string;
+  type: string;
+  image: string;
 };
 
 const MatterReadout = (_props: unknown) => {
@@ -62,7 +67,7 @@ const MatterReadout = (_props: unknown) => {
           maxValue={max_matter}
         >
           <Stack.Item textAlign="center">
-            {matter + ' / ' + max_matter + ' единиц'}
+            {`${matter} / ${max_matter} единиц`}
           </Stack.Item>
         </ProgressBar>
       </Section>
@@ -126,7 +131,7 @@ const AirlockSettings = (_props: unknown) => {
               icon="pen-alt"
               onClick={() => modalOpen('renameAirlock')}
             >
-              <>Переименовать: {<b>{door_name}</b>}</>
+              Переименовать: {<b>{door_name}</b>}
             </Button>
           </Stack.Item>
           <Stack.Item>
@@ -283,7 +288,7 @@ const AirlockTypeList = (props: AirlockTypeListProps) => {
   const { door_types_ui_list, door_type } = data;
   const { check_number } = props;
   // Filter either odd or even airlocks in the list, based on what `check_number` is.
-  const doors_filtered = [];
+  const doors_filtered: Door[] = [];
   for (let i = 0; i < door_types_ui_list.length; i++) {
     if (i % 2 === check_number) {
       doors_filtered.push(door_types_ui_list[i]);
@@ -296,7 +301,7 @@ const AirlockTypeList = (props: AirlockTypeListProps) => {
           <Stack.Item grow>
             <Button.Checkbox
               fluid
-              icon={null}
+              icon={false}
               color="translucent"
               checked={door_type === entry.type}
               onClick={() =>

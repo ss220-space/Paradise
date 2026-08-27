@@ -1,5 +1,0 @@
-author: "FlitchTime"
-delete-after: True
-changes:
-  - tweak: "Добавлены мап-хелперы для туалетов. (PR #9675)"
-  - bugfix: "Поправил направления туалетов в капсулах шахтёров. (PR #9675)"

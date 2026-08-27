@@ -1,13 +1,13 @@
-import { useBackend } from '../backend';
 import {
   Box,
-  Section,
-  ProgressBar,
   Button,
+  Flex,
   LabeledList,
   NumberInput,
-  Flex,
-} from '../components';
+  ProgressBar,
+  Section,
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type GasFreezerData = {

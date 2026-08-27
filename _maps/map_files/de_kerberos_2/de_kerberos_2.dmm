@@ -60214,6 +60214,15 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/entry/eastarrival)
+"lHj" = (
+/obj/item/flag/nt,
+/obj/machinery/power/apc/directional/south,
+/obj/structure/cable,
+/obj/machinery/computer/guestpass{
+	pixel_x = -28
+	},
+/turf/simulated/floor/wood/fancy/light,
+/area/station/command/office/hop)
 "lHr" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -67930,15 +67939,6 @@
 	icon_state = "cmo"
 	},
 /area/station/command/office/cmo)
-"nfU" = (
-/obj/item/flag/nt,
-/obj/machinery/power/apc/directional/south,
-/obj/structure/cable,
-/obj/machinery/computer/guestpass{
-	pixel_x = -28
-	},
-/turf/simulated/floor/wood/fancy/light,
-/area/station/command/office/hop)
 "nfV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/firecloset,
@@ -84251,6 +84251,10 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/maintenance/starboard)
+"qcm" = (
+/obj/item/flashlight/lantern/on,
+/turf/simulated/floor/plating,
+/area/station/maintenance/asmaint4)
 "qcq" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -109759,12 +109763,6 @@
 "uMa" = (
 /turf/simulated/wall,
 /area/station/maintenance/consarea_virology)
-"uMi" = (
-/obj/item/flashlight/lantern{
-	on = 1
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/asmaint4)
 "uMj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
@@ -162785,7 +162783,7 @@ lhU
 piR
 ygR
 pXn
-nfU
+lHj
 lhU
 sHu
 gxU
@@ -181878,7 +181876,7 @@ lhV
 ajh
 lTI
 lTI
-uMi
+qcm
 niq
 rTu
 crb

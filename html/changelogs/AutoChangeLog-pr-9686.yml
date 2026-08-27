@@ -1,4 +1,0 @@
-author: "NuSanya"
-delete-after: True
-changes:
-  - bugfix: "возможно чинит падение прикрученной линзы БФЛ в чазм (PR #9686)"

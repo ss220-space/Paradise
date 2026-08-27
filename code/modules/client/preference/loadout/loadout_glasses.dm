@@ -39,6 +39,18 @@
 	index_name = "Prescription glasses"
 	path = /obj/item/clothing/glasses/regular
 
+/datum/gear/glasses/kamina
+	index_name = "Spiky Orange-tinted Shades"
+	path = /obj/item/clothing/glasses/fluff/kamina
+
+/datum/gear/glasses/green
+	index_name = "Spiky Green-tinted Shades"
+	path = /obj/item/clothing/glasses/fluff/kamina/green
+
+/datum/gear/glasses/threedglasses
+	index_name = "Threed Glasses"
+	path = /obj/item/clothing/glasses/threedglasses
+
 /datum/gear/glasses/sectacticool
 	index_name = "Security tactical glasses"
 	path = /obj/item/clothing/glasses/hud/security/sunglasses/tacticool

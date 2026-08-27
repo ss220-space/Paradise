@@ -1282,17 +1282,6 @@
 	icon_state = "darkredcorners"
 	},
 /area/station/security/brig)
-"ahF" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/hatch/gamma{
-	locked = 1;
-	req_access = list(1);
-	use_power = 0
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/security/hallway/armory)
 "ahG" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -21708,20 +21697,6 @@
 	icon_state = "grimy"
 	},
 /area/station/command/office/hop)
-"bSd" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/computer/guestpass{
-	pixel_x = 28
-	},
-/turf/simulated/floor/wood,
-/area/station/command/office/hop)
 "bSe" = (
 /obj/structure/chair/office/dark{
 	dir = 1
@@ -23093,6 +23068,16 @@
 	icon_state = "dark"
 	},
 /area/station/command/server)
+"bXv" = (
+/obj/machinery/door/airlock/external{
+	name = "Escape Pod Airlock"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/entry/south)
 "bXw" = (
 /obj/machinery/shieldwallgen,
 /obj/effect/turf_decal/delivery/hollow,
@@ -44629,6 +44614,20 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/glass/reinforced,
 /area/station/maintenance/trading)
+"fdh" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/computer/guestpass{
+	pixel_x = 28
+	},
+/turf/simulated/floor/wood,
+/area/station/command/office/hop)
 "fdm" = (
 /obj/structure/table/reinforced,
 /obj/machinery/keycard_auth,
@@ -45039,6 +45038,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos/distribution)
+"fox" = (
+/obj/machinery/door/airlock/external{
+	name = "Escape Pod Airlock"
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/station/maintenance/fsmaint)
 "foY" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -51185,6 +51191,13 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/xenozoo)
+"hOd" = (
+/obj/machinery/door/airlock/external{
+	name = "Escape Pod Airlock"
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/station/maintenance/atmospherics)
 "hOo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -51382,15 +51395,6 @@
 	icon_state = "whitehall"
 	},
 /area/station/science/research/lobby)
-"hSb" = (
-/obj/machinery/door/airlock/external{
-	name = "Escape Pod Airlock"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/entry/south)
 "hSd" = (
 /obj/structure/table,
 /obj/item/wrench,
@@ -58135,6 +58139,16 @@
 	icon_state = "bluecorner"
 	},
 /area/station/hallway/primary/central/nw)
+"kCB" = (
+/obj/machinery/door/airlock/external{
+	name = "Escape Pod Airlock"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/entry/north)
 "kCN" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -68349,6 +68363,16 @@
 	icon_state = "neutralfull"
 	},
 /area/station/engineering/atmos)
+"oSS" = (
+/obj/machinery/door/airlock/external{
+	hackProof = 1;
+	id_tag = "emergency_home";
+	locked = 1;
+	name = "Escape Airlock"
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/station/hallway/secondary/exit)
 "oTc" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -68774,18 +68798,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/trading)
-"pbq" = (
-/obj/structure/lattice,
-/obj/machinery/door/airlock/hatch/gamma{
-	locked = 1;
-	req_access = list(1);
-	use_power = 0
-	},
-/obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/security/prisoner_shuttle)
 "pbu" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -71687,6 +71699,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
+"qhu" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "trade_dock";
+	locked = 1
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/hallway/secondary/entry/south)
 "qhC" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -80891,6 +80913,16 @@
 	icon_state = "cafeteria"
 	},
 /area/station/science/break_room)
+"tVJ" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "trade_dock";
+	locked = 1
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/hallway/secondary/entry/north)
 "tWe" = (
 /obj/structure/closet/secure_closet/security,
 /obj/structure/window/reinforced,
@@ -82126,12 +82158,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/security/prison/perma)
-"uzE" = (
-/obj/machinery/door/airlock/external{
-	name = "Escape Pod Airlock"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/atmospherics)
 "uzP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -82711,6 +82737,14 @@
 	icon_state = "yellow"
 	},
 /area/station/engineering/storage)
+"uLQ" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "ferry_home";
+	locked = 1
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/entry/north)
 "uMr" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -84078,15 +84112,6 @@
 	icon_state = "cafeteria"
 	},
 /area/station/science/break_room)
-"vmD" = (
-/obj/machinery/door/airlock/external{
-	name = "Escape Pod Airlock"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/entry/north)
 "vmQ" = (
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=HOP";
@@ -84239,6 +84264,18 @@
 	icon_state = "blue"
 	},
 /area/station/command/bridge)
+"vpJ" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/hatch/gamma{
+	locked = 1;
+	req_access = list(1);
+	use_power = 0
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/security/hallway/armory)
 "vpO" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -84802,6 +84839,18 @@
 	icon_state = "tranquillite"
 	},
 /area/station/service/bar/atrium)
+"vBh" = (
+/obj/machinery/door/airlock/hatch/gamma{
+	locked = 1;
+	req_access = list(1);
+	use_power = 0
+	},
+/obj/machinery/door/firedoor,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/security/prisoner_shuttle)
 "vBr" = (
 /obj/structure/cable,
 /obj/effect/spawner/window/reinforced,
@@ -87743,12 +87792,6 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/genetics)
-"wHa" = (
-/obj/machinery/door/airlock/external{
-	name = "Escape Pod Airlock"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/fsmaint)
 "wHi" = (
 /obj/structure/railing{
 	dir = 4
@@ -88778,6 +88821,14 @@
 	icon_state = "floorgrime"
 	},
 /area/station/maintenance/asmaint2)
+"xet" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "graveyard_church";
+	locked = 1
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/station/maintenance/fsmaint2)
 "xew" = (
 /obj/structure/chair,
 /turf/simulated/floor/plasteel{
@@ -97875,7 +97926,7 @@ ylx
 uTI
 dQQ
 eZC
-vmD
+kCB
 eZC
 dQQ
 lTl
@@ -97891,7 +97942,7 @@ lTl
 lTl
 iRs
 maH
-hSb
+bXv
 maH
 iRs
 uTI
@@ -98635,8 +98686,8 @@ uTI
 uTI
 uTI
 dQQ
-eur
-eur
+tVJ
+tVJ
 dQQ
 dQQ
 eZC
@@ -98674,8 +98725,8 @@ iRs
 maH
 iRs
 iRs
-jgU
-jgU
+qhu
+qhu
 iRs
 uTI
 uTI
@@ -101212,7 +101263,7 @@ ylx
 ylx
 ylx
 tyB
-jwp
+uLQ
 ool
 jwp
 jTQ
@@ -115820,7 +115871,7 @@ dkV
 amW
 lTl
 awB
-pbq
+vBh
 awB
 awB
 awB
@@ -117618,7 +117669,7 @@ aiv
 aiv
 aiv
 aiv
-ahF
+vpJ
 aiv
 aiv
 aiv
@@ -117695,7 +117746,7 @@ bOo
 qnq
 bOA
 bQk
-bSd
+fdh
 bTE
 bVu
 dqP
@@ -122905,7 +122956,7 @@ dcq
 dcq
 dcq
 dcq
-uzE
+hOd
 dcq
 dcq
 dcq
@@ -129977,7 +130028,7 @@ aWw
 atG
 atG
 atG
-wHa
+fox
 atG
 atG
 atG
@@ -140277,7 +140328,7 @@ uTI
 uTI
 uTI
 eyX
-aQI
+xet
 eyX
 uTI
 uTI
@@ -143636,17 +143687,17 @@ uTI
 uTI
 uTI
 bEG
-iKh
+oSS
 bjR
-iKh
-bjR
-bjR
+oSS
 bjR
 bjR
 bjR
-iKh
 bjR
-iKh
+bjR
+oSS
+bjR
+oSS
 bjR
 uTI
 uTI

@@ -116,6 +116,8 @@
 	var/flushqueue = window.send_asset(get_asset_datum(
 		/datum/asset/simple/namespaced/fontawesome))
 	flushqueue |= window.send_asset(get_asset_datum(
+		/datum/asset/simple/namespaced/tgfont))
+	flushqueue |= window.send_asset(get_asset_datum(
 		/datum/asset/json/icon_ref_map))
 	for(var/datum/asset/asset in src_object.ui_assets(user))
 		flushqueue |= window.send_asset(asset)

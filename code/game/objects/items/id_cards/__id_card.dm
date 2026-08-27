@@ -105,7 +105,7 @@
 	if(!acc)
 		return
 
-	acc.suspended = TRUE
+	acc.set_suspended(TRUE)
 
 /obj/item/card/id/examine(mob/user)
 	. = ..()
@@ -276,10 +276,7 @@
 
 	return ..()
 
-/obj/item/card/id/verb/remove_guest_pass()
-	set name = "Убрать гостевой пропуск"
-	set category = VERB_CATEGORY_OBJECT
-	set src in range(0)
+GAME_VERB_SRC(/obj/item/card/id, remove_guest_pass, usr, "Убрать гостевой пропуск", VERB_CATEGORY_HIDDEN)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return

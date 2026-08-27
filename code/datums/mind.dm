@@ -84,7 +84,6 @@
 
 	var/datum/job/assigned_job
 	var/list/datum/objective/objectives = list()
-	var/list/datum/objective/special_verbs = list()
 
 	var/list/targets = list()
 

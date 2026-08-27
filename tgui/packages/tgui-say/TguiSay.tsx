@@ -2,18 +2,19 @@ import './styles/main.scss';
 
 import { useEffect, useRef, useState } from 'react';
 import { dragStartHandler } from 'tgui/drag';
-import { isEscape, KEY } from 'common/keys';
-import { BooleanLike, classes } from 'common/react';
-import { Channel, ChannelIterator } from './ChannelIterator';
-import { ChatHistory, HistoryRecord } from './ChatHistory';
+import { isEscape, KEY } from 'tgui-core/keys';
+import { type BooleanLike, classes } from 'tgui-core/react';
+import { type Channel, ChannelIterator } from './ChannelIterator';
+import { ChatHistory, type HistoryRecord } from './ChatHistory';
 import {
+  BINARY_PREFIXES,
   LineLength,
   RADIO_PREFIXES,
-  BINARY_PREFIXES,
   WindowSize,
 } from './constants';
 import { getPrefix, windowClose, windowOpen, windowSet } from './helpers';
 import { byondMessages } from './timers';
+
 type ByondOpen = {
   channel: Channel;
 };
@@ -22,12 +23,6 @@ type ByondProps = {
   lightMode: BooleanLike;
   scale: BooleanLike;
 };
-const ROWS: Record<keyof typeof WindowSize, number> = {
-  Small: 1,
-  Medium: 2,
-  Large: 3,
-  Width: 1, // not used
-} as const;
 
 export const TguiSay = () => {
   const innerRef = useRef<HTMLTextAreaElement>(null);
@@ -93,7 +88,7 @@ export const TguiSay = () => {
   };
 
   const handleButtonClick = (
-    event: React.MouseEvent<HTMLButtonElement>
+    event: React.MouseEvent<HTMLButtonElement>,
   ): void => {
     isDragging.current = true;
 
@@ -163,7 +158,7 @@ export const TguiSay = () => {
     setButtonContent(iterator.current());
     setCurrentPrefix(null);
     messages.current.channelIncrementMsg(iterator.isVisible());
-    innerRef.current.focus();
+    innerRef?.current?.focus();
   };
 
   const handleInput = (event: React.FormEvent<HTMLTextAreaElement>): void => {
@@ -179,7 +174,7 @@ export const TguiSay = () => {
       return;
     }
 
-    let newPrefix = getPrefix(newValue) || currentPrefix;
+    const newPrefix = getPrefix(newValue) || currentPrefix;
 
     // Handles switching prefixes
     if (newPrefix && newPrefix !== currentPrefix) {
@@ -193,6 +188,7 @@ export const TguiSay = () => {
 
   const UpdatePrefix = (prefix: keyof typeof RADIO_PREFIXES | null) => {
     const iterator = channelIterator.current;
+    if (!prefix) return;
     setButtonContent(RADIO_PREFIXES[prefix]);
     setCurrentPrefix(prefix);
     iterator.set('Сказать');
@@ -202,6 +198,7 @@ export const TguiSay = () => {
   };
 
   const UpdateTyping = (prefix: keyof typeof RADIO_PREFIXES | null) => {
+    if (!prefix) return;
     if (channelIterator.current.isVisible() && !(prefix in BINARY_PREFIXES)) {
       messages.current.typingMsg();
     }
@@ -218,12 +215,12 @@ export const TguiSay = () => {
       setButtonContent(channel);
     }
 
-    UpdateTyping(prefix);
-    setValue(value);
+    if (prefix) UpdateTyping(prefix);
+    if (value) setValue(value);
   };
 
   const handleKeyDown = (
-    event: React.KeyboardEvent<HTMLTextAreaElement>
+    event: React.KeyboardEvent<HTMLTextAreaElement>,
   ): void => {
     if (event.getModifierState('AltGraph')) return;
 
@@ -293,8 +290,8 @@ export const TguiSay = () => {
       newSize = WindowSize.Small;
     }
     if (size !== newSize) {
-      setSize(newSize);
       windowSet(newSize, scale.current);
+      setSize(newSize);
     }
   }, [value]);
   const theme =
@@ -328,13 +325,16 @@ export const TguiSay = () => {
         </button>
         <textarea
           autoCorrect="off"
-          className={`textarea textarea-${theme}`}
+          className={classes([
+            'textarea',
+            `textarea-${theme}`,
+            value.length > LineLength.Large && 'textarea-large',
+          ])}
           maxLength={maxLength}
           onInput={handleInput}
           onKeyDown={handleKeyDown}
           ref={innerRef}
           spellCheck={false}
-          rows={ROWS[size] || 1}
           value={value}
         />
       </div>

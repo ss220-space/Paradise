@@ -10,7 +10,7 @@
 	var/message = TGUI_CREATE_MESSAGE("open", list(
 		channel = channel,
 	))
-	return "\".output tgui_say.browser:update [message]\""
+	return "\".output [SKIN_TGUISAY_BROWSER]:update [message]\""
 
 /**
  * The tgui say modal. This initializes an input window which hides until
@@ -29,7 +29,7 @@
 /datum/tgui_say/New(client/client, id)
 	src.client = client
 	window = new(client, id)
-	winset(client, "tgui_say", "size=1,1;is-visible=0;")
+	winset(client, SKIN_TGUISAY, "size=1,1;is-visible=0;")
 	window.subscribe(src, PROC_REF(on_message))
 	window.is_browser = TRUE
 
@@ -55,7 +55,7 @@
  */
 /datum/tgui_say/proc/load()
 	window_open = FALSE
-	winset(client, "tgui_say", "pos=848,500;size=275,30;is-visible=0;")
+	winset(client, SKIN_TGUISAY, "pos=848,500;size=275,30;is-visible=0;")
 	window.send_message("props", list(
 		"lightMode" = (client.prefs.toggles2 & PREFTOGGLE_2_ENABLE_TGUI_SAY_LIGHT_MODE),
 		"scale" = (client?.prefs.toggles3 & PREFTOGGLE_3_UI_SCALE),

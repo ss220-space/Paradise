@@ -1,0 +1,2 @@
+/obj/item/flashlight/lantern{on=1} : /obj/item/flashlight/lantern/on{@OLD;on=@SKIP;icon_state=@SKIP}
+/obj/item/flashlight/lantern{icon_state="lantern-on"} : /obj/item/flashlight/lantern/on{@OLD;icon_state=@SKIP}

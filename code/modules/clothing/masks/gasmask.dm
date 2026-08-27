@@ -86,6 +86,7 @@
 	armor = list(MELEE = 10, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 50, FIRE = 20, ACID = 40)
 	resistance_flags = FIRE_PROOF
 	can_toggle = TRUE
+	actions_types = list(/datum/action/item_action/adjust)
 
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/mask.dmi',
@@ -652,7 +653,7 @@
 	var/aggressiveness = AGGRESSIVENESS_FIRST_POSITION
 	var/safety = 1
 	can_toggle = TRUE
-	actions_types = list(/datum/action/item_action/halt)
+	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/adjust)
 	custom_price = PAYCHECK_CREW
 	var/static/list/phrase_list = list(
 

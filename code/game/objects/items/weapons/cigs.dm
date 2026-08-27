@@ -30,7 +30,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	var/icon_on = "cigon"  //Note - these are in masks.dmi not in cigarette.dmi
 	var/icon_off = "cigoff"
 	var/type_butt = /obj/item/cigbutt
-	var/lastHolder = null
+	var/datum/weakref/last_cig_smoker
 	var/smoketime = 150
 	var/chem_volume = 60
 	var/list/list_reagents = list("nicotine" = 40)
@@ -76,6 +76,10 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/Destroy()
 	QDEL_NULL(reagents)
 	STOP_PROCESSING(SSobj, src)
+	var/mob/living/last_smoker = last_cig_smoker?.resolve()
+	if(last_smoker)
+		UnregisterSignal(last_smoker, list(COMSIG_LIVING_DEATH, COMSIG_MOB_SLIPPED))
+	last_cig_smoker = null
 	return ..()
 
 /obj/item/clothing/mask/cigarette/pre_attackby(atom/target, mob/living/user, params)
@@ -315,22 +319,38 @@ LIGHTERS ARE IN LIGHTERS.DM
 	var/is_being_smoked = FALSE
 	// Check whether this is actually in a mouth, being smoked
 	if(iscarbon(loc))
-		var/mob/living/carbon/C = loc
-		if(src == C.wear_mask)
+		var/mob/living/carbon/carbon_smoker = loc
+		if(src == carbon_smoker.wear_mask)
 			// There used to be a species check here, but synthetics can smoke now
 			is_being_smoked = TRUE
 	if(location)
 		location.hotspot_expose(700, 1)
 	if(reagents?.total_volume)	//	check if it has any reagents at all
 		if(is_being_smoked) // if it's being smoked, transfer reagents to the mob
-			var/mob/living/carbon/C = loc
+			var/mob/living/carbon/carbon_smoker = loc
 			for(var/datum/reagent/R in reagents.reagent_list)
-				reagents.trans_id_to(C, R.id, first_puff ? 1 : max(REAGENTS_METABOLISM / length(reagents.reagent_list), 0.1)) //transfer at least .1 of each chem
+				reagents.trans_id_to(carbon_smoker, R.id, first_puff ? 1 : max(REAGENTS_METABOLISM / length(reagents.reagent_list), 0.1)) //transfer at least .1 of each chem
 			first_puff = FALSE
 			if(!reagents.total_volume) // There were reagents, but now they're gone
-				C.balloon_alert(C, "сигарета теряет вкус")
+				carbon_smoker.balloon_alert(carbon_smoker, "сигарета теряет вкус")
 		else // else just remove some of the reagents
 			reagents.remove_any(REAGENTS_METABOLISM)
+
+/obj/item/clothing/mask/cigarette/equipped(mob/living/user, slot, initial)
+	. = ..()
+	if(!(slot & ITEM_SLOT_MASK))
+		UnregisterSignal(user, list(COMSIG_LIVING_DEATH, COMSIG_MOB_SLIPPED))
+		return
+	last_cig_smoker = WEAKREF(user)
+	RegisterSignals(user, list(COMSIG_LIVING_DEATH, COMSIG_MOB_SLIPPED), PROC_REF(drop_cig_from_mouth))
+
+/obj/item/clothing/mask/cigarette/proc/drop_cig_from_mouth(mob/living/source)
+	SIGNAL_HANDLER
+
+	if(prob(50))
+		die()
+		return
+	source.drop_item_ground(src, get_turf(src))
 
 /obj/item/clothing/mask/cigarette/proc/die()
 	var/turf/T = get_turf(src)
@@ -349,6 +369,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		if(COOLDOWN_FINISHED(src, smoking_cooldown))
 			user.emote("smoking")
 			COOLDOWN_START(src, smoking_cooldown, 30)
+	UnregisterSignal(user, list(COMSIG_LIVING_DEATH, COMSIG_MOB_SLIPPED))
 	.=..()
 
 /obj/item/clothing/mask/cigarette/get_temperature()

@@ -1,16 +1,16 @@
-import { useBackend } from '../backend';
+import { useMemo, useState } from 'react';
 import {
-  Button,
-  Section,
-  Input,
   Box,
+  Button,
+  Icon,
+  Input,
+  NoticeBox,
+  Section,
   Stack,
   Tabs,
-  Icon,
-  NoticeBox,
-} from '../components';
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { useState, useMemo } from 'react';
 
 type SmiteMenuData = {
   categorized_smites: Record<string, Record<string, string>>;
@@ -25,11 +25,11 @@ type Smite = {
 };
 
 const CATEGORY_ICONS: Record<string, string> = {
-  'Общие': 'star',
-  'Урон': 'skull-crossbones',
-  'Смерть': 'skull',
-  'Преобразование': 'user-cog',
-  'Контроль': 'brain',
+  Общие: 'star',
+  Урон: 'skull-crossbones',
+  Смерть: 'skull',
+  Преобразование: 'user-cog',
+  Контроль: 'brain',
 };
 
 type SelectedSmiteCardProps = {
@@ -294,7 +294,7 @@ export const SmiteMenu = (_props: unknown) => {
   const { categorized_smites, choosen, reason } = data;
 
   const [activeCategory, setActiveCategory] = useState<string>(
-    Object.keys(categorized_smites)[0] || 'Общие'
+    Object.keys(categorized_smites)[0] || 'Общие',
   );
   const [searchQuery, setSearchQuery] = useState<string>('');
 
@@ -329,7 +329,7 @@ export const SmiteMenu = (_props: unknown) => {
       (smite) =>
         smite.name.toLowerCase().includes(query) ||
         smite.desc.toLowerCase().includes(query) ||
-        smite.category.toLowerCase().includes(query)
+        smite.category.toLowerCase().includes(query),
     );
   }, [searchQuery, activeCategory, categorized_smites, allSmites]);
 

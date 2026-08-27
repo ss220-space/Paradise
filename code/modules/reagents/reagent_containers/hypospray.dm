@@ -370,6 +370,7 @@
 	flags = null
 	list_reagents = list("epinephrine" = 10)
 	custom_price = PAYCHECK_MIN
+	can_empty = FALSE
 	/// Whether we can rename and repaint source
 	var/reskin_allowed = FALSE
 	/// Is it usable only on yourself?
@@ -459,10 +460,6 @@
 	if(loc != user)
 		return FALSE
 	return TRUE
-
-/obj/item/reagent_containers/hypospray/autoinjector/empty()
-	set hidden = TRUE
-	return
 
 /obj/item/reagent_containers/hypospray/autoinjector/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!reagents.total_volume || spent)
