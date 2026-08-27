@@ -209,11 +209,14 @@
 	do_zMove(dir, target, z_move_flags)
 
 	if(z_move_flags & ZMOVE_COOLDOWN_AFTER_ZMOVE)
-		COOLDOWN_START(src, space_transit_pass_through_cooldown, ZMOVE_COOLDOWN_DURATION)
-		RegisterSignal(src, COMSIG_MOVABLE_PRE_MOVE, PROC_REF(check_cooldown_on_transit_space_turf))
-		addtimer(CALLBACK(src, PROC_REF(unregister_after_zmove_cooldown)), ZMOVE_COOLDOWN_DURATION)
+		start_zMove_cooldown()
 
 	return TRUE
+
+/mob/living/proc/start_zMove_cooldown()
+	COOLDOWN_START(src, space_transit_pass_through_cooldown, ZMOVE_COOLDOWN_DURATION)
+	RegisterSignal(src, COMSIG_MOVABLE_PRE_MOVE, PROC_REF(check_cooldown_on_transit_space_turf), override = TRUE)
+	addtimer(CALLBACK(src, PROC_REF(unregister_after_zmove_cooldown)), ZMOVE_COOLDOWN_DURATION)
 
 /mob/living/proc/check_cooldown_on_transit_space_turf(datum/source, atom/new_loc)
 	SIGNAL_HANDLER

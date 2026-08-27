@@ -66,3 +66,16 @@
 
 	return ..()
 
+/obj/vehicle/zMove(dir, turf/target, z_move_flags)
+	if(!(z_move_flags & ZMOVE_COOLDOWN_AFTER_ZMOVE))
+		return ..()
+	if(!occupants)
+		return ..()
+
+	for(var/mob/living/occupant as anything in occupants)
+		if(!COOLDOWN_FINISHED(occupant, space_transit_pass_through_cooldown))
+			set_currently_z_moving(FALSE, TRUE)
+			return FALSE
+		occupant.start_zMove_cooldown()
+
+	return ..()
