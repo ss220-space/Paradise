@@ -182,15 +182,7 @@ GLOBAL_LIST_EMPTY(starlight)
 
 	if(destination_z && destination_x && destination_y)
 		destination_z = check_taipan_availability(arrived, destination_z)
-		arrived.zMove(null, locate(destination_x, destination_y, destination_z), ZMOVE_ALLOW_BUCKLED|ZMOVE_COOLDOWN_AFTER_ZMOVE)
-
-		var/atom/movable/current_pull = arrived.pulling
-		while(current_pull)
-			var/turf/target_turf = get_step(current_pull.pulledby.loc, REVERSE_DIR(current_pull.pulledby.dir)) || current_pull.pulledby.loc
-			current_pull.zMove(null, target_turf, ZMOVE_ALLOW_BUCKLED|ZMOVE_COOLDOWN_AFTER_ZMOVE)
-			if(current_pull.pulling == arrived) // pulling each other doesn't help but makes a loop
-				break
-			current_pull = current_pull.pulling
+		arrived.zMove(null, locate(destination_x, destination_y, destination_z), ZMOVE_ALLOW_BUCKLED|ZMOVE_COOLDOWN_AFTER_ZMOVE|ZMOVE_INCLUDE_PULLED|ZMOVE_CHECK_PULLS)
 
 /turf/space/proc/check_taipan_availability(atom/movable/arrived, destination_z)
 	if(!is_taipan(destination_z))
