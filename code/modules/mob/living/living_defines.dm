@@ -207,6 +207,8 @@
 
 	/// Cooldown for projectile miss sound (5 deciseconds)
 	COOLDOWN_DECLARE(bullet_miss_cooldown)
+	/// Cooldown that prevents moving between Z-levels after first zMove (check ZMOVE_COOLDOWN_DURATION for duration)
+	COOLDOWN_DECLARE(space_transit_pass_through_cooldown)
 
 	/// How many tiles can this mob reach with their hands? 1 tile is adjacent.
 	var/reach_length = 1

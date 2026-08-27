@@ -207,7 +207,29 @@
 		return FALSE
 
 	do_zMove(dir, target, z_move_flags)
+
+	if(z_move_flags & ZMOVE_COOLDOWN_AFTER_ZMOVE)
+		COOLDOWN_START(src, space_transit_pass_through_cooldown, ZMOVE_COOLDOWN_DURATION)
+		RegisterSignal(src, COMSIG_MOVABLE_PRE_MOVE, PROC_REF(check_cooldown_on_transit_space_turf))
+		addtimer(CALLBACK(src, PROC_REF(unregister_after_zmove_cooldown)), ZMOVE_COOLDOWN_DURATION)
+
 	return TRUE
+
+/mob/living/proc/check_cooldown_on_transit_space_turf(datum/source, atom/new_loc)
+	SIGNAL_HANDLER
+
+	if(!isturf(new_loc) || !isspaceturf(new_loc))
+		return
+	var/turf/space/space_turf_for_check = new_loc
+	if(!space_turf_for_check.destination_z || !space_turf_for_check.destination_x || !space_turf_for_check.destination_y)
+		return
+	if(!COOLDOWN_FINISHED(src, space_transit_pass_through_cooldown))
+		var/cooldown_left = round(COOLDOWN_TIMELEFT(src, space_transit_pass_through_cooldown) / 10, 0.1) // convert deciseconds to seconds
+		balloon_alert(src, "ещё [cooldown_left] секунд!")
+		return COMPONENT_MOVABLE_BLOCK_PRE_MOVE
+
+/mob/living/proc/unregister_after_zmove_cooldown()
+	UnregisterSignal(src, COMSIG_MOVABLE_PRE_MOVE)
 
 /mob/living/proc/do_buckled_zMove(dir, turf/target, z_move_flags = ZMOVE_FLIGHT_FLAGS)
 	if(buckled.currently_z_moving)
