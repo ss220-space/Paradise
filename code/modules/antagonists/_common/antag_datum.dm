@@ -498,8 +498,16 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 /datum/antagonist/proc/get_steal_objective_type()
 	return /datum/objective/steal
 
-/datum/antagonist/proc/get_skill_points_from_dna()
+/**
+ * Returns the skill points this antagonist earned through its antag actions
+ * (e.g. absorbing DNA as a changeling). Override in subtypes that have such progression.
+ */
+/datum/antagonist/proc/get_earned_skill_points()
 	return 0
 
-/datum/antagonist/proc/reset_skill_points_from_dna()
+/**
+ * Resets the skill points earned through antag actions.
+ * Called when the player spends them in the skills select window.
+ */
+/datum/antagonist/proc/reset_earned_skill_points()
 	return

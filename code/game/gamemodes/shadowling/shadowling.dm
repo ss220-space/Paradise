@@ -148,8 +148,8 @@ Made by Xhuis
 		var/datum/skill/best_skill = new_thrall_mind.get_highest_skill()
 		if(best_skill)
 			var/best_skill_name = best_skill::name
-			LAZYSET(thrall_skill_bonuses, best_skill, (thrall_skill_bonuses[best_skill] || 0) + 1)
 			for(var/datum/mind/shadow_mind in shadows)
+				LAZYSET(mode_skill_additive_bonuses[shadow_mind], best_skill, (mode_skill_additive_bonuses[shadow_mind]?[best_skill] || 0) + 1)
 				shadow_mind.refresh_skills()
 				to_chat(shadow_mind.current, span_shadowling("Вы чувствуете, как знания вашего нового раба текут в вас. Вы стали лучше в навыке: [best_skill_name]."))
 
@@ -195,7 +195,7 @@ Made by Xhuis
 		/datum/skill/combat/melee,
 	)
 	for(var/datum/skill/combat_skill_type as anything in combat_skills)
-		LAZYSET(thrall_skill_bonuses, combat_skill_type, (thrall_skill_bonuses[combat_skill_type] || 0) + THRALL_COMBAT_SKILL_BONUS)
+		LAZYSET(mode_skill_additive_bonuses[thrall_mind], combat_skill_type, (mode_skill_additive_bonuses[thrall_mind]?[combat_skill_type] || 0) + THRALL_COMBAT_SKILL_BONUS)
 	thrall_mind.refresh_skills()
 	if(thrall_mind.current)
 		to_chat(thrall_mind.current, span_shadowling("Ты чувствуешь, как воля хозяев наполняет тебя силой. Твои боевые навыки возросли!"))

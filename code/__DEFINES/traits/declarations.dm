@@ -640,5 +640,3 @@
 #define TRAIT_ITEM_ACTIVE "item_active"
 
 #define TRAIT_HAS_ANTAG_SKILLS "has_antag_skills"
-
-#define TRAIT_HAS_ABSORBED_OTHER_CHANGELING "has_absorbed_other_changeling"

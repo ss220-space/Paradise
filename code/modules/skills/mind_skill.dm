@@ -76,10 +76,10 @@
 	var/list/cached_manual_skill_bonuses = manual_skill_bonuses
 	var/list/cached_selected_skills_levels = selected_skills_levels
 	var/list/cached_mode_bonuses = null
-	var/list/cached_thrall_bonuses = null
+	var/list/cached_mode_additive_bonuses = null
 	if(SSticker?.mode)
 		cached_mode_bonuses = SSticker.mode.get_mode_skill_bonuses_for(src)
-		cached_thrall_bonuses = SSticker.mode.get_thrall_skill_bonuses_for(src)
+		cached_mode_additive_bonuses = SSticker.mode.get_mode_additive_skill_bonuses_for(src)
 	for(var/skill_name, skill_datum in GLOB.skills)
 		var/datum/skill/skill = skill_datum
 		var/datum/skill/skill_type = skill.type
@@ -99,8 +99,8 @@
 		var/antag_bonus_level = get_antag_skill_bonus(skill_type)
 		if(antag_bonus_level)
 			level = max(level, antag_bonus_level)
-		if(cached_thrall_bonuses && (skill_type in cached_thrall_bonuses))
-			level = min(level + cached_thrall_bonuses[skill_type], SKILL_LEVEL_LEGEND)
+		if(cached_mode_additive_bonuses && (skill_type in cached_mode_additive_bonuses))
+			level = min(level + cached_mode_additive_bonuses[skill_type], SKILL_LEVEL_LEGEND)
 		if(skill_type in cached_selected_skills_levels)
 			level = clamp(level + cached_selected_skills_levels[skill_type], level, SKILL_LEVEL_LEGEND)
 		if(skill_type in cached_manual_bonuses)
@@ -113,10 +113,10 @@
 			skill.remove_from_mob(current)
 		set_skill_level(skill_type, level)
 
-/datum/mind/proc/get_total_skill_points_from_dna()
+/datum/mind/proc/get_total_earned_skill_points()
 	var/total_points = 0
 	for(var/datum/antagonist/antag as anything in antag_datums)
-		total_points += antag.get_skill_points_from_dna()
+		total_points += antag.get_earned_skill_points()
 	return total_points
 
 /datum/mind/proc/get_antag_skill_bonus(datum/skill/skill_type)

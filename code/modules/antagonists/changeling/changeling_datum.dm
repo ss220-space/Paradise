@@ -66,8 +66,10 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	var/evented
 	/// Check for event headslugs not to do start things in the time of popping after first pop
 	var/oncepoped = FALSE
-	/// Skill points gained from absorbing DNA
-	var/skill_points_from_dna = 0
+	/// Skill points earned through antag actions (absorbing DNA as a changeling)
+	var/earned_skill_points = 0
+	/// Whether this changeling has absorbed another changeling (grants unlimited skill points)
+	var/has_absorbed_other_changeling = FALSE
 
 /datum/antagonist/changeling/New()
 	..()
@@ -100,8 +102,6 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	chosen_sting = null
 	QDEL_LIST(acquired_powers)
 	STOP_PROCESSING(SSobj, src)
-	if(owner)
-		REMOVE_TRAIT(owner, TRAIT_HAS_ABSORBED_OTHER_CHANGELING, UNIQUE_TRAIT_SOURCE(src))
 	return ..()
 
 /datum/antagonist/changeling/greet()
@@ -395,11 +395,11 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 			continue
 		user.remove_language(language.name)
 
-/datum/antagonist/changeling/get_skill_points_from_dna()
-	return skill_points_from_dna
+/datum/antagonist/changeling/get_earned_skill_points()
+	return earned_skill_points
 
-/datum/antagonist/changeling/reset_skill_points_from_dna()
-	skill_points_from_dna = 0
+/datum/antagonist/changeling/reset_earned_skill_points()
+	earned_skill_points = 0
 
 /**
  * Absorb the the target's DNA and their languages.
@@ -412,10 +412,14 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	store_dna(user.dna.Clone())
 	add_new_languages(user.languages)
 	absorbed_count++
-	skill_points_from_dna++
-	to_chat(owner.current, span_changeling("Мы поглотили ДНК. Наш разум расширился, мы можем улучшить наши навыки."))
+	if(user.mind && user.mind.current == user)
+		earned_skill_points++
+		to_chat(owner.current, span_changeling("Мы поглотили ДНК разумного существа. Наш разум расширился, мы можем улучшить наши навыки."))
+	else
+		to_chat(owner.current, span_changeling("Мы поглотили ДНК. Разум существа пуст."))
 	if(IS_CHANGELING(user))
-		ADD_TRAIT(owner, TRAIT_HAS_ABSORBED_OTHER_CHANGELING, UNIQUE_TRAIT_SOURCE(src))
+		has_absorbed_other_changeling = TRUE
+
 /**
  * Store the target DNA. If the DNA belongs to one of the changeling's "escape with identity" objectives, make the DNA protected.
  *
