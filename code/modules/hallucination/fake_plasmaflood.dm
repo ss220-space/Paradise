@@ -94,7 +94,6 @@
 
 /obj/effect/plasma_image_holder
 	icon_state = "nothing"
-	anchored = TRUE
 	layer = FLY_LAYER
 	plane = ABOVE_GAME_PLANE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT

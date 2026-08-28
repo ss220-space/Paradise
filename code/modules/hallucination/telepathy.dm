@@ -11,7 +11,7 @@
 
 /datum/hallucination/telepathy/proc/get_telepath_message()
 	if(prob(0.001))
-		return "лошадь"
+		return "ERP запрещено"
 
 	var/memo = pick(
 		pick("Не доверяй никому.", "Они следят за тобой.", "Беги, пока можешь.", "Ты не один.", "Оно уже здесь."),

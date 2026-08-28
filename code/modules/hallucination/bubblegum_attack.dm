@@ -12,7 +12,7 @@
 	var/static/list/hallucination_lines = list(
 		"ОХ ЕБАТЬ!!",
 		"ОТКУДА ОНО ЗДЕСЬ?!",
-		"БУБЛЬГУМ НА СТАНЦИИ!",
+		"БУБЛЯ НА СТАНЦИИ!",
 	)
 
 /datum/hallucination/oh_yeah/New(mob/living/hallucinator, source = "an external source", haunt_them = FALSE)

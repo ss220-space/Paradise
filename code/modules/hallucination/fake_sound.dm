@@ -137,7 +137,6 @@
 	sound_type = 'sound/weapons/flash.ogg'
 
 /datum/hallucination/fake_sound/normal/ringtone
-	volume = 50
 	sound_type = 'sound/machines/twobeep_high.ogg'
 
 /datum/hallucination/fake_sound/weird
@@ -152,17 +151,6 @@
 		return ..(null, sound_to_play)
 
 	return ..()
-
-/datum/hallucination/fake_sound/weird/antag
-	random_hallucination_weight = 0
-	volume = 90
-	sound_vary = FALSE
-	no_source = TRUE
-	// НЕТ В 1984: музыка антагов (например 'sound/music/antag/bloodcult/bloodcult_gain.ogg' и т.д.) отсутствует.
-	// В 1984 нет готовых музыкальных файлов антагов, поэтому этот тип не работает до добавления ассетов.
-
-	/// На самом деле есть - sound\ambience\antag
-	sound_type = null
 
 /datum/hallucination/fake_sound/weird/creepy
 	hallucination_tier = HALLUCINATION_TIER_COMMON
@@ -195,6 +183,10 @@
 		'sound/voice/laugh_male_2.ogg',
 		'sound/voice/laugh_male_3.ogg',
 	)
+
+/datum/hallucination/fake_sound/weird/fart
+	hallucination_tier = HALLUCINATION_TIER_COMMON
+	sound_type = SFX_FART
 
 /datum/hallucination/fake_sound/weird/phone
 	volume = 15

@@ -50,8 +50,8 @@
 /// Returns a random turf in a ring around the hallucinator mob.
 /// Useful for sound hallucinations.
 /datum/hallucination/proc/random_far_turf()
-	var/first_offset = pick(-8, -7, -6, -5, 5, 6, 7, 8)
-	var/second_offset = rand(-8, 8)
+	var/first_offset = pick(-6, -5, -4, -3, 3, 4, 5, 6)
+	var/second_offset = rand(-6, 6)
 	var/x_offset
 	var/y_offset
 	if(prob(50))
@@ -194,8 +194,6 @@
  * A client-side image effect tied to the existence of a hallucination.
  */
 /obj/effect/client_image_holder/hallucination
-	invisibility = INVISIBILITY_OBSERVER
-	anchored = TRUE
 	/// The hallucination that created us.
 	var/datum/hallucination/parent
 

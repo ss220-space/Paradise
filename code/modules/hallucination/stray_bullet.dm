@@ -5,8 +5,18 @@
 
 /datum/hallucination/stray_bullet/start()
 	var/list/turf/starting_locations = list()
-	for(var/turf/simulated/floor/open_out_of_view in view(world.view + 1, hallucinator) - view(world.view, hallucinator))
-		starting_locations += open_out_of_view
+
+	for(var/turf/floor in view(world.view + 2, hallucinator) - view(world.view + 1, hallucinator))
+		if(floor.density)
+			continue
+		starting_locations += floor
+
+	if(!length(starting_locations))
+		for(var/turf/floor in view(world.view + 1, hallucinator) - view(world.view, hallucinator))
+			if(floor.density)
+				continue
+			starting_locations += floor
+
 	if(!length(starting_locations))
 		return FALSE
 
@@ -22,11 +32,9 @@
 	QDEL_IN(src, 10 SECONDS) // Should clean up the projectile if it somehow gets stuck.
 	return TRUE
 
-/// Фейковые снаряды-галлюцинации.
 /obj/effect/client_image_holder/hallucination/fake_projectile
 	name = "пуля"
 	image_layer = ABOVE_MOB_LAYER
-	image_plane = GAME_PLANE
 	var/hal_icon = 'icons/obj/weapons/guns/projectiles.dmi'
 	var/hal_icon_state
 	var/hal_fire_sound
@@ -65,7 +73,7 @@
 /obj/effect/client_image_holder/hallucination/fake_projectile/bullet
 	name = "пулей"
 	hal_icon_state = "bullet"
-	hal_fire_sound = "sound/weapons/gunshots/1suppres.ogg"
+	hal_fire_sound = 'sound/weapons/gunshots/1suppres.ogg'
 	hal_hitsound = 'sound/weapons/bullet2.ogg'
 	stamina_damage = 50
 

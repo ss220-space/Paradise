@@ -115,8 +115,6 @@
 	qdel(src)
 
 /datum/hallucination/station_message/cc_execution
-	require_hearing = TRUE
-	random_hallucination_weight = 1
 
 /datum/hallucination/station_message/cc_execution/do_fake_alert()
 	var/bounty = rand(5000, 50000)

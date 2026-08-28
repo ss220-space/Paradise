@@ -25,8 +25,7 @@
 		return FALSE
 	var/turf/spawn_loc = pick(spawn_locs)
 	mother = new(spawn_loc, hallucinator, src)
-	// legacy
-	GLOB.move_manager.move_to(mother, hallucinator, 1, rand(2, 4))
+	GLOB.move_manager.move_to(mother, hallucinator, 1, rand(2, 4)) // legacy
 	point_at(hallucinator)
 	talk("[capitalize(hallucinator.real_name)]!!!!")
 	var/list/scold_lines = list(
@@ -47,7 +46,7 @@
 		return
 
 	var/obj/visual = image('icons/mob/screen_gen.dmi', mother.loc, "arrow", FLY_LAYER)
-	animate(visual, pixel_x = (tile.x - mother.x) * ICON_SIZE_X, pixel_y = (tile.y - mother.y) * ICON_SIZE_Y, time = 1.7, easing = QUAD_EASING|EASE_OUT)
+	animate(visual, pixel_x = (tile.x - mother.x) * ICON_SIZE_X, pixel_y = (tile.y - mother.y) * ICON_SIZE_Y, time = 3, easing = QUAD_EASING|EASE_OUT)
 
 	hallucinator.client?.images |= visual
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(remove_arrow_image), hallucinator, visual), 2.5 SECONDS)
@@ -69,8 +68,7 @@
 /obj/effect/client_image_holder/hallucination/your_mother
 	gender = FEMALE
 	image_icon = 'icons/mob/human.dmi'
-	image_state = "lizard_f_s" // Заглушка
+	image_state = "mother"
 	name = "Ваша мать"
 	desc = "Она недовольна."
-	image_layer = MOB_LAYER
 	tts_seed = "Grelod"

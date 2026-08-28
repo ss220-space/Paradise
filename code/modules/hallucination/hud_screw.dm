@@ -17,8 +17,5 @@
 /datum/hallucination/screwy_hud/crit
 	screwy_hud_type = /datum/status_effect/grouped/screwy_hud/fake_crit
 
-/datum/hallucination/screwy_hud/dead
-	screwy_hud_type = /datum/status_effect/grouped/screwy_hud/fake_dead
-
 /datum/hallucination/screwy_hud/healthy
 	screwy_hud_type = /datum/status_effect/grouped/screwy_hud/fake_healthy

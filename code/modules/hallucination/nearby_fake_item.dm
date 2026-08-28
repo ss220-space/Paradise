@@ -83,13 +83,13 @@
 	right_hand_file = 'icons/mob/inhands/melee_righthand.dmi'
 	image_icon_state = "arm_blade"
 
-/datum/hallucination/nearby_fake_item/e_sword/generate_fake_image(mob/living/carbon/human/holder, file)
-	hallucinator.playsound_local(get_turf(holder), 'sound/effects/bone_break_1.ogg', 35, TRUE)
+/datum/hallucination/nearby_fake_item/arm_blade/generate_fake_image(mob/living/carbon/human/holder, file)
+	hallucinator.playsound_local(get_turf(holder), pick('sound/effects/bone_break_1.ogg', 'sound/effects/bone_break_2.ogg'), 35, TRUE)
 	return ..()
 
-/datum/hallucination/nearby_fake_item/e_sword/remove_image(mob/living/carbon/human/holder)
+/datum/hallucination/nearby_fake_item/arm_blade/remove_image(mob/living/carbon/human/holder)
 	if(!QDELETED(holder))
-		hallucinator.playsound_local(get_turf(holder), 'sound/effects/bone_break_1.ogg', 35, TRUE)
+		hallucinator.playsound_local(get_turf(holder), pick('sound/effects/bone_break_1.ogg', 'sound/effects/bone_break_2.ogg'), 35, TRUE)
 	return ..()
 
 /datum/hallucination/nearby_fake_item/arm_blade/flesh_maul
@@ -108,8 +108,8 @@
 	right_hand_file = 'icons/mob/inhands/melee_righthand.dmi'
 	image_icon_state = "contractor_baton_extended"
 
-/datum/hallucination/nearby_fake_item/baton/generate_fake_image(mob/living/carbon/human/holder, file)
-	hallucinator.playsound_local(get_turf(holder), 'sound/weapons/contractorbatonextend.ogg', 75, TRUE, -1)
+/datum/hallucination/nearby_fake_item/contractor_baton/generate_fake_image(mob/living/carbon/human/holder, file)
+	hallucinator.playsound_local(get_turf(holder), 'sound/weapons/contractorbatonextend.ogg', 75, TRUE)
 	return ..()
 
 /datum/hallucination/nearby_fake_item/ttv

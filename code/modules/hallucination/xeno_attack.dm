@@ -90,7 +90,6 @@
 	name = "alien hunter ([rand(1, 1000)])"
 
 // The hallucination "throws" us at the hallucinator, so whenever we impact, we reset our leap pose.
-// Валит игрока не столкновение, а гарантированный knock_down_hallucinator - уклониться нельзя.
 /obj/effect/client_image_holder/hallucination/xeno/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	set_unleaping()
 

@@ -79,6 +79,26 @@
 	body_image_file = 'icons/mob/human.dmi'
 	body_image_state = "lizard_f_s"
 
+/datum/hallucination/body/rat_king
+	random_hallucination_weight = 1
+	body_image_file = 'icons/mob/animal.dmi'
+	body_image_state = "regalrat"
+
+/datum/hallucination/body/cool_cock
+	random_hallucination_weight = 1
+	body_image_file = 'icons/mob/animal.dmi'
+	body_image_state = "cool_cock"
+
+/datum/hallucination/body/mouse_ass
+	random_hallucination_weight = 1
+	body_image_file = 'icons/mob/animal.dmi'
+	body_image_state = "mouse_gray_idle5"
+
+/datum/hallucination/body/blobpod
+	random_hallucination_weight = 1
+	body_image_file = 'icons/mob/blob.dmi'
+	body_image_state = "blobpod"
+
 /datum/hallucination/body/skeleton
 	random_hallucination_weight = 3
 	body_image_file = 'icons/mob/human.dmi'
