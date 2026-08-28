@@ -447,6 +447,7 @@
 		hud.mymob.zone_selected = choice
 		if(update_overlay)
 			update_icon(UPDATE_OVERLAYS)
+		SEND_SIGNAL(hud.mymob, COMSIG_MOB_SELECTED_ZONE_SET, choice)
 	return TRUE
 
 /atom/movable/screen/zone_sel/update_overlays()

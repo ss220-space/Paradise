@@ -470,10 +470,7 @@
 	icon_state = "portaseeder"
 	origin_tech = "biotech=3;engineering=2"
 
-/obj/item/storage/bag/plants/portaseeder/verb/dissolve_contents()
-	set name = "Конвертация в семена"
-	set category = VERB_CATEGORY_OBJECT
-	set desc = "Activate to convert your plants into plantable seeds."
+GAME_VERB_SRC(/obj/item/storage/bag/plants/portaseeder, dissolve_contents, usr, "Конвертация в семена", VERB_CATEGORY_HIDDEN)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
@@ -585,21 +582,6 @@
 		usr.s_active.show_to(usr)
 	update_icon()
 	return TRUE
-
-/obj/item/storage/bag/sheetsnatcher/quick_empty()
-	var/drop_location = get_turf(src)
-	for(var/obj/item/stack/sheet/sheet_stack in contents)
-		while(sheet_stack.amount > 0)
-			var/obj/item/stack/sheet/new_stack = new sheet_stack.type(drop_location)
-			var/transfer_amount = min(sheet_stack.amount, new_stack.max_amount)
-			new_stack.amount = transfer_amount
-			sheet_stack.amount -= transfer_amount
-		qdel(sheet_stack) // Original stack is now empty.
-
-	// Update UI if open.
-	if(usr.s_active)
-		usr.s_active.show_to(usr)
-	update_icon()
 
 /obj/item/storage/bag/sheetsnatcher/orient2hud(mob/user)
 	var/adjusted_contents = length(contents)

@@ -174,9 +174,7 @@
 /area/ruin/unpowered)
 "nG" = (
 /obj/structure/table/wood/fancy/red,
-/obj/item/flashlight/lantern{
-	icon_state = "lantern-on"
-	},
+/obj/item/flashlight/lantern/on,
 /turf/simulated/floor/wood/fancy/birch,
 /area/ruin/unpowered)
 "nL" = (
@@ -444,8 +442,7 @@
 /turf/simulated/floor/grass,
 /area/ruin/unpowered)
 "DS" = (
-/obj/item/flashlight/lantern{
-	icon_state = "lantern-on";
+/obj/item/flashlight/lantern/on{
 	pixel_x = 6
 	},
 /turf/simulated/floor/wood/fancy/birch,
@@ -553,9 +550,7 @@
 /turf/simulated/floor/wood/fancy/birch,
 /area/ruin/unpowered)
 "HE" = (
-/obj/item/flashlight/lantern{
-	icon_state = "lantern-on"
-	},
+/obj/item/flashlight/lantern/on,
 /turf/simulated/floor/engine/cult,
 /area/ruin/unpowered)
 "HL" = (

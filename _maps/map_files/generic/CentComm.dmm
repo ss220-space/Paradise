@@ -583,6 +583,7 @@
 	icon_state = "grass_edge_medium";
 	name = "grass"
 	},
+/obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/indestructible/asteroid,
 /area/centcom/syndicate_base/outside)
 "ale" = (
@@ -938,7 +939,7 @@
 	layer = 5;
 	name = "Outer Airlock Bottom"
 	},
-/obj/structure/fans/tiny/invisible,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/shuttle/syndicate)
 "aui" = (
@@ -1813,6 +1814,15 @@
 	icon_state = "floor13"
 	},
 /area/shuttle/ninja)
+"aTB" = (
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/structure/fans/tiny/invisible,
+/turf/simulated/floor/indestructible/asteroid,
+/area/centcom/syndicate_base/outside)
 "aTJ" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -2115,7 +2125,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/obj/structure/fans/tiny/invisible,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
@@ -2417,6 +2427,11 @@
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/spacebar)
+"bkf" = (
+/obj/structure/flora/grass/jungle,
+/obj/structure/fans/tiny/invisible,
+/turf/simulated/floor/indestructible/grass,
+/area/centcom/syndicate_base/outside)
 "bkh" = (
 /obj/machinery/computer/station_alert,
 /obj/structure/window/reinforced{
@@ -2859,24 +2874,26 @@
 	pixel_y = -23;
 	req_access = list(150)
 	},
-/obj/docking_port/mobile{
-	dir = 4;
-	dwidth = 7;
-	height = 5;
-	id = "sit";
-	name = "SIT shuttle";
-	port_direction = 4;
-	preferred_direction = 2;
-	roundstart_move = "sit_away";
-	width = 11
-	},
 /obj/docking_port/stationary{
 	dir = 4;
 	dwidth = 7;
 	height = 5;
 	id = "sit_away";
 	name = "Syndicate Base";
+	pixel_x = -11;
 	turf_type = /turf/simulated/floor/indestructible/plating;
+	width = 11
+	},
+/obj/docking_port/mobile{
+	dir = 4;
+	dwidth = 7;
+	height = 5;
+	id = "sit";
+	name = "SIT shuttle";
+	pixel_x = 5;
+	port_direction = 4;
+	preferred_direction = 2;
+	roundstart_move = "sit_away";
 	width = 11
 	},
 /turf/simulated/floor/shuttle/plating,
@@ -3417,7 +3434,7 @@
 	id_tag = "ninja_outer_left";
 	name = "Ship External Access"
 	},
-/obj/structure/fans/tiny/invisible,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
@@ -3925,6 +3942,7 @@
 	id_tag = "trade_sol_base";
 	name = "Docking Port"
 	},
+/obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/wood,
 /area/centcom/trader_station/sol)
 "ccq" = (
@@ -4037,6 +4055,7 @@
 	dir = 8;
 	id = "pod2";
 	name = "escape pod 2";
+	pixel_x = -5;
 	port_direction = 2;
 	roundstart_move = "pod2_home"
 	},
@@ -4046,9 +4065,11 @@
 	height = 6;
 	id = "pod2_away";
 	name = "recovery ship bay 2";
+	pixel_x = 11;
 	turf_type = /turf/simulated/floor/plating/airless;
 	width = 5
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/shuttle,
 /area/shuttle/pod_2)
 "cfa" = (
@@ -4557,17 +4578,15 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/administration)
 "cqi" = (
-/obj/structure/table/abductor{
-	color = "#99ff99";
-	name = "table"
-	},
-/obj/item/storage/box/manacles{
-	pixel_x = 1;
-	pixel_y = 5
-	},
-/obj/item/storage/box/manacles{
+/obj/structure/rack,
+/obj/item/tank/internals/emergency_oxygen/double/ninja{
 	pixel_x = -3;
-	pixel_y = 2
+	pixel_y = 3
+	},
+/obj/item/tank/internals/emergency_oxygen/double/ninja,
+/obj/item/tank/internals/emergency_oxygen/double/ninja{
+	pixel_x = 3;
+	pixel_y = -3
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "floorgrime"
@@ -4582,6 +4601,7 @@
 	dir = 4;
 	id = "pod4";
 	name = "escape pod 4";
+	pixel_x = 11;
 	port_direction = 2;
 	roundstart_move = "pod4_home"
 	},
@@ -4591,9 +4611,11 @@
 	height = 6;
 	id = "pod4_away";
 	name = "recovery ship bay 4";
+	pixel_x = -5;
 	turf_type = /turf/simulated/floor/plating/airless;
 	width = 5
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/shuttle,
 /area/shuttle/pod_4)
 "cqv" = (
@@ -5077,6 +5099,11 @@
 /obj/structure/window/reinforced,
 /turf/simulated/floor/carpet/black,
 /area/centcom/central_command_areas/zone/two)
+"cBH" = (
+/obj/effect/mapping_helpers/light,
+/obj/structure/fans/tiny/invisible,
+/turf/simulated/floor/indestructible/grass,
+/area/centcom/syndicate_base/outside)
 "cBU" = (
 /obj/machinery/hydroponics/soil,
 /turf/simulated/floor/indestructible/snow,
@@ -6069,6 +6096,12 @@
 "dcl" = (
 /turf/simulated/wall/shuttle/onlyselfsmooth,
 /area/shuttle/transport)
+"dct" = (
+/obj/machinery/conveyor{
+	id = "QMLoad2"
+	},
+/turf/simulated/floor/shuttle,
+/area/shuttle/supply)
 "dcA" = (
 /obj/structure/window/reinforced{
 	color = "red";
@@ -6738,6 +6771,7 @@
 	dir = 8;
 	id = "pod1";
 	name = "escape pod 1";
+	pixel_x = -5;
 	port_direction = 2;
 	roundstart_move = "pod1_home"
 	},
@@ -6747,9 +6781,11 @@
 	height = 6;
 	id = "pod1_away";
 	name = "recovery ship bay 1";
+	pixel_x = 11;
 	turf_type = /turf/simulated/floor/plating/airless;
 	width = 5
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/shuttle,
 /area/shuttle/pod_1)
 "dsX" = (
@@ -6832,27 +6868,24 @@
 	},
 /area/centcom/ninja/holding)
 "duk" = (
-/obj/structure/sign/poster/official/air2{
-	pixel_y = -32
+/obj/structure/table/abductor{
+	color = "#99ff99";
+	name = "table"
 	},
-/obj/machinery/portable_atmospherics/canister/oxygen{
-	maximum_pressure = 50000
+/obj/item/storage/box/manacles{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/item/storage/box/manacles{
+	pixel_x = -3;
+	pixel_y = 2
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "floorgrime"
 	},
 /area/centcom/ninja/holding)
 "dum" = (
-/obj/structure/rack,
-/obj/item/tank/internals/emergency_oxygen/double/ninja{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/tank/internals/emergency_oxygen/double/ninja,
-/obj/item/tank/internals/emergency_oxygen/double/ninja{
-	pixel_x = 3;
-	pixel_y = -3
-	},
+/obj/machinery/recharge_station/upgraded,
 /turf/simulated/floor/indestructible{
 	icon_state = "floorgrime"
 	},
@@ -7129,6 +7162,7 @@
 	dir = 4;
 	id = "pod3";
 	name = "escape pod 3";
+	pixel_x = 11;
 	port_direction = 2;
 	roundstart_move = "pod3_home"
 	},
@@ -7138,9 +7172,11 @@
 	height = 6;
 	id = "pod3_away";
 	name = "recovery ship bay 3";
+	pixel_x = -5;
 	turf_type = /turf/simulated/floor/plating/airless;
 	width = 5
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/shuttle,
 /area/shuttle/pod_3)
 "dCm" = (
@@ -7480,7 +7516,7 @@
 	name = "Ship External Access";
 	req_access = list(153)
 	},
-/obj/structure/fans/tiny/invisible,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -8230,17 +8266,6 @@
 /area/centcom/syndicate_base/cargo)
 "ebI" = (
 /obj/structure/fans/tiny,
-/obj/docking_port/mobile{
-	dir = 8;
-	dwidth = 8;
-	height = 18;
-	id = "admin";
-	name = "administration shuttle";
-	port_direction = 2;
-	preferred_direction = 8;
-	roundstart_move = "admin_away";
-	width = 18
-	},
 /obj/machinery/door/airlock/external{
 	frequency = 1331;
 	id_tag = "admin_s_outer";
@@ -8261,8 +8286,21 @@
 	height = 18;
 	id = "admin_away";
 	name = "centcom bay 1";
+	pixel_x = 11;
 	timid = 1;
 	turf_type = /turf/simulated/floor/plating/airless;
+	width = 18
+	},
+/obj/docking_port/mobile{
+	dir = 8;
+	dwidth = 8;
+	height = 18;
+	id = "admin";
+	name = "administration shuttle";
+	pixel_x = -5;
+	port_direction = 2;
+	preferred_direction = 8;
+	roundstart_move = "admin_away";
 	width = 18
 	},
 /turf/simulated/floor/shuttle{
@@ -8633,19 +8671,6 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/ussp)
-"elS" = (
-/obj/machinery/door/airlock/external{
-	aiControlDisabled = 1;
-	frequency = 1379;
-	hackProof = 1;
-	id_tag = "emergency_away";
-	locked = 1;
-	name = "Arrival Airlock"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/central_command_areas/evacuation)
 "emk" = (
 /obj/machinery/computer/shuttle/vox,
 /turf/simulated/floor/mineral/plastitanium/nitrogen/pink,
@@ -8708,7 +8733,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/obj/structure/fans/tiny/invisible,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
@@ -10606,7 +10631,7 @@
 	pixel_x = -22;
 	req_access = list(150)
 	},
-/obj/structure/fans/tiny/invisible,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/shuttle/syndicate)
 "fhx" = (
@@ -14887,7 +14912,7 @@
 	name = "Ship External Access";
 	req_access = list(153)
 	},
-/obj/structure/fans/tiny/invisible,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -15447,12 +15472,9 @@
 	},
 /area/centcom/central_command_areas/prison)
 "hzK" = (
-/obj/effect/turf_decal/delivery,
 /obj/structure/fans/tiny/invisible,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/syndicate_base/cargo)
+/turf/simulated/floor/indestructible/snow,
+/area/centcom/ninja/outside)
 "hAd" = (
 /obj/structure/closet{
 	icon_closed = "syndicate1";
@@ -15948,7 +15970,7 @@
 	name = "Ship External Access";
 	req_access = list(150)
 	},
-/obj/structure/fans/tiny/invisible,
+/obj/structure/fans/tiny,
 /obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plating,
 /area/shuttle/syndicate)
@@ -16622,6 +16644,7 @@
 /obj/docking_port/mobile/emergency{
 	dwidth = 11;
 	height = 18;
+	pixel_x = 11;
 	port_direction = 8;
 	width = 29
 	},
@@ -16631,8 +16654,10 @@
 	height = 18;
 	id = "emergency_away";
 	name = "emergency centcom";
+	pixel_x = -5;
 	width = 29
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -17629,24 +17654,26 @@
 	req_access = list(150)
 	},
 /obj/structure/fans/tiny,
-/obj/docking_port/mobile{
-	dir = 8;
-	dwidth = 3;
-	height = 5;
-	id = "sst";
-	name = "SST shuttle";
-	port_direction = 8;
-	preferred_direction = 2;
-	roundstart_move = "sst_away";
-	width = 11
-	},
 /obj/docking_port/stationary{
 	dir = 8;
 	dwidth = 3;
 	height = 5;
 	id = "sst_away";
 	name = "Syndicate Base";
+	pixel_x = 11;
 	turf_type = /turf/simulated/floor/indestructible/plating;
+	width = 11
+	},
+/obj/docking_port/mobile{
+	dir = 8;
+	dwidth = 3;
+	height = 5;
+	id = "sst";
+	name = "SST shuttle";
+	pixel_x = -5;
+	port_direction = 8;
+	preferred_direction = 2;
+	roundstart_move = "sst_away";
 	width = 11
 	},
 /turf/simulated/floor/shuttle/plating,
@@ -18937,6 +18964,7 @@
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding1"
 	},
+/obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/indestructible/asteroid,
 /area/centcom/syndicate_base/outside)
 "jjR" = (
@@ -19870,6 +19898,11 @@
 	icon_state = "grimy"
 	},
 /area/centcom/central_command_areas/zone/three)
+"jBg" = (
+/obj/structure/flora/grass/both,
+/obj/structure/fans/tiny/invisible,
+/turf/simulated/floor/indestructible/snow,
+/area/centcom/ninja/outside)
 "jBK" = (
 /obj/structure/bookcase/manuals,
 /obj/item/book/manual/sop_supply,
@@ -19891,6 +19924,16 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/central_command_areas/zone/two)
+"jCe" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "syndicate_away";
+	req_access = list(150)
+	},
+/obj/structure/fans/tiny/invisible,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
+/area/centcom/syndicate_base)
 "jCl" = (
 /obj/machinery/light{
 	dir = 4
@@ -21530,6 +21573,7 @@
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
+/obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/indestructible/grass,
 /area/centcom/syndicate_base/outside)
 "klz" = (
@@ -22950,6 +22994,7 @@
 	height = 18;
 	id = "trade_sol";
 	name = "sol trade shuttle";
+	pixel_x = -5;
 	port_direction = 2;
 	preferred_direction = 8;
 	roundstart_move = "trade_sol_base";
@@ -22966,6 +23011,7 @@
 	height = 18;
 	id = "trade_sol_base";
 	name = "docking bay 2 at Jupiter Station";
+	pixel_x = 11;
 	width = 15
 	},
 /turf/simulated/floor/wood,
@@ -24182,6 +24228,13 @@
 	},
 /turf/simulated/floor/carpet/red,
 /area/centcom/central_command_areas/bridge)
+"ltM" = (
+/obj/machinery/conveyor_switch/oneway{
+	id = "QMLoad";
+	name = "Upload"
+	},
+/turf/simulated/floor/shuttle,
+/area/shuttle/supply)
 "ltP" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -26851,6 +26904,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
 	},
+/obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/indestructible/asteroid,
 /area/centcom/ninja/outside)
 "mBE" = (
@@ -27935,6 +27989,12 @@
 /obj/item/book/manual/security_space_law,
 /turf/simulated/floor/carpet,
 /area/centcom/central_command_areas/prison)
+"mYY" = (
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/syndicate_base/cargo)
 "mZk" = (
 /obj/item/paper_bin/nanotrasen,
 /obj/structure/table/wood,
@@ -28181,6 +28241,10 @@
 	name = "floor"
 	},
 /area/centcom/syndicate_base/elite_squad)
+"nfB" = (
+/obj/structure/fans/tiny/invisible,
+/turf/simulated/floor/indestructible/asteroid,
+/area/centcom/syndicate_base/outside)
 "nfE" = (
 /obj/machinery/vending/dinnerware,
 /turf/simulated/floor/plating{
@@ -29252,6 +29316,7 @@
 	name = "Shuttle Hatch";
 	req_access = list(31)
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/shuttle,
 /area/shuttle/supply)
 "nBT" = (
@@ -32130,6 +32195,17 @@
 	icon_state = "darkredfull"
 	},
 /area/centcom/central_command_areas/bridge)
+"oOO" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "siding1"
+	},
+/obj/structure/fans/tiny/invisible,
+/turf/simulated/floor/indestructible/grass,
+/area/centcom/syndicate_base/outside)
 "oOQ" = (
 /obj/machinery/photocopier,
 /obj/machinery/light{
@@ -32828,11 +32904,13 @@
 	height = 7;
 	id = "supply_away";
 	name = "supply centcom";
+	pixel_y = 11;
 	turf_type = /turf/simulated/floor/plating/airless;
 	width = 12
 	},
 /obj/docking_port/mobile/supply{
 	dir = 2;
+	pixel_y = -5;
 	port_direction = 4;
 	preferred_direction = 8
 	},
@@ -33839,23 +33917,25 @@
 	id_tag = "s_docking_airlock"
 	},
 /obj/structure/fans/tiny,
-/obj/docking_port/mobile{
-	dir = 8;
-	dwidth = 2;
-	height = 12;
-	id = "ferry";
-	name = "ferry shuttle";
-	preferred_direction = 4;
-	roundstart_move = "ferry_away";
-	width = 5
-	},
 /obj/docking_port/stationary{
 	dir = 8;
 	dwidth = 2;
 	height = 12;
 	id = "ferry_away";
 	name = "centcom bay 2";
+	pixel_x = 11;
 	turf_type = /turf/simulated/floor/plating/airless;
+	width = 5
+	},
+/obj/docking_port/mobile{
+	dir = 8;
+	dwidth = 2;
+	height = 12;
+	id = "ferry";
+	name = "ferry shuttle";
+	pixel_x = -5;
+	preferred_direction = 4;
+	roundstart_move = "ferry_away";
 	width = 5
 	},
 /turf/simulated/floor/shuttle,
@@ -34184,7 +34264,6 @@
 	},
 /area/centcom/ninja/outpost)
 "pOx" = (
-/obj/structure/fans/tiny,
 /obj/machinery/door/airlock/external,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/shuttle/plating,
@@ -34770,15 +34849,6 @@
 	name = "Shuttle Hatch";
 	req_access = list(109)
 	},
-/obj/docking_port/mobile{
-	dir = 2;
-	dwidth = 2;
-	height = 11;
-	id = "specops";
-	name = "ert shuttle";
-	roundstart_move = "specops_away";
-	width = 5
-	},
 /obj/structure/fans/tiny,
 /obj/docking_port/stationary{
 	dir = 2;
@@ -34786,9 +34856,20 @@
 	height = 11;
 	id = "specops_away";
 	name = "centcom bay 3";
+	pixel_y = 11;
 	top_left_corner = 8;
 	top_right_corner = 1;
 	turf_type = /turf/simulated/floor/plating/airless;
+	width = 5
+	},
+/obj/docking_port/mobile{
+	dir = 2;
+	dwidth = 2;
+	height = 11;
+	id = "specops";
+	name = "ert shuttle";
+	pixel_y = -5;
+	roundstart_move = "specops_away";
 	width = 5
 	},
 /turf/simulated/floor/shuttle/plating,
@@ -35687,6 +35768,7 @@
 /obj/machinery/door/airlock/shuttle,
 /obj/structure/fans/tiny,
 /obj/docking_port/mobile/gamma{
+	pixel_x = 11;
 	port_direction = 8
 	},
 /obj/docking_port/stationary{
@@ -35695,6 +35777,7 @@
 	height = 6;
 	id = "gamma_away";
 	name = "gamma centcom";
+	pixel_x = -5;
 	width = 7
 	},
 /turf/simulated/floor/shuttle{
@@ -36428,6 +36511,11 @@
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/centcom/syndicate_base/infiltrators)
+"qJZ" = (
+/obj/structure/flora/tree/jungle,
+/obj/structure/fans/tiny/invisible,
+/turf/simulated/floor/indestructible/grass,
+/area/centcom/syndicate_base/outside)
 "qKF" = (
 /obj/effect/turf_decal/stripes/line{
 	color = "darkgray";
@@ -38022,6 +38110,19 @@
 	icon_state = "freezerfloor"
 	},
 /area/centcom/syndicate_base/elite_squad)
+"rrw" = (
+/obj/machinery/door/airlock/external{
+	aiControlDisabled = 1;
+	frequency = 1379;
+	hackProof = 1;
+	id_tag = "emergency_away";
+	locked = 1;
+	name = "Arrival Airlock"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/central_command_areas/evacuation)
 "rrC" = (
 /obj/machinery/door/airlock/hatch/secure{
 	frequency = 1331;
@@ -39202,7 +39303,7 @@
 	pixel_y = 29;
 	req_access = list(153)
 	},
-/obj/structure/fans/tiny/invisible,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -39693,13 +39794,12 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom/syndicate_base/infiltrators)
 "seD" = (
-/obj/effect/turf_decal/delivery,
-/obj/structure/closet/crate/syndicate,
-/obj/structure/fans/tiny/invisible,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/obj/effect/mapping_helpers/light{
+	light_power = 3
 	},
-/area/centcom/syndicate_base/cargo)
+/obj/structure/fans/tiny/invisible,
+/turf/simulated/floor/indestructible/snow,
+/area/centcom/ninja/outside)
 "seE" = (
 /obj/machinery/door/airlock/public/glass,
 /obj/effect/turf_decal/stripes/black{
@@ -39974,7 +40074,7 @@
 	name = "Ship External Access";
 	req_access = list(150)
 	},
-/obj/structure/fans/tiny/invisible,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/shuttle/syndicate)
 "smk" = (
@@ -41748,7 +41848,7 @@
 	pixel_y = 29;
 	req_access = list(153)
 	},
-/obj/structure/fans/tiny/invisible,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -42434,6 +42534,14 @@
 /obj/effect/turf_decal/delivery/white/hollow,
 /turf/simulated/floor/mineral/plastitanium,
 /area/centcom/syndicate_base/elite_squad)
+"tqQ" = (
+/obj/machinery/conveyor_switch/oneway{
+	dir = 8;
+	id = "QMLoad2";
+	name = "Download"
+	},
+/turf/simulated/floor/shuttle,
+/area/shuttle/supply)
 "tqT" = (
 /obj/effect/baseturf_helper{
 	baseturf = /turf/simulated/floor/indestructible/plating;
@@ -44179,6 +44287,7 @@
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
+/obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/plasteel{
 	color = "gray";
 	dir = 8;
@@ -44206,7 +44315,6 @@
 	},
 /area/centcom/central_command_areas/zone/two)
 "ueA" = (
-/obj/structure/fans/tiny,
 /obj/machinery/door/airlock/external,
 /obj/docking_port/mobile{
 	alone_shuttle = 1;
@@ -45231,6 +45339,13 @@
 	icon_state = "dark"
 	},
 /area/centcom/central_command_areas/evacuation)
+"uBo" = (
+/obj/machinery/conveyor{
+	dir = 1;
+	id = "QMLoad"
+	},
+/turf/simulated/floor/shuttle,
+/area/shuttle/supply)
 "uBH" = (
 /obj/machinery/cooker/deepfryer/upgraded,
 /obj/effect/decal/cleanable/dirt,
@@ -45252,6 +45367,10 @@
 	icon_state = "freezerfloor"
 	},
 /area/centcom/syndicate_base)
+"uCV" = (
+/obj/structure/fans/tiny/invisible,
+/turf/simulated/floor/indestructible/grass,
+/area/centcom/syndicate_base/outside)
 "uDd" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -45369,10 +45488,22 @@
 	id_tag = "s_docking_airlock";
 	name = "Shuttle Hatch"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
 /area/shuttle/escape)
+"uFl" = (
+/obj/structure/sign/poster/official/air2{
+	pixel_y = -32
+	},
+/obj/machinery/portable_atmospherics/canister/oxygen{
+	maximum_pressure = 50000
+	},
+/turf/simulated/floor/indestructible{
+	icon_state = "floorgrime"
+	},
+/area/centcom/ninja/holding)
 "uFn" = (
 /obj/structure/table/abductor{
 	color = "#99ff99";
@@ -46921,6 +47052,12 @@
 	icon_state = "dark"
 	},
 /area/centcom/central_command_areas/zone/three)
+"vor" = (
+/obj/structure/flora/grass/jungle,
+/obj/structure/flora/grass/jungle,
+/obj/structure/fans/tiny/invisible,
+/turf/simulated/floor/indestructible/grass,
+/area/centcom/syndicate_base/outside)
 "vow" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 6
@@ -47070,19 +47207,6 @@
 	id_tag = "ninja_outer_right";
 	name = "Ship External Access"
 	},
-/obj/docking_port/mobile{
-	dheight = 2;
-	dir = 2;
-	dwidth = 4;
-	height = 10;
-	id = "ombra";
-	name = "Spider Clan Ombra";
-	port_direction = 2;
-	preferred_direction = 2;
-	roundstart_move = "ombra_home";
-	width = 21
-	},
-/obj/structure/fans/tiny/invisible,
 /obj/docking_port/stationary{
 	area_type = /area/centcom/ninja/outside;
 	dheight = 2;
@@ -47091,9 +47215,24 @@
 	height = 10;
 	id = "ombra_home";
 	name = "Spider Clan Facility";
+	pixel_y = 11;
 	turf_type = /turf/simulated/floor/indestructible/snow;
 	width = 21
 	},
+/obj/docking_port/mobile{
+	dheight = 2;
+	dir = 2;
+	dwidth = 4;
+	height = 10;
+	id = "ombra";
+	name = "Spider Clan Ombra";
+	pixel_y = -5;
+	port_direction = 2;
+	preferred_direction = 2;
+	roundstart_move = "ombra_home";
+	width = 21
+	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
@@ -48809,6 +48948,7 @@
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding2"
 	},
+/obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/plasteel{
 	color = "gray";
 	dir = 4;
@@ -50401,15 +50541,6 @@
 	},
 /area/centcom/central_command_areas/evacuation)
 "xbV" = (
-/obj/docking_port/mobile{
-	dwidth = 8;
-	height = 22;
-	id = "syndicate";
-	name = "syndicate shuttle";
-	port_direction = 2;
-	roundstart_move = "syndicate_away";
-	width = 18
-	},
 /obj/structure/lattice/catwalk,
 /obj/docking_port/stationary{
 	area_type = /area/centcom/syndicate_base;
@@ -50417,7 +50548,18 @@
 	height = 22;
 	id = "syndicate_away";
 	name = "syndicate base";
+	pixel_y = -11;
 	turf_type = /turf/simulated/floor/indestructible/plating;
+	width = 18
+	},
+/obj/docking_port/mobile{
+	dwidth = 8;
+	height = 22;
+	id = "syndicate";
+	name = "syndicate shuttle";
+	pixel_y = 5;
+	port_direction = 2;
+	roundstart_move = "syndicate_away";
 	width = 18
 	},
 /turf/simulated/floor/shuttle/transparent_floor{
@@ -52798,6 +52940,7 @@
 	id_tag = "s_docking_airlock";
 	name = "Shuttle Hatch"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/shuttle/objective_check{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "darkreddarkfull"
@@ -53882,23 +54025,23 @@ vPe
 wpJ
 vPe
 vPe
-wpJ
-jiV
-vPe
+bkf
+cBH
+uCV
 kln
 udT
-fcj
-vPe
-vPe
-vPe
-vPe
-wpJ
-wpJ
-vPe
-vPe
-vPe
-vPe
-xUq
+oOO
+uCV
+uCV
+uCV
+uCV
+bkf
+bkf
+uCV
+uCV
+uCV
+uCV
+vor
 vPe
 jiV
 vPe
@@ -54136,9 +54279,9 @@ vPe
 vPe
 wpJ
 vPe
-vPe
-ivl
-vPe
+uCV
+qJZ
+uCV
 ciV
 ciV
 ciV
@@ -54156,7 +54299,7 @@ wyh
 ciV
 ciV
 ciV
-vPe
+uCV
 vPe
 vPe
 vPe
@@ -54386,13 +54529,13 @@ wpJ
 vPe
 vPe
 wpJ
-vPe
-vPe
-vPe
-vPe
-vPe
-vPe
-vPe
+uCV
+uCV
+uCV
+uCV
+uCV
+uCV
+uCV
 ciV
 ciV
 ciV
@@ -54414,8 +54557,8 @@ pCg
 ciV
 ciV
 ciV
-vPe
-vPe
+uCV
+uCV
 vPe
 vPe
 vPe
@@ -54642,7 +54785,7 @@ vPe
 akg
 vPe
 vPe
-vPe
+uCV
 ciV
 shZ
 shZ
@@ -54673,7 +54816,7 @@ cdk
 hFM
 waT
 waT
-vPe
+uCV
 wpJ
 vPe
 vPe
@@ -54899,7 +55042,7 @@ wpJ
 vPe
 vPe
 vPe
-vPe
+uCV
 wZQ
 uSq
 uSq
@@ -54930,7 +55073,7 @@ jsI
 hFM
 qnc
 waT
-vPe
+uCV
 vPe
 vPe
 vPe
@@ -55156,7 +55299,7 @@ wpJ
 vPe
 vPe
 vPe
-vPe
+uCV
 ciV
 spi
 spi
@@ -55187,7 +55330,7 @@ kus
 hFM
 waT
 waT
-vPe
+uCV
 vPe
 vPe
 vPe
@@ -55414,10 +55557,10 @@ ivl
 vPe
 vPe
 jiV
-vPe
-vPe
-vPe
-vPe
+uCV
+uCV
+uCV
+uCV
 ciV
 tEB
 ayt
@@ -55442,8 +55585,8 @@ ciV
 ciV
 ciV
 ciV
-vPe
-vPe
+uCV
+uCV
 vPe
 vPe
 vPe
@@ -55671,7 +55814,7 @@ vPe
 vPe
 vPe
 vPe
-vPe
+uCV
 ciV
 shZ
 shZ
@@ -55698,7 +55841,7 @@ oOt
 qEc
 oix
 xPU
-vPe
+uCV
 jiV
 vPe
 vPe
@@ -55927,7 +56070,7 @@ vPe
 vPe
 vPe
 vPe
-vPe
+uCV
 ciV
 ciV
 jRv
@@ -55955,7 +56098,7 @@ oOt
 qEc
 fQg
 xPU
-vPe
+uCV
 vPe
 vPe
 vPe
@@ -56183,7 +56326,7 @@ wpJ
 vPe
 vPe
 vPe
-vPe
+uCV
 ciV
 ciV
 tPy
@@ -56213,8 +56356,8 @@ qEc
 ggh
 ciV
 ciV
-vPe
-vPe
+uCV
+uCV
 vPe
 vPe
 vPe
@@ -56440,7 +56583,7 @@ vPe
 wpJ
 vPe
 vPe
-vPe
+uCV
 wZQ
 oPa
 gbA
@@ -56472,7 +56615,7 @@ cdk
 hFM
 waT
 waT
-vPe
+uCV
 vPe
 vPe
 vPe
@@ -56697,7 +56840,7 @@ vPe
 jiV
 vPe
 vPe
-vPe
+uCV
 wZQ
 aaP
 vXD
@@ -56729,7 +56872,7 @@ fJU
 hFM
 qnc
 waT
-vPe
+uCV
 vPe
 vPe
 vPe
@@ -56954,7 +57097,7 @@ wpJ
 vPe
 vPe
 vPe
-vPe
+uCV
 wZQ
 qmc
 gbA
@@ -56986,7 +57129,7 @@ frf
 hFM
 waT
 waT
-vPe
+uCV
 vPe
 vPe
 vPe
@@ -57211,7 +57354,7 @@ vPe
 vPe
 vPe
 vPe
-vPe
+uCV
 ciV
 ciV
 tPy
@@ -57241,8 +57384,8 @@ qEc
 pdt
 ciV
 ciV
-vPe
-vPe
+uCV
+uCV
 vPe
 vPe
 vPe
@@ -57469,7 +57612,7 @@ ivl
 vPe
 vPe
 vPe
-vPe
+uCV
 ciV
 ciV
 wAc
@@ -57497,7 +57640,7 @@ oOt
 qEc
 qTL
 xPU
-vPe
+uCV
 vPe
 vPe
 vPe
@@ -57727,7 +57870,7 @@ vPe
 vPe
 vPe
 vPe
-vPe
+uCV
 ciV
 spi
 spi
@@ -57754,7 +57897,7 @@ oOt
 qEc
 ylE
 xPU
-vPe
+uCV
 jiV
 vPe
 vPe
@@ -57984,10 +58127,10 @@ vPe
 vPe
 vPe
 jiV
-vPe
-vPe
-vPe
-vPe
+uCV
+uCV
+uCV
+uCV
 ciV
 tEB
 pST
@@ -58012,8 +58155,8 @@ ciV
 ciV
 ciV
 ciV
-vPe
-vPe
+uCV
+uCV
 vPe
 vPe
 vPe
@@ -58240,7 +58383,7 @@ wpJ
 vPe
 vPe
 vPe
-vPe
+uCV
 ciV
 shZ
 shZ
@@ -58271,7 +58414,7 @@ cdk
 hFM
 waT
 waT
-vPe
+uCV
 vPe
 vPe
 vPe
@@ -58497,7 +58640,7 @@ wpJ
 vPe
 vPe
 vPe
-vPe
+uCV
 wZQ
 uSq
 uSq
@@ -58528,7 +58671,7 @@ fJU
 hFM
 qnc
 waT
-wpJ
+bkf
 vPe
 vPe
 vPe
@@ -58754,7 +58897,7 @@ iHN
 wpJ
 vPe
 vPe
-vPe
+uCV
 ciV
 spi
 spi
@@ -58770,8 +58913,8 @@ sAE
 ciV
 kdD
 lws
-gLq
-hzK
+mYY
+vHT
 xhG
 ciV
 cGz
@@ -58785,7 +58928,7 @@ frf
 hFM
 waT
 waT
-vPe
+uCV
 vPe
 vPe
 vPe
@@ -59012,13 +59155,13 @@ iHN
 vPe
 vPe
 vPe
-vPe
-vPe
-vPe
-vPe
-vPe
-vPe
-vPe
+uCV
+uCV
+uCV
+uCV
+uCV
+uCV
+uCV
 ciV
 ciV
 ciV
@@ -59027,8 +59170,8 @@ vlN
 ciV
 dMF
 gLq
-gLq
-seD
+mYY
+gtw
 xhG
 ciV
 eIq
@@ -59040,8 +59183,8 @@ pCg
 ciV
 ciV
 ciV
-vPe
-vPe
+uCV
+uCV
 vPe
 ivl
 vPe
@@ -59276,9 +59419,9 @@ wpJ
 wpJ
 vPe
 vPe
-vPe
-wpJ
-vPe
+uCV
+bkf
+uCV
 ciV
 ciV
 ciV
@@ -59296,7 +59439,7 @@ wyh
 ciV
 ciV
 ciV
-vPe
+uCV
 vPe
 vPe
 vPe
@@ -59536,23 +59679,23 @@ vPe
 wpJ
 wpJ
 wpJ
-vPe
-vPe
-vPe
+uCV
+uCV
+uCV
 ald
 wkr
 jjI
-iEU
-iEU
-iEU
-iEU
-iEU
-iEU
-iEU
-iEU
-duS
-vPe
-vPe
+nfB
+nfB
+nfB
+nfB
+nfB
+nfB
+nfB
+nfB
+aTB
+uCV
+uCV
 vPe
 jiV
 vPe
@@ -66194,7 +66337,7 @@ abs
 qfy
 fhi
 xbV
-ygg
+jCe
 wlI
 wlI
 wlI
@@ -66451,7 +66594,7 @@ abs
 qfy
 auf
 kpB
-ygg
+jCe
 wlI
 wlI
 wlI
@@ -85349,7 +85492,7 @@ ykS
 ykS
 ykS
 ykS
-nVI
+seD
 ykS
 ykS
 ykS
@@ -85605,9 +85748,9 @@ rns
 kQk
 ykS
 ykS
-ykS
+hzK
 xDA
-ykS
+hzK
 ykS
 ykS
 ykS
@@ -85862,10 +86005,10 @@ gLX
 tdj
 kQk
 ykS
-ykS
+hzK
 tbW
 xDA
-ykS
+hzK
 ykS
 mFm
 ykS
@@ -86119,11 +86262,11 @@ tcW
 gLX
 tdj
 ykS
-ykS
+hzK
 gLw
 xfs
 xDA
-nVI
+seD
 ykS
 ykS
 tdj
@@ -86381,7 +86524,7 @@ bMh
 xhP
 xfs
 xDA
-ykS
+hzK
 ykS
 ykS
 ykS
@@ -86633,13 +86776,13 @@ ykS
 hxT
 tcW
 myy
-ykS
+hzK
 fmL
 lKB
 aTn
 xfs
 xDA
-ykS
+hzK
 ykS
 mFm
 ykS
@@ -86889,7 +87032,7 @@ rns
 drh
 tcW
 mfc
-ykS
+hzK
 whe
 vNF
 hNg
@@ -86897,7 +87040,7 @@ bdt
 wQF
 vNF
 xDA
-nVI
+seD
 ykS
 ykS
 tdj
@@ -87145,7 +87288,7 @@ ykS
 ykS
 hxT
 cUD
-ykS
+hzK
 eul
 eul
 rUo
@@ -87155,7 +87298,7 @@ wSF
 fAv
 tbW
 xDA
-ykS
+hzK
 ykS
 ykS
 ykS
@@ -87402,7 +87545,7 @@ ykS
 ykS
 hxT
 cUD
-ykS
+hzK
 eul
 tlW
 rUo
@@ -87413,7 +87556,7 @@ iVW
 odX
 gfP
 xDA
-ykS
+hzK
 rns
 ykS
 ykS
@@ -87659,7 +87802,7 @@ hFk
 plK
 hxT
 cUD
-ykS
+hzK
 eul
 eul
 rUo
@@ -87670,7 +87813,7 @@ xhP
 xhP
 xfs
 mll
-ykS
+hzK
 ykS
 ykS
 tdj
@@ -87917,7 +88060,7 @@ hfX
 tcW
 cUD
 ykS
-ykS
+hzK
 eul
 oCt
 wlK
@@ -87927,7 +88070,7 @@ xhP
 pvn
 cHW
 pYK
-tdj
+jBg
 ykS
 tdj
 ykS
@@ -88174,7 +88317,7 @@ fDZ
 tcW
 cUD
 ykS
-ykS
+hzK
 eul
 rUo
 ljM
@@ -88184,7 +88327,7 @@ xhP
 pvn
 psd
 pYK
-ykS
+hzK
 ykS
 ykS
 tdj
@@ -88430,7 +88573,7 @@ hFk
 plK
 hxT
 cUD
-ykS
+hzK
 eul
 eul
 rUo
@@ -88441,7 +88584,7 @@ xhP
 xhP
 bYi
 htX
-ykS
+hzK
 ykS
 ykS
 emN
@@ -88651,7 +88794,7 @@ bhg
 nWf
 bDR
 qDI
-dMb
+uFl
 dMb
 jSw
 dVZ
@@ -88687,7 +88830,7 @@ ykS
 ykS
 hxT
 cUD
-ykS
+hzK
 eul
 tlW
 rUo
@@ -88698,7 +88841,7 @@ iVW
 acK
 rgH
 bQF
-ykS
+hzK
 nQm
 ykS
 tdj
@@ -88944,7 +89087,7 @@ ykS
 ykS
 hxT
 cUD
-ykS
+hzK
 eul
 eul
 rUo
@@ -88954,7 +89097,7 @@ byl
 lxP
 tbW
 bQF
-ykS
+hzK
 ykS
 ykS
 ykS
@@ -89202,7 +89345,7 @@ rns
 pqv
 tcW
 mfn
-ykS
+hzK
 rug
 bpJ
 hNg
@@ -89210,7 +89353,7 @@ eoP
 wQF
 bpJ
 bQF
-nVI
+seD
 ykS
 ykS
 tdj
@@ -89421,7 +89564,7 @@ bRM
 cjy
 nEN
 bGP
-bRx
+bRM
 duk
 dMb
 jSw
@@ -89460,13 +89603,13 @@ ykS
 pqv
 tcW
 myE
-ykS
+hzK
 pjn
 dnb
 ivU
 bYi
 bQF
-ykS
+hzK
 ykS
 mFm
 ykS
@@ -89722,7 +89865,7 @@ vsb
 xhP
 bYi
 bQF
-ykS
+hzK
 ykS
 ykS
 ykS
@@ -89811,17 +89954,17 @@ iIs
 iIs
 iIs
 wLM
-elS
+rrw
 wLM
-elS
+rrw
 wLM
 iIs
 iIs
 iIs
 wLM
-elS
+rrw
 wLM
-elS
+rrw
 wLM
 onc
 omJ
@@ -89974,11 +90117,11 @@ ykS
 ykS
 ykS
 ykS
-ykS
+hzK
 rAu
 bYi
 bQF
-nVI
+seD
 ykS
 ykS
 ykS
@@ -90231,10 +90374,10 @@ tdj
 ykS
 ykS
 ykS
-ykS
+hzK
 tbW
 bQF
-ykS
+hzK
 ykS
 mFm
 ykS
@@ -90488,9 +90631,9 @@ ykS
 ykS
 ykS
 tdj
-ykS
+hzK
 bQF
-ykS
+hzK
 ykS
 ykS
 ykS
@@ -90746,7 +90889,7 @@ rns
 ykS
 tdj
 ykS
-nVI
+seD
 ykS
 ykS
 ykS
@@ -107319,11 +107462,11 @@ sdz
 onc
 afP
 sbw
-rOB
-rOB
-rOB
-rOB
-rOB
+dct
+dct
+dct
+dct
+dct
 waE
 eQj
 idQ
@@ -107544,17 +107687,17 @@ dZA
 phM
 dZA
 wLM
-elS
+rrw
 wLM
-elS
+rrw
 wLM
 vMK
 gdL
 kwV
 wLM
-elS
+rrw
 wLM
-elS
+rrw
 wLM
 onc
 sUP
@@ -107578,7 +107721,7 @@ afP
 sbw
 rOB
 rOB
-rOB
+tqQ
 rOB
 rOB
 nBC
@@ -108092,7 +108235,7 @@ afP
 peY
 rOB
 rOB
-rOB
+ltM
 rOB
 rOB
 nBC
@@ -108347,11 +108490,11 @@ ryg
 onc
 afP
 sbw
-rOB
-rOB
-rOB
-rOB
-rOB
+uBo
+uBo
+uBo
+uBo
+uBo
 lLm
 afP
 dZk

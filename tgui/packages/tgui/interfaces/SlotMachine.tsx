@@ -1,11 +1,11 @@
-import { useBackend } from '../backend';
 import {
+  AnimatedNumber,
+  Box,
   Button,
   LabeledList,
-  Box,
-  AnimatedNumber,
   Section,
-} from '../components';
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type SlotMachineData = {

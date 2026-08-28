@@ -56,16 +56,8 @@
 	disliked_food = NONE
 	liked_food = DAIRY
 
-/datum/species/skeleton/on_species_gain(mob/living/carbon/human/H)
-	. = ..()
-	add_verb(H, /mob/living/carbon/human/proc/emote_rattle)
-
 /datum/species/skeleton/gain_muscles(mob/living/target, default, max_level, can_become_stronger)
 	..(target, default, max_level, FALSE)
-
-/datum/species/skeleton/on_species_loss(mob/living/carbon/human/H)
-	. = ..()
-	remove_verb(H, /mob/living/carbon/human/proc/emote_rattle)
 
 /datum/species/skeleton/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	// Crazylemon is still silly

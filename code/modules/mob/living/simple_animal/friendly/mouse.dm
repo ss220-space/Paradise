@@ -126,12 +126,6 @@
 	pixel_x = base_pixel_x + rand(-6, 6)
 	pixel_y = base_pixel_y + rand(0, 10)
 
-	if(is_available_for_anim())
-		add_verb(src, /mob/living/simple_animal/mouse/proc/sniff)
-		add_verb(src, /mob/living/simple_animal/mouse/proc/shake)
-		add_verb(src, /mob/living/simple_animal/mouse/proc/scratch)
-		add_verb(src, /mob/living/simple_animal/mouse/proc/washup)
-
 /mob/living/simple_animal/mouse/update_icons()
 	if(!jetpack)
 		..()
@@ -311,39 +305,8 @@
 	remains.pixel_x = pixel_x
 	remains.pixel_y = pixel_y
 
-/*
- * Mouse animation emotes
- */
-
-/mob/living/simple_animal/mouse/proc/sniff()
-	set name = "Понюхать"
-	set desc = "Пытаешься что-то почуять"
-	set category = VERB_CATEGORY_MOUSE
-
-	emote("msniff", intentional = TRUE)
-
-/mob/living/simple_animal/mouse/proc/shake()
-	set name = "Дрожать"
-	set desc = "Дрожит или дрыгается"
-	set category = VERB_CATEGORY_MOUSE
-
-	emote("mshake", intentional = TRUE)
-
-/mob/living/simple_animal/mouse/proc/scratch()
-	set name = "Почесаться"
-	set desc = "Чешется"
-	set category = VERB_CATEGORY_MOUSE
-
-	emote("mscratch", intentional = TRUE)
-
-/mob/living/simple_animal/mouse/proc/washup()
-	set name = "Умыться"
-	set desc = "Умывается"
-	set category = VERB_CATEGORY_MOUSE
-
-	emote("mwashup", intentional = TRUE)
-
 /datum/emote/living/simple_animal/mouse/idle
+	name = "Понюхать (мышь)"
 	key = "msniff"
 	key_third_person = "msniffs"
 	message = "нюха%(ет,ют)%!"
@@ -353,7 +316,6 @@
 	audio_cooldown = 1 MINUTES
 	var/anim_type = SNIFF
 	volume = 1
-	emote_type = EMOTE_VISIBLE|EMOTE_FORCE_NO_RUNECHAT
 
 /datum/emote/living/simple_animal/mouse/idle/run_emote(mob/living/simple_animal/mouse/user, params, type_override, intentional)
 	if(user.jetpack)
@@ -367,18 +329,21 @@
 	return user.squeak_sound
 
 /datum/emote/living/simple_animal/mouse/idle/shake
+	name = "Дрожать (мышь)"
 	key = "mshake"
 	key_third_person = "mshakes"
 	message = "дрож%(ит,ат)%!"
 	anim_type = SHAKE
 
 /datum/emote/living/simple_animal/mouse/idle/scratch
+	name = "Почесаться (мышь)"
 	key = "mscratch"
 	key_third_person = "mscratches"
 	message = "чеш%(ет,ут)%ся!"
 	anim_type = SCRATCH
 
 /datum/emote/living/simple_animal/mouse/idle/washup
+	name = "Умыться"
 	key = "mwashup"
 	key_third_person = "mwashesup"
 	message = "умыва%(ет,ют)%ся!"

@@ -2596,9 +2596,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/spacehotel)
 "jy" = (
-/obj/item/flashlight/lantern{
-	on = 1
-	},
+/obj/item/flashlight/lantern/on,
 /turf/simulated/floor/indestructible{
 	icon_state = "cult";
 	name = "engraved floor"

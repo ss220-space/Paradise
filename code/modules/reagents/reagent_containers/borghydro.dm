@@ -7,6 +7,7 @@
 	item_state = "hypo"
 	icon_state = "borghypo"
 	possible_transfer_amounts = null
+	can_empty = FALSE
 	var/mode = 1
 	var/charge_cost = 50
 	var/charge_tick = 0
@@ -69,7 +70,7 @@
 		"pen_acid" = list('icons/mob/screen_corgi.dmi', "tox1"), \
 		"hydrocodone" = list('icons/mob/actions/actions.dmi', "magicm"), \
 		"perfluorodecalin" = list('icons/obj/surgery.dmi', "lungs"), \
-		"calomel" = list('icons/obj/items.dmi', "soap"), \
+		"calomel" = list('icons/obj/janitor.dmi', "soap"), \
 		"oculine" = list('icons/obj/surgery.dmi', "eyes"))
 	upgrade_path = null //no upgrades
 
@@ -85,10 +86,6 @@
 
 /obj/item/reagent_containers/borghypo/upgraded/super
 	bypass_protection = TRUE
-
-/obj/item/reagent_containers/borghypo/empty()
-	set hidden = TRUE
-	return
 
 /obj/item/reagent_containers/borghypo/Initialize(mapload)
 	for(var/R in reagent_ids)
@@ -228,7 +225,7 @@
 		"salglu_solution" = list('icons/effects/bleed.dmi', "bleed10"), \
 		"epinephrine" = list('icons/obj/surgery.dmi', "heart-on"), \
 		"charcoal" = list('icons/mob/screen_corgi.dmi', "tox1"), \
-		"sal_acid" = list('icons/mob/actions/actions.dmi', "fleshmend"), \
+		"sal_acid" = list('icons/mob/actions/actions.dmi', "red_cross"), \
 		"salbutamol" = list('icons/obj/surgery.dmi', "lungs"))
 	upgrade_path = null //no upgrades
 
