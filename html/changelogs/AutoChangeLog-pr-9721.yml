@@ -1,0 +1,4 @@
+author: "FlitchTime"
+delete-after: True
+changes:
+  - bugfix: "Возвращает защиту от перца для масок и скафандров. (PR #9721)"
