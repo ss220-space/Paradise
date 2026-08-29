@@ -87,7 +87,7 @@ export const VotePanel = (props) => {
             <Section
               title="New Vote"
               buttons={
-                !!user.isLowerAdmin && (
+                !!user.isUpperAdmin && (
                   <Stack>
                     <Stack.Item>
                       <Button
@@ -158,7 +158,7 @@ const VoteOptions = (props) => {
         {possibleVotes.map((option) => (
           <Stack.Item key={option.name}>
             <Stack>
-              {!!user.isLowerAdmin && (
+              {!!user.isUpperAdmin && (
                 <Stack.Item>
                   <Button.Checkbox
                     color="primary"
@@ -248,7 +248,7 @@ const ChoicesPanel = (props) => {
                   choice.name === user.singleSelection && (
                     <Icon align="right" mr={2} color="green" name="vote-yea" />
                   )}
-                {currentVote.displayStatistics || user.isLowerAdmin
+                {currentVote.displayStatistics || user.isUpperAdmin
                   ? `${choice.votes} Votes`
                   : null}
               </LabeledList.Item>
@@ -311,12 +311,12 @@ const TimePanel = (props) => {
             ? `Time remaining: ${currentVote.timeRemaining}s`
             : 'No current vote'}
         </Box>
-        {!!user.isLowerAdmin && (
+        {!!user.isUpperAdmin && (
           <Stack>
             <Stack.Item>
               <Button
                 color="green"
-                disabled={!user.isLowerAdmin || !currentVote}
+                disabled={!user.isUpperAdmin || !currentVote}
                 onClick={() => act('endNow')}
                 style={{ lineHeight: '1.8em' }}
               >
@@ -326,7 +326,7 @@ const TimePanel = (props) => {
             <Stack.Item>
               <Button
                 color="red"
-                disabled={!user.isLowerAdmin || !currentVote}
+                disabled={!user.isUpperAdmin || !currentVote}
                 onClick={() => act('cancel')}
                 style={{ lineHeight: '1.8em' }}
               >
