@@ -105,10 +105,6 @@
 		return
 	chambered = magazine.stored_ammo[1]
 
-/obj/item/gun/projectile/bombarda/secgl/x4/shoot_with_empty_chamber(mob/living/user)
-	..()
-	chamber_round(TRUE)
-
 /obj/item/gun/projectile/bombarda/proc/close_pump(mob/user)
 	if(!opened)
 		return FALSE
@@ -186,6 +182,10 @@
 	. = ..()
 	if(high_risk)
 		AddElement(/datum/element/high_value_item)
+
+/obj/item/gun/projectile/bombarda/secgl/x4/shoot_with_empty_chamber(mob/living/user)
+	..()
+	chamber_round(TRUE)
 
 // MARK: M79
 /obj/item/gun/projectile/bombarda/secgl/m79

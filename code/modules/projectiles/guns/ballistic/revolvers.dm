@@ -234,27 +234,6 @@
 		PREPOSITIONAL = "золотом револьвере",
 	)
 
-// MARK: Nagant
-/obj/item/gun/projectile/revolver/nagant
-	name = "nagant revolver"
-	desc = "An old model of revolver that originated in Russia. Able to be suppressed. Uses 7.62x38mmR ammo."
-	icon_state = "nagant"
-	origin_tech = "combat=3"
-	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev762
-	accuracy = GUN_ACCURACY_PISTOL_UPLINK
-	recoil = GUN_RECOIL_MEDIUM
-	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 17, ATTACHMENT_OFFSET_Y = 3),
-	)
-
-/obj/item/gun/projectile/revolver/nagant/rusted
-	desc = "An old model of revolver that originated in Russia. This one is a real relic, rust is pouring."
-
-/obj/item/gun/projectile/revolver/nagant/rusted/ComponentInitialize()
-	. = ..()
-	AddElement(/datum/element/rusted_weapon, face_shot_max_chance = 20, destroy_max_chance = 8, malf_low_bound = 0, malf_high_bound = 3)
-	AddElement(/datum/element/misfire_weapon, misfire_max_chance = 5, misfire_low_bound = 0, misfire_high_bound = 1)
-
 // MARK: .36
 /obj/item/gun/projectile/revolver/c36
 	name = ".36 revolver"

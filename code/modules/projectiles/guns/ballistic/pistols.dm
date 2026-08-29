@@ -8,12 +8,12 @@
 	weapon_weight = WEAPON_LIGHT
 	origin_tech = "combat=3;materials=2;syndicate=3"
 	can_holster = TRUE
+	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_LOW
 	origin_tech = "combat=3;materials=2"
 	magin_sound = 'sound/weapons/gun_interactions/pistol_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/pistol_magout.ogg'
 	burst_amount = 1
-	accuracy = GUN_ACCURACY_PISTOL
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	gun_firemode_list = list(GUN_FIREMODE_SEMIAUTO)
 	fire_delay = 0.4 SECONDS
@@ -47,6 +47,7 @@
 		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = -2, ATTACHMENT_OFFSET_Y = 8),
 		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 8, ATTACHMENT_OFFSET_Y = -3),
 	)
+	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=4;materials=2"
 	magazine_icon = "enforcer_mag"
 
@@ -97,7 +98,6 @@
 	magazine_icon = "sp8_mag"
 	fire_sound = 'sound/weapons/gunshots/sp8.ogg'
 	origin_tech = "combat=5;materials=2"
-	accuracy = GUN_ACCURACY_PISTOL_UPLINK
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 18, ATTACHMENT_OFFSET_Y = 4),
 		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 8),
@@ -145,9 +145,10 @@
 /obj/item/gun/projectile/automatic/pistol/deagle
 	name = "SGM-P50 \"Colossus\""
 	desc = "Тяжёлый пистолет калибра .50 AE производства \"Shellguard Munitions\". Патроны имеют огромную останавливающую силу, \
-			ценой которой служит значительная отдача и малый магазин. Один из самых мощных пистолетов в классе."
+			ценой которой служат значительная отдача и малый магазин. Один из самых мощных пистолетов в классе."
 	icon_state = "deagle"
 	force = 14.0
+	w_class = WEIGHT_CLASS_NORMAL
 	mag_type = /obj/item/ammo_box/magazine/m50
 	magazine_icon = "deagle_mag"
 	fire_sound = 'sound/weapons/gunshots/1deagle.ogg'
@@ -180,6 +181,7 @@
 	name = "APS pistol"
 	desc = "Старинный пистолет калибра 9x19 мм. Стреляет очередями."
 	icon_state = "aps"
+	w_class = WEIGHT_CLASS_NORMAL
 	mag_type = /obj/item/ammo_box/magazine/pistolm9mm
 	burst_amount = 3
 	accuracy = GUN_ACCURACY_PISTOL_UPLINK
@@ -243,6 +245,8 @@
 	mag_type = /obj/item/ammo_box/magazine/m45
 	magazine_icon = "m1911_mag"
 	fire_sound = 'sound/weapons/gunshots/1colt.ogg'
+	accuracy = GUN_ACCURACY_PISTOL_UPLINK
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 21, ATTACHMENT_OFFSET_Y = 6),
 		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 9),

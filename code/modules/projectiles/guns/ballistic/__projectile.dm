@@ -63,7 +63,7 @@
 /obj/item/gun/projectile/update_desc(updates = ALL)
 	. = ..()
 	if(sawn_state)
-		desc = initial(desc) + " [sawn_desc]"
+		desc = "[initial(desc)] [sawn_desc]"
 	else
 		desc = initial(desc)
 
