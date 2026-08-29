@@ -158,7 +158,7 @@ const VoteOptions = (props) => {
         {possibleVotes.map((option) => (
           <Stack.Item key={option.name}>
             <Stack>
-              {!!user.user.isUpperAdmin && (
+              {!!user.isUpperAdmin && (
                 <Stack.Item>
                   <Button.Checkbox
                     color="primary"
