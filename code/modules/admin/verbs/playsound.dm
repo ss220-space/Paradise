@@ -1,4 +1,5 @@
-ADMIN_VERB(play_sound, R_SOUNDS, "Play Global Sound", "Play a sound to all connected players.", ADMIN_CATEGORY_SOUNDS, sound as sound)
+ADMIN_VERB(play_sound, R_SOUNDS, "Play Global Sound", "Play a sound to all connected players.", ADMIN_CATEGORY_SOUNDS)
+	VERB_ARG(sound, VERB_ARG_TYPE_SOUND, VERB_ARG_SOURCE_INPUT)
 	var/frequency = 1
 	var/volume = tgui_input_number(user, "С какой громкостью воспроизвести звук?", max_value = 100)
 	if(!volume)
@@ -36,7 +37,8 @@ ADMIN_VERB(play_sound, R_SOUNDS, "Play Global Sound", "Play a sound to all conne
 
 	BLACKBOX_LOG_ADMIN_VERB("Play Global Sound")
 
-ADMIN_VERB(play_local_sound, R_SOUNDS, "Play Local Sound", "Plays a sound only you can hear.", ADMIN_CATEGORY_SOUNDS, sound as sound)
+ADMIN_VERB(play_local_sound, R_SOUNDS, "Play Local Sound", "Plays a sound only you can hear.", ADMIN_CATEGORY_SOUNDS)
+	VERB_ARG(sound, VERB_ARG_TYPE_SOUND, VERB_ARG_SOURCE_INPUT)
 	log_admin("[key_name(user)] played a local sound [sound]")
 	message_admins("[key_name_admin(user)] played a local sound [sound]")
 	var/volume = tgui_input_number(user, "С какой громкостью воспроизвести звук?", max_value = 100)
@@ -195,7 +197,9 @@ ADMIN_VERB(play_web_sound, R_SOUNDS, "Play Internet Sound", "Play a given intern
 	CLIENT_COOLDOWN_START(GLOB, web_sound_cooldown, cooldown_duration)
 	BLACKBOX_LOG_ADMIN_VERB("Play Internet Sound")
 
-ADMIN_VERB(play_direct_mob_sound, R_SOUNDS, "Play Direct Mob Sound", "Play a sound directly to a mob.", ADMIN_CATEGORY_SOUNDS, sound as sound, mob/target in GLOB.mob_list)
+ADMIN_VERB(play_direct_mob_sound, R_SOUNDS, "Play Direct Mob Sound", "Play a sound directly to a mob.", ADMIN_CATEGORY_SOUNDS)
+	VERB_ARG(sound, VERB_ARG_TYPE_SOUND, VERB_ARG_SOURCE_INPUT)
+	VERB_ARG_TYPED(target, VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /mob)
 	if(!target)
 		target = tgui_input_list(user, "Выберите моба, которому проиграть звук. Только он его услышит.", "Воспроизведение звука мобу", sort_names(GLOB.player_list))
 	if(QDELETED(target))

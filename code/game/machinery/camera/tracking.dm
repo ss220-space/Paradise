@@ -29,9 +29,9 @@
 	track.cameras = T
 	return T
 
-/mob/living/silicon/ai/proc/ai_camera_list(camera in get_camera_list())
-	set category = VERB_CATEGORY_AICOMMANDS
-	set name = "Список камер"
+GAME_VERB_PROC(/mob/living/silicon/ai, ai_camera_list, "Список камер", VERB_CATEGORY_AICOMMANDS)
+
+	var/camera = tgui_input_list(src, "Выберите камеру", "Выбор камеры", get_camera_list())
 
 	if(src.stat == 2)
 		to_chat(src, "You can't list the cameras because you are dead!")
@@ -45,10 +45,9 @@
 
 	return
 
-/mob/living/silicon/ai/proc/ai_store_location(loc as text)
-	set category = VERB_CATEGORY_AICOMMANDS
-	set name = "Сохранить позицию"
-	set desc = "Stores your current camera location by the given name"
+GAME_VERB_PROC_DESC(/mob/living/silicon/ai, ai_store_location, "Сохранить позицию", "Stores your current camera location by the given name", VERB_CATEGORY_AICOMMANDS)
+
+	VERB_ARG(loc, VERB_ARG_TYPE_TEXT, VERB_ARG_SOURCE_INPUT)
 
 	loc = sanitize(copytext_char(loc, 1, MAX_MESSAGE_LEN))
 	if(!loc)
@@ -74,10 +73,8 @@
 /mob/living/silicon/ai/proc/sorted_stored_locations()
 	return sortList(stored_locations)
 
-/mob/living/silicon/ai/proc/ai_goto_location(loc in sorted_stored_locations())
-	set category = VERB_CATEGORY_AICOMMANDS
-	set name = "К сохранненной позиции"
-	set desc = "Returns to the selected camera location"
+GAME_VERB_PROC_DESC(/mob/living/silicon/ai, ai_goto_location, "К сохранненной позиции", "Returns to the selected camera location", VERB_CATEGORY_AICOMMANDS)
+	var/loc = tgui_input_list(src, "Выберите позицию", "Выбор позиции", sorted_stored_locations())
 
 	if(!(loc in stored_locations))
 		to_chat(src, span_warning("Location [loc] not found"))
@@ -86,10 +83,8 @@
 	var/L = stored_locations[loc]
 	src.eyeobj.setLoc(L)
 
-/mob/living/silicon/ai/proc/ai_remove_location(loc in sorted_stored_locations())
-	set category = VERB_CATEGORY_AICOMMANDS
-	set name = "Удалить сохраненную позицию"
-	set desc = "Deletes the selected camera location"
+GAME_VERB_PROC_DESC(/mob/living/silicon/ai, ai_remove_location, "Удалить сохраненную позицию", "Deletes the selected camera location", VERB_CATEGORY_AICOMMANDS)
+	var/loc = tgui_input_list(src, "Выберите позицию", "Выбор позиции", sorted_stored_locations())
 
 	if(!(loc in stored_locations))
 		to_chat(src, span_warning("Location [loc] not found"))
@@ -141,10 +136,8 @@
 
 	return targets
 
-/mob/living/silicon/ai/proc/ai_camera_track(target_name in trackable_mobs())
-	set category = VERB_CATEGORY_AICOMMANDS
-	set name = "Режим слежения"
-	set desc = "Select who you would like to track."
+GAME_VERB_PROC_DESC(/mob/living/silicon/ai, ai_camera_track, "Режим слежения", "Select who you would like to track.", VERB_CATEGORY_AICOMMANDS) //Don't display it on the verb lists. This verb exists purely so you can type "track Oldman Robustin" and follow his ass
+	var/target_name = tgui_input_list(src, "Выберите цель для отслеживания", "Объекты слежения", trackable_mobs())
 
 	if(src.stat == DEAD)
 		to_chat(src, "You can't track with camera because you are dead!")

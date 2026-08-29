@@ -102,6 +102,7 @@
 	var/obj/effect/proc_holder/spell/mime/fingergun/parent_spell
 	accuracy = GUN_ACCURACY_DEFAULT
 	attachable_allowed = GUN_MODULE_CLASS_NONE
+	can_spin_cylinder = FALSE
 
 /obj/item/gun/projectile/revolver/fingergun/get_ru_names()
 	return alist(
@@ -117,7 +118,6 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 	parent_spell = new_parent_spell
-	verbs -= /obj/item/gun/projectile/revolver/verb/spin
 
 /obj/item/gun/projectile/revolver/fingergun/fake
 	desc = "Ваши пальцы, превращённые в оружие. Безвредное оружие."
@@ -234,6 +234,161 @@
 		PREPOSITIONAL = "золотом револьвере",
 	)
 
+// MARK: Nagant
+/obj/item/gun/projectile/revolver/nagant
+	name = "nagant revolver"
+	desc = "An old model of revolver that originated in Russia. Able to be suppressed. Uses 7.62x38mmR ammo."
+	icon_state = "nagant"
+	origin_tech = "combat=3"
+	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev762
+	accuracy = GUN_ACCURACY_PISTOL_UPLINK
+	recoil = GUN_RECOIL_MEDIUM
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 17, ATTACHMENT_OFFSET_Y = 3),
+	)
+
+/obj/item/gun/projectile/revolver/nagant/rusted
+	desc = "An old model of revolver that originated in Russia. This one is a real relic, rust is pouring."
+
+/obj/item/gun/projectile/revolver/nagant/rusted/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/rusted_weapon, face_shot_max_chance = 20, destroy_max_chance = 8, malf_low_bound = 0, malf_high_bound = 3)
+	AddElement(/datum/element/misfire_weapon, misfire_max_chance = 5, misfire_low_bound = 0, misfire_high_bound = 1)
+
+// MARK: .36
+/obj/item/gun/projectile/revolver/c36
+	name = ".36 revolver"
+	desc = "An old fashion .36 chambered revolver."
+	icon_state = "detective"
+	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev36
+	fire_sound = 'sound/weapons/gunshots/1rev38.ogg'
+	accuracy = GUN_ACCURACY_PISTOL
+	recoil = GUN_RECOIL_MEDIUM
+	attachable_allowed = GUN_MODULE_CLASS_NONE
+
+// MARK: Russian Roulette gun
+/obj/item/gun/projectile/revolver/russian
+	name = "Russian revolver"
+	desc = "A Russian-made revolver for drinking games. Uses .357 ammo, and has a mechanism that spins the chamber before each trigger pull."
+	origin_tech = "combat=2;materials=2"
+	mag_type = /obj/item/ammo_box/magazine/internal/rus357
+	var/spun = FALSE
+	accuracy = GUN_ACCURACY_PISTOL
+	recoil = GUN_RECOIL_MEDIUM
+	can_air_shoot = FALSE
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 19, ATTACHMENT_OFFSET_Y = 3),
+	)
+
+/obj/item/gun/projectile/revolver/russian/Initialize(mapload)
+	. = ..()
+	Spin()
+
+/obj/item/gun/projectile/revolver/russian/proc/Spin()
+	chambered = null
+	var/random = rand(1, magazine.max_ammo)
+	if(random <= get_ammo(FALSE, FALSE))
+		chamber_round()
+	spun = TRUE
+
+/obj/item/gun/projectile/revolver/russian/attackby(obj/item/I, mob/user, params)
+	if(isspeedloader(I) || isammocasing(I))
+		if(get_ammo() > 0)
+			to_chat(user, span_warning("The [name] can only hold a single bullet."))
+			return ATTACK_CHAIN_PROCEED
+		var/loaded = magazine.reload(I, user, silent = TRUE)
+		if(loaded)
+			user.visible_message(
+				span_notice("[user] has loaded a single bullet into the revolver and spins the chamber."),
+				span_notice("You have loaded a single bullet into the chamber and spin it."),
+			)
+			Spin()
+			return ATTACK_CHAIN_BLOCKED_ALL
+		return ATTACK_CHAIN_PROCEED
+
+	return ..()
+
+/obj/item/gun/projectile/revolver/russian/attack_self(mob/user)
+	add_fingerprint(user)
+	if(!spun && can_shoot(user))
+		user.visible_message(
+			span_notice("[user] has spinned the chamber of the revolver."),
+			span_notice("You have spinned the revolver's chamber.")
+		)
+		Spin()
+		return
+	var/num_unloaded = 0
+	var/atom/drop_loc = drop_location()
+	while(get_ammo() > 0)
+		var/obj/item/ammo_casing/CB
+		CB = magazine.get_round()
+		chambered = null
+		CB.forceMove(drop_loc)
+		CB.pixel_x = rand(-10, 10)
+		CB.pixel_y = rand(-10, 10)
+		CB.setDir(pick(GLOB.alldirs))
+		CB.update_appearance()
+		CB.SpinAnimation(10, 1)
+		playsound(drop_loc, CB.casing_drop_sound, 60, TRUE)
+		num_unloaded++
+	if(num_unloaded)
+		balloon_alert(user, "[declension_ru(num_unloaded, "разряжен [num_unloaded] патрон",  "разряжено [num_unloaded] патрона",  "разряжено [num_unloaded] патронов")]")
+	else
+		balloon_alert(user, "уже разряжено!")
+
+/obj/item/gun/projectile/revolver/russian/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(proximity_flag)
+		if(!(target in user.contents) && ismob(target))
+			if(user.a_intent == INTENT_HARM) // Flogging action
+				return
+
+	if(isliving(user))
+		if(!can_trigger_gun(user))
+			return
+	if(target != user)
+		if(ismob(target))
+			balloon_alert(user, "не подходящая цель!")
+		return
+
+	if(ishuman(user))
+		if(!spun)
+			balloon_alert(user, "прокрутите барабан!")
+			return
+
+		spun = FALSE
+
+		if(chambered)
+			var/obj/item/ammo_casing/AC = chambered
+			if(AC.fire(user, user, firer_source_atom = src))
+				playsound(user, fire_sound, 50, TRUE)
+				var/zone = check_zone(user.zone_selected)
+				if(zone == BODY_ZONE_HEAD || zone == BODY_ZONE_PRECISE_EYES || zone == BODY_ZONE_PRECISE_MOUTH)
+					shoot_self(user, zone)
+				else
+					user.visible_message(span_danger("[user.name] cowardly fires [src] at [user.p_their()] [zone]!"), span_userdanger("You cowardly fire [src] at your [zone]!"), span_italics("You hear a gunshot!"))
+				chambered.after_fire()
+				return
+			chambered.after_fire()
+
+		user.visible_message(span_danger("*click*"))
+		playsound(user, 'sound/weapons/empty.ogg', 100, TRUE)
+
+/obj/item/gun/projectile/revolver/russian/proc/shoot_self(mob/living/carbon/human/user, affecting = BODY_ZONE_HEAD)
+	user.apply_damage(300, BRUTE, affecting)
+	user.visible_message(span_danger("[user.name] fires [src] at [user.p_their()] head!"), span_userdanger("You fire [src] at your head!"), span_italics("You hear a gunshot!"))
+
+/obj/item/gun/projectile/revolver/russian/soul
+	name = "cursed Russian revolver"
+	desc = "To play with this revolver requires wagering your very soul."
+
+/obj/item/gun/projectile/revolver/russian/soul/shoot_self(mob/living/user)
+	..()
+	var/obj/item/soulstone/anybody/SS = new /obj/item/soulstone/anybody(get_turf(src))
+	if(!SS.transfer_soul("FORCE", user)) //Something went wrong
+		qdel(SS)
+		return
+	user.visible_message(span_danger("[user.name]'s soul is captured by \the [src]!"), span_userdanger("You've lost the gamble! Your soul is forfeit!"))
+
 // MARK: Capgun
 /obj/item/gun/projectile/revolver/capgun
 	name = "cap gun"
@@ -330,7 +485,8 @@
 			balloon_alert(user, "барабан снят")
 			user.put_in_hands(magazine)
 			magazine = null
-			verbs -= /obj/item/gun/projectile/revolver/verb/spin
+			if(can_spin_cylinder && gun_user)
+				verbs -= /obj/item/gun/projectile/revolver/proc/spin
 	playsound(src, 'sound/items/screwdriver.ogg', 40, TRUE)
 	update_icon(UPDATE_OVERLAYS)
 
@@ -367,7 +523,8 @@
 			return .
 		magazine = I
 		balloon_alert(user, "барабан установлен")
-		verbs |= /obj/item/gun/projectile/revolver/verb/spin
+		if(can_spin_cylinder && gun_user)
+			verbs |= /obj/item/gun/projectile/revolver/proc/spin
 		update_icon(UPDATE_OVERLAYS)
 		playsound(loc, 'sound/items/screwdriver.ogg', 40, TRUE)
 		return ATTACK_CHAIN_BLOCKED_ALL

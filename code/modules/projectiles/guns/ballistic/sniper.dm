@@ -86,7 +86,6 @@
 			оптимизированная под патрон уменьшенной мощности и перенос магазина за пистолетную рукоять делают \
 			эту винтовку пригодной для боя на коротких дистанциях."
 	icon_state = "snipercompact"
-	weapon_weight = WEAPON_LIGHT
 	fire_delay = 2 SECONDS
 	mag_type = /obj/item/ammo_box/magazine/sniper_rounds/compact
 	accuracy = GUN_ACCURACY_SNIPER

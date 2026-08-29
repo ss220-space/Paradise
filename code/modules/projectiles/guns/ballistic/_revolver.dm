@@ -20,6 +20,7 @@
 	can_air_shoot = TRUE
 	/// If TRUE will show empty casing on examine
 	var/show_live_rounds = TRUE
+	var/can_spin_cylinder = TRUE
 
 /obj/item/gun/projectile/revolver/get_ru_names()
 	return alist(
@@ -34,7 +35,13 @@
 /obj/item/gun/projectile/revolver/Initialize(mapload)
 	. = ..()
 	if(!istype(magazine, /obj/item/ammo_box/magazine/internal/cylinder))
-		verbs -= /obj/item/gun/projectile/revolver/verb/spin
+		can_spin_cylinder = FALSE
+
+/obj/item/gun/projectile/revolver/set_gun_user(mob/user)
+	verbs -= /obj/item/gun/projectile/revolver/proc/spin
+	. = ..()
+	if(can_spin_cylinder)
+		verbs += /obj/item/gun/projectile/revolver/proc/spin
 
 /obj/item/gun/projectile/revolver/chamber_round(spin = TRUE)
 	if(!magazine)
@@ -81,11 +88,7 @@
 /obj/item/gun/projectile/revolver/proc/unload(user)
 	return
 
-/obj/item/gun/projectile/revolver/verb/spin()
-	set name = "Вращать барабан"
-	set category = VERB_CATEGORY_OBJECT
-	set desc = "Провернуть барабан."
-	set src in usr
+GAME_PROC_SRC(/obj/item/gun/projectile/revolver, spin, usr, "Провернуть барабан", VERB_CATEGORY_HIDDEN)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
@@ -99,8 +102,8 @@
 			span_notice("[usr] враща[PLUR_ET_YUT(usr)] барабан [declent_ru(GENITIVE)]."),
 			span_notice("Вы вращаете барабан [declent_ru(GENITIVE)].")
 		)
-	else
-		verbs -= /obj/item/gun/projectile/revolver/verb/spin
+	else if(can_spin_cylinder && gun_user)
+		verbs -= /obj/item/gun/projectile/revolver/proc/spin
 
 /obj/item/gun/projectile/revolver/can_shoot(mob/user)
 	return get_ammo(FALSE, FALSE)

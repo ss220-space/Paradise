@@ -11,7 +11,6 @@
 #define SHIFTING_SHOWER 16
 #define SHIFTING_TOILET 8
 
-
 /obj/structure/toilet
 	name = "toilet"
 	desc = "Унитаз марки НТ-451. Предназначен для смыва мелких отходов. Выглядит необычайно чистым."
@@ -35,6 +34,8 @@
 	)
 
 MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet, SHIFTING_TOILET, -SHIFTING_TOILET, 0, 0)
+
+MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet/bluespace, SHIFTING_TOILET, -SHIFTING_TOILET, 0, 0)
 
 /obj/structure/toilet/Initialize(mapload)
 	. = ..()
@@ -303,6 +304,8 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet, SHIFTING_TOILET, -SHIF
 		secret.desc += " It's a secret!"
 		w_items += secret.w_class
 
+MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet/secret, SHIFTING_TOILET, -SHIFTING_TOILET, 0, 0)
+
 // This toilet made specially for map editor, collects objects on same turf at map loading as well as closets do.
 // regular toilet can't do this. has the same restrictions for objects like regular toilet has.
 /obj/structure/toilet/cancollectmapitems/Initialize(mapload)
@@ -330,6 +333,8 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet, SHIFTING_TOILET, -SHIF
 	. = ..()
 	icon_state = "gold_toilet[open][cistern]"
 
+MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet/golden_toilet, SHIFTING_TOILET, -SHIFTING_TOILET, 0, 0)
+
 /obj/structure/toilet/captain_toilet
 	name = "Унитаз Капитана"
 	desc = "Престижное седалище для престижной персоны. Судя по форме, был идеально подготовлен под седальное место Капитана."
@@ -338,6 +343,8 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet, SHIFTING_TOILET, -SHIF
 /obj/structure/toilet/captain_toilet/update_icon_state()
 	. = ..()
 	icon_state = "captain_toilet[open][cistern]"
+
+MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet/captain_toilet, SHIFTING_TOILET, -SHIFTING_TOILET, 0, 0)
 
 /obj/structure/urinal
 	name = "urinal"
@@ -930,7 +937,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sink, (SHIFTING_SINK), (SHIFTING_SINK
 				to_chat(user, span_notice("You fill [container] from [src]."))
 				return ATTACK_CHAIN_PROCEED_SUCCESS
 			to_chat(user, span_notice("\The [container] is full."))
-		return ATTACK_CHAIN_PROCEED
+			return ATTACK_CHAIN_PROCEED
 
 	if(istype(I, /obj/item/mop) || astype(I, /obj/item/rag)?.blood_level == 0)
 		if(!reagents.total_volume)

@@ -8,7 +8,8 @@
 
 GLOBAL_LIST_EMPTY(frozen_atom_list) // A list of admin-frozen atoms.
 
-ADMIN_VERB_ONLY_CONTEXT_MENU(admin_freeze, R_ADMIN, "Freeze", atom/movable/target in view())
+ADMIN_VERB_ONLY_CONTEXT_MENU(admin_freeze, R_ADMIN, "Freeze", /atom/movable)
+	VERB_ARG_TYPED(target, VERB_ARG_TYPE_MOB|VERB_ARG_TYPE_OBJ, VERB_ARG_SOURCE_VIEW, /atom/movable)
 	target.admin_Freeze(user)
 
 /// Created here as a base proc. Override as needed for any type of object or mob you want able to be frozen.
@@ -82,3 +83,29 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(admin_freeze, R_ADMIN, "Freeze", atom/movable/targe
 	else
 		message_admins(span_notice("[key_name_admin(admin)] [frozen ? "froze" : "unfroze"] an empty [name]"))
 		log_admin("[key_name(admin)] [frozen ? "froze" : "unfroze"] an empty [name]")
+
+/obj/machinery/atmospherics/fission_reactor/admin_Freeze(client/admin)
+	var/obj/effect/overlay/adminoverlay/freeze_overlay = new
+	freeze_overlay.pixel_x = 16
+	if(!admin_intervention)
+		radio_announce(
+			"Alert: Unknown intervention is interfering in reactor core operations. It is not progressing in local timespace.",
+			DECLENT_RU_CAP(src, NOMINATIVE),
+			ENG_FREQ,
+			src
+		)
+		GLOB.frozen_atom_list += src
+		admin_intervention = TRUE
+		add_overlay(freeze_overlay)
+	else
+		radio_announce(
+			"Alert: Unknown intervention has ceased within the reactor core. It has returned to the regular flow of time.",
+			DECLENT_RU_CAP(src, NOMINATIVE),
+			ENG_FREQ,
+			src
+		)
+		GLOB.frozen_atom_list -= src
+		admin_intervention = FALSE
+		cut_overlay(freeze_overlay)
+	message_admins(span_notice("[key_name_admin(admin)] [!admin_intervention ? "unfroze" : "froze"] the NGCR Reactor"))
+	log_admin("[key_name(admin)] [!admin_intervention ? "unfroze" : "froze"] the NGCR Reactor")

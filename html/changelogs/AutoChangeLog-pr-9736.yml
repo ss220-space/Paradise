@@ -1,0 +1,4 @@
+author: "Den109G"
+delete-after: True
+changes:
+  - tweak: "Уменьшил количество иконок в эмоут панели (PR #9736)"

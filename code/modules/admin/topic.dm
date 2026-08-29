@@ -1822,7 +1822,7 @@
 		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/vuap_personal, selected_mob)
 
 	else if(href_list["adminplayerobservefollow"])
-		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/admin_observe_target, locateUID(href_list["adminplayerobservefollow"]))
+		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/admin_observe_target, locateUID(href_list["adminplayerobservefollow"]), FALSE)
 
 	else if(href_list["check_antagonist"])
 		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/check_antagonists)
@@ -2219,6 +2219,9 @@
 		output_ai_laws()
 
 	else if(href_list["adminmoreinfo"])
+		if(!check_rights(R_ADMIN))
+			return
+
 		var/mob/subject = locateUID(href_list["adminmoreinfo"])
 		if(!ismob(subject))
 			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential = TRUE)
@@ -2986,7 +2989,7 @@
 						addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(doPortalSpawn), turf, pathToSpawn, prefs["amount"]["value"], storm), i*prefs["delay"]["value"])
 
 			if("tripleAI")
-				usr.client.triple_ai()
+				SSadmin_verbs.dynamic_invoke_verb(usr.client, /datum/admin_verb/triple_ai)
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Triple AI")
 
 			if("mass_mindswap")
@@ -3453,6 +3456,15 @@
 					message_admins("[key_name_admin(usr)] moved the gamma armory")
 					log_admin("[key_name(usr)] moved the gamma armory")
 					GLOB.gamma_ship_location = !GLOB.gamma_ship_location
+
+			if("nuclear_overload")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Disable Fission Reactor Safeties")
+				message_admins("[key_name_admin(usr)] disabled reactor safeties")
+				log_admin("[key_name(usr)] disabled reactor safeties")
+				if(GLOB.main_fission_reactor)
+					INVOKE_ASYNC(GLOB.main_fission_reactor, TYPE_PROC_REF(/obj/machinery/atmospherics/fission_reactor/, overload_reactor))
+				else
+					log_admin("An admin attempted to override fission reactor safeties, but no reactor was found!")
 
 			if("spawn_cargo_crate")
 				if(!you_realy_want_do_this())

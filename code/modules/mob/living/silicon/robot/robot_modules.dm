@@ -13,16 +13,17 @@
 	var/list/subsystems = list()
 	var/list/module_actions = list()
 
-	var/module_type = "NoMod" // For icon usage
+	/// For icon usage
+	var/module_type = "NoMod"
 
 	var/list/storages = list()
 	var/channels = list()
 	var/list/custom_removals = list()
 
 	///List of skins the borg can be reskinned to, optional
-	var/list/borg_skins
+	var/list/datum/robot_skin/borg_skins = list()
 	//If decides not to choose
-	var/default_skin
+	var/datum/robot_skin/default_skin
 
 /obj/item/robot_module/emp_act(severity)
 	if(modules)
@@ -105,26 +106,27 @@
 
 /obj/item/robot_module/proc/add_languages(mob/living/silicon/robot/R)
 	//full set of languages
-	R.add_language(LANGUAGE_GALACTIC_COMMON, 1)
-	R.add_language(LANGUAGE_SOL_COMMON, 1)
-	R.add_language(LANGUAGE_TRADER, 1)
-	R.add_language(LANGUAGE_GUTTER, 0)
-	R.add_language(LANGUAGE_NEO_RUSSIAN, 0)
-	R.add_language(LANGUAGE_UNATHI, 0)
-	R.add_language(LANGUAGE_TAJARAN, 0)
-	R.add_language(LANGUAGE_VULPKANIN, 0)
-	R.add_language(LANGUAGE_SKRELL, 0)
-	R.add_language(LANGUAGE_VOX, 0)
-	R.add_language(LANGUAGE_DIONA, 0)
-	R.add_language(LANGUAGE_TRINARY, 1)
-	R.add_language(LANGUAGE_KIDAN, 0)
-	R.add_language(LANGUAGE_SLIME, 0)
-	R.add_language(LANGUAGE_DRASK, 0)
-	R.add_language(LANGUAGE_CLOWN,0)
-	R.add_language(LANGUAGE_MOTH, 0)
+	R.add_language(LANGUAGE_GALACTIC_COMMON, TRUE)
+	R.add_language(LANGUAGE_SOL_COMMON, TRUE)
+	R.add_language(LANGUAGE_TRADER, TRUE)
+	R.add_language(LANGUAGE_GUTTER, FALSE)
+	R.add_language(LANGUAGE_NEO_RUSSIAN, FALSE)
+	R.add_language(LANGUAGE_UNATHI, FALSE)
+	R.add_language(LANGUAGE_TAJARAN, FALSE)
+	R.add_language(LANGUAGE_VULPKANIN, FALSE)
+	R.add_language(LANGUAGE_SKRELL, FALSE)
+	R.add_language(LANGUAGE_VOX, FALSE)
+	R.add_language(LANGUAGE_DIONA, FALSE)
+	R.add_language(LANGUAGE_TRINARY, TRUE)
+	R.add_language(LANGUAGE_KIDAN, FALSE)
+	R.add_language(LANGUAGE_SLIME, FALSE)
+	R.add_language(LANGUAGE_DRASK, FALSE)
+	R.add_language(LANGUAGE_CLOWN, FALSE)
+	R.add_language(LANGUAGE_MOTH, FALSE)
 
 /obj/item/robot_module/proc/add_subsystems_and_actions(mob/living/silicon/robot/R)
-	add_verb(R, subsystems)
+	for(var/verb in subsystems)
+		ASSIGN_GAME_VERB_DIRECT(R, verb)
 
 	for(var/A in module_actions)
 		var/datum/action/act = new A()
@@ -132,13 +134,33 @@
 		R.module_actions += act
 
 /obj/item/robot_module/proc/remove_subsystems_and_actions(mob/living/silicon/robot/R)
-	remove_verb(R, subsystems)
-
+	for(var/verb in subsystems)
+		UNASSIGN_GAME_VERB_DIRECT(R, verb)
 	for(var/datum/action/A in R.module_actions)
 		A.Remove(R)
 		qdel(A)
 
 	R.module_actions.Cut()
+
+/// Installs default set of upgrades, that every ERT-borg must have. Also used by ninjaborg
+/obj/item/robot_module/proc/install_ert_upgrades(mob/living/silicon/robot/robot)
+	var/static/list/ert_upgrades = list(
+		/obj/item/borg/upgrade/vtec,
+		/obj/item/borg/upgrade/magboots,
+		/obj/item/borg/upgrade/selfrepair,
+		/obj/item/borg/upgrade/thrusters,
+		/obj/item/borg/upgrade/mounted_seat,
+	)
+	install_upgrades(ert_upgrades, robot)
+
+/// Installs all upgrades in 'upgade_list'
+/obj/item/robot_module/proc/install_upgrades(list/upgrade_list, mob/living/silicon/robot/robot)
+	for(var/upgrade_path in upgrade_list)
+		if(locate(upgrade_path) in robot.upgrades)
+			continue
+		var/obj/item/borg/upgrade/upgrade = new upgrade_path(robot)
+		if(!robot.install_upgrade(upgrade))
+			qdel(upgrade)
 
 // Return true in an overridden subtype to prevent normal removal handling
 /obj/item/robot_module/proc/handle_custom_removal(component_id, mob/living/user, obj/item/W)
@@ -154,7 +176,10 @@
 	// if sec crisis, assist by opening doors for sec and providing backup zipties on patrols
 	name = "Generalist"
 	module_type = "Standard"
-	subsystems = list(/mob/living/silicon/proc/subsystem_power_monitor, /mob/living/silicon/proc/subsystem_crew_monitor)
+	subsystems = list(
+		VERB_META(/mob/living/silicon, subsystem_power_monitor),
+		VERB_META(/mob/living/silicon, subsystem_crew_monitor),
+	)
 	channels = list(ENG_FREQ_NAME = 1, MED_FREQ_NAME = 1, SEC_FREQ_NAME = 1, SRV_FREQ_NAME = 1, SUP_FREQ_NAME = 1)
 	default_skin = /datum/robot_skin/basic/std
 	borg_skins = list(
@@ -177,6 +202,7 @@
 		/datum/robot_skin/heavy/std,
 		/datum/robot_skin/android,
 		/datum/robot_skin/wide/drake/std,
+		/datum/robot_skin/kerfus/nt,
 	)
 	has_transform_animation = TRUE
 
@@ -224,7 +250,9 @@
 /obj/item/robot_module/medical
 	name = "Medical"
 	module_type = "Medical"
-	subsystems = list(/mob/living/silicon/proc/subsystem_crew_monitor)
+	subsystems = list(
+		VERB_META(/mob/living/silicon, subsystem_crew_monitor),
+	)
 	channels = list(MED_FREQ_NAME = 1)
 	default_skin = /datum/robot_skin/basic/std
 	borg_skins = list(
@@ -254,6 +282,7 @@
 		/datum/robot_skin/droid_medical,
 		/datum/robot_skin/basic/needles,
 		/datum/robot_skin/wide/drake/medical,
+		/datum/robot_skin/kerfus/med,
 	)
 	has_transform_animation = TRUE
 
@@ -320,10 +349,30 @@
 /obj/item/robot_module/medical/add_default_robot_items()
 	return
 
+/obj/item/robot_module/medical/ert
+	name = "Combat Medical"
+
+/obj/item/robot_module/medical/ert/on_apply(mob/living/silicon/robot/robot)
+
+	install_ert_upgrades(robot)
+	install_upgrades(list(
+		/obj/item/borg/upgrade/storageincreaser,
+		/obj/item/borg/upgrade/hypospray,
+		/obj/item/borg/upgrade/hypospray_pierce,
+	), robot)
+
+	robot.status_flags &= ~CANPUSH
+	robot.see_reagents = TRUE
+
+	return TRUE
+
 /obj/item/robot_module/engineering
 	name = "Engineering"
 	module_type = "Engineer"
-	subsystems = list(/mob/living/silicon/proc/subsystem_power_monitor, /mob/living/silicon/proc/subsystem_blueprints)
+	subsystems = list(
+		VERB_META(/mob/living/silicon, subsystem_power_monitor),
+		VERB_META(/mob/living/silicon, subsystem_blueprints),
+	)
 	module_actions = list(/datum/action/innate/robot_sight/meson)
 	channels = list(ENG_FREQ_NAME = 1)
 	default_skin = /datum/robot_skin/basic/eng
@@ -355,14 +404,14 @@
 		/datum/robot_skin/landmate,
 		/datum/robot_skin/chiefmate,
 		/datum/robot_skin/wide/drake/eng,
+		/datum/robot_skin/kerfus/flushed,
 	)
 	has_transform_animation = TRUE
 
 /obj/item/robot_module/engineering/on_apply(mob/living/silicon/robot/robot)
 	if(robot.camera && ("Robots" in robot.camera.network))
 		LAZYADD(robot.camera.network, "Engineering")
-	var/obj/item/borg/upgrade/magboots/upgrade = new(robot)
-	robot.install_upgrade(upgrade)
+	install_upgrades(list(/obj/item/borg/upgrade/magboots), robot)
 
 	return TRUE
 
@@ -408,10 +457,22 @@
 	if(G)
 		G.drop_gripped_item(silent = TRUE)
 
+/obj/item/robot_module/engineering/ert
+	name = "Combat Engineering"
+
+/obj/item/robot_module/engineering/ert/on_apply(mob/living/silicon/robot/robot)
+
+	install_ert_upgrades(robot)
+	install_upgrades(list(/obj/item/borg/upgrade/storageincreaser), robot)
+
+	return TRUE
+
 /obj/item/robot_module/security
 	name = "Security"
 	module_type = "Security"
-	subsystems = list(/mob/living/silicon/proc/subsystem_crew_monitor)
+	subsystems = list(
+		VERB_META(/mob/living/silicon, subsystem_crew_monitor),
+	)
 	channels = list(SEC_FREQ_NAME = 1, PRS_FREQ_NAME = 1)
 	default_skin = /datum/robot_skin/basic/sec
 	borg_skins = list(
@@ -442,6 +503,7 @@
 		/datum/robot_skin/blackknight,
 		/datum/robot_skin/bloodhound,
 		/datum/robot_skin/wide/drake/sec,
+		/datum/robot_skin/kerfus/noerp,
 	)
 	has_transform_animation = TRUE
 
@@ -480,6 +542,23 @@
 	emag = new /obj/item/gun/energy/laser/cyborg(src)
 
 	fix_modules()
+
+/obj/item/robot_module/security/ert
+	name = "Combat Security"
+
+/obj/item/robot_module/security/ert/on_apply(mob/living/silicon/robot/robot)
+
+	robot.weapons_unlock = TRUE
+	install_ert_upgrades(robot)
+	install_upgrades(list(/obj/item/borg/upgrade/disablercooler), robot)
+
+	return TRUE
+
+/obj/item/robot_module/security/ert/Destroy()
+	if(isrobot(loc))
+		var/mob/living/silicon/robot/robot = loc
+		robot.weapons_unlock = initial(robot.weapons_unlock)
+	return ..()
 
 /obj/item/robot_module/janitor
 	name = "Janitor"
@@ -546,6 +625,16 @@
 	cleaner.reagents.add_reagent(/datum/reagent/space_cleaner, 4)
 	return ..()
 
+/obj/item/robot_module/janitor/ert
+	name = "Сombat Janitor"
+
+/obj/item/robot_module/janitor/ert/on_apply(mob/living/silicon/robot/robot)
+
+	install_ert_upgrades(robot)
+
+	return TRUE
+
+
 /obj/item/robot_module/butler
 	name = "Service"
 	module_type = "Service"
@@ -580,6 +669,7 @@
 		/datum/robot_skin/toiletbot,
 		/datum/robot_skin/maximillion,
 		/datum/robot_skin/wide/drake/srv,
+		/datum/robot_skin/kerfus/maid,
 	)
 	has_transform_animation = TRUE
 
@@ -694,6 +784,7 @@
 		/datum/robot_skin/treadhead,
 		/datum/robot_skin/lavaland,
 		/datum/robot_skin/wide/drake/mnr,
+		/datum/robot_skin/kerfus/cargo,
 	)
 	has_transform_animation = TRUE
 
@@ -764,8 +855,7 @@
 	var/mob/living/silicon/robot/deathsquad/death = new(get_turf(robot))
 	robot.mind?.transfer_to(death)
 	qdel(robot)
-	var/obj/item/borg/upgrade/magboots/upgrade = new(death)
-	death.install_upgrade(upgrade)
+	install_ert_upgrades(death)
 
 	return TRUE
 
@@ -946,8 +1036,7 @@
 	var/mob/living/silicon/robot/destroyer/destroy = new(get_turf(robot))
 	robot.mind?.transfer_to(destroy)
 	qdel(robot)
-	var/obj/item/borg/upgrade/magboots/upgrade = new(destroy)
-	destroy.install_upgrade(upgrade)
+	install_ert_upgrades(destroy)
 
 	return TRUE
 
@@ -985,8 +1074,7 @@
 
 /obj/item/robot_module/combat/on_apply(mob/living/silicon/robot/robot)
 	robot.status_flags &= ~CANPUSH
-	var/obj/item/borg/upgrade/magboots/upgrade = new(robot)
-	robot.install_upgrade(upgrade)
+	install_ert_upgrades(robot)
 
 	return TRUE
 
@@ -1244,7 +1332,7 @@
 	modules += new /obj/item/stack/sheet/glass/cyborg(src)
 	modules += new /obj/item/stack/sheet/rglass/cyborg(src)
 	modules += new /obj/item/stack/rods/cyborg(src)
-	modules += new /obj/item/pinpointer/ninja(src)			// Почему бы и да
+	modules += new /obj/item/pinpointer/ninja(src)			// Why not?
 	var/obj/item/borg_chameleon/cham_proj = new /obj/item/borg_chameleon(src)
 	cham_proj.disguise = "maximillion"
 	modules += cham_proj

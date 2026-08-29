@@ -242,7 +242,8 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	return (GLOB.AdminProcCaller && GLOB.AdminProcCaller == usr?.client?.ckey) || (GLOB.AdminProcCallHandler && usr == GLOB.AdminProcCallHandler)
 #endif
 
-ADMIN_VERB_ONLY_CONTEXT_MENU(call_proc_datum, R_DEBUG|R_PROCCALL, "Atom ProcCall", atom/thing as null|area|mob|obj|turf)
+ADMIN_VERB_ONLY_CONTEXT_MENU(call_proc_datum, R_DEBUG|R_PROCCALL, "Atom ProcCall", /datum)
+	VERB_ARG_TYPED(thing, VERB_ARG_TYPE_AREA | VERB_ARG_TYPE_OBJ | VERB_ARG_TYPE_TURF | VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /datum)
 	var/procname = tgui_input_text(user, "Proc name, eg: fake_blood", "Proc:")
 	if(!procname)
 		return

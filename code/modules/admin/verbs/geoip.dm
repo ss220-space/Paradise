@@ -91,7 +91,8 @@
 	)
 
 // MARK: verb
-ADMIN_VERB(geoip, R_ADMIN, "View GeoIP", "Open the GeoIP Report.", ADMIN_CATEGORY_BAN, target_ckey as null|text)
+ADMIN_VERB(geoip, R_ADMIN, "View GeoIP", "Open the GeoIP Report.", ADMIN_CATEGORY_BAN)
+	VERB_ARG(target_ckey, VERB_ARG_TYPE_TEXT, VERB_ARG_SOURCE_INPUT)
 	if(target_ckey)
 		var/datum/ui_module/admin/geoip/focused/panel = get_admin_ui_module(/datum/ui_module/admin/geoip/focused)
 		panel.ui_interact(user.mob, target_ckey = target_ckey)

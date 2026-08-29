@@ -567,6 +567,16 @@
 	job = list(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_CHIEF_ENGINEER, \
 			JOB_TITLE_SPACEPOD_TECHNICIAN, JOB_TITLE_ROBOTICIST, JOB_TITLE_PARAMEDIC)
 
+/datum/uplink_item/jobspecific/meltdown_rod
+	name = "Стержень ядерного расплава"
+	desc = "Специально разработанный ядерный стержень, гарантирующий вызов расплава любого реактора, в который он будет помещён."
+	item = /obj/item/nuclear_rod/fuel/meltdown
+	cost = 25
+	job = list(JOB_TITLE_ENGINEER, JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_ATMOSTECH)
+	hijack_only = TRUE
+	excludefrom = list(UPLINK_TYPE_NUCLEAR)
+	surplus = 0
+
 //SCI
 
 /datum/uplink_item/jobspecific/telegun

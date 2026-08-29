@@ -1,6 +1,13 @@
+import type { ComponentProps } from 'react';
+import {
+  Box,
+  Button,
+  Flex,
+  Icon,
+  LabeledList,
+  Section,
+} from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Button, Flex, LabeledList, Section, Box, Icon } from '../components';
-import { ButtonProps } from '../components/Button';
 import { Window } from '../layouts';
 
 const TEMPS = {
@@ -38,7 +45,7 @@ const TEMPS = {
 
 type TempButtonProps = {
   tempKey: string;
-} & ButtonProps;
+} & ComponentProps<typeof Button>;
 
 type PoolControllerData = {
   currentTemp: string;
@@ -72,7 +79,7 @@ export const PoolController = (_properties) => {
   const { label: currentLabel, color: currentColor } =
     TEMPS[currentTemp] || TEMPS.normal;
 
-  const visibleTempKeys = [];
+  const visibleTempKeys: string[] = [];
   for (const [tempKey, { requireEmag }] of Object.entries(TEMPS)) {
     if (!requireEmag || (requireEmag && emagged)) {
       visibleTempKeys.push(tempKey);

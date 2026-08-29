@@ -8,6 +8,7 @@
 	icon_state = "dshotgun-sawn"
 	mag_type = /obj/item/ammo_box/magazine/internal/grenadelauncher
 	fire_sound = 'sound/weapons/gunshots/1grenlauncher.ogg'
+	weapon_weight = WEAPON_HEAVY
 	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 	recoil = GUN_RECOIL_HIGH
@@ -159,6 +160,7 @@
 	burst_amount = 1
 	actions_types = null
 	accuracy = GUN_ACCURACY_MINIMAL
+	weapon_weight = WEAPON_LIGHT
 	gun_firemode_list = list(GUN_FIREMODE_SEMIAUTO)
 
 /obj/item/gun/projectile/automatic/gyropistol/process_chamber(eject_casing = FALSE, empty_chamber = TRUE)

@@ -254,10 +254,7 @@
 
 	return ..()
 
-/obj/item/clothing/shoes/workboots/mining/verb/verb_remove_knife()
-	set category = VERB_CATEGORY_OBJECT
-	set name = "Достать нож"
-	set src in usr
+GAME_VERB_SRC(/obj/item/clothing/shoes/workboots/mining, verb_remove_knife, usr, "Достать нож", VERB_CATEGORY_HIDDEN)
 	remove_knife(usr)
 
 /obj/item/clothing/shoes/workboots/mining/proc/remove_knife(mob/user)

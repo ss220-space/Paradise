@@ -73,7 +73,7 @@
 	else if(!istype(armor, /datum/armor))
 		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
 	if(sharp)
-		AddElement(/datum/element/surgery_initiator)
+		AddComponent(/datum/component/surgery_initiator)
 
 	if(on_blueprints && isturf(loc))
 		var/turf/T = loc
@@ -247,18 +247,22 @@
 	if(!anchored && !isfloorturf(loc))
 		user.visible_message(span_warning("A floor must be present to secure [src]!"))
 		return FALSE
+	if(obj_flags & NODECONSTRUCT)
+		return FALSE
+
 	if(I.tool_behaviour != TOOL_WRENCH)
 		return FALSE
 	if(!I.tool_use_check(user, 0))
 		return FALSE
-	if(!(obj_flags & NODECONSTRUCT))
-		CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
-		to_chat(user, span_notice("Now [anchored ? "un" : ""]securing [name]."))
-		if(I.use_tool(src, user, time * construction_mod, volume = I.tool_volume))
-			to_chat(user, span_notice("You've [anchored ? "un" : ""]secured [name]."))
-			set_anchored(!anchored)
-		return TRUE
-	return FALSE
+
+	CALCULATE_SKILL_MOD(user, CONSTRUCTING_SPEED_MOD, construction_mod)
+	to_chat(user, span_notice("Now [anchored ? "un" : ""]securing [name]."))
+	if(!I.use_tool(src, user, time * construction_mod, volume = I.tool_volume))
+		return FALSE
+
+	to_chat(user, span_notice("You've [anchored ? "un" : ""]secured [name]."))
+	set_anchored(!anchored)
+	return TRUE
 
 /obj/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
@@ -319,7 +323,7 @@
 	sharp = new_sharp_val
 	SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_SHARPNESS)
 	if(!sharp && new_sharp_val)
-		AddElement(/datum/element/surgery_initiator)
+		AddComponent(/datum/component/surgery_initiator)
 
 /obj/proc/force_eject_occupant(mob/target)
 	// This proc handles safely removing occupant mobs from the object if they must be teleported out (due to being SSD/AFK, by admin teleport, etc) or transformed.

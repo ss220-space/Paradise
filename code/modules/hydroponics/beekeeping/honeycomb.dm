@@ -10,6 +10,7 @@
 	volume = 10
 	amount_per_transfer_from_this = 0
 	list_reagents = list("honey" = 5)
+	can_empty = FALSE
 	var/honey_color = ""
 
 /obj/item/reagent_containers/honeycomb/Initialize(mapload)
@@ -17,10 +18,6 @@
 	pixel_x = rand(8,-8)
 	pixel_y = rand(8,-8)
 	update_icon(UPDATE_OVERLAYS)
-
-/obj/item/reagent_containers/honeycomb/empty()
-	set hidden = TRUE
-	return
 
 /obj/item/reagent_containers/honeycomb/update_overlays()
 	. = ..()

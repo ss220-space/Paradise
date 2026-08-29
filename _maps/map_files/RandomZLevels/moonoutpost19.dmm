@@ -348,6 +348,16 @@
 	icon_state = "darkredcorners"
 	},
 /area/moonoutpost19/syndicateoutpost)
+"aV" = (
+/obj/machinery/gateway,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/moonoutpost19/syndicateoutpost)
 "aW" = (
 /obj/machinery/gateway{
 	dir = 10
@@ -505,10 +515,96 @@
 	icon_state = "bar"
 	},
 /area/moonoutpost19/syndicateoutpost)
+"bq" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/table,
+/obj/item/radio/off{
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/item/radio/off{
+	pixel_x = 2
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/turf/simulated/floor/plasteel,
+/area/moonoutpost19/syndicateoutpost)
+"br" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/table,
+/obj/item/paper_bin{
+	pixel_x = 1;
+	pixel_y = 9
+	},
+/obj/item/pen,
+/obj/item/paper{
+	info = "Log 1:<br>We got our promised supply drop today. We were only meant to get it, what, a week ago? This bloody gateway keeps desyncing itself, and that means subsisting off recycled water and carb packs. No clue where the damn thing connects to on its off days, and HQ say we are 'not to touch it if it isn't linking to command.' We dumped off the assload of crates Jim filled, got our boxes of oxygen, food and drink, and closed the portal.<br><br>Log 2:<br>Damn thing is acting up again. Three days no contact this time. I thought I heard clanking noises from it yesterday. Jim is going on about the NT base or some shit. We've been over this before &ndash; They don't know we're here, that engineer was too drunk to recognise his suit, especially since I had it painted orange. He's starting to get annoying. We're safe.<br><br>Log 3:<br>Gateway synced itself up automatically today. I opened it for an instant to spy through it, got a glimpse of the inside of a transport container. Either HQ's redecorating or something, or there's more than two of these things.";
+	name = "Personal Log"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/moonoutpost19/syndicateoutpost)
+"bs" = (
+/obj/machinery/door/window{
+	dir = 1;
+	name = "Gateway Access";
+	req_access = list(150)
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/moonoutpost19/syndicateoutpost)
+"bt" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/table,
+/obj/item/storage/firstaid/regular,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/moonoutpost19/syndicateoutpost)
+"bu" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/table,
+/obj/machinery/recharger{
+	pixel_y = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/turf/simulated/floor/plasteel,
+/area/moonoutpost19/syndicateoutpost)
 "bv" = (
 /obj/machinery/door/airlock{
 	name = "Unisex Restrooms"
 	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/moonoutpost19/syndicateoutpost)
+"bw" = (
+/obj/structure/sink/directional/north,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -566,6 +662,12 @@
 /area/moonoutpost19/syndicateoutpost)
 "bE" = (
 /turf/simulated/floor/plasteel,
+/area/moonoutpost19/syndicateoutpost)
+"bF" = (
+/obj/structure/toilet/directional/south,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
 /area/moonoutpost19/syndicateoutpost)
 "bG" = (
 /obj/effect/decal/cleanable/dirt,
@@ -642,6 +744,64 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/moonoutpost19/syndicateoutpost)
+"bR" = (
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -2;
+	pixel_y = -1
+	},
+/obj/item/clothing/gloves/color/yellow,
+/obj/item/multitool,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/simulated/floor/plating,
+/area/moonoutpost19/syndicateoutpost)
+"bS" = (
+/obj/machinery/power/smes{
+	input_level = 10000;
+	inputting = 0;
+	output_level = 15000;
+	outputting = 0
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plating,
+/area/moonoutpost19/syndicateoutpost)
+"bT" = (
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/computer/monitor,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/simulated/floor/plating,
+/area/moonoutpost19/syndicateoutpost)
+"bU" = (
+/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/alarm/monitor/directional/north{
+	req_access = list(150)
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/simulated/floor/plating,
+/area/moonoutpost19/syndicateoutpost)
+"bV" = (
+/obj/machinery/portable_atmospherics/canister/air,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/simulated/floor/plating,
+/area/moonoutpost19/syndicateoutpost)
 "bW" = (
 /obj/structure/alien/weeds/node,
 /mob/living/simple_animal/hostile/alien,
@@ -659,6 +819,32 @@
 	},
 /turf/simulated/floor/plating/airless{
 	name = "plating"
+	},
+/area/moonoutpost19/syndicateoutpost)
+"bY" = (
+/obj/machinery/conveyor{
+	id = "awaysyndie"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/moonoutpost19/syndicateoutpost)
+"bZ" = (
+/obj/structure/alien/weeds{
+	icon_state = "weeds1"
+	},
+/obj/structure/sign/poster/contraband/syndicate_recruitment{
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/delivery/partial{
+	dir = 8
+	},
+/obj/effect/turf_decal/arrows/black{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/airless{
+	name = "floor"
 	},
 /area/moonoutpost19/syndicateoutpost)
 "ca" = (
@@ -701,6 +887,33 @@
 	name = "floor"
 	},
 /area/moonoutpost19/syndicateoutpost)
+"ce" = (
+/obj/structure/sign/biohazard{
+	pixel_y = 32
+	},
+/obj/structure/alien/weeds/node,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/airless{
+	name = "floor"
+	},
+/area/moonoutpost19/syndicateoutpost)
+"cf" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/alien/weeds{
+	icon_state = "weeds2"
+	},
+/turf/simulated/floor/plasteel/airless{
+	name = "floor"
+	},
+/area/moonoutpost19/syndicateoutpost)
 "cg" = (
 /obj/machinery/light/small{
 	active_power_usage = 0;
@@ -718,9 +931,73 @@
 	name = "floor"
 	},
 /area/moonoutpost19/syndicateoutpost)
+"ch" = (
+/obj/structure/sign/securearea{
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/structure/alien/weeds{
+	icon_state = "weeds2"
+	},
+/turf/simulated/floor/plasteel/airless{
+	name = "floor"
+	},
+/area/moonoutpost19/syndicateoutpost)
+"ci" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/table,
+/obj/machinery/cell_charger,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/item/stock_parts/cell/high,
+/obj/item/paper{
+	info = "Alright, listen up. If you're reading this, I'm either taking a shit or I've been recalled back to Command. Either way, you'll need to know how to restore power. We've stolen this stuff from Nanotrasen, so all the equipment is jury-rigged. We have generators that work on both plasma and uranium, about 50 sheets should power the outpost for quite a while. If the generators aren't working, which is very likely, take the power cell on the desk and put it into the APC in the hallway. That should get the place running, at least for a little while.";
+	name = "Engineering Instructions"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/moonoutpost19/syndicateoutpost)
+"cj" = (
+/obj/machinery/power/terminal{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/moonoutpost19/syndicateoutpost)
 "ck" = (
 /obj/structure/chair/stool,
 /obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating,
+/area/moonoutpost19/syndicateoutpost)
+"cl" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/moonoutpost19/syndicateoutpost)
+"cm" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/structure/sign/poster/contraband/hacking_guide{
+	pixel_x = 32
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/moonoutpost19/syndicateoutpost)
 "cn" = (
@@ -729,6 +1006,17 @@
 /turf/simulated/floor/plating,
 /area/moonoutpost19/syndicateoutpost)
 "co" = (
+/obj/structure/alien/weeds{
+	icon_state = "weeds2"
+	},
+/turf/simulated/floor/plasteel/airless{
+	name = "floor"
+	},
+/area/moonoutpost19/syndicateoutpost)
+"cp" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/structure/alien/weeds{
 	icon_state = "weeds2"
 	},
@@ -847,6 +1135,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/moonoutpost19/syndicateoutpost)
+"cA" = (
+/obj/machinery/space_heater,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/moonoutpost19/syndicateoutpost)
 "cB" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -854,11 +1150,35 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/moonoutpost19/syndicateoutpost)
+"cC" = (
+/obj/machinery/mineral/processing_unit{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/conveyor{
+	id = "awaysyndie"
+	},
+/turf/simulated/floor/plating,
+/area/moonoutpost19/syndicateoutpost)
 "cD" = (
 /obj/machinery/mineral/processing_unit_console{
 	machinedir = 8
 	},
 /turf/simulated/wall,
+/area/moonoutpost19/syndicateoutpost)
+"cE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/alien/weeds{
+	icon_state = "weeds2"
+	},
+/turf/simulated/floor/plasteel/airless{
+	name = "floor"
+	},
 /area/moonoutpost19/syndicateoutpost)
 "cF" = (
 /obj/structure/grille/broken,
@@ -937,6 +1257,60 @@
 	name = "floor"
 	},
 /area/moonoutpost19/syndicateoutpost)
+"cM" = (
+/obj/item/storage/box/lights/mixed,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/simulated/floor/plating,
+/area/moonoutpost19/syndicateoutpost)
+"cN" = (
+/obj/structure/cable,
+/obj/machinery/power/port_gen/pacman{
+	desc = "A portable generator for emergency backup power.";
+	name = "P.A.C.M.A.N.-type portable generator"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/turf/simulated/floor/plating,
+/area/moonoutpost19/syndicateoutpost)
+"cO" = (
+/obj/structure/cable,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/port_gen/pacman/super{
+	desc = "A portable generator for emergency backup power.";
+	name = "S.U.P.E.R.P.A.C.M.A.N.-type portable generator"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/turf/simulated/floor/plating,
+/area/moonoutpost19/syndicateoutpost)
+"cP" = (
+/obj/machinery/portable_atmospherics/scrubber,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/simulated/floor/plating,
+/area/moonoutpost19/syndicateoutpost)
+"cQ" = (
+/obj/machinery/conveyor_switch/oneway{
+	id = "awaysyndie";
+	layer = 3.1;
+	name = "mining conveyor"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/alien/weeds{
+	icon_state = "weeds2"
+	},
+/turf/simulated/floor/plasteel/airless{
+	name = "floor"
+	},
+/area/moonoutpost19/syndicateoutpost)
 "cR" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
@@ -1004,6 +1378,29 @@
 	name = "floor"
 	},
 /area/moonoutpost19/syndicateoutpost)
+"cW" = (
+/obj/structure/alien/weeds/node,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/airless{
+	name = "floor"
+	},
+/area/moonoutpost19/syndicateoutpost)
+"cX" = (
+/obj/structure/closet/crate,
+/obj/item/stack/sheet/metal{
+	amount = 12
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/alien/weeds{
+	icon_state = "weeds2"
+	},
+/obj/effect/turf_decal/delivery/hollow,
+/turf/simulated/floor/plasteel/airless{
+	name = "floor"
+	},
+/area/moonoutpost19/syndicateoutpost)
 "cY" = (
 /obj/structure/closet/crate,
 /obj/item/storage/bag/ore,
@@ -1066,11 +1463,40 @@
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/moonoutpost19/hive)
+"de" = (
+/obj/machinery/mineral/stacking_machine{
+	dir = 1;
+	input_dir = 1;
+	output_dir = 2
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/conveyor{
+	id = "awaysyndie"
+	},
+/turf/simulated/floor/plating,
+/area/moonoutpost19/syndicateoutpost)
 "df" = (
 /obj/machinery/mineral/stacking_unit_console{
 	machinedir = 8
 	},
 /turf/simulated/wall,
+/area/moonoutpost19/syndicateoutpost)
+"dg" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/alien/weeds{
+	icon_state = "weeds2"
+	},
+/turf/simulated/floor/plasteel/airless{
+	name = "floor"
+	},
 /area/moonoutpost19/syndicateoutpost)
 "dh" = (
 /obj/structure/chair/wood,
@@ -1109,12 +1535,60 @@
 	},
 /turf/simulated/floor/wood,
 /area/moonoutpost19/syndicateoutpost)
+"dl" = (
+/obj/structure/closet/crate,
+/obj/item/stack/sheet/glass{
+	amount = 10
+	},
+/obj/structure/alien/weeds,
+/obj/effect/turf_decal/delivery/hollow,
+/turf/simulated/floor/plasteel/airless{
+	name = "floor"
+	},
+/area/moonoutpost19/syndicateoutpost)
+"dm" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/alien/weeds{
+	icon_state = "weeds1"
+	},
+/obj/effect/turf_decal/delivery/partial,
+/obj/effect/turf_decal/arrows/black,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/airless{
+	name = "floor"
+	},
+/area/moonoutpost19/syndicateoutpost)
+"dn" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/alien/weeds{
+	icon_state = "weeds2"
+	},
+/turf/simulated/floor/plasteel/airless{
+	name = "floor"
+	},
+/area/moonoutpost19/syndicateoutpost)
 "do" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless{
 	name = "plating"
 	},
 /area/moonoutpost19/syndicateoutpost)
+"dp" = (
+/obj/machinery/power/port_gen/pacman/super{
+	desc = "A portable generator for emergency backup power.";
+	name = "S.U.P.E.R.P.A.C.M.A.N.-type portable generator"
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating,
+/area/moonoutpost19/mo19utilityroom)
 "dq" = (
 /obj/structure/table/wood,
 /obj/structure/sign/poster/contraband/c20r{
@@ -1179,6 +1653,34 @@
 	name = "plating"
 	},
 /area/moonoutpost19/syndicateoutpost)
+"dx" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/structure/alien/weeds{
+	icon_state = "weeds2"
+	},
+/turf/simulated/floor/plasteel/airless{
+	name = "floor"
+	},
+/area/moonoutpost19/syndicateoutpost)
+"dy" = (
+/obj/structure/dispenser/oxygen{
+	starting_oxygen_tanks = 9
+	},
+/obj/machinery/light/small{
+	active_power_usage = 0;
+	dir = 1;
+	icon_state = "bulb-broken";
+	status = 2
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/simulated/floor/plating/airless{
+	name = "plating"
+	},
+/area/moonoutpost19/syndicateoutpost)
 "dz" = (
 /obj/item/stack/ore/iron{
 	pixel_x = -3;
@@ -1196,6 +1698,33 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19utilityroom)
+"dC" = (
+/obj/structure/rack,
+/obj/item/clothing/suit/space/syndicate/orange,
+/obj/item/clothing/mask/gas,
+/obj/item/pickaxe/drill,
+/obj/item/clothing/head/helmet/space/syndicate/orange,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/simulated/floor/plating/airless{
+	name = "plating"
+	},
+/area/moonoutpost19/syndicateoutpost)
+"dD" = (
+/obj/structure/sign/vacuum{
+	desc = "A warning sign which reads 'HOSTILE ATMOSPHERE AHEAD'";
+	name = "HOSTILE ATMOSPHERE AHEAD";
+	pixel_y = -32
+	},
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/simulated/floor/plating/airless{
+	name = "plating"
+	},
+/area/moonoutpost19/syndicateoutpost)
 "dE" = (
 /obj/effect/decal/cleanable/blood/tracks{
 	color = "red";
@@ -1204,14 +1733,6 @@
 	icon = 'icons/effects/blood.dmi';
 	icon_state = "tracks"
 	},
-/turf/simulated/floor/plating/asteroid/airless,
-/area/moonoutpost19/khonsu19)
-"dF" = (
-/obj/item/flashlight/lantern{
-	icon_state = "lantern-on";
-	on = 1
-	},
-/obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/moonoutpost19/khonsu19)
 "dG" = (
@@ -1367,6 +1888,16 @@
 "ea" = (
 /turf/simulated/wall/r_wall,
 /area/moonoutpost19/mo19research)
+"eb" = (
+/obj/structure/rack,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/simulated/floor/plating/airless{
+	name = "plating"
+	},
+/area/moonoutpost19/syndicateoutpost)
 "ec" = (
 /obj/structure/sign/biohazard,
 /turf/simulated/wall/r_wall,
@@ -1420,6 +1951,33 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
+/area/moonoutpost19/mo19research)
+"ej" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/alien/weeds{
+	icon_state = "weeds2"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/moonoutpost19/mo19research)
+"ek" = (
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/shieldwallgen{
+	locked = 0;
+	req_access = null
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plating,
 /area/moonoutpost19/mo19research)
 "el" = (
 /obj/structure/alien/weeds{
@@ -1557,6 +2115,36 @@
 	icon_state = "white"
 	},
 /area/moonoutpost19/mo19research)
+"ey" = (
+/obj/structure/table/reinforced,
+/obj/structure/alien/weeds,
+/obj/machinery/computer/security/telescreen{
+	desc = "Used for watching the contents of the xenobiology containment pen.";
+	dir = 8;
+	name = "xenobiology monitor";
+	network = list("MO19X")
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/moonoutpost19/mo19research)
+"ez" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/door/poddoor/preopen{
+	desc = "A heavy duty blast door that opens mechanically. This one has been applied with an acid-proof coating.";
+	id_tag = "Awaylab";
+	name = "Acid-Proof containment chamber blast door"
+	},
+/obj/structure/cable,
+/obj/structure/grille,
+/obj/structure/window/full/reinforced,
+/turf/simulated/floor/plating,
+/area/moonoutpost19/mo19research)
 "eA" = (
 /obj/structure/sign/electricshock,
 /turf/simulated/wall/r_wall,
@@ -1681,6 +2269,30 @@
 	icon_state = "white"
 	},
 /area/moonoutpost19/mo19research)
+"eP" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door_control{
+	id = "Awaylab";
+	name = "Containment Chamber Blast Doors";
+	pixel_x = 4;
+	pixel_y = -2;
+	req_access = list(201)
+	},
+/obj/machinery/ignition_switch{
+	id = "awayxenobio";
+	pixel_x = 4;
+	pixel_y = 8
+	},
+/obj/structure/alien/weeds{
+	icon_state = "weeds2"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/moonoutpost19/mo19research)
 "eQ" = (
 /obj/structure/alien/weeds{
 	icon_state = "weeds1"
@@ -1737,6 +2349,16 @@
 	icon_state = "whitehall"
 	},
 /area/moonoutpost19/mo19research)
+"eY" = (
+/obj/machinery/power/port_gen/pacman{
+	desc = "A portable generator for emergency backup power.";
+	name = "P.A.C.M.A.N.-type portable generator"
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plating,
+/area/moonoutpost19/mo19utilityroom)
 "eZ" = (
 /obj/machinery/space_heater,
 /obj/machinery/light/small{
@@ -1752,6 +2374,29 @@
 	icon_state = "1-2"
 	},
 /obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating,
+/area/moonoutpost19/mo19utilityroom)
+"fb" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/smes{
+	charge = 1.5e+006;
+	input_level = 10000;
+	inputting = 0;
+	output_level = 200000;
+	outputting = 0
+	},
+/turf/simulated/floor/plating,
+/area/moonoutpost19/mo19utilityroom)
+"fc" = (
+/obj/machinery/power/terminal{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/alarm/all_access/directional/north,
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19utilityroom)
 "fd" = (
@@ -1828,6 +2473,17 @@
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel,
 /area/moonoutpost19/mo19research)
+"fk" = (
+/obj/machinery/door/firedoor,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/alien/weeds{
+	icon_state = "weeds2"
+	},
+/turf/simulated/floor/plasteel,
+/area/moonoutpost19/mo19research)
 "fl" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -1844,6 +2500,33 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
+/area/moonoutpost19/mo19research)
+"fn" = (
+/obj/structure/closet/l3closet/scientist,
+/obj/structure/window/reinforced,
+/obj/structure/alien/weeds{
+	icon_state = "weeds1"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/moonoutpost19/mo19research)
+"fo" = (
+/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/door/poddoor/preopen{
+	desc = "A heavy duty blast door that opens mechanically. This one has been applied with an acid-proof coating.";
+	id_tag = "Awaylab";
+	name = "Acid-Proof containment chamber blast door"
+	},
+/obj/structure/grille,
+/obj/structure/window/full/reinforced,
+/turf/simulated/floor/plating,
 /area/moonoutpost19/mo19research)
 "fp" = (
 /obj/structure/alien/weeds{
@@ -1989,6 +2672,19 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/moonoutpost19/mo19research)
+"fB" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/alien/weeds{
+	icon_state = "weeds2"
+	},
+/turf/simulated/floor/plasteel,
+/area/moonoutpost19/mo19research)
 "fC" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -2004,6 +2700,29 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
+	},
+/obj/structure/alien/weeds{
+	icon_state = "weeds2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/moonoutpost19/mo19research)
+"fE" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	desc = "A one meter section of pipe. This one has been applied with an acid-proof coating.";
+	dir = 4;
+	name = "Acid-Proof Pipe"
+	},
+/obj/item/stack/rods,
+/obj/item/stack/cable_coil{
+	amount = 5
+	},
+/obj/item/shard{
+	icon_state = "small"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
 /obj/structure/alien/weeds{
 	icon_state = "weeds2"
@@ -2243,6 +2962,23 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/moonoutpost19/mo19research)
+"gc" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/structure/grille,
+/obj/machinery/door/poddoor/preopen{
+	desc = "A heavy duty blast door that opens mechanically. This one has been applied with an acid-proof coating.";
+	id_tag = "Awaylab";
+	name = "Acid-Proof containment chamber blast door"
+	},
+/obj/item/stack/cable_coil/cut{
+	amount = 1;
+	icon_state = "coil_red1";
+	item_state = "coil_red1"
+	},
+/turf/simulated/floor/plating,
+/area/moonoutpost19/mo19research)
 "gd" = (
 /obj/structure/alien/weeds{
 	icon_state = "weeds1"
@@ -2385,6 +3121,100 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/moonoutpost19/mo19research)
+"gp" = (
+/obj/machinery/door/firedoor,
+/obj/structure/extinguisher_cabinet/directional/south,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/alien/weeds{
+	icon_state = "weeds2"
+	},
+/turf/simulated/floor/plasteel,
+/area/moonoutpost19/mo19research)
+"gq" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/closet/l3closet/scientist,
+/obj/structure/alien/weeds,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/moonoutpost19/mo19research)
+"gr" = (
+/obj/structure/table,
+/obj/item/scalpel{
+	pixel_y = 12
+	},
+/obj/item/circular_saw,
+/obj/item/razor{
+	pixel_y = 5
+	},
+/obj/structure/alien/weeds{
+	icon_state = "weeds2"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/moonoutpost19/mo19research)
+"gs" = (
+/obj/structure/alien/weeds/node,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/moonoutpost19/mo19research)
+"gt" = (
+/obj/structure/sink/directional/west,
+/obj/structure/alien/weeds{
+	icon_state = "weeds2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/moonoutpost19/mo19research)
+"gu" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/alien/weeds{
+	icon_state = "weeds2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/moonoutpost19/mo19research)
+"gv" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/structure/disposalpipe/segment{
+	desc = "An underfloor disposal pipe. This one has been applied with an acid-proof coating.";
+	dir = 4;
+	name = "Acid-Proof disposal pipe"
+	},
+/obj/machinery/door/poddoor/preopen{
+	desc = "A heavy duty blast door that opens mechanically. This one has been applied with an acid-proof coating.";
+	id_tag = "Awaylab";
+	name = "Acid-Proof containment chamber blast door"
+	},
+/obj/structure/cable,
+/obj/structure/grille,
+/obj/structure/window/full/reinforced,
+/turf/simulated/floor/plating,
+/area/moonoutpost19/mo19research)
 "gw" = (
 /obj/structure/disposalpipe/segment{
 	desc = "An underfloor disposal pipe. This one has been applied with an acid-proof coating.";
@@ -2419,6 +3249,19 @@
 "gz" = (
 /turf/simulated/mineral/random/labormineral,
 /area/moonoutpost19/syndicateoutpost)
+"gA" = (
+/obj/structure/table,
+/obj/item/mmi,
+/obj/item/mmi,
+/obj/item/mmi,
+/obj/structure/alien/weeds,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/moonoutpost19/mo19research)
 "gB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -2432,6 +3275,21 @@
 "gC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/moonoutpost19/mo19research)
+"gD" = (
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	desc = "An underfloor disposal pipe. This one has been applied with an acid-proof coating.";
+	dir = 4;
+	name = "Acid-Proof disposal pipe"
+	},
+/obj/structure/alien/weeds,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -2541,6 +3399,24 @@
 /obj/structure/chair/stool,
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19utilityroom)
+"gM" = (
+/obj/structure/table/reinforced,
+/obj/structure/alien/weeds{
+	icon_state = "weeds1"
+	},
+/obj/item/paper_bin{
+	pixel_x = 1;
+	pixel_y = 9
+	},
+/obj/item/pen,
+/obj/item/radio/off,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/moonoutpost19/mo19research)
 "gN" = (
 /obj/structure/disposalpipe/segment{
 	desc = "An underfloor disposal pipe. This one has been applied with an acid-proof coating.";
@@ -2550,6 +3426,20 @@
 	icon_state = "weeds1"
 	},
 /turf/simulated/floor/engine,
+/area/moonoutpost19/mo19research)
+"gO" = (
+/obj/structure/cable,
+/obj/machinery/door/poddoor/preopen{
+	desc = "A heavy duty blast door that opens mechanically. This one has been applied with an acid-proof coating.";
+	id_tag = "Awaylab";
+	name = "Acid-Proof containment chamber blast door"
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/structure/grille,
+/obj/structure/window/full/reinforced,
+/turf/simulated/floor/plating,
 /area/moonoutpost19/mo19research)
 "gP" = (
 /obj/effect/decal/cleanable/blood/oil{
@@ -2663,6 +3553,18 @@
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitehall"
+	},
+/area/moonoutpost19/mo19research)
+"ha" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/alien/weeds{
+	icon_state = "weeds2"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
 	},
 /area/moonoutpost19/mo19research)
 "hb" = (
@@ -3056,6 +3958,19 @@
 	icon_state = "cafeteria"
 	},
 /area/moonoutpost19/mo19research)
+"hO" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor{
+	desc = "A heavy duty blast door that opens mechanically. This one has been applied with an acid-proof coating.";
+	id_tag = "Awaybiohazard";
+	name = "Acid-Proof biohazard containment door"
+	},
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitepurplecorner"
+	},
+/area/moonoutpost19/mo19research)
 "hP" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
@@ -3063,6 +3978,16 @@
 	icon_state = "whitehall"
 	},
 /area/moonoutpost19/mo19research)
+"hQ" = (
+/obj/structure/toilet/directional/west,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/moonoutpost19/mo19arrivals)
 "hR" = (
 /obj/structure/urinal{
 	pixel_y = 29
@@ -3075,6 +4000,32 @@
 /obj/machinery/door/airlock{
 	name = "Unit 2"
 	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/moonoutpost19/mo19arrivals)
+"hT" = (
+/obj/structure/sink/directional/east,
+/obj/structure/urinal{
+	pixel_y = 29
+	},
+/obj/structure/mirror{
+	pixel_x = 28
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/moonoutpost19/mo19arrivals)
+"hU" = (
+/obj/machinery/shower/directional/north,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/moonoutpost19/mo19arrivals)
+"hV" = (
+/obj/machinery/shower/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -3147,6 +4098,44 @@
 	icon_state = "cafeteria"
 	},
 /area/moonoutpost19/mo19research)
+"ic" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor{
+	desc = "A heavy duty blast door that opens mechanically. This one has been applied with an acid-proof coating.";
+	id_tag = "Awaybiohazard";
+	name = "Acid-Proof biohazard containment door"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/moonoutpost19/mo19research)
+"id" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor{
+	desc = "A heavy duty blast door that opens mechanically. This one has been applied with an acid-proof coating.";
+	id_tag = "Awaybiohazard";
+	name = "Acid-Proof biohazard containment door"
+	},
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurplecorner"
+	},
+/area/moonoutpost19/mo19research)
+"ie" = (
+/obj/structure/rack,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/item/circuitboard/teleporter,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/moonoutpost19/mo19research)
 "if" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -3199,6 +4188,18 @@
 	icon_state = "freezerfloor"
 	},
 /area/moonoutpost19/mo19arrivals)
+"il" = (
+/obj/structure/sink/directional/east,
+/obj/structure/mirror{
+	broken = 1;
+	desc = "Oh no, seven years of bad luck!";
+	icon_state = "mirror_broke";
+	pixel_x = 28
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/moonoutpost19/mo19arrivals)
 "im" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -3213,6 +4214,24 @@
 	icon_state = "freezerfloor"
 	},
 /area/moonoutpost19/mo19arrivals)
+"io" = (
+/obj/machinery/shower/directional/east,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/moonoutpost19/mo19arrivals)
+"ip" = (
+/obj/structure/rack,
+/obj/item/paicard{
+	pixel_x = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/moonoutpost19/mo19research)
 "iq" = (
 /obj/structure/window/reinforced,
 /obj/structure/closet/secure_closet{
@@ -3241,6 +4260,15 @@
 /obj/structure/window/full/reinforced,
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19arrivals)
+"it" = (
+/obj/structure/rack,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/moonoutpost19/mo19research)
 "iu" = (
 /obj/effect/decal/cleanable/blood/splatter{
 	color = "red"
@@ -3249,6 +4277,40 @@
 	icon_state = "white"
 	},
 /area/moonoutpost19/mo19research)
+"iv" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/moonoutpost19/mo19research)
+"iw" = (
+/obj/item/storage/secure/safe{
+	pixel_x = 32
+	},
+/obj/effect/decal/cleanable/blood/splatter,
+/obj/item/pen,
+/obj/item/paper/crumpled{
+	info = "<i>19 06 2554</i><br><br><i>I fucking knew it. There was a major breach, that idiotic force field failed, and the xenomorphs rushed out and took out the scientists. I've managed to make it to my office and closed the blast doors. I can hear them trying to pry open the doors. Probably don't have long. I have no clue what has happened to the rest of the crew, for all I know they've been killed to produce more of the fucks.</i>";
+	name = "Hastily Written Note"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/moonoutpost19/mo19research)
+"ix" = (
+/obj/structure/toilet/directional/west,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/moonoutpost19/mo19arrivals)
 "iy" = (
 /obj/machinery/door/airlock{
 	name = "Unit 1"
@@ -3267,6 +4329,13 @@
 /area/moonoutpost19/mo19arrivals)
 "iA" = (
 /obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/moonoutpost19/mo19arrivals)
+"iB" = (
+/obj/machinery/shower/directional/east,
+/obj/item/bikehorn/rubberducky,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -3306,6 +4375,15 @@
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall"
+	},
+/area/moonoutpost19/mo19research)
+"iH" = (
+/obj/structure/sink/directional/north,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
 	},
 /area/moonoutpost19/mo19research)
 "iI" = (
@@ -3350,6 +4428,55 @@
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19utilityroom)
+"iM" = (
+/obj/structure/sign/securearea{
+	pixel_y = 32
+	},
+/obj/machinery/shower/directional/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/moonoutpost19/mo19research)
+"iN" = (
+/obj/structure/closet/firecloset,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/moonoutpost19/mo19research)
+"iO" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/table,
+/obj/machinery/computer/id_upgrader,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/moonoutpost19/mo19research)
+"iP" = (
+/obj/machinery/light/small,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/moonoutpost19/mo19research)
+"iQ" = (
+/obj/machinery/shower/directional/south,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/moonoutpost19/mo19arrivals)
 "iR" = (
 /obj/structure/chair{
 	dir = 1
@@ -3420,11 +4547,40 @@
 	icon_state = "cafeteria"
 	},
 /area/moonoutpost19/mo19arrivals)
+"ja" = (
+/obj/structure/toilet/directional/south,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/moonoutpost19/mo19research)
 "jb" = (
 /obj/item/stack/rods,
 /obj/item/shard,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/moonoutpost19/khonsu19)
+"jc" = (
+/obj/structure/table,
+/obj/item/storage/secure/briefcase,
+/obj/item/taperecorder{
+	pixel_x = -3
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/moonoutpost19/mo19research)
+"jd" = (
+/obj/structure/sink/directional/west,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/moonoutpost19/mo19research)
 "je" = (
 /obj/machinery/vending/snack,
 /obj/structure/sign/poster/official/ue_no{
@@ -3484,6 +4640,16 @@
 /obj/structure/chair/stool,
 /turf/simulated/floor/carpet,
 /area/moonoutpost19/mo19arrivals)
+"jn" = (
+/obj/structure/closet/emcloset,
+/obj/machinery/light/small,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/moonoutpost19/mo19research)
 "jo" = (
 /obj/effect/decal/cleanable/flour,
 /turf/simulated/floor/plasteel{
@@ -4039,6 +5205,18 @@
 	icon_state = "purple"
 	},
 /area/moonoutpost19/mo19arrivals)
+"kD" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/apc/noalarm/directional/north{
+	cell_type = 15000;
+	locked = 0;
+	req_access = list();
+	start_charge = 100
+	},
+/turf/simulated/floor/plasteel,
+/area/moonoutpost19/mo19arrivals)
 "kE" = (
 /turf/simulated/floor/plating/airless{
 	name = "plating"
@@ -4407,6 +5585,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/moonoutpost19/mo19arrivals)
+"lw" = (
+/obj/structure/sink/kitchen/directional/north,
+/turf/simulated/floor/plasteel/t0c{
+	icon_state = "showroomfloor"
+	},
+/area/moonoutpost19/mo19arrivals)
 "lx" = (
 /turf/simulated/floor/plasteel/t0c{
 	icon_state = "showroomfloor"
@@ -4427,13 +5611,6 @@
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
 /turf/simulated/floor/shuttle/plating,
-/area/moonoutpost19/mo19arrivals)
-"lC" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
 /area/moonoutpost19/mo19arrivals)
 "lE" = (
 /obj/effect/decal/cleanable/dirt,
@@ -5080,6 +6257,15 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19arrivals)
+"nr" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 2
+	},
+/turf/simulated/floor/plasteel,
+/area/moonoutpost19/mo19arrivals)
 "ns" = (
 /obj/structure/table,
 /obj/item/deck/cards,
@@ -5096,6 +6282,12 @@
 /obj/structure/grille/broken,
 /obj/item/stack/rods,
 /turf/simulated/floor/plating,
+/area/moonoutpost19/mo19arrivals)
+"nv" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
 /area/moonoutpost19/mo19arrivals)
 "nx" = (
 /obj/machinery/light/small{
@@ -5171,6 +6363,28 @@
 	name = "floor"
 	},
 /area/moonoutpost19/mo19arrivals)
+"nF" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 2
+	},
+/turf/simulated/floor/plasteel,
+/area/moonoutpost19/mo19arrivals)
+"nG" = (
+/obj/structure/table,
+/obj/item/storage/fancy/cigarettes/dromedaryco,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/moonoutpost19/mo19arrivals)
+"nH" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/moonoutpost19/mo19arrivals)
 "nI" = (
 /obj/structure/bed,
 /obj/item/bedsheet,
@@ -5198,6 +6412,14 @@
 /turf/simulated/floor/carpet{
 	germ_level = 20
 	},
+/area/moonoutpost19/mo19arrivals)
+"nK" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
 /area/moonoutpost19/mo19arrivals)
 "nL" = (
 /obj/structure/sign/vacuum{
@@ -5284,6 +6506,30 @@
 /obj/structure/disposalpipe/segment,
 /obj/structure/window/full/reinforced,
 /turf/simulated/floor/plating,
+/area/moonoutpost19/mo19arrivals)
+"nX" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/noticeboard{
+	dir = 8;
+	pixel_x = 32
+	},
+/obj/item/paper{
+	info = "<p><p align=center><h2>Welcome to Moon Outpost 19! Property of Nanotrasen Inc.</h2></p><hr><h3>Staff Roster:</h3><ul><li>Dr. Gerald Rosswell: Research Director & Acting Captain</li><li>Dr. Sakuma Sano: Xenobiologist</li><li>Dr. Mark Douglas: Xenobiologist</li><li>Kenneth Cunningham: Security Officer</li><li>Ivan Volodin: Engineer</li><li>Mathias Kuester: Bartender</li><li>Sven Edling: Chef</li><li>Steve: Assistant</li></ul><br>Please enjoy your stay, and report any abnormalities to an officer.";
+	name = "Welcome Notice"
+	},
+/obj/machinery/camera{
+	c_tag = "Arrivals South";
+	dir = 8;
+	network = list("MO19")
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
 /area/moonoutpost19/mo19arrivals)
 "nY" = (
 /obj/machinery/light/small{
@@ -5405,6 +6651,16 @@
 /obj/item/clothing/gloves/color/red/insulated,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/moonoutpost19/hive)
+"oo" = (
+/obj/machinery/atmospherics/unary/vent_pump{
+	dir = 1;
+	on = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/moonoutpost19/mo19arrivals)
 "op" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -5441,9 +6697,38 @@
 	icon_state = "cafeteria"
 	},
 /area/moonoutpost19/mo19arrivals)
+"ot" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/firedoor,
+/obj/item/rag{
+	pixel_y = 5
+	},
+/obj/machinery/door/poddoor/shutters{
+	dir = 8;
+	id_tag = "awaykitchen";
+	name = "Serving Hatch"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/carpet,
+/area/moonoutpost19/mo19arrivals)
 "ou" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel,
+/area/moonoutpost19/mo19arrivals)
+"ov" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/moonoutpost19/mo19arrivals)
+"ow" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/moonoutpost19/mo19arrivals)
 "ox" = (
@@ -5639,25 +6924,6 @@
 	name = "floor"
 	},
 /area/moonoutpost19/mo19arrivals)
-"oS" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/structure/disposalpipe/segment{
-	desc = "An underfloor disposal pipe. This one has been applied with an acid-proof coating.";
-	dir = 4;
-	name = "Acid-Proof disposal pipe"
-	},
-/obj/machinery/door/poddoor/preopen{
-	desc = "A heavy duty blast door that opens mechanically. This one has been applied with an acid-proof coating.";
-	id_tag = "Awaylab";
-	name = "Acid-Proof containment chamber blast door"
-	},
-/obj/structure/cable,
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
-/turf/simulated/floor/plating,
-/area/moonoutpost19/mo19research)
 "oT" = (
 /obj/machinery/atmospherics/binary/valve,
 /turf/simulated/floor/plating,
@@ -5737,275 +7003,11 @@
 	germ_level = 20
 	},
 /area/moonoutpost19/mo19arrivals)
-"pD" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 1;
-	on = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/moonoutpost19/mo19arrivals)
-"pJ" = (
-/obj/machinery/gateway,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
-/area/moonoutpost19/syndicateoutpost)
-"pP" = (
-/obj/machinery/conveyor_switch/oneway{
-	id = "awaysyndie";
-	layer = 3.1;
-	name = "mining conveyor"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
-/turf/simulated/floor/plasteel/airless{
-	name = "floor"
-	},
-/area/moonoutpost19/syndicateoutpost)
-"pS" = (
-/obj/structure/alien/weeds/node,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel/airless{
-	name = "floor"
-	},
-/area/moonoutpost19/syndicateoutpost)
-"qv" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/moonoutpost19/mo19arrivals)
-"qG" = (
-/obj/machinery/mineral/stacking_machine{
-	dir = 1;
-	input_dir = 1;
-	output_dir = 2
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/conveyor{
-	id = "awaysyndie"
-	},
-/turf/simulated/floor/plating,
-/area/moonoutpost19/syndicateoutpost)
-"qY" = (
-/obj/structure/cable,
-/obj/machinery/door/poddoor/preopen{
-	desc = "A heavy duty blast door that opens mechanically. This one has been applied with an acid-proof coating.";
-	id_tag = "Awaylab";
-	name = "Acid-Proof containment chamber blast door"
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
-/turf/simulated/floor/plating,
-/area/moonoutpost19/mo19research)
-"qZ" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/machinery/power/apc/noalarm/directional/north{
-	cell_type = 15000;
-	locked = 0;
-	req_access = list();
-	start_charge = 100
-	},
-/turf/simulated/floor/plasteel,
-/area/moonoutpost19/mo19arrivals)
-"rA" = (
-/obj/structure/closet/crate,
-/obj/item/stack/sheet/glass{
-	amount = 10
-	},
-/obj/structure/alien/weeds,
-/obj/effect/turf_decal/delivery/hollow,
-/turf/simulated/floor/plasteel/airless{
-	name = "floor"
-	},
-/area/moonoutpost19/syndicateoutpost)
-"rH" = (
-/obj/structure/table,
-/obj/item/mmi,
-/obj/item/mmi,
-/obj/item/mmi,
-/obj/structure/alien/weeds,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/moonoutpost19/mo19research)
-"rN" = (
-/obj/machinery/portable_atmospherics/canister/air,
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/turf/simulated/floor/plating,
-/area/moonoutpost19/syndicateoutpost)
-"sg" = (
-/obj/machinery/conveyor{
-	id = "awaysyndie"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/moonoutpost19/syndicateoutpost)
-"sP" = (
-/obj/structure/rack,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/item/circuitboard/teleporter,
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/moonoutpost19/mo19research)
-"tq" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/structure/grille,
-/obj/machinery/door/poddoor/preopen{
-	desc = "A heavy duty blast door that opens mechanically. This one has been applied with an acid-proof coating.";
-	id_tag = "Awaylab";
-	name = "Acid-Proof containment chamber blast door"
-	},
-/obj/item/stack/cable_coil/cut{
-	amount = 1;
-	icon_state = "coil_red1";
-	item_state = "coil_red1"
-	},
-/turf/simulated/floor/plating,
-/area/moonoutpost19/mo19research)
-"ue" = (
-/obj/structure/closet/crate,
-/obj/item/stack/sheet/metal{
-	amount = 12
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
-/obj/effect/turf_decal/delivery/hollow,
-/turf/simulated/floor/plasteel/airless{
-	name = "floor"
-	},
-/area/moonoutpost19/syndicateoutpost)
-"up" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor{
-	desc = "A heavy duty blast door that opens mechanically. This one has been applied with an acid-proof coating.";
-	id_tag = "Awaybiohazard";
-	name = "Acid-Proof biohazard containment door"
-	},
-/obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitepurplecorner"
-	},
-/area/moonoutpost19/mo19research)
-"us" = (
-/obj/machinery/shower/directional/east,
-/obj/item/bikehorn/rubberducky,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/moonoutpost19/mo19arrivals)
-"uA" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor{
-	desc = "A heavy duty blast door that opens mechanically. This one has been applied with an acid-proof coating.";
-	id_tag = "Awaybiohazard";
-	name = "Acid-Proof biohazard containment door"
-	},
-/obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurplecorner"
-	},
-/area/moonoutpost19/mo19research)
-"uC" = (
-/obj/structure/cable,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/machinery/door/poddoor/preopen{
-	desc = "A heavy duty blast door that opens mechanically. This one has been applied with an acid-proof coating.";
-	id_tag = "Awaylab";
-	name = "Acid-Proof containment chamber blast door"
-	},
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
-/turf/simulated/floor/plating,
-/area/moonoutpost19/mo19research)
-"uD" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
-/turf/simulated/floor/plasteel/airless{
-	name = "floor"
-	},
-/area/moonoutpost19/syndicateoutpost)
-"uK" = (
-/obj/machinery/power/terminal{
-	dir = 1
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/moonoutpost19/syndicateoutpost)
-"uU" = (
-/obj/machinery/power/port_gen/pacman{
-	desc = "A portable generator for emergency backup power.";
-	name = "P.A.C.M.A.N.-type portable generator"
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/turf/simulated/floor/plating,
-/area/moonoutpost19/mo19utilityroom)
-"vp" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
-/turf/simulated/floor/plasteel/airless{
-	name = "floor"
-	},
-/area/moonoutpost19/syndicateoutpost)
+"tv" = (
+/obj/item/flashlight/lantern/on,
+/obj/effect/decal/cleanable/blood/splatter,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/moonoutpost19/khonsu19)
 "vO" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 1;
@@ -6016,805 +7018,7 @@
 	germ_level = 20
 	},
 /area/moonoutpost19/mo19arrivals)
-"wb" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/table,
-/obj/machinery/recharger{
-	pixel_y = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
-/turf/simulated/floor/plasteel,
-/area/moonoutpost19/syndicateoutpost)
-"wN" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	desc = "A one meter section of pipe. This one has been applied with an acid-proof coating.";
-	dir = 4;
-	name = "Acid-Proof Pipe"
-	},
-/obj/item/stack/rods,
-/obj/item/stack/cable_coil{
-	amount = 5
-	},
-/obj/item/shard{
-	icon_state = "small"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/moonoutpost19/mo19research)
-"wU" = (
-/obj/structure/sign/biohazard{
-	pixel_y = 32
-	},
-/obj/structure/alien/weeds/node,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel/airless{
-	name = "floor"
-	},
-/area/moonoutpost19/syndicateoutpost)
-"xx" = (
-/obj/structure/chair{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 2
-	},
-/turf/simulated/floor/plasteel,
-/area/moonoutpost19/mo19arrivals)
-"xS" = (
-/obj/structure/table,
-/obj/item/storage/secure/briefcase,
-/obj/item/taperecorder{
-	pixel_x = -3
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/moonoutpost19/mo19research)
-"yC" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/table,
-/obj/machinery/cell_charger,
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/item/stock_parts/cell/high,
-/obj/item/paper{
-	info = "Alright, listen up. If you're reading this, I'm either taking a shit or I've been recalled back to Command. Either way, you'll need to know how to restore power. We've stolen this stuff from Nanotrasen, so all the equipment is jury-rigged. We have generators that work on both plasma and uranium, about 50 sheets should power the outpost for quite a while. If the generators aren't working, which is very likely, take the power cell on the desk and put it into the APC in the hallway. That should get the place running, at least for a little while.";
-	name = "Engineering Instructions"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
-/area/moonoutpost19/syndicateoutpost)
-"zd" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/moonoutpost19/mo19arrivals)
-"zj" = (
-/obj/machinery/shower/directional/north,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/moonoutpost19/mo19arrivals)
-"zk" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/moonoutpost19/syndicateoutpost)
-"zL" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
-/obj/structure/sign/poster/contraband/syndicate_recruitment{
-	pixel_y = 32
-	},
-/obj/effect/turf_decal/delivery/partial{
-	dir = 8
-	},
-/obj/effect/turf_decal/arrows/black{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel/airless{
-	name = "floor"
-	},
-/area/moonoutpost19/syndicateoutpost)
-"Aq" = (
-/obj/structure/cable,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/port_gen/pacman/super{
-	desc = "A portable generator for emergency backup power.";
-	name = "S.U.P.E.R.P.A.C.M.A.N.-type portable generator"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
-/turf/simulated/floor/plating,
-/area/moonoutpost19/syndicateoutpost)
-"AE" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/moonoutpost19/mo19research)
-"AT" = (
-/obj/structure/cable,
-/obj/machinery/power/port_gen/pacman{
-	desc = "A portable generator for emergency backup power.";
-	name = "P.A.C.M.A.N.-type portable generator"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
-/turf/simulated/floor/plating,
-/area/moonoutpost19/syndicateoutpost)
-"Bg" = (
-/obj/structure/sink/directional/west,
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/moonoutpost19/mo19research)
-"CM" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door_control{
-	id = "Awaylab";
-	name = "Containment Chamber Blast Doors";
-	pixel_x = 4;
-	pixel_y = -2;
-	req_access = list(201)
-	},
-/obj/machinery/ignition_switch{
-	id = "awayxenobio";
-	pixel_x = 4;
-	pixel_y = 8
-	},
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/moonoutpost19/mo19research)
-"CT" = (
-/obj/structure/table/reinforced,
-/obj/structure/alien/weeds,
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the contents of the xenobiology containment pen.";
-	dir = 8;
-	name = "xenobiology monitor";
-	network = list("MO19X")
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/moonoutpost19/mo19research)
-"Dx" = (
-/obj/structure/dispenser/oxygen{
-	starting_oxygen_tanks = 9
-	},
-/obj/machinery/light/small{
-	active_power_usage = 0;
-	dir = 1;
-	icon_state = "bulb-broken";
-	status = 2
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/turf/simulated/floor/plating/airless{
-	name = "plating"
-	},
-/area/moonoutpost19/syndicateoutpost)
-"DQ" = (
-/obj/item/storage/box/lights/mixed,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/turf/simulated/floor/plating,
-/area/moonoutpost19/syndicateoutpost)
-"Ea" = (
-/obj/machinery/power/terminal{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/machinery/alarm/all_access/directional/north,
-/turf/simulated/floor/plating,
-/area/moonoutpost19/mo19utilityroom)
-"Ej" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/structure/sign/poster/contraband/hacking_guide{
-	pixel_x = 32
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/moonoutpost19/syndicateoutpost)
-"En" = (
-/obj/machinery/power/port_gen/pacman/super{
-	desc = "A portable generator for emergency backup power.";
-	name = "S.U.P.E.R.P.A.C.M.A.N.-type portable generator"
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/plating,
-/area/moonoutpost19/mo19utilityroom)
-"Ex" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/table,
-/obj/machinery/computer/id_upgrader,
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/moonoutpost19/mo19research)
-"EW" = (
-/obj/structure/sink/directional/east,
-/obj/structure/urinal{
-	pixel_y = 29
-	},
-/obj/structure/mirror{
-	pixel_x = 28
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/moonoutpost19/mo19arrivals)
-"Fi" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/table,
-/obj/item/radio/off{
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/item/radio/off{
-	pixel_x = 2
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
-/turf/simulated/floor/plasteel,
-/area/moonoutpost19/syndicateoutpost)
-"Fz" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/moonoutpost19/mo19arrivals)
-"FI" = (
-/obj/structure/toilet/directional/west,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/moonoutpost19/mo19arrivals)
-"FL" = (
-/obj/structure/rack,
-/obj/item/clothing/suit/space/syndicate/orange,
-/obj/item/clothing/mask/gas,
-/obj/item/pickaxe/drill,
-/obj/item/clothing/head/helmet/space/syndicate/orange,
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/turf/simulated/floor/plating/airless{
-	name = "plating"
-	},
-/area/moonoutpost19/syndicateoutpost)
-"FN" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
-/turf/simulated/floor/plasteel/airless{
-	name = "floor"
-	},
-/area/moonoutpost19/syndicateoutpost)
-"FX" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/machinery/computer/monitor,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/turf/simulated/floor/plating,
-/area/moonoutpost19/syndicateoutpost)
-"Gm" = (
-/obj/structure/sign/securearea{
-	pixel_y = 32
-	},
-/obj/machinery/shower/directional/west,
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/moonoutpost19/mo19research)
-"Go" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/moonoutpost19/mo19research)
-"Gr" = (
-/obj/structure/sink/directional/east,
-/obj/structure/mirror{
-	broken = 1;
-	desc = "Oh no, seven years of bad luck!";
-	icon_state = "mirror_broke";
-	pixel_x = 28
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/moonoutpost19/mo19arrivals)
-"Gs" = (
-/obj/structure/table,
-/obj/item/storage/fancy/cigarettes/dromedaryco,
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/turf/simulated/floor/plasteel,
-/area/moonoutpost19/mo19arrivals)
-"GW" = (
-/obj/structure/alien/weeds/node,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/moonoutpost19/mo19research)
-"HO" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/table,
-/obj/item/paper_bin{
-	pixel_x = 1;
-	pixel_y = 9
-	},
-/obj/item/pen,
-/obj/item/paper{
-	info = "Log 1:<br>We got our promised supply drop today. We were only meant to get it, what, a week ago? This bloody gateway keeps desyncing itself, and that means subsisting off recycled water and carb packs. No clue where the damn thing connects to on its off days, and HQ say we are 'not to touch it if it isn't linking to command.' We dumped off the assload of crates Jim filled, got our boxes of oxygen, food and drink, and closed the portal.<br><br>Log 2:<br>Damn thing is acting up again. Three days no contact this time. I thought I heard clanking noises from it yesterday. Jim is going on about the NT base or some shit. We've been over this before &ndash; They don't know we're here, that engineer was too drunk to recognise his suit, especially since I had it painted orange. He's starting to get annoying. We're safe.<br><br>Log 3:<br>Gateway synced itself up automatically today. I opened it for an instant to spy through it, got a glimpse of the inside of a transport container. Either HQ's redecorating or something, or there's more than two of these things.";
-	name = "Personal Log"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/turf/simulated/floor/plasteel,
-/area/moonoutpost19/syndicateoutpost)
-"Ij" = (
-/obj/structure/table,
-/obj/item/scalpel{
-	pixel_y = 12
-	},
-/obj/item/circular_saw,
-/obj/item/razor{
-	pixel_y = 5
-	},
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/moonoutpost19/mo19research)
-"IP" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 2
-	},
-/turf/simulated/floor/plasteel,
-/area/moonoutpost19/mo19arrivals)
-"IT" = (
-/obj/machinery/shower/directional/east,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/moonoutpost19/mo19arrivals)
-"IV" = (
-/obj/machinery/space_heater,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/moonoutpost19/syndicateoutpost)
-"Jm" = (
-/obj/structure/toilet/directional/west,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/moonoutpost19/mo19arrivals)
-"Jr" = (
-/obj/effect/mapping_helpers/turfs/damage,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	germ_level = 20
-	},
-/area/moonoutpost19/mo19arrivals)
-"Ju" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/machinery/power/smes{
-	charge = 1.5e+006;
-	input_level = 10000;
-	inputting = 0;
-	output_level = 200000;
-	outputting = 0
-	},
-/turf/simulated/floor/plating,
-/area/moonoutpost19/mo19utilityroom)
-"JK" = (
-/obj/machinery/portable_atmospherics/canister/air,
-/obj/machinery/alarm/monitor/directional/north{
-	req_access = list(150)
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/turf/simulated/floor/plating,
-/area/moonoutpost19/syndicateoutpost)
-"Ka" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/closet/l3closet/scientist,
-/obj/structure/alien/weeds,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/moonoutpost19/mo19research)
-"Kt" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/moonoutpost19/mo19research)
-"Kz" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/moonoutpost19/mo19research)
-"Lh" = (
-/obj/structure/toilet/directional/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/moonoutpost19/syndicateoutpost)
-"LX" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/machinery/door/poddoor/preopen{
-	desc = "A heavy duty blast door that opens mechanically. This one has been applied with an acid-proof coating.";
-	id_tag = "Awaylab";
-	name = "Acid-Proof containment chamber blast door"
-	},
-/obj/structure/cable,
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
-/turf/simulated/floor/plating,
-/area/moonoutpost19/mo19research)
-"Me" = (
-/obj/machinery/light/small{
-	active_power_usage = 0;
-	dir = 4;
-	icon_state = "bulb-broken";
-	status = 2
-	},
-/turf/simulated/floor/carpet{
-	germ_level = 20
-	},
-/area/moonoutpost19/mo19arrivals)
-"Mi" = (
-/obj/structure/table/reinforced,
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
-/obj/item/paper_bin{
-	pixel_x = 1;
-	pixel_y = 9
-	},
-/obj/item/pen,
-/obj/item/radio/off,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/moonoutpost19/mo19research)
-"Mn" = (
-/obj/machinery/power/smes{
-	input_level = 10000;
-	inputting = 0;
-	output_level = 15000;
-	outputting = 0
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plating,
-/area/moonoutpost19/syndicateoutpost)
-"MP" = (
-/obj/machinery/shower/directional/north,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/moonoutpost19/mo19arrivals)
-"Nq" = (
-/obj/item/storage/secure/safe{
-	pixel_x = 32
-	},
-/obj/effect/decal/cleanable/blood/splatter,
-/obj/item/pen,
-/obj/item/paper/crumpled{
-	info = "<i>19 06 2554</i><br><br><i>I fucking knew it. There was a major breach, that idiotic force field failed, and the xenomorphs rushed out and took out the scientists. I've managed to make it to my office and closed the blast doors. I can hear them trying to pry open the doors. Probably don't have long. I have no clue what has happened to the rest of the crew, for all I know they've been killed to produce more of the fucks.</i>";
-	name = "Hastily Written Note"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/moonoutpost19/mo19research)
-"NU" = (
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/machinery/shieldwallgen{
-	locked = 0;
-	req_access = null
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/turf/simulated/floor/plating,
-/area/moonoutpost19/mo19research)
-"Ob" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	germ_level = 20
-	},
-/area/moonoutpost19/mo19arrivals)
-"Ov" = (
-/obj/structure/sign/securearea{
-	pixel_y = 32
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
-/turf/simulated/floor/plasteel/airless{
-	name = "floor"
-	},
-/area/moonoutpost19/syndicateoutpost)
-"Ps" = (
-/obj/machinery/light/small,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/moonoutpost19/mo19research)
-"PK" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/door/firedoor,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
-/turf/simulated/floor/plasteel,
-/area/moonoutpost19/mo19research)
-"Qp" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
-/turf/simulated/floor/plasteel/airless{
-	name = "floor"
-	},
-/area/moonoutpost19/syndicateoutpost)
-"QQ" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/moonoutpost19/mo19research)
-"QY" = (
-/obj/structure/sink/directional/west,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/moonoutpost19/mo19research)
-"Re" = (
-/obj/structure/toilet/directional/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/moonoutpost19/mo19research)
-"RJ" = (
-/obj/machinery/door/firedoor,
-/obj/structure/extinguisher_cabinet/directional/south,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
-/turf/simulated/floor/plasteel,
-/area/moonoutpost19/mo19research)
-"RR" = (
-/obj/machinery/door/window{
-	dir = 1;
-	name = "Gateway Access";
-	req_access = list(150)
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/moonoutpost19/syndicateoutpost)
-"RV" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/moonoutpost19/mo19research)
-"Sh" = (
-/obj/structure/sink/directional/north,
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/moonoutpost19/mo19research)
-"SC" = (
-/obj/machinery/portable_atmospherics/scrubber,
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/turf/simulated/floor/plating,
-/area/moonoutpost19/syndicateoutpost)
-"Tf" = (
-/obj/structure/sink/kitchen/directional/north,
-/turf/simulated/floor/plasteel/t0c{
-	icon_state = "showroomfloor"
-	},
-/area/moonoutpost19/mo19arrivals)
-"Tl" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/table,
-/obj/item/storage/firstaid/regular,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/turf/simulated/floor/plasteel,
-/area/moonoutpost19/syndicateoutpost)
-"TI" = (
+"BN" = (
 /obj/structure/alien/weeds,
 /obj/structure/bed/nest,
 /obj/item/clothing/mask/facehugger{
@@ -6829,256 +7033,49 @@
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/moonoutpost19/hive)
-"TO" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/moonoutpost19/mo19research)
-"TR" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
-/turf/simulated/floor/plasteel/airless{
-	name = "floor"
-	},
-/area/moonoutpost19/syndicateoutpost)
-"Ub" = (
-/obj/structure/rack,
-/obj/item/paicard{
-	pixel_x = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/moonoutpost19/mo19research)
-"Ud" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/noticeboard{
-	dir = 8;
-	pixel_x = 32
-	},
-/obj/item/paper{
-	info = "<p><p align=center><h2>Welcome to Moon Outpost 19! Property of Nanotrasen Inc.</h2></p><hr><h3>Staff Roster:</h3><ul><li>Dr. Gerald Rosswell: Research Director & Acting Captain</li><li>Dr. Sakuma Sano: Xenobiologist</li><li>Dr. Mark Douglas: Xenobiologist</li><li>Kenneth Cunningham: Security Officer</li><li>Ivan Volodin: Engineer</li><li>Mathias Kuester: Bartender</li><li>Sven Edling: Chef</li><li>Steve: Assistant</li></ul><br>Please enjoy your stay, and report any abnormalities to an officer.";
-	name = "Welcome Notice"
-	},
-/obj/machinery/camera{
-	c_tag = "Arrivals South";
-	dir = 8;
-	network = list("MO19")
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/moonoutpost19/mo19arrivals)
-"UI" = (
-/obj/machinery/mineral/processing_unit{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/conveyor{
-	id = "awaysyndie"
-	},
-/turf/simulated/floor/plating,
-/area/moonoutpost19/syndicateoutpost)
-"UZ" = (
-/obj/structure/closet/emcloset,
-/obj/machinery/light/small,
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/moonoutpost19/mo19research)
-"Vd" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
-/obj/effect/turf_decal/delivery/partial,
-/obj/effect/turf_decal/arrows/black,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel/airless{
-	name = "floor"
-	},
-/area/moonoutpost19/syndicateoutpost)
-"Vn" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/table,
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -2;
-	pixel_y = -1
-	},
-/obj/item/clothing/gloves/color/yellow,
-/obj/item/multitool,
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/turf/simulated/floor/plating,
-/area/moonoutpost19/syndicateoutpost)
-"Vv" = (
-/obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk{
-	desc = "An underfloor disposal pipe. This one has been applied with an acid-proof coating.";
-	dir = 4;
-	name = "Acid-Proof disposal pipe"
-	},
-/obj/structure/alien/weeds,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/moonoutpost19/mo19research)
-"Xn" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
-/turf/simulated/floor/plasteel/airless{
-	name = "floor"
-	},
-/area/moonoutpost19/syndicateoutpost)
-"Xr" = (
-/obj/structure/sink/directional/north,
-/obj/machinery/light/small{
-	dir = 8
-	},
+"Jr" = (
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/moonoutpost19/syndicateoutpost)
-"Xv" = (
-/obj/machinery/shower/directional/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
+	germ_level = 20
 	},
 /area/moonoutpost19/mo19arrivals)
-"Xy" = (
-/obj/structure/closet/firecloset,
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/moonoutpost19/mo19research)
-"XE" = (
-/obj/structure/rack,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/turf/simulated/floor/plating/airless{
-	name = "plating"
-	},
-/area/moonoutpost19/syndicateoutpost)
-"XI" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/firedoor,
-/obj/item/rag{
-	pixel_y = 5
-	},
-/obj/machinery/door/poddoor/shutters{
-	dir = 8;
-	id_tag = "awaykitchen";
-	name = "Serving Hatch"
-	},
+"Kt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/carpet,
-/area/moonoutpost19/mo19arrivals)
-"YK" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/moonoutpost19/mo19arrivals)
-"Zf" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor{
-	desc = "A heavy duty blast door that opens mechanically. This one has been applied with an acid-proof coating.";
-	id_tag = "Awaybiohazard";
-	name = "Acid-Proof biohazard containment door"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/moonoutpost19/mo19research)
-"Zn" = (
-/obj/structure/closet/l3closet/scientist,
-/obj/structure/window/reinforced,
-/obj/structure/alien/weeds{
-	icon_state = "weeds1"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/moonoutpost19/mo19research)
-"Zp" = (
-/obj/machinery/door/firedoor,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /obj/structure/alien/weeds{
 	icon_state = "weeds2"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
 /area/moonoutpost19/mo19research)
-"Zy" = (
-/obj/structure/sign/vacuum{
-	desc = "A warning sign which reads 'HOSTILE ATMOSPHERE AHEAD'";
-	name = "HOSTILE ATMOSPHERE AHEAD";
-	pixel_y = -32
+"Me" = (
+/obj/machinery/light/small{
+	active_power_usage = 0;
+	dir = 4;
+	icon_state = "bulb-broken";
+	status = 2
 	},
-/obj/machinery/portable_atmospherics/canister/oxygen,
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
+/turf/simulated/floor/carpet{
+	germ_level = 20
 	},
-/turf/simulated/floor/plating/airless{
-	name = "plating"
+/area/moonoutpost19/mo19arrivals)
+"Ob" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	germ_level = 20
 	},
-/area/moonoutpost19/syndicateoutpost)
+/area/moonoutpost19/mo19arrivals)
+"RV" = (
+/obj/structure/alien/weeds{
+	icon_state = "weeds2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/moonoutpost19/mo19research)
 
 (1,1,1) = {"
 aa
@@ -8803,7 +8800,7 @@ ab
 ab
 ab
 ad
-TI
+BN
 aw
 aq
 ao
@@ -11008,7 +11005,7 @@ ab
 ab
 ab
 eT
-uU
+eY
 fx
 fS
 ga
@@ -11122,7 +11119,7 @@ ab
 ab
 ab
 eU
-En
+dp
 fy
 fY
 gL
@@ -11135,8 +11132,8 @@ fa
 fO
 hM
 fP
-Sh
-Re
+iH
+ja
 fP
 gi
 eU
@@ -11350,7 +11347,7 @@ ab
 ab
 ab
 eU
-Ea
+fc
 fN
 ga
 ff
@@ -11464,7 +11461,7 @@ ab
 ab
 ab
 eT
-Ju
+fb
 fa
 fZ
 gP
@@ -11931,9 +11928,9 @@ fX
 jA
 gT
 hx
-sP
-Kz
-Ex
+ie
+iv
+iO
 dZ
 jI
 kW
@@ -12045,9 +12042,9 @@ fX
 jA
 gT
 hx
-Ub
+ip
 iu
-Ps
+iP
 ea
 jU
 kA
@@ -12159,9 +12156,9 @@ fX
 jA
 gT
 hx
-QQ
-Nq
-xS
+it
+iw
+jc
 ea
 je
 kF
@@ -12386,23 +12383,23 @@ gT
 gT
 gC
 fl
-up
+hO
 ea
-Gm
-QY
+iM
+jd
 eJ
 jy
 lJ
 ky
 kO
 lg
-qv
-qv
-qv
+nv
+nv
+nv
 jH
-qv
-qv
-zd
+nv
+nv
+ow
 mO
 nB
 nL
@@ -12500,7 +12497,7 @@ if
 if
 jP
 jZ
-Zf
+ic
 ki
 if
 if
@@ -12510,13 +12507,13 @@ mo
 ou
 oy
 na
-IP
-lC
-YK
-Ud
-pD
-Fz
-Fz
+nF
+nH
+nK
+nX
+oo
+ov
+ov
 mO
 lP
 lO
@@ -12614,17 +12611,17 @@ hX
 iq
 jJ
 hw
-uA
+id
 ea
-Xy
-UZ
+iN
+jn
 eJ
 jz
 mn
 jF
 mS
-xx
-Gs
+nr
+nG
 is
 is
 hJ
@@ -12721,7 +12718,7 @@ ea
 fh
 fz
 gy
-Ij
+gr
 hr
 dZ
 ea
@@ -12835,7 +12832,7 @@ ea
 fv
 fz
 gy
-GW
+gs
 RV
 gV
 ea
@@ -12949,7 +12946,7 @@ dZ
 fj
 fA
 gB
-TO
+gu
 RV
 gZ
 dZ
@@ -13063,7 +13060,7 @@ ea
 fi
 fA
 gb
-rH
+gA
 gJ
 gW
 ea
@@ -13174,9 +13171,9 @@ ea
 eh
 ew
 eJ
-Zp
-PK
-RJ
+fk
+fB
+gp
 eK
 eJ
 eK
@@ -13291,7 +13288,7 @@ eN
 RV
 fC
 Kt
-Bg
+gt
 gK
 gX
 ea
@@ -13513,15 +13510,15 @@ ab
 ab
 ab
 ea
-Go
-CT
-CM
-Zn
-wN
-Ka
-Vv
-Mi
-AE
+ej
+ey
+eP
+fn
+fE
+gq
+gD
+gM
+ha
 dZ
 dA
 aZ
@@ -13627,14 +13624,14 @@ ab
 ab
 ab
 dZ
-NU
-LX
-LX
-uC
+ek
+ez
+ez
+fo
 fF
-tq
-oS
-qY
+gc
+gv
+gO
 he
 ea
 dA
@@ -13826,16 +13823,16 @@ ab
 ab
 ab
 aT
-Xr
-Lh
+bw
+bF
 aT
-sg
-sg
-UI
-sg
-sg
-qG
-Vd
+bY
+bY
+cC
+bY
+bY
+de
+dm
 aT
 ab
 ab
@@ -13949,7 +13946,7 @@ cD
 cn
 cn
 df
-FN
+dn
 aT
 aT
 aT
@@ -14057,16 +14054,16 @@ bn
 bx
 bH
 aT
-zL
-vp
-Qp
-pP
-pS
-uD
-Xn
+bZ
+cp
+cE
+cQ
+cW
+dg
+dx
 aT
-Dx
-Zy
+dy
+dD
 aT
 dL
 aZ
@@ -14293,8 +14290,8 @@ cV
 cG
 cV
 aT
-FL
-XE
+dC
+eb
 aT
 dA
 aZ
@@ -14403,8 +14400,8 @@ bP
 cq
 cF
 aT
-ue
-rA
+cX
+dl
 cY
 aT
 aT
@@ -14438,9 +14435,9 @@ ea
 ab
 ab
 hJ
-FI
+hQ
 hK
-Jm
+ix
 hK
 jh
 jF
@@ -14557,7 +14554,7 @@ hJ
 iy
 hK
 hJ
-qZ
+kD
 nU
 mz
 kX
@@ -14623,7 +14620,7 @@ aE
 aM
 aU
 be
-Fi
+bq
 bA
 bK
 as
@@ -14737,11 +14734,11 @@ aG
 aO
 aW
 aU
-HO
+br
 bC
 bL
 as
-wU
+ce
 ca
 cK
 cT
@@ -14780,8 +14777,8 @@ ea
 ab
 ab
 hJ
-EW
-Gr
+hT
+il
 im
 im
 hK
@@ -14849,13 +14846,13 @@ as
 ay
 aF
 aN
-pJ
+aV
 bf
-RR
+bs
 bB
 bB
 bQ
-TR
+cf
 ct
 cJ
 aT
@@ -14965,11 +14962,11 @@ aH
 aQ
 aY
 bh
-Tl
+bt
 bE
 bN
 as
-Ov
+ch
 cv
 cH
 cU
@@ -15008,10 +15005,10 @@ dA
 dA
 dA
 hJ
-zj
+hV
 in
 iA
-Xv
+iQ
 hJ
 kg
 lh
@@ -15079,7 +15076,7 @@ aB
 aP
 aX
 bg
-wb
+bu
 bD
 bM
 as
@@ -15122,10 +15119,10 @@ dA
 aZ
 dA
 hJ
-MP
+hU
 im
 im
-Xv
+iQ
 hJ
 jK
 lh
@@ -15237,8 +15234,8 @@ aZ
 aZ
 hJ
 hJ
-IT
-us
+io
+iB
 hJ
 hJ
 jO
@@ -15310,10 +15307,10 @@ ab
 ab
 ab
 as
-Vn
-yC
+bR
+ci
 cw
-DQ
+cM
 as
 ab
 ab
@@ -15424,10 +15421,10 @@ ab
 ab
 ab
 as
-FX
+bT
 ck
 cz
-AT
+cN
 as
 ab
 ab
@@ -15538,10 +15535,10 @@ ab
 ab
 ab
 as
-Mn
-uK
+bS
+cj
 cy
-Aq
+cO
 as
 ab
 ab
@@ -15652,10 +15649,10 @@ ab
 ab
 ab
 as
-JK
-zk
+bU
+cl
 cB
-AT
+cN
 as
 ab
 ab
@@ -15766,10 +15763,10 @@ ab
 ab
 ab
 as
-rN
-Ej
-IV
-SC
+bV
+cm
+cA
+cP
 as
 ab
 ab
@@ -15926,7 +15923,7 @@ hK
 hK
 jq
 jT
-XI
+ot
 jT
 jT
 hK
@@ -16727,7 +16724,7 @@ aZ
 aZ
 aZ
 hJ
-Tf
+lw
 lx
 oK
 hK
@@ -17828,7 +17825,7 @@ ab
 ab
 ab
 dz
-dF
+tv
 dI
 aZ
 aZ

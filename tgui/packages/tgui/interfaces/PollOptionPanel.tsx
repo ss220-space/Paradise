@@ -1,6 +1,6 @@
-import { useBackend } from '../backend';
 import { useState } from 'react';
-import { Box, Button, Section, Input, Table } from '../components';
+import { Box, Button, Input, Section, Table } from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 export type Options = {
@@ -29,7 +29,7 @@ export const PollOptionPanel = (_props: unknown) => {
 
   const [text, set_text] = useState(option.text);
   const [default_percentage_calc, set_default_percentage_calc] = useState(
-    option.default_percentage_calc
+    option.default_percentage_calc,
   );
 
   const [min_val, _set_min_val] = useState(option.min_val);

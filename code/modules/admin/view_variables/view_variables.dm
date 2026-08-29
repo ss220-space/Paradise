@@ -3,14 +3,14 @@
 /// This dmi has null-named icon_state, allowing it to show a sprite on vv editor.
 #define ICON_STATE_NULL 2
 
-ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Variables", datum/thing in world)
+ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Variables", /datum)
+	VERB_ARG_TYPED(thing, VERB_ARG_TYPE_DATUM, VERB_ARG_SOURCE_WORLD, /datum)
 	user.debug_variables(thing)
 
 /client/proc/debug_variables(datum/thing)
 	var/static/cookieoffset = rand(1, 9999) //to force cookies to reset after the round.
 
-	if(!usr.client || !usr.client.holder) //This is usr because admins can call the proc on other clients, even if they're not admins, to show them VVs.
-		to_chat(usr, span_danger("You need to be an administrator to access this."), confidential = TRUE)
+	if(!check_rights(R_ADMIN|R_VIEWRUNTIMES)) //This is usr because admins can call the proc on other clients, even if they're not admins, to show them VVs.
 		return
 
 	if(!thing)

@@ -14,11 +14,7 @@
 	custom_name = newname
 	update_appearance(UPDATE_NAME)
 
-/obj/item/pda/silicon/verb/cmd_send_pdamesg()
-	set category = VERB_CATEGORY_AIIM
-	set name = "Сообщение на КПК"
-	set src in usr
-
+GAME_VERB_SRC_DESC(/obj/item/pda/silicon, cmd_send_pdamesg, usr, "Сообщение на КПК", "Send PDA message", VERB_CATEGORY_AIIM)
 	if(!can_use(usr))
 		return
 	var/datum/data/pda/app/messenger/messenger = find_program(/datum/data/pda/app/messenger)
@@ -32,11 +28,7 @@
 		var/selected = plist[c]
 		messenger.create_message(selected, usr)
 
-/obj/item/pda/silicon/verb/cmd_show_message_log()
-	set category = VERB_CATEGORY_AIIM
-	set name = "Журнал сообщений"
-	set src in usr
-
+GAME_VERB_SRC_DESC(/obj/item/pda/silicon, cmd_show_message_log, usr, "Журнал сообщений", "Show message log", VERB_CATEGORY_AIIM)
 	if(!can_use(usr))
 		return
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
@@ -51,25 +43,16 @@
 	popup.set_content(HTML)
 	popup.open(FALSE)
 
-/obj/item/pda/silicon/verb/cmd_toggle_pda_receiver()
-	set category = VERB_CATEGORY_AIIM
-	set name = "Приём сообщений"
-	set src in usr
-
+GAME_VERB_SRC_DESC(/obj/item/pda/silicon, cmd_toggle_pda_receiver, usr, "Приём сообщений", "Toggle PDA receiver", VERB_CATEGORY_AIIM)
 	if(!can_use(usr))
 		return
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	M.toff = !M.toff
 	to_chat(usr, span_notice("PDA sender/receiver toggled [(M.toff ? "Off" : "On")]!"))
 
-/obj/item/pda/silicon/verb/cmd_toggle_pda_silent()
-	set category = VERB_CATEGORY_AIIM
-	set name = "Беззвучный режим"
-	set src in usr
-
+GAME_VERB_SRC_DESC(/obj/item/pda/silicon, cmd_toggle_pda_silent, usr, "Беззвучный режим", "Toggle silent mode", VERB_CATEGORY_AIIM)
 	if(!can_use(usr))
 		return
-
 	silent = !silent
 	to_chat(usr, span_notice("PDA ringer toggled [(silent ? "Off" : "On")]!"))
 

@@ -119,12 +119,10 @@
 
 	parrot_sleep_dur = parrot_sleep_max //In case someone decides to change the max without changing the duration var
 
-	verbs.Add(
-		/mob/living/simple_animal/parrot/proc/steal_from_ground, \
-		/mob/living/simple_animal/parrot/proc/steal_from_mob, \
-		/mob/living/simple_animal/parrot/verb/drop_held_item_player, \
-		/mob/living/simple_animal/parrot/proc/perch_player
-	)
+	ASSIGN_GAME_VERB(src, /mob/living/simple_animal/parrot, steal_from_ground)
+	ASSIGN_GAME_VERB(src, /mob/living/simple_animal/parrot, steal_from_mob)
+	ASSIGN_GAME_VERB(src, /mob/living/simple_animal/parrot, drop_held_item_player)
+	ASSIGN_GAME_VERB(src, /mob/living/simple_animal/parrot, perch_player)
 
 	desired_perches = typecacheof(list( \
 		/obj/structure/computerframe, /obj/structure/displaycase, \
@@ -531,10 +529,7 @@
 /*
  * Verbs - These are actually procs, but can be used as verbs by player-controlled parrots.
  */
-/mob/living/simple_animal/parrot/proc/steal_from_ground()
-	set name = "Схватить предмет"
-	set category = VERB_CATEGORY_PARROT
-	set desc = "Grabs a nearby item."
+GAME_VERB_PROC_DESC(/mob/living/simple_animal/parrot, steal_from_ground, "Схватить предмет", "Grabs a nearby item.", VERB_CATEGORY_PARROT)
 
 	if(stat)
 		return -1
@@ -563,10 +558,7 @@
 	balloon_alert(src, "здесь нечего взять")
 	return 0
 
-/mob/living/simple_animal/parrot/proc/steal_from_mob()
-	set name = "Украсть из рук"
-	set category = VERB_CATEGORY_PARROT
-	set desc = "Steals an item right out of a person's hand!"
+GAME_VERB_PROC_DESC(/mob/living/simple_animal/parrot, steal_from_mob, "Украсть из рук", "Steals an item right out of a person's hand!", VERB_CATEGORY_PARROT)
 
 	if(stat)
 		return -1
@@ -596,10 +588,7 @@
 	balloon_alert(src, "здесь нечего взять!")
 	return 0
 
-/mob/living/simple_animal/parrot/verb/drop_held_item_player()
-	set name = "Выбросить предмет"
-	set category = VERB_CATEGORY_PARROT
-	set desc = "Drop the item you're holding."
+GAME_VERB_PROC_DESC(/mob/living/simple_animal/parrot, drop_held_item_player, "Выбросить предмет", "Drop the item you're holding.", VERB_CATEGORY_PARROT)
 
 	if(stat)
 		return
@@ -607,10 +596,6 @@
 	drop_held_item()
 
 /mob/living/simple_animal/parrot/proc/drop_held_item(drop_gently = TRUE)
-	set name = "Выбросить предмет"
-	set category = VERB_CATEGORY_PARROT
-	set desc = "Drop the item you're holding."
-
 	if(stat)
 		return -1
 
@@ -637,10 +622,7 @@
 	update_held_icon()
 	return 1
 
-/mob/living/simple_animal/parrot/proc/perch_player()
-	set name = "Присесть"
-	set category = VERB_CATEGORY_PARROT
-	set desc = "Sit on a nice comfy perch."
+GAME_VERB_PROC_DESC(/mob/living/simple_animal/parrot, perch_player, "Присесть", "Sit on a nice comfy perch.", VERB_CATEGORY_PARROT)
 
 	if(stat || !client)
 		return
@@ -859,7 +841,26 @@
 		"Вы меня огорчили!",
 		"Не могу догнать свои мысли.",
 		"У меня больше ответов, чем вопросов!",
-		"Меня расстреляли, но я не сдался!")
+		"Меня расстреляли, но я не сдался!",
+		"Открытие вентиля реактора — это как он получает газ, верно?",
+		"Давайте заполним реактор стержнями суперматерии!",
+		"Как думаете, можно вооружиться выброшенными охлаждающими стержнями?",
+		"КТО ВСЁ ВРЕМЯ ОСТАВЛЯЕТ ТВЭЛЫ СНАРУЖИ",
+		"Зачем нам охлаждающие стержни, если мы используем газ?",
+		"Погодите, почему целостность реактора не повышается?",
+		"Когда это в инженерии появился бассейн!?",
+		"Кто-нибудь ещё чувствует привкус меди?",
+		"10 зиверт — это же не опасная доза радиации, правда?",
+		"Замените отработанные стержни, лентяи!",
+		"На реакторе гнездится ксеноморф!",
+		"Почему это Рипли вытаскивает охлаждающие стержни?",
+		"Атмосферные техники — любимые модераторы NGCR",
+		"Кто позволил клоуну трогать регулирующие стержни?",
+		"Кто из вас, придурков, притащил топливный стержень в медбей?",
+		"Охлаждающий стержень только что влетел в капитана!",
+		"Реактор переходит в сверхкритическое состояние!",
+		"Опасность! Разрушение активной зоны реактора в процессе! Целостность: 79.47%"
+	)
 
 /mob/living/simple_animal/parrot/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)
 	if(message_mode && istype(ears))

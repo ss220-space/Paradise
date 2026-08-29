@@ -45,6 +45,7 @@
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	can_suppress = TRUE
+	fire_delay = 0.2 SECONDS
 	accuracy = GUN_ACCURACY_RIFLE_UPLINK
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
@@ -83,6 +84,7 @@
 
 /obj/item/gun/projectile/automatic/m90/rusted
 	damage_mod = 0.85
+	fire_delay = 0.3 SECONDS
 	starting_attachment_types = list(/obj/item/gun_module/under/gun/grenade_launcher/integrated/unloaded)
 
 /obj/item/gun/projectile/automatic/m90/rusted/ComponentInitialize()
@@ -107,7 +109,7 @@
 	burst_amount = 2
 	fire_delay = 0.2 SECONDS
 	accuracy = GUN_ACCURACY_RIFLE
-	weapon_weight = WEAPON_HEAVY
+	fire_delay = 0.2 SECONDS
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 21, ATTACHMENT_OFFSET_Y = 1),
@@ -138,13 +140,13 @@
 	gender = MALE
 	icon_state = "aksu"
 	item_state = "aksu"
-	weapon_weight = WEAPON_HEAVY
 	origin_tech = "combat=4;materials=3"
 	mag_type = /obj/item/ammo_box/magazine/aks74u
 	fire_sound = 'sound/weapons/gunshots/1m90.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	slot_flags = ITEM_SLOT_BACK
+	fire_delay = 0.2 SECONDS
 	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
@@ -165,6 +167,7 @@
 
 /obj/item/gun/projectile/automatic/aks74u/rusted
 	damage_mod = 0.75
+	fire_delay = 0.3 SECONDS
 
 /obj/item/gun/projectile/automatic/aks74u/rusted/ComponentInitialize()
 	. = ..()
@@ -263,6 +266,7 @@
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	burst_amount = 1
+	fire_delay = 0.4 SECONDS
 	accuracy = GUN_ACCURACY_RIFLE_LASER
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
