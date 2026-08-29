@@ -62,7 +62,7 @@
 
 /// The fake message from the borer, then end the hallucination.
 /datum/hallucination/borer/proc/finish()
-	to_chat(hallucinator, span_changeling("<i>Первичные [rand(1000,9999)] состояния:</i> [pick("Привет.", "Приветик!", "Ты теперь мой раб!", "Не пытайся избавиться от меня...", "Ща повеселимся!", "Шо ты, голова?", "Если ты попробуешь жрать сахар – я тебя гибну!")]"))
+	to_chat(hallucinator, span_changeling("<i>Первичные [rand(1000,9999)] состояния:</i> [pick("Привет.", "Приветик!", "Ты теперь мой раб!", "Не пытайся избавиться от меня...", "Ща повеселимся!", "Шо ты, голова?", "Если ты попробуешь жрать сахар — я тебя гибну!")]"))
 	qdel(src)
 
 /// Cleanup fallback - the target never got close enough.
