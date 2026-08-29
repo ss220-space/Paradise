@@ -1,6 +1,6 @@
-// MARK: .50 - Syndicate SR
+// MARK: .50 - SGM-HSR15
 /obj/item/ammo_box/magazine/sniper_rounds
-	gun_name = "снайперской винтовки Bubz FX1000"
+	gun_name = "снайперской винтовки SGM-HSR15"
 	icon_state = ".50mag"
 	origin_tech = "combat=6"
 	ammo_type = /obj/item/ammo_casing/point50
@@ -30,9 +30,9 @@
 	icon_state = "penetrator"
 	ammo_type = /obj/item/ammo_casing/penetrator
 
-// MARK: .50L - Compact Syndicate SR
+// MARK: .50L - "Hornisse"
 /obj/item/ammo_box/magazine/sniper_rounds/compact
-	gun_name = "снайперской винтовки Bubz Mini"
+	gun_name = "снайперской винтовки \"Шершень\""
 	ammo_type = /obj/item/ammo_casing/compact
 	max_ammo = 4
 	caliber = CALIBER_DOT_50L
