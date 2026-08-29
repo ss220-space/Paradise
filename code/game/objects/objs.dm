@@ -80,6 +80,7 @@
 		T.add_blueprints_preround(src)
 
 	add_debris_element()
+	add_deep_lore()
 
 /obj/Destroy(force)
 	if(!ismachinery(src))
@@ -397,3 +398,10 @@
 	for(var/atom/atom_to_display in items_to_log)
 		new_purchase_logs += span_fontsize4(icon2base64html(atom_to_display))
 	target_uplink.purchase_log += new_purchase_logs
+
+/**
+ * Use this proc to attach `/datum/element/examine_lore` to an object.
+ * Override if needed.
+ */
+/obj/proc/add_deep_lore()
+	return

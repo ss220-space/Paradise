@@ -235,7 +235,7 @@ SUBSYSTEM_DEF(vote)
 
 	log_vote(to_display)
 	to_chat(world, custom_boxed_message("purple_box center", span_infoplain(vote_font("[span_bold(to_display)]<br>\
-		Type <b>vote</b> or click <a href='byond://winset?command=vote'>here</a> to place your votes.\n\
+		Type <b>vote</b> or click <a href='byond://winset?command=Голосования'>here</a> to place your votes.\n\
 		You have [DisplayTimeText(duration)] to vote."))))
 
 	// And now that it's going, give everyone a voter action
@@ -371,7 +371,7 @@ SUBSYSTEM_DEF(vote)
 
 	switch(action)
 		if("cancel")
-			if(!voter.client?.holder)
+			if(!check_rights_for(voter.client, R_ADMIN))
 				message_admins("[key_name(voter)] tried to cancel the current vote while having no admin holder, \
 					this is potentially a malicious exploit and worth noting.")
 				return
@@ -382,7 +382,7 @@ SUBSYSTEM_DEF(vote)
 			return TRUE
 
 		if("endNow")
-			if(!voter.client?.holder)
+			if(!check_rights_for(voter.client, R_ADMIN))
 				message_admins("[key_name(voter)] tried to end the current vote while having no admin holder, \
 					this is potentially a malicious exploit and worth noting.")
 				return
@@ -433,7 +433,7 @@ SUBSYSTEM_DEF(vote)
 			return submit_multi_vote(voter, params["voteOption"])
 
 		if("resetCooldown")
-			if(!voter.client.holder)
+			if(!check_rights_for(voter.client, R_ADMIN))
 				message_admins("[key_name(voter)] tried to reset the vote cooldown while having no admin holder, \
 					this is potentially a malicious exploit and worth noting.")
 				return

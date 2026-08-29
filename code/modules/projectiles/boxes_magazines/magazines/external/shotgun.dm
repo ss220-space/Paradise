@@ -57,9 +57,9 @@
 	icon_state = "m12gXlDb"
 	ammo_type = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath/napalm
 
-// MARK: 8 ammo - C.A.T.S.
+// MARK: 8 ammo - SG40 Vastus
 /obj/item/ammo_box/magazine/cats12g
-	gun_name = "дробовика C.A.T.S."
+	gun_name = "дробовика SG40 \"Вастус\""
 	icon_state = "cats_mag_slug"
 	ammo_type = /obj/item/ammo_casing/shotgun
 	multiple_sprites = 2
@@ -74,7 +74,7 @@
 	caliber = CALIBER_12G
 	ammo_type = null
 
-// MARK: 14 ammo - C.A.T.S.
+// MARK: 14 ammo - SG40 Vastus
 /obj/item/ammo_box/magazine/cats12g/large
 	icon_state = "cats_mag_large_slug"
 	max_ammo = 14
