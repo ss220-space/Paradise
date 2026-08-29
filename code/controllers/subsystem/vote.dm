@@ -235,7 +235,7 @@ SUBSYSTEM_DEF(vote)
 
 	log_vote(to_display)
 	to_chat(world, custom_boxed_message("purple_box center", span_infoplain(vote_font("[span_bold(to_display)]<br>\
-		Type <b>vote</b> or click <a href='byond://winset?command=Голосование'>here</a> to place your votes.\n\
+		Type <b>vote</b> or click <a href='byond://winset?command=Голосования'>here</a> to place your votes.\n\
 		You have [DisplayTimeText(duration)] to vote."))))
 
 	// And now that it's going, give everyone a voter action
