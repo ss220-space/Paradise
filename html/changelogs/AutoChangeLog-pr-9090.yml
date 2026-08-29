@@ -1,0 +1,4 @@
+author: "PlayerUnknown14"
+delete-after: True
+changes:
+  - local: "локализация, переименование и перереботка описаний огнестрельного оружия (lorovedka approved) (PR #9090)"
