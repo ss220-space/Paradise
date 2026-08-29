@@ -28,7 +28,7 @@
 	/// How many hits are needed to "hit" the target.
 	var/number_of_hits_to_end = 2
 	/// Chance to "kill" a target after accumulating number_of_hits_to_end hits.
-	var/chance_to_fall = 80
+	var/chance_to_fall = 30
 
 /datum/hallucination/battle/gun/start()
 	. = ..()
@@ -74,13 +74,9 @@
 
 /// Gun battle hallucination that sounds like stechkin fire.
 /datum/hallucination/battle/gun/stechkin
-	shots_to_fire_lower_range = 3
-	shots_to_fire_upper_range = 6
 	fire_sound = 'sound/weapons/gunshots/1stechkin.ogg'
 	hit_person_sound = SFX_BULLET
 	hit_wall_sound = SFX_RICOCHET
-	number_of_hits_to_end = 4
-	chance_to_fall = 30
 
 /// Plays a fake cable-cuff sound and deletes the hallucination.
 /datum/hallucination/battle/proc/fake_cuff()

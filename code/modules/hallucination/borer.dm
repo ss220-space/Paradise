@@ -84,4 +84,3 @@
 	name = "мозговой червь"
 	image_icon = 'icons/mob/animal.dmi'
 	image_state = "brainslug"
-	image_layer = MOB_LAYER

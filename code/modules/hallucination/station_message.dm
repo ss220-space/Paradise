@@ -58,7 +58,6 @@
 	)
 
 /datum/hallucination/station_message/cult_summon
-	require_hearing = TRUE
 
 /datum/hallucination/station_message/cult_summon/do_fake_alert()
 	var/list/manifest_names = list()
@@ -93,7 +92,6 @@
 	)
 
 /datum/hallucination/station_message/cult_summon/clock_cult_ark
-	random_hallucination_weight = 1
 
 /datum/hallucination/station_message/cult_summon/clock_cult_ark/start()
 	hallucinator.playsound_local(hallucinator, 'sound/magic/clockwork/clockcult_gateway_charging.ogg', 50, FALSE, pressure_affected = FALSE)
@@ -125,7 +123,6 @@
 	)
 
 /datum/hallucination/station_message/ert
-	random_hallucination_weight = 1
 
 /datum/hallucination/station_message/ert/do_fake_alert()
 	announce_to_hallucinator(
