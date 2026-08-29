@@ -371,7 +371,7 @@ SUBSYSTEM_DEF(vote)
 
 	switch(action)
 		if("cancel")
-			if(!voter.client?.holder)
+			if(!check_rights_for(voter.client, R_ADMIN))
 				message_admins("[key_name(voter)] tried to cancel the current vote while having no admin holder, \
 					this is potentially a malicious exploit and worth noting.")
 				return
@@ -382,7 +382,7 @@ SUBSYSTEM_DEF(vote)
 			return TRUE
 
 		if("endNow")
-			if(!voter.client?.holder)
+			if(!check_rights_for(voter.client, R_ADMIN))
 				message_admins("[key_name(voter)] tried to end the current vote while having no admin holder, \
 					this is potentially a malicious exploit and worth noting.")
 				return
@@ -433,7 +433,7 @@ SUBSYSTEM_DEF(vote)
 			return submit_multi_vote(voter, params["voteOption"])
 
 		if("resetCooldown")
-			if(!voter.client.holder)
+			if(!check_rights_for(voter.client, R_ADMIN))
 				message_admins("[key_name(voter)] tried to reset the vote cooldown while having no admin holder, \
 					this is potentially a malicious exploit and worth noting.")
 				return

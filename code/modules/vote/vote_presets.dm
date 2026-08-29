@@ -87,6 +87,8 @@
 	name = "Игровой режим"
 	override_question = "Голосование за игровой режим режим"
 	count_method = VOTE_COUNT_METHOD_MULTI
+	display_statistics = FALSE
+	print_results = FALSE
 
 /datum/vote/gamemode/create_vote(mob/vote_creator)
 	. = ..()
