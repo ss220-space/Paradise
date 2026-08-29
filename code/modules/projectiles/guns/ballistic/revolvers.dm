@@ -642,7 +642,6 @@
 		span_danger("[user] стреля[PLUR_ET_YUT(user)] [declent_ru(INSTRUMENTAL)] себе в [GLOB.body_zone[affecting][ACCUSATIVE]]!"),
 		span_userdanger("Вы стреляете [declent_ru(INSTRUMENTAL)] себе в [GLOB.body_zone[affecting][ACCUSATIVE]]!"),
 		span_italics("Вы слышите выстрел!"),
-		projectile_message = TRUE
 	)
 
 /obj/item/gun/projectile/revolver/russian/soul
