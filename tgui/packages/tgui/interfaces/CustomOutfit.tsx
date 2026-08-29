@@ -1,4 +1,3 @@
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -8,9 +7,53 @@ import {
   Section,
   Stack,
 } from 'tgui-core/components';
+import type { BooleanLike } from 'tgui-core/react';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
-const SLOT_ROWS = [
+type OutfitItem = {
+  path?: string;
+  name?: string;
+  desc?: string;
+  icon?: string;
+  icon_state?: string;
+  id_card?: BooleanLike;
+};
+
+type ItemStack = {
+  path: string;
+  name: string;
+  icon: string;
+  icon_state: string;
+};
+
+type Augmentation = {
+  zone: string;
+  zone_name: string;
+  status_name: string;
+  company?: string;
+};
+
+type Reagent = { name: string; amount: number };
+
+interface CustomOutfitData {
+  outfit?: Record<string, OutfitItem | undefined> & { id?: OutfitItem };
+  implants?: ItemStack[];
+  backpack_items?: ItemStack[];
+  augmentations?: Augmentation[];
+  has_dental_implant?: BooleanLike;
+  dental_reagents?: Reagent[];
+  preview_icon?: string;
+}
+
+type SlotDef = {
+  name: string;
+  icon: string;
+  iconRot?: number;
+  slot: string;
+};
+
+const SLOT_ROWS: SlotDef[][] = [
   [
     { name: 'Headgear', icon: 'hard-hat', slot: 'head' },
     { name: 'Glasses', icon: 'glasses', slot: 'glasses' },
@@ -52,8 +95,8 @@ const SLOT_ROWS = [
   ],
 ];
 
-export const CustomOutfit = (props) => {
-  const { act, data } = useBackend();
+export const CustomOutfit = () => {
+  const { act, data } = useBackend<CustomOutfitData>();
 
   const hasBack = !!data.outfit?.back?.path;
   const implants = data.implants || [];
@@ -70,14 +113,14 @@ export const CustomOutfit = (props) => {
   const idOutfit = data.outfit?.id;
 
   return (
-    <Window title="Custom Outfit" width={900} height={625} theme="admin" fill>
+    <Window title="Custom Outfit" width={900} height={625} theme="admin">
       <Window.Content>
         <Stack fill>
           <Stack.Item grow={5} basis={0}>
             <Section fill scrollable title="Слоты">
               <Stack vertical>
-                {SLOT_ROWS.map((row, row_index) => (
-                  <Stack.Item key={row_index}>
+                {SLOT_ROWS.map((row, rowIndex) => (
+                  <Stack.Item key={rowIndex}>
                     <Stack>
                       {row.map((slot) => (
                         <OutfitSlot key={slot.slot} {...slot} />
@@ -210,7 +253,8 @@ export const CustomOutfit = (props) => {
   );
 };
 
-const PreviewImage = ({ base64 }) => {
+const PreviewImage = (props: { base64?: string }) => {
+  const { base64 } = props;
   if (!base64) {
     return (
       <Stack fill align="center" justify="center">
@@ -238,8 +282,9 @@ const PreviewImage = ({ base64 }) => {
   );
 };
 
-const OutfitSlot = ({ name, icon, iconRot, slot }) => {
-  const { act, data } = useBackend();
+const OutfitSlot = (props: SlotDef) => {
+  const { name, icon, iconRot = 0, slot } = props;
+  const { act, data } = useBackend<CustomOutfitData>();
   const currItem = data.outfit?.[slot];
 
   return (
@@ -255,7 +300,7 @@ const OutfitSlot = ({ name, icon, iconRot, slot }) => {
           <Box
             height="48px"
             backgroundColor="rgba(0,0,0,0.3)"
-            borderRadius="4px"
+            style={{ borderRadius: '4px' }}
             onClick={() => act('click', { slot })}
           >
             <Stack fill align="center" justify="center">
@@ -285,7 +330,11 @@ const OutfitSlot = ({ name, icon, iconRot, slot }) => {
             textAlign="center"
             fontSize={0.75}
             color={currItem ? 'label' : 'gray'}
-            title={currItem?.name}
+            style={{
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+            }}
           >
             {currItem?.name || '—'}
           </Box>
@@ -295,14 +344,24 @@ const OutfitSlot = ({ name, icon, iconRot, slot }) => {
   );
 };
 
-const ItemGrid = ({
-  items,
-  onAdd,
-  onRemove,
-  addTooltip,
-  addDisabled,
-  addDisabledTooltip,
-}) => {
+type ItemGridProps = {
+  items?: ItemStack[];
+  onAdd: () => void;
+  onRemove: (item: ItemStack) => void;
+  addTooltip: string;
+  addDisabled?: boolean;
+  addDisabledTooltip?: string;
+};
+
+const ItemGrid = (props: ItemGridProps) => {
+  const {
+    items,
+    onAdd,
+    onRemove,
+    addTooltip,
+    addDisabled = false,
+    addDisabledTooltip = '',
+  } = props;
   return (
     <Stack wrap>
       {items?.map((item) => (
@@ -311,7 +370,7 @@ const ItemGrid = ({
             width="48px"
             height="48px"
             backgroundColor="rgba(0,0,0,0.3)"
-            borderRadius="4px"
+            style={{ borderRadius: '4px' }}
           >
             <Stack fill align="center" justify="center">
               <Stack.Item>
@@ -332,7 +391,7 @@ const ItemGrid = ({
           width="48px"
           height="48px"
           backgroundColor="rgba(0,0,0,0.3)"
-          borderRadius="4px"
+          style={{ borderRadius: '4px' }}
         >
           <Stack fill align="center" justify="center">
             <Stack.Item>
