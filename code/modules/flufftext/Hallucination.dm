@@ -41,8 +41,8 @@
 		if("stray_bullet")
 			cause_hallucination(/datum/hallucination/stray_bullet, "hallucinate_living wrapper")
 			return
-		if("body")
-			cause_hallucination(get_random_valid_hallucination_subtype(/datum/hallucination/body), "hallucinate_living wrapper")
+		if("phantom")
+			cause_hallucination(get_random_valid_hallucination_subtype(/datum/hallucination/phantom), "hallucinate_living wrapper")
 			return
 		if("ice")
 			cause_hallucination(/datum/hallucination/ice, "hallucinate_living wrapper")
@@ -74,12 +74,12 @@
 		if("bolts")
 			cause_hallucination(/datum/hallucination/bolted_airlocks, "hallucinate_living wrapper")
 			return
-		if("koolaid")
+		if("oh_yeah")
 			cause_hallucination(/datum/hallucination/oh_yeah, "hallucinate_living wrapper")
 			return
 		if("borer")
 			cause_hallucination(/datum/hallucination/borer, "hallucinate_living wrapper")
 			return
-		if("singulo") // Нужно доработать
+		if("singulo")
 			cause_hallucination(/datum/hallucination/singularity_scare, "hallucinate_living wrapper")
 			return
