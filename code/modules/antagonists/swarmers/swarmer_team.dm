@@ -48,6 +48,8 @@
 	var/organic_resources = 0
 	/// Modifier of metal gatherings by swarmers (not structures)
 	var/metal_modifier = 1
+	/// Unlimited modifier of metal gatherings by swarmer used for calculations
+	var/unlimited_metal_modifier = 0
 	/// Main objective given to all swarmers
 	var/datum/objective/swarmer_goal/swarmer_objective
 	/// Have we made an announcement about mega-swarmer already or not
@@ -57,27 +59,15 @@
 
 /datum/team/swarmer_team/New(list/starting_members)
 	..()
-	RegisterSignal(src, COMSIG_SWARMER_CORE_INITIALIZED, PROC_REF(on_core_init))
 	RegisterSignal(SSdcs, COMSIG_GLOB_SWARMER_CORE_DESTROYED, PROC_REF(on_core_destroy))
-	RegisterSignal(src, COMSIG_SWARMER_TRY_PROCESS_ORGANIC_ITEM, PROC_REF(try_process_organic))
-	RegisterSignal(src, COMSIG_SWARMER_TRY_ANALYZE_MOB, PROC_REF(try_analyze_mob))
-	RegisterSignal(src, COMSIG_SWARMER_STORAGE_INITIALIZED, PROC_REF(increase_modifier))
-	RegisterSignal(src, COMSIG_SWARMER_STORAGE_DESTROYED, PROC_REF(decrease_modifier))
-	RegisterSignal(src, COMSIG_MEGA_SWARMER_CORE_SPAWN, PROC_REF(on_mega_swarmer_spawn))
 	swarmer_objective = new(team_to_join = src)
 	add_objective_to_members(swarmer_objective)
 
 /datum/team/swarmer_team/Destroy(force)
-	if(swarmer_core) // signals registered on core init
+	if(swarmer_core) // also unregistered on core destruction
 		UnregisterSignal(swarmer_core, COMSIG_OBJ_INTEGRITY_CHANGED)
 		UnregisterSignal(swarmer_core, COMSIG_MOVABLE_MOVED)
-	UnregisterSignal(src, COMSIG_SWARMER_CORE_INITIALIZED)
 	UnregisterSignal(SSdcs, COMSIG_GLOB_SWARMER_CORE_DESTROYED)
-	UnregisterSignal(src, COMSIG_SWARMER_TRY_PROCESS_ORGANIC_ITEM)
-	UnregisterSignal(src, COMSIG_SWARMER_TRY_ANALYZE_MOB)
-	UnregisterSignal(src, COMSIG_SWARMER_STORAGE_INITIALIZED)
-	UnregisterSignal(src, COMSIG_SWARMER_STORAGE_DESTROYED)
-	UnregisterSignal(src, COMSIG_MEGA_SWARMER_CORE_SPAWN)
 	QDEL_NULL(swarmer_objective)
 	return ..()
 
@@ -87,8 +77,7 @@
  * Sets swarmer_core variable, adjusts required resources,
  * registers required core signals.
  */
-/datum/team/swarmer_team/proc/on_core_init(datum/source, obj/core)
-	SIGNAL_HANDLER
+/datum/team/swarmer_team/proc/on_core_init(obj/structure/swarmer/core/core)
 	swarmer_core = core
 	metallic_resources = METALLIC_START_RESOURCES
 	RegisterSignal(swarmer_core, COMSIG_OBJ_INTEGRITY_CHANGED, PROC_REF(on_core_integrity_changed))
@@ -150,66 +139,59 @@
 		to_chat(target, span_swarmerboldlarge("Внимание: Обнаружено перемещение ядра! Новое местоположение: [locname]."))
 
 /**
- * Signal proc used in organic processing (not mobs)
+ * Proc used in organic processing (not mobs)
  *
- * Sends signals to organic processers one by one, if there are any, until
- * any signal returns TRUE.
+ * Tries to send an item to any processer one by one.
  *
- * Returns TRUE, if any sent signal has return TRUE.
+ * Returns TRUE, if there was any free processer.
  * Returns FALSE otherwise.
  */
-/datum/team/swarmer_team/proc/try_process_organic(datum/source, obj/item)
-	SIGNAL_HANDLER
+/datum/team/swarmer_team/proc/try_process_organic(obj/item/item)
 	for(var/obj/structure/swarmer/organic_processer/processer in GLOB.swarmer_objects)
-		if(SEND_SIGNAL(processer, COMSIG_SWARMER_PROCESS_ORGANIC_ITEM_CHECK, item) & TRUE)
+		if(processer?.try_load_item(item))
 			return TRUE
+
 	return FALSE
 
 /**
- * Signal proc used in organic analyzing (mobs)
+ * Proc used in organic analyzing (mobs)
  *
- * Sends signals to organic analyzers one by one, if there are any, until
- * any signal returns TRUE.
+ * Tries to send a mob to any analyzer one by one.
  *
- * Returns TRUE, if any sent signal has return TRUE.
+ * Returns TRUE, if there was any free analyzer.
  * Returns FALSE otherwise.
  */
-/datum/team/swarmer_team/proc/try_analyze_mob(datum/source, mob/living/target)
-	SIGNAL_HANDLER
+/datum/team/swarmer_team/proc/try_analyze_mob(mob/living/target)
 	for(var/obj/structure/swarmer/organic_analyzer/analyzer in GLOB.swarmer_objects)
-		if(SEND_SIGNAL(analyzer, COMSIG_SWARMER_ANALYZE_MOB_CHECK, target) & TRUE)
+		if(analyzer?.try_load_mob(target))
 			return TRUE
+
 	return FALSE
 
 /**
- * Signal proc from resource storage
- *
  * Increases metal resource modifier by [SWARMER_STORAGE_MODIFIER].
  * Has a limit of [SWARMER_STORAGE_MODIFIER_LIMIT]
  */
-/datum/team/swarmer_team/proc/increase_modifier(datum/source)
-	SIGNAL_HANDLER
-	metal_modifier = min(metal_modifier + SWARMER_STORAGE_MODIFIER, SWARMER_STORAGE_MODIFIER_LIMIT)
+/datum/team/swarmer_team/proc/increase_modifier()
+	unlimited_metal_modifier += SWARMER_STORAGE_MODIFIER
+	metal_modifier = min(SWARMER_STORAGE_MODIFIER_LIMIT, unlimited_metal_modifier)
 
 /**
- * Signal proc from resource storage
- *
  * Decreases metal resource modifier by [SWARMER_STORAGE_MODIFIER].
  * Has a limit of 1.
  */
-/datum/team/swarmer_team/proc/decrease_modifier(datum/source)
-	SIGNAL_HANDLER
-	metal_modifier = max(metal_modifier - SWARMER_STORAGE_MODIFIER, 1)
+/datum/team/swarmer_team/proc/decrease_modifier()
+	unlimited_metal_modifier -= SWARMER_STORAGE_MODIFIER
+	metal_modifier = min(SWARMER_STORAGE_MODIFIER_LIMIT, unlimited_metal_modifier)
 
 /**
- * Signal proc from mega-swarmer core spawn
+ * Proc sent from mega-swarmer core spawn
  *
  * Completes swarmer objectives,
  * makes an announce to the station,
  * sets gamma code.
  */
-/datum/team/swarmer_team/proc/on_mega_swarmer_spawn(datum/source, mob/swarmer)
-	SIGNAL_HANDLER
+/datum/team/swarmer_team/proc/on_mega_swarmer_spawn(mob/living/simple_animal/hostile/swarmer/mega/swarmer)
 	if(made_announcement)
 		return
 	made_announcement = TRUE

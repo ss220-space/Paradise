@@ -67,6 +67,8 @@
 #define SWARMER_SNIPER_TURRET_COST 25
 /// How many metallic resources does it cost to make an ACP turret
 #define SWARMER_ACP_COST 25
+/// How many metallic resources does it cost to make a nanobot fabricator
+#define SWARMER_NANOBOT_FABRICATOR_COST 250
 
 // === REPAIR RELATED ===
 /// How long does it take for swarmer to repair something (Builder swarmers take twice less time)

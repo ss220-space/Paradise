@@ -32,6 +32,10 @@ GLOBAL_LIST_INIT(swarmer_actions_by_type, list(
 		/datum/action/cooldown/swarmer/build/acp_turret,
 		/datum/action/cooldown/swarmer/move_core,
 		),
+	// Mega swarmer
+	/mob/living/simple_animal/hostile/swarmer/mega = list(
+		/datum/action/cooldown/swarmer/build/drone_fabricator,
+		),
 	))
 
 /**
@@ -280,9 +284,6 @@ GLOBAL_LIST_INIT(swarmer_actions_by_type, list(
 	health = 650
 	maxHealth = 650
 	can_swap_to = FALSE
-	move_force = MOVE_FORCE_OVERPOWERING
-	move_resist = MOVE_FORCE_OVERPOWERING
-	pull_force = MOVE_FORCE_OVERPOWERING
 	dismantle_speed = FAST_SWARMER_DISMANTLE_DELAY
 	swarmer_class_info = "Вы — финальная боевая единица \"Свармеров\", оснащённая миниганом, встроенной ACP турелью, а также защитными пластинами.\n\
 		Ваша цель — окончательно захватить станцию под ваш контроль."

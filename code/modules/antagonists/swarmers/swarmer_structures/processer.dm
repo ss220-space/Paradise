@@ -23,14 +23,12 @@
 
 /obj/structure/swarmer/organic_processer/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_SWARMER_PROCESS_ORGANIC_ITEM_CHECK, PROC_REF(try_load_item))
 	sound_loop = new(src, FALSE)
 	spark_system = new
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 
 /obj/structure/swarmer/organic_processer/Destroy(force)
-	UnregisterSignal(src, COMSIG_SWARMER_PROCESS_ORGANIC_ITEM_CHECK)
 	QDEL_NULL(spark_system)
 	QDEL_NULL(sound_loop)
 	for(var/atom/movable/AM in src)
@@ -52,14 +50,11 @@
 	addtimer(CALLBACK(src, PROC_REF(finish_processing)), new_delay, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT | TIMER_DELETE_ME)
 
 /**
- * Main signal proc of this structure.
- *
  * Handles loading in items, checks if we have any space for them.
  * Returns TRUE if we have space.
  * Returns FALSE otherwise.
  */
-/obj/structure/swarmer/organic_processer/proc/try_load_item(datum/source, obj/item)
-	SIGNAL_HANDLER
+/obj/structure/swarmer/organic_processer/proc/try_load_item(obj/item)
 	if(!anchored)
 		return FALSE
 	if(currently_processing >= process_limit)

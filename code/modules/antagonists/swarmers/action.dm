@@ -31,28 +31,67 @@
 /datum/action/cooldown/swarmer/build/Activate()
 	. = ..()
 	var/mob/living/user = owner
-	var/turf/our_turf = get_turf(user)
-	if(isspaceturf(our_turf))
-		user.balloon_alert(user, "тут космос!")
+
+	var/turf/spawn_turf
+	var/list/turfs_to_check
+	var/obj/structure/swarmer/build_atom_prototype = build_type
+	if(build_atom_prototype::bound_width > ICON_SIZE_X || build_atom_prototype::bound_height > ICON_SIZE_Y)
+		var/occupied_turfs_width = ceil(build_atom_prototype::bound_width / ICON_SIZE_X)
+		var/occupied_turfs_height = ceil(build_atom_prototype::bound_height / ICON_SIZE_Y)
+		spawn_turf = get_offset_target_turf(get_turf(user), -floor(occupied_turfs_width / 2), 0)
+		turfs_to_check = CORNER_BLOCK(spawn_turf, occupied_turfs_width, occupied_turfs_height)
+	else
+		spawn_turf = get_turf(user)
+		turfs_to_check = list(spawn_turf)
+
+	if(!default_build_checks(user, turfs_to_check))
 		return
-	if(!is_station_level(our_turf.z))
-		user.balloon_alert(user, "вне станции!")
+
+	if(!custom_build_checks(user, turfs_to_check))
 		return
-	if((locate(/obj/structure/swarmer) in our_turf))
-		user.balloon_alert(user, "нельзя строить сверху существующего!")
-		return
-	if((locate(/obj/machinery/porta_turret/swarmer) in our_turf))
-		user.balloon_alert(user, "нельзя строить сверху существующего!")
-		return
+
 	if(!adjust_swarmer_metallic_resources(-action_cost))
 		user.balloon_alert(user, "недостаточно ресурсов!")
 		return
+
 	if(!do_after(user, build_time, user, max_interact_count = 1))
 		user.balloon_alert(user, "сбито!")
 		adjust_swarmer_metallic_resources(action_cost) // Return spent resources
 		return
+
 	user.balloon_alert(user, "успех!")
-	return new build_type(our_turf)
+	return new build_type(spawn_turf)
+
+/// Default turf checks
+/datum/action/cooldown/swarmer/build/proc/default_build_checks(mob/living/user, list/turfs_to_check)
+	if(!length(turfs_to_check) || !user)
+		return FALSE
+
+	. = TRUE
+	for(var/turf/target_turf as anything in turfs_to_check)
+		if(!is_station_level(target_turf.z))
+			user.balloon_alert(user, "вне станции!")
+			return FALSE
+		if(isspaceturf(target_turf))
+			user.balloon_alert(user, "космос!")
+			target_turf.balloon_alert(user, "здесь!")
+			return FALSE
+		if(iswallturf(target_turf))
+			user.balloon_alert(user, "стена!")
+			target_turf.balloon_alert(user, "здесь!")
+			return FALSE
+		if((locate(/obj/structure/swarmer) in target_turf))
+			user.balloon_alert(user, "нельзя строить сверху существующего!")
+			target_turf.balloon_alert(user, "здесь!")
+			return FALSE
+		if((locate(/obj/machinery/porta_turret/swarmer) in target_turf))
+			user.balloon_alert(user, "нельзя строить сверху существующего!")
+			target_turf.balloon_alert(user, "здесь!")
+			return FALSE
+
+/// Proc for custom checks based on what is being built, returns TRUE on default
+/datum/action/cooldown/swarmer/build/proc/custom_build_checks(mob/living/user, list/turfs_to_check)
+	return TRUE
 
 /datum/action/cooldown/swarmer/build/barricade
 	name = "Создать баррикаду"
@@ -127,6 +166,18 @@
 	action_cost = SWARMER_STORAGE_COST
 	build_time = SWARMER_FAST_BUILD_DELAY
 
+// Check if we have hit the metal modifier limit, and warn the user that building a new one wont do much
+/datum/action/cooldown/swarmer/build/storage/custom_build_checks(mob/living/user, list/turfs_to_check)
+	var/datum/team/swarmer_team/swarmer_team = GLOB.antagonist_teams[/datum/team/swarmer_team]
+	if(swarmer_team?.metal_modifier < SWARMER_STORAGE_MODIFIER_LIMIT)
+		return TRUE
+
+	var/choice = tgui_alert(user, "Предупреждение! Лимит модификатора сбора ресурсов уже достигнут, постройка нового хранилища ничего не даст. Продолжить стройку?", "Постройка хранилища", list("Да", "Нет"))
+	if(choice == "Да")
+		return TRUE
+
+	return FALSE
+
 /datum/action/cooldown/swarmer/build/rapid_turret
 	name = "Создать штурмовую турель"
 	desc = "Турель, стреляющая залпами лучей."
@@ -150,6 +201,13 @@
 	build_type = /obj/structure/swarmer/acp_turret
 	action_cost = SWARMER_ACP_COST
 	build_time = SWARMER_NORMAL_BUILD_DELAY
+
+/datum/action/cooldown/swarmer/build/drone_fabricator
+	name = "Создать фабрикатор наноботов"
+	desc = "Выпускает наноботов при прохождении определённого времени, что превращает всех в свармеров."
+	build_type = /obj/structure/swarmer/drone_fabricator
+	action_cost = SWARMER_NANOBOT_FABRICATOR_COST
+	build_time = SWARMER_SLOW_BUILD_DELAY
 
 // Action for moving the core to any available transport hub
 /datum/action/cooldown/swarmer/move_core

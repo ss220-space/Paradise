@@ -49,7 +49,7 @@
 	if(team.swarmer_core) // This would only happen on shitspawn
 		return INITIALIZE_HINT_QDEL
 
-	SEND_SIGNAL(team, COMSIG_SWARMER_CORE_INITIALIZED, src)
+	team.on_core_init(src)
 	if(!selection_classes)
 		generate_class_selection()
 
@@ -173,7 +173,7 @@
 	swarmer.possess_by_player(selected.key)
 	swarmer.add_datum_if_not_exist()
 
-	SEND_SIGNAL(team, COMSIG_MEGA_SWARMER_CORE_SPAWN)
+	team.on_mega_swarmer_spawn(swarmer)
 	message_admins("[ADMIN_LOOKUPFLW(swarmer)] has been made into Mega-Swarmer (core spawn).")
 	log_game("[key_name(swarmer)] was spawned as Mega-Swarmer by the core.")
 

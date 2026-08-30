@@ -1170,18 +1170,10 @@ GLOBAL_LIST_EMPTY(turret_icons)
 /obj/machinery/porta_turret/swarmer/Initialize(mapload)
 	. = ..()
 	GLOB.swarmer_objects += src
-	RegisterSignal(SSdcs, COMSIG_GLOB_SWARMER_CORE_DESTROYED, PROC_REF(on_core_destroy))
-
-/obj/machinery/porta_turret/swarmer/proc/on_core_destroy()
-	SIGNAL_HANDLER
-	explosion(loc, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 2, cause = src)
-	if(!QDELETED(src))
-		qdel(src)
 
 /obj/machinery/porta_turret/swarmer/Destroy()
 	. = ..()
 	GLOB.swarmer_objects -= src
-	UnregisterSignal(SSdcs, COMSIG_GLOB_SWARMER_CORE_DESTROYED)
 
 /// Icon state of these turrets don't change
 /obj/machinery/porta_turret/swarmer/update_icon_state()

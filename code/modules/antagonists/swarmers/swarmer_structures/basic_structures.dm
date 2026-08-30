@@ -76,19 +76,21 @@
 	swarmer_examine = "Увеличивает количество ресурсов, полученных с ручного собирания."
 	icon_state = "metal_storage"
 	max_integrity = 100
-	/// Team that we send signals to
-	var/datum/team/swarmer_team/team
 
 /obj/structure/swarmer/resource_storage/Initialize(mapload)
 	. = ..()
-	team = GLOB.antagonist_teams[/datum/team/swarmer_team]
-	if(!team)
-		team = new
-	SEND_SIGNAL(team, COMSIG_SWARMER_STORAGE_INITIALIZED)
+	var/datum/team/swarmer_team/swarmer_team = GLOB.antagonist_teams[/datum/team/swarmer_team]
+	if(!swarmer_team)
+		swarmer_team = new
+
+	swarmer_team.increase_modifier()
 
 /obj/structure/swarmer/resource_storage/Destroy(force)
-	SEND_SIGNAL(team, COMSIG_SWARMER_STORAGE_DESTROYED)
-	team = null
+	var/datum/team/swarmer_team/swarmer_team = GLOB.antagonist_teams[/datum/team/swarmer_team]
+	if(!swarmer_team)
+		swarmer_team = new
+
+	swarmer_team.decrease_modifier()
 	return ..()
 
 /obj/structure/swarmer/resource_storage/get_ru_names()

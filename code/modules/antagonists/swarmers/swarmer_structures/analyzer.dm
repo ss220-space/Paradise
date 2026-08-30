@@ -28,7 +28,6 @@
 
 /obj/structure/swarmer/organic_analyzer/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_SWARMER_ANALYZE_MOB_CHECK, PROC_REF(try_load_mob))
 	add_traits(weather_protection, INNATE_TRAIT)
 	refresh_air()
 	sound_loop = new(src, FALSE)
@@ -37,7 +36,6 @@
 	spark_system.attach(src)
 
 /obj/structure/swarmer/organic_analyzer/Destroy(force)
-	UnregisterSignal(src, COMSIG_SWARMER_ANALYZE_MOB_CHECK)
 	QDEL_NULL(air_contents)
 	QDEL_NULL(spark_system)
 	QDEL_NULL(sound_loop)
@@ -70,14 +68,11 @@
 	icon_state = occupant ? "[initial(icon_state)]_mob" : initial(icon_state)
 
 /**
- * Main signal proc of this structure.
- *
  * Handles loading in a mob, checks if we have any space for them.
  * Returns TRUE if we have space.
  * Returns FALSE otherwise.
  */
-/obj/structure/swarmer/organic_analyzer/proc/try_load_mob(datum/source, mob/living/target)
-	SIGNAL_HANDLER
+/obj/structure/swarmer/organic_analyzer/proc/try_load_mob(mob/living/target)
 	if(!anchored)
 		return FALSE
 	if(occupant)

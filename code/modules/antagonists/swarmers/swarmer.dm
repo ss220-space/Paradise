@@ -276,7 +276,7 @@ GLOBAL_LIST_EMPTY(swarmers)
 /**
  * Proc for organic processing.
  *
- * Handles do_after and sends COMSIG_SWARMER_TRY_PROCESS_ORGANIC_ITEM signal to the team.
+ * Handles do_after and tries to send the item to a processer.
  */
 /mob/living/simple_animal/hostile/swarmer/proc/send_organic_processer_signal(obj/item, delay = 0)
 	if(delay > 0)
@@ -286,20 +286,19 @@ GLOBAL_LIST_EMPTY(swarmers)
 			balloon_alert(src, "сбито!")
 			return
 
-	if(SEND_SIGNAL(team, COMSIG_SWARMER_TRY_PROCESS_ORGANIC_ITEM, item) & TRUE)
-		balloon_alert(src, "успешно отправлено!")
-		spark_system.start()
-		playsound(loc, 'sound/swarmer/swarmer_send.ogg', 100, TRUE)
+	if(!team.try_process_organic(item))
+		balloon_alert(src, "нету места для органики!")
 		return
 
-	balloon_alert(src, "нету места для органики!")
+	balloon_alert(src, "успешно отправлено!")
+	spark_system.start()
+	playsound(loc, 'sound/swarmer/swarmer_send.ogg', 100, TRUE)
 
 /**
  * Proc used to disperse of mobs.
  *
- * Handles do_after and sends COMSIG_SWARMER_TRY_ANALYZE_MOB signal to the team.
- * If signal returns FALSE, we teleport the target randomly.
- * Used in CtrlClick proc.
+ * Handles do_after and tries to send the mob to an analyzer.
+ * If there are no free analyzers, we teleport the target randomly.
  */
 /mob/living/simple_animal/hostile/swarmer/proc/try_disperse(mob/living/target)
 	balloon_alert(src, "отправка...")
@@ -308,7 +307,7 @@ GLOBAL_LIST_EMPTY(swarmers)
 		return
 
 	spark_system.start()
-	if(SEND_SIGNAL(team, COMSIG_SWARMER_TRY_ANALYZE_MOB, target) & TRUE)
+	if(team.try_analyze_mob(target))
 		balloon_alert(src, "отправлено в анализатор!")
 		playsound(loc, 'sound/swarmer/swarmer_send.ogg', 100, TRUE)
 		return
