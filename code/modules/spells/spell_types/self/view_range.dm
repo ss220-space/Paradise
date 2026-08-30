@@ -31,7 +31,6 @@
 		INVOKE_ASYNC(user.client, TYPE_PROC_REF(/client, change_view), user.client.prefs.viewrange)
 
 /datum/action/cooldown/spell/view_range/can_cast_spell(feedback)
-	. = ..()
 	if(!owner.client)
 		return FALSE
 	return ..()

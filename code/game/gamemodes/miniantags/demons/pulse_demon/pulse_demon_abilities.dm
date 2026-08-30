@@ -35,7 +35,6 @@
 	UpdateButtonIcon()
 
 /datum/action/cooldown/spell/pointed/pulse_demon/can_cast_spell(feedback)
-	. = ..()
 	if(!..())
 		return FALSE
 	if(!ispulsedemon(owner))
@@ -279,7 +278,7 @@
 
 /datum/action/cooldown/spell/pulse_demon_toggle/can_cast_spell(feedback)
 	. = ..()
-	if(!..())
+	if(!.)
 		return FALSE
 	if(!ispulsedemon(owner))
 		return FALSE

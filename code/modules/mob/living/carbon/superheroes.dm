@@ -143,7 +143,6 @@
 	cast_range = 1
 
 /datum/action/cooldown/spell/pointed/recruit/can_cast_spell(feedback)
-	. = ..()
 	if(length(SSticker.mode.greyshirts) >= 3)
 		if(feedback)
 			to_chat(owner, span_warning("You have already recruited the maximum number of henchmen."))

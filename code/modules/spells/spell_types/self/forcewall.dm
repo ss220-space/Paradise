@@ -32,7 +32,7 @@
 	name = "Великая Невидимая стена"
 	desc = "Создайте перед собой невидимую стену шириной в три тайла."
 	school = SCHOOL_MIME
-	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+	spell_requirements = NONE
 	wall_type = /obj/effect/forcefield/mime/advanced
 	cooldown_time = 60 SECONDS
 	sound =  null
@@ -42,11 +42,11 @@
 	background_icon_state = "bg_mime"
 
 /datum/action/cooldown/spell/forcewall/greater/mime/can_cast_spell(feedback)
-	. = ..()
 	if(!HAS_MIND_TRAIT(owner, TRAIT_MIMING))
 		if(feedback)
 			to_chat(owner, span_warning("Сначала вы должны принять обет молчания!"))
 		return FALSE
+	return ..()
 
 /datum/action/cooldown/spell/forcewall/greater/mime/cast(atom/cast_on)
 	. = ..()
@@ -58,6 +58,7 @@
 	desc = "Мимическая постановка становится осязаемой."
 	school = SCHOOL_MIME
 	wall_type = /obj/effect/forcefield/mime
+	spell_requirements = NONE
 	cooldown_time = 30 SECONDS
 	sound =  null
 	invocation = ""
@@ -66,11 +67,11 @@
 	background_icon_state = "bg_mime"
 
 /datum/action/cooldown/spell/forcewall/mime/can_cast_spell(feedback)
-	. = ..()
 	if(!HAS_MIND_TRAIT(owner, TRAIT_MIMING))
 		if(feedback)
 			to_chat(owner, span_warning("Сначала вы должны принять обет молчания!"))
 		return FALSE
+	return ..()
 
 /datum/action/cooldown/spell/forcewall/mime/cast(atom/cast_on)
 	. = ..()

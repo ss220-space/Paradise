@@ -44,6 +44,7 @@
 	background_icon_state = "bg_default"
 	sound = 'sound/effects/mob_effects/slime_squish.ogg'
 	spell_requirements = NONE
+	var/active_transform = FALSE
 	var/is_transformed = FALSE
 	var/mob/living/carbon/human/original_body
 
@@ -52,7 +53,6 @@
 	return ..()
 
 /datum/action/cooldown/spell/slime_degradation/can_cast_spell(feedback)
-	. = ..()
 	var/mob/living/caster = owner
 	if(!original_body && is_transformed)
 		stack_trace("No original body in spell [src]!")
@@ -94,6 +94,9 @@
 		slime_transform_back(user)
 
 /datum/action/cooldown/spell/slime_degradation/proc/slime_transform(mob/living/carbon/human/user)
+	if(active_transform)
+		return
+	active_transform = TRUE
 	for(var/obj/item/check as anything in user.get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 		user.drop_item_ground(check, force = TRUE)
 
@@ -128,8 +131,12 @@
 
 	slimeme.remove_traits(list(TRAIT_NO_TRANSFORM, TRAIT_GODMODE), UNIQUE_TRAIT_SOURCE(src))
 	is_transformed = TRUE
+	active_transform = FALSE
 
 /datum/action/cooldown/spell/slime_degradation/proc/slime_transform_back(mob/living/simple_animal/slime/invalid/user, death_provoked = FALSE)
+	if(active_transform)
+		return
+	active_transform = TRUE
 	var/self_message = death_provoked ? span_userdanger("You can't take the strain of sustaining [user]'s shape in this condition, it begins to fall apart!") : span_notice("You start to transform back into human.")
 	user.visible_message(span_warning("[user] shape becomes fuzzy before it takes human form!"), self_message, span_notice("You hear something squishing..."))
 	if(death_provoked)
@@ -160,6 +167,7 @@
 	original_body.remove_traits(list(TRAIT_NO_TRANSFORM, TRAIT_GODMODE), UNIQUE_TRAIT_SOURCE(src))
 	is_transformed = FALSE
 	original_body = null
+	active_transform = FALSE
 
 /datum/action/cooldown/spell/slime_selfheat
 	name = "Slime heat"
