@@ -35,3 +35,7 @@
 /// Get a list of living targets in radius of the center to put in the target list.
 /datum/action/cooldown/spell/list_target/proc/get_list_targets(atom/center, target_radius = 7)
 	return targeting.get_targets(center, target_radius)
+
+/datum/action/cooldown/spell/list_target/New(Target, original)
+	. = ..()
+	targeting = new targeting_type(owner, src)

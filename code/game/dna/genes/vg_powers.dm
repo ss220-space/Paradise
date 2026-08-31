@@ -204,17 +204,7 @@
 	desc = "Позвольте другим ощущать ваши мысли."
 	spell_requirements = NONE
 	button_icon_state = "genetic_project"
-
-/datum/action/cooldown/spell/list_target/remotetalk/get_list_targets(atom/center, target_radius)
-	var/list/valid_targets = list()
-	var/list/mobs_in_view = owner.get_visible_mobs()
-
-	for(var/mob/living/mob in mobs_in_view)
-		if(mob?.mind)
-			if(mob == owner)
-				continue
-			valid_targets += mob
-	return valid_targets
+	targeting_type = /datum/aoe_targeting/living_in_sight
 
 /datum/action/cooldown/spell/list_target/remotetalk/cast(atom/cast_on)
 	. = ..()
@@ -264,17 +254,7 @@
 	spell_requirements = SPELL_REQUIRES_HUMAN
 	button_icon_state = "genetic_mindscan"
 	var/list/available_targets = list()
-
-/datum/action/cooldown/spell/list_target/mindscan/get_list_targets(atom/center, target_radius)
-	var/list/valid_targets = list()
-	var/list/mobs_in_view = owner.get_visible_mobs()
-
-	for(var/mob/living/M in mobs_in_view)
-		if(M?.mind)
-			if(M == owner)
-				continue
-			valid_targets += M
-	return valid_targets
+	targeting_type = /datum/aoe_targeting/living_in_sight
 
 /datum/action/cooldown/spell/list_target/mindscan/cast(atom/cast_on)
 	. = ..()
