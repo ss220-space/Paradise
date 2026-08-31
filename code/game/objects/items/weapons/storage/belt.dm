@@ -1,3 +1,23 @@
+#define ALLOWED_TOOL_BELT_ITEMS list( \
+	/obj/item/screwdriver, \
+	/obj/item/wirecutters, \
+	/obj/item/wrench, \
+	/obj/item/weldingtool, \
+	/obj/item/crowbar, \
+	/obj/item/multitool, \
+	/obj/item/stack/cable_coil, \
+	/obj/item/clothing/gloves, \
+	/obj/item/t_scanner, \
+	/obj/item/extinguisher/mini, \
+	/obj/item/holosign_creator, \
+	/obj/item/analyzer, \
+	/obj/item/robotanalyzer, \
+	/obj/item/rcd, \
+	/obj/item/rpd, \
+	/obj/item/flashlight, \
+	/obj/item/radio, \
+)
+
 /obj/item/storage/belt
 	name = "not actually a toolbelt"
 	desc = "Can hold various things. This is the base type of /belt, are you sure you should have this?"
@@ -115,25 +135,8 @@
 	use_item_overlays = TRUE
 	max_combined_w_class = 18
 	max_w_class = WEIGHT_CLASS_NORMAL
-	can_hold = list(
-		/obj/item/crowbar,
-		/obj/item/screwdriver,
-		/obj/item/weldingtool,
-		/obj/item/wirecutters,
-		/obj/item/wrench,
-		/obj/item/multitool,
-		/obj/item/flashlight,
-		/obj/item/stack/cable_coil,
-		/obj/item/t_scanner,
-		/obj/item/analyzer,
-		/obj/item/extinguisher/mini,
-		/obj/item/holosign_creator,
-		/obj/item/radio,
-		/obj/item/robotanalyzer,
-		/obj/item/clothing/gloves,
-		/obj/item/rcd,
-		/obj/item/rpd,
-	)
+	can_hold = ALLOWED_TOOL_BELT_ITEMS
+	w_class_override = ALLOWED_TOOL_BELT_ITEMS
 
 /obj/item/storage/belt/utility/full/populate_contents()
 	new /obj/item/screwdriver(src)
@@ -211,7 +214,7 @@
 		/obj/item/reagent_containers/applicator,
 		/obj/item/radio,
 	)
-	use_to_pickup = 1 //Allow medical belt to pick up medicine
+	use_to_pickup = TRUE //Allow medical belt to pick up medicine
 
 /obj/item/storage/belt/medical/get_ru_names()
 	return alist(
@@ -230,6 +233,7 @@
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
 	new /obj/item/storage/pill_bottle/patch_pack/filled(src)
 	new /obj/item/storage/pill_bottle/filled(src)
+	update_icon()
 
 /obj/item/storage/belt/medical/filled/paramed/populate_contents()
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
@@ -239,6 +243,17 @@
 	new /obj/item/storage/pill_bottle/patch_pack/filled(src)
 	new /obj/item/stack/medical/bruise_pack(src)
 	new /obj/item/stack/medical/ointment(src)
+	update_icon()
+
+/obj/item/storage/belt/medical/response_team/populate_contents()
+	new /obj/item/reagent_containers/food/pill/salbutamol(src)
+	new /obj/item/reagent_containers/food/pill/salbutamol(src)
+	new /obj/item/reagent_containers/food/pill/charcoal(src)
+	new /obj/item/reagent_containers/food/pill/charcoal(src)
+	new /obj/item/reagent_containers/food/pill/salicylic(src)
+	new /obj/item/reagent_containers/food/pill/salicylic(src)
+	new /obj/item/reagent_containers/food/pill/salicylic(src)
+	update_icon()
 
 /obj/item/storage/belt/medical/surgery
 	name = "surgical belt"
@@ -283,16 +298,6 @@
 	new /obj/item/FixOVein(src)
 	new /obj/item/surgicaldrill(src)
 	new /obj/item/cautery(src)
-
-/obj/item/storage/belt/medical/response_team/populate_contents()
-	new /obj/item/reagent_containers/food/pill/salbutamol(src)
-	new /obj/item/reagent_containers/food/pill/salbutamol(src)
-	new /obj/item/reagent_containers/food/pill/charcoal(src)
-	new /obj/item/reagent_containers/food/pill/charcoal(src)
-	new /obj/item/reagent_containers/food/pill/salicylic(src)
-	new /obj/item/reagent_containers/food/pill/salicylic(src)
-	new /obj/item/reagent_containers/food/pill/salicylic(src)
-	update_icon()
 
 /obj/item/storage/belt/medical/surgery/abductor
 	name = "agent surgical belt"
@@ -576,9 +581,7 @@
 	item_state = "soulstonebelt"
 	storage_slots = 6
 	use_item_overlays = TRUE
-	can_hold = list(
-		"/obj/item/soulstone",
-	)
+	can_hold = list(/obj/item/soulstone)
 
 /obj/item/storage/belt/soulstone/full/populate_contents()
 	for(var/I in 1 to 7)
@@ -592,7 +595,7 @@
 	item_state = "champion"
 	materials = list(MAT_GOLD=400)
 	storage_slots = 1
-	can_hold = list("/obj/item/clothing/mask")
+	can_hold = list(/obj/item/clothing/mask)
 
 /obj/item/storage/belt/military
 	name = "military belt"
@@ -613,16 +616,7 @@
 	icon_state = "utilitybelt"
 	item_state = "utility"
 	use_item_overlays = TRUE // So it will still show tools in it in case sec get lazy and just glance at it.
-	w_class_override = list(
-		/obj/item/crowbar,
-		/obj/item/screwdriver,
-		/obj/item/weldingtool,
-		/obj/item/wirecutters,
-		/obj/item/wrench,
-		/obj/item/multitool,
-		/obj/item/rcd,
-		/obj/item/rpd,
-	)
+	w_class_override = ALLOWED_TOOL_BELT_ITEMS
 
 /obj/item/storage/belt/military/traitor/hacker/populate_contents()
 	new /obj/item/screwdriver(src, "red")
@@ -911,7 +905,7 @@
 	storage_slots = 1
 	max_w_class = WEIGHT_CLASS_NORMAL
 	can_hold = list(
-		/obj/item/gun/projectile/automatic/pistol,
+		/obj/item/gun/projectile/automatic/pistol/stechkin,
 		/obj/item/gun/projectile/revolver/detective,
 		/obj/item/gun/projectile/automatic/toy/pistol,
 	)
@@ -923,9 +917,7 @@
 	item_state = "soulstonebelt"
 	storage_slots = 6
 	use_item_overlays = TRUE
-	can_hold = list(
-		/obj/item/gun/magic/wand,
-	)
+	can_hold = list(/obj/item/gun/magic/wand)
 
 /obj/item/storage/belt/wands/full/populate_contents()
 	new /obj/item/gun/magic/wand/death(src)
@@ -1084,12 +1076,23 @@
 	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
 	can_hold = list()
 	w_class_override = list(
-		/obj/item/crowbar,
 		/obj/item/screwdriver,
-		/obj/item/weldingtool,
 		/obj/item/wirecutters,
 		/obj/item/wrench,
+		/obj/item/weldingtool,
+		/obj/item/crowbar,
 		/obj/item/multitool,
+		/obj/item/stack/cable_coil,
+		/obj/item/clothing/gloves,
+		/obj/item/t_scanner,
+		/obj/item/extinguisher/mini,
+		/obj/item/holosign_creator,
+		/obj/item/analyzer,
+		/obj/item/robotanalyzer,
+		/obj/item/rcd,
+		/obj/item/rpd,
+		/obj/item/flashlight,
+		/obj/item/radio,
 		/obj/item/handheld_defibrillator,
 	)
 
@@ -1212,7 +1215,6 @@
 	max_combined_w_class = 20
 	can_hold = list(
 		/obj/item/crowbar,
-		/obj/item/grenade/plastic/miningcharge,
 		/obj/item/screwdriver,
 		/obj/item/weldingtool,
 		/obj/item/wirecutters,
@@ -1220,36 +1222,36 @@
 		/obj/item/multitool,
 		/obj/item/flashlight,
 		/obj/item/stack/cable_coil,
-		/obj/item/analyzer,
 		/obj/item/extinguisher/mini,
 		/obj/item/radio,
 		/obj/item/clothing/gloves,
-		/obj/item/resonator,
-		/obj/item/mining_scanner,
 		/obj/item/pickaxe,
 		/obj/item/shovel,
+		/obj/item/resonator,
+		/obj/item/grenade/plastic/miningcharge,
+		/obj/item/storage/bag/plants,
+		/obj/item/storage/bag/ore,
+		/obj/item/stack/ore,
+		/obj/item/gem,
+		/obj/item/gps,
+		/obj/item/survivalcapsule,
+		/obj/item/mining_scanner,
+		/obj/item/t_scanner/adv_mining_scanner,
+		/obj/item/wormhole_jaunter,
+		/obj/item/stack/marker_beacon,
+		/obj/item/kitchen/knife,
 		/obj/item/stack/sheet/animalhide,
 		/obj/item/stack/sheet/sinew,
 		/obj/item/stack/sheet/bone,
+		/obj/item/organ/internal/regenerative_core,
+		/obj/item/hivelordstabilizer,
+		/obj/item/storage/pill_bottle,
+		/obj/item/reagent_containers/hypospray,
+		/obj/item/reagent_containers/food/pill,
+		/obj/item/reagent_containers/food/drinks,
+		/obj/item/stack/medical,
 		/obj/item/lighter,
 		/obj/item/storage/fancy/cigarettes,
-		/obj/item/reagent_containers/food/drinks/bottle,
-		/obj/item/stack/medical,
-		/obj/item/kitchen/knife,
-		/obj/item/reagent_containers/hypospray,
-		/obj/item/gps,
-		/obj/item/storage/bag/ore,
-		/obj/item/survivalcapsule,
-		/obj/item/t_scanner/adv_mining_scanner,
-		/obj/item/reagent_containers/food/pill,
-		/obj/item/storage/pill_bottle,
-		/obj/item/stack/ore,
-		/obj/item/reagent_containers/food/drinks,
-		/obj/item/organ/internal/regenerative_core,
-		/obj/item/wormhole_jaunter,
-		/obj/item/storage/bag/plants,
-		/obj/item/stack/marker_beacon,
-		/obj/item/gem,
 	)
 
 /obj/item/storage/belt/mining/get_ru_names()
@@ -1280,37 +1282,33 @@
 	item_state = "ebelt"
 	use_item_overlays = TRUE
 	can_hold = list(
-		/obj/item/hatchet,
 		/obj/item/flashlight/lantern,
 		/obj/item/pickaxe,
 		/obj/item/shovel,
+		/obj/item/cultivator/wooden,
+		/obj/item/hatchet,
+		/obj/item/kitchen/knife,
 		/obj/item/stack/sheet/animalhide,
 		/obj/item/stack/sheet/sinew,
 		/obj/item/stack/sheet/bone,
-		/obj/item/kitchen/knife,
 		/obj/item/organ/internal/regenerative_core,
+		/obj/item/hivelordstabilizer,
 		/obj/item/stack/ore,
-		/obj/item/reagent_containers/food/snacks/grown,
 		/obj/item/reagent_containers/applicator,
+		/obj/item/reagent_containers/food/snacks/grown,
 		/obj/item/reagent_containers/food/snacks/bait,
 		/obj/item/reagent_containers/food/snacks/charred_krill,
-		/obj/item/whetstone,
 		/obj/item/reagent_containers/food/snacks/lavaland,
+		/obj/item/whetstone,
 		/obj/item/lavaland_dye,
 		/obj/item/conductive_organ,
 		/obj/item/stack/sheet/cartilage_plate,
 		/obj/item/stack/sheet/razor_sharp_teeth,
-		/obj/item/hivelordstabilizer,
 		/obj/item/circular_saw_blade,
 		/obj/item/t_scanner/adv_mining_scanner/bleary_eye,
 		/obj/item/acid_bladder,
-		/obj/item/shovel/spade/wooden,
-		/obj/item/hatchet/wooden,
-		/obj/item/cultivator/wooden,
 	)
-	cant_hold = list(
-		/obj/item/pickaxe/drill,
-	)
+	cant_hold = list(/obj/item/pickaxe/drill)
 
 /obj/item/storage/belt/mining/primitive/get_ru_names()
 	return alist(
@@ -1424,3 +1422,5 @@
 	if(!..())
 		return
 	playsound(src, unsheath_sound, 20)
+
+#undef ALLOWED_TOOL_BELT_ITEMS

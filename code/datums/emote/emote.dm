@@ -8,8 +8,11 @@
  *
  */
 /datum/emote
+	abstract_type = /datum/emote
 	/// What calls the emote.
 	var/key = ""
+	/// Needed for more user-friendly emote names, so emotes with keys like "aflap" will show as "flap angry". Defaulted to key.
+	var/name = ""
 	/// Alternative keys
 	var/list/additional_keys
 	/// This will also call the emote.
@@ -111,6 +114,7 @@
 	var/bypass_unintentional_cooldown = FALSE
 	/// How loud is the audio emote?
 	var/volume = 50
+	var/keybind_category = KB_CATEGORY_EMOTE_GENERIC
 
 /datum/emote/New()
 	if(message_param && !param_desc)

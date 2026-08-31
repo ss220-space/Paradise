@@ -1,4 +1,4 @@
-import { Icon, Stack } from 'tgui/components';
+import { Icon, Stack } from 'tgui-core/components';
 
 /** Spinner that represents loading states.
  *

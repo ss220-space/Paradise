@@ -1,13 +1,12 @@
-import type { BooleanLike } from 'common/react';
-
-import { useBackend } from '../backend';
 import {
   Button,
   LabeledList,
   NoticeBox,
   ProgressBar,
   Section,
-} from '../components';
+} from 'tgui-core/components';
+import type { BooleanLike } from 'tgui-core/react';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type PortagravData = {

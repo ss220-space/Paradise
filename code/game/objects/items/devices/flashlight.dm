@@ -239,7 +239,7 @@
 	icon_state = "lamp"
 	item_state = "lamp"
 	light_range = 3.5
-	light_system = COMPLEX_LIGHT
+	light_system = OVERLAY_LIGHT //COMPLEX_LIGHT doesn't work for some reason
 	light_color = LIGHT_COLOR_FAINT_BLUE
 	w_class = WEIGHT_CLASS_BULKY
 	materials = list()

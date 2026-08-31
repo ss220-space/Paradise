@@ -1,5 +1,5 @@
+import { LabeledList, Section } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
 type PodTrackingData = {
