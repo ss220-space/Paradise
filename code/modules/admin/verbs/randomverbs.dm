@@ -583,56 +583,6 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(admin_offer_control, R_ADMIN, "Offer control to gho
 
 #define CUSTOM_MESSAGE_TYPE "Свой тип."
 
-ADMIN_VERB(cmd_admin_create_centcom_report, R_SERVER|R_EVENT, "Create Communications Report", "Send an IC announcement to the game world.", ADMIN_CATEGORY_EVENTS)
-	//the stuff on the list is |"report type" = "report title"|, if that makes any sense
-	var/list/message_type = list(
-		"Сообщение Центрального командования." = "Обновление \"Нанотрейзен\".",
-		"Официальное сообщение \"Синдиката\"." = "Сообщение \"Синдиката\".",
-		"Сообщение Федерации Космических Волшебников." = "Заколдованное сообщение.",
-		"Официальное сообщение Клана Паука." = "Сообщение Клана Паука.",
-		"Вражеское сообщение." = "Неизвестное сообщение.",
-		CUSTOM_MESSAGE_TYPE = "Загадочное сообщение."
-	)
-
-	var/list/message_sound = list(
-		"Уведомление *бип*" = 'sound/misc/notice2.ogg',
-		"Перехвачено вражеское сообщение" = ANNOUNCER_INTERCEPT,
-		"Составлен отчёт о новой команде" = SSstation.announcer.get_rand_report_sound(),
-	)
-
-	var/type = tgui_input_list(user, "Выберите тип сообщения для отправки.", "Тип сообщения", message_type, "")
-
-	if(type == CUSTOM_MESSAGE_TYPE)
-		type = tgui_input_text(user, "Введите тип сообщения.", "Тип сообщения", "Зашифрованная передача", encode = FALSE)
-
-	var/subtitle = tgui_input_text(user, "Введите заголовок сообщения.", "Заголовок", message_type[type], encode = FALSE)
-	if(!subtitle)
-		return
-	var/input_message = tgui_input_text(user, "Введите всё, что хотите. Что угодно. Серьёзно.", "Какое сообщение?", multiline = TRUE, encode = FALSE)
-	if(!input_message)
-		return
-
-	switch(tgui_alert(user, "Должно ли это быть объявлено всем?", null, list("Да", "Нет", "Отмена")))
-		if("Да")
-			var/beepsound = tgui_input_list(user, "Какой звук должен издавать анонс?", "Звук анонса", message_sound)
-			GLOB.major_announcement.announce(
-				message = input_message,
-				new_title = type,
-				new_subtitle = subtitle,
-				new_sound = message_sound[beepsound]
-			)
-			print_command_report(input_message, subtitle)
-		if("Нет")
-			//same thing as the blob stuff - it's not public, so it's classified, dammit
-			radio_announce("Отчёт был загружен и распечатан на всех консолях связи.", "Консоль связи", COMM_FREQ)
-			print_command_report(input_message, "Секретно: [subtitle]")
-		else
-			return
-
-	log_admin("[key_name(user)] has created a communications report: [input_message]")
-	message_admins("[key_name_admin(user)] has created a communications report")
-	BLACKBOX_LOG_ADMIN_VERB("Create Comms Report")
-
 #undef CUSTOM_MESSAGE_TYPE
 
 ADMIN_VERB(list_open_jobs, R_ADMIN, "List free slots", "List available station jobs.", ADMIN_CATEGORY_MAIN)
@@ -968,13 +918,6 @@ ADMIN_VERB(modify_goals, R_EVENT, "Modify Goals", "Modify the station goals for 
 	var/datum/browser/popup = new(usr, "goals", "Modify Goals", 400, 400)
 	popup.set_content(dat)
 	popup.open(FALSE)
-
-ADMIN_VERB(change_command_name, R_EVENT, "Change Command Name", "Change the name of Central Command.", ADMIN_CATEGORY_EVENTS)
-	var/input = tgui_input_text(user, "Введите имя для Центрального командования.", "Что?", "", encode = FALSE)
-	if(!input)
-		return
-	change_command_name(input)
-	log_and_message_admins("has changed Central Command's name to [input]")
 
 ADMIN_VERB(polymorph_all, R_EVENT, "Polymorph All", "Applies the effects of the bolt of change to every single mob.", ADMIN_CATEGORY_FUN)
 	var/confirm = tgui_alert(user, "Пожалуйста, подтвердите, что вы хотите полиморфировать всех?", "Подтверждение", list("Да", "Нет"))

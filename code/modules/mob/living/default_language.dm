@@ -1,6 +1,8 @@
-GAME_VERB(/mob/living, set_default_language, "Выбрать язык по умолчанию", VERB_CATEGORY_IC)
+GAME_VERB(/mob/living, set_default_language_verb, "Выбрать язык по умолчанию", VERB_CATEGORY_IC)
 	var/language = tgui_input_list(src, "Выберете язык по умолчанию", "Язык по умолчанию", get_languages())
+	set_default_language(language)
 
+/mob/living/proc/set_default_language(language)
 	if(language)
 		to_chat(src, span_notice("Теперь вы будете использовать [language], если не укажете язык при разговоре."))
 	else
