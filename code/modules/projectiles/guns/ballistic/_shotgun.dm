@@ -3,7 +3,9 @@
 
 /obj/item/gun/projectile/shotgun
 	name = "shotgun"
-	desc = "A traditional shotgun with wood furniture and a four-shell capacity underneath."
+	desc = "Классический дробовик с деревянной отделкой и трубчатым магазином на 4 патрона."
+	sawn_desc = "Кустарно модифицированная версия с укороченным стволом."
+	gender = MALE
 	icon_state = "shotgun"
 	item_state = "shotgun"
 	w_class = WEIGHT_CLASS_BULKY
@@ -23,6 +25,16 @@
 	var/reload_sound = 'sound/weapons/gun_interactions/shotgunpump.ogg'
 	/// Available reload animation (pump action animation)
 	var/available_reload_animation = TRUE
+
+/obj/item/gun/projectile/shotgun/get_ru_names()
+	return alist(
+		NOMINATIVE = "дробовик 12g",
+		GENITIVE = "дробовика 12g",
+		DATIVE = "дробовику 12g",
+		ACCUSATIVE = "дробовик 12g",
+		INSTRUMENTAL = "дробовиком 12g",
+		PREPOSITIONAL = "дробовике 12g",
+	)
 
 /obj/item/gun/projectile/shotgun/attackby(obj/item/item, mob/user, params)
 	if(speedloader_reload(item, user))
@@ -71,4 +83,4 @@
 /obj/item/gun/projectile/shotgun/examine(mob/user)
 	. = ..()
 	if(chambered)
-		. += span_notice("A [chambered.BB ? "live" : "spent"] one is in the chamber.")
+		. += span_notice("Патрон в патроннике <b>[chambered.BB ? "не " : ""]отстрелян</b>.")

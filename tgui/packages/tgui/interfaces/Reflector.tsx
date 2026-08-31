@@ -7,8 +7,7 @@ import {
   Section,
   Stack,
   Table,
-} from '../components';
-
+} from 'tgui-core/components';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 

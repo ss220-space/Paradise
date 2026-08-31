@@ -438,10 +438,7 @@
 		ruined = FALSE
 		update_icon(UPDATE_OVERLAYS)
 
-/obj/item/tape/verb/wipe()
-	set name = "Стереть плёнку"
-	set category = VERB_CATEGORY_OBJECT
-	set src in view(1)
+GAME_VERB_SRC(/obj/item/tape, wipe, view(1), "Стереть плёнку", VERB_CATEGORY_HIDDEN)
 
 	var/mob/living/carbon/user = usr
 	if(!istype(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))

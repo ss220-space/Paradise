@@ -1,8 +1,5 @@
 #ifdef MULTIINSTANCE
-/client/verb/switch_server()
-	set name = "Switch Server"
-	set desc = "Switch to a different Paradise server"
-	set category = VERB_CATEGORY_OOC
+GAME_VERB_DESC(/client, switch_server, "Switch Server", "Switch to a different Paradise server", VERB_CATEGORY_OOC)
 
 	// First get our peers
 	var/datum/db_query/dbq1 = SSdbcore.NewQuery({"

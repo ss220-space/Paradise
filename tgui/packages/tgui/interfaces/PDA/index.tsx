@@ -1,8 +1,8 @@
 import { useState } from 'react';
+import { RoutingErrorWindow } from 'tgui/routes';
+import { Box, Button, Icon, Section } from 'tgui-core/components';
 import { useBackend } from '../../backend';
-import { Box, Button, Section, Icon } from '../../components';
 import { Window } from '../../layouts';
-import { routingError } from '../../routes';
 
 const PDA_UI = {
   window: {
@@ -14,7 +14,7 @@ const PDA_UI = {
 const RequirePDAInterface = require.context('.', false, /\.tsx$/);
 
 const THEME_MAP: Record<string, string> = {
-  pda_bank: 'raingor_company',
+  'pda_bank': 'brg',
 };
 
 const THEME_NAMES: Record<string, string> = {
@@ -41,7 +41,7 @@ const THEME_NAMES: Record<string, string> = {
 
 const GetApp = (name) => {
   if (name === 'index') {
-    return routingError('notFound', name);
+    return RoutingErrorWindow({ type: 'notFound', name: name });
   }
 
   let appModule;
@@ -49,16 +49,14 @@ const GetApp = (name) => {
     appModule = RequirePDAInterface(`./${name}.tsx`);
   } catch (err) {
     if (err.code === 'MODULE_NOT_FOUND') {
-      return routingError('notFound', name);
+      return RoutingErrorWindow({ type: 'notFound', name: name });
     }
     throw err;
   }
-
   const Component = appModule[name];
   if (!Component) {
-    return routingError('missingExport', name);
+    return RoutingErrorWindow({ type: 'missingExport', name: name });
   }
-
   return Component;
 };
 
@@ -106,27 +104,33 @@ export const PDA = () => {
       height={PDA_UI.window.height}
       theme={theme}
     >
-      <Window.Content p={0} height="100%">
+      <Window.Content p={0}>
         <Box
-          height="100%"
           style={{
-            display: 'grid',
-            gridTemplateRows: 'auto 1fr minmax(4rem, 9%)',
+            display: 'flex',
+            flexDirection: 'column',
+            height: '100%',
             overflow: 'hidden',
           }}
         >
-          <PDAHeader />
+          <Box>
+            <PDAHeader />
+          </Box>
+
           <Box
-            p={0.75}
-            minHeight={0}
             style={{
+              flex: 1,
               overflowY: 'auto',
+              minHeight: 0,
             }}
+            p={0.75}
           >
             <AppComponent />
           </Box>
 
-          <PDAFooter />
+          <Box>
+            <PDAFooter />
+          </Box>
         </Box>
       </Window.Content>
     </Window>

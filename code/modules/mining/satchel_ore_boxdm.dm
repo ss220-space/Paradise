@@ -107,24 +107,3 @@
 			break
 		O.forceMove(loc)
 		CHECK_TICK
-
-/obj/structure/ore_box/verb/empty_box()
-	set name = "Опустошить"
-	set category = VERB_CATEGORY_OBJECT
-	set src in view(1)
-
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		return
-
-	if(!Adjacent(usr))
-		balloon_alert(usr, "слишком далеко!")
-		return
-
-	add_fingerprint(usr)
-
-	if(length(contents) < 1)
-		balloon_alert(usr, "груз отсутствует")
-		return
-
-	dump_box_contents()
-	balloon_alert(usr, "разгружено")

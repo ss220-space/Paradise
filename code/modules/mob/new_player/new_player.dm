@@ -15,6 +15,10 @@
 	if(flags & INITIALIZED)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	flags |= INITIALIZED
+	if(length(GLOB.newplayer_start))
+		forceMove(pick(GLOB.newplayer_start))
+	else
+		forceMove(locate(1,1,1))
 	add_to_mob_list()
 	return INITIALIZE_HINT_NORMAL
 
@@ -283,7 +287,7 @@
 		return
 
 	if(href_list["focus"])
-		winset(client, "mapwindow.map", "focus=true")
+		winset(client, SKIN_MAPWINDOW_MAP, "focus=true")
 		return
 
 /mob/new_player/proc/IsJobAvailable(rank)

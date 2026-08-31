@@ -764,17 +764,6 @@
 /obj/effect/mob_spawn/human/corpse/spacebattle/assistant,
 /turf/simulated/floor/mineral/titanium,
 /area/awaymission/spacebattle/storage)
-"cz" = (
-/obj/structure/safe/floor{
-	known_by = list("captain")
-	},
-/obj/item/storage/box/survival/survival_syndi,
-/obj/item/storage/secure/briefcase/syndie,
-/obj/item/clothing/under/syndicate/tacticool,
-/obj/item/clothing/mask/balaclava,
-/obj/item/gun/projectile/automatic/pistol,
-/turf/simulated/floor/plasteel,
-/area/awaymission/spacebattle/sec_storage)
 "cC" = (
 /turf/simulated/wall/shuttle{
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
@@ -14418,6 +14407,17 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/turret1)
+"Rl" = (
+/obj/structure/safe/floor{
+	known_by = list("captain")
+	},
+/obj/item/storage/box/survival/survival_syndi,
+/obj/item/storage/secure/briefcase/syndie,
+/obj/item/clothing/under/syndicate/tacticool,
+/obj/item/clothing/mask/balaclava,
+/obj/item/gun/projectile/automatic/pistol/stechkin,
+/turf/simulated/floor/plasteel,
+/area/awaymission/spacebattle/sec_storage)
 "Rm" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/blood,
@@ -15797,17 +15797,6 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/prhallway4)
-"Vn" = (
-/obj/structure/rack/gunrack,
-/obj/item/gun/energy/laser/hitscan,
-/obj/structure/window/reinforced/tinted{
-	dir = 1;
-	pixel_y = 6
-	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4"
-	},
-/area/awaymission/spacebattle/syndicate2)
 "Vo" = (
 /turf/simulated/wall/shuttle,
 /area/awaymission/spacebattle/hallway1)
@@ -16136,6 +16125,17 @@
 /obj/effect/mob_spawn/human/corpse/spacebattle/bridgeofficer,
 /turf/space,
 /area/space)
+"Wn" = (
+/obj/structure/rack/gunrack,
+/obj/item/gun/energy/laser/hitscan,
+/obj/structure/window/reinforced/tinted{
+	dir = 1;
+	pixel_y = 6
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/awaymission/spacebattle/syndicate2)
 "Wo" = (
 /obj/structure/sign/security{
 	pixel_y = -32
@@ -43647,7 +43647,7 @@ Mi
 eH
 pr
 rW
-cz
+Rl
 et
 Ca
 zg
@@ -48690,7 +48690,7 @@ ab
 ab
 ab
 pb
-Vn
+Wn
 PM
 at
 LB
@@ -54087,7 +54087,7 @@ ab
 ab
 ab
 pb
-Vn
+Wn
 PM
 at
 at

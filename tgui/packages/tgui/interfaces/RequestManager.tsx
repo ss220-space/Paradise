@@ -5,10 +5,10 @@
  * @license MIT
  */
 
-import { decodeHtmlEntities } from 'common/string';
-import { useBackend } from '../backend';
 import { useState } from 'react';
-import { Button, Input, Section } from '../components';
+import { Button, Input, Section } from 'tgui-core/components';
+import { decodeHtmlEntities } from 'tgui-core/string';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type RequestManagerData = {
@@ -29,14 +29,14 @@ export const RequestManager = (_props: unknown) => {
   const { requests } = data;
   const [filteredTypes, _] = useState(
     Object.fromEntries(
-      Object.entries(displayTypeMap).map(([type, _]) => [type, true])
-    )
+      Object.entries(displayTypeMap).map(([type, _]) => [type, true]),
+    ),
   );
   const [searchText, setSearchText] = useState('');
 
   // Handle filtering
   let displayedRequests = requests.filter(
-    (request) => filteredTypes[request.req_type]
+    (request) => filteredTypes[request.req_type],
   );
   if (searchText) {
     const filterText = searchText.toLowerCase();
@@ -45,7 +45,7 @@ export const RequestManager = (_props: unknown) => {
         decodeHtmlEntities(request.message)
           .toLowerCase()
           .includes(filterText) ||
-        request.owner_name.toLowerCase().includes(filterText)
+        request.owner_name.toLowerCase().includes(filterText),
     );
   }
 
@@ -91,13 +91,13 @@ export const RequestManager = (_props: unknown) => {
 };
 
 const displayTypeMap = {
-  'request_prayer': 'PRAYER',
-  'request_centcom': 'CENTCOM',
-  'request_syndicate': 'SYNDICATE',
-  'request_honk': 'HONK',
-  'request_ert': 'ERT',
-  'request_nuke': 'NUKE CODE',
-  'request_internet_sound': 'INTERNET SOUND',
+  request_prayer: 'PRAYER',
+  request_centcom: 'CENTCOM',
+  request_syndicate: 'SYNDICATE',
+  request_honk: 'HONK',
+  request_ert: 'ERT',
+  request_nuke: 'NUKE CODE',
+  request_internet_sound: 'INTERNET SOUND',
 };
 
 type RequestTypeProps = {

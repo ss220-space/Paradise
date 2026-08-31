@@ -26,10 +26,10 @@
 		base_icon_state = initial(icon_state)
 	update_appearance(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
-/obj/item/gun/projectile/examine_more(mob/user)
+/obj/item/gun/projectile/examine(mob/user)
 	. = ..()
 	if(can_air_shoot)
-		. += span_notice("\nНаходясь в интенте GRAB вы можете нажать кнопку использования вещи в руке (по стандарту Z), чтобы выстрелить в воздух. Это потратит патрон, но привлечет к вам внимание.")
+		. += span_notice("Находясь в интенте GRAB вы можете нажать кнопку использования вещи в руке (по стандарту Z), чтобы выстрелить в воздух. Это потратит патрон, но привлечет к вам внимание.")
 
 /obj/item/gun/projectile/Destroy()
 	QDEL_NULL(magazine)
@@ -63,7 +63,7 @@
 /obj/item/gun/projectile/update_desc(updates = ALL)
 	. = ..()
 	if(sawn_state)
-		desc = sawn_desc
+		desc = "[initial(desc)] [sawn_desc]"
 	else
 		desc = initial(desc)
 

@@ -117,7 +117,7 @@
 				SSsecurity_level.set_level(SEC_LEVEL_RED)
 		if(BLOB_DEATH_REPORT_FOURTH)
 			blob_stage = BLOB_STAGE_ZERO
-			SSvote.start_vote(new /datum/vote/crew_transfer)
+			SSvote.initiate_vote(/datum/vote/crew_transfer, "Autotransfer")
 			return
 		else
 			return
