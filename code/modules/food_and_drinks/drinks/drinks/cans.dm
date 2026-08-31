@@ -305,7 +305,7 @@
 	desc = "Бутылированные слёзы Гриффона. Пить со всей осторожностью."
 	icon_state = "adminbooze"
 	is_glass = 1
-	list_reagents = list("adminordrazine" = 5, "capsaicin" = 5, "methamphetamine"= 20, "thirteenloko" = 20)
+	list_reagents = list("capsaicin" = 5, "methamphetamine"= 20, "thirteenloko" = 20)
 
 /obj/item/reagent_containers/food/drinks/cans/adminbooze/get_ru_names()
 	return alist(
