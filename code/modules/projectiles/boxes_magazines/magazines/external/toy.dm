@@ -5,7 +5,7 @@
 
 // MARK: SMG
 /obj/item/ammo_box/magazine/toy/smg
-	gun_name = "игрушечного пистолет-пулемёта \"Saber SMG\""
+	gun_name = "игрушечного пистолета-пулемёта \"Saber SMG\""
 	icon_state = "smg9mm-20"
 	max_ammo = 20
 
@@ -56,7 +56,7 @@
 
 // MARK: C-20r
 /obj/item/ammo_box/magazine/toy/smgm45
-	gun_name = "игрушечного пистолет-пулемёта C-20r"
+	gun_name = "игрушечного пистолета-пулемёта C-20r"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 	max_ammo = 20
 

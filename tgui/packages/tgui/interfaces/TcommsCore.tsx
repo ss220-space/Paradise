@@ -1,15 +1,15 @@
-import { useBackend } from '../backend';
 import { useState } from 'react';
 import {
-  Button,
-  LabeledList,
   Box,
-  Section,
-  NoticeBox,
-  Tabs,
+  Button,
   Icon,
+  LabeledList,
+  NoticeBox,
+  Section,
   Table,
-} from '../components';
+  Tabs,
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 const PickTab = (index: number) => {

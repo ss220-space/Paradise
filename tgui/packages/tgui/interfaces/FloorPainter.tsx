@@ -1,15 +1,15 @@
-import { useBackend } from '../backend';
 import {
+  Box,
   Button,
   DmIcon,
-  LabeledList,
-  Section,
-  Table,
   Dropdown,
   Flex,
   Icon,
-  Box,
-} from '../components';
+  LabeledList,
+  Section,
+  Table,
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type SelectableTileProps = {
@@ -110,31 +110,33 @@ export const FloorPainter = (props: unknown) => {
               <Table style={{ display: 'inline' }}>
                 {[Dir.NORTH, null, Dir.SOUTH].map((latitude) => (
                   <Table.Row key={latitude}>
-                    {[latitude + Dir.WEST, latitude, latitude + Dir.EAST].map(
-                      (dir) => (
-                        <Table.Cell
-                          key={dir}
-                          style={{
-                            verticalAlign: 'middle',
-                            textAlign: 'center',
-                          }}
-                        >
-                          {dir === null ? (
-                            <Icon name="arrows-alt" size={3} />
-                          ) : (
-                            <SelectableTile
-                              icon={icon}
-                              icon_state={selectedStyle}
-                              direction={dir}
-                              isSelected={dir === selectedDir}
-                              onSelect={() =>
-                                act('select_direction', { direction: dir })
-                              }
-                            />
-                          )}
-                        </Table.Cell>
-                      )
-                    )}
+                    {[
+                      latitude || 0 + Dir.WEST,
+                      latitude,
+                      latitude || 0 + Dir.EAST,
+                    ].map((dir) => (
+                      <Table.Cell
+                        key={dir}
+                        style={{
+                          verticalAlign: 'middle',
+                          textAlign: 'center',
+                        }}
+                      >
+                        {dir === null ? (
+                          <Icon name="arrows-alt" size={3} />
+                        ) : (
+                          <SelectableTile
+                            icon={icon}
+                            icon_state={selectedStyle}
+                            direction={dir}
+                            isSelected={dir === selectedDir}
+                            onSelect={() =>
+                              act('select_direction', { direction: dir })
+                            }
+                          />
+                        )}
+                      </Table.Cell>
+                    ))}
                   </Table.Row>
                 ))}
               </Table>

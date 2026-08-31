@@ -344,6 +344,12 @@
 /// Layer for light overlays
 #define LIGHT_DEBUG_LAYER 35
 
+/// Layer for pathfinding arrows
+#define PATH_ARROW_DEBUG_LAYER 36
+
+/// Layer for pathfinding overlays
+#define PATH_DEBUG_LAYER 37
+
 //-------------------- Radial ---------------------
 
 #define RADIAL_BACKGROUND_LAYER 0

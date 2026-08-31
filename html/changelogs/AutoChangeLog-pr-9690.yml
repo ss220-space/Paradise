@@ -1,4 +1,0 @@
-author: "SCPfollower"
-delete-after: True
-changes:
-  - tweak: "Добавлено отображение названия импланта в кейсе для имплантов. (PR #9690)"

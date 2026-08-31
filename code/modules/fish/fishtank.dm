@@ -80,18 +80,6 @@
 		return ..()
 	toggle_light(user)
 
-/obj/machinery/fishtank/verb/toggle_lid_verb()
-	set name = "Крышка аквариума"
-	set category = VERB_CATEGORY_OBJECT
-	set src in view(1)
-	toggle_lid(usr)
-
-/obj/machinery/fishtank/verb/toggle_light_verb()
-	set name = "Освещение аквариума"
-	set category = VERB_CATEGORY_OBJECT
-	set src in view(1)
-	toggle_light(usr)
-
 /obj/machinery/fishtank/proc/toggle_lid(mob/user)
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
@@ -110,12 +98,6 @@
 //////////////////////////////
 //	Initialize() PROCS		//
 //////////////////////////////
-
-/obj/machinery/fishtank/Initialize(mapload)
-	. = ..()
-	if(!has_lid)	//Tank doesn't have a lid/light, remove the verbs for then
-		verbs -= /obj/machinery/fishtank/verb/toggle_lid_verb
-		verbs -= /obj/machinery/fishtank/verb/toggle_light_verb
 
 /obj/machinery/fishtank/tank/Initialize(mapload)
 	. = ..()

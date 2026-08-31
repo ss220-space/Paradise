@@ -6,88 +6,61 @@
 
 // Themes
 import './styles/main.scss';
-import './styles/themes/abductor.scss';
-import './styles/themes/admin.scss';
-import './styles/themes/cardtable.scss';
 import './styles/themes/cargo.scss';
 import './styles/themes/changeling.scss';
 import './styles/themes/clockwork.scss';
 import './styles/themes/infernal.scss';
-import './styles/themes/hackerman.scss';
 import './styles/themes/honker.scss';
-import './styles/themes/malfunction.scss';
 import './styles/themes/hydroponics.scss';
-import './styles/themes/ntos.scss';
-import './styles/themes/ntos_cat.scss';
-import './styles/themes/ntos_darkmode.scss';
-import './styles/themes/ntos_lightmode.scss';
-import './styles/themes/ntOS95.scss';
-import './styles/themes/ntos_spooky.scss';
-import './styles/themes/ntos_terminal.scss';
 import './styles/themes/ntos_roboquest.scss';
 import './styles/themes/ntos_roboblue.scss';
-import './styles/themes/paper.scss';
-import './styles/themes/retro.scss';
 import './styles/themes/safe.scss';
 import './styles/themes/securestorage.scss';
 import './styles/themes/security.scss';
 import './styles/themes/spider_clan.scss';
-import './styles/themes/syndicate.scss';
 import './styles/themes/nologo.scss';
 import './styles/themes/spider_clan.scss';
-import './styles/themes/ntOS95.scss';
+import './styles/themes/brg.scss';
 
-import { perf } from 'common/perf';
-import { setupGlobalEvents } from 'common/events';
-import { setupHotKeys } from 'common/hotkeys';
-import { setupHotReloading } from 'tgui-dev-server/link/client.mjs';
-
+import { setupGlobalEvents } from 'tgui-core/events';
+import { setupHotKeys } from 'tgui-core/hotkeys';
+import { captureExternalLinks } from 'tgui-core/links';
+import { setupHotReloading } from 'tgui-dev-server/link/client';
 import { App } from './App';
-import { setGlobalStore } from './backend';
-import { captureExternalLinks } from './links';
+import { setDebugHotKeys } from './debug/use-debug';
+import { bus } from './events/listeners';
 import { render } from './renderer';
-import { configureStore } from './store';
+import { createStackAugmentor } from './stack';
 
-perf.mark('inception', window.performance?.timeOrigin);
-perf.mark('init');
-
-const store = configureStore();
-
-const setupApp = () => {
+function setupApp() {
   // Delay setup
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', setupApp);
     return;
   }
-
-  setGlobalStore(store);
+  window.__augmentStack__ = createStackAugmentor();
 
   setupGlobalEvents();
   setupHotKeys({
     keyUpVerb: 'KeyUp',
     keyDownVerb: 'KeyDown',
-    verbParamsFn: (verb, key) => `${verb} "${key}"`,
     // In the future you could send a winget here to get mousepos/size from the map here if it's necessary
-    // TODO return with KeyDown and KeyUp Upgrade
-    // verbParamsFn: (verb, key) => `${verb} "${key}" 0 0 0 0`,
+    verbParamsFn: (verb, key) => `${verb} "${key}" 0 0 0 0`,
   });
   captureExternalLinks();
 
-  store.subscribe(() => render(<App />));
+  Byond.subscribe((type, payload) => bus.dispatch({ type, payload }));
 
-  // Dispatch incoming messages as store actions
-  Byond.subscribe((type, payload) => store.dispatch({ type, payload }));
+  render(<App />);
 
   // Enable hot module reloading
   if (import.meta.webpackHot) {
+    setDebugHotKeys();
     setupHotReloading();
-    import.meta.webpackHot.accept(
-      ['./debug', './layouts', './routes', './App'],
-      () => {
-        render(<App />);
-      }
+    import.meta.webpackHot.accept(['./layouts', './routes', './App'], () =>
+      render(<App />),
     );
   }
-};
+}
 
 setupApp();

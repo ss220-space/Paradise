@@ -68,11 +68,20 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 
 	Master.Initialize(10, FALSE, TRUE)
 
+	RunUnattendedFunctions()
+
+	return
+
+/// Runs after the call to Master.Initialize, but before the delay kicks in. Used to turn the world execution into some single function then exit
+/world/proc/RunUnattendedFunctions()
 	#ifdef TEST_RUNNER
 	GLOB.test_runner = new
 	GLOB.test_runner.Start()
 	#endif
 
+	#ifdef PERFORMANCE_TESTS
+	queue_performance_tests()
+	#endif
 	return
 
 // This is basically a replacement for hook/startup. Please dont shove random bullshit here
@@ -394,3 +403,23 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	maxz++
 	SSmobs.MaxZChanged()
 	SSidlenpcpool.MaxZChanged()
+
+/world/proc/queue_performance_tests()
+	//trigger things to run the whole process
+	Master.sleep_offline_after_initializations = FALSE
+	SSticker.force_start = TRUE
+	var/datum/callback/cb = CALLBACK(src, PROC_REF(run_performance_tests))
+	SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(addtimer), cb, 10 SECONDS))
+
+/// Stub proc intended to be filled with code that does some test, profiles it, and logs that test.
+/// Intended to be used with line by line macros, but you should live your truth
+/world/proc/run_performance_tests()
+	// In case we do somethin that could otherwise end the round
+	SSticker.delay_end = TRUE
+	// Your code goes here
+
+	// Logging goes here
+	// (sample line by line) stat_tracking_export_to_csv_later("file_name.csv", GLOB.cost_list, GLOB.count_list)
+	SSticker.delay_end = FALSE
+	shutdown()
+

@@ -42,9 +42,9 @@
 								span_userdanger("[A] has knocked [D] out with a haymaker!"))
 			D.apply_effect(20 SECONDS, WEAKEN, armor_block)
 			D.Weaken(6 SECONDS)
-			D.forcesay(GLOB.hit_appends)
+			D.force_say(GLOB.hit_appends)
 		else if(D.body_position == LYING_DOWN)
-			D.forcesay(GLOB.hit_appends)
+			D.force_say(GLOB.hit_appends)
 	return 1
 
 /datum/martial_art/drunk_brawling
@@ -103,7 +103,7 @@
 								span_userdanger("[A] has knocked [D] out with a haymaker!"))
 			D.Paralyse(10 SECONDS)
 			D.apply_effect(20 SECONDS, WEAKEN, armor_block)
-			D.forcesay(GLOB.hit_appends)
+			D.force_say(GLOB.hit_appends)
 		else if(D.body_position == LYING_DOWN)
-			D.forcesay(GLOB.hit_appends)
+			D.force_say(GLOB.hit_appends)
 	return 1

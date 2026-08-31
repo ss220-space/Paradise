@@ -25,8 +25,7 @@ emp_act
 
 		if(reflected)
 			visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] отражает [P.declent_ru(ACCUSATIVE)]!"), \
-							span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] отражает [P.declent_ru(ACCUSATIVE)]!"),\
-							projectile_message = TRUE)
+							span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] отражает [P.declent_ru(ACCUSATIVE)]!"))
 			add_attack_logs(P.firer, src, "hit by [P.type] but got reflected")
 			P.reflect_back(src)
 			return -1
@@ -576,7 +575,7 @@ emp_act
 					update_worn_undersuit()
 
 	if(apply_damage_result && (item.force > 10 || (item.force >= 5 && prob(33))))
-		forcesay(GLOB.hit_appends)	//forcesay checks stat already
+		force_say(GLOB.hit_appends)	//forcesay checks stat already
 
 	. |= dna.species.spec_proceed_attack_results(item, src, user, affecting)
 

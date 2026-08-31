@@ -1,9 +1,13 @@
-import { Button, LabeledList, NumberInput, Section } from 'tgui/components';
-
+import type { ReactNode } from 'react';
+import {
+  Button,
+  LabeledList,
+  NumberInput,
+  Section,
+} from 'tgui-core/components';
+import type { BooleanLike } from 'tgui-core/react';
 import { useBackend } from '../../backend';
 import { GASES } from '../../constants';
-import { BooleanLike } from 'common/react';
-import { ReactNode } from 'react';
 
 export interface AtmosMachine {
   name: string;
