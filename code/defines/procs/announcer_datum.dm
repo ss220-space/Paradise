@@ -277,3 +277,5 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 #undef CHAT_ALERT_COLORED_SPAN
 #undef SUBHEADER_ANNOUNCEMENT_TITLE
 #undef ANNOUNCEMENT_HEADER
+#undef STYLE_MAJOR
+#undef STYLE_MINOR
