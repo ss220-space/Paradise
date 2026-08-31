@@ -131,7 +131,7 @@
 	if(!vessel)
 		return TRUE
 	if(vessel.is_programmed_emagged())
-		to_chat(usr, span_warning("Шаттл слушается только штурвал."))
+		to_chat(usr, span_warning("Нет ответа от объекта."))
 		return TRUE
 	switch(action)
 		if("select_programmed")
@@ -171,7 +171,7 @@
 
 /obj/machinery/computer/shuttle/labor
 	name = "labor shuttle console"
-	desc = "Вызов и отправка шаттла каторги. Станция и Лаваленд."
+	desc = "Вызов и отправка шаттла каторги по запрограммированному маршруту."
 	circuit = /obj/item/circuitboard/labor_shuttle
 	shuttleId = "laborcamp"
 	possible_destinations = "laborcamp_home;laborcamp_away"
@@ -190,7 +190,7 @@
 
 /obj/machinery/computer/shuttle/labor/one_way
 	name = "prisoner shuttle console"
-	desc = "Консоль шаттла каторги без требования доступа. Можно вызвать на станцию и отправить на Лаваленд."
+	desc = "Консоль шаттла каторги без требования доступа."
 	circuit = /obj/item/circuitboard/labor_shuttle/one_way
 	req_access = list()
 	lockdown_affected = FALSE
@@ -206,8 +206,8 @@
 	)
 
 /obj/machinery/computer/navmap
-	name = "overmap monitor"
-	desc = "Настенный пассивный монитор овермапы. Управление курсом недоступно."
+	name = "global sector map monitor"
+	desc = "Настенный пассивный монитор глобальной карты сектора. Используется только для чтения карты."
 	icon_state = "telescreen_console"
 	icon_keyboard = null
 	icon_screen = "telescreen"
@@ -223,12 +223,12 @@
 
 /obj/machinery/computer/navmap/get_ru_names()
 	return alist(
-		NOMINATIVE = "монитор овермапы",
-		GENITIVE = "монитора овермапы",
-		DATIVE = "монитору овермапы",
-		ACCUSATIVE = "монитор овермапы",
-		INSTRUMENTAL = "монитором овермапы",
-		PREPOSITIONAL = "мониторе овермапы",
+		NOMINATIVE = "монитор сектора",
+		GENITIVE = "монитора сектора",
+		DATIVE = "монитору сектора",
+		ACCUSATIVE = "монитор сектора",
+		INSTRUMENTAL = "монитором сектора",
+		PREPOSITIONAL = "мониторе сектора",
 	)
 
 /obj/machinery/computer/navmap/Initialize(mapload)

@@ -191,7 +191,7 @@
 			return TRUE
 
 	if(vessel.is_programmed_locked() && !(action in list("select_programmed", "execute_programmed", "relink", "helm_tab")))
-		to_chat(usr, span_warning("Прямое управление заблокировано поставщиком."))
+		to_chat(usr, span_warning("Прямое управление заблокировано поставщиком услуг."))
 		return TRUE
 
 	switch(action)
@@ -206,11 +206,11 @@
 		if("thrust")
 			var/direction = text2num(params["dir"])
 			if(direction && !vessel.set_held_thrust(direction))
-				to_chat(usr, span_warning("Судно не может маневрировать. Проверьте стыковку."))
+				to_chat(usr, span_warning("Судно не может маневрировать."))
 			. = TRUE
 		if("stick")
 			if(!vessel.set_held_vector(params["x"], params["y"], params["power"]))
-				to_chat(usr, span_warning("Судно не может маневрировать. Проверьте стыковку."))
+				to_chat(usr, span_warning("Судно не может маневрировать."))
 			return FALSE
 		if("brake")
 			if(!vessel.set_held_brake(!vessel.flight?.held_brake))
@@ -231,12 +231,12 @@
 			. = TRUE
 		if("toggle_autopilot")
 			if(!vessel.flight?.autopilot_x || !vessel.flight.autopilot_y)
-				to_chat(usr, span_warning("Сначала выберите клетку на карте или точку из буфера."))
+				to_chat(usr, span_warning("Нет установленной цели автопилота."))
 			else
 				var/turf/here = vessel.get_overmap_turf()
 				var/turf/mark = vessel.sector?.get_turf_at(vessel.flight.autopilot_x, vessel.flight.autopilot_y)
 				if(!vessel.flight.autopilot && here && mark && here == mark)
-					to_chat(usr, span_warning("Цель совпадает с текущей клеткой. Укажите другую точку."))
+					to_chat(usr, span_warning("Установленная цель уже достигнута."))
 				else
 					vessel.set_autopilot(!vessel.flight.autopilot, vessel.flight.autopilot_x, vessel.flight.autopilot_y)
 			. = TRUE
@@ -246,7 +246,7 @@
 			. = TRUE
 		if("inspect")
 			if(vessel.is_overmap_jammed())
-				to_chat(usr, span_warning("Связь с овермапом потеряна из‑за помех гипертранслятора."))
+				to_chat(usr, span_warning("Потеря сигнала."))
 			else if(viewing_overmap(usr))
 				unlook(usr)
 			else
@@ -264,26 +264,26 @@
 				to_chat(usr, span_notice("Челнок выходит в гиперпространство."))
 				update_map_view()
 			else
-				to_chat(usr, span_notice("Шаттл уходит с площадки. Токен появится на карте после выхода в гиперпространство."))
+				to_chat(usr, span_notice("Шаттл выходит в гиперпространство."))
 				update_map_view()
 			. = TRUE
 		if("dock")
 			var/dock_result = vessel.begin_physical_dock()
 			if(dock_result == OVERMAP_DOCK_NEED_CUSTOM_PICK)
 				if(!open_custom_dock_picker(usr))
-					to_chat(usr, span_warning("Кастомная точка недоступна."))
+					to_chat(usr, span_warning("Произвольная точка недоступна."))
 				else
-					to_chat(usr, span_notice("Отметьте кастомную точку на [vessel.get_dock_host()?.name || "объекте"]."))
+					to_chat(usr, span_notice("Отметьте произвольную точку на [vessel.get_dock_host()?.name || "объекте"]."))
 			else if(dock_result != TRUE)
 				to_chat(usr, span_warning("[dock_result]"))
 			else if(vessel.overmap_pod)
 				to_chat(usr, span_notice("Челнок выходит из гиперпространства."))
 			else
-				to_chat(usr, span_notice("Стыковка начата. Шаттл идёт к выбранной площадке."))
+				to_chat(usr, span_notice("Стыковка начата. Шаттл направляется к выбранной площадке."))
 			. = TRUE
 		if("dock_edge")
 			if(!vessel.overmap_pod)
-				to_chat(usr, span_warning("Только челноки садятся на край сектора."))
+				to_chat(usr, span_warning("Судно слишком большое для такого манёвра."))
 			else
 				vessel.set_selected_pad(OVERMAP_DOCK_ID_EDGE)
 				var/edge_result = vessel.overmap_pod.begin_dock(TRUE)
@@ -325,7 +325,7 @@
 			if(result != TRUE)
 				to_chat(usr, span_warning(portal ? "[result]" : "Прыжок недоступен."))
 			else if(portal)
-				to_chat(usr, span_notice("Прыжок через портал выполнен."))
+				to_chat(usr, span_notice("Прыжок через гипертранслятор выполнен."))
 			update_map_view(TRUE)
 			. = TRUE
 		if("relink")

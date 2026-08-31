@@ -305,8 +305,8 @@
 	icon_state = "highpressure"
 
 /atom/movable/screen/alert/highpressure/hyperspace
-	name = "Высокое давление"
-	desc = "Гиперпространство сжимает вас. Никакой костюм не поможет."
+	name = "Гиперпространство"
+	desc = "Многочисленные микрочастицы пронизывают ваше тело на огромной скорости.<br> Никакой костюм не поможет."
 
 /atom/movable/screen/alert/lightexposure
 	name = "На свету"

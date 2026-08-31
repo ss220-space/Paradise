@@ -308,8 +308,8 @@
 
 /datum/overmap_sector/wilderness/alpha
 	id = OVERMAP_SECTOR_ID_WILDERNESS_A
-	name = "Дикое пространство I"
+	name = "ПРИДУМАТЬ НАЗВАНИЕ СЕКТОРА"
 
 /datum/overmap_sector/wilderness/beta
 	id = OVERMAP_SECTOR_ID_WILDERNESS_B
-	name = "Дикое пространство II"
+	name = "ПРИДУМАТЬ НАЗВАНИЕ СЕКТОРА"

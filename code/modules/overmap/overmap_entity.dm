@@ -356,7 +356,7 @@
 		if(SHUTTLE_RECALL)
 			return "Возврат"
 		if(SHUTTLE_ENDGAME)
-			return "Конец раунда"
+			return "Конец"
 		if(SHUTTLE_ESCAPE)
 			return "Эвакуация"
 		if(SHUTTLE_STRANDED)

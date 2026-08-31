@@ -105,7 +105,7 @@
 
 /obj/machinery/door/airlock/external/docking/proc/configure_overmap_params(mob/user)
 	if(overmap_is_support)
-		var/new_id = tgui_input_text(user, "ID стыковочного шлюза, с которым связать этот саппорт", "Саппорт-шлюз", id_tag, max_length = MAX_NAME_LEN)
+		var/new_id = tgui_input_text(user, "Идентификатор стыковочного шлюза, с которым связать этот шлюз", "Саппорт-шлюз", id_tag, max_length = MAX_NAME_LEN)
 		if(QDELETED(src) || !new_id)
 			return
 		id_tag = new_id
@@ -116,14 +116,13 @@
 	if(QDELETED(src) || !choice)
 		return
 	if(choice == "Имя")
-		var/new_name = tgui_input_text(user, "Название площадки в штурвале", src, dock_name, max_length = MAX_NAME_LEN)
+		var/new_name = tgui_input_text(user, "Название дока", src, dock_name, max_length = MAX_NAME_LEN)
 		if(QDELETED(src) || !new_name)
 			return
 		dock_name = new_name
 		sync_dock_label()
-		to_chat(user, span_notice("В штурвале площадка будет «[new_name]»."))
 		return
-	var/dir_name = tgui_input_list(user, "Направление шлюза (из корпуса наружу, в сторону стыковки)", src, list("Север", "Восток", "Юг", "Запад"))
+	var/dir_name = tgui_input_list(user, "Направление шлюза в сторону стыковки(от корпуса)", src, list("Север", "Восток", "Юг", "Запад"))
 	if(QDELETED(src) || !dir_name)
 		return
 	var/new_dir = NORTH
@@ -148,10 +147,9 @@
 			id_tag = "s_docking_airlock"
 		if(user)
 			if(!dock_name)
-				var/chosen = tgui_input_text(user, "Название шлюза в штурвале", "Стыковочный шлюз", dock_name, max_length = MAX_NAME_LEN)
+				var/chosen = tgui_input_text(user, "Название дока", "Стыковочный шлюз", dock_name, max_length = MAX_NAME_LEN)
 				if(!QDELETED(src) && chosen)
 					dock_name = chosen
-			to_chat(user, span_notice("Шлюз на шаттле: выберите его во вкладке стыковки штурвала."))
 		return
 	if(overmap_pad && !QDELETED(overmap_pad))
 		id_tag = overmap_pad.id
@@ -165,7 +163,7 @@
 	var/turf/pad_turf = get_overmap_pad_turf()
 	if(!pad_turf)
 		if(user)
-			to_chat(user, span_warning("Нет тайла для площадки стыковки."))
+			to_chat(user, span_warning("Нет места для площадки стыковки."))
 		return
 	if(user && !dock_name)
 		var/chosen = tgui_input_text(user, "Название площадки для штурвала", "Стыковочный шлюз", "", max_length = MAX_NAME_LEN)
@@ -328,7 +326,7 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_docking_hatch_support
 
 /obj/docking_port/stationary/overmap/landing
-	name = "overmap landing pad"
+	name = "landing pad"
 	overmap_dock_label = "Посадочный маяк"
 	hidden = FALSE
 
@@ -344,7 +342,7 @@ GLOBAL_LIST_EMPTY(landing_beacons)
 
 /obj/machinery/landing_beacon
 	name = "посадочный маяк"
-	desc = "Маяк посадки: шаттл садится центром на этот тайл, без стыковочного шлюза."
+	desc = "Маяк посадки. Позволяет садиться шаттлам и челнокам на это место без необходимости установки док-шлюза."
 	icon = 'icons/obj/radio.dmi'
 	icon_state = "beacon"
 	anchored = TRUE
@@ -450,12 +448,11 @@ GLOBAL_LIST_EMPTY(landing_beacons)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	var/new_name = tgui_input_text(user, "Название площадки в штурвале", src, dock_name, max_length = MAX_NAME_LEN)
+	var/new_name = tgui_input_text(user, "Название площадки", src, dock_name, max_length = MAX_NAME_LEN)
 	if(QDELETED(src) || !new_name)
 		return
 	dock_name = new_name
 	sync_pad()
-	to_chat(user, span_notice("В штурвале площадка будет «[dock_name]»."))
 
 /obj/item/overmap_landing_beacon
 	name = "посадочный маяк"

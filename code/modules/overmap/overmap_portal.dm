@@ -1,6 +1,6 @@
 /obj/overmap/portal
 	name = "warp portal"
-	desc = "Нестабильный проход в другой сектор. Существует только на навигационной карте."
+	desc = "Нестабильный проход в другой сектор. Он явно не должен тут находиться."
 	icon_state = "event"
 	color = "#c48bff"
 	overmap_kind = OVERMAP_KIND_PORTAL

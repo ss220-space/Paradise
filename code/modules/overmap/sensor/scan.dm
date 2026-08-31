@@ -255,7 +255,7 @@
 		var/raw = md5("[source_name]-[i]-[piece]-[world.time]")
 		lines += "[copytext(raw, 1, 9)] [copytext(raw, 9, 17)] [copytext(raw, 17, 25)] [copytext(raw, 25, 33)]<br>"
 	lines += "</tt><hr>"
-	lines += "<i>Сигнатура нечитаема без консоли сенсоров. Правка текста дамп не меняет.</i>"
+	lines += "<i>Используйте в консоли сенсоров для загрузки известных сигнатур.</i>"
 	return jointext(lines, "")
 
 /obj/machinery/computer/sensors/proc/write_sensor_dump(mob/user)
@@ -264,20 +264,11 @@
 	var/list/payload = vessel.export_short_dump()
 	dump_paper.overmap_scan_dump = payload.Copy()
 	dump_paper.name = "дамп сенсоров"
-	dump_paper.desc = "Листок с нечитаемой телеметрией. Полезные данные в магнитной дорожке, не в тексте."
-	dump_paper.ru_names = alist(
-		NOMINATIVE = "дамп сенсоров",
-		GENITIVE = "дампа сенсоров",
-		DATIVE = "дампу сенсоров",
-		ACCUSATIVE = "дамп сенсоров",
-		INSTRUMENTAL = "дампом сенсоров",
-		PREPOSITIONAL = "дампе сенсоров",
-	)
 	dump_paper.info = format_sensor_dump_cipher(payload, vessel.get_overmap_display_name())
 	dump_paper.updateinfolinks()
 	dump_paper.update_icon()
 	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
-	to_chat(user, span_notice("Принтер выгружает дамп ([length(payload)] записей) на [dump_paper.declent_ru(ACCUSATIVE)]."))
+	to_chat(user, span_notice("Принтер выгружает дамп ([length(payload)] записей) на листок."))
 	SStgui.update_uis(src)
 	return TRUE
 
@@ -289,9 +280,9 @@
 	var/added = vessel.import_short_dump(dump_paper.overmap_scan_dump.Copy(), dump_paper.name)
 	playsound(loc, 'sound/machines/ping.ogg', 40, FALSE)
 	if(added)
-		to_chat(user, span_notice("Дамп принят. Новых контактов: [added]. Листок остаётся в слоте."))
+		to_chat(user, span_notice("Дамп принят. Новых контактов: [added]."))
 	else
-		to_chat(user, span_notice("Дамп уже известен этой консоли. Новых контактов нет. Листок остаётся в слоте."))
+		to_chat(user, span_notice("Дамп уже известен этой консоли. Новых контактов нет."))
 	SStgui.update_uis(src)
 	return TRUE
 

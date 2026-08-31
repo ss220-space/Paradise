@@ -180,7 +180,7 @@
 
 /obj/overmap/feature/hazard/asteroid
 	name = "пояс астероидов"
-	desc = "Каменный поток. На низкой скорости безопасен, на высокой бьёт по обшивке."
+	desc = "Каменный поток. Имеется шанс врезаться в астероид на болшой скорости."
 	icon_state = OVERMAP_HAZARD_ICON_ASTEROID
 	map_color = "#8a7a68"
 	color = null

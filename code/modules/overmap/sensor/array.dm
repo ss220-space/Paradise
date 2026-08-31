@@ -1,6 +1,6 @@
 /obj/machinery/sensor_array
 	name = "overmap sensor array"
-	desc = "Антенна сканера карты системы. Без консоли управления почти бесполезна. Несколько одинаковых массивов на судне работают как резерв: достаточно одного исправного."
+	desc = "Антенна сканера карты системы. Без консоли управления почти бесполезна."
 	icon = 'icons/obj/machines/overmap.dmi'
 	icon_state = "sensor_short"
 	anchored = TRUE
@@ -71,13 +71,13 @@
 
 /obj/machinery/sensor_array/long_range
 	name = "long-range sensor array"
-	desc = "Дальнобойная антенна. Консоль включает пассивный обзор 15×15 и засвет скрытых судов по массе и скорости. Второй такой же массив — запасной."
+	desc = "Антенна дальнего действия. Позволяет видеть массивные объекты в большом радиусе. Не допускает точное сканирование. Может выдать позицию в секторе."
 	sensor_kind = OVERMAP_SENSOR_KIND_LONG
 	icon_state = "sensor_long"
 
 /obj/machinery/sensor_array/short_range
 	name = "short-range sensor array"
-	desc = "Ближняя антенна. Консоль даёт карту 5×5, локальный пинг и сканирование соседних клеток. Второй такой же массив — запасной."
+	desc = "Антенна короткого действия. Сканирует объекты на ближней дистанции. Не раскрывает судно и позволяет сканировать ближайшие объекты."
 	sensor_kind = OVERMAP_SENSOR_KIND_SHORT
 	icon_state = "sensor_short"
 	idle_power_usage = 150

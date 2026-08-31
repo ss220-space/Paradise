@@ -333,7 +333,7 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 	programmed_emag_until = world.time + OVERMAP_PROGRAMMED_EMAG_TIME
 	addtimer(CALLBACK(src, PROC_REF(finish_programmed_emag)), OVERMAP_PROGRAMMED_EMAG_TIME)
 	var/shuttle_name = shuttle?.name || name
-	radio_announce("Взлом систем навигации шаттла [shuttle_name]. Прямое управление активно.", "Навигационный монитор", SEC_FREQ)
+	radio_announce("Взлом систем навигации шаттла [shuttle_name].", shuttle_name, SEC_FREQ)
 	announce_programmed("Прямое управление разблокировано.")
 	return TRUE
 

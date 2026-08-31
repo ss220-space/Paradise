@@ -91,13 +91,11 @@
 	if(is_undocking())
 		return "Челнок уже выходит в гиперпространство."
 	var/turf/spot = get_turf(craft)
-	if(is_mining_level(spot?.z) && !near_landing_beacon())
-		return "С Лаваленда можно взлететь только у посадочного маяка (в пределах [OVERMAP_POD_BEACON_RANGE] тайлов)."
-	if(!can_undock_here())
+	if(!can_undock_here() || (is_mining_level(spot?.z) && !near_landing_beacon()))
 		return "Гравитационные сигнатуры не позволяют отлететь в гиперпространство. Отлетите дальше или встаньте у посадочного маяка."
 	undocking_until = world.time + OVERMAP_POD_UNDOCK_DELAY
 	craft.play_sound_to_riders('sound/effects/hyperspace_begin.ogg')
-	craft.message_to_riders(span_warning("Зажигание. Управление заблокировано."))
+	craft.message_to_riders(span_warning("Вы начинаете совершать манёвр."))
 	addtimer(CALLBACK(src, PROC_REF(finish_undock)), OVERMAP_POD_UNDOCK_DELAY)
 	return TRUE
 
@@ -112,7 +110,7 @@
 	if(!enter_hyperspace(play_windup = FALSE))
 		craft.message_to_riders(span_warning("Не удалось выйти в гиперпространство."))
 		return
-	craft.message_to_riders(span_warning("Челнок в гиперпространстве. Управление корпусом заблокировано."))
+	craft.message_to_riders(span_warning("Манёвр завершён. Челнок в гиперпространстве."))
 	token.announce_sensor_event("Челнок вышел в гиперпространство: [token.get_overmap_display_name()]", "undock")
 
 /datum/component/overmap_pod/proc/can_physical_dock()
@@ -216,12 +214,12 @@
 	if(is_undocking())
 		return "Сначала дождитесь выхода в гиперпространство."
 	if(!is_in_own_pocket())
-		return "Сначала отстыкуйтесь в гиперпространство."
+		return "Сначала отлетите в гиперпространство."
 	if(token.is_moving() && !OVERMAP_SPEED_STOPPED(token.get_speed()))
 		return "Сначала остановитесь."
 	var/obj/overmap/entity/host = token.get_dock_host()
 	if(!host)
-		return "На этой клетке не к чему стыковаться."
+		return "Не к чему стыковаться."
 	var/turf/dest
 	var/obj/docking_port/stationary/overmap/landing/beacon_pad
 	if(!force_edge)
@@ -238,7 +236,7 @@
 			return "Этот объект принимает челноки только на посадочный маяк."
 		dest = overmap_pick_pod_edge_turf(overmap_pod_landing_z(host))
 		if(!dest)
-			return "Нет свободного места на краю сектора."
+			return "Нет свободного места."
 	if(!land_at(dest, host))
 		return "Не удалось приземлиться."
 	token.announce_sensor_event("Челнок вышел из гиперпространства: [token.get_overmap_display_name()] → [host.name]", "dock")
@@ -273,7 +271,7 @@
 	token.update_overmap_visibility()
 	if(play_windup)
 		craft.play_sound_to_riders('sound/effects/hyperspace_begin.ogg')
-		craft.message_to_riders(span_warning("Управление корпусом заблокировано. Челнок в гиперпространстве."))
+		craft.message_to_riders(span_warning("Управление корпусом заблокировано."))
 	craft.refresh_overmap_parallax()
 	return TRUE
 

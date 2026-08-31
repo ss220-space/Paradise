@@ -226,7 +226,7 @@
 		if(SHUTTLE_SOMEONE_ELSE_DOCKED)
 			return "Площадка занята."
 		if(SHUTTLE_LANDING_BLOCKED)
-			return "Шаттл не встанет: стены, чужая зона или край карты."
+			return "Невозможная точка стыковки."
 	return "Стыковка невозможна."
 
 /datum/component/overmap_shuttle/proc/pad_list_state(can_status, current)
@@ -255,7 +255,7 @@
 	if(host?.dock_host?.allow_custom_landing)
 		. += list(list(
 			"id" = OVERMAP_DOCK_ID_CUSTOM,
-			"name" = "Кастомная точка ([host.name])",
+			"name" = "Произвольная точка ([host.name])",
 			"selected" = chosen_id == OVERMAP_DOCK_ID_CUSTOM || (custom_pad && chosen_id == custom_pad.id),
 			"current" = custom_pad && custom_pad.id == current_id,
 			"can_dock" = TRUE,
@@ -281,7 +281,7 @@
 			"current" = current,
 			"can_dock" = can_status == SHUTTLE_CAN_DOCK,
 			"state" = state,
-			"reason" = is_custom_dock(pad) ? "Кастомная точка этого сектора" : (dock_fail_text(can_status) || "Свободна"),
+			"reason" = is_custom_dock(pad) ? "Произвольная точка этого сектора" : (dock_fail_text(can_status) || "Свободна"),
 		)
 		switch(state)
 			if("here")
@@ -380,7 +380,7 @@
 		vessel.selected_dock_id = vessel.last_dock_id
 	var/obj/docking_port/stationary/undock_pad = get_undock_pad()
 	if(!undock_pad)
-		return "Гиперпространство ещё не готово. Подождите секунду и повторите."
+		return "Гиперпространство ещё не готово."
 	var/can_status = vessel.shuttle.canDock(undock_pad)
 	if(can_status != SHUTTLE_CAN_DOCK && can_status != SHUTTLE_ALREADY_DOCKED)
 		return dock_fail_text(can_status)
@@ -405,7 +405,7 @@
 /datum/component/overmap_shuttle/proc/begin_physical_dock(instant = FALSE)
 	var/obj/overmap/entity/vessel = parent
 	if(vessel.overmap_kind != OVERMAP_KIND_SHUTTLE)
-		return "Станция не стыкуется как шаттл."
+		return "Объект слишком большой для стыковки."
 	if(!vessel.shuttle)
 		return "Нет физического шаттла."
 	if(vessel.is_physically_docked())
@@ -416,7 +416,7 @@
 		return "Сначала остановитесь."
 	var/obj/overmap/entity/host = vessel.get_dock_host()
 	if(!host)
-		return "На этой клетке не к чему стыковаться."
+		return "Не к чему стыковаться."
 	if(!instant && (vessel.shuttle.mode == SHUTTLE_IGNITING || vessel.shuttle.mode == SHUTTLE_CALL || vessel.shuttle.mode == SHUTTLE_RECALL))
 		return TRUE
 	var/obj/docking_port/stationary/pad = get_selected_pad()
@@ -641,7 +641,7 @@
 	var/obj/overmap/portal/portal = target
 	if(istype(portal))
 		return portal.transit_vessel(src)
-	return "Нечего стыковать на этой клетке."
+	return "Нечего стыковать."
 
 /obj/overmap/entity/proc/can_use_portal(obj/overmap/portal/portal)
 	if(!portal.required_vessel_flags)

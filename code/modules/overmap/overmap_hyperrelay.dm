@@ -243,7 +243,7 @@
 /obj/overmap/entity/proc/start_hyperrelay_transit_fx()
 	set_shuttle_hyperspace_visuals(TRUE)
 	play_shuttle_sound('sound/effects/hyperspace_begin.ogg')
-	shuttle_visible_message(span_warning("Палуба вздрагивает, за иллюминаторами вспыхивает белый шум."))
+	shuttle_visible_message(span_warning("Палуба вздрагивает, вы чувствуете странную вибрацию судна."))
 	shake_shuttle(8, 2)
 	flicker_shuttle_lights()
 	addtimer(CALLBACK(src, PROC_REF(play_shuttle_sound), 'sound/effects/hyperspace_progress.ogg'), 1.5 SECONDS)

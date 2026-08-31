@@ -93,8 +93,8 @@
 		. += spot
 
 /obj/overmap/planet/lavaland
-	name = "Лаваленд"
-	desc = "Лаваленд. Планета занимает 4×4 клетки карты системы."
+	name = "Лазис Ардакс"
+	desc = "Одно из крупнейших тел в секторе. Вулканистая поверхность богата ресурсами и сочится плазмой."
 	icon_state = "lavaland"
 	map_color = "#c45c2a"
 	visible_without_scanner = TRUE
@@ -137,7 +137,7 @@
 
 /obj/overmap/entity/planet_station/lavaland
 	name = "Lavaland mining station"
-	desc = "Шахтёрская станция на Лаваленде. Двигателями не переносится."
+	desc = "Шахтерский аванпост на Лаваленде."
 
 /obj/overmap/entity/planet_station/lavaland/get_ru_names()
 	return alist(

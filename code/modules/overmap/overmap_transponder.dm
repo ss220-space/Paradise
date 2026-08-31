@@ -45,8 +45,8 @@ GLOBAL_LIST_INIT(overmap_transponder_colors, list(
 	return id
 
 /obj/machinery/transponder
-	name = "overmap transponder"
-	desc = "Настенный маяк идентификации. Задаёт имя и цвет судна на карте системы и включает передачу сигнала."
+	name = "transponder"
+	desc = "Настенный маяк идентификации. Позволяет идентифицировать судно на глобальной карте."
 	icon = 'icons/obj/machines/overmap.dmi'
 	icon_state = "transponder"
 	anchored = TRUE
@@ -70,12 +70,12 @@ GLOBAL_LIST_INIT(overmap_transponder_colors, list(
 
 /obj/machinery/transponder/get_ru_names()
 	return alist(
-		NOMINATIVE = "транспондер овермапа",
-		GENITIVE = "транспондера овермапа",
-		DATIVE = "транспондеру овермапа",
-		ACCUSATIVE = "транспондер овермапа",
-		INSTRUMENTAL = "транспондером овермапа",
-		PREPOSITIONAL = "транспондере овермапа",
+		NOMINATIVE = "транспондер",
+		GENITIVE = "транспондера",
+		DATIVE = "транспондеру",
+		ACCUSATIVE = "транспондер",
+		INSTRUMENTAL = "транспондером",
+		PREPOSITIONAL = "транспондере",
 	)
 
 /obj/machinery/transponder/Initialize(mapload)
@@ -184,7 +184,7 @@ GLOBAL_LIST_INIT(overmap_transponder_colors, list(
 	if(..())
 		return TRUE
 	if(stat & NOPOWER)
-		to_chat(user, span_warning("Нет питания. Альт-клик всё ещё переключает сигнал бедствия."))
+		to_chat(user, span_warning("Нет питания."))
 		return
 	add_fingerprint(user)
 	ui_interact(user)
@@ -316,8 +316,8 @@ GLOBAL_LIST_INIT(overmap_transponder_colors, list(
 			. = TRUE
 
 /obj/machinery/transponder/station
-	name = "station overmap transponder"
-	desc = "Станционный маяк идентификации. Имя заполняется автоматически, иконка станции не меняется."
+	name = "station transponder"
+	desc = "Станционный маяк идентификации."
 	broadcast_color = COLOR_WHITE
 	icon_preset = "station"
 	lock_icon = TRUE
@@ -330,23 +330,13 @@ GLOBAL_LIST_INIT(overmap_transponder_colors, list(
 		vessel.sync_transponder()
 
 /obj/machinery/transponder/lavaland
-	name = "Lavaland overmap transponder"
-	desc = "Маяк идентификации шахтёрской станции на Лаваленде. Поставьте на карту Лаваленда вручную. Имя и иконка зафиксированы, двигателями станция не двигается."
+	name = "Lavaland transponder"
+	desc = "Маяк идентификации шахтёрской станции на Лаваленде."
 	broadcast_name = "Лаваленд"
 	broadcast_color = COLOR_WHITE
 	icon_preset = "station"
 	lock_icon = TRUE
 	identity_locked = TRUE
-
-/obj/machinery/transponder/lavaland/get_ru_names()
-	return alist(
-		NOMINATIVE = "транспондер Лаваленда",
-		GENITIVE = "транспондера Лаваленда",
-		DATIVE = "транспондеру Лаваленда",
-		ACCUSATIVE = "транспондер Лаваленда",
-		INSTRUMENTAL = "транспондером Лаваленда",
-		PREPOSITIONAL = "транспондере Лаваленда",
-	)
 
 /obj/machinery/transponder/lavaland/link_vessel()
 	if(SSovermap?.lavaland_entity)
@@ -354,102 +344,52 @@ GLOBAL_LIST_INIT(overmap_transponder_colors, list(
 			vessel.unregister_transponder(src)
 		vessel = SSovermap.lavaland_entity
 		if(!broadcast_name)
-			broadcast_name = "Лаваленд"
+			broadcast_name = "Шахтерский аванпост"
 		SSovermap.lavaland_entity.register_transponder(src)
 		return
 	return ..()
 
 /obj/machinery/transponder/lavaland/Initialize(mapload)
 	if(!broadcast_name)
-		broadcast_name = "Лаваленд"
+		broadcast_name = "Шахтерский аванпост"
 	. = ..()
 	if(vessel)
 		vessel.sync_transponder()
 
 /obj/machinery/transponder/centcom
-	name = "CentCom overmap transponder"
-	desc = "Маяк идентификации Центрального командования. Ключ шифрования ЦК уже прошит и не снимается."
+	name = "CentCom transponder"
+	desc = "Маяк идентификации Центрального командования. Ключ шифрования центкомма уже прошит."
 	broadcast_color = COLOR_COMMAND_BLUE
 	preset_iff_ids = list(OVERMAP_IFF_CENTCOM)
 
-/obj/machinery/transponder/centcom/get_ru_names()
-	return alist(
-		NOMINATIVE = "транспондер Центкома",
-		GENITIVE = "транспондера Центкома",
-		DATIVE = "транспондеру Центкома",
-		ACCUSATIVE = "транспондер Центкома",
-		INSTRUMENTAL = "транспондером Центкома",
-		PREPOSITIONAL = "транспондере Центкома",
-	)
-
 /obj/machinery/transponder/centcom/station
 	name = "CentCom station overmap transponder"
-	desc = "Станционный маяк Центрального командования. Иконка станции зафиксирована, ключ ЦК прошит, цвет синий."
+	desc = "Станционный маяк Центрального командования."
 	broadcast_name = "Центральное командование"
 	icon_preset = "station"
 	lock_icon = TRUE
 	identity_locked = TRUE
 
-/obj/machinery/transponder/centcom/station/get_ru_names()
-	return alist(
-		NOMINATIVE = "станционный транспондер Центкома",
-		GENITIVE = "станционного транспондера Центкома",
-		DATIVE = "станционному транспондеру Центкома",
-		ACCUSATIVE = "станционный транспондер Центкома",
-		INSTRUMENTAL = "станционным транспондером Центкома",
-		PREPOSITIONAL = "станционном транспондере Центкома",
-	)
-
 /obj/machinery/transponder/syndicate
 	name = "Syndicate overmap transponder"
-	desc = "Маяк идентификации Синдиката. Ключ шифрования Синдиката уже прошит и не снимается. Глобальный эфир выключен: судно видно только по ключу Синдиката."
+	desc = "Маяк идентификации Синдиката. Ключ шифрования Синдиката уже прошит."
 	broadcast_color = COLOR_RED
 	broadcasting = FALSE
 	preset_iff_ids = list(OVERMAP_IFF_SYNDICATE)
 
-/obj/machinery/transponder/syndicate/get_ru_names()
-	return alist(
-		NOMINATIVE = "транспондер Синдиката",
-		GENITIVE = "транспондера Синдиката",
-		DATIVE = "транспондеру Синдиката",
-		ACCUSATIVE = "транспондер Синдиката",
-		INSTRUMENTAL = "транспондером Синдиката",
-		PREPOSITIONAL = "транспондере Синдиката",
-	)
-
 /obj/machinery/transponder/syndicate/station
 	name = "Syndicate station overmap transponder"
-	desc = "Станционный маяк Синдиката. Иконка станции зафиксирована, ключ Синдиката прошит, цвет красный. Глобальный эфир выключен."
+	desc = "Станционный маяк Синдиката."
 	broadcast_name = "База синдиката"
 	icon_preset = "station"
 	lock_icon = TRUE
 	identity_locked = TRUE
-
-/obj/machinery/transponder/syndicate/station/get_ru_names()
-	return alist(
-		NOMINATIVE = "станционный транспондер Синдиката",
-		GENITIVE = "станционного транспондера Синдиката",
-		DATIVE = "станционному транспондеру Синдиката",
-		ACCUSATIVE = "станционный транспондер Синдиката",
-		INSTRUMENTAL = "станционным транспондером Синдиката",
-		PREPOSITIONAL = "станционном транспондере Синдиката",
-	)
 
 /obj/machinery/transponder/universal
 	name = "universal overmap transponder"
 	desc = "Универсальный маяк идентификации. Прошиты ключи и Центкома, и Синдиката."
 	broadcast_color = COLOR_PURPLE
 	preset_iff_ids = list(OVERMAP_IFF_CENTCOM, OVERMAP_IFF_SYNDICATE)
-
-/obj/machinery/transponder/universal/get_ru_names()
-	return alist(
-		NOMINATIVE = "универсальный транспондер овермапа",
-		GENITIVE = "универсального транспондера овермапа",
-		DATIVE = "универсальному транспондеру овермапа",
-		ACCUSATIVE = "универсальный транспондер овермапа",
-		INSTRUMENTAL = "универсальным транспондером овермапа",
-		PREPOSITIONAL = "универсальном транспондере овермапа",
-	)
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/transponder, 26, 26)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/transponder/station, 26, 26)

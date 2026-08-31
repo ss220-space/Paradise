@@ -212,7 +212,7 @@
 				selected_uid = params["ref"]
 			var/obj/overmap/target = resolve_scan_target()
 			if(!start_short_scan(target))
-				to_chat(usr, span_warning("Нет цели в зоне сканирования 3×3."))
+				to_chat(usr, span_warning("Нет цели в зоне сканирования."))
 			. = TRUE
 		if("print_scan")
 			if(!print_scan_report())

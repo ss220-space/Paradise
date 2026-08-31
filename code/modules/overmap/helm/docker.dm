@@ -9,7 +9,7 @@
 	access_mining = FALSE
 	access_away = FALSE
 	access_derelict = FALSE
-	shuttlePortName = "Кастомная точка"
+	shuttlePortName = "Произвольная точка"
 	var/obj/overmap/entity/bound_host
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/overmap/Initialize(mapload)
@@ -165,14 +165,13 @@
 	if(!istype(helm) || !my_port || QDELETED(helm.vessel) || !bound_host)
 		return
 	my_port.overmap_dock_mode = OVERMAP_DOCK_MANUAL
-	my_port.overmap_dock_label = "Кастомная точка"
+	my_port.overmap_dock_label = "Произвольная точка"
 	my_port.overmap_host_uid = bound_host.UID()
 	if(!helm.vessel.custom_docks)
 		helm.vessel.custom_docks = list()
 	helm.vessel.custom_docks[bound_host.UID()] = my_port
 	helm.vessel.selected_dock_id = my_port.id
 	helm.vessel.overmap_shuttle?.owned_docks_dirty = TRUE
-	to_chat(usr, span_notice("Кастомная точка сохранена для этого сектора. Она появится во вкладке стыковки, только если шаттл может здесь сесть."))
 
 /atom/movable/screen/overmap_dock_ghost
 	name = "shuttle footprint"

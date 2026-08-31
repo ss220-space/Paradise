@@ -70,7 +70,7 @@
 
 /obj/machinery/overmap_intercom
 	name = "sector comms panel"
-	desc = "Настенная панель секторной связи. Рассылает длинные сообщения всем панелям в текущем секторе овермапы. Можно задать ключ шифрования."
+	desc = "Настенная панель секторной связи. Рассылает сообщения всем панелям в текущем секторе. Имеет встроенный шифратор."
 	icon = 'icons/obj/machines/overmap.dmi'
 	icon_state = "sector_intercom"
 	anchored = TRUE

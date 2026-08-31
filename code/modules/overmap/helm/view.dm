@@ -5,10 +5,10 @@
 	if(!vessel)
 		return
 	if(vessel.is_overmap_jammed())
-		to_chat(user, span_warning("Связь с овермапом потеряна из‑за помех гипертранслятора."))
+		to_chat(user, span_warning("Потеря сигнала."))
 		return
 	if(vessel.is_programmed_locked())
-		to_chat(user, span_warning("Прямое управление заблокировано поставщиком."))
+		to_chat(user, span_warning("Прямое управление заблокировано поставщиком услуг."))
 		return
 	user.reset_perspective(vessel)
 	user.remote_control = src
@@ -21,7 +21,7 @@
 	viewers |= user
 	update_nav_marker()
 	update_inspect_sensor_ghosts()
-	to_chat(user, span_notice("Подробный просмотр карты. Клик по клетке добавляет её в навигационный буфер."))
+	to_chat(user, span_notice("Подробный просмотр карты."))
 
 /obj/machinery/computer/helm/proc/unlook(mob/user)
 	if(!user)

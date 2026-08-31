@@ -84,22 +84,12 @@
 	active_power_usage = 0
 	generated_thrust = 80
 
-/obj/machinery/ship_engine/infinite/get_ru_names()
-	return alist(
-		NOMINATIVE = "тестовый бесконечный двигатель",
-		GENITIVE = "тестового бесконечного двигателя",
-		DATIVE = "тестовому бесконечному двигателю",
-		ACCUSATIVE = "тестовый бесконечный двигатель",
-		INSTRUMENTAL = "тестовым бесконечным двигателем",
-		PREPOSITIONAL = "тестовом бесконечном двигателе",
-	)
-
 /obj/machinery/ship_engine/infinite/can_burn()
 	return on && !(stat & BROKEN)
 
 /obj/machinery/ship_engine/virtual
 	name = "virtual overmap drive"
-	desc = "Служебный двигатель автопилота. Не отображается на карте."
+	desc = "Служебный двигатель автопилота."
 	generated_thrust = 40
 	use_power = NO_POWER_USE
 	idle_power_usage = 0

@@ -1,3 +1,5 @@
+// УДАЛИТЬ УДАЛИТЬ  УДАЛИТЬ УДАЛИТЬ  УДАЛИТЬ УДАЛИТЬ  УДАЛИТЬ УДАЛИТЬ  УДАЛИТЬ УДАЛИТЬ  УДАЛИТЬ УДАЛИТЬ  УДАЛИТЬ УДАЛИТЬ  УДАЛИТЬ УДАЛИТЬ  УДАЛИТЬ УДАЛИТЬ ХУЙ ХУЙ ХУЙ
+
 ADMIN_VERB(spawn_overmap_test_kit, R_ADMIN|R_DEBUG|R_SPAWN, "Spawn Overmap Test Kit", "Спавнит руль, консоль двигателей и infinite-двигатель у ног.", ADMIN_CATEGORY_DEBUG)
 	var/turf/here = get_turf(user.mob)
 	if(!here)

@@ -1,6 +1,6 @@
 /obj/machinery/computer/engines
 	name = "engines control console"
-	desc = "Удалённое управление двигателями корабля: включение, лимит тяги, статус."
+	desc = "Удалённое управление двигателями космического аппарата."
 	icon_keyboard = "tech_key"
 	icon_screen = "power"
 	light_color = LIGHT_COLOR_ORANGE

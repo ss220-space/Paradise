@@ -1,6 +1,6 @@
 /obj/machinery/computer/helm
 	name = "helm control console"
-	desc = "Навигация корабля: карта системы, курс, автопилот."
+	desc = "Используется для навигации космического аппарата в гиперпространстве."
 	icon_keyboard = "teleport_key"
 	icon_screen = "comm"
 	light_color = LIGHT_COLOR_CYAN
@@ -233,16 +233,16 @@
 		return FALSE
 	var/obj/overmap/entity/host = vessel.get_dock_host()
 	if(!host)
-		to_chat(user, span_warning("Кастомную точку можно ставить только на клетке объекта с физической зоной посадки (станция, руина и т.д.)."))
+		to_chat(user, span_warning("Невозможно установить произвольную точку посадки."))
 		return FALSE
 	if(host && !host.dock_host?.allow_custom_landing)
-		to_chat(user, span_warning("Кастомная посадка здесь отключена. Используйте посадочный маяк."))
+		to_chat(user, span_warning("Гравитационные аномалии не позволяют использовать произвольные точки подлёта."))
 		return FALSE
 	SStgui.close_uis(src)
 	dock_picker.bind_landing_host(host)
 	dock_picker.shuttleId = vessel.shuttle.id
 	dock_picker.shuttlePortId = "[vessel.shuttle.id]_overmap_custom_[host.UID()]"
-	dock_picker.shuttlePortName = "Кастомная точка ([host.name])"
+	dock_picker.shuttlePortName = "Произвольная точка ([host.name])"
 	dock_picker.shuttle_port = vessel.shuttle
 	dock_picker.my_port = vessel.get_custom_dock(host)
 	dock_picker.stat &= ~NOPOWER

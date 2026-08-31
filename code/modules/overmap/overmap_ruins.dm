@@ -145,7 +145,7 @@
 	space_origin_y = bottom_left.y
 	space_z = bottom_left.z
 	space_area = new /area/space/overmap_ruin
-	space_area.name = "Космос — [site?.name || "руина"] ([quadrant]/[site?.quadrants || OVERMAP_RUIN_QUADRANTS])"
+	space_area.name = "Космос — [site?.name || "точка интереса"] ([quadrant]/[site?.quadrants || OVERMAP_RUIN_QUADRANTS])"
 	space_area.region = src
 	var/max_x = space_origin_x + span - 1
 	var/max_y = space_origin_y + span - 1
