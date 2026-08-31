@@ -223,16 +223,16 @@
 
 // MARK: Spacepod locators
 
-/datum/design/pod_basic_locator
-	construction_time = 100
-	name = "Модуль поиска астероидов"
-	desc = "Сканирующее устройство позволяющее определять координаты астероидов в секторе."
-	id = "pod_locator_basic"
-	req_tech = list(RESEARCH_TREE_ENGINEERING = 6, RESEARCH_TREE_MAGNETS= 5) //Materials 2: easy to get, no trackers with 0 science progress
-	build_type = PODFAB
-	materials = list(MAT_METAL=1000, MAT_GLASS=2000, MAT_SILVER=1000)
-	build_path = /obj/item/spacepod_equipment/locators/basic_pod_locator
-	category = list(POD_FAB_CATEGORY_PARTS)
+// /datum/design/pod_basic_locator
+// 	construction_time = 100
+// 	name = "Модуль поиска астероидов"
+// 	desc = "Сканирующее устройство позволяющее определять координаты астероидов в секторе."
+// 	id = "pod_locator_basic"
+// 	req_tech = list(RESEARCH_TREE_ENGINEERING = 6, RESEARCH_TREE_MAGNETS= 5) //Materials 2: easy to get, no trackers with 0 science progress
+// 	build_type = PODFAB
+// 	materials = list(MAT_METAL=1000, MAT_GLASS=2000, MAT_SILVER=1000)
+// 	build_path = /obj/item/spacepod_equipment/locators/basic_pod_locator
+// 	category = list(POD_FAB_CATEGORY_PARTS)
 
 
 // MARK: Spacepod modules
