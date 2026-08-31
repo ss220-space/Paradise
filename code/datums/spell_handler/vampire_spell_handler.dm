@@ -9,6 +9,14 @@
 	/// If the blood cost should be handled by this handler. Or if the spell will handle it itself
 	var/deduct_blood_on_cast = TRUE
 
+/datum/spell_handler/vampire/New(datum/action/cooldown/spell/spell, blood = 0, deduct = TRUE)
+	required_blood = blood
+	initial_blood = blood
+	if(blood != 0)
+		spell.name = "[initial(spell.name)] ([blood])"
+	deduct_blood_on_cast = deduct
+	spell.build_all_button_icons()
+
 /datum/spell_handler/vampire/can_cast(mob/user, show_message, datum/action/cooldown/spell/spell)
 	var/datum/antagonist/vampire/vampire = user?.mind?.has_antag_datum(/datum/antagonist/vampire)
 

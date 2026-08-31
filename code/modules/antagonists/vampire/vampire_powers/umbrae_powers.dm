@@ -9,7 +9,7 @@
 	school = SCHOOL_SANGUINE
 
 /datum/action/cooldown/spell/umbrae_cloak/create_new_handler()
-	var/datum/spell_handler/vampire/handler = new
+	var/datum/spell_handler/vampire/handler = new(src)
 	return handler
 
 /datum/action/cooldown/spell/umbrae_cloak/Grant(mob/grant_to)
@@ -167,11 +167,7 @@
 	var/timer
 
 /datum/action/cooldown/spell/soul_anchor/create_new_handler()
-	var/datum/spell_handler/vampire/handler = new
-	handler.required_blood = required_blood
-	handler.deduct_blood_on_cast = FALSE
-	name = "[initial(name)] ([required_blood])"
-	build_all_button_icons()
+	var/datum/spell_handler/vampire/handler = new(src, required_blood, FALSE)
 	return handler
 
 /datum/action/cooldown/spell/soul_anchor/before_cast(atom/cast_on)
@@ -274,10 +270,7 @@
 	var/required_blood = 20
 
 /datum/action/cooldown/spell/pointed/dark_passage/create_new_handler()
-	var/datum/spell_handler/vampire/handler = new
-	handler.required_blood = required_blood
-	name = "[initial(name)] ([required_blood])"
-	build_all_button_icons()
+	var/datum/spell_handler/vampire/handler = new(src, required_blood)
 	return handler
 
 /datum/action/cooldown/spell/pointed/dark_passage/cast(atom/cast_on)
@@ -308,7 +301,7 @@
 	targeting_type = /datum/aoe_targeting/turfs
 
 /datum/action/cooldown/spell/aoe/vamp_extinguish/create_new_handler()
-	var/datum/spell_handler/vampire/handler = new
+	var/datum/spell_handler/vampire/handler = new(src)
 	return handler
 
 /datum/action/cooldown/spell/aoe/vamp_extinguish/cast_on_thing_in_aoe(atom/victim, atom/caster)
@@ -332,10 +325,7 @@
 	var/required_blood = 30
 
 /datum/action/cooldown/spell/pointed/shadow_boxing/create_new_handler()
-	var/datum/spell_handler/vampire/handler = new
-	handler.required_blood = required_blood
-	name = "[initial(name)] ([required_blood])"
-	build_all_button_icons()
+	var/datum/spell_handler/vampire/handler = new(src, required_blood)
 	return handler
 
 /datum/action/cooldown/spell/pointed/shadow_boxing/is_valid_target(atom/cast_on)
@@ -358,11 +348,7 @@
 	var/shroud_power = -4
 
 /datum/action/cooldown/spell/eternal_darkness/create_new_handler()
-	var/datum/spell_handler/vampire/handler = new
-	handler.required_blood = required_blood
-	handler.deduct_blood_on_cast = FALSE
-	name = "[initial(name)] ([required_blood])"
-	build_all_button_icons()
+	var/datum/spell_handler/vampire/handler = new(src, required_blood, FALSE)
 	return handler
 
 /datum/action/cooldown/spell/eternal_darkness/cast(atom/cast_on)

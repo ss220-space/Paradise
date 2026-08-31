@@ -141,17 +141,18 @@
 
 /datum/action/cooldown/spell/pointed/revenant_transmit/cast(atom/cast_on)
 	. = ..()
-	var/mob/living/M = cast_on
-	spawn(0)
-		var/msg = tgui_input_text(usr, "Что вы хотите передать [M]?", null, "")
+	INVOKE_ASYNC(src, PROC_REF(cast_async), target)
 
-		if(!msg)
-			reset_spell_cooldown()
-			return
+/datum/action/cooldown/spell/pointed/revenant_transmit/proc/cast_async(mob/living/target)
+	var/msg = tgui_input_text(usr, "Что вы хотите передать [target]?", null, "")
 
-		log_say("(REVENANT to [key_name(M)]) [msg]", owner)
-		to_chat(owner, "[span_revenboldnotice("Вы передаёте [M]:")] [span_revennotice(msg)]")
-		to_chat(M, "[span_revenboldnotice("Голос из ниоткуда раздаётся вокруг...")] [span_italics(msg)]")
+	if(!msg)
+		reset_spell_cooldown()
+		return
+
+	log_say("(REVENANT to [key_name(target)]) [msg]", owner)
+	to_chat(owner, "[span_revenboldnotice("Вы передаёте [target]:")] [span_revennotice(msg)]")
+	to_chat(target, "[span_revenboldnotice("Голос из ниоткуда раздаётся вокруг...")] [span_italics(msg)]")
 
 /datum/action/cooldown/spell/aoe/revenant
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
@@ -290,7 +291,7 @@
 	var/turf/turf = victim
 	turf.defile()
 
-	for(var/atom/A in turf.contents)
+	for(var/atom/A as anything in turf.contents)
 		A.defile()
 
 //Malfunction: Makes bad stuff happen to robots and machines.

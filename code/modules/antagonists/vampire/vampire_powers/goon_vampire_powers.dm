@@ -15,8 +15,8 @@
 	return ..() && owner.stat != DEAD
 
 /datum/action/cooldown/spell/goon_vamp_rejuvenate/create_new_handler()
-	var/datum/spell_handler/vampire/H = new
-	return H
+	var/datum/spell_handler/vampire/goon/handler = new(src)
+	return handler
 
 /datum/action/cooldown/spell/goon_vamp_rejuvenate/Grant(mob/grant_to)
 	. = ..()
@@ -90,11 +90,8 @@
 	var/required_blood = 25
 
 /datum/action/cooldown/spell/pointed/vampire_hypnotise/create_new_handler()
-	var/datum/spell_handler/vampire/goon/H = new
-	H.required_blood = required_blood
-	name = "[initial(name)] ([required_blood])"
-	build_all_button_icons()
-	return H
+	var/datum/spell_handler/vampire/goon/handler = new(src, required_blood)
+	return handler
 
 /datum/action/cooldown/spell/pointed/vampire_hypnotise/is_valid_target(atom/cast_on)
 	return ..() && ishuman(cast_on)
@@ -131,11 +128,8 @@
 	var/required_blood = 50
 
 /datum/action/cooldown/spell/pointed/goon_vamp_disease/create_new_handler()
-	var/datum/spell_handler/vampire/goon/H = new
-	H.required_blood = required_blood
-	name = "[initial(name)] ([required_blood])"
-	build_all_button_icons()
-	return H
+	var/datum/spell_handler/vampire/goon/handler = new(src, required_blood)
+	return handler
 
 /datum/action/cooldown/spell/pointed/goon_vamp_disease/is_valid_target(atom/cast_on)
 	return ..() && ishuman(cast_on)
@@ -172,7 +166,7 @@
 	return ..() && owner.stat == CONSCIOUS
 
 /datum/action/cooldown/spell/aoe/goon_vamp_glare/create_new_handler()
-	var/datum/spell_handler/vampire/goon/handler = new
+	var/datum/spell_handler/vampire/goon/handler = new(src)
 	return handler
 
 /datum/action/cooldown/spell/aoe/goon_vamp_glare/Grant(mob/grant_to)
@@ -227,11 +221,8 @@
 	var/required_blood = 50
 
 /datum/action/cooldown/spell/vamp_shapeshift/create_new_handler()
-	var/datum/spell_handler/vampire/goon/H = new
-	H.required_blood = required_blood
-	name = "[initial(name)] ([required_blood])"
-	build_all_button_icons()
-	return H
+	var/datum/spell_handler/vampire/goon/handler = new(src, required_blood)
+	return handler
 
 /datum/action/cooldown/spell/vamp_shapeshift/cast(atom/cast_on)
 	. = ..()
@@ -261,11 +252,8 @@
 	var/required_blood = 30
 
 /datum/action/cooldown/spell/aoe/goon_vamp_screech/create_new_handler()
-	var/datum/spell_handler/vampire/goon/H = new
-	H.required_blood = required_blood
-	name = "[initial(name)] ([required_blood])"
-	build_all_button_icons()
-	return H
+	var/datum/spell_handler/vampire/goon/handler = new(src, required_blood)
+	return handler
 
 /datum/action/cooldown/spell/aoe/goon_vamp_screech/cast(atom/cast_on)
 	. = ..()
@@ -310,11 +298,8 @@
 	var/required_blood = 300
 
 /datum/action/cooldown/spell/pointed/goon_vamp_enthrall/create_new_handler()
-	var/datum/spell_handler/vampire/goon/H = new
-	H.required_blood = required_blood
-	name = "[initial(name)] ([required_blood])"
-	build_all_button_icons()
-	return H
+	var/datum/spell_handler/vampire/goon/handler = new(src, required_blood)
+	return handler
 
 /datum/action/cooldown/spell/pointed/goon_vamp_enthrall/is_valid_target(atom/cast_on)
 	return ..() && ishuman(cast_on)
@@ -413,7 +398,7 @@
 	cooldown_time = 1 SECONDS
 
 /datum/action/cooldown/spell/goon_vamp_cloak/create_new_handler()
-	var/datum/spell_handler/vampire/handler = new
+	var/datum/spell_handler/vampire/goon/handler = new(src)
 	return handler
 
 /datum/action/cooldown/spell/goon_vamp_cloak/after_cast(atom/cast_on)
@@ -450,11 +435,8 @@
 	sound = 'sound/effects/creepyshriek.ogg'
 
 /datum/action/cooldown/spell/conjure/goon_vamp_bats/create_new_handler()
-	var/datum/spell_handler/vampire/goon/H = new
-	H.required_blood = required_blood
-	name = "[initial(name)] ([required_blood])"
-	build_all_button_icons()
-	return H
+	var/datum/spell_handler/vampire/goon/handler = new(src, required_blood)
+	return handler
 
 /datum/action/cooldown/spell/conjure/goon_vamp_bats/post_summon(atom/summoned_object, atom/cast_on)
 	var/mob/summon = summoned_object
@@ -473,11 +455,8 @@
 	var/required_blood = 50
 
 /datum/action/cooldown/spell/jaunt/ethereal_jaunt/goon_vamp_jaunt/create_new_handler()
-	var/datum/spell_handler/vampire/goon/H = new
-	H.required_blood = required_blood
-	name = "[initial(name)] ([required_blood])"
-	build_all_button_icons()
-	return H
+	var/datum/spell_handler/vampire/goon/handler = new(src, required_blood)
+	return handler
 
 // Blink for vamps
 // Less smoke spam.
@@ -496,11 +475,8 @@
 	var/max_lum = 1
 
 /datum/action/cooldown/spell/teleport/radius_turf/goon_vamp_blink/create_new_handler()
-	var/datum/spell_handler/vampire/goon/H = new
-	H.required_blood = required_blood
-	name = "[initial(name)] ([required_blood])"
-	build_all_button_icons()
-	return H
+	var/datum/spell_handler/vampire/goon/handler = new(src, required_blood)
+	return handler
 
 /datum/action/cooldown/spell/teleport/radius_turf/goon_vamp_blink/get_destinations(atom/center)
 	var/list/valid_turfs = list()

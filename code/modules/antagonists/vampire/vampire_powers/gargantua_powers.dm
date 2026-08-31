@@ -10,10 +10,7 @@
 	var/required_blood = 15
 
 /datum/action/cooldown/spell/blood_swell/create_new_handler()
-	var/datum/spell_handler/vampire/handler = new
-	handler.required_blood = required_blood
-	name = "[initial(name)] ([required_blood])"
-	build_all_button_icons()
+	var/datum/spell_handler/vampire/handler = new(src, required_blood)
 	return handler
 
 /datum/action/cooldown/spell/blood_swell/cast(atom/cast_on)
@@ -99,7 +96,7 @@
 	school = SCHOOL_SANGUINE
 
 /datum/action/cooldown/spell/overwhelming_force/create_new_handler()
-	var/datum/spell_handler/vampire/handler = new
+	var/datum/spell_handler/vampire/handler = new(src)
 	return handler
 
 /datum/action/cooldown/spell/overwhelming_force/cast(atom/cast_on)
@@ -152,10 +149,7 @@
 	var/required_blood = 10
 
 /datum/action/cooldown/spell/pointed/projectile/demonic_grasp/create_new_handler()
-	var/datum/spell_handler/vampire/handler = new
-	handler.required_blood = required_blood
-	name = "[initial(name)] ([required_blood])"
-	build_all_button_icons()
+	var/datum/spell_handler/vampire/handler = new(src, required_blood)
 	return handler
 
 /obj/effect/temp_visual/demonic_grasp
@@ -181,10 +175,7 @@
 	var/required_blood = 15
 
 /datum/action/cooldown/spell/pointed/garg_charge/create_new_handler()
-	var/datum/spell_handler/vampire/handler = new
-	handler.required_blood = required_blood
-	name = "[initial(name)] ([required_blood])"
-	build_all_button_icons()
+	var/datum/spell_handler/vampire/handler = new(src, required_blood)
 	return handler
 
 /datum/action/cooldown/spell/pointed/garg_charge/can_cast_spell(feedback)

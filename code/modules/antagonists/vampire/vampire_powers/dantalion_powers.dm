@@ -20,11 +20,7 @@
 	var/required_blood = 100
 
 /datum/action/cooldown/spell/pointed/dantalion_enthrall/create_new_handler()
-	var/datum/spell_handler/vampire/handler = new
-	handler.required_blood = required_blood
-	handler.deduct_blood_on_cast = FALSE
-	name = "[initial(name)] ([required_blood])"
-	build_all_button_icons()
+	var/datum/spell_handler/vampire/handler = new(src, required_blood, FALSE)
 	return handler
 
 /datum/action/cooldown/spell/pointed/dantalion_enthrall/is_valid_target(atom/cast_on)
@@ -208,10 +204,7 @@
 	var/required_blood = 10
 
 /datum/action/cooldown/spell/pointed/pacify/create_new_handler()
-	var/datum/spell_handler/vampire/handler = new
-	handler.required_blood = required_blood
-	name = "[initial(name)] ([required_blood])"
-	build_all_button_icons()
+	var/datum/spell_handler/vampire/handler = new(src, required_blood)
 	return handler
 
 /datum/action/cooldown/spell/pointed/pacify/is_valid_target(atom/cast_on)
@@ -244,10 +237,7 @@
 	var/required_blood = 15
 
 /datum/action/cooldown/spell/pointed/switch_places/create_new_handler()
-	var/datum/spell_handler/vampire/handler = new
-	handler.required_blood = required_blood
-	name = "[initial(name)] ([required_blood])"
-	build_all_button_icons()
+	var/datum/spell_handler/vampire/handler = new(src, required_blood)
 	return handler
 
 /datum/action/cooldown/spell/pointed/switch_places/is_valid_target(atom/cast_on)
@@ -284,10 +274,7 @@
 	var/required_blood = 30
 
 /datum/action/cooldown/spell/dantalion_decoy/create_new_handler()
-	var/datum/spell_handler/vampire/handler = new
-	handler.required_blood = required_blood
-	name = "[initial(name)] ([required_blood])"
-	build_all_button_icons()
+	var/datum/spell_handler/vampire/handler = new(src, required_blood)
 	return handler
 
 /datum/action/cooldown/spell/dantalion_decoy/cast(atom/cast_on)
@@ -314,10 +301,7 @@
 	var/required_blood = 25
 
 /datum/action/cooldown/spell/aoe/rally_thralls/create_new_handler()
-	var/datum/spell_handler/vampire/handler = new
-	handler.required_blood = required_blood
-	name = "[initial(name)] ([required_blood])"
-	build_all_button_icons()
+	var/datum/spell_handler/vampire/handler = new(src, required_blood)
 	return handler
 
 /datum/action/cooldown/spell/aoe/rally_thralls/cast_on_thing_in_aoe(atom/victim, atom/caster)
@@ -339,10 +323,7 @@
 	var/required_blood = 5
 
 /datum/action/cooldown/spell/share_damage/create_new_handler()
-	var/datum/spell_handler/vampire/handler = new
-	handler.required_blood = required_blood
-	name = "[initial(name)] ([required_blood])"
-	build_all_button_icons()
+	var/datum/spell_handler/vampire/handler = new(src, required_blood)
 	return handler
 
 /datum/action/cooldown/spell/share_damage/cast(atom/cast_on)

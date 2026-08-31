@@ -72,7 +72,7 @@
 	return ..() && owner.stat != DEAD
 
 /datum/action/cooldown/spell/vamp_rejuvenate/create_new_handler()
-	var/datum/spell_handler/vampire/handler = new
+	var/datum/spell_handler/vampire/handler = new(src)
 	return handler
 
 /datum/action/cooldown/spell/vamp_rejuvenate/Grant(mob/grant_to)
@@ -151,7 +151,7 @@
 	gain_desc = "Теперь вы можете выбрать, в какую специализацию вампира вы хотите эволюционировать."
 
 /datum/action/cooldown/spell/vamp_specialize/create_new_handler()
-	var/datum/spell_handler/vampire/handler = new
+	var/datum/spell_handler/vampire/handler = new(src)
 	return handler
 
 /datum/action/cooldown/spell/vamp_specialize/cast(atom/cast_on)
@@ -378,10 +378,7 @@
 	var/required_blood = 50
 
 /datum/action/cooldown/spell/pointed/raise_free_vampire/create_new_handler()
-	var/datum/spell_handler/vampire/handler = new
-	handler.required_blood = required_blood
-	name = "[initial(name)] ([required_blood])"
-	build_all_button_icons()
+	var/datum/spell_handler/vampire/handler = new(src, required_blood)
 	return handler
 
 /datum/action/cooldown/spell/pointed/raise_free_vampire/cast(atom/cast_on)
@@ -435,8 +432,7 @@
 	targeting_type = /datum/aoe_targeting/human
 
 /datum/action/cooldown/spell/aoe/raise_vampires/create_new_handler()
-	. = ..()
-	var/datum/spell_handler/vampire/handler = new
+	var/datum/spell_handler/vampire/handler = new(src)
 	return handler
 
 /datum/action/cooldown/spell/aoe/raise_vampires/before_cast(atom/cast_on)

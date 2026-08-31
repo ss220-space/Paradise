@@ -90,7 +90,7 @@
 /datum/action/cooldown/spell/aoe/shadowling_veil/cast_on_thing_in_aoe(atom/victim, atom/caster)
 	var/turf/turf = victim
 	turf.extinguish_light()
-	for(var/atom/atom in turf.contents)
+	for(var/atom/atom as anything in turf.contents)
 		if(is_type_in_list(atom, blacklisted_lights))
 			continue
 		atom.extinguish_light()
@@ -516,8 +516,9 @@
 			to_chat(c_mob, span_danger("<b>Острая боль пронзает голову и путает мысли!</b>"))
 			c_mob.AdjustConfused(20 SECONDS)
 			c_mob.AdjustDeaf(6 SECONDS)
+			continue
 
-		else if(issilicon(target))
+		if(issilicon(target))
 			var/mob/living/silicon/robot = target
 			to_chat(robot, span_warning("<b>ОШИБКА $!(@ ОШИБКА )#^! ПЕРЕГРУЗКА СЕНСЕРОВ \[$(!@#</b>"))
 			SEND_SOUND(robot, sound('sound/misc/interference.ogg'))

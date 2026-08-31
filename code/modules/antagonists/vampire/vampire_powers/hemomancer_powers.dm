@@ -11,11 +11,8 @@
 	background_icon_state = "bg_vampire"
 
 /datum/action/cooldown/spell/vamp_claws/create_new_handler()
-	var/datum/spell_handler/vampire/H = new
-	H.required_blood = required_blood
-	name = "[initial(name)] ([required_blood])"
-	build_all_button_icons()
-	return H
+	var/datum/spell_handler/vampire/handler = new(src, required_blood)
+	return handler
 
 /datum/action/cooldown/spell/vamp_claws/cast(atom/cast_on)
 	. = ..()
@@ -144,11 +141,8 @@
 	deactive_msg = span_notice_alt("Ваша магия ослабевает.")
 
 /datum/action/cooldown/spell/pointed/blood_tendrils/create_new_handler()
-	var/datum/spell_handler/vampire/H = new
-	H.required_blood = required_blood
-	name = "[initial(name)] ([required_blood])"
-	build_all_button_icons()
-	return H
+	var/datum/spell_handler/vampire/handler = new(src, required_blood)
+	return handler
 
 /datum/action/cooldown/spell/pointed/blood_tendrils/cast(atom/cast_on)
 	. = ..()
@@ -200,12 +194,8 @@
 	return TRUE
 
 /datum/action/cooldown/spell/pointed/blood_barrier/create_new_handler()
-	var/datum/spell_handler/vampire/H = new
-	H.required_blood = required_blood
-	H.deduct_blood_on_cast = FALSE
-	name = "[initial(name)] ([required_blood])"
-	build_all_button_icons()
-	return H
+	var/datum/spell_handler/vampire/handler = new(src, required_blood)
+	return handler
 
 /datum/action/cooldown/spell/pointed/blood_barrier/unset_click_ability(mob/on_who, refund_cooldown)
 	. = ..()
@@ -368,11 +358,8 @@
 	var/required_blood = 20
 
 /datum/action/cooldown/spell/jaunt/ethereal_jaunt/blood_pool/create_new_handler()
-	var/datum/spell_handler/vampire/H = new
-	H.required_blood = required_blood
-	name = "[initial(name)] ([required_blood])"
-	build_all_button_icons()
-	return H
+	var/datum/spell_handler/vampire/handler = new(src, required_blood)
+	return handler
 
 /obj/effect/dummy/phased_mob/spell_jaunt/blood_pool
 	name = "sanguine pool"
@@ -400,8 +387,8 @@
 	used_in_radius = FALSE
 
 /datum/action/cooldown/spell/list_target/predator_senses/create_new_handler()
-	var/datum/spell_handler/vampire/H = new
-	return H
+	var/datum/spell_handler/vampire/handler = new(src)
+	return handler
 
 /datum/action/cooldown/spell/list_target/predator_senses/get_list_targets(atom/center, target_radius)
 	var/list/targets = list()
@@ -439,11 +426,8 @@
 	var/required_blood = 25
 
 /datum/action/cooldown/spell/aoe/blood_eruption/create_new_handler()
-	var/datum/spell_handler/vampire/H = new
-	H.required_blood = required_blood
-	name = "[initial(name)] ([required_blood])"
-	build_all_button_icons()
-	return H
+	var/datum/spell_handler/vampire/handler = new(src, required_blood)
+	return handler
 
 /datum/action/cooldown/spell/aoe/blood_eruption/cast_on_thing_in_aoe(atom/victim, atom/caster)
 	var/mob/living/victim_mob = victim
@@ -472,11 +456,8 @@
 	var/required_blood = 10
 
 /datum/action/cooldown/spell/blood_spill/create_new_handler()
-	var/datum/spell_handler/vampire/H = new
-	H.required_blood = required_blood
-	name = "[initial(name)] ([required_blood])"
-	build_all_button_icons()
-	return H
+	var/datum/spell_handler/vampire/handler = new(src, required_blood)
+	return handler
 
 /datum/action/cooldown/spell/blood_spill/cast(atom/cast_on)
 	. = ..()

@@ -255,11 +255,7 @@
 	)
 
 /datum/action/cooldown/spell/dissect/create_new_handler()
-	var/datum/spell_handler/vampire/handler = new
-	handler.required_blood = required_blood
-	handler.deduct_blood_on_cast = FALSE
-	name = "[initial(name)] ([required_blood])"
-	build_all_button_icons()
+	var/datum/spell_handler/vampire/handler = new(src, required_blood, FALSE)
 	return handler
 
 /datum/action/cooldown/spell/dissects/New(Target, original)
@@ -547,12 +543,7 @@
 	var/required_blood = 30
 
 /datum/action/cooldown/spell/infected_trophy/create_new_handler()
-	var/datum/spell_handler/vampire/handler = new
-	handler.required_blood = required_blood
-	handler.initial_blood = required_blood
-	handler.deduct_blood_on_cast = FALSE
-	name = "[initial(name)] ([required_blood])"
-	build_all_button_icons()
+	var/datum/spell_handler/vampire/handler = new(src, required_blood, FALSE)
 	return handler
 
 /datum/action/cooldown/spell/infected_trophy/cast(atom/cast_on)
@@ -642,11 +633,7 @@
 	var/effect_aoe = 0
 
 /datum/action/cooldown/spell/pointed/bestia_lunge/create_new_handler()
-	var/datum/spell_handler/vampire/handler = new
-	handler.required_blood = required_blood
-	handler.initial_blood = required_blood
-	name = "[initial(name)] ([required_blood])"
-	build_all_button_icons()
+	var/datum/spell_handler/vampire/handler = new(src, required_blood, TRUE)
 	return handler
 
 /datum/action/cooldown/spell/pointed/bestia_lunge/cast(atom/cast_on)
@@ -794,11 +781,7 @@
 	var/required_blood = 25
 
 /datum/action/cooldown/spell/pointed/bestia_mark/create_new_handler()
-	var/datum/spell_handler/vampire/handler = new
-	handler.required_blood = required_blood
-	handler.initial_blood = required_blood
-	name = "[initial(name)] ([required_blood])"
-	build_all_button_icons()
+	var/datum/spell_handler/vampire/handler = new(src, required_blood)
 	return handler
 
 /datum/action/cooldown/spell/pointed/bestia_mark/is_valid_target(atom/cast_on)
@@ -849,11 +832,7 @@
 	var/static/list/spells_blacklist = list(/datum/action/cooldown/spell/aoe/bat_screech, /datum/action/cooldown/spell/lunge_finale)
 
 /datum/action/cooldown/spell/shapeshift/vampire/create_new_handler()
-	var/datum/spell_handler/vampire/handler = new
-	handler.required_blood = required_blood
-	handler.initial_blood = required_blood
-	name = "[initial(name)] ([required_blood])"
-	build_all_button_icons()
+	var/datum/spell_handler/vampire/handler = new(src, required_blood)
 	return handler
 
 /datum/action/cooldown/spell/shapeshift/vampire/can_cast_spell(feedback)
@@ -996,11 +975,7 @@
 	var/brain_dmg = 0
 
 /datum/action/cooldown/spell/aoe/bat_screech/create_new_handler()
-	var/datum/spell_handler/vampire/handler = new
-	handler.required_blood = required_blood
-	handler.initial_blood = required_blood
-	name = "[initial(name)] ([required_blood])"
-	build_all_button_icons()
+	var/datum/spell_handler/vampire/handler = new(src, required_blood)
 	return handler
 
 /datum/action/cooldown/spell/aoe/bat_screech/proc/calculate_trophies()
@@ -1022,12 +997,12 @@
 	if(issilicon(target))
 		playsound(get_turf(target), 'sound/weapons/flash.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		target.Weaken(rand(10 SECONDS, 20 SECONDS))
-	else
-		target.Weaken(weaken_amt)
-		target.AdjustConfused(confusion_amt)
-		target.Stuttering(40 SECONDS)
-		target.Deaf(40 SECONDS)
-		target.Jitter(40 SECONDS)
+		return
+	target.Weaken(weaken_amt)
+	target.AdjustConfused(confusion_amt)
+	target.Stuttering(40 SECONDS)
+	target.Deaf(40 SECONDS)
+	target.Jitter(40 SECONDS)
 
 /datum/action/cooldown/spell/aoe/bat_screech/cast(atom/cast_on)
 	. =  ..()
@@ -1076,11 +1051,7 @@
 	var/range = 7
 
 /datum/action/cooldown/spell/lunge_finale/create_new_handler()
-	var/datum/spell_handler/vampire/handler = new
-	handler.required_blood = required_blood
-	handler.initial_blood = required_blood
-	name = "[initial(name)] ([required_blood])"
-	build_all_button_icons()
+	var/datum/spell_handler/vampire/handler = new(src, required_blood)
 	return handler
 
 /datum/action/cooldown/spell/lunge_finale/Destroy()
@@ -1186,11 +1157,7 @@
 	var/rejuvenation_time = 30 SECONDS
 
 /datum/action/cooldown/spell/anabiosis/create_new_handler()
-	var/datum/spell_handler/vampire/handler = new
-	handler.required_blood = required_blood
-	handler.initial_blood = required_blood
-	name = "[initial(name)] ([required_blood])"
-	build_all_button_icons()
+	var/datum/spell_handler/vampire/handler = new(src, required_blood)
 	return handler
 
 /datum/action/cooldown/spell/anabiosis/can_cast_spell(feedback)
@@ -1700,11 +1667,7 @@
 	var/required_blood = 50
 
 /datum/action/cooldown/spell/conjure/bestia_bats/create_new_handler()
-	var/datum/spell_handler/vampire/handler = new
-	handler.required_blood = required_blood
-	handler.initial_blood = required_blood
-	name = "[initial(name)] ([required_blood])"
-	build_all_button_icons()
+	var/datum/spell_handler/vampire/handler = new(src, required_blood)
 	return handler
 
 /datum/action/cooldown/spell/conjure/bestia_bats/before_cast(atom/cast_on)
