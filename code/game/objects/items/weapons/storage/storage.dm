@@ -640,6 +640,9 @@
 				usr.balloon_alert(usr, "слишком далеко!")
 			return FALSE
 
+	if(SEND_SIGNAL(src, COMSIG_PRE_INSERT_INTO_STORAGE, usr) & BLOCK_INSERTING_ITEM)
+		return FALSE
+
 	if(length(contents) >= storage_slots)
 		if(!stop_messages)
 			usr.balloon_alert(usr, "нет места!")
@@ -681,7 +684,8 @@
 			usr.balloon_alert(usr, "нет места!")
 		return FALSE
 
-	if(W.w_class >= w_class && (isstorage(W)))
+	var/using_differentiant_size_component = SEND_SIGNAL(src, COMSIG_CHECK_DIFFERENTIATE_SIZE_COMPONENT) & HAS_DIFFERENTIATE_SIZE_COMPONENT
+	if(W.w_class >= w_class && (isstorage(W)) && !using_differentiant_size_component)
 		if(!istype(src, /obj/item/storage/backpack/holding))	//bohs should be able to hold backpacks again. The override for putting a boh in a boh is in backpack.dm.
 			if(!stop_messages)
 				usr.balloon_alert(usr, "слишком большой объект!")
@@ -1021,11 +1025,6 @@ GAME_PROC_SRC(/obj/item/storage, toggle_gathering_mode, usr, "Режим сбо�
 		orient2hud(user)
 		show_to(user)
 	return TRUE
-
-/obj/item/storage/examine(mob/user)
-	. = ..()
-	if(dynamic_storage_size)
-		. += span_notice("Размер <b>изменяется</b> в зависимости от наличия содержимого.")
 
 #undef STORAGE_CAP_WIDTH
 #undef STORED_CAP_WIDTH
