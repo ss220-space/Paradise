@@ -423,7 +423,7 @@ SUBSYSTEM_DEF(vote)
 				vote_type = selected,
 				vote_initiator_name = voter.key,
 				vote_initiator = voter,
-				forced = !!GLOB.admin_datums[voter.ckey],
+				forced = check_rights_for(voter.client, R_ADMIN),
 			)
 
 		if("voteSingle")

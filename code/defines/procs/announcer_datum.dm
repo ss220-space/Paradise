@@ -16,7 +16,8 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 #define CHAT_ALERT_DEFAULT_SPAN(string) ("<div class='chat_alert_default'>" + string + "</div>")
 #define CHAT_ALERT_COLORED_SPAN(color, string) ("<div class='chat_alert_" + color + "'>" + string + "</div>")
 
-#define ANNOUNCEMENT_COLORS list("default", "green", "blue", "pink", "yellow", "orange", "red", "purple")
+#define STYLE_MAJOR "major"
+#define STYLE_MINOR "minor"
 
 /datum/announcement_configuration
 	var/default_title = "Внимание!"
@@ -29,10 +30,9 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 	var/global_announcement = FALSE
 	/// What sound to play when the announcement is made.
 	var/sound/sound
-	/// Тип стиля для объявления: "major", "minor", "default", "green", "blue", "pink", "yellow", "orange", "red", "purple"
 	var/style = "default"
-	/// Цвет для CHAT_ALERT_COLORED_SPAN, если указан
-	var/color_override = null
+	/// Color for CHAT_ALERT_COLORED_SPAN
+	var/color_override = "default"
 
 /datum/announcer
 	/// The default configuration for new announcements.
@@ -52,11 +52,14 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 		msg_sanitized = FALSE,
 		msg_language,
 		new_sound2 = null,
-		new_subtitle = null
+		new_subtitle = null,
+		color_override = null
 	)
 
 	if(!new_sound)
 		new_sound = SSstation.announcer.get_rand_alert_sound()
+	else if(SSstation.announcer.event_sounds[new_sound])
+		new_sound = SSstation.announcer.event_sounds[new_sound]
 
 	if(!message)
 		return
@@ -75,11 +78,12 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 	var/list/receivers = combined_receivers[1]
 	var/list/garbled_receivers = combined_receivers[2]
 
-	var/formatted_message = format(message, title, subtitle)
+	var/formatted_message = format(message, title, subtitle, color_override)
 	var/garbled_formatted_message = format(
 		message_language.scramble(message),
 		message_language.scramble(title),
-		message_language.scramble(subtitle)
+		message_language.scramble(subtitle),
+		color_override
 	)
 
 	announce_message(formatted_message, garbled_formatted_message, receivers, garbled_receivers, message_sound)
@@ -140,17 +144,15 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 		to_chat(mob, garbled_message, MESSAGE_TYPE_WARNING)
 		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, mob, garbled_message_tts, tts_seed, FALSE, SOUND_EFFECT_NONE, TTS_TRAIT_RATE_MEDIUM, message_sound)
 
-/datum/announcer/proc/format(message, title, subtitle = null)
+/datum/announcer/proc/format(message, title, subtitle = null, color_override = null)
 	var/formatted_message = ""
 	var/list/announcement_strings = list()
 	var/list/header = list()
 	switch(config.style)
-		if("major")
+		if(STYLE_MAJOR)
 			header += MAJOR_ANNOUNCEMENT_TITLE(title)
-		if("minor")
+		if(STYLE_MINOR)
 			header += MINOR_ANNOUNCEMENT_TITLE(title)
-		if("subheader")
-			header += SUBHEADER_ANNOUNCEMENT_TITLE(title)
 		else
 			header += MAJOR_ANNOUNCEMENT_TITLE(title)
 
@@ -158,15 +160,24 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 		header += SUBHEADER_ANNOUNCEMENT_TITLE(subtitle)
 
 	announcement_strings += ANNOUNCEMENT_HEADER(header.Join(""))
-	announcement_strings += MAJOR_ANNOUNCEMENT_TEXT(message)
+
+	switch(config.style)
+		if(STYLE_MAJOR)
+			announcement_strings += MAJOR_ANNOUNCEMENT_TEXT(message)
+		if(STYLE_MINOR)
+			announcement_strings += MINOR_ANNOUNCEMENT_TEXT(message)
+		else
+			announcement_strings += MAJOR_ANNOUNCEMENT_TEXT(message)
 
 	if(author)
 		announcement_strings += MINOR_ANNOUNCEMENT_TEXT(" – [html_encode(author)]")
 
 	var/joined_message = jointext(announcement_strings, "")
 
-	if(config.color_override)
-		formatted_message = CHAT_ALERT_COLORED_SPAN(config.color_override, joined_message)
+	var/final_color_override = color_override || config.color_override
+
+	if(final_color_override)
+		formatted_message = CHAT_ALERT_COLORED_SPAN(final_color_override, joined_message)
 	else
 		formatted_message = CHAT_ALERT_DEFAULT_SPAN(joined_message)
 
@@ -198,47 +209,44 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 /datum/announcement_configuration/event
 	default_title = ANNOUNCE_EVENT_RU
 	sound = sound('sound/misc/notice2.ogg')
-	style = "minor"
-	color_override = "blue"
+	style = STYLE_MINOR
 
 /datum/announcement_configuration/major
 	default_title = ANNOUNCE_MAJOR_RU
 	global_announcement = TRUE
 	sound = sound('sound/misc/notice2.ogg')
-	style = "major"
-	color_override = "red"
+	style = STYLE_MAJOR
 
 /datum/announcement_configuration/security
 	default_title = ANNOUNCE_SECURITY_RU
 	sound = sound('sound/misc/notice2.ogg')
-	style = "major"
-	color_override = "orange"
+	style = STYLE_MINOR
 
 /datum/announcement_configuration/minor
 	sound = sound('sound/misc/notice2.ogg')
-	style = "minor"
+	style = STYLE_MINOR
 
 /datum/announcement_configuration/requests_console
-	style = "minor"
+	style = STYLE_MINOR
 	add_log = TRUE
 	sound = sound('sound/misc/announce_dig.ogg', volume = 90)
-	color_override = "green"
+	color_override = "blue"
 
 /datum/announcement_configuration/comms_console
 	default_title = ANNOUNCE_PRIORITY_RU
 	add_log = TRUE
 	log_name = ANNOUNCE_KIND_PRIORITY
 	sound = sound('sound/misc/announce.ogg')
-	style = "major"
-	color_override = "red"
+	style = STYLE_MAJOR
+	color_override = "blue"
 
 /datum/announcement_configuration/ai
 	default_title = ANNOUNCE_AI_RU
 	add_log = TRUE
 	log_name = ANNOUNCE_KIND_AI
 	sound = sound('sound/misc/notice2.ogg')
-	style = "major"
-	color_override = "purple"
+	style = STYLE_MAJOR
+	color_override = "pink"
 
 /datum/announcer/Destroy()
 	QDEL_NULL(config)
@@ -269,4 +277,3 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 #undef CHAT_ALERT_COLORED_SPAN
 #undef SUBHEADER_ANNOUNCEMENT_TITLE
 #undef ANNOUNCEMENT_HEADER
-#undef ANNOUNCEMENT_COLORS
