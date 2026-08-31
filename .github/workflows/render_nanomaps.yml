@@ -25,10 +25,10 @@ jobs:
 
       - name: Branch
         run: |
-          git fetch origin
           git branch -f nanomap-render
           git checkout nanomap-render
           git reset --hard origin/master220
+
       - name: "Generate Maps"
         run: "./tools/github-actions/nanomap-renderer-invoker.sh"
 

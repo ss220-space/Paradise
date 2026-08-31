@@ -908,7 +908,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	)
 
 /obj/item/storage/box/syndie_kit/stechkin_pistol/populate_contents()
-	new	/obj/item/gun/projectile/automatic/pistol(src)
+	new	/obj/item/gun/projectile/automatic/pistol/stechkin(src)
 	new /obj/item/ammo_box/magazine/m10mm(src)
 	new /obj/item/ammo_box/magazine/m10mm(src)
 	new /obj/item/ammo_box/magazine/m10mm(src)
@@ -919,12 +919,12 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 
 /obj/item/storage/box/syndie_kit/kedr_kit/get_ru_names()
 	return alist(
-		NOMINATIVE = "набор пистолета-пулемета K-45",
-		GENITIVE = "набора пистолета-пулемета K-45",
-		DATIVE = "набору пистолета-пулемета K-45",
-		ACCUSATIVE = "набор пистолета-пулемета K-45",
-		INSTRUMENTAL = "набором пистолета-пулемета K-45",
-		PREPOSITIONAL = "наборе пистолета-пулемета K-45",
+		NOMINATIVE = "набор пистолета-пулемёта K-45",
+		GENITIVE = "набора пистолета-пулемёта K-45",
+		DATIVE = "набору пистолета-пулемёта K-45",
+		ACCUSATIVE = "набор пистолета-пулемёта K-45",
+		INSTRUMENTAL = "набором пистолета-пулемёта K-45",
+		PREPOSITIONAL = "наборе пистолета-пулемёта K-45",
 	)
 
 /obj/item/storage/box/syndie_kit/kedr_kit/populate_contents()
@@ -941,12 +941,12 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 
 /obj/item/storage/box/syndie_kit/kedr_ammo/get_ru_names()
 	return alist(
-		NOMINATIVE = "боеприпасы для пистолета-пулемета K-45",
-		GENITIVE = "боеприпасов для пистолета-пулемета K-45",
-		DATIVE = "боеприпасам для пистолета-пулемета K-45",
-		ACCUSATIVE = "боеприпасы для пистолета-пулемета K-45",
-		INSTRUMENTAL = "боеприпасами для пистолета-пулемета K-45",
-		PREPOSITIONAL = "боеприпасах для пистолета-пулемета K-45",
+		NOMINATIVE = "боеприпасы для пистолета-пулемёта K-45",
+		GENITIVE = "боеприпасов для пистолета-пулемёта K-45",
+		DATIVE = "боеприпасам для пистолета-пулемёта K-45",
+		ACCUSATIVE = "боеприпасы для пистолета-пулемёта K-45",
+		INSTRUMENTAL = "боеприпасами для пистолета-пулемёта K-45",
+		PREPOSITIONAL = "боеприпасах для пистолета-пулемёта K-45",
 	)
 
 /obj/item/storage/box/syndie_kit/kedr_ammo/populate_contents()
