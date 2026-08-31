@@ -366,7 +366,7 @@
 
 /datum/action/cooldown/spell/list_target/remoteview/get_list_targets(atom/center, target_radius)
 	var/list/remoteviewers = list()
-	for(var/mob/M in GLOB.alive_mob_list)
+	for(var/mob/M as anything in GLOB.alive_mob_list)
 		if(M == owner)
 			continue
 		if(HAS_TRAIT(M, TRAIT_PSY_RESIST))

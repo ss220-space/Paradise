@@ -464,7 +464,7 @@
 		to_chat(owner, span_warning("Вы не можете заглянуть в разум [target.name]!"))
 		return
 
-	if(target.stat == 2)
+	if(target.stat == DEAD)
 		to_chat(owner, span_warning("Вы не можете прочитать мысли мёртвого существа."))
 		return
 	if(target.health < 0)
@@ -515,7 +515,7 @@
 			to_chat(owner, span_notice("<b>Настроение</b>: Вы улавливаете странные мысли, исходящие от [target.name]."))
 
 	if(ishuman(target))
-		var/numbers[0]
+		var/list/numbers = list()
 		var/mob/living/carbon/human/H = target
 		if(H.mind && H.mind.initial_account)
 			numbers += H.mind.initial_account.account_number
