@@ -120,6 +120,8 @@ SUBSYSTEM_DEF(shuttle)
 			var/not_centcom_evac = owner != emergency
 			var/not_in_use = (!T.get_docked())
 			if(idle && not_centcom_evac && not_in_use)
+				if(SSovermap?.shuttle_vessels[owner])
+					continue
 				qdel(T, force=TRUE)
 
 	if(!SSmapping.clearing_reserved_turfs)
@@ -272,6 +274,25 @@ SUBSYSTEM_DEF(shuttle)
 			message_admins("All the communications consoles were destroyed and all AIs are inactive. Shuttle called.")
 
 //try to move/request to dockHome if possible, otherwise dockAway. Mainly used for admin buttons
+/obj/docking_port/mobile/proc/overmap_try_programmed_move(dock_id)
+	if(!SSovermap?.initialized)
+		return null
+	var/obj/overmap/entity/vessel = SSovermap.shuttle_vessels[src]
+	if(!vessel)
+		vessel = SSovermap.get_or_register_shuttle(src)
+	if(!vessel?.programmed)
+		return null
+	if(vessel.is_programmed_emagged())
+		return 2
+	if(getDockedId() == dock_id)
+		vessel.snap_physical_redock()
+		return 0
+	if(id == "supply" && canMove())
+		return 2
+	if(vessel.start_programmed_route(dock_id, TRUE, TRUE) == TRUE)
+		return 0
+	return 2
+
 /datum/controller/subsystem/shuttle/proc/toggleShuttle(shuttleId, dockHome, dockAway, timed)
 	var/obj/docking_port/mobile/M = getShuttle(shuttleId)
 	if(!M)
@@ -280,6 +301,9 @@ SUBSYSTEM_DEF(shuttle)
 	var/destination = dockHome
 	if(dockedAt && dockedAt.id == dockHome)
 		destination = dockAway
+	var/overmap_result = M.overmap_try_programmed_move(destination)
+	if(!isnull(overmap_result))
+		return overmap_result
 	if(timed)
 		if(M.request(getDock(destination)))
 			return 2
@@ -290,6 +314,11 @@ SUBSYSTEM_DEF(shuttle)
 
 /datum/controller/subsystem/shuttle/proc/moveShuttle(shuttleId, dockId, timed, mob/user)
 	var/obj/docking_port/mobile/mobile = getShuttle(shuttleId)
+	if(!mobile)
+		return 1
+	var/overmap_result = mobile.overmap_try_programmed_move(dockId)
+	if(!isnull(overmap_result))
+		return overmap_result
 	var/obj/docking_port/stationary/dockAt = getDock(dockId)
 	var/hyperspace_mini = sound(mobile.fly_sound)
 	var/area = mobile.areaInstance
@@ -297,8 +326,6 @@ SUBSYSTEM_DEF(shuttle)
 	if(mobile.mode == SHUTTLE_RECHARGING)
 		return SHUTTLE_CONSOLE_RECHARGING
 
-	if(!mobile)
-		return 1
 	mobile.last_caller = user // Save the caller of the shuttle for later logging
 	if(timed)
 		if(mobile.request(dockAt))
@@ -320,7 +347,10 @@ SUBSYSTEM_DEF(shuttle)
 			transit_requesters += M
 
 /datum/controller/subsystem/shuttle/proc/generate_transit_dock(obj/docking_port/mobile/M)
-	// First, determine the size of the needed zone
+	if(!istype(M))
+		return FALSE
+	if(M.assigned_transit && !QDELETED(M.assigned_transit))
+		return M.assigned_transit
 	// Because of shuttle rotation, the "width" of the shuttle is not
 	// always x.
 	var/travel_dir = M.preferred_direction
@@ -328,6 +358,11 @@ SUBSYSTEM_DEF(shuttle)
 	// coming from
 	var/dock_angle = dir2angle(M.preferred_direction) + dir2angle(M.port_direction) + 180
 	var/dock_dir = angle2dir(dock_angle)
+	if(M.overmap_uses_area_hull())
+		M.overmap_sync_bounds(TRUE)
+		var/list/om_origin = M.overmap_origin()
+		if(om_origin[2])
+			dock_dir = om_origin[2]
 
 	var/transit_width = SHUTTLE_TRANSIT_BORDER * 2
 	var/transit_height = SHUTTLE_TRANSIT_BORDER * 2
@@ -405,8 +440,7 @@ SUBSYSTEM_DEF(shuttle)
 	new_transit_dock.owner = M
 	new_transit_dock.assigned_area = new_area
 
-	// Add 180, because ports point inwards, rather than outwards
-	new_transit_dock.setDir(angle2dir(dock_angle))
+	new_transit_dock.setDir(dock_dir)
 
 	M.assigned_transit = new_transit_dock
 	return new_transit_dock

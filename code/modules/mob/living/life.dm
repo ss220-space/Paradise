@@ -46,6 +46,8 @@
 
 		handle_gravity(seconds, times_fired)
 
+	handle_hyperspace_exposure()
+
 	handle_fire()
 
 	var/datum/antagonist/vampire/vamp = mind?.has_antag_datum(/datum/antagonist/vampire)
@@ -98,6 +100,27 @@
 /mob/living/proc/handle_environment(datum/gas_mixture/environment)
 	SEND_SIGNAL(src, COMSIG_LIVING_HANDLE_BREATHING, environment)
 	return
+
+/mob/living/proc/handle_hyperspace_exposure()
+	var/turf/spot = get_turf(src)
+	if(isspacepod(loc) || !istype(spot, /turf/space/transit) || istype(get_area(src), /area/shuttle))
+		var/atom/movable/screen/alert/pressure_alert = LAZYACCESS(alerts, "pressure")
+		if(istype(pressure_alert, /atom/movable/screen/alert/highpressure/hyperspace))
+			clear_alert("pressure", clear_override = TRUE)
+		return
+	if(hyperspace_too_close_to_border(spot))
+		delete_lost_in_hyperspace(src)
+		return
+	throw_alert("pressure", /atom/movable/screen/alert/highpressure/hyperspace, 2, override = TRUE)
+	if(stat == DEAD)
+		return
+	var/mob/living/carbon/human/human_victim = src
+	if(istype(human_victim))
+		for(var/obj/item/organ/external/part as anything in human_victim.bodyparts)
+			apply_damage(OVERMAP_HYPERSPACE_LIMB_BRUTE, BRUTE, part, forced = TRUE, silent = TRUE, updating_health = FALSE)
+		updatehealth("hyperspace")
+		return
+	apply_damage(OVERMAP_HYPERSPACE_LIMB_BRUTE * 6, BRUTE, forced = TRUE, silent = TRUE)
 
 //this updates all special effects: mainly stamina
 /mob/living/proc/handle_status_effects() // We check for the status effect in this proc as opposed to the procs below to avoid excessive proc call overhead

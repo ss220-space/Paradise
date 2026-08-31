@@ -4088,6 +4088,9 @@
 	width = 7
 	},
 /obj/effect/mapping_helpers/no_lava,
+/obj/machinery/landing_beacon{
+	dock_name = "Лаваленд, шахта"
+	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "yE" = (

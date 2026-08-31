@@ -227,6 +227,7 @@
 
 /atom/movable/screen/map_view/camera/proc/show_camera(list/visible_turfs, size_x, size_y)
 	vis_contents = visible_turfs
+	cam_background.icon = 'icons/mob/map_backgrounds.dmi'
 	cam_background.icon_state = "clear"
 	cam_background.fill_rect(1, 1, size_x, size_y)
 

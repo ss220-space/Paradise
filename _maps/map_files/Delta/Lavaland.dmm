@@ -531,19 +531,13 @@
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
 "bO" = (
-/obj/docking_port/stationary{
-	area_type = /area/lavaland/surface/outdoors;
-	dir = 8;
-	dwidth = 2;
-	height = 5;
-	id = "laborcamp_away";
-	name = "labor camp";
-	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface;
-	width = 9
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external/docking/support{
+	id_tag = "mining_away"
 	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors/explored)
+/turf/simulated/floor/plasteel,
+/area/mine/production)
 "bQ" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -1765,12 +1759,10 @@
 	},
 /area/mine/living_quarters)
 "gu" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "laborcamp_away";
-	name = "Labor Camp Airlock";
-	req_access = list(2)
-	},
 /obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external/docking/support{
+	id_tag = "laborcamp_away"
+	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "gw" = (
@@ -2027,9 +2019,8 @@
 	},
 /area/mine/eva)
 "hQ" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "laborcamp_away";
-	name = "Labor Camp Airlock"
+/obj/machinery/door/airlock/external/docking/support{
+	id_tag = "laborcamp_away"
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
@@ -3604,6 +3595,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/machinery/overmap_intercom/directional/north,
 /turf/simulated/floor/bluegrid,
 /area/mine/maintenance)
 "qp" = (
@@ -3740,12 +3732,10 @@
 "rf" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/fans/tiny,
-/obj/machinery/door/airlock/external{
-	glass = 1;
+/obj/machinery/door/airlock/external/docking/glass{
 	id_tag = "mining_away";
-	name = "Mining Shuttle Airlock";
-	opacity = 0;
-	req_access = list(48)
+	dock_name = "Док шахтёрского шаттла";
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/production)
@@ -5596,6 +5586,13 @@
 /obj/structure/stone_tile/center/burnt,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
+"Ee" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/machinery/transponder/lavaland/directional/north,
+/turf/simulated/floor/bluegrid,
+/area/mine/maintenance)
 "Ef" = (
 /obj/structure/stone_tile/slab/cracked,
 /obj/structure/bookcase,
@@ -5824,6 +5821,15 @@
 	icon_state = "brown"
 	},
 /area/mine/production)
+"FF" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external/docking{
+	id_tag = "laborcamp_away";
+	dock_name = "Каторга";
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
 "FK" = (
 /obj/structure/chair/stool/holostool{
 	dir = 1
@@ -5983,12 +5989,8 @@
 /area/lavaland/surface/outdoors/necropolis)
 "Gt" = (
 /obj/structure/fans/tiny,
-/obj/machinery/door/airlock/external{
-	glass = 1;
-	id_tag = "mining_away";
-	name = "Mining Shuttle Airlock";
-	opacity = 0;
-	req_access = list(48)
+/obj/machinery/door/airlock/external/docking/support{
+	id_tag = "mining_away"
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
@@ -13402,7 +13404,7 @@ No
 No
 No
 No
-bO
+No
 No
 No
 xL
@@ -13655,7 +13657,7 @@ qT
 aq
 tZ
 aq
-gu
+FF
 aq
 aq
 hQ
@@ -21375,7 +21377,7 @@ fw
 fw
 fw
 La
-qk
+Ee
 bQ
 UJ
 La
@@ -24219,7 +24221,7 @@ aj
 aR
 lC
 lC
-rf
+bO
 lC
 lC
 fw

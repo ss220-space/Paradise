@@ -176,19 +176,12 @@ SUBSYSTEM_DEF(mapping)
 	if(!CONFIG_GET(flag/disable_away_missions) && !(map_datum.disables & DISABLE_AWAY_MISSIONS))
 		loadAwayLevel()
 	#endif
-	#ifndef SKIP_SPACE_LEVELS
-	// Seed space ruins
-	if(!CONFIG_GET(flag/disable_space_ruins) && !(map_datum.disables & DISABLE_SPACE_RUINS))
-		handleRuins()
-	#endif
-
 	var/empty_z_traits = list(REACHABLE)
 #ifdef UNIT_TESTS
 	preloadTemplates(path = "_maps/map_files/tests/")
 	empty_z_traits |= UNIT_TEST_LEVEL
 #endif
 
-	// Makes a blank space level for the sake of randomness
 	GLOB.space_manager.add_new_zlevel(EMPTY_AREA, linkage = CROSSLINKED, traits = empty_z_traits)
 
 	// Setup the Z-level linkage
@@ -590,6 +583,12 @@ SUBSYSTEM_DEF(mapping)
 	var/new_res_z = GLOB.space_manager.add_new_zlevel(RESERVED_ZONE+" #[num_of_res_levels]", linkage = UNAFFECTED, traits = list(ADMIN_LEVEL, BLOCK_TELEPORT, RESERVED_LEVEL))
 	return new_res_z
 
+/datum/controller/subsystem/mapping/proc/add_ruin_space_zlevel(noisy = FALSE)
+	num_of_res_levels++
+	var/new_res_z = GLOB.space_manager.add_new_zlevel("Ruin Space #[num_of_res_levels]", linkage = UNAFFECTED, traits = list(ADMIN_LEVEL, BLOCK_TELEPORT, RESERVED_LEVEL, RUIN_SPACE_LEVEL))
+	initialize_reserved_level(new_res_z, noisy, 2)
+	return new_res_z
+
 /// Requests a /datum/turf_reservation based on the given width, height, and z_size. You can specify a z_reservation to use a specific z level, or leave it null to use any z level.
 /datum/controller/subsystem/mapping/proc/request_turf_block_reservation(
 	width,
@@ -606,6 +605,8 @@ SUBSYSTEM_DEF(mapping)
 		reserve.turf_type = turf_type_override
 	if(!z_reservation)
 		for(var/i in levels_by_trait(RESERVED_LEVEL))
+			if(check_level_trait(i, RUIN_SPACE_LEVEL))
+				continue
 			if(reserve.reserve(width, height, z_size, i))
 				return reserve
 		//If we didn't return at this point, theres a good chance we ran out of room on the exisiting reserved z levels, so lets try a new one
@@ -622,15 +623,16 @@ SUBSYSTEM_DEF(mapping)
 	QDEL_NULL(reserve)
 
 //This is not for wiping reserved levels, use wipe_reservations() for that.
-/datum/controller/subsystem/mapping/proc/initialize_reserved_level(z, noisy = TRUE)
+/datum/controller/subsystem/mapping/proc/initialize_reserved_level(z, noisy = TRUE, border = SHUTTLE_TRANSIT_BORDER)
 	UNTIL(!clearing_reserved_turfs) //regardless, lets add a check just in case.
 	clearing_reserved_turfs = TRUE //This operation will likely clear any existing reservations, so lets make sure nothing tries to make one while we're doing it.
 	if(!check_level_trait(z, RESERVED_LEVEL))
 		clearing_reserved_turfs = FALSE
 		CRASH("Invalid z level prepared for reservations.")
+	border = max(2, border)
 	var/list/reserved_block = block(
-		SHUTTLE_TRANSIT_BORDER, SHUTTLE_TRANSIT_BORDER, z,
-		world.maxx - SHUTTLE_TRANSIT_BORDER, world.maxy - SHUTTLE_TRANSIT_BORDER, z
+		border, border, z,
+		world.maxx - border, world.maxy - border, z
 	)
 	for(var/turf/T as anything in reserved_block)
 		// No need to empty() these, because they just got created and are already /turf/space/basic.

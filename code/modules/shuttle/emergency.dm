@@ -102,6 +102,8 @@
 	var/force_hijacked = FALSE
 	/// Is devil on shuttle?
 	var/devil_on_shuttle = FALSE
+	var/overmap_leg_started = FALSE
+	var/overmap_escape_dock
 
 /obj/docking_port/mobile/emergency/register()
 	if(!..())
@@ -120,12 +122,15 @@
 	return ..()
 
 /obj/docking_port/mobile/emergency/request(obj/docking_port/stationary/S, coefficient=1, area/signalOrigin, reason, redAlert)
+	if(istype(S, /obj/docking_port/stationary/transit))
+		return ..(S)
 	var/call_time = SSshuttle.emergencyCallTime * coefficient
 	switch(mode)
 		// The shuttle can not normally be called while "recalling", so
 		// if this proc is called, it's via admin fiat
 		if(SHUTTLE_RECALL, SHUTTLE_IDLE, SHUTTLE_CALL)
 			mode = SHUTTLE_CALL
+			overmap_leg_started = FALSE
 			setTimer(call_time)
 		else
 			return
@@ -152,6 +157,20 @@
 		return
 
 	if(mode != SHUTTLE_CALL)
+		return
+
+	if(overmap_leg_started)
+		var/obj/overmap/entity/vessel = SSovermap?.shuttle_vessels[src]
+		vessel?.abort_programmed_mission()
+		overmap_follow_programmed_leg("emergency_away")
+		overmap_leg_started = FALSE
+		mode = SHUTTLE_IDLE
+		timer = 0
+		GLOB.major_announcement.announce(
+			"Эвакуационный шаттл был отозван.[SSshuttle.emergencyLastCallLoc ? " Отзыв шаттла отслежен. Результаты можно посмотреть на любой консоли связи." : "" ]",
+			new_title = ANNOUNCE_PRIORITY_RU,
+			new_sound = ANNOUNCER_SHUTTLERECALLED
+		)
 		return
 
 	invertTimer()
@@ -214,7 +233,7 @@
 
 	// The emergency shuttle doesn't work like others so this
 	// ripple check is slightly different
-	if(!length(ripples) && (time_left <= SHUTTLE_RIPPLE_TIME) && ((mode == SHUTTLE_CALL) || (mode == SHUTTLE_ESCAPE)))
+	if(!length(ripples) && !overmap_leg_started && (time_left <= SHUTTLE_RIPPLE_TIME) && ((mode == SHUTTLE_CALL) || (mode == SHUTTLE_ESCAPE)))
 		var/destination
 		if(mode == SHUTTLE_CALL)
 			destination = SSshuttle.getDock("emergency_home")
@@ -228,11 +247,16 @@
 				mode = SHUTTLE_IDLE
 				timer = 0
 		if(SHUTTLE_CALL)
-			if(time_left <= 0)
-				//move emergency shuttle to station
-				if(dock(SSshuttle.getDock("emergency_home")))
-					setTimer(20)
+			if(overmap_leg_started || time_left <= 0)
+				var/overmap_result = overmap_follow_programmed_leg("emergency_home")
+				if(isnull(overmap_result))
+					overmap_leg_started = TRUE
 					return
+				if(overmap_result == FALSE)
+					if(dock(SSshuttle.getDock("emergency_home")))
+						setTimer(20)
+						return
+				overmap_leg_started = FALSE
 				mode = SHUTTLE_DOCKED
 				setTimer(SSshuttle.emergencyDockTime)
 				if(canRecall)
@@ -277,34 +301,10 @@
 					SEND_SOUND(E, hyperspace_sound)
 
 			if(time_left <= 0 && !(SSshuttle.emergencyNoEscape || length(SSshuttle.hostile_environment)))
-				//move each escape pod to its corresponding transit dock
-				for(var/obj/docking_port/mobile/pod/M in SSshuttle.mobile)
-					if(is_station_level(M.z)) //Will not launch from the mine/planet
-						M.enterTransit()
-				//now move the actual emergency shuttle to its transit dock
+				overmap_launch_escape_pods()
 				var/hyperspace_progress_sound = sound('sound/effects/hyperspace_progress.ogg')
 				for(var/area/shuttle/escape/E in world)
 					SEND_SOUND(E, hyperspace_progress_sound)
-				enterTransit()
-				mode = SHUTTLE_ESCAPE
-				setTimer(SSshuttle.emergencyEscapeTime)
-				GLOB.major_announcement.announce(
-					"Эвакуационный шаттл покинул станцию. До прибытия в доки ЦК осталось [timeLeft(600)] минуты.",
-					new_title = ANNOUNCE_PRIORITY_RU
-				)
-
-		if(SHUTTLE_ESCAPE)
-			if(time_left <= 0)
-				//move each escape pod to its corresponding escape dock
-				for(var/obj/docking_port/mobile/pod/M in SSshuttle.mobile)
-					M.dock(SSshuttle.getDock("[M.id]_away"))
-
-				var/hyperspace_end_sound = sound('sound/effects/hyperspace_end.ogg')
-				for(var/area/shuttle/escape/E in GLOB.areas)
-					SEND_SOUND(E, hyperspace_end_sound)
-
-				// now move the actual emergency shuttle to centcomm
-				// unless the shuttle is "hijacked"
 				var/destination_dock = "emergency_away"
 				if(is_hijacked())
 					destination_dock = "emergency_syndicate"
@@ -313,6 +313,28 @@
 						new_title = ANNOUNCE_PRIORITY_RU,
 						new_sound = 'sound/misc/announce_syndi.ogg'
 					)
+				overmap_escape_dock = destination_dock
+				mode = SHUTTLE_ESCAPE
+				overmap_leg_started = TRUE
+				var/overmap_result = overmap_follow_programmed_leg(destination_dock)
+				if(overmap_result == FALSE)
+					enterTransit()
+					setTimer(SSshuttle.emergencyEscapeTime)
+				GLOB.major_announcement.announce(
+					"Эвакуационный шаттл покинул станцию. До прибытия в доки ЦК осталось [timeLeft(600)] минуты.",
+					new_title = ANNOUNCE_PRIORITY_RU
+				)
+
+		if(SHUTTLE_ESCAPE)
+			if(overmap_leg_started || time_left <= 0)
+				overmap_launch_escape_pods()
+				var/destination_dock = overmap_escape_dock || "emergency_away"
+				var/overmap_result = overmap_follow_programmed_leg(destination_dock)
+				if(isnull(overmap_result))
+					overmap_leg_started = TRUE
+					return
+				if(overmap_result == FALSE)
+					dock_id(destination_dock)
 
 				if(devil_on_shuttle || force_hijacked)
 					GLOB.major_announcement.announce(
@@ -320,9 +342,12 @@
 						new_title = ANNOUNCE_PRIORITY_RU,
 						new_sound = 'sound/misc/announce_syndi.ogg'
 					)
-				else
-					dock_id(destination_dock)
 
+				var/hyperspace_end_sound = sound('sound/effects/hyperspace_end.ogg')
+				for(var/area/shuttle/escape/E in GLOB.areas)
+					SEND_SOUND(E, hyperspace_end_sound)
+
+				overmap_leg_started = FALSE
 				mode = SHUTTLE_ENDGAME
 				timer = 0
 

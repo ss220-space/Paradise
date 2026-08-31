@@ -108,3 +108,12 @@
 	mid_sounds = list('sound/machines/fission/centrifuge_mid.ogg' = 1)
 	mid_length = 0.95 SECONDS
 	volume = 35
+
+/datum/looping_sound/overmap_sensor_peel
+	mid_sounds = list('sound/overmap/sensors/sensorloop.ogg' = 1)
+	mid_length = 1 HOURS
+	volume = 8
+	extra_range = -5
+	vary = FALSE
+	pressure_affected = FALSE
+	use_sound_tokens = TRUE

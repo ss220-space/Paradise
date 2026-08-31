@@ -41,6 +41,7 @@
 #define SHUTTLE_HEIGHT_TOO_LARGE "height_too_large"
 #define SHUTTLE_ALREADY_DOCKED "we_are_already_docked"
 #define SHUTTLE_SOMEONE_ELSE_DOCKED "someone_else_docked"
+#define SHUTTLE_LANDING_BLOCKED "landing_blocked"
 
 // Ripples, effects that signal a shuttle's arrival
 #define SHUTTLE_RIPPLE_TIME 100

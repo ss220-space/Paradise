@@ -23,7 +23,8 @@
 /obj/docking_port/mobile/supply
 	name = "supply shuttle"
 	id = "supply"
-	callTime = 2 MINUTES
+	callTime = 5 SECONDS
+	ignitionTime = 3 SECONDS
 
 	dir = 8
 	width = 12
@@ -538,10 +539,10 @@
 	data["points"] = round(SSshuttle.points)
 	data["credits"] = SSshuttle.cargo_money_account.money
 
-	data["moving"] = SSshuttle.supply.mode != SHUTTLE_IDLE
+	data["moving"] = SSshuttle.supply.mode != SHUTTLE_IDLE || !!SSovermap?.shuttle_vessels[SSshuttle.supply]?.programmed_mission
 	data["at_station"] = SSshuttle.supply.getDockedId() == "supply_home"
 	data["timeleft"] = SSshuttle.supply.getTimerStr()
-	data["can_launch"] = !SSshuttle.supply.canMove()
+	data["can_launch"] = !SSshuttle.supply.canMove() && !SSovermap?.shuttle_vessels[SSshuttle.supply]?.programmed_mission
 
 	return data
 
@@ -600,8 +601,18 @@
 			if(is_public)
 				return
 			if(SSshuttle.supply.canMove())
-				to_chat(usr, span_warning("По соображениям безопасности шаттл снабжения не может перемещать живые организмы, ядерное оружие или маячки перемещния."))
-			else if(SSshuttle.supply.getDockedId() == "supply_home")
+				to_chat(usr, span_warning("По соображениям безопасности шаттл снабжения не может перемещать живые организмы, ядерное оружие или маячки перемещения."))
+				return
+			var/obj/overmap/entity/supply_vessel = SSovermap?.get_or_register_shuttle(SSshuttle.supply)
+			var/supply_dest = (SSshuttle.supply.getDockedId() == "supply_home") ? "supply_away" : "supply_home"
+			if(supply_vessel?.programmed)
+				var/route_result = supply_vessel.start_programmed_route(supply_dest)
+				if(route_result != TRUE)
+					to_chat(usr, span_warning("[route_result]"))
+					return
+				investigate_log("[key_name_log(usr)] has sent the supply shuttle via overmap. Remaining points: [SSshuttle.points]. Shuttle contents: [SSshuttle.sold_atoms]", INVESTIGATE_CARGO)
+				return
+			if(SSshuttle.supply.getDockedId() == "supply_home")
 				SSshuttle.toggleShuttle("supply", "supply_home", "supply_away", 1)
 				investigate_log("[key_name_log(usr)] has sent the supply shuttle away. Remaining points: [SSshuttle.points]. Shuttle contents: [SSshuttle.sold_atoms]", INVESTIGATE_CARGO)
 			else if(!SSshuttle.supply.request(SSshuttle.getDock("supply_home")))

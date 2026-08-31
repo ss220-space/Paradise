@@ -304,6 +304,10 @@
 	desc = "Воздух вокруг слишком плотный! Пожарный костюм поможет."
 	icon_state = "highpressure"
 
+/atom/movable/screen/alert/highpressure/hyperspace
+	name = "Высокое давление"
+	desc = "Гиперпространство сжимает вас. Никакой костюм не поможет."
+
 /atom/movable/screen/alert/lightexposure
 	name = "На свету"
 	desc = "Вы находитесь на свету."
