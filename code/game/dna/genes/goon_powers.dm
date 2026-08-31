@@ -444,14 +444,7 @@
 	spell_requirements = NONE
 	button_icon_state = "genetic_empath"
 	target_radius = 10
-
-/datum/action/cooldown/spell/list_target/empath/get_list_targets(atom/center, target_radius)
-	var/list/targets = list()
-	for(var/mob/living/carbon/human/target in range(target_radius, center))
-		if(target == owner)
-			continue
-		targets += target
-	return targets
+	targeting_type = /datum/aoe_targeting/human
 
 /datum/action/cooldown/spell/list_target/empath/cast(atom/cast_on)
 	. = ..()

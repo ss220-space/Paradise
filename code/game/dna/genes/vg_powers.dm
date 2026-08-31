@@ -205,7 +205,6 @@
 	spell_requirements = NONE
 	button_icon_state = "genetic_project"
 
-
 /datum/action/cooldown/spell/list_target/remotetalk/get_list_targets(atom/center, target_radius)
 	var/list/valid_targets = list()
 	var/list/mobs_in_view = owner.get_visible_mobs()

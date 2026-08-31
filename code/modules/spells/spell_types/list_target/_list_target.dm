@@ -13,6 +13,8 @@
 	/// Radius around the caster that living targets are picked to choose from
 	var/target_radius = 7
 	var/used_in_radius = TRUE
+	var/targeting_type = /datum/aoe_targeting
+	var/datum/aoe_targeting/targeting
 
 /datum/action/cooldown/spell/list_target/PreActivate(atom/caster)
 	var/list/list_targets = get_list_targets(caster, target_radius)
@@ -32,11 +34,4 @@
 
 /// Get a list of living targets in radius of the center to put in the target list.
 /datum/action/cooldown/spell/list_target/proc/get_list_targets(atom/center, target_radius = 7)
-	var/list/things = list()
-	for(var/mob/living/nearby_living in view(target_radius, center))
-		if(nearby_living == owner || nearby_living == center)
-			continue
-
-		things += nearby_living
-
-	return things
+	return targeting.get_targets(center, target_radius)
