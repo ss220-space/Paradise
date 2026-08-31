@@ -28,7 +28,7 @@
 	if(inventory)
 		add_fingerprint(user)
 		return inventory.attackby(item, user, params)
-	. = ..()
+	return ..()
 
 /obj/structure/foodcart/wrench_act(mob/living/user, obj/item/item)
 	. = TRUE
