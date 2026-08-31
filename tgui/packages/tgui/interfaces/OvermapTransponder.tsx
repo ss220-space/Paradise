@@ -38,7 +38,7 @@ type OvermapTransponderData = {
 const channelHint = (id: string) => {
   switch (id) {
     case 'global':
-      return 'Открытый эфир. Вас видят только суда с включённым приёмом глобала. Приём — вы видите чужой глобальный эфир.';
+      return 'Открытый эфир.';
     case 'centcom':
       return 'Закрытый канал Центкома. Нужен прошитый или введённый ключ.';
     case 'syndicate':

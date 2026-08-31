@@ -296,7 +296,7 @@ export const OvermapSensors = () => {
               <div className="OvermapMinimap">
                 {map_jammed ? (
                   <NoticeBox danger>
-                    Связь с овермапом потеряна. Карта недоступна.
+                    Связь потеряна.
                   </NoticeBox>
                 ) : (
                   <ByondUi
@@ -344,7 +344,7 @@ export const OvermapSensors = () => {
                       value={overmapKindLabel(scan.kind)}
                     />
                     <OvermapStat scan label="масса" value={`${scan.mass} т`} />
-                    <OvermapStat scan label="живые" value={scan.living} />
+                    <OvermapStat scan label="живые сигнатуры" value={scan.living} />
                     <OvermapStat
                       scan
                       label="двигатели"
@@ -368,8 +368,7 @@ export const OvermapSensors = () => {
                   </OvermapStats>
                 ) : (
                   <NoticeBox>
-                    Идёт анализ сигнатуры. Клик по объекту на карте тоже запускает
-                    скан.
+                    Идёт анализ сигнатуры.
                   </NoticeBox>
                 )}
               </Section>
@@ -386,8 +385,7 @@ export const OvermapSensors = () => {
                 )}
                 {view_mode === 'short' && !!active && (
                   <NoticeBox info>
-                    Видны две соседние клетки. Скан корпуса — только 3×3. Клик по
-                    объекту на карте начинает сканирование.
+                    Возможно подробное сканирование ближайших объектов.
                   </NoticeBox>
                 )}
                 <OvermapList>
