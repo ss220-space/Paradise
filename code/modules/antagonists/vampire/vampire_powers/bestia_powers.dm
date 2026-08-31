@@ -912,7 +912,7 @@
 	var/datum/spell_handler/vampire/handler = custom_handler
 	handler.required_blood = transform_blood
 	return_vamp_spells()
-	. = ..()
+	return ..()
 
 /datum/action/cooldown/spell/shapeshift/vampire/on_trophie_update(datum/antagonist/vampire/vampire, trophie_type, force = FALSE)
 	if(trophie_type == INTERNAL_ORGAN_LIVER || force)
