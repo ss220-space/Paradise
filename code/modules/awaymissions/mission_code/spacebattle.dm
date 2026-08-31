@@ -362,7 +362,7 @@
 		if(25 to 35) // 10%
 			SynRange = /obj/item/ammo_box/magazine/m10mm
 		if(35 to 40) // 5%
-			SynRange = /obj/item/gun/projectile/automatic/pistol
+			SynRange = /obj/item/gun/projectile/automatic/pistol/stechkin
 		if(40 to 47) // 7%
 			SynRange = /obj/item/clothing/accessory/holster
 		if(47 to 50) // 3%
