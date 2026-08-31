@@ -3309,7 +3309,7 @@
 				log_and_message_admins("made everything kawaii.")
 				for(var/mob/living/carbon/human/human as anything in GLOB.human_list)
 					SEND_SOUND(human, sound(
-							ANNOUNCER_ANIMES,
+							SSstation.announcer.event_sounds[ANNOUNCER_ANIMES],
 							channel = CHANNEL_ANNOUNCER,
 							volume = 40,
 							))
@@ -3469,7 +3469,7 @@
 			if("spawn_cargo_crate")
 				if(!you_realy_want_do_this())
 					return
-				create_cargo_crate()
+				SSadmin_verbs.dynamic_invoke_verb(owner, /datum/admin_verb/spawn_cargo)
 
 			if("borg_skins")
 				if(!check_rights(R_SKINS))

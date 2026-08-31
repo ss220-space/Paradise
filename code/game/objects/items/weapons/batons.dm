@@ -211,7 +211,7 @@
 	else
 		if(ishuman(target) && prob(force_say_chance))
 			var/mob/living/carbon/human/human_target = target
-			human_target.forcesay(GLOB.hit_appends)
+			human_target.force_say(GLOB.hit_appends)
 		target.apply_damage(stamina_damage, STAMINA)
 		if(!trait_check)
 			target.Knockdown((isnull(stun_override) ? knockdown_time : stun_override))
@@ -250,7 +250,7 @@
 	else
 		if(ishuman(user))
 			var/mob/living/carbon/human/human_user = user
-			human_user.forcesay(GLOB.hit_appends)
+			human_user.force_say(GLOB.hit_appends)
 		if(!trait_check)
 			user.Knockdown(clumsy_knockdown_time)
 		user.apply_damage(stamina_damage, STAMINA)

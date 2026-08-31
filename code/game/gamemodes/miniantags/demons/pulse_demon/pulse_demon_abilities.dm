@@ -77,7 +77,7 @@
 	if(trigger_flags & TRIGGER_SECONDARY_ACTION)
 		try_buy()
 		return CLICK_ACTION_SUCCESS
-	. = ..()
+	return ..()
 
 /datum/action/cooldown/spell/pointed/pulse_demon/proc/try_buy()
 	var/mob/living/simple_animal/demon/pulse_demon/user = owner

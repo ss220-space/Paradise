@@ -1,7 +1,7 @@
 import './styles/main.scss';
 
 import { useEffect, useRef, useState } from 'react';
-import { dragStartHandler } from 'tgui/drag';
+import { dragStartHandler, setupDrag } from 'tgui/drag';
 import { isEscape, KEY } from 'tgui-core/keys';
 import { type BooleanLike, classes } from 'tgui-core/react';
 import { type Channel, ChannelIterator } from './ChannelIterator';
@@ -30,12 +30,10 @@ export const TguiSay = () => {
   const chatHistory = useRef(new ChatHistory());
   const messages = useRef(byondMessages);
   const scale = useRef(true);
+  const currentPrefix = useRef<keyof typeof RADIO_PREFIXES | null>(null);
   // I initially wanted to make these an object or a reducer, but it's not really worth it.
   // You lose the granulatity and add a lot of boilerplate.
   const [buttonContent, setButtonContent] = useState('');
-  const [currentPrefix, setCurrentPrefix] = useState<
-    keyof typeof RADIO_PREFIXES | null
-  >(null);
   const [lightMode, setLightMode] = useState(false);
   const [maxLength, setMaxLength] = useState(1024);
   const [size, setSize] = useState(WindowSize.Small);
@@ -43,6 +41,10 @@ export const TguiSay = () => {
 
   const position = useRef([window.screenX, window.screenY]);
   const isDragging = useRef(false);
+
+  function setCurrentPrefix(prefix: keyof typeof RADIO_PREFIXES | null): void {
+    currentPrefix.current = prefix;
+  }
   const handleArrowKeys = (direction: KEY.Up | KEY.Down): void => {
     const chat = chatHistory.current;
     const iterator = channelIterator.current;
@@ -52,7 +54,7 @@ export const TguiSay = () => {
         chat.saveTemp({
           value: value,
           channel: iterator.current(),
-          prefix: currentPrefix,
+          prefix: currentPrefix.current,
         });
       }
       // Try to get the previous message, fall back to the current value if none
@@ -71,9 +73,13 @@ export const TguiSay = () => {
     // User is on a chat history message
     if (!chat.isAtLatest()) {
       chat.reset();
-      setButtonContent(currentPrefix ?? iterator.current());
+      setButtonContent(currentPrefix.current ?? iterator.current());
       // Empty input, resets the channel
-    } else if (currentPrefix && iterator.isSay() && value?.length === 0) {
+    } else if (
+      currentPrefix.current &&
+      iterator.isSay() &&
+      value?.length === 0
+    ) {
       setCurrentPrefix(null);
       setButtonContent(iterator.current());
     } else if (
@@ -87,29 +93,29 @@ export const TguiSay = () => {
     }
   };
 
-  const handleButtonClick = (
-    event: React.MouseEvent<HTMLButtonElement>,
-  ): void => {
+  function handleButtonClick(event: React.MouseEvent<HTMLButtonElement>): void {
     isDragging.current = true;
-
     setTimeout(() => {
       // So the button doesn't jump around accidentally
       if (isDragging.current) {
         dragStartHandler(event.nativeEvent);
       }
     }, 50);
-  };
+  }
 
   // Prevents the button from changing channels if it's dragged
-  const handleButtonRelease = (): void => {
+  // Prevents the button from changing channels if it's dragged
+  function handleButtonRelease(): void {
     isDragging.current = false;
     const currentPosition = [window.screenX, window.screenY];
+
     if (JSON.stringify(position.current) !== JSON.stringify(currentPosition)) {
       position.current = currentPosition;
       return;
     }
+
     handleIncrementChannel();
-  };
+  }
 
   const handleClose = (): void => {
     innerRef.current?.blur();
@@ -126,7 +132,7 @@ export const TguiSay = () => {
     const channel = iterator.current();
     if (value?.length && value.length < maxLength) {
       chatHistory.current.add({
-        prefix: prefix,
+        prefix: prefix.current,
         channel: channel,
         value: value,
       });
@@ -142,15 +148,28 @@ export const TguiSay = () => {
     setButtonContent(channelIterator.current.current());
     setValue('');
   };
-  const handleForceSay = (): void => {
+  function handleForceSay(): void {
     const iterator = channelIterator.current;
+    const currentValue = innerRef.current?.value;
+
     // Only force say if we're on a visible channel and have typed something
-    if (!value || iterator.isVisible()) return;
-    const prefix = currentPrefix ?? '';
-    const grunt = iterator.isSay() ? prefix + value : value;
+    if (!currentValue || !iterator.isVisible()) return;
+
+    const prefix = currentPrefix.current ?? '';
+    const grunt = iterator.isSay() ? prefix + currentValue : currentValue;
+
     messages.current.forceSayMsg(grunt, iterator.current());
-    unloadChat();
-  };
+    handleClose();
+  }
+
+  function handleSaveText(): void {
+    const iterator = channelIterator.current;
+    const currentValue = innerRef.current?.value;
+
+    if (!currentValue || !iterator.isVisible()) return;
+
+    messages.current.saveText(currentValue, iterator.current());
+  }
 
   const handleIncrementChannel = (): void => {
     const iterator = channelIterator.current;
@@ -174,15 +193,16 @@ export const TguiSay = () => {
       return;
     }
 
-    const newPrefix = getPrefix(newValue) || currentPrefix;
+    const newPrefix = getPrefix(newValue) || currentPrefix.current;
 
     // Handles switching prefixes
-    if (newPrefix && newPrefix !== currentPrefix) {
+    if (newPrefix && newPrefix !== currentPrefix.current) {
       newValue = newValue.slice(3);
       UpdatePrefix(newPrefix);
     }
     // Handles typing indicators
     UpdateTyping(newPrefix);
+    messages.current.saveText(newValue, iterator.current());
     setValue(newValue);
   };
 
@@ -207,7 +227,7 @@ export const TguiSay = () => {
   const UpdateInput = ({ value, prefix, channel }: HistoryRecord) => {
     const iterator = channelIterator.current;
     channel = channel || 'Сказать';
-    if (prefix && prefix !== currentPrefix) {
+    if (prefix && prefix !== currentPrefix.current) {
       UpdatePrefix(prefix);
     } else if (channel) {
       setCurrentPrefix(null);
@@ -219,9 +239,9 @@ export const TguiSay = () => {
     if (value) setValue(value);
   };
 
-  const handleKeyDown = (
+  function handleKeyDown(
     event: React.KeyboardEvent<HTMLTextAreaElement>,
-  ): void => {
+  ): void {
     if (event.getModifierState('AltGraph')) return;
 
     switch (event.key) {
@@ -230,31 +250,28 @@ export const TguiSay = () => {
         event.preventDefault();
         handleArrowKeys(event.key);
         break;
+
       case KEY.Delete:
       case KEY.Backspace:
         handleBackspaceDelete();
         break;
+
       case KEY.Enter:
         event.preventDefault();
         handleEnter();
         break;
+
       case KEY.Tab:
         event.preventDefault();
         handleIncrementChannel();
         break;
+
       default:
         if (isEscape(event.key)) {
           handleClose();
         }
-        if (event.altKey && event.shiftKey) {
-          setTimeout(() => {
-            if (innerRef.current) {
-              innerRef.current.focus();
-            }
-          }, 10);
-        }
     }
-  };
+  }
 
   const handleOpen = (data: ByondOpen): void => {
     channelIterator.current.set(data.channel);
@@ -277,6 +294,8 @@ export const TguiSay = () => {
     Byond.subscribeTo('props', handleProps);
     Byond.subscribeTo('force', handleForceSay);
     Byond.subscribeTo('open', handleOpen);
+    Byond.subscribeTo('save', handleSaveText);
+    Byond.subscribeTo('close', handleClose);
   }, []);
   /** Value has changed, we need to check if the size of the window is ok */
   useEffect(() => {
@@ -296,8 +315,11 @@ export const TguiSay = () => {
   }, [value]);
   const theme =
     (lightMode && 'lightMode') ||
-    (currentPrefix && RADIO_PREFIXES[currentPrefix]) ||
+    (currentPrefix.current && RADIO_PREFIXES[currentPrefix.current]) ||
     channelIterator.current.current();
+  useEffect(() => {
+    setupDrag();
+  });
   return (
     <>
       <div
