@@ -128,11 +128,11 @@ export const TguiSay = () => {
   };
   const handleEnter = (): void => {
     const iterator = channelIterator.current;
-    const prefix = currentPrefix ?? null;
+    const prefix = currentPrefix.current ?? null;
     const channel = iterator.current();
     if (value?.length && value.length < maxLength) {
       chatHistory.current.add({
-        prefix: prefix.current,
+        prefix: prefix,
         channel: channel,
         value: value,
       });
