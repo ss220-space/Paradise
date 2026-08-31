@@ -1,6 +1,6 @@
 /// Fake chat hallucination. Sends a fake message to the hallucinator's chat.
 /datum/hallucination/chat
-	random_hallucination_weight = 100
+	random_hallucination_weight = 8
 	hallucination_tier = HALLUCINATION_TIER_COMMON
 
 	/// If TRUE, the message is forced to go over the shared radio. Set to New().

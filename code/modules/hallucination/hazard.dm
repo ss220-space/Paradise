@@ -1,8 +1,8 @@
 /// Hallucinations that create a danger nearby, which is associated with a real danger.
 /datum/hallucination/hazard
 	abstract_hallucination_parent = /datum/hallucination/hazard
-	random_hallucination_weight = 5
-	hallucination_tier = HALLUCINATION_TIER_UNCOMMON
+	random_hallucination_weight = 2
+	hallucination_tier = HALLUCINATION_TIER_RARE
 
 	/// The type of effect we create
 	var/hazard_type = /obj/effect/client_image_holder/hallucination/danger

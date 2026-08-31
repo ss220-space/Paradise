@@ -1,4 +1,6 @@
 /datum/hallucination/fake_sound
+	random_hallucination_weight = 3
+	hallucination_tier = HALLUCINATION_TIER_COMMON
 	var/volume = 50
 	var/sound_vary = TRUE
 	var/sound_type

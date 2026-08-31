@@ -980,25 +980,13 @@
 /datum/status_effect/transient/lose_breath
 	id = "lose_breath"
 
-#define HALLUCINATE_COOLDOWN_MIN 20 SECONDS
-#define HALLUCINATE_COOLDOWN_MAX 50 SECONDS
-/// This is multiplied with [/mob/var/hallucination] to determine the final cooldown. A higher hallucination value means shorter cooldown.
-#define HALLUCINATE_COOLDOWN_FACTOR 0.003
-/// Percentage defining the chance at which an hallucination may spawn past the cooldown.
-#define HALLUCINATE_CHANCE 20
-// Severity weights, should sum up to 100!
-#define HALLUCINATE_MINOR_WEIGHT 60
-#define HALLUCINATE_MODERATE_WEIGHT 25
-#define HALLUCINATE_MAJOR_WEIGHT 15
-
 // MARK: Hallucination
 /datum/status_effect/transient/hallucination
 	id = "hallucination"
-	var/next_hallucination = 0
 	/// The lower range of when the next hallucination will trigger after one occurs.
 	var/lower_tick_interval = 20 SECONDS
 	/// The upper range of when the next hallucination will trigger after one occurs.
-	var/upper_tick_interval = 80 SECONDS
+	var/upper_tick_interval = 40 SECONDS
 	/// The maximum hallucination tier that can be picked.
 	var/max_hallucination_tier = HALLUCINATION_TIER_COMMON
 	/// If TRUE, we only select hallucinations from the hallucination_tier.
@@ -1065,14 +1053,6 @@
 		lower_cd *= 0.25
 		upper_cd *= 0.25
 	COOLDOWN_START(src, hallucination_cooldown, rand(lower_cd, upper_cd))
-
-#undef HALLUCINATE_COOLDOWN_MIN
-#undef HALLUCINATE_COOLDOWN_MAX
-#undef HALLUCINATE_COOLDOWN_FACTOR
-#undef HALLUCINATE_CHANCE
-#undef HALLUCINATE_MINOR_WEIGHT
-#undef HALLUCINATE_MODERATE_WEIGHT
-#undef HALLUCINATE_MAJOR_WEIGHT
 
 // MARK: Eye blurry
 /datum/status_effect/transient/eye_blurry

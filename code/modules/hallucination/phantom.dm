@@ -56,15 +56,14 @@
 		DO_FLOATING_ANIM(created_image)
 	return created_image
 
-/datum/hallucination/phantom/husk
-	random_hallucination_weight = 8
-	image_file = 'icons/mob/human.dmi'
-	image_state = "husk_s"
-
-/datum/hallucination/phantom/husk/sideways
+/datum/hallucination/phantom/fly
 	random_hallucination_weight = 4
+	image_file = 'icons/mob/human.dmi'
+	image_state = "fly"
 
-/datum/hallucination/phantom/husk/sideways/make_image(turf/location)
+/datum/hallucination/phantom/fly/sideways
+
+/datum/hallucination/phantom/fly/sideways/make_image(turf/location)
 	var/image/body = ..()
 	var/matrix/turn_matrix = matrix()
 	turn_matrix.Turn(90)
@@ -78,65 +77,56 @@
 	image_state = "lizard_f_s"
 
 /datum/hallucination/phantom/rat_king
-	random_hallucination_weight = 1
+	random_hallucination_weight = 2
 	image_file = 'icons/mob/animal.dmi'
 	image_state = "regalrat"
 
 /datum/hallucination/phantom/cool_cock
-	random_hallucination_weight = 1
+	random_hallucination_weight = 3
 	image_file = 'icons/mob/animal.dmi'
 	image_state = "cool_cock"
 
 /datum/hallucination/phantom/mouse_ass
-	random_hallucination_weight = 1
+	random_hallucination_weight = 2
 	image_file = 'icons/mob/animal.dmi'
 	image_state = "mouse_gray_idle5"
 
 /datum/hallucination/phantom/blobpod
-	random_hallucination_weight = 1
+	random_hallucination_weight = 4
 	image_file = 'icons/mob/blob.dmi'
 	image_state = "blobpod"
 
 /datum/hallucination/phantom/skeleton
-	random_hallucination_weight = 3
+	random_hallucination_weight = 2
 	image_file = 'icons/mob/human.dmi'
 	image_state = "skeleton_s"
 
 /datum/hallucination/phantom/weird
+	image_file = 'icons/mob/mob.dmi'
 	random_hallucination_weight = 0.1 // These are very uncommon
 	abstract_hallucination_parent = /datum/hallucination/phantom/weird
 	hallucination_tier = HALLUCINATION_TIER_RARE
 
 /datum/hallucination/phantom/weird/ghost
-	image_file = 'icons/mob/mob.dmi'
 	image_state = "ghost"
 	floats = TRUE
 
 /datum/hallucination/phantom/weird/ghostking
-	image_file = 'icons/mob/mob.dmi'
 	image_state = "ghostking"
 	floats = TRUE
 
-/datum/hallucination/phantom/weird/alien
-	image_file = 'icons/mob/alien.dmi'
-	image_state = "aliend_pounce"
-
 /datum/hallucination/phantom/weird/honk_demon
-	image_file = 'icons/mob/mob.dmi'
 	image_state = "honk_demon"
 
 /datum/hallucination/phantom/weird/googly_eyes
-	image_file = 'icons/mob/mob.dmi'
 	image_state = "googly_eyes"
 	floats = TRUE
 
 /datum/hallucination/phantom/weird/god
-	image_file = 'icons/mob/mob.dmi'
 	image_state = "god"
 	floats = TRUE
 
 /datum/hallucination/phantom/weird/sling
-	image_file = 'icons/mob/mob.dmi'
 	image_state = "shadowling_ascended"
 
 /datum/hallucination/phantom/object

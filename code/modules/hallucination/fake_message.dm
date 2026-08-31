@@ -1,5 +1,5 @@
 /datum/hallucination/message
-	random_hallucination_weight = 60
+	random_hallucination_weight = 8
 	hallucination_tier = HALLUCINATION_TIER_COMMON
 
 /datum/hallucination/message/start()
@@ -27,7 +27,6 @@
 		message_pool["<b>[suspicious_personnel]</b> [pick("чихает", "кашляет")]."] = 1
 
 	message_pool[span_notice("Вы слышите, как что-то пробирается по вентиляции...")] = 1
-
 	message_pool[span_warning("Ваша [pick("рука", "нога", "спина", "голова")] чешется.")] = 1
 	message_pool[span_warning("Вам [pick("холодно", "жарко")].")] = 1
 	message_pool[span_warning("Ваш желудок урчит.")] = 1
@@ -39,15 +38,11 @@
 	message_pool[span_danger("На мгновение вам кажется, что у вас [pick("три", "четыре")] руки.")] = 1
 	message_pool[span_danger("Вы чувствуете, как что-то шевелится у вас под кожей.")] = 1
 	message_pool[span_notice("Вы на мгновение забываете, как дышать.")] = 1
-
-	if(prob(10))
-		message_pool[span_warning("Позади тебя.")] = 1
-		message_pool[span_warning("Вы слышите слабый смех.")] = 1
-		message_pool[span_warning("Вы слышите шорох на потолке.")] = 1
-		message_pool[span_warning("Вы видите неестественно высокий силуэт вдалеке.")] = 2
-
-	if(prob(30))
-		message_pool[pick("Кто-то следит за тобой.", "Ты слышал это?", "Что ты натворил?", "Почему?", "Отдай!", "Уйди!")] = 4
+	message_pool[span_warning("Позади тебя.")] = 1
+	message_pool[span_warning("Вы слышите слабый смех.")] = 1
+	message_pool[span_warning("Вы слышите шорох на потолке.")] = 1
+	message_pool[span_warning("Вы видите неестественно высокий силуэт вдалеке.")] = 2
+	message_pool[pick("Кто-то следит за тобой.", "Ты слышал это?", "Что ты натворил?", "Почему?", "Отдай!", "Уйди!")] = 4
 
 	var/chosen = pickweight(message_pool)
 	feedback_details += "Message: [chosen]"

@@ -1,6 +1,6 @@
 /datum/hallucination/ice
-	random_hallucination_weight = 3
-	hallucination_tier = HALLUCINATION_TIER_COMMON
+	random_hallucination_weight = 2
+	hallucination_tier = HALLUCINATION_TIER_RARE
 
 	/// What icon file to use for our hallucinator
 	var/ice_icon = 'icons/effects/freeze.dmi'

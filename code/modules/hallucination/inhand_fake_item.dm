@@ -1,7 +1,7 @@
 /// Hallucinates a fake object in the hands, pockets or on the belt.
 /datum/hallucination/fake_item
 	abstract_hallucination_parent = /datum/hallucination/fake_item
-	random_hallucination_weight = 1
+	random_hallucination_weight = 5
 	hallucination_tier = HALLUCINATION_TIER_COMMON
 
 	/// A flag of slots this fake item can appear in.

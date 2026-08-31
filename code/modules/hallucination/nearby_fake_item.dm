@@ -1,7 +1,7 @@
 /// A hallucination that creates the illusion that someone nearby has pulled out a weapon or object.
 /datum/hallucination/nearby_fake_item
 	abstract_hallucination_parent = /datum/hallucination/nearby_fake_item
-	random_hallucination_weight = 1
+	random_hallucination_weight = 4
 	hallucination_tier = HALLUCINATION_TIER_COMMON
 
 	/// The icon file to draw from for left hand icons

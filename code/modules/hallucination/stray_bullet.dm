@@ -1,6 +1,6 @@
 /// Fires a random fake projectile at the hallucinating target.
 /datum/hallucination/stray_bullet
-	random_hallucination_weight = 7
+	random_hallucination_weight = 4
 	hallucination_tier = HALLUCINATION_TIER_UNCOMMON
 
 /datum/hallucination/stray_bullet/start()

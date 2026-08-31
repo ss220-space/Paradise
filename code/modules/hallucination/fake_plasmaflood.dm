@@ -3,7 +3,7 @@
 
 /// Plasma starts flooding from the nearby vent.
 /datum/hallucination/fake_flood
-	random_hallucination_weight = 7
+	random_hallucination_weight = 5
 	hallucination_tier = HALLUCINATION_TIER_UNCOMMON
 
 	var/list/image/flood_images = list()

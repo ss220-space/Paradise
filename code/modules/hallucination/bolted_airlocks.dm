@@ -1,6 +1,6 @@
 /// Fakes a bunch of airlocks being bolted (locked) around the hallucinator.
 /datum/hallucination/bolted_airlocks
-	random_hallucination_weight = 7
+	random_hallucination_weight = 2
 	hallucination_tier = HALLUCINATION_TIER_COMMON
 	/// A list of weakrefs to airlocks we bolt down around us
 	var/list/datum/weakref/airlocks_to_hit

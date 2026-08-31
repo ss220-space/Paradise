@@ -1,6 +1,6 @@
 /datum/hallucination/death
 	random_hallucination_weight = 1
-	hallucination_tier = HALLUCINATION_TIER_UNCOMMON
+	hallucination_tier = HALLUCINATION_TIER_RARE
 	var/floor_them = TRUE
 
 /datum/hallucination/death/Destroy()

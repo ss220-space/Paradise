@@ -1,7 +1,7 @@
 /// Causes a fake "electric shock" to the hallucinator.
 /datum/hallucination/shock
-	random_hallucination_weight = 1
-	hallucination_tier = HALLUCINATION_TIER_COMMON
+	random_hallucination_weight = 5
+	hallucination_tier = HALLUCINATION_TIER_RARE
 
 	var/electrocution_icon = 'icons/mob/human.dmi'
 	var/electrocution_icon_state = "electrocuted_base"
