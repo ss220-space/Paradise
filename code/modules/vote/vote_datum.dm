@@ -25,6 +25,7 @@
 	var/display_statistics = TRUE
 	/// only applicable if `display_statistics` is false, this will let the final vote tally be printed to chat even if it couldn't be seen during the vote
 	var/print_results = TRUE
+	var/hide_winner = FALSE
 	/// Is dead players allowed to vote
 	var/no_dead_vote = FALSE
 	/// Is offstation role players allowed to vote
@@ -235,6 +236,8 @@
  */
 /datum/vote/proc/get_winner_text(list/all_winners, real_winner, list/non_voters)
 	var/returned_text = ""
+	if(hide_winner)
+		return span_bold("\nVote Result: \[Скрыт\]")
 	if(length(all_winners) > 1)
 		returned_text += "\n[span_bold("Vote Tied Between:")]"
 		for(var/a_winner in all_winners)

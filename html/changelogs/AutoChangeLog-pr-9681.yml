@@ -1,0 +1,4 @@
+author: "anon1mka"
+delete-after: True
+changes:
+  - tweak: "Изменение условий для брызг крови от выстрелов (PR #9681)"
