@@ -16,7 +16,7 @@
 
 /obj/structure/foodcart/Destroy(force)
 	QDEL_NULL(inventory)
-	. = ..()
+	return ..()
 
 /obj/structure/foodcart/attack_hand(mob/user)
 	add_fingerprint(user)
