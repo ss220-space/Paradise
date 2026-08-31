@@ -10,7 +10,7 @@
 	item_state = "backpack"
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
-	w_class = WEIGHT_CLASS_BULKY
+	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_BACK	//ERROOOOO
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 21
@@ -24,6 +24,12 @@
 	equip_sound = 'sound/items/handling/equip/backpack_equip.ogg'
 	pickup_sound = 'sound/items/handling/pickup/backpack_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/backpack_drop.ogg'
+	dynamic_storage_size = TRUE
+
+/obj/item/storage/backpack/ComponentInitialize()
+	. = ..()
+	if(dynamic_storage_size)
+		AddComponent(/datum/component/differentiate_storage_size, WEIGHT_CLASS_BULKY)
 
 /obj/item/storage/backpack/attackby(obj/item/I, mob/user, params)
 	. = ..()
