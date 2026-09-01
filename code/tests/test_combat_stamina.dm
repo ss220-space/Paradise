@@ -2,7 +2,7 @@
 /datum/unit_test/stamcrit
 
 /datum/unit_test/stamcrit/Run()
-	var/mob/living/carbon/human/consistent/tider = allocate(__IMPLIED_TYPE__)
+	var/mob/living/carbon/human/dummy/tider = allocate(/mob/living/carbon/human)
 	tider.stamina_regen_time = 0.2 SECONDS
 	var/stamloss_to_reach_crit_threshold = tider.max_stamina
 	tider.adjustStaminaLoss(stamloss_to_reach_crit_threshold - 1)
@@ -16,7 +16,7 @@
 /datum/unit_test/stam_regen
 
 /datum/unit_test/stam_regen/Run()
-	var/mob/living/carbon/human/consistent/tider = allocate(__IMPLIED_TYPE__)
+	var/mob/living/carbon/human/dummy/tider = allocate(/mob/living/carbon/human)
 	tider.stamina_regen_time = 0.2 SECONDS
 	tider.adjustStaminaLoss(50)
 	sleep(tider.stamina_regen_time * 2)
