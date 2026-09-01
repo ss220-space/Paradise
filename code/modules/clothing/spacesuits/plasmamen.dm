@@ -762,6 +762,7 @@
 	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 20, BIO = 100, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	magical = TRUE
+	clothing_flags = CASTING_CLOTHES
 
 /obj/item/clothing/head/helmet/space/plasmaman/wizard/get_ru_names()
 	return alist(

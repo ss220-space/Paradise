@@ -976,18 +976,16 @@ GAME_VERB(/mob/dead/observer, respawn, "Стать животным", VERB_CATEG
 				visible_message(span_warning("[src.name] наблевал[GEND_A_O_I(src)] на себя!"),span_warning("Вы наблевали на себя!"))
 			location.add_vomit_floor(TRUE)
 
-/mob/proc/AddSpell(obj/effect/proc_holder/spell/spell)
+/mob/proc/AddSpell(datum/action/cooldown/spell/spell)
 	if(!istype(spell))
 		return
 	LAZYADD(mob_spell_list, spell)
-	spell.action.allow_observer_click = TRUE
-	spell.action.Grant(src)
-	spell.on_spell_gain(src)
+	spell.Grant(src)
 
-/mob/proc/RemoveSpell(obj/effect/proc_holder/spell/instance_or_path)
+/mob/proc/RemoveSpell(datum/action/cooldown/spell/instance_or_path)
 	if(!ispath(instance_or_path))
 		instance_or_path = instance_or_path.type
-	for(var/obj/effect/proc_holder/spell/spell as anything in mob_spell_list)
+	for(var/datum/action/cooldown/spell/spell as anything in mob_spell_list)
 		if(spell.type == instance_or_path)
 			LAZYREMOVE(mob_spell_list, spell)
 			qdel(spell)
@@ -1436,6 +1434,19 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 
 /mob/compressor_grind()
 	gib()
+
+/**
+ * Checks to see if the mob can cast normal magic spells.
+ *
+ * args:
+ * * magic_flags (optional) A bitfield with the type of magic being cast (see flags at: /datum/component/anti_magic)
+**/
+/mob/proc/can_cast_magic(magic_flags = MAGIC_RESISTANCE)
+	if(magic_flags == NONE) // magic with the NONE flag can always be cast
+		return TRUE
+
+	var/restrict_magic_flags = SEND_SIGNAL(src, COMSIG_MOB_RESTRICT_MAGIC, magic_flags)
+	return restrict_magic_flags == NONE
 
 /**
  * Checks if there is enough light where the mob is located
