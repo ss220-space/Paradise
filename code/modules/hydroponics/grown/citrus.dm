@@ -203,7 +203,7 @@
 	icon_state = "tangerine"
 	filling_color = "#FFA500"
 	tastes = list("нового года" = 1)
-	list_reagents = list("vitamin" = 2, "orangejuice" = 5, "nutriment" = 5)
+	list_reagents = list("adminordrazine" = 1, "vitamin" = 2, "orangejuice" = 5, "nutriment" = 5)
 	antable = FALSE
 	bitecount = 3
 
