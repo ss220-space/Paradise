@@ -17,6 +17,8 @@
 	var/datum/aoe_targeting/targeting
 
 /datum/action/cooldown/spell/list_target/PreActivate(atom/caster)
+	if(isnull(targeting.owner))
+		targeting.owner = owner
 	var/list/list_targets = get_list_targets(caster, target_radius)
 	if(!length(list_targets))
 		caster.balloon_alert(caster, "no targets nearby!")
