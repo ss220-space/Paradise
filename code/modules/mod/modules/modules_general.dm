@@ -170,6 +170,7 @@
 /obj/item/storage/backpack/modstorage
 	name = "mod's storage"
 	desc = "Either you tried to spawn a storage mod, or someone fucked up. Unless you are an admin that just tried to spawn something, issue report."
+	w_class = WEIGHT_CLASS_BULKY
 	dynamic_storage_size = FALSE
 	var/obj/item/mod/module/storage/source
 

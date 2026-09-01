@@ -68,7 +68,7 @@
 	else if(ishuman(storage_loc))
 		var/mob/living/carbon/human/loc_human = storage_loc
 		var/slot_by_item = loc_human.get_slot_by_item(storage)
-		if(ITEM_SLOT_POCKETS & slot_by_item)
+		if(!(storage.slot_flags_2 & ITEM_FLAG_POCKET_LARGE) && (ITEM_SLOT_POCKETS & slot_by_item))
 			if(mob_user)
 				mob_user.balloon_alert(mob_user, "не хватит места!")
 			return BLOCK_INSERTING_ITEM
