@@ -109,8 +109,8 @@
 
 	var/deathgasp_on_death = FALSE
 
-	/// Used to halt stamina regen temporarily
-	var/stam_regen_start_time = 0
+	/// How long it takes to return to 0 stam
+	var/stamina_regen_time = 10 SECONDS
 	/// Modifier of time until regeneration starts
 	var/stam_regen_start_modifier = 1
 
