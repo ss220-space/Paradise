@@ -137,7 +137,7 @@
 	throw_speed = 3
 	throw_range = 5
 	hitsound = SFX_SWING_HIT
-	embed_chance = 75
+	embed_chance = 0
 	embedded_impact_pain_multiplier = 10
 	armour_penetration = 35
 	origin_tech = "combat=3;magnets=4;syndicate=4"
@@ -164,6 +164,34 @@
 	if(HAS_TRAIT(src, TRAIT_ITEM_ACTIVE))
 		return ..()
 	return HIT_RESULT_FAILED
+
+/obj/item/melee/energy/sword/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	. = ..()
+
+	if(!HAS_TRAIT(src, TRAIT_ITEM_ACTIVE) || !throwingdatum || !ishuman(hit_atom))
+		return
+
+	var/mob/living/carbon/human/victim = hit_atom
+	var/mob/thrower = throwingdatum.thrower
+	if(!thrower)
+		return
+
+	var/force_user = istype(thrower.mind?.martial_art, /datum/martial_art/force)
+
+	if(!force_user)
+		return
+
+	var/zone = throwingdatum.target_zone
+	var/list/vital_zones = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH)
+	if(zone in vital_zones)
+		var/list/no_vital_zones = list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_TAIL, BODY_ZONE_WING, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
+		zone = pick(no_vital_zones)
+
+	var/obj/item/organ/external/limb = victim.get_organ(zone)
+	if(!limb || limb.cannot_amputate || !prob(FORCE_THROW_DROPLIMB_CHANCE))
+		return
+
+	limb.droplimb()
 
 /obj/item/melee/energy/sword/cyborg
 	var/hitcost = 50
