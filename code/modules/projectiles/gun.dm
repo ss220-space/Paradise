@@ -19,6 +19,8 @@
 	pickup_sound = 'sound/items/handling/pickup/gun_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/gun_drop.ogg'
 
+	var/gun_flags = NONE
+
 	var/fire_sound = SFX_GUNSHOT
 	var/suppressed_fire_sound = 'sound/weapons/gunshots/1suppres.ogg'
 	var/magin_sound = 'sound/weapons/gun_interactions/smg_magin.ogg'
@@ -90,6 +92,11 @@
 	///Can we hold up our target with this? Default to yes
 	var/can_hold_up = TRUE
 
+	/// Overlay for ammo count hud, that we using
+	var/ammo_count_overlay = "ammo_red"
+	/// Color of all ammo count hud numbers
+	var/ammo_count_colour = COLOR_RED
+
 /*
  * Gun modules
  */
@@ -156,6 +163,15 @@
 	///How long it takes for weapons that have spooled-up to reset back to the original firing speed
 	var/windup_spindown = 3 SECONDS
 	var/datum/looping_sound/sound_loop
+
+	///windup delay before shots. USE ONLY WITH SEMI_AUTO guns
+	///Delay for the gun winding up before firing.
+	var/windup_delay = 0
+	///Sound played during windup.
+	var/windup_sound
+	///Sound cooldown sanity_check
+	var/sound_cooldown_time = 1 SECONDS
+	COOLDOWN_DECLARE(gun_sound_cooldown)
 
 /obj/item/gun/Initialize(mapload)
 	. = ..()
@@ -334,6 +350,7 @@
 		))
 		update_mouse_pointer(TRUE)
 		SEND_SIGNAL(gun_user, COMSIG_GUN_USER_UNSET, src)
+		gun_user.hud_used?.remove_ammo_hud(src)
 		gun_user = null
 
 	if(!user)
@@ -342,6 +359,8 @@
 	gun_user = user
 	setup_bullet_accuracy()
 	SEND_SIGNAL(gun_user, COMSIG_GUN_USER_SET, src)
+	if(gun_flags & GUN_AMMO_COUNTER)
+		gun_user.hud_used?.add_ammo_hud(src, get_display_ammo_count(), ammo_count_overlay, ammo_count_colour)
 	RegisterSignal(gun_user, COMSIG_MOB_MOUSEDOWN, PROC_REF(start_fire))
 	RegisterSignal(gun_user, COMSIG_MOB_MOUSEDRAG, PROC_REF(change_target))
 	RegisterSignal(gun_user, COMSIG_QDELETING, PROC_REF(clean_gun_user))
@@ -351,6 +370,10 @@
 /obj/item/gun/proc/clean_gun_user()
 	SIGNAL_HANDLER
 	set_gun_user(null)
+
+///returns ammo count to display in the ammo counter of the HUD
+/obj/item/gun/proc/get_display_ammo_count()
+	return
 
 ///Check if the gun can fire and add it to bucket auto_fire system if needed, or just fire the gun if not
 /obj/item/gun/proc/start_fire(datum/source, atom/object, turf/location, control, params, bypass_checks = FALSE)
@@ -414,12 +437,14 @@
 	if(QDELETED(object))
 		return
 
+
 	set_target(get_turf_on_clickcatcher(object, user, params))
 	src.modifiers = modifiers
 	if(gun_firemode == GUN_FIREMODE_SEMIAUTO)
 		INVOKE_ASYNC(src, PROC_REF(do_semiauto_fire))
 		return TRUE
 	SEND_SIGNAL(src, COMSIG_GUN_FIRE)
+	gun_user?.hud_used?.update_ammo_hud(src, get_display_ammo_count())
 	update_mouse_pointer()
 	sound_loop?.start(user)
 	return TRUE
@@ -682,6 +707,7 @@
 		bonus_spread += 45
 
 	SEND_SIGNAL(src, COMSIG_GUN_FIRED, user, target)
+	gun_user?.hud_used?.update_ammo_hud(src, get_display_ammo_count())
 	last_fired = world.time
 	SEND_SIGNAL(src, COMSIG_MOB_GUN_FIRED, target, src)
 	if(gun_user)
@@ -697,6 +723,8 @@
 				to_chat(user, span_warning("В [declent_ru(ACCUSATIVE)] заряжены смертельные патроны! Лучше не рисковать..."))
 				return
 		on_pre_process_fire(user, target)
+		if(!on_windup_check())
+			return NONE
 		sprd = accuracy.randomize_spread(user, bonus_spread, shots_counter)
 		if(!chambered.fire(target = target, user = user, modifiers = modifiers, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src, damage_mod = damage_mod, stamina_mod = stamina_mod))
 			shoot_with_empty_chamber(user)
@@ -857,6 +885,22 @@
 
 	update_icon(UPDATE_OVERLAYS)
 	update_equipped_item(update_speedmods = FALSE)
+
+/// Windup for guns. Working only with semi autos
+/obj/item/gun/proc/on_windup_check()
+	if(gun_firemode != GUN_FIREMODE_SEMIAUTO)
+		return TRUE
+
+	if(!windup_delay)
+		return TRUE
+
+	if(windup_sound && COOLDOWN_FINISHED(src, gun_sound_cooldown))
+		COOLDOWN_START(src, gun_sound_cooldown, sound_cooldown_time)
+		playsound(loc, windup_sound, 30, TRUE)
+
+	if(!do_after(gun_user, windup_delay, src, timed_action_flags = (DA_IGNORE_LYING|DA_IGNORE_USER_LOC_CHANGE), show_progress = FALSE, max_interact_count = 1, cog_iconstate = "busy_danger"))
+		return FALSE
+	return TRUE
 
 /obj/item/gun/extinguish_light(force = FALSE)
 	if(gun_light?.on)

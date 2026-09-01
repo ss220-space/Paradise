@@ -94813,6 +94813,12 @@
 /area/station/engineering/engine/reactor)
 "rRq" = (
 /obj/machinery/firealarm/directional/south,
+/obj/structure/table/reinforced,
+/obj/item/laser_modification_case,
+/obj/item/laser_modification_case{
+	pixel_y = 7;
+	pixel_x = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
