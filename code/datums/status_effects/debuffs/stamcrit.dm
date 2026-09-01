@@ -42,7 +42,7 @@
 	return .
 
 /datum/status_effect/incapacitating/stamcrit/on_remove()
-	UnregisterSignal(owner, COMSIG_LIVING_HEALTH_UPDATE)
+	UnregisterSignal(owner, COMSIG_LIVING_STAMINA_UPDATE)
 	UnregisterSignal(owner, COMSIG_LIVING_ADJUST_STAMINA_DAMAGE)
 	owner.remove_traits(list(TRAIT_INCAPACITATED, TRAIT_IMMOBILIZED, TRAIT_FLOORED, TRAIT_HANDS_BLOCKED), STAMINA_TRAIT)
 	return ..()
@@ -77,6 +77,6 @@
 
 	//basic crit goes here
 
-	if(owner.maxHealth - owner.getStaminaLoss() > owner.crit_threshold)
+	if(owner.max_stamina - owner.getStaminaLoss() > owner.crit_threshold)
 		qdel(src)
 

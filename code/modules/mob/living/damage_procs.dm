@@ -769,8 +769,8 @@
 	else
 		. = STATUS_UPDATE_STAMINA
 
-	if(updating_stamina)
-		updatehealth()
+	if(updating_health)
+		updatehealth("setStaminaLoss")
 	return delta
 
 /// Returns the maximum stamina of the mob with bonuses affecting it

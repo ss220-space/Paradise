@@ -147,6 +147,8 @@
 #define COMSIG_LIVING_GENERIC_INCAPACITATE_CHECK "living_check_incapacitate"
 	#define COMPONENT_NO_EFFECT (1<<0) //For all of them
 
+/// from base of mob/living/updatehealth()
+#define COMSIG_LIVING_HEALTH_UPDATE "living_health_update"
 /// from base of mob/living/updatestamina()
 #define COMSIG_LIVING_STAMINA_UPDATE "living_stamina_update"
 
