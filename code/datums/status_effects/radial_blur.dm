@@ -8,7 +8,7 @@
 /datum/status_effect/radial_blur
 	id = "radial_blur"
 	alert_type = null
-	tick_interval = STATUS_EFFECT_NO_TICK
+	tick_interval = 1 SECONDS
 	var/blur_min_size = RADIAL_BLUR_MIN_SIZE
 	var/blur_max_size = RADIAL_BLUR_MAX_SIZE
 	var/blur_rise_time = RADIAL_BLUR_RISE_TIME
@@ -30,24 +30,19 @@
 		return FALSE
 
 	RegisterSignal(owner, COMSIG_MOB_LOGIN, PROC_REF(update_blur))
+	RegisterSignal(owner, COMSIG_MOB_STATCHANGE, PROC_REF(update_blur))
+	RegisterSignal(owner.reagents, COMSIG_EARLY_REAGENT_ADDED, PROC_REF(update_blur))
 	update_blur()
 	return TRUE
 
+/datum/status_effect/radial_blur/tick(seconds_between_ticks)
+	update_blur()
+
 /datum/status_effect/radial_blur/on_remove()
 	UnregisterSignal(owner, COMSIG_MOB_LOGIN)
-	if(!owner.hud_used)
-		return
-
-	var/atom/movable/plane_master_controller/game_plane_master_controller = owner.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
-	game_plane_master_controller.remove_filter(RADIAL_BLUR_FILTER_NAME)
-
-	for(var/mob/dead/observer/observe in owner.inventory_observers)
-		if(!observe.client)
-			observe.handle_when_autoobserve_move()
-			LAZYREMOVE(owner.inventory_observers, observe)
-			continue
-		game_plane_master_controller = observe.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
-		game_plane_master_controller.remove_filter(RADIAL_BLUR_FILTER_NAME)
+	UnregisterSignal(owner, COMSIG_MOB_STATCHANGE)
+	UnregisterSignal(owner.reagents, COMSIG_EARLY_REAGENT_ADDED)
+	remove_blur()
 
 /**
 * Applies a pulsating radial blur to the owner's screen.
@@ -58,10 +53,30 @@
 /datum/status_effect/radial_blur/proc/update_blur(datum/source)
 	SIGNAL_HANDLER
 
+	// Only display the blur while the owner can actually feel pain.
+	// Covers TRAIT_NO_PAIN species, painkiller reagents (shock_reduction) and being unconscious.
+	if(!owner.has_pain())
+		remove_blur()
+		return
+
 	if(owner.hud_used && owner.client)
 		apply_blur_to_controller(owner.hud_used.plane_master_controllers[PLANE_MASTERS_GAME])
 
 	process_observers(remove = FALSE)
+
+/// Removes the blur filter from the owner and any observers.
+/datum/status_effect/radial_blur/proc/remove_blur()
+	if(owner.hud_used)
+		var/atom/movable/plane_master_controller/game_plane_master_controller = owner.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
+		game_plane_master_controller.remove_filter(RADIAL_BLUR_FILTER_NAME)
+
+	for(var/mob/dead/observer/observe as anything in owner.inventory_observers)
+		if(!observe.client)
+			observe.handle_when_autoobserve_move()
+			LAZYREMOVE(owner.inventory_observers, observe)
+			continue
+		var/atom/movable/plane_master_controller/game_plane_master_controller = observe.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
+		game_plane_master_controller.remove_filter(RADIAL_BLUR_FILTER_NAME)
 
 /datum/status_effect/radial_blur/proc/process_observers(remove = FALSE)
 	if(!length(owner.inventory_observers))
@@ -74,15 +89,14 @@
 			LAZYREMOVE(owner.inventory_observers, observer)
 			continue
 
-		var/atom/movable/plane_master_controller/controller = observer.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
-		if(remove)
-			remove_blur_from_controller(controller)
-		else
-			apply_blur_to_controller(controller)
-
 /datum/status_effect/radial_blur/proc/apply_blur_to_controller(atom/movable/plane_master_controller/controller)
+	var/new_filter = isnull(controller.get_filter(RADIAL_BLUR_FILTER_NAME))
 	controller.add_filter(RADIAL_BLUR_FILTER_NAME, 1, radial_blur_filter(size = blur_min_size))
+	if(!new_filter)
+		return
 	for(var/blur_filter as anything in controller.get_filters(RADIAL_BLUR_FILTER_NAME))
+		if(!blur_filter)
+			continue
 		animate(blur_filter, size = blur_max_size, time = blur_rise_time, loop = -1, easing = SINE_EASING, flags = ANIMATION_PARALLEL)
 		animate(size = blur_min_size, time = blur_fall_time, easing = SINE_EASING)
 

@@ -1109,8 +1109,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 		human_owner.apply_status_effect(
 			STATUS_EFFECT_RADIAL_BLUR,
 			0.005,
-			0.02,
-			0.05 SECONDS,
+			0.015,
+			0.1 SECONDS,
 			1 SECONDS
 		)
 
