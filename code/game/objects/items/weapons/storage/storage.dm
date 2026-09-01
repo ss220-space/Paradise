@@ -708,11 +708,6 @@
 		if(!usr.can_unEquip(W))
 			return FALSE
 
-	if(dynamic_storage_size && isstorage(loc) && !istype(loc, /obj/item/storage/backpack/holding))
-		if(!stop_messages)
-			balloon_alert(usr, "не хватит места!")
-		return FALSE
-
 	return TRUE
 
 /// This proc handles items being inserted. It does not perform any checks of whether an item can or can't be inserted. That's done by can_be_inserted()
