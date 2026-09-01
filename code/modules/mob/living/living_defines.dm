@@ -112,7 +112,7 @@
 	var/deathgasp_on_death = FALSE
 
 	/// How long it takes to return to 0 stam
-	var/stamina_regen_time = 10 SECONDS
+	var/stamina_regen_time = 15 SECONDS
 	/// Modifier of time until regeneration starts
 	var/stam_regen_start_modifier = 1
 

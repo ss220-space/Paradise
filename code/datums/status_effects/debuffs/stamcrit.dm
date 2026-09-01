@@ -23,6 +23,8 @@
 	// Same
 	RegisterSignal(owner, COMSIG_LIVING_ADJUST_STAMINA_DAMAGE, PROC_REF(update_diminishing_return))
 	RegisterSignal(owner, COMSIG_LIVING_STAMINA_UPDATE, PROC_REF(check_remove))
+	RegisterSignal(owner, COMSIG_LIVING_GET_PULLED, PROC_REF(on_being_pulled))
+	RegisterSignal(owner, COMSIG_ATOM_NO_LONGER_PULLED, PROC_REF(on_stopped_being_pulled))
 
 /datum/status_effect/incapacitating/stamcrit/on_apply()
 	if(owner.stat == DEAD)
@@ -37,14 +39,19 @@
 		return .
 
 	if(owner.stat == CONSCIOUS)
-		to_chat(owner, span_warning("Вы слишком истощены, чтобы передвигаться."))
-	owner.add_traits(list(TRAIT_INCAPACITATED, TRAIT_IMMOBILIZED, TRAIT_FLOORED, TRAIT_HANDS_BLOCKED), STAMINA_TRAIT)
+		to_chat(owner, span_warning("Вы слишком истощены, чтобы быстро передвигаться.."))
+	owner.add_traits(list(TRAIT_INCAPACITATED, TRAIT_FLOORED, TRAIT_HANDS_BLOCKED), STAMINA_TRAIT)
+	owner.add_movespeed_modifier(/datum/movespeed_modifier/stunned_crawling)
 	return .
 
 /datum/status_effect/incapacitating/stamcrit/on_remove()
 	UnregisterSignal(owner, COMSIG_LIVING_STAMINA_UPDATE)
 	UnregisterSignal(owner, COMSIG_LIVING_ADJUST_STAMINA_DAMAGE)
+	UnregisterSignal(owner, COMSIG_LIVING_GET_PULLED)
+	UnregisterSignal(owner, COMSIG_ATOM_NO_LONGER_PULLED)
+
 	owner.remove_traits(list(TRAIT_INCAPACITATED, TRAIT_IMMOBILIZED, TRAIT_FLOORED, TRAIT_HANDS_BLOCKED), STAMINA_TRAIT)
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/stunned_crawling)
 	return ..()
 
 /datum/status_effect/incapacitating/stamcrit/proc/update_diminishing_return(datum/source, type, amount, forced)
@@ -80,3 +87,13 @@
 	if(owner.max_stamina - owner.getStaminaLoss() > owner.crit_threshold)
 		qdel(src)
 
+/datum/status_effect/incapacitating/stamcrit/proc/on_being_pulled()
+	SIGNAL_HANDLER
+
+	to_chat(owner, span_warning("Вас схватили и прижали к земле!"))
+	owner.add_traits(list(TRAIT_IMMOBILIZED), STAMINA_TRAIT)
+
+/datum/status_effect/incapacitating/stamcrit/proc/on_stopped_being_pulled()
+	SIGNAL_HANDLER
+
+	owner.remove_traits(list(TRAIT_IMMOBILIZED), STAMINA_TRAIT)
