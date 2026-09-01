@@ -26,7 +26,7 @@
 	if(intaraction_flags & local_cached_failed_checks)
 		return FALSE
 
-	if((intaraction_flags & INTERACTION_CHECH_HANDS))
+	if(intaraction_flags & INTERACTION_CHECH_HANDS)
 		if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 			local_cached_failed_checks |= INTERACTION_CHECH_HANDS
 			return FALSE
@@ -35,7 +35,7 @@
 			return FALSE
 		local_cached_checks |= INTERACTION_CHECH_HANDS
 
-	if((intaraction_flags & INTERACTION_CHECH_TARGET_HANDS))
+	if(intaraction_flags & INTERACTION_CHECH_TARGET_HANDS)
 		if(HAS_TRAIT(target, TRAIT_HANDS_BLOCKED))
 			local_cached_failed_checks |= INTERACTION_CHECH_TARGET_HANDS
 			return FALSE
@@ -44,26 +44,26 @@
 			return FALSE
 		local_cached_checks |= INTERACTION_CHECH_TARGET_HANDS
 
-	if((intaraction_flags & INTERACTION_CHECH_ADJACENT))
+	if(intaraction_flags & INTERACTION_CHECH_ADJACENT)
 		if(!target.Adjacent(user))
 			local_cached_failed_checks |= INTERACTION_CHECH_ADJACENT
 			return FALSE
 		local_cached_checks |= INTERACTION_CHECH_ADJACENT
 
-	if((intaraction_flags & INTERACTION_CHECH_MOUTH))
+	if(intaraction_flags & INTERACTION_CHECH_MOUTH)
 		if(!get_location_accessible(user, BODY_ZONE_PRECISE_MOUTH))
 			local_cached_failed_checks |= INTERACTION_CHECH_MOUTH
 			return FALSE
 		local_cached_checks |= INTERACTION_CHECH_MOUTH
 
-	if((intaraction_flags & INTERACTION_CHECH_INCAPITATED))
+	if(intaraction_flags & INTERACTION_CHECH_INCAPITATED)
 		if(user.incapacitated())
 			local_cached_failed_checks |= INTERACTION_CHECH_INCAPITATED
 			return FALSE
 		local_cached_checks |= INTERACTION_CHECH_INCAPITATED
 
 	var/zone = user.zone_selected
-	if((intaraction_flags & INTERACTION_CHECH_COVER_ZONE))
+	if(intaraction_flags & INTERACTION_CHECH_COVER_ZONE)
 		if(!user.get_organ(zone) || user.covered_with_thick_material(zone))
 			local_cached_failed_checks |= INTERACTION_CHECH_COVER_ZONE
 			return FALSE
@@ -352,3 +352,14 @@
 		user.custom_emote(message = "лизнул[GEND_A_O_I(user)] [target] в щеку.")
 	else
 		user.custom_emote(message = "особо тщательно лизнул[GEND_A_O_I(user)] [target].")
+
+#undef INTERACTION_CATEGORY_DEFAULT
+#undef INTERACTION_CATEGORY_HANDS
+#undef INTERACTION_CATEGORY_MOUTH
+
+#undef INTERACTION_CHECH_HANDS
+#undef INTERACTION_CHECH_ADJACENT
+#undef INTERACTION_CHECH_MOUTH
+#undef INTERACTION_CHECH_INCAPITATED
+#undef INTERACTION_CHECH_COVER_ZONE
+#undef INTERACTION_CHECH_TARGET_HANDS
