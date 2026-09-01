@@ -177,12 +177,34 @@ SUBSYSTEM_DEF(overmap)
 		rebuild_area_shuttle_cache()
 	return area_shuttles[here]
 
+/datum/controller/subsystem/overmap/proc/overmap_world_ready()
+	return !!local_sector
+
+/datum/controller/subsystem/overmap/proc/ensure_shuttle_overmap_placement(obj/overmap/entity/vessel)
+	if(QDELETED(vessel) || !overmap_world_ready())
+		return
+	if(vessel.docked_to && !vessel.sector)
+		if(vessel.docked_to.sector)
+			vessel.sector = vessel.docked_to.sector
+			vessel.docked_to.sector.objects |= vessel
+		return
+	if(isturf(vessel.loc) && vessel.sector)
+		return
+	if(vessel.docked_to)
+		return
+	attach_shuttle_to_resolved_host(vessel)
+
 /datum/controller/subsystem/overmap/proc/get_or_register_shuttle(obj/docking_port/mobile/shuttle)
 	if(!shuttle)
 		return null
 	var/obj/overmap/entity/existing = shuttle_vessels[shuttle]
 	if(existing && !QDELETED(existing))
+		ensure_shuttle_overmap_placement(existing)
 		return existing
+	// Request consoles LateInitialize before sectors exist. Creating a token
+	// here leaves loc/sector null forever because register_roundstart returns existing.
+	if(!overmap_world_ready())
+		return null
 	var/obj/overmap/entity/shuttle/vessel = new /obj/overmap/entity/shuttle
 	vessel.name = shuttle.name || "Shuttle"
 	vessel.shuttle = shuttle

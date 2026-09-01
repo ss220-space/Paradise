@@ -74,8 +74,8 @@
 	return 1
 
 /obj/docking_port/mobile/supply/canMove()
-	if(is_station_level(z))
-		return forbidden_atoms_check(areaInstance)
+	if(is_station_level(z) && forbidden_atoms_check(areaInstance))
+		return FALSE
 	return ..()
 
 /obj/docking_port/mobile/supply/request(obj/docking_port/stationary/S)
@@ -542,7 +542,7 @@
 	data["moving"] = SSshuttle.supply.mode != SHUTTLE_IDLE || !!SSovermap?.shuttle_vessels[SSshuttle.supply]?.programmed_mission
 	data["at_station"] = SSshuttle.supply.getDockedId() == "supply_home"
 	data["timeleft"] = SSshuttle.supply.getTimerStr()
-	data["can_launch"] = !SSshuttle.supply.canMove() && !SSovermap?.shuttle_vessels[SSshuttle.supply]?.programmed_mission
+	data["can_launch"] = SSshuttle.supply.canMove() && !SSovermap?.shuttle_vessels[SSshuttle.supply]?.programmed_mission
 
 	return data
 
@@ -600,7 +600,7 @@
 			// Public consoles cant move the shuttle. Dont allow exploiters.
 			if(is_public)
 				return
-			if(SSshuttle.supply.canMove())
+			if(!SSshuttle.supply.canMove())
 				to_chat(usr, span_warning("По соображениям безопасности шаттл снабжения не может перемещать живые организмы, ядерное оружие или маячки перемещения."))
 				return
 			var/obj/overmap/entity/supply_vessel = SSovermap?.get_or_register_shuttle(SSshuttle.supply)

@@ -631,7 +631,19 @@ export const OvermapHelm = () => {
                                 onClick={() =>
                                   act('select_dock', { id: pad.id })
                                 }
-                              />
+                              >
+                                {pad.id === '__overmap_custom' && (
+                                  <Button
+                                    icon="crosshairs"
+                                    onClick={(event) => {
+                                      event.stopPropagation();
+                                      act('pick_custom_dock');
+                                    }}
+                                  >
+                                    Заменить
+                                  </Button>
+                                )}
+                              </OvermapRow>
                             ))}
                           </OvermapList>
                         </Stack.Item>

@@ -15,6 +15,8 @@ SUBSYSTEM_DEF(shuttle)
 	var/list/mobile = list()
 	var/list/stationary = list()
 	var/list/transit = list()
+	var/list/assoc_mobile = list()
+	var/list/assoc_stationary = list()
 
 	/// A list of all the mobile docking ports currently requesting a spot in hyperspace.
 	var/list/transit_requesters = list()
@@ -139,14 +141,22 @@ SUBSYSTEM_DEF(shuttle)
 				break
 
 /datum/controller/subsystem/shuttle/proc/getShuttle(id)
-	for(var/obj/docking_port/mobile/M in mobile)
+	. = assoc_mobile[id]
+	if(.)
+		return
+	for(var/obj/docking_port/mobile/M as anything in mobile)
 		if(M.id == id)
+			assoc_mobile[id] = M
 			return M
 	WARNING("couldn't find shuttle with id: [id]")
 
 /datum/controller/subsystem/shuttle/proc/getDock(id)
-	for(var/obj/docking_port/stationary/S in stationary)
+	. = assoc_stationary[id]
+	if(.)
+		return
+	for(var/obj/docking_port/stationary/S as anything in stationary)
 		if(S.id == id)
+			assoc_stationary[id] = S
 			return S
 	WARNING("couldn't find dock with id: [id]")
 
@@ -287,7 +297,7 @@ SUBSYSTEM_DEF(shuttle)
 	if(getDockedId() == dock_id)
 		vessel.snap_physical_redock()
 		return 0
-	if(id == "supply" && canMove())
+	if(id == "supply" && !canMove())
 		return 2
 	if(vessel.start_programmed_route(dock_id, TRUE, TRUE) == TRUE)
 		return 0

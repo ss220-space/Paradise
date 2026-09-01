@@ -15,12 +15,17 @@
 	last_center = null
 	return ..()
 
+/datum/overmap_map_view/proc/allow_map_clicks()
+	if(cam_screen?.cam_background)
+		cam_screen.cam_background.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
 /datum/overmap_map_view/proc/clear()
 	last_center = null
 	last_range = 0
 	last_size_x = 0
 	last_size_y = 0
 	cam_screen?.show_camera_static()
+	allow_map_clicks()
 
 /datum/overmap_map_view/proc/fit_zoom(box_w, box_h)
 	var/tiles_x = max(last_size_x, 1)
@@ -56,6 +61,7 @@
 	last_size_x = tiles
 	last_size_y = tiles
 	cam_screen.show_camera(block(locate(min_x, min_y, here.z), locate(max_x, max_y, here.z)), tiles, tiles)
+	allow_map_clicks()
 	return TRUE
 
 /datum/overmap_map_view/proc/refresh_size(obj/overmap/entity/vessel, tiles, force = FALSE)
@@ -88,6 +94,7 @@
 	last_size_x = tiles
 	last_size_y = tiles
 	cam_screen.show_camera(block(locate(min_x, min_y, here.z), locate(max_x, max_y, here.z)), tiles, tiles)
+	allow_map_clicks()
 	return TRUE
 
 /datum/overmap_map_view/proc/refresh_rect(obj/overmap/entity/vessel, size_x, size_y, force = FALSE)
@@ -121,4 +128,5 @@
 	map_view_min_x = min_x
 	map_view_min_y = min_y
 	cam_screen.show_camera(block(locate(min_x, min_y, here.z), locate(max_x, max_y, here.z)), size_x, size_y)
+	allow_map_clicks()
 	return TRUE

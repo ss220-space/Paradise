@@ -243,7 +243,7 @@
 		return FALSE
 	var/turf/here = vessel.get_overmap_turf()
 	var/turf/there = other.get_overmap_turf()
-	return max(abs(here.x - there.x), abs(here.y - there.y)) <= OVERMAP_SENSOR_PING_RANGE
+	return max(abs(here.x - there.x), abs(here.y - there.y)) <= OVERMAP_SENSOR_SHORT_VIEW
 
 /datum/component/overmap_sensors/proc/short_knows(obj/overmap/other)
 	return !!(short_identified?[other.UID()])

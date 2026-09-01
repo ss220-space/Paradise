@@ -287,3 +287,37 @@
 	return TRUE
 
 /obj/machinery/computer/sensors/proc/try_map_click(mob/user, atom/clicked)
+	if(!user || !clicked || view_mode != OVERMAP_SENSOR_KIND_SHORT)
+		return FALSE
+	if(!vessel?.short_sensors_on || !vessel.has_working_sensor(OVERMAP_SENSOR_KIND_SHORT))
+		return FALSE
+	var/obj/overmap/target
+	if(istype(clicked, /obj/overmap))
+		target = clicked
+	else
+		var/turf/spot = get_turf(clicked)
+		if(!spot)
+			return FALSE
+		for(var/obj/overmap/candidate in spot)
+			if(candidate == vessel)
+				continue
+			if(vessel.can_short_scan(candidate))
+				target = candidate
+				break
+			if(!target)
+				target = candidate
+		if(!target)
+			for(var/obj/overmap/candidate as anything in vessel.sector?.objects)
+				if(candidate == vessel || candidate.get_overmap_turf() != spot)
+					continue
+				if(vessel.can_short_scan(candidate))
+					target = candidate
+					break
+				if(!target)
+					target = candidate
+	if(!target || target == vessel)
+		return FALSE
+	if(!start_short_scan(target))
+		return FALSE
+	SStgui.update_uis(src)
+	return TRUE

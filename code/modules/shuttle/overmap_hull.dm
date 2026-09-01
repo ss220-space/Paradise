@@ -48,8 +48,18 @@
 	return istype(place, areaInstance.type)
 
 /obj/docking_port/mobile/proc/overmap_discover_shuttle_areas()
+	if(!shuttle_areas)
+		shuttle_areas = list()
 	if(areaInstance)
 		shuttle_areas[areaInstance] = TRUE
+	for(var/turf/tile in return_turfs())
+		if(!tile)
+			continue
+		var/area/place = get_area(tile)
+		if(!place || istype(place, /area/shuttle/transit))
+			continue
+		if(place == areaInstance || (areaInstance && istype(place, areaInstance.type)) || shuttle_areas[place])
+			shuttle_areas[place] = TRUE
 
 /obj/docking_port/mobile/proc/overmap_collect_hull(turf/origin)
 	. = list()
@@ -67,12 +77,6 @@
 		place.cannonize_contained_turfs_by_zlevel(origin.z)
 		for(var/turf/tile as anything in place.get_turfs_by_zlevel(origin.z))
 			if(!tile || seen[tile])
-				continue
-			seen[tile] = TRUE
-			. += tile
-
-		for(var/turf/tile in place)
-			if(tile.z != origin.z || seen[tile])
 				continue
 			seen[tile] = TRUE
 			. += tile

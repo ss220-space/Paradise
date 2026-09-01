@@ -75,9 +75,9 @@
 		add_overlay(number_overlay)
 
 /turf/simulated/floor/indestructible/overmap/Click(location, control, params)
-	var/obj/machinery/computer/sensors/sensors = usr?.machine
+	var/obj/machinery/computer/sensors/sensors = overmap_open_sensor_console(usr)
 	if(!istype(sensors))
-		sensors = overmap_open_sensor_console(usr)
+		sensors = usr?.machine
 	if(istype(sensors) && sensors.try_map_click(usr, src))
 		return
 	var/obj/machinery/computer/helm/helm = usr?.machine

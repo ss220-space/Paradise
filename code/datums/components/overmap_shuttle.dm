@@ -373,7 +373,7 @@
 	if(!instant && vessel.shuttle.mode != SHUTTLE_IDLE && vessel.shuttle.mode != SHUTTLE_RECHARGING)
 		return "Шаттл уже выполняет манёвр."
 	var/datum/overmap_programmed_profile/profile = vessel.programmed_profile()
-	if(instant && profile?.block_if_canMove && vessel.shuttle.canMove())
+	if(instant && profile?.block_if_canMove && !vessel.shuttle.canMove())
 		return profile.block_move_message || "Шаттл не может перемещаться с текущим грузом."
 	vessel.last_dock_id = vessel.shuttle.getDockedId()
 	if(vessel.last_dock_id && is_station_dock(SSshuttle.getDock(vessel.last_dock_id)))
@@ -555,6 +555,9 @@
 	speed[2] = 0
 	host.dock_host?.add_nested(src)
 	forceMove(host)
+	if(host.sector)
+		sector = host.sector
+		host.sector.objects |= src
 	position = list(0, 0)
 	update_overmap_pixel()
 	hidden_from_contacts = TRUE
@@ -564,7 +567,8 @@
 
 /obj/overmap/entity/proc/release_to_overmap(turf/open_turf)
 	if(!open_turf)
-		open_turf = docked_to?.get_overmap_turf()
+		open_turf = docked_to?.get_overmap_turf() || get_overmap_turf()
+	var/datum/overmap_sector/dest_sector = docked_to?.sector || sector || SSovermap?.sector_for_turf(open_turf) || SSovermap?.local_sector
 	var/list/saved_position
 	if(docked_to)
 		saved_position = list(docked_to.position[1], docked_to.position[2])
@@ -573,8 +577,16 @@
 	status = OVERMAP_STATUS_OVERMAP
 	halted = FALSE
 	hidden_from_contacts = FALSE
+	if(!open_turf && dest_sector)
+		open_turf = dest_sector.get_random_open_turf()
 	if(open_turf)
 		forceMove(open_turf)
+	if(dest_sector && dest_sector != sector)
+		sector?.remove_object(src)
+		dest_sector.add_object(src, open_turf)
+	else if(dest_sector)
+		sector = dest_sector
+		dest_sector.objects |= src
 	if(saved_position)
 		position = saved_position
 		update_overmap_pixel()

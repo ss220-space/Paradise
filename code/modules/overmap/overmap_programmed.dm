@@ -261,7 +261,7 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 	if(!shuttle)
 		return "Маршрут недоступен."
 	var/datum/overmap_programmed_profile/profile = programmed_profile()
-	if(profile?.block_if_canMove && shuttle.canMove())
+	if(profile?.block_if_canMove && !shuttle.canMove())
 		return profile.block_move_message || "Маршрут недоступен."
 	var/datum/overmap_programmed_leg/leg = profile?.leg_for(dock_id)
 	if(!force)
@@ -475,7 +475,8 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 			return vessel.get_overmap_turf()
 		return vessel.nearest_hyperrelay()?.get_overmap_turf()
 	var/turf/dest = resolved_dest_host()?.get_overmap_turf()
-	if(!dest || dest.z != vessel.z)
+	var/turf/here = vessel.get_overmap_turf()
+	if(!dest || !here || dest.z != here.z)
 		return null
 	return dest
 
@@ -507,19 +508,20 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 	ensure_free_for_flight()
 	if(vessel.status == OVERMAP_STATUS_DOCKED)
 		return
+	var/turf/here = vessel.get_overmap_turf()
 	if(needs_hyperrelay())
 		if(vessel.hyperrelay_on_tile() && OVERMAP_SPEED_STOPPED(vessel.get_speed()))
 			on_overmap_arrived()
 			return
 		var/turf/relay_turf = vessel.nearest_hyperrelay()?.get_overmap_turf()
-		if(!relay_turf || relay_turf.z != vessel.z)
+		if(!relay_turf || !here || relay_turf.z != here.z)
 			return
 		if(vessel.flight)
 			vessel.flight.cruise_speed = OVERMAP_FROM_DISPLAY(OVERMAP_PROGRAMMED_CRUISE)
 		vessel.set_autopilot(TRUE, vessel.sector.coord_x(relay_turf), vessel.sector.coord_y(relay_turf))
 		return
 	var/turf/goal = nav_turf()
-	if(!goal || !vessel.sector || goal.z != vessel.z)
+	if(!goal || !vessel.sector || !here || goal.z != here.z)
 		return
 	if(vessel.get_overmap_turf() == goal && OVERMAP_SPEED_STOPPED(vessel.get_speed()))
 		on_overmap_arrived()
