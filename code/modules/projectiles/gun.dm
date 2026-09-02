@@ -246,7 +246,7 @@
 	var/obj/item/gun_module/module = attachments_by_slot[slot]
 	if(!module)
 		return "[missing_text]"
-	return "[module.get_examine_icon(user)] [module.declent_ru(NOMINATIVE)]"
+	return "[module.get_examine_icon(user)] [DECLENT_RU_CAP(module, NOMINATIVE)]"
 
 /obj/item/gun/examine(mob/user)
 	. = ..()
@@ -934,7 +934,7 @@
 			continue
 		var/obj/item/gun_module/module = attachments_by_slot[slot]
 		if(module.can_detach)
-			choices[module.declent_ru(NOMINATIVE)] = image(icon = module.icon, icon_state = module.icon_state)
+			choices[DECLENT_RU_CAP(module, NOMINATIVE)] = image(icon = module.icon, icon_state = module.icon_state)
 	if(length(choices) == 0)
 		return
 	var/choice = show_radial_menu(user, src, choices, require_near = TRUE, autopick_single_option = FALSE)
@@ -944,7 +944,7 @@
 		if(!attachments_by_slot[slot])
 			continue
 		var/obj/item/gun_module/module = attachments_by_slot[slot]
-		if(module.declent_ru(NOMINATIVE) == choice)
+		if(DECLENT_RU_CAP(module, NOMINATIVE) == choice)
 			return module.detach_without_check(src, user)
 
 
