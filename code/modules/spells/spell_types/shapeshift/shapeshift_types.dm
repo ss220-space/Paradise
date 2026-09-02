@@ -21,7 +21,7 @@
 	var/mob/living/simple_animal/hostile/megafauna/dragon/lesser/dragon = caster
 	if(dragon.swooping)
 		return
-	. = ..()
+	return ..()
 
 /datum/action/cooldown/spell/shapeshift/bats
 	name = "Bat Form"
