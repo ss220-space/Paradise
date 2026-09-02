@@ -57,6 +57,39 @@
 	initial_mats = materials.Copy()
 	update_mat_value()
 
+	register_context()
+	register_item_context()
+
+/obj/item/ammo_box/add_context(atom/source, list/context, obj/item/held_item, mob/user)
+	. = ..()
+
+	if(held_item == src && length(stored_ammo))
+		context[SCREENTIP_CONTEXT_LMB] = "Разрядить"
+		return CONTEXTUAL_SCREENTIP_SET
+
+	if(isammocasing(held_item))
+		var/obj/item/ammo_casing/casing = held_item
+		if(!ammo_suitability(casing))
+			return
+		context[SCREENTIP_CONTEXT_LMB] = "Зарядить"
+		return CONTEXTUAL_SCREENTIP_SET
+
+	if(isammobox(held_item) && held_item != src)
+		var/obj/item/ammo_box/box = held_item
+		if(!ammo_suitability(box.get_round(TRUE))) // no hint if there's no ammo to get
+			return
+		context[SCREENTIP_CONTEXT_LMB] = "Зарядить"
+		return CONTEXTUAL_SCREENTIP_SET
+
+/obj/item/ammo_box/add_item_context(obj/item/source, list/context, atom/target, mob/living/user)
+	. = ..()
+
+	if(isammocasing(target) && !user.is_in_hands(target))
+		if(!ammo_suitability(target))
+			return
+		context[SCREENTIP_CONTEXT_LMB] = "Зарядить"
+		return CONTEXTUAL_SCREENTIP_SET
+
 /obj/item/ammo_box/Destroy()
 	QDEL_LIST(stored_ammo)
 	stored_ammo = null
@@ -84,7 +117,7 @@
 	if(!istype(mag_ammo))
 		return ""
 
-	if(caliber && max_ammo) // Text references a 'магазин' as only magazines generally have the caliber variable initialized
+	if(caliber && max_ammo)
 		readout += "<b><u>ВМЕСТИМОСТЬ</u></b>"
 		readout += "- Вмещает в себя вплоть до <b>[max_ammo]</b> боеприпас[declension_ru(max_ammo, "а", "ов", "ов")] калибра <b>[caliber]</b>."
 
@@ -243,9 +276,6 @@
 		balloon_alert(user, "патрон извлечён")
 		update_appearance(UPDATE_ICON)
 		user.put_in_hands(casing)
-
-/obj/item/ammo_box/click_alt(mob/user)
-	attack_self(user)
 
 /obj/item/ammo_box/update_icon_state()
 	var/icon_base = icon_prefix ? icon_prefix : initial(icon_state)
