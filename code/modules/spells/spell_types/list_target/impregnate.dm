@@ -56,12 +56,12 @@
 	if(!can_impregnate(cast_on))
 		return
 	impregnate(cast_on)
-	. = ..()
+	return ..()
 
 /datum/action/cooldown/spell/list_target/impregnate/after_cast(atom/cast_on)
 	if(!impregnated)
 		reset_spell_cooldown()
 	impregnated = FALSE
-	. = ..()
+	return ..()
 
 #undef XENO_VECTOR_INJECT_COOLDOWN

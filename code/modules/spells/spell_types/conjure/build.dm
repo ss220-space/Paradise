@@ -13,7 +13,7 @@
 	var/turf/caster_t = get_turf(owner)
 	if(is_admin_level(caster_t.z)) //Stop crashing the server by spawning turfs on transit tiles
 		return FALSE
-	. = ..()
+	return ..()
 
 /datum/action/cooldown/spell/conjure/floor/holy
 	name = "Summon Holy Floor"

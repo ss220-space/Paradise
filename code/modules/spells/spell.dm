@@ -549,4 +549,4 @@
 	if(!should_go_on_cooldown)
 		should_go_on_cooldown = TRUE
 		return
-	. = ..()
+	return ..()

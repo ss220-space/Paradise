@@ -71,7 +71,7 @@
 		effects += effect_a
 		effects += effect_b
 	after_cast(cast_on)
-	.=..()
+	return ..()
 
 /datum/action/cooldown/spell/aoe/spacetime_dist/cast_on_thing_in_aoe(atom/victim, atom/caster)
 	return

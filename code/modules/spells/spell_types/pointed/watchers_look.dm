@@ -24,4 +24,4 @@
 		button_icon_state = projectiles_icons[selected_projectile]
 		UpdateButtonIcon()
 		return CLICK_ACTION_SUCCESS
-	. = ..()
+	return ..()
