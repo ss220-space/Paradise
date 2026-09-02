@@ -180,7 +180,7 @@
 /area/coldcolony/malta/bridge/vip)
 "acB" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/cup/glass/bottle/juice/cream,
+/obj/item/reagenat_containers/cup/glass/bottle/juice/cream,
 /obj/machinery/firealarm/directional/west,
 /obj/machinery/camera{
 	c_tag = "Kitchen";

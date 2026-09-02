@@ -76450,7 +76450,7 @@
 /area/station/maintenance/engineering)
 "slJ" = (
 /obj/structure/table,
-/obj/item/reagent_containers/cup/glass/bottle/juice/cream,
+/obj/item/reagenat_containers/cup/glass/bottle/juice/cream,
 /obj/item/kitchen/knife{
 	pixel_x = -8
 	},

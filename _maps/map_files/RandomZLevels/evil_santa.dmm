@@ -4218,7 +4218,7 @@
 "KM" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/snacks/mint,
-/obj/item/reagent_containers/cup/glass/bottle/juice/cream,
+/obj/item/reagenat_containers/cup/glass/bottle/juice/cream,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},

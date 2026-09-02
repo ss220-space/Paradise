@@ -1306,10 +1306,8 @@
 		PREPOSITIONAL = "бутылке (Обезьяний язык)",
 	)
 
-/*
- *	Syrup bottles, basically a unspillable cup that transfers reagents upon clicking on it with a cup
- */
-
+// MARK: Syrup bottles
+// Basically an unspillable cup that transfers reagents upon clicking on it with a cup
 /obj/item/reagent_containers/cup/bottle/syrup_bottle
 	name = "syrup bottle"
 	desc = "Стеклянная бутылка для сиропа, предназначенного для добавления в кофе. Оснащена удобным дозатором."
