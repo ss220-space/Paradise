@@ -58,20 +58,17 @@
 		mob_user = user
 
 	var/storage_loc = storage.loc
-	if(isstorage(storage_loc))
-		var/obj/item/storage/loc_storage = storage_loc
-		if(storage.w_class > loc_storage.max_w_class)
-			if(mob_user)
-				mob_user.balloon_alert(mob_user, "не хватит места!")
-			return BLOCK_INSERTING_ITEM
+	if(isstorage(storage_loc) && !istype(src, /obj/item/storage/backpack/holding))
+		mob_user?.balloon_alert(mob_user, "не хватит места!")
+		return BLOCK_INSERTING_ITEM
 
-	else if(ishuman(storage_loc))
+	if(ishuman(storage_loc))
 		var/mob/living/carbon/human/loc_human = storage_loc
 		var/slot_by_item = loc_human.get_slot_by_item(storage)
-		if(!(storage.slot_flags_2 & ITEM_FLAG_POCKET_LARGE) && (ITEM_SLOT_POCKETS & slot_by_item))
-			if(mob_user)
-				mob_user.balloon_alert(mob_user, "не хватит места!")
-			return BLOCK_INSERTING_ITEM
+		if((storage.slot_flags_2 & ITEM_FLAG_POCKET_LARGE) || !(ITEM_SLOT_POCKETS & slot_by_item))
+			return
+		mob_user?.balloon_alert(mob_user, "не хватит места!")
+		return BLOCK_INSERTING_ITEM
 
 /// For checking this component's existence on some storage.
 /datum/component/differentiate_storage_size/proc/return_component_existent()
