@@ -166,8 +166,6 @@
 	/// When demon first appears, it does not take damage while in Jaunt. He also doesn't take damage while he's eating someone.
 	var/resist_jaunt_damage = TRUE
 
-/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/Grant(mob/grant_to)
-	. = ..()
 /datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/Remove(mob/remove_from)
 	UnregisterSignal(remove_from, COMSIG_LIVING_DEATH)
 	return ..()
@@ -333,8 +331,7 @@
 /datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/exit_blood_effect(mob/living/exited)
 	. = ..()
 	if(prob(25))
-		var/list/voice = list('sound/hallucinations/behind_you1.ogg', 'sound/hallucinations/im_here1.ogg', 'sound/hallucinations/turn_around1.ogg', 'sound/hallucinations/i_see_you1.ogg')
-		playsound(exited, pick(voice), 50, TRUE, -1)
+		playsound(exited, SFX_BLOODCRAWL_EMERGE, 50, TRUE, -1)
 	exited.add_movespeed_modifier(/datum/movespeed_modifier/slaughter_boost)
 	addtimer(CALLBACK(exited, TYPE_PROC_REF(/mob, remove_movespeed_modifier), /datum/movespeed_modifier/slaughter_boost), 6 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE)
 
@@ -352,9 +349,6 @@
 /datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/funny/Destroy()
 	consumed_mobs.Cut()
 	return ..()
-
-/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/funny/Grant(mob/grant_to)
-	. = ..()
 
 /datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/funny/Remove(mob/living/remove_from)
 	UnregisterSignal(remove_from, COMSIG_LIVING_DEATH)

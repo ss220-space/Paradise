@@ -35,7 +35,7 @@
 			break
 
 		owner.forceMove(next_step)
-		playsound(owner.loc, pick('sound/effects/footstep/heavy1.ogg', 'sound/effects/footstep/heavy2.ogg'), 100, TRUE)
+		playsound(owner.loc, SFX_HEAVYFOOTSTEP, 100, TRUE)
 		sleep(0.05 SECONDS)
 
 	if(QDELETED(owner))

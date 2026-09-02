@@ -15,7 +15,7 @@
 /datum/action/cooldown/spell/greater_knock/cast(atom/cast_on)
 	. = ..()
 	used = TRUE
-	for(var/obj/machinery/door/airlock/A in GLOB.airlocks)
+	for(var/obj/machinery/door/airlock/A as anything in GLOB.airlocks)
 		if(is_station_level(A.z))
 			A.req_access = list()
 	GLOB.major_announcement.announce(

@@ -181,6 +181,7 @@
 	. = ..()
 	if(!.)
 		return
+
 /datum/action/cooldown/spell/jaunt/ethereal_jaunt/shift
 	name = "Phase Shift"
 	desc = "This spell allows you to pass through walls"
