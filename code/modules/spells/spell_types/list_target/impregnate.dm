@@ -62,6 +62,6 @@
 	if(!impregnated)
 		reset_spell_cooldown()
 	impregnated = FALSE
-	. = ..()
+	return ..()
 
 #undef XENO_VECTOR_INJECT_COOLDOWN
