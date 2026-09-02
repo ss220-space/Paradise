@@ -42875,7 +42875,7 @@
 	pixel_x = 5;
 	pixel_y = 17
 	},
-/obj/item/reagenat_containers/cup/glass/bottle/juice/cream,
+/obj/item/reagent_containers/cup/glass/bottle/juice/cream,
 /obj/item/reagent_containers/cup/bottle/sugar{
 	pixel_x = -5;
 	pixel_y = -4
@@ -53216,7 +53216,7 @@
 "ktJ" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/snacks/mint,
-/obj/item/reagenat_containers/cup/glass/bottle/juice/cream,
+/obj/item/reagent_containers/cup/glass/bottle/juice/cream,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"

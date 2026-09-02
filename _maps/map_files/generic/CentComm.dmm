@@ -19090,7 +19090,7 @@
 	pixel_y = 14
 	},
 /obj/item/stack/packageWrap,
-/obj/item/reagenat_containers/cup/glass/bottle/juice/cream,
+/obj/item/reagent_containers/cup/glass/bottle/juice/cream,
 /obj/item/reagent_containers/food/snacks/mint,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
@@ -47515,7 +47515,7 @@
 "vCK" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/packageWrap,
-/obj/item/reagenat_containers/cup/glass/bottle/juice/cream,
+/obj/item/reagent_containers/cup/glass/bottle/juice/cream,
 /obj/item/reagent_containers/food/snacks/mint,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"

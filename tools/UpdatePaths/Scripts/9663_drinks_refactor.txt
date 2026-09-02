@@ -10,17 +10,8 @@
 /obj/item/reagent_containers/food/drinks/soda_cans/@SUBTYPES : /obj/item/reagent_containers/cup/soda_cans/@SUBTYPES {@OLD}
 
 # Juices
-/obj/item/reagent_containers/food/drinks/glass/bottle/tomatojuice : /obj/item/reagent_containers/cup/glass/bottle/juice/tomatojuice {@OLD}
-/obj/item/reagent_containers/food/drinks/glass/bottle/orangejuice : /obj/item/reagent_containers/cup/glass/bottle/juice/orangejuice {@OLD}
-/obj/item/reagent_containers/food/drinks/glass/bottle/cream : /obj/item/reagent_containers/cup/glass/bottle/juice/cream {@OLD}
-/obj/item/reagent_containers/food/drinks/glass/bottle/limejuice : /obj/item/reagent_containers/cup/glass/bottle/juice/limejuice {@OLD}
-/obj/item/reagent_containers/food/drinks/glass/bottle/milk : /obj/item/reagent_containers/cup/glass/bottle/juice/milk {@OLD}
-
-/obj/item/reagent_containers/cup/glass/bottle/tomatojuice : /obj/item/reagent_containers/cup/glass/bottle/juice/tomatojuice {@OLD}
-/obj/item/reagent_containers/cup/glass/bottle/orangejuice : /obj/item/reagent_containers/cup/glass/bottle/juice/orangejuice {@OLD}
-/obj/item/reagent_containers/cup/glass/bottle/cream : /obj/item/reagent_containers/cup/glass/bottle/juice/cream {@OLD}
-/obj/item/reagent_containers/cup/glass/bottle/limejuice : /obj/item/reagent_containers/cup/glass/bottle/juice/limejuice {@OLD}
-/obj/item/reagent_containers/cup/glass/bottle/milk : /obj/item/reagent_containers/cup/glass/bottle/juice/milk {@OLD}
+/obj/item/reagent_containers/food/drinks/glass/bottle/@SUBTYPES : /obj/item/reagent_containers/cup/glass/bottle/juice/@SUBTYPES {@OLD}
+/obj/item/reagent_containers/cup/glass/bottle/@SUBTYPES: /obj/item/reagent_containers/cup/glass/bottle/juice/@SUBTYPES {@OLD}
 
 # Coffee cups
 /obj/item/reagent_containers/cup/glass/cups/coffee_cup/@SUBTYPES : /obj/item/reagent_containers/cup/glass/coffee_cup/@SUBTYPES {@OLD}

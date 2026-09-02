@@ -817,7 +817,7 @@
 /area/awaymission/academy/classrooms)
 "dH" = (
 /obj/structure/table,
-/obj/item/reagenat_containers/cup/glass/bottle/juice/cream,
+/obj/item/reagent_containers/cup/glass/bottle/juice/cream,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
