@@ -250,6 +250,7 @@
 	return TRUE
 
 /obj/machinery/power/compressor/multitool_act(mob/living/user, obj/item/I)
+	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 
@@ -667,7 +668,9 @@
 	ui_interact(user)
 
 /obj/machinery/computer/turbine_computer/multitool_act(mob/living/user, obj/item/I)
-	. = ..()
+	. = TRUE
+	if(!I.multitool_check_buffer(user))
+		return
 	var/obj/item/multitool/tool = I
 	compressor = tool.buffer
 	to_chat(user, span_notice("You link [src] to the turbine compressor in [I]'s buffer."))

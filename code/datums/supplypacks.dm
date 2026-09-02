@@ -3794,10 +3794,12 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 
 /datum/supply_packs/organic/monkey
-	name = "Шимпанзе"
-	contains = list (/obj/item/storage/box/monkeycubes,
+	name = "Кубы шимпанзе"
+	contains = list(
+		/obj/item/storage/box/monkeycubes,
 	)
 	cost = 30
+	required_tech = list(RESEARCH_TREE_BIOTECH = 5)
 	containername = "ящик шимпанзе"
 	container_ru_names = alist(
 		NOMINATIVE = "ящик шимпанзе",
@@ -3808,11 +3810,11 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике шимпанзе",
 	)
 
-/datum/supply_packs/organic/farwa
-	name = "Фарвы"
-	contains = list (/obj/item/storage/box/monkeycubes/farwacubes,
+/datum/supply_packs/organic/monkey/farwa
+	name = "Кубы фарв"
+	contains = list(
+		/obj/item/storage/box/monkeycubes/farwacubes,
 	)
-	cost = 30
 	containername = "ящик фарв"
 	container_ru_names = alist(
 		NOMINATIVE = "ящик фарв",
@@ -3823,11 +3825,11 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике фарв",
 	)
 
-/datum/supply_packs/organic/wolpin
-	name = "Вульпины"
-	contains = list (/obj/item/storage/box/monkeycubes/wolpincubes,
+/datum/supply_packs/organic/monkey/wolpin
+	name = "Кубы вульпинов"
+	contains = list(
+		/obj/item/storage/box/monkeycubes/wolpincubes,
 	)
-	cost = 30
 	containername = "ящик вульпинов"
 	container_ru_names = alist(
 		NOMINATIVE = "ящик вульпинов",
@@ -3838,11 +3840,11 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике вульпинов",
 	)
 
-/datum/supply_packs/organic/skrell
-	name = "Неары"
-	contains = list (/obj/item/storage/box/monkeycubes/neaeracubes,
+/datum/supply_packs/organic/monkey/skrell
+	name = "Кубы неар"
+	contains = list(
+		/obj/item/storage/box/monkeycubes/neaeracubes,
 	)
-	cost = 30
 	containername = "ящик неар"
 	container_ru_names = alist(
 		NOMINATIVE = "ящик неар",
@@ -3853,11 +3855,11 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике неар",
 	)
 
-/datum/supply_packs/organic/stok
-	name = "Стоки"
-	contains = list (/obj/item/storage/box/monkeycubes/stokcubes,
+/datum/supply_packs/organic/monkey/stok
+	name = "Кубы стоков"
+	contains = list(
+		/obj/item/storage/box/monkeycubes/stokcubes,
 	)
-	cost = 30
 	containername = "ящик стоков"
 	container_ru_names = alist(
 		NOMINATIVE = "ящик стоков",

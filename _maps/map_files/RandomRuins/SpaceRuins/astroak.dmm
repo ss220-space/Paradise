@@ -1,4 +1,9 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ap" = (
+/obj/structure/table/wood/fancy/red,
+/obj/item/flashlight/lantern/on,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
 "aP" = (
 /obj/structure/cult/archives,
 /obj/item/clothing/suit/space/cult,
@@ -48,6 +53,14 @@
 "eM" = (
 /obj/structure/table/wood/fancy,
 /obj/item/storage/fancy/cigarettes/cigpack_carp,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"fl" = (
+/obj/item/reagent_containers/cup/bucket/wooden,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"fv" = (
+/obj/item/reagent_containers/cup/glass/bottle/unholywater,
 /turf/simulated/floor/wood/fancy/birch,
 /area/ruin/unpowered)
 "fM" = (
@@ -145,10 +158,6 @@
 "mw" = (
 /turf/simulated/mineral/random/high_chance,
 /area/ruin/unpowered/no_grav)
-"mM" = (
-/obj/item/reagent_containers/cup/bucket/wooden,
-/turf/simulated/floor/wood/fancy/birch,
-/area/ruin/unpowered)
 "ne" = (
 /obj/structure/table_frame/wood,
 /obj/effect/mapping_helpers/turfs/damage,
@@ -170,13 +179,6 @@
 	amount = 2
 	},
 /obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/wood/fancy/birch,
-/area/ruin/unpowered)
-"nG" = (
-/obj/structure/table/wood/fancy/red,
-/obj/item/flashlight/lantern{
-	icon_state = "lantern-on"
-	},
 /turf/simulated/floor/wood/fancy/birch,
 /area/ruin/unpowered)
 "nL" = (
@@ -230,10 +232,6 @@
 	},
 /turf/simulated/floor/wood/fancy/birch/airless,
 /area/ruin/unpowered/no_grav)
-"rA" = (
-/obj/item/reagent_containers/cup/glass/bottle/unholywater,
-/turf/simulated/floor/wood/fancy/birch,
-/area/ruin/unpowered)
 "rD" = (
 /obj/effect/turf_decal{
 	dir = 1;
@@ -443,15 +441,12 @@
 	},
 /turf/simulated/floor/grass,
 /area/ruin/unpowered)
-"DS" = (
-/obj/item/flashlight/lantern{
-	icon_state = "lantern-on";
-	pixel_x = 6
-	},
-/turf/simulated/floor/wood/fancy/birch,
-/area/ruin/unpowered)
 "DX" = (
 /turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"Ea" = (
+/obj/item/flashlight/lantern/on,
+/turf/simulated/floor/engine/cult,
 /area/ruin/unpowered)
 "Eg" = (
 /obj/effect/mapping_helpers/turfs/damage,
@@ -551,12 +546,6 @@
 "Hd" = (
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/unpowered)
-"HE" = (
-/obj/item/flashlight/lantern{
-	icon_state = "lantern-on"
-	},
-/turf/simulated/floor/engine/cult,
 /area/ruin/unpowered)
 "HL" = (
 /turf/simulated/floor/engine/cult,
@@ -855,6 +844,12 @@
 	dir = 4
 	},
 /turf/simulated/floor/grass,
+/area/ruin/unpowered)
+"WF" = (
+/obj/item/flashlight/lantern/on{
+	pixel_x = 6
+	},
+/turf/simulated/floor/wood/fancy/birch,
 /area/ruin/unpowered)
 "Yx" = (
 /obj/effect/mapping_helpers/turfs/damage,
@@ -1402,7 +1397,7 @@ GI
 DX
 zC
 KJ
-mM
+fl
 pq
 Uy
 Uy
@@ -1603,7 +1598,7 @@ mw
 mw
 mw
 pq
-nG
+ap
 dw
 DX
 LX
@@ -1738,7 +1733,7 @@ pq
 DX
 DX
 wh
-DS
+WF
 pq
 pq
 Uy
@@ -1942,7 +1937,7 @@ aP
 HL
 Af
 dw
-rA
+fv
 ED
 pq
 pq
@@ -2067,7 +2062,7 @@ pq
 HL
 DX
 DX
-HE
+Ea
 Af
 HL
 cb

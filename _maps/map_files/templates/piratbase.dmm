@@ -21,16 +21,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/arrivals)
-"ad" = (
-/obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/cup/soda_cans/energy,
-/obj/item/reagent_containers/food/snacks/meat,
-/obj/item/reagent_containers/food/snacks/bun,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
-	},
-/area/ruin/space/pirate_base/lab_hall)
 "af" = (
 /obj/machinery/light/small,
 /obj/machinery/portable_atmospherics/canister/oxygen{
@@ -243,6 +233,23 @@
 	},
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/pirate_base/prison_solar)
+"aQ" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/table,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/item/reagent_containers/cup/glass/bottle/juice/orangejuice,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/ruin/space/pirate_base/atrium)
 "aT" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
@@ -424,6 +431,23 @@
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
+"bz" = (
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/cup/beaker/large{
+	pixel_y = 8
+	},
+/obj/effect/turf_decal/siding/thinplating,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/pirate_base/kitchen)
 "bA" = (
 /obj/structure/chair/stool,
 /obj/effect/decal/cleanable/dirt,
@@ -892,20 +916,6 @@
 	icon_state = "darkblue"
 	},
 /area/shuttle/pirate_corvette)
-"cV" = (
-/obj/effect/turf_decal/box,
-/obj/structure/closet/crate/secure/biohazard{
-	req_access = list(161)
-	},
-/obj/item/reagent_containers/cup/bottle/retrovirus,
-/obj/item/slimepotion/speed{
-	pixel_x = 3;
-	pixel_y = 2
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/space/pirate_base/lab_hall)
 "cW" = (
 /obj/effect/turf_decal/siding/brown/corner{
 	dir = 8
@@ -944,23 +954,6 @@
 /obj/item/seeds/wheat/rice,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood,
-/area/ruin/space/pirate_base/kitchen)
-"db" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/cup/beaker/large{
-	pixel_y = 8
-	},
-/obj/effect/turf_decal/siding/thinplating,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
 /area/ruin/space/pirate_base/kitchen)
 "dc" = (
 /obj/machinery/computer/slot_machine,
@@ -1131,6 +1124,22 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/security_maint)
+"dy" = (
+/obj/structure/table,
+/obj/item/reagent_containers/spray/cleaner/medical{
+	pixel_x = -3;
+	pixel_y = 1
+	},
+/obj/item/reagent_containers/cup/bottle/ether{
+	pixel_x = 6
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/syringe/calomel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkblue"
+	},
+/area/ruin/space/pirate_base/lab_medical)
 "dz" = (
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
@@ -1149,6 +1158,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/mining)
+"dC" = (
+/obj/structure/closet/crate/freezer,
+/obj/item/reagent_containers/cup/soda_cans/energy,
+/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/reagent_containers/food/snacks/bun,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/pirate_base/lab_hall)
 "dD" = (
 /turf/simulated/floor/engine,
 /area/ruin/space/pirate_base/virus_lab)
@@ -1267,6 +1286,19 @@
 	icon_state = "whitepurple"
 	},
 /area/ruin/space/pirate_base/laboratory)
+"dU" = (
+/obj/effect/spawner/random_spawners/syndicate/loot/level2{
+	result = list(/obj/item/storage/box/syndie_kit/space = 2, /obj/item/clothing/shoes/magboots/syndie = 2, /obj/item/clothing/suit/armor/vest/combat = 2, /obj/item/ammo_box/magazine/m10mm = 7, /obj/item/storage/pill_bottle/happy = 1, /obj/item/storage/pill_bottle/zoom = 2, /obj/item/storage/pill_bottle/random_drug_bottle = 2, /obj/item/clothing/shoes/chameleon/noslip = 3, /obj/item/storage/belt/military = 5, /obj/item/clothing/under/chameleon = 3, /obj/item/storage/backpack/satchel_flat = 1, /obj/item/stamp/chameleon = 3, /obj/item/flag/chameleon = 1, /obj/item/lighter/zippo/gonzofist = 1, /obj/item/clothing/gloves/fingerless/rapid = 1, /obj/item/storage/box/syndie_kit/throwing_weapons = 1, /obj/item/pen/edagger = 1, /obj/item/reagent_containers/food/snacks/syndicake = 2, /obj/item/coin/antagtoken/syndicate = 2, /obj/item/gun/projectile/automatic/pistol/stechkin = 4, /obj/item/gun/syringe/rapidsyringe = 2, /obj/item/storage/box/syndie_kit/bioterror = 2, /obj/item/holosign_creator/janitor/syndie = 1)
+	},
+/obj/structure/closet/crate/syndicate,
+/obj/effect/spawner/random_spawners/syndicate/loot/level2{
+	result = list(/obj/item/storage/box/syndie_kit/space = 2, /obj/item/clothing/shoes/magboots/syndie = 2, /obj/item/clothing/suit/armor/vest/combat = 2, /obj/item/ammo_box/magazine/m10mm = 7, /obj/item/storage/pill_bottle/happy = 1, /obj/item/storage/pill_bottle/zoom = 2, /obj/item/storage/pill_bottle/random_drug_bottle = 2, /obj/item/clothing/shoes/chameleon/noslip = 3, /obj/item/storage/belt/military = 5, /obj/item/clothing/under/chameleon = 3, /obj/item/storage/backpack/satchel_flat = 1, /obj/item/stamp/chameleon = 3, /obj/item/flag/chameleon = 1, /obj/item/lighter/zippo/gonzofist = 1, /obj/item/clothing/gloves/fingerless/rapid = 1, /obj/item/storage/box/syndie_kit/throwing_weapons = 1, /obj/item/pen/edagger = 1, /obj/item/reagent_containers/food/snacks/syndicake = 2, /obj/item/coin/antagtoken/syndicate = 2, /obj/item/gun/projectile/automatic/pistol/stechkin = 4, /obj/item/gun/syringe/rapidsyringe = 2, /obj/item/storage/box/syndie_kit/bioterror = 2, /obj/item/holosign_creator/janitor/syndie = 1)
+	},
+/obj/effect/spawner/random_spawners/syndicate/loot/level2{
+	result = list(/obj/item/storage/box/syndie_kit/space = 2, /obj/item/clothing/shoes/magboots/syndie = 2, /obj/item/clothing/suit/armor/vest/combat = 2, /obj/item/ammo_box/magazine/m10mm = 7, /obj/item/storage/pill_bottle/happy = 1, /obj/item/storage/pill_bottle/zoom = 2, /obj/item/storage/pill_bottle/random_drug_bottle = 2, /obj/item/clothing/shoes/chameleon/noslip = 3, /obj/item/storage/belt/military = 5, /obj/item/clothing/under/chameleon = 3, /obj/item/storage/backpack/satchel_flat = 1, /obj/item/stamp/chameleon = 3, /obj/item/flag/chameleon = 1, /obj/item/lighter/zippo/gonzofist = 1, /obj/item/clothing/gloves/fingerless/rapid = 1, /obj/item/storage/box/syndie_kit/throwing_weapons = 1, /obj/item/pen/edagger = 1, /obj/item/reagent_containers/food/snacks/syndicake = 2, /obj/item/coin/antagtoken/syndicate = 2, /obj/item/gun/projectile/automatic/pistol/stechkin = 4, /obj/item/gun/syringe/rapidsyringe = 2, /obj/item/storage/box/syndie_kit/bioterror = 2, /obj/item/holosign_creator/janitor/syndie = 1)
+	},
+/turf/simulated/floor/pod/light,
+/area/ruin/space/pirate_base/security_maint)
 "dV" = (
 /obj/machinery/door/airlock/highsecurity{
 	aiControlDisabled = 1;
@@ -1455,6 +1487,20 @@
 	icon_state = "arrival"
 	},
 /area/shuttle/pirate_corvette)
+"es" = (
+/obj/effect/turf_decal/box,
+/obj/structure/closet/crate/secure/biohazard{
+	req_access = list(161)
+	},
+/obj/item/reagent_containers/cup/bottle/retrovirus,
+/obj/item/slimepotion/speed{
+	pixel_x = 3;
+	pixel_y = 2
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/lab_hall)
 "et" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -1648,6 +1694,50 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/telecomms)
+"eZ" = (
+/obj/structure/table,
+/obj/item/reagent_containers/syringe/antiviral,
+/obj/item/reagent_containers/syringe/charcoal,
+/obj/item/reagent_containers/syringe/insulin,
+/obj/item/reagent_containers/cup/bottle/morphine,
+/obj/item/reagent_containers/cup/bottle/epinephrine,
+/obj/item/reagent_containers/syringe,
+/obj/item/stack/medical/bruise_pack/advanced{
+	pixel_x = 6;
+	pixel_y = 6
+	},
+/obj/item/stack/medical/ointment/advanced{
+	pixel_x = 6;
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/food/pill/patch/styptic{
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/food/pill/patch/styptic{
+	pixel_x = 2;
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/food/pill/patch/silver_sulf{
+	pixel_x = -8;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/food/pill/patch/silver_sulf{
+	pixel_x = -8;
+	pixel_y = 8
+	},
+/obj/item/storage/pill_bottle/painkillers{
+	pixel_x = -6;
+	pixel_y = 4
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/item/clothing/mask/surgical,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "arrival"
+	},
+/area/shuttle/pirate_corvette)
 "fa" = (
 /obj/effect/turf_decal/siding/blue,
 /obj/structure/cable{
@@ -1751,23 +1841,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/virus_lab)
-"fi" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/cabinet,
-/obj/item/reagent_containers/cup/soda_cans/badminbrew{
-	desc = "Probably shouldn't drink this one at all.";
-	name = "expired beer"
-	},
-/obj/item/reagent_containers/cup/soda_cans/badminbrew{
-	desc = "Probably shouldn't drink this one at all.";
-	name = "expired beer"
-	},
-/obj/item/reagent_containers/cup/glass/bottle/vermouth,
-/obj/item/reagent_containers/cup/glass/bottle/cognac,
-/obj/item/reagent_containers/cup/glass/bottle/kahlua,
-/obj/item/reagent_containers/cup/glass/bottle/vodka,
-/turf/simulated/floor/plating,
-/area/ruin/space/pirate_base/entertainment)
 "fj" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/effect/decal/cleanable/dirt,
@@ -1775,26 +1848,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/arrivals)
-"fl" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/item/storage/fancy/egg_box,
-/obj/item/reagent_containers/condiment/milk,
-/obj/item/reagent_containers/condiment/milk,
-/obj/item/reagent_containers/condiment/soymilk,
-/obj/item/reagent_containers/condiment/soymilk,
-/obj/item/reagent_containers/condiment/flour,
-/obj/structure/closet/secure_closet{
-	name = "kitchen cabinet"
-	},
-/obj/item/reagent_containers/condiment/flour,
-/obj/item/reagent_containers/condiment/rice,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/ruin/space/pirate_base/kitchen)
 "fp" = (
 /obj/structure/rack,
 /obj/item/storage/box/syndie_kit/pistol_ammo,
@@ -2144,6 +2197,27 @@
 	icon_state = "white"
 	},
 /area/ruin/space/pirate_base/kitchen)
+"gu" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/obj/item/reagent_containers/condiment/peppermill{
+	pixel_x = 3;
+	pixel_y = 11
+	},
+/mob/living/simple_animal/hostile/zombie/whiteship/fast,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/card/id/warden{
+	access = list(161);
+	desc = "ID Card.";
+	name = "Laboratory ID";
+	registered_name = "Access Card"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/pirate_base/lab_hall)
 "gw" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/pill/patch/synthflesh,
@@ -2299,13 +2373,6 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/security_maint)
-"gY" = (
-/obj/structure/closet/crate/trashcart,
-/obj/item/reagent_containers/cup/bottle,
-/obj/item/storage/bag/trash,
-/obj/item/trash/tapetrash,
-/turf/simulated/floor/plating,
-/area/ruin/space/pirate_base/laboratory)
 "ha" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -2460,13 +2527,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
-"hx" = (
-/obj/effect/turf_decal/stripes/gold{
-	dir = 10
-	},
-/obj/item/reagent_containers/cup/bucket/wooden,
-/turf/simulated/floor/grass,
-/area/ruin/space/pirate_base/kitchen)
 "hz" = (
 /obj/effect/turf_decal/siding/brown{
 	dir = 1
@@ -3019,16 +3079,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/xeno_lab)
-"jp" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/obj/effect/turf_decal/siding/wood,
-/obj/item/reagent_containers/cup/bucket,
-/turf/simulated/floor/plasteel{
-	icon_state = "sepia"
-	},
-/area/ruin/space/pirate_base/kitchen)
 "jq" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -3744,22 +3794,6 @@
 /obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/laboratory)
-"lD" = (
-/obj/structure/table,
-/obj/item/reagent_containers/spray/cleaner/medical{
-	pixel_x = -3;
-	pixel_y = 1
-	},
-/obj/item/reagent_containers/cup/bottle/ether{
-	pixel_x = 6
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/syringe/calomel,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
-	},
-/area/ruin/space/pirate_base/lab_medical)
 "lE" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
@@ -3824,16 +3858,6 @@
 	},
 /turf/simulated/floor/grass,
 /area/ruin/space/pirate_base/kitchen)
-"lQ" = (
-/obj/item/reagent_containers/cup/glass/bottle/vodka{
-	pixel_x = 5;
-	pixel_y = 15
-	},
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/structure/table/wood/fancy,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood,
-/area/ruin/space/pirate_base/atmos)
 "lR" = (
 /obj/machinery/hydroponics/constructable,
 /obj/item/seeds/berry,
@@ -3903,6 +3927,20 @@
 "mc" = (
 /turf/simulated/wall/r_wall,
 /area/ruin/space/pirate_base/atmos)
+"me" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/table/wood,
+/obj/item/reagent_containers/cup/beaker/waterbottle,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/pirate_base/atrium)
 "mg" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/simulated/floor/plating,
@@ -3951,6 +3989,19 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
+"mn" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/structure/closet/crate/plastic,
+/obj/item/storage/bag/trash,
+/obj/item/storage/bag/trash,
+/obj/item/reagent_containers/cup/bucket,
+/obj/item/reagent_containers/cup/bucket,
+/obj/item/mop,
+/obj/item/mop,
+/turf/simulated/floor/plating,
+/area/ruin/space/pirate_base/atmos)
 "mo" = (
 /obj/structure/table/reinforced,
 /obj/structure/window/plasmareinforced{
@@ -4425,6 +4476,13 @@
 	icon_state = "darkbluefull"
 	},
 /area/ruin/space/pirate_base/lab_medical)
+"nF" = (
+/obj/structure/closet/crate/trashcart,
+/obj/item/reagent_containers/cup/bottle,
+/obj/item/storage/bag/trash,
+/obj/item/trash/tapetrash,
+/turf/simulated/floor/plating,
+/area/ruin/space/pirate_base/laboratory)
 "nH" = (
 /obj/item/stack/medical/suture,
 /turf/simulated/floor/plasteel,
@@ -5572,27 +5630,6 @@
 /obj/machinery/biogenerator,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/kitchen)
-"rg" = (
-/obj/structure/chair{
-	dir = 1
-	},
-/obj/item/reagent_containers/condiment/peppermill{
-	pixel_x = 3;
-	pixel_y = 11
-	},
-/mob/living/simple_animal/hostile/zombie/whiteship/fast,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/card/id/warden{
-	access = list(161);
-	desc = "ID Card.";
-	name = "Laboratory ID";
-	registered_name = "Access Card"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
-	},
-/area/ruin/space/pirate_base/lab_hall)
 "rh" = (
 /turf/simulated/wall/rust,
 /area/ruin/space/pirate_base/atrium)
@@ -5861,6 +5898,17 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/lab_hall)
+"sl" = (
+/obj/structure/closet/crate/secure/weapon{
+	req_access = list(160)
+	},
+/obj/item/reagent_containers/cup/glass/bottle/rum,
+/obj/item/reagent_containers/cup/glass/bottle/rum,
+/obj/item/reagent_containers/cup/glass/bottle/rum,
+/obj/item/reagent_containers/cup/glass/bottle/rum,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/pod/light,
+/area/ruin/space/pirate_base/security_maint)
 "sn" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -6379,31 +6427,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/lab_hall)
-"tN" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/table,
-/obj/item/reagent_containers/cup/beaker/cryoxadone{
-	pixel_x = -6;
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/cup/beaker/cryoxadone{
-	pixel_x = 8;
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/spray/cleaner/medical,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "cmo"
-	},
-/area/ruin/space/pirate_base/security_medical)
 "tO" = (
 /obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/plasteel{
@@ -6682,23 +6705,6 @@
 /obj/structure/table,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/security_maint)
-"uE" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/table,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/item/reagent_containers/cup/glass/bottle/juice/orangejuice,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
-/area/ruin/space/pirate_base/atrium)
 "uF" = (
 /obj/item/mining_scanner,
 /obj/structure/rack,
@@ -6825,15 +6831,6 @@
 	},
 /turf/space,
 /area/space)
-"uU" = (
-/obj/structure/closet/crate/medical,
-/obj/item/reagent_containers/cup/bottle/charcoal,
-/obj/item/reagent_containers/cup/bottle/morphine,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkpurple"
-	},
-/area/ruin/space/pirate_base/virology)
 "uV" = (
 /obj/structure/table/glass,
 /obj/item/clipboard,
@@ -7046,50 +7043,6 @@
 /obj/item/kitchen/utensil/pspoon,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/kitchen)
-"vy" = (
-/obj/structure/table,
-/obj/item/reagent_containers/syringe/antiviral,
-/obj/item/reagent_containers/syringe/charcoal,
-/obj/item/reagent_containers/syringe/insulin,
-/obj/item/reagent_containers/cup/bottle/morphine,
-/obj/item/reagent_containers/cup/bottle/epinephrine,
-/obj/item/reagent_containers/syringe,
-/obj/item/stack/medical/bruise_pack/advanced{
-	pixel_x = 6;
-	pixel_y = 6
-	},
-/obj/item/stack/medical/ointment/advanced{
-	pixel_x = 6;
-	pixel_y = 8
-	},
-/obj/item/reagent_containers/food/pill/patch/styptic{
-	pixel_y = 6
-	},
-/obj/item/reagent_containers/food/pill/patch/styptic{
-	pixel_x = 2;
-	pixel_y = 8
-	},
-/obj/item/reagent_containers/food/pill/patch/silver_sulf{
-	pixel_x = -8;
-	pixel_y = 6
-	},
-/obj/item/reagent_containers/food/pill/patch/silver_sulf{
-	pixel_x = -8;
-	pixel_y = 8
-	},
-/obj/item/storage/pill_bottle/painkillers{
-	pixel_x = -6;
-	pixel_y = 4
-	},
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/item/clothing/mask/surgical,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "arrival"
-	},
-/area/shuttle/pirate_corvette)
 "vz" = (
 /obj/effect/decal/remains/human,
 /obj/item/clothing/head/helmet,
@@ -7470,14 +7423,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_solar)
-"wE" = (
-/obj/structure/rack,
-/obj/effect/spawner/random_spawners/syndicate/loot/level2{
-	result = list(/obj/item/storage/box/syndie_kit/space = 2, /obj/item/clothing/shoes/magboots/syndie = 2, /obj/item/clothing/suit/armor/vest/combat = 2, /obj/item/ammo_box/magazine/m10mm = 7, /obj/item/storage/pill_bottle/happy = 1, /obj/item/storage/pill_bottle/zoom = 2, /obj/item/storage/pill_bottle/random_drug_bottle = 2, /obj/item/clothing/shoes/chameleon/noslip = 3, /obj/item/storage/belt/military = 5, /obj/item/clothing/under/chameleon = 3, /obj/item/storage/backpack/satchel_flat = 1, /obj/item/stamp/chameleon = 3, /obj/item/flag/chameleon = 1, /obj/item/lighter/zippo/gonzofist = 1, /obj/item/clothing/gloves/fingerless/rapid = 1, /obj/item/storage/box/syndie_kit/throwing_weapons = 1, /obj/item/pen/edagger = 1, /obj/item/reagent_containers/food/snacks/syndicake = 2, /obj/item/coin/antagtoken/syndicate = 2, /obj/item/gun/projectile/automatic/pistol = 4, /obj/item/gun/syringe/rapidsyringe = 8, /obj/item/storage/box/syndie_kit/bioterror = 8)
-	},
-/obj/item/gun_module/muzzle/suppressor,
-/turf/simulated/floor/pod/light,
-/area/ruin/space/pirate_base/security_maint)
 "wF" = (
 /obj/effect/decal/cleanable/fungus,
 /turf/simulated/wall/r_wall,
@@ -7709,6 +7654,16 @@
 "xw" = (
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
+"xx" = (
+/obj/item/reagent_containers/cup/glass/bottle/vodka{
+	pixel_x = 5;
+	pixel_y = 15
+	},
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/table/wood/fancy,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood,
+/area/ruin/space/pirate_base/atmos)
 "xz" = (
 /obj/structure/table/tray,
 /obj/item/storage/backpack/duffel/syndie/surgery,
@@ -7889,15 +7844,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/lab_hall)
-"xZ" = (
-/obj/structure/closet/crate/plastic,
-/obj/item/mop,
-/obj/item/storage/bag/trash,
-/obj/item/reagent_containers/cup/bucket,
-/obj/item/soap,
-/obj/item/reagent_containers/spray/cleaner/janitor,
-/turf/simulated/floor/plating,
-/area/ruin/space/pirate_base/lab_maint)
 "ya" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -8012,6 +7958,17 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
+"yt" = (
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/condiment/rice,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/pirate_base/kitchen)
 "yu" = (
 /obj/structure/closet/crate/can,
 /obj/item/trash/chips,
@@ -8263,20 +8220,6 @@
 /obj/item/holosign_creator/atmos,
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
-"zp" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/structure/table,
-/obj/item/reagent_containers/cup/beaker/large{
-	pixel_y = 8
-	},
-/obj/machinery/alarm/syndicate/pirate/directional/east,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/ruin/space/pirate_base/kitchen)
 "zq" = (
 /turf/simulated/floor/plasteel,
 /area/shuttle/pirate_corvette)
@@ -8680,6 +8623,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/laboratory)
+"Aw" = (
+/obj/structure/table/wood,
+/obj/item/stack/tickets{
+	amount = 12
+	},
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/pirate_base/entertainment)
 "Ax" = (
 /obj/effect/turf_decal/stripes/gold{
 	dir = 8
@@ -8977,6 +8929,13 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/lab_sec)
+"By" = (
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
+/obj/structure/table/wood/fancy,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood,
+/area/ruin/space/pirate_base/atmos)
 "BA" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -9628,6 +9587,15 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/ruin/space/pirate_base/laboratory)
+"DK" = (
+/obj/structure/rack,
+/obj/effect/spawner/random_spawners/syndicate/loot/level2{
+	result = list(/obj/item/storage/box/syndie_kit/space = 2, /obj/item/clothing/shoes/magboots/syndie = 2, /obj/item/clothing/suit/armor/vest/combat = 2, /obj/item/ammo_box/magazine/m10mm = 7, /obj/item/storage/pill_bottle/happy = 1, /obj/item/storage/pill_bottle/zoom = 2, /obj/item/storage/pill_bottle/random_drug_bottle = 2, /obj/item/clothing/shoes/chameleon/noslip = 3, /obj/item/storage/belt/military = 5, /obj/item/clothing/under/chameleon = 3, /obj/item/storage/backpack/satchel_flat = 1, /obj/item/stamp/chameleon = 3, /obj/item/flag/chameleon = 1, /obj/item/lighter/zippo/gonzofist = 1, /obj/item/clothing/gloves/fingerless/rapid = 1, /obj/item/storage/box/syndie_kit/throwing_weapons = 1, /obj/item/pen/edagger = 1, /obj/item/reagent_containers/food/snacks/syndicake = 2, /obj/item/coin/antagtoken/syndicate = 2, /obj/item/gun/projectile/automatic/pistol/stechkin = 4, /obj/item/gun/syringe/rapidsyringe = 8, /obj/item/storage/box/syndie_kit/bioterror = 8)
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/medical/suture/advanced,
+/turf/simulated/floor/pod/light,
+/area/ruin/space/pirate_base/security_maint)
 "DL" = (
 /obj/effect/turf_decal/delivery/red,
 /obj/machinery/door/poddoor/shutters{
@@ -9674,6 +9642,39 @@
 	icon_state = "white"
 	},
 /area/ruin/space/pirate_base/kitchen)
+"DY" = (
+/obj/structure/table,
+/obj/structure/sign/poster/contraband/revolver{
+	pixel_y = 32
+	},
+/obj/item/ammo_box/magazine/m10mm{
+	pixel_x = -4;
+	pixel_y = 3
+	},
+/obj/item/ammo_box/magazine/m10mm{
+	pixel_x = -4;
+	pixel_y = 3
+	},
+/obj/item/ammo_box/magazine/m10mm{
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/obj/item/ammo_box/magazine/m10mm{
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/obj/item/gun/projectile/automatic/pistol/stechkin{
+	pixel_x = -2;
+	pixel_y = 6
+	},
+/obj/item/gun/projectile/automatic/pistol/stechkin{
+	pixel_x = 3
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkred"
+	},
+/area/shuttle/pirate_corvette)
 "Eb" = (
 /obj/structure/disposalpipe/segment{
 	dir = 10
@@ -9716,6 +9717,15 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/observ)
+"Eg" = (
+/obj/structure/closet/crate/medical,
+/obj/item/reagent_containers/cup/bottle/charcoal,
+/obj/item/reagent_containers/cup/bottle/morphine,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkpurple"
+	},
+/area/ruin/space/pirate_base/virology)
 "Ei" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -9902,6 +9912,19 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/security_maint)
+"EH" = (
+/obj/structure/table,
+/obj/machinery/door/window/eastright,
+/obj/item/reagent_containers/food/snacks/chinese/sweetsourchickenball,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/item/reagent_containers/condiment/peppermill{
+	pixel_x = 3;
+	pixel_y = 11
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/pirate_base/kitchen)
 "EJ" = (
 /obj/structure/chair/stool,
 /obj/structure/sign/poster/contraband/missing_gloves{
@@ -10544,15 +10567,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/arrivals)
-"GK" = (
-/obj/item/reagent_containers/cup/glass/bottle/whiskey,
-/obj/structure/table,
-/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
-/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/space/pirate_base/observ)
 "GL" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -11124,6 +11138,10 @@
 	icon_state = "darkblue"
 	},
 /area/shuttle/pirate_corvette)
+"Ir" = (
+/obj/item/gun/projectile/automatic/pistol/stechkin,
+/turf/simulated/floor/plating,
+/area/ruin/space/pirate_base/telecomms)
 "Is" = (
 /turf/simulated/wall,
 /area/ruin/space/pirate_base/arrivals)
@@ -11353,15 +11371,13 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/ruin/space/pirate_base/laboratory)
-"Jh" = (
-/obj/structure/rack,
-/obj/effect/spawner/random_spawners/syndicate/loot/level2{
-	result = list(/obj/item/storage/box/syndie_kit/space = 2, /obj/item/clothing/shoes/magboots/syndie = 2, /obj/item/clothing/suit/armor/vest/combat = 2, /obj/item/ammo_box/magazine/m10mm = 7, /obj/item/storage/pill_bottle/happy = 1, /obj/item/storage/pill_bottle/zoom = 2, /obj/item/storage/pill_bottle/random_drug_bottle = 2, /obj/item/clothing/shoes/chameleon/noslip = 3, /obj/item/storage/belt/military = 5, /obj/item/clothing/under/chameleon = 3, /obj/item/storage/backpack/satchel_flat = 1, /obj/item/stamp/chameleon = 3, /obj/item/flag/chameleon = 1, /obj/item/lighter/zippo/gonzofist = 1, /obj/item/clothing/gloves/fingerless/rapid = 1, /obj/item/storage/box/syndie_kit/throwing_weapons = 1, /obj/item/pen/edagger = 1, /obj/item/reagent_containers/food/snacks/syndicake = 2, /obj/item/coin/antagtoken/syndicate = 2, /obj/item/gun/projectile/automatic/pistol = 4, /obj/item/gun/syringe/rapidsyringe = 8, /obj/item/storage/box/syndie_kit/bioterror = 8)
+"Jj" = (
+/obj/effect/turf_decal/stripes/gold{
+	dir = 10
 	},
-/obj/effect/decal/cleanable/dirt,
-/obj/item/stack/medical/suture/advanced,
-/turf/simulated/floor/pod/light,
-/area/ruin/space/pirate_base/security_maint)
+/obj/item/reagent_containers/cup/bucket/wooden,
+/turf/simulated/floor/grass,
+/area/ruin/space/pirate_base/kitchen)
 "Jk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -11386,17 +11402,6 @@
 	icon_state = "white"
 	},
 /area/ruin/space/pirate_base/kitchen)
-"Jn" = (
-/obj/structure/table,
-/obj/effect/turf_decal/siding/blue,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/condiment/saltshaker{
-	pixel_x = -3
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
-/area/ruin/space/pirate_base/atrium)
 "Jp" = (
 /obj/machinery/conveyor_switch/oneway{
 	id = "pirategarbage"
@@ -11559,6 +11564,31 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/lab_sec)
+"JG" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/table,
+/obj/item/reagent_containers/cup/beaker/cryoxadone{
+	pixel_x = -6;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/cup/beaker/cryoxadone{
+	pixel_x = 8;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/spray/cleaner/medical,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "cmo"
+	},
+/area/ruin/space/pirate_base/security_medical)
 "JI" = (
 /obj/effect/decal/cleanable/blood/writing,
 /obj/structure/barricade/wooden,
@@ -11641,26 +11671,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
-"JS" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/structure/closet/secure_closet/freezer{
-	icon_state = "fridge"
-	},
-/obj/item/reagent_containers/condiment/milk,
-/obj/item/reagent_containers/condiment/milk,
-/obj/item/reagent_containers/food/snacks/chocolatebar,
-/obj/item/storage/box/donkpockets,
-/obj/item/reagent_containers/food/snacks/cheesiehonkers,
-/obj/item/reagent_containers/food/snacks/doshik,
-/obj/item/reagent_containers/food/snacks/doshik,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
-	},
-/area/shuttle/pirate_corvette)
 "JT" = (
 /obj/effect/turf_decal/box,
 /obj/structure/closet/crate/sci,
@@ -11722,6 +11732,23 @@
 /obj/effect/decal/cleanable/dust,
 /turf/space,
 /area/space)
+"Kg" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/cabinet,
+/obj/item/reagent_containers/cup/soda_cans/badminbrew{
+	desc = "Probably shouldn't drink this one at all.";
+	name = "expired beer"
+	},
+/obj/item/reagent_containers/cup/soda_cans/badminbrew{
+	desc = "Probably shouldn't drink this one at all.";
+	name = "expired beer"
+	},
+/obj/item/reagent_containers/cup/glass/bottle/vermouth,
+/obj/item/reagent_containers/cup/glass/bottle/cognac,
+/obj/item/reagent_containers/cup/glass/bottle/kahlua,
+/obj/item/reagent_containers/cup/glass/bottle/vodka,
+/turf/simulated/floor/plating,
+/area/ruin/space/pirate_base/entertainment)
 "Kh" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -12071,6 +12098,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_solar)
+"Lg" = (
+/obj/structure/closet/crate/plastic,
+/obj/item/mop,
+/obj/item/storage/bag/trash,
+/obj/item/reagent_containers/cup/bucket,
+/obj/item/soap,
+/obj/item/reagent_containers/spray/cleaner/janitor,
+/turf/simulated/floor/plating,
+/area/ruin/space/pirate_base/lab_maint)
 "Lh" = (
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
@@ -12243,19 +12279,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_maint)
-"LI" = (
-/obj/structure/table,
-/obj/machinery/door/window/eastright,
-/obj/item/reagent_containers/food/snacks/chinese/sweetsourchickenball,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/item/reagent_containers/condiment/peppermill{
-	pixel_x = 3;
-	pixel_y = 11
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/pirate_base/kitchen)
 "LK" = (
 /obj/structure/window/plasmareinforced{
 	dir = 4
@@ -12326,20 +12349,6 @@
 /obj/item/stack/tape_roll,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/entertainment)
-"LZ" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/table/wood,
-/obj/item/reagent_containers/cup/beaker/waterbottle,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/pirate_base/atrium)
 "Ma" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -12662,6 +12671,15 @@
 	},
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/security_maint)
+"MY" = (
+/obj/structure/railing{
+	layer = 4.2
+	},
+/obj/structure/table/wood,
+/obj/item/reagent_containers/cup/glass/bottle/rum,
+/obj/item/storage/box/drinkingglasses,
+/turf/simulated/floor/wood,
+/area/ruin/space/pirate_base/security_atrium)
 "Na" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -12690,6 +12708,18 @@
 	icon_state = "darkbluecorners"
 	},
 /area/ruin/space/pirate_base/lab_medical)
+"Nc" = (
+/obj/structure/table/reinforced,
+/obj/item/kitchen/knife,
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = 7;
+	pixel_y = 11
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "cafeteria"
+	},
+/area/ruin/space/pirate_base/lab_hall)
 "Nd" = (
 /obj/structure/chair/office{
 	dir = 4
@@ -13029,31 +13059,6 @@
 /obj/item/holosign_creator/atmos,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/security_maint)
-"Ob" = (
-/obj/structure/rack,
-/obj/item/hatchet,
-/obj/item/hatchet,
-/obj/item/shovel/spade,
-/obj/item/reagent_containers/cup/bucket,
-/obj/item/storage/bag/plants,
-/obj/item/storage/bag/plants,
-/obj/item/storage/bag/plants/portaseeder,
-/obj/effect/turf_decal/siding/wood{
-	dir = 4
-	},
-/turf/simulated/floor/wood,
-/area/ruin/space/pirate_base/kitchen)
-"Oe" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/condiment/rice,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/ruin/space/pirate_base/kitchen)
 "Og" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -13109,6 +13114,20 @@
 	},
 /turf/simulated/floor/pod,
 /area/ruin/space/pirate_base/security_atrium)
+"Ou" = (
+/obj/structure/rack,
+/obj/item/hatchet,
+/obj/item/hatchet,
+/obj/item/shovel/spade,
+/obj/item/reagent_containers/cup/bucket,
+/obj/item/storage/bag/plants,
+/obj/item/storage/bag/plants,
+/obj/item/storage/bag/plants/portaseeder,
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/pirate_base/kitchen)
 "Ov" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating,
@@ -13144,39 +13163,6 @@
 /obj/machinery/pipedispenser/disposal,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
-"OC" = (
-/obj/structure/table,
-/obj/structure/sign/poster/contraband/revolver{
-	pixel_y = 32
-	},
-/obj/item/ammo_box/magazine/m10mm{
-	pixel_x = -4;
-	pixel_y = 3
-	},
-/obj/item/ammo_box/magazine/m10mm{
-	pixel_x = -4;
-	pixel_y = 3
-	},
-/obj/item/ammo_box/magazine/m10mm{
-	pixel_x = 4;
-	pixel_y = 3
-	},
-/obj/item/ammo_box/magazine/m10mm{
-	pixel_x = 4;
-	pixel_y = 3
-	},
-/obj/item/gun/projectile/automatic/pistol{
-	pixel_x = -2;
-	pixel_y = 6
-	},
-/obj/item/gun/projectile/automatic/pistol{
-	pixel_x = 3
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
-	},
-/area/shuttle/pirate_corvette)
 "OE" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -13233,21 +13219,32 @@
 	icon_state = "darkred"
 	},
 /area/shuttle/pirate_corvette)
+"ON" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/structure/closet/secure_closet/freezer{
+	icon_state = "fridge"
+	},
+/obj/item/reagent_containers/condiment/milk,
+/obj/item/reagent_containers/condiment/milk,
+/obj/item/reagent_containers/food/snacks/chocolatebar,
+/obj/item/storage/box/donkpockets,
+/obj/item/reagent_containers/food/snacks/cheesiehonkers,
+/obj/item/reagent_containers/food/snacks/doshik,
+/obj/item/reagent_containers/food/snacks/doshik,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkred"
+	},
+/area/shuttle/pirate_corvette)
 "OP" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
 	},
 /turf/simulated/floor/wood,
 /area/ruin/space/pirate_base/atrium)
-"OQ" = (
-/obj/structure/railing{
-	layer = 4.2
-	},
-/obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/bottle/rum,
-/obj/item/storage/box/drinkingglasses,
-/turf/simulated/floor/wood,
-/area/ruin/space/pirate_base/security_atrium)
 "OR" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -13349,20 +13346,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
-"Pd" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/structure/table,
-/obj/item/reagent_containers/condiment/saltshaker{
-	pixel_x = -3;
-	pixel_y = 11
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/ruin/space/pirate_base/kitchen)
 "Pe" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -13374,6 +13357,33 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/lab_sec)
+"Ph" = (
+/obj/effect/spawner/random_spawners/syndicate/loot/level2{
+	result = list(/obj/item/storage/box/syndie_kit/space = 2, /obj/item/clothing/shoes/magboots/syndie = 2, /obj/item/clothing/suit/armor/vest/combat = 2, /obj/item/ammo_box/magazine/m10mm = 7, /obj/item/storage/pill_bottle/happy = 1, /obj/item/storage/pill_bottle/zoom = 2, /obj/item/storage/pill_bottle/random_drug_bottle = 2, /obj/item/clothing/shoes/chameleon/noslip = 3, /obj/item/storage/belt/military = 5, /obj/item/clothing/under/chameleon = 3, /obj/item/storage/backpack/satchel_flat = 1, /obj/item/stamp/chameleon = 3, /obj/item/flag/chameleon = 1, /obj/item/lighter/zippo/gonzofist = 1, /obj/item/clothing/gloves/fingerless/rapid = 1, /obj/item/storage/box/syndie_kit/throwing_weapons = 1, /obj/item/pen/edagger = 1, /obj/item/reagent_containers/food/snacks/syndicake = 2, /obj/item/coin/antagtoken/syndicate = 2, /obj/item/gun/projectile/automatic/pistol/stechkin = 4, /obj/item/gun/syringe/rapidsyringe = 8, /obj/item/storage/box/syndie_kit/bioterror = 8)
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random_spawners/syndicate/loot/level2{
+	result = list(/obj/item/storage/box/syndie_kit/space = 2, /obj/item/clothing/shoes/magboots/syndie = 2, /obj/item/clothing/suit/armor/vest/combat = 2, /obj/item/ammo_box/magazine/m10mm = 7, /obj/item/storage/pill_bottle/happy = 1, /obj/item/storage/pill_bottle/zoom = 2, /obj/item/storage/pill_bottle/random_drug_bottle = 2, /obj/item/clothing/shoes/chameleon/noslip = 3, /obj/item/storage/belt/military = 5, /obj/item/clothing/under/chameleon = 3, /obj/item/storage/backpack/satchel_flat = 1, /obj/item/stamp/chameleon = 3, /obj/item/flag/chameleon = 1, /obj/item/lighter/zippo/gonzofist = 1, /obj/item/clothing/gloves/fingerless/rapid = 1, /obj/item/storage/box/syndie_kit/throwing_weapons = 1, /obj/item/pen/edagger = 1, /obj/item/reagent_containers/food/snacks/syndicake = 2, /obj/item/coin/antagtoken/syndicate = 2, /obj/item/gun/projectile/automatic/pistol/stechkin = 4, /obj/item/gun/syringe/rapidsyringe = 8, /obj/item/storage/box/syndie_kit/bioterror = 8)
+	},
+/obj/effect/spawner/random_spawners/syndicate/loot/level2{
+	result = list(/obj/item/storage/box/syndie_kit/space = 2, /obj/item/clothing/shoes/magboots/syndie = 2, /obj/item/clothing/suit/armor/vest/combat = 2, /obj/item/ammo_box/magazine/m10mm = 7, /obj/item/storage/pill_bottle/happy = 1, /obj/item/storage/pill_bottle/zoom = 2, /obj/item/storage/pill_bottle/random_drug_bottle = 2, /obj/item/clothing/shoes/chameleon/noslip = 3, /obj/item/storage/belt/military = 5, /obj/item/clothing/under/chameleon = 3, /obj/item/storage/backpack/satchel_flat = 1, /obj/item/stamp/chameleon = 3, /obj/item/flag/chameleon = 1, /obj/item/lighter/zippo/gonzofist = 1, /obj/item/clothing/gloves/fingerless/rapid = 1, /obj/item/storage/box/syndie_kit/throwing_weapons = 1, /obj/item/pen/edagger = 1, /obj/item/reagent_containers/food/snacks/syndicake = 2, /obj/item/coin/antagtoken/syndicate = 2, /obj/item/gun/projectile/automatic/pistol/stechkin = 4, /obj/item/gun/syringe/rapidsyringe = 8, /obj/item/storage/box/syndie_kit/bioterror = 8)
+	},
+/obj/effect/spawner/random_spawners/syndicate/loot/level2{
+	result = list(/obj/item/storage/box/syndie_kit/space = 2, /obj/item/clothing/shoes/magboots/syndie = 2, /obj/item/clothing/suit/armor/vest/combat = 2, /obj/item/ammo_box/magazine/m10mm = 7, /obj/item/storage/pill_bottle/happy = 1, /obj/item/storage/pill_bottle/zoom = 2, /obj/item/storage/pill_bottle/random_drug_bottle = 2, /obj/item/clothing/shoes/chameleon/noslip = 3, /obj/item/storage/belt/military = 5, /obj/item/clothing/under/chameleon = 3, /obj/item/storage/backpack/satchel_flat = 1, /obj/item/stamp/chameleon = 3, /obj/item/flag/chameleon = 1, /obj/item/lighter/zippo/gonzofist = 1, /obj/item/clothing/gloves/fingerless/rapid = 1, /obj/item/storage/box/syndie_kit/throwing_weapons = 1, /obj/item/pen/edagger = 1, /obj/item/reagent_containers/food/snacks/syndicake = 2, /obj/item/coin/antagtoken/syndicate = 2, /obj/item/gun/projectile/automatic/pistol/stechkin = 4, /obj/item/gun/syringe/rapidsyringe = 8, /obj/item/storage/box/syndie_kit/bioterror = 8)
+	},
+/obj/effect/spawner/random_spawners/syndicate/loot/level2{
+	result = list(/obj/item/storage/box/syndie_kit/space = 2, /obj/item/clothing/shoes/magboots/syndie = 2, /obj/item/clothing/suit/armor/vest/combat = 2, /obj/item/ammo_box/magazine/m10mm = 7, /obj/item/storage/pill_bottle/happy = 1, /obj/item/storage/pill_bottle/zoom = 2, /obj/item/storage/pill_bottle/random_drug_bottle = 2, /obj/item/clothing/shoes/chameleon/noslip = 3, /obj/item/storage/belt/military = 5, /obj/item/clothing/under/chameleon = 3, /obj/item/storage/backpack/satchel_flat = 1, /obj/item/stamp/chameleon = 3, /obj/item/flag/chameleon = 1, /obj/item/lighter/zippo/gonzofist = 1, /obj/item/clothing/gloves/fingerless/rapid = 1, /obj/item/storage/box/syndie_kit/throwing_weapons = 1, /obj/item/pen/edagger = 1, /obj/item/reagent_containers/food/snacks/syndicake = 2, /obj/item/coin/antagtoken/syndicate = 2, /obj/item/gun/projectile/automatic/pistol/stechkin = 4, /obj/item/gun/syringe/rapidsyringe = 8, /obj/item/storage/box/syndie_kit/bioterror = 8)
+	},
+/obj/structure/closet/crate/secure/gear{
+	req_access = list(160)
+	},
+/obj/item/storage/box/syndie_kit/chameleon,
+/obj/item/multitool/ai_detect,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkred"
+	},
+/area/shuttle/pirate_corvette)
 "Pi" = (
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/telecomms)
@@ -13382,19 +13392,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
-"Pl" = (
-/obj/effect/spawner/random_spawners/syndicate/loot/level2{
-	result = list(/obj/item/storage/box/syndie_kit/space = 2, /obj/item/clothing/shoes/magboots/syndie = 2, /obj/item/clothing/suit/armor/vest/combat = 2, /obj/item/ammo_box/magazine/m10mm = 7, /obj/item/storage/pill_bottle/happy = 1, /obj/item/storage/pill_bottle/zoom = 2, /obj/item/storage/pill_bottle/random_drug_bottle = 2, /obj/item/clothing/shoes/chameleon/noslip = 3, /obj/item/storage/belt/military = 5, /obj/item/clothing/under/chameleon = 3, /obj/item/storage/backpack/satchel_flat = 1, /obj/item/stamp/chameleon = 3, /obj/item/flag/chameleon = 1, /obj/item/lighter/zippo/gonzofist = 1, /obj/item/clothing/gloves/fingerless/rapid = 1, /obj/item/storage/box/syndie_kit/throwing_weapons = 1, /obj/item/pen/edagger = 1, /obj/item/reagent_containers/food/snacks/syndicake = 2, /obj/item/coin/antagtoken/syndicate = 2, /obj/item/gun/projectile/automatic/pistol = 4, /obj/item/gun/syringe/rapidsyringe = 2, /obj/item/storage/box/syndie_kit/bioterror = 2, /obj/item/holosign_creator/janitor/syndie = 1)
-	},
-/obj/structure/closet/crate/syndicate,
-/obj/effect/spawner/random_spawners/syndicate/loot/level2{
-	result = list(/obj/item/storage/box/syndie_kit/space = 2, /obj/item/clothing/shoes/magboots/syndie = 2, /obj/item/clothing/suit/armor/vest/combat = 2, /obj/item/ammo_box/magazine/m10mm = 7, /obj/item/storage/pill_bottle/happy = 1, /obj/item/storage/pill_bottle/zoom = 2, /obj/item/storage/pill_bottle/random_drug_bottle = 2, /obj/item/clothing/shoes/chameleon/noslip = 3, /obj/item/storage/belt/military = 5, /obj/item/clothing/under/chameleon = 3, /obj/item/storage/backpack/satchel_flat = 1, /obj/item/stamp/chameleon = 3, /obj/item/flag/chameleon = 1, /obj/item/lighter/zippo/gonzofist = 1, /obj/item/clothing/gloves/fingerless/rapid = 1, /obj/item/storage/box/syndie_kit/throwing_weapons = 1, /obj/item/pen/edagger = 1, /obj/item/reagent_containers/food/snacks/syndicake = 2, /obj/item/coin/antagtoken/syndicate = 2, /obj/item/gun/projectile/automatic/pistol = 4, /obj/item/gun/syringe/rapidsyringe = 2, /obj/item/storage/box/syndie_kit/bioterror = 2, /obj/item/holosign_creator/janitor/syndie = 1)
-	},
-/obj/effect/spawner/random_spawners/syndicate/loot/level2{
-	result = list(/obj/item/storage/box/syndie_kit/space = 2, /obj/item/clothing/shoes/magboots/syndie = 2, /obj/item/clothing/suit/armor/vest/combat = 2, /obj/item/ammo_box/magazine/m10mm = 7, /obj/item/storage/pill_bottle/happy = 1, /obj/item/storage/pill_bottle/zoom = 2, /obj/item/storage/pill_bottle/random_drug_bottle = 2, /obj/item/clothing/shoes/chameleon/noslip = 3, /obj/item/storage/belt/military = 5, /obj/item/clothing/under/chameleon = 3, /obj/item/storage/backpack/satchel_flat = 1, /obj/item/stamp/chameleon = 3, /obj/item/flag/chameleon = 1, /obj/item/lighter/zippo/gonzofist = 1, /obj/item/clothing/gloves/fingerless/rapid = 1, /obj/item/storage/box/syndie_kit/throwing_weapons = 1, /obj/item/pen/edagger = 1, /obj/item/reagent_containers/food/snacks/syndicake = 2, /obj/item/coin/antagtoken/syndicate = 2, /obj/item/gun/projectile/automatic/pistol = 4, /obj/item/gun/syringe/rapidsyringe = 2, /obj/item/storage/box/syndie_kit/bioterror = 2, /obj/item/holosign_creator/janitor/syndie = 1)
-	},
-/turf/simulated/floor/pod/light,
-/area/ruin/space/pirate_base/security_maint)
 "Pm" = (
 /obj/machinery/door/airlock/centcom{
 	aiControlDisabled = 1;
@@ -13500,19 +13497,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
-"Pw" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/structure/closet/crate/plastic,
-/obj/item/storage/bag/trash,
-/obj/item/storage/bag/trash,
-/obj/item/reagent_containers/cup/bucket,
-/obj/item/reagent_containers/cup/bucket,
-/obj/item/mop,
-/obj/item/mop,
-/turf/simulated/floor/plating,
-/area/ruin/space/pirate_base/atmos)
 "Pz" = (
 /obj/machinery/light,
 /obj/structure/chair/office/dark,
@@ -13576,15 +13560,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
-"PJ" = (
-/obj/structure/table/wood,
-/obj/item/stack/tickets{
-	amount = 12
-	},
-/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
-/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/pirate_base/entertainment)
 "PK" = (
 /obj/structure/chair/comfy/shuttle/dark{
 	dir = 4
@@ -13664,17 +13639,6 @@
 	icon_state = "cmo"
 	},
 /area/ruin/space/pirate_base/security_medical)
-"Qb" = (
-/obj/structure/closet/crate/secure/weapon{
-	req_access = list(160)
-	},
-/obj/item/reagent_containers/cup/glass/bottle/rum,
-/obj/item/reagent_containers/cup/glass/bottle/rum,
-/obj/item/reagent_containers/cup/glass/bottle/rum,
-/obj/item/reagent_containers/cup/glass/bottle/rum,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/pod/light,
-/area/ruin/space/pirate_base/security_maint)
 "Qd" = (
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_solar)
@@ -13720,6 +13684,17 @@
 /obj/item/seeds/tower,
 /turf/simulated/floor/wood,
 /area/ruin/space/pirate_base/kitchen)
+"Qj" = (
+/obj/effect/decal/cleanable/cobweb2,
+/obj/structure/closet/crate/plastic,
+/obj/item/reagent_containers/cup/soda_cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/beer,
+/obj/item/reagent_containers/cup/soda_cans/energy/milk,
+/obj/item/reagent_containers/cup/soda_cans/ale,
+/obj/item/reagent_containers/cup/glass/chicken_soup,
+/turf/simulated/floor/plating,
+/area/ruin/space/pirate_base/telecomms)
 "Qk" = (
 /obj/machinery/power/apc/noalarm/directional/east{
 	req_access = list(160)
@@ -14006,6 +13981,20 @@
 /obj/machinery/pipedispenser/disposal,
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/pirate_base/telecomms)
+"Rd" = (
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/structure/table,
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = -3;
+	pixel_y = 11
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/pirate_base/kitchen)
 "Re" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -14310,6 +14299,17 @@
 /obj/effect/decal/ants,
 /turf/simulated/floor/wood,
 /area/ruin/space/pirate_base/atmos)
+"Sh" = (
+/obj/structure/table,
+/obj/effect/turf_decal/siding/blue,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = -3
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/ruin/space/pirate_base/atrium)
 "Si" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
@@ -14384,17 +14384,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/virology)
-"Ss" = (
-/obj/effect/decal/cleanable/cobweb2,
-/obj/structure/closet/crate/plastic,
-/obj/item/reagent_containers/cup/soda_cans/beer,
-/obj/item/reagent_containers/cup/soda_cans/beer,
-/obj/item/reagent_containers/cup/soda_cans/beer,
-/obj/item/reagent_containers/cup/soda_cans/energy/milk,
-/obj/item/reagent_containers/cup/soda_cans/ale,
-/obj/item/reagent_containers/cup/glass/chicken_soup,
-/turf/simulated/floor/plating,
-/area/ruin/space/pirate_base/telecomms)
 "St" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -14808,18 +14797,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
-"TN" = (
-/obj/structure/table/reinforced,
-/obj/item/kitchen/knife,
-/obj/item/reagent_containers/condiment/saltshaker{
-	pixel_x = 7;
-	pixel_y = 11
-	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria"
-	},
-/area/ruin/space/pirate_base/lab_hall)
 "TO" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -15254,6 +15231,15 @@
 /obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_solar)
+"Va" = (
+/obj/item/reagent_containers/cup/glass/bottle/whiskey,
+/obj/structure/table,
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/observ)
 "Vb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -15714,6 +15700,16 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
+"Wy" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood,
+/obj/item/reagent_containers/cup/bucket,
+/turf/simulated/floor/plasteel{
+	icon_state = "sepia"
+	},
+/area/ruin/space/pirate_base/kitchen)
 "Wz" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
@@ -15947,33 +15943,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/pirate_base/atrium)
-"Xo" = (
-/obj/effect/spawner/random_spawners/syndicate/loot/level2{
-	result = list(/obj/item/storage/box/syndie_kit/space = 2, /obj/item/clothing/shoes/magboots/syndie = 2, /obj/item/clothing/suit/armor/vest/combat = 2, /obj/item/ammo_box/magazine/m10mm = 7, /obj/item/storage/pill_bottle/happy = 1, /obj/item/storage/pill_bottle/zoom = 2, /obj/item/storage/pill_bottle/random_drug_bottle = 2, /obj/item/clothing/shoes/chameleon/noslip = 3, /obj/item/storage/belt/military = 5, /obj/item/clothing/under/chameleon = 3, /obj/item/storage/backpack/satchel_flat = 1, /obj/item/stamp/chameleon = 3, /obj/item/flag/chameleon = 1, /obj/item/lighter/zippo/gonzofist = 1, /obj/item/clothing/gloves/fingerless/rapid = 1, /obj/item/storage/box/syndie_kit/throwing_weapons = 1, /obj/item/pen/edagger = 1, /obj/item/reagent_containers/food/snacks/syndicake = 2, /obj/item/coin/antagtoken/syndicate = 2, /obj/item/gun/projectile/automatic/pistol = 4, /obj/item/gun/syringe/rapidsyringe = 8, /obj/item/storage/box/syndie_kit/bioterror = 8)
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/syndicate/loot/level2{
-	result = list(/obj/item/storage/box/syndie_kit/space = 2, /obj/item/clothing/shoes/magboots/syndie = 2, /obj/item/clothing/suit/armor/vest/combat = 2, /obj/item/ammo_box/magazine/m10mm = 7, /obj/item/storage/pill_bottle/happy = 1, /obj/item/storage/pill_bottle/zoom = 2, /obj/item/storage/pill_bottle/random_drug_bottle = 2, /obj/item/clothing/shoes/chameleon/noslip = 3, /obj/item/storage/belt/military = 5, /obj/item/clothing/under/chameleon = 3, /obj/item/storage/backpack/satchel_flat = 1, /obj/item/stamp/chameleon = 3, /obj/item/flag/chameleon = 1, /obj/item/lighter/zippo/gonzofist = 1, /obj/item/clothing/gloves/fingerless/rapid = 1, /obj/item/storage/box/syndie_kit/throwing_weapons = 1, /obj/item/pen/edagger = 1, /obj/item/reagent_containers/food/snacks/syndicake = 2, /obj/item/coin/antagtoken/syndicate = 2, /obj/item/gun/projectile/automatic/pistol = 4, /obj/item/gun/syringe/rapidsyringe = 8, /obj/item/storage/box/syndie_kit/bioterror = 8)
-	},
-/obj/effect/spawner/random_spawners/syndicate/loot/level2{
-	result = list(/obj/item/storage/box/syndie_kit/space = 2, /obj/item/clothing/shoes/magboots/syndie = 2, /obj/item/clothing/suit/armor/vest/combat = 2, /obj/item/ammo_box/magazine/m10mm = 7, /obj/item/storage/pill_bottle/happy = 1, /obj/item/storage/pill_bottle/zoom = 2, /obj/item/storage/pill_bottle/random_drug_bottle = 2, /obj/item/clothing/shoes/chameleon/noslip = 3, /obj/item/storage/belt/military = 5, /obj/item/clothing/under/chameleon = 3, /obj/item/storage/backpack/satchel_flat = 1, /obj/item/stamp/chameleon = 3, /obj/item/flag/chameleon = 1, /obj/item/lighter/zippo/gonzofist = 1, /obj/item/clothing/gloves/fingerless/rapid = 1, /obj/item/storage/box/syndie_kit/throwing_weapons = 1, /obj/item/pen/edagger = 1, /obj/item/reagent_containers/food/snacks/syndicake = 2, /obj/item/coin/antagtoken/syndicate = 2, /obj/item/gun/projectile/automatic/pistol = 4, /obj/item/gun/syringe/rapidsyringe = 8, /obj/item/storage/box/syndie_kit/bioterror = 8)
-	},
-/obj/effect/spawner/random_spawners/syndicate/loot/level2{
-	result = list(/obj/item/storage/box/syndie_kit/space = 2, /obj/item/clothing/shoes/magboots/syndie = 2, /obj/item/clothing/suit/armor/vest/combat = 2, /obj/item/ammo_box/magazine/m10mm = 7, /obj/item/storage/pill_bottle/happy = 1, /obj/item/storage/pill_bottle/zoom = 2, /obj/item/storage/pill_bottle/random_drug_bottle = 2, /obj/item/clothing/shoes/chameleon/noslip = 3, /obj/item/storage/belt/military = 5, /obj/item/clothing/under/chameleon = 3, /obj/item/storage/backpack/satchel_flat = 1, /obj/item/stamp/chameleon = 3, /obj/item/flag/chameleon = 1, /obj/item/lighter/zippo/gonzofist = 1, /obj/item/clothing/gloves/fingerless/rapid = 1, /obj/item/storage/box/syndie_kit/throwing_weapons = 1, /obj/item/pen/edagger = 1, /obj/item/reagent_containers/food/snacks/syndicake = 2, /obj/item/coin/antagtoken/syndicate = 2, /obj/item/gun/projectile/automatic/pistol = 4, /obj/item/gun/syringe/rapidsyringe = 8, /obj/item/storage/box/syndie_kit/bioterror = 8)
-	},
-/obj/effect/spawner/random_spawners/syndicate/loot/level2{
-	result = list(/obj/item/storage/box/syndie_kit/space = 2, /obj/item/clothing/shoes/magboots/syndie = 2, /obj/item/clothing/suit/armor/vest/combat = 2, /obj/item/ammo_box/magazine/m10mm = 7, /obj/item/storage/pill_bottle/happy = 1, /obj/item/storage/pill_bottle/zoom = 2, /obj/item/storage/pill_bottle/random_drug_bottle = 2, /obj/item/clothing/shoes/chameleon/noslip = 3, /obj/item/storage/belt/military = 5, /obj/item/clothing/under/chameleon = 3, /obj/item/storage/backpack/satchel_flat = 1, /obj/item/stamp/chameleon = 3, /obj/item/flag/chameleon = 1, /obj/item/lighter/zippo/gonzofist = 1, /obj/item/clothing/gloves/fingerless/rapid = 1, /obj/item/storage/box/syndie_kit/throwing_weapons = 1, /obj/item/pen/edagger = 1, /obj/item/reagent_containers/food/snacks/syndicake = 2, /obj/item/coin/antagtoken/syndicate = 2, /obj/item/gun/projectile/automatic/pistol = 4, /obj/item/gun/syringe/rapidsyringe = 8, /obj/item/storage/box/syndie_kit/bioterror = 8)
-	},
-/obj/structure/closet/crate/secure/gear{
-	req_access = list(160)
-	},
-/obj/item/storage/box/syndie_kit/chameleon,
-/obj/item/multitool/ai_detect,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
-	},
-/area/shuttle/pirate_corvette)
 "Xp" = (
 /obj/structure/sign/poster/contraband/have_a_puff{
 	pixel_y = 32
@@ -16262,6 +16231,20 @@
 /obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/kitchen)
+"Yo" = (
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/structure/table,
+/obj/item/reagent_containers/cup/beaker/large{
+	pixel_y = 8
+	},
+/obj/machinery/alarm/syndicate/pirate/directional/east,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/pirate_base/kitchen)
 "Yp" = (
 /obj/item/clothing/under/color/orange/prison,
 /obj/item/clothing/shoes/color/orange/prison,
@@ -16430,17 +16413,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/laboratory)
-"YR" = (
-/obj/item/gun/projectile/automatic/pistol,
-/turf/simulated/floor/plating,
-/area/ruin/space/pirate_base/telecomms)
-"YS" = (
-/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
-/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
-/obj/structure/table/wood/fancy,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood,
-/area/ruin/space/pirate_base/atmos)
 "YT" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -16849,6 +16821,34 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
+"ZO" = (
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/item/storage/fancy/egg_box,
+/obj/item/reagent_containers/condiment/milk,
+/obj/item/reagent_containers/condiment/milk,
+/obj/item/reagent_containers/condiment/soymilk,
+/obj/item/reagent_containers/condiment/soymilk,
+/obj/item/reagent_containers/condiment/flour,
+/obj/structure/closet/secure_closet{
+	name = "kitchen cabinet"
+	},
+/obj/item/reagent_containers/condiment/flour,
+/obj/item/reagent_containers/condiment/rice,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/pirate_base/kitchen)
+"ZP" = (
+/obj/structure/rack,
+/obj/effect/spawner/random_spawners/syndicate/loot/level2{
+	result = list(/obj/item/storage/box/syndie_kit/space = 2, /obj/item/clothing/shoes/magboots/syndie = 2, /obj/item/clothing/suit/armor/vest/combat = 2, /obj/item/ammo_box/magazine/m10mm = 7, /obj/item/storage/pill_bottle/happy = 1, /obj/item/storage/pill_bottle/zoom = 2, /obj/item/storage/pill_bottle/random_drug_bottle = 2, /obj/item/clothing/shoes/chameleon/noslip = 3, /obj/item/storage/belt/military = 5, /obj/item/clothing/under/chameleon = 3, /obj/item/storage/backpack/satchel_flat = 1, /obj/item/stamp/chameleon = 3, /obj/item/flag/chameleon = 1, /obj/item/lighter/zippo/gonzofist = 1, /obj/item/clothing/gloves/fingerless/rapid = 1, /obj/item/storage/box/syndie_kit/throwing_weapons = 1, /obj/item/pen/edagger = 1, /obj/item/reagent_containers/food/snacks/syndicake = 2, /obj/item/coin/antagtoken/syndicate = 2, /obj/item/gun/projectile/automatic/pistol/stechkin = 4, /obj/item/gun/syringe/rapidsyringe = 8, /obj/item/storage/box/syndie_kit/bioterror = 8)
+	},
+/obj/item/gun_module/muzzle/suppressor,
+/turf/simulated/floor/pod/light,
+/area/ruin/space/pirate_base/security_maint)
 "ZQ" = (
 /obj/structure/table,
 /obj/item/slimepotion/speed{
@@ -19529,9 +19529,9 @@ kx
 Oj
 Or
 sz
-fi
+Kg
 SH
-PJ
+Aw
 LY
 Fg
 sz
@@ -19826,7 +19826,7 @@ VU
 hb
 RY
 Rs
-LZ
+me
 zV
 Xs
 sN
@@ -20132,8 +20132,8 @@ AY
 Zv
 zw
 XE
-uE
-Jn
+aQ
+Sh
 yi
 gM
 gM
@@ -20305,7 +20305,7 @@ fI
 it
 Ok
 it
-OC
+DY
 op
 SB
 wI
@@ -20406,7 +20406,7 @@ qc
 it
 it
 NO
-Xo
+Ph
 Cz
 nf
 nf
@@ -20538,7 +20538,7 @@ Uu
 vo
 vo
 vx
-LI
+EH
 vo
 nc
 vo
@@ -20552,7 +20552,7 @@ BH
 tf
 Ax
 RW
-hx
+Jj
 vo
 xf
 Up
@@ -20612,7 +20612,7 @@ Ok
 it
 OI
 GZ
-JS
+ON
 Jw
 pH
 sJ
@@ -20639,7 +20639,7 @@ xw
 Bw
 vo
 GM
-Oe
+yt
 LV
 aw
 Nq
@@ -20842,14 +20842,14 @@ IN
 ag
 Bw
 QM
-Pd
+Rd
 cd
-db
+bz
 bf
 Hi
 NH
 gt
-jp
+Wy
 gx
 zJ
 sO
@@ -21048,13 +21048,13 @@ xw
 vo
 DV
 Xt
-zp
+Yo
 aT
 nt
-fl
+ZO
 zK
 qk
-Ob
+Ou
 mp
 Qh
 fK
@@ -21428,7 +21428,7 @@ Ok
 it
 hc
 pY
-vy
+eZ
 AL
 ZI
 sJ
@@ -21672,7 +21672,7 @@ Sj
 sr
 ox
 iM
-xZ
+Lg
 XK
 vm
 SP
@@ -22479,7 +22479,7 @@ bi
 AK
 AK
 cS
-cV
+es
 fe
 cS
 cS
@@ -22901,7 +22901,7 @@ Nb
 we
 Fd
 nr
-lD
+dy
 iM
 SE
 Tq
@@ -23282,7 +23282,7 @@ iT
 ZN
 iT
 hI
-Pw
+mn
 hW
 eP
 QP
@@ -23299,7 +23299,7 @@ cS
 xK
 Ml
 kS
-ad
+dC
 cS
 oy
 MP
@@ -23399,7 +23399,7 @@ bi
 AK
 cS
 ok
-rg
+gu
 hM
 PR
 cS
@@ -23477,8 +23477,8 @@ AK
 AK
 mc
 NW
-lQ
-YS
+xx
+By
 GT
 hO
 Vo
@@ -23603,7 +23603,7 @@ AK
 AK
 cS
 cS
-TN
+Nc
 vi
 cS
 pU
@@ -24100,7 +24100,7 @@ jI
 Wv
 TW
 dJ
-OQ
+MY
 VJ
 OH
 RG
@@ -24310,7 +24310,7 @@ uM
 gH
 QE
 Zl
-tN
+JG
 Gt
 jE
 yr
@@ -24333,7 +24333,7 @@ Md
 sM
 hi
 DB
-gY
+nF
 lA
 CH
 PS
@@ -24799,7 +24799,7 @@ AK
 AK
 AK
 BX
-Pl
+dU
 MG
 Fh
 hO
@@ -24901,7 +24901,7 @@ AK
 bi
 bi
 BX
-wE
+ZP
 Fn
 zE
 Op
@@ -25003,7 +25003,7 @@ AK
 bi
 bi
 BX
-Jh
+DK
 Fn
 yg
 Op
@@ -25105,7 +25105,7 @@ AK
 AK
 AK
 BX
-Qb
+sl
 MG
 MG
 Op
@@ -25353,7 +25353,7 @@ MD
 mh
 wu
 mh
-uU
+Eg
 jZ
 jZ
 jZ
@@ -25427,12 +25427,12 @@ Kp
 WV
 xO
 sF
-GK
+Va
 Nx
 gj
 Nx
 fy
-YR
+Ir
 fW
 AK
 AK
@@ -26144,7 +26144,7 @@ Pi
 FV
 fy
 fy
-Ss
+Qj
 EP
 fW
 AK

@@ -30,6 +30,7 @@
 	UpdateAppearance()
 	GLOB.human_list += src
 	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_FACE_ACT, PROC_REF(clean_face))
+	GLOB.interaction_panel.register_mob(src)
 
 /mob/living/carbon/human/Destroy()
 	bleeding_bodyparts.Cut()
@@ -38,6 +39,7 @@
 	SSmobs.cubemonkeys -= src
 	GLOB.human_list -= src
 	SEND_SIGNAL(src, COMSIG_HUMAN_DESTROYED)
+	GLOB.interaction_panel.unregister_mob(src)
 	return ..()
 
 /// This proc is for holding effects applied when a mob is missing certain organs
@@ -487,7 +489,7 @@
 		return .
 	if(!(flags & SHOCK_ILLUSION))
 		if(shock_damage * siemens_coeff >= 5)
-			INVOKE_ASYNC(src, PROC_REF(forcesay))
+			INVOKE_ASYNC(src, PROC_REF(force_say))
 		if(undergoing_cardiac_arrest() && (shock_damage * siemens_coeff >= 1) && prob(25))
 			if(set_heartattack(FALSE) && stat == CONSCIOUS)
 				to_chat(src, span_warning("Вы чувствуете, как ваше сердце вновь бьётся!"))
@@ -1008,10 +1010,7 @@
 		dna.real_name = name
 	return name
 
-/mob/living/carbon/human/verb/check_pulse()
-	set name = "Проверить пульс"
-	set desc = "Посчитать частоту сердечного ритма гуманоида."
-	set src in view(1)
+GAME_VERB_SRC(/mob/living/carbon/human, check_pulse, view(1), "Проверить пульс", VERB_CATEGORY_HIDDEN)
 	var/self = 0
 
 	if(!isliving(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -1047,18 +1046,6 @@
 	else
 		to_chat(usr, span_notice("[self ? "Ваш пульс" : "Пульс [declent_ru(ACCUSATIVE)]"] – [src.get_pulse(GETPULSE_HAND)]."))
 		balloon_alert(usr, "пульс замерен")
-
-/mob/living/carbon/human/verb/begin_strip()
-	set name = "Обыскать"
-	set desc = "Обыскать цель."
-	set src in view(1)
-
-	if(!isliving(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		return
-
-	if(usr == src)
-		check_self_for_injuries()
-		return
 
 /**
  * Set up DNA and species.
@@ -1343,10 +1330,7 @@
 		return null
 	return dna.species.default_language ? GLOB.all_languages[dna.species.default_language] : null
 
-/mob/living/carbon/human/proc/bloody_doodle()
-	set category = VERB_CATEGORY_IC
-	set name = "Рисовать кровью"
-	set desc = "Используйте кровь на ваших руках, чтобы рисовать ею на полу и на стенах."
+GAME_VERB_PROC_DESC(/mob/living/carbon/human, bloody_doodle, "Рисовать кровью", "Используйте кровь на ваших руках, чтобы рисовать ею на полу и на стенах.", VERB_CATEGORY_IC)
 
 	if(usr != src)
 		return 0 //something is terribly wrong
@@ -1354,7 +1338,7 @@
 		balloon_alert(src, "невозможно в данный момент!")
 		return
 	if(!bloody_hands)
-		remove_verb(src, /mob/living/carbon/human/proc/bloody_doodle)
+		UNASSIGN_GAME_VERB(src, /mob/living/carbon/human, bloody_doodle)
 
 	if(gloves)
 		balloon_alert(src, "перчатки мешают!")
@@ -1947,18 +1931,10 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		arm.attack_self(src)
 	return ..()
 
-/mob/living/carbon/human/verb/pose()
-	set name = "Задать позу"
-	set desc = "Устанавливает короткое описание отображаемое при омотре вас."
-	set category = VERB_CATEGORY_IC
-
+GAME_VERB_DESC(/mob/living/carbon/human, pose, "Задать позу", "Устанавливает короткое описание отображаемое при омотре вас.", VERB_CATEGORY_IC)
 	pose = tgui_input_text(usr, "Это [declent_ru(NOMINATIVE)]. [capitalize(GEND_HE_SHE(src))]...", "Выбор позы", pose)
 
-/mob/living/carbon/human/verb/set_flavor()
-	set name = "Описание внешности"
-	set desc = "Устанавливает подробное описание внешности вашего персонажа."
-	set category = VERB_CATEGORY_IC
-
+GAME_VERB_DESC(/mob/living/carbon/human, set_flavor, "Описание внешности", "Устанавливает подробное описание внешности вашего персонажа.", VERB_CATEGORY_IC)
 	update_flavor_text()
 
 /mob/living/carbon/human/harvest(mob/living/user)

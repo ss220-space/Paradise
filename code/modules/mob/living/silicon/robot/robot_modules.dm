@@ -125,7 +125,8 @@
 	R.add_language(LANGUAGE_MOTH, FALSE)
 
 /obj/item/robot_module/proc/add_subsystems_and_actions(mob/living/silicon/robot/R)
-	add_verb(R, subsystems)
+	for(var/verb in subsystems)
+		ASSIGN_GAME_VERB_DIRECT(R, verb)
 
 	for(var/A in module_actions)
 		var/datum/action/act = new A()
@@ -133,8 +134,8 @@
 		R.module_actions += act
 
 /obj/item/robot_module/proc/remove_subsystems_and_actions(mob/living/silicon/robot/R)
-	remove_verb(R, subsystems)
-
+	for(var/verb in subsystems)
+		UNASSIGN_GAME_VERB_DIRECT(R, verb)
 	for(var/datum/action/A in R.module_actions)
 		A.Remove(R)
 		qdel(A)
@@ -175,7 +176,10 @@
 	// if sec crisis, assist by opening doors for sec and providing backup zipties on patrols
 	name = "Generalist"
 	module_type = "Standard"
-	subsystems = list(/mob/living/silicon/proc/subsystem_power_monitor, /mob/living/silicon/proc/subsystem_crew_monitor)
+	subsystems = list(
+		VERB_META(/mob/living/silicon, subsystem_power_monitor),
+		VERB_META(/mob/living/silicon, subsystem_crew_monitor),
+	)
 	channels = list(ENG_FREQ_NAME = 1, MED_FREQ_NAME = 1, SEC_FREQ_NAME = 1, SRV_FREQ_NAME = 1, SUP_FREQ_NAME = 1)
 	default_skin = /datum/robot_skin/basic/std
 	borg_skins = list(
@@ -198,6 +202,7 @@
 		/datum/robot_skin/heavy/std,
 		/datum/robot_skin/android,
 		/datum/robot_skin/wide/drake/std,
+		/datum/robot_skin/kerfus/nt,
 	)
 	has_transform_animation = TRUE
 
@@ -245,7 +250,9 @@
 /obj/item/robot_module/medical
 	name = "Medical"
 	module_type = "Medical"
-	subsystems = list(/mob/living/silicon/proc/subsystem_crew_monitor)
+	subsystems = list(
+		VERB_META(/mob/living/silicon, subsystem_crew_monitor),
+	)
 	channels = list(MED_FREQ_NAME = 1)
 	default_skin = /datum/robot_skin/basic/std
 	borg_skins = list(
@@ -275,6 +282,7 @@
 		/datum/robot_skin/droid_medical,
 		/datum/robot_skin/basic/needles,
 		/datum/robot_skin/wide/drake/medical,
+		/datum/robot_skin/kerfus/med,
 	)
 	has_transform_animation = TRUE
 
@@ -361,7 +369,10 @@
 /obj/item/robot_module/engineering
 	name = "Engineering"
 	module_type = "Engineer"
-	subsystems = list(/mob/living/silicon/proc/subsystem_power_monitor, /mob/living/silicon/proc/subsystem_blueprints)
+	subsystems = list(
+		VERB_META(/mob/living/silicon, subsystem_power_monitor),
+		VERB_META(/mob/living/silicon, subsystem_blueprints),
+	)
 	module_actions = list(/datum/action/innate/robot_sight/meson)
 	channels = list(ENG_FREQ_NAME = 1)
 	default_skin = /datum/robot_skin/basic/eng
@@ -393,6 +404,7 @@
 		/datum/robot_skin/landmate,
 		/datum/robot_skin/chiefmate,
 		/datum/robot_skin/wide/drake/eng,
+		/datum/robot_skin/kerfus/flushed,
 	)
 	has_transform_animation = TRUE
 
@@ -458,7 +470,9 @@
 /obj/item/robot_module/security
 	name = "Security"
 	module_type = "Security"
-	subsystems = list(/mob/living/silicon/proc/subsystem_crew_monitor)
+	subsystems = list(
+		VERB_META(/mob/living/silicon, subsystem_crew_monitor),
+	)
 	channels = list(SEC_FREQ_NAME = 1, PRS_FREQ_NAME = 1)
 	default_skin = /datum/robot_skin/basic/sec
 	borg_skins = list(
@@ -489,6 +503,7 @@
 		/datum/robot_skin/blackknight,
 		/datum/robot_skin/bloodhound,
 		/datum/robot_skin/wide/drake/sec,
+		/datum/robot_skin/kerfus/noerp,
 	)
 	has_transform_animation = TRUE
 
@@ -654,6 +669,7 @@
 		/datum/robot_skin/toiletbot,
 		/datum/robot_skin/maximillion,
 		/datum/robot_skin/wide/drake/srv,
+		/datum/robot_skin/kerfus/maid,
 	)
 	has_transform_animation = TRUE
 
@@ -768,6 +784,7 @@
 		/datum/robot_skin/treadhead,
 		/datum/robot_skin/lavaland,
 		/datum/robot_skin/wide/drake/mnr,
+		/datum/robot_skin/kerfus/cargo,
 	)
 	has_transform_animation = TRUE
 

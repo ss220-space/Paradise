@@ -233,6 +233,11 @@
 /obj/machinery/door/airlock/sandstone,
 /turf/simulated/floor/plating,
 /area/awaymission/wwrefine)
+"bc" = (
+/obj/structure/table/wood,
+/obj/item/gun/projectile/automatic/pistol/stechkin,
+/turf/simulated/floor/wood,
+/area/awaymission/wwmines)
 "bd" = (
 /obj/effect/decal/cleanable/blood/gibs/body{
 	icon_state = "gibup1"
@@ -362,14 +367,6 @@
 /area/awaymission/wwmines)
 "bH" = (
 /obj/structure/closet/cabinet,
-/turf/simulated/floor/wood,
-/area/awaymission/wwmines)
-"bI" = (
-/obj/structure/table/wood,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/item/gun/projectile/automatic/pistol,
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "bJ" = (
@@ -621,11 +618,6 @@
 /obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/awaymission/wwgov)
-"cp" = (
-/obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/pistol,
-/turf/simulated/floor/wood,
-/area/awaymission/wwmines)
 "cq" = (
 /obj/effect/mob_spawn/human/cook,
 /turf/simulated/floor/plasteel{
@@ -933,14 +925,6 @@
 /obj/effect/mob_spawn/human/miner,
 /turf/simulated/floor/carpet,
 /area/awaymission/wwmines)
-"dq" = (
-/obj/item/reagent_containers/condiment/peppermill,
-/turf/simulated/floor/wood,
-/area/awaymission/wwmines)
-"dr" = (
-/obj/item/reagent_containers/condiment/saltshaker,
-/turf/simulated/floor/wood,
-/area/awaymission/wwmines)
 "ds" = (
 /obj/structure/window/reinforced{
 	dir = 4;
@@ -1101,28 +1085,6 @@
 /obj/structure/bed,
 /obj/item/bedsheet/brown,
 /turf/simulated/floor/wood,
-/area/awaymission/wwgov)
-"dQ" = (
-/obj/item/reagent_containers/cup/glass/bottle/wine,
-/turf/simulated/floor/plasteel{
-	icon_state = "stage_bleft"
-	},
-/area/awaymission/wwgov)
-"dR" = (
-/obj/item/reagent_containers/cup/glass/bottle/patron,
-/turf/simulated/floor/plasteel{
-	icon_state = "stage_bleft"
-	},
-/area/awaymission/wwgov)
-"dS" = (
-/obj/item/reagent_containers/cup/glass/drinkingglass,
-/obj/item/reagent_containers/cup/glass/drinkingglass,
-/obj/item/reagent_containers/cup/glass/drinkingglass,
-/obj/item/reagent_containers/cup/glass/drinkingglass,
-/obj/machinery/light/small,
-/turf/simulated/floor/plasteel{
-	icon_state = "stage_bleft"
-	},
 /area/awaymission/wwgov)
 "dT" = (
 /obj/structure/chair/comfy/beige{
@@ -1615,12 +1577,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/wwrefine)
-"fr" = (
-/obj/structure/bed,
-/obj/item/bedsheet/blue,
-/obj/item/gun/projectile/automatic/pistol,
-/turf/simulated/floor/wood,
-/area/awaymission/wwmines)
 "fs" = (
 /obj/effect/decal/cleanable/blood,
 /obj/structure/bed,
@@ -2204,12 +2160,29 @@
 /obj/machinery/door/poddoor/multi_tile/four_tile_ver,
 /turf/simulated/floor/plasteel,
 /area/awaymission/wwrefine)
+"hV" = (
+/obj/item/reagent_containers/cup/glass/bottle/patron,
+/turf/simulated/floor/plasteel{
+	icon_state = "stage_bleft"
+	},
+/area/awaymission/wwgov)
 "iz" = (
 /obj/structure/closet/crate/large,
 /turf/simulated/floor/plating,
 /area/awaymission/wwrefine)
-"ne" = (
+"lb" = (
+/obj/item/reagent_containers/condiment/peppermill,
+/turf/simulated/floor/wood,
+/area/awaymission/wwmines)
+"qW" = (
+/obj/item/reagent_containers/cup/glass/bottle/wine,
+/turf/simulated/floor/plasteel{
+	icon_state = "stage_bleft"
+	},
+/area/awaymission/wwgov)
+"xF" = (
 /obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
+/obj/item/reagent_containers/food/snacks/donut/jelly/slimejelly,
 /turf/simulated/floor/carpet,
 /area/awaymission/wwmines)
 "DI" = (
@@ -2219,13 +2192,40 @@
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
+"HY" = (
+/obj/item/reagent_containers/condiment/saltshaker,
+/turf/simulated/floor/wood,
+/area/awaymission/wwmines)
+"KC" = (
+/obj/structure/bed,
+/obj/item/bedsheet/blue,
+/obj/item/gun/projectile/automatic/pistol/stechkin,
+/turf/simulated/floor/wood,
+/area/awaymission/wwmines)
+"KT" = (
+/obj/structure/table/wood,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/item/gun/projectile/automatic/pistol/stechkin,
+/turf/simulated/floor/wood,
+/area/awaymission/wwmines)
+"LI" = (
+/obj/item/reagent_containers/cup/glass/drinkingglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass,
+/obj/machinery/light/small,
+/turf/simulated/floor/plasteel{
+	icon_state = "stage_bleft"
+	},
+/area/awaymission/wwgov)
 "Ps" = (
 /obj/structure/closet/crate/large,
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
-"RT" = (
+"Ru" = (
 /obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
-/obj/item/reagent_containers/food/snacks/donut/jelly/slimejelly,
 /turf/simulated/floor/carpet,
 /area/awaymission/wwmines)
 
@@ -12464,7 +12464,7 @@ cN
 cN
 dI
 cN
-dQ
+qW
 bM
 cm
 cm
@@ -12721,7 +12721,7 @@ cN
 dx
 cN
 cN
-dQ
+qW
 bM
 cm
 cm
@@ -12978,7 +12978,7 @@ cN
 dz
 dJ
 cN
-dS
+LI
 bM
 cm
 cm
@@ -13235,7 +13235,7 @@ cN
 dy
 cN
 cN
-dR
+hV
 bM
 cm
 cm
@@ -13492,7 +13492,7 @@ cN
 cN
 di
 cN
-dR
+hV
 bM
 cm
 cm
@@ -28129,7 +28129,7 @@ bh
 bh
 aX
 eX
-bI
+KT
 bh
 bh
 eX
@@ -30980,7 +30980,7 @@ bh
 el
 bh
 bh
-fr
+KC
 bh
 el
 bh
@@ -34556,7 +34556,7 @@ aX
 eX
 bB
 bh
-cp
+bc
 ci
 bh
 bh
@@ -36117,10 +36117,10 @@ eX
 dk
 bD
 eG
-ne
+Ru
 eI
 eK
-ne
+Ru
 eI
 bD
 gP
@@ -36373,12 +36373,12 @@ bh
 eX
 bh
 dA
-ne
+Ru
 bD
 bD
 bD
 bD
-ne
+Ru
 fL
 bh
 eX
@@ -36873,7 +36873,7 @@ bA
 bA
 bA
 bA
-dq
+lb
 ci
 bh
 bh
@@ -36888,10 +36888,10 @@ eX
 dk
 bD
 eI
-ne
+Ru
 eI
 eK
-RT
+xF
 eK
 fM
 gP
@@ -37130,7 +37130,7 @@ bA
 bA
 bA
 bA
-dr
+HY
 ci
 bh
 cV

@@ -1,8 +1,8 @@
+import { Button, Section } from 'tgui-core/components';
 import { useBackend } from '../../backend';
-import { Button, Divider, Section } from '../../components';
 import { DELAYS, REV_DELAYS } from './constants';
 import { DelayHelper } from './DelayHelper';
-import { PodLauncherData } from './types';
+import type { PodLauncherData } from './types';
 
 export const Timing = (props: unknown) => {
   const { act, data } = useBackend<PodLauncherData>();

@@ -1734,15 +1734,6 @@
 /obj/item/paper/crumpled/hotel_scrap_6,
 /turf/template_noop,
 /area/awaymission/spacehotel)
-"gL" = (
-/obj/structure/table,
-/obj/item/reagent_containers/condiment/enzyme{
-	layer = 5
-	},
-/turf/simulated/floor/indestructible{
-	icon_state = "cafeteria"
-	},
-/area/awaymission/spacehotel/kitchen)
 "gM" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/snacks/dough,
@@ -1772,27 +1763,6 @@
 "gR" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/snacks/sliceable/cheesewheel,
-/turf/simulated/floor/indestructible{
-	icon_state = "cafeteria"
-	},
-/area/awaymission/spacehotel/kitchen)
-"gS" = (
-/obj/structure/table,
-/obj/item/reagent_containers/cup/beaker{
-	pixel_x = 5
-	},
-/turf/simulated/floor/indestructible{
-	icon_state = "cafeteria"
-	},
-/area/awaymission/spacehotel/kitchen)
-"gT" = (
-/obj/structure/table,
-/obj/item/reagent_containers/condiment/saltshaker{
-	pixel_x = -3
-	},
-/obj/item/reagent_containers/condiment/peppermill{
-	pixel_x = 3
-	},
 /turf/simulated/floor/indestructible{
 	icon_state = "cafeteria"
 	},
@@ -2595,15 +2565,6 @@
 /obj/structure/flora/ausbushes/palebush,
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/spacehotel)
-"jy" = (
-/obj/item/flashlight/lantern{
-	on = 1
-	},
-/turf/simulated/floor/indestructible{
-	icon_state = "cult";
-	name = "engraved floor"
-	},
-/area/awaymission/spacehotel)
 "jz" = (
 /obj/effect/rune,
 /turf/simulated/floor/indestructible{
@@ -3092,6 +3053,15 @@
 	icon_state = "metal1"
 	},
 /area/awaymission/spacehotel/amazing_place)
+"nd" = (
+/obj/structure/table,
+/obj/item/reagent_containers/cup/beaker{
+	pixel_x = 5
+	},
+/turf/simulated/floor/indestructible{
+	icon_state = "cafeteria"
+	},
+/area/awaymission/spacehotel/kitchen)
 "ng" = (
 /turf/simulated/floor/indestructible/carpet,
 /area/awaymission/spacehotel/amazing_place)
@@ -3164,6 +3134,18 @@
 /obj/machinery/power/supermatter_crystal/shard/hugbox,
 /turf/simulated/floor/indestructible/plating,
 /area/awaymission/spacehotel)
+"zz" = (
+/obj/structure/table,
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = -3
+	},
+/obj/item/reagent_containers/condiment/peppermill{
+	pixel_x = 3
+	},
+/turf/simulated/floor/indestructible{
+	icon_state = "cafeteria"
+	},
+/area/awaymission/spacehotel/kitchen)
 "zC" = (
 /obj/item/chair,
 /turf/simulated/floor/indestructible/carpet,
@@ -3210,6 +3192,13 @@
 	icon_state = "floor"
 	},
 /area/awaymission/spacehotel/amazing_place)
+"CZ" = (
+/obj/item/flashlight/lantern/on,
+/turf/simulated/floor/indestructible{
+	icon_state = "cult";
+	name = "engraved floor"
+	},
+/area/awaymission/spacehotel)
 "Dv" = (
 /turf/simulated/wall/indestructible{
 	icon_state = "metal6"
@@ -3233,6 +3222,15 @@
 /obj/item/cane,
 /turf/simulated/floor/indestructible/carpet,
 /area/awaymission/spacehotel/amazing_place)
+"LY" = (
+/obj/structure/table,
+/obj/item/reagent_containers/condiment/enzyme{
+	layer = 5
+	},
+/turf/simulated/floor/indestructible{
+	icon_state = "cafeteria"
+	},
+/area/awaymission/spacehotel/kitchen)
 "Mo" = (
 /obj/machinery/light{
 	dir = 1
@@ -8846,7 +8844,7 @@ eb
 gp
 gw
 gD
-gL
+LY
 gR
 gD
 he
@@ -8977,7 +8975,7 @@ gp
 gw
 gD
 gM
-gS
+nd
 gD
 hf
 cl
@@ -9107,7 +9105,7 @@ gp
 gw
 gD
 gN
-gT
+zz
 gD
 hg
 cl
@@ -26539,7 +26537,7 @@ in
 iD
 ln
 iQ
-jy
+CZ
 iQ
 ke
 cl
@@ -27190,7 +27188,7 @@ iD
 iD
 iQ
 iQ
-jy
+CZ
 iQ
 cl
 pj

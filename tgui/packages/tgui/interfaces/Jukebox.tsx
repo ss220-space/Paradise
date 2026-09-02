@@ -1,16 +1,15 @@
-import { sortBy } from 'common/collections';
+import { sortBy } from 'es-toolkit';
+import { Countdown } from 'tgui/components';
 import {
   Box,
   Button,
-  Knob,
-  ProgressBar,
-  Section,
-  Stack,
   Dimmer,
   Icon,
-} from '../components';
-import type { BooleanLike } from 'common/react';
-
+  Knob,
+  Section,
+  Stack,
+} from 'tgui-core/components';
+import type { BooleanLike } from 'tgui-core/react';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
@@ -54,9 +53,9 @@ export const Jukebox = () => {
 
   const MAX_NAME_LENGTH = 35;
   const need_payment = !payment && need_coin && !advanced_admin;
-  const songs_sorted: Song[] = sortBy(songs, (song: Song) => song.name);
+  const songs_sorted: Song[] = sortBy(songs, [(song: Song) => song.name]);
   const song_selected: Song | undefined = songs.find(
-    (song) => song.name === track_selected
+    (song) => song.name === track_selected,
   );
   const totalTracks = songs_sorted.length;
   const selectedTrackNumber = song_selected
@@ -93,12 +92,7 @@ export const Jukebox = () => {
               <Section fill title="Проигрыватель">
                 <Stack fill vertical>
                   <Stack.Item bold maxWidth="240px">
-                    {song_selected &&
-                    song_selected.name.length > MAX_NAME_LENGTH ? (
-                      <marquee>{song_selected.name}</marquee>
-                    ) : (
-                      song_selected?.name
-                    )}
+                    {song_selected?.name}
                   </Stack.Item>
                   <Stack fill mt={1.5}>
                     <Stack.Item grow basis="0">
@@ -130,13 +124,14 @@ export const Jukebox = () => {
                     </Stack.Item>
                   </Stack>
                   <Stack.Item>
-                    <ProgressBar.Countdown
-                      start={start_time}
-                      current={!looping ? world_time : end_time}
-                      end={end_time}
+                    <Countdown
+                      timeStart={start_time}
+                      progressBar
+                      loop={!!looping}
+                      timeEnd={end_time}
                     >
                       {trackTimer}
-                    </ProgressBar.Countdown>
+                    </Countdown>
                   </Stack.Item>
                 </Stack>
               </Section>

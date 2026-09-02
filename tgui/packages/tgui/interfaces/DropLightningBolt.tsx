@@ -1,15 +1,15 @@
-import { BooleanLike } from 'common/react';
-import { useBackend } from '../backend';
 import {
+  Box,
   Button,
+  Dropdown,
   LabeledList,
   NumberInput,
   Section,
-  Dropdown,
-  Box,
-  Tooltip,
   Stack,
-} from '../components';
+  Tooltip,
+} from 'tgui-core/components';
+import type { BooleanLike } from 'tgui-core/react';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type LightningBoltData = {
@@ -28,7 +28,7 @@ type PlayerDropdownOption = {
 };
 
 const getPlayerOptions = (
-  players: Record<string, string>
+  players: Record<string, string>,
 ): PlayerDropdownOption[] => {
   return Object.entries(players).map(([ckey, display]) => ({
     displayText: display,
@@ -38,7 +38,7 @@ const getPlayerOptions = (
 
 const findCkeyByDisplayText = (
   players: Record<string, string>,
-  displayText: string
+  displayText: string,
 ): string | undefined => {
   return Object.keys(players).find((key) => players[key] === displayText);
 };
@@ -70,7 +70,7 @@ export const DropLightningBolt = (props: unknown) => {
                     onSelected={(displayText) => {
                       const selectedCkey = findCkeyByDisplayText(
                         players,
-                        displayText
+                        displayText,
                       );
                       if (selectedCkey) {
                         act('pick_player', { ckey: selectedCkey });

@@ -39,6 +39,7 @@
 	/// Pass open check in empty verb
 	var/pass_open_check = FALSE
 	var/chem_master_made = FALSE
+	var/can_empty = TRUE
 
 /obj/item/reagent_containers/get_ru_names_cached()
 	if(chem_master_made)
@@ -66,6 +67,9 @@
 		possible_transfer_amounts = string_list(possible_transfer_amounts)
 	add_initial_reagents()
 	update_icon()
+	register_context()
+	if(can_empty)
+		verbs |= /obj/item/reagent_containers/proc/empty
 
 /obj/item/reagent_containers/examine()
 	. = ..()
@@ -151,11 +155,7 @@
 
 	return TRUE
 
-/obj/item/reagent_containers/verb/empty()
-
-	set name = "Вылить содержимое"
-	set category = VERB_CATEGORY_OBJECT
-	set src in usr
+GAME_PROC_SRC(/obj/item/reagent_containers, empty, usr, "Вылить содержимое", VERB_CATEGORY_HIDDEN)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return

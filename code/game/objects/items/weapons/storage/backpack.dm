@@ -518,10 +518,7 @@
 	resistance_flags = FIRE_PROOF
 	var/strap_side_straight = FALSE
 
-/obj/item/storage/backpack/satchel/verb/switch_strap()
-	set name = "Перекинуть ремешок"
-	set category = VERB_CATEGORY_OBJECT
-	set src in usr
+GAME_VERB_SRC(/obj/item/storage/backpack/satchel, switch_strap, usr, "Перекинуть ремешок", VERB_CATEGORY_HIDDEN)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
@@ -706,7 +703,7 @@
 	new /obj/item/ammo_box/magazine/smgm45(src)
 	new /obj/item/ammo_box/magazine/smgm45(src)
 	new /obj/item/ammo_box/magazine/smgm45(src)
-	new /obj/item/gun/projectile/automatic/smg/c20r(src)
+	new /obj/item/gun/projectile/automatic/smg/c20r/auto(src)
 	new /obj/item/gun_module/muzzle/suppressor(src)
 
 /obj/item/storage/backpack/duffel/syndie/bulldogbundle

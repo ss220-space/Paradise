@@ -13,7 +13,8 @@ ADMIN_VERB(air_status, R_DEBUG, "Air Status In Location", "Gets the air status f
 	atmos_scan(user.mob, user_turf, silent = TRUE)
 	BLACKBOX_LOG_ADMIN_VERB("Air Status In Location")
 
-ADMIN_VERB(cmd_admin_robotize, R_SPAWN, "Make Robot", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/target)
+ADMIN_VERB(cmd_admin_robotize, R_SPAWN, "Make Robot", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN)
+	VERB_ARG_TYPED(target, VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /mob)
 	if(!SSticker.HasRoundStarted())
 		tgui_alert(user, "Wait until the game starts")
 		return
@@ -32,7 +33,8 @@ ADMIN_VERB(cmd_admin_robotize, R_SPAWN, "Make Robot", ADMIN_VERB_NO_DESCRIPTION,
 	else
 		tgui_alert(user, "Invalid mob")
 
-ADMIN_VERB(cmd_admin_animalize, R_SPAWN, "Make Simple Animal", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/target in GLOB.mob_list)
+ADMIN_VERB(cmd_admin_animalize, R_SPAWN, "Make Simple Animal", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN)
+	VERB_ARG_TYPED(target, VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /mob)
 	if(!SSticker)
 		tgui_alert(user, "Wait until the game starts")
 		return
@@ -48,7 +50,8 @@ ADMIN_VERB(cmd_admin_animalize, R_SPAWN, "Make Simple Animal", ADMIN_VERB_NO_DES
 	log_admin("[key_name(user)] has animalized [target.key].")
 	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, Animalize)), 1 SECONDS)
 
-ADMIN_VERB(cmd_admin_gorillize, R_SPAWN, "Make Gorilla", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/target in GLOB.mob_list)
+ADMIN_VERB(cmd_admin_gorillize, R_SPAWN, "Make Gorilla", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN)
+	VERB_ARG_TYPED(target, VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /mob)
 	if(!SSticker)
 		tgui_alert(user, "Wait until the game starts")
 		return
@@ -71,7 +74,8 @@ ADMIN_VERB(cmd_admin_gorillize, R_SPAWN, "Make Gorilla", ADMIN_VERB_NO_DESCRIPTI
 	log_admin("[key_name(user)] has gorillized [target.key].")
 	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, gorillize), gorilla_type), 1 SECONDS)
 
-ADMIN_VERB(cmd_admin_super, R_SPAWN, "Make Superhero", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/target in GLOB.mob_list)
+ADMIN_VERB(cmd_admin_super, R_SPAWN, "Make Superhero", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN)
+	VERB_ARG_TYPED(target, VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /mob)
 	if(!SSticker)
 		tgui_alert(user, "Wait until the game starts")
 		return
@@ -104,7 +108,9 @@ ADMIN_VERB(cmd_debug_make_powernets, R_DEBUG, "Make Powernets", "Regenerates all
 	log_and_message_admins("has remade the powernets. makepowernets() called.")
 	BLACKBOX_LOG_ADMIN_VERB("Make Powernets")
 
-ADMIN_VERB(cmd_admin_grantfullaccess, R_EVENT, "Grant Full Access", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/target in GLOB.mob_list)
+ADMIN_VERB_VISIBILITY(cmd_admin_grantfullaccess, ADMIN_VERB_VISIBLITY_FLAG_MAPPING_DEBUG)
+ADMIN_VERB_ONLY_CONTEXT_MENU(cmd_admin_grantfullaccess, R_EVENT, "Grant Full Access", /mob)
+	VERB_ARG_TYPED(target, VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /mob)
 	if(!SSticker)
 		tgui_alert(user, "Wait until the game starts")
 		return
@@ -140,7 +146,9 @@ ADMIN_VERB(cmd_admin_grantfullaccess_in_list, R_EVENT, "Grant Full Access in Lis
 
 	SSadmin_verbs.dynamic_invoke_verb(user, /datum/admin_verb/cmd_admin_grantfullaccess, target)
 
-ADMIN_VERB(cmd_assume_direct_control, R_DEBUG|R_ADMIN, "Assume Direct Control", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/target in GLOB.mob_list)
+ADMIN_VERB_VISIBILITY(cmd_assume_direct_control, ADMIN_VERB_VISIBLITY_FLAG_MAPPING_DEBUG)
+ADMIN_VERB_ONLY_CONTEXT_MENU(cmd_assume_direct_control, R_DEBUG|R_ADMIN, "Assume Direct Control", /mob)
+	VERB_ARG_TYPED(target, VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /mob)
 	if(target.ckey)
 		if(tgui_alert(user, "This mob is being controlled by [target.ckey]. Are you sure you wish to assume control of it? [target.ckey] will be made a ghost.", null, list("Yes", "No")) != "Yes")
 			return
@@ -160,6 +168,7 @@ ADMIN_VERB(cmd_assume_direct_control, R_DEBUG|R_ADMIN, "Assume Direct Control", 
 
 	BLACKBOX_LOG_ADMIN_VERB("Assume Direct Control")
 
+ADMIN_VERB_VISIBILITY(cmd_assume_direct_control_in_list, ADMIN_VERB_VISIBLITY_FLAG_MAPPING_DEBUG)
 ADMIN_VERB(cmd_assume_direct_control_in_list, R_DEBUG|R_ADMIN, "Assume Direct Control in List", "Assume direct control of a mob.", ADMIN_CATEGORY_DEBUG)
 	var/mob/target = tgui_input_list(user, "Please, select a player!", "Assume Direct Control", GLOB.mob_list)
 	if(!target)
@@ -168,7 +177,9 @@ ADMIN_VERB(cmd_assume_direct_control_in_list, R_DEBUG|R_ADMIN, "Assume Direct Co
 	SSadmin_verbs.dynamic_invoke_verb(user, /datum/admin_verb/cmd_assume_direct_control, target)
 
 ADMIN_VERB_VISIBILITY(cmd_admin_areatest, ADMIN_VERB_VISIBLITY_FLAG_MAPPING_DEBUG)
-ADMIN_VERB(cmd_admin_areatest, R_DEBUG, "Test Areas", "Tests the areas for various machinery.", ADMIN_CATEGORY_MAPPING, on_station as num, filter_maint as num)
+ADMIN_VERB(cmd_admin_areatest, R_DEBUG, "Test Areas", "Tests the areas for various machinery.", ADMIN_CATEGORY_MAPPING)
+	VERB_ARG(on_station, VERB_ARG_TYPE_NUM, VERB_ARG_SOURCE_INPUT)
+	VERB_ARG(filter_maint, VERB_ARG_TYPE_NUM, VERB_ARG_SOURCE_INPUT)
 	var/list/dat = list()
 	var/list/areas_all = list()
 	var/list/areas_with_APC = list()
@@ -340,7 +351,8 @@ ADMIN_VERB(cmd_admin_areatest, R_DEBUG, "Test Areas", "Tests the areas for vario
 	popup.set_content(dat.Join())
 	popup.open()
 
-ADMIN_VERB_ONLY_CONTEXT_MENU(select_equipment, R_EVENT, "Select Equipment", mob/living/carbon/human/M in GLOB.mob_list)
+ADMIN_VERB_ONLY_CONTEXT_MENU(select_equipment, R_EVENT, "Select Equipment", /mob)
+	VERB_ARG_TYPED(M, VERB_ARG_TYPE_MOB, VERB_ARG_SOURCE_WORLD, /mob)
 	if(!ishuman(M) && !isobserver(M))
 		tgui_alert(user, "Неподходящее существо")
 		return
@@ -507,6 +519,14 @@ ADMIN_VERB(start_singulo, R_DEBUG, "Start Singularity", "Sets up the singularity
 		var/obj/singularity/singulo = new(get_turf(generator))
 		singulo.energy = 800
 		return
+
+ADMIN_VERB(test_pathfinding, R_DEBUG, "Toggle Pathfind Testing", "Enables/Disables pathfinding testing action buttons", ADMIN_CATEGORY_DEBUG)
+	BLACKBOX_LOG_ADMIN_VERB("Toggle Pathfind Testing")
+	log_admin("[key_name(user)] [user.holder.path_debug ? "disabled" : "enabled"] their pathfinding debug tools")
+	if(!user.holder.path_debug)
+		user.holder.path_debug = new(user.holder)
+	else
+		QDEL_NULL(user.holder.path_debug)
 
 ADMIN_VERB(debug_mob_lists, R_DEBUG, "Debug Mob Lists", "For when you just gotta know.", ADMIN_CATEGORY_DEBUG)
 	switch(tgui_input_list(user, "Which list?", items = list("Players", "Admins", "Mobs", "Living Mobs", "Alive Mobs", "Dead Mobs", "Silicons", "Clients", "Respawnable Mobs")))
@@ -710,7 +730,8 @@ ADMIN_VERB(clear_smart_asset_cache, R_DEBUG, "Clear Smart Asset Cache", "Clear t
 		cleared++
 	to_chat(user, span_notice("Cleared [cleared] asset\s."))
 
-ADMIN_VERB_AND_CONTEXT_MENU(cmd_admin_delete, R_DEBUG|R_SPAWN, "Delete", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, atom/target as obj|mob|turf in world)
+ADMIN_VERB_ONLY_CONTEXT_MENU(cmd_admin_delete, R_DEBUG|R_SPAWN, "Delete", /atom)
+	VERB_ARG_TYPED(target, VERB_ARG_TYPE_OBJ | VERB_ARG_TYPE_MOB | VERB_ARG_TYPE_TURF, VERB_ARG_SOURCE_WORLD, /atom)
 	user.admin_delete(target)
 
 /datum/mc_dependency_ui
@@ -793,3 +814,4 @@ ADMIN_VERB(count_instances, R_DEBUG, "Count Atoms/Datums", "Count how many atom 
 	. = list()
 	CRASH("count_datums not supported on OpenDream")
 #endif
+

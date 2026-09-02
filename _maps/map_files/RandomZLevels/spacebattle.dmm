@@ -471,6 +471,14 @@
 	icon_state = "floor4"
 	},
 /area/awaymission/spacebattle/syndicate1)
+"bz" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/cup/glass/oilcan,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutral"
+	},
+/area/awaymission/spacebattle/hallway6)
 "bA" = (
 /obj/machinery/computer/shuttle,
 /turf/simulated/floor/shuttle{
@@ -764,17 +772,6 @@
 /obj/effect/mob_spawn/human/corpse/spacebattle/assistant,
 /turf/simulated/floor/mineral/titanium,
 /area/awaymission/spacebattle/storage)
-"cz" = (
-/obj/structure/safe/floor{
-	known_by = list("captain")
-	},
-/obj/item/storage/box/survival/survival_syndi,
-/obj/item/storage/secure/briefcase/syndie,
-/obj/item/clothing/under/syndicate/tacticool,
-/obj/item/clothing/mask/balaclava,
-/obj/item/gun/projectile/automatic/pistol,
-/turf/simulated/floor/plasteel,
-/area/awaymission/spacebattle/sec_storage)
 "cC" = (
 /turf/simulated/wall/shuttle{
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
@@ -3316,10 +3313,6 @@
 	},
 /turf/space,
 /area/space)
-"kh" = (
-/obj/item/reagent_containers/cup/glass/bottle/cognac,
-/turf/simulated/floor/plasteel,
-/area/awaymission/spacebattle/hallway13)
 "ki" = (
 /obj/machinery/disposal/deliveryChute,
 /obj/structure/disposalpipe/trunk{
@@ -3354,21 +3347,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
-"kn" = (
-/obj/item/reagent_containers/condiment/peppermill{
-	pixel_x = 3;
-	pixel_y = 11
-	},
-/obj/item/reagent_containers/condiment/saltshaker{
-	pixel_x = -3;
-	pixel_y = 11
-	},
-/obj/structure/table/reinforced,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel/freezer,
-/area/awaymission/spacebattle/kitchen)
 "ko" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/shuttle{
@@ -3806,13 +3784,6 @@
 /obj/machinery/light,
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/spacebattle/server)
-"lK" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/cup/glass/bottle/rum,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4"
-	},
-/area/awaymission/spacebattle/syndicate3)
 "lM" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -3823,6 +3794,10 @@
 /obj/item/stack/medical/ointment/advanced,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/bridge)
+"lO" = (
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
+/turf/simulated/floor/plasteel,
+/area/awaymission/spacebattle/hallway13)
 "lP" = (
 /obj/machinery/vending/engivend{
 	products = list(/obj/item/clothing/glasses/meson=0,/obj/item/multitool=1,/obj/item/airlock_electronics=0,/obj/item/firelock_electronics=0,/obj/item/firealarm_electronics=0,/obj/item/apc_electronics=3,/obj/item/airalarm_electronics=5,/obj/item/stock_parts/cell/high=2,/obj/item/camera_assembly=0)
@@ -4299,21 +4274,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/turret9)
-"nd" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/structure/closet/cardboard{
-	icon_closed = "cardboard_engineering";
-	icon_opened = "cardboard_open_engineering";
-	icon_state = "cardboard_engineering"
-	},
-/obj/item/reagent_containers/cup/glass/bottle/whiskey,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "yellow"
-	},
-/area/awaymission/spacebattle/engine)
 "ne" = (
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 1;
@@ -4433,6 +4393,17 @@
 	icon_state = "neutral"
 	},
 /area/awaymission/spacebattle/hallway8)
+"nz" = (
+/obj/structure/safe/floor{
+	known_by = list("captain")
+	},
+/obj/item/storage/box/survival/survival_syndi,
+/obj/item/storage/secure/briefcase/syndie,
+/obj/item/clothing/under/syndicate/tacticool,
+/obj/item/clothing/mask/balaclava,
+/obj/item/gun/projectile/automatic/pistol/stechkin,
+/turf/simulated/floor/plasteel,
+/area/awaymission/spacebattle/sec_storage)
 "nA" = (
 /obj/effect/decal/cleanable/shreds,
 /turf/simulated/floor/plasteel{
@@ -4685,6 +4656,13 @@
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel/freezer,
 /area/awaymission/spacebattle/kitchen)
+"oq" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/cup/glass/bottle/rum,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/awaymission/spacebattle/syndicate3)
 "or" = (
 /obj/effect/landmark/awaymissions/spacebattle/mob_spawn/melee_space{
 	id = "engBack"
@@ -5861,19 +5839,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/turret2)
-"rW" = (
-/obj/item/reagent_containers/cup/glass/bottle/patron{
-	pixel_y = 7
-	},
-/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
-	pixel_x = 8
-	},
-/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
-	pixel_x = -5
-	},
-/obj/structure/table,
-/turf/simulated/floor/plasteel,
-/area/awaymission/spacebattle/sec_storage)
 "rZ" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -9030,6 +8995,21 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
+"Bo" = (
+/obj/item/reagent_containers/condiment/peppermill{
+	pixel_x = 3;
+	pixel_y = 11
+	},
+/obj/item/reagent_containers/condiment/saltshaker{
+	pixel_x = -3;
+	pixel_y = 11
+	},
+/obj/structure/table/reinforced,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/awaymission/spacebattle/kitchen)
 "Bp" = (
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -9322,6 +9302,19 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
+"Cb" = (
+/obj/item/reagent_containers/cup/glass/bottle/patron{
+	pixel_y = 7
+	},
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
+	pixel_x = 8
+	},
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
+	pixel_x = -5
+	},
+/obj/structure/table,
+/turf/simulated/floor/plasteel,
+/area/awaymission/spacebattle/sec_storage)
 "Cc" = (
 /obj/machinery/light{
 	dir = 1
@@ -9576,6 +9569,16 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/engine)
+"CS" = (
+/obj/structure/closet/crate/secure/bin{
+	opened = 1
+	},
+/obj/item/reagent_containers/cup/bottle/morphine,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "blue"
+	},
+/area/awaymission/spacebattle/bridge)
 "CT" = (
 /obj/structure/window/plasmareinforced{
 	dir = 1;
@@ -9622,6 +9625,10 @@
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
+"De" = (
+/obj/item/reagent_containers/cup/glass/bottle/cognac,
+/turf/simulated/floor/plasteel,
+/area/awaymission/spacebattle/hallway13)
 "Df" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -10571,16 +10578,6 @@
 /obj/structure/grille,
 /turf/simulated/floor/shuttle/plating,
 /area/awaymission/spacebattle/cruiser)
-"FR" = (
-/obj/effect/turf_decal/box/corners{
-	dir = 4
-	},
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/cup/glass/oilcan,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor12"
-	},
-/area/awaymission/spacebattle/syndicate3)
 "FT" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
@@ -11465,6 +11462,21 @@
 /obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway8)
+"Iz" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/closet/cardboard{
+	icon_closed = "cardboard_engineering";
+	icon_opened = "cardboard_open_engineering";
+	icon_state = "cardboard_engineering"
+	},
+/obj/item/reagent_containers/cup/glass/bottle/whiskey,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "yellow"
+	},
+/area/awaymission/spacebattle/engine)
 "IB" = (
 /obj/structure/fermenting_barrel,
 /turf/simulated/floor/wood,
@@ -11523,20 +11535,6 @@
 	icon_state = "neutral"
 	},
 /area/awaymission/spacebattle/hallway13)
-"IL" = (
-/obj/item/reagent_containers/cup/beaker/cryoxadone{
-	pixel_x = 8;
-	pixel_y = 9
-	},
-/obj/item/reagent_containers/cup/beaker/cryoxadone{
-	pixel_x = -6;
-	pixel_y = 9
-	},
-/obj/structure/table/glass,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor3"
-	},
-/area/awaymission/spacebattle/syndicate2)
 "IN" = (
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger{
@@ -11876,6 +11874,20 @@
 	icon_state = "neutral"
 	},
 /area/awaymission/spacebattle/hallway6)
+"JU" = (
+/obj/item/reagent_containers/cup/beaker/cryoxadone{
+	pixel_x = 8;
+	pixel_y = 9
+	},
+/obj/item/reagent_containers/cup/beaker/cryoxadone{
+	pixel_x = -6;
+	pixel_y = 9
+	},
+/obj/structure/table/glass,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/awaymission/spacebattle/syndicate2)
 "JV" = (
 /obj/machinery/computer/shuttle,
 /turf/simulated/floor/shuttle{
@@ -12692,14 +12704,6 @@
 	icon_state = "neutral"
 	},
 /area/awaymission/spacebattle/prhallway3)
-"Ms" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/cup/glass/oilcan,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutral"
-	},
-/area/awaymission/spacebattle/hallway6)
 "Mt" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
@@ -13223,6 +13227,16 @@
 	underlay_floor_icon_state = "0"
 	},
 /area/awaymission/spacebattle/syndicate4)
+"NY" = (
+/obj/effect/turf_decal/box/corners{
+	dir = 4
+	},
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/cup/glass/oilcan,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor12"
+	},
+/area/awaymission/spacebattle/syndicate3)
 "NZ" = (
 /obj/structure/lattice,
 /turf/space,
@@ -16716,16 +16730,6 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission)
-"Yj" = (
-/obj/structure/closet/crate/secure/bin{
-	opened = 1
-	},
-/obj/item/reagent_containers/cup/bottle/morphine,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "blue"
-	},
-/area/awaymission/spacebattle/bridge)
 "Yk" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -17021,10 +17025,6 @@
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/spacebattle)
-"Ze" = (
-/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
-/turf/simulated/floor/plasteel,
-/area/awaymission/spacebattle/hallway13)
 "Zf" = (
 /obj/effect/decal/cleanable/blood/oil,
 /turf/simulated/floor/plating,
@@ -40573,7 +40573,7 @@ mk
 Qf
 hH
 Jg
-nd
+Iz
 CF
 eH
 JZ
@@ -41842,7 +41842,7 @@ qH
 Le
 eH
 os
-Ze
+lO
 ZN
 IK
 eH
@@ -42099,7 +42099,7 @@ qH
 Le
 eH
 dJ
-kh
+De
 SN
 pG
 Rb
@@ -43646,8 +43646,8 @@ TP
 Mi
 eH
 pr
-rW
-cz
+Cb
+nz
 et
 Ca
 zg
@@ -48271,7 +48271,7 @@ zz
 eH
 cD
 fv
-kn
+Bo
 op
 qO
 Ha
@@ -50083,7 +50083,7 @@ fM
 xZ
 mW
 du
-Yj
+CS
 Ht
 kq
 Pv
@@ -52303,7 +52303,7 @@ IZ
 OD
 ar
 ZG
-IL
+JU
 OD
 NR
 em
@@ -56765,7 +56765,7 @@ HU
 Uk
 eH
 IN
-Ms
+bz
 Oi
 Ou
 Ou
@@ -66451,7 +66451,7 @@ dY
 aD
 aD
 aA
-lK
+oq
 Wt
 zf
 aD
@@ -66694,7 +66694,7 @@ ab
 ph
 BB
 eF
-FR
+NY
 bk
 QK
 ut

@@ -19,14 +19,6 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 		var/datum/theft_objective/highrisk_objective = highrisk_objective_type
 		types += initial(highrisk_objective.typepath)
 
-	// Cash objective
-	types += /obj/item/stack/spacecash
-
-	// Brains
-	types += /obj/item/mmi/robotic_brain // Robotic and positronic
-	types += /obj/item/organ/internal/brain // Regular brains
-	types += /mob/living/simple_animal/diona // Possible diona brains
-
 	return types
 
 /proc/get_theft_targets_station(typepath, subtypes = TRUE, list/blacklist)

@@ -466,10 +466,7 @@
 	else
 		to_chat(user, "[DECLENT_RU_CAP(src, NOMINATIVE)] пуст!")
 
-/obj/machinery/sleeper/verb/eject()
-	set name = "Извлечь пациента"
-	set category = VERB_CATEGORY_OBJECT
-	set src in oview(1)
+GAME_VERB_SRC(/obj/machinery/sleeper, eject, oview(1), "Извлечь пациента", VERB_CATEGORY_HIDDEN)
 
 	if(usr.default_can_use_topic(src) != UI_INTERACTIVE)
 		return
@@ -479,10 +476,7 @@
 	go_out()
 	add_fingerprint(usr)
 
-/obj/machinery/sleeper/verb/remove_beaker()
-	set name = "Достать ёмкость"
-	set category = VERB_CATEGORY_OBJECT
-	set src in oview(1)
+GAME_VERB_SRC(/obj/machinery/sleeper, remove_beaker, oview(1), "Достать ёмкость", VERB_CATEGORY_HIDDEN)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !Adjacent(usr))
 		return
@@ -552,24 +546,6 @@
 
 /obj/machinery/sleeper/AllowDrop()
 	return FALSE
-
-/obj/machinery/sleeper/verb/move_inside()
-	set name = "Залезть внутрь"
-	set category = VERB_CATEGORY_OBJECT
-	set src in oview(1)
-	if(!ishuman(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.buckled)
-		return
-	if(occupant)
-		balloon_alert(usr, "внутри кто-то есть!")
-		return
-	if(panel_open)
-		balloon_alert(usr, "техпанель открыта!")
-		return
-	if(usr.has_buckled_mobs()) //mob attached to us
-		to_chat(usr, span_warning("Вы не поместитесь в [declent_ru(ACCUSATIVE)], пока на вас сидит слайм."))
-		return
-	visible_message("[usr] начина[PLUR_ET_YUT(usr)] залезать в [declent_ru(ACCUSATIVE)].")
-	put_in(usr, usr)
 
 /obj/machinery/sleeper/syndie
 	icon_state = "sleeper_s-open"

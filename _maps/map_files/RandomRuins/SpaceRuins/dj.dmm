@@ -731,22 +731,6 @@
 	icon_state = "darkblue"
 	},
 /area/djstation)
-"Lr" = (
-/obj/structure/table,
-/obj/item/reagent_containers/cup/glass/bottle/vodka{
-	pixel_x = 7;
-	pixel_y = 10
-	},
-/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
-	pixel_x = 28;
-	pixel_y = 3
-	},
-/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkblue"
-	},
-/area/djstation)
 "Lv" = (
 /obj/machinery/door_control{
 	desiredstate = 1;
@@ -859,6 +843,14 @@
 	icon_state = "dark"
 	},
 /area/djstation)
+"SW" = (
+/obj/structure/safe/floor,
+/obj/item/gun/projectile/automatic/pistol/stechkin,
+/obj/structure/table/wood,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/djstation)
 "Tc" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -905,6 +897,22 @@
 	icon_state = "darkblue"
 	},
 /area/djstation)
+"Vx" = (
+/obj/structure/table,
+/obj/item/reagent_containers/cup/glass/bottle/vodka{
+	pixel_x = 7;
+	pixel_y = 10
+	},
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
+	pixel_x = 28;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkblue"
+	},
+/area/djstation)
 "Wc" = (
 /obj/docking_port/stationary{
 	dir = 8;
@@ -936,14 +944,6 @@
 	pixel_y = 35
 	},
 /turf/space,
-/area/djstation)
-"XI" = (
-/obj/structure/safe/floor,
-/obj/item/gun/projectile/automatic/pistol,
-/obj/structure/table/wood,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
 /area/djstation)
 "YA" = (
 /turf/space,
@@ -1463,7 +1463,7 @@ ao
 Uj
 Vm
 Fu
-Lr
+Vx
 aX
 bR
 bR
@@ -1646,7 +1646,7 @@ am
 YA
 YA
 ao
-XI
+SW
 sd
 dv
 ao

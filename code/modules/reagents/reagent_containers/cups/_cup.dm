@@ -227,10 +227,7 @@
 	if(assembly)
 		. += "assembly"
 
-/obj/item/reagent_containers/cup/beaker/verb/remove_assembly()
-	set name = "Отсоединить"
-	set category = VERB_CATEGORY_OBJECT
-	set src in usr
+GAME_VERB_SRC(/obj/item/reagent_containers/cup/beaker, remove_assembly, usr, "Отсоединить", VERB_CATEGORY_HIDDEN)
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 	if(assembly)

@@ -705,16 +705,6 @@
 	icon_state = "darkgrey"
 	},
 /area/centcom/admin_room)
-"hl" = (
-/obj/structure/table,
-/obj/item/storage/box/beakers,
-/obj/item/reagent_containers/cup/beaker/bluespace,
-/obj/item/reagent_containers/cup/beaker/bluespace,
-/obj/item/reagent_containers/cup/beaker/bluespace,
-/obj/item/reagent_containers/cup/beaker/bluespace,
-/obj/item/storage/box/autoinjectors,
-/turf/simulated/floor/wood,
-/area/centcom/admin_room)
 "hm" = (
 /turf/simulated/floor/holofloor{
 	dir = 4;
@@ -822,11 +812,6 @@
 	},
 /turf/simulated/floor/indestructible/asteroid,
 /area/centcom/tdome/new_arena/cqc)
-"iz" = (
-/obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/pistol,
-/turf/simulated/floor/wood,
-/area/centcom/admin_room)
 "iD" = (
 /obj/structure/closet/secure_closet/cabinet{
 	req_access = list(114)
@@ -1061,6 +1046,12 @@
 "kw" = (
 /turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air,
 /area/centcom/tdome/new_arena)
+"kB" = (
+/obj/structure/table,
+/obj/item/storage/pill_bottle/random_drug_bottle,
+/obj/item/reagent_containers/cup/bottle/adminordrazine,
+/turf/simulated/floor/wood,
+/area/centcom/admin_room)
 "kD" = (
 /obj/structure/table/wood,
 /obj/item/kitchen/knife/envy,
@@ -2029,6 +2020,11 @@
 /obj/item/gun/projectile/automatic/toy/pistol,
 /turf/simulated/floor/carpet/arcade,
 /area/centcom/admin_room)
+"xn" = (
+/obj/structure/table/wood,
+/obj/item/gun/projectile/automatic/pistol/stechkin,
+/turf/simulated/floor/wood,
+/area/centcom/admin_room)
 "xo" = (
 /turf/simulated/floor/holofloor{
 	dir = 8;
@@ -2619,15 +2615,6 @@
 /area/centcom/tdome/new_arena)
 "Eh" = (
 /obj/machinery/light_switch/directional/east,
-/turf/simulated/floor/wood,
-/area/centcom/admin_room)
-"Em" = (
-/obj/structure/table,
-/obj/item/storage/box/beakers,
-/obj/item/reagent_containers/cup/beaker/bluespace,
-/obj/item/reagent_containers/cup/beaker/bluespace,
-/obj/item/reagent_containers/cup/beaker/bluespace,
-/obj/item/reagent_containers/cup/beaker/bluespace,
 /turf/simulated/floor/wood,
 /area/centcom/admin_room)
 "Ep" = (
@@ -3473,12 +3460,6 @@
 	icon_state = "asteroid"
 	},
 /area/holodeck/source_beach)
-"Pa" = (
-/obj/structure/table,
-/obj/item/storage/pill_bottle/random_drug_bottle,
-/obj/item/reagent_containers/cup/bottle/adminordrazine,
-/turf/simulated/floor/wood,
-/area/centcom/admin_room)
 "Pn" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/staff/animate,
@@ -3653,6 +3634,16 @@
 "RF" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/l6_saw,
+/turf/simulated/floor/wood,
+/area/centcom/admin_room)
+"RP" = (
+/obj/structure/table,
+/obj/item/storage/box/beakers,
+/obj/item/reagent_containers/cup/beaker/bluespace,
+/obj/item/reagent_containers/cup/beaker/bluespace,
+/obj/item/reagent_containers/cup/beaker/bluespace,
+/obj/item/reagent_containers/cup/beaker/bluespace,
+/obj/item/storage/box/autoinjectors,
 /turf/simulated/floor/wood,
 /area/centcom/admin_room)
 "Sc" = (
@@ -3896,6 +3887,15 @@
 "UB" = (
 /obj/structure/table/wood,
 /obj/item/adminfu_scroll,
+/turf/simulated/floor/wood,
+/area/centcom/admin_room)
+"UE" = (
+/obj/structure/table,
+/obj/item/storage/box/beakers,
+/obj/item/reagent_containers/cup/beaker/bluespace,
+/obj/item/reagent_containers/cup/beaker/bluespace,
+/obj/item/reagent_containers/cup/beaker/bluespace,
+/obj/item/reagent_containers/cup/beaker/bluespace,
 /turf/simulated/floor/wood,
 /area/centcom/admin_room)
 "UM" = (
@@ -9262,7 +9262,7 @@ eo
 fE
 Nt
 EU
-iz
+xn
 IU
 jN
 CF
@@ -11570,8 +11570,8 @@ cd
 kg
 Jr
 KL
-Em
-Pa
+UE
+kB
 fE
 ZG
 ZG
@@ -12085,7 +12085,7 @@ Ep
 HA
 Ep
 Ep
-hl
+RP
 fE
 ZG
 ZG
