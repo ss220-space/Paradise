@@ -169,7 +169,7 @@ ADMIN_VERB(create_command_report, R_EVENT, "Create Command Report", "Create a co
 				chosen_color = "purple"
 			else if(command_name == SPIDER_CLAN_PRESET)
 				chosen_color = "cyan"
-		GLOB.major_announcement.announce(command_report_content, new_subtitle = (subheader == ""? capitalize(default_subheaders[command_name]) : subheader), new_sound = report_sound, color_override = chosen_color)
+		GLOB.major_announcement.announce(command_report_content, command_name, new_subtitle = (subheader == ""? capitalize(default_subheaders[command_name]) : subheader), new_sound = report_sound, color_override = chosen_color)
 
 	if(!announce_contents || print_report)
 		if(!announce_contents)
