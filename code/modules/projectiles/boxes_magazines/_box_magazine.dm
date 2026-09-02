@@ -63,23 +63,29 @@
 /obj/item/ammo_box/add_context(atom/source, list/context, obj/item/held_item, mob/user)
 	. = ..()
 
+	if(length(stored_ammo))
+		context[SCREENTIP_CONTEXT_RMB] = "Разрядить"
+		. = CONTEXTUAL_SCREENTIP_SET
+
 	if(held_item == src && length(stored_ammo))
 		context[SCREENTIP_CONTEXT_LMB] = "Разрядить"
-		return CONTEXTUAL_SCREENTIP_SET
+		. = CONTEXTUAL_SCREENTIP_SET
 
 	if(isammocasing(held_item))
 		var/obj/item/ammo_casing/casing = held_item
 		if(!ammo_suitability(casing))
 			return
 		context[SCREENTIP_CONTEXT_LMB] = "Зарядить"
-		return CONTEXTUAL_SCREENTIP_SET
+		. = CONTEXTUAL_SCREENTIP_SET
 
 	if(isammobox(held_item) && held_item != src)
 		var/obj/item/ammo_box/box = held_item
 		if(!ammo_suitability(box.get_round(TRUE))) // no hint if there's no ammo to get
 			return
 		context[SCREENTIP_CONTEXT_LMB] = "Зарядить"
-		return CONTEXTUAL_SCREENTIP_SET
+		. = CONTEXTUAL_SCREENTIP_SET
+
+	return .
 
 /obj/item/ammo_box/add_item_context(obj/item/source, list/context, atom/target, mob/living/user)
 	. = ..()
@@ -276,6 +282,21 @@
 		balloon_alert(user, "патрон извлечён")
 		update_appearance(UPDATE_ICON)
 		user.put_in_hands(casing)
+
+/obj/item/ammo_box/attack_hand_secondary(mob/user, list/modifiers)
+	. = ..()
+	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
+		return
+
+	attack_self(user)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+/obj/item/ammo_box/attack_self_secondary(mob/user, list/modifiers)
+	. = ..()
+	if(.)
+		return
+
+	attack_self(user)
 
 /obj/item/ammo_box/update_icon_state()
 	var/icon_base = icon_prefix ? icon_prefix : initial(icon_state)
