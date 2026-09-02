@@ -2,6 +2,7 @@ import './styles/main.scss';
 
 import { useEffect, useRef, useState } from 'react';
 import { dragStartHandler, setupDrag } from 'tgui/drag';
+import { focusMap } from 'tgui/focus';
 import { isEscape, KEY } from 'tgui-core/keys';
 import { type BooleanLike, classes } from 'tgui-core/react';
 import { type Channel, ChannelIterator } from './ChannelIterator';
@@ -118,7 +119,7 @@ export const TguiSay = () => {
   }
 
   const handleClose = (): void => {
-    innerRef.current?.blur();
+    focusMap();
     windowClose(scale.current);
     setTimeout(() => {
       chatHistory.current.reset();
