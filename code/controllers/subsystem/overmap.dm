@@ -34,6 +34,9 @@ SUBSYSTEM_DEF(overmap)
 	var/list/obj/overmap/feature/hazard/hazards = list()
 	var/list/datum/overmap_feature/ruin_sites = list()
 	var/list/ruin_space_zs = list()
+	var/list/datum/overmap_space_region/pooled_medium_cells = list()
+	var/list/datum/overmap_space_region/pooled_large_cells = list()
+	var/list/transit_space_zs = list()
 	var/list/datum/component/overmap_flight/flights = list()
 	var/list/datum/component/overmap_dock_host/dock_hosts = list()
 	var/list/obj/docking_port/mobile/area_shuttles = list()
@@ -57,6 +60,7 @@ SUBSYSTEM_DEF(overmap)
 	station_sector = new /datum/overmap_sector/station
 	local_sector = station_sector
 	sectors[station_sector.id] = station_sector
+	seed_reserved_space()
 	spawn_lavaland()
 	spawn_station()
 	spawn_service_sector()

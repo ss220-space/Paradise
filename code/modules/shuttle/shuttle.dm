@@ -206,12 +206,17 @@
 	return 1
 
 /obj/docking_port/stationary/proc/apply_overmap_dock_role()
-	if(overmap_dock_label)
+	if(dock_airlock)
+		overmap_dock_mode = OVERMAP_DOCK_MANUAL
+		if(!overmap_dock_label)
+			overmap_dock_label = dock_airlock.dock_name || (name != "dock" && name) || id
 		return
-	if(dock_airlock?.dock_name)
-		overmap_dock_label = dock_airlock.dock_name
+	if(istype(src, /obj/docking_port/stationary/overmap))
+		if(!overmap_dock_label)
+			overmap_dock_label = (name != "dock" && name) || id
 		return
-	overmap_dock_label = (name != "dock" && name) || id
+	overmap_dock_mode = OVERMAP_DOCK_RESERVED
+	overmap_dock_label = "Зарезервированная область"
 
 /obj/docking_port/stationary/Destroy(force)
 	if(force)

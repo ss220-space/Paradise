@@ -114,3 +114,31 @@
 	icon_state = "map"
 	color = "#000000"
 	name = "map void"
+
+/turf/simulated/floor/indestructible/hyperspace //123123123
+	name = "hyperspace"
+	icon = 'icons/turf/space.dmi'
+	icon_state = "black"
+	density = TRUE
+	opacity = TRUE
+	blocks_air = TRUE
+	explosion_block = 50
+	turf_flags = NO_RUINS
+	space_lit = FALSE
+	luminosity = 0
+
+/turf/simulated/floor/indestructible/hyperspace/Initialize(mapload)
+	. = ..()
+	name = "hyperspace"
+	icon_state = "black"
+
+/turf/simulated/floor/indestructible/hyperspace/Enter(atom/movable/mover, atom/oldloc)
+	return FALSE
+
+/proc/overmap_seal_block_with_hyperspace(turf/bottom_left, turf/top_right)
+	if(!bottom_left || !top_right || bottom_left.z != top_right.z)
+		return
+	for(var/turf/spot as anything in block(bottom_left, top_right))
+		if(spot.x != bottom_left.x && spot.x != top_right.x && spot.y != bottom_left.y && spot.y != top_right.y)
+			continue
+		spot.ChangeTurf(/turf/simulated/floor/indestructible/hyperspace, FALSE, FALSE, CHANGETURF_IGNORE_AIR)

@@ -83,11 +83,13 @@
 	for(var/quadrant in 1 to quadrants)
 		if(!(quadrant in enterable_quadrants))
 			continue
-		var/datum/overmap_space_region/cell = new(src, quadrant, region_size)
+		var/datum/overmap_space_region/cell = SSovermap.claim_space_region(region_size, src, quadrant)
+		if(!cell)
+			continue
 		cells += cell
 		var/turf/spot
 		if(!placed)
-			spot = parent.get_turf_at(coord_x, coord_y)
+			spot = parent.get_nearest_open_turf(coord_x, coord_y)
 			placed++
 		else
 			spot = parent.get_random_open_turf()
@@ -161,7 +163,7 @@
 			cell_turf.region = src
 			cell_turf.remove_transitions()
 		else
-			new_turf = old_turf.ChangeTurf(/turf/simulated/floor/indestructible/overmap/edge/buffer, FALSE, FALSE, CHANGETURF_IGNORE_AIR)
+			new_turf = old_turf.ChangeTurf(/turf/simulated/floor/indestructible/hyperspace, FALSE, FALSE, CHANGETURF_IGNORE_AIR)
 		new_turf.change_area(old_area, space_area)
 
 /datum/overmap_space_region/proc/playable_min_x()
@@ -312,6 +314,44 @@
 	for(var/obj/overmap/feature/hazard/hazard in spot)
 		qdel(hazard)
 
+/datum/controller/subsystem/overmap/proc/large_region_size()
+	return max(OVERMAP_RUIN_REGION_SIZE, world.maxx - 16)
+
+/datum/controller/subsystem/overmap/proc/seed_reserved_space()
+	pooled_medium_cells = list()
+	pooled_large_cells = list()
+	transit_space_zs = list()
+	for(var/i in 1 to OVERMAP_RESERVED_MEDIUM_Z)
+		ruin_space_zs += SSmapping.add_ruin_space_zlevel()
+	for(var/i in 1 to OVERMAP_RESERVED_MEDIUM_Z * OVERMAP_RESERVED_MEDIUM_CELLS_PER_Z)
+		pooled_medium_cells += new /datum/overmap_space_region(null, 1, OVERMAP_RUIN_REGION_SIZE)
+	for(var/i in 1 to OVERMAP_RESERVED_LARGE_Z)
+		ruin_space_zs += SSmapping.add_ruin_space_zlevel()
+		pooled_large_cells += new /datum/overmap_space_region(null, 1, large_region_size())
+	for(var/i in 1 to OVERMAP_RESERVED_TRANSIT_Z)
+		var/transit_z = SSmapping.add_reservation_zlevel()
+		SSmapping.initialize_reserved_level(transit_z)
+		transit_space_zs += transit_z
+	log_world("Overmap: reserved space pool medium=[length(pooled_medium_cells)] large=[length(pooled_large_cells)] transit_z=[length(transit_space_zs)].")
+
+/datum/controller/subsystem/overmap/proc/claim_space_region(size, datum/overmap_feature/ruin/site, quadrant)
+	var/datum/overmap_space_region/cell
+	if(size > OVERMAP_RUIN_REGION_SIZE && length(pooled_large_cells))
+		cell = pooled_large_cells[1]
+		pooled_large_cells.Cut(1, 2)
+	else if(size <= OVERMAP_RUIN_REGION_SIZE && length(pooled_medium_cells))
+		cell = pooled_medium_cells[1]
+		pooled_medium_cells.Cut(1, 2)
+	if(!cell)
+		cell = new /datum/overmap_space_region(site, quadrant, size)
+		return cell
+	cell.site = site
+	cell.quadrant = quadrant || 1
+	if(cell.space_area)
+		cell.space_area.name = "Космос — [site?.name || "точка интереса"] ([cell.quadrant]/[site?.quadrants || OVERMAP_RUIN_QUADRANTS])"
+		cell.space_area.region = cell
+	return cell
+
 /datum/controller/subsystem/overmap/proc/spawn_roundstart_ruin_sites()
 	if(!station_sector)
 		return
@@ -321,6 +361,91 @@
 		log_world("Overmap: failed to spawn empty_medium ruin at 6:4.")
 		return
 	log_world("Overmap: spawned ruin site [site.id] at 6:4 in sector [station_sector.id].")
+
+/datum/controller/subsystem/overmap/proc/overmap_ruin_pool_for_sector(datum/overmap_sector/sector)
+	if(sector?.sector_kind == OVERMAP_SECTOR_KIND_WILDERNESS)
+		return OVERMAP_RUIN_POOL_WILD
+	return OVERMAP_RUIN_POOL_STATION
+
+/datum/controller/subsystem/overmap/proc/pick_overmap_ruin_templates(size_key, pool, allow_dupes = FALSE)
+	. = list()
+	for(var/name in GLOB.space_ruins_templates)
+		var/datum/map_template/ruin/space/ruin = GLOB.space_ruins_templates[name]
+		if(!istype(ruin) || ruin.unpickable)
+			continue
+		if(ruin.overmap_size != size_key)
+			continue
+		if(!(pool in ruin.overmap_pools))
+			continue
+		if(!allow_dupes && ruin.loaded)
+			continue
+		. += ruin
+
+/datum/controller/subsystem/overmap/proc/take_overmap_ruin(list/datum/map_template/ruin/space/pool)
+	if(!length(pool))
+		return null
+	var/list/weighted = list()
+	for(var/datum/map_template/ruin/space/ruin as anything in pool)
+		weighted[ruin] = max(ruin.placement_weight, 1)
+	var/datum/map_template/ruin/space/chosen = pickweight(weighted)
+	pool -= chosen
+	return chosen
+
+/datum/controller/subsystem/overmap/proc/spawn_overmap_ruins(datum/overmap_sector/sector)
+	if(!sector || sector.ruin_spawn_weight <= 0)
+		return
+	var/pool = overmap_ruin_pool_for_sector(sector)
+	var/medium_count = round(sector.size * sector.ruin_spawn_weight / 10)
+	var/large_count = round(sector.size * sector.ruin_spawn_weight / 20)
+	var/list/mediums = pick_overmap_ruin_templates(OVERMAP_RUIN_SIZE_MEDIUM, pool)
+	var/list/larges = pick_overmap_ruin_templates(OVERMAP_RUIN_SIZE_LARGE, pool)
+	for(var/i in 1 to large_count)
+		var/datum/map_template/ruin/space/ruin = take_overmap_ruin(larges)
+		if(!ruin)
+			break
+		place_overmap_ruin_site(sector, ruin, TRUE)
+	for(var/i in 1 to medium_count)
+		var/datum/map_template/ruin/space/ruin = take_overmap_ruin(mediums)
+		if(!ruin)
+			break
+		place_overmap_ruin_site(sector, ruin, FALSE)
+
+/datum/controller/subsystem/overmap/proc/place_overmap_ruin_site(datum/overmap_sector/sector, datum/map_template/ruin/space/ruin, large)
+	var/turf/spot = sector.get_random_open_turf()
+	if(!spot)
+		return FALSE
+	var/datum/overmap_feature/ruin/site = new
+	site.name = ruin.name
+	site.enterable_quadrants = list(1)
+	site.region_size = large ? large_region_size() : OVERMAP_RUIN_REGION_SIZE
+	if(!site.spawn_on(sector, sector.coord_x(spot), sector.coord_y(spot)))
+		qdel(site)
+		return FALSE
+	var/datum/overmap_space_region/cell = site.cells[1]
+	if(ruin.width <= cell.size && ruin.height <= cell.size)
+		var/turf/load_at = cell.center_turf()
+		if(ruin.fits_in_map_bounds(load_at, centered = TRUE) && cell.contains_space_turf(load_at))
+			ruin.load(load_at, centered = TRUE)
+			ruin.loaded++
+			for(var/turf/marked as anything in ruin.get_affected_turfs(load_at, TRUE))
+				marked.turf_flags |= NO_RUINS
+			new /obj/effect/landmark/ruin(load_at, ruin)
+	scatter_small_overmap_ruins(cell, overmap_ruin_pool_for_sector(sector), large)
+	log_world("Overmap: placed [large ? "large" : "medium"] ruin [ruin.id] in sector [sector.id].")
+	return TRUE
+
+/datum/controller/subsystem/overmap/proc/scatter_small_overmap_ruins(datum/overmap_space_region/cell, pool, large)
+	if(!cell)
+		return
+	var/count = large ? 3 + round(cell.size / 80) : 1 + round(cell.size / 96)
+	var/list/smalls = pick_overmap_ruin_templates(OVERMAP_RUIN_SIZE_SMALL, pool, TRUE)
+	for(var/i in 1 to count)
+		var/datum/map_template/ruin/space/ruin = take_overmap_ruin(smalls)
+		if(!ruin)
+			break
+		if(ruin.allow_duplicates)
+			smalls += ruin
+		ruin.try_to_place_in_region(cell)
 
 /datum/controller/subsystem/overmap/proc/reserve_ruin_space(width, height)
 	if(!length(ruin_space_zs))

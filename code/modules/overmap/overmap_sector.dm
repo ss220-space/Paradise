@@ -17,6 +17,7 @@
 	var/area/overmap/map_area
 
 	var/wraparound = TRUE
+	var/tile_travel = 1
 
 	var/list/datum/overmap_sector_message/comms_messages = list()
 
@@ -83,7 +84,7 @@
 		var/is_rim = in_map && (local_x == 1 || local_y == 1 || local_x == size || local_y == size)
 		var/turf/new_turf
 		if(!in_map)
-			new_turf = old_turf.ChangeTurf(/turf/simulated/floor/indestructible/overmap/edge/buffer, FALSE, FALSE, CHANGETURF_IGNORE_AIR)
+			new_turf = old_turf.ChangeTurf(/turf/simulated/floor/indestructible/hyperspace, FALSE, FALSE, CHANGETURF_IGNORE_AIR)
 		else if(is_rim)
 			new_turf = old_turf.ChangeTurf(/turf/simulated/floor/indestructible/overmap/edge, FALSE, FALSE, CHANGETURF_IGNORE_AIR)
 		else
@@ -254,6 +255,22 @@
 	coord_y = clamp(coord_y, 1, size)
 	return locate_local(coord_x, coord_y)
 
+/datum/overmap_sector/proc/get_nearest_open_turf(want_x, want_y)
+	var/turf/start = get_turf_at(want_x, want_y)
+	if(start && !turf_occupied(start))
+		return start
+	var/turf/best
+	var/best_dist = INFINITY
+	for(var/turf/open_turf as anything in get_map_turfs())
+		if(turf_occupied(open_turf))
+			continue
+		var/dist = max(abs(coord_x(open_turf) - want_x), abs(coord_y(open_turf) - want_y))
+		if(dist >= best_dist)
+			continue
+		best_dist = dist
+		best = open_turf
+	return best || start
+
 /datum/overmap_sector/proc/add_object(obj/overmap/overmap_object, turf/target)
 	overmap_object.sector = src
 	objects |= overmap_object
@@ -277,6 +294,7 @@
 /datum/overmap_sector/station/populate_roundstart()
 	if(can_spawn_static_hazards())
 		spawn_static_overmap_hazards(src)
+	SSovermap.spawn_overmap_ruins(src)
 
 /datum/overmap_sector/station
 	id = OVERMAP_SECTOR_ID_STATION
@@ -286,10 +304,11 @@
 	access_flags = OVERMAP_ACCESS_PUBLIC
 	ruin_spawn_weight = 0.15
 	hazard_spawn_weight = 0.1
+	tile_travel = 3
 
 /datum/overmap_sector/service
 	id = OVERMAP_SECTOR_ID_SERVICE
-	name = "Солнечная система"
+	name = "Дальный космос Эпсилон Лукусты"
 	size = OVERMAP_SECTOR_SERVICE_SIZE
 	sector_kind = OVERMAP_SECTOR_KIND_SERVICE
 	access_flags = OVERMAP_ACCESS_CENTCOM | OVERMAP_ACCESS_SYNDICATE
@@ -302,9 +321,11 @@
 	access_flags = OVERMAP_ACCESS_PUBLIC
 	ruin_spawn_weight = 1
 	hazard_spawn_weight = 1
+	tile_travel = 6
 
 /datum/overmap_sector/wilderness/populate_roundstart()
 	spawn_static_overmap_hazards(src)
+	SSovermap.spawn_overmap_ruins(src)
 
 /datum/overmap_sector/wilderness/alpha
 	id = OVERMAP_SECTOR_ID_WILDERNESS_A

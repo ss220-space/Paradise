@@ -147,10 +147,11 @@
 		return
 
 	var/list/deltas = list(0, 0)
+	var/travel = sector.tile_travel || 1
 	for(var/i in 1 to 2)
 		if(abs(speed[i]) < min_speed)
 			continue
-		position[i] += speed[i] * elapsed
+		position[i] += speed[i] * elapsed / travel
 		if(position[i] >= OVERMAP_TILE_EDGE)
 			deltas[i] = 1
 			position[i] -= 1
@@ -160,10 +161,10 @@
 			position[i] += 1
 			position[i] = max(position[i], -OVERMAP_TILE_EDGE + OVERMAP_MOVE_RESOLUTION)
 
-	update_overmap_pixel()
 	refresh_heading_overlay()
 
 	if(!deltas[1] && !deltas[2])
+		update_overmap_pixel()
 		return
 
 	var/new_x = x + deltas[1]
@@ -178,12 +179,16 @@
 		else
 			speed[1] = 0
 			speed[2] = 0
+			update_overmap_pixel()
 		return
 	var/turf/newloc = locate(new_x, new_y, z)
 	if(newloc && loc != newloc)
 		Move(newloc)
 		setDir(SOUTH)
+		update_overmap_pixel()
 		on_overmap_loc_changed()
+		return
+	update_overmap_pixel()
 
 /obj/overmap/proc/handle_wraparound(new_x, new_y)
 	if(!sector)
@@ -204,6 +209,7 @@
 	if(wrapped)
 		forceMove(wrapped)
 		setDir(SOUTH)
+		update_overmap_pixel()
 		on_overmap_loc_changed()
 
 /obj/overmap/update_overlays()

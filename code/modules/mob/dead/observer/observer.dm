@@ -311,6 +311,8 @@ GAME_VERB_DESC(/mob/living, ghost, "Призрак", "Relinquish your life and e
 		set_glide_size(glide_size_override)
 
 	if(newloc)
+		if(istype(newloc, /turf/simulated/floor/indestructible/hyperspace))
+			return
 		abstract_move(newloc)
 	else
 		var/turf/destination = get_turf(src)
@@ -326,6 +328,9 @@ GAME_VERB_DESC(/mob/living, ghost, "Призрак", "Relinquish your life and e
 
 		else if((direct & WEST) && x > 1)
 			destination = get_step(destination, WEST)
+
+		if(istype(destination, /turf/simulated/floor/indestructible/hyperspace))
+			return
 
 		abstract_move(destination)//Get out of closets and such as a ghost
 

@@ -182,9 +182,12 @@
 			viewer.client.pixel_y = vessel.pixel_y
 
 /obj/machinery/computer/helm/proc/on_vessel_loc_changed()
-	update_map_view()
 	if(length(viewers))
+		sync_inspect_camera_pixels()
 		refresh_inspect_positions()
+	var/turf/here = vessel?.get_overmap_turf()
+	if(here != last_map_turf)
+		update_map_view()
 
 /obj/machinery/computer/helm/proc/refresh_inspect_positions()
 	if(!length(viewers) || !vessel)

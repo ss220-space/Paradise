@@ -1023,11 +1023,6 @@
 	},
 /area/centcom/central_command_areas/prison)
 "axu" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "s_docking_airlock";
-	name = "Shuttle Airlock";
-	req_access = list(150)
-	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "syndicate_sit_1";
 	name = "Side Hull Door";
@@ -1061,6 +1056,11 @@
 	preferred_direction = 2;
 	roundstart_move = "sit_away";
 	width = 11
+	},
+/obj/machinery/door/airlock/external/docking{
+	dir = 8;
+	req_access = list(150);
+	dock_name = "Западный шлюз"
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/syndicate_sit)
@@ -1204,7 +1204,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/centcom/syndicate_base/prison)
 "aBV" = (
-/obj/structure/shuttle/engine/propulsion{
+/obj/machinery/ship_engine{
 	dir = 8;
 	icon_state = "burst_r"
 	},
@@ -1250,7 +1250,7 @@
 	},
 /area/centcom/central_command_areas/supply)
 "aDl" = (
-/obj/structure/shuttle/engine/huge,
+/obj/machinery/ship_engine/huge,
 /turf/space,
 /area/space)
 "aDr" = (
@@ -1573,7 +1573,7 @@
 /turf/simulated/floor/carpet,
 /area/centcom/central_command_areas/evacuation)
 "aLA" = (
-/obj/structure/shuttle/engine/propulsion{
+/obj/machinery/ship_engine{
 	dir = 8;
 	icon_state = "burst_l"
 	},
@@ -2108,7 +2108,7 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom/central_command_areas/zone/one)
 "bbq" = (
-/obj/structure/shuttle/engine/propulsion{
+/obj/machinery/ship_engine{
 	dir = 4;
 	icon_state = "burst_l"
 	},
@@ -2851,7 +2851,7 @@
 /area/centcom/vox_station)
 "bxN" = (
 /obj/structure/shuttle/engine/platform,
-/obj/structure/shuttle/engine/propulsion{
+/obj/machinery/ship_engine{
 	dir = 1;
 	icon_state = "propulsion_l"
 	},
@@ -3954,18 +3954,6 @@
 	icon_state = "navybluealt"
 	},
 /area/centcom/central_command_areas/special_operations)
-"ccA" = (
-/obj/machinery/porta_turret/syndicate,
-/obj/structure/lattice/catwalk,
-/obj/structure/marker_beacon{
-	icon_state = "markerjade-on"
-	},
-/turf/simulated/floor/shuttle/transparent_floor{
-	dir = 9;
-	icon = 'icons/turf/shuttle/misc.dmi';
-	icon_state = "router_dir"
-	},
-/area/shuttle/syndicate)
 "ccJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/siding/wideplating{
@@ -4047,20 +4035,15 @@
 	},
 /area/centcom/ninja/holding)
 "ceX" = (
-/obj/machinery/door/airlock/external/docking{
-	dir = 4
+/obj/structure/shuttle/engine/heater{
+	dir = 1
 	},
-/obj/structure/fans/tiny,
-/obj/docking_port/mobile/pod{
-	dir = 8;
-	id = "pod1";
-	name = "escape pod 1";
-	pixel_x = -5;
-	port_direction = 2;
-	roundstart_move = "pod1_home"
+/obj/structure/window/reinforced{
+	color = "red"
 	},
-/turf/simulated/floor/shuttle,
-/area/shuttle/pod_2)
+/obj/machinery/sensor_array/short_range,
+/turf/simulated/floor/plating/airless,
+/area/shuttle/syndicate_elite)
 "cfa" = (
 /obj/item/grown/log/tree{
 	pixel_x = 3;
@@ -4577,20 +4560,14 @@
 	},
 /area/centcom/ninja/holding)
 "cqt" = (
-/obj/machinery/door/airlock/external/docking{
-	dir = 8
-	},
-/obj/structure/fans/tiny,
-/obj/docking_port/mobile/pod{
-	dir = 4;
-	id = "pod3";
-	name = "escape pod 3";
-	pixel_x = 11;
-	port_direction = 2;
-	roundstart_move = "pod3_home"
-	},
-/turf/simulated/floor/shuttle,
-/area/shuttle/pod_4)
+/obj/structure/rack,
+/obj/item/clothing/mask/breath/vox,
+/obj/item/clothing/mask/breath/vox,
+/obj/item/clothing/mask/breath/vox,
+/obj/item/clothing/mask/breath/vox,
+/obj/machinery/transponder/syndicate/station/directional/east,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/centcom/vox_station)
 "cqv" = (
 /obj/effect/turf_decal/delivery/white/hollow,
 /obj/machinery/vending/nta/ertarmory/blue{
@@ -4937,6 +4914,7 @@
 /obj/item/flashlight/pen{
 	pixel_x = 9
 	},
+/obj/machinery/transponder/syndicate/station/directional/west,
 /turf/simulated/floor/mineral/plastitanium/nitrogen/pink,
 /area/shuttle/vox)
 "cyz" = (
@@ -5127,7 +5105,7 @@
 	},
 /area/centcom/syndicate_base/prison)
 "cCQ" = (
-/obj/structure/shuttle/engine/propulsion{
+/obj/machinery/ship_engine{
 	dir = 4;
 	icon_state = "burst_l"
 	},
@@ -6744,6 +6722,7 @@
 	color = "#444444";
 	dir = 8
 	},
+/obj/machinery/transponder/centcom/station/directional/east,
 /turf/simulated/floor/wood/fancy/light,
 /area/centcom/central_command_areas/special_operations)
 "drw" = (
@@ -6773,20 +6752,14 @@
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/vox)
 "dsK" = (
-/obj/machinery/door/airlock/external/docking{
+/obj/structure/chair/comfy/shuttle/dark{
 	dir = 4
 	},
-/obj/structure/fans/tiny,
-/obj/docking_port/mobile/pod{
-	dir = 8;
-	id = "pod2";
-	name = "escape pod 2";
-	pixel_x = -5;
-	port_direction = 2;
-	roundstart_move = "pod2_home"
+/obj/machinery/overmap_intercom/directional/west,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
 	},
-/turf/simulated/floor/shuttle,
-/area/shuttle/pod_1)
+/area/shuttle/syndicate_sit)
 "dsX" = (
 /obj/structure/railing{
 	dir = 1
@@ -6867,16 +6840,11 @@
 	},
 /area/centcom/ninja/holding)
 "duk" = (
-/obj/structure/sign/poster/official/air2{
-	pixel_y = -32
+/obj/machinery/porta_turret/syndicate{
+	pixel_y = 2
 	},
-/obj/machinery/portable_atmospherics/canister/oxygen{
-	maximum_pressure = 50000
-	},
-/turf/simulated/floor/indestructible{
-	icon_state = "floorgrime"
-	},
-/area/centcom/ninja/holding)
+/turf/simulated/floor/plating,
+/area/centcom/syndicate_base)
 "dum" = (
 /obj/structure/rack,
 /obj/item/tank/internals/emergency_oxygen/double/ninja{
@@ -7167,22 +7135,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/nitrogen,
 /area/space)
-"dBY" = (
-/obj/machinery/door/airlock/external/docking{
-	dir = 8
-	},
-/obj/structure/fans/tiny,
-/obj/machinery/overmap_intercom/directional/west,
-/obj/docking_port/mobile/pod{
-	dir = 4;
-	id = "pod4";
-	name = "escape pod 4";
-	pixel_x = 11;
-	port_direction = 2;
-	roundstart_move = "pod4_home"
-	},
-/turf/simulated/floor/shuttle,
-/area/shuttle/pod_3)
 "dCm" = (
 /obj/item/stack/wrapping_paper,
 /obj/item/stack/wrapping_paper,
@@ -8248,39 +8200,6 @@
 	icon_state = "darkyellowcornersalt"
 	},
 /area/centcom/syndicate_base/cargo)
-"ebI" = (
-/obj/structure/fans/tiny,
-/obj/machinery/access_button{
-	command = "cycle_exterior";
-	frequency = 1331;
-	master_tag = "admin_s_air_control";
-	pixel_x = -1;
-	pixel_y = -29;
-	req_access = list(101)
-	},
-/obj/docking_port/mobile{
-	dir = 8;
-	dwidth = 8;
-	height = 18;
-	id = "admin";
-	name = "administration shuttle";
-	pixel_x = -5;
-	port_direction = 2;
-	preferred_direction = 8;
-	roundstart_move = "admin_away";
-	width = 18
-	},
-/obj/machinery/door/airlock/external/docking{
-	id_tag = "admin_s_outer";
-	dir = 4;
-	dock_name = "Задний стыковочный шлюз";
-	req_access = list(101)
-	},
-/turf/simulated/floor/shuttle{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "podfloor_dark"
-	},
-/area/shuttle/administration)
 "ebO" = (
 /obj/machinery/vending/snack,
 /obj/structure/closet/hydrant{
@@ -10264,11 +10183,13 @@
 	},
 /area/centcom/central_command_areas/evacuation)
 "eVQ" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "syndicate_away";
-	req_access = list(150)
-	},
 /obj/structure/fans/tiny/invisible,
+/obj/machinery/door/airlock/external/docking{
+	id_tag = "syndicate_away";
+	dir = 1;
+	req_access = list(150);
+	dock_name = "Док отряда \"Атом\""
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
@@ -11996,7 +11917,7 @@
 	},
 /area/centcom/central_command_areas/prison)
 "fKr" = (
-/obj/structure/shuttle/engine/huge{
+/obj/machinery/ship_engine/huge{
 	dir = 4
 	},
 /turf/simulated/floor/shuttle/transparent_floor,
@@ -12102,11 +12023,10 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/centcom/central_command_areas/special_operations)
 "fNL" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "trade_sol_base";
-	name = "Docking Port"
-	},
 /obj/structure/fans/tiny/invisible,
+/obj/machinery/door/airlock/external/docking/support{
+	id_tag = "trade_sol_base"
+	},
 /turf/simulated/floor/wood,
 /area/centcom/trader_station/sol)
 "fNY" = (
@@ -12362,6 +12282,7 @@
 /obj/machinery/light/spot{
 	dir = 4
 	},
+/obj/machinery/overmap_intercom/directional/east,
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-cherry"
 	},
@@ -12709,7 +12630,7 @@
 	},
 /area/centcom/central_command_areas/special_operations)
 "gcu" = (
-/obj/structure/shuttle/engine/propulsion{
+/obj/machinery/ship_engine{
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
@@ -12966,7 +12887,7 @@
 	},
 /area/centcom/ninja/outpost)
 "ggH" = (
-/obj/structure/shuttle/engine/propulsion{
+/obj/machinery/ship_engine{
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
@@ -13965,10 +13886,10 @@
 	},
 /area/centcom/central_command_areas/bridge)
 "gJj" = (
-/obj/item/twohanded/required/kirbyplants,
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
 	},
+/obj/machinery/sensor_array/short_range,
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/trade/sol)
 "gJq" = (
@@ -14150,6 +14071,7 @@
 /obj/machinery/light/spot{
 	dir = 8
 	},
+/obj/machinery/transponder/syndicate/station/directional/west,
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-cherry"
 	},
@@ -14882,7 +14804,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/centcom/syndicate_base/prison)
 "hfa" = (
-/obj/structure/shuttle/engine/large{
+/obj/machinery/ship_engine/large{
 	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
@@ -15088,7 +15010,7 @@
 	},
 /area/centcom/central_command_areas/evacuation)
 "hkM" = (
-/obj/structure/shuttle/engine/propulsion{
+/obj/machinery/ship_engine{
 	dir = 1;
 	icon_state = "propulsion_l"
 	},
@@ -15158,7 +15080,7 @@
 	},
 /area/centcom/central_command_areas/supply)
 "hne" = (
-/obj/structure/shuttle/engine/large,
+/obj/machinery/ship_engine/large,
 /turf/space,
 /area/space)
 "hnf" = (
@@ -15304,6 +15226,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/machinery/overmap_intercom/directional/west,
 /turf/simulated/floor/wood/fancy/light,
 /area/centcom/central_command_areas/special_operations)
 "hsz" = (
@@ -15690,7 +15613,7 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 1
 	},
-/obj/structure/shuttle/engine/propulsion,
+/obj/machinery/ship_engine,
 /turf/simulated/floor/plating/airless,
 /area/shuttle/ussp)
 "hCt" = (
@@ -15739,7 +15662,7 @@
 	},
 /area/centcom/ninja/outpost)
 "hDY" = (
-/obj/structure/shuttle/engine/propulsion{
+/obj/machinery/ship_engine{
 	dir = 8;
 	icon_state = "burst_l"
 	},
@@ -15874,7 +15797,7 @@
 /turf/simulated/floor/carpet/orange,
 /area/shuttle/trade/sol)
 "hIf" = (
-/obj/structure/shuttle/engine/propulsion{
+/obj/machinery/ship_engine{
 	dir = 1;
 	icon_state = "propulsion_l"
 	},
@@ -16140,24 +16063,11 @@
 	},
 /area/centcom/central_command_areas/special_operations)
 "hOf" = (
-/obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 5;
-	height = 7;
-	id = "supply_away";
-	name = "supply centcom";
-	pixel_y = 11;
-	turf_type = /turf/simulated/floor/plating/airless;
-	width = 12
+/obj/machinery/sensor_array/short_range,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
 	},
-/obj/docking_port/mobile/supply{
-	dir = 2;
-	pixel_y = -5;
-	port_direction = 4;
-	preferred_direction = 8
-	},
-/turf/simulated/wall/shuttle,
-/area/shuttle/supply)
+/area/shuttle/ninja)
 "hOr" = (
 /obj/structure/chair/stool/bar{
 	dir = 4
@@ -16210,7 +16120,7 @@
 /turf/simulated/floor/wood,
 /area/centcom/central_command_areas/special_operations)
 "hQV" = (
-/obj/structure/shuttle/engine/propulsion{
+/obj/machinery/ship_engine{
 	icon_state = "burst_l"
 	},
 /turf/simulated/floor/shuttle/plating,
@@ -16790,25 +16700,9 @@
 /turf/simulated/floor/plating,
 /area/centcom/central_command_areas/zone/two)
 "iil" = (
-/obj/docking_port/mobile/emergency{
-	dwidth = 11;
-	height = 18;
-	pixel_x = 11;
-	port_direction = 8;
-	width = 29
-	},
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/external/docking/shuttle{
-	dir = 8;
-	dock_name = "Стыковочный шлюз эвакуационного шаттла";
-	overmap_collar_id = "emergency_main";
-	aiControlDisabled = 1;
-	hackProof = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/shuttle/escape)
+/obj/machinery/transponder/centcom/station/directional/east,
+/turf/simulated/floor/wood,
+/area/centcom/trader_station/sol)
 "iiB" = (
 /obj/effect/turf_decal/siding/green{
 	dir = 4
@@ -17110,7 +17004,7 @@
 /turf/simulated/floor/indestructible/abductor,
 /area/centcom/abductor_ship)
 "ipb" = (
-/obj/structure/shuttle/engine/propulsion/burst,
+/obj/machinery/ship_engine,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -18433,6 +18327,7 @@
 /obj/machinery/light/spot{
 	dir = 1
 	},
+/obj/machinery/transponder/centcom/directional/north,
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-cherry"
 	},
@@ -18530,7 +18425,7 @@
 	},
 /area/shuttle/ninja)
 "iVX" = (
-/obj/structure/shuttle/engine/propulsion,
+/obj/machinery/ship_engine,
 /turf/simulated/floor/plating/airless,
 /area/shuttle/escape)
 "iWh" = (
@@ -18555,6 +18450,14 @@
 	},
 /turf/simulated/floor/carpet,
 /area/centcom/syndicate_base/control)
+"iWm" = (
+/obj/machinery/door/airlock/external/docking/support{
+	id_tag = "emergency_away"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/central_command_areas/evacuation)
 "iWs" = (
 /obj/item/gun/projectile/automatic/m90{
 	pixel_x = -3;
@@ -18572,14 +18475,6 @@
 /obj/item/storage/backpack/duffel/syndie/ammo/carbine,
 /turf/simulated/floor/mineral/plastitanium,
 /area/centcom/syndicate_base/elite_squad)
-"iWm" = (
-/obj/machinery/door/airlock/external/docking/support{
-	id_tag = "emergency_away"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/central_command_areas/evacuation)
 "iWu" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 5
@@ -19038,7 +18933,7 @@
 /obj/structure/shuttle/engine/platform{
 	dir = 1
 	},
-/obj/structure/shuttle/engine/huge,
+/obj/machinery/ship_engine/huge,
 /turf/simulated/floor/plating/airless,
 /area/shuttle/vox)
 "jfV" = (
@@ -19416,7 +19311,7 @@
 	},
 /area/centcom/central_command_areas/special_operations)
 "jok" = (
-/obj/structure/shuttle/engine/propulsion{
+/obj/machinery/ship_engine{
 	dir = 4;
 	icon_state = "burst_l"
 	},
@@ -21157,13 +21052,14 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
+/obj/machinery/sensor_array/short_range,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "dark"
 	},
 /area/shuttle/syndicate)
 "jYf" = (
-/obj/structure/shuttle/engine/propulsion{
+/obj/machinery/ship_engine{
 	dir = 1;
 	icon_state = "propulsion_l"
 	},
@@ -21224,6 +21120,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
+/obj/machinery/sensor_array/long_range,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "dark"
@@ -22047,12 +21944,19 @@
 	},
 /area/centcom/abductor_ship)
 "kpB" = (
-/obj/structure/lattice/catwalk,
-/turf/simulated/floor/shuttle/transparent_floor{
-	dir = 4;
-	icon = 'icons/turf/shuttle/misc.dmi';
-	icon_state = "tube"
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external{
+	frequency = 1331;
+	id_tag = "synd_outer_bottom";
+	name = "Ship External Access";
+	req_access = list(150)
 	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "smindicate_bottom";
+	layer = 5;
+	name = "Outer Airlock Bottom"
+	},
+/turf/simulated/floor/plating,
 /area/shuttle/syndicate)
 "kpE" = (
 /obj/structure/rack,
@@ -22121,7 +22025,7 @@
 /turf/simulated/wall/indestructible/reinforced,
 /area/centcom/central_command_areas/zone/three)
 "kre" = (
-/obj/structure/shuttle/engine/huge{
+/obj/machinery/ship_engine/huge{
 	opacity = 0
 	},
 /turf/simulated/floor/shuttle/transparent_floor,
@@ -22251,10 +22155,8 @@
 /turf/simulated/floor/indestructible/abductor,
 /area/centcom/abductor_ship)
 "kuU" = (
-/obj/machinery/door/airlock/shuttle/glass{
-	id_tag = "s_docking_airlock"
-	},
 /obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external/docking/shuttle/support/glass,
 /turf/simulated/floor/wood,
 /area/shuttle/trade/sol)
 "kvh" = (
@@ -22682,19 +22584,10 @@
 	roundstart_move = "trade_sol_base";
 	width = 15
 	},
-/obj/machinery/door/airlock/shuttle/glass{
-	id_tag = "s_docking_airlock"
-	},
 /obj/structure/fans/tiny,
-/obj/docking_port/stationary{
-	dheight = 1;
-	dir = 8;
-	dwidth = 7;
-	height = 18;
-	id = "trade_sol_base";
-	name = "docking bay 2 at Jupiter Station";
-	pixel_x = 11;
-	width = 15
+/obj/machinery/door/airlock/external/docking/shuttle/glass{
+	dir = 4;
+	dock_name = "Южный шлюз"
 	},
 /turf/simulated/floor/wood,
 /area/shuttle/trade/sol)
@@ -23903,10 +23796,10 @@
 	},
 /area/centcom/syndicate_base)
 "lgc" = (
-/obj/item/twohanded/required/kirbyplants,
 /obj/effect/turf_decal/siding/wood{
 	dir = 5
 	},
+/obj/machinery/sensor_array/long_range,
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/trade/sol)
 "lge" = (
@@ -24877,8 +24770,8 @@
 	},
 /area/shuttle/siberia)
 "lBp" = (
-/obj/machinery/door/airlock/shuttle,
 /obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external/docking/shuttle/support,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -24924,17 +24817,15 @@
 /turf/simulated/floor/shuttle,
 /area/shuttle/siberia)
 "lDb" = (
-/obj/machinery/porta_turret/syndicate{
-	pixel_y = 2
+/obj/structure/sign/vacuum{
+	pixel_y = -32
 	},
-/obj/structure/lattice/catwalk,
-/obj/structure/marker_beacon{
-	icon_state = "markerjade-on"
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
 	},
-/turf/simulated/floor/shuttle/transparent_floor{
-	dir = 5;
-	icon = 'icons/turf/shuttle/misc.dmi';
-	icon_state = "router_dir"
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
 	},
 /area/shuttle/syndicate)
 "lDc" = (
@@ -25318,7 +25209,7 @@
 /turf/simulated/floor/plasteel,
 /area/centcom/ninja/outpost)
 "lLs" = (
-/obj/structure/shuttle/engine/propulsion{
+/obj/machinery/ship_engine{
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
@@ -25335,7 +25226,7 @@
 	},
 /area/centcom/central_command_areas/supply)
 "lLG" = (
-/obj/structure/shuttle/engine/propulsion{
+/obj/machinery/ship_engine{
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
@@ -25692,27 +25583,6 @@
 	icon_state = "warndarkgreycornerred"
 	},
 /area/centcom/syndicate_base)
-"lVP" = (
-/obj/machinery/door/airlock/external{
-	frequency = 1331;
-	id_tag = "synd_outer_bottom";
-	name = "Ship External Access";
-	req_access = list(150)
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "smindicate_bottom";
-	layer = 5;
-	name = "Outer Airlock Bottom"
-	},
-/obj/machinery/door_control{
-	id = "smindicate_bottom";
-	name = "External Door Control";
-	pixel_x = -22;
-	req_access = list(150)
-	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plating,
-/area/shuttle/syndicate)
 "lVT" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -26357,6 +26227,7 @@
 	name = "remote shutter control";
 	req_access = list(150)
 	},
+/obj/machinery/overmap_intercom/directional/east,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "plastitanium_red"
@@ -29623,12 +29494,11 @@
 	},
 /area/centcom/central_command_areas/supply)
 "nBC" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/external/docking/support{
-	req_access = list(31)
+/obj/machinery/transponder/syndicate/station/directional/east,
+/turf/simulated/floor/indestructible{
+	icon_state = "floorgrime"
 	},
-/turf/simulated/floor/shuttle,
-/area/shuttle/supply)
+/area/centcom/ninja/holding)
 "nBT" = (
 /obj/structure/closet/hydrant{
 	pixel_y = 32
@@ -31986,7 +31856,7 @@
 /area/centcom/central_command_areas/zone/two)
 "oCt" = (
 /obj/structure/shuttle/engine/platform,
-/obj/structure/shuttle/engine/large{
+/obj/machinery/ship_engine/large{
 	dir = 1;
 	opacity = 0
 	},
@@ -34236,24 +34106,14 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/centcom/syndicate_base/infiltrators)
 "pEE" = (
-/obj/structure/fans/tiny,
-/obj/docking_port/mobile{
+/obj/structure/fans/tiny/invisible,
+/obj/machinery/door/airlock/external/docking{
+	dock_name = "Док торгового шаттла";
 	dir = 8;
-	dwidth = 2;
-	height = 12;
-	id = "ferry";
-	name = "ferry shuttle";
-	pixel_x = -5;
-	preferred_direction = 4;
-	roundstart_move = "ferry_away";
-	width = 5
+	id_tag = "trade_sol_base"
 	},
-/obj/machinery/door/airlock/external/docking/shuttle{
-	dock_name = "Стыковочный шлюз";
-	dir = 4
-	},
-/turf/simulated/floor/shuttle,
-/area/shuttle/transport)
+/turf/simulated/floor/wood,
+/area/centcom/trader_station/sol)
 "pEI" = (
 /obj/structure/sign/double/map/left{
 	pixel_y = 32
@@ -34578,14 +34438,12 @@
 	},
 /area/centcom/ninja/outpost)
 "pOx" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/external/docking{
-	dock_name = "Западный стыковочный шлюз";
-	overmap_collar_id = "mining_west";
-	dir = 8
+/obj/machinery/transponder/syndicate/station/directional/south,
+/obj/machinery/sensor_array/long_range,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
 	},
-/turf/simulated/floor/shuttle/plating,
-/area/shuttle/addition_goals)
+/area/shuttle/ninja)
 "pOE" = (
 /obj/effect/turf_decal/stripes/line{
 	icon = 'icons/turf/floors.dmi';
@@ -35169,12 +35027,11 @@
 /turf/simulated/floor/indestructible/grass,
 /area/centcom/syndicate_base/outside)
 "pZG" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/external/docking{
-	dock_name = "Носовой стыковочный шлюз"
+/obj/machinery/sensor_array/short_range,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
 	},
-/turf/simulated/floor/shuttle/plating,
-/area/shuttle/specops)
+/area/shuttle/syndicate_sit)
 "pZJ" = (
 /obj/structure/bed/mattress/dirty,
 /obj/item/restraints/handcuffs,
@@ -35730,7 +35587,7 @@
 	},
 /area/centcom/syndicate_base/control)
 "qnc" = (
-/obj/structure/shuttle/engine/huge,
+/obj/machinery/ship_engine/huge,
 /turf/simulated/floor/indestructible/grass,
 /area/centcom/syndicate_base/cargo)
 "qnw" = (
@@ -36064,20 +35921,14 @@
 	},
 /area/shuttle/trade/sol)
 "qtk" = (
-/obj/structure/fans/tiny,
-/obj/docking_port/mobile/gamma{
-	pixel_x = 11;
-	port_direction = 8
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 8
 	},
-/obj/machinery/door/airlock/external/docking/shuttle{
-	dir = 4;
-	dock_name = "Стыковочный шлюз гамма-оружейной";
-	overmap_collar_id = "gamma_main"
-	},
+/obj/machinery/overmap_intercom/directional/east,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
-/area/shuttle/gamma)
+/area/shuttle/syndicate_elite)
 "qtl" = (
 /obj/machinery/light{
 	dir = 4
@@ -37418,7 +37269,7 @@
 	},
 /area/centcom/syndicate_base/elite_squad)
 "qZa" = (
-/obj/structure/shuttle/engine/propulsion{
+/obj/machinery/ship_engine{
 	dir = 8;
 	icon_state = "burst_l"
 	},
@@ -37490,7 +37341,7 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/administration)
 "rbb" = (
-/obj/structure/shuttle/engine/propulsion{
+/obj/machinery/ship_engine{
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
@@ -38542,7 +38393,7 @@
 	},
 /area/shuttle/ninja)
 "ruh" = (
-/obj/structure/shuttle/engine/propulsion{
+/obj/machinery/ship_engine{
 	dir = 1;
 	icon_state = "propulsion_l"
 	},
@@ -38643,7 +38494,7 @@
 	},
 /area/centcom/central_command_areas/evacuation)
 "rwu" = (
-/obj/structure/shuttle/engine/propulsion{
+/obj/machinery/ship_engine{
 	dir = 1;
 	icon_state = "propulsion_l"
 	},
@@ -38762,7 +38613,7 @@
 	},
 /area/centcom/central_command_areas/zone/three)
 "ryg" = (
-/obj/structure/shuttle/engine/propulsion{
+/obj/machinery/ship_engine{
 	dir = 8;
 	icon_state = "burst_l"
 	},
@@ -39932,7 +39783,7 @@
 	},
 /area/centcom/syndicate_base/outside)
 "rYU" = (
-/obj/structure/shuttle/engine/propulsion/burst,
+/obj/machinery/ship_engine,
 /turf/simulated/floor/plating/airless,
 /area/shuttle/mining)
 "rYX" = (
@@ -39971,6 +39822,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/overmap_intercom/directional/west,
 /turf/simulated/floor/mineral/plastitanium/nitrogen/pink,
 /area/shuttle/vox)
 "saq" = (
@@ -40192,7 +40044,7 @@
 	},
 /area/centcom/central_command_areas/evacuation)
 "sgG" = (
-/obj/structure/shuttle/engine/propulsion,
+/obj/machinery/ship_engine,
 /turf/simulated/floor/plating/airless,
 /area/shuttle/siberia)
 "sgP" = (
@@ -42030,7 +41882,10 @@
 /area/centcom/central_command_areas/special_operations)
 "sZA" = (
 /obj/structure/fans/tiny,
-/obj/machinery/door/airlock/external/docking/support,
+/obj/machinery/door/airlock/external/docking/support{
+	id_tag = "syndicate_away";
+	req_access = list(150)
+	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/specops)
 "sZB" = (
@@ -42069,7 +41924,7 @@
 /turf/simulated/floor/carpet,
 /area/centcom/syndicate_base/infiltrators)
 "tad" = (
-/obj/structure/shuttle/engine/propulsion,
+/obj/machinery/ship_engine,
 /turf/space,
 /area/space)
 "taf" = (
@@ -42581,7 +42436,7 @@
 	},
 /area/centcom/central_command_areas/special_operations)
 "tlW" = (
-/obj/structure/shuttle/engine/huge{
+/obj/machinery/ship_engine/huge{
 	dir = 1;
 	opacity = 0
 	},
@@ -42649,7 +42504,7 @@
 	},
 /area/centcom/central_command_areas/zone/one)
 "tnL" = (
-/obj/structure/shuttle/engine/propulsion{
+/obj/machinery/ship_engine{
 	dir = 4;
 	icon_state = "burst_l"
 	},
@@ -42889,7 +42744,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/centcom/syndicate_base/control)
 "ttE" = (
-/obj/structure/shuttle/engine/propulsion{
+/obj/machinery/ship_engine{
 	dir = 1;
 	icon_state = "propulsion_r"
 	},
@@ -43588,7 +43443,7 @@
 	},
 /area/shuttle/escape)
 "tHx" = (
-/obj/structure/shuttle/engine/propulsion{
+/obj/machinery/ship_engine{
 	dir = 1;
 	icon_state = "propulsion_r"
 	},
@@ -43892,7 +43747,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/vox_station)
 "tNp" = (
-/obj/structure/shuttle/engine/propulsion{
+/obj/machinery/ship_engine{
 	dir = 1;
 	icon_state = "propulsion_r"
 	},
@@ -44577,26 +44432,6 @@
 	icon_state = "grimy"
 	},
 /area/centcom/central_command_areas/zone/two)
-"ueA" = (
-/obj/docking_port/mobile{
-	alone_shuttle = 1;
-	dir = 8;
-	dwidth = 2;
-	height = 7;
-	id = "addition_goal";
-	name = "Addition Goals Shuttle";
-	port_direction = 8;
-	preferred_direction = 2;
-	roundstart_move = "addition_goal_dock";
-	width = 10
-	},
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/external/docking{
-	dir = 4;
-	dock_name = "Восточный стыковочный шлюз"
-	},
-/turf/simulated/floor/shuttle/plating,
-/area/shuttle/addition_goals)
 "ueC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/fans/tiny/invisible,
@@ -44680,6 +44515,7 @@
 /area/centcom/syndicate_base)
 "ugF" = (
 /obj/structure/chair/comfy/shuttle/dark,
+/obj/machinery/transponder/syndicate/station/directional/west,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -44979,17 +44815,6 @@
 	},
 /area/centcom/syndicate_base/control)
 "uns" = (
-/obj/structure/lattice/catwalk,
-/obj/docking_port/stationary{
-	area_type = /area/centcom/syndicate_base;
-	dwidth = 8;
-	height = 22;
-	id = "syndicate_away";
-	name = "syndicate base";
-	pixel_y = -11;
-	turf_type = /turf/simulated/floor/indestructible/plating;
-	width = 18
-	},
 /obj/docking_port/mobile{
 	dwidth = 8;
 	height = 22;
@@ -45000,11 +44825,24 @@
 	roundstart_move = "syndicate_away";
 	width = 18
 	},
-/turf/simulated/floor/shuttle/transparent_floor{
-	dir = 4;
-	icon = 'icons/turf/shuttle/misc.dmi';
-	icon_state = "tube"
+/obj/structure/fans/tiny,
+/obj/machinery/door_control{
+	id = "smindicate_bottom";
+	name = "External Door Control";
+	pixel_x = -22;
+	req_access = list(150)
 	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "smindicate_bottom";
+	layer = 5;
+	name = "Outer Airlock Bottom"
+	},
+/obj/machinery/door/airlock/external/docking{
+	frequency = 1331;
+	req_access = list(150);
+	dock_name = "Южный шлюз"
+	},
+/turf/simulated/floor/plating,
 /area/shuttle/syndicate)
 "unC" = (
 /obj/machinery/door_control/secure{
@@ -45086,21 +44924,12 @@
 	},
 /area/shuttle/syndicate_sit)
 "upW" = (
-/obj/machinery/door/airlock/shuttle,
 /obj/structure/fans/tiny,
 /obj/docking_port/mobile/gamma{
 	pixel_x = 11;
 	port_direction = 8
 	},
-/obj/docking_port/stationary{
-	dir = 4;
-	dwidth = 4;
-	height = 6;
-	id = "gamma_away";
-	name = "gamma centcom";
-	pixel_x = -5;
-	width = 7
-	},
+/obj/machinery/door/airlock/external/docking/shuttle,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -45294,7 +45123,7 @@
 /obj/structure/shuttle/engine/platform{
 	dir = 8
 	},
-/obj/structure/shuttle/engine/huge{
+/obj/machinery/ship_engine/huge{
 	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
@@ -45346,7 +45175,7 @@
 	},
 /area/centcom/syndicate_base/outside)
 "uuY" = (
-/obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/sst,
+/obj/machinery/computer/sensors,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -45386,7 +45215,7 @@
 	},
 /area/centcom/syndicate_base)
 "uws" = (
-/obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/sit,
+/obj/machinery/computer/sensors,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -45747,26 +45576,28 @@
 	},
 /area/centcom/central_command_areas/special_operations)
 "uEU" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "s_docking_airlock";
-	name = "Shuttle Airlock";
-	req_access = list(150)
-	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "syndicate_elite";
 	name = "Front Hull Door";
 	req_access = list(150)
 	},
 /obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external/docking{
+	req_access = list(150);
+	dock_name = "Южный шлюз"
+	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/syndicate_elite)
 "uEW" = (
-/obj/machinery/door/airlock/external/docking/shuttle/support,
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
+/obj/structure/fans/tiny/invisible,
+/obj/machinery/door/airlock/external/docking/support{
+	id_tag = "syndicate_away";
+	req_access = list(150)
 	},
-/area/shuttle/escape)
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
+/area/centcom/syndicate_base)
 "uFl" = (
 /obj/structure/sign/poster/official/air2{
 	pixel_y = -32
@@ -46921,6 +46752,7 @@
 /area/centcom/central_command_areas/bridge)
 "vfg" = (
 /obj/structure/chair/comfy/shuttle/dark,
+/obj/machinery/transponder/syndicate/station/directional/west,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -47305,7 +47137,7 @@
 	},
 /area/centcom/syndicate_base)
 "vnF" = (
-/obj/machinery/computer/shuttle/sst,
+/obj/machinery/computer/helm,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -47519,7 +47351,7 @@
 	},
 /area/centcom/central_command_areas/supply)
 "vtg" = (
-/obj/machinery/computer/shuttle/sit,
+/obj/machinery/computer/helm,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -47560,7 +47392,10 @@
 /area/centcom/syndicate_base)
 "vtX" = (
 /obj/structure/fans/tiny,
-/obj/machinery/door/airlock/external/docking/support,
+/obj/machinery/door/airlock/external/docking/support{
+	id_tag = "syndicate_away";
+	req_access = list(150)
+	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "vua" = (
@@ -47963,7 +47798,7 @@
 	icon = 'icons/obj/syndie_logo.dmi';
 	icon_state = "logo4"
 	},
-/obj/structure/computerframe,
+/obj/machinery/computer/engines,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "plastitanium"
@@ -48191,7 +48026,10 @@
 	},
 /area/centcom/syndicate_base)
 "vKS" = (
-/obj/machinery/door/airlock/external/docking/support,
+/obj/machinery/door/airlock/external/docking/support{
+	id_tag = "syndicate_away";
+	req_access = list(150)
+	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
@@ -49545,17 +49383,6 @@
 	pixel_y = -29;
 	req_access = list(101)
 	},
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 8;
-	height = 18;
-	id = "admin_away";
-	name = "centcom bay 1";
-	pixel_x = 11;
-	timid = 1;
-	turf_type = /turf/simulated/floor/plating/airless;
-	width = 18
-	},
 /obj/docking_port/mobile{
 	dir = 8;
 	dwidth = 8;
@@ -49744,10 +49571,7 @@
 /area/centcom/syndicate_base/outside)
 "wzV" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/obj/structure/sign/vacuum{
-	pixel_y = -32
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -50249,7 +50073,7 @@
 	},
 /area/centcom/central_command_areas/supply)
 "wNY" = (
-/obj/structure/shuttle/engine/propulsion{
+/obj/machinery/ship_engine{
 	dir = 8;
 	icon_state = "burst_l"
 	},
@@ -50560,11 +50384,6 @@
 	},
 /area/centcom/syndicate_base)
 "wWa" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "s_docking_airlock";
-	name = "Shuttle Airlock";
-	req_access = list(150)
-	},
 /obj/machinery/door_control{
 	id = "syndicate_sit_1";
 	name = "Blast Doors";
@@ -50576,6 +50395,11 @@
 	id_tag = "syndicate_sit_1";
 	name = "Front Hull Door";
 	req_access = list(150)
+	},
+/obj/machinery/door/airlock/external/docking{
+	dir = 1;
+	req_access = list(150);
+	dock_name = "Южный шлюз"
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/syndicate_sit)
@@ -50801,6 +50625,7 @@
 "xaF" = (
 /obj/structure/table,
 /obj/item/coin/antagtoken/syndicate,
+/obj/machinery/transponder/syndicate/station/directional/west,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "plastitanium_red"
@@ -50877,7 +50702,7 @@
 	icon = 'icons/obj/syndie_logo.dmi';
 	icon_state = "logo3"
 	},
-/obj/machinery/computer/shuttle/syndicate,
+/obj/machinery/computer/sensors,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "plastitanium"
@@ -51787,7 +51612,7 @@
 	},
 /area/shuttle/syndicate)
 "xuH" = (
-/obj/structure/shuttle/engine/propulsion{
+/obj/machinery/ship_engine{
 	dir = 1;
 	icon_state = "propulsion_r"
 	},
@@ -51857,7 +51682,7 @@
 	},
 /area/shuttle/syndicate)
 "xvY" = (
-/obj/structure/shuttle/engine/propulsion{
+/obj/machinery/ship_engine{
 	dir = 4;
 	icon_state = "burst_l"
 	},
@@ -52353,20 +52178,9 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/centcom/central_command_areas/special_operations)
 "xHq" = (
-/obj/machinery/door/airlock/external{
-	frequency = 1331;
-	id_tag = "synd_outer_bottom";
-	name = "Ship External Access";
-	req_access = list(150)
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "smindicate_bottom";
-	layer = 5;
-	name = "Outer Airlock Bottom"
-	},
-/obj/structure/fans/tiny,
+/obj/machinery/porta_turret/syndicate,
 /turf/simulated/floor/plating,
-/area/shuttle/syndicate)
+/area/centcom/syndicate_base)
 "xHG" = (
 /obj/effect/turf_decal{
 	icon = 'icons/obj/syndie_logo.dmi';
@@ -53285,11 +53099,6 @@
 /turf/simulated/floor/carpet,
 /area/centcom/central_command_areas/zone/three)
 "yii" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "s_docking_airlock";
-	name = "Shuttle Airlock";
-	req_access = list(150)
-	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "syndicate_elite";
 	name = "Side Hull Door";
@@ -53317,6 +53126,11 @@
 	preferred_direction = 2;
 	roundstart_move = "sst_away";
 	width = 11
+	},
+/obj/machinery/door/airlock/external/docking{
+	dir = 4;
+	dock_name = "Восточный шлюз";
+	req_access = list(150)
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/syndicate_elite)
@@ -53383,14 +53197,6 @@
 	},
 /turf/simulated/floor/carpet/red,
 /area/centcom/ussp/secretariat)
-"yjN" = (
-/obj/machinery/door/airlock/external/docking/shuttle/support,
-/obj/structure/fans/tiny,
-/turf/simulated/floor/shuttle/objective_check{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "darkreddarkfull"
-	},
-/area/shuttle/escape)
 "ykf" = (
 /obj/machinery/computer/message_monitor,
 /turf/simulated/floor/bluegrid,
@@ -61062,7 +60868,7 @@ nKr
 apK
 uZY
 jbB
-pIU
+cqt
 pxG
 hHd
 pIU
@@ -62408,7 +62214,7 @@ tVF
 uzl
 tVF
 uGv
-uGv
+dsK
 tVF
 vfg
 vtg
@@ -62918,7 +62724,7 @@ msl
 mNY
 ruh
 tMC
-tVF
+pZG
 sxB
 sGg
 sSp
@@ -66019,7 +65825,7 @@ xqR
 yiJ
 yiJ
 qiR
-qiR
+duk
 uff
 uDd
 viM
@@ -66531,9 +66337,9 @@ yiJ
 yiJ
 jZS
 bBg
+jpA
 tmR
 xqR
-lDb
 keo
 wGu
 wGu
@@ -66788,8 +66594,8 @@ hwZ
 jpA
 mvz
 abs
+abs
 qfy
-lVP
 uns
 eVQ
 wlI
@@ -67045,10 +66851,10 @@ miW
 puD
 eMh
 abs
+abs
 qfy
-xHq
 kpB
-eVQ
+uEW
 wlI
 wlI
 wlI
@@ -67303,8 +67109,8 @@ yiJ
 jXP
 sik
 wzV
+lDb
 xqR
-ccA
 keo
 wGu
 wGu
@@ -67818,7 +67624,7 @@ xqR
 yiJ
 yiJ
 qiR
-qiR
+xHq
 uhK
 uLi
 van
@@ -71398,12 +71204,12 @@ lSq
 mzI
 mTh
 rwu
-tPu
+ceX
 smk
 syj
 syj
 syj
-syj
+qtk
 vpg
 uuY
 vzm
@@ -88264,7 +88070,7 @@ niX
 ubF
 xhP
 xhP
-xhP
+pOx
 xfs
 mll
 ixt
@@ -89035,7 +88841,7 @@ oWO
 ubF
 xhP
 xhP
-xhP
+hOf
 bYi
 htX
 ixt
@@ -89248,7 +89054,7 @@ bhg
 nWf
 bDR
 qDI
-duk
+uFl
 dMb
 jSw
 dVZ
@@ -90275,7 +90081,7 @@ bRM
 bRM
 bRx
 bRM
-bRM
+nBC
 mwY
 dMb
 jSw
@@ -105434,7 +105240,7 @@ mVX
 mVX
 fCq
 fNL
-fNL
+pEE
 fCq
 mVX
 mVX
@@ -107499,7 +107305,7 @@ deK
 cOF
 aNX
 izG
-jrL
+iil
 jrL
 eAN
 eAN

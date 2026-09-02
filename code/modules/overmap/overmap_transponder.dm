@@ -85,6 +85,8 @@ GLOBAL_LIST_INIT(overmap_transponder_colors, list(
 	snap_to_wall()
 	if(SSovermap?.initialized)
 		link_vessel()
+	if(distress)
+		use_power = ACTIVE_POWER_USE
 
 /obj/machinery/transponder/setDir(newdir)
 	. = ..()
@@ -329,6 +331,12 @@ GLOBAL_LIST_INIT(overmap_transponder_colors, list(
 	if(vessel)
 		vessel.sync_transponder()
 
+/obj/machinery/transponder/distress
+	distress = TRUE
+
+/obj/machinery/transponder/station/distress
+	distress = TRUE
+
 /obj/machinery/transponder/lavaland
 	name = "Lavaland transponder"
 	desc = "Маяк идентификации шахтёрской станции на Лаваленде."
@@ -392,7 +400,9 @@ GLOBAL_LIST_INIT(overmap_transponder_colors, list(
 	preset_iff_ids = list(OVERMAP_IFF_CENTCOM, OVERMAP_IFF_SYNDICATE)
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/transponder, 26, 26)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/transponder/distress, 26, 26)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/transponder/station, 26, 26)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/transponder/station/distress, 26, 26)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/transponder/lavaland, 26, 26)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/transponder/centcom, 26, 26)
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/transponder/centcom/station, 26, 26)

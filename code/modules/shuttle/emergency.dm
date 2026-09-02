@@ -365,6 +365,75 @@
 						if(istype(M, /obj/docking_port/mobile/pod))
 							M.parallax_slowdown()
 
+/obj/docking_port/mobile/emergency/proc/admin_force_move_to_dock(dock_id)
+	var/obj/docking_port/stationary/pad = SSshuttle.getDock(dock_id)
+	if(!pad)
+		return "Площадка [dock_id] не найдена."
+	var/obj/overmap/entity/vessel = SSovermap?.shuttle_vessels[src]
+	vessel?.abort_programmed_mission()
+	if(vessel)
+		vessel.programmed_emag_until = 0
+	overmap_force_dock = TRUE
+	var/failed = dock(pad, force = TRUE)
+	overmap_force_dock = FALSE
+	if(failed)
+		return "Не удалось пристыковать к [dock_id]."
+	return TRUE
+
+/obj/docking_port/mobile/emergency/proc/admin_force_dock()
+	if(!SSshuttle?.emergency || SSshuttle.emergency != src)
+		return "Это не эвак."
+	switch(mode)
+		if(SHUTTLE_CALL)
+			var/moved = admin_force_move_to_dock("emergency_home")
+			if(moved != TRUE)
+				return moved
+			overmap_leg_started = FALSE
+			mode = SHUTTLE_DOCKED
+			setTimer(SSshuttle.emergencyDockTime)
+			if(canRecall)
+				GLOB.major_announcement.announce(
+					"Эвакуационный шаттл совершил стыковку со станцией. У вас есть [timeLeft(600)] минуты, чтобы взобраться на борт эвакуационного шаттла.",
+					new_title = ANNOUNCE_PRIORITY_RU,
+					new_sound = ANNOUNCER_SHUTTLEDOCK
+				)
+			else
+				GLOB.major_announcement.announce(
+					"Транспортный шаттл совершил стыковку со станцией. У вас есть [timeLeft(600)] минуты, чтобы взобраться на борт транспортного шаттла.",
+					new_title = ANNOUNCE_PRIORITY_RU,
+					new_sound = ANNOUNCER_SHUTTLEDOCK
+				)
+			return TRUE
+		if(SHUTTLE_ESCAPE, SHUTTLE_IGNITING, SHUTTLE_ENDGAME)
+			var/dock_id = overmap_escape_dock || "emergency_away"
+			if(is_hijacked() && !overmap_escape_dock)
+				dock_id = "emergency_syndicate"
+			var/moved = admin_force_move_to_dock(dock_id)
+			if(moved != TRUE)
+				return moved
+			overmap_leg_started = FALSE
+			mode = SHUTTLE_ENDGAME
+			timer = 0
+			return TRUE
+		if(SHUTTLE_DOCKED, SHUTTLE_STRANDED)
+			return "Шаттл уже на станции."
+	var/obj/overmap/entity/vessel = SSovermap?.shuttle_vessels[src]
+	var/on_overmap = vessel && (vessel.status == OVERMAP_STATUS_OVERMAP || vessel.status == OVERMAP_STATUS_TRANSIT)
+	if(!on_overmap && is_physically_at_roundstart())
+		return "Шаттл уже на домашней площадке."
+	var/home_id = roundstart_move || "emergency_away"
+	var/moved = admin_force_move_to_dock(home_id)
+	if(moved != TRUE)
+		return moved
+	overmap_leg_started = FALSE
+	mode = SHUTTLE_IDLE
+	timer = 0
+	return TRUE
+
+/obj/docking_port/mobile/emergency/proc/is_physically_at_roundstart()
+	var/home_id = roundstart_move || "emergency_away"
+	return getDockedId() == home_id
+
 // This basically opens a big-ass row of blast doors when the shuttle arrives at centcom
 /obj/docking_port/mobile/pod
 	name = "escape pod"

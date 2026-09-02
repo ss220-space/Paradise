@@ -142,6 +142,7 @@
 	idle_power_usage = 0
 	active_power_usage = 0
 	density = FALSE
+	opacity = FALSE
 	invisibility = INVISIBILITY_ABSTRACT
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF

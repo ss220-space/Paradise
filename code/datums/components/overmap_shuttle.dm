@@ -119,7 +119,8 @@
 		if(pad.hidden && !is_custom_dock(pad))
 			continue
 		if(!is_custom_dock(pad) && !istype(pad, /obj/docking_port/stationary/overmap) && !pad.dock_airlock)
-			continue
+			if(!is_owned_dock(pad))
+				continue
 		if(!vessel.pad_matches_host(pad, host))
 			continue
 		. += pad
@@ -274,9 +275,12 @@
 		var/can_status = vessel.shuttle.canDock(pad)
 		var/current = pad.id == current_id
 		var/state = pad_list_state(can_status, current)
+		var/pad_name = pad.overmap_dock_label || pad.name
+		if(pad.overmap_dock_mode == OVERMAP_DOCK_RESERVED)
+			pad_name = "Зарезервированная область"
 		var/list/row = list(
 			"id" = pad.id,
-			"name" = pad.overmap_dock_label || pad.name,
+			"name" = pad_name,
 			"selected" = pad.id == chosen_id,
 			"current" = current,
 			"can_dock" = can_status == SHUTTLE_CAN_DOCK,

@@ -25,6 +25,10 @@
 	var/suffix = null
 	/// Can the ruin be found by the locator
 	var/can_found = FALSE
+	/// Overmap footprint: OVERMAP_RUIN_SIZE_SMALL/MEDIUM/LARGE.
+	var/overmap_size
+	/// Overmap spawn pools
+	var/list/overmap_pools
 
 /datum/map_template/ruin/New()
 	if(!name && id)
@@ -71,6 +75,38 @@
 		for(var/turf/T in get_affected_turfs(central_turf, 1))
 			T.turf_flags |= NO_RUINS
 
+		new /obj/effect/landmark/ruin(central_turf, src)
+		return TRUE
+	return FALSE
+
+/datum/map_template/ruin/proc/try_to_place_in_region(datum/overmap_space_region/cell)
+	if(!cell)
+		return FALSE
+	if(width > cell.size || height > cell.size)
+		return FALSE
+	var/min_x = cell.playable_min_x() + round(width / 2)
+	var/max_x = cell.playable_max_x() - round(width / 2)
+	var/min_y = cell.playable_min_y() + round(height / 2)
+	var/max_y = cell.playable_max_y() - round(height / 2)
+	if(min_x > max_x || min_y > max_y)
+		return FALSE
+	var/tries = PLACEMENT_TRIES
+	while(tries > 0)
+		tries--
+		var/turf/central_turf = locate(rand(min_x, max_x), rand(min_y, max_y), cell.space_z)
+		if(!cell.contains_space_turf(central_turf))
+			continue
+		var/valid = TRUE
+		for(var/turf/check as anything in get_affected_turfs(central_turf, TRUE))
+			if(!cell.contains_space_turf(check) || (check.turf_flags & NO_RUINS))
+				valid = FALSE
+				break
+		if(!valid)
+			continue
+		load(central_turf, centered = TRUE)
+		loaded++
+		for(var/turf/marked as anything in get_affected_turfs(central_turf, TRUE))
+			marked.turf_flags |= NO_RUINS
 		new /obj/effect/landmark/ruin(central_turf, src)
 		return TRUE
 	return FALSE

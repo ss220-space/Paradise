@@ -410,6 +410,9 @@ SUBSYSTEM_DEF(shuttle)
 		return FALSE
 
 	var/turf/bottomleft = proposal.bottom_left_turfs[1]
+	var/turf/topright = length(proposal.top_right_turfs) ? proposal.top_right_turfs[1] : null
+	if(bottomleft && topright)
+		overmap_seal_block_with_hyperspace(bottomleft, topright)
 	// Then create a transit docking port in the middle
 	var/coords = M.return_coords(0, 0, dock_dir)
 
