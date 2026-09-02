@@ -38,7 +38,7 @@
 /obj/item/gun/projectile/bow/add_context(atom/source, list/context, obj/item/held_item, mob/user)
 	. = ..()
 	if(held_item == src && chambered)
-		context[SCREENTIP_CONTEXT_LMB] = "[ready_to_fire ? "Натянуть" : "Ослабить"] тетиву"
+		context[SCREENTIP_CONTEXT_LMB] = "[ready_to_fire ? "Ослабить" : "Натянуть"] тетиву"
 		return CONTEXTUAL_SCREENTIP_SET
 
 	if(!magazine)
