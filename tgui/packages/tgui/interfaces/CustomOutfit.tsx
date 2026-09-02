@@ -1,3 +1,4 @@
+import { type ChangeEvent, useEffect, useRef } from 'react';
 import {
   Box,
   Button,
@@ -6,6 +7,7 @@ import {
   ImageButton,
   Section,
   Stack,
+  Tooltip,
 } from 'tgui-core/components';
 import type { BooleanLike } from 'tgui-core/react';
 import { useBackend } from '../backend';
@@ -44,6 +46,10 @@ interface CustomOutfitData {
   has_dental_implant?: BooleanLike;
   dental_reagents?: Reagent[];
   preview_icon?: string;
+  /** JSON payload sent by the server for a client-side save */
+  save_file_json?: string;
+  /** Filename suggested by the server for the save */
+  save_file_name?: string;
 }
 
 type SlotDef = {
@@ -51,6 +57,16 @@ type SlotDef = {
   icon: string;
   iconRot?: number;
   slot: string;
+};
+
+// Slots that depend on another slot being filled. If the parent slot is empty,
+// the dependent slot is locked (greyed out) and auto-cleared.
+const SLOT_DEPENDENCY: Record<string, string> = {
+  suit_store: 'suit',
+  belt: 'uniform',
+  id: 'uniform',
+  l_pocket: 'uniform',
+  r_pocket: 'uniform',
 };
 
 const SLOT_ROWS: SlotDef[][] = [
@@ -97,6 +113,42 @@ const SLOT_ROWS: SlotDef[][] = [
 
 export const CustomOutfit = () => {
   const { act, data } = useBackend<CustomOutfitData>();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const lastSavedRef = useRef<string | null>(null);
+
+  // Server asked the client to save a file: download it locally and ack.
+  useEffect(() => {
+    const json = data.save_file_json;
+    if (!json) {
+      // Payload cleared by the server after ack — allow saving the same data again.
+      lastSavedRef.current = null;
+      return;
+    }
+    if (lastSavedRef.current === json) {
+      return;
+    }
+    lastSavedRef.current = json;
+    const blob = new Blob([json], {
+      type: 'application/json',
+    });
+    Byond.saveBlob(blob, data.save_file_name || 'Custom Outfit.json', '.json');
+    act('save_ack');
+  }, [data.save_file_json, data.save_file_name]);
+
+  const onFileSelected = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    // Reset so picking the same file twice still fires onChange.
+    event.target.value = '';
+    if (!file) {
+      return;
+    }
+    try {
+      const json = await file.text();
+      act('load_data', { json });
+    } catch {
+      // Ignore unreadable files.
+    }
+  };
 
   const hasBack = !!data.outfit?.back?.path;
   const implants = data.implants || [];
@@ -144,13 +196,20 @@ export const CustomOutfit = () => {
                         icon="file-upload"
                         tooltip="Загрузить из файла"
                         tooltipPosition="left"
-                        onClick={() => act('load')}
+                        onClick={() => fileInputRef.current?.click()}
                       />
                       <Button
                         icon="plus"
                         tooltip="Сохранить в файл"
                         tooltipPosition="left"
                         onClick={() => act('save')}
+                      />
+                      <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept=".json,application/json"
+                        style={{ display: 'none' }}
+                        onChange={onFileSelected}
                       />
                       <Button
                         icon="check"
@@ -286,44 +345,69 @@ const OutfitSlot = (props: SlotDef) => {
   const { name, icon, iconRot = 0, slot } = props;
   const { act, data } = useBackend<CustomOutfitData>();
   const currItem = data.outfit?.[slot];
+  const dependencySlot = SLOT_DEPENDENCY[slot];
+  const parentItem = dependencySlot ? data.outfit?.[dependencySlot] : null;
+  const locked = dependencySlot ? !parentItem?.path : false;
+
+  // If the parent slot was emptied, clear this dependent slot as well.
+  useEffect(() => {
+    if (locked && currItem?.path) {
+      act('clear', { slot });
+    }
+  }, [locked, currItem?.path]);
 
   return (
     <Stack.Item grow basis={0}>
       <Stack vertical>
         <Stack.Item>
-          <Box textAlign="center" fontSize={0.8} color="label" opacity={0.8}>
+          <Box
+            textAlign="center"
+            fontSize={0.8}
+            color="label"
+            opacity={locked ? 0.4 : 0.8}
+          >
             <Icon name={icon} rotation={iconRot} mr={0.5} />
             {name}
           </Box>
         </Stack.Item>
         <Stack.Item>
-          <Box
-            height="48px"
-            backgroundColor="rgba(0,0,0,0.3)"
-            style={{ borderRadius: '4px' }}
-            onClick={() => act('click', { slot })}
+          <Tooltip
+            content={
+              locked
+                ? `Нужен ${dependencySlot === 'suit' ? 'Suit' : 'Uniform'}`
+                : null
+            }
+            position="top"
           >
-            <Stack fill align="center" justify="center">
-              <Stack.Item>
-                {currItem?.icon ? (
-                  <ImageButton
-                    imageSize={48}
-                    dmIcon={currItem.icon}
-                    dmIconState={currItem.icon_state}
-                    title={currItem.desc}
-                    onClick={() => act('clear', { slot })}
-                  />
-                ) : (
-                  <Icon
-                    name={icon}
-                    rotation={iconRot}
-                    size={1.5}
-                    color="gray"
-                  />
-                )}
-              </Stack.Item>
-            </Stack>
-          </Box>
+            <Box
+              height="48px"
+              backgroundColor="rgba(0,0,0,0.3)"
+              style={{ borderRadius: '4px' }}
+              opacity={locked ? 0.5 : 1}
+              onClick={locked ? undefined : () => act('click', { slot })}
+            >
+              <Stack fill align="center" justify="center">
+                <Stack.Item>
+                  {currItem?.icon ? (
+                    <ImageButton
+                      imageSize={48}
+                      dmIcon={currItem.icon}
+                      dmIconState={currItem.icon_state}
+                      title={currItem.desc}
+                      onClick={() => act('clear', { slot })}
+                    />
+                  ) : (
+                    <Icon
+                      name={icon}
+                      rotation={iconRot}
+                      size={1.5}
+                      color="gray"
+                    />
+                  )}
+                </Stack.Item>
+              </Stack>
+            </Box>
+          </Tooltip>
         </Stack.Item>
         <Stack.Item>
           <Box

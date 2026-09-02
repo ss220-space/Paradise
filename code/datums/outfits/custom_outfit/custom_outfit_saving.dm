@@ -20,15 +20,19 @@
 	.["reagent_volumes"] = reagents
 	.["id_card_data"] = id_card_data
 
-/datum/custom_outfit/proc/save_to_file(mob/user)
+/datum/custom_outfit/proc/save_to_client(mob/user)
 	if(!user.client)
-		return
-	var/list/stored_data = get_save_data()
-	var/json = json_encode(stored_data)
-	var/file = file("data/TempCustomOutfit_[user.ckey].json")
-	fdel(file)
-	WRITE_FILE(file, json)
-	user << ftp(file, "[build_save_file_name()].json")
+		return FALSE
+	pending_save_json = json_encode(get_save_data())
+	pending_save_name = "[build_save_file_name()].json"
+	// The payload is delivered through ui_data (see ui_data), which gets sent
+	// automatically after ui_act returns TRUE. The client downloads it locally
+	// via Byond.saveBlob and clears the pending save through save_ack.
+	return TRUE
+
+/datum/custom_outfit/proc/clear_pending_save()
+	pending_save_json = null
+	pending_save_name = null
 
 /datum/custom_outfit/proc/build_save_file_name()
 	var/raw_name = "[edited_outfit.name || CUSTOM_OUTFIT_DEFAULT_NAME]"
@@ -40,17 +44,20 @@
 		safe_name = CUSTOM_OUTFIT_DEFAULT_NAME
 	return safe_name
 
-/datum/custom_outfit/proc/load_from_file(mob/user)
-	var/outfit_file = input(user, "Pick outfit json file:", "Custom Outfit") as null|file
-	if(!outfit_file)
+#define CUSTOM_OUTFIT_LOAD_MAX_LENGTH 262144
+
+/datum/custom_outfit/proc/load_from_json(mob/user, json_text)
+	if(!istext(json_text) || !length(json_text))
+		return FALSE
+	if(length(json_text) > CUSTOM_OUTFIT_LOAD_MAX_LENGTH)
+		to_chat(user, span_warning("Outfit file is too large."))
 		return FALSE
 	if(QDELETED(src) || QDELETED(user))
 		return FALSE
-	var/file_data = file2text(outfit_file)
-	if(!file_data)
+	if(!rustg_json_is_valid(json_text))
 		to_chat(user, span_warning("Could not read the selected file."))
 		return FALSE
-	var/list/save_data = json_decode(file_data)
+	var/list/save_data = json_decode(json_text)
 	if(!validate_save_data(save_data))
 		to_chat(user, span_warning("Malformed or outdated outfit file."))
 		return FALSE
@@ -170,6 +177,8 @@
 		var/loaded_path = loaded_outfit.vars[outfit_slot]
 		if(loaded_path && !ispath(loaded_path, /obj/item))
 			loaded_outfit.vars[outfit_slot] = null
+		if(loaded_path && !item_fits_species(loaded_path, slot_to_item_flag[outfit_slot], target_mob))
+			loaded_outfit.vars[outfit_slot] = null
 	var/list/sanitized_backpack = list()
 	for(var/item_path, count in loaded_outfit.backpack_contents)
 		if(!is_valid_item_entry(item_path, count))
@@ -178,9 +187,19 @@
 	loaded_outfit.backpack_contents = sanitized_backpack
 	if(loaded_outfit.box && !ispath(loaded_outfit.box, /obj/item))
 		loaded_outfit.box = null
+	if(loaded_outfit.head && ispath(loaded_outfit.head, /obj/item/clothing/head/helmet/space/hardsuit))
+		// Hardsuit helmets cannot be spawned standalone (their Initialize expects
+		// the parent suit), so they are not a valid head slot item.
+		loaded_outfit.head = null
 	loaded_outfit.implants = filter_path_list(loaded_outfit.implants, /obj/item/implant)
 	loaded_outfit.cybernetic_implants = filter_path_list(loaded_outfit.cybernetic_implants, /obj/item/organ/internal/cyberimp)
+	var/list/fitting_cyber = list()
+	for(var/organ_path in loaded_outfit.cybernetic_implants)
+		if(organ_fits_species(organ_path, target_mob))
+			fitting_cyber += organ_path
+	loaded_outfit.cybernetic_implants = fitting_cyber
 	loaded_outfit.accessories = filter_path_list(loaded_outfit.accessories, /obj/item/clothing/accessory)
 
 #undef CUSTOM_OUTFIT_SAVE_FORMAT
 #undef CUSTOM_OUTFIT_SAVE_VERSION
+#undef CUSTOM_OUTFIT_LOAD_MAX_LENGTH

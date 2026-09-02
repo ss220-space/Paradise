@@ -1,4 +1,5 @@
-#define CUSTOM_OUTFIT_ACTION_LOAD "load"
+#define CUSTOM_OUTFIT_ACTION_LOAD_DATA "load_data"
+#define CUSTOM_OUTFIT_ACTION_SAVE_ACK "save_ack"
 #define CUSTOM_OUTFIT_ACTION_SAVE "save"
 #define CUSTOM_OUTFIT_ACTION_APPLY "apply"
 #define CUSTOM_OUTFIT_ACTION_ADD_IMPLANT "add_implant"
@@ -53,6 +54,8 @@
 	var/obj/item/reagent_containers/food/pill/dental_holder
 	var/datum/reagents_editor/custom_outfit_dental/dental_editor
 	var/datum/custom_outfit_id_editor/id_card_editor
+	var/pending_save_json
+	var/pending_save_name
 
 	var/cached_preview_icon
 	var/cached_preview_key
@@ -247,6 +250,9 @@
 	data["augmentations"] = serialize_augmentations()
 	data["dental_reagents"] = serialize_reagents()
 	data["has_dental_implant"] = length(reagent_volumes) > 0
+	if(pending_save_json)
+		data["save_file_json"] = pending_save_json
+		data["save_file_name"] = pending_save_name
 	if(!QDELETED(target_mob) && ishuman(target_mob))
 		var/mob/living/carbon/human/human_target = target_mob
 		data["target_name"] = human_target.name
@@ -273,12 +279,16 @@
 		return TRUE
 
 	switch(action)
-		if(CUSTOM_OUTFIT_ACTION_LOAD)
-			load_from_file(user)
+		if(CUSTOM_OUTFIT_ACTION_LOAD_DATA)
+			load_from_json(user, params["json"])
 			. = TRUE
 
 		if(CUSTOM_OUTFIT_ACTION_SAVE)
-			save_to_file(user)
+			save_to_client(user)
+			. = TRUE
+
+		if(CUSTOM_OUTFIT_ACTION_SAVE_ACK)
+			clear_pending_save()
 			. = TRUE
 
 		if(CUSTOM_OUTFIT_ACTION_APPLY)
@@ -621,8 +631,14 @@
 		id_card.mining_points = id_card_data["mining_points"]
 	if(!isnull(id_card_data["untrackable"]))
 		id_card.untrackable = id_card_data["untrackable"]
+	id_card.rank = id_card.assignment
+	var/obj/item/pda/worn_pda = human_target.wear_pda
+	if(istype(worn_pda))
+		worn_pda.ownjob = id_card.assignment
+		worn_pda.ownrank = id_card.rank
 	id_card.update_label()
 	id_card.RebuildHTML()
+	human_target.sec_hud_set_ID()
 
 /datum/custom_outfit/proc/grant_access_in_region(region_id)
 	ensure_id_card_data()
@@ -650,6 +666,34 @@
 		final_outfit.cybernetic_implants.Cut()
 	return final_outfit
 
+/// Returns TRUE if a clothing item of the given path can be equipped on the
+/// given human given its species_restricted list (mirrors can_equip in _species.dm).
+/datum/custom_outfit/proc/item_fits_species(obj/item/item_path, slot_flag, mob/living/carbon/human/human)
+	if(!ispath(item_path, /obj/item/clothing) || !ishuman(human) || !human.dna?.species)
+		return TRUE
+	if(human.is_general_slot(slot_flag))
+		return TRUE
+	var/obj/item/clothing/cloth_template = item_path
+	var/list/restricted = initial(cloth_template.species_restricted)
+	if(!restricted)
+		return TRUE
+	var/species_name = human.dna.species.name
+	var/wearable = ("exclude" in restricted) ? !(species_name in restricted) : (species_name in restricted)
+	if(wearable && human.dna.species.is_monkeybasic && ("lesser form" in restricted))
+		wearable = FALSE
+	return wearable
+
+/// Returns TRUE if an internal organ can be implanted into the given human
+/// (i.e. the parent body zone exists and can hold it).
+/datum/custom_outfit/proc/organ_fits_species(organ_path, mob/living/carbon/human/human)
+	if(!ispath(organ_path, /obj/item/organ/internal) || !ishuman(human))
+		return TRUE
+	var/obj/item/organ/organ_template = organ_path
+	var/parent_zone = check_zone(initial(organ_template.parent_organ_zone))
+	if(!parent_zone)
+		return TRUE
+	return !!human.get_organ(parent_zone)
+
 /datum/custom_outfit/proc/apply_outfit(mob/user)
 	if(QDELETED(target_mob) || !ishuman(target_mob))
 		tgui_alert(user, "Target is no longer valid.")
@@ -672,6 +716,14 @@
 		human_target.dna.species.create_organs(human_target)
 		apply_internal_augmentations(human_target)
 		apply_external_augmentations(human_target)
+
+	// Don't try to equip cybernetic implants that don't fit this body
+	// (e.g. a tail-mounted implant on a tailless character).
+	var/list/fitting_cyber = list()
+	for(var/organ_path in final_outfit.cybernetic_implants)
+		if(organ_fits_species(organ_path, human_target))
+			fitting_cyber += organ_path
+	final_outfit.cybernetic_implants = fitting_cyber
 
 	human_target.equipOutfit(final_outfit)
 	restore_stashed_items(human_target, stashed_items)
@@ -723,17 +775,18 @@
 		var/list/dependents = slot_dependents[holder_slot]
 		if(!dependents)
 			continue
+		var/holder_removed = !final_outfit.vars[holder_slot]
 		for(var/dependent_slot in dependents)
 			var/obj/item/dependent_item = human_target.vars[slot_to_human_var[dependent_slot]]
 			if(QDELETED(dependent_item))
 				continue
 			var/dependent_path = edited_outfit.vars[dependent_slot]
-			if(!dependent_path || dependent_item.type != dependent_path)
+			if(holder_removed || !dependent_path || dependent_item.type != dependent_path)
 				if(!(dependent_slot in to_delete))
 					to_delete += dependent_slot
 				continue
 			human_target.temporarily_remove_item_from_inventory(dependent_item, force = TRUE)
-			dependent_item.forceMove(null)
+			dependent_item.move_to_null_space()
 			stashed_items[dependent_slot] = dependent_item
 
 	return kept_existing_back
@@ -783,6 +836,13 @@
 
 /datum/custom_outfit/proc/remove_existing_cyberimplants(mob/living/carbon/human/human_target)
 	for(var/obj/item/organ/internal/cyberimp/cyberimp_organ in human_target.internal_organs.Copy())
+		var/parent_zone = check_zone(cyberimp_organ.parent_organ_zone)
+		if(parent_zone && !human_target.get_organ(parent_zone))
+			human_target.internal_organs -= cyberimp_organ
+			if(human_target.internal_organs_slot[cyberimp_organ.slot] == cyberimp_organ)
+				human_target.internal_organs_slot[cyberimp_organ.slot] = null
+			qdel(cyberimp_organ)
+			continue
 		cyberimp_organ.remove(human_target, ORGAN_MANIPULATION_NOEFFECT)
 		qdel(cyberimp_organ)
 
@@ -808,6 +868,10 @@
 /datum/custom_outfit/proc/apply_internal_augmentations(mob/living/carbon/human/human_target)
 	for(var/organ_path in internal_augmentations)
 		if(!ispath(organ_path, /obj/item/organ/internal))
+			continue
+		var/obj/item/organ/organ_template = organ_path
+		var/parent_zone = check_zone(initial(organ_template.parent_organ_zone))
+		if(parent_zone && !human_target.get_organ(parent_zone))
 			continue
 		new organ_path(human_target)
 
@@ -916,7 +980,13 @@
 		.["[type_name] ([type_path])"] = type_path
 
 /datum/custom_outfit/proc/add_implant_of_type(mob/user, base_path)
-	var/list/options = build_named_type_list(valid_subtypesof(base_path))
+	var/list/all_options = build_named_type_list(valid_subtypesof(base_path))
+	var/list/options = list()
+	for(var/label in all_options)
+		var/implant_type = all_options[label]
+		if(base_path == /obj/item/organ/internal/cyberimp && !organ_fits_species(implant_type, target_mob))
+			continue
+		options[label] = implant_type
 	if(!length(options))
 		to_chat(user, span_warning("No implants found."))
 		return FALSE
@@ -984,7 +1054,7 @@
 				continue
 			companies[company_name] = robolimb
 		if(!length(companies))
-			tgui_alert(user, "No augmentations available for this body part.")
+			tgui_alert(user, "Для этой части тела недоступно никаких вариантов для аугментации.")
 			return FALSE
 		var/company_choice = tgui_input_list(user, "Выберите фирму-изготовителя", "Аугментация", companies)
 		if(QDELETED(src) || QDELETED(user))
@@ -1027,9 +1097,11 @@
 		var/organ_name = initial(organ_ref.name)
 		if(!organ_name)
 			continue
+		if(!organ_fits_species(organ_path, target_mob))
+			continue
 		organ_paths["[organ_name] ([organ_path])"] = organ_path
 	if(!length(organ_paths))
-		tgui_alert(user, "No cybernetic variants found for this organ.")
+		tgui_alert(user, "Для этого органа не обнаружено кибернетических вариантов.")
 		return FALSE
 	var/variant_choice = tgui_input_list(user, "Выберите вариант", "Аугментация", organ_paths)
 	if(QDELETED(src) || QDELETED(user))
@@ -1094,13 +1166,21 @@
 		return FALSE
 	var/base_type = slot_base_type[slot]
 	if(base_type && !(slot in slot_any_item) && !ispath(choice, base_type))
-		var/confirm_choice = tgui_alert(user, "This item may not fit the selected slot.", "Custom Outfit", list(CUSTOM_OUTFIT_CHOICE_USE_ANYWAY, CUSTOM_OUTFIT_CHOICE_CANCEL))
+		var/confirm_choice = tgui_alert(user, "Этот предмет может не поместиться в выбранный слот.", "Custom Outfit", list(CUSTOM_OUTFIT_CHOICE_USE_ANYWAY, CUSTOM_OUTFIT_CHOICE_CANCEL))
 		if(QDELETED(src) || QDELETED(user))
 			return FALSE
 		if(confirm_choice != CUSTOM_OUTFIT_CHOICE_USE_ANYWAY)
 			return FALSE
+	if(ispath(choice, /obj/item/clothing/head/helmet/space/hardsuit))
+		// Hardsuit helmets can only exist attached to their suit; spawning one
+		// standalone throws a runtime.
+		tgui_alert(user, "Этот шлем является частью скафандра. Вместо этого выберите сам скафандр.", "Custom Outfit", list("OK"))
+		return FALSE
+	if(!item_fits_species(choice, slot_to_item_flag[slot], target_mob))
+		tgui_alert(user, "Эта вещь не подходит выбранной расе персонажа.", "Custom Outfit", list("OK"))
+		return FALSE
 	if(initial(choice.icon_state) == null)
-		var/confirm_choice = tgui_alert(user, "Warning: This item's icon_state is null, indicating it is very probably not actually a usable item.", "Custom Outfit", list(CUSTOM_OUTFIT_CHOICE_USE_ANYWAY, CUSTOM_OUTFIT_CHOICE_CANCEL))
+		var/confirm_choice = tgui_alert(user, "Предупреждение: значение icon_state этого элемента равно null, что указывает на высокую вероятность того, что он не является пригодным для использования.", "Custom Outfit", list(CUSTOM_OUTFIT_CHOICE_USE_ANYWAY, CUSTOM_OUTFIT_CHOICE_CANCEL))
 		if(QDELETED(src) || QDELETED(user))
 			return FALSE
 		if(confirm_choice != CUSTOM_OUTFIT_CHOICE_USE_ANYWAY)
@@ -1479,7 +1559,8 @@
 				SStgui.update_uis(owner_outfit)
 				ui.close()
 
-#undef CUSTOM_OUTFIT_ACTION_LOAD
+#undef CUSTOM_OUTFIT_ACTION_LOAD_DATA
+#undef CUSTOM_OUTFIT_ACTION_SAVE_ACK
 #undef CUSTOM_OUTFIT_ACTION_SAVE
 #undef CUSTOM_OUTFIT_ACTION_APPLY
 #undef CUSTOM_OUTFIT_ACTION_ADD_IMPLANT
