@@ -1,3 +1,6 @@
+/// Time to attach/detach module.
+#define GUN_MODULE_ATTACHMENT_TIME 3 SECONDS
+
 /**
  * MARK: Basic module
  */
@@ -15,9 +18,9 @@
 	var/overlay_state = "comp"
 	var/overlay_offset
 	var/buffered_overlay = null
-	//attached state variables
+	/// Attached state variables.
 	var/obj/item/gun/gun = null
-	/// Is module can detached
+	/// Can module be detached.
 	var/can_detach = TRUE
 
 /obj/item/gun_module/Destroy()
@@ -43,7 +46,8 @@
 
 /// Attaching module to gun without check, use try_attach(/obj/item/gun/target, mob/user) for checks
 /obj/item/gun_module/proc/attach_without_check(obj/item/gun/target_gun, mob/user)
-	if(!do_after(user, 1 SECONDS, target_gun))
+	balloon_alert(user, "установка модуля...")
+	if(!do_after(user, GUN_MODULE_ATTACHMENT_TIME, target_gun))
 		return FALSE
 	target_gun.attachments_by_slot[slot] = src
 	target_gun.add_attachment_overlay(src)
@@ -51,12 +55,12 @@
 	gun = target_gun
 	src.on_attach(target_gun, user)
 	SEND_SIGNAL(target_gun, COMSIG_GUN_MODULE_ATTACH, user, target_gun, src)
-	user.balloon_alert(user, "модуль установлен")
 	return TRUE
 
 /// Detaching module from gun without check, use try_detach(/obj/item/gun/target, mob/user) for checks
-/obj/item/gun_module/proc/detach_without_check(obj/item/gun/target_gun, mob/user, force = FALSE, put_in_hands = TRUE, silence = FALSE)
-	if(!force && !do_after(user, 1 SECONDS, target_gun))
+/obj/item/gun_module/proc/detach_without_check(obj/item/gun/target_gun, mob/user, force = FALSE, put_in_hands = TRUE)
+	balloon_alert(user, "снятие модуля...")
+	if(!force && !do_after(user, GUN_MODULE_ATTACHMENT_TIME, target_gun))
 		return FALSE
 	src.on_detach(target_gun, user)
 	target_gun.attachments_by_slot[slot] = null
@@ -67,8 +71,6 @@
 	else
 		src.forceMove(target_gun.drop_location())
 	gun = null
-	if(!silence)
-		user.balloon_alert(user, "модуль снят")
 	return TRUE
 
 /obj/item/gun_module/proc/create_overlay()
@@ -83,3 +85,5 @@
 
 /obj/item/gun_module/proc/on_detach(obj/item/gun/target_gun, mob/user)
 	return
+
+#undef GUN_MODULE_ATTACHMENT_TIME
