@@ -63,7 +63,6 @@
 	item_flags = NO_MAT_REDEMPTION
 	cant_hold = list(/obj/item/storage/backpack/holding)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 60, ACID = 50)
-	dynamic_storage_size = FALSE
 
 /obj/item/storage/backpack/holding/get_ru_names()
 	return alist(
