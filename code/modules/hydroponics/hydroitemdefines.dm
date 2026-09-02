@@ -260,6 +260,7 @@
 	desc = "Пластиковая канистра для различных жидкостей."
 	icon_state = "plastic_jug"
 	item_state = "plastic_jug"
+	fill_icon_state = "plastic_jug"
 	possible_transfer_amounts = list(1, 2, 5, 10, 20, 40, 80)
 	volume = 80
 	hitsound = 'sound/weapons/jug_empty_impact.ogg'
@@ -282,6 +283,12 @@
 	. = ..()
 	pixel_x = base_pixel_x + rand(-5, 5)
 	pixel_y = base_pixel_y + rand(-5, 5)
+
+/obj/item/reagent_containers/cup/bottle/nutrient/update_overlays()
+	. = ..()
+
+	if(has_lid)
+		. += "plastic_jug_lid"
 
 /obj/item/reagent_containers/cup/bottle/nutrient/on_reagent_change()
 	. = ..()

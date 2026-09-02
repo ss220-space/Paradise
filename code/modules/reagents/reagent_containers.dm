@@ -67,7 +67,6 @@
 		possible_transfer_amounts = string_list(possible_transfer_amounts)
 	add_initial_reagents()
 	update_icon()
-	register_context()
 	if(can_empty)
 		verbs |= /obj/item/reagent_containers/proc/empty
 
@@ -215,7 +214,7 @@ GAME_PROC_SRC(/obj/item/reagent_containers, empty, usr, "Вылить содер
 	if(ismob(target) && target.reagents)
 		var/splash_multiplier = 1
 		if(was_thrown)
-			splash_multiplier *= (rand(5,10) * 0.1) //Not all of it makes contact with the target
+			splash_multiplier *= (rand(5, 10) * 0.1) //Not all of it makes contact with the target
 		var/turf_splash_multiplier = 1 - splash_multiplier
 		var/turf/target_turf = get_turf(target)
 		target.visible_message(

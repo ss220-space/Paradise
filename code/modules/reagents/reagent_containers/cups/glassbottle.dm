@@ -766,7 +766,7 @@
 	if(firestarter && active)
 		if(!QDELETED(target))
 			target.fire_act()
-		new /obj/effect/hotspot(get_turf(target))
+		new /obj/effect/hotspot/fake(get_turf(target))
 
 /obj/item/reagent_containers/cup/glass/bottle/molotov/attackby(obj/item/I, mob/user, params)
 	. = ..()

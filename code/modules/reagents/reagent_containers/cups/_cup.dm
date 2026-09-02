@@ -46,6 +46,7 @@
 		else
 			. += span_notice("Может быть закрыто крышкой. Используйте [EXAMINE_HINT("ALT+ЛКМ")], чтобы надеть её.")
 
+// TODO: заменить после порта `edible` компонента с ТГ
 /obj/item/reagent_containers/cup/proc/checkLiked(fraction, mob/eater)
 	if(!COOLDOWN_FINISHED(src, last_check_time))
 		return FALSE
@@ -223,6 +224,9 @@
 
 /obj/item/reagent_containers/cup/beaker/update_overlays()
 	. = ..()
+
+	if(has_lid && blocks_emissive == EMISSIVE_BLOCK_NONE)
+		. += emissive_blocker(icon, "lid_[initial(icon_state)]", src)
 
 	if(assembly)
 		. += "assembly"
