@@ -2,37 +2,41 @@
  * Global proc to adjust metallic swarmer resource.
  *
  * Set use_modifier to TRUE if you want to use the team metal gather modifier.
- * Returns FALSE if amount was negative and the result is smaller than zero.
- * Returns TRUE otherwise.
+ * Amount can be negative.
  */
 /proc/adjust_swarmer_metallic_resources(amount, use_modifier = FALSE)
 	var/datum/team/swarmer_team/team = GLOB.antagonist_teams[/datum/team/swarmer_team]
-	if(!team.swarmer_core) // Core is the storage
+	if(!team || !team.swarmer_core) // Core is the storage
 		return FALSE
+
 	if(use_modifier) // Resource storage modifiers (used on swarmer metal gathering)
 		amount *= team.metal_modifier
-	if(team.metallic_resources + amount < 0)
+
+	if((team.metallic_resources + amount) < 0)
 		return FALSE
-	team.metallic_resources = max(team.metallic_resources + amount, 0) // extra precaution
+
+	team.metallic_resources += amount
 	return TRUE
 
 /**
  * Global proc to adjust organic swarmer resource.
- *
- * Returns FALSE if amount was negative and the result is smaller than zero.
- * Returns TRUE otherwise.
+ * Amount can be negative.
  */
 /proc/adjust_swarmer_organic_resources(amount)
 	var/datum/team/swarmer_team/team = GLOB.antagonist_teams[/datum/team/swarmer_team]
-	if(!team.swarmer_core) // Core is the storage
+	if(!team || !team.swarmer_core) // Core is the storage
 		return FALSE
-	if(team.organic_resources + amount < 0)
+
+	if((team.organic_resources + amount) < 0)
 		return FALSE
-	team.organic_resources = max(team.organic_resources + amount, 0) // extra precaution
+
+	team.organic_resources += amount
 	return TRUE
 
 /// How many metallic resources swarmers get on core init
 #define METALLIC_START_RESOURCES 90
+/// Metal modifier limit
+#define METAL_MODIFIER_LIMIT 3
 /// Delay between destroying swarmer mobs/structures on core destroy
 #define DESTROY_DELAY 0.1 SECONDS
 
@@ -53,7 +57,7 @@
 	/// Main objective given to all swarmers
 	var/datum/objective/swarmer_goal/swarmer_objective
 	/// Have we made an announcement about mega-swarmer already or not
-	var/made_announcement = FALSE
+	var/mega_swarmer_announcement_made = FALSE
 	/// Cooldown system for messages on core integrity change
 	COOLDOWN_DECLARE(message_cooldown)
 
@@ -70,6 +74,16 @@
 	UnregisterSignal(SSdcs, COMSIG_GLOB_SWARMER_CORE_DESTROYED)
 	QDEL_NULL(swarmer_objective)
 	return ..()
+
+/datum/team/swarmer_team/declare_completion()
+	var/list/text = list()
+	if(swarmer_objective.completed)
+		text += span_fontsize3("<br><br><b>Победа \"Свармеров\"!</b>")
+		text += "<br><b>Свармеры смогли создать Мега-Свармера! Экипаж не смог остановить их до того, как они накопят достаточно ресурсов.</b>"
+	else
+		text += span_fontsize3("<br><br><b>Поражение \"Свармеров\"!</b>")
+		text += "<br><b>Свармеры не сумели создать Мега-Свармера! Экипаж остановил их до того, как они накопят достаточно ресурсов.</b>"
+	return text.Join("")
 
 /**
  * Signal proc sent on swarmer core init
@@ -169,20 +183,17 @@
 	return FALSE
 
 /**
- * Increases metal resource modifier by [SWARMER_STORAGE_MODIFIER].
- * Has a limit of [SWARMER_STORAGE_MODIFIER_LIMIT]
+ * Increases metal resource modifier
+ * Arguments:
+ * * adjust_amount: The amount to substract or add upon the modifier
  */
-/datum/team/swarmer_team/proc/increase_modifier()
-	unlimited_metal_modifier += SWARMER_STORAGE_MODIFIER
-	metal_modifier = min(SWARMER_STORAGE_MODIFIER_LIMIT, unlimited_metal_modifier)
+/datum/team/swarmer_team/proc/adjust_modifier(adjust_amount)
+	unlimited_metal_modifier += adjust_amount
+	metal_modifier = max(0, min(METAL_MODIFIER_LIMIT, unlimited_metal_modifier))
 
-/**
- * Decreases metal resource modifier by [SWARMER_STORAGE_MODIFIER].
- * Has a limit of 1.
- */
-/datum/team/swarmer_team/proc/decrease_modifier()
-	unlimited_metal_modifier -= SWARMER_STORAGE_MODIFIER
-	metal_modifier = min(SWARMER_STORAGE_MODIFIER_LIMIT, unlimited_metal_modifier)
+/// Helper proc to get the metal modifier limit
+/datum/team/swarmer_team/proc/get_metal_modifier_limit()
+	return METAL_MODIFIER_LIMIT
 
 /**
  * Proc sent from mega-swarmer core spawn
@@ -192,9 +203,9 @@
  * sets gamma code.
  */
 /datum/team/swarmer_team/proc/on_mega_swarmer_spawn(mob/living/simple_animal/hostile/swarmer/mega/swarmer)
-	if(made_announcement)
+	if(mega_swarmer_announcement_made)
 		return
-	made_announcement = TRUE
+	mega_swarmer_announcement_made = TRUE
 	swarmer_objective.completed = TRUE
 	GLOB.major_announcement.announce(
 		message = "Обнаружено появление \"Мега-Свармера\" на борту станции [station_name()]. Экипаж должен любой ценой остановить его до того, как станция перейдёт под их полный контроль.",
@@ -203,16 +214,6 @@
 	)
 	// gamma level will be kept until rounend, since there would still be swarmers and more mega-swarmer can spawn
 	addtimer(CALLBACK(SSsecurity_level, TYPE_PROC_REF(/datum/controller/subsystem/security_level, set_level), SEC_LEVEL_GAMMA), 5 SECONDS)
-
-/datum/team/swarmer_team/declare_completion()
-	var/list/text = list()
-	if(swarmer_objective.completed)
-		text += span_fontsize3("<br><br><b>Победа \"Свармеров\"!</b>")
-		text += "<br><b>Свармеры смогли создать Мега-Свармера! Экипаж не смог остановить их до того, как они накопят достаточно ресурсов.</b>"
-	else
-		text += span_fontsize3("<br><br><b>Поражение \"Свармеров\"!</b>")
-		text += "<br><b>Свармеры не сумели создать Мега-Свармера! Экипаж остановил их до того, как они накопят достаточно ресурсов.</b>"
-	return text.Join("")
 
 /**
  * Proc used to start swarmer destroying on core destruction
@@ -242,5 +243,9 @@
 		qdel(swarmer_obj)
 	addtimer(CALLBACK(src, PROC_REF(destroy_swarmer_objects)), DESTROY_DELAY, TIMER_DELETE_ME)
 
+/datum/team/swarmer_team/proc/on_nanobot_fabricator_init(obj/structure/swarmer/nanobot_fabricator/fabricator)
+	return
+
 #undef METALLIC_START_RESOURCES
+#undef METAL_MODIFIER_LIMIT
 #undef DESTROY_DELAY

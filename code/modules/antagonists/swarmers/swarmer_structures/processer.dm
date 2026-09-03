@@ -1,10 +1,17 @@
+/// How many organic items an organic processer can process at a time
+#define SWARMER_ORGANIC_ITEM_PROCESS_LIMIT 5
+/// How long does it take to process one organic item in organic processer
+#define SWARMER_ORGANIC_ITEM_PROCESS_DELAY 10 SECONDS
+/// How many organic resources we gain on item processing
+#define SWARMER_ORGANIC_ITEM_PROCESS_GAIN (rand(1, 5))
+
 /**
  * Swarmer organic processer
  *
  * Allows swarmers to process organic items, like
  * fruits, vegetables, or reagents in containers.
  * All items that can be processed
- * are listed in /mob/living/simple_animal/hostile/swarmer/proc/on_attack_target.
+ * are listed in code/modules/antagonists/swarmers/swarmer_acts/core_swarmer_acts.dm
  */
 /obj/structure/swarmer/organic_processer
 	name = "swarmer organic processer"
@@ -94,6 +101,12 @@
 	playsound(loc, 'sound/machines/ding.ogg', 50, TRUE)
 	animate(src, transform=matrix()) // Reset animation if no work
 
+/obj/structure/swarmer/organic_processer/swarmer_grab_act(mob/living/simple_animal/hostile/swarmer/swarmer)
+	if(!currently_processing)
+		return ..()
+
+	swarmer.balloon_alert(swarmer, "не открутить, работает!")
+
 /obj/structure/swarmer/organic_processer/get_ru_names()
 	return alist(
 		NOMINATIVE = "переработчик органики \"Свармеров\"",
@@ -103,3 +116,7 @@
 		INSTRUMENTAL = "переработчиком органики \"Свармеров\"",
 		PREPOSITIONAL = "переработчике органики \"Свармеров\""
 	)
+
+#undef SWARMER_ORGANIC_ITEM_PROCESS_LIMIT
+#undef SWARMER_ORGANIC_ITEM_PROCESS_DELAY
+#undef SWARMER_ORGANIC_ITEM_PROCESS_GAIN

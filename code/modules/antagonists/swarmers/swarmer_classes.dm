@@ -34,7 +34,7 @@ GLOBAL_LIST_INIT(swarmer_actions_by_type, list(
 		),
 	// Mega swarmer
 	/mob/living/simple_animal/hostile/swarmer/mega = list(
-		/datum/action/cooldown/swarmer/build/drone_fabricator,
+		/datum/action/cooldown/swarmer/build/nanobot_fabricator,
 		),
 	))
 
@@ -91,9 +91,9 @@ GLOBAL_LIST_INIT(swarmer_actions_by_type, list(
 	speed = 0
 	ranged = 1
 	projectiletype = /obj/projectile/beam/disabler/swarmer/generalist
-	ranged_cooldown_time = SWARMER_NORMAL_PROJECTILE_COOLDOWN
+	ranged_cooldown_time = 1 SECONDS
 	projectilesound = 'sound/weapons/taser2.ogg'
-	swap_resource_cost = GENERALIST_SWAP_COST
+	swap_resource_cost = 20
 	swarmer_class_info = "Данный класс является базовой боевой единицей, оснащённой пушкой, а также способностью строить мелкие туррели, баррикады и ловушки.\n\
 		Скорость равна человеческой."
 
@@ -123,7 +123,7 @@ GLOBAL_LIST_INIT(swarmer_actions_by_type, list(
 	health = 55
 	maxHealth = 55
 	speed = -1
-	swap_resource_cost = ROVER_SWAP_COST
+	swap_resource_cost = 18
 	pass_door_while_hidden = TRUE
 	pass_flags = PASSTABLE | PASSMOB
 	swarmer_class_info = "Данный класс является разведовательной единицей, оснащённой колёсами вместо ног, а также мощным тараном, способным сбивать целей с ног.\n\
@@ -177,7 +177,7 @@ GLOBAL_LIST_INIT(swarmer_actions_by_type, list(
 	dismantle_speed = SLOW_SWARMER_DISMANTLE_DELAY
 	speed = 1.5
 	ranged = 1
-	swap_resource_cost = COMBAT_SWAP_COST
+	swap_resource_cost = 30
 	swarmer_class_info = "Данный класс является защитной единицей, оснащённой более сильной защитой и пушками.\n\
 		Оснащён следующими типами выстрелов: Обычный выстрел, двойной выстрел, сильный выстрел, саботажный выстрел.\n\
 		Менять тип выстрела на ПКМ по самому себе.\n\
@@ -195,7 +195,7 @@ GLOBAL_LIST_INIT(swarmer_actions_by_type, list(
 /mob/living/simple_animal/hostile/swarmer/combat/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_HEALS_FROM_SWARMER_CORES, INNATE_TRAIT)
-	AddElement(/datum/element/ranged_mob_switcher, combat_modes, SWARMER_MODE_SWITCH_DELAY)
+	AddElement(/datum/element/ranged_mob_switcher, combat_modes)
 
 /mob/living/simple_animal/hostile/swarmer/combat/Destroy()
 	REMOVE_TRAIT(src, TRAIT_HEALS_FROM_SWARMER_CORES, INNATE_TRAIT)
@@ -239,7 +239,7 @@ GLOBAL_LIST_INIT(swarmer_actions_by_type, list(
 	health = 120
 	maxHealth = 120
 	dismantle_speed = FAST_SWARMER_DISMANTLE_DELAY
-	swap_resource_cost = BUILDER_SWAP_COST
+	swap_resource_cost = 20
 	mob_size = MOB_SIZE_HUMAN
 	swarmer_class_info = "Данный класс является строительной единицей, способной строить множество различных конструкций.\n\
 		Является самым важным классом среди \"Свармеров\", без которого выполнение цели является невозможным.\n\
@@ -277,12 +277,12 @@ GLOBAL_LIST_INIT(swarmer_actions_by_type, list(
 	melee_damage_upper = 60
 	ranged = 1
 	projectiletype = /obj/projectile/beam/disabler/swarmer/minigun
-	ranged_cooldown_time = SWARMER_MINIGUN_PROJECTILE_COOLDOWN
+	ranged_cooldown_time = 1.5 SECONDS
 	projectilesound = 'sound/weapons/taser2.ogg'
-	rapid = SWARMER_MEGA_RAPID
+	rapid = 6
 	rapid_fire_delay = 1
-	health = 650
-	maxHealth = 650
+	health = 350
+	maxHealth = 350
 	can_swap_to = FALSE
 	dismantle_speed = FAST_SWARMER_DISMANTLE_DELAY
 	swarmer_class_info = "Вы — финальная боевая единица \"Свармеров\", оснащённая миниганом, встроенной ACP турелью, а также защитными пластинами.\n\
@@ -290,9 +290,11 @@ GLOBAL_LIST_INIT(swarmer_actions_by_type, list(
 	/// For how long we apply knockdown on attack
 	var/knockdown_time = 5 SECONDS
 	/// Reflection chance of projectiles
-	var/reflection_chance = SWARMER_MEGA_REFLECT_CHANCE
+	var/reflection_chance = 50
 	/// Built-in ACP turret
 	var/obj/structure/swarmer/acp_turret/acp
+	/// Range of the built-in ACP turret
+	var/acp_range = 5
 
 /mob/living/simple_animal/hostile/swarmer/mega/Initialize(mapload)
 	. = ..()
@@ -335,8 +337,8 @@ GLOBAL_LIST_INIT(swarmer_actions_by_type, list(
 /// Configures ACP to work within src
 /mob/living/simple_animal/hostile/swarmer/mega/proc/configure_acp()
 	QDEL_NULL(acp.proximity_monitor)
-	acp.proximity_monitor = new(src, SWARMER_MEGA_ACP_RANGE)
-	acp.range = SWARMER_MEGA_ACP_RANGE
+	acp.proximity_monitor = new(src, acp_range)
+	acp.range = acp_range
 
 /// Connects proximity monitor of us with acp's
 /mob/living/simple_animal/hostile/swarmer/mega/HasProximity(atom/movable/AM)

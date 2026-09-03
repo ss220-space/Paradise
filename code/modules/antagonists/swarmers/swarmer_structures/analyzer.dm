@@ -1,3 +1,22 @@
+/// How much time does it take for an organic analyzer to finish (non-carbon mobs take less time)
+#define SWARMER_ANALYZE_DELAY(target) (iscarbon(target) ? 45 SECONDS : 15 SECONDS)
+
+/// How many organic resources we get on analyzing a carbon mob
+#define SWARMER_ANALYZE_CARBON_GAIN (rand(60, 80))
+/// How many organic resources we get on analyzing a hostile mob (/mob/living/simple_animal/hostile)
+#define SWARMER_ANALYZE_HOSTILE_GAIN (rand(15, 30))
+/// How many organic resources we get on analyzing a living mob (/mob/living)
+#define SWARMER_ANALYZE_LIVING_GAIN (rand(10, 20))
+/// How many metallic resources we get on analyzing a carbon machine
+#define SWARMER_ANALYZE_MACHINE_GAIN (rand(50, 75))
+/// How many metallic resources we get on removing a robotic organ on analyzing
+#define SWARMER_ANALYZE_ROBOTIC_ORGAN_GAIN 10
+
+/// How many bodyparts or organs we take on machine analyze finish
+#define SWARMER_ANALYZE_FINISH_MACHINE_TAKE 2
+/// What is the chance to remove a bodypart or organ on non-machine analyze
+#define SWARMER_ANALYZE_ORGAN_REMOVE_CHANCE 20
+
 /**
  * Swarmer mob analyzer
  *
@@ -228,6 +247,13 @@
 	air_contents.set_oxygen(O2STANDARD * ONE_ATMOSPHERE * 50 / (R_IDEAL_GAS_EQUATION * T20C))
 	air_contents.set_nitrogen(N2STANDARD * ONE_ATMOSPHERE * 50 / (R_IDEAL_GAS_EQUATION * T20C))
 
+/obj/structure/swarmer/organic_analyzer/swarmer_grab_act(mob/living/simple_animal/hostile/swarmer/swarmer)
+	if(!occupant)
+		return ..()
+
+	swarmer.balloon_alert(swarmer, "не открутить, работает!")
+	return FALSE
+
 /obj/structure/swarmer/organic_analyzer/get_ru_names()
 	return alist(
 		NOMINATIVE = "анализатор \"Свармеров\"",
@@ -237,3 +263,12 @@
 		INSTRUMENTAL = "анализатором \"Свармеров\"",
 		PREPOSITIONAL = "анализаторе \"Свармеров\""
 	)
+
+#undef SWARMER_ANALYZE_DELAY
+#undef SWARMER_ANALYZE_CARBON_GAIN
+#undef SWARMER_ANALYZE_HOSTILE_GAIN
+#undef SWARMER_ANALYZE_LIVING_GAIN
+#undef SWARMER_ANALYZE_MACHINE_GAIN
+#undef SWARMER_ANALYZE_ROBOTIC_ORGAN_GAIN
+#undef SWARMER_ANALYZE_FINISH_MACHINE_TAKE
+#undef SWARMER_ANALYZE_ORGAN_REMOVE_CHANCE

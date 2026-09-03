@@ -1,6 +1,7 @@
 // TODO: Move to spell actions, once they are done
 
 /datum/action/cooldown/swarmer
+	abstract_type = /datum/action/cooldown/swarmer
 	name = "Свармер что-то"
 	desc = "Напишите баг-репорт, если увидели это."
 	button_icon = 'icons/mob/actions/actions_swarmer.dmi'
@@ -19,6 +20,7 @@
 		desc = "[initial(desc)] Стоимость: [action_cost] металлических материал[DECL_CREDIT(action_cost)]."
 
 /datum/action/cooldown/swarmer/build
+	abstract_type = /datum/action/cooldown/swarmer/build
 	name = "Создать что-то"
 	cooldown_time = SWARMER_FAST_BUILD_DELAY
 	/// What do we build
@@ -98,7 +100,7 @@
 	desc = "Создаёт баррикаду, через которую могут проходить \"Свармеры\", и пролетать их лазеры."
 	button_icon_state = "swarmer_barricade"
 	build_type = /obj/structure/swarmer/blockade
-	action_cost = SWARMER_BLOCKADE_COST
+	action_cost = 7
 	build_time = SWARMER_FAST_BUILD_DELAY
 
 /datum/action/cooldown/swarmer/build/trap
@@ -106,7 +108,7 @@
 	desc = "Создаёт ловушку, которая будет оглушать всех, кроме \"Свармеров\"."
 	button_icon_state = "swarmer_trap"
 	build_type = /obj/structure/swarmer/trap
-	action_cost = SWARMER_TRAP_COST
+	action_cost = 3
 	build_time = SWARMER_FAST_BUILD_DELAY
 
 /// Trap is built immediately for rover swarmers, and instead has cooldown
@@ -121,7 +123,7 @@
 	desc = "Создаёт Хаб, между которыми смогут перемещаться все \"Свармеры\"."
 	button_icon_state = "swarmer_hub"
 	build_type = /obj/structure/swarmer/transport_hub
-	action_cost = SWARMER_HUB_COST
+	action_cost = 15
 	build_time = SWARMER_SLOW_BUILD_DELAY
 
 /datum/action/cooldown/swarmer/build/transport_hub/Activate()
@@ -139,7 +141,7 @@
 	desc = "Обрабатывает неживую материю."
 	button_icon_state = "swarmer_processor"
 	build_type = /obj/structure/swarmer/organic_processer
-	action_cost = SWARMER_PROCESSER_COST
+	action_cost = 20
 	build_time = SWARMER_NORMAL_BUILD_DELAY
 
 /datum/action/cooldown/swarmer/build/analyzer
@@ -147,7 +149,7 @@
 	desc = "Обрабатывает живую и металлическую материю."
 	button_icon_state = "swarmer_analyzer"
 	build_type = /obj/structure/swarmer/organic_analyzer
-	action_cost = SWARMER_ANALYZER_COST
+	action_cost = 20
 	build_time = SWARMER_NORMAL_BUILD_DELAY
 
 /datum/action/cooldown/swarmer/build/repair_station
@@ -155,7 +157,7 @@
 	desc = "Быстрая починка для \"Свармеров\"."
 	button_icon_state = "swarmer_repair"
 	build_type = /obj/structure/swarmer/repair_station
-	action_cost = SWARMER_REPAIR_STATION_COST
+	action_cost = 15
 	build_time = SWARMER_NORMAL_BUILD_DELAY
 
 /datum/action/cooldown/swarmer/build/storage
@@ -163,16 +165,17 @@
 	desc = "Ускоряет ручной сбор материалов."
 	button_icon_state = "swarmer_storage"
 	build_type = /obj/structure/swarmer/resource_storage
-	action_cost = SWARMER_STORAGE_COST
+	action_cost = 10
 	build_time = SWARMER_FAST_BUILD_DELAY
 
 // Check if we have hit the metal modifier limit, and warn the user that building a new one wont do much
 /datum/action/cooldown/swarmer/build/storage/custom_build_checks(mob/living/user, list/turfs_to_check)
 	var/datum/team/swarmer_team/swarmer_team = GLOB.antagonist_teams[/datum/team/swarmer_team]
-	if(swarmer_team?.metal_modifier < SWARMER_STORAGE_MODIFIER_LIMIT)
+	if(swarmer_team.metal_modifier < swarmer_team.get_metal_modifier_limit())
 		return TRUE
 
-	var/choice = tgui_alert(user, "Предупреждение! Лимит модификатора сбора ресурсов уже достигнут, постройка нового хранилища ничего не даст. Продолжить стройку?", "Постройка хранилища", list("Да", "Нет"))
+	var/choice = tgui_alert(user, "Предупреждение! Лимит модификатора сбора ресурсов уже достигнут, постройка нового хранилища ничего не даст, \
+		однако послужит защитой, если сломают другое хранилище. Продолжить стройку?", "Постройка хранилища", list("Да", "Нет"))
 	if(choice == "Да")
 		return TRUE
 
@@ -183,7 +186,7 @@
 	desc = "Турель, стреляющая залпами лучей."
 	button_icon_state = "swarmer_rapid_turret"
 	build_type = /obj/machinery/porta_turret/swarmer/turret
-	action_cost = SWARMER_RAPID_TURRET_COST
+	action_cost = 20
 	build_time = SWARMER_NORMAL_BUILD_DELAY
 
 /datum/action/cooldown/swarmer/build/sniper_turret
@@ -191,7 +194,7 @@
 	desc = "Турель, стреляющая сильным, пробивающим лучом."
 	button_icon_state = "swarmer_sniper_turret"
 	build_type = /obj/machinery/porta_turret/swarmer/sniper
-	action_cost = SWARMER_SNIPER_TURRET_COST
+	action_cost = 20
 	build_time = SWARMER_SLOW_BUILD_DELAY
 
 /datum/action/cooldown/swarmer/build/acp_turret
@@ -199,14 +202,14 @@
 	desc = "Турель, бьющая целей по области, накладывая дебаффы."
 	button_icon_state = "swarmer_acp"
 	build_type = /obj/structure/swarmer/acp_turret
-	action_cost = SWARMER_ACP_COST
+	action_cost = 25
 	build_time = SWARMER_NORMAL_BUILD_DELAY
 
-/datum/action/cooldown/swarmer/build/drone_fabricator
+/datum/action/cooldown/swarmer/build/nanobot_fabricator
 	name = "Создать фабрикатор наноботов"
-	desc = "Выпускает наноботов при прохождении определённого времени, что превращает всех в свармеров."
-	build_type = /obj/structure/swarmer/drone_fabricator
-	action_cost = SWARMER_NANOBOT_FABRICATOR_COST
+	desc = "Для постройки требуются ванометрические батареи в видимости нескольких тайлов. Является финальной конструкцией \"Свармеров\"."
+	build_type = /obj/structure/swarmer/nanobot_fabricator
+	action_cost = 250
 	build_time = SWARMER_SLOW_BUILD_DELAY
 
 // Action for moving the core to any available transport hub
@@ -214,7 +217,13 @@
 	name = "Переместить ядро"
 	desc = "Перемещает ядро на выбранный \"Хаб\", при этом уничтожая его."
 	button_icon_state = "swarmer_core_swap"
-	action_cost = SWARMER_CORE_MOVE_COST
+	action_cost = 100
+	/// How long does it take to move the core
+	var/core_move_delay = 25 SECONDS
+	/// Radius of the forcefield
+	var/forcefield_radius = 2
+	/// How long the forcefield lasts
+	var/forcefield_duration = 5 SECONDS
 
 /datum/action/cooldown/swarmer/move_core/Activate()
 	. = ..()
@@ -238,7 +247,7 @@
 		owner.balloon_alert(owner, "недостаточно ресурсов!")
 		return
 
-	if(!do_after(owner, SWARMER_CORE_MOVE_DELAY, core, max_interact_count = 1))
+	if(!do_after(owner, core_move_delay, core, max_interact_count = 1))
 		owner.balloon_alert(owner, "нельзя двигаться!")
 		adjust_swarmer_metallic_resources(action_cost) // Return spent resources
 		return
@@ -248,7 +257,7 @@
 	var/turf/target_turf = get_turf(actual_selected_hub)
 	core.forceMove(target_turf)
 	qdel(actual_selected_hub)
-	swarmer_shield_around_turf(target_turf, 2, 15 SECONDS)
+	swarmer_shield_around_turf(target_turf, forcefield_radius, forcefield_duration)
 
 /// Used to get a list of all active transport hubs
 /datum/action/cooldown/swarmer/move_core/proc/get_hub_list()

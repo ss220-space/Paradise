@@ -1,6 +1,6 @@
 // Disabled swarmer shell
 /obj/item/deactivated_swarmer
-	name = "unactivated swarmer"
+	name = "deactivated swarmer shell"
 	desc = "Деактивированная оболочка свармера. Может оказаться полезным для изучения."
 	icon = 'icons/mob/swarmer.dmi'
 	icon_state = "swarmer_unactivated"
@@ -19,7 +19,7 @@
 
 // Used in cases where no-one wanted to play as swarmer
 /obj/effect/mob_spawn/swarmer
-	name = "unactivated swarmer"
+	name = "unactivated swarmer shell"
 	desc = "Неактивированная оболочка свармера, которая может активироваться в любой момент. Кажется, её можно отключить отвёрткой."
 	icon = 'icons/mob/swarmer.dmi'
 	icon_state = "swarmer_unactivated"

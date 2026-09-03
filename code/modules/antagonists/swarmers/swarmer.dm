@@ -1,7 +1,11 @@
 /// List that contains all swarmers mobs.
 GLOBAL_LIST_EMPTY(swarmers)
 
+/// How many organic resources we get on teleporting if we failed the analyze
+#define SWARMER_ANALYZE_TELEPORT_GAIN (rand(5, 15))
+
 /mob/living/simple_animal/hostile/swarmer
+	abstract_type = /mob/living/simple_animal/hostile/swarmer
 	name = "Swarmer"
 	real_name = "Swarmer"
 	desc = "Напишите баг-репорт, если увидили это."
@@ -473,3 +477,5 @@ GLOBAL_LIST_EMPTY(swarmers)
 /obj/effect/temp_visual/swarmer/integrate
 	icon_state = "integrate"
 	duration = 5
+
+#undef SWARMER_ANALYZE_TELEPORT_GAIN

@@ -1,3 +1,8 @@
+/// How long does it take to enter a repair station
+#define SWARMER_REPAIR_STATION_DELAY 2 SECONDS
+/// How much a swarmer gets healed by while being in a repair station per tick
+#define SWARMER_REPAIR_STATION_HEAL 5
+
 /**
  * Swarmer repair station
  *
@@ -63,6 +68,24 @@
 	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 	START_PROCESSING(SSobj, src)
 
+/obj/structure/swarmer/repair_station/swarmer_disarm_act(mob/living/simple_animal/hostile/swarmer/swarmer)
+	if(!occupant)
+		return ..()
+
+	swarmer.balloon_alert(swarmer, "занято, не починить!")
+
+/obj/structure/swarmer/repair_station/swarmer_grab_act(mob/living/simple_animal/hostile/swarmer/swarmer)
+	if(!occupant)
+		return ..()
+
+	swarmer.balloon_alert(swarmer, "занято, не открепить!")
+
+/obj/structure/swarmer/repair_station/swarmer_harm_act(mob/living/simple_animal/hostile/swarmer/swarmer)
+	if(!occupant)
+		return ..()
+
+	swarmer.balloon_alert(swarmer, "занято, не уничтожить!")
+
 /obj/structure/swarmer/repair_station/process(seconds_per_tick)
 	if(QDELETED(occupant))
 		occupant = null
@@ -101,3 +124,6 @@
 		INSTRUMENTAL = "станцией починки \"Свармеров\"",
 		PREPOSITIONAL = "станции починки \"Свармеров\""
 	)
+
+#undef SWARMER_REPAIR_STATION_DELAY
+#undef SWARMER_REPAIR_STATION_HEAL

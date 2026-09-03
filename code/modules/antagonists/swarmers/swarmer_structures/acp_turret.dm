@@ -1,3 +1,8 @@
+/// ACP turret damage modifier on range decrease (as in less range from target -> more damage multiplier)
+#define SWARMER_ACP_RANGE_DAMAGE_MODIFIER 2
+/// ACP turret slowed multiplier (doesn't scale)
+#define SWARMER_ACP_SLOWED_MODIFIER 2
+
 /**
  * Swarmer ACP turret
  *
@@ -18,17 +23,19 @@
 	/// Cooldown of our turret
 	COOLDOWN_DECLARE(cooldown)
 	/// Our cooldown after turret striked
-	var/cooldown_after_strike = SWARMER_ACP_COOLDOWN
+	var/cooldown_after_strike = 6 SECONDS
 	/// Range of our turret
-	var/range = SWARMER_ACP_RANGE
+	var/range = 3
 	/// Basic damage of our turret
-	var/damage = SWARMER_ACP_DAMAGE
+	var/damage = 15
 	/// Slowed chance after hit
-	var/slowed_chance = SWARMER_ACP_SLOWED_CHANCE
+	var/slowed_chance = 60
 	/// Slowed duration after hit
-	var/slowed_duration = SWARMER_ACP_SLOWED_DURATION
+	var/slowed_duration = 2 SECONDS
 	/// Basic knockdown duration
-	var/knockdown_duration = SWARMER_ACT_KNOCKDOWN_DURATION
+	var/knockdown_duration = 5 SECONDS
+	/// Metabolization block duration
+	var/metabolization_block_duration = 10 SECONDS
 	/// Targets that are currently processed by turret. Used by process()
 	var/list/processing_targets = list()
 
@@ -84,7 +91,7 @@
 	new /obj/effect/temp_visual/acp_stomp(our_turf, range)
 	for(var/mob/living/target as anything in processing_targets)
 		apply_range_based_effects(target)
-		target.apply_status_effect(STATUS_EFFECT_METABOLIZE_BLOCK, SWARMER_ACP_DISABLE_METABOLIZATION_DURATION, strike_overlay)
+		target.apply_status_effect(STATUS_EFFECT_METABOLIZE_BLOCK, metabolization_block_duration, strike_overlay)
 		animate_shockwave(target) // must be after range based effects proc
 
 /// Applies stamina damage, slow duration and chance, together with effects based on distance relative to the turret
@@ -102,7 +109,7 @@
 	target.apply_damage(final_damage, STAMINA)
 	target.Knockdown(final_knockdown_duration)
 	if(prob(final_slowed_chance))
-		target.Slowed(final_slowed_duration, SWARMER_ACP_SLOWED_MULTIPLIER)
+		target.Slowed(final_slowed_duration, SWARMER_ACP_SLOWED_MODIFIER)
 
 /obj/structure/swarmer/acp_turret/get_ru_names()
 	return alist(
@@ -130,3 +137,6 @@
 	// Increase size based on range input + 1 (accounting for src tile)
 	animate(src, transform = M * 2 * (range + 1), time = duration, alpha = 0)
 	playsound(loc, 'sound/swarmer/acp_turret.ogg', 100, TRUE)
+
+#undef SWARMER_ACP_RANGE_DAMAGE_MODIFIER
+#undef SWARMER_ACP_SLOWED_MODIFIER

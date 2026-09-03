@@ -26,7 +26,7 @@
 // MARK: Combat swarmer modes
 /datum/ranged_mob_switcher_mode/combat_swarmer_double
 	name = "Двойной выстрел"
-	cooldown = SWARMER_DOUBLE_PROJECTILE_COOLDOWN
+	cooldown = 2 SECONDS
 	proj_type = /obj/projectile/beam/disabler/swarmer/double
 	amount = 2
 	rapid_fire_delay = 0.2 SECONDS
@@ -37,7 +37,7 @@
 
 /datum/ranged_mob_switcher_mode/combat_swarmer_strong
 	name = "Сильный выстрел"
-	cooldown = SWARMER_STRONG_PROJECTILE_COOLDOWN
+	cooldown = 2.5 SECONDS
 	proj_type = /obj/projectile/beam/disabler/swarmer/empowered
 	icon = 'icons/mob/actions/actions_swarmer.dmi'
 	icon_state = "power"
@@ -45,7 +45,7 @@
 
 /datum/ranged_mob_switcher_mode/combat_swarmer_sabotage
 	name = "Саботажный выстрел"
-	cooldown = SWARMER_SABOTAGE_PROJECTILE_COOLDOWN
+	cooldown = 3 SECONDS
 	proj_type = /obj/projectile/beam/disabler/swarmer/sabotage
 	icon = 'icons/mob/actions/actions_swarmer.dmi'
 	icon_state = "sabotage"

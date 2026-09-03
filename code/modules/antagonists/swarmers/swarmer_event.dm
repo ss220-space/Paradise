@@ -10,8 +10,8 @@
 	var/pod_type = /obj/structure/closet/supplypod/swarmer
 	/// Radius of shields spawned
 	var/shields_radius = 2
-	/// How long the shields last for
-	var/shields_duration = 30 SECONDS
+	/// How long the shields last
+	var/shields_duration = 15 SECONDS
 
 /datum/event/swarmers/start()
 	// It is necessary to wrap this to avoid the event triggering repeatedly.

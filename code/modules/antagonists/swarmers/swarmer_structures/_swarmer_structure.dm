@@ -8,6 +8,7 @@ GLOBAL_LIST_EMPTY(swarmer_objects)
  * All structures of this type allow swarmer projectiles to pass through them.
  */
 /obj/structure/swarmer
+	abstract_type = /obj/structure/swarmer
 	name = "swarmer structure"
 	desc = "Вы не должны это видеть."
 	icon = 'icons/obj/swarmer.dmi'

@@ -816,6 +816,8 @@
 /obj/projectile/beam/disabler/swarmer
 	name = "swarmer laser"
 	icon_state = "default_swarmer"
+	/// For how long this disables stamina regeneration on hit
+	var/staminaregen_block_duration = 1 SECONDS
 
 /**
  * Deals burn damage instead of stamina if the target is silicon or animal.
@@ -830,7 +832,7 @@
 	. = ..()
 	if(. && isliving(target))
 		var/mob/living/living_target = target
-		living_target.apply_status_effect(STATUS_EFFECT_STAMINAREGEN_BLOCK, SWARMER_DISABLE_STAMINAREGEN_DURATION)
+		living_target.apply_status_effect(STATUS_EFFECT_STAMINAREGEN_BLOCK, staminaregen_block_duration)
 
 /// Used in small swarmer turrets, is shooted three times
 /obj/projectile/beam/disabler/swarmer/weak_turret

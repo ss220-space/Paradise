@@ -13,6 +13,10 @@
 	alpha = 125
 	density = FALSE
 	swarmers_pass = TRUE
+	/// How much staminadamage the trap deals
+	var/stamina_damage = 40
+	/// How much knockdown the trap gives
+	var/knockdown_duration = 4 SECONDS
 
 /obj/structure/swarmer/trap/Initialize(mapload)
 	. = ..()
@@ -24,12 +28,22 @@
 /obj/structure/swarmer/trap/proc/on_entered(datum/source, mob/living/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
+	if(!anchored)
+		return
+
 	if(!isliving(arrived) || isswarmer(arrived))
 		return
 
 	playsound(loc, 'sound/effects/snap.ogg', 50, TRUE)
-	arrived.apply_effects(weaken = SWARMER_TRAP_WEAKEN, knockdown = SWARMER_TRAP_KNOCKDOWN, stamina = SWARMER_TRAP_DAMAGE, jitter = 10 SECONDS)
+	arrived.apply_effects(knockdown = knockdown_duration, stamina = stamina_damage, jitter = 10 SECONDS)
 	qdel(src)
+
+/obj/structure/swarmer/trap/swarmer_grab_act(mob/living/simple_animal/hostile/swarmer/swarmer)
+	. = ..()
+	if(!.)
+		return
+
+	alpha = anchored ? initial(alpha) : 255
 
 /obj/structure/swarmer/trap/get_ru_names()
 	return alist(
@@ -76,21 +90,21 @@
 	swarmer_examine = "Увеличивает количество ресурсов, полученных с ручного собирания."
 	icon_state = "metal_storage"
 	max_integrity = 100
+	/// The amount the metal modifier is adjusted by on init or destroy
+	var/static/metal_modifier_adjust = 0.2
 
 /obj/structure/swarmer/resource_storage/Initialize(mapload)
 	. = ..()
 	var/datum/team/swarmer_team/swarmer_team = GLOB.antagonist_teams[/datum/team/swarmer_team]
 	if(!swarmer_team)
-		swarmer_team = new
+		return INITIALIZE_HINT_QDEL
 
-	swarmer_team.increase_modifier()
+	swarmer_team.adjust_modifier(metal_modifier_adjust)
 
 /obj/structure/swarmer/resource_storage/Destroy(force)
 	var/datum/team/swarmer_team/swarmer_team = GLOB.antagonist_teams[/datum/team/swarmer_team]
-	if(!swarmer_team)
-		swarmer_team = new
-
-	swarmer_team.decrease_modifier()
+	if(swarmer_team)
+		swarmer_team.adjust_modifier(-metal_modifier_adjust)
 	return ..()
 
 /obj/structure/swarmer/resource_storage/get_ru_names()
@@ -173,3 +187,57 @@
 		var/turf/field_turf = corner_turfs[i]
 		var/dir = index_to_corner_dir[i]
 		new /obj/structure/swarmer/swarmer_core_field(field_turf, shield_duration, dir)
+
+/obj/structure/swarmer/power_cell
+	name = "vanometric swarmer power cell"
+	desc = "Энергетическая ячейка \"Свармеров\", способная извлекать энергию напрямую из квантовых флуктуаций."
+	max_integrity = 200
+	swarmer_examine = "Обеспечивает питание фабрикатора наноботов. При разрушении взрывается. Лимит на один фабрикатор - пять штук."
+	projectiles_pass = FALSE
+	/// Beam that leads to the nanobot fabricator (also an indicator if we are active)
+	var/datum/beam/fabricator_beam
+
+/obj/structure/swarmer/power_cell/Destroy(force)
+	QDEL_NULL(fabricator_beam)
+	explosion(get_turf(src), devastation_range = 0, heavy_impact_range = 0, light_impact_range = 2, flame_range = 3)
+	return ..()
+
+/// Links src to the fabricator with a visual effect
+/obj/structure/swarmer/power_cell/proc/link_to_fabricator(obj/structure/swarmer/nanobot_fabricator/fabricator)
+	var/pixel_x_offset
+	var/pixel_y_offset
+	var/turf/center_fabricator_turf = get_step(fabricator, NORTHEAST)
+	var/dir_to_fabricator = get_dir(src, center_fabricator_turf)
+	if(dir_to_fabricator & NORTH)
+		pixel_y_offset = 32
+	else if(dir_to_fabricator & SOUTH)
+		pixel_y_offset = -32
+	if(dir_to_fabricator & WEST)
+		pixel_x_offset = -32
+	else if(dir_to_fabricator & EAST)
+		pixel_x_offset = 32
+
+	fabricator_beam = Beam(center_fabricator_turf, icon_state = "sm_arc_supercharged", layer = ABOVE_OBJ_LAYER, override_target_pixel_x = pixel_x_offset, override_target_pixel_y = pixel_y_offset)
+	anchored = TRUE
+
+/obj/structure/swarmer/power_cell/swarmer_disarm_act(mob/living/simple_animal/hostile/swarmer/swarmer)
+	if(!fabricator_beam)
+		return ..()
+
+	swarmer.balloon_alert(swarmer, "нельзя, работает!")
+
+/obj/structure/swarmer/power_cell/swarmer_grab_act(mob/living/simple_animal/hostile/swarmer/swarmer)
+	if(!fabricator_beam)
+		return ..()
+
+	swarmer.balloon_alert(swarmer, "нельзя, работает!")
+
+/obj/structure/swarmer/power_cell/get_ru_names()
+	return alist(
+		NOMINATIVE = "ванометрическая энергетическая ячейка",
+		GENITIVE = "ванометрической энергетической ячейки",
+		DATIVE = "ванометрической энергетической ячейке",
+		ACCUSATIVE = "ванометрическую энергетическую ячейку",
+		INSTRUMENTAL = "ванометрической энергетической ячейкой",
+		PREPOSITIONAL = "ванометрической энергетической ячейке",
+	)
