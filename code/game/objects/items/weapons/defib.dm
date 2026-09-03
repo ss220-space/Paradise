@@ -172,16 +172,6 @@
 	..()
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/defibrillator/verb/toggle_paddles_verb()
-	set name = "Взять электроды"
-	set category = VERB_CATEGORY_OBJECT
-	set src in oview(1)
-
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		return
-
-	toggle_paddles(usr)
-
 /obj/item/defibrillator/proc/toggle_paddles(mob/living/carbon/human/user = usr)
 	if(!paddles)
 		balloon_alert(user, "электроды отсутствуют!")

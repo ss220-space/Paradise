@@ -1,15 +1,17 @@
-import { createSearch } from 'common/string';
-import { useBackend } from '../backend';
-import { Key, ReactNode, useState } from 'react';
+import { type Key, type ReactNode, useState } from 'react';
 import {
+  Box,
   Button,
   Icon,
   Input,
   LabeledList,
   Section,
+  Slider,
   Stack,
   Table,
-} from '../components';
+} from 'tgui-core/components';
+import { createSearch } from 'tgui-core/string';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { LoginInfo } from './common/LoginInfo';
 import { LoginScreen } from './common/LoginScreen';
@@ -28,6 +30,8 @@ type Account = {
   suspended: boolean;
   money: number;
   transactions: Transaction[];
+  salary_modifier?: number;
+  salary_modifier_uid?: string;
 };
 
 export type Transaction = {
@@ -139,7 +143,7 @@ const AccountsRecordList = (_properties) => {
                     '|' +
                     account.money
                   );
-                })
+                }),
               )
               .sort((a, b) => {
                 const i = sortOrder ? 1 : -1;
@@ -148,9 +152,7 @@ const AccountsRecordList = (_properties) => {
               .map((account) => (
                 <Table.Row
                   key={account.account_number}
-                  className={
-                    'AccountsUplinkTerminal__listRow--' + account.suspended
-                  }
+                  className={`AccountsUplinkTerminal__listRow--${account.suspended}`}
                   onClick={() =>
                     act('view_account_detail', {
                       index: account.account_index,
@@ -188,10 +190,10 @@ const SortButton = (properties: SortButtonProps) => {
         width="100%"
         onClick={() => {
           if (sortId === id) {
-            setSortOrder(!sortOrder);
+            setSortOrder?.(!sortOrder);
           } else {
-            setSortId(id);
-            setSortOrder(true);
+            setSortId?.(id);
+            setSortOrder?.(true);
           }
         }}
       >
@@ -239,12 +241,32 @@ const AccountsActions = (properties: AccountsActionsProps) => {
 
 const DetailedAccountInfo = (_properties) => {
   const { act, data } = useBackend<Account>();
-  const { account_number, owner_name, money, suspended, transactions } = data;
+  const {
+    account_number,
+    owner_name,
+    money,
+    suspended,
+    transactions,
+    salary_modifier,
+    salary_modifier_uid,
+  } = data;
+
+  const isModified = salary_modifier !== undefined && salary_modifier !== 0;
+  const [selectedValue, setSelectedValue] = useState<number>(
+    salary_modifier || 0,
+  );
+  const color =
+    (salary_modifier || 0) > 0
+      ? 'good'
+      : (salary_modifier || 0) < 0
+        ? 'bad'
+        : 'transparent';
+
   return (
     <Stack fill vertical>
       <Stack.Item>
         <Section
-          title={'#' + account_number + ' / ' + owner_name}
+          title={`#${account_number} / ${owner_name}`}
           buttons={
             <Button icon="arrow-left" onClick={() => act('back')}>
               Back
@@ -272,6 +294,69 @@ const DetailedAccountInfo = (_properties) => {
                 {suspended ? 'Unsuspend' : 'Suspend'}
               </Button>
             </LabeledList.Item>
+            <LabeledList.Item label="Корректировка зарплаты">
+              <Box>
+                Введите значение процента выплаты заработной платы (диапазон: 1%
+                … 200%). 0 означает, что зарплата не будет выплачиваться вовсе.
+              </Box>
+              <Stack>
+                <Stack.Item grow maxWidth="50%">
+                  <Slider
+                    value={selectedValue}
+                    minValue={0}
+                    maxValue={200}
+                    step={1}
+                    width="100%"
+                    onChange={(e, value) => setSelectedValue(value)}
+                  />
+                </Stack.Item>
+                <Stack.Item>
+                  <Button
+                    icon="save"
+                    color="good"
+                    onClick={() =>
+                      act('set_salary_modifier', {
+                        modifier: selectedValue / 100,
+                        salary_modifier_uid: salary_modifier_uid,
+                      })
+                    }
+                  >
+                    Применить
+                  </Button>
+                </Stack.Item>
+              </Stack>
+
+              {isModified && (
+                <Box mt={0.5} fontSize="0.9rem">
+                  <Icon name="info-circle" color={color} />{' '}
+                  <Box color={color} inline>
+                    Текущий модификатор: {salary_modifier > 0 ? '+' : ''}
+                    {salary_modifier}%
+                  </Box>
+                  <Button
+                    ml={1}
+                    icon="undo"
+                    color="transparent"
+                    fontSize="0.8rem"
+                    onClick={() => {
+                      setSelectedValue(0);
+                      act('set_salary_modifier', {
+                        modifier: 0,
+                        owner_name: owner_name,
+                        salary_modifier_uid: salary_modifier_uid,
+                      });
+                    }}
+                  >
+                    Сбросить
+                  </Button>
+                </Box>
+              )}
+              <Box className="text-muted" mt={0.5} fontSize="11px">
+                <Icon name="info-circle" mr={0.5} />
+                Важно: Изменения будут применены автоматически со следующего
+                расчётного периода.
+              </Box>
+            </LabeledList.Item>
           </LabeledList>
         </Section>
       </Stack.Item>
@@ -288,7 +373,7 @@ const DetailedAccountInfo = (_properties) => {
               <Table.Row key={t}>
                 <Table.Cell>{t.time}</Table.Cell>
                 <Table.Cell>{t.purpose}</Table.Cell>
-                <Table.Cell color={t.is_deposit ? 'green' : 'red'}>
+                <Table.Cell color={t.amount >= 0 ? 'green' : 'red'}>
                   ${t.amount}
                 </Table.Cell>
                 <Table.Cell>{t.target_name}</Table.Cell>

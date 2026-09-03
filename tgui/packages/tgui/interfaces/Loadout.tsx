@@ -1,22 +1,22 @@
-import { createSearch } from 'common/string';
-import { declension_ru } from 'common/string';
-import { useBackend } from '../backend';
+import { declension_ru } from 'common/l10n';
 import { useState } from 'react';
 import {
   Box,
+  Button,
   Dimmer,
   Dropdown,
   ImageButton,
-  Button,
   Input,
-  Section,
-  Tabs,
-  ProgressBar,
-  Stack,
   LabeledList,
-} from '../components';
-import { Window } from '../layouts';
+  ProgressBar,
+  Section,
+  Stack,
+  Tabs,
+} from 'tgui-core/components';
+import { createSearch } from 'tgui-core/string';
+import { useBackend } from '../backend';
 import { JOBS_RU } from '../constants';
+import { Window } from '../layouts';
 
 type Data = {
   user_tier: number;
@@ -123,9 +123,9 @@ const LoadoutGears = (props) => {
   let contents;
   if (searchText.length > 2) {
     contents = Object.entries(data.gears)
-      .reduce((a, [key, gears]) => {
+      .reduce<{ key: string; gear: Gear }[]>((a, [key, gears]) => {
         return a.concat(
-          Object.entries(gears).map(([key, gear]) => ({ key, gear }))
+          Object.entries(gears).map(([key, gear]) => ({ key, gear })),
         );
       }, [])
       .filter(({ gear }) => {
@@ -199,8 +199,8 @@ const LoadoutGears = (props) => {
         const selected = Object.keys(data.selected_gears).includes(key);
         const costText =
           gear.cost === 1
-            ? `${gear.cost} Очк` + declension_ru(gear.cost, 'о', 'а', 'ов')
-            : `${gear.cost} Очк` + declension_ru(gear.cost, 'о', 'а', 'ов');
+            ? `${gear.cost} Очк${declension_ru(gear.cost, 'о', 'а', 'ов')}`
+            : `${gear.cost} Очк${declension_ru(gear.cost, 'о', 'а', 'ов')}`;
         const tooltipText = (
           <Box>
             {gear.name.length > maxTextLength && <Box>{gear.name}</Box>}
@@ -242,7 +242,7 @@ const LoadoutGears = (props) => {
                     tooltip={tweak.tooltip}
                     tooltipPosition="top"
                   />
-                ))
+                )),
             )}
             <Button
               width="22px"
@@ -302,18 +302,15 @@ const LoadoutGears = (props) => {
 const LoadoutEquipped = (props) => {
   const { act, data } = useBackend<Data>();
   const { setTweakedGear } = props;
-  const selectedGears = Object.entries(data.gears).reduce(
-    (a, [categoryKey, categoryItems]) => {
-      const selectedInCategory = Object.entries(categoryItems)
-        .filter(([gearKey]) =>
-          Object.keys(data.selected_gears).includes(gearKey)
-        )
-        .map(([gearKey, gear]) => ({ key: gearKey, ...gear }));
+  const selectedGears = Object.entries(data.gears).reduce<
+    (Gear & { key: string })[]
+  >((a, [categoryKey, categoryItems]) => {
+    const selectedInCategory = Object.entries(categoryItems)
+      .filter(([gearKey]) => Object.keys(data.selected_gears).includes(gearKey))
+      .map(([gearKey, gear]) => ({ key: gearKey, ...gear }));
 
-      return a.concat(selectedInCategory);
-    },
-    []
-  );
+    return a.concat(selectedInCategory);
+  }, []);
   return (
     <Stack fill vertical>
       <Stack.Item grow>
@@ -331,20 +328,16 @@ const LoadoutEquipped = (props) => {
           }
         >
           {selectedGears.map((gear) => {
-            let gear_data = data.selected_gears[gear.key];
+            const gear_data = data.selected_gears[gear.key];
             return (
               <ImageButton
                 key={gear.key}
                 fluid
                 imageSize={48}
-                base64={gear_data['icon']}
-                dmIcon={
-                  gear_data['icon_file'] ? gear_data['icon_file'] : gear.icon
-                }
+                base64={gear_data.icon}
+                dmIcon={gear_data.icon_file ? gear_data.icon_file : gear.icon}
                 dmIconState={
-                  gear_data['icon_state']
-                    ? gear_data['icon_state']
-                    : gear.icon_state
+                  gear_data.icon_state ? gear_data.icon_state : gear.icon_state
                 }
                 buttons={
                   <>
@@ -369,7 +362,7 @@ const LoadoutEquipped = (props) => {
                   </>
                 }
               >
-                {gear_data['name'] ? gear_data['name'] : gear.name}
+                {gear_data.name ? gear_data.name : gear.name}
               </ImageButton>
             );
           })}
@@ -453,7 +446,7 @@ const GearTweak = (props) => {
                       />
                     </LabeledList.Item>
                   );
-                })
+                }),
             )}
           </LabeledList>
         </Section>

@@ -1,5 +1,5 @@
+import { Box, Button, Section } from 'tgui-core/components';
 import { useBackend } from '../backend';
-import { Box, Button, Section } from '../components';
 import { Window } from '../layouts';
 
 type SpawnersMenuData = {
@@ -26,7 +26,7 @@ export const SpawnersMenu = (_props: unknown) => {
             <Section
               mb={0.5}
               key={spawner.name}
-              title={spawner.name + ' (' + spawner.amount_left + ' left)'}
+              title={`${spawner.name} (${spawner.amount_left} left)`}
               buttons={
                 <>
                   <Button

@@ -1,7 +1,7 @@
 // MARK: Bombarda
 /obj/item/gun/projectile/bombarda
 	name = "Bombarda"
-	desc = "Hand made analog of grenade launcher. Can fire improvised shells."
+	desc = "Собранный из подручных материалов гранатомёт, использующий боеприпасы калибра 40 мм."
 	icon = 'icons/obj/weapons/bombarda.dmi'
 	icon_state = "bombarda"
 	item_state = "bombarda"
@@ -16,6 +16,16 @@
 	accuracy = GUN_ACCURACY_MINIMAL
 	recoil = GUN_RECOIL_MEGA
 	var/opened = FALSE
+
+/obj/item/gun/projectile/bombarda/bombplet/get_ru_names()
+	return alist(
+		NOMINATIVE = "кустарный гранатомет",
+		GENITIVE = "кустарного гранатомета",
+		DATIVE = "кустарному гранатомету",
+		ACCUSATIVE = "кустарный гранатомет",
+		INSTRUMENTAL = "кустарным гранатометом",
+		PREPOSITIONAL = "кустарном гранатомете",
+	)
 
 /obj/item/gun/projectile/bombarda/attackby(obj/item/item, mob/user, params)
 	if(isammocasing(item))
@@ -95,10 +105,6 @@
 		return
 	chambered = magazine.stored_ammo[1]
 
-/obj/item/gun/projectile/bombarda/secgl/x4/shoot_with_empty_chamber(mob/living/user)
-	..()
-	chamber_round(TRUE)
-
 /obj/item/gun/projectile/bombarda/proc/close_pump(mob/user)
 	if(!opened)
 		return FALSE
@@ -109,10 +115,29 @@
 	update_icon()
 	return TRUE
 
+// MARK: Double bombarda
+/obj/item/gun/projectile/bombarda/bombplet
+	name = "bombplet"
+	desc = "Собранный из подручных материалов гранатомёт с двумя стволами, использующий боеприпасы калибра 40 мм."
+	icon_state = "bombplet"
+	item_state = "bombplet"
+	mag_type = /obj/item/ammo_box/magazine/internal/bombarda/x2
+
+/obj/item/gun/projectile/bombarda/bombplet/get_ru_names()
+	return alist(
+		NOMINATIVE = "кустарный двуствольный гранатомет 40 мм",
+		GENITIVE = "кустарного двуствольного гранатомета 40 мм",
+		DATIVE = "кустарному двуствольному гранатомету 40 мм",
+		ACCUSATIVE = "кустарный двуствольный гранатомет 40 мм",
+		INSTRUMENTAL = "кустарным двуствольным гранатометом 40 мм",
+		PREPOSITIONAL = "кустарном двуствольном гранатомете 40 мм",
+	)
+
 // MARK: GL-06
 /obj/item/gun/projectile/bombarda/secgl
 	name = "grenade launcher GL-06"
-	desc = "Однозарядный ручной гранатомёт, разработанный специально для сотрудников службы безопасности. Примеяется для подавления беспорядков с помощью нелетальных боеприпасов. Может запускать 40 мм гранаты."
+	desc = "Однозарядный ручной гранатомёт калибра 40 мм производства \"Mars Special\". Предназначен для подавления беспорядков, \
+			однако может быть использован для других задач благодаря широкому спектру доступных боеприпасов. Входит в стандартное оснащение арсеналов службы безопасности \"Нанотрейзен\"."
 	icon_state = "secgl"
 	item_state = "secgl"
 	mag_type = /obj/item/ammo_box/magazine/internal/bombarda/secgl
@@ -132,15 +157,14 @@
 // MARK: GL-08-04
 /obj/item/gun/projectile/bombarda/secgl/x4
 	name = "grenade launcher GL-08-4"
-	desc = "Четырехзарядный ручной гранатомёт, разработанный специально для сотрудников службы безопасности. Применяется для подавления беспорядков с помощью не летальных боеприпасов. Может запускать 40 мм гранаты."
+	desc = "Ручной гранатомёт калибра 40 мм производства \"Mars Special\", расчитанный на 4 гранаты. Предназначен для подавления беспорядков, \
+			однако может быть использован для других задач благодаря широкому спектру доступных боеприпасов. Входит в стандартное оснащение арсеналов службы безопасности \"Нанотрейзен\"."
 	icon_state = "secgl_4"
 	item_state = "secgl_4"
 	mag_type = /obj/item/ammo_box/magazine/internal/bombarda/secgl/x4
 	w_class = WEIGHT_CLASS_HUGE
 	weapon_weight = WEAPON_DUAL_WIELD
 	slot_flags = FALSE
-	accuracy = GUN_ACCURACY_PISTOL
-	recoil = GUN_RECOIL_HIGH
 	var/high_risk = TRUE
 	fire_delay = 1.5 SECONDS
 
@@ -159,10 +183,14 @@
 	if(high_risk)
 		AddElement(/datum/element/high_value_item)
 
+/obj/item/gun/projectile/bombarda/secgl/x4/shoot_with_empty_chamber(mob/living/user)
+	..()
+	chamber_round(TRUE)
+
 // MARK: M79
 /obj/item/gun/projectile/bombarda/secgl/m79
 	name = "grenade launcher M79"
-	desc = "Классический однозарядный ручной гранатомёт, разработанный в 1961 году. Использует 40 мм гранаты."
+	desc = "Классический однозарядный ручной гранатомёт. Использует 40 мм гранаты."
 	icon_state = "m79"
 	item_state = "m79"
 
@@ -174,24 +202,6 @@
 		ACCUSATIVE = "ручной гранатомет M79",
 		INSTRUMENTAL = "ручным гранатометом M79",
 		PREPOSITIONAL = "ручном гранатомете M79",
-	)
-
-// MARK: Double bombarda
-/obj/item/gun/projectile/bombarda/bombplet
-	name = "bombplet"
-	desc = "Двуствольная самодельная бомбарда. Использует 40 мм гранаты."
-	icon_state = "bombplet"
-	item_state = "bombplet"
-	mag_type = /obj/item/ammo_box/magazine/internal/bombarda/x2
-
-/obj/item/gun/projectile/bombarda/bombplet/get_ru_names()
-	return alist(
-		NOMINATIVE = "самодельный двуствольный гранатомет",
-		GENITIVE = "самодельного двуствольного гранатомета",
-		DATIVE = "самодельному двуствольному гранатомету",
-		ACCUSATIVE = "самодельный двуствольный гранатомет",
-		INSTRUMENTAL = "самодельным двуствольным гранатометом",
-		PREPOSITIONAL = "самодельном двуствольном гранатомете",
 	)
 
 // MARK: Crafts and other shit

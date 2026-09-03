@@ -1,20 +1,20 @@
-import { Component, Fragment, ReactNode } from 'react';
-import { useBackend } from '../backend';
+import type { Placement } from '@floating-ui/react';
+import { Component, Fragment, type ReactNode } from 'react';
 import {
   Box,
   Button,
-  Flex,
-  LabeledList,
-  Section,
-  ProgressBar,
-  Dropdown,
-  NoticeBox,
   DmIcon,
+  Dropdown,
+  Flex,
   ImageButton,
+  LabeledList,
+  NoticeBox,
+  ProgressBar,
+  Section,
   Stack,
-} from '../components';
+} from 'tgui-core/components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { Placement } from '@popperjs/core';
 
 const helpButtonsData = [
   {
@@ -336,7 +336,7 @@ export const SpiderOS = (_properties) => {
   const { act, data } = useBackend<SpiderOSData>();
   let body: ReactNode;
   if (data.suit_tgui_state === 0) {
-    let actionsCheck = !!data.blocked_TGUI_rows.filter((value) => !value)
+    const actionsCheck = !!data.blocked_TGUI_rows.filter((value) => !value)
       .length;
     body = (
       <Flex direction="row" spacing={1}>
@@ -386,7 +386,7 @@ export const SpiderOS = (_properties) => {
     );
   }
   return (
-    <Window width={800} height={730} theme="spider_clan">
+    <Window width={800} height={730} theme={`spider_clan-${data.color_choice}`}>
       <Window.Content>
         <Flex direction="row" spacing={1}>
           {body}
@@ -421,8 +421,8 @@ const StylesPreview = (_properties) => {
       }
     >
       <Flex direction="column" grow={1} alignContent="center">
-        <NoticeBox success align="center">
-          <Section style={{ background: 'rgba(4, 74, 27, 0.75)' }} mt={0}>
+        <NoticeBox align="center">
+          <Section mt={0}>
             <DmIcon
               height="100px"
               width="100px"
@@ -518,7 +518,7 @@ const SuitTuning = (_properties) => {
   return (
     <Flex direction="row" grow={1} alignContent="center">
       <Flex.Item grow={1} width="100%" m={1} my={0}>
-        <NoticeBox success align="center" fontSize={'14px'}>
+        <NoticeBox align="center" fontSize={'14px'}>
           <LabeledList>
             <LabeledList.Item label="Стиль">
               <Dropdown
@@ -639,15 +639,13 @@ const Helpers = (_properties) => {
         />
       }
     >
-      <Flex direction="column" grow={1} alignContent="center">
-        <Flex.Item direction="row">
+      <Stack>
+        <Stack.Item>
           {helpButtonsData.map(
             ({ icon_state, tooltipTitle, tooltipContent }, index) => (
               <ImageButton
                 key={index}
-                className="Button_green"
-                height="32px"
-                width="32px"
+                mx={0.5}
                 dmIcon={actionsIcon}
                 dmIconState={icon_state}
                 tooltip={tooltipContent}
@@ -655,10 +653,10 @@ const Helpers = (_properties) => {
               >
                 {tooltipTitle}
               </ImageButton>
-            )
+            ),
           )}
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
     </Section>
   );
 };
@@ -671,7 +669,7 @@ const ActionBuyPanel = (properties: ActionBuyPanelProps) => {
   const { act, data } = useBackend<SpiderOSData>();
   const { actionsIcon, blocked_TGUI_rows } = data;
 
-  let rowStyles = [
+  const rowStyles = [
     {
       blue: 'Button_blue',
       green: 'Button_green',
@@ -720,21 +718,16 @@ const ActionBuyPanel = (properties: ActionBuyPanelProps) => {
                   mt={-0.5}
                 />
               }
+              backgroundColor={'hsl(210, 76%, 24%)'}
               style={{
                 textAlign: 'center',
-                background: 'rgba(53, 94, 163, 0.8)',
               }}
             >
-              <NoticeBox
-                className="NoticeBox_blue"
-                success
-                danger
-                align="center"
-              >
+              <NoticeBox info align="center">
                 {abilityButtons.ghost.map(
                   (
                     { style, row, iconState, title, content, tooltipPosition },
-                    i
+                    i,
                   ) =>
                     !blocked_TGUI_rows[i] && (
                       <ImageButton
@@ -745,7 +738,6 @@ const ActionBuyPanel = (properties: ActionBuyPanelProps) => {
                             : rowStyles[0].disabled
                         }
                         height="64px"
-                        imageSize={90}
                         width="64px"
                         fontSize={'10px'}
                         dmIcon={actionsIcon}
@@ -757,7 +749,7 @@ const ActionBuyPanel = (properties: ActionBuyPanelProps) => {
                       >
                         {title}
                       </ImageButton>
-                    )
+                    ),
                 )}
               </NoticeBox>
             </Section>
@@ -779,16 +771,16 @@ const ActionBuyPanel = (properties: ActionBuyPanelProps) => {
                   mt={-0.5}
                 />
               }
+              backgroundColor={'hsl(131, 59%, 26%)'}
               style={{
                 textAlign: 'center',
-                background: 'rgba(0, 174, 208, 0.15)',
               }}
             >
               <NoticeBox success align="center">
                 {abilityButtons.snake.map(
                   (
                     { style, row, icon_state, title, content, tooltipPosition },
-                    index
+                    index,
                   ) =>
                     !blocked_TGUI_rows[index] && (
                       <ImageButton
@@ -799,7 +791,6 @@ const ActionBuyPanel = (properties: ActionBuyPanelProps) => {
                             : rowStyles[0].disabled
                         }
                         height="64px"
-                        imageSize={90}
                         width="64px"
                         fontSize={'10px'}
                         dmIcon={actionsIcon}
@@ -811,7 +802,7 @@ const ActionBuyPanel = (properties: ActionBuyPanelProps) => {
                       >
                         {title}
                       </ImageButton>
-                    )
+                    ),
                 )}
               </NoticeBox>
             </Section>
@@ -833,21 +824,16 @@ const ActionBuyPanel = (properties: ActionBuyPanelProps) => {
                   mt={-0.5}
                 />
               }
+              backgroundColor={'hsl(0, 59%, 27%)'}
               style={{
                 textAlign: 'center',
-                background: 'rgba(80, 20, 20, 1)',
               }}
             >
-              <NoticeBox
-                className="NoticeBox_red"
-                success
-                danger
-                align="center"
-              >
+              <NoticeBox danger align="center">
                 {abilityButtons.steel.map(
                   (
                     { style, row, icon_state, title, content, tooltipPosition },
-                    index
+                    index,
                   ) =>
                     !blocked_TGUI_rows[index] && (
                       <ImageButton
@@ -858,7 +844,6 @@ const ActionBuyPanel = (properties: ActionBuyPanelProps) => {
                             : rowStyles[0].disabled
                         }
                         height="64px"
-                        imageSize={90}
                         width="64px"
                         fontSize={'10px'}
                         dmIcon={actionsIcon}
@@ -870,14 +855,14 @@ const ActionBuyPanel = (properties: ActionBuyPanelProps) => {
                       >
                         {title}
                       </ImageButton>
-                    )
+                    ),
                 )}
               </NoticeBox>
             </Section>
           </Flex.Item>
         </Flex>
       ) : (
-        <NoticeBox className="NoticeBox_red" success danger align="center">
+        <NoticeBox danger align="center">
           Все модули выбраны
         </NoticeBox>
       )}
@@ -970,18 +955,18 @@ const FakeLoadBar = (_properties) => {
         maxValue={100}
       >
         <center>
-          <NoticeBox className={'NoticeBox_' + color_choice} mt={1}>
+          <NoticeBox className={`NoticeBox--color--${color_choice}`} mt={1}>
             <DmIcon
               height="64px"
               width="64px"
               icon={actionsIcon}
-              icon_state={'spider_' + color_choice}
+              icon_state={`spider_${color_choice}`}
               style={{
                 marginLeft: '-6px',
               }}
             />
             <br />
-            Loading {randomPercent + '%'}
+            Loading {`${randomPercent}%`}
           </NoticeBox>
         </center>
       </ProgressBar>
@@ -1003,10 +988,10 @@ type FakeTerminalState = {
 };
 
 class FakeTerminal extends Component<FakeTerminalProps, FakeTerminalState> {
-  timer: NodeJS.Timeout;
+  timer: NodeJS.Timeout | undefined;
   constructor(props: FakeTerminalProps) {
     super(props);
-    this.timer = null;
+    this.timer = undefined;
     this.state = {
       lastText: 'text do be there',
       currentDisplay: [],

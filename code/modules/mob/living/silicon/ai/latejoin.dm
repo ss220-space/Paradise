@@ -1,10 +1,6 @@
 GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 
-/mob/living/silicon/ai/verb/wipe_core()
-	set name = "Выгрузить ядро ИИ"
-	set category = VERB_CATEGORY_OOC
-	set desc = "Wipe your core. This is functionally equivalent to cryo or robotic storage, freeing up your job slot."
-
+GAME_VERB_DESC(/mob/living/silicon/ai, wipe_core, "Выгрузить ядро ИИ", "Wipe your core. This is functionally equivalent to cryo or robotic storage, freeing up your job slot.", VERB_CATEGORY_OOC)
 	// Guard against misclicks, this isn't the sort of thing we want happening accidentally
 	if(tgui_alert(usr, "WARNING: This will immediately wipe your core and ghost you, removing your character from the round permanently (similar to cryo and robotic storage). Are you entirely sure you want to do this?", "Wipe Core", list("No", "Yes")) != "Yes")
 		return
