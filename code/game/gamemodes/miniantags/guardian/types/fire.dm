@@ -65,7 +65,7 @@
 	human_req = FALSE
 	phase_allowed = TRUE
 	var/mob/living/summoner = null
-	var/list/stunning_hallucinations = list("singulo", "koolaid", "fake")
+	var/list/stunning_hallucinations = list("singulo", "koolaid", "borer")
 	aoe_range = 10
 
 /obj/effect/proc_holder/spell/aoe/guardian_hallucination/Initialize(mapload, mob/living/summoned_by)

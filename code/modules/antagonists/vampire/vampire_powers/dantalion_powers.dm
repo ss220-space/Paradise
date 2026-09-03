@@ -246,7 +246,7 @@
 		target.Slowed(4 SECONDS)
 		SEND_SOUND(target, sound('sound/hallucinations/behind_you1.ogg'))
 		target.flash_eyes(2, TRUE, affect_silicon = TRUE) // flash to give them a second to lose track of who is who
-		new /obj/effect/hallucination/delusion(user_turf, target, duration = 15 SECONDS, skip_nearby = FALSE)
+		target.cause_hallucination(get_random_valid_hallucination_subtype(/datum/hallucination/delusion/preset), "dantalion hallucination", duration = 15 SECONDS, skip_nearby = FALSE)
 
 /obj/effect/proc_holder/spell/vampire/self/decoy
 	name = "Приманка"
@@ -330,5 +330,5 @@
 		SEND_SOUND(target, sound('sound/hallucinations/over_here1.ogg'))
 		target.Slowed(4 SECONDS)
 		target.flash_eyes(2, TRUE) // flash to give them a second to lose track of who is who
-		new /obj/effect/hallucination/delusion(get_turf(user), target, skip_nearby = FALSE)
+		target.cause_hallucination(get_random_valid_hallucination_subtype(/datum/hallucination/delusion/preset), "dantalion hallucination", skip_nearby = FALSE)
 
