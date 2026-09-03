@@ -181,6 +181,22 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 /obj/item/radio/proc/get_listening()
 	return listening
 
+/// Check if the radio is currently held in a mob's hands
+/obj/item/radio/proc/is_in_hands()
+	if(ismob(loc))
+		var/mob/M = loc
+		return (M.get_active_hand() == src || M.get_inactive_hand() == src)
+	return FALSE
+
+/// Turn off broadcasting if radio is not in hands
+/obj/item/radio/proc/check_broadcasting_state()
+	if(broadcasting && !is_in_hands())
+		set_broadcasting(FALSE)
+
+/obj/item/radio/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
+	. = ..()
+	check_broadcasting_state()
+
 //now for setters for the above protected vars
 
 /**
@@ -217,6 +233,16 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 /obj/item/radio/proc/set_broadcasting(new_broadcasting, actual_setting = TRUE)
 	if(!on)
 		return
+
+	// Don't allow turning on broadcasting if radio is not in hands
+	if(new_broadcasting && !is_in_hands())
+		return
+
+	if(broadcasting != new_broadcasting)
+		if(new_broadcasting)
+			playsound(src, 'sound/effects/radio_on.ogg', 50, TRUE)
+		else
+			playsound(src, 'sound/effects/radio_off.ogg', 50, TRUE)
 
 	broadcasting = new_broadcasting
 	if(actual_setting)
@@ -608,6 +634,10 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 
 /obj/item/radio/hear_talk(mob/M as mob, list/message_pieces, verb = "говор%(ит,ят)%")
 	. = ..()
+	if(!broadcasting)
+		return
+
+	check_broadcasting_state()
 	if(!broadcasting)
 		return
 

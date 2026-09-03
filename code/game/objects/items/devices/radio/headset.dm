@@ -103,6 +103,15 @@
 
 	return FALSE
 
+/obj/item/radio/headset/set_broadcasting(new_broadcasting, actual_setting = TRUE)
+	if(new_broadcasting)
+		return
+	..(new_broadcasting, actual_setting)
+
+/obj/item/radio/headset/click_alt(mob/user)
+	balloon_alert(user, "не поддерживает трансляцию")
+	return NONE
+
 /obj/item/radio/headset/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/encryptionkey))
 		if(loc == user && (user.check_obscured_slots() & user.get_slot_by_item(src)))
