@@ -27,7 +27,7 @@
 	var/print_results = TRUE
 	var/hide_winner = FALSE
 	/// Is dead players allowed to vote
-	var/no_dead_vote = FALSE
+	var/allow_dead_vote = FALSE
 	/// Is offstation role players allowed to vote
 	var/no_offstation_vote = FALSE
 
