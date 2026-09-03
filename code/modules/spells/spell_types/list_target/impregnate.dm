@@ -10,8 +10,8 @@
 	var/impregnated = FALSE
 
 /datum/action/cooldown/spell/list_target/impregnate/create_new_handler()
-	var/datum/spell_handler/alien/H = new
-	return H
+	var/datum/spell_handler/alien/handler = new(src)
+	return handler
 
 /datum/action/cooldown/spell/list_target/impregnate/get_list_targets(atom/center, target_radius)
 	var/list/targets = list()

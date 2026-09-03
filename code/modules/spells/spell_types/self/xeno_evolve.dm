@@ -9,8 +9,8 @@
 	var/evolution_path = /mob/living/carbon/alien/larva
 
 /datum/action/cooldown/spell/evolve/create_new_handler()
-	var/datum/spell_handler/alien/H = new
-	return H
+	var/datum/spell_handler/alien/handler = new(src)
+	return handler
 
 /datum/action/cooldown/spell/evolve/larva
 	desc = "Evolve into a fully grown Alien."

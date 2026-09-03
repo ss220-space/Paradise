@@ -22,13 +22,13 @@
 	UnregisterSignal(owner, COMSIG_LIVING_DEATH)
 	if(selected_view == "default" || QDELETED(owner) || !owner.client)
 		return ..()
-	INVOKE_ASYNC(owner.client, TYPE_PROC_REF(/client, change_view), owner.client.prefs.viewrange)
+	INVOKE_ASYNC(owner.client?.view_size, TYPE_PROC_REF(/datum/view_data, resetToDefault))
 	return ..()
 
 /datum/action/cooldown/spell/view_range/proc/make_view_normal(mob/user)
 	SIGNAL_HANDLER
 	if(!QDELETED(user) && user.client)
-		INVOKE_ASYNC(user.client, TYPE_PROC_REF(/client, change_view), user.client.prefs.viewrange)
+		INVOKE_ASYNC(user.client.view_size, TYPE_PROC_REF(/datum/view_data, resetToDefault))
 
 /datum/action/cooldown/spell/view_range/can_cast_spell(feedback)
 	if(!owner.client)

@@ -13,12 +13,8 @@
 	return ..() && isliving(cast_on)
 
 /datum/action/cooldown/spell/pointed/xeno_whisper/create_new_handler()
-	var/datum/spell_handler/alien/H = new
-	H.plasma_cost = plasma_cost
-	var/new_name = "[name] ([plasma_cost])"
-	name = new_name
-	build_all_button_icons()
-	return H
+	var/datum/spell_handler/alien/handler = new(src, plasma_cost)
+	return handler
 
 /datum/action/cooldown/spell/pointed/xeno_whisper/cast(atom/cast_on)
 	. = ..()

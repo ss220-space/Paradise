@@ -16,9 +16,8 @@
 	var/in_process = FALSE
 
 /datum/action/cooldown/spell/build_resin/create_new_handler()
-	var/datum/spell_handler/alien/H = new
-	H.plasma_cost = plasma_cost
-	return H
+	var/datum/spell_handler/alien/handler = new(src)
+	return handler
 
 /datum/action/cooldown/spell/build_resin/cast(atom/cast_on)
 	. = ..()

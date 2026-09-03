@@ -15,12 +15,8 @@
 	var/acid_power = 400
 
 /datum/action/cooldown/spell/touch/corrosive_acid_spit/create_new_handler()
-	var/datum/spell_handler/alien/H = new
-	H.plasma_cost = plasma_cost
-	var/new_name = "[name] ([plasma_cost])"
-	name = new_name
-	build_all_button_icons()
-	return H
+	var/datum/spell_handler/alien/handler = new(src)
+	return handler
 
 /datum/action/cooldown/spell/touch/corrosive_acid_spit/is_valid_target(atom/cast_on)
 	if(isalien(cast_on))

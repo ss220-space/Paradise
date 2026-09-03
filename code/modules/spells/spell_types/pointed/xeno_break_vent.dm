@@ -10,8 +10,8 @@
 	cast_range = 1
 
 /datum/action/cooldown/spell/pointed/break_vent/create_new_handler()
-	var/datum/spell_handler/alien/H = new
-	return H
+	var/datum/spell_handler/alien/handler = new(src)
+	return handler
 
 /datum/action/cooldown/spell/pointed/break_vent/is_valid_target(atom/cast_on)
 	if(istype(cast_on, /obj/machinery/atmospherics/unary/vent_scrubber))

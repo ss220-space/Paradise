@@ -8,8 +8,8 @@
 	cooldown_time = 5 SECONDS
 
 /datum/action/cooldown/spell/regurgitate/create_new_handler()
-	var/datum/spell_handler/alien/H = new
-	return H
+	var/datum/spell_handler/alien/handler = new(src)
+	return handler
 
 /datum/action/cooldown/spell/regurgitate/cast(atom/cast_on)
 	. = ..()

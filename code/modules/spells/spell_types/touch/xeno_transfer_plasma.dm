@@ -15,8 +15,8 @@
 	var/plasma_amount
 
 /datum/action/cooldown/spell/touch/transfer_plasma/create_new_handler()
-	var/datum/spell_handler/alien/H = new
-	return H
+	var/datum/spell_handler/alien/handler = new(src)
+	return handler
 
 /datum/action/cooldown/spell/touch/transfer_plasma/PreActivate(atom/target)
 	plasma_amount = tgui_input_number(usr, "Amount:", "How much plasma to transfer?")

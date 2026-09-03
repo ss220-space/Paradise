@@ -21,12 +21,8 @@
 
 
 /datum/action/cooldown/spell/pointed/projectile/neurotoxin_spit/create_new_handler()
-	var/datum/spell_handler/alien/H = new
-	H.plasma_cost = plasma_cost
-	var/new_name = "[name] ([plasma_cost])"
-	name = new_name
-	build_all_button_icons()
-	return H
+	var/datum/spell_handler/alien/handler = new(src, plasma_cost)
+	return handler
 
 /datum/action/cooldown/spell/pointed/projectile/neurotoxin_spit/sentinel
 	cooldown_time = 0.5 SECONDS

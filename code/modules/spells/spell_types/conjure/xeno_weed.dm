@@ -28,12 +28,8 @@
 	build_all_button_icons()
 
 /datum/action/cooldown/spell/conjure/plant_weeds/create_new_handler()
-	var/datum/spell_handler/alien/H = new
-	H.plasma_cost = plasma_cost
-	var/new_name = "[name] ([plasma_cost])"
-	name = new_name
-	build_all_button_icons()
-	return H
+	var/datum/spell_handler/alien/handler = new(src, plasma_cost)
+	return handler
 
 /datum/action/cooldown/spell/conjure/plant_weeds/can_cast_spell(feedback)
 	if(!..())
