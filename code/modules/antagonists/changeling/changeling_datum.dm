@@ -66,10 +66,10 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	var/evented
 	/// Check for event headslugs not to do start things in the time of popping after first pop
 	var/oncepoped = FALSE
-	/// Skill points earned through antag actions (absorbing DNA as a changeling)
-	var/earned_skill_points = 0
-	/// Whether this changeling has absorbed another changeling (grants unlimited skill points)
-	var/has_absorbed_other_changeling = FALSE
+	/// Associates stored DNA with the victim's job role for form-based skill bonuses (DNA -> assigned_role)
+	var/list/dna_roles = list()
+	/// The job role of the currently assumed form;
+	var/datum/job/current_form_job = null
 
 /datum/antagonist/changeling/New()
 	..()
@@ -395,12 +395,6 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 			continue
 		user.remove_language(language.name)
 
-/datum/antagonist/changeling/get_earned_skill_points()
-	return earned_skill_points
-
-/datum/antagonist/changeling/reset_earned_skill_points()
-	earned_skill_points = 0
-
 /**
  * Absorb the the target's DNA and their languages.
  *
@@ -409,31 +403,33 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
  */
 /datum/antagonist/changeling/proc/absorb_dna(mob/living/carbon/user)
 	user.dna.real_name = user.real_name
-	store_dna(user.dna.Clone())
+	store_dna(user.dna.Clone(), user.mind?.assigned_role)
 	add_new_languages(user.languages)
 	absorbed_count++
-	if(user.mind && user.mind.current == user)
-		earned_skill_points++
-		to_chat(owner.current, span_changeling("Мы поглотили ДНК разумного существа. Наш разум расширился, мы можем улучшить наши навыки."))
-	else
-		to_chat(owner.current, span_changeling("Мы поглотили ДНК. Разум существа пуст."))
-	if(IS_CHANGELING(user))
-		has_absorbed_other_changeling = TRUE
+	// Absorbing another changeling grants no bonus.
 
 /**
  * Store the target DNA. If the DNA belongs to one of the changeling's "escape with identity" objectives, make the DNA protected.
  *
  * Arguments:
  * * datum/dna/new_dna - the DNA to store
+ * * assigned_role - the job role of the absorbed victim, used to grant form-based skill bonuses
  */
-/datum/antagonist/changeling/proc/store_dna(datum/dna/new_dna)
+/datum/antagonist/changeling/proc/store_dna(datum/dna/new_dna, assigned_role = null)
 	for(var/datum/objective/escape/escape_with_identity/objective in objectives)
 		if(objective.target_real_name == new_dna.real_name)
 			protected_dna |= new_dna
+			dna_roles[new_dna] = assigned_role
 			return
 
 	absorbed_dna |= new_dna
+	dna_roles[new_dna] = assigned_role
 	trim_dna()
+
+/datum/antagonist/changeling/get_form_skill_level(datum/skill/skill_type)
+	if(current_form_job)
+		return current_form_job.get_skill_level(skill_type)
+	return 0
 
 /**
  * Prompt the changeling with a list of names associated with their stored DNA. Return a [/datum/dna] based on the name chosen.

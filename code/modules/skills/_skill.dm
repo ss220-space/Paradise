@@ -71,7 +71,7 @@ GAME_VERB(/mob, view_skills_win, "Навыки персонажа", VERB_CATEGOR
 	if(!mind)
 		to_chat(src, "Произошла неизвестная ошибка, поэтому мы не можем показать вам ваши навыки.")
 		return
-	if((mind.free_skill_points > 0 || mind.get_total_earned_skill_points() > 0) && iscarbon(usr))
+	if((mind.free_skill_points > 0) && iscarbon(usr))
 		var/datum/ui_module/skills_select_win/tgui = new(usr)
 		tgui.show(usr, src)
 		return

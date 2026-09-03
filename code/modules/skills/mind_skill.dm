@@ -99,6 +99,9 @@
 		var/antag_bonus_level = get_antag_skill_bonus(skill_type)
 		if(antag_bonus_level)
 			level = max(level, antag_bonus_level)
+		var/form_skill_level = get_form_skill_level(skill_type)
+		if(form_skill_level)
+			level = max(level, form_skill_level)
 		if(cached_mode_additive_bonuses && (skill_type in cached_mode_additive_bonuses))
 			level = min(level + cached_mode_additive_bonuses[skill_type], SKILL_LEVEL_LEGEND)
 		if(skill_type in cached_selected_skills_levels)
@@ -113,17 +116,17 @@
 			skill.remove_from_mob(current)
 		set_skill_level(skill_type, level)
 
-/datum/mind/proc/get_total_earned_skill_points()
-	var/total_points = 0
-	for(var/datum/antagonist/antag as anything in antag_datums)
-		total_points += antag.get_earned_skill_points()
-	return total_points
-
 /datum/mind/proc/get_antag_skill_bonus(datum/skill/skill_type)
 	var/bonus_level = 0
 	for(var/datum/antagonist/antag as anything in antag_datums)
 		bonus_level = max(bonus_level, antag.skill_bonuses?[skill_type] || 0)
 	return bonus_level
+
+/datum/mind/proc/get_form_skill_level(datum/skill/skill_type)
+	var/level = 0
+	for(var/datum/antagonist/antag as anything in antag_datums)
+		level = max(level, antag.get_form_skill_level(skill_type))
+	return level
 
 /datum/mind/proc/get_skills_for_skills_select()
 	var/skills = list()

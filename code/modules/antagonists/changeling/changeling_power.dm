@@ -127,4 +127,6 @@ GLOBAL_LIST_INIT(changeling_mutations, list(
 		changes_species = FALSE
 
 	user.change_dna(DNA, changes_species)
+	cling.current_form_job = cling.dna_roles[DNA] ? SSjobs.GetJob(cling.dna_roles[DNA]) : null
+	cling.owner.refresh_skills()
 

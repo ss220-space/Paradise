@@ -147,7 +147,7 @@ Made by Xhuis
 
 		var/datum/skill/best_skill = new_thrall_mind.get_highest_skill()
 		if(best_skill)
-			var/best_skill_name = best_skill::name
+			var/best_skill_name = best_skill.name
 			for(var/datum/mind/shadow_mind in shadows)
 				LAZYSET(mode_skill_additive_bonuses[shadow_mind], best_skill, (mode_skill_additive_bonuses[shadow_mind]?[best_skill] || 0) + 1)
 				shadow_mind.refresh_skills()

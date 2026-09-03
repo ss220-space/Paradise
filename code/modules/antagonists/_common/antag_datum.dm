@@ -499,15 +499,17 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 	return /datum/objective/steal
 
 /**
- * Returns the skill points this antagonist earned through its antag actions
- * (e.g. absorbing DNA as a changeling). Override in subtypes that have such progression.
+ * Returns the skill level this antagonist grants for the given skill type via the currently assumed form (e.g. a changeling mimicking an absorbed victim's job).
+ * Override in subtypes that grant form-based skill bonuses
  */
-/datum/antagonist/proc/get_earned_skill_points()
+/datum/antagonist/proc/get_form_skill_level(datum/skill/skill_type)
 	return 0
 
 /**
- * Resets the skill points earned through antag actions.
- * Called when the player spends them in the skills select window.
+ * Returns the skill level of the changeling's currently assumed form job.
+ * Used to grant the absorbed victim's profession skills while transformed.
  */
-/datum/antagonist/proc/reset_earned_skill_points()
-	return
+/datum/antagonist/changeling/get_form_skill_level(datum/skill/skill_type)
+	if(current_form_job)
+		return current_form_job.get_skill_level(skill_type)
+	return 0
