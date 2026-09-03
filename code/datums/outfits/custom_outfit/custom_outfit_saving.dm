@@ -25,9 +25,6 @@
 		return FALSE
 	pending_save_json = json_encode(get_save_data())
 	pending_save_name = "[build_save_file_name()].json"
-	// The payload is delivered through ui_data (see ui_data), which gets sent
-	// automatically after ui_act returns TRUE. The client downloads it locally
-	// via Byond.saveBlob and clears the pending save through save_ack.
 	return TRUE
 
 /datum/custom_outfit/proc/clear_pending_save()
@@ -135,6 +132,7 @@
 		new_id_card_data = list(
 			"name" = istext(id_data["name"]) ? id_data["name"] : null,
 			"assignment" = istext(id_data["assignment"]) ? id_data["assignment"] : null,
+			"rank" = istext(id_data["rank"]) ? id_data["rank"] : null,
 			"access" = list(),
 			"sex" = (id_data["sex"] in list("Мужской", "Женский")) ? id_data["sex"] : null,
 			"age" = isnum(id_data["age"]) ? clamp(id_data["age"], 17, 120) : null,

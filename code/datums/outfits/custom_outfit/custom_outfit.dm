@@ -56,7 +56,6 @@
 	var/datum/custom_outfit_id_editor/id_card_editor
 	var/pending_save_json
 	var/pending_save_name
-
 	var/cached_preview_icon
 	var/cached_preview_key
 	var/preview_dirty = TRUE
@@ -417,6 +416,7 @@
 	id_card_data = list(
 		"name" = id_card.registered_name,
 		"assignment" = id_card.assignment,
+		"rank" = id_card.rank,
 		"access" = id_card.access.Copy(),
 		"sex" = id_card.sex,
 		"age" = id_card.age,
@@ -555,6 +555,7 @@
 	id_card_data = list(
 		"name" = initial(id_card_ref.registered_name),
 		"assignment" = initial(id_card_ref.assignment),
+		"rank" = initial(id_card_ref.rank),
 		"access" = islist(initial_access) ? initial_access.Copy() : list(),
 		"sex" = initial(id_card_ref.sex),
 		"age" = initial(id_card_ref.age),
@@ -571,6 +572,7 @@
 		id_card_data = list(
 			"name" = null,
 			"assignment" = null,
+			"rank" = null,
 			"access" = list(),
 			"sex" = null,
 			"age" = null,
@@ -588,6 +590,7 @@
 	. = list(
 		"name" = id_card_data["name"],
 		"assignment" = id_card_data["assignment"],
+		"rank" = id_card_data["rank"],
 		"access" = id_card_data["access"],
 		"sex" = id_card_data["sex"],
 		"age" = id_card_data["age"],
@@ -608,22 +611,22 @@
 	var/obj/item/card/id/id_card = id_slot.GetID()
 	if(!is_id_card(id_card))
 		return
-	if(id_card_data["name"])
+	if(!isnull(id_card_data["name"]))
 		id_card.registered_name = id_card_data["name"]
-	if(id_card_data["assignment"])
+	if(!isnull(id_card_data["assignment"]))
 		id_card.assignment = id_card_data["assignment"]
 	if(islist(id_card_data["access"]))
 		var/list/access_to_apply = id_card_data["access"]
 		id_card.access = access_to_apply.Copy()
-	if(id_card_data["sex"])
+	if(!isnull(id_card_data["sex"]))
 		id_card.sex = id_card_data["sex"]
 	if(isnum(id_card_data["age"]))
 		id_card.age = id_card_data["age"]
-	if(id_card_data["blood_type"])
+	if(!isnull(id_card_data["blood_type"]))
 		id_card.blood_type = id_card_data["blood_type"]
-	if(id_card_data["dna_hash"])
+	if(!isnull(id_card_data["dna_hash"]))
 		id_card.dna_hash = id_card_data["dna_hash"]
-	if(id_card_data["fingerprint_hash"])
+	if(!isnull(id_card_data["fingerprint_hash"]))
 		id_card.fingerprint_hash = id_card_data["fingerprint_hash"]
 	if(isnum(id_card_data["associated_account_number"]))
 		id_card.associated_account_number = id_card_data["associated_account_number"]
@@ -631,7 +634,10 @@
 		id_card.mining_points = id_card_data["mining_points"]
 	if(!isnull(id_card_data["untrackable"]))
 		id_card.untrackable = id_card_data["untrackable"]
-	id_card.rank = id_card.assignment
+	if(!isnull(id_card_data["rank"]))
+		id_card.rank = id_card_data["rank"]
+	else if(!isnull(id_card_data["assignment"]))
+		id_card.rank = id_card_data["assignment"]
 	var/obj/item/pda/worn_pda = human_target.wear_pda
 	if(istype(worn_pda))
 		worn_pda.ownjob = id_card.assignment
