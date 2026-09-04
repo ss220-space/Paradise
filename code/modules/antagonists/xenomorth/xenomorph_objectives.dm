@@ -6,7 +6,7 @@
 
 /datum/objective/xeno_get_power/proc/generate_text()
 	targets_need = XENO_PLAYERS_FOR_EMPRESS
-	explanation_text = "Расплодитесь. Для того, чтобы вы могли эволюционировать, в вашем улье долж[declension_ru(targets_need, "ен", "но", "но")] быть [targets_need] ксеноморф[DECL_CREDIT(targets_need)]."
+	explanation_text = "Расплодитесь. Для того, чтобы вы могли эволюционировать, в вашем улье долж[declension_ru(targets_need, "ен", "но", "но")] быть [targets_need] ксеноморф[DECL_A_OV(targets_need)]."
 	return
 
 /datum/objective/xeno_get_power/check_completion(datum/team/xenomorph/xeno_team)

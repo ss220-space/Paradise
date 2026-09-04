@@ -213,7 +213,7 @@
 			var/delta = (world.time / 10) - last_reboot
 			if(reboot_cooldown > delta)
 				var/cooldown_time = round(reboot_cooldown - ((world.time / 10) - last_reboot), 1)
-				to_chat(user, span_warning("Система перезагрузки в настоящее время отключена. Пожалуйста, подождите ещё [cooldown_time] секунд[DECL_SEC_MIN(cooldown_time)]."))
+				to_chat(user, span_warning("Система перезагрузки в настоящее время отключена. Пожалуйста, подождите ещё [cooldown_time] секунд[DECL_U_Y(cooldown_time)]."))
 				return ATTACK_CHAIN_PROCEED
 			user.visible_message(
 				span_warning("[user] провёл[GEND_A_O_I(user)] ID-картой по [declent_ru(DATIVE)], пытаясь перезагрузить его."),

@@ -69,7 +69,7 @@
 			var/datum/material/M = materials[I]
 			var/amt = amount(M.id)
 			if(amt)
-				examine_list += span_notice("- [M.name] — <b>[amt]</b> единиц[declension_ru(amt, "а", "ы", "")] материала.")
+				examine_list += span_notice("- [M.name] — <b>[amt]</b> единиц[DECL_A_Y(amt)] материала.")
 
 /datum/component/material_container/proc/OnAttackBy(datum/source, obj/item/I, mob/living/user)
 	var/list/tc = allowed_typecache
@@ -110,12 +110,12 @@
 	var/inserted = insert_item(I, stack_amt = requested_amount)
 	if(inserted)
 		if(isstack(I))
-			I.balloon_alert(user, "вставлен[declension_ru(inserted, "", "о", "о")] [inserted] объект[DECL_CREDIT(inserted)] из стопки")
+			I.balloon_alert(user, "вставлен[declension_ru(inserted, "", "о", "о")] [inserted] объект[DECL_A_OV(inserted)] из стопки")
 			if(!QDELETED(I) && !user.put_in_hands(I))
 				stack_trace("Warning: User could not put object back in hand during material container insertion, line [__LINE__]! This can lead to issues.")
 				I.forceMove(user.drop_location())
 		else
-			I.balloon_alert(user, "вставлен[declension_ru(inserted, "а", "о", "о")] [inserted] единиц[declension_ru(inserted, "а", "ы", "")] материала")
+			I.balloon_alert(user, "вставлен[declension_ru(inserted, "а", "о", "о")] [inserted] единиц[DECL_A_Y(inserted)] материала")
 			qdel(I)
 		if(after_insert)
 			after_insert.Invoke(I.type, last_inserted_id, inserted)

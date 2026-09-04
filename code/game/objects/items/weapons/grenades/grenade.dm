@@ -57,7 +57,7 @@
 	add_fingerprint(user)
 	if(user && msg)
 		var/time = DisplayTimeText(delayoverride)
-		balloon_alert(user, "взведено на [time] секунд[DECL_SEC_MIN(delayoverride / 10)]!")
+		balloon_alert(user, "взведено на [time] секунд[DECL_U_Y(delayoverride / 10)]!")
 
 	if(shrapnel_type && shrapnel_radius)
 		shrapnel_initialized = TRUE
@@ -81,7 +81,7 @@
 	. = ..()
 	if(display_timer)
 		if(det_time > 1)
-			. += span_notice("Таймер установлен на <b>[det_time/10]</b> секунд[DECL_SEC_MIN(det_time/10)].")
+			. += span_notice("Таймер установлен на <b>[det_time/10]</b> секунд[DECL_U_Y(det_time/10)].")
 		else
 			. += span_warning("Настроено на <b>мгновенную</b> детонацию.")
 	. += span_notice("Механизм активации может быть настроен <b>закручивающим</b> инструментом.")
@@ -109,7 +109,7 @@
 			det_time = 5 SECONDS
 		if(5 SECONDS)
 			det_time = 0.1 SECONDS
-	balloon_alert(user, "время детонации — [det_time == 0.1 SECONDS ? "мгновенно" : "[det_time/10] секунд[DECL_SEC_MIN(det_time/10)]"]")
+	balloon_alert(user, "время детонации — [det_time == 0.1 SECONDS ? "мгновенно" : "[det_time/10] секунд[DECL_U_Y(det_time/10)]"]")
 	add_fingerprint(user)
 	return TRUE
 

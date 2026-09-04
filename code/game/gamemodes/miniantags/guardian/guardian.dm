@@ -108,7 +108,7 @@ GLOBAL_LIST_EMPTY(parasites)
 		if(get_dist(get_turf(summoner),get_turf(src)) <= range)
 			return
 		else
-			to_chat(src, span_holoparasite("Вас откинуло назад, так как превышена дальность связи! Ваша дальность всего [range] метр[DECL_CREDIT(range)] от [summoner.real_name]!"))
+			to_chat(src, span_holoparasite("Вас откинуло назад, так как превышена дальность связи! Ваша дальность всего [range] метр[DECL_A_OV(range)] от [summoner.real_name]!"))
 			visible_message(span_danger("[src] вернулся к носителю."))
 			if(iseffect(summoner.loc))
 				Recall(TRUE)

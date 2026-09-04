@@ -36,7 +36,7 @@
 	. = ..()
 	if(!isclocker(user))
 		return
-	. += span_clockitalic("\n Остал[declension_ru(cell.charge, "ся", "ось", "ось")] [cell.charge] заряд[DECL_CREDIT(cell.charge)].")
+	. += span_clockitalic("\n Остал[declension_ru(cell.charge, "ся", "ось", "ось")] [cell.charge] заряд[DECL_A_OV(cell.charge)].")
 
 /obj/item/gun/energy/clockwork/proc/charge()
 	cell.charge = min(cell.charge + charge_rate, cell.maxcharge)

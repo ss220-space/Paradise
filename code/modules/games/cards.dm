@@ -572,10 +572,10 @@
 	if(LAZYLEN(cards) > 1)
 		name = "hand of [LAZYLEN(cards)] cards"
 		ru_names = alist(
-			NOMINATIVE = "[LAZYLEN(cards)] карт[declension_ru(LAZYLEN(cards), "а", "ы", "")]",
+			NOMINATIVE = "[LAZYLEN(cards)] карт[DECL_A_Y(LAZYLEN(cards))]",
 			GENITIVE = "[LAZYLEN(cards)] карт[declension_ru(LAZYLEN(cards), "ы", "", "")]",
 			DATIVE = "[LAZYLEN(cards)] карт[declension_ru(LAZYLEN(cards), "е", "ам", "ам")]",
-			ACCUSATIVE = "[LAZYLEN(cards)] карт[DECL_SEC_MIN(LAZYLEN(cards))]",
+			ACCUSATIVE = "[LAZYLEN(cards)] карт[DECL_U_Y(LAZYLEN(cards))]",
 			INSTRUMENTAL = "[LAZYLEN(cards)] карт[declension_ru(LAZYLEN(cards), "ой", "ами", "ами")]",
 			PREPOSITIONAL = "[LAZYLEN(cards)] карт[declension_ru(LAZYLEN(cards), "е", "ах", "ах")]"
 		)

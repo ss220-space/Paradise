@@ -1416,7 +1416,7 @@
 			user.balloon_alert(user, "контейнер полон!")
 			return ATTACK_CHAIN_PROCEED_SUCCESS
 		var/transfer_amount = reagents.trans_to(attacking_item, amount_per_transfer_from_this)
-		balloon_alert(user, "перемещено [transfer_amount] единиц[declension_ru(transfer_amount, "а", "ы", "")] вещества")
+		balloon_alert(user, "перемещено [transfer_amount] единиц[DECL_A_Y(transfer_amount)] вещества")
 		flick("syrup_anim", src)
 
 	attacking_item.update_icon()

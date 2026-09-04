@@ -133,7 +133,7 @@
 		if(href_list["attack"])
 			blocked = 1
 			var/attackamt = rand(2,6)
-			temp = "Ваша атака нанесла [attackamt] единиц[DECL_SEC_MIN(attackamt)] урона!"
+			temp = "Ваша атака нанесла [attackamt] единиц[DECL_U_Y(attackamt)] урона!"
 			playsound(loc, 'sound/arcade/hit.ogg', 50, TRUE)
 			updateUsrDialog()
 			if(turtle > 0)
@@ -147,7 +147,7 @@
 			blocked = 1
 			var/pointamt = rand(1,3)
 			var/healamt = rand(6,8)
-			temp = "Вы использовали [pointamt] единиц[DECL_SEC_MIN(pointamt)] ману <br>и восстановили [healamt] единиц здоровья!"
+			temp = "Вы использовали [pointamt] единиц[DECL_U_Y(pointamt)] ману <br>и восстановили [healamt] единиц здоровья!"
 			playsound(loc, 'sound/arcade/heal.ogg', 50, TRUE)
 			updateUsrDialog()
 			turtle++
@@ -162,7 +162,7 @@
 		else if(href_list["charge"])
 			blocked = 1
 			var/chargeamt = rand(4,7)
-			temp = "Вы восстанавливаете [chargeamt] единиц[DECL_SEC_MIN(chargeamt)] маны"
+			temp = "Вы восстанавливаете [chargeamt] единиц[DECL_U_Y(chargeamt)] маны"
 			playsound(loc, 'sound/arcade/mana.ogg', 50, TRUE)
 			player_mp += chargeamt
 			if(turtle > 0)
@@ -215,13 +215,13 @@
 
 	else if(emagged && (turtle >= 4))
 		var/boomamt = rand(5,10)
-		temp = "[enemy_name] бросает бомбу, <br>которая наносит вам [boomamt] единиц[DECL_SEC_MIN(boomamt)] урона взрывом!"
+		temp = "[enemy_name] бросает бомбу, <br>которая наносит вам [boomamt] единиц[DECL_U_Y(boomamt)] урона взрывом!"
 		playsound(loc, 'sound/arcade/boom.ogg', 50, TRUE)
 		player_hp -= boomamt
 
 	else if((enemy_mp <= 5) && (prob(70)))
 		var/stealamt = rand(2,3)
-		temp = "[enemy_name] крадёт [stealamt] единиц[DECL_SEC_MIN(stealamt)] вашей маны!"
+		temp = "[enemy_name] крадёт [stealamt] единиц[DECL_U_Y(stealamt)] вашей маны!"
 		playsound(loc, 'sound/arcade/steal.ogg', 50, TRUE)
 		player_mp -= stealamt
 		updateUsrDialog()
@@ -245,7 +245,7 @@
 
 	else
 		var/attackamt = rand(3,6)
-		temp = "[enemy_name] наносит [attackamt] единиц[DECL_SEC_MIN(attackamt)] урона!"
+		temp = "[enemy_name] наносит [attackamt] единиц[DECL_U_Y(attackamt)] урона!"
 		playsound(loc, 'sound/arcade/hit.ogg', 50, TRUE)
 		player_hp -= attackamt
 
@@ -704,17 +704,17 @@
 		if(prob(success))
 			FU = rand(5,15)
 			FO = rand(5,15)
-			last_spaceport_action = "Вы успешно совершили налёт на космопорт! Вы получили [FU] единиц[DECL_SEC_MIN(FU)] Топлива и [FO] единиц[DECL_SEC_MIN(FO)] Пищи! (+[FU]FU,+[FO]FO)"
+			last_spaceport_action = "Вы успешно совершили налёт на космопорт! Вы получили [FU] единиц[DECL_U_Y(FU)] Топлива и [FO] единиц[DECL_U_Y(FO)] Пищи! (+[FU]FU,+[FO]FO)"
 		else
 			FU = rand(-5,-15)
 			FO = rand(-5,-15)
-			last_spaceport_action = "Вам не удалось совершить налёт на космопорт! Вы потеряли [FU*-1] единиц[DECL_SEC_MIN(FU*-1)] Топлива и [FO*-1] единиц[DECL_SEC_MIN(FO*-1)] Пищи, унося свои ноги оттуда! ([FU]FU,[FO]FO)"
+			last_spaceport_action = "Вам не удалось совершить налёт на космопорт! Вы потеряли [FU*-1] единиц[DECL_U_Y(FU*-1)] Топлива и [FO*-1] единиц[DECL_U_Y(FO*-1)] Пищи, унося свои ноги оттуда! ([FU]FU,[FO]FO)"
 
 			//your chance of lose a crewmember is 1/2 your chance of success
 			//this makes higher % failures hurt more, don't get cocky space cowboy!
 			if(prob(success*5))
 				var/lost_crew = remove_crewmember()
-				last_spaceport_action = "Вам не удалось совершить налёт на космопорт! Вы потеряли [FU*-1] единиц[DECL_SEC_MIN(FU*-1)] Топлива, [FO*-1] единиц[DECL_SEC_MIN(FO*-1)] Пищи, и [lost_crew], унося свои ноги оттуда! ([FU]FI,[FO]FO,-Crew)"
+				last_spaceport_action = "Вам не удалось совершить налёт на космопорт! Вы потеряли [FU*-1] единиц[DECL_U_Y(FU*-1)] Топлива, [FO*-1] единиц[DECL_U_Y(FO*-1)] Пищи, и [lost_crew], унося свои ноги оттуда! ([FU]FI,[FO]FO,-Crew)"
 				if(emagged)
 					atom_say("ВИИИУ-ВИИИУ, служба безопасности космопорта в пути!")
 					for(var/i, i<=3, i++)
@@ -767,7 +767,7 @@
 				var/sfuel = rand(1,10)
 				food -= sfood
 				fuel -= sfuel
-				eventdat += "<br>Они украли [sfood] единиц[DECL_SEC_MIN(sfood)] <b>Пищи</b> и [sfuel] единиц[DECL_SEC_MIN(sfuel)] <b>Топлива</b>."
+				eventdat += "<br>Они украли [sfood] единиц[DECL_U_Y(sfood)] <b>Пищи</b> и [sfuel] единиц[DECL_U_Y(sfuel)] <b>Топлива</b>."
 			else if(prob(10))
 				var/deadname = remove_crewmember()
 				eventdat += "<br>[deadname] пытался сопротивляться, но был убит."
@@ -814,7 +814,7 @@
 				var/sfuel = rand(5,15)
 				food -= sfood
 				fuel -= sfuel
-				eventdat += "<br>[sfood] единиц[DECL_SEC_MIN(sfood)] <b>Пищи</b> и [sfuel] единиц[DECL_SEC_MIN(sfuel)] <b>Топлива</b> выброшены в открытый космос.."
+				eventdat += "<br>[sfood] единиц[DECL_U_Y(sfood)] <b>Пищи</b> и [sfuel] единиц[DECL_U_Y(sfuel)] <b>Топлива</b> выброшены в открытый космос.."
 			if(prob(10))
 				var/deadname = remove_crewmember()
 				eventdat += "<br>[deadname] погиб в результате быстрой разгерметизации."

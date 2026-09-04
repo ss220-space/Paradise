@@ -143,7 +143,7 @@
 			SynthesizeDrinkFromTransfer(user, transfer_data)
 
 		after_transfer(target)
-		to_chat(user, span_notice("Вы переливаете <b>[trans]</b> единиц[DECL_SEC_MIN(trans)] вещества в [target.declent_ru(ACCUSATIVE)]."))
+		to_chat(user, span_notice("Вы переливаете <b>[trans]</b> единиц[DECL_U_Y(trans)] вещества в [target.declent_ru(ACCUSATIVE)]."))
 
 	else if(target.is_drainable()) //A dispenser. Transfer FROM it TO us.
 		if(!is_refillable())

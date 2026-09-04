@@ -197,7 +197,7 @@
 /datum/team/bingles/proc/start_bingle_win(obj/structure/bingle_hole/hole)
 	GLOB.major_announcement.announce(
 		message = "Яма Бинглов доросла до критических размеров. Уничтожение станции неизбежно. \
-			До момента, когда яма поглотит станцию целиком, остаётся [BINGLE_PIT_WIN_DELAY / 10] секунд[declension_ru(BINGLE_PIT_WIN_DELAY, "а", "ы", "")]. \
+			До момента, когда яма поглотит станцию целиком, остаётся [BINGLE_PIT_WIN_DELAY / 10] секунд[DECL_A_Y(BINGLE_PIT_WIN_DELAY)]. \
 			Уничтожьте яму любой ценой!",
 		new_title = "Отчёт об объекте [station_name()].",
 		new_sound = 'sound/AI/commandreport.ogg'

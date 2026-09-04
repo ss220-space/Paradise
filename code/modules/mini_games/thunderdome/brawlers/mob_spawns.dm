@@ -23,7 +23,7 @@
 		return
 	if(CONFIG_GET(flag/use_exp_restrictions) && min_hours)
 		if(user.client.get_exp_type_num(exp_type) < min_hours * 60 && !check_rights(R_ADMIN|R_MOD, FALSE, usr))
-			to_chat(user, span_warning("У вас недостаточно часов для игры на этой роли. Требуется набрать [min_hours] час[DECL_CREDIT(min_hours)] типа [exp_type] для доступа к ней."))
+			to_chat(user, span_warning("У вас недостаточно часов для игры на этой роли. Требуется набрать [min_hours] час[DECL_A_OV(min_hours)] типа [exp_type] для доступа к ней."))
 			return
 	var/mob_use_prefs = FALSE
 	var/_mob_species = FALSE

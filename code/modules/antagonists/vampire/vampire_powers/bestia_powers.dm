@@ -737,7 +737,7 @@
 				vampire.adjust_blood(h_victim, blood_vamp_get)
 
 	if(blood_gained)
-		to_chat(user, span_notice("Вы пережимаете артерии жертвы на лету и поглощаете <b>[blood_gained]</b> единиц[DECL_SEC_MIN(blood_gained)] крови!"))
+		to_chat(user, span_notice("Вы пережимаете артерии жертвы на лету и поглощаете <b>[blood_gained]</b> единиц[DECL_U_Y(blood_gained)] крови!"))
 
 /obj/effect/proc_holder/spell/vampire/lunge/on_trophie_update(datum/antagonist/vampire/vampire, trophie_type, force = FALSE)
 	if(trophie_type == INTERNAL_ORGAN_LUNGS || force)
@@ -1685,7 +1685,7 @@
 		num_bats += all_trophies < 52 ? 2 : 3
 
 	user.visible_message(span_warning("Внезапно <b>[num_bats] ста[declension_ru(num_bats, "я", "и", "й")]</b> космических летучих мышей появились рядом с [user]!"), \
-						span_notice("Вы вызываете <b>[num_bats] ста[declension_ru(num_bats, "ю", "и", "й")]</b> космических летучих мышей, чтобы они помогли вам в бою."), \
+						span_notice("Вы вызываете <b>[num_bats] ста[DECL_YU_I_J(num_bats)]</b> космических летучих мышей, чтобы они помогли вам в бою."), \
 						span_italics("Вы слышите жуткий шум множества крыльев и громкие визги..."))
 
 	var/turf/user_turf = get_turf(user)

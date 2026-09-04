@@ -1366,7 +1366,7 @@ GAME_VERB_PROC_DESC(/mob/living/carbon/human, bloody_doodle, "Рисовать �
 	/// tweeter style
 	var/max_length = bloody_hands * 30
 
-	var/message = tgui_input_text(src, "Напишите сообщение. Максимальная длина — [max_length] символ[DECL_CREDIT(max_length)].", "Письмо кровью", max_length = max_length)
+	var/message = tgui_input_text(src, "Напишите сообщение. Максимальная длина — [max_length] символ[DECL_A_OV(max_length)].", "Письмо кровью", max_length = max_length)
 	if(origin != loc)
 		balloon_alert(src, "не двигайтесь во время письма!")
 		return
