@@ -140,7 +140,7 @@
 	if(!user.can_perform_action(src))
 		return
 
-	var/input = tgui_input_text(user, title = "Дека-кодовый замок", message = "Введите [code_length] цифр[DECL_U_Y(code_length)]. Все цифры должны быть уникальными.", max_length = code_length)
+	var/input = tgui_input_text(user, title = "Дека-кодовый замок", message = "Введите [code_length] цифр[DECL_U_Y__(code_length)]. Все цифры должны быть уникальными.", max_length = code_length)
 
 	if(input == code)
 		if(!spawned_loot)

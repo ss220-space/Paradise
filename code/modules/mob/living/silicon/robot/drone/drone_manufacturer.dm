@@ -147,7 +147,7 @@ GAME_VERB_DESC(/mob/dead, join_as_drone, "Стать дроном", "If there is
 
 	if(deathtimeminutes < CONFIG_GET(number/respawn_delay_drone) && joinedasobserver == 0)
 		to_chat(usr, "Вы были мертвы в течении[pluralcheck] [deathtimeseconds] секунд.")
-		to_chat(usr, span_warning("Вы должны подождать [CONFIG_GET(number/respawn_delay_drone)] минут[DECL_U_Y(CONFIG_GET(number/respawn_delay_drone))], чтобы возродиться как дрон!"))
+		to_chat(usr, span_warning("Вы должны подождать [CONFIG_GET(number/respawn_delay_drone)] минут[DECL_U_Y__(CONFIG_GET(number/respawn_delay_drone))], чтобы возродиться как дрон!"))
 		return
 
 	if(tgui_alert(usr, "Вы уверены, что хотите возродиться как дрон?", "Вы уверены?", list("Да", "Нет")) != "Да")

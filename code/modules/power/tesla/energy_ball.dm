@@ -111,7 +111,7 @@
 /obj/energy_ball/examine(mob/user)
 	. = ..()
 	if(length(orbiting_balls))
-		. += "Вокруг вращается [length(orbiting_balls)] мини-шар[DECL_A_OV(length(orbiting_balls))]."
+		. += "Вокруг вращается [length(orbiting_balls)] мини-шар[DECL___A_OV(length(orbiting_balls))]."
 
 /obj/energy_ball/proc/move(move_amount)
 	var/list/dirs = GLOB.alldirs.Copy()

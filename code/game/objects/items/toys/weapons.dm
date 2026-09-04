@@ -329,7 +329,7 @@
 
 /obj/item/toy/russian_revolver/trick_revolver/examine(mob/user) //Sneaky sneaky
 	. = ..()
-	. += span_notice("В запасе ещё [fake_bullets] патрон[DECL_A_OV(fake_bullets)].")
+	. += span_notice("В запасе ещё [fake_bullets] патрон[DECL___A_OV(fake_bullets)].")
 	. += span_notice("[fake_bullets] из них боевые.")
 
 /obj/item/toy/russian_revolver/trick_revolver/post_shot(user)

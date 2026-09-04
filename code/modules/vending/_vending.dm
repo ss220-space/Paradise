@@ -921,7 +921,7 @@
 	else
 		to_chat(user, display_parts(user))
 	if(moved)
-		balloon_alert(user, "пополнено [moved] товар[DECL_A_OV(moved)]")
+		balloon_alert(user, "пополнено [moved] товар[DECL___A_OV(moved)]")
 		W.play_rped_sound()
 	return TRUE
 

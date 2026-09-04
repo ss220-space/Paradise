@@ -463,7 +463,7 @@ GAME_VERB_PROC(/mob/living/silicon/ai, ai_announcement_text, "Станционн
 		return
 
 	if(!COOLDOWN_FINISHED(src, next_text_announcement))
-		to_chat(src, span_warning("Пожалуйста, подождите [COOLDOWN_TIMELEFT(src, next_text_announcement) / 10] секунд[DECL_U_Y(COOLDOWN_TIMELEFT(src, next_text_announcement) / 10)] между объявлениями."))
+		to_chat(src, span_warning("Пожалуйста, подождите [COOLDOWN_TIMELEFT(src, next_text_announcement) / 10] секунд[DECL_U_Y__(COOLDOWN_TIMELEFT(src, next_text_announcement) / 10)] между объявлениями."))
 		return
 
 	var/input = tgui_input_text(usr, "Пожалуйста, напишите сообщение, которое вы хотите объявить экипажу станции.", "Объявление ИИ", multiline = TRUE, encode = FALSE)

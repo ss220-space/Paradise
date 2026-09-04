@@ -111,7 +111,7 @@
 			var/list/slot_list = parse_slot_flags(slot)
 			slot_strings += russian_list(slot_list, and_text = " или ")
 		. += span_notice("Совместимые элементы МЭК: <b>[russian_list(slot_strings)]</b>")
-	. += span_notice("Стоимость модуля: <b>[complexity]</b> единиц[DECL_A_Y(complexity)].")
+	. += span_notice("Стоимость модуля: <b>[complexity]</b> единиц[DECL_A_Y__(complexity)].")
 
 /// Looks through the MODsuit's parts to see if it has the parts required to support this module
 /obj/item/mod/module/proc/has_required_parts(list/parts, need_active = FALSE)

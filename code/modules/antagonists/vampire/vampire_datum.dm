@@ -335,7 +335,7 @@
 				vampire.adjustToxLoss(-2)
 				vampire.adjustBrainLoss(-1)
 				additional_sucking_effects(vampire)
-				to_chat(vampire, span_boldnotice("Вы накопили [bloodtotal] единиц[DECL_U_Y(bloodtotal)] крови[bloodusable != old_bloodusable ? ", и теперь вам доступно [bloodusable] единиц[DECL_A_Y(bloodusable)] крови" : ""]."))
+				to_chat(vampire, span_boldnotice("Вы накопили [bloodtotal] единиц[DECL_U_Y__(bloodtotal)] крови[bloodusable != old_bloodusable ? ", и теперь вам доступно [bloodusable] единиц[DECL_A_Y__(bloodusable)] крови" : ""]."))
 				vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, vampire.nutrition + 5))
 				target.AdjustBlood(-sucking_amount)
 				if(check_blood_volume(vampire, target))

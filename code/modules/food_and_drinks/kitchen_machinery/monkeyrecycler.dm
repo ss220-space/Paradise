@@ -155,5 +155,5 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 		for(var/i = 0, i < cube_production, i++) // Forgot to fix this bit the first time through
 			new cube_type(loc)
 	else // I'm not sure if the \s macro works with a word in between; I'll play it safe
-		to_chat(user, span_warning("Для производства <b>[cube_production] кубик[DECL_A_OV_OV(cube_production)]</b> машине требуется как минимум материал от <b>[required_grind] обезьян[DECL_Y(required_grind)]</b>."))
+		to_chat(user, span_warning("Для производства <b>[cube_production] кубик[DECL_A_OV_OV(cube_production)]</b> машине требуется как минимум материал от <b>[required_grind] обезьян[DECL_Y____(required_grind)]</b>."))
 	return

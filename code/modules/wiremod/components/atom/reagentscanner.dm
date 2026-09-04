@@ -24,7 +24,7 @@
 
 /obj/item/circuit_component/reagentscanner/get_ui_notices()
 	. = ..()
-	. += create_ui_notice("Максимальная дальность: [max_range] тайл[DECL_A_OV(max_range)]", "orange", "info")
+	. += create_ui_notice("Максимальная дальность: [max_range] тайл[DECL___A_OV(max_range)]", "orange", "info")
 	. += create_table_notices(list(
 		"reagent",
 		"volume",

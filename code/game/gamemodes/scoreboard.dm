@@ -344,7 +344,7 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 	<b>ИИ уничтожен:</b> [dead_ai ? "Да" : "Нет"] (-[dead_ai * 250] очков)<br><br>
 
 	<u>Прочее</u><br>
-	<b>Съедено еды:</b> [score_food_eaten] укус[DECL_A_OV(score_food_eaten)]/глот[DECL_OK_KA_KOV(score_food_eaten)].<br>
+	<b>Съедено еды:</b> [score_food_eaten] укус[DECL___A_OV(score_food_eaten)]/глот[DECL_OK_KA_KOV(score_food_eaten)].<br>
 	<b>Клоуна избили:</b> [score_clown_abuse] раз[declension_ru(score_clown_abuse, "", "а", "")]<br><br>
 
 	<u>Финансовая статистка</u><br>

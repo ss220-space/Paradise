@@ -94,7 +94,7 @@
 
 /obj/item/deck/examine(mob/user)
 	. = ..()
-	. += span_notice("В колоде [LAZYLEN(cards)] карт[DECL_A_Y(LAZYLEN(cards))].")
+	. += span_notice("В колоде [LAZYLEN(cards)] карт[DECL_A_Y__(LAZYLEN(cards))].")
 
 /obj/item/deck/attack_hand(mob/user)
 	draw_card(user)
@@ -210,7 +210,7 @@
 		balloon_alert(user, "в колоде нет карт!")
 		return
 
-	var/dcard = tgui_input_number(usr, "Сколько карт вы хотите раздать? Вы можете раздать до <b>[LAZYLEN(cards)] карт[DECL_Y(LAZYLEN(cards))]</b>.", "Раздать карты", 1, LAZYLEN(cards), 1)
+	var/dcard = tgui_input_number(usr, "Сколько карт вы хотите раздать? Вы можете раздать до <b>[LAZYLEN(cards)] карт[DECL_Y____(LAZYLEN(cards))]</b>.", "Раздать карты", 1, LAZYLEN(cards), 1)
 	if(isnull(dcard) || !LAZYLEN(cards) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
@@ -222,11 +222,11 @@
 			players += player
 
 	if(!LAZYLEN(players))
-		to_chat(user, span_warning("Вы хотите раздать <b>[dcard]</b> карт[DECL_U_Y(LAZYLEN(cards))], но вокруг нет игроков!"))
+		to_chat(user, span_warning("Вы хотите раздать <b>[dcard]</b> карт[DECL_U_Y__(LAZYLEN(cards))], но вокруг нет игроков!"))
 		return
-	to_chat(user, span_notice("Вы раздаёте <b>[dcard]</b> карт[DECL_U_Y(LAZYLEN(cards))]."))
+	to_chat(user, span_notice("Вы раздаёте <b>[dcard]</b> карт[DECL_U_Y__(LAZYLEN(cards))]."))
 
-	var/mob/living/carbon/target = tgui_input_list(user, "Кому вы хотите раздать [dcard] карт[DECL_U_Y(LAZYLEN(cards))]?", "Раздать карты", players)
+	var/mob/living/carbon/target = tgui_input_list(user, "Кому вы хотите раздать [dcard] карт[DECL_U_Y__(LAZYLEN(cards))]?", "Раздать карты", players)
 	if(!user || !src || !target || !Adjacent(user) || get_dist(user, target) > 3 || target.incapacitated() || HAS_TRAIT(target, TRAIT_HANDS_BLOCKED))
 		return
 
@@ -248,13 +248,13 @@
 		cardhand.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	if(user == target)
 		user.visible_message(
-			span_notice("[user] разда[PLUR_YOT_YUT(user)] себе <b>[dcard]</b> карт[DECL_U_Y(cards)]."),
-			span_notice("Вы раздаёте себе <b>[dcard]</b> карт[DECL_U_Y(dcard)].")
+			span_notice("[user] разда[PLUR_YOT_YUT(user)] себе <b>[dcard]</b> карт[DECL_U_Y__(cards)]."),
+			span_notice("Вы раздаёте себе <b>[dcard]</b> карт[DECL_U_Y__(dcard)].")
 		)
 	else
 		user.visible_message(
-			span_notice("[user] разда[PLUR_YOT_YUT(user)] [target] <b>[dcard]</b> карт[DECL_U_Y(cards)]."),
-			span_notice("Вы раздаёте [target] <b>[dcard]</b> карт[DECL_U_Y(dcard)].")
+			span_notice("[user] разда[PLUR_YOT_YUT(user)] [target] <b>[dcard]</b> карт[DECL_U_Y__(cards)]."),
+			span_notice("Вы раздаёте [target] <b>[dcard]</b> карт[DECL_U_Y__(dcard)].")
 		)
 	INVOKE_ASYNC(cardhand, TYPE_PROC_REF(/atom/movable, throw_at), get_step(target, target.dir), 3, 1, user)
 
@@ -572,10 +572,10 @@
 	if(LAZYLEN(cards) > 1)
 		name = "hand of [LAZYLEN(cards)] cards"
 		ru_names = alist(
-			NOMINATIVE = "[LAZYLEN(cards)] карт[DECL_A_Y(LAZYLEN(cards))]",
-			GENITIVE = "[LAZYLEN(cards)] карт[DECL_Y(LAZYLEN(cards))]",
+			NOMINATIVE = "[LAZYLEN(cards)] карт[DECL_A_Y__(LAZYLEN(cards))]",
+			GENITIVE = "[LAZYLEN(cards)] карт[DECL_Y____(LAZYLEN(cards))]",
 			DATIVE = "[LAZYLEN(cards)] карт[declension_ru(LAZYLEN(cards), "е", "ам", "ам")]",
-			ACCUSATIVE = "[LAZYLEN(cards)] карт[DECL_U_Y(LAZYLEN(cards))]",
+			ACCUSATIVE = "[LAZYLEN(cards)] карт[DECL_U_Y__(LAZYLEN(cards))]",
 			INSTRUMENTAL = "[LAZYLEN(cards)] карт[declension_ru(LAZYLEN(cards), "ой", "ами", "ами")]",
 			PREPOSITIONAL = "[LAZYLEN(cards)] карт[DECL_E_AH_AH(LAZYLEN(cards))]"
 		)

@@ -660,7 +660,7 @@ Difficulty: Medium
 	if(!istype(A))
 		return
 	if(player_cooldown >= world.time)
-		to_chat(src, span_warning("Вам нужно подождать [(player_cooldown - world.time) / 10] секунд[DECL_U_Y((player_cooldown - world.time) / 10)] перед следующим пикированием!"))
+		to_chat(src, span_warning("Вам нужно подождать [(player_cooldown - world.time) / 10] секунд[DECL_U_Y__((player_cooldown - world.time) / 10)] перед следующим пикированием!"))
 		return
 	swoop_attack(FALSE, A)
 	lava_pools(10, 2) // less pools but longer delay before spawns

@@ -84,13 +84,13 @@
 		var/cooldown = ckey_to_cooldown[source.ckey] - world.time
 		if(cooldown > 0)
 			var/ceil_cooldown = ceil(cooldown * 0.1)
-			to_chat(source, span_warning("Управление командами будет доступно через [ceil_cooldown] секунд[DECL_U_Y(ceil_cooldown)]."))
+			to_chat(source, span_warning("Управление командами будет доступно через [ceil_cooldown] секунд[DECL_U_Y__(ceil_cooldown)]."))
 			return MOB_DEADSAY_SIGNAL_INTERCEPT
 		ckey_to_cooldown[source.ckey] = world.time + input_cooldown
 		addtimer(CALLBACK(src, PROC_REF(end_cooldown), source.ckey), input_cooldown)
 		inputs[message].Invoke()
 		var/input_cooldown_s = input_cooldown * 0.1
-		to_chat(source, span_notice("Команда \"[message]\" принята. Следующий ввод будет доступен через [input_cooldown_s] секунд[DECL_U_Y(input_cooldown_s)]."))
+		to_chat(source, span_notice("Команда \"[message]\" принята. Следующий ввод будет доступен через [input_cooldown_s] секунд[DECL_U_Y__(input_cooldown_s)]."))
 		return MOB_DEADSAY_SIGNAL_INTERCEPT
 
 	if(deadchat_mode & DEADCHAT_DEMOCRACY_MODE)
@@ -108,7 +108,7 @@
 		inputs[result].Invoke()
 		if(!(deadchat_mode & MUTE_DEADCHAT_DEMOCRACY_MESSAGES))
 			var/input_cooldown_s = input_cooldown * 0.1
-			var/message = span_deadsay(span_bolditalics("[DECLENT_RU_CAP(atom_parent, NOMINATIVE)] выполнил команду [result]!<br>Новое голосование начато. Оно закончится через [input_cooldown_s] секунд[DECL_U_Y(input_cooldown_s)]."))
+			var/message = span_deadsay(span_bolditalics("[DECLENT_RU_CAP(atom_parent, NOMINATIVE)] выполнил команду [result]!<br>Новое голосование начато. Оно закончится через [input_cooldown_s] секунд[DECL_U_Y__(input_cooldown_s)]."))
 			for(var/mob/dead/observer/M in orbiters)
 				to_chat(M, message)
 	else if(!(deadchat_mode & MUTE_DEADCHAT_DEMOCRACY_MESSAGES))
@@ -233,9 +233,9 @@
 	var/input_cooldown_s = input_cooldown * 0.1
 
 	if(deadchat_mode & DEADCHAT_DEMOCRACY_MODE)
-		examine_list += span_notice("Введите команду в чат, чтобы проголосовать за действие. Это происходит один раз в [input_cooldown_s] секунд[DECL_U_Y(input_cooldown_s)].")
+		examine_list += span_notice("Введите команду в чат, чтобы проголосовать за действие. Это происходит один раз в [input_cooldown_s] секунд[DECL_U_Y__(input_cooldown_s)].")
 	else if(deadchat_mode & DEADCHAT_ANARCHY_MODE)
-		examine_list += span_notice("Введите команду в чат для выполнения действия. Вы можете делать это один раз в [input_cooldown_s] секунд[DECL_U_Y(input_cooldown_s)].")
+		examine_list += span_notice("Введите команду в чат для выполнения действия. Вы можете делать это один раз в [input_cooldown_s] секунд[DECL_U_Y__(input_cooldown_s)].")
 
 	var/extended_examine = "Список команд:"
 

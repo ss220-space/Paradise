@@ -274,7 +274,7 @@
 
 	if(crate_count > 0)
 		pointsEarned = round(crate_count * SSshuttle.points_per_crate)
-		msg += "[span_good("+[pointsEarned]")]: Получен[DECL_Y_O(crate_count)] [crate_count] ящик[DECL_A_OV(crate_count)].<br>"
+		msg += "[span_good("+[pointsEarned]")]: Получен[DECL___Y_O(crate_count)] [crate_count] ящик[DECL___A_OV(crate_count)].<br>"
 		SSshuttle.points += pointsEarned
 
 	var/datum/money_account/cargo_money_account = GLOB.department_accounts[STATION_DEPARTMENT_SUPPLY]

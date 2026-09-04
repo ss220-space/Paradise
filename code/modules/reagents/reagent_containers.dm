@@ -101,7 +101,7 @@
 		return
 
 	amount_per_transfer_from_this = amount
-	to_chat(user, span_notice("Теперь [declent_ru(NOMINATIVE)] буд[PLUR_ET_UT(src)] перемещать по <b>[amount]</b> единиц[DECL_U_Y(amount)] вещества за раз."))
+	to_chat(user, span_notice("Теперь [declent_ru(NOMINATIVE)] буд[PLUR_ET_UT(src)] перемещать по <b>[amount]</b> единиц[DECL_U_Y__(amount)] вещества за раз."))
 
 GAME_PROC_SRC(/obj/item/reagent_containers, empty, usr, "Вылить содержимое", VERB_CATEGORY_HIDDEN)
 
@@ -184,7 +184,7 @@ GAME_PROC_SRC(/obj/item/reagent_containers, empty, usr, "Вылить содер
 /obj/item/reagent_containers/examine(mob/user)
 	. = ..()
 	if(visible_transfer_rate)
-		. += span_notice("Объём перемещения содержимого отсюда - <b>[amount_per_transfer_from_this]</b> единиц[DECL_A_Y(amount_per_transfer_from_this)] вещества за раз.")
+		. += span_notice("Объём перемещения содержимого отсюда - <b>[amount_per_transfer_from_this]</b> единиц[DECL_A_Y__(amount_per_transfer_from_this)] вещества за раз.")
 
 	if(possible_transfer_amounts)
 		. += span_notice("Используйте <b>Alt+ЛКМ</b>, чтобы изменить объём перемещения содержимого.")

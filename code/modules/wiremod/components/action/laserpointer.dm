@@ -29,7 +29,7 @@
 
 /obj/item/circuit_component/laserpointer/get_ui_notices()
 	. = ..()
-	. += create_ui_notice("Максимальная дальность: [max_range] тайл[DECL_A_OV(max_range)]", "orange", "info")
+	. += create_ui_notice("Максимальная дальность: [max_range] тайл[DECL___A_OV(max_range)]", "orange", "info")
 	. += create_ui_notice("Перезарядка: [DisplayTimeText(laser_cooldown)]", "orange", "stopwatch")
 
 /obj/item/circuit_component/laserpointer/populate_options()

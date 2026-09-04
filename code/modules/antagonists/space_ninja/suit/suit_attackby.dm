@@ -9,7 +9,7 @@
 			balloon_alert(ninja, "отсек полон!")
 			return ATTACK_CHAIN_PROCEED
 		if(!uranium_stack.use(a_transfer))
-			to_chat(ninja, span_warning("Вам нужно как минимум [a_transfer] лист[DECL_A_OV(a_transfer)] урана для восполнения запаса адреналина."))
+			to_chat(ninja, span_warning("Вам нужно как минимум [a_transfer] лист[DECL___A_OV(a_transfer)] урана для восполнения запаса адреналина."))
 			return ATTACK_CHAIN_PROCEED
 		a_boost.action_ready = TRUE
 		a_boost.toggle_button_on_off()
@@ -24,7 +24,7 @@
 			balloon_alert(ninja, "отсек полон!")
 			return ATTACK_CHAIN_PROCEED
 		if(!crystal_stack.use(a_transfer))
-			to_chat(ninja, span_warning("Вам нужно как минимум [a_transfer] блюспейс-кристалл[DECL_A_OV(a_transfer)] для восполнения запаса химикатов."))
+			to_chat(ninja, span_warning("Вам нужно как минимум [a_transfer] блюспейс-кристалл[DECL___A_OV(a_transfer)] для восполнения запаса химикатов."))
 			return ATTACK_CHAIN_PROCEED
 		heal_chems.action_ready = TRUE
 		heal_chems.toggle_button_on_off()

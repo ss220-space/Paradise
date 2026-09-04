@@ -246,7 +246,7 @@
 		var/obj/structure/reagent_dispensers/watertank/watertank = target
 		var/transferred = watertank.reagents.trans_to(src, max_water)
 		if(transferred > 0)
-			to_chat(user, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] был заправлен на [transferred] единиц[DECL_U_Y(transferred)]."))
+			to_chat(user, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] был заправлен на [transferred] единиц[DECL_U_Y__(transferred)]."))
 			playsound(loc, 'sound/effects/refill.ogg', 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			for(var/datum/reagent/water/reagent in reagents.reagent_list)
 				reagent.cooling_temperature = cooling_power

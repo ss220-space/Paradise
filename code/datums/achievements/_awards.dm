@@ -116,7 +116,7 @@
 
 /datum/award/achievement/get_ui_data(list/award_data, datum/achievement_data/holder)
 	. = ..()
-	.["achieve_info"] = "Получил[DECL_I_O(times_achieved)] [times_achieved] игрок[DECL_A_OV(times_achieved)]."
+	.["achieve_info"] = "Получил[DECL___I_O(times_achieved)] [times_achieved] игрок[DECL___A_OV(times_achieved)]."
 
 	if(!SSachievements.most_unlocked_achievement)
 		.["achieve_tooltip"] = "Никто ещё не получил это достижение. Станьте первым за сегодня!"

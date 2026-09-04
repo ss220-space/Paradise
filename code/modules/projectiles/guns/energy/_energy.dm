@@ -62,7 +62,7 @@
 	if(!length(ammo_type))
 		return
 	var/obj/projectile/exam_proj
-	readout += "- Имеет <b>[length(ammo_type)]</b> режим[DECL_A_OV(length(ammo_type))] стрельбы."
+	readout += "- Имеет <b>[length(ammo_type)]</b> режим[DECL___A_OV(length(ammo_type))] стрельбы."
 	for(var/obj/item/ammo_casing/energy/for_ammo as anything in ammo_type)
 		exam_proj = for_ammo.projectile_type
 

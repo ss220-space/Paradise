@@ -163,7 +163,7 @@
 		balloon_alert(attacker, "это не деньги!")
 		return
 
-	balloon_alert(attacker, "вставлено [amount_to_insert] кредит[DECL_A_OV(amount_to_insert)]")
+	balloon_alert(attacker, "вставлено [amount_to_insert] кредит[DECL___A_OV(amount_to_insert)]")
 	attached_bot.add_money(amount_to_insert)
 
 	money_input.set_output(amount_to_insert)

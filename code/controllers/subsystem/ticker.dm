@@ -97,7 +97,7 @@ SUBSYSTEM_DEF(ticker)
 			var/pregame_timestart = CONFIG_GET(number/pregame_timestart)
 			round_start_time = world.time + (pregame_timestart SECONDS)
 			to_chat(world, span_darkmblue("<b>Добро пожаловать в предыгровое лобби!</b>"))
-			to_chat(world, "Пожалуйста, настройте своего персонажа и выберите опцию <b>\"Готово\"</b>. Игра начнётся через [pregame_timestart] секунд[DECL_U_Y(pregame_timestart)].")
+			to_chat(world, "Пожалуйста, настройте своего персонажа и выберите опцию <b>\"Готово\"</b>. Игра начнётся через [pregame_timestart] секунд[DECL_U_Y__(pregame_timestart)].")
 			change_state(GAME_STATE_PREGAME)
 			fire() // TG says this is a good idea
 		if(GAME_STATE_PREGAME)
@@ -226,7 +226,7 @@ SUBSYSTEM_DEF(ticker)
 		mode = config.pick_mode(GLOB.master_mode)
 
 	if(!mode.can_start())
-		to_chat(world, "<b>Не удалось начать [mode.name].</b> Для начала режима необходимо [CONFIG_GET(flag/enable_gamemode_player_limit) ? config.mode_required_players[mode.config_tag] : mode.required_enemies] игрок[DECL_A_OV(CONFIG_GET(flag/enable_gamemode_player_limit) ? config.mode_required_players[mode.config_tag] : mode.required_enemies)]. Возврат в предыгровое лобби.")
+		to_chat(world, "<b>Не удалось начать [mode.name].</b> Для начала режима необходимо [CONFIG_GET(flag/enable_gamemode_player_limit) ? config.mode_required_players[mode.config_tag] : mode.required_enemies] игрок[DECL___A_OV(CONFIG_GET(flag/enable_gamemode_player_limit) ? config.mode_required_players[mode.config_tag] : mode.required_enemies)]. Возврат в предыгровое лобби.")
 		mode = null
 		change_state(GAME_STATE_PREGAME)
 		force_start = FALSE
@@ -760,7 +760,7 @@ SUBSYSTEM_DEF(ticker)
 		// Use default restart timeout
 		delay = restart_timeout
 
-	to_chat(world, span_boldannounceooc("Перезагрузка мира через [delay/10] секунд[DECL_U_Y(delay/10)]. [reason]"))
+	to_chat(world, span_boldannounceooc("Перезагрузка мира через [delay/10] секунд[DECL_U_Y__(delay/10)]. [reason]"))
 
 	real_reboot_time = world.time + delay
 	UNTIL(world.time > real_reboot_time) // Hold it here

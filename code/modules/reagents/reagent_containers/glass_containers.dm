@@ -24,7 +24,7 @@
 	if(get_dist(user, src) <= 2 && !is_open_container())
 		. += span_boldnotice("Крышка надета.")
 
-	. += span_notice("Вмещает до <b>[reagents.maximum_volume]</b> единиц[DECL_Y(reagents.maximum_volume)] вещества.")
+	. += span_notice("Вмещает до <b>[reagents.maximum_volume]</b> единиц[DECL_Y____(reagents.maximum_volume)] вещества.")
 
 /obj/item/reagent_containers/glass/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!is_open_container())
@@ -101,7 +101,7 @@
 
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
 		after_transfer(target)
-		to_chat(user, span_notice("Вы переливаете <b>[trans]</b> единиц[DECL_U_Y(trans)] вещества из [declent_ru(GENITIVE)] в [target.declent_ru(ACCUSATIVE)]."))
+		to_chat(user, span_notice("Вы переливаете <b>[trans]</b> единиц[DECL_U_Y__(trans)] вещества из [declent_ru(GENITIVE)] в [target.declent_ru(ACCUSATIVE)]."))
 
 	else if(target.is_drainable()) //A dispenser. Transfer FROM it TO us.
 		if(!target.reagents.total_volume)
