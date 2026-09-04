@@ -56,3 +56,5 @@
 #define ANNOUNCE_ELECTRICAL_STORM "Электрический шторм."
 #define ANNOUNCE_DEBRIS "Обломки."
 #define ANNOUNCE_TITLE_CCDT "Департамент транспорта Центрального командования."
+
+#define ANNOUNCEMENT_COLORS list("default", "green", "blue", "pink", "yellow", "orange", "red", "purple", "grey", "white", "amber", "crimson", "cyan", "darkred", "black")

@@ -54,8 +54,6 @@
 	icon_state = "bag"
 	storage_slots = 100
 	max_combined_w_class = 100
-	max_w_class = WEIGHT_CLASS_NORMAL
-	w_class = WEIGHT_CLASS_TINY
 	can_hold = list(
 		/obj/item/fish,
 		/obj/item/fish_eggs,

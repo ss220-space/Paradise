@@ -53,7 +53,8 @@
 		message = war_declaration,
 		new_title = ANNOUNCE_DECLAREWAR_RU,
 		msg_sanitized = TRUE,
-		new_sound = 'sound/effects/siren.ogg'
+		new_sound = 'sound/effects/siren.ogg',
+		color_override = "crimson"
 	)
 	addtimer(CALLBACK(SSsecurity_level, TYPE_PROC_REF(/datum/controller/subsystem/security_level, set_level), SEC_LEVEL_GAMMA), 30 SECONDS)
 
