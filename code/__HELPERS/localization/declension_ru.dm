@@ -44,4 +44,8 @@
 #define DECL___I_YEJ(num) declension_ru(num, "ь", "и", "ей")
 #define DECL_YEJ_AMI_AMI(num) declension_ru(num, "ей", "ами", "ами")
 #define DECL_YE_Y___(num) declension_ru(num, "е", "ы", "")
+#define DECL_A_O_O(num) declension_ru(num, "а", "о", "о")
+#define DECL___O_O(num) declension_ru(num, "", "о", "о")
+#define DECL_A_OV_OV(num) declension_ru(num, "а", "ов", "ов")
+
 
