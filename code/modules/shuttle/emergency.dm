@@ -45,7 +45,7 @@
 						message_admins("[key_name_admin(user)] has authorized early shuttle launch.")
 						add_game_logs("has authorized early shuttle launch in [COORD(src)]", user)
 						GLOB.minor_announcement.announce(
-							message = "Осталось получить [auth_need - length(authorized)] авторизаци[DECL_YU_I_J(auth_need - length(authorized))] для досрочного запуска шаттла."
+							message = "Осталось получить [auth_need - length(authorized)] авторизаци[DECL_YU_I_J(auth_need - length(authorized))] для досрочного запуска шаттла.",
 							color_override = "red"
 						)
 					else
