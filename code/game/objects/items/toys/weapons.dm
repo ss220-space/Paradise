@@ -115,7 +115,7 @@
 
 /obj/item/twohanded/dualsaber/toy/IsReflect()
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
-		return REFLECT_NORMAL
+		return REFLECT_TOY
 
 /obj/item/twohanded/dualsaber/toy/add_parry_component()
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.25, _parryable_attack_types = UNARMED_ATTACK, _parry_cooldown = (1 / 3) SECONDS, _requires_two_hands = TRUE) // 0.3333 seconds of cooldown for 75% uptime
