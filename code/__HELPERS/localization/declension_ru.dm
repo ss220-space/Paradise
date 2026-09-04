@@ -38,6 +38,10 @@
 #define DECL_KA_KI_EK(num) declension_ru(num, "ка", "ки", "ек")
 #define DECL_Y_O(num) declension_ru(num, "", "ы", "о")
 #define DECL_YU_I_J(num) declension_ru(num, "ю", "и", "й")
-
-
+#define DECL_I_O(num) declension_ru(num, "", "и", "о")
+#define DECL_OK_KA_KOV(num) declension_ru(num, "ок", "ка", "ков")
+#define DECL_Y(num) declension_ru(num, "ы", "", "")
+#define DECL___I_YEJ(num) declension_ru(num, "ь", "и", "ей")
+#define DECL_YEJ_AMI_AMI(num) declension_ru(num, "ей", "ами", "ами")
+#define DECL_YE_Y___(num) declension_ru(num, "е", "ы", "")
 
