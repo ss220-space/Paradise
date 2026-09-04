@@ -530,6 +530,12 @@ const ControlTab = () => {
               Helm
             </Button>
             <Button
+              icon="street-view"
+              onClick={() => act('jump_self', { uid: selected.uid })}
+            >
+              Телепортироваться
+            </Button>
+            <Button
               icon="code"
               onClick={() => act('vv', { uid: selected.uid })}
             >

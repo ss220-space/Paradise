@@ -8,4 +8,8 @@
 
 #define COMSIG_OVERMAP_NOTICE "overmap_notice"
 
-#define COMSIG_GLOB_OVERMAP_VESSEL_REGISTERED "!overmap_vessel_registered"
+#define COMSIG_OVERMAP_MANUAL_CONTROL "overmap_manual_control"
+
+#define COMSIG_GLOB_OVERMAP_VESSEL_REGISTERED "overmap_vessel_registered"
+
+#define COMSIG_GLOB_OVERMAP_NINJA_CONSOLE "overmap_ninja_console"

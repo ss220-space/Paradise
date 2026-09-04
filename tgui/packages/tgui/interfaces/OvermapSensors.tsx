@@ -77,6 +77,7 @@ type OvermapSensorsData = {
   scan_progress?: number;
   selected?: string;
   map_zoom: number;
+  map_revision?: number;
   journal: JournalEntry[];
   contacts: SensorContact[];
   vessel_name: string;
@@ -113,6 +114,7 @@ export const OvermapSensors = () => {
     scan_progress = 0,
     selected,
     map_zoom,
+    map_revision = 0,
     journal = [],
     contacts = [],
     vessel_name,
@@ -300,6 +302,7 @@ export const OvermapSensors = () => {
                   </NoticeBox>
                 ) : (
                   <ByondUi
+                    key={`${mapRef}-${map_revision}-${view_mode}-${scanning ? 'scan' : 'nav'}`}
                     height="100%"
                     width="100%"
                     params={{

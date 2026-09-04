@@ -162,6 +162,25 @@
 		qdel(pad, TRUE)
 	return SSshuttle.generate_transit_dock(port)
 
+/datum/component/overmap_shuttle/proc/can_force_pad(obj/docking_port/stationary/pad, status)
+	var/obj/overmap/entity/vessel = parent
+	if(!pad || !vessel.shuttle || !istype(vessel.shuttle, /obj/docking_port/mobile/emergency))
+		return FALSE
+	if(isnull(status))
+		status = vessel.shuttle.canDock(pad)
+	return status != SHUTTLE_LOCKED && status != SHUTTLE_ALREADY_DOCKED && status != SHUTTLE_SOMEONE_ELSE_DOCKED && status != SHUTTLE_NOT_A_DOCKING_PORT
+
+/datum/component/overmap_shuttle/proc/pad_can_use(obj/docking_port/stationary/pad)
+	if(!pad || istype(pad, /obj/docking_port/stationary/transit))
+		return FALSE
+	var/obj/overmap/entity/vessel = parent
+	if(!vessel.shuttle)
+		return FALSE
+	var/status = vessel.shuttle.canDock(pad)
+	if(status == SHUTTLE_CAN_DOCK)
+		return TRUE
+	return can_force_pad(pad, status)
+
 /datum/component/overmap_shuttle/proc/get_selected_pad()
 	var/obj/overmap/entity/vessel = parent
 	var/obj/overmap/entity/host = vessel.get_dock_host()
@@ -169,17 +188,21 @@
 		return null
 	if(vessel.selected_dock_id == OVERMAP_DOCK_ID_CUSTOM)
 		return get_custom_dock(host)
-	var/pad_id = vessel.selected_dock_id || vessel.last_dock_id
+	var/pad_id = vessel.selected_dock_id
 	var/obj/docking_port/stationary/pad
 	if(pad_id)
 		pad = SSshuttle.getDock(pad_id)
-	if(pad && vessel.pad_matches_host(pad, host) && !istype(pad, /obj/docking_port/stationary/transit))
-		return pad
+		if(pad && vessel.pad_matches_host(pad, host) && pad_can_use(pad))
+			return pad
+	if(vessel.shuttle.id == "emergency")
+		var/obj/docking_port/stationary/hijack_pad = SSshuttle.getDock("emergency_syndicate")
+		if(hijack_pad && vessel.pad_matches_host(hijack_pad, host) && pad_can_use(hijack_pad))
+			return hijack_pad
 	var/obj/docking_port/stationary/custom_pad = get_custom_dock(host)
-	if(custom_pad && vessel.shuttle.canDock(custom_pad) == SHUTTLE_CAN_DOCK)
+	if(custom_pad && pad_can_use(custom_pad))
 		return custom_pad
 	for(var/obj/docking_port/stationary/candidate as anything in host_pads(host))
-		if(vessel.shuttle.canDock(candidate) == SHUTTLE_CAN_DOCK)
+		if(pad_can_use(candidate))
 			return candidate
 	return null
 
@@ -273,8 +296,9 @@
 		if(!pad.overmap_dock_label)
 			pad.apply_overmap_dock_role()
 		var/can_status = vessel.shuttle.canDock(pad)
+		var/forced = can_force_pad(pad, can_status)
 		var/current = pad.id == current_id
-		var/state = pad_list_state(can_status, current)
+		var/state = current ? "here" : (can_status == SHUTTLE_CAN_DOCK || forced ? "free" : pad_list_state(can_status, current))
 		var/pad_name = pad.overmap_dock_label || pad.name
 		if(pad.overmap_dock_mode == OVERMAP_DOCK_RESERVED)
 			pad_name = "Зарезервированная область"
@@ -283,9 +307,9 @@
 			"name" = pad_name,
 			"selected" = pad.id == chosen_id,
 			"current" = current,
-			"can_dock" = can_status == SHUTTLE_CAN_DOCK,
+			"can_dock" = can_status == SHUTTLE_CAN_DOCK || forced,
 			"state" = state,
-			"reason" = is_custom_dock(pad) ? "Произвольная точка этого сектора" : (dock_fail_text(can_status) || "Свободна"),
+			"reason" = is_custom_dock(pad) ? "Произвольная точка этого сектора" : ((forced && can_status != SHUTTLE_CAN_DOCK) ? "Протоколы стыковки обойдены." : (dock_fail_text(can_status) || "Свободна")),
 		)
 		switch(state)
 			if("here")
@@ -371,6 +395,8 @@
 	if(!vessel.shuttle)
 		vessel.release_to_overmap()
 		return TRUE
+	if(vessel.is_programmed_emagged())
+		instant = TRUE
 	if(!vessel.hull_needs_transit_undock())
 		vessel.release_to_overmap()
 		return TRUE
@@ -380,8 +406,7 @@
 	if(instant && profile?.block_if_canMove && !vessel.shuttle.canMove())
 		return profile.block_move_message || "Шаттл не может перемещаться с текущим грузом."
 	vessel.last_dock_id = vessel.shuttle.getDockedId()
-	if(vessel.last_dock_id && is_station_dock(SSshuttle.getDock(vessel.last_dock_id)))
-		vessel.selected_dock_id = vessel.last_dock_id
+	vessel.selected_dock_id = null
 	var/obj/docking_port/stationary/undock_pad = get_undock_pad()
 	if(!undock_pad)
 		return "Гиперпространство ещё не готово."
@@ -416,6 +441,8 @@
 		return "Сначала отстыкуйтесь."
 	if(vessel.status != OVERMAP_STATUS_OVERMAP && vessel.status != OVERMAP_STATUS_TRANSIT)
 		return "Сначала отстыкуйтесь."
+	if(vessel.is_programmed_emagged())
+		instant = TRUE
 	if(vessel.is_moving() && !OVERMAP_SPEED_STOPPED(vessel.get_speed()))
 		return "Сначала остановитесь."
 	var/obj/overmap/entity/host = vessel.get_dock_host()
@@ -434,10 +461,18 @@
 	if(!vessel.pad_matches_host(pad, host))
 		return "Эта точка стыковки относится к другому сектору."
 	var/can_status = vessel.shuttle.canDock(pad)
-	if(can_status != SHUTTLE_CAN_DOCK)
+	if(can_status != SHUTTLE_CAN_DOCK && !can_force_pad(pad, can_status))
 		return dock_fail_text(can_status)
+	if(can_force_pad(pad, can_status))
+		vessel.shuttle.overmap_force_dock = TRUE
+		var/failed = vessel.shuttle.dock(pad, force = TRUE)
+		vessel.shuttle.overmap_force_dock = FALSE
+		if(failed)
+			return "Не удалось начать стыковку."
+		return TRUE
 	if(instant)
-		if(vessel.shuttle.dock(pad, force = TRUE))
+		var/failed = vessel.shuttle.dock(pad)
+		if(failed)
 			return "Не удалось начать стыковку."
 		return TRUE
 	if(vessel.shuttle.request(pad))
@@ -475,6 +510,9 @@
 		if(host != was_nested)
 			vessel.announce_sensor_event("Стыковка завершена: [vessel.get_overmap_display_name()] → [host.name]", "dock")
 		recalculate_mass()
+		var/obj/docking_port/mobile/emergency/evac = port
+		if(istype(evac))
+			evac.overmap_note_arrival(new_dock)
 		return
 	if(vessel.docked_to)
 		vessel.release_to_overmap()

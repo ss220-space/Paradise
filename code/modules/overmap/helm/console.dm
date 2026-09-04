@@ -8,6 +8,7 @@
 	var/obj/overmap/entity/vessel
 	var/extra_view = OVERMAP_HELM_VIEW
 	var/map_zoom = 2
+	var/map_revision = 0
 	var/list/viewers = list()
 	var/atom/movable/screen/map_view/camera/cam_screen
 	var/datum/overmap_map_view/map_camera
@@ -183,8 +184,7 @@
 		map_camera.clear()
 		map_zoom = OVERMAP_HELM_MAP_PX / (15 * world.icon_size)
 		return
-	var/list/pairs = vessel.shuttle.overmap_move_pairs(pad)
-	var/list/hull_new = pairs[2]
+	var/list/hull_new = vessel.shuttle.overmap_preview_turfs(pad)
 	var/min_x = pad.x
 	var/min_y = pad.y
 	var/max_x = pad.x
@@ -196,13 +196,20 @@
 		min_y = min(min_y, newT.y)
 		max_x = max(max_x, newT.x)
 		max_y = max(max_y, newT.y)
+	var/center_x = round((min_x + max_x) / 2)
+	var/center_y = round((min_y + max_y) / 2)
 	min_x = max(1, min_x - 1)
 	min_y = max(1, min_y - 1)
 	max_x = min(world.maxx, max_x + 1)
 	max_y = min(world.maxy, max_y + 1)
 	var/size_x = max_x - min_x + 1
 	var/size_y = max_y - min_y + 1
-	var/tiles = max(size_x, size_y, 5)
+	var/tiles = min(max(size_x, size_y, 5), OVERMAP_DOCK_PREVIEW_MAX)
+	if(size_x > tiles || size_y > tiles)
+		min_x = clamp(center_x - round((tiles - 1) / 2), 1, world.maxx - tiles + 1)
+		min_y = clamp(center_y - round((tiles - 1) / 2), 1, world.maxy - tiles + 1)
+		max_x = min_x + tiles - 1
+		max_y = min_y + tiles - 1
 	map_zoom = OVERMAP_HELM_MAP_PX / (tiles * world.icon_size)
 	var/list/visible = block(locate(min_x, min_y, pad.z), locate(min_x + tiles - 1, min_y + tiles - 1, pad.z))
 	cam_screen.show_camera(visible, tiles, tiles)
@@ -214,7 +221,7 @@
 	clear_dock_preview_ghosts()
 	dock_preview_ghosts = list()
 	for(var/turf/spot as anything in hull_new)
-		if(!spot)
+		if(!spot || spot.x < min_x || spot.x > max_x || spot.y < min_y || spot.y > max_y)
 			continue
 		var/atom/movable/screen/overmap_dock_ghost/ghost = new
 		ghost.assigned_map = cam_screen.assigned_map

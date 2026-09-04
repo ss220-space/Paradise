@@ -82,6 +82,8 @@
 	data["mass"] = vessel.vessel_mass
 	data["inspecting"] = viewing_overmap(user)
 	data["map_zoom"] = map_zoom
+	data["map_revision"] = map_revision
+	data["helm_tab"] = helm_tab
 	data["eta"] = speed ? "[round(vessel.ETA() / 10)] с" : "N/A"
 	data["dest_range"] = null
 	data["dest_bearing"] = null
@@ -102,15 +104,15 @@
 	data["docks"] = vessel.build_dock_list()
 	data["collars"] = vessel.build_collar_list()
 	data["shuttle_mode"] = vessel.get_shuttle_phase_text()
-	data["selected_dock"] = vessel.selected_dock_id || vessel.last_dock_id
+	data["selected_dock"] = vessel.selected_dock_id
 	for(var/list/pad as anything in data["docks"])
 		if(pad["selected"] || pad["id"] == data["selected_dock"])
 			data["selected_dock"] = pad["name"]
 			break
 	data["at_station"] = !!vessel.get_dock_host()
 	data["host_name"] = vessel.get_dock_host()?.name
-	data["distress"] = !!vessel.transponder?.distress
-	data["broadcasting"] = !!vessel.transponder?.is_transmitting()
+	data["distress"] = !!vessel.identity_distress
+	data["broadcasting"] = !!vessel.is_overmap_visible()
 	var/pads = data["docks"]
 	var/pad_free = 0
 	for(var/list/pad as anything in pads)
@@ -160,7 +162,7 @@
 				"speed" = round(OVERMAP_DISPLAY_SPEED(overmap_object.get_speed()), 0.01),
 				"heading" = overmap_object.get_heading_angle(),
 				"status" = is_entity ? contact.get_helm_status_text() : overmap_object.overmap_kind,
-				"distress" = is_entity && contact.transponder?.distress,
+				"distress" = is_entity && contact.identity_distress,
 				"identified" = identified || is_self,
 				"docked_to" = is_entity ? contact.docked_to?.name : null,
 			))
@@ -297,6 +299,7 @@
 				to_chat(usr, span_warning("Нельзя выбрать эту площадку."))
 			else if(params["id"] == OVERMAP_DOCK_ID_CUSTOM && !vessel.get_custom_dock(vessel.get_dock_host()))
 				open_custom_dock_picker(usr)
+			map_revision++
 			update_map_view(TRUE)
 			. = TRUE
 		if("select_collar")
@@ -306,6 +309,7 @@
 			. = TRUE
 		if("helm_tab")
 			helm_tab = (params["tab"] == "dock") ? "dock" : "flight"
+			map_revision++
 			update_map_view(TRUE)
 			. = TRUE
 		if("pick_custom_dock")

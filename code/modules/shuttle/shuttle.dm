@@ -468,7 +468,7 @@
 			continue
 		if(istype(obstacle, /obj/machinery/landing_beacon))
 			continue
-		if(istype(obstacle, /obj/machinery/door/airlock))
+		if(is_airlock(obstacle))
 			var/obj/machinery/door/airlock/dock_door = obstacle
 			if(dock_door.id_tag == S.id)
 				continue
@@ -774,7 +774,13 @@
 	. = round(ds_remaining / divisor, 1)
 
 // returns 3-letter mode string, used by status screens and mob status panel
+/obj/docking_port/mobile/proc/is_nav_emagged()
+	var/obj/overmap/entity/vessel = SSovermap?.shuttle_vessels[src]
+	return !!vessel?.is_programmed_emagged()
+
 /obj/docking_port/mobile/proc/getModeStr()
+	if(is_nav_emagged())
+		return "ERR"
 	switch(mode)
 		if(SHUTTLE_IGNITING)
 			return "IGN"
@@ -792,6 +798,8 @@
 
 // returns 5-letter timer string, used by status screens and mob status panel
 /obj/docking_port/mobile/proc/getTimerStr()
+	if(is_nav_emagged())
+		return "ERR"
 	if(mode == SHUTTLE_STRANDED)
 		return "--:--"
 
@@ -831,6 +839,7 @@
 	var/lockdown_affected = FALSE
 	var/max_connect_range = 7
 	var/moved = FALSE	//workaround for nukie shuttle, hope I find a better way to do this...
+	var/overmap_request_console = FALSE
 	var/atom/movable/screen/map_view/camera/overmap_cam_screen
 	var/datum/overmap_map_view/overmap_map_camera
 	var/turf/overmap_last_map_turf
@@ -900,7 +909,7 @@
 	ui_interact(user)
 
 /obj/machinery/computer/shuttle/ui_interact(mob/user, datum/tgui/ui = null)
-	if(uses_overmap_programmed_ui())
+	if(uses_overmap_remote_ui())
 		overmap_request_ui_interact(user, ui)
 		return
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -909,7 +918,7 @@
 		ui.open()
 
 /obj/machinery/computer/shuttle/ui_data(mob/user)
-	if(uses_overmap_programmed_ui())
+	if(uses_overmap_remote_ui())
 		return overmap_request_ui_data(user)
 	var/list/data = list()
 	var/obj/docking_port/mobile/mobile_docking_port = SSshuttle.getShuttle(shuttleId)
@@ -958,7 +967,7 @@
 	return data
 
 /obj/machinery/computer/shuttle/ui_act(action, params)
-	if(uses_overmap_programmed_ui())
+	if(uses_overmap_remote_ui())
 		if(..())
 			return TRUE
 		return overmap_request_ui_act(action, params)
@@ -1121,6 +1130,7 @@
 	desc = "Используется для отзыва шаттла големов."
 	possible_destinations = "freegolem_lavaland"
 	resistance_flags = INDESTRUCTIBLE
+	overmap_request_console = TRUE
 
 //#undef DOCKING_PORT_HIGHLIGHT
 

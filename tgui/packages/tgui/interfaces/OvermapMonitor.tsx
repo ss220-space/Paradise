@@ -40,7 +40,7 @@ export const OvermapMonitor = () => {
 
   return (
     <OvermapFrame
-      title="Монитор овермапы"
+      title="Монитор"
       width={map_px_w + 48}
       height={map_px_h + 96}
       linked={linked}
@@ -65,7 +65,7 @@ export const OvermapMonitor = () => {
           style={{ width: `${map_px_w}px`, height: `${map_px_h}px` }}
         >
           {map_jammed ? (
-            <NoticeBox danger>Связь с овермапом потеряна.</NoticeBox>
+            <NoticeBox danger>Связь потеряна.</NoticeBox>
           ) : (
             <ByondUi
               height={`${map_px_h}px`}

@@ -250,6 +250,25 @@
 		return pick(fallback)
 	return null
 
+/datum/overmap_sector/proc/get_edge_band_turf(min_inset = 2, max_inset = 3)
+	var/low_x = origin_x + OVERMAP_EDGE
+	var/low_y = origin_y + OVERMAP_EDGE
+	var/high_x = origin_x + size - OVERMAP_EDGE - 1
+	var/high_y = origin_y + size - OVERMAP_EDGE - 1
+	var/list/candidates = list()
+	for(var/turf/open_turf as anything in block(locate(low_x, low_y, z_level), locate(high_x, high_y, z_level)))
+		if(turf_occupied(open_turf))
+			continue
+		if(locate(/obj/overmap/entity/hyperrelay) in range(1, open_turf))
+			continue
+		var/edge_dist = min(open_turf.x - low_x, high_x - open_turf.x, open_turf.y - low_y, high_y - open_turf.y)
+		if(edge_dist < min_inset || edge_dist > max_inset)
+			continue
+		candidates += open_turf
+	if(length(candidates))
+		return pick(candidates)
+	return get_random_open_turf()
+
 /datum/overmap_sector/proc/get_turf_at(coord_x, coord_y)
 	coord_x = clamp(coord_x, 1, size)
 	coord_y = clamp(coord_y, 1, size)
@@ -304,11 +323,11 @@
 	access_flags = OVERMAP_ACCESS_PUBLIC
 	ruin_spawn_weight = 0.15
 	hazard_spawn_weight = 0.1
-	tile_travel = 3
+	tile_travel = 2
 
 /datum/overmap_sector/service
 	id = OVERMAP_SECTOR_ID_SERVICE
-	name = "Дальный космос Эпсилон Лукусты"
+	name = "Дальний космос Эпсилон Лукусты"
 	size = OVERMAP_SECTOR_SERVICE_SIZE
 	sector_kind = OVERMAP_SECTOR_KIND_SERVICE
 	access_flags = OVERMAP_ACCESS_CENTCOM | OVERMAP_ACCESS_SYNDICATE

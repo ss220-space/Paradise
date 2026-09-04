@@ -29,6 +29,15 @@
 	var/overmap_size
 	/// Overmap spawn pools
 	var/list/overmap_pools
+	/// Overmap beacon name. Defaults to ruin name if unset.
+	var/identity_name
+	var/identity_color = COLOR_WHITE
+	var/identity_icon = "event"
+	var/identity_distress = FALSE
+	var/identity_broadcasting = FALSE
+	var/identity_locked = FALSE
+	/// Same as shuttle profiles, id or id = FALSE for TX off.
+	var/list/identity_iff_ids
 
 /datum/map_template/ruin/New()
 	if(!name && id)
@@ -39,6 +48,9 @@
 
 /datum/map_template/ruin/proc/check_specials()
 	return
+
+/datum/map_template/ruin/proc/apply_overmap_identity(obj/overmap/entity/vessel)
+	vessel?.apply_overmap_identity(identity_name || name, identity_color, identity_icon, identity_distress, identity_broadcasting, identity_iff_ids, identity_locked)
 
 /datum/map_template/ruin/proc/try_to_place(z, allowed_areas)
 	var/sanity = PLACEMENT_TRIES

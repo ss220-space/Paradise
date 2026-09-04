@@ -66,8 +66,12 @@
 	if(!SSovermap?.initialized)
 		return FALSE
 	var/obj/overmap/entity/vessel = SSovermap.shuttle_vessels[src]
+	if(!vessel)
+		vessel = SSovermap.get_or_register_shuttle(src)
 	if(!vessel?.programmed)
 		return FALSE
+	if(vessel.is_programmed_emagged())
+		return null
 	if(getDockedId() == dock_id && vessel.status == OVERMAP_STATUS_DOCKED)
 		vessel.snap_physical_redock()
 		return TRUE

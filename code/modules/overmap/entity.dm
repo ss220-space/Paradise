@@ -29,6 +29,14 @@
 
 	var/list/obj/docking_port/stationary/custom_docks
 	var/obj/machinery/transponder/transponder
+	var/identity_name
+	var/identity_color = COLOR_WHITE
+	var/identity_icon
+	var/identity_distress = FALSE
+	var/identity_broadcasting = TRUE
+	var/identity_locked = FALSE
+	/// Faction IFF ids. `list(OVERMAP_IFF_SYNDICATE)` = listen+TX. Assoc FALSE = key loaded, TX off. Global TX is identity_broadcasting.
+	var/list/identity_iff_ids
 	var/overmap_icon_preset = "station"
 	var/overmap_icon_file = OVERMAP_ICON_FILE
 	var/overmap_icon_moving_state
@@ -97,6 +105,7 @@
 	SSovermap.vessels += src
 	add_overmap_components()
 	update_overmap_visibility()
+	RegisterSignal(src, COMSIG_OVERMAP_MANUAL_CONTROL, PROC_REF(on_manual_overmap_control))
 
 /obj/overmap/entity/proc/add_overmap_components()
 	AddComponent(/datum/component/overmap_sensors)
@@ -142,6 +151,7 @@
 	if(transponder?.vessel == src)
 		transponder.vessel = null
 	transponder = null
+	QDEL_LIST(virtual_iff_channels)
 	return ..()
 
 /obj/overmap/entity/proc/register_engine(obj/machinery/ship_engine/engine)
@@ -154,29 +164,17 @@
 		engine.vessel = null
 
 /obj/overmap/entity/get_overmap_display_name()
-	if(transponder)
-		return transponder.broadcast_name || OVERMAP_UNKNOWN_NAME
-	return OVERMAP_UNKNOWN_NAME
+	return identity_name || name || OVERMAP_UNKNOWN_NAME
 
 /obj/overmap/entity/get_scan_mass()
 	return vessel_mass
 
 /obj/overmap/entity/is_overmap_visible()
-
-	if(transponder?.distress)
+	if(identity_distress)
 		return TRUE
-	if(transponder)
-		if(transponder.stat & (NOPOWER|BROKEN))
-			return FALSE
-		transponder.ensure_iff_channels()
-		for(var/datum/overmap_iff_channel/channel as anything in transponder.iff_channels)
-			if(channel.transmit)
-				return TRUE
+	if(transponder && (transponder.stat & (NOPOWER|BROKEN)))
 		return FALSE
-	for(var/datum/overmap_iff_channel/channel as anything in virtual_iff_channels)
-		if(channel.transmit)
-			return TRUE
-	return FALSE
+	return identity_broadcasting
 
 /obj/overmap/entity/proc/is_overmap_jammed()
 	return world.time < overmap_jammed_until
@@ -187,13 +185,57 @@
 		return transponder.iff_channels
 	return virtual_iff_channels
 
+/obj/overmap/entity/proc/identity_channel_transmits(id)
+	if(id == OVERMAP_IFF_GLOBAL)
+		return identity_broadcasting
+	if(isnull(identity_iff_ids?[id]))
+		return TRUE
+	return !!identity_iff_ids[id]
+
+/obj/overmap/entity/proc/rebuild_identity_iff()
+	QDEL_LIST(virtual_iff_channels)
+	virtual_iff_channels = list()
+	virtual_iff_channels += new /datum/overmap_iff_channel(OVERMAP_IFF_GLOBAL, overmap_iff_label_for_id(OVERMAP_IFF_GLOBAL), TRUE, TRUE, identity_broadcasting)
+	for(var/id in identity_iff_ids)
+		if(id == OVERMAP_IFF_GLOBAL)
+			continue
+		virtual_iff_channels += new /datum/overmap_iff_channel(id, overmap_iff_label_for_id(id), TRUE, TRUE, identity_channel_transmits(id))
+
+/obj/overmap/entity/proc/apply_overmap_identity(new_name, new_color, new_icon, new_distress, new_broadcasting, list/iff_ids, locked)
+	if(new_name)
+		identity_name = new_name
+	if(!isnull(new_color))
+		identity_color = new_color
+	if(new_icon)
+		identity_icon = new_icon
+	identity_distress = !!new_distress
+	if(!isnull(new_broadcasting))
+		identity_broadcasting = new_broadcasting
+	identity_locked = !!locked
+	if(iff_ids)
+		identity_iff_ids = iff_ids.Copy()
+	rebuild_identity_iff()
+	sync_transponder()
+
+/obj/overmap/entity/proc/capture_iff_from_transponder(obj/machinery/transponder/beacon)
+	if(!beacon)
+		return
+	QDEL_LIST(virtual_iff_channels)
+	virtual_iff_channels = list()
+	identity_iff_ids = list()
+	for(var/datum/overmap_iff_channel/channel as anything in beacon.iff_channels)
+		virtual_iff_channels += new /datum/overmap_iff_channel(channel.id, channel.label, channel.permanent, channel.receive, channel.transmit)
+		if(channel.id != OVERMAP_IFF_GLOBAL)
+			identity_iff_ids[channel.id] = channel.transmit
+	identity_broadcasting = beacon.broadcasting
+
 /obj/overmap/entity/proc/iff_detects(obj/overmap/other)
 	if(!other || other == src)
 		return FALSE
 	var/obj/overmap/entity/contact = other
 	if(!istype(contact))
 		return FALSE
-	if(contact.transponder && (contact.transponder.stat & (NOPOWER|BROKEN)) && !contact.transponder.distress)
+	if(contact.transponder && (contact.transponder.stat & (NOPOWER|BROKEN)) && !contact.identity_distress)
 		return FALSE
 	var/list/ours = get_iff_channels()
 	var/list/theirs = contact.get_iff_channels()
@@ -215,6 +257,7 @@
 
 /obj/overmap/entity/proc/unregister_transponder(obj/machinery/transponder/old_transponder)
 	if(transponder == old_transponder)
+		capture_iff_from_transponder(old_transponder)
 		transponder = null
 	sync_transponder()
 
@@ -246,20 +289,19 @@
 
 /obj/overmap/entity/proc/sync_transponder()
 	name = get_overmap_display_name()
-	if(transponder)
-		color = transponder.broadcast_color || "#fffffe"
-		map_color = transponder.broadcast_color || map_color
-		apply_icon_preset(transponder.icon_preset)
-	else
-		color = "#fffffe"
+	color = identity_color || "#fffffe"
+	map_color = identity_color || map_color
+	var/preset = identity_icon
+	if(!preset)
 		if(overmap_kind == OVERMAP_KIND_STATION)
-			apply_icon_preset("station")
+			preset = "station"
 		else if(overmap_kind == OVERMAP_KIND_POD)
-			apply_icon_preset("pod")
+			preset = "pod"
 		else if(overmap_kind == OVERMAP_KIND_RUIN)
-			apply_icon_preset(overmap_icon_preset || "event")
+			preset = overmap_icon_preset || "event"
 		else
-			apply_icon_preset("shuttle_c")
+			preset = "shuttle_c"
+	apply_icon_preset(preset)
 	update_overmap_visibility()
 	SEND_SIGNAL(src, COMSIG_OVERMAP_DISPLAY_CHANGED)
 
@@ -274,12 +316,12 @@
 	invisibility = INVISIBILITY_OBSERVER
 	vis_flags |= VIS_HIDE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	if(!transponder?.distress)
+	if(!identity_distress)
 		alpha = 255
 	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 
 /obj/overmap/entity/proc/process_transponder_fx()
-	if(transponder?.distress && is_overmap_visible())
+	if(identity_distress && is_overmap_visible())
 		alpha = (alpha > 80) ? 15 : 255
 	else if(is_overmap_visible())
 		alpha = 255
@@ -317,6 +359,10 @@
 	if(SSovermap?.sector_for_turf(spot))
 		return FALSE
 	return TRUE
+
+/obj/overmap/entity/proc/on_manual_overmap_control()
+	SIGNAL_HANDLER
+	abort_cancellable_mission()
 
 /obj/overmap/entity/shows_overmap_map_signature()
 	if(!isturf(loc) || docked_to || is_physically_docked())

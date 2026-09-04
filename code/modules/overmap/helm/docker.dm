@@ -96,7 +96,7 @@
 			return SHUTTLE_DOCKER_BLOCKED
 		if(shuttle_port && shuttle_port.shuttle_areas[T.loc])
 			return SHUTTLE_DOCKER_LANDING_CLEAR
-		if(space_turfs_only && !isspaceturf(T) && !istype(T, /turf/space/openspace))
+		if(space_turfs_only && !isspaceturf(T) && !isopenspaceturf(T))
 			return SHUTTLE_DOCKER_BLOCKED
 		for(var/obj/docking_port/port as anything in overlappers)
 			if(!istype(port, /obj/docking_port/stationary))

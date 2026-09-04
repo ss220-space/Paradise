@@ -83,8 +83,7 @@
 	if(vessel && vessel != craft.overmap_vessel)
 		vessel.unregister_transponder(src)
 	vessel = craft.overmap_vessel
-	if(!broadcast_name)
-		broadcast_name = craft.name
+	adopt_vessel_identity()
 	vessel.register_transponder(src)
 
 /obj/machinery/transponder/pod/ui_status(mob/user, datum/ui_state/state)
@@ -96,10 +95,6 @@
 	stat &= ~NOPOWER
 	return ..()
 
-/obj/machinery/transponder/pod/syndicate
-	broadcast_color = COLOR_RED
-	broadcasting = FALSE
-	preset_iff_ids = list(OVERMAP_IFF_SYNDICATE)
 
 /obj/machinery/overmap_intercom/pod
 	name = "pod sector intercom"

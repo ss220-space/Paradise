@@ -135,7 +135,7 @@
 	if(other.visible_without_scanner)
 		return TRUE
 	var/obj/overmap/entity/contact = other
-	if(istype(contact) && contact.transponder?.distress)
+	if(istype(contact) && contact.identity_distress)
 		return TRUE
 	if(vessel.iff_detects(other))
 		return TRUE
@@ -259,7 +259,7 @@
 	if(other.visible_without_scanner)
 		return TRUE
 	var/obj/overmap/entity/contact = other
-	if(istype(contact) && contact.transponder?.distress)
+	if(istype(contact) && contact.identity_distress)
 		return TRUE
 	if(vessel.iff_detects(other))
 		return TRUE
@@ -322,7 +322,7 @@
 	if(other.visible_without_scanner)
 		return TRUE
 	var/obj/overmap/entity/contact = other
-	if(istype(contact) && contact.transponder?.distress)
+	if(istype(contact) && contact.identity_distress)
 		return TRUE
 	if(vessel.iff_detects(other))
 		return TRUE
@@ -572,7 +572,7 @@
 		var/obj/overmap/holder = other.loc
 		var/host_name = istype(holder) ? holder.name : null
 		var/obj/overmap/entity/contact = other
-		var/distress = istype(contact) && contact.transponder?.distress
+		var/distress = istype(contact) && contact.identity_distress
 		var/display = identified ? other.get_overmap_display_name() : OVERMAP_UNKNOWN_NAME
 		var/list/prev = contact_memory[uid]
 		if(!prev)

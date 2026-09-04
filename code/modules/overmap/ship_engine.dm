@@ -1,5 +1,5 @@
 /obj/machinery/ship_engine
-	name = "small overmap engine"
+	name = "small engine"
 	desc = "Компактный двигатель. Даёт небольшую тягу, которой достаточно для комфортного передвижения на малых судах."
 	icon = 'icons/turf/shuttle/misc.dmi'
 	icon_state = "propulsion"
@@ -105,10 +105,10 @@
 	return TRUE
 
 /obj/machinery/ship_engine/small
-	name = "small overmap engine"
+	name = "small engine"
 
 /obj/machinery/ship_engine/large
-	name = "large overmap engine"
+	name = "large engine"
 	desc = "Тяжёлый двигатель. Даёт большое количество тяги для перелётов на самых больших судах."
 	icon = 'icons/obj/2x2.dmi'
 	icon_state = "large_engine"
@@ -133,7 +133,7 @@
 	)
 
 /obj/machinery/ship_engine/huge
-	name = "huge overmap engine"
+	name = "huge engine"
 	desc = "Гигантский блюспейс-двигатель. Сконструирован для передвижения самых огромных космических объектов." //123123123
 	icon = 'icons/obj/3x3.dmi'
 	icon_state = "huge_engine"

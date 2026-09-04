@@ -309,8 +309,42 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 	profile?.announce_depart(dock_id)
 	return TRUE
 
+/obj/overmap/entity/proc/start_request_route(dock_id)
+	if(!shuttle || !dock_id)
+		return "Маршрут недоступен."
+	if(programmed_mission)
+		return "Маршрут недоступен."
+	if(is_programmed_emagged())
+		return "Нет ответа от объекта."
+	if(programmed)
+		return start_programmed_route(dock_id)
+	var/obj/docking_port/stationary/pad = SSshuttle.getDock(dock_id)
+	if(!pad || istype(pad, /obj/docking_port/stationary/transit))
+		return "Маршрут недоступен."
+	if(dock_id == programmed_current_pad() && status == OVERMAP_STATUS_DOCKED)
+		return "Шаттл уже на этой площадке."
+	ensure_virtual_engine()
+	programmed_selected_dock = dock_id
+	apply_programmed_collar(dock_id)
+	if(flight)
+		flight.cruise_speed = OVERMAP_FROM_DISPLAY(OVERMAP_PROGRAMMED_CRUISE)
+	programmed_mission = new(src, dock_id, FALSE)
+	programmed_mission.cancellable = TRUE
+	programmed_mission.persist_until_dock = FALSE
+	announce_programmed("Маршрут принят. Отправление через 10 секунд.")
+	return TRUE
+
 /obj/overmap/entity/proc/abort_programmed_mission()
 	QDEL_NULL(programmed_mission)
+	if(flight)
+		flight.autopilot = FALSE
+
+/obj/overmap/entity/proc/abort_cancellable_mission()
+	if(!programmed_mission?.cancellable)
+		return FALSE
+	abort_programmed_mission()
+	announce_programmed("Автопилот отменён.")
+	return TRUE
 
 /obj/overmap/entity/proc/announce_programmed(text)
 	SEND_SIGNAL(src, COMSIG_OVERMAP_NOTICE, text)
@@ -330,10 +364,19 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 	else
 		programmed_emag_resume_dock = programmed_emag_dest_dock || programmed_emag_home_dock
 	abort_programmed_mission()
-	programmed_emag_until = world.time + OVERMAP_PROGRAMMED_EMAG_TIME
-	addtimer(CALLBACK(src, PROC_REF(finish_programmed_emag)), OVERMAP_PROGRAMMED_EMAG_TIME)
-	var/shuttle_name = shuttle?.name || name
-	radio_announce("Взлом систем навигации шаттла [shuttle_name].", shuttle_name, SEC_FREQ)
+	var/emag_time = (shuttle?.id == "emergency") ? OVERMAP_PROGRAMMED_EMAG_EMERGENCY_TIME : OVERMAP_PROGRAMMED_EMAG_TIME
+	programmed_emag_until = world.time + emag_time
+	addtimer(CALLBACK(src, PROC_REF(finish_programmed_emag)), emag_time)
+	var/obj/docking_port/mobile/emergency/evac = shuttle
+	if(istype(evac))
+		evac.on_nav_emag()
+	if(shuttle?.id == "emergency")
+		var/shuttle_name = shuttle?.name || name
+		GLOB.major_announcement.announce(
+			message = "Обнаружен взлом систем навигации шаттла «[shuttle_name]». Возможны отклонения от установленного маршрута.",
+			new_title = ANNOUNCE_PRIORITY_RU,
+			new_sound = 'sound/misc/announce_syndi.ogg'
+		)
 	announce_programmed("Прямое управление разблокировано.")
 	return TRUE
 
@@ -349,6 +392,11 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 		flight.engines_state = TRUE
 	halted = FALSE
 	announce_programmed("Прямое управление заблокировано поставщиком. Возврат на маршрут.")
+	var/obj/docking_port/mobile/emergency/evac = shuttle
+	if(istype(evac))
+		evac.on_nav_emag_end()
+	if(shuttle?.id == "emergency" && shuttle.getDockedId() == "emergency_syndicate")
+		return
 	var/resume_dock = programmed_emag_resume_dock
 	if(!resume_dock)
 		return
@@ -382,6 +430,7 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 	var/returning_home = FALSE
 	var/next_nav_warn = 0
 	var/persist_until_dock = FALSE
+	var/cancellable = FALSE
 
 /datum/overmap_programmed_mission/New(obj/overmap/entity/owner, target_dock, skip_windup)
 	vessel = owner
@@ -625,6 +674,22 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 			best = relay
 	return best
 
+/obj/overmap/entity/proc/estimate_overmap_leg(turf/start, turf/finish, datum/overmap_sector/on_sector)
+	if(!start || !finish || start.z != finish.z)
+		return 0
+	var/dist = max(abs(start.x - finish.x), abs(start.y - finish.y))
+	if(dist <= 0)
+		return 0
+	var/speed = OVERMAP_FROM_DISPLAY(OVERMAP_PROGRAMMED_CRUISE)
+	if(flight)
+		speed = max(speed, flight.cruise_speed)
+	if(get_speed() > speed)
+		speed = get_speed()
+	if(speed <= 0)
+		speed = OVERMAP_FROM_DISPLAY(OVERMAP_PROGRAMMED_CRUISE)
+	var/travel = on_sector?.tile_travel || 1
+	return CEILING((dist * travel) / speed, 1)
+
 /obj/overmap/entity/proc/estimate_programmed_trip(dock_id, datum/overmap_programmed_mission/mission)
 	. = 0
 	if(mission)
@@ -647,14 +712,11 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 	if(!here || !host)
 		. += 90 SECONDS
 		return
-	var/speed = max(get_speed(), OVERMAP_FROM_DISPLAY(OVERMAP_PROGRAMMED_CRUISE))
-	if(speed <= 0)
-		speed = 0.02
 	if(sector && host.sector && sector != host.sector)
 		var/obj/overmap/entity/hyperrelay/relay = nearest_hyperrelay()
 		var/turf/relay_turf = relay?.get_overmap_turf()
 		if(relay_turf)
-			. += (max(abs(here.x - relay_turf.x), abs(here.y - relay_turf.y)) / speed)
+			. += estimate_overmap_leg(here, relay_turf, sector)
 		if(mission?.phase != OVERMAP_PROG_JUMP)
 			. += OVERMAP_HYPERRELAY_JUMP_TIME
 		var/turf/dest = host.get_overmap_turf()
@@ -665,10 +727,10 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 				other_relay = pair.get_overmap_turf()
 				break
 		if(dest && other_relay)
-			. += (max(abs(dest.x - other_relay.x), abs(dest.y - other_relay.y)) / speed)
+			. += estimate_overmap_leg(other_relay, dest, host.sector)
 		. += 8 SECONDS
 		return
 	var/turf/dest = host.get_overmap_turf()
 	if(dest && here != dest)
-		. += (max(abs(here.x - dest.x), abs(here.y - dest.y)) / speed)
+		. += estimate_overmap_leg(here, dest, sector || host.sector)
 	. += 8 SECONDS

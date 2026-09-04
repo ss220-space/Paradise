@@ -25,6 +25,8 @@
 
 	var/hidden_from_contacts = FALSE
 
+	var/hidden_from_sensors = FALSE
+
 	var/visible_without_scanner = FALSE
 
 	var/scan_mass = 0

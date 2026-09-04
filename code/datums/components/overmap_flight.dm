@@ -92,6 +92,7 @@
 	autopilot = FALSE
 	held_brake = FALSE
 	engines_state = TRUE
+	SEND_SIGNAL(parent, COMSIG_OVERMAP_MANUAL_CONTROL)
 	if(held_thrust_dir == direction)
 		clear_held_thrust()
 		return TRUE
@@ -112,6 +113,7 @@
 		return TRUE
 	autopilot = FALSE
 	held_brake = FALSE
+	SEND_SIGNAL(parent, COMSIG_OVERMAP_MANUAL_CONTROL)
 	var/mag = sqrt(nx * nx + ny * ny)
 	if(mag <= 0)
 		clear_held_thrust()
@@ -149,6 +151,7 @@
 		return FALSE
 	autopilot = FALSE
 	if(enabled)
+		SEND_SIGNAL(parent, COMSIG_OVERMAP_MANUAL_CONTROL)
 		engines_state = TRUE
 		clear_held_thrust()
 		held_brake = TRUE
@@ -257,7 +260,10 @@
 
 /datum/component/overmap_flight/proc/set_autopilot(enabled, dest_x, dest_y)
 	var/obj/overmap/entity/vessel = parent
+	var/was_on = src.autopilot
 	src.autopilot = enabled
+	if(was_on && !src.autopilot)
+		SEND_SIGNAL(vessel, COMSIG_OVERMAP_MANUAL_CONTROL)
 	if(src.autopilot)
 		clear_held_thrust()
 		src.held_brake = FALSE

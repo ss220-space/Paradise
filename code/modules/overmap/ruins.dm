@@ -58,6 +58,7 @@
 	var/region_size = OVERMAP_RUIN_REGION_SIZE
 	var/list/datum/overmap_space_region/cells
 	var/list/obj/overmap/entity/feature/ruin/tokens
+	var/datum/map_template/ruin/space/ruin_template
 
 /datum/overmap_feature/ruin/New()
 	cells = list()
@@ -303,7 +304,10 @@
 		name = new_site.name
 		icon_state = new_site.token_icon_state
 		overmap_icon_preset = new_site.token_icon_state
-		apply_icon_preset(new_site.token_icon_state)
+		if(new_site.ruin_template)
+			new_site.ruin_template.apply_overmap_identity(src)
+		else
+			apply_overmap_identity(new_site.name, map_color, new_site.token_icon_state || "event", FALSE, FALSE, null, FALSE)
 
 /obj/overmap/entity/feature/update_icon_state()
 	icon_state = overmap_icon_preset || "event"
@@ -353,14 +357,7 @@
 	return cell
 
 /datum/controller/subsystem/overmap/proc/spawn_roundstart_ruin_sites()
-	if(!station_sector)
-		return
-	var/datum/overmap_feature/ruin/empty_medium/site = new
-	if(!site.spawn_on(station_sector, 6, 4))
-		qdel(site)
-		log_world("Overmap: failed to spawn empty_medium ruin at 6:4.")
-		return
-	log_world("Overmap: spawned ruin site [site.id] at 6:4 in sector [station_sector.id].")
+	return
 
 /datum/controller/subsystem/overmap/proc/overmap_ruin_pool_for_sector(datum/overmap_sector/sector)
 	if(sector?.sector_kind == OVERMAP_SECTOR_KIND_WILDERNESS)
@@ -415,7 +412,8 @@
 	if(!spot)
 		return FALSE
 	var/datum/overmap_feature/ruin/site = new
-	site.name = ruin.name
+	site.name = ruin.identity_name || ruin.name
+	site.ruin_template = ruin
 	site.enterable_quadrants = list(1)
 	site.region_size = large ? large_region_size() : OVERMAP_RUIN_REGION_SIZE
 	if(!site.spawn_on(sector, sector.coord_x(spot), sector.coord_y(spot)))
@@ -472,7 +470,7 @@
 		for(var/obj/overmap/entity/feature/ruin/ruin_token as anything in site.tokens)
 			if(QDELETED(ruin_token) || !ruin_token.landing_region)
 				continue
-			if(ruin_token.landing_region.contains_space_turf(spot) || ruin_token.landing_region.covers_reserved_turf(spot))
+			if(ruin_token.landing_region.covers_reserved_turf(spot))
 				return ruin_token.landing_region
 	return null
 
@@ -486,6 +484,6 @@
 		for(var/obj/overmap/entity/feature/ruin/ruin_token as anything in site.tokens)
 			if(QDELETED(ruin_token) || !ruin_token.landing_region)
 				continue
-			if(ruin_token.landing_region.contains_space_turf(spot))
+			if(ruin_token.landing_region.covers_reserved_turf(spot))
 				return ruin_token
 	return null

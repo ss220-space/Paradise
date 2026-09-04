@@ -24,6 +24,7 @@ SUBSYSTEM_DEF(overmap)
 	var/datum/overmap_sector/station_sector
 	var/datum/overmap_sector/service_sector
 	var/obj/overmap/entity/station_entity
+	var/obj/overmap/entity/taipan_site/taipan_entity
 	var/obj/overmap/planet/lavaland_planet
 	var/obj/overmap/entity/planet_station/lavaland_entity
 	var/list/obj/overmap/entity/service_site/service_sites = list()
@@ -72,6 +73,7 @@ SUBSYSTEM_DEF(overmap)
 	ensure_station_transponder()
 	station_sector?.populate_roundstart()
 	spawn_roundstart_ruin_sites()
+	spawn_taipan()
 	start_programmed_roundstart_routes()
 	snap_roundstart_docks()
 	seed_shuttle_helm_waypoints()
@@ -94,7 +96,7 @@ SUBSYSTEM_DEF(overmap)
 	for(var/obj/overmap/entity/vessel as anything in vessels)
 		if(QDELETED(vessel))
 			continue
-		if(vessel.transponder?.distress)
+		if(vessel.identity_distress)
 			vessel.process_transponder_fx()
 		vessel.process_sensors()
 		vessel.programmed_mission?.process_mission()
@@ -132,8 +134,8 @@ SUBSYSTEM_DEF(overmap)
 	if(!spawn_turf)
 		spawn_turf = local_sector.get_random_open_turf()
 	station_entity = new /obj/overmap/entity/station(spawn_turf)
-	station_entity.name = station_name()
 	station_entity.status = OVERMAP_STATUS_OVERMAP
+	station_entity.apply_overmap_identity(station_name(), COLOR_WHITE, "station", FALSE, TRUE, null, TRUE)
 	local_sector.add_object(station_entity, spawn_turf)
 	log_world("Overmap: station token spawned at [spawn_turf.x],[spawn_turf.y] on sector [local_sector.id].")
 
@@ -213,6 +215,11 @@ SUBSYSTEM_DEF(overmap)
 	vessel.name = shuttle.name || "Shuttle"
 	vessel.shuttle = shuttle
 	shuttle_vessels[shuttle] = vessel
+	var/datum/overmap_shuttle_profile/profile = GLOB.overmap_shuttle_profiles[shuttle.id]
+	if(profile)
+		profile.apply_to(vessel)
+	else
+		vessel.apply_overmap_identity(shuttle.name, COLOR_WHITE, "shuttle_c", FALSE, TRUE, null, FALSE)
 	vessel.last_dock_id = shuttle.getDockedId()
 	vessel.selected_dock_id = vessel.last_dock_id
 	area_shuttle_cache_ready = FALSE
@@ -239,6 +246,12 @@ SUBSYSTEM_DEF(overmap)
 	vessel.name = craft.name || "spacepod"
 	craft.overmap_vessel = vessel
 	pod_vessels[craft] = vessel
+	var/list/pod_iff
+	var/pod_broadcast = TRUE
+	if(istype(craft, /obj/spacepod/syndi))
+		pod_iff = list(OVERMAP_IFF_SYNDICATE)
+		pod_broadcast = FALSE
+	vessel.apply_overmap_identity(craft.name || "Пода", COLOR_WHITE, "pod", FALSE, pod_broadcast, pod_iff, FALSE)
 	craft.ensure_overmap_gear()
 	attach_pod_to_host(vessel)
 	notify_vessel_registered(vessel)
@@ -293,6 +306,8 @@ SUBSYSTEM_DEF(overmap)
 			return station_entity
 		if(OVERMAP_HOST_LAVALAND)
 			return lavaland_entity
+		if(OVERMAP_HOST_TAIPAN)
+			return taipan_entity
 	return service_sites[host_key]
 
 /datum/controller/subsystem/overmap/proc/sector_for_turf(turf/spot)
@@ -311,6 +326,8 @@ SUBSYSTEM_DEF(overmap)
 		return OVERMAP_HOST_STATION
 	if(host == lavaland_entity)
 		return OVERMAP_HOST_LAVALAND
+	if(host == taipan_entity)
+		return OVERMAP_HOST_TAIPAN
 	var/obj/overmap/entity/service_site/site = host
 	if(istype(site))
 		return site.site_id
@@ -334,6 +351,8 @@ SUBSYSTEM_DEF(overmap)
 		host_key = OVERMAP_HOST_STATION
 	else if(!host_key && is_mining_level(pad.z))
 		host_key = OVERMAP_HOST_LAVALAND
+	else if(!host_key && is_taipan(pad.z))
+		host_key = OVERMAP_HOST_TAIPAN
 	if(!host_key)
 		var/obj/overmap/entity/service_site/site = get_service_site(pad)
 		if(site)
@@ -362,6 +381,8 @@ SUBSYSTEM_DEF(overmap)
 		return station_entity
 	if(is_mining_level(spot.z))
 		return lavaland_entity
+	if(is_taipan(spot.z))
+		return taipan_entity
 	return get_service_site(shuttle)
 
 /datum/controller/subsystem/overmap/proc/start_programmed_roundstart_routes()
@@ -432,10 +453,16 @@ SUBSYSTEM_DEF(overmap)
 	var/area/here = isarea(source) ? source : get_area(source)
 	if(!here)
 		return null
+	var/obj/overmap/entity/service_site/best
+	var/best_len = 0
 	for(var/area_type in service_sites_by_area)
-		if(istype(here, area_type))
-			return service_sites_by_area[area_type]
-	return null
+		if(!istype(here, area_type))
+			continue
+		var/type_len = length("[area_type]")
+		if(type_len > best_len)
+			best_len = type_len
+			best = service_sites_by_area[area_type]
+	return best
 
 /datum/controller/subsystem/overmap/proc/resolve_vessel(atom/source)
 	var/atom/cursor = source
@@ -446,6 +473,9 @@ SUBSYSTEM_DEF(overmap)
 	var/obj/docking_port/mobile/shuttle = get_shuttle_at(source)
 	if(shuttle)
 		return get_or_register_shuttle(shuttle)
+	var/obj/overmap/entity/ruin_token = get_ruin_host(source)
+	if(ruin_token)
+		return ruin_token
 	var/obj/overmap/entity/service_site/site = get_service_site(source)
 	if(site)
 		return site
@@ -453,6 +483,8 @@ SUBSYSTEM_DEF(overmap)
 		return station_entity
 	if(is_mining_level(source.z))
 		return lavaland_entity
+	if(is_taipan(source.z))
+		return taipan_entity
 	return null
 
 /datum/controller/subsystem/overmap/proc/relink_hardware()
@@ -492,15 +524,38 @@ SUBSYSTEM_DEF(overmap)
 
 /datum/controller/subsystem/overmap/proc/ensure_station_transponder()
 	for(var/obj/machinery/transponder/existing as anything in GLOB.transponders)
-		if(istype(existing, /obj/machinery/transponder/station) && !QDELETED(existing))
-			return
+		if(QDELETED(existing) || existing.vessel != station_entity)
+			continue
+		return
 	for(var/obj/machinery/computer/helm/helm as anything in GLOB.helm_computers)
 		if(QDELETED(helm) || istype(helm, /obj/machinery/computer/helm/pod) || isspacepod(helm.loc))
 			continue
 		if(get_shuttle_at(helm) || !is_station_level(helm.z))
 			continue
-		new /obj/machinery/transponder/station(get_turf(helm))
+		new /obj/machinery/transponder(get_turf(helm))
 		return
+
+/datum/controller/subsystem/overmap/proc/taipan_enabled()
+	if(CONFIG_GET(flag/disable_taipan))
+		return FALSE
+	if(SSmapping?.map_datum?.disables & DISABLE_TAIPAN)
+		return FALSE
+	return length(levels_by_trait(TAIPAN)) > 0
+
+/datum/controller/subsystem/overmap/proc/spawn_taipan()
+	if(!local_sector || !taipan_enabled())
+		return
+	var/turf/spawn_turf = local_sector.get_edge_band_turf(OVERMAP_TAIPAN_EDGE_MIN, OVERMAP_TAIPAN_EDGE_MAX)
+	if(!spawn_turf)
+		spawn_turf = local_sector.get_random_open_turf()
+	if(!spawn_turf)
+		log_world("Overmap: failed to place Taipan.")
+		return
+	taipan_entity = new /obj/overmap/entity/taipan_site(spawn_turf)
+	local_sector.add_object(taipan_entity, spawn_turf)
+	stamp_pad_hosts()
+	relink_hardware()
+	log_world("Overmap: Taipan token spawned at [spawn_turf.x],[spawn_turf.y] on sector [local_sector.id].")
 
 /datum/controller/subsystem/overmap/proc/spawn_portal(datum/overmap_sector/from_sector, dest_sector_id, portal_name, required_flags, dest_x, dest_y)
 	if(!from_sector)
@@ -517,3 +572,47 @@ SUBSYSTEM_DEF(overmap)
 	portal.required_vessel_flags = required_flags
 	from_sector.add_object(portal, here)
 	return portal
+
+/datum/controller/subsystem/overmap/proc/overmap_coord_label(obj/overmap/token)
+	if(!token)
+		return "неизвестно"
+	var/turf/here = token.get_overmap_turf()
+	if(!here || !token.sector)
+		return "неизвестно"
+	return "[token.sector.name] ([token.sector.coord_x(here)]:[token.sector.coord_y(here)])"
+
+/datum/controller/subsystem/overmap/proc/hijack_instruction_html()
+	var/obj/overmap/entity/hyperrelay/station_relay
+	var/obj/overmap/entity/hyperrelay/service_relay
+	for(var/obj/overmap/thing as anything in station_sector?.objects)
+		if(istype(thing, /obj/overmap/entity/hyperrelay))
+			station_relay = thing
+			break
+	if(station_relay?.paired)
+		service_relay = station_relay.paired
+	else
+		for(var/obj/overmap/thing as anything in service_sector?.objects)
+			if(istype(thing, /obj/overmap/entity/hyperrelay))
+				service_relay = thing
+				break
+	var/obj/overmap/entity/scc = service_sites?[OVERMAP_SITE_SYNDICATE]
+	. = "Инструкция по реквизиции эвакуационного шаттла 'Харон':<br>\
+	Приветствуем, агент. Вам выпала уникальная возможность выделиться на фоне остальных и совершить поистине грандиозный прыжок в карьерном росте.<br>\
+	Ваша задача — реквизировать эвакуационный шаттл 'Харон', вызываемый Центральным Командованием \"Нанотрейзен\" для эвакуации персонала.<br>\
+	У вас будет только одна попытка. Шаттл не должен быть уничтожен, но его маршрут обязан быть переписан на нужный нам. Действуйте строго по протоколу:<br>\
+	<ol>\
+	<li><b>Взлом систем навигации.</b> Для выполнения задачи вам выдан криптографический сиквенсер за счёт Мародёров Горлекса. Используйте его на навигационной \
+	консоли шаттла для отключения протоколов автопилота и получения прямого управления. Обратите внимание: несмотря на то, что сиквенсер даёт контроль не более чем \
+	на 10 минут, мы внедрили в систему 'Харона' червя, увеличивающего это время до 30 минут.</li>\
+	<li><b>Получение точки реквизиции.</b> Ваш сиквенсер также способен получить доступ к транспондеру шаттла, открывая дополнительный канал. На эфире этого канала \
+	будет находиться объект, к которому необходимо доставить шаттл. Вы можете также воспользоваться координатами, указанными ниже.</li>\
+	<li><b>Доставка шаттла.</b> После получения контроля над навигацией, доставьте шаттл к точке реквизиции, расположенной в дальнем космосе вашего сектора. \
+	Для доступа к ней необходимо совершить прыжок через гипертранслятор, находящийся на краю сектора. Координаты гипертранслятора и точки реквизиции приведены ниже.</li>\
+	</ol>\
+	Обратите внимание: после прибытия к точке реквизиции, эвакуационный шаттл будет дополнительно зачищен от нежелательных живых организмов. \
+	Самостоятельно добивать выживший экипаж вам не обязательно.<br>\
+	Помните: вам доступны абсолютно любые средства для исполнения ваших обязанностей.<br>\
+	Удачи, агент.<br>\
+	<b>Координаты:</b><br>\
+	Гипертранслятор: СТАНЦИОННЫЙ СЕКТОР: [overmap_coord_label(station_relay)], ДАЛЬНИЙ КОСМОС: [overmap_coord_label(service_relay)]<br>\
+	Точка реквизиции: [overmap_coord_label(scc)]"

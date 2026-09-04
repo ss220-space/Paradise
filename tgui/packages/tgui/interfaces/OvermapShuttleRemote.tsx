@@ -32,6 +32,8 @@ type Data = {
   programmed_eta?: string;
   programmed_selected?: string;
   programmed_routes?: ProgrammedRoute[];
+  request_only?: BooleanLike;
+  recall_here?: BooleanLike;
 };
 
 export const OvermapShuttleRemote = () => {
@@ -57,6 +59,8 @@ export const OvermapShuttleRemote = () => {
     programmed_eta,
     programmed_selected,
     programmed_routes = [],
+    request_only,
+    recall_here,
   } = data;
 
   return (
@@ -89,7 +93,7 @@ export const OvermapShuttleRemote = () => {
               style={{ width: `${map_px_w}px`, height: `${map_px_h}px` }}
             >
               {map_jammed ? (
-                <NoticeBox danger>Связь с овермапом потеряна.</NoticeBox>
+                <NoticeBox danger>Связь потеряна.</NoticeBox>
               ) : (
                 <ByondUi
                   height={`${map_px_h}px`}
@@ -105,12 +109,35 @@ export const OvermapShuttleRemote = () => {
           </Section>
         </Stack.Item>
         <Stack.Item shrink={0}>
-          <Section title="Маршрут">
+          <Section title={request_only ? 'Вызов' : 'Маршрут'}>
             {programmed_emagged ? (
               <NoticeBox>
                 Прямое управление с консоли штурвала. Удалённые команды
                 игнорируются.
               </NoticeBox>
+            ) : request_only ? (
+              <>
+                <Button
+                  icon="reply"
+                  color="good"
+                  disabled={!!programmed_busy || !!recall_here}
+                  onClick={() => act('recall_here')}
+                >
+                  Вызвать к себе
+                </Button>
+                {!!recall_here && (
+                  <Box mt={1} className="OvermapRail__meta">
+                    Шаттл уже у этой площадки.
+                  </Box>
+                )}
+                {!!programmed_busy && (
+                  <Box mt={1} className="OvermapRail__meta">
+                    {programmed_windup
+                      ? `Отправление через ${programmed_windup} с`
+                      : `В пути ${programmed_eta || ''}`}
+                  </Box>
+                )}
+              </>
             ) : !programmed_has_routes ? (
               <NoticeBox>Нет заранее заготовленных маршрутов.</NoticeBox>
             ) : (

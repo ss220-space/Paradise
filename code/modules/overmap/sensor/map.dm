@@ -101,6 +101,8 @@
 		for(var/obj/overmap/overmap_object as anything in vessel.sector.objects)
 			if(!overmap_object.shows_overmap_map_signature())
 				continue
+			if(overmap_object.hidden_from_sensors)
+				continue
 			if(overmap_object.visible_without_scanner && !overmap_object.icon)
 				continue
 			if(!vessel.senses_object(overmap_object) && !vessel.sees_foreign_peel(overmap_object))
@@ -187,6 +189,8 @@
 		for(var/obj/overmap/other as anything in vessel.sector.objects)
 			var/obj/overmap/entity/contact = other
 			if(!istype(contact) || contact == vessel)
+				continue
+			if(contact.hidden_from_sensors)
 				continue
 			if(!contact.is_sensor_peeling() || !vessel.sees_foreign_peel(contact))
 				continue

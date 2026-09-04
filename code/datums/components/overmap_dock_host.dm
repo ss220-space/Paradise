@@ -7,6 +7,7 @@
 
 	var/planet_landing = FALSE
 	var/list/obj/overmap/entity/nested
+	var/list/area/cached_host_areas
 
 /datum/component/overmap_dock_host/Initialize(z_kind = OVERMAP_DOCK_Z_STATION, area/area_root, allow_custom_landing = TRUE, planet_landing = FALSE)
 	if(!istype(parent, /obj/overmap/entity))
@@ -27,6 +28,18 @@
 		token.dock_host = null
 	SSovermap?.dock_hosts -= src
 	nested = null
+	cached_host_areas = null
+
+/datum/component/overmap_dock_host/proc/host_areas()
+	if(cached_host_areas)
+		return cached_host_areas
+	cached_host_areas = list()
+	if(!area_root)
+		return cached_host_areas
+	for(var/area/place as anything in GLOB.areas)
+		if(istype(place, area_root))
+			cached_host_areas += place
+	return cached_host_areas
 
 /datum/component/overmap_dock_host/proc/matches_pad(obj/docking_port/stationary/pad)
 	if(!pad || istype(pad, /obj/docking_port/stationary/transit))
@@ -40,7 +53,9 @@
 			return is_mining_level(pad.z)
 		if(OVERMAP_DOCK_Z_RUIN)
 			var/obj/overmap/entity/feature/ruin = parent
-			return istype(ruin) && ruin.landing_region?.contains_space_turf(get_turf(pad))
+			return istype(ruin) && ruin.landing_region?.covers_reserved_turf(get_turf(pad))
+		if(OVERMAP_DOCK_Z_TAIPAN)
+			return is_taipan(pad.z)
 	return FALSE
 
 /datum/component/overmap_dock_host/proc/add_nested(obj/overmap/entity/guest)
@@ -62,9 +77,7 @@
 		if(OVERMAP_DOCK_Z_SERVICE)
 			if(!area_root)
 				return FALSE
-			for(var/area/place as anything in GLOB.areas)
-				if(!istype(place, area_root))
-					continue
+			for(var/area/place as anything in host_areas())
 				var/turf/spot = locate(/turf) in place
 				if(spot?.z == z_level)
 					return TRUE
@@ -72,6 +85,8 @@
 		if(OVERMAP_DOCK_Z_RUIN)
 			var/obj/overmap/entity/feature/ruin/ruin = parent
 			return istype(ruin) && ruin.landing_region?.space_z == z_level
+		if(OVERMAP_DOCK_Z_TAIPAN)
+			return is_taipan(z_level)
 	return FALSE
 
 /datum/component/overmap_dock_host/proc/pick_landing_z()
@@ -87,9 +102,7 @@
 		if(OVERMAP_DOCK_Z_SERVICE)
 			if(!area_root)
 				return null
-			for(var/area/place as anything in GLOB.areas)
-				if(!istype(place, area_root))
-					continue
+			for(var/area/place as anything in host_areas())
 				var/turf/spot = locate(/turf) in place
 				if(spot)
 					return spot.z
@@ -97,6 +110,10 @@
 			var/obj/overmap/entity/feature/ruin/ruin = parent
 			if(istype(ruin))
 				return ruin.landing_region?.space_z
+		if(OVERMAP_DOCK_Z_TAIPAN)
+			var/list/taipan_zs = levels_by_trait(TAIPAN)
+			if(length(taipan_zs))
+				return pick(taipan_zs)
 	return null
 
 /obj/overmap/entity/proc/get_dock_host()

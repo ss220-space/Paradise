@@ -104,6 +104,8 @@
 	var/devil_on_shuttle = FALSE
 	var/overmap_leg_started = FALSE
 	var/overmap_escape_dock
+	var/nav_emag_paused_left
+	var/nav_emag_paused_dock
 
 /obj/docking_port/mobile/emergency/register()
 	if(!..())
@@ -226,6 +228,8 @@
 	return TRUE
 
 /obj/docking_port/mobile/emergency/check()
+	if(is_nav_emagged())
+		return
 	if(!timer)
 		return
 
@@ -306,13 +310,6 @@
 				for(var/area/shuttle/escape/E in world)
 					SEND_SOUND(E, hyperspace_progress_sound)
 				var/destination_dock = "emergency_away"
-				if(is_hijacked())
-					destination_dock = "emergency_syndicate"
-					GLOB.major_announcement.announce(
-						"Обнаружен взлом навигационных протоколов. Пожалуйста, свяжитесь в руководством.",
-						new_title = ANNOUNCE_PRIORITY_RU,
-						new_sound = 'sound/misc/announce_syndi.ogg'
-					)
 				overmap_escape_dock = destination_dock
 				mode = SHUTTLE_ESCAPE
 				overmap_leg_started = TRUE
@@ -406,8 +403,6 @@
 			return TRUE
 		if(SHUTTLE_ESCAPE, SHUTTLE_IGNITING, SHUTTLE_ENDGAME)
 			var/dock_id = overmap_escape_dock || "emergency_away"
-			if(is_hijacked() && !overmap_escape_dock)
-				dock_id = "emergency_syndicate"
 			var/moved = admin_force_move_to_dock(dock_id)
 			if(moved != TRUE)
 				return moved
@@ -433,6 +428,44 @@
 /obj/docking_port/mobile/emergency/proc/is_physically_at_roundstart()
 	var/home_id = roundstart_move || "emergency_away"
 	return getDockedId() == home_id
+
+/obj/docking_port/mobile/emergency/proc/on_nav_emag()
+	nav_emag_paused_left = timer ? timeLeft(1) : 0
+	nav_emag_paused_dock = getDockedId()
+	timer = world.time + 24 HOURS
+
+/obj/docking_port/mobile/emergency/proc/on_nav_emag_end()
+	var/left = nav_emag_paused_left
+	var/dock = nav_emag_paused_dock
+	nav_emag_paused_left = 0
+	nav_emag_paused_dock = null
+	if(left <= 0)
+		return
+	if(getDockedId() != dock)
+		return
+	if(mode != SHUTTLE_CALL && mode != SHUTTLE_RECALL && mode != SHUTTLE_DOCKED)
+		return
+	if(mode == SHUTTLE_CALL && overmap_leg_started)
+		return
+	setTimer(left)
+
+/obj/docking_port/mobile/emergency/proc/overmap_note_arrival(obj/docking_port/stationary/new_dock)
+	if(!new_dock || istype(new_dock, /obj/docking_port/stationary/transit))
+		return
+	if(new_dock.id != "emergency_away" && new_dock.id != "emergency_syndicate")
+		return
+	if(mode != SHUTTLE_ESCAPE && mode != SHUTTLE_IGNITING && !is_nav_emagged())
+		return
+	overmap_escape_dock = new_dock.id
+	overmap_leg_started = FALSE
+	mode = SHUTTLE_ENDGAME
+	timer = 0
+	if(new_dock.id == "emergency_syndicate")
+		GLOB.major_announcement.announce(
+			message = "Обнаружен сбой навигационных протоколов. Эвакуационный шаттл сошёл с установленного маршрута. Сигнал потерян, дальнейшее отслеживание эвакуационного шаттла невозможно.",
+			new_title = ANNOUNCE_PRIORITY_RU,
+			new_sound = 'sound/misc/announce_syndi.ogg'
+		)
 
 // This basically opens a big-ass row of blast doors when the shuttle arrives at centcom
 /obj/docking_port/mobile/pod

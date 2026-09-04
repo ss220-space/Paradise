@@ -97,7 +97,7 @@
 		return
 	for(var/i in 1 to 80)
 		var/turf/spot = locate(rand(TRANSITIONEDGE, world.maxx - TRANSITIONEDGE), rand(TRANSITIONEDGE, world.maxy - TRANSITIONEDGE), pick(zs))
-		if(!spot || is_open_void(spot) || istype(get_area(spot), /area/space))
+		if(!spot || is_open_void(spot) || isspacearea(get_area(spot)))
 			continue
 		. |= spot
 
@@ -199,6 +199,23 @@
 	if(!should_strike_moving(vessel))
 		return
 	INVOKE_ASYNC(src, PROC_REF(spawn_meteor_at), vessel)
+
+/obj/overmap/feature/hazard/asteroid/taipan_cover
+	visible_without_scanner = FALSE
+	hidden_from_contacts = FALSE
+	scannable = TRUE
+	scan_mass = OVERMAP_MASS_STATION
+	var/obj/overmap/entity/mask_host
+
+/obj/overmap/feature/hazard/asteroid/taipan_cover/try_affect(obj/overmap/entity/vessel)
+	if(vessel && vessel == mask_host)
+		return
+	return ..()
+
+/obj/overmap/feature/hazard/asteroid/taipan_cover/get_scan_mass()
+	if(mask_host)
+		return mask_host.get_scan_mass()
+	return scan_mass
 
 /obj/overmap/feature/hazard/emp
 	name = "ЭМИ-шторм"

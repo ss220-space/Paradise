@@ -1,6 +1,12 @@
+/obj/machinery/computer/sensors/proc/scan_subject(obj/overmap/target)
+	var/obj/overmap/feature/hazard/asteroid/taipan_cover/cover = target
+	if(istype(cover) && !QDELETED(cover.mask_host))
+		return cover.mask_host
+	return target
+
 /obj/machinery/computer/sensors/proc/collect_scan_turfs(obj/overmap/entity/target)
 	. = list()
-	if(!target?.shuttle)
+	if(!istype(target))
 		return
 	var/min_x = INFINITY
 	var/min_y = INFINITY
@@ -8,15 +14,26 @@
 	var/max_y = 0
 	var/scan_z
 	var/list/hull = list()
-	for(var/area/place as anything in target.shuttle.shuttle_areas)
-		for(var/turf/hull_turf in place)
-			if(!scan_z)
-				scan_z = hull_turf.z
-			min_x = min(min_x, hull_turf.x)
-			min_y = min(min_y, hull_turf.y)
-			max_x = max(max_x, hull_turf.x)
-			max_y = max(max_y, hull_turf.y)
-			hull += hull_turf
+	if(target.shuttle)
+		for(var/area/place as anything in target.shuttle.shuttle_areas)
+			for(var/turf/hull_turf in place)
+				if(!scan_z)
+					scan_z = hull_turf.z
+				min_x = min(min_x, hull_turf.x)
+				min_y = min(min_y, hull_turf.y)
+				max_x = max(max_x, hull_turf.x)
+				max_y = max(max_y, hull_turf.y)
+				hull += hull_turf
+	else if(target.dock_host?.area_root)
+		for(var/area/place as anything in target.dock_host.host_areas())
+			for(var/turf/hull_turf in place)
+				if(!scan_z)
+					scan_z = hull_turf.z
+				min_x = min(min_x, hull_turf.x)
+				min_y = min(min_y, hull_turf.y)
+				max_x = max(max_x, hull_turf.x)
+				max_y = max(max_y, hull_turf.y)
+				hull += hull_turf
 	if(!scan_z || !length(hull))
 		return
 	min_x = max(1, min_x - OVERMAP_SENSOR_SCAN_PAD)
@@ -38,7 +55,14 @@
 	)
 
 /obj/machinery/computer/sensors/proc/scan_turf_is_interior(turf/spot, obj/overmap/entity/target)
-	if(!spot || !target?.shuttle?.shuttle_areas?[spot.loc])
+	if(!spot || !target)
+		return FALSE
+	var/in_hull = FALSE
+	if(target.shuttle && (spot.loc in target.shuttle.shuttle_areas))
+		in_hull = TRUE
+	else if(target.dock_host?.area_root && istype(get_area(spot), target.dock_host.area_root))
+		in_hull = TRUE
+	if(!in_hull)
 		return FALSE
 	for(var/direction in GLOB.cardinal)
 		var/turf/neighbor = get_step(spot, direction)
@@ -47,15 +71,21 @@
 	return TRUE
 
 /obj/machinery/computer/sensors/proc/update_scan_hull_fog()
-	var/obj/overmap/entity/target = scanning_target
+	var/obj/overmap/entity/target = scan_subject(scanning_target)
 	if(!scanning || !istype(target) || !scan_min_x || !scan_min_y)
 		hide_sensor_fog()
 		return
 	var/list/interior = list()
-	for(var/area/place as anything in target.shuttle?.shuttle_areas)
-		for(var/turf/hull_turf in place)
-			if(scan_turf_is_interior(hull_turf, target))
-				interior += hull_turf
+	if(target.shuttle)
+		for(var/area/place as anything in target.shuttle.shuttle_areas)
+			for(var/turf/hull_turf in place)
+				if(scan_turf_is_interior(hull_turf, target))
+					interior += hull_turf
+	else if(target.dock_host?.area_root)
+		for(var/area/place as anything in target.dock_host.host_areas())
+			for(var/turf/hull_turf in place)
+				if(scan_turf_is_interior(hull_turf, target))
+					interior += hull_turf
 	fog_cells = overmap_ensure_fog(fog_cells, length(interior), cam_screen?.assigned_map, open_uis)
 	var/index = 1
 	for(var/turf/hidden as anything in interior)
@@ -70,9 +100,18 @@
 
 /obj/machinery/computer/sensors/proc/count_living(obj/overmap/entity/target)
 	. = 0
-	if(!target?.shuttle)
+	if(!istype(target))
 		return
-	for(var/area/place as anything in target.shuttle.shuttle_areas)
+	if(target.shuttle)
+		for(var/area/place as anything in target.shuttle.shuttle_areas)
+			for(var/mob/living/body in place)
+				if(body.stat == DEAD)
+					continue
+				.++
+		return
+	if(!target.dock_host?.area_root)
+		return
+	for(var/area/place as anything in target.dock_host.host_areas())
 		for(var/mob/living/body in place)
 			if(body.stat == DEAD)
 				continue
@@ -114,7 +153,8 @@
 	scan_error = null
 	var/size_x = 0
 	var/size_y = 0
-	var/obj/overmap/entity/ship = scanning_target
+	var/obj/overmap/data_target = scan_subject(scanning_target)
+	var/obj/overmap/entity/ship = data_target
 	if(istype(ship))
 		var/list/profile = collect_scan_turfs(ship)
 		if(length(profile))
@@ -134,7 +174,9 @@
 		cam_screen.show_camera_static()
 		hide_sensor_fog()
 	if(scan_finished)
-		scan_info = build_scan_info(scanning_target, size_x, size_y)
+		scan_info = build_scan_info(data_target, size_x, size_y)
+		if(scan_info && scanning_target && scanning_target != data_target)
+			scan_info["name"] = scanning_target.get_overmap_display_name()
 	else
 		scan_info = null
 
@@ -150,13 +192,14 @@
 	selected_uid = target.UID()
 	scan_error = null
 	scan_info = null
+	map_revision++
 	var/known = vessel.short_knows(target)
 	scan_finished = known
 	scan_started_at = known ? (world.time - OVERMAP_SENSOR_SCAN_TIME) : world.time
 	var/scan_name = known ? target.get_overmap_display_name() : OVERMAP_UNKNOWN_NAME
 	if(!known)
 		vessel.add_sensor_journal("Сканирование: [scan_name]", "scan", target.get_overmap_turf(), scan_name)
-	var/obj/overmap/entity/scanned = target
+	var/obj/overmap/entity/scanned = scan_subject(target)
 	if(!known && istype(scanned) && length(collect_scan_turfs(scanned)))
 		scanned.play_being_scanned()
 		if(scanned.has_working_sensor(OVERMAP_SENSOR_KIND_SHORT) || scanned.has_working_sensor(OVERMAP_SENSOR_KIND_LONG))

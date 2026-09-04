@@ -238,6 +238,8 @@
 	for(var/obj/overmap/overmap_object as anything in vessel.sector.objects)
 		if(!overmap_object.shows_overmap_map_signature())
 			continue
+		if(overmap_object.hidden_from_sensors)
+			continue
 		if(overmap_object.visible_without_scanner && !overmap_object.icon)
 			continue
 		if(!vessel.senses_object(overmap_object))
@@ -326,5 +328,5 @@
 	var/saved = add_waypoint(waypoint_name, mark_x, mark_y)
 	vessel.set_autopilot(vessel.flight?.autopilot, mark_x, mark_y)
 	update_nav_marker()
-	to_chat(user, span_notice("В буфер добавлено: [saved] ([mark_x]:[mark_y])."))
+	to_chat(user, span_notice("Точка автопилота обновлена: [saved] ([mark_x]:[mark_y])."))
 	return TRUE

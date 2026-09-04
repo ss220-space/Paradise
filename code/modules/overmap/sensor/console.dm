@@ -14,6 +14,7 @@
 	circuit = /obj/item/circuitboard/sensors
 	var/obj/overmap/entity/vessel
 	var/view_mode = OVERMAP_SENSOR_KIND_LONG
+	var/map_revision = 0
 	var/atom/movable/screen/map_view/camera/cam_screen
 	var/datum/overmap_map_view/map_camera
 	var/turf/last_map_turf

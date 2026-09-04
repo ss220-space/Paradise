@@ -467,16 +467,6 @@
 	id_tag = "s_docking_airlock"
 	},
 /obj/structure/fans/tiny,
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 2;
-	height = 12;
-	id = "ferry_away";
-	name = "centcom bay 2";
-	pixel_x = 11;
-	turf_type = /turf/simulated/floor/plating/airless;
-	width = 5
-	},
 /obj/docking_port/mobile{
 	dir = 8;
 	dwidth = 2;
@@ -698,7 +688,7 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom/central_command_areas/special_operations)
 "amz" = (
-/obj/machinery/computer/camera_advanced/shuttle_docker/vox,
+/obj/machinery/computer/sensors,
 /turf/simulated/floor/mineral/plastitanium/nitrogen/pink,
 /area/shuttle/vox)
 "amK" = (
@@ -802,6 +792,10 @@
 /obj/structure/decorative_structures/metal/statue/sun,
 /turf/simulated/wall/indestructible/fakeglass/brass,
 /area/centcom/vox_station)
+"apV" = (
+/obj/machinery/sensor_array/short_range,
+/turf/simulated/floor/mineral/plastitanium/nitrogen/pink,
+/area/shuttle/vox)
 "aqV" = (
 /obj/effect/turf_decal/siding/yellow{
 	dir = 8
@@ -2205,7 +2199,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/transponder/centcom/directional/north,
+/obj/machinery/transponder/directional/north,
 /turf/simulated/floor/shuttle,
 /area/shuttle/pod_1)
 "beU" = (
@@ -2310,7 +2304,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/transponder/centcom/directional/north,
+/obj/machinery/transponder/directional/north,
 /turf/simulated/floor/shuttle,
 /area/shuttle/pod_2)
 "bhf" = (
@@ -4565,7 +4559,7 @@
 /obj/item/clothing/mask/breath/vox,
 /obj/item/clothing/mask/breath/vox,
 /obj/item/clothing/mask/breath/vox,
-/obj/machinery/transponder/syndicate/station/directional/east,
+/obj/machinery/transponder/directional/east,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/centcom/vox_station)
 "cqv" = (
@@ -4914,7 +4908,7 @@
 /obj/item/flashlight/pen{
 	pixel_x = 9
 	},
-/obj/machinery/transponder/syndicate/station/directional/west,
+/obj/machinery/transponder/directional/west,
 /turf/simulated/floor/mineral/plastitanium/nitrogen/pink,
 /area/shuttle/vox)
 "cyz" = (
@@ -5288,7 +5282,7 @@
 /turf/simulated/floor/carpet,
 /area/centcom/central_command_areas/evacuation)
 "cHW" = (
-/obj/machinery/computer/shuttle/ninja,
+/obj/machinery/computer/helm,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
@@ -6722,7 +6716,7 @@
 	color = "#444444";
 	dir = 8
 	},
-/obj/machinery/transponder/centcom/station/directional/east,
+/obj/machinery/transponder/directional/east,
 /turf/simulated/floor/wood/fancy/light,
 /area/centcom/central_command_areas/special_operations)
 "drw" = (
@@ -8370,16 +8364,6 @@
 	port_direction = 2;
 	roundstart_move = "pod4_home"
 	},
-/obj/docking_port/stationary{
-	dir = 4;
-	dwidth = 2;
-	height = 6;
-	id = "pod4_away";
-	name = "recovery ship bay 4";
-	pixel_x = -5;
-	turf_type = /turf/simulated/floor/plating/airless;
-	width = 5
-	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/shuttle,
 /area/shuttle/pod_4)
@@ -8395,16 +8379,6 @@
 	pixel_x = 11;
 	port_direction = 2;
 	roundstart_move = "pod3_home"
-	},
-/obj/docking_port/stationary{
-	dir = 4;
-	dwidth = 2;
-	height = 6;
-	id = "pod3_away";
-	name = "recovery ship bay 3";
-	pixel_x = -5;
-	turf_type = /turf/simulated/floor/plating/airless;
-	width = 5
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/shuttle,
@@ -8631,7 +8605,7 @@
 	},
 /area/centcom/central_command_areas/evacuation)
 "emk" = (
-/obj/machinery/computer/shuttle/vox,
+/obj/machinery/computer/helm,
 /turf/simulated/floor/mineral/plastitanium/nitrogen/pink,
 /area/shuttle/vox)
 "emw" = (
@@ -10828,7 +10802,7 @@
 /area/centcom/central_command_areas/special_operations)
 "foc" = (
 /obj/machinery/light/directional/south,
-/obj/item/flag/species/vox,
+/obj/machinery/sensor_array/long_range,
 /turf/simulated/floor/mineral/plastitanium/nitrogen/pink,
 /area/shuttle/vox)
 "fom" = (
@@ -13094,15 +13068,6 @@
 	port_direction = 8;
 	width = 29
 	},
-/obj/docking_port/stationary{
-	dir = 4;
-	dwidth = 11;
-	height = 18;
-	id = "emergency_away";
-	name = "emergency centcom";
-	pixel_x = -5;
-	width = 29
-	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -14071,7 +14036,7 @@
 /obj/machinery/light/spot{
 	dir = 8
 	},
-/obj/machinery/transponder/syndicate/station/directional/west,
+/obj/machinery/transponder/directional/west,
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-cherry"
 	},
@@ -14862,6 +14827,10 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/vox)
+"hgC" = (
+/obj/machinery/overmap_intercom/directional/south,
+/turf/simulated/floor/wood,
+/area/centcom/trader_station/sol)
 "hgH" = (
 /obj/effect/turf_decal/delivery/white,
 /obj/machinery/door/airlock/external/docking/shuttle/support{
@@ -16064,6 +16033,7 @@
 /area/centcom/central_command_areas/special_operations)
 "hOf" = (
 /obj/machinery/sensor_array/short_range,
+/obj/machinery/overmap_intercom/directional/south,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
@@ -16700,7 +16670,7 @@
 /turf/simulated/floor/plating,
 /area/centcom/central_command_areas/zone/two)
 "iil" = (
-/obj/machinery/transponder/centcom/station/directional/east,
+/obj/machinery/transponder/directional/east,
 /turf/simulated/floor/wood,
 /area/centcom/trader_station/sol)
 "iiB" = (
@@ -18327,7 +18297,7 @@
 /obj/machinery/light/spot{
 	dir = 1
 	},
-/obj/machinery/transponder/centcom/directional/north,
+/obj/machinery/transponder/directional/north,
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-cherry"
 	},
@@ -21640,16 +21610,6 @@
 	port_direction = 2;
 	roundstart_move = "pod2_home"
 	},
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 2;
-	height = 6;
-	id = "pod2_away";
-	name = "recovery ship bay 2";
-	pixel_x = 11;
-	turf_type = /turf/simulated/floor/plating/airless;
-	width = 5
-	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/shuttle,
 /area/shuttle/pod_2)
@@ -24646,6 +24606,7 @@
 /area/centcom/syndicate_base/elite_squad)
 "lzD" = (
 /obj/machinery/light/spot,
+/obj/machinery/overmap_intercom/directional/south,
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-cherry"
 	},
@@ -24971,7 +24932,7 @@
 	dir = 1
 	},
 /obj/machinery/overmap_intercom,
-/obj/machinery/transponder/centcom/directional/north,
+/obj/machinery/transponder/directional/north,
 /turf/simulated/floor/shuttle,
 /area/shuttle/pod_3)
 "lGu" = (
@@ -25781,7 +25742,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/obj/machinery/transponder/centcom/directional/south,
+/obj/machinery/transponder/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -29494,7 +29455,7 @@
 	},
 /area/centcom/central_command_areas/supply)
 "nBC" = (
-/obj/machinery/transponder/syndicate/station/directional/east,
+/obj/machinery/transponder/directional/east,
 /turf/simulated/floor/indestructible{
 	icon_state = "floorgrime"
 	},
@@ -30477,7 +30438,7 @@
 	},
 /area/centcom/syndicate_base)
 "nVx" = (
-/obj/machinery/transponder/centcom/directional/north,
+/obj/machinery/transponder/directional/north,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "dark"
@@ -31557,10 +31518,10 @@
 	},
 /area/centcom/central_command_areas/zone/three)
 "otE" = (
-/obj/machinery/computer/shuttle/trade/sol,
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 4
 	},
+/obj/machinery/computer/helm,
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/trade/sol)
 "oua" = (
@@ -33532,7 +33493,7 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom/central_command_areas/zone/two)
 "psd" = (
-/obj/machinery/computer/camera_advanced/shuttle_docker/ninja,
+/obj/machinery/computer/sensors,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor13"
 	},
@@ -34023,7 +33984,7 @@
 /turf/simulated/floor/plating,
 /area/centcom/syndicate_base/control)
 "pBP" = (
-/obj/machinery/transponder/centcom/directional/east,
+/obj/machinery/transponder/directional/east,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -34438,7 +34399,7 @@
 	},
 /area/centcom/ninja/outpost)
 "pOx" = (
-/obj/machinery/transponder/syndicate/station/directional/south,
+/obj/machinery/transponder/directional/south,
 /obj/machinery/sensor_array/long_range,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor13"
@@ -36685,6 +36646,13 @@
 /obj/structure/flora/grass/jungle,
 /turf/simulated/floor/indestructible/grass,
 /area/centcom/syndicate_base/outside)
+"qKR" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/machinery/overmap_intercom/directional/south,
+/turf/simulated/floor/shuttle,
+/area/shuttle/transport)
 "qLe" = (
 /obj/machinery/light/spot{
 	dir = 8
@@ -37615,11 +37583,8 @@
 	},
 /area/centcom/central_command_areas/prison)
 "rft" = (
-/obj/item/paper_bin,
-/obj/item/pen/fancy,
-/obj/item/pen/fancy,
 /obj/effect/turf_decal/siding/wood/corner,
-/obj/structure/table/wood/fancy/orange,
+/obj/machinery/computer/sensors,
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/trade/sol)
 "rfE" = (
@@ -41118,6 +41083,7 @@
 	height = 18;
 	id = "emergency_syndicate";
 	name = "404 Not Found";
+	overmap_dock_label = "Зона реквизиции";
 	turf_type = /turf/simulated/floor/indestructible/plating;
 	width = 29
 	},
@@ -44515,7 +44481,7 @@
 /area/centcom/syndicate_base)
 "ugF" = (
 /obj/structure/chair/comfy/shuttle/dark,
-/obj/machinery/transponder/syndicate/station/directional/west,
+/obj/machinery/transponder/directional/west,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -44685,7 +44651,7 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/centcom/trader_station/sol)
 "ulh" = (
-/obj/machinery/transponder/centcom/directional/north,
+/obj/machinery/transponder/directional/north,
 /turf/simulated/floor/shuttle,
 /area/shuttle/supply)
 "ulz" = (
@@ -44787,6 +44753,13 @@
 	icon_state = "darkyellow"
 	},
 /area/shuttle/escape)
+"umG" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/machinery/transponder/directional/north,
+/turf/simulated/floor/shuttle,
+/area/shuttle/transport)
 "umN" = (
 /obj/mecha/combat/marauder/mauler/loaded,
 /obj/effect/turf_decal/delivery/white/hollow,
@@ -44905,7 +44878,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/centcom/syndicate_base/elite_squad)
 "upt" = (
-/obj/machinery/transponder/centcom/directional/west,
+/obj/machinery/transponder/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "Dark"
 	},
@@ -46752,7 +46725,7 @@
 /area/centcom/central_command_areas/bridge)
 "vfg" = (
 /obj/structure/chair/comfy/shuttle/dark,
-/obj/machinery/transponder/syndicate/station/directional/west,
+/obj/machinery/transponder/directional/west,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -47203,7 +47176,7 @@
 /obj/item/clothing/gloves/color/yellow,
 /obj/item/multitool,
 /obj/item/storage/toolbox/mechanical,
-/obj/machinery/transponder/centcom/directional/west,
+/obj/machinery/transponder/directional/west,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -49102,7 +49075,7 @@
 	dir = 1
 	},
 /obj/machinery/overmap_intercom,
-/obj/machinery/transponder/centcom/directional/north,
+/obj/machinery/transponder/directional/north,
 /turf/simulated/floor/shuttle,
 /area/shuttle/pod_4)
 "wmP" = (
@@ -49959,16 +49932,6 @@
 	port_direction = 2;
 	roundstart_move = "pod1_home"
 	},
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 2;
-	height = 6;
-	id = "pod1_away";
-	name = "recovery ship bay 1";
-	pixel_x = 11;
-	turf_type = /turf/simulated/floor/plating/airless;
-	width = 5
-	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/shuttle,
 /area/shuttle/pod_1)
@@ -50625,7 +50588,7 @@
 "xaF" = (
 /obj/structure/table,
 /obj/item/coin/antagtoken/syndicate,
-/obj/machinery/transponder/syndicate/station/directional/west,
+/obj/machinery/transponder/directional/west,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "plastitanium_red"
@@ -51625,28 +51588,6 @@
 	req_access = list(109)
 	},
 /obj/structure/fans/tiny,
-/obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 2;
-	height = 11;
-	id = "specops_away";
-	name = "centcom bay 3";
-	pixel_y = 11;
-	top_left_corner = 8;
-	top_right_corner = 1;
-	turf_type = /turf/simulated/floor/plating/airless;
-	width = 5
-	},
-/obj/docking_port/mobile{
-	dir = 2;
-	dwidth = 2;
-	height = 11;
-	id = "specops";
-	name = "ert shuttle";
-	pixel_y = -5;
-	roundstart_move = "specops_away";
-	width = 5
-	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/specops)
 "xuT" = (
@@ -60887,7 +60828,7 @@ lwR
 dxv
 dxv
 aPg
-vmI
+apV
 ksT
 foc
 drw
@@ -88978,9 +88919,9 @@ kpi
 tXE
 nAN
 dcl
-kTa
+umG
 lGL
-kTa
+qKR
 dcl
 nAN
 nAN
@@ -105497,7 +105438,7 @@ fCq
 fCq
 fCq
 jrL
-jrL
+hgC
 fCq
 dRc
 dRc

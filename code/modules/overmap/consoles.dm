@@ -4,8 +4,45 @@
 	var/datum/overmap_programmed_profile/profile = GLOB.overmap_programmed_profiles[shuttleId]
 	return !!profile?.has_visible_legs()
 
+/obj/machinery/computer/shuttle/proc/uses_overmap_request_ui()
+	if(istype(src, /obj/machinery/computer/shuttle/ninja))
+		return FALSE
+	if(uses_overmap_programmed_ui())
+		return FALSE
+	if(admin_controlled)
+		return FALSE
+	if(!shuttleId || !possible_destinations || !SSshuttle)
+		return FALSE
+	if(overmap_request_console)
+		return TRUE
+	var/obj/docking_port/mobile/shuttle = SSshuttle.getShuttle(shuttleId)
+	if(!shuttle || !SSovermap)
+		return FALSE
+	var/obj/overmap/entity/console_host = SSovermap.resolve_vessel(src)
+	var/obj/overmap/entity/craft = SSovermap.shuttle_vessels[shuttle]
+	if(!console_host || !craft)
+		return FALSE
+	return console_host != craft
+
+/obj/machinery/computer/shuttle/proc/uses_overmap_remote_ui()
+	return uses_overmap_programmed_ui() || uses_overmap_request_ui()
+
+/obj/machinery/computer/shuttle/proc/request_call_dock_id()
+	var/list/ids = params2list(possible_destinations)
+	if(!length(ids))
+		return null
+	var/obj/overmap/entity/vessel = shuttle_vessel()
+	var/obj/overmap/entity/here_host = SSovermap?.resolve_vessel(src)
+	for(var/dock_id in ids)
+		var/obj/docking_port/stationary/pad = SSshuttle.getDock(dock_id)
+		if(!pad || istype(pad, /obj/docking_port/stationary/transit))
+			continue
+		if(here_host && SSovermap.host_for_pad(pad, vessel?.shuttle) == here_host)
+			return dock_id
+	return ids[1]
+
 /obj/machinery/computer/shuttle/proc/setup_programmed_overmap_console()
-	if(!uses_overmap_programmed_ui())
+	if(!uses_overmap_remote_ui())
 		return
 	GLOB.overmap_request_consoles |= src
 	RegisterSignal(SSdcs, COMSIG_GLOB_OVERMAP_VESSEL_REGISTERED, PROC_REF(on_overmap_vessel_registered), override = TRUE)
@@ -117,6 +154,10 @@
 	data["map_tiles_y"] = OVERMAP_VIEW_HEIGHT
 	data["map_px_w"] = OVERMAP_CONSOLE_MAP_PX_W
 	data["map_px_h"] = OVERMAP_CONSOLE_MAP_PX_H
+	data["request_only"] = uses_overmap_request_ui()
+	var/recall_id = request_call_dock_id()
+	data["recall_id"] = recall_id
+	data["recall_here"] = recall_id && vessel.programmed_current_pad() == recall_id && vessel.status == OVERMAP_STATUS_DOCKED
 	return data
 
 /obj/machinery/computer/shuttle/proc/overmap_request_ui_act(action, list/params)
@@ -133,6 +174,8 @@
 	if(vessel.is_programmed_emagged())
 		to_chat(usr, span_warning("Нет ответа от объекта."))
 		return TRUE
+	if(!can_call_shuttle(usr, "move"))
+		return TRUE
 	switch(action)
 		if("select_programmed")
 			vessel.programmed_selected_dock = params["id"]
@@ -142,10 +185,16 @@
 			if(result != TRUE)
 				to_chat(usr, span_warning("[result]"))
 			. = TRUE
+		if("recall_here")
+			var/dock_id = request_call_dock_id()
+			var/result = uses_overmap_request_ui() ? vessel.start_request_route(dock_id) : vessel.start_programmed_route(dock_id, FALSE, FALSE, params2list(possible_destinations))
+			if(result != TRUE)
+				to_chat(usr, span_warning("[result]"))
+			. = TRUE
 
 /obj/machinery/computer/shuttle/process()
 	. = ..()
-	if(!uses_overmap_programmed_ui())
+	if(!uses_overmap_remote_ui())
 		return
 	if(shuttle_vessel())
 		update_overmap_request_map()
@@ -370,3 +419,17 @@
 		else
 			update_map_view()
 		SStgui.update_uis(src)
+
+/proc/overmap_ninja_vessel(mob/user)
+	if(!ishuman(user))
+		return null
+	var/mob/living/carbon/human/human = user
+	var/obj/item/clothing/suit/space/space_ninja/suit = human.get_item_by_slot(ITEM_SLOT_CLOTH_OUTER)
+	if(!istype(suit))
+		return null
+	return suit.linked_overmap_vessel()
+
+/proc/overmap_ninja_can_remote(mob/user, obj/overmap/entity/vessel)
+	if(!user || !vessel)
+		return FALSE
+	return overmap_ninja_vessel(user) == vessel

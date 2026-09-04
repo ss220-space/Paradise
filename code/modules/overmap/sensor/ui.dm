@@ -116,6 +116,7 @@
 			data["scan_progress"] = clamp((world.time - scan_started_at) / OVERMAP_SENSOR_SCAN_TIME, 0, 1)
 	data["selected"] = selected_uid
 	data["map_zoom"] = map_zoom
+	data["map_revision"] = map_revision
 	data["map_jammed"] = !!vessel?.is_overmap_jammed()
 	data["journal"] = vessel?.sensor_journal || list()
 	var/list/alerts = list()
@@ -150,7 +151,7 @@
 				"speed" = round(OVERMAP_DISPLAY_SPEED(overmap_object.get_speed()), 0.01),
 				"heading" = overmap_object.get_heading_angle(),
 				"nested" = !isturf(overmap_object.loc),
-				"distress" = istype(scan_contact) && scan_contact.transponder?.distress,
+				"distress" = istype(scan_contact) && scan_contact.identity_distress,
 				"can_scan" = short_mode && vessel.can_short_scan(overmap_object),
 			))
 	data["contacts"] = contacts
@@ -187,7 +188,8 @@
 			scanning_target = null
 			scan_finished = FALSE
 			scan_info = null
-			update_map_view()
+			map_revision++
+			update_map_view(TRUE)
 			. = TRUE
 		if("toggle")
 			if(view_mode == OVERMAP_SENSOR_KIND_LONG)
@@ -235,6 +237,7 @@
 			scan_error = null
 			scan_info = null
 			scan_finished = FALSE
+			map_revision++
 			scan_started_at = 0
 			scan_min_x = 0
 			scan_min_y = 0

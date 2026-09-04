@@ -139,6 +139,10 @@
 	name = "Lavaland mining station"
 	desc = "Шахтерский аванпост на Лаваленде."
 
+/obj/overmap/entity/planet_station/lavaland/Initialize(mapload)
+	. = ..()
+	apply_overmap_identity("Шахтерский аванпост", COLOR_WHITE, "station", FALSE, TRUE, null, TRUE)
+
 /obj/overmap/entity/planet_station/lavaland/get_ru_names()
 	return alist(
 		NOMINATIVE = "шахтёрская станция Лаваленда",
@@ -154,9 +158,9 @@
 		return TRUE
 	if(spot.density)
 		return TRUE
-	if(islava(spot) || ischasm(spot) || istype(spot, /turf/simulated/openspace))
+	if(islava(spot) || ischasm(spot) || isopenspaceturf(spot))
 		return TRUE
-	if(istype(spot, /turf/simulated/mineral))
+	if(ismineralturf(spot))
 		return TRUE
 	if(locate(/obj/structure/spawner/lavaland) in spot)
 		return TRUE

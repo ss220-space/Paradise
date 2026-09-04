@@ -91,6 +91,7 @@ type OvermapHelmData = {
   thrust: number;
   mass: number;
   map_zoom: number;
+  map_revision?: number;
   eta: string;
   is_shuttle: BooleanLike;
   is_pod?: BooleanLike;
@@ -158,6 +159,7 @@ export const OvermapHelm = () => {
     mass,
     inspecting,
     map_zoom,
+    map_revision = 0,
     eta,
     is_shuttle,
     is_pod,
@@ -280,6 +282,7 @@ export const OvermapHelm = () => {
                 </NoticeBox>
               ) : (
                 <ByondUi
+                  key={`${mapRef}-${map_revision}-${tab}`}
                   height="100%"
                   width="100%"
                   params={{
@@ -465,11 +468,7 @@ export const OvermapHelm = () => {
                     key={waypoint.name}
                     tag="метка"
                     title={waypoint.name}
-                    meta={
-                      <>
-                        <OvermapCoord x={waypoint.x} y={waypoint.y} />
-                      </>
-                    }
+                    meta={<OvermapCoord x={waypoint.x} y={waypoint.y} />}
                   >
                     <Button
                       onClick={() =>

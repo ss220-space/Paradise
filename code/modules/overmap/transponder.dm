@@ -1,12 +1,11 @@
 GLOBAL_LIST_INIT(overmap_transponder_colors, list(
 	"Белый" = COLOR_WHITE,
 	"Красный" = COLOR_RED,
-	"Жёлтый" = COLOR_YELLOW,
-	"Зелёный" = COLOR_GREEN,
-	"Голубой" = COLOR_CYAN,
-	"Синий" = COLOR_BLUE,
+	"Жёлтый" = COLOR_VERY_SOFT_YELLOW,
+	"Зелёный" = COLOR_ETHIOPIA_GREEN,
+	"Лаймовый" = COLOR_JADE,
+	"Синий" = COLOR_COMMAND_BLUE,
 	"Фиолетовый" = COLOR_PURPLE,
-	"Оранжевый" = COLOR_ENGINEERING_ORANGE,
 	"Серый" = COLOR_SILVER,
 ))
 
@@ -42,6 +41,8 @@ GLOBAL_LIST_INIT(overmap_transponder_colors, list(
 			return "Центком"
 		if(OVERMAP_IFF_SYNDICATE)
 			return "Синдикат"
+		if(OVERMAP_IFF_HIJACK)
+			return "sys.iff_signal = %ERR#NULL%"
 	return id
 
 /obj/machinery/transponder
@@ -64,9 +65,8 @@ GLOBAL_LIST_INIT(overmap_transponder_colors, list(
 	var/distress = FALSE
 	var/lock_icon = TRUE
 	var/identity_locked = FALSE
+	var/masking = FALSE
 	var/list/datum/overmap_iff_channel/iff_channels
-
-	var/list/preset_iff_ids
 
 /obj/machinery/transponder/get_ru_names()
 	return alist(
@@ -131,8 +131,6 @@ GLOBAL_LIST_INIT(overmap_transponder_colors, list(
 		return
 	iff_channels = list()
 	iff_channels += new /datum/overmap_iff_channel(OVERMAP_IFF_GLOBAL, overmap_iff_label_for_id(OVERMAP_IFF_GLOBAL), TRUE, TRUE, broadcasting)
-	for(var/id in preset_iff_ids)
-		iff_channels += new /datum/overmap_iff_channel(id, overmap_iff_label_for_id(id), TRUE, TRUE, TRUE)
 
 /obj/machinery/transponder/proc/find_iff_channel(id)
 	ensure_iff_channels()
@@ -153,11 +151,44 @@ GLOBAL_LIST_INIT(overmap_transponder_colors, list(
 	if(vessel && vessel != resolved)
 		vessel.unregister_transponder(src)
 	vessel = resolved
-	if(identity_locked && !broadcast_name)
-		broadcast_name = station_name()
-	if(!broadcast_name && resolved.name && resolved.name != OVERMAP_UNKNOWN_NAME)
-		broadcast_name = resolved.name
+	adopt_vessel_identity()
 	resolved.register_transponder(src)
+
+/obj/machinery/transponder/proc/adopt_vessel_identity()
+	if(!vessel)
+		return
+	broadcast_name = vessel.identity_name
+	broadcast_color = vessel.identity_color || COLOR_WHITE
+	icon_preset = vessel.identity_icon || icon_preset
+	distress = vessel.identity_distress
+	broadcasting = vessel.identity_broadcasting
+	identity_locked = vessel.identity_locked
+	lock_icon = vessel.identity_locked
+	QDEL_LIST(iff_channels)
+	iff_channels = list()
+	if(!length(vessel.virtual_iff_channels))
+		vessel.rebuild_identity_iff()
+	for(var/datum/overmap_iff_channel/channel as anything in vessel.virtual_iff_channels)
+		iff_channels += new /datum/overmap_iff_channel(channel.id, channel.label, channel.permanent, channel.receive, channel.transmit)
+	if(distress)
+		use_power = ACTIVE_POWER_USE
+	else
+		use_power = IDLE_POWER_USE
+
+/obj/machinery/transponder/proc/push_to_vessel()
+	if(!vessel)
+		return
+	vessel.identity_name = broadcast_name
+	vessel.identity_color = broadcast_color
+	vessel.identity_icon = icon_preset
+	vessel.identity_distress = distress
+	vessel.identity_broadcasting = broadcasting
+	vessel.identity_locked = identity_locked
+	vessel.capture_iff_from_transponder(src)
+	vessel.sync_transponder()
+	if(istype(vessel, /obj/overmap/entity/taipan_site))
+		var/obj/overmap/entity/taipan_site/taipan = vessel
+		taipan.sync_mask()
 
 /obj/machinery/transponder/proc/is_transmitting()
 	if(distress)
@@ -172,7 +203,7 @@ GLOBAL_LIST_INIT(overmap_transponder_colors, list(
 		use_power = ACTIVE_POWER_USE
 	else
 		use_power = IDLE_POWER_USE
-	vessel?.sync_transponder()
+	push_to_vessel()
 	if(vessel)
 		vessel.announce_sensor_event("Сигнал бедствия [distress ? "включён" : "выключен"]: [vessel.get_overmap_display_name()]", "distress")
 
@@ -202,6 +233,18 @@ GLOBAL_LIST_INIT(overmap_transponder_colors, list(
 	user.visible_message(span_warning("[user] [distress ? "активирует" : "глушит"] аварийный маяк на [declent_ru(PREPOSITIONAL)]."))
 	return CLICK_ACTION_SUCCESS
 
+/obj/machinery/transponder/emag_act(mob/user)
+	if(find_iff_channel(OVERMAP_IFF_HIJACK))
+		return FALSE
+	ensure_iff_channels()
+	emagged = TRUE
+	iff_channels += new /datum/overmap_iff_channel(OVERMAP_IFF_HIJACK, overmap_iff_label_for_id(OVERMAP_IFF_HIJACK), TRUE, TRUE, TRUE)
+	push_to_vessel()
+	if(user)
+		to_chat(user, span_notice("Прошивка транспондера сбоит. Появился канал 'sys.iff_signal = %ERR#NULL%'."))
+	user?.visible_message(span_warning("[user] искрит электронику [declent_ru(GENITIVE)]."))
+	return TRUE
+
 /obj/machinery/transponder/ui_interact(mob/user, datum/tgui/ui = null)
 	if(stat & (NOPOWER|BROKEN))
 		return
@@ -209,6 +252,15 @@ GLOBAL_LIST_INIT(overmap_transponder_colors, list(
 	if(!ui)
 		ui = new(user, src, "OvermapTransponder", name)
 		ui.open()
+
+/obj/machinery/transponder/ui_status(mob/user, datum/ui_state/state)
+	if(stat & (NOPOWER|BROKEN))
+		return UI_CLOSE
+	if(user.incapacitated())
+		return UI_CLOSE
+	if(!user.Adjacent(src) && !user.has_unlimited_silicon_privilege)
+		return UI_CLOSE
+	return UI_INTERACTIVE
 
 /obj/machinery/transponder/ui_data(mob/user)
 	var/list/data = list()
@@ -254,7 +306,7 @@ GLOBAL_LIST_INIT(overmap_transponder_colors, list(
 			if(!new_name)
 				return TRUE
 			broadcast_name = new_name
-			vessel?.sync_transponder()
+			push_to_vessel()
 			. = TRUE
 		if("set_color")
 			var/new_color = GLOB.overmap_transponder_colors[params["name"]]
@@ -266,7 +318,7 @@ GLOBAL_LIST_INIT(overmap_transponder_colors, list(
 			if(!new_color)
 				return TRUE
 			broadcast_color = new_color
-			vessel?.sync_transponder()
+			push_to_vessel()
 			. = TRUE
 		if("toggle_broadcast")
 			var/datum/overmap_iff_channel/global_ch = find_iff_channel(OVERMAP_IFF_GLOBAL)
@@ -275,7 +327,7 @@ GLOBAL_LIST_INIT(overmap_transponder_colors, list(
 				broadcasting = global_ch.transmit
 			else
 				broadcasting = !broadcasting
-			vessel?.sync_transponder()
+			push_to_vessel()
 			if(vessel)
 				vessel.announce_sensor_event("Транспондер [broadcasting ? "включён" : "выключен"]: [vessel.get_overmap_display_name()]", "iff")
 			. = TRUE
@@ -288,7 +340,7 @@ GLOBAL_LIST_INIT(overmap_transponder_colors, list(
 			else
 				channel.transmit = !channel.transmit
 			sync_global_broadcast()
-			vessel?.sync_transponder()
+			push_to_vessel()
 			. = TRUE
 		if("add_key")
 			var/id = overmap_iff_id_for_key(params["key"])
@@ -300,7 +352,7 @@ GLOBAL_LIST_INIT(overmap_transponder_colors, list(
 				return TRUE
 			iff_channels += new /datum/overmap_iff_channel(id, overmap_iff_label_for_id(id), FALSE, TRUE, FALSE)
 			to_chat(usr, span_notice("Ключ принят: [overmap_iff_label_for_id(id)]."))
-			vessel?.sync_transponder()
+			push_to_vessel()
 			. = TRUE
 		if("remove_channel")
 			var/datum/overmap_iff_channel/channel = find_iff_channel(params["id"])
@@ -308,7 +360,7 @@ GLOBAL_LIST_INIT(overmap_transponder_colors, list(
 				return TRUE
 			iff_channels -= channel
 			qdel(channel)
-			vessel?.sync_transponder()
+			push_to_vessel()
 			. = TRUE
 		if("toggle_distress")
 			set_distress(!distress)
@@ -317,95 +369,5 @@ GLOBAL_LIST_INIT(overmap_transponder_colors, list(
 			link_vessel()
 			. = TRUE
 
-/obj/machinery/transponder/station
-	name = "station transponder"
-	desc = "Станционный маяк идентификации."
-	broadcast_color = COLOR_WHITE
-	icon_preset = "station"
-	lock_icon = TRUE
-	identity_locked = TRUE
-
-/obj/machinery/transponder/station/Initialize(mapload)
-	broadcast_name = station_name()
-	. = ..()
-	if(vessel)
-		vessel.sync_transponder()
-
-/obj/machinery/transponder/distress
-	distress = TRUE
-
-/obj/machinery/transponder/station/distress
-	distress = TRUE
-
-/obj/machinery/transponder/lavaland
-	name = "Lavaland transponder"
-	desc = "Маяк идентификации шахтёрской станции на Лаваленде."
-	broadcast_name = "Лаваленд"
-	broadcast_color = COLOR_WHITE
-	icon_preset = "station"
-	lock_icon = TRUE
-	identity_locked = TRUE
-
-/obj/machinery/transponder/lavaland/link_vessel()
-	if(SSovermap?.lavaland_entity)
-		if(vessel && vessel != SSovermap.lavaland_entity)
-			vessel.unregister_transponder(src)
-		vessel = SSovermap.lavaland_entity
-		if(!broadcast_name)
-			broadcast_name = "Шахтерский аванпост"
-		SSovermap.lavaland_entity.register_transponder(src)
-		return
-	return ..()
-
-/obj/machinery/transponder/lavaland/Initialize(mapload)
-	if(!broadcast_name)
-		broadcast_name = "Шахтерский аванпост"
-	. = ..()
-	if(vessel)
-		vessel.sync_transponder()
-
-/obj/machinery/transponder/centcom
-	name = "CentCom transponder"
-	desc = "Маяк идентификации Центрального командования. Ключ шифрования центкомма уже прошит."
-	broadcast_color = COLOR_COMMAND_BLUE
-	preset_iff_ids = list(OVERMAP_IFF_CENTCOM)
-
-/obj/machinery/transponder/centcom/station
-	name = "CentCom station overmap transponder"
-	desc = "Станционный маяк Центрального командования."
-	broadcast_name = "Центральное командование"
-	icon_preset = "station"
-	lock_icon = TRUE
-	identity_locked = TRUE
-
-/obj/machinery/transponder/syndicate
-	name = "Syndicate overmap transponder"
-	desc = "Маяк идентификации Синдиката. Ключ шифрования Синдиката уже прошит."
-	broadcast_color = COLOR_RED
-	broadcasting = FALSE
-	preset_iff_ids = list(OVERMAP_IFF_SYNDICATE)
-
-/obj/machinery/transponder/syndicate/station
-	name = "Syndicate station overmap transponder"
-	desc = "Станционный маяк Синдиката."
-	broadcast_name = "База синдиката"
-	icon_preset = "station"
-	lock_icon = TRUE
-	identity_locked = TRUE
-
-/obj/machinery/transponder/universal
-	name = "universal overmap transponder"
-	desc = "Универсальный маяк идентификации. Прошиты ключи и Центкома, и Синдиката."
-	broadcast_color = COLOR_PURPLE
-	preset_iff_ids = list(OVERMAP_IFF_CENTCOM, OVERMAP_IFF_SYNDICATE)
-
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/transponder, 26, 26)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/transponder/distress, 26, 26)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/transponder/station, 26, 26)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/transponder/station/distress, 26, 26)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/transponder/lavaland, 26, 26)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/transponder/centcom, 26, 26)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/transponder/centcom/station, 26, 26)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/transponder/syndicate, 26, 26)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/transponder/syndicate/station, 26, 26)
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/transponder/universal, 26, 26)
+

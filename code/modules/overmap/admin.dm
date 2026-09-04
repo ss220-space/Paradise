@@ -358,6 +358,12 @@
 				return TRUE
 			open_admin_helm(token, user)
 			return TRUE
+		if("jump_self")
+			var/obj/overmap/token = resolve_selected(params["uid"])
+			if(!token)
+				return TRUE
+			admin_jump_to_token(token, user)
+			return TRUE
 		if("sensors")
 			var/obj/overmap/entity/vessel = resolve_selected(params["uid"])
 			if(!istype(vessel))
@@ -405,7 +411,7 @@
 			else
 				channel.transmit = !channel.transmit
 			beacon.sync_global_broadcast()
-			beacon.vessel?.sync_transponder()
+			beacon.push_to_vessel()
 			return TRUE
 		if("iff_add")
 			var/obj/machinery/transponder/beacon = locateUID(params["uid"])
@@ -415,7 +421,7 @@
 			if(!id || beacon.find_iff_channel(id))
 				return TRUE
 			beacon.iff_channels += new /datum/overmap_iff_channel(id, overmap_iff_label_for_id(id), FALSE, TRUE, FALSE)
-			beacon.vessel?.sync_transponder()
+			beacon.push_to_vessel()
 			return TRUE
 		if("iff_remove")
 			var/obj/machinery/transponder/beacon = locateUID(params["uid"])
@@ -426,7 +432,7 @@
 				return TRUE
 			beacon.iff_channels -= channel
 			qdel(channel)
-			beacon.vessel?.sync_transponder()
+			beacon.push_to_vessel()
 			return TRUE
 		if("iff_broadcast")
 			var/obj/machinery/transponder/beacon = locateUID(params["uid"])
@@ -436,7 +442,7 @@
 			if(global_ch)
 				global_ch.transmit = !global_ch.transmit
 			beacon.sync_global_broadcast()
-			beacon.vessel?.sync_transponder()
+			beacon.push_to_vessel()
 			return TRUE
 		if("comms_send")
 			var/datum/overmap_sector/sector = SSovermap?.sectors[params["sector"]]
@@ -667,8 +673,9 @@
 				to_chat(user, span_warning("Не удалось разместить объект."), confidential = TRUE)
 				return
 			var/datum/overmap_space_region/cell = site.cells[1]
+			var/turf/load_at
 			if(template)
-				var/turf/load_at = cell.center_turf()
+				load_at = cell.center_turf()
 				if(!template.fits_in_map_bounds(load_at, centered = TRUE) || !cell.contains_space_turf(load_at))
 					qdel(site)
 					to_chat(user, span_warning("Карта не влезает в зарезервированный космос."), confidential = TRUE)
@@ -681,7 +688,7 @@
 			selected = ruin_token
 			apply_spawn_look(ruin_token, params)
 			if(kind == "shuttle")
-				bind_spawned_shuttle(site, ruin_token, sector, spot, user)
+				bind_spawned_shuttle(site, ruin_token, sector, spot, user, template, load_at)
 				if(selected)
 					apply_spawn_look(selected, params)
 			log_admin("[key_name(user)] spawned overmap [kind] ([template?.name || "empty"]) at [sector.id] [coord_x]:[coord_y].")
@@ -697,30 +704,134 @@
 		return GLOB.shuttle_templates[template_id]
 	return GLOB.map_templates[template_id] || GLOB.shuttle_templates[template_id]
 
-/datum/overmap_admin_panel/proc/bind_spawned_shuttle(datum/overmap_feature/ruin/site, obj/overmap/entity/feature/ruin/host, datum/overmap_sector/sector, turf/spot, mob/user)
-	var/obj/docking_port/mobile/port
+/datum/overmap_admin_panel/proc/bind_spawned_shuttle(datum/overmap_feature/ruin/site, obj/overmap/entity/feature/ruin/host, datum/overmap_sector/sector, turf/spot, mob/user, datum/map_template/template, turf/load_at)
 	var/datum/overmap_space_region/cell = host.landing_region
-	if(cell)
-		for(var/obj/docking_port/mobile/candidate as anything in SSshuttle.mobile)
-			if(QDELETED(candidate))
-				continue
-			if(cell.contains_space_turf(get_turf(candidate)))
-				port = candidate
-				break
+	var/obj/docking_port/mobile/port = find_loaded_mobile_port(cell, template, load_at)
 	if(!port)
-		to_chat(user, span_warning("В карте нет docking port /mobile — оставлен как руина."), confidential = TRUE)
+		port = make_mobile_port_for_loaded_map(cell, template, load_at, user)
+	if(!port)
+		to_chat(user, span_warning("Не удалось найти или создать docking port /mobile - оставлен как руина."), confidential = TRUE)
 		return
+	register_spawned_mobile_port(port)
 	var/obj/overmap/entity/vessel = SSovermap.get_or_register_shuttle(port)
 	if(!vessel)
+		to_chat(user, span_warning("Токен шаттла не создан."), confidential = TRUE)
 		return
+	var/moved = move_spawned_shuttle_to_transit(port, user)
+	if(!moved)
+		to_chat(user, span_warning("Корпус остался в зарезервированной ячейке: гиперпространство недоступно."), confidential = TRUE)
 	if(vessel.docked_to)
 		vessel.release_to_overmap(spot)
 	else
 		sector.add_object(vessel, spot)
 	vessel.status = OVERMAP_STATUS_OVERMAP
 	vessel.halted = FALSE
+	vessel.selected_dock_id = null
 	selected = vessel
-	qdel(site)
+	if(moved)
+		qdel(site)
+
+/datum/overmap_admin_panel/proc/find_loaded_mobile_port(datum/overmap_space_region/cell, datum/map_template/template, turf/load_at)
+	var/list/turfs
+	if(template && load_at)
+		turfs = template.get_affected_turfs(load_at, centered = TRUE)
+	if(!length(turfs) && cell)
+		turfs = block(
+			locate(cell.playable_min_x(), cell.playable_min_y(), cell.space_z),
+			locate(cell.playable_max_x(), cell.playable_max_y(), cell.space_z),
+		)
+	for(var/turf/tile as anything in turfs)
+		var/obj/docking_port/mobile/port = locate() in tile
+		if(!QDELETED(port))
+			return port
+	return null
+
+/datum/overmap_admin_panel/proc/make_mobile_port_for_loaded_map(datum/overmap_space_region/cell, datum/map_template/template, turf/load_at, mob/user)
+	var/list/turfs
+	if(template && load_at)
+		turfs = template.get_affected_turfs(load_at, centered = TRUE)
+	if(!length(turfs) && cell)
+		turfs = block(
+			locate(cell.playable_min_x(), cell.playable_min_y(), cell.space_z),
+			locate(cell.playable_max_x(), cell.playable_max_y(), cell.space_z),
+		)
+	var/turf/anchor
+	var/obj/machinery/door/airlock/external/docking/collar
+	var/list/areas = list()
+	for(var/turf/tile as anything in turfs)
+		if(!tile)
+			continue
+		var/area/place = get_area(tile)
+		if(!place || isspacearea(place) || istype(place, /area/shuttle/transit))
+			continue
+		areas[place] = TRUE
+		var/obj/machinery/door/airlock/external/docking/door = locate() in tile
+		if(door && !door.overmap_is_support)
+			collar = door
+			anchor = tile
+			break
+		if(!anchor)
+			anchor = tile
+	if(!anchor)
+		return null
+	var/obj/docking_port/mobile/port = new /obj/docking_port/mobile{timid = TRUE}(anchor)
+	port.name = "admin shuttle"
+	port.dir = collar ? REVERSE_DIR(collar.dir) : NORTH
+	if(collar)
+		port.overmap_collar = collar
+	port.shuttle_areas = areas.Copy()
+	for(var/area/place as anything in areas)
+		port.areaInstance = place
+		break
+	port.overmap_discover_shuttle_areas()
+	port.overmap_sync_bounds(TRUE)
+	to_chat(user, span_notice("На карте не было /mobile - порт поставлен автоматически."), confidential = TRUE)
+	return port
+
+/datum/overmap_admin_panel/proc/register_spawned_mobile_port(obj/docking_port/mobile/port)
+	if(!port.id)
+		port.id = "admin_shuttle"
+	while(SSshuttle.assoc_mobile[port.id] && SSshuttle.assoc_mobile[port.id] != port)
+		port.id = "[port.id]_[rand(100, 999)]"
+	if(!(port in SSshuttle.mobile))
+		port.timid = FALSE
+		port.register()
+	SSovermap.area_shuttle_cache_ready = FALSE
+
+/datum/overmap_admin_panel/proc/move_spawned_shuttle_to_transit(obj/docking_port/mobile/port, mob/user)
+	if(!port)
+		return FALSE
+	port.overmap_sync_bounds(TRUE)
+	var/obj/docking_port/stationary/transit/pad = SSshuttle.generate_transit_dock(port)
+	if(!pad)
+		return FALSE
+	port.overmap_force_dock = TRUE
+	var/failed = port.dock(pad, force = TRUE, transit = TRUE)
+	port.overmap_force_dock = FALSE
+	if(failed)
+		return FALSE
+	to_chat(user, span_notice("Шаттл выведен в гиперпространство."), confidential = TRUE)
+	return TRUE
+
+/datum/overmap_admin_panel/proc/admin_jump_to_token(obj/overmap/token, mob/user)
+	if(!token || !user)
+		return
+	var/turf/dest
+	var/obj/overmap/entity/vessel = token
+	if(istype(vessel) && vessel.shuttle)
+		dest = get_turf(vessel.shuttle)
+	else if(istype(vessel, /obj/overmap/entity/feature/ruin))
+		var/obj/overmap/entity/feature/ruin/ruin = vessel
+		dest = ruin.landing_region?.center_turf()
+	else if(istype(vessel, /obj/overmap/entity/pod))
+		var/obj/overmap/entity/pod/pod_vessel = vessel
+		dest = get_turf(pod_vessel.pod)
+	if(!dest)
+		dest = token.get_overmap_turf()
+	if(!dest)
+		to_chat(user, span_warning("Некуда телепортироваться."), confidential = TRUE)
+		return
+	user.forceMove(dest)
 
 /datum/click_intercept/overmap_dump
 	var/list/uids

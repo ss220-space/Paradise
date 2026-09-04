@@ -40,6 +40,7 @@
 		new /datum/overmap_iff_channel(OVERMAP_IFF_GLOBAL, overmap_iff_label_for_id(OVERMAP_IFF_GLOBAL), TRUE, FALSE, FALSE),
 		new /datum/overmap_iff_channel(OVERMAP_IFF_CENTCOM, overmap_iff_label_for_id(OVERMAP_IFF_CENTCOM), TRUE, FALSE, TRUE),
 		new /datum/overmap_iff_channel(OVERMAP_IFF_SYNDICATE, overmap_iff_label_for_id(OVERMAP_IFF_SYNDICATE), TRUE, FALSE, TRUE),
+		new /datum/overmap_iff_channel(OVERMAP_IFF_HIJACK, overmap_iff_label_for_id(OVERMAP_IFF_HIJACK), TRUE, FALSE, TRUE),
 	)
 
 /datum/controller/subsystem/overmap/proc/spawn_hyperrelays()
@@ -235,7 +236,7 @@
 		place.parallax_movedir = parallax_dir
 	if(shuttle.areaInstance)
 		shuttle.areaInstance.moving = enabled
-		if(istype(shuttle.areaInstance, /area/shuttle))
+		if(is_area_shuttle(shuttle.areaInstance))
 			var/area/shuttle/home = shuttle.areaInstance
 			home.parallax_movedir = parallax_dir
 	refresh_shuttle_parallax()

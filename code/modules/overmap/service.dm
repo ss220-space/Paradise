@@ -12,10 +12,13 @@
 	overmap_hazard_immune = TRUE
 	var/site_id
 	var/area/area_root
+	identity_icon = "station"
+	identity_locked = TRUE
 
 /obj/overmap/entity/service_site/Initialize(mapload)
 	. = ..()
 	SSovermap?.register_service_site(src)
+	apply_overmap_identity(identity_name || name, identity_color || map_color, identity_icon, identity_distress, identity_broadcasting, identity_iff_ids, identity_locked)
 
 /obj/overmap/entity/service_site/Destroy()
 	SSovermap?.unregister_service_site(src)
@@ -23,55 +26,50 @@
 
 /obj/overmap/entity/service_site/add_overmap_components()
 	AddComponent(/datum/component/overmap_sensors)
-	AddComponent(/datum/component/overmap_dock_host, OVERMAP_DOCK_Z_SERVICE, area_root)
+	AddComponent(/datum/component/overmap_dock_host, OVERMAP_DOCK_Z_SERVICE, area_root, FALSE)
 
 /obj/overmap/entity/service_site/get_overmap_display_name()
-	if(transponder)
-		return transponder.broadcast_name || name
-	return name
-
-/obj/overmap/entity/service_site/proc/setup_faction_beacon(iff_id, global_transmit, token_color)
-	color = token_color
-	map_color = token_color
-	virtual_iff_channels = list(
-		new /datum/overmap_iff_channel(OVERMAP_IFF_GLOBAL, overmap_iff_label_for_id(OVERMAP_IFF_GLOBAL), TRUE, TRUE, global_transmit),
-		new /datum/overmap_iff_channel(iff_id, overmap_iff_label_for_id(iff_id), TRUE, TRUE, TRUE),
-	)
+	return identity_name || name
 
 /obj/overmap/entity/service_site/centcom
 	name = "Центральное командование"
 	site_id = OVERMAP_SITE_CENTCOM
 	area_root = /area/centcom/central_command_areas
 	map_color = COLOR_COMMAND_BLUE
-
-/obj/overmap/entity/service_site/centcom/Initialize(mapload)
-	setup_faction_beacon(OVERMAP_IFF_CENTCOM, TRUE, COLOR_COMMAND_BLUE)
-	return ..()
+	identity_color = COLOR_COMMAND_BLUE
+	identity_iff_ids = list(OVERMAP_IFF_CENTCOM)
 
 /obj/overmap/entity/service_site/ninja
 	name = "Аванпост клана Паука"
 	site_id = OVERMAP_SITE_NINJA
 	area_root = /area/centcom/ninja
-	map_color = "#5c5c5c"
+	map_color = COLOR_JADE
+	identity_color = COLOR_JADE
+	identity_broadcasting = FALSE
+	identity_iff_ids = list(OVERMAP_IFF_SYNDICATE)
 
 /obj/overmap/entity/service_site/syndicate
 	name = "База синдиката"
 	site_id = OVERMAP_SITE_SYNDICATE
 	area_root = /area/centcom/syndicate_base
 	map_color = COLOR_RED
-
-/obj/overmap/entity/service_site/syndicate/Initialize(mapload)
-	setup_faction_beacon(OVERMAP_IFF_SYNDICATE, FALSE, COLOR_RED)
-	return ..()
+	identity_color = COLOR_RED
+	identity_broadcasting = FALSE
+	identity_iff_ids = list(OVERMAP_IFF_SYNDICATE, OVERMAP_IFF_HIJACK)
 
 /obj/overmap/entity/service_site/trader
 	name = "Торговая база"
 	site_id = OVERMAP_SITE_TRADER
 	area_root = /area/centcom/trader_station
-	map_color = "#c4a035"
+	map_color = COLOR_VERY_SOFT_YELLOW
+	identity_color = COLOR_VERY_SOFT_YELLOW
+	identity_iff_ids = list(OVERMAP_IFF_CENTCOM)
 
 /obj/overmap/entity/service_site/vox
 	name = "База воксов-рейдеров"
 	site_id = OVERMAP_SITE_VOX
 	area_root = /area/centcom/vox_station
-	map_color = "#4a7d4a"
+	map_color = COLOR_ETHIOPIA_GREEN
+	identity_color = COLOR_ETHIOPIA_GREEN
+	identity_broadcasting = FALSE
+	identity_iff_ids = list(OVERMAP_IFF_SYNDICATE)
