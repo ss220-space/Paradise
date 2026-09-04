@@ -2570,7 +2570,7 @@ GLOBAL_LIST_INIT(zoom_modes, list(SCALING_METHOD_DISTORT = "Метод ближ�
 
 				if("afk_watch")
 					if(!(toggles2 & PREFTOGGLE_2_AFKWATCH))
-						to_chat(user, span_notice("Ваш персонаж будет автоматические перемещён в криосон после [CONFIG_GET(number/auto_cryo_afk)] минут[declension_ru(CONFIG_GET(number/auto_cryo_afk), "ы", "", "")]. \
+						to_chat(user, span_notice("Ваш персонаж будет автоматические перемещён в криосон после [CONFIG_GET(number/auto_cryo_afk)] минут[DECL_Y(CONFIG_GET(number/auto_cryo_afk))]. \
 								После чего через [CONFIG_GET(number/auto_despawn_afk)] минут[DECL_U_Y(CONFIG_GET(number/auto_despawn_afk))] ваш персонаж будет удалён. Перед перемещением в криосон вы получите уведомление."))
 					else
 						to_chat(user, span_notice("Автоматический переход в криосон выключен."))

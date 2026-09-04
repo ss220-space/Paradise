@@ -81,7 +81,7 @@
 
 		if(source.force > 0 && source.throwforce > 0)
 			melee_hits_str = span_warning("[HITS_TO_CRIT(source.force)] удар[DECL_A_OV(HITS_TO_CRIT(source.force))]")
-			throws_str = span_warning("[HITS_TO_CRIT(source.throwforce)] брос[declension_ru(HITS_TO_CRIT(source.throwforce), "ок", "ка", "ков")]")
+			throws_str = span_warning("[HITS_TO_CRIT(source.throwforce)] брос[DECL_OK_KA_KOV(HITS_TO_CRIT(source.throwforce))]")
 
 			readout += "- Потребуется примерно [melee_hits_str] или [throws_str], чтобы нанести <b>[span_red("летальные ранения")]</b> противнику."
 		else if(source.force > 0)
@@ -89,7 +89,7 @@
 
 			readout += "- Потребуется примерно [melee_hits_str], чтобы нанести <b>[span_red("летальные ранения")]</b> противнику."
 		else if(source.throwforce > 0)
-			throws_str = span_warning("[HITS_TO_CRIT(source.throwforce)] брос[declension_ru(HITS_TO_CRIT(source.throwforce), "ок", "ка", "ков")]")
+			throws_str = span_warning("[HITS_TO_CRIT(source.throwforce)] брос[DECL_OK_KA_KOV(HITS_TO_CRIT(source.throwforce))]")
 
 			readout += "- Потребуется примерно [throws_str], чтобы нанести <b>[span_red("летальные ранения")]</b> противнику."
 		else

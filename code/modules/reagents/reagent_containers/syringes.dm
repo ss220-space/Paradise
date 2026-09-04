@@ -110,7 +110,7 @@
 
 				var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this) // transfer from, transfer to - who cares?
 
-				to_chat(user, span_notice("Вы заполняете [declent_ru(ACCUSATIVE)] <b>[trans]</b> единиц[declension_ru(trans, "ей", "ами", "ами")] вещества. Теперь он содержит <b>[reagents.total_volume]</b> единиц[DECL_U_Y(reagents.total_volume)] вещества."))
+				to_chat(user, span_notice("Вы заполняете [declent_ru(ACCUSATIVE)] <b>[trans]</b> единиц[DECL_YEJ_AMI_AMI(trans)] вещества. Теперь он содержит <b>[reagents.total_volume]</b> единиц[DECL_U_Y(reagents.total_volume)] вещества."))
 			if(reagents.holder_full())
 				mode = !mode
 				update_icon()

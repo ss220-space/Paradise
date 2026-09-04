@@ -118,7 +118,7 @@ GAME_VERB_DESC(/mob/dead, join_as_drone, "Стать дроном", "If there is
 	var/drone_age = 14 // 14 days to play as a drone
 	var/player_age_check = check_client_age(usr.client, drone_age)
 	if(player_age_check && CONFIG_GET(flag/use_age_restriction_for_antags))
-		to_chat(usr, span_warning("Эта роль пока недоступна для вас. Вам нужно подождать ещё [player_age_check] [declension_ru(player_age_check,"день","дня","дней")]."))
+		to_chat(usr, span_warning("Эта роль пока недоступна для вас. Вам нужно подождать ещё [player_age_check] д[DECL_EN_NYA_NEJ(player_age_check)]."))
 		return
 
 	var/pt_req = role_available_in_playtime(client, ROLE_DRONE)

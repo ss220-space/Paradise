@@ -395,7 +395,7 @@
 	)
 
 /obj/item/crusher_trophy/watcher_wing/effect_desc()
-	return "Взрыв метки не позволяет фауне использовать дальние атаки в течении <b>[bonus_value * 0.1]</b> секунд[declension_ru(bonus_value * 0.1, "ы", "", "")]"
+	return "Взрыв метки не позволяет фауне использовать дальние атаки в течении <b>[bonus_value * 0.1]</b> секунд[DECL_Y(bonus_value * 0.1)]"
 
 /obj/item/crusher_trophy/watcher_wing/on_mark_detonation(mob/living/target, mob/living/user)
 	if(ishostile(target))

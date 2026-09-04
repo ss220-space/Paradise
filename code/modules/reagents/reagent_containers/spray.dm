@@ -54,7 +54,7 @@
 			return
 
 		var/trans = target.reagents.trans_to(src, 50) //This is a static amount, otherwise, it'll take forever to fill.
-		to_chat(user, span_notice("Вы заполняете [declent_ru(ACCUSATIVE)] [trans] единиц[declension_ru(trans, "ей", "ами", "ами")] содержимого [target.declent_ru(GENITIVE)]."))
+		to_chat(user, span_notice("Вы заполняете [declent_ru(ACCUSATIVE)] [trans] единиц[DECL_YEJ_AMI_AMI(trans)] содержимого [target.declent_ru(GENITIVE)]."))
 		return
 
 	if(reagents.total_volume < amount_per_transfer_from_this)
@@ -377,7 +377,7 @@
 
 /obj/item/reagent_containers/spray/chemsprayer/attack_self(mob/user)
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
-	to_chat(user, span_notice("Вы настраиваете объём распыления. Теперь вы будете распылять по [amount_per_transfer_from_this] единиц[declension_ru(amount_per_transfer_from_this, "е", "ы", "")] содержимого за раз."))
+	to_chat(user, span_notice("Вы настраиваете объём распыления. Теперь вы будете распылять по [amount_per_transfer_from_this] единиц[DECL_YE_Y___(amount_per_transfer_from_this)] содержимого за раз."))
 
 // Plant-B-Gone
 /obj/item/reagent_containers/spray/plantbgone // -- Skie

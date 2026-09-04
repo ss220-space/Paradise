@@ -320,7 +320,7 @@
 		if(construction_level > SKILL_LEVEL_BASIC)
 			return apply_parts_from_construction_bag(bag, user, count + 1)
 		break
-	balloon_alert(user, "вставлен[declension_ru(count, "а", "о", "о")] [count] детал[declension_ru(count, "ь", "и", "ей")]")
+	balloon_alert(user, "вставлен[declension_ru(count, "а", "о", "о")] [count] детал[DECL___I_YEJ(count)]")
 	return TRUE
 
 #undef STATE_EMPTY

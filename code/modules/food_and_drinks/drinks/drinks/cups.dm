@@ -8,7 +8,7 @@
 
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup/examine(mob/user)
 	. = ..()
-	. += span_notice("Вмещает до <b>[volume]</b> единиц[declension_ru(volume, "ы", "", "")] вещества.")
+	. += span_notice("Вмещает до <b>[volume]</b> единиц[DECL_Y(volume)] вещества.")
 
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup/on_reagent_change()
 	update_icon(UPDATE_OVERLAYS)

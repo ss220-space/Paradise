@@ -126,7 +126,7 @@
 
 			to_transfer = target.reagents.trans_to(src, amount_per_transfer_from_this)
 
-			to_chat(user, span_notice("Вы заполняете [declent_ru(ACCUSATIVE)] <b>[to_transfer]</b> единиц[declension_ru(to_transfer, "ей", "ами", "ами")] вещества."))
+			to_chat(user, span_notice("Вы заполняете [declent_ru(ACCUSATIVE)] <b>[to_transfer]</b> единиц[DECL_YEJ_AMI_AMI(to_transfer)] вещества."))
 
 /obj/item/reagent_containers/dropper/get_sound_for_reagent_containers()
 	return SFX_DROPPERPOUR

@@ -24,7 +24,7 @@
 	if(get_dist(user, src) <= 2 && !is_open_container())
 		. += span_boldnotice("Крышка надета.")
 
-	. += span_notice("Вмещает до <b>[reagents.maximum_volume]</b> единиц[declension_ru(reagents.maximum_volume, "ы", "", "")] вещества.")
+	. += span_notice("Вмещает до <b>[reagents.maximum_volume]</b> единиц[DECL_Y(reagents.maximum_volume)] вещества.")
 
 /obj/item/reagent_containers/glass/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!is_open_container())
@@ -113,7 +113,7 @@
 			return
 
 		var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this)
-		to_chat(user, "Вы наполняете [declent_ru(ACCUSATIVE)] <b>[trans]</b> единиц[declension_ru(trans, "ей", "ами", "ами")] вещества из содержимого [target.declent_ru(ACCUSATIVE)].")
+		to_chat(user, "Вы наполняете [declent_ru(ACCUSATIVE)] <b>[trans]</b> единиц[DECL_YEJ_AMI_AMI(trans)] вещества из содержимого [target.declent_ru(ACCUSATIVE)].")
 
 	else if(reagents.total_volume)
 		if(user.a_intent == INTENT_HARM)
