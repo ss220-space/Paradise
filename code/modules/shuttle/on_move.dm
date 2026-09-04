@@ -1,4 +1,7 @@
 // Shuttle on-movement //
+/atom/movable/proc/beforeShuttleMove(turf/newT, rotation, obj/docking_port/mobile/moving_dock)
+	return TRUE
+
 /atom/movable/proc/onShuttleMove(turf/oldT, turf/T1, rotation, mob/requester)
 	if(light && light_system == COMPLEX_LIGHT)
 		update_light()
@@ -21,18 +24,12 @@
 
 /obj/machinery/door/airlock/onShuttleMove()
 	. = ..()
-
 	if(!.)
 		return
-
 	INVOKE_ASYNC(src, PROC_REF(close), 0, 1)
-	// Close any nearby airlocks as well
-	for(var/obj/machinery/door/airlock/D in orange(1, src))
-		INVOKE_ASYNC(D, PROC_REF(close), 0, 1)
-
-/obj/machinery/door/airlock/onShuttleMove()
-	. = ..()
-	if(id_tag == "s_docking_airlock")
+	for(var/obj/machinery/door/airlock/nearby in orange(1, src))
+		INVOKE_ASYNC(nearby, PROC_REF(close), 0, 1)
+	if(id_tag == "s_docking_airlock" || istype(src, /obj/machinery/door/airlock/external/docking))
 		INVOKE_ASYNC(src, PROC_REF(lock))
 
 /mob/onShuttleMove(turf/oldT, turf/T1, rotation)
@@ -68,7 +65,7 @@
 
 /obj/machinery/door/airlock/postDock(obj/docking_port/stationary/S1)
 	. = ..()
-	if(!S1.lock_shuttle_doors && id_tag == "s_docking_airlock")
+	if(!S1.lock_shuttle_doors && (id_tag == "s_docking_airlock" || istype(src, /obj/machinery/door/airlock/external/docking)))
 		INVOKE_ASYNC(src, PROC_REF(unlock))
 
 /obj/structure/ladder/onShuttleMove()

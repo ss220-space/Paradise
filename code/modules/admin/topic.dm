@@ -312,6 +312,24 @@
 		if(!check_rights(R_SERVER))
 			return
 
+		if(!SSshuttle?.emergency)
+			return
+		if(SSshuttle.emergency.is_nav_emagged())
+			to_chat(usr, span_warning("Навигация взломана. Таймер заморожен, используйте force dock."), confidential = TRUE)
+			href_list["check_antagonist"] = TRUE
+			return
+		switch(SSshuttle.emergency.mode)
+			if(SHUTTLE_CALL)
+				if(SSshuttle.emergency.overmap_leg_started)
+					to_chat(usr, span_warning("Шаттл уже в полёте. Используйте force dock."), confidential = TRUE)
+					href_list["check_antagonist"] = TRUE
+					return
+			if(SHUTTLE_RECALL, SHUTTLE_DOCKED)
+			else
+				to_chat(usr, span_warning("На этом этапе нельзя менять ETA. Используйте force ock."), confidential = TRUE)
+				href_list["check_antagonist"] = TRUE
+				return
+
 		var/timer = tgui_input_number(usr, "Enter new shuttle duration (seconds):", "Edit Shuttle Timeleft", SSshuttle.emergency.timeLeft())
 		if(isnull(timer))
 			return
@@ -322,6 +340,19 @@
 			message = "Эвакуационный шаттл достигнет места назначения через [time_to_destination] [declension_ru(time_to_destination, "минуту", "минуты", "минут")]."
 		)
 		message_admins(span_adminnotice("[key_name_admin(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds"))
+		href_list["check_antagonist"] = TRUE
+
+	else if(href_list["force_dock_shuttle"])
+		if(!check_rights(R_ADMIN))
+			return
+		if(!SSshuttle?.emergency)
+			return
+		var/result = SSshuttle.emergency.admin_force_dock()
+		if(result != TRUE)
+			to_chat(usr, span_warning("[result]"), confidential = TRUE)
+		else
+			log_admin("[key_name(usr)] admin-force-docked the emergency shuttle (mode [SSshuttle.emergency.mode]).")
+			message_admins(span_adminnotice("[key_name_admin(usr)] admin-force-docked the emergency shuttle."))
 		href_list["check_antagonist"] = TRUE
 
 	else if(href_list["stop_lockdown"])

@@ -322,11 +322,6 @@
 ///sent from mecha action buttons to the mecha they're linked to
 #define COMSIG_MECHA_ACTION_ACTIVATE "mecha_action_activate"
 
-// /obj/docking_port/mobile signals
-///from /obj/docking_port/mobile/proc/dock(): (obj/docking_port/stationary/new_dock)
-#define COMSIG_SHUTTLE_DOCK "shuttle_dock"
-
-
 #define COMSIG_GLOVES_DOUBLE_HANDS_TOUCH "gloves_double_hands_touch"
 
 // /obj/item/clothing signals

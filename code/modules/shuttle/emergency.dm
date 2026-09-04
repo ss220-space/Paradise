@@ -105,6 +105,10 @@
 	var/force_hijacked = FALSE
 	/// Is devil on shuttle?
 	var/devil_on_shuttle = FALSE
+	var/overmap_leg_started = FALSE
+	var/overmap_escape_dock
+	var/nav_emag_paused_left
+	var/nav_emag_paused_dock
 
 /obj/docking_port/mobile/emergency/register()
 	if(!..())
@@ -123,12 +127,15 @@
 	return ..()
 
 /obj/docking_port/mobile/emergency/request(obj/docking_port/stationary/S, coefficient=1, area/signalOrigin, reason, redAlert)
+	if(istype(S, /obj/docking_port/stationary/transit))
+		return ..(S)
 	var/call_time = SSshuttle.emergencyCallTime * coefficient
 	switch(mode)
 		// The shuttle can not normally be called while "recalling", so
 		// if this proc is called, it's via admin fiat
 		if(SHUTTLE_RECALL, SHUTTLE_IDLE, SHUTTLE_CALL)
 			mode = SHUTTLE_CALL
+			overmap_leg_started = FALSE
 			setTimer(call_time)
 		else
 			return
@@ -157,6 +164,20 @@
 		return
 
 	if(mode != SHUTTLE_CALL)
+		return
+
+	if(overmap_leg_started)
+		var/obj/overmap/entity/vessel = SSovermap?.shuttle_vessels[src]
+		vessel?.abort_programmed_mission()
+		overmap_follow_programmed_leg("emergency_away")
+		overmap_leg_started = FALSE
+		mode = SHUTTLE_IDLE
+		timer = 0
+		GLOB.major_announcement.announce(
+			"Эвакуационный шаттл был отозван.[SSshuttle.emergencyLastCallLoc ? " Отзыв шаттла отслежен. Результаты можно посмотреть на любой консоли связи." : "" ]",
+			new_title = ANNOUNCE_PRIORITY_RU,
+			new_sound = ANNOUNCER_SHUTTLERECALLED
+		)
 		return
 
 	invertTimer()
@@ -213,6 +234,8 @@
 	return TRUE
 
 /obj/docking_port/mobile/emergency/check()
+	if(is_nav_emagged())
+		return
 	if(!timer)
 		return
 
@@ -220,7 +243,7 @@
 
 	// The emergency shuttle doesn't work like others so this
 	// ripple check is slightly different
-	if(!length(ripples) && (time_left <= SHUTTLE_RIPPLE_TIME) && ((mode == SHUTTLE_CALL) || (mode == SHUTTLE_ESCAPE)))
+	if(!length(ripples) && !overmap_leg_started && (time_left <= SHUTTLE_RIPPLE_TIME) && ((mode == SHUTTLE_CALL) || (mode == SHUTTLE_ESCAPE)))
 		var/destination
 		if(mode == SHUTTLE_CALL)
 			destination = SSshuttle.getDock("emergency_home")
@@ -234,11 +257,16 @@
 				mode = SHUTTLE_IDLE
 				timer = 0
 		if(SHUTTLE_CALL)
-			if(time_left <= 0)
-				//move emergency shuttle to station
-				if(dock(SSshuttle.getDock("emergency_home")))
-					setTimer(20)
+			if(overmap_leg_started || time_left <= 0)
+				var/overmap_result = overmap_follow_programmed_leg("emergency_home")
+				if(isnull(overmap_result))
+					overmap_leg_started = TRUE
 					return
+				if(overmap_result == FALSE)
+					if(dock(SSshuttle.getDock("emergency_home")))
+						setTimer(20)
+						return
+				overmap_leg_started = FALSE
 				mode = SHUTTLE_DOCKED
 				setTimer(SSshuttle.emergencyDockTime)
 				if(canRecall)
@@ -287,17 +315,18 @@
 					SEND_SOUND(E, hyperspace_sound)
 
 			if(time_left <= 0 && !(SSshuttle.emergencyNoEscape || length(SSshuttle.hostile_environment)))
-				//move each escape pod to its corresponding transit dock
-				for(var/obj/docking_port/mobile/pod/M in SSshuttle.mobile)
-					if(is_station_level(M.z)) //Will not launch from the mine/planet
-						M.enterTransit()
-				//now move the actual emergency shuttle to its transit dock
+				overmap_launch_escape_pods()
 				var/hyperspace_progress_sound = sound('sound/effects/hyperspace_progress.ogg')
 				for(var/area/shuttle/escape/E in world)
 					SEND_SOUND(E, hyperspace_progress_sound)
-				enterTransit()
+				var/destination_dock = "emergency_away"
+				overmap_escape_dock = destination_dock
 				mode = SHUTTLE_ESCAPE
-				setTimer(SSshuttle.emergencyEscapeTime)
+				overmap_leg_started = TRUE
+				var/overmap_result = overmap_follow_programmed_leg(destination_dock)
+				if(overmap_result == FALSE)
+					enterTransit()
+					setTimer(SSshuttle.emergencyEscapeTime)
 				GLOB.major_announcement.announce(
 					"Эвакуационный шаттл покинул станцию. До прибытия в доки ЦК осталось [timeLeft(600)] минуты.",
 					new_title = ANNOUNCE_PRIORITY_RU,
@@ -305,25 +334,15 @@
 				)
 
 		if(SHUTTLE_ESCAPE)
-			if(time_left <= 0)
-				//move each escape pod to its corresponding escape dock
-				for(var/obj/docking_port/mobile/pod/M in SSshuttle.mobile)
-					M.dock(SSshuttle.getDock("[M.id]_away"))
-
-				var/hyperspace_end_sound = sound('sound/effects/hyperspace_end.ogg')
-				for(var/area/shuttle/escape/E in GLOB.areas)
-					SEND_SOUND(E, hyperspace_end_sound)
-
-				// now move the actual emergency shuttle to centcomm
-				// unless the shuttle is "hijacked"
-				var/destination_dock = "emergency_away"
-				if(is_hijacked())
-					destination_dock = "emergency_syndicate"
-					GLOB.major_announcement.announce(
-						"Обнаружен взлом навигационных протоколов. Пожалуйста, свяжитесь в руководством.",
-						new_title = ANNOUNCE_PRIORITY_RU,
-						new_sound = 'sound/misc/announce_syndi.ogg'
-					)
+			if(overmap_leg_started || time_left <= 0)
+				overmap_launch_escape_pods()
+				var/destination_dock = overmap_escape_dock || "emergency_away"
+				var/overmap_result = overmap_follow_programmed_leg(destination_dock)
+				if(isnull(overmap_result))
+					overmap_leg_started = TRUE
+					return
+				if(overmap_result == FALSE)
+					dock_id(destination_dock)
 
 				if(devil_on_shuttle || force_hijacked)
 					GLOB.major_announcement.announce(
@@ -332,9 +351,12 @@
 						new_sound = 'sound/misc/announce_syndi.ogg',
 						color_override = "orange"
 					)
-				else
-					dock_id(destination_dock)
 
+				var/hyperspace_end_sound = sound('sound/effects/hyperspace_end.ogg')
+				for(var/area/shuttle/escape/E in GLOB.areas)
+					SEND_SOUND(E, hyperspace_end_sound)
+
+				overmap_leg_started = FALSE
 				mode = SHUTTLE_ENDGAME
 				timer = 0
 
@@ -351,6 +373,111 @@
 						var/obj/docking_port/mobile/M = A
 						if(istype(M, /obj/docking_port/mobile/pod))
 							M.parallax_slowdown()
+
+/obj/docking_port/mobile/emergency/proc/admin_force_move_to_dock(dock_id)
+	var/obj/docking_port/stationary/pad = SSshuttle.getDock(dock_id)
+	if(!pad)
+		return "Площадка [dock_id] не найдена."
+	var/obj/overmap/entity/vessel = SSovermap?.shuttle_vessels[src]
+	vessel?.abort_programmed_mission()
+	if(vessel)
+		vessel.programmed_emag_until = 0
+	overmap_force_dock = TRUE
+	var/failed = dock(pad, force = TRUE)
+	overmap_force_dock = FALSE
+	if(failed)
+		return "Не удалось пристыковать к [dock_id]."
+	return TRUE
+
+/obj/docking_port/mobile/emergency/proc/admin_force_dock()
+	if(!SSshuttle?.emergency || SSshuttle.emergency != src)
+		return "Это не эвак."
+	switch(mode)
+		if(SHUTTLE_CALL)
+			var/moved = admin_force_move_to_dock("emergency_home")
+			if(moved != TRUE)
+				return moved
+			overmap_leg_started = FALSE
+			mode = SHUTTLE_DOCKED
+			setTimer(SSshuttle.emergencyDockTime)
+			if(canRecall)
+				GLOB.major_announcement.announce(
+					"Эвакуационный шаттл совершил стыковку со станцией. У вас есть [timeLeft(600)] минуты, чтобы взобраться на борт эвакуационного шаттла.",
+					new_title = ANNOUNCE_PRIORITY_RU,
+					new_sound = ANNOUNCER_SHUTTLEDOCK
+				)
+			else
+				GLOB.major_announcement.announce(
+					"Транспортный шаттл совершил стыковку со станцией. У вас есть [timeLeft(600)] минуты, чтобы взобраться на борт транспортного шаттла.",
+					new_title = ANNOUNCE_PRIORITY_RU,
+					new_sound = ANNOUNCER_SHUTTLEDOCK
+				)
+			return TRUE
+		if(SHUTTLE_ESCAPE, SHUTTLE_IGNITING, SHUTTLE_ENDGAME)
+			var/dock_id = overmap_escape_dock || "emergency_away"
+			var/moved = admin_force_move_to_dock(dock_id)
+			if(moved != TRUE)
+				return moved
+			overmap_leg_started = FALSE
+			mode = SHUTTLE_ENDGAME
+			timer = 0
+			return TRUE
+		if(SHUTTLE_DOCKED, SHUTTLE_STRANDED)
+			return "Шаттл уже на станции."
+	var/obj/overmap/entity/vessel = SSovermap?.shuttle_vessels[src]
+	var/on_overmap = vessel && (vessel.status == OVERMAP_STATUS_OVERMAP || vessel.status == OVERMAP_STATUS_TRANSIT)
+	if(!on_overmap && is_physically_at_roundstart())
+		return "Шаттл уже на домашней площадке."
+	var/home_id = roundstart_move || "emergency_away"
+	var/moved = admin_force_move_to_dock(home_id)
+	if(moved != TRUE)
+		return moved
+	overmap_leg_started = FALSE
+	mode = SHUTTLE_IDLE
+	timer = 0
+	return TRUE
+
+/obj/docking_port/mobile/emergency/proc/is_physically_at_roundstart()
+	var/home_id = roundstart_move || "emergency_away"
+	return getDockedId() == home_id
+
+/obj/docking_port/mobile/emergency/proc/on_nav_emag()
+	nav_emag_paused_left = timer ? timeLeft(1) : 0
+	nav_emag_paused_dock = getDockedId()
+	timer = world.time + 24 HOURS
+
+/obj/docking_port/mobile/emergency/proc/on_nav_emag_end()
+	var/left = nav_emag_paused_left
+	var/dock = nav_emag_paused_dock
+	nav_emag_paused_left = 0
+	nav_emag_paused_dock = null
+	if(left <= 0)
+		return
+	if(getDockedId() != dock)
+		return
+	if(mode != SHUTTLE_CALL && mode != SHUTTLE_RECALL && mode != SHUTTLE_DOCKED)
+		return
+	if(mode == SHUTTLE_CALL && overmap_leg_started)
+		return
+	setTimer(left)
+
+/obj/docking_port/mobile/emergency/proc/overmap_note_arrival(obj/docking_port/stationary/new_dock)
+	if(!new_dock || istype(new_dock, /obj/docking_port/stationary/transit))
+		return
+	if(new_dock.id != "emergency_away" && new_dock.id != "emergency_syndicate")
+		return
+	if(mode != SHUTTLE_ESCAPE && mode != SHUTTLE_IGNITING && !is_nav_emagged())
+		return
+	overmap_escape_dock = new_dock.id
+	overmap_leg_started = FALSE
+	mode = SHUTTLE_ENDGAME
+	timer = 0
+	if(new_dock.id == "emergency_syndicate")
+		GLOB.major_announcement.announce(
+			message = "Обнаружен сбой навигационных протоколов. Эвакуационный шаттл сошёл с установленного маршрута. Сигнал потерян, дальнейшее отслеживание эвакуационного шаттла невозможно.",
+			new_title = ANNOUNCE_PRIORITY_RU,
+			new_sound = 'sound/misc/announce_syndi.ogg'
+		)
 
 // This basically opens a big-ass row of blast doors when the shuttle arrives at centcom
 /obj/docking_port/mobile/pod

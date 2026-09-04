@@ -13,8 +13,11 @@
 #define POD_MISC_UNLOAD_CARGO "Сбросить груз"
 #define POD_MISC_CHECK_SEAT "Проверить под сиденьем"
 #define POD_MISC_LOCATOR_SKAN "Сканировать сектор"
+#define POD_MISC_TRANSPONDER "Транспондер"
+#define POD_MISC_COMMS "Связь"
+#define POD_MISC_SENSORS "Ближний сканер"
 
-#define POD_MISC_SYSTEMS list(POD_MISC_LOCK_DOOR, POD_MISC_POD_DOORS, POD_MISC_CHECK_SEAT, POD_MISC_UNLOAD_CARGO, POD_MISC_LOCATOR_SKAN)
+#define POD_MISC_SYSTEMS list(POD_MISC_LOCK_DOOR, POD_MISC_POD_DOORS, POD_MISC_CHECK_SEAT, POD_MISC_UNLOAD_CARGO, POD_MISC_LOCATOR_SKAN, POD_MISC_TRANSPONDER, POD_MISC_COMMS, POD_MISC_SENSORS)
 
 /obj/item/pod_paint_bucket
 	name = "space pod paintkit"
@@ -96,6 +99,14 @@
 	var/datum/action/innate/pod/pod_toggle_lights/lights_action = new
 	var/datum/action/innate/pod/pod_fire/fire_action = new
 	var/datum/action/innate/pod/pod_misc/misc_action = new
+	var/datum/action/innate/pod/pod_helm/helm_action = new
+	var/obj/overmap/entity/pod/overmap_vessel
+	var/obj/machinery/computer/helm/pod/overmap_helm
+	var/obj/machinery/transponder/pod/overmap_transponder
+	var/obj/machinery/overmap_intercom/pod/overmap_comms
+	var/obj/machinery/ship_engine/pod/overmap_engine
+	var/obj/machinery/computer/sensors/short_range/pod/overmap_sensors
+	var/obj/machinery/sensor_array/short_range/pod/overmap_sensor_array
 
 /obj/spacepod/get_ru_names()
 	return alist(
@@ -170,6 +181,8 @@
 	ion_trail = new
 	ion_trail.set_up(src)
 	ion_trail.start()
+	if(SSovermap?.initialized)
+		SSovermap.get_or_register_pod(src)
 
 /obj/spacepod/Destroy()
 	if(equipment_system.cargo_system)
@@ -186,6 +199,15 @@
 	QDEL_NULL(lights_action)
 	QDEL_NULL(fire_action)
 	QDEL_NULL(misc_action)
+	QDEL_NULL(helm_action)
+	QDEL_NULL(overmap_helm)
+	QDEL_NULL(overmap_transponder)
+	QDEL_NULL(overmap_comms)
+	QDEL_NULL(overmap_engine)
+	QDEL_NULL(overmap_sensors)
+	QDEL_NULL(overmap_sensor_array)
+	if(overmap_vessel)
+		QDEL_NULL(overmap_vessel)
 	occupant_sanity_check()
 	if(pilot)
 		eject_pilot()
@@ -463,6 +485,13 @@
 				span_notice("Вы починили двери [declent_ru(GENITIVE)] при помощи [buster.declent_ru(GENITIVE)].")
 			)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/paper) && !istype(I, /obj/item/paper_bundle))
+		add_fingerprint(user)
+		ensure_overmap_gear()
+		if(overmap_sensors?.insert_dump_paper(I, user))
+			return ATTACK_CHAIN_BLOCKED_ALL
+		return ATTACK_CHAIN_PROCEED
 
 	// must be the last option as all items not listed prior will be stored
 	if(cargo_hold && cargo_hold.storage_slots > 0 && !hatch_open && unlocked)
@@ -1072,6 +1101,7 @@
 	internals_action.Grant(user, src)
 	lights_action.Grant(user, src)
 	misc_action.Grant(user, src)
+	helm_action.Grant(user, src)
 	fire_action.Grant(user, src)
 
 /obj/spacepod/proc/RemoveActions(mob/living/user)
@@ -1079,6 +1109,7 @@
 	internals_action.Remove(user)
 	lights_action.Remove(user)
 	misc_action.Remove(user)
+	helm_action.Remove(user)
 	fire_action.Remove(user)
 
 /datum/action/innate/pod
@@ -1158,10 +1189,75 @@
 			pod.checkSeat(owner)
 		if(POD_MISC_LOCATOR_SKAN)
 			pod.startScan(owner)
+		if(POD_MISC_TRANSPONDER)
+			pod.open_overmap_transponder(owner)
+		if(POD_MISC_COMMS)
+			pod.open_overmap_comms(owner)
+		if(POD_MISC_SENSORS)
+			pod.open_overmap_sensors(owner)
 
 // Fun fact, these procs are just copypastes from pod code
 // And have been for the past 4 years
 // Please send help
+/datum/action/innate/pod/pod_helm
+	name = "Штурвал"
+	button_icon_state = "mech_cycle_equip_off"
+
+/datum/action/innate/pod/pod_helm/Activate()
+	if(!owner || !pod || pod.pilot != owner)
+		return
+	pod.open_overmap_helm(owner)
+
+/obj/spacepod/proc/ensure_overmap_gear()
+	if(!overmap_helm)
+		var/helm_type = /obj/machinery/computer/helm/pod
+		overmap_helm = new helm_type(src)
+	if(!overmap_transponder)
+		var/beacon_type = istype(src, /obj/spacepod/syndi) ? /obj/machinery/transponder/pod/syndicate : /obj/machinery/transponder/pod
+		overmap_transponder = new beacon_type(src)
+	if(!overmap_comms)
+		overmap_comms = new /obj/machinery/overmap_intercom/pod(src)
+	if(!overmap_engine)
+		overmap_engine = new /obj/machinery/ship_engine/pod(src)
+	if(!overmap_sensor_array)
+		overmap_sensor_array = new /obj/machinery/sensor_array/short_range/pod(src)
+	if(!overmap_sensors)
+		overmap_sensors = new /obj/machinery/computer/sensors/short_range/pod(src)
+	overmap_helm?.link_vessel()
+	overmap_transponder?.link_vessel()
+	overmap_comms?.link_vessel()
+	overmap_engine?.link_vessel()
+	overmap_sensor_array?.link_vessel()
+	overmap_sensors?.link_vessel()
+
+/obj/spacepod/proc/open_overmap_helm(mob/user)
+	if(!overmap_helm)
+		ensure_overmap_gear()
+	overmap_helm?.ui_interact(user)
+
+/obj/spacepod/proc/open_overmap_transponder(mob/user)
+	if(!overmap_transponder)
+		ensure_overmap_gear()
+	overmap_transponder?.ui_interact(user)
+
+/obj/spacepod/proc/open_overmap_comms(mob/user)
+	if(!overmap_comms)
+		ensure_overmap_gear()
+	overmap_comms?.ui_interact(user)
+
+/obj/spacepod/proc/open_overmap_sensors(mob/user)
+	if(!overmap_sensors)
+		ensure_overmap_gear()
+	overmap_sensors?.ui_interact(user)
+
+/obj/spacepod/proc/refresh_overmap_parallax()
+	for(var/mob/rider in (passengers | list(pilot)))
+		if(rider?.client)
+			rider.update_parallax_contents()
+
+/obj/spacepod/proc/local_overmap_move_blocked()
+	return overmap_vessel?.overmap_pod?.blocks_local_move()
+
 /obj/spacepod/proc/regulate_temp()
 	if(cabin_air && cabin_air.return_volume() > 0)
 		var/delta = cabin_air.temperature() - T20C
@@ -1209,6 +1305,14 @@
 
 	if(!pilot || user != pilot || !direction)
 		COOLDOWN_START(src, spacepod_move_cooldown, 0.5 SECONDS)	// Don't make it spam
+		return FALSE
+
+	if(local_overmap_move_blocked())
+		if(overmap_vessel?.overmap_pod?.is_undocking())
+			to_chat(user, span_warning("Зажигание. Управление заблокировано."))
+		else
+			to_chat(user, span_warning("Управление корпусом заблокировано: челнок в гиперпространстве."))
+		COOLDOWN_START(src, spacepod_move_cooldown, 0.5 SECONDS)
 		return FALSE
 
 	. = TRUE
@@ -1278,3 +1382,6 @@
 #undef POD_MISC_CHECK_SEAT
 #undef POD_MISC_SYSTEMS
 #undef POD_MISC_LOCATOR_SKAN
+#undef POD_MISC_TRANSPONDER
+#undef POD_MISC_COMMS
+#undef POD_MISC_SENSORS

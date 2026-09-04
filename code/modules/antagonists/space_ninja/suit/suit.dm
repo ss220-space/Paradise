@@ -98,6 +98,9 @@
 
 	/// Референс для компьютера шатла
 	var/obj/machinery/computer/shuttle/ninja/shuttle_controller
+	var/obj/machinery/computer/helm/virtual/remote_helm
+	var/obj/machinery/computer/sensors/virtual/remote_sensors
+	var/obj/machinery/transponder/virtual/remote_transponder
 
 	/// Референс клонёрки. Если куплена способность. Ниндзя записывается в неё при активации костюма. И 1 раз клонируется
 	var/obj/machinery/ninja_clonepod/cloning_ref
@@ -301,13 +304,10 @@
 	smoke_system = new
 	smoke_system.attach(src)
 
+	RegisterSignal(SSdcs, COMSIG_GLOB_OVERMAP_NINJA_CONSOLE, PROC_REF(on_ninja_shuttle_console))
+	ensure_shuttle_controller()
+
 	if(!mapload)
-
-	//Shuttle Init
-		for(var/obj/machinery/computer/shuttle/ninja/shuttle in SSmachines.get_by_type(/obj/machinery/computer/shuttle/ninja))
-			shuttle_controller = shuttle
-
-	//Cloning Init
 		for(var/obj/machinery/ninja_clonepod/clonepod in SSmachines.get_by_type(/obj/machinery/ninja_clonepod))
 			cloning_ref = clonepod
 
@@ -339,6 +339,10 @@
 	QDEL_NULL(chameleon_scanner)
 	QDEL_NULL(net_emitter)
 	QDEL_NULL(integrated_harpoon)
+	QDEL_NULL(remote_helm)
+	QDEL_NULL(remote_sensors)
+	QDEL_NULL(remote_transponder)
+	UnregisterSignal(SSdcs, COMSIG_GLOB_OVERMAP_NINJA_CONSOLE)
 	shuttle_controller = null
 	cloning_ref = null
 	QDEL_NULL(disguise)
