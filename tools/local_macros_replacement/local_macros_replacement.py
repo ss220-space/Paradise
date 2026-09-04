@@ -15,8 +15,15 @@ REPLACEMENTS = [
     # (pattern, replacement, name)
 
     # declension_ru()
-    (r'declension_ru\(([^,]+),\s*"у",\s*"ы",\s*""\)', r'DECL_SEC_MIN(\1)', 'DECL_SEC_MIN'),
-    (r'declension_ru\(([^,]+),\s*"",\s*"а",\s*"ов"\)', r'DECL_CREDIT(\1)', 'DECL_CREDIT'),
+    (r'declension_ru\(([^,]+),\s*"у",\s*"ы",\s*""\)', r'DECL_U_Y(\1)', 'DECL_U_Y'),
+    (r'declension_ru\(([^,]+),\s*"",\s*"а",\s*"ов"\)', r'DECL_A_OV(\1)', 'DECL_A_OV'),
+    (r'declension_ru\(([^,]+),\s*"а",\s*"ы",\s*""\)', r'DECL_A_Y(\1)', 'DECL_A_Y'),
+    (r'declension_ru\(([^,]+),\s*"е",\s*"я",\s*"й"\)', r'DECL_E_YA_J(\1)', 'DECL_E_YA_J'),
+    (r'declension_ru\(([^,]+),\s*"о",\s*"а",\s*"ов"\)', r'DECL_O_A_OV(\1)', 'DECL_O_A_OV'),
+    (r'declension_ru\(([^,]+),\s*"ень",\s*"ня",\s*"ней"\)', r'DECL_EN_NYA_NEJ(\1)', 'DECL_EN_NYA_NEJ'),
+    (r'declension_ru\(([^,]+),\s*"ка",\s*"ки",\s*"ек"\)', r'DECL_KA_KI_EK(\1)', 'DECL_KA_KI_EK'),
+    (r'declension_ru\(([^,]+),\s*"",\s*"ы",\s*"о"\)', r'DECL_Y_O(\1)', 'DECL_Y_O'),
+    (r'declension_ru\(([^,]+),\s*"ю",\s*"и",\s*"й"\)', r'DECL_YU_I_J(\1)', 'DECL_YU_I_J'),
 
     # pluralize_ru()
     (r'pluralize_ru\(([^,]+)\.gender,\s*"ёт",\s*"ют"\)', r'PLUR_YOT_YUT(\1)', 'PLUR_YOT_YUT'),

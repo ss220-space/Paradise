@@ -28,7 +28,16 @@
 		return double_name
 	return multiple_name // 5, 6, 7, 8, 9, 0
 
-// Секунд, минут, единиц
-#define DECL_SEC_MIN(num) declension_ru(num, "у", "ы", "")
-// Кредит, символ
-#define DECL_CREDIT(num) declension_ru(num, "", "а", "ов")
+
+#define DECL_U_Y(num) declension_ru(num, "у", "ы", "")
+#define DECL_A_OV(num) declension_ru(num, "", "а", "ов")
+#define DECL_A_Y(num) declension_ru(num, "а", "ы", "")
+#define DECL_E_YA_J(num) declension_ru(num, "е", "я", "й")
+#define DECL_O_A_OV(num) declension_ru(num, "о", "а", "ов")
+#define DECL_EN_NYA_NEJ(num) declension_ru(num, "ень", "ня", "ней")
+#define DECL_KA_KI_EK(num) declension_ru(num, "ка", "ки", "ек")
+#define DECL_Y_O(num) declension_ru(num, "", "ы", "о")
+#define DECL_YU_I_J(num) declension_ru(num, "ю", "и", "й")
+
+
+
