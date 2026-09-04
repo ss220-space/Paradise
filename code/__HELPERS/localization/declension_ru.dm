@@ -47,5 +47,12 @@
 #define DECL_A_O_O(num) declension_ru(num, "а", "о", "о")
 #define DECL___O_O(num) declension_ru(num, "", "о", "о")
 #define DECL_A_OV_OV(num) declension_ru(num, "а", "ов", "ов")
+#define DECL___I_I(num) declension_ru(num, "", "и", "и")
+#define DECL___Y_Y(num) declension_ru(num, "", "ы", "ы")
+#define DECL_E_AH_AH(num) declension_ru(num, "е", "ах", "ах")
+#define DECL_SYA_OS_OS(num) declension_ru(num, "ся", "ось", "ось")
+
+
+
 
 
