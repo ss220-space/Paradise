@@ -342,7 +342,7 @@
 
 /obj/item/twohanded/dualsaber/IsReflect()
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
-		return TRUE
+		return REFLECT_NORMAL
 
 /obj/item/twohanded/dualsaber/update_icon_state()
 	if(HAS_TRAIT(src, TRAIT_WIELDED))

@@ -92,7 +92,7 @@
 
 /obj/item/clothing/suit/armor/abductor/vest/IsReflect()
 	DeactivateStealth()
-	return 0
+	return REFLECT_NOTHING
 
 /obj/item/clothing/suit/armor/abductor/vest/ui_action_click(mob/user, datum/action/action, leftclick)
 	switch(mode)

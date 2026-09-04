@@ -353,8 +353,7 @@
 	AddElement(/datum/element/high_value_item)
 
 /obj/item/clothing/suit/armor/laserproof/IsReflect()
-	if(prob(hit_reflect_chance))
-		return 1
+	return prob(hit_reflect_chance)
 
 /obj/item/clothing/suit/armor/vest/det_suit
 	desc = "An armored vest with a detective's badge on it."
