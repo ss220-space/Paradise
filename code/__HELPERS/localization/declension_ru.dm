@@ -51,8 +51,3 @@
 #define DECL___Y_Y(num) declension_ru(num, "", "ы", "ы")
 #define DECL_E_AH_AH(num) declension_ru(num, "е", "ах", "ах")
 #define DECL_SYA_OS_OS(num) declension_ru(num, "ся", "ось", "ось")
-
-
-
-
-
