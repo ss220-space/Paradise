@@ -108,7 +108,7 @@
 /obj/item/reagent_containers/spray/examine(mob/user)
 	. = ..()
 	if(get_dist(user, src) && user == loc)
-		. += span_notice("Внутри остал[declension_ru(reagents.total_volume, "а", "о", "о")]сь примерно [round(reagents.total_volume)] единиц[DECL_A_Y(reagents.total_volume)] вещества.")
+		. += span_notice("Внутри остал[DECL_A_O_O(reagents.total_volume)]сь примерно [round(reagents.total_volume)] единиц[DECL_A_Y(reagents.total_volume)] вещества.")
 
 //space cleaner
 /obj/item/reagent_containers/spray/cleaner

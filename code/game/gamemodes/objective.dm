@@ -1078,7 +1078,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/download/proc/gen_amount_goal()
 	target_amount = rand(10,20)
-	explanation_text = "Загрузите [target_amount] уровн[declension_ru(target_amount, "ень", "я", "ей")] исследований."
+	explanation_text = "Загрузите [target_amount] уров[DECL_EN_NYA_NEJ(target_amount)] исследований."
 	return target_amount
 
 /datum/objective/download/check_completion()

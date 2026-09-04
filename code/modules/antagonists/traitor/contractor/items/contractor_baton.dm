@@ -39,7 +39,7 @@
 /obj/item/melee/baton/telescopic/contractor/examine(mob/user)
 	. = ..()
 	if(has_upgrade(UPGRADE_CUFFS))
-		. += span_notice("В нём остал[declension_ru(cuffs_amount, "а", "о", "о")]сь <b>[cuffs_amount]</b> стяж[DECL_KA_KI_EK(cuffs_amount)].")
+		. += span_notice("В нём остал[DECL_A_O_O(cuffs_amount)]сь <b>[cuffs_amount]</b> стяж[DECL_KA_KI_EK(cuffs_amount)].")
 	for(var/obj/item/baton_upgrade/upgrade as anything in upgrades)
 		. += span_notice("В нём установлен <b>[upgrade.declent_ru(NOMINATIVE)]</b>, который [upgrade.upgrade_examine].")
 

@@ -1656,7 +1656,7 @@ GLOBAL_LIST_INIT(zoom_modes, list(SCALING_METHOD_DISTORT = "Метод ближ�
 							real_name = new_name
 							user.client << output(real_name, "title_browser:update_current_character")
 						else
-							to_chat(user, span_red("Недопустимое имя. Имя персонажа должно быть длиной от 2 до [MAX_NAME_LEN] символ[declension_ru(MAX_NAME_LEN, "а", "ов", "ов")]. Допустимые символы: A-Z, a-z, А-Я, а-я, -, ' и ."))
+							to_chat(user, span_red("Недопустимое имя. Имя персонажа должно быть длиной от 2 до [MAX_NAME_LEN] символ[DECL_A_OV_OV(MAX_NAME_LEN)]. Допустимые символы: A-Z, a-z, А-Я, а-я, -, ' и ."))
 
 				if("age")
 					var/list/age_list = get_age_limits(S, list(SPECIES_AGE_MIN, SPECIES_AGE_MAX))

@@ -109,7 +109,7 @@
 
 /datum/objective/spider_get_power/eat_humans/generate_text()
 	. = ..()
-	explanation_text = "Ешьте и набирайтесь сил. Для того, чтобы вы могли отложить яйцо Императрицы, вам нужно заплести в кокон [targets_need] гуманоид[declension_ru(targets_need, "а", "ов", "ов")]. "
+	explanation_text = "Ешьте и набирайтесь сил. Для того, чтобы вы могли отложить яйцо Императрицы, вам нужно заплести в кокон [targets_need] гуманоид[DECL_A_OV_OV(targets_need)]. "
 
 /datum/objective/spider_get_power/eat_humans/check_completion(human_count, datum/team/terror_spiders/spider_team)
 	. = ..()
