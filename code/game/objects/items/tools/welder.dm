@@ -227,7 +227,7 @@
 		return
 	var/amount_transferred = A.reagents.trans_id_to(src, "fuel", amount)
 	if(amount_transferred)
-		balloon_alert(user, "пополнено на <b>[amount_transferred]</b> единиц[DECL_CREDIT(amount_transferred)] топлива")
+		balloon_alert(user, "пополнено на <b>[amount_transferred]</b> единиц[DECL___A_OV(amount_transferred)] топлива")
 		playsound(src, 'sound/effects/refill.ogg', 50, TRUE)
 		update_icon()
 		return amount_transferred

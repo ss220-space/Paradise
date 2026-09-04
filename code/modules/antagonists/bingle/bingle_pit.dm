@@ -95,8 +95,8 @@
 	if(!isbingle(user))
 		return
 
-	. += span_alert("Внутри находится <b>[item_value_consumed]</b> предмет[DECL_CREDIT(item_value_consumed)]!")
-	. += span_notice("Существа смогут упасть туда, если в яме будет минимум <b>[BINGLE_PIT_GROW_VALUE]</b> предмет[DECL_CREDIT(BINGLE_PIT_GROW_VALUE)]!")
+	. += span_alert("Внутри находится <b>[item_value_consumed]</b> предмет[DECL___A_OV(item_value_consumed)]!")
+	. += span_notice("Существа смогут упасть туда, если в яме будет минимум <b>[BINGLE_PIT_GROW_VALUE]</b> предмет[DECL___A_OV(BINGLE_PIT_GROW_VALUE)]!")
 
 /obj/structure/bingle_hole/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
 	if(!pass_info.is_living)
@@ -527,8 +527,8 @@
 /obj/structure/bingle_pit_overlay/examine(mob/user)
 	. = ..()
 	if(parent_pit && isbingle(user))
-		. += span_alert("Внутри находится <b>[parent_pit.item_value_consumed]</b> предмет[DECL_CREDIT(parent_pit.item_value_consumed)]!")
-		. += span_notice("Существа смогут упасть туда, если в яме будет минимум <b>[BINGLE_PIT_GROW_VALUE]</b> предмет[DECL_CREDIT(BINGLE_PIT_GROW_VALUE)]!")
+		. += span_alert("Внутри находится <b>[parent_pit.item_value_consumed]</b> предмет[DECL___A_OV(parent_pit.item_value_consumed)]!")
+		. += span_notice("Существа смогут упасть туда, если в яме будет минимум <b>[BINGLE_PIT_GROW_VALUE]</b> предмет[DECL___A_OV(BINGLE_PIT_GROW_VALUE)]!")
 
 /obj/structure/bingle_hole/proc/spawn_bingle_from_ghost()
 	var/image/poll_source = image('icons/mob/bingle/bingles.dmi', "bingle")

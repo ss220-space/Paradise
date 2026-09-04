@@ -349,11 +349,11 @@
 
 	dat += "<br>"
 	var/score_arrested_points = scoreboard.score_arrested * 1000
-	dat += "<b>Оператикников арестовано:</b> [scoreboard.score_arrested] ([score_arrested_points] [declension_ru(score_arrested_points, "очко", "очка", "очков")])<br>"
+	dat += "<b>Оператикников арестовано:</b> [scoreboard.score_arrested] ([score_arrested_points] очк[DECL_O_A_OV(score_arrested_points)])<br>"
 	dat += "<b>Все оперативники арестованы:</b> [scoreboard.all_arrested ? "Да" : "Нет"] (Очки утроены)<br>"
 	var/score_killed_points = scoreboard.score_ops_killed * 1000
-	dat += "<b>Оперативников убито:</b> [scoreboard.score_ops_killed] ([score_killed_points] [declension_ru(score_arrested_points, "очко", "очка", "очков")])<br>"
-	dat += "<b>Станция уничтожена:</b> [scoreboard.nuked ? "Да" : "Нет"] (-[scoreboard.nuked_penalty] [declension_ru(scoreboard.nuked_penalty, "очко", "очка", "очков")])<br>"
+	dat += "<b>Оперативников убито:</b> [scoreboard.score_ops_killed] ([score_killed_points] очк[DECL_O_A_OV(score_arrested_points)])<br>"
+	dat += "<b>Станция уничтожена:</b> [scoreboard.nuked ? "Да" : "Нет"] (-[scoreboard.nuked_penalty] очк[DECL_O_A_OV(scoreboard.nuked_penalty)])<br>"
 	dat += "<hr>"
 
 	return dat

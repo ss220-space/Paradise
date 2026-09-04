@@ -39,7 +39,7 @@ ADMIN_VERB(dispatch_ert, R_EVENT, "Dispatch CentComm Response Team", "Send an Ce
 
 	var/player_age_check = check_client_age(client, GLOB.responseteam_age)
 	if(player_age_check && CONFIG_GET(flag/use_age_restriction_for_antags))
-		to_chat(src, span_warning("Эта роль вам пока недоступна. Вам нужно подождать ещё [player_age_check] [declension_ru(player_age_check, "день", "дня", "дней")]."))
+		to_chat(src, span_warning("Эта роль вам пока недоступна. Вам нужно подождать ещё [player_age_check] д[DECL_EN_NYA_NEJ(player_age_check)]."))
 		return FALSE
 
 	if(cannotPossess(src))

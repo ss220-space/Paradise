@@ -76,7 +76,7 @@
 			var/mob/living/silicon/robot/bro = user
 			var/chargeAmount = max(30,4*trans)
 			bro.cell.use(chargeAmount)
-			to_chat(user, span_notice("Синтез <b>[trans]</b> единиц[declension_ru(trans, "ы", "", "")] вещества..."))
+			to_chat(user, span_notice("Синтез <b>[trans]</b> единиц[DECL_Y____(trans)] вещества..."))
 			addtimer(CALLBACK(reagents, TYPE_PROC_REF(/datum/reagents, add_reagent_list), ids_data), 30 SECONDS)
 			addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, user, span_notice("Ваш[GEND_A_E_I(src)] [declent_ru(NOMINATIVE)] снова полн[GEND_YI_AYA_OE_YE(src)].")), 30 SECONDS)
 		else
@@ -143,7 +143,7 @@
 			SynthesizeDrinkFromTransfer(user, transfer_data)
 
 		after_transfer(target)
-		to_chat(user, span_notice("Вы переливаете <b>[trans]</b> единиц[DECL_SEC_MIN(trans)] вещества в [target.declent_ru(ACCUSATIVE)]."))
+		to_chat(user, span_notice("Вы переливаете <b>[trans]</b> единиц[DECL_U_Y__(trans)] вещества в [target.declent_ru(ACCUSATIVE)]."))
 
 	else if(target.is_drainable()) //A dispenser. Transfer FROM it TO us.
 		if(!is_refillable())
@@ -158,7 +158,7 @@
 			return FALSE
 
 		var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this)
-		to_chat(user, span_notice("Вы наполняете [declent_ru(ACCUSATIVE)] <b>[trans]</b> единиц[declension_ru(trans, "ей", "ами", "ами")] вещества из содержимого [target.declent_ru(ACCUSATIVE)]."))
+		to_chat(user, span_notice("Вы наполняете [declent_ru(ACCUSATIVE)] <b>[trans]</b> единиц[DECL_YEJ_AMI_AMI(trans)] вещества из содержимого [target.declent_ru(ACCUSATIVE)]."))
 
 	return FALSE
 

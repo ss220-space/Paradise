@@ -175,7 +175,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 		return
 
 	qdel(tool)
-	to_chat(user, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] перерабатывает [tool.declent_ru(ACCUSATIVE)] в [amount_inserted /  SHEET_VOLUME] единиц[DECL_SEC_MIN(amount_inserted /  SHEET_VOLUME)] материала."))
+	to_chat(user, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] перерабатывает [tool.declent_ru(ACCUSATIVE)] в [amount_inserted /  SHEET_VOLUME] единиц[DECL_U_Y__(amount_inserted /  SHEET_VOLUME)] материала."))
 
 
 #define LINK_CIRCUIT "Привязать схему"

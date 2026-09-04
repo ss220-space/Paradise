@@ -69,7 +69,7 @@
 
 /datum/objective/spider_get_power/alife_spiders/generate_text()
 	. = ..()
-	explanation_text = "Расплодитесь. Для того, чтобы вы могли отложить яйцо Императрицы, в вашем гнезде долж[declension_ru(targets_need, "ен", "о", "о")] быть [targets_need] паук[DECL_CREDIT(targets_need)]."
+	explanation_text = "Расплодитесь. Для того, чтобы вы могли отложить яйцо Императрицы, в вашем гнезде долж[declension_ru(targets_need, "ен", "о", "о")] быть [targets_need] паук[DECL___A_OV(targets_need)]."
 
 /datum/objective/spider_get_power/alife_spiders/check_completion(datum/team/terror_spiders/spider_team)
 	. = ..()
@@ -90,7 +90,7 @@
 
 /datum/objective/spider_get_power/spider_infections/generate_text()
 	. = ..()
-	explanation_text = "Заражайте. Для того, чтобы вы могли отложить яйцо Императрицы, долж[declension_ru(targets_need, "ен", "о", "о")] быть заражено [targets_need] гуманоид[DECL_CREDIT(targets_need)]."
+	explanation_text = "Заражайте. Для того, чтобы вы могли отложить яйцо Императрицы, долж[declension_ru(targets_need, "ен", "о", "о")] быть заражено [targets_need] гуманоид[DECL___A_OV(targets_need)]."
 
 /datum/objective/spider_get_power/spider_infections/check_completion(datum/team/terror_spiders/spider_team)
 	. = ..()
@@ -109,7 +109,7 @@
 
 /datum/objective/spider_get_power/eat_humans/generate_text()
 	. = ..()
-	explanation_text = "Ешьте и набирайтесь сил. Для того, чтобы вы могли отложить яйцо Императрицы, вам нужно заплести в кокон [targets_need] гуманоид[declension_ru(targets_need, "а", "ов", "ов")]. "
+	explanation_text = "Ешьте и набирайтесь сил. Для того, чтобы вы могли отложить яйцо Императрицы, вам нужно заплести в кокон [targets_need] гуманоид[DECL_A_OV_OV(targets_need)]. "
 
 /datum/objective/spider_get_power/eat_humans/check_completion(human_count, datum/team/terror_spiders/spider_team)
 	. = ..()

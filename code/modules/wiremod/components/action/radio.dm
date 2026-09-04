@@ -51,7 +51,7 @@
 	if(!signal_cooldown_time)
 		return
 
-	. += "Ещё [signal_cooldown_time * 0.1] секунд[declension_ru(signal_cooldown_time * 0.1, "а", "ы", "")] перезарядки между отправками сигнала."
+	. += "Ещё [signal_cooldown_time * 0.1] секунд[DECL_A_Y__(signal_cooldown_time * 0.1)] перезарядки между отправками сигнала."
 
 /obj/item/circuit_component/radio/register_shell(atom/movable/shell)
 	parent_shell = shell

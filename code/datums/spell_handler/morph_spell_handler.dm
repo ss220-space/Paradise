@@ -10,7 +10,7 @@
 
 	if(user.gathered_food < hunger_cost)
 		if(show_message)
-			to_chat(user, span_warning("Для использования этой способности вам требуется не менее [hunger_cost] единиц[declension_ru(hunger_cost,"ы","","")] запасов пищи!"))
+			to_chat(user, span_warning("Для использования этой способности вам требуется не менее [hunger_cost] единиц[DECL_Y____(hunger_cost)] запасов пищи!"))
 		return FALSE
 
 	return TRUE

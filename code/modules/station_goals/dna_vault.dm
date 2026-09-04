@@ -322,7 +322,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 			to_chat(user, span_warning("[DECLENT_RU_CAP(probe, NOMINATIVE)] не содержит релевантных данных."))
 			return ATTACK_CHAIN_PROCEED
 		check_goal()
-		to_chat(user, span_notice("Получены новые данные: <b>[uploaded]</b> [declension_ru(uploaded,"запись","записи","записей")]!"))
+		to_chat(user, span_notice("Получены новые данные: <b>[uploaded]</b> запис[DECL___I_YEJ(uploaded)]!"))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()

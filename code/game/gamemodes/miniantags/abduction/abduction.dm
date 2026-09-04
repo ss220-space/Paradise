@@ -246,7 +246,7 @@
 //No check completion, it defaults to being completed unless an admin sets it to failed.
 
 /datum/objective/experiment/New()
-	explanation_text = "Проведите эксперимент на [target_amount] гуманоид[declension_ru(target_amount, "е", "ах", "ах")]."
+	explanation_text = "Проведите эксперимент на [target_amount] гуманоид[DECL_E_AH_AH(target_amount)]."
 
 /datum/objective/experiment/check_completion()
 	var/ab_team = abductor_team_number

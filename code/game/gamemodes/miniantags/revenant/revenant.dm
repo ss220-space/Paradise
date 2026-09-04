@@ -355,7 +355,7 @@
 
 /datum/objective/revenant/New()
 	targetAmount = rand(350,600)
-	explanation_text = "Поглотите [targetAmount] единиц[declension_ru(targetAmount,"e","и","")] эссенции у людей."
+	explanation_text = "Поглотите [targetAmount] единиц[DECL_U_Y__(targetAmount)] эссенции у людей."
 	..()
 
 /datum/objective/revenant/check_completion()

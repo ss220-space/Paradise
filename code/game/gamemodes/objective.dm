@@ -1078,7 +1078,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/download/proc/gen_amount_goal()
 	target_amount = rand(10,20)
-	explanation_text = "Загрузите [target_amount] уровн[declension_ru(target_amount, "ень", "я", "ей")] исследований."
+	explanation_text = "Загрузите [target_amount] уров[DECL_EN_NYA_NEJ(target_amount)] исследований."
 	return target_amount
 
 /datum/objective/download/check_completion()
@@ -1091,7 +1091,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/capture/proc/gen_amount_goal()
 	target_amount = rand(5,10)
-	explanation_text = "Накопите [target_amount] очк[declension_ru(target_amount, "о", "а", "ов")] захвата."
+	explanation_text = "Накопите [target_amount] очк[DECL_O_A_OV(target_amount)] захвата."
 	return target_amount
 
 /datum/objective/capture/check_completion()//Basically runs through all the mobs in the area to determine how much they are worth.
