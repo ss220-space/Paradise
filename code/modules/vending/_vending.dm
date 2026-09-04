@@ -793,7 +793,7 @@
 		visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] дребезжит, но ничего не выдаёт!"))
 		return
 
-	visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] товар[declension_ru(num_freebies, "", "ы", "ы")] из своего ассортимента[credits_contained > 0 ? " и купюры" : ""]!"))
+	visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] товар[DECL___Y_Y(num_freebies)] из своего ассортимента[credits_contained > 0 ? " и купюры" : ""]!"))
 
 	for(var/i in 1 to num_freebies)
 		playsound(src, 'sound/machines/machine_vend.ogg', 50, TRUE, extrarange = -3)

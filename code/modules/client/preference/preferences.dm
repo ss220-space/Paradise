@@ -684,7 +684,7 @@ GLOBAL_LIST_INIT(zoom_modes, list(SCALING_METHOD_DISTORT = "Метод ближ�
 						var/available_in_days_antag = available_in_days_antag(user.client, i)
 						var/role_available_in_playtime = get_exp_format(role_available_in_playtime(user.client, i))
 						if(available_in_days_antag)
-							dat += "<b>[capitalize(i)]:</b> <font color=red><b> \[ЧЕРЕЗ [(available_in_days_antag)] [(declension_ru(available_in_days_antag, "день", "дня", "дней"))]]</b></font><br>"
+							dat += "<b>[capitalize(i)]:</b> <font color=red><b> \[ЧЕРЕЗ [(available_in_days_antag)] д[(DECL_EN_NYA_NEJ(available_in_days_antag))]]</b></font><br>"
 						else if(role_available_in_playtime)
 							dat += "<b>[capitalize(i)]:</b> <font color=red><b> \[ЧЕРЕЗ [(role_available_in_playtime)]]</b></font><br>"
 						else
@@ -912,7 +912,7 @@ GLOBAL_LIST_INIT(zoom_modes, list(SCALING_METHOD_DISTORT = "Метод ближ�
 				continue
 			if(!job.player_old_enough(user.client))
 				var/available_in_days = job.available_in_days(user.client)
-				html += "<del class='[color]'>[rank]</del></td><td><span class='btn btn-sm btn-danger text-light border border-secondary disabled' style='padding: 0px 4px;'><b> \[ЧЕРЕЗ [available_in_days] [declension_ru(available_in_days, "день", "дня", "дней")]]</b></span></td></tr>"
+				html += "<del class='[color]'>[rank]</del></td><td><span class='btn btn-sm btn-danger text-light border border-secondary disabled' style='padding: 0px 4px;'><b> \[ЧЕРЕЗ [available_in_days] д[DECL_EN_NYA_NEJ(available_in_days)]]</b></span></td></tr>"
 				continue
 			if(!job.character_old_enough(user.client))
 				var/datum/species/current_species = GLOB.all_species[species]

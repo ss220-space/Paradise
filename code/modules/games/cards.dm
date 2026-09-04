@@ -577,7 +577,7 @@
 			DATIVE = "[LAZYLEN(cards)] карт[declension_ru(LAZYLEN(cards), "е", "ам", "ам")]",
 			ACCUSATIVE = "[LAZYLEN(cards)] карт[DECL_U_Y(LAZYLEN(cards))]",
 			INSTRUMENTAL = "[LAZYLEN(cards)] карт[declension_ru(LAZYLEN(cards), "ой", "ами", "ами")]",
-			PREPOSITIONAL = "[LAZYLEN(cards)] карт[declension_ru(LAZYLEN(cards), "е", "ах", "ах")]"
+			PREPOSITIONAL = "[LAZYLEN(cards)] карт[DECL_E_AH_AH(LAZYLEN(cards))]"
 		)
 	else
 		name = "playing card"

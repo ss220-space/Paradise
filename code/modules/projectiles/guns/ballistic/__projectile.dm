@@ -211,7 +211,7 @@
 /obj/item/gun/projectile/examine(mob/user)
 	. = ..()
 	var/ammo_num = get_ammo()
-	. += span_notice("Остал[declension_ru(ammo_num, "ся", "ось", "ось")] [ammo_num] патрон[DECL_A_OV(ammo_num)].")
+	. += span_notice("Остал[DECL_SYA_OS_OS(ammo_num)] [ammo_num] патрон[DECL_A_OV(ammo_num)].")
 
 /obj/item/gun/projectile/proc/get_ammo(countchambered = TRUE, countempties = TRUE)
 	var/boolets = 0 //mature var names for mature people
