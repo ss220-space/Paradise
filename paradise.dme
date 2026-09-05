@@ -1126,6 +1126,7 @@
 #include "code\datums\status_effects\status_effects_absorption.dm"
 #include "code\datums\status_effects\wet_stacks.dm"
 #include "code\datums\status_effects\debuffs\genetic_damage.dm"
+#include "code\datums\status_effects\debuffs\stamcrit.dm"
 #include "code\datums\weather\weather.dm"
 #include "code\datums\weather\weather_types\ash_storm.dm"
 #include "code\datums\weather\weather_types\blob_storm.dm"

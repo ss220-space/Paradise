@@ -55,3 +55,6 @@
 	else
 		staminaloss = max(0, min(BASIC_MOB_MAX_STAMINALOSS, staminaloss + (amount * damage_coeff[STAMINA])))
 	update_stamina()
+
+/mob/living/basic/received_stamina_damage(current_level, amount_actual, amount)
+	return
