@@ -79,6 +79,8 @@
 	satchel = /obj/item/storage/backpack/satchel_cap
 	dufflebag = /obj/item/storage/backpack/duffel/captain
 	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/security
+	beret_variant = /obj/item/clothing/head/caphat/beret
+	coat_variant = /obj/item/clothing/suit/hooded/wintercoat/captain
 
 /datum/outfit/job/captain/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
