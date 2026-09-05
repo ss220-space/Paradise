@@ -43,7 +43,7 @@
 			icon_state = SSticker.cultdat.get_icon(construct_type)
 
 	for(var/spell in construct_spells)
-		AddSpell(new spell(null))
+		AddSpell(new spell)
 
 	set_light_range_power_color(2, 3, SSticker.cultdat ? SSticker.cultdat.construct_glow : LIGHT_COLOR_BLOOD_MAGIC)
 
@@ -130,7 +130,7 @@
 	mob_size = MOB_SIZE_LARGE
 	move_resist = MOVE_FORCE_STRONG
 	pull_force = MOVE_FORCE_STRONG
-	construct_spells = list(/obj/effect/proc_holder/spell/night_vision, /obj/effect/proc_holder/spell/aoe/conjure/build/lesserforcewall)
+	construct_spells = list(/datum/action/cooldown/spell/nightvision, /datum/action/cooldown/spell/conjure/lesserforcewall)
 	force_threshold = 11
 	playstyle_string = "<b>You are a Juggernaut. Though slow, your shell can withstand extreme punishment, \
 						create shield walls, rip apart enemies and walls alike, and even deflect energy weapons.</b>"
@@ -160,7 +160,7 @@
 	faction = list("neutral")
 	icon_state = "holy_juggernaut"
 	icon_living = "holy_juggernaut"
-	construct_spells = list(/obj/effect/proc_holder/spell/night_vision, /obj/effect/proc_holder/spell/aoe/conjure/build/lesserforcewall/holy)
+	construct_spells = list(/datum/action/cooldown/spell/nightvision, /datum/action/cooldown/spell/conjure/lesserforcewall/holy)
 	holy = TRUE
 
 ////////////////////////Wraith/////////////////////////////////////////////
@@ -179,7 +179,7 @@
 	attacktext = "рубит"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	construct_type = "wraith"
-	construct_spells = list(/obj/effect/proc_holder/spell/night_vision, /obj/effect/proc_holder/spell/ethereal_jaunt/shift)
+	construct_spells = list(/datum/action/cooldown/spell/nightvision, /datum/action/cooldown/spell/jaunt/ethereal_jaunt/shift)
 	retreat_distance = 2 //AI wraiths will move in and out of combat
 	playstyle_string = "<b>You are a Wraith. Though relatively fragile, you are fast, deadly, and even able to phase through walls.</b>"
 	tts_seed = "Kelthuzad"
@@ -197,7 +197,7 @@
 	icon_state = "holy_shifter"
 	icon_living = "holy_shifter"
 	holy = TRUE
-	construct_spells = list(/obj/effect/proc_holder/spell/night_vision, /obj/effect/proc_holder/spell/ethereal_jaunt/shift/holy)
+	construct_spells = list(/datum/action/cooldown/spell/nightvision, /datum/action/cooldown/spell/jaunt/ethereal_jaunt/shift/holy)
 
 /////////////////////////////Artificer/////////////////////////
 
@@ -222,13 +222,13 @@
 	attack_sound = 'sound/weapons/punch2.ogg'
 	construct_type = "builder"
 	construct_spells = list(
-		/obj/effect/proc_holder/spell/night_vision,
-		/obj/effect/proc_holder/spell/projectile/magic_missile/lesser,
-		/obj/effect/proc_holder/spell/aoe/conjure/construct/lesser,
-		/obj/effect/proc_holder/spell/aoe/conjure/build/wall,
-		/obj/effect/proc_holder/spell/aoe/conjure/build/floor,
-		/obj/effect/proc_holder/spell/aoe/conjure/build/pylon,
-		/obj/effect/proc_holder/spell/aoe/conjure/build/soulstone,
+		/datum/action/cooldown/spell/nightvision,
+		/datum/action/cooldown/spell/aoe/magic_missile/lesser,
+		/datum/action/cooldown/spell/conjure/construct/lesser,
+		/datum/action/cooldown/spell/conjure/wall,
+		/datum/action/cooldown/spell/conjure/floor,
+		/datum/action/cooldown/spell/conjure/pylon,
+		/datum/action/cooldown/spell/conjure_item/soulstone,
 	)
 
 	playstyle_string = "<b>You are an Artificer. You are incredibly weak and fragile, but you are able to construct fortifications, \
@@ -286,13 +286,13 @@
 	icon_living = "holy_artificer"
 	holy = TRUE
 	construct_spells = list(
-		/obj/effect/proc_holder/spell/night_vision,
-		/obj/effect/proc_holder/spell/projectile/magic_missile/lesser,
-		/obj/effect/proc_holder/spell/aoe/conjure/construct/lesser/holy,
-		/obj/effect/proc_holder/spell/aoe/conjure/build/wall/holy,
-		/obj/effect/proc_holder/spell/aoe/conjure/build/floor/holy,
-		/obj/effect/proc_holder/spell/aoe/conjure/build/pylon/holy,
-		/obj/effect/proc_holder/spell/aoe/conjure/build/soulstone/holy,
+		/datum/action/cooldown/spell/nightvision,
+		/datum/action/cooldown/spell/aoe/magic_missile/lesser,
+		/datum/action/cooldown/spell/conjure/construct/lesser/holy,
+		/datum/action/cooldown/spell/conjure/wall/holy,
+		/datum/action/cooldown/spell/conjure/floor/holy,
+		/datum/action/cooldown/spell/conjure/pylon/holy,
+		/datum/action/cooldown/spell/conjure_item/soulstone/holy,
 	)
 
 /////////////////////////////Behemoth/////////////////////////
@@ -343,10 +343,10 @@
 	attack_sound = 'sound/weapons/tap.ogg'
 	construct_type = "harvester"
 	construct_spells = list(
-		/obj/effect/proc_holder/spell/night_vision,
-		/obj/effect/proc_holder/spell/aoe/conjure/build/wall,
-		/obj/effect/proc_holder/spell/aoe/conjure/build/floor,
-		/obj/effect/proc_holder/spell/smoke/disable,
+		/datum/action/cooldown/spell/nightvision,
+		/datum/action/cooldown/spell/conjure/wall,
+		/datum/action/cooldown/spell/conjure/floor,
+		/datum/action/cooldown/spell/smoke/disable,
 	)
 	retreat_distance = 2 //AI harvesters will move in and out of combat, like wraiths, but shittier
 	playstyle_string = "<b>You are a Harvester. You are not strong, but your powers of domination will assist you in your role: \

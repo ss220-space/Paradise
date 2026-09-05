@@ -1,0 +1,4 @@
+author: "anon1mka"
+delete-after: True
+changes:
+  - bugfix: "Фикс выбора левой руки/кисти через numpad (PR #9761)"

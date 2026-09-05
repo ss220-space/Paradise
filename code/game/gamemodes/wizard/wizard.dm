@@ -331,7 +331,7 @@
 			if(LAZYLEN(wizard.spell_list))
 				text += "<br><b>[wizard.name] used the following spells: </b>"
 				var/i = 1
-				for(var/obj/effect/proc_holder/spell/spell as anything in wizard.spell_list)
+				for(var/datum/action/cooldown/spell/spell as anything in wizard.spell_list)
 					text += "[spell.name]"
 					if(length(wizard.spell_list) > i)
 						text += ", "
@@ -381,12 +381,12 @@
 /mob/proc/spellremove(mob/M)
 	if(!mind)
 		return
-	for(var/obj/effect/proc_holder/spell/spell_to_remove as anything in mind.spell_list)
+	for(var/datum/action/cooldown/spell/spell_to_remove as anything in mind.spell_list)
 		mind.RemoveSpell(spell_to_remove)
 
 //To batch-remove mob spells.
 /mob/proc/mobspellremove(mob/M)
-	for(var/obj/effect/proc_holder/spell/spell_to_remove as anything in mob_spell_list)
+	for(var/datum/action/cooldown/spell/spell_to_remove as anything in mob_spell_list)
 		RemoveSpell(spell_to_remove)
 
 /*Checks if the wizard can cast spells.
