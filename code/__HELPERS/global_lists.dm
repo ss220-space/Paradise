@@ -417,7 +417,7 @@
 		EQUIPMENT("Minebot Melee Upgrade", /obj/item/mine_bot_upgrade, 400),
 	)
 	prize_list["Miscellaneous"] = list(
-		EQUIPMENT("Absinthe", /obj/item/reagent_containers/food/drinks/bottle/absinthe/premium, 500),
+		EQUIPMENT("Absinthe", /obj/item/reagent_containers/cup/glass/bottle/absinthe/premium, 500),
 		EQUIPMENT("Alien Toy", /obj/item/clothing/mask/facehugger/toy, 300),
 		EQUIPMENT("Richard & Co cigarettes", /obj/item/storage/fancy/cigarettes/cigpack_richard, 400),
 		EQUIPMENT("Cigar", /obj/item/clothing/mask/cigarette/cigar/havana, 300),
@@ -428,7 +428,7 @@
 		EQUIPMENT("Luxury Elite Bar Capsule", /obj/item/survivalcapsule/luxuryelite, 10000),
 		EQUIPMENT("Soap", /obj/item/soap/nanotrasen, 400),
 		EQUIPMENT("Space Cash", /obj/item/stack/spacecash/magic_linked, 2500),
-		EQUIPMENT("Whiskey", /obj/item/reagent_containers/food/drinks/bottle/whiskey, 500),
+		EQUIPMENT("Whiskey", /obj/item/reagent_containers/cup/glass/bottle/whiskey, 500),
 		EQUIPMENT("HRD-MDE Project Box", /obj/item/storage/box/hardmode_box, 2500),
 	)
 	prize_list["Extra"] = list(
@@ -444,9 +444,9 @@
 	)
 	prize_list["Scum"] = list(
 		EQUIPMENT("Trauma Kit", /obj/item/stack/medical/bruise_pack/advanced, 150),
-		EQUIPMENT("Whisky", /obj/item/reagent_containers/food/drinks/bottle/whiskey, 100),
-		EQUIPMENT("Beer", /obj/item/reagent_containers/food/drinks/cans/beer, 50),
-		EQUIPMENT("Absinthe", /obj/item/reagent_containers/food/drinks/bottle/absinthe/premium, 250),
+		EQUIPMENT("Whisky", /obj/item/reagent_containers/cup/glass/bottle/whiskey, 100),
+		EQUIPMENT("Beer", /obj/item/reagent_containers/cup/soda_cans/beer, 50),
+		EQUIPMENT("Absinthe", /obj/item/reagent_containers/cup/glass/bottle/absinthe/premium, 250),
 		EQUIPMENT("Cigarettes", /obj/item/storage/fancy/cigarettes, 100),
 		EQUIPMENT("Medical Marijuana", /obj/item/storage/fancy/cigarettes/cigpack_med, 250),
 		EQUIPMENT("Richard & Co cigarettes", /obj/item/storage/fancy/cigarettes/cigpack_richard, 400),

@@ -21,7 +21,7 @@
 	var/mob/living/carbon/occupant
 	/// A separate effect for the occupant, as you can't animate overlays reliably and constantly removing and adding overlays is spamming the subsystem.
 	var/obj/effect/occupant_overlay
-	var/obj/item/reagent_containers/glass/beaker
+	var/obj/item/reagent_containers/cup/beaker
 	/// Holds two bitflags, AUTO_EJECT_DEAD and AUTO_EJECT_HEALTHY. Used to determine if the cryo cell will auto-eject dead and/or completely health patients.
 	var/auto_eject_prefs = NONE
 
@@ -260,7 +260,7 @@
 	data["beakerLabel"] = null
 	data["beakerVolume"] = 0
 	if(beaker)
-		data["beakerLabel"] = beaker.label_text ? beaker.label_text : null
+		data["beakerLabel"] = DECLENT_RU_CAP(beaker, NOMINATIVE)
 		if(beaker.reagents && length(beaker.reagents.reagent_list))
 			for(var/datum/reagent/R in beaker.reagents.reagent_list)
 				data["beakerVolume"] += R.volume
@@ -315,7 +315,7 @@
 
 	if(isglassreagentcontainer(I))
 		add_fingerprint(user)
-		var/obj/item/reagent_containers/glass/glass = I
+		var/obj/item/reagent_containers/cup/glass = I
 		if(beaker)
 			balloon_alert(user, "слот для ёмкости занят!")
 			return ATTACK_CHAIN_PROCEED

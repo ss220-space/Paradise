@@ -443,11 +443,11 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = -2;
 	pixel_y = 10
 	},
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/cup/soda_cans/beer{
 	pixel_x = 7;
 	pixel_y = 5
 	},

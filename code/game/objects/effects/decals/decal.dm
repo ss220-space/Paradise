@@ -53,7 +53,7 @@
 		qdel(src)
 
 /obj/effect/decal/attackby(obj/item/item, mob/user, params)
-	if(!isglassreagentcontainer(item) && !istype(item, /obj/item/reagent_containers/food/drinks))
+	if(!isglassreagentcontainer(item) && !istype(item, /obj/item/reagent_containers/cup/glass))
 		return ATTACK_CHAIN_PROCEED
 
 	add_fingerprint(user)

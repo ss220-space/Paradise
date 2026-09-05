@@ -1,11 +1,10 @@
 
 
-/obj/item/reagent_containers/food/drinks/drinkingglass
+/obj/item/reagent_containers/cup/glass/drinkingglass
 	name = "glass"
 	desc = "Стеклянный стакан, из таких обычно пьют. Постарайтесь не разбить его."
 	icon_state = "glass_empty"
 	item_state = "drinking_glass"
-	amount_per_transfer_from_this = 10
 	lefthand_file = 'icons/goonstation/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/items_righthand.dmi'
 	materials = list(MAT_GLASS=500)
@@ -15,7 +14,7 @@
 	pickup_sound =  'sound/items/handling/pickup/drinkglass_pickup.ogg'
 	custom_price = PAYCHECK_MIN * 0.2
 
-/obj/item/reagent_containers/food/drinks/drinkingglass/get_ru_names()
+/obj/item/reagent_containers/cup/glass/drinkingglass/get_ru_names()
 	return alist(
 		NOMINATIVE = "стакан",
 		GENITIVE = "стакана",
@@ -25,11 +24,11 @@
 		PREPOSITIONAL = "стакане",
 	)
 
-/obj/item/reagent_containers/food/drinks/drinkingglass/Initialize(mapload)
+/obj/item/reagent_containers/cup/glass/drinkingglass/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_CAN_ATTACH_TO_TRIPWIRE, INNATE_TRAIT)
 
-/obj/item/reagent_containers/food/drinks/drinkingglass/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/cup/glass/drinkingglass/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/food/snacks/egg)) //breaking eggs
 		add_fingerprint(user)
 		if(!reagents)
@@ -45,22 +44,22 @@
 
 	return ..()
 
-/obj/item/reagent_containers/food/drinks/drinkingglass/fire_act(exposed_temperature, exposed_volume)
+/obj/item/reagent_containers/cup/glass/drinkingglass/fire_act(exposed_temperature, exposed_volume)
 	if(!reagents.total_volume)
 		return
 	..()
 
-/obj/item/reagent_containers/food/drinks/drinkingglass/burn()
+/obj/item/reagent_containers/cup/glass/drinkingglass/burn()
 	reagents.clear_reagents()
 	extinguish()
 
-/obj/item/reagent_containers/food/drinks/drinkingglass/update_icon_state()
+/obj/item/reagent_containers/cup/glass/drinkingglass/update_icon_state()
 	if(length(reagents.reagent_list))
 		var/datum/reagent/check = reagents.get_master_reagent()
 		if(check.drink_icon)
 			icon_state = check.drink_icon
 
-/obj/item/reagent_containers/food/drinks/drinkingglass/update_overlays()
+/obj/item/reagent_containers/cup/glass/drinkingglass/update_overlays()
 	. = ..()
 	if(length(reagents.reagent_list))
 		var/datum/reagent/check = reagents.get_master_reagent()
@@ -71,7 +70,7 @@
 	else
 		icon_state = initial(icon_state)
 
-/obj/item/reagent_containers/food/drinks/drinkingglass/update_name(updates)
+/obj/item/reagent_containers/cup/glass/drinkingglass/update_name(updates)
 	. = ..()
 	if(length(reagents.reagent_list))
 		var/datum/reagent/check = reagents.get_master_reagent()
@@ -79,7 +78,7 @@
 	else
 		name = initial(name)
 
-/obj/item/reagent_containers/food/drinks/drinkingglass/update_desc(updates)
+/obj/item/reagent_containers/cup/glass/drinkingglass/update_desc(updates)
 	. = ..()
 	if(length(reagents.reagent_list))
 		var/datum/reagent/check = reagents.get_master_reagent()
@@ -87,26 +86,26 @@
 	else
 		desc = initial(desc)
 
-/obj/item/reagent_containers/food/drinks/drinkingglass/on_reagent_change()
+/obj/item/reagent_containers/cup/glass/drinkingglass/on_reagent_change()
 	update_appearance()
 
 // for /obj/machinery/vending/sovietsoda
-/obj/item/reagent_containers/food/drinks/drinkingglass/soda
+/obj/item/reagent_containers/cup/glass/drinkingglass/soda
 	list_reagents = list("sodawater" = 50)
 
-/obj/item/reagent_containers/food/drinks/drinkingglass/cola
+/obj/item/reagent_containers/cup/glass/drinkingglass/cola
 	list_reagents = list("cola" = 50)
 
-/obj/item/reagent_containers/food/drinks/drinkingglass/devilskiss
+/obj/item/reagent_containers/cup/glass/drinkingglass/devilskiss
 	list_reagents = list("devilskiss" = 50)
 
-/obj/item/reagent_containers/food/drinks/drinkingglass/alliescocktail
+/obj/item/reagent_containers/cup/glass/drinkingglass/alliescocktail
 	list_reagents = list("alliescocktail" = 25, "omnizine" = 25)
 
-/obj/item/reagent_containers/food/drinks/drinkingglass/mulled_wine
+/obj/item/reagent_containers/cup/glass/drinkingglass/mulled_wine
 	list_reagents = list("mulled_wine" = 50)
 
-/obj/item/reagent_containers/food/drinks/drinkingglass/on_tripwire_trigger(obj/item/tripwire/base, mob/user)
+/obj/item/reagent_containers/cup/glass/drinkingglass/on_tripwire_trigger(obj/item/tripwire/base, mob/user)
 	var/turf/turf = get_turf(base)
 	if(reagents?.total_volume)
 		reagents.reaction(turf, REAGENT_TOUCH)

@@ -1,0 +1,20 @@
+# Glasses to cups
+/obj/item/reagent_containers/glass/@SUBTYPES : /obj/item/reagent_containers/cup/@SUBTYPES {@OLD}
+
+# Foods
+/obj/item/reagent_containers/food/drinks/@SUBTYPES : /obj/item/reagent_containers/cup/glass/@SUBTYPES {@OLD}
+/obj/item/reagent_containers/food/condiment/@SUBTYPES : /obj/item/reagent_containers/condiment/@SUBTYPES {@OLD}
+
+# Sodas
+/obj/item/reagent_containers/cup/glass/soda_cans/@SUBTYPES : /obj/item/reagent_containers/cup/soda_cans/@SUBTYPES {@OLD}
+/obj/item/reagent_containers/food/drinks/soda_cans/@SUBTYPES : /obj/item/reagent_containers/cup/soda_cans/@SUBTYPES {@OLD}
+
+# Juices
+/obj/item/reagent_containers/food/drinks/glass/bottle/@SUBTYPES : /obj/item/reagent_containers/cup/glass/bottle/juice/@SUBTYPES {@OLD}
+/obj/item/reagent_containers/cup/glass/bottle/@SUBTYPES: /obj/item/reagent_containers/cup/glass/bottle/juice/@SUBTYPES {@OLD}
+
+# Coffee cups
+/obj/item/reagent_containers/cup/glass/cups/coffee_cup/@SUBTYPES : /obj/item/reagent_containers/cup/glass/coffee_cup/@SUBTYPES {@OLD}
+
+# Soda cans
+/obj/item/reagent_containers/cup/glass/cans/@SUBTYPES : /obj/item/reagent_containers/cup/soda_cans/@SUBTYPES {@OLD}

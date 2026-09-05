@@ -72,7 +72,7 @@
 	ui_interact(user)
 
 /obj/machinery/ninja_bloodscan_machine/attackby(obj/item/I, mob/user, params)
-	if(user.a_intent == INTENT_HARM || !istype(I, /obj/item/reagent_containers/glass/beaker))
+	if(user.a_intent == INTENT_HARM || !istype(I, /obj/item/reagent_containers/cup/beaker))
 		return ..()
 
 	. = ATTACK_CHAIN_PROCEED
@@ -89,11 +89,11 @@
 		to_chat(user, span_warning("Your mission is over, you don't need to use this machine anymore."))
 		return .
 
-	if(!istype(I, /obj/item/reagent_containers/glass/beaker/vial))
+	if(!istype(I, /obj/item/reagent_containers/cup/beaker/vial))
 		to_chat(user, span_warning("This machine only accept's small vial's. Beaker's won't fit."))
 		return .
 
-	var/obj/item/reagent_containers/glass/beaker/vial/blood_vial = I
+	var/obj/item/reagent_containers/cup/beaker/vial/blood_vial = I
 	if(!length(blood_vial.reagents.reagent_list))
 		to_chat(user, span_warning("Vial is empty."))
 		return .
@@ -125,7 +125,7 @@
 	addtimer(CALLBACK(src, PROC_REF(scan_blood_sample_recursive)), 3 SECONDS)
 
 /obj/machinery/ninja_bloodscan_machine/proc/scan_blood_sample_recursive(iterator = 1)
-	var/obj/item/reagent_containers/glass/beaker/vial/blood_vial = vials[iterator]
+	var/obj/item/reagent_containers/cup/beaker/vial/blood_vial = vials[iterator]
 	var/datum/reagent/blood/sample_blood = blood_samples[iterator]
 	var/datum/mind/sample_mind = sample_blood.data["mind"]
 	if(sample_mind in samples_mind_list)
@@ -187,7 +187,7 @@
 	TGUI_blocked = FALSE
 	samples_mind_list.Cut()
 	if(clear_vials || hard_clear)
-		for(var/obj/item/reagent_containers/glass/beaker/vial/vial in vials)
+		for(var/obj/item/reagent_containers/cup/beaker/vial/vial in vials)
 			vial.forceMove(get_turf(src))
 		vials.Cut()
 		blood_samples.Cut()
@@ -212,7 +212,7 @@
 	return
 
 /obj/machinery/ninja_bloodscan_machine/proc/handle_eject_vial(vial_num)
-	var/obj/item/reagent_containers/glass/beaker/vial/blood_vial = vials[vial_num]
+	var/obj/item/reagent_containers/cup/beaker/vial/blood_vial = vials[vial_num]
 	if(!istype(blood_vial))
 		return
 	vials -= blood_vial
@@ -247,7 +247,7 @@
 	var/list/data = list()
 	//Иконки виалов
 	var/list/vial_icons = list()
-	for(var/obj/item/reagent_containers/glass/beaker/vial/blood_vial in vials)
+	for(var/obj/item/reagent_containers/cup/beaker/vial/blood_vial in vials)
 		var/icon/vial_icon = getFlatIcon(blood_vial, no_anim = TRUE)
 		vial_icons += icon2base64(vial_icon)
 	var/icon/no_vial_icon = icon('icons/obj/chemical.dmi', "vial", SOUTH, frame = 1)
@@ -281,7 +281,7 @@
 	switch(action)
 		if("vial_out")
 			var/vial_num = text2num(params["button_num"])
-			var/obj/item/reagent_containers/glass/beaker/vial/blood_vial
+			var/obj/item/reagent_containers/cup/beaker/vial/blood_vial
 			if(length(vials) >= vial_num)
 				blood_vial = vials[vial_num]
 			if(istype(blood_vial))

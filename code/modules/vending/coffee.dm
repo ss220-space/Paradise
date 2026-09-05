@@ -30,17 +30,17 @@
 
 	item_slot = TRUE
 	products = list(
-		/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee = 25,
-		/obj/item/reagent_containers/food/drinks/tea = 25,
-		/obj/item/reagent_containers/food/drinks/h_chocolate = 25,
-		/obj/item/reagent_containers/food/drinks/chocolate = 10,
-		/obj/item/reagent_containers/food/drinks/chicken_soup = 10,
-		/obj/item/reagent_containers/food/drinks/weightloss = 10,
-		/obj/item/reagent_containers/food/drinks/mug = 15,
-		/obj/item/reagent_containers/food/drinks/mug/novelty = 5,
+		/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee = 25,
+		/obj/item/reagent_containers/cup/glass/tea = 25,
+		/obj/item/reagent_containers/cup/glass/h_chocolate = 25,
+		/obj/item/reagent_containers/cup/glass/chocolate = 10,
+		/obj/item/reagent_containers/cup/glass/chicken_soup = 10,
+		/obj/item/reagent_containers/cup/glass/weightloss = 10,
+		/obj/item/reagent_containers/cup/glass/mug = 15,
+		/obj/item/reagent_containers/cup/glass/mug/novelty = 5,
 	)
 	contraband = list(
-		/obj/item/reagent_containers/food/drinks/ice = 10,
+		/obj/item/reagent_containers/cup/glass/ice = 10,
 	)
 
 /obj/machinery/vending/coffee/get_ru_names()
@@ -54,7 +54,7 @@
 	)
 
 /obj/machinery/vending/coffee/item_slot_check(mob/user, obj/item/I)
-	if(!(isglassreagentcontainer(I) || istype(I, /obj/item/reagent_containers/food/drinks)))
+	if(!(isglassreagentcontainer(I) || istype(I, /obj/item/reagent_containers/cup/glass)))
 		return FALSE
 	if(!..())
 		return FALSE
@@ -66,9 +66,9 @@
 /obj/machinery/vending/coffee/do_vend(datum/data/vending_product/product_record, mob/user)
 	if(..())
 		return
-	var/obj/item/reagent_containers/food/drinks/vended = new product_record.product_path()
+	var/obj/item/reagent_containers/cup/glass/vended = new product_record.product_path()
 
-	if(istype(vended, /obj/item/reagent_containers/food/drinks/mug))
+	if(istype(vended, /obj/item/reagent_containers/cup/glass/mug))
 		var/put_on_turf = TRUE
 		if(user && iscarbon(user) && user.Adjacent(src))
 			vended.forceMove_turf()

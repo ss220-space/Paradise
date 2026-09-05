@@ -1,7 +1,7 @@
 // This file contains all of the "static" define strings that tie to a trait.
 // Remember to update _globalvars/traits.dm if you're adding/removing/renaming traits.
 
-// atom traits
+// MARK: atom traits
 /// Trait used to prevent an atom from component radiation emission (see radioactivity.dm)
 #define TRAIT_BLOCK_RADIATION "block_radiation"
 /// Is this atom being actively shocked? Used to prevent repeated shocks.
@@ -18,7 +18,7 @@
 #define TRAIT_BLOBSTORM_IMMUNE "blobstorm_immune"
 #define TRAIT_WEATHER_IMMUNE "weather_immune" //Immune to ALL weather effects.
 
-// atom/movable traits
+// MARK: atom/movable traits
 /// Buckling yourself to objects with this trait won't immobilize you
 #define TRAIT_NO_IMMOBILIZE "no_immobilize"
 ///Chasms will be safe to cross if there is something with this trait on it
@@ -32,7 +32,7 @@
 
 #define TRAIT_SILENT_FOOTSTEPS "silent_footsteps"
 
-// turf traits
+// MARK: turf traits
 /// Prevent mobs on the turf from being affected by anything below that turf, such as a pulse demon going under it. Added by a /obj/structure with creates_cover set to TRUE
 #define TRAIT_TURF_COVERED "turf_covered"
 ///Turf slowdown will be ignored when this trait is added to a turf.
@@ -46,7 +46,7 @@
 ///Lava will be safe to cross while it has this trait.
 #define TRAIT_LAVA_STOPPED "lava_stopped"
 
-// mob traits
+// MARK: mob traits
 #define TRAIT_GODMODE "godmode"
 #define TRAIT_PACIFISM "pacifism"
 #define TRAIT_NO_DEATH "nodeath"
@@ -218,7 +218,7 @@
 /// We have some form of forced gravity acting on us
 #define TRAIT_FORCED_GRAVITY "forced_gravity"
 
-//***** ITEM TRAITS *****//
+// MARK: item traits
 #define TRAIT_CMAGGED "cmagged"
 /// Trait to toggle Inugami Gloves built-in defibrillator mode
 #define TRAIT_DEFIB_BLOCKED "defib_blocked"
@@ -263,7 +263,7 @@
 /// Disables the floating animation. See above.
 #define TRAIT_NO_FLOATING_ANIM "no-floating-animation"
 
-// old mutation traits
+// MARK: old mutation traits
 #define	TRAIT_TELEKINESIS "telekinesis"
 #define TRAIT_RESIST_COLD "cold_resistance"
 #define TRAIT_RESIST_HEAT "heat_resistance"
@@ -287,7 +287,7 @@
 #define TRAIT_COLORBLIND "colorblind"
 #define TRAIT_WEAK_EARS "weak_ears"
 
-// old species traits
+// MARK: old species traits
 /// This human mob doesn't bleed
 #define TRAIT_NO_BLOOD "no_blood"
 /// This human mob will only regenerate blood through the transfusion
@@ -464,7 +464,7 @@
 /// Distortion is an expensive effect, so it's worthwhile to keep it off until we care
 #define TRAIT_DISTORTION_IN_USE(z_layer) "distortion_in_use_#[z_layer]"
 
-/// Traits given by station traits
+// MARK: Station Traits
 #define STATION_TRAIT_CARP_INFESTATION "station_trait_carp_infestation"
 #define STATION_TRAIT_LATE_ARRIVALS "station_trait_late_arrivals"
 #define STATION_TRAIT_RANDOM_ARRIVALS "station_trait_random_arrivals"
@@ -490,7 +490,7 @@
 #define STATION_TRAIT_GREEN_ENERGY "station_trait_green_energy"
 #define STATION_TRAIT_OUTDATED_HARDSUITS "station_trait_outdated_hardsuits"
 
-// Radiation defines
+// MARK: Radiation
 /// Marks that this object is irradiated
 #define TRAIT_IRRADIATED "irradiated"
 /// Immune to being irradiated
@@ -505,7 +505,7 @@
 /// Basically, without this, COMSIG_IN_RANGE_OF_IRRADIATION won't fire once the object is irradiated.
 #define TRAIT_BYPASS_EARLY_IRRADIATED_CHECK "radiation_bypass_early_irradiated_check"
 
-// METABOLISMS
+// MARK: Metabolism
 // Various jobs on the station have historically had better reactions
 // to various drinks and foodstuffs. Security liking donuts is a classic
 // example. Through years of training/abuse, their livers have taken
@@ -541,7 +541,7 @@
 /// eignore blindness or blurriness or nearsightedness
 #define TRAIT_SIGHT_BYPASS "perfect_sight"
 
-// Hud traits
+// MARK: Hud traits
 /// This hud is owned by a client with an open escape menu
 #define TRAIT_ESCAPE_MENU_OPEN "escape_menu_open"
 /// This hud has parallax displayed on it

@@ -526,5 +526,5 @@
 			r_pocket = /obj/item/restraints/legcuffs/bola/cult
 			l_pocket = /obj/item/melee/cultblade/dagger
 			glasses =  /obj/item/clothing/glasses/hud/health/night
-			backpack_contents = list(/obj/item/reagent_containers/food/drinks/bottle/unholywater = 1, /obj/item/cult_shift = 1, /obj/item/flashlight/flare = 1, /obj/item/stack/sheet/runed_metal = 15)
+			backpack_contents = list(/obj/item/reagent_containers/cup/glass/bottle/unholywater = 1, /obj/item/cult_shift = 1, /obj/item/flashlight/flare = 1, /obj/item/stack/sheet/runed_metal = 15)
 	. = ..()

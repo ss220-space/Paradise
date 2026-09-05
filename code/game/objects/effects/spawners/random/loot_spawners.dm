@@ -9,7 +9,7 @@
 /obj/effect/spawner/random/loot/cryo_beakers
 	name = "3x cryo beaker spawner"
 	spawn_loot_count = 3
-	loot = list(/obj/item/reagent_containers/glass/beaker/bluespace)
+	loot = list(/obj/item/reagent_containers/cup/beaker/bluespace)
 
 /obj/effect/spawner/random/loot/good_times
 	name = "good times spawner"
@@ -17,8 +17,8 @@
 	loot = list(
 		/obj/item/reagent_containers/food/snacks/grown/ambrosia/deus,
 		/obj/item/lighter,
-		/obj/item/reagent_containers/food/drinks/bottle/rum,
-		/obj/item/reagent_containers/food/drinks/bottle/whiskey,
+		/obj/item/reagent_containers/cup/glass/bottle/rum,
+		/obj/item/reagent_containers/cup/glass/bottle/whiskey,
 	)
 
 /obj/effect/spawner/random/loot/bank_robber
@@ -92,7 +92,7 @@
 		/obj/effect/spawner/random/loot/outfit/shorts = 5,
 		/obj/item/melee/baton = 5,
 		///obj/item/melee/skateboard/pro = 5,
-		/obj/item/reagent_containers/glass/beaker/bluespace = 5,
+		/obj/item/reagent_containers/cup/beaker/bluespace = 5,
 		/obj/item/seeds/firelemon = 5,
 		/obj/item/stack/ore/diamond/ten = 5,
 

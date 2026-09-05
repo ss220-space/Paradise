@@ -43,7 +43,7 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/toy/waterballoon/attackby(obj/item/item, mob/user, params)
-	if(!isglassreagentcontainer(item) && !istype(item, /obj/item/reagent_containers/food/drinks/drinkingglass))
+	if(!isglassreagentcontainer(item) && !istype(item, /obj/item/reagent_containers/cup/glass/drinkingglass))
 		return ..()
 
 	add_fingerprint(user)

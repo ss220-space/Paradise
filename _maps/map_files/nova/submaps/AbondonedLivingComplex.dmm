@@ -1177,7 +1177,7 @@
 "GG" = (
 /obj/structure/table,
 /obj/item/storage/box/cups,
-/obj/item/reagent_containers/glass/beaker/waterbottle/empty,
+/obj/item/reagent_containers/cup/beaker/waterbottle/empty,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -1524,13 +1524,13 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/reagent_containers/food/drinks/bottle/jagermeister{
+/obj/item/reagent_containers/cup/glass/bottle/jagermeister{
 	pixel_x = 9
 	},
-/obj/item/reagent_containers/food/drinks/bottle/sambuka{
+/obj/item/reagent_containers/cup/glass/bottle/sambuka{
 	pixel_x = -8
 	},
-/obj/item/reagent_containers/food/drinks/bottle/goldschlager,
+/obj/item/reagent_containers/cup/glass/bottle/goldschlager,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/pod,
 /area/station/maintenance/abandonedwarehouse)

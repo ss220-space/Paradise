@@ -25,7 +25,7 @@
 	var/obj/item/dart_cartridge/cartridge = null //Container of darts.
 	var/max_beakers = 3
 	var/dart_reagent_amount = 15
-	var/containers_type = /obj/item/reagent_containers/glass/beaker
+	var/containers_type = /obj/item/reagent_containers/cup/beaker
 	var/list/starting_chems = null
 
 /obj/item/gun/dartgun/update_icon_state()
@@ -56,7 +56,7 @@
 	if(get_dist(user, src) <= 2)
 		if(length(beakers))
 			. += span_notice("[src] contains:")
-			for(var/obj/item/reagent_containers/glass/beaker/B in beakers)
+			for(var/obj/item/reagent_containers/cup/beaker/B in beakers)
 				if(B.reagents && length(B.reagents.reagent_list))
 					for(var/datum/reagent/R in B.reagents.reagent_list)
 						. += span_notice("[R.volume] units of [R.name]")
@@ -85,7 +85,7 @@
 
 	if(isglassreagentcontainer(I))
 		add_fingerprint(user)
-		var/obj/item/reagent_containers/glass/beaker/new_beaker = I
+		var/obj/item/reagent_containers/cup/beaker/new_beaker = I
 		if(!istype(new_beaker, containers_type))
 			to_chat(user, span_warning("The [new_beaker.name] doesn't seem to fit into [src]."))
 			return ATTACK_CHAIN_PROCEED
@@ -128,7 +128,7 @@
 
 	if(length(mixing))
 		var/mix_amount = dart_reagent_amount/mixing.len
-		for(var/obj/item/reagent_containers/glass/beaker/B in mixing)
+		for(var/obj/item/reagent_containers/cup/beaker/B in mixing)
 			B.reagents.trans_to(dart,mix_amount)
 
 	return dart
@@ -201,7 +201,7 @@
 
 	if(length(beakers))
 		var/i = 1
-		for(var/obj/item/reagent_containers/glass/beaker/B in beakers)
+		for(var/obj/item/reagent_containers/cup/beaker/B in beakers)
 			dat += "Beaker [i] contains: "
 			if(B.reagents && length(B.reagents.reagent_list))
 				for(var/datum/reagent/R in B.reagents.reagent_list)
@@ -254,7 +254,7 @@
 		var/index = text2num(href_list["eject"])
 		if(index <= length(beakers))
 			if(beakers[index])
-				var/obj/item/reagent_containers/glass/beaker/B = beakers[index]
+				var/obj/item/reagent_containers/cup/beaker/B = beakers[index]
 				to_chat(usr, span_notice("You remove [B] from [src]."))
 				mixing -= B
 				beakers -= B

@@ -1791,7 +1791,7 @@
 	},
 /area/station/commons/trading)
 "vC" = (
-/obj/item/reagent_containers/glass/beaker/waterbottle,
+/obj/item/reagent_containers/cup/beaker/waterbottle,
 /obj/structure/holosign/barrier,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
@@ -3535,15 +3535,15 @@
 /area/station/maintenance/backstage)
 "NL" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka{
+/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka{
 	pixel_x = -4;
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = 10;
 	pixel_y = 12
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = 10;
 	pixel_y = 2
 	},
@@ -4211,9 +4211,9 @@
 /obj/structure/closet{
 	icon_state = "cabinet"
 	},
-/obj/item/reagent_containers/food/drinks/bottle/whiskey,
-/obj/item/reagent_containers/food/drinks/drinkingglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass,
+/obj/item/reagent_containers/cup/glass/bottle/whiskey,
+/obj/item/reagent_containers/cup/glass/drinkingglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass,
 /obj/item/clothing/mask/cigarette/cigar/cohiba,
 /obj/item/clothing/mask/cigarette/cigar/cohiba,
 /obj/item/toy/russian_revolver,

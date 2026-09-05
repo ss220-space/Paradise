@@ -729,7 +729,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	if(prob(probability))
 		reagents.add_reagent("milk", rand(5, 10))
 
-/obj/item/udder/proc/milkAnimal(obj/item/reagent_containers/glass/container, mob/user)
+/obj/item/udder/proc/milkAnimal(obj/item/reagent_containers/cup/container, mob/user)
 	if(!container.reagents)
 		balloon_alert(user, "неподходящая ёмкость!")
 		return FALSE

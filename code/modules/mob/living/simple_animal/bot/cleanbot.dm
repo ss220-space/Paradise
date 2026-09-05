@@ -221,7 +221,7 @@
 	on = FALSE
 	visible_message(span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] разлетается на части!"))
 	var/turf/Tsec = get_turf(src)
-	new /obj/item/reagent_containers/glass/bucket(Tsec)
+	new /obj/item/reagent_containers/cup/bucket(Tsec)
 	new /obj/item/assembly/prox_sensor(Tsec)
 	if(prob(50))
 		drop_part(robot_arm, Tsec)

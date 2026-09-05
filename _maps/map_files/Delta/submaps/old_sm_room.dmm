@@ -380,7 +380,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -475,11 +475,11 @@
 "kl" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = 11;
 	pixel_y = 13
 	},
-/obj/item/reagent_containers/food/drinks/bottle/cognac{
+/obj/item/reagent_containers/cup/glass/bottle/cognac{
 	pixel_x = -10;
 	pixel_y = 15
 	},
@@ -1049,7 +1049,7 @@
 	pixel_y = -30
 	},
 /obj/structure/chair/stool/wooden,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = -8;
 	pixel_y = -6
 	},
@@ -1686,7 +1686,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass{
 	pixel_x = 8
 	},
 /obj/structure/cable{

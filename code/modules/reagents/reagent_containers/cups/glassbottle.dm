@@ -1,49 +1,17 @@
+#define BOTTLE_KNOCKDOWN_DEFAULT_DURATION (1.3 SECONDS)
 
-
-///////////////////////////////////////////////Alchohol bottles! -Agouri //////////////////////////
-//Functionally identical to regular drinks. The only difference is that the default bottle size is 100. - Darem
-//Bottles now weaken and break when smashed on people's heads. - Giacom
-
-/obj/item/reagent_containers/food/drinks/bottle
-	amount_per_transfer_from_this = 10
+// MARK: Base Bottle
+/obj/item/reagent_containers/cup/glass/bottle
 	volume = 100
+	force = 15 //Smashing bottles over someone's head hurts.
 	throwforce = 15
-	item_state = "broken_beer" //Generic held-item sprite until unique ones are made.
+	item_state = "broken_beer"
 	custom_price = PAYCHECK_LOWER
-	var/const/duration = 13 //Directly relates to the 'weaken' duration. Lowered by armor (i.e. helmets)
-	var/isGlass = 1 //Whether the 'bottle' is made of glass or not so that milk cartons dont shatter when someone gets hit by it
+	var/broken_inhand_icon_state = "broken_beer"
+	/// Directly relates to the `knockdown` duration. Lowered by armor (i.e. helmets).
+	var/bottle_knockdown_duration = BOTTLE_KNOCKDOWN_DEFAULT_DURATION
 
-/obj/item/reagent_containers/food/drinks/bottle/proc/smash(mob/living/target, mob/living/user, ranged = 0)
-
-	//Creates a shattering noise and replaces the bottle with a broken_bottle
-	var/new_location = get_turf(loc)
-	var/obj/item/broken_bottle/B = new /obj/item/broken_bottle(new_location)
-	if(ranged)
-		B.loc = new_location
-	else
-		user.drop_from_active_hand(TRUE, TRUE)
-		user.put_in_active_hand(B, silent = TRUE)
-	B.icon_state = icon_state
-
-	var/icon/I = new('icons/obj/drinks.dmi', icon_state)
-	I.Blend(B.broken_outline, ICON_OVERLAY, rand(5), 1)
-	I.SwapColor(rgb(255, 0, 220, 255), rgb(0, 0, 0, 0))
-	B.icon = I
-
-	if(isGlass)
-		if(prob(33))
-			new/obj/item/shard(new_location)
-		playsound(src, SFX_SHATTER, 70, TRUE)
-	else
-		B.name = "broken carton"
-		B.force = 0
-		B.throwforce = 0
-		B.desc = "Картонная упаковка с разорванным дном. Можно порезаться."
-	transfer_fingerprints_to(B)
-
-	qdel(src)
-
-/obj/item/reagent_containers/food/drinks/bottle/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/reagent_containers/cup/glass/bottle/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(user.a_intent != INTENT_HARM || !isGlass)
 		return ..()
 
@@ -52,8 +20,6 @@
 		return ATTACK_CHAIN_PROCEED
 
 	. = ATTACK_CHAIN_BLOCKED_ALL
-
-	force = 15 //Smashing bottles over someoen's head hurts.
 
 	var/obj/item/organ/external/affecting = user.zone_selected //Find what the player is aiming at
 
@@ -80,13 +46,13 @@
 			headarmor = 0
 
 		//Calculate the weakening duration for the target.
-		armor_duration = (duration - headarmor) + force
+		armor_duration = (bottle_knockdown_duration - headarmor) + force
 
 	else
 		//Only humans can have armor, right?
 		armor_block = target.run_armor_check(affecting, MELEE)
 		if(affecting == BODY_ZONE_HEAD)
-			armor_duration = duration + force
+			armor_duration = bottle_knockdown_duration + force
 	armor_duration /= 10
 
 	//Apply the damage!
@@ -117,26 +83,22 @@
 	//Attack logs
 	add_attack_logs(user, target, "Hit with [src]")
 
-	//The reagents in the bottle splash all over the target, thanks for the idea Nodrak
-	SplashReagents(target)
-
 	//Finally, smash the bottle. This kills (qdel) the bottle.
 	smash(target, user)
 
-/obj/item/reagent_containers/food/drinks/bottle/proc/SplashReagents(mob/M)
-	if(reagents?.total_volume)
-		M.visible_message(span_danger("Содержимое [declent_ru(GENITIVE)] разбрызгивается по [M.declent_ru(PREPOSITIONAL)]!"))
-		reagents.reaction(M, REAGENT_TOUCH)
-		reagents.clear_reagents()
+/obj/item/reagent_containers/cup/glass/bottle/post_smash(atom/target, atom/thrower, datum/thrownthing/throwingdatum, obj/item/broken_bottle/broken)
+	if(!throwingdatum && ismob(thrower))
+		astype(thrower, /mob).put_in_hands(broken)
+	broken.item_state = broken_inhand_icon_state
 
-/obj/item/reagent_containers/food/drinks/bottle/decompile_act(obj/item/matter_decompiler/C, mob/user)
+/obj/item/reagent_containers/cup/glass/bottle/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!reagents.total_volume)
 		C.stored_comms["glass"] += 3
 		qdel(src)
 		return TRUE
 	return ..()
 
-//Keeping this here for now, I'll ask if I should keep it here.
+// MARK: Broken Bottle
 /obj/item/broken_bottle
 	name = "broken bottle"
 	desc = "Бутылка с острым побитым дном."
@@ -170,13 +132,37 @@
 	qdel(src)
 	return TRUE
 
-/obj/item/reagent_containers/food/drinks/bottle/gin
+/// Mimics the appearance and properties of the passed in bottle.
+/// Takes the broken bottle to mimic, and the thing the bottle was broken agaisnt as args
+/obj/item/broken_bottle/proc/mimic_broken(obj/item/reagent_containers/cup/glass/to_mimic, atom/target)
+	icon_state = to_mimic.icon_state
+	var/icon/drink_icon = new('icons/obj/drinks.dmi', icon_state)
+	drink_icon.Blend(broken_outline, ICON_OVERLAY, rand(5), 1)
+	drink_icon.SwapColor(rgb(255, 0, 220, 255), rgb(0, 0, 0, 0))
+	icon = drink_icon
+
+	if(istype(to_mimic, /obj/item/reagent_containers/cup/glass/bottle/juice))
+		force = 0
+		throwforce = 0
+		set_ru_names_suffix(" (разорван[GEND_A_O_Y(to_mimic)])")
+		desc = "Картонная упаковка с разорванным дном. Можно порезаться."
+	else
+		if(prob(33))
+			var/obj/item/shard/stab_with = new(to_mimic.drop_location())
+			target.Bumped(stab_with)
+		playsound(src, SFX_SHATTER, 70, TRUE)
+	name = "broken [to_mimic.name]"
+	set_ru_names_suffix(" (разбит[GEND_A_O_Y(to_mimic)])")
+	to_mimic.transfer_fingerprints_to(src)
+
+// MARK: Alcohole Bottles
+/obj/item/reagent_containers/cup/glass/bottle/gin
 	name = "Griffeater Gin"
 	desc = "Бутылка высококачественного джина, произведённого в Новом Лондоне."
 	icon_state = "ginbottle"
 	list_reagents = list("gin" = 100)
 
-/obj/item/reagent_containers/food/drinks/bottle/gin/get_ru_names()
+/obj/item/reagent_containers/cup/glass/bottle/gin/get_ru_names()
 	return alist(
 		NOMINATIVE = "джин \"Гриффитер\"",
 		GENITIVE = "джина \"Гриффитер\"",
@@ -186,13 +172,13 @@
 		PREPOSITIONAL = "джине \"Гриффитер\"",
 	)
 
-/obj/item/reagent_containers/food/drinks/bottle/whiskey
+/obj/item/reagent_containers/cup/glass/bottle/whiskey
 	name = "Uncle Git's Special Reserve"
 	desc = "Односолодовый виски премиум-класса, бережно выдержанный в туннелях ядерного бомбоубежища. ТУННЕЛЬНЫЙ ВИСКИ РУЛИТ!"
 	icon_state = "whiskeybottle"
 	list_reagents = list("whiskey" = 100)
 
-/obj/item/reagent_containers/food/drinks/bottle/whiskey/get_ru_names()
+/obj/item/reagent_containers/cup/glass/bottle/whiskey/get_ru_names()
 	return alist(
 		NOMINATIVE = "виски \"Особые Запасы Дяди Гита\"",
 		GENITIVE = "виски \"Особые Запасы Дяди Гита\"",
@@ -202,13 +188,13 @@
 		PREPOSITIONAL = "виски \"Особые Запасы Дяди Гита\"",
 	)
 
-/obj/item/reagent_containers/food/drinks/bottle/vodka
+/obj/item/reagent_containers/cup/glass/bottle/vodka
 	name = "Tunguska Triple Distilled"
 	desc = "Высококачественная водка тройной перегонки, импортированная прямо из СССП."
 	icon_state = "vodkabottle"
 	list_reagents = list("vodka" = 100)
 
-/obj/item/reagent_containers/food/drinks/bottle/vodka/get_ru_names()
+/obj/item/reagent_containers/cup/glass/bottle/vodka/get_ru_names()
 	return alist(
 		NOMINATIVE = "водка \"Тунгуска Тройной Перегонки\"",
 		GENITIVE = "водки \"Тунгуска Тройной Перегонки\"",
@@ -218,13 +204,13 @@
 		PREPOSITIONAL = "водке \"Тунгуска Тройной Перегонки\"",
 	)
 
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka
+/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka
 	name = "Badminka Vodka"
 	desc = "Может и не самая дорогая, но всё ещё пригодная для употребления водка, производимая на окраинах СССП. Чёрт возьми, водка есть водка!"
 	icon_state = "badminka"
 	list_reagents = list("vodka" = 100)
 
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka/get_ru_names()
+/obj/item/reagent_containers/cup/glass/bottle/vodka/badminka/get_ru_names()
 	return alist(
 		NOMINATIVE = "водка \"Бадминка\"",
 		GENITIVE = "водки \"Бадминка\"",
@@ -234,13 +220,13 @@
 		PREPOSITIONAL = "водке \"Бадминка\"",
 	)
 
-/obj/item/reagent_containers/food/drinks/bottle/tequila
+/obj/item/reagent_containers/cup/glass/bottle/tequila
 	name = "Caccavo Guaranteed Quality Tequila"
 	desc = "Изготовлена из высококачественных нефтяных дистиллятов, чистого талидомида и других высококачественных ингредиентов!"
 	icon_state = "tequilabottle"
 	list_reagents = list("tequila" = 100)
 
-/obj/item/reagent_containers/food/drinks/bottle/tequila/get_ru_names()
+/obj/item/reagent_containers/cup/glass/bottle/tequila/get_ru_names()
 	return alist(
 		NOMINATIVE = "текила \"Гарантированно Качественная Каккаво\"",
 		GENITIVE = "текилы \"Гарантированно Качественная Каккаво\"",
@@ -250,13 +236,13 @@
 		PREPOSITIONAL = "текиле \"Гарантированно Качественная Каккаво\"",
 	)
 
-/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing
+/obj/item/reagent_containers/cup/glass/bottle/bottleofnothing
 	name = "Bottle of Nothing"
 	desc = "Бутылка, наполненная Ничем."
 	icon_state = "bottleofnothing"
 	list_reagents = list("nothing" = 100)
 
-/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing/get_ru_names()
+/obj/item/reagent_containers/cup/glass/bottle/bottleofnothing/get_ru_names()
 	return alist(
 		NOMINATIVE = "бутылка \"Ничего\"",
 		GENITIVE = "бутылки \"Ничего\"",
@@ -266,13 +252,13 @@
 		PREPOSITIONAL = "бутылке \"Ничего\"",
 	)
 
-/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana
+/obj/item/reagent_containers/cup/glass/bottle/bottleofbanana
 	name = "Jolly Jug"
 	desc = "Кувшин, наполненный банановым соком. Хонк!"
 	icon_state = "bottleofjolly"
 	list_reagents = list("banana" = 100)
 
-/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana/get_ru_names()
+/obj/item/reagent_containers/cup/glass/bottle/bottleofbanana/get_ru_names()
 	return alist(
 		NOMINATIVE = "кувшин бананового сока",
 		GENITIVE = "кувшина бананового сока",
@@ -282,13 +268,13 @@
 		PREPOSITIONAL = "кувшине бананового сока",
 	)
 
-/obj/item/reagent_containers/food/drinks/bottle/patron
+/obj/item/reagent_containers/cup/glass/bottle/patron
 	name = "Roca Patron Silver"
 	desc = "Премиальная текила с серебряным отливом, которую подают в ночных клубах по всей галактике."
 	icon_state = "patronbottle"
 	list_reagents = list("patron" = 100)
 
-/obj/item/reagent_containers/food/drinks/bottle/patron/get_ru_names()
+/obj/item/reagent_containers/cup/glass/bottle/patron/get_ru_names()
 	return alist(
 		NOMINATIVE = "текила \"Рока Патрон Сильвер\"",
 		GENITIVE = "текилы \"Рока Патрон Сильвер\"",
@@ -298,13 +284,13 @@
 		PREPOSITIONAL = "текиле \"Рока Патрон Сильвер\"",
 	)
 
-/obj/item/reagent_containers/food/drinks/bottle/rum
+/obj/item/reagent_containers/cup/glass/bottle/rum
 	name = "Captain Pete's Cuban Spiced Rum"
 	desc = "Как сказал однажды мой шкипер: \"Если бледная смерть с трепетным ужасом сделает космическую пустоту нашим последним пристанищем, Бог, слышащий, как клубится тьма космоса, соизволит спасти нашу молящуюся душу\"."
 	icon_state = "rumbottle"
 	list_reagents = list("rum" = 100)
 
-/obj/item/reagent_containers/food/drinks/bottle/rum/get_ru_names()
+/obj/item/reagent_containers/cup/glass/bottle/rum/get_ru_names()
 	return alist(
 		NOMINATIVE = "ром \"Кубинский Пряный Капитана Пита\"",
 		GENITIVE = "рома \"Кубинский Пряный Капитана Пита\"",
@@ -314,13 +300,13 @@
 		PREPOSITIONAL = "роме \"Кубинский Пряный Капитана Пита\"",
 	)
 
-/obj/item/reagent_containers/food/drinks/bottle/holywater
+/obj/item/reagent_containers/cup/glass/bottle/holywater
 	name = "flask of holy water"
 	desc = "Кувшин со святой водой, такие обычно стоят в церквях."
 	icon_state = "holyflask"
 	list_reagents = list("holywater" = 100)
 
-/obj/item/reagent_containers/food/drinks/bottle/holywater/get_ru_names()
+/obj/item/reagent_containers/cup/glass/bottle/holywater/get_ru_names()
 	return alist(
 		NOMINATIVE = "кувшин святой воды",
 		GENITIVE = "кувшина святой воды",
@@ -330,17 +316,17 @@
 		PREPOSITIONAL = "кувшине святой воды",
 	)
 
-/obj/item/reagent_containers/food/drinks/bottle/holywater/hell
+/obj/item/reagent_containers/cup/glass/bottle/holywater/hell
 	desc = "Кувшин со святой водой... который пробыл в чреве Некрополя слишком долго."
 	list_reagents = list("hell_water" = 100)
 
-/obj/item/reagent_containers/food/drinks/bottle/vermouth
+/obj/item/reagent_containers/cup/glass/bottle/vermouth
 	name = "Goldeneye Vermouth"
 	desc = "Сладкая, сладкая сухость..."
 	icon_state = "vermouthbottle"
 	list_reagents = list("vermouth" = 100)
 
-/obj/item/reagent_containers/food/drinks/bottle/vermouth/get_ru_names()
+/obj/item/reagent_containers/cup/glass/bottle/vermouth/get_ru_names()
 	return alist(
 		NOMINATIVE = "вермут \"Золотой Глаз\"",
 		GENITIVE = "вермута \"Золотой Глаз\"",
@@ -350,13 +336,13 @@
 		PREPOSITIONAL = "вермуте \"Золотой Глаз\"",
 	)
 
-/obj/item/reagent_containers/food/drinks/bottle/kahlua
+/obj/item/reagent_containers/cup/glass/bottle/kahlua
 	name = "Robert Robust's Coffee Liqueur"
 	desc = "Широко известный мексиканский ликёр \"Калуа\" со вкусом кофе. Производится с 1936 года."
 	icon_state = "kahluabottle"
 	list_reagents = list("kahlua" = 100)
 
-/obj/item/reagent_containers/food/drinks/bottle/kahlua/get_ru_names()
+/obj/item/reagent_containers/cup/glass/bottle/kahlua/get_ru_names()
 	return alist(
 		NOMINATIVE = "ликёр \"Роберт Робаст\"",
 		GENITIVE = "ликёра \"Роберт Робаст\"",
@@ -366,13 +352,13 @@
 		PREPOSITIONAL = "ликёре \"Роберт Робаст\"",
 	)
 
-/obj/item/reagent_containers/food/drinks/bottle/goldschlager
+/obj/item/reagent_containers/cup/glass/bottle/goldschlager
 	name = "College Girl Goldschlager"
 	desc = "Потому что они единственные, кто будет пить шнапс с корицей 100%-ой пробы."
 	icon_state = "goldschlagerbottle"
 	list_reagents = list("goldschlager" = 100)
 
-/obj/item/reagent_containers/food/drinks/bottle/goldschlager/get_ru_names()
+/obj/item/reagent_containers/cup/glass/bottle/goldschlager/get_ru_names()
 	return alist(
 		NOMINATIVE = "шнапс \"Голдшлягер Студенческий\"",
 		GENITIVE = "шнапса \"Голдшлягер Студенческий\"",
@@ -382,13 +368,13 @@
 		PREPOSITIONAL = "шнапсе \"Голдшлягер Студенческий\"",
 	)
 
-/obj/item/reagent_containers/food/drinks/bottle/cognac
+/obj/item/reagent_containers/cup/glass/bottle/cognac
 	name = "Chateau De Baton Premium Cognac"
 	desc = "Коньяк премиального качества, изготовленный путём многочисленных дистилляций и многолетней выдержки."
 	icon_state = "cognacbottle"
 	list_reagents = list("cognac" = 100)
 
-/obj/item/reagent_containers/food/drinks/bottle/cognac/get_ru_names()
+/obj/item/reagent_containers/cup/glass/bottle/cognac/get_ru_names()
 	return alist(
 		NOMINATIVE = "коньяк \"Шато Дэ Батон\"",
 		GENITIVE = "коньяка \"Шато Дэ Батон\"",
@@ -398,13 +384,13 @@
 		PREPOSITIONAL = "коньяке \"Шато Дэ Батон\"",
 	)
 
-/obj/item/reagent_containers/food/drinks/bottle/wine
+/obj/item/reagent_containers/cup/glass/bottle/wine
 	name = "Doublebeard Bearded Special Wine"
 	desc = "Слабая аура беспокойства и боли в заднице окружает эту бутылку."
 	icon_state = "winebottle"
 	list_reagents = list("wine" = 100)
 
-/obj/item/reagent_containers/food/drinks/bottle/wine/get_ru_names()
+/obj/item/reagent_containers/cup/glass/bottle/wine/get_ru_names()
 	return alist(
 		NOMINATIVE = "вино \"Особое Двухбородое\"",
 		GENITIVE = "вина \"Особое Двухбородое\"",
@@ -414,13 +400,13 @@
 		PREPOSITIONAL = "вине \"Особое Двухбородое\"",
 	)
 
-/obj/item/reagent_containers/food/drinks/bottle/absinthe
+/obj/item/reagent_containers/cup/glass/bottle/absinthe
 	name = "Yellow Marquee Absinthe"
 	desc = "Крепкий алкогольный напиток, сваренный и распространяемый компанией \"Жёлтый Шатёр\"."
 	icon_state = "absinthebottle"
 	list_reagents = list("absinthe" = 100)
 
-/obj/item/reagent_containers/food/drinks/bottle/absinthe/get_ru_names()
+/obj/item/reagent_containers/cup/glass/bottle/absinthe/get_ru_names()
 	return alist(
 		NOMINATIVE = "абсент \"Жёлтый Шахтёр\"",
 		GENITIVE = "абсента \"Жёлтый Шахтёр\"",
@@ -430,12 +416,12 @@
 		PREPOSITIONAL = "абсенте \"Жёлтый Шахтёр\"",
 	)
 
-/obj/item/reagent_containers/food/drinks/bottle/absinthe/premium
+/obj/item/reagent_containers/cup/glass/bottle/absinthe/premium
 	name = "Gwyn's Premium Absinthe"
 	desc = "Крепкий алкогольный напиток, почти заставляющий забыть о пепле в лёгких."
 	icon_state = "absinthepremium"
 
-/obj/item/reagent_containers/food/drinks/bottle/absinthe/premium/get_ru_names()
+/obj/item/reagent_containers/cup/glass/bottle/absinthe/premium/get_ru_names()
 	return alist(
 		NOMINATIVE = "абсент \"Премиальный от Гвена\"",
 		GENITIVE = "абсента \"Премиальный от Гвена\"",
@@ -445,14 +431,14 @@
 		PREPOSITIONAL = "абсенте \"Премиальный от Гвена\"",
 	)
 
-/obj/item/reagent_containers/food/drinks/bottle/hcider
+/obj/item/reagent_containers/cup/glass/bottle/hcider
 	name = "Jian Hard Cider"
 	desc = "Яблочный сок для взрослых."
 	icon_state = "hcider"
 	volume = 50
 	list_reagents = list("suicider" = 50)
 
-/obj/item/reagent_containers/food/drinks/bottle/hcider/get_ru_names()
+/obj/item/reagent_containers/cup/glass/bottle/hcider/get_ru_names()
 	return alist(
 		NOMINATIVE = "сидр \"Цзянь Крепкий\"",
 		GENITIVE = "сидра \"Цзянь Крепкий\"",
@@ -462,13 +448,13 @@
 		PREPOSITIONAL = "сидре \"Цзянь Крепкий\"",
 	)
 
-/obj/item/reagent_containers/food/drinks/bottle/fernet
+/obj/item/reagent_containers/cup/glass/bottle/fernet
 	name = "Fernet Bronca"
 	desc = "Бутылка фернета, произведенного на космической станции \"Кордоба\"."
 	icon_state = "fernetbottle"
 	list_reagents = list("fernet" = 100)
 
-/obj/item/reagent_containers/food/drinks/bottle/fernet/get_ru_names()
+/obj/item/reagent_containers/cup/glass/bottle/fernet/get_ru_names()
 	return alist(
 		NOMINATIVE = "фернет \"Фернет Бронка\"",
 		GENITIVE = "фернета \"Фернет Бронка\"",
@@ -478,13 +464,13 @@
 		PREPOSITIONAL = "фернете \"Фернет Бронка\"",
 	)
 
-/obj/item/reagent_containers/food/drinks/bottle/champagne
+/obj/item/reagent_containers/cup/glass/bottle/champagne
 	name = "Sparkling Sunny Champagne"
 	desc = "Бутылка чистого обжигающего солнца, готовая поразить ваш мозг."
 	icon_state = "champagnebottle"
 	list_reagents = list("champagne" = 100)
 
-/obj/item/reagent_containers/food/drinks/bottle/champagne/get_ru_names()
+/obj/item/reagent_containers/cup/glass/bottle/champagne/get_ru_names()
 	return alist(
 		NOMINATIVE = "шампанское \"Сверкающее Солнце\"",
 		GENITIVE = "шампанского \"Сверкающее Солнце\"",
@@ -494,13 +480,13 @@
 		PREPOSITIONAL = "шампанском \"Сверкающее Солнце\"",
 	)
 
-/obj/item/reagent_containers/food/drinks/bottle/aperol
+/obj/item/reagent_containers/cup/glass/bottle/aperol
 	name = "Jungle Aperol Aperitivo"
 	desc = "Настоящая засажа для вашей печени."
 	icon_state = "aperolbottle"
 	list_reagents = list("aperol" = 100)
 
-/obj/item/reagent_containers/food/drinks/bottle/aperol/get_ru_names()
+/obj/item/reagent_containers/cup/glass/bottle/aperol/get_ru_names()
 	return alist(
 		NOMINATIVE = "апероль \"Джунгли Аперитив\"",
 		GENITIVE = "апероля \"Джунгли Аперитив\"",
@@ -510,13 +496,13 @@
 		PREPOSITIONAL = "апероле \"Джунгли Аперитив\"",
 	)
 
-/obj/item/reagent_containers/food/drinks/bottle/jagermeister
+/obj/item/reagent_containers/cup/glass/bottle/jagermeister
 	name = "Infused Space Jaegermeister"
 	desc = "Das ist des Jägers Ehrenschild, daß er beschützt und hegt sein Wild, weidmännisch jagt, wie sich gehört, den Schöpfer im Geschöpfe ehrt."
 	icon_state = "jagermeisterbottle"
 	list_reagents = list("jagermeister" = 100)
 
-/obj/item/reagent_containers/food/drinks/bottle/jagermeister/get_ru_names()
+/obj/item/reagent_containers/cup/glass/bottle/jagermeister/get_ru_names()
 	return alist(
 		NOMINATIVE = "ягермейстер \"Космически Настоенный\"",
 		GENITIVE = "ягермейстера \"Космически Настоенный\"",
@@ -526,13 +512,13 @@
 		PREPOSITIONAL = "ягермастере \"Космически Настоенный\"",
 	)
 
-/obj/item/reagent_containers/food/drinks/bottle/schnaps
+/obj/item/reagent_containers/cup/glass/bottle/schnaps
 	name = "Grainy Mint Schnapps"
 	desc = "Настоящий ужас для истинного ценителя, высококачественный мятный шнапс."
 	icon_state = "schnapsbottle"
 	list_reagents = list("schnaps" = 100)
 
-/obj/item/reagent_containers/food/drinks/bottle/schnaps/get_ru_names()
+/obj/item/reagent_containers/cup/glass/bottle/schnaps/get_ru_names()
 	return alist(
 		NOMINATIVE = "шнапс \"Мятный Зерновой\"",
 		GENITIVE = "шнапса \"Мятный Зерновой\"",
@@ -542,13 +528,13 @@
 		PREPOSITIONAL = "шнапсе \"Мятный Зерновой\"",
 	)
 
-/obj/item/reagent_containers/food/drinks/bottle/sheridan
+/obj/item/reagent_containers/cup/glass/bottle/sheridan
 	name = "Sheridan's Coffee Layered"
 	desc = "Двойное чудо с новой инновационной шеей, намного лучше, чем у вас."
 	icon_state = "sheridanbottle"
 	list_reagents = list("sheridan" = 100)
 
-/obj/item/reagent_containers/food/drinks/bottle/sheridan/get_ru_names()
+/obj/item/reagent_containers/cup/glass/bottle/sheridan/get_ru_names()
 	return alist(
 		NOMINATIVE = "ликёр \"Шериданс Кофейный\"",
 		GENITIVE = "ликёра \"Шериданс Кофейный\"",
@@ -558,13 +544,13 @@
 		PREPOSITIONAL = "ликёре \"Шериданс Кофейный\"",
 	)
 
-/obj/item/reagent_containers/food/drinks/bottle/bitter
+/obj/item/reagent_containers/cup/glass/bottle/bitter
 	name = "Vacuum Cherry Bitter"
 	desc = "Постарайтесь не задохнуться, выпив такую чудесную горечь."
 	icon_state = "bitterbottle"
 	list_reagents = list("bitter" = 50)
 
-/obj/item/reagent_containers/food/drinks/bottle/bitter/get_ru_names()
+/obj/item/reagent_containers/cup/glass/bottle/bitter/get_ru_names()
 	return alist(
 		NOMINATIVE = "битер \"Вакуумный Вишнёвый\"",
 		GENITIVE = "битера \"Вакуумный Вишнёвый\"",
@@ -574,13 +560,13 @@
 		PREPOSITIONAL = "битере \"Вакуумный Вишнёвый\"",
 	)
 
-/obj/item/reagent_containers/food/drinks/bottle/bluecuracao
+/obj/item/reagent_containers/cup/glass/bottle/bluecuracao
 	name = "Grenadier Blue Curacao"
 	desc = "Взрыв — это искусство, но синий взрыв намного лучше."
 	icon_state = "bluecuracao"
 	list_reagents = list("bluecuracao" = 100)
 
-/obj/item/reagent_containers/food/drinks/bottle/bluecuracao/get_ru_names()
+/obj/item/reagent_containers/cup/glass/bottle/bluecuracao/get_ru_names()
 	return alist(
 		NOMINATIVE = "кюрасао \"Гренадёрский Синий\"",
 		GENITIVE = "кюрасао \"Гренадёрский Синий\"",
@@ -590,13 +576,13 @@
 		PREPOSITIONAL = "кюрасао \"Гренадёрский Синий\"",
 	)
 
-/obj/item/reagent_containers/food/drinks/bottle/sambuka
+/obj/item/reagent_containers/cup/glass/bottle/sambuka
 	name = "The Headless Horseman's Sambuka"
 	desc = "Я не пил самбуку с тех пор, как мне было двадцать."
 	icon_state = "sambukabottle"
 	list_reagents = list("sambuka" = 100)
 
-/obj/item/reagent_containers/food/drinks/bottle/sambuka/get_ru_names()
+/obj/item/reagent_containers/cup/glass/bottle/sambuka/get_ru_names()
 	return alist(
 		NOMINATIVE = "самбука \"Безголовый Всадник\"",
 		GENITIVE = "самбуки \"Безголовый Всадник\"",
@@ -606,13 +592,13 @@
 		PREPOSITIONAL = "самбуке \"Безголовый Всадник\"",
 	)
 
-/obj/item/reagent_containers/food/drinks/bottle/arrogant_green_rat
+/obj/item/reagent_containers/cup/glass/bottle/arrogant_green_rat
 	name = "Arrogant Green Rat"
 	desc = "Лучшее вино из райского города, где трава зелёная, а девушки красивые."
 	icon_state = "arrogant_green_rat"
 	list_reagents = list("wine" = 100)
 
-/obj/item/reagent_containers/food/drinks/bottle/arrogant_green_rat/get_ru_names()
+/obj/item/reagent_containers/cup/glass/bottle/arrogant_green_rat/get_ru_names()
 	return alist(
 		NOMINATIVE = "вино \"Высокомерная Зелёная Крыса\"",
 		GENITIVE = "вина \"Высокомерная Зелёная Крыса\"",
@@ -622,18 +608,24 @@
 		PREPOSITIONAL = "вине \"Высокомерная Зелёная Крыса\"",
 	)
 
-//////////////////////////JUICES AND STUFF ///////////////////////
+// MARK: Juice Packs
 
-/obj/item/reagent_containers/food/drinks/bottle/orangejuice
+/**
+ * Subtype of glass that don't break, and share a common carton hand state.
+ * Meant to be a subtype for use in Molotovs.
+ */
+/obj/item/reagent_containers/cup/glass/bottle/juice
+	item_state = "carton"
+	throwforce = 0
+	isGlass = FALSE
+
+/obj/item/reagent_containers/cup/glass/bottle/juice/orangejuice
 	name = "orange juice"
 	desc = "Полон витаминов и вкусностей!"
 	icon_state = "orangejuice"
-	item_state = "carton"
-	throwforce = 0
-	isGlass = 0
 	list_reagents = list("orangejuice" = 100)
 
-/obj/item/reagent_containers/food/drinks/bottle/orangejuice/get_ru_names()
+/obj/item/reagent_containers/cup/glass/bottle/juice/orangejuice/get_ru_names()
 	return alist(
 		NOMINATIVE = "пачка апельсинового сока",
 		GENITIVE = "пачки апельсинового сока",
@@ -643,16 +635,13 @@
 		PREPOSITIONAL = "пачке апельсинового сока",
 	)
 
-/obj/item/reagent_containers/food/drinks/bottle/cream
+/obj/item/reagent_containers/cup/glass/bottle/juice/cream
 	name = "milk cream"
 	desc = "Это сливки. Сделаны из молока. А что ещё вы думали там найти?"
 	icon_state = "cream"
-	item_state = "carton"
-	throwforce = 0
-	isGlass = 0
 	list_reagents = list("cream" = 100)
 
-/obj/item/reagent_containers/food/drinks/bottle/cream/get_ru_names()
+/obj/item/reagent_containers/cup/glass/bottle/juice/cream/get_ru_names()
 	return alist(
 		NOMINATIVE = "пачка сливок",
 		GENITIVE = "пачки сливок",
@@ -662,16 +651,13 @@
 		PREPOSITIONAL = "пачке сливок",
 	)
 
-/obj/item/reagent_containers/food/drinks/bottle/tomatojuice
+/obj/item/reagent_containers/cup/glass/bottle/juice/tomatojuice
 	name = "tomato juice"
 	desc = "Ну, по крайней мере, это выглядит как томатный сок. Слишком красное, чтобы сказать точно."
 	icon_state = "tomatojuice"
-	item_state = "carton"
-	throwforce = 0
-	isGlass = 0
 	list_reagents = list("tomatojuice" = 100)
 
-/obj/item/reagent_containers/food/drinks/bottle/tomatojuice/get_ru_names()
+/obj/item/reagent_containers/cup/glass/bottle/juice/tomatojuice/get_ru_names()
 	return alist(
 		NOMINATIVE = "пачка томатного сока",
 		GENITIVE = "пачки томатного сока",
@@ -681,16 +667,13 @@
 		PREPOSITIONAL = "пачке томатного сока",
 	)
 
-/obj/item/reagent_containers/food/drinks/bottle/limejuice
+/obj/item/reagent_containers/cup/glass/bottle/juice/limejuice
 	name = "lime juice"
 	desc = "Кисло-сладкая вкуснятина."
 	icon_state = "limejuice"
-	item_state = "carton"
-	throwforce = 0
-	isGlass = 0
 	list_reagents = list("limejuice" = 100)
 
-/obj/item/reagent_containers/food/drinks/bottle/limejuice/get_ru_names()
+/obj/item/reagent_containers/cup/glass/bottle/juice/limejuice/get_ru_names()
 	return alist(
 		NOMINATIVE = "пачка лаймового сока",
 		GENITIVE = "пачки лаймового сока",
@@ -700,16 +683,13 @@
 		PREPOSITIONAL = "пачке лаймового сока",
 	)
 
-/obj/item/reagent_containers/food/drinks/bottle/milk
+/obj/item/reagent_containers/cup/glass/bottle/juice/milk
 	name = "milk"
 	desc = "Мягкое, вкусно и полезное молоко."
 	icon_state = "milk"
-	item_state = "carton"
-	throwforce = 0
-	isGlass = 0
 	list_reagents = list("milk" = 100)
 
-/obj/item/reagent_containers/food/drinks/bottle/milk/get_ru_names()
+/obj/item/reagent_containers/cup/glass/bottle/juice/milk/get_ru_names()
 	return alist(
 		NOMINATIVE = "пачка молока",
 		GENITIVE = "пачки молока",
@@ -719,25 +699,25 @@
 		PREPOSITIONAL = "пачке молока",
 	)
 
-////////////////////////// MOLOTOV ///////////////////////
-/obj/item/reagent_containers/food/drinks/bottle/molotov
+// MARK: Molotov
+/obj/item/reagent_containers/cup/glass/bottle/molotov
 	name = "molotov cocktail"
 	desc = "Бутылка с зажигательной смесью. Обязательный элемент экипировки любого бунтаря или революционера. Поджигайте и бросайте."
 	icon_state = "vodkabottle"
 	list_reagents = list()
 	var/static/list/accelerants = list(
-										/datum/reagent/consumable/ethanol,
-										/datum/reagent/fuel,
-										/datum/reagent/clf3,
-										/datum/reagent/phlogiston,
-										/datum/reagent/napalm,
-										/datum/reagent/hellwater,
-										/datum/reagent/plasma,
-										/datum/reagent/plasma_dust
-									)
+		/datum/reagent/consumable/ethanol,
+		/datum/reagent/fuel,
+		/datum/reagent/clf3,
+		/datum/reagent/phlogiston,
+		/datum/reagent/napalm,
+		/datum/reagent/hellwater,
+		/datum/reagent/plasma,
+		/datum/reagent/plasma_dust
+	)
 	var/active = FALSE
 
-/obj/item/reagent_containers/food/drinks/bottle/molotov/get_ru_names()
+/obj/item/reagent_containers/cup/glass/bottle/molotov/get_ru_names()
 	return alist(
 		NOMINATIVE = "коктейль Молотова",
 		GENITIVE = "коктейля Молотова",
@@ -747,47 +727,48 @@
 		PREPOSITIONAL = "коктейле Молотова",
 	)
 
-/obj/item/reagent_containers/food/drinks/bottle/molotov/update_desc(updates = ALL)
+/obj/item/reagent_containers/cup/glass/bottle/molotov/update_desc(updates = ALL)
 	. = ..()
 	desc = initial(desc)
 	if(!isGlass)
 		desc += " Вы не уверены, что сделать это из коробки было самой удачной идеей."
 
-/obj/item/reagent_containers/food/drinks/bottle/molotov/update_icon_state()
-	var/obj/item/reagent_containers/food/drinks/bottle/bottle = locate() in contents
+/obj/item/reagent_containers/cup/glass/bottle/molotov/update_icon_state()
+	var/obj/item/reagent_containers/cup/glass/bottle/bottle = locate() in contents
 	if(bottle)
 		icon_state = bottle.icon_state
 
-/obj/item/reagent_containers/food/drinks/bottle/molotov/update_overlays()
+/obj/item/reagent_containers/cup/glass/bottle/molotov/update_overlays()
 	. = ..()
 	if(active)
 		. += GLOB.fire_overlay
 
-/obj/item/reagent_containers/food/drinks/bottle/molotov/CheckParts(list/parts_list)
+/obj/item/reagent_containers/cup/glass/bottle/molotov/CheckParts(list/parts_list)
 	..()
-	var/obj/item/reagent_containers/food/drinks/bottle/bottle = locate() in contents
+	var/obj/item/reagent_containers/cup/glass/bottle/bottle = locate() in contents
 	if(bottle)
 		bottle.reagents.copy_to(src, 100)
 		if(!bottle.isGlass)
 			isGlass = FALSE
 		update_appearance(UPDATE_DESC|UPDATE_ICON)
 
-/obj/item/reagent_containers/food/drinks/bottle/molotov/throw_impact(atom/target, datum/thrownthing/throwingdatum)
-	var/firestarter = 0
-	for(var/datum/reagent/R in reagents.reagent_list)
-		for(var/A in accelerants)
-			if(istype(R, A))
-				firestarter = 1
-				break
-	SplashReagents(target)
-	if(firestarter && active)
-		target.fire_act()
-		var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(target)
-		hotspot.temperature = 1000
-		hotspot.recolor()
-	..()
+/obj/item/reagent_containers/cup/glass/bottle/molotov/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum, do_splash = FALSE)
+	..(hit_atom, throwingdatum, do_splash = FALSE)
 
-/obj/item/reagent_containers/food/drinks/bottle/molotov/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/cup/glass/bottle/molotov/smash(atom/target, mob/thrower, datum/thrownthing/throwingdatum, break_top)
+	var/firestarter = FALSE
+	for(var/datum/reagent/contained_reagent in reagents.reagent_list)
+		for(var/accelerant_type in accelerants)
+			if(istype(contained_reagent, accelerant_type))
+				firestarter = TRUE
+				break
+	..()
+	if(firestarter && active)
+		if(!QDELETED(target))
+			target.fire_act()
+		new /obj/effect/hotspot/fake(get_turf(target))
+
+/obj/item/reagent_containers/cup/glass/bottle/molotov/attackby(obj/item/I, mob/user, params)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !I.get_temperature())
@@ -808,23 +789,21 @@
 	)
 	add_overlay(GLOB.fire_overlay)
 	if(!isGlass)
-		addtimer(CALLBACK(src, PROC_REF(splash_reagents), 5 SECONDS))
+		addtimer(CALLBACK(src, PROC_REF(explode), 5 SECONDS))
 
-/obj/item/reagent_containers/food/drinks/bottle/molotov/proc/splash_reagents()
+/obj/item/reagent_containers/cup/glass/bottle/molotov/proc/explode()
 	if(!active)
 		return
-	var/counter
-	var/atom/target = loc
-	for(counter = 0, counter < 2, counter++)
-		if(isstorage(target))
-			var/obj/item/storage/storage = target
-			target = storage.loc
-	if(isatom(target))
-		SplashReagents(target)
+	if(get_turf(src))
+		var/atom/target = loc
+		for(var/i in 1 to 2)
+			if(isstorage(target))
+				target = target.loc
+		splash_reagents(target, allow_closed_splash = TRUE)
 		target.fire_act()
 	qdel(src)
 
-/obj/item/reagent_containers/food/drinks/bottle/molotov/attack_self(mob/user)
+/obj/item/reagent_containers/cup/glass/bottle/molotov/attack_self(mob/user)
 	if(active)
 		if(!isGlass)
 			to_chat(user, span_danger("Пламя распространилось уже слишком далеко!"))
@@ -832,3 +811,5 @@
 		to_chat(user, span_notice("Вы гасите пламя у [declent_ru(GENITIVE)]."))
 		active = FALSE
 		update_icon(UPDATE_OVERLAYS)
+
+#undef BOTTLE_KNOCKDOWN_DEFAULT_DURATION

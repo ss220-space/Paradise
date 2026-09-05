@@ -289,7 +289,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 
 /datum/theft_objective/hard/goldcup
 	id = "goldcup"
-	typepath = /obj/item/reagent_containers/food/drinks/trophy/gold_cup
+	typepath = /obj/item/reagent_containers/cup/glass/trophy/gold_cup
 	name = "золотой кубок"
 
 /datum/theft_objective/hard/belt_champion
@@ -320,7 +320,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 
 /datum/theft_objective/hard/flask_cap
 	id = "cap_flask"
-	typepath = /obj/item/reagent_containers/food/drinks/flask/gold
+	typepath = /obj/item/reagent_containers/cup/glass/flask/gold
 	name = "капитанскую золотую фляжку"
 
 //==========================
@@ -667,16 +667,16 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	min=3
 	max=9
 	type_list = list(
-		/obj/item/reagent_containers/food/drinks/mug/cap,
-		/obj/item/reagent_containers/food/drinks/mug/hop,
-		/obj/item/reagent_containers/food/drinks/mug/cmo,
-		/obj/item/reagent_containers/food/drinks/mug/rd,
-		/obj/item/reagent_containers/food/drinks/mug/hos,
-		/obj/item/reagent_containers/food/drinks/mug/ce,
-		/obj/item/reagent_containers/food/drinks/mug/eng,
-		/obj/item/reagent_containers/food/drinks/mug/serv,
-		/obj/item/reagent_containers/food/drinks/mug/sci,
-		/obj/item/reagent_containers/food/drinks/mug/med,
+		/obj/item/reagent_containers/cup/glass/mug/cap,
+		/obj/item/reagent_containers/cup/glass/mug/hop,
+		/obj/item/reagent_containers/cup/glass/mug/cmo,
+		/obj/item/reagent_containers/cup/glass/mug/rd,
+		/obj/item/reagent_containers/cup/glass/mug/hos,
+		/obj/item/reagent_containers/cup/glass/mug/ce,
+		/obj/item/reagent_containers/cup/glass/mug/eng,
+		/obj/item/reagent_containers/cup/glass/mug/serv,
+		/obj/item/reagent_containers/cup/glass/mug/sci,
+		/obj/item/reagent_containers/cup/glass/mug/med,
 	)
 
 /datum/theft_objective/collect/zippo

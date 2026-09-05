@@ -19,7 +19,7 @@
 	/// Max range of mopping.
 	var/mop_range = 1
 	var/static/list/clean_blacklist = typecacheof(list(
-		/obj/item/reagent_containers/glass/bucket,
+		/obj/item/reagent_containers/cup/bucket,
 		/obj/structure/mopbucket,
 		/obj/structure/janitorialcart,
 	))

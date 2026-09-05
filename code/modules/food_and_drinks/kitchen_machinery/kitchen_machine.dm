@@ -130,9 +130,9 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS|ATTACK_CHAIN_NO_AFTERATTACK
 
 	var/static/list/acceptable_containers = typecacheof(list(
-		/obj/item/reagent_containers/glass,
-		/obj/item/reagent_containers/food/drinks,
-		/obj/item/reagent_containers/food/condiment,
+		/obj/item/reagent_containers/cup,
+		/obj/item/reagent_containers/cup/glass,
+		/obj/item/reagent_containers/condiment,
 	))
 	if(is_type_in_typecache(I, acceptable_containers))
 		var/obj/item/reagent_containers/container = I
