@@ -192,7 +192,7 @@
 	name = "vanometric swarmer power cell"
 	desc = "Энергетическая ячейка \"Свармеров\", способная извлекать энергию напрямую из квантовых флуктуаций."
 	max_integrity = 200
-	swarmer_examine = "Обеспечивает питание фабрикатора наноботов. При разрушении взрывается. Лимит на один фабрикатор - пять штук."
+	swarmer_examine = "Обеспечивает питание фабрикатора наноботов. При разрушении взрывается. Лимит на один фабрикатор — пять штук."
 	projectiles_pass = FALSE
 	/// Beam that leads to the nanobot fabricator (also an indicator if we are active)
 	var/datum/beam/fabricator_beam
