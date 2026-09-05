@@ -305,6 +305,8 @@
 
 /obj/item/ammo_box/magazine/proc/empty_magazine()
 	var/atom/drop_loc = drop_location()
+	playsound(loc, remove_sound, 50, TRUE)
 	for(var/obj/item/ammo in stored_ammo)
 		ammo.forceMove(drop_loc)
 		stored_ammo -= ammo
+

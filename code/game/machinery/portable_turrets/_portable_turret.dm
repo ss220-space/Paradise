@@ -34,14 +34,17 @@
 
 	var/installation = /obj/item/gun/energy/gun/turret		//the type of weapon installed
 	var/gun_charge = 0		//the charge of the gun inserted
-	var/projectile = null	//holder for bullettype
-	var/eprojectile = null	//holder for the shot when emagged
+	var/projectile = /obj/projectile	//holder for bullettype
+	var/eprojectile = /obj/projectile	//holder for the shot when emagged
 	var/reqpower = 500		//holder for power needed
 	var/iconholder = null	//holder for the icon_state. 1 for orange sprite, null for blue.
 	var/egun = null			//holder to handle certain guns switching bullettypes
 
 	var/last_fired = 0		//1: if the turret is cooling down from a shot, 0: turret is ready to fire
-	var/shot_delay = 15		//1.5 seconds between each shot
+	var/shot_delay = 1.5 SECONDS		//1.5 seconds between each shot
+
+	var/rapid = 1 //How many shots per volley.
+	var/rapid_fire_delay = 2 //Time between rapid fire shots
 
 	var/targetting_is_configurable = TRUE // if false, you cannot change who this turret attacks via its UI
 	var/check_arrest = TRUE	//checks if the perp is set to arrest
@@ -481,23 +484,21 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		take_damage(Proj.damage)
 
 /obj/machinery/porta_turret/emp_act(severity)
-	if(enabled && emp_vulnerable)
-		//if the turret is on, the EMP no matter how severe disables the turret for a while
-		//and scrambles its settings, with a slight chance of having an emag effect
-		check_arrest = prob(50)
-		check_records = prob(50)
-		check_weapons = prob(50)
-		check_access = prob(20)	// check_access is a pretty big deal, so it's least likely to get turned on
-		check_anomalies = prob(50)
-		if(prob(5))
-			emagged = TRUE
+	..()
+	if(!enabled || !emp_vulnerable)
+		return
 
-		enabled=0
-		spawn(rand(60, 600))
-			if(!enabled)
-				enabled = TRUE
-
-	return ..()
+	//if the turret is on, the EMP no matter how severe disables the turret for a while
+	//and scrambles its settings, with a slight chance of having an emag effect
+	check_arrest = prob(50)
+	check_records = prob(50)
+	check_weapons = prob(50)
+	check_access = prob(20)	// check_access is a pretty big deal, so it's least likely to get turned on
+	check_anomalies = prob(50)
+	if(prob(5))
+		emagged = TRUE
+	enabled = FALSE
+	addtimer(VARSET_CALLBACK(src, enabled, TRUE), rand(6 SECONDS, 12 SECONDS), TIMER_DELETE_ME)
 
 /obj/machinery/porta_turret/ex_act(severity, target)
 	switch(severity)
@@ -601,22 +602,22 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(get_turf(L) == get_turf(src))
 		return TURRET_NOT_TARGET
 
-	if(!emagged && !syndicate && (issilicon(L) || isbot(L)))
-		return (check_borgs && isrobot(L)) ? TURRET_PRIORITY_TARGET : TURRET_NOT_TARGET
-
-	if(L.stat && !emagged)		//if the perp is dead/dying, no need to bother really
-		return TURRET_NOT_TARGET	//move onto next potential victim!
-
 	if(get_dist(src, L) > scan_range)	//if it's too far away, why bother?
 		return TURRET_NOT_TARGET
 
 	if(emagged)		// If emagged not even the dead get a rest
 		return L.stat ? TURRET_SECONDARY_TARGET : TURRET_PRIORITY_TARGET
 
+	if(L.stat && !emagged)		//if the perp is dead/dying, no need to bother really
+		return TURRET_NOT_TARGET	//move onto next potential victim!
+
+	if(!emagged && !syndicate && (issilicon(L) || isbot(L)))
+		return (check_borgs && isrobot(L)) ? TURRET_PRIORITY_TARGET : TURRET_NOT_TARGET
+
 	if(in_faction(L))
 		return TURRET_NOT_TARGET
 
-	if(("syndicate" in L.faction) && istype(L.get_id_card(), /obj/item/card/id/syndicate))
+	if(faction == "syndicate" && ("syndicate" in L.faction) && istype(L.get_id_card(), /obj/item/card/id/syndicate))
 		return TURRET_NOT_TARGET
 
 	if(lethal && locate(/mob/living/silicon/ai) in get_turf(L))		//don't accidentally kill the AI!
@@ -624,7 +625,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 	if(check_synth)	//If it's set to attack all non-silicons, target them!
 		if(L.body_position == LYING_DOWN)
-			return lethal ? TURRET_SECONDARY_TARGET : TURRET_NOT_TARGET
+			return lethal ? TURRET_SECONDARY_TARGET : (HAS_TRAIT(L, TRAIT_INCAPACITATED) ? TURRET_NOT_TARGET : TURRET_SECONDARY_TARGET)
 		return TURRET_PRIORITY_TARGET
 
 	if(iscuffed(L)) // If the target is handcuffed, leave it alone
@@ -641,7 +642,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			return TURRET_NOT_TARGET	//if threat level < 4, keep going
 
 	if(L.body_position == LYING_DOWN)		//if the perp is lying down, it's still a target but a less-important target
-		return lethal ? TURRET_SECONDARY_TARGET : TURRET_NOT_TARGET
+		return lethal ? TURRET_SECONDARY_TARGET : (HAS_TRAIT(L, TRAIT_INCAPACITATED) ? TURRET_NOT_TARGET : TURRET_SECONDARY_TARGET)
 
 	return TURRET_PRIORITY_TARGET	//if the perp has passed all previous tests, congrats, it is now a "shoot-me!" nominee
 
@@ -735,29 +736,32 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		return
 
 	update_icon(UPDATE_ICON_STATE)
-	var/obj/projectile/A
-	if(emagged || lethal)
-		if(eprojectile)
-			A = new eprojectile(loc)
-			playsound(loc, eshot_sound, 75, TRUE)
-	else
-		if(projectile)
-			A = new projectile(loc)
-			playsound(loc, shot_sound, 75, TRUE)
-
 	// Lethal/emagged turrets use twice the power due to higher energy beams
 	// Emagged turrets again use twice as much power due to higher firing rates
-	use_power(reqpower * (2 * (emagged || lethal)) * (2 * emagged))
+	use_power(reqpower * (2 * (emagged || lethal)) * (2 * emagged) * rapid)
 
-	if(istype(A))
-		A.original = target
-		A.current = T
-		A.yo = U.y - T.y
-		A.xo = U.x - T.x
-		A.fire()
+	if(rapid > 1)
+		for(var/i in 1 to rapid)
+			var/datum/callback/cb = CALLBACK(src, PROC_REF(shoot), target)
+			addtimer(cb, (i - 1) * rapid_fire_delay)
 	else
-		A.throw_at(target, scan_range, 1)
-	return A
+		shoot(target)
+
+/obj/machinery/porta_turret/proc/shoot(mob/living/target)
+	var/obj/projectile/proj
+	if(emagged || lethal)
+		proj = new eprojectile(loc)
+		playsound(loc, eshot_sound, 75, TRUE)
+	else
+		proj = new projectile(loc)
+		playsound(loc, shot_sound, 75, TRUE)
+	if(!proj)
+		return
+	if(!istype(proj))
+		proj.throw_at(target, scan_range, 1)
+		return
+	proj.preparePixelProjectile(target, loc)
+	proj.fire()
 
 /obj/machinery/porta_turret/centcom
 	name = "Centcom Turret"
@@ -1026,109 +1030,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 /obj/machinery/porta_turret_construct/attack_ai()
 	return
-
-// Syndicate turrets
-/obj/machinery/porta_turret/syndicate
-	projectile = /obj/projectile/bullet
-	eprojectile = /obj/projectile/bullet
-	// Syndicate turrets *always* operate in lethal mode.
-	// So, nothing, not even emagging them, makes them switch bullet type.
-	// So, its best to always have their projectile and eprojectile settings be the same. That way, you know what they will shoot.
-	// Otherwise, you end up with situations where one of the two bullet types will never be used.
-	shot_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
-	eshot_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
-
-	icon_state = "syndieturret0"
-	var/icon_state_initial = "syndieturret0"
-	var/icon_state_active = "syndieturret1"
-	var/icon_state_destroyed = "syndieturret2"
-
-	syndicate = TRUE
-	installation = null
-	always_up = TRUE
-	use_power = NO_POWER_USE
-	has_cover = FALSE
-	raised = TRUE
-	density = TRUE
-	scan_range = 9
-
-	faction = "syndicate"
-	emp_vulnerable = FALSE
-
-	lethal = TRUE
-	lethal_is_configurable = FALSE
-	targetting_is_configurable = FALSE
-	check_arrest = FALSE
-	check_records = FALSE
-	check_access = FALSE
-	check_synth	= TRUE
-	ailock = TRUE
-	req_access = list(ACCESS_SYNDICATE)
-	var/area/syndicate_depot/core/depotarea
-
-/obj/machinery/porta_turret/syndicate/die()
-	. = ..()
-	if(istype(depotarea))
-		depotarea.turret_died()
-
-	density = FALSE
-
-/obj/machinery/porta_turret/syndicate/shootAt(mob/living/target)
-	if(istype(depotarea))
-		depotarea.list_add(target, depotarea.hostile_list)
-		depotarea.declare_started()
-	return ..(target)
-
-/obj/machinery/porta_turret/syndicate/update_icon_state()
-	if(stat & BROKEN)
-		icon_state = icon_state_destroyed
-	else if(enabled)
-		icon_state = icon_state_active
-	else
-		icon_state = icon_state_initial
-
-/obj/machinery/porta_turret/syndicate/setup()
-	return
-
-/obj/machinery/porta_turret/syndicate/assess_perp(mob/living/carbon/human/perp)
-	return 10 //Syndicate turrets shoot everything not in their faction
-
-/obj/machinery/porta_turret/syndicate/pod
-	health = 40
-	projectile = /obj/projectile/bullet/weakbullet3
-	eprojectile = /obj/projectile/bullet/weakbullet3
-
-/obj/machinery/porta_turret/syndicate/interior
-	name = "machine gun turret (.45)"
-	desc = "Syndicate interior defense turret chambered for .45 rounds. Designed to down intruders without damaging the hull."
-	projectile = /obj/projectile/bullet/midbullet
-	eprojectile = /obj/projectile/bullet/midbullet
-
-/obj/machinery/porta_turret/syndicate/exterior
-	name = "machine gun turret (7.62)"
-	desc = "Syndicate exterior defense turret chambered for 7.62 rounds. Designed to down intruders with heavy calliber bullets."
-
-/obj/machinery/porta_turret/syndicate/grenade
-	name = "mounted grenade launcher (40mm)"
-	desc = "Syndicate 40mm grenade launcher defense turret. If you've had this much time to look at it, you're probably already dead."
-	icon_state = "syndieturret01"
-	icon_state_initial = "syndieturret01"
-	icon_state_active = "syndieturret01"
-	projectile = /obj/projectile/bullet/a40mm
-	eprojectile = /obj/projectile/bullet/a40mm
-
-/obj/machinery/porta_turret/syndicate/assault_pod
-	name = "machine gun turret (4.6x30mm)"
-	desc = "Syndicate exterior defense turret chambered for 4.6x30mm rounds. Designed to be fitted to assault pods, it uses low calliber bullets to save space."
-	health = 100
-	projectile = /obj/projectile/bullet/weakbullet3
-	eprojectile = /obj/projectile/bullet/weakbullet3
-
-/obj/machinery/porta_turret/syndicate/vox
-	name = "vox turret"
-	projectile = /obj/projectile/beam/disabler
-	eprojectile = /obj/projectile/beam/disabler
-	faction = "Vox"
 
 #undef TURRET_BUILD_LOOSEN
 #undef TURRET_BUILD_ANCHORED

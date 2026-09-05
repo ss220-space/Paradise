@@ -1289,7 +1289,6 @@
 	req_access = list(1);
 	use_power = 0
 	},
-/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -21165,6 +21164,7 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
+/obj/effect/landmark/spawner/swarmer,
 /turf/simulated/floor/plating,
 /area/station/maintenance/engineering)
 "bPG" = (
@@ -21270,7 +21270,9 @@
 /turf/simulated/wall/r_wall,
 /area/station/command/office/captain/bedroom)
 "bQv" = (
-/obj/structure/toilet/captain_toilet/directional/east,
+/obj/structure/toilet/captain_toilet{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -22604,16 +22606,6 @@
 	icon_state = "bluered"
 	},
 /area/station/commons/dorms)
-"bVl" = (
-/obj/machinery/door/airlock/external{
-	hackProof = 1;
-	id_tag = "emergency_home";
-	locked = 1;
-	name = "Escape Airlock"
-	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plating,
-/area/station/hallway/secondary/exit)
 "bVn" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -24337,14 +24329,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/trading)
-"cbG" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "ferry_home";
-	locked = 1
-	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/entry/north)
 "cbH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/sink/directional/west,
@@ -46637,16 +46621,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/science/explab/chamber)
-"fVQ" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "trade_dock";
-	locked = 1
-	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/hallway/secondary/entry/south)
 "fWd" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
@@ -51418,7 +51392,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/south)
 "hSd" = (
@@ -54634,6 +54607,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
+/obj/effect/landmark/spawner/swarmer,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -54745,14 +54719,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
-"jiO" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "graveyard_church";
-	locked = 1
-	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fsmaint2)
 "jji" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/turf_decal/delivery/hollow,
@@ -57057,6 +57023,11 @@
 	icon_state = "whitegreen"
 	},
 /area/station/medical/virology)
+"kiQ" = (
+/obj/structure/grille/broken,
+/obj/effect/landmark/spawner/swarmer,
+/turf/simulated/floor/plating,
+/area/station/maintenance/asmaint2)
 "kiR" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/railing,
@@ -67016,6 +66987,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/reagent_containers/food/snacks/grown/banana,
 /obj/effect/spawner/random_spawners/rodent,
+/obj/effect/landmark/spawner/swarmer,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
@@ -68813,13 +68785,13 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/trading)
 "pbq" = (
+/obj/structure/lattice,
 /obj/machinery/door/airlock/hatch/gamma{
 	locked = 1;
 	req_access = list(1);
 	use_power = 0
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -78246,16 +78218,6 @@
 	icon_state = "dark"
 	},
 /area/station/service/bar)
-"sTP" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "trade_dock";
-	locked = 1
-	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/hallway/secondary/entry/north)
 "sUh" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
@@ -82178,7 +82140,6 @@
 /obj/machinery/door/airlock/external{
 	name = "Escape Pod Airlock"
 	},
-/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/station/maintenance/atmospherics)
 "uzP" = (
@@ -84134,7 +84095,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/north)
 "vmQ" = (
@@ -87797,7 +87757,6 @@
 /obj/machinery/door/airlock/external{
 	name = "Escape Pod Airlock"
 	},
-/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "wHi" = (
@@ -98686,8 +98645,8 @@ uTI
 uTI
 uTI
 dQQ
-sTP
-sTP
+eur
+eur
 dQQ
 dQQ
 eZC
@@ -98725,8 +98684,8 @@ iRs
 maH
 iRs
 iRs
-fVQ
-fVQ
+jgU
+jgU
 iRs
 uTI
 uTI
@@ -101263,7 +101222,7 @@ ylx
 ylx
 ylx
 tyB
-cbG
+jwp
 ool
 jwp
 jTQ
@@ -140328,7 +140287,7 @@ uTI
 uTI
 uTI
 eyX
-jiO
+aQI
 eyX
 uTI
 uTI
@@ -141179,7 +141138,7 @@ bGG
 bGG
 bGG
 bGG
-xKt
+kiQ
 bGG
 cuQ
 cuQ
@@ -143687,17 +143646,17 @@ uTI
 uTI
 uTI
 bEG
-bVl
+iKh
 bjR
-bVl
-bjR
-bjR
+iKh
 bjR
 bjR
 bjR
-bVl
 bjR
-bVl
+bjR
+iKh
+bjR
+iKh
 bjR
 uTI
 uTI

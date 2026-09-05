@@ -184,28 +184,32 @@
 	unload_act(user)
 
 /obj/item/gun/projectile/proc/unload_act(mob/user)
-	var/obj/item/ammo_casing/AC = chambered //Find chambered round
 	if(magazine)
 		magazine.forceMove(drop_location())
 		user.put_in_hands(magazine, silent = TRUE)
 		magazine.update_appearance()
 		magazine = null
 		update_weight()
-		balloon_alert(user, "магазин извлечён")
 		playsound(loc, magout_sound, 50, TRUE)
-	else if(chambered)
-		AC.forceMove(drop_location())
-		AC.pixel_x = rand(-10, 10)
-		AC.pixel_y = rand(-10, 10)
-		AC.setDir(pick(GLOB.alldirs))
-		AC.update_appearance()
-		AC.SpinAnimation(10, 1)
-		chambered = null
-		balloon_alert(user, "патрон извлечён")
-		playsound(loc, 'sound/weapons/gun_interactions/remove_bullet.ogg', 50, TRUE)
-		playsound(AC.loc, AC.casing_drop_sound, 50, TRUE)
-	else
+		update_icon()
+		balloon_alert(user, "магазин извлечён")
+		return
+
+	if(!chambered)
 		balloon_alert(user, "уже разряжено!")
+		return
+
+	var/obj/item/ammo_casing/AC = chambered //Find chambered round
+	AC.forceMove(drop_location())
+	AC.pixel_x = rand(-10, 10)
+	AC.pixel_y = rand(-10, 10)
+	AC.setDir(pick(GLOB.alldirs))
+	AC.update_appearance()
+	AC.SpinAnimation(10, 1)
+	chambered = null
+	balloon_alert(user, "патрон извлечён")
+	playsound(loc, 'sound/weapons/gun_interactions/remove_bullet.ogg', 50, TRUE)
+	playsound(AC.loc, AC.casing_drop_sound, 50, TRUE)
 	update_icon()
 
 /obj/item/gun/projectile/examine(mob/user)

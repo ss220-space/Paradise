@@ -129,11 +129,11 @@
 	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/act_intent/Click(location, control, params)
-	if(ishuman(usr) || isdevil(usr))
+	if(is_advanced_user(usr))
 		var/list/modifiers = params2list(params)
 		var/_x = text2num(LAZYACCESS(modifiers, ICON_X))
 		var/_y = text2num(LAZYACCESS(modifiers, ICON_Y))
-		if(_x <= 16 && _y <= 16)
+		if(_x<=16 && _y<=16)
 			usr.a_intent_change(INTENT_HARM)
 		else if(_x <= 16 && _y >= 17)
 			usr.a_intent_change(INTENT_HELP)
@@ -143,6 +143,23 @@
 			usr.a_intent_change(INTENT_DISARM)
 	else
 		usr.a_intent_change("right")
+
+/// Proc used to check if we swap intents based on click location
+/atom/movable/screen/act_intent/proc/is_advanced_user(mob/user)
+	if(ishuman(usr) || isdevil(usr)) // someone should probably draw separate intents for devils
+		return TRUE
+	return FALSE
+
+/// Separate act_intent for swarmers
+/atom/movable/screen/act_intent/swarmer
+	icon = 'icons/mob/screen_swarmer.dmi'
+	screen_loc = ui_zonesel
+
+/// Swarmers have the same kind of intents humans do
+/atom/movable/screen/act_intent/swarmer/is_advanced_user(mob/user)
+	if(isswarmer(user))
+		return TRUE
+	return FALSE
 
 /atom/movable/screen/act_intent/alien
 	icon = 'icons/mob/screen_alien.dmi'

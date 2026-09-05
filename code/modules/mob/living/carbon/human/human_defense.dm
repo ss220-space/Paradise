@@ -166,7 +166,7 @@ emp_act
 					damtype = DROPLIMB_BLUNT
 				if(BURN)
 					damtype = DROPLIMB_BURN
-		if(P.dismember_head && istype(affecting, /obj/item/organ/external/head))
+		if(P.dismember_head && ishead(affecting))
 			damtype = DROPLIMB_SHARP
 		affecting.droplimb(FALSE, damtype)
 
@@ -397,7 +397,7 @@ emp_act
 			continue
 		if(affecting.brute_dam != brute_was || affecting.burn_dam != burn_was)
 			should_update_health = TRUE
-		if(!istype(affecting, /obj/item/organ/external/head) || !prob(min(acidpwr * acid_volume / 10, 90)))	//Applies disfigurement
+		if(!ishead(affecting) || !prob(min(acidpwr * acid_volume / 10, 90)))	//Applies disfigurement
 			continue
 		var/obj/item/organ/external/head/head_organ = affecting
 		if(has_pain())

@@ -10,7 +10,7 @@
 	if(extractor)
 		seedloc = extractor.loc
 
-	if(istype(O, /obj/item/reagent_containers/food/snacks/grown/))
+	if(istype(O, /obj/item/reagent_containers/food/snacks/grown))
 		var/obj/item/reagent_containers/food/snacks/grown/F = O
 		if(F.seed)
 			if(user && !user.drop_transfer_item_to_loc(O, extractor)) //couldn't drop the item

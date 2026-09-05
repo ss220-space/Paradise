@@ -443,11 +443,13 @@
 /proc/animate_shockwave(atom/target)
 	if(!istype(target))
 		return
+
+	var/matrix/original_transform = target.transform
 	var/rotation_strength = rand(10, 20)
 	var/original_y_position = target.pixel_y
-	animate(target, transform = matrix(rotation_strength, MATRIX_ROTATE), pixel_y = 16, time = 0.2 SECONDS, color = "#eeeeee", easing = BOUNCE_EASING)
-	animate(transform = matrix(-rotation_strength, MATRIX_ROTATE), pixel_y = original_y_position, time = 0.2 SECONDS, color = COLOR_WHITE, easing = BOUNCE_EASING)
-	animate(transform = null, time = 0.3 SECONDS, easing = BOUNCE_EASING)
+	animate(target, transform = matrix(original_transform, rotation_strength, MATRIX_ROTATE), pixel_y = 16, time = 0.2 SECONDS, color = "#eeeeee", easing = BOUNCE_EASING)
+	animate(transform = matrix(original_transform, -rotation_strength, MATRIX_ROTATE), pixel_y = original_y_position, time = 0.2 SECONDS, color = COLOR_WHITE, easing = BOUNCE_EASING)
+	animate(transform = original_transform, time = 0.3 SECONDS, easing = BOUNCE_EASING)
 
 /**
  * Animates a rumbling effect by translating the atom in four directions
@@ -456,8 +458,10 @@
  * * target - The atom to animate
  */
 /proc/animate_rumble(atom/target)
-	var/static/list/translation_matrices
+	if(!istype(target))
+		return
 
+	var/static/list/translation_matrices
 	if(!translation_matrices)
 		var/matrix/left_matrix = matrix()
 		var/matrix/up_matrix = matrix()
@@ -473,3 +477,36 @@
 	animate(transform = translation_matrices[2], time = 0.01 SECONDS)
 	animate(transform = translation_matrices[3], time = 0.02 SECONDS)
 	animate(transform = translation_matrices[4], time = 0.03 SECONDS)
+
+/**
+ * Animates a recoil effect, by translating the atom diagonally and going back immediately
+ *
+ * Arguments:
+ * * target - The atom to animate
+ * * delay - Delay between the recoils
+ */
+/proc/animate_recoil(atom/target, delay = 1 SECONDS)
+	if(!istype(target))
+		return
+
+	var/static/list/translation_matrices
+	if(!translation_matrices)
+		var/matrix/first_matrix = matrix().Translate(-1, -1)
+		var/matrix/second_matrix = matrix().Translate(1, 1)
+		var/matrix/third_matrix = matrix().Translate(-1, 1)
+		var/matrix/fourth_matrix = matrix().Translate(1, -1)
+		translation_matrices = list(first_matrix, second_matrix, third_matrix, fourth_matrix)
+
+	var/matrix/original_transform = target.transform
+	animate(target, transform = translation_matrices[1], time = 0.1 SECONDS, loop = -1)
+	animate(transform = original_transform, time = 0.1 SECONDS)
+	animate(time = delay)
+	animate(transform = translation_matrices[2], time = 0.1 SECONDS)
+	animate(transform = original_transform, time = 0.1 SECONDS)
+	animate(time = delay)
+	animate(transform = translation_matrices[3], time = 0.1 SECONDS)
+	animate(transform = original_transform, time = 0.1 SECONDS)
+	animate(time = delay)
+	animate(transform = translation_matrices[4], time = 0.1 SECONDS)
+	animate(transform = original_transform, time = 0.1 SECONDS)
+	animate(time = delay)
