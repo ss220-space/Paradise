@@ -31,9 +31,7 @@
 	dir = 8;
 	id = "Cell 4"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -153,9 +151,7 @@
 	dir = 8;
 	id = "Cell 3"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"

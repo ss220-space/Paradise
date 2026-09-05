@@ -2111,9 +2111,7 @@
 	name = "Electrical Room";
 	req_access = list(150)
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/indestructible/plating,
 /area/awaymission/spacehotel)
 "im" = (
@@ -2201,9 +2199,7 @@
 /turf/simulated/floor/indestructible/plating,
 /area/awaymission/spacehotel)
 "iz" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/indestructible/plating,
 /area/awaymission/spacehotel)
 "iA" = (
@@ -2362,47 +2358,9 @@
 	},
 /turf/simulated/floor/indestructible/plating,
 /area/awaymission/spacehotel)
-"iW" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/indestructible/plating,
-/area/awaymission/spacehotel)
-"iX" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/indestructible/plating,
-/area/awaymission/spacehotel)
-"iY" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/indestructible/plating,
-/area/awaymission/spacehotel)
 "iZ" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/indestructible/plating,
-/area/awaymission/spacehotel)
-"ja" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
 /turf/simulated/floor/indestructible/plating,
 /area/awaymission/spacehotel)
 "jb" = (
@@ -2667,27 +2625,6 @@
 	},
 /obj/effect/decal/cleanable/pie_smudge,
 /turf/simulated/floor/indestructible/carpet,
-/area/awaymission/spacehotel)
-"jJ" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/indestructible/plating,
-/area/awaymission/spacehotel)
-"jK" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/indestructible/plating,
-/area/awaymission/spacehotel)
-"jL" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/indestructible/plating,
 /area/awaymission/spacehotel)
 "jM" = (
 /obj/effect/decal/remains/human,
@@ -9895,9 +9832,9 @@ ia
 cl
 ix
 iK
-iW
+iz
 iK
-jJ
+iz
 iK
 cl
 dO
@@ -10025,9 +9962,9 @@ ia
 cl
 iy
 iJ
-iX
+iz
 jn
-iX
+iz
 iJ
 cl
 dO
@@ -10155,9 +10092,9 @@ ia
 cl
 ix
 zw
-iX
+iz
 zw
-iX
+iz
 zw
 cl
 dO
@@ -10285,9 +10222,9 @@ ia
 il
 iz
 iz
-iY
 iz
-jK
+iz
+iz
 jW
 cl
 dO
@@ -10415,9 +10352,9 @@ ia
 cl
 ix
 zw
-iX
+iz
 zw
-iX
+iz
 zw
 cl
 dO
@@ -10547,7 +10484,7 @@ ix
 iJ
 iZ
 iJ
-iX
+iz
 iJ
 cl
 dO
@@ -10675,9 +10612,9 @@ ia
 cl
 ix
 iK
-ja
+iz
 iK
-jL
+iz
 iK
 cl
 dO

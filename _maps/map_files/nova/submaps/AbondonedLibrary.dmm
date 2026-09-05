@@ -160,9 +160,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/trading)
 "hR" = (
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /obj/structure/table/wood,
 /obj/item/circuitboard/atmos_alert{
 	pixel_x = -3;
@@ -218,9 +216,7 @@
 /turf/simulated/floor/carpet/red,
 /area/station/maintenance/electrical_shop)
 "kL" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/barricade/wooden{
 	layer = 3.5
 	},
@@ -517,9 +513,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/trading)
 "xJ" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/airlock/maintenance,
@@ -827,9 +821,7 @@
 /turf/simulated/wall,
 /area/station/maintenance/electrical_shop)
 "LV" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/light_switch/directional/west,
@@ -853,9 +845,7 @@
 /area/station/maintenance/electrical_shop)
 "MC" = (
 /obj/machinery/power/apc/worn_out/directional/south,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical_shop)
@@ -1116,9 +1106,7 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/engine)
 "Vf" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
