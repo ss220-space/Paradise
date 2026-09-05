@@ -1,0 +1,20 @@
+/obj/structure/cable:
+  banned_neighbors:
+    - /obj/structure/cable
+  ignore:
+    - /obj/structure/cable/layer1
+    - /obj/structure/cable/layer3
+
+/obj/structure/cable/layer1:
+  banned_neighbors:
+    - /obj/structure/cable/layer1
+  ignore:
+    - /obj/structure/cable
+    - /obj/structure/cable/layer3
+
+/obj/structure/cable/layer3:
+  banned_neighbors:
+    - /obj/structure/cable/layer3
+  ignore:
+    - /obj/structure/cable
+    - /obj/structure/cable/layer1

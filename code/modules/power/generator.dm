@@ -23,6 +23,9 @@
 	update_appearance(UPDATE_DESC|UPDATE_OVERLAYS)
 	connect()
 
+/obj/machinery/power/port_gen/should_have_node()
+	return anchored
+
 /obj/machinery/power/generator/update_desc(updates = ALL)
 	. = ..()
 	desc = initial(desc) + " Its cold circulator is located on the [dir2text(cold_dir)] side, and its heat circulator is located on the [dir2text(hot_dir)] side."

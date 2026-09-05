@@ -4,9 +4,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/security_maint)
 "ac" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "prison_block_shutters"
 	},
@@ -82,9 +80,7 @@
 /area/ruin/space/pirate_base/arrivals)
 "ar" = (
 /obj/machinery/power/solar_control/autostart,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_solar)
 "at" = (
@@ -98,9 +94,7 @@
 	},
 /area/ruin/space/pirate_base/laboratory)
 "au" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -165,9 +159,7 @@
 	},
 /area/ruin/space/pirate_base/atrium)
 "aD" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
@@ -198,9 +190,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_maint)
 "aI" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -273,9 +263,7 @@
 	},
 /area/ruin/space/pirate_base/virology)
 "aV" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_solar)
 "aX" = (
@@ -355,9 +343,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/entertainment)
 "bp" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
 "bq" = (
@@ -390,9 +376,7 @@
 	},
 /area/ruin/space/pirate_base/arrivals)
 "bv" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -432,9 +416,7 @@
 	},
 /area/ruin/space/pirate_base/atmos)
 "bC" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -454,9 +436,7 @@
 /obj/effect/turf_decal/siding/yellow{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/telecomms)
 "bG" = (
@@ -466,9 +446,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/laboratory)
 "bI" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/light/small,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/crate,
@@ -538,9 +516,7 @@
 	},
 /area/ruin/space/pirate_base/arrivals)
 "bV" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
@@ -555,9 +531,7 @@
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "bW" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
+/obj/structure/cable/layer1,
 /obj/machinery/camera{
 	c_tag = "LP7 Southeastern solar";
 	dir = 6;
@@ -574,9 +548,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/pirate_base/virus_lab)
 "bY" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
@@ -633,9 +605,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
@@ -663,12 +633,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
 "cn" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_solar)
 "co" = (
@@ -713,9 +678,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -729,12 +692,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
 "cv" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/layer1,
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
@@ -771,9 +729,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_maint)
 "cz" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/door/airlock/maintenance_hatch{
 	aiControlDisabled = 1;
 	hackProof = 1;
@@ -782,9 +738,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_solar)
 "cC" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -825,9 +779,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/virology)
 "cI" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_solar)
 "cJ" = (
@@ -932,9 +884,7 @@
 	hackProof = 1;
 	req_access = list(160)
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/layer1,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
@@ -986,9 +936,7 @@
 /obj/effect/turf_decal/siding/brown/corner{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
 "di" = (
@@ -1032,9 +980,7 @@
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "dm" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/layer1,
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
@@ -1053,12 +999,8 @@
 /obj/structure/disposalpipe/junction{
 	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
@@ -1124,9 +1066,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/security_atrium)
 "dw" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/layer1,
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
@@ -1153,9 +1093,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/pirate_base/virus_lab)
 "dF" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/layer1,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -1170,9 +1108,7 @@
 	},
 /area/ruin/space/pirate_base/laboratory)
 "dH" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -1199,9 +1135,7 @@
 	},
 /area/ruin/space/pirate_base/xeno_lab)
 "dM" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal/siding/blue{
 	dir = 10
 	},
@@ -1225,9 +1159,7 @@
 	},
 /area/ruin/space/pirate_base/arrivals)
 "dP" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/layer1,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dust,
@@ -1255,9 +1187,7 @@
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/pirate_base/prison_solar)
 "dT" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/door/airlock/research/glass{
 	aiControlDisabled = 1;
 	req_access = list(161)
@@ -1274,9 +1204,7 @@
 	heat_proof = 1;
 	req_access = list(161)
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -1306,9 +1234,7 @@
 /obj/machinery/power/terminal{
 	dir = 4
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
+/obj/structure/cable/layer1,
 /obj/machinery/turretid/lethal{
 	ailock = 1;
 	dir = 1;
@@ -1359,12 +1285,8 @@
 	},
 /area/ruin/space/pirate_base/kitchen)
 "ed" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
@@ -1394,9 +1316,7 @@
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/pirate_corvette)
 "ei" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
@@ -1429,17 +1349,13 @@
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
 "em" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/item/kitchen/knife/glassshiv,
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
 "ep" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/layer1,
 /obj/structure/railing{
 	dir = 1
 	},
@@ -1465,9 +1381,7 @@
 "eu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/remains/xeno,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
@@ -1494,9 +1408,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
 "ez" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -1591,9 +1503,7 @@
 "eT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/solar_control/autostart,
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_solar)
 "eU" = (
@@ -1625,9 +1535,7 @@
 /area/ruin/space/pirate_base/lab_maint)
 "eX" = (
 /obj/structure/inflatable,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -1650,9 +1558,7 @@
 /area/ruin/space/pirate_base/telecomms)
 "fa" = (
 /obj/effect/turf_decal/siding/blue,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -1703,9 +1609,7 @@
 /area/ruin/space/pirate_base/atrium)
 "fd" = (
 /obj/machinery/power/solar,
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
@@ -1728,25 +1632,19 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/caution,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/layer1,
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/security_maint)
 "fg" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1814,12 +1712,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/shuttle/pirate_corvette)
-"fs" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/pirate_base/lab_solar)
 "ft" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/gloves/color/latex,
@@ -1843,9 +1735,7 @@
 "fx" = (
 /obj/effect/turf_decal/siding/blue,
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -1953,9 +1843,7 @@
 	},
 /area/ruin/space/pirate_base/xeno_lab)
 "fP" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_solar)
 "fQ" = (
@@ -1989,12 +1877,8 @@
 /area/ruin/space/pirate_base/laboratory)
 "fV" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_solar)
 "fW" = (
@@ -2011,9 +1895,7 @@
 	},
 /area/ruin/space/pirate_base/arrivals)
 "fZ" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/door/airlock/maintenance_hatch{
 	aiControlDisabled = 1;
 	hackProof = 1;
@@ -2024,9 +1906,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/laboratory)
 "gb" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2063,12 +1943,8 @@
 	},
 /area/ruin/space/pirate_base/observ)
 "gk" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
@@ -2079,9 +1955,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
 "gl" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/layer1,
 /obj/machinery/light/small,
 /obj/machinery/door_control{
 	id = "labsolarbolts";
@@ -2098,9 +1972,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "go" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
+/obj/structure/cable/layer1,
 /obj/machinery/power/solar_control/autostart,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/security_maint)
@@ -2113,9 +1985,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -2183,9 +2053,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
 "gC" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/laboratory)
 "gE" = (
@@ -2198,9 +2066,7 @@
 /obj/machinery/door/airlock/medical/glass{
 	req_access = list(160)
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
@@ -2225,9 +2091,7 @@
 "gK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -2239,9 +2103,7 @@
 /area/ruin/space/pirate_base/arrivals)
 "gL" = (
 /obj/machinery/power/tracker,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
@@ -2255,9 +2117,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
 "gN" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -2275,9 +2135,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_solar)
 "gS" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/blood,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -2288,9 +2146,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
 "gT" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/layer1,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
@@ -2307,9 +2163,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/laboratory)
 "ha" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
@@ -2358,9 +2212,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/kitchen)
 "hg" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/spawner/lootdrop/spentcasing/pistol,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -2374,17 +2226,13 @@
 	},
 /area/ruin/space/pirate_base/laboratory)
 "hh" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/lab_sec)
 "hi" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -2420,9 +2268,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/mining)
 "hp" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/layer1,
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
@@ -2435,22 +2281,14 @@
 	},
 /area/ruin/space/pirate_base/atmos)
 "hr" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/vomit,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
 "hs" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2482,9 +2320,7 @@
 /turf/simulated/floor/greengrid,
 /area/ruin/space/pirate_base/xeno_lab)
 "hB" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -2512,9 +2348,7 @@
 /area/ruin/space/pirate_base/virology)
 "hE" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_maint)
@@ -2571,9 +2405,7 @@
 	},
 /area/shuttle/pirate_corvette)
 "hL" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/poddoor{
@@ -2632,9 +2464,7 @@
 	pixel_y = 24;
 	req_access = list(160)
 	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/noalarm/directional/west{
 	req_access = list(160)
 	},
@@ -2664,9 +2494,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
@@ -2749,9 +2577,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "prisonresearch"
 	},
@@ -2770,9 +2596,7 @@
 /turf/simulated/floor/pod,
 /area/ruin/space/pirate_base/observ)
 "im" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -2819,12 +2643,6 @@
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/shuttle/pirate_corvette)
-"iu" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/pirate_base/laboratory)
 "ix" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -2844,9 +2662,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
 "iB" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/closet/crate/engineering,
 /obj/item/access_control,
 /obj/item/access_control,
@@ -2953,9 +2769,7 @@
 	dir = 5
 	},
 /obj/machinery/computer/monitor,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/telecomms)
 "iZ" = (
@@ -3030,9 +2844,7 @@
 	},
 /area/ruin/space/pirate_base/kitchen)
 "jq" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood,
 /area/ruin/space/pirate_base/security_atrium)
@@ -3072,9 +2884,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
@@ -3189,9 +2999,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -3271,9 +3079,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -3343,9 +3149,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "kk" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
@@ -3387,9 +3191,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/entertainment)
 "kt" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3429,9 +3231,7 @@
 /obj/effect/turf_decal/siding/yellow{
 	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/telecomms)
@@ -3487,9 +3287,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
 "kH" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
 	},
@@ -3532,9 +3330,7 @@
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/security_maint)
 "kP" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -3553,12 +3349,8 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "prisonresearch"
 	},
@@ -3574,12 +3366,8 @@
 /area/ruin/space/pirate_base/lab_hall)
 "kU" = (
 /obj/effect/turf_decal/siding/blue,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/alarm/syndicate/pirate/directional/south,
@@ -3635,9 +3423,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/pirate_base/security_atrium)
 "lj" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/layer1,
 /obj/effect/decal/cleanable/dust,
 /obj/structure/sign/vacuum/external{
 	pixel_y = -32
@@ -3647,9 +3433,7 @@
 "lk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
@@ -3674,9 +3458,7 @@
 	},
 /area/ruin/space/pirate_base/kitchen)
 "ln" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -3691,14 +3473,6 @@
 /obj/item/tank/internals/emergency_oxygen/engi/empty,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
-"lp" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/space/pirate_base/xeno_lab)
 "lq" = (
 /obj/machinery/space_heater,
 /turf/simulated/floor/plating,
@@ -3713,14 +3487,6 @@
 /obj/machinery/door/airlock/wood,
 /turf/simulated/floor/wood,
 /area/ruin/space/pirate_base/atrium)
-"lu" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/space/pirate_base/virus_lab)
 "lv" = (
 /obj/structure/table,
 /obj/item/multitool,
@@ -3738,9 +3504,7 @@
 	},
 /area/ruin/space/pirate_base/security_atrium)
 "lA" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/laboratory)
@@ -3788,9 +3552,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
@@ -3917,9 +3679,7 @@
 	req_access = list(160)
 	},
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
@@ -3939,9 +3699,7 @@
 "ml" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
@@ -3986,9 +3744,7 @@
 /obj/machinery/door/airlock/maintenance{
 	req_access = list(162)
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_solar)
 "mu" = (
@@ -4032,16 +3788,12 @@
 	},
 /area/ruin/space/pirate_base/security_atrium)
 "mz" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/layer1,
 /obj/effect/decal/cleanable/blood/xeno,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_solar)
 "mB" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/blood,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -4098,9 +3850,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/pirate_base/security_atrium)
 "mK" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -4170,9 +3920,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
@@ -4201,9 +3949,7 @@
 /obj/machinery/door/airlock/glass{
 	name = "Kitchen"
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -4221,9 +3967,7 @@
 	dir = 2;
 	req_access = list(161)
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -4235,9 +3979,7 @@
 	},
 /area/shuttle/pirate_corvette)
 "ng" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -4359,9 +4101,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/noalarm/directional/east{
 	req_access = list(160)
 	},
@@ -4392,9 +4132,7 @@
 /turf/simulated/floor/greengrid,
 /area/ruin/space/pirate_base/virus_lab)
 "nB" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/entertainment)
 "nD" = (
@@ -4410,12 +4148,8 @@
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "prisonxeno_blast"
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/xeno_lab)
 "nE" = (
@@ -4433,9 +4167,7 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_solar)
 "nK" = (
@@ -4450,15 +4182,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/lab_hall)
-"nL" = (
-/obj/machinery/power/solar,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
-/area/space)
 "nM" = (
 /obj/machinery/vending/cola,
 /obj/effect/decal/cleanable/dirt,
@@ -4474,18 +4197,14 @@
 	},
 /area/ruin/space/pirate_base/arrivals)
 "nP" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/xeno_lab)
 "nQ" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/storage/belt/medical,
 /turf/simulated/floor/plasteel{
@@ -4497,12 +4216,8 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/pirate_base/virology)
 "nU" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
@@ -4526,9 +4241,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/delivery,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/security_maint)
 "nY" = (
@@ -4618,9 +4331,7 @@
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "om" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -4679,18 +4390,12 @@
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "prisonxeno_blast"
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/xeno_lab)
 "or" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
@@ -4700,9 +4405,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
 "ot" = (
@@ -4725,9 +4428,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -4763,9 +4464,7 @@
 	},
 /area/ruin/space/pirate_base/xeno_lab)
 "oE" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -4780,12 +4479,8 @@
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "oF" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
@@ -4880,9 +4575,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/pirate_base/mining)
 "pb" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_maint)
 "pc" = (
@@ -4894,12 +4587,8 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/pirate_base/atrium)
 "pe" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
@@ -4911,9 +4600,7 @@
 	},
 /area/ruin/space/pirate_base/laboratory)
 "pg" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/mapping_helpers/turfs/damage,
@@ -4926,9 +4613,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
@@ -4941,9 +4626,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -4956,9 +4639,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
 "pk" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
@@ -4974,9 +4655,7 @@
 /area/ruin/space/pirate_base/lab_hall)
 "pl" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
@@ -5020,12 +4699,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_solar)
-"pu" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/pirate_base/prison_solar)
 "pv" = (
 /obj/structure/sign/poster/contraband/have_a_puff{
 	pixel_x = -32
@@ -5114,9 +4787,7 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/carpet/red,
 /area/ruin/space/pirate_base/security_atrium)
 "pS" = (
@@ -5182,9 +4853,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -5192,9 +4861,7 @@
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/security_maint)
 "qa" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/item/inflatable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -5216,9 +4883,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/entertainment)
 "qg" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/layer1,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -5269,9 +4934,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/mining)
 "qn" = (
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/noalarm/directional/east{
 	req_access = list(160);
 	start_charge = 0
@@ -5311,9 +4974,7 @@
 	},
 /area/ruin/space/pirate_base/arrivals)
 "qr" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/chair/office{
 	dir = 8
 	},
@@ -5413,9 +5074,7 @@
 	},
 /area/ruin/space/pirate_base/arrivals)
 "qG" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -5467,15 +5126,11 @@
 	input_level = 30000;
 	output_level = 10000
 	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_solar)
 "qO" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -5609,9 +5264,7 @@
 /area/ruin/space/pirate_base/laboratory)
 "rm" = (
 /obj/structure/cable,
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/structure/grille,
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -5671,15 +5324,7 @@
 /area/ruin/space/pirate_base/entertainment)
 "rA" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
+/obj/structure/cable/layer1,
 /turf/space,
 /area/space)
 "rB" = (
@@ -5698,9 +5343,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/pirate_base/atrium)
 "rE" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/laboratory)
@@ -5708,9 +5351,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/entertainment)
 "rH" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal/siding/brown/corner{
 	dir = 4
 	},
@@ -5742,9 +5383,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/pirate_base/security_atrium)
 "rP" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/structure/grille,
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -5773,9 +5412,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -5816,12 +5453,8 @@
 	},
 /area/ruin/space/pirate_base/observ)
 "rZ" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
@@ -5897,18 +5530,14 @@
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "ss" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/door/airlock/centcom{
 	aiControlDisabled = 1;
 	hackProof = 1;
 	opacity = 1;
 	req_access = list(160)
 	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -5975,9 +5604,7 @@
 /turf/space,
 /area/space)
 "sF" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -6041,12 +5668,6 @@
 /obj/item/cultivator,
 /turf/simulated/floor/wood,
 /area/ruin/space/pirate_base/kitchen)
-"sP" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/pirate_base/lab_solar)
 "sQ" = (
 /obj/machinery/smartfridge,
 /turf/simulated/floor/plasteel{
@@ -6072,9 +5693,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/entertainment)
 "sY" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
@@ -6084,9 +5703,7 @@
 /obj/structure/disposalpipe/junction/yjunction{
 	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -6100,15 +5717,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/arrivals)
-"tb" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/pirate_base/prison_maint)
 "tc" = (
 /obj/machinery/atmospherics/unary/cryo_cell/upgraded,
 /turf/simulated/floor/plasteel{
@@ -6116,9 +5724,7 @@
 	},
 /area/ruin/space/pirate_base/security_medical)
 "te" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/layer1,
 /obj/machinery/door/airlock/external{
 	aiControlDisabled = 1;
 	id_tag = "prisonsolarbolts";
@@ -6207,17 +5813,13 @@
 	id_tag = "prisonvirus_blast";
 	use_power = 0
 	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/virus_lab)
 "tr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
@@ -6254,9 +5856,7 @@
 /area/ruin/space/pirate_base/entertainment)
 "tv" = (
 /obj/machinery/computer/monitor,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_solar)
 "ty" = (
@@ -6277,9 +5877,7 @@
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "tB" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -6363,9 +5961,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
 "tM" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
@@ -6380,9 +5976,7 @@
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "tN" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/table,
 /obj/item/reagent_containers/glass/beaker/cryoxadone{
 	pixel_x = -6;
@@ -6421,9 +6015,7 @@
 /obj/effect/turf_decal/siding/yellow{
 	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/telecomms)
 "tS" = (
@@ -6463,9 +6055,7 @@
 	},
 /area/ruin/space/pirate_base/laboratory)
 "ua" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -6548,9 +6138,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/entertainment)
 "ul" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
@@ -6567,17 +6155,13 @@
 	req_access = list(160);
 	start_charge = 0
 	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/virus_lab)
 "uq" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -6595,9 +6179,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
 "uu" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/shieldwallgen{
 	anchored = 1;
 	req_access = list(161)
@@ -6626,9 +6208,7 @@
 /turf/simulated/floor/plasteel,
 /area/shuttle/pirate_corvette)
 "uz" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
 	},
@@ -6666,12 +6246,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
+/obj/structure/cable/layer1,
 /obj/item/lightreplacer{
 	pixel_y = 5
 	},
@@ -6683,9 +6258,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/security_maint)
 "uE" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -6712,9 +6285,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_maint)
 "uI" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -6727,9 +6298,7 @@
 /area/ruin/space/pirate_base/security_atrium)
 "uK" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /mob/living/simple_animal/bot/cleanbot{
@@ -6739,9 +6308,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
 "uL" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/chair/office{
 	dir = 4
 	},
@@ -6764,12 +6331,8 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
@@ -6800,9 +6363,7 @@
 /area/ruin/space/pirate_base/xeno_lab)
 "uQ" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
@@ -6810,9 +6371,7 @@
 "uR" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_maint)
 "uS" = (
@@ -6853,9 +6412,7 @@
 	heat_proof = 1;
 	req_access = list(161)
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -6911,12 +6468,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -6933,9 +6486,7 @@
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "vj" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/layer1,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/camera{
@@ -6946,9 +6497,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/security_maint)
 "vl" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -6978,9 +6527,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/door/airlock/maintenance_hatch{
 	aiControlDisabled = 1;
 	hackProof = 1;
@@ -7018,9 +6565,7 @@
 	},
 /area/ruin/space/pirate_base/kitchen)
 "vt" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
@@ -7102,21 +6647,11 @@
 /obj/effect/turf_decal/siding/yellow{
 	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/telecomms)
-"vB" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/pirate_base/atrium)
 "vC" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -7124,9 +6659,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
 "vE" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
@@ -7145,9 +6678,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
 "vH" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/noalarm/directional/west{
 	req_access = list(160);
 	start_charge = 0
@@ -7205,9 +6736,7 @@
 	req_access = list(160);
 	start_charge = 0
 	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
 "vR" = (
@@ -7238,9 +6767,7 @@
 /area/ruin/space/pirate_base/lab_maint)
 "vW" = (
 /obj/machinery/door/airlock,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/item/healthanalyzer,
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -7254,15 +6781,11 @@
 /area/ruin/space/pirate_base/entertainment)
 "vZ" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/layer1,
 /turf/space,
 /area/space)
 "wa" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/layer1,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_solar)
@@ -7288,9 +6811,7 @@
 	},
 /area/ruin/space/pirate_base/lab_sec)
 "we" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -7309,23 +6830,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood,
 /area/ruin/space/pirate_base/atmos)
-"wg" = (
-/obj/machinery/power/tracker,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
-/area/space)
 "wh" = (
 /obj/item/storage/toolbox/mechanical,
 /obj/machinery/power/apc/noalarm/directional/east{
 	req_access = list(160)
 	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /obj/structure/table/reinforced,
 /obj/item/stack/cable_coil/random,
 /turf/simulated/floor/pod/dark,
@@ -7337,12 +6847,8 @@
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "wj" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -7364,9 +6870,7 @@
 /area/ruin/space/pirate_base/laboratory)
 "wn" = (
 /obj/structure/falsewall,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -7420,9 +6924,7 @@
 	heat_proof = 1;
 	req_access = list(161)
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -7452,9 +6954,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/security_atrium)
 "wC" = (
@@ -7464,9 +6964,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_maint)
 "wD" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/layer1,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_solar)
@@ -7500,13 +6998,6 @@
 	icon_state = "wood-broken"
 	},
 /area/ruin/space/pirate_base/atmos)
-"wL" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/turf/space,
-/area/space)
 "wM" = (
 /obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plasteel{
@@ -7582,9 +7073,7 @@
 "xh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/blood,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -7603,19 +7092,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/arrivals)
-"xj" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/turf/space,
-/area/space)
 "xk" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel{
@@ -7629,30 +7105,22 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
 "xo" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_maint)
 "xp" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -7673,12 +7141,8 @@
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "prisonxeno_blast"
 	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -7723,13 +7187,6 @@
 /obj/item/stack/spacechips/c5000,
 /turf/simulated/floor/wood,
 /area/ruin/space/pirate_base/atrium)
-"xB" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/space,
-/area/space)
 "xC" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
@@ -7750,9 +7207,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/entertainment)
 "xI" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -7806,9 +7261,7 @@
 	},
 /area/ruin/space/pirate_base/xeno_lab)
 "xQ" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/noalarm/directional/east{
 	req_access = list(160);
 	start_charge = 0
@@ -7845,12 +7298,8 @@
 /obj/effect/turf_decal/siding/yellow/corner{
 	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/machinery/power/apc/noalarm/directional/east{
 	req_access = list(160)
 	},
@@ -7964,9 +7413,7 @@
 "yk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
 "yl" = (
@@ -8042,9 +7489,7 @@
 	},
 /area/ruin/space/pirate_base/lab_medical)
 "yx" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -8094,9 +7539,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/entertainment)
 "yI" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -8104,9 +7547,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
 "yK" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -8127,9 +7568,7 @@
 /obj/machinery/power/apc/noalarm/directional/north{
 	req_access = list(160)
 	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurplecorner"
@@ -8170,25 +7609,9 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/mining)
-"yZ" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/space/pirate_base/xeno_lab)
 "za" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -8219,9 +7642,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
 "zj" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal/siding/brown/corner{
 	dir = 8
 	},
@@ -8231,19 +7652,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
-"zk" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/turf/space,
-/area/space)
 "zn" = (
 /obj/machinery/door_control{
 	id = "blackmarket_shutters";
@@ -8308,9 +7716,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -8324,9 +7730,7 @@
 	aiControlDisabled = 1;
 	req_access = list(161)
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -8367,9 +7771,7 @@
 	},
 /area/shuttle/pirate_corvette)
 "zy" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -8420,9 +7822,7 @@
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/security_maint)
 "zF" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/door/airlock/centcom{
 	aiControlDisabled = 1;
 	hackProof = 1;
@@ -8430,9 +7830,7 @@
 	opacity = 1;
 	req_access = list(160)
 	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
 	id_tag = "midpoint_shut";
@@ -8449,9 +7847,7 @@
 	},
 /area/ruin/space/pirate_base/arrivals)
 "zH" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/vending/wallmed{
 	pixel_y = -30
@@ -8491,9 +7887,7 @@
 	input_level = 30000;
 	output_level = 10000
 	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_solar)
 "zP" = (
@@ -8509,9 +7903,7 @@
 	},
 /area/ruin/space/pirate_base/mining)
 "zU" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -8573,12 +7965,8 @@
 /area/ruin/space/pirate_base/kitchen)
 "Ag" = (
 /obj/structure/grille,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/item/shard{
 	icon_state = "medium";
 	pixel_x = -3;
@@ -8662,24 +8050,6 @@
 	icon_state = "darkblue"
 	},
 /area/ruin/space/pirate_base/lab_medical)
-"Av" = (
-/obj/structure/grille,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "prisonresearch"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/pirate_base/laboratory)
 "Ax" = (
 /obj/effect/turf_decal/stripes/gold{
 	dir = 8
@@ -8717,9 +8087,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/entertainment)
 "AI" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -8819,9 +8187,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/security_atrium)
 "AY" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/structure/grille/broken,
 /obj/item/stack/rods,
 /obj/effect/decal/cleanable/dirt,
@@ -8847,9 +8213,7 @@
 	},
 /area/ruin/space/pirate_base/lab_medical)
 "Be" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/layer1,
 /obj/machinery/door/airlock/hatch{
 	aiControlDisabled = 1;
 	hackProof = 1;
@@ -8858,9 +8222,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/security_maint)
 "Bf" = (
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/noalarm/directional/east{
 	req_access = list(160)
 	},
@@ -8896,9 +8258,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -8952,9 +8312,7 @@
 	},
 /area/ruin/space/pirate_base/security_medical)
 "Bw" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -9024,9 +8382,7 @@
 "BI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/item/clothing/head/hardhat/red,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
@@ -9047,9 +8403,7 @@
 /turf/simulated/wall/r_wall,
 /area/ruin/space/pirate_base/security_atrium)
 "BP" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
+/obj/structure/cable/layer1,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/vacuum/external{
 	pixel_y = 32
@@ -9144,9 +8498,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
 "Cc" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/layer1,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
@@ -9309,9 +8661,7 @@
 	},
 /area/ruin/space/pirate_base/xeno_lab)
 "Cy" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/layer1,
 /obj/machinery/turretid/lethal{
 	ailock = 1;
 	dir = 1;
@@ -9421,19 +8771,13 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/security_atrium)
 "CV" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
 /obj/effect/mapping_helpers/turfs/burn,
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -9451,9 +8795,7 @@
 "Dc" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -9483,9 +8825,7 @@
 	},
 /area/ruin/space/pirate_base/security_atrium)
 "Dh" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -9504,9 +8844,7 @@
 /area/ruin/space/pirate_base/telecomms)
 "Dk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal/tile/neutral,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/turf_decal/tile/neutral{
@@ -9613,9 +8951,7 @@
 	},
 /area/ruin/space/pirate_base/atrium)
 "DI" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/item/storage/firstaid/fire/empty,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -9638,21 +8974,15 @@
 	},
 /area/ruin/space/pirate_base/arrivals)
 "DO" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/laboratory)
 "DP" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_solar)
 "DQ" = (
@@ -9683,12 +9013,8 @@
 	},
 /area/ruin/space/pirate_base/observ)
 "Ec" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
 	},
@@ -9731,18 +9057,14 @@
 	pixel_x = -9;
 	pixel_y = 5
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/item/clothing/head/pirate{
 	name = "Шляпа капитана питаров."
 	},
 /turf/simulated/floor/wood,
 /area/ruin/space/pirate_base/security_atrium)
 "El" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/layer1,
 /obj/machinery/door/airlock/hatch{
 	aiControlDisabled = 1;
 	hackProof = 1;
@@ -9786,16 +9108,12 @@
 /obj/effect/turf_decal/siding/yellow{
 	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/telecomms)
 "Ev" = (
@@ -9810,9 +9128,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -9828,9 +9144,7 @@
 "Ex" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -9862,9 +9176,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
@@ -9892,9 +9204,7 @@
 /area/ruin/unpowered)
 "EG" = (
 /obj/effect/turf_decal/caution/stand_clear,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/layer1,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
@@ -9983,9 +9293,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
 "Fa" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
@@ -10007,9 +9315,7 @@
 /turf/space,
 /area/space)
 "Fd" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/sleeper/upgraded,
 /turf/simulated/floor/plasteel{
@@ -10045,9 +9351,7 @@
 "Fl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "laborpirat_blast";
 	use_power = 0
@@ -10077,26 +9381,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/security_maint)
-"Fp" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plating,
-/area/ruin/space/pirate_base/lab_solar)
 "Fq" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/structure/cable,
 /obj/machinery/computer/monitor,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_solar)
 "Fr" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
@@ -10121,9 +9413,7 @@
 	},
 /area/ruin/space/pirate_base/security_medical)
 "Fv" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
@@ -10194,15 +9484,11 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
 "FH" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/noalarm/directional/north{
 	req_access = list(160)
 	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /obj/item/stack/rods{
 	amount = 18
 	},
@@ -10235,9 +9521,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -10341,9 +9625,7 @@
 	},
 /area/ruin/space/pirate_base/mining)
 "Ge" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -10372,9 +9654,7 @@
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/security_maint)
 "Gi" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/layer1,
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/door/airlock/hatch{
 	aiControlDisabled = 1;
@@ -10425,9 +9705,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/mining)
 "Gt" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -10466,12 +9744,8 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/virology)
 "GA" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
@@ -10528,12 +9802,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_maint)
 "GJ" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
@@ -10634,9 +9904,7 @@
 	input_level = 30000;
 	output_level = 10000
 	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/security_maint)
 "GY" = (
@@ -10647,9 +9915,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -10697,15 +9963,11 @@
 	req_access = list(160)
 	},
 /obj/structure/fans/tiny,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_solar)
 "Hg" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -10722,9 +9984,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/siding/thinplating{
 	dir = 1
@@ -10799,9 +10059,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "Hw" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/noalarm/directional/west{
 	req_access = list(160);
 	start_charge = 0
@@ -10814,9 +10072,7 @@
 /obj/machinery/power/terminal{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /obj/structure/rack,
 /obj/item/stack/sheet/mineral/plasma{
 	amount = 35
@@ -10824,21 +10080,12 @@
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
 "Hz" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/machinery/power/port_gen/pacman/upgraded{
 	anchored = 1
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
-"HA" = (
-/obj/machinery/power/tracker,
-/obj/structure/cable/yellow,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
-/area/space)
 "HC" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood,
@@ -10850,9 +10097,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/security_maint)
@@ -10860,9 +10105,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
@@ -10873,9 +10116,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
 "HG" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -10888,9 +10129,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
+/obj/structure/cable/layer1,
 /obj/machinery/power/port_gen/pacman,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/security_maint)
@@ -10905,9 +10144,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
 "HM" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
@@ -10951,9 +10188,7 @@
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "HT" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/sign/poster/official/nanomichi_ad{
 	pixel_y = 32
 	},
@@ -10963,9 +10198,7 @@
 /area/ruin/space/pirate_base/observ)
 "HU" = (
 /obj/structure/cable,
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/structure/grille,
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -11023,9 +10256,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/pirate_base/virus_lab)
 "Ib" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -11108,9 +10339,7 @@
 /turf/space,
 /area/space)
 "Ip" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_maint)
@@ -11142,16 +10371,12 @@
 /turf/simulated/wall/r_wall,
 /area/ruin/space/pirate_base/arrivals)
 "Iw" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/autolathe,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/security_maint)
 "Iy" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/layer1,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
@@ -11268,9 +10493,7 @@
 "IU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -11336,9 +10559,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
 	id_tag = "midpoint_shut";
@@ -11515,16 +10736,12 @@
 /obj/effect/turf_decal/siding/yellow/corner{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal/siding/yellow,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/machinery/light/small,
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/security_maint)
@@ -11579,9 +10796,7 @@
 	req_access = list(160);
 	start_charge = 0
 	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -11604,9 +10819,7 @@
 "JO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/spawner/lootdrop/spentcasing/rifle,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -11616,9 +10829,7 @@
 "JP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/zombie/whiteship{
 	health = 30;
@@ -11630,9 +10841,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -11681,22 +10890,11 @@
 /obj/machinery/door/window{
 	dir = 1
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/layer1,
 /obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/security_maint)
-"JW" = (
-/obj/machinery/power/solar,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
-/area/space)
 "Ka" = (
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating,
@@ -11723,9 +10921,7 @@
 /turf/space,
 /area/space)
 "Kh" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/inflatable/door,
@@ -11744,9 +10940,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -11764,17 +10958,13 @@
 	dir = 1;
 	req_access = list(161)
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/virus_lab)
 "Km" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
 	},
@@ -11796,9 +10986,7 @@
 /obj/effect/turf_decal/siding/yellow{
 	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 8
@@ -11806,9 +10994,7 @@
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/telecomms)
 "Kr" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -11893,9 +11079,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/laboratory)
 "KJ" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -11944,9 +11128,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -11962,9 +11144,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
@@ -11996,9 +11176,7 @@
 	icon_state = "open";
 	req_access = list(160)
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -12013,9 +11191,7 @@
 	req_access = list(160);
 	start_charge = 0
 	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -12030,9 +11206,7 @@
 	},
 /area/ruin/space/pirate_base/observ)
 "KY" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
@@ -12041,19 +11215,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/lab_hall)
-"KZ" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 8
-	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/carpet/red,
-/area/ruin/space/pirate_base/security_atrium)
 "Lc" = (
 /obj/machinery/door_control{
 	id = "blackmarket_shutters";
@@ -12066,9 +11227,7 @@
 /area/ruin/space/pirate_base/observ)
 "Lf" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_solar)
 "Lh" = (
@@ -12083,9 +11242,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/pirate_base/lab_maint)
 "Lj" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/layer1,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_solar)
@@ -12180,9 +11337,7 @@
 	},
 /area/ruin/space/pirate_base/virology)
 "Lw" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -12238,18 +11393,14 @@
 	req_access = list(160);
 	start_charge = 0
 	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_maint)
 "LI" = (
 /obj/structure/table,
 /obj/machinery/door/window/eastright,
 /obj/item/reagent_containers/food/snacks/chinese/sweetsourchickenball,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/item/reagent_containers/food/condiment/peppermill{
 	pixel_x = 3;
 	pixel_y = 11
@@ -12310,9 +11461,7 @@
 	},
 /area/ruin/space/pirate_base/virology)
 "LX" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -12327,9 +11476,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/entertainment)
 "LZ" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/table/wood,
 /obj/item/reagent_containers/glass/beaker/waterbottle,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -12374,9 +11521,7 @@
 /obj/effect/turf_decal/siding/yellow{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -12394,9 +11539,7 @@
 /obj/effect/turf_decal/siding/yellow{
 	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/maintenance_hatch{
 	aiControlDisabled = 1;
@@ -12425,9 +11568,7 @@
 /obj/effect/turf_decal/siding/yellow/corner{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/telecomms)
 "Mq" = (
@@ -12505,9 +11646,7 @@
 /obj/machinery/power/apc/noalarm/directional/south{
 	req_access = list(160)
 	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /obj/structure/rack,
 /obj/machinery/light/small{
 	dir = 4
@@ -12544,12 +11683,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/laboratory)
 "MM" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/structure/chair/office{
 	dir = 8
 	},
@@ -12569,9 +11704,7 @@
 	},
 /area/ruin/space/pirate_base/atrium)
 "MO" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/pirate_base/atrium)
@@ -12605,9 +11738,7 @@
 	},
 /area/ruin/space/pirate_base/lab_sec)
 "MS" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -12654,18 +11785,14 @@
 /obj/effect/turf_decal/siding/yellow{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/security_maint)
 "Na" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal/siding/brown/corner,
 /obj/effect/turf_decal/siding/brown/corner{
 	dir = 4
@@ -12680,9 +11807,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
 "Nb" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
@@ -12719,9 +11844,7 @@
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/security_atrium)
 "Ni" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
@@ -12744,12 +11867,8 @@
 	dir = 2;
 	req_access = list(161)
 	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -12759,9 +11878,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/siding/thinplating{
 	dir = 1
@@ -12781,9 +11898,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/blood/oil/streak,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -12803,9 +11918,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/security_maint)
@@ -12820,9 +11933,7 @@
 /obj/machinery/power/apc/noalarm/directional/south{
 	req_access = list(160)
 	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -12862,23 +11973,12 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space)
-"NB" = (
-/obj/machinery/power/solar,
-/obj/structure/cable/yellow,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
-/area/space)
 "NC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/laboratory)
 "NE" = (
@@ -12908,9 +12008,7 @@
 	},
 /area/ruin/space/pirate_base/kitchen)
 "NK" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -12954,9 +12052,7 @@
 	hackProof = 1;
 	req_access = list(160)
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_solar)
 "NS" = (
@@ -13012,9 +12108,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
 "NZ" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
@@ -13022,9 +12116,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/rack,
 /obj/item/holosign_creator/atmos,
 /turf/simulated/floor/plating,
@@ -13129,9 +12221,7 @@
 	},
 /area/ruin/space/pirate_base/lab_sec)
 "OB" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -13178,9 +12268,7 @@
 	},
 /area/shuttle/pirate_corvette)
 "OE" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
@@ -13206,9 +12294,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -13265,9 +12351,7 @@
 	max_integrity = 150;
 	obj_integrity = 150
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_maint)
@@ -13315,9 +12399,7 @@
 /turf/simulated/mineral,
 /area/space)
 "OZ" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
@@ -13329,9 +12411,7 @@
 /area/ruin/space/pirate_base/lab_hall)
 "Pa" = (
 /obj/effect/turf_decal/siding/blue,
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
@@ -13457,12 +12537,8 @@
 /obj/effect/turf_decal/siding/yellow/corner{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/telecomms)
@@ -13556,9 +12632,7 @@
 /obj/effect/turf_decal/siding/yellow{
 	dir = 5
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/telecomms)
@@ -13597,9 +12671,7 @@
 "PM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/laboratory)
 "PN" = (
@@ -13679,9 +12751,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_solar)
 "Qe" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/closet{
 	icon_state = "bio_scientist";
 	name = "level-3 biohazard suit closet"
@@ -13724,9 +12794,7 @@
 /obj/machinery/power/apc/noalarm/directional/east{
 	req_access = list(160)
 	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
 "Ql" = (
@@ -13758,9 +12826,7 @@
 	name = "Prison maintenance";
 	req_access = list(162)
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_maint)
 "Qp" = (
@@ -13775,9 +12841,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/pirate_base/security_atrium)
 "Qt" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/layer1,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -13849,9 +12913,7 @@
 "QE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -13867,9 +12929,7 @@
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/telecomms)
 "QH" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/layer1,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
@@ -13900,12 +12960,8 @@
 	},
 /area/ruin/space/pirate_base/security_medical)
 "QM" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/structure/grille,
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -13923,9 +12979,7 @@
 	dir = 1
 	},
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/security_atrium)
@@ -13947,9 +13001,7 @@
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/telecomms)
 "QT" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/layer1,
 /obj/machinery/door/airlock/hatch{
 	aiControlDisabled = 1;
 	hackProof = 1;
@@ -14025,9 +13077,7 @@
 /obj/effect/turf_decal/siding/brown{
 	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/noalarm/directional/west{
 	req_access = list(160)
 	},
@@ -14062,9 +13112,7 @@
 	},
 /area/ruin/space/pirate_base/arrivals)
 "Rl" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -14093,9 +13141,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/pirate_base/xeno_lab)
 "Ro" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 1
 	},
@@ -14127,15 +13173,6 @@
 /obj/machinery/door/airlock,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/pirate_base/atrium)
-"Rw" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/space/pirate_base/xeno_lab)
 "Ry" = (
 /obj/machinery/light{
 	dir = 1
@@ -14153,12 +13190,7 @@
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/security_maint)
 "RE" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_solar)
 "RG" = (
@@ -14186,12 +13218,8 @@
 	},
 /area/ruin/space/pirate_base/lab_medical)
 "RL" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
@@ -14236,9 +13264,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
 "RS" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/grille,
 /turf/simulated/floor/plating,
@@ -14358,9 +13384,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/mining)
 "So" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/blood,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -14422,7 +13446,7 @@
 	dir = 8
 	},
 /obj/machinery/power/terminal,
-/obj/structure/cable/yellow,
+/obj/structure/cable/layer1,
 /obj/structure/table,
 /obj/item/flashlight,
 /obj/item/clothing/glasses/welding,
@@ -14487,9 +13511,7 @@
 	},
 /area/ruin/space/pirate_base/lab_medical)
 "SE" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -14526,21 +13548,10 @@
 /obj/item/storage/bag/bio,
 /turf/simulated/floor/engine,
 /area/ruin/space/pirate_base/lab_maint)
-"SM" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/space/pirate_base/xeno_lab)
 "SN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/door/airlock/maintenance_hatch{
 	aiControlDisabled = 1;
 	hackProof = 1;
@@ -14559,12 +13570,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
 "SQ" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/structure/grille,
 /obj/structure/window/reinforced{
 	dir = 1
@@ -14588,13 +13595,9 @@
 /obj/structure/sign/biohazard{
 	pixel_y = -32
 	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -14614,9 +13617,7 @@
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "prisonxeno_blast"
 	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/xeno_lab)
 "Td" = (
@@ -14638,9 +13639,7 @@
 	id_tag = "prisonvirus_blast";
 	use_power = 0
 	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/virus_lab)
 "Tf" = (
@@ -14655,13 +13654,6 @@
 /obj/structure/lattice/catwalk,
 /obj/structure/railing{
 	dir = 1
-	},
-/turf/space,
-/area/space)
-"Ti" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
 	},
 /turf/space,
 /area/space)
@@ -14688,9 +13680,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/entertainment)
 "Tq" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
@@ -14740,14 +13730,6 @@
 	icon_state = "darkblue"
 	},
 /area/ruin/space/pirate_base/lab_medical)
-"Tx" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/space/pirate_base/observ)
 "Ty" = (
 /obj/structure/bed,
 /obj/item/bedsheet/red,
@@ -14783,12 +13765,6 @@
 /obj/item/radio/headset,
 /turf/simulated/floor/wood,
 /area/ruin/space/pirate_base/security_atrium)
-"TI" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/space/pirate_base/entertainment)
 "TJ" = (
 /obj/structure/rack,
 /obj/item/storage/box/syringes,
@@ -14821,12 +13797,8 @@
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "TO" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/girder,
 /turf/simulated/floor/plating,
@@ -14860,9 +13832,7 @@
 	hackProof = 1;
 	req_access = list(160)
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/telecomms)
 "TT" = (
@@ -14884,19 +13854,13 @@
 /area/ruin/space/pirate_base/lab_solar)
 "TV" = (
 /obj/structure/grille,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/entertainment)
 "TW" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/space/pirate_base/security_atrium)
 "TZ" = (
@@ -14927,9 +13891,7 @@
 /area/shuttle/pirate_corvette)
 "Uc" = (
 /obj/structure/grille,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/entertainment)
 "Ue" = (
@@ -14953,12 +13915,8 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -15008,12 +13966,8 @@
 	id_tag = "prisonvirus_blast";
 	use_power = 0
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/virus_lab)
 "Ul" = (
@@ -15035,9 +13989,7 @@
 	},
 /area/ruin/space/pirate_base/virology)
 "Uo" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/layer1,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
@@ -15067,9 +14019,7 @@
 	name = "Prison";
 	req_access = list(162)
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -15107,12 +14057,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/kitchen)
-"Uz" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/pirate_base/prison_solar)
 "UB" = (
 /obj/effect/mob_spawn/human/corpse/tacticool,
 /obj/item/clothing/head/helmet/space/syndicate/black/red,
@@ -15187,9 +14131,7 @@
 	hackProof = 1;
 	req_access = list(161)
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -15210,16 +14152,12 @@
 	name = "Pirate ID";
 	registered_name = "Pirate"
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/item/pen,
 /turf/simulated/floor/wood,
 /area/ruin/space/pirate_base/security_atrium)
 "UT" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -15268,9 +14206,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal/siding/thinplating{
 	dir = 4
 	},
@@ -15291,13 +14227,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/mining)
-"Vg" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/effect/decal/cleanable/blood/xeno,
-/turf/simulated/floor/plating,
-/area/ruin/space/pirate_base/lab_solar)
 "Vh" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
@@ -15309,12 +14238,6 @@
 	icon_state = "white"
 	},
 /area/ruin/space/pirate_base/kitchen)
-"Vj" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/pirate_base/prison_maint)
 "Vk" = (
 /obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel{
@@ -15346,9 +14269,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
@@ -15433,9 +14354,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/turretid/lethal{
 	ailock = 1;
 	dir = 1;
@@ -15458,9 +14377,7 @@
 	req_access = list(161);
 	welded = 1
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -15475,9 +14392,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/pirate_base/atrium)
 "VI" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -15653,9 +14568,7 @@
 	use_power = 0
 	},
 /obj/structure/fans/tiny,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/security_maint)
 "Wp" = (
@@ -15680,9 +14593,7 @@
 /area/ruin/space/pirate_base/lab_hall)
 "Wr" = (
 /obj/effect/turf_decal/caution/stand_clear,
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
+/obj/structure/cable/layer1,
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
@@ -15810,9 +14721,7 @@
 	},
 /area/ruin/space/pirate_base/xeno_lab)
 "WR" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
+/obj/structure/cable/layer1,
 /obj/item/stock_parts/capacitor,
 /obj/structure/rack,
 /turf/simulated/floor/plating,
@@ -15821,9 +14730,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
@@ -15864,9 +14771,7 @@
 	},
 /area/ruin/space/pirate_base/virus_lab)
 "Xc" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/layer1,
 /obj/machinery/door_control{
 	id = "prisonsolarbolts";
 	normaldoorcontrol = 1;
@@ -16045,9 +14950,7 @@
 "Xz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -16113,9 +15016,7 @@
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "prisonxeno_blast"
 	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/xeno_lab)
 "XQ" = (
@@ -16140,9 +15041,7 @@
 	},
 /area/ruin/space/pirate_base/virus_lab)
 "XU" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
@@ -16151,9 +15050,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
 "XV" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/portable_atmospherics/pump,
 /turf/simulated/floor/plating,
@@ -16174,9 +15071,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -16193,9 +15088,7 @@
 /area/ruin/space/pirate_base/lab_maint)
 "Ye" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_maint)
 "Yf" = (
@@ -16210,24 +15103,11 @@
 	icon_state = "showroomfloor"
 	},
 /area/ruin/space/pirate_base/atrium)
-"Yh" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/door/airlock/hatch{
-	aiControlDisabled = 1;
-	hackProof = 1;
-	req_access = list(160)
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/pirate_base/prison_solar)
 "Yi" = (
 /turf/simulated/wall/r_wall,
 /area/ruin/space/pirate_base/observ)
 "Yj" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -16329,9 +15209,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -16347,9 +15225,7 @@
 /obj/machinery/power/apc/noalarm/directional/east{
 	req_access = list(160)
 	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/space/pirate_base/security_atrium)
 "YB" = (
@@ -16401,13 +15277,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/observ)
-"YM" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/turf/space,
-/area/space)
 "YP" = (
 /obj/structure/grille/broken,
 /obj/item/shard{
@@ -16415,12 +15284,8 @@
 	pixel_x = 3;
 	pixel_y = 2
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/item/stack/rods,
 /obj/structure/inflatable{
 	layer = 3.1
@@ -16442,12 +15307,8 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/pirate_base/atmos)
 "YT" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -16548,9 +15409,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -16564,9 +15423,7 @@
 	},
 /area/ruin/space/pirate_base/observ)
 "Ze" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 1
 	},
@@ -16590,9 +15447,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/blood/xeno,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
@@ -16612,12 +15467,8 @@
 	dir = 1
 	},
 /obj/structure/window/reinforced,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "prisonresearch"
 	},
@@ -16636,21 +15487,15 @@
 	id_tag = "prisonvirus_blast";
 	use_power = 0
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/virus_lab)
 "Zl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
@@ -16705,9 +15550,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atrium)
 "Zt" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
@@ -16715,9 +15558,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
 "Zu" = (
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/noalarm/directional/east{
 	req_access = list(160);
 	start_charge = 0
@@ -16786,9 +15627,7 @@
 /obj/machinery/power/apc/noalarm/directional/west{
 	req_access = list(160)
 	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_solar)
 "ZH" = (
@@ -16828,9 +15667,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/pirate_base/security_atrium)
 "ZL" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_solar)
@@ -16888,9 +15725,7 @@
 	},
 /area/ruin/space/pirate_base/virology)
 "ZU" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -16904,13 +15739,9 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/mining)
 "ZW" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -17849,7 +16680,7 @@ qc
 qc
 qc
 gL
-xB
+vZ
 rA
 rA
 rA
@@ -17858,10 +16689,10 @@ rA
 rA
 rA
 rA
-xB
-xB
-xB
-Ti
+vZ
+vZ
+vZ
+vZ
 RQ
 qc
 qc
@@ -17952,14 +16783,14 @@ qc
 qc
 qc
 qc
-JW
-JW
-JW
-JW
-JW
-JW
-JW
-JW
+fd
+fd
+fd
+fd
+fd
+fd
+fd
+fd
 RQ
 RQ
 RQ
@@ -18282,7 +17113,7 @@ IZ
 IZ
 IZ
 Uq
-pu
+cI
 fV
 ZL
 mt
@@ -18473,7 +17304,7 @@ mM
 AK
 AK
 IZ
-Yh
+QT
 IZ
 IZ
 IZ
@@ -18487,7 +17318,7 @@ zv
 IZ
 eT
 bx
-Uz
+cI
 yQ
 Ox
 bv
@@ -18589,7 +17420,7 @@ wD
 QT
 cn
 Qd
-Uz
+cI
 ko
 Ox
 LX
@@ -18691,10 +17522,10 @@ kn
 IZ
 dY
 Qd
-Uz
+cI
 ko
 Ql
-tb
+au
 IM
 SV
 RJ
@@ -18796,7 +17627,7 @@ cI
 Fq
 ko
 QQ
-tb
+au
 SV
 SV
 SV
@@ -19102,7 +17933,7 @@ bi
 AK
 Zw
 Ka
-tb
+au
 SV
 Xl
 FR
@@ -19204,7 +18035,7 @@ AK
 AK
 Zw
 Kx
-tb
+au
 SV
 zz
 xA
@@ -19511,7 +18342,7 @@ AK
 Zw
 lq
 au
-Vj
+pb
 SV
 nh
 Rh
@@ -20038,7 +18869,7 @@ wz
 qt
 TP
 TV
-TI
+nB
 wq
 tu
 ll
@@ -20939,7 +19770,7 @@ AK
 cc
 SV
 ni
-vB
+bp
 em
 Ec
 rZ
@@ -23517,7 +22348,7 @@ Qe
 Fa
 CV
 bC
-Av
+kQ
 mM
 mM
 GG
@@ -23793,8 +22624,8 @@ qo
 EQ
 GL
 pR
-KZ
-KZ
+pR
+pR
 QO
 do
 Pa
@@ -24345,7 +23176,7 @@ ci
 FH
 Bg
 Bg
-fs
+aV
 ci
 AK
 GG
@@ -24441,8 +23272,8 @@ BV
 rE
 DO
 zU
-iu
-iu
+gC
+gC
 cz
 DP
 FE
@@ -24642,7 +23473,7 @@ bL
 jZ
 uo
 za
-lu
+fg
 wr
 jZ
 dD
@@ -24735,7 +23566,7 @@ MD
 MD
 Mu
 gE
-lp
+gb
 wl
 MD
 Zx
@@ -24753,7 +23584,7 @@ dD
 jZ
 AK
 ci
-Vg
+mz
 RI
 gR
 KH
@@ -24857,7 +23688,7 @@ AK
 ci
 bW
 Lj
-Fp
+Cc
 pr
 Js
 va
@@ -24962,7 +23793,7 @@ wt
 aV
 dm
 mz
-sP
+aV
 ci
 AK
 AK
@@ -25143,7 +23974,7 @@ oj
 Du
 xs
 ne
-yZ
+wj
 HN
 MD
 at
@@ -25245,7 +24076,7 @@ Du
 oV
 nD
 aF
-lp
+gb
 Vz
 MD
 WM
@@ -25254,7 +24085,7 @@ jZ
 jZ
 jZ
 Hg
-lu
+fg
 wr
 jZ
 dD
@@ -25323,7 +24154,7 @@ Lh
 Kp
 Ls
 Yi
-Tx
+kt
 nU
 Ni
 Ni
@@ -25347,7 +24178,7 @@ Du
 MD
 XO
 Vx
-SM
+zy
 aA
 MD
 mh
@@ -25449,7 +24280,7 @@ Zn
 MD
 uu
 gb
-Rw
+zy
 jn
 MD
 cP
@@ -25499,9 +24330,9 @@ qc
 cq
 RQ
 RQ
-wL
-xB
-xB
+vZ
+vZ
+vZ
 Wo
 qg
 Be
@@ -25778,20 +24609,20 @@ qc
 qc
 qc
 RQ
-YM
-xB
-xB
-xB
-zk
-zk
-zk
-zk
-zk
-zk
-zk
-zk
-xB
-HA
+vZ
+vZ
+vZ
+vZ
+rA
+rA
+rA
+rA
+rA
+rA
+rA
+rA
+vZ
+gL
 qc
 qc
 lY
@@ -25884,14 +24715,14 @@ RQ
 RQ
 RQ
 RQ
-JW
-JW
-JW
-JW
-JW
-JW
-JW
-JW
+fd
+fd
+fd
+fd
+fd
+fd
+fd
+fd
 qc
 qc
 qc
@@ -25906,9 +24737,9 @@ qc
 qc
 cq
 RQ
-nL
-xj
-NB
+fd
+rA
+fd
 qc
 qc
 qc
@@ -26008,9 +24839,9 @@ qc
 qc
 RQ
 qc
-nL
-xj
-NB
+fd
+rA
+fd
 qc
 qc
 qc
@@ -26110,9 +24941,9 @@ qc
 qc
 cq
 qc
-nL
-xj
-NB
+fd
+rA
+fd
 qc
 qc
 qc
@@ -26212,9 +25043,9 @@ qc
 qc
 cq
 qc
-nL
-xj
-NB
+fd
+rA
+fd
 qc
 qc
 qc
@@ -26314,9 +25145,9 @@ qc
 qc
 cq
 qc
-nL
-xj
-NB
+fd
+rA
+fd
 qc
 qc
 qc
@@ -26416,9 +25247,9 @@ qc
 qc
 RQ
 qc
-nL
-xj
-NB
+fd
+rA
+fd
 qc
 qc
 qc
@@ -26518,9 +25349,9 @@ qc
 qc
 cq
 qc
-nL
-xj
-NB
+fd
+rA
+fd
 qc
 qc
 qc
@@ -26620,9 +25451,9 @@ qc
 qc
 cq
 RQ
-nL
-xj
-NB
+fd
+rA
+fd
 qc
 qc
 qc
@@ -26825,7 +25656,7 @@ qc
 qc
 qc
 qc
-wg
+gL
 qc
 qc
 qc

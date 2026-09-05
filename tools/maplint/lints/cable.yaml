@@ -1,4 +1,3 @@
 /obj/structure/cable:
   banned_variables:
-    - d1
-    - d2
+	- icon_state

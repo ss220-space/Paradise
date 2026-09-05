@@ -29,9 +29,7 @@
 /obj/structure/chair/wood{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/template_noop)
 "aA" = (
@@ -51,9 +49,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/blood/drip{
 	pixel_x = -2;
 	pixel_y = 7
@@ -90,9 +86,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dust,
 /obj/effect/landmark/spawner/ninja_teleport,
 /turf/simulated/floor/engine/cult,
@@ -110,9 +104,7 @@
 /turf/simulated/wall,
 /area/template_noop)
 "cC" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -193,9 +185,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/template_noop)
 "el" = (
@@ -206,9 +196,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/blood,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/engine/cult,
 /area/template_noop)
 "eq" = (
@@ -239,9 +227,7 @@
 	},
 /area/template_noop)
 "fa" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
@@ -302,9 +288,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -336,9 +320,7 @@
 /turf/simulated/floor/wood,
 /area/template_noop)
 "hk" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dust,
 /obj/effect/spawner/random_spawners/rat,
 /turf/simulated/floor/engine/cult,
@@ -381,9 +363,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/blood/drip{
 	pixel_x = -4;
 	pixel_y = -4
@@ -405,9 +385,7 @@
 	},
 /area/template_noop)
 "iW" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -419,9 +397,7 @@
 /area/template_noop)
 "jd" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/item/broken_bottle,
 /turf/simulated/floor/wood,
 /area/template_noop)
@@ -514,15 +490,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/structure/closet/crate,
 /obj/item/clothing/glasses/eyepatch,
 /obj/item/clothing/head/mr_chang_band,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/template_noop)
 "ln" = (
@@ -539,9 +511,7 @@
 /area/template_noop)
 "ly" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/mineral_door/wood,
 /obj/structure/barricade/wooden,
@@ -656,15 +626,11 @@
 /turf/simulated/floor/plating,
 /area/template_noop)
 "nX" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -690,9 +656,7 @@
 "oj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -746,10 +710,7 @@
 "pu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc/worn_out/directional/north,
-/obj/structure/cable{
-	icon_state = "0-2";
-	pixel_y = 1
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/template_noop)
 "pv" = (
@@ -783,9 +744,7 @@
 /turf/simulated/floor/wood,
 /area/template_noop)
 "qy" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/template_noop)
 "qK" = (
@@ -817,9 +776,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/blood_5,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/template_noop)
 "rx" = (
@@ -839,9 +796,7 @@
 	},
 /area/template_noop)
 "rZ" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/worn_out/directional/west,
 /obj/effect/mob_spawn/ratdead,
 /turf/simulated/floor/plating,
@@ -887,9 +842,7 @@
 "to" = (
 /obj/structure/barricade/wooden,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/research{
 	name = "Pod Hangar Access"
@@ -975,9 +928,7 @@
 	},
 /area/template_noop)
 "uv" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -1009,9 +960,7 @@
 /turf/simulated/floor/wood,
 /area/template_noop)
 "vU" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
@@ -1075,9 +1024,7 @@
 "xP" = (
 /obj/structure/barricade/wooden,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/maintenance{
 	name = "construction access"
@@ -1105,9 +1052,7 @@
 /turf/simulated/floor/plating,
 /area/template_noop)
 "yo" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
@@ -1214,9 +1159,7 @@
 /turf/simulated/floor/wood/dark,
 /area/template_noop)
 "Dr" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -1252,9 +1195,7 @@
 	dir = 4
 	},
 /obj/item/ammo_casing/shotgun,
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/template_noop)
 "EO" = (
@@ -1284,9 +1225,7 @@
 /turf/simulated/floor/plating,
 /area/template_noop)
 "Fg" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc/worn_out/directional/north,
 /turf/simulated/floor/plasteel{
@@ -1377,9 +1316,7 @@
 	},
 /area/template_noop)
 "Ie" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/blood/drip{
 	pixel_x = -2;
 	pixel_y = 7
@@ -1584,19 +1521,14 @@
 "Pk" = (
 /obj/structure/curtain/black,
 /obj/effect/spawner/random_spawners/grille_50,
-/obj/structure/cable{
-	icon_state = "0-2";
-	pixel_y = 1
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/template_noop)
 "Py" = (
 /obj/structure/barricade/wooden,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/door/airlock/research{
 	name = "Pod Hangar Access"
 	},
@@ -1628,18 +1560,6 @@
 /area/template_noop)
 "QL" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/template_noop)
-"QR" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -1689,9 +1609,7 @@
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
 	pixel_x = 8
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood{
 	broken = 1;
 	icon_state = "wood-broken"
@@ -1713,9 +1631,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/blood/drip{
 	pixel_x = -4;
 	pixel_y = 2
@@ -1758,9 +1674,7 @@
 "VV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
 	},
@@ -1776,9 +1690,7 @@
 	},
 /obj/item/gps,
 /obj/structure/table/reinforced,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -1798,9 +1710,7 @@
 /area/template_noop)
 "Wg" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
@@ -1850,9 +1760,7 @@
 	},
 /area/template_noop)
 "Xo" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/closet/crate/wooden,
 /obj/item/reagent_containers/food/snacks/grown/tomato,
 /obj/item/reagent_containers/food/snacks/grown/tomato,
@@ -1874,12 +1782,7 @@
 /turf/simulated/floor/wood,
 /area/template_noop)
 "XV" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/template_noop)
 "Yu" = (
@@ -1893,9 +1796,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/mineral_door/wood,
 /obj/structure/barricade/wooden,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/template_noop)
 "YK" = (
@@ -1917,9 +1818,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/head/helmet/biker,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/template_noop)
@@ -2465,7 +2364,7 @@ tB
 tB
 kt
 oJ
-QR
+uv
 Qc
 QB
 NZ

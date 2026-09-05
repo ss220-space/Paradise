@@ -77,9 +77,7 @@
 /area/ruin/space/graveyard/church)
 "bI" = (
 /obj/effect/decal/cleanable/dust,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
 	},
@@ -323,9 +321,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/graves)
 "hB" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "chapel"
@@ -393,15 +389,6 @@
 	icon_state = "lightdark"
 	},
 /area/ruin/space/graveyard/church)
-"ji" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "chapel"
-	},
-/area/ruin/space/graveyard/church)
 "jr" = (
 /obj/structure/pit/closed/graveyard_loot,
 /obj/structure/gravemarker/random,
@@ -416,9 +403,7 @@
 /obj/item/stack/sheet/mineral/plasma{
 	amount = 20
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/item/flashlight/lantern,
 /obj/item/flashlight/lantern,
 /obj/item/paper/crumpled{
@@ -495,9 +480,7 @@
 /area/ruin/space/graveyard/church)
 "kv" = (
 /obj/machinery/door/airlock/multi_tile/glass,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/graves)
 "kA" = (
@@ -518,9 +501,7 @@
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
 "lv" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "chapel"
@@ -561,13 +542,9 @@
 /turf/simulated/floor/carpet,
 /area/ruin/space/graveyard/church)
 "mB" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dust,
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
 "mN" = (
@@ -760,9 +737,7 @@
 	},
 /area/ruin/space/graveyard/church)
 "qP" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
 	},
@@ -793,9 +768,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "chapel"
@@ -859,9 +832,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-22"
 	},
@@ -885,9 +856,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
 	},
@@ -901,9 +870,7 @@
 /area/ruin/space/graveyard/church)
 "tC" = (
 /obj/machinery/door/airlock/wood,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
 	},
@@ -1005,9 +972,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
 	},
@@ -1190,14 +1155,6 @@
 "Ap" = (
 /turf/space,
 /area/space)
-"AN" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "lightdark"
-	},
-/area/ruin/space/graveyard/church)
 "Bn" = (
 /obj/effect/turf_decal{
 	dir = 8;
@@ -1235,9 +1192,7 @@
 	name = "statue of an angel";
 	anchored = 1
 	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
 	},
@@ -1381,9 +1336,7 @@
 	dir = 4;
 	icon_state = "grass_edge_medium_corner"
 	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/graves)
 "DW" = (
@@ -1416,15 +1369,6 @@
 /area/ruin/space/graveyard/church)
 "EF" = (
 /turf/simulated/floor/plating,
-/area/ruin/space/graveyard/church)
-"ES" = (
-/obj/effect/decal/cleanable/dust,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "lightdark"
-	},
 /area/ruin/space/graveyard/church)
 "Fd" = (
 /obj/structure/spacevine,
@@ -1522,9 +1466,7 @@
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
 "Hi" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "chapel"
@@ -1663,9 +1605,7 @@
 /obj/machinery/power/smes/vintage{
 	charge = 2e+006
 	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
 "Kk" = (
@@ -1736,9 +1676,7 @@
 /obj/machinery/power/apc/noalarm/directional/south{
 	req_access = list()
 	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/graves)
 "Lr" = (
@@ -1793,9 +1731,7 @@
 /area/ruin/space/graveyard/church)
 "NQ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
 "NS" = (
@@ -1816,14 +1752,6 @@
 	dir = 6
 	},
 /turf/simulated/floor/wood/oak,
-/area/ruin/space/graveyard/church)
-"OY" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "lightdark"
-	},
 /area/ruin/space/graveyard/church)
 "OZ" = (
 /obj/structure/table/wood,
@@ -2135,9 +2063,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/structure/closet/coffin,
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
@@ -2200,9 +2126,7 @@
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/graves)
 "We" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc/noalarm/directional/west{
 	req_access = list()
@@ -2318,9 +2242,7 @@
 /obj/structure/decorative_structures/metal/statue/metal_angel{
 	anchored = 1
 	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
 	},
@@ -2449,13 +2371,6 @@
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/graves)
-"ZS" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/wood/oak,
-/area/ruin/space/graveyard/church)
 "ZX" = (
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/machinery/light/small,
@@ -2801,7 +2716,7 @@ Ap
 rb
 vN
 kk
-ZS
+NQ
 NQ
 NQ
 mB
@@ -2953,7 +2868,7 @@ kj
 rb
 BH
 tw
-ji
+hB
 do
 qA
 Za
@@ -3257,7 +3172,7 @@ rb
 kA
 rb
 XF
-AN
+qP
 Zt
 pn
 Lr
@@ -3307,7 +3222,7 @@ ch
 rb
 Ap
 rb
-ES
+bI
 fM
 yZ
 yZ
@@ -3504,14 +3419,14 @@ ew
 Lp
 it
 sS
-OY
+qP
 bI
-OY
+qP
 tw
-OY
-OY
+qP
+qP
 bI
-AN
+qP
 fM
 ib
 dS
@@ -3554,7 +3469,7 @@ hz
 hz
 DQ
 kv
-AN
+qP
 Zn
 Xt
 qA

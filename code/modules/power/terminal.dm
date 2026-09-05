@@ -25,6 +25,9 @@
 /obj/machinery/power/terminal/update_icon_state()
 	return
 
+/obj/machinery/power/terminal/should_have_node()
+	return TRUE
+
 /obj/machinery/power/proc/can_terminal_dismantle(mob/living/user)
 	return FALSE
 

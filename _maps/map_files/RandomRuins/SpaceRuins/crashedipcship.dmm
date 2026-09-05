@@ -12,9 +12,7 @@
 /obj/machinery/door/airlock/hatch{
 	color = "lightblue"
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/crashedipcship/engine)
 "ar" = (
@@ -74,9 +72,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/crashedipcship/engine)
 "aV" = (
@@ -118,9 +114,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/crashedipcship/middle)
 "cc" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/crashedipcship/engine)
@@ -133,9 +127,7 @@
 	},
 /area/ruin/space/crashedipcship/aft)
 "cj" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal{
 	dir = 6;
 	icon_state = "grass_edge_medium";
@@ -174,18 +166,7 @@
 /turf/space,
 /area/space)
 "cG" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /obj/machinery/power/emitter{
 	dir = 4
 	},
@@ -284,9 +265,7 @@
 /turf/simulated/mineral,
 /area/ruin/space/crashedipcship/asteroid)
 "eb" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /obj/item/tank/internals/plasma/full{
 	pixel_y = -3;
 	pixel_x = 4
@@ -451,9 +430,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/crashedipcship/aft)
 "hZ" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/spacevine,
 /obj/machinery/door/airlock/hatch{
 	color = "lightblue"
@@ -461,9 +438,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/crashedipcship/middle)
 "ij" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/spacevine,
 /obj/effect/mob_spawn/headcrab,
 /obj/machinery/light_construct/small{
@@ -656,18 +631,11 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/crashedipcship/middle)
 "lZ" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/structure/spacevine,
 /obj/effect/decal/cleanable/ash,
 /obj/item/stock_parts/matter_bin/super,
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/engine)
@@ -704,17 +672,13 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/crashedipcship/asteroid)
 "mv" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /obj/structure/spacevine,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/engine)
 "mD" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
 	},
@@ -738,9 +702,7 @@
 /area/ruin/space/crashedipcship/middle)
 "mH" = (
 /obj/machinery/light,
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/binary/pump{
 	dir = 8
 	},
@@ -807,12 +769,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/crashedipcship/asteroid)
 "nW" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/effect/mob_spawn/headcrab,
 /obj/item/stock_parts/matter_bin/super,
 /obj/machinery/atmospherics/binary/valve{
@@ -850,17 +807,13 @@
 /turf/simulated/floor/beach/water,
 /area/ruin/space/crashedipcship/asteroid)
 "oI" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/item/stock_parts/capacitor,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/crashedipcship/engine)
 "oS" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/spacevine,
 /obj/structure/spacevine,
 /obj/effect/decal/cleanable/dirt,
@@ -891,12 +844,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/crashedipcship/engine)
 "pJ" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal{
 	dir = 1;
 	icon_state = "grass_edge_medium";
@@ -958,9 +906,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
 	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/power/energy_accumulator/rad_collector,
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/shard)
@@ -1053,12 +999,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/crashedipcship/aft)
 "sH" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/trinary/filter{
 	dir = 4
 	},
@@ -1157,9 +1098,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/structure/spacevine,
 /turf/simulated/floor/plasteel/dark,
@@ -1230,12 +1169,7 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/item/stock_parts/cell/high/empty,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -1369,9 +1303,7 @@
 	dir = 5
 	},
 /obj/machinery/light,
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/item/shard{
 	icon_state = "medium";
 	pixel_x = -7;
@@ -1437,17 +1369,13 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
 	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/power/energy_accumulator/rad_collector,
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/shard)
 "yy" = (
 /obj/machinery/computer/sm_monitor,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/crashedipcship/engine)
 "yz" = (
@@ -1472,9 +1400,7 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/crashedipcship/middle)
 "yN" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/item/circuitboard/smes,
 /obj/item/stock_parts/cell/high/empty,
 /obj/effect/decal/cleanable/dirt,
@@ -1602,9 +1528,7 @@
 /area/ruin/space/crashedipcship/engine)
 "AC" = (
 /obj/item/book/manual/ripley_build_and_repair,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal{
 	dir = 1;
 	icon_state = "grass_edge_medium_corner"
@@ -1678,9 +1602,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/crashedipcship/asteroid)
 "BI" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal{
 	dir = 4;
 	icon_state = "grass_edge_medium";
@@ -1729,9 +1651,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/crashedipcship/middle)
 "Cu" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/door/airlock/hatch{
 	color = "lightblue"
 	},
@@ -1816,9 +1736,7 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/crashedipcship/middle)
 "EA" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/item/stock_parts/cell/high/empty,
 /obj/item/stock_parts/cell/high/empty,
 /obj/effect/decal/cleanable/cobweb2,
@@ -1914,9 +1832,7 @@
 /turf/simulated/floor/mineral/titanium/airless,
 /area/ruin/space/crashedipcship/aft)
 "FX" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/door/airlock/hatch{
 	color = "lightblue"
 	},
@@ -1950,18 +1866,14 @@
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/crashedipcship/asteroid)
 "Gm" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/crashedipcship/aft)
 "GK" = (
 /obj/item/circuitboard/cyborgrecharger,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/grass,
 /area/ruin/space/crashedipcship/middle)
 "GQ" = (
@@ -1981,9 +1893,7 @@
 	},
 /area/ruin/space/crashedipcship/middle)
 "GW" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/door/airlock/highsecurity{
 	color = "lightblue"
 	},
@@ -2040,9 +1950,7 @@
 /obj/machinery/door/window{
 	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/crashedipcship/engine)
@@ -2120,9 +2028,7 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/crashedipcship/middle)
 "Jy" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/item/shard,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
@@ -2158,12 +2064,7 @@
 	dir = 1;
 	on = 1
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /obj/item/tank/internals/plasma/empty,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/crashedipcship/engine)
@@ -2235,9 +2136,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/crashedipcship/engine)
 "KS" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/crashedipcship/aft)
@@ -2506,9 +2405,7 @@
 /turf/simulated/floor/mineral/titanium/airless,
 /area/ruin/space/crashedipcship/aft)
 "Qt" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/machinery/light_construct/small{
 	dir = 1
 	},
@@ -2523,9 +2420,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/crashedipcship/aft)
 "Qz" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/power/energy_accumulator/rad_collector,
 /obj/machinery/atmospherics/pipe/manifold4w/visible,
 /turf/simulated/floor/plating,
@@ -2606,9 +2501,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/engine)
 "RW" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mob_spawn/headcrab,
 /turf/simulated/floor/plasteel/white,
@@ -2714,9 +2607,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/mob_spawn/human/corpse/ipc,
 /obj/effect/turf_decal{
 	dir = 4;
@@ -2752,9 +2643,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/crashedipcship/asteroid)
 "UU" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /obj/machinery/alarm/all_access/directional/east,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/crashedipcship/shard)
@@ -2774,12 +2663,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/crashedipcship/shard)
 "Vs" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /obj/item/tank/internals/plasma/empty,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/binary/valve{
@@ -2878,12 +2762,7 @@
 /area/ruin/space/crashedipcship/aft)
 "XO" = (
 /obj/machinery/power/terminal,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /obj/item/tank/internals/plasma/full{
 	pixel_y = -3;
 	pixel_x = 4
@@ -2893,12 +2772,7 @@
 "XS" = (
 /obj/item/tank/internals/plasma/empty,
 /obj/machinery/atmospherics/pipe/manifold/visible,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/engine)
 "XT" = (
@@ -2986,9 +2860,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/crashedipcship/aft)
 "ZK" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal{
 	dir = 4;
 	icon_state = "grass_edge_medium_corner"
@@ -3013,9 +2885,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/crashedipcship/aft)
 "ZW" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/item/tank/internals/plasma/empty{
 	pixel_x = 5
 	},

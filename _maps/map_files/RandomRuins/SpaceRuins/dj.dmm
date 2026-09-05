@@ -9,9 +9,7 @@
 "ah" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/djstation)
 "ak" = (
@@ -22,16 +20,12 @@
 /turf/space,
 /area/space/nearstation)
 "am" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/space)
 "an" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/djstation)
 "ao" = (
@@ -42,26 +36,17 @@
 /area/djstation)
 "aq" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/djstation)
 "au" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/noalarm/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/djstation)
 "av" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/item/storage/box/lights/mixed,
 /obj/structure/sign/electricshock{
 	pixel_y = -32
@@ -70,20 +55,13 @@
 /area/djstation)
 "az" = (
 /obj/machinery/power/tracker,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
 /area/space)
 "aA" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/space)
@@ -107,16 +85,8 @@
 	},
 /area/djstation)
 "aF" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
 /turf/space,
 /area/space)
 "aG" = (
@@ -187,16 +157,6 @@
 	},
 /turf/space,
 /area/space)
-"bb" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space)
 "bc" = (
 /obj/structure/curtain/open/shower,
 /obj/machinery/shower/directional/east,
@@ -212,15 +172,7 @@
 	},
 /area/djstation)
 "be" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/space)
@@ -286,13 +238,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plating,
 /area/djstation)
-"bt" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space)
 "bv" = (
 /obj/structure/lattice,
 /obj/structure/grille{
@@ -314,12 +259,7 @@
 	},
 /area/djstation)
 "bz" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/djstation)
 "bA" = (
@@ -354,15 +294,6 @@
 	icon_state = "dark"
 	},
 /area/djstation)
-"bI" = (
-/obj/machinery/power/solar/fake,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
-/area/space)
 "bJ" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -396,33 +327,11 @@
 "bN" = (
 /turf/space,
 /area/djstation)
-"bP" = (
-/obj/machinery/power/solar/fake,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
-/area/space)
 "bR" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/djstation)
-"bS" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space)
 "bT" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
@@ -430,9 +339,7 @@
 /area/djstation)
 "bU" = (
 /obj/machinery/power/terminal,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/djstation)
 "cP" = (
@@ -465,15 +372,7 @@
 /area/djstation)
 "hJ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
-/area/djstation)
-"iU" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/djstation)
 "kd" = (
@@ -482,12 +381,6 @@
 	dir = 4;
 	icon_state = "darkblue"
 	},
-/area/djstation)
-"ke" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/plating,
 /area/djstation)
 "ku" = (
 /obj/structure/closet/crate/can,
@@ -507,15 +400,6 @@
 	icon_state = "dark"
 	},
 /area/djstation)
-"lv" = (
-/obj/machinery/power/solar/fake,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
-/area/space)
 "oE" = (
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
@@ -529,9 +413,7 @@
 	pixel_y = -1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/djstation)
 "qn" = (
@@ -563,9 +445,7 @@
 	},
 /area/djstation)
 "sJ" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/wall/mineral/titanium/interior,
 /area/djstation)
 "vE" = (
@@ -601,9 +481,7 @@
 /area/djstation)
 "zC" = (
 /obj/item/multitool,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/djstation)
 "AH" = (
@@ -615,30 +493,9 @@
 	},
 /area/djstation)
 "AP" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/djstation)
-"Bh" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space)
 "DI" = (
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave{
@@ -650,9 +507,7 @@
 	},
 /area/djstation)
 "Er" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/power/smes/magical{
 	desc = "A high-capacity superconducting magnetic energy storage (SMES) unit.";
 	name = "power storage unit"
@@ -698,15 +553,6 @@
 	dir = 4;
 	icon_state = "darkblue"
 	},
-/area/djstation)
-"Ig" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plating,
 /area/djstation)
 "IK" = (
 /obj/structure/fans/tiny,
@@ -768,13 +614,9 @@
 	},
 /area/djstation)
 "Ml" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/djstation)
 "Mu" = (
@@ -830,9 +672,7 @@
 /area/djstation)
 "Rl" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/power/solar_control/autostart,
 /turf/simulated/floor/plating,
 /area/djstation)
@@ -860,9 +700,7 @@
 	},
 /area/djstation)
 "Tc" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
 /turf/simulated/floor/plating,
@@ -1122,9 +960,9 @@ YA
 ab
 bw
 bw
-bP
+cP
 YA
-bP
+cP
 bw
 bw
 ab
@@ -1158,10 +996,10 @@ YA
 YA
 ab
 bw
-bI
-bS
-bI
-bS
+cP
+be
+cP
+be
 cP
 YA
 YA
@@ -1195,10 +1033,10 @@ YA
 YA
 ab
 bw
-bI
-bS
-bI
-bS
+cP
+be
+cP
+be
 cP
 YA
 ao
@@ -1232,10 +1070,10 @@ YA
 YA
 ak
 bw
-bI
-bS
-bI
-bS
+cP
+be
+cP
+be
 cP
 YA
 ao
@@ -1269,10 +1107,10 @@ YA
 YA
 ab
 YA
-bI
-bS
-bI
-bS
+cP
+be
+cP
+be
 cP
 YA
 ao
@@ -1410,10 +1248,10 @@ YA
 ab
 YA
 bw
-bP
-bP
-bP
-bP
+cP
+cP
+cP
+cP
 YA
 YA
 bT
@@ -1445,17 +1283,17 @@ aa
 aa
 YA
 ak
-bI
+cP
 aA
 be
 be
 be
 be
-bt
-bt
+am
+am
 ah
 hJ
-Ig
+bz
 zC
 bz
 av
@@ -1484,10 +1322,10 @@ YA
 ab
 az
 aF
-bP
-bP
-bP
-bP
+cP
+cP
+cP
+cP
 YA
 bw
 sJ
@@ -1495,7 +1333,7 @@ bM
 bU
 Er
 Ml
-ke
+an
 aB
 bR
 rq
@@ -1519,18 +1357,18 @@ aa
 aa
 YA
 ab
-bI
-bb
+cP
+aA
 be
 be
 be
 be
-bt
-bt
+am
+am
 ah
-iU
+an
 AP
-iU
+an
 aq
 UQ
 ao
@@ -1558,10 +1396,10 @@ YA
 ab
 bw
 bw
-lv
-lv
-lv
-lv
+cP
+cP
+cP
+cP
 bw
 YA
 bT
@@ -1713,10 +1551,10 @@ YA
 bw
 ab
 YA
-bI
-Bh
-bI
-Bh
+cP
+be
+cP
+be
 cP
 YA
 ao
@@ -1750,10 +1588,10 @@ YA
 bw
 ab
 YA
-bI
-Bh
-bI
-Bh
+cP
+be
+cP
+be
 cP
 YA
 ao
@@ -1787,10 +1625,10 @@ YA
 YA
 bv
 bw
-bI
-Bh
-bI
-Bh
+cP
+be
+cP
+be
 cP
 YA
 ao
@@ -1824,10 +1662,10 @@ YA
 YA
 ab
 bw
-bI
-Bh
-bI
-Bh
+cP
+be
+cP
+be
 cP
 YA
 YA
@@ -1862,9 +1700,9 @@ YA
 ab
 bw
 bw
-lv
+cP
 YA
-lv
+cP
 bw
 bw
 ab

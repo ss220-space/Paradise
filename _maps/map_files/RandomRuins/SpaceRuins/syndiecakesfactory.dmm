@@ -34,9 +34,7 @@
 /area/space)
 "fU" = (
 /obj/machinery/power/smes,
-/obj/structure/cable/blue{
-	icon_state = "0-2"
-	},
+/obj/structure/cable/layer3,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
@@ -77,9 +75,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "jR" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/machinery/power/port_gen/pacman,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -135,9 +131,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin)
 "pb" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered)
@@ -149,9 +143,7 @@
 /obj/machinery/power/terminal{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
@@ -205,12 +197,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "tz" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
@@ -225,9 +212,7 @@
 /turf/space,
 /area/space)
 "uF" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/wall,
 /area/ruin/unpowered)
 "vV" = (
@@ -245,13 +230,6 @@
 /obj/item/trash/syndi_cakes,
 /turf/space,
 /area/space)
-"yU" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/airless,
-/area/ruin/unpowered)
 "zd" = (
 /obj/machinery/space_heater,
 /obj/effect/decal/cleanable/dirt,
@@ -274,9 +252,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "zP" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
@@ -303,21 +279,12 @@
 /obj/machinery/door/airlock/mining/glass{
 	name = "EVA Storage"
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered)
 "BG" = (
 /turf/space,
-/area/ruin/unpowered)
-"BI" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "Cp" = (
 /obj/structure/lattice,
@@ -337,13 +304,6 @@
 /area/space)
 "EJ" = (
 /turf/simulated/wall,
-/area/ruin/unpowered)
-"Fw" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered)
 "FO" = (
 /obj/machinery/conveyor{
@@ -423,13 +383,6 @@
 "Mz" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless,
-/area/ruin/unpowered)
-"Nw" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "NQ" = (
 /obj/structure/lattice,
@@ -533,9 +486,7 @@
 /area/ruin/powered)
 "Vf" = (
 /obj/machinery/power/apc/noalarm/directional/west,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
@@ -554,9 +505,7 @@
 /area/ruin/space)
 "Xd" = (
 /obj/machinery/power/apc/noalarm/directional/south,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
@@ -781,7 +730,7 @@ vV
 EJ
 pp
 vV
-BI
+zP
 vV
 vV
 vV
@@ -822,7 +771,7 @@ ho
 vV
 EJ
 fU
-Nw
+zP
 tz
 TT
 vV
@@ -865,7 +814,7 @@ vV
 EJ
 KD
 vV
-BI
+zP
 vV
 vV
 sd
@@ -907,7 +856,7 @@ vV
 EJ
 Id
 vV
-BI
+zP
 vV
 Mi
 YU
@@ -949,7 +898,7 @@ TT
 EJ
 vV
 Zs
-BI
+zP
 JI
 vV
 vV
@@ -991,7 +940,7 @@ vV
 EJ
 aM
 QF
-BI
+zP
 om
 YU
 kh
@@ -1075,7 +1024,7 @@ Xd
 EJ
 Mz
 AH
-yU
+pb
 Mz
 Mz
 iK
@@ -1117,7 +1066,7 @@ zP
 uF
 pb
 pb
-Fw
+pb
 Mz
 rJ
 rJ

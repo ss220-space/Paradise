@@ -594,9 +594,7 @@
 	},
 /area/syndicate_depot/core)
 "bL" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -607,9 +605,7 @@
 	dir = 8
 	},
 /obj/structure/fusionreactor,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -762,9 +758,7 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "ci" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/power/smes/upgraded{
 	charge = 5e+006;
 	input_level = 20000;
@@ -856,9 +850,7 @@
 	},
 /area/syndicate_depot/core)
 "cv" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
@@ -867,12 +859,7 @@
 	},
 /area/syndicate_depot/core)
 "cw" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
@@ -972,14 +959,6 @@
 	icon_state = "dark"
 	},
 /area/syndicate_depot/core)
-"cI" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/syndicate_depot/core)
 "cJ" = (
 /obj/structure/cable,
 /obj/machinery/power/apc/noalarm/directional/east{
@@ -1016,9 +995,7 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "cO" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "cP" = (
@@ -1055,9 +1032,7 @@
 	on = 1
 	},
 /obj/effect/spawner/random_spawners/syndicate/turret,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1119,9 +1094,7 @@
 	},
 /area/syndicate_depot/core)
 "db" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2276,11 +2249,11 @@ bK
 aD
 aD
 cv
-cI
+bL
 cO
 cT
-cI
-cI
+bL
+bL
 cO
 db
 cO

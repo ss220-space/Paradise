@@ -1,134 +1,148 @@
 
 ///multilayer cable to connect different layers
-/obj/structure/cable/multiz
-	name = "multi z cable hub"
-	desc = "A flexible, superconducting insulated multi Z hub for heavy-duty multi Z power transfer."
+/obj/structure/cable/multilayer
+	name = "multilayer cable hub"
+	desc = "A flexible, superconducting insulated multilayer hub for heavy-duty multilayer power transfer."
 	icon = 'icons/obj/engines_and_power/power.dmi'
 	icon_state = "cable_bridge"
-	layer = WIRE_LAYER + 0.02 //Above all cables
-	color = "white"
+	cable_layer = CABLE_LAYER_2
+	layer = WIRE_LAYER - 0.02 //Below all cables Disabled layers can lay over hub
+	color = CABLE_HEX_COLOR_WHITE
 
-/obj/structure/cable/multiz/update_icon_state()
+
+/obj/structure/cable/multilayer/cable_color(colorC)
+	color = CABLE_HEX_COLOR_WHITE
 	return
 
-/obj/structure/cable/multiz/Initialize(mapload)
+/obj/structure/cable/multilayer/update_icon_state()
+	SHOULD_CALL_PARENT(FALSE)
+	return
+
+/obj/structure/cable/multilayer/update_icon()
 	. = ..()
-	d1 = 0
-	if(mapload)
-		return
-	mergeConnectedNetworksOnTurf(get_turf(src))
+	underlays.Cut()
+	var/mutable_appearance/cable_node_3 = mutable_appearance('icons/obj/engines_and_power/power_cond/power_cond_white.dmi', "node_all3")
+	cable_node_3.color = CABLE_COLOR_BLUE
+	cable_node_3?.alpha = cable_layer & CABLE_LAYER_3 ? 255 : 0
+	underlays += cable_node_3
+	var/mutable_appearance/cable_node_2 = mutable_appearance('icons/obj/engines_and_power/power_cond/power_cond_white.dmi', "node_all1")
+	cable_node_2.color = CABLE_COLOR_YELLOW
+	cable_node_2?.alpha = cable_layer & CABLE_LAYER_2 ? 255 : 0
+	underlays += cable_node_2
+	var/mutable_appearance/cable_node_1 = mutable_appearance('icons/obj/engines_and_power/power_cond/power_cond_white.dmi', "node_all")
+	cable_node_1.color = CABLE_COLOR_RED
+	cable_node_1?.alpha = cable_layer & CABLE_LAYER_1 ? 255 : 0
+	underlays += cable_node_1
+	var/mutable_appearance/machinery_node = mutable_appearance('icons/obj/engines_and_power/power_cond/power_cond_white.dmi', "connect_node")
+	machinery_node.color = "black"
+	underlays += machinery_node
 
-/obj/structure/cable/multiz/deconstruct(disassembled = TRUE)
-	if(usr)
-		investigate_log("deconstructed by [key_name_log(usr)]", INVESTIGATE_WIRES)
-	if(!(obj_flags & NODECONSTRUCT))
-		new/obj/item/stack/cable_coil(get_turf(src), 10, TRUE, color)
-	qdel(src)
-
-/obj/structure/cable/multiz/attackby(obj/item/I, mob/user, params)
-	var/turf/our_turf = get_turf(src)
-	if(!our_turf)
-		return ATTACK_CHAIN_BLOCKED_ALL
-
-	if(HAS_TRAIT(src, TRAIT_UNDERFLOOR))
-		to_chat(user, span_danger("You cannot interact with something that's under the floor!"))
-		return ATTACK_CHAIN_BLOCKED_ALL
-
-	if(iscoil(I))
-		add_fingerprint(user)
-		var/obj/item/stack/cable_coil/coil = I
-		if(coil.get_amount() < 1)
-			to_chat(user, span_warning("Not enough cable!"))
-			return ATTACK_CHAIN_PROCEED
-		coil.place_turf(our_turf, user)
-		return ATTACK_CHAIN_BLOCKED_ALL
-
-	if((I.flags & CONDUCT) && shock(user, 50, 0.7))
-		add_fingerprint(user)
-		return ATTACK_CHAIN_BLOCKED_ALL
-
-	return ATTACK_CHAIN_PROCEED
-
-/obj/structure/cable/multiz/wirecutter_act(mob/user, obj/item/I)
+/obj/structure/cable/multilayer/Initialize(mapload)
 	. = ..()
+	var/turf/T = get_turf(src)
+	for(var/obj/structure/cable/C in T.contents - src)
+		if(C.cable_layer & cable_layer)
+			C.deconstruct() // remove adversary cable
+	if(!mapload)
+		auto_propagate_cut_cable(src)
 
-/obj/structure/cable/multiz/mergeDiagonalsNetworks(direction)
-	return
+	update_appearance()
 
-/obj/structure/cable/multiz/mergeConnectedNetworks(direction)
-	return
+/obj/structure/cable/multilayer/examine(mob/user)
+	. += ..()
+	. += span_notice("L1:[cable_layer & CABLE_LAYER_1 ? "Connect" : "Disconnect"].")
+	. += span_notice("L2:[cable_layer & CABLE_LAYER_2 ? "Connect" : "Disconnect"].")
+	. += span_notice("L3:[cable_layer & CABLE_LAYER_3 ? "Connect" : "Disconnect"].")
 
-// merge with the powernets of power objects in the source turf and multi z
-/obj/structure/cable/multiz/mergeConnectedNetworksOnTurf()
-	if(!powernet) //if we somehow have no powernet, make one (it may happen one time, when being built)
-		var/datum/powernet/newPN = new()
-		newPN.add_cable(src)
+GLOBAL_LIST(hub_radial_layer_list)
 
-	//connect to cables that points to center (d1 to 0)
-	for(var/obj/structure/cable/C in loc)
-		if(C.d1 == 0)
-			if(C.powernet == powernet)
-				continue
-			if(C.powernet)
-				merge_powernets(powernet, C.powernet)
-			else
-				powernet.add_cable(C) //the cable was powernetless, let's just add it to our powernet
+/obj/structure/cable/multilayer/attack_robot(mob/user)
+	attack_hand(user)
 
-	var/turf/T = loc
-	var/obj/structure/cable/multiz/above = locate(/obj/structure/cable/multiz) in (GET_TURF_ABOVE(T))
-	if(above && above?.powernet != powernet)
-		if(!above.powernet)
-			powernet.add_cable(above)
-		else
-			merge_powernets(powernet, above.powernet)
-	var/obj/structure/cable/multiz/below = locate(/obj/structure/cable/multiz) in (GET_TURF_BELOW(T))
-	if(below && below?.powernet != powernet)
-		if(!below.powernet)
-			powernet.add_cable(below)
-		else
-			merge_powernets(powernet, below.powernet)
-
-// Regular cables already doing the job at gathering all power machines and other cable on our turf
-// We just collecting what cables won't collect, other multiZ cables.
-/obj/structure/cable/multiz/get_connections(powernetless_only)
-	. = list()
-	var/turf/our_turf = loc
-	if(!our_turf)
+/obj/structure/cable/multilayer/attack_hand(mob/living/user, list/modifiers)
+	if(!user)
 		return
-	var/obj/structure/cable/multiz/above = locate(/obj/structure/cable/multiz) in (GET_TURF_ABOVE(our_turf))
-	var/obj/structure/cable/multiz/below = locate(/obj/structure/cable/multiz) in (GET_TURF_BELOW(our_turf))
-	if(above && (!powernetless_only || !above.powernet))
-		. += above
-	if(below && (!powernetless_only || !below.powernet))
-		. += below
+	if(!GLOB.hub_radial_layer_list)
+		GLOB.hub_radial_layer_list = list(
+			"Layer 1" = image(icon = 'icons/hud/radial.dmi', icon_state = "coil-red"),
+			"Layer 2" = image(icon = 'icons/hud/radial.dmi', icon_state = "coil-yellow"),
+			"Layer 3" = image(icon = 'icons/hud/radial.dmi', icon_state = "coil-blue")
+			)
 
-	. += power_list(our_turf, src, 0, powernetless_only)
-
-	return .
-
-// cut the cable's powernet at this cable and updates the powergrid
-/obj/structure/cable/multiz/cut_cable_from_powernet(remove=TRUE)
-	var/turf/our_turf = loc
-	var/list/P_list = list()
-	if(!our_turf)
+	var/layer_result = show_radial_menu(user, src, GLOB.hub_radial_layer_list, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE, tooltips = TRUE)
+	if(!check_menu(user))
 		return
+	var/CL
+	switch(layer_result)
+		if("Layer 1")
+			CL = CABLE_LAYER_1
+			to_chat(user, span_warning("You toggle L1 connection."))
+		if("Layer 2")
+			CL = CABLE_LAYER_2
+			to_chat(user, span_warning("You toggle L2 connection."))
+		if("Layer 3")
+			CL = CABLE_LAYER_3
+			to_chat(user, span_warning("You toggle L3 connection."))
 
-	var/obj/structure/cable/multiz/above = locate(/obj/structure/cable/multiz) in (GET_TURF_ABOVE(our_turf))
-	if(above)
-		P_list += above	// get that which were connected above
-	var/obj/structure/cable/multiz/below = locate(/obj/structure/cable/multiz) in (GET_TURF_BELOW(our_turf))
-	if(below)
-		P_list += below	// and below...
-	P_list += power_list(loc, src, 0, 0, cable_only = 1)//... and on turf ourselves
+	cut_cable_from_powernet(FALSE)
 
-	if(length(P_list) == 0 && !above && !below)//If we so happened to be alone cable, not connected to anything, including above and below.
-		powernet.remove_cable(src) // So we gonna just delete ourself
-		return
-	var/obj/O = P_list[1]
-	// remove the cut cable from its turf and powernet, so that it doesn't get count in propagate_network worklist
-	if(remove)
-		loc = null
-	powernet.remove_cable(src) //remove the cut cable from its powernet
+	disconnect_cable()
 
-	// queue it to rebuild
-	SSmachines.deferred_powernet_rebuilds += O
+	cable_layer ^= CL
+
+	connect_cable(TRUE)
+
+	Reload()
+
+/obj/structure/cable/multilayer/proc/check_menu(mob/living/user)
+	if(!istype(user))
+		return FALSE
+	if(!user.IsAdvancedToolUser())
+		to_chat(user, span_warning("You don't have the dexterity to do this!"))
+		return FALSE
+	if(user.incapacitated() || !user.Adjacent(src))
+		return FALSE
+	return TRUE
+
+///Reset powernet in this hub.
+/obj/structure/cable/multilayer/proc/Reload()
+	var/turf/T = get_turf(src)
+	for(var/obj/structure/cable/C in T.contents - src)
+		if(C.cable_layer & cable_layer)
+			C.deconstruct() // remove adversary cable
+	auto_propagate_cut_cable(src) // update the powernets
+
+/obj/structure/cable/multilayer/CtrlClick(mob/user)
+	to_chat(user, span_warning("You push the reset button."))
+	addtimer(CALLBACK(src, PROC_REF(Reload)), 10, TIMER_UNIQUE) //spam protect
+	return CLICK_ACTION_SUCCESS
+
+// This is a mapping aid. In order for this to be placed on a map and function, all three layers need to have their nodes active
+/obj/structure/cable/multilayer/connected
+		cable_layer = CABLE_LAYER_1 | CABLE_LAYER_2 | CABLE_LAYER_3
+
+/obj/structure/cable/multilayer/layer1
+		cable_layer = CABLE_LAYER_1
+
+/obj/structure/cable/multilayer/layer3
+		cable_layer =  CABLE_LAYER_3
+
+/obj/structure/cable/multilayer/multiz //This bridges powernets betwen Z levels
+	name = "multi z layer cable hub"
+	desc = "A flexible, superconducting insulated multi Z layer hub for heavy-duty multi Z power transfer."
+	icon = 'icons/obj/engines_and_power/power.dmi'
+	icon_state = "cable_bridge"
+	color = CABLE_HEX_COLOR_ORANGE
+	cable_layer = CABLE_LAYER_1|CABLE_LAYER_2|CABLE_LAYER_3
+
+/obj/structure/cable/multilayer/multiz/get_cable_connections(powernetless_only)
+	. = ..()
+	var/turf/T = get_turf(src)
+	. += locate(/obj/structure/cable/multilayer/multiz) in (GET_TURF_BELOW(T))
+	. += locate(/obj/structure/cable/multilayer/multiz) in (GET_TURF_ABOVE(T))
+
+/obj/structure/cable/multilayer/multiz/examine(mob/user)
+	. = ..()
+	var/turf/T = get_turf(src)
+	. += span_notice("[locate(/obj/structure/cable/multilayer/multiz) in (GET_TURF_BELOW(T)) ? "Detected" : "Undetected"] hub UP.")
+	. += span_notice("[locate(/obj/structure/cable/multilayer/multiz) in (GET_TURF_ABOVE(T)) ? "Detected" : "Undetected"] hub DOWN.")

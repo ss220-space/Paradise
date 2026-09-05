@@ -168,9 +168,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/consarea)
 "gp" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/consarea)
@@ -589,9 +587,7 @@
 	},
 /obj/structure/barricade/wooden,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /obj/machinery/door/airlock/engineering{
 	name = "Alternate Construction Area"
 	},
@@ -772,25 +768,19 @@
 /turf/template_noop,
 /area/template_noop)
 "ud" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/consarea)
 "ui" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
@@ -1117,18 +1107,14 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dust,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood/dark,
 /area/station/maintenance/abandonedclub)
 "DE" = (
 /turf/simulated/wall/rust,
 /area/station/maintenance/tourist)
 "DY" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -1550,9 +1536,7 @@
 /turf/simulated/floor/wood/dark,
 /area/station/maintenance/abandonedclub)
 "RJ" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/sign/poster/random{
 	pixel_x = -32
 	},
@@ -1587,9 +1571,7 @@
 	},
 /area/station/maintenance/abandonedclub)
 "Sl" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/table,
 /obj/item/flashlight,
 /obj/item/flashlight{
@@ -1674,19 +1656,6 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood/dark,
 /area/station/maintenance/abandonedclub)
-"Vl" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dust,
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/wood/dark,
-/area/station/maintenance/abandonedclub)
 "VV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -1695,9 +1664,7 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/maintenance,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedclub)
@@ -1706,9 +1673,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedclub)
 "WN" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -1740,9 +1705,7 @@
 /area/station/maintenance/tourist)
 "Xc" = (
 /obj/structure/table,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/item/radio{
 	pixel_x = -1;
 	pixel_y = 6
@@ -1832,9 +1795,7 @@
 	},
 /obj/effect/decal/cleanable/glass,
 /obj/effect/decal/cleanable/dust,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood/dark,
 /area/station/maintenance/abandonedclub)
 "ZS" = (
@@ -1843,9 +1804,7 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/power/apc/worn_out/directional/west,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood/dark,
 /area/station/maintenance/abandonedclub)
 "ZW" = (
@@ -2410,7 +2369,7 @@ CA
 vk
 ZS
 ZI
-Vl
+Dw
 Rw
 hM
 Gs

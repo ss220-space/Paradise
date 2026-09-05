@@ -7,9 +7,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/commons/storage/primary)
 "ae" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/wall/r_wall,
 /area/station/hallway/secondary/entry)
 "aq" = (
@@ -43,9 +41,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/commons/storage/primary)
 "bb" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/wall/r_wall,
 /area/station/hallway/primary/central)
 "bc" = (
@@ -55,9 +51,7 @@
 	},
 /area/station/commons/storage/primary)
 "bd" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -102,9 +96,7 @@
 /turf/simulated/openspace,
 /area/construction/hallway)
 "cu" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/construction/hallway)
 "cx" = (
@@ -142,15 +134,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central)
 "eb" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/station/command/bridge)
 "eA" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/structure/dispenser,
 /turf/simulated/floor/plating,
 /area/station/engineering/engine)
@@ -176,9 +164,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/machinery/power/energy_accumulator/rad_collector,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/station/engineering/engine)
 "fa" = (
@@ -281,9 +267,7 @@
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/central)
 "ho" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/wall/r_wall,
 /area/station/command/bridge)
 "hw" = (
@@ -318,9 +302,7 @@
 /turf/simulated/floor/glass/plasma,
 /area/construction/solars)
 "iq" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/station/engineering/engine)
 "is" = (
@@ -330,9 +312,7 @@
 /turf/simulated/floor/plasteel,
 /area/construction/hallway)
 "ix" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -348,12 +328,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central)
 "iE" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /obj/machinery/power/energy_accumulator/grounding_rod{
 	anchored = 1
 	},
@@ -490,9 +465,7 @@
 /area/construction/solars)
 "mb" = (
 /obj/machinery/power/apc/directional/west,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/light,
 /obj/structure/table,
 /obj/item/analyzer,
@@ -595,9 +568,7 @@
 	dir = 1
 	},
 /obj/machinery/power/apc/directional/north,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/construction/solars)
 "os" = (
@@ -625,9 +596,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/station/engineering/engine)
 "pp" = (
@@ -667,9 +636,7 @@
 /obj/machinery/power/emitter{
 	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/station/engineering/engine)
 "ri" = (
@@ -720,10 +687,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/cable,
-/obj/structure/cable/multiz{
-	color = "#dd1010"
-	},
+/obj/structure/cable/multilayer/multiz,
 /turf/simulated/floor/plating,
 /area/station/commons/storage/primary)
 "sp" = (
@@ -774,12 +738,8 @@
 	},
 /area/station/hallway/primary/central)
 "tG" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 8
 	},
@@ -807,15 +767,6 @@
 /obj/item/mod/control/pre_equipped/loader,
 /turf/simulated/floor/plasteel,
 /area/construction/solars)
-"tZ" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/station/engineering/gravity_generator)
 "uh" = (
 /turf/simulated/floor/plasteel{
 	dir = 4
@@ -833,12 +784,8 @@
 /turf/space,
 /area/station/engineering/engine)
 "uO" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central)
 "uP" = (
@@ -855,9 +802,7 @@
 	},
 /area/construction/hallway)
 "uY" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/door/airlock,
 /turf/simulated/floor/plating,
 /area/station/engineering/engine)
@@ -917,16 +862,12 @@
 	},
 /obj/machinery/power/apc/directional/west,
 /obj/structure/cable,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/station/commons/storage/primary)
 "wz" = (
 /obj/machinery/computer/monitor,
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/station/engineering/engine)
 "wB" = (
@@ -937,9 +878,7 @@
 /turf/simulated/floor/plasteel,
 /area/construction/solars)
 "wG" = (
-/obj/structure/cable/multiz{
-	color = "#dd1010"
-	},
+/obj/structure/cable/multilayer/multiz,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/construction/solars)
@@ -961,9 +900,7 @@
 /turf/simulated/floor/plating,
 /area/construction/hallway)
 "wV" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 4
 	},
@@ -1009,9 +946,7 @@
 "xL" = (
 /obj/machinery/power/apc/directional/west,
 /obj/structure/cable,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/alarm/directional/north{
 	locked = 0
 	},
@@ -1066,9 +1001,7 @@
 	},
 /area/construction/hallway)
 "za" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central)
@@ -1077,12 +1010,7 @@
 	dir = 1
 	},
 /obj/machinery/power/energy_accumulator/rad_collector,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/station/engineering/engine)
 "zt" = (
@@ -1236,12 +1164,7 @@
 /turf/space,
 /area/space/nearstation)
 "Dc" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/station/engineering/engine)
 "Dn" = (
@@ -1284,10 +1207,7 @@
 	},
 /area/construction/hallway)
 "DU" = (
-/obj/structure/cable,
-/obj/structure/cable/multiz{
-	color = "#dd1010"
-	},
+/obj/structure/cable/multilayer/multiz,
 /turf/simulated/floor/plasteel,
 /area/construction/hallway)
 "Eu" = (
@@ -1298,12 +1218,7 @@
 /area/station/engineering/atmos)
 "Ev" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/station/command/bridge)
 "Ex" = (
@@ -1345,9 +1260,7 @@
 /obj/machinery/alarm/directional/north{
 	locked = 0
 	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
@@ -1380,9 +1293,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravity_generator)
 "Gy" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central)
 "GG" = (
@@ -1399,9 +1310,7 @@
 	locked = 0
 	},
 /obj/machinery/power/apc/directional/west,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/structure/closet/secure_closet/captains,
 /turf/simulated/floor/plasteel{
 	dir = 8
@@ -1430,13 +1339,6 @@
 /obj/item/mod/control/pre_equipped/responsory/inquisitory/medic,
 /turf/simulated/floor/plasteel,
 /area/construction/solars)
-"Ib" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/door/airlock,
-/turf/simulated/floor/plating,
-/area/station/engineering/engine)
 "If" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
@@ -1496,9 +1398,7 @@
 /area/station/hallway/primary/central)
 "JJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central)
 "JO" = (
@@ -1530,19 +1430,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
 "Kc" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/directional/north,
 /obj/machinery/camera/autoname,
 /turf/simulated/floor/plasteel,
 /area/construction/hallway)
-"Kd" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating,
-/area/station/engineering/engine)
 "Ko" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
@@ -1556,15 +1448,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/commons/storage/primary)
-"Kw" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central)
 "KF" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "L13"
@@ -1612,12 +1495,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/wall/r_wall,
 /area/station/engineering/engine)
-"Md" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central)
 "Mn" = (
 /obj/structure/table,
 /obj/item/rcd_ammo/large,
@@ -1701,9 +1578,7 @@
 /turf/simulated/floor/plasteel,
 /area/construction/solars)
 "NK" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/wall/r_wall,
 /area/station/commons/storage/primary)
 "Oc" = (
@@ -1730,9 +1605,7 @@
 	},
 /area/construction/hallway)
 "Ov" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/construction/solars)
 "OC" = (
@@ -1747,9 +1620,7 @@
 	},
 /obj/machinery/power/apc/directional/west,
 /obj/structure/closet/secure_closet/engineering_electrical,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/station/engineering/engine)
 "Pf" = (
@@ -1965,9 +1836,7 @@
 /turf/simulated/floor/plasteel,
 /area/construction/hallway)
 "UO" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 8
 	},
@@ -2017,9 +1886,7 @@
 /area/station/maintenance/maintcentral)
 "VW" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/station/command/bridge)
 "Wc" = (
@@ -2028,9 +1895,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/commons/storage/primary)
 "Wd" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/wall/r_wall,
 /area/construction)
 "We" = (
@@ -2038,9 +1903,7 @@
 	locked = 0
 	},
 /obj/machinery/power/apc/directional/west,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/structure/closet/firecloset/full,
 /turf/simulated/floor/plasteel{
 	dir = 9
@@ -2066,9 +1929,7 @@
 /turf/simulated/floor/plasteel,
 /area/construction/solars)
 "Wt" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -2089,9 +1950,7 @@
 /turf/simulated/floor/plasteel,
 /area/construction/hallway)
 "WM" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravity_generator)
 "WT" = (
@@ -2206,15 +2065,6 @@
 "YU" = (
 /turf/simulated/wall/r_wall,
 /area/construction/hallway)
-"YX" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plating,
-/area/station/engineering/engine)
 "YY" = (
 /obj/machinery/portable_atmospherics/canister/nitrogen,
 /turf/simulated/floor/plating,
@@ -2230,12 +2080,7 @@
 /area/station/commons/storage/primary)
 "Zi" = (
 /obj/machinery/power/apc/directional/north,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
@@ -18884,7 +18729,7 @@ vr
 Na
 cT
 aS
-Md
+Gy
 Sj
 Sj
 dH
@@ -19141,7 +18986,7 @@ Rn
 Yv
 cT
 Sj
-Md
+Gy
 Sj
 Sj
 dH
@@ -19398,7 +19243,7 @@ Eu
 Qh
 cT
 iC
-Md
+Gy
 ur
 Sj
 dH
@@ -20677,7 +20522,7 @@ ss
 Nz
 Lr
 kB
-Kd
+iq
 Lr
 Lr
 Lr
@@ -20934,7 +20779,7 @@ if
 Vh
 qe
 AG
-Kd
+iq
 Lr
 Lr
 Lr
@@ -21448,7 +21293,7 @@ go
 Lr
 Lr
 Nu
-Kd
+iq
 Nu
 Lr
 Lr
@@ -21705,7 +21550,7 @@ Hk
 Hk
 Nu
 Nu
-Kd
+iq
 Nu
 Nu
 Nu
@@ -21962,7 +21807,7 @@ Hk
 dg
 Nu
 OZ
-Kd
+iq
 MM
 SP
 cO
@@ -22220,12 +22065,12 @@ dg
 Nu
 wz
 Dc
-YX
+Dc
 iq
 iq
-Ib
+uY
 Gy
-Kw
+uO
 Sj
 Sj
 dH
@@ -22477,12 +22322,12 @@ dg
 Nu
 WT
 Lr
-Kd
+iq
 FT
 TP
 Nu
 YE
-Md
+Gy
 Sj
 Sj
 dH
@@ -22739,7 +22584,7 @@ GW
 GW
 GW
 vP
-Md
+Gy
 Sj
 Sj
 dH
@@ -22996,7 +22841,7 @@ iP
 Cm
 GW
 sR
-Md
+Gy
 Sj
 Sj
 dH
@@ -23248,12 +23093,12 @@ dg
 GW
 Zi
 ix
-tZ
+ix
 Gx
 oV
 GW
 tk
-Md
+Gy
 Sj
 Sj
 dH
@@ -23510,7 +23355,7 @@ xg
 xg
 GW
 gP
-Md
+Gy
 ur
 Sj
 dH

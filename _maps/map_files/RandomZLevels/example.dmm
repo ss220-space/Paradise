@@ -18,28 +18,19 @@
 /obj/machinery/power/smes{
 	charge = 5e+006
 	},
-/obj/structure/cable{
-	icon_state = "0-2";
-	pixel_y = 1
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "af" = (
 /obj/machinery/power/terminal{
 	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "0-2";
-	pixel_y = 1
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "ag" = (
 /obj/machinery/power/apc/noalarm/directional/north,
-/obj/structure/cable{
-	icon_state = "0-2";
-	pixel_y = 1
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "ah" = (
@@ -61,27 +52,11 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "ak" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plasteel,
-/area/awaymission/example)
-"al" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "am" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "an" = (
@@ -91,22 +66,13 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "ao" = (
-/obj/structure/cable{
-	icon_state = "0-2";
-	pixel_y = 1
-	},
+/obj/structure/cable,
 /obj/machinery/gateway/centeraway,
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "ap" = (
 /obj/machinery/gateway{
 	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/awaymission/example)
-"aq" = (
-/obj/structure/cable{
-	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
@@ -123,52 +89,30 @@
 /area/awaymission/example)
 "at" = (
 /obj/machinery/gateway,
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "au" = (
 /obj/machinery/gateway{
 	dir = 6
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "av" = (
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/awaymission/example)
 "aw" = (
 /turf/simulated/floor/plating,
 /area/awaymission/example)
-"ax" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/example)
 "ay" = (
 /obj/machinery/light/small,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/awaymission/example)
-"az" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/awaymission/example)
 "aA" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/blood/oil,
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
@@ -4137,7 +4081,7 @@ aa
 aa
 aa
 ab
-ax
+av
 ab
 aa
 aa
@@ -4269,7 +4213,7 @@ aa
 aa
 aa
 ab
-az
+am
 ab
 aa
 aa
@@ -4335,7 +4279,7 @@ ab
 ab
 ab
 ab
-az
+am
 ab
 ab
 aa
@@ -4400,7 +4344,7 @@ aa
 ab
 ae
 ak
-aq
+am
 aA
 aD
 ab
@@ -4465,7 +4409,7 @@ aa
 aa
 ab
 af
-al
+ak
 ar
 ac
 aE

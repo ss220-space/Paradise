@@ -55,9 +55,7 @@
 /turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
 /area/ae13/command)
 "cJ" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "sepia"
 	},
@@ -96,9 +94,7 @@
 /area/ae13/epicenter)
 "dL" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 6
 	},
@@ -170,9 +166,7 @@
 /area/ae13/hall)
 "fD" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 1
 	},
@@ -183,9 +177,7 @@
 /turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
 /area/ae13/miner)
 "fP" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "sepia"
 	},
@@ -273,9 +265,7 @@
 "hq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/damage,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/indestructible/plating,
 /area/ae13/epicenter)
 "hw" = (
@@ -319,9 +309,7 @@
 /area/ae13/miner)
 "id" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ae13/command)
 "ik" = (
@@ -334,13 +322,9 @@
 /turf/space,
 /area/ae13/medbay)
 "iQ" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/blood/writing,
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ae13/hall)
 "iU" = (
@@ -538,9 +522,7 @@
 /turf/simulated/floor/plating,
 /area/ae13/hall)
 "ok" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ae13/hall)
@@ -558,9 +540,7 @@
 /area/ae13/energy)
 "oD" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/blood/writing,
 /turf/simulated/floor/plating,
 /area/ae13/hall)
@@ -578,9 +558,7 @@
 /area/ae13/command)
 "pa" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating/asteroid{
 	icon_state = "asteroidfloor";
 	name = "floor"
@@ -594,9 +572,7 @@
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 6
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating/asteroid{
 	icon_state = "asteroidfloor";
 	name = "floor"
@@ -651,9 +627,7 @@
 /area/ae13/energy)
 "qe" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ae13/medbay)
@@ -728,9 +702,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ae13/medbay)
 "sc" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ae13/hall)
 "si" = (
@@ -772,9 +744,7 @@
 /area/ae13/epicenter)
 "tp" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/blood,
 /obj/effect/gluttony,
 /turf/simulated/floor/plating,
@@ -828,9 +798,7 @@
 /area/ae13/miner)
 "tD" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/gluttony,
 /turf/simulated/floor/plasteel{
 	icon_state = "sepia"
@@ -868,18 +836,14 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating/asteroid{
 	icon_state = "asteroidfloor";
 	name = "floor"
 	},
 /area/ae13/energy)
 "uA" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
@@ -967,14 +931,6 @@
 	name = "floor"
 	},
 /area/ae13/energy)
-"vZ" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "sepia"
-	},
-/area/ae13/energy)
 "ww" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/damage,
@@ -1007,23 +963,13 @@
 	req_access = list(111);
 	start_charge = 0
 	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
 	},
 /area/ae13/medbay)
-"xd" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "sepia"
-	},
-/area/ae13/energy)
 "xk" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -1080,9 +1026,7 @@
 /area/ae13/epicenter)
 "yC" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ae13/hall)
 "yD" = (
@@ -1116,9 +1060,7 @@
 /area/ae13/miner)
 "yQ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -1198,12 +1140,7 @@
 /area/ae13/miner)
 "AB" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 1
 	},
@@ -1284,9 +1221,7 @@
 /area/ae13/hall)
 "CH" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ae13/hall)
@@ -1311,9 +1246,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ae13/asteroid)
 "Do" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ae13/energy)
@@ -1374,9 +1307,7 @@
 /area/ae13/medbay)
 "EE" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plating,
 /area/ae13/energy)
@@ -1388,9 +1319,7 @@
 	output_level = 15000;
 	outputting = 0
 	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/indestructible/plating,
 /area/ae13/energy)
 "EY" = (
@@ -1587,9 +1516,7 @@
 	},
 /area/ae13/hall)
 "Kc" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/blood,
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 5
@@ -1699,9 +1626,7 @@
 	req_access = list(111);
 	start_charge = 0
 	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -1719,24 +1644,9 @@
 /obj/item/stack/cable_coil,
 /turf/simulated/floor/plating,
 /area/ae13/energy)
-"Mq" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plating/asteroid{
-	icon_state = "asteroidfloor";
-	name = "floor"
-	},
-/area/ae13/energy)
 "Mx" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/blood/writing,
 /turf/simulated/floor/plating,
 /area/ae13/hall)
@@ -1778,15 +1688,7 @@
 /area/ae13/command)
 "NR" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating/asteroid{
 	icon_state = "asteroidfloor";
 	name = "floor"
@@ -1843,9 +1745,7 @@
 /area/ae13/hall)
 "Pa" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ae13/energy)
 "Pf" = (
@@ -2006,9 +1906,7 @@
 /area/ae13/command)
 "Sd" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating/asteroid{
 	icon_state = "asteroidfloor";
 	name = "floor"
@@ -2042,9 +1940,7 @@
 	req_access = list(111);
 	start_charge = 0
 	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -2076,9 +1972,7 @@
 /area/ae13/medbay)
 "SV" = (
 /obj/machinery/door/airlock/shuttle,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2111,9 +2005,7 @@
 /area/ae13/hall)
 "Tq" = (
 /obj/machinery/door/airlock/multi_tile/glass,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "sepia"
 	},
@@ -2148,20 +2040,13 @@
 	pixel_y = 3
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
 /area/ae13/miner)
 "TC" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating/asteroid{
 	icon_state = "asteroidfloor";
 	name = "floor"
@@ -2203,9 +2088,7 @@
 /area/ae13/hall)
 "TU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/statue/gold/cmo{
 	anchored = 1;
 	desc = "Looks unstable. Best to test it with the clown.";
@@ -2226,9 +2109,7 @@
 /area/ae13/hall)
 "UA" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/mob_spawn/headcrab,
 /turf/simulated/floor/plating,
 /area/ae13/hall)
@@ -2252,9 +2133,7 @@
 /area/ae13/command)
 "Vo" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ae13/miner)
 "VG" = (
@@ -2276,9 +2155,7 @@
 /area/ae13/asteroid)
 "Wd" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/blood/gibs/old,
 /turf/simulated/floor/plating,
 /area/ae13/command)
@@ -2290,9 +2167,7 @@
 	},
 /area/ae13/miner)
 "Wj" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/blood/writing,
 /turf/simulated/floor/plating,
 /area/ae13/hall)
@@ -2357,9 +2232,7 @@
 /area/ae13/command)
 "Yb" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ae13/epicenter)
 "Ye" = (
@@ -5666,7 +5539,7 @@ ur
 AF
 Do
 QU
-Mq
+pa
 Db
 Tw
 WJ
@@ -5742,7 +5615,7 @@ ew
 np
 Tw
 Nb
-vZ
+cJ
 vD
 wK
 Ht
@@ -5824,7 +5697,7 @@ cJ
 EE
 gM
 Qg
-xd
+cJ
 Kc
 AB
 yZ

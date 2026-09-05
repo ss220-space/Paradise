@@ -42,12 +42,7 @@
 /obj/structure/disposalpipe/junction/yjunction{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/spacebotany/GardenMaint)
 "aN" = (
@@ -81,9 +76,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/Chem)
 "bf" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreen"
 	},
@@ -108,9 +101,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -155,9 +146,7 @@
 /area/space)
 "cy" = (
 /obj/effect/decal/cleanable/dust,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -419,9 +408,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /obj/item/reagent_containers/food/snacks/grown/tomato/blue/bluespace,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -447,9 +434,7 @@
 /turf/simulated/wall,
 /area/ruin/space/spacebotany/Chem)
 "gm" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -511,9 +496,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/EastGarden)
 "gV" = (
@@ -567,9 +550,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacebotany/Vault)
 "hC" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/spacevine,
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -586,9 +567,7 @@
 /area/ruin/space/spacebotany/Med)
 "hJ" = (
 /obj/machinery/door/airlock/glass,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 8
 	},
@@ -803,9 +782,7 @@
 /obj/structure/disposalpipe/junction/reversed{
 	dir = 2
 	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "green"
@@ -893,9 +870,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/spacebotany/WestGarden)
 "lb" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/spacevine,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -928,18 +903,14 @@
 	},
 /area/ruin/space/spacebotany/Chem)
 "lF" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "green"
 	},
 /area/ruin/space/spacebotany/EastGarden)
 "lO" = (
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/directional/east,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/Vault)
@@ -1009,9 +980,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt/blackpowder,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "green"
@@ -1022,9 +991,7 @@
 /turf/simulated/floor/beach/sand,
 /area/ruin/space/spacebotany/EastGarden)
 "nf" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/spacevine,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/Hydro)
@@ -1080,9 +1047,7 @@
 /area/ruin/space/spacebotany/Hydro)
 "nI" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel/stairs/old,
 /area/ruin/space/spacebotany/GardenMaint)
@@ -1108,9 +1073,7 @@
 /obj/machinery/door/airlock/glass,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -1171,18 +1134,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacebotany/Vault)
 "oK" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/GardenMaint)
 "oU" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/spacevine,
 /obj/effect/decal/cleanable/blood/writing,
 /obj/effect/decal/cleanable/dirt,
@@ -1269,9 +1225,7 @@
 "pS" = (
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/power/port_gen/pacman/super,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/GardenMaint)
 "pU" = (
@@ -1293,9 +1247,7 @@
 	},
 /area/ruin/space/spacebotany/Dorm)
 "ql" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/Hydro)
 "qu" = (
@@ -1360,9 +1312,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/ants,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "green"
@@ -1380,17 +1330,9 @@
 	},
 /area/ruin/space/spacebotany/Hydro)
 "rP" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/oil_20,
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/Vault)
@@ -1408,9 +1350,7 @@
 	},
 /area/ruin/space/spacebotany/EastGarden)
 "so" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/spacevine,
 /obj/structure/disposalpipe/segment,
@@ -1474,9 +1414,7 @@
 /area/ruin/space/spacebotany/Hydro)
 "ts" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/Chem)
 "tu" = (
@@ -1506,9 +1444,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/item/seeds/tomato/blue/bluespace,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/WestGarden)
@@ -1562,12 +1498,7 @@
 /obj/structure/disposalpipe/junction/yjunction{
 	dir = 2
 	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "green"
@@ -1619,9 +1550,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/WestGarden)
 "vl" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/spacevine,
 /mob/living/simple_animal/hostile/killertomato/spacebotany,
 /turf/simulated/floor/plating,
@@ -1646,13 +1575,9 @@
 /area/ruin/space/spacebotany/GardenMaint)
 "vC" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /obj/structure/spacevine,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/Vault)
 "vJ" = (
@@ -1675,9 +1600,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/spacebotany/WestGarden)
 "vR" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -1715,9 +1638,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/Dorm)
 "wd" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/spacevine,
 /obj/effect/decal/cleanable/insectguts,
 /obj/effect/decal/cleanable/blood/writing,
@@ -1770,9 +1691,7 @@
 /turf/space,
 /area/space)
 "wT" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/spacevine,
 /obj/effect/spawner/random_spawners/blood_20,
 /obj/structure/disposalpipe/segment{
@@ -1792,9 +1711,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/spacebotany/Dorm)
 "xl" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/spacevine,
 /obj/effect/decal/cleanable/blood/writing,
 /obj/effect/decal/ants,
@@ -1946,9 +1863,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/spacebotany/WestGarden)
 "zG" = (
@@ -2024,9 +1939,7 @@
 /area/ruin/space/spacebotany/Vault)
 "AA" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "green"
@@ -2034,23 +1947,13 @@
 /area/ruin/space/spacebotany/Garden)
 "AB" = (
 /obj/machinery/door/airlock/glass,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
 /area/ruin/space/spacebotany/Dorm)
 "AC" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /obj/structure/disposalpipe/junction/yjunction{
 	dir = 1
 	},
@@ -2096,9 +1999,7 @@
 	},
 /area/ruin/space/spacebotany/Dorm)
 "AU" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 8
 	},
@@ -2112,17 +2013,13 @@
 /area/ruin/space/spacebotany/Hydro)
 "AX" = (
 /obj/effect/decal/cleanable/blood/drip,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
 /area/ruin/space/spacebotany/Chem)
 "AZ" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
@@ -2131,13 +2028,6 @@
 	icon_state = "whitegreen"
 	},
 /area/ruin/space/spacebotany/Chem)
-"Ba" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/spacevine,
-/turf/simulated/floor/plating,
-/area/ruin/space/spacebotany/Hydro)
 "Bb" = (
 /obj/structure/spacevine,
 /turf/simulated/floor/plasteel{
@@ -2157,9 +2047,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/Garden)
 "BC" = (
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/important_area/directional/east,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/GardenMaint)
@@ -2177,9 +2065,7 @@
 "BU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/glass,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -2241,9 +2127,7 @@
 /turf/simulated/wall,
 /area/ruin/space/spacebotany/Med)
 "Da" = (
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/random/tool,
@@ -2290,9 +2174,7 @@
 /area/ruin/space/spacebotany/WestGarden)
 "DO" = (
 /obj/machinery/door/airlock/maintenance_hatch,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacebotany/Chem)
 "DS" = (
@@ -2327,9 +2209,7 @@
 /turf/simulated/wall,
 /area/ruin/space/spacebotany/GardenMaint)
 "Ei" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/spacevine,
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 8
@@ -2394,9 +2274,7 @@
 /turf/simulated/floor/plating/airless,
 /area/space)
 "EW" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /obj/machinery/light/small{
 	dir = 4;
 	pixel_y = 8
@@ -2433,17 +2311,13 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/WestGarden)
 "FH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/ants,
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -2458,12 +2332,7 @@
 /area/ruin/space/spacebotany/Vault)
 "FQ" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/worn_out/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -2483,9 +2352,7 @@
 	},
 /area/ruin/space/spacebotany/Hydro)
 "Gf" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -2564,24 +2431,13 @@
 /obj/item/seeds/tower,
 /turf/simulated/floor/beach/sand,
 /area/ruin/space/spacebotany/EastGarden)
-"Is" = (
-/obj/effect/decal/cleanable/dust,
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/ruin/space/spacebotany/Dorm)
 "Iu" = (
 /turf/simulated/wall,
 /area/ruin/space/spacebotany/GardenMaint)
 "Iw" = (
 /obj/structure/chair/stool/bar,
 /obj/effect/decal/cleanable/dust,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "arrival"
@@ -2618,15 +2474,11 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/GardenMaint)
 "Jd" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -2710,9 +2562,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "blue"
@@ -2721,9 +2571,7 @@
 "Kh" = (
 /obj/item/trash/snack_bowl,
 /obj/structure/table,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/spacebotany/Dorm)
 "Kk" = (
@@ -2777,9 +2625,7 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/spacebotany/Garden)
 "Ll" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/spacevine,
 /obj/effect/decal/cleanable/blood/writing{
 	dir = 8
@@ -2851,9 +2697,7 @@
 	},
 /area/ruin/space/spacebotany/Dorm)
 "Me" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/spacevine,
 /obj/effect/decal/cleanable/blood/writing,
 /obj/structure/disposalpipe/segment,
@@ -2888,9 +2732,7 @@
 /area/ruin/space/spacebotany/Dorm)
 "MA" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "green"
@@ -2955,9 +2797,7 @@
 "Nz" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt/blackpowder,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/spacebotany/GardenMaint)
 "NC" = (
@@ -2978,9 +2818,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/Vault)
 "NN" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
@@ -3040,9 +2878,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "greencorner"
@@ -3067,9 +2903,7 @@
 /turf/space,
 /area/space)
 "Pm" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/worn_out/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -3097,9 +2931,7 @@
 /turf/simulated/wall,
 /area/ruin/space/spacebotany/Dorm)
 "PK" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/structure/spacevine,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment,
@@ -3154,9 +2986,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "green"
@@ -3166,20 +2996,12 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "greencorner"
 	},
 /area/ruin/space/spacebotany/Garden)
-"QC" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/spacebotany/Hydro)
 "QF" = (
 /obj/effect/decal/cleanable/glass,
 /turf/space,
@@ -3227,17 +3049,13 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/ash,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/spacebotany/WestGarden)
 "Ra" = (
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/door/airlock,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/spacebotany/Dorm)
 "Rc" = (
@@ -3259,19 +3077,9 @@
 /obj/machinery/power/port_gen/pacman/super,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/Vault)
-"Re" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/ruin/space/spacebotany/Dorm)
 "Rg" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/spacebotany/GardenMaint)
 "Rj" = (
@@ -3316,9 +3124,7 @@
 	},
 /area/ruin/space/spacebotany/Med)
 "RA" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/spacevine,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
@@ -3346,9 +3152,7 @@
 /turf/space,
 /area/space)
 "RT" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/spacevine,
 /obj/effect/decal/cleanable/blood/writing,
 /obj/machinery/light_switch/directional/west,
@@ -3457,9 +3261,7 @@
 /area/ruin/space/spacebotany/GardenMaint)
 "Tr" = (
 /obj/machinery/door/airlock/maintenance_hatch,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/Vault)
@@ -3512,18 +3314,14 @@
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/GardenMaint)
 "TU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/glass,
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacebotany/GardenMaint)
 "Ub" = (
@@ -3569,18 +3367,14 @@
 /area/space)
 "UE" = (
 /obj/effect/decal/ants,
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/spacebotany/Dorm)
 "UN" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/spacevine,
 /mob/living/simple_animal/hostile/killertomato/spacebotany,
 /obj/structure/disposalpipe/segment{
@@ -3614,9 +3408,7 @@
 	},
 /area/ruin/space/spacebotany/Chem)
 "Vf" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /obj/structure/spacevine,
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -3660,9 +3452,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dust,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -3741,9 +3531,7 @@
 	},
 /area/ruin/space/spacebotany/Med)
 "Xk" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
@@ -3762,9 +3550,7 @@
 /area/ruin/space/spacebotany/Med)
 "Xr" = (
 /obj/machinery/door/airlock/medical/glass,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/blood/writing,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment,
@@ -3794,9 +3580,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "blue"
@@ -3806,9 +3590,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "green"
@@ -3817,21 +3599,14 @@
 "XT" = (
 /obj/machinery/door/airlock/glass,
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/item/reagent_containers/food/snacks/grown/tomato/blue/bluespace,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/spacebotany/Garden)
 "XU" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/dust,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/GardenMaint)
 "XV" = (
@@ -3839,9 +3614,7 @@
 /turf/simulated/wall,
 /area/ruin/space/spacebotany/Chem)
 "Yp" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/spacevine,
 /obj/structure/spacevine,
 /obj/effect/decal/cleanable/blood/writing{
@@ -3888,9 +3661,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacebotany/GardenMaint)
 "YN" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/spacevine,
 /obj/effect/decal/cleanable/dirt/blackpowder,
 /turf/simulated/floor/plating,
@@ -4037,9 +3808,7 @@
 /area/ruin/space/spacebotany/Vault)
 "ZZ" = (
 /obj/effect/decal/cleanable/dirt/blackpowder,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "green"
@@ -5490,13 +5259,13 @@ Lz
 Zc
 pE
 km
-Is
-Re
+cy
+Gf
 AB
 cy
 cy
 AB
-Re
+Gf
 ol
 pE
 Os
@@ -6503,8 +6272,8 @@ pP
 wi
 Vf
 ql
-Ba
-QC
+nf
+ql
 ZG
 Os
 Os

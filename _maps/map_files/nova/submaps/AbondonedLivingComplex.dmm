@@ -197,9 +197,7 @@
 /area/station/maintenance/abandonedwarehouse)
 "fh" = (
 /obj/effect/decal/cleanable/dust,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -278,9 +276,7 @@
 /area/station/maintenance/livingcomplex)
 "hj" = (
 /obj/effect/decal/cleanable/dust,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/wood/fancy,
@@ -361,9 +357,7 @@
 /area/station/maintenance/livingcomplex)
 "jd" = (
 /obj/effect/decal/cleanable/dust,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/wood{
@@ -389,9 +383,7 @@
 	dir = 1;
 	name = "Cafe"
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -439,9 +431,7 @@
 /turf/simulated/floor/pod,
 /area/station/maintenance/abandonedwarehouse)
 "lB" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -499,17 +489,13 @@
 "nE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
 /area/station/maintenance/livingcomplex)
 "nG" = (
 /obj/machinery/power/apc/worn_out/directional/west,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/livingcomplex)
@@ -551,9 +537,7 @@
 /area/station/maintenance/livingcomplex)
 "pk" = (
 /obj/effect/decal/cleanable/dust,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/blood/tracks{
@@ -625,9 +609,7 @@
 /turf/simulated/floor/carpet/royalblue,
 /area/station/maintenance/livingcomplex)
 "qA" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/disposalpipe/broken{
 	dir = 4
 	},
@@ -787,9 +769,7 @@
 	},
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/pod,
 /area/station/maintenance/abandonedwarehouse)
 "uv" = (
@@ -912,9 +892,7 @@
 /area/station/maintenance/abandonedwarehouse)
 "yv" = (
 /obj/effect/decal/cleanable/dust,
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
@@ -934,9 +912,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc/directional/south,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/pod,
 /area/station/maintenance/abandonedwarehouse)
 "yN" = (
@@ -947,9 +923,7 @@
 /turf/simulated/floor/pod,
 /area/station/maintenance/abandonedwarehouse)
 "yP" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -1044,9 +1018,7 @@
 /area/station/maintenance/livingcomplex)
 "BQ" = (
 /obj/effect/decal/cleanable/dust,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -1098,9 +1070,7 @@
 	},
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/pod,
 /area/station/maintenance/abandonedwarehouse)
 "El" = (
@@ -1222,12 +1192,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint3)
@@ -1263,9 +1228,7 @@
 	req_access = list(31);
 	pixel_x = 24
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/line{
 	dir = 2
@@ -1303,9 +1266,7 @@
 "JN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/tile/wood/fancy,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/station/maintenance/livingcomplex)
 "Kn" = (
@@ -1355,9 +1316,7 @@
 	dir = 1;
 	name = "Cafe"
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -1379,9 +1338,7 @@
 "KT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -1470,9 +1427,7 @@
 /area/station/maintenance/livingcomplex)
 "NM" = (
 /obj/effect/decal/cleanable/dust,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/wood{
@@ -1645,9 +1600,7 @@
 /area/station/maintenance/fsmaint3)
 "Ue" = (
 /obj/effect/decal/cleanable/dust,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
@@ -1714,9 +1667,7 @@
 /turf/template_noop,
 /area/template_noop)
 "Ws" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -1749,9 +1700,7 @@
 "Xg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1853,9 +1802,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint3)

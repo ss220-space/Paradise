@@ -22,9 +22,7 @@
 /obj/item/shard{
 	icon_state = "medium"
 	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered)
 "dr" = (
@@ -33,9 +31,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/unpowered)
 "dx" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -43,12 +39,8 @@
 "es" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered)
 "eM" = (
@@ -61,12 +53,8 @@
 /obj/machinery/shieldwallgen{
 	anchored = 1
 	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered)
 "fT" = (
@@ -86,12 +74,8 @@
 "gb" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -142,22 +126,16 @@
 /area/space)
 "jK" = (
 /obj/structure/grille/broken,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered)
 "kQ" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/door/airlock/highsecurity{
 	name = "Bio Containment";
 	req_access = list(47)
 	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -184,24 +162,11 @@
 "mA" = (
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
-"mJ" = (
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating/airless,
-/area/ruin/unpowered)
 "mM" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -255,30 +220,16 @@
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
 /obj/structure/cable,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered)
 "qD" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
-"qZ" = (
-/obj/machinery/shieldwallgen{
-	anchored = 1
-	},
-/obj/structure/cable,
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/plating/airless,
 /area/ruin/unpowered)
 "rj" = (
 /obj/structure/rack,
@@ -300,31 +251,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered)
-"rZ" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/door/airlock/highsecurity{
-	name = "Bio Containment";
-	req_access = list(47)
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered)
-"se" = (
-/obj/machinery/shieldwallgen{
-	anchored = 1
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable,
-/turf/simulated/floor/plating/airless,
-/area/ruin/unpowered)
 "tt" = (
 /obj/item/stack/cable_coil/cut,
 /obj/item/stack/cable_coil/cut,
@@ -338,18 +264,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
-"tW" = (
-/obj/machinery/shieldwallgen{
-	anchored = 1
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/turf/simulated/floor/plating/airless,
-/area/ruin/unpowered)
 "up" = (
 /obj/structure/lattice,
 /turf/space,
@@ -361,16 +275,12 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "vl" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/door/airlock/highsecurity{
 	name = "Bio Containment";
 	req_access = list(47)
 	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
@@ -383,23 +293,10 @@
 /obj/structure/rack,
 /obj/item/melee/baton/security/cattleprod,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered)
-"wo" = (
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plating/airless,
 /area/ruin/unpowered)
 "ws" = (
 /obj/structure/grille/broken,
@@ -409,25 +306,9 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered)
-"wv" = (
-/obj/machinery/shieldwallgen{
-	anchored = 1
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plating/airless,
-/area/ruin/unpowered)
 "wK" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -438,12 +319,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "xB" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -466,12 +343,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "zn" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
@@ -480,25 +353,11 @@
 	},
 /area/ruin/unpowered)
 "Ap" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered)
-"Ax" = (
-/obj/machinery/shieldwallgen{
-	anchored = 1
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plating/airless,
 /area/ruin/unpowered)
 "AE" = (
 /mob/living/simple_animal/hostile/asteroid/goldgrub{
@@ -523,34 +382,9 @@
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
 /obj/structure/cable,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 5
-	},
-/turf/simulated/floor/plating/airless,
-/area/ruin/unpowered)
-"BS" = (
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/turf/simulated/floor/plating/airless,
-/area/ruin/unpowered)
-"Dk" = (
-/obj/machinery/shieldwallgen{
-	anchored = 1
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered)
@@ -576,9 +410,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -592,9 +424,7 @@
 "FD" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered)
 "FL" = (
@@ -617,24 +447,12 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered)
-"Hp" = (
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/turf/simulated/floor/plating/airless,
-/area/ruin/unpowered)
 "Hz" = (
 /obj/machinery/shieldwallgen{
 	anchored = 1
 	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
@@ -696,9 +514,7 @@
 	},
 /area/ruin/unpowered)
 "LT" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "LU" = (
@@ -708,9 +524,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -787,18 +601,6 @@
 /obj/item/shard,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered)
-"SA" = (
-/obj/machinery/shieldwallgen{
-	anchored = 1
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plating/airless,
-/area/ruin/unpowered)
 "SO" = (
 /obj/machinery/light{
 	dir = 1
@@ -810,52 +612,11 @@
 /obj/machinery/door/airlock/external,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
-"Tc" = (
-/obj/machinery/shieldwallgen{
-	anchored = 1
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plating/airless,
-/area/ruin/unpowered)
-"Tf" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/door/airlock/highsecurity{
-	name = "Bio Containment";
-	req_access = list(47)
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered)
-"TD" = (
-/obj/machinery/shieldwallgen{
-	anchored = 1
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/plating/airless,
-/area/ruin/unpowered)
 "TG" = (
 /obj/machinery/door/airlock/hatch{
 	name = "Bio-Research Station"
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -888,19 +649,8 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered)
-"UA" = (
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
-/obj/structure/cable,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating/airless,
-/area/ruin/unpowered)
 "VI" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -932,28 +682,15 @@
 /obj/machinery/door/airlock/hatch{
 	name = "Bio-Research Station"
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
-"Yk" = (
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/structure/cable,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "Yv" = (
 /obj/structure/flora/rock,
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/unpowered)
 "Zn" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/structure/cable,
 /obj/machinery/shieldwallgen{
 	anchored = 1
@@ -1019,36 +756,36 @@ RV
 (3,1,1) = {"
 RV
 iK
-SA
-mJ
-mJ
-mJ
-mJ
-TD
+fg
+es
+es
+es
+es
+fg
 iK
 iK
 iK
 iK
 iK
 iK
-Ax
-UA
-UA
-UA
-UA
-qZ
+fg
+es
+es
+es
+es
+fg
 iK
 RV
 "}
 (4,1,1) = {"
 RV
 iK
-wo
+es
 nX
 Ic
 hO
 nX
-BS
+es
 Bz
 Bz
 Bz
@@ -1060,14 +797,14 @@ xr
 mA
 HU
 mA
-wo
+es
 iK
 RV
 "}
 (5,1,1) = {"
 RV
 iK
-wo
+es
 nX
 AE
 Ic
@@ -1084,19 +821,19 @@ mA
 mA
 vd
 mA
-wo
+es
 iK
 RV
 "}
 (6,1,1) = {"
 RV
 iK
-BS
+es
 Ic
 nX
 Ic
 dr
-wo
+es
 Wq
 Wq
 TG
@@ -1108,19 +845,19 @@ SO
 mA
 mA
 mA
-BS
+es
 iK
 RV
 "}
 (7,1,1) = {"
 RV
 iK
-BS
+es
 Yv
 Ic
 ax
 hO
-wo
+es
 Wq
 vS
 wK
@@ -1132,7 +869,7 @@ JU
 yJ
 mA
 mA
-BS
+es
 iK
 RV
 "}
@@ -1140,11 +877,11 @@ RV
 RV
 iK
 fg
-Hp
-Hp
-Hp
-Hp
-Dk
+FD
+FD
+FD
+FD
+fg
 Wq
 QQ
 tt
@@ -1155,8 +892,8 @@ Hz
 qr
 qr
 BI
-UA
-se
+es
+fg
 iK
 RV
 "}
@@ -1307,23 +1044,23 @@ RV
 (15,1,1) = {"
 RV
 iK
-tW
+fg
 es
 es
 es
 es
-TD
+fg
 Wq
 Ds
 LT
 LU
 lc
 Wq
-Ax
-Yk
-Yk
-Yk
-Yk
+fg
+es
+es
+es
+es
 Zn
 iK
 RV
@@ -1331,43 +1068,43 @@ RV
 (16,1,1) = {"
 RV
 iK
-wo
+es
 Rk
 Oi
 Oi
 oM
-BS
+es
 Wq
 MK
 LT
 LU
 Lg
 Wq
-BS
+es
 Du
 Du
 Gx
 oh
-wo
+es
 iK
 RV
 "}
 (17,1,1) = {"
 RV
 iK
-wo
+es
 ni
 ni
 MH
 fX
-BS
+es
 Wq
 Wq
 Xh
 Km
 Wq
 Wq
-BS
+es
 oo
 oh
 oh
@@ -1379,19 +1116,19 @@ RV
 (18,1,1) = {"
 RV
 iK
-BS
+es
 Oi
 NY
 gp
 ni
-Tf
+kQ
 dx
 Mf
 xB
 dx
 Mf
 dx
-rZ
+kQ
 Gx
 Du
 iz
@@ -1403,19 +1140,19 @@ RV
 (19,1,1) = {"
 RV
 iK
-BS
+es
 MH
 Oi
 QK
 no
-wo
+es
 jf
 jf
 jf
 jf
 jf
 jf
-wo
+es
 Du
 Du
 iz
@@ -1428,20 +1165,20 @@ RV
 RV
 iK
 fg
-mJ
-mJ
-mJ
-mJ
-Tc
+es
+es
+es
+es
+fg
 iK
 iK
 iK
 iK
 iK
 iK
-wv
-Yk
-Yk
+fg
+es
+es
 ws
 up
 iK

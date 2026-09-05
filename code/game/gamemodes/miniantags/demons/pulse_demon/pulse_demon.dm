@@ -417,12 +417,12 @@
 
 /mob/living/simple_animal/demon/pulse_demon/move_up()
 	var/turf/current_turf = get_turf(src)
-	if(!locate(/obj/structure/cable/multiz) in current_turf)
+	if(!locate(/obj/structure/cable/multilayer/multiz) in current_turf)
 		to_chat(src, span_warning("You need to be on multi z cable hub to move up and down!"))
 		return FALSE
 
 	var/turf/turf_to_check = GET_TURF_ABOVE(current_turf)
-	if(!(can_exit_cable || locate(/obj/structure/cable/multiz) in turf_to_check))
+	if(!(can_exit_cable || locate(/obj/structure/cable/multilayer/multiz) in turf_to_check))
 		to_chat(src, span_warning("There isn't a connected cable to be moved on!"))
 		return FALSE
 
@@ -431,12 +431,12 @@
 
 /mob/living/simple_animal/demon/pulse_demon/move_down()
 	var/turf/current_turf = get_turf(src)
-	if(!locate(/obj/structure/cable/multiz) in current_turf)
+	if(!locate(/obj/structure/cable/multilayer/multiz) in current_turf)
 		to_chat(src, span_warning("You need to be on multi z cable hub to move up and down!"))
 		return
 
 	var/turf/turf_to_check = GET_TURF_BELOW(current_turf)
-	if(!(can_exit_cable || locate(/obj/structure/cable/multiz) in turf_to_check))
+	if(!(can_exit_cable || locate(/obj/structure/cable/multilayer/multiz) in turf_to_check))
 		to_chat(src, span_warning("There isn't a connected cable to be moved on!"))
 		return FALSE
 

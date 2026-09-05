@@ -223,9 +223,7 @@
 /area/ruin/unpowered)
 "rb" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood/fancy/birch/airless,
 /area/ruin/unpowered/no_grav)
 "rA" = (
@@ -245,9 +243,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/unpowered)
 "sF" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/noalarm/directional/north,
 /turf/simulated/floor/wood/fancy/birch,
 /area/ruin/unpowered)
@@ -303,9 +299,7 @@
 /area/ruin/unpowered)
 "yv" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
 "yF" = (
@@ -335,9 +329,7 @@
 /turf/simulated/floor/wood/fancy/birch,
 /area/ruin/unpowered)
 "zF" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood/fancy/birch,
 /area/ruin/unpowered)
 "zK" = (
@@ -450,13 +442,6 @@
 "DX" = (
 /turf/simulated/floor/wood/fancy/birch,
 /area/ruin/unpowered)
-"Eg" = (
-/obj/effect/mapping_helpers/turfs/damage,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/turf/simulated/floor/plating/airless,
-/area/ruin/unpowered/no_grav)
 "ED" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/item/flag/cult,
@@ -472,9 +457,7 @@
 "EX" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/remains/human,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood/fancy/birch/airless,
 /area/ruin/unpowered/no_grav)
 "FE" = (
@@ -731,9 +714,7 @@
 "QD" = (
 /obj/structure/mineral_door/wood,
 /obj/structure/barricade/wooden/crude,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood/fancy/birch,
 /area/ruin/unpowered)
 "QI" = (
@@ -824,13 +805,6 @@
 	},
 /turf/simulated/floor/grass,
 /area/ruin/unpowered)
-"VP" = (
-/obj/effect/mapping_helpers/turfs/damage,
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plating/airless,
-/area/ruin/unpowered/no_grav)
 "Wd" = (
 /obj/structure/window/reinforced/survival_pod{
 	name = "window"
@@ -864,9 +838,7 @@
 /area/ruin/unpowered)
 "ZY" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood/fancy/birch,
 /area/ruin/unpowered)
 
@@ -1177,7 +1149,7 @@ yT
 yT
 yT
 Sb
-Eg
+yv
 ly
 ly
 lA
@@ -1219,7 +1191,7 @@ yT
 yT
 ly
 ly
-VP
+yv
 yv
 ly
 lA

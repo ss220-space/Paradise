@@ -13679,12 +13679,7 @@
 	},
 /area/centcom/syndicate_base)
 "gDY" = (
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/mech_bay_recharge_port/upgraded,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -16563,15 +16558,11 @@
 	},
 /area/centcom/central_command_areas/supply)
 "igb" = (
-/obj/structure/cable{
-	icon_state = "8-9"
-	},
+/obj/structure/cable,
 /obj/machinery/power/terminal{
 	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "0-9"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/cap,
 /turf/simulated/floor/plating,
 /area/centcom/central_command_areas/special_operations)
@@ -20091,9 +20082,7 @@
 	},
 /area/centcom/syndicate_base)
 "jFG" = (
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /obj/machinery/computer/mech_bay_power_console,
 /obj/machinery/light/spot{
 	dir = 4
@@ -25713,9 +25702,7 @@
 /area/shuttle/vox)
 "mbb" = (
 /obj/machinery/power/apc/directional/south,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/structure/sign/securearea{
 	pixel_x = -32
 	},
@@ -36957,9 +36944,7 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom/central_command_areas/bridge)
 "qVd" = (
-/obj/structure/cable{
-	icon_state = "2-6"
-	},
+/obj/structure/cable,
 /obj/machinery/photocopier,
 /turf/simulated/floor/plating,
 /area/centcom/central_command_areas/special_operations)
@@ -48908,9 +48893,7 @@
 /obj/mecha/combat/durand/loaded{
 	operation_req_access = list(1)
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal/mech,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"

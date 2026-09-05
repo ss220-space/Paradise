@@ -89,16 +89,12 @@
 	anchored = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "aw" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /mob/living/simple_animal/hostile/poison/giant_spider{
 	health = 250;
 	maxHealth = 250;
@@ -122,9 +118,7 @@
 	},
 /area/awaymission/BMPship/CommonArea)
 "aA" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/item/soap{
 	pixel_y = -7
 	},
@@ -164,9 +158,7 @@
 /area/awaymission/BMPship/TurretsNorth)
 "aF" = (
 /obj/structure/cable,
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/machinery/power/smes/magical{
 	desc = "A high-capacity superconducting magnetic energy storage (SMES) unit.";
 	name = "power storage unit";
@@ -196,9 +188,7 @@
 /obj/effect/turf_decal/delivery/red/partial{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkredaltstrip"
@@ -206,9 +196,7 @@
 /area/awaymission/BMPship/CommonArea)
 "aK" = (
 /obj/structure/alien/weeds,
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/structure/alien/resin,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
@@ -302,10 +290,7 @@
 	dir = 1
 	},
 /obj/structure/grille,
-/obj/structure/cable{
-	icon_state = "0-2";
-	pixel_y = 1
-	},
+/obj/structure/cable,
 /obj/machinery/door/poddoor/shutters,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Fore)
@@ -337,9 +322,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/BMPship/Fore)
 "bo" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /mob/living/simple_animal/lizard,
 /obj/effect/turf_decal/delivery/red/partial{
 	dir = 8
@@ -347,9 +330,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "bp" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Engines)
@@ -369,17 +350,13 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "bt" = (
 /obj/machinery/door/airlock/silver,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/item/restraints/legcuffs/beartrap{
 	armed = 1
 	},
@@ -437,19 +414,13 @@
 	dir = 8
 	},
 /obj/structure/grille,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/machinery/door/poddoor/shutters,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Fore)
 "bF" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /obj/item/shard,
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 4
@@ -481,9 +452,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /obj/structure/closet/crate/large,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -502,9 +471,7 @@
 /obj/structure/closet,
 /obj/item/clothing/suit/xenos,
 /obj/item/clothing/head/xenos,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/item/instrument/xylophone,
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Bath)
@@ -528,12 +495,8 @@
 	dir = 8
 	},
 /obj/structure/grille,
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/item/shard{
 	icon_state = "medium";
 	pixel_x = 9;
@@ -547,9 +510,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/BMPship/Fore)
 "bR" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/table/wood/fancy/royalblack,
 /obj/item/pen/multi/gold,
 /obj/item/paper/crumpled/bloody{
@@ -568,19 +529,13 @@
 	dir = 2
 	},
 /obj/effect/spawner/window/reinforced,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Buffer)
 "bU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "bW" = (
@@ -614,9 +569,7 @@
 /obj/machinery/door/airlock/titanium{
 	locked = 1
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/door/firedoor/closed{
 	layer = 3.3
 	},
@@ -640,9 +593,7 @@
 	dir = 6
 	},
 /obj/effect/spawner/window/reinforced,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Buffer)
 "ce" = (
@@ -661,21 +612,15 @@
 	id_tag = "packerCaptain";
 	layer = 2.8
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "carpetside"
 	},
 /area/awaymission/BMPship/Fore)
 "ch" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/structure/spider/stickyweb,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -708,9 +653,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/BMPship/Armory)
 "cq" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 4
 	},
@@ -776,12 +719,8 @@
 	},
 /area/awaymission/BMPship/Kitchen)
 "cz" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -792,21 +731,9 @@
 /obj/item/reagent_containers/food/snacks/monstermeat/spiderleg,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
-"cC" = (
-/obj/structure/alien/weeds,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/alien/resin,
-/turf/simulated/floor/plating/airless,
-/area/awaymission/BMPship/Fore)
 "cD" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/structure/rack,
 /obj/item/storage/box/lights/mixed,
 /turf/simulated/floor/plating,
@@ -836,9 +763,7 @@
 /obj/item/trash/tapetrash,
 /obj/item/trash/popcorn,
 /obj/item/trash/popcorn,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/TurretsSouth)
 "cH" = (
@@ -861,18 +786,14 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "cL" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /obj/structure/spider/stickyweb,
 /obj/structure/spider/cocoon,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "cM" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/computerframe,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -922,15 +843,9 @@
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Containment)
 "cS" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
+/obj/structure/cable,
 /turf/simulated/floor/vault,
 /area/awaymission/BMPship/Buffer)
 "cT" = (
@@ -950,9 +865,7 @@
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Containment)
 "cV" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /obj/structure/sign/poster/contraband/energy_swords{
 	pixel_y = 32
 	},
@@ -973,9 +886,7 @@
 	},
 /area/awaymission/BMPship/Kitchen)
 "cY" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
@@ -1087,9 +998,7 @@
 /area/awaymission/BMPship/Engines)
 "dr" = (
 /obj/structure/alien/weeds,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "ds" = (
@@ -1103,13 +1012,8 @@
 /obj/machinery/power/terminal{
 	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "0-2";
-	pixel_y = 1
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Buffer)
 "du" = (
@@ -1140,9 +1044,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Mining)
 "dy" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/sign/medbay/redcross{
 	pixel_x = -32
 	},
@@ -1186,9 +1088,7 @@
 /obj/structure/closet/secure_closet/freezer/meat{
 	opened = 1
 	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -1201,10 +1101,7 @@
 "dF" = (
 /obj/effect/decal/cleanable/blood/splatter,
 /obj/structure/spider/stickyweb,
-/obj/structure/cable{
-	icon_state = "0-2";
-	pixel_y = 1
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/noalarm/directional/west{
 	environment_channel = 0;
 	equipment_channel = 0;
@@ -1301,9 +1198,7 @@
 /area/awaymission/BMPship/Containment)
 "dO" = (
 /obj/machinery/door/airlock/silver,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/door/firedoor/closed{
 	layer = 2.8
 	},
@@ -1331,9 +1226,7 @@
 	name = "DANGEROUS CARGO!";
 	pixel_y = 32
 	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
@@ -1436,9 +1329,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "ek" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/spider/cocoon,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -1593,9 +1484,7 @@
 /obj/item/clothing/suit/chickensuit,
 /obj/item/clothing/head/chicken,
 /obj/item/laser_pointer,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/item/instrument/trombone,
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Bath)
@@ -1679,9 +1568,7 @@
 "eT" = (
 /obj/item/storage/bag/fish,
 /obj/item/storage/firstaid/aquatic_kit/full,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -1694,12 +1581,8 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "eV" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Bath)
 "eW" = (
@@ -1726,9 +1609,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "eZ" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/alien/weeds,
 /obj/structure/alien/resin,
 /obj/machinery/firealarm/triggered_nosignals/directional/east,
@@ -1755,30 +1636,20 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/delivery,
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Buffer)
 "fe" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Buffer)
 "ff" = (
 /turf/simulated/wall/shuttle/nodiagonal,
 /area/awaymission/BMPship/Buffer)
 "fg" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Engines)
 "fh" = (
@@ -1820,9 +1691,7 @@
 	},
 /area/awaymission/BMPship/CommonArea)
 "fk" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Buffer)
 "fl" = (
@@ -1838,18 +1707,14 @@
 /area/awaymission/BMPship/Dormitories)
 "fo" = (
 /mob/living/simple_animal/chick,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
 /area/awaymission/BMPship/CommonArea)
 "fp" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkredaltstrip"
@@ -1889,9 +1754,7 @@
 	},
 /area/awaymission/BMPship/Kitchen)
 "fu" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/alien/weeds,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/vault,
@@ -1904,9 +1767,7 @@
 /area/space)
 "fw" = (
 /obj/structure/alien/weeds,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/noalarm/directional/north{
 	environment_channel = 0;
 	equipment_channel = 0;
@@ -1951,9 +1812,7 @@
 /turf/simulated/floor/wood/fancy,
 /area/awaymission/BMPship/CommonArea)
 "fA" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/door/poddoor{
 	id_tag = "packerCargo";
 	layer = 2.71
@@ -1968,9 +1827,7 @@
 /area/awaymission/BMPship/CommonArea)
 "fC" = (
 /obj/structure/spider/stickyweb,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/firealarm/triggered_nosignals/directional/west,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -1978,17 +1835,6 @@
 "fD" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
-/area/awaymission/BMPship/Containment)
-"fE" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/spider/stickyweb,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "fF" = (
 /obj/item/stack/tile/plasteel,
@@ -2021,9 +1867,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "fJ" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "fK" = (
@@ -2089,12 +1933,8 @@
 	},
 /area/awaymission/BMPship/CommonArea)
 "fU" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/structure/spider/stickyweb,
 /obj/structure/spider/cocoon,
 /turf/simulated/floor/plating,
@@ -2111,9 +1951,7 @@
 /turf/simulated/floor/grass,
 /area/awaymission)
 "fY" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/structure/alien/weeds,
 /obj/item/gun/syringe{
 	pixel_y = 2
@@ -2123,13 +1961,6 @@
 	pixel_x = 28
 	},
 /obj/item/reagent_containers/glass/bottle/ether,
-/turf/simulated/floor/plating/airless,
-/area/awaymission/BMPship/Fore)
-"fZ" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/alien/weeds,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "ga" = (
@@ -2195,9 +2026,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Fore)
 "gi" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/door/airlock/titanium{
 	locked = 1
 	},
@@ -2205,12 +2034,8 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Fore)
 "gk" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/machinery/power/terminal{
 	dir = 8
 	},
@@ -2225,9 +2050,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Bath)
 "gm" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/rack,
 /obj/item/flashlight/flare/glowstick,
 /obj/item/flashlight/flare/glowstick/emergency{
@@ -2236,9 +2059,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Engines)
 "gn" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/gateway{
 	dir = 4
 	},
@@ -2251,16 +2072,8 @@
 /obj/structure/curtain/black,
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Containment)
-"gq" = (
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/BMPship/Gate)
 "gr" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/alien/weeds/node,
 /obj/structure/alien/resin,
 /turf/simulated/floor/plating/airless,
@@ -2270,9 +2083,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "gt" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
@@ -2317,15 +2128,11 @@
 /obj/item/shard{
 	icon_state = "small"
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "gC" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/item/stack/tile/plasteel,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
@@ -2366,9 +2173,7 @@
 /obj/effect/turf_decal/delivery/red/partial{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /mob/living/simple_animal/hostile/poison/giant_spider{
 	health = 250;
 	maxHealth = 250;
@@ -2408,13 +2213,6 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/awaymission)
-"gQ" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/item/stack/tile/plasteel,
-/turf/simulated/floor/plating/airless,
-/area/awaymission/BMPship/Fore)
 "gR" = (
 /obj/item/stack/cable_coil{
 	amount = 5
@@ -2428,9 +2226,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "gT" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/vault,
 /area/awaymission/BMPship/Buffer)
 "gU" = (
@@ -2508,9 +2304,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Dormitories)
 "hg" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/door/airlock/silver/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
@@ -2528,9 +2322,7 @@
 /turf/simulated/mineral/random,
 /area/awaymission)
 "hk" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/door/airlock/silver,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
@@ -2548,9 +2340,7 @@
 "hr" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/spider/stickyweb,
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -2592,9 +2382,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Dormitories)
 "hy" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/door/airlock/silver{
 	locked = 1
 	},
@@ -2605,9 +2393,7 @@
 /turf/simulated/floor/vault,
 /area/awaymission/BMPship/Fore)
 "hz" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/greenglow,
 /obj/item/reagent_containers/food/snacks/monstermeat/spiderleg,
 /obj/effect/decal/cleanable/dirt,
@@ -2691,9 +2477,7 @@
 /area/awaymission/BMPship/CommonArea)
 "hR" = (
 /obj/item/hand_labeler,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/item/stack/sheet/wood,
 /obj/item/stack/sheet/wood,
 /obj/item/stack/sheet/wood,
@@ -2714,9 +2498,7 @@
 /obj/item/trash/plate,
 /obj/item/trash/raisins,
 /obj/item/trash/raisins,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/TurretsSouth)
 "hT" = (
@@ -2732,12 +2514,8 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "hV" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/effect/turf_decal/delivery/red/partial{
 	dir = 8
 	},
@@ -2816,9 +2594,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "ij" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Mining)
@@ -2827,13 +2603,6 @@
 /obj/machinery/power/port_gen/pacman/super,
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Engines)
-"il" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/airless,
-/area/awaymission/BMPship/Mining)
 "im" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowalt"
@@ -2848,9 +2617,7 @@
 /area/awaymission/BMPship/Kitchen)
 "iq" = (
 /obj/effect/spawner/random_spawners/rodent,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -2879,9 +2646,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Dormitories)
 "iv" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/structure/rack,
 /obj/item/flashlight/flare{
 	pixel_y = -3
@@ -2957,10 +2722,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "iI" = (
-/obj/structure/cable{
-	icon_state = "0-2";
-	pixel_y = 1
-	},
+/obj/structure/cable,
 /obj/structure/spider/stickyweb,
 /obj/machinery/power/apc/noalarm/directional/north{
 	environment_channel = 0;
@@ -3038,9 +2800,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/ChemLab)
 "iW" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/machinery/computer/monitor,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -3089,9 +2849,7 @@
 /turf/simulated/wall/shuttle,
 /area/awaymission/BMPship/Engines)
 "jh" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal/delivery/red/partial{
 	dir = 8
 	},
@@ -3104,9 +2862,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/MedBay)
 "jj" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/closet/crate/large/schrodinger,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
@@ -3170,9 +2926,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Engines)
 "jw" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/door/airlock/security{
 	locked = 1
 	},
@@ -3236,9 +2990,7 @@
 /obj/machinery/door/airlock/security{
 	locked = 1
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/door/firedoor/closed{
 	layer = 2.8
 	},
@@ -3247,9 +2999,7 @@
 	},
 /area/awaymission/BMPship/Containment)
 "jL" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/spider/cocoon,
 /turf/simulated/floor/vault,
 /area/awaymission/BMPship/Buffer)
@@ -3263,18 +3013,14 @@
 /area/awaymission/BMPship/Mining)
 "kb" = (
 /obj/machinery/door/airlock/titanium,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/door/firedoor/closed{
 	layer = 3.3
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Bath)
 "kc" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/spider/stickyweb,
 /obj/structure/spider/stickyweb,
 /obj/effect/decal/cleanable/dirt,
@@ -3294,9 +3040,7 @@
 /turf/simulated/floor/vault,
 /area/awaymission/BMPship/Buffer)
 "ks" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/poison/giant_spider{
 	health = 250;
@@ -3310,9 +3054,7 @@
 /obj/effect/mob_spawn/human/corpse/damaged{
 	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "kv" = (
@@ -3349,20 +3091,14 @@
 /area/awaymission/BMPship/Mining)
 "kK" = (
 /obj/machinery/door/airlock/silver,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
 /area/awaymission/BMPship/Kitchen)
 "kO" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/structure/spider/stickyweb,
 /obj/structure/spider/cocoon,
 /turf/simulated/floor/vault,
@@ -3392,9 +3128,7 @@
 /turf/space,
 /area/space)
 "ll" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -3479,9 +3213,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/TurretsNorth)
 "lR" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/TurretsNorth)
 "lU" = (
@@ -3490,9 +3222,7 @@
 /turf/simulated/floor/pod,
 /area/awaymission/BMPship/Shelter)
 "lV" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /obj/item/shard{
 	icon_state = "small"
 	},
@@ -3625,12 +3355,8 @@
 /area/awaymission/BMPship/CommonArea)
 "mY" = (
 /obj/machinery/light_construct/small,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Buffer)
 "nl" = (
@@ -3652,18 +3378,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
-"nB" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/BMPship/TurretsNorth)
 "nD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/damage,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/spawner/giantspider{
 	light_color = "#99994d";
 	light_power = 0.5;
@@ -3680,20 +3398,14 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/TraderShuttle)
 "nH" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/spider/stickyweb,
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "nI" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredaltstrip"
 	},
@@ -3744,12 +3456,8 @@
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Gate)
 "oe" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/structure/spider/stickyweb,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/spider/stickyweb,
@@ -3789,17 +3497,13 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "os" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/spider/stickyweb,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/item/mounted/frame/apc_frame,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
@@ -3842,17 +3546,6 @@
 /obj/item/stock_parts/cell/empty,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Buffer)
-"oG" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/awaymission/BMPship/CommonArea)
 "oI" = (
 /obj/effect/mist,
 /turf/simulated/floor/plating/asteroid/airless,
@@ -3926,14 +3619,9 @@
 /turf/space,
 /area/space)
 "pq" = (
-/obj/structure/cable{
-	icon_state = "0-2";
-	pixel_y = 1
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/spider/stickyweb,
 /obj/machinery/power/apc/noalarm/directional/east{
 	environment_channel = 2;
@@ -3991,9 +3679,7 @@
 	},
 /area/awaymission/BMPship/CommonArea)
 "pH" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal/stripes/line{
 	dir = 2
 	},
@@ -4022,9 +3708,7 @@
 "pT" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/resin,
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "pU" = (
@@ -4087,13 +3771,9 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "qC" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/structure/cable,
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/machinery/power/smes/magical{
 	desc = "A high-capacity superconducting magnetic energy storage (SMES) unit.";
 	name = "power storage unit";
@@ -4102,9 +3782,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Engines)
 "qF" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkyellowalt"
@@ -4135,9 +3813,7 @@
 /turf/space,
 /area/space)
 "qQ" = (
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /obj/structure/grille,
 /obj/structure/window/plastitanium,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -4180,9 +3856,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Mining)
 "rw" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/spider/stickyweb,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -4192,9 +3866,7 @@
 /turf/simulated/floor/wood/fancy,
 /area/awaymission/BMPship/CommonArea)
 "rB" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/TurretsSouth)
 "rE" = (
@@ -4214,9 +3886,7 @@
 /area/awaymission/BMPship/Gate)
 "rL" = (
 /obj/structure/coatrack,
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -4236,9 +3906,7 @@
 /turf/space,
 /area/awaymission)
 "sa" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security{
 	locked = 1
@@ -4254,9 +3922,7 @@
 /obj/structure/curtain/open{
 	anchored = 1
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkyellowalt"
@@ -4266,15 +3932,6 @@
 /obj/item/clothing/gloves/color/yellow/fake,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission/BMPship/Mining)
-"sj" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/awaymission/BMPship/Bath)
 "so" = (
 /obj/structure/sign/poster/secret/lady{
 	layer = 2.9;
@@ -4320,9 +3977,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/MedBay)
 "sP" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/structure/spider/stickyweb,
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter{
@@ -4345,9 +4000,7 @@
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Armory)
 "sX" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/blood/drip{
 	pixel_x = 8;
 	pixel_y = 24
@@ -4359,20 +4012,9 @@
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Armory)
 "sZ" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/light/small{
 	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/awaymission/BMPship/Bath)
-"tb" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Bath)
@@ -4385,9 +4027,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/awaymission/BMPship/TraderShuttle)
 "tt" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
@@ -4400,12 +4040,8 @@
 /area/awaymission/BMPship/MedBay)
 "tx" = (
 /obj/effect/turf_decal/delivery/white/partial,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkyellowalt"
@@ -4436,19 +4072,13 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission)
 "tJ" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "tM" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/structure/spider/stickyweb,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/spider/stickyweb,
@@ -4459,9 +4089,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/awaymission/BMPship/TraderShuttle)
 "tX" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Bath)
 "tY" = (
@@ -4485,9 +4113,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission/BMPship/Mining)
 "um" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/spider/stickyweb,
 /obj/structure/spider/stickyweb,
@@ -4513,9 +4139,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/delivery,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/item/clothing/head/helmet/space/nasavoid/ltblue,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Buffer)
@@ -4524,9 +4148,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Dormitories)
 "uB" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/rack,
 /obj/item/storage/belt/utility/full,
 /turf/simulated/floor/plating,
@@ -4569,22 +4191,16 @@
 /area/awaymission/BMPship/MedBay)
 "uS" = (
 /obj/machinery/door/airlock/titanium,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/door/firedoor/closed{
 	layer = 2.8
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Bath)
 "uT" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /obj/structure/spider/stickyweb,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -4641,9 +4257,7 @@
 	},
 /area/awaymission/BMPship/CommonArea)
 "vH" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter{
 	health = 150;
 	maxHealth = 150;
@@ -4651,20 +4265,9 @@
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Engines)
-"vK" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/spider/stickyweb,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/awaymission/BMPship/CommonArea)
 "vL" = (
 /obj/effect/spawner/random_spawners/rodent,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkyellowalt"
@@ -4674,9 +4277,7 @@
 /obj/machinery/door/airlock/titanium{
 	locked = 1
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/door/firedoor/closed{
 	layer = 3.3
 	},
@@ -4691,9 +4292,7 @@
 	name = "DANGEROUS CARGO!";
 	pixel_y = 32
 	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
@@ -4744,17 +4343,12 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/MedBay)
 "wv" = (
-/obj/structure/cable{
-	icon_state = "0-2";
-	pixel_y = 1
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/MedBay)
 "wx" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/spider/stickyweb,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -4829,10 +4423,7 @@
 /turf/simulated/floor/grass,
 /area/awaymission/BMPship/Kitchen)
 "xe" = (
-/obj/structure/cable{
-	icon_state = "0-2";
-	pixel_y = 1
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -4866,9 +4457,7 @@
 /area/awaymission/BMPship/Armory)
 "xj" = (
 /obj/item/clothing/under/syndicate/tacticool,
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/machinery/firealarm/triggered_nosignals/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
@@ -4890,9 +4479,7 @@
 /obj/structure/coatrack,
 /obj/item/clothing/head/fedora,
 /obj/item/clothing/suit/draculacoat,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/noalarm/directional/north{
 	environment_channel = 0;
 	equipment_channel = 0;
@@ -4928,9 +4515,7 @@
 /turf/simulated/wall/shuttle,
 /area/awaymission/BMPship/Dormitories)
 "xI" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/TurretsSouth)
 "xO" = (
@@ -4940,12 +4525,8 @@
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Containment)
 "xQ" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/structure/alien/weeds,
 /obj/structure/alien/resin,
 /turf/simulated/floor/plating/airless,
@@ -5048,9 +4629,7 @@
 /obj/machinery/gateway/centeraway{
 	calibrated = 0
 	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "zb" = (
@@ -5062,9 +4641,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission)
 "zo" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/spider/stickyweb,
 /mob/living/simple_animal/hostile/poison/giant_spider{
 	health = 250;
@@ -5077,12 +4654,8 @@
 	},
 /area/awaymission/BMPship/CommonArea)
 "zs" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/spider/stickyweb,
 /obj/structure/spider/stickyweb,
@@ -5123,9 +4696,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 2
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Buffer)
 "zW" = (
@@ -5159,9 +4730,7 @@
 /turf/simulated/floor/pod,
 /area/awaymission/BMPship/Shelter)
 "Af" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkyellowalt"
@@ -5194,15 +4763,11 @@
 /turf/space,
 /area/space)
 "Az" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/spider/stickyweb,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/wrench,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Armory)
@@ -5285,9 +4850,7 @@
 /obj/machinery/door/firedoor/closed{
 	layer = 2.8
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/vault,
 /area/awaymission/BMPship/Fore)
 "BC" = (
@@ -5324,9 +4887,7 @@
 	},
 /area/awaymission/BMPship/Kitchen)
 "BL" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/spider/cocoon,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/spider/stickyweb,
@@ -5342,28 +4903,17 @@
 /obj/effect/turf_decal/delivery/green,
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Engines)
-"BS" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/awaymission/BMPship/Containment)
 "BV" = (
 /obj/structure/spider/stickyweb,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "BZ" = (
 /obj/machinery/door/airlock/silver{
 	locked = 1
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/door/firedoor/closed{
 	layer = 3.3
 	},
@@ -5374,19 +4924,8 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
-"Ck" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/spider/stickyweb,
-/obj/structure/spider/stickyweb,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/awaymission/BMPship/Containment)
 "Cn" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Bath)
 "Cu" = (
@@ -5395,9 +4934,7 @@
 /area/awaymission/BMPship/Buffer)
 "Cy" = (
 /obj/effect/spawner/random_spawners/rodent,
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -5423,17 +4960,13 @@
 /turf/simulated/mineral/random,
 /area/awaymission/BMPship/Buffer)
 "De" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
 /area/awaymission/BMPship/CommonArea)
 "Dh" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -5446,9 +4979,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Buffer)
@@ -5492,9 +5023,7 @@
 /area/awaymission/BMPship/Containment)
 "Du" = (
 /obj/machinery/door/window/southright,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -5518,14 +5047,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
-"DC" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/awaymission/BMPship/CommonArea)
 "DD" = (
 /obj/structure/alien/weeds,
 /obj/effect/mob_spawn/human/corpse/tacticool,
@@ -5587,9 +5108,7 @@
 	},
 /area/awaymission/BMPship/Kitchen)
 "Eo" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Engines)
@@ -5597,23 +5116,11 @@
 /obj/effect/decal/cleanable/flour,
 /obj/item/trash/fried_vox,
 /mob/living/basic/cockroach,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
 /area/awaymission/BMPship/Kitchen)
-"Et" = (
-/obj/machinery/flasher/portable{
-	anchored = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/awaymission/BMPship/Containment)
 "Ev" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -5646,9 +5153,7 @@
 /area/awaymission/BMPship/Dormitories)
 "EB" = (
 /obj/item/stack/cable_coil,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/TurretsNorth)
 "EH" = (
@@ -5745,9 +5250,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /obj/structure/grille,
 /obj/structure/window/reinforced,
 /obj/item/shard{
@@ -5786,14 +5289,6 @@
 	icon_state = "darkredaltstrip"
 	},
 /area/awaymission/BMPship/CommonArea)
-"FT" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/computerframe,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/awaymission/BMPship/Containment)
 "FU" = (
 /obj/structure/alien/weeds,
 /obj/structure/alien/weeds/node,
@@ -5803,20 +5298,12 @@
 "FZ" = (
 /turf/simulated/wall/r_wall,
 /area/awaymission/BMPship/Armory)
-"Gj" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/BMPship/Gate)
 "Gn" = (
 /obj/item/card/emag_broken,
 /turf/simulated/floor/wood,
 /area/awaymission/BMPship/Fore)
 "Go" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/vault,
 /area/awaymission/BMPship/Buffer)
@@ -5831,13 +5318,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Containment)
-"Gs" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/awaymission/BMPship/Containment)
 "Gu" = (
 /obj/item/assembly/mousetrap/armed,
 /obj/item/reagent_containers/food/snacks/breadslice{
@@ -5848,16 +5328,8 @@
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
-"Gv" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/BMPship/TurretsSouth)
 "Gy" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/spider/stickyweb,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/spider/stickyweb,
@@ -5884,9 +5356,7 @@
 /mob/living/simple_animal/bot/cleanbot{
 	on = 0
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -5924,9 +5394,7 @@
 /area/awaymission/BMPship/Kitchen)
 "GV" = (
 /obj/structure/closet/crate/large,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "GX" = (
@@ -5972,9 +5440,7 @@
 	},
 /area/awaymission/BMPship/CommonArea)
 "Hu" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/spider/stickyweb,
 /mob/living/simple_animal/hostile/poison/giant_spider{
@@ -6047,22 +5513,14 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "Io" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/item/storage/box,
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "Ip" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -6077,12 +5535,8 @@
 	dir = 1
 	},
 /obj/effect/spawner/window/reinforced,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Buffer)
 "Iz" = (
@@ -6100,9 +5554,7 @@
 	},
 /area/awaymission/BMPship/CommonArea)
 "ID" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/spider/stickyweb,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/spider/stickyweb,
@@ -6140,9 +5592,7 @@
 /area/awaymission/BMPship/Armory)
 "IJ" = (
 /obj/effect/turf_decal/delivery/white/partial,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkyellowalt"
@@ -6156,9 +5606,7 @@
 /area/awaymission/BMPship/Armory)
 "IX" = (
 /obj/item/healthanalyzer/advanced,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/MedBay)
 "IY" = (
@@ -6167,9 +5615,7 @@
 "Je" = (
 /obj/structure/alien/weeds/node,
 /obj/structure/alien/weeds,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /mob/living/simple_animal/hostile/alien/sentinel{
 	health = 250;
 	maxHealth = 250
@@ -6232,9 +5678,7 @@
 /area/awaymission/BMPship/Bath)
 "Kd" = (
 /obj/machinery/door/airlock/titanium,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/door/firedoor/closed{
 	layer = 2.8
 	},
@@ -6288,9 +5732,7 @@
 /area/awaymission)
 "KV" = (
 /obj/structure/alien/weeds,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/spider/stickyweb,
 /obj/structure/spider/stickyweb,
@@ -6323,9 +5765,7 @@
 	},
 /area/awaymission/BMPship/Engines)
 "Ll" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -6336,17 +5776,8 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Bath)
-"Lt" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/spider/stickyweb,
-/turf/simulated/floor/plating,
-/area/awaymission/BMPship/Engines)
 "Lu" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/computer,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -6410,17 +5841,6 @@
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/awaymission/BMPship/Bath)
-"Ms" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/spider/stickyweb,
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/spider/stickyweb,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/awaymission/BMPship/Containment)
 "Mu" = (
 /obj/item/folder/red,
 /turf/space,
@@ -6439,14 +5859,6 @@
 /obj/structure/table,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
-"MN" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/spider/stickyweb,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/awaymission/BMPship/Containment)
 "MT" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel,
@@ -6473,9 +5885,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/TurretsSouth)
 "Nq" = (
@@ -6492,9 +5902,7 @@
 /area/awaymission/BMPship/TurretsSouth)
 "Nw" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -6520,9 +5928,7 @@
 /obj/machinery/flasher/portable{
 	anchored = 1
 	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "NZ" = (
@@ -6556,10 +5962,7 @@
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Containment)
 "OC" = (
-/obj/structure/cable{
-	icon_state = "0-2";
-	pixel_y = 1
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/noalarm/directional/west{
 	environment_channel = 0;
 	equipment_channel = 0;
@@ -6589,9 +5992,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkyellowalt"
@@ -6652,9 +6053,7 @@
 /turf/space,
 /area/space)
 "PL" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -6690,9 +6089,7 @@
 	dir = 8
 	},
 /obj/structure/closet/crate/large/cat,
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "PY" = (
@@ -6700,9 +6097,7 @@
 /obj/item/clothing/head/corgi,
 /obj/item/clothing/suit/corgisuit,
 /obj/item/laser_pointer,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/item/instrument/accordion,
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Bath)
@@ -6776,21 +6171,10 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/TraderShuttle)
 "QO" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/spawner/random_spawners/rodent,
 /obj/structure/spider/stickyweb,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/awaymission/BMPship/Containment)
-"QQ" = (
-/obj/machinery/flasher/portable{
-	anchored = 1
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "QT" = (
@@ -6802,9 +6186,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/BMPship/Armory)
 "QW" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/spider/stickyweb,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
@@ -6829,22 +6211,11 @@
 /area/awaymission/BMPship/Kitchen)
 "Ra" = (
 /obj/structure/spider/stickyweb,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
 /area/awaymission/BMPship/Kitchen)
-"Rg" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/spider/stickyweb,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/spider/stickyweb,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/awaymission/BMPship/Containment)
 "Ri" = (
 /obj/item/trash/cheesie,
 /turf/simulated/floor/plasteel{
@@ -6871,24 +6242,10 @@
 /turf/simulated/floor/shuttle/plating,
 /area/awaymission/BMPship/TraderShuttle)
 "RF" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
-"RJ" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/vault,
-/area/awaymission/BMPship/Buffer)
 "RK" = (
 /obj/structure/girder,
 /obj/effect/mapping_helpers/turfs/damage,
@@ -6896,9 +6253,7 @@
 /area/awaymission/BMPship/TraderShuttle)
 "Sd" = (
 /obj/machinery/door/airlock/silver,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/CommonArea)
 "Sf" = (
@@ -6971,14 +6326,6 @@
 /obj/structure/signpost,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission)
-"Tj" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/structure/grille,
-/obj/structure/window/plastitanium,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/awaymission/BMPship/Containment)
 "Tt" = (
 /obj/structure/closet/crate/freezer,
 /obj/effect/turf_decal/stripes/line{
@@ -7013,9 +6360,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/TurretsNorth)
 "TI" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter{
 	health = 150;
@@ -7034,13 +6379,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/MedBay)
-"TU" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/awaymission/BMPship/Gate)
 "TX" = (
 /obj/structure/lattice,
 /obj/item/skeleton/r_hand,
@@ -7057,13 +6395,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Armory)
-"Ue" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/awaymission/BMPship/Containment)
 "Uf" = (
 /turf/simulated/wall/shuttle{
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
@@ -7073,14 +6404,6 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/wall/shuttle,
 /area/awaymission/BMPship/Armory)
-"Uh" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/computerframe,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/awaymission/BMPship/Containment)
 "Uj" = (
 /obj/item/shard,
 /obj/effect/mapping_helpers/turfs/damage,
@@ -7091,9 +6414,7 @@
 /turf/space,
 /area/space)
 "Uy" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Engines)
 "UA" = (
@@ -7140,9 +6461,7 @@
 /turf/simulated/wall/shuttle,
 /area/awaymission/BMPship/TurretsNorth)
 "UZ" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal/stripes/line{
 	dir = 2
 	},
@@ -7162,9 +6481,7 @@
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Containment)
 "Vi" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkyellowalt"
@@ -7225,13 +6542,9 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "VH" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/structure/alien/weeds,
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /obj/structure/alien/resin,
 /obj/machinery/power/apc/noalarm/directional/north{
 	environment_channel = 0;
@@ -7291,9 +6604,7 @@
 	},
 /area/awaymission/BMPship/Kitchen)
 "Wi" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/item/stock_parts/cell/empty,
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Buffer)
@@ -7332,15 +6643,11 @@
 /turf/simulated/mineral/random/high_chance,
 /area/awaymission)
 "WO" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /obj/structure/spider/stickyweb,
 /obj/structure/spider/stickyweb,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "WS" = (
@@ -7371,9 +6678,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/MedBay)
 "Xj" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/item/hand_labeler,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
@@ -7391,9 +6696,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "XB" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /obj/structure/alien/weeds,
 /obj/structure/alien/resin,
 /turf/simulated/floor/plating/airless,
@@ -7414,12 +6717,8 @@
 	},
 /area/awaymission/BMPship/CommonArea)
 "XJ" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
+/obj/structure/cable,
 /obj/structure/spider/stickyweb,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mob_spawn/human/corpse/tacticool,
@@ -7451,9 +6750,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "XW" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/item/ammo_casing{
 	pixel_x = 9;
 	pixel_y = 3
@@ -7464,9 +6761,7 @@
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Armory)
 "XY" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Engines)
 "Yf" = (
@@ -7494,9 +6789,7 @@
 "Yv" = (
 /obj/structure/spider/stickyweb,
 /obj/structure/spider/cocoon,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
@@ -7523,9 +6816,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
@@ -7600,9 +6891,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission/BMPship/Mining)
 "ZM" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/spider/stickyweb,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plating,
@@ -14184,7 +13473,7 @@ Jj
 Gn
 Rm
 ir
-cC
+aK
 CI
 Qj
 dL
@@ -14193,7 +13482,7 @@ dL
 Bw
 Vb
 wi
-fZ
+cY
 yv
 gs
 gR
@@ -14327,7 +13616,7 @@ fY
 ir
 gt
 tE
-gQ
+gC
 hk
 gS
 YR
@@ -14711,7 +14000,7 @@ bt
 kO
 jL
 cS
-RJ
+cS
 gT
 Go
 kI
@@ -14968,12 +14257,12 @@ zX
 zX
 zX
 ff
-Tj
+qQ
 Uf
 jI
 jw
 Uf
-Tj
+qQ
 ff
 zX
 zX
@@ -15100,10 +14389,10 @@ er
 er
 NW
 fC
-Ms
+nH
 nH
 Yv
-QQ
+NW
 er
 er
 er
@@ -15880,8 +15169,8 @@ Gq
 Vd
 UQ
 VG
-MN
-MN
+rw
+rw
 NZ
 UQ
 va
@@ -16010,7 +15299,7 @@ dN
 er
 dT
 rw
-fE
+ch
 WO
 ID
 Dy
@@ -16269,10 +15558,10 @@ dP
 Dr
 er
 LT
-Rg
+Gy
 Lu
-FT
-Gs
+cM
+tJ
 LT
 er
 fD
@@ -16529,8 +15818,8 @@ dP
 Dr
 er
 gd
-BS
-Uh
+tJ
+cM
 cM
 tJ
 kn
@@ -16660,8 +15949,8 @@ er
 er
 mA
 ej
-MN
-MN
+rw
+rw
 VD
 nO
 er
@@ -16920,7 +16209,7 @@ Pu
 xO
 ej
 ej
-Ue
+tJ
 bU
 qK
 gd
@@ -17310,7 +16599,7 @@ Tv
 er
 PO
 kn
-Ue
+tJ
 ku
 kn
 kn
@@ -17440,8 +16729,8 @@ Dr
 oy
 kn
 kn
-Ue
-Ue
+tJ
+tJ
 kn
 kn
 go
@@ -17570,8 +16859,8 @@ xW
 er
 Qk
 Gu
-Ck
-Ue
+um
+tJ
 ej
 Qk
 er
@@ -17703,7 +16992,7 @@ pq
 zs
 uT
 wx
-Et
+av
 er
 er
 er
@@ -17711,7 +17000,7 @@ er
 Nd
 hO
 gY
-il
+ij
 xC
 iz
 Nd
@@ -18742,7 +18031,7 @@ wY
 eN
 Nw
 Ip
-vK
+ll
 UF
 GG
 xG
@@ -19772,7 +19061,7 @@ Sf
 bm
 cZ
 cs
-TU
+RF
 aN
 aQ
 tA
@@ -19925,7 +19214,7 @@ ov
 xG
 xG
 xG
-Gv
+rB
 KK
 KK
 HV
@@ -20025,13 +19314,13 @@ aa
 aa
 UT
 UT
-nB
+lR
 EB
 BZ
 YL
 GV
 RF
-Gj
+fJ
 Io
 cu
 aQ
@@ -20049,7 +19338,7 @@ vy
 js
 LR
 rL
-sj
+eV
 Cn
 sZ
 Cn
@@ -20171,14 +19460,14 @@ eb
 op
 hr
 Du
-DC
-oG
-DC
+De
+cz
+De
 GD
-DC
+De
 aA
 ur
-tb
+eV
 SV
 SV
 SV
@@ -20292,7 +19581,7 @@ nl
 KI
 yT
 bW
-TU
+RF
 LV
 aQ
 mp
@@ -20422,7 +19711,7 @@ nl
 dI
 gn
 iH
-TU
+RF
 rJ
 aQ
 jg
@@ -20550,9 +19839,9 @@ aa
 aQ
 Hd
 Wu
-gq
+fJ
 Vo
-TU
+RF
 gV
 aQ
 cF
@@ -21208,7 +20497,7 @@ FL
 jg
 ht
 fK
-Lt
+Eo
 cD
 uB
 gm

@@ -65,9 +65,7 @@
 "at" = (
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "au" = (
@@ -127,9 +125,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/mine/maintenance)
 "bz" = (
@@ -164,10 +160,7 @@
 /obj/machinery/power/port_gen/pacman{
 	anchored = 1
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow,
+/obj/structure/cable/layer1,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/mine/production)
@@ -362,9 +355,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/beacon,
 /turf/simulated/floor/plasteel,
@@ -1053,9 +1044,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "jK" = (
@@ -1232,9 +1221,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/mine/production)
 "kN" = (
@@ -1362,9 +1349,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/baseturf_helper/lava_land/surface,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -2156,9 +2141,7 @@
 "re" = (
 /obj/machinery/power/apc/directional/north,
 /obj/item/camera_assembly,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/bluegrid,
 /area/mine/maintenance)
 "rf" = (
@@ -2191,16 +2174,14 @@
 	name = "Mining Station Maintenance";
 	req_access = list(48)
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/mine/production)
 "rK" = (
 /obj/machinery/power/port_gen/pacman{
 	anchored = 1
 	},
-/obj/structure/cable/yellow,
+/obj/structure/cable/layer1,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/mine/production)
@@ -2229,9 +2210,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/mine/production)
 "rX" = (
@@ -2457,9 +2436,7 @@
 /obj/structure/table,
 /obj/item/gps/mining,
 /obj/item/gps/mining,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/mine/eva)
 "tQ" = (
@@ -2547,9 +2524,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/mine/production)
 "uH" = (
@@ -2983,12 +2958,7 @@
 /obj/structure/disposalpipe/junction/yjunction{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/mine/production)
@@ -3146,9 +3116,7 @@
 	name = "Дыхательная смесь на аванпост";
 	target_pressure = 303.325
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/mine/production)
 "AQ" = (
@@ -3542,9 +3510,7 @@
 "Fb" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/mine/production)
@@ -3623,9 +3589,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
@@ -3637,9 +3601,7 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
+/obj/structure/cable/layer1,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/mine/production)
@@ -3848,12 +3810,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/mine/production)
@@ -3867,12 +3824,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "HP" = (
@@ -3978,9 +3930,7 @@
 "IT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
@@ -4091,9 +4041,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
@@ -4354,9 +4302,7 @@
 "Mu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/mine/eva)
 "My" = (
@@ -4429,9 +4375,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/item/flashlight,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -4591,9 +4535,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/baseturf_helper/lava_land/surface,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -4725,9 +4667,7 @@
 /obj/machinery/power/smes{
 	charge = 1e+006
 	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/mine/production)
@@ -4903,9 +4843,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
@@ -5208,9 +5146,7 @@
 "Xm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/mine/production)
@@ -5396,9 +5332,7 @@
 "YM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/bluegrid,
 /area/mine/maintenance)
@@ -5528,9 +5462,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/mine/production)
@@ -5541,9 +5473,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/mine/production)

@@ -5,12 +5,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /obj/structure/alien/weeds,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
@@ -51,9 +46,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue"
@@ -66,9 +59,7 @@
 /obj/machinery/power/apc/directional/north{
 	equipment_channel = 0
 	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -112,9 +103,7 @@
 	pixel_x = -4;
 	pixel_y = -4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -124,9 +113,7 @@
 	dir = 8;
 	welded = 1
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -200,9 +187,7 @@
 	},
 /area/ruin/ussp_xeno/storage)
 "dB" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/alien/weeds/node,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -319,9 +304,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -329,12 +312,7 @@
 /area/ruin/ussp_xeno/medbay)
 "fL" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/door/poddoor/shutters/preopen{
 	autoclose = 1;
 	dir = 8;
@@ -347,9 +325,7 @@
 /area/ruin/ussp_xeno/medbay)
 "fT" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /obj/structure/alien/weeds,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4;
@@ -387,9 +363,7 @@
 /obj/machinery/door/airlock/highsecurity,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
 	},
@@ -445,9 +419,7 @@
 	},
 /area/ruin/ussp_xeno/medbay)
 "gW" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/structure/alien/weeds,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -467,9 +439,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -483,13 +453,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /obj/structure/alien/weeds,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -512,9 +478,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -592,9 +556,7 @@
 	},
 /area/ruin/ussp_xeno/dorms_ussp)
 "iT" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/chair/comfy/red{
 	dir = 4
 	},
@@ -606,9 +568,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -649,9 +609,7 @@
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/alien/drone,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -672,9 +630,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/alien/weeds,
 /obj/structure/sign/xenobio{
 	pixel_x = 32;
@@ -768,9 +724,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/alien/weeds,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -809,12 +763,7 @@
 	},
 /area/ruin/ussp_xeno/gym_ussp)
 "lM" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/alien/weeds,
 /obj/machinery/atmospherics/pipe/manifold/hidden/cyan,
 /turf/simulated/floor/plasteel{
@@ -823,9 +772,7 @@
 /area/ruin/ussp_xeno/engi)
 "lO" = (
 /obj/effect/decal/cleanable/blood,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -869,9 +816,7 @@
 	pixel_y = -1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -951,9 +896,7 @@
 /obj/machinery/power/apc/directional/south{
 	equipment_channel = 0
 	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkred"
@@ -974,9 +917,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -991,12 +932,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1035,9 +971,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -1093,9 +1027,7 @@
 /area/ruin/ussp_xeno/dorms_ussp)
 "qG" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/alien/weeds,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -1131,9 +1063,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/blood/drip,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1146,9 +1076,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
 	},
@@ -1160,9 +1088,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/alien/weeds/node,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1218,9 +1144,7 @@
 /obj/machinery/door/airlock/multi_tile/glass{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -1319,9 +1243,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -1337,30 +1259,12 @@
 	pixel_x = 7;
 	pixel_y = -3
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/ruin/ussp_xeno/gym_ussp)
-"uT" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/cable,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	autoclose = 1;
-	dir = 8;
-	id_tag = "HenoLab 1"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault"
-	},
-/area/ruin/ussp_xeno/medbay)
 "uW" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/wall,
@@ -1498,9 +1402,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/alien/weeds,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -1535,9 +1437,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 2
 	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/power/smes/engineering{
 	charge = 0
 	},
@@ -1563,16 +1463,12 @@
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/alien/weeds,
 /obj/machinery/atmospherics/pipe/simple/hidden/universal{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "caution"
@@ -1590,9 +1486,7 @@
 	pixel_x = -4;
 	pixel_y = 14
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/alien/weeds,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
@@ -1617,9 +1511,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -1663,12 +1555,7 @@
 /obj/effect/decal/cleanable/cobweb2,
 /obj/machinery/light_switch/directional/south,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1756,9 +1643,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
 	},
@@ -1790,12 +1675,7 @@
 	pixel_y = -7
 	},
 /obj/structure/alien/weeds,
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /obj/machinery/door/poddoor/shutters/preopen{
 	autoclose = 1;
 	dir = 8;
@@ -1866,9 +1746,7 @@
 	dir = 8;
 	pixel_x = 7
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "ramptop"
@@ -1918,9 +1796,7 @@
 /area/ruin/ussp_xeno/medbay)
 "BB" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /mob/living/simple_animal/hostile/alien/drone{
 	dir = 8
 	},
@@ -1955,9 +1831,7 @@
 	},
 /obj/machinery/light_switch/directional/east,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/remains/human,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
@@ -1974,9 +1848,7 @@
 /area/ruin/ussp_xeno/engi)
 "BZ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8;
 	welded = 1
@@ -2066,9 +1938,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
 	},
@@ -2093,9 +1963,7 @@
 	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2185,9 +2053,7 @@
 /area/ruin/ussp_xeno/out)
 "FA" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/alien/weeds,
 /obj/structure/alien/egg/burst,
 /turf/simulated/floor/plasteel{
@@ -2220,9 +2086,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/port_gen/pacman,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/effect/turf_decal/delivery,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
@@ -2312,9 +2176,7 @@
 /obj/structure/disposalpipe/junction/reversed{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -2388,9 +2250,7 @@
 /area/ruin/ussp_xeno/medbay)
 "Hi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /mob/living/simple_animal/hostile/alien/drone,
 /obj/structure/alien/weeds,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -2418,9 +2278,7 @@
 /area/ruin/ussp_xeno/out)
 "HW" = (
 /obj/structure/extinguisher_cabinet/directional/south,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/safe/floor,
 /obj/item/coin/iron,
 /obj/item/stack/spacecash/c1000,
@@ -2465,12 +2323,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
@@ -2512,9 +2365,7 @@
 	},
 /area/ruin/ussp_xeno/admiral)
 "JD" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2536,9 +2387,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/ussp_xeno/medbay)
 "Kq" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/alien/weeds,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -2573,12 +2422,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/alien/weeds,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -2615,9 +2459,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -2637,9 +2479,7 @@
 /area/ruin/ussp_xeno/entrance)
 "La" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/alien/weeds,
 /obj/machinery/atmospherics/binary/pump{
 	dir = 4;
@@ -2778,21 +2618,6 @@
 	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
-"Nh" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	autoclose = 1;
-	dir = 8;
-	id_tag = "HenoLab 1"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault"
-	},
-/area/ruin/ussp_xeno/medbay)
 "Nq" = (
 /obj/machinery/light{
 	dir = 1;
@@ -2865,9 +2690,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -2885,9 +2708,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
@@ -2900,9 +2721,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/alien/weeds,
 /obj/structure/sign/xeno_warning_mining{
 	pixel_x = 32
@@ -2927,9 +2746,7 @@
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
@@ -2956,9 +2773,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
@@ -2969,13 +2784,9 @@
 /area/ruin/ussp_xeno/storage)
 "OL" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /mob/living/simple_animal/hostile/alien/sentinel,
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8;
 	welded = 1
@@ -3025,9 +2836,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/power/terminal{
 	dir = 4
 	},
@@ -3073,9 +2882,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitebluecorner"
@@ -3119,9 +2926,7 @@
 	},
 /area/ruin/ussp_xeno/medbay)
 "Qi" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/structure/alien/weeds,
 /obj/machinery/light{
 	on = 1
@@ -3193,9 +2998,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkred"
@@ -3281,12 +3084,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/structure/alien/weeds,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -3303,9 +3101,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/blood,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -3326,9 +3122,7 @@
 /area/ruin/ussp_xeno/medbay)
 "TX" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/alien/weeds,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -3391,9 +3185,7 @@
 /obj/machinery/power/apc/directional/north{
 	equipment_channel = 0
 	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -3419,9 +3211,7 @@
 /area/ruin/ussp_xeno/gym_ussp)
 "Ve" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -3431,9 +3221,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -3445,9 +3233,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -3477,9 +3263,7 @@
 /obj/machinery/power/apc/directional/west{
 	equipment_channel = 0
 	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -3499,9 +3283,7 @@
 /obj/machinery/door/airlock/multi_tile/glass,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
 	},
@@ -3614,9 +3396,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3639,9 +3419,7 @@
 	pixel_x = -6;
 	pixel_y = 14
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3650,9 +3428,7 @@
 /obj/machinery/power/apc/directional/north{
 	equipment_channel = 0
 	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/structure/chair/comfy/red{
 	dir = 4
 	},
@@ -3691,12 +3467,7 @@
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -4517,10 +4288,10 @@ jt
 jt
 Ka
 KY
-Nh
+wz
 fL
 zF
-uT
+fL
 wz
 kr
 vK

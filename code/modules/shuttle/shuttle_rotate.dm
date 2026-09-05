@@ -43,7 +43,7 @@ If ever any of these procs are useful for non-shuttles, rename it to proc/rotate
 
 /obj/structure/cable/shuttleRotate(rotation, params)
 	params &= ~ROTATE_DIR
-	. = ..()
+	. = ..() /*
 	if(d1)
 		d1 = angle2dir(rotation+dir2angle(d1))
 	if(d2)
@@ -53,7 +53,7 @@ If ever any of these procs are useful for non-shuttles, rename it to proc/rotate
 	if(d1 > d2)
 		var/temp = d1
 		d1 = d2
-		d2 = temp
+		d2 = temp*/
 	update_icon()
 
 /obj/structure/shuttle/engine/shuttleRotate(rotation, params)

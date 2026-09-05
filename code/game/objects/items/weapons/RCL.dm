@@ -119,9 +119,8 @@
 		last = null
 	else if(!last)
 		for(var/obj/structure/cable/C in get_turf(user))
-			if(C.d1 == 0 || C.d2 == 0)
-				last = C
-				break
+			last = C
+			break
 
 /obj/item/twohanded/rcl/on_mob_move(mob/user, dir)
 	if(active)
@@ -137,13 +136,11 @@
 			if(!T || !T.can_lay_cable())
 				last = null
 				return
-			if(get_dir(last, user) == last.d2)
-				//Did we just walk backwards? Well, that's the one direction we CAN'T complete a stub.
-				last = null
-				return
+			/*
 			loaded.cable_join(last, user)
 			if(is_empty(user))
 				return //If we've run out, display message and exit
+				*/
 		else
 			last = null
 	last = loaded.place_turf(get_turf(loc), user, turn(user.dir, 180))
