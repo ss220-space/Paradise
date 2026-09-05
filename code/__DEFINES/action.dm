@@ -9,10 +9,12 @@
 #define AB_CHECK_CONSCIOUS (1<<3)
 ///Action button checks if user is incapacitated (weakened/stunned/stamcrited/paralyzed/sleeping)
 #define AB_CHECK_INCAPACITATED (1<<4)
+///Action button checks if user is jaunting
+#define AB_CHECK_PHASED (1<<5)
 ///Action button checks if user is currently in turf contents
-#define AB_CHECK_TURF (1<<5)
+#define AB_CHECK_TURF (1<<6)
 ///Action button checks if it should be given to new mob, after mind transfer
-#define AB_TRANSFER_MIND (1<<6)
+#define AB_TRANSFER_MIND (1<<7)
 
 ///Action button triggered with right click
 #define TRIGGER_SECONDARY_ACTION (1<<0)
