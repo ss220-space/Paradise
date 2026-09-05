@@ -75,6 +75,11 @@
 	var/list/cached_neurotrainer_bonuses = active_neurotrainer_bonuses
 	var/list/cached_manual_skill_bonuses = manual_skill_bonuses
 	var/list/cached_selected_skills_levels = selected_skills_levels
+	var/list/cached_mode_bonuses = null
+	var/list/cached_mode_additive_bonuses = null
+	if(SSticker?.mode)
+		cached_mode_bonuses = SSticker.mode.get_mode_skill_bonuses_for(src)
+		cached_mode_additive_bonuses = SSticker.mode.get_mode_additive_skill_bonuses_for(src)
 	for(var/skill_name, skill_datum in GLOB.skills)
 		var/datum/skill/skill = skill_datum
 		var/datum/skill/skill_type = skill.type
@@ -89,6 +94,16 @@
 		if(job_alt_skills && (skill_type in job_alt_skills))
 			job_skill = job_alt_skills[skill_type]
 		var/level = max(job_skill, antag_skill_level)
+		if(cached_mode_bonuses && (skill_type in cached_mode_bonuses))
+			level = max(level, cached_mode_bonuses[skill_type])
+		var/antag_bonus_level = get_antag_skill_bonus(skill_type)
+		if(antag_bonus_level)
+			level = max(level, antag_bonus_level)
+		var/form_skill_level = get_form_skill_level(skill_type)
+		if(form_skill_level)
+			level = max(level, form_skill_level)
+		if(cached_mode_additive_bonuses && (skill_type in cached_mode_additive_bonuses))
+			level = min(level + cached_mode_additive_bonuses[skill_type], SKILL_LEVEL_LEGEND)
 		if(skill_type in cached_selected_skills_levels)
 			level = clamp(level + cached_selected_skills_levels[skill_type], level, SKILL_LEVEL_LEGEND)
 		if(skill_type in cached_manual_bonuses)
@@ -100,6 +115,18 @@
 		if(level == SKILL_LEVEL_UNAVAILABLE)
 			skill.remove_from_mob(current)
 		set_skill_level(skill_type, level)
+
+/datum/mind/proc/get_antag_skill_bonus(datum/skill/skill_type)
+	var/bonus_level = 0
+	for(var/datum/antagonist/antag as anything in antag_datums)
+		bonus_level = max(bonus_level, antag.skill_bonuses?[skill_type] || 0)
+	return bonus_level
+
+/datum/mind/proc/get_form_skill_level(datum/skill/skill_type)
+	var/level = 0
+	for(var/datum/antagonist/antag as anything in antag_datums)
+		level = max(level, antag.get_form_skill_level(skill_type))
+	return level
 
 /datum/mind/proc/get_skills_for_skills_select()
 	var/skills = list()
@@ -123,6 +150,9 @@
 		if(job_alt_skills && (skill_type in job_alt_skills))
 			job_skill = job_alt_skills[skill_type]
 		var/level = max(job_skill, antag_skill_level)
+		var/antag_bonus_level = get_antag_skill_bonus(skill_type)
+		if(antag_bonus_level)
+			level = max(level, antag_bonus_level)
 		if(skill_type in cached_selected_skills_levels)
 			level += cached_selected_skills_levels[skill_type]
 		if(skill_type in cached_neurotrainer_bonuses)
@@ -142,3 +172,20 @@
 	var/job_free_skill_points = current_job?.base_free_skill_point || BASIC_SKILL_POINTS_COUNT
 	free_skill_points = job_free_skill_points + (is_antag? BASIC_ANTAG_SKILL_POINTS_BONUS : 0)
 
+/**
+ * Returns the typepath of the highest-level skill on this mind.
+ * Ties are resolved randomly. Returns null if the mind has no skills.
+ */
+/datum/mind/proc/get_highest_skill()
+	var/highest_level = 0
+	var/list/highest_skills = list()
+	for(var/skill_type in skills)
+		var/level = skills[skill_type]
+		if(level > highest_level)
+			highest_level = level
+			highest_skills = list(skill_type)
+		else if(level == highest_level && level > 0)
+			highest_skills += skill_type
+	if(!length(highest_skills))
+		return null
+	return pick(highest_skills)
