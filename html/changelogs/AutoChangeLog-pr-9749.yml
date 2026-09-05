@@ -1,0 +1,4 @@
+author: "vovakons"
+delete-after: True
+changes:
+  - del: "удалена таблетка (PR #9749)"

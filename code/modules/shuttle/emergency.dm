@@ -45,26 +45,28 @@
 						message_admins("[key_name_admin(user)] has authorized early shuttle launch.")
 						add_game_logs("has authorized early shuttle launch in [COORD(src)]", user)
 						GLOB.minor_announcement.announce(
-							message = "Осталось получить [auth_need - length(authorized)] авторизаци[declension_ru(auth_need - length(authorized), "ю", "и", "й")] для досрочного запуска шаттла."
+							message = "Осталось получить [auth_need - length(authorized)] авторизаци[declension_ru(auth_need - length(authorized), "ю", "и", "й")] для досрочного запуска шаттла.",
+							color_override = "red"
 						)
 					else
 						message_admins("[key_name_admin(user)] has launched the emergency shuttle [seconds_left] seconds before launch.")
 						add_game_logs("has launched the emergency shuttle in [COORD(src)] [seconds_left] seconds before launch.", user)
 						GLOB.minor_announcement.announce(
-							message = "До запуска эвакуационного шаттла осталось 10 секунд."
+							message = "До запуска эвакуационного шаттла осталось 10 секунд.",
+							color_override = "red"
 						)
 						SSshuttle.emergency.setTimer(100)
 
 			if("Repeal")
 				if(authorized.Remove(id_card.registered_name))
 					GLOB.minor_announcement.announce(
-						message = "Для досрочного запуска шаттла необходимо получить [auth_need - length(authorized)] авторизаци[declension_ru(auth_need - length(authorized), "ю", "и", "й")]."
+						message = "Для досрочного запуска шаттла необходимо получить [auth_need - length(authorized)] авторизаци[declension_ru(auth_need - length(authorized), "ю", "и", "й")].",
 					)
 
 			if("Abort")
 				if(length(authorized))
 					GLOB.minor_announcement.announce(
-						message = "Все авторизации на досрочный запуск шаттла были отозваны."
+						message = "Все авторизации на досрочный запуск шаттла были отозваны.",
 					)
 					authorized.Cut()
 
@@ -80,7 +82,8 @@
 		add_game_logs("has emagged the emergency shuttle in [COORD(src)]: [time] seconds before launch.", user)
 		GLOB.minor_announcement.announce(
 			message = "Запуск эвакуационного шаттла через 10 секунд",
-			new_title = "СИСТЕМНАЯ ОШИБКА:"
+			new_title = "СИСТЕМНАЯ ОШИБКА:",
+			color_override = "red"
 		)
 		SSshuttle.emergency.setTimer(100)
 		emagged = 1
@@ -138,13 +141,15 @@
 		GLOB.major_announcement.announce(
 			"Был вызван эвакуационный шаттл. [redAlert ? "Красный уровень угрозы подтверждён: отправлен приоритетный шаттл. " : "" ]Он прибудет в течение [timeLeft(600)] минут.[reason][SSshuttle.emergencyLastCallLoc ? "\n\nВызов шаттла отслежен. Результаты можно посмотреть на любой консоли связи." : "" ]",
 			new_title = ANNOUNCE_PRIORITY_RU,
-			new_sound = ANNOUNCER_SHUTTLECALLED
+			new_sound = ANNOUNCER_SHUTTLECALLED,
+			color_override = "orange"
 		)
 	else
 		GLOB.major_announcement.announce(
 			"Был вызван тра+нспортный шаттл. [redAlert ? "Красный уровень угрозы подтверждён: отправлен приоритетный шаттл. " : "" ]Он прибудет в течение [timeLeft(600)] минут.[reason]",
 			new_title = ANNOUNCE_PRIORITY_RU,
-			new_sound = ANNOUNCER_SHUTTLECALLED
+			new_sound = ANNOUNCER_SHUTTLECALLED,
+			color_override = "orange"
 		)
 
 /obj/docking_port/mobile/emergency/cancel(area/signalOrigin)
@@ -164,7 +169,8 @@
 	GLOB.major_announcement.announce(
 		"Эвакуационный шаттл был отозван.[SSshuttle.emergencyLastCallLoc ? " Отзыв шаттла отслежен. Результаты можно посмотреть на любой консоли связи." : "" ]",
 		new_title = ANNOUNCE_PRIORITY_RU,
-		new_sound = ANNOUNCER_SHUTTLERECALLED
+		new_sound = ANNOUNCER_SHUTTLERECALLED,
+		color_override = "orange"
 	)
 
 /obj/docking_port/mobile/emergency/proc/is_hijacked()
@@ -239,20 +245,23 @@
 					GLOB.major_announcement.announce(
 						"Эвакуационный шаттл совершил стыковку со станцией. У вас есть [timeLeft(600)] минуты, чтобы взобраться на борт эвакуационного шаттла.",
 						new_title = ANNOUNCE_PRIORITY_RU,
-						new_sound = ANNOUNCER_SHUTTLEDOCK
+						new_sound = ANNOUNCER_SHUTTLEDOCK,
+						color_override = "orange"
 					)
 				else
 					GLOB.major_announcement.announce(
 						"Транспортный шаттл совершил стыковку со станцией. У вас есть [timeLeft(600)] минуты, чтобы взобраться на борт транспортного шаттла.",
 						new_title = ANNOUNCE_PRIORITY_RU,
-						new_sound = ANNOUNCER_SHUTTLEDOCK
+						new_sound = ANNOUNCER_SHUTTLEDOCK,
+						color_override = "orange"
 					)
 		if(SHUTTLE_DOCKED)
 
 			if(time_left <= 0 && length(SSshuttle.hostile_environment))
 				GLOB.major_announcement.announce(
 					"Обнаружена угроза. Отлёт отложен на неопределённый срок до разрешения конфликта.",
-					new_title = ANNOUNCE_PRIORITY_RU
+					new_title = ANNOUNCE_PRIORITY_RU,
+					color_override = "grey",
 				)
 				sound_played = FALSE
 				mode = SHUTTLE_STRANDED
@@ -260,7 +269,8 @@
 			if(time_left <= 0 && SSshuttle.emergencyNoEscape && mode != SHUTTLE_STRANDED)
 				GLOB.major_announcement.announce(
 					"Шаттл заблокирован. Свяжитесь с Центральным командованием для уточнения причин и снятия блокировки.",
-					new_title = ANNOUNCE_PRIORITY_RU
+					new_title = ANNOUNCE_PRIORITY_RU,
+					color_override = "grey"
 				)
 				sound_played = FALSE
 				mode = SHUTTLE_STRANDED
@@ -290,7 +300,8 @@
 				setTimer(SSshuttle.emergencyEscapeTime)
 				GLOB.major_announcement.announce(
 					"Эвакуационный шаттл покинул станцию. До прибытия в доки ЦК осталось [timeLeft(600)] минуты.",
-					new_title = ANNOUNCE_PRIORITY_RU
+					new_title = ANNOUNCE_PRIORITY_RU,
+					color_override = "orange"
 				)
 
 		if(SHUTTLE_ESCAPE)
@@ -318,7 +329,8 @@
 					GLOB.major_announcement.announce(
 						message = "Обнаружен сбой навигационных протоколов. Эвакуационный шаттл сошёл с установленного маршрута и движется в неизвестном направлении.",
 						new_title = ANNOUNCE_PRIORITY_RU,
-						new_sound = 'sound/misc/announce_syndi.ogg'
+						new_sound = 'sound/misc/announce_syndi.ogg',
+						color_override = "orange"
 					)
 				else
 					dock_id(destination_dock)

@@ -270,7 +270,7 @@
 /proc/start_unequip_mob(obj/item/item, mob/source, mob/user, strip_delay)
 	if(!strip_delay)
 		strip_delay = item.strip_delay
-	if(!do_after(user, strip_delay, source, max_interact_count = 1))
+	if(!do_after(user, strip_delay, source))
 		return FALSE
 
 	return TRUE

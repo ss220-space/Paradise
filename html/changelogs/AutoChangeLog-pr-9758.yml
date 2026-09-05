@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - experiment: "Попытка исправить проблемы с потерей курсора. (PR #9758)"

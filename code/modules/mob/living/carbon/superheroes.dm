@@ -30,12 +30,10 @@
 	H.set_gene_stability(100)
 
 /datum/superheroes/proc/assign_spells(mob/living/carbon/human/H)
-	if(length(default_spells))
-		for(var/spell in default_spells)
-			var/obj/effect/proc_holder/spell/S = spell
-			if(!S)
-				return
-			H.mind.AddSpell(new S(null))
+	if(!length(default_spells))
+		return
+	for(var/spell in default_spells)
+		H.mind.AddSpell(new spell)
 
 /datum/superheroes/proc/assign_id(mob/living/carbon/human/H)
 	var/obj/item/card/id/syndicate/W = new(H)
@@ -77,7 +75,7 @@
 
 /datum/superheroes/griffin
 	name = "The Griffin"
-	default_spells = list(/obj/effect/proc_holder/spell/recruit)
+	default_spells = list(/datum/action/cooldown/spell/pointed/recruit)
 	class = "Supervillain"
 	desc = "You are The Griffin, the ultimate supervillain. You thrive on chaos and have no respect for the supposed authority \
 	of the command staff of this station. Along with your gang of dim-witted yet trusty henchmen, you will be able to execute \
@@ -100,7 +98,7 @@
 	desc = "You are LightnIan, the lord of lightning! A freak electrical accident while working in the station's kennel \
 	has given you mastery over lightning and a peculiar desire to sniff butts. Although you are a recent addition to the \
 	station's hero roster, you intend to leave your mark."
-	default_spells = list(/obj/effect/proc_holder/spell/charge_up/bounce/lightning/lightnian)
+	default_spells = list(/datum/action/cooldown/spell/charged/beam/tesla/lightnian)
 
 /datum/superheroes/lightnian/equip(mob/living/carbon/human/H)
 	..()
@@ -118,7 +116,7 @@
 	desc = "You were a roboticist, once. Now you are Electro-Negmatic, a name this station will learn to fear. You designed \
 	your costume to resemble E-N, your faithful dog that some callous RD destroyed because it was sparking up the plasma. You \
 	intend to take your revenge and make them all pay thanks to your magnetic powers."
-	default_spells = list(/obj/effect/proc_holder/spell/charge_up/bounce/magnet)
+	default_spells = list(/datum/action/cooldown/spell/charged/beam/magnet)
 
 /datum/superheroes/electro/equip(mob/living/carbon/human/H)
 	..()
@@ -132,44 +130,43 @@
 ///////////////////////////////POWERS/ABILITIES CODE/////////////////////////////////////////
 
 //The Griffin's special recruit abilitiy
-/obj/effect/proc_holder/spell/recruit
+/datum/action/cooldown/spell/pointed/recruit
 	name = "Recruit Greyshirt"
 	desc = "Allows you to recruit a conscious, non-braindead, non-catatonic human to be part of the Greyshirts, your personal henchmen. This works on Civilians only and you can recruit a maximum of 3!."
-	base_cooldown = 45 SECONDS
-	clothes_req = FALSE
-	action_icon_state = "spell_greytide"
+	cooldown_time = 45 SECONDS
+	spell_requirements = SPELL_REQUIRES_HUMAN
+	button_icon_state = "spell_greytide"
 	var/recruiting = 0
 
-	selection_activated_message = span_notice_alt("You start preparing a mindblowing monologue. <b>ЛКМ по цели, чтобы применить!</b>")
-	selection_deactivated_message = span_notice_alt("You decide to save your brilliance for another day.")
-	need_active_overlay = TRUE
+	active_msg = span_notice_alt("You start preparing a mindblowing monologue. <b>ЛКМ по цели, чтобы применить!</b>")
+	deactive_msg = span_notice_alt("You decide to save your brilliance for another day.")
+	cast_range = 1
 
-/obj/effect/proc_holder/spell/recruit/create_new_targeting()
-	var/datum/spell_targeting/click/T = new()
-	T.click_radius = -1
-	T.range = 1
-	return T
-
-/obj/effect/proc_holder/spell/recruit/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
+/datum/action/cooldown/spell/pointed/recruit/can_cast_spell(feedback)
 	if(length(SSticker.mode.greyshirts) >= 3)
-		if(show_message)
-			to_chat(user, span_warning("You have already recruited the maximum number of henchmen."))
+		if(feedback)
+			to_chat(owner, span_warning("You have already recruited the maximum number of henchmen."))
 		return FALSE
 	if(recruiting)
 
-		if(show_message)
-			to_chat(user, span_danger("You are already recruiting!"))
+		if(feedback)
+			to_chat(owner, span_danger("You are already recruiting!"))
 		return FALSE
 	return ..()
 
-/obj/effect/proc_holder/spell/recruit/valid_target(mob/living/carbon/human/target, user)
-	return target.ckey && !target.stat
+/datum/action/cooldown/spell/pointed/recruit/is_valid_target(atom/cast_on)
+	if(!ishuman(cast_on))
+		return FALSE
+	var/mob/living/carbon/human/target = cast_on
+	return target.ckey && !target.stat && ..()
 
-/obj/effect/proc_holder/spell/recruit/cast(list/targets,mob/living/user = usr)
-	var/mob/living/carbon/human/target = targets[1]
+/datum/action/cooldown/spell/pointed/recruit/cast(atom/cast_on)
+	. = ..()
+	var/mob/living/carbon/human/target = cast_on
+	var/mob/living/carbon/human/user = owner
 	if(target.mind.assigned_role != JOB_TITLE_CIVILIAN)
 		to_chat(user, span_warning("You can only recruit Civilians."))
-		revert_cast(user)
+		reset_spell_cooldown()
 		return
 
 	recruiting = TRUE

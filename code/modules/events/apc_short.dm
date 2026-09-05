@@ -109,7 +109,7 @@
 				GLOB.minor_announcement.announce(
 					message = "Все работающие ЛКП на объекте [station_name()] были полностью заряжены.",
 					new_title = ANNOUNCE_APC_REPAIR_RU,
-					new_sound = 'sound/AI/power_restore.ogg'
+					new_sound = ANNOUNCER_POWERON
 				)
 
 			var/affected_apc_count = 0
@@ -131,7 +131,7 @@
 				GLOB.minor_announcement.announce(
 					message = "Все ЛКП на объекте [station_name()] были восстановлены.",
 					new_title = ANNOUNCE_APC_REPAIR_RU,
-					new_sound = 'sound/AI/power_restore.ogg'
+					new_sound = ANNOUNCER_POWERON
 				)
 
 			for(var/thing in GLOB.apcs)
@@ -150,7 +150,7 @@
 				GLOB.minor_announcement.announce(
 					message = "Все ЛКП на объекте [station_name()] были полностью заряжены и восстановлены. Приносим извинения за доставленные неудобства.",
 					new_title = ANNOUNCE_APC_REPAIR_RU,
-					new_sound = 'sound/AI/power_restore.ogg'
+					new_sound = ANNOUNCER_POWERON
 				)
 
 			for(var/thing in GLOB.apcs)

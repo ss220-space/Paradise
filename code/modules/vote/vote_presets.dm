@@ -9,7 +9,6 @@
 		CREW_TRANSFER_CHOICE,
 		CONTINUE_SHIFT_CHOICE,
 	)
-	no_dead_vote = TRUE
 	no_offstation_vote = TRUE
 
 /datum/vote/crew_transfer/finalize_vote(result)
@@ -34,6 +33,7 @@
 	name = "Карта"
 	default_message = "Голосование за карту в следующем раунде!"
 	count_method = VOTE_COUNT_METHOD_MULTI
+	allow_dead_vote = TRUE
 
 /datum/vote/map/create_vote(mob/vote_creator)
 	. = ..()
@@ -63,6 +63,9 @@
 	if(!SSmapping.map_datum)
 		return "Map Vote triggered before the map config load!"
 
+	if(!SSticker.current_state < GAME_STATE_PREGAME)
+		return "Map Vote triggered before Lobby stage!"
+
 /datum/vote/map/finalize_vote(result)
 	// Find target map.
 	if(!result)
@@ -87,8 +90,10 @@
 	name = "Игровой режим"
 	override_question = "Голосование за игровой режим режим"
 	count_method = VOTE_COUNT_METHOD_MULTI
+	allow_dead_vote = TRUE
 	display_statistics = FALSE
 	print_results = FALSE
+	hide_winner = TRUE
 
 /datum/vote/gamemode/create_vote(mob/vote_creator)
 	. = ..()
@@ -98,12 +103,11 @@
 /datum/vote/gamemode/finalize_vote(result)
 	if(!result)
 		return
+
 	if(GLOB.master_mode != result)
-		world.save_mode(result)
-		if(SSticker?.mode)
-			to_chat(world, "<font color='red'><b>Mode has been selected but round already started, it will be applied next round.</b></font>")
-		else
-			GLOB.master_mode = result
+		GLOB.master_mode = "secret"
+		GLOB.secret_force_mode = result
+
 	if(!SSticker.ticker_going)
 		SSticker.ticker_going = TRUE
 		to_chat(world, "<font color='red'><b>The round will start soon.</b></font>")
@@ -116,6 +120,17 @@
 
 /datum/vote/gamemode/is_accessible_vote()
 	return TRUE
+
+/datum/vote/gamemode/can_be_initiated(forced)
+	. = ..()
+	if(. != VOTE_AVAILABLE)
+		return .
+
+	if(SSticker?.mode)
+		return "Game mode triggered after the game mode selection!"
+
+	if(!SSticker.current_state < GAME_STATE_PREGAME)
+		return "Map Vote triggered before Lobby stage!"
 
 #undef CREW_TRANSFER_CHOICE
 #undef CONTINUE_SHIFT_CHOICE
