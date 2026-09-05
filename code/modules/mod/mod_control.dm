@@ -90,7 +90,6 @@
 	/// AI or pAI mob inhabiting the MOD.
 	var/mob/living/silicon/ai_assistant
 
-
 /obj/item/mod/control/get_ru_names()
 	return alist(
 		NOMINATIVE = "блок управления МЭК",
@@ -153,9 +152,10 @@
 		else
 			. += span_notice("Слот для ядра пуст.")
 
-/obj/item/mod/control/examine_more(mob/user)
-	. = ..()
-	. += "<i>[extended_desc]</i>"
+/obj/item/mod/control/add_deep_lore()
+	if(!extended_desc)
+		return
+	AddElement(/datum/element/examine_lore, lore = extended_desc)
 
 /obj/item/mod/control/process()
 	if(seconds_electrified > 0)

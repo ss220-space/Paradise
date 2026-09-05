@@ -39,7 +39,7 @@ ADMIN_VERB(admin_verb_panel, R_NONE, "Admin Verb Panel", "Browse and invoke admi
 		var/datum/admin_verb/verb = SSadmin_verbs.admin_verbs_by_type[verb_type]
 		if(!SSadmin_verbs.verify_visibility(owner, verb))
 			continue
-		if(!check_rights(verb.permissions, user = user))
+		if(!check_rights(verb.permissions, FALSE, user = user))
 			continue
 
 		var/list/verb_entry = list(

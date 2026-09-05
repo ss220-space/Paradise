@@ -11,7 +11,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 /proc/msg_admin_attack(text, loglevel)
 	if(!GLOB.nologevent)
-		var/rendered = "<span class=\"admin\"><span class=\"prefix\">ATTACK:</span> <span class=\"message\">[text]</span></span>"
+		var/rendered = "<span class=\"admin_attack\"><span class=\"prefix\">ATTACK:</span> <span class=\"message\">[text]</span></span>"
 		for(var/client/C in GLOB.admins)
 			if((C.holder.rights & R_ADMIN) && (C.prefs?.atklog <= loglevel))
 				to_chat(C, rendered, MESSAGE_TYPE_ATTACKLOG, confidential = TRUE)
@@ -429,7 +429,6 @@ ADMIN_VERB(announce, R_ADMIN, "Announce", "Announce your desires to the world.",
 
 	message = handle_emojis(message)
 	message = replacetext(message, "\n", "<br>") // required since we're putting it in a <p> tag
-	to_chat(world, fieldset_block(span_notice("<b>[user.holder.fakekey ? "Администрация" : user.key] объявляет:</b>"), span_notice("<p>[message]</p>"), "boxed_message blue_box"))
 	log_admin("Announce: [key_name(user)] : [message]")
 	send_ooc_announcement(message, user.holder.fakekey ? "Администрация" : user.key, play_sound = 'sound/effects/adminhelp.ogg')
 	BLACKBOX_LOG_ADMIN_VERB("Announce")

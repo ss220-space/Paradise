@@ -122,6 +122,9 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	toggle_all_huds_off()
 	remove_the_hud(THOUGHTS_HUD)
 	UnregisterSignal(src, COMSIG_MOB_HUD_CREATED)
+	UNASSIGN_GAME_VERB(src, /mob/dead/observer, dead_tele)
+	UNASSIGN_GAME_VERB(src, /mob/dead/observer, open_spawners_menu)
+	UNASSIGN_GAME_VERB(src, /mob/dead/observer, open_minigames_menu)
 	if(ghostimage)
 		GLOB.ghost_images -= ghostimage
 		ghostimage.loc = null

@@ -351,7 +351,8 @@ h2.alert {
 	font-weight: bold;
 }
 
-.admin {
+.admin,
+.admin_attack {
 	color: hsl(225, 100%, 61%);
 	font-weight: bold;
 }
@@ -1100,6 +1101,12 @@ $alert-stripe-colors: (
 	'red': hsl(0, 100%, 12.9%),
 	'purple': hsl(295, 100%, 9.4%),
 	'grey': hsl(0, 0%, 14.5%),
+	'white': hsl(0, 0%, 13%),
+	'amber': hsl(35, 100%, 35%),
+	'crimson': hsl(348, 83%, 25%),
+	'cyan': hsl(174.9, 80.1%, 31.6%),
+	'darkred': hsl(0, 100%, 59.6%),
+	'black': hsl(0, 0%, 34.1%),
 );
 
 $alert-stripe-alternate-colors: (
@@ -1112,6 +1119,12 @@ $alert-stripe-alternate-colors: (
 	'red': hsl(0, 100%, 16.1%),
 	'purple': hsl(295.1, 100%, 12%),
 	'grey': hsl(0, 0%, 16.1%),
+	'white': hsl(0, 0%, 10%),
+	'amber': hsl(35, 89%, 31%),
+	'crimson': hsl(347, 61%, 18%),
+	'cyan': hsl(174.9, 87.2%, 42.7%),
+	'darkred': hsl(0, 59.5%, 53.5%),
+	'black': hsl(0, 0%, 47.5%),
 );
 
 $alert-major-header-colors: (
@@ -1124,6 +1137,12 @@ $alert-major-header-colors: (
 	'red': hsl(336.1, 100%, 66.1%),
 	'purple': hsl(266.5, 84.3%, 80%),
 	'grey': hsl(336.1, 100%, 66.1%),
+	'white': hsl(20.9, 92%, 95.1%),
+	'amber': hsl(35, 59%, 71%),
+	'crimson': hsl(0, 48%, 68%),
+	'cyan': hsl(0, 0%, 16.1%),
+	'darkred': hsl(0, 100%, 16.3%),
+	'black': hsl(0, 0%, 86.7%),
 );
 
 $alert-subheader-header-colors: (
@@ -1136,6 +1155,12 @@ $alert-subheader-header-colors: (
 	'red': hsl(192.4, 100%, 60%),
 	'purple': hsl(192.4, 100%, 60%),
 	'grey': hsl(192.4, 100%, 60%),
+	'white': hsl(192.4, 100%, 60%),
+	'amber': hsl(192, 100%, 60%),
+	'crimson': hsl(192, 100%, 60%),
+	'cyan': hsl(207, 89%, 29%),
+	'darkred': hsl(0, 68%, 35%),
+	'black': hsl(0, 0%, 71%),
 );
 
 $border-width: 4;

@@ -2090,6 +2090,14 @@
 	},
 /turf/simulated/floor/carpet/red,
 /area/coldcolony/malta/security/hos)
+"aKf" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/effect/landmark/spawner/swarmer,
+/turf/simulated/floor/engine,
+/area/coldcolony/malta/maintenance/incinerator)
 "aKu" = (
 /obj/machinery/door/airlock/mining/glass{
 	name = "Storage";
@@ -4915,10 +4923,6 @@
 	},
 /turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
-"bLC" = (
-/obj/effect/landmark/spawner/swarmer,
-/turf/simulated/floor/plating,
-/area/coldcolony/malta/research/test_chamber)
 "bLN" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/machinery/power/apc/directional/east{
@@ -20139,6 +20143,24 @@
 /obj/item/airalarm_electronics,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/dormitory)
+"hyJ" = (
+/obj/structure/table,
+/obj/structure/sign/poster/contraband/revolver{
+	pixel_y = 32
+	},
+/obj/item/ammo_box/magazine/m10mm{
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/obj/item/gun/projectile/automatic/pistol/stechkin{
+	pixel_x = -2;
+	pixel_y = 6
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkred"
+	},
+/area/shuttle/pirate_corvette)
 "hyR" = (
 /obj/machinery/light{
 	dir = 8
@@ -20262,6 +20284,10 @@
 	},
 /turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
+"hCf" = (
+/obj/effect/landmark/spawner/swarmer,
+/turf/simulated/floor/plating,
+/area/coldcolony/malta/research/test_chamber)
 "hCg" = (
 /obj/structure/chair/barber,
 /turf/simulated/floor/plasteel{
@@ -22593,14 +22619,6 @@
 	icon_state = "brown"
 	},
 /area/coldcolony/malta/quartermaster/ore_production)
-"iyZ" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/effect/landmark/spawner/swarmer,
-/turf/simulated/floor/engine,
-/area/coldcolony/malta/maintenance/incinerator)
 "izh" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -42052,13 +42070,6 @@
 "pGX" = (
 /turf/simulated/floor/carpet/orange,
 /area/coldcolony/malta/bridge/hop)
-"pHg" = (
-/obj/effect/spawner/random_spawners/rodent,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/landmark/spawner/swarmer,
-/turf/simulated/floor/wood,
-/area/coldcolony/malta/maintenance/kitchen)
 "pHk" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -46295,24 +46306,6 @@
 	icon_state = "dark"
 	},
 /area/coldcolony/malta/chapel/office)
-"rkX" = (
-/obj/structure/table,
-/obj/structure/sign/poster/contraband/revolver{
-	pixel_y = 32
-	},
-/obj/item/ammo_box/magazine/m10mm{
-	pixel_x = 4;
-	pixel_y = 3
-	},
-/obj/item/gun/projectile/automatic/pistol{
-	pixel_x = -2;
-	pixel_y = 6
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
-	},
-/area/shuttle/pirate_corvette)
 "rld" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/donkpockets,
@@ -56054,6 +56047,13 @@
 	icon_state = "darkred"
 	},
 /area/coldcolony/malta/security/brig)
+"vdl" = (
+/obj/effect/spawner/random_spawners/rodent,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/landmark/spawner/swarmer,
+/turf/simulated/floor/wood,
+/area/coldcolony/malta/maintenance/kitchen)
 "vdm" = (
 /obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
@@ -79763,7 +79763,7 @@ gqg
 xgX
 xgX
 pvn
-rkX
+hyJ
 eiT
 iBY
 csN
@@ -89899,7 +89899,7 @@ kEh
 lhq
 tps
 sNJ
-pHg
+vdl
 cez
 jjq
 lJF
@@ -92978,7 +92978,7 @@ cta
 lOC
 aWC
 dFt
-iyZ
+aKf
 pcU
 kcN
 pCB
@@ -103101,7 +103101,7 @@ hkf
 sBl
 pGn
 iBA
-bLC
+hCf
 uhH
 uhH
 iBA

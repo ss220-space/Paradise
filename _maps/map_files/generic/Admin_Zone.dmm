@@ -415,15 +415,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/centcom/admin_room)
-"eo" = (
-/obj/machinery/vending/toyliberationstation{
-	contraband = null;
-	products = list(/obj/item/gun/projectile/automatic/toy = 10, /obj/item/gun/projectile/automatic/toy/pistol = 10, /obj/item/gun/projectile/shotgun/toy = 10, /obj/item/toy/sword = 10, /obj/item/ammo_box/foambox = 20, /obj/item/toy/foamblade = 10, /obj/item/toy/balloon/syndicate = 10, /obj/item/clothing/suit/syndicatefake = 5, /obj/item/clothing/head/syndicatefake = 5, /obj/item/gun/projectile/shotgun/toy/crossbow = 10, /obj/item/gun/projectile/automatic/smg/c20r/toy/riot = 10, /obj/item/gun/projectile/automatic/l6_saw/toy/riot = 10, /obj/item/gun/projectile/automatic/sniper_rifle/toy = 10, /obj/item/ammo_box/foambox/riot = 20, /obj/item/toy/katana = 10, /obj/item/twohanded/dualsaber/toy = 5, /obj/item/deck/cards/syndicate = 10)
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/centcom/admin_room)
 "er" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/immolator/multi,
@@ -822,11 +813,6 @@
 	},
 /turf/simulated/floor/indestructible/asteroid,
 /area/centcom/tdome/new_arena/cqc)
-"iz" = (
-/obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/pistol,
-/turf/simulated/floor/wood,
-/area/centcom/admin_room)
 "iD" = (
 /obj/structure/closet/secure_closet/cabinet{
 	req_access = list(114)
@@ -1622,6 +1608,15 @@
 	dir = 4
 	},
 /turf/simulated/floor/wood,
+/area/centcom/admin_room)
+"sA" = (
+/obj/machinery/vending/toyliberationstation{
+	contraband = null;
+	products = list(/obj/item/gun/projectile/automatic/toy = 10, /obj/item/gun/projectile/automatic/toy/pistol = 10, /obj/item/gun/projectile/shotgun/toy = 10, /obj/item/toy/sword = 10, /obj/item/ammo_box/foambox = 20, /obj/item/toy/foamblade = 10, /obj/item/toy/balloon/syndicate = 10, /obj/item/clothing/suit/syndicatefake = 5, /obj/item/clothing/head/syndicatefake = 5, /obj/item/gun/projectile/shotgun/toy/crossbow = 10, /obj/item/gun/projectile/automatic/smg/c20r/toy/riot = 10, /obj/item/gun/projectile/automatic/l6_saw/toy/riot = 10, /obj/item/gun/projectile/automatic/sniper_rifle/toy = 10, /obj/item/ammo_box/foambox/riot = 20, /obj/item/toy/katana = 10, /obj/item/twohanded/dualsaber/toy = 5, /obj/item/deck/cards/syndicate = 10)
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
 /area/centcom/admin_room)
 "sL" = (
 /obj/structure/rack,
@@ -4173,6 +4168,11 @@
 /obj/structure/table/wood,
 /obj/item/gun/projectile/shotgun/toy,
 /turf/simulated/floor/carpet/arcade,
+/area/centcom/admin_room)
+"XM" = (
+/obj/structure/table/wood,
+/obj/item/gun/projectile/automatic/pistol/stechkin,
+/turf/simulated/floor/wood,
 /area/centcom/admin_room)
 "XO" = (
 /obj/effect/landmark/spawner/tdome2,
@@ -9258,11 +9258,11 @@ VD
 qE
 qE
 qE
-eo
+sA
 fE
 Nt
 EU
-iz
+XM
 IU
 jN
 CF

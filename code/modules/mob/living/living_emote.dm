@@ -93,6 +93,31 @@
 	key = "jump"
 	key_third_person = "jumps"
 	message = "прыга%(ет,ют)%!"
+	audio_cooldown = EMOTE_COOLDOWN
+	muzzle_ignore = TRUE
+	hands_use_check = TRUE
+
+/datum/emote/living/jump/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
+	jump_animation(user)
+
+/datum/emote/living/jump/proc/jump_animation(mob/user)
+	var/original_transform = user.transform
+	animate(user, transform = user.transform.Translate(0, 4), time = 0.1 SECONDS, flags = ANIMATION_PARALLEL)
+	animate(transform = original_transform, time = 0.1 SECONDS)
+
+/datum/emote/living/jump/get_sound(mob/user)
+	return 'sound/weapons/thudswoosh.ogg'
+
+/datum/emote/living/jump/can_run_emote(mob/user, status_check = TRUE, intentional)
+	. = ..()
+	if(. && ishuman(user) && !check_legs(user))
+		return FALSE
+
+/datum/emote/living/proc/check_legs(mob/living/carbon/human/human_for_check, leg_amount = 1)
+	if(!human_for_check.get_organ(BODY_ZONE_PRECISE_R_FOOT) && !human_for_check.get_organ(BODY_ZONE_PRECISE_L_FOOT)) // At least 1 foot required
+		return FALSE
+	return TRUE
 
 /datum/emote/living/deathgasp
 	name = "Предсмертный вздох"

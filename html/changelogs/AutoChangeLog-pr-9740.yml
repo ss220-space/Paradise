@@ -1,0 +1,4 @@
+author: "vovakons"
+delete-after: True
+changes:
+  - refactor: "Рефактор тележки повара (PR #9740)"

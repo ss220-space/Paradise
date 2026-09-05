@@ -575,7 +575,7 @@ emp_act
 					update_worn_undersuit()
 
 	if(apply_damage_result && (item.force > 10 || (item.force >= 5 && prob(33))))
-		forcesay(GLOB.hit_appends)	//forcesay checks stat already
+		force_say(GLOB.hit_appends)	//forcesay checks stat already
 
 	. |= dna.species.spec_proceed_attack_results(item, src, user, affecting)
 
