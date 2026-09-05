@@ -50,6 +50,7 @@
 	strip_delay = 50
 	put_on_delay = 50
 	magical = TRUE
+	clothing_flags = CASTING_CLOTHES
 
 /obj/item/clothing/shoes/sandal/marisa
 	desc = "A pair of magic, black shoes."

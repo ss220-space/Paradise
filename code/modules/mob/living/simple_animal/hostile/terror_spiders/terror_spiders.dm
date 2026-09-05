@@ -147,7 +147,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	GLOB.ts_spiderlist += src
 	add_language(LANGUAGE_HIVE_TERRORSPIDER)
 	for(var/spell in special_abillity)
-		src.AddSpell(new spell)
+		AddSpell(new spell)
 
 	if(spider_tier >= TS_TIER_2)
 		add_language(LANGUAGE_GALACTIC_COMMON)
