@@ -788,6 +788,7 @@
 #include "code\datums\components\after_attacks_hub.dm"
 #include "code\datums\components\animal_temperature.dm"
 #include "code\datums\components\anti_juggling.dm"
+#include "code\datums\components\anti_magic.dm"
 #include "code\datums\components\area_sound_manager.dm"
 #include "code\datums\components\atom_mounted.dm"
 #include "code\datums\components\aura_healing.dm"

@@ -655,3 +655,12 @@
 #define TRAIT_ITEM_ACTIVE "item_active"
 
 #define TRAIT_HAS_ANTAG_SKILLS "has_antag_skills"
+
+/// The mob is holy and resistance to cult magic
+#define TRAIT_HOLY "holy"
+/// This mob is antimagic, and immune to spells / cannot cast spells
+#define TRAIT_ANTIMAGIC "anti_magic"
+/// This allows a person who has antimagic to cast spells without getting blocked
+#define TRAIT_ANTIMAGIC_NO_SELFBLOCK "anti_magic_no_selfblock"
+/// This mob recently blocked magic with some form of antimagic
+#define TRAIT_RECENTLY_BLOCKED_MAGIC "recently_blocked_magic"

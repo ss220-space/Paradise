@@ -52,3 +52,6 @@
 
 /// from base of [/atom/proc/extinguish]
 #define COMSIG_ATOM_EXTINGUISH "atom_extinguish"
+
+/// Called on the atom being hit, from /datum/component/anti_magic/on_attack() : (obj/item/weapon, mob/user, antimagic_flags)
+#define COMSIG_ATOM_HOLYATTACK "atom_holyattacked"
