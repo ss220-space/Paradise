@@ -341,6 +341,8 @@
 /obj/projectile/Bump(atom/bumped_atom)
 	. = ..()
 
+	if(QDELETED(src))
+		return FALSE
 	if(check_ricochet(bumped_atom) && check_ricochet_flag(bumped_atom) && ricochets < ricochets_max && is_reflectable(REFLECTABILITY_PHYSICAL))
 		if(hitscan && ricochets_max > 10)
 			ricochets_max = 10 // I do not want a chucklefuck editing this higher, sorry.
@@ -380,6 +382,8 @@
 		return
 
 	prehit(bumped_atom)
+	if(QDELETED(src))
+		return FALSE
 
 	var/permutation = bumped_atom.bullet_act(src, def_zone) // searches for return value, could be deleted after run so check A isn't null
 	if(permutation == -1 || forcedodge == -1 ||forcedodge >= 1) // the bullet passes through a dense object!

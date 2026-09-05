@@ -1,31 +1,45 @@
 /obj/effect/forcefield
-	desc = "A space wizard's magic wall."
 	name = "FORCEWALL"
+	desc = "A space wizard's magic wall."
 	icon_state = "m_shield"
+	anchored = TRUE
+	opacity = FALSE
 	density = TRUE
-	var/lifetime = 30 SECONDS
+	/// If set, how long the force field lasts after it's created. Set to 0 to have infinite duration forcefields.
+	var/initial_duration = 30 SECONDS
 
 /obj/effect/forcefield/Initialize(mapload)
 	. = ..()
-	if(!lifetime)
-		return
+	if(initial_duration > 0 SECONDS)
+		QDEL_IN(src, initial_duration)
 
-	QDEL_IN(src, lifetime)
+/obj/effect/forcefield/singularity_pull(atom/singularity, current_size)
+	return
 
 /obj/effect/forcefield/CanAtmosPass(direction)
 	return !density
 
 /obj/effect/forcefield/wizard
-	var/mob/wizard
+	/// Flags for what antimagic can just ignore our forcefields
+	var/antimagic_flags = MAGIC_RESISTANCE
+	/// A weakref to whoever casted our forcefield.
+	var/datum/weakref/caster_weakref
 
-/obj/effect/forcefield/wizard/Initialize(mapload, mob/summoner)
+/obj/effect/forcefield/wizard/Initialize(mapload, mob/caster, flags = MAGIC_RESISTANCE)
 	. = ..()
-	wizard = summoner
+	if(caster)
+		caster_weakref = WEAKREF(caster)
+	antimagic_flags = flags
 
 /obj/effect/forcefield/wizard/CanAllowThrough(atom/movable/mover, border_dir)
-	. = ..()
-	if(mover == wizard)
+	if(IS_WEAKREF_OF(mover, caster_weakref))
 		return TRUE
+	if(isliving(mover))
+		var/mob/living/living_mover = mover
+		if(living_mover.can_block_magic(antimagic_flags, charge_cost = 0))
+			return TRUE
+
+	return ..()
 
 ///////////Mimewalls///////////
 
@@ -37,7 +51,7 @@
 /obj/effect/forcefield/mime/advanced
 	name = "invisible blockade"
 	desc = "You might be here a while."
-	lifetime = 60 SECONDS
+	initial_duration = 60 SECONDS
 
 ///////////Mechawalls///////////
 /obj/effect/forcefield/mecha

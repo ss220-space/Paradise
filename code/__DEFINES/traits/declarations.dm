@@ -664,3 +664,6 @@
 #define TRAIT_ANTIMAGIC_NO_SELFBLOCK "anti_magic_no_selfblock"
 /// This mob recently blocked magic with some form of antimagic
 #define TRAIT_RECENTLY_BLOCKED_MAGIC "recently_blocked_magic"
+
+/// Trait that allows an item to perform holy rites akin to a nullrod
+#define TRAIT_NULLROD_ITEM "nullrod_item"

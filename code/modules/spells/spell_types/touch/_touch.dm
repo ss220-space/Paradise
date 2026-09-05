@@ -216,10 +216,9 @@
 
 	SEND_SIGNAL(src, COMSIG_SPELL_TOUCH_HAND_HIT, victim, caster, hand)
 
-//	var/mob/mob_victim = victim
-//	No antimagic yet
-//	if(istype(mob_victim) && mob_victim.can_block_magic(antimagic_flags))
-//		on_antimagic_triggered(hand, victim, caster)
+	var/mob/mob_victim = victim
+	if(istype(mob_victim) && mob_victim.can_block_magic(antimagic_flags))
+		on_antimagic_triggered(hand, victim, caster)
 
 	if(!cast_on_hand_hit(hand, victim, caster))
 		return NONE
@@ -308,8 +307,8 @@
 /**
  * Called whenever our spell is cast, but blocked by antimagic.
  */
-/*/datum/action/cooldown/spell/touch/proc/on_antimagic_triggered(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
-	return*/
+/datum/action/cooldown/spell/touch/proc/on_antimagic_triggered(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
+	return
 
 /**
  * ## Touch attack item
