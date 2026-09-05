@@ -6,7 +6,9 @@
 	origin_tech = "combat=2;materials=2"
 	materials = list(MAT_METAL=1000)
 	recoil = GUN_RECOIL_LOW
-	var/mag_type = /obj/item/ammo_box/magazine/m10mm //Removes the need for max_ammo and caliber info
+	/// Type of magazine compatible with this gun.
+	var/mag_type = /obj/item/ammo_box/magazine/m10mm
+	/// Currently inserted magazine.
 	var/obj/item/ammo_box/magazine/magazine
 	var/can_tactical = FALSE //check to see if the gun can tactically reload
 	/// Register fireshoot component
@@ -25,6 +27,16 @@
 	if(!base_icon_state)
 		base_icon_state = initial(icon_state)
 	update_appearance(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
+
+/obj/item/gun/projectile/add_context(atom/source, list/context, obj/item/held_item, mob/user)
+	. = ..()
+	if(held_item == src && get_ammo())
+		context[SCREENTIP_CONTEXT_LMB] = "Разрядить"
+		return CONTEXTUAL_SCREENTIP_SET
+
+	if(istype(held_item, mag_type))
+		context[SCREENTIP_CONTEXT_LMB] = "Зарядить"
+		return CONTEXTUAL_SCREENTIP_SET
 
 /obj/item/gun/projectile/examine(mob/user)
 	. = ..()
