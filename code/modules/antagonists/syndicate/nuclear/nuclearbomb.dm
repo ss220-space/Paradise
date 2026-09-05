@@ -652,17 +652,23 @@ GLOBAL_VAR(bomb_set)
 		. += span_warning("The serial numbers on [src] are incorrect.")
 
 /obj/item/disk/nuclear/suicide_act(mob/living/user)
-	user.visible_message(span_suicide("[user] is going delta! It looks like [user.p_theyre()] trying to commit suicide!"))
+	user.visible_message(span_suicide("[DECLENT_RU_CAP(user, NOMINATIVE)] запускает протокол \"ДЕЛЬТА\"! Похоже, [DECLENT_RU_CAP(user, NOMINATIVE)] пыта[PLUR_ET_YUT(user)]ся совершить самоубийство!"))
 	playsound(src, 'sound/announcer/alarm/nuke_alarm.ogg', 50, -1, TRUE)
 	for(var/i in 1 to 100)
 		addtimer(CALLBACK(user, TYPE_PROC_REF(/atom, add_atom_colour), (i % 2)? COLOR_VIBRANT_LIME : COLOR_RED, ADMIN_COLOUR_PRIORITY), i)
 	addtimer(CALLBACK(src, PROC_REF(manual_suicide), user), 101)
+	return OBLITERATION
 
 /obj/item/disk/nuclear/proc/manual_suicide(mob/living/user)
 	user.remove_atom_colour(ADMIN_COLOUR_PRIORITY)
-	user.visible_message(span_suicide("[user] is destroyed by the nuclear blast!"))
-	user.adjustOxyLoss(200)
-	user.death(FALSE)
+	user.visible_message(span_suicide("[DECLENT_RU_CAP(user, NOMINATIVE)] гибн[PLUR_ET_YUT(user)] от ядерного взрыва!"))
+
+	var/turf/epicenter = get_turf(user)
+	new /obj/effect/temp_visual/explosion(epicenter, 1, LIGHT_COLOR_LAVA, TRUE, FALSE)
+	playsound(epicenter, SFX_EXPLOSION, 40, TRUE)
+	for(var/mob/nearby_mob in range(5, epicenter))
+		shake_camera(nearby_mob, 3, 3)
+	user.gib()
 
 #undef NUKE_INTACT
 #undef NUKE_COVER_OFF
