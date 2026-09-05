@@ -212,7 +212,7 @@
 		new_title = ANNOUNCE_CCMSG_RU,
 		new_sound = 'sound/AI/commandreport.ogg'
 	)
-	// gamma level will be kept until rounend, since there would still be swarmers and more mega-swarmer can spawn
+	// gamma level will be kept until roundend, since there would still be swarmers and more mega-swarmer can spawn
 	addtimer(CALLBACK(SSsecurity_level, TYPE_PROC_REF(/datum/controller/subsystem/security_level, set_level), SEC_LEVEL_GAMMA), 5 SECONDS)
 
 /**

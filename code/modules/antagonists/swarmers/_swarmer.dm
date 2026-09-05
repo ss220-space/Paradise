@@ -1,6 +1,3 @@
-/// List that contains all swarmers mobs.
-GLOBAL_LIST_EMPTY(swarmers)
-
 /// How many organic resources we get on teleporting if we failed the analyze
 #define SWARMER_ANALYZE_TELEPORT_GAIN (rand(5, 15))
 
@@ -59,18 +56,16 @@ GLOBAL_LIST_EMPTY(swarmers)
 /mob/living/simple_animal/hostile/swarmer/Initialize(mapload)
 	. = ..()
 	GLOB.swarmers += src
+	RegisterSignal(src, COMSIG_LIVING_UNARMED_ATTACK, PROC_REF(on_unarmed_attack))
 	spark_system = new
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 	add_language(LANGUAGE_HIVE_SWARMER)
 	updatename()
-	RegisterSignal(src, COMSIG_LIVING_UNARMED_ATTACK, PROC_REF(on_unarmed_attack))
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 		diag_hud.add_atom_to_hud(src)
-	// Grants all required on-init actions to this type
-	for(var/action_type in GLOB.swarmer_actions_by_type[type])
-		var/datum/action/cooldown/swarmer/action = new action_type
-		action.Grant(src)
+
+	grant_actions_by_list(GLOB.swarmer_actions_by_type[type])
 
 /mob/living/simple_animal/hostile/swarmer/ComponentInitialize()
 	AddComponent( \

@@ -1,42 +1,11 @@
-/// Assoc list containing all action types that are given based on type on init
-/// I think this is better than doing this for each type on init separately
-GLOBAL_LIST_INIT(swarmer_actions_by_type, list(
-	// Starting swarmer
-	/mob/living/simple_animal/hostile/swarmer/basic = list(
-		/datum/action/innate/hide/swarmer, // Until someone refactors the way hide action is handled
-		),
-	// Generalist swarmer
-	/mob/living/simple_animal/hostile/swarmer/generalist = list(
-		/datum/action/cooldown/swarmer/build/barricade,
-		/datum/action/cooldown/swarmer/build/trap,
-		/datum/action/cooldown/swarmer/build/rapid_turret,
-		),
-	// Rover swarmer
-	/mob/living/simple_animal/hostile/swarmer/rover = list(
-		/datum/action/innate/hide/swarmer, // Until someone refactors the way hide action is handled
-		/datum/action/cooldown/swarmer/build/trap,
-		/datum/action/cooldown/swarmer/build/transport_hub,
-		),
-	// Combat swarmer
-	/mob/living/simple_animal/hostile/swarmer/combat = list(
-		/datum/action/cooldown/swarmer/build/barricade,
-		),
-	// Builder swarmer
-	/mob/living/simple_animal/hostile/swarmer/builder = list(
-		/datum/action/cooldown/swarmer/build/processer,
-		/datum/action/cooldown/swarmer/build/analyzer,
-		/datum/action/cooldown/swarmer/build/repair_station,
-		/datum/action/cooldown/swarmer/build/storage,
-		/datum/action/cooldown/swarmer/build/rapid_turret,
-		/datum/action/cooldown/swarmer/build/sniper_turret,
-		/datum/action/cooldown/swarmer/build/acp_turret,
-		/datum/action/cooldown/swarmer/move_core,
-		),
-	// Mega swarmer
-	/mob/living/simple_animal/hostile/swarmer/mega = list(
-		/datum/action/cooldown/swarmer/build/nanobot_fabricator,
-		),
-	))
+/// How many metallic resources are required to swap to generalist class
+#define GENERALIST_SWAP_COST 20
+/// How many metallic resources are required to swap to rover class
+#define ROVER_SWAP_COST 18
+/// How many metallic resources are required to swap to combat class
+#define COMBAT_SWAP_COST 30
+/// How many metallic resources are required to swap to builder class
+#define BUILDER_SWAP_COST 20
 
 /**
  * Starting swarmer
@@ -93,7 +62,7 @@ GLOBAL_LIST_INIT(swarmer_actions_by_type, list(
 	projectiletype = /obj/projectile/beam/disabler/swarmer/generalist
 	ranged_cooldown_time = 1 SECONDS
 	projectilesound = 'sound/weapons/taser2.ogg'
-	swap_resource_cost = 20
+	swap_resource_cost = GENERALIST_SWAP_COST
 	swarmer_class_info = "Данный класс является базовой боевой единицей, оснащённой пушкой, а также способностью строить мелкие туррели, баррикады и ловушки.\n\
 		Скорость равна человеческой."
 
@@ -123,7 +92,7 @@ GLOBAL_LIST_INIT(swarmer_actions_by_type, list(
 	health = 55
 	maxHealth = 55
 	speed = -1
-	swap_resource_cost = 18
+	swap_resource_cost = ROVER_SWAP_COST
 	pass_door_while_hidden = TRUE
 	pass_flags = PASSTABLE | PASSMOB
 	swarmer_class_info = "Данный класс является разведовательной единицей, оснащённой колёсами вместо ног, а также мощным тараном, способным сбивать целей с ног.\n\
@@ -177,7 +146,7 @@ GLOBAL_LIST_INIT(swarmer_actions_by_type, list(
 	dismantle_speed = SLOW_SWARMER_DISMANTLE_DELAY
 	speed = 1.5
 	ranged = 1
-	swap_resource_cost = 30
+	swap_resource_cost = COMBAT_SWAP_COST
 	swarmer_class_info = "Данный класс является защитной единицей, оснащённой более сильной защитой и пушками.\n\
 		Оснащён следующими типами выстрелов: Обычный выстрел, двойной выстрел, сильный выстрел, саботажный выстрел.\n\
 		Менять тип выстрела на ПКМ по самому себе.\n\
@@ -239,7 +208,7 @@ GLOBAL_LIST_INIT(swarmer_actions_by_type, list(
 	health = 120
 	maxHealth = 120
 	dismantle_speed = FAST_SWARMER_DISMANTLE_DELAY
-	swap_resource_cost = 20
+	swap_resource_cost = BUILDER_SWAP_COST
 	mob_size = MOB_SIZE_HUMAN
 	swarmer_class_info = "Данный класс является строительной единицей, способной строить множество различных конструкций.\n\
 		Является самым важным классом среди \"Свармеров\", без которого выполнение цели является невозможным.\n\
@@ -374,3 +343,8 @@ GLOBAL_LIST_INIT(swarmer_actions_by_type, list(
 		INSTRUMENTAL = "мега — свармером",
 		PREPOSITIONAL = "мега — свармере",
 	)
+
+#undef GENERALIST_SWAP_COST
+#undef ROVER_SWAP_COST
+#undef COMBAT_SWAP_COST
+#undef BUILDER_SWAP_COST

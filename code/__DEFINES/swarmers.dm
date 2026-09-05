@@ -1,3 +1,45 @@
+/// Assoc list containing all action types that are given based on type on init
+GLOBAL_LIST_INIT(swarmer_actions_by_type, list(
+	// Starting swarmer
+	/mob/living/simple_animal/hostile/swarmer/basic = list(
+		/datum/action/innate/hide/swarmer, // Until someone refactors the way hide action is handled
+		),
+	// Generalist swarmer
+	/mob/living/simple_animal/hostile/swarmer/generalist = list(
+		/datum/action/cooldown/swarmer/build/barricade,
+		/datum/action/cooldown/swarmer/build/trap,
+		/datum/action/cooldown/swarmer/build/rapid_turret,
+		),
+	// Rover swarmer
+	/mob/living/simple_animal/hostile/swarmer/rover = list(
+		/datum/action/innate/hide/swarmer, // Until someone refactors the way hide action is handled
+		/datum/action/cooldown/swarmer/build/trap,
+		/datum/action/cooldown/swarmer/build/transport_hub,
+		),
+	// Combat swarmer
+	/mob/living/simple_animal/hostile/swarmer/combat = list(
+		/datum/action/cooldown/swarmer/build/barricade,
+		),
+	// Builder swarmer
+	/mob/living/simple_animal/hostile/swarmer/builder = list(
+		/datum/action/cooldown/swarmer/build/processer,
+		/datum/action/cooldown/swarmer/build/analyzer,
+		/datum/action/cooldown/swarmer/build/repair_station,
+		/datum/action/cooldown/swarmer/build/storage,
+		/datum/action/cooldown/swarmer/build/rapid_turret,
+		/datum/action/cooldown/swarmer/build/sniper_turret,
+		/datum/action/cooldown/swarmer/build/acp_turret,
+		/datum/action/cooldown/swarmer/move_core,
+		),
+	// Mega swarmer
+	/mob/living/simple_animal/hostile/swarmer/mega = list(
+		/datum/action/cooldown/swarmer/build/nanobot_fabricator,
+		),
+	))
+
+/// List containing all swarmers mobs.
+GLOBAL_LIST_EMPTY(swarmers)
+
 // MARK: Swarmer spawn values
 /// How often based on organic resources do we spawn a swarmer
 #define SWARMER_SPAWN_VALUE 50

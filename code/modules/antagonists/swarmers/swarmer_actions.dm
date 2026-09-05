@@ -1,4 +1,27 @@
-// TODO: Move to spell actions, once they are done
+/// How many metallic resources does it cost to make a barricade
+#define SWARMER_BLOCKADE_COST 7
+/// How many metallic resources does it cost to make a trap
+#define SWARMER_TRAP_COST 3
+/// How many metallic resources does it cost to make a transport hub
+#define SWARMER_HUB_COST 15
+/// How many metallic resources does it cost to make an organic processer
+#define SWARMER_PROCESSER_COST 20
+/// How many metallic resources does it cost to make an organic analyzer
+#define SWARMER_ANALYZER_COST 20
+/// How many metallic resources does it cost to make a repair station
+#define SWARMER_REPAIR_STATION_COST 10
+/// How many metallic resources does it cost to make a resource storage
+#define SWARMER_STORAGE_COST 10
+/// How many metallic resources does it cost to make a rapid fire turret
+#define SWARMER_RAPID_TURRET_COST 20
+/// How many metallic resources does it cost to make a sniper turret
+#define SWARMER_SNIPER_TURRET_COST 25
+/// How many metallic resources does it cost to make an ACP turret
+#define SWARMER_ACP_COST 25
+/// How many metallic resources does it cost to make a nanobot fabricator
+#define SWARMER_NANOBOT_FABRICATOR_COST 250
+/// How many metallic resources does it cost to move the core to a hub
+#define SWARMER_CORE_MOVE_COST 100
 
 /datum/action/cooldown/swarmer
 	abstract_type = /datum/action/cooldown/swarmer
@@ -21,8 +44,7 @@
 
 /datum/action/cooldown/swarmer/build
 	abstract_type = /datum/action/cooldown/swarmer/build
-	name = "Создать что-то"
-	cooldown_time = SWARMER_FAST_BUILD_DELAY
+	cooldown_time = 3 SECONDS
 	/// What do we build
 	var/build_type = /obj/structure/swarmer
 	/// How long does it take to build
@@ -100,7 +122,7 @@
 	desc = "Создаёт баррикаду, через которую могут проходить \"Свармеры\", и пролетать их лазеры."
 	button_icon_state = "swarmer_barricade"
 	build_type = /obj/structure/swarmer/blockade
-	action_cost = 7
+	action_cost = SWARMER_BLOCKADE_COST
 	build_time = SWARMER_FAST_BUILD_DELAY
 
 /datum/action/cooldown/swarmer/build/trap
@@ -108,7 +130,7 @@
 	desc = "Создаёт ловушку, которая будет оглушать всех, кроме \"Свармеров\"."
 	button_icon_state = "swarmer_trap"
 	build_type = /obj/structure/swarmer/trap
-	action_cost = 3
+	action_cost = SWARMER_TRAP_COST
 	build_time = SWARMER_FAST_BUILD_DELAY
 
 /// Trap is built immediately for rover swarmers, and instead has cooldown
@@ -123,7 +145,7 @@
 	desc = "Создаёт Хаб, между которыми смогут перемещаться все \"Свармеры\"."
 	button_icon_state = "swarmer_hub"
 	build_type = /obj/structure/swarmer/transport_hub
-	action_cost = 15
+	action_cost = SWARMER_HUB_COST
 	build_time = SWARMER_SLOW_BUILD_DELAY
 
 /datum/action/cooldown/swarmer/build/transport_hub/Activate()
@@ -141,7 +163,7 @@
 	desc = "Обрабатывает неживую материю."
 	button_icon_state = "swarmer_processor"
 	build_type = /obj/structure/swarmer/organic_processer
-	action_cost = 20
+	action_cost = SWARMER_PROCESSER_COST
 	build_time = SWARMER_NORMAL_BUILD_DELAY
 
 /datum/action/cooldown/swarmer/build/analyzer
@@ -149,7 +171,7 @@
 	desc = "Обрабатывает живую и металлическую материю."
 	button_icon_state = "swarmer_analyzer"
 	build_type = /obj/structure/swarmer/organic_analyzer
-	action_cost = 20
+	action_cost = SWARMER_ANALYZER_COST
 	build_time = SWARMER_NORMAL_BUILD_DELAY
 
 /datum/action/cooldown/swarmer/build/repair_station
@@ -157,7 +179,7 @@
 	desc = "Быстрая починка для \"Свармеров\"."
 	button_icon_state = "swarmer_repair"
 	build_type = /obj/structure/swarmer/repair_station
-	action_cost = 15
+	action_cost = SWARMER_REPAIR_STATION_COST
 	build_time = SWARMER_NORMAL_BUILD_DELAY
 
 /datum/action/cooldown/swarmer/build/storage
@@ -165,7 +187,7 @@
 	desc = "Ускоряет ручной сбор материалов."
 	button_icon_state = "swarmer_storage"
 	build_type = /obj/structure/swarmer/resource_storage
-	action_cost = 10
+	action_cost = SWARMER_STORAGE_COST
 	build_time = SWARMER_FAST_BUILD_DELAY
 
 // Check if we have hit the metal modifier limit, and warn the user that building a new one wont do much
@@ -186,7 +208,7 @@
 	desc = "Турель, стреляющая залпами лучей."
 	button_icon_state = "swarmer_rapid_turret"
 	build_type = /obj/machinery/porta_turret/swarmer/turret
-	action_cost = 20
+	action_cost = SWARMER_RAPID_TURRET_COST
 	build_time = SWARMER_NORMAL_BUILD_DELAY
 
 /datum/action/cooldown/swarmer/build/sniper_turret
@@ -194,7 +216,7 @@
 	desc = "Турель, стреляющая сильным, пробивающим лучом."
 	button_icon_state = "swarmer_sniper_turret"
 	build_type = /obj/machinery/porta_turret/swarmer/sniper
-	action_cost = 20
+	action_cost = SWARMER_SNIPER_TURRET_COST
 	build_time = SWARMER_SLOW_BUILD_DELAY
 
 /datum/action/cooldown/swarmer/build/acp_turret
@@ -202,14 +224,14 @@
 	desc = "Турель, бьющая целей по области, накладывая дебаффы."
 	button_icon_state = "swarmer_acp"
 	build_type = /obj/structure/swarmer/acp_turret
-	action_cost = 25
+	action_cost = SWARMER_ACP_COST
 	build_time = SWARMER_NORMAL_BUILD_DELAY
 
 /datum/action/cooldown/swarmer/build/nanobot_fabricator
 	name = "Создать фабрикатор наноботов"
 	desc = "Для постройки требуются ванометрические батареи в видимости нескольких тайлов. Является финальной конструкцией \"Свармеров\"."
 	build_type = /obj/structure/swarmer/nanobot_fabricator
-	action_cost = 250
+	action_cost = SWARMER_NANOBOT_FABRICATOR_COST
 	build_time = SWARMER_SLOW_BUILD_DELAY
 
 // Action for moving the core to any available transport hub
@@ -217,7 +239,8 @@
 	name = "Переместить ядро"
 	desc = "Перемещает ядро на выбранный \"Хаб\", при этом уничтожая его."
 	button_icon_state = "swarmer_core_swap"
-	action_cost = 100
+	cooldown_time = 1 MINUTES
+	action_cost = SWARMER_CORE_MOVE_COST
 	/// How long does it take to move the core
 	var/core_move_delay = 25 SECONDS
 	/// Radius of the forcefield
@@ -276,3 +299,15 @@
 			duplicate_hub_count[resultkey] = 1
 		potential_hubs[resultkey] = hub
 	return potential_hubs
+
+#undef SWARMER_BLOCKADE_COST
+#undef SWARMER_TRAP_COST
+#undef SWARMER_HUB_COST
+#undef SWARMER_PROCESSER_COST
+#undef SWARMER_ANALYZER_COST
+#undef SWARMER_REPAIR_STATION_COST
+#undef SWARMER_STORAGE_COST
+#undef SWARMER_RAPID_TURRET_COST
+#undef SWARMER_SNIPER_TURRET_COST
+#undef SWARMER_ACP_COST
+#undef SWARMER_NANOBOT_FABRICATOR_COST
