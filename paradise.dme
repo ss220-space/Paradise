@@ -990,6 +990,7 @@
 #include "code\datums\elements\material_heal.dm"
 #include "code\datums\elements\misfire_weapon.dm"
 #include "code\datums\elements\movetype_handler.dm"
+#include "code\datums\elements\nullrod_core.dm"
 #include "code\datums\elements\nutrition_effects.dm"
 #include "code\datums\elements\openspace_item_click_handler.dm"
 #include "code\datums\elements\pet_bonus.dm"

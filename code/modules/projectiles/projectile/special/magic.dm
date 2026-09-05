@@ -10,6 +10,10 @@
 	armour_penetration = 100
 	ricochet_chance = 0
 	flag = "magic"
+	/// determines what type of antimagic can block the spell projectile
+	var/antimagic_flags = MAGIC_RESISTANCE
+	/// determines the drain cost on the antimagic item
+	var/antimagic_charge_cost = 1
 
 /obj/projectile/magic/get_ru_names()
 	return alist(
@@ -21,7 +25,26 @@
 		PREPOSITIONAL = "разряде пустоты",
 	)
 
+/obj/projectile/magic/prehit(atom/target)
+	. = ..()
 
+	if(isliving(target))
+		var/mob/living/victim = target
+		if(victim.can_block_magic(antimagic_flags, antimagic_charge_cost))
+			visible_message(span_warning("[src] fizzles on contact with [victim]!"))
+			qdel(src)
+			return
+/*
+	if(istype(target, /obj/machinery/hydroponics))
+		var/obj/machinery/hydroponics/plant_tray = target
+		if(!plant_tray.myseed)
+			return
+
+		if(plant_tray.myseed.get_gene(/datum/plant_gene/trait/anti_magic))
+			visible_message(span_warning("[src] fizzles on contact with [plant_tray]!"))
+			qdel(src)
+			return
+*/
 /// Gives magic projectiles an area of effect radius that will bump into any nearby mobs
 /obj/projectile/magic/aoe
 
