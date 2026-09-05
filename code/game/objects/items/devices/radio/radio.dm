@@ -181,16 +181,10 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 /obj/item/radio/proc/get_listening()
 	return listening
 
-/// Check if the radio is currently held in a mob's hands
-/obj/item/radio/proc/is_in_hands()
-	if(ismob(loc))
-		var/mob/M = loc
-		return (M.get_active_hand() == src || M.get_inactive_hand() == src)
-	return FALSE
 
 /// Turn off broadcasting if radio is not in hands
 /obj/item/radio/proc/check_broadcasting_state()
-	if(broadcasting && !is_in_hands())
+	if(broadcasting && !usr.is_in_hands(src))
 		set_broadcasting(FALSE)
 
 /obj/item/radio/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
@@ -235,7 +229,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		return
 
 	// Don't allow turning on broadcasting if radio is not in hands
-	if(new_broadcasting && !is_in_hands())
+	if(new_broadcasting && !usr.is_in_hands(src))
 		return
 
 	if(broadcasting != new_broadcasting)
