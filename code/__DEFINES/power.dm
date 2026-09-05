@@ -1,3 +1,14 @@
+/// Cable defines
+#define CABLE_LAYER_ALL ALL
+#define CABLE_LAYER_1 (1<<0)
+	#define CABLE_LAYER_1_NAME "Engine Power Line"
+#define CABLE_LAYER_2 (1<<1)
+	#define CABLE_LAYER_2_NAME "Station Power Line"
+#define CABLE_LAYER_3 (1<<2)
+	#define CABLE_LAYER_3_NAME "Department Power Line"
+
+#define CABLE_DIRECTIONS (GLOB.cardinal)
+
 #define SOLAR_MAX_DIST 40
 
 #define TRACKER_OFF 0

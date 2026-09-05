@@ -147,6 +147,9 @@
 /obj/machinery/power/singularity_beacon/attack_ai(mob/user)
 	return
 
+/obj/machinery/power/port_gen/should_have_node()
+	return anchored
+
 /obj/machinery/power/singularity_beacon/attack_hand(mob/user, list/modifiers)
 	if(anchored)
 		add_fingerprint(user)

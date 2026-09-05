@@ -28,6 +28,9 @@
 /obj/machinery/power/energy_accumulator/proc/get_stored_joules()
 	return stored_energy
 
+/obj/machinery/power/port_gen/should_have_node()
+	return anchored
+
 /**
  * Gets the energy the energy_accumulator would release within the given timespan time.
  * The power output is proportional to the energy, and has a constant power output added to it.

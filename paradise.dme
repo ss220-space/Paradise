@@ -3729,7 +3729,7 @@
 #include "code\modules\power\cable.dm"
 #include "code\modules\power\cable_coil.dm"
 #include "code\modules\power\cable_logic.dm"
-#include "code\modules\power\cable_multiz.dm"
+#include "code\modules\power\cable_multilayer.dm"
 #include "code\modules\power\cell.dm"
 #include "code\modules\power\energy_accumulator.dm"
 #include "code\modules\power\generator.dm"

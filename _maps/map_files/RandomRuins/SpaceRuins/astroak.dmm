@@ -1,7 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"ap" = (
-/obj/structure/table/wood/fancy/red,
-/obj/item/flashlight/lantern/on,
+"aC" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/structure/cable,
 /turf/simulated/floor/wood/fancy/birch,
 /area/ruin/unpowered)
 "aP" = (
@@ -55,12 +55,9 @@
 /obj/item/storage/fancy/cigarettes/cigpack_carp,
 /turf/simulated/floor/wood/fancy/birch,
 /area/ruin/unpowered)
-"fl" = (
-/obj/item/reagent_containers/cup/bucket/wooden,
-/turf/simulated/floor/wood/fancy/birch,
-/area/ruin/unpowered)
-"fv" = (
-/obj/item/reagent_containers/cup/glass/bottle/unholywater,
+"fg" = (
+/obj/structure/cable,
+/obj/machinery/power/apc/noalarm/directional/north,
 /turf/simulated/floor/wood/fancy/birch,
 /area/ruin/unpowered)
 "fM" = (
@@ -181,6 +178,11 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/fancy/birch,
 /area/ruin/unpowered)
+"nG" = (
+/obj/structure/table/wood/fancy/red,
+/obj/item/flashlight/lantern/on,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
 "nL" = (
 /turf/simulated/wall/cult_fake,
 /area/ruin/unpowered)
@@ -193,6 +195,10 @@
 /obj/structure/table_frame/wood,
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/tile/carpet/red,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"oC" = (
+/obj/item/reagent_containers/cup/bucket/wooden,
 /turf/simulated/floor/wood/fancy/birch,
 /area/ruin/unpowered)
 "oY" = (
@@ -225,12 +231,10 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/fancy/birch,
 /area/ruin/unpowered)
-"rb" = (
+"ry" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/wood/fancy/birch/airless,
+/obj/structure/cable,
+/turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
 "rD" = (
 /obj/effect/turf_decal{
@@ -243,13 +247,6 @@
 	name = "grass"
 	},
 /turf/simulated/floor/plating/asteroid,
-/area/ruin/unpowered)
-"sF" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/machinery/power/apc/noalarm/directional/north,
-/turf/simulated/floor/wood/fancy/birch,
 /area/ruin/unpowered)
 "sT" = (
 /obj/structure/sacrificealtar,
@@ -301,13 +298,12 @@
 /obj/item/trash/chips,
 /turf/simulated/floor/wood/fancy/birch,
 /area/ruin/unpowered)
-"yv" = (
-/obj/effect/mapping_helpers/turfs/damage,
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/plating/airless,
-/area/ruin/unpowered/no_grav)
+"yw" = (
+/obj/structure/mineral_door/wood,
+/obj/structure/barricade/wooden/crude,
+/obj/structure/cable,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
 "yF" = (
 /mob/living/simple_animal/hostile/carp/mcarp,
 /turf/simulated/floor/wood/fancy/birch,
@@ -331,12 +327,6 @@
 	pixel_x = -25;
 	srange = 3;
 	deep_water = 1
-	},
-/turf/simulated/floor/wood/fancy/birch,
-/area/ruin/unpowered)
-"zF" = (
-/obj/structure/cable{
-	icon_state = "1-8"
 	},
 /turf/simulated/floor/wood/fancy/birch,
 /area/ruin/unpowered)
@@ -424,6 +414,12 @@
 /obj/item/shield/riot/buckler,
 /turf/simulated/floor/wood/fancy/birch,
 /area/ruin/unpowered)
+"DA" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/decal/remains/human,
+/obj/structure/cable,
+/turf/simulated/floor/wood/fancy/birch/airless,
+/area/ruin/unpowered/no_grav)
 "DC" = (
 /obj/item/restraints/legcuffs/bola/cult,
 /turf/simulated/floor/engine/cult,
@@ -441,20 +437,15 @@
 	},
 /turf/simulated/floor/grass,
 /area/ruin/unpowered)
+"DS" = (
+/obj/item/flashlight/lantern/on{
+	pixel_x = 6
+	},
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
 "DX" = (
 /turf/simulated/floor/wood/fancy/birch,
 /area/ruin/unpowered)
-"Ea" = (
-/obj/item/flashlight/lantern/on,
-/turf/simulated/floor/engine/cult,
-/area/ruin/unpowered)
-"Eg" = (
-/obj/effect/mapping_helpers/turfs/damage,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/turf/simulated/floor/plating/airless,
-/area/ruin/unpowered/no_grav)
 "ED" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/item/flag/cult,
@@ -467,14 +458,6 @@
 /obj/structure/mineral_door/wood,
 /turf/simulated/floor/wood/fancy/birch,
 /area/ruin/unpowered)
-"EX" = (
-/obj/effect/mapping_helpers/turfs/damage,
-/obj/effect/decal/remains/human,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/wood/fancy/birch/airless,
-/area/ruin/unpowered/no_grav)
 "FE" = (
 /obj/item/fish_eggs/clownfish{
 	pixel_x = -8;
@@ -546,6 +529,10 @@
 "Hd" = (
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"HE" = (
+/obj/item/flashlight/lantern/on,
+/turf/simulated/floor/engine/cult,
 /area/ruin/unpowered)
 "HL" = (
 /turf/simulated/floor/engine/cult,
@@ -722,14 +709,6 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/fancy/birch,
 /area/ruin/unpowered)
-"QD" = (
-/obj/structure/mineral_door/wood,
-/obj/structure/barricade/wooden/crude,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/wood/fancy/birch,
-/area/ruin/unpowered)
 "QI" = (
 /obj/effect/decal/cleanable/blood,
 /obj/effect/mapping_helpers/turfs/damage,
@@ -783,6 +762,10 @@
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/unpowered)
+"SR" = (
+/obj/structure/cable,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
 "Tw" = (
 /obj/structure/window/reinforced/survival_pod{
 	name = "window"
@@ -818,13 +801,6 @@
 	},
 /turf/simulated/floor/grass,
 /area/ruin/unpowered)
-"VP" = (
-/obj/effect/mapping_helpers/turfs/damage,
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plating/airless,
-/area/ruin/unpowered/no_grav)
 "Wd" = (
 /obj/structure/window/reinforced/survival_pod{
 	name = "window"
@@ -845,12 +821,15 @@
 	},
 /turf/simulated/floor/grass,
 /area/ruin/unpowered)
-"WF" = (
-/obj/item/flashlight/lantern/on{
-	pixel_x = 6
-	},
+"Wl" = (
+/obj/item/reagent_containers/cup/glass/bottle/unholywater,
 /turf/simulated/floor/wood/fancy/birch,
 /area/ruin/unpowered)
+"Yl" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/structure/cable,
+/turf/simulated/floor/wood/fancy/birch/airless,
+/area/ruin/unpowered/no_grav)
 "Yx" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/blood/old,
@@ -860,13 +839,6 @@
 /obj/structure/bed,
 /obj/item/bedsheet/cult,
 /obj/effect/decal/remains/human,
-/turf/simulated/floor/wood/fancy/birch,
-/area/ruin/unpowered)
-"ZY" = (
-/obj/effect/mapping_helpers/turfs/damage,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/wood/fancy/birch,
 /area/ruin/unpowered)
 
@@ -1177,7 +1149,7 @@ yT
 yT
 yT
 Sb
-Eg
+ry
 ly
 ly
 lA
@@ -1219,8 +1191,8 @@ yT
 yT
 ly
 ly
-VP
-yv
+ry
+ry
 ly
 lA
 mw
@@ -1262,7 +1234,7 @@ ly
 ly
 ly
 ly
-rb
+Yl
 ly
 lA
 mw
@@ -1304,7 +1276,7 @@ lA
 lA
 lA
 ly
-EX
+DA
 ly
 lA
 mw
@@ -1346,7 +1318,7 @@ lA
 mw
 pq
 TW
-QD
+yw
 pq
 pq
 pq
@@ -1388,7 +1360,7 @@ mw
 mw
 pq
 dw
-ZY
+aC
 DX
 DX
 BG
@@ -1397,7 +1369,7 @@ GI
 DX
 zC
 KJ
-fl
+oC
 pq
 Uy
 Uy
@@ -1429,8 +1401,8 @@ mw
 mw
 mw
 pq
-sF
-zF
+fg
+SR
 nO
 wU
 DX
@@ -1598,7 +1570,7 @@ mw
 mw
 mw
 pq
-ap
+nG
 dw
 DX
 LX
@@ -1733,7 +1705,7 @@ pq
 DX
 DX
 wh
-WF
+DS
 pq
 pq
 Uy
@@ -1937,7 +1909,7 @@ aP
 HL
 Af
 dw
-fv
+Wl
 ED
 pq
 pq
@@ -2062,7 +2034,7 @@ pq
 HL
 DX
 DX
-Ea
+HE
 Af
 HL
 cb
