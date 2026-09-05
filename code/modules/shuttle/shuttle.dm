@@ -155,6 +155,7 @@
 
 //return first-found touching dockingport
 /obj/docking_port/proc/get_docked()
+	RETURN_TYPE(/obj/docking_port/stationary)
 	return locate(/obj/docking_port/stationary) in loc
 
 /obj/docking_port/proc/getDockedId()

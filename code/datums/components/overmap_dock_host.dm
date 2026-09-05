@@ -117,6 +117,7 @@
 	return null
 
 /obj/overmap/entity/proc/get_dock_host()
+	RETURN_TYPE(/obj/overmap/entity)
 	if(docked_to)
 		return docked_to
 	var/turf/here = get_overmap_turf()

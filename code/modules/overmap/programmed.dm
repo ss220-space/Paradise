@@ -59,6 +59,7 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 	add_leg(dock_id, collar_id, TRUE)
 
 /datum/overmap_programmed_profile/proc/leg_for(dock_id)
+	RETURN_TYPE(/datum/overmap_programmed_leg)
 	for(var/datum/overmap_programmed_leg/leg as anything in legs)
 		if(leg.dock_id == dock_id)
 			return leg
@@ -512,6 +513,7 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 	try_fly()
 
 /datum/overmap_programmed_mission/proc/resolved_dest_host()
+	RETURN_TYPE(/obj/overmap/entity)
 	if(!QDELETED(dest_host))
 		return dest_host
 	dest_host = SSovermap?.host_for_pad(SSshuttle.getDock(dock_id), vessel.shuttle)
@@ -665,6 +667,7 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 	vessel.announce_sensor_event("[vessel.get_overmap_display_name()]: стыковка не удалась. [text] Повтор через 15 секунд.", "dock_fail")
 
 /obj/overmap/entity/proc/nearest_hyperrelay()
+	RETURN_TYPE(/obj/overmap/entity/hyperrelay)
 	if(!sector)
 		return null
 	var/turf/here = get_overmap_turf()

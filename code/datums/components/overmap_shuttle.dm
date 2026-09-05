@@ -92,6 +92,7 @@
 	return is_station_level(pad.z)
 
 /datum/component/overmap_shuttle/proc/get_custom_dock(obj/overmap/entity/host)
+	RETURN_TYPE(/obj/docking_port/stationary)
 	var/obj/overmap/entity/vessel = parent
 	if(!host)
 		host = vessel.get_dock_host()
