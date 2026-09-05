@@ -1,0 +1,42 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><base href="../../"><link rel="stylesheet" href="dmdoc.css"><title>/datum/action/spell_action - SS1984</title></head><body><header><a href="index.html">SS1984</a> - <a href="index.html#modules">Modules</a> - <a href="index.html#types">Types</a></header><main><h1>The spell action <aside>/<a href="datum.html">datum</a>/<a href="datum/action.html">action</a>/<a href="datum/action/spell_action.html">spell_action</a></aside> <a href="https://github.com/ss220-space/Paradise/blob/5bd1cc0f337ea09337456a0d04e269348392dabb/code/datums/actions/spell_action.dm#L510"><img src="git.png" width="16" height="16" title="code/datums/actions/spell_action.dm 510"></a></h1><p>This is the base action for how many of the game's
+spells (and spell adjacent) abilities function.
+These spells function off of a cooldown-based system.</p>
+<h2 id="pre-spell-checks">Pre-spell checks:</h2>
+<ul>
+<li><a href="datum/action/cooldown.html" title="/datum/action/cooldown">can_cast_spell</a> checks if the OWNER
+of the spell is able to cast the spell.</li>
+<li><a href="datum/action/cooldown.html" title="/datum/action/cooldown">is_valid_target</a> checks if the TARGET
+THE SPELL IS BEING CAST ON is a valid target for the spell. NOTE: The CAST TARGET is often THE SAME as THE OWNER OF THE SPELL,
+but is not always - depending on how <a href="datum/action/cooldown.html" title="/datum/action/cooldown">Pre Activate</a> is resolved.</li>
+<li><a href="datum/action/cooldown.html" title="/datum/action/cooldown">try_invoke</a> is run in can_cast_spell to check if
+the OWNER of the spell is able to say the current invocation.</li>
+</ul>
+<h2 id="the-spell-chain">The spell chain:</h2>
+<ul>
+<li><a href="datum/action/cooldown.html" title="/datum/action/cooldown">before_cast</a> is the last chance for being able
+to interrupt a spell cast. This returns a bitflag. if SPELL_CANCEL_CAST is set, the spell will not continue.</li>
+<li><a href="datum/action/cooldown.html" title="/datum/action/cooldown">spell_feedback</a> is called right before cast, and handles
+invocation and sound effects. Overridable, if you want a special method of invocation or sound effects,
+or you want your spell to handle invocation / sound via special means.</li>
+<li><a href="datum/action/cooldown.html" title="/datum/action/cooldown">cast</a> is where the brunt of the spell effects should be done
+and implemented.</li>
+<li><a href="datum/action/cooldown.html" title="/datum/action/cooldown">after_cast</a> is the aftermath - final effects that follow
+the main cast of the spell. By now, the spell cooldown has already started</li>
+</ul>
+<h2 id="other-procs-called-may-be-called-within-the-chain">Other procs called / may be called within the chain:</h2>
+<ul>
+<li><a href="datum/action/cooldown.html" title="/datum/action/cooldown">invocation</a> handles saying any vocal (or emotive) invocations the spell
+may have, and can be overriden or extended. Called by spell_feedback.</li>
+<li><a href="datum/action/cooldown.html" title="/datum/action/cooldown">reset_spell_cooldown</a> is a way to handle reverting a spell's
+cooldown and making it ready again if it fails to go off at any point. Not called anywhere by default. If you
+want to cancel a spell in before_cast and would like the cooldown restart, call this.</li>
+</ul>
+<h2 id="other-procs-of-note">Other procs of note:</h2>
+<ul>
+<li><a href="datum/action/cooldown.html" title="/datum/action/cooldown">level_spell</a> is where the process of adding a spell level is handled.
+this can be extended if you wish to add unique effects on level up for wizards.</li>
+<li><a href="datum/action/cooldown.html" title="/datum/action/cooldown">delevel_spell</a> is where the process of removing a spell level is handled.
+this can be extended if you wish to undo unique effects on level up for wizards.</li>
+<li><a href="datum/action/cooldown.html" title="/datum/action/cooldown">get_spell_title</a> returns the prefix of the spell name based on its level,
+for use in updating the button name / spell name.</li>
+</ul></main><footer>paradise.dme <a href="https://github.com/ss220-space/Paradise/tree/5bd1cc0f337ea09337456a0d04e269348392dabb">5bd1cc0</a> (master220) — <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/crates/dmdoc/README.md">dmdoc 1.11.0</a></footer></body></html>

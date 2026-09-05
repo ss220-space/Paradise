@@ -1,0 +1,15 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><base href="../"><link rel="stylesheet" href="dmdoc.css"><title>/datum/explosion_data - SS1984</title></head><body><header><a href="index.html">SS1984</a> - <a href="index.html#modules">Modules</a> - <a href="index.html#types">Types</a> — <a href="datum/explosion_data.html#proc">Proc Details</a></header><main><h1>explosion_data <aside>/<a href="datum.html">datum</a>/<a href="datum/explosion_data.html">explosion_data</a></aside> <a href="https://github.com/ss220-space/Paradise/blob/5bd1cc0f337ea09337456a0d04e269348392dabb/code/controllers/subsystem/explosions.dm#L180"><img src="git.png" width="16" height="16" title="code/controllers/subsystem/explosions.dm 180"></a></h1><table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Procs</h2></td></tr><tr><th><a href="datum/explosion_data.html#proc/play_sounds_and_shake">play_sounds_and_shake</a></th><td>Handles the sfx and screenshake caused by an explosion.</td></tr></table><h2 id="proc">Proc Details</h2><h3 id="proc/play_sounds_and_shake"><aside class="declaration">proc </aside>play_sounds_and_shake<aside>()  <a href="https://github.com/ss220-space/Paradise/blob/5bd1cc0f337ea09337456a0d04e269348392dabb/code/controllers/subsystem/explosions.dm#L386"><img src="git.png" width="16" height="16" title="code/controllers/subsystem/explosions.dm 386"></a></aside></h3><p>Handles the sfx and screenshake caused by an explosion.</p>
+<p>Arguments:</p>
+<ul>
+<li><a href="turf.html" title="/turf">epicenter</a>: The location of the explosion.</li>
+<li>max_range: How close to the explosion you need to be to get the full effect of the explosion.</li>
+<li>far_distance: How close to the explosion you need to be to hear more than echos.</li>
+<li>devastation_range: Main scaling factor for screenshake.</li>
+<li>heavy_impact_range: Whether to make the explosion echo off of very distant parts of the station.</li>
+<li>creaking_explosion: Whether to make the station creak. Autoset if null.</li>
+<li><a href="https://www.byond.com/docs/ref/#/sound" title="/sound">explosion_sound</a>: The sound that plays if you are close to the explosion.</li>
+<li><a href="https://www.byond.com/docs/ref/#/sound" title="/sound">far_explosion_sound</a>: The sound that plays if you are far from the explosion.</li>
+<li><a href="https://www.byond.com/docs/ref/#/sound" title="/sound">explosion_echo_sound</a>: The sound that plays as echos for the explosion.</li>
+<li><a href="https://www.byond.com/docs/ref/#/sound" title="/sound">creaking_explosion_sound</a>: The sound that plays when the station creaks during the explosion.</li>
+<li><a href="https://www.byond.com/docs/ref/#/sound" title="/sound">hull_creaking_sound</a>: The sound that plays when the station creaks after the explosion.</li>
+</ul></main><footer>paradise.dme <a href="https://github.com/ss220-space/Paradise/tree/5bd1cc0f337ea09337456a0d04e269348392dabb">5bd1cc0</a> (master220) — <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/crates/dmdoc/README.md">dmdoc 1.11.0</a></footer></body></html>

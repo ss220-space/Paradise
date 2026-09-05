@@ -1,0 +1,56 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><base href="../"><link rel="stylesheet" href="dmdoc.css"><title>/datum/request_manager - SS1984</title></head><body><header><a href="index.html">SS1984</a> - <a href="index.html#modules">Modules</a> - <a href="index.html#types">Types</a> — <a href="datum/request_manager.html#var">Var Details</a> - <a href="datum/request_manager.html#proc">Proc Details</a></header><main><h1>Request Manager <aside>/<a href="datum.html">datum</a>/<a href="datum/request_manager.html">request_manager</a></aside> <a href="https://github.com/ss220-space/Paradise/blob/5bd1cc0f337ea09337456a0d04e269348392dabb/code/modules/requests/request_manager.dm#L24"><img src="git.png" width="16" height="16" title="code/modules/requests/request_manager.dm 24"></a></h1><p>Handles all player requests (prayers, centcom requests, syndicate requests)
+that occur in the duration of a round.</p><table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2></td></tr><tr><th><a href="datum/request_manager.html#var/requests">requests</a></th><td>Associative list of ckey -&gt; list of requests</td></tr><tr><th><a href="datum/request_manager.html#var/requests_by_id">requests_by_id</a></th><td>List where requests can be accessed by ID</td></tr><tr><td colspan="2"><h2>Procs</h2></td></tr><tr><th><a href="datum/request_manager.html#proc/client_login">client_login</a></th><td>Used in the new client pipeline to catch when clients are reconnecting and need to have their
+reference re-assigned to the 'owner' variable of any requests</td></tr><tr><th><a href="datum/request_manager.html#proc/client_logout">client_logout</a></th><td>Used in the destroy client pipeline to catch when clients are disconnecting and need to have their
+reference nulled on the 'owner' variable of any requests</td></tr><tr><th><a href="datum/request_manager.html#proc/message_centcom">message_centcom</a></th><td>Creates a request for a Centcom message</td></tr><tr><th><a href="datum/request_manager.html#proc/message_honk">message_honk</a></th><td>Creates a request for a Honk message</td></tr><tr><th><a href="datum/request_manager.html#proc/message_syndicate">message_syndicate</a></th><td>Creates a request for a Syndicate message</td></tr><tr><th><a href="datum/request_manager.html#proc/music_request">music_request</a></th><td>Creates a request to play an internet sound</td></tr><tr><th><a href="datum/request_manager.html#proc/nuke_request">nuke_request</a></th><td>Creates a request for the nuclear self destruct codes</td></tr><tr><th><a href="datum/request_manager.html#proc/pray">pray</a></th><td>Creates a request for a prayer, and notifies admins who have the sound notifications enabled when appropriate</td></tr><tr><th><a href="datum/request_manager.html#proc/request_ert">request_ert</a></th><td>Creates a request for a ERT request</td></tr><tr><th><a href="datum/request_manager.html#proc/request_for_client">request_for_client</a></th><td>Creates a request and registers the request with all necessary internal tracking lists</td></tr></table><h2 id="var">Var Details</h2><h3 id="var/requests"><aside class="declaration">var </aside>requests <aside>– /list</aside> <a href="https://github.com/ss220-space/Paradise/blob/5bd1cc0f337ea09337456a0d04e269348392dabb/code/modules/requests/request_manager.dm#L26"><img src="git.png" width="16" height="16" title="code/modules/requests/request_manager.dm 26"></a></h3><p>Associative list of ckey -&gt; list of requests</p><h3 id="var/requests_by_id"><aside class="declaration">var </aside>requests_by_id <aside>– /list</aside> <a href="https://github.com/ss220-space/Paradise/blob/5bd1cc0f337ea09337456a0d04e269348392dabb/code/modules/requests/request_manager.dm#L28"><img src="git.png" width="16" height="16" title="code/modules/requests/request_manager.dm 28"></a></h3><p>List where requests can be accessed by ID</p><h2 id="proc">Proc Details</h2><h3 id="proc/client_login"><aside class="declaration">proc </aside>client_login<aside>(/<a href="client.html">client</a>/requester)  <a href="https://github.com/ss220-space/Paradise/blob/5bd1cc0f337ea09337456a0d04e269348392dabb/code/modules/requests/request_manager.dm#L41"><img src="git.png" width="16" height="16" title="code/modules/requests/request_manager.dm 41"></a></aside></h3><p>Used in the new client pipeline to catch when clients are reconnecting and need to have their
+reference re-assigned to the 'owner' variable of any requests</p>
+<p>Arguments:</p>
+<ul>
+<li>requester - The client who is logging in</li>
+</ul><h3 id="proc/client_logout"><aside class="declaration">proc </aside>client_logout<aside>(/<a href="client.html">client</a>/requester)  <a href="https://github.com/ss220-space/Paradise/blob/5bd1cc0f337ea09337456a0d04e269348392dabb/code/modules/requests/request_manager.dm#L54"><img src="git.png" width="16" height="16" title="code/modules/requests/request_manager.dm 54"></a></aside></h3><p>Used in the destroy client pipeline to catch when clients are disconnecting and need to have their
+reference nulled on the 'owner' variable of any requests</p>
+<p>Arguments:</p>
+<ul>
+<li>requester - The client who is logging out</li>
+</ul><h3 id="proc/message_centcom"><aside class="declaration">proc </aside>message_centcom<aside>(/<a href="client.html">client</a>/requester, message)  <a href="https://github.com/ss220-space/Paradise/blob/5bd1cc0f337ea09337456a0d04e269348392dabb/code/modules/requests/request_manager.dm#L78"><img src="git.png" width="16" height="16" title="code/modules/requests/request_manager.dm 78"></a></aside></h3><p>Creates a request for a Centcom message</p>
+<p>Arguments:</p>
+<ul>
+<li>requester - The client who is sending the request</li>
+<li>message - The message</li>
+</ul><h3 id="proc/message_honk"><aside class="declaration">proc </aside>message_honk<aside>(/<a href="client.html">client</a>/requester, message)  <a href="https://github.com/ss220-space/Paradise/blob/5bd1cc0f337ea09337456a0d04e269348392dabb/code/modules/requests/request_manager.dm#L108"><img src="git.png" width="16" height="16" title="code/modules/requests/request_manager.dm 108"></a></aside></h3><p>Creates a request for a Honk message</p>
+<p>Arguments:</p>
+<ul>
+<li>requester - The client who is sending the request</li>
+<li>message - The message</li>
+</ul><h3 id="proc/message_syndicate"><aside class="declaration">proc </aside>message_syndicate<aside>(/<a href="client.html">client</a>/requester, message)  <a href="https://github.com/ss220-space/Paradise/blob/5bd1cc0f337ea09337456a0d04e269348392dabb/code/modules/requests/request_manager.dm#L88"><img src="git.png" width="16" height="16" title="code/modules/requests/request_manager.dm 88"></a></aside></h3><p>Creates a request for a Syndicate message</p>
+<p>Arguments:</p>
+<ul>
+<li>requester - The client who is sending the request</li>
+<li>message - The message</li>
+</ul><h3 id="proc/music_request"><aside class="declaration">proc </aside>music_request<aside>(/<a href="client.html">client</a>/requester, message)  <a href="https://github.com/ss220-space/Paradise/blob/5bd1cc0f337ea09337456a0d04e269348392dabb/code/modules/requests/request_manager.dm#L128"><img src="git.png" width="16" height="16" title="code/modules/requests/request_manager.dm 128"></a></aside></h3><p>Creates a request to play an internet sound</p>
+<p>Arguments:</p>
+<ul>
+<li>requester - The client who is sending the request</li>
+<li>message - The URL of the requested sound</li>
+</ul><h3 id="proc/nuke_request"><aside class="declaration">proc </aside>nuke_request<aside>(/<a href="client.html">client</a>/requester, message)  <a href="https://github.com/ss220-space/Paradise/blob/5bd1cc0f337ea09337456a0d04e269348392dabb/code/modules/requests/request_manager.dm#L118"><img src="git.png" width="16" height="16" title="code/modules/requests/request_manager.dm 118"></a></aside></h3><p>Creates a request for the nuclear self destruct codes</p>
+<p>Arguments:</p>
+<ul>
+<li>requester - The client who is sending the request</li>
+<li>message - The message</li>
+</ul><h3 id="proc/pray"><aside class="declaration">proc </aside>pray<aside>(/<a href="client.html">client</a>/requester, message, is_chaplain)  <a href="https://github.com/ss220-space/Paradise/blob/5bd1cc0f337ea09337456a0d04e269348392dabb/code/modules/requests/request_manager.dm#L68"><img src="git.png" width="16" height="16" title="code/modules/requests/request_manager.dm 68"></a></aside></h3><p>Creates a request for a prayer, and notifies admins who have the sound notifications enabled when appropriate</p>
+<p>Arguments:</p>
+<ul>
+<li>requester - The client who is praying</li>
+<li>message - The prayer</li>
+<li>is_chaplain - Boolean operator describing if the prayer is from a chaplain</li>
+</ul><h3 id="proc/request_ert"><aside class="declaration">proc </aside>request_ert<aside>(/<a href="client.html">client</a>/requester, message)  <a href="https://github.com/ss220-space/Paradise/blob/5bd1cc0f337ea09337456a0d04e269348392dabb/code/modules/requests/request_manager.dm#L98"><img src="git.png" width="16" height="16" title="code/modules/requests/request_manager.dm 98"></a></aside></h3><p>Creates a request for a ERT request</p>
+<p>Arguments:</p>
+<ul>
+<li>requester - The client who is sending the request</li>
+<li>message - The message</li>
+</ul><h3 id="proc/request_for_client"><aside class="declaration">proc </aside>request_for_client<aside>(/<a href="client.html">client</a>/requester, type, message)  <a href="https://github.com/ss220-space/Paradise/blob/5bd1cc0f337ea09337456a0d04e269348392dabb/code/modules/requests/request_manager.dm#L139"><img src="git.png" width="16" height="16" title="code/modules/requests/request_manager.dm 139"></a></aside></h3><p>Creates a request and registers the request with all necessary internal tracking lists</p>
+<p>Arguments:</p>
+<ul>
+<li>requester - The client who is sending the request</li>
+<li>type - The type of request, see defines</li>
+<li>message - The message</li>
+</ul></main><footer>paradise.dme <a href="https://github.com/ss220-space/Paradise/tree/5bd1cc0f337ea09337456a0d04e269348392dabb">5bd1cc0</a> (master220) — <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/crates/dmdoc/README.md">dmdoc 1.11.0</a></footer></body></html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><base href="../"><link rel="stylesheet" href="dmdoc.css"><title>/datum/syndie_data_storage - SS1984</title></head><body><header><a href="index.html">SS1984</a> - <a href="index.html#modules">Modules</a> - <a href="index.html#types">Types</a> — <a href="datum/syndie_data_storage.html#var">Var Details</a></header><main><h1>syndie_data_storage <aside>/<a href="datum.html">datum</a>/<a href="datum/syndie_data_storage.html">syndie_data_storage</a></aside> <a href="https://github.com/ss220-space/Paradise/blob/5bd1cc0f337ea09337456a0d04e269348392dabb/code/game/machinery/computer/syndie_cargo.dm#L119"><img src="git.png" width="16" height="16" title="code/game/machinery/computer/syndie_cargo.dm 119"></a></h1><p>Хранилище данных.
+Консоли её находят и используют как сервер для снхронизации данных.
+Если консоль построить в зоне без хранилища данных, консоль создаст новое хранилище данных в своей зоне при попытке синхронизации через кнопку &quot;Link pads&quot;
+Такой подход позволяет игрокам построить собственное синдикарго</p><table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2></td></tr><tr><th><a href="datum/syndie_data_storage.html#var/cargoarea">cargoarea</a></th><td>Код со времён когда этот обьект был абстрактным эффектом вместо датума, оставлен на всякий случай.</td></tr><tr><th><a href="datum/syndie_data_storage.html#var/telepads_status">telepads_status</a></th><td>Возможные статусы для телепадов
+&quot;Pads not linked!&quot;	// Статус только что построенной консоли.
+&quot;Pads on cooldown&quot;
+&quot;Pads ready&quot;</td></tr></table><h2 id="var">Var Details</h2><h3 id="var/cargoarea"><aside class="declaration">var </aside>cargoarea <aside>– /<a href="area.html">area</a></aside> <a href="https://github.com/ss220-space/Paradise/blob/5bd1cc0f337ea09337456a0d04e269348392dabb/code/game/machinery/computer/syndie_cargo.dm#L133"><img src="git.png" width="16" height="16" title="code/game/machinery/computer/syndie_cargo.dm 133"></a></h3><p>Код со времён когда этот обьект был абстрактным эффектом вместо датума, оставлен на всякий случай.</p>
+<pre><code>layer = TURF_LAYER
+density = FALSE
+icon = 'icons/effects/mapping_helpers.dmi'
+icon_state = null
+invisibility = INVISIBILITY_ABSTRACT
+desc = &quot;This shit has the data for the syndie cargo consoles, so it can be synchronized between them, they don't function normally without it&quot;
+</code></pre>
+<p>Available money amount</p><h3 id="var/telepads_status"><aside class="declaration">var </aside>telepads_status <a href="https://github.com/ss220-space/Paradise/blob/5bd1cc0f337ea09337456a0d04e269348392dabb/code/game/machinery/computer/syndie_cargo.dm#L143"><img src="git.png" width="16" height="16" title="code/game/machinery/computer/syndie_cargo.dm 143"></a></h3><p>Возможные статусы для телепадов
+&quot;Pads not linked!&quot;	// Статус только что построенной консоли.
+&quot;Pads on cooldown&quot;
+&quot;Pads ready&quot;</p></main><footer>paradise.dme <a href="https://github.com/ss220-space/Paradise/tree/5bd1cc0f337ea09337456a0d04e269348392dabb">5bd1cc0</a> (master220) — <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/crates/dmdoc/README.md">dmdoc 1.11.0</a></footer></body></html>

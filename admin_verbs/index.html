@@ -1,0 +1,2300 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Admin Verbs</title>
+<style>
+    h1 {
+        text-align: center;
+        margin: 20px 0 10px;
+    }
+    table {
+        border-collapse: collapse;
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        table-layout: fixed;
+    }
+    th, td {
+        border: 1px solid #ccc;
+        padding: 2px 6px;
+        font-size: 0.85em;
+        text-align: center;
+        vertical-align: middle;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+    th {
+        background: #eee;
+    }
+    th:nth-child(1), td:nth-child(1) { width: 15%; }
+    th:nth-child(2), td:nth-child(2) { width: 20%; }
+    th:nth-child(3), td:nth-child(3) { width: 30%; }
+    th:nth-child(4), td:nth-child(4) { width: 25%; }
+    th:nth-child(5), td:nth-child(5) { width: 10%; }
+</style>
+</head>
+<body>
+<h1>Admin Verbs (282)</h1>
+<table>
+<tr><th>Категория</th><th>Название</th><th>Описание</th><th>Права</th><th>Видимость</th></tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Advanced ProcCall</strong></td>
+<td>Call a proc on any datum in the server.</td>
+<td>+DEBUG, +PROCCALL</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Air Status In Location</strong></td>
+<td>Gets the air status for your current turf.</td>
+<td>+DEBUG</td>
+<td>Map-Debug</td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Allow Browser Inspect</strong></td>
+<td>Allow browser debugging via inspect.</td>
+<td>+DEBUG</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Assume Direct Control in List</strong></td>
+<td>Assume direct control of a mob.</td>
+<td>+ADMIN, +DEBUG</td>
+<td>Map-Debug</td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Check Bomb Impact</strong></td>
+<td>See what the effect of a bomb would be.</td>
+<td>+DEBUG</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Clear Dynamic Turf Reservations</strong></td>
+<td>Deallocates all reserved space, restoring it to round start conditions.</td>
+<td>+DEBUG</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Clear Legacy Asset Cache</strong></td>
+<td>Clears the legacy asset cache, regenerating it immediately (may cause lag).</td>
+<td>+DEBUG</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Clear Smart Asset Cache</strong></td>
+<td>Clear the smart asset cache, causing it to regenerate next round.</td>
+<td>+DEBUG</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Controller Overview</strong></td>
+<td>View the current states of the Subsystem Controllers.</td>
+<td>+ADMIN, +DEBUG, +VIEWRUNTIMES</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Count Atoms/Datums</strong></td>
+<td>Count how many atom or datum instances there are of each type, then output it to a JSON to download.</td>
+<td>+DEBUG</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Debug Controller</strong></td>
+<td>Debug the various periodic loop controllers for the game (be careful!)</td>
+<td>+DEBUG</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Debug MC Dependencies</strong></td>
+<td>Debug MC dependencies.</td>
+<td>+DEBUG</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Debug Mob Lists</strong></td>
+<td>For when you just gotta know.</td>
+<td>+DEBUG</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Debug Stat Panel</strong></td>
+<td>Toggles local debug of the stat panel.</td>
+<td>+DEBUG</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Debug Timers</strong></td>
+<td>Shows currently active timers, grouped by callback.</td>
+<td>+DEBUG, +VIEWRUNTIMES</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Debug verbs - Disable</strong></td>
+<td>Disable all debug verbs.</td>
+<td>+DEBUG</td>
+<td>Map-Debug</td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Debug verbs - Enable</strong></td>
+<td>Enable all debug verbs.</td>
+<td>+DEBUG</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Debug-Game</strong></td>
+<td>Toggles game debugging.</td>
+<td>+DEBUG</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Del Singulo / Tesla</strong></td>
+<td>Delete all singularities and tesla balls.</td>
+<td>+DEBUG</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Deserialize JSON datum</strong></td>
+<td>Creates an object from a JSON string.</td>
+<td>+SPAWN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Display Initialize Log</strong></td>
+<td>Displays a list of things that didn&#39;t handle Initialize properly.</td>
+<td>+DEBUG, +VIEWRUNTIMES</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Display Overlay Log</strong></td>
+<td>Display the overlay manager log of everything that&#39;s passed through it.</td>
+<td>+DEBUG</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Display Simple del() Log</strong></td>
+<td>Display a compacted del&#39;s log.</td>
+<td>+DEBUG, +VIEWRUNTIMES</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Display del() Log</strong></td>
+<td>Display del&#39;s log of everything that&#39;s passed through it.</td>
+<td>+DEBUG, +VIEWRUNTIMES</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Edit/Debug Planes</strong></td>
+<td>Edit and visualize plane masters and their connections (relays).</td>
+<td>+DEBUG</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Enable Forced Verb Execution</strong></td>
+<td>Enable Forced Verb Execution.</td>
+<td>+DEBUG</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Fix Next Move</strong></td>
+<td>Unfreezes all frozen mobs.</td>
+<td>+DEBUG</td>
+<td>Map-Debug</td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Grant Full Access in List</strong></td>
+<td>Grant full access to a mob.</td>
+<td>+EVENT</td>
+<td>Map-Debug</td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Interesting Turf</strong></td>
+<td>Teleports you to a random Interesting Turf from MILLA</td>
+<td>+DEBUG, +VIEWRUNTIMES</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Make Powernets</strong></td>
+<td>Regenerates all powernets for all cables.</td>
+<td>+DEBUG</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Make Space Map</strong></td>
+<td>Create a map of the space levels as turfs at your feet.</td>
+<td>+ADMIN, +DEBUG</td>
+<td>Map-Debug</td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Map Template - Place</strong></td>
+<td>Place a map template at your current location.</td>
+<td>+DEBUG, +EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Map Template - Upload</strong></td>
+<td>Upload a map template to the server.</td>
+<td>+DEBUG, +EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Open Event Logger</strong></td>
+<td>Open the event logger interface.</td>
+<td>+DEBUG</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Paint Grid Map</strong></td>
+<td>Painting the world based on the cell its located in.</td>
+<td>+DEBUG</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>PodSpawn</strong></td>
+<td>Spawn an atom via supply drop.</td>
+<td>+SPAWN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Radio Report</strong></td>
+<td>Shows a report of all radio devices and their filters.</td>
+<td>+DEBUG</td>
+<td>Map-Debug</td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Raw Gas Scan</strong></td>
+<td>Scans your current tile, including LINDA data not normally displayed.</td>
+<td>+DEBUG, +VIEWRUNTIMES</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Re-register Docking Ports</strong></td>
+<td>Allow admins to fix shuttles ports list.</td>
+<td>+ADMIN, +DEBUG</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Reestablish DB Connection</strong></td>
+<td>Force a reconnection to the database.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Reload Polls</strong></td>
+<td>Reloading all polls.</td>
+<td>+DEBUG</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Remake Space Transitions</strong></td>
+<td>Re-assigns all space transitions.</td>
+<td>+ADMIN, +DEBUG</td>
+<td>Map-Debug</td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Restart Controller</strong></td>
+<td>Restart one of the various periodic loop controllers for the game (be careful!)</td>
+<td>+DEBUG</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>SDQL2 Query</strong></td>
+<td>Run a SDQL2 query.</td>
+<td>+PROCCALL</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Serialize Marked Datum</strong></td>
+<td>Turns your marked object into a JSON string you can later use to re-create the object.</td>
+<td>+ADMIN, +DEBUG</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Set Ticklag</strong></td>
+<td>Sets a new tick lag. Recommend you don&#39;t mess with this too much! Stable, time-tested ticklag value is 0.9</td>
+<td>+DEBUG</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Spawn</strong></td>
+<td>Spawn an atom.</td>
+<td>+SPAWN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Spawn Cargo</strong></td>
+<td>Spawn a cargo crate.</td>
+<td>+SPAWN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Spawn Movable UI Object</strong></td>
+<td>Spawn a movable UI object for testing.</td>
+<td>+DEBUG</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Spawn Snap UI Object</strong></td>
+<td>Spawn a snap UI object for testing.</td>
+<td>+DEBUG</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Start Singularity</strong></td>
+<td>Sets up the singularity and all machines to get power flowing through the station.</td>
+<td>+DEBUG</td>
+<td>Map-Debug</td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Toggle Pathfind Testing</strong></td>
+<td>Enables/Disables pathfinding testing action buttons</td>
+<td>+DEBUG</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Toggle href logging</strong></td>
+<td>Toggle href logging</td>
+<td>+SERVER</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Tracy Profiler Start</strong></td>
+<td>Starts the tracy profiler and writes the data to the server&#39;s data directory.</td>
+<td>+ADMIN, +BAN, +BUILDMODE, +DEBUG, +EVENT, +MENTOR, +MODERATOR, +PERMISSIONS, +POSSESS, +PROCCALL, +REJUVINATE, +SERVER, +SKINS, +SOUND, +SPAWN, +STEALTH, +VAREDIT, +VIEWRUNTIMES</td>
+<td>Host</td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Tracy Profiler Stop</strong></td>
+<td>Stop the tracy profiler.</td>
+<td>+ADMIN, +BAN, +BUILDMODE, +DEBUG, +EVENT, +MENTOR, +MODERATOR, +PERMISSIONS, +POSSESS, +PROCCALL, +REJUVINATE, +SERVER, +SKINS, +SOUND, +SPAWN, +STEALTH, +VAREDIT, +VIEWRUNTIMES</td>
+<td>Host</td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>VV by Ref</strong></td>
+<td>Give this a ref string, and you will see its corresponding VV panel if it exists.</td>
+<td>+DEBUG</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>View Runtimes</strong></td>
+<td>Opens the runtime viewer.</td>
+<td>+DEBUG, +VIEWRUNTIMES</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>View Server Instances</strong></td>
+<td>View the running server instances.</td>
+<td>+DEBUG</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>View Timer Log</strong></td>
+<td>Shows the log of what types created timers this round.</td>
+<td>+DEBUG, +VIEWRUNTIMES</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>View UID Log</strong></td>
+<td>Shows the log of created UIDs this round.</td>
+<td>+DEBUG</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug</td>
+<td><strong>Visualize Interesting Turfs</strong></td>
+<td>Shows all the Interesting Turfs from MILLA</td>
+<td>+DEBUG, +VIEWRUNTIMES</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Debug.Mapping</td>
+<td><strong>Camera Range Display</strong></td>
+<td>Shows the range of cameras on the station.</td>
+<td>+DEBUG</td>
+<td>Map-Debug</td>
+</tr>
+
+<tr>
+<td>Debug.Mapping</td>
+<td><strong>Camera Report</strong></td>
+<td>Get a printout of all camera issues.</td>
+<td>+DEBUG</td>
+<td>Map-Debug</td>
+</tr>
+
+<tr>
+<td>Debug.Mapping</td>
+<td><strong>Check Plumbing</strong></td>
+<td>Verifies the integrity of the plumbing network.</td>
+<td>+DEBUG</td>
+<td>Map-Debug</td>
+</tr>
+
+<tr>
+<td>Debug.Mapping</td>
+<td><strong>Check Power</strong></td>
+<td>Verifies the integrity of the power network.</td>
+<td>+ADMIN</td>
+<td>Map-Debug</td>
+</tr>
+
+<tr>
+<td>Debug.Mapping</td>
+<td><strong>Count Objects All</strong></td>
+<td>Counts the number of objects of a certain type in the game world.</td>
+<td>+DEBUG</td>
+<td>Map-Debug</td>
+</tr>
+
+<tr>
+<td>Debug.Mapping</td>
+<td><strong>Count Objects On Z-Level</strong></td>
+<td>Counts the number of objects of a certain type on a specific z-level.</td>
+<td>+DEBUG</td>
+<td>Map-Debug</td>
+</tr>
+
+<tr>
+<td>Debug.Mapping</td>
+<td><strong>Intercom Range Display</strong></td>
+<td>Shows the range of intercoms on the station.</td>
+<td>+DEBUG</td>
+<td>Map-Debug</td>
+</tr>
+
+<tr>
+<td>Debug.Mapping</td>
+<td><strong>Test Areas</strong></td>
+<td>Tests the areas for various machinery.</td>
+<td>+DEBUG</td>
+<td>Map-Debug</td>
+</tr>
+
+<tr>
+<td>Debug.Mapping</td>
+<td><strong>Test Nature Map Generator</strong></td>
+<td>Test the nature map generator</td>
+<td>+DEBUG</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>(Special) Download Icon</strong></td>
+<td></td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>AObserve</strong></td>
+<td></td>
+<td>+ADMIN, +DEBUG, +MENTOR, +MODERATOR, +VIEWRUNTIMES</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Admin PM Mob</strong></td>
+<td></td>
+<td>+ADMIN, +MENTOR</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Assume Direct Control</strong></td>
+<td></td>
+<td>+ADMIN, +DEBUG</td>
+<td>Map-Debug</td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Atom ProcCall</strong></td>
+<td></td>
+<td>+DEBUG, +PROCCALL</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Bless</strong></td>
+<td></td>
+<td>+EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>C.M.A. - Admin</strong></td>
+<td></td>
+<td>+EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>C.M.A. - Self</strong></td>
+<td></td>
+<td>+EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Check Contents</strong></td>
+<td></td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Cure Disease</strong></td>
+<td></td>
+<td>+EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Debug Air Status</strong></td>
+<td></td>
+<td>+DEBUG</td>
+<td>Map-Debug</td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Delete</strong></td>
+<td></td>
+<td>+DEBUG, +SPAWN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Direct Narrate</strong></td>
+<td></td>
+<td>+EVENT, +SERVER</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Drop Everything</strong></td>
+<td></td>
+<td>+ADMIN, +DEBUG</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>EM Pulse</strong></td>
+<td></td>
+<td>+DEBUG, +EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Explosion</strong></td>
+<td></td>
+<td>+DEBUG, +EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Freeze</strong></td>
+<td></td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Get Mob</strong></td>
+<td></td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Gib</strong></td>
+<td></td>
+<td>+ADMIN, +EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Give Disease</strong></td>
+<td></td>
+<td>+EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Give Spell</strong></td>
+<td></td>
+<td>+EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Godmode</strong></td>
+<td></td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Grant Full Access</strong></td>
+<td></td>
+<td>+EVENT</td>
+<td>Map-Debug</td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Headset Message</strong></td>
+<td></td>
+<td>+EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Jump To Mob</strong></td>
+<td></td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Jump To Turf</strong></td>
+<td></td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Local Narrate</strong></td>
+<td></td>
+<td>+EVENT, +SERVER</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Make Gorilla</strong></td>
+<td></td>
+<td>+SPAWN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Make Robot</strong></td>
+<td></td>
+<td>+SPAWN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Make Simple Animal</strong></td>
+<td></td>
+<td>+SPAWN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Make Sound</strong></td>
+<td></td>
+<td>+SOUND</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Make Superhero</strong></td>
+<td></td>
+<td>+SPAWN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Man Up</strong></td>
+<td></td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Mark Object</strong></td>
+<td></td>
+<td>+ADMIN, +VIEWRUNTIMES</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Object Say</strong></td>
+<td></td>
+<td>+EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Offer control to ghosts</strong></td>
+<td></td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Open TGUI PP</strong></td>
+<td></td>
+<td>+ADMIN, +MODERATOR</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Prison</strong></td>
+<td></td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Rejuvenate</strong></td>
+<td></td>
+<td>+REJUVINATE</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Resolve All Open Admin Tickets</strong></td>
+<td>Resolve All Open Admin Tickets</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Resolve All Open Mentor Tickets</strong></td>
+<td>Resolves all open mhelps</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Select Equipment</strong></td>
+<td></td>
+<td>+EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Send Alert Message</strong></td>
+<td></td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Send Mob</strong></td>
+<td></td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Show Borg Panel</strong></td>
+<td></td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Show Old Player Panel</strong></td>
+<td></td>
+<td>+ADMIN, +MODERATOR</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Show Traitor Panel</strong></td>
+<td></td>
+<td>+ADMIN, +MODERATOR</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Smite</strong></td>
+<td></td>
+<td>+ADMIN, +EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Subtle Message</strong></td>
+<td></td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Tag Datum</strong></td>
+<td></td>
+<td>+ADMIN, +VIEWRUNTIMES</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>Tweak Component Ratings</strong></td>
+<td></td>
+<td>+DEBUG</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Hidden</td>
+<td><strong>View Variables</strong></td>
+<td></td>
+<td>+ADMIN, +VIEWRUNTIMES</td>
+<td></td>
+</tr>
+
+<tr>
+<td>OOC</td>
+<td><strong>AOOC</strong></td>
+<td>Antagonist OOC</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Server</td>
+<td><strong>Delay Pre-Game</strong></td>
+<td>Delay the game start.</td>
+<td>+SERVER</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Server</td>
+<td><strong>End Round</strong></td>
+<td>Instantly ends the round and brings up the scoreboard, in the same way that wizards dying do.</td>
+<td>+SERVER</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Server</td>
+<td><strong>Jukebox Browse Music</strong></td>
+<td>Просмотр музыкальных файлов для модерации.</td>
+<td>+SOUND</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Server</td>
+<td><strong>Jukebox Upload Music</strong></td>
+<td>Загрузить .ogg файл для воспроизведения через музыкальный автомат.</td>
+<td>+SOUND</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Server</td>
+<td><strong>Memo</strong></td>
+<td>View and modify server memos.</td>
+<td>+SERVER</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Server</td>
+<td><strong>Reboot World</strong></td>
+<td>Restarts the world immediately.</td>
+<td>+SERVER</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Server</td>
+<td><strong>Reload Admins</strong></td>
+<td>Reloads all admins from the database.</td>
+<td>+SERVER</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Server</td>
+<td><strong>Set Admin Notice</strong></td>
+<td>Set an announcement that appears to everyone who joins the server. Only lasts this round.</td>
+<td>+SERVER</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Server</td>
+<td><strong>Start Now</strong></td>
+<td>Start the round RIGHT NOW.</td>
+<td>+SERVER</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Server</td>
+<td><strong>Toggle Dead Vote</strong></td>
+<td>Toggle the vote for dead players on or off.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Server</td>
+<td><strong>Toggle Hub</strong></td>
+<td>Toggles the server&#39;s visilibility on the BYOND Hub.</td>
+<td>+SERVER</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ</td>
+<td><strong>ASay</strong></td>
+<td>Send a message to other admins</td>
+<td>+ADMIN, +MODERATOR</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ</td>
+<td><strong>Achievements Admin Panel</strong></td>
+<td>View achievements management panel.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ</td>
+<td><strong>Admin PM</strong></td>
+<td>Show a list of clients to PM</td>
+<td>+ADMIN, +MENTOR</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ</td>
+<td><strong>Admin PM Key</strong></td>
+<td>Send a PM by key.</td>
+<td>+ADMIN, +MENTOR</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ</td>
+<td><strong>Adminverbs - Hide All</strong></td>
+<td>Hide most of your admin verbs.</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ</td>
+<td><strong>Asays</strong></td>
+<td>View current round Asays.</td>
+<td>+ADMIN, +MODERATOR</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ</td>
+<td><strong>Big Brother Mode</strong></td>
+<td>Toggle Big Brother mode.</td>
+<td>+PERMISSIONS</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ</td>
+<td><strong>Check New Players</strong></td>
+<td>Perform a player account age check.</td>
+<td>+ADMIN, +MENTOR, +MODERATOR</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ</td>
+<td><strong>Check Player Playtime</strong></td>
+<td>Return a playtime report.</td>
+<td>+ADMIN, +MENTOR, +MODERATOR</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ</td>
+<td><strong>De-admin self</strong></td>
+<td>De-admin yourself.</td>
+<td>+ADMIN, +MENTOR, +VIEWRUNTIMES</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ</td>
+<td><strong>Delete Book</strong></td>
+<td>Permamently deletes a book from the database.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ</td>
+<td><strong>Devsay</strong></td>
+<td>Send a message to other developers.</td>
+<td>+ADMIN, +VIEWRUNTIMES</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ</td>
+<td><strong>Devsays</strong></td>
+<td>View current round Devsays.</td>
+<td>+ADMIN, +VIEWRUNTIMES</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ</td>
+<td><strong>Get Current Logs</strong></td>
+<td>View or retrieve logfiles for the current round.</td>
+<td>+ADMIN, +DEBUG</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ</td>
+<td><strong>Get Server Logs</strong></td>
+<td>View or retrieve logfiles.</td>
+<td>+ADMIN, +DEBUG</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ</td>
+<td><strong>List free slots</strong></td>
+<td>List available station jobs.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ</td>
+<td><strong>MSay</strong></td>
+<td>Send a message to other mentors.</td>
+<td>+ADMIN, +MENTOR, +MODERATOR</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ</td>
+<td><strong>Msays</strong></td>
+<td>View current round Msays.</td>
+<td>+ADMIN, +MENTOR</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ</td>
+<td><strong>Notes by admin</strong></td>
+<td>Shows notes by admin ckey.</td>
+<td>+PERMISSIONS</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ</td>
+<td><strong>Paintings Manager</strong></td>
+<td>View and redact paintings.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ</td>
+<td><strong>Permissions Panel (Legacy)</strong></td>
+<td>Edit admin permissions.</td>
+<td>+PERMISSIONS</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ</td>
+<td><strong>Permissions Panel (New)</strong></td>
+<td>Edit admin permissions.</td>
+<td>+PERMISSIONS</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ</td>
+<td><strong>Ping all admins</strong></td>
+<td>Ping all admins.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ</td>
+<td><strong>Send Alert Message in List</strong></td>
+<td>Send an admin alert to player.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ</td>
+<td><strong>Server Poll Management</strong></td>
+<td>View and manage polls.</td>
+<td>+SERVER</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ</td>
+<td><strong>Show Watchlist</strong></td>
+<td>Show the watchlist.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ</td>
+<td><strong>Stealth Mode</strong></td>
+<td>Toggle stealth.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ</td>
+<td><strong>View Flagged Books</strong></td>
+<td>View books flagged for content.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Админ/Ментор помощь</td>
+<td><strong>Logging View</strong></td>
+<td>Opens the detailed logging viewer.</td>
+<td>+ADMIN, +MODERATOR</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Админ/Ментор помощь</td>
+<td><strong>My Admin Tickets</strong></td>
+<td>Open the Admin Ticket UI</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Админ/Ментор помощь</td>
+<td><strong>Open Admin Ticket Interface</strong></td>
+<td>Open the ahelp panel.</td>
+<td>+ADMIN, +MODERATOR</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Админ/Ментор помощь</td>
+<td><strong>Open Mentor Ticket Interface</strong></td>
+<td>Opens the mhelp panel</td>
+<td>+ADMIN, +MENTOR</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Бан</td>
+<td><strong>Ban Panel</strong></td>
+<td>Ban players here.</td>
+<td>+BAN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Бан</td>
+<td><strong>Global Ban DB Lookup</strong></td>
+<td>Lookup global bans by ckey.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Бан</td>
+<td><strong>Player Notes</strong></td>
+<td>Open Player Notes panel.</td>
+<td>+ADMIN, +MODERATOR</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Бан</td>
+<td><strong>Print Jobban Log</strong></td>
+<td>This spams all the active jobban entries for the current round to standard output.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Бан</td>
+<td><strong>Search Jobban Log</strong></td>
+<td>This searches all the active jobban entries for the current round and outputs the results to standard output.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Бан</td>
+<td><strong>Show Player Notes</strong></td>
+<td>Show Player Notes panel for a given ckey.</td>
+<td>+ADMIN, +MODERATOR</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Бан</td>
+<td><strong>Sticky Ban Panel</strong></td>
+<td>List and manage sticky bans.</td>
+<td>+BAN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Бан</td>
+<td><strong>VPN Ckey Whitelist</strong></td>
+<td>Modify ckey&#39;s presence on VPN whitelist</td>
+<td>+BAN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Бан</td>
+<td><strong>View GeoIP</strong></td>
+<td>Open the GeoIP Report.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Веселье</td>
+<td><strong>Add Random AI Law</strong></td>
+<td>Add a random law to the AI.</td>
+<td>+EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Веселье</td>
+<td><strong>Bless in List</strong></td>
+<td>Bless a player with divine power.</td>
+<td>+ADMIN, +EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Веселье</td>
+<td><strong>Bluespace Artillery</strong></td>
+<td>Выстрелить из БСА.</td>
+<td>+ADMIN, +EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Веселье</td>
+<td><strong>Cinematic</strong></td>
+<td>Show a cinematic to all players.</td>
+<td>+EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Веселье</td>
+<td><strong>Drop Bomb</strong></td>
+<td>Cause an explosion of varying strength at your location.</td>
+<td>+EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Веселье</td>
+<td><strong>Drop lightning bolt</strong></td>
+<td>Вызвать молнию различной силы под вами.</td>
+<td>+EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Веселье</td>
+<td><strong>Gibself</strong></td>
+<td>Give yourself the same treatment you give others.</td>
+<td>+ADMIN, +EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Веселье</td>
+<td><strong>Load Circuit</strong></td>
+<td>Loads a circuit from a file or direct input.</td>
+<td>+VAREDIT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Веселье</td>
+<td><strong>Make Everyone Random</strong></td>
+<td>Make everyone have a random appearance. You can only use this before rounds!</td>
+<td>+EVENT, +SERVER</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Веселье</td>
+<td><strong>Man Up Global</strong></td>
+<td>Tells EVERYONE to man up and deal with it.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Веселье</td>
+<td><strong>Man Up in List</strong></td>
+<td>Tells to man up and deal with it.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Веселье</td>
+<td><strong>Object Say in List</strong></td>
+<td></td>
+<td>+EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Веселье</td>
+<td><strong>Polymorph All</strong></td>
+<td>Applies the effects of the bolt of change to every single mob.</td>
+<td>+EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Веселье</td>
+<td><strong>Possess Obj</strong></td>
+<td>Possess an object.</td>
+<td>+POSSESS</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Веселье</td>
+<td><strong>Prison in List</strong></td>
+<td>Send a mob to prison.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Веселье</td>
+<td><strong>Release Object</strong></td>
+<td>Stop possessing an object.</td>
+<td>+POSSESS</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Веселье</td>
+<td><strong>Show Tip</strong></td>
+<td>Sends a tip to all players.</td>
+<td>+EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Веселье</td>
+<td><strong>Smite in List</strong></td>
+<td>Smite a player with divine power.</td>
+<td>+ADMIN, +EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Веселье</td>
+<td><strong>Title Screen: Change</strong></td>
+<td>Enables an admin to upload a new titlescreen image.</td>
+<td>+EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Веселье</td>
+<td><strong>Title Screen: Set HTML</strong></td>
+<td>An admin debug command that enables you to change the HTML on the go.</td>
+<td>+DEBUG</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Веселье</td>
+<td><strong>Title Screen: Set Notice</strong></td>
+<td>Sets a titlescreen notice, a big red text on the main screen.</td>
+<td>+EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Звук</td>
+<td><strong>Play Direct Mob Sound</strong></td>
+<td>Play a sound directly to a mob.</td>
+<td>+SOUND</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Звук</td>
+<td><strong>Play Global Sound</strong></td>
+<td>Play a sound to all connected players.</td>
+<td>+SOUND</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Звук</td>
+<td><strong>Play Internet Sound</strong></td>
+<td>Play a given internet sound to all players.</td>
+<td>+SOUND</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Звук</td>
+<td><strong>Play Local Sound</strong></td>
+<td>Plays a sound only you can hear.</td>
+<td>+SOUND</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Звук</td>
+<td><strong>Stop All Playing Sounds</strong></td>
+<td>Stops all playing sounds for EVERYONE.</td>
+<td>+SOUND</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Ивент</td>
+<td><strong>Add Custom AI Law</strong></td>
+<td>Add a custom law to the Silicons.</td>
+<td>+EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Ивент</td>
+<td><strong>Admin Verb Panel</strong></td>
+<td>Browse and invoke admin verbs.</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Ивент</td>
+<td><strong>Announce</strong></td>
+<td>Announce your desires to the world.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Ивент</td>
+<td><strong>Change Command Name</strong></td>
+<td>Change the name of Central Command.</td>
+<td>+EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Ивент</td>
+<td><strong>Change Custom Event</strong></td>
+<td>Set a custom event.</td>
+<td>+EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Ивент</td>
+<td><strong>Create AI Triumvirate</strong></td>
+<td></td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Ивент</td>
+<td><strong>Create Antagonist</strong></td>
+<td>Auto-create an antagonist of your choice.</td>
+<td>+EVENT, +SERVER</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Ивент</td>
+<td><strong>Create Command Report</strong></td>
+<td>Create a command report to be sent to the station.</td>
+<td>+EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Ивент</td>
+<td><strong>Dispatch CentComm Response Team</strong></td>
+<td>Send an CentComm response team to the station.</td>
+<td>+EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Ивент</td>
+<td><strong>Event Manager Panel</strong></td>
+<td>Event Manager Panel.</td>
+<td>+EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Ивент</td>
+<td><strong>Fax Panel</strong></td>
+<td>View and respond to faxes sent to CC.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Ивент</td>
+<td><strong>Game Panel</strong></td>
+<td>Look at the state of the game.</td>
+<td>+ADMIN, +EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Ивент</td>
+<td><strong>Global Narrate</strong></td>
+<td>Send a direct narration to all connected players.</td>
+<td>+EVENT, +SERVER</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Ивент</td>
+<td><strong>Launch Supplypod</strong></td>
+<td>Настройте и запустите капсулу снабжения, полную всего, что душе угодно!</td>
+<td>+EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Ивент</td>
+<td><strong>Modify Goals</strong></td>
+<td>Modify the station goals for the shift.</td>
+<td>+EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Ивент</td>
+<td><strong>Modify Station Traits</strong></td>
+<td></td>
+<td>+EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Ивент</td>
+<td><strong>Outfit Manager</strong></td>
+<td>View and edit outfits.</td>
+<td>+EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Ивент</td>
+<td><strong>Secrets</strong></td>
+<td>Abuse harder than you ever have before with this handy dandy semi-misc stuff menu.</td>
+<td>+ADMIN, +EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Ивент</td>
+<td><strong>Select next map</strong></td>
+<td>Select the next map.</td>
+<td>+EVENT, +SERVER</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Ивент</td>
+<td><strong>Show Borg Panel in List</strong></td>
+<td>Open Borg Panel.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Ивент</td>
+<td><strong>Spawn Panel</strong></td>
+<td>Spawn Panel (TGUI).</td>
+<td>+SPAWN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Ивент</td>
+<td><strong>Spawn Reagent Container</strong></td>
+<td>Spawn a reagent container.</td>
+<td>+SPAWN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Ивент</td>
+<td><strong>Toggle Build Mode Self</strong></td>
+<td>Toggle build mode for yourself.</td>
+<td>+EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Ивент</td>
+<td><strong>Trigger Event</strong></td>
+<td>Trigger Event.</td>
+<td>+EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Ивент</td>
+<td><strong>Задать праздник</strong></td>
+<td>Принудительно задать переменную \&#34;Праздник\&#34;, чтобы игра считала, что сегодня определённый день.</td>
+<td>+SERVER</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Ивент</td>
+<td><strong>Отправить \&#34;Гиммик комманду\&#34;</strong></td>
+<td>Спавнит команду игроков в выбранной экипировке.</td>
+<td>+EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Ивент</td>
+<td><strong>Отправить Диверсионный Отряд \&#34;Синдиката\&#34;</strong></td>
+<td>Спавнит Диверсионный Отряд \&#34;Синдиката\&#34; в их месте постоянной дислокации на СЦК.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Ивент</td>
+<td><strong>Отправить Ударный Отряд \&#34;Синдиката\&#34;</strong></td>
+<td>Спавнит Ударный Отряд \&#34;Синдиката\&#34; в месте их дислокации на СЦК.</td>
+<td>+EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Игра</td>
+<td><strong>AGhost</strong></td>
+<td>Become a ghost without DNR.</td>
+<td>+ADMIN, +MODERATOR, +POSSESS</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Игра</td>
+<td><strong>Antagonists Menu</strong></td>
+<td>Opens the antagonists menu.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Игра</td>
+<td><strong>Change View Range</strong></td>
+<td>Switch between 1x and custom views.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Игра</td>
+<td><strong>Check AI Laws</strong></td>
+<td>View the current AI laws.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Игра</td>
+<td><strong>Check Antagonists</strong></td>
+<td>See all antagonists for the round.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Игра</td>
+<td><strong>Check Security</strong></td>
+<td>See all security for the round.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Игра</td>
+<td><strong>DSay</strong></td>
+<td>Speak to the dead.</td>
+<td>+ADMIN, +MODERATOR</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Игра</td>
+<td><strong>Free Job Slot</strong></td>
+<td>Frees a station job role.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Игра</td>
+<td><strong>Get Key</strong></td>
+<td>Teleport the player with the provided key to you.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Игра</td>
+<td><strong>Get Mob in List</strong></td>
+<td>Teleport a mob to your location.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Игра</td>
+<td><strong>Godmode in List</strong></td>
+<td>Toggles godmode on a mob.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Игра</td>
+<td><strong>Investigate</strong></td>
+<td>Browse various detailed logs.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Игра</td>
+<td><strong>Invisimin</strong></td>
+<td>Toggles ghost-like invisibility.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Игра</td>
+<td><strong>Jump To Area</strong></td>
+<td>Jumps to the specified area.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Игра</td>
+<td><strong>Jump To Coordinate</strong></td>
+<td>Jump to a specific coordinate in the game world.</td>
+<td>+ADMIN, +DEBUG</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Игра</td>
+<td><strong>Jump To Key</strong></td>
+<td>Jump to a specific player.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Игра</td>
+<td><strong>Jump to Ruin</strong></td>
+<td>Displays a list of all placed ruins to teleport to.</td>
+<td>+DEBUG</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Игра</td>
+<td><strong>Jump to...</strong></td>
+<td>Area, Mob, Key or Coordinate</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Игра</td>
+<td><strong>List SSDs and AFKs</strong></td>
+<td>List SSDs and AFK players</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Игра</td>
+<td><strong>Manage Silicon Laws</strong></td>
+<td>Open the law manager.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Игра</td>
+<td><strong>Player Panel Veth</strong></td>
+<td>Updated Player Panel with TGUI.</td>
+<td>+ADMIN, +MODERATOR</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Игра</td>
+<td><strong>Requests Manager</strong></td>
+<td>Open the request manager panel to view all requests during this round.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Игра</td>
+<td><strong>Reset NTTC Configuration</strong></td>
+<td>Resets NTTC to the default configuration.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Игра</td>
+<td><strong>Respawn Character</strong></td>
+<td>Respawn a player that has been round removed in some manner. They must be a ghost.</td>
+<td>+SPAWN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Игра</td>
+<td><strong>Send Mob in List</strong></td>
+<td>Teleport the specified mob to an area of your choosing.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Игра</td>
+<td><strong>Toggle Advanced Admin Interaction</strong></td>
+<td>Allows you to interact with atoms such as buttons and doors, on top of regular machinery interaction.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Игра</td>
+<td><strong>View All Circuits</strong></td>
+<td>List all circuits in the game.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Игра</td>
+<td><strong>View Tags</strong></td>
+<td>Display all of the tagged datums.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Переключаемое</td>
+<td><strong>Toggle AI</strong></td>
+<td>People can&#39;t be AI.</td>
+<td>+EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Переключаемое</td>
+<td><strong>Toggle AI Core Latejoin</strong></td>
+<td>Toggle AI Core Latejoin.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Переключаемое</td>
+<td><strong>Toggle Dead OOC</strong></td>
+<td>Toggle the OOC channel for dead players on or off.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Переключаемое</td>
+<td><strong>Toggle Dead Say</strong></td>
+<td>Toggle the Dead Say channel for dead players on or off.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Переключаемое</td>
+<td><strong>Toggle ERT</strong></td>
+<td>Toggle the station&#39;s ability to call a response team.</td>
+<td>+EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Переключаемое</td>
+<td><strong>Toggle Entering</strong></td>
+<td>Toggle the ability to enter the game.</td>
+<td>+SERVER</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Переключаемое</td>
+<td><strong>Toggle Ghost Vision After Greentext</strong></td>
+<td>Toggle Ghost Vision after greentext.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Переключаемое</td>
+<td><strong>Toggle Guests</strong></td>
+<td>Toggle the ability for guests to enter the game.</td>
+<td>+SERVER</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Переключаемое</td>
+<td><strong>Toggle IdleNPCpool suspension</strong></td>
+<td>Toggles IdleNPCpool suspension, when there are no alive players in sector, Idle NPC&#39;s are not processed.</td>
+<td>+DEBUG</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Переключаемое</td>
+<td><strong>Toggle LOOC</strong></td>
+<td>Toggle the LOOC channel on or off.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Переключаемое</td>
+<td><strong>Toggle Medal Disable</strong></td>
+<td>Toggles the safety lock on trying to contact the medal hub.</td>
+<td>+DEBUG</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Переключаемое</td>
+<td><strong>Toggle Mentor Chat</strong></td>
+<td>Toggle whether mentors have access to the msay command.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Переключаемое</td>
+<td><strong>Toggle Mobs suspension</strong></td>
+<td>Toggles Mobs suspension, when there are no alive players in sector, mobs are not processed.</td>
+<td>+DEBUG</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Переключаемое</td>
+<td><strong>Toggle NPCpool suspension</strong></td>
+<td>Toggles NPCpool suspension, when there are no alive players in sector, NPC&#39;s are not processed.</td>
+<td>+DEBUG</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Переключаемое</td>
+<td><strong>Toggle OOC</strong></td>
+<td>Toggle the OOC channel on or off.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Переключаемое</td>
+<td><strong>Toggle OOC Emoji</strong></td>
+<td>Toggle OOC Emoji.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Переключаемое</td>
+<td><strong>Toggle Pacifism After Greentext</strong></td>
+<td>Toggle Pacifism After Greentext.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Переключаемое</td>
+<td><strong>Toggle Random Events</strong></td>
+<td>Toggles random events on or off.</td>
+<td>+EVENT, +SERVER</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Переключаемое</td>
+<td><strong>Toggle Respawn</strong></td>
+<td>Toggle the ability to respawn.</td>
+<td>+SERVER</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Переключаемое</td>
+<td><strong>Toggle Shuttle Force Hijack</strong></td>
+<td>Force shuttle fly to syndicate base.</td>
+<td>+EVENT</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Переключаемое</td>
+<td><strong>Toggle Twitch censor</strong></td>
+<td>Toggle Twitch censor.</td>
+<td>+SERVER</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Переключаемое</td>
+<td><strong>Toggle antagHUD Restrictions</strong></td>
+<td>Restricts players that have used antagHUD from being able to join this round.</td>
+<td>+SERVER</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Переключаемое</td>
+<td><strong>Toggle antagHUD usage</strong></td>
+<td>Toggles antagHUD usage for observers</td>
+<td>+SERVER</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Шаттл</td>
+<td><strong>Call Shuttle</strong></td>
+<td>Force a shuttle call with additional modifiers.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Админ.Шаттл</td>
+<td><strong>Cancel Shuttle</strong></td>
+<td>Recall the shuttle, regardless of circumstances.</td>
+<td>+ADMIN</td>
+<td></td>
+</tr>
+
+</table>
+</body>
+</html>
