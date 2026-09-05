@@ -29446,6 +29446,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
+/obj/machinery/computer/logistics_core,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "brown"
@@ -63666,6 +63667,14 @@
 	pixel_x = 6;
 	pixel_y = 10
 	},
+/obj/item/logistics_interface,
+/obj/item/logistics_interface,
+/obj/item/logistics_interface,
+/obj/item/logistics_interface,
+/obj/item/logistics_interface,
+/obj/item/circuitboard/smart_container,
+/obj/item/circuitboard/smart_container,
+/obj/item/circuitboard/smart_container,
 /turf/simulated/floor/plasteel,
 /area/station/cargo/storage)
 "mMy" = (

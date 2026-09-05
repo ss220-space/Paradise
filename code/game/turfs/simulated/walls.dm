@@ -207,6 +207,8 @@
 
 	if(mode == RPD_DISPOSALS_MODE && !our_rpd.ranged)
 		return
+	if(mode == RPD_LOGISTICS_MODE && !our_rpd.ranged)
+		return
 
 	return ..()
 

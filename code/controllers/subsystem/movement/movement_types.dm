@@ -858,6 +858,9 @@
 /datum/move_manager/proc/move_disposals(moving, delay, timeout, subsystem, priority, flags, datum/extra_info)
 	return add_to_loop(moving, subsystem, /datum/move_loop/disposal_holder, priority, flags, extra_info, delay, timeout)
 
+/datum/move_manager/proc/move_logistics(moving, delay, timeout, subsystem, priority, flags, datum/extra_info)
+	return add_to_loop(moving, subsystem, /datum/move_loop/logistics_holder, priority, flags, extra_info, delay, timeout)
+
 /// Disposal holders need to move through a chain of pipes
 /// Rather then through the world. This supports this
 /// If this ever changes, get rid of this, add drift component like logic to the holder
@@ -878,5 +881,24 @@
 		return FALSE
 	var/atom/old_loc = moving.loc
 	holder.current_pipe = holder.current_pipe.transfer(holder)
+	return old_loc != moving?.loc ? MOVELOOP_SUCCESS : MOVELOOP_FAILURE
+
+/datum/move_loop/logistics_holder
+
+/datum/move_loop/logistics_holder/setup(delay = 1, timeout = INFINITY)
+	if(!istype(moving, /obj/structure/logistics_holder))
+		stack_trace("You tried to make a [moving.type] object move like a logistics holder, stop that!")
+		return FALSE
+	return ..()
+
+/datum/move_loop/logistics_holder/move()
+	var/obj/structure/logistics_holder/holder = moving
+	if(QDELETED(holder) || !holder.current_pipe)
+		return FALSE
+	var/atom/old_loc = moving.loc
+	var/obj/structure/logistics_pipe/next_pipe = holder.current_pipe.transfer(holder)
+	if(QDELETED(holder))
+		return MOVELOOP_SUCCESS
+	holder.current_pipe = next_pipe
 	return old_loc != moving?.loc ? MOVELOOP_SUCCESS : MOVELOOP_FAILURE
 
