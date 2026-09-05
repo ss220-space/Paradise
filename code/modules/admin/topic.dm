@@ -318,17 +318,14 @@
 			to_chat(usr, span_warning("Навигация взломана. Таймер заморожен, используйте force dock."), confidential = TRUE)
 			href_list["check_antagonist"] = TRUE
 			return
-		switch(SSshuttle.emergency.mode)
-			if(SHUTTLE_CALL)
-				if(SSshuttle.emergency.overmap_leg_started)
-					to_chat(usr, span_warning("Шаттл уже в полёте. Используйте force dock."), confidential = TRUE)
-					href_list["check_antagonist"] = TRUE
-					return
-			if(SHUTTLE_RECALL, SHUTTLE_DOCKED)
-			else
-				to_chat(usr, span_warning("На этом этапе нельзя менять ETA. Используйте force ock."), confidential = TRUE)
-				href_list["check_antagonist"] = TRUE
-				return
+		if(SSshuttle.emergency.mode == SHUTTLE_CALL && SSshuttle.emergency.overmap_leg_started)
+			to_chat(usr, span_warning("Шаттл уже в полёте. Используйте force dock."), confidential = TRUE)
+			href_list["check_antagonist"] = TRUE
+			return
+		if(!(SSshuttle.emergency.mode in list(SHUTTLE_CALL, SHUTTLE_RECALL, SHUTTLE_DOCKED)))
+			to_chat(usr, span_warning("На этом этапе нельзя менять ETA. Используйте force ock."), confidential = TRUE)
+			href_list["check_antagonist"] = TRUE
+			return
 
 		var/timer = tgui_input_number(usr, "Enter new shuttle duration (seconds):", "Edit Shuttle Timeleft", SSshuttle.emergency.timeLeft())
 		if(isnull(timer))
