@@ -89534,7 +89534,7 @@
 /obj/item/flag/nt,
 /obj/machinery/power/apc/directional/south,
 /obj/structure/cable,
-/obj/machinery/computer/guestpass/hop{
+/obj/machinery/computer/guestpass{
 	pixel_x = -28
 	},
 /turf/simulated/floor/wood/fancy/light,

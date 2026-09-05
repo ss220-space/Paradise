@@ -254,9 +254,9 @@
 		playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(istype(I, /obj/item/card/id/guest))
+	if(is_guestpass_id(I))
 		add_fingerprint(user)
-		if(istype(src, /obj/item/card/id/guest))
+		if(is_guestpass_id(src))
 			balloon_alert(user, "это бессмысленно!")
 			return ATTACK_CHAIN_PROCEED
 		if(guest_pass)
@@ -266,7 +266,7 @@
 		if(world.time > guest_id.expiration_time)
 			balloon_alert(user, "гостевой пропуск уже истёк!")
 			return ATTACK_CHAIN_PROCEED
-		if(guest_id.registered_name != registered_name && guest_id.registered_name != DATA_NOT_SPECIFIED)
+		if(guest_id.registered_name != registered_name)
 			balloon_alert(user, "другое имя на карте!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(guest_id, src))
@@ -283,7 +283,7 @@ GAME_VERB_SRC(/obj/item/card/id, remove_guest_pass, usr, "Убрать гост�
 
 	if(guest_pass)
 		balloon_alert(usr, "гостевой пропуск снят")
-		guest_pass.forceMove(get_turf(src))
+		usr.put_in_hands(guest_pass)
 		guest_pass = null
 	else
 		balloon_alert(usr, "гостевой пропуск отсутствует!")

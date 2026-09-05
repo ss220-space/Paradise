@@ -20,3 +20,7 @@
 #define COMSIG_CRYOPOD_DESPAWN "cryopod_despawn"
 
 #define COMSIG_REQUEST_CONSOLE_MESSAGE "request_console_message"
+
+// /obj/machinery/computer/guestpass
+/// from /obj/machinery/computer/guestpass/send_logs_to_others(): (log_massage)
+#define COMSIG_GUESTPASS_COMPUTER_LOGS "guestpass_computer_logs"

@@ -20,13 +20,13 @@
 /obj/item/card/id/guest/examine(mob/user)
 	. = ..()
 	if(world.time < expiration_time)
-		. += span_notice("This pass expires at [station_time_timestamp("hh:mm:ss", expiration_time)].")
+		. += span_notice("Пропуск заканчивается в [station_time_timestamp("hh:mm:ss", expiration_time)].")
 	else
-		. += span_warning("It expired at [station_time_timestamp("hh:mm:ss", expiration_time)].")
-	. += span_notice("It grants access to following areas:")
+		. += span_warning("Пропуск закончился в [station_time_timestamp("hh:mm:ss", expiration_time)].")
+	. += span_notice("Пропуск предоставляет доступ в данные зоны:")
 	for(var/A in temp_access)
 		. += span_notice("[get_access_desc(A)].")
-	. += span_notice("Issuing reason: [reason].")
+	. += span_notice("Причина выдачи: [reason].")
 
 ////////////////////////////////////////////
 // MARK: Guest pass terminal
@@ -51,11 +51,28 @@
 	var/region_min = REGION_GENERAL
 	var/region_max = REGION_COMMAND
 
+	var/send_logs_to_others = TRUE
+
 	var/uid
+
+/obj/machinery/computer/guestpass/get_ru_names()
+	return alist(
+		NOMINATIVE = "терминал временных пропусков",
+		GENITIVE = "терминала временных пропусков",
+		DATIVE = "терминалу временных пропусков",
+		ACCUSATIVE = "терминал временных пропусков",
+		INSTRUMENTAL = "терминалом временных пропусков",
+		PREPOSITIONAL = "терминале временных пропусков",
+	)
 
 /obj/machinery/computer/guestpass/Initialize(mapload, obj/structure/computerframe/frame)
 	uid = rand(1, 10000)
+	RegisterSignal(src, COMSIG_GUESTPASS_COMPUTER_LOGS, PROC_REF(get_guestpass_logs))
 	. = ..()
+
+/obj/machinery/computer/guestpass/Destroy()
+	UnregisterSignal(src, COMSIG_GUESTPASS_COMPUTER_LOGS)
+	return ..()
 
 /obj/machinery/computer/guestpass/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -81,14 +98,33 @@
 	name = "Syndicate guest pass terminal"
 	region_min = REGION_TAIPAN
 	region_max = REGION_TAIPAN
+	send_logs_to_others = FALSE
 
-/obj/machinery/computer/guestpass/hop
-	name = "HoP guest pass terminal"
+/obj/machinery/computer/guestpass/syndicate/get_ru_names()
+	return alist(
+		NOMINATIVE = "терминал временных пропусков Синдиката",
+		GENITIVE = "терминала временных пропусков Синдиката",
+		DATIVE = "терминалу временных пропусков Синдиката",
+		ACCUSATIVE = "терминал временных пропусков Синдиката",
+		INSTRUMENTAL = "терминалом временных пропусков Синдиката",
+		PREPOSITIONAL = "терминале временных пропусков Синдиката",
+	)
 
 /obj/machinery/computer/guestpass/attack_hand(mob/user)
 	if(..())
 		return
 	ui_interact(user)
+
+/obj/machinery/computer/guestpass/emag_act(mob/user)
+	. = ..()
+	if(emagged)
+		return
+	do_sparks(3, TRUE, src)
+	send_logs_to_others = FALSE
+	internal_log = list()
+	region_min = REGION_GENERAL
+	region_max = REGION_TAIPAN
+	SStgui.update_uis(src)
 
 /obj/machinery/computer/guestpass/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -196,16 +232,32 @@
 			var/safe_giv_name = giv_name ? giv_name : "неизвестного"
 			var/safe_reason = reason ? reason : "не указана"
 			var/log_msg = "[current_date] [current_time] Пропуск #[number]: выдан \"[giver.registered_name]\" для \"[safe_giv_name]\". Причина: \"[safe_reason]\". Истекает в [current_date] [expire_time_only]."
-			internal_log += log_msg
+			send_logs_to_others(log_msg)
 
 			var/obj/item/card/id/guest/pass = new(src.loc)
 			if(pass)
 				pass.temp_access = accesses.Copy()
-				pass.registered_name = (safe_giv_name == "неизвестного") ? "Guest" : safe_giv_name
+				pass.registered_name = (safe_giv_name == "неизвестного") ? "Гость" : safe_giv_name
 				pass.expiration_time = expire_timestamp
-				pass.reason = (safe_reason == "не указана") ? "None" : safe_reason
-				pass.name = "temporary pass #[number]"
+				pass.reason = (safe_reason == "не указана") ? "Не указана" : safe_reason
+				pass.name = "временный пропуск #[number]"
 
 			playsound(loc, 'sound/machines/twobeep.ogg', 50, TRUE)
 			accesses.Cut()
 			return TRUE
+
+/obj/machinery/computer/guestpass/proc/send_logs_to_others(log_message)
+	if(!send_logs_to_others)
+		return
+
+	var/list/all_guestpass_computers = SSmachines.get_by_type(/obj/machinery/computer/guestpass)
+	for(var/obj/machinery/computer/guestpass/guestpass_computer as anything in all_guestpass_computers)
+		SEND_SIGNAL(guestpass_computer, COMSIG_GUESTPASS_COMPUTER_LOGS, log_message)
+
+/obj/machinery/computer/guestpass/proc/get_guestpass_logs(datum/source, log_message)
+	SIGNAL_HANDLER
+
+	if(!log_message)
+		return
+
+	internal_log += log_message

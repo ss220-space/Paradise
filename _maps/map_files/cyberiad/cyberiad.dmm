@@ -21718,7 +21718,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/computer/guestpass/hop{
+/obj/machinery/computer/guestpass{
 	pixel_x = 28
 	},
 /turf/simulated/floor/wood,
