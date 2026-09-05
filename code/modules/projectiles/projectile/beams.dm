@@ -12,7 +12,7 @@
 	reflectability = REFLECTABILITY_ENERGY
 	light_system = OVERLAY_LIGHT
 	light_range = 2
-	light_color = COLOR_SOFT_RED
+	light_color = COLOR_RED_LIGHT
 	ricochets_max = 50	//Honk!
 	ricochet_chance = 80
 
@@ -170,6 +170,11 @@
 		INSTRUMENTAL = "дизейблером",
 		PREPOSITIONAL = "дизейблере",
 	)
+
+/obj/projectile/beam/disabler/scatter
+	name = "disabler pellet"
+	icon_state = "scatter_disabler"
+	damage = 5
 
 /obj/projectile/beam/specter/laser
 	name = "specter laser beam"

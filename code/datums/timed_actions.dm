@@ -27,8 +27,9 @@
 	var/interaction_key
 	var/max_interact_count
 	var/datum/weakref/user_loc
+	var/show_cogbar
 
-/datum/timed_action/New(atom/movable/user, list/targets, delay, show_progress = TRUE, timed_action_flags = NONE, datum/callback/extra_checks = null, cog_icon = null, cog_iconstate = null, mob/bar_override = null, cancel_on_max = FALSE, cancel_message = span_warning("Attempt cancelled."), category = DA_CAT_ALL, interaction_key = null, max_interact_count = null)
+/datum/timed_action/New(atom/movable/user, list/targets, delay, show_progress = TRUE, timed_action_flags = NONE, datum/callback/extra_checks = null, show_cogbar = TRUE, cog_icon = null, cog_iconstate = null, mob/bar_override = null, cancel_on_max = FALSE, cancel_message = span_warning("Attempt cancelled."), category = DA_CAT_ALL, interaction_key = null, max_interact_count = null)
 	. = ..()
 	src.user = user
 	src.timed_action_flags = timed_action_flags
@@ -36,6 +37,7 @@
 	src.cancel_on_max = cancel_on_max
 	src.cancel_message = cancel_message
 	src.category = category
+	src.show_cogbar = show_cogbar
 	if(interaction_key)
 		src.interaction_key = interaction_key
 	if(max_interact_count)
@@ -54,8 +56,8 @@
 		if(astype(user, /mob)?.client || bar_override?.client)
 			progressbar = new(bar_override || user, delay, targets[1] || user)
 
-		if(!isnull(cog_icon) && delay >= 1 SECONDS)
-			cogbar = new(user, cog_icon, cog_iconstate)
+	if(show_cogbar && !isnull(cog_icon) && delay >= 1 SECONDS)
+		cogbar = new(user, cog_icon, cog_iconstate)
 
 #ifdef UNIT_TESTS
 	timed_action_flags &= ~DA_IGNORE_SLOWDOWNS // Test dummies are a special case
@@ -266,10 +268,11 @@
  * - delay - The time in deciseconds. Use the SECONDS define for readability. `1 SECONDS` is 10 deciseconds.
  * - target - The target of the action. This is where the progressbar will display.
  * - timed_action_flags - Flags to control the behavior of the timed action.
- * - show_progress - Whether to display a progress bar / cogbar.
+ * - show_progress - Whether to display a progress bar.
  * - extra_checks - Additional checks to perform before the action is executed.
  * - interaction_key - The assoc key under which the do_after is capped, with max_interact_count being the cap. Interaction key will default to target if not set.
  * - max_interact_count - The maximum amount of interactions allowed.
+ * - show_cogbar - Do we show cog icon? Doesn't depend on show progress variable.
  * - cog_icon - The icon file of the cog. Default: 'icons/effects/progressbar.dmi'
  * - cog_iconstate - The icon state of the cog. Default: "Cog"
  * - bar_override - Mob which should see the bar instead of the user
@@ -277,7 +280,7 @@
  * - cancel_message - Message shown to the user if cancel_on_max is set to `TRUE` and they exceeds max interaction count. Use empty string ("") to skip default cancel message.
  * - category - Used to apply proper action speed modifier to passed delay.
  */
-/proc/do_after(atom/movable/user, delay, atom/target, timed_action_flags = DEFAULT_DOAFTER_IGNORE, show_progress = TRUE, datum/callback/extra_checks, interaction_key, max_interact_count = INFINITY, cog_icon = 'icons/effects/progressbar.dmi', cog_iconstate = "cog", mob/bar_override = null, cancel_on_max = FALSE, cancel_message = span_warning("Attempt cancelled."), category = DA_CAT_ALL)
+/proc/do_after(atom/movable/user, delay, atom/target, timed_action_flags = DEFAULT_DOAFTER_IGNORE, show_progress = TRUE, datum/callback/extra_checks, interaction_key, max_interact_count = INFINITY, show_cogbar = TRUE, cog_icon = 'icons/effects/progressbar.dmi', cog_iconstate = "cog", mob/bar_override = null, cancel_on_max = FALSE, cancel_message = span_warning("Attempt cancelled."), category = DA_CAT_ALL)
 	if(!user)
 		return FALSE
 	var/mob/as_mob = astype(user, /mob)
@@ -318,7 +321,7 @@
 
 	SEND_SIGNAL(user, COMSIG_DO_AFTER_BEGAN)
 
-	var/datum/timed_action/action = new(user, target, delay, show_progress, timed_action_flags, extra_checks, cog_icon, cog_iconstate, bar_override, interaction_key = interaction_key, max_interact_count = max_interact_count)
+	var/datum/timed_action/action = new(user, target, delay, show_progress, timed_action_flags, extra_checks, show_cogbar, cog_icon, cog_iconstate, bar_override, interaction_key = interaction_key, max_interact_count = max_interact_count)
 
 	. = action.await()
 

@@ -68908,6 +68908,23 @@
 	icon_state = "neutralfull"
 	},
 /area/station/security/checkpoint/south)
+"nqp" = (
+/obj/structure/rack/gunrack,
+/obj/effect/turf_decal/delivery/red/hollow,
+/obj/item/gun/energy/laser/hitscan{
+	pixel_x = -6
+	},
+/obj/item/gun/energy/laser/hitscan,
+/obj/item/gun/energy/laser/hitscan{
+	pixel_x = 6
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/security/hallway/armory)
 "nqq" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -89401,23 +89418,6 @@
 	icon_state = "whitebluecorner"
 	},
 /area/station/medical/cryo)
-"qXA" = (
-/obj/structure/rack/gunrack,
-/obj/effect/turf_decal/delivery/red/hollow,
-/obj/item/gun/energy/laser{
-	pixel_x = -6
-	},
-/obj/item/gun/energy/laser,
-/obj/item/gun/energy/laser{
-	pixel_x = 6
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/security/hallway/armory)
 "qXT" = (
 /obj/structure/chair/comfy/purp{
 	dir = 4
@@ -109759,10 +109759,6 @@
 "uMa" = (
 /turf/simulated/wall,
 /area/station/maintenance/consarea_virology)
-"uMi" = (
-/obj/item/flashlight/lantern/on,
-/turf/simulated/floor/plating,
-/area/station/maintenance/asmaint4)
 "uMj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
@@ -113531,6 +113527,10 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/cloning)
+"vvT" = (
+/obj/item/flashlight/lantern/on,
+/turf/simulated/floor/plating,
+/area/station/maintenance/asmaint4)
 "vwc" = (
 /obj/item/radio/intercom/directional/east,
 /obj/structure/disposalpipe/segment,
@@ -181876,7 +181876,7 @@ lhV
 ajh
 lTI
 lTI
-uMi
+vvT
 niq
 rTu
 crb
@@ -182297,7 +182297,7 @@ iga
 xdd
 sew
 bdv
-qXA
+nqp
 aja
 vUX
 fKY
