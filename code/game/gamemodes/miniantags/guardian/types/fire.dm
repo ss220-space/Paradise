@@ -25,7 +25,9 @@
 
 /mob/living/simple_animal/hostile/guardian/fire/Initialize(mapload)
 	. = ..()
-	AddSpell(new /obj/effect/proc_holder/spell/aoe/guardian_hallucination(summoner))
+	var/datum/action/cooldown/spell/aoe/guardian_hallucination/spell = new
+	spell.summoner = summoner
+	AddSpell(spell)
 
 /mob/living/simple_animal/hostile/guardian/fire/AttackingTarget()
 	. = ..()
@@ -56,45 +58,35 @@
 			M.fire_stacks = 7
 			M.IgniteMob()
 
-/obj/effect/proc_holder/spell/aoe/guardian_hallucination
+/datum/action/cooldown/spell/aoe/guardian_hallucination
 	name = "Волна галлюцинаций"
 	desc = "Призовите самый темный страх на ваших жертв. Хозяин невосприимчив к эффекту."
-	action_icon_state = "blight"
-	base_cooldown = 12 SECONDS
-	clothes_req = FALSE
-	human_req = FALSE
-	phase_allowed = TRUE
+	button_icon_state = "blight"
+	cooldown_time = 12 SECONDS
+	spell_requirements = NONE
+	check_flags = AB_CHECK_CONSCIOUS | AB_TRANSFER_MIND | AB_CHECK_INCAPACITATED
 	var/mob/living/summoner = null
 	var/list/stunning_hallucinations = list("singulo", "koolaid", "fake")
-	aoe_range = 10
+	aoe_radius = 10
+	targeting_type = /datum/aoe_targeting/living
 
-/obj/effect/proc_holder/spell/aoe/guardian_hallucination/Initialize(mapload, mob/living/summoned_by)
+/datum/action/cooldown/spell/aoe/guardian_hallucination/Remove(mob/living/remove_from)
 	. = ..()
-	summoner = summoned_by
-
-/obj/effect/proc_holder/spell/aoe/guardian_hallucination/Destroy()
 	summoner = null
-	return ..()
 
-/obj/effect/proc_holder/spell/aoe/guardian_hallucination/create_new_targeting()
-	var/datum/spell_targeting/aoe/turf/T = new()
-	T.range = aoe_range
-	T.use_turf_of_user = TRUE
-	return T
-
-/obj/effect/proc_holder/spell/aoe/guardian_hallucination/cast(list/targets, mob/user = usr)
-	for(var/turf/T in targets)
-		for(var/mob/target in T.contents)
-			if(iscarbon(target) && target != summoner)
-				var/mob/living/carbon/M = target
-				var/random_hallucination = pick(stunning_hallucinations)
-				M.AdjustHallucinate(50 SECONDS)
-				M.hallucinate_living(random_hallucination)
-			else if(issilicon(target))
-				var/mob/living/silicon/silicon = target
-				to_chat(silicon, span_warning("<b>ОШИБКА #!^: ПЕРЕГРУЗКА СЕНСОРОВ\[$(!@#</b>"))
-				SEND_SOUND(silicon, sound('sound/misc/interference.ogg'))
-				playsound(silicon, 'sound/machines/warning-buzzer.ogg', 50, TRUE)
-				do_sparks(5, TRUE, silicon)
-				silicon.Weaken(6 SECONDS)
-
+/datum/action/cooldown/spell/aoe/guardian_hallucination/cast_on_thing_in_aoe(atom/victim, atom/caster)
+	if(victim == summoner)
+		return
+	if(iscarbon(victim))
+		var/mob/living/carbon/M = victim
+		var/random_hallucination = pick(stunning_hallucinations)
+		M.AdjustHallucinate(50 SECONDS)
+		M.hallucinate_living(random_hallucination)
+		return
+	if(issilicon(victim))
+		var/mob/living/silicon/silicon = victim
+		to_chat(silicon, span_warning("<b>ОШИБКА #!^: ПЕРЕГРУЗКА СЕНСОРОВ\[$(!@#</b>"))
+		SEND_SOUND(silicon, sound('sound/misc/interference.ogg'))
+		playsound(silicon, 'sound/machines/warning-buzzer.ogg', 50, TRUE)
+		do_sparks(5, TRUE, silicon)
+		silicon.Weaken(6 SECONDS)

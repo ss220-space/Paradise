@@ -1,26 +1,35 @@
-/obj/effect/proc_holder/spell/vampire/self/vamp_claws
+//  I think it's better to do it using spell/conjure_item but I'm too lazy
+/datum/action/cooldown/spell/vamp_claws
 	name = "Когти"
 	desc = "Вы используете магию крови, чтобы выковать смертоносные вампирские когти, которые высасывают кровь и наносят стремительные удары. Их нельзя использовать, если вы держите что-то, что нельзя уронить."
 	gain_desc = "Вы получили способность превращать свои руки в вампирские когти."
-	base_cooldown = 15 SECONDS
-	required_blood = 15
-	action_icon_state = "vampire_claws"
+	cooldown_time = 15 SECONDS
+	var/required_blood = 15
+	spell_requirements = SPELL_REQUIRES_HUMAN | SPELL_REQUIRES_NO_ANTIMAGIC
+	school = SCHOOL_SANGUINE
+	button_icon_state = "vampire_claws"
+	background_icon_state = "bg_vampire"
 
-/obj/effect/proc_holder/spell/vampire/self/vamp_claws/cast(mob/user)
-	if(user.l_hand || user.r_hand)
-		to_chat(user, span_notice("Вы роняете то, что было у вас в руках, и из ваших пальцев вылетают огромные лезвия!"))
-		user.drop_l_hand()
-		user.drop_r_hand()
+/datum/action/cooldown/spell/vamp_claws/create_new_handler()
+	var/datum/spell_handler/vampire/handler = new(src, required_blood)
+	return handler
+
+/datum/action/cooldown/spell/vamp_claws/cast(atom/cast_on)
+	. = ..()
+	if(owner.l_hand || owner.r_hand)
+		to_chat(owner, span_notice("Вы роняете то, что было у вас в руках, и из ваших пальцев вылетают огромные лезвия!"))
+		owner.drop_l_hand()
+		owner.drop_r_hand()
 	else
-		to_chat(user, span_notice("Из ваших пальцев брызжет кровь!"))
-	var/obj/item/twohanded/required/vamp_claws/claws = new /obj/item/twohanded/required/vamp_claws(user.loc, src)
-	RegisterSignal(user, COMSIG_MOB_KEY_DROP_ITEM_DOWN, PROC_REF(dispel))
-	user.put_in_hands(claws)
+		to_chat(owner, span_notice("Из ваших пальцев брызжет кровь!"))
+	var/obj/item/twohanded/required/vamp_claws/claws = new /obj/item/twohanded/required/vamp_claws(owner.loc, src)
+	RegisterSignal(owner, COMSIG_MOB_KEY_DROP_ITEM_DOWN, PROC_REF(dispel))
+	owner.put_in_hands(claws)
 
-/obj/effect/proc_holder/spell/vampire/self/vamp_claws/proc/dispel()
+/datum/action/cooldown/spell/vamp_claws/proc/dispel()
 	SIGNAL_HANDLER
 
-	var/mob/living/carbon/human/user = action.owner
+	var/mob/living/carbon/human/user = owner
 	if(!user.mind.has_antag_datum(/datum/antagonist/vampire))
 		return
 
@@ -36,10 +45,11 @@
 		to_chat(user, span_notice("Вы рассеиваете когти!"))
 		return COMPONENT_CANCEL_DROP
 
-/obj/effect/proc_holder/spell/vampire/self/vamp_claws/can_cast(mob/user, charge_check, show_message)
-	var/mob/living/L = user
+/datum/action/cooldown/spell/vamp_claws/can_cast_spell(feedback)
+	var/mob/living/L = owner
 	if(L.can_unEquip(L.l_hand) && L.can_unEquip(L.r_hand))
 		return ..()
+	return FALSE
 
 /obj/item/twohanded/required/vamp_claws
 	name = "vampiric claws"
@@ -60,7 +70,7 @@
 	var/durability = 15
 	var/blood_drain_amount = 15
 	var/blood_absorbed_amount = 5
-	var/obj/effect/proc_holder/spell/vampire/self/vamp_claws/parent_spell
+	var/datum/action/cooldown/spell/vamp_claws/parent_spell
 
 /obj/item/twohanded/required/vamp_claws/get_ru_names()
 	return alist(
@@ -79,8 +89,8 @@
 
 /obj/item/twohanded/required/vamp_claws/Destroy()
 	if(parent_spell)
-		parent_spell.UnregisterSignal(parent_spell.action.owner, COMSIG_MOB_KEY_DROP_ITEM_DOWN)
-		parent_spell.action.UpdateButtonIcon()
+		parent_spell.UnregisterSignal(parent_spell.owner, COMSIG_MOB_KEY_DROP_ITEM_DOWN)
+		parent_spell.UpdateButtonIcon()
 		parent_spell = null
 	return ..()
 
@@ -115,37 +125,37 @@
 	qdel(src)
 	to_chat(user, span_notice("Вы рассеиваете когти!"))
 
-/obj/effect/proc_holder/spell/vampire/blood_tendrils
+/datum/action/cooldown/spell/pointed/blood_tendrils
 	name = "Кровавые щупальца"
 	desc = "Используя силу блюспейса, после небольшой задержки вы призываете кровавые щупальца, которые опутывают цели в зоне действия, замедляя их и нанося умеренный токсичный урон."
 	gain_desc = "Вы получили способность вызывать кровавые щупальца, чтобы замедлять людей в выбранной вами области."
-	required_blood = 10
-
-	action_icon_state = "blood_tendrils"
+	var/required_blood = 10
+	school = SCHOOL_SANGUINE
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+	button_icon_state = "blood_tendrils"
+	background_icon_state = "bg_vampire"
+	background_icon_state_active = "bg_vampire"
 	sound = 'sound/misc/enter_blood.ogg'
 	var/area_of_affect = 1
-	need_active_overlay = TRUE
+	active_msg = span_notice_alt("Вы используете магию крови, чтобы ослабить завесу блюспейса.")
+	deactive_msg = span_notice_alt("Ваша магия ослабевает.")
 
-	selection_activated_message = span_notice_alt("Вы используете магию крови, чтобы ослабить завесу блюспейса.")
-	selection_deactivated_message = span_notice_alt("Ваша магия ослабевает.")
+/datum/action/cooldown/spell/pointed/blood_tendrils/create_new_handler()
+	var/datum/spell_handler/vampire/handler = new(src, required_blood)
+	return handler
 
-/obj/effect/proc_holder/spell/vampire/blood_tendrils/create_new_targeting()
-	var/datum/spell_targeting/click/T = new
-	T.allowed_type = /atom
-	T.try_auto_target = FALSE
-	return T
-
-/obj/effect/proc_holder/spell/vampire/blood_tendrils/cast(list/targets, mob/user)
-	var/turf/T = get_turf(targets[1]) // there should only ever be one entry in targets for this spell
+/datum/action/cooldown/spell/pointed/blood_tendrils/cast(atom/cast_on)
+	. = ..()
+	var/turf/T = get_turf(cast_on)
 
 	for(var/turf/simulated/blood_turf in view(area_of_affect, T))
 		if(blood_turf.density)
 			continue
 		new /obj/effect/temp_visual/blood_tendril(blood_turf)
 
-	addtimer(CALLBACK(src, PROC_REF(apply_slowdown), T, area_of_affect, 6 SECONDS, user), 1 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(apply_slowdown), T, area_of_affect, 6 SECONDS, owner), 1 SECONDS)
 
-/obj/effect/proc_holder/spell/vampire/blood_tendrils/proc/apply_slowdown(turf/T, distance, slowed_amount, mob/user)
+/datum/action/cooldown/spell/pointed/blood_tendrils/proc/apply_slowdown(turf/T, distance, slowed_amount, mob/user)
 	for(var/mob/living/L in range(distance, T))
 		if(L.affects_vampire(user))
 			L.Slowed(slowed_amount)
@@ -163,51 +173,52 @@
 /obj/effect/temp_visual/blood_tendril/long
 	duration = 2 SECONDS
 
-/obj/effect/proc_holder/spell/vampire/blood_barrier
+/datum/action/cooldown/spell/pointed/blood_barrier
 	name = "Кровавый барьер"
 	desc = "Выберите две точки в пределах трёх тайлов друг от друга и создайте между ними барьер. Вы можете наложить заклинание на себя, чтобы мгновенно создать барьер на вашей текущей позиции."
 	gain_desc = "Вы получили способность вызывать кристаллическую стену крови между двумя точками, барьер легко разрушается, однако вы можете свободно проходить сквозь него. Вы можете наложить на себя заклинание, чтобы мгновенно создать барьер на вашем текущем местоположении."
-	required_blood = 15
-	base_cooldown = 30 SECONDS
-	should_recharge_after_cast = FALSE
-	deduct_blood_on_cast = FALSE
-	action_icon_state = "blood_barrier"
-	need_active_overlay = TRUE
-
+	school = SCHOOL_SANGUINE
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+	button_icon_state = "blood_barrier"
+	background_icon_state = "bg_vampire"
+	background_icon_state_active = "bg_vampire"
+	cooldown_time = 30 SECONDS
+	var/required_blood = 15
+	var/turf/old_mouse_turf
+	var/indicator_timer = null
+	var/list/images = list()
 	var/max_walls = 3
 	var/turf/start_turf = null
 
-/obj/effect/proc_holder/spell/vampire/blood_barrier/create_new_targeting()
-	var/datum/spell_targeting/click/T = new
-	T.allowed_type = /atom
-	T.try_auto_target = FALSE
-	return T
+/datum/action/cooldown/spell/pointed/blood_barrier/is_valid_target(atom/cast_on)
+	return TRUE
 
-/obj/effect/proc_holder/spell/vampire/blood_barrier/remove_ranged_ability(mob/user, msg)
+/datum/action/cooldown/spell/pointed/blood_barrier/create_new_handler()
+	var/datum/spell_handler/vampire/handler = new(src, required_blood)
+	return handler
+
+/datum/action/cooldown/spell/pointed/blood_barrier/unset_click_ability(mob/on_who, refund_cooldown)
 	. = ..()
-	if(msg) // this is only true if the user intentionally turned off the spell
+	if(refund_cooldown) // this is only true if the user intentionally turned off the spell
 		start_turf = null
-		should_recharge_after_cast = FALSE
+		cooldown_time = initial(cooldown_time)
 
-/obj/effect/proc_holder/spell/vampire/blood_barrier/should_remove_click_intercept()
-	if(start_turf)
-		return TRUE
-	return FALSE
-
-/obj/effect/proc_holder/spell/vampire/blood_barrier/cast(list/targets, mob/user)
+/datum/action/cooldown/spell/pointed/blood_barrier/cast(atom/cast_on)
+	. = ..()
+	unset_after_click = TRUE
 	// First we check if vampire clicks on himself
-	var/turf/target_turf = get_turf(targets[1])
+	var/turf/target_turf = get_turf(cast_on)
 	var/user_found = FALSE
 	for(var/mob/living/check in target_turf.contents)
-		if(check == user)
+		if(check == owner)
 			user_found = TRUE
 			break
 
 	if(user_found && !start_turf)
 		var/odd_number = max_walls % 2
 		var/walls_amount = odd_number ? ((max_walls - 1) / 2) : (max_walls / 2 - 1)
-		var/dir_right = turn(user.dir, 90)
-		var/dir_left = turn(user.dir, 270)
+		var/dir_right = turn(owner.dir, 90)
+		var/dir_left = turn(owner.dir, 270)
 
 		new /obj/structure/blood_barrier(target_turf)
 		for(var/i in 1 to walls_amount)
@@ -217,38 +228,65 @@
 			new /obj/structure/blood_barrier(get_step(target_turf, dir_left))
 
 		var/datum/spell_handler/vampire/V = custom_handler
-		var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
+		var/datum/antagonist/vampire/vampire = owner.mind.has_antag_datum(/datum/antagonist/vampire)
 		var/blood_cost = V.calculate_blood_cost(vampire)
 		vampire.bloodusable -= blood_cost
-		remove_ranged_ability(user)
-		cooldown_handler.start_recharge()
 		return
 
 	// Otherwise we will try to build a wall by two clicks
 	if(target_turf == start_turf)
-		to_chat(user, span_notice("Вы убираете пометку с тайла."))
+		to_chat(owner, span_notice("Вы убираете пометку с тайла."))
 		start_turf = null
-		should_recharge_after_cast = FALSE
+		cooldown_time = 0
+		deltimer(indicator_timer)
 		return
 
 	if(!start_turf)
 		start_turf = target_turf
-		should_recharge_after_cast = TRUE
+		cooldown_time = 0
+		indicator_timer = addtimer(CALLBACK(src, PROC_REF(update_indicator)), 0.1, TIMER_STOPPABLE | TIMER_LOOP)
+		unset_after_click = FALSE
 		return
 
 	var/wall_count
-	for(var/turf/T as anything in get_line(target_turf, start_turf))
+	for(var/turf/T as anything in get_line(start_turf, target_turf))
 		if(max_walls <= wall_count)
 			break
 		new /obj/structure/blood_barrier(T)
 		wall_count++
-
+	deltimer(indicator_timer)
 	var/datum/spell_handler/vampire/V = custom_handler
-	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
+	var/datum/antagonist/vampire/vampire = owner.mind.has_antag_datum(/datum/antagonist/vampire)
 	var/blood_cost = V.calculate_blood_cost(vampire)
 	vampire.bloodusable -= blood_cost
 	start_turf = null
-	should_recharge_after_cast = FALSE
+	remove_indicator()
+	cooldown_time = initial(cooldown_time)
+
+/datum/action/cooldown/spell/pointed/blood_barrier/proc/update_indicator()
+	var/turf/mouse_turf = get_turf(SSmouse_entered.hovers[owner.client])
+	if(isnull(mouse_turf) || mouse_turf == old_mouse_turf)
+		return
+	remove_indicator()
+	if(start_turf)
+		draw_indicator(mouse_turf)
+	old_mouse_turf = mouse_turf
+
+/datum/action/cooldown/spell/pointed/blood_barrier/proc/draw_indicator(turf/draw_to)
+	var/indicator_count
+	for(var/turf/T as anything in get_line(start_turf, draw_to))
+		if(max_walls <= indicator_count)
+			break
+		var/image/indicator = image('icons/effects/vampire_effects.dmi', T, "blood_barrier", ABOVE_LIGHTING_LAYER)
+		indicator.alpha = 100
+		images += indicator
+		add_image_to_client(indicator, owner.client)
+		indicator_count++
+
+/datum/action/cooldown/spell/pointed/blood_barrier/proc/remove_indicator()
+	for(var/image in images)
+		remove_image_from_client(image, owner.client)
+		qdel(image)
 
 /obj/structure/blood_barrier
 	name = "blood barrier"
@@ -303,113 +341,127 @@
 	if(is_type_in_list(V.subclass, list(SUBCLASS_HEMOMANCER, SUBCLASS_ANCIENT)))
 		return TRUE
 
-/obj/effect/proc_holder/spell/ethereal_jaunt/blood_pool
+/datum/action/cooldown/spell/jaunt/ethereal_jaunt/blood_pool
 	name = "Погружение в кровь"
 	desc = "Вы превращаете свою форму в лужу крови, делая ее неуязвимой и способной перемещаться сквозь всё, что не является стеной или космосом. После этого за вами остаётся кровавый след."
 	gain_desc = "Вы получили способность превращаться в лужу крови, что позволяет вам уходить от преследователей с большой мобильностью."
-	clothes_req = FALSE
-	school = "vampire"
-	action_background_icon_state = "bg_vampire"
-	action_icon_state = "blood_pool"
-	jaunt_type_path = /obj/effect/dummy/spell_jaunt/blood_pool
-	jaunt_water_effect = FALSE
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+	school = SCHOOL_SANGUINE
+	background_icon_state = "bg_vampire"
+	button_icon_state = "blood_pool"
+	jaunt_type = /obj/effect/dummy/phased_mob/spell_jaunt/blood_pool
 	jaunt_out_type = /obj/effect/temp_visual/dir_setting/cult/phase/out
 	jaunt_in_type = /obj/effect/temp_visual/dir_setting/cult/phase
 	jaunt_in_time = 0
-	sound_in = 'sound/misc/enter_blood.ogg'
-	sound_out = 'sound/misc/exit_blood.ogg'
+	sound = 'sound/misc/enter_blood.ogg'
+	exit_jaunt_sound = 'sound/misc/exit_blood.ogg'
+	var/required_blood = 20
 
-/obj/effect/proc_holder/spell/ethereal_jaunt/blood_pool/after_spell_init()
-	update_vampire_spell_name()
+/datum/action/cooldown/spell/jaunt/ethereal_jaunt/blood_pool/create_new_handler()
+	var/datum/spell_handler/vampire/handler = new(src, required_blood)
+	return handler
 
-/obj/effect/proc_holder/spell/ethereal_jaunt/blood_pool/create_new_handler()
-	var/datum/spell_handler/vampire/H = new
-	H.required_blood = 20
-	return H
+/obj/effect/dummy/phased_mob/spell_jaunt/blood_pool
+	name = "sanguine pool"
+	desc = "a pool of living blood."
+	movespeed = 0.75
+	phased_mob_icon_state = "blood_bolt"
 
-/obj/effect/proc_holder/spell/vampire/predator_senses
+/obj/effect/dummy/phased_mob/spell_jaunt/blood_pool/relaymove(mob/living/user, direction)
+	. = ..()
+	new /obj/effect/decal/cleanable/blood(loc)
+
+/obj/effect/dummy/phased_mob/spell_jaunt/blood_pool/phased_check(mob/living/user, direction)
+	var/turf/newloc = get_step_multiz(src,direction)
+	if(isspaceturf(newloc) || newloc.density)
+		return
+	return ..()
+
+/datum/action/cooldown/spell/list_target/predator_senses
 	name = "Чутьё хищника"
 	desc = "Выслеживайте свою добычу, здесь ей негде спрятаться... На короткое время оглушает её, если она окажется в вашем поле зрения."
 	gain_desc = "Ваши чувства обострились, теперь никто не сможет от вас спрятаться."
-	action_icon_state = "predator_sense"
-	create_attack_logs = FALSE
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+	button_icon_state = "predator_sense"
+	background_icon_state = "bg_vampire"
+	used_in_radius = FALSE
 
-/obj/effect/proc_holder/spell/vampire/predator_senses/create_new_targeting()
-	var/datum/spell_targeting/alive_mob_list/A = new()
-	A.allowed_type = /mob/living/carbon/human
-	A.max_targets = 300 // hopefully we never hit this number
-	return A
+/datum/action/cooldown/spell/list_target/predator_senses/create_new_handler()
+	var/datum/spell_handler/vampire/handler = new(src)
+	return handler
 
-/obj/effect/proc_holder/spell/vampire/predator_senses/valid_target(mob/target, mob/user)
-	return target.z == user.z && target.mind
+/datum/action/cooldown/spell/list_target/predator_senses/get_list_targets(atom/center, target_radius)
+	var/list/targets = list()
+	for(var/mob/living/carbon/human/target in GLOB.alive_mob_list)
+		if(target.z != owner.z || !target.mind || target == owner)
+			continue
+		targets += target
+	return targets
 
-/obj/effect/proc_holder/spell/vampire/predator_senses/cast(list/targets, mob/user)
-	var/targets_by_name = list()
-	for(var/mob/living/carbon/human/H as anything in targets)
-		targets_by_name[H.real_name] = H
-
-	var/target_name = tgui_input_list(user, "Лицо для поиска", "Запах крови", targets_by_name)
-	if(!target_name)
-		return
-
-	var/mob/living/carbon/human/target = targets_by_name[target_name]
-	var/message = "[target_name] наход[PLUR_IT_YAT(target)]ся в локации [get_area(target)], на [dir2rustext(get_dir(user, target))]е от вас."
+/datum/action/cooldown/spell/list_target/predator_senses/cast(atom/cast_on)
+	. = ..()
+	var/mob/living/carbon/human/target = cast_on
+	var/message = "[target.name] наход[PLUR_IT_YAT(target)]ся в локации [get_area(target)], на [dir2rustext(get_dir(owner, target))]е от вас."
 	if(target.get_damage_amount() >= 40 || target.bleed_rate)
 		message += "<i> Цель ранена...</i>"
-	to_chat(user, span_cultlarge("[message]"))
+	to_chat(owner, span_cultlarge("[message]"))
 
-	if(target in view(user))
+	if(target in view(owner))
 		target.Knockdown(4 SECONDS)
 		var/turf/target_turf = get_turf(target)
 		playsound(target_turf, 'sound/effects/splat.ogg', 50, TRUE)
 		new /obj/effect/decal/cleanable/blood(target_turf)
 
-/obj/effect/proc_holder/spell/vampire/blood_eruption
+/datum/action/cooldown/spell/aoe/blood_eruption
 	name = "Извержение крови"
 	desc = "Каждая лужа крови в 4 тайлах от вас извергается шипом живой крови, нанося урон всем, кто стоит на ней."
 	gain_desc = "Вы получили способность использовать лужи крови для нанесения урона тем, кто на них стоит."
-	required_blood = 25
-	base_cooldown = 1 MINUTES
-	action_icon_state = "blood_spikes"
+	school = SCHOOL_SANGUINE
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+	cooldown_time = 1 MINUTES
+	button_icon_state = "blood_spikes"
+	background_icon_state = "bg_vampire"
+	aoe_radius = 4
+	targeting_type = /datum/aoe_targeting/blood_eruption
+	var/required_blood = 25
 
-/obj/effect/proc_holder/spell/vampire/blood_eruption/create_new_targeting()
-	var/datum/spell_targeting/aoe/T = new
-	T.range = 4
-	T.allowed_type = /mob/living
-	return T
+/datum/action/cooldown/spell/aoe/blood_eruption/create_new_handler()
+	var/datum/spell_handler/vampire/handler = new(src, required_blood)
+	return handler
 
-/obj/effect/proc_holder/spell/vampire/blood_eruption/valid_target(mob/living/target, user)
-	var/turf/T = get_turf(target)
-	if(locate(/obj/effect/decal/cleanable/blood) in T)
-		if(target.affects_vampire(user) && !isLivingSSD(target))
-			return TRUE
-	return FALSE
-
-/obj/effect/proc_holder/spell/vampire/blood_eruption/cast(list/targets, mob/user)
-	for(var/mob/living/L in targets)
-		var/turf/T = get_turf(L)
-		var/obj/effect/decal/cleanable/blood/B = locate(/obj/effect/decal/cleanable/blood) in T
-		var/obj/effect/temp_visual/blood_spike/spike = new /obj/effect/temp_visual/blood_spike(T)
-		spike.color = B.basecolor
-		playsound(L, 'sound/misc/demon_attack1.ogg', 50, TRUE)
-		L.apply_damage(50, BRUTE, BODY_ZONE_CHEST)
-		L.Stun(3 SECONDS)
-		L.visible_message(span_warning("<b>[L] пронзен[GEND_A_O_Y(L)] шипом живой крови!</b>"))
+/datum/action/cooldown/spell/aoe/blood_eruption/cast_on_thing_in_aoe(atom/victim, atom/caster)
+	var/mob/living/victim_mob = victim
+	var/turf/turf = get_turf(victim_mob)
+	var/obj/effect/decal/cleanable/blood/B = locate(/obj/effect/decal/cleanable/blood) in turf
+	var/obj/effect/temp_visual/blood_spike/spike = new /obj/effect/temp_visual/blood_spike(turf)
+	spike.color = B.basecolor
+	playsound(victim_mob, 'sound/misc/demon_attack1.ogg', 50, TRUE)
+	victim_mob.apply_damage(50, BRUTE, BODY_ZONE_CHEST)
+	victim_mob.Stun(3 SECONDS)
+	victim_mob.visible_message(span_warning("<b>[victim_mob] пронзен[GEND_A_O_Y(victim_mob)] шипом живой крови!</b>"))
 
 /obj/effect/temp_visual/blood_spike
 	icon = 'icons/effects/vampire_effects.dmi'
 	icon_state = "bloodspike_white"
 	duration = 0.3 SECONDS
 
-/obj/effect/proc_holder/spell/vampire/self/blood_spill
+/datum/action/cooldown/spell/blood_spill
 	name = "Кровавый обряд"
 	desc = "При переключении все вокруг начнут обильно кровоточить. Вы будете поглощать их кровь и напитываться силой."
 	gain_desc = "Вы обрели способность извлекать жизненную силу из гуманоидов и поглощать её, исцеляя себя."
-	action_icon_state = "blood_bringers_rite"
-	required_blood = 10
+	button_icon_state = "blood_bringers_rite"
+	background_icon_state = "bg_vampire"
+	school = SCHOOL_SANGUINE
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+	var/required_blood = 10
 
-/obj/effect/proc_holder/spell/vampire/self/blood_spill/cast(list/targets, mob/user)
-	var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire)
+/datum/action/cooldown/spell/blood_spill/create_new_handler()
+	var/datum/spell_handler/vampire/handler = new(src, required_blood)
+	return handler
+
+/datum/action/cooldown/spell/blood_spill/cast(atom/cast_on)
+	. = ..()
+	var/datum/antagonist/vampire/V = owner.mind.has_antag_datum(/datum/antagonist/vampire)
 	if(!V.get_ability(/datum/vampire_passive/blood_spill))
 		V.force_add_ability(/datum/vampire_passive/blood_spill)
 	else

@@ -52,3 +52,13 @@
 	transform = scale_matrix
 	animate(src, transform = scale_matrix * 8, time = 0.8 SECONDS, alpha = 0)
 	QDEL_IN(src, 0.8 SECONDS)
+
+// MARK: Rathens
+/obj/effect/warp_effect/rathens
+
+/obj/effect/warp_effect/rathens/Initialize(mapload)
+	. = ..()
+	var/matrix/scale_matrix = matrix() * 0.5
+	transform = scale_matrix
+	animate(src, transform = scale_matrix * 12, time = 1.2 SECONDS, alpha = 0)
+	QDEL_IN(src, 1.2 SECONDS)

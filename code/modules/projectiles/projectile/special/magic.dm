@@ -21,6 +21,84 @@
 		PREPOSITIONAL = "разряде пустоты",
 	)
 
+
+/// Gives magic projectiles an area of effect radius that will bump into any nearby mobs
+/obj/projectile/magic/aoe
+
+	/// The AOE radius that the projectile will trigger on people.
+	var/trigger_range = 1
+	/// Whether our projectile will only be able to hit the original target / clicked on atom
+	var/can_only_hit_target = FALSE
+		/// Whether our projectile leaves a trail behind it  as it moves.
+	var/trail = FALSE
+	/// The duration of the trail before deleting.
+	var/trail_lifespan = 0 SECONDS
+	/// The icon the trail uses.
+	var/trail_icon = 'icons/obj/magic.dmi'
+	/// The icon state the trail uses.
+	var/trail_icon_state = "arrow"
+	/// Can we spawn a trail effect again?
+	COOLDOWN_DECLARE(trail_cooldown)
+
+/obj/projectile/magic/aoe/Range()
+	if(trigger_range >= 1)
+		for(var/mob/living/nearby_guy in range(trigger_range, get_turf(src)))
+			if(nearby_guy.stat == DEAD)
+				continue
+			if(nearby_guy == firer)
+				continue
+			// Bump handles anti-magic checks for us, conveniently.
+			return Bump(nearby_guy)
+
+	return ..()
+
+/obj/projectile/magic/aoe/prehit(atom/target)
+	if(can_only_hit_target && target != original)
+		return
+	return ..()
+
+/obj/projectile/magic/aoe/magic_missile
+	name = "magic missile"
+	icon_state = "magicm"
+	range = 100
+	speed = 15
+	trigger_range = 0
+	can_only_hit_target = TRUE
+	paralyze = 6 SECONDS
+	hitsound = 'sound/magic/mm_hit.ogg'
+
+	trail = TRUE
+	trail_lifespan = 20
+	trail_icon_state = "magicmd"
+
+/obj/projectile/magic/aoe/magic_missile/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
+	. = ..()
+	if(!trail || paused || QDELETED(src) || !COOLDOWN_FINISHED(src, trail_cooldown))
+		return
+
+	var/obj/effect/overlay/trail_effect = new /obj/effect/overlay(loc)
+	trail_effect.pixel_x = pixel_x
+	trail_effect.pixel_y = pixel_y
+	trail_effect.icon = trail_icon
+	trail_effect.icon_state = trail_icon_state
+	trail_effect.set_density(FALSE)
+	trail_effect.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	QDEL_IN(trail_effect, trail_lifespan)
+	COOLDOWN_START(src, trail_cooldown, trail_lifespan)
+
+/obj/projectile/magic/aoe/magic_missile/lesser
+	color = "red" //Looks more culty this way
+	range = 10
+
+/obj/projectile/magic/aoe/magic_missile/honk
+	name = "A bike horn"
+	icon = 'icons/obj/items.dmi'
+	icon_state = "bike_horn"
+
+	trail_icon = 'icons/obj/items.dmi'
+	trail_lifespan = 5
+	trail_icon_state = "bike_horn"
+
 // MARK: Death Bolt
 /obj/projectile/magic/death
 	name = "bolt of death"
@@ -226,7 +304,7 @@
 		CreateDoor(target)
 	else if(isturf(T) && T.density)
 		CreateDoor(T)
-	else if(istype(target, /obj/machinery/door))
+	else if(is_door(target))
 		OpenDoor(target)
 	else if(iscloset(target))
 		OpenCloset(target)
@@ -269,158 +347,162 @@
 	wabbajack(change)
 
 /proc/wabbajack(mob/living/M)
-	if(istype(M) && M.stat != DEAD && !HAS_TRAIT(M, TRAIT_NO_TRANSFORM))
-		ADD_TRAIT(M, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
-		M.icon = null
-		M.cut_overlays()
-		M.invisibility = INVISIBILITY_ABSTRACT
+	if(istype(M) && M.stat == DEAD || HAS_TRAIT(M, TRAIT_NO_TRANSFORM))
+		return
 
-		if(isrobot(M))
-			var/mob/living/silicon/robot/Robot = M
-			QDEL_NULL(Robot.mmi)
-			Robot.notify_ai(ROBOT_NOTIFY_AI_CONNECTED)
-		else
-			if(ishuman(M))
-				var/mob/living/carbon/human/H = M
-				// Make sure there are no organs or limbs to drop
-				for(var/t in H.bodyparts)
-					qdel(t)
-				for(var/i in H.internal_organs)
-					qdel(i)
-			for(var/obj/item/W in M)
-				M.temporarily_remove_item_from_inventory(W, force = TRUE)
-				qdel(W)
+	if(SEND_SIGNAL(M, COMSIG_LIVING_PRE_WABBAJACKED, M) & STOP_WABBAJACK)
+		return
 
-		var/mob/living/new_mob
-		var/briefing_msg
-		var/is_new_mind = FALSE
+	ADD_TRAIT(M, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
+	M.icon = null
+	M.cut_overlays()
+	M.invisibility = INVISIBILITY_ABSTRACT
 
-		var/randomize = pick("РОБОТ", "ТЕРРОР", "КСЕНОМОРФ", "ЧЕЛОВЕК", "ЖИВОТНОЕ")
-		switch(randomize)
-			if("РОБОТ")
-				is_new_mind = TRUE
-				var/path
-				if(prob(50))
-					path = pick(typesof(/mob/living/silicon/robot/syndicate))
-					new_mob = new path(M.loc)
-					briefing_msg = ""
-				else
-					new_mob = new /mob/living/silicon/robot/ert/gamma(M.loc)
-					briefing_msg = ""
-				new_mob.gender = M.gender
-				new_mob.invisibility = 0
-				new_mob.job = JOB_TITLE_CYBORG
-				var/mob/living/silicon/robot/Robot = new_mob
-				if(ishuman(M))
-					Robot.mmi = new /obj/item/mmi(new_mob)
-					Robot.mmi.transfer_identity(M)	//Does not transfer key/client.
-				else
-					Robot.mmi = new /obj/item/mmi/robotic_brain(new_mob)
-					Robot.mmi.brainmob.timeofhostdeath = M.timeofdeath
-					Robot.mmi.brainmob.set_stat(CONSCIOUS)
-					Robot.mmi.update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
-				Robot.lawupdate = FALSE
-				Robot.disconnect_from_ai()
-				Robot.clear_inherent_laws()
-				Robot.clear_zeroth_law()
-			if("ТЕРРОР")
-				is_new_mind = TRUE
-				var/terror = pick(prob(20); "lurker", prob(20); "knight", prob(20); "drone", prob(15); "widow", prob(15); "reaper", prob(10); "destroyer")
-				switch(terror)
-					if("lurker")
-						new_mob = new /mob/living/simple_animal/hostile/poison/terror_spider/lurker(M.loc)
-					if("knight")
-						new_mob = new /mob/living/simple_animal/hostile/poison/terror_spider/knight(M.loc)
-					if("drone")
-						new_mob = new /mob/living/simple_animal/hostile/poison/terror_spider/builder(M.loc)
-					if("widow")
-						new_mob = new /mob/living/simple_animal/hostile/poison/terror_spider/widow(M.loc)
-					if("reaper")
-						new_mob = new /mob/living/simple_animal/hostile/poison/terror_spider/reaper(M.loc)
-					if("destroyer")
-						new_mob = new /mob/living/simple_animal/hostile/poison/terror_spider/destroyer(M.loc)
-				new_mob.universal_speak = TRUE
-			if("КСЕНОМОРФ")
-				is_new_mind = TRUE
-				if(prob(50))
-					new_mob = new /mob/living/carbon/alien/humanoid/hunter(M.loc)
-				else
-					new_mob = new /mob/living/carbon/alien/humanoid/sentinel(M.loc)
-				new_mob.universal_speak = TRUE
+	if(isrobot(M))
+		var/mob/living/silicon/robot/Robot = M
+		QDEL_NULL(Robot.mmi)
+		Robot.notify_ai(ROBOT_NOTIFY_AI_CONNECTED)
+	else
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			// Make sure there are no organs or limbs to drop
+			for(var/t in H.bodyparts)
+				qdel(t)
+			for(var/i in H.internal_organs)
+				qdel(i)
+		for(var/obj/item/W in M)
+			M.temporarily_remove_item_from_inventory(W, force = TRUE)
+			qdel(W)
 
-				briefing_msg = "Вам разрешается убивать нексеноморфов среди вас. Прежде всего вам лучше обнаружить других себеподобных и подготовить место для улья.."
-			if("ЖИВОТНОЕ")
-				is_new_mind = TRUE
-				var/beast = pick("carp", "bear", "statue", "giantspider", "syndiemouse")
-				switch(beast)
-					if("carp")
-						new_mob = new /mob/living/simple_animal/hostile/carp(M.loc)
-					if("bear")
-						new_mob = new /mob/living/simple_animal/hostile/bear(M.loc)
-					if("statue")
-						new_mob = new /mob/living/simple_animal/hostile/statue(M.loc)
-					if("giantspider")
-						var/spiderType = pick("hunterspider","nursespider","basicspider")
-						switch(spiderType)
-							if("hunterspider")
-								new_mob = new /mob/living/simple_animal/hostile/poison/giant_spider/hunter(M.loc)
-							if("nursespider")
-								new_mob = new /mob/living/simple_animal/hostile/poison/giant_spider/nurse(M.loc)
-							if("basicspider")
-								new_mob = new /mob/living/simple_animal/hostile/poison/giant_spider(M.loc)
-					if("syndiemouse")
-						new_mob = new /mob/living/simple_animal/hostile/retaliate/syndirat(M.loc)
-				briefing_msg = "Вы агрессивное животное, питаемое жаждой голода, вы можете совершать убийства, \
-				сбиваться в стаи или следовать своему пути одиночки, но цель всегда будет одна — утолить свой голод."
-				new_mob.universal_speak = TRUE
-			if("ЧЕЛОВЕК")
-				if(prob(50))
-					new_mob = new /mob/living/carbon/human(M.loc)
-					var/mob/living/carbon/human/H = new_mob
-					var/datum/preferences/A = new()	//Randomize appearance for the human
-					A.species = get_random_species(TRUE)
-					A.copy_to(new_mob)
-					randomize = H.dna.species.name
-					if(ishuman(M))
-						briefing_msg = "Вы тот же самый гуманоид, с тем же сознанием и той же памятью, \
-						но ваша кожа теперь какая-то другая, да и вы сами теперь какой-то другой."
-					else
-						is_new_mind = TRUE
-						briefing_msg = "Вы превратились в разумного гуманоида, знакомым с устройством мира и НТ."
-				else
-					new_mob = new /mob/living/carbon/human/lesser/monkey(M.loc)
-					if(ishuman(M))
-						briefing_msg = "Вы разумная мартышка, вам хоть и хочется бананов, \
-						но у вас по прежнему память о своей прошлой жизни..."
-					else
-						is_new_mind = TRUE
-						briefing_msg = "Вы разумная мартышка, и вам хочется бананов."
+	var/mob/living/new_mob
+	var/briefing_msg
+	var/is_new_mind = FALSE
 
+	var/randomize = pick("РОБОТ", "ТЕРРОР", "КСЕНОМОРФ", "ЧЕЛОВЕК", "ЖИВОТНОЕ")
+	switch(randomize)
+		if("РОБОТ")
+			is_new_mind = TRUE
+			var/path
+			if(prob(50))
+				path = pick(typesof(/mob/living/silicon/robot/syndicate))
+				new_mob = new path(M.loc)
+				briefing_msg = ""
 			else
-				return
+				new_mob = new /mob/living/silicon/robot/ert/gamma(M.loc)
+				briefing_msg = ""
+			new_mob.gender = M.gender
+			new_mob.invisibility = 0
+			new_mob.job = JOB_TITLE_CYBORG
+			var/mob/living/silicon/robot/Robot = new_mob
+			if(ishuman(M))
+				Robot.mmi = new /obj/item/mmi(new_mob)
+				Robot.mmi.transfer_identity(M)	//Does not transfer key/client.
+			else
+				Robot.mmi = new /obj/item/mmi/robotic_brain(new_mob)
+				Robot.mmi.brainmob.timeofhostdeath = M.timeofdeath
+				Robot.mmi.brainmob.set_stat(CONSCIOUS)
+				Robot.mmi.update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
+			Robot.lawupdate = FALSE
+			Robot.disconnect_from_ai()
+			Robot.clear_inherent_laws()
+			Robot.clear_zeroth_law()
+		if("ТЕРРОР")
+			is_new_mind = TRUE
+			var/terror = pick(prob(20); "lurker", prob(20); "knight", prob(20); "drone", prob(15); "widow", prob(15); "reaper", prob(10); "destroyer")
+			switch(terror)
+				if("lurker")
+					new_mob = new /mob/living/simple_animal/hostile/poison/terror_spider/lurker(M.loc)
+				if("knight")
+					new_mob = new /mob/living/simple_animal/hostile/poison/terror_spider/knight(M.loc)
+				if("drone")
+					new_mob = new /mob/living/simple_animal/hostile/poison/terror_spider/builder(M.loc)
+				if("widow")
+					new_mob = new /mob/living/simple_animal/hostile/poison/terror_spider/widow(M.loc)
+				if("reaper")
+					new_mob = new /mob/living/simple_animal/hostile/poison/terror_spider/reaper(M.loc)
+				if("destroyer")
+					new_mob = new /mob/living/simple_animal/hostile/poison/terror_spider/destroyer(M.loc)
+			new_mob.universal_speak = TRUE
+		if("КСЕНОМОРФ")
+			is_new_mind = TRUE
+			if(prob(50))
+				new_mob = new /mob/living/carbon/alien/humanoid/hunter(M.loc)
+			else
+				new_mob = new /mob/living/carbon/alien/humanoid/sentinel(M.loc)
+			new_mob.universal_speak = TRUE
 
-		add_attack_logs(null, M, "became [new_mob.real_name]", ATKLOG_ALL)
+			briefing_msg = "Вам разрешается убивать нексеноморфов среди вас. Прежде всего вам лучше обнаружить других себеподобных и подготовить место для улья.."
+		if("ЖИВОТНОЕ")
+			is_new_mind = TRUE
+			var/beast = pick("carp", "bear", "statue", "giantspider", "syndiemouse")
+			switch(beast)
+				if("carp")
+					new_mob = new /mob/living/simple_animal/hostile/carp(M.loc)
+				if("bear")
+					new_mob = new /mob/living/simple_animal/hostile/bear(M.loc)
+				if("statue")
+					new_mob = new /mob/living/simple_animal/hostile/statue(M.loc)
+				if("giantspider")
+					var/spiderType = pick("hunterspider","nursespider","basicspider")
+					switch(spiderType)
+						if("hunterspider")
+							new_mob = new /mob/living/simple_animal/hostile/poison/giant_spider/hunter(M.loc)
+						if("nursespider")
+							new_mob = new /mob/living/simple_animal/hostile/poison/giant_spider/nurse(M.loc)
+						if("basicspider")
+							new_mob = new /mob/living/simple_animal/hostile/poison/giant_spider(M.loc)
+				if("syndiemouse")
+					new_mob = new /mob/living/simple_animal/hostile/retaliate/syndirat(M.loc)
+			briefing_msg = "Вы агрессивное животное, питаемое жаждой голода, вы можете совершать убийства, \
+			сбиваться в стаи или следовать своему пути одиночки, но цель всегда будет одна — утолить свой голод."
+			new_mob.universal_speak = TRUE
+		if("ЧЕЛОВЕК")
+			if(prob(50))
+				new_mob = new /mob/living/carbon/human(M.loc)
+				var/mob/living/carbon/human/H = new_mob
+				var/datum/preferences/A = new()	//Randomize appearance for the human
+				A.species = get_random_species(TRUE)
+				A.copy_to(new_mob)
+				randomize = H.dna.species.name
+				if(ishuman(M))
+					briefing_msg = "Вы тот же самый гуманоид, с тем же сознанием и той же памятью, \
+					но ваша кожа теперь какая-то другая, да и вы сами теперь какой-то другой."
+				else
+					is_new_mind = TRUE
+					briefing_msg = "Вы превратились в разумного гуманоида, знакомым с устройством мира и НТ."
+			else
+				new_mob = new /mob/living/carbon/human/lesser/monkey(M.loc)
+				if(ishuman(M))
+					briefing_msg = "Вы разумная мартышка, вам хоть и хочется бананов, \
+					но у вас по прежнему память о своей прошлой жизни..."
+				else
+					is_new_mind = TRUE
+					briefing_msg = "Вы разумная мартышка, и вам хочется бананов."
 
-		new_mob.a_intent = INTENT_HARM
-		if(M.mind)
-			M.mind.transfer_to(new_mob)
-			if(is_new_mind)
-				new_mob.mind.wipe_memory()
-				if(briefing_msg)
-					new_mob.mind.store_memory(briefing_msg)
 		else
-			new_mob.possess_by_player(M.ckey)
+			return
 
+	add_attack_logs(null, M, "became [new_mob.real_name]", ATKLOG_ALL)
+	new_mob.a_intent = INTENT_HARM
+	if(M.mind)
+		M.mind.transfer_to(new_mob)
 		if(is_new_mind)
-			to_chat(new_mob, span_danger("Вы потеряли свою личность и память! Отыгрывайте новое существо!"))
-		to_chat(new_mob, span_danger("ТЕПЕРЬ ВЫ [uppertext(randomize)]"))
-		if(briefing_msg)
-			to_chat(new_mob, custom_boxed_message("red_box center", span_userdanger("[briefing_msg]")))
+			new_mob.mind.wipe_memory()
+			if(briefing_msg)
+				new_mob.mind.store_memory(briefing_msg)
+	else
+		new_mob.possess_by_player(M.ckey)
 
-		SEND_SIGNAL(M, COMSIG_LIVING_ON_WABBAJACKED, new_mob)
+	if(is_new_mind)
+		to_chat(new_mob, span_danger("Вы потеряли свою личность и память! Отыгрывайте новое существо!"))
+	to_chat(new_mob, span_danger("ТЕПЕРЬ ВЫ [uppertext(randomize)]"))
+	if(briefing_msg)
+		to_chat(new_mob, custom_boxed_message("red_box center", span_userdanger("[briefing_msg]")))
 
-		qdel(M)
-		return new_mob
+	SEND_SIGNAL(M, COMSIG_LIVING_ON_WABBAJACKED, new_mob)
+
+	qdel(M)
+	return new_mob
 
 // MARK: Animation Bolt
 /obj/projectile/magic/animate
