@@ -320,3 +320,34 @@
 	.["implants"] = implants
 	.["cybernetic_implants"] = cybernetic_implants
 	.["accessories"] = accessories
+
+/datum/outfit/proc/copy_from(datum/outfit/source)
+	if(!istype(source))
+		return
+	name = source.name
+	uniform = source.uniform
+	suit = source.suit
+	back = source.back
+	belt = source.belt
+	gloves = source.gloves
+	shoes = source.shoes
+	head = source.head
+	mask = source.mask
+	neck = source.neck
+	l_ear = source.l_ear
+	r_ear = source.r_ear
+	glasses = source.glasses
+	id = source.id
+	pda = source.pda
+	l_pocket = source.l_pocket
+	r_pocket = source.r_pocket
+	suit_store = source.suit_store
+	l_hand = source.l_hand
+	r_hand = source.r_hand
+	toggle_helmet = source.toggle_helmet
+	internals_slot = source.internals_slot
+	box = source.box
+	backpack_contents = source.backpack_contents ? source.backpack_contents.Copy() : list()
+	implants = source.implants ? source.implants.Copy() : list()
+	cybernetic_implants = source.cybernetic_implants ? source.cybernetic_implants.Copy() : list()
+	accessories = source.accessories ? source.accessories.Copy() : list()
