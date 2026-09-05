@@ -203,7 +203,12 @@
 	},
 /area/centcom/central_command_areas/special_operations)
 "acH" = (
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external/docking{
+	req_access = list(48);
+	dock_name = "Западный шлюз";
+	overmap_collar_id = "additional_west";
+	dir = 8
+	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/addition_goals)
@@ -17800,10 +17805,15 @@
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/centcom/vox_station)
 "iGI" = (
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external/docking{
+	req_access = list(48);
+	dock_name = "Восточный шлюз";
+	overmap_collar_id = "additional_east";
+	dir = 4
+	},
 /obj/docking_port/mobile{
 	alone_shuttle = 1;
-	dir = 8;
+	dir = 4;
 	dwidth = 2;
 	height = 7;
 	id = "addition_goal";
@@ -21169,16 +21179,15 @@
 	},
 /area/shuttle/escape)
 "kbK" = (
-/obj/docking_port/stationary{
-	dir = 4;
-	dwidth = 2;
-	height = 7;
-	id = "addition_goal_dock";
-	name = "Addition Goal Shuttle dock";
-	width = 10
+/obj/machinery/door/airlock/external/docking{
+	dir = 8;
+	dock_name = "Стыковочный шлюз эвакуационного дополнительного шаттла";
+	id_tag = "addition_goal_dock"
 	},
-/turf/space,
-/area/space)
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/centcom/central_command_areas/special_operations)
 "kbP" = (
 /obj/machinery/light{
 	dir = 4
@@ -41103,14 +41112,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/centcom/syndicate_base/elite_squad)
-"sIz" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "Dark"
-	},
-/area/centcom/central_command_areas/special_operations)
 "sIC" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/carpet,
@@ -75120,7 +75121,7 @@ mVX
 mVX
 mVX
 mVX
-kbK
+mVX
 mVX
 mVX
 mVX
@@ -86598,7 +86599,7 @@ nAN
 nAN
 nAN
 nAN
-nAN
+kbK
 nAN
 mVX
 mVX
@@ -86855,7 +86856,7 @@ pPo
 yhG
 aHe
 nAN
-sIz
+bBe
 nAN
 mVX
 mVX

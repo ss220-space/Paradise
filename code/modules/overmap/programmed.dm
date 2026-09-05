@@ -143,6 +143,15 @@ GLOBAL_LIST_INIT(overmap_programmed_shuttle_ids, build_overmap_programmed_shuttl
 		message = "Оружейный шаттл уровня Гамма прибыл на станцию."
 	)
 
+/datum/overmap_programmed_profile/addition_goal
+	shuttle_id = "addition_goal"
+	hazard_immune = TRUE
+	persist_until_dock = TRUE
+
+/datum/overmap_programmed_profile/addition_goal/setup_legs()
+	add_leg("addition_goal_dock", "additional_east")
+	add_leg("graveyard_church", "additional_east")
+
 /datum/overmap_programmed_profile/escape_pod
 	persist_until_dock = TRUE
 	hazard_immune = TRUE

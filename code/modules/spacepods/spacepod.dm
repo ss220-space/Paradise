@@ -1213,8 +1213,7 @@
 		var/helm_type = /obj/machinery/computer/helm/pod
 		overmap_helm = new helm_type(src)
 	if(!overmap_transponder)
-		var/beacon_type = istype(src, /obj/spacepod/syndi) ? /obj/machinery/transponder/pod/syndicate : /obj/machinery/transponder/pod
-		overmap_transponder = new beacon_type(src)
+		overmap_transponder = new /obj/machinery/transponder/pod(src)
 	if(!overmap_comms)
 		overmap_comms = new /obj/machinery/overmap_intercom/pod(src)
 	if(!overmap_engine)

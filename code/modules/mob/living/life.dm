@@ -103,7 +103,7 @@
 
 /mob/living/proc/handle_hyperspace_exposure()
 	var/turf/spot = get_turf(src)
-	if(isspacepod(loc) || !istype(spot, /turf/space/transit) || istype(get_area(src), /area/shuttle))
+	if(isspacepod(loc) || !istype(spot, /turf/space/transit) || is_area_shuttle(get_area(src)))
 		var/atom/movable/screen/alert/pressure_alert = LAZYACCESS(alerts, "pressure")
 		if(istype(pressure_alert, /atom/movable/screen/alert/highpressure/hyperspace))
 			clear_alert("pressure", clear_override = TRUE)

@@ -146,6 +146,7 @@ GLOBAL_LIST_INIT(overmap_shuttle_profiles, build_overmap_shuttle_profiles())
 /datum/overmap_shuttle_profile/addition_goal
 	shuttle_id = "addition_goal"
 	identity_name = "Шаттл дополнительных приказов"
+	identity_color = COLOR_CENTCOM_BLUE
 	identity_iff_ids = list(OVERMAP_IFF_CENTCOM)
 
 /datum/overmap_shuttle_profile/shit_rain

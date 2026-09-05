@@ -42,7 +42,7 @@
 	max_y = min(world.maxy, max_y + OVERMAP_SENSOR_SCAN_PAD)
 	var/size_x = max_x - min_x + 1
 	var/size_y = max_y - min_y + 1
-	if(size_x >= OVERMAP_SENSOR_SCAN_MAX_SIZE || size_y >= OVERMAP_SENSOR_SCAN_MAX_SIZE)
+	if(size_x >= OVERMAP_SENSOR_SCAN_MAX_SIZE || size_y >= OVERMAP_SENSOR_SCAN_MAX_SIZE || length(hull) > OVERMAP_SENSOR_SCAN_PREVIEW_MAX_TURFS)
 		return
 	return list(
 		"turfs" = block(locate(min_x, min_y, scan_z), locate(max_x, max_y, scan_z)),
