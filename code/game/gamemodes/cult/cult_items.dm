@@ -681,7 +681,7 @@
 	if(isliving(loc))
 		var/mob/living/holder = loc
 		return prob(reflect_chance) && iscultist(holder) //so non-cultist can not reflect using this shield
-	return FALSE
+	return REFLECT_NOTHING
 
 /obj/item/twohanded/cult_spear
 	name = "blood halberd"
