@@ -257,11 +257,11 @@
 /obj/machinery/computer/navmap
 	name = "global sector map monitor"
 	desc = "Настенный пассивный монитор глобальной карты сектора. Используется только для чтения карты."
-	icon_state = "telescreen_console"
+	icon = 'icons/obj/machines/overmap.dmi'
+	icon_state = "overmap_monitor"
 	icon_keyboard = null
-	icon_screen = "telescreen"
+	icon_screen = null
 	density = FALSE
-	light_color = LIGHT_COLOR_CYAN
 	circuit = /obj/item/circuitboard/navmap
 	var/obj/overmap/entity/vessel
 	var/atom/movable/screen/map_view/camera/cam_screen
@@ -302,6 +302,20 @@
 	QDEL_NULL(map_camera)
 	QDEL_NULL(cam_screen)
 	return ..()
+
+/obj/machinery/computer/navmap/update_overlays()
+	return list()
+
+/obj/machinery/computer/navmap/power_change(forced = FALSE)
+	. = FALSE
+	var/old_stat = stat
+	if(powered(power_channel))
+		stat &= ~NOPOWER
+	else
+		stat |= NOPOWER
+	. = old_stat != stat || forced
+	if(.)
+		update_icon()
 
 /obj/machinery/computer/navmap/proc/link_vessel()
 	var/obj/overmap/entity/resolved = SSovermap?.resolve_vessel(src)

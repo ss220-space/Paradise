@@ -27,6 +27,7 @@
 	GLOB.sensor_arrays += src
 	if(SSovermap?.initialized)
 		link_vessel()
+	update_icon()
 
 /obj/machinery/sensor_array/Destroy()
 	GLOB.sensor_arrays -= src
@@ -41,20 +42,19 @@
 	if(vessel && vessel != resolved)
 		vessel.unregister_sensor_array(src)
 	resolved.register_sensor_array(src)
+	update_icon()
 
 /obj/machinery/sensor_array/proc/is_ready()
 	return on && !(stat & (NOPOWER|BROKEN))
 
 /obj/machinery/sensor_array/proc/update_sensor_power()
-	if(!vessel)
-		use_power = IDLE_POWER_USE
-		return
-	if(sensor_kind == OVERMAP_SENSOR_KIND_LONG && vessel.long_sensors_on && is_ready())
+	if(vessel && sensor_kind == OVERMAP_SENSOR_KIND_LONG && vessel.long_sensors_on && is_ready())
 		use_power = ACTIVE_POWER_USE
-	else if(sensor_kind == OVERMAP_SENSOR_KIND_SHORT && vessel.short_sensors_on && is_ready())
+	else if(vessel && sensor_kind == OVERMAP_SENSOR_KIND_SHORT && vessel.short_sensors_on && is_ready())
 		use_power = ACTIVE_POWER_USE
 	else
 		use_power = IDLE_POWER_USE
+	update_icon()
 
 /obj/machinery/sensor_array/power_change(forced = FALSE)
 	. = ..()
@@ -73,7 +73,15 @@
 	name = "long-range sensor array"
 	desc = "Антенна дальнего действия. Позволяет видеть массивные объекты в большом радиусе. Не допускает точное сканирование. Может выдать позицию в секторе."
 	sensor_kind = OVERMAP_SENSOR_KIND_LONG
-	icon_state = "sensor_long"
+	icon_state = "sensor_long_off"
+
+/obj/machinery/sensor_array/long_range/update_icon_state()
+	if(!is_ready())
+		icon_state = "sensor_long_off"
+	else if(vessel?.long_sensors_on)
+		icon_state = "sensor_long_on"
+	else
+		icon_state = "sensor_long_ready"
 
 /obj/machinery/sensor_array/short_range
 	name = "short-range sensor array"
