@@ -63,7 +63,9 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 
 // Returns whether the given z level has a freeze on initialization
 /datum/zlev_manager/proc/is_zlevel_dirty(z)
-	var/datum/space_level/our_z = get_zlev(z)
+	var/datum/space_level/our_z = z_list["[z]"]
+	if(!our_z)
+		return FALSE
 	return (our_z.dirt_count > 0)
 
 // Increases the dirt count on a z level
