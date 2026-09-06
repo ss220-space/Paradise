@@ -7,7 +7,6 @@
 	density = TRUE
 	idle_power_usage = 250
 	active_power_usage = 2000
-	use_power = IDLE_POWER_USE
 	var/obj/overmap/entity/vessel
 	var/sensor_kind = OVERMAP_SENSOR_KIND_LONG
 	var/on = TRUE
@@ -72,7 +71,6 @@
 /obj/machinery/sensor_array/long_range
 	name = "long-range sensor array"
 	desc = "Антенна дальнего действия. Позволяет видеть массивные объекты в большом радиусе. Не допускает точное сканирование. Может выдать позицию в секторе."
-	sensor_kind = OVERMAP_SENSOR_KIND_LONG
 	icon_state = "sensor_long_off"
 
 /obj/machinery/sensor_array/long_range/update_icon_state()
@@ -87,7 +85,6 @@
 	name = "short-range sensor array"
 	desc = "Антенна короткого действия. Сканирует объекты на ближней дистанции. Не раскрывает судно и позволяет сканировать ближайшие объекты."
 	sensor_kind = OVERMAP_SENSOR_KIND_SHORT
-	icon_state = "sensor_short"
 	idle_power_usage = 150
 /obj/machinery/sensor_array/short_range/pod
 	name = "pod short-range sensors"

@@ -8,7 +8,6 @@
 	opacity = TRUE
 	idle_power_usage = 500
 	active_power_usage = 2000
-	use_power = IDLE_POWER_USE
 	resistance_flags = INDESTRUCTIBLE
 	smoothing_groups = SMOOTH_GROUP_SHUTTLE_PARTS
 	var/obj/overmap/entity/vessel
@@ -105,14 +104,12 @@
 	return TRUE
 
 /obj/machinery/ship_engine/small
-	name = "small engine"
 
 /obj/machinery/ship_engine/large
 	name = "large engine"
 	desc = "Тяжёлый двигатель. Даёт большое количество тяги для перелётов на самых больших судах."
 	icon = 'icons/obj/2x2.dmi'
 	icon_state = "large_engine"
-	opacity = TRUE
 	appearance_flags = LONG_GLIDE
 	generated_thrust = OVERMAP_ENGINE_LARGE_THRUST
 	idle_power_usage = 1500
@@ -137,7 +134,6 @@
 	desc = "Гигантский блюспейс-двигатель. Сконструирован для передвижения самых огромных космических объектов." //123123123
 	icon = 'icons/obj/3x3.dmi'
 	icon_state = "huge_engine"
-	opacity = TRUE
 	pixel_x = -32
 	pixel_y = -32
 	appearance_flags = LONG_GLIDE

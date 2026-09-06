@@ -8,8 +8,6 @@
 	vessel_flags = NONE
 	vessel_mass = 300
 	map_color = "#c58cff"
-	overmap_icon_preset = "station"
-	status = OVERMAP_STATUS_OVERMAP
 	overmap_hazard_immune = TRUE
 	var/obj/overmap/entity/hyperrelay/paired
 	var/pair_id

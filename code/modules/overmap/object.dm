@@ -3,9 +3,7 @@
 	icon = OVERMAP_ICON_FILE
 	icon_state = "object"
 	anchored = TRUE
-	density = FALSE
 	layer = HIGH_OBJ_LAYER
-	plane = GAME_PLANE
 	animate_movement = NO_STEPS
 	glide_size = 0
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF

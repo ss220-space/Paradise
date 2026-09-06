@@ -51,11 +51,8 @@ GLOBAL_LIST_INIT(overmap_transponder_colors, list(
 	icon = 'icons/obj/machines/overmap.dmi'
 	icon_state = "transponder"
 	anchored = TRUE
-	density = FALSE
 	idle_power_usage = 40
 	active_power_usage = 80
-	use_power = IDLE_POWER_USE
-	power_channel = EQUIP
 	layer = ABOVE_WINDOW_LAYER
 	var/obj/overmap/entity/vessel
 	var/broadcast_name = ""

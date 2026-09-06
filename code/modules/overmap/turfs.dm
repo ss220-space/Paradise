@@ -7,7 +7,6 @@
 	base_lighting_alpha = 255
 	valid_territory = FALSE
 	no_teleportlocs = TRUE
-	outdoors = FALSE
 	var/overmap_size = OVERMAP_DEFAULT_SIZE
 	var/overmap_origin_x = 1
 	var/overmap_origin_y = 1
@@ -17,13 +16,10 @@
 	desc = "Карта системы. Сюда нельзя попасть пешком."
 	icon = OVERMAP_ICON_FILE
 	icon_state = "map"
-	plane = FLOOR_PLANE
 	layer = TURF_LAYER
 	space_lit = TRUE
-	luminosity = 1
 	blocks_air = TRUE
 	init_air = FALSE
-	underfloor_accessibility = UNDERFLOOR_HIDDEN
 	keep_dir = FALSE
 
 /turf/simulated/floor/indestructible/overmap/Initialize(mapload)
@@ -87,11 +83,8 @@
 
 /turf/simulated/floor/indestructible/overmap/edge
 	name = "map edge"
-	icon = OVERMAP_ICON_FILE
-	icon_state = "map"
 	color = "#222222"
 	density = TRUE
-	opacity = FALSE
 
 /turf/simulated/floor/indestructible/overmap/edge/Initialize(mapload)
 	. = ..()
@@ -103,7 +96,6 @@
 	name = "map void"
 	desc = null
 	opacity = TRUE
-	density = TRUE
 	color = "#000000"
 	space_lit = FALSE
 	luminosity = 0
@@ -124,7 +116,6 @@
 	blocks_air = TRUE
 	explosion_block = 50
 	turf_flags = NO_RUINS
-	space_lit = FALSE
 	luminosity = 0
 
 /turf/simulated/floor/indestructible/hyperspace/Initialize(mapload)

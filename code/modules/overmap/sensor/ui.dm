@@ -262,7 +262,6 @@
 	update_map_view()
 
 /obj/machinery/computer/sensors/long_range
-	view_mode = OVERMAP_SENSOR_KIND_LONG
 
 /obj/machinery/computer/sensors/short_range
 	view_mode = OVERMAP_SENSOR_KIND_SHORT

@@ -2,9 +2,6 @@
 	name = "аномалия"
 	desc = "Неопознанный участок пространства."
 	icon_state = "event"
-	visible_without_scanner = FALSE
-	overmap_kind = OVERMAP_KIND_OTHER
-	movable = FALSE
 	map_color = "#c9a227"
 
 /obj/overmap/feature/get_ru_names()
@@ -201,7 +198,6 @@
 	INVOKE_ASYNC(src, PROC_REF(spawn_meteor_at), vessel)
 
 /obj/overmap/feature/hazard/asteroid/taipan_cover
-	visible_without_scanner = FALSE
 	hidden_from_contacts = FALSE
 	scannable = TRUE
 	scan_mass = OVERMAP_MASS_STATION
@@ -297,17 +293,14 @@
 /obj/overmap/feature/hazard/asteroid/moving
 	movable = TRUE
 	moving_hazard = TRUE
-	wraparound = TRUE
 
 /obj/overmap/feature/hazard/emp/moving
 	movable = TRUE
 	moving_hazard = TRUE
-	wraparound = TRUE
 
 /obj/overmap/feature/hazard/carp/moving
 	movable = TRUE
 	moving_hazard = TRUE
-	wraparound = TRUE
 
 /proc/overmap_hazard_spawn_blocked(datum/overmap_sector/sector, turf/spot)
 	if(!sector || !spot)

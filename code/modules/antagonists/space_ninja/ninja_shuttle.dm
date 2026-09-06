@@ -135,7 +135,6 @@
 /obj/machinery/transponder/virtual
 	name = "remote transponder"
 	invisibility = INVISIBILITY_ABSTRACT
-	density = FALSE
 	use_power = NO_POWER_USE
 	resistance_flags = INDESTRUCTIBLE
 

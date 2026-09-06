@@ -114,5 +114,4 @@
 	mid_length = 15 SECONDS
 	volume = 16
 	extra_range = 3
-	vary = FALSE
 	pressure_affected = FALSE

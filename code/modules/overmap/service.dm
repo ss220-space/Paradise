@@ -1,14 +1,9 @@
 /obj/overmap/entity/service_site
 	abstract_type = /obj/overmap/entity/service_site
 	name = "service site"
-	icon_state = "ship"
 	movable = FALSE
 	halted = TRUE
-	overmap_kind = OVERMAP_KIND_STATION
-	vessel_flags = OVERMAP_VESSEL_STATION
 	vessel_mass = OVERMAP_MASS_STATION
-	overmap_icon_preset = "station"
-	status = OVERMAP_STATUS_OVERMAP
 	overmap_hazard_immune = TRUE
 	var/site_id
 	var/area/area_root

@@ -1,13 +1,9 @@
 /obj/overmap/entity/taipan_site
 	name = "RaMSS Taipan"
-	icon_state = "station"
+	icon_state = "ship"
 	movable = FALSE
 	halted = TRUE
-	overmap_kind = OVERMAP_KIND_STATION
-	vessel_flags = OVERMAP_VESSEL_STATION
 	vessel_mass = OVERMAP_MASS_STATION
-	overmap_icon_preset = "station"
-	status = OVERMAP_STATUS_OVERMAP
 	overmap_hazard_immune = TRUE
 	hidden_from_contacts = TRUE
 	hidden_from_sensors = TRUE

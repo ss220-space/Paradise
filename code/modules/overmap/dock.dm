@@ -1,12 +1,7 @@
 /obj/docking_port/stationary/overmap
 	name = "Площадка"
-	icon = 'icons/obj/device.dmi'
-	icon_state = "pinonfar"
-	overmap_dock_mode = OVERMAP_DOCK_MANUAL
 	width = 1
 	height = 1
-	dwidth = 0
-	dheight = 0
 
 /obj/docking_port/stationary/overmap/get_ru_names()
 	return alist(
@@ -242,7 +237,6 @@
 /obj/machinery/door/airlock/external/docking/glass
 	opacity = FALSE
 	glass = TRUE
-	assemblytype = /obj/structure/door_assembly/door_assembly_docking
 
 /obj/machinery/door/airlock/external/docking/support
 	name = "docking support airlock"
@@ -262,8 +256,6 @@
 /obj/machinery/door/airlock/external/docking/support/glass
 	opacity = FALSE
 	glass = TRUE
-	overmap_is_support = TRUE
-	assemblytype = /obj/structure/door_assembly/door_assembly_docking_support
 
 /obj/machinery/door/airlock/external/docking/shuttle
 	name = "shuttle hatch"
@@ -286,10 +278,8 @@
 /obj/machinery/door/airlock/external/docking/shuttle/glass
 	opacity = FALSE
 	glass = TRUE
-	assemblytype = /obj/structure/door_assembly/door_assembly_docking_shuttle
 
 /obj/machinery/door/airlock/external/docking/shuttle/support
-	name = "shuttle hatch"
 	overmap_is_support = TRUE
 	assemblytype = /obj/structure/door_assembly/door_assembly_docking_shuttle_support
 
@@ -306,8 +296,6 @@
 /obj/machinery/door/airlock/external/docking/shuttle/support/glass
 	opacity = FALSE
 	glass = TRUE
-	overmap_is_support = TRUE
-	assemblytype = /obj/structure/door_assembly/door_assembly_docking_shuttle_support
 
 /obj/machinery/door/airlock/external/docking/hatch
 	name = "airtight hatch"
@@ -334,7 +322,6 @@
 /obj/docking_port/stationary/overmap/landing
 	name = "landing pad"
 	overmap_dock_label = "Посадочный маяк"
-	hidden = FALSE
 
 /obj/docking_port/stationary/overmap/landing/apply_overmap_dock_role()
 	overmap_dock_mode = OVERMAP_DOCK_MANUAL
@@ -352,10 +339,7 @@ GLOBAL_LIST_EMPTY(landing_beacons)
 	icon = 'icons/obj/radio.dmi'
 	icon_state = "beacon"
 	anchored = TRUE
-	density = FALSE
-	invisibility = 0
 	layer = OBJ_LAYER
-	idle_power_usage = 0
 	use_power = NO_POWER_USE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	light_range = 2

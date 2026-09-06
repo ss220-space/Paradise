@@ -57,8 +57,6 @@
 /obj/effect/overmap_planet_cell
 	name = ""
 	desc = null
-	anchored = TRUE
-	density = FALSE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	plane = FLOOR_PLANE
 	layer = ABOVE_OPEN_TURF_LAYER
@@ -95,7 +93,6 @@
 /obj/overmap/planet/lavaland
 	name = "Лазис Ардакс"
 	desc = "Одно из крупнейших тел в секторе. Вулканистая поверхность богата ресурсами и сочится плазмой."
-	icon_state = "lavaland"
 	map_color = "#c45c2a"
 	visible_without_scanner = TRUE
 
@@ -111,13 +108,9 @@
 
 /obj/overmap/entity/planet_station
 	name = "planetary outpost"
-	icon_state = "ship"
 	movable = FALSE
 	halted = TRUE
-	overmap_kind = OVERMAP_KIND_STATION
-	vessel_flags = OVERMAP_VESSEL_STATION
 	vessel_mass = OVERMAP_MASS_STATION
-	overmap_icon_preset = "station"
 	map_color = "#c45c2a"
 	overmap_hazard_immune = TRUE
 	deny_pod_edge_dock = TRUE

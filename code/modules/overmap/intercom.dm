@@ -74,11 +74,8 @@
 	icon = 'icons/obj/machines/overmap.dmi'
 	icon_state = "sector_intercom"
 	anchored = TRUE
-	density = FALSE
 	idle_power_usage = 20
 	active_power_usage = 40
-	use_power = IDLE_POWER_USE
-	power_channel = EQUIP
 	layer = ABOVE_WINDOW_LAYER
 	var/obj/overmap/entity/vessel
 	var/next_transmit = 0

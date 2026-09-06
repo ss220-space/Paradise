@@ -4,11 +4,7 @@
 	invisibility = INVISIBILITY_ABSTRACT
 	density = FALSE
 	use_power = NO_POWER_USE
-	space_turfs_only = TRUE
 	access_station = FALSE
-	access_mining = FALSE
-	access_away = FALSE
-	access_derelict = FALSE
 	shuttlePortName = "Произвольная точка"
 	var/obj/overmap/entity/bound_host
 

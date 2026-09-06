@@ -114,8 +114,6 @@
 /obj/overmap/entity/station
 	movable = FALSE
 	halted = TRUE
-	overmap_kind = OVERMAP_KIND_STATION
-	vessel_flags = OVERMAP_VESSEL_STATION
 
 /obj/overmap/entity/shuttle/add_overmap_components()
 	AddComponent(/datum/component/overmap_sensors)

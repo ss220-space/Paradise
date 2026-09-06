@@ -1,9 +1,6 @@
 /area/space/overmap_ruin
 	name = "Ruin space"
-	icon_state = "space"
 	requires_power = FALSE
-	always_unpowered = TRUE
-	valid_territory = FALSE
 	no_teleportlocs = TRUE
 	var/datum/overmap_space_region/region
 
@@ -256,11 +253,8 @@
 	icon_state = "event"
 	overmap_kind = OVERMAP_KIND_RUIN
 	movable = FALSE
-	visible_without_scanner = FALSE
-	hidden_from_contacts = FALSE
 	map_color = "#c9a227"
 	overmap_icon_preset = "event"
-	status = OVERMAP_STATUS_OVERMAP
 	var/datum/overmap_feature/site
 	var/datum/overmap_space_region/landing_region
 
@@ -279,7 +273,6 @@
 
 /obj/overmap/entity/feature/ruin
 	name = "аномальная зона"
-	deny_pod_edge_dock = FALSE
 
 /obj/overmap/entity/feature/ruin/get_ru_names()
 	return alist(

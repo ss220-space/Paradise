@@ -16,7 +16,6 @@
 	dir = WEST
 
 /turf/space/transit/pod
-	dir = SOUTH
 
 /turf/space/transit/Initialize(mapload)
 	. = ..()

@@ -16,7 +16,6 @@
 	alpha = 0
 	layer = ABOVE_HUD_LAYER + 0.2
 	plane = GAME_PLANE
-	mouse_opacity = MOUSE_OPACITY_ICON
 	del_on_map_removal = FALSE
 	appearance_flags = RESET_COLOR | KEEP_APART
 	var/contact_uid

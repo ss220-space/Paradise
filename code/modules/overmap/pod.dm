@@ -3,7 +3,6 @@
 	icon_state = "shuttle"
 	requires_power = FALSE
 	valid_territory = FALSE
-	has_gravity = FALSE
 	no_teleportlocs = TRUE
 	holomap_should_draw = FALSE
 
@@ -58,9 +57,7 @@
 /obj/machinery/transponder/pod
 	name = "pod transponder"
 	icon_preset = "pod"
-	lock_icon = TRUE
 	use_power = NO_POWER_USE
-	density = FALSE
 	invisibility = INVISIBILITY_ABSTRACT
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
@@ -99,7 +96,6 @@
 /obj/machinery/overmap_intercom/pod
 	name = "pod sector intercom"
 	use_power = NO_POWER_USE
-	density = FALSE
 	invisibility = INVISIBILITY_ABSTRACT
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF

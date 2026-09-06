@@ -318,9 +318,6 @@
 /datum/overmap_sector/station
 	id = OVERMAP_SECTOR_ID_STATION
 	name = "Эпсилон Лукусты"
-	size = OVERMAP_SECTOR_STATION_SIZE
-	sector_kind = OVERMAP_SECTOR_KIND_STATION
-	access_flags = OVERMAP_ACCESS_PUBLIC
 	ruin_spawn_weight = 0.15
 	hazard_spawn_weight = 0.1
 	tile_travel = 2
@@ -331,13 +328,10 @@
 	size = OVERMAP_SECTOR_SERVICE_SIZE
 	sector_kind = OVERMAP_SECTOR_KIND_SERVICE
 	access_flags = OVERMAP_ACCESS_CENTCOM | OVERMAP_ACCESS_SYNDICATE
-	ruin_spawn_weight = 0
-	hazard_spawn_weight = 0
 
 /datum/overmap_sector/wilderness
 	size = OVERMAP_SECTOR_WILDERNESS_SIZE
 	sector_kind = OVERMAP_SECTOR_KIND_WILDERNESS
-	access_flags = OVERMAP_ACCESS_PUBLIC
 	ruin_spawn_weight = 1
 	hazard_spawn_weight = 1
 	tile_travel = 6
