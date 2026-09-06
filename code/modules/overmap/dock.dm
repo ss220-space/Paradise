@@ -71,7 +71,7 @@
 /obj/machinery/door/airlock/external/docking/Initialize(mapload)
 	. = ..()
 	if(mapload)
-		setup_overmap_pad()
+		initialize_overmap_pad()
 		sync_overmap_bolts()
 
 /obj/machinery/door/airlock/external/docking/Destroy()
@@ -138,41 +138,47 @@
 	to_chat(user, span_notice("Направление стыковки: [dir2text(dir)]."))
 
 /obj/machinery/door/airlock/external/docking/proc/setup_overmap_pad(mob/user)
-	if(overmap_is_support)
-		if(user && !id_tag)
+	if(user && overmap_is_support)
+		if(!id_tag)
 			configure_overmap_params(user)
 		return
-	if(is_area_shuttle(get_area(src)))
-		if(!id_tag)
-			id_tag = "s_docking_airlock"
-		if(user)
+	if(user)
+		if(is_area_shuttle(get_area(src)))
 			if(!dock_name)
 				var/chosen = tgui_input_text(user, "Название дока", "Стыковочный шлюз", dock_name, max_length = MAX_NAME_LEN)
 				if(!QDELETED(src) && chosen)
 					dock_name = chosen
+		else if(!overmap_pad && !dock_name)
+			var/chosen = tgui_input_text(user, "Название площадки для штурвала", "Стыковочный шлюз", "", max_length = MAX_NAME_LEN)
+			if(!QDELETED(src) && chosen)
+				dock_name = chosen
+	var/obj/docking_port/stationary/pad_result = initialize_overmap_pad()
+	if(user && pad_result && overmap_pad == pad_result)
+		to_chat(user, span_notice("Площадка «[pad_result.overmap_dock_label || pad_result.id]» зарегистрирована ([pad_result.id])."))
+	return pad_result
+
+/obj/machinery/door/airlock/external/docking/proc/initialize_overmap_pad()
+	if(overmap_is_support)
+		return
+	if(is_area_shuttle(get_area(src)))
+		if(!id_tag)
+			id_tag = "s_docking_airlock"
 		return
 	if(overmap_pad && !QDELETED(overmap_pad))
 		id_tag = overmap_pad.id
 		sync_dock_label()
-		return
+		return overmap_pad
 	var/desired_id = id_tag
 	var/obj/docking_port/stationary/existing = desired_id ? SSshuttle.getDock(desired_id) : locate_overmap_pad()
 	if(existing && !istype(existing, /obj/docking_port/stationary/transit))
 		link_overmap_pad(existing, FALSE)
-		return
+		return existing
 	var/turf/pad_turf = get_overmap_pad_turf()
 	if(!pad_turf)
-		if(user)
-			to_chat(user, span_warning("Нет места для площадки стыковки."))
 		return
-	if(user && !dock_name)
-		var/chosen = tgui_input_text(user, "Название площадки для штурвала", "Стыковочный шлюз", "", max_length = MAX_NAME_LEN)
-		if(!QDELETED(src) && chosen)
-			dock_name = chosen
 	var/obj/docking_port/stationary/overmap/pad = new(pad_turf, desired_id)
 	link_overmap_pad(pad, TRUE)
-	if(user)
-		to_chat(user, span_notice("Площадка «[pad.overmap_dock_label || pad.id]» зарегистрирована ([pad.id])."))
+	return pad
 
 /obj/machinery/door/airlock/external/docking/proc/get_overmap_pad_turf()
 	return get_step(src, dir) || get_turf(src)

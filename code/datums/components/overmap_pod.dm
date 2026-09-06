@@ -275,6 +275,9 @@
 	craft.refresh_overmap_parallax()
 	return TRUE
 
+/datum/component/overmap_pod/proc/rescue_from_transit()
+	INVOKE_ASYNC(src, PROC_REF(enter_hyperspace))
+
 /datum/component/overmap_pod/proc/inner_origin()
 	if(!pocket || !length(pocket.bottom_left_turfs))
 		return null

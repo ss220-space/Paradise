@@ -164,7 +164,7 @@
 	if(overmap_leg_started)
 		var/obj/overmap/entity/vessel = SSovermap?.shuttle_vessels[src]
 		vessel?.abort_programmed_mission()
-		overmap_follow_programmed_leg("emergency_away")
+		INVOKE_ASYNC(src, PROC_REF(overmap_follow_programmed_leg), "emergency_away")
 		overmap_leg_started = FALSE
 		mode = SHUTTLE_IDLE
 		timer = 0

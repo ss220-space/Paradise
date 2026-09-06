@@ -537,11 +537,11 @@
 			if(!thing.simulated || istype(thing, /obj/docking_port) || isobserver(thing))
 				continue
 			if(hyperspace_too_close_to_border(spot))
-				if(isspacepod(thing))
-					var/obj/spacepod/craft = thing
-					if(craft.overmap_vessel?.overmap_pod?.enter_hyperspace())
-						continue
-				delete_lost_in_hyperspace(thing)
+				var/obj/spacepod/pod_to_rescue = thing
+				if(pod_to_rescue?.overmap_vessel?.overmap_pod)
+					pod_to_rescue.overmap_vessel.overmap_pod.rescue_from_transit()
+				else
+					delete_lost_in_hyperspace(thing)
 				continue
 			var/dx = 0
 			var/dy = 0
@@ -554,11 +554,11 @@
 			else if(spot.y > hull_max_y)
 				dy = spot.y - hull_max_y
 			if(max(dx, dy) > OVERMAP_HYPERSPACE_HULL_KEEP)
-				if(isspacepod(thing))
-					var/obj/spacepod/stray = thing
-					if(stray.overmap_vessel?.overmap_pod?.enter_hyperspace())
-						continue
-				delete_lost_in_hyperspace(thing)
+				var/obj/spacepod/stray_pod = thing
+				if(stray_pod?.overmap_vessel?.overmap_pod)
+					stray_pod.overmap_vessel.overmap_pod.rescue_from_transit()
+				else
+					delete_lost_in_hyperspace(thing)
 				continue
 			var/turf/dest = locate(port.x + (thing.x - pad.x), port.y + (thing.y - pad.y), port.z)
 			if(istype(dest, /turf/space/transit))

@@ -58,10 +58,10 @@
 /proc/dump_in_space(atom/movable/dumpee)
 	var/turf/origin = get_turf(dumpee)
 	if(istype(origin, /turf/space/transit))
-		if(isspacepod(dumpee))
-			var/obj/spacepod/craft = dumpee
-			if(craft.overmap_vessel?.overmap_pod?.enter_hyperspace())
-				return
+		var/obj/spacepod/craft = dumpee
+		if(craft?.overmap_vessel?.overmap_pod)
+			craft.overmap_vessel.overmap_pod.rescue_from_transit()
+			return
 		var/datum/turf_reservation/reservation = SSmapping.used_turfs[origin]
 		var/obj/docking_port/mobile/shuttle = get_shuttle_for_transit_reservation(reservation)
 		var/turf/shuttle_turf = shuttle && get_turf(shuttle)
