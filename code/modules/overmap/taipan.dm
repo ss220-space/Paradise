@@ -1,6 +1,5 @@
 /obj/overmap/entity/taipan_site
 	name = "RaMSS Taipan"
-	icon_state = "ship"
 	movable = FALSE
 	halted = TRUE
 	vessel_mass = OVERMAP_MASS_STATION
@@ -66,7 +65,6 @@
 	name = "masked transponder"
 	desc = "Транспондер с прошитой маскировкой. На сенсорах объект выглядит как пояс астероидов."
 	identity_locked = TRUE
-	lock_icon = TRUE
 	broadcasting = FALSE
 	masking = TRUE
 	icon_preset = "station"
