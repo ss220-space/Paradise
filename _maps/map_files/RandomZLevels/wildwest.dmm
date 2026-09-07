@@ -2058,7 +2058,7 @@
 	icon = 'icons/mob/actions/actions.dmi';
 	icon_state = "cultforcewall";
 	layer = 1;
-	lifetime = 0;
+	initial_duration = 0;
 	name = "Blocker"
 	},
 /turf/space,

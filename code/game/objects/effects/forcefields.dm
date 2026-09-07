@@ -2,8 +2,6 @@
 	name = "FORCEWALL"
 	desc = "A space wizard's magic wall."
 	icon_state = "m_shield"
-	anchored = TRUE
-	opacity = FALSE
 	density = TRUE
 	/// If set, how long the force field lasts after it's created. Set to 0 to have infinite duration forcefields.
 	var/initial_duration = 30 SECONDS
