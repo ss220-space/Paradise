@@ -42354,6 +42354,10 @@
 	pixel_x = -7;
 	pixel_y = -35
 	},
+/obj/machinery/overmap_intercom/directional/south{
+	pixel_y = -28;
+	pixel_x = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
