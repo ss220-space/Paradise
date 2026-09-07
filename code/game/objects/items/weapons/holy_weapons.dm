@@ -205,7 +205,6 @@ GLOBAL_LIST_INIT(nullrod_variants, init_nullrod_variants())
 	desc = "This thing is so unspeakably HOLY you are having a hard time even holding it."
 	icon_state = "sord"
 	item_state = "sord"
-	slot_flags = ITEM_SLOT_BELT
 	force = 4.13
 	throwforce = 1
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -300,7 +299,6 @@ GLOBAL_LIST_INIT(nullrod_variants, init_nullrod_variants())
 	icon_state = "hammeron"
 	item_state = "hammeron"
 	desc = "This war hammer cost the chaplain fourty thousand space dollars."
-	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_HUGE
 	attack_verb = list("сокрушил", "ударил", "забил", "раздавил")
 
@@ -352,7 +350,6 @@ GLOBAL_LIST_INIT(nullrod_variants, init_nullrod_variants())
 	desc = "A whip, blessed with the power to banish evil shadowy creatures. What a terrible night to be in spess."
 	icon_state = "chain"
 	item_state = "chain"
-	slot_flags = ITEM_SLOT_BELT
 	attack_verb = list("хлестнул", "стегнул")
 	hitsound = 'sound/weapons/slash.ogg'
 
