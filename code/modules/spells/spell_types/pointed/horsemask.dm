@@ -16,6 +16,10 @@
 /datum/action/cooldown/spell/pointed/horsemask/is_valid_target(atom/cast_on)
 	if(!iscarbon(cast_on))
 		return FALSE
+	if(ismob(cast_on))
+		var/mob/target = cast_on
+		if(target.can_block_magic(antimagic_flags))
+			return FALSE
 	return ..()
 
 /datum/action/cooldown/spell/pointed/horsemask/cast(atom/cast_on)
