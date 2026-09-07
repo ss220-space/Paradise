@@ -20,12 +20,13 @@
 	item_state = "fleshtostone"
 
 /datum/action/cooldown/spell/touch/flesh_to_stone/is_valid_target(atom/cast_on)
+	var/mob/living/target = cast_on
+	if(target.can_block_magic(antimagic_flags))
+		return FALSE
 	return isliving(cast_on)
 
 /datum/action/cooldown/spell/touch/flesh_to_stone/cast_on_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
 	var/mob/living/target = victim
-	if(target.can_block_magic(antimagic_flags))
-		return TRUE
 
 	target.Stun(4 SECONDS)
 	new /obj/structure/closet/statue(target.loc, target)
