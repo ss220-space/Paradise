@@ -3,7 +3,6 @@ SUBSYSTEM_DEF(lighting)
 	dependencies = list(
 		/datum/controller/subsystem/atoms,
 		/datum/controller/subsystem/mapping,
-		/datum/controller/subsystem/overmap,
 	)
 	wait = 1
 	ss_flags = SS_TICKER
@@ -42,7 +41,7 @@ SUBSYSTEM_DEF(lighting)
 			continue
 		for(var/list/zlevel_turfs as anything in area.get_zlevel_turf_lists())
 			for(var/turf/area_turf as anything in zlevel_turfs)
-				if(area_turf.space_lit)
+				if(area_turf.space_lit || area_turf.lighting_object)
 					continue
 				new /atom/movable/lighting_object(null, area_turf)
 			CHECK_TICK

@@ -80,8 +80,30 @@ SUBSYSTEM_DEF(overmap)
 	start_programmed_roundstart_routes()
 	snap_roundstart_docks()
 	seed_shuttle_helm_waypoints()
+	refresh_ruin_space_lighting()
 	last_fire_time = world.time
 	return SS_INIT_SUCCESS
+
+/datum/controller/subsystem/overmap/proc/refresh_ruin_space_lighting()
+	if(!SSlighting?.initialized)
+		return
+	var/watch = start_watch()
+	var/refreshed = 0
+	var/created = 0
+	for(var/z_level in ruin_space_zs)
+		for(var/turf/spot as anything in Z_TURFS(z_level))
+			if(spot.space_lit)
+				continue
+			var/atom/movable/lighting_object/object = spot.lighting_object
+			if(object)
+				if(!object.needs_update)
+					object.needs_update = TRUE
+					SSlighting.objects_queue += object
+					refreshed++
+			else
+				new /atom/movable/lighting_object(null, spot)
+				created++
+			CHECK_TICK
 
 /datum/controller/subsystem/overmap/proc/refresh_sector_views(datum/overmap_sector/sector)
 	if(!sector)
