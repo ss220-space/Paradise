@@ -221,7 +221,6 @@
 
 /datum/map_template/ruin/space/spaceprison
 	id = "spaceprison"
-	overmap_size = OVERMAP_RUIN_SIZE_MEDIUM
 	overmap_pools = list(OVERMAP_RUIN_POOL_WILD)
 	suffix = "spaceprison.dmm"
 	name = "Space Prison"
@@ -345,7 +344,6 @@
 
 /datum/map_template/ruin/space/spacehotelv1 // new map, duplicated and edited partialy from other ss13 builds
 	id = "spacehotelv1"
-	overmap_size = OVERMAP_RUIN_SIZE_MEDIUM
 	suffix = "spacehotelv1.dmm"
 	name = "The Twin-Nexus Hotel"
 	description = "An interstellar hotel, where the weary spaceman can rest \
